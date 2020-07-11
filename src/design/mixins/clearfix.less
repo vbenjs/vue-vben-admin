@@ -1,0 +1,27 @@
+// ------------------------
+// mixin for clearfix
+// ------------------------
+
+.clearfix() {
+  zoom: 1;
+
+  &::before,
+  &::after {
+    display: table;
+    content: ' ';
+  }
+
+  &::after {
+    height: 0;
+    clear: both;
+    font-size: 0;
+    visibility: hidden;
+  }
+}
+.left() {
+  float: left;
+}
+
+.right() {
+  float: right;
+}

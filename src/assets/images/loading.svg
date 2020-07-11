@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg viewBox="0 0 200 200" version="1.1" 
+  xmlns="http://www.w3.org/2000/svg" 
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <style type="text/css">
+        .left-linear {
+          fill: url(#left-linear);
+        }
+
+        .right-linear {
+          fill: url(#right-linear);
+        }
+
+        .top {
+          fill: #64acff;
+        }
+
+        .bottom {
+          fill: #9dbfe4;
+        }
+        @keyframes load {
+          0% {
+            transform: rotate(-360deg);
+          }
+
+          100% {
+            transform: rotate(0);
+          }
+        }
+
+        .load {
+          animation: load 1.4s linear infinite;
+          transform-origin: center center;
+        }
+
+        svg {
+          display: block;
+        }
+
+        .tip {
+          display: block;
+          min-width: 100px;
+          margin-top: 4px;
+          font-size: 13px;
+          color: #303133;
+          text-align: left;
+        }
+  </style>
+  <circle cx="97" cy="97" r="81" stroke-width="16" stroke="#327fd8" fill="none"></circle>
+  <g class="load">
+    <!--右半圆环-->
+    <linearGradient id="left-linear" gradientUnits="userSpaceOnUse" x1="50" y1="0" x2="100" y2="180">
+      <stop offset="0" style="stop-color: #64acff;" />
+      <stop offset="1" style="stop-color: #9DBFE4;" />
+    </linearGradient>
+    <path class="left-linear" d="M20,100c0-44.1,35.9-80,80-80V0C44.8,0,0,44.8,0,100s44.8,100,100,100v-20C55.9,180,20,144.1,20,100z" />
+    <!--左半圆环-->
+    <circle class="bottom" cx="100" cy="190" r="10" />
+    <linearGradient id="right-linear" gradientUnits="userSpaceOnUse" x1="100" y1="120" x2="100" y2="180">
+      <stop offset="0" style="stop-color: transparent;" />
+      <stop offset="1" style="stop-color: transparent;" />
+    </linearGradient>
+    <path class="right-linear" d="M100,0v20c44.1,0,80,35.9,80,80c0,44.1-35.9,80-80,80v20c55.2,0,100-44.8,100-100S155.2,0,100,0z" />
+    <!--左半圆环-->
+    <circle class="top" cx="100" cy="10" r="10" />
+  </g>
+</svg>

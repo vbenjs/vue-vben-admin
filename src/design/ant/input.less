@@ -1,0 +1,34 @@
+@import '../helper/placeholder.less';
+
+body {
+  // input
+  .ant-input {
+    &:focus {
+      border-color: @text-color-base;
+    }
+
+    &-number {
+      min-width: 110px;
+      border-color: @border-color-shallow-dark;
+    }
+  }
+
+  .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
+    border-color: @info-color;
+  }
+
+  .setPlaceholder(~'input');
+
+  .setPlaceholder(~'.ant-input');
+  .setPlaceholder(~'.ant-input-number-input');
+
+  .ant-input-disabled,
+  .ant-select-disabled .ant-select-selection,
+  .ant-cascader-picker-label {
+    color: @text-color-base !important;
+  }
+
+  .ant-input-disabled {
+    background-color: @background-color-light;
+  }
+}

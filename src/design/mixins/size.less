@@ -1,0 +1,8 @@
+.size(@width; @height) {
+  width: @width;
+  height: @height;
+}
+
+.size(@size) {
+  .size(@size; @size);
+}

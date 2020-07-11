@@ -1,0 +1,33 @@
+//----------------------------------
+//------------三角形-----------------
+//----------------------------------
+
+.triangle(@direction: down, @size: 10px, @color: #000) {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  font-size: 0;
+  line-height: 0;
+
+  & when (@direction = down) {
+    border-color: @color transparent transparent transparent;
+    border-style: solid dashed dashed dashed;
+    border-width: @size @size 0 @size;
+  }
+  & when (@direction = up) {
+    border-color: transparent transparent @color transparent;
+    border-style: dashed dashed solid dashed;
+    border-width: 0 @size @size @size;
+  }
+  & when ( @direction = right) {
+    border-color: transparent transparent transparent @color;
+    border-style: dashed dashed dashed solid;
+    border-width: @size 0 @size @size;
+  }
+  & when (@direction = left) {
+    border-color: transparent @color transparent transparent;
+    border-style: dashed solid dashed dashed;
+    border-width: @size @size @size 0;
+  }
+}

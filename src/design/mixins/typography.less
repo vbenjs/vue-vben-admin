@@ -1,0 +1,42 @@
+// ==============================================
+// Typography related mixins
+// ==============================================
+
+.font-size-rems(@px-size) {
+  @rem-size: @px-size / @base-font-size;
+
+  font-size: ~'@{px-size}px';
+  font-size: ~'@{rem-size}rem';
+}
+
+.font-size-ems(@target-px-size, @context-px-size:@base-font-size) {
+  font-size: (@target-px-size / @context-px-size) * 1em;
+}
+
+.font-face( @family-name, @font-path, @font-weight:normal, @font-style:normal, @include-svg:false )
+  when
+  not
+  (@include-svg) {
+  @font-face {
+    font-family: @family-name;
+    font-style: @font-style;
+    font-weight: @font-weight;
+    src: url('@{font-path}.eot');
+    src: url('@{font-path}.eot?#iefix') format('embedded-opentype'),
+      url('@{font-path}.woff') format('woff'), url('@{font-path}.ttf') format('truetype');
+  }
+}
+
+.font-face( @family-name, @font-path, @font-weight:normal, @font-style:normal, @include-svg:false )
+  when
+  (@include-svg) {
+  @font-face {
+    font-family: @family-name;
+    font-style: @font-style;
+    font-weight: @font-weight;
+    src: url('@{font-path}.eot');
+    src: url('@{font-path}.eot?#iefix') format('embedded-opentype'),
+      url('@{font-path}.woff') format('woff'), url('@{font-path}.ttf') format('truetype'),
+      url('@{font-path}.svg#@{family-name}') format('svg');
+  }
+}

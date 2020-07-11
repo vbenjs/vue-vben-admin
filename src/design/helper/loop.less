@@ -1,0 +1,46 @@
+.loop (@style-name, @tag-name, @i,@base-size, @max:10,@xy:none) when (@i <= @max) {
+  @next: @i+1;
+  .fn() when (@xy =none) {
+    @size: @base-size * @i;
+
+    .@{style-name}-@{i} {
+      @{tag-name}: ~'@{size}px ';
+    }
+    .loop(@style-name, @tag-name, @next, @base-size, @max, @xy);
+  }
+
+  .fn() when (@xy =x) {
+    @size: @base-size * @i;
+
+    .@{style-name}-@{i} {
+      @{tag-name}: ~'0 @{size}px';
+    }
+    .loop(@style-name, @tag-name, @next, @base-size, @max, @xy);
+  }
+  .fn() when (@xy =y) {
+    @size: @base-size * @i;
+
+    .@{style-name}-@{i} {
+      @{tag-name}: ~'@{size}px 0';
+    }
+    .loop(@style-name, @tag-name, @next, @base-size, @max, @xy);
+  }
+  .fn() when (@xy =auto) {
+    .@{style-name} {
+      @{tag-name}: ~'auto auto';
+    }
+  }
+
+  .fn() when (@xy =autoX) {
+    .@{style-name} {
+      @{tag-name}: ~'0 auto';
+    }
+  }
+
+  .fn() when (@xy =autoY) {
+    .@{style-name} {
+      @{tag-name}: ~'auto 0';
+    }
+  }
+  .fn();
+}

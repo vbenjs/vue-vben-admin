@@ -1,0 +1,178 @@
+@import (reference) '~@design';
+@prefix-cls: ~'@{namespace}-layout-header';
+@user-prefix-cls: ~'@{namespace}-user-dropdown';
+
+@desc-light-color: #7c8087;
+.base-light-hover() {
+  background: #f6f6f6;
+}
+.base-dark-hover() {
+  background: #4b5566;
+}
+
+.@{prefix-cls} {
+  display: flex;
+  height: 48px;
+  padding: 0 20px 0 0;
+  color: #fff;
+  align-items: center;
+  justify-content: space-between;
+
+  &__header--light {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+
+    .@{prefix-cls}__menu {
+      /deep/ .ant-menu-submenu {
+        height: 48px;
+        line-height: 48px;
+      }
+    }
+    .@{prefix-cls}__logo {
+      height: 48px;
+      color: @text-color-base;
+
+      img {
+        .size(34px);
+
+        margin-right: 6px;
+      }
+
+      &:hover {
+        .base-light-hover();
+      }
+    }
+
+    .@{prefix-cls}__action {
+      &-item {
+        &:hover {
+          .base-light-hover();
+        }
+      }
+
+      &-icon {
+        color: @text-color-base;
+      }
+    }
+    .@{prefix-cls}__user-dropdown {
+      &:hover {
+        .base-light-hover();
+      }
+    }
+    .@{user-prefix-cls} {
+      &__name {
+        color: @text-color-base;
+      }
+
+      &__desc {
+        color: @desc-light-color;
+      }
+    }
+  }
+
+  &__header--dark {
+    background: #273142;
+    .@{prefix-cls}__action {
+      &-item {
+        &:hover {
+          .base-dark-hover();
+        }
+      }
+    }
+    .@{prefix-cls}__user-dropdown {
+      &:hover {
+        .base-dark-hover();
+      }
+    }
+  }
+
+  &-lm {
+    display: flex;
+  }
+
+  &__logo {
+    padding: 0 20px;
+  }
+
+  &__action {
+    display: flex;
+    align-items: center;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      height: 48px;
+      font-size: 1.3em;
+      cursor: pointer;
+    }
+
+    &-icon {
+      padding: 0 16px;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    margin-left: 20px;
+    overflow: hidden;
+    align-items: center;
+  }
+
+  &__user-dropdown {
+    height: 48px;
+    padding: 0 10px;
+  }
+}
+
+.@{user-prefix-cls} {
+  display: flex;
+  height: 100%;
+  cursor: pointer;
+  align-items: center;
+
+  img {
+    .size(38px);
+
+    margin-right: 24px;
+  }
+
+  &__header {
+    border-radius: 50%;
+  }
+
+  &__divider {
+    width: 1px;
+    height: 30px;
+    margin-right: 20px;
+    background: #c6d9ee;
+  }
+
+  &__exit {
+    margin-top: -40px;
+    font-size: 12px;
+    color: #c6d9ee;
+    text-align: center;
+
+    > section {
+      height: 20px;
+    }
+  }
+
+  &__info {
+    display: flex;
+    margin-right: 18px;
+    flex-direction: column;
+
+    > section {
+      line-height: 1.8;
+    }
+  }
+
+  &__name {
+    font-size: 14px;
+  }
+
+  &__desc {
+    font-size: 12px;
+  }
+}

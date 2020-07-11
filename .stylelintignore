@@ -1,0 +1,8 @@
+*.js
+*.png
+*.eot
+*.ttf
+*.woff
+
+/dist/
+/src/assets/iconfont/

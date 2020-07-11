@@ -1,0 +1,19 @@
+//----------------------------------
+// 文字溢出处理
+//----------------------------------
+
+/* 多出部分用省略号表示 , 用于一行 */
+.ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: normal;
+  white-space: nowrap;
+}
+
+/* 适用于webkit内核和移动端 */
+.ellipsis-multiple(@num: 1) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @num;
+}

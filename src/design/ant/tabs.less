@@ -1,0 +1,31 @@
+// tab
+body {
+  .ant-tabs {
+    &.ant-tabs-editable-card {
+      .ant-tabs-bar {
+        .ant-tabs-nav-container .ant-tabs-tab {
+          // background: linear-gradient(
+          //   to left,
+          //   @--norm-background-dark-color,
+          //   #fff,
+          //   @--norm-background-dark-color
+          // );
+          background: @background-color-dark;
+          border-color: @border-color-shallow-dark;
+        }
+      }
+    }
+
+    &-nav {
+      .ant-tabs-tab {
+        padding: 12px 24px;
+        margin: 0;
+        font-size: 16px;
+
+        &:hover {
+          color: @primary-color;
+        }
+      }
+    }
+  }
+}

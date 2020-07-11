@@ -1,0 +1,84 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "pretty": true,
+    "strict": true,
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "importHelpers": true,
+    "allowJs": true,
+    "checkJs": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "strictPropertyInitialization": false,
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "noUnusedLocals": true,
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "removeComments": false,
+    "allowSyntheticDefaultImports": true,
+    "strictFunctionTypes": false,
+    "sourceMap": false,
+    "baseUrl": ".",
+    "types": [
+      "webpack-env",
+      "jest",
+      "node",
+      "@types/node"
+    ],
+    "paths": {
+      "vue": [
+        "node_modules/vue/types"
+      ],
+      "@/*": [
+        "*",
+        "src/*"
+      ],
+      "examples/*": [
+        "examples/*"
+      ],
+      "config/*": [
+        "config/*"
+      ],
+      "@design": [
+        "src/design/index.less"
+      ],
+      "@orgApp/*": [
+        "src/apps/org/*"
+      ],
+      "@centerApp/*": [
+        "src/apps/center/*"
+      ]
+    },
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "config/**/*.ts",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    "docs/**/*.ts",
+    "docs/**/*.tsx",
+    "docs/**/*.vue",
+    "examples/**/*.ts",
+    "examples/**/*.tsx",
+    "examples/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "dist",
+    "config",
+    "public"
+  ]
+}

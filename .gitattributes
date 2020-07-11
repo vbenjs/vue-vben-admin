@@ -1,0 +1,49 @@
+* text=auto eol=lf
+
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.tiff binary
+
+# Fonts
+*.oft binary
+*.ttf binary
+*.eot binary
+*.woff binary
+*.woff2 binary
+
+# Videos
+*.mov binary
+*.mp4 binary
+*.webm binary
+*.ogg binary
+*.mpg binary
+*.3gp binary
+*.avi binary
+*.wmv binary
+*.flv binary
+*.asf binary
+
+# Audio
+*.mp3 binary
+*.wav binary
+*.flac binary
+
+# Compressed
+*.gz binary
+*.zip binary
+*.7z binary
+
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.scss text eol=lf
+*.vue text eol=lf
+*.hbs text eol=lf
+*.sh text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf

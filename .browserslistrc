@@ -1,0 +1,4 @@
+# Build target (browser compatible) https://github.com/browserslist/browserslist
+> 1%
+last 3 versions
+ie > 8

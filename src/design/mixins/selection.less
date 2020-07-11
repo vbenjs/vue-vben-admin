@@ -1,0 +1,14 @@
+//----------------------------------
+// 文本选择
+//----------------------------------
+.selection(@color: #b3d4fc) {
+  &::-moz-selection {
+    text-shadow: none;
+    background: @color;
+  }
+
+  &::selection {
+    text-shadow: none;
+    background: @color;
+  }
+}

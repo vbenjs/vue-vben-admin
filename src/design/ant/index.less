@@ -1,0 +1,108 @@
+@import './pagination.less';
+// @import './selection.less';
+@import './modal.less';
+@import './tabs.less';
+@import './input.less';
+@import './description.less';
+
+// 兼容ie10
+.ant-layout {
+  -ms-flex: 1 1 auto !important;
+}
+
+body {
+  .ant-menu-item {
+    &-selected {
+      a {
+        color: @primary-color;
+
+        &:hover {
+          color: @primary-color;
+        }
+      }
+    }
+  }
+
+  .ant-dropdown {
+    .ant-divider {
+      margin: 4px 0;
+    }
+
+    &-menu-item {
+      line-height: 30px;
+      color: @text-color-call-out;
+
+      &:hover {
+        color: inherit;
+        background-color: @border-color-shallow-light;
+      }
+    }
+  }
+
+  .ant-back-top {
+    right: 50px;
+    bottom: 60px;
+  }
+
+  .ant-calendar-picker {
+    width: 100%;
+  }
+  // 修正：蒙版背景颜色值应为#000，不透明度应为20%；
+  .ant-modal-mask {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  // 小贴士样式调整
+  .ant-tooltip {
+    &-inner {
+      padding: 6px 16px;
+      line-height: 20px;
+      color: #fff;
+      background: @text-color-base;
+      border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+  //信用指标表格提示长度调整
+  .el-tooltip__popper {
+    max-width: 50%;
+  }
+
+  // form-item 只读状态下，去除*号
+  .ant-form-item.deltag .ant-form-item-required::before {
+    content: '';
+  }
+
+  .ant-form-item {
+    margin-bottom: 16px;
+
+    &.ant-form-item-with-help {
+      margin-bottom: 0;
+    }
+
+    &-label label::after {
+      margin: 0 4px 0 2px;
+    }
+
+    &-control {
+      line-height: 36px;
+    }
+  }
+
+  .compact-form-row {
+    .ant-form-item {
+      margin-bottom: 8px;
+    }
+  }
+
+  .ant-empty-image {
+    max-height: 144px;
+    min-height: 60px;
+  }
+
+  .ant-empty-description {
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 24px;
+    color: @text-color-call-out;
+  }
+}

@@ -1,0 +1,12 @@
+//----------------------------------
+// @desc calc计算
+//  @param {String} @prop css属性
+//  @param {String} @val 计算表达式
+//  用法：
+//  input .calc(width, "100% - 20px");
+//  output width: calc(100% - 20px);
+//----------------------------------
+
+.calc(@prop, @val) {
+  @{prop}: calc(~'@{val}');
+}

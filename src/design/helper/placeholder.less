@@ -1,0 +1,18 @@
+.setPlaceholder(@prefix,@color:@text-color-help-dark) {
+  // input
+  @{prefix}::-webkit-input-placeholder {
+    color: @color;
+  }
+  @{prefix}::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: @color;
+  }
+  @{prefix}:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: @color;
+  }
+  @{prefix}:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: @color;
+  }
+}

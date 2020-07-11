@@ -1,0 +1,49 @@
+//  使用translate
+.abs-center(@direction: both) {
+  position: absolute;
+
+  // 垂直水平居中
+  .direction() when (@direction =both) {
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+  }
+  // 水平居中
+  .direction() when (@direction =horizontal) {
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  .direction() when (@direction =vertical) {
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+  }
+
+  .direction();
+}
+
+// absolute 绝对居中(相对于固定宽高的容器)
+.abs-center(@width, @height) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: @width;
+  height: @height;
+  margin-top: -(@height / 2);
+  margin-left: -(@width / 2);
+}
+
+// flex 垂直水平居中
+.flex-center(@direction:none) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .direction() when (@direction=none),(@direction=row) {
+    flex-direction: row;
+  }
+
+  .direction() when (@direction=column) {
+    flex-direction: column;
+  }
+  .direction();
+}

@@ -1,0 +1,50 @@
+.respond-to (small, @content) {
+  @media only screen and (min-width: @screen-sm-min) {
+    @content();
+  }
+}
+.respond-to (medium, @content) {
+  @media only screen and (min-width: @screen-md-min) {
+    @content();
+  }
+}
+.respond-to (large, @content) {
+  @media only screen and (min-width: @screen-lg-min) {
+    @content();
+  }
+}
+.respond-to (xlarge, @content) {
+  @media only screen and (min-width: @screen-xl-min) {
+    @content();
+  }
+}
+.respond-to (xsmall-only, @content) {
+  @media only screen and (max-width: @screen-xs-max) {
+    @content();
+  }
+}
+.respond-to (small-only, @content) {
+  @media only screen and (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+    @content();
+  }
+}
+.respond-to (medium-only, @content) {
+  @media only screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+    @content();
+  }
+}
+.respond-to (large-only, @content) {
+  @media only screen and (min-width: @screen-lg-min) and (max-width: @screen-lg-max) {
+    @content();
+  }
+}
+.respond-to (xsmall-and-small, @content) {
+  @media only screen and (max-width: @screen-sm-max) {
+    @content();
+  }
+}
+.respond-to (small-and-medium, @content) {
+  @media only screen and (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+    @content();
+  }
+}
