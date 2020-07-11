@@ -44,12 +44,6 @@ const setWatermark = (str: string) => {
 // 该方法只允许调用一次
 watermark.set = (str: string) => {
   setWatermark(str);
-  // setInterval(() => {
-  //   if (document.getElementById(id) === null) {
-  //     id = setWatermark(str);
-  //   }
-  // }, 3000);
-
   const func = () => {
     setWatermark(str);
   };

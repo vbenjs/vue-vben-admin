@@ -13,7 +13,7 @@ import {
 import { Ref, computed, unref } from 'compatible-vue';
 import { RouteConfigEx, RouteEx } from '@/router/type';
 import { useGo, useRedo, useRouter } from '@/hooks/core/useRouter';
-import { useTabs } from '@/hooks/modules/useTabs';
+import { useTabs } from '@/hooks/functions/useTabs';
 
 import { DropMenu } from '@/components/dropdown/index';
 import { PageEnum } from '@/enums/pageEnum';
@@ -167,36 +167,37 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
     path !== toPath && useGo({ path: toPath as PageEnum, replace: true });
   }
 
-  function isGotoPage() {
+  function isGotoPage(currentTab?: TabItem) {
     const { path } = unref(route);
+    const currentPath = (currentTab || unref(getCurrentTab)).path;
     // 不是当前tab，关闭左侧/右侧时，需跳转页面
-    if (path !== unref(getCurrentTab).path) {
-      useGo({ path: unref(getCurrentTab).path as PageEnum, replace: true });
+    if (path !== currentPath) {
+      useGo({ path: currentPath as PageEnum, replace: true });
     }
   }
   function refreshPage() {
-    const { route } = useRouter();
-    tabStore.commitCloseTab(unref(route));
+    // const { route } = useRouter();
+    // tabStore.commitCloseTab(unref(route));
     useRedo();
   }
   function closeAll() {
     tabStore.commitCloseAllTab();
     gotoPage();
   }
-  function closeLeft() {
-    tabStore.closeLeftTabAction(unref(getCurrentTab));
-    isGotoPage();
+  function closeLeft(tabItem?: TabItem) {
+    tabStore.closeLeftTabAction(tabItem || unref(getCurrentTab));
+    isGotoPage(tabItem);
   }
-  function closeRight() {
-    tabStore.closeRightTabAction(unref(getCurrentTab));
-    isGotoPage();
+  function closeRight(tabItem?: TabItem) {
+    tabStore.closeRightTabAction(tabItem || unref(getCurrentTab));
+    isGotoPage(tabItem);
   }
-  function closeOther() {
-    tabStore.closeOtherTabAction(unref(getCurrentTab));
-    isGotoPage();
+  function closeOther(tabItem?: TabItem) {
+    tabStore.closeOtherTabAction(tabItem || unref(getCurrentTab));
+    isGotoPage(tabItem);
   }
-  function closeCurrent() {
-    closeTab(unref(getCurrentTab));
+  function closeCurrent(tabItem?: TabItem) {
+    closeTab(unref(tabItem || getCurrentTab));
   }
   const { initTabFn } = useTabs();
   initTabFn({

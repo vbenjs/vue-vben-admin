@@ -1,8 +1,6 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
   import { Layout } from 'ant-design-vue';
-  import { FullLoading } from '@/components/loading/index';
-
   // hooks
   import { useDesign } from '@/hooks/core/useDesign';
 
@@ -15,12 +13,11 @@
       const { prefixCls } = useDesign('layout-content');
 
       return () => {
-        const { getProjCfg, getPageLoading } = appStore;
+        const { getProjCfg } = appStore;
         const { contentMode } = getProjCfg;
         const wrapClass = contentMode === ContentEnum.FULL ? 'full' : 'fixed';
         return (
           <Layout.Content class={[prefixCls, wrapClass]}>
-            <FullLoading v-show={getPageLoading} class={`${prefixCls}__loading`} tip="加载中..." />
             <router-view />
           </Layout.Content>
         );

@@ -2,7 +2,7 @@ import { addClass, removeClass } from '@/utils/domUtils';
 import { VueConstructor } from 'compatible-vue';
 
 const ZERO = '0px';
-class Transition {
+const Transition = {
   beforeEnter(el: HTMLElement) {
     addClass(el, 'collapse-transition');
     if (!el.dataset) {
@@ -15,7 +15,7 @@ class Transition {
     el.style.height = ZERO;
     el.style.paddingTop = ZERO;
     el.style.paddingBottom = ZERO;
-  }
+  },
 
   enter(el: HTMLElement) {
     el.dataset.oldOverflow = el.style.overflow;
@@ -30,14 +30,14 @@ class Transition {
     }
 
     el.style.overflow = 'hidden';
-  }
+  },
 
   afterEnter(el: HTMLElement) {
     // for safari: remove class then reset height is necessary
     removeClass(el, 'collapse-transition');
     el.style.height = '';
     el.style.overflow = el.dataset.oldOverflow || ZERO;
-  }
+  },
 
   beforeLeave(el: HTMLElement) {
     if (!el.dataset) {
@@ -49,7 +49,7 @@ class Transition {
 
     el.style.height = el.scrollHeight + 'px';
     el.style.overflow = 'hidden';
-  }
+  },
 
   leave(el: HTMLElement) {
     if (el.scrollHeight !== 0) {
@@ -59,7 +59,7 @@ class Transition {
       el.style.paddingTop = ZERO;
       el.style.paddingBottom = ZERO;
     }
-  }
+  },
 
   afterLeave(el: HTMLElement) {
     removeClass(el, 'collapse-transition');
@@ -67,15 +67,15 @@ class Transition {
     el.style.overflow = el.dataset.oldOverflow || ZERO;
     el.style.paddingTop = el.dataset.oldPaddingTop || ZERO;
     el.style.paddingBottom = el.dataset.oldPaddingBottom || ZERO;
-  }
-}
+  },
+};
 
 export default ({
   name: 'CollapseTransition',
   functional: true,
   render(h, { children }) {
     const data = {
-      on: new Transition(),
+      on: Transition,
     };
 
     return h('transition', data, children);

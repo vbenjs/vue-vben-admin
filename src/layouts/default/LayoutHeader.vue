@@ -13,7 +13,7 @@
 
   // hooks
   import { useDesign } from '@/hooks/core/useDesign';
-  import { useTabs } from '@/hooks/modules/useTabs';
+  import { useTabs } from '@/hooks/functions/useTabs';
   import { useFullscreen } from '@/hooks/event/useFullScreen';
 
   export default defineComponent({

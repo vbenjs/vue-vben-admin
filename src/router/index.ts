@@ -51,4 +51,5 @@ class RouterInstance {
 export const routerInstance = new RouterInstance({
   routes: createMainOutRoutes([sysRoutes]),
 });
+
 export * from './routes';

@@ -16,7 +16,7 @@
   import { appStore } from '@/store/modules/app';
 
   import LockPage from '@/views/sys/lock/index.vue';
-  import { useLockPage } from '@/hooks/modules/useLockPage';
+  import { useLockPage } from '@/hooks/functions/useLockPage';
   moment.locale('zh-cn');
 
   export default defineComponent({

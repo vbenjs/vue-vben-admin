@@ -1,8 +1,11 @@
+import { unref } from 'compatible-vue';
 import { Action, Module, Mutation, VuexModule, getModule } from 'vuex-module-decorators';
 
 import { PageEnum } from '@/enums/pageEnum';
 import { RouteEx, Meta } from '@/router/type';
 import projectSetting from '@/settings/projectSetting';
+
+import { useRouter } from '@/hooks/core/useRouter';
 
 import store from '@/store';
 
@@ -45,6 +48,16 @@ class Tab extends VuexModule implements TabState {
    */
   get getKeepAliveTabsState() {
     return this.keepAliveTabsState;
+  }
+
+  get getCurrentTab(): TabItem {
+    const { route } = useRouter();
+    return this.tabsState.find((item) => item.path === unref(route).path)!;
+  }
+
+  @Mutation
+  commitClearCache(): void {
+    this.keepAliveTabsState = [];
   }
 
   /**
@@ -130,9 +143,13 @@ class Tab extends VuexModule implements TabState {
 
   @Action({ rawError: true })
   closeOtherTabAction(route: RouteEx | TabItem): void {
-    for (const item of this.tabsState) {
-      item.path !== route.path && this.commitCloseTab(item);
-    }
+    const closePathList = this.tabsState.map((item) => item.path);
+    closePathList.forEach((path) => {
+      if (path !== route.path) {
+        const closeItem = this.tabsState.find((item) => item.path === path);
+        closeItem && this.commitCloseTab(closeItem);
+      }
+    });
   }
 }
 export { Tab };

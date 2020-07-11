@@ -6,11 +6,12 @@
   import LayoutContent from './LayoutContent.vue';
   import MultiTabs from './multitabs/index.vue';
   import SettingButton from './setting/index.vue';
+  import { FullLoading } from '@/components/loading/index';
 
   // utils
 
   // hook
-  import { useFullContent } from '@/hooks/modules/useFullContent';
+  import { useFullContent } from '@/hooks/functions/useFullContent';
   import { useDesign } from '@/hooks/core/useDesign';
 
   // import { userStore } from '@/store/modules/user';
@@ -33,7 +34,7 @@
       // 获取项目配置
       const { getFullContent } = useFullContent();
       return () => {
-        const { getProjCfg } = appStore;
+        const { getProjCfg, getPageLoading } = appStore;
         const {
           headerSetting: { show: showHeader } = {},
           menuSetting: { show: showMenu, mode: menuMode, type: menuType } = {},
@@ -58,8 +59,14 @@
                     <MultiTabs />
                   </Layout.Header>
                 ) : null}
-
-                <LayoutContent />
+                <div class={`${prefixCls}__main`}>
+                  <FullLoading
+                    v-show={getPageLoading}
+                    class={`${prefixCls}__loading`}
+                    tip="加载中..."
+                  />
+                  <LayoutContent />
+                </div>
               </Layout>
             </Layout>
           </Layout>
@@ -77,9 +84,9 @@
       position: relative;
     }
 
-    // &__main {
-    //   position: relative;
-    // }
+    &__main {
+      position: relative;
+    }
 
     &__loading {
       position: absolute;

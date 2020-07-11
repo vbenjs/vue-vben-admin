@@ -11,6 +11,16 @@ import {
 import { MenuModeEnum, MenuThemeEnum } from '@/enums/menuEnum';
 import Router from 'vue-router';
 
+export {
+  Route,
+  Component,
+  RoutePropsFunction,
+  Dictionary,
+  RedirectOption,
+  NavigationGuard,
+  PathToRegexpOptions,
+  RouterOptions,
+};
 export type NormMenuItem = Omit<MenuItem, 'id' | 'parentId'>;
 
 export interface FormatConfig {
