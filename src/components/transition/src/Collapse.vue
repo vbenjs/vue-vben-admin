@@ -1,7 +1,7 @@
 <script lang="tsx">
   // collapse 展开折叠
   import CollapseTransitionComponent from './collapse-transition';
-  import { defineComponent } from '@/setup/vue';
+  import { defineComponent } from 'compatible-vue';
 
   export default defineComponent({
     name: 'CollapseTransition',

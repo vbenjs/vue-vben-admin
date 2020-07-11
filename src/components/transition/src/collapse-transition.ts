@@ -1,5 +1,5 @@
 import { addClass, removeClass } from '@/utils/domUtils';
-import { VueConstructor } from 'vue';
+import { VueConstructor } from 'compatible-vue';
 
 const ZERO = '0px';
 class Transition {

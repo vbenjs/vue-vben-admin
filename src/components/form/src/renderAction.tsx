@@ -1,4 +1,4 @@
-import { VNode } from 'vue';
+import { VNode } from 'compatible-vue';
 import { Form, Button, Col } from 'ant-design-vue';
 import { FormProps, ActionButtonOption } from './types/form';
 import { ColEx } from './types/index';

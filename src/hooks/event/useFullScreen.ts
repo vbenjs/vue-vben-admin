@@ -1,4 +1,4 @@
-import { Ref, ref, unref } from '@/setup/vue';
+import { Ref, ref, unref } from 'compatible-vue';
 
 type RFSMethodName =
   | 'webkitRequestFullScreen'

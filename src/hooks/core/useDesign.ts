@@ -1,4 +1,4 @@
-import { computed, getCurrentInstance, unref } from '@/setup/vue';
+import { computed, getCurrentInstance, unref } from 'compatible-vue';
 import { useSetting } from '@/hooks/core/useSetting';
 
 /**

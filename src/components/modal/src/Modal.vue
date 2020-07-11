@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { Modal } from 'ant-design-vue';
-  import { defineComponent, watch } from '@/setup/vue';
+  import { defineComponent, watch } from 'compatible-vue';
   import { ModalProps } from './types';
   import { modalProps } from './props';
   export default defineComponent({

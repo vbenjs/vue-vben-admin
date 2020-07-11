@@ -1,4 +1,4 @@
-import { ref, watch, Ref } from '@/setup/vue';
+import { ref, watch, Ref } from 'compatible-vue';
 
 export default function usePrevious<T>(state: Ref<T> | (() => T)) {
   const previous = ref<T>();

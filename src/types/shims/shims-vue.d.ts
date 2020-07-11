@@ -1,13 +1,13 @@
 declare module '*.vue' {
-  import Vue from 'vue';
+  import Vue from 'compatible-vue';
   export default Vue;
 }
 declare module '*.md' {
-  import Vue from 'vue';
+  import Vue from 'compatible-vue';
   export default Vue;
 }
 
-// declare module '@/setup/vue/dist/component/component' {
+// declare module 'compatible-vue/dist/component/component' {
 //   export interface SetupContext {
 //     readonly refs: { [key: string]: Vue | Element | Vue[] | Element[] };
 //   }

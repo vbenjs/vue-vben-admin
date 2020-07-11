@@ -1,4 +1,4 @@
-import { ref, watch } from '@/setup/vue';
+import { ref, watch } from 'compatible-vue';
 import { copyTextToClipboard } from '@/common/plugins/copy';
 
 import { isDef } from '@/utils/is/index';

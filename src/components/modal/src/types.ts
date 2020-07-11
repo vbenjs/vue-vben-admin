@@ -1,4 +1,4 @@
-import { Ref } from '@/setup/vue';
+import { Ref } from 'compatible-vue';
 import { Modal } from 'ant-design-vue/types/modal';
 /**
  * @description: 弹窗对外暴露的方法

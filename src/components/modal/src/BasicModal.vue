@@ -3,7 +3,7 @@
   import { Button } from 'ant-design-vue';
   import ModalWrapper from './ModalWrapper.vue';
   import { BaseTitle } from '@/components/base/index';
-  import { defineComponent, computed, ref, watch, unref } from '@/setup/vue';
+  import { defineComponent, computed, ref, watch, unref } from 'compatible-vue';
 
   import { ModalProps, ModalInstance } from './types';
   import { basicProps } from './props';

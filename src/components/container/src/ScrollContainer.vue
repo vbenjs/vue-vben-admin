@@ -1,6 +1,6 @@
 <script lang="tsx">
   // component
-  import { defineComponent } from '@/setup/vue';
+  import { defineComponent } from 'compatible-vue';
 
   // hook
   import { useDesign } from '@/hooks/core/useDesign';

@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, computed, ref, unref, onMounted, nextTick } from '@/setup/vue';
+  import { defineComponent, computed, ref, unref, onMounted, nextTick } from 'compatible-vue';
   import LayoutMenu from './LayoutMenu.vue';
 
   import { Layout } from 'ant-design-vue';

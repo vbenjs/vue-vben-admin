@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent } from '@/setup/vue';
+  import { defineComponent } from 'compatible-vue';
 
   // comp
   import { BasicEmpty } from '@/components/empty/index';

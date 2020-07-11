@@ -1,4 +1,4 @@
-import { ref, getCurrentInstance, unref } from '@/setup/vue';
+import { ref, getCurrentInstance, unref } from 'compatible-vue';
 import { isProdMode } from '@/utils/envUtil';
 
 import { DescOptions, DescInstance, UseDescReturnType } from './type';

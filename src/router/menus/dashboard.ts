@@ -8,7 +8,7 @@ export default {
   children: [
     {
       path: '/welcome',
-      name: '首页',
+      name: '欢迎页',
     },
     {
       path: '/analysis',

@@ -1,4 +1,4 @@
-import { computed, unref } from '@/setup/vue';
+import { computed, unref } from 'compatible-vue';
 
 import { appStore } from '@/store/modules/app';
 

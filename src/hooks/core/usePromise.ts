@@ -1,4 +1,4 @@
-import { reactive, computed, Ref } from '@/setup/vue';
+import { reactive, computed, Ref } from 'compatible-vue';
 
 import { PromiseFn, PromiseState } from './types';
 

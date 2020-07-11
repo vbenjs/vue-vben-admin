@@ -2,7 +2,7 @@
   import { Tooltip } from 'ant-design-vue';
   import { Icon } from '@/components/icon/index';
 
-  import { defineComponent, computed, unref, PropOptions } from '@/setup/vue';
+  import { defineComponent, computed, unref, PropOptions } from 'compatible-vue';
 
   // hook
   import { useDesign } from '@/hooks/core/useDesign';

@@ -1,5 +1,5 @@
 // type
-import { Ref, computed, unref, watch } from '@/setup/vue';
+import { Ref, computed, unref, watch } from 'compatible-vue';
 import { MenuData, MenuProps, MenuState, MenuTreeItem } from './type';
 import { MenuTypeEnum, MenuModeEnum } from '@/enums/menuEnum';
 import { Route } from 'vue-router/types/index';

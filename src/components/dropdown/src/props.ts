@@ -1,4 +1,4 @@
-import { PropOptions } from '@/setup/vue';
+import { PropOptions } from 'compatible-vue';
 /**
  * @description: 基础表格参数配置
  */

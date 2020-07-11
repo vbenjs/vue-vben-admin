@@ -1,4 +1,4 @@
-import { VNode } from 'vue';
+import { VNode } from 'compatible-vue';
 import { CollapseContainerOptions } from '@/components/container/index';
 
 export interface DescItem {

@@ -46,12 +46,9 @@
       "@design": [
         "src/design/index.less"
       ],
-      "@orgApp/*": [
-        "src/apps/org/*"
+      "compatible-vue": [
+        "src/setup/vue/index.ts"
       ],
-      "@centerApp/*": [
-        "src/apps/center/*"
-      ]
     },
     "lib": [
       "esnext",

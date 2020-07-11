@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue from 'compatible-vue';
 import { Modal, message as Message } from 'ant-design-vue';
 import { Icon } from '@/components/icon/index';
 import { ModalOptions, ModalConfirm } from 'ant-design-vue/types/modal';

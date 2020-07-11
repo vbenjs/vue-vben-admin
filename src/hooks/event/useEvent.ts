@@ -1,4 +1,4 @@
-import { Ref, ref, watch, onUnmounted } from '@/setup/vue';
+import { Ref, ref, watch, onUnmounted } from 'compatible-vue';
 import { RefTyped } from '@/types';
 export type RemoveEventFn = () => void;
 export function useEvent({

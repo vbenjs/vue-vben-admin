@@ -1,4 +1,4 @@
-import { unref, computed } from '@/setup/vue';
+import { unref, computed } from 'compatible-vue';
 import { PageEnum } from '@/enums/pageEnum';
 import { getRuntimeVM } from '@/setup/vue/runtimeVm';
 

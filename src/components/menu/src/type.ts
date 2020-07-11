@@ -1,4 +1,4 @@
-import { ComputedRef } from '@/setup/vue';
+import { ComputedRef } from 'compatible-vue';
 
 import { MenuModeEnum, MenuThemeEnum, MenuTypeEnum } from '@/enums/menuEnum';
 // import { BuildMenuModuleResult } from '@/router/menus/_type';

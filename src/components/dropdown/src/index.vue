@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, computed, unref } from '@/setup/vue';
+  import { defineComponent, computed, unref } from 'compatible-vue';
   import { Dropdown, Menu } from 'ant-design-vue';
   import { Icon } from '@/components/icon/index';
 

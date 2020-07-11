@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { Drawer, Button } from 'ant-design-vue';
-  import { defineComponent, ref, computed, watch, unref } from '@/setup/vue';
+  import { defineComponent, ref, computed, watch, unref } from 'compatible-vue';
   // import { BaseTitle } from '@/components/base/index';
   import { Icon } from '@/components/icon/index';
   import { BaseTitle } from '@/components/base/index';

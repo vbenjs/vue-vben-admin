@@ -1,8 +1,8 @@
 // @ts-ignore
-import { VNode } from 'vue';
-import { ComponentRenderProxy } from '@/setup/vue';
+import { VNode } from 'compatible-vue';
+import { ComponentRenderProxy } from 'compatible-vue';
 declare module '*.tsx' {
-  import Vue from 'vue';
+  import Vue from 'compatible-vue';
   export default Vue;
 }
 declare global {
@@ -20,7 +20,7 @@ declare global {
     }
   }
 }
-declare module '@/setup/vue/dist/component/component' {
+declare module 'compatible-vue/dist/component/component' {
   interface SetupContext {
     readonly refs: { [key: string]: Vue | Element | Vue[] | Element[] };
   }

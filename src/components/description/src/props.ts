@@ -1,4 +1,4 @@
-import { PropOptions } from '@/setup/vue';
+import { PropOptions } from 'compatible-vue';
 import { DescItem } from './type';
 // import { CollapseContainerOptions } from '@/components/container/index';
 

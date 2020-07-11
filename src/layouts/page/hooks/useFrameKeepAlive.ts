@@ -1,4 +1,4 @@
-import { computed, unref } from '@/setup/vue';
+import { computed, unref } from 'compatible-vue';
 
 import { permissionStore } from '@/store/modules/permission';
 import { tabStore } from '@/store/modules/tab';

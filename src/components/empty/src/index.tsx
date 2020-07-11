@@ -1,4 +1,4 @@
-import { defineComponent, PropOptions } from '@/setup/vue';
+import { defineComponent, PropOptions } from 'compatible-vue';
 import { Empty } from 'ant-design-vue';
 
 import emptySrc from '@/assets/images/page_null.png';

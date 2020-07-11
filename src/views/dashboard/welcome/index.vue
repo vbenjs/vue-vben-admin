@@ -1,6 +1,6 @@
 <script lang="tsx">
   // components
-  import { defineComponent } from '@/setup/vue';
+  import { defineComponent } from 'compatible-vue';
   import House from '../house/index.vue';
 
   // hook

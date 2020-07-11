@@ -1,4 +1,4 @@
-import { VNode } from 'vue';
+import { VNode } from 'compatible-vue';
 import { isFunction } from '@/utils/is/index';
 
 interface Slots {

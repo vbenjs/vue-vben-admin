@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, ref, watch, Ref } from '@/setup/vue';
+import { onMounted, onUnmounted, ref, watch, Ref } from 'compatible-vue';
 //
 import Router from 'vue-router';
 

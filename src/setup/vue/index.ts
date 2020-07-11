@@ -3,11 +3,12 @@
  */
 
 // vue2.0
+import Vue, { VueConstructor, VNode, Component } from 'vue';
 import VueCompositionAPI from '@vue/composition-api';
 export default VueCompositionAPI;
 
 export * from '@vue/composition-api';
-
+export { Vue, VueConstructor, VNode, Component };
 // export {
 //   Component,
 //   AsyncComponent,

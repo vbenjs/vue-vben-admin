@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, unref } from '@/setup/vue';
+  import { defineComponent, unref } from 'compatible-vue';
   import { Layout } from 'ant-design-vue';
   import LayoutHeader from './LayoutHeader.vue';
   import LayoutSideBar from './LayoutSideBar.vue';

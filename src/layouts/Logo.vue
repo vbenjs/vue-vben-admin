@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, PropOptions } from '@/setup/vue';
+  import { defineComponent, PropOptions } from 'compatible-vue';
 
   // hooks
   import { useDesign } from '@/hooks/core/useDesign';

@@ -1,4 +1,4 @@
-import { VNode } from 'vue';
+import { VNode } from 'compatible-vue';
 import { Form, Col } from 'ant-design-vue';
 
 // import { FormModelItem } from './types/formModelItem';

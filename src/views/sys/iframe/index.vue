@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, PropOptions, ref, unref, onMounted, nextTick } from '@/setup/vue';
+  import { defineComponent, PropOptions, ref, unref, onMounted, nextTick } from 'compatible-vue';
   import { Spin } from 'ant-design-vue';
 
   import { menuStore } from '@/store/modules/menu';

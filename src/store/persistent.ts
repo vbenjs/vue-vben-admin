@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { Vue } from 'compatible-vue';
 import { createStorage } from '@/utils/storage/index';
 import { isIeFn } from '@/utils/browser';
 

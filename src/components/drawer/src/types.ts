@@ -1,5 +1,5 @@
 import { Drawer } from 'ant-design-vue/types/drawer';
-import { Ref } from '@/setup/vue';
+import { Ref } from 'compatible-vue';
 import { ScrollContainerOptions } from '@/components/container/index';
 
 /**

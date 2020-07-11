@@ -1,5 +1,5 @@
-import { PropOptions } from '@/setup/vue';
-// import {PropType} from 'vue'
+import { PropOptions } from 'compatible-vue';
+// import {PropType} from 'compatible-vue'
 export const modalProps = {
   // 是否开启拖拽事件
   draggable: {

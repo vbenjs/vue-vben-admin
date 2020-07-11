@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, computed, unref } from '@/setup/vue';
+  import { defineComponent, computed, unref } from 'compatible-vue';
 
   export default defineComponent({
     name: 'SvgIcon',

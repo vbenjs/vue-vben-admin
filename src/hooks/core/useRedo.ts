@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted } from '@/setup/vue';
+import { onMounted, onUnmounted } from 'compatible-vue';
 
 /**
  * @description: 刷新页面确认

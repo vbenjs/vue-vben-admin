@@ -1,4 +1,4 @@
-import { VNode } from 'vue';
+import { VNode } from 'compatible-vue';
 export interface PaginationProps {
   /**
    * total number of data items

@@ -7,6 +7,7 @@ const baseAlias = {
   '@': 'src',
   '@ant-design/icons/lib/dist$': 'src/assets/icons/setupIcon.ts',
   '@design': 'src/design/index.less',
+  'compatible-vue': 'src/setup/vue/index.ts',
 };
 
 function configAlias(config) {

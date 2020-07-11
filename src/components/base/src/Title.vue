@@ -1,6 +1,6 @@
 <script lang="tsx">
   import BaseHelp from './Help.vue';
-  import { defineComponent } from '@/setup/vue';
+  import { defineComponent } from 'compatible-vue';
 
   // hook
   import { useDesign } from '@/hooks/core/useDesign';

@@ -1,4 +1,4 @@
-import { onUnmounted, watch } from '@/setup/vue';
+import { onUnmounted, watch } from 'compatible-vue';
 import { useThrottle } from '@/hooks/core/useThrottle';
 
 import { appStore } from '@/store/modules/app';

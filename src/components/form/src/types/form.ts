@@ -1,7 +1,6 @@
 import { ColEx, ComponentType } from './index';
-import { VNode } from 'vue';
+import { VNode, Ref } from 'compatible-vue';
 import { Button } from 'ant-design-vue';
-import { Ref } from '@/setup/vue';
 import {
   WrappedFormUtils,
   FieldDecoratorOptions,

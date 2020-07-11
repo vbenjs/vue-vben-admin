@@ -1,6 +1,6 @@
 <script lang="tsx">
   // components
-  import { defineComponent, computed, unref } from '@/setup/vue';
+  import { defineComponent, computed, unref } from 'compatible-vue';
   import BasicLoading from './BasicLoading.vue';
 
   import { useDesign } from '@/hooks/core/useDesign';

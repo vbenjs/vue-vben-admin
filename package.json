@@ -22,7 +22,7 @@
     "postinstall": "node ./build/npm-hook/postinstall.js && npm run clean:cache"
   },
   "dependencies": {
-    "@vue/composition-api": "^1.0.0-beta.2",
+    "@vue/composition-api": "^1.0.0-beta.3",
     "ant-design-vue": "^1.6.3",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",

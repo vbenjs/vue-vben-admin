@@ -1,4 +1,4 @@
-import { PropOptions } from '@/setup/vue';
+import { PropOptions } from 'compatible-vue';
 import { DrawerType } from './types';
 // import {DrawerProps} from './types'
 

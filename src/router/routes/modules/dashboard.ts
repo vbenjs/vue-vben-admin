@@ -10,7 +10,7 @@ const layout: LayoutType = {
   component: PAGE_LAYOUT_COMPONENT,
   redirect: '/dashboard/welcome',
   meta: {
-    title: '首页',
+    title: 'Dashboard',
   },
 };
 

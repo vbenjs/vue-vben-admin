@@ -1,8 +1,8 @@
 /**
  * 获取动态组件
  */
-import Vue, { VueConstructor } from 'vue';
+import { VueConstructor, Vue } from 'compatible-vue';
 
-export function getAsyncComponent(importComp: () => Promise<typeof import('*.vue')>) {
+export function getAsyncComponent(importComp: any) {
   return (importComp as unknown) as VueConstructor<Vue>;
 }

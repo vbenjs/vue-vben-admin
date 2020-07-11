@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, onBeforeMount } from '@/setup/vue';
+  import { defineComponent, onBeforeMount } from 'compatible-vue';
 
   import { appStore } from '@/store/modules/app';
 

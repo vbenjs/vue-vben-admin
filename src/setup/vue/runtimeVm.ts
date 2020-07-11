@@ -1,5 +1,3 @@
-import Vue from 'vue';
-
 interface Runtime {
   vm?: Vue;
 }

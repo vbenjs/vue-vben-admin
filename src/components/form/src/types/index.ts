@@ -1,4 +1,4 @@
-import { VNode } from 'vue';
+import { VNode } from 'compatible-vue';
 import { Col } from 'ant-design-vue';
 
 export interface ColEx extends Col {

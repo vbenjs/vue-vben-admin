@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, computed, unref } from '@/setup/vue';
+  import { defineComponent, computed, unref } from 'compatible-vue';
   import { Drawer } from '@/components/drawer/index';
   import { Icon } from '@/components/icon/index';
   import { Divider, Switch, Tooltip, InputNumber, Select, Button } from 'ant-design-vue';

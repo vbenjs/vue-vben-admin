@@ -1,5 +1,5 @@
 import { isFunction } from '@/utils/is/index';
-import { ref, onUnmounted, getCurrentInstance, watch } from '@/setup/vue';
+import { ref, onUnmounted, getCurrentInstance, watch } from 'compatible-vue';
 import { TimeoutResult, TimeoutFnResult, Fn } from './types';
 export function useTimeoutRef(wait: number): TimeoutResult {
   const currentInstance = getCurrentInstance();

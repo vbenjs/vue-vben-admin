@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, unref, PropOptions } from '@/setup/vue';
+  import { defineComponent, unref, PropOptions } from 'compatible-vue';
   import { Dropdown } from '@/components/dropdown/index';
   import { Icon } from '@/components/icon/index';
 

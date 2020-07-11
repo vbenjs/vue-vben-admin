@@ -1,7 +1,7 @@
 /**
  * 获取项目配置文件和全局变量
  */
-// import { reactive, computed } from '@/setup/vue';
+// import { reactive, computed } from 'compatible-vue';
 import getGlobConfig from 'config/getGlobConfig';
 import readProjectSetting from '@/settings/projectSetting';
 import * as getDesignSetting from '@/settings/designSetting';

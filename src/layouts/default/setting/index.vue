@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, unref } from '@/setup/vue';
+  import { defineComponent, unref } from 'compatible-vue';
   import { Icon } from '@/components/icon/index';
   import SettingDrawer from './SettingDrawer.vue';
 

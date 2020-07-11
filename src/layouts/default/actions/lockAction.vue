@@ -1,6 +1,6 @@
 <script lang="tsx">
   // 组件相关
-  import { defineComponent, unref } from '@/setup/vue';
+  import { defineComponent, unref } from 'compatible-vue';
   import { SvgIcon } from '@/components/icon/index';
   import { Button, Icon } from 'ant-design-vue';
   import { BasicModal, useModalExt } from '@/components/modal/index';

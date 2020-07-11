@@ -7,7 +7,7 @@
     unref,
     // watch,
     PropOptions,
-  } from '@/setup/vue';
+  } from 'compatible-vue';
   import { Spin } from 'ant-design-vue';
   import { ScrollContainer, TypeEnum } from '@/components/container/index';
 

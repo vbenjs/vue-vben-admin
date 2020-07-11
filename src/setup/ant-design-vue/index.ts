@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { Vue } from 'compatible-vue';
 
 import { Modal } from 'ant-design-vue';
 // fix modal error

@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { Vue } from 'compatible-vue';
 import Router from 'vue-router';
 import { Position, Route } from 'vue-router/types/router';
 import { repeatPatch } from './patch';

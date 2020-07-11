@@ -1,4 +1,4 @@
-import { watch, onUnmounted, unref } from '@/setup/vue';
+import { watch, onUnmounted, unref } from 'compatible-vue';
 import { appStore } from '@/store/modules/app';
 import { tabStore } from '@/store/modules/tab';
 import { useRouter } from '@/hooks/core/useRouter';

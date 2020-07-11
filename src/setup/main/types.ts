@@ -1,4 +1,4 @@
-import Vue, { VueConstructor } from 'vue';
+import { VueConstructor } from 'compatible-vue';
 import { VueRouter } from 'vue-router/types/router';
 import { Store } from 'vuex/types/index';
 

@@ -4,7 +4,15 @@
   import { Icon } from '@/components/icon/index';
   import SearchInput from './SearchInput.vue';
   import { ScrollContainer, TypeEnum } from '@/components/container/index';
-  import { defineComponent, reactive, computed, watch, Ref, unref, PropOptions } from '@/setup/vue';
+  import {
+    defineComponent,
+    reactive,
+    computed,
+    watch,
+    Ref,
+    unref,
+    PropOptions,
+  } from 'compatible-vue';
 
   // import projectSetting from '@/settings/projectSetting';
 

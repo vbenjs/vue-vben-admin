@@ -1,4 +1,4 @@
-// import Vue, { VueConstructor } from 'vue';
+// import Vue, { VueConstructor } from 'compatible-vue';
 import { getAsyncComponent } from '@/common/factory/getAsyncComponent';
 
 // export { default as Icon } from './src/index.vue';

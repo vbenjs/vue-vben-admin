@@ -3,7 +3,7 @@
   import { Pagination } from 'ant-design-vue';
   import { Icon } from '@/components/icon/index';
 
-  import { defineComponent, ref, watch, unref } from '@/setup/vue';
+  import { defineComponent, ref, watch, unref } from 'compatible-vue';
 
   //
   import { useDesign } from '@/hooks/core/useDesign';

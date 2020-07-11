@@ -1,4 +1,4 @@
-import { getCurrentInstance, onBeforeUnmount } from '@/setup/vue';
+import { getCurrentInstance, onBeforeUnmount } from 'compatible-vue';
 const watermark: {
   set?: (str: string) => void;
 } = {};

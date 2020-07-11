@@ -1,4 +1,4 @@
-import { Component } from 'vue';
+import { Component } from 'compatible-vue';
 /**
  * 组件列表,在这里注册才可以在表单使用
  */

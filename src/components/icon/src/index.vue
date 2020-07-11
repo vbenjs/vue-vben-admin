@@ -3,7 +3,7 @@
   import { Icon } from 'ant-design-vue';
   import { SvgIcon } from '@/components/icon/index';
 
-  import { defineComponent, computed, unref } from '@/setup/vue';
+  import { defineComponent, computed, unref } from 'compatible-vue';
 
   export default defineComponent({
     name: 'Icon',

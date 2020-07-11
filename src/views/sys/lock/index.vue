@@ -1,6 +1,6 @@
 <script lang="tsx">
   // 组件相关
-  import { defineComponent, ref, unref, computed } from '@/setup/vue';
+  import { defineComponent, ref, unref, computed } from 'compatible-vue';
   import { SvgIcon } from '@/components/icon/index';
   import { Button, Icon, Alert } from 'ant-design-vue';
   // hook

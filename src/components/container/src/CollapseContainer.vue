@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, ref, unref } from '@/setup/vue';
+  import { defineComponent, ref, unref } from 'compatible-vue';
 
   // component
   import { CollapseTransition } from '@/components/transition/index';

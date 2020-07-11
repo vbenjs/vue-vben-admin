@@ -10,7 +10,7 @@ import {
   TabContentProps,
 } from './tab.data';
 
-import { Ref, computed, unref } from '@/setup/vue';
+import { Ref, computed, unref } from 'compatible-vue';
 import { RouteConfigEx, RouteEx } from '@/router/type';
 import { useGo, useRedo, useRouter } from '@/hooks/core/useRouter';
 import { useTabs } from '@/hooks/modules/useTabs';

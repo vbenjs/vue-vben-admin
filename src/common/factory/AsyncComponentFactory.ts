@@ -23,11 +23,8 @@ export type AsyncComponent = AsyncComponentPromise;
 /**
  * @description: 异步组件工厂
  */
-export function createAsyncComponent(
-  options: AsyncComponentPromise | AsyncComponentFactoryOptions | Promise<typeof import('*.vue')>
-): Promise<FunctionalComponentOptions> {
-  // !只能写内部方法,否则死循环
-  function asyncHandler(): AsyncComponentFactoryOptions {
+export function createAsyncComponent(options: any): Promise<FunctionalComponentOptions> {
+  function asyncHandler(): any {
     const defOptions = {
       loading: LOADING_PAGE,
       delay: DELAY,

@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { Result, Button } from 'ant-design-vue';
-  import { defineComponent, ref, computed, unref, PropOptions } from '@/setup/vue';
+  import { defineComponent, ref, computed, unref, PropOptions } from 'compatible-vue';
 
   import { ExceptionEnum } from '@/enums/exceptionEnum';
 

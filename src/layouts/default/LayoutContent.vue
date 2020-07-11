@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent } from '@/setup/vue';
+  import { defineComponent } from 'compatible-vue';
   import { Layout } from 'ant-design-vue';
   import { FullLoading } from '@/components/loading/index';
 

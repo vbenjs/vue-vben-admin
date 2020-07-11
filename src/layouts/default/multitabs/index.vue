@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, watch, computed, ref, unref } from '@/setup/vue';
+  import { defineComponent, watch, computed, ref, unref } from 'compatible-vue';
   import { Tabs } from 'ant-design-vue';
   import { tabStore, TabItem } from '@/store/modules/tab';
   import TabContent from './TabContent.vue';

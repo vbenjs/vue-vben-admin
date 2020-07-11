@@ -1,5 +1,5 @@
-import Vue, { VNode } from 'vue';
-import { Ref } from '@/setup/vue';
+import { VNode, Vue } from 'compatible-vue';
+import { Ref } from 'compatible-vue';
 import { ModalOptions } from 'ant-design-vue/types/modal';
 
 export type Fn<T> = () => T;

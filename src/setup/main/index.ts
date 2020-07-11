@@ -1,4 +1,4 @@
-import Vue, { VNode } from 'vue';
+import { VNode, Vue } from 'compatible-vue';
 import App from './App.vue';
 
 // setup

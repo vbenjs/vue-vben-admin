@@ -1,5 +1,5 @@
 import { renderThumbStyle, BAR_MAP, on, off } from './util';
-import { defineComponent } from '@/setup/vue';
+import { defineComponent } from 'compatible-vue';
 /* istanbul ignore next */
 export default defineComponent({
   name: 'Bar',

@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, computed, ref, unref } from '@/setup/vue';
+  import { defineComponent, computed, ref, unref } from 'compatible-vue';
   import { Descriptions } from 'ant-design-vue';
   import { CollapseContainer, CollapseContainerOptions } from '@/components/container/index';
   import { DescOptions, DescInstance } from './type';

@@ -1,6 +1,6 @@
 <script lang="tsx">
   // 组件相关
-  import { defineComponent } from '@/setup/vue';
+  import { defineComponent } from 'compatible-vue';
   import LoginForm from './LoginForm.vue';
 
   // hook

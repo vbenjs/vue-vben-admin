@@ -1,4 +1,4 @@
-import { onUnmounted, getCurrentInstance, ref, unref } from '@/setup/vue';
+import { onUnmounted, getCurrentInstance, ref, unref } from 'compatible-vue';
 
 export function useCountdown(count: number) {
   const countRef = ref(count);

@@ -1,4 +1,4 @@
-import { ref, getCurrentInstance, Ref, onUnmounted, unref } from '@/setup/vue';
+import { ref, getCurrentInstance, Ref, onUnmounted, unref } from 'compatible-vue';
 import { isProdMode } from '@/utils/envUtil';
 // import { isFunction } from '@/utils/is/index';
 

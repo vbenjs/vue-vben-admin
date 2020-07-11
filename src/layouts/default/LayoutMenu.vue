@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, PropOptions } from '@/setup/vue';
+  import { defineComponent, PropOptions } from 'compatible-vue';
   import { BasicMenu, MenuTreeItem } from '@/components/menu/index';
   import Logo from '@/layouts/Logo.vue';
 

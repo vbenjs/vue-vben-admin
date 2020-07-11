@@ -1,5 +1,5 @@
 import { UseDrawerReturnType, DrawerInstance, ReturnMethods, DrawerProps } from './types';
-import { ref, Ref, getCurrentInstance, onUnmounted, unref } from '@/setup/vue';
+import { ref, Ref, getCurrentInstance, onUnmounted, unref } from 'compatible-vue';
 
 import { isProdMode } from '@/utils/envUtil';
 

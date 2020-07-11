@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, ref, unref } from '@/setup/vue';
+  import { defineComponent, ref, unref } from 'compatible-vue';
   import { useDesign } from '@/hooks/core/useDesign';
   import { Button } from 'ant-design-vue';
   import { useCountdown } from '@/hooks/event/useCountdown';

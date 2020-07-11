@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, ref, unref } from '@/setup/vue';
+  import { defineComponent, ref, unref } from 'compatible-vue';
   import { SvgIcon } from '@/components/icon/index';
   import { Button } from 'ant-design-vue';
   import { BasicForm, useForm } from '@/components/form/index';

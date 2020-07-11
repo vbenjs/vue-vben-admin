@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, ref } from '@/setup/vue';
+import { onMounted, onUnmounted, ref } from 'compatible-vue';
 
 import { Fn } from './types';
 

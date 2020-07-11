@@ -7,7 +7,7 @@
     computed,
     unref,
     // PropOptions
-  } from '@/setup/vue';
+  } from 'compatible-vue';
 
   import { formProps } from './props/form';
 

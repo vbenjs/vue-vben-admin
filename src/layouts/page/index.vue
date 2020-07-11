@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, unref } from '@/setup/vue';
+  import { defineComponent, unref } from 'compatible-vue';
 
   import FramePage from '@/views/sys/iframe/index.vue';
   import { appStore } from '@/store/modules/app';
