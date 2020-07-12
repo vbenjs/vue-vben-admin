@@ -24,6 +24,7 @@
   export default defineComponent({
     name: 'DefaultLayoutSideBar',
     setup() {
+      const brokenRef = ref(false);
       const collapseRef = ref(true);
       const dragBarRef = ref<any>(null);
       const sideRef = ref<any>(null);
@@ -115,6 +116,10 @@
             return false;
           });
       }
+      function handleBreakpoint(broken: boolean) {
+        brokenRef.value = broken;
+      }
+
       onMounted(() => {
         nextTick(() => {
           const [exec] = useDebounce(changeWrapWidth, 10);
@@ -127,20 +132,27 @@
         }
         return {};
       });
+
+      const getCollapsedWidth = computed(() => {
+        return unref(brokenRef) ? 0 : 80;
+      });
       return () => {
         const { getCollapsedState, getMenuWidthState } = menuStore;
         const { getProjCfg } = appStore;
         const { menuSetting: { theme, hasDrag } = {} } = getProjCfg;
         return (
           <Layout.Sider
+            breakpoint="md"
             collapsible
             collapsed={getCollapsedState}
             onCollapse={onCollapseChange}
             width={getMenuWidthState}
+            collapsedWidth={unref(getCollapsedWidth)}
             theme={theme}
             class={prefixCls}
             style={unref(getStyle)}
             ref={sideRef}
+            onBreakpoint={handleBreakpoint}
           >
             <SideBarTrigger slot="trigger" />
             <LayoutMenu theme={theme} />
@@ -161,6 +173,11 @@
 
   .@{prefix-cls} {
     background-size: 100% 100%;
+
+    /deep/ .ant-layout-sider-zero-width-trigger {
+      top: 40%;
+      z-index: 10;
+    }
 
     &__dargbar {
       position: absolute;

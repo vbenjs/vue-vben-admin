@@ -83,7 +83,7 @@
       background: #fff;
       border-radius: 10px;
       align-items: center;
-      .respond-to(xsmall-only, { width: 60vw;});
+      .respond-to(xsmall-only, { width: 98vw;});
       .respond-to(small-only, {width: 60vw;});
       .respond-to(medium-only, {width: 50vw;});
     }

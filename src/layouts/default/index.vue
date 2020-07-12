@@ -7,6 +7,7 @@
   import MultiTabs from './multitabs/index.vue';
   import SettingButton from './setting/index.vue';
   import { FullLoading } from '@/components/loading/index';
+  import { ScrollContainer } from '@/components/container/index';
 
   // utils
 
@@ -65,7 +66,9 @@
                     class={`${prefixCls}__loading`}
                     tip="加载中..."
                   />
-                  <LayoutContent />
+                  <ScrollContainer>
+                    <LayoutContent />
+                  </ScrollContainer>
                 </div>
               </Layout>
             </Layout>
@@ -86,6 +89,7 @@
 
     &__main {
       position: relative;
+      overflow: hidden;
     }
 
     &__loading {

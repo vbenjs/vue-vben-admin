@@ -108,7 +108,7 @@
       justify-content: space-between;
       height: 32px;
       align-items: center;
-      // margin-bottom: 10px;
+      margin-bottom: 10px;
     }
 
     &__action {

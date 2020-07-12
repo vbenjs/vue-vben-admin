@@ -21,15 +21,15 @@ const routes: RouteConfigEx[] = [
     component: () => createAsyncComponent(import('@/views/dashboard/welcome/index.vue')),
     meta: {
       title: '欢迎页',
-      affix: true,
     },
   },
   {
     path: '/analysis',
     name: 'Analysis',
-    component: () => createAsyncComponent(import('@/views/dashboard/welcome/index.vue')),
+    component: () => createAsyncComponent(import('@/views/dashboard/analysis/index.vue')),
     meta: {
       title: '分析页',
+      affix: true,
     },
   },
 ];

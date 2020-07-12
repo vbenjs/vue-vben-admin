@@ -1,7 +1,7 @@
 <script lang="tsx">
-  import { defineComponent, PropOptions } from 'compatible-vue';
+  import { defineComponent, PropOptions, unref } from 'compatible-vue';
   import { useDesign } from '@/hooks/core/useDesign';
-
+  import { useBreakpoint } from '@/hooks/event/useBreakpoint';
   export default defineComponent({
     name: 'House',
     props: {
@@ -12,10 +12,14 @@
     },
     setup(props) {
       const { prefixCls } = useDesign('house-wrap');
-
+      const { screenEnum, widthRef } = useBreakpoint();
       return () => {
         const { size } = props;
-        const scale = (size || 600) / 600;
+        let scale = (size || 600) / 600;
+
+        if (unref(widthRef) <= screenEnum.MD!) {
+          scale = 300 / 600;
+        }
         return (
           <div
             class={prefixCls}

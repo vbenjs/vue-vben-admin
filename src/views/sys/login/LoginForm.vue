@@ -12,6 +12,7 @@
     name: 'LoginForm',
 
     setup() {
+      userStore.loginOut();
       // 按钮加载
       const loadingRef = ref(false);
 

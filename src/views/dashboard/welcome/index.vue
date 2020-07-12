@@ -31,13 +31,13 @@
     // 垂直居中
     .flex-center();
 
-    &-img {
-      .size(500px, 506px);
+    // &-img {
+    //   .size(500px, 506px);
 
-      // 媒体查询
-      .respond-to(small, {.size(300px, 306px) ;});
-      .respond-to(medium, {.size(360px, 366px) ;});
-      .respond-to(large, {.size(500px, 506px) ;});
-    }
+    //   // 媒体查询
+    //   .respond-to(small, {.size(300px, 306px) ;});
+    //   .respond-to(medium, {.size(360px, 366px) ;});
+    //   .respond-to(large, {.size(500px, 506px) ;});
+    // }
   }
 </style>

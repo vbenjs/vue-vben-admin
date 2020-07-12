@@ -106,7 +106,7 @@ export interface RouteConfigEx {
   pathToRegexpOptions?: PathToRegexpOptions;
   meta?: Meta;
   children?: RouteConfigEx[];
-  component?: Component | Dictionary<Component>;
+  component?: any;
   props?:
     | boolean
     | any

@@ -134,6 +134,16 @@ declare interface WebpackWorker {
 declare module 'worker-loader!*' {
   export default WebpackWorker;
 }
+
+declare interface Fn {
+  (): any;
+}
+
+// 任意对象
+declare interface IObj<T = any> {
+  [key: string]: T;
+  [key: number]: T;
+}
 declare namespace echarts {
   interface EChartOption {
     [key: string]: any;

@@ -451,7 +451,7 @@
 
       return () => (
         // 自定义modal需要写这个 on={listeners}
-        <Drawer on={listeners} title="系统配置" width={400} wrapClassName="setting-drawer">
+        <Drawer on={listeners} title="系统配置" width={300} wrapClassName="setting-drawer">
           <Divider>主题颜色</Divider>
           {renderTheme()}
           <Divider>导航栏模式</Divider>

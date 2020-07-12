@@ -1339,6 +1339,13 @@
   resolved "https://registry.npm.taobao.org/@types/color-name/download/@types/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha1-HBJhu+qhCoBVu8XYq4S3sq/IRqA=
 
+"@types/echarts@^4.6.3":
+  version "4.6.3"
+  resolved "https://registry.npm.taobao.org/@types/echarts/download/@types/echarts-4.6.3.tgz?cache=0&sync_timestamp=1593094668922&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fecharts%2Fdownload%2F%40types%2Fecharts-4.6.3.tgz#227b33b106203ceb2ca4fa51760f406618caa89a"
+  integrity sha1-InszsQYgPOsspPpRdg9AZhjKqJo=
+  dependencies:
+    "@types/zrender" "*"
+
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/@types/eslint-visitor-keys/download/@types/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
@@ -1498,6 +1505,11 @@
   integrity sha1-RAKOl0NDx6/POWDxorEJnDmnteE=
   dependencies:
     "@types/yargs-parser" "*"
+
+"@types/zrender@*":
+  version "4.0.0"
+  resolved "https://registry.npm.taobao.org/@types/zrender/download/@types/zrender-4.0.0.tgz#a6806f12ec4eccaaebd9b0d816f049aca6188fbd"
+  integrity sha1-poBvEuxOzKrr2bDYFvBJrKYYj70=
 
 "@typescript-eslint/eslint-plugin@^3.6.0":
   version "3.6.0"
@@ -4913,6 +4925,13 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
+
+echarts@^4.8.0:
+  version "4.8.0"
+  resolved "https://registry.npm.taobao.org/echarts/download/echarts-4.8.0.tgz#b2c1cfb9229b13d368ee104fc8eea600b574d4c4"
+  integrity sha1-ssHPuSKbE9No7hBPyO6mALV01MQ=
+  dependencies:
+    zrender "4.3.1"
 
 editorconfig@^0.15.3:
   version "0.15.3"
@@ -13404,6 +13423,11 @@ vm-browserify@^1.0.1:
   resolved "https://registry.npm.taobao.org/vm-browserify/download/vm-browserify-1.1.2.tgz?cache=0&sync_timestamp=1589682787766&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvm-browserify%2Fdownload%2Fvm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha1-eGQcSIuObKkadfUR56OzKobl3aA=
 
+vue-count-to@^1.0.13:
+  version "1.0.13"
+  resolved "https://registry.npm.taobao.org/vue-count-to/download/vue-count-to-1.0.13.tgz#3e7573ea6e64c2b2972f64e0a2ab2e23c7590ff3"
+  integrity sha1-PnVz6m5kwrKXL2TgoqsuI8dZD/M=
+
 vue-eslint-parser@^7.0.0:
   version "7.1.0"
   resolved "https://registry.npm.taobao.org/vue-eslint-parser/download/vue-eslint-parser-7.1.0.tgz?cache=0&sync_timestamp=1589684321779&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-eslint-parser%2Fdownload%2Fvue-eslint-parser-7.1.0.tgz#9cdbcc823e656b087507a1911732b867ac101e83"
@@ -14105,3 +14129,8 @@ yorkie@^2.0.0:
     is-ci "^1.0.10"
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
+
+zrender@4.3.1:
+  version "4.3.1"
+  resolved "https://registry.npm.taobao.org/zrender/download/zrender-4.3.1.tgz#baf8aa6dc8187a2f819692d7d5f9bedfa2b90fa3"
+  integrity sha1-uviqbcgYei+BlpLX1fm+36K5D6M=

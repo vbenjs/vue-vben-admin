@@ -49,7 +49,7 @@
     height: 100%;
 
     &--disabled {
-      padding: 16px;
+      // padding: 16px;
     }
 
     /deep/.el-scrollbar__wrap.default-scrollbar__wrap {
@@ -63,7 +63,7 @@
 
     /deep/ .el-scrollbar__view {
       &.main-scrollbar__view {
-        padding: 16px;
+        padding: 1px;
         box-sizing: border-box;
       }
     }

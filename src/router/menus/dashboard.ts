@@ -7,12 +7,12 @@ export default {
   icon: 'home|svg',
   children: [
     {
-      path: '/welcome',
-      name: '欢迎页',
-    },
-    {
       path: '/analysis',
       name: '分析页',
+    },
+    {
+      path: '/welcome',
+      name: '欢迎页',
     },
   ],
 } as NormMenuItem;
