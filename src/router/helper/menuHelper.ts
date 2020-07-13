@@ -9,6 +9,9 @@ import {
 } from '@/router/types';
 
 import { list2Tree } from '@/utils/helper/treeHelper';
+import { sort } from '@/router/helper/routeHelper';
+// import { menuStore } from '@/store/modules/menu';
+import { getAsyncRoutes } from '@/router/index';
 
 // import { getMenuApi } from '@/api/sys';
 
@@ -24,10 +27,29 @@ function formatterMenu({ menu, parentPath = '', parentId = null }: FormatConfig)
   if (!isArray(menu)) {
     menu.id = buildUUID();
     const { children, path, id } = menu;
+
+    const isAddPrefix = (menu as any).isAddPrefix;
+
     const fixedPath = path.replace(/\/{1,}/g, '/');
     menu.parentId = parentId;
-    menu.path = `${fixedParentPath}${fixedPath}`;
+
+    let menuPath = '';
+    const match = (/^\/(.*)\//.exec(fixedPath) || [])[0];
+    if (path !== match && !isAddPrefix) {
+      menuPath = fixedParentPath + fixedPath;
+    } else {
+      menuPath = fixedPath;
+    }
+    menu.path = menuPath;
+
     // menu.path = `${menu.path.startsWith(fixedParentPath) ? '' : fixedParentPath}${fixedPath}`;
+
+    Reflect.defineProperty(menu, 'isAddPrefix', {
+      configurable: false,
+      enumerable: false,
+      value: true,
+      writable: false,
+    });
     if (children && isArray(children)) {
       formatterMenu({
         menu: children,
@@ -86,4 +108,16 @@ export function buildMenuModule(routes: RouteConfigEx[]): BuildMenuModuleResult 
 
   const list = list2Tree<MenuItem>(flatMenus);
   return { allMenus: list, flatMenus };
+}
+
+export async function buildMenuList(): Promise<BuildMenuModuleResult> {
+  // const { flatMenus, allMenus } = buildMenuModule(permissionStore.getRoutesState);
+  const { flatMenus, allMenus } = buildMenuModule(getAsyncRoutes());
+  const menus = sort(allMenus);
+  // menuStore.commitMenuListState(menus);
+  // menuStore.commitFlatMenuListState(sort(flatMenus));
+  return {
+    allMenus: menus,
+    flatMenus,
+  };
 }

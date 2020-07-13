@@ -3,12 +3,7 @@ import { VuexModule, Module, getModule, Mutation } from 'vuex-module-decorators'
 
 import { appStore } from '@/store/modules/app';
 
-import { MenuItem, BuildMenuModuleResult } from '@/router/types';
-
-import { getAsyncRoutes } from '@/router/index';
-
-import { buildMenuModule } from '@/router/helper/menuHelper';
-import { sort } from '@/router/helper/routeHelper';
+import { MenuItem } from '@/router/types';
 
 // import { permissionStore } from '@/store/modules/permission';
 export interface MenuState {
@@ -91,17 +86,6 @@ class Menu extends VuexModule implements MenuState {
     });
   }
 }
-export async function buildMenuListAction(): Promise<BuildMenuModuleResult> {
-  const menuStore = getModule<Menu>(Menu);
-  // const { flatMenus, allMenus } = buildMenuModule(permissionStore.getRoutesState);
-  const { flatMenus, allMenus } = buildMenuModule(getAsyncRoutes());
-  const menus = sort(allMenus);
-  menuStore.commitMenuListState(menus);
-  menuStore.commitFlatMenuListState(sort(flatMenus));
-  return {
-    allMenus: menus,
-    flatMenus,
-  };
-}
+
 export { Menu };
 export const menuStore = getModule<Menu>(Menu);

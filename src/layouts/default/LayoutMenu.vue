@@ -12,7 +12,7 @@
 
   // store
   import { appStore } from '@/store/modules/app';
-  import { buildMenuListAction } from '@/store/modules/menu';
+  import { buildMenuList } from '@/router/helper/menuHelper';
   // res
   import { RouteConfigEx } from '@/router/types';
 
@@ -48,7 +48,7 @@
 
         return (
           <BasicMenu
-            buildMenuFn={buildMenuListAction}
+            buildMenuFn={buildMenuList}
             onMenuClick={handleMenuClick}
             type={menuType}
             mode={mode}
