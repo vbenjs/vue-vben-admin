@@ -35,7 +35,7 @@ function addRoutePrefix(route: RouteConfigEx, prefix: string, resChildren: Route
     value: true,
     writable: false,
   });
-  resChildren.push(route);
+  !children && resChildren.push(route);
   if (children) {
     children.forEach((child) => {
       addRoutePrefix(child, prefix + replaceReq(path), resChildren);

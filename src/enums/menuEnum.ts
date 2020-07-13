@@ -1,14 +1,4 @@
 /**
- * 菜单生成方式
- */
-export enum BuildTypeEnum {
-  // 基于角色
-  ROLE,
-  // 基于后台
-  BACK,
-}
-
-/**
  * @description: 菜单类型
  */
 export enum MenuTypeEnum {

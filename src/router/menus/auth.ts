@@ -7,26 +7,30 @@ export default {
   icon: 'home|svg',
   children: [
     {
-      name: '管理员可见',
-      path: '/adminRole',
-      icon: 'home|svg',
+      name: '基于角色',
+      path: '/role',
       children: [
         {
-          name: '测试页1',
-          path: '/test1',
-          icon: 'home|svg',
+          name: '页面权限',
+          path: '/page',
         },
         {
-          name: '测试页2',
+          name: '按钮权限',
+          path: '/btn',
+        },
+        {
+          name: 'admin可见',
+          path: '/test1',
+        },
+        {
+          name: 'normal可见',
           path: '/test2',
-          icon: 'home|svg',
         },
       ],
     },
     {
-      name: '普通用户可见',
-      path: '/normalRole',
-      icon: 'home|svg',
+      name: '基于后台',
+      path: '/back-auth',
     },
   ],
 } as NormMenuItem;

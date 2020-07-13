@@ -10,6 +10,8 @@
 
   import { useTransition } from './hooks/useTransition';
   import { useFrameKeepAlive } from './hooks/useFrameKeepAlive';
+
+  import { isDevMode } from '@/utils/envUtil';
   export default defineComponent({
     name: 'PageLayout',
     setup() {
@@ -22,6 +24,12 @@
         const { getProjCfg } = appStore;
         const { multiTabsSetting: { show } = {} } = getProjCfg;
         const fullPath = unref(route).fullPath;
+
+        const propsData = isDevMode()
+          ? {} // 开发环境设置key  会导致热更新失效
+          : {
+              key: fullPath,
+            };
         return (
           <div class={prefixCls}>
             <transition
@@ -33,10 +41,10 @@
             >
               {show ? (
                 <keep-alive max={16} include={tabStore.getKeepAliveTabsState}>
-                  <router-view key={fullPath} />
+                  <router-view {...propsData} />
                 </keep-alive>
               ) : (
-                <router-view key={fullPath} />
+                <router-view {...propsData} />
               )}
             </transition>
             {unref(getFramePages).map((page) => {

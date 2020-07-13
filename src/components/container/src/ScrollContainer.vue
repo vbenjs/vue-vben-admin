@@ -1,3 +1,17 @@
+<template>
+  <scrollbar
+    v-if="enableScroll"
+    :wrap-class="`${type}-scrollbar__wrap`"
+    :view-class="`${type}-scrollbar__view`"
+    :class="prefixCls"
+  >
+    <slot />
+  </scrollbar>
+  <div v-else :class="`${prefixCls}--disabled`">
+    <slot />
+  </div>
+</template>
+
 <script lang="tsx">
   // component
   import { defineComponent } from 'compatible-vue';
@@ -5,9 +19,7 @@
   // hook
   import { useDesign } from '@/hooks/core/useDesign';
 
-  import { getSlot } from '@/utils/helper/tsxHelper';
-
-  import { TypeEnum, ScrollContainerOptions } from './types';
+  import { TypeEnum } from './types';
   export default defineComponent({
     name: 'ScrollContainer',
     props: {
@@ -22,21 +34,12 @@
         validate: (v: TypeEnum) => [TypeEnum.DEFAULT, TypeEnum.MAIN].includes(v),
       },
     },
-    setup({ type, enableScroll }: ScrollContainerOptions, { slots }) {
+    setup() {
       const { prefixCls } = useDesign('scroll');
 
-      return () =>
-        enableScroll ? (
-          <scrollbar
-            wrap-class={`${type}-scrollbar__wrap`}
-            view-class={`${type}-scrollbar__view`}
-            class={prefixCls}
-          >
-            {getSlot(slots, 'default')}
-          </scrollbar>
-        ) : (
-          <div class={`${prefixCls}--disabled`}> {getSlot(slots, 'default')}</div>
-        );
+      return {
+        prefixCls,
+      };
     },
   });
 </script>

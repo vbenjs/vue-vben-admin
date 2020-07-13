@@ -15,39 +15,54 @@ const layout: LayoutType = {
 
 const routes: RouteConfigEx[] = [
   {
-    path: '/adminRole',
-    name: 'RoleAdminAuth',
-    component: () => createAsyncComponent(import('@/views/dashboard/welcome/index.vue')),
+    path: '/role',
+    name: 'RoleAuth',
     meta: {
-      title: '管理员可见',
-      roles: [RoleEnum.ADMIN],
+      title: '基于角色',
     },
     children: [
       {
-        path: '/test1',
-        name: 'RoleAdminAuth1',
-        component: () => createAsyncComponent(import('@/views/dashboard/welcome/index.vue')),
+        path: '/page',
+        name: 'PageAuth',
+        component: () => createAsyncComponent(import('@/views/examples/auth/role/PageAuth.vue')),
         meta: {
-          title: '测试1',
+          title: '页面权限',
+        },
+      },
+      {
+        path: '/btn',
+        name: '按钮权限',
+        component: () => createAsyncComponent(import('@/views/examples/auth/role/BtnAuth.vue')),
+        meta: {
+          title: '按钮权限',
+        },
+      },
+      {
+        path: '/test1',
+        name: '测试权限1',
+        component: () => createAsyncComponent(import('@/views/examples/auth/AuthTest1.vue')),
+        meta: {
+          title: 'Admin角色可见',
+          roles: [RoleEnum.ADMIN],
         },
       },
       {
         path: '/test2',
-        name: 'RoleAdminAuth2',
-        component: () => createAsyncComponent(import('@/views/dashboard/welcome/index.vue')),
+        name: '测试权限2',
+        component: () => createAsyncComponent(import('@/views/examples/auth/AuthTest2.vue')),
         meta: {
-          title: '测试2',
+          title: 'Normal角色可见',
+          roles: [RoleEnum.NORMAL],
         },
       },
     ],
   },
   {
-    path: '/normalRole',
-    name: 'RoleNormalAuth',
+    path: '/back',
+    name: 'BackAuth',
     component: () => createAsyncComponent(import('@/views/dashboard/welcome/index.vue')),
     meta: {
-      title: '普通用户可见',
-      roles: [RoleEnum.NORMAL],
+      title: '基于后台',
     },
   },
 ];
