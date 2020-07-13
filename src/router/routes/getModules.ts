@@ -1,4 +1,4 @@
-import { ModuleRouteConfig } from '@/router/type';
+import { ModuleRouteConfig } from '@/router/types';
 
 export function getModulesRoute(): ModuleRouteConfig[] {
   const res: ModuleRouteConfig[] = [];

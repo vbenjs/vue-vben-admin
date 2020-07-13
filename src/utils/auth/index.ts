@@ -1,5 +1,6 @@
 import { userStore } from '@/store/modules/user';
 import { permissionStore } from '@/store/modules/permission';
+import { RoleEnum } from '@/enums/roleEnum';
 
 /**
  * @description:  获取token
@@ -11,6 +12,6 @@ export function getToken(): string {
 /**
  * @description:  获取角色
  */
-export function getRole(): string[] {
+export function getRole(): RoleEnum[] {
   return permissionStore.getRoleState;
 }

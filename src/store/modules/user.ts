@@ -4,7 +4,8 @@ import { VuexModule, Module, getModule, Mutation, Action } from 'vuex-module-dec
 
 // import { centerLoginApi, OrgLoginParams, CenterLoginParams } from '@/api/user';
 
-import { PageEnum } from '@/enums/pageEnum';
+import { pageEnum } from '@/enums/pageEnum';
+import { RoleEnum } from '@/enums/roleEnum';
 import { TOKEN_KEY, USER_INFO_KEY, USER_IS_LOGIN_KEY } from '@/enums/cacheEnum';
 
 import { routerInstance } from '@/router/index';
@@ -77,7 +78,7 @@ class User extends VuexModule implements UserState {
     const data = await loginApi(params);
     const { token, roles } = data;
 
-    const roleList: string[] = roles.map((item) => item.value);
+    const roleList: RoleEnum[] = roles.map((item) => item.value);
     this.commitTokenState(token);
     // // 设置用户信息
     Reflect.deleteProperty(data, 'token');
@@ -86,7 +87,7 @@ class User extends VuexModule implements UserState {
 
     this.commitIsLoginState(true);
     const { getRouteInstance } = routerInstance;
-    goHome && getRouteInstance && getRouteInstance().push(PageEnum.BASE_HOME);
+    goHome && getRouteInstance && getRouteInstance().push(pageEnum.BASE_HOME);
     return true;
   }
 
@@ -102,7 +103,7 @@ class User extends VuexModule implements UserState {
     permissionStore.commitHasRouteState(false);
     permissionStore.commitReset();
     this.resetState();
-    goLogin && getRouteInstance && getRouteInstance().replace(PageEnum.BASE_LOGIN);
+    goLogin && getRouteInstance && getRouteInstance().replace(pageEnum.BASE_LOGIN);
   }
 
   /**

@@ -1,3 +1,5 @@
+import { RoleEnum } from '@/enums/roleEnum';
+
 /**
  * @description: 登陆接口参数
  */
@@ -11,7 +13,7 @@ export interface LoginParams {
  */
 export interface LoginResultModel {
   // 角色值数组
-  roles: { roleName: string; value: string }[];
+  roles: { roleName: string; value: RoleEnum }[];
   // 用户id
   userId: string | number;
   // 用户名

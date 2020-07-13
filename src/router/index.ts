@@ -2,7 +2,7 @@ import { Vue } from 'compatible-vue';
 import Router from 'vue-router';
 import { Position, Route } from 'vue-router/types/router';
 import { repeatPatch } from './patch';
-import { RouterOptionsPlus, CreateRouterOptions } from './type';
+import { RouterOptionsPlus, CreateRouterOptions } from './types';
 import { createMainOutRoutes } from './routes/index';
 import sysRoutes from './routes/sys';
 import { createGuard } from './guard/index';
@@ -48,8 +48,9 @@ class RouterInstance {
     (this.routeInstance as RouterOptionsPlus).matcher = newRouter.matcher; // reset router
   };
 }
+const routeList = createMainOutRoutes([sysRoutes]);
 export const routerInstance = new RouterInstance({
-  routes: createMainOutRoutes([sysRoutes]),
+  routes: routeList,
 });
 
 export * from './routes';

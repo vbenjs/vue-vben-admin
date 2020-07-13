@@ -2,6 +2,7 @@ import { ComputedRef } from 'compatible-vue';
 
 import { MenuModeEnum, MenuThemeEnum, MenuTypeEnum } from '@/enums/menuEnum';
 // import { BuildMenuModuleResult } from '@/router/menus/_type';
+import { RoleEnum } from '@/enums/roleEnum';
 
 /**
  * @description:  菜单状态
@@ -32,13 +33,13 @@ export interface MenuState {
   collapsedOpenKeys: string[];
 }
 
-/**
- * @description: tree结构；类似
- */
-export interface MenuTreeItem {
+// /**
+//  * @description: tree结构；类似
+//  */
+export interface MenuItem {
   id: string;
 
-  parentId: string;
+  parentId: string | null;
   // 菜单名
   name: string;
 
@@ -46,21 +47,25 @@ export interface MenuTreeItem {
   icon?: string;
 
   // 菜单路径
-  path?: string;
+  path: string;
 
   // 是否禁用
   disabled?: boolean;
 
   // 子菜单
-  children?: MenuTreeItem[];
+  children?: MenuItem[];
 
+  // 排序
   orderNo?: number;
+
+  // 角色信息
+  roles?: RoleEnum[];
 }
 export interface MenuProps {
   // 是否显示搜索
   search: boolean;
   // 菜单生成函数
-  buildMenuFn: () => Promise<MenuTreeItem[]>;
+  buildMenuFn: () => Promise<MenuItem[]>;
   // 菜单mode
   mode: MenuModeEnum;
   // 菜单类型
@@ -74,6 +79,6 @@ export interface MenuProps {
 }
 
 export interface MenuData {
-  allMenus: MenuTreeItem[];
-  flatMenus: MenuTreeItem[];
+  allMenus: MenuItem[];
+  flatMenus: MenuItem[];
 }

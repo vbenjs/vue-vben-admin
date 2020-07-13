@@ -53,7 +53,7 @@
                 <LayoutSideBar />
               )}
               <Layout class={`${prefixCls}__content`}>
-                {!isShowMixHeader && <LayoutHeader />}
+                {!isShowMixHeader && !unref(getFullContent) && <LayoutHeader />}
 
                 {showTabs && !unref(getFullContent) ? (
                   <Layout.Header class={`${prefixCls}__tabs`}>

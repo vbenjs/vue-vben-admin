@@ -1,15 +1,12 @@
 import { buildUUID } from '@/utils/uuid';
 import { isArray } from '@/utils/is/index';
-import { sort } from './util';
 import {
   MenuItem,
   FormatConfig,
   // FormatMenuResult,
   BuildMenuModuleResult,
   RouteConfigEx,
-} from '@/router/type';
-
-import { permissionStore } from '@/store/modules/permission';
+} from '@/router/types';
 
 import { list2Tree } from '@/utils/helper/treeHelper';
 
@@ -29,7 +26,8 @@ function formatterMenu({ menu, parentPath = '', parentId = null }: FormatConfig)
     const { children, path, id } = menu;
     const fixedPath = path.replace(/\/{1,}/g, '/');
     menu.parentId = parentId;
-    menu.path = `${menu.path.startsWith(fixedParentPath) ? '' : fixedParentPath}${fixedPath}`;
+    menu.path = `${fixedParentPath}${fixedPath}`;
+    // menu.path = `${menu.path.startsWith(fixedParentPath) ? '' : fixedParentPath}${fixedPath}`;
     if (children && isArray(children)) {
       formatterMenu({
         menu: children,
@@ -37,9 +35,13 @@ function formatterMenu({ menu, parentPath = '', parentId = null }: FormatConfig)
         parentId: id,
       });
     }
-    if (rootRoutes.some((item) => item.path === menu.path)) {
-      flatMenus.push(menu);
+    const menuByRoute = rootRoutes.find((item) => item.path === menu.path);
+    // if (rootRoutes.some((item) => item.path === menu.path)) {
+    // }
+    if (menuByRoute && menuByRoute.meta && menuByRoute.meta.roles) {
+      menu.roles = menuByRoute.meta.roles;
     }
+    flatMenus.push(menu);
   } else {
     for (const menuItem of menu) {
       formatterMenu({
@@ -65,12 +67,12 @@ function flatRootRoutes(routeList: RouteConfigEx[]) {
 /**
  * @description: 生成菜单模块
  */
-function buildMenuModule(routes: RouteConfigEx[]): BuildMenuModuleResult {
+export function buildMenuModule(routes: RouteConfigEx[]): BuildMenuModuleResult {
   const routeList = routes.find((item) => item.path === '/')!.children as RouteConfigEx[];
   flatRootRoutes(routeList);
 
   flatMenus = [];
-  const menuList = require.context('./menus/', true, /^[^_]*\.ts$/);
+  const menuList = require.context('@/router/menus/', true, /^[^_]*\.ts$/);
 
   menuList.keys().forEach((fileName: string) => {
     try {
@@ -84,19 +86,4 @@ function buildMenuModule(routes: RouteConfigEx[]): BuildMenuModuleResult {
 
   const list = list2Tree<MenuItem>(flatMenus);
   return { allMenus: list, flatMenus };
-}
-
-// TODO 异步加载  可用于菜单从后台读取
-export async function buildMenu(): Promise<BuildMenuModuleResult> {
-  const { flatMenus, allMenus } = buildMenuModule(permissionStore.getRoutesState);
-  // getMenuApi({ username: 'admin' }).then((result) => {
-  //   console.log('======================');
-  //   console.log('菜单信息', result);
-  //   console.log('======================');
-  // });
-
-  return {
-    allMenus: sort(allMenus),
-    flatMenus,
-  };
 }

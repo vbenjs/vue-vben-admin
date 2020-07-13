@@ -8,9 +8,10 @@ import {
   RouterOptions,
   Route,
 } from 'vue-router/types/router';
+
 import { MenuModeEnum, MenuThemeEnum } from '@/enums/menuEnum';
 import Router from 'vue-router';
-
+import { RoleEnum } from '@/enums/roleEnum';
 export {
   Route,
   Component,
@@ -77,6 +78,9 @@ export interface MenuItem {
 
   // 排序
   orderNo?: number;
+
+  // 角色信息
+  roles?: RoleEnum[];
 }
 
 export interface Meta {
@@ -84,7 +88,7 @@ export interface Meta {
   title: string;
   // 是否忽略权限
   ignoreAuth?: boolean;
-  roles?: string[];
+  roles?: RoleEnum[];
   // 是否不缓存
   noKeepAlive?: boolean;
   // 是否固定在tab上

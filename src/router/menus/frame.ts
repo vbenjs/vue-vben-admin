@@ -1,4 +1,4 @@
-import { NormMenuItem } from '@/router/type';
+import { NormMenuItem } from '@/router/types';
 
 export const orderNo = 100;
 export default {

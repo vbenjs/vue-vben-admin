@@ -1,5 +1,5 @@
 import { unref, computed } from 'compatible-vue';
-import { PageEnum } from '@/enums/pageEnum';
+import { pageEnum } from '@/enums/pageEnum';
 import { getRuntimeVM } from '@/setup/vue/runtimeVm';
 
 export const useRouter = () => {
@@ -22,10 +22,10 @@ export const useRedo = () => {
  * @description: 跳转页面
  */
 export const useGo = ({
-  path = PageEnum.BASE_HOME,
+  path = pageEnum.BASE_HOME,
   replace = true,
 }: {
-  path?: PageEnum;
+  path?: pageEnum;
   replace?: boolean;
 } = {}) => {
   const { router } = useRouter();

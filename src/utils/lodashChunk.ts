@@ -5,3 +5,4 @@
 //  export  {default as xxx} from 'lodash/xxx'
 
 export { default as cloneDeep } from 'lodash/cloneDeep';
+export { default as intersection } from 'lodash/intersection';

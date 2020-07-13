@@ -1,4 +1,4 @@
-import { RouteConfigEx } from '@/router/type';
+import { RouteConfigEx } from '@/router/types';
 import { DEFAULT_LAYOUT_COMPONENT } from '@/router/constant';
 import { createAsyncComponent } from '@/common/factory/AsyncComponentFactory';
 /**

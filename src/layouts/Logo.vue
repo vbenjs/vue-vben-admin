@@ -5,7 +5,7 @@
   import { useDesign } from '@/hooks/core/useDesign';
   import { useSetting } from '@/hooks/core/useSetting';
 
-  import { PageEnum } from '@/enums/pageEnum';
+  import { pageEnum } from '@/enums/pageEnum';
   import logo from '@/assets/images/logo.png';
 
   export default defineComponent({
@@ -21,7 +21,7 @@
       const { globSetting } = useSetting();
 
       function handleGoHome() {
-        root.$router.push(PageEnum.BASE_HOME);
+        root.$router.push(pageEnum.BASE_HOME);
       }
       return () => {
         const { showTitle } = props;

@@ -1,4 +1,4 @@
-import { RouteConfigEx, LayoutType, ModuleRouteConfig } from '@/router/type';
+import { RouteConfigEx, LayoutType, ModuleRouteConfig } from '@/router/types';
 
 import { createAsyncComponent } from '@/common/factory/AsyncComponentFactory';
 import { PAGE_LAYOUT_COMPONENT } from '@/router/constant';
@@ -9,7 +9,6 @@ const ExceptionPage = () => createAsyncComponent(import('@/views/sys/exception/i
 const prefix = '/exception';
 
 const layout: LayoutType = {
-  path: prefix,
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
     title: '异常页',

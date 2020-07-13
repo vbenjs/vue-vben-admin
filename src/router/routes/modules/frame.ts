@@ -1,4 +1,4 @@
-import { RouteConfigEx, LayoutType, ModuleRouteConfig } from '@/router/type';
+import { RouteConfigEx, LayoutType, ModuleRouteConfig } from '@/router/types';
 
 import { createAsyncComponent } from '@/common/factory/AsyncComponentFactory';
 import { PAGE_LAYOUT_COMPONENT } from '@/router/constant';
@@ -8,7 +8,6 @@ const IFrame = () => createAsyncComponent(import('@/views/sys/iframe/FrameBlank.
 const prefix = '/frame';
 
 const layout: LayoutType = {
-  path: prefix,
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
     title: '外部页面',

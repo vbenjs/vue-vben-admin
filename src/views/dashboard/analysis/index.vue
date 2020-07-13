@@ -31,7 +31,7 @@
           </Row>
 
           <Row>
-            <Col md={24} lg={17} class="p-3 ">
+            <Col md={24} lg={17} class="pr-6 my-3">
               <CollapseContainer title="产品成交额" canExpan={false}>
                 <AnalysisLine />
               </CollapseContainer>
@@ -48,7 +48,7 @@
                 </Col>
               </Row>
             </Col>
-            <Col md={24} lg={7} class="pt-3 pr-3">
+            <Col md={24} lg={7} class="my-3">
               <CollapseContainer title="项目进度" canExpan={false}>
                 <TaskCard />
                 <TaskCard />
@@ -56,7 +56,7 @@
               </CollapseContainer>
             </Col>
           </Row>
-          <Row class="p-3">
+          <Row class="mt-3">
             <FlowAnalysis />
           </Row>
         </div>

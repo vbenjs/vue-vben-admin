@@ -1,14 +1,15 @@
-import { RouteConfigEx, LayoutType, ModuleRouteConfig } from '@/router/type';
+import { RouteConfigEx, LayoutType, ModuleRouteConfig } from '@/router/types';
 
 import { createAsyncComponent } from '@/common/factory/AsyncComponentFactory';
 import { PAGE_LAYOUT_COMPONENT } from '@/router/constant';
 
+import { pageEnum } from '@/enums/pageEnum';
+
 const prefix = '/dashboard';
 
 const layout: LayoutType = {
-  path: prefix,
   component: PAGE_LAYOUT_COMPONENT,
-  redirect: '/dashboard/welcome',
+  redirect: pageEnum.BASE_HOME,
   meta: {
     title: 'Dashboard',
   },

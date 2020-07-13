@@ -1,7 +1,8 @@
-import { ModuleRouteConfig, RouteConfigEx } from '@/router/type';
+import { ModuleRouteConfig, RouteConfigEx } from '@/router/types';
 import { RouteConfig } from 'vue-router/types/router';
-
+// import { cloneDeep } from '@/utils/lodashChunk';
 import { buildUUID } from '@/utils/uuid';
+
 /**
  * @description: 替换斜杠
  */
@@ -12,16 +13,32 @@ function replaceReq(path: string): string {
 /**
  * @description:为路由添加前缀
  */
-function addRoutePrefix(route: RouteConfigEx, prefix: string): void {
+function addRoutePrefix(route: RouteConfigEx, prefix: string, resChildren: RouteConfigEx[]): void {
   const { path, children } = route;
+
   const reqPath = prefix ? replaceReq(prefix) : '';
 
-  const fullPath = (!path.startsWith(reqPath) ? reqPath : '') + replaceReq(path);
+  const isAddPrefix = (route as any).isAddPrefix;
+
+  let fullPath = '';
+  const match = (/^\/(.*)\//.exec(replaceReq(path)) || [])[0];
+  if (path !== match && !isAddPrefix) {
+    fullPath = reqPath + replaceReq(path);
+  } else {
+    fullPath = replaceReq(path);
+  }
 
   route.path = fullPath;
+  Reflect.defineProperty(route, 'isAddPrefix', {
+    configurable: false,
+    enumerable: false,
+    value: true,
+    writable: false,
+  });
+  resChildren.push(route);
   if (children) {
     children.forEach((child) => {
-      addRoutePrefix(child, prefix);
+      addRoutePrefix(child, prefix + replaceReq(path), resChildren);
     });
   }
 }
@@ -34,17 +51,19 @@ export function buildRouteModule(
 ): RouteConfigEx | RouteConfigEx[] {
   const { routes, prefix, layout } = routeModule;
 
+  const children: RouteConfigEx[] = [];
   for (const route of routes) {
-    addRoutePrefix(route, prefix);
+    addRoutePrefix(route, prefix, children);
   }
   const _layout = layout as RouteConfigEx;
   if (layout) {
     const uuid = buildUUID();
     _layout.name = _layout.name || uuid;
     _layout.path = _layout.path || replaceReq(uuid);
-    layout.children = routes;
+    layout.children = children;
   }
-  return _layout || routes;
+
+  return _layout || children;
 }
 /** 对路由进行排序 */
 export const sort = <T extends any[] = ModuleRouteConfig[]>(routes: T): T => {

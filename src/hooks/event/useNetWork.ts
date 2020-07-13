@@ -4,8 +4,10 @@ import Router from 'vue-router';
 
 import { isBoolean } from '@/utils/is/index';
 
-import { PageEnum } from '@/enums/pageEnum';
+import { pageEnum } from '@/enums/pageEnum';
 import { ExceptionEnum } from '@/enums/exceptionEnum';
+
+import { appStore } from '@/store/modules/app';
 
 const ON_LINE = 'online';
 const OFF_LINE = 'offline';
@@ -20,12 +22,15 @@ export function useNetWork(router: Router): void {
     (onLine, oldValue): void => {
       // 无网转有网
       if (isBoolean(oldValue) && !oldValue && onLine) {
-        router.replace(PageEnum.BASE_HOME);
+        router.replace(pageEnum.BASE_HOME);
+        setTimeout(() => {
+          appStore.commitPageLoadingState(false);
+        }, 300);
       } else if (isBoolean(onLine) && !onLine && oldValue) {
         // 有网转无网
         offlineAt.value = Date.now();
         router.replace({
-          path: PageEnum.ERROR_PAGE,
+          path: pageEnum.ERROR_PAGE,
           query: {
             status: String(ExceptionEnum.NET_WORK_ERROR),
           },

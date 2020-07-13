@@ -1,6 +1,6 @@
 import { NavigationGuard, Location } from 'vue-router/types/router';
 
-import { PageEnum } from '@/enums/pageEnum';
+import { pageEnum } from '@/enums/pageEnum';
 
 import { getToken } from '@/utils/auth/index';
 import { permissionStore } from '@/store/modules/permission';
@@ -21,20 +21,20 @@ export function createAuthGuard(): NavigationGuard {
           permissionStore.commitHasRouteState(false);
           // 跳转登录界面
           const redirectPath = to.path
-            ? `${PageEnum.BASE_LOGIN}?redirect=${to.path}`
-            : PageEnum.BASE_LOGIN;
+            ? `${pageEnum.BASE_LOGIN}?redirect=${to.path}`
+            : pageEnum.BASE_LOGIN;
           next(redirectPath);
         }
         return;
       }
-      if ([PageEnum.BASE_LOGIN].includes(to.path as PageEnum)) {
+      if ([pageEnum.BASE_LOGIN].includes(to.path as pageEnum)) {
         next();
         return;
       }
 
       // 已经请求过接口了
       if (permissionStore.getHasRouteState) {
-        to.path === '/' ? next({ path: PageEnum.BASE_HOME, replace: true }) : next();
+        to.path === '/' ? next({ path: pageEnum.BASE_HOME, replace: true }) : next();
         return;
       }
       const addRoutes = permissionStore.getRoutesState;

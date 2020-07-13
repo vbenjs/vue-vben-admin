@@ -1,9 +1,9 @@
 <script lang="tsx">
   import { defineComponent, PropOptions } from 'compatible-vue';
-  import { BasicMenu, MenuTreeItem } from '@/components/menu/index';
+  import { BasicMenu, MenuItem } from '@/components/menu/index';
   import Logo from '@/layouts/Logo.vue';
 
-  import { PageEnum } from '@/enums/pageEnum';
+  import { pageEnum } from '@/enums/pageEnum';
   import { MenuTypeEnum } from '@/enums/menuEnum';
 
   // hooks
@@ -12,11 +12,9 @@
 
   // store
   import { appStore } from '@/store/modules/app';
-
-  //
-  import { buildMenu } from '@/router/buildMenu';
+  import { buildMenuListAction } from '@/store/modules/menu';
   // res
-  import { RouteConfigEx } from '@/router/type';
+  import { RouteConfigEx } from '@/router/types';
 
   // import
   export default defineComponent({
@@ -30,16 +28,11 @@
     setup(props) {
       const { prefixCls } = useDesign('layout-menu');
 
-      function handleMenuClick({
-        targetRoute,
-      }: {
-        menu?: MenuTreeItem;
-        targetRoute: RouteConfigEx;
-      }) {
+      function handleMenuClick({ targetRoute }: { menu?: MenuItem; targetRoute: RouteConfigEx }) {
         const { path } = targetRoute;
         // const { path, meta: { frameSrc } = {} } = targetRoute;
         if (path) {
-          useGo({ path: path as PageEnum, replace: false });
+          useGo({ path: path as pageEnum, replace: false });
         }
       }
       return () => {
@@ -55,7 +48,7 @@
 
         return (
           <BasicMenu
-            buildMenuFn={buildMenu}
+            buildMenuFn={buildMenuListAction}
             onMenuClick={handleMenuClick}
             type={menuType}
             mode={mode}

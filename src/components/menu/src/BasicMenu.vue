@@ -4,6 +4,7 @@
   import { Icon } from '@/components/icon/index';
   import SearchInput from './SearchInput.vue';
   import { ScrollContainer, TypeEnum } from '@/components/container/index';
+  import { intersection } from '@/utils/lodashChunk';
   import {
     defineComponent,
     reactive,
@@ -23,22 +24,25 @@
 
   // enums
   import { MenuTypeEnum, MenuThemeEnum, MenuModeEnum } from '@/enums/menuEnum';
+  import { pageEnum } from '@/enums/pageEnum';
 
   // types
-  import { MenuState, MenuProps, MenuTreeItem, MenuData } from './type';
+  import { MenuState, MenuProps, MenuItem, MenuData } from './types';
   // import { MenuItem } from '@/router/menus/_type';
 
   // hook
   import { useDesign } from '@/hooks/core/useDesign';
   import { usePromise } from '@/hooks/core/usePromise';
   import { useSearchInput, useOpenKeys, useSideBar, menuHasChildren } from './useMenu';
+  import { useRouter } from '@/hooks/core/useRouter';
 
   // store
   import { menuStore } from '@/store/modules/menu';
   import { appStore } from '@/store/modules/app';
 
   import { getSlot } from '@/utils/helper/tsxHelper';
-  import { permissionStore } from '../../../store/modules/permission';
+  import { permissionStore } from '@/store/modules/permission';
+  import { RoleEnum } from '../../../enums/roleEnum';
 
   export default defineComponent({
     name: 'BasicMenu',
@@ -77,6 +81,7 @@
       // },
     },
     setup(props: MenuProps, { emit, slots }) {
+      const { router } = useRouter();
       const menuState = reactive<MenuState>({
         defaultSelectedKeys: [],
         mode: props.mode,
@@ -148,13 +153,13 @@
       );
 
       // 菜单点击
-      function handleMenuClick(menu: MenuTreeItem): void {
+      function handleMenuClick(menu: MenuItem): void {
         const { id, path } = menu;
 
         const allRoutes = permissionStore.getFlatRoutes;
         const targetRoute = allRoutes.find((item) => item.path === path);
-
         if (!targetRoute) {
+          router.push(pageEnum.ERROR_PAGE);
           return;
         }
         const { meta: { externalLink } = {} } = targetRoute;
@@ -180,7 +185,7 @@
       /**
        * @description:  渲染内容
        */
-      function renderItemContent(menu: Pick<MenuTreeItem, 'name' | 'icon'>) {
+      function renderItemContent(menu: Pick<MenuItem, 'name' | 'icon'>) {
         const { name, icon } = menu;
         const { searchValue } = menuState;
         const index = name.indexOf(searchValue);
@@ -205,15 +210,22 @@
       /**
        * @description: 生成菜单
        */
-      function renderMenuItem(menuList: MenuTreeItem[], index = 1) {
+      function renderMenuItem(menuList: MenuItem[], index = 1) {
         if (!menuList) {
           return;
         }
         // const { prefixCls } = useDesign('menu');
         return menuList.map((menu) => {
-          const { id, children } = menu;
+          const { id, children, roles } = menu;
           const theme = appStore.getProjCfg.headerSetting.theme;
           const levelCls = `${prefixCls}-item__level${index} ${theme}`;
+          if (roles) {
+            const intersectionRole: RoleEnum[] = intersection(roles, permissionStore.getRoleState);
+            if (intersectionRole.length === 0) {
+              return null;
+            }
+          }
+
           // 没有子节点
           if (!menuHasChildren(menu)) {
             return (

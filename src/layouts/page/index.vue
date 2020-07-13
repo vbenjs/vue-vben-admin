@@ -62,8 +62,6 @@
   @prefix-cls: ~'@{namespace}-page-layout';
 
   .@{prefix-cls} {
-    width: 100%;
-    height: 100%;
-    padding: 16px;
+    .size(100%);
   }
 </style>

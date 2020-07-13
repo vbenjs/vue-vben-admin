@@ -1,4 +1,4 @@
-import { RouteConfigEx, LayoutType, ModuleRouteConfig } from '@/router/type';
+import { RouteConfigEx, LayoutType, ModuleRouteConfig } from '@/router/types';
 
 import { USER_LAYOUT_COMPONENT } from '@/router/constant';
 

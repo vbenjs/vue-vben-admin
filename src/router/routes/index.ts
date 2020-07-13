@@ -1,6 +1,6 @@
 import { RouteConfig } from 'vue-router/types/router';
-import { ModuleRouteConfig } from '@/router/type';
-import { parseRouteModule, sort } from '@/router/util';
+import { ModuleRouteConfig } from '@/router/types';
+import { parseRouteModule, sort } from '@/router/helper/routeHelper';
 
 import { mainInRoutes, basicRoutes } from './basic';
 import { getModulesRoute } from './getModules';

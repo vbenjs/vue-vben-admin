@@ -10,7 +10,7 @@
 
   import { TabContentEnum, TabContentProps } from './tab.data';
   import projectSetting from '@/settings/projectSetting';
-  import { PageEnum } from '@/enums/pageEnum';
+  import { pageEnum } from '@/enums/pageEnum';
 
   export default defineComponent({
     name: 'MultiTabs',
@@ -47,7 +47,7 @@
         });
       }
       // tab切换
-      function handleChange(activeKey: PageEnum) {
+      function handleChange(activeKey: pageEnum) {
         activeKeyRef.value = activeKey;
         useGo({ path: activeKey, replace: false });
       }

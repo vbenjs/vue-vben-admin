@@ -63,7 +63,7 @@
 
     /deep/ .el-scrollbar__view {
       &.main-scrollbar__view {
-        padding: 1px;
+        padding: 16px;
         box-sizing: border-box;
       }
     }

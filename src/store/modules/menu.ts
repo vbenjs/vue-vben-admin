@@ -2,6 +2,15 @@ import store from '@/store';
 import { VuexModule, Module, getModule, Mutation } from 'vuex-module-decorators';
 
 import { appStore } from '@/store/modules/app';
+
+import { MenuItem, BuildMenuModuleResult } from '@/router/types';
+
+import { getAsyncRoutes } from '@/router/index';
+
+import { buildMenuModule } from '@/router/helper/menuHelper';
+import { sort } from '@/router/helper/routeHelper';
+
+// import { permissionStore } from '@/store/modules/permission';
 export interface MenuState {
   // 菜单展开状态
   collapsedState: boolean;
@@ -9,15 +18,25 @@ export interface MenuState {
   menuWidthState: number;
   //  拖拽状态
   dragStartState: boolean;
+  // 菜单列表
+  menuListState: MenuItem[];
+  // 扁平化菜单数组
+  flatMenuListState: MenuItem[];
 }
 @Module({ namespaced: true, name: 'menu', dynamic: true, store })
 class Menu extends VuexModule implements MenuState {
   // 默认展开
   collapsedState = appStore.getProjCfg.menuSetting.collapsed;
 
+  // 菜单宽度
   menuWidthState = appStore.getProjCfg.menuSetting.menuWidth;
 
+  // 是否开始拖拽
   dragStartState = false;
+
+  menuListState: MenuItem[] = [];
+
+  flatMenuListState: MenuItem[] = [];
 
   /**
    * @description: 获取窗口名称
@@ -37,6 +56,16 @@ class Menu extends VuexModule implements MenuState {
   @Mutation
   commitDragStartState(dragStart: boolean): void {
     this.dragStartState = dragStart;
+  }
+
+  @Mutation
+  commitMenuListState(menuList: MenuItem[]): void {
+    this.menuListState = menuList;
+  }
+
+  @Mutation
+  commitFlatMenuListState(menuList: MenuItem[]): void {
+    this.flatMenuListState = menuList;
   }
 
   // 改变菜单展开状态
@@ -61,6 +90,18 @@ class Menu extends VuexModule implements MenuState {
       },
     });
   }
+}
+export async function buildMenuListAction(): Promise<BuildMenuModuleResult> {
+  const menuStore = getModule<Menu>(Menu);
+  // const { flatMenus, allMenus } = buildMenuModule(permissionStore.getRoutesState);
+  const { flatMenus, allMenus } = buildMenuModule(getAsyncRoutes());
+  const menus = sort(allMenus);
+  menuStore.commitMenuListState(menus);
+  menuStore.commitFlatMenuListState(sort(flatMenus));
+  return {
+    allMenus: menus,
+    flatMenus,
+  };
 }
 export { Menu };
 export const menuStore = getModule<Menu>(Menu);

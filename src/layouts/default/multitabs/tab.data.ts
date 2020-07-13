@@ -1,5 +1,5 @@
 import { DropMenu } from '@/components/dropdown/index';
-import { RouteEx } from '@/router/type';
+import { RouteEx } from '@/router/types';
 import { TabItem } from '@/store/modules/tab';
 
 export enum TabContentEnum {

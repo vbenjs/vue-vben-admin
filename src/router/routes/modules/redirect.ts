@@ -1,4 +1,4 @@
-import { RouteConfigEx, LayoutType, ModuleRouteConfig } from '@/router/type';
+import { RouteConfigEx, LayoutType, ModuleRouteConfig } from '@/router/types';
 
 import { createAsyncComponent } from '@/common/factory/AsyncComponentFactory';
 import { PAGE_LAYOUT_COMPONENT } from '@/router/constant';
@@ -6,7 +6,6 @@ import { PAGE_LAYOUT_COMPONENT } from '@/router/constant';
 const prefix = '';
 
 const layout: LayoutType = {
-  path: prefix,
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
     title: 'Redirect',

@@ -1,6 +1,6 @@
 // type
 import { Ref, computed, unref, watch } from 'compatible-vue';
-import { MenuData, MenuProps, MenuState, MenuTreeItem } from './type';
+import { MenuData, MenuProps, MenuState, MenuItem } from './types';
 import { MenuTypeEnum, MenuModeEnum } from '@/enums/menuEnum';
 import { Route } from 'vue-router/types/index';
 // import { MenuTreeItem } from '@/router/menus/_type';
@@ -15,18 +15,18 @@ import { useRouter } from '@/hooks/core/useRouter';
 /**
  * @description: 菜单是否有子节点
  */
-export function menuHasChildren(MenuTreeItem: MenuTreeItem): boolean {
+export function menuHasChildren(menuTreeItem: MenuItem): boolean {
   return (
-    Reflect.has(MenuTreeItem, 'children') &&
-    !!MenuTreeItem.children &&
-    MenuTreeItem.children.length > 0
+    Reflect.has(menuTreeItem, 'children') &&
+    !!menuTreeItem.children &&
+    menuTreeItem.children.length > 0
   );
 }
 
 /**
  * @description: 获取菜单的全部父级id
  */
-export function getAllParentKey(menu: MenuTreeItem, allMenuList: MenuTreeItem[]): string[] {
+export function getAllParentKey(menu: MenuItem, allMenuList: MenuItem[]): string[] {
   // const flatMenuList = flatTreeData(allMenuList, 'children');
   const menuParentIdList: string[] = [];
 
@@ -50,7 +50,7 @@ export function useOpenKeys(menuState: MenuState, getAllMenu: Ref<MenuData>) {
   /**
    * @description:设置展开
    */
-  function setOpenKeys(route: MenuTreeItem) {
+  function setOpenKeys(route: MenuItem) {
     const { flatMenus } = unref(getAllMenu);
     const openKeys = getAllParentKey(route, flatMenus);
     menuState.openKeys = openKeys;
@@ -132,7 +132,7 @@ export function useSideBar({
 }: {
   menuState: MenuState;
   getAllMenu: Ref<MenuData>;
-  setOpenKeys: (route: MenuTreeItem) => void;
+  setOpenKeys: (route: MenuItem) => void;
   resetKeys: () => void;
 }) {
   const { route } = useRouter();

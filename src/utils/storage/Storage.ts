@@ -5,6 +5,7 @@ export interface CreateStorageParams extends EncryptionParams {
   hasEncrypt: boolean;
 }
 export const createStorage = ({
+  prefixKey = '',
   key = storageCipher.key,
   iv = storageCipher.iv,
   storage = sessionStorage,
@@ -25,6 +26,8 @@ export const createStorage = ({
     private storage: Storage;
     private encryption: Encryption;
     private hasEncrypt: boolean;
+    private prefixKey?: string;
+
     /**
      *
      * @param {*} storage
@@ -33,6 +36,11 @@ export const createStorage = ({
       this.storage = storage;
       this.encryption = encryption;
       this.hasEncrypt = hasEncrypt;
+      this.prefixKey = prefixKey;
+    }
+
+    getKey(key: string) {
+      return `${this.prefixKey}${key}`;
     }
 
     /**
@@ -51,7 +59,7 @@ export const createStorage = ({
       const stringifyValue = this.hasEncrypt
         ? this.encryption.encryptByAES(stringData)
         : stringData;
-      this.storage.setItem(key, stringifyValue);
+      this.storage.setItem(this.getKey(key), stringifyValue);
     }
 
     /**
@@ -62,7 +70,7 @@ export const createStorage = ({
      * @memberof Cache
      */
     get(key: string, def: any = null): any {
-      const item = this.storage.getItem(key);
+      const item = this.storage.getItem(this.getKey(key));
       if (item) {
         const decItem = this.hasEncrypt ? this.encryption.decryptByAES(item) : item;
         try {
@@ -71,7 +79,7 @@ export const createStorage = ({
           if (expire === null || expire >= new Date().getTime()) {
             return value;
           }
-          this.remove(key);
+          this.remove(this.getKey(key));
         } catch (e) {
           return def;
         }
@@ -86,7 +94,7 @@ export const createStorage = ({
      * @memberof Cache
      */
     remove(key: string) {
-      this.storage.removeItem(key);
+      this.storage.removeItem(this.getKey(key));
     }
 
     /**
@@ -109,7 +117,7 @@ export const createStorage = ({
      */
     setCookie(name: string, value: any, expire: number | null = null) {
       value = this.hasEncrypt ? this.encryption.encryptByAES(JSON.stringify(value)) : value;
-      document.cookie = name + '=' + value + '; Max-Age=' + expire;
+      document.cookie = this.getKey(name) + '=' + value + '; Max-Age=' + expire;
     }
 
     /**
@@ -121,7 +129,7 @@ export const createStorage = ({
       const arr = document.cookie.split('; ');
       for (let i = 0; i < arr.length; i++) {
         const arr2 = arr[i].split('=');
-        if (arr2[0] === name) {
+        if (arr2[0] === this.getKey(name)) {
           let message: any = null;
           const str = arr2[1];
           if (this.hasEncrypt && str) {
@@ -143,7 +151,7 @@ export const createStorage = ({
      * @param name cookie名字
      */
     removeCookie(key: string) {
-      this.setCookie(key, 1, -1);
+      this.setCookie(this.getKey(key), 1, -1);
     }
 
     clearCookie(): void {

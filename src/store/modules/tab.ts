@@ -1,8 +1,8 @@
 import { unref } from 'compatible-vue';
 import { Action, Module, Mutation, VuexModule, getModule } from 'vuex-module-decorators';
 
-import { PageEnum } from '@/enums/pageEnum';
-import { RouteEx, Meta } from '@/router/type';
+import { pageEnum } from '@/enums/pageEnum';
+import { RouteEx, Meta } from '@/router/types';
 import projectSetting from '@/settings/projectSetting';
 
 import { useRouter } from '@/hooks/core/useRouter';
@@ -67,7 +67,7 @@ class Tab extends VuexModule implements TabState {
   commitAddTab(route: RouteEx | TabItem): void {
     const { path, name, meta } = route;
     // 404  页面不需要添加tab
-    if (path === PageEnum.ERROR_PAGE) {
+    if (path === pageEnum.ERROR_PAGE) {
       return;
     } else if (/\/redirect\//.test(path)) {
       return;

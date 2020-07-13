@@ -11,12 +11,12 @@ import {
 } from './tab.data';
 
 import { Ref, computed, unref } from 'compatible-vue';
-import { RouteConfigEx, RouteEx } from '@/router/type';
+import { RouteConfigEx, RouteEx } from '@/router/types';
 import { useGo, useRedo, useRouter } from '@/hooks/core/useRouter';
 import { useTabs } from '@/hooks/functions/useTabs';
 
 import { DropMenu } from '@/components/dropdown/index';
-import { PageEnum } from '@/enums/pageEnum';
+import { pageEnum } from '@/enums/pageEnum';
 import { tabStore, TabItem } from '@/store/modules/tab';
 import { permissionStore } from '@/store/modules/permission';
 
@@ -66,14 +66,14 @@ export function closeTab(closedTab: TabItem) {
     return;
   }
   // 关闭的为激活atb
-  let toPath: PageEnum | string;
+  let toPath: pageEnum | string;
   const index = unref(getTabsState).findIndex((item) => item.path === path);
 
   // 如果当前为最左边tab
   if (index === 0) {
     // 只有一个tab，则跳转至首页，否则跳转至右tab
     if (unref(getTabsState).length === 1) {
-      toPath = PageEnum.BASE_HOME;
+      toPath = pageEnum.BASE_HOME;
     } else {
       //  跳转至右边tab
       toPath = unref(getTabsState)[index + 1].path;
@@ -84,7 +84,7 @@ export function closeTab(closedTab: TabItem) {
   }
   tabStore.commitCloseTab(unref(route));
 
-  useGo({ path: toPath as PageEnum, replace: true });
+  useGo({ path: toPath as pageEnum, replace: true });
 }
 
 /**
@@ -158,13 +158,13 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
     const len = unref(getTabsState).length;
     const { path } = unref(route);
 
-    let toPath: PageEnum | string = PageEnum.BASE_HOME;
+    let toPath: pageEnum | string = pageEnum.BASE_HOME;
 
     if (len > 0) {
       toPath = unref(getTabsState)[len - 1].path;
     }
     // 跳到当前页面报错
-    path !== toPath && useGo({ path: toPath as PageEnum, replace: true });
+    path !== toPath && useGo({ path: toPath as pageEnum, replace: true });
   }
 
   function isGotoPage(currentTab?: TabItem) {
@@ -172,7 +172,7 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
     const currentPath = (currentTab || unref(getCurrentTab)).path;
     // 不是当前tab，关闭左侧/右侧时，需跳转页面
     if (path !== currentPath) {
-      useGo({ path: currentPath as PageEnum, replace: true });
+      useGo({ path: currentPath as pageEnum, replace: true });
     }
   }
   function refreshPage() {

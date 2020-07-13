@@ -4,7 +4,7 @@ import { permissionStore } from '@/store/modules/permission';
 import { tabStore } from '@/store/modules/tab';
 import { appStore } from '@/store/modules/app';
 
-import { RouteConfigEx } from '@/router/type';
+import { RouteConfigEx } from '@/router/types';
 
 import { useRouter } from '@/hooks/core/useRouter';
 

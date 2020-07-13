@@ -3,11 +3,12 @@ import store from '@/store/index';
 import { VuexModule, Mutation, Module, getModule } from 'vuex-module-decorators';
 
 import { filterAsyncRoutes } from '@/utils/auth/getRoutes';
+import { RoleEnum } from '@/enums/roleEnum';
 
 import { getAsyncRoutes } from '@/router/index';
 
 import { ROLES_KEY } from '@/enums/cacheEnum';
-import { RouteConfigEx } from '@/router/type';
+import { RouteConfigEx } from '@/router/types';
 
 import { setSession, getSession, removeSession } from '@/store/persistent';
 
@@ -26,7 +27,7 @@ function getFlatRoutes(routes: RouteConfigEx[]): RouteConfigEx[] {
 @Module({ dynamic: true, namespaced: true, store, name: 'permission' })
 class Permission extends VuexModule {
   // 角色列表
-  roleState: string[] = getSession(ROLES_KEY) || [];
+  roleState: RoleEnum[] = getSession(ROLES_KEY) || [];
 
   // 用户路由
   routesState: RouteConfigEx[] = [];
@@ -34,7 +35,7 @@ class Permission extends VuexModule {
   // 是否已经请求过路由权限
   hasRouteState = false;
 
-  get getRoleState(): string[] {
+  get getRoleState(): RoleEnum[] {
     return this.roleState;
   }
 
@@ -52,7 +53,7 @@ class Permission extends VuexModule {
   }
 
   @Mutation
-  commitRoleState(role: string[]): void {
+  commitRoleState(role: RoleEnum[]): void {
     this.roleState = role;
     setSession(ROLES_KEY, role);
   }
