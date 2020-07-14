@@ -12,7 +12,7 @@
       const { setWatermark: set, clear: clearArea } = useWatermark(wrapRef as Ref<HTMLElement>);
 
       return () => (
-        <div ref={wrapRef} style={{ height: '300px' }}>
+        <div ref={wrapRef} class="p-4" style={{ height: '300px' }}>
           <CollapseContainer title="全局" class="mb-3">
             <Button class="mr-2" onClick={setWatermark.bind(null, 'vben')}>
               设置水印

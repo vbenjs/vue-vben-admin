@@ -21,7 +21,7 @@
         }
       }
       return () => (
-        <CollapseContainer title="Copy Example" class="mb-3">
+        <CollapseContainer title="Copy Example" class="m-4">
           <Input.Search enterButton="Copy" onSearch={handleCopy} />
         </CollapseContainer>
       );

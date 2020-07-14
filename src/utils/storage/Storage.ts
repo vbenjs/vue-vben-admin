@@ -39,8 +39,8 @@ export const createStorage = ({
       this.prefixKey = prefixKey;
     }
 
-    getKey(key: string) {
-      return `${this.prefixKey}${key}`;
+    private getKey(key: string) {
+      return `${this.prefixKey}${key}`.toUpperCase();
     }
 
     /**
@@ -151,7 +151,7 @@ export const createStorage = ({
      * @param name cookie名字
      */
     removeCookie(key: string) {
-      this.setCookie(this.getKey(key), 1, -1);
+      this.setCookie(key, 1, -1);
     }
 
     clearCookie(): void {

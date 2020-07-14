@@ -19,7 +19,7 @@
       const { prefixCls } = useDesign('analysis');
 
       return () => (
-        <div class={prefixCls}>
+        <div class={[prefixCls, 'p-4']}>
           <Row>
             {growCardList.map((item, index) => {
               return (

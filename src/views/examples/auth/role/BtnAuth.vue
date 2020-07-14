@@ -16,7 +16,7 @@
         const isAdmin = permissionStore.getRoleState.includes(RoleEnum.ADMIN);
         const isNormal = permissionStore.getRoleState.includes(RoleEnum.NORMAL);
         return (
-          <div>
+          <div class="p-4">
             <Alert
               class="my-5"
               message="由于刷新的时候会请求用户信息接口，会根据接口重置角色信息，所以刷新后界面会恢复原样，如果不需要，可以注释 src/layout/default/index.vue内的获取用户信息接口"

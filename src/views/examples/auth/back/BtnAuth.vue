@@ -37,7 +37,7 @@
       initPermissionCode('1');
       return () => {
         return (
-          <div>
+          <div class="p-4">
             <Alert
               class="my-5"
               message="目前mock了两组数据， id为1 和 2 具体返回的菜单可以在mock/sys/menu.js内查看"

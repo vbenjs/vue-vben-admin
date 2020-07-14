@@ -57,11 +57,7 @@
                   </Layout.Header>
                 ) : null}
                 <div class={`${prefixCls}__main`}>
-                  <FullLoading
-                    v-show={getPageLoading}
-                    class={`${prefixCls}__loading`}
-                    tip="加载中..."
-                  />
+                  <FullLoading v-show={getPageLoading} class={`${prefixCls}__loading`} />
                   <ScrollContainer>
                     <LayoutContent />
                   </ScrollContainer>

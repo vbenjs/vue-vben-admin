@@ -9,7 +9,7 @@
     setup() {
       const { closeAll, closeLeft, closeRight, closeOther, closeCurrent, refreshPage } = useTabs();
       return () => (
-        <div>
+        <div class="p-4">
           <CollapseContainer title="1.在下面输入框输入还存在，切换页面后内容还存在" class="mb-3">
             <Input />
           </CollapseContainer>

@@ -5,7 +5,7 @@ export enum SizeEnum {
 }
 
 export enum SizeNumberEnum {
-  DEFAULT = 32,
+  DEFAULT = 48,
   SMALL = 16,
   LARGE = 64,
 }

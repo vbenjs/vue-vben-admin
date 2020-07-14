@@ -34,7 +34,7 @@
         const { tip } = props;
         return (
           <section class={prefixCls} style={unref(getStyle)}>
-            <BasicLoading class={`${prefixCls}__loading`} tip={tip} size={SizeEnum.LARGE} />
+            <BasicLoading class={`${prefixCls}__loading`} tip={tip} size={SizeEnum.DEFAULT} />
           </section>
         );
       };

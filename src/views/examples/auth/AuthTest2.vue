@@ -5,7 +5,7 @@
     name: 'AuthTest2',
     setup() {
       return () => (
-        <div>
+        <div class="p-4">
           normal角色可见
           <input />
         </div>

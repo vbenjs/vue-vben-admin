@@ -5,7 +5,7 @@
     name: 'AuthTest1',
     setup() {
       return () => (
-        <div>
+        <div class="p-4">
           admin角色可见
           <input />
         </div>
