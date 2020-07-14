@@ -8,9 +8,11 @@ const IFrame = () => createAsyncComponent(import('@/views/sys/iframe/FrameBlank.
 const prefix = '/frame';
 
 const layout: LayoutType = {
+  path: '/frame',
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
     title: '外部页面',
+    icon: 'home|svg',
   },
 };
 

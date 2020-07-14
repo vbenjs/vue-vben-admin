@@ -8,12 +8,8 @@ import {
   RouteConfigEx,
 } from '@/router/types';
 
-import { list2Tree } from '@/utils/helper/treeHelper';
-import { sort } from '@/router/helper/routeHelper';
+import { list2Tree, treeMap } from '@/utils/helper/treeHelper';
 // import { menuStore } from '@/store/modules/menu';
-import { getAsyncRoutes } from '@/router/index';
-
-// import { getMenuApi } from '@/api/sys';
 
 let flatMenus: MenuItem[] = [];
 const rootRoutes: RouteConfigEx[] = [];
@@ -21,8 +17,9 @@ const rootRoutes: RouteConfigEx[] = [];
 /**
  * @description: 生成树级
  */
-function formatterMenu({ menu, parentPath = '', parentId = null }: FormatConfig) {
+function formatterMenu({ menu, parentPath = '', parentId = null }: FormatConfig, addPrefix = true) {
   const fixedParentPath = parentPath.replace(/\/{1,}/g, '/');
+
   // 设置层级id
   if (!isArray(menu)) {
     menu.id = buildUUID();
@@ -35,7 +32,7 @@ function formatterMenu({ menu, parentPath = '', parentId = null }: FormatConfig)
 
     let menuPath = '';
     const match = (/^\/(.*)\//.exec(fixedPath) || [])[0];
-    if (path !== match && !isAddPrefix) {
+    if (path !== match && !isAddPrefix && addPrefix) {
       menuPath = fixedParentPath + fixedPath;
     } else {
       menuPath = fixedPath;
@@ -51,26 +48,35 @@ function formatterMenu({ menu, parentPath = '', parentId = null }: FormatConfig)
       writable: false,
     });
     if (children && isArray(children)) {
-      formatterMenu({
-        menu: children,
-        parentPath: menu.path,
-        parentId: id,
-      });
+      formatterMenu(
+        {
+          menu: children,
+          parentPath: menu.path,
+          parentId: id,
+        },
+        addPrefix
+      );
     }
     const menuByRoute = rootRoutes.find((item) => item.path === menu.path);
+
     // if (rootRoutes.some((item) => item.path === menu.path)) {
     // }
-    if (menuByRoute && menuByRoute.meta && menuByRoute.meta.roles) {
+    if (menuByRoute && menuByRoute.meta) {
       menu.roles = menuByRoute.meta.roles;
+      menu.icon = menu.icon || menuByRoute.meta.icon;
     }
+
     flatMenus.push(menu);
   } else {
     for (const menuItem of menu) {
-      formatterMenu({
-        menu: menuItem,
-        parentPath: parentPath,
-        parentId: parentId,
-      });
+      formatterMenu(
+        {
+          menu: menuItem,
+          parentPath: parentPath,
+          parentId: parentId,
+        },
+        addPrefix
+      );
     }
   }
 }
@@ -105,19 +111,32 @@ export function buildMenuModule(routes: RouteConfigEx[]): BuildMenuModuleResult 
       throw new Error(error);
     }
   });
-
   const list = list2Tree<MenuItem>(flatMenus);
   return { allMenus: list, flatMenus };
 }
 
-export async function buildMenuList(): Promise<BuildMenuModuleResult> {
-  // const { flatMenus, allMenus } = buildMenuModule(permissionStore.getRoutesState);
-  const { flatMenus, allMenus } = buildMenuModule(getAsyncRoutes());
-  const menus = sort(allMenus);
-  // menuStore.commitMenuListState(menus);
-  // menuStore.commitFlatMenuListState(sort(flatMenus));
+/**
+ * 路由结构转菜单
+ */
+export function transformRouteToMenu(routes: RouteConfigEx[]): BuildMenuModuleResult {
+  flatMenus = [];
+  let menuList = treeMap(routes, {
+    conversion: (item: RouteConfigEx) => {
+      const { children = [] } = item;
+      return {
+        name: item.meta!.title,
+        path: item.path,
+        children: children.length ? children : undefined,
+      };
+    },
+  });
+  menuList = menuList.filter((item) => item.name !== 'Redirect');
+  menuList.forEach((menu) => {
+    menu && formatterMenu({ menu }, false);
+  });
+
   return {
-    allMenus: menus,
+    allMenus: menuList,
     flatMenus,
   };
 }

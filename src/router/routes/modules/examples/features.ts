@@ -6,9 +6,11 @@ import { PAGE_LAYOUT_COMPONENT } from '@/router/constant';
 const prefix = '/feat';
 
 const layout: LayoutType = {
+  path: '/feat',
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
     title: '页面功能',
+    icon: 'home|svg',
   },
 };
 

@@ -4,7 +4,12 @@
   export default defineComponent({
     name: 'AuthTest2',
     setup() {
-      return () => <div>normal角色可见</div>;
+      return () => (
+        <div>
+          normal角色可见
+          <input />
+        </div>
+      );
     },
   });
 </script>

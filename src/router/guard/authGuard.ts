@@ -4,6 +4,7 @@ import { pageEnum } from '@/enums/pageEnum';
 
 import { getToken } from '@/utils/auth/index';
 import { permissionStore } from '@/store/modules/permission';
+
 // import { userStore } from '@/store/modules/user';
 
 import { routerInstance } from '@/router/index';
@@ -37,17 +38,17 @@ export function createAuthGuard(): NavigationGuard {
         to.path === '/' ? next({ path: pageEnum.BASE_HOME, replace: true }) : next();
         return;
       }
-      const addRoutes = permissionStore.getRoutesState;
-      if (addRoutes && addRoutes.length) {
-        const { getRouteInstance } = routerInstance;
-        getRouteInstance().addRoutes(addRoutes);
-        permissionStore.commitHasRouteState(true);
-        const redirectPath = (form.query.redirect || to.path) as string;
-        const redirect = decodeURIComponent(redirectPath);
-        const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect };
-
-        next(nextData as Location);
-      }
+      permissionStore.buildRoutesAction().then((addRoutes) => {
+        if (addRoutes && addRoutes.length) {
+          const { getRouteInstance } = routerInstance;
+          getRouteInstance().addRoutes(addRoutes);
+          permissionStore.commitHasRouteState(true);
+          const redirectPath = (form.query.redirect || to.path) as string;
+          const redirect = decodeURIComponent(redirectPath);
+          const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect };
+          next(nextData as Location);
+        }
+      });
     } catch (error) {
       throw new Error(error);
     }

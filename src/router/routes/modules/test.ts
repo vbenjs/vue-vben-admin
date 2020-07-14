@@ -6,9 +6,11 @@ import { PAGE_LAYOUT_COMPONENT } from '@/router/constant';
 const prefix = '/test';
 
 const layout: LayoutType = {
+  path: '/test',
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
     title: '测试页',
+    icon: 'home|svg',
   },
 };
 

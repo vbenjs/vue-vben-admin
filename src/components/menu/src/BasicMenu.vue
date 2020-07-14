@@ -13,6 +13,7 @@
     Ref,
     unref,
     PropOptions,
+    ref,
   } from 'compatible-vue';
 
   // import projectSetting from '@/settings/projectSetting';
@@ -25,6 +26,8 @@
   // enums
   import { MenuTypeEnum, MenuThemeEnum, MenuModeEnum } from '@/enums/menuEnum';
   import { pageEnum } from '@/enums/pageEnum';
+  import { RoleEnum } from '@/enums/roleEnum';
+  import { AuthModeEnum } from '@/enums/appEnum';
 
   // types
   import { MenuState, MenuProps, MenuItem, MenuData } from './types';
@@ -32,7 +35,6 @@
 
   // hook
   import { useDesign } from '@/hooks/core/useDesign';
-  import { usePromise } from '@/hooks/core/usePromise';
   import { useSearchInput, useOpenKeys, useSideBar, menuHasChildren } from './useMenu';
   import { useRouter } from '@/hooks/core/useRouter';
 
@@ -42,11 +44,14 @@
 
   import { getSlot } from '@/utils/helper/tsxHelper';
   import { permissionStore } from '@/store/modules/permission';
-  import { RoleEnum } from '../../../enums/roleEnum';
 
   export default defineComponent({
     name: 'BasicMenu',
     props: {
+      lastBuildTime: {
+        type: Number,
+        default: 0,
+      } as PropOptions<number>,
       // 是否显示搜索框
       search: {
         type: Boolean,
@@ -93,6 +98,9 @@
         collapsedOpenKeys: [],
       });
 
+      const allMenuRef = ref<MenuItem[]>([]);
+      const loadingRef = ref(false);
+
       // computed
 
       const { prefixCls } = useDesign('menu');
@@ -133,11 +141,11 @@
       if (!buildMenuFn) {
         throw new Error('[BasicMenu]: buildMenuFn is not defined!');
       }
-      const { result, loading } = usePromise(buildMenuFn, { immediate: true });
+      // let { result, loading } = usePromise(buildMenuFn, { immediate: true });
 
       // 获取菜单Readonly<Ref<Readonly<MenuData>>>
       const getAllMenu: Ref<MenuData> = computed(() => {
-        return (unref(result) as unknown) as MenuData;
+        return (unref(allMenuRef) as unknown) as MenuData;
       });
 
       // hook
@@ -216,10 +224,13 @@
         }
         // const { prefixCls } = useDesign('menu');
         return menuList.map((menu) => {
+          if (!menu) {
+            return null;
+          }
           const { id, children, roles } = menu;
-          const theme = appStore.getProjCfg.headerSetting.theme;
+          const { authMode, headerSetting: { theme } = {} } = appStore.getProjCfg;
           const levelCls = `${prefixCls}-item__level${index} ${theme}`;
-          if (roles) {
+          if (roles && AuthModeEnum.ROLE === authMode) {
             const intersectionRole: RoleEnum[] = intersection(roles, permissionStore.getRoleState);
             if (intersectionRole.length === 0) {
               return null;
@@ -254,6 +265,21 @@
           immediate: true,
         }
       );
+      watch(
+        () => props.lastBuildTime,
+        async () => {
+          try {
+            loadingRef.value = true;
+            const allMenus = await buildMenuFn();
+            allMenuRef.value = unref(allMenus);
+          } finally {
+            loadingRef.value = false;
+          }
+        },
+        {
+          immediate: true,
+        }
+      );
       function renderMenu() {
         const isInline = props.mode === MenuModeEnum.INLINE;
 
@@ -264,6 +290,7 @@
           : {};
         const { selectedKeys, defaultSelectedKeys, mode, theme } = menuState;
         const { allMenus } = unref(getAllMenu);
+
         return (
           <Menu
             selectedKeys={selectedKeys}
@@ -286,7 +313,7 @@
 
       return () => {
         const { getCollapsedState } = menuStore;
-        return unref(loading) ? null : props.mode === MenuModeEnum.HORIZONTAL ? (
+        return unref(loadingRef) ? null : props.mode === MenuModeEnum.HORIZONTAL ? (
           renderMenu()
         ) : (
           <section class={`${prefixCls}-wrap`}>

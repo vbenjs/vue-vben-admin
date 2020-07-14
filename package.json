@@ -13,14 +13,14 @@
     "typescript"
   ],
   "scripts": {
-    "bootstrap": "yarn && cd ./mock && yarn --registry https://registry.npm.taobao.org && cd ../",
+    "bootstrap": "yarn",
     "serve": "node ./build/task/serve",
     "build": "node ./build/task/build",
     "build:no-cache": "npm run clean:cache && npm run build",
     "report": "cross-env  REPORT=true npm run build ",
     "log": "node ./build/task/log",
     "preview": "node ./build/task/preview",
-    "reinstall": "npx rimraf node_modules && yarn run bootstrap",
+    "reinstall": "npx rimraf node_modules && npx rimraf yarn.lock && yarn run bootstrap",
     "clean:cache": "npx rimraf node_modules/.cache/",
     "clean:lib": "npx rimraf node_modules",
     "test:unit": "vue-cli-service test:unit",

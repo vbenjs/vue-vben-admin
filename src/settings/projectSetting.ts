@@ -1,10 +1,13 @@
 import { ProjectConfig } from '../types/config';
 
 import { MenuTypeEnum, MenuThemeEnum, MenuModeEnum } from '@/enums/menuEnum';
-import { ContentEnum } from '@/enums/appEnum';
+import { ContentEnum, AuthModeEnum } from '@/enums/appEnum';
 import { primaryColor } from 'config/glob/lessModifyVars';
 
+// ! 改动后需要清空浏览器缓存
 const setting: ProjectConfig = {
+  // 权限模式
+  authMode: AuthModeEnum.BACK,
   // 网站灰色模式，用于可能悼念的日期开启
   grayMode: false,
   // 色弱模式

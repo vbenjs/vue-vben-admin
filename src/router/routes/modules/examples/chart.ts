@@ -6,9 +6,11 @@ import { PAGE_LAYOUT_COMPONENT } from '@/router/constant';
 const prefix = '/chart';
 
 const layout: LayoutType = {
+  path: '/chart',
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
-    title: '图标',
+    title: '图表',
+    icon: 'home|svg',
   },
 };
 

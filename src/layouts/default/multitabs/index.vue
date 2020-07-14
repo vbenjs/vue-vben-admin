@@ -123,6 +123,10 @@
             color: inherit;
           }
 
+          svg {
+            fill: @text-color-base;
+          }
+
           &::before {
             position: absolute;
             top: -2px;
@@ -159,6 +163,10 @@
             // transform: scaleX(1);
             // transition: transform 0.5s ease;
             // transform-origin: bottom left;
+          }
+
+          svg {
+            fill: @white;
           }
         }
       }

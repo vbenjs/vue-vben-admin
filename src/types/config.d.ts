@@ -1,6 +1,6 @@
 // 左侧菜单, 顶部菜单
 import { MenuTypeEnum, MenuModeEnum, MenuThemeEnum } from '@/enums/menuEnum';
-import { ContentEnum } from '@/enums/appEnum';
+import { ContentEnum, AuthModeEnum } from '@/enums/appEnum';
 
 export interface MessageSetting {
   title: string;
@@ -34,6 +34,7 @@ export interface HeaderSetting {
   theme: MenuThemeEnum;
 }
 export interface ProjectConfig {
+  authMode: AuthModeEnum;
   // 网站灰色模式，用于可能悼念的日期开启
   grayMode: boolean;
   // 是否开启色弱模式

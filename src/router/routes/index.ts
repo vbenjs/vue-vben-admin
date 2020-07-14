@@ -23,6 +23,11 @@ export function createMainInRoutes(routerModules: ModuleRouteConfig[]): RouteCon
   return [mainInRoutes, ...basicRoutes];
 }
 
+export function createAsyncRoutes(routes: RouteConfig[]): RouteConfig[] {
+  mainInRoutes.children = routes;
+  return [mainInRoutes, ...basicRoutes];
+}
+
 /**
  * @description: 异步路由
  */

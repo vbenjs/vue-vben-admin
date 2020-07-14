@@ -62,6 +62,7 @@ export interface MenuItem {
   roles?: RoleEnum[];
 }
 export interface MenuProps {
+  lastBuildTime: number;
   // 是否显示搜索
   search: boolean;
   // 菜单生成函数

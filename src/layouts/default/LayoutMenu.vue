@@ -12,7 +12,8 @@
 
   // store
   import { appStore } from '@/store/modules/app';
-  import { buildMenuList } from '@/router/helper/menuHelper';
+  import { menuStore } from '@/store/modules/menu';
+  import { buildMenuList } from '@/hooks/core/useAuth';
   // res
   import { RouteConfigEx } from '@/router/types';
 
@@ -51,6 +52,7 @@
             buildMenuFn={buildMenuList}
             onMenuClick={handleMenuClick}
             type={menuType}
+            lastBuildTime={menuStore.getLastBuildTimeState}
             mode={mode}
             class={prefixCls}
             theme={themeData}

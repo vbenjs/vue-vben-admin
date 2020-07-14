@@ -8,10 +8,12 @@ import { pageEnum } from '@/enums/pageEnum';
 const prefix = '/dashboard';
 
 const layout: LayoutType = {
+  path: '/dashboard',
   component: PAGE_LAYOUT_COMPONENT,
   redirect: pageEnum.BASE_HOME,
   meta: {
     title: 'Dashboard',
+    icon: 'home|svg',
   },
 };
 
@@ -22,6 +24,7 @@ const routes: RouteConfigEx[] = [
     component: () => createAsyncComponent(import('@/views/dashboard/welcome/index.vue')),
     meta: {
       title: '欢迎页',
+      icon: 'home|svg',
     },
   },
   {
@@ -30,6 +33,7 @@ const routes: RouteConfigEx[] = [
     component: () => createAsyncComponent(import('@/views/dashboard/analysis/index.vue')),
     meta: {
       title: '分析页',
+      icon: 'home|svg',
       affix: true,
     },
   },

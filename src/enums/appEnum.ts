@@ -10,7 +10,7 @@ export enum ContentEnum {
  */
 export enum AuthModeEnum {
   // 基于角色
-  ROLE,
+  ROLE = 'ROLE',
   // 基于后台
-  BACK,
+  BACK = 'BACK',
 }

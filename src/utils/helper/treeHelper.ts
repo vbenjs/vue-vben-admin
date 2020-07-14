@@ -41,3 +41,36 @@ export function flatTreeData<T, K extends keyof T>(data: T[] = [], children: K):
   setItem(data, children);
   return flatArr;
 }
+/**
+ * @description: 提取tree指定结构
+ * @Date: 2019-06-10 18:28:11
+ */
+export function treeMap(treeData: any[], opt) {
+  return treeData.map((item) => treeMapEach(item, opt));
+}
+/**
+ * @description: 提取tree指定结构
+ * @Date: 2019-06-10 18:28:11
+ */
+export function treeMapEach(
+  data,
+  { children = 'children', conversion }: { children: string; conversion: (...arg) => any }
+) {
+  const haveChildren = Array.isArray(data[children]) && data[children].length > 0;
+  const conversionData = conversion(data) || {};
+  if (haveChildren) {
+    return {
+      ...conversionData,
+      [children]: data[children].map((i) =>
+        treeMapEach(i, {
+          children,
+          conversion,
+        })
+      ),
+    };
+  } else {
+    return {
+      ...conversionData,
+    };
+  }
+}

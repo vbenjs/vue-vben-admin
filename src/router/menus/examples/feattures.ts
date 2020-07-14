@@ -4,7 +4,6 @@ export const orderNo = 20;
 export default {
   name: '页面功能',
   path: '/feat',
-  icon: 'home|svg',
   children: [
     {
       name: '标签页操作',

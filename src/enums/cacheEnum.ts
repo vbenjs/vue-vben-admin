@@ -4,9 +4,6 @@ export const TOKEN_KEY = 'TOKEN';
 // 用户信息key
 export const USER_INFO_KEY = 'USER__INFO__';
 
-// 用户是否登陆
-export const USER_IS_LOGIN_KEY = 'USER__IS__LOGIN__KEY__';
-
 // 角色信息
 export const ROLES_KEY = 'ROLES__KEY__';
 

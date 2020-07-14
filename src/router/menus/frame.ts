@@ -4,7 +4,6 @@ export const orderNo = 100;
 export default {
   name: '外部页面(会缓存)',
   path: '/frame',
-  icon: 'home|svg',
   children: [
     {
       name: 'antVue文档(内嵌)',

@@ -4,7 +4,6 @@ export const orderNo = 100;
 export default {
   name: '异常页',
   path: '/exception',
-  icon: 'home|svg',
   children: [
     {
       name: '404错误',

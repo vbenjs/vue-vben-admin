@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, unref } from 'compatible-vue';
+  import { defineComponent, unref, onMounted } from 'compatible-vue';
   import { Layout } from 'ant-design-vue';
   import LayoutHeader from './LayoutHeader.vue';
   import LayoutSideBar from './LayoutSideBar.vue';
@@ -15,23 +15,19 @@
   import { useFullContent } from '@/hooks/functions/useFullContent';
   import { useDesign } from '@/hooks/core/useDesign';
 
-  // import { userStore } from '@/store/modules/user';
-  // import watermark from '@/common/plugins/watermark';
+  import { userStore } from '@/store/modules/user';
   import { appStore } from '@/store/modules/app';
   import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum';
 
-  // 解决icon按需引入不生效问题
-  // import { dictStore } from '@/store/modules/dict';
   export default defineComponent({
     name: 'DefaultLayout',
     setup() {
-      // const info = userStore.getUserInfoState;
       const { prefixCls } = useDesign('default-layout');
 
-      // if (info) {
-      //   watermark.set!('vben admin');
-      // }
-
+      onMounted(() => {
+        // 每次刷新会去请求最新用户信息,如果不需要可以删除
+        userStore.getUserInfoAction({ userId: userStore.getUserInfoState.userId });
+      });
       // 获取项目配置
       const { getFullContent } = useFullContent();
       return () => {
@@ -83,6 +79,8 @@
   @prefix-cls: ~'@{namespace}-default-layout';
 
   .@{prefix-cls} {
+    position: relative;
+
     &__content {
       position: relative;
     }

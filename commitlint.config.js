@@ -2,7 +2,6 @@
  build：The main purpose is to modify the submission of the project build system (such as the configuration of glup, webpack, rollup, etc.)
 ci：The main purpose is to modify the project to continue the integration process (such as Travis, Jenkins, GitLab CI, Circle, etc.) submission
 docs：update doc
-merge：Merge branch ? of ?
 update: Update a function
 feat：new features
 fix：bug fix

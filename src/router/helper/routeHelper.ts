@@ -2,6 +2,9 @@ import { ModuleRouteConfig, RouteConfigEx } from '@/router/types';
 import { RouteConfig } from 'vue-router/types/router';
 // import { cloneDeep } from '@/utils/lodashChunk';
 import { buildUUID } from '@/utils/uuid';
+import { PAGE_LAYOUT_COMPONENT, BLANK_LAYOUT_COMPONENT } from '@/router/constant';
+import { getLazyComponent } from '@/common/factory/getLazyComponent';
+import { RouteItem } from '@/api/sys/model/menuModel';
 
 /**
  * @description: 替换斜杠
@@ -93,4 +96,23 @@ export function parseRouteModule(routeModules: ModuleRouteConfig[]): RouteConfig
     }
   }
   return routes;
+}
+
+export function transformObjToRoute(routeList: RouteItem[]) {
+  return routeList.filter((route) => {
+    const { component, children } = route;
+    if (component) {
+      if (component === 'PAGE_LAYOUT') {
+        route.component = PAGE_LAYOUT_COMPONENT;
+      } else {
+        route.component = getLazyComponent(component);
+      }
+    } else {
+      route.component = BLANK_LAYOUT_COMPONENT;
+    }
+    if (children) {
+      route.children = transformObjToRoute(children);
+    }
+    return true;
+  });
 }

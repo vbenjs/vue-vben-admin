@@ -28,13 +28,6 @@ module.exports = (api) => {
     plugins: [
       '@vue/babel-plugin-transform-vue-jsx',
       [
-        'babel-plugin-component',
-        {
-          libraryName: '@ylz/ele-ui',
-          styleLibraryName: 'theme-chalk',
-        },
-      ],
-      [
         'babel-plugin-import',
         { libraryName: 'ant-design-vue', libraryDirectory: 'es', style: true },
         'ant-design-vue',

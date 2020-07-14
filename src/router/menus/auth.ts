@@ -4,7 +4,6 @@ export const orderNo = 20;
 export default {
   name: '权限测试',
   path: '/auth',
-  icon: 'home|svg',
   children: [
     {
       name: '基于角色',
@@ -30,7 +29,17 @@ export default {
     },
     {
       name: '基于后台',
-      path: '/back-auth',
+      path: '/back',
+      children: [
+        {
+          name: '页面权限',
+          path: '/page',
+        },
+        {
+          name: '按钮权限',
+          path: '/btn',
+        },
+      ],
     },
   ],
 } as NormMenuItem;

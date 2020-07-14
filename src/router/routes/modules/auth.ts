@@ -7,9 +7,11 @@ import { RoleEnum } from '@/enums/roleEnum';
 const prefix = '/auth';
 
 const layout: LayoutType = {
+  path: '/auth',
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
     title: '权限测试页',
+    icon: 'home|svg',
   },
 };
 
@@ -39,7 +41,7 @@ const routes: RouteConfigEx[] = [
       },
       {
         path: '/test1',
-        name: '测试权限1',
+        name: 'AuthTest1',
         component: () => createAsyncComponent(import('@/views/examples/auth/AuthTest1.vue')),
         meta: {
           title: 'Admin角色可见',
@@ -48,7 +50,7 @@ const routes: RouteConfigEx[] = [
       },
       {
         path: '/test2',
-        name: '测试权限2',
+        name: 'AuthTest2',
         component: () => createAsyncComponent(import('@/views/examples/auth/AuthTest2.vue')),
         meta: {
           title: 'Normal角色可见',
@@ -60,10 +62,27 @@ const routes: RouteConfigEx[] = [
   {
     path: '/back',
     name: 'BackAuth',
-    component: () => createAsyncComponent(import('@/views/dashboard/welcome/index.vue')),
     meta: {
       title: '基于后台',
     },
+    children: [
+      {
+        path: '/page',
+        name: 'BackPageAuth',
+        component: () => createAsyncComponent(import('@/views/examples/auth/back/PageAuth.vue')),
+        meta: {
+          title: '页面权限',
+        },
+      },
+      {
+        path: '/btn',
+        name: 'BackBtnAuth',
+        component: () => createAsyncComponent(import('@/views/examples/auth/back/BtnAuth.vue')),
+        meta: {
+          title: '按钮权限',
+        },
+      },
+    ],
   },
 ];
 

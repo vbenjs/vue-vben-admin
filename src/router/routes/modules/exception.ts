@@ -9,9 +9,11 @@ const ExceptionPage = () => createAsyncComponent(import('@/views/sys/exception/i
 const prefix = '/exception';
 
 const layout: LayoutType = {
+  path: '/exception',
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
     title: '异常页',
+    icon: 'home|svg',
   },
 };
 

@@ -3,8 +3,6 @@ import { VuexModule, Module, getModule, Mutation } from 'vuex-module-decorators'
 
 import { appStore } from '@/store/modules/app';
 
-import { MenuItem } from '@/router/types';
-
 // import { permissionStore } from '@/store/modules/permission';
 export interface MenuState {
   // 菜单展开状态
@@ -13,10 +11,7 @@ export interface MenuState {
   menuWidthState: number;
   //  拖拽状态
   dragStartState: boolean;
-  // 菜单列表
-  menuListState: MenuItem[];
-  // 扁平化菜单数组
-  flatMenuListState: MenuItem[];
+  lastBuildTimeState: number;
 }
 @Module({ namespaced: true, name: 'menu', dynamic: true, store })
 class Menu extends VuexModule implements MenuState {
@@ -29,9 +24,8 @@ class Menu extends VuexModule implements MenuState {
   // 是否开始拖拽
   dragStartState = false;
 
-  menuListState: MenuItem[] = [];
-
-  flatMenuListState: MenuItem[] = [];
+  // 最后编译时间
+  lastBuildTimeState = 0;
 
   /**
    * @description: 获取窗口名称
@@ -48,19 +42,18 @@ class Menu extends VuexModule implements MenuState {
     return appStore.getProjCfg.menuSetting.menuWidth;
   }
 
+  get getLastBuildTimeState() {
+    return this.lastBuildTimeState;
+  }
+
   @Mutation
   commitDragStartState(dragStart: boolean): void {
     this.dragStartState = dragStart;
   }
 
   @Mutation
-  commitMenuListState(menuList: MenuItem[]): void {
-    this.menuListState = menuList;
-  }
-
-  @Mutation
-  commitFlatMenuListState(menuList: MenuItem[]): void {
-    this.flatMenuListState = menuList;
+  commitLastBuildTimeState(lastBuildTime: number): void {
+    this.lastBuildTimeState = lastBuildTime;
   }
 
   // 改变菜单展开状态

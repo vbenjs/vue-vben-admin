@@ -4,7 +4,6 @@ export const orderNo = 1000;
 export default {
   name: '测试页',
   path: '/test',
-  icon: 'home|svg',
   children: [
     {
       name: '测试页1',

@@ -146,12 +146,12 @@ export function useSideBar({
       if (!unref(getAllMenu)) {
         return;
       }
+
       const { flatMenus } = unref(getAllMenu);
       if (!flatMenus) {
         return;
       }
       const findMenu = flatMenus.find((menu) => menu.path === (route as Route).path);
-
       if (findMenu) {
         if (menuState.mode !== MenuModeEnum.HORIZONTAL) {
           setOpenKeys(findMenu);

@@ -6,7 +6,7 @@ import { VuexModule, Module, getModule, Mutation, Action } from 'vuex-module-dec
 
 import { pageEnum } from '@/enums/pageEnum';
 import { RoleEnum } from '@/enums/roleEnum';
-import { TOKEN_KEY, USER_INFO_KEY, USER_IS_LOGIN_KEY } from '@/enums/cacheEnum';
+import { TOKEN_KEY, USER_INFO_KEY } from '@/enums/cacheEnum';
 
 import { routerInstance } from '@/router/index';
 
@@ -14,12 +14,16 @@ import { useMessage } from '@/hooks/core/useMessage';
 
 import { permissionStore } from './permission';
 
-import { loginApi } from '@/api/sys/login';
-import { LoginParams, LoginResultModel } from '@/api/sys/model/loginModel';
+import { loginApi, getUserInfoById } from '@/api/sys/user';
+import {
+  LoginParams,
+  GetUserInfoByUserIdModel,
+  GetUserInfoByUserIdParams,
+} from '@/src/api/sys/model/userModel';
 
 import { setSession, getSession, clearSession } from '@/store/persistent';
 
-export type UserInfo = Omit<LoginResultModel, 'roles'>;
+export type UserInfo = Omit<GetUserInfoByUserIdModel, 'roles'>;
 export interface UserState {
   userInfoState: UserInfo | null;
 
@@ -50,11 +54,6 @@ class User extends VuexModule implements UserState {
   }
 
   @Mutation
-  commitIsLoginState(isLogin: boolean): void {
-    setSession(USER_IS_LOGIN_KEY, isLogin);
-  }
-
-  @Mutation
   commitUserInfoState(info: UserInfo): void {
     this.userInfoState = info;
     if (info) {
@@ -76,19 +75,27 @@ class User extends VuexModule implements UserState {
   @Action({ rawError: true })
   async login(params: LoginParams, goHome = true): Promise<boolean> {
     const data = await loginApi(params);
-    const { token, roles } = data;
+    const { token, userId } = data;
 
-    const roleList: RoleEnum[] = roles.map((item) => item.value);
+    // 获取用户信息
+    await this.getUserInfoAction({ userId });
+
+    // 存储token
     this.commitTokenState(token);
-    // // 设置用户信息
-    Reflect.deleteProperty(data, 'token');
-    this.commitUserInfoState((data as unknown) as UserInfo);
-    permissionStore.commitRoleState(roleList);
 
-    this.commitIsLoginState(true);
     const { getRouteInstance } = routerInstance;
     goHome && getRouteInstance && getRouteInstance().push(pageEnum.BASE_HOME);
     return true;
+  }
+
+  @Action
+  async getUserInfoAction({ userId }: GetUserInfoByUserIdParams) {
+    const userInfo = await getUserInfoById({ userId });
+    const { roles } = userInfo;
+    const roleList: RoleEnum[] = roles.map((item) => item.value);
+    //  设置用户信息
+    this.commitUserInfoState(userInfo);
+    permissionStore.commitRoleState(roleList);
   }
 
   /**

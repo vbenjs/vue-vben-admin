@@ -9,6 +9,7 @@ const layout: LayoutType = {
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
     title: 'Redirect',
+    icon: 'home|svg',
   },
 };
 

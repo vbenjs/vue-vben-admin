@@ -16,9 +16,12 @@
         type: [Number, Array, String],
       } as PropOptions<RoleEnum | RoleEnum[]>,
 
+      code: {
+        type: [String],
+      } as PropOptions<string>,
       // 权限模式
       authMode: {
-        type: Number,
+        type: String,
         default: AuthModeEnum.ROLE,
       } as PropOptions<AuthModeEnum>,
     },
@@ -28,14 +31,34 @@
        */
       function renderRoleAuth() {
         const { roles } = props;
-        const { hasAuth } = useAuth();
-        return hasAuth(roles!) ? getSlot(slots, 'default') : null;
+        if (!roles) {
+          return getSlot(slots, 'default');
+        }
+        const { hasRoleAuth } = useAuth();
+        return hasRoleAuth(roles) ? getSlot(slots, 'default') : null;
+      }
+
+      /**
+       * 渲染编码按钮
+       * 这里只判断是否包含，具体实现可以根据项目自行写逻辑
+       */
+      function renderCodeAuth() {
+        const { code } = props;
+        if (!code) {
+          return getSlot(slots, 'default');
+        }
+        const { hasCodeAuth } = useAuth();
+        return hasCodeAuth(code) ? getSlot(slots, 'default') : null;
       }
       return () => {
         const { authMode } = props;
         // 基于角色渲染
         if (authMode === AuthModeEnum.ROLE) {
           return renderRoleAuth();
+        }
+        // 基于后台编码渲染
+        if (authMode === AuthModeEnum.BACK) {
+          return renderCodeAuth();
         }
         // TODO 基于后台渲染
         return getSlot(slots, 'default');

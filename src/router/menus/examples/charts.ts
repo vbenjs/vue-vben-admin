@@ -4,7 +4,7 @@ export const orderNo = 100;
 export default {
   name: '图表',
   path: '/chart',
-  icon: 'home|svg',
+
   children: [
     {
       name: '折线图',

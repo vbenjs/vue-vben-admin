@@ -4,7 +4,6 @@ export const orderNo = 10;
 export default {
   name: 'Dashboard',
   path: '/dashboard',
-  icon: 'home|svg',
   children: [
     {
       path: '/analysis',
