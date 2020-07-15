@@ -14,7 +14,6 @@ export function useCharts(
   let resizeFn: Fn = resize;
 
   const [debounceResize] = useDebounce(resize, 200);
-  const { widthRef, screenEnum } = useBreakpoint();
   resizeFn = debounceResize;
 
   function init() {
@@ -30,6 +29,7 @@ export function useCharts(
       listener: resizeFn,
       autoRemove: true,
     });
+    const { widthRef, screenEnum } = useBreakpoint();
     if (unref(widthRef) <= screenEnum.MD) {
       setTimeout(() => {
         resizeFn();

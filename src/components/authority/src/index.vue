@@ -60,7 +60,6 @@
         if (authMode === AuthModeEnum.BACK) {
           return renderCodeAuth();
         }
-        // TODO 基于后台渲染
         return getSlot(slots, 'default');
       };
     },

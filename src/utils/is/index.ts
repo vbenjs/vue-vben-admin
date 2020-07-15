@@ -88,3 +88,5 @@ export const isWindow = (val: any): val is Window => {
 export const isElement = (val: unknown): val is Element => {
   return isObject(val) && !!val.tagName;
 };
+
+export const isServer = typeof window === 'undefined';

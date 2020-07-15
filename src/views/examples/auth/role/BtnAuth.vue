@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
   import { Button, Alert } from 'ant-design-vue';
-  import Authority from '@/components/authority/index.vue';
+  import { Authority } from '@/components/authority/index';
   import CurrentAuthMode from '../CurrentAuthMode.vue';
 
   import { permissionStore } from '@/store/modules/permission';

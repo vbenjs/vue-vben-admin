@@ -70,6 +70,7 @@
   @prefix-cls: ~'@{namespace}-page-layout';
 
   .@{prefix-cls} {
+    min-height: 100px;
     .size(100%);
   }
 </style>

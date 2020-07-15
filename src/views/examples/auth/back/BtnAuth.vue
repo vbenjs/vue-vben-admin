@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
-  import Authority from '@/components/authority/index.vue';
+  import { Authority } from '@/components/authority/index';
   import { Button, Alert, Divider } from 'ant-design-vue';
   import CurrentAuthMode from '../CurrentAuthMode.vue';
 

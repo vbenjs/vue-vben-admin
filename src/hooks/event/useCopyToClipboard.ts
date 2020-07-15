@@ -1,5 +1,5 @@
 import { ref, watch } from 'compatible-vue';
-import { copyTextToClipboard } from '@/common/plugins/copy';
+import { copyTextToClipboard } from '@/common/plugins/copy/index';
 
 import { isDef } from '@/utils/is/index';
 

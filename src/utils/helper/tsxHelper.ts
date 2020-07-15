@@ -8,7 +8,7 @@ interface Slots {
 /**
  * @description:  获取slot 防止为空报错
  */
-export function getSlot(slots: Slots, slot: string) {
+export function getSlot(slots: Slots, slot: string, data?: any) {
   if (!slots || !Reflect.has(slots, slot)) {
     return null;
   }
@@ -16,5 +16,5 @@ export function getSlot(slots: Slots, slot: string) {
     console.error(`${slot} is not a function!`);
     return null;
   }
-  return slots[slot]();
+  return slots[slot](data);
 }

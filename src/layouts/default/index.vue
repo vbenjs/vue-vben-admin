@@ -83,6 +83,7 @@
 
     &__main {
       position: relative;
+      height: 100%;
       overflow: hidden;
     }
 
