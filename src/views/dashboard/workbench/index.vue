@@ -22,13 +22,6 @@
         wokbStore.loadAction();
       });
       return () => (
-        // <div class={prefixCls}>
-        //     <Row>
-        //   <Col class="mb-4">
-        //     <img src={wokbImg} class={`${prefixCls}__wokb-img`} />
-        //   </Col>
-        // </Row>
-        // <FileList class="mb-4" />
         <Row class={prefixCls} gutter={16}>
           <Col md={24} lg={17}>
             <ProdTotal class="mb-4" />
@@ -43,7 +36,6 @@
             <AnnoList />
           </Col>
         </Row>
-        // </div>
       );
     },
   });
@@ -52,6 +44,8 @@
   @import (reference) '~@design';
   @prefix-cls: ~'@{namespace}-workbench';
   .@{prefix-cls} {
+    padding: 16px;
+
     &__wokb-img {
       width: 100%;
     }

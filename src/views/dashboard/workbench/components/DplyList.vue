@@ -22,7 +22,7 @@
       return () => (
         // <div class={prefixCls}>
         <CollapseContainer class={prefixCls} title="部署记录" canExpan={false}>
-          <ScrollContainer type="default">
+          <ScrollContainer>
             <Timeline>
               {unref(getDplyList).map((item) => {
                 const { id, dplyer, dplyTime, title } = item;

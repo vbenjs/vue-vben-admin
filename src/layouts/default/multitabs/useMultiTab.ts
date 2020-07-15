@@ -175,9 +175,9 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
       useGo({ path: currentPath as pageEnum, replace: true });
     }
   }
-  function refreshPage() {
+  function refreshPage(tabItem?: TabItem) {
     // const { route } = useRouter();
-    // tabStore.commitCloseTab(unref(route));
+    tabStore.commitCloseTabKeepAlive(tabItem || unref(getCurrentTab));
     useRedo();
   }
   function closeAll() {

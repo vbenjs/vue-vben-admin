@@ -19,7 +19,7 @@
       return () => (
         // <div class={prefixCls}>
         <CollapseContainer class={prefixCls} title="公告" canExpan={false}>
-          <ScrollContainer type="default">
+          <ScrollContainer>
             {unref(getAnnoList).map((item) => {
               const { id, annoTitle, annoTime, annoType } = item;
               return (
@@ -44,7 +44,7 @@
   @prefix-cls: ~'@{namespace}-anno-list';
   .@{prefix-cls} {
     /deep/ .vben-collapse-container__body {
-      height: 180px;
+      height: 200px;
     }
 
     &__item {

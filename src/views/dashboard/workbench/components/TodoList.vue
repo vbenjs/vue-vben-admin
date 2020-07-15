@@ -20,7 +20,6 @@
       }
 
       return () => (
-        // <div class={prefixCls}>
         <CollapseContainer class={prefixCls} canExpan={false}>
           <span slot="title">
             待办事项 <span class={`${prefixCls}__total`}>{wokbStore.getTodoTotal}</span>
@@ -39,7 +38,7 @@
                       提交人：{sbmter}&nbsp;&nbsp;提交时间：{sbmtTime}
                     </div>
                   </List.Item.Meta>
-                  <Button onClick={handleAppr.bind(item)} type="primary">
+                  <Button onClick={handleAppr.bind(item)} type="link">
                     待审批
                     <Icon type="down" />
                   </Button>
@@ -52,7 +51,6 @@
             <Icon type="right" />
           </div>
         </CollapseContainer>
-        // </div>
       );
     },
   });

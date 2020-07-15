@@ -52,9 +52,8 @@
       ];
 
       return () => (
-        // <div class={prefixCls}>ellipsis
         <CollapseContainer class={prefixCls} title="快捷入口" canExpan={false}>
-          <Button slot="action" size="small">
+          <Button slot="action" size="small" type="link">
             新建
           </Button>
           <Row>
@@ -77,7 +76,6 @@
             </Col>
           </Row>
         </CollapseContainer>
-        // </div>
       );
     },
   });

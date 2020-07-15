@@ -2,7 +2,7 @@ import { TabItem, tabStore } from '@/store/modules/tab';
 import { appStore } from '@/store/modules/app';
 type Fn = () => void;
 type RouteFn = (tabItem: TabItem) => void;
-let refreshPage: Fn;
+let refreshPage: RouteFn;
 let closeAll: Fn;
 let closeLeft: RouteFn;
 let closeRight: RouteFn;
@@ -10,7 +10,7 @@ let closeOther: RouteFn;
 let closeCurrent: RouteFn;
 
 interface TabFn {
-  refreshPageFn: Fn;
+  refreshPageFn: RouteFn;
   closeAllFn: Fn;
   closeLeftFn: RouteFn;
   closeRightFn: RouteFn;
@@ -55,7 +55,7 @@ export function useTabs() {
   }
   return {
     initTabFn,
-    refreshPage: () => canIUseFn() && refreshPage(),
+    refreshPage: () => canIUseFn() && refreshPage(tabStore.getCurrentTab),
     closeAll: () => canIUseFn() && closeAll(),
     closeLeft: () => canIUseFn() && closeLeft(tabStore.getCurrentTab),
     closeRight: () => canIUseFn() && closeRight(tabStore.getCurrentTab),

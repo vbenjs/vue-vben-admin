@@ -20,7 +20,7 @@
       return () => (
         // <div class={prefixCls}>
         <CollapseContainer class={prefixCls} title="动态" canExpan={false}>
-          <ScrollContainer type="default">
+          <ScrollContainer>
             <List>
               {unref(getNewsList).map((item) => {
                 const { id, sender, sendTime, title, cnteId, cnteStas, cnteRepo } = item;

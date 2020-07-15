@@ -48,10 +48,7 @@
               </div>
             </Col>
             <Col span={11} offset={1}>
-              <Alert
-                message="抽取el-scrollbar，并对其进行扩展,滚动条美化,适用于各个浏览器"
-                type="info"
-              />
+              <Alert message="对el-scrollbar其进行扩展,支持滚动函数" type="info" />
               <div class="my-3">
                 <Button onClick={handleScroll.bind(null, 100)}>滚动到100px位置</Button>
                 <Button class="mx-3" onClick={handleScroll.bind(null, 800)}>

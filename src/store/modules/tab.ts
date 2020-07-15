@@ -109,6 +109,15 @@ class Tab extends VuexModule implements TabState {
   }
 
   @Mutation
+  commitCloseTabKeepAlive(route: RouteEx | TabItem): void {
+    const { name } = route;
+    if (projectSetting.openKeepAlive && name) {
+      const i = this.keepAliveTabsState.findIndex((item) => item === name);
+      i !== -1 && this.keepAliveTabsState.splice(i, 1);
+    }
+  }
+
+  @Mutation
   commitCloseAllTab(): void {
     this.tabsState = this.tabsState.filter((item) => {
       return item.meta && item.meta.affix;

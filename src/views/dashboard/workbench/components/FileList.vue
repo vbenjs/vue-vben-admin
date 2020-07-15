@@ -22,7 +22,7 @@
       return () => (
         // <div class={prefixCls}>
         <CollapseContainer class={prefixCls} title="文件下载" canExpan={false}>
-          <ScrollContainer type="default">
+          <ScrollContainer>
             {unref(getFileList).map((item) => {
               const { id, fileTitle } = item;
               return (
