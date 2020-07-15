@@ -49,6 +49,7 @@
                 color: '#5B8FF9',
               },
               data: [3200, 3320, 3010],
+              animationDuration: 4000,
             },
             {
               name: '产品二',
@@ -57,6 +58,7 @@
                 color: '#55D187',
               },
               data: [1200, 2600, 1010],
+              animationDuration: 4000,
             },
 
             {
@@ -66,6 +68,7 @@
                 color: '#ED6F6F',
               },
               data: [862, 2500, 964],
+              animationDuration: 4000,
             },
           ],
         });

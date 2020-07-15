@@ -17,6 +17,8 @@ export type UseModalReturnType = [GetTableFn, ReturnMethods];
 export interface ModalProps extends Modal {
   draggable?: boolean;
 
+  // 是否可以进行全屏
+  canFullscreen?: boolean;
   // 温馨提醒信息
   helpMessage: string | string[];
 

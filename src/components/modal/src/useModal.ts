@@ -21,7 +21,7 @@ export function useModal(): UseModalReturnType {
     isFirstLoadRef.value = null;
     innerProps = null;
   });
-  function getModal(modalInstance: ModalInstance) {
+  function register(modalInstance: ModalInstance) {
     if (unref(loadedRef) && isProdMode()) {
       return;
     }
@@ -45,11 +45,8 @@ export function useModal(): UseModalReturnType {
         unref(modalRef)!.setModalProps(props);
       }
     },
-    // injectModal: <T>(...T): void => {
-    //   unref(modalRef).injectModal<T>(...T);
-    // },
   };
-  return [getModal, methods];
+  return [register, methods];
 }
 
 export const useModalExt = (emit: (event: string, ...args: any[]) => void) => {

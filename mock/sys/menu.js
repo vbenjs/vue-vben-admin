@@ -102,7 +102,7 @@ const getFakeList = (list) => [
     name: 'AuthTest',
     path: '/auth',
     meta: {
-      title: '权限测试页',
+      title: '权限管理',
     },
     children: [...list],
   },

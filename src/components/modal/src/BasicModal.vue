@@ -1,6 +1,7 @@
 <script lang="tsx">
   import Modal from './Modal.vue';
   import { Button } from 'ant-design-vue';
+  import { Icon } from '@/components/icon/index';
   import ModalWrapper from './ModalWrapper.vue';
   import { BaseTitle } from '@/components/base/index';
   import { defineComponent, computed, ref, watch, unref } from 'compatible-vue';
@@ -9,13 +10,15 @@
   import { basicProps } from './props';
 
   import { getSlot } from '@/utils/helper/tsxHelper';
-
+  import { triggerWindowResize } from '@/utils/event/triggerWindowResizeEvent';
   export default defineComponent({
     name: 'BasicModal',
     props: basicProps,
     setup(props: Readonly<ModalProps>, { slots, listeners, emit }) {
       const visibleRef = ref(false);
       const propsRef = ref<Partial<ModalProps> | null>(null);
+
+      const fullScreenRef = ref(false);
       // 自定义title组件：获得title
       const getMergeProps = computed(() => {
         return {
@@ -31,7 +34,14 @@
           visible: unref(visibleRef),
           title: undefined,
         };
-        return opt;
+        const { wrapClassName = '' } = opt;
+        const className = unref(fullScreenRef)
+          ? `${wrapClassName} fullscreen-modal`
+          : wrapClassName;
+        return {
+          ...opt,
+          wrapClassName: className,
+        };
       });
       watch(
         () => props.visible,
@@ -57,6 +67,9 @@
       function renderTitle() {
         const { helpMessage } = unref(getProps);
         const { title } = unref(getMergeProps);
+        if (!title) {
+          return null;
+        }
         return (
           <BaseTitle helpMessage={helpMessage} slot="title">
             {slots.getSlot ? getSlot(slots, 'title') : title}
@@ -129,18 +142,33 @@
           </template>
         );
       }
-      // TODO 待扩展全屏
       /**
        * @description: 关闭按钮
        */
-      // function renderClose() {
-      //   return (
-      //     <template slot="closeIcon">
-      //       <Button>1</Button>
-      //       <Button>2</Button>
-      //     </template>
-      //   );
-      // }
+      function renderClose() {
+        const { canFullscreen } = unref(getProps);
+        if (!canFullscreen) {
+          return null;
+        }
+        return (
+          <template slot="closeIcon">
+            <div class="custom-close-icon">
+              <Icon
+                type={unref(fullScreenRef) ? 'fullscreen-exit' : 'fullscreen'}
+                onClick={handleFullScreen}
+              />
+              <Icon type="close" />
+            </div>
+          </template>
+        );
+      }
+
+      function handleFullScreen(e: Event) {
+        e.stopPropagation();
+        fullScreenRef.value = !unref(fullScreenRef);
+        // TODO有损性能，目前先用这个，后续优化
+        triggerWindowResize();
+      }
       /**
        * @description: 设置表格参数
        */
@@ -154,9 +182,6 @@
 
       const modalInstance: ModalInstance = {
         setModalProps,
-        // injectModal: (val) => {
-        //   emit('getInject', val);
-        // },
       };
       emit('register', modalInstance);
       return () => (
@@ -164,9 +189,7 @@
           {renderTitle()}
           {renderContent()}
           {renderFooter()}
-          {
-            // renderClose()
-          }
+          {renderClose()}
         </Modal>
       );
     },

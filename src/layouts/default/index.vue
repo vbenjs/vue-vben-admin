@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, unref, onMounted } from 'compatible-vue';
+  import { defineComponent, unref, onMounted, ref, watch } from 'compatible-vue';
   import { Layout } from 'ant-design-vue';
   import LayoutHeader from './LayoutHeader.vue';
   import LayoutSideBar from './LayoutSideBar.vue';
@@ -14,6 +14,7 @@
   // hook
   import { useFullContent } from '@/hooks/functions/useFullContent';
   import { useDesign } from '@/hooks/core/useDesign';
+  import { useRouter } from '@/hooks/core/useRouter';
 
   import { userStore } from '@/store/modules/user';
   import { appStore } from '@/store/modules/app';
@@ -23,6 +24,17 @@
     name: 'DefaultLayout',
     setup() {
       const { prefixCls } = useDesign('default-layout');
+      const scrollRef = ref<any>(null);
+      const { route } = useRouter();
+      watch(
+        () => unref(route).path,
+        () => {
+          const scroll = unref(scrollRef);
+          if (scroll) {
+            scroll.scrollTo(0, 16);
+          }
+        }
+      );
 
       onMounted(() => {
         // 每次刷新会去请求最新用户信息,如果不需要可以删除
@@ -58,7 +70,7 @@
                 ) : null}
                 <div class={`${prefixCls}__main`}>
                   <FullLoading v-show={getPageLoading} class={`${prefixCls}__loading`} />
-                  <ScrollContainer>
+                  <ScrollContainer ref={scrollRef}>
                     <LayoutContent />
                   </ScrollContainer>
                 </div>

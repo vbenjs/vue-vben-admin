@@ -77,6 +77,14 @@ const routes: RouteConfigEx[] = [
       },
     ],
   },
+  {
+    path: '/modal-demo',
+    name: 'ModalDemo',
+    meta: {
+      title: '弹窗扩展',
+    },
+    component: () => createAsyncComponent(import('@/views/examples/components/modal/index.vue')),
+  },
 ];
 
 export default {

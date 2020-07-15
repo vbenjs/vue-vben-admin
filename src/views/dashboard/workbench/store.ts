@@ -19,7 +19,7 @@ import {
 } from '@/api/dashboard/wokb';
 // export type ProductType = 'total' | 'publish' | 'unpublish' | 'exception';
 
-@Module({ namespaced: true, name: 'user', dynamic: true, store })
+@Module({ namespaced: true, name: 'workbench', dynamic: true, store })
 class WokbStore extends VuexModule {
   prodList: ProdItem[] = [];
   todoList: TodoItem[] = [];

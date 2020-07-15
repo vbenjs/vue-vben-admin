@@ -10,7 +10,7 @@ const layout: LayoutType = {
   path: '/auth',
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
-    title: '权限测试页',
+    title: '权限管理',
     icon: 'home|svg',
   },
 };

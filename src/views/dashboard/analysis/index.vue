@@ -12,7 +12,7 @@
 
   import { useDesign } from '@/hooks/core/useDesign';
 
-  import { growCardList } from './data';
+  import { growCardList, taskList } from './data';
   export default defineComponent({
     name: 'Analysis',
     setup() {
@@ -50,9 +50,9 @@
             </Col>
             <Col md={24} lg={7} class="my-3">
               <CollapseContainer title="项目进度" canExpan={false}>
-                <TaskCard />
-                <TaskCard />
-                <TaskCard />
+                {taskList.map((item, index) => {
+                  return <TaskCard key={index} info={item} />;
+                })}
               </CollapseContainer>
             </Col>
           </Row>

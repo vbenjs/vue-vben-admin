@@ -64,6 +64,7 @@
                 show: false,
               },
               data: m2R2Data,
+              animationDuration: 3000,
             },
           ],
         });

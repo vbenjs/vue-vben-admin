@@ -2,7 +2,7 @@ import { NormMenuItem } from '@/router/types';
 
 export const orderNo = 20;
 export default {
-  name: '权限测试',
+  name: '权限管理',
   path: '/auth',
   children: [
     {

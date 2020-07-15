@@ -21,6 +21,11 @@ export const modalProps = {
 };
 
 export const basicProps = Object.assign({}, modalProps, {
+  // 是否可以进行全屏
+  canFullscreen: {
+    type: Boolean,
+    default: true,
+  } as PropOptions<boolean>,
   // 温馨提醒信息
   helpMessage: [String, Array] as PropOptions<string | string[]>,
   // 是否使用wrapper

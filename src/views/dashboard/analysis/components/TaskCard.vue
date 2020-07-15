@@ -5,43 +5,45 @@
 
   import { useDesign } from '@/hooks/core/useDesign';
 
-  import { GrowCardItem } from '../types';
+  import { TaskItem } from '../types';
 
-  // interface Props {
-  //   info: GrowCardItem;
-  // }
+  interface Props {
+    info: TaskItem;
+  }
   export default defineComponent({
     name: 'GrowCard',
     props: {
       info: {
         type: Object,
         default: null,
-      } as PropOptions<GrowCardItem>,
+      } as PropOptions<TaskItem>,
     },
-    setup() {
+    setup(props: Props) {
       const { prefixCls } = useDesign('grow-card');
 
       return () => {
+        const { title, desc, updateTime, percent, status } = props.info;
+        const text = status === 'done' ? '进度正常' : status === 'warn' ? '进度滞后' : '项目完成';
         return (
           <div class={prefixCls}>
             <div class={`${prefixCls}-header`}>
               <div class={`${prefixCls}__info`}>
-                <span class={`${prefixCls}__title`}>开发任务</span>
-                <span class={`${prefixCls}__desc`}>任务简介</span>
+                <span class={`${prefixCls}__title`}>{title}</span>
+                <span class={`${prefixCls}__desc`}>{desc}</span>
               </div>
-              <span class={[`${prefixCls}__tag`, 'green']}>进度正常</span>
+              <span class={[`${prefixCls}__tag`, status]}>{text}</span>
             </div>
 
             <div class={[`${prefixCls}-body`, 'mt-5']}>
               <div class={`${prefixCls}__process-nfo`}>
                 <span>进度</span>
-                <span>70%</span>
+                <span>{percent}%</span>
               </div>
-              <Progress percent={70} showInfo={false} />
+              <Progress percent={percent} showInfo={false} />
             </div>
             <div class={[`${prefixCls}-footer`]}>
               <span class={`${prefixCls}__date`}>
-                更新日期: <span>2020.7.12</span>
+                更新日期: <span>{updateTime}</span>
               </span>
               <div class={`${prefixCls}__avatar`}>
                 <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
@@ -81,9 +83,22 @@
       padding: 4px 6px;
       font-family: PingFangSC-Regular;
       font-size: 12px;
-      color: #55d187;
-      background: rgba(85, 209, 135, 0.16);
       border-radius: 6px;
+
+      &.success {
+        color: #55d187;
+        background: rgba(85, 209, 135, 0.16);
+      }
+
+      &.warn {
+        color: #ffa07d;
+        background: #ffd16416;
+      }
+
+      &.done {
+        color: #0593ff;
+        background: #0593ff16;
+      }
     }
 
     &__info {

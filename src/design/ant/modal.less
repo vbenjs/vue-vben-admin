@@ -1,4 +1,14 @@
 body {
+  .fullscreen-modal {
+    .ant-modal {
+      top: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+    }
+  }
+
   .ant-modal {
     width: 520px;
     padding-bottom: 0;
@@ -8,6 +18,9 @@ body {
       font-weight: bold;
       line-height: 16px;
 
+      .vben-base-title {
+        cursor: move;
+      }
       // &::before {
       //   display: inline-block;
       //   width: 6px;
@@ -17,6 +30,16 @@ body {
       //   background: @primary-color;
       //   content: '';
       // }
+    }
+
+    .custom-close-icon {
+      display: flex;
+      height: 100%;
+      align-items: center;
+
+      > * {
+        margin-left: 12px;
+      }
     }
 
     .ant-modal-body {
@@ -56,9 +79,9 @@ body {
 
     &-close-x {
       display: inline-block;
-      width: 48px;
-      height: 48px;
-      line-height: 48px;
+      width: 70px;
+      height: 56px;
+      line-height: 56px;
     }
 
     &-confirm-body {
