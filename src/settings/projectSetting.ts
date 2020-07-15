@@ -7,7 +7,7 @@ import { primaryColor } from 'config/glob/lessModifyVars';
 // ! 改动后需要清空浏览器缓存
 const setting: ProjectConfig = {
   // 权限模式
-  authMode: AuthModeEnum.BACK,
+  authMode: AuthModeEnum.ROLE,
   // 网站灰色模式，用于可能悼念的日期开启
   grayMode: false,
   // 色弱模式

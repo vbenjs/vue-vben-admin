@@ -37,6 +37,14 @@ const routes: RouteConfigEx[] = [
       affix: true,
     },
   },
+  {
+    path: '/workbench',
+    name: 'Workbench',
+    component: () => createAsyncComponent(import('@/views/dashboard/workbench/index.vue')),
+    meta: {
+      title: '工作台',
+    },
+  },
 ];
 
 export default {
