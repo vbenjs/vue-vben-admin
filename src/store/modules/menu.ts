@@ -2,7 +2,7 @@ import store from '@/store';
 import { VuexModule, Module, getModule, Mutation } from 'vuex-module-decorators';
 
 import { appStore } from '@/store/modules/app';
-
+import { MenuItem } from '@/router/types';
 // import { permissionStore } from '@/store/modules/permission';
 export interface MenuState {
   // 菜单展开状态
@@ -12,6 +12,8 @@ export interface MenuState {
   //  拖拽状态
   dragStartState: boolean;
   lastBuildTimeState: number;
+  // 当前选中的菜单，包括父级菜单的数组（除了children属性）
+  currMenuState: MenuItem[];
 }
 @Module({ namespaced: true, name: 'menu', dynamic: true, store })
 class Menu extends VuexModule implements MenuState {
@@ -26,7 +28,7 @@ class Menu extends VuexModule implements MenuState {
 
   // 最后编译时间
   lastBuildTimeState = 0;
-
+  currMenuState: MenuItem[] = [];
   /**
    * @description: 获取窗口名称
    */
@@ -44,6 +46,10 @@ class Menu extends VuexModule implements MenuState {
 
   get getLastBuildTimeState() {
     return this.lastBuildTimeState;
+  }
+
+  get getCurrMenuState() {
+    return this.currMenuState;
   }
 
   @Mutation
@@ -77,6 +83,11 @@ class Menu extends VuexModule implements MenuState {
         menuWidth: menuWidth,
       },
     });
+  }
+
+  @Mutation
+  commitCurrMenuState(menuList: MenuItem[]): void {
+    this.currMenuState = menuList;
   }
 }
 

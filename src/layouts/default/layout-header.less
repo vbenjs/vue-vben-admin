@@ -94,6 +94,12 @@
     padding: 0 20px;
   }
 
+  &__bread {
+    flex: 1;
+    display: none;
+    .respond-to(large, { display: block;});
+  }
+
   &__action {
     display: flex;
     align-items: center;

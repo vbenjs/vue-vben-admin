@@ -4,6 +4,8 @@
   import { Icon } from '@/components/icon/index';
   import UserDropdown from './UserDropdown.vue';
   import Logo from '@/layouts/Logo.vue';
+  import LayoutBread from './LayoutBread.vue';
+
   import LockAction from './actions/lockAction.vue';
   import { useModal } from '@/components/modal/index';
 
@@ -43,6 +45,7 @@
           showLogo,
           headerSetting: { theme: headerTheme } = {},
           menuSetting: { mode, type: menuType } = {},
+          showBreadCrumb,
         } = getProjCfg;
         const isSidebarType = menuType !== MenuTypeEnum.SIDEBAR;
 
@@ -62,9 +65,9 @@
                 <LayoutMenu theme={headerTheme} />
               </div>
             )}
-            {
-              // </div>
-            }
+            {mode !== MenuModeEnum.HORIZONTAL && showBreadCrumb && (
+              <LayoutBread class={`${prefixCls}__bread`} />
+            )}
             <div class={`${prefixCls}__action`}>
               <Tooltip>
                 <template slot="title">刷新</template>

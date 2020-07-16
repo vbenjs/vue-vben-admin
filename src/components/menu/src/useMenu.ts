@@ -43,6 +43,26 @@ export function getAllParentKey(menu: MenuItem, allMenuList: MenuItem[]): string
   }
   return menuParentIdList;
 }
+/**
+ * @description: 获取菜单的全部父级数据，除了children属性
+ */
+export function getAllParentData(menu: MenuItem, allMenuList: MenuItem[]): MenuItem[] {
+  // const flatMenuList = flatTreeData(allMenuList, 'children');
+  const menuParentIdList: MenuItem[] = [];
+
+  const { parentId } = menu;
+
+  if (!parentId) {
+    return [];
+  }
+  const parent = allMenuList.find((m) => m.id === parentId);
+  if (parent) {
+    menuParentIdList.push({ ...parent, children: undefined });
+
+    menuParentIdList.push(...getAllParentData(parent, allMenuList));
+  }
+  return menuParentIdList;
+}
 export function useOpenKeys(menuState: MenuState, getAllMenu: Ref<MenuData>) {
   const getOpenKeys = computed(() => {
     return menuStore.getCollapsedState ? menuState.collapsedOpenKeys : menuState.openKeys;
@@ -146,13 +166,18 @@ export function useSideBar({
       if (!unref(getAllMenu)) {
         return;
       }
-
       const { flatMenus } = unref(getAllMenu);
       if (!flatMenus) {
         return;
       }
+
       const findMenu = flatMenus.find((menu) => menu.path === (route as Route).path);
       if (findMenu) {
+        // 存储当前选中menu的，所有层级数据
+        const names = getAllParentData(findMenu, flatMenus);
+        names.unshift({ ...findMenu, children: undefined });
+        menuStore.commitCurrMenuState(names.reverse());
+
         if (menuState.mode !== MenuModeEnum.HORIZONTAL) {
           setOpenKeys(findMenu);
         }

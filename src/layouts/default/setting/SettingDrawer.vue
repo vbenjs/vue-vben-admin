@@ -96,7 +96,11 @@
       function handleMenuWidthChange(width: number) {
         handleSidebarChange({ menuWidth: width });
       }
-
+      function handleBreadcrumbCheckChange(show: boolean) {
+        appStore.commitProjCfgState({
+          showBreadCrumb: show,
+        });
+      }
       function handleMultipleCheckChange(show: boolean) {
         const defSetting = appStore.getProjCfg!.multiTabsSetting;
         const proCfg: Partial<ProjectConfig> = {
@@ -377,8 +381,18 @@
           headerSetting: { show: showHeader } = {},
           menuSetting: { show: showMenu } = {},
           multiTabsSetting: { show: showMultiple } = {},
+          showBreadCrumb,
         } = appStore.getProjCfg;
         return [
+          <div class={`${prefixCls}__cell-item`}>
+            <span>面包屑</span>
+            <Switch
+              checked={showBreadCrumb}
+              checkedChildren="开"
+              unCheckedChildren="关"
+              onChange={handleBreadcrumbCheckChange}
+            />
+          </div>,
           <div class={`${prefixCls}__cell-item`}>
             <span>标签页</span>
             <Switch

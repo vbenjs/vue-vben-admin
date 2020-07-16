@@ -64,6 +64,8 @@ export interface ProjectConfig {
 
   // 锁屏时间
   lockTime: number;
+  // 显示面包屑
+  showBreadCrumb: boolean;
 }
 
 export interface GlobConfig {
