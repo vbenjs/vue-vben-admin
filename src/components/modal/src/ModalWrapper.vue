@@ -5,8 +5,9 @@
     ref,
     watchEffect,
     unref,
-    // watch,
+    watch,
     PropOptions,
+    onMounted,
   } from 'compatible-vue';
   import { Spin } from 'ant-design-vue';
   import { ScrollContainer, TypeEnum } from '@/components/container/index';
@@ -40,6 +41,10 @@
         type: Boolean,
         default: false,
       } as PropOptions<boolean>,
+      fullScreen: {
+        type: Boolean,
+        default: false,
+      } as PropOptions<boolean>,
     },
     setup(props: ModalWrapperProps, { root, slots, emit }) {
       const wrapperRef = ref<HTMLElement | null>(null);
@@ -64,7 +69,7 @@
         if (!props.visible) {
           return;
         }
-        const wrapperRefDom = wrapperRef.value;
+        const wrapperRefDom = unref(wrapperRef);
         if (!wrapperRefDom) {
           return;
         }
@@ -82,7 +87,6 @@
           }
           const modalRect = getComputedStyle(modalDom).top;
           const modalTop = Number.parseInt(modalRect);
-
           let maxHeight =
             window.innerHeight - modalTop * 2 - props.modalFooterHeight - props.modalHeaderHeight;
 
@@ -108,7 +112,12 @@
 
           //  16为 p-2和m-2  加起来为4,基础4, 4*4=16
           // 32 padding
-          realHeightRef.value = realHeight > maxHeight ? maxHeight : realHeight + 16 + 32;
+          if (props.fullScreen) {
+            realHeightRef.value =
+              window.innerHeight - props.modalFooterHeight - props.modalHeaderHeight - 26;
+          } else {
+            realHeightRef.value = realHeight > maxHeight ? maxHeight : realHeight + 16 + 32;
+          }
           emit('heightChange', unref(realHeightRef));
         } catch (error) {
           console.log(error);
@@ -117,6 +126,17 @@
 
       watchEffect(() => {
         setModalHeight();
+      });
+      watch(
+        () => props.fullScreen,
+        (v) => {
+          !v && setModalHeight();
+        }
+      );
+
+      onMounted(() => {
+        const { modalHeaderHeight, modalFooterHeight } = props;
+        emit('getExtHeight', modalHeaderHeight + modalFooterHeight);
       });
 
       useWindowSizeFn(setModalHeight);
@@ -128,7 +148,7 @@
               ref={spinRef}
               spinning={props.loading}
               style={{ height: `${unref(realHeightRef)}px` }}
-              class="p-4"
+              class="p-4 modal-wrap-spin"
             >
               {getSlot(slots, 'default')}
             </Spin>

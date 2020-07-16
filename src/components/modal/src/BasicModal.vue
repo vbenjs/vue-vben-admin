@@ -10,13 +10,21 @@
   import { basicProps } from './props';
 
   import { getSlot } from '@/utils/helper/tsxHelper';
-  import { triggerWindowResize } from '@/utils/event/triggerWindowResizeEvent';
+  // import { triggerWindowResize } from '@/utils/event/triggerWindowResizeEvent';
   export default defineComponent({
     name: 'BasicModal',
     props: basicProps,
     setup(props: Readonly<ModalProps>, { slots, listeners, emit }) {
       const visibleRef = ref(false);
       const propsRef = ref<Partial<ModalProps> | null>(null);
+
+      const modalWrapperRef = ref<any>(null);
+
+      // modal   底部和顶部高度
+      const extHeightRef = ref(0);
+
+      // 弹窗未展开的高度
+      const formerHeightRef = ref(0);
 
       const fullScreenRef = ref(false);
       // 自定义title组件：获得title
@@ -83,9 +91,14 @@
         const { useWrapper, loading, wrapperProps } = unref(getProps);
         return useWrapper ? (
           <ModalWrapper
+            fullScreen={unref(fullScreenRef)}
+            ref={modalWrapperRef}
             loading={loading}
             props={wrapperProps}
             visible={unref(visibleRef)}
+            onGetExtHeight={(height: number) => {
+              extHeightRef.value = height;
+            }}
             onHeightChange={(height) => {
               emit('heightChange', height);
             }}
@@ -166,8 +179,26 @@
       function handleFullScreen(e: Event) {
         e.stopPropagation();
         fullScreenRef.value = !unref(fullScreenRef);
-        // TODO有损性能，目前先用这个，后续优化
-        triggerWindowResize();
+        const modalWrapper = unref(modalWrapperRef);
+        if (modalWrapper) {
+          const modalWrapSpinEl = (modalWrapper.$el as HTMLElement).querySelector(
+            '.modal-wrap-spin'
+          );
+          if (modalWrapSpinEl) {
+            if (!unref(formerHeightRef) && unref(fullScreenRef)) {
+              formerHeightRef.value = (modalWrapSpinEl as HTMLElement).offsetHeight;
+              console.log(formerHeightRef);
+            }
+            if (unref(fullScreenRef)) {
+              (modalWrapSpinEl as HTMLElement).style.height = `${
+                window.innerHeight - unref(extHeightRef) - 26 // 32 padding
+              }px`;
+            } else {
+              (modalWrapSpinEl as HTMLElement).style.height = `${unref(formerHeightRef)}px`;
+            }
+          }
+        }
+        // triggerWindowResize();
       }
       /**
        * @description: 设置表格参数

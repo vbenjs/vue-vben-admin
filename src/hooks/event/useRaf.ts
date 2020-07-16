@@ -54,3 +54,38 @@ export function useRaf() {
   }
   return { requestAnimationFrame };
 }
+
+export function useRafFn(fn: () => any, options: { immediate?: boolean } = {}) {
+  const { immediate = false } = options;
+  let started = false;
+
+  function loop() {
+    if (!started) return;
+    fn();
+    requestAnimationFrame(loop);
+  }
+
+  function start() {
+    if (!started) {
+      started = true;
+      loop();
+    }
+  }
+
+  function stop() {
+    started = false;
+  }
+
+  if (immediate) {
+    start();
+  }
+
+  if (getCurrentInstance()) {
+    onUnmounted(() => {
+      cancelAnimationFrame();
+      stop();
+    });
+  }
+
+  return { stop, start };
+}

@@ -53,7 +53,7 @@ export function isString(val: unknown): val is string {
 /**
  * @description:  是否为函数
  */
-export function isFunction(val: unknown): val is Function {
+export function isFunction<T = Function>(val: unknown): val is T {
   return is(val, 'Function');
 }
 

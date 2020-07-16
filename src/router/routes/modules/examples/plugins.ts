@@ -3,10 +3,10 @@ import { RouteConfigEx, LayoutType, ModuleRouteConfig } from '@/router/types';
 import { createAsyncComponent } from '@/common/factory/AsyncComponentFactory';
 import { PAGE_LAYOUT_COMPONENT } from '@/router/constant';
 
-const prefix = '/plugins';
+const prefix = '/plugins-demo';
 
 const layout: LayoutType = {
-  path: '/plugins',
+  path: '/plugins-demo',
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
     title: '插件',
@@ -17,10 +17,18 @@ const layout: LayoutType = {
 const routes: RouteConfigEx[] = [
   {
     path: '/cache',
-    name: 'Cache',
+    name: 'CacheDemo',
     component: () => createAsyncComponent(import('@/views/examples/plugins/cache/CachePlugin.vue')),
     meta: {
       title: '持久化插件',
+    },
+  },
+  {
+    path: '/i18n',
+    name: 'i18nDemo',
+    component: () => createAsyncComponent(import('@/views/examples/plugins/i18n/index.vue')),
+    meta: {
+      title: '国际化插件',
     },
   },
 ];

@@ -52,7 +52,7 @@
               click: handleSubmit,
             },
           };
-          return {
+          return ({
             ...unref(getMergeProps),
             resetButtonOptions: deepMerge(
               resetAction,
@@ -62,7 +62,7 @@
               submitAction,
               unref(getMergeProps).submitButtonOptions || {}
             ) as ActionButtonOption,
-          };
+          } as any) as FormProps;
         }
       );
 

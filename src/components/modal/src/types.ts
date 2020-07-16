@@ -39,4 +39,5 @@ export interface ModalWrapperProps {
   modalFooterHeight: number;
   minHeight: number;
   visible: boolean;
+  fullScreen: boolean;
 }

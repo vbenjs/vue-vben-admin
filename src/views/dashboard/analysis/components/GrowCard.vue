@@ -5,7 +5,6 @@
   import { Statistic } from 'ant-design-vue';
 
   import { useDesign } from '@/hooks/core/useDesign';
-
   import { GrowCardItem } from '../types';
 
   interface Props {
