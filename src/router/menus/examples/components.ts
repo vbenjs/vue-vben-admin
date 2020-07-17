@@ -42,5 +42,9 @@ export default {
       name: '弹窗扩展',
       path: '/modal-demo',
     },
+    {
+      path: '/icon-demo',
+      name: '图标',
+    },
   ],
 } as NormMenuItem;

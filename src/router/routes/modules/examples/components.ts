@@ -85,6 +85,14 @@ const routes: RouteConfigEx[] = [
     },
     component: () => createAsyncComponent(import('@/views/examples/components/modal/index.vue')),
   },
+  {
+    path: '/icon-demo',
+    name: 'IconDemo',
+    meta: {
+      title: '图标',
+    },
+    component: () => createAsyncComponent(import('@/views/examples/components/icon/index.vue')),
+  },
 ];
 
 export default {
