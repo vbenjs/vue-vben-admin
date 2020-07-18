@@ -48,7 +48,7 @@ const deployListData = Mock.mock({
   ],
 });
 const newsListData = Mock.mock({
-  'items|22': [
+  'items|8': [
     {
       id: '@id',
       sender: '@cname',
@@ -85,6 +85,10 @@ export default {
       prodList: wokbProd,
       fileList: fileList.items,
       annoList: annoList.items,
+      todoList: todoListData.items,
+      todoTotal: todoListData.items.length,
+      deployList: deployListData.items,
+      newsList: newsListData.items,
     });
   },
   'POST /wokb/product ': ({ query }) => {
@@ -105,13 +109,4 @@ export default {
     const pageData = ResultUtil.pagination(page, pageSize, newsListData.items);
     return ResultUtil.pageSuccess(pageData, newsListData.items.length);
   },
-  // 'POST /BwlstDManage/BwlstD/selectByEntity ': ({ query }) => {
-  //   const { page = 1, pageSize = 20 } = query;
-  //   const pageData = ResultUtil.pagination(
-  //     page,
-  //     pageSize,
-  //     blackAndGreyOrgListItems
-  //   );
-  //   return ResultUtil.pageSuccess(pageData, blackAndGreyOrgListItems.length);
-  // }
 };

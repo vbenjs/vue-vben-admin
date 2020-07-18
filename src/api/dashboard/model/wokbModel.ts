@@ -8,12 +8,7 @@ export interface ProdItem {
   amount: number;
   type: ProdTypeEnum;
 }
-// export interface WokbProdModel {
-//   totals: number;
-//   publish: number;
-//   unPublish: number;
-//   exception: number;
-// }
+
 export interface TodoItem {
   id: string;
   sbmter: string;
@@ -39,10 +34,6 @@ export interface NewsItem {
   cnteStas: string;
   cnteRepo: string;
 }
-export interface ListRsltModel<T> {
-  items: T[];
-  total: number;
-}
 export interface FileItem {
   id: string;
   fileTitle: string;
@@ -57,4 +48,8 @@ export interface WokbAllRsltModel {
   prodList: ProdItem[];
   fileList: FileItem[];
   annoList: AnnoItem[];
+  todoList: TodoItem[];
+  todoTotal: number;
+  deployList: DplyItem[];
+  newsList: NewsItem[];
 }

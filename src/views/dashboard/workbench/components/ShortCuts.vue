@@ -4,14 +4,14 @@
   import { CollapseContainer } from '@/components/container/index';
 
   import { useDesign } from '@/hooks/core/useDesign';
-  import wokbImg1 from '@/assets/images/dashboard/wokb/考勤@2x.png';
-  import wokbImg2 from '@/assets/images/dashboard/wokb/加班@2x.png';
-  import wokbImg3 from '@/assets/images/dashboard/wokb/餐补@2x.png';
-  import wokbImg4 from '@/assets/images/dashboard/wokb/请假@2x.png';
-  import wokbImg5 from '@/assets/images/dashboard/wokb/用章@2x.png';
-  import wokbImg6 from '@/assets/images/dashboard/wokb/差旅@2x.png';
-  import wokbImg7 from '@/assets/images/dashboard/wokb/绩效@2x.png';
-  import wokbImg8 from '@/assets/images/dashboard/wokb/审批@2x.png';
+  import wokbImg1 from '@/assets/images/dashboard/wokb/attendance.png';
+  import wokbImg2 from '@/assets/images/dashboard/wokb/overtime.png';
+  import wokbImg3 from '@/assets/images/dashboard/wokb/meal.png';
+  import wokbImg4 from '@/assets/images/dashboard/wokb/leave.png';
+  import wokbImg5 from '@/assets/images/dashboard/wokb/stamp.png';
+  import wokbImg6 from '@/assets/images/dashboard/wokb/travel.png';
+  import wokbImg7 from '@/assets/images/dashboard/wokb/performance.png';
+  import wokbImg8 from '@/assets/images/dashboard/wokb/approve.png';
   export default defineComponent({
     name: 'ShortCuts',
     setup() {

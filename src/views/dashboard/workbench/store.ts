@@ -10,13 +10,7 @@ import {
   FileItem,
   AnnoItem,
 } from '@/api/dashboard/model/wokbModel';
-import {
-  // wokbProdListApi,
-  wokbTodoListApi,
-  wokbDplyListApi,
-  wokbNewsListApi,
-  wokbAllDataApi,
-} from '@/api/dashboard/wokb';
+import { wokbAllDataApi } from '@/api/dashboard/wokb';
 // export type ProductType = 'total' | 'publish' | 'unpublish' | 'exception';
 
 @Module({ namespaced: true, name: 'workbench', dynamic: true, store })
@@ -89,38 +83,22 @@ class WokbStore extends VuexModule {
   }
 
   @Action
-  public async loadDplyAction(): Promise<void> {
-    const { items: list, total } = await wokbDplyListApi();
-    this.cmDplyList(list);
-    console.log(total);
-  }
-
-  @Action
-  public async loadNewsAction(): Promise<void> {
-    const { items: list, total } = await wokbNewsListApi();
-    this.cmNewsList(list);
-    console.log(total);
-  }
-
-  @Action
-  public async loadAllAction(): Promise<void> {
-    const { prodList, fileList, annoList } = await wokbAllDataApi();
+  public async loadAction(): Promise<void> {
+    const {
+      prodList,
+      fileList,
+      annoList,
+      todoList,
+      todoTotal,
+      deployList,
+      newsList,
+    } = await wokbAllDataApi();
     this.cmProdList(prodList);
     this.cmFileList(fileList);
     this.cmAnnoList(annoList);
-    // console.log(prodList, fileList, annoList);
-  }
-
-  @Action
-  public async loadAction(): Promise<void> {
-    // const prodList = await wokbProdListApi();
-    // this.cmProdList(prodList);
-    const { items: todoList, total } = await wokbTodoListApi();
-    this.cmTodoList(todoList, total);
-
-    await this.loadDplyAction();
-    await this.loadNewsAction();
-    await this.loadAllAction();
+    this.cmTodoList(todoList, todoTotal);
+    this.cmDplyList(deployList);
+    this.cmNewsList(newsList);
   }
 }
 export { WokbStore };
