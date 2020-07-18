@@ -17,5 +17,9 @@ export default {
       path: '/welcome',
       name: '欢迎页',
     },
+    {
+      path: '/driver',
+      name: '引导页',
+    },
   ],
 } as NormMenuItem;

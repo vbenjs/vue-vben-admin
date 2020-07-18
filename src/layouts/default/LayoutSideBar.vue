@@ -154,7 +154,8 @@
             ref={sideRef}
             onBreakpoint={handleBreakpoint}
           >
-            <SideBarTrigger slot="trigger" />
+            <SideBarTrigger slot="trigger" id="elem-driver-trigger" />
+
             <LayoutMenu theme={theme} />
             <div
               class={[`${prefixCls}__dargbar`, !hasDrag ? 'hide' : '']}

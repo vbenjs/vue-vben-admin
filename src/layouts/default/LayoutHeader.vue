@@ -71,7 +71,11 @@
             <div class={`${prefixCls}__action`}>
               <Tooltip>
                 <template slot="title">刷新</template>
-                <div class={`${prefixCls}__action-item`} onClick={refreshPage}>
+                <div
+                  class={`${prefixCls}__action-item`}
+                  onClick={refreshPage}
+                  id="elem-driver-action-refresh"
+                >
                   <Icon type="redo" class={`${prefixCls}__action-icon`} />
                 </div>
               </Tooltip>

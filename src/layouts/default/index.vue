@@ -55,7 +55,7 @@
         return (
           <Layout class={prefixCls}>
             {isShowMixHeader && <LayoutHeader />}
-            <SettingButton class={`${prefixCls}__setting-btn`} />
+            <SettingButton class={`${prefixCls}__setting-btn`} id="elem-driver-setting-btn" />
             <Layout>
               {!unref(getFullContent) && showMenu && menuMode !== MenuModeEnum.HORIZONTAL && (
                 <LayoutSideBar />
