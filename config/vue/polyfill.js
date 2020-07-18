@@ -5,7 +5,13 @@ const { supportIeFn } = require('../../build/utils');
 
 function configPolyfill(entry) {
   if (supportIeFn()) {
-    entry.unshift(...['core-js/stable', 'regenerator-runtime/runtime', 'intersection-observer']);
+    entry.unshift(
+      ...[
+        'core-js/stable',
+        'regenerator-runtime/runtime',
+        // 'intersection-observer'
+      ]
+    );
   }
   return entry;
 }

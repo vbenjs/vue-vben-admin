@@ -31,6 +31,14 @@ const routes: RouteConfigEx[] = [
       title: '国际化插件',
     },
   },
+  {
+    path: '/qrcode',
+    name: 'QrcodePlguinDemo',
+    component: () => createAsyncComponent(import('@/views/examples/plugins/qrcode/index.vue')),
+    meta: {
+      title: '二维码插件',
+    },
+  },
 ];
 
 export default {
