@@ -67,7 +67,7 @@
                 });
               }}
             >
-              打开弹窗4(内容自适应屏幕高度)
+              打开弹窗4(控制弹窗是否可以全屏)
             </Button>
             {!unref(isFirstLoadRef4) && <Modal4 onRegister={register4} />}
           </div>

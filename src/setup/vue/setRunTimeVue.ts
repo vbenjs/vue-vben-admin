@@ -1,4 +1,5 @@
 import { VueConstructor } from 'compatible-vue';
+
 import { setRuntimeVM } from './runtimeVm';
 
 export default {

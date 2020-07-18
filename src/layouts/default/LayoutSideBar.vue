@@ -102,7 +102,9 @@
       }
       function changeWrapWidth() {
         const ele = unref(dragBarRef);
-        const wrap = unref(sideRef).$el;
+        const side = unref(sideRef);
+
+        const wrap = (side || {}).$el;
         // const eleWidth = 6;
         ele &&
           (ele.onmousedown = (e) => {

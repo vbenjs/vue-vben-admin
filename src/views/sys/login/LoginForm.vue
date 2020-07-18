@@ -8,6 +8,7 @@
   import { useEvent } from '@/hooks/event/useEvent';
 
   import { userStore } from '@/store/modules/user';
+  import { clearAll } from '@/store/persistent';
   export default defineComponent({
     name: 'LoginForm',
 
@@ -65,6 +66,8 @@
             return;
           }
           await userStore.login(values);
+        } catch (e) {
+          clearAll();
         } finally {
           loadingRef.value = false;
         }

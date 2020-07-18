@@ -25,7 +25,6 @@ const { configClean } = require('./plugins/clean');
 const { createWebpackBar } = require('./plugins/processBar');
 const { createStyleLintPlugin } = require('./plugins/stylelint');
 const { configDefinePlugin } = require('./plugins/define');
-const { createSkeletonPlugin } = require('./plugins/skeleton');
 const { createThemeColorReplacerPlugin } = require('./plugins/theme');
 const isProd = isProductionFn();
 const ENV = getEnvFn();
@@ -85,8 +84,6 @@ function createVueConfig() {
       createStyleLintPlugin(config);
       // gzip
       createGzip(config);
-      // Skeleton screen
-      createSkeletonPlugin(config);
       createThemeColorReplacerPlugin(config);
     },
   };

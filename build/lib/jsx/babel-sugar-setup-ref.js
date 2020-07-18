@@ -214,9 +214,9 @@ module.exports = ({ types: t }) => {
 
             if (!refs.length) return;
             autoImportVue(t, p);
-            const lifeCycles = autoImportLifeCycle(t, p, ['onMounted', 'onUpdated']);
+            // const lifeCycles = autoImportLifeCycle(t, p, ['onMounted', 'onUpdated']);
 
-            injectLifeCycle(t, container, lifeCycles, refs);
+            // injectLifeCycle(t, container, lifeCycles, refs);
           },
         });
       },

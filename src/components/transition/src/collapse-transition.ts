@@ -1,6 +1,5 @@
 import { addClass, removeClass } from '@/utils/domUtils';
 import { VueConstructor } from 'compatible-vue';
-
 const ZERO = '0px';
 const Transition = {
   beforeEnter(el: HTMLElement) {

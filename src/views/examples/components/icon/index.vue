@@ -28,11 +28,7 @@
       function handleClipboard(item: string) {
         const { isSuccessRef } = useCopyToClipboard(item);
         if (unref(isSuccessRef)) {
-          createMessage.success((h) => (
-            <span>
-              <code>{item}</code> copyed success!
-            </span>
-          ));
+          createMessage.success(`${item} copyed success!`);
         }
       }
 

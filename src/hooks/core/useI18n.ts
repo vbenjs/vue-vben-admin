@@ -1,7 +1,6 @@
 import VueI18n from 'vue-i18n';
 
 import { ref, watch, Vue } from 'compatible-vue';
-
 export function createI18n(options?: VueI18n.I18nOptions) {
   Vue.use(VueI18n);
   const i18n = new VueI18n(options);

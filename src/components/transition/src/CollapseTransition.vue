@@ -2,7 +2,7 @@
   // collapse 展开折叠
   import CollapseTransitionComponent from './collapse-transition';
   import { defineComponent } from 'compatible-vue';
-
+  import './collapse-transition.less';
   export default defineComponent({
     name: 'CollapseTransition',
     components: {
