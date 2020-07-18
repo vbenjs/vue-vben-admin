@@ -46,5 +46,13 @@ export default {
       path: '/icon-demo',
       name: '图标',
     },
+    {
+      path: '/parallax-demo',
+      name: 'Parallax视差',
+    },
+    {
+      path: '/count-to-demo',
+      name: '数字动画',
+    },
   ],
 } as NormMenuItem;

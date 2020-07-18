@@ -7,6 +7,7 @@ import { useDebounce } from '@/hooks/core/useDebounce';
 interface WindowSizeOptions {
   once?: boolean;
   immediate?: boolean;
+  listenerOptions?: AddEventListenerOptions | boolean;
 }
 
 export function useWindowSizeFn<T>(fn: Fn<T>, wait = 150, options?: WindowSizeOptions): void {

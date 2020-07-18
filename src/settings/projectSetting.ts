@@ -60,7 +60,7 @@ const setting: ProjectConfig = {
   openKeepAlive: true,
 
   // 自动锁屏时间，为0不锁屏。 单位分钟 默认1个小时
-  lockTime: 30,
+  lockTime: 60,
   // 显示面包屑
   showBreadCrumb: true,
 };

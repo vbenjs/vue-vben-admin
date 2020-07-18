@@ -98,7 +98,7 @@ const autoImportVue = (t, path) => {
  * @param {*} lifeCycles
  */
 const autoImportLifeCycle = (t, path, lifeCycles = []) => {
-  const importSource = '@/setup/vue';
+  const importSource = 'compatible-vue';
   const imports = path.node.body.filter(t.isImportDeclaration);
   const imported = imports.find((node) => node.source.value === importSource);
   const genImportSpecifiers = (list) =>
@@ -214,9 +214,10 @@ module.exports = ({ types: t }) => {
 
             if (!refs.length) return;
             autoImportVue(t, p);
-            // const lifeCycles = autoImportLifeCycle(t, p, ['onMounted', 'onUpdated']);
 
-            // injectLifeCycle(t, container, lifeCycles, refs);
+            const lifeCycles = autoImportLifeCycle(t, p, ['onMounted', 'onUpdated']);
+
+            injectLifeCycle(t, container, lifeCycles, refs);
           },
         });
       },

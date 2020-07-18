@@ -40,6 +40,7 @@
         // 每次刷新会去请求最新用户信息,如果不需要可以删除
         userStore.getUserInfoAction({ userId: userStore.getUserInfoState.userId });
       });
+
       // 获取项目配置
       const { getFullContent } = useFullContent();
       return () => {

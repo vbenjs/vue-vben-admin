@@ -1,4 +1,4 @@
-import { Ref, ref, watch, onUnmounted } from 'compatible-vue';
+import { Ref, ref, watch, onUnmounted, getCurrentInstance } from 'compatible-vue';
 import { RefTyped } from '@/types';
 import { useDebounce } from '@/hooks/core/useDebounce';
 import { useThrottle } from '@/hooks/core/useThrottle';
@@ -51,6 +51,7 @@ export function useEvent({
     };
   }
   autoRemove &&
+    getCurrentInstance() &&
     onUnmounted(() => {
       remove();
     });

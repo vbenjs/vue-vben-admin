@@ -93,6 +93,22 @@ const routes: RouteConfigEx[] = [
     },
     component: () => createAsyncComponent(import('@/views/examples/components/icon/index.vue')),
   },
+  {
+    path: '/parallax-demo',
+    name: 'ParallaxDemo',
+    meta: {
+      title: 'Parallax视差',
+    },
+    component: () => createAsyncComponent(import('@/views/examples/components/parallax/index.vue')),
+  },
+  {
+    path: '/count-to-demo',
+    name: 'CountToDemo',
+    meta: {
+      title: '数字动画',
+    },
+    component: () => createAsyncComponent(import('@/views/examples/components/count-to/index.vue')),
+  },
 ];
 
 export default {
