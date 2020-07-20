@@ -24,11 +24,13 @@
       });
 
       return () => (
-        <Breadcrumb class={prefixCls} separator="/">
+        <Breadcrumb class={prefixCls}>
           {(unref(getBreadcrumbList) || []).map((item) => {
             return (
-              <Breadcrumb.Item href={item.path} key={item.path}>
-                {item.name}
+              <Breadcrumb.Item href={item.path} key={item.path} separator="/">
+                <router-link to={{ path: item.path === '' ? '/' : item.path }}>
+                  {item.name}
+                </router-link>
               </Breadcrumb.Item>
             );
           })}
@@ -54,7 +56,7 @@
   // .breadcrumb-enter,
   // .breadcrumb-leave-active {
   //   opacity: 0;
-  //   transform: translateX(20px);
+  //   transform: translateX(-20px);
   // }
 
   // .breadcrumb-move {

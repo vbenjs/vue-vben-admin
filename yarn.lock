@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-"@amap/amap-vue@^2.0.7":
-  version "2.0.7"
-  resolved "https://registry.npm.taobao.org/@amap/amap-vue/download/@amap/amap-vue-2.0.7.tgz#61ec6379b2fb779ea306a349d8fd0cbdc340b4bc"
-  integrity sha1-YexjebL7d56jBqNJ2P0MvcNAtLw=
-
 "@ant-design/colors@^3.1.0":
   version "3.2.2"
   resolved "https://registry.npm.taobao.org/@ant-design/colors/download/@ant-design/colors-3.2.2.tgz?cache=0&sync_timestamp=1592447208167&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40ant-design%2Fcolors%2Fdownload%2F%40ant-design%2Fcolors-3.2.2.tgz#5ad43d619e911f3488ebac303d606e66a8423903"
@@ -1829,7 +1824,7 @@
   optionalDependencies:
     prettier "^1.18.2"
 
-"@vue/composition-api@^1.0.0-beta.3":
+"@vue/composition-api@^1.0.0-beta.4":
   version "1.0.0-beta.4"
   resolved "https://registry.npm.taobao.org/@vue/composition-api/download/@vue/composition-api-1.0.0-beta.4.tgz#4b414ae0bbd68c548d65d6b90a1c35296278187c"
   integrity sha1-S0FK4LvWjFSNZda5Chw1KWJ4GHw=

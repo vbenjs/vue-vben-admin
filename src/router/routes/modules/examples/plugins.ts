@@ -39,6 +39,15 @@ const routes: RouteConfigEx[] = [
       title: '二维码插件',
     },
   },
+  {
+    path: '/context-menu-demo',
+    name: 'ContextMenuDemo',
+    component: () =>
+      createAsyncComponent(import('@/views/examples/plugins/context-menu/index.vue')),
+    meta: {
+      title: '右键菜单插件',
+    },
+  },
 ];
 
 export default {

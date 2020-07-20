@@ -18,5 +18,9 @@ export default {
       name: '二维码插件',
       path: '/qrcode',
     },
+    {
+      name: '右键菜单插件',
+      path: '/context-menu-demo',
+    },
   ],
 } as NormMenuItem;

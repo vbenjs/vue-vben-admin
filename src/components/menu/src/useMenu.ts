@@ -84,8 +84,24 @@ export function useOpenKeys(menuState: MenuState, getAllMenu: Ref<MenuData>) {
   }
 
   function handleOpenChange(openKeys: string[]) {
+    const { allMenus } = unref(getAllMenu);
+    const rootSubmenuKeys: string[] = [];
+    for (const menu of allMenus) {
+      const { children, id } = menu;
+      if (children && children.length > 0) {
+        rootSubmenuKeys.push(id);
+      }
+    }
+
     if (!menuStore.getCollapsedState) {
-      menuState.openKeys = openKeys;
+      // menuState.openKeys = openKeys;
+      const latestOpenKey = openKeys.find((key) => menuState.openKeys.indexOf(key) === -1);
+
+      if (rootSubmenuKeys.indexOf(latestOpenKey as string) === -1) {
+        menuState.openKeys = openKeys;
+      } else {
+        menuState.openKeys = latestOpenKey ? [latestOpenKey] : [];
+      }
     } else {
       menuState.collapsedOpenKeys = openKeys;
     }
