@@ -7,6 +7,36 @@ export default {
 
   children: [
     {
+      name: '基础组件',
+      path: '/comp-base-demo',
+    },
+    {
+      name: '表单组件',
+      path: '/form-demo',
+      children: [
+        {
+          name: '基础示例',
+          path: '/base',
+        },
+        {
+          name: '表单可收起示例',
+          path: '/advance',
+        },
+        {
+          name: '表单校验示例',
+          path: '/validate',
+        },
+        {
+          name: '动态表单示例',
+          path: '/dynamic',
+        },
+        {
+          name: '自定义组件示例',
+          path: '/custom',
+        },
+      ],
+    },
+    {
       name: '懒加载组件',
       path: '/lazy-demo',
       children: [
@@ -53,6 +83,14 @@ export default {
     {
       path: '/count-to-demo',
       name: '数字动画',
+    },
+    {
+      path: '/transition-base-demo',
+      name: '动画组件',
+    },
+    {
+      path: '/click-out-side',
+      name: 'clickOutSide组件',
     },
   ],
 } as NormMenuItem;

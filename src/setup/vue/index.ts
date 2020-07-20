@@ -1,14 +1,14 @@
 /**
- * 切换vue2 和vue3的支持，vue2支持主要是ie11 IE10， ie9样式可能会不兼容，但是能运行
+ * 切换vue2 和vue3的支持，vue2支持主要是ie11, ie9,IE10样式可能会不兼容，但是能运行
  */
 
-// vue2.0
-import Vue, { VueConstructor, VNode, Component } from 'vue';
+// vue2.0 ,
+import Vue, { VueConstructor, VNode, Component, VNodeData, FunctionalComponentOptions } from 'vue';
 import VueCompositionAPI from '@vue/composition-api';
 export default VueCompositionAPI;
 
 export * from '@vue/composition-api';
-export { Vue, VueConstructor, VNode, Component };
+export { Vue, VueConstructor, VNode, Component, VNodeData, FunctionalComponentOptions };
 // export {
 //   Component,
 //   AsyncComponent,

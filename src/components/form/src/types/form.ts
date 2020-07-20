@@ -43,6 +43,8 @@ export interface FormSchema {
   // 组件
   component?: ComponentType;
 
+  isAdvanced?: false;
+
   // 组件参数
   componentProps?: any;
 
@@ -130,6 +132,10 @@ export interface FormProps extends AllItemProps {
   autoSetPlaceHolder: boolean;
   // 校验信息是否加入label
   rulesMessageJoinLabel?: boolean;
+  // 是否显示收起展开按钮
+  showAdvancedButton?: boolean;
+  // 超过指定行数自动收起
+  autoAdvancedLine?: number;
   // 是否显示操作按钮
   showActionButtonGroup: boolean;
   // 操作列配置

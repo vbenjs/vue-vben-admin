@@ -53,7 +53,12 @@ function handleLabel(
 /**
  * @description: 处理规则校验
  */
-function handleRules(schemaItem: FormSchema, props: FormProps): ValidationRule[] {
+
+function handleRules(
+  schemaItem: FormSchema,
+  props: FormProps,
+  fieldsValues: any
+): ValidationRule[] {
   const {
     rules: defRules = [],
     component,
@@ -65,7 +70,7 @@ function handleRules(schemaItem: FormSchema, props: FormProps): ValidationRule[]
   if (isFunction(dynamicRules)) {
     return dynamicRules({
       schema: schemaItem,
-      values: props.form.getFieldsValue(),
+      values: fieldsValues,
       form: props.form,
     });
   }
@@ -111,9 +116,13 @@ function handleRules(schemaItem: FormSchema, props: FormProps): ValidationRule[]
 /**
  * @description: 处理表单字段绑定,校验等
  */
-function handleDecorator(schemaItem: FormSchema, props: FormProps): FieldDecoratorOptions {
+function handleDecorator(
+  schemaItem: FormSchema,
+  props: FormProps,
+  fieldsValues: any
+): FieldDecoratorOptions {
   const { fieldDecoratorOptions, component, defaultValue } = schemaItem;
-  const rules = handleRules(schemaItem, props);
+  const rules = handleRules(schemaItem, props, fieldsValues);
 
   let valuePropName = 'value';
   if (component && ['Switch', 'Checkbox'].includes(component)) {
@@ -129,7 +138,7 @@ function handleDecorator(schemaItem: FormSchema, props: FormProps): FieldDecorat
 /**
  * @description: 渲染组件
  */
-function renderComponent(schemaItem: FormSchema, props: FormProps) {
+function renderComponent(schemaItem: FormSchema, props: FormProps, allDefaultValues: any) {
   const {
     component,
     componentProps,
@@ -148,10 +157,14 @@ function renderComponent(schemaItem: FormSchema, props: FormProps) {
   if (isBoolean(dynamicDisabled)) {
     disabledObj.disabled = dynamicDisabled;
   }
+  const fieldsValues = {
+    ...allDefaultValues,
+    ...props.form.getFieldsValue(),
+  };
   if (isFunction(dynamicDisabled)) {
     disabledObj.disabled = dynamicDisabled({
       schema: schemaItem,
-      values: props.form.getFieldsValue(),
+      values: fieldsValues,
       form: props.form,
     });
   }
@@ -173,17 +186,17 @@ function renderComponent(schemaItem: FormSchema, props: FormProps) {
     placeholder =
       (componentProps && componentProps.placeholder) || createPlaceholderMessage(component);
   }
-  const values = props.form.getFieldsValue();
+
   return props.form.getFieldDecorator(
     field,
-    handleDecorator(schemaItem, props)
+    handleDecorator(schemaItem, props, fieldsValues)
   )(
     <Comp
       {...{
         props: {
           codeField: field,
           ...propsData,
-          formValues: values,
+          formValues: fieldsValues,
         },
         ...propsData,
       }}
@@ -192,7 +205,7 @@ function renderComponent(schemaItem: FormSchema, props: FormProps) {
     >
       {renderComponentContent
         ? isFunction(renderComponentContent)
-          ? renderComponentContent({ schema: schemaItem, values: values, form: props.form })
+          ? renderComponentContent({ schema: schemaItem, values: fieldsValues, form: props.form })
           : renderComponentContent
         : null}
     </Comp>
@@ -204,7 +217,8 @@ function renderComponent(schemaItem: FormSchema, props: FormProps) {
 export function renderFormModelItem(
   schemaItem: FormSchema,
   props: FormProps,
-  slots: SlotType
+  slots: SlotType,
+  allDefaultValues: any
 ): VNode {
   const { labelCol, wrapperCol } = handleLabel(schemaItem, props);
   const { selfUpdate, colon } = props;
@@ -220,14 +234,27 @@ export function renderFormModelItem(
     wrapperCol,
     label,
   };
+  const wrapComp = props.form.getFieldDecorator(
+    field,
+    handleDecorator(schemaItem, props, allDefaultValues)
+  );
   return (
     <Form.Item props={formItemProps}>
-      {slot && getSlot(slots, slot)}
+      {slot && wrapComp(getSlot(slots, slot))}
 
       {!slot &&
         (render
-          ? render({ schema: schemaItem, values: props.form.getFieldsValue(), form: props.form })
-          : renderComponent(schemaItem, props))}
+          ? wrapComp(
+              render({
+                schema: schemaItem,
+                values: {
+                  ...allDefaultValues,
+                  ...props.form.getFieldsValue(),
+                },
+                form: props.form,
+              })
+            )
+          : renderComponent(schemaItem, props, allDefaultValues))}
     </Form.Item>
   );
 }
@@ -235,8 +262,13 @@ export function renderFormModelItem(
 /**
  * @description: 渲染列
  */
-export function renderCol(schemaItem: FormSchema, props: FormProps, slots: SlotType): VNode | null {
-  const { colProps = {}, field, renderColContent, colSlot, show } = schemaItem;
+export function renderCol(
+  schemaItem: FormSchema,
+  props: FormProps,
+  slots: SlotType,
+  allDefaultValues: any
+): VNode | null {
+  const { colProps = {}, field, renderColContent, colSlot, show, isAdvanced } = schemaItem;
 
   let isShow = true;
 
@@ -245,10 +277,17 @@ export function renderCol(schemaItem: FormSchema, props: FormProps, slots: SlotT
   }
 
   if (isFunction(show)) {
-    isShow = show({ schema: schemaItem, values: props.form.getFieldsValue(), form: props.form });
+    isShow = show({
+      schema: schemaItem,
+      values: {
+        ...allDefaultValues,
+        ...props.form.getFieldsValue(),
+      },
+      form: props.form,
+    });
   }
-
-  return isShow ? (
+  const { showAdvancedButton } = props;
+  return isShow && (showAdvancedButton ? isAdvanced : true) ? (
     <Col key={field} {...{ props: colProps, ...colProps }}>
       {colSlot && getSlot(slots, colSlot)}
       {/*
@@ -261,7 +300,7 @@ export function renderCol(schemaItem: FormSchema, props: FormProps, slots: SlotT
               values: props.form.getFieldsValue(),
               form: props.form,
             })
-          : renderFormModelItem(schemaItem, props, slots))}
+          : renderFormModelItem(schemaItem, props, slots, allDefaultValues))}
     </Col>
   ) : null;
 }

@@ -16,6 +16,63 @@ const layout: LayoutType = {
 
 const routes: RouteConfigEx[] = [
   {
+    path: '/comp-base-demo',
+    name: 'CompBaseDemo',
+    component: () => createAsyncComponent(import('@/views/examples/components/index.vue')),
+    meta: {
+      title: '基础组件',
+    },
+  },
+  {
+    path: '/form-demo',
+    name: 'FormDemo',
+    meta: {
+      title: '表单组件',
+    },
+    children: [
+      {
+        path: '/base',
+        name: 'FormBaseDemo',
+        component: () => createAsyncComponent(import('@/views/examples/form/Base.vue')),
+        meta: {
+          title: '表单基础示例',
+        },
+      },
+      {
+        path: '/advance',
+        name: 'FormAdvanceDemo',
+        component: () => createAsyncComponent(import('@/views/examples/form/Advance.vue')),
+        meta: {
+          title: '表单可收起示例',
+        },
+      },
+      {
+        path: '/validate',
+        name: 'FormValidateDemo',
+        component: () => createAsyncComponent(import('@/views/examples/form/Validate.vue')),
+        meta: {
+          title: '表单校验示例',
+        },
+      },
+      {
+        path: '/dynamic',
+        name: 'FormDynamicDemo',
+        component: () => createAsyncComponent(import('@/views/examples/form/Dynamic.vue')),
+        meta: {
+          title: '动态表单示例',
+        },
+      },
+      {
+        path: '/custom',
+        name: 'FormCustomDemo',
+        component: () => createAsyncComponent(import('@/views/examples/form/CustomComp.vue')),
+        meta: {
+          title: '自定义表单示例',
+        },
+      },
+    ],
+  },
+  {
     path: '/lazy-demo',
     name: 'LazyDemo',
     meta: {
@@ -108,6 +165,23 @@ const routes: RouteConfigEx[] = [
       title: '数字动画',
     },
     component: () => createAsyncComponent(import('@/views/examples/components/count-to/index.vue')),
+  },
+  {
+    path: '/transition-base-demo',
+    name: 'TransitionBaseDemo',
+    component: () => createAsyncComponent(import('@/views/examples/transition/index.vue')),
+    meta: {
+      title: '动画组件',
+    },
+  },
+  {
+    path: '/click-out-side',
+    name: 'ClickOutSideDemo',
+    component: () =>
+      createAsyncComponent(import('@/views/examples/components/click-out-side/index.vue')),
+    meta: {
+      title: 'clickOutSide组件',
+    },
   },
 ];
 

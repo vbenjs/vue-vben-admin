@@ -4,18 +4,21 @@ import { screenMap, sizeEnum, screenEnum } from '@/enums/breakpointEnum';
 
 let globalScreenRef: Ref<sizeEnum | undefined>;
 let globalWidthRef: Ref<number>;
+let globalRealWidthRef: Ref<number>;
 
 export function useBreakpoint() {
   return {
-    screenRef: globalScreenRef,
+    screenRef: computed(() => unref(globalScreenRef)),
     widthRef: globalWidthRef,
     screenEnum,
+    realWidthRef: globalRealWidthRef,
   };
 }
 
 // 只要调用一次即可
 export function createBreakpointListen(fn?: (...arg) => any) {
-  const screenRef = ref<sizeEnum>();
+  const screenRef = ref<sizeEnum>(sizeEnum.XL);
+  const realWidthRef = ref(window.innerWidth);
 
   function getWindowWidth() {
     const width = document.body.clientWidth;
@@ -37,7 +40,9 @@ export function createBreakpointListen(fn?: (...arg) => any) {
     } else {
       screenRef.value = sizeEnum.XXL;
     }
+    realWidthRef.value = width;
   }
+
   useEvent({
     el: window,
     name: 'resize',
@@ -51,9 +56,11 @@ export function createBreakpointListen(fn?: (...arg) => any) {
   getWindowWidth();
   globalScreenRef = computed(() => unref(screenRef));
   globalWidthRef = computed((): number => screenMap.get(unref(screenRef)!)!);
+  globalRealWidthRef = computed((): number => unref(realWidthRef));
   return {
     screenRef: globalScreenRef,
     screenEnum,
     widthRef: globalWidthRef,
+    realWidthRef: globalRealWidthRef,
   };
 }

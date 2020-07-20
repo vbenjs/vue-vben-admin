@@ -21,6 +21,14 @@ export const formProps = {
     type: Boolean,
     default: true,
   },
+  // 是否显示收起展开按钮
+  showAdvancedButton: { type: Boolean, default: false },
+  // 超过3行自动折叠
+  autoAdvancedLine: {
+    type: Number,
+    default: 3,
+  },
+
   // 是否显示操作按钮
   showActionButtonGroup: {
     type: Boolean,

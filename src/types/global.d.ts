@@ -23,3 +23,12 @@ interface Window {
   // vue根实例对象
   __app__: any;
 }
+
+interface WheelEvent {
+  path?: EventTarget[];
+}
+
+declare function parseInt(s: string | number, radix?: number): number;
+declare function parseFloat(string: string | number): number;
+
+declare type Dictionary<T> = Record<string, T>;

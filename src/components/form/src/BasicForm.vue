@@ -6,6 +6,7 @@
     onMounted,
     computed,
     unref,
+    watch,
     // PropOptions
   } from 'compatible-vue';
 
@@ -18,23 +19,33 @@
     ValidateResult,
     ActionButtonOption,
   } from './types/form';
+  import { ColEx } from './types/';
 
   import { getSlot } from '@/utils/helper/tsxHelper';
 
   import { moment } from '@/utils/momentUtil';
   import { dateItemType } from './helper';
   import { cloneDeep } from '@/utils/lodashChunk';
-  import { isFunction, isObject, isArray, isString } from '@/utils/is/index';
+  import { isFunction, isBoolean, isObject, isArray, isString } from '@/utils/is/index';
   import { deepMerge } from '@/utils/deepMerge';
+  import { unique } from '@/utils/array/unique';
 
   import { renderCol } from './renderItem';
   import { renderAction } from './renderAction';
+
+  import { useBreakpoint } from '@/hooks/event/useBreakpoint';
+
+  const BASIC_COL_LEN = 24;
   const BasicForm = defineComponent({
     name: 'BasicForm',
     props: formProps,
-    setup(props: Readonly<FormProps>, { slots, emit, listeners }) {
+    setup(props: Readonly<FormProps>, { slots, emit, listeners, root }) {
       const schemaRef = ref<FormSchema[] | null>(null);
       const propsRef = ref<Partial<FormProps> | null>(null);
+      const isAdvancedRef = ref(true);
+      const hideAdvanceBtnRef = ref(false);
+      const isLoadRef = ref(false);
+      const actionSpanRef = ref(6);
 
       const getMergeProps = computed(() => {
         return { ...props, ...unref(propsRef) };
@@ -75,6 +86,22 @@
           }
         }
         return schemas;
+      });
+
+      const { realWidthRef, screenEnum } = useBreakpoint();
+      watch([() => unref(getSchema), () => unref(isAdvancedRef), () => unref(realWidthRef)], () => {
+        const { showAdvancedButton } = unref(getProps);
+        showAdvancedButton && updateAdvanced();
+      });
+      const getAllDefaultValues = computed(() => {
+        const schemas = unref(getSchema);
+        const obj: any = {};
+        schemas.forEach((item) => {
+          if (item.defaultValue) {
+            obj[item.field] = item.defaultValue;
+          }
+        });
+        return obj;
       });
 
       /**
@@ -233,7 +260,7 @@
           });
         });
 
-        schemaRef.value = schema;
+        schemaRef.value = unique(schema, 'field');
       }
       /**
        * @description: 根据字段名删除
@@ -271,6 +298,10 @@
         const schemaList: FormSchema[] = cloneDeep(unref(getSchema));
 
         const index = schemaList.findIndex((schema) => schema.field === prefixField);
+        const hasInList = schemaList.find((item) => item.field === schema.field);
+        if (hasInList) {
+          return;
+        }
         if (!prefixField || index === -1) {
           schemaList.push(schema);
           schemaRef.value = schemaList;
@@ -281,7 +312,84 @@
         }
         schemaRef.value = schemaList;
       }
+      function updateAdvanced() {
+        let itemColSum = 0;
+        let realItemColSum = 0;
+        for (const scheam of unref(getSchema)) {
+          const { show, colProps } = scheam;
+          let isShow = true;
 
+          if (isBoolean(show)) {
+            isShow = show;
+          }
+
+          if (isFunction(show)) {
+            isShow = show({
+              schema: scheam,
+              values: {
+                ...getAllDefaultValues,
+                ...props.form.getFieldsValue(),
+              },
+              form: props.form,
+            });
+          }
+          if (isShow && colProps) {
+            const { itemColSum: sum, isAdvanced } = getAdvanced(colProps, itemColSum);
+
+            itemColSum = sum || 0;
+            if (isAdvanced) {
+              realItemColSum = itemColSum;
+            }
+            root.$set(scheam, 'isAdvanced', isAdvanced);
+          }
+        }
+        actionSpanRef.value = realItemColSum % BASIC_COL_LEN;
+        getAdvanced(props.actionColOptions || { span: BASIC_COL_LEN }, itemColSum, true);
+      }
+
+      function getAdvanced(itemCol: Partial<ColEx>, itemColSum = 0, isLastAction = false) {
+        const width = unref(realWidthRef);
+
+        const mdWidth =
+          parseInt(itemCol.md as string) ||
+          parseInt(itemCol.xs as string) ||
+          parseInt(itemCol.sm as string) ||
+          (itemCol.span as number) ||
+          BASIC_COL_LEN;
+        const lgWidth = parseInt(itemCol.lg as string) || mdWidth;
+        const xlWidth = parseInt(itemCol.xl as string) || lgWidth;
+        const xxlWidth = parseInt(itemCol.xxl as string) || xlWidth;
+        if (width <= screenEnum.LG) {
+          itemColSum += mdWidth;
+        } else if (width < screenEnum.XL) {
+          itemColSum += lgWidth;
+        } else if (width < screenEnum.XXL) {
+          itemColSum += xlWidth;
+        } else {
+          itemColSum += xxlWidth;
+        }
+        if (isLastAction) {
+          hideAdvanceBtnRef.value = false;
+          if (itemColSum <= BASIC_COL_LEN * 2) {
+            // 小于等于2行时，不显示收起展开按钮
+            hideAdvanceBtnRef.value = true;
+            isAdvancedRef.value = true;
+          } else if (itemColSum > BASIC_COL_LEN * 2 && itemColSum <= BASIC_COL_LEN * 3) {
+            hideAdvanceBtnRef.value = false;
+            // 大于3行默认收起
+          } else if (!unref(isLoadRef)) {
+            isLoadRef.value = true;
+            isAdvancedRef.value = !unref(isAdvancedRef);
+          }
+          return { isAdvanced: unref(isAdvancedRef), itemColSum };
+        }
+        if (itemColSum > BASIC_COL_LEN) {
+          return { isAdvanced: unref(isAdvancedRef), itemColSum };
+        } else {
+          // 第一行始终显示
+          return { isAdvanced: true, itemColSum };
+        }
+      }
       /**
        * @description:设置表单
        */
@@ -317,9 +425,9 @@
             {getSlot(slots, 'insert-form')}
             <Row class={[compact ? 'compact-form-row' : '']}>
               {schema.map((schemaItem) => {
-                return renderCol(schemaItem, propsData, slots);
+                return renderCol(schemaItem, propsData, slots, unref(getAllDefaultValues));
               })}
-              {renderAction(propsData)}
+              {renderAction({ props: propsData, isAdvancedRef, hideAdvanceBtnRef, actionSpanRef })}
             </Row>
             {
               // 表单项后置item  需要用 Col标签包含

@@ -24,7 +24,7 @@
       });
 
       return () => (
-        <Breadcrumb class={prefixCls}>
+        <Breadcrumb class={prefixCls} separator="/">
           {(unref(getBreadcrumbList) || []).map((item) => {
             return (
               <Breadcrumb.Item href={item.path} key={item.path}>
@@ -45,4 +45,23 @@
     padding: 8px;
     background: @white;
   }
+
+  // .breadcrumb-enter-active,
+  // .breadcrumb-leave-active {
+  //   transition: all 0.5s;
+  // }
+
+  // .breadcrumb-enter,
+  // .breadcrumb-leave-active {
+  //   opacity: 0;
+  //   transform: translateX(20px);
+  // }
+
+  // .breadcrumb-move {
+  //   transition: all 0.5s;
+  // }
+
+  // .breadcrumb-leave-active {
+  //   position: absolute;
+  // }
 </style>

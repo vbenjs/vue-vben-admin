@@ -1,12 +1,11 @@
 <script lang="tsx">
   // collapse 展开折叠
-  import CollapseTransitionComponent from './collapse-transition';
+  import { ExpandTransition } from '../index';
   import { defineComponent } from 'compatible-vue';
-  import './collapse-transition.less';
   export default defineComponent({
     name: 'CollapseTransition',
     components: {
-      CollapseTransitionComponent,
+      ExpandTransition,
     },
     props: {
       // 是否打开折叠功能
@@ -17,11 +16,7 @@
     },
     setup(props, { slots }) {
       return () =>
-        props.enable ? (
-          <CollapseTransitionComponent>{slots.default()}</CollapseTransitionComponent>
-        ) : (
-          slots.default()
-        );
+        props.enable ? <ExpandTransition>{slots.default()}</ExpandTransition> : slots.default();
     },
   });
 </script>

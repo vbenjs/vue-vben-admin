@@ -1,5 +1,6 @@
 require('./env')();
 const { isProductionFn, getEnvFn } = require('../../build/utils');
+const resolve = require('../../build/getCwdPath');
 
 const { createDevServer } = require('./devServer');
 const { configAlias } = require('./alias');
@@ -47,7 +48,6 @@ function createVueConfig() {
     },
     chainWebpack: (config) => {
       config.name = ENV.GLOB_APP_SHORT_NAME;
-
       configIgnorePlugin(config);
       // alias
       configAlias(config);

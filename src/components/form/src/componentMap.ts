@@ -48,4 +48,12 @@ componentMap.set('RangePicker', DatePicker.RangePicker);
 componentMap.set('WeekPicker', DatePicker.WeekPicker);
 componentMap.set('TimePicker', TimePicker);
 
+export function add(compName: ComponentType, component: Component) {
+  componentMap.set(compName, component);
+}
+
+export function del(compName: ComponentType) {
+  componentMap.delete(compName);
+}
+
 export { componentMap };

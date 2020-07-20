@@ -47,6 +47,14 @@ const routes: RouteConfigEx[] = [
       title: '地图',
     },
   },
+  {
+    path: '/baidu-map',
+    name: 'BaiduMapDemo',
+    component: () => createAsyncComponent(import('@/views/examples/charts/baidu-map/index.vue')),
+    meta: {
+      title: '百度地图',
+    },
+  },
 ];
 
 export default {

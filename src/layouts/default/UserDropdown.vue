@@ -39,14 +39,19 @@
         return { realName, desc };
       });
       return () => {
-        const { realName, desc } = unref(getUserInfo) || {};
+        const {
+          realName,
+          // desc
+        } = unref(getUserInfo) || {};
         return (
           <Dropdown placement="bottomLeft">
             <section class={prefixCls}>
               <img class={`${prefixCls}__header`} src={headerImg} />
               <section class={`${prefixCls}__info`}>
                 <section class={`${prefixCls}__name`}>{realName}</section>
-                <section class={`${prefixCls}__desc`}>{desc}</section>
+                {
+                  // <section class={`${prefixCls}__desc`}>{desc}</section>
+                }
               </section>
               {
                 //   <div class={`${prefixCls}__divider`}></div>

@@ -22,5 +22,9 @@ export default {
       name: '地图',
       path: '/map',
     },
+    {
+      name: '百度地图',
+      path: '/baidu-map',
+    },
   ],
 } as NormMenuItem;
