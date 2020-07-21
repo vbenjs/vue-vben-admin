@@ -51,8 +51,8 @@ class Tab extends VuexModule implements TabState {
   }
 
   get getCurrentTab(): TabItem {
-    const { route } = useRouter();
-    return this.tabsState.find((item) => item.path === unref(route).path)!;
+    const { routeRef } = useRouter();
+    return this.tabsState.find((item) => item.path === unref(routeRef).path)!;
   }
 
   @Mutation

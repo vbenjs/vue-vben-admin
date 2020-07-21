@@ -1,4 +1,4 @@
-### VBEN ADMIN
+### VUE-VBEN-ADMIN
 
 一个适合开发大型项目的基础框架，需要对`vue`,`typescript`有一定的了解，
 

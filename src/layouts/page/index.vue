@@ -19,12 +19,12 @@
       const { prefixCls } = useDesign('page-layout');
       const { handleAfterEnter } = useTransition();
       const { hasRenderFrame, showIframe, getFramePages } = useFrameKeepAlive();
-      const { route } = useRouter();
+      const { routeRef } = useRouter();
 
       return () => {
         const { getProjCfg } = appStore;
         const { multiTabsSetting: { show } = {} } = getProjCfg;
-        const fullPath = unref(route).fullPath;
+        const fullPath = unref(routeRef).fullPath;
 
         const propsData = isDevMode()
           ? {} // 开发环境设置key  会导致热更新失效

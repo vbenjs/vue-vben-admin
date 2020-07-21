@@ -171,13 +171,13 @@ export function useSideBar({
   setOpenKeys: (route: MenuItem) => void;
   resetKeys: () => void;
 }) {
-  const { route } = useRouter();
+  const { routeRef } = useRouter();
 
   /**
    * @description: 监听路由变化，则menu选中变化
    */
   watch(
-    [() => unref(route), () => unref(getAllMenu)],
+    [() => unref(routeRef), () => unref(getAllMenu)],
     ([route]) => {
       if (!unref(getAllMenu)) {
         return;

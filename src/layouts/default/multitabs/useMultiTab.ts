@@ -54,12 +54,12 @@ export function addAffixTabs(): void {
 }
 
 export function closeTab(closedTab: TabItem) {
-  const { route } = useRouter();
+  const { routeRef } = useRouter();
   // 当前tab列表
   const getTabsState = computed(() => {
     return tabStore.getTabsState;
   });
-  const { path } = unref(route);
+  const { path } = unref(routeRef);
   if (path !== closedTab.path) {
     // 关闭的不是激活tab
     tabStore.commitCloseTab(closedTab);
@@ -82,7 +82,7 @@ export function closeTab(closedTab: TabItem) {
     // 跳转至左边tab
     toPath = unref(getTabsState)[index - 1].path;
   }
-  tabStore.commitCloseTab(unref(route));
+  tabStore.commitCloseTab(unref(routeRef));
 
   useGo({ path: toPath as pageEnum, replace: true });
 }
@@ -91,11 +91,11 @@ export function closeTab(closedTab: TabItem) {
  * @description: 右键下拉
  */
 export function useTabDropdown(tabContentProps: TabContentProps) {
-  const { route } = useRouter();
+  const { routeRef } = useRouter();
   const getCurrentTab: Ref<TabItem | RouteEx> = computed(() => {
     return tabContentProps.type === TabContentEnum.TAB_TYPE
       ? tabContentProps.tabItem
-      : unref(route);
+      : unref(routeRef);
   });
 
   // 当前tab列表
@@ -144,7 +144,7 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
     if (path === unref(getTabsState)[unref(getTabsState).length - 1].path) {
       CLOSE_RIGHT.disabled = true;
     }
-    if (path !== unref(route).path) {
+    if (path !== unref(routeRef).path) {
       REFRESH_PAGE.disabled = true;
     }
 
@@ -156,7 +156,7 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
    */
   function gotoPage() {
     const len = unref(getTabsState).length;
-    const { path } = unref(route);
+    const { path } = unref(routeRef);
 
     let toPath: pageEnum | string = pageEnum.BASE_HOME;
 
@@ -168,7 +168,7 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
   }
 
   function isGotoPage(currentTab?: TabItem) {
-    const { path } = unref(route);
+    const { path } = unref(routeRef);
     const currentPath = (currentTab || unref(getCurrentTab)).path;
     // 不是当前tab，关闭左侧/右侧时，需跳转页面
     if (path !== currentPath) {

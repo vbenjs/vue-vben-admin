@@ -25,9 +25,9 @@
     setup() {
       const { prefixCls } = useDesign('default-layout');
       const scrollRef = ref<any>(null);
-      const { route } = useRouter();
+      const { routeRef } = useRouter();
       watch(
-        () => unref(route).path,
+        () => unref(routeRef).path,
         () => {
           const scroll = unref(scrollRef);
           if (scroll) {

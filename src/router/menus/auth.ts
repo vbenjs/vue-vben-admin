@@ -6,7 +6,7 @@ export default {
   path: '/auth',
   children: [
     {
-      name: '基于角色',
+      name: '基于前端角色',
       path: '/role',
       children: [
         {

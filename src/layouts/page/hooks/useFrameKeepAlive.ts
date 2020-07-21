@@ -9,7 +9,7 @@ import { RouteConfigEx } from '@/router/types';
 import { useRouter } from '@/hooks/core/useRouter';
 
 export function useFrameKeepAlive() {
-  const { route } = useRouter();
+  const { routeRef } = useRouter();
 
   function getAllFramePages(routes: RouteConfigEx[]): RouteConfigEx[] {
     const res: RouteConfigEx[] = [];
@@ -25,7 +25,7 @@ export function useFrameKeepAlive() {
     return res;
   }
   function showIframe(item: RouteConfigEx) {
-    return item.path === unref(route).path;
+    return item.path === unref(routeRef).path;
   }
   const getFramePages = computed(() => {
     const authRoutes = permissionStore.getRoutesState;

@@ -9,9 +9,13 @@ import { useRouter } from '@/hooks/core/useRouter';
 export const useFullContent = () => {
   // 是否全屏显示内容,不显示菜单
   const getFullContent = computed(() => {
-    const { route } = useRouter();
+    const { routeRef } = useRouter();
     // 查询参数,地址栏有full参数即显示全屏
-    const query = unref(route).query;
+    const route = unref(routeRef);
+    if (!route) {
+      return;
+    }
+    const query = route.query;
     if (query && Reflect.has(query, '__full__')) {
       return true;
     }

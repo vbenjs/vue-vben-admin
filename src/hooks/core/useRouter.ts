@@ -5,16 +5,16 @@ import { getRuntimeVM } from '@/setup/vue/runtimeVm';
 export const useRouter = () => {
   const vm = getRuntimeVM();
   const route = computed(() => vm.$route);
-  return { route, router: vm.$router };
+  return { routeRef: route, router: vm.$router };
 };
 
 /**
  * @description: 刷新当前界面
  */
 export const useRedo = () => {
-  const { route, router } = useRouter();
+  const { routeRef, router } = useRouter();
   router.push({
-    path: '/redirect' + unref(route).fullPath,
+    path: '/redirect' + unref(routeRef).fullPath,
   });
 };
 

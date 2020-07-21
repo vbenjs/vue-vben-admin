@@ -6,9 +6,9 @@ import { useRouter } from '@/hooks/core/useRouter';
 
 export function useTransition() {
   let isFirstLoad = true;
-  const { route } = useRouter();
+  const { routeRef } = useRouter();
   watch(
-    () => unref(route).path,
+    () => unref(routeRef).path,
     (path: string) => {
       const { getProjCfg } = appStore;
       const { openKeepAlive, multiTabsSetting: { show } = {} } = getProjCfg;

@@ -20,7 +20,7 @@ const routes: RouteConfigEx[] = [
     path: '/role',
     name: 'RoleAuth',
     meta: {
-      title: '基于角色',
+      title: '基于前端角色',
     },
     children: [
       {
