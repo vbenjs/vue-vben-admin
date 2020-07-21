@@ -22,5 +22,9 @@ export default {
       name: '右键菜单插件',
       path: '/context-menu-demo',
     },
+    {
+      name: '富文本编辑器',
+      path: '/tinymce',
+    },
   ],
 } as NormMenuItem;
