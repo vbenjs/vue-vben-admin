@@ -23,8 +23,12 @@ export default {
       path: '/context-menu-demo',
     },
     {
-      name: '图片预览插件',
+       name: '图片预览插件',
       path: '/preview-demo',
+    },
+    {
+      name: '富文本编辑器',
+      path: '/tinymce',
     },
   ],
 } as NormMenuItem;

@@ -56,6 +56,14 @@ const routes: RouteConfigEx[] = [
       title: '图片预览插件',
     },
   },
+  {
+    path: '/tinymce',
+    name: 'TinymceDemo',
+    component: () => createAsyncComponent(import('@/views/examples/plugins/tinymce/index.vue')),
+    meta: {
+      title: '富文本编辑器',
+    },
+  },
 ];
 
 export default {
