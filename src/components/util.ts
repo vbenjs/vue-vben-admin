@@ -3,6 +3,20 @@ import { VueConstructor, VNodeData } from 'compatible-vue';
 export function getAsyncComponent(importComp: () => Promise<typeof import('*.vue')>) {
   return (importComp as unknown) as VueConstructor<Vue>;
 }
+
+export function convertToUnit(
+  str: string | number | null | undefined,
+  unit = 'px'
+): string | undefined {
+  if (str == null || str === '') {
+    return undefined;
+  } else if (isNaN(+str!)) {
+    return String(str);
+  } else {
+    return `${Number(str)}${unit}`;
+  }
+}
+
 /**
  * Camelize a hyphen-delimited string.
  */

@@ -24,6 +24,23 @@ const routes: RouteConfigEx[] = [
     },
   },
   {
+    path: '/table-demo',
+    name: 'TableDemo',
+    meta: {
+      title: '表格组件',
+    },
+    children: [
+      {
+        path: '/base',
+        name: 'TableBaseDemo',
+        component: () => createAsyncComponent(import('@/views/examples/table/Base.vue')),
+        meta: {
+          title: '表格基础示例',
+        },
+      },
+    ],
+  },
+  {
     path: '/form-demo',
     name: 'FormDemo',
     meta: {
@@ -132,6 +149,32 @@ const routes: RouteConfigEx[] = [
           title: '基础示例',
         },
       },
+      {
+        path: '/virtual-scroll',
+        name: 'VirtualScrollDemo',
+        meta: {
+          title: '虚拟滚动组件',
+        },
+        component: () =>
+          createAsyncComponent(import('@/views/examples/components/virtual-scroll/index.vue')),
+      },
+    ],
+  },
+  {
+    path: '/desc-demo',
+    name: 'DescDemo',
+    meta: {
+      title: '详情组件',
+    },
+    children: [
+      {
+        path: '/base',
+        name: 'DescBaseDemo',
+        component: () => createAsyncComponent(import('@/views/examples/components/desc/index.vue')),
+        meta: {
+          title: '基础示例',
+        },
+      },
     ],
   },
   {
@@ -142,6 +185,7 @@ const routes: RouteConfigEx[] = [
     },
     component: () => createAsyncComponent(import('@/views/examples/components/modal/index.vue')),
   },
+
   {
     path: '/icon-demo',
     name: 'IconDemo',

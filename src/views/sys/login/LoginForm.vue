@@ -81,7 +81,6 @@
             handleLogin();
           }
         },
-        autoRemove: true,
       });
 
       return () => (

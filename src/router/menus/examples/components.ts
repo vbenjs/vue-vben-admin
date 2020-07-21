@@ -11,6 +11,16 @@ export default {
       path: '/comp-base-demo',
     },
     {
+      name: '表格组件',
+      path: '/table-demo',
+      children: [
+        {
+          name: '基础示例',
+          path: '/base',
+        },
+      ],
+    },
+    {
       name: '表单组件',
       path: '/form-demo',
       children: [
@@ -61,6 +71,20 @@ export default {
     {
       name: '滚动组件',
       path: '/scrollbar-demo',
+      children: [
+        {
+          name: '基础示例',
+          path: '/base',
+        },
+        {
+          name: '虚拟滚动组件',
+          path: '/virtual-scroll',
+        },
+      ],
+    },
+    {
+      name: '详情组件',
+      path: '/desc-demo',
       children: [
         {
           name: '基础示例',

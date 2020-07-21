@@ -374,7 +374,10 @@
             // 小于等于2行时，不显示收起展开按钮
             hideAdvanceBtnRef.value = true;
             isAdvancedRef.value = true;
-          } else if (itemColSum > BASIC_COL_LEN * 2 && itemColSum <= BASIC_COL_LEN * 3) {
+          } else if (
+            itemColSum > BASIC_COL_LEN * 2 &&
+            itemColSum <= BASIC_COL_LEN * (props.autoAdvancedLine || 3)
+          ) {
             hideAdvanceBtnRef.value = false;
             // 大于3行默认收起
           } else if (!unref(isLoadRef)) {

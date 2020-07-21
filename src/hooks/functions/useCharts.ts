@@ -27,7 +27,6 @@ export function useCharts(
       el: window,
       name: 'resize',
       listener: resizeFn,
-      autoRemove: true,
     });
     const { widthRef, screenEnum } = useBreakpoint();
     if (unref(widthRef) <= screenEnum.MD) {

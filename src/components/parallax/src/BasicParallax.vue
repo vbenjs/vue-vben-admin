@@ -55,7 +55,6 @@
 
         const eventData = {
           el: scrollWrapEl,
-          autoRemove: true,
           name: 'scroll',
           listener: translate,
           options: false,
@@ -92,7 +91,6 @@
         } else {
           useEvent({
             el: img,
-            autoRemove: true,
             name: 'load',
             listener: () => {
               translate();

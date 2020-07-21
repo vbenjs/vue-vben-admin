@@ -19,8 +19,12 @@ export default {
       path: '/qrcode',
     },
     {
-      name: '右键菜单插件',
+      name: '右键菜单',
       path: '/context-menu-demo',
+    },
+    {
+      name: '图片预览插件',
+      path: '/preview-demo',
     },
   ],
 } as NormMenuItem;

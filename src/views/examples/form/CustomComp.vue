@@ -31,7 +31,7 @@
             手动校验表单
           </Button>
 
-          <Divider>JSON表单组件-表单校验示例</Divider>
+          <Divider>JSON表单组件-自定义组件示例</Divider>
           <BasicForm
             onRegister={register}
             onChange={(val: any) => {

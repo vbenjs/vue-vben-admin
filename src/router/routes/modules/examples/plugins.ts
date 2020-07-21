@@ -45,7 +45,15 @@ const routes: RouteConfigEx[] = [
     component: () =>
       createAsyncComponent(import('@/views/examples/plugins/context-menu/index.vue')),
     meta: {
-      title: '右键菜单插件',
+      title: '右键菜单',
+    },
+  },
+  {
+    path: '/preview-demo',
+    name: 'PreviewDemo',
+    component: () => createAsyncComponent(import('@/views/examples/plugins/preview/index.vue')),
+    meta: {
+      title: '图片预览插件',
     },
   },
 ];

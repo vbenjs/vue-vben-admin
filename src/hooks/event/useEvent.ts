@@ -1,4 +1,4 @@
-import { Ref, ref, onMounted, onUnmounted, unref } from 'compatible-vue';
+import { Ref, ref, watch, unref } from 'compatible-vue';
 import { RefTyped } from '@/types';
 import { useDebounce } from '@/hooks/core/useDebounce';
 import { useThrottle } from '@/hooks/core/useThrottle';
@@ -19,21 +19,44 @@ export function useEvent({
   name,
   listener,
   options,
-  autoRemove,
+  autoRemove = true,
   isDebounce = true,
   wait = 150,
-}: UseEventParams) {
-  if (el) {
-    const elementRef: Ref<Element> = ref(el as Element);
-    const element = unref(elementRef);
-    const [handler] = isDebounce ? useDebounce(listener, wait) : useThrottle(listener, wait);
+}: UseEventParams): { removeEvent: RemoveEventFn } {
+  /* eslint-disable-next-line */
+  let remove: RemoveEventFn = () => {};
+  const isAddRef = ref(false);
 
-    onMounted(() => {
-      element.addEventListener(name, handler, options);
-    });
-    autoRemove &&
-      onUnmounted(() => {
-        element.removeEventListener(name, handler, options);
-      });
+  if (el) {
+    const element: Ref<Element> = ref(el as Element);
+
+    const [handler] = isDebounce ? useDebounce(listener, wait) : useThrottle(listener, wait);
+    const realHandler = wait ? handler : listener;
+    const removeEventListener = (e: Element) => {
+      isAddRef.value = true;
+      e.removeEventListener(name, realHandler, options);
+    };
+    const addEventListener = (e: Element) => e.addEventListener(name, realHandler, options);
+
+    const removeWatch = watch(
+      element,
+      (v, ov, cleanUp) => {
+        if (v) {
+          !unref(isAddRef) && addEventListener(v);
+          cleanUp(() => {
+            // @ts-ignore
+            window.a = v;
+            autoRemove && removeEventListener(v);
+          });
+        }
+      },
+      { immediate: true }
+    );
+
+    remove = () => {
+      removeEventListener(element.value);
+      removeWatch();
+    };
   }
+  return { removeEvent: remove };
 }

@@ -62,7 +62,7 @@
       const methods: DescInstance = {
         setProps,
       };
-      emit('get', methods);
+      emit('register', methods);
 
       function renderItem() {
         return unref(getProps).schema.map((item, index) => {
@@ -97,18 +97,6 @@
       };
 
       return () => (unref(useWrapper) ? renderContainer() : renderDesc());
-      // return () => renderContainer();
     },
   });
 </script>
-//
-<style lang="less" scoped>
-  // @import (reference)  '~@design';
-  // @prefix-cls: ~'@{namespace}-desc';
-  // .@{prefix-cls} {
-  //   &__title{
-  //     margin: 16px 0;
-  //   }
-  // }
-  //
-</style>

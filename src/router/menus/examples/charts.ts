@@ -1,6 +1,6 @@
 import { NormMenuItem } from '@/router/types';
 
-export const orderNo = 100;
+export const orderNo = 200;
 export default {
   name: '图表',
   path: '/chart',

@@ -10,14 +10,12 @@ export function useClickOutside<T extends HTMLElement>(
     name: 'touchend',
     listener: handler,
     options: true,
-    autoRemove: true,
   });
   useEvent({
     el: document,
     name: 'click',
     listener: handler,
     options: true,
-    autoRemove: true,
   });
 
   function handler(e: MouseEvent | TouchEvent) {

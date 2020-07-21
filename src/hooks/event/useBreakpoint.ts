@@ -50,7 +50,6 @@ export function createBreakpointListen(fn?: (...arg) => any) {
       fn && fn();
       getWindowWidth();
     },
-    autoRemove: true,
   });
 
   getWindowWidth();
