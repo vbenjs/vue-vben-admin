@@ -227,6 +227,15 @@ const routes: RouteConfigEx[] = [
       title: 'clickOutSide组件',
     },
   },
+  {
+    path: '/upload-image-demo',
+    name: 'UploadImageDemo',
+    component: () =>
+      createAsyncComponent(import('@/views/examples/components/upload/UploadImage.vue')),
+    meta: {
+      title: '上传图片',
+    },
+  },
 ];
 
 export default {

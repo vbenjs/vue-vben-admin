@@ -63,10 +63,19 @@
   import { basicProps } from './props';
   import { BasicProps } from './types';
 
+  import { useDesign } from '@/hooks/core/useDesign';
+
+  import { Button } from 'ant-design-vue';
+  import { useModal } from '@/components/modal/index';
+  import { UploadImageModal, UploadResult } from '@/components/upload/index';
+  import { UploadFile } from 'ant-design-vue/types/upload';
+
   export default defineComponent({
     name: 'Tinymce',
     props: basicProps,
     setup(props: BasicProps, { emit, root }) {
+      const { prefixCls } = useDesign('tinymce');
+
       const tinymceState = reactive({
         hasChange: false,
         hasInit: false,
@@ -159,11 +168,61 @@
       onUnmounted(() => {
         destroyTinymce();
       });
+      // 上传图片
+      const [register, { isFirstLoadRef, openModal }] = useModal();
+      function handleChange(fileList: UploadFile<UploadResult>[]) {
+        // console.log('fileList', fileList);
+        openModal({
+          visible: false,
+        });
+
+        fileList.forEach((file) => {
+          const { response } = file;
+          response &&
+            tinymce
+              .get(props.id)
+              .insertContent(`<img class=${prefixCls + '__upload-img'} src="${response.url}" >`);
+        });
+      }
       return () => (
-        <div class="tinymce-container" style={{ width: unref(getWidth) }}>
-          <textarea id={props.id} class="tinymce-textarea" />
+        <div class={`${prefixCls}__wrapper`} style={{ width: unref(getWidth) }}>
+          <textarea id={props.id} class={`${prefixCls}__textarea`} />
+          <Button
+            class={`${prefixCls}__upload`}
+            type="primary"
+            onClick={() => {
+              openModal({
+                visible: true,
+              });
+            }}
+          >
+            上传
+          </Button>
+          {!unref(isFirstLoadRef) && (
+            <UploadImageModal onRegister={register} onChange={handleChange} />
+          )}
         </div>
       );
     },
   });
 </script>
+<style lang="less" scoped>
+  @import (reference) '~@design';
+  @prefix-cls: ~'@{namespace}-tinymce';
+
+  .@{prefix-cls} {
+    &__wrapper {
+      position: relative;
+    }
+
+    &__upload {
+      position: absolute;
+      top: 4px;
+      right: 10px;
+    }
+
+    &__upload-img {
+      width: 100%;
+    }
+  }
+</style>

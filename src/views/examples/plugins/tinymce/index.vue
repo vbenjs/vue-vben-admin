@@ -2,6 +2,7 @@
   import { defineComponent, ref, unref } from 'compatible-vue';
   import { Tinymce } from '@/components/tinymce/index';
   import { Button } from 'ant-design-vue';
+
   export default defineComponent({
     name: 'TinymceDemo',
     setup() {

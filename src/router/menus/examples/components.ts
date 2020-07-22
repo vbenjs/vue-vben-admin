@@ -116,5 +116,9 @@ export default {
       path: '/click-out-side',
       name: 'clickOutSide组件',
     },
+    {
+      path: '/upload-image-demo',
+      name: '上传图片',
+    },
   ],
 } as NormMenuItem;
