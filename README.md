@@ -1,10 +1,25 @@
-### VUE-VBEN-ADMIN
+<p align="center">
+  <a href="https://github.com/anncwb/vue-vben-admin" target="_blank">
+    <img alt="VbenAdmin Logo" width="100" src="./src/assets/images/logo.png">
+  </a>
+</p>
+<h2 align="center">VUE VBEN ADMIN</h2>
 
 一个适合开发大型项目的基础框架，需要对`vue`,`typescript`有一定的了解，
 
 项目基于`ant-design-vue`,`typescript`,`vue-composition-api`,`TSX`实现的 vue3 风格的后台管理系统，用 vue3 的写法写 vue2
 
 兼容 vue2 的浏览器，一切免费，不收取任何费用，请放心使用。后续定期提供更新及维护，可供参考与学习
+
+### 在线示例
+
+### gitHub 地址
+
+[vue-vben-admin](https://github.com/anncwb/vue-vben-admin)
+
+### 文档
+
+由于写的时间比较短，文档暂时还在开发中，后续会陆续补全...
 
 ### 为什么写这个
 
@@ -238,10 +253,9 @@ yarn log # 生成CHANGELOG
 - [ ] 图片裁剪
 - [ ] 富文本组件
 - [ ] 上传组件
-- [ ] 常用页面实现及例子
 - [ ] vue3 一键切换
 - [ ] 黑暗主题
-- [ ] 更多组件/功能欢迎提交 pr
+- [ ] 更多组件/功能欢迎提交 pr 或者 issue
 
 ## 加入我们
 

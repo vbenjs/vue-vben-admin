@@ -3,7 +3,7 @@
   import { Icon } from 'ant-design-vue';
   import { SvgIcon } from '@/components/icon/index';
 
-  import { defineComponent, computed, unref } from 'compatible-vue';
+  import { defineComponent, computed, unref, PropOptions } from 'compatible-vue';
 
   export default defineComponent({
     name: 'Icon',
@@ -12,13 +12,13 @@
       type: {
         type: String,
         required: true,
-      },
+      } as PropOptions<string>,
 
       // 是否是自定义的svg图标
       isSvg: {
         type: Boolean,
         default: false,
-      },
+      } as PropOptions<boolean>,
     },
     setup(props, { emit, attrs }) {
       // 是否未自定义的svg图标

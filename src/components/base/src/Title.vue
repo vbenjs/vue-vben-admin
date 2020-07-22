@@ -1,6 +1,6 @@
 <script lang="tsx">
   import BaseHelp from './Help.vue';
-  import { defineComponent } from 'compatible-vue';
+  import { defineComponent, PropOptions } from 'compatible-vue';
 
   // hook
   import { useDesign } from '@/hooks/core/useDesign';
@@ -13,7 +13,7 @@
       helpMessage: {
         type: [String, Array],
         default: '',
-      },
+      } as PropOptions<string | string[]>,
     },
     setup(props, { slots }) {
       const { prefixCls } = useDesign('base-title');

@@ -7,7 +7,7 @@ export const basicProps = {
     default: () => {
       return `tinymce-${new Date().getTime()}${(Math.random() * 1000).toFixed(0)}`;
     },
-  },
+  } as PropOptions<string>,
   options: {
     type: Object,
     default: null,
@@ -15,22 +15,22 @@ export const basicProps = {
   menubar: {
     type: String,
     default: 'file edit insert view format table',
-  },
+  } as PropOptions<string>,
   value: {
     type: String,
     // default: ''
-  },
+  } as PropOptions<string>,
   // 高度
   height: {
     type: [Number, String],
     required: false,
     default: 400,
-  },
+  } as PropOptions<string | number>,
 
   // 宽度
   width: {
     type: [Number, String],
     required: false,
     default: 'auto',
-  },
+  } as PropOptions<string | number>,
 };

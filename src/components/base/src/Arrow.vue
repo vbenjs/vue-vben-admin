@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, computed, unref } from 'compatible-vue';
+  import { defineComponent, computed, unref, PropOptions } from 'compatible-vue';
 
   import { Icon } from '@/components/icon/index';
 
@@ -13,7 +13,7 @@
       expand: {
         type: Boolean,
         default: true,
-      },
+      } as PropOptions<boolean>,
     },
     setup(props, { emit }) {
       const { prefixCls } = useDesign('base-arrow');

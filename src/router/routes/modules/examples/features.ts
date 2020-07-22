@@ -3,10 +3,10 @@ import { RouteConfigEx, LayoutType, ModuleRouteConfig } from '@/router/types';
 import { createAsyncComponent } from '@/common/factory/AsyncComponentFactory';
 import { PAGE_LAYOUT_COMPONENT } from '@/router/constant';
 
-const prefix = '/feat';
+const prefix = '/feat-demo';
 
 const layout: LayoutType = {
-  path: '/feat',
+  path: '/feat-demo',
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
     title: '页面功能',
@@ -38,6 +38,14 @@ const routes: RouteConfigEx[] = [
     component: () => createAsyncComponent(import('@/views/examples/features/watermark/index.vue')),
     meta: {
       title: '水印',
+    },
+  },
+  {
+    path: '/image-crop',
+    name: 'ImageCorpDemo',
+    component: () => createAsyncComponent(import('@/views/examples/features/image-crop/index.vue')),
+    meta: {
+      title: '图片裁剪',
     },
   },
 ];

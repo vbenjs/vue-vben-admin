@@ -24,8 +24,8 @@ const modifyVars = {
 
   'box-shadow-base': '0 2px 8px rgba(0, 0, 0, 0.15)', // 浮层阴影 Floating shadow
 
-  'border-color-base': '#CECECE', // 边框色 Border color,
-  'border-color-split': '#CECECE', // 边框色 Border color,
+  'border-color-base': '#cececd', // 边框色 Border color,
+  'border-color-split': '#cececd', // 边框色 Border color,
   'border-radius-base': '2px', // 组件/浮层圆角 Component/float fillet
 };
 

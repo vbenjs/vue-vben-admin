@@ -1,6 +1,6 @@
 <script lang="tsx">
   // components
-  import { defineComponent, computed, unref } from 'compatible-vue';
+  import { defineComponent, computed, unref, PropOptions } from 'compatible-vue';
 
   // hook
   import { useDesign } from '@/hooks/core/useDesign';
@@ -17,14 +17,14 @@
       tip: {
         type: String,
         default: '',
-      },
+      } as PropOptions<string>,
       size: {
         type: String,
         default: SizeEnum.DEFAULT,
         validator: (v: SizeEnum): boolean => {
           return [SizeEnum.DEFAULT, SizeEnum.SMALL, SizeEnum.LARGE].includes(v);
         },
-      },
+      } as PropOptions<SizeEnum>,
     },
     setup(props: BasicLoadingProps) {
       const getLoadingIconSize = computed(() => {

@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, computed, unref } from 'compatible-vue';
+  import { defineComponent, computed, unref, PropOptions } from 'compatible-vue';
 
   export default defineComponent({
     name: 'SvgIcon',
@@ -8,17 +8,17 @@
       type: {
         type: String,
         required: true,
-      },
+      } as PropOptions<string>,
 
       // 样式名
       className: {
         type: String,
-      },
+      } as PropOptions<string>,
 
       // 大小
       size: {
         type: String,
-      },
+      } as PropOptions<string>,
     },
     setup(props) {
       // svg样式

@@ -1,19 +1,22 @@
-import { computed } from 'compatible-vue';
+import { computed, ComputedRef, unref, ref } from 'compatible-vue';
 import { Icon } from '@/components/icon/index';
 import { BasicTableProps } from '../types/table';
+import { PaginationProps } from '../types/pagination';
 
-export function usePagination(props: BasicTableProps) {
-  const { pagination } = props;
-  function handleChange(page: number) {
-    console.log('======================');
-    console.log(page);
-    console.log('======================');
-  }
-  function handleSizeChange(page: number) {
-    console.log('======================');
-    console.log(page);
-    console.log('======================');
-  }
+import { PAGE_SIZE } from '../const';
+export function usePagination(propsRef: ComputedRef<BasicTableProps>) {
+  const configRef = ref<PaginationProps>({});
+
+  // function handleChange(page: number) {
+  //   console.log('======================');
+  //   console.log(page);
+  //   console.log('======================');
+  // }
+  // function handleSizeChange(page: number) {
+  //   console.log('======================');
+  //   console.log(page);
+  //   console.log('======================');
+  // }
   function itemRender(current: number, type: string, originalElement: Element) {
     if (type === 'prev') {
       if (current === 0) {
@@ -28,19 +31,28 @@ export function usePagination(props: BasicTableProps) {
     }
     return originalElement;
   }
-  const getPaginationConfig = computed(() => {
+  const getPaginationRef = computed((): PaginationProps | false => {
+    const { pagination } = unref(propsRef);
     return {
+      current: 1,
+      pageSize: PAGE_SIZE,
       size: 'small',
-      defaultPageSize: 20,
+      defaultPageSize: PAGE_SIZE,
       showTotal: (total) => `共 ${total} 条数据`,
       showSizeChanger: true,
-      pageSizeOptions: ['5', '10', '15', '20'],
-      itemRender: itemRender,
+      pageSizeOptions: ['10', '50', '80', '100'],
+      itemRender: itemRender as any,
       showQuickJumper: true,
-      onChange: handleChange,
-      onShowSizeChange: handleSizeChange,
       ...pagination,
+      ...unref(configRef),
     };
   });
-  return { getPaginationConfig };
+
+  function setPagination(info: Partial<PaginationProps>) {
+    configRef.value = {
+      ...unref(getPaginationRef),
+      ...info,
+    };
+  }
+  return { getPaginationRef, setPagination };
 }

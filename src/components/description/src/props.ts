@@ -6,25 +6,25 @@ export default {
   title: {
     type: String,
     default: '',
-  },
+  } as PropOptions<string>,
   size: {
     type: String,
     default: 'small',
-  },
+  } as PropOptions<string>,
   bordered: {
     type: Boolean,
     default: true,
-  },
+  } as PropOptions<boolean>,
   column: {
     type: [Number, Object],
     default: () => {
       return { xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 };
     },
-  },
+  } as PropOptions<number | any>,
   collapseOptions: {
     type: Object,
     default: null,
-  },
+  } as PropOptions<any>,
   // as PropOptions<CollapseContainerOptions>,
   schema: {
     type: Array,
@@ -33,5 +33,5 @@ export default {
   data: {
     type: Object,
     default: null,
-  },
+  } as PropOptions<any>,
 };

@@ -39,6 +39,9 @@ const themePluginOption = {
 };
 
 const createThemeColorReplacerPlugin = (config) => {
+  if (process.env.VUE_APP_USE_THEME_REPLACER !== 'TRUE') {
+    return;
+  }
   config.plugin('theme-color-replace').use(ThemeColorReplacer, [themePluginOption]);
 };
 

@@ -1,10 +1,10 @@
 import { BasicTableProps } from '../types/table';
-import { watch, ref } from 'compatible-vue';
-export function useLoading(props: BasicTableProps) {
-  const loadingRef = ref(props.loading);
+import { watch, ref, unref, ComputedRef } from 'compatible-vue';
+export function useLoading(propsRef: ComputedRef<BasicTableProps>) {
+  const loadingRef = ref(unref(propsRef).loading);
 
   watch(
-    () => props.loading,
+    () => unref(propsRef).loading,
     (v) => {
       loadingRef.value = v;
     }

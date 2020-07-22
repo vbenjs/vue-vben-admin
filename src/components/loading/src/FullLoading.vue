@@ -1,6 +1,6 @@
 <script lang="tsx">
   // components
-  import { defineComponent, computed, unref } from 'compatible-vue';
+  import { defineComponent, computed, unref, PropOptions } from 'compatible-vue';
   import BasicLoading from './BasicLoading.vue';
 
   import { useDesign } from '@/hooks/core/useDesign';
@@ -13,8 +13,8 @@
       tip: {
         type: String,
         default: '',
-      },
-      absolute: Boolean,
+      } as PropOptions<string>,
+      absolute: Boolean as PropOptions<boolean>,
     },
     setup(props) {
       // 样式前缀

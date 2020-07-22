@@ -1,40 +1,91 @@
 <script lang="tsx">
-  import { defineComponent, unref, ref } from 'compatible-vue';
-
+  import { defineComponent, unref, ref, computed } from 'compatible-vue';
   import { Table } from 'ant-design-vue';
+  import TableTitle from './components/TableTitle.vue';
 
   import { usePagination } from './hooks/usePagination';
   import { useLoading } from './hooks/useLoading';
   import { useTableScroll } from './hooks/useTableScroll';
+  import { useRowSelection } from './hooks/useRowSelection';
+  import { useDataSource } from './hooks/useDataSource';
+  import { useColumns } from './hooks/useColumns';
   import { useDesign } from '@/hooks/core/useDesign';
 
   import { basicProps } from './props';
   import { BasicTableProps } from './types/table';
+  import { PaginationProps } from './types/pagination';
+  import { getSlot } from '@/utils/helper/tsxHelper';
   export default defineComponent({
     name: 'BasicTable',
     props: basicProps,
-    setup(props: BasicTableProps, { attrs }) {
+    setup(props: BasicTableProps, { attrs, emit, slots, listeners }) {
       const tableElRef = ref<any>(null);
 
-      const { getPaginationConfig } = usePagination(props);
-      const { loadingRef } = useLoading(props);
-      const { getScrollRef } = useTableScroll(props, tableElRef);
+      const getPropsRef = computed(() => {
+        return props;
+      });
+      const { getPaginationRef, setPagination } = usePagination(getPropsRef);
+      const { getColumnsRef } = useColumns(getPropsRef, getPaginationRef);
+      const { loadingRef } = useLoading(getPropsRef);
+      const { getDataSourceRef, rowKey } = useDataSource(getPropsRef);
+      const { getScrollRef } = useTableScroll(getPropsRef, tableElRef);
+      const { getRowSelectionRef, getSelectRows, clearSelectedRowKeys } = useRowSelection(
+        getPropsRef,
+        emit
+      );
       const { prefixCls } = useDesign('basic-table');
+
+      const renderTitle = () => {
+        const title = unref(getPropsRef).title;
+
+        return (
+          getSlot(slots, 'title') || (
+            <TableTitle
+              helpMessage={unref(getPropsRef).titleHelpMessage}
+              title={title}
+              getSelectRows={getSelectRows}
+            >
+              {getSlot(slots, 'toolbar')}
+            </TableTitle>
+          )
+        );
+      };
+      function handleTableChange(pagination: PaginationProps) {
+        const { clearSelectOnPageChange } = unref(getPropsRef);
+        if (clearSelectOnPageChange) {
+          clearSelectedRowKeys();
+        }
+        setPagination(pagination);
+      }
+
       return () => {
+        const title = unref(getPropsRef).title;
+        const titleData =
+          !getSlot(slots, 'title') && !title && !getSlot(slots, 'toolbar')
+            ? {}
+            : { title: renderTitle };
+        const propsData: BasicTableProps = {
+          // @ts-ignore
+          size: 'middle',
+          ...attrs,
+          ...props,
+          ...titleData,
+          columns: unref(getColumnsRef),
+          dataSource: unref(getDataSourceRef),
+          rowKey: rowKey,
+          rowSelection: unref(getRowSelectionRef),
+          loading: unref(loadingRef),
+          scroll: unref(getScrollRef),
+          pagination: unref(getPaginationRef) as PaginationProps,
+          tableLayout: 'fixed',
+        };
         return (
           <div class={prefixCls}>
             <Table
               ref={tableElRef}
-              size="middle"
+              on={{ ...listeners, change: handleTableChange }}
               {...{
-                props: {
-                  ...attrs,
-                  ...props,
-                  loading: unref(loadingRef),
-                  scroll: unref(getScrollRef),
-                  pagination: unref(getPaginationConfig),
-                  tableLayout: 'fixed',
-                },
+                props: propsData,
               }}
             ></Table>
           </div>
@@ -46,20 +97,67 @@
 <style lang="less">
   @import (reference) '~@design';
   @prefix-cls: ~'@{namespace}-basic-table';
-
+  @border-color: rgba(206, 206, 206, 0.3);
   .@{prefix-cls} {
     padding: 12px;
+
+    .ant-table-title {
+      padding: 10px 6px !important;
+    }
+
+    .ant-table-tbody > tr.ant-table-row-selected td {
+      background: fade(@primary-color, 8%) !important;
+    }
+
+    .ant-table-bordered .ant-table-header > table,
+    .ant-table-bordered .ant-table-body > table,
+    .ant-table-bordered .ant-table-fixed-left table,
+    .ant-table-bordered .ant-table-fixed-right table {
+      border: 1px solid @border-color;
+    }
+
+    .ant-table-thead {
+      th {
+        border: none;
+      }
+    }
+
+    .ant-table-tbody > tr > td {
+      border-bottom: 1px solid @border-color;
+
+      &:last-child {
+        border-right: none !important;
+      }
+    }
+
+    .ant-table.ant-table-bordered .ant-table-footer,
+    .ant-table.ant-table-bordered .ant-table-title {
+      border: 1px solid @border-color !important;
+    }
+
+    .ant-table-bordered.ant-table-empty .ant-table-placeholder {
+      border: 1px solid @border-color !important;
+    }
 
     .ant-table td {
       white-space: nowrap;
     }
 
+    .ant-table-row-cell-last {
+      border-right: none !important;
+    }
+
+    .ant-table-bordered .ant-table-thead > tr > th,
+    .ant-table-bordered .ant-table-tbody > tr > td {
+      border-right: 1px solid @border-color;
+    }
+
     .ant-pagination {
-      margin: 0;
+      margin: 10px 0 0 0;
     }
 
     .ant-table-body {
-      overflow: scroll;
+      overflow-x: auto !important;
 
       ::-webkit-scrollbar-button {
         display: none;
@@ -76,6 +174,20 @@
       ::-webkit-scrollbar-thumb:active {
         background: #888;
         border-width: 2px;
+      }
+    }
+
+    .ant-radio {
+      &-inner {
+        border-color: @text-color-base;
+      }
+    }
+
+    .ant-checkbox {
+      &:not(.ant-checkbox-checked) {
+        .ant-checkbox-inner {
+          border-color: @text-color-base;
+        }
       }
     }
   }

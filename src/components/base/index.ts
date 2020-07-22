@@ -1,5 +1,3 @@
-import { getAsyncComponent } from '@/common/factory/getAsyncComponent';
-
-export const BaseHelp = getAsyncComponent(() => import('./src/Help.vue'));
-export const BaseArrow = getAsyncComponent(() => import('./src/Arrow.vue'));
-export const BaseTitle = getAsyncComponent(() => import('./src/Title.vue'));
+export { default as BaseHelp } from './src/Help.vue';
+export { default as BaseArrow } from './src/Arrow.vue';
+export { default as BaseTitle } from './src/Title.vue';

@@ -17,6 +17,7 @@ const { configVueLoader } = require('./loader/vue-loader');
 const { createSvgLoader } = require('./loader/svg-loader');
 const { createImageLoader } = require('./loader/image-webpack');
 const { createWorkerLoader } = require('./loader/worker-loader');
+const { configTsLoader } = require('./loader/ts-loader');
 
 const { createGzip } = require('./plugins/gzip');
 const { createHardSourcePlugin } = require('./plugins/hardSource');
@@ -51,6 +52,7 @@ function createVueConfig() {
       configIgnorePlugin(config);
       // alias
       configAlias(config);
+      configTsLoader(config);
       // sourceMap设置
       configSourceMap(config);
       // Performance

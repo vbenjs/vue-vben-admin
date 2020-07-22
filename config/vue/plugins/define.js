@@ -1,4 +1,5 @@
 const { merge } = require('webpack-merge');
+
 const configDefinePlugin = (config) => {
   config.plugin('define').tap((args) => {
     // Incorporate dynamic configuration into process.env
