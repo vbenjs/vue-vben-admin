@@ -5,7 +5,7 @@
 </p>
 <h2 align="center">VUE VBEN ADMIN</h2>
 
-[中文](https://github.com/anncwb/vue-vben-admin/README-CN.md) | **English**
+[中文](https://github.com/anncwb/vue-vben-admin/README-zh_CN.md) | **English**
 
 A basic framework suitable for the development of medium and large projects requires a certain understanding of `vue`, `typescript`, and can also be used as an example of understanding the new wording, and adapt to the development method of subsequent new versions in advance
 

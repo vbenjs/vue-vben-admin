@@ -1,5 +1,5 @@
 {
-  "name": "vben-admin",
+  "name": "vue-vben-admin",
   "version": "1.0.0",
   "private": true,
   "keywords": [
@@ -10,7 +10,8 @@
     "ts",
     "admin",
     "vben",
-    "typescript"
+    "typescript",
+    "vue-vben-admin"
   ],
   "scripts": {
     "bootstrap": "yarn",
@@ -137,6 +138,15 @@
     "worker-loader": "^2.0.0",
     "yargs": "^15.4.1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anncwb/vue-vben-admin.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anncwb/vue-vben-admin.git/issues"
+  },
+  "homepage": "https://github.com/anncwb/vue-vben-admin.git",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
