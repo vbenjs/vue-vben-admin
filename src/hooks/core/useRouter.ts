@@ -1,7 +1,7 @@
 import { unref, computed } from 'compatible-vue';
 import { pageEnum } from '@/enums/pageEnum';
 import { getRuntimeVM } from '@/setup/vue/runtimeVm';
-
+import VurRouter from 'vue-router';
 export const useRouter = () => {
   const vm = getRuntimeVM();
   const route = computed(() => vm.$route);
@@ -24,10 +24,12 @@ export const useRedo = () => {
 export const useGo = ({
   path = pageEnum.BASE_HOME,
   replace = true,
+  router: rootRouter,
 }: {
+  router?: VurRouter;
   path?: pageEnum;
   replace?: boolean;
 } = {}) => {
   const { router } = useRouter();
-  replace ? router.replace(path) : router.push(path);
+  replace ? (rootRouter || router).replace(path) : (rootRouter || router).push(path);
 };

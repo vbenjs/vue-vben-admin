@@ -26,14 +26,14 @@
         default: '',
       } as PropOptions<string>,
     },
-    setup(props) {
+    setup(props, { root }) {
       const { prefixCls } = useDesign('layout-menu');
 
       function handleMenuClick({ targetRoute }: { menu?: MenuItem; targetRoute: RouteConfigEx }) {
         const { path } = targetRoute;
         // const { path, meta: { frameSrc } = {} } = targetRoute;
         if (path) {
-          useGo({ path: path as pageEnum, replace: false });
+          useGo({ path: path as pageEnum, replace: false, router: root.$router });
         }
       }
       return () => {
