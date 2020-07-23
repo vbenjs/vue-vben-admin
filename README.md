@@ -5,7 +5,7 @@
 </p>
 <h2 align="center">VUE VBEN ADMIN</h2>
 
-[中文](https://github.com/anncwb/vue-vben-admin/README-zh_CN.md) | **English**
+[中文](./README-zh_CN.md) | **English**
 
 A basic framework suitable for the development of medium and large projects requires a certain understanding of `vue`, `typescript`, and can also be used as an example of understanding the new wording, and adapt to the development method of subsequent new versions in advance
 
@@ -17,6 +17,9 @@ Compatible with vue2 browsers, everything is free and does not charge any fees, 
 
 [Live Demo](https://vvbin.cn/)
 
+<p align="center">
+    <img alt="VbenAdmin Logo" width="100%" src="./docs/images/screenshot.png">
+</p>
 ### gitHub
 
 [vue-vben-admin](https://github.com/anncwb/vue-vben-admin)

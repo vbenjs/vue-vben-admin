@@ -5,7 +5,7 @@
 </p>
 <h2 align="center">VUE VBEN ADMIN</h2>
 
-**中文** | [English](https://github.com/anncwb/vue-vben-admin)
+**中文** | [English](./README.md)
 
 一个适合开发中大型项目的基础框架，需要对`vue`,`typescript`有一定的了解,也可以作为了解新写法的一个例子来看，提前适应后续新版本的开发方式
 
@@ -17,6 +17,9 @@
 
 [在线预览](https://vvbin.cn/)
 
+<p align="center">
+    <img alt="VbenAdmin Logo" width="100%" src="./docs/images/screenshot.png">
+</p>
 ### gitHub 地址
 
 [vue-vben-admin](https://github.com/anncwb/vue-vben-admin)
