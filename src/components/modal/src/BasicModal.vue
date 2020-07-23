@@ -10,6 +10,7 @@
   import { basicProps } from './props';
 
   import { getSlot } from '@/utils/helper/tsxHelper';
+  import { isFunction } from '../../../utils/is';
   // import { triggerWindowResize } from '@/utils/event/triggerWindowResizeEvent';
   export default defineComponent({
     name: 'BasicModal',
@@ -110,7 +111,12 @@
         );
       }
       // 取消事件
-      function handleCancel() {
+      async function handleCancel() {
+        if (props.closeFunc && isFunction(props.closeFunc)) {
+          await props.closeFunc();
+          visibleRef.value = false;
+          return;
+        }
         visibleRef.value = false;
         emit('cancel');
       }

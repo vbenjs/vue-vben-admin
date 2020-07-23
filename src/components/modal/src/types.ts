@@ -31,6 +31,7 @@ export interface ModalProps extends Modal {
 
   showOkBtn: boolean;
   showCancelBtn: boolean;
+  closeFunc: () => Promise<any>;
 }
 
 export interface ModalWrapperProps {

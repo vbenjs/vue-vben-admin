@@ -1,23 +1,51 @@
 import { PropOptions } from 'compatible-vue';
-
+import { UploadResult } from './types';
 export const basicProps = {
   helpText: {
     type: String,
-    default: '支持jpg、jpeg、png格式，单次可最多选择10张图片，每张不可大于2M。',
+    default: '',
   } as PropOptions<string>,
   // 文件最大多少MB
   maxSize: {
     type: Number,
-    default: 2,
+    default: 0,
   } as PropOptions<number>,
   maxNumber: {
     type: Number,
-    default: 10,
+    default: 0,
   } as PropOptions<number>,
   accept: {
     type: Array,
     default: () => {
-      return ['jpg', 'jpeg', 'png'];
+      return [];
     },
   } as PropOptions<string[]>,
+  multiple: {
+    type: Boolean,
+    default: true,
+  } as PropOptions<boolean>,
+  // 只上传图片
+  uploadImg: {
+    type: Boolean,
+    default: true,
+  } as PropOptions<boolean>,
+};
+
+export const priviewProps = {
+  priviewList: {
+    type: Array,
+    default: () => {
+      return [];
+    },
+  } as PropOptions<UploadResult[]>,
+  // 只上传图片
+  uploadImg: {
+    type: Boolean,
+    default: true,
+  } as PropOptions<boolean>,
+};
+
+export const uploadContainerProps = {
+  ...basicProps,
+  ...priviewProps,
 };

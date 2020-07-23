@@ -18,6 +18,7 @@ export const modalProps = {
     type: String,
     default: '保存',
   } as PropOptions<string>,
+  closeFunc: Function as PropOptions<() => Promise<any>>,
 };
 
 export const basicProps = Object.assign({}, modalProps, {
