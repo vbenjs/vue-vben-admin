@@ -246,7 +246,7 @@ export const getAdvanceSchema = (itemNumber = 6): FormSchema[] => {
   const arr: any = [];
   for (let index = 0; index < itemNumber; index++) {
     arr.push({
-      field: `field${new Date().getTime}${index}`,
+      field: `field${index}`,
       label: `字段${index}`,
       component: 'Input',
 

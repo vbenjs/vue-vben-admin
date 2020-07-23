@@ -1,11 +1,15 @@
 import { PropOptions } from 'compatible-vue';
 import { PaginationProps } from './types/pagination';
-import { Scroll, BasicColumn } from './types/table';
+import { Scroll, BasicColumn, FetchSetting } from './types/table';
 import { TableRowSelection } from 'ant-design-vue/types/table/table';
 import { FormProps } from '@/components/form/index';
 
 // 注释看 types/table
 export const basicProps = {
+  isTreeTable: {
+    type: Boolean,
+    default: false,
+  } as PropOptions<boolean>,
   api: {
     type: Function,
     default: null,
@@ -18,6 +22,22 @@ export const basicProps = {
     type: Function,
     default: null,
   } as PropOptions<(...arg) => any>,
+
+  handleSearchInfoFn: {
+    type: Function,
+    default: null,
+  } as PropOptions<(...arg) => any>,
+  fetchSetting: {
+    type: Object,
+    default: () => {
+      return {
+        pageField: 'page',
+        sizeField: 'pageSize',
+        listField: 'items',
+        totalField: 'total',
+      };
+    },
+  } as PropOptions<FetchSetting>,
   // 立即请求接口
   immediate: { type: Boolean, default: true } as PropOptions<any>,
   // 额外的请求参数
@@ -28,13 +48,13 @@ export const basicProps = {
   // 使用搜索表单
   useSearchForm: {
     type: Boolean,
-    default: true,
+    default: false,
   } as PropOptions<boolean>,
   // 表单配置
   formConfig: {
     type: Object,
     default: null,
-  } as PropOptions<FormProps>,
+  } as PropOptions<Partial<FormProps>>,
   columns: {
     type: [Array],
     default: null,

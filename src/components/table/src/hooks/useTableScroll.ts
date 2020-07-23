@@ -1,5 +1,5 @@
 import { BasicTableProps } from '../types/table';
-import { computed, Ref, onMounted, unref, ref, nextTick, ComputedRef } from 'compatible-vue';
+import { computed, Ref, onMounted, unref, ref, nextTick, ComputedRef, watch } from 'compatible-vue';
 import { getViewportOffset } from '@/utils/domUtils';
 import { isBoolean } from '@/utils/is/index';
 import { useTimeout } from '@/hooks/core/useTimeout';
@@ -9,6 +9,12 @@ export function useTableScroll(propsRef: ComputedRef<BasicTableProps>, tableElRe
   const { scroll } = unref(propsRef);
   const tableHeightRef: Ref<number | null> = ref(null);
 
+  watch(
+    () => unref(propsRef).canResize,
+    () => {
+      redoHeight();
+    }
+  );
   function redoHeight() {
     const { canResize } = unref(propsRef);
 

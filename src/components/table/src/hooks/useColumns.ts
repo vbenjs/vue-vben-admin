@@ -10,9 +10,16 @@ export function useColumns(
 ) {
   const getColumnsRef = computed(() => {
     const props = unref(propsRef);
-    const { columns, showIndexColumn, indexColumnProps, ellipsis, actionColumn } = props;
+    const {
+      columns,
+      showIndexColumn,
+      indexColumnProps,
+      ellipsis,
+      actionColumn,
+      isTreeTable,
+    } = props;
 
-    if (showIndexColumn) {
+    if (showIndexColumn && !isTreeTable) {
       const hasIndex = columns.find((column) => column.flag === 'INDEX');
       !hasIndex &&
         columns.unshift({

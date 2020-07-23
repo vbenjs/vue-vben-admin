@@ -1,55 +1,59 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
 
-  import { BasicTable, TableAction } from '@/components/table/index';
-  import { Button } from 'ant-design-vue';
-  const columns: any[] = [
+  import { BasicTable, BasicColumn, useTable, TableAction } from '@/components/table/index';
+
+  import { demoListApi } from '@/api/demo/table';
+  const columns: BasicColumn[] = [
     {
-      title: 'name',
+      title: 'ID',
+      dataIndex: 'id',
+      fixed: 'left',
+    },
+    {
+      title: '姓名',
       dataIndex: 'name',
+      width: 120,
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      width: 80,
-    },
-    {
-      title: 'Address',
+      title: '地址',
       dataIndex: 'address',
-      ellipsis: true,
+      width: 600,
     },
     {
-      title: 'Tags',
-      dataIndex: 'tags',
+      title: '编号',
+      dataIndex: 'no',
+      width: 600,
+    },
+    {
+      title: '开始时间',
+      dataIndex: 'beginTime',
+      width: 400,
+    },
+    {
+      title: '结束时间',
+      dataIndex: 'endTime',
+      width: 400,
     },
   ];
-  const data: any = (() => {
-    const arr: any = [];
-    for (let index = 0; index < 20; index++) {
-      arr.push({
-        id: `${index}`,
-        name: 'John Brown',
-        age: `1${index}`,
-        address: 'New York No. 1 Lake ParkNew York No. 1 Lake Park',
-        tags: ['nice', 'developer'],
-      });
-    }
-    return arr;
-  })();
+
   export default defineComponent({
-    name: 'TableBaseDemo',
+    name: 'TableBaseDemo5',
     setup() {
+      const [register] = useTable();
       return () => (
         <div class="p-4 table-demo">
           <div>
             <BasicTable
-              title={() => {
-                return '123';
+              onRegister={register}
+              api={demoListApi}
+              pagination={{
+                pageSize: 20,
               }}
+              title="TableAction组件及固定列示例"
               titleHelpMessage={'温馨提醒'}
               rowSelection={{ type: 'radio' }}
               columns={columns}
-              dataSource={data}
               actionColumn={{
                 width: 160,
                 title: 'Action',
@@ -62,21 +66,17 @@
                           label: '删除',
                           on: {
                             click: () => {
-                              console.log('======================');
-                              console.log(111);
-                              console.log('======================');
+                              console.log('点击了删除');
                             },
                           },
                         },
                       ]}
                       dropDownActions={[
                         {
-                          label: '删除',
+                          label: '启用',
                           on: {
                             click: () => {
-                              console.log('======================');
-                              console.log(111);
-                              console.log('======================');
+                              console.log('点击了启用');
                             },
                           },
                         },
@@ -85,12 +85,7 @@
                   );
                 },
               }}
-            >
-              <template slot="toolbar">
-                <Button type="primary">编辑</Button>
-                <Button type="primary">新增</Button>
-              </template>
-            </BasicTable>
+            ></BasicTable>
           </div>
         </div>
       );

@@ -11,7 +11,7 @@ const layout: LayoutType = {
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
     title: '权限管理',
-    icon: 'home|svg',
+    icon: 'pushpin',
   },
 };
 

@@ -2,6 +2,16 @@
 export { default as SmileOutline } from '@ant-design/icons/lib/outline/SmileOutline';
 export { default as MehOutline } from '@ant-design/icons/lib/outline/MehOutline';
 
+// menu icon
+export { default as FundOutline } from '@ant-design/icons/lib/outline/FundOutline';
+export { default as BlockOutline } from '@ant-design/icons/lib/outline/BlockOutline';
+export { default as ExceptionOutline } from '@ant-design/icons/lib/outline/ExceptionOutline';
+export { default as SwitcherOutline } from '@ant-design/icons/lib/outline/SwitcherOutline';
+export { default as ReadOutline } from '@ant-design/icons/lib/outline/ReadOutline';
+export { default as ProjectOutline } from '@ant-design/icons/lib/outline/ProjectOutline';
+export { default as PushpinOutline } from '@ant-design/icons/lib/outline/PushpinOutline';
+export { default as GithubOutline } from '@ant-design/icons/lib/outline/GithubOutline';
+
 // upload
 export { default as ZoomInOutline } from '@ant-design/icons/lib/outline/ZoomInOutline';
 export { default as SettingOutline } from '@ant-design/icons/lib/outline/SettingOutline';

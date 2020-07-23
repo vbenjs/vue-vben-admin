@@ -34,6 +34,11 @@ export interface HeaderSetting {
   theme: MenuThemeEnum;
 }
 export interface ProjectConfig {
+  // 是否显示配置按钮
+  showSettingButton: boolean;
+  // 显示github
+  showGithubButton: boolean;
+  // 权限模式
   authMode: AuthModeEnum;
   // 网站灰色模式，用于可能悼念的日期开启
   grayMode: boolean;
@@ -43,12 +48,10 @@ export interface ProjectConfig {
   themeColor: string;
   // 全屏显示主界面,不显示菜单,及顶部
   fullContent: boolean;
-
   // 区域宽度
   contentMode: ContentEnum;
   // 是否显示logo
   showLogo: boolean;
-
   headerSetting: HeaderSetting;
   // 菜单类型
   // menuType: MenuTypeEnum;

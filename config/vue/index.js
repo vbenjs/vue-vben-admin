@@ -12,6 +12,7 @@ const { configOptimization } = require('./optimization');
 const { configHtml } = require('./html');
 const { getPublicPath } = require('./getPath');
 const { configEntry } = require('./entry');
+const { configCdn } = require('./cdn');
 
 const { configVueLoader } = require('./loader/vue-loader');
 const { createSvgLoader } = require('./loader/svg-loader');
@@ -52,6 +53,9 @@ function createVueConfig() {
       configIgnorePlugin(config);
       // alias
       configAlias(config);
+      // cdn
+      configCdn(config);
+
       configTsLoader(config);
       // sourceMap设置
       configSourceMap(config);

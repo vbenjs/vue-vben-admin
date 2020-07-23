@@ -10,7 +10,7 @@ const layout: LayoutType = {
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
     title: '插件',
-    icon: 'home|svg',
+    icon: 'project',
   },
 };
 

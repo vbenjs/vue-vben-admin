@@ -15,6 +15,13 @@
           },
         },
         {
+          element: '#elem-driver-action-github',
+          popover: {
+            title: '获取帮助',
+            description: '',
+          },
+        },
+        {
           element: '#elem-driver-action-refresh',
           popover: {
             title: '刷新页面',

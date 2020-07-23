@@ -1,5 +1,5 @@
 // const { isProductionFn, isDevFn } = require('../../build/utils');
-// const resolve = require('../../build/getCwdPath');
+const resolve = require('../../build/getCwdPath');
 // const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 // function createScriptExtPlugin(config) {
 //   config
@@ -25,7 +25,7 @@ function configOptimization(config) {
   config.optimization.splitChunks({
     chunks: 'all',
     maxAsyncRequests: 6, //分割后，按需加载的代码块最多允许的并行请求数，在webpack5里默认值变为6
-    maxInitialRequests: 4, //分割后，入口代码块最多允许的并行请求数，在webpack5里默认值变为4
+    maxInitialRequests: 5, //分割后，入口代码块最多允许的并行请求数，在webpack5里默认值变为4
     // maxInitialRequests: Infinity,
     automaticNameMaxLength: 15, // 分割chunk自动命名最大长度
     automaticNameDelimiter: '.', // 分割chunk自动命名分隔符
@@ -66,6 +66,13 @@ function configOptimization(config) {
         // enforce: true,
         priority: 30,
       },
+      commons: {
+        name: 'commons.chunk',
+        test: resolve('src/components'),
+        minChunks: 3,
+        priority: 20,
+        reuseExistingChunk: true,
+      },
       vendor: {
         priority: 10,
         reuseExistingChunk: true,
@@ -87,22 +94,23 @@ function configOptimization(config) {
             packageName.indexOf('vue') !== -1 ||
             packageName.indexOf('dom-align') !== -1 ||
             packageName.indexOf('async-validator') !== -1 ||
-            packageName.indexOf('tinycolor2') !== -1 ||
-            packageName.indexOf('asn1') !== -1 ||
             packageName.indexOf('readable-stream') !== -1 ||
             packageName.indexOf('browserify-sign') !== -1 ||
-            packageName.indexOf('bn') !== -1 ||
-            packageName.indexOf('buffer') !== -1 ||
-            packageName.indexOf('elliptic') !== -1 ||
             packageName.indexOf('regenerator-runtime') !== -1 ||
             packageName.indexOf('core-js') !== -1
           ) {
             packageName = 'entry-lib';
           } else if (packageName.indexOf('ant-design') !== -1) {
             packageName = 'design';
-          } else {
-            packageName = 'vendor';
+          } else if (
+            packageName.indexOf('echarts') !== -1 ||
+            packageName.indexOf('vue-baidu-map') !== -1
+          ) {
+            packageName = 'chart';
           }
+          // else {
+          //   packageName = 'vendor';
+          // }
           // const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
           return `${packageName.replace('@', '')}.chunk`;
         },

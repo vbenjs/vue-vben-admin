@@ -1,6 +1,6 @@
 {
   "name": "vben-admin",
-  "version": "1.0.4",
+  "version": "1.0.0",
   "private": true,
   "keywords": [
     "vue",
@@ -40,7 +40,9 @@
     "crypto-js": "^3.3.0",
     "driver.js": "^0.9.8",
     "echarts": "^4.8.0",
+    "lodash": "^4.17.19",
     "mockjs": "^1.1.0",
+    "moment": "^2.27.0",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "qrcode": "^1.4.4",

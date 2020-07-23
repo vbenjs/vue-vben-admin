@@ -13,7 +13,7 @@ const layout: LayoutType = {
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
     title: '异常页',
-    icon: 'home|svg',
+    icon: 'exception',
   },
 };
 

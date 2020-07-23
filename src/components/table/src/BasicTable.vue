@@ -12,27 +12,45 @@
   import { useDesign } from '@/hooks/core/useDesign';
 
   import { basicProps } from './props';
-  import { BasicTableProps } from './types/table';
+  import { BasicTableProps, TableInstance, FetchParams } from './types/table';
   import { PaginationProps } from './types/pagination';
   import { getSlot } from '@/utils/helper/tsxHelper';
+  import { isFunction } from '@/utils/is/index';
+
+  import { BasicForm, FormProps } from '@/components/form/index';
   export default defineComponent({
     name: 'BasicTable',
     props: basicProps,
-    setup(props: BasicTableProps, { attrs, emit, slots, listeners }) {
+    setup(props: BasicTableProps, ctx) {
+      const { attrs, emit, slots, listeners } = ctx;
       const tableElRef = ref<any>(null);
-
+      const innerPropsRef = ref<Partial<BasicTableProps>>();
+      const lastPropsRef = ref<BasicTableProps>();
       const getPropsRef = computed(() => {
-        return props;
+        lastPropsRef.value = {
+          ...props,
+          ...unref(lastPropsRef),
+          ...unref(innerPropsRef),
+        };
+        return unref(lastPropsRef) as BasicTableProps;
       });
       const { getPaginationRef, setPagination } = usePagination(getPropsRef);
-      const { getColumnsRef } = useColumns(getPropsRef, getPaginationRef);
       const { loadingRef } = useLoading(getPropsRef);
-      const { getDataSourceRef, rowKey } = useDataSource(getPropsRef);
-      const { getScrollRef } = useTableScroll(getPropsRef, tableElRef);
-      const { getRowSelectionRef, getSelectRows, clearSelectedRowKeys } = useRowSelection(
-        getPropsRef,
-        emit
-      );
+      const { getDataSourceRef, setTableData, rowKey, fetch } = useDataSource(getPropsRef, ctx, {
+        getPaginationRef,
+        loadingRef,
+        setPagination,
+      });
+      const { getColumnsRef } = useColumns(getPropsRef, getPaginationRef);
+      const { getScrollRef, redoHeight } = useTableScroll(getPropsRef, tableElRef);
+      const {
+        getRowSelectionRef,
+        getSelectRows,
+        clearSelectedRowKeys,
+        getSelectRowKeys,
+        deleteSelectRowByKey,
+        setSelectedRowKeys,
+      } = useRowSelection(getPropsRef, emit);
       const { prefixCls } = useDesign('basic-table');
 
       const renderTitle = () => {
@@ -56,8 +74,44 @@
           clearSelectedRowKeys();
         }
         setPagination(pagination);
+        fetch();
       }
 
+      function handleSearchInfoChange(info: any) {
+        const { handleSearchInfoFn } = unref(getPropsRef);
+        if (handleSearchInfoFn && isFunction(handleSearchInfoFn)) {
+          info = handleSearchInfoFn(info) || info;
+        }
+        fetch({ searchInfo: info, page: 1 });
+      }
+      emit('register', {
+        reload: (opt?: FetchParams) => {
+          fetch(opt);
+        },
+        getSelectRows,
+        clearSelectedRowKeys,
+        getSelectRowKeys,
+        deleteSelectRowByKey,
+        setPagination,
+        setTableData,
+        redoHeight,
+        setSelectedRowKeys,
+        getPaginationRef: () => {
+          return unref(getPaginationRef);
+        },
+        getColumns: () => {
+          return unref(getColumnsRef);
+        },
+        getDataSource: () => {
+          return unref(getDataSourceRef);
+        },
+        setLoading: (loading: boolean) => {
+          loadingRef.value = loading;
+        },
+        setProps: (props: Partial<BasicTableProps>) => {
+          innerPropsRef.value = props;
+        },
+      } as TableInstance);
       return () => {
         const title = unref(getPropsRef).title;
         const titleData =
@@ -68,7 +122,7 @@
           // @ts-ignore
           size: 'middle',
           ...attrs,
-          ...props,
+          ...unref(getPropsRef),
           ...titleData,
           columns: unref(getColumnsRef),
           dataSource: unref(getDataSourceRef),
@@ -79,8 +133,22 @@
           pagination: unref(getPaginationRef) as PaginationProps,
           tableLayout: 'fixed',
         };
+        const { useSearchForm, formConfig } = propsData;
+        const formProps: FormProps = {
+          showAdvancedButton: true,
+          ...(formConfig as FormProps),
+          compact: true,
+        };
         return (
           <div class={prefixCls}>
+            {useSearchForm && (
+              <BasicForm
+                submitButtonOptions={{ loading: unref(loadingRef) }}
+                onChange={handleSearchInfoChange}
+                {...{ props: formProps }}
+                onAdvancedChange={redoHeight}
+              />
+            )}
             <Table
               ref={tableElRef}
               on={{ ...listeners, change: handleTableChange }}
@@ -122,7 +190,7 @@
       }
     }
 
-    .ant-table-tbody > tr > td {
+    .ant-table-bordered .ant-table-tbody > tr > td {
       border-bottom: 1px solid @border-color;
 
       &:last-child {

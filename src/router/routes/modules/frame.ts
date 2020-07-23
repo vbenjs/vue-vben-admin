@@ -12,7 +12,7 @@ const layout: LayoutType = {
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
     title: '外部页面',
-    icon: 'home|svg',
+    icon: 'block',
   },
 };
 

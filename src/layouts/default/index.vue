@@ -46,6 +46,7 @@
       return () => {
         const { getProjCfg, getPageLoading } = appStore;
         const {
+          showSettingButton,
           headerSetting: { show: showHeader } = {},
           menuSetting: { show: showMenu, mode: menuMode, type: menuType } = {},
           multiTabsSetting: { show: showTabs } = {},
@@ -56,7 +57,9 @@
         return (
           <Layout class={prefixCls}>
             {isShowMixHeader && <LayoutHeader />}
-            <SettingButton class={`${prefixCls}__setting-btn`} id="elem-driver-setting-btn" />
+            {showSettingButton && (
+              <SettingButton class={`${prefixCls}__setting-btn`} id="elem-driver-setting-btn" />
+            )}
             <Layout>
               {!unref(getFullContent) && showMenu && menuMode !== MenuModeEnum.HORIZONTAL && (
                 <LayoutSideBar />

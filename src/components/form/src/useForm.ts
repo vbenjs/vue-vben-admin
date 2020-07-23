@@ -34,7 +34,7 @@ export function useForm(props?: Partial<FormProps>): UseFormReturnType {
     useTableForm: (beforeFn?: <T>(data: T) => T) => { query: () => void };
   } = {
     setFieldsValue: <T>(values: T): void => {
-      unref(formRef)!.setFieldsValue(values);
+      unref(formRef)?.setFieldsValue(values);
     },
     resetFields: async (): Promise<any> => {
       const res = await unref(formRef)!.resetFields();
@@ -49,10 +49,10 @@ export function useForm(props?: Partial<FormProps>): UseFormReturnType {
       return res;
     },
     updateSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]): void => {
-      unref(formRef)!.updateSchema(data);
+      unref(formRef)?.updateSchema(data);
     },
     setProps: (formProps: Partial<FormProps>): void => {
-      unref(formRef)!.setProps(formProps);
+      unref(formRef)?.setProps(formProps);
     },
     getFieldsValue: (): { [field: string]: any } => {
       return unref(formRef)!.getFieldsValue!();

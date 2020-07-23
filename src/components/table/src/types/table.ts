@@ -14,13 +14,50 @@ export interface Scroll {
   y: number | null;
   scrollToFirstRowOnChange: boolean;
 }
+export interface FetchParams {
+  searchInfo?: any;
+  page?: number;
+}
+
+export interface TableInstance {
+  reload: (opt?: FetchParams) => Promise<void>;
+  getSelectRows: () => any[];
+  clearSelectedRowKeys: () => void;
+  getSelectRowKeys: () => string[];
+  deleteSelectRowByKey: (key: string) => void;
+  setPagination: (info: Partial<PaginationProps>) => void;
+  setTableData: (values: any[]) => void;
+  getColumns: () => BasicColumn[];
+  getDataSource: () => any[];
+  setLoading: (loading: boolean) => void;
+  setProps: (props: Partial<BasicTableProps>) => void;
+  redoHeight: () => void;
+  setSelectedRowKeys: (rowKeys: string[]) => void;
+  getPaginationRef: () => PaginationProps;
+}
+
+export interface FetchSetting {
+  // 请求接口当前页数
+  pageField: string;
+  // 每页显示多少条
+  sizeField: string;
+  // 请求结果列表字段  支持 a.b.c
+  listField: string;
+  // 请求结果总数字段  支持 a.b.c
+  totalField: string;
+}
 export interface BasicTableProps {
+  isTreeTable?: boolean;
   // 接口请求对象
   api?: (...arg) => Promise<any>;
   // 请求之前处理参数
   beforeFetch?: (...arg) => any;
   // 自定义处理接口返回参数
   afterFetch?: (...arg) => any;
+  // 查询条件请求之前处理
+  handleSearchInfoFn?: (...arg) => any;
+  // 请求接口配置
+  fetchSetting?: FetchSetting;
   // 立即请求接口
   immediate?: boolean;
   // 额外的请求参数
@@ -39,7 +76,7 @@ export interface BasicTableProps {
   actionColumn?: BasicColumn;
   // 文本超过宽度是否显示。。。
   ellipsis?: boolean;
-  size?: 'default' | 'middle' | 'small';
+  size?: 'default' | 'middle' | 'small' | 'large';
   // 选择配置
   rowSelection?: TableRowSelection | null;
   // 是否可以自适应高度
@@ -69,7 +106,125 @@ export interface BasicTableProps {
   scroll?: Scroll;
 
   tableLayout?: 'fixed' | 'auto';
+
+  /**
+   * The column contains children to display
+   * @default 'children'
+   * @type string | string[]
+   */
+  childrenColumnName: string | string[];
+
+  /**
+   * Override default table elements
+   * @type object
+   */
+  components: object;
+
+  /**
+   * Expand all rows initially
+   * @default false
+   * @type boolean
+   */
+  defaultExpandAllRows: boolean;
+
+  /**
+   * Initial expanded row keys
+   * @type string[]
+   */
+  defaultExpandedRowKeys: string[];
+
+  /**
+   * Current expanded row keys
+   * @type string[]
+   */
+  expandedRowKeys: string[];
+
+  /**
+   * Expanded container render for each row
+   * @type Function
+   */
+  expandedRowRender: (record: any, index: number, indent: number, expanded: boolean) => any;
+
+  /**
+   * Customize row expand Icon.
+   * @type Function | ScopedSlot
+   */
+  expandIcon: Function | ScopedSlot;
+
+  /**
+   * Whether to expand row by clicking anywhere in the whole row
+   * @default false
+   * @type boolean
+   */
+  expandRowByClick: boolean;
+
+  /**
+   * Table footer renderer
+   * @type Function | ScopedSlot
+   */
+  footer: Function | ScopedSlot;
+
+  /**
+   * Indent size in pixels of tree data
+   * @default 15
+   * @type number
+   */
+  indentSize: number;
+
+  /**
+   * i18n text including filter, sort, empty text, etc
+   * @default { filterConfirm: 'Ok', filterReset: 'Reset', emptyText: 'No Data' }
+   * @type object
+   */
+  locale: object;
+
+  /**
+   * Row's className
+   * @type Function
+   */
+  rowClassName: (record: any, index: number) => string;
+
+  /**
+   * Whether to show table header
+   * @default true
+   * @type boolean
+   */
+  showHeader: boolean;
+
+  /**
+   * Set props on per header row
+   * @type Function
+   */
+  customHeaderRow: (
+    column: any,
+    index: number
+  ) => {
+    props: object;
+    attrs: object;
+    on: object;
+    class: object;
+    style: object;
+    nativeOn: object;
+  };
+
+  /**
+   * Set props on per row
+   * @type Function
+   */
+  customRow: (
+    record: any,
+    index: number
+  ) => {
+    props: object;
+    attrs: object;
+    on: object;
+    class: object;
+    style: object;
+    nativeOn: object;
+  };
+  transformCellText: Function;
 }
+
 export interface BasicColumn {
   //
   flag?: 'INDEX' | 'DEFAULT' | 'CHECKBOX' | 'RADIO' | 'ACTION';
@@ -175,7 +330,7 @@ export interface BasicColumn {
    * Renderer of the table cell. The return value should be a VNode, or an object for colSpan/rowSpan config
    * @type Function | ScopedSlot
    */
-  customRender?: Function | ScopedSlot;
+  customRender?: Function | ScopedSlot | string;
 
   /**
    * Sort function for local sort, see Array.sort's compareFunction. If you need sort buttons only, set to true

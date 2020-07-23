@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/anncwb/vue-vben-admin" target="_blank">
-    <img alt="VbenAdmin Logo" width="100" src="./src/assets/images/logo.png">
+    <img alt="VbenAdmin Logo" width="200" src="./docs/images/logo.png">
   </a>
 </p>
 <h2 align="center">VUE VBEN ADMIN</h2>
@@ -12,6 +12,8 @@
 兼容 vue2 的浏览器，一切免费，不收取任何费用，请放心使用。后续定期提供更新及维护，可供参考与学习
 
 ### 在线示例
+
+[在线预览](https://vvbin.cn/)
 
 ### gitHub 地址
 
@@ -247,18 +249,20 @@ yarn log # 生成CHANGELOG
 - [x] 国际化插件
 - [x] 图片预览组件
 - [x] 详情组件
-- [ ] 表格组件
+- [x] 表格组件
+- [x] 图片裁剪
+- [x] 富文本组件
+- [x] 上传组件
 - [ ] 树组件
 - [ ] 验证码/验证组件
-- [ ] 图片裁剪
-- [ ] 富文本组件
-- [ ] 上传组件
 - [ ] vue3 一键切换
 - [ ] 黑暗主题
-- [ ] 更多组件/功能欢迎提交 pr 或者 issue
+- [ ] 更多组件/功能/建议/bug/欢迎提交 pr 或者 issue
 
 ## 加入我们
 
 `VBEN_ADMIN` 是完全开源免费的项目，旨在帮助开发者更方便地进行管理系统开发，同时也提供 QQ 交流群(由于项目刚开始几天，群还没什么人，有兴趣的可以加群一起讨论)，使用问题欢迎在群内提问。
 
 - QQ 群 `569291866`
+
+ <img alt="VbenAdmin Logo" width="100" src="./docs/images/qq.jpeg">

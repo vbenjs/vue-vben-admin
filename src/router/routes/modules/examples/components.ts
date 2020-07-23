@@ -10,7 +10,7 @@ const layout: LayoutType = {
   component: PAGE_LAYOUT_COMPONENT,
   meta: {
     title: '组件',
-    icon: 'home|svg',
+    icon: 'switcher',
   },
 };
 
@@ -31,11 +31,59 @@ const routes: RouteConfigEx[] = [
     },
     children: [
       {
-        path: '/base',
-        name: 'TableBaseDemo',
-        component: () => createAsyncComponent(import('@/views/examples/table/Base.vue')),
+        path: '/demo1',
+        name: 'TableBaseDemo1',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo1.vue')),
         meta: {
           title: '表格基础示例',
+        },
+      },
+      {
+        path: '/demo2',
+        name: 'TableBaseDemo2',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo2.vue')),
+        meta: {
+          title: '自适应高度示例',
+        },
+      },
+      {
+        path: '/demo3',
+        name: 'TableBaseDemo3',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo3.vue')),
+        meta: {
+          title: '树型表格示例',
+        },
+      },
+      {
+        path: '/demo4',
+        name: 'TableBaseDemo4',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo4.vue')),
+        meta: {
+          title: '远程加载示例',
+        },
+      },
+      {
+        path: '/demo5',
+        name: 'TableBaseDemo5',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo5.vue')),
+        meta: {
+          title: '固定列示例',
+        },
+      },
+      {
+        path: '/demo6',
+        name: 'TableBaseDemo6',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo6.vue')),
+        meta: {
+          title: '自定义列示例',
+        },
+      },
+      {
+        path: '/demo7',
+        name: 'TableBaseDemo7',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo7.vue')),
+        meta: {
+          title: '开启搜索区域',
         },
       },
     ],

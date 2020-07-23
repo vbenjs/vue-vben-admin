@@ -16,7 +16,31 @@ export default {
       children: [
         {
           name: '基础示例',
-          path: '/base',
+          path: '/demo1',
+        },
+        {
+          name: '自适应高度示例',
+          path: '/demo2',
+        },
+        {
+          name: '树型表格示例',
+          path: '/demo3',
+        },
+        {
+          name: '远程加载示例',
+          path: '/demo4',
+        },
+        {
+          name: '固定列示例',
+          path: '/demo5',
+        },
+        {
+          name: '自定义列示例',
+          path: '/demo6',
+        },
+        {
+          name: '开启搜索区域',
+          path: '/demo7',
         },
       ],
     },

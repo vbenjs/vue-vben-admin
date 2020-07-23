@@ -2,6 +2,7 @@ import { computed, ComputedRef, unref, ref } from 'compatible-vue';
 import { Icon } from '@/components/icon/index';
 import { BasicTableProps } from '../types/table';
 import { PaginationProps } from '../types/pagination';
+import { isBoolean } from '@/utils/is/index';
 
 import { PAGE_SIZE } from '../const';
 export function usePagination(propsRef: ComputedRef<BasicTableProps>) {
@@ -33,6 +34,9 @@ export function usePagination(propsRef: ComputedRef<BasicTableProps>) {
   }
   const getPaginationRef = computed((): PaginationProps | false => {
     const { pagination } = unref(propsRef);
+    if (isBoolean(pagination) && !pagination) {
+      return false;
+    }
     return {
       current: 1,
       pageSize: PAGE_SIZE,

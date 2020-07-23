@@ -43,6 +43,7 @@
       const schemaRef = ref<FormSchema[] | null>(null);
       const propsRef = ref<Partial<FormProps> | null>(null);
       const isAdvancedRef = ref(true);
+      const isFirstAdvenceRef = ref(true);
       const hideAdvanceBtnRef = ref(false);
       const isLoadRef = ref(false);
       const actionSpanRef = ref(6);
@@ -89,10 +90,26 @@
       });
 
       const { realWidthRef, screenEnum } = useBreakpoint();
-      watch([() => unref(getSchema), () => unref(isAdvancedRef), () => unref(realWidthRef)], () => {
-        const { showAdvancedButton } = unref(getProps);
-        showAdvancedButton && updateAdvanced();
-      });
+      watch(
+        [() => unref(getSchema), () => unref(isAdvancedRef), () => unref(realWidthRef)],
+        () => {
+          const { showAdvancedButton } = unref(getProps);
+          if (showAdvancedButton) {
+            if (unref(isFirstAdvenceRef)) {
+              setTimeout(() => {
+                emit('advancedChange');
+                isFirstAdvenceRef.value = false;
+                // todo 待优化
+              }, 500);
+            } else {
+              emit('advancedChange');
+            }
+            updateAdvanced();
+          }
+        },
+        { immediate: true }
+      );
+
       const getAllDefaultValues = computed(() => {
         const schemas = unref(getSchema);
         const obj: any = {};

@@ -8,6 +8,7 @@
 
   import { basicProps } from './props';
   import { Props } from './types';
+  import loadingSvg from '@/assets/images/loading.svg';
 
   enum StatueEnum {
     LOADING,
@@ -25,6 +26,7 @@
     moveX: number;
     moveY: number;
   }
+
   export default defineComponent({
     name: 'ImagePreview',
     props: basicProps,
@@ -272,11 +274,24 @@
             <div class={prefixCls} ref={wrapElRef} onMouseup={handleMouseUp}>
               <div class={`${prefixCls}-content`}>
                 <img
+                  width="32"
+                  src={loadingSvg}
+                  v-show={imgState.status === StatueEnum.LOADING}
+                  class={`${prefixCls}-image`}
+                />
+                <img
+                  v-show={imgState.status === StatueEnum.DONE}
                   style={unref(getImageStyle)}
                   class={`${prefixCls}-image`}
                   ref={imgElRef}
                   src={imgState.currentUrl}
                   onMousedown={handleAddMoveListener}
+                />
+                <img
+                  width="32"
+                  src={loadingSvg}
+                  v-show={imgState.status === StatueEnum.LOADING}
+                  class={`${prefixCls}-image`}
                 />
                 {renderClose()}
                 {renderIndex()}

@@ -11,7 +11,10 @@
 
     <link rel="icon" href="./favicon.ico" />
     <title><%= htmlWebpackPlugin.options.title %></title>
-    <%= htmlWebpackPlugin.options.addToHead %>
+    <%= htmlWebpackPlugin.options.addToHead %> <% for (var i in htmlWebpackPlugin.options.cdn &&
+    htmlWebpackPlugin.options.cdn.css) { %>
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" />
+    <% } %>
   </head>
   <body>
     <div id="app">
@@ -81,5 +84,8 @@
         </section>
       </section>
     </div>
+    <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.js) { %>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
+    <% } %>
   </body>
 </html>
