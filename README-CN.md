@@ -1,27 +1,42 @@
-### VUE-VBEN-ADMIN
+<p align="center">
+  <a href="https://github.com/anncwb/vue-vben-admin" target="_blank">
+    <img alt="VbenAdmin Logo" width="200" src="./docs/images/logo.png">
+  </a>
+</p>
+<h2 align="center">VUE VBEN ADMIN</h2>
 
-vben-admin is a production-ready front-end solution for admin interfaces .To get started you need to understand vue and typescript.
+**中文** | [English](https://github.com/anncwb/vue-vben-admin)
 
-It based on `vue-composition-api`,`TSX`,`typescript` and use the UI Toolkit `ant-design-vue` . 一个适合开发大型项目的基础框架，需要对`vue`,`typescript`有一定的了解，
+一个适合开发中大型项目的基础框架，需要对`vue`,`typescript`有一定的了解,也可以作为了解新写法的一个例子来看，提前适应后续新版本的开发方式
 
-项目基于`ant-design-vue`,`typescript`,`vue-composition-api`,`TSX`实现的 vue3 风格的后台管理系统，用 vue3 的写法写 vue2
+项目基于`ant-design-vue`,`typescript`,`vue-composition-api`,`TSX`实现的 vue3 风格的后台管理系统，
 
 兼容 vue2 的浏览器，一切免费，不收取任何费用，请放心使用。后续定期提供更新及维护，可供参考与学习
 
+### 在线示例
+
+[在线预览](https://vvbin.cn/)
+
+### gitHub 地址
+
+[vue-vben-admin](https://github.com/anncwb/vue-vben-admin)
+
+### 文档
+
+由于写的时间比较短，文档暂时还在开发中，后续会陆续补全...
+
 ### 为什么写这个
 
-目前在网上暂时没有找到相关的使用 composition-api 写的后台系统，所以就把自己写的分享出来，后续会陆续加上新的功能，并且等`vue3`完全稳定的时候
+目前在网上暂时没有找到相关的使用`composition-api`+`typescript` 写的后台系统，所以就把自己写的分享出来，后续会陆续加上新的功能，并且等`vue3`完全稳定的时候,会提供`vue3`版本，该项目后续切换 `vue3` 的成本相对较低，后续会做成一键版本切换
 
-会提供`vue3`版本，该项目后续切换 vue3 的成本相对较低，后续会做成一键切换 2 和 3 的版本 When the official version of Vue 3.0 is released, this project will be migrated as soon as possible.
-
-### why use vue-composition-api
+### 为什么要使用 vue-composition-api
 
 最大的原因是我们还要兼容 `ie11`，`ie9`和`ie10` 可能需要自己修改 css 兼容性和部分插件的兼容性， `vue3`稳定下来最多也就支持`ie11`,所以暂时使用了`vue-composition-api`进行开发
 
-## Technical selection
+## 使用到的技术
 
-- vue2.6.11(后续提供 vue 版本)
-- composition-api: vue3 语法兼容 vue2 的插件,目前和最新的 vue RFC 基本保持一致，可以很好的切换为 VUE3
+- vue2.6.11(后续提供 vue3 版本)
+- composition-api:
 - vuex@3.4.0
 - vuex-module-decorators
 - vue-router@3.3.4
@@ -29,6 +44,8 @@ It based on `vue-composition-api`,`TSX`,`typescript` and use the UI Toolkit `ant
 - ant-design-vue@1.6.3
 - mockjs
 - vue-i18n
+- moment
+- lodash
 
 [更新日志](CHANGELOG.md)
 
@@ -68,24 +85,24 @@ VSCode 插件
 - `stylelint`: 样式代码检查
 - `Prettier - Code formatter`:代码格式化
 
-## Browsers support
+## 浏览器支持
 
-Modern browsers and Internet Explorer 10+.
+支持现代浏览器及 IE10+
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
 | :-: | :-: | :-: | :-: |
 | IE10, IE11, Edge | last 2 versions | last 2 versions | last 2 versions |
 
-## install
+## 安装
 
 ```js
 git config core.ignorecase false # 使git对文件名大小写敏感
 
 // 拉取项目代码
 
-git clone https://github.com/anncwb/vben-admin.git
+git clone https://github.com/anncwb/vue-vben-admin.git
 
-cd vben-admin
+cd vue-vben-admin
 
 //  最好使用yarn，否则热更新可能出现问题
 yarn install
@@ -94,13 +111,13 @@ yarn install
 
 ## 命令参考(Terminal)
 
-### Compiles for development
+### 启动开发环境
 
 ```bash
 yarn serve
 ```
 
-### Compiles for production
+### 打包
 
 同时会生成文件名 `window-glob.js` 配置文件，项目配置可以动态修改该文件实时更新代码变量，比如接口地址
 
@@ -113,13 +130,13 @@ yarn build:no-cache # 打包 不会使用hardSource进行打包
 yarn report # 生成构建包表表预览
 ```
 
-### Run your unit tests
+### 单元测试
 
 ```bash
 yarn test:unit # --watch : 跟踪文件变化
 ```
 
-### Lints and fixes files
+### 格式化
 
 ```bash
 yarn lint:stylelint # 样式格式化
@@ -127,7 +144,7 @@ yarn lint:stylelint # 样式格式化
 yarn lint:prettier # js/ts代码格式化
 ```
 
-### Other
+### 其他
 
 ```bash
 yarn reinstall # 删除依赖重新装，兼容window
@@ -137,7 +154,7 @@ yarn preview # 本地进行打包预览
 yarn log # 生成CHANGELOG
 ```
 
-## Git Commit Message Convention
+## Git 提交规范
 
 - 参考 [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) 规范 ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
 
@@ -155,7 +172,7 @@ yarn log # 生成CHANGELOG
   - `mod` 不确定分类的修改
   - `wip` 删除文件
 
-### Project Structure
+### 目录结构
 
 ```bash
 ├── build # 构建任务相关
@@ -193,7 +210,7 @@ yarn log # 生成CHANGELOG
 4. 推送您的分支: `git push origin feat/xxxx`
 5. 提交`pull request`
 
-## Features
+## 开发计划
 
 由于开发时间较短，所以功能暂时较少
 
@@ -203,7 +220,7 @@ yarn log # 生成CHANGELOG
 - [x] 首屏加载等待动画
 - [x] 登录和注销
 - [x] 菜单（可以搜索及拖拽以及菜单布局）
-- [x] 多标签页/面包屑（
+- [x] 多标签页/面包屑
 - [x] 基于角色的权限管理
 - [x] 基于后台的权限管理
 - [x] 分离的路由和菜单设置
@@ -234,21 +251,26 @@ yarn log # 生成CHANGELOG
 - [x] 国际化插件
 - [x] 图片预览组件
 - [x] 详情组件
-- [ ] 表格组件
+- [x] 表格组件
+- [x] 图片裁剪
+- [x] 富文本组件
+- [x] 上传组件
 - [ ] 树组件
+- [ ] 可编辑表格
+- [ ] 数据导入导出
+- [ ] 表格/树功能加强
 - [ ] 验证码/验证组件
-- [ ] 图片裁剪
-- [ ] 富文本组件
-- [ ] 上传组件
-- [ ] 常用页面实现及例子
-- [ ] vue3 一键切换
+- [ ] 拖拽面板
 - [ ] 黑暗主题
-- [ ] 更多组件/功能欢迎提交 pr
+- [ ] 系统进一步优化
+- [ ] 兼容最新`vuex`,`vue-router`,
+- [ ] 搭建`vite`版本
+- [ ] 更多组件/功能/建议/bug/欢迎提交 pr 或者 issue
 
-## Join us
+## 加入我们
 
-Welcome to join the group chat to discuss project issues and front-end technologies.
-
-`VBEN_ADMIN` 是完全开源免费的项目，旨在帮助开发者更方便地进行管理系统开发，同时也提供 QQ 交流群(由于项目刚开始几天，群还没什么人，有兴趣的可以加群一起讨论)，使用问题欢迎在群内提问。
+`VUE-VBEN-ADMIN` 是完全开源免费的项目，旨在帮助开发者更方便地进行中大型管理系统开发，同时也提供 QQ 交流群(由于项目刚开始几天，群还没什么人，有兴趣的可以加群一起讨论)，使用问题欢迎在群内提问。
 
 - QQ 群 `569291866`
+
+ <img alt="VbenAdmin Logo" width="100" src="./docs/images/qq.jpeg">
