@@ -67,8 +67,7 @@
 
   import { Button } from 'ant-design-vue';
   import { useModal } from '@/components/modal/index';
-  import { UploadImageModal, UploadResult } from '@/components/upload/index';
-  import { UploadFile } from 'ant-design-vue/types/upload';
+  import { UploadModal, UploadResult } from '@/components/file/index';
 
   export default defineComponent({
     name: 'Tinymce',
@@ -170,18 +169,16 @@
       });
       // 上传图片
       const [register, { isFirstLoadRef, openModal }] = useModal();
-      function handleChange(fileList: UploadFile<UploadResult>[]) {
-        // console.log('fileList', fileList);
+      function handleChange(fileList: UploadResult[]) {
+        console.log('fileList', fileList);
         openModal({
           visible: false,
         });
 
         fileList.forEach((file) => {
-          const { response } = file;
-          response &&
-            tinymce
-              .get(props.id)
-              .insertContent(`<img class=${prefixCls + '__upload-img'} src="${response.url}" >`);
+          tinymce
+            .get(props.id)
+            .insertContent(`<img class=${prefixCls + '__upload-img'} src="${file.url}" >`);
         });
       }
       return () => (
@@ -198,9 +195,7 @@
           >
             上传
           </Button>
-          {!unref(isFirstLoadRef) && (
-            <UploadImageModal onRegister={register} onChange={handleChange} />
-          )}
+          {!unref(isFirstLoadRef) && <UploadModal onRegister={register} onChange={handleChange} />}
         </div>
       );
     },

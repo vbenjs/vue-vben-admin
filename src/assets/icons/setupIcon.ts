@@ -15,6 +15,8 @@ export { default as GithubOutline } from '@ant-design/icons/lib/outline/GithubOu
 // upload
 export { default as ZoomInOutline } from '@ant-design/icons/lib/outline/ZoomInOutline';
 export { default as SettingOutline } from '@ant-design/icons/lib/outline/SettingOutline';
+// download
+export { default as DownloadOutline } from '@ant-design/icons/lib/outline/DownloadOutline';
 
 // 复制
 export { default as CopyOutline } from '@ant-design/icons/lib/outline/CopyOutline';

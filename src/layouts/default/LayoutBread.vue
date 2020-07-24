@@ -45,7 +45,6 @@
 
   .@{prefix-cls} {
     padding: 8px;
-    background: @white;
   }
 
   // .breadcrumb-enter-active,

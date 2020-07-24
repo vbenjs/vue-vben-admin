@@ -2,7 +2,7 @@
   import { defineComponent, unref } from 'compatible-vue';
   import { Button, Alert } from 'ant-design-vue';
   import { useModal } from '@/components/modal/index';
-  import { UploadImageModal, UploadContainer } from '@/components/upload/index';
+  import { UploadModal, UploadContainer } from '@/components/file/index';
 
   export default defineComponent({
     name: 'UploadImageDemo',
@@ -29,9 +29,7 @@
           >
             上传
           </Button>
-          {!unref(isFirstLoadRef) && (
-            <UploadImageModal onRegister={register} onChange={handleChange} />
-          )}
+          {!unref(isFirstLoadRef) && <UploadModal onRegister={register} onChange={handleChange} />}
           <div>
             <Alert message="上传与预览功能，默认图片上传" />
             <UploadContainer maxSize={1} maxNumber={3} />

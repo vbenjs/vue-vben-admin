@@ -5,7 +5,7 @@
 
   import { useModal } from '@/components/modal/index';
 
-  import UploadImageModal from './UploadImageModal.vue';
+  import UploadModal from './UploadModal.vue';
   import UploadPreviewModal from './UploadPreviewModal.vue';
 
   import { UploadResult, UploadContainerProps } from './types';
@@ -26,7 +26,6 @@
         if (fileList) {
           state.fileList = fileList;
         }
-        console.log(state.fileList);
         emit('change', state.fileList);
         openModal({
           visible: false,
@@ -57,7 +56,7 @@
             预览
           </Button>
           {!unref(isFirstLoadRef) && (
-            <UploadImageModal props={props} onRegister={register} onChange={handleChange} />
+            <UploadModal props={props} onRegister={register} onChange={handleChange} />
           )}
           {!unref(isFirstLoadRefPv) && (
             <UploadPreviewModal

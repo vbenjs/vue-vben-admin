@@ -111,7 +111,8 @@
         );
       }
       // 取消事件
-      async function handleCancel() {
+      async function handleCancel(e: Event) {
+        e.stopPropagation();
         if (props.closeFunc && isFunction(props.closeFunc)) {
           await props.closeFunc();
           visibleRef.value = false;
@@ -176,7 +177,7 @@
                 type={unref(fullScreenRef) ? 'fullscreen-exit' : 'fullscreen'}
                 onClick={handleFullScreen}
               />
-              <Icon type="close" />
+              <Icon type="close" onClick={handleCancel} />
             </div>
           </template>
         );

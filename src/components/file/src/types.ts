@@ -20,3 +20,5 @@ export interface PriviewProps {
 }
 
 export interface UploadContainerProps extends BasicProps, PriviewProps {}
+
+export type TargetContext = '_self' | '_blank';

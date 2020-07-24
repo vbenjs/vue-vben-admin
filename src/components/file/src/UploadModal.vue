@@ -8,7 +8,7 @@
   import { basicProps } from './props';
   import { BasicProps, UploadResult } from './types';
   export default defineComponent({
-    name: 'UploadImage',
+    name: 'UploadModal',
     props: basicProps,
     setup(props: BasicProps, { listeners, emit }) {
       const state = reactive<{

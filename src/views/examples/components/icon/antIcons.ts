@@ -40,6 +40,7 @@ export const antIcons = [
   'picture',
   'eye',
   'delete',
+  'download',
 ];
 
 export const antFillIcons = [

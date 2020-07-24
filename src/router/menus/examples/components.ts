@@ -142,7 +142,7 @@ export default {
     },
     {
       path: '/upload-image-demo',
-      name: '上传图片',
+      name: '上传文件',
     },
   ],
 } as NormMenuItem;

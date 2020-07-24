@@ -279,9 +279,9 @@ const routes: RouteConfigEx[] = [
     path: '/upload-image-demo',
     name: 'UploadImageDemo',
     component: () =>
-      createAsyncComponent(import('@/views/examples/components/upload/UploadImage.vue')),
+      createAsyncComponent(import('@/views/examples/components/file/UploadImage.vue')),
     meta: {
-      title: '上传图片',
+      title: '上传文件',
     },
   },
 ];
