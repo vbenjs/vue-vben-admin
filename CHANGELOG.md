@@ -1,9 +1,10 @@
-# 1.0.0 (2020-07-23)
+## 1.0.1 (2020-07-24)
 
 ### Bug Fixes
 
 - **components:** add file upload,modal add closeFunc props ([92f19a9](https://github.com/anncwb/vue-vben-admin/commit/92f19a9cc7f48d4aba547eccbb515087cb94b39b))
-- **use-go:** fix useGo router is undefined ([85359d2](https://github.com/anncwb/vue-vben-admin/commit/85359d2037695b35ce61dfc008452e9716c64f74))
+- **components:** fix upload close/breadcrumb dark theme/tabchange bug ([bf1d756](https://github.com/anncwb/vue-vben-admin/commit/bf1d756bf7172e73d43f8c12c0ba0a30f154b1b1))
+- **use-go:** fix useGo router is undefined ([99a9b2d](https://github.com/anncwb/vue-vben-admin/commit/99a9b2dd2aff66a4ed4009f8279bea01914b915b))
 - **vac:** fix vca plugins auto import onMounted onunMounted ([5fea1d0](https://github.com/anncwb/vue-vben-admin/commit/5fea1d051173422a37be7a48a578b13e472f4e2b))
 - **workbench:** update image's name and performance api ([838681d](https://github.com/anncwb/vue-vben-admin/commit/838681d07b24bb0a19479732487b8465b87de740))
 - remove scroll component props ([bc1398a](https://github.com/anncwb/vue-vben-admin/commit/bc1398abae582a11041f83112b2b3a36c6cebe30))

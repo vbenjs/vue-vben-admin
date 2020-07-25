@@ -22,6 +22,17 @@ const CDN = {
 function configCdn(config) {
   const ENV = getEnvFn();
   config.when(isProductionFn() && ENV.VUE_APP_USE_CDN === 'TRUE', (config) => {
+    // 百度统计代码
+    const HM = `<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c9fd16a6c4dbdcb9c928b38fd51634a9";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+`;
     config.externals({
       vue: 'Vue',
       'vue-router': 'VueRouter',
@@ -38,6 +49,7 @@ function configCdn(config) {
 
     config.plugin('html').tap((args) => {
       args[0].cdn = CDN;
+      args[0].hm = HM;
       return args;
     });
   });

@@ -34,6 +34,7 @@ export function useRowSelection(
   }
 
   function clearSelectedRowKeys() {
+    selectedRowRef.value = [];
     selectedRowKeysRef.value = [];
   }
 
