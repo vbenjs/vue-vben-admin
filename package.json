@@ -16,7 +16,7 @@
   "scripts": {
     "bootstrap": "yarn",
     "inspect": "vue-cli-service inspect > output.js",
-    "serve": "node ./build/task/serve",
+    "serve": "node ./build/npm-hook/preserve.js && node ./build/task/serve",
     "build": "node ./build/task/build",
     "build:no-cache": "npm run clean:cache && npm run build",
     "report": "cross-env  REPORT=true npm run build ",
@@ -129,7 +129,7 @@
     "typescript": "^3.9.5",
     "vue-template-compiler": "^2.6.11",
     "vue-tsx-support": "^2.3.3",
-    "webpack": "^4.43.0",
+    "webpack": "^4.44.0",
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-cli": "^3.3.11",
     "webpack-merge": "^5.0.9",
