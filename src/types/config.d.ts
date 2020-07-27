@@ -69,6 +69,8 @@ export interface ProjectConfig {
   lockTime: number;
   // 显示面包屑
   showBreadCrumb: boolean;
+  // 使用error-handler-plugin
+  useErrorHandle: boolean;
 }
 
 export interface GlobConfig {

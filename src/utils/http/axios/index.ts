@@ -14,6 +14,7 @@ import { isString } from '@/utils/is/index';
 import { formatRequestDate } from '@/utils/momentUtil';
 import { setObjToUrlParams } from '@/utils/urlUtils';
 import { RequestOptions, Result } from './types';
+import { errorStore, ErrorTypeEnum, ErrorInfo } from '@/store/modules/error';
 
 const { globSetting } = useSetting();
 const prefix = globSetting.urlPrefix;
@@ -140,6 +141,22 @@ const transform: AxiosTransform = {
    * @description: 响应错误处理
    */
   responseInterceptorsCatch: (error: any) => {
+    const errInfo: Partial<ErrorInfo> = {
+      message: error.message,
+      type: ErrorTypeEnum.AJAX,
+    };
+    if (error.response) {
+      const {
+        config: { url = '', data: params = '', method = 'get', headers = {} } = {},
+        data = {},
+      } = error.response;
+      errInfo.url = url;
+      errInfo.name = 'Ajax Error!';
+      errInfo.file = '-';
+      errInfo.stack = JSON.stringify(data);
+      errInfo.detail = JSON.stringify({ params, method, headers });
+    }
+    errorStore.commitErrorInfoState(errInfo as ErrorInfo);
     const { response, code, message } = error || {};
     const msg: string =
       response && response.data && response.data.error ? response.data.error.message : '';

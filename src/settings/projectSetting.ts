@@ -3,6 +3,7 @@ import { ProjectConfig } from '../types/config';
 import { MenuTypeEnum, MenuThemeEnum, MenuModeEnum } from '@/enums/menuEnum';
 import { ContentEnum, AuthModeEnum } from '@/enums/appEnum';
 import { primaryColor } from 'config/glob/lessModifyVars';
+import { isProdMode } from '@/utils/envUtil';
 
 // ! 改动后需要清空浏览器缓存
 const setting: ProjectConfig = {
@@ -67,6 +68,9 @@ const setting: ProjectConfig = {
   lockTime: 60,
   // 显示面包屑
   showBreadCrumb: true,
+
+  // 使用error-handler-plugin
+  useErrorHandle: isProdMode(),
 };
 
 export default setting;

@@ -35,16 +35,10 @@
           }
           if (tag === 'img') {
             const url = await toDataURL(renderValue, { errorCorrectionLevel: 'H', ...options });
-            console.log('======================');
-            console.log(url);
-            console.log('======================');
             (unref(wrapRef) as HTMLImageElement).src = url;
             emit('done');
           }
         } catch (error) {
-          console.log('======================');
-          console.log(error);
-          console.log('======================');
           emit('error', error);
         }
       }

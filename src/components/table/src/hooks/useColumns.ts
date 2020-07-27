@@ -11,7 +11,7 @@ export function useColumns(
   const getColumnsRef = computed(() => {
     const props = unref(propsRef);
     const {
-      columns,
+      columns = [],
       showIndexColumn,
       indexColumnProps,
       ellipsis,
@@ -20,6 +20,9 @@ export function useColumns(
     } = props;
 
     if (showIndexColumn && !isTreeTable) {
+      if (!columns) {
+        throw new Error('columns is null');
+      }
       const hasIndex = columns.find((column) => column.flag === 'INDEX');
       !hasIndex &&
         columns.unshift({

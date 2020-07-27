@@ -94,7 +94,7 @@
           emit('init');
         });
       }
-      function requestAnimationFrameFn(callback) {
+      function requestAnimationFrameFn(callback: () => any) {
         // 防止等待太久没有执行回调
         // 设置最大等待时间
         useTimeout(() => {

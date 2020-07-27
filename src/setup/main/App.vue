@@ -25,6 +25,7 @@
   moment.locale('zh-cn');
 
   export default defineComponent({
+    name: 'App',
     setup(_, { root }) {
       // 检测网络状态
       useNetWork({

@@ -55,9 +55,10 @@ export function useDataSource(
       return [];
     }
     const firstItem = dataSource[0];
+    const lastItem = dataSource[dataSource.length - 1];
 
-    if (firstItem) {
-      if (!firstItem[ROW_KEY]) {
+    if (firstItem && lastItem) {
+      if (!firstItem[ROW_KEY] || !lastItem[ROW_KEY]) {
         unref(dataSourceRef).forEach((item) => {
           item[ROW_KEY] = buildUUID();
           if (item.children && item.children.length) {
