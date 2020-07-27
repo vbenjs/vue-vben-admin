@@ -1,11 +1,7 @@
 <script lang="tsx">
   // components
-  import {
-    Dropdown,
-    Menu,
-    //  Divider
-  } from 'ant-design-vue';
-  import { SvgIcon } from '@/components/icon/index';
+  import { Dropdown, Menu, Divider } from 'ant-design-vue';
+  import { SvgIcon, Icon } from '@/components/icon/index';
 
   import { defineComponent, computed, unref } from 'compatible-vue';
 
@@ -16,6 +12,7 @@
   import { useDesign } from '@/hooks/core/useDesign';
 
   import { userStore } from '@/store/modules/user';
+  import { DOC_PATH } from '@/settings/docSetting';
   export default defineComponent({
     name: 'UserDropdown',
     setup() {
@@ -29,9 +26,17 @@
         userStore.confirmLoginOut();
       }
 
+      // 打开文档
+      function openDoc() {
+        window.open(DOC_PATH, '__blank');
+      }
+
       function handleMenuClick(e) {
         if (e.key === 'loginOut') {
           handleLoginOut();
+        }
+        if (e.key === 'doc') {
+          openDoc();
         }
       }
       const getUserInfo = computed(() => {
@@ -65,9 +70,11 @@
             </section>
 
             <Menu slot="overlay" onClick={handleMenuClick}>
-              {
-                // <Divider />
-              }
+              <Menu.Item key="doc">
+                <Icon type="book" />
+                文档
+              </Menu.Item>
+              <Divider />
               <Menu.Item key="loginOut">
                 <SvgIcon type="exit" />
                 退出系统

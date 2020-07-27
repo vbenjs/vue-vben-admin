@@ -183,6 +183,6 @@ export type UseFormReturnType = [
   GetFormFn,
   FormInstance & {
     formRef: Ref<FormInstance>;
-    useTableForm: (beforeFn?: <T>(data: T) => T) => { query: () => void };
+    // useTableForm: (beforeFn?: <T>(data: T) => T) => { query: () => void };
   }
 ];
