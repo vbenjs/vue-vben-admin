@@ -52,7 +52,7 @@
       }
       function handleToErrorList() {
         errorStore.commitErrorListCountState(0);
-        root.$router.push('/plugins-demo/error-handle');
+        root.$router.push('/error-log/index');
       }
       return () => {
         const { getProjCfg } = appStore;

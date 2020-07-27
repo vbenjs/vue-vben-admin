@@ -19,6 +19,7 @@
     "serve": "node ./build/npm-hook/preserve.js && node ./build/task/serve",
     "build": "node ./build/task/build",
     "build:no-cache": "npm run clean:cache && npm run build",
+    "build:site": "cross-env  SITE=true  npm run build:no-cache",
     "report": "cross-env  REPORT=true npm run build ",
     "log": "node ./build/task/log",
     "preview": "node ./build/task/preview",

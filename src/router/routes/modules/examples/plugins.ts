@@ -64,15 +64,6 @@ const routes: RouteConfigEx[] = [
       title: '富文本编辑器',
     },
   },
-  {
-    path: '/error-handle',
-    name: 'ErrorHandleDemo',
-    component: () =>
-      createAsyncComponent(import('@/views/examples/plugins/error-handle/index.vue')),
-    meta: {
-      title: '错误日志',
-    },
-  },
 ];
 
 export default {

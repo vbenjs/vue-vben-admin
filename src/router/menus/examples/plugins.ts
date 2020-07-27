@@ -30,9 +30,5 @@ export default {
       name: '富文本编辑器',
       path: '/tinymce',
     },
-    {
-      name: '错误日志',
-      path: '/error-handle',
-    },
   ],
 } as NormMenuItem;

@@ -101,7 +101,6 @@ export function useDataSource(
       }
 
       const res = await api(params);
-
       let resultItems: any[] = get(res, listField);
       const resultTotal: number = get(res, totalField);
       if (afterFetch && isFunction(afterFetch)) {
@@ -110,11 +109,11 @@ export function useDataSource(
 
       dataSourceRef.value = resultItems;
       setPagination({
-        total: resultTotal,
+        total: resultTotal || 0,
       });
       if (opt?.page) {
         setPagination({
-          current: opt.page,
+          current: opt.page || 1,
         });
       }
       emit('fetch-success', {

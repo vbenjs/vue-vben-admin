@@ -83,6 +83,10 @@ function isReportModeFn() {
   return !!process.env.REPORT;
 }
 
+function isSiteModeFn() {
+  return !!process.env.SITE;
+}
+
 /**
  * @description: Get local ip
  * @Date: 2020-06-15 11:06:35
@@ -113,4 +117,5 @@ module.exports = {
   supportIeFn,
   isReportModeFn,
   getIPAddress,
+  isSiteModeFn,
 };

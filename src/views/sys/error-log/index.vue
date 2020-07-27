@@ -1,82 +1,60 @@
 <script lang="tsx">
   import { defineComponent, watch, ref, unref } from 'compatible-vue';
-  import { Button, Tag } from 'ant-design-vue';
+  import { Button } from 'ant-design-vue';
+  import DetailModal from './DetailModal.vue';
+  import { useModal } from '@/components/modal/index';
 
   import { useDesign } from '@/hooks/core/useDesign';
 
-  import { BasicTable, useTable, BasicColumn } from '@/components/table/index';
+  import { BasicTable, useTable } from '@/components/table/index';
 
-  import { errorStore, ErrorTypeEnum } from '@/store/modules/error';
+  import { errorStore, ErrorInfo } from '@/store/modules/error';
 
   import { fireErrorApi } from '@/api/demo/error';
 
+  import { getColumns } from './data';
+
   const { prefixCls } = useDesign('error-handle');
 
-  const columns: BasicColumn[] = [
-    {
-      dataIndex: 'type',
-      title: '类型',
-      width: 80,
-      customRender: (text: string) => {
-        const color =
-          text === ErrorTypeEnum.VUE
-            ? 'green'
-            : text === ErrorTypeEnum.RESOURCE
-            ? 'cyan'
-            : text === ErrorTypeEnum.PROMISE
-            ? 'blue'
-            : ErrorTypeEnum.AJAX
-            ? 'red'
-            : 'purple';
-        return <Tag color={color}>{text}</Tag>;
-      },
-    },
-    {
-      dataIndex: 'url',
-      title: '地址',
-      width: 200,
-    },
-    {
-      dataIndex: 'time',
-      title: '时间',
-      width: 160,
-    },
-    {
-      dataIndex: 'file',
-      title: '文件',
-      width: 200,
-    },
-    {
-      dataIndex: 'name',
-      title: 'Name',
-      width: 200,
-    },
-    {
-      dataIndex: 'message',
-      title: '错误信息',
-      width: 300,
-    },
-    {
-      dataIndex: 'stack',
-      title: 'stack信息',
-      width: 300,
-    },
-  ];
   export default defineComponent({
     name: 'ErrorHandler',
     setup() {
+      const rowInfoRef = ref<ErrorInfo>();
       const imgListRef = ref<string[]>([]);
       const [register, { setTableData }] = useTable({
-        titleHelpMessage: '只在`/src/settings/projectSetting.ts` 内的useErrorHandle=true生效！',
+        titleHelpMessage: '只在`/src/settings/projectSetting.ts` 内的useErrorHandle=true时生效！',
         title: '错误日志列表',
-        columns: columns,
+        columns: getColumns(),
+        actionColumn: {
+          width: 80,
+          title: '操作',
+          dataIndex: 'action',
+          customRender: (text: string, recoed: ErrorInfo) => {
+            return (
+              <Button type="link" size="small" onClick={handleDetail.bind(null, recoed)}>
+                详情
+              </Button>
+            );
+          },
+        },
       });
+
+      const [registerModal, { isFirstLoadRef, openModal }] = useModal();
       watch(
         () => errorStore.getErrorInfoState,
         (list) => {
           setTableData(list);
         }
       );
+
+      // 查看详情
+      function handleDetail(row: ErrorInfo) {
+        rowInfoRef.value = row;
+        openModal({
+          visible: true,
+        });
+      }
+
       function fireVueError() {
         throw new Error('fire vue error!');
       }
@@ -94,6 +72,9 @@
           {unref(imgListRef).map((src) => {
             return <img src={src} key={src} v-show={false} />;
           })}
+          {!unref(isFirstLoadRef) && (
+            <DetailModal info={unref(rowInfoRef)} onRegister={registerModal} />
+          )}
           <BasicTable onRegister={register} class={`${prefixCls}-table`}>
             <template slot="toolbar">
               <Button onClick={fireVueError} type="primary">
