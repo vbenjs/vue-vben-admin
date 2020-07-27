@@ -20,6 +20,7 @@
 <p align="center">
     <img alt="VbenAdmin Logo" width="100%" src="./docs/images/screenshot.png">
 </p>
+
 ### gitHub 地址
 
 [vue-vben-admin](https://github.com/anncwb/vue-vben-admin)
@@ -28,7 +29,7 @@
 
 文档未完全写完，还在陆续编写中...
 
-[https://vvbin.cn/docs](vue-vben-admin-docs)
+[在线文档](https://vvbin.cn/docs/)
 
 ### 为什么写这个
 

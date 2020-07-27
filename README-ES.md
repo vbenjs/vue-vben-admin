@@ -20,9 +20,10 @@ Compatible with vue2 browsers, everything is free and does not charge any fees, 
 <p align="center">
     <img alt="VbenAdmin Logo" width="100%" src="./docs/images/screenshot.png">
 </p>
+
 ### gitHub
 
-[vue-vben-admin](https://github.com/anncwb/vue-vben-admin)
+[Online documentation](https://vvbin.cn/docs/)
 
 ### Document
 
