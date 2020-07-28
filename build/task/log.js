@@ -8,7 +8,7 @@ const { run } = runjs;
 const createChangeLog = async () => {
   try {
     await run(
-      `conventional-changelog -p custom-config -i CHANGELOG.md -s && git add CHANGELOG.md`,
+      `conventional-changelog -p custom-config -i CHANGELOG.md -s -r 0&& git add CHANGELOG.md`,
       {
         async: true,
         stdio: 'inherit',

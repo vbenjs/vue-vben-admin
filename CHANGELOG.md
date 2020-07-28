@@ -1,4 +1,10 @@
-## 1.0.2 (2020-07-28)
+## [1.0.4](https://github.com/anncwb/vue-vben-admin/compare/1.0.3...1.0.4) (2020-07-28)
+
+### 🎫 Chores
+
+- update deps ([33adcb1](https://github.com/anncwb/vue-vben-admin/commit/33adcb1)) by: **陈文彬** (anncwb@126.com)
+
+## [1.0.3](https://github.com/anncwb/vue-vben-admin/compare/24cea92...1.0.3) (2020-07-28)
 
 ### ⚡ Performance Improvements
 
@@ -37,6 +43,7 @@
 
 ### 🎫 Chores
 
+- update deps ([78c91c7](https://github.com/anncwb/vue-vben-admin/commit/78c91c7)) by: **陈文彬** (anncwb@126.com)
 - **readme.md:** update readme.md ([97e1ec1](https://github.com/anncwb/vue-vben-admin/commit/97e1ec1)) by: **陈文彬** (anncwb@126.com)
 - add license ([39a933d](https://github.com/anncwb/vue-vben-admin/commit/39a933d)) by: **陈文彬** (anncwb@126.com)
 - rename useRouter ([af79062](https://github.com/anncwb/vue-vben-admin/commit/af79062)) by: **陈文彬** (anncwb@126.com)
