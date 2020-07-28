@@ -1,6 +1,6 @@
 {
   "name": "vue-vben-admin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "keywords": [
     "vue",
@@ -32,7 +32,8 @@
     "lint:stylelint": "cross-env --max_old_space_size=4096 stylelint  --fix \"**/*.{vue,less,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
     "lint:prettier": "cross-env --max_old_space_size=4096 prettier --write --loglevel warn \"src/**/*.{js,json,css,less,scss,vue,html,md}\"",
     "preinstall": "node ./build/npm-hook/preinstall.js",
-    "postinstall": "node ./build/npm-hook/postinstall.js && npm run clean:cache"
+    "postinstall": "node ./build/npm-hook/postinstall.js && npm run clean:cache",
+    "release": "release-it"
   },
   "dependencies": {
     "@vue/composition-api": "^1.0.0-beta.6",
@@ -94,6 +95,7 @@
     "compressing": "^1.5.1",
     "compression-webpack-plugin": "^4.0.0",
     "conventional-changelog-cli": "^2.0.34",
+    "conventional-changelog-custom-config": "^0.3.1",
     "copy-webpack-plugin": "^6.0.2",
     "cross-env": "^7.0.2",
     "eslint": "^7.5.0",
@@ -119,6 +121,7 @@
     "markdownlint-cli": "^0.23.1",
     "postcss-flexbugs-fixes": "^4.2.1",
     "prettier": "^2.0.5",
+    "release-it": "^13.6.5",
     "rimraf": "^3.0.2",
     "runjs": "^4.4.2",
     "script-ext-html-webpack-plugin": "^2.1.4",
@@ -146,11 +149,17 @@
     "type": "git",
     "url": "git+https://github.com/anncwb/vue-vben-admin.git"
   },
+  "changelog": {
+    "bugsUrl": "https://github.com/anncwb/vue-vben-admin/issues",
+    "emojis": true,
+    "authorName": true,
+    "authorEmail": true
+  },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/anncwb/vue-vben-admin.git/issues"
+    "url": "https://github.com/anncwb/vue-vben-admin/issues"
   },
-  "homepage": "https://github.com/anncwb/vue-vben-admin.git",
+  "homepage": "https://github.com/anncwb/vue-vben-admin",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
