@@ -86,6 +86,30 @@ const routes: RouteConfigEx[] = [
           title: '开启搜索区域',
         },
       },
+      {
+        path: '/demo8',
+        name: 'TableBaseDemo8',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo8.vue')),
+        meta: {
+          title: '行拖拽',
+        },
+      },
+      {
+        path: '/demo9',
+        name: 'TableBaseDemo9',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo9.vue')),
+        meta: {
+          title: '列拖拽',
+        },
+      },
+      {
+        path: '/demo10',
+        name: 'TableBaseDemo10',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo10.vue')),
+        meta: {
+          title: '动态列示例',
+        },
+      },
     ],
   },
   {

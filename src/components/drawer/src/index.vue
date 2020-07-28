@@ -13,7 +13,7 @@
   import { DrawerInstance, DrawerProps, DrawerType } from './types';
 
   import { basicProps } from './props';
-  import { isFunction } from '../../../utils/is';
+  import { isFunction } from '@/utils/is';
   export default defineComponent({
     props: basicProps,
     setup(props: DrawerProps, { slots, emit, listeners, root, attrs }) {

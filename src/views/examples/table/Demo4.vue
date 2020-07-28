@@ -51,7 +51,6 @@
               rowSelection={{ type: 'radio' }}
               columns={columns}
             >
-              {' '}
               <template slot="toolbar">
                 <Button
                   type="primary"

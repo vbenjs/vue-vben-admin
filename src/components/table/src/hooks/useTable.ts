@@ -1,4 +1,4 @@
-import { BasicTableProps, TableInstance, FetchParams } from '../types/table';
+import { BasicTableProps, TableInstance, FetchParams, BasicColumn } from '../types/table';
 import { PaginationProps } from '../types/pagination';
 import { ref, getCurrentInstance, onUnmounted, unref } from 'compatible-vue';
 import { isProdMode } from '@/utils/envUtil';
@@ -41,8 +41,13 @@ export function useTable(
     getDataSource: () => {
       return unref(tableRef)?.getDataSource();
     },
-    getColumns: () => {
-      return unref(tableRef)?.getColumns();
+    getColumns: ({ ignoreIndex = false }: { ignoreIndex?: boolean }) => {
+      const columns = unref(tableRef)?.getColumns({ ignoreIndex }) || [];
+
+      return columns;
+    },
+    setColumns: (columns: BasicColumn[]) => {
+      unref(tableRef)?.setColumns(columns);
     },
     setTableData: (values: any[]) => {
       return unref(tableRef)?.setTableData(values);

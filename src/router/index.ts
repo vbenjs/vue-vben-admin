@@ -18,7 +18,9 @@ const createRouter = (options: CreateRouterOptions = {}): Router => {
     mode: 'hash',
     base: process.env.VUE_APP_PUBLIC_PATH,
     scrollBehavior: (to: Route, from: Route, savedPosition: void | Position) => {
-      return savedPosition || { x: 0, y: 0 };
+      if (savedPosition) return savedPosition;
+      if (to.hash) return { selector: to.hash };
+      return { x: 0, y: 0 };
     },
     ...options,
   });

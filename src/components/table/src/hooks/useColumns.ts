@@ -1,23 +1,30 @@
-import { BasicTableProps } from '../types/table';
+import { BasicTableProps, BasicColumn } from '../types/table';
 import { PaginationProps } from '../types/pagination';
-import { unref, ComputedRef, computed } from 'compatible-vue';
-import { isBoolean } from '@/utils/is/index';
+import { unref, ComputedRef, computed, watch, ref } from 'compatible-vue';
+import { isBoolean, isArray, isObject } from '@/utils/is/index';
 import { PAGE_SIZE } from '../const';
 
 export function useColumns(
   propsRef: ComputedRef<BasicTableProps>,
   getPaginationRef: ComputedRef<false | PaginationProps>
 ) {
+  const columnsRef = ref<BasicColumn[]>(unref(propsRef).columns);
+  const cacheColumnsRef = ref<BasicColumn[]>(unref(propsRef).columns);
+
+  watch(
+    () => unref(propsRef).columns,
+    (columns) => {
+      columnsRef.value = columns;
+      cacheColumnsRef.value = columns;
+    },
+    {
+      immediate: true,
+    }
+  );
   const getColumnsRef = computed(() => {
     const props = unref(propsRef);
-    const {
-      columns = [],
-      showIndexColumn,
-      indexColumnProps,
-      ellipsis,
-      actionColumn,
-      isTreeTable,
-    } = props;
+    const { showIndexColumn, indexColumnProps, ellipsis, actionColumn, isTreeTable } = props;
+    const columns = unref(columnsRef);
 
     if (showIndexColumn && !isTreeTable) {
       if (!columns) {
@@ -68,5 +75,26 @@ export function useColumns(
     }
     return columns;
   });
-  return { getColumnsRef };
+
+  function setColumns(columns: BasicColumn[] | string[]) {
+    if (!isArray(columns)) {
+      return;
+    }
+    if (columns.length <= 0) {
+      columnsRef.value = [];
+      return;
+    }
+
+    const firstColumn = columns[0];
+    if (isObject(firstColumn)) {
+      columnsRef.value = columns as BasicColumn[];
+    } else {
+      const newColumns = unref(cacheColumnsRef).filter((item) =>
+        (columns as string[]).includes(item.key! || item.dataIndex!)
+      );
+      columnsRef.value = newColumns;
+    }
+  }
+
+  return { getColumnsRef, setColumns };
 }

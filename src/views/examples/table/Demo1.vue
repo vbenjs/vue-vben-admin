@@ -1,6 +1,7 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
   import { Button } from 'ant-design-vue';
+
   import { BasicTable, BasicColumn, useTable } from '@/components/table/index';
   const columns: BasicColumn[] = [
     {

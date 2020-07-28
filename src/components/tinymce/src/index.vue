@@ -111,7 +111,7 @@
           language_url: 'resource/tinymce/langs/zh_CN.js',
           // 中文
           language: 'zh_CN',
-          code_dialog_height: 450,
+          code_dialog_height: 600,
           code_dialog_width: 1000,
           advlist_bullet_styles: 'square',
           advlist_number_styles: 'default',

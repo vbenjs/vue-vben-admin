@@ -19,6 +19,9 @@ export interface FetchParams {
   page?: number;
 }
 
+export interface getColumnsParams {
+  ignoreIndex?: boolean;
+}
 export interface TableInstance {
   reload: (opt?: FetchParams) => Promise<void>;
   getSelectRows: () => any[];
@@ -27,7 +30,8 @@ export interface TableInstance {
   deleteSelectRowByKey: (key: string) => void;
   setPagination: (info: Partial<PaginationProps>) => void;
   setTableData: (values: any[]) => void;
-  getColumns: () => BasicColumn[];
+  getColumns: ({ ignoreIndex }?: getColumnsParams) => BasicColumn[];
+  setColumns: (columns: BasicColumn[] | string[]) => void;
   getDataSource: () => any[];
   setLoading: (loading: boolean) => void;
   setProps: (props: Partial<BasicTableProps>) => void;
@@ -47,6 +51,12 @@ export interface FetchSetting {
   totalField: string;
 }
 export interface BasicTableProps {
+  // 是否可拖拽行排序
+  canRowDrag?: boolean;
+
+  // 是否可拖拽列
+  canColDrag?: boolean;
+  // 是否树表
   isTreeTable?: boolean;
   // 接口请求对象
   api?: (...arg) => Promise<any>;

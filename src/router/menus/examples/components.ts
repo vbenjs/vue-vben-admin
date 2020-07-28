@@ -42,6 +42,18 @@ export default {
           name: '开启搜索区域',
           path: '/demo7',
         },
+        {
+          name: '行拖拽',
+          path: '/demo8',
+        },
+        {
+          name: '列拖拽',
+          path: '/demo9',
+        },
+        {
+          name: '动态列示例',
+          path: '/demo10',
+        },
       ],
     },
     {

@@ -21,5 +21,9 @@ export default {
       name: '图片裁剪',
       path: '/image-crop',
     },
+    {
+      name: '拖拽面板',
+      path: '/drag-panel',
+    },
   ],
 } as NormMenuItem;

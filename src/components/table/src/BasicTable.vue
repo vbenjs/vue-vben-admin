@@ -2,6 +2,8 @@
   import { defineComponent, unref, ref, computed } from 'compatible-vue';
   import { Table } from 'ant-design-vue';
   import TableTitle from './components/TableTitle.vue';
+  import BodyWarpper from './components/BodyWarpper.vue';
+  import CellResize from './components/CellResize.vue';
 
   import { usePagination } from './hooks/usePagination';
   import { useLoading } from './hooks/useLoading';
@@ -10,9 +12,10 @@
   import { useDataSource } from './hooks/useDataSource';
   import { useColumns } from './hooks/useColumns';
   import { useDesign } from '@/hooks/core/useDesign';
+  import { provideTable } from './hooks/useProvinceTable';
 
   import { basicProps } from './props';
-  import { BasicTableProps, TableInstance, FetchParams } from './types/table';
+  import { BasicTableProps, TableInstance, FetchParams, getColumnsParams } from './types/table';
   import { PaginationProps } from './types/pagination';
   import { getSlot } from '@/utils/helper/tsxHelper';
   import { isFunction } from '@/utils/is/index';
@@ -26,6 +29,7 @@
       const tableElRef = ref<any>(null);
       const innerPropsRef = ref<Partial<BasicTableProps>>();
       const lastPropsRef = ref<BasicTableProps>();
+
       const getPropsRef = computed(() => {
         lastPropsRef.value = {
           ...props,
@@ -34,6 +38,22 @@
         };
         return unref(lastPropsRef) as BasicTableProps;
       });
+      const getComponentsRef = computed(() => {
+        const res: any = {};
+
+        if (unref(getPropsRef).canRowDrag) {
+          res.body = {
+            wrapper: BodyWarpper,
+          };
+        }
+        if (unref(getPropsRef).canColDrag) {
+          res.header = {
+            cell: CellResize,
+          };
+        }
+
+        return res;
+      });
       const { getPaginationRef, setPagination } = usePagination(getPropsRef);
       const { loadingRef } = useLoading(getPropsRef);
       const { getDataSourceRef, setTableData, rowKey, fetch } = useDataSource(getPropsRef, ctx, {
@@ -41,7 +61,7 @@
         loadingRef,
         setPagination,
       });
-      const { getColumnsRef } = useColumns(getPropsRef, getPaginationRef);
+      const { getColumnsRef, setColumns } = useColumns(getPropsRef, getPaginationRef);
       const { getScrollRef, redoHeight } = useTableScroll(getPropsRef, tableElRef);
       const {
         getRowSelectionRef,
@@ -84,7 +104,7 @@
         }
         fetch({ searchInfo: info, page: 1 });
       }
-      emit('register', {
+      const instance = {
         reload: (opt?: FetchParams) => {
           fetch(opt);
         },
@@ -96,11 +116,17 @@
         setTableData,
         redoHeight,
         setSelectedRowKeys,
+        setColumns,
         getPaginationRef: () => {
           return unref(getPaginationRef);
         },
-        getColumns: () => {
-          return unref(getColumnsRef);
+        getColumns: (opt?: getColumnsParams) => {
+          const { ignoreIndex } = opt || {};
+          let columns = unref(getColumnsRef);
+          if (ignoreIndex) {
+            columns = columns.filter((item) => item.flag !== 'INDEX');
+          }
+          return columns;
         },
         getDataSource: () => {
           return unref(getDataSourceRef);
@@ -111,7 +137,10 @@
         setProps: (props: Partial<BasicTableProps>) => {
           innerPropsRef.value = props;
         },
-      } as TableInstance);
+      } as TableInstance;
+      provideTable(instance);
+      emit('register', instance);
+
       return () => {
         const title = unref(getPropsRef).title;
         const titleData =
@@ -150,6 +179,7 @@
               />
             )}
             <Table
+              components={unref(getComponentsRef)}
               ref={tableElRef}
               on={{ ...listeners, change: handleTableChange }}
               {...{

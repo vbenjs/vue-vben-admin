@@ -6,6 +6,14 @@ import { FormProps } from '@/components/form/index';
 
 // 注释看 types/table
 export const basicProps = {
+  canRowDrag: {
+    type: Boolean,
+    default: false,
+  } as PropOptions<boolean>,
+  canColDrag: {
+    type: Boolean,
+    default: false,
+  } as PropOptions<boolean>,
   isTreeTable: {
     type: Boolean,
     default: false,
