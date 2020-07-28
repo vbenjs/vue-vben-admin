@@ -47,6 +47,7 @@
     "moment": "^2.27.0",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
+    "print-js": "^1.0.63",
     "qrcode": "^1.4.4",
     "tinymce": "5.2.2",
     "vue": "^2.6.11",

@@ -2,11 +2,10 @@
   import { defineComponent } from 'compatible-vue';
   import { useDesign } from '@/hooks/core/useDesign';
 
-  const { prefixCls } = useDesign('index');
-
   export default defineComponent({
     name: 'Index',
     setup() {
+      const { prefixCls } = useDesign('index');
       return () => <div class={prefixCls}>index</div>;
     },
   });

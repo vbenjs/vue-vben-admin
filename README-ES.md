@@ -230,11 +230,11 @@ The follow-up will be gradually improved, and what components are needed can be 
 - [x] Rich text component
 - [x] Upload components
 - [x] Error Log
+- [x] Drag panel
 - [ ] Tree component
 - [ ] Editable table
 - [ ] Data import and export
 - [ ] Verification code/Verification component
-- [ ] Drag panel
 - [ ] Dark theme
 - [ ] System is further optimized
 - [ ] Compatible with the latest `vuex`, `vue-router`

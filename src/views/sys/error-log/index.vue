@@ -44,6 +44,9 @@
         () => errorStore.getErrorInfoState,
         (list) => {
           setTableData(list);
+        },
+        {
+          immediate: true,
         }
       );
 
