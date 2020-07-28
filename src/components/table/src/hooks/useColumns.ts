@@ -28,7 +28,7 @@ export function useColumns(
 
     if (showIndexColumn && !isTreeTable) {
       if (!columns) {
-        throw new Error('columns is null');
+        return [];
       }
       const hasIndex = columns.find((column) => column.flag === 'INDEX');
       !hasIndex &&
