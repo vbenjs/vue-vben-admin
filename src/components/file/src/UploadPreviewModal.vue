@@ -9,6 +9,7 @@
   import { PriviewProps, UploadResult } from './types';
   import { downloadByUrl } from './FileDownload';
   import { useDesign } from '@/hooks/core/useDesign';
+  import { createImgPreview } from '@/components/preview/index';
 
   export default defineComponent({
     name: 'UploadPreviewModal',
@@ -20,11 +21,15 @@
       }
       function renderImg() {
         return (
-          <Row>
+          <Row gutter={16} type="flex" align="bottom">
             {props.priviewList.map((file, index) => {
               return (
                 <Col span={8} key={index} class={`${prefixCls}__item`}>
-                  <img src={file.url} title={file.name} />
+                  <img
+                    src={file.url}
+                    title={file.name}
+                    onClick={createImgPreview.bind(null, { imageList: [file.url] })}
+                  />
                   <div
                     onClick={handleDownload.bind(null, file)}
                     class={[`${prefixCls}__download`, 'py-2']}

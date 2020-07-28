@@ -60,7 +60,8 @@
           )}
           {!unref(isFirstLoadRefPv) && (
             <UploadPreviewModal
-              props={{ ...props, priviewList: state.fileList }}
+              uploadImg={props.uploadImg}
+              priviewList={[...state.fileList, ...props.priviewList]}
               onRegister={registerPv}
             />
           )}

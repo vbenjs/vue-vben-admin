@@ -32,7 +32,37 @@
           {!unref(isFirstLoadRef) && <UploadModal onRegister={register} onChange={handleChange} />}
           <div>
             <Alert message="上传与预览功能，默认图片上传" />
-            <UploadContainer maxSize={1} maxNumber={3} />
+            <UploadContainer
+              maxSize={1}
+              maxNumber={3}
+              priviewList={[
+                {
+                  name: 'image0',
+                  status: 'done',
+                  thumbUrl: '',
+                  url:
+                    'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                },
+                {
+                  name: 'image1',
+                  status: 'done',
+                  thumbUrl: '',
+                  url: 'https://picsum.photos/id/66/346/216',
+                },
+                {
+                  name: 'image2',
+                  status: 'done',
+                  thumbUrl: '',
+                  url: 'https://picsum.photos/id/67/346/216',
+                },
+                {
+                  name: 'image3',
+                  status: 'done',
+                  thumbUrl: '',
+                  url: 'https://picsum.photos/id/68/346/216',
+                },
+              ]}
+            />
             <Alert message="上传与预览功能，文件上传" />
             <UploadContainer maxSize={2} maxNumber={10} uploadImg={false} />
           </div>

@@ -175,7 +175,7 @@
         >
           <p>{unref(getHelpText)}</p>
           <Upload
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            action={props.action}
             list-type={props.uploadImg ? 'picture-card' : 'text'}
             accept={unref(getStringAccept)}
             multiple={props.multiple}
