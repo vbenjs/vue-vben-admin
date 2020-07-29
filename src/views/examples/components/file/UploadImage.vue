@@ -20,7 +20,6 @@
           <Alert message="单独的上传按钮" />
           <Button
             class="m-4"
-            type="primary"
             onClick={() => {
               openModal({
                 visible: true,
