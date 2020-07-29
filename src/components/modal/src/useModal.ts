@@ -1,5 +1,5 @@
 import { UseModalReturnType, ModalInstance, ModalProps, ReturnMethods } from './types';
-import { ref, Ref, getCurrentInstance, onUnmounted, unref } from 'compatible-vue';
+import { ref, Ref, getCurrentInstance, onUnmounted, unref, onMounted } from 'compatible-vue';
 
 import { isProdMode } from '@/utils/envUtil';
 
@@ -14,12 +14,18 @@ export function useModal(): UseModalReturnType {
   const loadedRef = ref<boolean | null>(false);
   const isFirstLoadRef = ref<boolean | null>(true);
   let innerProps: any = null;
+  onMounted(() => {
+    console.log('onMounted', innerProps, isFirstLoadRef.value);
+  });
 
   onUnmounted(() => {
+    console.log('onUnmounted--start', innerProps, isFirstLoadRef.value);
+
     modalRef.value = null;
     loadedRef.value = null;
     isFirstLoadRef.value = null;
     innerProps = null;
+    console.log('onUnmounted--end', innerProps, isFirstLoadRef.value);
   });
   function register(modalInstance: ModalInstance) {
     if (unref(loadedRef) && isProdMode()) {
@@ -27,6 +33,9 @@ export function useModal(): UseModalReturnType {
     }
     modalRef.value = modalInstance;
     loadedRef.value = true;
+
+    console.log('register', innerProps, isFirstLoadRef.value);
+
     unref(modalRef)!.setModalProps(innerProps || {});
   }
   const methods: ReturnMethods = {
@@ -44,6 +53,7 @@ export function useModal(): UseModalReturnType {
       } else {
         unref(modalRef)!.setModalProps(props);
       }
+      console.log('openModal', innerProps, isFirstLoadRef.value);
     },
   };
   return [register, methods];

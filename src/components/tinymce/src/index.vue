@@ -72,7 +72,7 @@
   export default defineComponent({
     name: 'Tinymce',
     props: basicProps,
-    setup(props: BasicProps, { emit, root }) {
+    setup(props: BasicProps, { emit, root, attrs }) {
       const { prefixCls } = useDesign('tinymce');
 
       const tinymceState = reactive({
@@ -170,7 +170,6 @@
       // 上传图片
       const [register, { isFirstLoadRef, openModal }] = useModal();
       function handleChange(fileList: UploadResult[]) {
-        console.log('fileList', fileList);
         openModal({
           visible: false,
         });
@@ -181,21 +180,27 @@
             .insertContent(`<img class=${prefixCls + '__upload-img'} src="${file.url}" >`);
         });
       }
+
       return () => (
         <div class={`${prefixCls}__wrapper`} style={{ width: unref(getWidth) }}>
           <textarea id={props.id} class={`${prefixCls}__textarea`} />
-          <Button
-            class={`${prefixCls}__upload`}
-            type="primary"
-            onClick={() => {
-              openModal({
-                visible: true,
-              });
-            }}
-          >
-            上传
-          </Button>
-          {!unref(isFirstLoadRef) && <UploadModal onRegister={register} onChange={handleChange} />}
+          {props.showUploadImage && (
+            <Button
+              class={`${prefixCls}__upload`}
+              type="primary"
+              onClick={() => {
+                openModal({
+                  visible: true,
+                });
+              }}
+            >
+              上传
+            </Button>
+          )}
+
+          {props.showUploadImage && !unref(isFirstLoadRef) && (
+            <UploadModal onRegister={register} onChange={handleChange} {...{ props: attrs }} />
+          )}
         </div>
       );
     },

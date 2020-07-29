@@ -16,6 +16,10 @@
     name: 'BasicModal',
     props: basicProps,
     setup(props: Readonly<ModalProps>, { slots, listeners, emit }) {
+      console.log('modal setups');
+      // onMounted(() => {
+      //   console.log('onMounted setups');
+      // });
       const visibleRef = ref(false);
       const propsRef = ref<Partial<ModalProps> | null>(null);
 
