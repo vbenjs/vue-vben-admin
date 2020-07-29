@@ -152,9 +152,23 @@ export default {
       path: '/click-out-side',
       name: 'clickOutSide组件',
     },
+    // {
+    //   path: '/upload-image-demo',
+    //   name: '上传文件',
+    // },
     {
-      path: '/upload-image-demo',
-      name: '上传文件',
+      name: '上传下载',
+      path: '/file-demo',
+      children: [
+        {
+          name: '上传',
+          path: '/upload',
+        },
+        {
+          name: '下载',
+          path: '/download',
+        },
+      ],
     },
   ],
 } as NormMenuItem;

@@ -34,27 +34,26 @@
 
       return () => (
         <div class="m-4">
-          <Button
-            class="mr-4"
-            type="primary"
-            onClick={() => {
-              openModal({
-                visible: true,
-              });
-            }}
-          >
-            上传
-          </Button>
-          <Button
-            class="mr-4"
-            onClick={() => {
-              openModalPv({
-                visible: true,
-              });
-            }}
-          >
-            预览
-          </Button>
+          <Button.Group>
+            <Button
+              onClick={() => {
+                openModal({
+                  visible: true,
+                });
+              }}
+            >
+              上传
+            </Button>
+            <Button
+              icon="eye"
+              onClick={() => {
+                openModalPv({
+                  visible: true,
+                });
+              }}
+            ></Button>
+          </Button.Group>
+
           {!unref(isFirstLoadRef) && (
             <UploadModal props={props} onRegister={register} onChange={handleChange} />
           )}
