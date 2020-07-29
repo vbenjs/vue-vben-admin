@@ -8,4 +8,5 @@ export interface BasicProps {
   value: string;
   width: string | number;
   menubar: string;
+  showUploadImage: boolean;
 }
