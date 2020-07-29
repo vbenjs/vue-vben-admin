@@ -7,7 +7,8 @@
     unref,
     reactive,
     watch,
-    // onActivated,
+    onActivated,
+    onDeactivated,
   } from 'compatible-vue';
   import tinymce from 'tinymce';
   import 'tinymce/themes/silver/theme';
@@ -21,10 +22,13 @@
   import 'tinymce/plugins/charmap';
   import 'tinymce/plugins/code';
   import 'tinymce/plugins/codesample';
-  import 'tinymce/plugins/colorpicker';
-  import 'tinymce/plugins/contextmenu';
+  // import 'tinymce/plugins/colorpicker';
+  // import 'tinymce/plugins/contextmenu';
   import 'tinymce/plugins/directionality';
+
   import 'tinymce/plugins/emoticons';
+  import 'tinymce/plugins/emoticons/js/emojis';
+
   import 'tinymce/plugins/fullpage';
   import 'tinymce/plugins/fullscreen';
   import 'tinymce/plugins/help';
@@ -50,7 +54,7 @@
   import 'tinymce/plugins/tabfocus';
   import 'tinymce/plugins/table';
   import 'tinymce/plugins/template';
-  import 'tinymce/plugins/textcolor';
+  // import 'tinymce/plugins/textcolor';
   import 'tinymce/plugins/textpattern';
   import 'tinymce/plugins/toc';
   import 'tinymce/plugins/visualblocks';
@@ -159,11 +163,14 @@
       onMounted(() => {
         initTinymce();
       });
-      // onActivated(() => {
-      //   if (window.tinymce) {
-      //     initTinymce();
-      //   }
-      // });
+      onActivated(() => {
+        if (tinymce) {
+          initTinymce();
+        }
+      });
+      onDeactivated(() => {
+        destroyTinymce();
+      });
       onUnmounted(() => {
         destroyTinymce();
       });
