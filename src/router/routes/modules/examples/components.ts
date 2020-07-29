@@ -299,14 +299,41 @@ const routes: RouteConfigEx[] = [
       title: 'clickOutSide组件',
     },
   },
+  // {
+  //   path: '/upload-image-demo',
+  //   name: 'UploadImageDemo',
+  //   component: () =>
+  //     createAsyncComponent(import('@/views/examples/components/file/UploadImage.vue')),
+  //   meta: {
+  //     title: '上传文件',
+  //   },
+  // },
   {
-    path: '/upload-image-demo',
-    name: 'UploadImageDemo',
-    component: () =>
-      createAsyncComponent(import('@/views/examples/components/file/UploadImage.vue')),
+    path: '/file-demo',
+    name: 'DescDemo',
     meta: {
-      title: '上传文件',
+      title: '上传下载',
     },
+    children: [
+      {
+        path: '/upload',
+        name: 'UploadImageDemo',
+        component: () =>
+          createAsyncComponent(import('@/views/examples/components/file/UploadImage.vue')),
+        meta: {
+          title: '上传',
+        },
+      },
+      {
+        path: '/download',
+        name: 'DownloadFileDemo',
+        component: () =>
+          createAsyncComponent(import('@/views/examples/components/file/DownloadFile.vue')),
+        meta: {
+          title: '下载',
+        },
+      },
+    ],
   },
 ];
 

@@ -1,6 +1,12 @@
 import { TargetContext } from './types';
-
-export function downloadByData(data: BlobPart, filename: string, mime: string, bom: BlobPart) {
+/**
+ * 根据后台接口文件流下载
+ * @param {*} data
+ * @param {*} filename
+ * @param {*} mime
+ * @param {*} bom
+ */
+export function downloadByData(data: BlobPart, filename: string, mime?: string, bom?: BlobPart) {
   const blobData = typeof bom !== 'undefined' ? [bom, data] : [data];
   const blob = new Blob(blobData, { type: mime || 'application/octet-stream' });
   if (typeof window.navigator.msSaveBlob !== 'undefined') {
