@@ -2,11 +2,14 @@
   import { defineComponent, reactive, unref, computed } from 'compatible-vue';
   import { Upload, Button } from 'ant-design-vue';
   import { UploadFile } from 'ant-design-vue/types/upload';
-  import { BasicModal, useModal } from '@/components/modal/index';
+  import { BasicModal } from '@/components/modal/index';
   import { Icon } from '@/components/icon/index';
   import { useMessage } from '@/hooks/core/useMessage';
   import { basicProps } from './props';
   import { BasicProps, UploadResult } from './types';
+
+  import { createImgPreview } from '@/components/preview/index';
+
   export default defineComponent({
     name: 'UploadModal',
     props: basicProps,
@@ -87,8 +90,6 @@
       function handleChange({ fileList }) {
         state.fileList = fileList;
       }
-      // 预览图片
-      const [register, { isFirstLoadRef, openModal }] = useModal();
 
       function getBase64(file) {
         return new Promise((resolve, reject) => {
@@ -99,7 +100,6 @@
         });
       }
       async function handlePreview(file) {
-        // const reg = /\.(jpg|jpeg|png|gif|txt|doc|docx|xls|xlsx|xml)$/i;
         const reg = new RegExp('\\.(' + ['jpg', 'jpeg', 'png', 'gif'].join('|') + ')$', 'i');
         const isType = reg.test(file.name);
         if (!isType) {
@@ -108,10 +108,8 @@
         if (!file.url && !file.preview) {
           file.preview = await getBase64(file.originFileObj);
         }
-        state.previewImage = file.url || file.preview;
-        openModal({
-          visible: true,
-        });
+        const previewImage = file.url || file.preview;
+        createImgPreview({ imageList: [previewImage] });
       }
       // 点击保存
       const getFileList = computed(() => {
@@ -195,11 +193,6 @@
               )
             ) : null}
           </Upload>
-          {!unref(isFirstLoadRef) && (
-            <BasicModal title="预览图片" width={600} onRegister={register} footer={null}>
-              <img alt="预览图片" style="width: 100%" src={state.previewImage} />
-            </BasicModal>
-          )}
         </BasicModal>
       );
     },
