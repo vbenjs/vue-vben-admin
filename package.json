@@ -27,6 +27,7 @@
     "clean:cache": "npx rimraf node_modules/.cache/",
     "clean:lib": "npx rimraf node_modules",
     "test:unit": "vue-cli-service test:unit",
+    "ls-lint": "npx ls-lint",
     "lint": "cross-env --max_old_space_size=4096 vue-cli-service lint --mode=production --fix",
     "lint:eslint": "cross-env --max_old_space_size=4096 eslint --fix --ext \"src/**/*.{vue,less,css,scss}\"",
     "lint:stylelint": "cross-env --max_old_space_size=4096 stylelint  --fix \"**/*.{vue,less,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
@@ -69,6 +70,7 @@
     "@commitlint/cli": "^9.1.1",
     "@commitlint/config-conventional": "^9.1.1",
     "@gfx/zopfli": "^1.0.14",
+    "@ls-lint/ls-lint": "^1.9.0",
     "@types/echarts": "^4.6.3",
     "@types/qrcode": "^1.3.4",
     "@types/tinymce": "^4.5.24",
@@ -165,7 +167,7 @@
   "homepage": "https://github.com/anncwb/vue-vben-admin",
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
+      "pre-commit": "ls-lint && lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },

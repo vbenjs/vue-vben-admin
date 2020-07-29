@@ -1213,6 +1213,11 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
+"@ls-lint/ls-lint@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.npm.taobao.org/@ls-lint/ls-lint/download/@ls-lint/ls-lint-1.9.0.tgz#fa4637d34526e71aea7e5228426493a113f27d77"
+  integrity sha1-+kY300Um5xrqflIoQmSToRPyfXc=
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.npm.taobao.org/@mrmlnc/readdir-enhanced/download/@mrmlnc/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"

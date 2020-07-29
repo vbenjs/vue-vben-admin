@@ -1,7 +1,7 @@
 import { getAsyncComponent, transformComponents } from '@/common/factory/getAsyncComponent';
 import { createSimpleTransition, createJavascriptTransition } from './src/createTransition';
 
-import ExpandTransitionGenerator from './src/expand-transition';
+import ExpandTransitionGenerator from './src/expandTransition';
 
 // export { default as CollapseTransition } from './src/Collapse.vue';
 

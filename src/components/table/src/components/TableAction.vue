@@ -4,7 +4,7 @@
   import { Icon } from '@/components/icon/index';
   import { useDesign } from '@/hooks/core/useDesign';
 
-  import { ActionItem } from '../types/table-action';
+  import { ActionItem } from '../types/tableAction';
   export default defineComponent({
     name: 'TableAction',
     props: {

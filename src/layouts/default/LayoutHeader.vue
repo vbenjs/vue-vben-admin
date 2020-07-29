@@ -6,7 +6,7 @@
   import Logo from '@/layouts/Logo.vue';
   import LayoutBread from './LayoutBread.vue';
 
-  import LockAction from './actions/lockAction.vue';
+  import LockAction from './actions/LockAction.vue';
   import GithubModal from './actions/GithubModal.vue';
   import { useModal } from '@/components/modal/index';
 

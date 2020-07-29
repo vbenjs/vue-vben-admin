@@ -5,4 +5,4 @@ export { useTable } from './src/hooks/useTable';
 export { FormSchema, FormProps } from '@/components/form/src/types/form';
 export * from './src/types/table';
 export * from './src/types/pagination';
-export * from './src/types/table-action';
+export * from './src/types/tableAction';

@@ -1,7 +1,7 @@
 import { Fn } from './types';
 
 import { useDebounce } from '@/hooks/core/useDebounce';
-import { addResizeListener, removeResizeListener } from '@/utils/event/resize-event';
+import { addResizeListener, removeResizeListener } from '@/utils/event/resizeEvent';
 
 interface WindowSizeOptions {
   once?: boolean;
