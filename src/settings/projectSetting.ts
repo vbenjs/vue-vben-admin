@@ -1,7 +1,7 @@
 import { ProjectConfig } from '../types/config';
 
 import { MenuTypeEnum, MenuThemeEnum, MenuModeEnum } from '@/enums/menuEnum';
-import { ContentEnum, AuthModeEnum } from '@/enums/appEnum';
+import { ContentEnum, AuthModeEnum, RouterTransitionEnum } from '@/enums/appEnum';
 import { primaryColor } from 'config/glob/lessModifyVars';
 import { isProdMode } from '@/utils/envUtil';
 
@@ -71,6 +71,9 @@ const setting: ProjectConfig = {
 
   // 使用error-handler-plugin
   useErrorHandle: isProdMode(),
+
+  // 路由切换动画
+  routerTransition: RouterTransitionEnum.ZOOM_FADE,
 };
 
 export default setting;

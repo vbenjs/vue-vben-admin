@@ -34,6 +34,11 @@ module.exports = (api) => {
       ],
       ...plugins,
     ],
+    env: {
+      development: {
+        plugins: ['dynamic-import-node'],
+      },
+    },
     presets: [
       require('./build/lib/jsx/index.js'),
       // 'babel-preset-vca-jsx',

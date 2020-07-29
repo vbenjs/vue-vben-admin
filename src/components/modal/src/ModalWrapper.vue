@@ -8,6 +8,8 @@
     watch,
     PropOptions,
     onMounted,
+    nextTick,
+    onUnmounted,
   } from 'compatible-vue';
   import { Spin } from 'ant-design-vue';
   import { ScrollContainer, TypeEnum } from '@/components/container/index';
@@ -18,6 +20,7 @@
   import { ModalWrapperProps } from './types';
 
   import { getSlot } from '@/utils/helper/tsxHelper';
+  import { useElResize } from '@/hooks/event/useElResize';
   export default defineComponent({
     name: 'ModalWrapper',
     props: {
@@ -123,7 +126,20 @@
           console.log(error);
         }
       }
-
+      function listenElResize() {
+        const wrapper = unref(wrapperRef);
+        if (!wrapper) return;
+        const container = wrapper.querySelector('.ant-spin-container');
+        if (!container) return;
+        const [start, stop] = useElResize(container, () => {
+          setModalHeight();
+        });
+        start();
+        onUnmounted(() => {
+          stop();
+        });
+      }
+      nextTick(() => {});
       watchEffect(() => {
         setModalHeight();
       });
@@ -137,6 +153,7 @@
       onMounted(() => {
         const { modalHeaderHeight, modalFooterHeight } = props;
         emit('getExtHeight', modalHeaderHeight + modalFooterHeight);
+        listenElResize();
       });
 
       useWindowSizeFn(setModalHeight);

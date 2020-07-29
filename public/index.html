@@ -10,7 +10,6 @@
       name="viewport"
       content="width=device-width,initial-scale=1.0,minimum-scale=1,maximum-scale=1,user-scalable=no"
     />
-
     <link rel="icon" href="./favicon.ico" />
     <title><%= htmlWebpackPlugin.options.title %></title>
     <%= htmlWebpackPlugin.options.addToHead %> <% for (var i in htmlWebpackPlugin.options.cdn &&
@@ -47,11 +46,11 @@
 
         .app-loading .app-loading-img {
           max-width: 100px;
-          -ms-animation: load 2s linear infinite;
-          -moz-animation: load 2s linear infinite;
-          -webkit-animation: load 2s linear infinite;
-          -o-animation: load 2s linear infinite;
-          animation: load 2s linear infinite;
+          -ms-animation: load 3s linear infinite;
+          -moz-animation: load 3s linear infinite;
+          -webkit-animation: load 3s linear infinite;
+          -o-animation: load 3s linear infinite;
+          animation: load 3s linear infinite;
           -webkit-transform-origin: center center;
           -moz-transform-origin: center center;
           -ms-transform-origin: center center;
@@ -61,7 +60,7 @@
 
         .app-loading .app-loading-wrap {
           position: absolute;
-          top: 50%;
+          top: 45%;
           left: 50%;
           width: 64px;
           -ms-transform: translate3d(-50%, -50%, 0);
@@ -69,6 +68,11 @@
           -webkit-transform: translate3d(-50%, -50%, 0);
           -o-transform: translate3d(-50%, -50%, 0);
           transform: translate3d(-50%, -50%, 0);
+        }
+
+        .app-loading .app-loading-wrap img.logo {
+          margin-bottom: 20px;
+          margin-left: -20px;
         }
 
         .app-loading .app-loading-wrap .app-loading__tip {
@@ -81,8 +85,8 @@
       </style>
       <section class="app-loading">
         <section class="app-loading-wrap">
+          <img src="./resource/img/logo.png" class="logo" alt="Logo" />
           <img src="./resource/img/loading.svg" alt="" class="app-loading-img" />
-          <span class="app-loading__tip">加载中...</span>
         </section>
       </section>
     </div>

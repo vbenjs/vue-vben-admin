@@ -1,6 +1,5 @@
 import ResultUtil from '../_util/resultUtil';
-
-const fakeUserList = [
+const getFakeUserList = () => [
   {
     userId: '1',
     username: 'admin',
@@ -36,10 +35,10 @@ export default {
   // 300 延时时间
   'POST /login 300': ({ body }) => {
     const { username, password } = body;
-
-    const checkUser = fakeUserList.find(
+    const checkUser = getFakeUserList().find(
       (item) => item.username === username && password === item.password
     );
+
     if (!checkUser) {
       return ResultUtil.error('Incorrect account or password(vben/123456,test1/123456)！');
     }
@@ -56,7 +55,7 @@ export default {
   },
   'GET /v1.0/getUserInfoById 300': ({ query }) => {
     const { userId } = query;
-    const checkUser = fakeUserList.find((item) => item.userId === userId);
+    const checkUser = getFakeUserList().find((item) => item.userId === userId);
 
     if (!checkUser) {
       return ResultUtil.error('未获取到相应的用户信息！');

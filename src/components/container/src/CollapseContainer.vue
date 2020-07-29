@@ -124,14 +124,20 @@
 
   .@{prefix-cls} {
     padding: 10px;
-    background: #fff;
+    background: @white;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+
+    &.no-shadow {
+      box-shadow: none;
+    }
 
     &__header {
       display: flex;
-      justify-content: space-between;
       height: 32px;
-      align-items: center;
       margin-bottom: 10px;
+      justify-content: space-between;
+      align-items: center;
     }
 
     &__action {

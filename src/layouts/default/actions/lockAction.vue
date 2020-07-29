@@ -107,7 +107,7 @@
       width: 500px;
       height: 240px;
       padding: 80px 30px 0 30px;
-      background: #fff;
+      background: @white;
       border-radius: 10px;
     }
 

@@ -76,6 +76,8 @@
     margin: 12px 9px;
 
     &__search--dark {
+      // .setPlaceholder('.ant-input',#fff);
+
       /deep/ .ant-input {
         .set-bg();
 

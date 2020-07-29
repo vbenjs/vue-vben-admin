@@ -40,7 +40,7 @@
   .@{prefix-cls} {
     display: flex;
     padding: 16px;
-    color: #fff;
+    color: @white;
     cursor: pointer;
     background: @primary-color;
     flex-direction: column;

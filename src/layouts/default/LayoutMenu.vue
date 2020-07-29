@@ -90,7 +90,7 @@
 
       &.dark {
         .@{namespace}-logo__title {
-          color: #fff;
+          color: @white;
         }
       }
     }

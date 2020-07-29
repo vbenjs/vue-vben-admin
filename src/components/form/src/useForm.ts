@@ -17,11 +17,11 @@ export function useForm(props?: Partial<FormProps>): UseFormReturnType {
   const formRef = ref<FormInstance | null>(null);
   const loadedRef = ref<boolean | null>(false);
 
-  onUnmounted(() => {
-    formRef.value = null;
-    loadedRef.value = null;
-  });
   function getForm(instance: FormInstance) {
+    onUnmounted(() => {
+      formRef.value = null;
+      loadedRef.value = null;
+    });
     if (unref(loadedRef) && isProdMode() && instance === unref(formRef)) {
       return;
     }

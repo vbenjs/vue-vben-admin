@@ -26,7 +26,7 @@ const modifyVars = {
 
   'border-color-base': '#cececd', // 边框色 Border color,
   'border-color-split': '#cececd', // 边框色 Border color,
-  'border-radius-base': '2px', // 组件/浮层圆角 Component/float fillet
+  'border-radius-base': '4px', // 组件/浮层圆角 Component/float fillet
 };
 
 module.exports = {

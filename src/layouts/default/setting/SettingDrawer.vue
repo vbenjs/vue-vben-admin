@@ -5,7 +5,7 @@
   import { Divider, Switch, Tooltip, InputNumber, Select, Button } from 'ant-design-vue';
 
   import { MenuModeEnum, MenuTypeEnum, MenuThemeEnum } from '@/enums/menuEnum';
-  import { ContentEnum } from '@/enums/appEnum';
+  import { ContentEnum, RouterTransitionEnum } from '@/enums/appEnum';
 
   import { appStore } from '@/store/modules/app';
   import { ProjectConfig, MenuSetting } from '@/types/config';
@@ -49,6 +49,19 @@
       label: '定宽',
     },
   ];
+
+  const routerTransitionOptions = [
+    RouterTransitionEnum.ZOOM_FADE,
+    RouterTransitionEnum.FADE,
+    RouterTransitionEnum.ZOOM_OUT,
+    RouterTransitionEnum.SIDE_FADE,
+    RouterTransitionEnum.FADE_BOTTOM,
+  ].map((item) => {
+    return {
+      label: item,
+      value: item,
+    };
+  });
   export default defineComponent({
     name: 'SettingDrawer',
     setup(_, { listeners }) {
@@ -140,6 +153,12 @@
           showLogo: flag,
         });
       }
+      function handleRouterTransitionChange(transition: RouterTransitionEnum) {
+        appStore.commitProjCfgState({
+          routerTransition: transition,
+        });
+      }
+
       function handleThemeColorChange(themeColor: string) {
         appStore.commitProjCfgState({
           themeColor,
@@ -371,7 +390,22 @@
           </div>,
         ];
       }
+      function renderTransition() {
+        const { routerTransition } = appStore.getProjCfg;
 
+        return (
+          <div class={`${prefixCls}__cell-item`}>
+            <span>路由动画</span>
+            <Select
+              style={{ width: '120px' }}
+              size="small"
+              defaultValue={routerTransition}
+              options={routerTransitionOptions}
+              onChange={handleRouterTransitionChange}
+            />
+          </div>
+        );
+      }
       function renderContent() {
         const {
           grayMode,
@@ -474,6 +508,8 @@
           {renderFeatures()}
           <Divider>界面显示</Divider>
           {renderContent()}
+          <Divider>切换动画</Divider>
+          {renderTransition()}
           <Divider />
           <div class="setting-drawer__footer">
             <Button type="primary" block onClick={handleCopy}>
@@ -534,7 +570,7 @@
             display: inline-block;
             margin-left: 4px;
             font-size: 0.8em;
-            fill: #fff;
+            fill: @white;
           }
         }
       }

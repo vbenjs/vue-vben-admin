@@ -59,13 +59,13 @@ function configOptimization(config) {
       //   enforce: true,
       //   priority: 40,
       // },
-      styles: {
-        name: 'styles',
-        test: /\.(css|scss|sass|less|styl)$/,
-        chunks: 'async',
-        // enforce: true,
-        priority: 30,
-      },
+      // styles: {
+      //   name: 'styles',
+      //   test: /\.(css|scss|sass|less|styl)$/,
+      //   chunks: 'async',
+      //   enforce: true,
+      //   priority: 30,
+      // },
       commons: {
         name: 'commons.chunk',
         test: resolve('src/components'),

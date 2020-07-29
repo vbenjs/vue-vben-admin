@@ -3,12 +3,15 @@
  */
 
 // vue2.0 ,
-import Vue, { VueConstructor, VNode, Component, VNodeData, FunctionalComponentOptions } from 'vue';
+import Vue from 'vue';
 import VueCompositionAPI from '@vue/composition-api';
 export default VueCompositionAPI;
 
 export * from '@vue/composition-api';
-export { Vue, VueConstructor, VNode, Component, VNodeData, FunctionalComponentOptions };
+// @ts-ignore
+export * from 'vue';
+export { Vue };
+// export { Vue, VueConstructor, VNode, Component, VNodeData, FunctionalComponentOptions };
 // export {
 //   Component,
 //   AsyncComponent,

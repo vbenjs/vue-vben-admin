@@ -324,7 +324,7 @@
       display: flex;
       width: 100%;
       height: 100%;
-      color: #fff;
+      color: @white;
       justify-content: center;
       align-items: center;
     }
@@ -341,7 +341,7 @@
       width: 80px;
       height: 80px;
       overflow: hidden;
-      color: #fff;
+      color: @white;
       cursor: pointer;
       background-color: rgba(0, 0, 0, 0.5);
       border-radius: 50%;

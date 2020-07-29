@@ -51,6 +51,6 @@ export const preDefineColors = [
   '#0396FF',
   '#F6416C',
   '#2F54EB',
-  '#722ED1',
+  '#7367f0',
   '#00ced1',
 ];

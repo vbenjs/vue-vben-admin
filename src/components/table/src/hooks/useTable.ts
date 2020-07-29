@@ -12,11 +12,11 @@ export function useTable(
   const tableRef = ref<TableInstance | null>(null);
   const loadedRef = ref<boolean | null>(false);
 
-  onUnmounted(() => {
-    tableRef.value = null;
-    loadedRef.value = null;
-  });
   function register(instance: TableInstance) {
+    onUnmounted(() => {
+      tableRef.value = null;
+      loadedRef.value = null;
+    });
     if (unref(loadedRef) && isProdMode() && instance === unref(tableRef)) {
       return;
     }

@@ -78,7 +78,7 @@ module.exports = function createMockMiddleware({
         }, {});
       } catch (error) {
         ret = {};
-        console.log(`${chalk.red('mock reload error!')}`);
+        // console.log(`${chalk.red('mock reload error!')}`);
       }
     }
 

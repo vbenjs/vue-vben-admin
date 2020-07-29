@@ -12,13 +12,26 @@
         }
 
         .top {
-          fill: #1b65b9;
+          fill: #64acff;
         }
 
         .bottom {
           fill: #9dbfe4;
         }
-        
+        @keyframes load {
+          0% {
+            transform: rotate(-360deg);
+          }
+
+          100% {
+            transform: rotate(0);
+          }
+        }
+
+        .load {
+          animation: load 1.4s linear infinite;
+          transform-origin: center center;
+        }
 
         svg {
           display: block;
@@ -33,11 +46,11 @@
           text-align: left;
         }
   </style>
-  <circle cx="97" cy="97" r="81" stroke-width="16" stroke="#4d83c6" fill="none"></circle>
+  <circle cx="97" cy="97" r="81" stroke-width="16" stroke="#327fd8" fill="none"></circle>
   <g class="load">
     <!--右半圆环-->
     <linearGradient id="left-linear" gradientUnits="userSpaceOnUse" x1="50" y1="0" x2="100" y2="180">
-      <stop offset="0" style="stop-color: #1B65B9;" />
+      <stop offset="0" style="stop-color: #64acff;" />
       <stop offset="1" style="stop-color: #9DBFE4;" />
     </linearGradient>
     <path class="left-linear" d="M20,100c0-44.1,35.9-80,80-80V0C44.8,0,0,44.8,0,100s44.8,100,100,100v-20C55.9,180,20,144.1,20,100z" />

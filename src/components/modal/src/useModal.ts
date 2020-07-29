@@ -1,5 +1,5 @@
 import { UseModalReturnType, ModalInstance, ModalProps, ReturnMethods } from './types';
-import { ref, Ref, getCurrentInstance, onUnmounted, unref, onMounted } from 'compatible-vue';
+import { ref, Ref, getCurrentInstance, onUnmounted, unref } from 'compatible-vue';
 
 import { isProdMode } from '@/utils/envUtil';
 
@@ -13,30 +13,22 @@ export function useModal(): UseModalReturnType {
   const modalRef = ref<ModalInstance | null>(null);
   const loadedRef = ref<boolean | null>(false);
   const isFirstLoadRef = ref<boolean | null>(true);
-  let innerProps: any = null;
-  onMounted(() => {
-    console.log('onMounted', innerProps, isFirstLoadRef.value);
-  });
+  const innerPropsRef = ref<Partial<ModalProps> | null>(null);
 
-  onUnmounted(() => {
-    console.log('onUnmounted--start', innerProps, isFirstLoadRef.value);
-
-    modalRef.value = null;
-    loadedRef.value = null;
-    isFirstLoadRef.value = null;
-    innerProps = null;
-    console.log('onUnmounted--end', innerProps, isFirstLoadRef.value);
-  });
   function register(modalInstance: ModalInstance) {
+    onUnmounted(() => {
+      modalRef.value = null;
+      loadedRef.value = false;
+      isFirstLoadRef.value = null;
+      innerPropsRef.value = null;
+    });
     if (unref(loadedRef) && isProdMode()) {
       return;
     }
     modalRef.value = modalInstance;
     loadedRef.value = true;
 
-    console.log('register', innerProps, isFirstLoadRef.value);
-
-    unref(modalRef)!.setModalProps(innerProps || {});
+    unref(modalRef)!.setModalProps((unref(innerPropsRef) as Partial<ModalProps>) || {});
   }
   const methods: ReturnMethods = {
     /**
@@ -49,11 +41,10 @@ export function useModal(): UseModalReturnType {
     openModal: (props: Partial<ModalProps>): void => {
       if (unref(isFirstLoadRef)) {
         isFirstLoadRef.value = false;
-        innerProps = props;
+        innerPropsRef.value = props;
       } else {
         unref(modalRef)!.setModalProps(props);
       }
-      console.log('openModal', innerProps, isFirstLoadRef.value);
     },
   };
   return [register, methods];

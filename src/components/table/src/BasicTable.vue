@@ -256,23 +256,6 @@
 
     .ant-table-body {
       overflow-x: auto !important;
-
-      ::-webkit-scrollbar-button {
-        display: none;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        min-height: 48px;
-        background: #d2d2d2;
-        border: 3px solid #fff;
-        border-radius: 5px;
-        background-clip: padding-box;
-      }
-
-      ::-webkit-scrollbar-thumb:active {
-        background: #888;
-        border-width: 2px;
-      }
     }
 
     .ant-radio {
