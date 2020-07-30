@@ -6,7 +6,9 @@ const { exec } = shelljs;
  */
 function ignoreCaseGit() {
   try {
-    exec('git config core.ignorecase false ');
+    if (shell.which('git')) {
+      exec('git config core.ignorecase false ');
+    }
   } catch (error) {}
 }
 ignoreCaseGit();
