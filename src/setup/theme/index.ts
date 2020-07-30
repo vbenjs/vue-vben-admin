@@ -45,6 +45,7 @@ export const updateGrayMode = (gray: boolean) => {
 export const preDefineColors = [
   primaryColor,
   '#1AB394',
+  '#42b983',
   '#0096d9',
   '#f5222d',
   '#faad14',

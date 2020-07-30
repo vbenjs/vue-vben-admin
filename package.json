@@ -1,6 +1,6 @@
 {
   "name": "vue-vben-admin",
-  "version": "1.0.4",
+  "version": "1.21.1",
   "private": true,
   "keywords": [
     "vue",
@@ -177,6 +177,6 @@
     }
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=10.19.0"
   }
 }

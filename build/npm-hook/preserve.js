@@ -1,5 +1,4 @@
 // 是否需要更新依赖，防止package.json更新了依赖，其他人获取代码后没有install
-// 这里需要手动改动, 这里也可以改成判断pkg那的内容是否一致，存放于 build/.cache,去掉手动操作！
 const runjs = require('runjs');
 const chalk = require('chalk');
 const { isEqual } = require('lodash');
@@ -34,6 +33,7 @@ checkPkgUpdate();
         chalk.blue.bold('  ****************')
     );
     try {
+      // 从代码执行貌似不会自动读取.npmrc 所以手动加上源地址
       await run('yarn install --registry=https://registry.npm.taobao.org ', {
         async: true,
         stdio: 'inherit',

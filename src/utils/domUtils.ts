@@ -1,3 +1,5 @@
+import { upperFirst } from '@/utils/lodashChunk';
+
 export interface ViewportOffsetResult {
   left: number;
   top: number;
@@ -110,5 +112,18 @@ export function getViewportOffset(element: Element): ViewportOffsetResult {
     bottom: clientHeight - rectHeight - top,
     rightIncludeBody: clientWidth - left,
     bottomIncludeBody: clientHeight - top,
+  };
+}
+
+export function hackCss(attr: string, value: string) {
+  const prefix: string[] = ['webkit', 'Moz', 'ms', 'OT'];
+
+  const styleObj = {};
+  prefix.forEach((item) => {
+    styleObj[`${item}${upperFirst(attr)}`] = value;
+  });
+  return {
+    ...styleObj,
+    [attr]: value,
   };
 }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>大写键盘锁定提示</title>
+  </head>
+  <body>
+    请输入密码：<input class="text" id="loginPasswd" type="password" />
+    <div
+      id="capital"
+      style="position: absolute; display: none; padding: 2px 0 2px 95px; color: #f90;"
+      >大写锁定已开启</div
+    >
+    <script type="text/javascript">
+      var inputPWD = document.getElementById('loginPasswd');
+      inputPWD.onfocus = function () {
+        isCapsLock();
+      };
+      /* 检测输入框的大小写是否开启 */
+      function isCapsLock() {
+        var inputPWD = document.getElementById('loginPasswd');
+        var capital = false;
+        var capitalTip = {
+          elem: document.getElementById('capital'),
+          toggle: function (s) {
+            var sy = this.elem.style;
+            var d = sy.display;
+            if (s) {
+              sy.display = s;
+            } else {
+              sy.display = d == 'none' ? '' : 'none';
+            }
+          },
+        };
+        var detectCapsLock = function (event) {
+          if (capital) {
+            return;
+          }
+          var e = event || window.event;
+          var keyCode = e.keyCode || e.which;
+          var isShift = e.shiftKey || keyCode == 16 || false;
+          if (
+            (keyCode >= 65 && keyCode <= 90 && !isShift) ||
+            (keyCode >= 97 && keyCode <= 122 && isShift)
+          ) {
+            capitalTip.toggle('block');
+            capital = true;
+          } else {
+            capitalTip.toggle('none');
+          }
+        };
+        //判断是否是IE浏览器(解决自带的和自写的重复出现问题)
+        function isIE() {
+          if (!!window.ActiveXObject || 'ActiveXObject' in window) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        //如果不是IE则进行手动提示
+        if (!isIE()) {
+          inputPWD.onkeypress = detectCapsLock;
+          inputPWD.onkeyup = function (event) {
+            var e = event || window.event;
+            if (e.keyCode == 20 && capital) {
+              capitalTip.toggle();
+              return false;
+            }
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

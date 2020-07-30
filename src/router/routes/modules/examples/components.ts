@@ -335,6 +335,33 @@ const routes: RouteConfigEx[] = [
       },
     ],
   },
+  {
+    path: '/verify-demo',
+    name: 'VerifyDemo',
+    meta: {
+      title: '验证码组件',
+    },
+    children: [
+      {
+        path: '/base-drag',
+        name: 'BaseDragVerifyDemo',
+        component: () =>
+          createAsyncComponent(import('@/views/examples/components/verify/Base.vue')),
+        meta: {
+          title: '拖拽验证',
+        },
+      },
+      {
+        path: '/rotate-drag',
+        name: 'RotateDragVerifyDemo',
+        component: () =>
+          createAsyncComponent(import('@/views/examples/components/verify/Rotate.vue')),
+        meta: {
+          title: '旋转拖拽验证',
+        },
+      },
+    ],
+  },
 ];
 
 export default {

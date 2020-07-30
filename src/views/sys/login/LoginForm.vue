@@ -3,12 +3,17 @@
   import { SvgIcon } from '@/components/icon/index';
   import { Button } from 'ant-design-vue';
   import { BasicForm, useForm } from '@/components/form/index';
+  import { useModal } from '@/components/modal/index';
+  import { VerifyModal } from '@/components/verify/index';
+
   // hook
   import { useDesign } from '@/hooks/core/useDesign';
   import { useEvent } from '@/hooks/event/useEvent';
 
   import { userStore } from '@/store/modules/user';
   import { clearAll } from '@/store/persistent';
+
+  import headImg from '@/assets/images/header.jpg';
   export default defineComponent({
     name: 'LoginForm',
 
@@ -19,7 +24,8 @@
 
       const { prefixCls } = useDesign('login-form');
 
-      const [register, { validateFields }] = useForm({
+      const [registerModal, { openModal, isFirstLoadRef }] = useModal();
+      const [register, { validateFields, getFieldsValue }] = useForm({
         size: 'large',
         // 隐藏按钮
         showActionButtonGroup: false,
@@ -29,9 +35,8 @@
             field: 'username',
             label: '用户名',
             component: 'Input',
-            defaultValue: 'admin',
             componentProps: {
-              placeholder: '',
+              placeholder: 'admin',
             },
             rules: [{ required: true }],
             renderComponentContent: () => {
@@ -42,9 +47,8 @@
             field: 'password',
             label: '密码',
             component: 'InputPassword',
-            defaultValue: '123456',
             componentProps: {
-              placeholder: '请输入密码',
+              placeholder: '123456',
             },
             rules: [{ required: true }],
             renderComponentContent: () => {
@@ -58,13 +62,23 @@
        * @description: 用户登陆
        */
       async function handleLogin() {
+        // 表单校验
+        const { err } = await validateFields();
+        if (err) {
+          return;
+        }
+        openModal({
+          visible: true,
+        });
+      }
+      async function handleVerifySuccess() {
         try {
+          openModal({
+            visible: false,
+          });
           loadingRef.value = true;
           // 表单校验
-          const { err, values } = await validateFields();
-          if (err) {
-            return;
-          }
+          const values = getFieldsValue() as any;
           await userStore.login(values);
         } catch (e) {
           clearAll();
@@ -82,11 +96,12 @@
           }
         },
       });
-
       return () => (
         <div class={prefixCls}>
           <h1>系统登陆</h1>
-
+          {!unref(isFirstLoadRef) && (
+            <VerifyModal src={headImg} onRegister={registerModal} onSuccess={handleVerifySuccess} />
+          )}
           <BasicForm onRegister={register} />
 
           <Button

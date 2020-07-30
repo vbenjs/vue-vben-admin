@@ -6,7 +6,9 @@
     name: 'Index',
     setup() {
       const { prefixCls } = useDesign('index');
-      return () => <div class={prefixCls}>index</div>;
+      return () => {
+        return <div class={prefixCls}>index</div>;
+      };
     },
   });
 </script>

@@ -79,4 +79,5 @@ export { default as FolderOutline } from '@ant-design/icons/lib/outline/FolderOu
 export { default as PaperClipOutline } from '@ant-design/icons/lib/outline/PaperClipOutline';
 export { default as PictureOutline } from '@ant-design/icons/lib/outline/PictureOutline';
 export { default as EyeOutline } from '@ant-design/icons/lib/outline/EyeOutline';
+export { default as EyeInvisibleOutline } from '@ant-design/icons/lib/outline/EyeInvisibleOutline';
 export { default as DeleteOutline } from '@ant-design/icons/lib/outline/DeleteOutline';

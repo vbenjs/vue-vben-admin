@@ -152,10 +152,20 @@ export default {
       path: '/click-out-side',
       name: 'clickOutSide组件',
     },
-    // {
-    //   path: '/upload-image-demo',
-    //   name: '上传文件',
-    // },
+    {
+      path: '/verify-demo',
+      name: '验证码组件',
+      children: [
+        {
+          name: '拖拽验证',
+          path: '/base-drag',
+        },
+        {
+          name: '旋转拖拽验证',
+          path: '/rotate-drag',
+        },
+      ],
+    },
     {
       name: '上传下载',
       path: '/file-demo',

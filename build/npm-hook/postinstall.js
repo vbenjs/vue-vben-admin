@@ -1,3 +1,15 @@
+const shelljs = require('shelljs');
+const { exec } = shelljs;
+
+/**
+ * @description: 使git对文件名大小写敏感
+ */
+function ignoreCaseGit() {
+  try {
+    exec('git config core.ignorecase false ');
+  } catch (error) {}
+}
+ignoreCaseGit();
 /**
  * 使用cnpm 来安装image-webpack-loader
  */

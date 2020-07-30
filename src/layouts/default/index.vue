@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, unref, onMounted, ref, watch } from 'compatible-vue';
-  import { Layout } from 'ant-design-vue';
+  import { Layout, BackTop } from 'ant-design-vue';
   import LayoutHeader from './LayoutHeader.vue';
   import LayoutSideBar from './LayoutSideBar.vue';
   import LayoutContent from './LayoutContent.vue';
@@ -72,6 +72,7 @@
                     <MultiTabs />
                   </Layout.Header>
                 ) : null}
+                {unref(scrollRef) && <BackTop target={() => unref(scrollRef).getScrollWrap()} />}
                 <div class={`${prefixCls}__main`}>
                   <FullLoading v-show={getPageLoading} class={`${prefixCls}__loading`} />
                   <ScrollContainer ref={scrollRef}>
@@ -109,10 +110,12 @@
     }
 
     &__tabs {
+      z-index: 10;
       height: 40px;
       padding: 0;
       line-height: 40px;
       background: @border-color-shallow-light;
+      box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
     }
 
     &__setting-btn {
