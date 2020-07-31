@@ -1581,10 +1581,10 @@
   resolved "https://registry.npm.taobao.org/@types/q/download/@types/q-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
   integrity sha1-FZJUFOCtLNdlv+9YhC9+JqesyyQ=
 
-"@types/qrcode@^1.3.4":
-  version "1.3.4"
-  resolved "https://registry.npm.taobao.org/@types/qrcode/download/@types/qrcode-1.3.4.tgz#984d97bb72caa558d470158701081ccb712f616b"
-  integrity sha1-mE2Xu3LKpVjUcBWHAQgcy3EvYWs=
+"@types/qrcode@^1.3.5":
+  version "1.3.5"
+  resolved "https://registry.npm.taobao.org/@types/qrcode/download/@types/qrcode-1.3.5.tgz#9c97cc2875f03e2b16a0d89856fc48414e380c38"
+  integrity sha1-nJfMKHXwPisWoNiYVvxIQU44DDg=
   dependencies:
     "@types/node" "*"
 
