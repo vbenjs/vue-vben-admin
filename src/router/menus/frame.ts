@@ -10,12 +10,12 @@ export default {
       path: '/antv',
     },
     {
-      name: '百度(内嵌)',
-      path: '/baidu',
+      name: '项目文档(内嵌)',
+      path: '/doc',
     },
     {
-      name: '百度(外链)',
-      path: '/baiduExternal',
+      name: '项目文档(外链)',
+      path: '/docExternal',
     },
   ],
 } as NormMenuItem;

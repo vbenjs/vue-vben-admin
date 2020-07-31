@@ -15,7 +15,14 @@
         emit('success');
       }
       return () => (
-        <BasicModal title="安全校验" on={listeners} canFullscreen={false} footer={null}>
+        <BasicModal
+          title="安全校验"
+          keyboard={false}
+          maskClosable={false}
+          on={listeners}
+          canFullscreen={false}
+          footer={null}
+        >
           <RotateDragVerify {...{ props: attrs }} onSuccess={handleSuccess} />
         </BasicModal>
       );

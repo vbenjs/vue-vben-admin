@@ -1,45 +1,125 @@
 <script lang="tsx">
-  import { defineComponent, computed, unref } from 'compatible-vue';
-  import { Row, Col, Button, Icon } from 'ant-design-vue';
-  import { CollapseContainer, ScrollContainer } from '@/components/container/index';
+  import { defineComponent } from 'compatible-vue';
+  import { CollapseContainer } from '@/components/container/index';
 
   import { useDesign } from '@/hooks/core/useDesign';
 
-  import { wokbStore } from '../store';
-  import { FileItem } from '@/api/dashboard/model/wokbModel';
-
+  import { ApexCharts } from '@/components/charts/index';
   export default defineComponent({
     name: 'FileList',
     setup() {
       const { prefixCls } = useDesign('file-list');
-      const getFileList = computed(() => {
-        return wokbStore.getFileList;
-      });
-      function handleDownload(item: FileItem) {
-        console.log(item);
-      }
 
+      const chartOptions = {
+        chart: {
+          height: 450,
+          type: 'rangeBar',
+        },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+            barHeight: '80%',
+          },
+        },
+        xaxis: {
+          type: 'datetime',
+        },
+        stroke: {
+          width: 1,
+        },
+        fill: {
+          type: 'solid',
+          opacity: 0.6,
+        },
+        legend: {
+          position: 'top',
+          horizontalAlign: 'left',
+        },
+      };
+
+      const series = [
+        {
+          name: 'Bob',
+          data: [
+            {
+              x: 'Design',
+              y: [new Date('2019-03-05').getTime(), new Date('2019-03-08').getTime()],
+            },
+            {
+              x: 'Code',
+              y: [new Date('2019-03-02').getTime(), new Date('2019-03-05').getTime()],
+            },
+            {
+              x: 'Code',
+              y: [new Date('2019-03-05').getTime(), new Date('2019-03-07').getTime()],
+            },
+            {
+              x: 'Test',
+              y: [new Date('2019-03-03').getTime(), new Date('2019-03-09').getTime()],
+            },
+            {
+              x: 'Test',
+              y: [new Date('2019-03-08').getTime(), new Date('2019-03-11').getTime()],
+            },
+            {
+              x: 'Validation',
+              y: [new Date('2019-03-11').getTime(), new Date('2019-03-16').getTime()],
+            },
+            {
+              x: 'Design',
+              y: [new Date('2019-03-01').getTime(), new Date('2019-03-03').getTime()],
+            },
+          ],
+        },
+        {
+          name: 'Joe',
+          data: [
+            {
+              x: 'Design',
+              y: [new Date('2019-03-02').getTime(), new Date('2019-03-05').getTime()],
+            },
+            {
+              x: 'Test',
+              y: [new Date('2019-03-06').getTime(), new Date('2019-03-16').getTime()],
+            },
+            {
+              x: 'Code',
+              y: [new Date('2019-03-03').getTime(), new Date('2019-03-07').getTime()],
+            },
+            {
+              x: 'Deployment',
+              y: [new Date('2019-03-20').getTime(), new Date('2019-03-22').getTime()],
+            },
+            {
+              x: 'Design',
+              y: [new Date('2019-03-10').getTime(), new Date('2019-03-16').getTime()],
+            },
+          ],
+        },
+        {
+          name: 'Dan',
+          data: [
+            {
+              x: 'Code',
+              y: [new Date('2019-03-10').getTime(), new Date('2019-03-17').getTime()],
+            },
+            {
+              x: 'Validation',
+              y: [new Date('2019-03-05').getTime(), new Date('2019-03-09').getTime()],
+            },
+          ],
+        },
+      ];
       return () => (
         // <div class={prefixCls}>
-        <CollapseContainer class={prefixCls} title="文件下载" canExpan={false}>
-          <ScrollContainer>
-            {unref(getFileList).map((item) => {
-              const { id, fileTitle } = item;
-              return (
-                <Row type="flex" key={id} class={[`${prefixCls}__item`]}>
-                  <Col style={{ flex: '1' }} class="ellipsis">
-                    <Icon type="file" />
-                    <span title={fileTitle}> {fileTitle}</span>
-                  </Col>
-                  <Col>
-                    <Button type="link" size="small" onClick={handleDownload.bind(item)}>
-                      下载
-                    </Button>
-                  </Col>
-                </Row>
-              );
-            })}
-          </ScrollContainer>
+        <CollapseContainer class={prefixCls} title="分析" canExpan={false}>
+          <ApexCharts
+            type="rangeBar"
+            height="350"
+            class="mt-10 mb-10"
+            options={chartOptions}
+            series={series}
+          ></ApexCharts>
         </CollapseContainer>
         // </div>
       );
@@ -51,18 +131,7 @@
   @prefix-cls: ~'@{namespace}-file-list';
   .@{prefix-cls} {
     /deep/ .vben-collapse-container__body {
-      height: 180px;
-    }
-
-    &__item {
-      padding: 8px 0;
-      // font-size: 12px;
-      // font-size: 12px;
-      color: #1c1d21;
-
-      // /deep/ .ant-btn {
-      //   font-size: 12px;
-      // }
+      height: 360px;
     }
   }
 </style>

@@ -27,21 +27,21 @@ const routes: RouteConfigEx[] = [
     },
   },
   {
-    path: '/baidu',
-    name: 'Baidu',
+    path: '/doc',
+    name: 'Doc',
     component: IFrame,
     meta: {
-      frameSrc: 'https://www.baidu.com',
-      title: '百度(内嵌)',
+      frameSrc: 'https://vvbin.cn/docs/',
+      title: '项目文档(内嵌)',
     },
   },
   {
-    path: '/baiduExternal',
-    name: 'BaiduExternal',
+    path: '/docExternal',
+    name: 'DocExternal',
     component: IFrame,
     meta: {
-      externalLink: 'https://www.baidu.com',
-      title: '百度(外链)',
+      externalLink: 'https://vvbin.cn/docs/',
+      title: '项目文档(外链)',
     },
   },
 ];

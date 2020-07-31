@@ -8,7 +8,7 @@
   import Pie2 from './Pie2.vue';
   import Pie4 from './Pie4.vue';
   import Pie5 from './Pie5.vue';
-  import Pie7 from './Pie7.vue';
+  // import Pie7 from './Pie7.vue';
   import Pie8 from './Pie8.vue';
   export default defineComponent({
     name: 'ChartPie',
@@ -38,11 +38,13 @@
               </CollapseContainer>
             </Col>
 
-            <Col span={24} class="p-2">
-              <CollapseContainer title="弧形拼接环形饼图" canExpan={false}>
-                <Pie7 height="600px" />
-              </CollapseContainer>
-            </Col>
+            {
+              //   <Col span={24} class="p-2">
+              //   <CollapseContainer title="弧形拼接环形饼图" canExpan={false}>
+              //     <Pie7 height="600px" />
+              //   </CollapseContainer>
+              // </Col>
+            }
             <Col span={24} class="p-2">
               <CollapseContainer title="琴键图表" canExpan={false}>
                 <Pie8 height="600px" />
