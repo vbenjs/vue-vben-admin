@@ -110,7 +110,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^6.2.2",
-    "fork-ts-checker-webpack-plugin": "^5.0.11",
+    "fork-ts-checker-webpack-plugin": "^5.0.13",
     "glob": "^7.1.6",
     "hard-source-webpack-plugin": "^0.13.1",
     "html-webpack-harddisk-plugin": "^1.0.1",
