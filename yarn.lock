@@ -1012,10 +1012,10 @@
   resolved "https://registry.npm.taobao.org/@commitlint/types/download/@commitlint/types-9.1.1.tgz#d97ebc35d20eed6d8458361cbca5c7cb85d45184"
   integrity sha1-2X68NdIO7W2EWDYcvKXHy4XUUYQ=
 
-"@gfx/zopfli@^1.0.14":
-  version "1.0.14"
-  resolved "https://registry.npm.taobao.org/@gfx/zopfli/download/@gfx/zopfli-1.0.14.tgz#52319e9bce0482f03ff02845e13fd95bb0ec7152"
-  integrity sha1-UjGem84EgvA/8ChF4T/ZW7DscVI=
+"@gfx/zopfli@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.npm.taobao.org/@gfx/zopfli/download/@gfx/zopfli-1.0.15.tgz#00720b4f6a4d5ceeb585a5d6dd672b48bd4fc755"
+  integrity sha1-AHILT2pNXO61haXW3WcrSL1Px1U=
   dependencies:
     base64-js "^1.3.0"
 

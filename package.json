@@ -69,7 +69,7 @@
     "@babel/register": "^7.10.5",
     "@commitlint/cli": "^9.1.1",
     "@commitlint/config-conventional": "^9.1.1",
-    "@gfx/zopfli": "^1.0.14",
+    "@gfx/zopfli": "^1.0.15",
     "@ls-lint/ls-lint": "^1.9.0",
     "@types/echarts": "^4.6.3",
     "@types/qrcode": "^1.3.4",
