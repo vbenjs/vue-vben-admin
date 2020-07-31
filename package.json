@@ -52,7 +52,7 @@
     "nprogress": "^0.2.0",
     "print-js": "^1.0.63",
     "qrcode": "^1.4.4",
-    "tinymce": "5.2.2",
+    "tinymce": "5.4.1",
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.6.0",
     "vue-baidu-map": "^0.21.22",
