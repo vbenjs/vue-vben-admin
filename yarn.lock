@@ -14709,10 +14709,10 @@ webpack-theme-color-replacer@^1.3.14:
   dependencies:
     webpack-sources "*"
 
-webpack@^4.0.0, webpack@^4.44.0:
-  version "4.44.0"
-  resolved "https://registry.npm.taobao.org/webpack/download/webpack-4.44.0.tgz?cache=0&sync_timestamp=1595631646650&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-4.44.0.tgz#3b08f88a89470175f036f4a9496b8a0428668802"
-  integrity sha1-Owj4iolHAXXwNvSpSWuKBChmiAI=
+webpack@^4.0.0, webpack@^4.44.1:
+  version "4.44.1"
+  resolved "https://registry.npm.taobao.org/webpack/download/webpack-4.44.1.tgz?cache=0&sync_timestamp=1596094710742&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-4.44.1.tgz#17e69fff9f321b8f117d1fda714edfc0b939cc21"
+  integrity sha1-F+af/58yG48RfR/acU7fwLk5zCE=
   dependencies:
     "@webassemblyjs/ast" "1.9.0"
     "@webassemblyjs/helper-module-context" "1.9.0"

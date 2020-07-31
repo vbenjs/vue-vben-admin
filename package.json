@@ -141,7 +141,7 @@
     "typescript": "^3.9.5",
     "vue-template-compiler": "^2.6.11",
     "vue-tsx-support": "^2.3.3",
-    "webpack": "^4.44.0",
+    "webpack": "^4.44.1",
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-cli": "^3.3.11",
     "webpack-merge": "^5.0.9",
