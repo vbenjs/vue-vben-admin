@@ -39,7 +39,7 @@
   "dependencies": {
     "@vue/composition-api": "^1.0.0-beta.6",
     "ant-design-vue": "^1.6.4",
-    "apexcharts": "^3.19.3",
+    "apexcharts": "^3.20.0",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "crypto-js": "^3.3.0",

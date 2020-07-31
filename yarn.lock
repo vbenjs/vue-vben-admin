@@ -2445,10 +2445,10 @@ anymatch@~3.1.1:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-apexcharts@^3.19.3:
-  version "3.19.3"
-  resolved "https://registry.npm.taobao.org/apexcharts/download/apexcharts-3.19.3.tgz#2883d5378932fb832d1500d944fbff8eea7a09d9"
-  integrity sha1-KIPVN4ky+4MtFQDZRPv/jup6Cdk=
+apexcharts@^3.20.0:
+  version "3.20.0"
+  resolved "https://registry.npm.taobao.org/apexcharts/download/apexcharts-3.20.0.tgz#768bb963d2bd87abe3a37a6ee35c7fc7d43bbfb7"
+  integrity sha1-dou5Y9K9h6vjo3pu41x/x9Q7v7c=
   dependencies:
     svg.draggable.js "^2.2.2"
     svg.easing.js "^2.0.0"
