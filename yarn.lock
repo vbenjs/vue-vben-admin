@@ -1470,10 +1470,10 @@
   resolved "https://registry.npm.taobao.org/@types/color-name/download/@types/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha1-HBJhu+qhCoBVu8XYq4S3sq/IRqA=
 
-"@types/echarts@^4.6.3":
-  version "4.6.3"
-  resolved "https://registry.npm.taobao.org/@types/echarts/download/@types/echarts-4.6.3.tgz?cache=0&sync_timestamp=1593094527290&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fecharts%2Fdownload%2F%40types%2Fecharts-4.6.3.tgz#227b33b106203ceb2ca4fa51760f406618caa89a"
-  integrity sha1-InszsQYgPOsspPpRdg9AZhjKqJo=
+"@types/echarts@^4.6.4":
+  version "4.6.4"
+  resolved "https://registry.npm.taobao.org/@types/echarts/download/@types/echarts-4.6.4.tgz#8c2418db319e23e0a2893cfdce34176237026f07"
+  integrity sha1-jCQY2zGeI+CiiTz9zjQXYjcCbwc=
   dependencies:
     "@types/zrender" "*"
 
