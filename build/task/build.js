@@ -15,7 +15,7 @@ async function build(v) {
   const argvList = yargs.argv._;
   try {
     if (!argvList.includes('no-uv')) {
-      await updateVersion();
+      // await updateVersion();
     }
 
     let command = `cross-env  --max_old_space_size=4096 vue-cli-service build --no-clean --mode=production ${argvList.join(

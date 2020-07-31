@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "octref.vetur",
+    "dariofuzinato.vue-peek",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "DavidAnson.vscode-markdownlint",
+    "esbenp.prettier-vscode",
+    "mrmlnc.vscode-scss",
+    "Orta.vscode-jest"
+  ]
+}

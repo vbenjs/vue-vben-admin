@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/anncwb/vue-vben-admin" target="_blank">
-    <img alt="VbenAdmin Logo" width="200" src="https://vebn.oss-cn-beijing.aliyuncs.com/vben/logo.png">
+    <img alt="VbenAdmin Logo" width="200" src="./docs/imgs/logo.png">
   </a>
 </p>
 <h2 align="center">VUE VBEN ADMIN</h2>
@@ -18,9 +18,9 @@
 [在线预览](https://vvbin.cn/)
 
 <p align="center">
-    <img alt="VbenAdmin Logo" width="100%" src="https://vebn.oss-cn-beijing.aliyuncs.com/vben/preview1.png">
-    <img alt="VbenAdmin Logo" width="100%" src="https://vebn.oss-cn-beijing.aliyuncs.com/vben/preview2.png">
-    <img alt="VbenAdmin Logo" width="100%" src="https://vebn.oss-cn-beijing.aliyuncs.com/vben/preview3.png">
+    <img alt="VbenAdmin Logo" width="100%" src="./docs/imgs/preview1.png">
+    <img alt="VbenAdmin Logo" width="100%" src="./docs/imgs/preview2.png">
+    <img alt="VbenAdmin Logo" width="100%" src="./docs/imgs/preview3.png">
 </p>
 
 ### gitHub 地址
@@ -278,8 +278,8 @@ yarn log # 生成CHANGELOG
 
 ## 加入我们
 
-`VUE-VBEN-ADMIN` 是完全开源免费的项目，旨在帮助开发者更方便地进行中大型管理系统开发，同时也提供 QQ 交流群(由于项目刚开始几天，群还没什么人，有兴趣的可以加群一起讨论)，使用问题欢迎在群内提问。
+`VUE-VBEN-ADMIN` 是完全开源免费的项目，旨在帮助开发者更方便地进行中大型管理系统开发，同时也提供 QQ 交流群(项目刚起步，人数较少，有兴趣的可以加群一起讨论)，使用问题欢迎在群内提问。
 
 - QQ 群 `569291866`
 
- <img alt="VbenAdmin Logo" width="100" src="https://vebn.oss-cn-beijing.aliyuncs.com/vben/qq.jpeg">
+ <img alt="VbenAdmin Logo" width="100" src="./docs/imgs/qq.jpeg">

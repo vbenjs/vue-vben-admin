@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/anncwb/vue-vben-admin" target="_blank">
-    <img alt="VbenAdmin Logo" width="200" src="https://vebn.oss-cn-beijing.aliyuncs.com/vben/logo.png">
+    <img alt="VbenAdmin Logo" width="200" src="./docs/imgs/logo.png">
   </a>
 </p>
 <h2 align="center">VUE VBEN ADMIN</h2>
@@ -18,9 +18,9 @@ Compatible with vue2 browsers, everything is free and does not charge any fees, 
 [Live Demo](https://vvbin.cn/)
 
 <p align="center">
-    <img alt="VbenAdmin Logo" width="100%" src="https://vebn.oss-cn-beijing.aliyuncs.com/vben/preview1.png">
-    <img alt="VbenAdmin Logo" width="100%" src="https://vebn.oss-cn-beijing.aliyuncs.com/vben/preview2.png">
-    <img alt="VbenAdmin Logo" width="100%" src="https://vebn.oss-cn-beijing.aliyuncs.com/vben/preview3.png">
+    <img alt="VbenAdmin Logo" width="100%" src="./docs/imgs/preview1.png">
+    <img alt="VbenAdmin Logo" width="100%" src="./docs/imgs/preview2.png">
+    <img alt="VbenAdmin Logo" width="100%" src="./docs/imgs/preview3.png">
 </p>
 
 ### gitHub
@@ -249,4 +249,4 @@ The follow-up will be gradually improved, and what components are needed can be 
 
 - QQ group `569291866`
 
- <img alt="VbenAdmin Logo" width="100" src="https://vebn.oss-cn-beijing.aliyuncs.com/vben/qq.jpeg">
+ <img alt="VbenAdmin Logo" width="100" src="./docs/imgs/qq.jpeg">
