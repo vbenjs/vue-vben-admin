@@ -44,5 +44,19 @@ export default {
         },
       ],
     },
+    {
+      path: '/excel',
+      name: 'Excel',
+      children: [
+        {
+          path: '/import',
+          name: '导入Excel',
+        },
+        {
+          path: '/export',
+          name: '导出Excel',
+        },
+      ],
+    },
   ],
 } as NormMenuItem;

@@ -90,6 +90,33 @@ const routes: RouteConfigEx[] = [
       },
     ],
   },
+  {
+    path: '/excel',
+    name: 'ExcelDemo',
+    meta: {
+      title: 'Excel',
+    },
+    children: [
+      {
+        path: '/import',
+        name: 'ImportFromExcelDemo',
+        component: () =>
+          createAsyncComponent(import('@/views/examples/plugins/excel/ImportFromExcel.vue')),
+        meta: {
+          title: '导入excel',
+        },
+      },
+      {
+        path: '/export',
+        name: 'ExportToExcelDemo',
+        component: () =>
+          createAsyncComponent(import('@/views/examples/plugins/excel/ExportToExcel.vue')),
+        meta: {
+          title: '导出excel',
+        },
+      },
+    ],
+  },
 ];
 
 export default {

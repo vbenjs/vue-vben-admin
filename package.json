@@ -63,7 +63,8 @@
     "vue-router": "^3.3.4",
     "vuedraggable": "^2.24.0",
     "vuex": "^3.4.0",
-    "vuex-module-decorators": "^0.17.0"
+    "vuex-module-decorators": "^0.17.0",
+    "xlsx": "^0.16.4"
   },
   "devDependencies": {
     "@babel/register": "^7.10.5",
