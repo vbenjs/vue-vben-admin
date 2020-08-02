@@ -9,14 +9,14 @@ export function createI18n(options?: VueI18n.I18nOptions) {
     i18n,
   });
 
-  const locale = ref(i18n.locale);
+  const localeRef = ref(i18n.locale);
 
-  watch(locale, () => {
-    i18n.locale = locale.value;
+  watch(localeRef, () => {
+    i18n.locale = localeRef.value;
   });
 
   return () => ({
-    locale,
+    localeRef,
     t: vm.$t.bind(vm),
     tc: vm.$tc.bind(vm),
     d: vm.$d.bind(vm),

@@ -72,7 +72,5 @@ export function useThrottle<T extends unknown[]>(
   wait: number,
   options: DebounceAndThrottleOptions = {}
 ): DebounceAndThrottleProcedureResult<T> {
-  const ret = throttle(handle, wait, options);
-
-  return ret;
+  return throttle(handle, wait, options);
 }

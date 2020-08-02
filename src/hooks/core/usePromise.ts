@@ -39,10 +39,10 @@ export function usePromise<T>(fn: PromiseFn<T>, opt?: { immediate?: boolean }) {
   };
   immediate && exec();
   return {
-    result: computed(() => state.result) as Readonly<Ref<T>>,
-    done: computed(() => state.done),
-    loading: computed(() => state.loading),
-    error: computed(() => state.error),
+    resultRef: computed(() => state.result) as Readonly<Ref<T>>,
+    doneRef: computed(() => state.done),
+    loadingRef: computed(() => state.loading),
+    errorRef: computed(() => state.error),
     exec,
   };
 }

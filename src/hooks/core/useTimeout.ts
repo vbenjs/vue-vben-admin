@@ -1,31 +1,8 @@
 import { isFunction } from '@/utils/is/index';
-import { ref, onUnmounted, getCurrentInstance, watch } from 'compatible-vue';
-import { TimeoutResult, TimeoutFnResult, Fn } from './types';
-export function useTimeoutRef(wait: number): TimeoutResult {
-  const currentInstance = getCurrentInstance();
-  const readyRef = ref(false);
+import { watch } from 'compatible-vue';
+import { TimeoutFnResult, Fn } from './types';
 
-  let timer: ReturnType<typeof setTimeout> | undefined;
-  function clear(): void {
-    readyRef.value = false;
-    timer && window.clearTimeout(timer);
-  }
-  function openTimer(): void {
-    clear();
-    timer = setTimeout(() => {
-      readyRef.value = true;
-    }, wait);
-  }
-
-  openTimer();
-
-  // 在组件内才进行调用
-  if (currentInstance) {
-    onUnmounted(clear);
-  }
-
-  return [readyRef, clear, openTimer];
-}
+import { useTimeoutRef } from '@/hooks/core/useTimeoutRef';
 
 export function useTimeout(handle: Fn<any>, wait: number): TimeoutFnResult {
   if (!isFunction(handle)) {

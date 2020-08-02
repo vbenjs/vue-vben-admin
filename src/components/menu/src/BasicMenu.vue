@@ -141,7 +141,6 @@
       if (!buildMenuFn) {
         throw new Error('[BasicMenu]: buildMenuFn is not defined!');
       }
-      // let { result, loading } = usePromise(buildMenuFn, { immediate: true });
 
       // 获取菜单Readonly<Ref<Readonly<MenuData>>>
       const getAllMenu: Ref<MenuData> = computed(() => {

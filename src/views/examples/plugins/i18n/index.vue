@@ -7,7 +7,7 @@
   export default defineComponent({
     name: 'I18nPlguinDemo',
     setup() {
-      const { locale, t } = useI18n({
+      const { localeRef, t } = useI18n({
         locale: 'zhCN',
         messages: {
           en: {
@@ -26,14 +26,14 @@
           <Divider />
           <Button.Group>
             <Button
-              type={unref(locale) === 'zhCN' ? 'primary' : ''}
-              onClick={() => (locale.value = 'zhCN')}
+              type={unref(localeRef) === 'zhCN' ? 'primary' : ''}
+              onClick={() => (localeRef.value = 'zhCN')}
             >
               中文
             </Button>
             <Button
-              type={unref(locale) === 'en' ? 'primary' : ''}
-              onClick={() => (locale.value = 'en')}
+              type={unref(localeRef) === 'en' ? 'primary' : ''}
+              onClick={() => (localeRef.value = 'en')}
             >
               英文
             </Button>

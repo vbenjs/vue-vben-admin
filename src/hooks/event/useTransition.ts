@@ -91,7 +91,7 @@ const presets: { [key in NamedPreset]: CubicBezier } = {
 };
 
 export function useTransition(baseNumber: Ref<number>, options: StateEasingOptions = {}) {
-  const number = ref(baseNumber.value);
+  const numberRef = ref(baseNumber.value);
 
   const normalizedOptions = {
     duration: 500,
@@ -114,8 +114,8 @@ export function useTransition(baseNumber: Ref<number>, options: StateEasingOptio
     () => {
       stop();
 
-      const diff = baseNumber.value - number.value;
-      const startValue = number.value;
+      const diff = baseNumber.value - numberRef.value;
+      const startValue = numberRef.value;
       const startAt = Date.now();
       const endAt = startAt + normalizedOptions.duration;
 
@@ -123,7 +123,7 @@ export function useTransition(baseNumber: Ref<number>, options: StateEasingOptio
         const now = Date.now();
         const progress = clamp(1 - (endAt - now) / normalizedOptions.duration, 0, 1);
 
-        number.value = startValue + diff * getValue(progress);
+        numberRef.value = startValue + diff * getValue(progress);
 
         if (progress >= 1) stop();
       }).stop;
@@ -131,5 +131,5 @@ export function useTransition(baseNumber: Ref<number>, options: StateEasingOptio
     { immediate: true }
   );
 
-  return number;
+  return numberRef;
 }

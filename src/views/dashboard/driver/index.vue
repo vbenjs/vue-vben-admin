@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
   import { Button } from 'ant-design-vue';
-  import { useStepsDriver } from '@/hooks/core/useDriver';
+  import { useStepsDriver } from '@/hooks/functions/useDriver';
 
   export default defineComponent({
     name: 'DriverIndex',
