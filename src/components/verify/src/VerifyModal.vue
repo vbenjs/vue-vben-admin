@@ -23,7 +23,12 @@
           canFullscreen={false}
           footer={null}
         >
-          <RotateDragVerify {...{ props: attrs }} onSuccess={handleSuccess} />
+          <RotateDragVerify
+            width={240}
+            text="请拖动滑块将图片摆正"
+            {...{ props: attrs }}
+            onSuccess={handleSuccess}
+          />
         </BasicModal>
       );
     },

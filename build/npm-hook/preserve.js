@@ -34,7 +34,8 @@ checkPkgUpdate();
     );
     try {
       // 从代码执行貌似不会自动读取.npmrc 所以手动加上源地址
-      await run('yarn install --registry=https://registry.npm.taobao.org ', {
+      // await run('yarn install --registry=https://registry.npm.taobao.org ', {
+      await run('yarn install ', {
         async: true,
         stdio: 'inherit',
       });

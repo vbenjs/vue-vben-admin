@@ -1,8 +1,34 @@
-## [1.0.4](https://github.com/anncwb/vue-vben-admin/compare/1.0.3...1.0.4) (2020-07-28)
+## [1.0.4](https://github.com/anncwb/vue-vben-admin/compare/1.0.3...1.0.4) (2020-07-31)
+
+### ⚡ Performance Improvements
+
+- 整体优化，加快页面切换速度 ([5ffaaaa](https://github.com/anncwb/vue-vben-admin/commit/5ffaaaa)) by: **陈文彬** (anncwb@126.com)
+
+### ✨ Features
+
+- **verify:** add verify component ([8e8a00a](https://github.com/anncwb/vue-vben-admin/commit/8e8a00a)) by: **陈文彬** (anncwb@126.com)
 
 ### 🎫 Chores
 
+- **deps:** update dep ([6753cb1](https://github.com/anncwb/vue-vben-admin/commit/6753cb1)) by: **陈文彬** (anncwb@126.com)
 - update deps ([33adcb1](https://github.com/anncwb/vue-vben-admin/commit/33adcb1)) by: **陈文彬** (anncwb@126.com)
+- update readme.md ([ca30c66](https://github.com/anncwb/vue-vben-admin/commit/ca30c66)) by: **陈文彬** (anncwb@126.com)
+
+### 🐛 Bug Fixes
+
+- **ci:** fix the problem that git does not exist during dev and build ([ab3ef33](https://github.com/anncwb/vue-vben-admin/commit/ab3ef33)) by: **陈文彬** (anncwb@126.com)
+- **components:** add download example ([f9abfc7](https://github.com/anncwb/vue-vben-admin/commit/f9abfc7)) by: **jq** (1151176506@qq.com)
+- **components:** tinymce add showUploadImage props ([c05cab1](https://github.com/anncwb/vue-vben-admin/commit/c05cab1)) by: **jq** (1151176506@qq.com)
+- **components:** upload add action props and preview function ([ee61193](https://github.com/anncwb/vue-vben-admin/commit/ee61193)) by: **jq** (1151176506@qq.com)
+- **tinymce:** change tab input debug ([2e3f5d4](https://github.com/anncwb/vue-vben-admin/commit/2e3f5d4)) by: **jq** (1151176506@qq.com)
+- **upload:** update preview ([4a90588](https://github.com/anncwb/vue-vben-admin/commit/4a90588)) by: **jq** (1151176506@qq.com)
+- **upload:** update style ([54b1add](https://github.com/anncwb/vue-vben-admin/commit/54b1add)) by: **jq** (1151176506@qq.com)
+
+### 🔧 Continuous Integration
+
+- add ls-lint ([1c17bfb](https://github.com/anncwb/vue-vben-admin/commit/1c17bfb)) by: **陈文彬** (anncwb@126.com)
+- perf changelog ([3cb6eda](https://github.com/anncwb/vue-vben-admin/commit/3cb6eda)) by: **陈文彬** (anncwb@126.com)
+- update npm-hook ([4c1fc0b](https://github.com/anncwb/vue-vben-admin/commit/4c1fc0b)) by: **jq** (1151176506@qq.com)
 
 ## [1.0.3](https://github.com/anncwb/vue-vben-admin/compare/24cea92...1.0.3) (2020-07-28)
 

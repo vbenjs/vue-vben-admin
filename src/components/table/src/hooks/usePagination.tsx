@@ -3,9 +3,12 @@ import { Icon } from '@/components/icon/index';
 import { BasicTableProps } from '../types/table';
 import { PaginationProps } from '../types/pagination';
 import { isBoolean } from '@/utils/is/index';
+import { useProps } from './useProps';
 
 import { PAGE_SIZE } from '../const';
-export function usePagination(propsRef: ComputedRef<BasicTableProps>) {
+export function usePagination(refProps: ComputedRef<BasicTableProps>) {
+  const { propsRef } = useProps(refProps);
+
   const configRef = ref<PaginationProps>({});
 
   // function handleChange(page: number) {
