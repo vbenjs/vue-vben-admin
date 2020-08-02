@@ -116,6 +116,7 @@
       if (instance) {
         instance.resume = resume;
       }
+      handleImgOnLoad();
       return () => {
         const { src } = props;
         const { toOrigin, isPassing } = state;
@@ -136,7 +137,6 @@
             </div>
             <BasicDragVerify
               value={isPassing}
-              isSlot={true}
               class={`${prefixCls}-drag__bar`}
               onMove={handleDragBarMove}
               onEnd={handleDragEnd}
@@ -146,6 +146,7 @@
                 props: {
                   ...attrs,
                   ...props,
+                  isSlot: true,
                 },
               }}
             />
