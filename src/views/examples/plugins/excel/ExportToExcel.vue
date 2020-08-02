@@ -103,7 +103,7 @@
           <div class={prefixCls}>
             <BasicTable title="基础表格" columns={columns} dataSource={cloneDeep(data)}>
               <template slot="toolbar">
-                <Button onClick={aoaToExcel}>aoaToExcel</Button>
+                <Button onClick={aoaToExcel}>aoa·ToExcel</Button>
                 <Button onClick={jsonToExcelAndHeader}>jsonToExcelAndHeader</Button>
                 <Button onClick={jsonToExcel}>jsonToExcel</Button>
               </template>
@@ -120,5 +120,6 @@
 
   .@{prefix-cls} {
     position: relative;
+    background: #fff;
   }
 </style>

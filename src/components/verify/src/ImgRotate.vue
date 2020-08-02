@@ -126,7 +126,13 @@
         return (
           <div class={prefixCls}>
             <div class={`${prefixCls}-img__wrap`} style={unref(getImgWrapStyleRef)}>
-              <img src={src} onLoad={handleImgOnLoad} class={imgCls} style={state.imgStyle} />
+              <img
+                src={src}
+                onLoad={handleImgOnLoad}
+                width={props.width}
+                class={imgCls}
+                style={state.imgStyle}
+              />
             </div>
             <BasicDragVerify
               value={isPassing}
@@ -139,6 +145,7 @@
               {...{
                 props: {
                   ...attrs,
+                  ...props,
                 },
               }}
             />

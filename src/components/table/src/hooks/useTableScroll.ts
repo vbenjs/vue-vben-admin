@@ -4,8 +4,11 @@ import { getViewportOffset } from '@/utils/domUtils';
 import { isBoolean } from '@/utils/is/index';
 import { useTimeout } from '@/hooks/core/useTimeout';
 import { useWindowSizeFn } from '@/hooks/event/useWindowSize';
+import { useProps } from './useProps';
 
-export function useTableScroll(propsRef: ComputedRef<BasicTableProps>, tableElRef: Ref<any>) {
+export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRef: Ref<any>) {
+  const { propsRef } = useProps(refProps);
+
   const { scroll } = unref(propsRef);
   const tableHeightRef: Ref<number | null> = ref(null);
 

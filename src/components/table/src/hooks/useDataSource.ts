@@ -14,6 +14,7 @@ import { buildUUID } from '@/utils/uuid';
 import { isFunction, isBoolean } from '@/utils/is/index';
 import { ROW_KEY } from '../const';
 import { get } from '@/utils/lodashChunk';
+import { useProps } from './useProps';
 
 interface ActionType {
   getPaginationRef: ComputedRef<false | PaginationProps>;
@@ -21,10 +22,12 @@ interface ActionType {
   loadingRef: Ref<boolean | undefined>;
 }
 export function useDataSource(
-  propsRef: ComputedRef<BasicTableProps>,
+  refProps: ComputedRef<BasicTableProps>,
   ctx: SetupContext,
   { getPaginationRef, setPagination, loadingRef }: ActionType
 ) {
+  const { propsRef } = useProps(refProps);
+
   const { emit } = ctx;
   const dataSourceRef = ref<any[]>([]);
 

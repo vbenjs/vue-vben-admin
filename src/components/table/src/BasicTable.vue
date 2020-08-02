@@ -18,7 +18,7 @@
   import { BasicTableProps, TableInstance, FetchParams, getColumnsParams } from './types/table';
   import { PaginationProps } from './types/pagination';
   import { getSlot } from '@/utils/helper/tsxHelper';
-  import { isFunction } from '@/utils/is/index';
+  import { isFunction, isString } from '@/utils/is/index';
 
   import { BasicForm, FormProps } from '@/components/form/index';
   export default defineComponent({
@@ -28,25 +28,31 @@
       const { attrs, emit, slots, listeners } = ctx;
       const tableElRef = ref<any>(null);
       const innerPropsRef = ref<Partial<BasicTableProps>>();
-      const lastPropsRef = ref<BasicTableProps>();
+      // const lastPropsRef = ref<BasicTableProps>();
 
-      const getPropsRef = computed(() => {
-        lastPropsRef.value = {
+      const getMergeProps = computed(() => {
+        return {
           ...props,
-          ...unref(lastPropsRef),
           ...unref(innerPropsRef),
         };
-        return unref(lastPropsRef) as BasicTableProps;
       });
+      // const getPropsRef = computed(() => {
+      //   lastPropsRef.value = {
+      //     ...props,
+      //     ...unref(lastPropsRef),
+      //     ...unref(innerPropsRef),
+      //   };
+      //   return unref(lastPropsRef) as BasicTableProps;
+      // });
       const getComponentsRef = computed(() => {
         const res: any = {};
 
-        if (unref(getPropsRef).canRowDrag) {
+        if (unref(getMergeProps).canRowDrag) {
           res.body = {
             wrapper: BodyWarpper,
           };
         }
-        if (unref(getPropsRef).canColDrag) {
+        if (unref(getMergeProps).canColDrag) {
           res.header = {
             cell: CellResize,
           };
@@ -54,15 +60,15 @@
 
         return res;
       });
-      const { getPaginationRef, setPagination } = usePagination(getPropsRef);
-      const { loadingRef } = useLoading(getPropsRef);
-      const { getDataSourceRef, setTableData, rowKey, fetch } = useDataSource(getPropsRef, ctx, {
+      const { getPaginationRef, setPagination } = usePagination(getMergeProps);
+      const { loadingRef } = useLoading(getMergeProps);
+      const { getDataSourceRef, setTableData, rowKey, fetch } = useDataSource(getMergeProps, ctx, {
         getPaginationRef,
         loadingRef,
         setPagination,
       });
-      const { getColumnsRef, setColumns } = useColumns(getPropsRef, getPaginationRef);
-      const { getScrollRef, redoHeight } = useTableScroll(getPropsRef, tableElRef);
+      const { getColumnsRef, setColumns } = useColumns(getMergeProps, getPaginationRef);
+      const { getScrollRef, redoHeight } = useTableScroll(getMergeProps, tableElRef);
       const {
         getRowSelectionRef,
         getSelectRows,
@@ -70,16 +76,15 @@
         getSelectRowKeys,
         deleteSelectRowByKey,
         setSelectedRowKeys,
-      } = useRowSelection(getPropsRef, emit);
+      } = useRowSelection(getMergeProps, emit);
       const { prefixCls } = useDesign('basic-table');
 
       const renderTitle = () => {
-        const title = unref(getPropsRef).title;
-
+        const title = unref(getMergeProps).title;
         return (
           getSlot(slots, 'title') || (
             <TableTitle
-              helpMessage={unref(getPropsRef).titleHelpMessage}
+              helpMessage={unref(getMergeProps).titleHelpMessage}
               title={title}
               getSelectRows={getSelectRows}
             >
@@ -89,7 +94,7 @@
         );
       };
       function handleTableChange(pagination: PaginationProps) {
-        const { clearSelectOnPageChange } = unref(getPropsRef);
+        const { clearSelectOnPageChange } = unref(getMergeProps);
         if (clearSelectOnPageChange) {
           clearSelectedRowKeys();
         }
@@ -98,7 +103,7 @@
       }
 
       function handleSearchInfoChange(info: any) {
-        const { handleSearchInfoFn } = unref(getPropsRef);
+        const { handleSearchInfoFn } = unref(getMergeProps);
         if (handleSearchInfoFn && isFunction(handleSearchInfoFn)) {
           info = handleSearchInfoFn(info) || info;
         }
@@ -142,16 +147,16 @@
       emit('register', instance);
 
       return () => {
-        const title = unref(getPropsRef).title;
-        const titleData =
-          !getSlot(slots, 'title') && !title && !getSlot(slots, 'toolbar')
+        const title = unref(getMergeProps).title;
+        const titleData: any =
+          !getSlot(slots, 'title') && !isString(title) && !title && !getSlot(slots, 'toolbar')
             ? {}
-            : { title: renderTitle };
+            : { title: !getSlot(slots, 'title') && !title ? null : renderTitle };
         const propsData: BasicTableProps = {
           // @ts-ignore
           size: 'middle',
           ...attrs,
-          ...unref(getPropsRef),
+          ...unref(getMergeProps),
           ...titleData,
           columns: unref(getColumnsRef),
           dataSource: unref(getDataSourceRef),

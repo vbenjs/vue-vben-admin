@@ -9,6 +9,7 @@ export function useTable(
   if (!getCurrentInstance()) {
     throw new Error('Please put useTable function in the setup function!');
   }
+
   const tableRef = ref<TableInstance | null>(null);
   const loadedRef = ref<boolean | null>(false);
 

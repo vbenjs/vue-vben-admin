@@ -3,11 +3,13 @@ import { PaginationProps } from '../types/pagination';
 import { unref, ComputedRef, computed, watch, ref } from 'compatible-vue';
 import { isBoolean, isArray, isObject } from '@/utils/is/index';
 import { PAGE_SIZE } from '../const';
+import { useProps } from './useProps';
 
 export function useColumns(
-  propsRef: ComputedRef<BasicTableProps>,
+  refProps: ComputedRef<BasicTableProps>,
   getPaginationRef: ComputedRef<false | PaginationProps>
 ) {
+  const { propsRef } = useProps(refProps);
   const columnsRef = ref<BasicColumn[]>(unref(propsRef).columns);
   const cacheColumnsRef = ref<BasicColumn[]>(unref(propsRef).columns);
 

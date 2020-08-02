@@ -70,7 +70,7 @@ const setting: ProjectConfig = {
   showBreadCrumb: true,
 
   // 使用error-handler-plugin
-  useErrorHandle: true || isProdMode(),
+  useErrorHandle: isProdMode(),
 
   // 路由切换动画
   routerTransition: RouterTransitionEnum.ZOOM_FADE,
