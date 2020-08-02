@@ -49,7 +49,7 @@
       // tab切换
       function handleChange(activeKey: pageEnum) {
         activeKeyRef.value = activeKey;
-        useGo({ path: activeKey, replace: false, router: root.$router });
+        useGo({ path: activeKey, replace: false });
       }
       // 关闭当前ab
       function handleEdit(targetKey: string) {
