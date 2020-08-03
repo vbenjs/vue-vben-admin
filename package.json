@@ -76,7 +76,7 @@
     "@types/qrcode": "^1.3.5",
     "@types/tinymce": "^4.5.24",
     "@typescript-eslint/eslint-plugin": "^3.7.1",
-    "@typescript-eslint/parser": "^3.7.1",
+    "@typescript-eslint/parser": "^3.8.0",
     "@vue/babel-plugin-transform-vue-jsx": "^1.1.2",
     "@vue/cli-plugin-babel": "~4.4.6",
     "@vue/cli-plugin-eslint": "~4.4.6",
