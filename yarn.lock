@@ -6361,10 +6361,10 @@ fork-ts-checker-webpack-plugin@^3.1.1:
     tapable "^1.0.0"
     worker-rpc "^0.1.0"
 
-fork-ts-checker-webpack-plugin@^5.0.13:
-  version "5.0.13"
-  resolved "https://registry.npm.taobao.org/fork-ts-checker-webpack-plugin/download/fork-ts-checker-webpack-plugin-5.0.13.tgz?cache=0&sync_timestamp=1596203170543&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ffork-ts-checker-webpack-plugin%2Fdownload%2Ffork-ts-checker-webpack-plugin-5.0.13.tgz#916170e311d08f6dc0d85e1d8d4c8627941611d4"
-  integrity sha1-kWFw4xHQj23A2F4djUyGJ5QWEdQ=
+fork-ts-checker-webpack-plugin@^5.0.14:
+  version "5.0.14"
+  resolved "https://registry.npm.taobao.org/fork-ts-checker-webpack-plugin/download/fork-ts-checker-webpack-plugin-5.0.14.tgz#83758b733ccd5d6e5780a72a5d5f099c353c108d"
+  integrity sha1-g3WLczzNXW5XgKcqXV8JnDU8EI0=
   dependencies:
     "@babel/code-frame" "^7.8.3"
     "@types/json-schema" "^7.0.5"
