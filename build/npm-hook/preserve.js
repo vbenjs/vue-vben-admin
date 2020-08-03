@@ -9,6 +9,7 @@ let NEED_INSTALL = false;
 
 const { run } = runjs;
 
+fs.mkdirp(resolve('build/.cache'));
 function checkPkgUpdate() {
   const pkg = require('../../package.json');
   const { dependencies, devDependencies } = pkg;
