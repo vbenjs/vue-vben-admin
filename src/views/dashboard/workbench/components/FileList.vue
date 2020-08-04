@@ -130,7 +130,7 @@
   @import (reference) '~@design';
   @prefix-cls: ~'@{namespace}-file-list';
   .@{prefix-cls} {
-    /deep/ .vben-collapse-container__body {
+    /deep/ .@{namespace}-collapse-container__body {
       height: 360px;
     }
   }

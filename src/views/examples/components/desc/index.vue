@@ -3,14 +3,14 @@
   import { Alert } from 'ant-design-vue';
   import { Description, DescItem, useDescription } from '@/components/description/index';
   const mockData = {
-    username: 'vben',
+    username: 'test',
     nickName: 'VB',
     age: 25,
     phone: '15695909xxx',
     email: '190848757@qq.com',
     addr: '厦门市思明区观日路18号',
     sex: '男',
-    certy: '350425619951007xxxx',
+    certy: '3504256199xxxxxxxxx',
     tag: 'orange',
   };
   const schema: DescItem[] = [

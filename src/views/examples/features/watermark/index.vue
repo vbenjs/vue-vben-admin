@@ -14,25 +14,25 @@
       return () => (
         <div ref={wrapRef} class="p-4" style={{ height: '300px' }}>
           <CollapseContainer title="全局" class="mb-3">
-            <Button class="mr-2" onClick={setWatermark.bind(null, 'vben')}>
+            <Button class="mr-2" onClick={setWatermark.bind(null, 'test')}>
               设置水印
             </Button>
             <Button class="mr-2" onClick={clear}>
               清空水印
             </Button>
-            <Button class="mr-2" onClick={setWatermark.bind(null, 'vben123')}>
+            <Button class="mr-2" onClick={setWatermark.bind(null, 'test123')}>
               更改水印
             </Button>
           </CollapseContainer>
 
           <CollapseContainer title="局部" class="mb-3">
-            <Button class="mr-2" onClick={set.bind(null, 'vben')}>
+            <Button class="mr-2" onClick={set.bind(null, 'test')}>
               设置水印
             </Button>
             <Button class="mr-2" onClick={clearArea}>
               清空水印
             </Button>
-            <Button class="mr-2" onClick={set.bind(null, 'vben123')}>
+            <Button class="mr-2" onClick={set.bind(null, 'test123')}>
               更改水印
             </Button>
           </CollapseContainer>

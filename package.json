@@ -16,7 +16,7 @@
   "scripts": {
     "bootstrap": "yarn",
     "inspect": "vue-cli-service inspect > output.js",
-    "serve": "node ./build/npm-hook/preserve.js && node ./build/task/serve",
+    "serve": "node ./build/task/serve",
     "build": "node ./build/task/build",
     "build:no-cache": "npm run clean:cache && npm run build",
     "build:site": "cross-env  SITE=true  npm run build:no-cache",

@@ -4,16 +4,16 @@ const getFakeUserList = () => [
     userId: '1',
     username: 'admin',
     realName: '管理员',
-    desc: 'vben admin 管理员',
+    desc: ' admin 管理员',
     password: '123456',
     token: 'fakeToken1',
   },
   {
     userId: '2',
-    username: 'vben',
+    username: 'test',
     password: '123456',
     realName: '测试用户',
-    desc: 'vben admin 测试员',
+    desc: '测试员',
     token: 'fakeToken2',
   },
 ];
@@ -40,7 +40,7 @@ export default {
     );
 
     if (!checkUser) {
-      return ResultUtil.error('Incorrect account or password(vben/123456,test1/123456)！');
+      return ResultUtil.error('Incorrect account or password(test/123456,admin/123456)！');
     }
     const { userId, username: _username, token, realName, desc } = checkUser;
     const roles = fakeRoles.filter((item) => item.userId === userId);

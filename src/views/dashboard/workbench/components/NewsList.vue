@@ -59,7 +59,7 @@
   @import (reference) '~@design';
   @prefix-cls: ~'@{namespace}-news-list';
   .@{prefix-cls} {
-    /deep/ .vben-collapse-container__body {
+    /deep/ .@{namespace}-collapse-container__body {
       height: 520px;
     }
 
