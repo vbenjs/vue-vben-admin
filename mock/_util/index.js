@@ -2,7 +2,8 @@
  * @param {string} url
  * @returns {Object}
  */
-export function param2Obj(url) {
+
+exports.param2Obj = function (url) {
   const search = url.split('?')[1];
   if (!search) {
     return {};
@@ -16,4 +17,4 @@ export function param2Obj(url) {
         .replace(/\+/g, ' ') +
       '"}'
   );
-}
+};

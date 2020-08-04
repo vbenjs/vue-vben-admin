@@ -1,4 +1,4 @@
-export default class ResultUtil {
+module.exports = class ResultUtil {
   static success(result, { message = 'ok' } = {}) {
     return {
       code: 0,
@@ -35,4 +35,4 @@ export default class ResultUtil {
       ? array.slice(offset, array.length)
       : array.slice(offset, offset + pageSize);
   }
-}
+};

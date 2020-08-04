@@ -1,5 +1,5 @@
-import Mock from 'mockjs';
-import ResultUtil from '../_util/resultUtil';
+const ResultUtil = require('../_util/resultUtil');
+const Mock = require('mockjs');
 
 const demoList = Mock.mock({
   'items|60': [
@@ -15,7 +15,7 @@ const demoList = Mock.mock({
   ],
 });
 
-export default {
+module.exports = {
   'GET /v1.0/table/getDemoList 500': ({ query }) => {
     const { page = 1, pageSize = 20 } = query;
     const demoListItems = demoList.items;

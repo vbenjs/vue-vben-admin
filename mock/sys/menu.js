@@ -1,4 +1,4 @@
-import ResultUtil from '../_util/resultUtil';
+const ResultUtil = require('../_util/resultUtil');
 
 const id1MenuList = {
   path: '/auth/role',
@@ -123,7 +123,7 @@ const fakeCodeList = {
 
   2: ['10010', '20020', '30030'],
 };
-export default {
+module.exports = {
   'GET /v1.0/getMenuListByUserId 20': ({ query }) => {
     const { userId } = query;
     return ResultUtil.success(userId ? fakeList[~~userId] || {} : {});

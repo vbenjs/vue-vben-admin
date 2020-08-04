@@ -1,5 +1,5 @@
-import Mock from 'mockjs';
-import { param2Obj } from './index';
+const Mock = require('mockjs');
+const { param2Obj } = require('./index');
 
 const mockApiMethods = require.context('../', true, /^[^\_]*\.js$/);
 let modules = {};

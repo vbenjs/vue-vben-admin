@@ -33,7 +33,9 @@ module.exports = function createMockMiddleware({
 
   require('@babel/register');
   let mockData = getConfig();
-
+  console.log('======================');
+  console.log(mockData);
+  console.log('======================');
   watch();
 
   function watch() {
@@ -72,16 +74,15 @@ module.exports = function createMockMiddleware({
           const mod = require(join(absMockPath, mockFile));
           memo = {
             ...memo,
-            ...mod.default,
+            ...mod,
           };
           return memo;
         }, {});
       } catch (error) {
+        console.log(`${chalk.red('mock reload error!')}`);
         ret = {};
-        // console.log(`${chalk.red('mock reload error!')}`);
       }
     }
-
     return normalizeConfig(ret);
   }
   function randomFrom(lowerValue, upperValue) {
@@ -241,12 +242,18 @@ module.exports = function createMockMiddleware({
     }
 
     return mockData.filter(({ method, re }) => {
-      return method === exceptMethod && re.test(exceptPath);
+      const appUrl = process.env.GLOB_API_URL;
+      let _path = exceptPath;
+      if (exceptPath.startsWith(appUrl)) {
+        _path = exceptPath.replace(appUrl, '');
+      }
+      return method === exceptMethod && re.test(_path);
     })[0];
   }
 
   return (req, res, next) => {
     const match = matchMock(req);
+
     if (match) {
       console.log(
         `${chalk.yellow('mock matched:')} ${chalk.green.bold(

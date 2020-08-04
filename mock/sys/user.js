@@ -1,4 +1,5 @@
-import ResultUtil from '../_util/resultUtil';
+const ResultUtil = require('../_util/resultUtil');
+
 const getFakeUserList = () => [
   {
     userId: '1',
@@ -31,7 +32,7 @@ const fakeRoles = [
   },
 ];
 
-export default {
+module.exports = {
   // 300 延时时间
   'POST /login 300': ({ body }) => {
     const { username, password } = body;
