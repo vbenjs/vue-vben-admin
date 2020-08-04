@@ -28,7 +28,9 @@ export function useNow() {
 
   start();
 
-  if (getCurrentInstance()) onUnmounted(() => stop());
+  if (getCurrentInstance()) {
+    onUnmounted(() => stop());
+  }
 
   return now;
 }

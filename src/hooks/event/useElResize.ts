@@ -18,7 +18,7 @@ export function useElResize<T>(
     fn();
   };
   const [handleSize, cancel] = useDebounce(handler, wait, options);
-  handler = handleSize;
+  handler = wait ? handleSize : handler;
 
   function start() {
     addResizeListener(el, handler);
