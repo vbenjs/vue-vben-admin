@@ -70,12 +70,12 @@ export const rotateProps = {
 
   minDegree: {
     type: Number,
-    default: 120,
+    default: 90,
   } as PropOptions<number>,
 
   maxDegree: {
     type: Number,
-    default: 270,
+    default: 210,
   } as PropOptions<number>,
 
   diffDegree: {

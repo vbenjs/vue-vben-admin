@@ -8,7 +8,7 @@ mockApiMethods.keys().forEach((key) => {
     const mods = mockApiMethods(key);
     key = key.replace(/^\.\//, '').replace(/\.js$/, '');
     Object.keys(mods).forEach((mod) => {
-      modules = { ...modules, ...mods[mod] };
+      modules = { ...modules, ...mods };
     });
   }
 });
