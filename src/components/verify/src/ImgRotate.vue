@@ -41,6 +41,7 @@
             const time = (endTime - startTime) / 1000;
             emit('success', { isPassing, time: time.toFixed(1) });
             emit('change', isPassing);
+            resume();
           }
         }
       );

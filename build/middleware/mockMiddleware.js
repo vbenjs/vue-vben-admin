@@ -33,9 +33,6 @@ module.exports = function createMockMiddleware({
 
   require('@babel/register');
   let mockData = getConfig();
-  console.log('======================');
-  console.log(mockData);
-  console.log('======================');
   watch();
 
   function watch() {
