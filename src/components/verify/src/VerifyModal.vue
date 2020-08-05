@@ -1,18 +1,26 @@
 <script lang="tsx">
-  import { defineComponent } from 'compatible-vue';
+  import { defineComponent, ref, unref } from 'compatible-vue';
   import { BasicModal } from '@/components/modal/index';
-  import { useMessage } from '@/hooks/core/useMessage';
+  import { useTimeout } from '@/hooks/core/useTimeout';
 
-  import { RotateDragVerify, PassingData } from '@/components/verify/index';
+  import { RotateDragVerify, DragVerifyActionType } from '@/components/verify/index';
   export default defineComponent({
     name: 'VerifyModal',
 
     setup(_, { listeners, attrs, emit }) {
-      const { createMessage } = useMessage();
+      // const { createMessage } = useMessage();
 
-      function handleSuccess({ time }: PassingData) {
-        createMessage.success(`校验成功,耗时${time}秒！`);
-        emit('success');
+      const dragRef = ref<DragVerifyActionType | null>(null);
+
+      function handleSuccess() {
+        // createMessage.success(`校验成功,耗时${time}秒！`);
+        useTimeout(() => {
+          emit('success');
+          const dragEl = unref(dragRef);
+          if (dragEl) {
+            dragEl.resume();
+          }
+        }, 500);
       }
       return () => (
         <BasicModal
@@ -25,6 +33,7 @@
         >
           <RotateDragVerify
             width={240}
+            ref={dragRef}
             text="请拖动滑块将图片摆正"
             {...{ props: attrs }}
             onSuccess={handleSuccess}

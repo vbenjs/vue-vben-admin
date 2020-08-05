@@ -24,6 +24,7 @@
       const basicRef = ref<DragVerifyActionType | null>(null);
       const { prefixCls } = useDesign('ir-dv');
       const state = reactive({
+        showTip: false,
         isPassing: false,
         imgStyle: {},
         randomRotate: 0,
@@ -41,7 +42,6 @@
             const time = (endTime - startTime) / 1000;
             emit('success', { isPassing, time: time.toFixed(1) });
             emit('change', isPassing);
-            resume();
           }
         }
       );
@@ -92,11 +92,13 @@
           state.toOrigin = true;
           useTimeout(() => {
             state.toOrigin = false;
+            state.showTip = true;
             //  时间与动画时间保持一致
           }, 300);
         } else {
           checkPass();
         }
+        state.showTip = true;
       }
       function checkPass() {
         state.isPassing = true;
@@ -104,11 +106,13 @@
       }
 
       function resume() {
+        state.showTip = false;
         const basicEl = unref(basicRef);
         if (!basicEl) {
           return;
         }
         state.isPassing = false;
+
         basicEl.resume();
         handleImgOnLoad();
       }
@@ -120,11 +124,12 @@
       handleImgOnLoad();
       return () => {
         const { src } = props;
-        const { toOrigin, isPassing } = state;
+        const { toOrigin, isPassing, startTime, endTime } = state;
         const imgCls: string[] = [];
         if (toOrigin) {
           imgCls.push('to-origin');
         }
+        const time = (endTime - startTime) / 1000;
         return (
           <div class={prefixCls}>
             <div class={`${prefixCls}-img__wrap`} style={unref(getImgWrapStyleRef)}>
@@ -135,9 +140,14 @@
                 class={imgCls}
                 style={state.imgStyle}
               />
+              <span
+                v-show={state.showTip}
+                class={[`${prefixCls}-img__tip`, state.isPassing ? 'success' : 'error']}
+              >
+                {state.isPassing ? `校验成功,耗时${time.toFixed(1)}秒！` : '验证失败！'}
+              </span>
             </div>
             <BasicDragVerify
-              value={isPassing}
               class={`${prefixCls}-drag__bar`}
               onMove={handleDragBarMove}
               onEnd={handleDragEnd}
@@ -147,6 +157,7 @@
                 props: {
                   ...attrs,
                   ...props,
+                  value: isPassing,
                   isSlot: true,
                 },
               }}
@@ -179,6 +190,28 @@
         &.to-origin {
           transition: transform 0.3s;
         }
+      }
+    }
+
+    &-img__tip {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 30px;
+      font-size: 12px;
+      line-height: 30px;
+      color: @white;
+      text-align: center;
+
+      &.success {
+        background: fade(@success-color, 60%);
+      }
+
+      &.error {
+        background: fade(@error-color, 60%);
       }
     }
 

@@ -111,7 +111,7 @@
           if (state.isMoving) {
             resume();
           }
-          emit('end');
+          // emit('end');
         },
       });
       // 开始拖拽
