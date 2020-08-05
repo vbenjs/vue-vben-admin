@@ -1,5 +1,5 @@
 import { VNode, Ref, unref } from 'compatible-vue';
-import { Form, Button, Col } from 'ant-design-vue';
+import { Form, Col } from 'ant-design-vue';
 import { Icon } from '@/components/icon/index';
 import { FormProps, ActionButtonOption } from './types/form';
 import { ColEx } from './types/index';
@@ -50,20 +50,20 @@ export function renderAction({
       <Col props={actionColOpt} style={{ textAlign: 'right' }}>
         <Form.Item>
           {showAdvancedButton && !unref(hideAdvanceBtnRef) && (
-            <Button type="default" class="mr-2" onClick={toggleAdvanced}>
+            <a-button type="default" class="mr-2" onClick={toggleAdvanced}>
               {unref(isAdvancedRef) ? '收起' : '展开'}
               <Icon type={unref(isAdvancedRef) ? 'up' : 'down'} class="advanced-icon" />
-            </Button>
+            </a-button>
           )}
           {showResetButton && (
-            <Button type="default" class="mr-2" props={resetBtnOptions} on={resetBtnOptions.on}>
+            <a-button type="default" class="mr-2" props={resetBtnOptions} on={resetBtnOptions.on}>
               {resetBtnOptions.text}
-            </Button>
+            </a-button>
           )}
           {showSubmitButton && (
-            <Button type="primary" props={submitBtnOptions} on={submitBtnOptions.on}>
+            <a-button type="primary" props={submitBtnOptions} on={submitBtnOptions.on}>
               {submitBtnOptions.text}
-            </Button>
+            </a-button>
           )}
         </Form.Item>
       </Col>

@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, ref, unref } from 'compatible-vue';
-  import { Button } from 'ant-design-vue';
+
   import { BasicTree, TreeActionType } from '@/components/tree/index';
 
   import { useMessage } from '@/hooks/core/useMessage';
@@ -73,26 +73,26 @@
           <div class="tree-demo">
             <div class="tree-demo-item">
               <div class="tree-demo-title">函数使用示例</div>
-              <Button onClick={filterLevel}>显示到第2级</Button>
-              <Button onClick={getCheckKeys} class="ml-2">
+              <a-button onClick={filterLevel}>显示到第2级</a-button>
+              <a-button onClick={getCheckKeys} class="ml-2">
                 获取勾选数据
-              </Button>
-              <Button onClick={setCheckKeys} class="ml-2">
+              </a-button>
+              <a-button onClick={setCheckKeys} class="ml-2">
                 设置勾选数据
-              </Button>
+              </a-button>
 
-              <Button onClick={getSelectKeys} class="ml-2">
+              <a-button onClick={getSelectKeys} class="ml-2">
                 获取选中数据
-              </Button>
-              <Button onClick={setSelectKeys} class="ml-2">
+              </a-button>
+              <a-button onClick={setSelectKeys} class="ml-2">
                 设置选中数据
-              </Button>
-              <Button onClick={getExpandKeys} class="ml-2">
+              </a-button>
+              <a-button onClick={getExpandKeys} class="ml-2">
                 获取展开数据
-              </Button>
-              <Button onClick={setExpandKeys} class="ml-2">
+              </a-button>
+              <a-button onClick={setExpandKeys} class="ml-2">
                 设置展开数据
-              </Button>
+              </a-button>
 
               <BasicTree treeData={treeData} ref={treeElRef1} checkable={true} />
             </div>

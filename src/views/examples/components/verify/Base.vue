@@ -4,8 +4,6 @@
 
   import { useMessage } from '@/hooks/core/useMessage';
 
-  import { Button } from 'ant-design-vue';
-
   import { Icon } from '@/components/icon/index';
 
   type DragVerifyRef = DragVerifyActionType | null;
@@ -37,16 +35,16 @@
         <div class="p-4 ">
           <div class="base-verify-demo__wrap">
             <BasicDragVerify ref={el1Ref} onSuccess={handleChange} />
-            <Button class="ml-4" type="primary" onClick={handleBtnClick.bind(null, el1Ref)}>
+            <a-button class="ml-4" type="primary" onClick={handleBtnClick.bind(null, el1Ref)}>
               还原
-            </Button>
+            </a-button>
           </div>
 
           <div class="base-verify-demo__wrap">
             <BasicDragVerify ref={el2Ref} circle={true} onSuccess={handleChange} />
-            <Button class="ml-4" type="primary" onClick={handleBtnClick.bind(null, el2Ref)}>
+            <a-button class="ml-4" type="primary" onClick={handleBtnClick.bind(null, el2Ref)}>
               还原
-            </Button>
+            </a-button>
           </div>
 
           <div class="base-verify-demo__wrap">
@@ -59,9 +57,9 @@
               }}
               onChange={handleChange}
             />
-            <Button class="ml-4" type="primary" onClick={handleBtnClick.bind(null, el3Ref)}>
+            <a-button class="ml-4" type="primary" onClick={handleBtnClick.bind(null, el3Ref)}>
               还原
-            </Button>
+            </a-button>
           </div>
 
           <div class="base-verify-demo__wrap">
@@ -74,9 +72,9 @@
                 },
               }}
             />
-            <Button class="ml-4" type="primary" onClick={handleBtnClick.bind(null, el4Ref)}>
+            <a-button class="ml-4" type="primary" onClick={handleBtnClick.bind(null, el4Ref)}>
               还原
-            </Button>
+            </a-button>
           </div>
 
           <div class="base-verify-demo__wrap">
@@ -99,9 +97,9 @@
                 },
               }}
             />
-            <Button class="ml-4" type="primary" onClick={handleBtnClick.bind(null, el5Ref)}>
+            <a-button class="ml-4" type="primary" onClick={handleBtnClick.bind(null, el5Ref)}>
               还原
-            </Button>
+            </a-button>
           </div>
         </div>
       );

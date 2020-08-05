@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
-  import { Button } from 'ant-design-vue';
+
   import { useDesign } from '@/hooks/core/useDesign';
 
   import printJS from 'print-js';
@@ -13,9 +13,9 @@
       }
       return () => (
         <div class={prefixCls}>
-          <Button type="primary" onClick={handlePrint}>
+          <a-button type="primary" onClick={handlePrint}>
             打印表格
-          </Button>
+          </a-button>
           <table
             border="1"
             id="table"

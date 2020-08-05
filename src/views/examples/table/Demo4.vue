@@ -2,7 +2,6 @@
   import { defineComponent } from 'compatible-vue';
 
   import { BasicTable, BasicColumn, useTable } from '@/components/table/index';
-  import { Button } from 'ant-design-vue';
 
   import { demoListApi } from '@/api/demo/table';
   const columns: BasicColumn[] = [
@@ -52,7 +51,7 @@
               columns={columns}
             >
               <template slot="toolbar">
-                <Button
+                <a-button
                   type="primary"
                   onClick={() => {
                     reload({
@@ -63,9 +62,9 @@
                   }}
                 >
                   刷新表格(当前页)
-                </Button>
+                </a-button>
 
-                <Button
+                <a-button
                   type="primary"
                   onClick={() => {
                     reload({
@@ -74,7 +73,7 @@
                   }}
                 >
                   刷新表格(返回第一页)
-                </Button>
+                </a-button>
               </template>
             </BasicTable>
           </div>

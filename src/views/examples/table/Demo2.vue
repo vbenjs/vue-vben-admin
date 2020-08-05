@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
-  import { Button } from 'ant-design-vue';
+
   import { BasicTable, BasicColumn, useTable } from '@/components/table/index';
   import { useMessage } from '@/hooks/core/useMessage';
   const columns: BasicColumn[] = [
@@ -80,15 +80,15 @@
               dataSource={data}
             >
               <template slot="toolbar">
-                <Button
+                <a-button
                   type="primary"
                   onClick={() => {
                     createMessage.success(JSON.stringify(getSelectRows()));
                   }}
                 >
                   获取选中行
-                </Button>
-                <Button
+                </a-button>
+                <a-button
                   type="primary"
                   onClick={() => {
                     const allData = getDataSource();
@@ -96,17 +96,17 @@
                   }}
                 >
                   设置选中行
-                </Button>
-                <Button
+                </a-button>
+                <a-button
                   type="primary"
                   onClick={() => {
                     clearSelectedRowKeys();
                   }}
                 >
                   清空选中行
-                </Button>
+                </a-button>
 
-                <Button
+                <a-button
                   type="primary"
                   onClick={() => {
                     setTableData([
@@ -123,15 +123,15 @@
                   }}
                 >
                   设置表格数据
-                </Button>
-                <Button
+                </a-button>
+                <a-button
                   type="primary"
                   onClick={() => {
                     createMessage.success(JSON.stringify(getPaginationRef()));
                   }}
                 >
                   获取当前分页信息
-                </Button>
+                </a-button>
               </template>
             </BasicTable>
           </div>

@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
-  import { Button, Alert } from 'ant-design-vue';
+  import { Alert } from 'ant-design-vue';
   import { Authority } from '@/components/authority/index';
   import CurrentAuthMode from '../CurrentAuthMode.vue';
 
@@ -26,60 +26,60 @@
             <CurrentAuthMode />
             <p>当前角色: [{permissionStore.getRoleState.toString()}]</p>
             权限切换(请先切换权限模式为前端权限模式)：
-            <Button.Group>
-              <Button
+            <a-button-group>
+              <a-button
                 type={isAdmin ? 'primary' : ''}
                 onClick={changeRole.bind(null, RoleEnum.ADMIN)}
               >
                 {RoleEnum.ADMIN}
-              </Button>
-              <Button
+              </a-button>
+              <a-button
                 type={isNormal ? 'primary' : ''}
                 onClick={changeRole.bind(null, RoleEnum.NORMAL)}
               >
                 {RoleEnum.NORMAL}
-              </Button>
-            </Button.Group>
+              </a-button>
+            </a-button-group>
             <div class="p-10">
               <h1>组件方式控制</h1>
 
               <Authority roles={RoleEnum.ADMIN}>
-                <Button type="primary" block>
+                <a-button type="primary" block>
                   Admin角色可见
-                </Button>
+                </a-button>
               </Authority>
 
               <Authority roles={RoleEnum.NORMAL}>
-                <Button class="mt-5" type="primary" block>
+                <a-button class="mt-5" type="primary" block>
                   Normal角色可见
-                </Button>
+                </a-button>
               </Authority>
 
               <Authority roles={[RoleEnum.NORMAL, RoleEnum.ADMIN]}>
-                <Button class="mt-5" type="primary" block>
+                <a-button class="mt-5" type="primary" block>
                   Admin,Normal角色可见
-                </Button>
+                </a-button>
               </Authority>
 
               <h1>函数方式控制</h1>
               <h3>主要用于不适合写标签的地方,如 tabs可以用遍历过滤进行生成</h3>
 
               {hasRoleAuth(RoleEnum.ADMIN) && (
-                <Button type="primary" block>
+                <a-button type="primary" block>
                   Admin角色可见
-                </Button>
+                </a-button>
               )}
 
               {hasRoleAuth(RoleEnum.NORMAL) && (
-                <Button class="mt-5" type="primary" block>
+                <a-button class="mt-5" type="primary" block>
                   Normal角色可见
-                </Button>
+                </a-button>
               )}
 
               {hasRoleAuth([RoleEnum.NORMAL, RoleEnum.ADMIN]) && (
-                <Button class="mt-5" type="primary" block>
+                <a-button class="mt-5" type="primary" block>
                   Admin,Normal角色可见
-                </Button>
+                </a-button>
               )}
             </div>
           </div>

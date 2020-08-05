@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
-  import { Alert, Divider, Button } from 'ant-design-vue';
+  import { Alert, Divider } from 'ant-design-vue';
 
   import { createStorage } from '@/utils/storage/index';
 
@@ -30,15 +30,15 @@
           />
           <Divider>SessionStorage 操作</Divider>
 
-          <Button
+          <a-button
             onClick={() => {
               session.set(TEST_SESSION_KEY, 'test-value');
               createMessage.success(`已设置key:${TEST_SESSION_KEY},value:test-value`);
             }}
           >
             添加
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             class="mx-3"
             onClick={() => {
               const val = session.get(TEST_SESSION_KEY);
@@ -46,8 +46,8 @@
             }}
           >
             获取
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             onClick={() => {
               session.remove(TEST_SESSION_KEY);
               const val = session.get(TEST_SESSION_KEY);
@@ -55,8 +55,8 @@
             }}
           >
             删除
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             class="mx-3"
             onClick={() => {
               session.clear();
@@ -65,19 +65,19 @@
             }}
           >
             清空
-          </Button>
+          </a-button>
 
           <Divider>LocalStorage 操作</Divider>
 
-          <Button
+          <a-button
             onClick={() => {
               local.set(TEST_LOCAL_KEY, 'test-value');
               createMessage.success(`已设置key:${TEST_LOCAL_KEY},value:test-value`);
             }}
           >
             添加
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             class="mx-3"
             onClick={() => {
               const val = local.get(TEST_LOCAL_KEY);
@@ -85,8 +85,8 @@
             }}
           >
             获取
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             onClick={() => {
               local.remove(TEST_LOCAL_KEY);
               const val = local.get(TEST_LOCAL_KEY);
@@ -94,8 +94,8 @@
             }}
           >
             删除
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             class="mx-3"
             onClick={() => {
               local.clear();
@@ -104,19 +104,19 @@
             }}
           >
             清空
-          </Button>
+          </a-button>
 
           <Divider>Cookie操作</Divider>
 
-          <Button
+          <a-button
             onClick={() => {
               cookieObj.setCookie(TEST_COOKIE_KEY, 'test-value');
               createMessage.success(`已设置key:${TEST_COOKIE_KEY},value:test-value`);
             }}
           >
             添加
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             class="mx-3"
             onClick={() => {
               const val = cookieObj.getCookie(TEST_COOKIE_KEY);
@@ -124,8 +124,8 @@
             }}
           >
             获取
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             onClick={() => {
               cookieObj.removeCookie(TEST_COOKIE_KEY);
               const val = cookieObj.getCookie(TEST_COOKIE_KEY);
@@ -133,9 +133,9 @@
             }}
           >
             删除
-          </Button>
+          </a-button>
 
-          <Button
+          <a-button
             class="mx-3"
             onClick={() => {
               cookieObj.clearCookie();
@@ -144,7 +144,7 @@
             }}
           >
             清空
-          </Button>
+          </a-button>
         </div>
       );
     },

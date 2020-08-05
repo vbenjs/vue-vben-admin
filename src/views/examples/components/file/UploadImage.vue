@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, unref } from 'compatible-vue';
-  import { Button, Alert } from 'ant-design-vue';
+  import { Alert } from 'ant-design-vue';
   import { useModal } from '@/components/modal/index';
   import { UploadModal, UploadContainer } from '@/components/file/index';
 
@@ -18,7 +18,7 @@
       return () => (
         <div class="m-4">
           <Alert message="单独的上传按钮" />
-          <Button
+          <a-button
             class="m-4"
             onClick={() => {
               openModal({
@@ -27,7 +27,7 @@
             }}
           >
             上传
-          </Button>
+          </a-button>
           {!unref(isFirstLoadRef) && <UploadModal onRegister={register} onChange={handleChange} />}
           <div>
             <Alert message="上传与预览功能，默认图片上传" />

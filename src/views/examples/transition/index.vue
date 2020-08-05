@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, ref, unref } from 'compatible-vue';
-  import { Button } from 'ant-design-vue';
+
   import { CollapseContainer } from '@/components/container/index';
   import {
     ExpandTransition,
@@ -36,51 +36,51 @@
       return () => (
         <div class="transition-demo p-4">
           <CollapseContainer title="Expand" canExpan={false} class="transition-demo-wrap mr-4">
-            <Button type="primary" class="mb-3" onClick={() => (flag1.value = !unref(flag1))}>
+            <a-button type="primary" class="mb-3" onClick={() => (flag1.value = !unref(flag1))}>
               点击
-            </Button>
+            </a-button>
             <ExpandTransition>
               <div class="box" v-show={unref(flag1)} />
             </ExpandTransition>
           </CollapseContainer>
           <CollapseContainer title="Expand-X" canExpan={false} class="transition-demo-wrap mr-4">
-            <Button type="primary" class="mb-3" onClick={() => (flag2.value = !unref(flag2))}>
+            <a-button type="primary" class="mb-3" onClick={() => (flag2.value = !unref(flag2))}>
               点击
-            </Button>
+            </a-button>
             <ExpandXTransition>
               <div class="box" v-show={unref(flag2)} />
             </ExpandXTransition>
           </CollapseContainer>
 
           <CollapseContainer title="Fade" canExpan={false} class="transition-demo-wrap mr-4">
-            <Button type="primary" class="mb-3" onClick={() => (flag3.value = !unref(flag3))}>
+            <a-button type="primary" class="mb-3" onClick={() => (flag3.value = !unref(flag3))}>
               点击
-            </Button>
+            </a-button>
             <FadeTransition>
               <div class="box" v-show={unref(flag3)} />
             </FadeTransition>
           </CollapseContainer>
           <CollapseContainer title="Scale" canExpan={false} class="transition-demo-wrap mr-4">
-            <Button type="primary" class="mb-3" onClick={() => (flag4.value = !unref(flag4))}>
+            <a-button type="primary" class="mb-3" onClick={() => (flag4.value = !unref(flag4))}>
               点击
-            </Button>
+            </a-button>
             <ScaleTransition>
               <div class="box" v-show={unref(flag4)} />
             </ScaleTransition>
           </CollapseContainer>
           <CollapseContainer title="ScaleRotate" canExpan={false} class="transition-demo-wrap mr-4">
-            <Button type="primary" class="mb-3" onClick={() => (flag5.value = !unref(flag5))}>
+            <a-button type="primary" class="mb-3" onClick={() => (flag5.value = !unref(flag5))}>
               点击
-            </Button>
+            </a-button>
             <ScaleRotateTransition>
               <div class="box" v-show={unref(flag5)} />
             </ScaleRotateTransition>
           </CollapseContainer>
 
           <CollapseContainer title="SlideX" canExpan={false} class="transition-demo-wrap mr-4">
-            <Button type="primary" class="mb-3" onClick={() => (flag6.value = !unref(flag6))}>
+            <a-button type="primary" class="mb-3" onClick={() => (flag6.value = !unref(flag6))}>
               点击
-            </Button>
+            </a-button>
             <SlideXTransition>
               <div class="box" v-show={unref(flag6)} />
             </SlideXTransition>
@@ -90,17 +90,17 @@
             canExpan={false}
             class="transition-demo-wrap mr-4"
           >
-            <Button type="primary" class="mb-3" onClick={() => (flag7.value = !unref(flag7))}>
+            <a-button type="primary" class="mb-3" onClick={() => (flag7.value = !unref(flag7))}>
               点击
-            </Button>
+            </a-button>
             <SlideXReverseTransition>
               <div class="box" v-show={unref(flag7)} />
             </SlideXReverseTransition>
           </CollapseContainer>
           <CollapseContainer title="SlideY" canExpan={false} class="transition-demo-wrap mr-4">
-            <Button type="primary" class="mb-3" onClick={() => (flag8.value = !unref(flag8))}>
+            <a-button type="primary" class="mb-3" onClick={() => (flag8.value = !unref(flag8))}>
               点击
-            </Button>
+            </a-button>
             <SlideYTransition>
               <div class="box" v-show={unref(flag8)} />
             </SlideYTransition>
@@ -110,18 +110,18 @@
             canExpan={false}
             class="transition-demo-wrap mr-4"
           >
-            <Button type="primary" class="mb-3" onClick={() => (flag9.value = !unref(flag9))}>
+            <a-button type="primary" class="mb-3" onClick={() => (flag9.value = !unref(flag9))}>
               点击
-            </Button>
+            </a-button>
             <SlideYReverseTransition>
               <div class="box" v-show={unref(flag9)} />
             </SlideYReverseTransition>
           </CollapseContainer>
 
           <CollapseContainer title="ScrollX" canExpan={false} class="transition-demo-wrap mr-4">
-            <Button type="primary" class="mb-3" onClick={() => (flag10.value = !unref(flag10))}>
+            <a-button type="primary" class="mb-3" onClick={() => (flag10.value = !unref(flag10))}>
               点击
-            </Button>
+            </a-button>
             <ScrollXTransition>
               <div class="box" v-show={unref(flag10)} />
             </ScrollXTransition>
@@ -131,17 +131,17 @@
             canExpan={false}
             class="transition-demo-wrap mr-4"
           >
-            <Button type="primary" class="mb-3" onClick={() => (flag11.value = !unref(flag11))}>
+            <a-button type="primary" class="mb-3" onClick={() => (flag11.value = !unref(flag11))}>
               点击
-            </Button>
+            </a-button>
             <ScrollXReverseTransition>
               <div class="box" v-show={unref(flag11)} />
             </ScrollXReverseTransition>
           </CollapseContainer>
           <CollapseContainer title="ScrollY" canExpan={false} class="transition-demo-wrap mr-4">
-            <Button type="primary" class="mb-3" onClick={() => (flag12.value = !unref(flag12))}>
+            <a-button type="primary" class="mb-3" onClick={() => (flag12.value = !unref(flag12))}>
               点击
-            </Button>
+            </a-button>
             <ScrollYTransition>
               <div class="box" v-show={unref(flag12)} />
             </ScrollYTransition>
@@ -151,9 +151,9 @@
             canExpan={false}
             class="transition-demo-wrap mr-4"
           >
-            <Button type="primary" class="mb-3" onClick={() => (flag13.value = !unref(flag13))}>
+            <a-button type="primary" class="mb-3" onClick={() => (flag13.value = !unref(flag13))}>
               点击
-            </Button>
+            </a-button>
             <ScrollYReverseTransition>
               <div class="box" v-show={unref(flag13)} />
             </ScrollYReverseTransition>

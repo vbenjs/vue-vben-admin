@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { defineComponent, ref, unref } from 'compatible-vue';
   import { Tinymce } from '@/components/tinymce/index';
-  import { Button, Switch } from 'ant-design-vue';
+  import { Switch } from 'ant-design-vue';
 
   export default defineComponent({
     name: 'TinymceDemo',
@@ -33,7 +33,7 @@
               />
             </div>
 
-            <Button onClick={handleSetContent}>设置值</Button>
+            <a-button onClick={handleSetContent}>设置值</a-button>
             <p class="mt-4"> {unref(tinymceContent)}</p>
           </div>
           <Tinymce

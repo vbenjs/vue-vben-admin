@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
-  import { Button } from 'ant-design-vue';
+
   import { useDesign } from '@/hooks/core/useDesign';
   import { BasicColumn, BasicTable } from '@/components/table/index';
   import { jsonToSheetXlsx, aoaToSheetXlsx } from '@/components/excel/index';
@@ -103,9 +103,9 @@
           <div class={prefixCls}>
             <BasicTable title="基础表格" columns={columns} dataSource={cloneDeep(data)}>
               <template slot="toolbar">
-                <Button onClick={aoaToExcel}>aoa·ToExcel</Button>
-                <Button onClick={jsonToExcelAndHeader}>jsonToExcelAndHeader</Button>
-                <Button onClick={jsonToExcel}>jsonToExcel</Button>
+                <a-button onClick={aoaToExcel}>aoa·ToExcel</a-button>
+                <a-button onClick={jsonToExcelAndHeader}>jsonToExcelAndHeader</a-button>
+                <a-button onClick={jsonToExcel}>jsonToExcel</a-button>
               </template>
             </BasicTable>
           </div>

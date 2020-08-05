@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { defineComponent, ref, unref } from 'compatible-vue';
   import { useDesign } from '@/hooks/core/useDesign';
-  import { Button } from 'ant-design-vue';
+
   import { useCountdown } from '@/hooks/event/useCountdown';
   import { isFunction } from '@/utils/is/index';
 
@@ -55,7 +55,7 @@
         }
       }
       return () => (
-        <Button
+        <a-button
           disabled={unref(startRef)}
           class={prefixCls}
           type={props.isBtn ? 'link' : 'link'}
@@ -63,7 +63,7 @@
           loading={unref(loadingRef)}
         >
           {!unref(startRef) ? '获取验证码' : `${unref(countRef)} 秒后重新获取`}
-        </Button>
+        </a-button>
       );
     },
   });

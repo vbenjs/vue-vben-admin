@@ -2,7 +2,7 @@
   // 组件相关
   import { defineComponent, unref } from 'compatible-vue';
   import { SvgIcon } from '@/components/icon/index';
-  import { Button, Icon } from 'ant-design-vue';
+  import { Icon } from 'ant-design-vue';
   import { BasicModal, useModalExt } from '@/components/modal/index';
 
   // hook
@@ -81,14 +81,14 @@
             </div>
             <BasicForm onRegister={register} />
             <div class={`${prefixCls}__footer`}>
-              <Button type="primary" block class="mt-2" onClick={lock}>
+              <a-button type="primary" block class="mt-2" onClick={lock}>
                 <Icon type="lock" />
                 锁屏
-              </Button>
-              <Button block class="mt-2" onClick={lock.bind(null, false)}>
+              </a-button>
+              <a-button block class="mt-2" onClick={lock.bind(null, false)}>
                 <Icon type="lock" />
                 不设置密码锁屏
-              </Button>
+              </a-button>
             </div>
           </div>
         </BasicModal>

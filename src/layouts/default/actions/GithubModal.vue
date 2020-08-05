@@ -2,7 +2,7 @@
   // 组件相关
   import { defineComponent } from 'compatible-vue';
   import { BasicModal, useModalExt } from '@/components/modal/index';
-  import { Divider, Button } from 'ant-design-vue';
+  import { Divider } from 'ant-design-vue';
 
   import { Icon } from '@/components/icon/index';
 
@@ -30,7 +30,7 @@
         >
           <div class={`${prefixCls}__main`}>
             <Divider>github</Divider>
-            <Button
+            <a-button
               block
               type="primary"
               onClick={() => {
@@ -39,7 +39,7 @@
             >
               <Icon type="github" />
               点击跳转github
-            </Button>
+            </a-button>
 
             <Divider>QQ群： 569291866</Divider>
 

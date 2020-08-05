@@ -175,6 +175,9 @@ export interface FormInstance extends Partial<WrappedFormUtils> {
   removeSchemaByFiled(field: string | string[]): void;
   appendSchemaByField(schema: FormSchema, prefixField?: string): void;
 }
+
+export type FormActionType = FormInstance;
+
 export type GetFormFn = (formInstance: FormInstance) => void;
 /**
  * @description:

@@ -1,6 +1,6 @@
 <script lang="tsx">
   import Modal from './Modal.vue';
-  import { Button } from 'ant-design-vue';
+
   import { Icon } from '@/components/icon/index';
   import ModalWrapper from './ModalWrapper.vue';
   import { BaseTitle } from '@/components/base/index';
@@ -143,14 +143,14 @@
             {getSlot(slots, 'insert-footer')}
 
             {showCancelBtn && (
-              <Button {...{ ...cancelButtonProps }} onClick={handleCancel}>
+              <a-button {...{ ...cancelButtonProps }} onClick={handleCancel}>
                 {cancelText}
-              </Button>
+              </a-button>
             )}
             {getSlot(slots, 'centerd-footer')}
 
             {showOkBtn && (
-              <Button
+              <a-button
                 type={okType}
                 {...{ ...okButtonProps }}
                 loading={confirmLoading}
@@ -159,7 +159,7 @@
                 }}
               >
                 {okText}
-              </Button>
+              </a-button>
             )}
 
             {getSlot(slots, 'append-footer')}

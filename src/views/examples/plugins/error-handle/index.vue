@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, watch, ref, unref } from 'compatible-vue';
-  import { Button, Tag } from 'ant-design-vue';
+  import { Tag } from 'ant-design-vue';
 
   import { useDesign } from '@/hooks/core/useDesign';
 
@@ -96,15 +96,15 @@
           })}
           <BasicTable onRegister={register} class={`${prefixCls}-table`}>
             <template slot="toolbar">
-              <Button onClick={fireVueError} type="primary">
+              <a-button onClick={fireVueError} type="primary">
                 点击触发vue错误
-              </Button>
-              <Button onClick={fireResourceError} type="primary">
+              </a-button>
+              <a-button onClick={fireResourceError} type="primary">
                 点击触发resource错误
-              </Button>
-              <Button onClick={fireAjaxError} type="primary">
+              </a-button>
+              <a-button onClick={fireAjaxError} type="primary">
                 点击触发ajax错误
-              </Button>
+              </a-button>
             </template>
           </BasicTable>
         </div>

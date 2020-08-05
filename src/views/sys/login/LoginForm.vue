@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { defineComponent, ref, unref } from 'compatible-vue';
   import { SvgIcon } from '@/components/icon/index';
-  import { Button } from 'ant-design-vue';
+
   import { BasicForm, useForm } from '@/components/form/index';
   import { useModal } from '@/components/modal/index';
   import { VerifyModal } from '@/components/verify/index';
@@ -104,7 +104,7 @@
           )}
           <BasicForm onRegister={register} />
 
-          <Button
+          <a-button
             type="primary"
             size="large"
             loading={unref(loadingRef)}
@@ -113,7 +113,7 @@
             onClick={handleLogin}
           >
             登陆
-          </Button>
+          </a-button>
         </div>
       );
     },

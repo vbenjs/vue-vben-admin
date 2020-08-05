@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, reactive, unref, computed } from 'compatible-vue';
-  import { Upload, Button } from 'ant-design-vue';
+  import { Upload } from 'ant-design-vue';
   import { UploadFile } from 'ant-design-vue/types/upload';
   import { BasicModal } from '@/components/modal/index';
   import { Icon } from '@/components/icon/index';
@@ -189,7 +189,7 @@
                   <div class="ant-upload-text">上传</div>
                 </div>
               ) : (
-                <Button type="primary">上传</Button>
+                <a-button type="primary">上传</a-button>
               )
             ) : null}
           </Upload>

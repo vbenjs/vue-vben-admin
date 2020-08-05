@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
   import { Authority } from '@/components/authority/index';
-  import { Button, Alert, Divider } from 'ant-design-vue';
+  import { Alert, Divider } from 'ant-design-vue';
   import CurrentAuthMode from '../CurrentAuthMode.vue';
 
   import { useAuth } from '@/hooks/core/useAuth';
@@ -48,7 +48,7 @@
             当前拥有的code列表： {permissionStore.getPermCodeListState.toString()}
             <Divider />
             权限切换：
-            <Button
+            <a-button
               type="primary"
               class="mr-2"
               onClick={() => {
@@ -58,8 +58,8 @@
               }}
             >
               点击切换按钮权限(用户id为2)
-            </Button>
-            <Button
+            </a-button>
+            <a-button
               type="primary"
               onClick={() => {
                 if (beforeClick()) {
@@ -68,7 +68,7 @@
               }}
             >
               点击切换按钮权限(用户id为1,默认)
-            </Button>
+            </a-button>
             <Divider />
             <p>点击后请查看下方按钮变化</p>
             <Divider />
@@ -76,39 +76,39 @@
               <h1>组件方式控制</h1>
 
               <Authority authMode={AuthModeEnum.BACK} code="10000">
-                <Button type="primary" block>
+                <a-button type="primary" block>
                   拥有code: 10000可见
-                </Button>
+                </a-button>
               </Authority>
               <Authority class="my-3" authMode={AuthModeEnum.BACK} code="20000">
-                <Button type="primary" block>
+                <a-button type="primary" block>
                   拥有code: 20000可见
-                </Button>
+                </a-button>
               </Authority>
               <Authority class="my-3" authMode={AuthModeEnum.BACK} code="20020">
-                <Button type="primary" block>
+                <a-button type="primary" block>
                   拥有code: 20020可见
-                </Button>
+                </a-button>
               </Authority>
               <h1>函数方式控制</h1>
               <h3>主要用于不适合写标签的地方,如 tabs可以用遍历过滤进行生成</h3>
 
               {hasCodeAuth('10000') && (
-                <Button type="primary" block>
+                <a-button type="primary" block>
                   拥有code: 10000可见
-                </Button>
+                </a-button>
               )}
 
               {hasCodeAuth('20000') && (
-                <Button class="mt-5" type="primary" block>
+                <a-button class="mt-5" type="primary" block>
                   拥有code: 20000可见
-                </Button>
+                </a-button>
               )}
 
               {hasCodeAuth('20020') && (
-                <Button class="mt-5" type="primary" block>
+                <a-button class="mt-5" type="primary" block>
                   拥有code: 20020可见
-                </Button>
+                </a-button>
               )}
             </div>
           </div>

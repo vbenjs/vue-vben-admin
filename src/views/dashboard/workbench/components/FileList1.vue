@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, computed, unref } from 'compatible-vue';
-  import { Row, Col, Button, Icon } from 'ant-design-vue';
+  import { Row, Col, Icon } from 'ant-design-vue';
   import { CollapseContainer, ScrollContainer } from '@/components/container/index';
 
   import { useDesign } from '@/hooks/core/useDesign';
@@ -32,9 +32,9 @@
                     <span title={fileTitle}> {fileTitle}</span>
                   </Col>
                   <Col>
-                    <Button type="link" size="small" onClick={handleDownload.bind(item)}>
+                    <a-button type="link" size="small" onClick={handleDownload.bind(item)}>
                       下载
-                    </Button>
+                    </a-button>
                   </Col>
                 </Row>
               );

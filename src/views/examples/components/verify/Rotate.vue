@@ -4,8 +4,6 @@
 
   import { useMessage } from '@/hooks/core/useMessage';
 
-  import { Button } from 'ant-design-vue';
-
   import headImg from '@/assets/images/header.jpg';
 
   type DragVerifyRef = DragVerifyActionType | null;
@@ -33,9 +31,9 @@
         <div class="p-4 rotate-verify-demo">
           <div class="rotate-verify-demo__wrap">
             <RotateDragVerify ref={el1Ref} onSuccess={handleChange} src={headImg} />
-            <Button class="ml-4" type="primary" onClick={handleBtnClick.bind(null, el1Ref)}>
+            <a-button class="ml-4" type="primary" onClick={handleBtnClick.bind(null, el1Ref)}>
               还原
-            </Button>
+            </a-button>
           </div>
         </div>
       );

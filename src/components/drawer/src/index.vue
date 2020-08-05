@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { Drawer, Button } from 'ant-design-vue';
+  import { Drawer } from 'ant-design-vue';
   import { defineComponent, ref, computed, watch, unref } from 'compatible-vue';
   // import { BaseTitle } from '@/components/base/index';
   import { Icon } from '@/components/icon/index';
@@ -115,10 +115,10 @@
           <FullLoading absolute v-show={props.loading} tip="加载中..." />
           <template slot="title">
             {props.drawerType === DrawerType.DETAIL ? (
-              <Button size="small" type="link" onClick={onClose}>
+              <a-button size="small" type="link" onClick={onClose}>
                 <Icon type="left" />
                 返回
-              </Button>
+              </a-button>
             ) : (
               <BaseTitle>{unref(getMergeProps).title || getSlot(slots, 'title')}</BaseTitle>
             )}

@@ -2,7 +2,7 @@
   // 组件相关
   import { defineComponent, ref, unref, computed } from 'compatible-vue';
   import { SvgIcon } from '@/components/icon/index';
-  import { Button, Icon, Alert } from 'ant-design-vue';
+  import { Icon, Alert } from 'ant-design-vue';
   // hook
   import { useDesign } from '@/hooks/core/useDesign';
   import { BasicForm, useForm } from '@/components/form/index';
@@ -86,11 +86,11 @@
               {unref(errMsgRef) && <Alert type="error" message="锁屏密码错误" banner />}
               <div class={`${prefixCls}__footer`}>
                 {!isNotPwd && (
-                  <Button type="default" class="mt-2 mr-2" onClick={goLogin}>
+                  <a-button type="default" class="mt-2 mr-2" onClick={goLogin}>
                     返回登陆
-                  </Button>
+                  </a-button>
                 )}
-                <Button
+                <a-button
                   type="primary"
                   class="mt-2"
                   onClick={unLock.bind(null, !isNotPwd)}
@@ -98,7 +98,7 @@
                 >
                   <Icon type="unlock" />
                   {isNotPwd ? '进入系统' : '解锁'}
-                </Button>
+                </a-button>
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
 
-  import { Button, Alert } from 'ant-design-vue';
+  import { Alert } from 'ant-design-vue';
   import CurrentAuthMode from '../CurrentAuthMode.vue';
 
   import { useAuth } from '@/hooks/core/useAuth';
@@ -37,7 +37,7 @@
             <CurrentAuthMode />
             <p>点击后请查看左侧菜单变化</p>
             权限切换：
-            <Button
+            <a-button
               type="primary"
               class="mr-2"
               onClick={() => {
@@ -47,8 +47,8 @@
               }}
             >
               点击切换菜单权限(用户id为2)
-            </Button>
-            <Button
+            </a-button>
+            <a-button
               type="primary"
               onClick={() => {
                 if (beforeClick()) {
@@ -57,7 +57,7 @@
               }}
             >
               点击切换菜单权限(用户id为1,默认)
-            </Button>
+            </a-button>
           </div>
         );
       };

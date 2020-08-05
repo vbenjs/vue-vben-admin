@@ -2,7 +2,7 @@
   import { defineComponent, computed, unref } from 'compatible-vue';
   import { Drawer } from '@/components/drawer/index';
   import { Icon } from '@/components/icon/index';
-  import { Divider, Switch, Tooltip, InputNumber, Select, Button } from 'ant-design-vue';
+  import { Divider, Switch, Tooltip, InputNumber, Select } from 'ant-design-vue';
 
   import { MenuModeEnum, MenuTypeEnum, MenuThemeEnum } from '@/enums/menuEnum';
   import { ContentEnum, RouterTransitionEnum } from '@/enums/appEnum';
@@ -512,13 +512,13 @@
           {renderTransition()}
           <Divider />
           <div class="setting-drawer__footer">
-            <Button type="primary" block onClick={handleCopy}>
+            <a-button type="primary" block onClick={handleCopy}>
               <Icon type="copy" /> 拷贝
-            </Button>
-            <Button block class="mt-2" onClick={handleResetSetting}>
+            </a-button>
+            <a-button block class="mt-2" onClick={handleResetSetting}>
               <Icon type="redo" />
               重置
-            </Button>
+            </a-button>
           </div>
         </Drawer>
       );

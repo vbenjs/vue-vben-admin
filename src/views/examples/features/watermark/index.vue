@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, ref, Ref } from 'compatible-vue';
-  import { Button } from 'ant-design-vue';
+
   import { CollapseContainer } from '@/components/container/index';
 
   import { useWatermark } from '@/hooks/functions/useWatermark';
@@ -14,27 +14,27 @@
       return () => (
         <div ref={wrapRef} class="p-4" style={{ height: '300px' }}>
           <CollapseContainer title="全局" class="mb-3">
-            <Button class="mr-2" onClick={setWatermark.bind(null, 'test')}>
+            <a-button class="mr-2" onClick={setWatermark.bind(null, 'test')}>
               设置水印
-            </Button>
-            <Button class="mr-2" onClick={clear}>
+            </a-button>
+            <a-button class="mr-2" onClick={clear}>
               清空水印
-            </Button>
-            <Button class="mr-2" onClick={setWatermark.bind(null, 'test123')}>
+            </a-button>
+            <a-button class="mr-2" onClick={setWatermark.bind(null, 'test123')}>
               更改水印
-            </Button>
+            </a-button>
           </CollapseContainer>
 
           <CollapseContainer title="局部" class="mb-3">
-            <Button class="mr-2" onClick={set.bind(null, 'test')}>
+            <a-button class="mr-2" onClick={set.bind(null, 'test')}>
               设置水印
-            </Button>
-            <Button class="mr-2" onClick={clearArea}>
+            </a-button>
+            <a-button class="mr-2" onClick={clearArea}>
               清空水印
-            </Button>
-            <Button class="mr-2" onClick={set.bind(null, 'test123')}>
+            </a-button>
+            <a-button class="mr-2" onClick={set.bind(null, 'test123')}>
               更改水印
-            </Button>
+            </a-button>
           </CollapseContainer>
         </div>
       );

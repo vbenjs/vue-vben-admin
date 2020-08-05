@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, watch, ref, unref } from 'compatible-vue';
-  import { Button } from 'ant-design-vue';
+
   import DetailModal from './DetailModal.vue';
   import { useModal } from '@/components/modal/index';
 
@@ -31,9 +31,9 @@
           dataIndex: 'action',
           customRender: (text: string, recoed: ErrorInfo) => {
             return (
-              <Button type="link" size="small" onClick={handleDetail.bind(null, recoed)}>
+              <a-button type="link" size="small" onClick={handleDetail.bind(null, recoed)}>
                 详情
-              </Button>
+              </a-button>
             );
           },
         },
@@ -80,15 +80,15 @@
           )}
           <BasicTable onRegister={register} class={`${prefixCls}-table`}>
             <template slot="toolbar">
-              <Button onClick={fireVueError} type="primary">
+              <a-button onClick={fireVueError} type="primary">
                 点击触发vue错误
-              </Button>
-              <Button onClick={fireResourceError} type="primary">
+              </a-button>
+              <a-button onClick={fireResourceError} type="primary">
                 点击触发resource错误
-              </Button>
-              <Button onClick={fireAjaxError} type="primary">
+              </a-button>
+              <a-button onClick={fireAjaxError} type="primary">
                 点击触发ajax错误
-              </Button>
+              </a-button>
             </template>
           </BasicTable>
         </div>

@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, unref, reactive } from 'compatible-vue';
-  import { Button } from 'ant-design-vue';
+
   // import { UploadFile } from 'ant-design-vue/types/upload';
 
   import { useModal } from '@/components/modal/index';
@@ -34,8 +34,8 @@
 
       return () => (
         <div class="m-4">
-          <Button.Group>
-            <Button
+          <a-button-group>
+            <a-button
               onClick={() => {
                 openModal({
                   visible: true,
@@ -43,16 +43,16 @@
               }}
             >
               上传
-            </Button>
-            <Button
+            </a-button>
+            <a-button
               icon="eye"
               onClick={() => {
                 openModalPv({
                   visible: true,
                 });
               }}
-            ></Button>
-          </Button.Group>
+            ></a-button>
+          </a-button-group>
 
           {!unref(isFirstLoadRef) && (
             <UploadModal props={props} onRegister={register} onChange={handleChange} />

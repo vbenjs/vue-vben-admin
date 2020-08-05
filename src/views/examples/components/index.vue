@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
-  import { Alert, Button } from 'ant-design-vue';
+  import { Alert } from 'ant-design-vue';
   export default defineComponent({
     name: 'ComponentBaseDemo',
     setup() {
@@ -12,7 +12,7 @@
             type="info"
             show-icon
           />
-          <Button
+          <a-button
             type="primary"
             class="my-4"
             onClick={() => {
@@ -20,7 +20,7 @@
             }}
           >
             点击跳转 Ant Design Vue 组件库文档
-          </Button>
+          </a-button>
         </div>
       );
     },

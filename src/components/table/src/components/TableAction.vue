@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, PropOptions } from 'compatible-vue';
-  import { Dropdown, Button, Menu } from 'ant-design-vue';
+  import { Dropdown, Menu } from 'ant-design-vue';
   import { Icon } from '@/components/icon/index';
   import { useDesign } from '@/hooks/core/useDesign';
 
@@ -29,28 +29,28 @@
               actions.map((action) => {
                 const { disabled = false, on, label, props, icon } = action;
                 return (
-                  <Button type="link" size="small" props={props} on={on} disabled={disabled}>
+                  <a-button type="link" size="small" props={props} on={on} disabled={disabled}>
                     {label}
                     {icon && <Icon type={icon} />}
-                  </Button>
+                  </a-button>
                 );
               })}
             {dropDownActions && dropDownActions.length && (
               <Dropdown>
-                <Button type="link" size="small">
+                <a-button type="link" size="small">
                   更多
                   <Icon type="down" />
-                </Button>
+                </a-button>
                 (
                 <Menu slot="overlay">
                   {dropDownActions.map((action, index) => {
                     const { disabled = false, on, label, props, icon } = action;
                     return (
                       <Menu.Item key={index} disabled={disabled}>
-                        <Button type="link" size="small" {...props} on={on} disabled={disabled}>
+                        <a-button type="link" size="small" {...props} on={on} disabled={disabled}>
                           {label}
                           {icon && <Icon type={icon} />}
-                        </Button>
+                        </a-button>
                       </Menu.Item>
                     );
                   })}

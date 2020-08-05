@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { defineComponent, reactive } from 'compatible-vue';
   import { useDesign } from '@/hooks/core/useDesign';
-  import { Button } from 'ant-design-vue';
+
   import { ImportFromExcel, ExcelData } from '@/components/excel/index';
   import { BasicTable, BasicColumn } from '@/components/table/index';
 
@@ -34,7 +34,7 @@
         return (
           <div class={prefixCls}>
             <ImportFromExcel onSuccess={loadDataInTable}>
-              <Button class="m-3">导入Excel</Button>
+              <a-button class="m-3">导入Excel</a-button>
             </ImportFromExcel>
             <BasicTable
               title={tableState.title}

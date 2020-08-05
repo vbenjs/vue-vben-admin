@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
-  import { Alert, Button } from 'ant-design-vue';
+  import { Alert } from 'ant-design-vue';
   import { downloadByUrl, downloadByData } from '@/components/file/index';
   // import { downloadApi } from '@/api/demo/file';
 
@@ -14,11 +14,11 @@
       return () => (
         <div class="p-4">
           <Alert message="根据后台接口文件流下载" />
-          <Button type="primary" class="my-4" onClick={handleDownload}>
+          <a-button type="primary" class="my-4" onClick={handleDownload}>
             文件流下载
-          </Button>
+          </a-button>
           <Alert message="根据文件地址下载文件" />
-          <Button
+          <a-button
             type="primary"
             class="my-4"
             onClick={() => {
@@ -29,7 +29,7 @@
             }}
           >
             文件地址下载
-          </Button>
+          </a-button>
         </div>
       );
     },

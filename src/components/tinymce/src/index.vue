@@ -69,7 +69,6 @@
 
   import { useDesign } from '@/hooks/core/useDesign';
 
-  import { Button } from 'ant-design-vue';
   import { useModal } from '@/components/modal/index';
   import { UploadModal, UploadResult } from '@/components/file/index';
 
@@ -192,7 +191,7 @@
         <div class={`${prefixCls}__wrapper`} style={{ width: unref(getWidth) }}>
           <textarea id={props.id} class={`${prefixCls}__textarea`} />
           {props.showUploadImage && (
-            <Button
+            <a-button
               class={`${prefixCls}__upload`}
               type="primary"
               onClick={() => {
@@ -202,7 +201,7 @@
               }}
             >
               上传
-            </Button>
+            </a-button>
           )}
 
           {props.showUploadImage && !unref(isFirstLoadRef) && (

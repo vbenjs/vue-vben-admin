@@ -78,6 +78,7 @@ export interface DescOptions {
 export interface DescInstance {
   setProps(descProps: Partial<DescOptions>): void;
 }
+
 export type GetDescFn = (descInstance: DescInstance) => void;
 /**
  * @description:

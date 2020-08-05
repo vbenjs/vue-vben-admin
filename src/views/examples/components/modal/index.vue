@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, unref } from 'compatible-vue';
-  import { Button, Alert } from 'ant-design-vue';
+  import { Alert } from 'ant-design-vue';
   import { useModal } from '@/components/modal/index';
 
   import Modal1 from './Modal1.vue';
@@ -18,7 +18,7 @@
         return (
           <div class="p-4 modal-demo">
             <Alert message="使用 useModal 进行弹窗操作，默认可以拖动，可以通过 draggable 参数进行控制是否可以拖动" />
-            <Button
+            <a-button
               class="m-4"
               type="primary"
               onClick={() => {
@@ -28,8 +28,8 @@
               }}
             >
               打开弹窗1(默认可以拖动)
-            </Button>
-            <Button
+            </a-button>
+            <a-button
               class="m-4"
               type="primary"
               onClick={() => {
@@ -39,12 +39,12 @@
               }}
             >
               打开弹窗2(显示帮助按钮)
-            </Button>
+            </a-button>
             {!unref(isFirstLoadRef) && <Modal1 onRegister={register} />}
             {!unref(isFirstLoadRef2) && <Modal2 onRegister={register2} />}
 
             <Alert message="通过 useWrapper 参数进行控制是否可以自适应高度，默认打开" />
-            <Button
+            <a-button
               class="m-4"
               type="primary"
               onClick={() => {
@@ -54,11 +54,11 @@
               }}
             >
               打开弹窗3(内容自适应屏幕高度)
-            </Button>
+            </a-button>
             {!unref(isFirstLoadRef3) && <Modal3 onRegister={register3} />}
 
             <Alert message="通过 canFullscreen 参数进行控制是否可以进行全屏，默认打开" />
-            <Button
+            <a-button
               class="m-4"
               type="primary"
               onClick={() => {
@@ -68,7 +68,7 @@
               }}
             >
               打开弹窗4(控制弹窗是否可以全屏)
-            </Button>
+            </a-button>
             {!unref(isFirstLoadRef4) && <Modal4 onRegister={register4} />}
           </div>
         );

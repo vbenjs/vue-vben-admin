@@ -39,28 +39,6 @@
     name: 'DescDemo',
     setup() {
       const [register] = useDescription({
-        title: '基础示例',
-        collapseOptions: {
-          canExpand: true,
-          helpMessage: 'help me',
-        },
-        column: 3,
-        data: mockData,
-        schema: schema,
-      });
-      const [register1] = useDescription({
-        title: '垂直示例',
-        layout: 'vertical',
-        collapseOptions: {
-          canExpand: true,
-          helpMessage: 'help me',
-        },
-        column: 2,
-        data: mockData,
-        schema: schema,
-      });
-
-      const [register2] = useDescription({
         title: '无边框示例',
         bordered: false,
         data: mockData,
@@ -70,10 +48,27 @@
       return () => (
         <div class="p-4">
           <Alert message="二次封装Desc组件，提供useDescription 函数方便调用" />
-          <Description onRegister={register} class="m-2" />
+          <Description
+            class="m-2"
+            title="基础示例"
+            collapseOptions={{
+              canExpand: true,
+              helpMessage: 'help me',
+            }}
+            column={3}
+            data={mockData}
+            schema={schema}
+          />
 
-          <Description onRegister={register1} class="m-2" />
-          <Description onRegister={register2} class="m-2" />
+          <Description
+            class="m-2"
+            title="垂直示例"
+            layout="vertical"
+            column={2}
+            data={mockData}
+            schema={schema}
+          />
+          <Description onRegister={register} class="m-2" />
         </div>
       );
     },

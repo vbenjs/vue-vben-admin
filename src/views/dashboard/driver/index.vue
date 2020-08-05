@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
-  import { Button } from 'ant-design-vue';
+
   import { useStepsDriver } from '@/hooks/functions/useDriver';
 
   export default defineComponent({
@@ -46,9 +46,9 @@
               driver.js.
             </a>
           </div>
-          <Button onClick={startDriver} class="m-4">
+          <a-button onClick={startDriver} class="m-4">
             开始引导
-          </Button>
+          </a-button>
         </div>
       );
     },

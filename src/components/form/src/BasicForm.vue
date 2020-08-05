@@ -7,6 +7,7 @@
     computed,
     unref,
     watch,
+    getCurrentInstance,
     // PropOptions
   } from 'compatible-vue';
 
@@ -429,6 +430,10 @@
         removeSchemaByFiled,
         appendSchemaByField,
       };
+      const currentInstance = getCurrentInstance() as any;
+      if (currentInstance) {
+        Object.assign(currentInstance, methods);
+      }
       emit('register', methods);
       onMounted(() => {
         emit('mounted');
