@@ -319,6 +319,7 @@
             {getSlot(slots, 'header')}
             {unref(getIsShowSearch) && (
               <SearchInput
+                theme={props.theme}
                 onChange={handleInputChange}
                 onClick={handleInputClick}
                 collapsed={getCollapsedState}

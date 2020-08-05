@@ -83,6 +83,24 @@ export default {
       ],
     },
     {
+      name: 'tree组件',
+      path: '/tree-demo',
+      children: [
+        {
+          name: '基础示例',
+          path: '/base',
+        },
+        {
+          name: '右键/按钮示例',
+          path: '/action',
+        },
+        {
+          name: '函数使用示例',
+          path: '/methods',
+        },
+      ],
+    },
+    {
       name: '懒加载组件',
       path: '/lazy-demo',
       children: [

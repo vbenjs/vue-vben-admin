@@ -18,3 +18,18 @@ export function getSlot(slots: Slots, slot: string, data?: any) {
   }
   return slots[slot](data);
 }
+
+/**
+ * 继承slots
+ * @param slots
+ */
+export function extendSlots(slots: Slots, excludeKeys: string[] = []) {
+  const slotKeys = Object.keys(slots);
+
+  return slotKeys.map((key) => {
+    if (excludeKeys.includes(key)) {
+      return null;
+    }
+    return <template slot={key}>{getSlot(slots, key)}</template>;
+  });
+}

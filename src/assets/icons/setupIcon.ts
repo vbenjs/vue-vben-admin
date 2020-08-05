@@ -70,6 +70,8 @@ export { default as SearchOutline } from '@ant-design/icons/lib/outline/SearchOu
 export { default as BarsOutline } from '@ant-design/icons/lib/outline/BarsOutline';
 export { default as StarFill } from '@ant-design/icons/lib/fill/StarFill';
 export { default as FilterOutline } from '@ant-design/icons/lib/outline/FilterOutline';
+export { default as CaretDownFill } from '@ant-design/icons/lib/fill/CaretDownFill';
+export { default as CaretUpFill } from '@ant-design/icons/lib/fill/CaretUpFill';
 export { default as CaretUpOutline } from '@ant-design/icons/lib/outline/CaretUpOutline';
 export { default as CaretDownOutline } from '@ant-design/icons/lib/outline/CaretDownOutline';
 export { default as PlusOutline } from '@ant-design/icons/lib/outline/PlusOutline';

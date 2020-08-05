@@ -162,6 +162,39 @@ const routes: RouteConfigEx[] = [
     ],
   },
   {
+    path: '/tree-demo',
+    name: 'TreeDemo',
+    meta: {
+      title: 'tree组件',
+    },
+    children: [
+      {
+        path: '/base',
+        name: 'TreeBaseDemo',
+        component: () => createAsyncComponent(import('@/views/examples/tree/index.vue')),
+        meta: {
+          title: '基础示例',
+        },
+      },
+      {
+        path: '/action',
+        name: 'TreeActionDemo',
+        component: () => createAsyncComponent(import('@/views/examples/tree/ActionDemo.vue')),
+        meta: {
+          title: '右键/按钮示例',
+        },
+      },
+      {
+        path: '/methods',
+        name: 'TreeMethodsDemo',
+        component: () => createAsyncComponent(import('@/views/examples/tree/Methods.vue')),
+        meta: {
+          title: '函数使用示例',
+        },
+      },
+    ],
+  },
+  {
     path: '/lazy-demo',
     name: 'LazyDemo',
     meta: {
