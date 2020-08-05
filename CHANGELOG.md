@@ -1,3 +1,41 @@
+# [1.1.0](https://github.com/anncwb/vue-vben-admin/compare/1.0.4...1.1.0) (2020-08-05)
+
+### ♻ Code Refactoring
+
+- **button:** 将 button 注册为全局组件,方便改造 ([d455440](https://github.com/anncwb/vue-vben-admin/commit/d455440)) by: **陈文彬** (anncwb@126.com)
+- **use-router:** 重构 useRouter 的 vue 实例初始化 ([6d3afd2](https://github.com/anncwb/vue-vben-admin/commit/6d3afd2)) by: **陈文彬** (anncwb@126.com)
+
+### ⚡ Performance Improvements
+
+- **verify:** 优化验证码组件提示 ([f0b3417](https://github.com/anncwb/vue-vben-admin/commit/f0b3417)) by: **陈文彬** (anncwb@126.com)
+- 优化 hooks ([6ee5548](https://github.com/anncwb/vue-vben-admin/commit/6ee5548)) by: **陈文彬** (anncwb@126.com)
+- **hooks:** perf hooks ([3ec145d](https://github.com/anncwb/vue-vben-admin/commit/3ec145d)) by: **陈文彬** (anncwb@126.com)
+
+### ✨ Features
+
+- **excel-plugins:** add import and export excel plugin ([5bbfc7f](https://github.com/anncwb/vue-vben-admin/commit/5bbfc7f)) by: **jq** (1151176506@qq.com)
+- **tree:** new tree component ([bb773b7](https://github.com/anncwb/vue-vben-admin/commit/bb773b7)) by: **陈文彬** (anncwb@126.com)
+
+### 🎫 Chores
+
+- build 1.0.4 ([1d56fc0](https://github.com/anncwb/vue-vben-admin/commit/1d56fc0)) by: **陈文彬** (anncwb@126.com)
+
+### 🐛 Bug Fixes
+
+- **table:** 修复未使用 useTable 时候组件报错问题 ([9e7fde4](https://github.com/anncwb/vue-vben-admin/commit/9e7fde4)) by: **陈文彬** (anncwb@126.com)
+- **table:** 修复未使用 useTable 时候组件报错问题 ([5b2399c](https://github.com/anncwb/vue-vben-admin/commit/5b2399c)) by: **陈文彬** (anncwb@126.com)
+- **verify:** 修复第一次加载未设置旋转角度问题 ([9210541](https://github.com/anncwb/vue-vben-admin/commit/9210541)) by: **陈文彬** (anncwb@126.com)
+
+### 💄 Styles
+
+- **css-prefix:** unified style prefix ([4403ca0](https://github.com/anncwb/vue-vben-admin/commit/4403ca0)) by: **陈文彬** (anncwb@126.com)
+
+### 🔧 Continuous Integration
+
+- **mock:** fix dev mock error ([34d2dfa](https://github.com/anncwb/vue-vben-admin/commit/34d2dfa)) by: **陈文彬** (anncwb@126.com)
+- **mock:** remove console ([c0d1739](https://github.com/anncwb/vue-vben-admin/commit/c0d1739)) by: **陈文彬** (anncwb@126.com)
+- **npm-hook:** automatically created when the .cache folder does not exist ([88f285b](https://github.com/anncwb/vue-vben-admin/commit/88f285b)) by: **陈文彬** (anncwb@126.com)
+
 ## [1.0.4](https://github.com/anncwb/vue-vben-admin/compare/1.0.3...1.0.4) (2020-07-31)
 
 ### ⚡ Performance Improvements
