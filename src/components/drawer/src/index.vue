@@ -41,6 +41,8 @@
 
       const getProps = computed(() => {
         const opt: any = {
+          // @ts-ignore
+          placement: 'right',
           ...attrs,
           ...props,
           ...unref(propsRef),
@@ -54,7 +56,7 @@
             ? `${opt.wrapClassName} ${prefixCls}__detail`
             : `${prefixCls}__detail`;
           opt.maskClosable = false;
-          opt.getContainer = `${prefixVar}-default-layout__content`;
+          opt.getContainer = `${prefixVar}-default-layout__main`;
         }
         return opt;
       });
@@ -104,7 +106,6 @@
 
       return () => (
         <Drawer
-          placement="right"
           class={prefixCls}
           on={{
             ...listeners,

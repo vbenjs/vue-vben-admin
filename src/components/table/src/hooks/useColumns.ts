@@ -32,6 +32,7 @@ export function useColumns(
       if (!columns) {
         return [];
       }
+      const isFixedLeft = columns.some((item) => item.fixed === 'left');
       const hasIndex = columns.find((column) => column.flag === 'INDEX');
       !hasIndex &&
         columns.unshift({
@@ -48,6 +49,11 @@ export function useColumns(
             const currentIndex = (current - 1) * pageSize + index + 1;
             return currentIndex;
           },
+          ...(isFixedLeft
+            ? {
+                fixed: 'left',
+              }
+            : {}),
           ...indexColumnProps,
         });
     }

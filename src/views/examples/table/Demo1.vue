@@ -6,7 +6,6 @@
     {
       title: 'ID',
       dataIndex: 'id',
-      width: 80,
     },
     {
       title: '姓名',

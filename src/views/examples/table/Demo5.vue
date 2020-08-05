@@ -9,6 +9,7 @@
       title: 'ID',
       dataIndex: 'id',
       fixed: 'left',
+      width: 200,
     },
     {
       title: '姓名',
@@ -18,22 +19,22 @@
     {
       title: '地址',
       dataIndex: 'address',
-      width: 600,
+      width: 200,
     },
     {
       title: '编号',
       dataIndex: 'no',
-      width: 600,
+      width: 200,
     },
     {
       title: '开始时间',
+      width: 200,
       dataIndex: 'beginTime',
-      width: 400,
     },
     {
       title: '结束时间',
       dataIndex: 'endTime',
-      width: 400,
+      width: 200,
     },
   ];
 

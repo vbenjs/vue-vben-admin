@@ -17,7 +17,7 @@
   import { basicProps } from './props';
   import { BasicTableProps, TableInstance, FetchParams, getColumnsParams } from './types/table';
   import { PaginationProps } from './types/pagination';
-  import { getSlot } from '@/utils/helper/tsxHelper';
+  import { getSlot, extendSlots } from '@/utils/helper/tsxHelper';
   import { isFunction, isString } from '@/utils/is/index';
 
   import { BasicForm, FormProps } from '@/components/form/index';
@@ -167,6 +167,9 @@
           pagination: unref(getPaginationRef) as PaginationProps,
           tableLayout: 'fixed',
         };
+        console.log('======================');
+        console.log(unref(getScrollRef));
+        console.log('======================');
         const { useSearchForm, formConfig } = propsData;
         const formProps: FormProps = {
           showAdvancedButton: true,
@@ -190,7 +193,9 @@
               {...{
                 props: propsData,
               }}
-            ></Table>
+            >
+              {extendSlots(slots)}
+            </Table>
           </div>
         );
       };
@@ -260,7 +265,12 @@
     }
 
     .ant-table-body {
-      overflow-x: auto !important;
+      overflow: auto !important;
+    }
+
+    .ant-table-header {
+      margin-bottom: 0 !important;
+      overflow: hidden !important;
     }
 
     .ant-radio {
