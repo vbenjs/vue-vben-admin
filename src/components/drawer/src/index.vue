@@ -81,6 +81,15 @@
         }
       );
 
+      watch(
+        () => root.$route,
+        () => {
+          if (unref(visibleRef)) {
+            visibleRef.value = false;
+          }
+        }
+      );
+
       // 取消事件
       async function onClose(e) {
         const { closeFunc } = unref(getProps);
