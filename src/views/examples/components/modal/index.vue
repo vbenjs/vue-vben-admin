@@ -2,11 +2,14 @@
   import { defineComponent, unref } from 'compatible-vue';
   import { Alert } from 'ant-design-vue';
   import { useModal } from '@/components/modal/index';
+  import { useDrawer } from '@/components/drawer/index';
 
   import Modal1 from './Modal1.vue';
   import Modal2 from './Modal2.vue';
   import Modal3 from './Modal3.vue';
   import Modal4 from './Modal4.vue';
+  import Darwer1 from './Darwer1.vue';
+  import Darwer2 from './Darwer2.vue';
   export default defineComponent({
     name: 'ModalDemo',
     setup() {
@@ -14,6 +17,12 @@
       const [register2, { isFirstLoadRef: isFirstLoadRef2, openModal: openModal2 }] = useModal();
       const [register3, { isFirstLoadRef: isFirstLoadRef3, openModal: openModal3 }] = useModal();
       const [register4, { isFirstLoadRef: isFirstLoadRef4, openModal: openModal4 }] = useModal();
+
+      const [registerDrawer, { isFirstLoadRef: isDrawerFirstLoadRef, openDrawer }] = useDrawer();
+      const [
+        registerDrawer1,
+        { isFirstLoadRef: isDrawerFirstLoadRef1, openDrawer: openDrawer1 },
+      ] = useDrawer();
       return () => {
         return (
           <div class="p-4 modal-demo">
@@ -70,6 +79,33 @@
               打开弹窗4(控制弹窗是否可以全屏)
             </a-button>
             {!unref(isFirstLoadRef4) && <Modal4 onRegister={register4} />}
+
+            <Alert message="drawer使用示例" />
+            <a-button
+              class="m-4"
+              type="primary"
+              onClick={() => {
+                openDrawer({
+                  visible: true,
+                });
+              }}
+            >
+              打开全屏drawer
+            </a-button>
+            {!unref(isDrawerFirstLoadRef) && <Darwer1 onRegister={registerDrawer} />}
+
+            <a-button
+              class="m-4"
+              type="primary"
+              onClick={() => {
+                openDrawer1({
+                  visible: true,
+                });
+              }}
+            >
+              打开局部drawer
+            </a-button>
+            {!unref(isDrawerFirstLoadRef1) && <Darwer2 onRegister={registerDrawer1} />}
           </div>
         );
       };

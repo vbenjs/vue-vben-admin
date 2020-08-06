@@ -56,7 +56,7 @@
             ? `${opt.wrapClassName} ${prefixCls}__detail`
             : `${prefixCls}__detail`;
           opt.maskClosable = false;
-          opt.getContainer = `${prefixVar}-default-layout__main`;
+          opt.getContainer = `.${prefixVar}-default-layout__main`;
         }
         return opt;
       });
@@ -103,7 +103,7 @@
       const drawerInstance: DrawerInstance = {
         setDrawerProps,
       };
-      emit('get', drawerInstance);
+      emit('register', drawerInstance);
 
       return () => (
         <Drawer
@@ -148,6 +148,7 @@
         // z-index: 1;
         width: 100%;
         padding: @header-padding;
+        border-top: 1px solid @border-color-base;
       }
 
       .ant-drawer-close {
