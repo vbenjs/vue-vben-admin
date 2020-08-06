@@ -6,6 +6,8 @@
     watch,
     computed,
     unref,
+    ref,
+    set,
   } from 'compatible-vue';
   import { Tree } from 'ant-design-vue';
   import { Icon } from '@/components/icon/index';
@@ -19,7 +21,7 @@
   // import { renderTreeNode } from './renderTreeNode';
 
   import { basicProps } from './props';
-  import { ReplaceFields, TreeItem, Keys, CheckKeys } from './types';
+  import { ReplaceFields, TreeItem, Keys, CheckKeys, InsertNodeParams } from './types';
   import { isFunction } from '@/utils/is/index';
 
   interface State {
@@ -37,12 +39,14 @@
         checkedKeys: props.checkedKeys || [],
       });
 
+      const treeDataRef = ref<TreeItem[]>([]);
+
       const [createContextMenu] = useContextMenu();
 
       const { prefixCls } = useDesign('basic-tree');
 
       const getReplaceFields = computed(
-        (): ReplaceFields => {
+        (): Required<ReplaceFields> => {
           const { replaceFields } = props;
           return {
             children: 'children',
@@ -53,6 +57,11 @@
         }
       );
 
+      const getTreeData = computed(() => {
+        return unref(treeDataRef);
+      });
+
+      //  渲染操作按钮
       function renderAction(node: TreeItem) {
         const { actionList } = props;
 
@@ -63,6 +72,7 @@
           return <span class={`${prefixCls}__action`}>{item.render(node)}</span>;
         });
       }
+      // 渲染树节点
       function renderTreeNode({ data }: { data: TreeItem[] | undefined }) {
         if (!data) {
           return null;
@@ -92,6 +102,7 @@
         });
       }
 
+      // 处理右键事件
       async function handleRightClick({ event, node }) {
         const { rightMenuList: menuList = [], beforeRightClick } = props;
         let rightMenuList: ContextMenuItem[] = [];
@@ -151,6 +162,80 @@
         }
         return res as string[] | number[];
       }
+      /**
+       * 添加节点
+       */
+      function insertNodeByKey({ parentKey = null, node, list, push = 'push' }: InsertNodeParams) {
+        const treeData = list || unref(treeDataRef);
+        const { key: keyField, children: childrenField } = unref(getReplaceFields);
+
+        if (!parentKey) {
+          treeData[push](node);
+          return;
+        }
+        for (const treeItem of treeData) {
+          const children = treeItem[childrenField];
+          if (treeItem[keyField] === parentKey) {
+            treeItem[childrenField] = children || [];
+            treeItem[childrenField][push](node);
+            break;
+          } else if (children && children.length) {
+            insertNodeByKey({
+              parentKey,
+              node,
+              list: treeItem[childrenField],
+            });
+          }
+        }
+      }
+
+      // 删除节点
+      function deleteNodeByKey(key: string, list: TreeItem[]) {
+        if (!key) return;
+        const treeData = list || unref(treeDataRef);
+        const { key: keyField, children: childrenField } = unref(getReplaceFields);
+
+        for (let index = 0; index < treeData.length; index++) {
+          const element = treeData[index];
+          const children = element[childrenField];
+
+          if (element[keyField] === key) {
+            treeData.splice(index, 1);
+            break;
+          } else if (children && children.length) {
+            deleteNodeByKey(key, element[childrenField]);
+          }
+        }
+      }
+
+      // 更新节点
+      function updateNodeByKey(key: string, node: TreeItem, list: TreeItem[]) {
+        if (!key) return;
+        const treeData = list || unref(treeDataRef);
+        const { key: keyField, children: childrenField } = unref(getReplaceFields);
+
+        for (let index = 0; index < treeData.length; index++) {
+          const element = treeData[index];
+          const children = element[childrenField];
+
+          if (element[keyField] === key) {
+            set(treeData, index, { ...treeData[index], ...node });
+            break;
+          } else if (children && children.length) {
+            updateNodeByKey(key, node, element[childrenField]);
+          }
+        }
+      }
+
+      watch(
+        () => props.treeData,
+        (data: TreeItem[]) => {
+          treeDataRef.value = data;
+        },
+        {
+          immediate: true,
+        }
+      );
       watch(
         () => props.expandedKeys,
         (keys: Keys) => {
@@ -187,6 +272,9 @@
         currentInstace.getSelectedKeys = getSelectedKeys;
         currentInstace.setCheckedKeys = setCheckedKeys;
         currentInstace.getCheckedKeys = getCheckedKeys;
+        currentInstace.insertNodeByKey = insertNodeByKey;
+        currentInstace.deleteNodeByKey = deleteNodeByKey;
+        currentInstace.updateNodeByKey = updateNodeByKey;
         currentInstace.filterByLevel = (level: number) => {
           state.expandedKeys = filterByLevel(level);
         };
@@ -202,7 +290,6 @@
           checkedKeys: state.checkedKeys,
           replaceFields: unref(getReplaceFields),
         };
-        const { treeData, ...restProps } = propsData;
         return (
           <div class={prefixCls}>
             <Tree
@@ -223,11 +310,12 @@
                 },
               }}
               {...{
-                props: restProps,
+                props: propsData,
+                treeData: undefined,
               }}
             >
               <Icon slot="switcherIcon" type="down" />
-              {renderTreeNode({ data: treeData })}
+              {renderTreeNode({ data: unref(getTreeData) })}
               {extendSlots(slots)}
             </Tree>
           </div>

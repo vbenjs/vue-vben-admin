@@ -105,4 +105,14 @@ export interface TreeActionType {
   setCheckedKeys: (keys: CheckKeys) => void;
   getCheckedKeys: () => CheckKeys;
   filterByLevel: (level: number) => void;
+  insertNodeByKey: (opt: InsertNodeParams) => void;
+  deleteNodeByKey: (key: string) => void;
+  updateNodeByKey: (key: string, node: Omit<TreeItem, 'key'>) => void;
+}
+
+export interface InsertNodeParams {
+  parentKey: string | null;
+  node: TreeItem;
+  list?: TreeItem[];
+  push?: 'push' | 'unshift';
 }
