@@ -10,9 +10,9 @@ export interface ColumnFilterItem {
 }
 
 export interface Scroll {
-  x: number | boolean | string;
-  y: number | null;
-  scrollToFirstRowOnChange: boolean;
+  x?: number | boolean | string;
+  y?: number | null;
+  scrollToFirstRowOnChange?: boolean;
 }
 export interface FetchParams {
   searchInfo?: any;

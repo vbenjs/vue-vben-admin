@@ -1,0 +1,182 @@
+// button重置
+.ant-btn {
+  &-primary {
+    color: @white;
+    background-color: @button-primary-color;
+    // border-color: @button-primary-color;
+    border-width: 0;
+
+    &:hover,
+    &:focus {
+      color: @white;
+      background-color: @button-primary-hover-color;
+      // border-color: @button-primary-hover-color;
+    }
+
+    &[disabled],
+    &[disabled]:hover {
+      color: @white;
+      background-color: fade(@button-primary-color, 40%);
+      // border-color: fade(@button-primary-color, 40%);
+    }
+  }
+
+  &-default {
+    color: @button-cancel-color;
+    background-color: @button-cancel-bg-color;
+    border-color: @button-cancel-border-color;
+
+    &:hover,
+    &:focus {
+      color: @button-cancel-hover-color;
+      background-color: @button-cancel-hover-bg-color;
+      border-color: @button-cancel-hover-border-color;
+    }
+
+    &[disabled],
+    &[disabled]:hover {
+      color: fade(@button-cancel-color, 40%);
+      background: fade(@button-cancel-bg-color, 40%);
+      border-color: fade(@button-cancel-border-color, 40%);
+    }
+  }
+
+  // color: @white;
+
+  &-success.ant-btn-link:not([disabled='disabled']) {
+    color: @button-success-color;
+
+    &:hover,
+    &:focus {
+      color: @button-success-hover-color;
+    }
+  }
+
+  &-success.ant-btn-link.ant-btn-loading,
+  &-warning.ant-btn-link.ant-btn-loading,
+  &-error.ant-btn-link.ant-btn-loading,
+  &-background-ghost.ant-btn-link.ant-btn-loading,
+  &.ant-btn-link.ant-btn-loading {
+    &::before {
+      background: transparent;
+    }
+  }
+
+  &-success:not(.ant-btn-link) {
+    color: @white;
+    background-color: @button-success-color;
+    border-color: @button-success-color;
+    border-width: 0;
+
+    &:hover,
+    &:focus {
+      color: @white;
+      background-color: @button-success-hover-color;
+      border-color: @button-success-hover-color;
+    }
+
+    &[disabled],
+    &[disabled]:hover {
+      color: @white;
+      background-color: fade(@button-success-color, 40%);
+      // background-color: @button-success-disabled-color;
+      border-color: fade(@button-success-color, 40%);
+    }
+  }
+
+  &-warning.ant-btn-link:not([disabled='disabled']) {
+    color: @button-warn-color;
+
+    &:hover,
+    &:focus {
+      color: @button-warn-hover-color;
+    }
+  }
+
+  &-warning:not(.ant-btn-link) {
+    color: @white;
+    background-color: @button-warn-color;
+    border-color: @button-warn-color;
+    border-width: 0;
+
+    &:hover,
+    &:focus {
+      color: @white;
+      background-color: @button-warn-hover-color;
+      border-color: @button-warn-hover-color;
+    }
+
+    &[disabled],
+    &[disabled]:hover {
+      color: @white;
+      background-color: fade(@button-warn-color, 40%);
+      border-color: fade(@button-warn-color, 40%);
+
+      // background-color: @button-warn-disabled-color;
+      // border-color: @button-warn-disabled-color ;
+    }
+  }
+
+  &-error.ant-btn-link:not([disabled='disabled']) {
+    color: @button-error-color;
+
+    &:hover,
+    &:focus {
+      color: @button-error-hover-color;
+    }
+  }
+
+  &-error:not(.ant-btn-link) {
+    color: @white;
+    background-color: @button-error-color;
+    border-color: @button-error-color;
+    border-width: 0;
+
+    &:hover,
+    &:focus {
+      color: @white;
+      background-color: @button-error-hover-color;
+      border-color: @button-error-hover-color;
+    }
+
+    &[disabled],
+    &[disabled]:hover {
+      color: @white;
+      background-color: fade(@button-error-color, 40%);
+      border-color: fade(@button-error-color, 40%);
+
+      // background-color: @button-error-disabled-color;
+      // border-color: @button-error-disabled-color ;
+    }
+  }
+
+  &-background-ghost.ant-btn-link,
+  &.ant-btn-dashed:not([disabled='disabled']) {
+    color: @text-color-call-out;
+
+    &:hover {
+      color: @button-primary-color;
+    }
+  }
+
+  &-ghost {
+    color: @button-ghost-color;
+    background-color: @white;
+    border-color: @button-ghost-color;
+    border-width: 1px;
+
+    &:hover,
+    &:focus {
+      color: @button-ghost-hover-color;
+      background-color: @button-ghost-hover-bg-color;
+      border-color: @button-ghost-hover-color;
+    }
+
+    &[disabled],
+    &[disabled]:hover {
+      color: @button-ghost-color;
+      background: fade(@white, 40%);
+      border-color: fade(@button-ghost-color, 40%);
+    }
+  }
+}

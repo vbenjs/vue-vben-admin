@@ -167,9 +167,6 @@
           pagination: unref(getPaginationRef) as PaginationProps,
           tableLayout: 'fixed',
         };
-        console.log('======================');
-        console.log(unref(getScrollRef));
-        console.log('======================');
         const { useSearchForm, formConfig } = propsData;
         const formProps: FormProps = {
           showAdvancedButton: true,

@@ -80,6 +80,7 @@
           immediate: false,
         }
       );
+
       // 取消事件
       async function onClose(e) {
         const { closeFunc } = unref(getProps);
