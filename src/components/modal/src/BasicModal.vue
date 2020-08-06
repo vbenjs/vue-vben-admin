@@ -10,7 +10,7 @@
   import { basicProps } from './props';
 
   import { getSlot } from '@/utils/helper/tsxHelper';
-  import { isFunction } from '../../../utils/is';
+  import { isFunction } from '@/utils/is';
   // import { triggerWindowResize } from '@/utils/event/triggerWindowResizeEvent';
   export default defineComponent({
     name: 'BasicModal',
@@ -85,7 +85,7 @@
         }
         return (
           <BaseTitle helpMessage={helpMessage} slot="title">
-            {slots.getSlot ? getSlot(slots, 'title') : title}
+            {slots.title ? getSlot(slots, 'title') : title}
           </BaseTitle>
         );
       }
@@ -108,10 +108,10 @@
               emit('heightChange', height);
             }}
           >
-            {getSlot(slots, 'default')}
+            {getSlot(slots)}
           </ModalWrapper>
         ) : (
-          getSlot(slots, 'default')
+          getSlot(slots)
         );
       }
       // 取消事件

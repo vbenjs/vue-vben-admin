@@ -71,6 +71,7 @@ export { default as BarsOutline } from '@ant-design/icons/lib/outline/BarsOutlin
 export { default as StarFill } from '@ant-design/icons/lib/fill/StarFill';
 export { default as FilterOutline } from '@ant-design/icons/lib/outline/FilterOutline';
 export { default as CaretDownFill } from '@ant-design/icons/lib/fill/CaretDownFill';
+export { default as FilterFill } from '@ant-design/icons/lib/fill/FilterFill';
 export { default as CaretUpFill } from '@ant-design/icons/lib/fill/CaretUpFill';
 export { default as CaretUpOutline } from '@ant-design/icons/lib/outline/CaretUpOutline';
 export { default as CaretDownOutline } from '@ant-design/icons/lib/outline/CaretDownOutline';

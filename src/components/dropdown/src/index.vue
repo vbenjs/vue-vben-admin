@@ -35,7 +35,7 @@
 
       return () => (
         <Dropdown props={props}>
-          <span>{getSlot(slots, 'default')}</span>
+          <span>{getSlot(slots)}</span>
           {renderMenus()}
         </Dropdown>
       );

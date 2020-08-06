@@ -4,6 +4,7 @@
   import TableTitle from './components/TableTitle.vue';
   import BodyWarpper from './components/BodyWarpper.vue';
   import CellResize from './components/CellResize.vue';
+  import { BaseArrow } from '@/components/base';
 
   import { usePagination } from './hooks/usePagination';
   import { useLoading } from './hooks/useLoading';
@@ -17,8 +18,9 @@
   import { basicProps } from './props';
   import { BasicTableProps, TableInstance, FetchParams, getColumnsParams } from './types/table';
   import { PaginationProps } from './types/pagination';
-  import { getSlot, extendSlots } from '@/utils/helper/tsxHelper';
+  import { getSlot, extendSlots, getSlotFunc } from '@/utils/helper/tsxHelper';
   import { isFunction, isString } from '@/utils/is/index';
+  import { omit } from '@/utils/lodashChunk';
 
   import { BasicForm, FormProps } from '@/components/form/index';
   export default defineComponent({
@@ -57,7 +59,6 @@
             cell: CellResize,
           };
         }
-
         return res;
       });
       const { getPaginationRef, setPagination } = usePagination(getMergeProps);
@@ -93,6 +94,20 @@
           )
         );
       };
+
+      const renderExpandIcon = !slots.expandedRowRender
+        ? undefined
+        : (props: any) => {
+            return (
+              <BaseArrow
+                onClick={(e: Event) => {
+                  props.onExpand(props.record, e);
+                }}
+                expand={props.expanded}
+                class="right"
+              />
+            );
+          };
       function handleTableChange(pagination: PaginationProps) {
         const { clearSelectOnPageChange } = unref(getMergeProps);
         if (clearSelectOnPageChange) {
@@ -143,36 +158,47 @@
           innerPropsRef.value = props;
         },
       } as TableInstance;
+
       provideTable(instance);
+
       emit('register', instance);
 
       return () => {
         const title = unref(getMergeProps).title;
         const titleData: any =
-          !getSlot(slots, 'title') && !isString(title) && !title && !getSlot(slots, 'toolbar')
+          !slots.tableTitle && !isString(title) && !title && !slots.toolbar
             ? {}
-            : { title: !getSlot(slots, 'title') && !title ? null : renderTitle };
-        const propsData: BasicTableProps = {
+            : { title: !slots.tableTitle && !title ? null : renderTitle };
+        let propsData: BasicTableProps = {
           // @ts-ignore
           size: 'middle',
+          // @ts-ignore
+          // expandRowByClick: true,
+          // @ts-ignore
+          expandIcon: renderExpandIcon,
           ...attrs,
           ...unref(getMergeProps),
           ...titleData,
           columns: unref(getColumnsRef),
           dataSource: unref(getDataSourceRef),
           rowKey: rowKey,
+          scroll: unref(getScrollRef),
           rowSelection: unref(getRowSelectionRef),
           loading: unref(loadingRef),
-          scroll: unref(getScrollRef),
           pagination: unref(getPaginationRef) as PaginationProps,
           tableLayout: 'fixed',
         };
+        if (slots.expandedRowRender) {
+          propsData = omit(propsData, 'scroll');
+        }
+
         const { useSearchForm, formConfig } = propsData;
         const formProps: FormProps = {
           showAdvancedButton: true,
           ...(formConfig as FormProps),
           compact: true,
         };
+
         return (
           <div class={prefixCls}>
             {useSearchForm && (
@@ -181,7 +207,9 @@
                 onChange={handleSearchInfoChange}
                 {...{ props: formProps }}
                 onAdvancedChange={redoHeight}
-              />
+              >
+                {extendSlots(slots)}
+              </BasicForm>
             )}
             <Table
               components={unref(getComponentsRef)}
@@ -190,8 +218,9 @@
               {...{
                 props: propsData,
               }}
+              scopedSlots={getSlotFunc(slots)}
             >
-              {extendSlots(slots)}
+              {extendSlots(slots, ['expandedRowRender'])}
             </Table>
           </div>
         );

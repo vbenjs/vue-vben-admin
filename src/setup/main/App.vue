@@ -58,10 +58,22 @@
       return () => {
         const { getLockInfo } = appStore;
         const { isLock } = getLockInfo || {};
+
+        function transformCellText({ text }: { text: string }) {
+          if (!text) {
+            return '-';
+          }
+          return text;
+        }
         return (
           <div id="app" onKeyup={registerGlobOnKeyup} onMousemove={registerGlobOnMouseMove}>
             {isLock && <LockPage />}
-            <ConfigProvider ider locale={zhCN} renderEmpty={renderEmpty}>
+            <ConfigProvider
+              ider
+              locale={zhCN}
+              renderEmpty={renderEmpty}
+              transformCellText={transformCellText}
+            >
               <router-view />
             </ConfigProvider>
           </div>

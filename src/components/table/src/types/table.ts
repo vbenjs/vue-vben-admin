@@ -1,3 +1,4 @@
+import { VNode } from 'compatible-vue';
 import { PaginationProps } from './pagination';
 import { FormProps } from '@/components/form/index';
 import { ScopedSlot } from 'vue/types/vnode';
@@ -159,7 +160,7 @@ export interface BasicTableProps {
    * Customize row expand Icon.
    * @type Function | ScopedSlot
    */
-  expandIcon: Function | ScopedSlot;
+  expandIcon: ((...arg) => VNode | VNode[]) | ScopedSlot;
 
   /**
    * Whether to expand row by clicking anywhere in the whole row
@@ -236,6 +237,7 @@ export interface BasicTableProps {
 }
 
 export interface BasicColumn {
+  children?: BasicColumn[];
   //
   flag?: 'INDEX' | 'DEFAULT' | 'CHECKBOX' | 'RADIO' | 'ACTION';
 

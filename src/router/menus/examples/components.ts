@@ -54,6 +54,14 @@ export default {
           name: '动态列示例',
           path: '/demo10',
         },
+        {
+          name: '定高/头部自定义',
+          path: '/demo11',
+        },
+        {
+          name: '展开行示例',
+          path: '/demo12',
+        },
       ],
     },
     {

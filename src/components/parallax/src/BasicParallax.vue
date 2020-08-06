@@ -136,7 +136,7 @@
                 ref={imgRef}
               />
             </div>
-            <div class={`${prefixCls}__content`}>{getSlot(slots, 'default')}</div>
+            <div class={`${prefixCls}__content`}>{getSlot(slots)}</div>
           </div>
         );
       };

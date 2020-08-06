@@ -110,6 +110,22 @@ const routes: RouteConfigEx[] = [
           title: '动态列示例',
         },
       },
+      {
+        path: '/demo11',
+        name: 'TableBaseDemo11',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo11.vue')),
+        meta: {
+          title: '定高/头部自定义',
+        },
+      },
+      {
+        path: '/demo12',
+        name: 'TableBaseDemo12',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo12.vue')),
+        meta: {
+          title: '展开行示例',
+        },
+      },
     ],
   },
   {

@@ -134,9 +134,7 @@
               <BaseTitle>{unref(getMergeProps).title || getSlot(slots, 'title')}</BaseTitle>
             )}
           </template>
-          <ScrollContainer props={unref(getScrollOptions)}>
-            {getSlot(slots, 'default')}
-          </ScrollContainer>
+          <ScrollContainer props={unref(getScrollOptions)}>{getSlot(slots)}</ScrollContainer>
         </Drawer>
       );
     },

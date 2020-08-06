@@ -45,7 +45,7 @@
               draggingRef.value = false;
             }}
           >
-            {getSlot(slots, 'default')}
+            {getSlot(slots)}
           </Draggable>
         );
       };

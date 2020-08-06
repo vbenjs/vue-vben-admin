@@ -167,7 +167,7 @@
               style={{ height: `${unref(realHeightRef)}px` }}
               class="p-4 modal-wrap-spin"
             >
-              {getSlot(slots, 'default')}
+              {getSlot(slots)}
             </Spin>
           </ScrollContainer>
         </div>
