@@ -38,6 +38,10 @@
         type: String,
         default: '14px',
       } as PropOptions<string>,
+      icon: {
+        type: String,
+        default: 'info-circle',
+      } as PropOptions<string>,
       absolute: {
         type: Boolean,
         default: false,
@@ -101,9 +105,9 @@
           <template slot="title">
             <div style={unref(getWrapStyle)}>{renderTitle()}</div>
           </template>
-          <div class={prefixCls} style={unref(getMainStyle)}>
-            <Icon type="info-circle" />
-          </div>
+          <span class={prefixCls} style={unref(getMainStyle)}>
+            <Icon type={props.icon} />
+          </span>
         </Tooltip>
       );
     },
@@ -114,6 +118,7 @@
   @prefix-cls: ~'@{namespace}-base-help';
 
   .@{prefix-cls} {
+    display: inline-block;
     font-size: 14px;
     color: @text-color-help-dark;
     cursor: pointer;

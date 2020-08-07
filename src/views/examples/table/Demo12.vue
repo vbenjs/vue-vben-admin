@@ -8,7 +8,7 @@
     {
       title: 'ID',
       dataIndex: 'id',
-      width: 80,
+      width: 200,
     },
     {
       title: '姓名',
@@ -18,7 +18,6 @@
     {
       title: '地址',
       dataIndex: 'address',
-      width: 120,
       sorter: true,
     },
 

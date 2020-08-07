@@ -126,6 +126,30 @@ const routes: RouteConfigEx[] = [
           title: '展开行示例',
         },
       },
+      {
+        path: '/demo13',
+        name: 'TableBaseDemo13',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo13.vue')),
+        meta: {
+          title: '合并行列示例',
+        },
+      },
+      {
+        path: '/demo14',
+        name: 'TableBaseDemo14',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo14.vue')),
+        meta: {
+          title: '多级表头示例',
+        },
+      },
+      {
+        path: '/demo15',
+        name: 'TableBaseDemo15',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo15.vue')),
+        meta: {
+          title: '可编辑单元格示例',
+        },
+      },
     ],
   },
   {

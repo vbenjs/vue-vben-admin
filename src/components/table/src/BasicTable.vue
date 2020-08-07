@@ -231,9 +231,13 @@
 <style lang="less">
   @import (reference) '~@design';
   @prefix-cls: ~'@{namespace}-basic-table';
-  @border-color: rgba(206, 206, 206, 0.3);
+  @border-color: hsla(0, 0%, 80.8%, 0.3);
   .@{prefix-cls} {
     padding: 12px;
+
+    .ant-table-thead > tr > th {
+      background: #f1f3f4;
+    }
 
     .ant-table-title {
       padding: 10px 6px !important;
@@ -311,6 +315,12 @@
           border-color: @text-color-base;
         }
       }
+    }
+
+    .ant-table-bordered .ant-table-thead > tr:not(:last-child) > th,
+    .ant-table-tbody > tr > td {
+      // border-bottom: none;
+      border-color: @border-color;
     }
   }
 </style>

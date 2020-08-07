@@ -1,71 +1,83 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
   import { BasicTable, BasicColumn } from '@/components/table/index';
-  import { BaseHelp } from '@/components/base/index';
-  import { Icon } from '@/components/icon/index';
   import { demoListApi } from '@/api/demo/table';
+
+  const renderContent = (value, row, index) => {
+    const obj: any = {
+      children: value,
+      attrs: {},
+    };
+    if (index === 9) {
+      obj.attrs.colSpan = 0;
+    }
+    return obj;
+  };
   const columns: BasicColumn[] = [
     {
       title: 'ID',
       dataIndex: 'id',
-      width: 200,
+      width: 300,
+      customRender: renderContent,
     },
     {
-      // title: '姓名',
+      title: '姓名',
       dataIndex: 'name',
-      width: 120,
-      scopedSlots: { title: 'customTitle' },
+      width: 300,
+      customRender: renderContent,
     },
     {
-      // title: '地址',
+      title: '地址',
       dataIndex: 'address',
-      scopedSlots: { title: 'customAddress' },
+      colSpan: 2,
+      width: 120,
       sorter: true,
+      customRender: (value, row, index) => {
+        const obj: any = {
+          children: value,
+          attrs: {},
+        };
+        if (index === 2) {
+          obj.attrs.rowSpan = 2;
+        }
+        if (index === 3) {
+          obj.attrs.colSpan = 0;
+        }
+        return obj;
+      },
     },
-
     {
       title: '编号',
       dataIndex: 'no',
-      width: 120,
+      colSpan: 0,
       filters: [
         { text: 'Male', value: 'male' },
         { text: 'Female', value: 'female' },
       ],
+      customRender: renderContent,
     },
     {
       title: '开始时间',
       dataIndex: 'beginTime',
-      width: 120,
+      width: 200,
+      customRender: renderContent,
     },
     {
       title: '结束时间',
       dataIndex: 'endTime',
-      width: 120,
+      width: 200,
+      customRender: renderContent,
     },
   ];
 
   export default defineComponent({
-    name: 'TableBaseDemo11',
+    name: 'TableBaseDemo13',
     setup() {
       return () => {
         return (
           <div class="p-4 table-demo">
             <div>
-              <BasicTable
-                api={demoListApi}
-                title="定高/头部自定义"
-                scroll={{ y: 300 }}
-                columns={columns}
-              >
-                <span slot="customTitle">
-                  姓名
-                  <BaseHelp class="ml-2" text="姓名" />
-                </span>
-                <span slot="customAddress">
-                  地址
-                  <Icon class="ml-2" type="form" />
-                </span>
-              </BasicTable>
+              <BasicTable api={demoListApi} title="合并行列示例" columns={columns}></BasicTable>
             </div>
           </div>
         );

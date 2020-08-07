@@ -62,6 +62,18 @@ export default {
           name: '展开行示例',
           path: '/demo12',
         },
+        {
+          name: '合并行列示例',
+          path: '/demo13',
+        },
+        {
+          name: '多级表头示例',
+          path: '/demo14',
+        },
+        {
+          name: '可编辑单元格示例',
+          path: '/demo15',
+        },
       ],
     },
     {

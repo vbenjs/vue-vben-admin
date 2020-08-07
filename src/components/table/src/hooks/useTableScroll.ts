@@ -86,16 +86,21 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
     useTimeout(() => {
       tableHeightRef.value =
         tableHeightRef.value! > maxHeight! ? (maxHeight as number) : tableHeightRef.value;
-    }, 50);
+    }, 0);
   }
   const { canResize } = unref(propsRef);
-  canResize && useWindowSizeFn(calcTableHeight, 180);
+  canResize && useWindowSizeFn(calcTableHeight, 100);
 
   // function clear() {
   //   window.clearInterval(timer);
   // }
+
   onMounted(() => {
     calcTableHeight();
+    canResize &&
+      useTimeout(() => {
+        calcTableHeight();
+      }, 300);
   });
   const getScrollRef = computed(() => {
     const tableHeight = unref(tableHeightRef);

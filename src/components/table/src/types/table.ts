@@ -3,6 +3,7 @@ import { PaginationProps } from './pagination';
 import { FormProps } from '@/components/form/index';
 import { ScopedSlot } from 'vue/types/vnode';
 import { TableRowSelection } from 'ant-design-vue/types/table/table';
+import { ComponentType } from './componentType';
 export declare type SortOrder = 'ascend' | 'descend';
 export interface ColumnFilterItem {
   text?: string;
@@ -10,6 +11,12 @@ export interface ColumnFilterItem {
   children?: any;
 }
 
+export interface RenderEditableCellParams {
+  dataIndex: string;
+  component?: ComponentType;
+  componentOn?: { [key: string]: (...arg) => any };
+  componentProps?: any;
+}
 export interface Scroll {
   x?: number | boolean | string;
   y?: number | null;
