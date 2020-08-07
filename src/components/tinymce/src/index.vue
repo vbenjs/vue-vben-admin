@@ -9,6 +9,7 @@
     watch,
     onActivated,
     onDeactivated,
+    getCurrentInstance,
   } from 'compatible-vue';
   import tinymce from 'tinymce';
   import 'tinymce/themes/silver/theme';
@@ -130,7 +131,7 @@
             }
             tinymceState.hasInit = true;
             editor.on('NodeChange Change KeyUp SetContent', () => {
-              // tinymceState.hasChange = true;
+              tinymceState.hasChange = true;
               emit('change', editor.getContent());
             });
           },
@@ -153,12 +154,14 @@
       watch(
         () => props.value,
         (value) => {
-          // if (!tinymceState.hasChange && tinymceState.hasInit) {
-          if (tinymceState.hasInit) {
+          // console.log('tinymceState', value, oldValue);
+          if (!tinymceState.hasChange && tinymceState.hasInit) {
+            // if (tinymceState.hasInit) {
             root.$nextTick(() => tinymce.get(props.id).setContent(value || ''));
           }
         }
       );
+
       onMounted(() => {
         initTinymce();
       });
@@ -185,6 +188,19 @@
             .get(props.id)
             .insertContent(`<img class=${prefixCls + '__upload-img'} src="${file.url}" >`);
         });
+      }
+      // 外部设置值
+      function setContent(value) {
+        root.$nextTick(() => tinymce.get(props.id).setContent(value || ''));
+        emit('change', value);
+      }
+      function getContent() {
+        return (tinymce && tinymce.get(props.id).getContent()) || '';
+      }
+      const currentInstace = getCurrentInstance() as any;
+      if (getCurrentInstance()) {
+        currentInstace.setContent = setContent;
+        currentInstace.getContent = getContent;
       }
 
       return () => (
