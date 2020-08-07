@@ -16,7 +16,6 @@
     name: 'BasicModal',
     props: basicProps,
     setup(props: Readonly<ModalProps>, { slots, listeners, emit }) {
-      console.log('modal setups');
       // onMounted(() => {
       //   console.log('onMounted setups');
       // });
@@ -96,6 +95,7 @@
         const { useWrapper, loading, wrapperProps } = unref(getProps);
         return useWrapper ? (
           <ModalWrapper
+            footerOffset={props.wrapperFooterOffset}
             fullScreen={unref(fullScreenRef)}
             ref={modalWrapperRef}
             loading={loading}

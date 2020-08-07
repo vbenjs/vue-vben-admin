@@ -23,6 +23,7 @@
   import { basicProps } from './props';
   import { ReplaceFields, TreeItem, Keys, CheckKeys, InsertNodeParams } from './types';
   import { isFunction } from '@/utils/is/index';
+  import { omit } from '@/utils/lodashChunk';
 
   interface State {
     expandedKeys: Keys;
@@ -68,6 +69,7 @@
         if (!actionList || actionList.length === 0) {
           return;
         }
+
         return actionList.map((item) => {
           return <span class={`${prefixCls}__action`}>{item.render(node)}</span>;
         });
@@ -82,14 +84,13 @@
           const { title: titleField, key: keyField, children: childrenField } = unref(
             getReplaceFields
           );
+          const propsData = omit(item, 'title');
+
           return (
             <Tree.TreeNode
               key={keyField && item[keyField]}
               {...{
-                props: {
-                  ...item,
-                  title: undefined,
-                },
+                props: propsData,
               }}
             >
               <span slot="title" class={`${prefixCls}-title`}>
@@ -279,9 +280,8 @@
           state.expandedKeys = filterByLevel(level);
         };
       }
-
       return () => {
-        const propsData = {
+        let propsData: any = {
           blockNode: true,
           ...attrs,
           ...props,
@@ -290,6 +290,7 @@
           checkedKeys: state.checkedKeys,
           replaceFields: unref(getReplaceFields),
         };
+        propsData = omit(propsData, 'treeData');
         return (
           <div class={prefixCls}>
             <Tree
@@ -311,7 +312,6 @@
               }}
               {...{
                 props: propsData,
-                treeData: undefined,
               }}
             >
               <Icon slot="switcherIcon" type="down" />

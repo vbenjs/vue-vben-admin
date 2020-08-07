@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
   import { Icon } from '@/components/icon/index';
-  import { BasicTree, ContextMenuItem } from '@/components/tree/index';
+  import { BasicTree, ContextMenuItem, ActionItem } from '@/components/tree/index';
 
   import { treeData } from './data';
 
@@ -30,28 +30,24 @@
           },
         ];
       }
+      const actionList: ActionItem[] = [
+        {
+          render: (node) => {
+            return <Icon type="plus" class="ml-2" onClick={handlePlus.bind(null, node)} />;
+          },
+        },
+        {
+          render: () => {
+            return <Icon type="delete" />;
+          },
+        },
+      ];
       return () => {
         return (
           <div class="tree-demo">
             <div class="tree-demo-item">
               <div class="tree-demo-title">右侧操作按钮</div>
-              <BasicTree
-                treeData={treeData}
-                actionList={[
-                  {
-                    render: (node) => {
-                      return (
-                        <Icon type="plus" class="ml-2" onClick={handlePlus.bind(null, node)} />
-                      );
-                    },
-                  },
-                  {
-                    render: () => {
-                      return <Icon type="delete" />;
-                    },
-                  },
-                ]}
-              />
+              <BasicTree treeData={treeData} actionList={actionList} />
             </div>
 
             <div class="tree-demo-item">

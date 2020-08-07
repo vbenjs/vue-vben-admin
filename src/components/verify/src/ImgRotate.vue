@@ -136,7 +136,7 @@
               <img
                 src={src}
                 onLoad={handleImgOnLoad}
-                width={props.width}
+                width={parseInt(props.width as string)}
                 class={imgCls}
                 style={state.imgStyle}
               />

@@ -13,6 +13,7 @@ export const basicProps = {
 
   actionList: {
     type: Array,
+    default: () => [],
   } as PropOptions<ActionItem[]>,
 
   expandedKeys: {

@@ -324,6 +324,7 @@
     &-content {
       position: absolute;
       top: 0;
+      font-size: 12px;
       user-select: none;
 
       &.success {

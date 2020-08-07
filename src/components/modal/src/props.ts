@@ -27,6 +27,11 @@ export const basicProps = Object.assign({}, modalProps, {
     type: Boolean,
     default: true,
   } as PropOptions<boolean>,
+  // 启用wrapper后 底部可以适当增加高度
+  wrapperFooterOffset: {
+    type: Number,
+    default: 0,
+  } as PropOptions<number>,
   // 温馨提醒信息
   helpMessage: [String, Array] as PropOptions<string | string[]>,
   // 是否使用wrapper

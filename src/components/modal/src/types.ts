@@ -15,6 +15,8 @@ export interface ReturnMethods extends ModalInstance {
 }
 export type UseModalReturnType = [GetTableFn, ReturnMethods];
 export interface ModalProps extends Modal {
+  // 启用wrapper后 底部可以适当增加高度
+  wrapperFooterOffset?: number;
   draggable?: boolean;
 
   // 是否可以进行全屏
@@ -35,6 +37,7 @@ export interface ModalProps extends Modal {
 }
 
 export interface ModalWrapperProps {
+  footerOffset?: number;
   loading: boolean;
   modalHeaderHeight: number;
   modalFooterHeight: number;

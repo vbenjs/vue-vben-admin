@@ -40,6 +40,10 @@
         type: Number,
         default: 200,
       } as PropOptions<number>,
+      footerOffset: {
+        type: Number,
+        default: 0,
+      } as PropOptions<number>,
       visible: {
         type: Boolean,
         default: false,
@@ -91,7 +95,11 @@
           const modalRect = getComputedStyle(modalDom).top;
           const modalTop = Number.parseInt(modalRect);
           let maxHeight =
-            window.innerHeight - modalTop * 2 - props.modalFooterHeight - props.modalHeaderHeight;
+            window.innerHeight -
+            modalTop * 2 +
+            (props.footerOffset! || 0) -
+            props.modalFooterHeight -
+            props.modalHeaderHeight;
 
           // 距离顶部过进会出现滚动条
           if (modalTop < 40) {

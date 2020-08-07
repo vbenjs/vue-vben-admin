@@ -30,9 +30,10 @@
           on={listeners}
           canFullscreen={false}
           footer={null}
+          wrapperFooterOffset={60}
         >
           <RotateDragVerify
-            width={240}
+            width={210}
             ref={dragRef}
             text="请拖动滑块将图片摆正"
             {...{ props: attrs }}
