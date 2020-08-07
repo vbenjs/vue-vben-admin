@@ -1,5 +1,8 @@
 import { FormSchema } from '@/components/form/index';
 import TestComp from './TestComp.vue';
+// import { Tinymce, TinymceActionType } from '@/components/tinymce/index';
+// import { Ref } from 'compatible-vue';
+
 const options = [
   {
     label: '选项1',
@@ -258,3 +261,44 @@ export const getAdvanceSchema = (itemNumber = 6): FormSchema[] => {
   }
   return arr;
 };
+
+// export function setComplexSchema(tinymceElRef: Ref<TinymceActionType>): FormSchema[] {
+export function setComplexSchema(): FormSchema[] {
+  return [
+    {
+      field: 'fieldInput',
+      label: '输入框',
+      component: 'Input',
+      defaultValue: 'defaultValue',
+      rules: [
+        {
+          required: true,
+        },
+      ],
+    },
+    // {
+    //   field: 'fieldTinymce',
+    //   label: '富文本',
+    //   defaultValue: 'defaultValue',
+    //   rules: [
+    //     {
+    //       required: true,
+    //     },
+    //   ],
+    //   render: () => {
+    //     return <Tinymce ref={tinymceElRef} />;
+    //   },
+    // },
+    {
+      field: 'fieldTinymce',
+      label: '富文本',
+      rules: [
+        {
+          required: true,
+        },
+      ],
+      defaultValue: 'defaultValue',
+      slot: 'tinymce',
+    },
+  ];
+}
