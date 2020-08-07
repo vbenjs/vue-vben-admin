@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, unref, ref, computed } from 'compatible-vue';
+  import { defineComponent, unref, ref, computed, watch, nextTick } from 'compatible-vue';
   import { Table } from 'ant-design-vue';
   import TableTitle from './components/TableTitle.vue';
   import BodyWarpper from './components/BodyWarpper.vue';
@@ -14,13 +14,20 @@
   import { useColumns } from './hooks/useColumns';
   import { useDesign } from '@/hooks/core/useDesign';
   import { provideTable } from './hooks/useProvinceTable';
+  import { useEvent } from '@/hooks/event/useEvent';
 
   import { basicProps } from './props';
-  import { BasicTableProps, TableInstance, FetchParams, getColumnsParams } from './types/table';
+  import {
+    BasicTableProps,
+    TableInstance,
+    FetchParams,
+    getColumnsParams,
+    BasicColumn,
+  } from './types/table';
   import { PaginationProps } from './types/pagination';
   import { getSlot, extendSlots, getSlotFunc } from '@/utils/helper/tsxHelper';
   import { isFunction, isString } from '@/utils/is/index';
-  import { omit } from '@/utils/lodashChunk';
+  import { omit, cloneDeep } from '@/utils/lodashChunk';
 
   import { BasicForm, FormProps } from '@/components/form/index';
   export default defineComponent({
@@ -108,6 +115,75 @@
               />
             );
           };
+
+      const renderFooter = () => {
+        const { summaryFunc } = props;
+        if (!summaryFunc) {
+          return;
+        }
+        const dataSource: any[] = isFunction(summaryFunc)
+          ? summaryFunc(unref(getDataSourceRef))
+          : [];
+        const columns: BasicColumn[] = cloneDeep(unref(getColumnsRef));
+        const index = columns.findIndex((item) => item.flag === 'INDEX');
+        if (index !== -1) {
+          Reflect.deleteProperty(columns[index], 'customRender');
+        }
+        if (unref(getRowSelectionRef)) {
+          columns.unshift({
+            width: 60,
+            title: 'total',
+            key: 'total',
+            customRender: () => '合计',
+          });
+        }
+        dataSource.forEach((item, i) => {
+          item[rowKey] = i;
+        });
+        return (
+          <Table
+            showHeader={false}
+            bordered={false}
+            pagination={false}
+            dataSource={dataSource}
+            rowKey={rowKey}
+            columns={columns}
+            tableLayout="fixed"
+          ></Table>
+        );
+      };
+      watch(
+        () => unref(getDataSourceRef),
+        () => {
+          if (props.showSummary) {
+            nextTick(() => {
+              const tableEl = unref(tableElRef);
+              if (!tableEl) {
+                return;
+              }
+              const bodyDomList = tableEl.$el.querySelectorAll(
+                '.ant-table-body'
+              ) as HTMLDivElement[];
+              const bodyDom = bodyDomList[0];
+              useEvent({
+                el: bodyDom,
+                name: 'scroll',
+                listener: () => {
+                  const footerBodyDom = tableEl.$el.querySelector(
+                    '.ant-table-footer .ant-table-body'
+                  ) as HTMLDivElement;
+                  if (!footerBodyDom || !bodyDom) return;
+                  footerBodyDom.scrollLeft = bodyDom.scrollLeft;
+                },
+                wait: 0,
+                options: true,
+              });
+            });
+          }
+        },
+        { immediate: true }
+      );
+
       function handleTableChange(pagination: PaginationProps) {
         const { clearSelectOnPageChange } = unref(getMergeProps);
         if (clearSelectOnPageChange) {
@@ -190,6 +266,9 @@
         };
         if (slots.expandedRowRender) {
           propsData = omit(propsData, 'scroll');
+        }
+        if (props.showSummary) {
+          propsData.footer = renderFooter;
         }
 
         const { useSearchForm, formConfig } = propsData;
@@ -321,6 +400,22 @@
     .ant-table-tbody > tr > td {
       // border-bottom: none;
       border-color: @border-color;
+    }
+
+    .ant-table-footer {
+      padding: 0;
+
+      table {
+        border: none !important;
+      }
+
+      .ant-table-body {
+        overflow: hidden !important;
+      }
+
+      td {
+        padding: 12px 8px;
+      }
     }
   }
 </style>

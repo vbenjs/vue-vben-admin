@@ -6,6 +6,15 @@ import { FormProps } from '@/components/form/index';
 
 // 注释看 types/table
 export const basicProps = {
+  showSummary: {
+    type: Boolean,
+    default: false,
+  } as PropOptions<boolean>,
+
+  summaryFunc: {
+    type: [Function, Array],
+    default: null,
+  } as PropOptions<(...arg) => any[]>,
   canRowDrag: {
     type: Boolean,
     default: false,

@@ -59,6 +59,10 @@ export interface FetchSetting {
   totalField: string;
 }
 export interface BasicTableProps {
+  // 计算合计行的方法
+  summaryFunc?: (...arg) => any[];
+  // 是否显示合计行
+  showSummary?: boolean;
   // 是否可拖拽行排序
   canRowDrag?: boolean;
 

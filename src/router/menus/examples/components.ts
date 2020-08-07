@@ -74,6 +74,10 @@ export default {
           name: '可编辑单元格示例',
           path: '/demo15',
         },
+        {
+          name: '表尾行合计示例',
+          path: '/demo16',
+        },
       ],
     },
     {

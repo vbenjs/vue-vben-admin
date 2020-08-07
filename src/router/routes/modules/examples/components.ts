@@ -150,6 +150,14 @@ const routes: RouteConfigEx[] = [
           title: '可编辑单元格示例',
         },
       },
+      {
+        path: '/demo16',
+        name: 'TableBaseDemo16',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo16.vue')),
+        meta: {
+          title: '表尾行合计示例',
+        },
+      },
     ],
   },
   {
