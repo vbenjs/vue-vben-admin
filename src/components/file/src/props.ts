@@ -1,5 +1,12 @@
 import { PropOptions } from 'compatible-vue';
 import { UploadResult } from './types';
+export const publicProps = {
+  // 只上传图片
+  isUploadImg: {
+    type: Boolean,
+    default: true,
+  } as PropOptions<boolean>,
+};
 export const basicProps = {
   helpText: {
     type: String,
@@ -24,15 +31,16 @@ export const basicProps = {
     type: Boolean,
     default: true,
   } as PropOptions<boolean>,
-  // 只上传图片
-  uploadImg: {
-    type: Boolean,
-    default: true,
-  } as PropOptions<boolean>,
+  // // 只上传图片
+  // isUploadImg: {
+  //   type: Boolean,
+  //   default: true,
+  // } as PropOptions<boolean>,
   action: {
     type: [String, Function],
     default: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
   } as PropOptions<string | Function>,
+  ...publicProps,
 };
 
 export const priviewProps = {
@@ -42,14 +50,19 @@ export const priviewProps = {
       return [];
     },
   } as PropOptions<UploadResult[]>,
-  // 只上传图片
-  uploadImg: {
-    type: Boolean,
-    default: true,
-  } as PropOptions<boolean>,
+  ...publicProps,
+  // isUploadImg: {
+  //   type: Boolean,
+  //   default: true,
+  // } as PropOptions<boolean>,
 };
 
 export const uploadContainerProps = {
+  value: {
+    type: Array,
+    // default: ''
+  } as PropOptions<Array<UploadResult>>,
   ...basicProps,
-  ...priviewProps,
+  ...publicProps,
+  // ...priviewProps,
 };

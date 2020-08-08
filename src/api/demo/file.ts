@@ -1,7 +1,8 @@
 import http from '@/utils/http/axios';
-
+import { UploadResult, UploadParams } from './model/fileModel';
 enum Api {
   DEMO_LIST = 'http://entropymine.com/jason/testbed/mime/oct2/file.txt',
+  UploadFile = '/file/upload',
 }
 
 /**
@@ -14,5 +15,25 @@ export function downloadApi() {
       method: 'GET',
     },
     { apiUrl: '', joinPrefix: false }
+  );
+}
+
+/**
+ * @description: 上传
+ */
+export function uploadApi(params: UploadParams) {
+  console.log(params);
+
+  return http.request<UploadResult[]>(
+    {
+      url: Api.UploadFile,
+      method: 'GET',
+      params,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    },
+    {
+      // 登陆接口不加 /v1.0
+      joinPrefix: false,
+    }
   );
 }

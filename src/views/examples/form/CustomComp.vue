@@ -4,8 +4,10 @@
 
   import { BasicForm, useForm } from '@/components/form/index';
   import { useMessage } from '@/hooks/core/useMessage';
-  import { customSchema, setComplexSchema } from './demoData';
+  import { customSchema, setComplexSchema, uploadDataDemo } from './demoData';
   import { TinymceActionType, Tinymce } from '@/components/tinymce/index';
+  // import { UploadContainer } from '@/components/file/index';
+
   export default defineComponent({
     name: 'CustomFormDemo',
     setup() {
@@ -37,9 +39,14 @@
       function handleSetFieldsValue() {
         setFieldsValue({
           fieldInput: 'setFieldsValue',
+          fieldUpload: [uploadDataDemo],
         });
         unref(tinymceElRef)!.setContent('setFieldsValue');
       }
+      //       <template slot="uploadImg">
+      //   <UploadContainer />
+      // </template>
+      // 集成上传组件
       return () => (
         <div class="p-4">
           <Divider>功能,点击后如果需要还原在tab右键刷新页面即可</Divider>

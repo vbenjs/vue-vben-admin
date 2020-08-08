@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, unref, reactive } from 'compatible-vue';
+  import { defineComponent, unref, reactive, watch } from 'compatible-vue';
 
   // import { UploadFile } from 'ant-design-vue/types/upload';
 
@@ -14,7 +14,7 @@
   export default defineComponent({
     name: 'UploadContainer',
     props: uploadContainerProps,
-    setup(props: UploadContainerProps, { emit }) {
+    setup(props: UploadContainerProps, { emit, attrs }) {
       const state = reactive<{ fileList: Array<UploadResult> }>({
         fileList: [],
       });
@@ -23,17 +23,37 @@
 
       // 上传完成
       function handleChange(fileList: UploadResult[]) {
-        if (fileList) {
-          state.fileList = fileList;
+        if (fileList && fileList.length > 0) {
+          state.fileList = [...state.fileList, ...fileList];
         }
         emit('change', state.fileList);
         openModal({
           visible: false,
         });
       }
+      // 预览modal
+      function handlePreviewChange(fileList: UploadResult[] = []) {
+        // console.log(fileList);
+        // if (fileList && fileList.length > 0) {
+        state.fileList = [...fileList];
+        // }
+        emit('change', state.fileList);
+        openModalPv({
+          visible: false,
+        });
+      }
+      watch(
+        () => props.value,
+        (value) => {
+          if (value && value.length > 0) {
+            state.fileList = [...value];
+          }
+        },
+        { immediate: true }
+      );
 
       return () => (
-        <div class="m-4">
+        <div {...attrs}>
           <a-button-group>
             <a-button
               onClick={() => {
@@ -59,9 +79,10 @@
           )}
           {!unref(isFirstLoadRefPv) && (
             <UploadPreviewModal
-              uploadImg={props.uploadImg}
-              priviewList={[...state.fileList, ...props.priviewList]}
+              isUploadImg={props.isUploadImg}
+              priviewList={state.fileList}
               onRegister={registerPv}
+              onChange={handlePreviewChange}
             />
           )}
         </div>
