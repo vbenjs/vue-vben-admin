@@ -1,19 +1,20 @@
 <script lang="tsx">
   import { defineComponent, ref, unref } from 'compatible-vue';
-  import { Tinymce } from '@/components/tinymce/index';
+  import { Tinymce, TinymceActionType } from '@/components/tinymce/index';
   import { Switch } from 'ant-design-vue';
 
   export default defineComponent({
     name: 'TinymceDemo',
     setup() {
-      const tinymceValue = ref('init value');
+      const defaultValue = 'defaultValue';
       const tinymceContent = ref('content value');
+      const tinymceElRef = ref<TinymceActionType | null>(null);
 
       function handleChange(value) {
         tinymceContent.value = value;
       }
       function handleSetContent() {
-        tinymceValue.value = 'set content value' + Math.random();
+        unref(tinymceElRef)!.setContent('set content value' + Math.random());
       }
 
       const showUploadImageRef = ref(true);
@@ -37,7 +38,8 @@
             <p class="mt-4"> {unref(tinymceContent)}</p>
           </div>
           <Tinymce
-            value={unref(tinymceValue)}
+            ref={tinymceElRef}
+            value={defaultValue}
             onChange={handleChange}
             showUploadImage={unref(showUploadImageRef)}
             maxSize={1}

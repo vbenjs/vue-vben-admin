@@ -178,15 +178,14 @@
       });
       // 上传图片
       const [register, { isFirstLoadRef, openModal }] = useModal();
+
       function handleChange(fileList: UploadResult[]) {
         openModal({
           visible: false,
         });
 
         fileList.forEach((file) => {
-          tinymce
-            .get(props.id)
-            .insertContent(`<img class=${prefixCls + '__upload-img'} src="${file.url}" >`);
+          tinymce.get(props.id).insertContent(`<img src="${file.url}" >`);
         });
       }
       // 外部设置值
@@ -241,10 +240,6 @@
       position: absolute;
       top: 4px;
       right: 10px;
-    }
-
-    &__upload-img {
-      width: 100%;
     }
   }
 </style>
