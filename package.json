@@ -37,7 +37,7 @@
     "release": "release-it"
   },
   "dependencies": {
-    "@vue/composition-api": "^1.0.0-beta.6",
+    "@vue/composition-api": "^1.0.0-beta.8",
     "ant-design-vue": "^1.6.4",
     "apexcharts": "^3.20.0",
     "axios": "^0.19.2",
