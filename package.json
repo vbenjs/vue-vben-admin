@@ -60,7 +60,7 @@
     "vue-draggable-resizable": "^2.2.0",
     "vue-i18n": "^8.20.0",
     "vue-image-crop-upload": "^2.5.0",
-    "vue-router": "^3.4.0",
+    "vue-router": "^3.4.2",
     "vuedraggable": "^2.24.0",
     "vuex": "^3.4.0",
     "vuex-module-decorators": "^0.17.0",

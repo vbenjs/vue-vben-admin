@@ -14543,10 +14543,10 @@ vue-ref@^2.0.0:
   resolved "https://registry.npm.taobao.org/vue-ref/download/vue-ref-2.0.0.tgz#483084d732abed11da796778a8266a3af0ea1a9c"
   integrity sha1-SDCE1zKr7RHaeWd4qCZqOvDqGpw=
 
-vue-router@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.npm.taobao.org/vue-router/download/vue-router-3.4.0.tgz?cache=0&sync_timestamp=1596618634810&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-router%2Fdownload%2Fvue-router-3.4.0.tgz#05dfcc112917025dac9e71cba414f72833424ba6"
-  integrity sha1-Bd/MESkXAl2snnHLpBT3KDNCS6Y=
+vue-router@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.npm.taobao.org/vue-router/download/vue-router-3.4.2.tgz#541221d7ac467786c1c9381bcf36019d883b9cf8"
+  integrity sha1-VBIh16xGd4bByTgbzzYBnYg7nPg=
 
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.2"
