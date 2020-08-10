@@ -259,7 +259,7 @@ module.exports = function createMockMiddleware({
       );
       const wrapIsFunc = typeof handleWrap === 'function';
       const result = match.handler(req, res, next);
-      return wrapIsFunc ? wrapIsFunc(result) : result;
+      return wrapIsFunc ? handleWrap(result) : result;
     } else {
       return next();
     }

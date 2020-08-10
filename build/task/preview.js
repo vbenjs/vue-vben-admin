@@ -26,7 +26,7 @@ const startApp = () => {
     if (err) {
       throw err;
     } else {
-      const publicPath = process.env.BASE_URL;
+      // const publicPath = process.env.BASE_URL;
       app.listen(port, function () {
         const empty = '    ';
         const common = `The preview program is already running:

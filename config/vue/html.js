@@ -25,7 +25,6 @@ function getMergeCommonOptions(filename = '') {
     removeStyleLinkTypeAttributes: true, // 去 link type="text/css"
     useShortDoctype: true,
     removeEmptyAttributes: true,
-    removeStyleLinkTypeAttributes: true,
     keepClosingSlash: true,
     removeComments: true, // 移除注释
     collapseWhitespace: true, // 去多余空格
@@ -54,7 +53,7 @@ function configHtml(config) {
   });
   config.when(isProductionFn(), (config) => {
     config.plugin('html').tap((args) => {
-      const { addToHead, chunksSortMode, title, minify, inject } = getMergeCommonOptions();
+      const { addToHead, title, minify } = getMergeCommonOptions();
       args[0].addToHead = addToHead;
       // args[0].chunksSortMode = chunksSortMode;
       args[0].title = title;

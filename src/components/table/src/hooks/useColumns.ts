@@ -59,7 +59,7 @@ export function useColumns(
     }
 
     if (ellipsis) {
-      columns.map((item) => {
+      columns.forEach((item) => {
         const { key, dataIndex } = item;
         if (!key) {
           item.key = dataIndex;

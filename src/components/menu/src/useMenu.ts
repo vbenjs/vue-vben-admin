@@ -192,7 +192,8 @@ export function useSideBar({
         // 存储当前选中menu的，所有层级数据
         const names = getAllParentData(findMenu, flatMenus);
         names.unshift({ ...findMenu, children: undefined });
-        menuStore.commitCurrMenuState(names.reverse());
+        const ret = names.reverse();
+        menuStore.commitCurrMenuState(ret);
 
         if (menuState.mode !== MenuModeEnum.HORIZONTAL) {
           setOpenKeys(findMenu);
