@@ -14967,10 +14967,10 @@ worker-farm@^1.7.0:
   dependencies:
     errno "~0.1.7"
 
-worker-loader@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npm.taobao.org/worker-loader/download/worker-loader-3.0.0.tgz#4256b6ea9715ad3e0d39ad2d4b58e5fef49b06da"
-  integrity sha1-Qla26pcVrT4NOa0tS1jl/vSbBto=
+worker-loader@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npm.taobao.org/worker-loader/download/worker-loader-3.0.1.tgz#9c4ef633297cd167c70cd92070db4368b995bca4"
+  integrity sha1-nE72Myl80WfHDNkgcNtDaLmVvKQ=
   dependencies:
     loader-utils "^2.0.0"
     schema-utils "^2.7.0"
