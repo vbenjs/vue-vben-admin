@@ -37,7 +37,7 @@
     "release": "release-it"
   },
   "dependencies": {
-    "@vue/composition-api": "^1.0.0-beta.6",
+    "@vue/composition-api": "^1.0.0-beta.8",
     "ant-design-vue": "^1.6.4",
     "apexcharts": "^3.20.0",
     "axios": "^0.19.2",
@@ -60,7 +60,7 @@
     "vue-draggable-resizable": "^2.2.0",
     "vue-i18n": "^8.20.0",
     "vue-image-crop-upload": "^2.5.0",
-    "vue-router": "^3.4.0",
+    "vue-router": "^3.4.2",
     "vuedraggable": "^2.24.0",
     "vuex": "^3.4.0",
     "vuex-module-decorators": "^0.17.0",
@@ -95,7 +95,7 @@
     "babel-plugin-transform-remove-console": "^6.9.4",
     "babel-preset-vca-jsx": "^0.3.6",
     "cache-loader": "^4.1.0",
-    "chokidar": "^3.4.0",
+    "chokidar": "^3.4.2",
     "clean-webpack-plugin": "^3.0.0",
     "commitizen": "^4.1.2",
     "compressing": "^1.5.1",
@@ -148,7 +148,7 @@
     "webpack-merge": "^5.1.1",
     "webpack-theme-color-replacer": "^1.3.14",
     "webpackbar": "^4.0.0",
-    "worker-loader": "^3.0.0",
+    "worker-loader": "^3.0.1",
     "yargs": "^15.4.1"
   },
   "repository": {

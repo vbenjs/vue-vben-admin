@@ -19,7 +19,6 @@
     {
       title: '地址',
       dataIndex: 'address',
-      width: 200,
     },
     {
       title: '编号',

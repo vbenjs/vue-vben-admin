@@ -80,6 +80,6 @@ export const rotateProps = {
 
   diffDegree: {
     type: Number,
-    default: 10,
+    default: 20,
   } as PropOptions<number>,
 };

@@ -2046,10 +2046,10 @@
   optionalDependencies:
     prettier "^1.18.2"
 
-"@vue/composition-api@^1.0.0-beta.6":
-  version "1.0.0-beta.6"
-  resolved "https://registry.npm.taobao.org/@vue/composition-api/download/@vue/composition-api-1.0.0-beta.6.tgz#d526b31f09acdffd0e9424c53cd9f8ffaef10408"
-  integrity sha1-1SazHwms3/0OlCTFPNn4/67xBAg=
+"@vue/composition-api@^1.0.0-beta.8":
+  version "1.0.0-beta.8"
+  resolved "https://registry.npm.taobao.org/@vue/composition-api/download/@vue/composition-api-1.0.0-beta.8.tgz#3e821b1f47c4c2f898c6575411f7101b1e596246"
+  integrity sha1-PoIbH0fEwviYxldUEfcQGx5ZYkY=
   dependencies:
     tslib "^2.0.0"
 
@@ -3692,10 +3692,25 @@ chokidar@^2.1.8:
   optionalDependencies:
     fsevents "^1.2.7"
 
-chokidar@^3.3.0, chokidar@^3.4.0, chokidar@^3.4.1:
+chokidar@^3.3.0, chokidar@^3.4.1:
   version "3.4.1"
   resolved "https://registry.npm.taobao.org/chokidar/download/chokidar-3.4.1.tgz?cache=0&sync_timestamp=1594864807174&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fchokidar%2Fdownload%2Fchokidar-3.4.1.tgz#e905bdecf10eaa0a0b1db0c664481cc4cbc22ba1"
   integrity sha1-6QW97PEOqgoLHbDGZEgcxMvCK6E=
+  dependencies:
+    anymatch "~3.1.1"
+    braces "~3.0.2"
+    glob-parent "~5.1.0"
+    is-binary-path "~2.1.0"
+    is-glob "~4.0.1"
+    normalize-path "~3.0.0"
+    readdirp "~3.4.0"
+  optionalDependencies:
+    fsevents "~2.1.2"
+
+chokidar@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.npm.taobao.org/chokidar/download/chokidar-3.4.2.tgz#38dc8e658dec3809741eb3ef7bb0a47fe424232d"
+  integrity sha1-ONyOZY3sOAl0HrPve7Ckf+QkIy0=
   dependencies:
     anymatch "~3.1.1"
     braces "~3.0.2"
@@ -14543,10 +14558,10 @@ vue-ref@^2.0.0:
   resolved "https://registry.npm.taobao.org/vue-ref/download/vue-ref-2.0.0.tgz#483084d732abed11da796778a8266a3af0ea1a9c"
   integrity sha1-SDCE1zKr7RHaeWd4qCZqOvDqGpw=
 
-vue-router@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.npm.taobao.org/vue-router/download/vue-router-3.4.0.tgz?cache=0&sync_timestamp=1596618634810&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-router%2Fdownload%2Fvue-router-3.4.0.tgz#05dfcc112917025dac9e71cba414f72833424ba6"
-  integrity sha1-Bd/MESkXAl2snnHLpBT3KDNCS6Y=
+vue-router@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.npm.taobao.org/vue-router/download/vue-router-3.4.2.tgz?cache=0&sync_timestamp=1596792075521&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-router%2Fdownload%2Fvue-router-3.4.2.tgz#541221d7ac467786c1c9381bcf36019d883b9cf8"
+  integrity sha1-VBIh16xGd4bByTgbzzYBnYg7nPg=
 
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.2"
@@ -14967,10 +14982,10 @@ worker-farm@^1.7.0:
   dependencies:
     errno "~0.1.7"
 
-worker-loader@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npm.taobao.org/worker-loader/download/worker-loader-3.0.0.tgz#4256b6ea9715ad3e0d39ad2d4b58e5fef49b06da"
-  integrity sha1-Qla26pcVrT4NOa0tS1jl/vSbBto=
+worker-loader@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npm.taobao.org/worker-loader/download/worker-loader-3.0.1.tgz#9c4ef633297cd167c70cd92070db4368b995bca4"
+  integrity sha1-nE72Myl80WfHDNkgcNtDaLmVvKQ=
   dependencies:
     loader-utils "^2.0.0"
     schema-utils "^2.7.0"

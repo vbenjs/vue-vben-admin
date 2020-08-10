@@ -40,6 +40,9 @@
       // const lastPropsRef = ref<BasicTableProps>();
 
       const getMergeProps = computed(() => {
+        console.log('======================');
+        console.log(props);
+        console.log('======================');
         return {
           ...props,
           ...unref(innerPropsRef),
@@ -277,7 +280,6 @@
           ...(formConfig as FormProps),
           compact: true,
         };
-
         return (
           <div class={prefixCls}>
             {useSearchForm && (
@@ -313,6 +315,10 @@
   @border-color: hsla(0, 0%, 80.8%, 0.3);
   .@{prefix-cls} {
     padding: 12px;
+
+    // .ant-table-fixed-header .ant-table-scroll .ant-table-header {
+    //   overflow-y: hidden !important;
+    // }
 
     .ant-table-thead > tr > th {
       background: #f1f3f4;
@@ -373,13 +379,16 @@
       margin: 10px 0 0 0;
     }
 
-    .ant-table-body {
-      overflow: auto !important;
+    .ant-table-body,
+    .ant-table-body-inner {
+      overflow-x: auto !important;
+      overflow-y: scroll !important;
     }
 
     .ant-table-header {
       margin-bottom: 0 !important;
-      overflow: hidden !important;
+      overflow-x: hidden !important;
+      overflow-y: scroll !important;
     }
 
     .ant-radio {
@@ -398,6 +407,8 @@
 
     .ant-table-bordered .ant-table-thead > tr:not(:last-child) > th,
     .ant-table-tbody > tr > td {
+      word-break: break-word;
+      // white-space: break-spaces;
       // border-bottom: none;
       border-color: @border-color;
     }
