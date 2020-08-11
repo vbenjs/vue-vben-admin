@@ -199,7 +199,6 @@
 
         const beforeStr = name.substr(0, index);
         const afterStr = name.substr(index + searchValue.length);
-
         return [
           renderIcon(icon!),
           index > -1 && searchValue ? (

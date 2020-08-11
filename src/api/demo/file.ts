@@ -22,8 +22,6 @@ export function downloadApi() {
  * @description: 上传
  */
 export function uploadApi(params: UploadParams) {
-  console.log(params);
-
   return http.request<UploadResult[]>(
     {
       url: Api.UploadFile,

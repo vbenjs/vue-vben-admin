@@ -11,6 +11,7 @@
   import { useEvent } from '@/hooks/event/useEvent';
 
   import { userStore } from '@/store/modules/user';
+  import { appStore } from '@/store/modules/app';
   import { clearAll } from '@/store/persistent';
 
   import headImg from '@/assets/images/header.jpg';
@@ -67,15 +68,21 @@
         if (err) {
           return;
         }
-        openModal({
-          visible: true,
-        });
-      }
-      async function handleVerifySuccess() {
-        try {
+        const { openLoginVerify } = appStore.getProjCfg;
+        if (openLoginVerify) {
           openModal({
-            visible: false,
+            visible: true,
           });
+        } else {
+          handleVerifySuccess(false);
+        }
+      }
+      async function handleVerifySuccess(openMdal = true) {
+        try {
+          openMdal &&
+            openModal({
+              visible: false,
+            });
           loadingRef.value = true;
           // 表单校验
           const values = getFieldsValue() as any;

@@ -40,9 +40,6 @@
       // const lastPropsRef = ref<BasicTableProps>();
 
       const getMergeProps = computed(() => {
-        console.log('======================');
-        console.log(props);
-        console.log('======================');
         return {
           ...props,
           ...unref(innerPropsRef),

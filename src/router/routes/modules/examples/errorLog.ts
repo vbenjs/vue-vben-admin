@@ -19,8 +19,8 @@ const routes: RouteConfigEx[] = [
     name: 'ErrorHandler',
     component: () => createAsyncComponent(import('@/views/sys/error-log/index.vue')),
     meta: {
-      icon: 'bug',
       title: '错误日志',
+      icon: 'bug',
     },
   },
 ];

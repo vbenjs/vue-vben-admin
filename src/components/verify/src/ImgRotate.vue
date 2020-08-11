@@ -121,7 +121,7 @@
       if (instance) {
         instance.resume = resume;
       }
-      handleImgOnLoad();
+      // handleImgOnLoad();
       return () => {
         const { src } = props;
         const { toOrigin, isPassing, startTime, endTime } = state;
