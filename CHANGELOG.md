@@ -1,3 +1,37 @@
+# [1.2.0](https://github.com/anncwb/vue-vben-admin/compare/1.1.0...1.2.0) (2020-08-11)
+
+### ⚡ Performance Improvements
+
+- **button:** 对按钮进行优化扩展 ([2d5112c](https://github.com/anncwb/vue-vben-admin/commit/2d5112c)) by: **陈文彬** (anncwb@126.com)
+- **code:** 优化代码 ([2791d38](https://github.com/anncwb/vue-vben-admin/commit/2791d38)) by: **陈文彬** (anncwb@126.com)
+- **setting:** 新增 openLoginVerify 属性,优化部分路由菜单结构 ([a473da8](https://github.com/anncwb/vue-vben-admin/commit/a473da8)) by: **陈文彬** (anncwb@126.com)
+- **table:** 加强 table 功能 ([0a2b1a1](https://github.com/anncwb/vue-vben-admin/commit/0a2b1a1)) by: **陈文彬** (anncwb@126.com)
+- **tree:** tree 组件加强,增加节点操作函数 ([4035d4f](https://github.com/anncwb/vue-vben-admin/commit/4035d4f)) by: **陈文彬** (anncwb@126.com)
+
+### ✨ Features
+
+- **modal:** 增加 footerOffset 参数 ([a40301c](https://github.com/anncwb/vue-vben-admin/commit/a40301c)) by: **陈文彬** (anncwb@126.com)
+- **qrcode:** 新增二维码 logo 功能 ([f1f2da1](https://github.com/anncwb/vue-vben-admin/commit/f1f2da1)) by: **陈文彬** (anncwb@126.com)
+- **table:** 扩展表格合计列功能,并增加 demo ([15c60a0](https://github.com/anncwb/vue-vben-admin/commit/15c60a0)) by: **陈文彬** (anncwb@126.com)
+- **table:** 新增可编辑表格示例 ([aef79eb](https://github.com/anncwb/vue-vben-admin/commit/aef79eb)) by: **陈文彬** (anncwb@126.com)
+
+### 🎫 Chores
+
+- **deps:** 更新 vue-cli 4.4.6 为 4.5.2 ([d68fa7d](https://github.com/anncwb/vue-vben-admin/commit/d68fa7d)) by: **陈文彬** (anncwb@126.com)
+- build 1.1.0 ([fbe1564](https://github.com/anncwb/vue-vben-admin/commit/fbe1564)) by: **陈文彬** (anncwb@126.com)
+
+### 🐛 Bug Fixes
+
+- **drawer:** 修复 drawer 在路由切换后不会自动关闭问题 ([9ba5169](https://github.com/anncwb/vue-vben-admin/commit/9ba5169)) by: **陈文彬** (anncwb@126.com)
+- **drawer:** 修复 drawer 详情模式错误 ([59c343f](https://github.com/anncwb/vue-vben-admin/commit/59c343f)) by: **陈文彬** (anncwb@126.com)
+- **drawer:** 修复 settingDrawer 失效 ([cf2661f](https://github.com/anncwb/vue-vben-admin/commit/cf2661f)) by: **陈文彬** (anncwb@126.com)
+- **mock:** 修复打包后 mock 加载错误问题 ([39cf49e](https://github.com/anncwb/vue-vben-admin/commit/39cf49e)) by: **陈文彬** (anncwb@126.com)
+- **table:** 修复表格左侧固定列在显示 index 列的时候显示错误 ([37176f7](https://github.com/anncwb/vue-vben-admin/commit/37176f7)) by: **陈文彬** (anncwb@126.com)
+- **table:** 修复表格错位问题 ([6970de1](https://github.com/anncwb/vue-vben-admin/commit/6970de1)) by: **陈文彬** (anncwb@126.com)
+- **tinymce:** example 例子修改 ([9d39ec9](https://github.com/anncwb/vue-vben-admin/commit/9d39ec9)) by: **jq** (1151176506@qq.com)
+- **tinymce:** 修复集成 form 时，无法设置问题 ([5577981](https://github.com/anncwb/vue-vben-admin/commit/5577981)) by: **jq** (1151176506@qq.com)
+- **upload:** 点击保存后才开始上传；修复集成 form 问题 ([9606607](https://github.com/anncwb/vue-vben-admin/commit/9606607)) by: **jq** (1151176506@qq.com)
+
 # [1.1.0](https://github.com/anncwb/vue-vben-admin/compare/1.0.4...1.1.0) (2020-08-05)
 
 ### ♻ Code Refactoring
