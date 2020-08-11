@@ -22,10 +22,10 @@
             type="primary"
             class="my-4"
             onClick={() => {
-              downloadByUrl(
-                'https://codeload.github.com/anncwb/vue-vben-admin-doc/zip/master',
-                '_self'
-              );
+              downloadByUrl({
+                url: 'https://codeload.github.com/anncwb/vue-vben-admin-doc/zip/master',
+                target: '_self',
+              });
             }}
           >
             文件地址下载

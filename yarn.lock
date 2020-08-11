@@ -15425,3 +15425,8 @@ zrender@4.3.1:
   version "4.3.1"
   resolved "https://registry.npm.taobao.org/zrender/download/zrender-4.3.1.tgz?cache=0&sync_timestamp=1596209688796&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fzrender%2Fdownload%2Fzrender-4.3.1.tgz#baf8aa6dc8187a2f819692d7d5f9bedfa2b90fa3"
   integrity sha1-uviqbcgYei+BlpLX1fm+36K5D6M=
+
+zxcvbn@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.npm.taobao.org/zxcvbn/download/zxcvbn-4.4.2.tgz#28ec17cf09743edcab056ddd8b1b06262cc73c30"
+  integrity sha1-KOwXzwl0PtyrBW3dixsGJizHPDA=

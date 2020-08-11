@@ -105,7 +105,9 @@
       }
 
       function handleDownload(file: UploadResult) {
-        downloadByUrl(file.url);
+        downloadByUrl({
+          url: file.url,
+        });
       }
       function renderFile() {
         return state.fileList.map((file, index) => {

@@ -30,7 +30,15 @@ export function downloadByData(data: BlobPart, filename: string, mime?: string, 
  * 根据文件地址下载文件
  * @param {*} sUrl
  */
-export function downloadByUrl(sUrl: string, target: TargetContext = '_blank'): boolean {
+export function downloadByUrl({
+  url,
+  target = '_blank',
+  fileName,
+}: {
+  url: string;
+  target?: TargetContext;
+  fileName?: string;
+}): boolean {
   const isChrome = window.navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
   const isSafari = window.navigator.userAgent.toLowerCase().indexOf('safari') > -1;
 
@@ -40,12 +48,11 @@ export function downloadByUrl(sUrl: string, target: TargetContext = '_blank'): b
   }
   if (isChrome || isSafari) {
     const link = document.createElement('a');
-    link.href = sUrl;
+    link.href = url;
     link.target = target;
 
     if (link.download !== undefined) {
-      const fileName = sUrl.substring(sUrl.lastIndexOf('/') + 1, sUrl.length);
-      link.download = fileName;
+      link.download = fileName || url.substring(url.lastIndexOf('/') + 1, url.length);
     }
 
     if (document.createEvent) {
@@ -55,10 +62,10 @@ export function downloadByUrl(sUrl: string, target: TargetContext = '_blank'): b
       return true;
     }
   }
-  if (sUrl.indexOf('?') === -1) {
-    sUrl += '?download';
+  if (url.indexOf('?') === -1) {
+    url += '?download';
   }
 
-  window.open(sUrl, target);
+  window.open(url, target);
   return true;
 }
