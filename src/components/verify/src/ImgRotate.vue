@@ -58,7 +58,7 @@
       const getFactorRef = computed(() => {
         const { minDegree, maxDegree } = props;
         if (minDegree === maxDegree) {
-          return Math.floor(1 + Math.random() * 6) / 10 + 1;
+          return Math.floor(1 + Math.random() * 1) / 10 + 1;
         }
         return 1;
       });
@@ -139,6 +139,9 @@
                 width={parseInt(props.width as string)}
                 class={imgCls}
                 style={state.imgStyle}
+                onClick={() => {
+                  resume();
+                }}
               />
               <span
                 v-show={state.showTip}

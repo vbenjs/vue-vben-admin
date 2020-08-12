@@ -43,7 +43,7 @@
         emit('change', state.fileList);
         state.hasRemove = false;
       }
-      function handleCloseFunc() {
+      function handleCloseFunc(): Promise<boolean> {
         return new Promise((resolve) => {
           if (state.hasRemove) {
             createConfirm({

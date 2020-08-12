@@ -2,15 +2,18 @@ import { VNode, Ref, unref } from 'compatible-vue';
 import { Form, Col } from 'ant-design-vue';
 import { Icon } from '@/components/icon/index';
 import { FormProps, ActionButtonOption } from './types/form';
-import { ColEx } from './types/index';
+import { ColEx, SlotType } from './types/index';
+import { getSlot } from '@/utils/helper/tsxHelper';
 
 // import {} from '@/utils/'
 export function renderAction({
+  slots,
   props,
   isAdvancedRef,
   hideAdvanceBtnRef,
   actionSpanRef,
 }: {
+  slots: SlotType;
   props: FormProps;
   isAdvancedRef: Ref<boolean>;
   hideAdvanceBtnRef: Ref<boolean>;
@@ -49,22 +52,26 @@ export function renderAction({
     showActionButtonGroup && (
       <Col props={actionColOpt} style={{ textAlign: 'right' }}>
         <Form.Item>
+          {getSlot(slots, 'advance-before')}
           {showAdvancedButton && !unref(hideAdvanceBtnRef) && (
             <a-button type="default" class="mr-2" onClick={toggleAdvanced}>
               {unref(isAdvancedRef) ? '收起' : '展开'}
               <Icon type={unref(isAdvancedRef) ? 'up' : 'down'} class="advanced-icon" />
             </a-button>
           )}
+          {getSlot(slots, 'reset-before')}
           {showResetButton && (
             <a-button type="default" class="mr-2" props={resetBtnOptions} on={resetBtnOptions.on}>
               {resetBtnOptions.text}
             </a-button>
           )}
+          {getSlot(slots, 'submit-before')}
           {showSubmitButton && (
             <a-button type="primary" props={submitBtnOptions} on={submitBtnOptions.on}>
               {submitBtnOptions.text}
             </a-button>
           )}
+          {getSlot(slots, 'submit-after')}
         </Form.Item>
       </Col>
     )

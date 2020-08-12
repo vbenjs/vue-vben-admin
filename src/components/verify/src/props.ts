@@ -75,7 +75,7 @@ export const rotateProps = {
 
   maxDegree: {
     type: Number,
-    default: 150,
+    default: 270,
   } as PropOptions<number>,
 
   diffDegree: {

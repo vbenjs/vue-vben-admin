@@ -147,7 +147,7 @@
         }
       }
       // TODO:关闭，是要中止上传，还是等到接口完成
-      function handleCloseFunc() {
+      function handleCloseFunc(): Promise<boolean> {
         return new Promise((resolve) => {
           if (!state.isAllUpload) {
             createConfirm({

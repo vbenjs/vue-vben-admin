@@ -447,17 +447,23 @@
             {
               // 表单项前置item  需要用 Col标签包含
             }
-            {getSlot(slots, 'insert-form')}
+            {getSlot(slots, 'form-header')}
             <Row class={[compact ? 'compact-form-row' : '']}>
               {schema.map((schemaItem) => {
                 return renderCol(schemaItem, propsData, slots, unref(getAllDefaultValues));
               })}
-              {renderAction({ props: propsData, isAdvancedRef, hideAdvanceBtnRef, actionSpanRef })}
+              {renderAction({
+                slots,
+                props: propsData,
+                isAdvancedRef,
+                hideAdvanceBtnRef,
+                actionSpanRef,
+              })}
             </Row>
             {
               // 表单项后置item  需要用 Col标签包含
             }
-            {getSlot(slots, 'append-form')}
+            {getSlot(slots, 'form-footer')}
           </Form>
         );
       };

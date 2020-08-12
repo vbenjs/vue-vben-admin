@@ -9,7 +9,7 @@
   import { ModalProps, ModalInstance } from './types';
   import { basicProps } from './props';
 
-  import { getSlot } from '@/utils/helper/tsxHelper';
+  import { getSlot, extendSlots } from '@/utils/helper/tsxHelper';
   import { isFunction } from '@/utils/is';
   // import { triggerWindowResize } from '@/utils/event/triggerWindowResizeEvent';
   export default defineComponent({
@@ -118,8 +118,8 @@
       async function handleCancel(e: Event) {
         e.stopPropagation();
         if (props.closeFunc && isFunction(props.closeFunc)) {
-          await props.closeFunc();
-          visibleRef.value = false;
+          const isClose: boolean = await props.closeFunc();
+          visibleRef.value = isClose;
           return;
         }
         visibleRef.value = false;
@@ -232,6 +232,7 @@
           {renderContent()}
           {renderFooter()}
           {renderClose()}
+          {extendSlots(slots, ['default'])}
         </Modal>
       );
     },

@@ -3,7 +3,7 @@
   import { BasicModal } from '@/components/modal/index';
   export default defineComponent({
     name: 'Modal1Demo',
-    setup(_, { listeners }) {
+    setup(props, { listeners }) {
       return () => (
         <BasicModal title="基础弹窗" on={listeners}>
           弹窗可以拖动
