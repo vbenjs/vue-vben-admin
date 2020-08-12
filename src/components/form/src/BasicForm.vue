@@ -87,7 +87,7 @@
             schema.defaultValue = moment(defaultValue);
           }
         }
-        return schemas;
+        return schemas as FormSchema[];
       });
 
       const { realWidthRef, screenEnum } = useBreakpoint();
