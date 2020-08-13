@@ -63,11 +63,12 @@ const transform: AxiosTransform = {
 
     const { data } = res;
     if (!data) {
-      return '[HTTP] Request has no return value';
+      // return '[HTTP] Request has no return value';
+      return errorResult;
     }
     const { code, result, message } = data;
-    const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
 
+    const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
     if (!hasSuccess) {
       if (message) {
         if (options.errorMessageMode === 'modal') {

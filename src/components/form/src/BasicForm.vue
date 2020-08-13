@@ -97,14 +97,10 @@
           const { showAdvancedButton } = unref(getProps);
           if (showAdvancedButton) {
             if (unref(isFirstAdvenceRef)) {
-              setTimeout(() => {
-                emit('advancedChange');
-                isFirstAdvenceRef.value = false;
-                // todo 待优化
-              }, 500);
-            } else {
-              emit('advancedChange');
+              isFirstAdvenceRef.value = false;
+              // todo 待优化
             }
+            emit('advancedChange');
             updateAdvanced();
           }
         },

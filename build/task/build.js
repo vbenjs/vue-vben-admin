@@ -1,4 +1,4 @@
-const runjs = require('runjs');
+const { sh } = require('tasksfile');
 const yargs = require('yargs');
 const mkdirp = require('mkdirp');
 const { buildConfig } = require('./build-conf');
@@ -8,8 +8,6 @@ const { successTip, errorTip, isReportModeFn } = require('../utils');
 const resolve = require('../getCwdPath');
 const { selectBuildModule } = require('./selectBuildModule');
 const { getEnvConfig } = require('../getEnvConfig');
-
-const { run } = runjs;
 
 async function build(v) {
   const argvList = yargs.argv._;
@@ -41,9 +39,9 @@ async function build(v) {
     if (!argvList.includes('no-conf')) {
       await buildConfig();
     }
-    await run(command, {
+    await sh(command, {
       async: true,
-      stdio: 'inherit',
+      nopipe: true,
     });
     if (!isReportModeFn()) {
       const zipPath = '.local/output/dist/';

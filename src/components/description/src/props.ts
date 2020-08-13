@@ -3,6 +3,10 @@ import { DescItem } from './type';
 // import { CollapseContainerOptions } from '@/components/container/index';
 
 export default {
+  useCollapse: {
+    type: Boolean,
+    default: true,
+  } as PropOptions<boolean>,
   title: {
     type: String,
     default: '',

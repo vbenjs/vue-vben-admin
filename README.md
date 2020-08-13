@@ -9,23 +9,29 @@
 
 一个适合开发中大型项目的基础框架，需要对`vue`,`typescript`有一定的了解,也可以作为了解新写法的一个例子来看，提前适应后续新版本的开发方式
 
-项目基于`ant-design-vue`,`typescript`,`vue-composition-api`,`TSX`实现的 vue3 风格的后台管理系统，
+项目基于`ant-design-vue`,`typescript`,`vue-composition-api`,`tsx`实现的 vue3 风格的后台管理系统，
 
 兼容 vue2 的浏览器，一切免费，不收取任何费用，请放心使用。后续定期提供更新及维护，可供参考与学习
+
+### gitHub 地址
+
+[vue-vben-admin](https://github.com/anncwb/vue-vben-admin)
+
+**精简版地址**
+
+[vue-vben-admin-thin](https://github.com/anncwb/vue-vben-admin-thin)
 
 ### 在线示例
 
 [在线预览](https://vvbin.cn/)
+
+[精简在线预览](https://vvbin.cn/thin/)
 
 <p align="center">
     <img alt="VbenAdmin Logo" width="100%" src="./docs/imgs/preview1.png">
     <img alt="VbenAdmin Logo" width="100%" src="./docs/imgs/preview2.png">
     <img alt="VbenAdmin Logo" width="100%" src="./docs/imgs/preview3.png">
 </p>
-
-### gitHub 地址
-
-[vue-vben-admin](https://github.com/anncwb/vue-vben-admin)
 
 ### 文档
 

@@ -76,7 +76,6 @@ class User extends VuexModule implements UserState {
   async login(params: LoginParams, goHome = true): Promise<boolean> {
     const data = await loginApi(params);
     const { token, userId } = data;
-
     // 获取用户信息
     await this.getUserInfoAction({ userId });
 

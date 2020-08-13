@@ -41,6 +41,7 @@ function createDevServer() {
     port: ENV.VUE_APP_PORT,
     https: false,
     hotOnly: true,
+    compress: true,
     clientLogLevel: 'warn',
     overlay: {
       warnings: true,

@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
 const pkg = require('../../package.json');
-const runjs = require('runjs');
+const { sh } = require('tasksfile');
 const fs = require('fs-extra');
 const resolve = require('../getCwdPath');
 const { inquirerPrompt, successTip, errorTip } = require('../utils');
 const shell = require('shelljs');
 
-const { run } = runjs;
 const { writeFileSync } = fs;
 
 const MAJOR = 1;
@@ -64,9 +63,9 @@ const updateVersion = async (msg = 'Please select this update to submit changes'
     }
 
     if (shell.which('git')) {
-      await run(` git add ./package.json `, {
+      await sh(` git add ./package.json `, {
         async: true,
-        stdio: 'inherit',
+        nopipe: true,
       });
     }
 
