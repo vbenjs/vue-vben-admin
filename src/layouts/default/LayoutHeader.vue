@@ -1,17 +1,18 @@
 <script lang="tsx">
   import { defineComponent, unref, computed } from 'compatible-vue';
-  import { Layout, Tooltip } from 'ant-design-vue';
+  import { Layout, Tooltip, Badge } from 'ant-design-vue';
   import { Icon } from '@/components/icon/index';
   import UserDropdown from './UserDropdown.vue';
   import Logo from '@/layouts/Logo.vue';
   import LayoutBread from './LayoutBread.vue';
 
-  import LockAction from './actions/lockAction.vue';
+  import LockAction from './actions/LockActionItem.vue';
   import GithubModal from './actions/GithubModal.vue';
   import { useModal } from '@/components/modal/index';
 
   import LayoutMenu from './LayoutMenu.vue';
   import { appStore } from '@/store/modules/app';
+  import { errorStore } from '@/store/modules/error';
   import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum';
 
   // hooks
@@ -21,7 +22,7 @@
 
   export default defineComponent({
     name: 'DefaultLayoutHeader',
-    setup() {
+    setup(_, { root }) {
       const { prefixCls } = useDesign('layout-header');
       const { toggleFullscreen, isFullscreenRef } = useFullscreen();
 
@@ -49,9 +50,14 @@
           visible: true,
         });
       }
+      function handleToErrorList() {
+        errorStore.commitErrorListCountState(0);
+        root.$router.push('/error-log/index');
+      }
       return () => {
         const { getProjCfg } = appStore;
         const {
+          useErrorHandle,
           showGithubButton,
           showLogo,
           headerSetting: { theme: headerTheme } = {},
@@ -80,6 +86,21 @@
               <LayoutBread class={`${prefixCls}__bread`} />
             )}
             <div class={`${prefixCls}__action`}>
+              {useErrorHandle && (
+                <Tooltip>
+                  <template slot="title">错误日志</template>
+                  <Badge
+                    count={errorStore.getErrorListCountState}
+                    offset={[0, 10]}
+                    overflowCount={99}
+                  >
+                    <div class={`${prefixCls}__action-item`} onClick={handleToErrorList}>
+                      <Icon type="bug" class={`${prefixCls}__action-icon`} />
+                    </div>
+                  </Badge>
+                </Tooltip>
+              )}
+
               {showGithubButton && (
                 <Tooltip>
                   <template slot="title">帮助</template>

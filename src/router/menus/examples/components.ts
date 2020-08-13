@@ -42,6 +42,42 @@ export default {
           name: '开启搜索区域',
           path: '/demo7',
         },
+        {
+          name: '行拖拽',
+          path: '/demo8',
+        },
+        {
+          name: '列拖拽',
+          path: '/demo9',
+        },
+        {
+          name: '动态列示例',
+          path: '/demo10',
+        },
+        {
+          name: '定高/头部自定义',
+          path: '/demo11',
+        },
+        {
+          name: '展开行示例',
+          path: '/demo12',
+        },
+        {
+          name: '合并行列示例',
+          path: '/demo13',
+        },
+        {
+          name: '多级表头示例',
+          path: '/demo14',
+        },
+        {
+          name: '可编辑单元格示例',
+          path: '/demo15',
+        },
+        {
+          name: '表尾行合计示例',
+          path: '/demo16',
+        },
       ],
     },
     {
@@ -67,6 +103,24 @@ export default {
         {
           name: '自定义组件示例',
           path: '/custom',
+        },
+      ],
+    },
+    {
+      name: 'tree组件',
+      path: '/tree-demo',
+      children: [
+        {
+          name: '基础示例',
+          path: '/base',
+        },
+        {
+          name: '右键/按钮示例',
+          path: '/action',
+        },
+        {
+          name: '函数使用示例',
+          path: '/methods',
         },
       ],
     },
@@ -141,8 +195,32 @@ export default {
       name: 'clickOutSide组件',
     },
     {
-      path: '/upload-image-demo',
-      name: '上传文件',
+      path: '/verify-demo',
+      name: '验证码组件',
+      children: [
+        {
+          name: '拖拽验证',
+          path: '/base-drag',
+        },
+        {
+          name: '旋转拖拽验证',
+          path: '/rotate-drag',
+        },
+      ],
+    },
+    {
+      name: '上传下载',
+      path: '/file-demo',
+      children: [
+        {
+          name: '上传',
+          path: '/upload',
+        },
+        {
+          name: '下载',
+          path: '/download',
+        },
+      ],
     },
   ],
 } as NormMenuItem;

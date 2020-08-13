@@ -18,7 +18,7 @@ export const modalProps = {
     type: String,
     default: '保存',
   } as PropOptions<string>,
-  closeFunc: Function as PropOptions<() => Promise<any>>,
+  closeFunc: Function as PropOptions<() => Promise<boolean>>,
 };
 
 export const basicProps = Object.assign({}, modalProps, {
@@ -27,6 +27,11 @@ export const basicProps = Object.assign({}, modalProps, {
     type: Boolean,
     default: true,
   } as PropOptions<boolean>,
+  // 启用wrapper后 底部可以适当增加高度
+  wrapperFooterOffset: {
+    type: Number,
+    default: 0,
+  } as PropOptions<number>,
   // 温馨提醒信息
   helpMessage: [String, Array] as PropOptions<string | string[]>,
   // 是否使用wrapper
@@ -99,13 +104,19 @@ export const basicProps = Object.assign({}, modalProps, {
 
   cancelButtonProps: Object as PropOptions<any>,
 
-  title: [String] as PropOptions<string>,
+  title: {
+    type: String,
+  } as PropOptions<string>,
 
   visible: Boolean as PropOptions<boolean>,
 
   width: [String, Number] as PropOptions<string | number>,
 
-  wrapClassName: String as PropOptions<string>,
+  wrapClassName: {
+    type: String,
+  } as PropOptions<string>,
 
-  zIndex: Number as PropOptions<number>,
+  zIndex: {
+    type: Number,
+  } as PropOptions<number>,
 });

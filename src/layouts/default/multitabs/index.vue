@@ -49,7 +49,7 @@
       // tab切换
       function handleChange(activeKey: pageEnum) {
         activeKeyRef.value = activeKey;
-        useGo({ path: activeKey, replace: false, router: root.$router });
+        useGo({ path: activeKey, replace: false });
       }
       // 关闭当前ab
       function handleEdit(targetKey: string) {
@@ -103,7 +103,7 @@
       .ant-tabs-card-bar {
         height: 40px;
         margin: 0;
-        background: #fff;
+        background: @white;
         border: 0;
         box-shadow: 0 4px 26px 1px rgba(0, 0, 0, 0.08);
 
@@ -115,7 +115,7 @@
           // height: 38px;
           font-size: 14px;
           color: @text-color-call-out;
-          background: #fff;
+          background: @white;
           border: 1px solid @border-color-shallow-dark;
           border-radius: 4px 4px 0 0;
 
@@ -152,7 +152,7 @@
         }
 
         .ant-tabs-tab-active {
-          color: #fff;
+          color: @white;
           // color: @primary-color;
           // background: #f6f6f6;
           background: @primary-color;
@@ -178,7 +178,7 @@
       .ant-tabs-tab-prev,
       .ant-tabs-tab-next {
         color: @border-color-dark;
-        background: #fff;
+        background: @white;
       }
     }
 
@@ -197,7 +197,7 @@
       &:hover {
         .anticon-close {
           display: inline-block;
-          color: #fff;
+          color: @white;
         }
       }
     }

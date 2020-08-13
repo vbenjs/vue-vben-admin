@@ -12,6 +12,9 @@ export { default as ProjectOutline } from '@ant-design/icons/lib/outline/Project
 export { default as PushpinOutline } from '@ant-design/icons/lib/outline/PushpinOutline';
 export { default as GithubOutline } from '@ant-design/icons/lib/outline/GithubOutline';
 
+export { default as BugOutline } from '@ant-design/icons/lib/outline/BugOutline';
+export { default as BookOutline } from '@ant-design/icons/lib/outline/BookOutline';
+
 // upload
 export { default as ZoomInOutline } from '@ant-design/icons/lib/outline/ZoomInOutline';
 export { default as SettingOutline } from '@ant-design/icons/lib/outline/SettingOutline';
@@ -67,6 +70,9 @@ export { default as SearchOutline } from '@ant-design/icons/lib/outline/SearchOu
 export { default as BarsOutline } from '@ant-design/icons/lib/outline/BarsOutline';
 export { default as StarFill } from '@ant-design/icons/lib/fill/StarFill';
 export { default as FilterOutline } from '@ant-design/icons/lib/outline/FilterOutline';
+export { default as CaretDownFill } from '@ant-design/icons/lib/fill/CaretDownFill';
+export { default as FilterFill } from '@ant-design/icons/lib/fill/FilterFill';
+export { default as CaretUpFill } from '@ant-design/icons/lib/fill/CaretUpFill';
 export { default as CaretUpOutline } from '@ant-design/icons/lib/outline/CaretUpOutline';
 export { default as CaretDownOutline } from '@ant-design/icons/lib/outline/CaretDownOutline';
 export { default as PlusOutline } from '@ant-design/icons/lib/outline/PlusOutline';
@@ -76,4 +82,6 @@ export { default as FolderOutline } from '@ant-design/icons/lib/outline/FolderOu
 export { default as PaperClipOutline } from '@ant-design/icons/lib/outline/PaperClipOutline';
 export { default as PictureOutline } from '@ant-design/icons/lib/outline/PictureOutline';
 export { default as EyeOutline } from '@ant-design/icons/lib/outline/EyeOutline';
+export { default as EyeInvisibleOutline } from '@ant-design/icons/lib/outline/EyeInvisibleOutline';
 export { default as DeleteOutline } from '@ant-design/icons/lib/outline/DeleteOutline';
+export { default as FormOutline } from '@ant-design/icons/lib/outline/FormOutline';

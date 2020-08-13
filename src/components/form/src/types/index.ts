@@ -33,4 +33,5 @@ export type ComponentType =
   | 'WeekPicker'
   | 'TimePicker'
   | 'ImageUpload'
-  | 'Switch';
+  | 'Switch'
+  | 'Render';

@@ -12,6 +12,7 @@
 
   // hook
   import { useNetWork } from '@/hooks/event/useNetWork';
+  import { setupInitRumTimeVm } from '@/hooks/core/useRouter';
   import { useInitProjCfg } from './useInitApp';
   import { appStore } from '@/store/modules/app';
 
@@ -25,7 +26,9 @@
   moment.locale('zh-cn');
 
   export default defineComponent({
+    name: 'App',
     setup(_, { root }) {
+      setupInitRumTimeVm();
       // 检测网络状态
       useNetWork({
         onLineFn: () => {
@@ -55,10 +58,22 @@
       return () => {
         const { getLockInfo } = appStore;
         const { isLock } = getLockInfo || {};
+
+        function transformCellText({ text }: { text: string }) {
+          if (!text) {
+            return '-';
+          }
+          return text;
+        }
         return (
           <div id="app" onKeyup={registerGlobOnKeyup} onMousemove={registerGlobOnMouseMove}>
             {isLock && <LockPage />}
-            <ConfigProvider ider locale={zhCN} renderEmpty={renderEmpty}>
+            <ConfigProvider
+              ider
+              locale={zhCN}
+              renderEmpty={renderEmpty}
+              transformCellText={transformCellText}
+            >
               <router-view />
             </ConfigProvider>
           </div>

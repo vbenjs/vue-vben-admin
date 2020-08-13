@@ -1,33 +1,45 @@
 <script lang="tsx">
   import { defineComponent, reactive, unref, computed } from 'compatible-vue';
-  import { Upload, Button } from 'ant-design-vue';
-  import { UploadFile } from 'ant-design-vue/types/upload';
-  import { BasicModal, useModal } from '@/components/modal/index';
+  import { Upload } from 'ant-design-vue';
+  // import { UploadFile } from 'ant-design-vue/types/upload';
+  import { BasicModal } from '@/components/modal/index';
   import { Icon } from '@/components/icon/index';
   import { useMessage } from '@/hooks/core/useMessage';
   import { basicProps } from './props';
-  import { BasicProps, UploadResult } from './types';
+  import { BasicProps, UploadResultStatus, VaFile, UploadResult } from './types';
+  import { getBase64, checkImgType, checkFileType, generateFormData } from './utils';
+  import { createImgPreview } from '@/components/preview/index';
+  import { uploadApi } from '@/api/demo/file';
+  // import { UploadResult } from '@/api/demo/model/fileModel';
+
   export default defineComponent({
     name: 'UploadModal',
     props: basicProps,
     setup(props: BasicProps, { listeners, emit }) {
       const state = reactive<{
-        fileList: UploadFile<UploadResult>[];
-        previewImage: boolean;
+        fileList: VaFile[];
+        isAllUpload: boolean;
       }>({
         fileList: [],
-        previewImage: false,
+        isAllUpload: true,
       });
+      const getConfirmLoading = computed(() => {
+        return !state.isAllUpload;
+      });
+      // 文件类型限制
       const getAccept = computed(() => {
-        if (!props.accept || props.accept.length === 0) {
-          if (props.uploadImg) {
-            return ['jpg', 'jpeg', 'png'];
-          } else {
-            // return ['jpg', 'jpeg', 'png', 'gif', 'txt', 'doc', 'docx', 'xls', 'xlsx', 'xml'];
-            return [];
-          }
+        if (props.accept && props.accept.length > 0) {
+          return props.accept;
         }
-        return props.accept;
+        if (props.isUploadImg) {
+          return ['jpg', 'jpeg', 'png', 'gif'];
+        }
+        return [];
+      });
+      const getStringAccept = computed(() => {
+        return unref(getAccept)
+          .map((item) => `.${item}`)
+          .join(',');
       });
       // 支持jpg、jpeg、png格式，单次可最多选择10张图片，每张不可大于2M。
       const getHelpText = computed(() => {
@@ -48,160 +60,153 @@
       });
 
       const { createMessage, createConfirm } = useMessage();
+      // const { createMessage } = useMessage();
 
-      // 文件类型限制
-      const getStringAccept = computed(() => {
-        return unref(getAccept)
-          .map((item) => `.${item}`)
-          .join(',');
-      });
-      // 限制上传的图片
+      // 上传前校验
       function beforeUpload(file) {
         const { maxSize } = props;
         const accept = unref(getAccept);
-        let isType = true;
-        let isLtMB = true;
 
         // 设置最大值，则判断
-        if (maxSize) {
-          isLtMB = file.size / 1024 / 1024 < maxSize;
-          if (!isLtMB) {
-            createMessage.error(`只能上传小于${maxSize}MB的文件!`);
-          }
+        if (maxSize && file.size / 1024 / 1024 >= maxSize) {
+          createMessage.error(`只能上传小于${maxSize}MB的文件!`);
+          return false;
         }
+
         // 设置类型,则判断
-        if (accept.length > 0) {
-          const newTypes = accept.join('|');
-          // const reg = /\.(jpg|jpeg|png|gif|txt|doc|docx|xls|xlsx|xml)$/i;
-          const reg = new RegExp('\\.(' + newTypes + ')$', 'i');
-          isType = reg.test(file.name);
-
-          if (!isType) {
-            createMessage.error!(`只能上传${accept.join(',')}格式文件`);
-          }
+        if (accept.length > 0 && !checkFileType(file, accept)) {
+          createMessage.error!(`只能上传${accept.join(',')}格式文件`);
+          return false;
         }
-
-        return isType && isLtMB;
+        // 生成图片缩略图
+        if (checkImgType(file) && !file.thumbUrl) {
+          // beforeUpload，如果异步会调用自带上传方法
+          // file.thumbUrl = await getBase64(file);
+          getBase64(file).then(({ result: thumbUrl, file: realFile }) => {
+            const index = state.fileList.findIndex((file) => {
+              return file.name === realFile.name && file.type === realFile.type;
+            });
+            if (index !== -1) {
+              state.fileList[index].thumbUrl = thumbUrl;
+              // 数组双向绑定需要重新，赋值
+              state.fileList = state.fileList.slice(0);
+            }
+          });
+        }
+        state.fileList = [...state.fileList, file];
+        // return isType && isLtMB;
+        return false;
       }
 
-      function handleChange({ fileList }) {
-        state.fileList = fileList;
-      }
-      // 预览图片
-      const [register, { isFirstLoadRef, openModal }] = useModal();
-
-      function getBase64(file) {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = () => resolve(reader.result);
-          reader.onerror = (error) => reject(error);
-        });
-      }
       async function handlePreview(file) {
-        // const reg = /\.(jpg|jpeg|png|gif|txt|doc|docx|xls|xlsx|xml)$/i;
-        const reg = new RegExp('\\.(' + ['jpg', 'jpeg', 'png', 'gif'].join('|') + ')$', 'i');
-        const isType = reg.test(file.name);
-        if (!isType) {
+        if (!checkImgType(file)) {
           return;
         }
-        if (!file.url && !file.preview) {
-          file.preview = await getBase64(file.originFileObj);
+        if (!file.url && !file.thumbUrl && !file.preview) {
+          const { result } = await getBase64(file);
+          file.preview = result;
         }
-        state.previewImage = file.url || file.preview;
-        openModal({
-          visible: true,
-        });
+        const previewImage = file.url || file.thumbUrl || file.preview;
+        createImgPreview({ imageList: [previewImage] });
       }
-      // 点击保存
-      const getFileList = computed(() => {
-        return state.fileList
-          .filter((file) => {
-            return file.status === 'done' && file.response;
-          })
-          .map((file) => {
-            return file.response;
+      // TODO: 具体接口格式在调整;增加自定义请求props；增加disabled
+      async function handleOk() {
+        state.isAllUpload = false;
+        const formData = generateFormData({
+          fileList: state.fileList,
+          data: {},
+        });
+        // console.log(formData);
+        try {
+          const uploadResultList: UploadResult[] = await uploadApi({
+            formData,
+            total: state.fileList.length,
           });
-      });
-
-      function handleOk() {
-        const isAllUpload = state.fileList.every((file) => {
-          const { status } = file;
-          return status !== 'uploading';
-        });
-        if (isAllUpload) {
-          // 返回上传成功的图片
-          emit('change', unref(getFileList));
-        } else {
-          createMessage.warning('请等待文件上传完毕');
-        }
-      }
-      function handleCloseFunc() {
-        return new Promise((resolve) => {
-          if (!state.fileList || state.fileList.length === 0) {
-            emit('change', []);
-            resolve(true);
+          // console.log(uploadResultList);
+          const errorList = uploadResultList.filter((file) => {
+            return file.status === UploadResultStatus.ERROR;
+          });
+          const successList = uploadResultList.filter((file) => {
+            return file.status === UploadResultStatus.SUCCESS;
+          });
+          if (errorList.length > 0) {
+            const errorNames = errorList.map((file) => {
+              return file.name;
+            });
+            createMessage.warning(`${errorNames.join(',')}上传失败`);
+          } else {
+            createMessage.warning('文件全部上传成功');
           }
-          const isAllUpload = state.fileList.every((file) => {
-            const { status } = file;
-            return status !== 'uploading';
-          });
-          if (!isAllUpload) {
+          state.fileList = [];
+          emit('change', successList);
+        } catch (e) {
+          console.log(e);
+        } finally {
+          state.fileList = [];
+          state.isAllUpload = true;
+        }
+      }
+      // TODO:关闭，是要中止上传，还是等到接口完成
+      function handleCloseFunc(): Promise<boolean> {
+        return new Promise((resolve) => {
+          if (!state.isAllUpload) {
             createConfirm({
               iconType: 'warning',
               title: '温馨提醒',
-              content: '正在上传中，是否继续关闭?',
+              content: '正在上传中，是否中止上传?',
               onOk: () => {
-                emit('change', unref(getFileList));
-                // state.fileList = [];
+                // emit('change',[]);
+                state.fileList = [];
                 resolve(true);
               },
             });
           } else {
-            emit('change', unref(getFileList));
-            // state.fileList = [];
+            // emit('change', unref(getFileList));
+            state.fileList = [];
             resolve(true);
           }
         });
       }
-
-      return () => (
-        <BasicModal
-          title="上传"
-          width={600}
-          closeFunc={handleCloseFunc}
-          maskClosable={false}
-          on={{ ...listeners, ok: handleOk }}
-        >
-          <p>{unref(getHelpText)}</p>
-          <Upload
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-            list-type={props.uploadImg ? 'picture-card' : 'text'}
-            accept={unref(getStringAccept)}
-            multiple={props.multiple}
-            file-list={state.fileList}
-            before-upload={beforeUpload}
-            onPreview={handlePreview}
-            onChange={handleChange}
+      function handleRemove(file) {
+        const index = state.fileList.indexOf(file);
+        const newFileList = state.fileList.slice();
+        newFileList.splice(index, 1);
+        state.fileList = newFileList;
+      }
+      return () => {
+        return (
+          <BasicModal
+            title="上传"
+            width={600}
+            maskClosable={false}
+            closeFunc={handleCloseFunc}
+            confirmLoading={unref(getConfirmLoading)}
+            on={{ ...listeners, ok: handleOk }}
           >
-            {state.fileList.length <= props.maxNumber || !props.maxNumber ? (
-              props.uploadImg ? (
-                <div>
-                  <Icon type="plus" />
-                  <div class="ant-upload-text">上传</div>
-                </div>
-              ) : (
-                <Button type="primary">上传</Button>
-              )
-            ) : null}
-          </Upload>
-          {!unref(isFirstLoadRef) && (
-            <BasicModal title="预览图片" width={600} onRegister={register} footer={null}>
-              <img alt="预览图片" style="width: 100%" src={state.previewImage} />
-            </BasicModal>
-          )}
-        </BasicModal>
-      );
+            <p>{unref(getHelpText)}</p>
+            <Upload
+              list-type={props.isUploadImg ? 'picture-card' : 'text'}
+              accept={unref(getStringAccept)}
+              multiple={props.multiple}
+              file-list={state.fileList}
+              before-upload={beforeUpload}
+              onPreview={handlePreview}
+              remove={handleRemove}
+            >
+              {state.fileList.length < props.maxNumber || !props.maxNumber ? (
+                props.isUploadImg ? (
+                  <div>
+                    <Icon type="plus" />
+                    <div class="ant-upload-text">上传</div>
+                  </div>
+                ) : (
+                  <a-button type="primary">上传</a-button>
+                )
+              ) : null}
+            </Upload>
+          </BasicModal>
+        );
+      };
     },
   });
 </script>

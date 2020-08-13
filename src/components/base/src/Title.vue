@@ -41,17 +41,6 @@
 
     .unselect();
 
-    // &::before {
-    //   position: absolute;
-    //   top: 4px;
-    //   left: 0;
-    //   width: 3px;
-    //   height: 16px;
-    //   margin-right: 4px;
-    //   background: @primary-color;
-    //   content: '';
-    // }
-
     &__help {
       margin-left: 10px;
     }

@@ -7,7 +7,7 @@
 
   import { useDrawer } from '@/components/drawer/index';
 
-  // import { Button } from 'ant-design-vue';
+  //
   export default defineComponent({
     name: 'SettingBtn',
     setup() {
@@ -27,7 +27,7 @@
           {
             // <span>系统配置</span>
           }
-          {!unref(isFirstLoadRef) && <SettingDrawer onGet={getDrawer} />}
+          {!unref(isFirstLoadRef) && <SettingDrawer onRegister={getDrawer} />}
         </div>
       );
     },
@@ -40,7 +40,7 @@
   .@{prefix-cls} {
     display: flex;
     padding: 16px;
-    color: #fff;
+    color: @white;
     cursor: pointer;
     background: @primary-color;
     flex-direction: column;

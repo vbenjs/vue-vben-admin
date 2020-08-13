@@ -5,6 +5,7 @@ const runjs = require('runjs');
 const fs = require('fs-extra');
 const resolve = require('../getCwdPath');
 const { inquirerPrompt, successTip, errorTip } = require('../utils');
+const shell = require('shelljs');
 
 const { run } = runjs;
 const { writeFileSync } = fs;
@@ -62,10 +63,13 @@ const updateVersion = async (msg = 'Please select this update to submit changes'
       });
     }
 
-    await run(` git add ./package.json `, {
-      async: true,
-      stdio: 'inherit',
-    });
+    if (shell.which('git')) {
+      await run(` git add ./package.json `, {
+        async: true,
+        stdio: 'inherit',
+      });
+    }
+
     successTip(
       `The version number has been updated successfully! The current version is ${pkg.version}!`
     );

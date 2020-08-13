@@ -1,0 +1,34 @@
+// =================================
+// ==============button=============
+// =================================
+// a)按钮统一禁用状态：不透明度为40%；
+
+@button-primary-color: @primary-color; // 默认状态：背景与边框
+@button-primary-hover-color: darken(@primary-color, 5%); // 鼠标悬停状态：背景与边框
+
+// 默认幽灵按钮各状态的颜色值
+@button-ghost-color: @primary-color; //默认状态：文字与边框
+@button-ghost-hover-color: lighten(@primary-color, 10%); //鼠标悬停状态：文字与边框
+@button-ghost-hover-bg-color: #e1ebf6; //鼠标悬停状态：背景
+
+// 成功按钮宜用于添加、新建、新增等功能，文字颜色值应为#FFFFFF
+@button-success-color: @success-color; //默认状态：背景与边框
+@button-success-hover-color: darken(@success-color, 10%); // 鼠标悬停状态：背景与边框
+
+// 提示按钮宜用于修改、编辑、复审等功能，文字颜色值应为#FFFFFF
+@button-warn-color: @warning-color; //默认状态：背景与边框
+@button-warn-hover-color: darken(@warning-color, 10%); // 鼠标悬停状态：背景与边框
+
+// 错误按钮宜用于删除、批量删除、禁用等功能，文字颜色值应为#FFFFFF
+@button-error-color: @danger-color; //默认状态：背景与边框
+@button-error-hover-color: darken(@danger-color, 10%); // 鼠标悬停状态：背景与边框
+
+// 取消按钮宜用于重置、取消、返回、收起/展开等功能
+// 默认状态
+@button-cancel-color: @text-color-call-out;
+@button-cancel-bg-color: @white;
+@button-cancel-border-color: @border-color-shallow-dark;
+// 鼠标悬停
+@button-cancel-hover-color: @primary-color;
+@button-cancel-hover-bg-color: @white;
+@button-cancel-hover-border-color: @primary-color;

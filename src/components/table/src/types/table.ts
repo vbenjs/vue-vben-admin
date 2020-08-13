@@ -1,7 +1,9 @@
+import { VNode } from 'compatible-vue';
 import { PaginationProps } from './pagination';
 import { FormProps } from '@/components/form/index';
 import { ScopedSlot } from 'vue/types/vnode';
 import { TableRowSelection } from 'ant-design-vue/types/table/table';
+import { ComponentType } from './componentType';
 export declare type SortOrder = 'ascend' | 'descend';
 export interface ColumnFilterItem {
   text?: string;
@@ -9,16 +11,25 @@ export interface ColumnFilterItem {
   children?: any;
 }
 
+export interface RenderEditableCellParams {
+  dataIndex: string;
+  component?: ComponentType;
+  componentOn?: { [key: string]: (...arg) => any };
+  componentProps?: any;
+}
 export interface Scroll {
-  x: number | boolean | string;
-  y: number | null;
-  scrollToFirstRowOnChange: boolean;
+  x?: number | boolean | string;
+  y?: number | null;
+  scrollToFirstRowOnChange?: boolean;
 }
 export interface FetchParams {
   searchInfo?: any;
   page?: number;
 }
 
+export interface getColumnsParams {
+  ignoreIndex?: boolean;
+}
 export interface TableInstance {
   reload: (opt?: FetchParams) => Promise<void>;
   getSelectRows: () => any[];
@@ -27,7 +38,8 @@ export interface TableInstance {
   deleteSelectRowByKey: (key: string) => void;
   setPagination: (info: Partial<PaginationProps>) => void;
   setTableData: (values: any[]) => void;
-  getColumns: () => BasicColumn[];
+  getColumns: ({ ignoreIndex }?: getColumnsParams) => BasicColumn[];
+  setColumns: (columns: BasicColumn[] | string[]) => void;
   getDataSource: () => any[];
   setLoading: (loading: boolean) => void;
   setProps: (props: Partial<BasicTableProps>) => void;
@@ -47,6 +59,16 @@ export interface FetchSetting {
   totalField: string;
 }
 export interface BasicTableProps {
+  // 计算合计行的方法
+  summaryFunc?: (...arg) => any[];
+  // 是否显示合计行
+  showSummary?: boolean;
+  // 是否可拖拽行排序
+  canRowDrag?: boolean;
+
+  // 是否可拖拽列
+  canColDrag?: boolean;
+  // 是否树表
   isTreeTable?: boolean;
   // 接口请求对象
   api?: (...arg) => Promise<any>;
@@ -149,7 +171,7 @@ export interface BasicTableProps {
    * Customize row expand Icon.
    * @type Function | ScopedSlot
    */
-  expandIcon: Function | ScopedSlot;
+  expandIcon: ((...arg) => VNode | VNode[]) | ScopedSlot;
 
   /**
    * Whether to expand row by clicking anywhere in the whole row
@@ -226,6 +248,7 @@ export interface BasicTableProps {
 }
 
 export interface BasicColumn {
+  children?: BasicColumn[];
   //
   flag?: 'INDEX' | 'DEFAULT' | 'CHECKBOX' | 'RADIO' | 'ACTION';
 

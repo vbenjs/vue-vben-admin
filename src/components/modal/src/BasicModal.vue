@@ -1,6 +1,6 @@
 <script lang="tsx">
   import Modal from './Modal.vue';
-  import { Button } from 'ant-design-vue';
+
   import { Icon } from '@/components/icon/index';
   import ModalWrapper from './ModalWrapper.vue';
   import { BaseTitle } from '@/components/base/index';
@@ -9,13 +9,16 @@
   import { ModalProps, ModalInstance } from './types';
   import { basicProps } from './props';
 
-  import { getSlot } from '@/utils/helper/tsxHelper';
-  import { isFunction } from '../../../utils/is';
+  import { getSlot, extendSlots } from '@/utils/helper/tsxHelper';
+  import { isFunction } from '@/utils/is';
   // import { triggerWindowResize } from '@/utils/event/triggerWindowResizeEvent';
   export default defineComponent({
     name: 'BasicModal',
     props: basicProps,
     setup(props: Readonly<ModalProps>, { slots, listeners, emit }) {
+      // onMounted(() => {
+      //   console.log('onMounted setups');
+      // });
       const visibleRef = ref(false);
       const propsRef = ref<Partial<ModalProps> | null>(null);
 
@@ -81,7 +84,7 @@
         }
         return (
           <BaseTitle helpMessage={helpMessage} slot="title">
-            {slots.getSlot ? getSlot(slots, 'title') : title}
+            {slots.title ? getSlot(slots, 'title') : title}
           </BaseTitle>
         );
       }
@@ -92,6 +95,7 @@
         const { useWrapper, loading, wrapperProps } = unref(getProps);
         return useWrapper ? (
           <ModalWrapper
+            footerOffset={props.wrapperFooterOffset}
             fullScreen={unref(fullScreenRef)}
             ref={modalWrapperRef}
             loading={loading}
@@ -104,18 +108,18 @@
               emit('heightChange', height);
             }}
           >
-            {getSlot(slots, 'default')}
+            {getSlot(slots)}
           </ModalWrapper>
         ) : (
-          getSlot(slots, 'default')
+          getSlot(slots)
         );
       }
       // 取消事件
       async function handleCancel(e: Event) {
         e.stopPropagation();
         if (props.closeFunc && isFunction(props.closeFunc)) {
-          await props.closeFunc();
-          visibleRef.value = false;
+          const isClose: boolean = await props.closeFunc();
+          visibleRef.value = isClose;
           return;
         }
         visibleRef.value = false;
@@ -139,14 +143,14 @@
             {getSlot(slots, 'insert-footer')}
 
             {showCancelBtn && (
-              <Button {...{ ...cancelButtonProps }} onClick={handleCancel}>
+              <a-button {...{ ...cancelButtonProps }} onClick={handleCancel}>
                 {cancelText}
-              </Button>
+              </a-button>
             )}
             {getSlot(slots, 'centerd-footer')}
 
             {showOkBtn && (
-              <Button
+              <a-button
                 type={okType}
                 {...{ ...okButtonProps }}
                 loading={confirmLoading}
@@ -155,7 +159,7 @@
                 }}
               >
                 {okText}
-              </Button>
+              </a-button>
             )}
 
             {getSlot(slots, 'append-footer')}
@@ -228,6 +232,7 @@
           {renderContent()}
           {renderFooter()}
           {renderClose()}
+          {extendSlots(slots, ['default'])}
         </Modal>
       );
     },

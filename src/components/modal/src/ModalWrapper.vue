@@ -8,6 +8,8 @@
     watch,
     PropOptions,
     onMounted,
+    nextTick,
+    onUnmounted,
   } from 'compatible-vue';
   import { Spin } from 'ant-design-vue';
   import { ScrollContainer, TypeEnum } from '@/components/container/index';
@@ -18,6 +20,7 @@
   import { ModalWrapperProps } from './types';
 
   import { getSlot } from '@/utils/helper/tsxHelper';
+  import { useElResize } from '@/hooks/event/useElResize';
   export default defineComponent({
     name: 'ModalWrapper',
     props: {
@@ -36,6 +39,10 @@
       minHeight: {
         type: Number,
         default: 200,
+      } as PropOptions<number>,
+      footerOffset: {
+        type: Number,
+        default: 0,
       } as PropOptions<number>,
       visible: {
         type: Boolean,
@@ -88,7 +95,11 @@
           const modalRect = getComputedStyle(modalDom).top;
           const modalTop = Number.parseInt(modalRect);
           let maxHeight =
-            window.innerHeight - modalTop * 2 - props.modalFooterHeight - props.modalHeaderHeight;
+            window.innerHeight -
+            modalTop * 2 +
+            (props.footerOffset! || 0) -
+            props.modalFooterHeight -
+            props.modalHeaderHeight;
 
           // 距离顶部过进会出现滚动条
           if (modalTop < 40) {
@@ -123,7 +134,20 @@
           console.log(error);
         }
       }
-
+      function listenElResize() {
+        const wrapper = unref(wrapperRef);
+        if (!wrapper) return;
+        const container = wrapper.querySelector('.ant-spin-container');
+        if (!container) return;
+        const [start, stop] = useElResize(container, () => {
+          setModalHeight();
+        });
+        start();
+        onUnmounted(() => {
+          stop();
+        });
+      }
+      nextTick(() => {});
       watchEffect(() => {
         setModalHeight();
       });
@@ -137,6 +161,7 @@
       onMounted(() => {
         const { modalHeaderHeight, modalFooterHeight } = props;
         emit('getExtHeight', modalHeaderHeight + modalFooterHeight);
+        listenElResize();
       });
 
       useWindowSizeFn(setModalHeight);
@@ -150,7 +175,7 @@
               style={{ height: `${unref(realHeightRef)}px` }}
               class="p-4 modal-wrap-spin"
             >
-              {getSlot(slots, 'default')}
+              {getSlot(slots)}
             </Spin>
           </ScrollContainer>
         </div>

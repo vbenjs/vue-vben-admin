@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
-  import { Divider, Button } from 'ant-design-vue';
+  import { Divider } from 'ant-design-vue';
 
   import { BasicForm, useForm } from '@/components/form/index';
 
@@ -52,18 +52,18 @@
       return () => (
         <div class="p-4">
           <Divider>功能,点击后如果需要还原在tab右键刷新页面即可</Divider>
-          <Button onClick={updateLabel} class="mx-3">
+          <a-button onClick={updateLabel} class="mx-3">
             更改字段1Label
-          </Button>
-          <Button onClick={updateLabel12} class="mx-3">
+          </a-button>
+          <a-button onClick={updateLabel12} class="mx-3">
             更改字段1,2Label
-          </Button>
-          <Button onClick={insertField3} class="mx-3">
+          </a-button>
+          <a-button onClick={insertField3} class="mx-3">
             往字段1后面插入字段3
-          </Button>
-          <Button onClick={removefield2} class="mx-3">
+          </a-button>
+          <a-button onClick={removefield2} class="mx-3">
             删除字段2
-          </Button>
+          </a-button>
 
           <Divider>JSON表单组件-动态表单示例</Divider>
           <BasicForm onRegister={register}></BasicForm>

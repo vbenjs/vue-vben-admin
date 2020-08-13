@@ -41,6 +41,10 @@
         start();
       }
 
+      function getScrollWrap() {
+        return unref(scrollbarRef).wrap;
+      }
+
       function scrollBottom() {
         const scrollHeight = unref(scrollbarRef).wrap.scrollHeight as number;
         const { start } = useScrollTo({
@@ -54,6 +58,7 @@
         scrollbarRef,
         scrollTo,
         scrollBottom,
+        getScrollWrap,
       };
     },
   });

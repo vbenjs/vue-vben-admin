@@ -65,12 +65,13 @@
       emit('register', methods);
 
       function renderItem() {
-        return unref(getProps).schema.map((item, index) => {
+        const { schema } = unref(getProps);
+        return unref(schema).map((item, index) => {
           const { label, render, field, span } = item;
           const { data } = unref(getProps);
           return (
             <Descriptions.Item label={label} key={index} span={span}>
-              {isFunction(render) ? render(data && data[field]) : data && data[field]}
+              {isFunction(render) ? render(data && data[field]) : unref(data) && unref(data)[field]}
             </Descriptions.Item>
           );
         });

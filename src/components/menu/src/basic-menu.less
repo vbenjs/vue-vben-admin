@@ -4,7 +4,7 @@
 // 黑暗蒙层背景色
 @trigger-dark-hover-bg-color: rgba(255, 255, 255, 0.2);
 @trigger-dark-bg-color: rgba(255, 255, 255, 0.1);
-@trigger-light-bg-color: #fff;
+@trigger-light-bg-color: @white;
 
 // 2级菜单黑暗背景色
 @sub-menu-item-dark-bg-color: #4f6088;
@@ -41,13 +41,13 @@
   &.@{namespace}-menu__popup {
     .ant-menu-item {
       svg {
-        fill: #fff;
+        fill: @white;
       }
     }
 
     .ant-menu-item-selected {
       svg {
-        fill: #fff;
+        fill: @white;
       }
     }
   }
@@ -152,7 +152,7 @@
 
           &:hover {
             svg {
-              fill: #fff;
+              fill: @white;
             }
           }
         }
@@ -172,10 +172,10 @@
   &.ant-menu-dark {
     .ant-menu-item.ant-menu-item-selected.@{namespace}-menu-item__level1,
     .ant-menu-submenu-selected.@{namespace}-menu-item__level1 {
-      color: #fff;
+      color: @white;
 
       svg {
-        fill: #fff;
+        fill: @white;
       }
     }
     .@{prefix-cls}-item__level1 {
@@ -302,11 +302,11 @@
 .ant-layout-sider {
   &-dark {
     .ant-layout-sider-trigger {
-      color: darken(#fff, 25%);
+      color: darken(@white, 25%);
       background: @trigger-dark-bg-color;
 
       &:hover {
-        color: #fff;
+        color: @white;
         background: @trigger-dark-hover-bg-color;
       }
     }

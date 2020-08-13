@@ -1,5 +1,5 @@
-import Mock from 'mockjs';
-import { param2Obj } from './index';
+const Mock = require('mockjs');
+const { param2Obj } = require('./index');
 
 const mockApiMethods = require.context('../', true, /^[^\_]*\.js$/);
 let modules = {};
@@ -8,7 +8,7 @@ mockApiMethods.keys().forEach((key) => {
     const mods = mockApiMethods(key);
     key = key.replace(/^\.\//, '').replace(/\.js$/, '');
     Object.keys(mods).forEach((mod) => {
-      modules = { ...modules, ...mods[mod] };
+      modules = { ...modules, ...mods };
     });
   }
 });

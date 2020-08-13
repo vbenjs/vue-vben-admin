@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { Drawer, Button } from 'ant-design-vue';
+  import { Drawer } from 'ant-design-vue';
   import { defineComponent, ref, computed, watch, unref } from 'compatible-vue';
   // import { BaseTitle } from '@/components/base/index';
   import { Icon } from '@/components/icon/index';
@@ -13,7 +13,7 @@
   import { DrawerInstance, DrawerProps, DrawerType } from './types';
 
   import { basicProps } from './props';
-  import { isFunction } from '../../../utils/is';
+  import { isFunction } from '@/utils/is';
   export default defineComponent({
     props: basicProps,
     setup(props: DrawerProps, { slots, emit, listeners, root, attrs }) {
@@ -41,6 +41,8 @@
 
       const getProps = computed(() => {
         const opt: any = {
+          // @ts-ignore
+          placement: 'right',
           ...attrs,
           ...props,
           ...unref(propsRef),
@@ -54,7 +56,7 @@
             ? `${opt.wrapClassName} ${prefixCls}__detail`
             : `${prefixCls}__detail`;
           opt.maskClosable = false;
-          opt.getContainer = `${prefixVar}-default-layout__content`;
+          opt.getContainer = `.${prefixVar}-default-layout__main`;
         }
         return opt;
       });
@@ -78,6 +80,16 @@
           immediate: false,
         }
       );
+
+      watch(
+        () => root.$route,
+        () => {
+          if (unref(visibleRef)) {
+            visibleRef.value = false;
+          }
+        }
+      );
+
       // 取消事件
       async function onClose(e) {
         const { closeFunc } = unref(getProps);
@@ -100,11 +112,10 @@
       const drawerInstance: DrawerInstance = {
         setDrawerProps,
       };
-      emit('get', drawerInstance);
+      emit('register', drawerInstance);
 
       return () => (
         <Drawer
-          placement="right"
           class={prefixCls}
           on={{
             ...listeners,
@@ -115,17 +126,15 @@
           <FullLoading absolute v-show={props.loading} tip="加载中..." />
           <template slot="title">
             {props.drawerType === DrawerType.DETAIL ? (
-              <Button size="small" type="link" onClick={onClose}>
+              <a-button size="small" type="link" onClick={onClose}>
                 <Icon type="left" />
                 返回
-              </Button>
+              </a-button>
             ) : (
               <BaseTitle>{unref(getMergeProps).title || getSlot(slots, 'title')}</BaseTitle>
             )}
           </template>
-          <ScrollContainer props={unref(getScrollOptions)}>
-            {getSlot(slots, 'default')}
-          </ScrollContainer>
+          <ScrollContainer props={unref(getScrollOptions)}>{getSlot(slots)}</ScrollContainer>
         </Drawer>
       );
     },
@@ -146,6 +155,7 @@
         // z-index: 1;
         width: 100%;
         padding: @header-padding;
+        border-top: 1px solid @border-color-base;
       }
 
       .ant-drawer-close {

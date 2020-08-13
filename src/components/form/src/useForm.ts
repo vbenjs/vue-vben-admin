@@ -17,11 +17,11 @@ export function useForm(props?: Partial<FormProps>): UseFormReturnType {
   const formRef = ref<FormInstance | null>(null);
   const loadedRef = ref<boolean | null>(false);
 
-  onUnmounted(() => {
-    formRef.value = null;
-    loadedRef.value = null;
-  });
   function getForm(instance: FormInstance) {
+    onUnmounted(() => {
+      formRef.value = null;
+      loadedRef.value = null;
+    });
     if (unref(loadedRef) && isProdMode() && instance === unref(formRef)) {
       return;
     }
@@ -31,7 +31,6 @@ export function useForm(props?: Partial<FormProps>): UseFormReturnType {
   }
   const methods: FormInstance & {
     formRef: Ref<FormInstance>;
-    useTableForm: (beforeFn?: <T>(data: T) => T) => { query: () => void };
   } = {
     setFieldsValue: <T>(values: T): void => {
       unref(formRef)?.setFieldsValue(values);
@@ -64,30 +63,6 @@ export function useForm(props?: Partial<FormProps>): UseFormReturnType {
       return unref(formRef)!.appendSchemaByField(schema, prefixField);
     },
     formRef: formRef as Ref<FormInstance>,
-    useTableForm: () => {
-      async function query() {
-        // let values = unref(formRef)!.getFieldsValue!();
-        // if (beforeFn && isFunction(beforeFn)) {
-        //   values = beforeFn(values);
-        // }
-        try {
-          unref(formRef)!.setProps({
-            submitButtonOptions: {
-              loading: true,
-            },
-          });
-          // await unref(tableRef).fetchList({ searchInfo: values });
-        } finally {
-          unref(formRef) &&
-            unref(formRef)!.setProps({
-              submitButtonOptions: {
-                loading: false,
-              },
-            });
-        }
-      }
-      return { query };
-    },
   };
   return [getForm, methods];
 }

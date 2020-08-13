@@ -1,4 +1,4 @@
-import { BasicTableProps, TableInstance, FetchParams } from '../types/table';
+import { BasicTableProps, TableInstance, FetchParams, BasicColumn } from '../types/table';
 import { PaginationProps } from '../types/pagination';
 import { ref, getCurrentInstance, onUnmounted, unref } from 'compatible-vue';
 import { isProdMode } from '@/utils/envUtil';
@@ -9,14 +9,15 @@ export function useTable(
   if (!getCurrentInstance()) {
     throw new Error('Please put useTable function in the setup function!');
   }
+
   const tableRef = ref<TableInstance | null>(null);
   const loadedRef = ref<boolean | null>(false);
 
-  onUnmounted(() => {
-    tableRef.value = null;
-    loadedRef.value = null;
-  });
   function register(instance: TableInstance) {
+    onUnmounted(() => {
+      tableRef.value = null;
+      loadedRef.value = null;
+    });
     if (unref(loadedRef) && isProdMode() && instance === unref(tableRef)) {
       return;
     }
@@ -41,8 +42,13 @@ export function useTable(
     getDataSource: () => {
       return unref(tableRef)?.getDataSource();
     },
-    getColumns: () => {
-      return unref(tableRef)?.getColumns();
+    getColumns: ({ ignoreIndex = false }: { ignoreIndex?: boolean }) => {
+      const columns = unref(tableRef)?.getColumns({ ignoreIndex }) || [];
+
+      return columns;
+    },
+    setColumns: (columns: BasicColumn[]) => {
+      unref(tableRef)?.setColumns(columns);
     },
     setTableData: (values: any[]) => {
       return unref(tableRef)?.setTableData(values);

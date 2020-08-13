@@ -23,12 +23,40 @@ export default {
       path: '/context-menu-demo',
     },
     {
-       name: '图片预览插件',
+      name: '图片预览插件',
       path: '/preview-demo',
     },
     {
       name: '富文本编辑器',
       path: '/tinymce',
+    },
+    {
+      name: '打印插件',
+      path: '/print',
+      children: [
+        {
+          name: '基础示例',
+          path: '/base',
+        },
+        {
+          name: 'json打印示例',
+          path: '/json',
+        },
+      ],
+    },
+    {
+      path: '/excel',
+      name: 'Excel',
+      children: [
+        {
+          path: '/import',
+          name: '导入Excel',
+        },
+        {
+          path: '/export',
+          name: '导出Excel',
+        },
+      ],
     },
   ],
 } as NormMenuItem;

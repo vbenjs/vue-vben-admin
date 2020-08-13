@@ -141,7 +141,6 @@
       if (!buildMenuFn) {
         throw new Error('[BasicMenu]: buildMenuFn is not defined!');
       }
-      // let { result, loading } = usePromise(buildMenuFn, { immediate: true });
 
       // 获取菜单Readonly<Ref<Readonly<MenuData>>>
       const getAllMenu: Ref<MenuData> = computed(() => {
@@ -200,7 +199,6 @@
 
         const beforeStr = name.substr(0, index);
         const afterStr = name.substr(index + searchValue.length);
-
         return [
           renderIcon(icon!),
           index > -1 && searchValue ? (
@@ -320,6 +318,7 @@
             {getSlot(slots, 'header')}
             {unref(getIsShowSearch) && (
               <SearchInput
+                theme={props.theme}
                 onChange={handleInputChange}
                 onClick={handleInputClick}
                 collapsed={getCollapsedState}

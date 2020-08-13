@@ -175,6 +175,9 @@ export interface FormInstance extends Partial<WrappedFormUtils> {
   removeSchemaByFiled(field: string | string[]): void;
   appendSchemaByField(schema: FormSchema, prefixField?: string): void;
 }
+
+export type FormActionType = FormInstance;
+
 export type GetFormFn = (formInstance: FormInstance) => void;
 /**
  * @description:
@@ -183,6 +186,6 @@ export type UseFormReturnType = [
   GetFormFn,
   FormInstance & {
     formRef: Ref<FormInstance>;
-    useTableForm: (beforeFn?: <T>(data: T) => T) => { query: () => void };
+    // useTableForm: (beforeFn?: <T>(data: T) => T) => { query: () => void };
   }
 ];

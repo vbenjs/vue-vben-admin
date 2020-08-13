@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, computed, unref } from 'compatible-vue';
-  import { List, Button, Icon } from 'ant-design-vue';
+  import { List, Icon } from 'ant-design-vue';
   import { CollapseContainer } from '@/components/container/index';
 
   import { useDesign } from '@/hooks/core/useDesign';
@@ -38,10 +38,10 @@
                       提交人：{sbmter}&nbsp;&nbsp;提交时间：{sbmtTime}
                     </div>
                   </List.Item.Meta>
-                  <Button onClick={handleAppr.bind(item)} type="link">
+                  <a-button onClick={handleAppr.bind(item)} type="link">
                     待审批
                     <Icon type="down" />
-                  </Button>
+                  </a-button>
                 </List.Item>
               );
             })}

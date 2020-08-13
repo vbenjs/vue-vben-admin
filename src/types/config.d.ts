@@ -1,6 +1,6 @@
 // 左侧菜单, 顶部菜单
 import { MenuTypeEnum, MenuModeEnum, MenuThemeEnum } from '@/enums/menuEnum';
-import { ContentEnum, AuthModeEnum } from '@/enums/appEnum';
+import { ContentEnum, AuthModeEnum, RouterTransitionEnum } from '@/enums/appEnum';
 
 export interface MessageSetting {
   title: string;
@@ -69,6 +69,14 @@ export interface ProjectConfig {
   lockTime: number;
   // 显示面包屑
   showBreadCrumb: boolean;
+  // 使用error-handler-plugin
+  useErrorHandle: boolean;
+
+  // 路由切换动画
+  routerTransition: RouterTransitionEnum;
+
+  // 是否开启登陆安全校验
+  openLoginVerify: boolean;
 }
 
 export interface GlobConfig {

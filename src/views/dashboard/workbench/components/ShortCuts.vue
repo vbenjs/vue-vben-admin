@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
-  import { Row, Col, Icon, Button } from 'ant-design-vue';
+  import { Row, Col, Icon } from 'ant-design-vue';
   import { CollapseContainer } from '@/components/container/index';
 
   import { useDesign } from '@/hooks/core/useDesign';
@@ -53,9 +53,9 @@
 
       return () => (
         <CollapseContainer class={prefixCls} title="快捷入口" canExpan={false}>
-          <Button slot="action" size="small" type="link">
+          <a-button slot="action" size="small" type="link">
             新建
-          </Button>
+          </a-button>
           <Row>
             {shortCuts.map((item) => {
               const { img, name } = item;

@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { defineComponent, ref, unref } from 'compatible-vue';
 
-  import { Row, Col, Alert, Button } from 'ant-design-vue';
+  import { Row, Col, Alert } from 'ant-design-vue';
   import { ScrollContainer } from '@/components/container/index';
 
   function getData() {
@@ -50,14 +50,14 @@
             <Col span={11} offset={1}>
               <Alert message="对el-scrollbar其进行扩展,支持滚动函数" type="info" />
               <div class="my-3">
-                <Button onClick={handleScroll.bind(null, 100)}>滚动到100px位置</Button>
-                <Button class="mx-3" onClick={handleScroll.bind(null, 800)}>
+                <a-button onClick={handleScroll.bind(null, 100)}>滚动到100px位置</a-button>
+                <a-button class="mx-3" onClick={handleScroll.bind(null, 800)}>
                   滚动到800px位置
-                </Button>
-                <Button class="mr-3" onClick={handleScroll.bind(null, 0)}>
+                </a-button>
+                <a-button class="mr-3" onClick={handleScroll.bind(null, 0)}>
                   滚动到顶部
-                </Button>
-                <Button onClick={handleScrollBottom}>滚动到底部部</Button>
+                </a-button>
+                <a-button onClick={handleScrollBottom}>滚动到底部部</a-button>
               </div>
 
               <div class="box1">

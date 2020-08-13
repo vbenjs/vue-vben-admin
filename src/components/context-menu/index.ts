@@ -3,7 +3,6 @@ import contextMenuVue from './src/index.vue';
 import { isClient } from '@/utils/is/index';
 import { Options, Instance } from './src/types';
 const ContextMenuConstructor = Vue.extend(contextMenuVue as any);
-
 let instance: Instance | null;
 export const createContextMenu = function (options: Options) {
   const { event } = options;

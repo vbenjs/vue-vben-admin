@@ -8,4 +8,10 @@ export interface BasicProps {
   value: string;
   width: string | number;
   menubar: string;
+  showUploadImage: boolean;
+}
+
+export interface TinymceActionType {
+  setContent: (value: string) => void;
+  getContent: () => string;
 }

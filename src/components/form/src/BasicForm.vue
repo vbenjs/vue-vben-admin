@@ -7,6 +7,7 @@
     computed,
     unref,
     watch,
+    getCurrentInstance,
     // PropOptions
   } from 'compatible-vue';
 
@@ -86,7 +87,7 @@
             schema.defaultValue = moment(defaultValue);
           }
         }
-        return schemas;
+        return schemas as FormSchema[];
       });
 
       const { realWidthRef, screenEnum } = useBreakpoint();
@@ -429,6 +430,10 @@
         removeSchemaByFiled,
         appendSchemaByField,
       };
+      const currentInstance = getCurrentInstance() as any;
+      if (currentInstance) {
+        Object.assign(currentInstance, methods);
+      }
       emit('register', methods);
       onMounted(() => {
         emit('mounted');
@@ -442,17 +447,23 @@
             {
               // 表单项前置item  需要用 Col标签包含
             }
-            {getSlot(slots, 'insert-form')}
+            {getSlot(slots, 'form-header')}
             <Row class={[compact ? 'compact-form-row' : '']}>
               {schema.map((schemaItem) => {
                 return renderCol(schemaItem, propsData, slots, unref(getAllDefaultValues));
               })}
-              {renderAction({ props: propsData, isAdvancedRef, hideAdvanceBtnRef, actionSpanRef })}
+              {renderAction({
+                slots,
+                props: propsData,
+                isAdvancedRef,
+                hideAdvanceBtnRef,
+                actionSpanRef,
+              })}
             </Row>
             {
               // 表单项后置item  需要用 Col标签包含
             }
-            {getSlot(slots, 'append-form')}
+            {getSlot(slots, 'form-footer')}
           </Form>
         );
       };

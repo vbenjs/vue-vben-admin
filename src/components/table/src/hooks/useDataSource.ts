@@ -14,6 +14,7 @@ import { buildUUID } from '@/utils/uuid';
 import { isFunction, isBoolean } from '@/utils/is/index';
 import { ROW_KEY } from '../const';
 import { get } from '@/utils/lodashChunk';
+import { useProps } from './useProps';
 
 interface ActionType {
   getPaginationRef: ComputedRef<false | PaginationProps>;
@@ -21,10 +22,12 @@ interface ActionType {
   loadingRef: Ref<boolean | undefined>;
 }
 export function useDataSource(
-  propsRef: ComputedRef<BasicTableProps>,
+  refProps: ComputedRef<BasicTableProps>,
   ctx: SetupContext,
   { getPaginationRef, setPagination, loadingRef }: ActionType
 ) {
+  const { propsRef } = useProps(refProps);
+
   const { emit } = ctx;
   const dataSourceRef = ref<any[]>([]);
 
@@ -55,9 +58,10 @@ export function useDataSource(
       return [];
     }
     const firstItem = dataSource[0];
+    const lastItem = dataSource[dataSource.length - 1];
 
-    if (firstItem) {
-      if (!firstItem[ROW_KEY]) {
+    if (firstItem && lastItem) {
+      if (!firstItem[ROW_KEY] || !lastItem[ROW_KEY]) {
         unref(dataSourceRef).forEach((item) => {
           item[ROW_KEY] = buildUUID();
           if (item.children && item.children.length) {
@@ -100,7 +104,6 @@ export function useDataSource(
       }
 
       const res = await api(params);
-
       let resultItems: any[] = get(res, listField);
       const resultTotal: number = get(res, totalField);
       if (afterFetch && isFunction(afterFetch)) {
@@ -109,11 +112,11 @@ export function useDataSource(
 
       dataSourceRef.value = resultItems;
       setPagination({
-        total: resultTotal,
+        total: resultTotal || 0,
       });
       if (opt?.page) {
         setPagination({
-          current: opt.page,
+          current: opt.page || 1,
         });
       }
       emit('fetch-success', {

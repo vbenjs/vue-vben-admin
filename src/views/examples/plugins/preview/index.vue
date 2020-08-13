@@ -2,7 +2,7 @@
   import { defineComponent } from 'compatible-vue';
   import { createImgPreview } from '@/components/preview/index';
 
-  import { Button, Divider } from 'ant-design-vue';
+  import { Divider } from 'ant-design-vue';
   const imgList: string[] = [
     'https://picsum.photos/id/66/346/216',
     'https://picsum.photos/id/67/346/216',
@@ -24,13 +24,13 @@
             );
           })}
           <Divider>没有略缩图</Divider>
-          <Button
+          <a-button
             class="my-4"
             type="primary"
             onClick={() => createImgPreview({ imageList: imgList })}
           >
             预览图片
-          </Button>
+          </a-button>
         </div>
       );
     },

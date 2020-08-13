@@ -1,20 +1,20 @@
-import ResultUtil from '../_util/resultUtil';
+const ResultUtil = require('../_util/resultUtil');
 
-const fakeUserList = [
+const getFakeUserList = () => [
   {
     userId: '1',
     username: 'admin',
     realName: '管理员',
-    desc: 'vben admin 管理员',
+    desc: ' admin 管理员',
     password: '123456',
     token: 'fakeToken1',
   },
   {
     userId: '2',
-    username: 'vben',
+    username: 'test',
     password: '123456',
     realName: '测试用户',
-    desc: 'vben admin 测试员',
+    desc: '测试员',
     token: 'fakeToken2',
   },
 ];
@@ -32,16 +32,16 @@ const fakeRoles = [
   },
 ];
 
-export default {
+module.exports = {
   // 300 延时时间
   'POST /login 300': ({ body }) => {
     const { username, password } = body;
-
-    const checkUser = fakeUserList.find(
+    const checkUser = getFakeUserList().find(
       (item) => item.username === username && password === item.password
     );
+
     if (!checkUser) {
-      return ResultUtil.error('Incorrect account or password(vben/123456,test1/123456)！');
+      return ResultUtil.error('Incorrect account or password(test/123456,admin/123456)！');
     }
     const { userId, username: _username, token, realName, desc } = checkUser;
     const roles = fakeRoles.filter((item) => item.userId === userId);
@@ -56,7 +56,7 @@ export default {
   },
   'GET /v1.0/getUserInfoById 300': ({ query }) => {
     const { userId } = query;
-    const checkUser = fakeUserList.find((item) => item.userId === userId);
+    const checkUser = getFakeUserList().find((item) => item.userId === userId);
 
     if (!checkUser) {
       return ResultUtil.error('未获取到相应的用户信息！');

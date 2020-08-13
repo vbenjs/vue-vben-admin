@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { Result, Button } from 'ant-design-vue';
+  import { Result } from 'ant-design-vue';
   import { defineComponent, ref, computed, unref, PropOptions } from 'compatible-vue';
 
   import { ExceptionEnum } from '@/enums/exceptionEnum';
@@ -110,9 +110,9 @@
         return (
           <Result title={props.title || title} sub-title={props.subTitle || subTitle}>
             {btnText && (
-              <Button slot="extra" type="primary" onClick={handler}>
+              <a-button slot="extra" type="primary" onClick={handler}>
                 {btnText}
-              </Button>
+              </a-button>
             )}
             {icon && <img slot="icon" src={icon} />}
           </Result>

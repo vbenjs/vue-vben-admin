@@ -49,7 +49,7 @@
   .@{prefix-cls} {
     // padding: 24px;
     // background: #fff;
-    /deep/ .vben-collapse-container__body {
+    /deep/ .@{namespace}-collapse-container__body {
       height: 320px;
     }
 

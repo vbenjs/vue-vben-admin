@@ -59,13 +59,13 @@ function configOptimization(config) {
       //   enforce: true,
       //   priority: 40,
       // },
-      styles: {
-        name: 'styles',
-        test: /\.(css|scss|sass|less|styl)$/,
-        chunks: 'async',
-        // enforce: true,
-        priority: 30,
-      },
+      // styles: {
+      //   name: 'styles',
+      //   test: /\.(css|scss|sass|less|styl)$/,
+      //   chunks: 'async',
+      //   enforce: true,
+      //   priority: 30,
+      // },
       commons: {
         name: 'commons.chunk',
         test: resolve('src/components'),
@@ -104,9 +104,13 @@ function configOptimization(config) {
             packageName = 'design';
           } else if (
             packageName.indexOf('echarts') !== -1 ||
+            packageName.indexOf('zrender') !== -1 ||
+            packageName.indexOf('apexcharts') !== -1 ||
             packageName.indexOf('vue-baidu-map') !== -1
           ) {
             packageName = 'chart';
+          } else if (packageName.indexOf('xlsx') !== -1) {
+            packageName = 'xlsx';
           }
           // else {
           //   packageName = 'vendor';

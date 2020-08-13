@@ -73,7 +73,7 @@ async function buildConfig(moduleStr = '') {
   // const isSpa = appConfig.VUE_APP_MODE === 'SPA';
 
   let CONFIG_NAME;
-  let CONFIG_OBJ = [];
+  // let CONFIG_OBJ = [];
   // // 单页应用配置文件抽取
   // if (isSpa) {
   Object.keys(config).forEach((key) => {

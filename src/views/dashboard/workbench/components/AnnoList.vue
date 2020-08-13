@@ -43,7 +43,7 @@
   @import (reference) '~@design';
   @prefix-cls: ~'@{namespace}-anno-list';
   .@{prefix-cls} {
-    /deep/ .vben-collapse-container__body {
+    /deep/ .@{namespace}-collapse-container__body {
       height: 200px;
     }
 

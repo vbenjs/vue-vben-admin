@@ -1,13 +1,13 @@
 <script lang="tsx">
   import { defineComponent, unref } from 'compatible-vue';
 
-  import { Alert, Button, Divider } from 'ant-design-vue';
+  import { Alert, Divider } from 'ant-design-vue';
 
   import { useI18n } from '@/hooks/core/useI18n';
   export default defineComponent({
     name: 'I18nPlguinDemo',
     setup() {
-      const { locale, t } = useI18n({
+      const { localeRef, t } = useI18n({
         locale: 'zhCN',
         messages: {
           en: {
@@ -24,20 +24,20 @@
           <Divider />
           国际化信息: {t('hello')}
           <Divider />
-          <Button.Group>
-            <Button
-              type={unref(locale) === 'zhCN' ? 'primary' : ''}
-              onClick={() => (locale.value = 'zhCN')}
+          <a-button-group>
+            <a-button
+              type={unref(localeRef) === 'zhCN' ? 'primary' : ''}
+              onClick={() => (localeRef.value = 'zhCN')}
             >
               中文
-            </Button>
-            <Button
-              type={unref(locale) === 'en' ? 'primary' : ''}
-              onClick={() => (locale.value = 'en')}
+            </a-button>
+            <a-button
+              type={unref(localeRef) === 'en' ? 'primary' : ''}
+              onClick={() => (localeRef.value = 'en')}
             >
               英文
-            </Button>
-          </Button.Group>
+            </a-button>
+          </a-button-group>
           <Divider />
         </div>
       );

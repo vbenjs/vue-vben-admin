@@ -64,6 +64,59 @@ const routes: RouteConfigEx[] = [
       title: '富文本编辑器',
     },
   },
+  {
+    path: '/print',
+    name: 'PrintDemo',
+    meta: {
+      title: '打印插件',
+    },
+    children: [
+      {
+        path: '/base',
+        name: 'PrintBaseDemo',
+        component: () => createAsyncComponent(import('@/views/examples/plugins/print/index.vue')),
+        meta: {
+          title: '基础打印示例',
+        },
+      },
+      {
+        path: '/json',
+        name: 'PrintJsonDemo',
+        component: () =>
+          createAsyncComponent(import('@/views/examples/plugins/print/JsonPrint.vue')),
+        meta: {
+          title: '打印Json示例',
+        },
+      },
+    ],
+  },
+  {
+    path: '/excel',
+    name: 'ExcelDemo',
+    meta: {
+      title: 'Excel',
+    },
+    children: [
+      {
+        path: '/import',
+        name: 'ImportFromExcelDemo',
+        component: () =>
+          createAsyncComponent(import('@/views/examples/plugins/excel/ImportFromExcel.vue')),
+        meta: {
+          title: '导入excel',
+        },
+      },
+      {
+        path: '/export',
+        name: 'ExportToExcelDemo',
+        component: () =>
+          createAsyncComponent(import('@/views/examples/plugins/excel/ExportToExcel.vue')),
+        meta: {
+          title: '导出excel',
+        },
+      },
+    ],
+  },
 ];
 
 export default {

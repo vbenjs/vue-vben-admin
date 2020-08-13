@@ -86,6 +86,78 @@ const routes: RouteConfigEx[] = [
           title: '开启搜索区域',
         },
       },
+      {
+        path: '/demo8',
+        name: 'TableBaseDemo8',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo8.vue')),
+        meta: {
+          title: '行拖拽',
+        },
+      },
+      {
+        path: '/demo9',
+        name: 'TableBaseDemo9',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo9.vue')),
+        meta: {
+          title: '列拖拽',
+        },
+      },
+      {
+        path: '/demo10',
+        name: 'TableBaseDemo10',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo10.vue')),
+        meta: {
+          title: '动态列示例',
+        },
+      },
+      {
+        path: '/demo11',
+        name: 'TableBaseDemo11',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo11.vue')),
+        meta: {
+          title: '定高/头部自定义',
+        },
+      },
+      {
+        path: '/demo12',
+        name: 'TableBaseDemo12',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo12.vue')),
+        meta: {
+          title: '展开行示例',
+        },
+      },
+      {
+        path: '/demo13',
+        name: 'TableBaseDemo13',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo13.vue')),
+        meta: {
+          title: '合并行列示例',
+        },
+      },
+      {
+        path: '/demo14',
+        name: 'TableBaseDemo14',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo14.vue')),
+        meta: {
+          title: '多级表头示例',
+        },
+      },
+      {
+        path: '/demo15',
+        name: 'TableBaseDemo15',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo15.vue')),
+        meta: {
+          title: '可编辑单元格示例',
+        },
+      },
+      {
+        path: '/demo16',
+        name: 'TableBaseDemo16',
+        component: () => createAsyncComponent(import('@/views/examples/table/Demo16.vue')),
+        meta: {
+          title: '表尾行合计示例',
+        },
+      },
     ],
   },
   {
@@ -133,6 +205,39 @@ const routes: RouteConfigEx[] = [
         component: () => createAsyncComponent(import('@/views/examples/form/CustomComp.vue')),
         meta: {
           title: '自定义表单示例',
+        },
+      },
+    ],
+  },
+  {
+    path: '/tree-demo',
+    name: 'TreeDemo',
+    meta: {
+      title: 'tree组件',
+    },
+    children: [
+      {
+        path: '/base',
+        name: 'TreeBaseDemo',
+        component: () => createAsyncComponent(import('@/views/examples/tree/index.vue')),
+        meta: {
+          title: '基础示例',
+        },
+      },
+      {
+        path: '/action',
+        name: 'TreeActionDemo',
+        component: () => createAsyncComponent(import('@/views/examples/tree/ActionDemo.vue')),
+        meta: {
+          title: '右键/按钮示例',
+        },
+      },
+      {
+        path: '/methods',
+        name: 'TreeMethodsDemo',
+        component: () => createAsyncComponent(import('@/views/examples/tree/Methods.vue')),
+        meta: {
+          title: '函数使用示例',
         },
       },
     ],
@@ -275,14 +380,68 @@ const routes: RouteConfigEx[] = [
       title: 'clickOutSide组件',
     },
   },
+  // {
+  //   path: '/upload-image-demo',
+  //   name: 'UploadImageDemo',
+  //   component: () =>
+  //     createAsyncComponent(import('@/views/examples/components/file/UploadImage.vue')),
+  //   meta: {
+  //     title: '上传文件',
+  //   },
+  // },
   {
-    path: '/upload-image-demo',
-    name: 'UploadImageDemo',
-    component: () =>
-      createAsyncComponent(import('@/views/examples/components/file/UploadImage.vue')),
+    path: '/file-demo',
+    name: 'DescDemo',
     meta: {
-      title: '上传文件',
+      title: '上传下载',
     },
+    children: [
+      {
+        path: '/upload',
+        name: 'UploadImageDemo',
+        component: () =>
+          createAsyncComponent(import('@/views/examples/components/file/UploadImage.vue')),
+        meta: {
+          title: '上传',
+        },
+      },
+      {
+        path: '/download',
+        name: 'DownloadFileDemo',
+        component: () =>
+          createAsyncComponent(import('@/views/examples/components/file/DownloadFile.vue')),
+        meta: {
+          title: '下载',
+        },
+      },
+    ],
+  },
+  {
+    path: '/verify-demo',
+    name: 'VerifyDemo',
+    meta: {
+      title: '验证码组件',
+    },
+    children: [
+      {
+        path: '/base-drag',
+        name: 'BaseDragVerifyDemo',
+        component: () =>
+          createAsyncComponent(import('@/views/examples/components/verify/Base.vue')),
+        meta: {
+          title: '拖拽验证',
+        },
+      },
+      {
+        path: '/rotate-drag',
+        name: 'RotateDragVerifyDemo',
+        component: () =>
+          createAsyncComponent(import('@/views/examples/components/verify/Rotate.vue')),
+        meta: {
+          title: '旋转拖拽验证',
+        },
+      },
+    ],
   },
 ];
 

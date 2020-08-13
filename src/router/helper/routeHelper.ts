@@ -102,11 +102,8 @@ export function transformObjToRoute(routeList: RouteItem[]) {
   return routeList.filter((route) => {
     const { component, children } = route;
     if (component) {
-      if (component === 'PAGE_LAYOUT') {
-        route.component = PAGE_LAYOUT_COMPONENT;
-      } else {
-        route.component = getLazyComponent(component);
-      }
+      route.component =
+        component === 'PAGE_LAYOUT' ? PAGE_LAYOUT_COMPONENT : getLazyComponent(component);
     } else {
       route.component = BLANK_LAYOUT_COMPONENT;
     }

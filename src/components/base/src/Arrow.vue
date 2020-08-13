@@ -44,9 +44,13 @@
     transition: all 0.3s ease 0.1s;
     transform-origin: center center;
 
+    &.right {
+      transform: rotate(0deg);
+    }
+
     &__active {
-      transform: rotate(90deg);
-      transition: all 0.3s ease 0.1s;
+      transform: rotate(90deg) !important;
+      transition: all 0.3s ease 0.1s !important;
     }
   }
 </style>

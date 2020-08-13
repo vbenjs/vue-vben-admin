@@ -2,7 +2,7 @@
   import { defineComponent } from 'compatible-vue';
   import CurrentAuthMode from '../CurrentAuthMode.vue';
 
-  import { Button, Alert } from 'ant-design-vue';
+  import { Alert } from 'ant-design-vue';
   import { permissionStore } from '@/store/modules/permission';
   import { RoleEnum } from '@/enums/roleEnum';
 
@@ -26,20 +26,20 @@
             <p>当前角色: [{permissionStore.getRoleState.toString()}]</p>
             <p>点击后请查看左侧菜单变化</p>
             权限切换(请先切换权限模式为前端权限模式)：
-            <Button.Group>
-              <Button
+            <a-button-group>
+              <a-button
                 type={isAdmin ? 'primary' : ''}
                 onClick={changeRole.bind(null, RoleEnum.ADMIN)}
               >
                 {RoleEnum.ADMIN}
-              </Button>
-              <Button
+              </a-button>
+              <a-button
                 type={isNormal ? 'primary' : ''}
                 onClick={changeRole.bind(null, RoleEnum.NORMAL)}
               >
                 {RoleEnum.NORMAL}
-              </Button>
-            </Button.Group>
+              </a-button>
+            </a-button-group>
           </div>
         );
       };

@@ -1,12 +1,11 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
-  import { Button } from 'ant-design-vue';
+
   import { BasicTable, BasicColumn, useTable } from '@/components/table/index';
   const columns: BasicColumn[] = [
     {
       title: 'ID',
       dataIndex: 'id',
-      width: 80,
     },
     {
       title: '姓名',
@@ -63,7 +62,7 @@
               dataSource={data}
             >
               <template slot="toolbar">
-                <Button
+                <a-button
                   type="primary"
                   onClick={() => {
                     setProps({
@@ -74,8 +73,8 @@
                   }}
                 >
                   显示单选
-                </Button>
-                <Button
+                </a-button>
+                <a-button
                   type="primary"
                   onClick={() => {
                     setProps({
@@ -84,8 +83,8 @@
                   }}
                 >
                   隐藏分页
-                </Button>
-                <Button
+                </a-button>
+                <a-button
                   type="primary"
                   onClick={() => {
                     setProps({
@@ -94,8 +93,8 @@
                   }}
                 >
                   隐藏边框
-                </Button>
-                <Button
+                </a-button>
+                <a-button
                   type="primary"
                   onClick={() => {
                     setProps({
@@ -106,7 +105,7 @@
                   }}
                 >
                   显示多选
-                </Button>
+                </a-button>
               </template>
             </BasicTable>
           </div>

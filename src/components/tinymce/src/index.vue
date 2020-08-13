@@ -7,7 +7,9 @@
     unref,
     reactive,
     watch,
-    // onActivated,
+    onActivated,
+    onDeactivated,
+    getCurrentInstance,
   } from 'compatible-vue';
   import tinymce from 'tinymce';
   import 'tinymce/themes/silver/theme';
@@ -21,10 +23,13 @@
   import 'tinymce/plugins/charmap';
   import 'tinymce/plugins/code';
   import 'tinymce/plugins/codesample';
-  import 'tinymce/plugins/colorpicker';
-  import 'tinymce/plugins/contextmenu';
+  // import 'tinymce/plugins/colorpicker';
+  // import 'tinymce/plugins/contextmenu';
   import 'tinymce/plugins/directionality';
+
   import 'tinymce/plugins/emoticons';
+  import 'tinymce/plugins/emoticons/js/emojis';
+
   import 'tinymce/plugins/fullpage';
   import 'tinymce/plugins/fullscreen';
   import 'tinymce/plugins/help';
@@ -50,7 +55,7 @@
   import 'tinymce/plugins/tabfocus';
   import 'tinymce/plugins/table';
   import 'tinymce/plugins/template';
-  import 'tinymce/plugins/textcolor';
+  // import 'tinymce/plugins/textcolor';
   import 'tinymce/plugins/textpattern';
   import 'tinymce/plugins/toc';
   import 'tinymce/plugins/visualblocks';
@@ -65,14 +70,13 @@
 
   import { useDesign } from '@/hooks/core/useDesign';
 
-  import { Button } from 'ant-design-vue';
   import { useModal } from '@/components/modal/index';
   import { UploadModal, UploadResult } from '@/components/file/index';
 
   export default defineComponent({
     name: 'Tinymce',
     props: basicProps,
-    setup(props: BasicProps, { emit, root }) {
+    setup(props: BasicProps, { emit, root, attrs }) {
       const { prefixCls } = useDesign('tinymce');
 
       const tinymceState = reactive({
@@ -111,7 +115,7 @@
           language_url: 'resource/tinymce/langs/zh_CN.js',
           // 中文
           language: 'zh_CN',
-          code_dialog_height: 450,
+          code_dialog_height: 600,
           code_dialog_width: 1000,
           advlist_bullet_styles: 'square',
           advlist_number_styles: 'default',
@@ -127,7 +131,7 @@
             }
             tinymceState.hasInit = true;
             editor.on('NodeChange Change KeyUp SetContent', () => {
-              // tinymceState.hasChange = true;
+              tinymceState.hasChange = true;
               emit('change', editor.getContent());
             });
           },
@@ -150,52 +154,74 @@
       watch(
         () => props.value,
         (value) => {
-          // if (!tinymceState.hasChange && tinymceState.hasInit) {
-          if (tinymceState.hasInit) {
+          // console.log('tinymceState', value, oldValue);
+          if (!tinymceState.hasChange && tinymceState.hasInit) {
+            // if (tinymceState.hasInit) {
             root.$nextTick(() => tinymce.get(props.id).setContent(value || ''));
           }
         }
       );
+
       onMounted(() => {
         initTinymce();
       });
-      // onActivated(() => {
-      //   if (window.tinymce) {
-      //     initTinymce();
-      //   }
-      // });
+      onActivated(() => {
+        if (tinymce) {
+          initTinymce();
+        }
+      });
+      onDeactivated(() => {
+        destroyTinymce();
+      });
       onUnmounted(() => {
         destroyTinymce();
       });
       // 上传图片
       const [register, { isFirstLoadRef, openModal }] = useModal();
+
       function handleChange(fileList: UploadResult[]) {
-        console.log('fileList', fileList);
         openModal({
           visible: false,
         });
 
         fileList.forEach((file) => {
-          tinymce
-            .get(props.id)
-            .insertContent(`<img class=${prefixCls + '__upload-img'} src="${file.url}" >`);
+          tinymce.get(props.id).insertContent(`<img src="${file.url}" >`);
         });
       }
+      // 外部设置值
+      function setContent(value) {
+        root.$nextTick(() => tinymce.get(props.id).setContent(value || ''));
+        emit('change', value);
+      }
+      function getContent() {
+        return (tinymce && tinymce.get(props.id).getContent()) || '';
+      }
+      const currentInstace = getCurrentInstance() as any;
+      if (getCurrentInstance()) {
+        currentInstace.setContent = setContent;
+        currentInstace.getContent = getContent;
+      }
+
       return () => (
         <div class={`${prefixCls}__wrapper`} style={{ width: unref(getWidth) }}>
           <textarea id={props.id} class={`${prefixCls}__textarea`} />
-          <Button
-            class={`${prefixCls}__upload`}
-            type="primary"
-            onClick={() => {
-              openModal({
-                visible: true,
-              });
-            }}
-          >
-            上传
-          </Button>
-          {!unref(isFirstLoadRef) && <UploadModal onRegister={register} onChange={handleChange} />}
+          {props.showUploadImage && (
+            <a-button
+              class={`${prefixCls}__upload`}
+              type="primary"
+              onClick={() => {
+                openModal({
+                  visible: true,
+                });
+              }}
+            >
+              上传
+            </a-button>
+          )}
+
+          {props.showUploadImage && !unref(isFirstLoadRef) && (
+            <UploadModal onRegister={register} onChange={handleChange} {...{ props: attrs }} />
+          )}
         </div>
       );
     },
@@ -214,10 +240,6 @@
       position: absolute;
       top: 4px;
       right: 10px;
-    }
-
-    &__upload-img {
-      width: 100%;
     }
   }
 </style>

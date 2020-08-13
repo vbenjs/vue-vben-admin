@@ -1,5 +1,20 @@
 import { FormSchema } from '@/components/form/index';
 import TestComp from './TestComp.vue';
+// import { Tinymce, TinymceActionType } from '@/components/tinymce/index';
+// import { Ref } from 'compatible-vue';
+import { UploadContainer, UploadResult } from '@/components/file/index';
+const uploadDataDemo1: UploadResult = {
+  id: '530000201511022928',
+  name: '初始值.png',
+  status: 'success',
+  url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+};
+export const uploadDataDemo: UploadResult = {
+  id: '1234567',
+  name: '设置图片.png',
+  status: 'success',
+  url: 'https://picsum.photos/id/66/346/216',
+};
 const options = [
   {
     label: '选项1',
@@ -258,3 +273,46 @@ export const getAdvanceSchema = (itemNumber = 6): FormSchema[] => {
   }
   return arr;
 };
+
+// export function setComplexSchema(tinymceElRef: Ref<TinymceActionType>): FormSchema[] {
+export function setComplexSchema(): FormSchema[] {
+  return [
+    {
+      field: 'fieldInput',
+      label: '输入框',
+      component: 'Input',
+      defaultValue: 'defaultValue',
+      rules: [
+        {
+          required: true,
+        },
+      ],
+    },
+    {
+      field: 'fieldUpload',
+      label: '上传图片',
+      // slot: 'uploadImg',
+      defaultValue: [uploadDataDemo1, uploadDataDemo],
+      rules: [
+        {
+          required: true,
+        },
+      ],
+      render: () => {
+        return <UploadContainer maxSize={1} maxNumber={3} />;
+      },
+    },
+    {
+      field: 'fieldTinymce',
+      label: '富文本',
+      rules: [
+        {
+          required: true,
+          message: '请输入',
+        },
+      ],
+      defaultValue: 'defaultValue',
+      slot: 'tinymce',
+    },
+  ];
+}

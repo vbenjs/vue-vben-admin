@@ -33,4 +33,8 @@ export const basicProps = {
     required: false,
     default: 'auto',
   } as PropOptions<string | number>,
+  showUploadImage: {
+    type: Boolean,
+    default: true,
+  } as PropOptions<Boolean>,
 };

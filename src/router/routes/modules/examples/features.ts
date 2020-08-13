@@ -48,6 +48,14 @@ const routes: RouteConfigEx[] = [
       title: '图片裁剪',
     },
   },
+  {
+    path: '/drag-panel',
+    name: 'DragPanelDemo',
+    component: () => createAsyncComponent(import('@/views/examples/features/drag-panel/index.vue')),
+    meta: {
+      title: '拖拽面板',
+    },
+  },
 ];
 
 export default {

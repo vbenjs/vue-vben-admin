@@ -1,7 +1,10 @@
 <script lang="tsx">
-  import { defineComponent, unref, ref, computed } from 'compatible-vue';
+  import { defineComponent, unref, ref, computed, watch, nextTick } from 'compatible-vue';
   import { Table } from 'ant-design-vue';
   import TableTitle from './components/TableTitle.vue';
+  import BodyWarpper from './components/BodyWarpper.vue';
+  import CellResize from './components/CellResize.vue';
+  import { BaseArrow } from '@/components/base';
 
   import { usePagination } from './hooks/usePagination';
   import { useLoading } from './hooks/useLoading';
@@ -10,12 +13,21 @@
   import { useDataSource } from './hooks/useDataSource';
   import { useColumns } from './hooks/useColumns';
   import { useDesign } from '@/hooks/core/useDesign';
+  import { provideTable } from './hooks/useProvinceTable';
+  import { useEvent } from '@/hooks/event/useEvent';
 
   import { basicProps } from './props';
-  import { BasicTableProps, TableInstance, FetchParams } from './types/table';
+  import {
+    BasicTableProps,
+    TableInstance,
+    FetchParams,
+    getColumnsParams,
+    BasicColumn,
+  } from './types/table';
   import { PaginationProps } from './types/pagination';
-  import { getSlot } from '@/utils/helper/tsxHelper';
-  import { isFunction } from '@/utils/is/index';
+  import { getSlot, extendSlots, getSlotFunc } from '@/utils/helper/tsxHelper';
+  import { isFunction, isString } from '@/utils/is/index';
+  import { omit, cloneDeep } from '@/utils/lodashChunk';
 
   import { BasicForm, FormProps } from '@/components/form/index';
   export default defineComponent({
@@ -25,24 +37,46 @@
       const { attrs, emit, slots, listeners } = ctx;
       const tableElRef = ref<any>(null);
       const innerPropsRef = ref<Partial<BasicTableProps>>();
-      const lastPropsRef = ref<BasicTableProps>();
-      const getPropsRef = computed(() => {
-        lastPropsRef.value = {
+      // const lastPropsRef = ref<BasicTableProps>();
+
+      const getMergeProps = computed(() => {
+        return {
           ...props,
-          ...unref(lastPropsRef),
           ...unref(innerPropsRef),
         };
-        return unref(lastPropsRef) as BasicTableProps;
       });
-      const { getPaginationRef, setPagination } = usePagination(getPropsRef);
-      const { loadingRef } = useLoading(getPropsRef);
-      const { getDataSourceRef, setTableData, rowKey, fetch } = useDataSource(getPropsRef, ctx, {
+      // const getPropsRef = computed(() => {
+      //   lastPropsRef.value = {
+      //     ...props,
+      //     ...unref(lastPropsRef),
+      //     ...unref(innerPropsRef),
+      //   };
+      //   return unref(lastPropsRef) as BasicTableProps;
+      // });
+      const getComponentsRef = computed(() => {
+        const res: any = {};
+
+        if (unref(getMergeProps).canRowDrag) {
+          res.body = {
+            wrapper: BodyWarpper,
+          };
+        }
+        if (unref(getMergeProps).canColDrag) {
+          res.header = {
+            cell: CellResize,
+          };
+        }
+        return res;
+      });
+      const { getPaginationRef, setPagination } = usePagination(getMergeProps);
+      const { loadingRef } = useLoading(getMergeProps);
+      const { getDataSourceRef, setTableData, rowKey, fetch } = useDataSource(getMergeProps, ctx, {
         getPaginationRef,
         loadingRef,
         setPagination,
       });
-      const { getColumnsRef } = useColumns(getPropsRef, getPaginationRef);
-      const { getScrollRef, redoHeight } = useTableScroll(getPropsRef, tableElRef);
+      const { getColumnsRef, setColumns } = useColumns(getMergeProps, getPaginationRef);
+      const { getScrollRef, redoHeight } = useTableScroll(getMergeProps, tableElRef);
       const {
         getRowSelectionRef,
         getSelectRows,
@@ -50,16 +84,15 @@
         getSelectRowKeys,
         deleteSelectRowByKey,
         setSelectedRowKeys,
-      } = useRowSelection(getPropsRef, emit);
+      } = useRowSelection(getMergeProps, emit);
       const { prefixCls } = useDesign('basic-table');
 
       const renderTitle = () => {
-        const title = unref(getPropsRef).title;
-
+        const title = unref(getMergeProps).title;
         return (
           getSlot(slots, 'title') || (
             <TableTitle
-              helpMessage={unref(getPropsRef).titleHelpMessage}
+              helpMessage={unref(getMergeProps).titleHelpMessage}
               title={title}
               getSelectRows={getSelectRows}
             >
@@ -68,8 +101,91 @@
           )
         );
       };
+
+      const renderExpandIcon = !slots.expandedRowRender
+        ? undefined
+        : (props: any) => {
+            return (
+              <BaseArrow
+                onClick={(e: Event) => {
+                  props.onExpand(props.record, e);
+                }}
+                expand={props.expanded}
+                class="right"
+              />
+            );
+          };
+
+      const renderFooter = () => {
+        const { summaryFunc } = props;
+        if (!summaryFunc) {
+          return;
+        }
+        const dataSource: any[] = isFunction(summaryFunc)
+          ? summaryFunc(unref(getDataSourceRef))
+          : [];
+        const columns: BasicColumn[] = cloneDeep(unref(getColumnsRef));
+        const index = columns.findIndex((item) => item.flag === 'INDEX');
+        if (index !== -1) {
+          Reflect.deleteProperty(columns[index], 'customRender');
+        }
+        if (unref(getRowSelectionRef)) {
+          columns.unshift({
+            width: 60,
+            title: 'total',
+            key: 'total',
+            customRender: () => '合计',
+          });
+        }
+        dataSource.forEach((item, i) => {
+          item[rowKey] = i;
+        });
+        return (
+          <Table
+            showHeader={false}
+            bordered={false}
+            pagination={false}
+            dataSource={dataSource}
+            rowKey={rowKey}
+            columns={columns}
+            tableLayout="fixed"
+          ></Table>
+        );
+      };
+      watch(
+        () => unref(getDataSourceRef),
+        () => {
+          if (props.showSummary) {
+            nextTick(() => {
+              const tableEl = unref(tableElRef);
+              if (!tableEl) {
+                return;
+              }
+              const bodyDomList = tableEl.$el.querySelectorAll(
+                '.ant-table-body'
+              ) as HTMLDivElement[];
+              const bodyDom = bodyDomList[0];
+              useEvent({
+                el: bodyDom,
+                name: 'scroll',
+                listener: () => {
+                  const footerBodyDom = tableEl.$el.querySelector(
+                    '.ant-table-footer .ant-table-body'
+                  ) as HTMLDivElement;
+                  if (!footerBodyDom || !bodyDom) return;
+                  footerBodyDom.scrollLeft = bodyDom.scrollLeft;
+                },
+                wait: 0,
+                options: true,
+              });
+            });
+          }
+        },
+        { immediate: true }
+      );
+
       function handleTableChange(pagination: PaginationProps) {
-        const { clearSelectOnPageChange } = unref(getPropsRef);
+        const { clearSelectOnPageChange } = unref(getMergeProps);
         if (clearSelectOnPageChange) {
           clearSelectedRowKeys();
         }
@@ -78,13 +194,13 @@
       }
 
       function handleSearchInfoChange(info: any) {
-        const { handleSearchInfoFn } = unref(getPropsRef);
+        const { handleSearchInfoFn } = unref(getMergeProps);
         if (handleSearchInfoFn && isFunction(handleSearchInfoFn)) {
           info = handleSearchInfoFn(info) || info;
         }
         fetch({ searchInfo: info, page: 1 });
       }
-      emit('register', {
+      const instance = {
         reload: (opt?: FetchParams) => {
           fetch(opt);
         },
@@ -96,11 +212,17 @@
         setTableData,
         redoHeight,
         setSelectedRowKeys,
+        setColumns,
         getPaginationRef: () => {
           return unref(getPaginationRef);
         },
-        getColumns: () => {
-          return unref(getColumnsRef);
+        getColumns: (opt?: getColumnsParams) => {
+          const { ignoreIndex } = opt || {};
+          let columns = unref(getColumnsRef);
+          if (ignoreIndex) {
+            columns = columns.filter((item) => item.flag !== 'INDEX');
+          }
+          return columns;
         },
         getDataSource: () => {
           return unref(getDataSourceRef);
@@ -111,28 +233,44 @@
         setProps: (props: Partial<BasicTableProps>) => {
           innerPropsRef.value = props;
         },
-      } as TableInstance);
+      } as TableInstance;
+
+      provideTable(instance);
+
+      emit('register', instance);
+
       return () => {
-        const title = unref(getPropsRef).title;
-        const titleData =
-          !getSlot(slots, 'title') && !title && !getSlot(slots, 'toolbar')
+        const title = unref(getMergeProps).title;
+        const titleData: any =
+          !slots.tableTitle && !isString(title) && !title && !slots.toolbar
             ? {}
-            : { title: renderTitle };
-        const propsData: BasicTableProps = {
+            : { title: !slots.tableTitle && !title ? null : renderTitle };
+        let propsData: BasicTableProps = {
           // @ts-ignore
           size: 'middle',
+          // @ts-ignore
+          // expandRowByClick: true,
+          // @ts-ignore
+          expandIcon: renderExpandIcon,
           ...attrs,
-          ...unref(getPropsRef),
+          ...unref(getMergeProps),
           ...titleData,
           columns: unref(getColumnsRef),
           dataSource: unref(getDataSourceRef),
           rowKey: rowKey,
+          scroll: unref(getScrollRef),
           rowSelection: unref(getRowSelectionRef),
           loading: unref(loadingRef),
-          scroll: unref(getScrollRef),
           pagination: unref(getPaginationRef) as PaginationProps,
           tableLayout: 'fixed',
         };
+        if (slots.expandedRowRender) {
+          propsData = omit(propsData, 'scroll');
+        }
+        if (props.showSummary) {
+          propsData.footer = renderFooter;
+        }
+
         const { useSearchForm, formConfig } = propsData;
         const formProps: FormProps = {
           showAdvancedButton: true,
@@ -147,15 +285,21 @@
                 onChange={handleSearchInfoChange}
                 {...{ props: formProps }}
                 onAdvancedChange={redoHeight}
-              />
+              >
+                {extendSlots(slots)}
+              </BasicForm>
             )}
             <Table
+              components={unref(getComponentsRef)}
               ref={tableElRef}
               on={{ ...listeners, change: handleTableChange }}
               {...{
                 props: propsData,
               }}
-            ></Table>
+              scopedSlots={getSlotFunc(slots)}
+            >
+              {extendSlots(slots, ['expandedRowRender'])}
+            </Table>
           </div>
         );
       };
@@ -165,9 +309,17 @@
 <style lang="less">
   @import (reference) '~@design';
   @prefix-cls: ~'@{namespace}-basic-table';
-  @border-color: rgba(206, 206, 206, 0.3);
+  @border-color: hsla(0, 0%, 80.8%, 0.3);
   .@{prefix-cls} {
     padding: 12px;
+
+    // .ant-table-fixed-header .ant-table-scroll .ant-table-header {
+    //   overflow-y: hidden !important;
+    // }
+
+    .ant-table-thead > tr > th {
+      background: #f1f3f4;
+    }
 
     .ant-table-title {
       padding: 10px 6px !important;
@@ -224,25 +376,16 @@
       margin: 10px 0 0 0;
     }
 
-    .ant-table-body {
+    .ant-table-body,
+    .ant-table-body-inner {
       overflow-x: auto !important;
+      overflow-y: scroll !important;
+    }
 
-      ::-webkit-scrollbar-button {
-        display: none;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        min-height: 48px;
-        background: #d2d2d2;
-        border: 3px solid #fff;
-        border-radius: 5px;
-        background-clip: padding-box;
-      }
-
-      ::-webkit-scrollbar-thumb:active {
-        background: #888;
-        border-width: 2px;
-      }
+    .ant-table-header {
+      margin-bottom: 0 !important;
+      overflow-x: hidden !important;
+      overflow-y: scroll !important;
     }
 
     .ant-radio {
@@ -256,6 +399,30 @@
         .ant-checkbox-inner {
           border-color: @text-color-base;
         }
+      }
+    }
+
+    .ant-table-bordered .ant-table-thead > tr:not(:last-child) > th,
+    .ant-table-tbody > tr > td {
+      word-break: break-word;
+      // white-space: break-spaces;
+      // border-bottom: none;
+      border-color: @border-color;
+    }
+
+    .ant-table-footer {
+      padding: 0;
+
+      table {
+        border: none !important;
+      }
+
+      .ant-table-body {
+        overflow: hidden !important;
+      }
+
+      td {
+        padding: 12px 8px;
       }
     }
   }

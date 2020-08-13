@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
-  import { Divider, Button } from 'ant-design-vue';
+  import { Divider } from 'ant-design-vue';
 
   import { BasicForm, useForm } from '@/components/form/index';
 
@@ -19,56 +19,56 @@
       return () => (
         <div class="p-4">
           <Divider>功能,点击后如果需要还原在tab右键刷新页面即可</Divider>
-          <Button
+          <a-button
             onClick={() => {
               setProps({ size: 'large' });
             }}
             class="mx-3"
           >
             更改表单size
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             onClick={() => {
               setProps({ labelWidth: 200 });
             }}
             class="mx-3"
           >
             更改labelWidth
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             onClick={() => {
               setProps({ labelAlign: 'left' });
             }}
             class="mx-3"
           >
             更改labelAlign
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             onClick={() => {
               setProps({ showActionButtonGroup: false });
             }}
             class="mx-3"
           >
             隐藏操作按钮
-          </Button>
+          </a-button>
 
-          <Button
+          <a-button
             onClick={() => {
               setProps({ compact: true });
             }}
             class="mx-3"
           >
             紧凑表单
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             onClick={() => {
               setProps({ showResetButton: false });
             }}
             class="mx-3"
           >
             隐藏重置按钮
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             onClick={() => {
               setProps({
                 resetButtonOptions: {
@@ -80,16 +80,16 @@
             class="mx-3"
           >
             修改重置按钮
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             onClick={() => {
               setProps({ showSubmitButton: false });
             }}
             class="mx-3"
           >
             隐藏查询按钮
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             onClick={() => {
               setProps({
                 submitButtonOptions: {
@@ -101,8 +101,8 @@
             class="mx-3"
           >
             修改查询按钮
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             onClick={() => {
               setProps({
                 actionColOptions: {
@@ -113,15 +113,15 @@
             class="mx-3"
           >
             操作按钮位置
-          </Button>
-          <Button
+          </a-button>
+          <a-button
             onClick={() => {
               setProps({ disabled: true });
             }}
             class="mx-3"
           >
             禁用表单
-          </Button>
+          </a-button>
           <Divider>JSON表单组件-基础示例</Divider>
           <BasicForm onRegister={register}></BasicForm>
         </div>

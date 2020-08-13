@@ -1,14 +1,15 @@
 <script lang="tsx">
   import { Input } from 'ant-design-vue';
   // import { Icon } from '@/components/icon/index';
-  import { defineComponent, computed, unref } from 'compatible-vue';
+  import { defineComponent, computed, unref, PropOptions } from 'compatible-vue';
+  import { MenuThemeEnum } from '@/enums/menuEnum';
 
   // import { unwrap } from '@/utils/composition/index';
 
   // hook
   import { useDesign } from '@/hooks/core/useDesign';
   import { useDebounce } from '@/hooks/core/useDebounce';
-  import { appStore } from '@/store/modules/app';
+  // import { appStore } from '@/store/modules/app';
   //
   export default defineComponent({
     name: 'BasicMenuSearchInput',
@@ -17,7 +18,10 @@
       collapsed: {
         type: Boolean,
         default: true,
-      },
+      } as PropOptions<boolean>,
+      theme: {
+        type: String,
+      } as PropOptions<MenuThemeEnum>,
     },
     setup(props, { emit }) {
       const { prefixCls } = useDesign('menu-input');
@@ -43,8 +47,8 @@
         emit('click');
       }
       const searchClass = computed(() => {
-        const theme = appStore.projCfgState!.menuSetting.theme;
-        return theme ? `${prefixCls}__search--${theme}` : '';
+        // const theme = appStore.projCfgState!.menuSetting.theme;
+        return props.theme ? `${prefixCls}__search--${props.theme}` : '';
       });
 
       return () => {
@@ -76,6 +80,8 @@
     margin: 12px 9px;
 
     &__search--dark {
+      // .setPlaceholder('.ant-input',#fff);
+
       /deep/ .ant-input {
         .set-bg();
 

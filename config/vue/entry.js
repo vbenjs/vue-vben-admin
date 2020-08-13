@@ -1,6 +1,6 @@
 const { configPolyfill } = require('./polyfill');
 
-const { getEnvFn } = require('../../build/utils');
+const { getEnvFn, isProductionFn } = require('../../build/utils');
 
 function configEntry(config) {
   let entry = ['./src/main.ts'];
@@ -8,7 +8,7 @@ function configEntry(config) {
 
   const { VUE_APP_USE_MOCK } = getEnvFn();
   // use mock
-  if (VUE_APP_USE_MOCK === 'TRUE') {
+  if (VUE_APP_USE_MOCK === 'TRUE' && isProductionFn()) {
     entry.unshift('./mock/_util/mock.config.js');
   }
   config.entry = entry;

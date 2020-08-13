@@ -1,5 +1,5 @@
-import ResultUtil from '../_util/resultUtil';
-import Mock from 'mockjs';
+const ResultUtil = require('../_util/resultUtil');
+const Mock = require('mockjs');
 
 const wokbProd = Mock.mock([
   {
@@ -79,7 +79,7 @@ const annoList = Mock.mock({
     },
   ],
 });
-export default {
+module.exports = {
   'POST /wokb/allData ': ({ query }) => {
     return ResultUtil.success({
       prodList: wokbProd,

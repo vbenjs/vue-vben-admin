@@ -1,3 +1,17 @@
+const shelljs = require('shelljs');
+const { exec } = shelljs;
+
+/**
+ * @description: 使git对文件名大小写敏感
+ */
+function ignoreCaseGit() {
+  try {
+    if (shell.which('git')) {
+      exec('git config core.ignorecase false ');
+    }
+  } catch (error) {}
+}
+ignoreCaseGit();
 /**
  * 使用cnpm 来安装image-webpack-loader
  */
@@ -6,7 +20,6 @@
 
 // /**
 //  * @description: 判断是否装了cnpm
-//  * @Date: 2020-06-10 13:46:40
 //  */
 // function isInstallCnpm() {
 //   return new Promise((resolve) => {
@@ -16,7 +29,6 @@
 // }
 // /**
 //  * @description: 尝试安装cnpm
-//  * @Date: 2020-06-10 13:47:05
 //  */
 // function tryInstallCnpm() {
 //   return new Promise((resolve) => {
@@ -30,7 +42,6 @@
 // }
 // /**
 //  * @description: 安装插件
-//  * @Date: 2020-06-10 13:46:47
 //  */
 // async function installImageWebpack() {
 //   const installCnpm = await isInstallCnpm();
@@ -49,7 +60,6 @@
 
 // /**
 //  * @description: 使git对文件名大小写敏感
-//  * @Date: 2020-06-11 11:07:04
 //  */
 // function ignoreCaseGit() {
 //   exec('git config core.ignorecase false ');

@@ -23,7 +23,7 @@
 
       return () => {
         const { getProjCfg } = appStore;
-        const { multiTabsSetting: { show } = {} } = getProjCfg;
+        const { routerTransition, multiTabsSetting: { show } = {} } = getProjCfg;
         const fullPath = unref(routeRef).fullPath;
 
         const propsData = isDevMode()
@@ -34,7 +34,7 @@
         return (
           <div class={prefixCls}>
             <transition
-              name="fade-transform"
+              name={routerTransition}
               mode="out-in"
               on={{
                 'after-enter': handleAfterEnter,

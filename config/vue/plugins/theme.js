@@ -33,7 +33,7 @@ const themePluginOption = {
       case 'a:hover':
         return 'body .ant-menu-item > a:hover';
       default:
-        return util.changeEach(selector, '', 'body ');
+        return util.changeEach(selector, '', 'html body ');
     }
   },
 };

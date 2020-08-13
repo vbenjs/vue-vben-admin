@@ -118,7 +118,7 @@ export function useAuth() {
   /**
    *
    */
-  async function changeMenu(id: string | number) {
+  async function changeMenu(id?: string | number) {
     // 这里传入id是为测试，实际可以不用传，会自动获取登陆人的id
     const addRoutes = await permissionStore.buildRoutesAction(id);
     resume(addRoutes);

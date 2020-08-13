@@ -1,5 +1,6 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
+  import { Icon } from '@/components/icon/index';
 
   import { BasicTable, BasicColumn, TableImg } from '@/components/table/index';
   import { Tag } from 'ant-design-vue';
@@ -16,6 +17,7 @@
       title: '姓名',
       dataIndex: 'name',
       width: 120,
+      scopedSlots: { customRender: 'name' },
     },
     {
       title: '头像',
@@ -66,6 +68,16 @@
               title="自定义列内容"
               titleHelpMessage={'温馨提醒'}
               columns={columns}
+              scopedSlots={{
+                name: (text) => {
+                  return (
+                    <span>
+                      <Icon type="redo" />
+                      {text}
+                    </span>
+                  );
+                },
+              }}
             ></BasicTable>
           </div>
         </div>

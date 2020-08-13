@@ -90,3 +90,8 @@ export const isElement = (val: unknown): val is Element => {
 };
 
 export const isServer = typeof window === 'undefined';
+
+// 是否为图片节点
+export function isImageDom(o: Element) {
+  return o && ['IMAGE', 'IMG'].includes(o.tagName);
+}

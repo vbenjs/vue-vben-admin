@@ -15,14 +15,13 @@ export function useDrawer(): UseDrawerReturnType {
   const isFirstLoadRef = ref<boolean | null>(true);
   let innerProps: any = null;
 
-  onUnmounted(() => {
-    drawerRef.value = null;
-    loadedRef.value = null;
-    isFirstLoadRef.value = null;
-    innerProps = null;
-  });
-
   function getDrawer(drawerInstance: DrawerInstance) {
+    onUnmounted(() => {
+      drawerRef.value = null;
+      loadedRef.value = null;
+      isFirstLoadRef.value = null;
+      innerProps = null;
+    });
     if (unref(loadedRef) && drawerInstance === unref(drawerRef) && isProdMode()) {
       return;
     }

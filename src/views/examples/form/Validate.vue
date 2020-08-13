@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
-  import { Divider, Button } from 'ant-design-vue';
+  import { Divider } from 'ant-design-vue';
 
   import { BasicForm, useForm } from '@/components/form/index';
   import { useMessage } from '@/hooks/core/useMessage';
@@ -37,17 +37,17 @@
       return () => (
         <div class="p-4">
           <Divider>功能,点击后如果需要还原在tab右键刷新页面即可</Divider>
-          <Button onClick={validateForm} class="mx-3">
+          <a-button onClick={validateForm} class="mx-3">
             手动校验表单
-          </Button>
+          </a-button>
 
-          <Button onClick={handleGetFieldValue} class="mx-3">
+          <a-button onClick={handleGetFieldValue} class="mx-3">
             获取表单值
-          </Button>
+          </a-button>
 
-          <Button onClick={handleSetFieldsValue} class="mx-3">
+          <a-button onClick={handleSetFieldsValue} class="mx-3">
             设置表单值
-          </Button>
+          </a-button>
 
           <Divider>JSON表单组件-表单校验示例</Divider>
           <BasicForm
