@@ -10,7 +10,7 @@ const setting: ProjectConfig = {
   // 是否显示配置按钮
   showSettingButton: true,
   // 显示github
-  showGithubButton: true,
+  showGithubButton: false,
   // 权限模式
   authMode: AuthModeEnum.ROLE,
   // 网站灰色模式，用于可能悼念的日期开启
@@ -76,7 +76,7 @@ const setting: ProjectConfig = {
   routerTransition: RouterTransitionEnum.ZOOM_FADE,
 
   // 是否开启登陆安全校验
-  openLoginVerify: true,
+  openLoginVerify: false,
 };
 
 export default setting;

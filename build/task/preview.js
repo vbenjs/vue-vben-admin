@@ -2,11 +2,10 @@ const resolve = require('../getCwdPath');
 const { getIPAddress, inquirerPrompt } = require('../utils');
 const Koa = require('koa');
 const chalk = require('chalk');
-const runjs = require('runjs');
+const { sh } = require('tasksfile');
 const portfinder = require('portfinder');
 const staticServer = require('koa-static');
 
-const { run } = runjs;
 const BUILD = 1;
 const NO_BUILD = 2;
 // const util = require('../util');
@@ -57,7 +56,10 @@ const preview = async () => {
   });
   const { type } = await prompt;
   if (type === BUILD) {
-    await run('npm run build no-uv', { async: true });
+    await sh('npm run build no-uv', {
+      async: true,
+      nopipe: true,
+    });
     await build({ noUv: true });
   }
   startApp();

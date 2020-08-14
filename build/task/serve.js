@@ -1,8 +1,7 @@
-const { selectBuildModule } = require('./selectBuildModule');
-const { getEnvConfig } = require('../getEnvConfig');
-const runjs = require('runjs');
+// const { selectBuildModule } = require('./selectBuildModule');
+// const { getEnvConfig } = require('../getEnvConfig');
+const { sh } = require('tasksfile');
 const yargs = require('yargs');
-const { run } = runjs;
 async function devServer() {
   const argvList = yargs.argv._;
 
@@ -21,9 +20,9 @@ async function devServer() {
   //     command += ` --module=${moduleStr}`;
   //   }
   // }
-  await run(command, {
+  await sh(command, {
     async: true,
-    stdio: 'inherit',
+    nopipe: true,
   });
 }
 devServer();

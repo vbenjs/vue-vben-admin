@@ -2,7 +2,7 @@
   import { defineComponent, computed, ref, unref } from 'compatible-vue';
   import { Descriptions } from 'ant-design-vue';
   import { CollapseContainer, CollapseContainerOptions } from '@/components/container/index';
-  import { DescOptions, DescInstance } from './type';
+  import { DescOptions, DescInstance, DescItem } from './type';
   import descProps from './props';
 
   import { isFunction } from '@/utils/is/index';
@@ -64,13 +64,30 @@
       };
       emit('register', methods);
 
+      // 防止换行
+      function renderLabel({ label, labelMinWidth, labelStyle }: DescItem) {
+        if (!labelStyle && !labelMinWidth) {
+          return label;
+        }
+        return (
+          <div
+            style={{
+              ...labelStyle,
+              'min-width': `${labelMinWidth}px`,
+            }}
+          >
+            {label}
+          </div>
+        );
+      }
+
       function renderItem() {
         const { schema } = unref(getProps);
         return unref(schema).map((item, index) => {
-          const { label, render, field, span } = item;
+          const { render, field, span } = item;
           const { data } = unref(getProps);
           return (
-            <Descriptions.Item label={label} key={index} span={span}>
+            <Descriptions.Item label={renderLabel(item)} key={index} span={span}>
               {isFunction(render) ? render(data && data[field]) : unref(data) && unref(data)[field]}
             </Descriptions.Item>
           );
@@ -84,16 +101,26 @@
         );
       };
       const renderContainer = () => {
-        return (
+        const actionSlot = <template slot="action">{getSlot(slots, 'action')}</template>;
+        const content = props.useCollapse ? (
+          [renderDesc(), actionSlot]
+        ) : (
+          <div>
+            {renderDesc()}
+            actionSlot
+          </div>
+        );
+        // 减少dom层级
+        return props.useCollapse ? (
           <CollapseContainer
             title={unref(getMergeProps).title}
             canExpan={unref(getCollapseOptions).canExpand}
             helpMessage={unref(getCollapseOptions).helpMessage}
           >
-            {renderDesc()}
-
-            <template slot="action">{getSlot(slots, 'action')}</template>
+            {content}
           </CollapseContainer>
+        ) : (
+          content
         );
       };
 

@@ -1,24 +1,22 @@
 // #!/usr/bin/env node
 
-const runjs = require('runjs');
+const { sh } = require('tasksfile');
 const { successTip, errorTip } = require('../utils');
-const shell = require('shelljs');
-
-const { run } = runjs;
 
 const createChangeLog = async () => {
   try {
     let cmd = `conventional-changelog -p custom-config -i CHANGELOG.md -s -r 0 `;
-    if (shell.which('git')) {
-      cmd += '&& git add CHANGELOG.md';
-    }
-    await run(cmd, {
+    // if (shell.which('git')) {
+    //   cmd += '&& git add CHANGELOG.md';
+    // }
+    await sh(cmd, {
       async: true,
-      stdio: 'inherit',
+      nopipe: true,
     });
-    await run('prettier --write **/CHANGELOG.md ', {
+
+    await sh('prettier --write **/CHANGELOG.md ', {
       async: true,
-      stdio: 'inherit',
+      nopipe: true,
     });
     successTip('CHANGE_LOG generated successfully');
   } catch (error) {

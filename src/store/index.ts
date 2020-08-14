@@ -1,8 +1,12 @@
 import { Vue } from 'compatible-vue';
 import Vuex from 'vuex';
 // import createLogger from 'vuex/dist/logger';
+import { config } from 'vuex-module-decorators';
+// Set rawError to true by default on all @Action decorators
 import { isDevMode } from '@/utils/envUtil';
 Vue.use(Vuex);
+
+config.rawError = true;
 
 // const plugins = [];
 

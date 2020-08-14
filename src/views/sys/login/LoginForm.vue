@@ -103,26 +103,33 @@
           }
         },
       });
-      return () => (
-        <div class={prefixCls}>
-          <h1>系统登陆</h1>
-          {!unref(isFirstLoadRef) && (
-            <VerifyModal src={headImg} onRegister={registerModal} onSuccess={handleVerifySuccess} />
-          )}
-          <BasicForm onRegister={register} />
+      return () => {
+        const { openLoginVerify } = appStore.getProjCfg;
+        return (
+          <div class={prefixCls}>
+            <h1>系统登陆</h1>
+            {!unref(isFirstLoadRef) && openLoginVerify && (
+              <VerifyModal
+                src={headImg}
+                onRegister={registerModal}
+                onSuccess={handleVerifySuccess}
+              />
+            )}
+            <BasicForm onRegister={register} />
 
-          <a-button
-            type="primary"
-            size="large"
-            loading={unref(loadingRef)}
-            block
-            class="mt-2"
-            onClick={handleLogin}
-          >
-            登陆
-          </a-button>
-        </div>
-      );
+            <a-button
+              type="primary"
+              size="large"
+              loading={unref(loadingRef)}
+              block
+              class="mt-2"
+              onClick={handleLogin}
+            >
+              登陆
+            </a-button>
+          </div>
+        );
+      };
     },
   });
 </script>

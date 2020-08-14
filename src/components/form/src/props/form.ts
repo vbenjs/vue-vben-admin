@@ -65,7 +65,10 @@ export const formProps = {
   // 以下为默认props
   hideRequiredMark: Boolean,
 
-  selfUpdate: Boolean,
+  selfUpdate: {
+    type: Boolean,
+    default: true,
+  },
 
   labelCol: Object,
 

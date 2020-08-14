@@ -11,6 +11,7 @@
       content="width=device-width,initial-scale=1.0,minimum-scale=1,maximum-scale=1,user-scalable=no"
     />
     <link rel="icon" href="./favicon.ico" />
+    <link rel="stylesheet" href="./resource/g-loading.css" />
     <title><%= htmlWebpackPlugin.options.title %></title>
     <%= htmlWebpackPlugin.options.addToHead %> <% for (var i in htmlWebpackPlugin.options.cdn &&
     htmlWebpackPlugin.options.cdn.css) { %>
@@ -20,42 +21,10 @@
   <body>
     <div id="app">
       <style>
-        @keyframes load {
-          0% {
-            -ms-transform: rotate(-360deg);
-            -moz-transform: rotate(-360deg);
-            -webkit-transform: rotate(-360deg);
-            -o-transform: rotate(-360deg);
-            transform: rotate(-360deg);
-          }
-
-          100% {
-            -ms-transform: rotate(0);
-            -moz-transform: rotate(0);
-            -webkit-transform: rotate(0);
-            -o-transform: rotate(0);
-            transform: rotate(0);
-          }
-        }
-
         .app-loading {
           width: 100%;
           height: 100%;
           background: rgba(255, 255, 255, 0, 3);
-        }
-
-        .app-loading .app-loading-img {
-          max-width: 100px;
-          -ms-animation: load 3s linear infinite;
-          -moz-animation: load 3s linear infinite;
-          -webkit-animation: load 3s linear infinite;
-          -o-animation: load 3s linear infinite;
-          animation: load 3s linear infinite;
-          -webkit-transform-origin: center center;
-          -moz-transform-origin: center center;
-          -ms-transform-origin: center center;
-          -o-transform-origin: center center;
-          transform-origin: center center;
         }
 
         .app-loading .app-loading-wrap {
@@ -86,7 +55,7 @@
       <section class="app-loading">
         <section class="app-loading-wrap">
           <img src="./resource/img/logo.png" class="logo" alt="Logo" />
-          <img src="./resource/img/loading.svg" alt="" class="app-loading-img" />
+          <img src="./resource/img/loading.svg" alt="" class="g-loading" />
         </section>
       </section>
     </div>

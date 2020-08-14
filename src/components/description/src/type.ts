@@ -2,6 +2,11 @@ import { VNode } from 'compatible-vue';
 import { CollapseContainerOptions } from '@/components/container/index';
 
 export interface DescItem {
+  // 最小宽度
+  labelMinWidth?: number;
+
+  labelStyle?: any;
+
   field: string;
   label: string;
   // 和并列
@@ -12,6 +17,8 @@ export interface DescItem {
 }
 
 export interface DescOptions {
+  // 是否包含collapse组件
+  useCollapse?: boolean;
   /**
    * item配置
    * @type DescItem

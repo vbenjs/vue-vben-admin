@@ -221,7 +221,7 @@ export function renderFormModelItem(
   allDefaultValues: any
 ): VNode {
   const { labelCol, wrapperCol } = handleLabel(schemaItem, props);
-  const { selfUpdate, colon } = props;
+  const { selfUpdate = true, colon } = props;
   const { label, itemProps, render, slot, field } = schemaItem;
 
   // form-item 配置项

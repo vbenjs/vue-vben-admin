@@ -1,13 +1,11 @@
 // 是否需要更新依赖，防止package.json更新了依赖，其他人获取代码后没有install
-const runjs = require('runjs');
+const { sh } = require('tasksfile');
 const chalk = require('chalk');
 const { isEqual } = require('lodash');
 const fs = require('fs-extra');
 const resolve = require('../getCwdPath.js');
 
 let NEED_INSTALL = false;
-
-const { run } = runjs;
 
 fs.mkdirp(resolve('build/.cache'));
 function checkPkgUpdate() {
@@ -36,9 +34,9 @@ checkPkgUpdate();
     try {
       // 从代码执行貌似不会自动读取.npmrc 所以手动加上源地址
       // await run('yarn install --registry=https://registry.npm.taobao.org ', {
-      await run('yarn install ', {
+      await sh('yarn install ', {
         async: true,
-        stdio: 'inherit',
+        nopipe: true,
       });
       console.log(
         chalk.blue.bold('****************  ') +

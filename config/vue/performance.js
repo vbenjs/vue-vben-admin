@@ -4,7 +4,7 @@ module.exports = {
   configPerformance(config) {
     config.optimization.minimize(isProductionFn());
     config.cache(true);
-    config.resolve.symlinks(false);
+    config.resolve.symlinks(true);
     config.performance.hints(false);
     config.module.noParse(/^(vue|vue-router|vuex|lodash|moment|vuex-router-sync|normalize.css)$/);
 

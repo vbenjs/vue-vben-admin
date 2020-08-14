@@ -85,7 +85,7 @@
     flex-wrap: wrap;
 
     > div {
-      width: 32%;
+      width: 30%;
       margin: 0 20px 20px 0;
     }
   }

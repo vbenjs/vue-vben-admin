@@ -11,8 +11,8 @@ export interface ActionItem {
 
 export interface PopConfirm {
   title: string;
-  okText: string;
-  cancelText: string;
+  okText?: string;
+  cancelText?: string;
   confirm: any;
   cancel?: any;
   icon?: string;

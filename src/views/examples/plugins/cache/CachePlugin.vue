@@ -31,6 +31,7 @@
           <Divider>SessionStorage 操作</Divider>
 
           <a-button
+            color="success"
             onClick={() => {
               session.set(TEST_SESSION_KEY, 'test-value');
               createMessage.success(`已设置key:${TEST_SESSION_KEY},value:test-value`);
@@ -48,6 +49,7 @@
             获取
           </a-button>
           <a-button
+            color="error"
             onClick={() => {
               session.remove(TEST_SESSION_KEY);
               const val = session.get(TEST_SESSION_KEY);
@@ -57,6 +59,7 @@
             删除
           </a-button>
           <a-button
+            color="warning"
             class="mx-3"
             onClick={() => {
               session.clear();
@@ -70,6 +73,7 @@
           <Divider>LocalStorage 操作</Divider>
 
           <a-button
+            color="success"
             onClick={() => {
               local.set(TEST_LOCAL_KEY, 'test-value');
               createMessage.success(`已设置key:${TEST_LOCAL_KEY},value:test-value`);
@@ -87,6 +91,7 @@
             获取
           </a-button>
           <a-button
+            color="error"
             onClick={() => {
               local.remove(TEST_LOCAL_KEY);
               const val = local.get(TEST_LOCAL_KEY);
@@ -96,6 +101,7 @@
             删除
           </a-button>
           <a-button
+            color="warning"
             class="mx-3"
             onClick={() => {
               local.clear();
@@ -109,6 +115,7 @@
           <Divider>Cookie操作</Divider>
 
           <a-button
+            color="success"
             onClick={() => {
               cookieObj.setCookie(TEST_COOKIE_KEY, 'test-value');
               createMessage.success(`已设置key:${TEST_COOKIE_KEY},value:test-value`);
@@ -126,6 +133,7 @@
             获取
           </a-button>
           <a-button
+            color="error"
             onClick={() => {
               cookieObj.removeCookie(TEST_COOKIE_KEY);
               const val = cookieObj.getCookie(TEST_COOKIE_KEY);
@@ -136,6 +144,7 @@
           </a-button>
 
           <a-button
+            color="warning"
             class="mx-3"
             onClick={() => {
               cookieObj.clearCookie();
