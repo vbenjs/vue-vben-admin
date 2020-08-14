@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { Drawer } from 'ant-design-vue';
+  import { Drawer, Row, Col } from 'ant-design-vue';
   import { defineComponent, ref, computed, watch, unref } from 'compatible-vue';
   // import { BaseTitle } from '@/components/base/index';
   import { Icon } from '@/components/icon/index';
@@ -13,7 +13,8 @@
   import { DrawerInstance, DrawerProps, DrawerType } from './types';
 
   import { basicProps } from './props';
-  import { isFunction } from '@/utils/is';
+  import { isFunction, isNumber } from '@/utils/is';
+
   export default defineComponent({
     props: basicProps,
     setup(props: DrawerProps, { slots, emit, listeners, root, attrs }) {
@@ -51,12 +52,16 @@
         opt.title = undefined;
 
         if (opt.drawerType === DrawerType.DETAIL) {
-          opt.width = '100%';
+          if (!opt.width) {
+            opt.width = '100%';
+          }
           opt.wrapClassName = opt.wrapClassName
             ? `${opt.wrapClassName} ${prefixCls}__detail`
             : `${prefixCls}__detail`;
-          opt.maskClosable = false;
-          opt.getContainer = `.${prefixVar}-default-layout__main`;
+          // opt.maskClosable = false;
+          if (!opt.getContainer) {
+            opt.getContainer = `.${prefixVar}-default-layout__main`;
+          }
         }
         return opt;
       });
@@ -109,6 +114,92 @@
           visibleRef.value = !!props.visible;
         }
       }
+
+      // 底部按钮自定义实现,
+      const getFooterHeight = computed(() => {
+        const { footerHeight, showFooter }: DrawerProps = unref(getProps);
+        if (showFooter && footerHeight) {
+          return isNumber(footerHeight)
+            ? `${footerHeight}px`
+            : `${footerHeight.replace('px', '')}px`;
+        }
+        return 0;
+      });
+      function renderFooter() {
+        const {
+          showCancelBtn,
+          cancelButtonProps,
+          cancelText,
+          showOkBtn,
+          okType,
+          okText,
+          okButtonProps,
+          confirmLoading,
+          showFooter,
+        }: DrawerProps = unref(getProps);
+
+        return (
+          getSlot(slots, 'footer') ||
+          (showFooter && (
+            <div class={`${prefixCls}__footer`}>
+              {getSlot(slots, 'insert-footer')}
+
+              {showCancelBtn && (
+                <a-button {...{ ...cancelButtonProps }} onClick={onClose} class="mr-2">
+                  {cancelText}
+                </a-button>
+              )}
+              {getSlot(slots, 'centerd-footer')}
+
+              {showOkBtn && (
+                <a-button
+                  type={okType}
+                  {...{ ...okButtonProps }}
+                  loading={confirmLoading}
+                  onClick={() => {
+                    emit('ok');
+                  }}
+                >
+                  {okText}
+                </a-button>
+              )}
+
+              {getSlot(slots, 'append-footer')}
+            </div>
+          ))
+        );
+      }
+
+      function renderHeader() {
+        const { title } = unref(getMergeProps);
+        return (
+          <template slot="title">
+            {props.drawerType === DrawerType.DETAIL ? (
+              getSlot(slots, 'title') || (
+                <Row type="flex" align="middle" class={`${prefixCls}__detail-header`}>
+                  {props.showDetailBack && (
+                    <Col class="mx-2">
+                      <a-button size="small" type="link" onClick={onClose}>
+                        <Icon type="left" />
+                        返回
+                      </a-button>
+                    </Col>
+                  )}
+                  {title && (
+                    <Col style="flex:1" class={[`${prefixCls}__detail-title`, 'ellipsis', 'px-2']}>
+                      {title}
+                    </Col>
+                  )}
+                  {getSlot(slots, 'title-toolbar')}
+                </Row>
+              )
+            ) : (
+              <BaseTitle>{title || getSlot(slots, 'title')}</BaseTitle>
+            )}
+          </template>
+        );
+      }
+
       const drawerInstance: DrawerInstance = {
         setDrawerProps,
       };
@@ -124,17 +215,17 @@
           props={unref(getProps)}
         >
           <FullLoading absolute v-show={props.loading} tip="加载中..." />
-          <template slot="title">
-            {props.drawerType === DrawerType.DETAIL ? (
-              <a-button size="small" type="link" onClick={onClose}>
-                <Icon type="left" />
-                返回
-              </a-button>
-            ) : (
-              <BaseTitle>{unref(getMergeProps).title || getSlot(slots, 'title')}</BaseTitle>
-            )}
-          </template>
-          <ScrollContainer props={unref(getScrollOptions)}>{getSlot(slots)}</ScrollContainer>
+          {renderHeader()}
+          <ScrollContainer
+            props={unref(getScrollOptions)}
+            on={listeners}
+            style={{
+              height: `calc(100% - ${unref(getFooterHeight)})`,
+            }}
+          >
+            {getSlot(slots, 'default')}
+          </ScrollContainer>
+          {renderFooter()}
         </Drawer>
       );
     },
@@ -143,19 +234,44 @@
 <style lang="less">
   @import (reference) '~@design';
   @prefix-cls: ~'@{namespace}-drawer';
-  @header-padding: 10px;
-  @header-height: @header-padding * 2 + 25px;
+  // @header-padding: 10px;
+  @header-height: 50px;
+  @footer-height: 60px;
 
   .@{prefix-cls} {
+    .ant-drawer-wrapper-body {
+      overflow: hidden;
+    }
+
+    .ant-drawer-body {
+      height: calc(100% - @header-height);
+      padding: 0;
+      background-color: @background-color-dark;
+      // padding-top: @header-height;
+      .el-scrollbar__wrap {
+        padding: 16px;
+      }
+    }
+
     &__detail {
       position: absolute;
+
+      &-header {
+        height: 100%;
+      }
 
       .ant-drawer-header {
         // position: absolute;
         // z-index: 1;
         width: 100%;
-        padding: @header-padding;
+        height: @header-height;
+        padding: 0;
         border-top: 1px solid @border-color-base;
+        box-sizing: border-box;
+      }
+
+      .ant-drawer-title {
+        height: 100%;
       }
 
       .ant-drawer-close {
@@ -163,12 +279,18 @@
         line-height: @header-height;
       }
 
-      .ant-drawer-body {
-        height: calc(100% - @header-height);
+      .el-scrollbar__wrap {
         padding: 0;
-        background-color: @background-color-dark;
-        // padding-top: @header-height;
       }
+    }
+
+    &__footer {
+      // position: absolute;
+      height: @footer-height;
+      padding: 0 26px;
+      line-height: @footer-height;
+      text-align: right;
+      background: #fff;
     }
   }
 </style>

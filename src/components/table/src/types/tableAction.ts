@@ -2,7 +2,7 @@ export interface ActionItem {
   on?: any;
   label: string;
   disabled?: boolean;
-  color?: string;
+  color?: 'success' | 'error' | 'warning';
   type?: string;
   props?: any;
   icon?: string;

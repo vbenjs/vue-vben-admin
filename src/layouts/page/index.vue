@@ -41,7 +41,7 @@
               }}
             >
               {show ? (
-                <keep-alive max={16} include={tabStore.getKeepAliveTabsState}>
+                <keep-alive max={10} include={tabStore.getKeepAliveTabsState}>
                   <router-view {...propsData} />
                 </keep-alive>
               ) : (

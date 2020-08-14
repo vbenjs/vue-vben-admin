@@ -84,8 +84,11 @@
       function renderItem() {
         const { schema } = unref(getProps);
         return unref(schema).map((item, index) => {
-          const { render, field, span } = item;
+          const { render, field, span, show } = item;
           const { data } = unref(getProps);
+          if (show && isFunction(show) && !show(data)) {
+            return null;
+          }
           return (
             <Descriptions.Item label={renderLabel(item)} key={index} span={span}>
               {isFunction(render) ? render(data && data[field]) : unref(data) && unref(data)[field]}

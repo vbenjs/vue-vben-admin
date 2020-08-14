@@ -33,6 +33,9 @@
     {
       field: 'addr',
       label: '地址',
+      // show: () => {
+      //   return false;
+      // },
     },
   ];
   export default defineComponent({

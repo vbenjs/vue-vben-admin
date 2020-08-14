@@ -11,7 +11,7 @@ export interface DescItem {
   label: string;
   // 和并列
   span?: number;
-  show?: () => boolean;
+  show?: (...arg) => boolean;
   // render
   render?: (i: any) => VNode | undefined | Element;
 }
