@@ -32,6 +32,7 @@
         toOrigin: false,
         startTime: 0,
         endTime: 0,
+        draged: false,
       });
 
       watch(
@@ -67,6 +68,7 @@
       }
 
       function handleDragBarMove(data: MoveData) {
+        state.draged = true;
         const { imgWidth, height, maxDegree } = props;
         const { moveX } = data;
         const currentRotate = Math.ceil(
@@ -87,7 +89,7 @@
         const { randomRotate, currentRotate } = state;
         const { diffDegree } = props;
 
-        if (Math.abs(randomRotate - currentRotate) > (diffDegree || 10)) {
+        if (Math.abs(randomRotate - currentRotate) >= (diffDegree || 20)) {
           state.imgStyle = hackCss('transform', `rotateZ(${randomRotate}deg)`);
           state.toOrigin = true;
           useTimeout(() => {
@@ -148,6 +150,12 @@
                 class={[`${prefixCls}-img__tip`, state.isPassing ? 'success' : 'error']}
               >
                 {state.isPassing ? `校验成功,耗时${time.toFixed(1)}秒！` : '验证失败！'}
+              </span>
+              <span
+                v-show={!state.showTip && !state.draged}
+                class={[`${prefixCls}-img__tip`, 'normal']}
+              >
+                点击图片可刷新
               </span>
             </div>
             <BasicDragVerify
@@ -215,6 +223,10 @@
 
       &.error {
         background: fade(@error-color, 60%);
+      }
+
+      &.normal {
+        background: rgba(0, 0, 0, 0.3);
       }
     }
 

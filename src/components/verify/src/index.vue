@@ -283,6 +283,7 @@
             style={unref(getWrapStyleRef)}
             onMousemove={handleDragMoving}
             onTouchmove={handleDragMoving}
+            onMouseleave={handleDragOver}
             onMouseup={handleDragOver}
             onTouchend={handleDragOver}
           >

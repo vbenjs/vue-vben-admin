@@ -55,7 +55,7 @@
               barStyle={{
                 background: '#018ffb',
               }}
-              onChange={handleChange}
+              onSuccess={handleChange}
             />
             <a-button class="ml-4" type="primary" onClick={handleBtnClick.bind(null, el3Ref)}>
               还原

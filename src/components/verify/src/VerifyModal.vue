@@ -33,7 +33,7 @@
           wrapperFooterOffset={60}
         >
           <RotateDragVerify
-            width={210}
+            imgWidth={210}
             ref={dragRef}
             text="请拖动滑块将图片摆正"
             {...{ props: attrs }}

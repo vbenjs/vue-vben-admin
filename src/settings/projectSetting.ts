@@ -76,7 +76,7 @@ const setting: ProjectConfig = {
   routerTransition: RouterTransitionEnum.ZOOM_FADE,
 
   // 是否开启登陆安全校验
-  openLoginVerify: false,
+  openLoginVerify: true,
 };
 
 export default setting;
