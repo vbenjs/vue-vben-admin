@@ -144,6 +144,7 @@ declare interface IObj<T = any> {
   [key: string]: T;
   [key: number]: T;
 }
+
 declare namespace echarts {
   interface EChartOption {
     [key: string]: any;

@@ -417,6 +417,15 @@ const routes: RouteConfigEx[] = [
     ],
   },
   {
+    path: '/strength-meter-demo',
+    name: 'StrengthDemo',
+    component: () =>
+      createAsyncComponent(import('@/views/examples/components/strength-meter/index.vue')),
+    meta: {
+      title: '密码强度校验',
+    },
+  },
+  {
     path: '/verify-demo',
     name: 'VerifyDemo',
     meta: {

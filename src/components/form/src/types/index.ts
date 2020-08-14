@@ -34,4 +34,5 @@ export type ComponentType =
   | 'TimePicker'
   | 'ImageUpload'
   | 'Switch'
+  | 'StrengthMeter'
   | 'Render';

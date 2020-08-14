@@ -195,6 +195,10 @@ export default {
       name: 'clickOutSide组件',
     },
     {
+      path: '/strength-meter-demo',
+      name: '密码强度校验',
+    },
+    {
       path: '/verify-demo',
       name: '验证码组件',
       children: [

@@ -16,10 +16,11 @@ import {
   TreeSelect,
   Transfer,
 } from 'ant-design-vue';
+import { StrengthMeter } from '@/components/strength-meter/index';
 
 import { ComponentType } from './types/index';
 
-const componentMap = new Map<ComponentType, Component>();
+const componentMap = new Map<ComponentType, any>();
 
 componentMap.set('Input', Input);
 componentMap.set('InputGroup', Input.Group);
@@ -47,6 +48,7 @@ componentMap.set('MonthPicker', DatePicker.MonthPicker);
 componentMap.set('RangePicker', DatePicker.RangePicker);
 componentMap.set('WeekPicker', DatePicker.WeekPicker);
 componentMap.set('TimePicker', TimePicker);
+componentMap.set('StrengthMeter', StrengthMeter);
 
 export function add(compName: ComponentType, component: Component) {
   componentMap.set(compName, component);
