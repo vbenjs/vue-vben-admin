@@ -41,11 +41,11 @@
               }}
             >
               {show ? (
-                <keep-alive max={10} include={tabStore.getKeepAliveTabsState}>
+                <keep-alive max={10} mode="out-in" include={tabStore.getKeepAliveTabsState}>
                   <router-view {...propsData} />
                 </keep-alive>
               ) : (
-                <router-view {...propsData} />
+                <router-view mode="out-in" {...propsData} />
               )}
             </transition>
             {unref(getFramePages).map((page) => {

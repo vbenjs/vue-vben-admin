@@ -1,20 +1,28 @@
 <script lang="tsx">
-  import { defineComponent, unref, onMounted, ref, watch } from 'compatible-vue';
-  import { Layout, BackTop } from 'ant-design-vue';
+  import {
+    defineComponent,
+    unref,
+    onMounted,
+    // ref, watch
+  } from 'compatible-vue';
+  import {
+    Layout,
+    //  BackTop
+  } from 'ant-design-vue';
   import LayoutHeader from './LayoutHeader.vue';
   import LayoutSideBar from './LayoutSideBar.vue';
   import LayoutContent from './LayoutContent.vue';
   import MultiTabs from './multitabs/index.vue';
   import SettingButton from './setting/index.vue';
   import { FullLoading } from '@/components/loading/index';
-  import { ScrollContainer } from '@/components/container/index';
+  // import { ScrollContainer } from '@/components/container/index';
 
   // utils
 
   // hook
   import { useFullContent } from '@/hooks/functions/useFullContent';
   import { useDesign } from '@/hooks/core/useDesign';
-  import { useRouter } from '@/hooks/core/useRouter';
+  // import { useRouter } from '@/hooks/core/useRouter';
 
   import { userStore } from '@/store/modules/user';
   import { appStore } from '@/store/modules/app';
@@ -24,17 +32,17 @@
     name: 'DefaultLayout',
     setup() {
       const { prefixCls } = useDesign('default-layout');
-      const scrollRef = ref<any>(null);
-      const { routeRef } = useRouter();
-      watch(
-        () => unref(routeRef).path,
-        () => {
-          const scroll = unref(scrollRef);
-          if (scroll) {
-            scroll.scrollTo(0, 16);
-          }
-        }
-      );
+      // const scrollRef = ref<any>(null);
+      // const { routeRef } = useRouter();
+      // watch(
+      //   () => unref(routeRef).path,
+      //   () => {
+      //     const scroll = unref(scrollRef);
+      //     if (scroll) {
+      //       scroll.scrollTo(0, 16);
+      //     }
+      //   }
+      // );
 
       onMounted(() => {
         // 每次刷新会去请求最新用户信息,如果不需要可以删除
@@ -72,12 +80,17 @@
                     <MultiTabs />
                   </Layout.Header>
                 ) : null}
-                {unref(scrollRef) && <BackTop target={() => unref(scrollRef).getScrollWrap()} />}
+                {
+                  //   unref(scrollRef) &&
+                  //  <BackTop target={() => unref(scrollRef).getScrollWrap()} />
+                }
                 <div class={`${prefixCls}__main`}>
                   <FullLoading v-show={getPageLoading} class={`${prefixCls}__loading`} />
-                  <ScrollContainer ref={scrollRef}>
+                  {
+                    // <ScrollContainer ref={scrollRef}>
                     <LayoutContent />
-                  </ScrollContainer>
+                    // </ScrollContainer>
+                  }
                 </div>
               </Layout>
             </Layout>
@@ -96,12 +109,14 @@
 
     &__content {
       position: relative;
+      overflow: hidden;
     }
 
     &__main {
       position: relative;
       height: 100%;
-      overflow: hidden;
+      // overflow: hidden;
+      overflow: auto;
     }
 
     &__loading {
