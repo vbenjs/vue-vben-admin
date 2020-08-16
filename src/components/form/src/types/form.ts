@@ -159,6 +159,9 @@ export interface FormProps extends AllItemProps {
   layout: 'horizontal' | 'inline' | 'vertical';
 
   selfUpdate: boolean;
+
+  // table组件中调用表单，显示样式，card为分离模式，default为整合模式
+  type?: 'default' | 'card';
 }
 
 /**

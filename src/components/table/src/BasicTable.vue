@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, unref, ref, computed, watch, nextTick } from 'compatible-vue';
-  import { Table } from 'ant-design-vue';
+  import { Table, Card } from 'ant-design-vue';
   import TableTitle from './components/TableTitle.vue';
   import BodyWarpper from './components/BodyWarpper.vue';
   import CellResize from './components/CellResize.vue';
@@ -149,7 +149,7 @@
             rowKey={rowKey}
             columns={columns}
             tableLayout="fixed"
-          ></Table>
+          />
         );
       };
       watch(
@@ -278,28 +278,44 @@
           compact: true,
         };
         return (
-          <div class={prefixCls}>
-            {useSearchForm && (
-              <BasicForm
-                submitButtonOptions={{ loading: unref(loadingRef) }}
-                onChange={handleSearchInfoChange}
-                {...{ props: formProps }}
-                onAdvancedChange={redoHeight}
-              >
-                {extendSlots(slots)}
-              </BasicForm>
+          <div style="background:#f1f2f4">
+            {useSearchForm && formProps.type === 'card' && (
+              <Card hoverable>
+                <BasicForm
+                  submitButtonOptions={{ loading: unref(loadingRef) }}
+                  onChange={handleSearchInfoChange}
+                  {...{ props: formProps }}
+                  onAdvancedChange={redoHeight}
+                >
+                  {extendSlots(slots)}
+                </BasicForm>
+              </Card>
             )}
-            <Table
-              components={unref(getComponentsRef)}
-              ref={tableElRef}
-              on={{ ...listeners, change: handleTableChange }}
-              {...{
-                props: propsData,
-              }}
-              scopedSlots={getSlotFunc(slots)}
-            >
-              {extendSlots(slots, ['expandedRowRender'])}
-            </Table>
+            <div style="background:#ffffff;margin-top:10px">
+              <div class={prefixCls}>
+                {useSearchForm && formProps.type !== 'card' && (
+                  <BasicForm
+                    submitButtonOptions={{ loading: unref(loadingRef) }}
+                    onChange={handleSearchInfoChange}
+                    {...{ props: formProps }}
+                    onAdvancedChange={redoHeight}
+                  >
+                    {extendSlots(slots)}
+                  </BasicForm>
+                )}
+                <Table
+                  components={unref(getComponentsRef)}
+                  ref={tableElRef}
+                  on={{ ...listeners, change: handleTableChange }}
+                  {...{
+                    props: propsData,
+                  }}
+                  scopedSlots={getSlotFunc(slots)}
+                >
+                  {extendSlots(slots, ['expandedRowRender'])}
+                </Table>
+              </div>
+            </div>
           </div>
         );
       };

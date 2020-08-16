@@ -36,6 +36,8 @@
   const formConfig: Partial<FormProps> = {
     labelWidth: 100,
     schemas: getAdvanceSchema(6),
+    // 表单模式 ，card  搜索表单与表格主体分离
+    type: 'card',
   };
   export default defineComponent({
     name: 'TableBaseDemo7',
@@ -56,7 +58,7 @@
               titleHelpMessage={'温馨提醒'}
               rowSelection={{ type: 'radio' }}
               columns={columns}
-            ></BasicTable>
+            />
           </div>
         </div>
       );
