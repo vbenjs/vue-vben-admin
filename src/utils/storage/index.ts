@@ -3,11 +3,13 @@ import { createStorage as create } from './Storage';
 import { isDevMode, getEnv } from '@/utils/envUtil';
 
 import { useSetting } from '@/hooks/core/useSetting';
+
+const { version } = require('../../../package.json');
 const { globSetting } = useSetting();
 
 export const getStorageShortName = () => {
   return `${globSetting.shortName}__${getEnv()}${
-    isDevMode() ? '' : '__' + process.env.VUE_APP_BUILD_SHORT_TIME
+    isDevMode() ? `__${version}` : '__' + process.env.VUE_APP_BUILD_SHORT_TIME
   }__`.toUpperCase();
 };
 

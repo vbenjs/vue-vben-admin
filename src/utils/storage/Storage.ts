@@ -4,6 +4,7 @@ export interface CreateStorageParams extends EncryptionParams {
   storage: Storage;
   hasEncrypt: boolean;
 }
+const defaultTime = 60 * 60 * 24 * 7;
 export const createStorage = ({
   prefixKey = '',
   key = storageCipher.key,
@@ -51,7 +52,7 @@ export const createStorage = ({
      * @expire 过期时间 单位秒
      * @memberof Cache
      */
-    set(key: string, value: any, expire: number | null = null) {
+    set(key: string, value: any, expire: number | null = defaultTime) {
       const stringData = JSON.stringify({
         value,
         expire: expire !== null ? new Date().getTime() + expire * 1000 : null,
@@ -115,7 +116,7 @@ export const createStorage = ({
      * 例子:
      *  cookieData.set('name','value',)
      */
-    setCookie(name: string, value: any, expire: number | null = null) {
+    setCookie(name: string, value: any, expire: number | null = defaultTime) {
       value = this.hasEncrypt ? this.encryption.encryptByAES(JSON.stringify(value)) : value;
       document.cookie = this.getKey(name) + '=' + value + '; Max-Age=' + expire;
     }

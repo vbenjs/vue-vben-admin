@@ -32,7 +32,6 @@ const routes: RouteConfigEx[] = [
     component: () => createAsyncComponent(import('@/views/dashboard/analysis/index.vue')),
     meta: {
       title: '分析页',
-      affix: true,
     },
   },
   {
@@ -41,6 +40,7 @@ const routes: RouteConfigEx[] = [
     component: () => createAsyncComponent(import('@/views/dashboard/workbench/index.vue')),
     meta: {
       title: '工作台',
+      affix: true,
     },
   },
   {
