@@ -9,6 +9,7 @@ import {
   onMounted,
   SetupContext,
   Ref,
+  nextTick,
 } from 'compatible-vue';
 import { buildUUID } from '@/utils/uuid';
 import { isFunction, isBoolean } from '@/utils/is/index';
@@ -45,7 +46,9 @@ export function useDataSource(
       return;
     }
     items.forEach((item) => {
-      item[ROW_KEY] = buildUUID();
+      if (!item[ROW_KEY]) {
+        item[ROW_KEY] = buildUUID();
+      }
       if (item.children && item.children.length) {
         setTableKey(item.children);
       }
@@ -63,7 +66,9 @@ export function useDataSource(
     if (firstItem && lastItem) {
       if (!firstItem[ROW_KEY] || !lastItem[ROW_KEY]) {
         unref(dataSourceRef).forEach((item) => {
-          item[ROW_KEY] = buildUUID();
+          if (!item[ROW_KEY]) {
+            item[ROW_KEY] = buildUUID();
+          }
           if (item.children && item.children.length) {
             setTableKey(item.children);
           }
@@ -139,7 +144,9 @@ export function useDataSource(
   }
   onMounted(() => {
     const { immediate } = unref(propsRef);
-    immediate && fetch();
+    nextTick(() => {
+      immediate && fetch();
+    });
   });
 
   return { getDataSourceRef, setTableData, rowKey: ROW_KEY, fetch: fetch };

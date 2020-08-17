@@ -7,7 +7,6 @@
   import TargetContent from './TargetContent.vue';
 
   export default defineComponent({
-    name: 'LazyTransitionDemo',
     setup() {
       return () => (
         <div class="p-4 lazy-timeout-demo">

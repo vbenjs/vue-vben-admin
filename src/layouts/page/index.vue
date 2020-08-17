@@ -17,7 +17,13 @@
     name: 'PageLayout',
     setup() {
       const { prefixCls } = useDesign('page-layout');
-      const { handleAfterEnter } = useTransition();
+      const { openPageLoading } = appStore.getProjCfg;
+
+      let on = {};
+      if (openPageLoading) {
+        const { on: transitionOn } = useTransition();
+        on = transitionOn;
+      }
       const { hasRenderFrame, showIframe, getFramePages } = useFrameKeepAlive();
       const { routeRef } = useRouter();
 
@@ -33,19 +39,13 @@
             };
         return (
           <div class={prefixCls}>
-            <transition
-              name={routerTransition}
-              mode="out-in"
-              on={{
-                'after-enter': handleAfterEnter,
-              }}
-            >
+            <transition name={routerTransition} mode="out-in" on={on}>
               {show ? (
-                <keep-alive max={10} mode="out-in" include={tabStore.getKeepAliveTabsState}>
+                <keep-alive max={10} include={tabStore.getKeepAliveTabsState}>
                   <router-view {...propsData} />
                 </keep-alive>
               ) : (
-                <router-view mode="out-in" {...propsData} />
+                <router-view {...propsData} />
               )}
             </transition>
             {unref(getFramePages).map((page) => {

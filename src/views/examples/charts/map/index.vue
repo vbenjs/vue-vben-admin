@@ -7,7 +7,6 @@
   import Map1 from './Map1.vue';
 
   export default defineComponent({
-    name: 'ChartMap',
     setup() {
       return () => {
         return (

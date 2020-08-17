@@ -190,13 +190,17 @@
     // }
     /deep/ .ant-tabs-tab:not(.ant-tabs-tab-active) {
       .anticon-close {
-        display: none;
-        transition: all 0.3s;
+        font-size: 12px;
+        // display: none;
+        // transition: all 0.3s;
+        svg {
+          width: 0.8em;
+        }
       }
 
       &:hover {
         .anticon-close {
-          display: inline-block;
+          // display: inline-block;
           color: @white;
         }
       }

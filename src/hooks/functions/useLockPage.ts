@@ -54,5 +54,9 @@ export function useLockPage() {
   return {
     registerGlobOnKeyup: keyupFn,
     registerGlobOnMouseMove: keyupFn,
+    on: {
+      keyup: keyupFn,
+      mousemove: keyupFn,
+    },
   };
 }

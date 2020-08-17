@@ -13,7 +13,6 @@
   import Bar7 from './Bar7.vue';
   import Bar8 from './Bar8.vue';
   export default defineComponent({
-    name: 'ChartBar',
     setup() {
       return () => {
         return (

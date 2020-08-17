@@ -6,7 +6,6 @@
 
   import { dynamicSchema } from './demoData';
   export default defineComponent({
-    name: 'DynamicFormDemo',
     setup() {
       const [register, { updateSchema, appendSchemaByField, removeSchemaByFiled }] = useForm({
         labelWidth: 100,

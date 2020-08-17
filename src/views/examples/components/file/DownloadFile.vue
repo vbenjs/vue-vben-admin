@@ -5,7 +5,6 @@
   // import { downloadApi } from '@/api/demo/file';
 
   export default defineComponent({
-    name: 'ComponentBaseDemo',
     setup() {
       async function handleDownload() {
         // const data = await downloadApi();

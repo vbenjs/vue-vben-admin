@@ -66,7 +66,7 @@
     name: 'SettingDrawer',
     setup(_, { listeners }) {
       const { prefixCls } = useDesign('setting-drawer');
-      const { createSuccessModal, createMessage } = useMessage();
+      const { createSuccessModal, createMessage, createWarningModal } = useMessage();
 
       const getisHorizontalRef = computed(() => {
         return appStore.getProjCfg.menuSetting.mode === MenuModeEnum.HORIZONTAL;
@@ -160,6 +160,16 @@
       }
 
       function handleThemeColorChange(themeColor: string) {
+        if (process.env.VUE_APP_USE_THEME_REPLACER !== 'TRUE') {
+          createWarningModal({
+            title: '提示',
+            content:
+              '当前环境配置VUE_APP_USE_THEME_REPLACER=FALSE,如果需要启用该功能,请将VUE_APP_USE_THEME_REPLACER设置为TRUE,并重新运行项目！',
+          });
+
+          return;
+        }
+
         appStore.commitProjCfgState({
           themeColor,
         });
@@ -201,6 +211,15 @@
           },
         });
       }
+      function handleFixedHeader(fixed: boolean) {
+        appStore.commitProjCfgState({
+          headerSetting: {
+            ...appStore.getProjCfg.headerSetting,
+            fixed,
+          },
+        });
+      }
+
       function handleCopy() {
         const { isSuccessRef } = useCopyToClipboard(JSON.stringify(appStore.getProjCfg, null, 2));
         unref(isSuccessRef) &&
@@ -249,7 +268,7 @@
         const { getProjCfg } = appStore;
         const {
           contentMode,
-          headerSetting: { theme: headerTheme } = {},
+          headerSetting: { theme: headerTheme, fixed } = {},
           menuSetting: { type, theme: menuTheme } = {},
         } = getProjCfg;
 
@@ -321,6 +340,15 @@
               defaultValue={contentMode}
               options={contentModeOptions}
               onChange={handleContentModeChange}
+            />
+          </div>,
+          <div class={`${prefixCls}__cell-item`}>
+            <span>固定header</span>
+            <Switch
+              checked={fixed}
+              checkedChildren="开"
+              unCheckedChildren="关"
+              onChange={handleFixedHeader}
             />
           </div>,
         ];

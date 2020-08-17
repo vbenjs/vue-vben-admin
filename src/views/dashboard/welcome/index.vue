@@ -6,7 +6,6 @@
   // hook
   import { useDesign } from '@/hooks/core/useDesign';
   export default defineComponent({
-    name: 'Welcome',
     setup() {
       // 样式前缀
       const { prefixCls } = useDesign('welcome');

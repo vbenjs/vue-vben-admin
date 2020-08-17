@@ -1,5 +1,6 @@
+import { isBoolean } from '@/utils/is/index';
 import { UseModalReturnType, ModalInstance, ModalProps, ReturnMethods } from './types';
-import { ref, Ref, getCurrentInstance, onUnmounted, unref } from 'compatible-vue';
+import { ref, getCurrentInstance, onUnmounted, unref } from 'compatible-vue';
 
 import { isProdMode } from '@/utils/envUtil';
 
@@ -12,23 +13,23 @@ export function useModal(): UseModalReturnType {
   }
   const modalRef = ref<ModalInstance | null>(null);
   const loadedRef = ref<boolean | null>(false);
-  const isFirstLoadRef = ref<boolean | null>(true);
-  const innerPropsRef = ref<Partial<ModalProps> | null>(null);
+  // const isFirstLoadRef = ref<boolean | null>(true);
+  // const innerPropsRef = ref<Partial<ModalProps> | null>(null);
 
   function register(modalInstance: ModalInstance) {
     onUnmounted(() => {
       modalRef.value = null;
       loadedRef.value = false;
-      isFirstLoadRef.value = null;
-      innerPropsRef.value = null;
+      // isFirstLoadRef.value = null;
+      // innerPropsRef.value = null;
     });
     if (unref(loadedRef) && isProdMode()) {
       return;
     }
     modalRef.value = modalInstance;
-    loadedRef.value = true;
+    // loadedRef.value = true;
 
-    unref(modalRef)!.setModalProps((unref(innerPropsRef) as Partial<ModalProps>) || {});
+    // unref(modalRef)!.setModalProps((unref(innerPropsRef) as Partial<ModalProps>) || {});
   }
   const methods: ReturnMethods = {
     /**
@@ -37,27 +38,37 @@ export function useModal(): UseModalReturnType {
     setModalProps: (props: Partial<ModalProps>): void => {
       unref(modalRef)!.setModalProps(props);
     },
-    isFirstLoadRef: isFirstLoadRef as Ref<boolean>,
-    openModal: (props: Partial<ModalProps>): void => {
-      if (unref(isFirstLoadRef)) {
-        isFirstLoadRef.value = false;
-        innerPropsRef.value = props;
-      } else {
-        unref(modalRef)!.setModalProps(props);
+    isFirstLoadRef: ref(true),
+    openModal: (props: Partial<ModalProps> | boolean): void => {
+      // if (unref(isFirstLoadRef)) {
+      //   isFirstLoadRef.value = false;
+      //   innerPropsRef.value = props;
+      // } else {
+      const modal = unref(modalRef);
+      if (!modal) {
+        return;
       }
+      if (isBoolean(props)) {
+        modal.setModalProps({
+          visible: props,
+        });
+      } else {
+        modal.setModalProps(props);
+      }
+      // }
     },
   };
   return [register, methods];
 }
 
 export const useModalExt = (emit: (event: string, ...args: any[]) => void) => {
-  const modalInstallRef = ref<ModalInstance | null>(null);
+  const modalInstanceRef = ref<ModalInstance | null>(null);
   return {
     register: (modalInstance: ModalInstance) => {
-      modalInstallRef.value = modalInstance;
+      modalInstanceRef.value = modalInstance;
       emit('register', modalInstance);
     },
-    modalInstallRef,
+    modalInstanceRef,
   };
 };
 /**

@@ -7,7 +7,6 @@
   import TargetContent from './TargetContent.vue';
 
   export default defineComponent({
-    name: 'LazyViewportDemo',
     setup() {
       const elRef = ref<any>(null);
       return () => (

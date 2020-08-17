@@ -16,7 +16,7 @@
   export default defineComponent({
     name: 'LockModal',
     setup(_, { listeners, emit }) {
-      const { register: registerModal, modalInstallRef } = useModalExt(emit);
+      const { register: registerModal, modalInstanceRef } = useModalExt(emit);
       // 样式前缀
       const { prefixCls } = useDesign('lock-modal');
       const [register, { validateFields, resetFields }] = useForm({
@@ -53,7 +53,7 @@
           password = undefined;
         }
 
-        unref(modalInstallRef)!.setModalProps({
+        unref(modalInstanceRef)!.setModalProps({
           visible: false,
         });
 

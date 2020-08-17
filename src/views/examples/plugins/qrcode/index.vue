@@ -6,7 +6,6 @@
 
   const qrCodeUrl = 'https://www.baidu.com';
   export default defineComponent({
-    name: 'QrcodePlguinDemo',
     setup() {
       const qrRef = ref<QrCodeActionType | null>(null);
 

@@ -14,9 +14,13 @@
           path: '/' + path,
           query,
         });
+
+        // const { openPageLoading } = appStore.getProjCfg;
+        // if (openPageLoading) {
         setTimeout(() => {
           appStore.setPageLoadingAction(false);
         }, 0);
+        // }
       });
       return () => null;
     },

@@ -14,7 +14,6 @@
   import { defineComponent } from 'compatible-vue';
   import { StrengthMeter } from '@/components/strength-meter/index';
   export default defineComponent({
-    name: 'StrengthMeterDemo',
     components: {
       StrengthMeter,
     },

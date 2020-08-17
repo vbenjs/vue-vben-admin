@@ -22,7 +22,10 @@ function formatterMenu({ menu, parentPath = '', parentId = null }: FormatConfig,
 
   // 设置层级id
   if (!isArray(menu)) {
-    menu.id = buildUUID();
+    if (!menu.id) {
+      menu.id = buildUUID();
+    }
+
     const { children, path, id } = menu;
 
     const isAddPrefix = (menu as any).isAddPrefix;

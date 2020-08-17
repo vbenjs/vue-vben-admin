@@ -43,7 +43,6 @@
   ];
 
   export default defineComponent({
-    name: 'TableBaseDemo12',
     setup() {
       const [register] = useTable();
       return () => {

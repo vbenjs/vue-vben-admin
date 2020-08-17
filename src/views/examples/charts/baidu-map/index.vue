@@ -5,7 +5,6 @@
     ak: 'GzjGVWCxUG9w6A0eIskR7gCxAVSGmH2S',
   });
   export default defineComponent({
-    name: 'BaiduDemo',
     setup() {
       const state = reactive({
         zoom: 13,

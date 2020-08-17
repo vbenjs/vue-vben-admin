@@ -5,7 +5,6 @@
   import TargetContent from './TargetContent.vue';
   import { LazyContainer } from '@/components/container/index';
   export default defineComponent({
-    name: 'LazyBaseDemo',
     setup() {
       return () => (
         <div class="p-4 lazy-base-demo">

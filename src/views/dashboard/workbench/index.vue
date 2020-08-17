@@ -14,7 +14,6 @@
   import { useDesign } from '@/hooks/core/useDesign';
   import { wokbStore } from './store';
   export default defineComponent({
-    name: 'Workbench',
     setup() {
       const { prefixCls } = useDesign('workbench');
       onMounted(() => {

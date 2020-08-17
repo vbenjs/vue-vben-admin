@@ -5,7 +5,6 @@
 
   import printJS from 'print-js';
   export default defineComponent({
-    name: 'PrintBaseDemo',
     setup() {
       const { prefixCls } = useDesign('print-base');
       function handlePrint() {

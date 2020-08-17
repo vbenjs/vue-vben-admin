@@ -16,7 +16,11 @@ export function useInitProjCfg() {
   }
   const { themeColor, colorWeak, grayMode } = projCfg;
   try {
-    if (themeColor !== primaryColor && themeColor) {
+    if (
+      themeColor !== primaryColor &&
+      themeColor &&
+      process.env.VUE_APP_USE_THEME_REPLACER !== 'TRUE'
+    ) {
       updateTheme(themeColor);
     }
     grayMode && updateGrayMode(grayMode);

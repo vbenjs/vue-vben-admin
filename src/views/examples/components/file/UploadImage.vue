@@ -4,7 +4,6 @@
   import { UploadContainer } from '@/components/file/index';
 
   export default defineComponent({
-    name: 'UploadImageDemo',
     setup() {
       function handleImgChange(fileList) {
         console.log('---img----');

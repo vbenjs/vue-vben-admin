@@ -27,40 +27,14 @@ export function useColumns(
     const props = unref(propsRef);
     const { showIndexColumn, indexColumnProps, ellipsis, actionColumn, isTreeTable } = props;
     const columns = unref(columnsRef);
-
-    if (showIndexColumn && !isTreeTable) {
-      if (!columns) {
-        return [];
-      }
-      const isFixedLeft = columns.some((item) => item.fixed === 'left');
-      const hasIndex = columns.find((column) => column.flag === 'INDEX');
-      !hasIndex &&
-        columns.unshift({
-          flag: 'INDEX',
-          width: 50,
-          title: '序号',
-          align: 'center',
-          customRender: (text: string, record: any, index: number) => {
-            const getPagination = unref(getPaginationRef);
-            if (isBoolean(getPagination)) {
-              return `${index + 1}`;
-            }
-            const { current = 1, pageSize = PAGE_SIZE } = getPagination;
-            const currentIndex = (current - 1) * pageSize + index + 1;
-            return currentIndex;
-          },
-          ...(isFixedLeft
-            ? {
-                fixed: 'left',
-              }
-            : {}),
-          ...indexColumnProps,
-        });
+    if (!columns) {
+      return [];
     }
-
-    if (ellipsis) {
-      columns.forEach((item) => {
-        const { key, dataIndex } = item;
+    let pushActionColumns = false;
+    let pushIndexColumns = false;
+    columns.forEach((item) => {
+      const { key, dataIndex } = item;
+      if (ellipsis) {
         if (!key) {
           item.key = dataIndex;
         }
@@ -69,18 +43,96 @@ export function useColumns(
             ellipsis,
           });
         }
+      }
+      if (actionColumn) {
+        const hasIndex = columns.find((column) => column.flag === 'ACTION');
+        pushActionColumns = !hasIndex;
+      }
+      if (showIndexColumn && !isTreeTable) {
+        const hasIndex = columns.find((column) => column.flag === 'INDEX');
+        pushIndexColumns = !hasIndex;
+      }
+    });
+    // if (showIndexColumn && !isTreeTable) {
+    //   const isFixedLeft = columns.some((item) => item.fixed === 'left');
+    //   const hasIndex = columns.find((column) => column.flag === 'INDEX');
+    //   !hasIndex &&
+    //     columns.unshift({
+    //       flag: 'INDEX',
+    //       width: 50,
+    //       title: '序号',
+    //       align: 'center',
+    //       customRender: (text: string, record: any, index: number) => {
+    //         const getPagination = unref(getPaginationRef);
+    //         if (isBoolean(getPagination)) {
+    //           return `${index + 1}`;
+    //         }
+    //         const { current = 1, pageSize = PAGE_SIZE } = getPagination;
+    //         const currentIndex = (current - 1) * pageSize + index + 1;
+    //         return currentIndex;
+    //       },
+    //       ...(isFixedLeft
+    //         ? {
+    //             fixed: 'left',
+    //           }
+    //         : {}),
+    //       ...indexColumnProps,
+    //     });
+    // }
+    pushActionColumns &&
+      columns.push({
+        fixed: 'right',
+        ...actionColumn,
+        flag: 'ACTION',
+      });
+    if (pushIndexColumns) {
+      const isFixedLeft = columns.some((item) => item.fixed === 'left');
+
+      columns.unshift({
+        flag: 'INDEX',
+        width: 50,
+        title: '序号',
+        align: 'center',
+        customRender: (text: string, record: any, index: number) => {
+          const getPagination = unref(getPaginationRef);
+          if (isBoolean(getPagination)) {
+            return `${index + 1}`;
+          }
+          const { current = 1, pageSize = PAGE_SIZE } = getPagination;
+          const currentIndex = (current - 1) * pageSize + index + 1;
+          return currentIndex;
+        },
+        ...(isFixedLeft
+          ? {
+              fixed: 'left',
+            }
+          : {}),
+        ...indexColumnProps,
       });
     }
+    // if (ellipsis) {
+    //   columns.forEach((item) => {
+    //     const { key, dataIndex } = item;
+    //     if (!key) {
+    //       item.key = dataIndex;
+    //     }
+    //     if (!isBoolean(item.ellipsis)) {
+    //       Object.assign(item, {
+    //         ellipsis,
+    //       });
+    //     }
+    //   });
+    // }
 
-    if (actionColumn) {
-      const hasIndex = columns.find((column) => column.flag === 'ACTION');
-      !hasIndex &&
-        columns.push({
-          fixed: 'right',
-          ...actionColumn,
-          flag: 'ACTION',
-        });
-    }
+    // if (actionColumn) {
+    //   const hasIndex = columns.find((column) => column.flag === 'ACTION');
+    //   !hasIndex &&
+    //     columns.push({
+    //       fixed: 'right',
+    //       ...actionColumn,
+    //       flag: 'ACTION',
+    //     });
+    // }
     return columns;
   });
 

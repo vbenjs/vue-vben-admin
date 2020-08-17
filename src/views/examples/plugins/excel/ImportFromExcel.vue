@@ -6,7 +6,6 @@
   import { BasicTable, BasicColumn } from '@/components/table/index';
 
   export default defineComponent({
-    name: 'ImportFromExcelDemo',
     setup() {
       const { prefixCls } = useDesign('index');
       const tableState = reactive<{

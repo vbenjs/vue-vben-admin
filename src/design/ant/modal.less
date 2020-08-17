@@ -40,6 +40,21 @@ body {
       > * {
         margin-left: 12px;
       }
+
+      & i[role='full'] {
+        display: inline-block;
+        padding: 10px;
+
+        &:hover {
+          color: @primary-color;
+        }
+      }
+
+      & i[role='close'] {
+        &:hover {
+          color: @error-color;
+        }
+      }
     }
 
     .ant-modal-body {
@@ -79,7 +94,7 @@ body {
 
     &-close-x {
       display: inline-block;
-      width: 70px;
+      width: 96px;
       height: 56px;
       line-height: 56px;
     }

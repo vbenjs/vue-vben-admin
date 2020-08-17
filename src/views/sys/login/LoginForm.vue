@@ -25,7 +25,7 @@
 
       const { prefixCls } = useDesign('login-form');
 
-      const [registerModal, { openModal, isFirstLoadRef }] = useModal();
+      const [registerModal, { openModal }] = useModal();
       const [register, { validateFields, getFieldsValue }] = useForm({
         size: 'large',
         // 隐藏按钮
@@ -108,7 +108,7 @@
         return (
           <div class={prefixCls}>
             <h1>系统登陆</h1>
-            {!unref(isFirstLoadRef) && openLoginVerify && (
+            {openLoginVerify && (
               <VerifyModal
                 src={headImg}
                 onRegister={registerModal}

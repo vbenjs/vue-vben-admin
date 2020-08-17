@@ -81,8 +81,10 @@ export function clearAll() {
 
     // const ss = createStorage();
 
-    ls.set(BASE_LOCAL_CACHE_KEY, localCache);
-    ss.set(BASE_SESSION_CACHE_KEY, sessionCache);
+    setTimeout(() => {
+      ls.set(BASE_LOCAL_CACHE_KEY, localCache);
+      ss.set(BASE_SESSION_CACHE_KEY, sessionCache);
+    }, 16);
   });
 
   function storageChange(e: any) {

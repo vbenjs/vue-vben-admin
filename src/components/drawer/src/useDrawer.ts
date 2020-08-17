@@ -1,5 +1,6 @@
 import { UseDrawerReturnType, DrawerInstance, ReturnMethods, DrawerProps } from './types';
-import { ref, Ref, getCurrentInstance, onUnmounted, unref } from 'compatible-vue';
+import { ref, getCurrentInstance, onUnmounted, unref } from 'compatible-vue';
+import { isBoolean } from '@/utils/is/index';
 
 import { isProdMode } from '@/utils/envUtil';
 
@@ -12,22 +13,22 @@ export function useDrawer(): UseDrawerReturnType {
   }
   const drawerRef = ref<DrawerInstance | null>(null);
   const loadedRef = ref<boolean | null>(false);
-  const isFirstLoadRef = ref<boolean | null>(true);
-  let innerProps: any = null;
+  // const isFirstLoadRef = ref<boolean | null>(true);
+  // let innerProps: any = null;
 
   function getDrawer(drawerInstance: DrawerInstance) {
     onUnmounted(() => {
       drawerRef.value = null;
       loadedRef.value = null;
-      isFirstLoadRef.value = null;
-      innerProps = null;
+      // isFirstLoadRef.value = null;
+      // innerProps = null;
     });
     if (unref(loadedRef) && drawerInstance === unref(drawerRef) && isProdMode()) {
       return;
     }
     drawerRef.value = drawerInstance;
     loadedRef.value = true;
-    unref(drawerRef) && unref(drawerRef)!.setDrawerProps(innerProps || {});
+    // unref(drawerRef) && unref(drawerRef)!.setDrawerProps(innerProps || {});
   }
   const methods: ReturnMethods = {
     /**
@@ -39,14 +40,25 @@ export function useDrawer(): UseDrawerReturnType {
       }
       unref(drawerRef)!.setDrawerProps(props);
     },
-    isFirstLoadRef: isFirstLoadRef as Ref<boolean>,
+    isFirstLoadRef: ref(false),
     openDrawer: (props: Partial<DrawerProps>): void => {
-      if (unref(isFirstLoadRef)) {
-        isFirstLoadRef.value = false;
-        innerProps = props;
-      } else {
-        unref(drawerRef) && unref(drawerRef)!.setDrawerProps(props);
+      // if (unref(isFirstLoadRef)) {
+      //   isFirstLoadRef.value = false;
+      //   innerProps = props;
+      // } else {
+
+      const drawer = unref(drawerRef);
+      if (!drawer) {
+        return;
       }
+      if (isBoolean(props)) {
+        drawer.setDrawerProps({
+          visible: props,
+        });
+      } else {
+        drawer.setDrawerProps(props);
+      }
+      // }
     },
   };
 

@@ -9,7 +9,6 @@
     'https://picsum.photos/id/68/346/216',
   ];
   export default defineComponent({
-    name: 'PreviewDemo',
     setup() {
       return () => (
         <div class="p-4">

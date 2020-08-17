@@ -38,7 +38,6 @@
   ];
 
   export default defineComponent({
-    name: 'TableBaseDemo16',
     setup() {
       function handleSummary(tableData: any[]) {
         const totalNo = tableData.reduce((prev, next) => {

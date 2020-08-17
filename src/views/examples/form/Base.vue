@@ -6,7 +6,6 @@
 
   import { basicSchema } from './demoData';
   export default defineComponent({
-    name: 'FormBaseDemo',
     setup() {
       const [register, { setProps }] = useForm({
         labelWidth: 100,

@@ -291,6 +291,7 @@
 
         return (
           <Menu
+            forceSubMenuRender={true}
             selectedKeys={selectedKeys}
             defaultSelectedKeys={defaultSelectedKeys}
             mode={mode}

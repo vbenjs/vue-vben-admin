@@ -6,7 +6,6 @@
   // import { useMessage } from '@/hooks/core/useMessage';
   import { getAdvanceSchema } from './demoData';
   export default defineComponent({
-    name: 'AdvanceFormDemo',
     setup() {
       // const { createMessage } = useMessage();
       const [register] = useForm({

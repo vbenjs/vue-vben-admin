@@ -12,7 +12,6 @@
     return res;
   }
   export default defineComponent({
-    name: 'ScrollbarExample',
     setup() {
       const scrollRef = ref<any>(null);
 

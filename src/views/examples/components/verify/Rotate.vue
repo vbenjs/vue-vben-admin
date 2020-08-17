@@ -8,7 +8,6 @@
 
   type DragVerifyRef = DragVerifyActionType | null;
   export default defineComponent({
-    name: 'BaseDragVerifyDemo',
     setup() {
       const { createMessage } = useMessage();
 

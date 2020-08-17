@@ -26,12 +26,15 @@ const setDocumentTitle = (title: string) => {
   }
 };
 
-export const setPageTitleGuard: NavigationGuard = (to, form, next) => {
-  const { globSetting } = useSetting();
-  if (to.meta.title) {
-    const { title } = globSetting;
-    const _title = to.meta.title ? ` ${title} | ${to.meta.title} ` : `${title}`;
-    setDocumentTitle(_title);
-  }
-  next();
+export const setPageTitleGuard: NavigationGuard = (to) => {
+  setTimeout(() => {
+    const { globSetting } = useSetting();
+    if (to.meta.title) {
+      const { title } = globSetting;
+      const _title = to.meta.title ? ` ${to.meta.title}-${title} ` : `${title}`;
+      setDocumentTitle(_title);
+    }
+  }, 30);
+
+  // next();
 };

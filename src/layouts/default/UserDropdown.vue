@@ -10,6 +10,7 @@
 
   // hook
   import { useDesign } from '@/hooks/core/useDesign';
+  import { appStore } from '@/store/modules/app';
 
   import { userStore } from '@/store/modules/user';
   import { DOC_PATH } from '@/settings/docSetting';
@@ -48,6 +49,7 @@
           realName,
           // desc
         } = unref(getUserInfo) || {};
+        const { headerSetting: { showDoc } = {} } = appStore.getProjCfg;
         return (
           <Dropdown placement="bottomLeft">
             <section class={prefixCls}>
@@ -70,11 +72,13 @@
             </section>
 
             <Menu slot="overlay" onClick={handleMenuClick}>
-              <Menu.Item key="doc">
-                <Icon type="book" />
-                文档
-              </Menu.Item>
-              <Divider />
+              {showDoc && (
+                <Menu.Item key="doc">
+                  <Icon type="book" />
+                  文档
+                </Menu.Item>
+              )}
+              {showDoc && <Divider />}
               <Menu.Item key="loginOut">
                 <SvgIcon type="exit" />
                 退出系统

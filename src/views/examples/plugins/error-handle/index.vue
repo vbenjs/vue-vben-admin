@@ -63,7 +63,6 @@
     },
   ];
   export default defineComponent({
-    name: 'ErrorHandler',
     setup() {
       const imgListRef = ref<string[]>([]);
       const [register, { setTableData }] = useTable({

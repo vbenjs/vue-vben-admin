@@ -149,7 +149,7 @@
             rowKey={rowKey}
             columns={columns}
             tableLayout="fixed"
-          ></Table>
+          />
         );
       };
       watch(
@@ -317,7 +317,8 @@
     //   overflow-y: hidden !important;
     // }
 
-    .ant-table-thead > tr > th {
+    .ant-table-thead > tr > th,
+    .ant-table-header {
       background: #f1f3f4;
     }
 
@@ -376,16 +377,34 @@
       margin: 10px 0 0 0;
     }
 
-    .ant-table-body,
-    .ant-table-body-inner {
+    .ant-table-body {
       overflow-x: auto !important;
       overflow-y: scroll !important;
     }
+
+    // .ant-table-body-inner {
+    //   overflow-x: auto !important;
+    //   overflow-y: scroll !important;
+    // }
+
+    // .ant-table-body-inner {
+    //   overflow-x: scroll !important;
+    // }
 
     .ant-table-header {
       margin-bottom: 0 !important;
       overflow-x: hidden !important;
       overflow-y: scroll !important;
+    }
+
+    .ant-table-fixed-left {
+      .ant-table-header {
+        overflow-y: hidden !important;
+      }
+
+      // .ant-table-body-inner {
+      //   overflow-x: auto !important;
+      // }
     }
 
     .ant-radio {
@@ -418,7 +437,8 @@
       }
 
       .ant-table-body {
-        overflow: hidden !important;
+        overflow-x: hidden !important;
+        overflow-y: scroll !important;
       }
 
       td {

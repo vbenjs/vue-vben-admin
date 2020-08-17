@@ -11,7 +11,6 @@
   // import Pie7 from './Pie7.vue';
   import Pie8 from './Pie8.vue';
   export default defineComponent({
-    name: 'ChartPie',
     setup() {
       return () => {
         return (

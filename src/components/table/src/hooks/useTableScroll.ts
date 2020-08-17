@@ -1,6 +1,7 @@
 import { BasicTableProps } from '../types/table';
 import { computed, Ref, onMounted, unref, ref, nextTick, ComputedRef, watch } from 'compatible-vue';
 import { getViewportOffset } from '@/utils/domUtils';
+import { triggerWindowResize } from '@/utils/event/triggerWindowResizeEvent';
 import { isBoolean } from '@/utils/is/index';
 import { useTimeout } from '@/hooks/core/useTimeout';
 import { useWindowSizeFn } from '@/hooks/event/useWindowSize';
@@ -27,7 +28,7 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
     calcTableHeight();
   }
 
-  async function calcTableHeight() {
+  async function calcTableHeight(cb?: () => void) {
     const { canResize, resizeHeightOffset, pagination, maxHeight } = unref(propsRef);
     if (!canResize) {
       return;
@@ -55,14 +56,16 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
     const borderHeight = 1 * 2;
     // 分页器高度
 
-    let paginationHeight = 0;
-    if (!isBoolean(pagination)) {
-      const paginationDom = tableEl.querySelector('.ant-pagination') as HTMLElement;
-      if (paginationDom) {
-        const offsetHeight = paginationDom.offsetHeight;
-        paginationHeight += offsetHeight || 0;
-      }
-    }
+    // TODO 先固定20
+    const paginationHeight = 18;
+    // if (!isBoolean(pagination)) {
+    //   const paginationDom = tableEl.querySelector('.ant-pagination') as HTMLElement;
+    //   if (paginationDom) {
+    //     const offsetHeight = paginationDom.offsetHeight;
+    //     paginationHeight += offsetHeight || 0;
+    //   }
+    // }
+
     let footerHeight = 0;
     if (!isBoolean(pagination)) {
       const footerEl = tableEl.querySelector('.ant-table-footer') as HTMLElement;
@@ -86,21 +89,36 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
     useTimeout(() => {
       tableHeightRef.value =
         tableHeightRef.value! > maxHeight! ? (maxHeight as number) : tableHeightRef.value;
+      cb && cb();
     }, 0);
   }
-  const { canResize } = unref(propsRef);
-  canResize && useWindowSizeFn(calcTableHeight, 100);
+
+  const getCanResize = computed(() => {
+    const { canResize, scroll } = unref(propsRef);
+
+    return canResize && !(scroll || {}).y;
+  });
+  unref(getCanResize) && useWindowSizeFn(calcTableHeight, 100);
 
   // function clear() {
   //   window.clearInterval(timer);
   // }
 
   onMounted(() => {
-    calcTableHeight();
-    canResize &&
+    if (unref(getCanResize)) {
+      calcTableHeight();
+      const hasFixedLeft = (unref(propsRef).columns || []).some((item) => item.fixed === 'left');
+      // TODO antv table问题情况太多，只能先用下面方式定时器hack
       useTimeout(() => {
-        calcTableHeight();
-      }, 300);
+        calcTableHeight(() => {
+          // 有左侧固定列的时候才有问题
+          hasFixedLeft &&
+            useTimeout(() => {
+              triggerWindowResize();
+            }, 300);
+        });
+      }, 200);
+    }
   });
   const getScrollRef = computed(() => {
     const tableHeight = unref(tableHeightRef);

@@ -6,7 +6,6 @@
 
   import { useMessage } from '@/hooks/core/useMessage';
   export default defineComponent({
-    name: 'CachePlugin',
     setup() {
       const { createMessage } = useMessage();
 

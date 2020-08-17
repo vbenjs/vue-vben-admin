@@ -2,7 +2,6 @@
   import { defineComponent, ref, unref } from 'compatible-vue';
   import { ClickOutSide } from '@/components/click-out-side/index';
   export default defineComponent({
-    name: 'ClickOutSideDemo',
     setup() {
       const showRef = ref(false);
       return () => (

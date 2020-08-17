@@ -6,7 +6,6 @@
 
   import parallax1Img from '@/assets/images/demo/parallax1.jpg';
   export default defineComponent({
-    name: 'ParallaxDemo',
     setup() {
       return () => (
         <div class="p-4 parallax-demo">

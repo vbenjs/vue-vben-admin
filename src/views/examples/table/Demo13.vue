@@ -71,7 +71,6 @@
   ];
 
   export default defineComponent({
-    name: 'TableBaseDemo13',
     setup() {
       return () => {
         return (

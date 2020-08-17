@@ -4,7 +4,6 @@
   import { useStepsDriver } from '@/hooks/functions/useDriver';
 
   export default defineComponent({
-    name: 'DriverIndex',
     setup() {
       const { startDriver } = useStepsDriver([
         {

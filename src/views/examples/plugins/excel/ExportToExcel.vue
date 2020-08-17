@@ -56,7 +56,6 @@
     return arr;
   })();
   export default defineComponent({
-    name: 'ExportToExcelDemo',
     setup() {
       const { prefixCls } = useDesign('index');
       const header = columns.map((column) => column.title);

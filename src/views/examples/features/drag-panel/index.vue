@@ -31,7 +31,6 @@
   });
   const list2 = list.splice(0, 1);
   export default defineComponent({
-    name: 'DragPanelDemo',
     setup() {
       const { prefixCls } = useDesign('drag-panel');
       const listRef = ref<ListItem[]>(list);

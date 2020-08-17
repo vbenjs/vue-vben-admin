@@ -2,7 +2,6 @@
   import { defineComponent, PropOptions } from 'compatible-vue';
 
   export default defineComponent({
-    name: 'TestComp',
     props: {
       value: {
         type: String,

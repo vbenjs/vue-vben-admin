@@ -57,7 +57,7 @@
       margin-left: 8px;
       font: italic 2em Georgia, serif;
       font-size: 24px;
-      word-break: break-all;
+      // word-break: break-all;
       .respond-to(xsmall-only, { display: none;});
       .respond-to(small-only, { display: none;});
     }

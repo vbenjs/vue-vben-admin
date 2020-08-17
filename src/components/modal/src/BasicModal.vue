@@ -11,6 +11,8 @@
 
   import { getSlot, extendSlots } from '@/utils/helper/tsxHelper';
   import { isFunction } from '@/utils/is';
+  import { deepMerge } from '@/utils/deepMerge';
+
   // import { triggerWindowResize } from '@/utils/event/triggerWindowResizeEvent';
   export default defineComponent({
     name: 'BasicModal',
@@ -20,6 +22,7 @@
       //   console.log('onMounted setups');
       // });
       const visibleRef = ref(false);
+
       const propsRef = ref<Partial<ModalProps> | null>(null);
 
       const modalWrapperRef = ref<any>(null);
@@ -178,10 +181,11 @@
           <template slot="closeIcon">
             <div class="custom-close-icon">
               <Icon
+                role="full"
                 type={unref(fullScreenRef) ? 'fullscreen-exit' : 'fullscreen'}
                 onClick={handleFullScreen}
               />
-              <Icon type="close" onClick={handleCancel} />
+              <Icon role="close" type="close" onClick={handleCancel} />
             </div>
           </template>
         );
@@ -212,11 +216,11 @@
         // triggerWindowResize();
       }
       /**
-       * @description: 设置表格参数
+       * @description: 设置modal参数
        */
       function setModalProps(props: Partial<ModalProps>): void {
         // 保留上一次的setModalProps
-        propsRef.value = { ...unref(propsRef), ...props };
+        propsRef.value = deepMerge(unref(propsRef) || {}, props);
         if (Reflect.has(props, 'visible')) {
           visibleRef.value = !!props.visible;
         }
@@ -227,7 +231,13 @@
       };
       emit('register', modalInstance);
       return () => (
-        <Modal props={unref(getProps)} {...{ on: listeners }} onCancel={handleCancel}>
+        <Modal
+          {...{
+            on: listeners,
+            props: unref(getProps),
+          }}
+          onCancel={handleCancel}
+        >
           {renderTitle()}
           {renderContent()}
           {renderFooter()}

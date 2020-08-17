@@ -48,7 +48,6 @@
     return arr;
   })();
   export default defineComponent({
-    name: 'TableBaseDemo2',
     setup() {
       const { createMessage } = useMessage();
       const [

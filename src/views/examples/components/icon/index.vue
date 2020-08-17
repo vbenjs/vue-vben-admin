@@ -10,7 +10,6 @@
   import { useMessage } from '@/hooks/core/useMessage';
 
   export default defineComponent({
-    name: 'IconIndex',
     setup() {
       const { createMessage } = useMessage();
 

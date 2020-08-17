@@ -3,7 +3,6 @@
   import { Card } from 'ant-design-vue';
 
   export default defineComponent({
-    name: 'TargetContent',
     setup() {
       return () => (
         <Card hoverable style="width: 240px;background:#fff;">

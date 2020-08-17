@@ -68,7 +68,6 @@
     return arr;
   })();
   export default defineComponent({
-    name: 'TableBaseDemo3',
     setup() {
       return () => (
         <div class="p-4 table-demo">

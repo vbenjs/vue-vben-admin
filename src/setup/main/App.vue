@@ -16,57 +16,71 @@
   import { useInitProjCfg } from './useInitApp';
   import { appStore } from '@/store/modules/app';
 
-  import LockPage from '@/views/sys/lock/index.vue';
   import { useLockPage } from '@/hooks/functions/useLockPage';
   import { createBreakpointListen } from '@/hooks/event/useBreakpoint';
   import { useTimeout } from '@/hooks/core/useTimeout';
 
   import { pageEnum } from '@/enums/pageEnum';
   import { ExceptionEnum } from '@/enums/exceptionEnum';
+
+  const LockPage = (() => import('@/views/sys/lock/index.vue')) as any;
+
   moment.locale('zh-cn');
 
   export default defineComponent({
     name: 'App',
     setup(_, { root }) {
       setupInitRumTimeVm();
+
+      const {
+        headerSetting: { useLockPage: canLockPage } = {},
+        listenNetWork,
+      } = appStore.getProjCfg;
       // 检测网络状态
-      useNetWork({
-        onLineFn: () => {
-          root.$router.replace(pageEnum.BASE_HOME);
-          useTimeout(() => {
-            appStore.commitPageLoadingState(false);
-          }, 300);
-        },
-        offLineFn: () => {
-          root.$router.replace({
-            path: pageEnum.ERROR_PAGE,
-            query: {
-              status: String(ExceptionEnum.NET_WORK_ERROR),
-            },
-          });
-        },
-      });
+      listenNetWork &&
+        useNetWork({
+          onLineFn: () => {
+            root.$router.replace(pageEnum.BASE_HOME);
+            useTimeout(() => {
+              appStore.commitPageLoadingState(false);
+            }, 300);
+          },
+          offLineFn: () => {
+            root.$router.replace({
+              path: pageEnum.ERROR_PAGE,
+              query: {
+                status: String(ExceptionEnum.NET_WORK_ERROR),
+              },
+            });
+          },
+        });
       // 初始化配置
       useInitProjCfg();
       // 监听响应式断点
       createBreakpointListen();
 
+      let lockOn: { [key: string]: (...arg) => any } = {};
+      if (canLockPage) {
+        const { on } = useLockPage();
+        lockOn = on;
+      }
+
       function renderEmpty() {
         return <BasicEmpty />;
       }
-      const { registerGlobOnKeyup, registerGlobOnMouseMove } = useLockPage();
       return () => {
         const { getLockInfo } = appStore;
         const { isLock } = getLockInfo || {};
 
         function transformCellText({ text }: { text: string }) {
           if (!text) {
-            return '-';
+            return ' - ';
           }
           return text;
         }
+
         return (
-          <div id="app" onKeyup={registerGlobOnKeyup} onMousemove={registerGlobOnMouseMove}>
+          <div id="app" on={lockOn}>
             {isLock && <LockPage />}
             <ConfigProvider
               ider

@@ -4,11 +4,13 @@
   export default defineComponent({
     name: 'Modal1Demo',
     setup(props, { listeners }) {
-      return () => (
-        <BasicModal title="基础弹窗" on={listeners}>
-          弹窗可以拖动
-        </BasicModal>
-      );
+      return () => {
+        return (
+          <BasicModal title="基础弹窗" on={listeners}>
+            弹窗可以拖动
+          </BasicModal>
+        );
+      };
     },
   });
 </script>

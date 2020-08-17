@@ -14,11 +14,15 @@
         type: [String, Array],
         default: '',
       } as PropOptions<string | string[]>,
+      showSpan: {
+        type: Boolean,
+        default: true,
+      } as PropOptions<boolean>,
     },
     setup(props, { slots }) {
       const { prefixCls } = useDesign('base-title');
       return () => (
-        <span class={prefixCls}>
+        <span class={[prefixCls, props.showSpan && slots.default ? 'show-span' : '']}>
           {getSlot(slots, 'default')}
           {props.helpMessage && <BaseHelp class={`${prefixCls}__help`} text={props.helpMessage} />}
         </span>
@@ -40,6 +44,17 @@
     color: @text-color-base;
 
     .unselect();
+
+    &.show-span::before {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      width: 3px;
+      height: 16px;
+      margin-right: 4px;
+      background: @primary-color;
+      content: '';
+    }
 
     &__help {
       margin-left: 10px;

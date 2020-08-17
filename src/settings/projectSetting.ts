@@ -27,10 +27,19 @@ const setting: ProjectConfig = {
   showLogo: true,
 
   headerSetting: {
+    fixed: true,
     // 是否显示顶部
     show: true,
     // theme
     theme: MenuThemeEnum.LIGHT,
+    // 开启锁屏功能
+    useLockPage: isProdMode(),
+    // 显示刷新按钮
+    showRedo: true,
+    // 显示全屏按钮
+    showFullScreen: true,
+    // 显示文档按钮
+    showDoc: true,
   },
   // 菜单类型
   menuSetting: {
@@ -77,6 +86,15 @@ const setting: ProjectConfig = {
 
   // 是否开启登陆安全校验
   openLoginVerify: true,
+
+  // 是否监听网络变化
+  listenNetWork: true,
+
+  // 是否开启页面切换loading
+  openPageLoading: false,
+
+  // 是否开启回到顶部
+  useOpenBackTop: true,
 };
 
 export default setting;

@@ -38,7 +38,6 @@
     schemas: getAdvanceSchema(6),
   };
   export default defineComponent({
-    name: 'TableBaseDemo7',
     setup() {
       const [register] = useTable();
       return () => (

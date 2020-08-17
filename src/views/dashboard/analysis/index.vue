@@ -14,7 +14,6 @@
 
   import { growCardList, taskList } from './data';
   export default defineComponent({
-    name: 'Analysis',
     setup() {
       const { prefixCls } = useDesign('analysis');
 

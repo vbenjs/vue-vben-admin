@@ -9,12 +9,12 @@
       title: 'ID',
       dataIndex: 'id',
       fixed: 'left',
-      width: 200,
+      width: 180,
     },
     {
       title: '姓名',
       dataIndex: 'name',
-      width: 120,
+      width: 220,
     },
     {
       title: '地址',
@@ -23,7 +23,7 @@
     {
       title: '编号',
       dataIndex: 'no',
-      width: 200,
+      width: 300,
     },
     {
       title: '开始时间',
@@ -38,7 +38,6 @@
   ];
 
   export default defineComponent({
-    name: 'TableBaseDemo5',
     setup() {
       const [register] = useTable();
       return () => (

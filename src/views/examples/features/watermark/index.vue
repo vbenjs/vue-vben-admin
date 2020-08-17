@@ -5,7 +5,6 @@
 
   import { useWatermark } from '@/hooks/functions/useWatermark';
   export default defineComponent({
-    name: 'Watermark',
     setup() {
       const wrapRef = ref<HTMLElement | null>(null);
       const { setWatermark, clear } = useWatermark();

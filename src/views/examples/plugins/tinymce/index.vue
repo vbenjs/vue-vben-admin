@@ -4,7 +4,6 @@
   import { Switch } from 'ant-design-vue';
 
   export default defineComponent({
-    name: 'TinymceDemo',
     setup() {
       const defaultValue = 'defaultValue';
       const tinymceContent = ref('content value');

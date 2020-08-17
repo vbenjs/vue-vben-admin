@@ -39,7 +39,7 @@
         },
       });
 
-      const [registerModal, { isFirstLoadRef, openModal }] = useModal();
+      const [registerModal, { openModal }] = useModal();
       watch(
         () => errorStore.getErrorInfoState,
         (list) => {
@@ -75,9 +75,9 @@
           {unref(imgListRef).map((src) => {
             return <img src={src} key={src} v-show={false} />;
           })}
-          {!unref(isFirstLoadRef) && (
-            <DetailModal info={unref(rowInfoRef)} onRegister={registerModal} />
-          )}
+
+          <DetailModal info={unref(rowInfoRef)} onRegister={registerModal} />
+
           <BasicTable onRegister={register} class={`${prefixCls}-table`}>
             <template slot="toolbar">
               <a-button onClick={fireVueError} type="primary">

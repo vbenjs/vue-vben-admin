@@ -5,7 +5,6 @@
 
   import { useI18n } from '@/hooks/core/useI18n';
   export default defineComponent({
-    name: 'I18nPlguinDemo',
     setup() {
       const { localeRef, t } = useI18n({
         locale: 'zhCN',

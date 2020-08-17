@@ -44,7 +44,6 @@
     };
   });
   export default defineComponent({
-    name: 'TableBaseDemo10',
     setup() {
       const [register, { setColumns }] = useTable();
       const selectKeysRef = ref<string[] | number[]>(options.map((item) => item.value));

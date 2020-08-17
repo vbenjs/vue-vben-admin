@@ -12,6 +12,7 @@ export function useTransition() {
     (path: string) => {
       const { getProjCfg } = appStore;
       const { openKeepAlive, multiTabsSetting: { show } = {} } = getProjCfg;
+
       if (show && openKeepAlive && !isFirstLoad) {
         const tabList = tabStore.getTabsState;
         const isOpen = tabList.some((tab) => tab.path === path);
@@ -44,5 +45,10 @@ export function useTransition() {
   onUnmounted(() => {
     handleAfterEnter();
   });
-  return { handleAfterEnter };
+  return {
+    handleAfterEnter,
+    on: {
+      'after-enter': handleAfterEnter,
+    },
+  };
 }

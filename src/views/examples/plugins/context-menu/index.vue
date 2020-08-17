@@ -3,7 +3,6 @@
   import { useMessage } from '@/hooks/core/useMessage';
   import { useContextMenu } from '@/hooks/functions/useContextMenu';
   export default defineComponent({
-    name: 'ContextMenuDemo',
     setup() {
       const { createMessage } = useMessage();
 

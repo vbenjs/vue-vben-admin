@@ -5,10 +5,7 @@
     onMounted,
     // ref, watch
   } from 'compatible-vue';
-  import {
-    Layout,
-    //  BackTop
-  } from 'ant-design-vue';
+  import { Layout, BackTop } from 'ant-design-vue';
   import LayoutHeader from './LayoutHeader.vue';
   import LayoutSideBar from './LayoutSideBar.vue';
   import LayoutContent from './LayoutContent.vue';
@@ -51,17 +48,24 @@
 
       // 获取项目配置
       const { getFullContent } = useFullContent();
+
       return () => {
         const { getProjCfg, getPageLoading } = appStore;
         const {
+          openPageLoading,
+          useOpenBackTop,
           showSettingButton,
-          headerSetting: { show: showHeader } = {},
+          headerSetting: { show: showHeader, fixed } = {},
           menuSetting: { show: showMenu, mode: menuMode, type: menuType } = {},
           multiTabsSetting: { show: showTabs } = {},
         } = getProjCfg;
 
         const isShowHeader = !unref(getFullContent) && showHeader;
         const isShowMixHeader = isShowHeader && menuType !== MenuTypeEnum.SIDEBAR;
+        const fixedHeaderCls = fixed ? 'fixed' : '';
+        function getTarget() {
+          return document.querySelector(`.${prefixCls}__${fixed ? 'main' : 'content'}`);
+        }
         return (
           <Layout class={prefixCls}>
             {isShowMixHeader && <LayoutHeader />}
@@ -72,7 +76,7 @@
               {!unref(getFullContent) && showMenu && menuMode !== MenuModeEnum.HORIZONTAL && (
                 <LayoutSideBar />
               )}
-              <Layout class={`${prefixCls}__content`}>
+              <Layout class={[`${prefixCls}__content`, fixedHeaderCls]}>
                 {!isShowMixHeader && !unref(getFullContent) && <LayoutHeader />}
 
                 {showTabs && !unref(getFullContent) ? (
@@ -80,12 +84,11 @@
                     <MultiTabs />
                   </Layout.Header>
                 ) : null}
-                {
-                  //   unref(scrollRef) &&
-                  //  <BackTop target={() => unref(scrollRef).getScrollWrap()} />
-                }
-                <div class={`${prefixCls}__main`}>
-                  <FullLoading v-show={getPageLoading} class={`${prefixCls}__loading`} />
+                {useOpenBackTop && <BackTop target={getTarget} />}
+                <div class={[`${prefixCls}__main`, fixedHeaderCls]}>
+                  {openPageLoading && (
+                    <FullLoading v-show={getPageLoading} class={`${prefixCls}__loading`} />
+                  )}
                   {
                     // <ScrollContainer ref={scrollRef}>
                     <LayoutContent />
@@ -109,14 +112,21 @@
 
     &__content {
       position: relative;
-      overflow: hidden;
+
+      &.fixed {
+        overflow: hidden;
+      }
     }
 
     &__main {
       position: relative;
       height: 100%;
       // overflow: hidden;
-      overflow: auto;
+      // overflow: auto;
+
+      &.fixed {
+        overflow: auto;
+      }
     }
 
     &__loading {

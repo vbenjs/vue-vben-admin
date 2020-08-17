@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, unref } from 'compatible-vue';
+  import { defineComponent } from 'compatible-vue';
   import { Icon } from '@/components/icon/index';
   import SettingDrawer from './SettingDrawer.vue';
 
@@ -13,7 +13,7 @@
     setup() {
       const { prefixCls } = useDesign('setting-btn');
       // 系统配置drawer
-      const [getDrawer, { openDrawer, isFirstLoadRef }] = useDrawer();
+      const [getDrawer, { openDrawer }] = useDrawer();
       return () => (
         <div
           class={prefixCls}
@@ -27,7 +27,7 @@
           {
             // <span>系统配置</span>
           }
-          {!unref(isFirstLoadRef) && <SettingDrawer onRegister={getDrawer} />}
+          <SettingDrawer onRegister={getDrawer} />
         </div>
       );
     },

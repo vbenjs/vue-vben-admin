@@ -4,8 +4,6 @@
   // 第三方组件不符合项目规范，所以用require引入
   const Upload = require('vue-image-crop-upload').default;
   export default defineComponent({
-    name: 'ImageCropDemo',
-
     setup() {
       const showRef = ref(false);
       const resultUrlRef = ref('');

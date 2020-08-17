@@ -39,7 +39,6 @@
     },
   ];
   export default defineComponent({
-    name: 'DescDemo',
     setup() {
       const [register] = useDescription({
         title: '无边框示例',

@@ -6,7 +6,6 @@
   import { useCopyToClipboard } from '@/hooks/event/useCopyToClipboard';
   import { useMessage } from '@/hooks/core/useMessage';
   export default defineComponent({
-    name: 'CopyPlugin',
     setup() {
       const { createMessage } = useMessage();
 

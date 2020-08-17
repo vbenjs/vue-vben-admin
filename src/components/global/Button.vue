@@ -59,6 +59,7 @@
         if (listeners.click && isFunction(listeners.click) && openThrottle) {
           const [handler] = useThrottle(listeners.click as any, throttleTime!, {
             debounce: isDebounce,
+            immediate: true,
           });
           on.click = handler;
         }

@@ -13,7 +13,6 @@
   import Line7 from './Line7.vue';
   import Line8 from './Line8.vue';
   export default defineComponent({
-    name: 'ChartLie',
     setup() {
       return () => {
         return (

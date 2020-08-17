@@ -30,8 +30,17 @@ export interface MultiTabsSetting {
 }
 
 export interface HeaderSetting {
+  fixed: boolean;
   show: boolean;
   theme: MenuThemeEnum;
+  // 显示刷新按钮
+  showRedo: boolean;
+  // 显示全屏按钮
+  showFullScreen: boolean;
+  // 开启全屏功能
+  useLockPage: boolean;
+  // 显示文档按钮
+  showDoc: boolean;
 }
 export interface ProjectConfig {
   // 是否显示配置按钮
@@ -77,6 +86,13 @@ export interface ProjectConfig {
 
   // 是否开启登陆安全校验
   openLoginVerify: boolean;
+
+  // 是否监听网络变化
+  listenNetWork: boolean;
+  // 是否开启页面切换loading
+  openPageLoading: boolean;
+  // 是否开启回到顶部
+  useOpenBackTop: boolean;
 }
 
 export interface GlobConfig {

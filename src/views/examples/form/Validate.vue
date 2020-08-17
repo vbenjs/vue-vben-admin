@@ -6,7 +6,6 @@
   import { useMessage } from '@/hooks/core/useMessage';
   import { validateSchema } from './demoData';
   export default defineComponent({
-    name: 'ValidateFormDemo',
     setup() {
       const { createMessage } = useMessage();
       const [register, { validateFieldsAndScroll, getFieldsValue, setFieldsValue }] = useForm({

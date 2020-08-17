@@ -9,7 +9,6 @@
   // import { UploadContainer } from '@/components/file/index';
 
   export default defineComponent({
-    name: 'CustomFormDemo',
     setup() {
       const { createMessage } = useMessage();
       const [register, { validateFieldsAndScroll }] = useForm({

@@ -2185,7 +2185,7 @@
   optionalDependencies:
     prettier "^1.18.2"
 
-"@vue/composition-api@^1.0.0-beta.9":
+"@vue/composition-api@^1.0.0-beta.10":
   version "1.0.0-beta.10"
   resolved "https://registry.npm.taobao.org/@vue/composition-api/download/@vue/composition-api-1.0.0-beta.10.tgz#0494982b684c87b474c7869499ba37d1255a43c5"
   integrity sha1-BJSYK2hMh7R0x4aUmbo30SVaQ8U=
@@ -6486,6 +6486,7 @@ forever-agent@~0.6.1:
   integrity sha1-+8cfDEGt6zf5bFd60e1C2P2sypE=
 
 "fork-ts-checker-webpack-plugin-v5@npm:fork-ts-checker-webpack-plugin@^5.0.11", fork-ts-checker-webpack-plugin@^5.0.13:
+  name fork-ts-checker-webpack-plugin-v5
   version "5.0.14"
   resolved "https://registry.npm.taobao.org/fork-ts-checker-webpack-plugin/download/fork-ts-checker-webpack-plugin-5.0.14.tgz?cache=0&sync_timestamp=1596456841872&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ffork-ts-checker-webpack-plugin%2Fdownload%2Ffork-ts-checker-webpack-plugin-5.0.14.tgz#83758b733ccd5d6e5780a72a5d5f099c353c108d"
   integrity sha1-g3WLczzNXW5XgKcqXV8JnDU8EI0=

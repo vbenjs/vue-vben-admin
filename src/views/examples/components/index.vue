@@ -2,7 +2,6 @@
   import { defineComponent } from 'compatible-vue';
   import { Alert } from 'ant-design-vue';
   export default defineComponent({
-    name: 'ComponentBaseDemo',
     setup() {
       return () => (
         <div class="p-4">

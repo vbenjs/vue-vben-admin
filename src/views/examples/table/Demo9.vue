@@ -38,13 +38,13 @@
   ];
 
   export default defineComponent({
-    name: 'TableBaseDemo9',
     setup() {
       const [register] = useTable();
       return () => (
         <div class="p-4 table-demo">
           <div>
             <BasicTable
+              bordered={true}
               onRegister={register}
               api={demoListApi}
               title="列拖拽示例（必须在column设置width）"

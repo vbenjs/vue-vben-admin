@@ -55,7 +55,6 @@
   ];
 
   export default defineComponent({
-    name: 'TableBaseDemo6',
     setup() {
       return () => (
         <div class="p-4 table-demo">

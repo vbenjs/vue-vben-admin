@@ -177,7 +177,7 @@
         destroyTinymce();
       });
       // 上传图片
-      const [register, { isFirstLoadRef, openModal }] = useModal();
+      const [register, { openModal }] = useModal();
 
       function handleChange(fileList: UploadResult[]) {
         openModal({
@@ -219,7 +219,7 @@
             </a-button>
           )}
 
-          {props.showUploadImage && !unref(isFirstLoadRef) && (
+          {props.showUploadImage && (
             <UploadModal onRegister={register} onChange={handleChange} {...{ props: attrs }} />
           )}
         </div>

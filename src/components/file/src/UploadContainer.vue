@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, unref, reactive, watch } from 'compatible-vue';
+  import { defineComponent, reactive, watch } from 'compatible-vue';
 
   // import { UploadFile } from 'ant-design-vue/types/upload';
 
@@ -18,8 +18,8 @@
       const state = reactive<{ fileList: Array<UploadResult> }>({
         fileList: [],
       });
-      const [register, { isFirstLoadRef, openModal }] = useModal();
-      const [registerPv, { isFirstLoadRef: isFirstLoadRefPv, openModal: openModalPv }] = useModal();
+      const [register, { openModal }] = useModal();
+      const [registerPv, { openModal: openModalPv }] = useModal();
 
       // 上传完成
       function handleChange(fileList: UploadResult[]) {
@@ -74,17 +74,14 @@
             ></a-button>
           </a-button-group>
 
-          {!unref(isFirstLoadRef) && (
-            <UploadModal props={props} onRegister={register} onChange={handleChange} />
-          )}
-          {!unref(isFirstLoadRefPv) && (
-            <UploadPreviewModal
-              isUploadImg={props.isUploadImg}
-              priviewList={state.fileList}
-              onRegister={registerPv}
-              onChange={handlePreviewChange}
-            />
-          )}
+          <UploadModal props={props} onRegister={register} onChange={handleChange} />
+
+          <UploadPreviewModal
+            isUploadImg={props.isUploadImg}
+            priviewList={state.fileList}
+            onRegister={registerPv}
+            onChange={handlePreviewChange}
+          />
         </div>
       );
     },

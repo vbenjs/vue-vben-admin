@@ -46,7 +46,6 @@
     return arr;
   })();
   export default defineComponent({
-    name: 'TableBaseDemo1',
     setup() {
       const [register, { setProps }] = useTable({
         canResize: false,

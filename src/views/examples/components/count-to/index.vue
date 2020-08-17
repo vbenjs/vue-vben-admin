@@ -4,7 +4,6 @@
   import VueCountTo from 'vue-count-to';
 
   export default defineComponent({
-    name: 'CountToDemo',
     setup() {
       return () => (
         <div class="p-4 count-to-demo">

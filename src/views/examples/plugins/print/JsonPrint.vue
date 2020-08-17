@@ -24,7 +24,6 @@
   ];
 
   export default defineComponent({
-    name: 'PrintJsonDemo',
     setup() {
       const { prefixCls } = useDesign('print-json');
       function handlePrint() {

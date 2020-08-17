@@ -4,12 +4,23 @@ import { pageEnum } from '@/enums/pageEnum';
 
 import { getToken } from '@/utils/auth/index';
 import { permissionStore } from '@/store/modules/permission';
-
+import { setPageTitleGuard } from './pageTitleGuard';
+import { startProgressGuard } from './progressGuard';
+import { AxiosCanceler } from '@/utils/http/axios/axiosCancel';
+import { Modal } from 'ant-design-vue';
+import { routerInstance } from '@/router/index';
 // import { userStore } from '@/store/modules/user';
 
-import { routerInstance } from '@/router/index';
+const axiosCanceler = new AxiosCanceler();
+
 export function createAuthGuard(): NavigationGuard {
   return (to, form, next) => {
+    setTimeout(() => {
+      setPageTitleGuard(to, form, next);
+      Modal.destroyAll();
+    }, 0);
+    axiosCanceler.removeAllPending();
+    startProgressGuard();
     try {
       const token = getToken();
 
@@ -28,6 +39,7 @@ export function createAuthGuard(): NavigationGuard {
         }
         return;
       }
+
       if ([pageEnum.BASE_LOGIN].includes(to.path as pageEnum)) {
         next();
         return;
@@ -38,6 +50,7 @@ export function createAuthGuard(): NavigationGuard {
         to.path === '/' ? next({ path: pageEnum.BASE_HOME, replace: true }) : next();
         return;
       }
+
       permissionStore.buildRoutesAction().then((addRoutes) => {
         if (addRoutes && addRoutes.length) {
           const { getRouteInstance } = routerInstance;
