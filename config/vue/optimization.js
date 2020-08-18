@@ -15,7 +15,8 @@ const resolve = require('../../build/getCwdPath');
 // }
 
 function configOptimization(config) {
-  config.when(isProductionFn(), (config) => {
+  // 只为方便注释  true｜｜ 这样写没意义
+  config.when(true || isProductionFn(), (config) => {
     // createScriptExtPlugin(config);
 
     config.optimization.runtimeChunk({
@@ -69,7 +70,7 @@ function configOptimization(config) {
         commons: {
           name: 'commons.chunk',
           test: resolve('src/components'),
-          minChunks: 3,
+          minChunks: 2,
           priority: 20,
           reuseExistingChunk: true,
         },
@@ -107,7 +108,6 @@ function configOptimization(config) {
             } else if (
               packageName.indexOf('echarts') !== -1 ||
               packageName.indexOf('zrender') !== -1 ||
-              packageName.indexOf('apexcharts') !== -1 ||
               packageName.indexOf('vue-baidu-map') !== -1
             ) {
               packageName = 'chart';

@@ -124,13 +124,13 @@ const fakeCodeList = {
   2: ['10010', '20020', '30030'],
 };
 module.exports = {
-  'GET /v1.0/getMenuListByUserId 20': ({ query }) => {
+  'GET /getMenuListByUserId 20': ({ query }) => {
     const { userId } = query;
     return ResultUtil.success(userId ? fakeList[~~userId] || {} : {});
   },
 
   // 根据用户id获取按钮权限code
-  'GET /v1.0/getBtnCodeListByUserId 20': ({ query }) => {
+  'GET /getBtnCodeListByUserId 20': ({ query }) => {
     const { userId } = query;
     return ResultUtil.success(userId ? fakeCodeList[~~userId] || {} : {});
   },

@@ -73,6 +73,7 @@
           ],
         });
       });
+
       return () => {
         const { width, height } = props;
         return <div ref={chartRef} style={{ height: height, width: width }} />;

@@ -44,7 +44,7 @@ function createDevServer() {
     compress: true,
     clientLogLevel: 'warn',
     overlay: {
-      warnings: true,
+      warnings: false,
       errors: true,
     },
     before: (app) => {

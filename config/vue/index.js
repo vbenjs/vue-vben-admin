@@ -46,6 +46,9 @@ function createVueConfig() {
     css: createCss(isProd),
     configureWebpack: (config) => {
       config.resolve.extensions = ['.js', '.jsx', '.tsx', '.ts'];
+      config.stats = {
+        warningsFilter: /.*/,
+      };
       configEntry(config);
     },
     chainWebpack: (config) => {

@@ -16,7 +16,7 @@ const demoList = Mock.mock({
 });
 
 module.exports = {
-  'GET /v1.0/table/getDemoList 500': ({ query }) => {
+  'GET /table/getDemoList 500': ({ query }) => {
     const { page = 1, pageSize = 20 } = query;
     const demoListItems = demoList.items;
     const pageData = ResultUtil.pagination(page, pageSize, demoListItems);

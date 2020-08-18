@@ -54,7 +54,7 @@ module.exports = {
       desc,
     });
   },
-  'GET /v1.0/getUserInfoById 300': ({ query }) => {
+  'GET /getUserInfoById 300': ({ query }) => {
     const { userId } = query;
     const checkUser = getFakeUserList().find((item) => item.userId === userId);
 
