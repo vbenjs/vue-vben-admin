@@ -208,11 +208,13 @@
       return () => (
         <Drawer
           class={prefixCls}
-          on={{
-            ...listeners,
-            close: onClose,
+          {...{
+            on: {
+              ...listeners,
+              close: onClose,
+            },
+            props: unref(getProps),
           }}
-          props={unref(getProps)}
         >
           <FullLoading absolute v-show={props.loading} tip="加载中..." />
           {renderHeader()}

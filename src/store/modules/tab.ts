@@ -1,5 +1,6 @@
 import { unref } from 'compatible-vue';
 import { Action, Module, Mutation, VuexModule, getModule } from 'vuex-module-decorators';
+import { hotModuleUnregisterModule } from '@/store/util';
 
 import { pageEnum } from '@/enums/pageEnum';
 import { RouteEx, Meta } from '@/router/types';
@@ -29,7 +30,9 @@ export interface TabState {
 }
 // }
 
-@Module({ namespaced: true, name: 'tab', dynamic: true, store })
+const NAME = 'tab';
+hotModuleUnregisterModule(NAME);
+@Module({ namespaced: true, name: NAME, dynamic: true, store })
 class Tab extends VuexModule implements TabState {
   // tab列表
   tabsState: TabItem[] = [];

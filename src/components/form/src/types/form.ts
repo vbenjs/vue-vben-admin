@@ -43,7 +43,7 @@ export interface FormSchema {
   // 组件
   component?: ComponentType;
 
-  isAdvanced?: false;
+  isAdvanced?: boolean;
 
   // 组件参数
   componentProps?: any;

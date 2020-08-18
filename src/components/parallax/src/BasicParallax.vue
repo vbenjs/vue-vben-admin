@@ -26,7 +26,7 @@
         windowHeight: 0,
         windowBottom: 0,
       });
-      const el = document.querySelector('.main-scrollbar__wrap.el-scrollbar__wrap');
+      const el = document.querySelector('.vben-default-layout__main.fixed');
       const getScrollWrapElRef = computed(() => {
         const { getContainer } = props;
         if (!isObject(getContainer)) {

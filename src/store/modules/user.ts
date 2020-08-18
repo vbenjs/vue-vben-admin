@@ -1,6 +1,7 @@
 import store from '@/store/index';
 // import { unref } from 'compatible-vue';
 import { VuexModule, Module, getModule, Mutation, Action } from 'vuex-module-decorators';
+import { hotModuleUnregisterModule } from '@/store/util';
 
 // import { centerLoginApi, OrgLoginParams, CenterLoginParams } from '@/api/user';
 
@@ -30,7 +31,9 @@ export interface UserState {
   tokenState: string;
 }
 
-@Module({ namespaced: true, name: 'user', dynamic: true, store })
+const NAME = 'user';
+hotModuleUnregisterModule(NAME);
+@Module({ namespaced: true, name: NAME, dynamic: true, store })
 class User extends VuexModule implements UserState {
   // 用户信息
   userInfoState: UserInfo | null = null;

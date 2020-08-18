@@ -5,6 +5,7 @@
 
   import { pageEnum } from '@/enums/pageEnum';
   import { MenuTypeEnum } from '@/enums/menuEnum';
+  import { CURRENT_ROUTE_CHANGE } from '@/enums/eventBusEnum';
 
   // hooks
   import { useGo } from '@/hooks/core/useRouter';
@@ -16,6 +17,8 @@
   import { buildMenuList } from '@/hooks/core/useAuth';
   // res
   import { RouteConfigEx } from '@/router/types';
+
+  import eventBus from '@/utils/eventBus';
 
   // import
   export default defineComponent({
@@ -31,8 +34,10 @@
 
       function handleMenuClick({ targetRoute }: { menu?: MenuItem; targetRoute: RouteConfigEx }) {
         const { path } = targetRoute;
+
         // const { path, meta: { frameSrc } = {} } = targetRoute;
         if (path) {
+          eventBus.$emit(CURRENT_ROUTE_CHANGE, targetRoute);
           useGo({ path: path as pageEnum, replace: false });
         }
       }

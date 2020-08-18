@@ -240,7 +240,7 @@ export function renderFormModelItem(
   );
   return (
     <Form.Item props={formItemProps}>
-      {slot && wrapComp(getSlot(slots, slot))}
+      {slot && getSlot(slots, slot) && wrapComp(getSlot(slots, slot))}
 
       {!slot &&
         (render
@@ -287,8 +287,12 @@ export function renderCol(
     });
   }
   const { showAdvancedButton } = props;
-  return isShow && (showAdvancedButton ? isAdvanced : true) ? (
-    <Col key={field} {...{ props: colProps, ...colProps }}>
+  return isShow ? (
+    <Col
+      key={field}
+      {...{ props: colProps, ...colProps }}
+      v-show={showAdvancedButton ? isAdvanced : true}
+    >
       {colSlot && getSlot(slots, colSlot)}
       {/*
       自定义render

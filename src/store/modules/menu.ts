@@ -1,4 +1,5 @@
 import store from '@/store';
+import { hotModuleUnregisterModule } from '@/store/util';
 import { VuexModule, Module, getModule, Mutation } from 'vuex-module-decorators';
 
 import { appStore } from '@/store/modules/app';
@@ -15,7 +16,10 @@ export interface MenuState {
   // 当前选中的菜单，包括父级菜单的数组（除了children属性）
   currMenuState: MenuItem[];
 }
-@Module({ namespaced: true, name: 'menu', dynamic: true, store })
+
+const NAME = 'menu';
+hotModuleUnregisterModule(NAME);
+@Module({ namespaced: true, name: NAME, dynamic: true, store })
 class Menu extends VuexModule implements MenuState {
   // 默认展开
   collapsedState = appStore.getProjCfg.menuSetting.collapsed;

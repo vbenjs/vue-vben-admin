@@ -70,8 +70,12 @@
           return;
         }
 
-        return actionList.map((item) => {
-          return <span class={`${prefixCls}__action`}>{item.render(node)}</span>;
+        return actionList.map((item, index) => {
+          return (
+            <span key={index} class={`${prefixCls}__action`}>
+              {item.render(node)}
+            </span>
+          );
         });
       }
       // 渲染树节点

@@ -298,7 +298,7 @@
             {typeList.map((item) => {
               const { title, type: ItemType, mode, src } = item;
               return (
-                <Tooltip placement="bottom">
+                <Tooltip placement="bottom" key={title}>
                   <template slot="title">{title}</template>
                   <div
                     onClick={handleSidebarChange.bind(null, {

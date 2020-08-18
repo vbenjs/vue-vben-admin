@@ -57,10 +57,10 @@
             新建
           </a-button>
           <Row>
-            {shortCuts.map((item) => {
+            {shortCuts.map((item, index) => {
               const { img, name } = item;
               return (
-                <Col span={8} class={[`${prefixCls}__item`, 'p-3']}>
+                <Col key={index} span={8} class={[`${prefixCls}__item`, 'p-3']}>
                   <img src={img} class={[`${prefixCls}__item-img`, 'mb-2']} />
                   <br />
                   <span>{name}</span>

@@ -91,7 +91,7 @@ const setting: ProjectConfig = {
   listenNetWork: true,
 
   // 是否开启页面切换loading
-  openPageLoading: false,
+  openPageLoading: true,
 
   // 是否开启回到顶部
   useOpenBackTop: true,

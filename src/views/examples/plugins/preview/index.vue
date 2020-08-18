@@ -16,6 +16,7 @@
           {imgList.map((img, index) => {
             return (
               <img
+                key={img}
                 src={img}
                 width={260}
                 onClick={createImgPreview.bind(null, { imageList: [imgList[index]] })}

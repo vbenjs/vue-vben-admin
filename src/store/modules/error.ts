@@ -1,4 +1,5 @@
 import store from '@/store';
+import { hotModuleUnregisterModule } from '@/store/util';
 import { VuexModule, getModule, Module, Mutation } from 'vuex-module-decorators';
 
 import { formatToDateTime } from '@/utils/momentUtil';
@@ -25,7 +26,9 @@ export interface ErrorState {
   errorListCountState: number;
 }
 
-@Module({ dynamic: true, namespaced: true, store, name: 'error' })
+const NAME = 'error';
+hotModuleUnregisterModule(NAME);
+@Module({ dynamic: true, namespaced: true, store, name: NAME })
 class Error extends VuexModule implements ErrorState {
   errorInfoState: ErrorInfo[] = [];
   errorListCountState = 0;

@@ -1,4 +1,5 @@
 import store from '@/store/index';
+import { hotModuleUnregisterModule } from '@/store/util';
 
 import { VuexModule, Mutation, Module, getModule, Action } from 'vuex-module-decorators';
 
@@ -23,6 +24,7 @@ import { setSession, getSession, removeSession } from '@/store/persistent';
 import { createAsyncComponent } from '@/common/factory/AsyncComponentFactory';
 import { PAGE_LAYOUT_COMPONENT } from '@/router/constant';
 import { cloneDeep } from '@/utils/lodashChunk';
+
 function getFlatRoutes(routes: RouteConfigEx[]): RouteConfigEx[] {
   const res: RouteConfigEx[] = [];
   routes.forEach((route) => {
@@ -35,7 +37,9 @@ function getFlatRoutes(routes: RouteConfigEx[]): RouteConfigEx[] {
   return res;
 }
 
-@Module({ dynamic: true, namespaced: true, store, name: 'permission' })
+const NAME = 'permission';
+hotModuleUnregisterModule(NAME);
+@Module({ dynamic: true, namespaced: true, store, name: NAME })
 class Permission extends VuexModule {
   // 角色列表
   roleState: RoleEnum[] = getSession(ROLES_KEY) || [];

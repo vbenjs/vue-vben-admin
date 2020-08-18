@@ -17,12 +17,13 @@ export function useModal(): UseModalReturnType {
   // const innerPropsRef = ref<Partial<ModalProps> | null>(null);
 
   function register(modalInstance: ModalInstance) {
-    onUnmounted(() => {
-      modalRef.value = null;
-      loadedRef.value = false;
-      // isFirstLoadRef.value = null;
-      // innerPropsRef.value = null;
-    });
+    isProdMode() &&
+      onUnmounted(() => {
+        modalRef.value = null;
+        loadedRef.value = false;
+        // isFirstLoadRef.value = null;
+        // innerPropsRef.value = null;
+      });
     if (unref(loadedRef) && isProdMode()) {
       return;
     }
@@ -38,7 +39,7 @@ export function useModal(): UseModalReturnType {
     setModalProps: (props: Partial<ModalProps>): void => {
       unref(modalRef)!.setModalProps(props);
     },
-    isFirstLoadRef: ref(true),
+    isFirstLoadRef: ref(false),
     openModal: (props: Partial<ModalProps> | boolean): void => {
       // if (unref(isFirstLoadRef)) {
       //   isFirstLoadRef.value = false;

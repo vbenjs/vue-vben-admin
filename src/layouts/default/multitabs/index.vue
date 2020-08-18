@@ -5,12 +5,16 @@
   import TabContent from './TabContent.vue';
 
   import { useDesign } from '@/hooks/core/useDesign';
+  import { useEventBusListener } from '@/hooks/core/useEventBusListener';
   import { useGo } from '@/hooks/core/useRouter';
+  import { Route } from '@/router/types';
   import { addAffixTabs, closeTab } from './useMultiTab';
 
   import { TabContentEnum, TabContentProps } from './tab.data';
+
   import projectSetting from '@/settings/projectSetting';
   import { pageEnum } from '@/enums/pageEnum';
+  import { CURRENT_ROUTE_CHANGE } from '@/enums/eventBusEnum';
 
   export default defineComponent({
     name: 'MultiTabs',
@@ -25,17 +29,24 @@
       });
       // 添加固定tab
       addAffixTabs();
+
       // 添加tab
       watch(
-        () => unref(root.$route),
-        (route) => {
-          activeKeyRef.value = route.path;
-          tabStore.commitAddTab(route);
-        },
-        {
-          immediate: true,
+        () => unref(root.$route).path,
+        (path) => {
+          activeKeyRef.value = path;
+          // tabStore.commitAddTab(route);
         }
+        // {
+        //   immediate: true,
+        // }
       );
+      function addRoute(route: Route) {
+        activeKeyRef.value = route.path;
+        tabStore.commitAddTab(route);
+      }
+      useEventBusListener(CURRENT_ROUTE_CHANGE, addRoute);
+      addRoute(root.$route);
       // 渲染tab列表
       function renderTabs() {
         return unref(getTabsState).map((item: TabItem) => {
@@ -78,7 +89,7 @@
               type="editable-card"
               size="small"
               hideAdd={true}
-              tabBarGutter={3}
+              tabBarGutter={2}
               activeKey={unref(activeKeyRef)}
               onChange={handleChange}
               onEdit={handleEdit}
@@ -118,6 +129,7 @@
           background: @white;
           border: 1px solid @border-color-shallow-dark;
           border-radius: 4px 4px 0 0;
+          transition: none;
 
           .ant-tabs-close-x {
             color: inherit;

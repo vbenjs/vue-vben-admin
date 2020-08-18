@@ -12,6 +12,7 @@ import { es6Unique } from '@/utils/array/unique';
 import { menuStore } from '@/store/modules/menu';
 
 import { useRouter } from '@/hooks/core/useRouter';
+
 /**
  * @description: 菜单是否有子节点
  */
@@ -192,8 +193,10 @@ export function useSideBar({
         // 存储当前选中menu的，所有层级数据
         const names = getAllParentData(findMenu, flatMenus);
         names.unshift({ ...findMenu, children: undefined });
-        const ret = names.reverse();
-        menuStore.commitCurrMenuState(ret);
+        setTimeout(() => {
+          const ret = names.reverse();
+          menuStore.commitCurrMenuState(ret);
+        }, 16);
 
         if (menuState.mode !== MenuModeEnum.HORIZONTAL) {
           setOpenKeys(findMenu);

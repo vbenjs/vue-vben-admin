@@ -1,4 +1,5 @@
 import store from '@/store';
+import { hotModuleUnregisterModule } from '@/store/util';
 import { VuexModule, getModule, Module, Mutation, Action } from 'vuex-module-decorators';
 
 import { PROJ_CFG_KEY, LOCK_INFO_KEY } from '@/enums/cacheEnum';
@@ -19,7 +20,9 @@ export interface AppState {
 }
 
 let timeId: ReturnType<typeof setTimeout>;
-@Module({ dynamic: true, namespaced: true, store, name: 'app' })
+const NAME = 'app';
+hotModuleUnregisterModule(NAME);
+@Module({ dynamic: true, namespaced: true, store, name: NAME })
 class App extends VuexModule implements AppState {
   pageLoadingState = false;
 
