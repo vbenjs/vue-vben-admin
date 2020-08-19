@@ -1,4 +1,4 @@
-login: 登陆页面
+login: 登录页面
 
 redirect: 重定向页，用于刷新
 

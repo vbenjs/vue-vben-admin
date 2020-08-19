@@ -33,7 +33,7 @@ export function renderAction({
   };
 
   const { showActionButtonGroup, showResetButton, showSubmitButton, showAdvancedButton } = props;
-  const actionSpan = 24 - unref(actionSpanRef);
+  const actionSpan = unref(actionSpanRef);
   const advancedSpanObj = showAdvancedButton ? { span: actionSpan < 6 ? 24 : actionSpan } : {};
   const actionColOpt: Partial<ColEx> = {
     // md: 4,

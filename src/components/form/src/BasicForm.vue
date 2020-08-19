@@ -35,6 +35,7 @@
   import { renderAction } from './renderAction';
 
   import { useBreakpoint } from '@/hooks/event/useBreakpoint';
+  import { useThrottle } from '@/hooks/core/useThrottle';
 
   const BASIC_COL_LEN = 24;
   const BasicForm = defineComponent({
@@ -91,6 +92,7 @@
       });
 
       const { realWidthRef, screenEnum } = useBreakpoint();
+      const [throttleUpdateAdvanced] = useThrottle(updateAdvanced, 30);
       watch(
         [() => unref(getSchema), () => unref(isAdvancedRef), () => unref(realWidthRef)],
         () => {
@@ -100,8 +102,7 @@
               isFirstAdvenceRef.value = false;
               // todo 待优化
             }
-            emit('advancedChange');
-            updateAdvanced();
+            throttleUpdateAdvanced();
           }
         },
         { immediate: true }
@@ -357,8 +358,10 @@
             root.$set(scheam, 'isAdvanced', isAdvanced);
           }
         }
-        actionSpanRef.value = realItemColSum % BASIC_COL_LEN;
+        actionSpanRef.value = BASIC_COL_LEN % realItemColSum;
+
         getAdvanced(props.actionColOptions || { span: BASIC_COL_LEN }, itemColSum, true);
+        emit('advancedChange');
       }
 
       function getAdvanced(itemCol: Partial<ColEx>, itemColSum = 0, isLastAction = false) {

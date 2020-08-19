@@ -12,7 +12,7 @@ enum Api {
 }
 
 /**
- * @description: 用户登陆
+ * @description: 用户登录
  */
 export function loginApi(params: LoginParams) {
   return http.request<LoginResultModel>({

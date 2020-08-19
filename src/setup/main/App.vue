@@ -83,7 +83,6 @@
           <div id="app" on={lockOn}>
             {isLock && <LockPage />}
             <ConfigProvider
-              ider
               locale={zhCN}
               renderEmpty={renderEmpty}
               transformCellText={transformCellText}

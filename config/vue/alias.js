@@ -1,7 +1,6 @@
 const resolve = require('../../build/getCwdPath');
 
 const baseAlias = {
-  examples: 'examples',
   config: 'config',
   '#': 'src/types',
   '@': 'src',

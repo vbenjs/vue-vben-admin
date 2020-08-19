@@ -146,7 +146,7 @@ export class VAxios {
         .then((res: AxiosResponse<Result>) => {
           if (transformRequestData && isFunction(transformRequestData)) {
             const ret = transformRequestData(res, opt);
-            ret ? resolve(ret) : reject(new Error('request error!'));
+            ret !== undefined ? resolve(ret) : reject(new Error('request error!'));
             return;
           }
           resolve((res as unknown) as Promise<T>);

@@ -95,7 +95,7 @@
     &-bar {
       position: relative;
       height: 4px;
-      margin: 10px auto 20px;
+      margin: 10px auto 6px;
       background: @disabled-color;
       border-radius: 3px;
 

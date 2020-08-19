@@ -125,7 +125,7 @@
               class="mt-2"
               onClick={handleLogin}
             >
-              登陆
+              登录
             </a-button>
           </div>
         );

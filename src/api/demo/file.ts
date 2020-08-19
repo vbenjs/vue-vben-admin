@@ -22,16 +22,10 @@ export function downloadApi() {
  * @description: 上传
  */
 export function uploadApi(params: UploadParams) {
-  return http.request<UploadResult[]>(
-    {
-      url: Api.UploadFile,
-      method: 'GET',
-      params,
-      headers: { 'Content-Type': 'multipart/form-data' },
-    },
-    {
-      // 登陆接口不加 /v1.0
-      joinPrefix: false,
-    }
-  );
+  return http.request<UploadResult[]>({
+    url: Api.UploadFile,
+    method: 'GET',
+    params,
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
 }

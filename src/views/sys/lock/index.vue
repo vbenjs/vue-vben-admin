@@ -87,7 +87,7 @@
               <div class={`${prefixCls}__footer`}>
                 {!isNotPwd && (
                   <a-button type="default" class="mt-2 mr-2" onClick={goLogin}>
-                    返回登陆
+                    返回登录
                   </a-button>
                 )}
                 <a-button

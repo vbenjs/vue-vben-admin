@@ -16,7 +16,7 @@ export interface GetUserInfoByUserIdParams {
 }
 
 /**
- * @description: 登陆接口返回值
+ * @description: 登录接口返回值
  */
 export interface LoginResultModel {
   // 角色值数组

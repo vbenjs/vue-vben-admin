@@ -7,3 +7,4 @@ export * from './src/types/form';
 export * from './src/types/formItem';
 
 export { useForm } from './src/useForm';
+export { useComponentRegister } from './src/useComponentRegister';
