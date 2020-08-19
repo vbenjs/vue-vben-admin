@@ -55,19 +55,19 @@
       return () => {
         return (
           <div class="p-4 table-demo">
-            <Checkbox.Group
-              value={unref(selectKeysRef)}
-              options={options}
-              onChange={handleSelectChange}
-            />
-            <div>
-              <BasicTable
-                onRegister={register}
-                api={demoListApi}
-                title="动态列示例"
-                columns={columns}
+            <div class="pl-3 pt-3">
+              <Checkbox.Group
+                value={unref(selectKeysRef)}
+                options={options}
+                onChange={handleSelectChange}
               />
             </div>
+            <BasicTable
+              onRegister={register}
+              api={demoListApi}
+              title="动态列示例"
+              columns={columns}
+            />
           </div>
         );
       };

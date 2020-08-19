@@ -17,15 +17,15 @@
 
       return () => (
         <div class="p-4 qrcode-demo">
-          <CollapseContainer title="基础示例" canExpan={false}>
+          <CollapseContainer title="基础示例" canExpan={false} class="qrcode">
             <QrCode value={qrCodeUrl} />
           </CollapseContainer>
 
-          <CollapseContainer title="渲染成img标签示例" canExpan={false}>
+          <CollapseContainer title="渲染成img标签示例" canExpan={false} class="qrcode">
             <QrCode value={qrCodeUrl} tag="img" />
           </CollapseContainer>
 
-          <CollapseContainer title="配置样式示例" canExpan={false}>
+          <CollapseContainer title="配置样式示例" canExpan={false} class="qrcode">
             <QrCode
               value={qrCodeUrl}
               options={{
@@ -34,11 +34,11 @@
             />
           </CollapseContainer>
 
-          <CollapseContainer title="本地logo示例" canExpan={false}>
+          <CollapseContainer title="本地logo示例" canExpan={false} class="qrcode">
             <QrCode value={qrCodeUrl} logo={LogoImg} />
           </CollapseContainer>
 
-          <CollapseContainer title="在线logo示例" canExpan={false}>
+          <CollapseContainer title="在线logo示例" canExpan={false} class="qrcode">
             <QrCode
               value={qrCodeUrl}
               logo="https://vebn.oss-cn-beijing.aliyuncs.com/vben/logo.png"
@@ -48,7 +48,7 @@
             />
           </CollapseContainer>
 
-          <CollapseContainer title="logo配置示例" canExpan={false}>
+          <CollapseContainer title="logo配置示例" canExpan={false} class="qrcode">
             <QrCode
               value={qrCodeUrl}
               logo={{
@@ -64,14 +64,15 @@
               }}
             />
           </CollapseContainer>
-          <CollapseContainer title="下载示例" canExpan={false}>
+          <CollapseContainer title="下载示例" canExpan={false} class="qrcode">
             <QrCode value={qrCodeUrl} ref={qrRef} logo={LogoImg} />
-            <a-button type="primary" onClick={download}>
-              下载(在线logo会导致图片跨域，需要下载图片需要自行解决跨域问题)
+            <a-button block class="mb-2" type="primary" onClick={download}>
+              下载
             </a-button>
+            <div class="msg">(在线logo会导致图片跨域，需要下载图片需要自行解决跨域问题)</div>
           </CollapseContainer>
-          <CollapseContainer title="配置大小示例" canExpan={false}>
-            <QrCode value={qrCodeUrl} width={400} />
+          <CollapseContainer title="配置大小示例" canExpan={false} class="qrcode">
+            <QrCode value={qrCodeUrl} width={300} />
           </CollapseContainer>
         </div>
       );
@@ -82,6 +83,14 @@
   .qrcode-demo {
     display: flex;
     flex-wrap: wrap;
+
+    .qrcode {
+      text-align: center;
+    }
+
+    .msg {
+      text-align: left;
+    }
 
     > div {
       width: 30%;

@@ -78,7 +78,7 @@
     padding: 20px;
 
     &-item {
-      width: 30%;
+      width: 48%;
       min-height: 500px;
       padding: 0 20px;
       margin-right: 2%;

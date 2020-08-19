@@ -41,7 +41,7 @@
     setup() {
       const [register] = useTable();
       return () => (
-        <div class="p-4 table-demo">
+        <div class="table-form-container">
           <div>
             <BasicTable
               useSearchForm

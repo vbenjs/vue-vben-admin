@@ -105,42 +105,42 @@
         return (
           <div class="tree-demo">
             <div class="tree-demo-item">
-              <div class="tree-demo-title">函数使用示例</div>
+              <div class="tree-demo-title mb-3">函数使用示例</div>
               <a-button onClick={filterLevel}>显示到第2级</a-button>
 
-              <a-button onClick={setCheckKeys} class="ml-2">
+              <a-button onClick={setCheckKeys} class="ml-2 mb-2">
                 设置勾选数据
               </a-button>
-              <a-button onClick={getCheckKeys} class="ml-2">
+              <a-button onClick={getCheckKeys} class="ml-2 mb-2">
                 获取勾选数据
               </a-button>
 
-              <a-button onClick={setSelectKeys} class="ml-2">
+              <a-button onClick={setSelectKeys} class="ml-2 mb-2">
                 设置选中数据
               </a-button>
-              <a-button onClick={getSelectKeys} class="ml-2">
+              <a-button onClick={getSelectKeys} class="ml-2 mb-2">
                 获取选中数据
               </a-button>
 
-              <a-button onClick={setExpandKeys} class="ml-2">
+              <a-button onClick={setExpandKeys} class="ml-2 mb-2">
                 设置展开数据
               </a-button>
-              <a-button onClick={getExpandKeys} class="ml-2">
+              <a-button onClick={getExpandKeys} class="ml-2 mb-2">
                 获取展开数据
               </a-button>
 
-              <a-button onClick={appendNodeByKey} class="ml-2">
+              <a-button onClick={appendNodeByKey} class="ml-2 mb-2">
                 添加根节点
               </a-button>
-              <a-button onClick={appendNodeByKey.bind(null, '2-2')} class="ml-2">
+              <a-button onClick={appendNodeByKey.bind(null, '2-2')} class="ml-2 mb-2">
                 添加在parent3内添加节点
               </a-button>
 
-              <a-button onClick={deleteNodeByKey.bind(null, '2-2')} class="ml-2">
+              <a-button onClick={deleteNodeByKey.bind(null, '2-2')} class="ml-2 mb-2">
                 删除parent3节点
               </a-button>
 
-              <a-button onClick={updateNodeByKey.bind(null, '2-2')} class="ml-2">
+              <a-button onClick={updateNodeByKey.bind(null, '2-2')} class="ml-2 mb-2">
                 更新parent3节点
               </a-button>
 

@@ -11,7 +11,7 @@
       const { toggleAuthMode } = useAuth();
 
       return () => (
-        <div>
+        <div class="mt-2">
           当前权限模式：
           {appStore.getProjCfg.authMode === AuthModeEnum.BACK ? '后台权限模式' : '前端权限模式'}
           <a-button class="ml-4" onClick={toggleAuthMode}>

@@ -63,7 +63,7 @@
             }}
           ></BasicForm>
           <Divider>JSON表单组件-集成富文本组件</Divider>
-          <a-button onClick={handleSetFieldsValue} class="mx-3">
+          <a-button onClick={handleSetFieldsValue} class="mb-3">
             设置表单值
           </a-button>
           <BasicForm
