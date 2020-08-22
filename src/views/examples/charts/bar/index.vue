@@ -17,45 +17,61 @@
       return () => {
         return (
           <Row>
-            <Col md={24} lg={12} class="p-2">
-              <CollapseContainer title="基础柱状图" canExpan={false}>
-                <Bar1 />
-              </CollapseContainer>
+            <Col md={24} lg={12}>
+              <div class="p-2 pt-4 pl-4">
+                <CollapseContainer title="基础柱状图" canExpan={false}>
+                  <Bar1 />
+                </CollapseContainer>
+              </div>
             </Col>
-            <Col md={24} lg={12} class="p-2">
-              <CollapseContainer title="交错正负轴" canExpan={false}>
-                <Bar2 />
-              </CollapseContainer>
+            <Col md={24} lg={12}>
+              <div class="p-2 pt-4 pr-4">
+                <CollapseContainer title="交错正负轴" canExpan={false}>
+                  <Bar2 />
+                </CollapseContainer>
+              </div>
             </Col>
-            <Col md={24} lg={12} class="p-2">
-              <CollapseContainer title="堆叠柱状图" canExpan={false}>
-                <Bar3 />
-              </CollapseContainer>
+            <Col md={24} lg={12}>
+              <div class="p-2 pl-4">
+                <CollapseContainer title="堆叠柱状图" canExpan={false}>
+                  <Bar3 />
+                </CollapseContainer>
+              </div>
             </Col>
-            <Col md={24} lg={12} class="p-2">
-              <CollapseContainer title="堆叠条形图" canExpan={false}>
-                <Bar4 />
-              </CollapseContainer>
+            <Col md={24} lg={12}>
+              <div class="p-2 pr-4">
+                <CollapseContainer title="堆叠条形图" canExpan={false}>
+                  <Bar4 />
+                </CollapseContainer>
+              </div>
             </Col>
-            <Col md={24} lg={12} class="p-2">
-              <CollapseContainer title="某地区蒸发量和降水量" canExpan={false}>
-                <Bar5 />
-              </CollapseContainer>
+            <Col md={24} lg={12}>
+              <div class="p-2 pl-4">
+                <CollapseContainer title="某地区蒸发量和降水量" canExpan={false}>
+                  <Bar5 />
+                </CollapseContainer>
+              </div>
             </Col>
-            <Col md={24} lg={12} class="p-2">
-              <CollapseContainer title="极坐标堆叠柱状图" canExpan={false}>
-                <Bar6 />
-              </CollapseContainer>
+            <Col md={24} lg={12}>
+              <div class="p-2 pr-4">
+                <CollapseContainer title="极坐标堆叠柱状图" canExpan={false}>
+                  <Bar6 />
+                </CollapseContainer>
+              </div>
             </Col>
-            <Col span={24} class="p-2">
-              <CollapseContainer title="工程进度" canExpan={false}>
-                <Bar7 height="600px" />
-              </CollapseContainer>
+            <Col span={24}>
+              <div class="p-2 pl-4 pr-4">
+                <CollapseContainer title="工程进度" canExpan={false}>
+                  <Bar7 height="380px" />
+                </CollapseContainer>
+              </div>
             </Col>
-            <Col span={24} class="p-2">
-              <CollapseContainer title="琴键图表" canExpan={false}>
-                <Bar8 height="600px" />
-              </CollapseContainer>
+            <Col span={24}>
+              <div class="p-2 pl-4 pr-4 pb-4">
+                <CollapseContainer title="琴键图表" canExpan={false}>
+                  <Bar8 height="380px" />
+                </CollapseContainer>
+              </div>
             </Col>
           </Row>
         );

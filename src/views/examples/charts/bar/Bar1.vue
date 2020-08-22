@@ -21,7 +21,7 @@
             },
           },
           legend: {
-            left: 60,
+            right: 10,
             data: ['产品一', '产品二', '产品三'],
           },
           grid: {
@@ -34,11 +34,24 @@
             {
               type: 'category',
               data: ['付费用户', '免费用户', '自主'],
+              axisTick: {
+                inside: true, // 刻度朝内
+              },
             },
           ],
           yAxis: [
             {
               type: 'value',
+              axisTick: {
+                inside: true, // 刻度朝内
+              },
+              splitLine: {
+                show: true,
+                lineStyle: {
+                  type: 'dashed', // 设置网格线类型
+                  color: 'rgba(206,206,206,.3)',
+                },
+              },
             },
           ],
           series: [

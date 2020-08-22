@@ -125,7 +125,7 @@
   .@{prefix-cls} {
     padding: 10px;
     background: @white;
-    border-radius: 10px;
+    border-radius: 4px;
     transition: all 0.3s ease-in-out;
 
     &.no-shadow {

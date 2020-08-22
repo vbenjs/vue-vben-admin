@@ -15,26 +15,33 @@
       return () => {
         return (
           <Row>
-            <Col md={24} lg={12} class="p-2">
-              <CollapseContainer title="基础饼图" canExpan={false}>
-                <Pie1 />
-              </CollapseContainer>
+            <Col md={24} lg={12}>
+              <div class="p-2 pt-4 pl-4">
+                <CollapseContainer title="基础饼图" canExpan={false}>
+                  <Pie1 />
+                </CollapseContainer>
+              </div>
             </Col>
-            <Col md={24} lg={12} class="p-2">
-              <CollapseContainer title="自定义饼图" canExpan={false}>
-                <Pie2 />
-              </CollapseContainer>
+            <Col md={24} lg={12}>
+              <div class="p-2 pt-4 pr-4">
+                <CollapseContainer title="自定义饼图" canExpan={false}>
+                  <Pie2 />
+                </CollapseContainer>
+              </div>
             </Col>
-
-            <Col md={24} lg={12} class="p-2">
-              <CollapseContainer title="环形" canExpan={false}>
-                <Pie4 />
-              </CollapseContainer>
+            <Col md={24} lg={12}>
+              <div class="p-2 pl-4">
+                <CollapseContainer title="环形" canExpan={false}>
+                  <Pie4 />
+                </CollapseContainer>
+              </div>
             </Col>
-            <Col md={24} lg={12} class="p-2">
-              <CollapseContainer title="蓝色饼图" canExpan={false}>
-                <Pie5 />
-              </CollapseContainer>
+            <Col md={24} lg={12}>
+              <div class="p-2 pr-4">
+                <CollapseContainer title="蓝色饼图" canExpan={false}>
+                  <Pie5 />
+                </CollapseContainer>
+              </div>
             </Col>
 
             {
@@ -44,10 +51,12 @@
               //   </CollapseContainer>
               // </Col>
             }
-            <Col span={24} class="p-2">
-              <CollapseContainer title="琴键图表" canExpan={false}>
-                <Pie8 height="600px" />
-              </CollapseContainer>
+            <Col span={24}>
+              <div class="p-2 pl-4 pr-4 pb-4">
+                <CollapseContainer title="琴键图表" canExpan={false}>
+                  <Pie8 height="350px" />
+                </CollapseContainer>
+              </div>
             </Col>
           </Row>
         );

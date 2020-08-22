@@ -28,12 +28,11 @@
             },
           },
           tooltip: {
-            padding: 0,
-            enterable: true,
-            transitionDuration: 1,
+            trigger: 'item',
+            backgroundColor: 'rgba(0, 0, 0, .6)',
             textStyle: {
-              color: '#000',
-              decoration: 'none',
+              color: '#fff',
+              fontSize: 12,
             },
           },
           series: [
@@ -41,16 +40,31 @@
               name: 'iphone4',
               type: 'map',
               mapType: 'china',
-              itemStyle: {
+              label: {
                 normal: {
-                  label: {
-                    show: false,
+                  show: true,
+                  textStyle: {
+                    color: 'rgb(249, 249, 249)',
+                    fontSize: 10,
                   },
                 },
                 emphasis: {
-                  label: {
-                    show: true,
+                  show: true,
+                  textStyle: {
+                    color: 'rgb(249, 249, 249)',
+                    fontSize: 14,
                   },
+                },
+              },
+              itemStyle: {
+                normal: {
+                  label: { show: true },
+                  areaColor: '#2f82ce',
+                  borderColor: '#0DAAC1',
+                },
+                emphasis: {
+                  label: { show: true },
+                  areaColor: '#2f82ce',
                 },
               },
               data: [

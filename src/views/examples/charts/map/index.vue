@@ -11,10 +11,12 @@
       return () => {
         return (
           <Row>
-            <Col span={24} class="p-2">
-              <CollapseContainer title="示例1" canExpan={false}>
-                <Map1 height="600px" />
-              </CollapseContainer>
+            <Col span={24}>
+              <div class="p-4">
+                <CollapseContainer title="示例1" canExpan={false}>
+                  <Map1 height="500px" />
+                </CollapseContainer>
+              </div>
             </Col>
           </Row>
         );
