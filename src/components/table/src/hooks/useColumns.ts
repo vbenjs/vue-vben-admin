@@ -44,13 +44,17 @@ export function useColumns(
           });
         }
       }
+      const actionIndex = columns.findIndex((column) => column.flag === 'ACTION');
       if (actionColumn) {
-        const hasIndex = columns.find((column) => column.flag === 'ACTION');
-        pushActionColumns = !hasIndex;
+        pushActionColumns = actionIndex === -1;
+      } else if (actionIndex !== -1) {
+        columns.splice(actionIndex, 1);
       }
+      const indIndex = columns.findIndex((column) => column.flag === 'INDEX');
       if (showIndexColumn && !isTreeTable) {
-        const hasIndex = columns.find((column) => column.flag === 'INDEX');
-        pushIndexColumns = !hasIndex;
+        pushIndexColumns = indIndex === -1;
+      } else if (!showIndexColumn && !isTreeTable) {
+        columns.splice(indIndex, 1);
       }
     });
     // if (showIndexColumn && !isTreeTable) {
