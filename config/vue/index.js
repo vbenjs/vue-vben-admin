@@ -46,9 +46,19 @@ function createVueConfig() {
     css: createCss(isProd),
     configureWebpack: (config) => {
       config.resolve.extensions = ['.js', '.jsx', '.tsx', '.ts'];
-      config.stats = {
-        warningsFilter: /.*/,
-      };
+      Object.assign(config.module, {
+        // require
+        unknownContextRegExp: /$^/,
+        unknownContextCritical: false,
+
+        // require(expr)
+        exprContextRegExp: /$^/,
+        exprContextCritical: false,
+
+        // require("prefix" + expr + "surfix")
+        wrappedContextRegExp: /$^/,
+        wrappedContextCritical: false,
+      });
       configEntry(config);
     },
     chainWebpack: (config) => {
