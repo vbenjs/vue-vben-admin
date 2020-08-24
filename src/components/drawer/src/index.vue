@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { Drawer, Row, Col } from 'ant-design-vue';
-  import { defineComponent, ref, computed, watch, unref } from 'compatible-vue';
+  import { defineComponent, ref, computed, watch, unref, getCurrentInstance } from 'compatible-vue';
   // import { BaseTitle } from '@/components/base/index';
   import { Icon } from '@/components/icon/index';
   import { BaseTitle } from '@/components/base/index';
@@ -19,6 +19,8 @@
     props: basicProps,
     setup(props: DrawerProps, { slots, emit, listeners, root, attrs }) {
       const { prefixCls, prefixVar } = useDesign('drawer');
+      const scrollRef = ref<any>(null);
+
       /**
        * @description: 获取配置ScrollContainer
        */
@@ -29,6 +31,25 @@
           };
         }
       );
+      function scrollBottom() {
+        const scroll = unref(scrollRef);
+        if (scroll) {
+          scroll.scrollBottom();
+        }
+      }
+      function scrollTo(to: number) {
+        const scroll = unref(scrollRef);
+        if (scroll) {
+          scroll.scrollTo(to);
+        }
+      }
+      function getScrollWrap() {
+        const scroll = unref(scrollRef);
+        if (scroll) {
+          return scroll.getScrollWrap();
+        }
+        return null;
+      }
       const visibleRef = ref(false);
       const propsRef = ref<Partial<DrawerProps> | null>(null);
 
@@ -200,6 +221,12 @@
         );
       }
 
+      const currentInstace = getCurrentInstance() as any;
+      if (getCurrentInstance()) {
+        currentInstace.scrollBottom = scrollBottom;
+        currentInstace.scrollTo = scrollTo;
+        currentInstace.getScrollWrap = getScrollWrap;
+      }
       const drawerInstance: DrawerInstance = {
         setDrawerProps,
       };
@@ -219,6 +246,7 @@
           <FullLoading absolute v-show={props.loading} tip="加载中..." />
           {renderHeader()}
           <ScrollContainer
+            ref={scrollRef}
             props={unref(getScrollOptions)}
             on={listeners}
             style={{
@@ -293,6 +321,7 @@
       line-height: @footer-height;
       text-align: right;
       background: #fff;
+      border-top: 1px solid @border-color-base;
     }
   }
 </style>

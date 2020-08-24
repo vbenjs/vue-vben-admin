@@ -42,7 +42,7 @@ export function useDrawer(): UseDrawerReturnType {
       unref(drawerRef)!.setDrawerProps(props);
     },
     isFirstLoadRef: ref(false),
-    openDrawer: (props: Partial<DrawerProps>): void => {
+    openDrawer: (props: Partial<DrawerProps> | boolean): void => {
       // if (unref(isFirstLoadRef)) {
       //   isFirstLoadRef.value = false;
       //   innerProps = props;

@@ -92,7 +92,7 @@
       });
 
       const { realWidthRef, screenEnum } = useBreakpoint();
-      const [throttleUpdateAdvanced] = useThrottle(updateAdvanced, 30);
+      const [throttleUpdateAdvanced] = useThrottle(updateAdvanced, 30, { immediate: true });
       watch(
         [() => unref(getSchema), () => unref(isAdvancedRef), () => unref(realWidthRef)],
         () => {

@@ -90,7 +90,7 @@
       const renderTitle = () => {
         const title = unref(getMergeProps).title;
         return (
-          getSlot(slots, 'title') || (
+          getSlot(slots, 'tableTitle') || (
             <TableTitle
               helpMessage={unref(getMergeProps).titleHelpMessage}
               title={title}

@@ -80,3 +80,8 @@ export interface DrawerProps extends Drawer, DrawerFooterProps {
   closeFunc?: () => Promise<void>;
   triggerWindowResize?: boolean;
 }
+export interface DrawerActionType {
+  scrollBottom: () => void;
+  scrollTo: (to: number) => void;
+  getScrollWrap: () => Element | null;
+}

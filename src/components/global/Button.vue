@@ -20,8 +20,7 @@
       } as PropOptions<'throttle' | 'debounce'>,
       color: {
         type: String,
-        default: '',
-      } as PropOptions<string>,
+      } as PropOptions<'error' | 'warning' | 'success'>,
       // 防抖节流时间
       throttleTime: {
         type: Number,

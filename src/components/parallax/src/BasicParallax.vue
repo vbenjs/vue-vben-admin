@@ -12,7 +12,7 @@
     name: 'BasicParallax',
     props: basicProps,
     setup(props: BasicProps, { listeners, slots }) {
-      const { prefixCls } = useDesign('parallax');
+      const { prefixCls, prefixVar } = useDesign('parallax');
       const imgRef = ref<HTMLImageElement | null>(null);
       const wrapRef = ref<HTMLDivElement | null>(null);
 
@@ -26,8 +26,8 @@
         windowHeight: 0,
         windowBottom: 0,
       });
-      const el = document.querySelector('.vben-default-layout__main.fixed');
       const getScrollWrapElRef = computed(() => {
+        const el = document.querySelector(`.${prefixVar}-default-layout__main.fixed`);
         const { getContainer } = props;
         if (!isObject(getContainer)) {
           return el;

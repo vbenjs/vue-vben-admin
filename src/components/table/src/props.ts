@@ -128,7 +128,7 @@ export const basicProps = {
   } as PropOptions<string | ((record: any) => string)>,
   bordered: {
     type: Boolean,
-    default: false,
+    default: true,
   } as PropOptions<boolean>,
   pagination: {
     type: [Object, Boolean],

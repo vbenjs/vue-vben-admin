@@ -194,7 +194,7 @@ export function useSideBar({
         const names = getAllParentData(findMenu, flatMenus);
         names.unshift({ ...findMenu, children: undefined });
         setTimeout(() => {
-          const ret = names.reverse();
+          const ret = [...names].reverse();
           menuStore.commitCurrMenuState(ret);
         }, 16);
 

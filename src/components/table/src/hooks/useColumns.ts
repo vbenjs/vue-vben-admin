@@ -34,6 +34,7 @@ export function useColumns(
     let pushIndexColumns = false;
     columns.forEach((item) => {
       const { key, dataIndex } = item;
+      item.align = item.align || 'center';
       if (ellipsis) {
         if (!key) {
           item.key = dataIndex;
