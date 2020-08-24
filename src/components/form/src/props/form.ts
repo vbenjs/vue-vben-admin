@@ -12,6 +12,10 @@ export const formProps = {
     type: String,
     default: 'default',
   },
+  emptySpan: {
+    type: Number,
+    default: 0,
+  },
   // 校验信息是否加入label
   rulesMessageJoinLabel: Boolean,
   // 禁用表单

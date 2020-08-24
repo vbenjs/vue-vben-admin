@@ -244,7 +244,7 @@
         const titleData: any =
           !slots.tableTitle && !isString(title) && !title && !slots.toolbar
             ? {}
-            : { title: !slots.tableTitle && !title ? null : renderTitle };
+            : { title: !slots.tableTitle && !title && !slots.toolbar ? null : renderTitle };
         let propsData: BasicTableProps = {
           // @ts-ignore
           size: 'middle',

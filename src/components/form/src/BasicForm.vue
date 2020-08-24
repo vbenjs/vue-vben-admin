@@ -358,8 +358,9 @@
             root.$set(scheam, 'isAdvanced', isAdvanced);
           }
         }
-        actionSpanRef.value = BASIC_COL_LEN % realItemColSum;
-
+        actionSpanRef.value =
+          (realItemColSum % BASIC_COL_LEN) +
+          (unref(isAdvancedRef) ? unref(getMergeProps).emptySpan || 0 : 0);
         getAdvanced(props.actionColOptions || { span: BASIC_COL_LEN }, itemColSum, true);
         emit('advancedChange');
       }

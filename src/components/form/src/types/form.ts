@@ -120,6 +120,9 @@ export interface FormProps extends AllItemProps {
   schemas: FormSchema[];
   // 紧凑模式,用于搜索表单
   compact: boolean;
+
+  // 空白行span
+  emptySpan?: number;
   size: 'default' | 'small' | 'large';
   // 是否禁用
   disabled?: boolean;

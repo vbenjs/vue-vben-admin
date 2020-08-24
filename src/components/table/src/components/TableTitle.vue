@@ -34,7 +34,8 @@
         }
         return (
           <div class={prefixCls}>
-            <BaseTitle helpMessage={helpMessage}>{tit}</BaseTitle>
+            {tit && <BaseTitle helpMessage={helpMessage}>{tit}</BaseTitle>}
+            {!tit && <span>&nbsp;</span>}
             <div class={`${prefixCls}__toolbar`}>{getSlot(slots, 'default')}</div>
           </div>
         );

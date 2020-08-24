@@ -57,7 +57,7 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
     // 分页器高度
 
     // TODO 先固定20
-    const paginationHeight = 18;
+    const paginationHeight = 20;
     // if (!isBoolean(pagination)) {
     //   const paginationDom = tableEl.querySelector('.ant-pagination') as HTMLElement;
     //   if (paginationDom) {
