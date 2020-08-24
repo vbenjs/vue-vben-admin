@@ -1,3 +1,20 @@
+## [1.3.1](https://github.com/anncwb/vue-vben-admin/compare/1.3.0...1.3.1) (2020-08-24)
+
+### ⚡ Performance Improvements
+
+- (组件、插件)demo 页面优化 ([50e1ebc](https://github.com/anncwb/vue-vben-admin/commit/50e1ebc))
+- 图表模块样式优化调整 ([3a7f3de](https://github.com/anncwb/vue-vben-admin/commit/3a7f3de))
+
+### 🐛 Bug Fixes
+
+- **ci:** 修复控制台警告问题 ([6d623df](https://github.com/anncwb/vue-vben-admin/commit/6d623df))
+- **table:** 修复 showIndexColumn 不生效问题 ([a1ad81c](https://github.com/anncwb/vue-vben-admin/commit/a1ad81c))
+- **table:** 修复表格搜索表单第一次加载闪动问题 ([1e91ac6](https://github.com/anncwb/vue-vben-admin/commit/1e91ac6))
+
+### 💄 Styles
+
+- 界面文字修改 ([f668726](https://github.com/anncwb/vue-vben-admin/commit/f668726))
+
 # [1.3.0](https://github.com/anncwb/vue-vben-admin/compare/1.2.0...1.3.0) (2020-08-18)
 
 ### ⚡ Performance Improvements
@@ -16,7 +33,6 @@
 
 ### 🎫 Chores
 
-- build 1.2.0 ([2761d65](https://github.com/anncwb/vue-vben-admin/commit/2761d65))
 - 更新最新依赖 ([2f6c193](https://github.com/anncwb/vue-vben-admin/commit/2f6c193))
 
 ### 🐛 Bug Fixes
