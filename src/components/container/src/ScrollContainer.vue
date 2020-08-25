@@ -11,7 +11,8 @@
 
 <script lang="tsx">
   // component
-  import { defineComponent, PropOptions, ref, unref } from 'compatible-vue';
+  import { defineComponent, PropOptions, ref, unref, nextTick } from 'compatible-vue';
+  import { Scrollbar } from '@/components/scrollbar';
 
   // hook
   import { useDesign } from '@/hooks/core/useDesign';
@@ -20,6 +21,7 @@
   import { TypeEnum } from './types';
   export default defineComponent({
     name: 'ScrollContainer',
+    components: { Scrollbar },
     props: {
       // 滚动类型
       type: {
@@ -33,12 +35,14 @@
       const scrollbarRef = ref<any>(null);
 
       function scrollTo(to: number, duration = 500) {
-        const { start } = useScrollTo({
-          el: unref(unref(scrollbarRef).wrap),
-          to,
-          duration,
+        nextTick(() => {
+          const { start } = useScrollTo({
+            el: unref(unref(scrollbarRef).wrap),
+            to,
+            duration,
+          });
+          start();
         });
-        start();
       }
 
       function getScrollWrap() {
@@ -46,12 +50,14 @@
       }
 
       function scrollBottom() {
-        const scrollHeight = unref(scrollbarRef).wrap.scrollHeight as number;
-        const { start } = useScrollTo({
-          el: unref(unref(scrollbarRef).wrap),
-          to: scrollHeight,
+        nextTick(() => {
+          const scrollHeight = unref(scrollbarRef).wrap.scrollHeight as number;
+          const { start } = useScrollTo({
+            el: unref(unref(scrollbarRef).wrap),
+            to: scrollHeight,
+          });
+          start();
         });
-        start();
       }
       return {
         prefixCls,

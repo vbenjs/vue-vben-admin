@@ -278,7 +278,7 @@
           compact: true,
         };
         return (
-          <div class={prefixCls}>
+          <div class={[prefixCls, useSearchForm && 'table-form-container']}>
             {useSearchForm && (
               <BasicForm
                 submitButtonOptions={{ loading: unref(loadingRef) }}
@@ -443,6 +443,33 @@
 
       td {
         padding: 12px 8px;
+      }
+    }
+  }
+
+  .table-form-container {
+    & > div {
+      padding: 16px;
+    }
+
+    .ant-form {
+      padding: 12px 12px 4px 12px;
+      margin-bottom: 12px;
+      background: #fff;
+      border-radius: 2px;
+    }
+
+    .ant-table-wrapper {
+      padding: 12px;
+      background: #fff;
+      border-radius: 2px;
+
+      .ant-table-title {
+        padding: 0 0 10px 0 !important;
+      }
+
+      .ant-table.ant-table-bordered .ant-table-title {
+        border: none !important;
       }
     }
   }

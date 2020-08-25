@@ -129,6 +129,12 @@ class Tab extends VuexModule implements TabState {
     this.keepAliveTabsState = names as string[];
   }
 
+  @Mutation
+  commitResetState(): void {
+    this.tabsState = [];
+    this.keepAliveTabsState = [];
+  }
+
   @Action({ rawError: true })
   closeLeftTabAction(route: RouteEx | TabItem): void {
     const index = this.tabsState.findIndex((item) => item.path === route.path);

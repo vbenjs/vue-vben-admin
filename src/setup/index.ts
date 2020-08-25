@@ -2,7 +2,7 @@ import VueCompositionAPI, { VueConstructor } from 'compatible-vue';
 
 import setupSvgIcon from '@/assets/icons/setupSvgIcon';
 
-import Scrollbar from '@/components/scrollbar';
+// import Scrollbar from '@/components/scrollbar';
 
 import '@/setup/ant-design-vue/index';
 import '@/setup/ant-design-vue/spin';
@@ -16,7 +16,7 @@ export default {
     Vue.use(VueCompositionAPI);
     // Vue.use(RunTimeVue);
 
-    Vue.use(Scrollbar);
+    // Vue.use(Scrollbar);
     // 使用svg sprit
     setupSvgIcon();
     // error handler

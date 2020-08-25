@@ -1,4 +1,5 @@
-export const BAR_MAP = {
+import { BarMap } from './types';
+export const BAR_MAP: BarMap = {
   vertical: {
     offset: 'offsetHeight',
     scroll: 'scrollTop',
@@ -22,7 +23,7 @@ export const BAR_MAP = {
 };
 
 export function renderThumbStyle({ move, size, bar }) {
-  const style = {};
+  const style = {} as any;
   const translate = `translate${bar.axis}(${move}%)`;
 
   style[bar.size] = size;
@@ -32,32 +33,13 @@ export function renderThumbStyle({ move, size, bar }) {
 
   return style;
 }
-/* istanbul ignore next */
-export const on = (function () {
-  return function (element, event, handler) {
-    if (element && event && handler) {
-      element.addEventListener(event, handler, false);
-    }
-  };
-})();
 
-/* istanbul ignore next */
-export const off = (function () {
-  return function (element, event, handler) {
-    if (element && event) {
-      element.removeEventListener(event, handler, false);
-    }
-  };
-})();
-function extend(to, _from) {
-  for (const key in _from) {
-    to[key] = _from[key];
-  }
-  return to;
+function extend<T, K>(to: T, _from: K): T & K {
+  return Object.assign(to, _from);
 }
 
-export function toObject(arr) {
-  var res = {};
+export function toObject<T>(arr: Array<T>): Record<string, T> {
+  const res = {};
   for (let i = 0; i < arr.length; i++) {
     if (arr[i]) {
       extend(res, arr[i]);

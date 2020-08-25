@@ -38,3 +38,7 @@ declare type CustomizedHTMLElement<T> = HTMLElement & T;
 declare type Indexable<T> = {
   [key: string]: T;
 };
+
+declare type KeyString<T = any> = {
+  [key: string]: T;
+};

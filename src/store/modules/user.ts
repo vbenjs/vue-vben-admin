@@ -14,6 +14,7 @@ import { routerInstance } from '@/router/index';
 import { useMessage } from '@/hooks/core/useMessage';
 
 import { permissionStore } from './permission';
+import { tabStore } from './tab';
 
 import { loginApi, getUserInfoById } from '@/api/sys/user';
 import {
@@ -111,6 +112,7 @@ class User extends VuexModule implements UserState {
     clearSession();
     permissionStore.commitHasRouteState(false);
     permissionStore.commitReset();
+    tabStore.commitResetState();
     this.resetState();
     goLogin && getRouteInstance && getRouteInstance().replace(pageEnum.BASE_LOGIN);
   }

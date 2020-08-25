@@ -127,3 +127,25 @@ export function hackCss(attr: string, value: string) {
     [attr]: value,
   };
 }
+
+/* istanbul ignore next */
+export const on = function (
+  element: HTMLElement | Document | Window,
+  event: string,
+  handler: EventListenerOrEventListenerObject
+): void {
+  if (element && event && handler) {
+    element.addEventListener(event, handler, false);
+  }
+};
+
+/* istanbul ignore next */
+export const off = function (
+  element: HTMLElement | Document | Window,
+  event: string,
+  handler: EventListenerOrEventListenerObject
+): void {
+  if (element && event && handler) {
+    element.removeEventListener(event, handler, false);
+  }
+};
