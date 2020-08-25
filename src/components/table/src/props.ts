@@ -57,6 +57,11 @@ export const basicProps = {
   } as PropOptions<FetchSetting>,
   // 立即请求接口
   immediate: { type: Boolean, default: true } as PropOptions<any>,
+
+  emptyDataIsShowTable: {
+    type: Boolean,
+    default: true,
+  } as PropOptions<boolean>,
   // 额外的请求参数
   searchInfo: {
     type: Object,

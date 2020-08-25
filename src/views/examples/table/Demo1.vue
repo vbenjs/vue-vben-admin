@@ -52,71 +52,62 @@
       });
       return () => (
         <div class="p-4 table-demo">
-          <div>
-            <BasicTable
-              onRegister={register}
-              title="基础表格"
-              titleHelpMessage={'温馨提醒'}
-              columns={columns}
-              dataSource={data}
-            >
-              <template slot="toolbar">
-                <a-button
-                  type="primary"
-                  onClick={() => {
-                    setProps({
-                      rowSelection: {
-                        type: 'radio',
-                      },
-                    });
-                  }}
-                >
-                  显示单选
-                </a-button>
-                <a-button
-                  type="primary"
-                  onClick={() => {
-                    setProps({
-                      pagination: false,
-                    });
-                  }}
-                >
-                  隐藏分页
-                </a-button>
-                <a-button
-                  type="primary"
-                  onClick={() => {
-                    setProps({
-                      bordered: false,
-                    });
-                  }}
-                >
-                  隐藏边框
-                </a-button>
-                <a-button
-                  type="primary"
-                  onClick={() => {
-                    setProps({
-                      rowSelection: {
-                        type: 'checkbox',
-                      },
-                    });
-                  }}
-                >
-                  显示多选
-                </a-button>
-              </template>
-            </BasicTable>
-          </div>
+          <BasicTable
+            onRegister={register}
+            title="基础表格"
+            titleHelpMessage={'温馨提醒'}
+            columns={columns}
+            dataSource={data}
+          >
+            <template slot="toolbar">
+              <a-button
+                type="primary"
+                onClick={() => {
+                  setProps({
+                    rowSelection: {
+                      type: 'radio',
+                    },
+                  });
+                }}
+              >
+                显示单选
+              </a-button>
+              <a-button
+                type="primary"
+                onClick={() => {
+                  setProps({
+                    pagination: false,
+                  });
+                }}
+              >
+                隐藏分页
+              </a-button>
+              <a-button
+                type="primary"
+                onClick={() => {
+                  setProps({
+                    bordered: false,
+                  });
+                }}
+              >
+                隐藏边框
+              </a-button>
+              <a-button
+                type="primary"
+                onClick={() => {
+                  setProps({
+                    rowSelection: {
+                      type: 'checkbox',
+                    },
+                  });
+                }}
+              >
+                显示多选
+              </a-button>
+            </template>
+          </BasicTable>
         </div>
       );
     },
   });
 </script>
-<style lang="less" scoped>
-  .table-demo {
-    & > div {
-      background: #fff;
-    }
-  }
-</style>

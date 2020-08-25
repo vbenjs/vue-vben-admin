@@ -37,24 +37,15 @@
       const [register] = useTable();
       return () => (
         <div class="p-4 table-demo">
-          <div>
-            <BasicTable
-              onRegister={register}
-              api={demoListApi}
-              title="行拖拽示例（拖动行可以进行排序）"
-              columns={columns}
-              canRowDrag={true}
-            ></BasicTable>
-          </div>
+          <BasicTable
+            onRegister={register}
+            api={demoListApi}
+            title="行拖拽示例（拖动行可以进行排序）"
+            columns={columns}
+            canRowDrag={true}
+          />
         </div>
       );
     },
   });
 </script>
-<style lang="less" scoped>
-  .table-demo {
-    & > div {
-      background: #fff;
-    }
-  }
-</style>

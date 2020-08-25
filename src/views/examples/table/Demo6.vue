@@ -58,36 +58,27 @@
     setup() {
       return () => (
         <div class="p-4 table-demo">
-          <div>
-            <BasicTable
-              api={demoListApi}
-              pagination={{
-                pageSize: 20,
-              }}
-              title="自定义列内容"
-              titleHelpMessage={'温馨提醒'}
-              columns={columns}
-              scopedSlots={{
-                name: (text) => {
-                  return (
-                    <span>
-                      <Icon type="redo" />
-                      {text}
-                    </span>
-                  );
-                },
-              }}
-            ></BasicTable>
-          </div>
+          <BasicTable
+            api={demoListApi}
+            pagination={{
+              pageSize: 20,
+            }}
+            title="自定义列内容"
+            titleHelpMessage={'温馨提醒'}
+            columns={columns}
+            scopedSlots={{
+              name: (text) => {
+                return (
+                  <span>
+                    <Icon type="redo" />
+                    {text}
+                  </span>
+                );
+              },
+            }}
+          />
         </div>
       );
     },
   });
 </script>
-<style lang="less" scoped>
-  .table-demo {
-    & > div {
-      background: #fff;
-    }
-  }
-</style>

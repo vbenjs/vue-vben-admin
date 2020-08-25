@@ -42,59 +42,50 @@
       const [register] = useTable();
       return () => (
         <div class="p-4 table-demo">
-          <div>
-            <BasicTable
-              onRegister={register}
-              api={demoListApi}
-              pagination={{
-                pageSize: 20,
-              }}
-              title="TableAction组件及固定列示例"
-              titleHelpMessage={'温馨提醒'}
-              rowSelection={{ type: 'radio' }}
-              columns={columns}
-              actionColumn={{
-                width: 160,
-                title: 'Action',
-                dataIndex: 'action',
-                customRender: () => {
-                  return (
-                    <TableAction
-                      actions={[
-                        {
-                          label: '删除',
-                          on: {
-                            click: () => {
-                              console.log('点击了删除');
-                            },
+          <BasicTable
+            onRegister={register}
+            api={demoListApi}
+            pagination={{
+              pageSize: 20,
+            }}
+            title="TableAction组件及固定列示例"
+            titleHelpMessage={'温馨提醒'}
+            rowSelection={{ type: 'radio' }}
+            columns={columns}
+            actionColumn={{
+              width: 160,
+              title: 'Action',
+              dataIndex: 'action',
+              customRender: () => {
+                return (
+                  <TableAction
+                    actions={[
+                      {
+                        label: '删除',
+                        on: {
+                          click: () => {
+                            console.log('点击了删除');
                           },
                         },
-                      ]}
-                      dropDownActions={[
-                        {
-                          label: '启用',
-                          on: {
-                            click: () => {
-                              console.log('点击了启用');
-                            },
+                      },
+                    ]}
+                    dropDownActions={[
+                      {
+                        label: '启用',
+                        on: {
+                          click: () => {
+                            console.log('点击了启用');
                           },
                         },
-                      ]}
-                    ></TableAction>
-                  );
-                },
-              }}
-            ></BasicTable>
-          </div>
+                      },
+                    ]}
+                  ></TableAction>
+                );
+              },
+            }}
+          ></BasicTable>
         </div>
       );
     },
   });
 </script>
-<style lang="less" scoped>
-  .table-demo {
-    & > div {
-      background: #fff;
-    }
-  }
-</style>

@@ -35,22 +35,18 @@
       return () => {
         return (
           <div class="p-4 table-demo">
-            <div>
-              <BasicTable api={demoListApi} title="可编辑单元格示例" columns={columns}>
-                <EditTableHeaderIcon slot="customId" title="Id" />
-                <EditTableHeaderIcon slot="customName" title="姓名" />
-              </BasicTable>
-            </div>
+            <BasicTable
+              api={demoListApi}
+              title="可编辑单元格示例"
+              columns={columns}
+              showIndexColumn={false}
+            >
+              <EditTableHeaderIcon slot="customId" title="Id" />
+              <EditTableHeaderIcon slot="customName" title="姓名" />
+            </BasicTable>
           </div>
         );
       };
     },
   });
 </script>
-<style lang="less" scoped>
-  .table-demo {
-    & > div {
-      background: #fff;
-    }
-  }
-</style>

@@ -71,25 +71,16 @@
     setup() {
       return () => (
         <div class="p-4 table-demo">
-          <div>
-            <BasicTable
-              rowSelection={{ type: 'checkbox' }}
-              isTreeTable={true}
-              title="树形表格"
-              titleHelpMessage={'树形组件不能和序列号列同时存在'}
-              columns={columns}
-              dataSource={data}
-            />
-          </div>
+          <BasicTable
+            rowSelection={{ type: 'checkbox' }}
+            isTreeTable={true}
+            title="树形表格"
+            titleHelpMessage={'树形组件不能和序列号列同时存在'}
+            columns={columns}
+            dataSource={data}
+          />
         </div>
       );
     },
   });
 </script>
-<style lang="less" scoped>
-  .table-demo {
-    & > div {
-      background: #fff;
-    }
-  }
-</style>

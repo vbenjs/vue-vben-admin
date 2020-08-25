@@ -77,16 +77,16 @@
     width: 100%;
     height: 100%;
 
-    /deep/.el-scrollbar__wrap.default-scrollbar__wrap {
+    /deep/.scrollbar__wrap.default-scrollbar__wrap {
       margin-bottom: 18px !important;
       overflow-x: hidden;
     }
 
-    /deep/ .el-scrollbar__wrap {
+    /deep/ .scrollbar__wrap {
       overflow-x: hidden;
     }
 
-    /deep/ .el-scrollbar__view {
+    /deep/ .scrollbar__view {
       &.main-scrollbar__view {
         box-sizing: border-box;
       }

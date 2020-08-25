@@ -54,7 +54,7 @@ export function useColumns(
       const indIndex = columns.findIndex((column) => column.flag === 'INDEX');
       if (showIndexColumn && !isTreeTable) {
         pushIndexColumns = indIndex === -1;
-      } else if (!showIndexColumn && !isTreeTable) {
+      } else if (!showIndexColumn && !isTreeTable && indIndex !== -1) {
         columns.splice(indIndex, 1);
       }
     });

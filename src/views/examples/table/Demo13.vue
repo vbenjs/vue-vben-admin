@@ -75,19 +75,10 @@
       return () => {
         return (
           <div class="p-4 table-demo">
-            <div>
-              <BasicTable api={demoListApi} title="合并行列示例" columns={columns}></BasicTable>
-            </div>
+            <BasicTable api={demoListApi} title="合并行列示例" columns={columns}></BasicTable>
           </div>
         );
       };
     },
   });
 </script>
-<style lang="less" scoped>
-  .table-demo {
-    & > div {
-      background: #fff;
-    }
-  }
-</style>

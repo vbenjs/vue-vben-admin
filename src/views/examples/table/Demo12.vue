@@ -48,30 +48,21 @@
       return () => {
         return (
           <div class="p-4 table-demo">
-            <div>
-              <BasicTable
-                onRegister={register}
-                api={demoListApi}
-                title="展开行自定义"
-                scroll={{ y: 300 }}
-                columns={columns}
-                scopedSlots={{
-                  expandedRowRender: (r) => {
-                    return r.no;
-                  },
-                }}
-              ></BasicTable>
-            </div>
+            <BasicTable
+              onRegister={register}
+              api={demoListApi}
+              title="展开行自定义"
+              scroll={{ y: 300 }}
+              columns={columns}
+              scopedSlots={{
+                expandedRowRender: (r) => {
+                  return r.no;
+                },
+              }}
+            />
           </div>
         );
       };
     },
   });
 </script>
-<style lang="less" scoped>
-  .table-demo {
-    & > div {
-      background: #fff;
-    }
-  }
-</style>

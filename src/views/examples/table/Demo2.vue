@@ -70,79 +70,70 @@
       });
       return () => (
         <div class="p-4 table-demo">
-          <div>
-            <BasicTable
-              onRegister={register}
-              title="响应式高度/及分页器配置"
-              titleHelpMessage={'温馨提醒'}
-              columns={columns}
-              dataSource={data}
-            >
-              <template slot="toolbar">
-                <a-button
-                  type="primary"
-                  onClick={() => {
-                    createMessage.success(JSON.stringify(getSelectRows()));
-                  }}
-                >
-                  获取选中行
-                </a-button>
-                <a-button
-                  type="primary"
-                  onClick={() => {
-                    const allData = getDataSource();
-                    setSelectedRowKeys([allData[0].__ROW__KEY__]);
-                  }}
-                >
-                  设置选中行
-                </a-button>
-                <a-button
-                  type="primary"
-                  onClick={() => {
-                    clearSelectedRowKeys();
-                  }}
-                >
-                  清空选中行
-                </a-button>
+          <BasicTable
+            onRegister={register}
+            title="响应式高度/及分页器配置"
+            titleHelpMessage={'温馨提醒'}
+            columns={columns}
+            dataSource={data}
+          >
+            <template slot="toolbar">
+              <a-button
+                type="primary"
+                onClick={() => {
+                  createMessage.success(JSON.stringify(getSelectRows()));
+                }}
+              >
+                获取选中行
+              </a-button>
+              <a-button
+                type="primary"
+                onClick={() => {
+                  const allData = getDataSource();
+                  setSelectedRowKeys([allData[0].__ROW__KEY__]);
+                }}
+              >
+                设置选中行
+              </a-button>
+              <a-button
+                type="primary"
+                onClick={() => {
+                  clearSelectedRowKeys();
+                }}
+              >
+                清空选中行
+              </a-button>
 
-                <a-button
-                  type="primary"
-                  onClick={() => {
-                    setTableData([
-                      {
-                        id: 1,
-                        name: 'John Brown',
-                        age: 11,
-                        no: 1111,
-                        address: 'New York No. 1 Lake ParkNew York No. 1 Lake Park',
-                        beginTime: new Date().toLocaleString(),
-                        endTime: new Date().toLocaleString(),
-                      },
-                    ]);
-                  }}
-                >
-                  设置表格数据
-                </a-button>
-                <a-button
-                  type="primary"
-                  onClick={() => {
-                    createMessage.success(JSON.stringify(getPaginationRef()));
-                  }}
-                >
-                  获取当前分页信息
-                </a-button>
-              </template>
-            </BasicTable>
-          </div>
+              <a-button
+                type="primary"
+                onClick={() => {
+                  setTableData([
+                    {
+                      id: 1,
+                      name: 'John Brown',
+                      age: 11,
+                      no: 1111,
+                      address: 'New York No. 1 Lake ParkNew York No. 1 Lake Park',
+                      beginTime: new Date().toLocaleString(),
+                      endTime: new Date().toLocaleString(),
+                    },
+                  ]);
+                }}
+              >
+                设置表格数据
+              </a-button>
+              <a-button
+                type="primary"
+                onClick={() => {
+                  createMessage.success(JSON.stringify(getPaginationRef()));
+                }}
+              >
+                获取当前分页信息
+              </a-button>
+            </template>
+          </BasicTable>
         </div>
       );
     },
   });
 </script>
-<style lang="less" scoped>
-  .table-demo {
-    & > div {
-      background: #fff;
-    }
-  }
-</style>

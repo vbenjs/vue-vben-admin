@@ -49,33 +49,24 @@
       return () => {
         return (
           <div class="p-4 table-demo">
-            <div>
-              <BasicTable
-                api={demoListApi}
-                title="定高/头部自定义"
-                scroll={{ y: 300 }}
-                columns={columns}
-              >
-                <span slot="customTitle">
-                  姓名
-                  <BaseHelp class="ml-2" text="姓名" />
-                </span>
-                <span slot="customAddress">
-                  地址
-                  <Icon class="ml-2" type="form" />
-                </span>
-              </BasicTable>
-            </div>
+            <BasicTable
+              api={demoListApi}
+              title="定高/头部自定义"
+              scroll={{ y: 300 }}
+              columns={columns}
+            >
+              <span slot="customTitle">
+                姓名
+                <BaseHelp class="ml-2" text="姓名" />
+              </span>
+              <span slot="customAddress">
+                地址
+                <Icon class="ml-2" type="form" />
+              </span>
+            </BasicTable>
           </div>
         );
       };
     },
   });
 </script>
-<style lang="less" scoped>
-  .table-demo {
-    & > div {
-      background: #fff;
-    }
-  }
-</style>

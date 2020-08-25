@@ -1,3 +1,4 @@
+import { useTimeout } from '@/hooks/core/useTimeout';
 import { BasicTableProps, FetchParams } from '../types/table';
 import { PaginationProps } from '../types/pagination';
 import {
@@ -9,7 +10,6 @@ import {
   onMounted,
   SetupContext,
   Ref,
-  nextTick,
 } from 'compatible-vue';
 import { buildUUID } from '@/utils/uuid';
 import { isFunction, isBoolean } from '@/utils/is/index';
@@ -143,10 +143,10 @@ export function useDataSource(
     dataSourceRef.value = values;
   }
   onMounted(() => {
-    const { immediate } = unref(propsRef);
-    nextTick(() => {
-      immediate && fetch();
-    });
+    // 转异步任务
+    useTimeout(() => {
+      unref(propsRef).immediate && fetch();
+    }, 0);
   });
 
   return { getDataSourceRef, setTableData, rowKey: ROW_KEY, fetch: fetch };

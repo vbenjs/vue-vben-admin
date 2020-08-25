@@ -42,25 +42,16 @@
       const [register] = useTable();
       return () => (
         <div class="p-4 table-demo">
-          <div>
-            <BasicTable
-              bordered={true}
-              onRegister={register}
-              api={demoListApi}
-              title="列拖拽示例（必须在column设置width）"
-              columns={columns}
-              canColDrag={true}
-            ></BasicTable>
-          </div>
+          <BasicTable
+            bordered={true}
+            onRegister={register}
+            api={demoListApi}
+            title="列拖拽示例（必须在column设置width）"
+            columns={columns}
+            canColDrag={true}
+          />
         </div>
       );
     },
   });
 </script>
-<style lang="less" scoped>
-  .table-demo {
-    & > div {
-      background: #fff;
-    }
-  }
-</style>

@@ -53,27 +53,18 @@
       return () => {
         return (
           <div class="p-4 table-demo">
-            <div>
-              <BasicTable
-                rowSelection={{ type: 'checkbox' }}
-                showSummary={true}
-                summaryFunc={handleSummary}
-                scroll={{ x: 2000 }}
-                api={demoListApi}
-                title="表尾行合计示例"
-                columns={columns}
-              ></BasicTable>
-            </div>
+            <BasicTable
+              rowSelection={{ type: 'checkbox' }}
+              showSummary={true}
+              summaryFunc={handleSummary}
+              scroll={{ x: 2000 }}
+              api={demoListApi}
+              title="表尾行合计示例"
+              columns={columns}
+            />
           </div>
         );
       };
     },
   });
 </script>
-<style lang="less" scoped>
-  .table-demo {
-    & > div {
-      background: #fff;
-    }
-  }
-</style>

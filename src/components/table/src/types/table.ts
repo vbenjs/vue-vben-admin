@@ -82,6 +82,8 @@ export interface BasicTableProps {
   fetchSetting?: FetchSetting;
   // 立即请求接口
   immediate?: boolean;
+  // 在开起搜索表单的时候，如果没有数据是否显示表格
+  emptyDataIsShowTable?: boolean;
   // 额外的请求参数
   searchInfo?: any;
 

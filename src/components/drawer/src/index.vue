@@ -278,7 +278,7 @@
       padding: 0;
       background-color: @background-color-dark;
       // padding-top: @header-height;
-      .el-scrollbar__wrap {
+      .scrollbar__wrap {
         padding: 16px;
       }
     }
@@ -309,7 +309,7 @@
         line-height: @header-height;
       }
 
-      .el-scrollbar__wrap {
+      .scrollbar__wrap {
         padding: 0;
       }
     }

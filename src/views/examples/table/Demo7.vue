@@ -41,31 +41,20 @@
     setup() {
       const [register] = useTable();
       return () => (
-        <div>
-          <div>
-            <BasicTable
-              useSearchForm
-              formConfig={formConfig}
-              onRegister={register}
-              api={demoListApi}
-              pagination={{
-                pageSize: 20,
-              }}
-              title="开启搜索区域"
-              titleHelpMessage={'温馨提醒'}
-              rowSelection={{ type: 'radio' }}
-              columns={columns}
-            ></BasicTable>
-          </div>
-        </div>
+        <BasicTable
+          useSearchForm
+          formConfig={formConfig}
+          onRegister={register}
+          api={demoListApi}
+          pagination={{
+            pageSize: 20,
+          }}
+          title="开启搜索区域"
+          titleHelpMessage={'温馨提醒'}
+          rowSelection={{ type: 'radio' }}
+          columns={columns}
+        />
       );
     },
   });
 </script>
-<style lang="less" scoped>
-  .table-demo {
-    & > div {
-      background: #fff;
-    }
-  }
-</style>

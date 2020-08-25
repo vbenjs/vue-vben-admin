@@ -45,6 +45,7 @@
           ...unref(innerPropsRef),
         };
       });
+
       // const getPropsRef = computed(() => {
       //   lastPropsRef.value = {
       //     ...props,
@@ -85,6 +86,16 @@
         deleteSelectRowByKey,
         setSelectedRowKeys,
       } = useRowSelection(getMergeProps, emit);
+
+      const getEmptyDataIsShowTableRef = computed(() => {
+        const { emptyDataIsShowTable, useSearchForm } = unref(getMergeProps);
+        if (emptyDataIsShowTable || !useSearchForm) {
+          return true;
+        }
+
+        return !!unref(getDataSourceRef).length;
+      });
+
       const { prefixCls } = useDesign('basic-table');
 
       const renderTitle = () => {
@@ -290,6 +301,7 @@
               </BasicForm>
             )}
             <Table
+              v-show={unref(getEmptyDataIsShowTableRef)}
               components={unref(getComponentsRef)}
               ref={tableElRef}
               on={{ ...listeners, change: handleTableChange }}
@@ -311,7 +323,7 @@
   @prefix-cls: ~'@{namespace}-basic-table';
   @border-color: hsla(0, 0%, 80.8%, 0.3);
   .@{prefix-cls} {
-    padding: 12px;
+    // padding: 12px;
 
     // .ant-table-fixed-header .ant-table-scroll .ant-table-header {
     //   overflow-y: hidden !important;
@@ -397,9 +409,14 @@
       overflow-y: scroll !important;
     }
 
+    .ant-table-fixed-right .ant-table-header {
+      border-left: 1px solid @border-color;
+    }
+
     .ant-table-fixed-left {
       .ant-table-header {
         overflow-y: hidden !important;
+        border-right: 1px solid @border-color;
       }
 
       // .ant-table-body-inner {
@@ -447,10 +464,22 @@
     }
   }
 
-  .table-form-container {
-    & > div {
-      padding: 16px;
+  .ant-table-wrapper {
+    padding: 12px;
+    background: #fff;
+    border-radius: 2px;
+
+    .ant-table-title {
+      padding: 0 0 10px 0 !important;
     }
+
+    .ant-table.ant-table-bordered .ant-table-title {
+      border: none !important;
+    }
+  }
+
+  .table-form-container {
+    padding: 16px;
 
     .ant-form {
       padding: 12px 12px 4px 12px;
@@ -460,17 +489,17 @@
     }
 
     .ant-table-wrapper {
-      padding: 12px;
-      background: #fff;
+      // padding: 12px;
+      // background: #fff;
       border-radius: 2px;
 
-      .ant-table-title {
-        padding: 0 0 10px 0 !important;
-      }
+      // .ant-table-title {
+      //   padding: 0 0 10px 0 !important;
+      // }
 
-      .ant-table.ant-table-bordered .ant-table-title {
-        border: none !important;
-      }
+      // .ant-table.ant-table-bordered .ant-table-title {
+      //   border: none !important;
+      // }
     }
   }
 </style>

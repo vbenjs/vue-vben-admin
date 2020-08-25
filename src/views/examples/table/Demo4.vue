@@ -37,54 +37,45 @@
       const [register, { reload }] = useTable();
       return () => (
         <div class="p-4 table-demo">
-          <div>
-            <BasicTable
-              onRegister={register}
-              api={demoListApi}
-              pagination={{
-                pageSize: 20,
-              }}
-              title="远程加载示例标题"
-              titleHelpMessage={'温馨提醒'}
-              rowSelection={{ type: 'radio' }}
-              columns={columns}
-            >
-              <template slot="toolbar">
-                <a-button
-                  type="primary"
-                  onClick={() => {
-                    reload({
-                      searchInfo: {
-                        a: 111,
-                      },
-                    });
-                  }}
-                >
-                  刷新表格(当前页)
-                </a-button>
+          <BasicTable
+            onRegister={register}
+            api={demoListApi}
+            pagination={{
+              pageSize: 20,
+            }}
+            title="远程加载示例标题"
+            titleHelpMessage={'温馨提醒'}
+            rowSelection={{ type: 'radio' }}
+            columns={columns}
+          >
+            <template slot="toolbar">
+              <a-button
+                type="primary"
+                onClick={() => {
+                  reload({
+                    searchInfo: {
+                      a: 111,
+                    },
+                  });
+                }}
+              >
+                刷新表格(当前页)
+              </a-button>
 
-                <a-button
-                  type="primary"
-                  onClick={() => {
-                    reload({
-                      page: 1,
-                    });
-                  }}
-                >
-                  刷新表格(返回第一页)
-                </a-button>
-              </template>
-            </BasicTable>
-          </div>
+              <a-button
+                type="primary"
+                onClick={() => {
+                  reload({
+                    page: 1,
+                  });
+                }}
+              >
+                刷新表格(返回第一页)
+              </a-button>
+            </template>
+          </BasicTable>
         </div>
       );
     },
   });
 </script>
-<style lang="less" scoped>
-  .table-demo {
-    & > div {
-      background: #fff;
-    }
-  }
-</style>
