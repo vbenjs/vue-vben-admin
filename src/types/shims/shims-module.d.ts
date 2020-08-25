@@ -136,7 +136,7 @@ declare module 'worker-loader!*' {
 }
 
 declare interface Fn {
-  (): any;
+  (...arg): any;
 }
 
 // 任意对象

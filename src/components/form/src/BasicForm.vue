@@ -27,7 +27,7 @@
   import { moment } from '@/utils/momentUtil';
   import { dateItemType } from './helper';
   import { cloneDeep } from '@/utils/lodashChunk';
-  import { isFunction, isBoolean, isObject, isArray, isString } from '@/utils/is/index';
+  import { isFunction, isBoolean, isObject, isArray, isString, isNumber } from '@/utils/is/index';
   import { deepMerge } from '@/utils/deepMerge';
   import { unique } from '@/utils/array/unique';
 
@@ -91,7 +91,7 @@
         return schemas as FormSchema[];
       });
 
-      const { realWidthRef, screenEnum } = useBreakpoint();
+      const { realWidthRef, screenEnum, screenRef } = useBreakpoint();
       const [throttleUpdateAdvanced] = useThrottle(updateAdvanced, 30, { immediate: true });
       watch(
         [() => unref(getSchema), () => unref(isAdvancedRef), () => unref(realWidthRef)],
@@ -107,6 +107,25 @@
         },
         { immediate: true }
       );
+
+      const getEmptySpanRef = computed((): number => {
+        if (!unref(isAdvancedRef)) {
+          return 0;
+        }
+        const emptySpan = unref(getMergeProps).emptySpan || 0;
+
+        if (isNumber(emptySpan)) {
+          return emptySpan;
+        }
+        if (isObject(emptySpan)) {
+          const { span = 0 } = emptySpan;
+          const screen = unref(screenRef) as string;
+
+          const screenSpan = emptySpan[screen.toLowerCase()];
+          return screenSpan || span || 0;
+        }
+        return 0;
+      });
 
       const getAllDefaultValues = computed(() => {
         const schemas = unref(getSchema);
@@ -327,6 +346,7 @@
         }
         schemaRef.value = schemaList;
       }
+
       function updateAdvanced() {
         let itemColSum = 0;
         let realItemColSum = 0;
@@ -358,9 +378,8 @@
             root.$set(scheam, 'isAdvanced', isAdvanced);
           }
         }
-        actionSpanRef.value =
-          (realItemColSum % BASIC_COL_LEN) +
-          (unref(isAdvancedRef) ? unref(getMergeProps).emptySpan || 0 : 0);
+
+        actionSpanRef.value = (realItemColSum % BASIC_COL_LEN) + unref(getEmptySpanRef);
         getAdvanced(props.actionColOptions || { span: BASIC_COL_LEN }, itemColSum, true);
         emit('advancedChange');
       }

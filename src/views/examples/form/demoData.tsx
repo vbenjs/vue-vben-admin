@@ -30,17 +30,11 @@ export const basicSchema: FormSchema[] = [
     field: 'field1',
     label: '字段1',
     component: 'Input',
-    colProps: {
-      span: 8,
-    },
   },
   {
     field: 'field2',
     label: '字段2',
     component: 'Input',
-    colProps: {
-      span: 8,
-    },
   },
   {
     field: 'field3',
@@ -48,9 +42,6 @@ export const basicSchema: FormSchema[] = [
     component: 'Select',
     componentProps: {
       options: options,
-    },
-    colProps: {
-      span: 8,
     },
   },
   {
@@ -60,26 +51,17 @@ export const basicSchema: FormSchema[] = [
     componentProps: {
       options: options,
     },
-    colProps: {
-      span: 8,
-    },
   },
   {
     field: 'field5',
     label: '字段5-默认值',
     component: 'DatePicker',
     defaultValue: '2020-07-20',
-    colProps: {
-      span: 8,
-    },
   },
   {
     field: 'field6',
     label: '字段6',
     component: 'DatePicker',
-    colProps: {
-      span: 8,
-    },
   },
 ];
 

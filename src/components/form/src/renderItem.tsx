@@ -286,11 +286,13 @@ export function renderCol(
       form: props.form,
     });
   }
-  const { showAdvancedButton } = props;
+  const { showAdvancedButton, baseColProps = {} } = props;
+
+  const realColProps = { ...baseColProps, ...colProps };
   return isShow ? (
     <Col
       key={field}
-      {...{ props: colProps, ...colProps }}
+      {...{ props: realColProps, ...realColProps }}
       v-show={showAdvancedButton ? isAdvanced : true}
     >
       {colSlot && getSlot(slots, colSlot)}

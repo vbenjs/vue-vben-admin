@@ -13,6 +13,9 @@
           span: 24,
         },
         schemas: basicSchema,
+        baseColProps: {
+          span: 8,
+        },
       });
 
       return () => (

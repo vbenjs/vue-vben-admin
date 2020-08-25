@@ -122,7 +122,7 @@ export interface FormProps extends AllItemProps {
   compact: boolean;
 
   // 空白行span
-  emptySpan?: number;
+  emptySpan?: number | Partial<ColEx>;
   size: 'default' | 'small' | 'large';
   // 是否禁用
   disabled?: boolean;
@@ -143,6 +143,8 @@ export interface FormProps extends AllItemProps {
   showActionButtonGroup: boolean;
   // 操作列配置
   actionColOptions: Partial<ColEx>;
+  // 通用Col配置
+  baseColProps: Partial<ColEx>;
   // 显示重置按钮
   showResetButton: boolean;
   // 重置按钮配置
