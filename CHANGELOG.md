@@ -1,9 +1,32 @@
+## [1.3.2](https://github.com/anncwb/vue-vben-admin/compare/1.3.1...1.3.2) (2020-08-25)
+
+### ♻ Code Refactoring
+
+- **scrollbar:** 使用 ts 重构 scrollbar 组件 ([d1ff672](https://github.com/anncwb/vue-vben-admin/commit/d1ff672))
+- **table:** 修改表格样式,新增 emptyDataIsShowTable 参数,修复已知 bug ([bd3abc7](https://github.com/anncwb/vue-vben-admin/commit/bd3abc7))
+
+### ✨ Features
+
+- **form:** form 新增 baseColProps 和 emptySpan 参数 ([3f442e1](https://github.com/anncwb/vue-vben-admin/commit/3f442e1))
+
+### 🎫 Chores
+
+- **ci:** 升级 antv 到 1.6.5 ([f770e70](https://github.com/anncwb/vue-vben-admin/commit/f770e70))
+
+### 🐛 Bug Fixes
+
+- **form:** 修复表格内表单计算问题 ([1ff8693](https://github.com/anncwb/vue-vben-admin/commit/1ff8693))
+
 ## [1.3.1](https://github.com/anncwb/vue-vben-admin/compare/1.3.0...1.3.1) (2020-08-24)
 
 ### ⚡ Performance Improvements
 
 - (组件、插件)demo 页面优化 ([50e1ebc](https://github.com/anncwb/vue-vben-admin/commit/50e1ebc))
 - 图表模块样式优化调整 ([3a7f3de](https://github.com/anncwb/vue-vben-admin/commit/3a7f3de))
+
+### 🎫 Chores
+
+- bump 1.3.0 ([8d4b387](https://github.com/anncwb/vue-vben-admin/commit/8d4b387))
 
 ### 🐛 Bug Fixes
 
@@ -33,6 +56,7 @@
 
 ### 🎫 Chores
 
+- build 1.2.0 ([2761d65](https://github.com/anncwb/vue-vben-admin/commit/2761d65))
 - 更新最新依赖 ([2f6c193](https://github.com/anncwb/vue-vben-admin/commit/2f6c193))
 
 ### 🐛 Bug Fixes
