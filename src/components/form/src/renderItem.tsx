@@ -1,5 +1,6 @@
 import { VNode } from 'compatible-vue';
 import { Form, Col } from 'ant-design-vue';
+import { BaseHelp } from '@/components/base/index';
 
 // import { FormModelItem } from './types/formModelItem';
 import { FormProps, AllItemProps, FormSchema } from './types/form';
@@ -211,6 +212,19 @@ function renderComponent(schemaItem: FormSchema, props: FormProps, allDefaultVal
     </Comp>
   );
 }
+
+function renderLabelHelpMessage(schemaItem: FormSchema) {
+  const { label, helpMessage, helpComponentProps } = schemaItem;
+  if (!helpMessage || (Array.isArray(helpMessage) && helpMessage.length === 0)) {
+    return label;
+  }
+  return (
+    <span>
+      {label}
+      <BaseHelp class="mx-1" text={helpMessage} {...helpComponentProps} />
+    </span>
+  );
+}
 /**
  * @description: 渲染表单项
  */
@@ -222,7 +236,7 @@ export function renderFormModelItem(
 ): VNode {
   const { labelCol, wrapperCol } = handleLabel(schemaItem, props);
   const { selfUpdate = true, colon } = props;
-  const { label, itemProps, render, slot, field } = schemaItem;
+  const { itemProps, render, slot, field } = schemaItem;
 
   // form-item 配置项
   const formItemProps = {
@@ -232,8 +246,9 @@ export function renderFormModelItem(
     ...itemProps,
     labelCol,
     wrapperCol,
-    label,
+    label: renderLabelHelpMessage(schemaItem),
   };
+
   const wrapComp = props.form.getFieldDecorator(
     field,
     handleDecorator(schemaItem, props, allDefaultValues)

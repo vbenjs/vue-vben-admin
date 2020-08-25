@@ -137,15 +137,24 @@
           : [];
         const columns: BasicColumn[] = cloneDeep(unref(getColumnsRef));
         const index = columns.findIndex((item) => item.flag === 'INDEX');
+        const hasRowSummary = dataSource.some((item) => Reflect.has(item, '_row'));
+        const hasIndexSummary = dataSource.some((item) => Reflect.has(item, '_index'));
+
         if (index !== -1) {
-          Reflect.deleteProperty(columns[index], 'customRender');
+          if (hasIndexSummary) {
+            columns[index].customRender = (d) => d._index;
+            columns[index].ellipsis = false;
+          } else {
+            Reflect.deleteProperty(columns[index], 'customRender');
+          }
         }
-        if (unref(getRowSelectionRef)) {
+        if (unref(getRowSelectionRef) && hasRowSummary) {
           columns.unshift({
             width: 60,
-            title: 'total',
-            key: 'total',
-            customRender: () => '合计',
+            title: 'selection',
+            key: 'selectionKey',
+            align: 'center',
+            customRender: (d) => d._row,
           });
         }
         dataSource.forEach((item, i) => {
@@ -411,12 +420,20 @@
 
     .ant-table-fixed-right .ant-table-header {
       border-left: 1px solid @border-color;
+
+      .ant-table-fixed {
+        border-bottom: none;
+      }
     }
 
     .ant-table-fixed-left {
       .ant-table-header {
         overflow-y: hidden !important;
-        border-right: 1px solid @border-color;
+        // border-right: 1px solid @border-color;
+      }
+
+      .ant-table-fixed {
+        border-bottom: none;
       }
 
       // .ant-table-body-inner {
@@ -475,6 +492,12 @@
 
     .ant-table.ant-table-bordered .ant-table-title {
       border: none !important;
+    }
+  }
+
+  .ant-table-footer {
+    .ant-table-wrapper {
+      padding: 0;
     }
   }
 

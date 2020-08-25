@@ -16,7 +16,7 @@ export function useBreakpoint() {
 }
 
 // 只要调用一次即可
-export function createBreakpointListen(fn?: (...arg) => any) {
+export function createBreakpointListen(fn?: Fn) {
   const screenRef = ref<sizeEnum>(sizeEnum.XL);
   const realWidthRef = ref(window.innerWidth);
 

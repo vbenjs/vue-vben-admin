@@ -14,7 +14,7 @@ export interface ColumnFilterItem {
 export interface RenderEditableCellParams {
   dataIndex: string;
   component?: ComponentType;
-  componentOn?: { [key: string]: (...arg) => any };
+  componentOn?: { [key: string]: Fn };
   componentProps?: any;
 }
 export interface Scroll {
@@ -73,11 +73,11 @@ export interface BasicTableProps {
   // 接口请求对象
   api?: (...arg) => Promise<any>;
   // 请求之前处理参数
-  beforeFetch?: (...arg) => any;
+  beforeFetch?: Fn;
   // 自定义处理接口返回参数
-  afterFetch?: (...arg) => any;
+  afterFetch?: Fn;
   // 查询条件请求之前处理
-  handleSearchInfoFn?: (...arg) => any;
+  handleSearchInfoFn?: Fn;
   // 请求接口配置
   fetchSetting?: FetchSetting;
   // 立即请求接口

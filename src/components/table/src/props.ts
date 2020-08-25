@@ -34,16 +34,15 @@ export const basicProps = {
   beforeFetch: {
     type: Function,
     default: null,
-  } as PropOptions<(...arg) => any>,
+  } as PropOptions<Fn>,
   afterFetch: {
     type: Function,
     default: null,
-  } as PropOptions<(...arg) => any>,
-
+  } as PropOptions<Fn>,
   handleSearchInfoFn: {
     type: Function,
     default: null,
-  } as PropOptions<(...arg) => any>,
+  } as PropOptions<Fn>,
   fetchSetting: {
     type: Object,
     default: () => {

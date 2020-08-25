@@ -54,7 +54,7 @@ export function treeMap(treeData: any[], opt) {
  */
 export function treeMapEach(
   data,
-  { children = 'children', conversion }: { children: string; conversion: (...arg) => any }
+  { children = 'children', conversion }: { children: string; conversion: Fn }
 ) {
   const haveChildren = Array.isArray(data[children]) && data[children].length > 0;
   const conversionData = conversion(data) || {};

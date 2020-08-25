@@ -30,6 +30,7 @@ export const basicSchema: FormSchema[] = [
     field: 'field1',
     label: '字段1',
     component: 'Input',
+    helpMessage: '字段提示',
   },
   {
     field: 'field2',

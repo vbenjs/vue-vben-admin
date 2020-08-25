@@ -107,7 +107,7 @@
         const { openLoginVerify } = appStore.getProjCfg;
         return (
           <div class={prefixCls}>
-            <h1>系统登陆</h1>
+            <h1>系统登录</h1>
             {openLoginVerify && (
               <VerifyModal
                 src={headImg}

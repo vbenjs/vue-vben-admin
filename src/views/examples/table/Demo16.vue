@@ -46,6 +46,8 @@
         }, 0);
         return [
           {
+            _row: '合计',
+            _index: '平均值',
             no: totalNo,
           },
         ];
