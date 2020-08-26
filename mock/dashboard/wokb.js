@@ -4,7 +4,7 @@ const Mock = require('mockjs');
 const wokbProd = Mock.mock([
   {
     amount: '@integer(90,100)',
-    type: '成品总是',
+    type: '成品总数',
   },
   {
     amount: '@integer(0,50)',
@@ -70,7 +70,7 @@ const fileList = Mock.mock({
   ],
 });
 const annoList = Mock.mock({
-  'items|5': [
+  'items|6': [
     {
       id: '@id',
       annoTime: '@date',

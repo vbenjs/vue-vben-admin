@@ -26,7 +26,7 @@
           legend: {
             icon: 'rect',
             itemWidth: 15,
-            itemHeight: 4,
+            itemHeight: 6,
             left: 80,
             top: 0,
             orient: 'horizontal',

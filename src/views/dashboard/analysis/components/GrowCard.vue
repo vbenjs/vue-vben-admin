@@ -51,13 +51,13 @@
   @prefix-cls: ~'@{namespace}-grow-card';
   .@{prefix-cls} {
     display: flex;
-    width: calc(100% - 24px);
+    width: calc(100% - 12px);
     height: 158px;
-    padding: 16px 30px 12px 16px;
-    margin: 0 12px 12px 12px;
+    padding: 16px 16px 12px 16px;
+    // margin: 0 12px 12px 12px;
     cursor: pointer;
     background: @white;
-    border-radius: 14px;
+    border-radius: 4px;
     box-shadow: 6px 6px 54px 0 rgba(0, 0, 0, 0.05);
     flex-direction: column;
 
@@ -97,6 +97,11 @@
         color: @danger-color;
       }
 
+      /deep/ .ant-statistic-content-prefix svg {
+        width: 0.98rem !important;
+        height: 0.98rem !important;
+      }
+
       &.is-up {
         /deep/ .ant-statistic-content-value {
           color: @success-color;
@@ -108,7 +113,7 @@
       display: inline-block;
       padding-left: 10px;
       font-family: PingFangSC-Regular;
-      font-size: 14px;
+      font-size: 12px;
       line-height: 22px;
       letter-spacing: 0;
       color: #606060;

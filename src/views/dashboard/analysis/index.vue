@@ -19,7 +19,7 @@
 
       return () => (
         <div class={[prefixCls, 'p-4']}>
-          <Row>
+          <Row class="grow-card">
             {growCardList.map((item, index) => {
               return (
                 <Col key={index} sm={24} md={12} lg={6}>
@@ -31,31 +31,31 @@
 
           <Row>
             <Col md={24} lg={17} class="pr-6 my-3">
-              <CollapseContainer title="产品成交额" canExpan={false}>
+              <CollapseContainer class="mr-3" title="产品成交额" canExpan={false}>
                 <AnalysisLine />
               </CollapseContainer>
-              <Row class="mt-6">
+              <Row class="mt-3">
                 <Col md={24} lg={12} class="pr-3 product-total">
-                  <CollapseContainer title="产品成交额" canExpan={false}>
+                  <CollapseContainer class="mr-3" title="产品成交额" canExpan={false}>
                     <AnalysisPie />
                   </CollapseContainer>
                 </Col>
                 <Col md={24} lg={12}>
-                  <CollapseContainer title="用户来源" canExpan={false}>
+                  <CollapseContainer class="mr-3" title="用户来源" canExpan={false}>
                     <AnalysisBar />
                   </CollapseContainer>
                 </Col>
               </Row>
             </Col>
-            <Col md={24} lg={7} class="my-3">
-              <CollapseContainer title="项目进度" canExpan={false}>
+            <Col md={24} lg={7}>
+              <CollapseContainer class="mt-3" title="项目进度" canExpan={false}>
                 {taskList.map((item, index) => {
                   return <TaskCard key={index} info={item} />;
                 })}
               </CollapseContainer>
             </Col>
           </Row>
-          <Row class="mt-3">
+          <Row>
             <FlowAnalysis />
           </Row>
         </div>
@@ -71,6 +71,10 @@
 
     .product-total {
       .respond-to(small-and-medium, {padding-right: 0;margin-bottom: 24px;});
+    }
+
+    .grow-card {
+      margin-right: -12px;
     }
   }
 </style>

@@ -20,7 +20,7 @@
                 <div class={`${prefixCls}__rank`}>
                   排名<span>前20%</span>
                 </div>
-                <Progress percent={70} showInfo={false} />
+                <Progress percent={70} showInfo={false} status="active" />
                 <Divider />
 
                 <ul class={`${prefixCls}__rs`}>
@@ -73,6 +73,7 @@
     &__left {
       padding: 10px 20px !important;
       border-right: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 0;
     }
 
     &__score {

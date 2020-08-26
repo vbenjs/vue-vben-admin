@@ -30,11 +30,11 @@
                       <img slot="avatar" src={headerImg} class={`${prefixCls}__item-avatar`} />
                       <div slot="description" class={`${prefixCls}__item-desc`}>
                         <div class={[`${prefixCls}__item-time`, 'mb-1']}> {sendTime}</div>
-                        <div class={[`${prefixCls}__item-title`, 'mb-4']}>
+                        <div class={[`${prefixCls}__item-title`, 'mb-1']}>
                           <span class={`${prefixCls}__item-light`}>{sender}&nbsp;</span>申请迭代
                           <span class={`${prefixCls}__item-light`}>&nbsp;{title}&nbsp;</span>发布
                         </div>
-                        <div class={[`${prefixCls}__item-cnte`, 'p-3']}>
+                        <div class={[`${prefixCls}__item-cnte`, 'p-2']}>
                           <span class={`${prefixCls}__item-cnte__title`}> {cnteId}</span>
                           <br />
                           Status: {cnteStas}
@@ -60,13 +60,14 @@
   @prefix-cls: ~'@{namespace}-news-list';
   .@{prefix-cls} {
     /deep/ .@{namespace}-collapse-container__body {
-      height: 520px;
+      height: 270px;
     }
 
     &__item {
       &-avatar {
-        width: 28px;
-        height: 28px;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
       }
 
       &-title {

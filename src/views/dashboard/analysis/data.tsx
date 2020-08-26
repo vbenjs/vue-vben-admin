@@ -6,21 +6,22 @@ export const taskList: TaskItem[] = [
     title: '开发任务一',
     updateTime: '2020.7.12',
     desc: '开发任务一简介',
-    status: 'success',
+    status: 'active',
   },
   {
     percent: 67,
     title: '开发任务二',
     updateTime: '2020.3.12',
     desc: '开发任务二简介',
-    status: 'warn',
+    status: 'exception',
   },
   {
     percent: 100,
     title: '开发任务三',
     updateTime: '2020.4.12',
     desc: '开发任务三简介',
-    status: 'done',
+
+    status: 'success',
   },
 ];
 export const growCardList: GrowCardItem[] = [

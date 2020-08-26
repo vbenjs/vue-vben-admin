@@ -6,10 +6,10 @@
   import { basicProps, BasicProps } from './props';
 
   const m2R2Data = [
-    { value: 335, name: '移动设备', itemStyle: { color: '#5B8FF9' } },
-    { value: 310, name: '网页端', itemStyle: { color: '#55D187' } },
-    { value: 234, name: '手表', itemStyle: { color: '#FFD164' } },
-    { value: 234, name: '其他', itemStyle: { color: '#ED6F6F' } },
+    { value: 335, name: '移动设备', itemStyle: { color: '#1b65b9' } },
+    { value: 310, name: '网页端', itemStyle: { color: '#3ca0f6' } },
+    { value: 234, name: '手表', itemStyle: { color: '#2dc0c0' } },
+    { value: 234, name: '其他', itemStyle: { color: '#7dd9b9' } },
   ];
   export default defineComponent({
     name: 'AnalysisLine',
@@ -40,10 +40,11 @@
           ],
           tooltip: {
             trigger: 'item',
+            backgroundColor: 'rgba(0, 0, 0, .6)',
           },
           legend: {
             icon: 'circle',
-            itemHeight: 6,
+            itemHeight: 10,
             type: 'scroll',
             orient: 'vertical',
             left: '70%',
@@ -59,7 +60,7 @@
               name: '成交额',
               type: 'pie',
               center: ['35%', '50%'],
-              radius: ['40%', '65%'],
+              radius: ['45%', '65%'],
               label: {
                 show: false,
               },

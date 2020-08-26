@@ -19,7 +19,7 @@
           tooltip: {
             trigger: 'axis',
             padding: 3,
-            backgroundColor: '#222',
+            backgroundColor: 'rgba(0, 0, 0, .6)',
             borderColor: '#777',
             borderWidth: 1,
           },
@@ -32,17 +32,18 @@
             orient: 'horizontal',
             data: ['产品一', '产品二'],
           },
-
           grid: {
             left: '3%',
             right: '4%',
             bottom: '3%',
             containLabel: true,
           },
-
           xAxis: {
             type: 'category',
             boundaryGap: false,
+            axisTick: {
+              inside: true, // 刻度朝内
+            },
             data: [
               '一月',
               '二月',
@@ -60,6 +61,9 @@
           },
           yAxis: {
             type: 'value',
+            axisTick: {
+              inside: true, // 刻度朝内
+            },
           },
           series: [
             {

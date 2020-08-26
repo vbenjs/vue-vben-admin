@@ -23,7 +23,8 @@
 
       return () => {
         const { title, desc, updateTime, percent, status } = props.info;
-        const text = status === 'done' ? '进度正常' : status === 'warn' ? '进度滞后' : '项目完成';
+        const text =
+          status === 'active' ? '进度正常' : status === 'exception' ? '进度滞后' : '项目完成';
         return (
           <div class={prefixCls}>
             <div class={`${prefixCls}-header`}>
@@ -39,7 +40,7 @@
                 <span>进度</span>
                 <span>{percent}%</span>
               </div>
-              <Progress percent={percent} showInfo={false} />
+              <Progress percent={percent} showInfo={false} status={status} />
             </div>
             <div class={[`${prefixCls}-footer`]}>
               <span class={`${prefixCls}__date`}>
@@ -63,7 +64,7 @@
   .@{prefix-cls} {
     display: flex;
     width: calc(100% - 24px);
-    height: 203px;
+    height: 199px;
     padding: 24px 20px 12px 16px;
     margin: 0 12px 12px 12px;
     background: @white;
@@ -115,7 +116,7 @@
 
     &__desc {
       font-family: PingFangSC-Regular;
-      font-size: 14px;
+      font-size: 12px;
       line-height: 21px;
       color: #8181a5;
     }

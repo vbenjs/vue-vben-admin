@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, computed, unref } from 'compatible-vue';
-  import { List, Icon } from 'ant-design-vue';
+  import { List, Icon, Tag } from 'ant-design-vue';
   import { CollapseContainer } from '@/components/container/index';
 
   import { useDesign } from '@/hooks/core/useDesign';
@@ -35,12 +35,13 @@
                       <span class={`${prefixCls}__item-memo`}>{memo}</span>
                     </div>
                     <div slot="description" class={`${prefixCls}__item-desc`}>
-                      提交人：{sbmter}&nbsp;&nbsp;提交时间：{sbmtTime}
+                      提交人：{sbmter}
+                      <br />
+                      提交时间：{sbmtTime}
                     </div>
                   </List.Item.Meta>
                   <a-button onClick={handleAppr.bind(item)} type="link">
-                    待审批
-                    <Icon type="down" />
+                    <Tag color="blue">待审批</Tag>
                   </a-button>
                 </List.Item>
               );
@@ -61,6 +62,8 @@
   .@{prefix-cls} {
     // padding: 24px;
     // background: #fff;
+    position: relative;
+
     &__total {
       display: inline-block;
       width: 20px;
@@ -75,11 +78,13 @@
     }
 
     &__all {
+      position: absolute;
+      top: 0;
+      right: 10px;
       height: 56px;
       line-height: 56px;
       text-align: center;
-      background: #f9f9f9;
-      border-radius: 0 0 2px 2px;
+      cursor: pointer;
     }
 
     &__item {
@@ -91,14 +96,14 @@
       }
 
       &-memo {
-        font-size: 14px;
+        font-size: 12px;
         font-weight: normal;
         line-height: 22px;
         color: #7c8087;
       }
 
       &-desc {
-        font-size: 14px;
+        font-size: 12px;
         line-height: 22px;
         color: #7c8087;
       }

@@ -13,7 +13,6 @@
       });
 
       return () => (
-        // <div class={prefixCls}>
         <Row class={prefixCls}>
           {unref(getProdList).map((item, index) => {
             return (
@@ -26,7 +25,6 @@
             );
           })}
         </Row>
-        // </div>
       );
     },
   });

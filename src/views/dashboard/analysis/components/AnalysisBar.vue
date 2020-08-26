@@ -15,13 +15,15 @@
         setOptions({
           tooltip: {
             trigger: 'axis',
+            backgroundColor: 'rgba(0, 0, 0, .6)',
             axisPointer: {
               // 坐标轴指示器，坐标轴触发有效
               type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
             },
           },
           legend: {
-            left: 60,
+            itemWidth: 15,
+            right: 10,
             data: ['产品一', '产品二', '产品三'],
           },
           grid: {
@@ -33,12 +35,18 @@
           xAxis: [
             {
               type: 'category',
+              axisTick: {
+                inside: true, // 刻度朝内
+              },
               data: ['付费用户', '免费用户', '自主'],
             },
           ],
           yAxis: [
             {
               type: 'value',
+              axisTick: {
+                inside: true, // 刻度朝内
+              },
             },
           ],
           series: [
@@ -46,7 +54,7 @@
               name: '产品一',
               type: 'bar',
               itemStyle: {
-                color: '#5B8FF9',
+                color: '#3ca0f6',
               },
               data: [3200, 3320, 3010],
               animationDuration: 4000,
@@ -55,7 +63,7 @@
               name: '产品二',
               type: 'bar',
               itemStyle: {
-                color: '#55D187',
+                color: '#7dd9b9',
               },
               data: [1200, 2600, 1010],
               animationDuration: 4000,
@@ -65,7 +73,7 @@
               name: '产品三',
               type: 'bar',
               itemStyle: {
-                color: '#ED6F6F',
+                color: '#e6a23c',
               },
               data: [862, 2500, 964],
               animationDuration: 4000,
