@@ -86,7 +86,15 @@ function configOptimization(config) {
             // if (match[1] === '@xxx') {
             //   packageName += `-${match[3]}`;
             // }
-            if (
+            if (packageName.indexOf('ant-design') !== -1) {
+              packageName = 'design';
+            } else if (
+              packageName.indexOf('echarts') !== -1 ||
+              packageName.indexOf('zrender') !== -1 ||
+              packageName.indexOf('vue-baidu-map') !== -1
+            ) {
+              packageName = 'chart';
+            } else if (
               packageName.indexOf('axios') !== -1 ||
               packageName.indexOf('babel') !== -1 ||
               packageName.indexOf('crypto-js') !== -1 ||
@@ -103,14 +111,6 @@ function configOptimization(config) {
               packageName.indexOf('core-js') !== -1
             ) {
               packageName = 'entry-lib';
-            } else if (packageName.indexOf('ant-design') !== -1) {
-              packageName = 'design';
-            } else if (
-              packageName.indexOf('echarts') !== -1 ||
-              packageName.indexOf('zrender') !== -1 ||
-              packageName.indexOf('vue-baidu-map') !== -1
-            ) {
-              packageName = 'chart';
             } else if (packageName.indexOf('xlsx') !== -1) {
               packageName = 'xlsx';
             }
