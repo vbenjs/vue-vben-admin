@@ -1,11 +1,10 @@
 import { Vue } from 'compatible-vue';
 
-import Antd from 'ant-design-vue/es';
+import { Modal } from 'ant-design-vue';
 import AButton from '@/components/global/Button.vue';
 
-Vue.use(Antd);
 // fix modal error
-// Vue.use(Modal);
+Vue.use(Modal);
 
 // Button全局注册
 // Vue.use(Button);

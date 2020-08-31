@@ -31,6 +31,7 @@
           canFullscreen={false}
           footer={null}
           wrapperFooterOffset={60}
+          destroyOnClose={true}
         >
           <RotateDragVerify
             imgWidth={210}
