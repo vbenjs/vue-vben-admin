@@ -50,7 +50,7 @@
     // padding: 24px;
     // background: #fff;
     /deep/ .@{namespace}-collapse-container__body {
-      height: 220px;
+      height: 200px;
     }
 
     &__item {

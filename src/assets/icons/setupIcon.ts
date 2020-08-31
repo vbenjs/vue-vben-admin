@@ -85,3 +85,4 @@ export { default as EyeOutline } from '@ant-design/icons/lib/outline/EyeOutline'
 export { default as EyeInvisibleOutline } from '@ant-design/icons/lib/outline/EyeInvisibleOutline';
 export { default as DeleteOutline } from '@ant-design/icons/lib/outline/DeleteOutline';
 export { default as FormOutline } from '@ant-design/icons/lib/outline/FormOutline';
+export { default as EllipsisOutline } from '@ant-design/icons/lib/outline/EllipsisOutline';

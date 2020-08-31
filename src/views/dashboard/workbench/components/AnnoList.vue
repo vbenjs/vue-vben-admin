@@ -44,7 +44,7 @@
   @prefix-cls: ~'@{namespace}-anno-list';
   .@{prefix-cls} {
     /deep/ .@{namespace}-collapse-container__body {
-      height: 260px;
+      height: 240px;
     }
 
     &__item {

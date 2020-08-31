@@ -51,7 +51,7 @@
   @prefix-cls: ~'@{namespace}-file-list';
   .@{prefix-cls} {
     /deep/ .@{namespace}-collapse-container__body {
-      height: 190px;
+      height: 186px;
     }
 
     &__item {

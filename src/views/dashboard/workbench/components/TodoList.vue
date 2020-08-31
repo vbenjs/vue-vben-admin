@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, computed, unref } from 'compatible-vue';
-  import { List, Icon, Tag } from 'ant-design-vue';
+  import { List, Icon, Tag, Tooltip } from 'ant-design-vue';
   import { CollapseContainer } from '@/components/container/index';
 
   import { useDesign } from '@/hooks/core/useDesign';
@@ -48,8 +48,10 @@
             })}
           </List>
           <div class={`${prefixCls}__all`}>
-            查看全部
-            <Icon type="right" />
+            <Tooltip placement="topRight">
+              <template slot="title">查看更多</template>
+              <Icon type="ellipsis" />
+            </Tooltip>
           </div>
         </CollapseContainer>
       );
@@ -70,11 +72,10 @@
       height: 20px;
       font-size: 12px;
       line-height: 20px;
-      color: #000;
+      color: #fff;
       text-align: center;
-      background: rgba(140, 140, 140, 0.1);
+      background: rgba(255, 0, 0, 0.7);
       border-radius: 50%;
-      opacity: 0.65;
     }
 
     &__all {
@@ -82,12 +83,15 @@
       top: 0;
       right: 10px;
       height: 56px;
+      font-size: 24px;
       line-height: 56px;
       text-align: center;
       cursor: pointer;
     }
 
     &__item {
+      padding: 8px 0;
+
       &-title {
         font-size: 14px;
         font-weight: normal;

@@ -3,6 +3,7 @@
   import { Row, Col } from 'ant-design-vue';
   import { useDesign } from '@/hooks/core/useDesign';
   import { wokbStore } from '../store';
+
   // import {ProdTypeEnum} from '@/api/dashboard/model/wokbModel'
   export default defineComponent({
     name: 'ProdTotal',
@@ -15,12 +16,17 @@
       return () => (
         <Row class={prefixCls}>
           {unref(getProdList).map((item, index) => {
+            const { type, amount } = item;
             return (
-              <Col key={index} xs={12} sm={6} class={`${prefixCls}__item`}>
-                <div class={[`${prefixCls}__item-label`, `${prefixCls}__item-label--${index}`]}>
-                  {item.type}
-                </div>
-                <div class={`${prefixCls}__item-value`}>{item.amount}</div>
+              <Col
+                key={index}
+                xs={12}
+                sm={6}
+                class={[`${prefixCls}__item`, `${prefixCls}__item-${index}`]}
+              >
+                <div class={['img', `${prefixCls}__item-${index}-img`]} />
+                <div>{amount}</div>
+                <span>{type}</span>
               </Col>
             );
           })}
@@ -33,68 +39,77 @@
   @import (reference) '~@design';
   @prefix-cls: ~'@{namespace}-prod-total';
   .@{prefix-cls} {
-    padding: 24px;
+    padding: 12px 4px 12px 12px;
     background: #fff;
 
-    // &__item:first-of-type {
-    //   color: red;
-
-    //   &::after {
-    //     display: inline-block;
-    //     width: 1px;
-    //     height: 100%;
-    //     background: #000;
-    //     content: '';
-    //     opacity: 0.09;
-    //   }
-    // }
-
     &__item {
-      &-label {
+      display: inline-block;
+      width: calc(25% - 8px);
+      padding: 20px 10px;
+      margin-right: 8px;
+      border-radius: 4px;
+
+      span {
         font-size: 14px;
-        line-height: 22px;
-        color: #1c1d21;
+        line-height: 28px;
+      }
 
-        &::before {
-          display: inline-block;
-          width: 6px;
-          height: 6px;
-          margin-right: 8px;
-          vertical-align: 2px;
-          border-radius: 50%;
-          content: '';
+      div {
+        font-size: 26px;
+      }
+
+      .img {
+        float: left;
+        width: 62px;
+        height: 62px;
+      }
+
+      &-0 {
+        background: rgba(254, 97, 178, 0.1);
+
+        &-img {
+          background: url(~@/assets/images/dashboard/wokb/datashow1.png) no-repeat;
         }
 
-        &--0 {
-          &::before {
-            display: none;
-          }
-        }
-
-        &--1 {
-          &::before {
-            background: #1c1d21;
-            opacity: 0.45;
-          }
-        }
-
-        &--2 {
-          &::before {
-            background: #0593ff;
-          }
-        }
-
-        &--3 {
-          &::before {
-            background: #ed6f6f;
-          }
+        div {
+          color: #fe61b2;
         }
       }
 
-      &-value {
-        font-size: 30px;
-        line-height: 38px;
-        color: #1c1d21;
+      &-1 {
+        background: rgba(254, 163, 64, 0.1);
+
+        &-img {
+          background: url(~@/assets/images/dashboard/wokb/datashow2.png) no-repeat;
+        }
+
+        div {
+          color: #fea340;
+        }
+      }
+
+      &-2 {
+        background: rgba(172, 70, 255, 0.1);
+
+        &-img {
+          background: url(~@/assets/images/dashboard/wokb/datashow3.png) no-repeat;
+        }
+
+        div {
+          color: #9e55ff;
+        }
+      }
+
+      &-3 {
+        background: rgba(0, 196, 186, 0.1);
+
+        &-img {
+          background: url(~@/assets/images/dashboard/wokb/datashow4.png) no-repeat;
+        }
+
+        div {
+          color: #00c4ba;
+        }
       }
     }
   }

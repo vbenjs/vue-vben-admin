@@ -47,6 +47,7 @@
 
     &__wokb-img {
       width: 100%;
+      height: 172px;
     }
   }
 </style>
