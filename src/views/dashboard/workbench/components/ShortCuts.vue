@@ -97,6 +97,7 @@
         height: 36px;
         line-height: 36px;
         color: #000;
+        cursor: pointer;
         background: lightgrey;
         border-radius: 50%;
       }

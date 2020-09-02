@@ -49,11 +49,17 @@
   .@{prefix-cls} {
     // padding: 24px;
     // background: #fff;
+
     /deep/ .@{namespace}-collapse-container__body {
       height: 200px;
     }
 
+    /deep/ .ant-timeline-item-content {
+      top: 0;
+    }
+
     &__item {
+      padding: 0 0 10px;
       font-size: 14px;
       font-weight: normal;
       line-height: 22px;
