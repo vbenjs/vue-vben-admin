@@ -10,7 +10,7 @@ export interface ModalInstance {
 
 export type GetTableFn = (modalInstance: ModalInstance) => void;
 export interface ReturnMethods extends ModalInstance {
-  openModal: (props: Partial<ModalProps>) => void;
+  openModal: (props: Partial<ModalProps> | boolean) => void;
   isFirstLoadRef: Ref<boolean>;
 }
 export type UseModalReturnType = [GetTableFn, ReturnMethods];

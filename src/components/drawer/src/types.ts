@@ -8,7 +8,7 @@ import { ScrollContainerOptions } from '@/components/container/index';
  * @description: 弹窗对外暴露的方法
  */
 export interface DrawerInstance {
-  setDrawerProps: (props: Partial<DrawerProps>) => void;
+  setDrawerProps: (props: Partial<DrawerProps> | boolean) => void;
   // injectModal: <T>(...T) => void;
 }
 export interface ReturnMethods extends DrawerInstance {

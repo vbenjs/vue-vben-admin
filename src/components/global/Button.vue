@@ -24,7 +24,7 @@
       // 防抖节流时间
       throttleTime: {
         type: Number,
-        default: 300,
+        default: 30,
       } as PropOptions<number>,
       loading: {
         type: Boolean,

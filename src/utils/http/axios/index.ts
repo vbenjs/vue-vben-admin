@@ -87,7 +87,7 @@ const transform: AxiosTransform = {
 
     // 接口请求成功，直接返回结果
     if (code === ResultEnum.SUCCESS) {
-      return result;
+      return result || true;
     }
     // 接口请求错误，统一提示错误信息
     if (code === ResultEnum.ERROR) {
