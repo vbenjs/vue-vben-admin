@@ -30,7 +30,7 @@ export function useColumns(
     if (!columns) {
       return [];
     }
-    let pushActionColumns = false;
+    // let pushActionColumns = false;
     let pushIndexColumns = false;
     columns.forEach((item) => {
       const { key, dataIndex } = item;
@@ -45,12 +45,12 @@ export function useColumns(
           });
         }
       }
-      const actionIndex = columns.findIndex((column) => column.flag === 'ACTION');
-      if (actionColumn) {
-        pushActionColumns = actionIndex === -1;
-      } else if (actionIndex !== -1) {
-        columns.splice(actionIndex, 1);
-      }
+      // const actionIndex = columns.findIndex((column) => column.flag === 'ACTION');
+      // if (actionColumn) {
+      //   pushActionColumns = actionIndex === -1;
+      // } else if (actionIndex !== -1) {
+      //   columns.splice(actionIndex, 1);
+      // }
       const indIndex = columns.findIndex((column) => column.flag === 'INDEX');
       if (showIndexColumn && !isTreeTable) {
         pushIndexColumns = indIndex === -1;
@@ -84,12 +84,13 @@ export function useColumns(
     //       ...indexColumnProps,
     //     });
     // }
-    pushActionColumns &&
-      columns.push({
-        fixed: 'right',
-        ...actionColumn,
-        flag: 'ACTION',
-      });
+
+    // pushActionColumns &&
+    //   columns.push({
+    //     fixed: 'right',
+    //     ...actionColumn,
+    //     flag: 'ACTION',
+    //   });
     if (pushIndexColumns) {
       const isFixedLeft = columns.some((item) => item.fixed === 'left');
 
@@ -129,15 +130,23 @@ export function useColumns(
     //   });
     // }
 
-    // if (actionColumn) {
-    //   const hasIndex = columns.find((column) => column.flag === 'ACTION');
-    //   !hasIndex &&
-    //     columns.push({
-    //       fixed: 'right',
-    //       ...actionColumn,
-    //       flag: 'ACTION',
-    //     });
-    // }
+    if (actionColumn) {
+      const hasIndex = columns.findIndex((column) => column.flag === 'ACTION');
+      if (hasIndex === -1) {
+        columns.push({
+          fixed: 'right',
+          ...actionColumn,
+          flag: 'ACTION',
+        });
+      } else {
+        columns[hasIndex] = {
+          ...columns[hasIndex],
+          fixed: 'right',
+          ...actionColumn,
+          flag: 'ACTION',
+        };
+      }
+    }
     return columns;
   });
 

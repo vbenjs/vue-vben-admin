@@ -37,7 +37,7 @@
     "release": "release-it "
   },
   "dependencies": {
-    "@vue/composition-api": "^1.0.0-beta.10",
+    "@vue/composition-api": "^1.0.0-beta.11",
     "ant-design-vue": "^1.6.5",
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
