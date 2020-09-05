@@ -1,3 +1,21 @@
+# [1.4.0](https://github.com/anncwb/vue-vben-admin/compare/1.3.2...1.4.0) (2020-09-05)
+
+### ⚡ Performance Improvements
+
+- 分析页及工作台样式优化 ([bd4097d](https://github.com/anncwb/vue-vben-admin/commit/bd4097d))
+- 页面细节优化 ([c863a46](https://github.com/anncwb/vue-vben-admin/commit/c863a46))
+- **ci:** 优化打包分包逻辑 ([d5277a4](https://github.com/anncwb/vue-vben-admin/commit/d5277a4))
+
+### ✨ Features
+
+- modal 和 drawer 在使用 openXxx 时可以直接传递 boolean ([dca4986](https://github.com/anncwb/vue-vben-admin/commit/dca4986))
+- 工作台页面调整优化 ([b7176f7](https://github.com/anncwb/vue-vben-admin/commit/b7176f7))
+
+### 🐛 Bug Fixes
+
+- **login:** 修复登陆失败再次登陆问题，升级依赖版本 ([f808b66](https://github.com/anncwb/vue-vben-admin/commit/f808b66))
+- **table:** 修复 action 只赋值一次的导致弹窗刷新失败的问题 ([df19646](https://github.com/anncwb/vue-vben-admin/commit/df19646))
+
 ## [1.3.2](https://github.com/anncwb/vue-vben-admin/compare/1.3.1...1.3.2) (2020-08-25)
 
 ### ♻ Code Refactoring
@@ -12,6 +30,7 @@
 ### 🎫 Chores
 
 - **ci:** 升级 antv 到 1.6.5 ([f770e70](https://github.com/anncwb/vue-vben-admin/commit/f770e70))
+- bump 1.3.1 ([2d37984](https://github.com/anncwb/vue-vben-admin/commit/2d37984))
 
 ### 🐛 Bug Fixes
 
