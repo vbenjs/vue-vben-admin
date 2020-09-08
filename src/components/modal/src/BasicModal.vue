@@ -18,9 +18,6 @@
     name: 'BasicModal',
     props: basicProps,
     setup(props: Readonly<ModalProps>, { slots, listeners, emit }) {
-      // onMounted(() => {
-      //   console.log('onMounted setups');
-      // });
       const visibleRef = ref(false);
 
       const propsRef = ref<Partial<ModalProps> | null>(null);
@@ -233,10 +230,12 @@
       return () => (
         <Modal
           {...{
-            on: listeners,
+            on: {
+              ...listeners,
+              cancel: handleCancel,
+            },
             props: unref(getProps),
           }}
-          onCancel={handleCancel}
         >
           {renderTitle()}
           {renderContent()}

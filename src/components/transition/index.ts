@@ -1,11 +1,12 @@
-import { getAsyncComponent, transformComponents } from '@/common/factory/getAsyncComponent';
+import { transformComponents } from '@/common/factory/getAsyncComponent';
 import { createSimpleTransition, createJavascriptTransition } from './src/createTransition';
 
 import ExpandTransitionGenerator from './src/expandTransition';
 
 // export { default as CollapseTransition } from './src/Collapse.vue';
 
-export const CollapseTransition = getAsyncComponent(() => import('./src/CollapseTransition.vue'));
+export { default as CollapseTransition } from './src/CollapseTransition.vue';
+// export const CollapseTransition = getAsyncComponent(() => import('./src/CollapseTransition.vue'));
 // Component specific transitions
 export const FadeTransition = transformComponents(createSimpleTransition('fade-transition'));
 export const ScaleTransition = transformComponents(createSimpleTransition('scale-transition'));

@@ -12,7 +12,7 @@ export interface DrawerInstance {
   // injectModal: <T>(...T) => void;
 }
 export interface ReturnMethods extends DrawerInstance {
-  openDrawer: (props: Partial<DrawerProps>) => void;
+  openDrawer: (props: Partial<DrawerProps> | boolean) => void;
   isFirstLoadRef: Ref<boolean>;
 }
 export type GetDrawerFn = (drawerInstance: DrawerInstance) => void;

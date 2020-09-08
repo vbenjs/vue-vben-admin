@@ -24,7 +24,7 @@
       // 防抖节流时间
       throttleTime: {
         type: Number,
-        default: 30,
+        default: 0,
       } as PropOptions<number>,
       loading: {
         type: Boolean,
@@ -45,11 +45,11 @@
       });
 
       const getListeners = computed(() => {
-        const { throttle, throttleTime } = props;
+        const { throttle, throttleTime = 0 } = props;
         // 是否开启节流防抖
         const throttleType = throttle!.toLowerCase();
         const isDebounce = throttleType === 'debounce';
-        const openThrottle = ['throttle', 'debounce'].includes(throttleType);
+        const openThrottle = ['throttle', 'debounce'].includes(throttleType) && throttleTime > 0;
 
         const on: {
           click?: (...any) => any;

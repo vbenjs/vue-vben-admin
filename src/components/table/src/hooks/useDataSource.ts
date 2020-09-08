@@ -21,11 +21,14 @@ interface ActionType {
   getPaginationRef: ComputedRef<false | PaginationProps>;
   setPagination: (info: Partial<PaginationProps>) => void;
   loadingRef: Ref<boolean | undefined>;
+  getFieldsValue: () => {
+    [field: string]: any;
+  };
 }
 export function useDataSource(
   refProps: ComputedRef<BasicTableProps>,
   ctx: SetupContext,
-  { getPaginationRef, setPagination, loadingRef }: ActionType
+  { getPaginationRef, setPagination, loadingRef, getFieldsValue }: ActionType
 ) {
   const { propsRef } = useProps(refProps);
 
@@ -101,6 +104,7 @@ export function useDataSource(
 
       let params: any = {
         ...pageParams,
+        ...getFieldsValue(),
         ...searchInfo,
         ...opt?.searchInfo,
       };

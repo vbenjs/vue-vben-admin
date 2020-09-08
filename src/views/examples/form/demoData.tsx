@@ -247,7 +247,6 @@ export const getAdvanceSchema = (itemNumber = 6): FormSchema[] => {
       field: `field${index}`,
       label: `字段${index}`,
       component: 'Input',
-
       colProps: {
         xl: 12,
         xxl: 8,

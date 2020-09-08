@@ -17,6 +17,7 @@ export interface AppState {
   pageLoadingState: boolean;
   projCfgState: ProjectConfig | null;
   lockInfoState: LockInfo | null;
+  lockMainScrollState: boolean;
 }
 
 let timeId: ReturnType<typeof setTimeout>;
@@ -30,8 +31,14 @@ class App extends VuexModule implements AppState {
 
   lockInfoState: LockInfo | null = getLocal(LOCK_INFO_KEY);
 
+  lockMainScrollState = false;
+
   get getPageLoading() {
     return this.pageLoadingState;
+  }
+
+  get getLockMainScrollState() {
+    return this.lockMainScrollState;
   }
 
   get getLockInfo(): LockInfo {
@@ -45,6 +52,11 @@ class App extends VuexModule implements AppState {
   @Mutation
   commitPageLoadingState(loading: boolean): void {
     this.pageLoadingState = loading;
+  }
+
+  @Mutation
+  commitLockMainScrollState(lock: boolean): void {
+    this.lockMainScrollState = lock;
   }
 
   @Mutation

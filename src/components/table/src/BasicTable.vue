@@ -29,7 +29,7 @@
   import { isFunction, isString } from '@/utils/is/index';
   import { omit, cloneDeep } from '@/utils/lodashChunk';
 
-  import { BasicForm, FormProps } from '@/components/form/index';
+  import { BasicForm, FormProps, useForm } from '@/components/form/index';
   export default defineComponent({
     name: 'BasicTable',
     props: basicProps,
@@ -38,6 +38,7 @@
       const tableElRef = ref<any>(null);
       const innerPropsRef = ref<Partial<BasicTableProps>>();
       // const lastPropsRef = ref<BasicTableProps>();
+      const [register, { getFieldsValue }] = useForm();
 
       const getMergeProps = computed(() => {
         return {
@@ -75,6 +76,7 @@
         getPaginationRef,
         loadingRef,
         setPagination,
+        getFieldsValue,
       });
       const { getColumnsRef, setColumns } = useColumns(getMergeProps, getPaginationRef);
       const { getScrollRef, redoHeight } = useTableScroll(getMergeProps, tableElRef);
@@ -297,11 +299,13 @@
           ...(formConfig as FormProps),
           compact: true,
         };
+
         return (
           <div class={[prefixCls, useSearchForm && 'table-form-container']}>
             {useSearchForm && (
               <BasicForm
                 submitButtonOptions={{ loading: unref(loadingRef) }}
+                onRegister={register}
                 onChange={handleSearchInfoChange}
                 {...{ props: formProps }}
                 onAdvancedChange={redoHeight}
@@ -460,6 +464,7 @@
       word-break: break-word;
       // white-space: break-spaces;
       // border-bottom: none;
+
       border-color: @border-color;
     }
 
@@ -514,6 +519,7 @@
     .ant-table-wrapper {
       // padding: 12px;
       // background: #fff;
+
       border-radius: 2px;
 
       // .ant-table-title {

@@ -22,10 +22,12 @@ export default defineComponent({
   name: 'Scrollbar',
   props: {
     native: Boolean as PropOptions<boolean>,
-    wrapStyle: {} as PropOptions<any>,
-    wrapClass: {} as PropOptions<any>,
-    viewClass: {} as PropOptions<any>,
-    viewStyle: {} as PropOptions<any>,
+    wrapStyle: {
+      type: Object,
+    } as PropOptions<any>,
+    wrapClass: { type: String, required: false } as PropOptions<string>,
+    viewClass: { type: String } as PropOptions<string>,
+    viewStyle: { type: Object } as PropOptions<any>,
     noresize: Boolean as PropOptions<boolean>, // 如果 container 尺寸不会发生变化，最好设置它可以优化性能
     tag: {
       type: String,

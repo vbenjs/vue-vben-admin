@@ -1,12 +1,12 @@
 <template>
-  <scrollbar
+  <Scrollbar
     ref="scrollbarRef"
-    :wrap-class="`${type}-scrollbar__wrap`"
-    :view-class="`${type}-scrollbar__view`"
+    :wrapClass="`${type}-scrollbar__wrap`"
+    :viewClass="`${type}-scrollbar__view`"
     :class="prefixCls"
   >
     <slot />
-  </scrollbar>
+  </Scrollbar>
 </template>
 
 <script lang="tsx">

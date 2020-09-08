@@ -1,7 +1,7 @@
 <script lang="tsx">
   // collapse 展开折叠
   import { ExpandTransition } from '../index';
-  import { defineComponent } from 'compatible-vue';
+  import { defineComponent, PropOptions } from 'compatible-vue';
   export default defineComponent({
     name: 'CollapseTransition',
     components: {
@@ -12,7 +12,7 @@
       enable: {
         type: Boolean,
         default: true,
-      },
+      } as PropOptions<boolean>,
     },
     setup(props, { slots }) {
       return () =>

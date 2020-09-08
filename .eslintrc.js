@@ -21,7 +21,7 @@ module.exports = {
     'no-debugger': 'off',
     'no-new': 'off',
     'vue/no-side-effects-in-computed-properties': 'off',
-
+    'vue/attribute-hyphenation': 'off',
     'no-useless-constructor': 'off',
     'vue/html-self-closing': [
       'error',
@@ -42,7 +42,6 @@ module.exports = {
         ignoreReadBeforeAssign: false,
       },
     ],
-    'vue/attribute-hyphenation': 'error',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/ban-types': 'off',
     'vue/attributes-order': [

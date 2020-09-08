@@ -50,7 +50,7 @@
       const { getFullContent } = useFullContent();
 
       return () => {
-        const { getProjCfg, getPageLoading } = appStore;
+        const { getProjCfg, getPageLoading, getLockMainScrollState } = appStore;
         const {
           openPageLoading,
           useOpenBackTop,
@@ -62,7 +62,7 @@
 
         const isShowHeader = !unref(getFullContent) && showHeader;
         const isShowMixHeader = isShowHeader && menuType !== MenuTypeEnum.SIDEBAR;
-        const fixedHeaderCls = fixed ? 'fixed' : '';
+        const fixedHeaderCls = fixed ? ('fixed' + getLockMainScrollState ? ' lock' : '') : '';
         function getTarget() {
           return document.querySelector(`.${prefixCls}__${fixed ? 'main' : 'content'}`);
         }
@@ -126,6 +126,10 @@
 
       &.fixed {
         overflow: auto;
+      }
+
+      &.fixed.lock {
+        overflow: hidden;
       }
     }
 

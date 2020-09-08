@@ -1,6 +1,14 @@
 <script lang="tsx">
   import { Drawer, Row, Col } from 'ant-design-vue';
-  import { defineComponent, ref, computed, watch, unref, getCurrentInstance } from 'compatible-vue';
+  import {
+    defineComponent,
+    ref,
+    computed,
+    watch,
+    unref,
+    getCurrentInstance,
+    nextTick,
+  } from 'compatible-vue';
   // import { BaseTitle } from '@/components/base/index';
   import { Icon } from '@/components/icon/index';
   import { BaseTitle } from '@/components/base/index';
@@ -14,6 +22,7 @@
 
   import { basicProps } from './props';
   import { isFunction, isNumber } from '@/utils/is';
+  import { appStore } from '@/store/modules/app';
 
   export default defineComponent({
     props: basicProps,
@@ -98,7 +107,8 @@
       watch(
         () => visibleRef.value,
         (visible) => {
-          root.$nextTick(() => {
+          appStore.commitLockMainScrollState(visible);
+          nextTick(() => {
             emit('visibleChange', visible);
           });
         },
@@ -293,6 +303,7 @@
       .ant-drawer-header {
         // position: absolute;
         // z-index: 1;
+
         width: 100%;
         height: @header-height;
         padding: 0;

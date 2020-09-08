@@ -1,6 +1,7 @@
 <script lang="tsx">
   import { defineComponent } from 'compatible-vue';
   import { BasicModal } from '@/components/modal/index';
+
   export default defineComponent({
     name: 'Modal1Demo',
     setup(props, { listeners }) {

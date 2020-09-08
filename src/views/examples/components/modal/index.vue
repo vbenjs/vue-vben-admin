@@ -28,9 +28,7 @@
               class="m-4"
               type="primary"
               onClick={() => {
-                openModal({
-                  visible: true,
-                });
+                openModal(true);
               }}
             >
               打开弹窗1(默认可以拖动)
@@ -39,9 +37,7 @@
               class="m-4"
               type="primary"
               onClick={() => {
-                openModal2({
-                  visible: true,
-                });
+                openModal2(true);
               }}
             >
               打开弹窗2(显示帮助按钮)
@@ -54,9 +50,7 @@
               class="m-4"
               type="primary"
               onClick={() => {
-                openModal3({
-                  visible: true,
-                });
+                openModal3(true);
               }}
             >
               打开弹窗3(内容自适应屏幕高度)
@@ -68,9 +62,7 @@
               class="m-4"
               type="primary"
               onClick={() => {
-                openModal4({
-                  visible: true,
-                });
+                openModal4(true);
               }}
             >
               打开弹窗4(控制弹窗是否可以全屏)
@@ -82,9 +74,7 @@
               class="m-4"
               type="primary"
               onClick={() => {
-                openDrawer({
-                  visible: true,
-                });
+                openDrawer(true);
               }}
             >
               打开全屏drawer
@@ -95,9 +85,7 @@
               class="m-4"
               type="primary"
               onClick={() => {
-                openDrawer1({
-                  visible: true,
-                });
+                openDrawer1(true);
               }}
             >
               打开局部drawer
