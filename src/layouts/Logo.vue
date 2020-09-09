@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, PropOptions } from 'compatible-vue';
+  import { defineComponent, PropOptions, ref, watch, unref } from 'compatible-vue';
 
   // hooks
   import { useDesign } from '@/hooks/core/useDesign';
@@ -23,13 +23,25 @@
       function handleGoHome() {
         root.$router.push(pageEnum.BASE_HOME);
       }
-      return () => {
-        const { showTitle } = props;
+      const showRef = ref<boolean>(!!props.showTitle);
 
+      watch(
+        () => props.showTitle,
+        (show: boolean) => {
+          if (show) {
+            setTimeout(() => {
+              showRef.value = show;
+            }, 280);
+          } else {
+            showRef.value = show;
+          }
+        }
+      );
+      return () => {
         return (
           <section class={`${prefixCls}-wrap`} onClick={handleGoHome}>
             <img src={logo} class={`${prefixCls}__img`} />
-            {showTitle && <section class={`${prefixCls}__title`}>{globSetting.title}</section>}
+            {unref(showRef) && <section class={`${prefixCls}__title`}>{globSetting.title}</section>}
           </section>
         );
       };
@@ -53,7 +65,7 @@
     }
 
     &__title {
-      width: 130px;
+      width: 150px;
       margin-left: 8px;
       font: italic 2em Georgia, serif;
       font-size: 24px;
