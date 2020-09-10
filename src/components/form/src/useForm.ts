@@ -54,7 +54,7 @@ export function useForm(props?: Partial<FormProps>): UseFormReturnType {
       unref(formRef)?.setProps(formProps);
     },
     getFieldsValue: (): { [field: string]: any } => {
-      return unref(formRef)!.getFieldsValue!();
+      return unref(formRef) && unref(formRef)?.getFieldsValue();
     },
     removeSchemaByFiled: (field: string | string[]): void => {
       return unref(formRef)!.removeSchemaByFiled(field);

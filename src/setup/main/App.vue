@@ -68,16 +68,15 @@
       function renderEmpty() {
         return <BasicEmpty />;
       }
+      function transformCellText({ text }: { text: string }) {
+        if (!text) {
+          return ' - ';
+        }
+        return text;
+      }
       return () => {
         const { getLockInfo } = appStore;
         const { isLock } = getLockInfo || {};
-
-        function transformCellText({ text }: { text: string }) {
-          if (!text) {
-            return ' - ';
-          }
-          return text;
-        }
 
         return (
           <div id="app" on={lockOn}>

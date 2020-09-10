@@ -195,7 +195,7 @@ export interface FormInstance extends Partial<WrappedFormUtils> {
   validateFields<T>(): Promise<ValidateResult<T>>;
   setFieldsValue<T>(values: T): void;
   resetFields(): Promise<any>;
-  getFieldsValue: () => { [field: string]: any };
+  getFieldsValue: () => any;
   updateSchema(data: Partial<FormSchema> | Partial<FormSchema>[]): void;
   setProps(formProps: Partial<FormProps>): void;
   removeSchemaByFiled(field: string | string[]): void;
