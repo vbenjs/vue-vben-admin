@@ -69,7 +69,7 @@
         return <BasicEmpty />;
       }
       function transformCellText({ text }: { text: string }) {
-        if (!text) {
+        if (text === undefined || text === null) {
           return ' - ';
         }
         return text;
