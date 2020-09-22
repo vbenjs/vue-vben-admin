@@ -8,7 +8,6 @@ ls:
     .data.ts: camelCase | kebab-case
     .test-d.ts: kebab-case
     .spec.ts: camelCase | PascalCase
-    .mock.ts: camelCase
 
 ignore:
   - node_modules
