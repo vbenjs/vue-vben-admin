@@ -1,0 +1,20 @@
+.basic-tree {
+  position: relative;
+
+  &-title {
+    display: inline-block;
+    width: 100%;
+    padding-right: 10px;
+
+    .basic-tree__action {
+      display: none;
+      float: right;
+    }
+
+    &:hover {
+      .basic-tree__action {
+        display: inline-block;
+      }
+    }
+  }
+}

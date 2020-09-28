@@ -1,0 +1,246 @@
+@import (reference) '../../../design/index.less';
+
+.active-menu-style() {
+  .ant-menu-item-selected,
+  .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+    background: linear-gradient(
+      118deg,
+      rgba(@primary-color, 0.7),
+      rgba(@primary-color, 1)
+    ) !important;
+    border-radius: 2px;
+    box-shadow: 0 0 4px 1px rgba(@primary-color, 0.7);
+  }
+}
+
+.basic-menu {
+  &-wrap {
+    height: 100%;
+  }
+
+  .menu-item-icon {
+    vertical-align: text-top;
+  }
+  // 透明化背景
+  &-bg__sidebar {
+    background-color: transparent;
+  }
+
+  &-bg__sidebar-hor {
+    &.ant-menu-horizontal {
+      display: flex;
+      border: 0;
+      align-items: center;
+
+      .basic-menu-item__level1 {
+        margin-right: 2px;
+      }
+
+      &.ant-menu-light {
+        .ant-menu-item {
+          &.basic-menu-item__level1 {
+            height: 46px;
+            line-height: 46px;
+          }
+        }
+
+        .ant-menu-item:hover,
+        .ant-menu-submenu:hover,
+        .ant-menu-item-active,
+        .ant-menu-submenu-active,
+        .ant-menu-item-open,
+        .ant-menu-submenu-open,
+        .ant-menu-item-selected,
+        .ant-menu-submenu-selected {
+          color: @primary-color;
+          border-bottom: 3px solid @primary-color;
+        }
+
+        .ant-menu-item:hover,
+        .ant-menu-item-active,
+        .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+        .ant-menu-submenu-active,
+        .ant-menu-submenu-title:hover {
+          color: @primary-color;
+          border-bottom: 3px solid @primary-color;
+        }
+
+        // 有子菜单
+        .ant-menu-submenu {
+          &:hover {
+            border-bottom: 3px solid @primary-color;
+          }
+
+          &.ant-menu-selected,
+          &.ant-menu-submenu-selected {
+            border-bottom: 3px solid @primary-color;
+          }
+        }
+      }
+
+      &.ant-menu-dark {
+        background: transparent;
+
+        .ant-menu-item:hover,
+        .ant-menu-item-active,
+        .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+        .ant-menu-submenu-active,
+        .ant-menu-submenu-title:hover {
+          background: @top-menu-active-bg-color;
+          border-radius: 6px 6px 0 0;
+        }
+
+        .basic-menu-item__level1 {
+          &.ant-menu-item-selected,
+          &.ant-menu-submenu-selected {
+            background: @top-menu-active-bg-color;
+            border-radius: 6px 6px 0 0;
+          }
+        }
+
+        .ant-menu-item {
+          &.basic-menu-item__level1 {
+            height: @header-height;
+            line-height: @header-height;
+          }
+        }
+        // 有子菜单
+        .ant-menu-submenu {
+          &.basic-menu-item__level1,
+          .ant-menu-submenu-title {
+            height: @header-height;
+            line-height: @header-height;
+          }
+        }
+      }
+    }
+  }
+  // 重置菜单项行高
+  .ant-menu-item,
+  .ant-menu-sub.ant-menu-inline > .ant-menu-item,
+  .ant-menu-sub.ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+    height: @app-menu-item-height;
+    margin: 0;
+    line-height: @app-menu-item-height;
+  }
+
+  &.ant-menu-dark:not(.basic-menu-bg__sidebar-hor) {
+    .active-menu-style();
+  }
+
+  // 层级样式
+  &.ant-menu-dark {
+    .ant-menu-item {
+      transition: unset;
+    }
+
+    .ant-menu-item.ant-menu-item-selected.basic-menu-menu-item__level1,
+    .ant-menu-submenu-selected.basic-menu-menu-item__level1 {
+      color: @white;
+    }
+
+    .basic-menu-item__level1 {
+      margin-bottom: 0;
+
+      &.top-active-menu {
+        color: @white;
+        background: @top-menu-active-bg-color;
+        border-radius: 6px 6px 0 0;
+      }
+    }
+
+    // 2级菜单
+
+    .basic-menu-item__level2:not(.ant-menu-item-selected) {
+      background-color: @sub-menu-item-dark-bg-color;
+    }
+
+    .basic-menu-item__level2 {
+      margin-bottom: 0;
+    }
+    // 3级菜单
+    .basic-menu-item__level3,
+    .basic-menu__popup {
+      margin-bottom: 0;
+    }
+
+    .basic-menu-item__level3:not(.ant-menu-item-selected) {
+      background-color: @children-menu-item-dark-bg-color;
+    }
+
+    .ant-menu-submenu-title {
+      height: @app-menu-item-height;
+      margin: 0;
+      line-height: @app-menu-item-height;
+    }
+  }
+
+  &.ant-menu-light {
+    .basic-menu-item__level1 {
+      &.top-active-menu {
+        color: @primary-color;
+        border-bottom: 6px solid @primary-color;
+      }
+    }
+
+    &:not(.ant-menu-horizontal) {
+      .ant-menu-item-selected {
+        background: fade(@primary-color, 18%);
+      }
+    }
+
+    .ant-menu-item.ant-menu-item-selected.basic-menu-menu-item__level1,
+    .ant-menu-submenu-selected.basic-menu-menu-item__level1 {
+      color: @primary-color;
+    }
+  }
+
+  // 关键字的颜色
+  &__keyword {
+    color: lighten(@primary-color, 20%);
+  }
+
+  // 激活的子菜单样式
+  .ant-menu-item.ant-menu-item-selected {
+    position: relative;
+  }
+}
+
+// 触发器样式
+.ant-layout-sider {
+  &-dark {
+    .ant-layout-sider-trigger {
+      color: darken(@white, 25%);
+      background: @trigger-dark-bg-color;
+
+      &:hover {
+        color: @white;
+        background: @trigger-dark-hover-bg-color;
+      }
+    }
+  }
+
+  &-light {
+    border-right: 1px solid rgba(221, 221, 221, 0.6);
+
+    .ant-layout-sider-trigger {
+      color: @text-color-base;
+      background: @trigger-light-bg-color;
+
+      &:hover {
+        color: @text-color-base;
+        background: @trigger-light-hover-bg-color;
+      }
+    }
+  }
+}
+
+.ant-menu-dark {
+  &.ant-menu-submenu-popup {
+    > ul {
+      background: @first-menu-item-dark-bg-color;
+    }
+
+    .active-menu-style();
+  }
+}

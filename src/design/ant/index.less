@@ -1,0 +1,133 @@
+@import './pagination.less';
+@import './input.less';
+@import './btn.less';
+
+// =================================
+// ==============descriptions=======
+// =================================
+.ant-descriptions-bordered .ant-descriptions-item-label {
+  background-color: @background-color-light;
+}
+
+.ant-descriptions .ant-descriptions-item-content {
+  color: @text-color-call-out;
+}
+// =================================
+// ==============modal message======
+// =================================
+.modal-icon-warning {
+  color: @warning-color !important;
+}
+
+.modal-icon-success {
+  color: @success-color !important;
+}
+
+.modal-icon-error {
+  color: @error-color !important;
+}
+
+.ant-modal-mask {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+// =================================
+// ==============menu===============
+// =================================
+.ant-menu-item {
+  &-selected {
+    a {
+      color: @primary-color;
+
+      &:hover {
+        color: @primary-color;
+      }
+    }
+  }
+}
+// =================================
+// ==============dropdown===========
+// =================================
+.ant-dropdown {
+  .ant-divider {
+    margin: 4px 0;
+  }
+
+  &-menu-item {
+    line-height: 30px;
+    color: @text-color-call-out;
+
+    &:hover {
+      color: inherit;
+      background-color: @border-color-shallow-light;
+    }
+  }
+}
+// =================================
+// ==============back-top===========
+// =================================
+.ant-back-top {
+  right: 50px;
+  bottom: 60px;
+}
+// =================================
+// ==============calendar===========
+// =================================
+.ant-calendar-picker {
+  width: 100%;
+}
+// =================================
+// ==============tooltip============
+// =================================
+
+.ant-tooltip {
+  &-inner {
+    padding: 6px 16px;
+    line-height: 20px;
+    color: @white;
+    background: @text-color-base;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+// =================================
+// ==============form===============
+// =================================
+.ant-form-item.deltag .ant-form-item-required::before {
+  content: '';
+}
+
+.ant-form-item {
+  &-label label::after {
+    margin: 0 6px 0 2px;
+  }
+
+  &-control {
+    line-height: 36px;
+  }
+}
+
+.ant-form-explain {
+  margin-bottom: 2px;
+  font-size: 14px;
+}
+
+.compact-form-row {
+  .ant-form-item {
+    margin-bottom: 8px;
+  }
+}
+
+// =================================
+// ==============empty==============
+// =================================
+.ant-empty-image {
+  max-height: 144px;
+  min-height: 60px;
+}
+
+.ant-empty-description {
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 24px;
+  color: @text-color-call-out;
+}

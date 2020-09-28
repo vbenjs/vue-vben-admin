@@ -1,0 +1,157 @@
+@import './transition/index.less';
+@import 'var/index.less';
+@import 'public.less';
+@import 'mixins.less';
+@import 'ant/index.less';
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  &.color-weak {
+    filter: invert(80%);
+  }
+
+  &.gray-mode {
+    filter: grayscale(100%);
+    filter: progid:dximagetransform.microsoft.basicimage(grayscale=1);
+  }
+}
+
+// remove the clear button of a text input control in IE10+
+input::-ms-clear,
+input::-ms-reveal {
+  display: none;
+}
+
+body {
+  font-family: 'Microsoft YaHei,微软雅黑,Arial,sans-serif,Helvetica Neue,Helvetica,Pingfang SC,Hiragino Sans GB';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.428571429; // 20/14
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-align: left; // Fallback for where `start` is not supported
+  text-align: start;
+  text-decoration: none;
+  text-size-adjust: 100%;
+  text-shadow: none;
+  text-transform: none;
+  word-break: normal;
+  word-wrap: normal;
+  white-space: normal;
+  line-break: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-weight: 500;
+  color: @heading-color;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+img {
+  vertical-align: top;
+  border: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+i,
+em {
+  font-style: normal;
+}
+
+button,
+div:focus {
+  outline: none !important;
+}
+
+a {
+  color: @link-color;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: transparent; // remove the gray background on active links in IE 10.
+  outline: none;
+  transition: color 0.3s;
+  -webkit-text-decoration-skip: objects; // remove gaps in links underline in iOS 8+ and Safari 8+.
+
+  &:hover {
+    color: @link-hover-color;
+  }
+
+  &:active {
+    color: @link-active-color;
+  }
+
+  &:active,
+  &:hover {
+    text-decoration: none;
+    outline: 0;
+  }
+
+  &[disabled] {
+    color: @disabled-color;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+}
+
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  vertical-align: baseline !important;
+}
+
+#app,
+#app > div,
+.ant-layout {
+  width: 100%;
+  height: 100%;
+}
+
+.ant-layout {
+  background: #f1f1f6;
+
+  &-content {
+    position: relative;
+    overflow: hidden;
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "strictFunctionTypes": false,
+    "jsx": "react",
+    "baseUrl": ".",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "experimentalDecorators": true,
+    "lib": ["dom", "esnext"],
+    "incremental": true,
+    "skipLibCheck": true,
+    "paths": {
+      "/@/*": ["src/*"],
+      "/@design/": ["src/design/index.less"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

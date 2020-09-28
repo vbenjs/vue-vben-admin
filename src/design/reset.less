@@ -1,0 +1,121 @@
+@import 'var/link';
+@import './mixins/reset-text.less';
+@import 'color/index';
+.reset() {
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    // overflow: hidden;
+
+    &.color-weak {
+      filter: invert(80%);
+    }
+
+    &.gray-mode {
+      filter: grayscale(100%);
+      filter: progid:dximagetransform.microsoft.basicimage(grayscale=1);
+    }
+  }
+
+  // remove the clear button of a text input control in IE10+
+  input::-ms-clear,
+  input::-ms-reveal {
+    display: none;
+  }
+
+  body {
+    // 重置文本样式
+    .reset-text();
+
+    // font-size: @--base-font-size;
+    // color: @--norm-text-color;
+    // background-color: @--norm-background-dark-color !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 500;
+    color: @heading-color;
+  }
+
+  ul,
+  ol {
+    list-style: none;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  img {
+    vertical-align: top;
+    border: 0;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  a:focus,
+  a:active {
+    outline: none;
+  }
+
+  i,
+  em {
+    font-style: normal;
+  }
+
+  div:focus {
+    outline: none;
+  }
+
+  a {
+    color: @link-color;
+    text-decoration: @link-decoration;
+    cursor: pointer;
+    background-color: transparent; // remove the gray background on active links in IE 10.
+    outline: none;
+    transition: color 0.3s;
+    -webkit-text-decoration-skip: objects; // remove gaps in links underline in iOS 8+ and Safari 8+.
+
+    &:hover {
+      color: @link-hover-color;
+    }
+
+    &:active {
+      color: @link-active-color;
+    }
+
+    &:active,
+    &:hover {
+      text-decoration: @link-hover-decoration;
+      outline: 0;
+    }
+
+    &[disabled] {
+      color: @disabled-color;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.reset-layout() {
+  .ant-layout {
+    background: #f1f1f6 !important;
+
+    &-content {
+      position: relative;
+      overflow: hidden;
+    }
+  }
+}

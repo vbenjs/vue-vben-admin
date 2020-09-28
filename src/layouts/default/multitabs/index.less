@@ -1,0 +1,135 @@
+@import (reference) '../../../design/index.less';
+
+.multiple-tabs {
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+
+  .ant-tabs-small {
+    height: @multiple-height;
+  }
+
+  .ant-tabs.ant-tabs-card {
+    .ant-tabs-card-bar {
+      height: @multiple-height;
+      margin: 0;
+      background: @white;
+      border: 0;
+      box-shadow: 0 4px 26px 1px rgba(0, 0, 0, 0.08);
+
+      .ant-tabs-nav-container {
+        height: @multiple-height;
+        padding-top: 2px;
+      }
+
+      .ant-tabs-tab {
+        height: calc(@multiple-height - 2px);
+        font-size: 14px;
+        line-height: calc(@multiple-height - 2px);
+        color: @text-color-call-out;
+        background: @white;
+        border: 1px solid @border-color-shallow-dark;
+        border-radius: 4px 4px 0 0;
+        transition: none;
+
+        .ant-tabs-close-x {
+          color: inherit;
+        }
+
+        svg {
+          fill: @text-color-base;
+        }
+
+        &::before {
+          position: absolute;
+          top: -2px;
+          right: 0;
+          left: 0;
+          height: 4px;
+          background-color: @primary-color;
+          border-radius: 16px 6px 0 0;
+          content: '';
+          transform: scaleX(0);
+          transform-origin: bottom right;
+        }
+
+        &:hover::before {
+          transform: scaleX(1);
+          transition: transform 0.4s ease;
+          transform-origin: bottom left;
+        }
+      }
+
+      .ant-tabs-tab-active {
+        height: calc(@multiple-height - 3px);
+        color: @white;
+        // background: @primary-color;
+        background: linear-gradient(
+          118deg,
+          rgba(@primary-color, 0.8),
+          rgba(@primary-color, 1)
+        ) !important;
+        border: 0;
+        box-shadow: 0 0 6px 1px rgba(@primary-color, 0.4);
+
+        &::before {
+          display: none;
+        }
+
+        svg {
+          fill: @white;
+        }
+      }
+    }
+
+    .ant-tabs-nav > div:nth-child(1) {
+      padding: 0 10px;
+    }
+
+    .ant-tabs-tab-prev,
+    .ant-tabs-tab-next {
+      color: @border-color-dark;
+      background: @white;
+    }
+  }
+
+  .ant-tabs-tab:not(.ant-tabs-tab-active) {
+    .anticon-close {
+      font-size: 12px;
+
+      svg {
+        width: 0.8em;
+      }
+    }
+
+    &:hover {
+      .anticon-close {
+        color: @white;
+      }
+    }
+  }
+}
+
+.multiple-tabs-content {
+  &__extra {
+    display: inline-block;
+    width: @multiple-height;
+    height: @multiple-height;
+    line-height: @multiple-height;
+    color: @primary-color;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+
+    span[role='img'] {
+      transform: rotate(90deg);
+    }
+  }
+
+  &__content {
+    display: inline-block;
+    width: 100%;
+    padding-left: 10px;
+    margin-left: -10px;
+    cursor: pointer;
+    user-select: none;
+  }
+}

@@ -1,0 +1,58 @@
+.setPlaceholder(@prefix,@color:@text-color-help-dark) {
+  // input
+  @{prefix}::-webkit-input-placeholder {
+    color: @color;
+  }
+  @{prefix}::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: @color;
+  }
+  @{prefix}:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: @color;
+  }
+  @{prefix}:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: @color;
+  }
+}
+// 文本截断
+.text-truncate() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 强制不换行 */
+.word-nowrap() {
+  word-wrap: normal;
+  white-space: nowrap;
+}
+
+/* 强制换行 */
+.break-all() {
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+// 禁止选中
+.unselect() {
+  cursor: pointer;
+  user-select: none;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: normal;
+  white-space: nowrap;
+}
+
+/* 适用于webkit内核和移动端 */
+.ellipsis-multiple(@num: 1) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @num;
+}
