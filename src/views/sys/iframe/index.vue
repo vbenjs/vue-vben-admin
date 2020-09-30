@@ -1,7 +1,6 @@
 <template>
   <div class="iframe-page" :style="getWrapStyle">
     <Spin :spinning="loading" size="large" :style="getWrapStyle">
-      <div class="iframe-page__mask" v-show="menuStore.getDragStartState" />
       <iframe :src="frameSrc" class="iframe-page__main" ref="frameRef" />
     </Spin>
   </div>
@@ -12,7 +11,7 @@
 
   import { getViewportOffset } from '/@/utils/domUtils';
   import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
-  import { menuStore } from '/@/store/modules/menu';
+
   export default defineComponent({
     name: 'IFrame',
     components: { Spin },
@@ -76,7 +75,6 @@
         }),
         loading: loadingRef,
         frameRef,
-        menuStore,
       };
     },
   });

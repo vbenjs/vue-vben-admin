@@ -189,14 +189,13 @@ export default defineComponent({
       const bindValue = {
         [isCheck ? 'checked' : 'value']: (props.formModel as any)[field],
       };
+      if (!renderComponentContent) {
+        return <Comp {...propsData} {...on} {...bindValue} />;
+      }
       return (
         <Comp {...propsData} {...on} {...bindValue}>
           {{
-            ...(renderComponentContent
-              ? renderComponentContent(unref(getValuesRef))
-              : {
-                  default: () => '',
-                }),
+            ...renderComponentContent(unref(getValuesRef)),
           }}
         </Comp>
       );

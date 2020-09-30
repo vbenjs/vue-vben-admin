@@ -27,6 +27,7 @@ export default {
       },
       meta: {
         title: '404',
+        afterCloseLoading: true,
       },
     },
     {
@@ -38,6 +39,7 @@ export default {
       },
       meta: {
         title: '500',
+        afterCloseLoading: true,
       },
     },
     {
@@ -49,6 +51,7 @@ export default {
       },
       meta: {
         title: '网络错误',
+        afterCloseLoading: true,
       },
     },
     {
@@ -60,6 +63,7 @@ export default {
       },
       meta: {
         title: '页面超时',
+        afterCloseLoading: true,
       },
     },
     {
@@ -71,6 +75,7 @@ export default {
       },
       meta: {
         title: '无数据',
+        afterCloseLoading: true,
       },
     },
   ],

@@ -1,4 +1,4 @@
-import { REDIRECT_ROUTE } from './../../router/constant';
+import { REDIRECT_ROUTE } from '/@/router/constant';
 import type { AppRouteRecordRaw, Menu } from '/@/router/types';
 import store from '/@/store/index';
 import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
@@ -19,7 +19,7 @@ import { genRouteModule, transformObjToRoute } from '/@/utils/helper/routeHelper
 import { transformRouteToMenu } from '/@/utils/helper/menuHelper';
 
 import { useMessage } from '/@/hooks/web/useMessage';
-
+import { warn } from 'vue';
 const { createMessage } = useMessage();
 const NAME = 'permission';
 hotModuleUnregisterModule(NAME);
@@ -107,7 +107,7 @@ class Permission extends VuexModule {
       });
       // this.commitRoutesState(routes);
       // Background permissions
-      console.warn(
+      warn(
         `当前权限模式为:${PermissionModeEnum.ROLE},请将src/store/modules/permission.ts内的后台菜单获取函数注释,如果已注释可以忽略此信息!`
       );
       //  如果确定不需要做后台动态权限,请将下面整个判断注释

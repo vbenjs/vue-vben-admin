@@ -48,7 +48,7 @@
   import { isArray, isBoolean, isFunction, isNumber, isObject, isString } from '/@/utils/is';
   import { cloneDeep } from 'lodash-es';
   import { useBreakpoint } from '/@/hooks/event/useBreakpoint';
-  import { useThrottle } from '/@/hooks/core/useThrottle';
+  // import { useThrottle } from '/@/hooks/core/useThrottle';
   import { useFormValues } from './hooks/useFormValues';
   import type { ColEx } from './types';
   import { NamePath } from 'ant-design-vue/types/form/form-item';
@@ -163,13 +163,13 @@
       });
 
       const { realWidthRef, screenEnum, screenRef } = useBreakpoint();
-      const [throttleUpdateAdvanced] = useThrottle(updateAdvanced, 30, { immediate: true });
+      // const [throttleUpdateAdvanced] = useThrottle(updateAdvanced, 30, { immediate: true });
       watch(
         [() => unref(getSchema), () => advanceState.isAdvanced, () => unref(realWidthRef)],
         () => {
           const { showAdvancedButton } = unref(getProps);
           if (showAdvancedButton) {
-            throttleUpdateAdvanced();
+            updateAdvanced();
           }
         },
         { immediate: true }

@@ -28,12 +28,15 @@ export function createPageLoadingGuard(router: Router) {
     }
     return true;
   });
-  router.afterEach(async () => {
+  router.afterEach(async (to) => {
     const { openRouterTransition, openPageLoading } = appStore.getProjectConfig;
-    if ((!openRouterTransition && openPageLoading) || isFirstLoad) {
-      appStore.commitPageLoadingState(false);
+    if ((!openRouterTransition && openPageLoading) || isFirstLoad || to.meta.afterCloseLoading) {
+      setTimeout(() => {
+        appStore.commitPageLoadingState(false);
+      }, 110);
       isFirstLoad = false;
     }
+
     return true;
   });
 }

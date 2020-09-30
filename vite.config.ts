@@ -51,7 +51,7 @@ const viteConfig: UserConfig = {
    */
   port: 3100,
   /**
-   * 运行自动打开浏览器
+   * 运行自动打开浏览器·
    * @default 'false'
    */
   open: false,
@@ -88,9 +88,9 @@ const viteConfig: UserConfig = {
   assetsInlineLimit: 4096,
   /**
    * esbuild转换目标。
-   * @default 'es2020'
+   * @default 'es2019'
    */
-  esbuildTarget: 'es2020',
+  esbuildTarget: 'es2019',
 
   // 别名
   alias: {

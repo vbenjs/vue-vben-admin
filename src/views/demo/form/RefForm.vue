@@ -58,6 +58,7 @@
       <BasicForm
         :schemas="schemas"
         ref="formElRef"
+        :labelWidth="100"
         @submit="handleSubmit"
         :actionColOptions="{ span: 24 }"
       />

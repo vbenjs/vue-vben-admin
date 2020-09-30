@@ -68,7 +68,7 @@ export default defineComponent({
                 {showLogo && !isSidebarType && <Logo class={`layout-header__logo`} />}
 
                 {mode !== MenuModeEnum.HORIZONTAL && showBreadCrumb && !splitMenu && (
-                  <LayoutBreadcrumb class="flex-grow " />
+                  <LayoutBreadcrumb />
                 )}
                 {(mode === MenuModeEnum.HORIZONTAL || splitMenu) && (
                   <div class={[`layout-header__menu flex-grow `, `justify-${topMenuAlign}`]}>

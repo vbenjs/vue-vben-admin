@@ -161,6 +161,7 @@ export default defineComponent({
       const treeData: any = cloneDeep(unref(treeDataRef));
       if (!parentKey) {
         treeData[push](node);
+        treeDataRef.value = treeData;
         return;
       }
       const { key: keyField, children: childrenField } = unref(getReplaceFields);

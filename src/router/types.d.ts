@@ -26,6 +26,9 @@ export interface RouteMeta {
 
   // disabled redirect
   disabledRedirect?: boolean;
+
+  // close loading
+  afterCloseLoading?: boolean;
 }
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {

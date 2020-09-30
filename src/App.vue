@@ -30,7 +30,6 @@
       createBreakpointListen();
       const { renderEmpty, transformCellText } = useConfigProvider();
       const { on: lockOn } = useLockPage();
-
       return {
         renderEmpty,
         transformCellText,
