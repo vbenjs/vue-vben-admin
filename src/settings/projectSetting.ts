@@ -111,6 +111,9 @@ const setting: ProjectConfig = {
   // 是否开启回到顶部
   useOpenBackTop: true,
 
+  // 开启顶部进度条
+  openNProgress: isProdMode(),
+
   //  是否可以嵌入iframe页面
   canEmbedIFramePage: true,
 };

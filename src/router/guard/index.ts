@@ -6,9 +6,12 @@ import { createPageTitleGuard } from './pageTitleGuard';
 import { createProgressGuard } from './progressGuard';
 import { createPermissionGuard } from './permissionGuard';
 import { createPageLoadingGuard } from './pageLoadingGuard';
+import { useSetting } from '/@/hooks/core/useSetting';
 
-const axiosCanceler = new AxiosCanceler();
+const { projectSetting } = useSetting();
 export function createGuard(router: Router) {
+  const axiosCanceler = new AxiosCanceler();
+
   router.beforeEach(async () => {
     try {
       Modal.destroyAll();
@@ -20,7 +23,7 @@ export function createGuard(router: Router) {
       console.warn('basic guard error:' + error);
     }
   });
-  createProgressGuard(router);
+  projectSetting.openNProgress && createProgressGuard(router);
   createPermissionGuard(router);
   createPageTitleGuard(router);
   createPageLoadingGuard(router);

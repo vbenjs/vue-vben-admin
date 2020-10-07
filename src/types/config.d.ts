@@ -98,6 +98,8 @@ export interface ProjectConfig {
   openPageLoading: boolean;
   // 是否开启回到顶部
   useOpenBackTop: boolean;
+  // 开启顶部进度条
+  openNProgress: boolean;
   // 是否可以嵌入iframe页面
   canEmbedIFramePage: boolean;
 }
