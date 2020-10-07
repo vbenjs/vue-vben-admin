@@ -16,8 +16,9 @@ import iframeDemo from './modules/demo/iframe';
 import compDemo from './modules/demo/comp';
 import permissionDemo from './modules/demo/permission';
 import featDemo from './modules/demo/feat';
+import pluginDemo from './modules/demo/plugin';
 
-const menuModules = [dashboardDemo, featDemo, exceptionDemo, iframeDemo, compDemo, permissionDemo];
+const menuModules = [dashboardDemo, featDemo, exceptionDemo, iframeDemo, compDemo, permissionDemo,pluginDemo];
 
 // ===========================
 // ==========Helper===========
