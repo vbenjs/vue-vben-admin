@@ -1,3 +1,14 @@
+# [2.0.0-beta.3](https://github.com/anncwb/vue-vben-admin/compare/2.0.0-beta.2...2.0.0-beta.3) (2020-10-07)
+
+### ✨ Features
+
+- **setting:** add openNProgress setting ([67d0ff0](https://github.com/anncwb/vue-vben-admin/commit/67d0ff0))
+- **table:** add table component ([faf3f46](https://github.com/anncwb/vue-vben-admin/commit/faf3f46))
+
+### 🎫 Chores
+
+- add github workflows ([5b0a21e](https://github.com/anncwb/vue-vben-admin/commit/5b0a21e))
+
 # [2.0.0-beta.2](https://github.com/anncwb/vue-vben-admin/compare/2.0.0-beta.1...2.0.0-beta.2) (2020-10-07)
 
 ### ✨ Features
