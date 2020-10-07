@@ -7,19 +7,17 @@
 
 **中文**
 
-该分支为2.0新分支，使用vue3进行开发。
+该分支为 2.0 新分支，使用 vue3 进行开发。
 
-1.0分支请切换到`master`分支。1.0采用`vue2.6`+`vue-composition-api`+`vue-cli`开发
+1.0 分支请切换到`master`分支。1.0 采用`vue2.6`+`vue-composition-api`+`vue-cli`开发
 
 一个适合开发中大型项目的基础框架，需要对`vue`,`typescript`有一定的了解,也可以作为了解新写法的一个例子来看，提前适应后续新版本的开发方式
 
 项目基于`ant-design-vue`,`typescript`,`vue3.0`,`vite`,`tailwindcss`,`tsx`实现的 vue3 风格的后台管理系统，
 
-
 ### gitHub 地址
 
 [vue-vben-admin2.0](https://github.com/anncwb/vue-vben-admin)
-
 
 <p align="center">
     <img alt="VbenAdmin Logo" width="100%" src="./build/docs/imgs/preview1.png">
@@ -29,11 +27,7 @@
 
 ### 文档
 
-2.0文档还没开始写。后续补上。。
-
-
-
-
+2.0 文档还没开始写。后续补上。。
 
 ## 使用到的技术
 
@@ -84,7 +78,6 @@ VSCode 插件
 - `stylelint`: 样式代码检查
 - `Prettier - Code formatter`:代码格式化
 
-
 ## 安装
 
 ```js
@@ -122,7 +115,6 @@ yarn build:no-cache # 打包 不会使用hardSource进行打包
 yarn report # 生成构建包表表预览
 ```
 
-
 ### 格式化
 
 ```bash
@@ -158,7 +150,6 @@ yarn log # 生成CHANGELOG
   - `ci` 持续集成
   - `mod` 不确定分类的修改
   - `wip` 删除文件
-
 
 ## 代码贡献
 
@@ -205,20 +196,19 @@ yarn log # 生成CHANGELOG
 - [x] 树组件
 - [x] 系统性能优化
 - [x] 兼容最新`vuex`,`vue-router`
-- [] 图片预览组件
+- [x] 图片预览组件
+- [ ] 表格组件
+- [ ] 可编辑表格
 - [ ] 图表库
 - [ ] 数字动画
 - [ ] 主题配置
-- [ ] 表格组件
 - [ ] 富文本组件
 - [ ] 首屏加载等待动画
 - [ ] 上传组件
-- [ ] 可编辑表格
 - [ ] 数据导入导出
-- [ ] 搭建`vite`版本
-- [ ] 懒加载组件
 - [ ] 黑暗主题
-- [ ] 更多组件/功能/建议/bug/欢迎提交 pr 或者 issue
+
+更多组件/功能/建议/bug/欢迎提交 pr 或者 issue
 
 ## 加入我们
 

@@ -30,5 +30,5 @@ categories:
       - 'workflow'
 change-template: '- $TITLE (#$NUMBER) @$AUTHOR'
 template: |
-  # Changes
+  # What's Changed
   $CHANGES

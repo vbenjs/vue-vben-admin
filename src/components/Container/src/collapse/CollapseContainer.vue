@@ -6,7 +6,7 @@
       <div class="collapse-container__body" v-else v-show="show">
         <LazyContainer :timeout="lazyTime" v-if="lazy">
           <slot />
-          <template v-slot:skeleton>
+          <template #skeleton>
             <slot name="lazySkeleton" />
           </template>
         </LazyContainer>

@@ -9,8 +9,8 @@
           :allDefaultValues="getAllDefaultValues"
           :formModel="formModel"
         >
-          <template v-slot:[item] v-for="item in Object.keys($slots)">
-            <slot :name="item" />
+          <template #[item]="data" v-for="item in Object.keys($slots)">
+            <slot :name="item" v-bind="data" />
           </template>
         </FormItem>
       </template>

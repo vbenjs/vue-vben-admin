@@ -1,10 +1,5 @@
 <template>
-  <ConfigProvider
-    :locale="zhCN"
-    :renderEmpty="renderEmpty"
-    :transformCellText="transformCellText"
-    v-bind="lockOn"
-  >
+  <ConfigProvider :locale="zhCN" :transformCellText="transformCellText" v-bind="lockOn">
     <router-view />
   </ConfigProvider>
 </template>
@@ -28,10 +23,9 @@
       useInitAppConfigStore();
       useListenerNetWork();
       createBreakpointListen();
-      const { renderEmpty, transformCellText } = useConfigProvider();
+      const { transformCellText } = useConfigProvider();
       const { on: lockOn } = useLockPage();
       return {
-        renderEmpty,
         transformCellText,
         zhCN,
         lockOn,

@@ -1,98 +1,96 @@
-body {
-  .ant-pagination {
-    &.mini {
+.ant-pagination {
+  &.mini {
+    height: 20px;
+    font-size: 13px;
+
+    .ant-pagination-prev,
+    .ant-pagination-next {
+      width: 20px;
       height: 20px;
+      min-width: 20px;
+      line-height: 20px;
+      color: @border-color-shallow-dark;
+      border: 1px solid;
+    }
+
+    .ant-pagination-prev:hover,
+    .ant-pagination-next:hover,
+    .ant-pagination-item:focus,
+    .ant-pagination-item:hover {
+      color: @primary-color;
+      border: 1px solid @primary-color;
+    }
+
+    .ant-pagination-item {
+      height: 20px;
+      min-width: 20px;
+      margin: 0 3px;
+      line-height: 20px;
+
+      &:last-child {
+        margin-right: 0 !important;
+      }
+    }
+
+    .ant-pagination-item-active {
+      background: @primary-color;
+
+      a {
+        color: @white;
+      }
+    }
+
+    .ant-pagination-options {
+      margin-left: 20px;
+    }
+
+    .ant-select-sm .ant-select-selection--single {
+      height: 20px;
+    }
+
+    .ant-pagination-options,
+    .ant-pagination-total-text,
+    .ant-pagination-options-quick-jumper {
+      height: 20px;
+      line-height: 20px;
+    }
+
+    .ant-select-selection__rendered {
+      height: 18px;
+      line-height: 18px;
+    }
+
+    .ant-pagination-total-text,
+    .ant-select-selection__rendered,
+    .ant-select-dropdown-menu-item,
+    .ant-pagination-options-quick-jumper {
       font-size: 13px;
-
-      .ant-pagination-prev,
-      .ant-pagination-next {
-        width: 20px;
-        height: 20px;
-        min-width: 20px;
-        line-height: 17px;
-        color: @border-color-shallow-dark;
-        border: 1px solid;
-      }
-
-      .ant-pagination-prev:hover,
-      .ant-pagination-next:hover,
-      .ant-pagination-item:focus,
-      .ant-pagination-item:hover {
-        color: @primary-color;
-        border: 1px solid @primary-color;
-      }
-
-      .ant-pagination-item {
-        height: 20px;
-        min-width: 20px;
-        margin: 0 3px;
-        line-height: 20px;
-
-        &:last-child {
-          margin-right: 0 !important;
-        }
-      }
-
-      .ant-pagination-item-active {
-        background: @primary-color;
-
-        a {
-          color: @white;
-        }
-      }
-
-      .ant-pagination-options {
-        margin-left: 20px;
-      }
-
-      .ant-select-sm .ant-select-selection--single {
-        height: 20px;
-      }
-
-      .ant-pagination-options,
-      .ant-pagination-total-text,
-      .ant-pagination-options-quick-jumper {
-        height: 20px;
-        line-height: 20px;
-      }
-
-      .ant-select-selection__rendered {
-        height: 18px;
-        line-height: 18px;
-      }
-
-      .ant-pagination-total-text,
-      .ant-select-selection__rendered,
-      .ant-select-dropdown-menu-item,
-      .ant-pagination-options-quick-jumper {
-        font-size: 13px;
-      }
-
-      .ant-pagination-options-quick-jumper input {
-        width: 40px;
-        height: 20px;
-        margin: 0 6px;
-        line-height: 20px;
-        text-align: center;
-      }
-
-      .ant-pagination-jump-prev,
-      .ant-pagination-jump-next {
-        height: 20px;
-        line-height: 20px;
-      }
-
-      .ant-pagination-options-size-changer.ant-select {
-        margin-right: 20px;
-      }
-
-      .ant-select-arrow {
-        color: @border-color-shallow-dark;
-      }
     }
 
-    &-disabled {
-      display: none;
+    .ant-pagination-options-quick-jumper input {
+      width: 40px;
+      height: 20px;
+      margin: 0 6px;
+      line-height: 20px;
+      text-align: center;
     }
+
+    .ant-pagination-jump-prev,
+    .ant-pagination-jump-next {
+      height: 20px;
+      line-height: 20px;
+    }
+
+    .ant-pagination-options-size-changer.ant-select {
+      margin-right: 20px;
+    }
+
+    .ant-select-arrow {
+      color: @border-color-shallow-dark;
+    }
+  }
+
+  &-disabled {
+    display: none;
   }
 }

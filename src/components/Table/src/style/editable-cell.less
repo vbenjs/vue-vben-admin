@@ -1,0 +1,41 @@
+@import (reference) '../../../../design/index.less';
+
+@prefix-cls: ~'editable-cell';
+
+.@{prefix-cls} {
+  position: relative;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon {
+    &:hover {
+      transform: scale(1.2);
+
+      svg {
+        color: @primary-color;
+      }
+    }
+  }
+
+  &__normal {
+    padding-right: 48px;
+
+    &-icon {
+      position: absolute;
+      top: 4px;
+      right: 0;
+      display: none;
+      width: 20px;
+      cursor: pointer;
+    }
+  }
+
+  &:hover {
+    .@{prefix-cls}__normal-icon {
+      display: inline-block;
+    }
+  }
+}

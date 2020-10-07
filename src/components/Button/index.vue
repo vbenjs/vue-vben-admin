@@ -1,7 +1,7 @@
 <template>
   <Button v-bind="getBindValue" :class="[getColor, $attrs.class]">
-    <template v-slot:[item] v-for="item in Object.keys($slots)">
-      <slot :name="item" />
+    <template #[item]="data" v-for="item in Object.keys($slots)">
+      <slot :name="item" v-bind="data" />
     </template>
   </Button>
 </template>

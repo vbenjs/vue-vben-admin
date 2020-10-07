@@ -2,8 +2,6 @@ import type { ProjectConfig } from '/@/types/config';
 
 import { computed, ref } from 'vue';
 
-import { BasicEmpty } from '/@/components/Basic';
-
 import { ThemeModeEnum } from '/@/enums/appEnum';
 import { PROJ_CFG_KEY } from '/@/enums/cacheEnum';
 
@@ -59,10 +57,6 @@ export function useInitAppConfigStore() {
 
 // Config Provider
 export function useConfigProvider() {
-  function renderEmpty() {
-    return <BasicEmpty />;
-  }
-
   function transformCellText({ text }: { text: string }) {
     if (isNull(text) || isUnDef(text)) {
       return ' - ';
@@ -70,7 +64,6 @@ export function useConfigProvider() {
     return text;
   }
   return {
-    renderEmpty,
     transformCellText,
   };
 }

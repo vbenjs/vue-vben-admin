@@ -25,7 +25,7 @@
 
     <div class="flex justify-center p-4 items-center bg-gray-700">
       <BasicDragVerify ref="el4" @success="handleSuccess">
-        <template v-slot:actionIcon="isPassing">
+        <template #actionIcon="isPassing">
           <BugOutlined v-if="isPassing" />
           <RightOutlined v-else />
         </template>
@@ -35,7 +35,7 @@
 
     <div class="flex justify-center p-4 items-center bg-gray-700">
       <BasicDragVerify ref="el5" @success="handleSuccess">
-        <template v-slot:text="isPassing">
+        <template #text="isPassing">
           <div v-if="isPassing">
             <BugOutlined />
             成功

@@ -43,11 +43,16 @@
 
     &.right {
       transform: rotate(0deg);
+
+      > span {
+        transition: all 0.3s ease 0.1s !important;
+      }
     }
 
     &__active {
-      transform: rotate(90deg) !important;
-      transition: all 0.3s ease 0.1s !important;
+      > span {
+        transform: rotate(90deg) !important;
+      }
     }
   }
 </style>

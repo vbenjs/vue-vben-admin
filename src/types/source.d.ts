@@ -1,4 +1,5 @@
 declare module 'ant-design-vue/es/locale/zh_CN';
+declare module 'vue-draggable-resizable';
 declare const React: string;
 declare module '*.bmp' {
   const src: string;

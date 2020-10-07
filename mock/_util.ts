@@ -9,12 +9,19 @@ export function resultSuccess<T = any>(result: T, { message = 'ok' } = {}) {
   };
 }
 
-export function resultPageSuccess<T = any>(items: T[], total: number, { message = 'ok' } = {}) {
+export function resultPageSuccess<T = any>(
+  page: number,
+  pageSize: number,
+  list: T[],
+  { message = 'ok' } = {}
+) {
+  const pageData = pagination(page, pageSize, list);
+
   return {
     code: 0,
     result: {
-      items,
-      total,
+      items: pageData,
+      total: list.length,
     },
     message,
     type: 'success',
