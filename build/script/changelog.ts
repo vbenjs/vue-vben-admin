@@ -5,8 +5,7 @@ import chalk from 'chalk';
 
 const createChangeLog = async () => {
   try {
-    let cmd = `conventional-changelog -p angular -i CHANGELOG.md -s -r 0 `;
-    // let cmd = `conventional-changelog -p angular -i CHANGELOG.md -s -r 0 `;
+    let cmd = `conventional-changelog -p custom-config -i CHANGELOG.md -s -r 0 `;
     // if (shell.which('git')) {
     //   cmd += '&& git add CHANGELOG.md';
     // }

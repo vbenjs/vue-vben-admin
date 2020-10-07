@@ -1,6 +1,6 @@
 {
   "name": "vben-admin-2.0",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "scripts": {
     "bootstrap": "yarn install",
     "serve": "ts-node --project ./build/tsconfig.json  ./build/script/preserve && cross-env NODE_ENV=development vite",
@@ -58,6 +58,7 @@
     "babel-plugin-import": "^1.13.0",
     "commitizen": "^4.2.1",
     "conventional-changelog-cli": "^2.1.0",
+    "conventional-changelog-custom-config": "^0.3.1",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "eslint": "^7.10.0",
@@ -91,6 +92,21 @@
     "vite-plugin-mock": "^1.0.2",
     "vite-plugin-purge-icons": "^0.4.1",
     "vue-eslint-parser": "^7.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anncwb/vue-vben-admin.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anncwb/vue-vben-admin/issues"
+  },
+  "homepage": "https://github.com/anncwb/vue-vben-admin",
+  "changelog": {
+    "bugsUrl": "https://github.com/anncwb/vue-vben-admin/issues",
+    "emojis": true,
+    "authorName": false,
+    "authorEmail": false
   },
   "husky": {
     "hooks": {

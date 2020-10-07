@@ -1889,6 +1889,11 @@ conventional-changelog-core@^4.2.0:
     shelljs "^0.8.3"
     through2 "^3.0.0"
 
+conventional-changelog-custom-config@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.npm.taobao.org/conventional-changelog-custom-config/download/conventional-changelog-custom-config-0.3.1.tgz#4a6433138d602a2b7ecc81729feb6fa1855bff7b"
+  integrity sha1-SmQzE41gKit+zIFyn+tvoYVb/3s=
+
 conventional-changelog-ember@^2.0.8:
   version "2.0.8"
   resolved "https://registry.npm.taobao.org/conventional-changelog-ember/download/conventional-changelog-ember-2.0.8.tgz#f0f04eb7ff3c885af97db100865ab95dcfa9917f"
