@@ -1,6 +1,4 @@
-import { defineComponent, ref, unref, computed, reactive, watch } from 'vue';
-
-import { FadeTransition } from '/@/components/Transition/index';
+import { defineComponent, ref, unref, computed, reactive, watchEffect } from 'vue';
 
 import { basicProps } from './props';
 import { Props } from './types';
@@ -11,9 +9,9 @@ import { CloseOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons-vu
 import resumeSvg from '/@/assets/svg/preview/resume.svg';
 import rotateSvg from '/@/assets/svg/preview/p-rotate.svg';
 import scaleSvg from '/@/assets/svg/preview/scale.svg';
-import unscaleSvg from '/@/assets/svg/preview/unscale.svg';
+import unScaleSvg from '/@/assets/svg/preview/unscale.svg';
 import loadingSvg from '/@/assets/images/loading.svg';
-import unrotateSvg from '/@/assets/svg/preview/unrotate.svg';
+import unRotateSvg from '/@/assets/svg/preview/unrotate.svg';
 enum StatueEnum {
   LOADING,
   DONE,
@@ -29,6 +27,7 @@ interface ImgState {
   status: StatueEnum;
   moveX: number;
   moveY: number;
+  show: boolean;
 }
 
 const prefixCls = 'img-preview';
@@ -46,7 +45,9 @@ export default defineComponent({
       currentIndex: 0,
       moveX: 0,
       moveY: 0,
+      show: props.show,
     });
+
     const wrapElRef = ref<HTMLDivElement | null>(null);
     const imgElRef = ref<HTMLImageElement | null>(null);
 
@@ -133,16 +134,15 @@ export default defineComponent({
     }
 
     // 关闭
-    function handleClose() {
-      const { instance } = props;
-      if (instance) {
-        instance.show = false;
-      }
+    function handleClose(e: MouseEvent) {
+      e && e.stopPropagation();
+      imgState.show = false;
       // 移除火狐浏览器下的鼠标滚动事件
       document.body.removeEventListener('DOMMouseScroll', scrollFunc);
       // 恢复火狐及Safari浏览器下的图片拖拽
       document.ondragstart = null;
     }
+
     // 图片复原
     function resume() {
       initState();
@@ -202,26 +202,15 @@ export default defineComponent({
       const { imageList } = props;
       return imageList.length > 1;
     });
-    watch(
-      () => props.show,
-      (show) => {
-        if (show) {
-          init();
-        }
-      },
-      {
-        immediate: true,
+
+    watchEffect(() => {
+      if (props.show) {
+        init();
       }
-    );
-    watch(
-      () => props.imageList,
-      () => {
+      if (props.imageList) {
         initState();
-      },
-      {
-        immediate: true,
       }
-    );
+    });
 
     const renderClose = () => {
       return (
@@ -247,7 +236,7 @@ export default defineComponent({
       return (
         <div class={`${prefixCls}__controller`}>
           <div class={`${prefixCls}__controller-item`} onClick={() => scaleFunc(-0.15)}>
-            <img src={unscaleSvg} />
+            <img src={unScaleSvg} />
           </div>
           <div class={`${prefixCls}__controller-item`} onClick={() => scaleFunc(0.15)}>
             <img src={scaleSvg} />
@@ -256,7 +245,7 @@ export default defineComponent({
             <img src={resumeSvg} />
           </div>
           <div class={`${prefixCls}__controller-item`} onClick={() => rotateFunc(-90)}>
-            <img src={unrotateSvg} />
+            <img src={unRotateSvg} />
           </div>
           <div class={`${prefixCls}__controller-item`} onClick={() => rotateFunc(90)}>
             <img src={rotateSvg} />
@@ -277,41 +266,32 @@ export default defineComponent({
     };
     return () => {
       return (
-        <FadeTransition>
-          {() =>
-            props.show && (
-              <div class={prefixCls} ref={wrapElRef} onMouseup={handleMouseUp}>
-                <div class={`${prefixCls}-content`}>
-                  <img
-                    width="32"
-                    src={loadingSvg}
-                    v-show={imgState.status === StatueEnum.LOADING}
-                    class={`${prefixCls}-image`}
-                  />
-                  <img
-                    v-show={imgState.status === StatueEnum.DONE}
-                    style={unref(getImageStyle)}
-                    class={`${prefixCls}-image`}
-                    ref={imgElRef}
-                    src={imgState.currentUrl}
-                    onMousedown={handleAddMoveListener}
-                  />
-                  <img
-                    width="32"
-                    src={loadingSvg}
-                    v-show={imgState.status === StatueEnum.LOADING}
-                    class={`${prefixCls}-image`}
-                  />
-                  {renderClose()}
-                  {renderIndex()}
-                  {renderController()}
-                  {renderArrow('left')}
-                  {renderArrow('right')}
-                </div>
-              </div>
-            )
-          }
-        </FadeTransition>
+        imgState.show && (
+          <div class={prefixCls} ref={wrapElRef} onMouseup={handleMouseUp}>
+            <div class={`${prefixCls}-content`}>
+              <img
+                width="32"
+                src={loadingSvg}
+                class={[
+                  `${prefixCls}-image`,
+                  imgState.status === StatueEnum.LOADING ? '' : 'hidden',
+                ]}
+              />
+              <img
+                style={unref(getImageStyle)}
+                class={[`${prefixCls}-image`, imgState.status === StatueEnum.DONE ? '' : 'hidden']}
+                ref={imgElRef}
+                src={imgState.currentUrl}
+                onMousedown={handleAddMoveListener}
+              />
+              {renderClose()}
+              {renderIndex()}
+              {renderController()}
+              {renderArrow('left')}
+              {renderArrow('right')}
+            </div>
+          </div>
+        )
       );
     };
   },

@@ -4,6 +4,8 @@
     <div class="flex justify-center mt-4">
       <img :src="img" v-for="img in imgList" :key="img" class="mr-2" @click="handleClick(img)" />
     </div>
+    <Alert message="无预览图" type="info" />
+    <a-button @click="handlePreview" type="primary" class="mt-4">预览图片</a-button>
   </div>
 </template>
 <script lang="ts">
@@ -21,7 +23,11 @@
       function handleClick(img: string) {
         createImgPreview({ imageList: [img] });
       }
-      return { imgList, handleClick };
+
+      function handlePreview() {
+        createImgPreview({ imageList: imgList });
+      }
+      return { imgList, handleClick, handlePreview };
     },
   });
 </script>

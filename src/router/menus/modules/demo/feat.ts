@@ -13,10 +13,10 @@ const menu: MenuModule = {
         path: '/context-menu',
         name: '右键菜单',
       },
-      // {
-      //   path: '/img-preview',
-      //   name: '图片预览',
-      // },
+      {
+        path: '/img-preview',
+        name: '图片预览',
+      },
       {
         path: '/i18n',
         name: '国际化',
