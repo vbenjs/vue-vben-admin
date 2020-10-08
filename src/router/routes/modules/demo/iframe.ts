@@ -23,6 +23,7 @@ export default {
       meta: {
         frameSrc: 'https://2x.antdv.com/docs/vue/introduce-cn/',
         title: 'antVue文档(内嵌)',
+        afterCloseLoading: true,
       },
     },
     {
@@ -32,6 +33,7 @@ export default {
       meta: {
         frameSrc: 'https://vvbin.cn/docs/',
         title: '项目文档(内嵌)',
+        afterCloseLoading: true,
       },
     },
     {
