@@ -1,5 +1,5 @@
 @import (reference) '../../../../design/index.less';
-@border-color: hsla(0, 0%, 80.8%, 0.25);
+@border-color: #cecece4d;
 
 .basic-table {
   &-title {
@@ -93,7 +93,7 @@
   .ant-table-bordered .ant-table-body > table,
   .ant-table-bordered .ant-table-fixed-left table,
   .ant-table-bordered .ant-table-fixed-right table {
-    border: 1px solid @border-color;
+    border: 1px solid @border-color !important;
   }
 
   .ant-table-thead {
@@ -103,7 +103,7 @@
   }
 
   .ant-table-bordered .ant-table-tbody > tr > td {
-    border-bottom: 1px solid @border-color;
+    border-bottom: 1px solid @border-color !important;
 
     &:last-child {
       border-right: none !important;
@@ -129,7 +129,7 @@
 
   .ant-table-bordered .ant-table-thead > tr > th,
   .ant-table-bordered .ant-table-tbody > tr > td {
-    border-right: 1px solid @border-color;
+    border-right: 1px solid @border-color !important;
   }
 
   .ant-table-thead > tr > th,
@@ -153,7 +153,7 @@
   }
 
   .ant-table-fixed-right .ant-table-header {
-    border-left: 1px solid @border-color;
+    border-left: 1px solid @border-color !important;
 
     .ant-table-fixed {
       border-bottom: none;
@@ -187,7 +187,7 @@
   .ant-table-bordered .ant-table-thead > tr:not(:last-child) > th,
   .ant-table-tbody > tr > td {
     word-break: break-word;
-    border-color: @border-color;
+    border-color: @border-color !important;
   }
 
   .ant-table-footer {
