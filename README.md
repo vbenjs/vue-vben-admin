@@ -1,102 +1,125 @@
 <p align="center">
   <a href="https://github.com/anncwb/vue-vben-admin" target="_blank">
-    <img alt="VbenAdmin Logo" width="200" src="./docs/imgs/logo.png">
+    <img alt="VbenAdmin Logo" width="200" src="./.github/res/imgs/logo.png">
   </a>
 </p>
-<h2 align="center">VUE VBEN ADMIN</h2>
+<h2 align="center">VUE VBEN ADMIN2.0</h2>
 
-**中文**
-
-该分支为 2.0 新分支，使用 vue3 进行开发。
-
-1.0 分支请切换到`master`分支。1.0 采用`vue2.6`+`vue-composition-api`+`vue-cli`开发
-
-一个适合开发中大型项目的基础框架，需要对`vue`,`typescript`有一定的了解,也可以作为了解新写法的一个例子来看，提前适应后续新版本的开发方式
-
-项目基于`ant-design-vue`,`typescript`,`vue3.0`,`vite`,`tailwindcss`,`tsx`实现的 vue3 风格的后台管理系统，
-
-### gitHub 地址
-
-[vue-vben-admin2.0](https://github.com/anncwb/vue-vben-admin)
-
-<p align="center">
-    <img alt="VbenAdmin Logo" width="100%" src="./build/docs/imgs/preview1.png">
-    <img alt="VbenAdmin Logo" width="100%" src="./build/docs/imgs/preview2.png">
-    <img alt="VbenAdmin Logo" width="100%" src="./build/docs/imgs/preview3.png">
-</p>
-
-### 文档
-
-2.0 文档还没开始写。后续补上。。
-
-## 使用到的技术
-
-- vue3
-- composition-api:
-- vuex4
-- vuex-module-decorators
-- vue-router4
-- axios@0.19.2
-- ant-design-vue@2.x
-- mockjs
-- vue-i18n
-- moment
-- lodash
+**中文** | [English](./README-ES.md)
 
 [更新日志](CHANGELOG.md)
 
-- [使用到的技术](#使用到的技术)
-- [环境要求](#环境要求)
+- [介绍](#介绍)
+- [gitHub 地址](#github-地址)
+- [预览地址](#预览地址)
+- [文档](#文档)
+- [预安装](#预安装)
+  - [环境要求](#环境要求)
+  - [UI 框架](#ui-框架)
+  - [图标](#图标)
+  - [插件](#插件)
   - [建议开发环境](#建议开发环境)
 - [安装](#安装)
-- [命令参考(Terminal)](#命令参考terminal)
-  - [启动开发环境](#启动开发环境)
+- [使用](#使用)
+  - [开发环境](#开发环境)
   - [打包](#打包)
   - [格式化](#格式化)
   - [其他](#其他)
 - [Git 提交规范](#git-提交规范)
 - [代码贡献](#代码贡献)
-- [开发计划](#开发计划)
+- [已完成功能](#已完成功能)
+- [正在开发的功能](#正在开发的功能)
 - [加入我们](#加入我们)
--
 
-## 环境要求
+## 介绍
 
-- `Node.js`: >= v10
-- `yarn`: 最新
+该分支为 2.0 新分支，使用 vue3 进行开发。
+
+1.0 分支请切换到`master`分支。1.0 采用`vue2.6`+`vue-composition-api`+`vue-cli`开发
+
+项目基于`ant-design-vue`,`typescript`,`vue3.0`,`vite`,`tailwindcss`,`tsx`实现的 vue3 风格的后台管理系统，
+
+## gitHub 地址
+
+[vue-vben-admin2.0](https://github.com/anncwb/vue-vben-admin) - `main` 分支
+
+## 预览地址
+
+[2.0 在线预览](https://vvbin.cn/next/)
+
+<p align="center">
+    <img alt="VbenAdmin Logo" width="100%" src="./.github/res/imgs/preview1.png">
+    <img alt="VbenAdmin Logo" width="100%" src="./.github/res/imgs/preview2.png">
+    <img alt="VbenAdmin Logo" width="100%" src="./.github/res/imgs/preview3.png">
+</p>
+
+## 文档
+
+2.0 文档还没开始写。后续补上。
+
+## 预安装
+
+### 环境要求
+
+- `Node.js`: - 版本最好大于 `12.0.0`
+- `yarn` > `npm` > `cnpm`: - 包管理工具.
+
+### UI 框架
+
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Ant Design Vue 2.0](https://2x.antdv.com/docs/vue/introduce-cn/)
+
+### 图标
+
+- [Ant Design Vue Icon Component](https://2x.antdv.com/components/icon-cn/) - 按需引入所需图标.
+- [Iconify](https://iconify.design) - 使用任何图标集中的图标 [Icônes](https://icones.netlify.app/)
+- [PurgeIcons](https://github.com/antfu/purge-icons) - 仅打包所使用到的图标.
+
+### 插件
+
+- [Vue Router Next](https://github.com/vuejs/vue-router-next)
+- [Vuex Next](https://github.com/vuejs/vuex)
+- [vuex-module-decorators](https://github.com/championswimmer/vuex-module-decorators) - vuex 模块化
+- [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock) - 基于 vite 的 mock 插件.
+- [vue-i18n](https://github.com/intlify/vue-i18n-next) - 国际化
+- [lodash-es](https://github.com/lodash/lodash) - JavaScript 实用程序库
+- [moment](https://github.com/moment/moment) - 时间操作库
+- [axios](https://github.com/axios/axios) - Http 数据交互
+- [TypeScript](https://www.typescriptlang.org/)
 
 ### 建议开发环境
 
-- `Git`: 最新 代码管理
-- `Visual Studio Code` (VSCode): 最新 IDE
-
-VSCode 插件
-
-- `Vetur`: vue 开发必备
-- `GitLens`: Git 可视化工具
-- `ESLint`: 脚本代码检查
-- `stylelint`: 样式代码检查
-- `Prettier - Code formatter`:代码格式化
+- `Git`: - 版本管理工具
+- `Visual Studio Code` - (VSCode): 最新版本
+  - [VS Code Extensions](./.vscode/extensions.json)
+    - [Iconify IntelliSense](https://marketplace.visualstudio.com/items?itemName=antfu.iconify)
+    - [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) - Tailwind Css 样式联想
+    - [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) - vue 开发必备
+    - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - 脚本代码检查
+    - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - 代码格式化
+    - [Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint) - css 格式化
 
 ## 安装
 
 ```js
-git config core.ignorecase false # 使git对文件名大小写敏感
+//  使git对文件名大小写敏感
+git config core.ignorecase false
 
 // 拉取项目代码
 
-git clone https://github.com/anncwb/vue-vben-admin.git
+git clone https://github.com/anncwb/vue-vben-admin.git vue-vben-admin-2.0
 
-cd vue-vben-admin
+cd vue-vben-admin-2.0
 
-//  最好使用yarn，否则热更新可能出现问题
+// 如果使用别的包，可以执行安装
+// 如果未安装yarn，请运行：npm install -g yarn
 yarn install
 
 ```
 
-## 命令参考(Terminal)
+## 使用
 
-### 启动开发环境
+### 开发环境
 
 ```bash
 yarn serve
@@ -104,13 +127,11 @@ yarn serve
 
 ### 打包
 
-同时会生成文件名 `window-glob.js` 配置文件，项目配置可以动态修改该文件实时更新代码变量，比如接口地址
-
 ```bash
 
-yarn build # 打包 会使用hardSource进行打包
+yarn build # 打包
 
-yarn build:no-cache # 打包 不会使用hardSource进行打包
+yarn build:no-cache # 打包，执行之前会先删除缓存
 
 yarn report # 生成构建包表表预览
 ```
@@ -131,6 +152,10 @@ yarn reinstall # 删除依赖重新装，兼容window
 yarn preview # 本地进行打包预览
 
 yarn log # 生成CHANGELOG
+
+yarn clean:cache # 删除缓存
+
+yarn clean:lib # 删除node_modules，兼容window系统
 ```
 
 ## Git 提交规范
@@ -148,7 +173,7 @@ yarn log # 生成CHANGELOG
   - `chore` 依赖更新/脚手架配置修改等
   - `workflow` 工作流改进
   - `ci` 持续集成
-  - `mod` 不确定分类的修改
+  - `types` 类型定义文件更改
   - `wip` 删除文件
 
 ## 代码贡献
@@ -159,11 +184,7 @@ yarn log # 生成CHANGELOG
 4. 推送您的分支: `git push origin feat/xxxx`
 5. 提交`pull request`
 
-## 开发计划
-
-由于开发时间较短，所以功能暂时较少
-
-后续会逐步完善，有需要什么组件可以提出来
+## 已完成功能
 
 - [x] 项目搭建（基于 vite）
 - [x] 登录和注销
@@ -199,6 +220,10 @@ yarn log # 生成CHANGELOG
 - [x] 图片预览组件
 - [x] 表格组件
 - [x] 可编辑表格
+
+## 正在开发的功能
+
+- [ ] 全局错误处理
 - [ ] 图表库
 - [ ] 数字动画
 - [ ] 主题配置
@@ -207,6 +232,8 @@ yarn log # 生成CHANGELOG
 - [ ] 上传组件
 - [ ] 数据导入导出
 - [ ] 黑暗主题
+- [ ] 打包 Gzip
+- [ ] 抽取生产环境配置文件
 
 更多组件/功能/建议/bug/欢迎提交 pr 或者 issue
 
@@ -216,4 +243,4 @@ yarn log # 生成CHANGELOG
 
 - QQ 群 `569291866`
 
- <img alt="VbenAdmin Logo" width="100" src="./build/docs/imgs/qq.jpeg">
+ <img alt="VbenAdmin Logo" width="100" src="./.github/res/imgs/qq.jpeg">
