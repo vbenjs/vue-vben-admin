@@ -49,6 +49,7 @@ module.exports = {
         'revert',
         'wip',
         'workflow',
+        'types',
       ],
     ],
   },

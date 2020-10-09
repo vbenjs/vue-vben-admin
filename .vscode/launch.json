@@ -1,0 +1,48 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    // node环境调试当前激活编辑器ts/js代码
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "file",
+      "cwd": "${workspaceFolder}",
+      "program": "${file}",
+      // .vscode 目录又不认识了？？？
+      "preLaunchTask": "tsc: 监视 - build/tsconfig.json", // cn
+      // "preLaunchTask": "tsc: watch - build/tsconfig.json", // en
+      "outFiles": ["${workspaceFolder}/compile/**/*.js"]
+      // "args": ["--experimental-modules", "--loader", "./loader.mjs"]
+    },
+    // 调试开发环境脚本
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "dev",
+      // "stopOnEntry": true,
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/@vue/cli-service/bin/vue-cli-service.js",
+      "args": ["serve", "--open"]
+    },
+    // 调试生产环境脚本
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "build",
+      // "stopOnEntry": true,
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/@vue/cli-service/bin/vue-cli-service.js",
+      "args": ["build"]
+    },
+    // 调试单元测试脚本
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "test:unit",
+      // "stopOnEntry": true,
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/@vue/cli-service/bin/vue-cli-service.js",
+      "args": ["test:unit", "--detectOpenHandles"]
+    }
+  ]
+}
