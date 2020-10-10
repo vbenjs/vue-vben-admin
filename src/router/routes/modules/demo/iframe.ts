@@ -10,7 +10,7 @@ export default {
     component: PAGE_LAYOUT_COMPONENT,
     redirect: '/frame/antv',
     meta: {
-      icon: 'ant-design:home-outlined',
+      icon: 'mdi:page-next-outline',
       title: '外部页面',
     },
   },

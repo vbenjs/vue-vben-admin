@@ -29,16 +29,13 @@ export function useOpenKeys(
 
   function handleOpenChange(openKeys: string[]) {
     const rootSubMenuKeys: string[] = [];
-    for (const menu of unref(menus)) {
-      const { children, path } = menu;
+    for (const { children, path } of unref(menus)) {
       if (children && children.length > 0) {
         rootSubMenuKeys.push(path);
       }
     }
-
     if (!menuStore.getCollapsedState || !unref(isAppMenu)) {
       const latestOpenKey = openKeys.find((key) => menuState.openKeys.indexOf(key) === -1);
-
       if (rootSubMenuKeys.indexOf(latestOpenKey as string) === -1) {
         menuState.openKeys = openKeys;
       } else {

@@ -17,7 +17,7 @@
 
 ### `Checklist`
 
-> ℹ️ Check all checkboxes - this will indicate that you have done everything in accordance with the rules in [CONTRIBUTING](https://github.com/vuejs/awesome-vue/blob/master/.github/contributing.md).
+> ℹ️ Check all checkboxes - this will indicate that you have done everything in accordance with the rules in [CONTRIBUTING](contributing.md).
 
 > 👉 _Put an `x` in the boxes that apply._
 

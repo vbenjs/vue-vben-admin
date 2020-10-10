@@ -9,7 +9,7 @@ export default {
     component: PAGE_LAYOUT_COMPONENT,
     redirect: '/feat/tabs',
     meta: {
-      icon: 'ant-design:home-outlined',
+      icon: 'ic:outline-featured-play-list',
       title: 'Feat',
     },
   },

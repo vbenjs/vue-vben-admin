@@ -10,7 +10,7 @@ export default {
     component: PAGE_LAYOUT_COMPONENT,
     redirect: '/permission/front',
     meta: {
-      icon: 'ant-design:home-outlined',
+      icon: 'carbon:user-role',
       title: '权限管理',
     },
   },
