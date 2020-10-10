@@ -117,14 +117,14 @@ export interface GlobConfig {
 }
 export interface GlobEnvConfig {
   // 网站标题
-  GLOB_APP_TITLE: string;
+  VITE_GLOB_APP_TITLE: string;
 
   // 项目路径
-  GLOB_API_URL: string;
+  VITE_GLOB_API_URL: string;
 
-  GLOB_API_URL_PREFIX?: string;
+  VITE_GLOB_API_URL_PREFIX?: string;
 
-  GLOB_APP_SHORT_NAME: string;
+  VITE_GLOB_APP_SHORT_NAME: string;
 }
 
 //  修改配置

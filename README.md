@@ -111,7 +111,7 @@ git clone https://github.com/anncwb/vue-vben-admin.git vue-vben-admin-2.0
 
 cd vue-vben-admin-2.0
 
-// 如果使用别的包，可以执行安装
+// 如果使用别的包管理工具，可以自行安装
 // 如果未安装yarn，请运行：npm install -g yarn
 yarn install
 
@@ -174,7 +174,7 @@ yarn clean:lib # 删除node_modules，兼容window系统
   - `workflow` 工作流改进
   - `ci` 持续集成
   - `types` 类型定义文件更改
-  - `wip` 删除文件
+  - `wip` 开发中
 
 ## 代码贡献
 
@@ -212,10 +212,8 @@ yarn clean:lib # 删除node_modules，兼容window系统
 - [x] 二维码插件
 - [x] 国际化插件
 - [x] 详情组件
-- [x] 图片裁剪
 - [x] 验证码/验证组件
 - [x] 树组件
-- [x] 系统性能优化
 - [x] 兼容最新`vuex`,`vue-router`
 - [x] 图片预览组件
 - [x] 表格组件
@@ -234,6 +232,7 @@ yarn clean:lib # 删除node_modules，兼容window系统
 - [ ] 黑暗主题
 - [ ] 打包 Gzip
 - [ ] 抽取生产环境配置文件
+- [ ] 系统性能优化
 
 更多组件/功能/建议/bug/欢迎提交 pr 或者 issue
 

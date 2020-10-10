@@ -1,7 +1,6 @@
 import { resolve } from 'path';
 
 import type { UserConfig, Plugin as VitePlugin } from 'vite';
-import type { Plugin } from 'rollup';
 
 import visualizer from 'rollup-plugin-visualizer';
 import { modifyVars } from './build/config/glob/lessModifyVars';
@@ -12,12 +11,13 @@ import PurgeIcons from 'vite-plugin-purge-icons';
 import { isDevFn, isReportMode, isProdFn, loadEnv } from './build/utils';
 
 setupBasicEnv();
-const { VITE_USE_MOCK } = loadEnv();
+const { VITE_USE_MOCK, VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY } = loadEnv();
 
 function pathResolve(dir: string) {
   return resolve(__dirname, '.', dir);
 }
-const rollupPlugins: Plugin[] = [];
+
+const rollupPlugins: any[] = [];
 const vitePlugins: VitePlugin[] = [];
 
 (() => {
@@ -27,7 +27,7 @@ const vitePlugins: VitePlugin[] = [];
       visualizer({ filename: './node_modules/.cache/stats.html', open: true }) as Plugin
     );
   }
-  if (isDevFn() && VITE_USE_MOCK === 'true') {
+  if (isDevFn() && VITE_USE_MOCK) {
     // open mock
     vitePlugins.push(
       createMockServer({
@@ -39,17 +39,16 @@ const vitePlugins: VitePlugin[] = [];
 })();
 
 const viteConfig: UserConfig = {
-  silent: false,
+  /**
+   * 端口号
+   * @default '3000'
+   */
+  port: VITE_PORT,
   /**
    * 服务地址
    * @default 'localhost'
    */
   hostname: 'localhost',
-  /**
-   * 端口号
-   * @default '3000'
-   */
-  port: 3100,
   /**
    * 运行自动打开浏览器·
    * @default 'false'
@@ -62,10 +61,10 @@ const viteConfig: UserConfig = {
    */
   minify: isDevFn() ? false : 'terser',
   /**
-   * 在生产中投放时提供基本公共路径
+   * 基本公共路径
    * @default '/'
    */
-  base: isDevFn() ? '/' : './',
+  base: VITE_PUBLIC_PATH,
 
   /**
    * 打包输入路径
@@ -91,7 +90,7 @@ const viteConfig: UserConfig = {
    * @default 'es2019'
    */
   esbuildTarget: 'es2019',
-
+  silent: false,
   // 别名
   alias: {
     '/@/': pathResolve('src'),
@@ -112,7 +111,7 @@ const viteConfig: UserConfig = {
     include: ['ant-design-vue/es/locale/zh_CN', '@ant-design/icons-vue', 'moment/locale/zh-cn'],
   },
   // 本地跨域代理
-  proxy: createProxy([['/api', 'http://localhost:3000']]),
+  proxy: createProxy(VITE_PROXY),
 
   plugins: [PurgeIcons(), ...vitePlugins],
   rollupOutputOptions: {},
