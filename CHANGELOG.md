@@ -1,7 +1,30 @@
+# [2.0.0-beta.5](https://github.com/anncwb/vue-vben-admin/compare/2.0.0-beta.4...2.0.0-beta.5) (2020-10-10)
+
+### ♻ Code Refactoring
+
+- **style:** remove tailwind css ([b899d03](https://github.com/anncwb/vue-vben-admin/commit/b899d03))
+
+### ⚡ Performance Improvements
+
+- optimized page switching effect ([7dccef7](https://github.com/anncwb/vue-vben-admin/commit/7dccef7))
+
+### 🎫 Chores
+
+- add .github and .vscode ([7339d91](https://github.com/anncwb/vue-vben-admin/commit/7339d91))
+
+- change menu icon ([a51079f](https://github.com/anncwb/vue-vben-admin/commit/a51079f))
+- separate configuration files ([cb37785](https://github.com/anncwb/vue-vben-admin/commit/cb37785))
+- update readme.md ([3bacef2](https://github.com/anncwb/vue-vben-admin/commit/3bacef2))
+
+### 🐛 Bug Fixes
+
+- Repair tree component click to select ([#33](https://github.com/anncwb/vue-vben-admin/issues/33)) ([884687c](https://github.com/anncwb/vue-vben-admin/commit/884687c))
+
 # [2.0.0-beta.4](https://github.com/anncwb/vue-vben-admin/compare/2.0.0-beta.3...2.0.0-beta.4) (2020-10-08)
 
 ### 🎫 Chores
 
+- bump 2.0.0-beta.3 ([e410ce4](https://github.com/anncwb/vue-vben-admin/commit/e410ce4))
 - remove redundant dependencies ([e4c952f](https://github.com/anncwb/vue-vben-admin/commit/e4c952f))
 
 ### 🐛 Bug Fixes
