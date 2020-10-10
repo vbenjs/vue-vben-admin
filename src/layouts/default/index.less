@@ -191,8 +191,16 @@
   height: @header-height;
   padding: 0 20px 0 0;
   color: @white;
+  background: @white;
   align-items: center;
   justify-content: space-between;
+
+  &__content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   &__header--light {
     background: @white;
@@ -334,6 +342,7 @@
     margin-left: 20px;
     overflow: hidden;
     align-items: center;
+    flex-grow: 1;
   }
 
   &__user-dropdown {
@@ -398,4 +407,5 @@
 
 .layout-breadcrumb {
   padding: 0 16px;
+  flex-grow: 1;
 }

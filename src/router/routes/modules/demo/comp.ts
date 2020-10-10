@@ -183,7 +183,7 @@ export default {
           name: 'MergeHeaderDemo',
           component: () => import('/@/views/demo/table/MergeHeader.vue'),
           meta: {
-            title: '合并表头',
+            title: '合并单元格',
           },
         },
         {

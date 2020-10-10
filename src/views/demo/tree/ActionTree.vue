@@ -17,7 +17,7 @@
       <a-button @click="deleteNodeByKey('2-2')" class="mr-2">删除parent3节点</a-button>
       <a-button @click="updateNodeByKey('1-1')" class="mr-2">更新parent2节点</a-button>
     </div>
-    <CollapseContainer title="函数操作" class="w-1/3 mr-4" :canExpan="false">
+    <CollapseContainer title="函数操作" class="mr-4" :canExpan="false" :style="{ width: '33%' }">
       <BasicTree :treeData="treeData" ref="treeRef" :checkable="true" />
     </CollapseContainer>
   </div>

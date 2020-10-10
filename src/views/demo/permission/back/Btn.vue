@@ -1,5 +1,5 @@
 <template>
-  <div class="p-10 m-4 rounded-md bg-white">
+  <div class="p-4 m-4 demo">
     <Alert message="刷新后会还原" show-icon />
 
     <CurrentPermissionMode />
@@ -83,3 +83,8 @@
     },
   });
 </script>
+<style lang="less" scoped>
+  .demo {
+    background: #fff;
+  }
+</style>

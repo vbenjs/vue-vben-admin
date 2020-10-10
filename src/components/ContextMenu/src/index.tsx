@@ -73,7 +73,9 @@ export default defineComponent({
 
         return (
           <li class={`${prefixCls}__item ${disabled ? 'disabled' : ''}`} key={label}>
-            <a onClick={handleAction.bind(null, item)}>{renderContent(item)}</a>
+            <a onClick={handleAction.bind(null, item)} style="color:#333;">
+              {renderContent(item)}
+            </a>
           </li>
         );
       });

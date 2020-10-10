@@ -55,23 +55,17 @@ export default defineComponent({
 
       const isSidebarType = menuType === MenuTypeEnum.SIDEBAR;
       return (
-        <Layout.Header
-          class={[
-            'layout-header',
-            'bg-white flex p-0 px-4 justify-items-center',
-            unref(headerClass),
-          ]}
-        >
+        <Layout.Header class={['layout-header', 'flex p-0 px-4 ', unref(headerClass)]}>
           {() => (
             <>
-              <div class="flex-grow flex justify-center items-center">
+              <div class="layout-header__content ">
                 {showLogo && !isSidebarType && <Logo class={`layout-header__logo`} />}
 
                 {mode !== MenuModeEnum.HORIZONTAL && showBreadCrumb && !splitMenu && (
                   <LayoutBreadcrumb />
                 )}
                 {(mode === MenuModeEnum.HORIZONTAL || splitMenu) && (
-                  <div class={[`layout-header__menu flex-grow `, `justify-${topMenuAlign}`]}>
+                  <div class={[`layout-header__menu `, `justify-${topMenuAlign}`]}>
                     <LayoutMenu
                       theme={headerTheme}
                       splitType={splitMenu ? MenuSplitTyeEnum.TOP : MenuSplitTyeEnum.NONE}

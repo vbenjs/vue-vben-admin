@@ -59,7 +59,7 @@ const menu: MenuModule = {
           },
           {
             path: '/mergeHeader',
-            name: '合并表头',
+            name: '合并单元格',
           },
           {
             path: '/expandTable',

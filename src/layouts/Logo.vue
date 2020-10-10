@@ -1,9 +1,7 @@
 <template>
-  <div class="flex justify-items-center items-center cursor-pointer" @click="handleGoHome">
+  <div class="app-logo" @click="handleGoHome">
     <img :src="logo" />
-    <div v-if="show" class="logo-title ml-2 text-xl hidden md:block font-logo ellipsis">{{
-      globSetting.title
-    }}</div>
+    <div v-if="show" class="logo-title ml-2 ellipsis">{{ globSetting.title }}</div>
   </div>
 </template>
 <script lang="ts">
@@ -52,3 +50,22 @@
     },
   });
 </script>
+<style lang="less" scoped>
+  @import (reference) '../design/index.less';
+
+  .app-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    .logo-title {
+      display: none;
+      font-family: Georgia, serif;
+      font-size: 18px;
+      .respond-to(medium,{
+       display: block;
+     });
+    }
+  }
+</style>

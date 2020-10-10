@@ -64,6 +64,7 @@ export default defineComponent({
       return {
         fontSize: `${fs}px`,
         color,
+        display: 'inline-flex',
       };
     });
 

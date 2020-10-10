@@ -6,12 +6,13 @@ import { appStore } from '/@/store/modules/app';
 import { AppRouteRecordRaw } from '/@/router/types';
 import { useRouter } from 'vue-router';
 import router from '/@/router';
+import { unique } from '/@/utils';
 
 export function useFrameKeepAlive() {
   const { currentRoute } = useRouter();
 
   function getAllFramePages(routes: AppRouteRecordRaw[]): AppRouteRecordRaw[] {
-    const res: AppRouteRecordRaw[] = [];
+    let res: AppRouteRecordRaw[] = [];
     for (const route of routes) {
       const { meta: { frameSrc } = {}, children } = route;
       if (frameSrc) {
@@ -21,6 +22,7 @@ export function useFrameKeepAlive() {
         res.push(...getAllFramePages(children));
       }
     }
+    res = unique(res, 'name');
     return res;
   }
 
@@ -30,6 +32,9 @@ export function useFrameKeepAlive() {
   const getFramePages = computed(() => {
     const ret =
       getAllFramePages((toRaw(router.getRoutes()) as unknown) as AppRouteRecordRaw[]) || [];
+    console.log('======================');
+    console.log(ret);
+    console.log('======================');
     return ret;
   });
 

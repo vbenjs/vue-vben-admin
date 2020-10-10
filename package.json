@@ -82,7 +82,6 @@
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-order": "^4.1.0",
-    "tailwindcss": "^1.8.13",
     "tasksfile": "^5.1.1",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3",

@@ -1,5 +1,5 @@
 <template>
-  <div class="collapse-container p-2 bg:white rounded-sm">
+  <div class="collapse-container p-2">
     <CollapseHeader v-bind="$props" :show="show" @expand="handleExpand" />
     <CollapseTransition :enable="canExpan">
       <Skeleton v-if="loading" />
@@ -92,7 +92,6 @@
 </script>
 <style lang="less">
   .collapse-container {
-    padding: 10px;
     background: #fff;
     border-radius: 8px;
     transition: all 0.3s ease-in-out;

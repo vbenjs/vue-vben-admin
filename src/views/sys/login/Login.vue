@@ -1,17 +1,15 @@
 <template>
-  <div class="login h-screen relative">
-    <div class="login-mask h-full hidden lg:block" />
-    <div
-      class="h-full absolute right-0 top-0 w-full lg:w-2/5 xl:w-1/3 flex justify-center items-center"
-    >
-      <div class="login-form bg-white w-full rounded-sm border-solid bg-clip-padding mx-6 xl:mx-14">
-        <div class="w-full h-full border border-gray-600 px-2 py-10 rounded-sm">
-          <header class="flex justify-center items-center">
-            <img src="/@/assets/images/logo.png" class="w-12 mr-4 inline-block" />
-            <h1 class="text-2xl text-center text-primary tracking-wide">Vben Admin 2.0</h1>
+  <div class="login">
+    <div class="login-mask" />
+    <div class="login-form-wrap">
+      <div class="login-form mx-6">
+        <div class="login-form__content px-2 py-10">
+          <header>
+            <img src="/@/assets/images/logo.png" class="mr-4" />
+            <h1>{{ title }}</h1>
           </header>
 
-          <a-form class="w-4/5 mx-auto mt-10" :model="formData" :rules="formRules" ref="formRef">
+          <a-form class="mx-auto mt-10" :model="formData" :rules="formRules" ref="formRef">
             <a-form-item name="account">
               <a-input size="large" v-model:value="formData.account" placeholder="vben" />
             </a-form-item>
@@ -50,9 +48,11 @@
   import { userStore } from '/@/store/modules/user';
   import { appStore } from '/@/store/modules/app';
   import { useMessage } from '/@/hooks/web/useMessage';
+  import { useSetting } from '/@/hooks/core/useSetting';
   export default defineComponent({
     components: { BasicDragVerify },
     setup() {
+      const { globSetting } = useSetting();
       const { notification } = useMessage();
       const formRef = ref<any>(null);
       const verifyRef = ref<RefInstanceType<DragVerifyActionType>>(null);
@@ -115,23 +115,79 @@
         formRules,
         login: handleLogin,
         openLoginVerify: openLoginVerifyRef,
+        title: globSetting && globSetting.title,
       };
     },
   });
 </script>
 <style lang="less" scoped>
+  @import (reference) '../../../design/index.less';
+
   .login {
+    position: relative;
+    height: 100vh;
     background: url(../../../assets/images/login/login-bg.png) no-repeat;
     background-size: 100% 100%;
 
     &-mask {
+      display: none;
+      height: 100%;
       background: url(../../../assets/images/login/login-in.png) no-repeat;
       background-size: 100% 100%;
+
+      .respond-to(large, { display: block;});
     }
 
     &-form {
-      border-color: rgba(255, 255, 255, 0.5);
+      width: 100%;
+      background: @white;
+      border: 10px solid rgba(255, 255, 255, 0.5);
       border-width: 10px;
+      border-radius: 4px;
+      background-clip: padding-box;
+      .respond-to(xlarge, { margin: 0 56px});
+
+      &-wrap {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        .respond-to(large, { width: 40%;});
+        .respond-to(xlarge, { width: 33.3%;});
+      }
+
+      &__content {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #999;
+        border-radius: 2px;
+
+        header {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          img {
+            display: inline-block;
+            width: 48px;
+          }
+
+          h1 {
+            margin-bottom: 0;
+            font-size: 24px;
+            color: @primary-color;
+            text-align: center;
+          }
+        }
+
+        form {
+          width: 80%;
+        }
+      }
     }
   }
 </style>

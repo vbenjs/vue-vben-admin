@@ -1,11 +1,8 @@
 <template>
-  <div class="px-64">
+  <div class="px-10">
     <Alert message="点内外部触发事件" show-icon class="mt-4"></Alert>
     <ClickOutSide @clickOutside="handleClickOutside" class="flex justify-center mt-10">
-      <div
-        @click="innerClick"
-        class="bg-primary w-full h-64 flex justify-center items-center text-2xl text-white rounded-lg shadow-lg"
-      >
+      <div @click="innerClick" class="demo-box">
         {{ text }}
       </div>
     </ClickOutSide>
@@ -30,3 +27,17 @@
     },
   });
 </script>
+
+<style lang="less" scoped>
+  .demo-box {
+    display: flex;
+    width: 100%;
+    height: 300px;
+    font-size: 24px;
+    color: #fff;
+    background: #408ede;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+</style>

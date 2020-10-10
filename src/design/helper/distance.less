@@ -1,0 +1,38 @@
+@import 'loop.less';
+// margin 步长
+@margin-size-base: 4;
+
+// 最大生成
+@margin-size-max: 10;
+
+// padding步长
+@padding-size-base: 4;
+
+// 最大生成
+@padding-size-max: 10;
+
+.distance() {
+  // 生成margin
+  .loop (m, margin, 1, @margin-size-base, @margin-size-max);
+  .loop (mt, margin-top, 1, @margin-size-base, @margin-size-max);
+  .loop (mr, margin-right, 1, @margin-size-base, @margin-size-max);
+  .loop (mb, margin-bottom, 1, @margin-size-base, @margin-size-max);
+  .loop (ml, margin-left, 1, @margin-size-base, @margin-size-max);
+  .loop (my, margin, 1, @margin-size-base, @margin-size-max, y);
+  .loop (mx, margin, 1, @margin-size-base, @margin-size-max, x);
+  .loop (mx-auto, margin, 1, @padding-size-base, @padding-size-max, autoX);
+  .loop (my-auto, margin, 1, @padding-size-base, @padding-size-max, autoY);
+  .loop (m-auto, margin, 1, @padding-size-base, @padding-size-max, auto);
+
+  // 生成padding
+  .loop (p, padding, 1, @padding-size-base, @padding-size-max);
+  .loop (pt, padding-top, 1, @padding-size-base, @padding-size-max);
+  .loop (pr, padding-right, 1, @padding-size-base, @padding-size-max);
+  .loop (pb, padding-bottom, 1, @padding-size-base, @padding-size-max);
+  .loop (pl, padding-left, 1, @padding-size-base, @padding-size-max);
+  .loop (py, padding, 1, @padding-size-base, @padding-size-max, y);
+  .loop (px, padding, 1, @padding-size-base, @padding-size-max, x);
+  .loop (px-auto, padding, 1, @padding-size-base, @padding-size-max, autoX);
+  .loop (py-auto, padding, 1, @padding-size-base, @padding-size-max, autoY);
+  .loop (p-auto, padding, 1, @padding-size-base, @padding-size-max, auto);
+}

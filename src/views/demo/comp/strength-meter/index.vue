@@ -1,6 +1,6 @@
 <template>
   <div class="p-4 flex justify-center">
-    <div class="w-1/2 bg-white p-10 rounded-md">
+    <div class="demo-wrap p-10">
       <StrengthMeter placeholder="默认" />
       <StrengthMeter placeholder="禁用" disabled />
       <br />
@@ -21,3 +21,10 @@
     },
   });
 </script>
+<style lang="less" scoped>
+  .demo-wrap {
+    width: 50%;
+    background: #fff;
+    border-radius: 10px;
+  }
+</style>

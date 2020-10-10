@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full w-full flex justify-center items-center">
+  <div class="welcome">
     <House />
   </div>
 </template>
@@ -14,3 +14,12 @@
     },
   });
 </script>
+<style lang="less" scoped>
+  .welcome {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
