@@ -133,7 +133,7 @@ yarn build # 打包
 
 yarn build:no-cache # 打包，执行之前会先删除缓存
 
-yarn report # 生成构建包表表预览
+yarn report # 生成构建包报表预览
 ```
 
 ### 格式化

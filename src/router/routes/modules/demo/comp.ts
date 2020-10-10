@@ -9,7 +9,7 @@ export default {
     component: PAGE_LAYOUT_COMPONENT,
     redirect: '/comp/basic',
     meta: {
-      icon: 'ant-design:home-outlined',
+      icon: 'ant-design:table-outlined',
       title: '组件',
     },
   },
