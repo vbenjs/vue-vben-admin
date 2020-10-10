@@ -40,6 +40,7 @@ export default defineComponent({
           <RouterView>
             {{
               default: ({ Component, route }: { Component: any; route: RouteLocation }) => {
+                const name = route.meta.inTab ? ' ' : null;
                 const Content = openCache ? (
                   <KeepAlive max={max} include={cacheTabs}>
                     <Component {...route.params} />
@@ -50,7 +51,7 @@ export default defineComponent({
                 return openRouterTransition ? (
                   <Transition
                     {...on}
-                    name={route.meta.transitionName || routerTransition}
+                    name={name || route.meta.transitionName || routerTransition}
                     mode="out-in"
                   >
                     {() => Content}

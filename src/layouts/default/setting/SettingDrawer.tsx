@@ -262,7 +262,7 @@ export default defineComponent({
             size="small"
             min={0}
             onChange={(e) => {
-              baseHandler('menuWidth', e);
+              baseHandler('lockTime', e);
             }}
             defaultValue={appStore.getProjectConfig.lockTime}
             formatter={(value: string) => {
@@ -448,7 +448,7 @@ export default defineComponent({
           },
         };
       }
-      if (event === 'menuWidth') {
+      if (event === 'lockTime') {
         config = {
           lockTime: value,
         };

@@ -29,6 +29,8 @@ export interface RouteMeta {
 
   // close loading
   afterCloseLoading?: boolean;
+
+  inTab?: boolean;
 }
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {

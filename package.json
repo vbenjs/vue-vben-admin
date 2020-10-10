@@ -1,6 +1,6 @@
 {
   "name": "vben-admin-2.0",
-  "version": "2.0.0-beta.4",
+  "version": "2.0.0-beta.5",
   "scripts": {
     "bootstrap": "yarn install",
     "serve": "ts-node --project ./build/tsconfig.json  ./build/script/preserve && cross-env NODE_ENV=development vite",
@@ -55,7 +55,6 @@
     "@typescript-eslint/parser": "^4.4.0",
     "@vue/compiler-sfc": "^3.0.0",
     "autoprefixer": "^9.8.6",
-    "babel-plugin-import": "^1.13.0",
     "commitizen": "^4.2.1",
     "conventional-changelog-cli": "^2.1.0",
     "conventional-changelog-custom-config": "^0.3.1",
