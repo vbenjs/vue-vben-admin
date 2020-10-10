@@ -250,7 +250,7 @@ export default defineComponent({
           state.selectedKeys = v;
           emit('update:selectedKeys', v);
         },
-        check: (v: CheckKeys) => {
+        onCheck: (v: CheckKeys) => {
           state.checkedKeys = v;
           emit('update:value', v);
         },
