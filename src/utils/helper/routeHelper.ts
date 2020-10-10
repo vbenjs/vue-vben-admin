@@ -1,6 +1,8 @@
 import type { AppRouteModule, AppRouteRecordRaw } from '/@/router/types';
 import type { RouteRecordRaw } from 'vue-router';
 
+import { appStore } from '/@/store/modules/app';
+import { tabStore } from '/@/store/modules/tab';
 import { createRouter, createWebHashHistory } from 'vue-router';
 import { toRaw } from 'vue';
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
@@ -44,4 +46,14 @@ export function transformObjToRoute(routeList: AppRouteModule[]) {
     }
   });
   return routeList;
+}
+
+export function getIsOpenTab(toPath: string) {
+  const { openKeepAlive, multiTabsSetting: { show } = {} } = appStore.getProjectConfig;
+
+  if (show && openKeepAlive) {
+    const tabList = tabStore.getTabsState;
+    return tabList.some((tab) => tab.path === toPath);
+  }
+  return false;
 }

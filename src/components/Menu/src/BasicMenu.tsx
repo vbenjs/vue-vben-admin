@@ -1,17 +1,7 @@
 import type { MenuState } from './types';
 import type { Menu as MenuType } from '/@/router/types';
 
-import {
-  computed,
-  defineComponent,
-  unref,
-  reactive,
-  toRef,
-  watch,
-  onMounted,
-  watchEffect,
-  ref,
-} from 'vue';
+import { computed, defineComponent, unref, reactive, toRef, watch, onMounted, ref } from 'vue';
 import { basicProps } from './props';
 import { Menu } from 'ant-design-vue';
 import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
@@ -106,11 +96,18 @@ export default defineComponent({
         getParentPath();
       }
     );
-    watchEffect(() => {
-      if (props.items) {
-        handleMenuChange();
+
+    watch(
+      () => props.items,
+      () => {
+        if (props.items) {
+          handleMenuChange();
+        }
+      },
+      {
+        immediate: true,
       }
-    });
+    );
 
     async function getParentPath() {
       const { appendClass } = props;

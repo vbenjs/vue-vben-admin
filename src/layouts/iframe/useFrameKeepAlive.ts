@@ -32,9 +32,6 @@ export function useFrameKeepAlive() {
   const getFramePages = computed(() => {
     const ret =
       getAllFramePages((toRaw(router.getRoutes()) as unknown) as AppRouteRecordRaw[]) || [];
-    console.log('======================');
-    console.log(ret);
-    console.log('======================');
     return ret;
   });
 

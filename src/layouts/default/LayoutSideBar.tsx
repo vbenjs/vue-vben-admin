@@ -158,7 +158,6 @@ export default defineComponent({
         menuSetting: { theme, split: splitMenu },
       } = unref(getProjectConfigRef);
       const { getCollapsedState, getMenuWidthState } = menuStore;
-
       return (
         <Layout.Sider
           onCollapse={onCollapseChange}
