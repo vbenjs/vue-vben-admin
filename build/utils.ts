@@ -1,7 +1,6 @@
 import fs from 'fs';
 import { networkInterfaces } from 'os';
 import dotenv from 'dotenv';
-
 export const isFunction = (arg: unknown): arg is (...args: any[]) => any =>
   typeof arg === 'function';
 export const isRegExp = (arg: unknown): arg is RegExp =>
@@ -68,7 +67,14 @@ export function isReportMode(): boolean {
   return process.env.REPORT === 'true';
 }
 
-export function loadEnv() {
+export interface ViteEnv {
+  VITE_PORT: number;
+  VITE_USE_MOCK: boolean;
+  VITE_PUBLIC_PATH: string;
+  VITE_PROXY: [string, string][];
+}
+
+export function loadEnv(): ViteEnv {
   const env = process.env.NODE_ENV;
   const ret: any = {};
   const envList = [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env', ,];
@@ -79,7 +85,16 @@ export function loadEnv() {
   });
 
   for (const envName of Object.keys(process.env)) {
-    const realName = (process.env as any)[envName].replace(/\\n/g, '\n');
+    let realName = (process.env as any)[envName].replace(/\\n/g, '\n');
+    realName = realName === 'true' ? true : realName === 'false' ? false : realName;
+    if (envName === 'VITE_PORT') {
+      realName = Number(realName);
+    }
+    if (envName === 'VITE_PROXY') {
+      try {
+        realName = JSON.parse(realName);
+      } catch (error) {}
+    }
     ret[envName] = realName;
     process.env[envName] = realName;
   }
