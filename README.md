@@ -47,6 +47,8 @@
 
 [2.0 在线预览](https://vvbin.cn/next/)
 
+测试账号: vben/123456
+
 <p align="center">
     <img alt="VbenAdmin Logo" width="100%" src="./.github/res/imgs/preview1.png">
     <img alt="VbenAdmin Logo" width="100%" src="./.github/res/imgs/preview2.png">

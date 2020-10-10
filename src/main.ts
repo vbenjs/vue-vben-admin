@@ -10,7 +10,6 @@ import { isDevMode, isProdMode, isUseMock } from '/@/utils/env';
 
 import { setupProdMockServer } from '../mock/_createProductionServer';
 import '/@/design/index.less';
-import '/@/design/main.postcss';
 
 const app = createApp(App);
 

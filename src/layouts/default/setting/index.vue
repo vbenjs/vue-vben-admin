@@ -1,8 +1,5 @@
 <template>
-  <div
-    @click="openDrawer"
-    class="setting-button bg-primary flex justify-center items-center text-white p-4 absolute z-10 cursor-pointer"
-  >
+  <div @click="openDrawer" class="setting-button">
     <SettingOutlined :spin="true" />
     <SettingDrawer @register="register" />
   </div>
@@ -26,3 +23,18 @@
     },
   });
 </script>
+<style lang="less" scoped>
+  @import (reference) '../../../design/index.less';
+
+  .setting-button {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    padding: 10px;
+    color: @white;
+    cursor: pointer;
+    background: @primary-color;
+    justify-content: center;
+    align-items: center;
+  }
+</style>

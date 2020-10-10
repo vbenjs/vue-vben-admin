@@ -1,5 +1,5 @@
 <template>
-  <div class="p-10 m-4 rounded-md bg-white">
+  <div class="p-4 m-4 demo">
     <Alert
       message="目前mock了两组数据， id为1 和 2 具体返回的菜单可以在mock/sys/menu.ts内查看"
       show-icon
@@ -35,3 +35,8 @@
     },
   });
 </script>
+<style lang="less" scoped>
+  .demo {
+    background: #fff;
+  }
+</style>

@@ -8,11 +8,11 @@
       <a-button @click="scrollTo(0)" class="mr-2">滚动到顶部</a-button>
       <a-button @click="scrollBottom()" class="mr-2">滚动到底部</a-button>
     </div>
-    <div class="w-1/2 h-64 bg-white">
+    <div class="scroll-wrap">
       <ScrollContainer class="mt-4" ref="scrollRef">
         <ul class="p-3">
           <template v-for="index in 100" :key="index">
-            <li class="leading-8 px-2" :style="{ border: '1px solid #eee' }">{{ index }}</li>
+            <li class="p-2" :style="{ border: '1px solid #eee' }">{{ index }}</li>
           </template>
         </ul>
       </ScrollContainer>
@@ -50,3 +50,10 @@
     },
   });
 </script>
+<style lang="less" scoped>
+  .scroll-wrap {
+    width: 50%;
+    height: 300px;
+    background: #fff;
+  }
+</style>

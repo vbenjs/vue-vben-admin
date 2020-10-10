@@ -15,6 +15,7 @@ import { useRoute } from 'vue-router';
 import { useGo, useRedo } from '/@/hooks/web/usePage';
 import { PageEnum } from '/@/enums/pageEnum';
 
+import './exception.less';
 interface MapValue {
   title: string;
   subTitle: string;
@@ -105,7 +106,7 @@ export default defineComponent({
       const { title, subTitle, btnText, icon, handler } = unref(getMapValue) || {};
       return (
         <Result
-          class="flex items-center flex-col"
+          class="exception "
           title={props.title || title}
           sub-title={props.subTitle || subTitle}
         >

@@ -1,5 +1,5 @@
 <template>
-  <section class="flex justify-center items-center flex-col">
+  <section class="basic-loading">
     <img
       src="/@/assets/images/loading.svg"
       alt=""
@@ -47,3 +47,11 @@
     },
   });
 </script>
+<style lang="less" scoped>
+  .basic-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+</style>

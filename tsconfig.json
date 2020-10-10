@@ -23,9 +23,6 @@
     "paths": {
       "/@/*": [
         "src/*"
-      ],
-      "/@design/": [
-        "src/design/index.less"
       ]
     }
   },

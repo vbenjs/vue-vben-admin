@@ -1,5 +1,5 @@
 <template>
-  <div class="p-10 m-4 rounded-md bg-white">
+  <div class="p-4 m-4 demo">
     <Alert
       message="由于刷新的时候会请求用户信息接口，会根据接口重置角色信息，所以刷新后界面会恢复原样，如果不需要，可以注释 src/layout/default/index内的获取用户信息接口"
       show-icon
@@ -46,3 +46,8 @@
     },
   });
 </script>
+<style lang="less" scoped>
+  .demo {
+    background: #fff;
+  }
+</style>

@@ -8,7 +8,7 @@ export default {
     path: '/permission',
     name: 'Permission',
     component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/permission/front',
+    redirect: '/permission/front/page',
     meta: {
       icon: 'carbon:user-role',
       title: '权限管理',

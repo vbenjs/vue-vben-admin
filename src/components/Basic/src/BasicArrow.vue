@@ -37,7 +37,7 @@
 </script>
 <style lang="less" scoped>
   .base-arrow {
-    transform: rotate(-90deg) !important;
+    transform: rotate(-90deg);
     transition: all 0.3s ease 0.1s;
     transform-origin: center center;
 
@@ -50,9 +50,10 @@
     }
 
     &__active {
-      > span {
-        transform: rotate(90deg) !important;
-      }
+      transform: rotate(90deg);
+      // > span {
+      //   transform: rotate(90deg);
+      // }
     }
   }
 </style>

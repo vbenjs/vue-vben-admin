@@ -1,8 +1,5 @@
 <template>
-  <section
-    class="full-loading flex justify-center bg-mask-light items-center h-full w-full"
-    :style="getStyle"
-  >
+  <section class="full-loading" :style="getStyle">
     <BasicLoading :tip="tip" :size="SizeEnum.DEFAULT" />
   </section>
 </template>
@@ -39,3 +36,13 @@
     },
   });
 </script>
+<style lang="less" scoped>
+  .full-loading {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    justify-content: center;
+    align-items: center;
+  }
+</style>

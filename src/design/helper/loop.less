@@ -1,0 +1,67 @@
+.loop (@style-name, @tag-name, @i,@base-size, @max:10,@xy:none) when (@i <= @max) {
+  @next: @i+1;
+  .fn() when (@xy =none) {
+    @size: @base-size * @i;
+
+    .@{style-name}-@{i} {
+      @{tag-name}: ~'@{size}px ';
+    }
+    .loop(@style-name, @tag-name, @next, @base-size, @max, @xy);
+  }
+
+  .fn() when (@xy =x) {
+    @size: @base-size * @i;
+
+    @tnl: ~'@{tag-name}-left';
+    @tnr: ~'@{tag-name}-right';
+
+    .@{style-name}-@{i} {
+      @{tnl}: ~'@{size}px';
+      @{tnr}: ~'@{size}px';
+    }
+    .loop(@style-name, @tag-name, @next, @base-size, @max, @xy);
+  }
+  .fn() when (@xy =y) {
+    @size: @base-size * @i;
+
+    @tnt: ~'@{tag-name}-top';
+    @tnb: ~'@{tag-name}-bottom';
+
+    .@{style-name}-@{i} {
+      @{tnt}: ~'@{size}px';
+      @{tnb}: ~'@{size}px';
+    }
+    .loop(@style-name, @tag-name, @next, @base-size, @max, @xy);
+  }
+  .fn() when (@xy =auto) {
+    @tnt: ~'@{tag-name}-top';
+    @tnb: ~'@{tag-name}-bottom';
+    @tnl: ~'@{tag-name}-left';
+    @tnr: ~'@{tag-name}-right';
+    .@{style-name} {
+      @{tnl}: ~'auto';
+      @{tnr}: ~'auto';
+      @{tnt}: ~'auto';
+      @{tnb}: ~'auto';
+    }
+  }
+
+  .fn() when (@xy =autoX) {
+    @tnl: ~'@{tag-name}-left';
+    @tnr: ~'@{tag-name}-right';
+    .@{style-name} {
+      @{tnl}: ~'auto';
+      @{tnr}: ~'auto';
+    }
+  }
+
+  .fn() when (@xy =autoY) {
+    @tnt: ~'@{tag-name}-top';
+    @tnb: ~'@{tag-name}-bottom';
+    .@{style-name} {
+      @{tnt}: ~'auto';
+      @{tnb}: ~'auto';
+    }
+  }
+  .fn();
+}
