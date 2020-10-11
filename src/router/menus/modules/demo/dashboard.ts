@@ -6,8 +6,12 @@ const menu: MenuModule = {
     path: '/dashboard',
     children: [
       {
+        path: '/workbench',
+        name: '工作台',
+      },
+      {
         path: '/welcome',
-        name: '欢迎页',
+        name: '首页',
       },
     ],
   },
