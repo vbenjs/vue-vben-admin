@@ -12,6 +12,9 @@ import compDemo from './modules/demo/comp';
 import permissionDemo from './modules/demo/permission';
 import featDemo from './modules/demo/feat';
 import chartsDemo from './modules/demo/charts';
+import tableDemo from './modules/demo/table';
+import formDemo from './modules/demo/form';
+import treeDemo from './modules/demo/tree';
 
 const routeModuleList: AppRouteModule[] = [
   exceptionDemo,
@@ -21,6 +24,9 @@ const routeModuleList: AppRouteModule[] = [
   featDemo,
   permissionDemo,
   chartsDemo,
+  tableDemo,
+  formDemo,
+  treeDemo,
 ];
 
 export const asyncRoutes = [

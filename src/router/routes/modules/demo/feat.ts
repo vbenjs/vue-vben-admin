@@ -24,11 +24,27 @@ export default {
       },
     },
     {
+      path: '/icon',
+      name: 'IconDemo',
+      component: () => import('/@/views/demo/comp/icon/index.vue'),
+      meta: {
+        title: '图标',
+      },
+    },
+    {
       path: '/context-menu',
       name: 'ContextMenuDemo',
       component: () => import('/@/views/demo/feat/context-menu/index.vue'),
       meta: {
         title: '右键菜单',
+      },
+    },
+    {
+      path: '/click-out-side',
+      name: 'ClickOutSideDemo',
+      component: () => import('/@/views/demo/comp/click-out-side/index.vue'),
+      meta: {
+        title: 'ClickOutSide组件',
       },
     },
     {
