@@ -1,7 +1,7 @@
 <template>
   <div class="p-10">
     <div class="flex justify-center p-4 items-center bg-gray-700">
-      <RotateDragVerify src="/@/assets/images/header.jpg" ref="el" @success="handleSuccess" />
+      <RotateDragVerify :src="img" ref="el" @success="handleSuccess" />
     </div>
   </div>
 </template>
@@ -9,6 +9,7 @@
   import { defineComponent } from 'vue';
   import { RotateDragVerify } from '/@/components/Verify/index';
 
+  import img from '/@/assets/images/header.jpg';
   export default defineComponent({
     components: { RotateDragVerify },
     setup() {
@@ -17,6 +18,7 @@
       };
       return {
         handleSuccess,
+        img,
       };
     },
   });
