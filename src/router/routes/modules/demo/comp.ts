@@ -23,6 +23,14 @@ export default {
         title: '基础组件',
       },
     },
+    {
+      path: '/countTo',
+      name: 'CountTo',
+      component: () => import('/@/views/demo/comp/count-to/index.vue'),
+      meta: {
+        title: '数字动画',
+      },
+    },
 
     {
       path: '/scroll',

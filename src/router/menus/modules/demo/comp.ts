@@ -9,6 +9,10 @@ const menu: MenuModule = {
         path: '/basic',
         name: '基础组件',
       },
+      {
+        path: '/countTo',
+        name: '数字动画',
+      },
 
       {
         path: '/scroll',
