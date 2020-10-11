@@ -6,12 +6,20 @@ const menu: MenuModule = {
     path: '/feat',
     children: [
       {
+        path: '/icon',
+        name: '图标',
+      },
+      {
         path: '/tabs',
         name: '标签页操作',
       },
       {
         path: '/context-menu',
         name: '右键菜单',
+      },
+      {
+        path: '/click-out-side',
+        name: 'ClickOutSide',
       },
       {
         path: '/img-preview',

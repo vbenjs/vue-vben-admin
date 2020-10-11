@@ -1,11 +1,12 @@
 @import (reference) '../../design/index.less';
 
-.ant-menu-submenu .ant-menu-sub {
-  transition: background 0.1s cubic-bezier(0.645, 0.045, 0.355, 1) 0s,
-    padding 0.1s cubic-bezier(0.645, 0.045, 0.355, 1) 0s !important;
-}
-
 .default-layout {
+  .ant-menu-submenu .ant-menu-sub {
+    transition: none !important;
+    // transition: background 0.2s cubic-bezier(0.645, 0.045, 0.355, 1) 0s,
+    //   padding 0.2s cubic-bezier(0.645, 0.045, 0.355, 1) 0s !important;
+  }
+
   &__content {
     position: relative;
 
@@ -363,8 +364,8 @@
   align-items: center;
 
   img {
-    width: @logo-width;
-    height: @logo-width;
+    width: 32px;
+    height: 32px;
     margin-right: 24px;
   }
 

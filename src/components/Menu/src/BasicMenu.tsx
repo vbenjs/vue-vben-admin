@@ -209,7 +209,7 @@ export default defineComponent({
         : {};
       return (
         <Menu
-          // forceSubMenuRender={true}
+          forceSubMenuRender={props.isAppMenu}
           selectedKeys={selectedKeys}
           defaultSelectedKeys={defaultSelectedKeys}
           mode={mode}
