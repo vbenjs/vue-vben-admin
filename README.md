@@ -68,7 +68,7 @@
 
 ### UI 框架
 
-- [Tailwind CSS](https://tailwindcss.com/)
+- [Tailwind CSS](https://tailwindcss.com/) - 2.0.0-beta.5 已删除
 - [Ant Design Vue 2.0](https://2x.antdv.com/docs/vue/introduce-cn/)
 
 ### 图标
@@ -215,11 +215,10 @@ yarn clean:lib # 删除node_modules，兼容window系统
 - [x] 树组件
 - [x] 图片预览组件
 - [x] 表格组件
+- [x] 图表库
 
 ## 正在开发的功能
 
-- [ ] 全局错误处理
-- [ ] 图表库
 - [ ] 数字动画
 - [ ] 主题配置
 - [ ] 富文本组件
@@ -227,6 +226,7 @@ yarn clean:lib # 删除node_modules，兼容window系统
 - [ ] 上传组件
 - [ ] 数据导入导出
 - [ ] 黑暗主题
+- [ ] 全局错误处理
 - [ ] 打包 Gzip
 - [ ] 抽取生产环境配置文件
 - [ ] 系统性能优化
@@ -235,7 +235,7 @@ yarn clean:lib # 删除node_modules，兼容window系统
 
 ## 加入我们
 
-`VUE-VBEN-ADMIN` 是完全开源免费的项目，旨在帮助开发者更方便地进行中大型管理系统开发，同时也提供 QQ 交流群(项目刚起步，人数较少，有兴趣的可以加群一起讨论)，使用问题欢迎在群内提问。
+`Vue-Vben-Aadmin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供 QQ 交流群(项目刚起步，人数较少，有兴趣的可以加群一起讨论)，使用问题欢迎在群内提问。
 
 - QQ 群 `569291866`
 

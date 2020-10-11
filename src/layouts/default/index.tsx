@@ -15,7 +15,7 @@ import { useFullContent } from '/@/hooks/web/useFullContent';
 import LockPage from '/@/views/sys/lock/index.vue';
 
 import './index.less';
-import { userStore } from '/@/store/modules/user';
+// import { userStore } from '/@/store/modules/user';
 export default defineComponent({
   name: 'DefaultLayout',
   setup() {
@@ -52,7 +52,7 @@ export default defineComponent({
     // const { currentRoute } = useRouter();
     onMounted(() => {
       // Each refresh will request the latest user information, if you don’t need it, you can delete it
-      userStore.getUserInfoAction({ userId: userStore.getUserInfoState.userId });
+      // userStore.getUserInfoAction({ userId: userStore.getUserInfoState.userId });
     });
 
     // Get project configuration

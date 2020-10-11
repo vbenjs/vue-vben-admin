@@ -16,8 +16,17 @@ import iframeDemo from './modules/demo/iframe';
 import compDemo from './modules/demo/comp';
 import permissionDemo from './modules/demo/permission';
 import featDemo from './modules/demo/feat';
+import chartsDemo from './modules/demo/charts';
 
-const menuModules = [dashboardDemo, featDemo, exceptionDemo, iframeDemo, compDemo, permissionDemo];
+const menuModules = [
+  dashboardDemo,
+  featDemo,
+  exceptionDemo,
+  iframeDemo,
+  compDemo,
+  permissionDemo,
+  chartsDemo,
+];
 
 // ===========================
 // ==========Helper===========

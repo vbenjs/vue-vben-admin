@@ -11,6 +11,7 @@ import iframeDemo from './modules/demo/iframe';
 import compDemo from './modules/demo/comp';
 import permissionDemo from './modules/demo/permission';
 import featDemo from './modules/demo/feat';
+import chartsDemo from './modules/demo/charts';
 
 const routeModuleList: AppRouteModule[] = [
   exceptionDemo,
@@ -19,6 +20,7 @@ const routeModuleList: AppRouteModule[] = [
   compDemo,
   featDemo,
   permissionDemo,
+  chartsDemo,
 ];
 
 export const asyncRoutes = [
