@@ -32,5 +32,13 @@ export default {
         affix: true,
       },
     },
+    {
+      path: '/analysis',
+      name: 'Analysis',
+      component: () => import('/@/views/dashboard/analysis/index.vue'),
+      meta: {
+        title: '分析页',
+      },
+    },
   ],
 } as AppRouteModule;

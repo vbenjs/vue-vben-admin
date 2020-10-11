@@ -10,6 +10,10 @@ const menu: MenuModule = {
         name: '工作台',
       },
       {
+        path: '/analysis',
+        name: '分析页',
+      },
+      {
         path: '/welcome',
         name: '首页',
       },

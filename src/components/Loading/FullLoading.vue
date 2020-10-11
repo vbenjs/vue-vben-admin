@@ -41,7 +41,8 @@
     display: flex;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.3);
+    // background: rgba(255, 255, 255, 0.5);
+    background: #f1f1f63d;
     justify-content: center;
     align-items: center;
   }

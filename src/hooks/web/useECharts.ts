@@ -34,24 +34,24 @@ export function useECharts(
     if (unref(widthRef) <= screenEnum.MD) {
       useTimeout(() => {
         resizeFn();
-      }, 0);
+      }, 30);
     }
   }
 
   function setOptions(options: any, clear = true) {
-    // function setOptions(options: EChartOption, clear = true) {
-    let chartInstance = unref(chartInstanceRef);
-
-    if (!chartInstance) {
-      init();
-      chartInstance = chartInstance = unref(chartInstanceRef);
-      if (!chartInstance) {
-        return;
-      }
-    }
-    clear && chartInstance.clear();
     nextTick(() => {
       useTimeout(() => {
+        let chartInstance = unref(chartInstanceRef);
+
+        if (!chartInstance) {
+          init();
+          chartInstance = chartInstance = unref(chartInstanceRef);
+          if (!chartInstance) {
+            return;
+          }
+        }
+        clear && chartInstance.clear();
+
         chartInstance && chartInstance.setOption(options);
       }, 30);
     });

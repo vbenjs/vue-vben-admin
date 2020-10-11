@@ -8,17 +8,17 @@ export function useApexCharts(elRef: Ref<HTMLDivElement>) {
   const chartInstanceRef = ref<Nullable<ApexCharts>>(null);
 
   function setOptions(options: any) {
-    const el = unref(elRef);
-
-    if (!el || !unref(el)) {
-      return;
-    }
-    chartInstanceRef.value = new ApexCharts(el, options);
-
-    const chartInstance = unref(chartInstanceRef);
-
     nextTick(() => {
       useTimeout(() => {
+        const el = unref(elRef);
+
+        if (!el || !unref(el)) {
+          return;
+        }
+        chartInstanceRef.value = new ApexCharts(el, options);
+
+        const chartInstance = unref(chartInstanceRef);
+
         chartInstance && chartInstance.render();
       }, 30);
     });
