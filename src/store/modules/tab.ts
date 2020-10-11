@@ -181,6 +181,14 @@ class Tab extends VuexModule {
   }
 
   @Action
+  addTabByPathAction(path: string): void {
+    if (!path) return;
+    const routes = router.getRoutes();
+    const to = routes.find((item) => item.path === path);
+    to && this.commitAddTab((to as unknown) as AppRouteRecordRaw);
+  }
+
+  @Action
   closeRightTabAction(route: AppRouteRecordRaw | TabItem): void {
     const index = this.tabsState.findIndex((item) => item.path === route.path);
 

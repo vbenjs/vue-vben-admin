@@ -2,7 +2,7 @@ import type { TabContentProps } from './tab.data';
 import type { TabItem } from '/@/store/modules/tab';
 import type { AppRouteRecordRaw } from '/@/router/types';
 
-import { defineComponent, watch, computed, ref, unref } from 'vue';
+import { defineComponent, watch, computed, ref, unref, onMounted } from 'vue';
 import { Tabs } from 'ant-design-vue';
 import TabContent from './TabContent';
 
@@ -16,12 +16,21 @@ import './index.less';
 import { tabStore } from '/@/store/modules/tab';
 import { closeTab } from './useTabDropdown';
 import router from '/@/router';
+import { useTabs } from '/@/hooks/web/useTabs';
+import { PageEnum } from '/@/enums/pageEnum';
+
 export default defineComponent({
   name: 'MultiTabs',
   setup() {
     let isAddAffix = false;
     const go = useGo();
     const { currentRoute } = useRouter();
+
+    onMounted(() => {
+      const { addTab } = useTabs();
+      addTab(unref(currentRoute).path as PageEnum);
+    });
+
     // 当前激活tab
     const activeKeyRef = ref<string>('');
     // 当前tab列表
@@ -38,7 +47,9 @@ export default defineComponent({
         }
         activeKeyRef.value = path;
 
-        tabStore.commitAddTab((unref(currentRoute) as unknown) as AppRouteRecordRaw);
+        // 监听路由的话虽然可以，但是路由切换的时间会造成卡顿现象？
+        // 使用useTab的addTab的话，当用户手动调转，需要自行调用addTab
+        // tabStore.commitAddTab((unref(currentRoute) as unknown) as AppRouteRecordRaw);
       },
       {
         immediate: true,

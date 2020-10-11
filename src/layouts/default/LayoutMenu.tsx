@@ -5,7 +5,6 @@ import { computed, defineComponent, unref, ref, onMounted, watch } from 'vue';
 import { BasicMenu } from '/@/components/Menu/index';
 import Logo from '/@/layouts/Logo.vue';
 
-import { PageEnum } from '/@/enums/pageEnum';
 import { MenuModeEnum, MenuSplitTyeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
 
 // store
@@ -20,10 +19,11 @@ import {
   getFlatChildrenMenus,
   getCurrentParentPath,
 } from '/@/router/menus/index';
-import { useGo } from '/@/hooks/web/usePage';
 import { useRouter } from 'vue-router';
 import { useThrottle } from '/@/hooks/core/useThrottle';
 import { permissionStore } from '/@/store/modules/permission';
+import { useTabs } from '/@/hooks/web/useTabs';
+import { PageEnum } from '/@/enums/pageEnum';
 
 // import
 export default defineComponent({
@@ -54,6 +54,7 @@ export default defineComponent({
     const menusRef = ref<Menu[]>([]);
     const flatMenusRef = ref<Menu[]>([]);
     const { currentRoute } = useRouter();
+    const { addTab } = useTabs();
 
     const getProjectConfigRef = computed(() => {
       return appStore.getProjectConfig;
@@ -63,7 +64,6 @@ export default defineComponent({
       return unref(getProjectConfigRef).menuSetting.mode === MenuModeEnum.HORIZONTAL;
     });
 
-    const go = useGo();
     onMounted(() => {
       genMenus();
     });
@@ -144,7 +144,7 @@ export default defineComponent({
         if (splitType === MenuSplitTyeEnum.TOP) {
           menuStore.commitCurrentTopSplitMenuPathState(path);
         }
-        go(path as PageEnum);
+        addTab(path as PageEnum, true);
       }
     }
 
