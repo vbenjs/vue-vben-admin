@@ -51,22 +51,23 @@ if (isServer) {
 }
 
 export function useRaf() {
-  if (getCurrentInstance()) {
-    onUnmounted(() => {
-      cancelAnimationFrame();
-    });
-  }
-  return { requestAnimationFrame };
+  // if (getCurrentInstance()) {
+  //   onUnmounted(() => {
+  //     cancelAnimationFrame();
+  //   });
+  // }
+  return { requestAnimationFrame, cancelAnimationFrame };
 }
 
-export function useRafFn(fn: () => any, options: { immediate?: boolean } = {}) {
+export function useRafFn(fn: (...arg: any) => any, options: { immediate?: boolean } = {}) {
   const { immediate = false } = options;
   let started = false;
+  let id: ReturnType<typeof window.requestAnimationFrame>;
 
   function loop() {
     if (!started) return;
     fn();
-    requestAnimationFrame(loop);
+    id = requestAnimationFrame(loop);
   }
 
   function start() {
@@ -86,7 +87,7 @@ export function useRafFn(fn: () => any, options: { immediate?: boolean } = {}) {
 
   if (getCurrentInstance()) {
     onUnmounted(() => {
-      cancelAnimationFrame();
+      cancelAnimationFrame(id);
       stop();
     });
   }

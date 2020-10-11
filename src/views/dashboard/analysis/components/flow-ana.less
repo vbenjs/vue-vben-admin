@@ -1,0 +1,56 @@
+.flow-analysis {
+  width: 100%;
+  background: #fff;
+
+  &__left {
+    padding: 10px 20px !important;
+    border-right: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 0;
+  }
+
+  &__score {
+    margin-top: 20px;
+    font-size: 30px;
+    line-height: 38px;
+    color: rgba(0, 0, 0, 0.85);
+
+    span {
+      font-size: 20px;
+      line-height: 28px;
+      color: rgba(0, 0, 0, 0.85);
+    }
+  }
+
+  &__rank {
+    margin: 16px 0;
+    font-size: 12px;
+    line-height: 20px;
+    color: #7c8087;
+
+    span {
+      display: inline-block;
+      margin-left: 10px;
+      color: #1c1d21;
+    }
+  }
+
+  &__rs {
+    li {
+      display: flex;
+      line-height: 28px;
+      justify-content: space-between;
+
+      span {
+        &:nth-child(1) {
+          font-size: 14px;
+          color: #1c1d21;
+        }
+
+        &:nth-child(2) {
+          font-size: 16px;
+          color: #1c1d21;
+        }
+      }
+    }
+  }
+}
