@@ -173,7 +173,7 @@
 
           img {
             display: inline-block;
-            width: 48px;
+            width: 80px;
           }
 
           h1 {
