@@ -7,12 +7,15 @@ import { createProgressGuard } from './progressGuard';
 import { createPermissionGuard } from './permissionGuard';
 import { createPageLoadingGuard } from './pageLoadingGuard';
 import { useSetting } from '/@/hooks/core/useSetting';
+import { getIsOpenTab } from '/@/utils/helper/routeHelper';
 
 const { projectSetting } = useSetting();
 export function createGuard(router: Router) {
   const axiosCanceler = new AxiosCanceler();
 
-  router.beforeEach(async () => {
+  router.beforeEach(async (to) => {
+    const isOpen = getIsOpenTab(to.path);
+    to.meta.inTab = isOpen;
     try {
       Modal.destroyAll();
       notification.destroy();
