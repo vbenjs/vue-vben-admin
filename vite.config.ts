@@ -108,7 +108,13 @@ const viteConfig: UserConfig = {
   // 配置Dep优化行为
   // 会使用 rollup 对 包重新编译，将编译成符合 esm 模块规范的新的包放入 node_modules 下的 .
   optimizeDeps: {
-    include: ['ant-design-vue/es/locale/zh_CN', '@ant-design/icons-vue', 'moment/locale/zh-cn'],
+    include: [
+      'echarts',
+      'echarts/map/js/china',
+      'ant-design-vue/es/locale/zh_CN',
+      '@ant-design/icons-vue',
+      'moment/locale/zh-cn',
+    ],
   },
   // 本地跨域代理
   proxy: createProxy(VITE_PROXY),
