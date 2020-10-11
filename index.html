@@ -7,7 +7,77 @@
     <title>Vue Vben admin 2.0</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <style>
+        @keyframes load {
+          0% {
+            -webkit-transform: rotate(-360deg);
+            -moz-transform: rotate(-360deg);
+            -ms-transform: rotate(-360deg);
+            -o-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+          }
+
+          100% {
+            -webkit-transform: rotate(0);
+            -moz-transform: rotate(0);
+            -ms-transform: rotate(0);
+            -o-transform: rotate(0);
+            transform: rotate(0);
+          }
+        }
+
+        .g-loading {
+          -webkit-animation: load 2s linear infinite;
+          -moz-animation: load 2s linear infinite;
+          -ms-animation: load 2s linear infinite;
+          -o-animation: load 2s linear infinite;
+          animation: load 2s linear infinite;
+          -webkit-transform-origin: center center;
+          -moz-transform-origin: center center;
+          -ms-transform-origin: center center;
+          -o-transform-origin: center center;
+          transform-origin: center center;
+        }
+
+        .app-loading {
+          width: 100%;
+          height: 100%;
+          background: rgba(255, 255, 255, 0, 3);
+        }
+
+        .app-loading .app-loading-wrap {
+          position: absolute;
+          top: 45%;
+          left: 50%;
+          width: 64px;
+          -ms-transform: translate3d(-50%, -50%, 0);
+          -moz-transform: translate3d(-50%, -50%, 0);
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          -o-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+        }
+
+        .app-loading .app-loading-wrap img.logo {
+          margin-bottom: 20px;
+          margin-left: -20px;
+        }
+
+        .app-loading .app-loading-wrap .app-loading__tip {
+          display: block;
+          margin-top: 4px;
+          font-size: 13px;
+          color: #303133;
+          text-align: center;
+        }
+      </style>
+      <section class="app-loading">
+        <section class="app-loading-wrap">
+          <img src="./resource/img/logo.png" class="logo" alt="Logo" />
+          <img src="./resource/img/loading.svg" alt="" class="g-loading" />
+        </section>
+      </section>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

@@ -9,7 +9,7 @@
     </template>
   </Row>
 </template>
-<script lang="tsx">
+<script lang="ts">
   import { defineComponent } from 'vue';
   import { Row, Col } from 'ant-design-vue';
 
