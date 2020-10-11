@@ -30,6 +30,7 @@ export function useApexCharts(elRef: Ref<HTMLDivElement>) {
       return;
     }
     chartInstanceRef.value = null;
+    chartInstance.destroy();
   });
   return {
     setOptions,

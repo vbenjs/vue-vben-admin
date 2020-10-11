@@ -7,7 +7,7 @@ export default {
     path: '/dashboard',
     name: 'Dashboard',
     component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/dashboard/welcome',
+    redirect: '/dashboard/workbench',
     meta: {
       icon: 'ant-design:home-outlined',
       title: 'Dashboard',
@@ -20,7 +20,15 @@ export default {
       name: 'Welcome',
       component: () => import('/@/views/dashboard/welcome/index.vue'),
       meta: {
-        title: '欢迎页',
+        title: '首页',
+      },
+    },
+    {
+      path: '/workbench',
+      name: 'Workbench',
+      component: () => import('/@/views/dashboard/workbench/index.vue'),
+      meta: {
+        title: '工作台',
         affix: true,
       },
     },
