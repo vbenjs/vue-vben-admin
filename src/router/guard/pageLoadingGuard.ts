@@ -6,6 +6,9 @@ import { userStore } from '/@/store/modules/user';
 export function createPageLoadingGuard(router: Router) {
   let isFirstLoad = true;
   router.beforeEach(async (to) => {
+    console.log('======================');
+    console.log(2);
+    console.log('======================');
     const {
       openKeepAlive,
       openRouterTransition,
@@ -21,6 +24,7 @@ export function createPageLoadingGuard(router: Router) {
     }
     if (show && openKeepAlive && !isFirstLoad) {
       const tabList = tabStore.getTabsState;
+
       const isOpen = tabList.some((tab) => tab.path === to.path);
       appStore.setPageLoadingAction(!isOpen);
     } else {

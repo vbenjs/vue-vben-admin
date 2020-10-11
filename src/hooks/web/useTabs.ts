@@ -1,5 +1,9 @@
+import { useTimeout } from '/@/hooks/core/useTimeout';
+import { PageEnum } from '/@/enums/pageEnum';
 import { TabItem, tabStore } from '/@/store/modules/tab';
 import { appStore } from '/@/store/modules/app';
+import router from '/@/router';
+
 type Fn = () => void;
 type RouteFn = (tabItem: TabItem) => void;
 
@@ -66,5 +70,12 @@ export function useTabs() {
     closeOther: () => canIUseFn() && closeOther(tabStore.getCurrentTab),
     closeCurrent: () => canIUseFn() && closeCurrent(tabStore.getCurrentTab),
     resetCache: () => canIUseFn() && resetCache(),
+    addTab: (path: PageEnum, goTo = false) => {
+      useTimeout(() => {
+        tabStore.addTabByPathAction(path);
+      }, 0);
+
+      goTo && router.push(path);
+    },
   };
 }
