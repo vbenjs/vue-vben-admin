@@ -7,7 +7,7 @@ export default {
     path: '/charts',
     name: 'Charts',
     component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/charts/welcome',
+    redirect: '/charts/apexChart',
     meta: {
       icon: 'ant-design:area-chart-outlined',
       title: '图表库',

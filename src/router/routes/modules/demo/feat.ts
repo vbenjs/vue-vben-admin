@@ -7,7 +7,7 @@ export default {
     path: '/feat',
     name: 'FeatDemo',
     component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/feat/tabs',
+    redirect: '/feat/icon',
     meta: {
       icon: 'ic:outline-featured-play-list',
       title: 'Feat',
@@ -16,14 +16,6 @@ export default {
 
   routes: [
     {
-      path: '/tabs',
-      name: 'TabsDemo',
-      component: () => import('/@/views/demo/feat/tabs/index.vue'),
-      meta: {
-        title: '标签页操作',
-      },
-    },
-    {
       path: '/icon',
       name: 'IconDemo',
       component: () => import('/@/views/demo/comp/icon/index.vue'),
@@ -31,6 +23,15 @@ export default {
         title: '图标',
       },
     },
+    {
+      path: '/tabs',
+      name: 'TabsDemo',
+      component: () => import('/@/views/demo/feat/tabs/index.vue'),
+      meta: {
+        title: '标签页操作',
+      },
+    },
+
     {
       path: '/context-menu',
       name: 'ContextMenuDemo',

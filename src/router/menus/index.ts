@@ -10,7 +10,8 @@ import { PermissionModeEnum } from '/@/enums/appEnum';
 // ===========================
 // ==========module import====
 // ===========================
-import dashboardDemo from './modules/demo/dashboard';
+import dashboard from './modules/dashboard';
+
 import exceptionDemo from './modules/demo/exception';
 import iframeDemo from './modules/demo/iframe';
 import compDemo from './modules/demo/comp';
@@ -22,7 +23,7 @@ import formDemo from './modules/demo/form';
 import treeDemo from './modules/demo/tree';
 
 const menuModules = [
-  dashboardDemo,
+  dashboard,
   featDemo,
   exceptionDemo,
   iframeDemo,

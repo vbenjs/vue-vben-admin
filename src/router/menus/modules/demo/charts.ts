@@ -6,6 +6,10 @@ const menu: MenuModule = {
     path: '/charts',
     children: [
       {
+        path: '/apexChart',
+        name: 'ApexChart',
+      },
+      {
         path: '/echarts',
         name: 'Echarts',
         children: [
@@ -22,10 +26,6 @@ const menu: MenuModule = {
             name: '饼图',
           },
         ],
-      },
-      {
-        path: '/apexChart',
-        name: 'ApexChart',
       },
     ],
   },

@@ -181,10 +181,7 @@ class Tab extends VuexModule {
   }
 
   @Action
-  addTabByPathAction(path: string): void {
-    if (!path) return;
-    const routes = router.getRoutes();
-    const to = routes.find((item) => item.path === path);
+  addTabByPathAction(to: AppRouteRecordRaw): void {
     to && this.commitAddTab((to as unknown) as AppRouteRecordRaw);
   }
 
