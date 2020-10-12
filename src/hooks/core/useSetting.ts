@@ -25,9 +25,6 @@ export const useSetting = (): SettingWrap => {
     urlPrefix: VITE_GLOB_API_URL_PREFIX,
   };
   const projectSetting: Readonly<ProjectConfig> = getProjectSetting;
-  console.log('======================');
-  console.log(glob);
-  console.log('======================');
   return {
     globSetting: glob as Readonly<GlobConfig>,
     projectSetting,
