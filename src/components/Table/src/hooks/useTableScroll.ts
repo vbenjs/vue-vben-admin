@@ -77,7 +77,7 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
     if (el) {
       headerHeight = (el as HTMLElement).offsetHeight;
     }
-    tableHeightRef.value =
+    const tHeight =
       bottomIncludeBody -
       (resizeHeightOffset || 0) -
       paddingHeight -
@@ -86,8 +86,7 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
       footerHeight -
       headerHeight;
     useTimeout(() => {
-      tableHeightRef.value =
-        tableHeightRef.value! > maxHeight! ? (maxHeight as number) : tableHeightRef.value;
+      tableHeightRef.value = tHeight > maxHeight! ? (maxHeight as number) : tableHeightRef.value;
       cb && cb();
     }, 0);
   }

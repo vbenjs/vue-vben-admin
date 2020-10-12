@@ -218,6 +218,7 @@ yarn clean:lib # 删除node_modules，兼容window系统
 - [x] 图表库
 - [x] 数字动画
 - [x] 首屏加载等待动画
+- [x] 抽取生产环境配置文件
 
 ## 正在开发的功能
 
@@ -228,7 +229,7 @@ yarn clean:lib # 删除node_modules，兼容window系统
 - [ ] 主题配置
 - [ ] 黑暗主题
 - [ ] 打包 Gzip
-- [ ] 抽取生产环境配置文件
+- [ ] 打包 CDN
 - [ ] 系统性能优化
 
 更多组件/功能/建议/bug/欢迎提交 pr 或者 issue

@@ -11,7 +11,7 @@ import { getIPAddress } from '../utils';
 const BUILD = 1;
 const NO_BUILD = 2;
 
-// 启动服务器
+// start server
 const startApp = () => {
   const port = 9680;
   portfinder.basePort = port;
@@ -23,7 +23,6 @@ const startApp = () => {
     if (err) {
       throw err;
     } else {
-      // const publicPath = process.env.BASE_URL;
       app.listen(port, function () {
         const empty = '    ';
         const common = `The preview program is already running:
@@ -36,7 +35,7 @@ const startApp = () => {
   });
 };
 
-const preview = async () => {
+export const runPreview = async () => {
   const prompt = inquirer.prompt({
     type: 'list',
     message: 'Please select a preview method',
@@ -61,7 +60,3 @@ const preview = async () => {
   }
   startApp();
 };
-
-(() => {
-  preview();
-})();

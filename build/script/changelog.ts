@@ -1,14 +1,11 @@
 // #!/usr/bin/env node
 
 import { sh } from 'tasksfile';
-import chalk from 'chalk';
+import { errorConsole, successConsole } from '../utils';
 
-const createChangeLog = async () => {
+export const runChangeLog = async () => {
   try {
     let cmd = `conventional-changelog -p custom-config -i CHANGELOG.md -s -r 0 `;
-    // if (shell.which('git')) {
-    //   cmd += '&& git add CHANGELOG.md';
-    // }
     await sh(cmd, {
       async: true,
       nopipe: true,
@@ -18,21 +15,10 @@ const createChangeLog = async () => {
       async: true,
       nopipe: true,
     });
-    console.log(
-      chalk.blue.bold('****************  ') +
-        chalk.green.bold('CHANGE_LOG generated successfully！') +
-        chalk.blue.bold('  ****************')
-    );
+    successConsole('CHANGE_LOG.md generated successfully！');
   } catch (error) {
-    console.log(
-      chalk.blue.red('****************  ') +
-        chalk.green.red('CHANGE_LOG generated error\n' + error) +
-        chalk.blue.red('  ****************')
-    );
+    errorConsole('CHANGE_LOG.md generated error\n' + error);
+
     process.exit(1);
   }
-};
-createChangeLog();
-module.exports = {
-  createChangeLog,
 };
