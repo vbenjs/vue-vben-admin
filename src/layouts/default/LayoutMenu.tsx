@@ -193,7 +193,7 @@ export default defineComponent({
           class="layout-menu"
           theme={themeData}
           showLogo={isShowLogo}
-          search={unref(showSearchRef)}
+          search={unref(showSearchRef) && !collapsed}
           items={unref(menusRef)}
           flatItems={unref(flatMenusRef)}
           onClickSearchInput={handleClickSearchInput}

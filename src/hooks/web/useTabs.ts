@@ -3,6 +3,9 @@ import { PageEnum } from '/@/enums/pageEnum';
 import { TabItem, tabStore } from '/@/store/modules/tab';
 import { appStore } from '/@/store/modules/app';
 import router from '/@/router';
+import { ref } from 'vue';
+
+const activeKeyRef = ref<string>('');
 
 type Fn = () => void;
 type RouteFn = (tabItem: TabItem) => void;
@@ -70,12 +73,13 @@ export function useTabs() {
     closeOther: () => canIUseFn() && closeOther(tabStore.getCurrentTab),
     closeCurrent: () => canIUseFn() && closeCurrent(tabStore.getCurrentTab),
     resetCache: () => canIUseFn() && resetCache(),
-    addTab: (path: PageEnum, goTo = false) => {
+    addTab: (path: PageEnum, goTo = false, replace = false) => {
       useTimeout(() => {
         tabStore.addTabByPathAction(path);
       }, 0);
-
-      goTo && router.push(path);
+      activeKeyRef.value = path;
+      goTo && replace ? router.replace : router.push(path);
     },
+    activeKeyRef,
   };
 }

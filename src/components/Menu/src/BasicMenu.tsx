@@ -239,14 +239,13 @@ export default defineComponent({
       ) : (
         <section class={`basic-menu-wrap`}>
           {getSlot(slots, 'header')}
-          {props.search && (
-            <SearchInput
-              theme={props.theme}
-              onChange={handleInputChange}
-              onClick={handleInputClick}
-              collapsed={getCollapsedState}
-            />
-          )}
+          <SearchInput
+            class={!props.search ? 'hidden' : ''}
+            theme={props.theme}
+            onChange={handleInputChange}
+            onClick={handleInputClick}
+            collapsed={getCollapsedState}
+          />
           <section style={unref(getMenuWrapStyle)}>
             <ScrollContainer>{() => renderMenu()}</ScrollContainer>
           </section>

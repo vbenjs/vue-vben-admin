@@ -1,7 +1,7 @@
 <template>
   <div class="app-logo" @click="handleGoHome">
     <img :src="logo" />
-    <div v-if="show" class="logo-title ml-2 ellipsis">{{ globSetting.title }}</div>
+    <div v-if="show" class="logo-title ml-1 ellipsis">{{ globSetting.title }}</div>
   </div>
 </template>
 <script lang="ts">
@@ -62,7 +62,7 @@
     .logo-title {
       display: none;
       font-family: Georgia, serif;
-      font-size: 18px;
+      font-size: 16px;
       .respond-to(medium,{
        display: block;
      });

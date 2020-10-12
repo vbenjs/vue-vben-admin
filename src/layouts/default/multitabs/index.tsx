@@ -2,7 +2,14 @@ import type { TabContentProps } from './tab.data';
 import type { TabItem } from '/@/store/modules/tab';
 import type { AppRouteRecordRaw } from '/@/router/types';
 
-import { defineComponent, watch, computed, ref, unref, onMounted } from 'vue';
+import {
+  defineComponent,
+  watch,
+  computed,
+  // ref,
+  unref,
+  onMounted,
+} from 'vue';
 import { Tabs } from 'ant-design-vue';
 import TabContent from './TabContent';
 
@@ -12,41 +19,43 @@ import { TabContentEnum } from './tab.data';
 
 import { useRouter } from 'vue-router';
 
-import './index.less';
 import { tabStore } from '/@/store/modules/tab';
 import { closeTab } from './useTabDropdown';
 import router from '/@/router';
 import { useTabs } from '/@/hooks/web/useTabs';
 import { PageEnum } from '/@/enums/pageEnum';
 
+import './index.less';
 export default defineComponent({
   name: 'MultiTabs',
   setup() {
     let isAddAffix = false;
     const go = useGo();
     const { currentRoute } = useRouter();
-
+    const { addTab, activeKeyRef } = useTabs();
     onMounted(() => {
-      const { addTab } = useTabs();
       addTab(unref(currentRoute).path as PageEnum);
     });
 
     // 当前激活tab
-    const activeKeyRef = ref<string>('');
+    // const activeKeyRef = ref<string>('');
+
     // 当前tab列表
     const getTabsState = computed(() => {
       return tabStore.getTabsState;
     });
 
+    if (!isAddAffix) {
+      addAffixTabs();
+      isAddAffix = true;
+    }
+
     watch(
       () => unref(currentRoute).path,
       (path) => {
-        if (!isAddAffix) {
-          addAffixTabs();
-          isAddAffix = true;
+        if (activeKeyRef.value !== path) {
+          activeKeyRef.value = path;
         }
-        activeKeyRef.value = path;
-
         // 监听路由的话虽然可以，但是路由切换的时间会造成卡顿现象？
         // 使用useTab的addTab的话，当用户手动调转，需要自行调用addTab
         // tabStore.commitAddTab((unref(currentRoute) as unknown) as AppRouteRecordRaw);
@@ -55,6 +64,7 @@ export default defineComponent({
         immediate: true,
       }
     );
+
     /**
      * @description: 过滤所有固定路由
      */
@@ -72,6 +82,7 @@ export default defineComponent({
         });
       return tabs;
     }
+
     /**
      * @description: 设置固定tabs
      */
@@ -87,6 +98,7 @@ export default defineComponent({
       activeKeyRef.value = activeKey;
       go(activeKey, false);
     }
+
     // 关闭当前ab
     function handleEdit(targetKey: string) {
       // 新增操作隐藏，目前只使用删除操作
