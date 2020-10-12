@@ -51,7 +51,7 @@ const setting: ProjectConfig = {
     // 是否显示搜索框
     showSearch: true,
     // 菜单宽度
-    menuWidth: 200,
+    menuWidth: 180,
     // 菜单模式
     mode: MenuModeEnum.INLINE,
     // 菜单类型
