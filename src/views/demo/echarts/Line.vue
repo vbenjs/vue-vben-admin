@@ -1,7 +1,5 @@
 <template>
-  <div class="p-4">
-    <div ref="chartRef" :style="{ height, width }" />
-  </div>
+  <div ref="chartRef" :style="{ height, width }" />
 </template>
 <script lang="ts">
   import { defineComponent, PropType, ref, Ref, onMounted } from 'vue';
@@ -18,7 +16,7 @@
       },
       height: {
         type: String as PropType<string>,
-        default: '80vh',
+        default: 'calc(100vh - 78px)',
       },
     },
     setup() {

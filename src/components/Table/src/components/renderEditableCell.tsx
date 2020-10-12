@@ -43,7 +43,7 @@ const EditableCell = defineComponent({
     const elRef = ref<any>(null);
 
     const isEditRef = ref(false);
-    const currentValueRef = ref<string | boolean>('');
+    const currentValueRef = ref<string | boolean>(props.value);
 
     function handleChange(e: ChangeEvent | string | boolean) {
       if ((e as ChangeEvent).target && Reflect.has((e as ChangeEvent).target, 'value')) {
@@ -106,7 +106,7 @@ const EditableCell = defineComponent({
                     }}
                     style={{ width: 'calc(100% - 48px)' }}
                     ref={elRef}
-                    value={value}
+                    value={unref(currentValueRef)}
                     size="small"
                     onChange={handleChange}
                     onPressEnter={handleSubmit}
@@ -141,12 +141,12 @@ export function renderEditableCell({
   return ({ text, record }: { text: string; record: any }) => {
     return (
       <EditableCell
+        {...componentOn}
+        {...componentProps}
         value={text}
         dataKey={record.key}
         dataIndex={dataIndex}
         component={component}
-        on={componentOn}
-        componentProps={componentProps}
       />
     );
   };
