@@ -1,4 +1,35 @@
-# [2.0.0-beta.6](https://github.com/anncwb/vue-vben-admin/compare/2.0.0-beta.4...2.0.0-beta.6) (2020-10-11)
+# [2.0.0-beta.7](https://github.com/anncwb/vue-vben-admin/compare/2.0.0-beta.5...2.0.0-beta.7) (2020-10-12)
+
+### ⚡ Performance Improvements
+
+- optimize multiple-tab switching effect ([487870f](https://github.com/anncwb/vue-vben-admin/commit/487870f))
+- the existing tab switching no longer displays animation and processbar ([1ca8fbe](https://github.com/anncwb/vue-vben-admin/commit/1ca8fbe))
+
+### ✨ Features
+
+- add count-to component and demo ([34ce66b](https://github.com/anncwb/vue-vben-admin/commit/34ce66b))
+- first screen loading waiting animation ([21eae26](https://github.com/anncwb/vue-vben-admin/commit/21eae26))
+- projectSetting add closeMessageOnSwitch and removeAllHttpPending ([08497a7](https://github.com/anncwb/vue-vben-admin/commit/08497a7))
+- the production environment can be dynamically configured ([bb4a227](https://github.com/anncwb/vue-vben-admin/commit/bb4a227))
+- **analysis:** add analysis page ([c1a866f](https://github.com/anncwb/vue-vben-admin/commit/c1a866f))
+- **chart:** add useEcharts and useApexChart demo ([2837315](https://github.com/anncwb/vue-vben-admin/commit/2837315))
+- **workbench:** add workbench page ([8cefb70](https://github.com/anncwb/vue-vben-admin/commit/8cefb70))
+
+### 🎫 Chores
+
+- update deps ([7ef20af](https://github.com/anncwb/vue-vben-admin/commit/7ef20af))
+
+### 🐛 Bug Fixes
+
+- fix editable cells cannot be entered ([e4497d6](https://github.com/anncwb/vue-vben-admin/commit/e4497d6))
+- fix routing switch, tab is not activated ([818ddfa](https://github.com/anncwb/vue-vben-admin/commit/818ddfa))
+- repair packaging error ([e9a2d48](https://github.com/anncwb/vue-vben-admin/commit/e9a2d48))
+
+### 💄 Styles
+
+- menu adjustment ([49107c3](https://github.com/anncwb/vue-vben-admin/commit/49107c3))
+
+# [2.0.0-beta.5](https://github.com/anncwb/vue-vben-admin/compare/2.0.0-beta.4...2.0.0-beta.5) (2020-10-10)
 
 ### ♻ Code Refactoring
 
@@ -6,35 +37,19 @@
 
 ### ⚡ Performance Improvements
 
-- optimize multiple-tab switching effect ([487870f](https://github.com/anncwb/vue-vben-admin/commit/487870f))
 - optimized page switching effect ([7dccef7](https://github.com/anncwb/vue-vben-admin/commit/7dccef7))
-- the existing tab switching no longer displays animation and processbar ([1ca8fbe](https://github.com/anncwb/vue-vben-admin/commit/1ca8fbe))
-
-### ✨ Features
-
-- add count-to component and demo ([34ce66b](https://github.com/anncwb/vue-vben-admin/commit/34ce66b))
-- first screen loading waiting animation ([21eae26](https://github.com/anncwb/vue-vben-admin/commit/21eae26))
-- **analysis:** add analysis page ([c1a866f](https://github.com/anncwb/vue-vben-admin/commit/c1a866f))
-- **chart:** add useEcharts and useApexChart demo ([2837315](https://github.com/anncwb/vue-vben-admin/commit/2837315))
-- **workbench:** add workbench page ([8cefb70](https://github.com/anncwb/vue-vben-admin/commit/8cefb70))
 
 ### 🎫 Chores
 
 - add .github and .vscode ([7339d91](https://github.com/anncwb/vue-vben-admin/commit/7339d91))
 - bump 2.0.0-beta.4 ([2c68c68](https://github.com/anncwb/vue-vben-admin/commit/2c68c68))
-- bump 2.0.0-beta.5 ([b9fe65e](https://github.com/anncwb/vue-vben-admin/commit/b9fe65e))
 - change menu icon ([a51079f](https://github.com/anncwb/vue-vben-admin/commit/a51079f))
 - separate configuration files ([cb37785](https://github.com/anncwb/vue-vben-admin/commit/cb37785))
 - update readme.md ([3bacef2](https://github.com/anncwb/vue-vben-admin/commit/3bacef2))
 
 ### 🐛 Bug Fixes
 
-- repair packaging error ([e9a2d48](https://github.com/anncwb/vue-vben-admin/commit/e9a2d48))
 - Repair tree component click to select ([#33](https://github.com/anncwb/vue-vben-admin/issues/33)) ([884687c](https://github.com/anncwb/vue-vben-admin/commit/884687c))
-
-### 💄 Styles
-
-- menu adjustment ([49107c3](https://github.com/anncwb/vue-vben-admin/commit/49107c3))
 
 # [2.0.0-beta.4](https://github.com/anncwb/vue-vben-admin/compare/2.0.0-beta.3...2.0.0-beta.4) (2020-10-08)
 

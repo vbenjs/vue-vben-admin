@@ -1,6 +1,6 @@
 {
   "name": "vben-admin-2.0",
-  "version": "2.0.0-beta.6",
+  "version": "2.0.0-beta.7",
   "scripts": {
     "bootstrap": "yarn install",
     "serve": "node ./build/jsc.js preserve && cross-env NODE_ENV=development vite",
