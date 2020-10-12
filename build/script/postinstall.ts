@@ -2,9 +2,14 @@ import { exec, which } from 'shelljs';
 
 function ignoreCaseGit() {
   try {
-    if (which('git')) {
+    if (which('git').code === 0) {
       exec('git config core.ignorecase false ');
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }
-ignoreCaseGit();
+
+export function runPostInstall() {
+  ignoreCaseGit();
+}

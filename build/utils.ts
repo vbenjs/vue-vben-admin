@@ -1,6 +1,9 @@
 import fs from 'fs';
+import path from 'path';
 import { networkInterfaces } from 'os';
 import dotenv from 'dotenv';
+import chalk from 'chalk';
+
 export const isFunction = (arg: unknown): arg is (...args: any[]) => any =>
   typeof arg === 'function';
 export const isRegExp = (arg: unknown): arg is RegExp =>
@@ -72,6 +75,8 @@ export interface ViteEnv {
   VITE_USE_MOCK: boolean;
   VITE_PUBLIC_PATH: string;
   VITE_PROXY: [string, string][];
+  VITE_GLOB_APP_TITLE: string;
+  VITE_USE_CDN: boolean;
 }
 
 export function loadEnv(): ViteEnv {
@@ -99,4 +104,50 @@ export function loadEnv(): ViteEnv {
     process.env[envName] = realName;
   }
   return ret;
+}
+
+export function getEnvConfig(match = 'VITE_GLOB_', confFiles = ['.env', '.env.production']) {
+  let envConfig = {};
+  confFiles.forEach((item) => {
+    try {
+      const env = dotenv.parse(fs.readFileSync(path.resolve(process.cwd(), item)));
+
+      envConfig = { ...envConfig, ...env };
+    } catch (error) {}
+  });
+  Object.keys(envConfig).forEach((key) => {
+    const reg = new RegExp(`^(${match})`);
+    if (!reg.test(key)) {
+      Reflect.deleteProperty(envConfig, key);
+    }
+  });
+  return envConfig;
+}
+
+export function successConsole(message: any) {
+  console.log(
+    chalk.blue.bold('****************  ') +
+      chalk.green.bold('✨ ' + message) +
+      chalk.blue.bold('  ****************')
+  );
+}
+
+export function errorConsole(message: any) {
+  console.log(
+    chalk.blue.bold('****************  ') +
+      chalk.red.bold('✨ ' + message) +
+      chalk.blue.bold('  ****************')
+  );
+}
+
+export function warnConsole(message: any) {
+  console.log(
+    chalk.blue.bold('****************  ') +
+      chalk.yellow.bold('✨ ' + message) +
+      chalk.blue.bold('  ****************')
+  );
+}
+
+export function getCwdPath(...dir: string[]) {
+  return path.resolve(process.cwd(), ...dir);
 }

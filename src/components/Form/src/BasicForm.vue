@@ -283,7 +283,19 @@
           const element = values[key];
           if (fields.includes(key) && element !== undefined && element !== null) {
             // 时间
-            (formModel as any)[key] = itemIsDateType(key) ? moment(element) : element;
+            if (itemIsDateType(key)) {
+              if (Array.isArray(element)) {
+                const arr: any[] = [];
+                for (const ele of element) {
+                  arr.push(moment(ele));
+                }
+                (formModel as any)[key] = arr;
+              } else {
+                (formModel as any)[key] = moment(element);
+              }
+            } else {
+              (formModel as any)[key] = element;
+            }
             if (formEl) {
               formEl.validateFields([key]);
             }

@@ -4,14 +4,26 @@ import type { UserConfig, Plugin as VitePlugin } from 'vite';
 
 import visualizer from 'rollup-plugin-visualizer';
 import { modifyVars } from './build/config/glob/lessModifyVars';
-import { setupBasicEnv } from './build/config/vite/env';
+import {
+  // externals,
+  cdnConf,
+} from './build/config/vite/cdn';
+
 import { createProxy } from './build/config/vite/proxy';
 import { createMockServer } from 'vite-plugin-mock';
 import PurgeIcons from 'vite-plugin-purge-icons';
-import { isDevFn, isReportMode, isProdFn, loadEnv } from './build/utils';
 
-setupBasicEnv();
-const { VITE_USE_MOCK, VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY } = loadEnv();
+import { isDevFn, isReportMode, isProdFn, loadEnv } from './build/utils';
+const pkg = require('./package.json');
+
+const {
+  VITE_USE_MOCK,
+  VITE_PORT,
+  VITE_PUBLIC_PATH,
+  VITE_PROXY,
+  VITE_GLOB_APP_TITLE,
+  // VITE_USE_CDN,
+} = loadEnv();
 
 function pathResolve(dir: string) {
   return resolve(__dirname, '.', dir);
@@ -95,9 +107,9 @@ const viteConfig: UserConfig = {
   alias: {
     '/@/': pathResolve('src'),
   },
-  // define: {
-  //   __ENV__: 'value',
-  // },
+  define: {
+    __VERSION__: pkg.version,
+  },
   // css预处理
   cssPreprocessOptions: {
     less: {
@@ -122,8 +134,35 @@ const viteConfig: UserConfig = {
   plugins: [PurgeIcons(), ...vitePlugins],
   rollupOutputOptions: {},
   rollupInputOptions: {
+    // TODO
+    // external: VITE_USE_CDN ? externals : [],
     plugins: rollupPlugins,
   },
 };
 
+// 用于打包部署站点使用。实际项目可以删除
+const isSite = process.env.SITE === 'true';
+// 扩展配置, 往打包后的html注入内容
+// 只针对生产环境
+// TODO 目前只是简单手动注入实现，后续vite应该会提供配置项
+export const htmlConfig: {
+  title: string;
+  addHm?: boolean;
+  cdnConf?: {
+    css?: string[];
+    js?: string[];
+  };
+  useCdn: boolean;
+} = {
+  // html title
+  title: VITE_GLOB_APP_TITLE,
+  // 百度统计，不需要可以删除
+  addHm: isSite,
+  // 使用cdn打包
+  // TODO Cdn esm使用方式需要只能支持google，暂时关闭，后续查询更好的方式
+  useCdn: false,
+  // useCdn: VITE_USE_CDN,
+  // cdn列表
+  cdnConf,
+};
 export default viteConfig;

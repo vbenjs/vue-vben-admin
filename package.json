@@ -3,21 +3,22 @@
   "version": "2.0.0-beta.6",
   "scripts": {
     "bootstrap": "yarn install",
-    "serve": "ts-node --project ./build/tsconfig.json  ./build/script/preserve && cross-env NODE_ENV=development vite",
-    "build": "cross-env NODE_ENV=production vite build ",
-    "report": "cross-env REPORT=true yarn build ",
-    "build:no-cache": "yarn  clean:cache && yarn build",
-    "preview": "ts-node --project ./build/tsconfig.json  ./build/script/preview",
-    "log": "ts-node --project ./build/tsconfig.json  ./build/script/changelog",
-    "gen:gz": "ts-node --project build/tsconfig.build.json ./build/gzip/index.ts ",
-    "clean:cache": "npx rimraf node_modules/.cache/ && npx rimraf node_modules/.vite_opt_cache",
+    "serve": "node ./build/jsc.js preserve && cross-env NODE_ENV=development vite",
+    "build": "node ./build/jsc.js build",
+    "build:site": "cross-env SITE=true npm run build ",
+    "build:no-cache": "yarn  clean:cache && npm run build",
+    "report": "cross-env REPORT=true npm run build ",
+    "preview": "node ./build/jsc.js preview",
+    "log": "node ./build/jsc.js log",
+    "gen:gz": "node ./build/jsc.js gzip",
+    "clean:cache": "rimraf node_modules/.cache/ && rimraf node_modules/.vite_opt_cache",
     "clean:lib": "npx rimraf node_modules",
     "ls-lint": "npx ls-lint",
     "lint:eslint": "eslint --fix --ext \"src/**/*.{vue,less,css,scss}\"",
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
-    "lint:stylelint": "stylelint  --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
-    "reinstall": "npx rimraf node_modules && npx rimraf yarn.lock && npx rimraf package.lock.json && yarn run bootstrap",
-    "postinstall": "ts-node --project ./build/tsconfig.json  ./build/script/postinstall"
+    "lint:stylelint": "stylelint --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
+    "reinstall": "rimraf node_modules && rimraf yarn.lock && rimraf package.lock.json && npm run bootstrap",
+    "postinstall": "node ./build/jsc.js postinstall"
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.1",
@@ -53,6 +54,7 @@
     "@types/qrcode": "^1.3.5",
     "@types/rollup-plugin-visualizer": "^2.6.0",
     "@types/shelljs": "^0.8.8",
+    "@types/yargs": "^15.0.8",
     "@types/zxcvbn": "^4.4.0",
     "@typescript-eslint/eslint-plugin": "^4.4.0",
     "@typescript-eslint/parser": "^4.4.0",
@@ -90,7 +92,8 @@
     "vite": "^1.0.0-rc.4",
     "vite-plugin-mock": "^1.0.2",
     "vite-plugin-purge-icons": "^0.4.1",
-    "vue-eslint-parser": "^7.1.0"
+    "vue-eslint-parser": "^7.1.0",
+    "yargs": "^16.0.3"
   },
   "repository": {
     "type": "git",

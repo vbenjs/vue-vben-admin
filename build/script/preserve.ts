@@ -1,53 +1,57 @@
-// 是否需要更新依赖，防止package.json更新了依赖，其他人获取代码后没有install
+// Do you need to update the dependencies to prevent package.json from updating the dependencies, and no install after others get the code
 
 import path from 'path';
 import fs from 'fs-extra';
 import { isEqual } from 'lodash';
-import chalk from 'chalk';
 import { sh } from 'tasksfile';
+import { successConsole, errorConsole } from '../utils';
 
 const resolve = (dir: string) => {
   return path.resolve(process.cwd(), dir);
 };
 
+const reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+
 let NEED_INSTALL = false;
 
-fs.mkdirp(resolve('build/.cache'));
-function checkPkgUpdate() {
-  const pkg = require('../../package.json');
-  const { dependencies, devDependencies } = pkg;
-  const depsFile = resolve('build/.cache/deps.json');
-  if (!fs.pathExistsSync(depsFile)) {
-    NEED_INSTALL = true;
-    return;
+export async function runPreserve() {
+  const cwdPath = process.cwd();
+  if (reg.test(cwdPath)) {
+    errorConsole(
+      'Do not include Chinese, Japanese or Korean in the full path of the project directory, please modify the directory name and run again!'
+    );
+    errorConsole('项目目录全路径请勿包含中文、日文、韩文,请修改目录名后再次重新运行!');
+    process.exit(1);
   }
-  const depsJson = require('../.cache/deps.json');
 
-  if (!isEqual(depsJson, { dependencies, devDependencies })) {
-    NEED_INSTALL = true;
+  fs.mkdirp(resolve('build/.cache'));
+  function checkPkgUpdate() {
+    const pkg = require('../../package.json');
+    const { dependencies, devDependencies } = pkg;
+    const depsFile = resolve('build/.cache/deps.json');
+    if (!fs.pathExistsSync(depsFile)) {
+      NEED_INSTALL = true;
+      return;
+    }
+    const depsJson = require('../.cache/deps.json');
+
+    if (!isEqual(depsJson, { dependencies, devDependencies })) {
+      NEED_INSTALL = true;
+    }
   }
-}
-checkPkgUpdate();
-
-(async () => {
+  checkPkgUpdate();
   if (NEED_INSTALL) {
-    console.log(
-      chalk.blue.bold('****************  ') +
-        chalk.red.bold('检测到依赖变化，正在安装依赖(Tip: 项目首次运行也会执行)！') +
-        chalk.blue.bold('  ****************')
+    // no error
+    successConsole(
+      'A dependency change is detected, and the dependency is being installed to ensure that the dependency is consistent! (Tip: The project will be executed for the first time)！'
     );
     try {
-      // 从代码执行貌似不会自动读取.npmrc 所以手动加上源地址
-      // await run('yarn install --registry=https://registry.npm.taobao.org ', {
-      await sh('yarn install ', {
+      await sh('npm run bootstrap ', {
         async: true,
         nopipe: true,
       });
-      console.log(
-        chalk.blue.bold('****************  ') +
-          chalk.green.bold('依赖安装成功,正在运行！') +
-          chalk.blue.bold('  ****************')
-      );
+
+      successConsole('Dependency installation is successful, start running the project！');
 
       const pkg = require('../../package.json');
       const { dependencies, devDependencies } = pkg;
@@ -64,4 +68,4 @@ checkPkgUpdate();
       }
     } catch (error) {}
   }
-})();
+}

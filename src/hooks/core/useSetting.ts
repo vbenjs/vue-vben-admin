@@ -1,14 +1,20 @@
-import type { ProjectConfig, GlobConfig, SettingWrap } from '/@/types/config';
+import type { ProjectConfig, GlobConfig, SettingWrap, GlobEnvConfig } from '/@/types/config';
 
 import getProjectSetting from '/@/settings/projectSetting';
 
-import { getGlobEnvConfig } from '../../../getEnvConfig';
+import { getGlobEnvConfig, isDevMode } from '/@/utils/env';
+import { getShortName } from '../../../build/getShortName';
+
+const ENV_NAME = getShortName(import.meta.env);
+const ENV = ((isDevMode()
+  ? getGlobEnvConfig()
+  : window[ENV_NAME as any]) as unknown) as GlobEnvConfig;
 const {
+  VITE_GLOB_APP_TITLE,
   VITE_GLOB_API_URL,
   VITE_GLOB_APP_SHORT_NAME,
-  VITE_GLOB_APP_TITLE,
   VITE_GLOB_API_URL_PREFIX,
-} = getGlobEnvConfig();
+} = ENV;
 
 export const useSetting = (): SettingWrap => {
   // Take global configuration
@@ -19,7 +25,9 @@ export const useSetting = (): SettingWrap => {
     urlPrefix: VITE_GLOB_API_URL_PREFIX,
   };
   const projectSetting: Readonly<ProjectConfig> = getProjectSetting;
-
+  console.log('======================');
+  console.log(glob);
+  console.log('======================');
   return {
     globSetting: glob as Readonly<GlobConfig>,
     projectSetting,

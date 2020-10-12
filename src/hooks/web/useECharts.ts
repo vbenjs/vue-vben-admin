@@ -59,19 +59,17 @@ export function useECharts(
 
   function resize() {
     const chartInstance = unref(chartInstanceRef);
-    if (!chartInstance) {
-      return;
-    }
+    if (!chartInstance) return;
     chartInstance.resize();
   }
+
   tryOnUnmounted(() => {
     const chartInstance = unref(chartInstanceRef);
-    if (!chartInstance) {
-      return;
-    }
+    if (!chartInstance) return;
     chartInstance.dispose();
     chartInstanceRef.value = null;
   });
+
   return {
     setOptions,
     echarts,
