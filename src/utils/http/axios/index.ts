@@ -20,6 +20,7 @@ import { formatRequestDate } from '/@/utils/dateUtil';
 import { setObjToUrlParams, deepMerge } from '/@/utils';
 import { errorStore, ErrorTypeEnum, ErrorInfo } from '/@/store/modules/error';
 import { appStore } from '/@/store/modules/app';
+import { errorResult } from './const';
 
 const { globSetting } = useSetting();
 const prefix = globSetting.urlPrefix;
@@ -62,7 +63,6 @@ const transform: AxiosTransform = {
       return res.data;
     }
     // 错误的时候返回
-    const errorResult = undefined;
 
     const { data } = res;
     if (!data) {
@@ -89,7 +89,7 @@ const transform: AxiosTransform = {
 
     // 接口请求成功，直接返回结果
     if (code === ResultEnum.SUCCESS) {
-      return result || true;
+      return result;
     }
     // 接口请求错误，统一提示错误信息
     if (code === ResultEnum.ERROR) {
@@ -233,13 +233,6 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
   );
 }
 export const defHttp = createAxios();
-
-// var mock = new MockAdapter(axios);
-// mock.onGet('/api/aaa').reply(200, {
-//   users: [{ id: 1, name: 'John Smith' }],
-// });
-
-// default
 
 // other api url
 // export const otherHttp = createAxios({

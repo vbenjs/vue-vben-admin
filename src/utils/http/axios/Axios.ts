@@ -5,8 +5,9 @@ import { AxiosCanceler } from './axiosCancel';
 import { isFunction } from '/@/utils/is';
 import { cloneDeep } from 'lodash-es';
 
-import { RequestOptions, CreateAxiosOptions, Result } from './types';
+import type { RequestOptions, CreateAxiosOptions, Result } from './types';
 import { ContentTypeEnum } from '/@/enums/httpEnum';
+import { errorResult } from './const';
 
 export * from './axiosTransform';
 
@@ -147,7 +148,7 @@ export class VAxios {
         .then((res: AxiosResponse<Result>) => {
           if (transformRequestData && isFunction(transformRequestData)) {
             const ret = transformRequestData(res, opt);
-            ret !== undefined ? resolve(ret) : reject(new Error('request error!'));
+            ret !== errorResult ? resolve(ret) : reject(new Error('request error!'));
             return;
           }
           resolve((res as unknown) as Promise<T>);
