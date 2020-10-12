@@ -1,4 +1,5 @@
 import { useMessage } from '/@/hooks/web/useMessage';
+import { userStore } from '/@/store/modules/user';
 const { createMessage } = useMessage();
 
 const error = createMessage.error!;
@@ -12,9 +13,7 @@ export function checkStatus(status: number, msg: string): void {
     // 在登录成功后返回当前页面，这一步需要在登录页操作。
     case 401:
       error('用户没有权限（令牌、用户名、密码错误）!');
-      // store.dispatch('user/loginOut', {
-      //   goLogin: true,
-      // });
+      userStore.loginOut(true);
       break;
     case 403:
       error('用户得到授权，但是访问是被禁止的。!');

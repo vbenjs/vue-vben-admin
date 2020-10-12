@@ -16,9 +16,6 @@ const startApp = () => {
   const port = 9680;
   portfinder.basePort = port;
   const app = new Koa();
-  // const connect = require('connect');
-  // const serveStatic = require('serve-static');
-  // const app = connect();
 
   app.use(staticServer(resolve(process.cwd(), viteConfig.outDir || 'dist')));
 

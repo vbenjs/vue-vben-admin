@@ -116,6 +116,13 @@ const setting: ProjectConfig = {
 
   //  是否可以嵌入iframe页面
   canEmbedIFramePage: true,
+
+  // 切换界面的时候是否删除未关闭的message及notify
+  closeMessageOnSwitch: true,
+
+  // 切换界面的时候是否取消已经发送但是未响应的http请求。
+  // 如果开启,想对单独接口覆盖。可以在单独接口设置
+  removeAllHttpPending: true,
 };
 
 export default setting;
