@@ -37,7 +37,7 @@
 
 1.0 分支请切换到`master`分支。1.0 采用`vue2.6`+`vue-composition-api`+`vue-cli`开发
 
-项目基于`ant-design-vue`,`typescript`,`vue3.0`,`vite`,`tailwindcss`,`tsx`实现的 vue3 风格的后台管理系统，
+项目基于`ant-design-vue`,`typescript`,`vue3.0`,`vite`,`tsx`实现的 vue3 风格的后台管理系统，
 
 ## gitHub 地址
 

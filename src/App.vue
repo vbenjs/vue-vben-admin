@@ -12,6 +12,7 @@
   import zhCN from 'ant-design-vue/es/locale/zh_CN';
   import moment from 'moment';
   import 'moment/locale/zh-cn';
+  import axios from 'axios';
 
   import { useConfigProvider, useInitAppConfigStore, useListenerNetWork } from './useApp';
   import { useLockPage } from '/@/hooks/web/useLockPage';
@@ -25,6 +26,7 @@
       createBreakpointListen();
       const { transformCellText } = useConfigProvider();
       const { on: lockOn } = useLockPage();
+      axios.get('/api/users?page=2');
       return {
         transformCellText,
         zhCN,
