@@ -3,9 +3,10 @@ import viteConfig, { htmlConfig } from '../../vite.config';
 import { getCwdPath, successConsole, errorConsole } from '../utils';
 import { GLOB_CONFIG_FILE_NAME } from '../constant';
 import { hmScript } from './hm';
+import HtmlMinifier from 'html-minifier';
 const pkg = require('../../package.json');
 
-const { title, addHm, cdnConf, useCdn } = htmlConfig;
+const { title, addHm, cdnConf, useCdn, minify } = htmlConfig;
 
 function injectTitle(html: string, htmlTitle: string) {
   if (/<\/title>/.test(html)) {
@@ -88,6 +89,10 @@ export async function runUpdateHtml() {
     if (useCdn) {
       processedHtml = injectCdnCss(processedHtml);
       processedHtml = injectCdnjs(processedHtml);
+    }
+    if (minify) {
+      const { enable, ...miniOpt } = minify;
+      processedHtml = HtmlMinifier.minify(processedHtml, miniOpt);
     }
 
     writeFileSync(indexPath, processedHtml);

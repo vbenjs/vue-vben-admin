@@ -183,7 +183,6 @@ export default defineComponent({
       const isSidebarType = menuType === MenuTypeEnum.SIDEBAR;
       const isShowLogo = showLogo && isSidebarType;
       const themeData = props.theme || theme;
-
       return (
         <BasicMenu
           beforeClickFn={beforeMenuClickFn}

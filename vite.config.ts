@@ -153,6 +153,13 @@ export const htmlConfig: {
     js?: string[];
   };
   useCdn: boolean;
+  minify: {
+    enable: boolean;
+    removeComments: boolean;
+    collapseWhitespace: boolean;
+    minifyJS: boolean;
+    minifyCSS: boolean;
+  };
 } = {
   // html title
   title: VITE_GLOB_APP_TITLE,
@@ -164,5 +171,12 @@ export const htmlConfig: {
   // useCdn: VITE_USE_CDN,
   // cdn列表
   cdnConf,
+  minify: {
+    enable: true,
+    removeComments: true,
+    collapseWhitespace: true,
+    minifyJS: true,
+    minifyCSS: true,
+  },
 };
 export default viteConfig;

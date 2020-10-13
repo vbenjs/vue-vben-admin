@@ -14,6 +14,14 @@
 }
 
 .basic-menu {
+  .ant-menu-submenu:first-of-type {
+    margin-top: 4px;
+  }
+
+  .ant-menu-submenu-title {
+    margin-top: 0;
+  }
+
   &-wrap {
     height: 100%;
   }
@@ -151,7 +159,8 @@
 
     // 2级菜单
 
-    .basic-menu-item__level2:not(.ant-menu-item-selected) {
+    .basic-menu-item__level2:not(.ant-menu-item-selected),
+    .ant-menu-sub {
       background-color: @sub-menu-item-dark-bg-color;
     }
 
