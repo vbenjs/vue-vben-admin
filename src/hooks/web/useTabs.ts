@@ -1,3 +1,4 @@
+import type { AppRouteRecordRaw } from '/@/router/types.d';
 import { useTimeout } from '/@/hooks/core/useTimeout';
 import { PageEnum } from '/@/enums/pageEnum';
 import { TabItem, tabStore } from '/@/store/modules/tab';
@@ -64,6 +65,18 @@ export function useTabs() {
     }
     return !!show;
   }
+  function getTo(path: string): any {
+    const routes = router.getRoutes();
+    const fn = (p: string): any => {
+      const to = routes.find((item) => item.path === p);
+      if (!to) return '';
+      if (!to.redirect) return to;
+      if (to.redirect) {
+        return getTo(to.redirect as string);
+      }
+    };
+    return fn(path);
+  }
   return {
     initTabFn,
     refreshPage: () => canIUseFn() && refreshPage(tabStore.getCurrentTab),
@@ -74,11 +87,13 @@ export function useTabs() {
     closeCurrent: () => canIUseFn() && closeCurrent(tabStore.getCurrentTab),
     resetCache: () => canIUseFn() && resetCache(),
     addTab: (path: PageEnum, goTo = false, replace = false) => {
+      const to = getTo(path);
+      if (!to) return;
       useTimeout(() => {
-        tabStore.addTabByPathAction(path);
+        tabStore.addTabByPathAction((to as unknown) as AppRouteRecordRaw);
       }, 0);
-      activeKeyRef.value = path;
-      goTo && replace ? router.replace : router.push(path);
+      activeKeyRef.value = to.path;
+      goTo && replace ? router.replace : router.push(to.path);
     },
     activeKeyRef,
   };

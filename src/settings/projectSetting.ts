@@ -61,7 +61,7 @@ const setting: ProjectConfig = {
     // 分割菜单
     split: false,
     // 顶部菜单布局
-    topMenuAlign: 'center',
+    topMenuAlign: 'start',
   },
   // 消息配置
   messageSetting: {

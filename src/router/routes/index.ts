@@ -4,9 +4,11 @@ import { DEFAULT_LAYOUT_COMPONENT, PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '
 import { genRouteModule } from '/@/utils/helper/routeHelper';
 
 import LoginRoute from './modules/sys';
+
+import dashboard from './modules/dashboard';
+
 // demo
 import exceptionDemo from './modules/demo/exception';
-import dashboardDemo from './modules/demo/dashboard';
 import iframeDemo from './modules/demo/iframe';
 import compDemo from './modules/demo/comp';
 import permissionDemo from './modules/demo/permission';
@@ -18,7 +20,7 @@ import treeDemo from './modules/demo/tree';
 
 const routeModuleList: AppRouteModule[] = [
   exceptionDemo,
-  dashboardDemo,
+  dashboard,
   iframeDemo,
   compDemo,
   featDemo,
