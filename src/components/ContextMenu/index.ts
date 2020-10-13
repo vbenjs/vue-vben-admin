@@ -1,7 +1,7 @@
 import contextMenuVue from './src/index';
 import { isClient } from '/@/utils/is';
 import { Options, Props } from './src/types';
-import { createApp } from 'vue';
+import { createVNode, render } from 'vue';
 const menuManager: {
   doms: Element[];
   resolve: Fn;
@@ -19,7 +19,7 @@ export const createContextMenu = function (options: Options) {
 
   if (!isClient) return;
   return new Promise((resolve) => {
-    const wrapDom = document.createElement('div');
+    const container = document.createElement('div');
     const propsData: Partial<Props> = {};
     if (options.styles !== undefined) propsData.styles = options.styles;
     if (options.items !== undefined) propsData.items = options.items;
@@ -27,12 +27,12 @@ export const createContextMenu = function (options: Options) {
       propsData.customEvent = event;
       propsData.axis = { x: event.clientX, y: event.clientY };
     }
-    createApp(contextMenuVue, propsData).mount(wrapDom);
+    const vm = createVNode(contextMenuVue, propsData);
+    render(vm, container);
     const bodyClick = function () {
       menuManager.resolve('');
     };
-    const contextMenuDom = wrapDom.children[0];
-    menuManager.doms.push(contextMenuDom);
+    menuManager.doms.push(container);
     const remove = function () {
       menuManager.doms.forEach((dom: Element) => {
         try {
@@ -41,16 +41,13 @@ export const createContextMenu = function (options: Options) {
       });
       document.body.removeEventListener('click', bodyClick);
       document.body.removeEventListener('scroll', bodyClick);
-      try {
-        (wrapDom as any) = null;
-      } catch (error) {}
     };
     menuManager.resolve = function (...arg: any) {
       resolve(arg[0]);
       remove();
     };
     remove();
-    document.body.appendChild(contextMenuDom);
+    document.body.appendChild(container);
     document.body.addEventListener('click', bodyClick);
     document.body.addEventListener('scroll', bodyClick);
   });
