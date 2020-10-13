@@ -72,12 +72,12 @@
     background: rgba(109, 109, 109, 0.6);
     border-radius: 22px;
     justify-content: center;
-    align-items: center;
 
     &-item {
+      display: flex;
+      height: 100%;
       padding: 0 9px;
       font-size: 24px;
-      line-height: 44px;
       cursor: pointer;
       transition: all 0.2s;
 
@@ -94,11 +94,12 @@
   &__arrow {
     position: absolute;
     top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 50px;
     height: 50px;
     font-size: 28px;
-    line-height: 50px;
-    text-align: center;
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 50%;
