@@ -6,6 +6,7 @@ import { transformMenuModule, flatMenus, getAllParentPath } from '/@/utils/helpe
 import { filter } from '/@/utils/helper/treeHelper';
 import router from '/@/router';
 import { PermissionModeEnum } from '/@/enums/appEnum';
+import { pathToRegexp } from 'path-to-regexp';
 
 // ===========================
 // ==========module import====
@@ -106,9 +107,14 @@ export async function getFlatChildrenMenus(children: Menu[]) {
 // 通用过滤方法
 function basicFilter(routes: RouteRecordNormalized[]) {
   return (menu: Menu) => {
-    const matchRoute = routes.find((route) => route.path === menu.path);
+    const matchRoute = routes.find((route) => {
+      if (route.meta && route.meta.carryParam) {
+        return pathToRegexp(route.path).test(menu.path);
+      }
+      return route.path === menu.path;
+    });
 
-    if (!matchRoute) return true;
+    if (!matchRoute) return false;
     menu.icon = menu.icon || matchRoute.meta.icon;
     menu.meta = matchRoute.meta;
     return true;
