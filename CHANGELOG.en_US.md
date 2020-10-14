@@ -1,3 +1,27 @@
+# 2.0.0-beta.8 (2020-10-14)
+
+### ✨ Features
+
+- Add a tab with parameters
+
+### ⚡ Performance Improvements
+
+- Optimized menu folding
+- Page details optimization
+- Compress html after packaging
+- Functional reconstruction of preview components and right-click menu
+- The preview component operation column is centered
+
+### 🎫 Chores
+
+- update deps
+- Added `README.en-US.md`
+- Added `CHANGELOG.en-US.md`
+
+### 🐛 Bug Fixes
+
+- Fix page refresh and jump to landing page
+
 # 2.0.0-beta.7 (2020-10-12)
 
 ### ⚡ Performance Improvements

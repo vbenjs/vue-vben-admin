@@ -1,3 +1,27 @@
+# 2.0.0-beta.8 (2020-10-14)
+
+### ✨ Features
+
+- 添加带参 tab
+
+### ⚡ Performance Improvements
+
+- 菜单折叠优化
+- 页面细节优化
+- 打包后压缩 html
+- 预览组件及右键菜单函数化重构
+- 预览组件操作列居中
+
+### 🎫 Chores
+
+- 更新依赖
+- 添加`README.en-US.md`
+- 添加`CHANGELOG.en-US.md`
+
+### 🐛 Bug Fixes
+
+- 修复页面刷新跳转到登陆页
+
 # 2.0.0-beta.7 (2020-10-12)
 
 ### ⚡ Performance Improvements
