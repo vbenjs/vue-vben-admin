@@ -11,6 +11,7 @@
 
 - [Introduction](#introduction)
 - [GitHub](#github)
+  - [Thin](#thin)
 - [Preview](#preview)
 - [Documentation](#documentation)
 - [Preinstallation](#preinstallation)
@@ -42,9 +43,15 @@ The project is based on the vue3 style background management system implemented 
 
 [vue-vben-admin2.0](https://github.com/anncwb/vue-vben-admin) - `main` branch
 
+### Thin
+
+[vue-vben-admin-thin-next](https://github.com/anncwb/vben-admin-thin-next)
+
 ## Preview
 
-[2.0 preview](https://vvbin.cn/next/)
+- [2.0 preview](https://vvbin.cn/next/)
+
+- [2.0 Thin Preview](https://vvbin.cn/thin/next/)
 
 Account for test: vben/123456
 
