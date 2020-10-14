@@ -5,7 +5,6 @@
 </template>
 <script lang="ts">
   import { defineComponent, reactive, computed, watch, onMounted, unref, toRef } from 'vue';
-
   import { countToProps } from './props';
   import { useRaf } from '/@/hooks/event/useRaf';
   import { isNumber } from '/@/utils/is';
@@ -37,12 +36,14 @@
         remaining: null,
         rAF: null,
       });
+
       onMounted(() => {
         if (props.autoplay) {
           start();
         }
         emit('mounted');
       });
+
       const getCountDown = computed(() => {
         return props.startVal > props.endVal;
       });
@@ -61,6 +62,7 @@
         state.paused = false;
         state.rAF = requestAnimationFrame(count);
       }
+
       function pauseResume() {
         if (state.paused) {
           resume();
@@ -70,6 +72,7 @@
           state.paused = true;
         }
       }
+
       function pause() {
         cancelAnimationFrame(state.rAF);
       }

@@ -2,6 +2,7 @@ import type { Router } from 'vue-router';
 import { tabStore } from '/@/store/modules/tab';
 import { appStore } from '/@/store/modules/app';
 import { userStore } from '/@/store/modules/user';
+import { getParams } from '/@/utils/helper/routeHelper';
 
 export function createPageLoadingGuard(router: Router) {
   let isFirstLoad = true;
@@ -29,9 +30,16 @@ export function createPageLoadingGuard(router: Router) {
     }
     return true;
   });
-  router.afterEach(async (to) => {
+  router.afterEach(async (to, from) => {
     const { openRouterTransition, openPageLoading } = appStore.getProjectConfig;
-    if ((!openRouterTransition && openPageLoading) || isFirstLoad || to.meta.afterCloseLoading) {
+    const realToPath = to.path.replace(getParams(to), '');
+    const realFormPath = from.path.replace(getParams(from), '');
+    if (
+      (!openRouterTransition && openPageLoading) ||
+      isFirstLoad ||
+      to.meta.afterCloseLoading ||
+      realToPath === realFormPath
+    ) {
       setTimeout(() => {
         appStore.commitPageLoadingState(false);
       }, 110);

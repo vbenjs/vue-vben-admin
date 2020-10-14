@@ -3,8 +3,6 @@ import type { AppRouteRecordRaw, AppRouteModule } from '/@/router/types';
 import { DEFAULT_LAYOUT_COMPONENT, PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '../constant';
 import { genRouteModule } from '/@/utils/helper/routeHelper';
 
-import LoginRoute from './modules/sys';
-
 import dashboard from './modules/dashboard';
 
 // demo
@@ -46,6 +44,15 @@ export const RootRoute: AppRouteRecordRaw = {
     title: 'Root',
   },
   children: [],
+};
+
+export const LoginRoute: AppRouteRecordRaw = {
+  path: '/login',
+  name: 'Login',
+  component: () => import('/@/views/sys/login/Login.vue'),
+  meta: {
+    title: '登录',
+  },
 };
 
 // 基础路由 不用权限

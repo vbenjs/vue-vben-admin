@@ -7,7 +7,7 @@ import { Menu } from 'ant-design-vue';
 import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
 import { menuStore } from '/@/store/modules/menu';
 import { getSlot } from '/@/utils/helper/tsxHelper';
-import { ScrollContainer } from '/@/components/Container/index';
+// import { ScrollContainer } from '/@/components/Container/index';
 import SearchInput from './SearchInput.vue';
 import './index.less';
 import { menuHasChildren } from './helper';
@@ -67,6 +67,7 @@ export default defineComponent({
       return {
         height: `calc(100% - ${offset}px)`,
         position: 'relative',
+        overflow: 'auto',
       };
     });
 
@@ -246,8 +247,9 @@ export default defineComponent({
             onClick={handleInputClick}
             collapsed={getCollapsedState}
           />
-          <section style={unref(getMenuWrapStyle)}>
-            <ScrollContainer>{() => renderMenu()}</ScrollContainer>
+          <section style={unref(getMenuWrapStyle)} class="basic-menu__wrap">
+            {renderMenu()}
+            {/* <ScrollContainer>{() => renderMenu()}</ScrollContainer> */}
           </section>
         </section>
       );

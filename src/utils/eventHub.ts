@@ -16,9 +16,6 @@ class EventHub {
 
   emit(eventName: string, data?: any) {
     if (this.cache[eventName] === undefined) return;
-    console.log('======================');
-    console.log(this.cache, eventName);
-    console.log('======================');
     this.cache[eventName].forEach((fn) => fn(data));
   }
   off(eventName: string, fn: (data: any) => void) {

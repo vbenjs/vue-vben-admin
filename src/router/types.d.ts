@@ -39,6 +39,7 @@ export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
   components?: any;
   children?: AppRouteRecordRaw[];
   props?: any;
+  fullPath?: string;
 }
 
 export interface Menu {

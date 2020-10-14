@@ -96,5 +96,13 @@ export default {
         title: '全屏',
       },
     },
+    {
+      path: '/testTab/:id',
+      name: 'TestTab',
+      component: () => import('/@/views/demo/feat/tab-params/index.vue'),
+      meta: {
+        title: 'Tab带参',
+      },
+    },
   ],
 } as AppRouteModule;

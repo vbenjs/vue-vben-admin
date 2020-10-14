@@ -82,10 +82,13 @@ export default defineComponent({
           {() => (
             <>
               {isLock && <LockPage />}
+
               {!unref(getFullContent) && unref(isShowMixHeaderRef) && unref(showHeaderRef) && (
                 <LayoutHeader />
               )}
+
               {showSettingButton && <SettingBtn />}
+
               <Layout>
                 {() => (
                   <>
@@ -102,7 +105,9 @@ export default defineComponent({
                               {() => <MultipleTabs />}
                             </Layout.Header>
                           )}
+
                           {useOpenBackTop && <BackTop target={getTarget} />}
+
                           <div class={[`default-layout__main`, fixedHeaderCls]}>
                             {openPageLoading && (
                               <FullLoading

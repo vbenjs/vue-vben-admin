@@ -11,6 +11,7 @@ import { appStore } from '/@/store/modules/app';
 import store from '/@/store';
 import router from '/@/router';
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/constant';
+import { getCurrentTo } from '/@/utils/helper/routeHelper';
 
 type CacheName = string | symbol | null | undefined;
 /**
@@ -18,7 +19,10 @@ type CacheName = string | symbol | null | undefined;
  */
 // declare namespace TabsStore {
 export interface TabItem {
-  path: string;
+  fullPath: string;
+  path?: string;
+  params?: any;
+  query?: any;
   name?: CacheName;
   meta?: RouteMeta;
 }
@@ -86,20 +90,21 @@ class Tab extends VuexModule {
    */
   @Mutation
   commitAddTab(route: AppRouteRecordRaw | TabItem): void {
-    const { path, name, meta } = route;
+    const { path, name, meta, fullPath, params, query } = route as TabItem;
     // 404  页面不需要添加tab
     if (path === PageEnum.ERROR_PAGE) {
       return;
     } else if ([REDIRECT_ROUTE.name, PAGE_NOT_FOUND_ROUTE.name].includes(name as string)) {
       return;
     }
+
     // 已经存在的页面，不重复添加tab
     const hasTab = this.tabsState.some((tab) => {
-      return tab.path === path;
+      return tab.fullPath === fullPath;
     });
     if (hasTab) return;
 
-    this.tabsState.push({ path, name, meta });
+    this.tabsState.push({ path, fullPath, name, meta, params, query });
     if (unref(getOpenKeepAliveRef) && name) {
       const noKeepAlive = meta && meta.ignoreKeepAlive;
       const hasName = this.keepAliveTabsState.includes(name);
@@ -113,9 +118,9 @@ class Tab extends VuexModule {
   @Mutation
   commitCloseTab(route: AppRouteRecordRaw | TabItem): void {
     try {
-      const { path, name, meta: { affix } = {} } = route;
+      const { fullPath, name, meta: { affix } = {} } = route;
       if (affix) return;
-      const index = this.tabsState.findIndex((item) => item.path === path);
+      const index = this.tabsState.findIndex((item) => item.fullPath === fullPath);
       index !== -1 && this.tabsState.splice(index, 1);
 
       if (unref(getOpenKeepAliveRef) && name) {
@@ -153,7 +158,7 @@ class Tab extends VuexModule {
 
   @Mutation
   closeMultipleTab({ pathList, nameList }: { pathList: string[]; nameList: string[] }): void {
-    this.tabsState = toRaw(this.tabsState).filter((item) => !pathList.includes(item.path));
+    this.tabsState = toRaw(this.tabsState).filter((item) => !pathList.includes(item.fullPath));
     if (unref(getOpenKeepAliveRef) && nameList) {
       this.keepAliveTabsState = toRaw(this.keepAliveTabsState).filter(
         (item) => !nameList.includes(item as string)
@@ -172,7 +177,7 @@ class Tab extends VuexModule {
       for (const item of leftTabs) {
         const affix = item.meta ? item.meta.affix : false;
         if (!affix) {
-          pathList.push(item.path);
+          pathList.push(item.fullPath);
           nameList.push(item.name as string);
         }
       }
@@ -181,13 +186,19 @@ class Tab extends VuexModule {
   }
 
   @Action
-  addTabByPathAction(to: AppRouteRecordRaw): void {
-    to && this.commitAddTab((to as unknown) as AppRouteRecordRaw);
+  addTabByPathAction(): void {
+    const toRoute = getCurrentTo();
+    if (!toRoute) return;
+    const { meta } = toRoute;
+    if (meta && meta.affix) {
+      return;
+    }
+    this.commitAddTab((toRoute as unknown) as AppRouteRecordRaw);
   }
 
   @Action
   closeRightTabAction(route: AppRouteRecordRaw | TabItem): void {
-    const index = this.tabsState.findIndex((item) => item.path === route.path);
+    const index = this.tabsState.findIndex((item) => item.fullPath === route.fullPath);
 
     if (index >= 0 && index < this.tabsState.length - 1) {
       const rightTabs = this.tabsState.slice(index + 1, this.tabsState.length);
@@ -197,7 +208,7 @@ class Tab extends VuexModule {
       for (const item of rightTabs) {
         const affix = item.meta ? item.meta.affix : false;
         if (!affix) {
-          pathList.push(item.path);
+          pathList.push(item.fullPath);
           nameList.push(item.name as string);
         }
       }
@@ -207,16 +218,16 @@ class Tab extends VuexModule {
 
   @Action
   closeOtherTabAction(route: AppRouteRecordRaw | TabItem): void {
-    const closePathList = this.tabsState.map((item) => item.path);
+    const closePathList = this.tabsState.map((item) => item.fullPath);
     const pathList: string[] = [];
     const nameList: string[] = [];
     closePathList.forEach((path) => {
-      if (path !== route.path) {
+      if (path !== route.fullPath) {
         const closeItem = this.tabsState.find((item) => item.path === path);
         if (!closeItem) return;
         const affix = closeItem.meta ? closeItem.meta.affix : false;
         if (!affix) {
-          pathList.push(closeItem.path);
+          pathList.push(closeItem.fullPath);
           nameList.push(closeItem.name as string);
         }
       }
