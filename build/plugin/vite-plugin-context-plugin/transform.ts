@@ -1,3 +1,4 @@
+// 修改自
 // https://github.com/luxueyan/vite-transform-globby-import/blob/master/src/index.ts
 
 // TODO 目前还不能监听文件新增及删除 内容已经改变，缓存问题？

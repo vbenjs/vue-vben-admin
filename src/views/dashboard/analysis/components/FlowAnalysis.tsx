@@ -11,7 +11,7 @@ export default defineComponent({
       return (
         <Row>
           {() => (
-            <>
+            <div>
               <Col md={24} lg={8}>
                 {() => (
                   <CollapseContainer
@@ -20,7 +20,7 @@ export default defineComponent({
                     class={`${prefixCls}__left`}
                   >
                     {() => (
-                      <>
+                      <div>
                         <div class={`${prefixCls}__score`}>
                           86.2<span>分</span>
                         </div>
@@ -44,7 +44,7 @@ export default defineComponent({
                             <span>56.5</span>
                           </li>
                         </ul>
-                      </>
+                      </div>
                     )}
                   </CollapseContainer>
                 )}
@@ -56,26 +56,24 @@ export default defineComponent({
                   </CollapseContainer>
                 )}
               </Col>
-            </>
+            </div>
           )}
         </Row>
       );
     };
     return () => (
       <Tabs class={prefixCls} default-active-key="1">
-        {() => (
-          <>
-            <Tabs.TabPane key="1" tab="产品一">
-              {() => renderContent()}
-            </Tabs.TabPane>
-            <Tabs.TabPane key="2" tab="产品二">
-              {() => renderContent()}
-            </Tabs.TabPane>
-            <Tabs.TabPane key="3" tab="产品三">
-              {() => renderContent()}
-            </Tabs.TabPane>
-          </>
-        )}
+        {() => [
+          <Tabs.TabPane key="1" tab="产品一">
+            {() => renderContent()}
+          </Tabs.TabPane>,
+          <Tabs.TabPane key="2" tab="产品二">
+            {() => renderContent()}
+          </Tabs.TabPane>,
+          <Tabs.TabPane key="3" tab="产品三">
+            {() => renderContent()}
+          </Tabs.TabPane>,
+        ]}
       </Tabs>
     );
   },
