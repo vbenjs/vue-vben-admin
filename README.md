@@ -11,6 +11,7 @@
 
 - [介绍](#介绍)
 - [gitHub 地址](#github-地址)
+  - [精简版地址](#精简版地址)
 - [预览地址](#预览地址)
 - [文档](#文档)
 - [预安装](#预安装)
@@ -43,9 +44,15 @@
 
 [vue-vben-admin2.0](https://github.com/anncwb/vue-vben-admin) - `main` 分支
 
+### 精简版地址
+
+[vue-vben-admin-thin-next](https://github.com/anncwb/vben-admin-thin-next)
+
 ## 预览地址
 
-[2.0 在线预览](https://vvbin.cn/next/)
+- [2.0 在线预览](https://vvbin.cn/next/)
+
+- [2.0 精简版 在线预览](https://vvbin.cn/thin/next/)
 
 测试账号: vben/123456
 
