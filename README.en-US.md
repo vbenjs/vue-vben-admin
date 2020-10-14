@@ -1,0 +1,234 @@
+<p align="center">
+  <a href="https://github.com/anncwb/vue-vben-admin" target="_blank">
+    <img alt="VbenAdmin Logo" width="200" src="./.github/res/imgs/logo.png">
+  </a>
+</p>
+<h2 align="center">VUE VBEN ADMIN2.0</h2>
+
+[Chinese](./README.md) | **English**
+
+[CHANGELOG](CHANGELOG.md)
+
+- [Introduction](#Introduction)
+- [GitHub](#Github)
+- [Preview](#Preview)
+- [Documentation](#Documentation)
+- [Preinstallation](#Preinstallation)
+  - [Environmental requirements](#Environmental requirements)
+  - [UI framework](#ui framework)
+  - [Icon](#Icon)
+  - [Plugin](#Plugin)
+  - [Suggested development environment](#Suggested development environment)
+- [Install](#Install)
+- [Usage](#Usage)
+  - [Development environment](#Development environment)
+  - [Build](#Build)
+  - [Format](#Format)
+  - [Other](#Other)
+- [Git submit specifications](#git submit specifications)
+- [Code ontribution](#Code ontribution)
+- [Finished features](#Finished features)
+- [Developing features](#Developing features)
+- [Join us](#Join us)
+
+## Introduction
+
+This branch is a 2.0 new branch which use vue3 to develop.
+
+You can also switch to 1.0 branch which use `vue2.6` , `vue-composition-api` and `vue-cli` to develop.
+
+The project is based on the vue3 style background management system implemented by `ant-design-vue`,`typescript`,`vue3.0`,`vite`,`tsx`.
+
+## GitHub
+
+[vue-vben-admin2.0](https://github.com/anncwb/vue-vben-admin) - `main` branch
+
+## Preview
+
+[2.0 preview](https://vvbin.cn/next/)
+
+Account for test: vben/123456
+
+<p align="center">
+    <img alt="VbenAdmin Logo" width="100%" src="./.github/res/imgs/preview1.png">
+    <img alt="VbenAdmin Logo" width="100%" src="./.github/res/imgs/preview2.png">
+    <img alt="VbenAdmin Logo" width="100%" src="./.github/res/imgs/preview3.png">
+</p>
+
+## Documentation
+
+The documentation for 2.0 hasn't started yet, it will be provided later.
+
+## Preinstallation
+
+### Environmental requirements
+
+- `Node.js`: - Version>`12.0.0` is better.
+- `yarn` > `npm` > `cnpm`: - Package management tool.
+
+### UI framework
+
+- [Tailwind CSS](https://tailwindcss.com/) - 2.0.0-beta.5 has deleted.
+- [Ant Design Vue 2.0](https://2x.antdv.com/docs/vue/introduce-cn/)
+
+### Icon
+
+- [Ant Design Vue Icon Component](https://2x.antdv.com/components/icon-cn/) - Icon which is imported on demand.
+- [Iconify](https://iconify.design) - Icon can be used [Icônes](https://icones.netlify.app/)
+- [PurgeIcons](https://github.com/antfu/purge-icons) - Icon which is used by build.
+
+### Plugin
+
+- [Vue Router Next](https://github.com/vuejs/vue-router-next)
+- [Vuex Next](https://github.com/vuejs/vuex)
+- [vuex-module-decorators](https://github.com/championswimmer/vuex-module-decorators) - vuex modular
+- [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock) - Mock plugin base on vite
+- [vue-i18n](https://github.com/intlify/vue-i18n-next) - Internationalization
+- [lodash-es](https://github.com/lodash/lodash) - JavaScript utility library
+- [moment](https://github.com/moment/moment) - Time operation library
+- [axios](https://github.com/axios/axios) - Http data interaction
+- [TypeScript](https://www.typescriptlang.org/)
+
+### Suggested development environment
+
+- `Git`: - Tool of version management
+- `Visual Studio Code` - (VSCode): Latest version
+  - [VS Code Extensions](./.vscode/extensions.json)
+    - [Iconify IntelliSense](https://marketplace.visualstudio.com/items?itemName=antfu.iconify)
+    - [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) - Tailwind css style association
+    - [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) - Essential for vue development
+    - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - Checking script code
+    - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - Code formatting
+    - [Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint) - Css formatting
+
+## Install
+
+```js
+//  Make git case sensitive to file names
+git config core.ignorecase false
+
+// Pull code of the project
+git clone https://github.com/anncwb/vue-vben-admin.git vue-vben-admin-2.0
+
+cd vue-vben-admin-2.0
+
+// If you use other package management tool, you can install it by yourself
+// if you hasn't install yarn, please run: npm install -g yarn
+yarn install
+
+```
+
+## Usage
+
+### Development environment
+
+```bash
+yarn serve
+```
+
+### Build
+
+```bash
+
+yarn build # build
+
+yarn build:no-cache # build, cache will be removed before build
+
+yarn report # Generate build package report preview
+```
+
+### Format
+
+```bash
+yarn lint:stylelint # css formatting
+
+yarn lint:prettier # js/ts code formatting
+```
+
+### Other
+
+```bash
+yarn reinstall # Remove dependencies and reinstall, supported window
+
+yarn preview # Build and preview in local
+
+yarn log # Generate CHANGELOG
+
+yarn clean:cache # Delete cache
+
+yarn clean:lib # Delete node_modules, supported window
+```
+
+## Git submit specifications
+
+- Refer to [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) specifications ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
+
+  - `feat` Add new features
+  - `fix` Fix problem/BUG
+  - `style` Code style related and doesn't affect the running result
+  - `perf` Optimization/performance improvement
+  - `refactor` Refactor
+  - `revert` Undo edit
+  - `test` Test related
+  - `docs` Documentation/notes
+  - `chore` Dependent update/scaffolding configuration modification etc
+  - `workflow` Workflow improvements
+  - `ci` Continuous integration
+  - `types` Update file of type definition
+  - `wip` Developing
+
+## Code contribution
+
+1. Fork code!
+2. Create your own branch: `git checkout -b feat/xxxx`
+3. Submit your changes: `git commit -am 'feat(function): add xxxxx'`
+4. Push your branch: `git push origin feat/xxxx`
+5. submit`pull request`
+
+## Finished features
+
+- [x] Project construction (based on vite）)
+- [x] Login and exit
+- [x] Menu (can search, drag and drop and menu layout)
+- [x] Multiple tabs/breadcrumbs
+- [x] Permission management base on role
+- [x] Permission management base on background
+- [x] The separation of routing and menu settings
+- [x] Collapsible sidebar
+- [x] Draggable sidebar
+- [x] Multi-tab mode/global control
+- [x] Menu search
+- [x] Page loading
+- [x] Scroll bar component
+- [x] Pop-up window expansion (dragable, full screen, adaptive height)
+- [x] Mock data
+- [x] hook Package
+- [x] Form component
+- [x] Right-click menu
+- [x] Watermark plugin
+- [x] Animation component
+- [x] QR code plugin
+- [x] Internationalization plugin
+- [x] Details component
+- [x] Validation component
+- [x] Tree component
+- [x] Picture preview component
+- [x] Table component
+- [x] Chart library
+- [x] Digital animation
+- [x] First screen loading waiting animation
+- [x] Extract the production environment profile
+
+## Developing features
+
+- [ ] Upload component
+- [ ] Rich text component
+- [ ] Data import and export
+- [ ] Global error handling
+- [ ] Theme configuration
+- [ ] Dark theme
+- [ ] Build Gzip
+- [ ] Build CDN
+- [ ] System performance optimization
+
+If you have more components/functions/suggestions/bugs/, welcome to submit pr or issue.
