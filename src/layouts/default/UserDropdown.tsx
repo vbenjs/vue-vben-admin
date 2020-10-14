@@ -54,14 +54,12 @@ export default defineComponent({
         <Dropdown placement="bottomLeft">
           {{
             default: () => (
-              <>
-                <section class={prefixCls}>
-                  <img class={`${prefixCls}__header`} src={headerImg} />
-                  <section class={`${prefixCls}__info`}>
-                    <section class={`${prefixCls}__name`}>{realName}</section>
-                  </section>
+              <section class={prefixCls}>
+                <img class={`${prefixCls}__header`} src={headerImg} />
+                <section class={`${prefixCls}__info`}>
+                  <section class={`${prefixCls}__name`}>{realName}</section>
                 </section>
-              </>
+              </section>
             ),
             overlay: () => (
               <Menu slot="overlay" onClick={handleMenuClick}>
@@ -70,12 +68,10 @@ export default defineComponent({
                     {showDoc && (
                       <Menu.Item key="doc">
                         {() => (
-                          <>
-                            <span class="flex items-center">
-                              <Icon icon="gg:loadbar-doc" class="mr-1" />
-                              <span>文档</span>
-                            </span>
-                          </>
+                          <span class="flex items-center">
+                            <Icon icon="gg:loadbar-doc" class="mr-1" />
+                            <span>文档</span>
+                          </span>
                         )}
                       </Menu.Item>
                     )}

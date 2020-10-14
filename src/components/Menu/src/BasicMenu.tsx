@@ -91,7 +91,7 @@ export default defineComponent({
     });
 
     watch(
-      () => currentRoute.value.name,
+      () => currentRoute.value.path,
       (name: string) => {
         name !== 'Redirect' && handleMenuChange();
         getParentPath();
@@ -210,7 +210,7 @@ export default defineComponent({
         : {};
       return (
         <Menu
-          // forceSubMenuRender={props.isAppMenu}
+          forceSubMenuRender={props.isAppMenu}
           selectedKeys={selectedKeys}
           defaultSelectedKeys={defaultSelectedKeys}
           mode={mode}

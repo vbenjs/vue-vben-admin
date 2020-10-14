@@ -10,7 +10,7 @@ export default {
     redirect: '/feat/icon',
     meta: {
       icon: 'ic:outline-featured-play-list',
-      title: 'Feat',
+      title: '页面功能',
     },
   },
 

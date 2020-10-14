@@ -406,6 +406,7 @@ export default defineComponent({
           menuSetting: {
             mode,
             type,
+            collapsed: false,
             ...splitOpt,
           },
         };
