@@ -4,7 +4,6 @@ import type { MenuModule, Menu, AppRouteRecordRaw } from '/@/router/types';
 import { findPath, forEach, treeMap, treeToList } from './treeHelper';
 import { cloneDeep } from 'lodash-es';
 
-//
 export function getAllParentPath(treeData: any[], path: string) {
   const menuList = findPath(treeData, (n) => n.path === path) as Menu[];
   return (menuList || []).map((item) => item.path);
@@ -14,6 +13,7 @@ export function flatMenus(menus: Menu[]) {
   return treeToList(menus);
 }
 
+// 拼接父级路径
 function joinParentPath(list: any, node: any) {
   let allPaths = getAllParentPath(list, node.path);
 
@@ -26,7 +26,6 @@ function joinParentPath(list: any, node: any) {
       parentPath += /^\//.test(p) ? p : `/${p}`;
     });
   }
-
   node.path = `${parentPath}${/^\//.test(node.path) ? node.path : `/${node.path}`}`.replace(
     /\/\//g,
     '/'
@@ -34,6 +33,7 @@ function joinParentPath(list: any, node: any) {
   return node;
 }
 
+// 解析菜单模块
 export function transformMenuModule(menuModule: MenuModule): Menu {
   const { menu } = menuModule;
 

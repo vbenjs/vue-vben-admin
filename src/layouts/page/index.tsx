@@ -40,7 +40,8 @@ export default defineComponent({
           <RouterView>
             {{
               default: ({ Component, route }: { Component: any; route: RouteLocation }) => {
-                const name = route.meta.inTab ? ' ' : null;
+                // 已经位于tab内的不再显示动画
+                const name = route.meta.inTab ? 'fade' : null;
                 const Content = openCache ? (
                   <KeepAlive max={max} include={cacheTabs}>
                     <Component {...route.params} />

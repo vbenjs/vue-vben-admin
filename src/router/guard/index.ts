@@ -7,7 +7,7 @@ import { createProgressGuard } from './progressGuard';
 import { createPermissionGuard } from './permissionGuard';
 import { createPageLoadingGuard } from './pageLoadingGuard';
 import { useSetting } from '/@/hooks/core/useSetting';
-import { getIsOpenTab } from '/@/utils/helper/routeHelper';
+import { getIsOpenTab, setCurrentTo } from '/@/utils/helper/routeHelper';
 
 const { projectSetting } = useSetting();
 export function createGuard(router: Router) {
@@ -17,7 +17,7 @@ export function createGuard(router: Router) {
     axiosCanceler = new AxiosCanceler();
   }
   router.beforeEach(async (to) => {
-    const isOpen = getIsOpenTab(to.path);
+    const isOpen = getIsOpenTab(to.fullPath);
     to.meta.inTab = isOpen;
     try {
       if (closeMessageOnSwitch) {
@@ -30,6 +30,8 @@ export function createGuard(router: Router) {
     } catch (error) {
       console.warn('basic guard error:' + error);
     }
+    setCurrentTo(to);
+    return true;
   });
   openNProgress && createProgressGuard(router);
   createPermissionGuard(router);

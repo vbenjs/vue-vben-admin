@@ -1,10 +1,10 @@
-import type { AppRouteRecordRaw } from '/@/router/types.d';
 import { useTimeout } from '/@/hooks/core/useTimeout';
 import { PageEnum } from '/@/enums/pageEnum';
 import { TabItem, tabStore } from '/@/store/modules/tab';
 import { appStore } from '/@/store/modules/app';
 import router from '/@/router';
 import { ref } from 'vue';
+import { pathToRegexp } from 'path-to-regexp';
 
 const activeKeyRef = ref<string>('');
 
@@ -68,7 +68,11 @@ export function useTabs() {
   function getTo(path: string): any {
     const routes = router.getRoutes();
     const fn = (p: string): any => {
-      const to = routes.find((item) => item.path === p);
+      const to = routes.find((item) => {
+        if (item.path === '/:path(.*)*') return;
+        const regexp = pathToRegexp(item.path);
+        return regexp.test(p);
+      });
       if (!to) return '';
       if (!to.redirect) return to;
       if (to.redirect) {
@@ -88,12 +92,13 @@ export function useTabs() {
     resetCache: () => canIUseFn() && resetCache(),
     addTab: (path: PageEnum, goTo = false, replace = false) => {
       const to = getTo(path);
+
       if (!to) return;
       useTimeout(() => {
-        tabStore.addTabByPathAction((to as unknown) as AppRouteRecordRaw);
+        tabStore.addTabByPathAction();
       }, 0);
-      activeKeyRef.value = to.path;
-      goTo && replace ? router.replace : router.push(to.path);
+      activeKeyRef.value = path;
+      goTo && replace ? router.replace : router.push(path);
     },
     activeKeyRef,
   };

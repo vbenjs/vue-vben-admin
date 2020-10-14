@@ -74,9 +74,7 @@ function injectCdnjs(html: string) {
 export async function runUpdateHtml() {
   const outDir = viteConfig.outDir || 'dist';
   const indexPath = getCwdPath(outDir, 'index.html');
-  if (!existsSync(`${indexPath}`)) {
-    return;
-  }
+  if (!existsSync(indexPath)) return;
   try {
     let processedHtml = '';
     const rawHtml = readFileSync(indexPath, 'utf-8');
@@ -92,7 +90,9 @@ export async function runUpdateHtml() {
     }
     if (minify) {
       const { enable, ...miniOpt } = minify;
-      processedHtml = HtmlMinifier.minify(processedHtml, miniOpt);
+      if (enable) {
+        processedHtml = HtmlMinifier.minify(processedHtml, miniOpt);
+      }
     }
 
     writeFileSync(indexPath, processedHtml);

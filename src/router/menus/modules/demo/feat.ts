@@ -45,6 +45,20 @@ const menu: MenuModule = {
         path: '/full-screen',
         name: '全屏',
       },
+      {
+        path: '/testTab',
+        name: '带参Tab',
+        children: [
+          {
+            path: '/id1',
+            name: '带参tab1',
+          },
+          {
+            path: '/id2',
+            name: '带参tab2',
+          },
+        ],
+      },
     ],
   },
 };

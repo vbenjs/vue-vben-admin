@@ -9,6 +9,7 @@ import {
   // ref,
   unref,
   onMounted,
+  toRaw,
 } from 'vue';
 import { Tabs } from 'ant-design-vue';
 import TabContent from './TabContent';
@@ -73,11 +74,7 @@ export default defineComponent({
       routes &&
         routes.forEach((route) => {
           if (route.meta && route.meta.affix) {
-            tabs.push({
-              path: route.path,
-              name: route.name,
-              meta: { ...route.meta },
-            });
+            tabs.push(toRaw(route) as TabItem);
           }
         });
       return tabs;
@@ -114,7 +111,7 @@ export default defineComponent({
       };
       return (
         <span>
-          <TabContent {...tabContentProps} />
+          <TabContent {...(tabContentProps as any)} />
         </span>
       );
     }

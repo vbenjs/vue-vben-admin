@@ -107,7 +107,8 @@ export async function getFlatChildrenMenus(children: Menu[]) {
 function basicFilter(routes: RouteRecordNormalized[]) {
   return (menu: Menu) => {
     const matchRoute = routes.find((route) => route.path === menu.path);
-    if (!matchRoute) return false;
+
+    if (!matchRoute) return true;
     menu.icon = menu.icon || matchRoute.meta.icon;
     menu.meta = matchRoute.meta;
     return true;
