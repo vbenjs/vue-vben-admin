@@ -29,8 +29,10 @@ export interface RouteMeta {
 
   // close loading
   afterCloseLoading?: boolean;
-
+  // Is it in the tab
   inTab?: boolean;
+  // Carrying parameters
+  carryParam?: boolean;
 }
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {

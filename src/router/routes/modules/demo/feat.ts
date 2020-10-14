@@ -102,6 +102,7 @@ export default {
       component: () => import('/@/views/demo/feat/tab-params/index.vue'),
       meta: {
         title: 'Tab带参',
+        carryParam: true,
       },
     },
   ],
