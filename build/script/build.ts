@@ -1,20 +1,21 @@
 // #!/usr/bin/env node
 
-import { sh } from 'tasksfile';
+// import { sh } from 'tasksfile';
 
 import { argv } from 'yargs';
 import { runBuildConfig } from './buildConf';
 import { runUpdateHtml } from './updateHtml';
-import { errorConsole, successConsole } from '../utils';
+import { errorConsole, successConsole, run } from '../utils';
 
 export const runBuild = async () => {
   try {
     const argvList = argv._;
-    let cmd = `npx cross-env NODE_ENV=production vite build`;
-    await sh(cmd, {
-      async: true,
-      nopipe: true,
-    });
+    // let cmd = `cross-env NODE_ENV=production vite build`;
+    await run('cross-env', ['NODE_ENV=production', 'vite', 'build']);
+    // await sh(cmd, {
+    //   async: true,
+    //   nopipe: true,
+    // });
 
     // Generate configuration file
     if (!argvList.includes('no-conf')) {
