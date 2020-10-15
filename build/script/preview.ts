@@ -1,12 +1,12 @@
 import chalk from 'chalk';
 import Koa from 'koa';
 import inquirer from 'inquirer';
-// import { sh } from 'tasksfile';
+import { sh } from 'tasksfile';
 import staticServer from 'koa-static';
 import portfinder from 'portfinder';
 import { resolve } from 'path';
 import viteConfig from '../../vite.config';
-import { getIPAddress, run } from '../utils';
+import { getIPAddress } from '../utils';
 
 const BUILD = 1;
 const NO_BUILD = 2;
@@ -53,11 +53,10 @@ export const runPreview = async () => {
   });
   const { type } = await prompt;
   if (type === BUILD) {
-    await run('npm', ['run', 'build']);
-    // await sh('npm run build', {
-    //   async: true,
-    //   nopipe: true,
-    // });
+    await sh('npm run build', {
+      async: true,
+      nopipe: true,
+    });
   }
   startApp();
 };

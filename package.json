@@ -3,14 +3,14 @@
   "version": "2.0.0-rc.1",
   "scripts": {
     "bootstrap": "yarn install",
-    "serve": "node ./build/jsc.js preserve && cross-env NODE_ENV=development vite",
-    "build": "node ./build/jsc.js build",
+    "serve": "node ./build/jsc.ts preserve && cross-env NODE_ENV=development vite",
+    "build": "node ./build/jsc.ts build",
     "build:site": "cross-env SITE=true npm run build ",
     "build:no-cache": "yarn  clean:cache && npm run build",
     "report": "cross-env REPORT=true npm run build ",
-    "preview": "node ./build/jsc.js preview",
-    "log": "node ./build/jsc.js log",
-    "gen:gz": "node ./build/jsc.js gzip",
+    "preview": "node ./build/jsc.ts preview",
+    "log": "node ./build/jsc.ts log",
+    "gen:gz": "node ./build/jsc.ts gzip",
     "clean:cache": "rimraf node_modules/.cache/ && rimraf node_modules/.vite_opt_cache",
     "clean:lib": "npx rimraf node_modules",
     "ls-lint": "npx ls-lint",
@@ -18,7 +18,7 @@
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint:stylelint": "stylelint --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
     "reinstall": "rimraf node_modules && rimraf yarn.lock && rimraf package.lock.json && npm run bootstrap",
-    "postinstall": "node ./build/jsc.js postinstall"
+    "postinstall": "node ./build/jsc.ts postinstall"
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.1",

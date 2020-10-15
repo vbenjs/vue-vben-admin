@@ -3,7 +3,7 @@ import path from 'path';
 import { networkInterfaces } from 'os';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
-import execa from 'execa';
+// import execa from 'execa';
 
 export const isFunction = (arg: unknown): arg is (...args: any[]) => any =>
   typeof arg === 'function';
@@ -149,5 +149,5 @@ export function getCwdPath(...dir: string[]) {
   return path.resolve(process.cwd(), ...dir);
 }
 
-export const run = (bin: string, args: any, opts = {}) =>
-  execa(bin, args, { stdio: 'inherit', ...opts });
+// export const run = (bin: string, args: any, opts = {}) =>
+//   execa(bin, args, { stdio: 'inherit', ...opts });
