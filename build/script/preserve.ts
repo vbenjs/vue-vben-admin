@@ -3,8 +3,8 @@
 import path from 'path';
 import fs from 'fs-extra';
 import { isEqual } from 'lodash';
-// import { sh } from 'tasksfile';
-import { successConsole, errorConsole, run } from '../utils';
+import { sh } from 'tasksfile';
+import { successConsole, errorConsole } from '../utils';
 
 const resolve = (dir: string) => {
   return path.resolve(process.cwd(), dir);
@@ -46,11 +46,10 @@ export async function runPreserve() {
       'A dependency change is detected, and the dependency is being installed to ensure that the dependency is consistent! (Tip: The project will be executed for the first time)！'
     );
     try {
-      await run('npm', ['run', 'bootstrap']);
-      // await sh('npm run bootstrap ', {
-      //   async: true,
-      //   nopipe: true,
-      // });
+      await sh('npm run bootstrap ', {
+        async: true,
+        nopipe: true,
+      });
 
       successConsole('Dependency installation is successful, start running the project！');
 
