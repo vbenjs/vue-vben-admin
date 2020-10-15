@@ -38,7 +38,7 @@ export function useFrameKeepAlive() {
   const getOpenTabList = computed((): string[] => {
     return tabStore.getTabsState.reduce((prev: string[], next) => {
       if (next.meta && Reflect.has(next.meta, 'frameSrc')) {
-        prev.push(next.path);
+        prev.push(next.path!);
       }
       return prev;
     }, []);
