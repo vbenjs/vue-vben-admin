@@ -8,21 +8,20 @@
   opacity: 0;
 }
 
-// side-fade
-.slide-fade-enter-active,
-.slide-fade-leave-active {
-  transition: opacity 0.3s, transform 0.35s;
+/* fade-transform */
+.slide-fade-leave-active,
+.slide-fade-enter-active {
+  transition: all 0.3s;
 }
 
-.slide-enter-from,
-.slide-fade-enter {
+.slide-fade-enter-from {
   opacity: 0;
-  transform: translateX(-30%);
+  transform: translateX(-30px);
 }
 
 .slide-fade-leave-to {
   opacity: 0;
-  transform: translateX(30%);
+  transform: translateX(30px);
 }
 
 // ///////////////////////////////////////////////

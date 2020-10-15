@@ -14,6 +14,7 @@ export function useECharts(
 ) {
   const chartInstanceRef = ref<Nullable<ECharts>>(null);
   let resizeFn: Fn = resize;
+  let removeResizeFn: Fn = () => {};
 
   const [debounceResize] = useDebounce(resize, 200);
   resizeFn = debounceResize;
@@ -25,11 +26,12 @@ export function useECharts(
       return;
     }
     chartInstanceRef.value = echarts.init(el, theme);
-    useEvent({
+    const { removeEvent } = useEvent({
       el: window,
       name: 'resize',
       listener: resizeFn,
     });
+    removeResizeFn = removeEvent;
     const { widthRef, screenEnum } = useBreakpoint();
     if (unref(widthRef) <= screenEnum.MD) {
       useTimeout(() => {
@@ -37,6 +39,9 @@ export function useECharts(
       }, 30);
     }
   }
+  tryOnUnmounted(() => {
+    removeResizeFn();
+  });
 
   function setOptions(options: any, clear = true) {
     nextTick(() => {

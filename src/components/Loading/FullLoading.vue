@@ -42,7 +42,7 @@
     width: 100%;
     height: 100%;
     // background: rgba(255, 255, 255, 0.3);
-    background: rgba(241, 241, 246, 0.8);
+    background: rgba(241, 241, 246, 0.7);
     justify-content: center;
     align-items: center;
   }

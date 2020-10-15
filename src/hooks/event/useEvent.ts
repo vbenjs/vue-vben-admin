@@ -45,8 +45,6 @@ export function useEvent({
         if (v) {
           !unref(isAddRef) && addEventListener(v);
           cleanUp(() => {
-            // @ts-ignore
-            window.a = v;
             autoRemove && removeEventListener(v);
           });
         }

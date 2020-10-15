@@ -30,6 +30,7 @@
 - [代码贡献](#代码贡献)
 - [已完成功能](#已完成功能)
 - [正在开发的功能](#正在开发的功能)
+- [浏览器支持](#浏览器支持)
 - [加入我们](#加入我们)
 
 ## 介绍
@@ -240,6 +241,16 @@ yarn clean:lib # 删除node_modules，兼容window系统
 - [ ] 系统性能优化
 
 更多组件/功能/建议/bug/欢迎提交 pr 或者 issue
+
+## 浏览器支持
+
+本地开发推荐使用`Chrome`浏览器,在火狐浏览器进行开发相对卡顿。
+
+支持现代浏览器, IE 暂不支持，后续考虑支持 ie11
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
+| :-: | :-: | :-: | :-: |
+| not support | last 2 versions | last 2 versions | last 2 versions |
 
 ## 加入我们
 

@@ -30,6 +30,7 @@
 - [Code contribution](#code-contribution)
 - [Finished features](#finished-features)
 - [Developing features](#developing-features)
+- [Browser support](#browser-support)
 
 ## Introduction
 
@@ -238,3 +239,13 @@ yarn clean:lib # Delete node_modules, supported window
 - [ ] System performance optimization
 
 If you have more components/functions/suggestions/bugs/, welcome to submit pr or issue.
+
+## Browser support
+
+It is recommended to use the `Chrome` browser for local development. Development in the Firefox browser is relatively slow.
+
+Support modern browsers, Not currently supported ie11，Follow-up consideration support ie11
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
+| :-: | :-: | :-: | :-: |
+| Not currently supported | last 2 versions | last 2 versions | last 2 versions |

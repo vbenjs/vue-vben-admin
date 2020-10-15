@@ -15,11 +15,7 @@ type FSEPropName =
   | 'msFullscreenElement'
   | 'mozFullScreenElement'
   | 'fullscreenElement';
-type ONFSCPropName =
-  | 'onfullscreenchange'
-  | 'onwebkitfullscreenchange'
-  | 'onmozfullscreenchange'
-  | 'MSFullscreenChange';
+type ONFSCPropName = 'onfullscreenchange' | 'onwebkitfullscreenchange' | 'MSFullscreenChange';
 
 export function useFullscreen(
   target: Ref<Nullable<HTMLElement>> = ref(document.documentElement),

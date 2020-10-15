@@ -1,14 +1,15 @@
 import { createApp } from 'vue';
-import { setupAntd } from '/@/setup/ant-design-vue';
+
 import router, { setupRouter } from '/@/router';
 import { setupStore } from '/@/store';
-import App from './App.vue';
-import { registerGlobComp } from '/@/components/registerGlobComp';
+import { setupAntd } from '/@/setup/ant-design-vue';
 import { setupDirectives } from '/@/setup/directives/index';
 
+import { registerGlobComp } from '/@/components/registerGlobComp';
 import { isDevMode, isProdMode, isUseMock } from '/@/utils/env';
-
 import { setupProdMockServer } from '../mock/_createProductionServer';
+
+import App from './App.vue';
 import '/@/design/index.less';
 
 const app = createApp(App);

@@ -162,9 +162,9 @@
 
   // 层级样式
   &.ant-menu-dark {
-    .ant-menu-item {
-      transition: unset;
-    }
+    // .ant-menu-item {
+    //   transition: unset;
+    // }
 
     .ant-menu-item.ant-menu-item-selected.basic-menu-menu-item__level1,
     .ant-menu-submenu-selected.basic-menu-menu-item__level1 {
@@ -206,9 +206,18 @@
     }
 
     .ant-menu-submenu-title {
-      height: @app-menu-item-height;
       // margin: 0;
-      line-height: @app-menu-item-height;
+      // line-height: @app-menu-item-height;
+      display: flex;
+      height: @app-menu-item-height;
+      align-items: center;
+    }
+
+    &.ant-menu-inline-collapsed {
+      .ant-menu-item-selected {
+        background: unset !important;
+        box-shadow: none;
+      }
     }
   }
 
