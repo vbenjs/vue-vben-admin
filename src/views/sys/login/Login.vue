@@ -60,8 +60,8 @@
       const openLoginVerifyRef = computed(() => appStore.getProjectConfig.openLoginVerify);
 
       const formData = reactive({
-        account: '',
-        password: '',
+        account: 'vben',
+        password: '123456',
         verify: undefined,
       });
       const formState = reactive({
