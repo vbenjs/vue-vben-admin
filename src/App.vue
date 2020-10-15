@@ -15,6 +15,8 @@
 
   import { useConfigProvider, useInitAppConfigStore, useListenerNetWork } from './useApp';
   import { useLockPage } from '/@/hooks/web/useLockPage';
+  import { useSetting } from '/@/hooks/core/useSetting';
+
   moment.locale('zh-cn');
   export default defineComponent({
     name: 'App',
@@ -23,8 +25,14 @@
       useInitAppConfigStore();
       useListenerNetWork();
       createBreakpointListen();
+      const { projectSetting } = useSetting();
       const { transformCellText } = useConfigProvider();
-      const { on: lockOn } = useLockPage();
+
+      let lockOn = {};
+      if (projectSetting.lockTime) {
+        const { on } = useLockPage();
+        lockOn = on;
+      }
       return {
         transformCellText,
         zhCN,

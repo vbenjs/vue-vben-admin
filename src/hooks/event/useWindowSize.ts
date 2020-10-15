@@ -21,6 +21,7 @@ export function useWindowSizeFn<T>(fn: Fn<T>, wait = 150, options?: WindowSizeOp
   tryOnMounted(() => {
     window.addEventListener('resize', handler);
   });
+
   tryOnUnmounted(() => {
     window.removeEventListener('resize', handler);
     cancel();

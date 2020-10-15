@@ -3,6 +3,7 @@ import { useThrottle } from '/@/hooks/core/useThrottle';
 
 import { appStore } from '/@/store/modules/app';
 import { userStore } from '/@/store/modules/user';
+
 export function useLockPage() {
   let timeId: ReturnType<typeof setTimeout>;
 
