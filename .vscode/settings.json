@@ -116,15 +116,21 @@
   // ================ Eslint ===================
   // ===========================================
   "eslint.enable": true, // 是否开启eslint
-
   "eslint.options": {
     // 配置
-    "plugins": ["html", "vue", "javascript", "jsx", "typescript"]
+    "plugins": [
+      "html",
+      "vue",
+      "javascript",
+      "jsx",
+      "typescript"
+    ]
   },
   "eslint.autoFixOnSave": true, // 保存自动格式化
   // ===========================================
   // ================ Vetur ====================
   // ===========================================
+  "vetur.experimental.templateInterpolationService": true,
   "vetur.format.options.tabSize": 2,
   "vetur.format.defaultFormatter.html": "js-beautify-html", // 使用js-beautify-html格式化
   "vetur.format.defaultFormatter.scss": "prettier", // 使用js-beautify-html格式化
@@ -244,7 +250,9 @@
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "cSpell.words": ["yfboilerplate"],
+  "cSpell.words": [
+    "yfboilerplate"
+  ],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   }
