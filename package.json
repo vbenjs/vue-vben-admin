@@ -3,7 +3,7 @@
   "version": "2.0.0-rc.1",
   "scripts": {
     "bootstrap": "yarn install",
-    "serve": "node ./build/jsc.ts preserve && cross-env NODE_ENV=development vite",
+    "serve": "cross-env ts-node --files -P  ./build/tsconfig.json ./build/script/preserve && cross-env NODE_ENV=development vite",
     "build": "node ./build/jsc.ts build",
     "build:site": "cross-env SITE=true npm run build ",
     "build:no-cache": "yarn  clean:cache && npm run build",

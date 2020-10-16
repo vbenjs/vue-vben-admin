@@ -6,7 +6,7 @@ import { argv } from 'yargs';
 import { runChangeLog } from './changelog';
 import { runPostInstall } from './postinstall';
 import { runPreview } from './preview';
-import { runPreserve } from './preserve';
+// import { runPreserve } from './preserve';
 import { runBuild } from './build';
 
 const task = (argv._ || [])[0];
@@ -23,9 +23,9 @@ switch (task) {
     runBuild();
     break;
 
-  case 'preserve':
-    runPreserve();
-    break;
+  // case 'preserve':
+  //   runPreserve();
+  //   break;
 
   case 'postinstall':
     runPostInstall();

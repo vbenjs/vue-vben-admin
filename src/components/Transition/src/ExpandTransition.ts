@@ -33,14 +33,14 @@ export default function (expandedParentClass = '', x = false) {
 
     enter(el: HTMLExpandElement) {
       const initialStyle = el._initialStyle;
-      const offset = `${el[offsetProperty]}px`;
 
       el.style.setProperty('transition', 'none', 'important');
-      el.style.visibility = 'hidden';
-      el.style.visibility = initialStyle.visibility!;
+      // Hide overflow to account for collapsed margins in the calculated height
       el.style.overflow = 'hidden';
+      const offset = `${el[offsetProperty]}px`;
+
       el.style[sizeProperty] = '0';
-      /* eslint-disable-next-line */
+
       void el.offsetHeight; // force reflow
 
       el.style.transition = initialStyle.transition;
@@ -48,9 +48,7 @@ export default function (expandedParentClass = '', x = false) {
       if (expandedParentClass && el._parent) {
         el._parent.classList.add(expandedParentClass);
       }
-      console.log('======================');
-      console.log(sizeProperty, offset);
-      console.log('======================');
+
       requestAnimationFrame(() => {
         el.style[sizeProperty] = offset;
       });
