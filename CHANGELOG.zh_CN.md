@@ -1,4 +1,4 @@
-# wip
+# 2.0.0-rc.2 (2020-10-17)
 
 ### ✨ Features
 
@@ -16,6 +16,7 @@
 - 修复菜单报错
 - 修复表格自适应高度问题
 - 修复`window系统`执行 script 报错问题
+- 修复折叠组件问题
 
 ### ⚡ Performance Improvements
 

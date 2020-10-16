@@ -1,3 +1,29 @@
+# 2.0.0-rc.2 (2020-10-17)
+
+### ✨ Features
+
+- Package can be configured to output `gizp`
+- Package can be configured to delete `console`
+- Routes and menus do not need to be imported manually, they are imported automatically
+
+### 🎫 Chores
+
+- Upgrade vue to `3.0.1`
+- Change `vite` version to daily build version
+
+### 🐛 Bug Fixes
+
+- Fix menu error
+- Fix the problem of table adaptive height
+- Fix the issue of error reporting when executing script in `window system`
+- Fix the problem of folding components
+
+### ⚡ Performance Improvements
+
+- Remove menu to minimize background
+- Prevent page refresh and re-render menu
+- Some other details are optimized
+
 # 2.0.0-rc.1 (2020-10-14)
 
 ### ✨ Features
