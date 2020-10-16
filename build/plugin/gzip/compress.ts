@@ -1,8 +1,8 @@
 import { gzip } from 'zlib';
 import { readFileSync, writeFileSync } from 'fs';
 import { GzipPluginOptions } from './types';
-import viteConfig from '../../vite.config';
-import { readAllFile, getCwdPath, isBuildGzip, isSiteMode } from '../utils';
+import viteConfig from '../../../vite.config';
+import { readAllFile, getCwdPath, isBuildGzip, isSiteMode } from '../../utils';
 
 export function startGzip(
   fileContent: string | Buffer,

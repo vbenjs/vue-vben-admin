@@ -69,3 +69,5 @@ export async function runPreserve() {
     } catch (error) {}
   }
 }
+
+runPreserve();
