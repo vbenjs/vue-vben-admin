@@ -40,7 +40,7 @@ const vitePlugins: VitePlugin[] = [];
     if (isReportMode()) {
       // report
       rollupPlugins.push(
-        visualizer({ filename: './node_modules/.cache/stats.html', open: true }) as Plugin
+        visualizer({ filename: './build/.cache/stats.html', open: true }) as Plugin
       );
     }
     if (isBuildGzip() || isSiteMode()) {
