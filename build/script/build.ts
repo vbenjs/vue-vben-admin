@@ -6,6 +6,7 @@ import { argv } from 'yargs';
 import { runBuildConfig } from './buildConf';
 import { runUpdateHtml } from './updateHtml';
 import { errorConsole, successConsole } from '../utils';
+import { startGzipStyle } from '../plugin/gzip/compress';
 
 export const runBuild = async () => {
   try {
@@ -22,6 +23,7 @@ export const runBuild = async () => {
       await runBuildConfig();
     }
     await runUpdateHtml();
+    await startGzipStyle();
     successConsole('Vite Build successfully!');
   } catch (error) {
     errorConsole('Vite Build Error\n' + error);

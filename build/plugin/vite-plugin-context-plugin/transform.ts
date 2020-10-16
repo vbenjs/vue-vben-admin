@@ -49,8 +49,9 @@ const globbyTransform = function (config: SharedConfig): Transform {
       let result = cache.get(path);
       if (!result) {
         const reg = /import\s+([\w\s{}*]+)\s+from\s+(['"])globby(\?path)?!([^'"]+)\2/g;
-        const lastImport = urlMap.get(path);
         const match = code.match(reg);
+        if (!match) return code;
+        const lastImport = urlMap.get(path);
         if (lastImport && match) {
           code = code.replace(lastImport, match[0]);
         }

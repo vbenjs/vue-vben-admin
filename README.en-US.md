@@ -92,7 +92,6 @@ The documentation for 2.0 hasn't started yet, it will be provided later.
 - [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock) - Mock plugin base on vite
 - [vue-i18n](https://github.com/intlify/vue-i18n-next) - Internationalization
 - [lodash-es](https://github.com/lodash/lodash) - JavaScript utility library
-- [moment](https://github.com/moment/moment) - Time operation library
 - [axios](https://github.com/axios/axios) - Http data interaction
 - [TypeScript](https://www.typescriptlang.org/)
 
@@ -225,6 +224,7 @@ yarn clean:lib # Delete node_modules, supported window
 - [x] Digital animation
 - [x] First screen loading waiting animation
 - [x] Extract the production environment profile
+- [x] Build Gzip
 
 ## Developing features
 
@@ -234,7 +234,6 @@ yarn clean:lib # Delete node_modules, supported window
 - [ ] Global error handling
 - [ ] Theme configuration
 - [ ] Dark theme
-- [ ] Build Gzip
 - [ ] Build CDN
 - [ ] System performance optimization
 
@@ -246,6 +245,8 @@ It is recommended to use the `Chrome` browser for local development. Development
 
 Support modern browsers, Not currently supported ie11，Follow-up consideration support ie11
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| :-: | :-: | :-: | :-: |
-| Not currently supported | last 2 versions | last 2 versions | last 2 versions |
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
+| :-: | :-: | :-: | :-: | :-: |
+| not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
+
+More browsers can view [Can I Use Es Module](https://caniuse.com/?search=ES%20Module)

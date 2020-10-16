@@ -12,8 +12,10 @@ import {
 import { createProxy } from './build/config/vite/proxy';
 import { createMockServer } from 'vite-plugin-mock';
 import PurgeIcons from 'vite-plugin-purge-icons';
+import gzipPlugin from './build/plugin/gzip/index';
+import globbyTransform from './build/plugin/vite-plugin-context-plugin/transform';
 
-import { isDevFn, isReportMode, isProdFn, loadEnv } from './build/utils';
+import { isDevFn, isReportMode, isProdFn, loadEnv, isBuildGzip, isSiteMode } from './build/utils';
 const pkg = require('./package.json');
 
 const {
@@ -22,6 +24,7 @@ const {
   VITE_PUBLIC_PATH,
   VITE_PROXY,
   VITE_GLOB_APP_TITLE,
+  VITE_DROP_CONSOLE,
   // VITE_USE_CDN,
 } = loadEnv();
 
@@ -33,12 +36,18 @@ const rollupPlugins: any[] = [];
 const vitePlugins: VitePlugin[] = [];
 
 (() => {
-  if (isReportMode() && isProdFn()) {
-    // report
-    rollupPlugins.push(
-      visualizer({ filename: './node_modules/.cache/stats.html', open: true }) as Plugin
-    );
+  if (isProdFn()) {
+    if (isReportMode()) {
+      // report
+      rollupPlugins.push(
+        visualizer({ filename: './node_modules/.cache/stats.html', open: true }) as Plugin
+      );
+    }
+    if (isBuildGzip() || isSiteMode()) {
+      rollupPlugins.push(gzipPlugin());
+    }
   }
+
   if (isDevFn() && VITE_USE_MOCK) {
     // open mock
     vitePlugins.push(
@@ -99,13 +108,20 @@ const viteConfig: UserConfig = {
   assetsInlineLimit: 4096,
   /**
    * esbuild转换目标。
-   * @default 'es2019'
+   * @default 'es2020'
    */
-  esbuildTarget: 'es2019',
+  esbuildTarget: 'es2020',
   silent: false,
   // 别名
   alias: {
     '/@/': pathResolve('src'),
+  },
+  // terser配置
+  terserOption: {
+    compress: {
+      // 是否删除console
+      drop_console: VITE_DROP_CONSOLE,
+    },
   },
   define: {
     __VERSION__: pkg.version,
@@ -128,6 +144,7 @@ const viteConfig: UserConfig = {
       'moment/locale/zh-cn',
     ],
   },
+
   // 本地跨域代理
   proxy: createProxy(VITE_PROXY),
 
@@ -140,8 +157,6 @@ const viteConfig: UserConfig = {
   },
 };
 
-// 用于打包部署站点使用。实际项目可以删除
-const isSite = process.env.SITE === 'true';
 // 扩展配置, 往打包后的html注入内容
 // 只针对生产环境
 // TODO 目前只是简单手动注入实现，后续vite应该会提供配置项
@@ -164,7 +179,8 @@ export const htmlConfig: {
   // html title
   title: VITE_GLOB_APP_TITLE,
   // 百度统计，不需要可以删除
-  addHm: isSite,
+  // 用于打包部署站点使用。实际项目可以删除
+  addHm: isSiteMode(),
   // 使用cdn打包
   // TODO Cdn esm使用方式需要只能支持google，暂时关闭，后续查询更好的方式
   useCdn: false,
@@ -179,4 +195,7 @@ export const htmlConfig: {
     minifyCSS: true,
   },
 };
-export default viteConfig;
+export default {
+  ...viteConfig,
+  transforms: [globbyTransform(viteConfig)],
+} as UserConfig;

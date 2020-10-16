@@ -91,7 +91,7 @@ export default defineComponent({
     });
 
     watch(
-      () => currentRoute.value.path,
+      () => currentRoute.value.name,
       (name: string) => {
         name !== 'Redirect' && handleMenuChange();
         getParentPath();
