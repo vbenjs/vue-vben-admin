@@ -70,6 +70,12 @@ export function isProdFn(): boolean {
 export function isReportMode(): boolean {
   return process.env.REPORT === 'true';
 }
+export function isBuildGzip(): boolean {
+  return process.env.VITE_BUILD_GZIP === 'true';
+}
+export function isSiteMode(): boolean {
+  return process.env.SITE === 'true';
+}
 
 export interface ViteEnv {
   VITE_PORT: number;
@@ -78,6 +84,8 @@ export interface ViteEnv {
   VITE_PROXY: [string, string][];
   VITE_GLOB_APP_TITLE: string;
   VITE_USE_CDN: boolean;
+  VITE_DROP_CONSOLE: boolean;
+  VITE_BUILD_GZIP: boolean;
 }
 
 export function loadEnv(): ViteEnv {

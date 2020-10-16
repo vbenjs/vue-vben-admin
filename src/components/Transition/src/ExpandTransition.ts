@@ -48,7 +48,9 @@ export default function (expandedParentClass = '', x = false) {
       if (expandedParentClass && el._parent) {
         el._parent.classList.add(expandedParentClass);
       }
-
+      console.log('======================');
+      console.log(sizeProperty, offset);
+      console.log('======================');
       requestAnimationFrame(() => {
         el.style[sizeProperty] = offset;
       });
