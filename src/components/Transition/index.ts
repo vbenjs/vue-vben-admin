@@ -1,11 +1,12 @@
-import {
-  //  createSimpleTransition,
-  createJavascriptTransition,
-} from './src/CreateTransition';
+// import {
+//   //  createSimpleTransition,
+//   createJavascriptTransition,
+// } from './src/CreateTransition';
 
-import ExpandTransitionGenerator from './src/ExpandTransition';
+// import ExpandTransitionGenerator from './src/ExpandTransition';
 
 export { default as CollapseTransition } from './src/CollapseTransition';
+// export { default as CollapseTransition } from './src/CollapseTransition';
 
 // export const FadeTransition = createSimpleTransition('fade-transition');
 // export const ScaleTransition = createSimpleTransition('scale-transition');
@@ -20,12 +21,14 @@ export { default as CollapseTransition } from './src/CollapseTransition';
 // export const ScaleRotateTransition = createSimpleTransition('scale-rotate-transition');
 
 // Javascript transitions
-export const ExpandTransition = createJavascriptTransition(
-  'expand-transition',
-  ExpandTransitionGenerator()
-);
+// export const ExpandTransition = createJavascriptTransition(
+//   'expand-transition',
+//   ExpandTransitionGenerator()
+// );
 
 // export const ExpandXTransition = createJavascriptTransition(
 //   'expand-x-transition',
 //   ExpandTransitionGenerator('', true)
 // );
+
+export { default as ExpandTransition } from './src/ExpandTransition.vue';

@@ -34,9 +34,9 @@ export default function (expandedParentClass = '', x = false) {
 
       el.style.setProperty('transition', 'none', 'important');
       el.style.overflow = 'hidden';
-      const offset = `${el[offsetProperty]}px`;
+      // const offset = `${el[offsetProperty]}px`;
 
-      el.style[sizeProperty] = '0';
+      // el.style[sizeProperty] = '0';
 
       void el.offsetHeight; // force reflow
 
@@ -47,7 +47,7 @@ export default function (expandedParentClass = '', x = false) {
       }
 
       requestAnimationFrame(() => {
-        el.style[sizeProperty] = offset;
+        // el.style[sizeProperty] = offset;
       });
     },
 
@@ -84,6 +84,6 @@ export default function (expandedParentClass = '', x = false) {
     const size = el._initialStyle[sizeProperty];
     el.style.overflow = el._initialStyle.overflow!;
     if (size != null) el.style[sizeProperty] = size;
-    delete (el as any)._initialStyle;
+    Reflect.deleteProperty(el, '_initialStyle');
   }
 }
