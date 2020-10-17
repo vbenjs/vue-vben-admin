@@ -136,5 +136,31 @@ export default {
         title: '密码强度组件',
       },
     },
+    {
+      path: '/excel',
+      name: 'ExcelDemo',
+      redirect: '/comp/excel/export',
+      meta: {
+        title: 'excel',
+      },
+      children: [
+        {
+          path: 'export',
+          name: 'Export2Excel',
+          component: () => import('/@/views/demo/comp/excel/ExportToExcel.vue'),
+          meta: {
+            title: 'Export2Excel',
+          },
+        },
+        {
+          path: 'import',
+          name: 'ImportExcel',
+          component: () => import('/@/views/demo/comp/excel/ImportExcel.vue'),
+          meta: {
+            title: 'ImportExcel',
+          },
+        },
+      ],
+    },
   ],
 } as AppRouteModule;

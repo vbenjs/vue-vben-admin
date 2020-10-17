@@ -35,6 +35,7 @@
     "vue-router": "^4.0.0-beta.13",
     "vuex": "^4.0.0-beta.4",
     "vuex-module-decorators": "^1.0.1",
+    "xlsx": "^0.16.8",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
