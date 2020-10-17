@@ -66,6 +66,20 @@ const menu: MenuModule = {
         path: '/strength-meter',
         name: '密码强度组件',
       },
+      {
+        path: '/excel',
+        name: 'excel',
+        children: [
+          {
+            path: '/export',
+            name: 'Export',
+          },
+          {
+            path: '/import',
+            name: 'Import',
+          },
+        ],
+      },
     ],
   },
 };
