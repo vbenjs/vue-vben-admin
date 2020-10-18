@@ -66,6 +66,20 @@ const menu: MenuModule = {
         path: '/strength-meter',
         name: '密码强度组件',
       },
+      {
+        path: '/tinymce',
+        name: '富文本',
+        children: [
+          {
+            path: '/index',
+            name: '基础使用',
+          },
+          {
+            path: '/editor',
+            name: '嵌入form使用',
+          },
+        ],
+      },
     ],
   },
 };

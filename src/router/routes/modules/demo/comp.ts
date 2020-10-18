@@ -136,5 +136,31 @@ export default {
         title: '密码强度组件',
       },
     },
+    {
+      path: '/tinymce',
+      name: 'TinymceDemo',
+      meta: {
+        title: '富文本',
+      },
+      redirect: '/comp/tinymce/index',
+      children: [
+        {
+          path: 'index',
+          name: 'Tinymce',
+          component: () => import('/@/views/demo/comp/tinymce/index.vue'),
+          meta: {
+            title: '基础使用',
+          },
+        },
+        {
+          path: 'editor',
+          name: 'TinymceEditor',
+          component: () => import('/@/views/demo/comp/tinymce/Editor.vue'),
+          meta: {
+            title: '嵌入form使用',
+          },
+        },
+      ],
+    },
   ],
 } as AppRouteModule;
