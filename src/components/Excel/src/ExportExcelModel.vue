@@ -12,6 +12,7 @@
   import { defineComponent } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
+  import { ExportModalResult } from './types';
 
   const schemas: FormSchema[] = [
     {
@@ -59,7 +60,7 @@
       const [registerModal, { closeModal }] = useModalInner();
 
       async function handleOk() {
-        const res = await validateFields();
+        const res: ExportModalResult = await validateFields();
         const { filename, bookType } = res;
 
         emit('success', {
