@@ -18,35 +18,12 @@ import { RequestEnum, ResultEnum, ContentTypeEnum } from '/@/enums/httpEnum';
 import { isString } from '/@/utils/is';
 import { formatRequestDate } from '/@/utils/dateUtil';
 import { setObjToUrlParams, deepMerge } from '/@/utils';
-import { errorStore, ErrorTypeEnum, ErrorInfo } from '/@/store/modules/error';
-import { appStore } from '/@/store/modules/app';
+import { errorStore } from '/@/store/modules/error';
 import { errorResult } from './const';
 
 const { globSetting } = useSetting();
 const prefix = globSetting.urlPrefix;
 const { createMessage, createErrorModal } = useMessage();
-
-function setupErrorHandle(error: any) {
-  const { useErrorHandle } = appStore.getProjectConfig;
-  if (!useErrorHandle) return;
-
-  const errInfo: Partial<ErrorInfo> = {
-    message: error.message,
-    type: ErrorTypeEnum.AJAX,
-  };
-  if (error.response) {
-    const {
-      config: { url = '', data: params = '', method = 'get', headers = {} } = {},
-      data = {},
-    } = error.response;
-    errInfo.url = url;
-    errInfo.name = 'Ajax Error!';
-    errInfo.file = '-';
-    errInfo.stack = JSON.stringify(data);
-    errInfo.detail = JSON.stringify({ params, method, headers });
-  }
-  errorStore.commitErrorInfoState(errInfo as ErrorInfo);
-}
 
 /**
  * @description: 数据处理，方便区分多种处理方式
@@ -175,7 +152,7 @@ const transform: AxiosTransform = {
    * @description: 响应错误处理
    */
   responseInterceptorsCatch: (error: any) => {
-    setupErrorHandle(error);
+    errorStore.setupErrorHandle(error);
     const { response, code, message } = error || {};
     const msg: string =
       response && response.data && response.data.error ? response.data.error.message : '';

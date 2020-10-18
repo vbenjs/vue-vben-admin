@@ -54,6 +54,7 @@ export default defineComponent({
                     {...on}
                     name={name || route.meta.transitionName || routerTransition}
                     mode="out-in"
+                    appear={true}
                   >
                     {() => Content}
                   </Transition>

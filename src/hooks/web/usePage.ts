@@ -19,7 +19,7 @@ function handleError(e: Error) {
 // page switch
 export function useGo() {
   const { push, replace } = useRouter();
-  function go(opt: PageEnum | RouteLocationRawEx = PageEnum.BASE_HOME, isReplace = false) {
+  function go(opt: PageEnum | RouteLocationRawEx | string = PageEnum.BASE_HOME, isReplace = false) {
     if (isString(opt)) {
       isReplace ? replace(opt).catch(handleError) : push(opt).catch(handleError);
     } else {

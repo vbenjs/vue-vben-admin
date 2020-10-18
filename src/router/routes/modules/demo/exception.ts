@@ -78,5 +78,13 @@ export default {
         afterCloseLoading: true,
       },
     },
+    {
+      path: '/error-log',
+      name: 'ErrorLog',
+      component: () => import('/@/views/sys/error-log/index.vue'),
+      meta: {
+        title: '错误日志',
+      },
+    },
   ],
 } as AppRouteModule;

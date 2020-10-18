@@ -3,6 +3,7 @@ import { createApp } from 'vue';
 import router, { setupRouter } from '/@/router';
 import { setupStore } from '/@/store';
 import { setupAntd } from '/@/setup/ant-design-vue';
+import { setupErrorHandle } from '/@/setup/error-handle/index';
 import { setupDirectives } from '/@/setup/directives/index';
 
 import { registerGlobComp } from '/@/components/registerGlobComp';
@@ -21,9 +22,11 @@ setupRouter(app);
 // store
 setupStore(app);
 
-registerGlobComp(app);
-
 setupDirectives(app);
+
+setupErrorHandle(app);
+
+registerGlobComp(app);
 
 router.isReady().then(() => {
   app.mount('#app');

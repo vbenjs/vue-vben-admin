@@ -13,7 +13,7 @@ import { createProxy } from './build/config/vite/proxy';
 import { createMockServer } from 'vite-plugin-mock';
 import PurgeIcons from 'vite-plugin-purge-icons';
 import gzipPlugin from './build/plugin/gzip/index';
-import globbyTransform from './build/plugin/vite-plugin-context-plugin/transform';
+import globbyTransform from './build/plugin/vite-plugin-context/transform';
 
 import { isDevFn, isReportMode, isProdFn, loadEnv, isBuildGzip, isSiteMode } from './build/utils';
 const pkg = require('./package.json');
