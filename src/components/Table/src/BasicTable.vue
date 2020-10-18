@@ -146,7 +146,7 @@
         }
         if (showSummary) {
           propsData.footer = renderFooter.bind(null, {
-            scroll,
+            scroll: scroll as any,
             columnsRef: getColumnsRef,
             summaryFunc: unref(getMergeProps).summaryFunc,
             dataSourceRef: getDataSourceRef,

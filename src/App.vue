@@ -33,6 +33,7 @@
         const { on } = useLockPage();
         lockOn = on;
       }
+
       return {
         transformCellText,
         zhCN,

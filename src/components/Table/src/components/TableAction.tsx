@@ -29,7 +29,6 @@ export default defineComponent({
               const {
                 disabled = false,
                 label,
-                props,
                 icon,
                 color = '',
                 type = 'link',
@@ -41,7 +40,7 @@ export default defineComponent({
                   size="small"
                   disabled={disabled}
                   color={color}
-                  {...props}
+                  {...action}
                   key={index}
                 >
                   {() => (
@@ -101,7 +100,6 @@ export default defineComponent({
                             const {
                               disabled = false,
                               label,
-                              props,
                               icon,
                               color = '',
                               type = 'link',
@@ -112,7 +110,7 @@ export default defineComponent({
                                   <Button
                                     type={type}
                                     size="small"
-                                    {...props}
+                                    {...action}
                                     disabled={disabled}
                                     color={color}
                                   >

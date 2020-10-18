@@ -225,17 +225,17 @@ yarn clean:lib # Delete node_modules, supported window
 - [x] First screen loading waiting animation
 - [x] Extract the production environment profile
 - [x] Build Gzip
+- [x] System performance optimization
+- [x] Data import and export
+- [x] Global error handling
 
 ## Developing features
 
 - [ ] Upload component
 - [ ] Rich text component
-- [ ] Data import and export
-- [ ] Global error handling
 - [ ] Theme configuration
 - [ ] Dark theme
 - [ ] Build CDN
-- [ ] System performance optimization
 
 If you have more components/functions/suggestions/bugs/, welcome to submit pr or issue.
 

@@ -30,7 +30,7 @@ const setting: ProjectConfig = {
     // theme
     theme: MenuThemeEnum.LIGHT,
     // 开启锁屏功能
-    useLockPage: isProdMode(),
+    useLockPage: true,
     // 显示刷新按钮
     showRedo: true,
     // 显示全屏按钮
@@ -86,7 +86,7 @@ const setting: ProjectConfig = {
   // 是否开启KeepAlive缓存  开发时候最好关闭,不然每次都需要清除缓存
   openKeepAlive: true,
 
-  // 自动锁屏时间，为0不锁屏。 单位分钟 默认1个小时
+  // 自动锁屏时间，为0不锁屏。 单位分钟 默认0
   lockTime: 0,
   // 显示面包屑
   showBreadCrumb: true,
@@ -96,6 +96,7 @@ const setting: ProjectConfig = {
 
   //  开启页面切换动画
   openRouterTransition: true,
+
   // 路由切换动画
   routerTransition: RouterTransitionEnum.ZOOM_FADE,
 

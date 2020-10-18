@@ -40,10 +40,11 @@ export default defineComponent({
       let password: string | undefined = '';
 
       try {
-        const values = (await validateFields()) as any;
-        password = values.password;
         if (!valid) {
           password = undefined;
+        } else {
+          const values = (await validateFields()) as any;
+          password = values.password;
         }
         setModalProps({
           visible: false,
