@@ -1,0 +1,68 @@
+.notice-popover {
+  &__tabs {
+    .ant-tabs-tab {
+      margin-right: 12px;
+    }
+
+    .ant-tabs-content {
+      width: 320px;
+    }
+  }
+
+  &__list {
+    // width: 340px;
+    // max-height: 400px;
+    // overflow: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &-item {
+      padding-right: 24px;
+      padding-left: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &.read {
+        opacity: 0.4;
+      }
+
+      .meta {
+        width: 100%;
+      }
+
+      .avatar {
+        margin-top: 4px;
+      }
+
+      .title {
+        margin-bottom: 8px;
+        font-weight: normal;
+      }
+
+      .description {
+        font-size: 12px;
+        line-height: 18px;
+      }
+
+      .datetime {
+        margin-top: 4px;
+        font-size: 12px;
+        line-height: 18px;
+      }
+
+      .extra {
+        float: right;
+        margin-top: -1.5px;
+        margin-right: 0;
+        font-weight: normal;
+
+        .tag {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}

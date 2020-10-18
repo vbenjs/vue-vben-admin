@@ -1,4 +1,4 @@
-import { defineComponent, unref, computed } from 'vue';
+import { defineComponent, unref, computed, ref } from 'vue';
 import { Layout, Tooltip } from 'ant-design-vue';
 import Logo from '/@/layouts/Logo.vue';
 import UserDropdown from './UserDropdown';
@@ -12,11 +12,13 @@ import {
   FullscreenOutlined,
   GithubFilled,
   LockOutlined,
+  BellOutlined,
 } from '@ant-design/icons-vue';
 import { useFullscreen } from '/@/hooks/web/useFullScreen';
 import { useTabs } from '/@/hooks/web/useTabs';
 import { GITHUB_URL } from '/@/settings/siteSetting';
-import LockAction from './actions/LockActionItem';
+import LockAction from './actions/lock/LockActionItem';
+import NoticeAction from './actions/notice/NoticeActionItem';
 import { useModal } from '/@/components/Modal/index';
 
 export default defineComponent({
@@ -28,6 +30,7 @@ export default defineComponent({
     const getProjectConfigRef = computed(() => {
       return appStore.getProjectConfig;
     });
+    const showNoticeVisible = ref(false);
 
     function goToGithub() {
       window.open(GITHUB_URL, '__blank');
@@ -43,12 +46,18 @@ export default defineComponent({
     function handleLockPage() {
       openModal(true);
     }
+
+    // 显示消息中心
+    function handleNotice() {
+      showNoticeVisible.value = !showNoticeVisible.value;
+    }
+
     return () => {
       const getProjectConfig = unref(getProjectConfigRef);
       const {
         // useErrorHandle,
         showLogo,
-        headerSetting: { theme: headerTheme, showRedo, showGithub, showFullScreen },
+        headerSetting: { theme: headerTheme, showRedo, showGithub, showFullScreen, showNotice },
         menuSetting: { mode, type: menuType, split: splitMenu, topMenuAlign },
         showBreadCrumb,
       } = getProjectConfig;
@@ -75,7 +84,6 @@ export default defineComponent({
                   </div>
                 )}
               </div>
-
               <div class={`layout-header__action`}>
                 {showGithub && (
                   // @ts-ignore
@@ -102,6 +110,21 @@ export default defineComponent({
                       ),
                     }}
                   </Tooltip>
+                )}
+                {showNotice && (
+                  <div>
+                    <Tooltip>
+                      {{
+                        title: () => '消息中心',
+                        default: () => (
+                          <div class={`layout-header__action-item`} onClick={handleNotice}>
+                            <BellOutlined class={`layout-header__action-icon`} />
+                          </div>
+                        ),
+                      }}
+                    </Tooltip>
+                    <NoticeAction visible={unref(showNoticeVisible)} />
+                  </div>
                 )}
                 {showRedo && (
                   // @ts-ignore
