@@ -11,6 +11,10 @@ export const basicProps = {
     type: Boolean as PropType<boolean>,
     default: false,
   },
+  collapsedShowTitle: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
   flatItems: {
     type: Array as PropType<Menu[]>,
     default: () => [],
