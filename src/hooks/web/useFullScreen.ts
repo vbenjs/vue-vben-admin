@@ -42,15 +42,17 @@ export function useFullscreen(
     RFC_METHOD_NAME = 'mozRequestFullScreen';
     EFS_METHOD_NAME = 'mozCancelFullScreen';
     FSE_PROP_NAME = 'mozFullScreenElement';
-    ON_FSC_PROP_NAME = 'onmozfullscreenchange';
+    // ON_FSC_PROP_NAME = 'onmozfullscreenchange';
   } else if (!('requestFullscreen' in DOC_EL)) {
     throw new Error('当前浏览器不支持Fullscreen API !');
   }
   function enterFullscreen(): Promise<void> {
+    isFullscreenRef.value = true;
     return (target.value as any)[RFC_METHOD_NAME](options);
   }
 
   function exitFullscreen(): Promise<void> {
+    isFullscreenRef.value = false;
     return (document as any)[EFS_METHOD_NAME]();
   }
 
@@ -89,6 +91,7 @@ export function useFullscreen(
   watchFullscreen((isFull: boolean) => {
     isFullscreenRef.value = isFull;
   });
+
   return {
     watchFullscreen,
     toggleFullscreen,

@@ -1,12 +1,15 @@
+import type { Ref } from 'vue';
 import { provide, inject } from 'vue';
 import { TableActionType } from '../types/table';
 
 const key = Symbol('table');
 
-export function provideTable(instance: TableActionType) {
+type Instance = TableActionType & { wrapRef: Ref<Nullable<HTMLElement>> };
+
+export function provideTable(instance: Instance) {
   provide(key, instance);
 }
 
-export function injectTable(): TableActionType {
-  return inject(key) as TableActionType;
+export function injectTable(): Instance {
+  return inject(key) as Instance;
 }

@@ -1,12 +1,19 @@
-import { PropType } from 'vue';
-import { PaginationProps } from './types/pagination';
-import { BasicColumn, FetchSetting } from './types/table';
-import { TableCustomRecord, TableRowSelection } from 'ant-design-vue/types/table/table';
-import { FormProps } from '/@/components/Form/index';
+import type { PropType } from 'vue';
+import type { PaginationProps } from './types/pagination';
+import type { BasicColumn, FetchSetting, TableSetting } from './types/table';
+import type { TableCustomRecord, TableRowSelection } from 'ant-design-vue/types/table/table';
+import type { FormProps } from '/@/components/Form/index';
 import { FETCH_SETTING } from './const';
 
 // 注释看 types/table
 export const basicProps = {
+  tableSetting: {
+    type: Object as PropType<TableSetting>,
+  },
+  showTableSetting: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
   autoCreateKey: {
     type: Boolean as PropType<boolean>,
     default: true,

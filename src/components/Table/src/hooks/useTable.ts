@@ -82,6 +82,9 @@ export function useTable(
     getPaginationRef: () => {
       return getTableInstance().getPaginationRef();
     },
+    getSize: () => {
+      return getTableInstance().getSize();
+    },
   } as TableActionType;
 
   return [register, methods];

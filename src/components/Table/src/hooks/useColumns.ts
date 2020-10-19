@@ -81,28 +81,19 @@ export function useColumns(
     }
     if (actionColumn) {
       const hasIndex = columns.findIndex((column) => column.flag === 'ACTION');
-      if (hasIndex === -1) {
-        columns.push({
-          fixed: 'right',
-          ...actionColumn,
-          flag: 'ACTION',
-        });
-      } else {
-        columns[hasIndex] = {
-          ...columns[hasIndex],
-          fixed: 'right',
-          ...actionColumn,
-          flag: 'ACTION',
-        };
-      }
+      columns.push({
+        ...(hasIndex === -1 ? columns[hasIndex] : {}),
+        fixed: 'right',
+        ...actionColumn,
+        flag: 'ACTION',
+      });
     }
     return columns;
   });
 
   function setColumns(columns: BasicColumn[] | string[]) {
-    if (!isArray(columns)) {
-      return;
-    }
+    if (!isArray(columns)) return;
+
     if (columns.length <= 0) {
       columnsRef.value = [];
       return;

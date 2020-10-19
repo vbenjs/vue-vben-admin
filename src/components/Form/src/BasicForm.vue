@@ -74,7 +74,7 @@
 
       const getMergePropsRef = computed(
         (): FormProps => {
-          return deepMerge(toRaw(props), unref(propsRef));
+          return deepMerge(props, unref(propsRef));
         }
       );
       // 获取表单基本配置
