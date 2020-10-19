@@ -2346,6 +2346,11 @@ detect-indent@6.0.0:
   resolved "https://registry.npmjs.org/detect-indent/-/detect-indent-6.0.0.tgz#0abd0f549f69fc6659a254fe96786186b6f528fd"
   integrity sha512-oSyFlqaTHCItVRGK5RmrmjB+CmaMOW7IaNA/kdxqhoa6d17j/5ce9O9eWXmV/KEdRwqpQA+Vqe8a8Bsybu4YnA==
 
+diff-match-patch@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/diff-match-patch/-/diff-match-patch-1.0.5.tgz#abb584d5f10cd1196dfc55aa03701592ae3f7b37"
+  integrity sha512-IayShXAgj/QMXgB0IWmKx+rOPuGMhqm5w6jvFxmVenXKIzRqTAAsbBPT3kWQeGANj3jGgvcvv4yK6SxqYmikgw==
+
 diff@^4.0.1:
   version "4.0.2"
   resolved "https://registry.npmjs.org/diff/-/diff-4.0.2.tgz#60f3aecb89d5fae520c11aa19efc2bb982aade7d"
@@ -6979,6 +6984,13 @@ vary@^1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
+
+vditor@^3.5.5:
+  version "3.5.5"
+  resolved "https://registry.npmjs.org/vditor/-/vditor-3.5.5.tgz#03b7c965470fd434cd098e3f6ac6c7e65ca5a52a"
+  integrity sha512-NpBa0c1tK3jnH/E+rWkDO2x/bDx33KIWuThjF70gING58zuluxicGczuVb2KvdLxWoozJ6MaH5DQjj66Jct1QA==
+  dependencies:
+    diff-match-patch "^1.0.5"
 
 vfile-location@^3.0.0:
   version "3.1.0"
