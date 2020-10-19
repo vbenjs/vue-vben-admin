@@ -1,3 +1,26 @@
+# 2.0.0-rc.3 (2020-10-19)
+
+### ✨ Features
+
+- Added excel component and excel/xml/csv/html export example
+- Added excel import example
+- Added global error handling
+- Added markdown components and examples
+- The menu name can be displayed when adding a new folding menu
+
+### Docs
+
+- add project doc
+
+### 🎫 Chores
+
+- update deps
+
+### 🐛 Bug Fixes
+
+- Fix the adaptive problem of the top menu
+- Fix window system packaging error
+
 # 2.0.0-rc.2 (2020-10-17)
 
 ### ✨ Features
