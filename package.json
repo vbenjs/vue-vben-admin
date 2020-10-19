@@ -4,7 +4,7 @@
   "scripts": {
     "bootstrap": "yarn install",
     "serve": "cross-env ts-node --files -P  ./build/tsconfig.json ./build/script/preserve && cross-env NODE_ENV=development vite",
-    "build": "node ./build/jsc.ts build",
+    "build": "cross-env NODE_ENV=production vite build && node ./build/jsc.ts build",
     "build:site": "cross-env SITE=true npm run build ",
     "build:no-cache": "yarn  clean:cache && node ./build/jsc.ts build",
     "report": "cross-env REPORT=true npm run build ",
