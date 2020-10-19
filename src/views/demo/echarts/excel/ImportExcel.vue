@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="m-4">
     <ImportExcel @success="loadDataSuccess">
       <a-button class="m-3">导入Excel</a-button>
     </ImportExcel>
