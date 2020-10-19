@@ -31,7 +31,7 @@ export default {
       name: 'Doc',
       component: IFrame,
       meta: {
-        frameSrc: 'https://vvbin.cn/docs/',
+        frameSrc: 'https://vvbin.cn/doc-next/',
         title: '项目文档(内嵌)',
         afterCloseLoading: true,
       },
@@ -41,7 +41,7 @@ export default {
       name: 'DocExternal',
       component: IFrame,
       meta: {
-        externalLink: 'https://vvbin.cn/docs/',
+        externalLink: 'https://vvbin.cn/doc-next/',
         title: '项目文档(外链)',
       },
     },
