@@ -145,6 +145,15 @@ export default defineComponent({
         resetKeys();
       }
     }
+
+    const showTitle = computed(() => {
+      if (!props.isAppMenu) return true;
+      if (!props.collapsedShowTitle) {
+        return !menuStore.getCollapsedState;
+      }
+      return true;
+    });
+
     // render menu item
     function renderMenuItem(menuList?: MenuType[], index = 1) {
       if (!menuList) {
@@ -153,13 +162,6 @@ export default defineComponent({
       const { appendClass } = props;
       const levelCls = `basic-menu-item__level${index} ${menuState.theme} `;
 
-      const showTitle = computed(() => {
-        if (!props.isAppMenu) return true;
-        if (!props.collapsedShowTitle) {
-          return !menuStore.getCollapsedState;
-        }
-        return true;
-      });
       return menuList.map((menu) => {
         if (!menu) {
           return null;
@@ -249,7 +251,7 @@ export default defineComponent({
       return mode === MenuModeEnum.HORIZONTAL ? (
         renderMenu()
       ) : (
-        <section class={`basic-menu-wrap`}>
+        <section class={[`basic-menu-wrap`, !unref(showTitle) && 'hide-title']}>
           {getSlot(slots, 'header')}
           <SearchInput
             class={!props.search ? 'hidden' : ''}

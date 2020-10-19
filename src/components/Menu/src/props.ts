@@ -31,7 +31,7 @@ export const basicProps = {
   },
   // 菜单组件的mode属性
   mode: {
-    type: String as PropType<string>,
+    type: String as PropType<MenuModeEnum>,
     default: MenuModeEnum.INLINE,
   },
   type: {

@@ -10,8 +10,10 @@ import darkImg from '/@/assets/images/sidebar/dark.png';
 import lightImg from '/@/assets/images/sidebar/light.png';
 import { appStore } from '/@/store/modules/app';
 import { MenuModeEnum, MenuSplitTyeEnum, MenuThemeEnum } from '/@/enums/menuEnum';
+import { SIDE_BAR_MINI_WIDTH, SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '/@/enums/appEnum';
 import { useDebounce } from '/@/hooks/core/useDebounce';
 import LayoutMenu from './LayoutMenu';
+
 export default defineComponent({
   name: 'DefaultLayoutSideBar',
   setup() {
@@ -23,6 +25,13 @@ export default defineComponent({
 
     const getProjectConfigRef = computed(() => {
       return appStore.getProjectConfig;
+    });
+
+    const getMiniWidth = computed(() => {
+      const {
+        menuSetting: { collapsedShowTitle },
+      } = unref(getProjectConfigRef);
+      return collapsedShowTitle ? SIDE_BAR_SHOW_TIT_MINI_WIDTH : SIDE_BAR_MINI_WIDTH;
     });
 
     // 根据展开状态设置背景图片
@@ -62,7 +71,7 @@ export default defineComponent({
         innerE = innerE || window.event;
         // let tarnameb = innerE.target || innerE.srcElement;
         const maxT = 600;
-        const minT = 80;
+        const minT = unref(getMiniWidth);
         iT < 0 && (iT = 0);
         iT > maxT && (iT = maxT);
         iT < minT && (iT = minT);
@@ -80,13 +89,13 @@ export default defineComponent({
         const width = parseInt(wrap.style.width);
         menuStore.commitDragStartState(false);
         if (!menuStore.getCollapsedState) {
-          if (width > 100) {
+          if (width > unref(getMiniWidth) + 20) {
             setMenuWidth(width);
           } else {
             menuStore.commitCollapsedState(true);
           }
         } else {
-          if (width > 80) {
+          if (width > unref(getMiniWidth)) {
             setMenuWidth(width);
             menuStore.commitCollapsedState(false);
           }
@@ -135,13 +144,13 @@ export default defineComponent({
 
     const getDragBarStyle = computed(() => {
       if (menuStore.getCollapsedState) {
-        return { left: '80px' };
+        return { left: `${unref(getMiniWidth)}px` };
       }
       return {};
     });
 
     const getCollapsedWidth = computed(() => {
-      return unref(brokenRef) ? 0 : 80;
+      return unref(brokenRef) ? 0 : unref(getMiniWidth);
     });
 
     function renderDragLine() {
