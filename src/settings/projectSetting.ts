@@ -44,6 +44,8 @@ const setting: ProjectConfig = {
   menuSetting: {
     // 菜单折叠
     collapsed: false,
+    // 折叠菜单时候是否显示菜单名
+    collapsedShowTitle: false,
     // 是否可拖拽
     hasDrag: true,
     // 是否显示

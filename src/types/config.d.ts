@@ -11,6 +11,7 @@ export interface MessageSetting {
 }
 export interface MenuSetting {
   collapsed: boolean;
+  collapsedShowTitle: boolean;
   hasDrag: boolean;
   showSearch: boolean;
   show: boolean;

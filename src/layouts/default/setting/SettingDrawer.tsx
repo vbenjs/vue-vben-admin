@@ -208,7 +208,14 @@ export default defineComponent({
       const {
         contentMode,
         headerSetting: { fixed },
-        menuSetting: { hasDrag, collapsed, showSearch, menuWidth, topMenuAlign } = {},
+        menuSetting: {
+          hasDrag,
+          collapsed,
+          showSearch,
+          menuWidth,
+          topMenuAlign,
+          collapsedShowTitle,
+        } = {},
       } = appStore.getProjectConfig;
       return [
         renderSwitchItem('侧边菜单拖拽', {
@@ -231,6 +238,13 @@ export default defineComponent({
           },
           def: collapsed,
           disabled: !unref(getShowMenuRef),
+        }),
+        renderSwitchItem('折叠菜单显示名称', {
+          handler: (e) => {
+            baseHandler('collapsedShowTitle', e);
+          },
+          def: collapsedShowTitle,
+          disabled: !unref(getShowMenuRef) || !collapsed,
         }),
 
         renderSwitchItem('固定header', {
@@ -446,6 +460,13 @@ export default defineComponent({
         config = {
           menuSetting: {
             menuWidth: value,
+          },
+        };
+      }
+      if (event === 'collapsedShowTitle') {
+        config = {
+          menuSetting: {
+            collapsedShowTitle: value,
           },
         };
       }

@@ -14,6 +14,15 @@
 }
 
 .basic-menu {
+  &.collapsed-show-title.ant-menu-inline-collapsed {
+    & > li > .ant-menu-submenu-title {
+      display: flex;
+      margin-top: 12px;
+      font-size: 12px;
+      flex-direction: column;
+    }
+  }
+
   &__wrap {
     /* 滚动槽 */
     &::-webkit-scrollbar {

@@ -177,7 +177,7 @@ export default defineComponent({
     return () => {
       const {
         showLogo,
-        menuSetting: { type: menuType, mode, theme, collapsed },
+        menuSetting: { type: menuType, mode, theme, collapsed, collapsedShowTitle },
       } = unref(getProjectConfigRef);
 
       const isSidebarType = menuType === MenuTypeEnum.SIDEBAR;
@@ -190,6 +190,7 @@ export default defineComponent({
           type={menuType}
           mode={props.menuMode || mode}
           class="layout-menu"
+          collapsedShowTitle={collapsedShowTitle}
           theme={themeData}
           showLogo={isShowLogo}
           search={unref(showSearchRef) && !collapsed}
