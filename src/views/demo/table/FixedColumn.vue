@@ -6,17 +6,13 @@
           :actions="[
             {
               label: '删除',
-              props: {
-                onClick: handleDelete,
-              },
+              onClick: handleDelete,
             },
           ]"
           :dropDownActions="[
             {
               label: '启用',
-              props: {
-                onClick: handleOpen,
-              },
+              onClick: handleOpen,
             },
           ]"
         />

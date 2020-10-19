@@ -21,6 +21,19 @@
       font-size: 12px;
       flex-direction: column;
     }
+
+    & > li[role='menuitem']:not(.ant-menu-submenu) {
+      display: flex;
+      margin-top: 12px;
+      font-size: 12px;
+      line-height: 2;
+      align-items: center;
+      flex-direction: column;
+
+      span {
+        margin-top: 6px;
+      }
+    }
   }
 
   &__wrap {
