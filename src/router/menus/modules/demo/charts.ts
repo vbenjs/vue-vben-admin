@@ -27,28 +27,6 @@ const menu: MenuModule = {
           },
         ],
       },
-      //   {
-      // path: '/excel',
-      // name: 'excel',
-      // children: [
-      {
-        path: '/customExport',
-        name: '选择导出格式',
-      },
-      {
-        path: '/jsonExport',
-        name: 'JSON数据导出',
-      },
-      {
-        path: '/arrayExport',
-        name: 'Array数据导出',
-      },
-      {
-        path: '/importExcel',
-        name: '导入',
-      },
-      //     ],
-      //   },
     ],
   },
 };
