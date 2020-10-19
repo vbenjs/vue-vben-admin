@@ -18,6 +18,7 @@
   import { useSetting } from '/@/hooks/core/useSetting';
 
   moment.locale('zh-cn');
+
   export default defineComponent({
     name: 'App',
     components: { ConfigProvider },
