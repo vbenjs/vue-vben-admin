@@ -45,7 +45,8 @@ export default defineComponent({
       menuState,
       toRef(props, 'items'),
       toRef(props, 'flatItems'),
-      toRef(props, 'isAppMenu')
+      toRef(props, 'isAppMenu'),
+      toRef(props, 'mode')
     );
 
     const getOpenKeys = computed(() => {

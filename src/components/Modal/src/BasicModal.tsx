@@ -217,7 +217,11 @@ export default defineComponent({
     const uuid = buildUUID();
     emit('register', modalMethods, uuid);
     return () => (
-      <Modal onCancel={handleCancel} {...{ ...attrs, ...props, ...unref(getProps) }}>
+      <Modal
+        onCancel={handleCancel}
+        {...{ ...attrs, ...props, ...unref(getProps) }}
+        getContainer={() => document.querySelector('.default-layout__main')}
+      >
         {{
           ...extendSlots(slots, ['default']),
           default: () => renderContent(),

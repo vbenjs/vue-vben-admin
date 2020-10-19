@@ -1,4 +1,4 @@
-import { defineComponent, unref, computed } from 'vue';
+import { defineComponent, unref, computed, ref } from 'vue';
 import { Layout, Tooltip, Badge } from 'ant-design-vue';
 import Logo from '/@/layouts/Logo.vue';
 import UserDropdown from './UserDropdown';
@@ -21,17 +21,44 @@ import LockAction from './actions/LockActionItem';
 import { useModal } from '/@/components/Modal/index';
 import { errorStore } from '/@/store/modules/error';
 import { useGo } from '/@/hooks/web/usePage';
+import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
 
 export default defineComponent({
   name: 'DefaultLayoutHeader',
   setup() {
+    const widthRef = ref(200);
     const { refreshPage } = useTabs();
     const [register, { openModal }] = useModal();
     const { toggleFullscreen, isFullscreenRef } = useFullscreen();
+
     const go = useGo();
     const getProjectConfigRef = computed(() => {
       return appStore.getProjectConfig;
     });
+    const showTopMenu = computed(() => {
+      const getProjectConfig = unref(getProjectConfigRef);
+      const {
+        menuSetting: { mode, split: splitMenu },
+      } = getProjectConfig;
+      return mode === MenuModeEnum.HORIZONTAL || splitMenu;
+    });
+
+    let logoEl: Element | null;
+    useWindowSizeFn(
+      () => {
+        if (!unref(showTopMenu)) return;
+        let width = 0;
+        if (!logoEl) {
+          logoEl = document.querySelector('.layout-header__logo');
+        }
+        if (logoEl) {
+          width += logoEl.clientWidth;
+        }
+        widthRef.value = width + 60;
+      },
+      200,
+      { immediate: true }
+    );
 
     function goToGithub() {
       window.open(GITHUB_URL, '__blank');
@@ -64,6 +91,7 @@ export default defineComponent({
       } = getProjectConfig;
 
       const isSidebarType = menuType === MenuTypeEnum.SIDEBAR;
+      const width = unref(widthRef);
       return (
         <Layout.Header class={['layout-header', 'flex p-0 px-4 ', unref(headerClass)]}>
           {() => (
@@ -74,8 +102,11 @@ export default defineComponent({
                 {mode !== MenuModeEnum.HORIZONTAL && showBreadCrumb && !splitMenu && (
                   <LayoutBreadcrumb />
                 )}
-                {(mode === MenuModeEnum.HORIZONTAL || splitMenu) && (
-                  <div class={[`layout-header__menu `, `justify-${topMenuAlign}`]}>
+                {unref(showTopMenu) && (
+                  <div
+                    class={[`layout-header__menu `, `justify-${topMenuAlign}`]}
+                    style={{ width: `calc(100% - ${unref(width)}px)` }}
+                  >
                     <LayoutMenu
                       theme={headerTheme}
                       splitType={splitMenu ? MenuSplitTyeEnum.TOP : MenuSplitTyeEnum.NONE}
