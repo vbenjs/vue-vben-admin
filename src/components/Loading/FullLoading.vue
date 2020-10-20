@@ -21,7 +21,6 @@
       absolute: Boolean as PropType<boolean>,
     },
     setup(props) {
-      // 样式前缀
       const getStyle = computed((): any => {
         return props.absolute
           ? {
@@ -32,6 +31,7 @@
             }
           : {};
       });
+
       return { getStyle, SizeEnum };
     },
   });

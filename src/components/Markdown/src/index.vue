@@ -29,7 +29,6 @@
     setup(props, { attrs, emit }) {
       const wrapRef = ref<Nullable<HTMLDivElement>>(null);
       const vditorRef = ref<Nullable<Vditor>>(null);
-
       const initedRef = ref(false);
 
       function init() {

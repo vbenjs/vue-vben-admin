@@ -53,8 +53,6 @@ export default defineComponent({
       }
     };
 
-    watch(() => props.icon, update, { flush: 'post' });
-
     const wrapStyleRef = computed((): any => {
       const { size, color } = props;
       let fs = size;
@@ -68,6 +66,7 @@ export default defineComponent({
       };
     });
 
+    watch(() => props.icon, update, { flush: 'post' });
     onMounted(update);
 
     return () => (
