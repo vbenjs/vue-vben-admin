@@ -6,9 +6,9 @@ import { setupAntd } from '/@/setup/ant-design-vue';
 import { setupErrorHandle } from '/@/setup/error-handle/index';
 import { setupDirectives } from '/@/setup/directives/index';
 
-import { registerGlobComp } from '/@/components/registerGlobComp';
 import { isDevMode, isProdMode, isUseMock } from '/@/utils/env';
 import { setupProdMockServer } from '../mock/_createProductionServer';
+import { setApp } from './useApp';
 
 import App from './App.vue';
 import '/@/design/index.less';
@@ -26,8 +26,6 @@ setupDirectives(app);
 
 setupErrorHandle(app);
 
-registerGlobComp(app);
-
 router.isReady().then(() => {
   app.mount('#app');
 });
@@ -40,4 +38,5 @@ if (isDevMode()) {
 if (isProdMode() && isUseMock()) {
   setupProdMockServer();
 }
-export default app;
+
+setApp(app);

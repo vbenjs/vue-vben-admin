@@ -1,6 +1,6 @@
 <template>
   <div @click="openDrawer" class="setting-button">
-    <SettingOutlined :spin="true" />
+    <SettingOutlined />
     <SettingDrawer @register="register" />
   </div>
 </template>

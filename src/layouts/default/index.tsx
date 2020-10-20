@@ -13,12 +13,17 @@ import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
 import { useFullContent } from '/@/hooks/web/useFullContent';
 
 import LockPage from '/@/views/sys/lock/index.vue';
+import { registerGlobComp } from '/@/components/registerGlobComp';
 
 import './index.less';
-// import { userStore } from '/@/store/modules/user';
 export default defineComponent({
   name: 'DefaultLayout',
   setup() {
+    // ! 在这里才注册全局组件
+    // ! 可以减少首屏代码体积
+    // default layout是在登录后才加载的。所以不会打包到首屏去
+    registerGlobComp();
+
     // 获取项目配置
     const { getFullContent } = useFullContent();
 

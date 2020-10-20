@@ -49,8 +49,10 @@
   import { appStore } from '/@/store/modules/app';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { useSetting } from '/@/hooks/core/useSetting';
+  import Button from '/@/components/Button/index.vue';
+
   export default defineComponent({
-    components: { BasicDragVerify },
+    components: { BasicDragVerify, AButton: Button },
     setup() {
       const { globSetting } = useSetting();
       const { notification } = useMessage();

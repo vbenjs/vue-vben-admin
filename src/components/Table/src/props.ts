@@ -133,7 +133,7 @@ export const basicProps = {
   },
   bordered: {
     type: Boolean as PropType<boolean>,
-    default: true,
+    default: false,
   },
   pagination: {
     type: [Object, Boolean] as PropType<PaginationProps | boolean>,
