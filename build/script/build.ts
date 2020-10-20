@@ -1,6 +1,6 @@
 // #!/usr/bin/env node
 
-// import { sh } from 'tasksfile';
+import { sh } from 'tasksfile';
 
 import { argv } from 'yargs';
 import { runBuildConfig } from './buildConf';
@@ -8,22 +8,25 @@ import { runUpdateHtml } from './updateHtml';
 import { errorConsole, successConsole } from '../utils';
 import { startGzipStyle } from '../plugin/gzip/compress';
 
-export const runBuild = async () => {
+export const runBuild = async (preview = false) => {
   try {
     const argvList = argv._;
-    // let cmd = `cross-env NODE_ENV=production vite build`;
-    // // await run('cross-env', ['NODE_ENV=production', 'vite', 'build']);
-    // await sh(cmd, {
-    //   async: true,
-    //   nopipe: true,
-    // });
+    if (preview) {
+      let cmd = `cross-env NODE_ENV=production vite build`;
+      await sh(cmd, {
+        async: true,
+        nopipe: true,
+      });
+    }
 
     // Generate configuration file
     if (!argvList.includes('no-conf')) {
       await runBuildConfig();
     }
     await runUpdateHtml();
-    await startGzipStyle();
+    if (!preview) {
+      await startGzipStyle();
+    }
     successConsole('Vite Build successfully!');
   } catch (error) {
     errorConsole('Vite Build Error\n' + error);

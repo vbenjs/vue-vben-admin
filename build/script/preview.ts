@@ -53,7 +53,7 @@ export const runPreview = async () => {
   });
   const { type } = await prompt;
   if (type === BUILD) {
-    await runBuild();
+    await runBuild(true);
   }
   startApp();
 };
