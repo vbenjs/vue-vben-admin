@@ -2,7 +2,7 @@
   "name": "vben-admin-2.0",
   "version": "2.0.0-rc.3",
   "scripts": {
-    "bootstrap": "yarn install",
+    "bootstrap": "yarn install || npm install",
     "serve": "cross-env ts-node --files -P  ./build/tsconfig.json ./build/script/preserve && cross-env NODE_ENV=development vite",
     "build": "cross-env NODE_ENV=production vite build && node ./build/jsc.ts build",
     "build:site": "cross-env SITE=true npm run build ",
@@ -16,8 +16,7 @@
     "lint:eslint": "eslint --fix --ext \"src/**/*.{vue,less,css,scss}\"",
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint:stylelint": "stylelint --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
-    "reinstall": "rimraf node_modules && rimraf yarn.lock && rimraf package.lock.json && npm run bootstrap",
-    "postinstall": "node ./build/jsc.ts postinstall"
+    "reinstall": "rimraf node_modules && rimraf yarn.lock && rimraf package.lock.json && npm run bootstrap"
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.1",
@@ -31,7 +30,7 @@
     "path-to-regexp": "^6.2.0",
     "qrcode": "^1.4.4",
     "vditor": "^3.5.5",
-    "vue": "^3.0.1",
+    "vue": "^3.0.2",
     "vue-i18n": "^9.0.0-beta.6",
     "vue-router": "^4.0.0-beta.13",
     "vuex": "^4.0.0-beta.4",
@@ -42,7 +41,7 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "@iconify/json": "^1.1.243",
+    "@iconify/json": "^1.1.244",
     "@ls-lint/ls-lint": "^1.9.2",
     "@purge-icons/generated": "^0.4.1",
     "@types/echarts": "^4.8.3",
@@ -60,7 +59,7 @@
     "@types/zxcvbn": "^4.4.0",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
-    "@vue/compiler-sfc": "^3.0.1",
+    "@vue/compiler-sfc": "^3.0.2",
     "autoprefixer": "^9.8.6",
     "commitizen": "^4.2.1",
     "conventional-changelog-cli": "^2.1.0",
