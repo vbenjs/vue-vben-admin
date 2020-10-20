@@ -15,8 +15,6 @@
   // components
   import { defineComponent, computed } from 'vue';
 
-  // hook
-
   import { SizeEnum, sizeMap } from '/@/enums/sizeEnum';
 
   import { BasicLoadingProps } from './type';
