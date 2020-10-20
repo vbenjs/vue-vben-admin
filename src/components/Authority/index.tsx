@@ -19,16 +19,17 @@ export default defineComponent({
     const getModeRef = computed(() => {
       return appStore.getProjectConfig.permissionMode;
     });
+
     /**
      * 渲染角色按钮
      */
     function renderRoleAuth() {
       const { value } = props;
       if (!value) {
-        return getSlot(slots, 'default');
+        return getSlot(slots);
       }
       const { hasPermission } = usePermission();
-      return hasPermission(value) ? getSlot(slots, 'default') : null;
+      return hasPermission(value) ? getSlot(slots) : null;
     }
 
     /**
@@ -38,11 +39,12 @@ export default defineComponent({
     function renderCodeAuth() {
       const { value } = props;
       if (!value) {
-        return getSlot(slots, 'default');
+        return getSlot(slots);
       }
       const { hasPermission } = usePermission();
-      return hasPermission(value) ? getSlot(slots, 'default') : null;
+      return hasPermission(value) ? getSlot(slots) : null;
     }
+
     return () => {
       const mode = unref(getModeRef);
       // 基于角色渲染
@@ -53,7 +55,7 @@ export default defineComponent({
       if (mode === PermissionModeEnum.BACK) {
         return renderCodeAuth();
       }
-      return getSlot(slots, 'default');
+      return getSlot(slots);
     };
   },
 });

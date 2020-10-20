@@ -9,7 +9,7 @@ export default {
     component: PAGE_LAYOUT_COMPONENT,
     redirect: '/tree/basic',
     meta: {
-      icon: 'ant-design:table-outlined',
+      icon: 'clarity:tree-view-line',
       title: 'Tree',
     },
   },

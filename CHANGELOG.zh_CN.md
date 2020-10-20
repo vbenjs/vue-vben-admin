@@ -1,5 +1,9 @@
 # Wip
 
+### 🎫 Chores
+
+- 表格默认不显示边框
+
 ### ⚡ Performance Improvements
 
 - 优化首屏体积大小
