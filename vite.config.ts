@@ -133,8 +133,7 @@ const viteConfig: UserConfig = {
       javascriptEnabled: true,
     },
   },
-  // 配置Dep优化行为
-  // 会使用 rollup 对 包重新编译，将编译成符合 esm 模块规范的新的包放入 node_modules 下的 .
+  // 会使用 rollup 对 包重新编译，将编译成符合 esm 模块规范的新的包放入 node_modules/.vite_opt_cache
   optimizeDeps: {
     include: [
       'echarts',

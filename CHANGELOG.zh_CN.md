@@ -1,3 +1,14 @@
+# Wip
+
+### ⚡ Performance Improvements
+
+- 优化首屏体积大小
+
+### 🐛 Bug Fixes
+
+- 修复一级菜单折叠显示菜单名问题
+- 修复预览命令不打包问题
+
 # 2.0.0-rc.3 (2020-10-19)
 
 ### ✨ Features

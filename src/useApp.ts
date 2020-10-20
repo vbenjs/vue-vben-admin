@@ -1,5 +1,5 @@
 import type { ProjectConfig } from '/@/types/config';
-
+import type { App } from 'vue';
 import { computed, ref } from 'vue';
 
 import { ThemeModeEnum } from '/@/enums/appEnum';
@@ -16,6 +16,15 @@ import { useRouter } from 'vue-router';
 import { PageEnum } from '/@/enums/pageEnum';
 import { useTimeout } from '/@/hooks/core/useTimeout';
 import { ExceptionEnum } from '/@/enums/exceptionEnum';
+
+let app: App;
+export function setApp(_app: App): void {
+  app = _app;
+}
+
+export function getApp(): App {
+  return app;
+}
 
 // TODO 主题切换
 export function useThemeMode(mode: ThemeModeEnum) {
