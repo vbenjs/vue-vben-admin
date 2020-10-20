@@ -207,7 +207,11 @@
           }
         }
         advanceState.actionSpan = (realItemColSum % BASIC_COL_LEN) + unref(getEmptySpanRef);
-        getAdvanced(props.actionColOptions || { span: BASIC_COL_LEN }, itemColSum, true);
+        getAdvanced(
+          unref(getActionPropsRef).actionColOptions || { span: BASIC_COL_LEN },
+          itemColSum,
+          true
+        );
         emit('advanced-change');
       }
       function getAdvanced(itemCol: Partial<ColEx>, itemColSum = 0, isLastAction = false) {
