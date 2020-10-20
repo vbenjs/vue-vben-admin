@@ -48,7 +48,7 @@ export interface FormProps {
   // 空白行span
   emptySpan?: number | Partial<ColEx>;
   // 表单内部组件大小
-  size: 'default' | 'small' | 'large';
+  size?: 'default' | 'small' | 'large';
   // 是否禁用
   disabled?: boolean;
   // 时间区间字段映射成多个
@@ -62,25 +62,25 @@ export interface FormProps {
   // 超过指定行数自动收起
   autoAdvancedLine?: number;
   // 是否显示操作按钮
-  showActionButtonGroup: boolean;
+  showActionButtonGroup?: boolean;
 
   // 重置按钮配置
-  resetButtonOptions: Partial<BasicButtonProps>;
+  resetButtonOptions?: Partial<BasicButtonProps>;
 
   // 确认按钮配置
-  submitButtonOptions: Partial<BasicButtonProps>;
+  submitButtonOptions?: Partial<BasicButtonProps>;
 
   // 操作列配置
-  actionColOptions: Partial<ColEx>;
+  actionColOptions?: Partial<ColEx>;
 
   // 显示重置按钮
-  showResetButton: boolean;
+  showResetButton?: boolean;
   // 显示确认按钮
-  showSubmitButton: boolean;
+  showSubmitButton?: boolean;
 
-  resetFunc: () => Promise<void>;
-  submitFunc: () => Promise<void>;
-  transformDateFunc: (date: any) => string;
+  resetFunc?: () => Promise<void>;
+  submitFunc?: () => Promise<void>;
+  transformDateFunc?: (date: any) => string;
   colon?: boolean;
 }
 export interface FormSchema {

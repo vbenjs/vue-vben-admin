@@ -94,7 +94,7 @@ export interface BasicTableProps<T = any> {
   // 使用搜索表单
   useSearchForm?: boolean;
   // 表单配置
-  formConfig?: FormProps;
+  formConfig?: Partial<FormProps>;
   // 列配置
   columns: BasicColumn[];
   // 是否显示序号列

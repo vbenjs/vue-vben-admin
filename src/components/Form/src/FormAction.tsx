@@ -71,8 +71,8 @@ export default defineComponent({
       const advancedSpanObj = showAdvancedButton ? { span: actionSpan < 6 ? 24 : actionSpan } : {};
       const actionColOpt: Partial<ColEx> = {
         span: showAdvancedButton ? 6 : 4,
-        ...actionColOptions,
         ...advancedSpanObj,
+        ...actionColOptions,
       };
       return actionColOpt;
     });
