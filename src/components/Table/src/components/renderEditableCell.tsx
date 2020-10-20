@@ -46,7 +46,7 @@ const EditableCell = defineComponent({
     const currentValueRef = ref<string | boolean>(props.value);
 
     function handleChange(e: ChangeEvent | string | boolean) {
-      if ((e as ChangeEvent).target && Reflect.has((e as ChangeEvent).target, 'value')) {
+      if (Reflect.has((e as ChangeEvent)?.target, 'value')) {
         currentValueRef.value = (e as ChangeEvent).target.value;
       }
       if (isString(e) || isBoolean(e)) {
@@ -58,7 +58,7 @@ const EditableCell = defineComponent({
       isEditRef.value = true;
       nextTick(() => {
         const el = unref(elRef);
-        el && el.focus && el.focus();
+        el?.focus();
       });
     }
 
