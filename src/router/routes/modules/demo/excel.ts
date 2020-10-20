@@ -9,7 +9,7 @@ export default {
     component: PAGE_LAYOUT_COMPONENT,
     redirect: '/excel/customExport',
     meta: {
-      icon: 'ant-design:area-chart-outlined',
+      icon: 'mdi:microsoft-excel',
       title: 'Excel',
     },
   },
@@ -18,7 +18,7 @@ export default {
     {
       path: '/customExport',
       name: 'CustomExport',
-      component: () => import('/@/views/demo/echarts/excel/CustomExport.vue'),
+      component: () => import('/@/views/demo/excel/CustomExport.vue'),
       meta: {
         title: '选择导出格式',
       },
@@ -26,7 +26,7 @@ export default {
     {
       path: '/jsonExport',
       name: 'JsonExport',
-      component: () => import('/@/views/demo/echarts/excel/JsonExport.vue'),
+      component: () => import('/@/views/demo/excel/JsonExport.vue'),
       meta: {
         title: 'JSON数据导出',
       },
@@ -34,7 +34,7 @@ export default {
     {
       path: '/arrayExport',
       name: 'ArrayExport',
-      component: () => import('/@/views/demo/echarts/excel/ArrayExport.vue'),
+      component: () => import('/@/views/demo/excel/ArrayExport.vue'),
       meta: {
         title: 'Array数据导出',
       },
@@ -42,12 +42,10 @@ export default {
     {
       path: '/importExcel',
       name: 'ImportExcel',
-      component: () => import('/@/views/demo/echarts/excel/ImportExcel.vue'),
+      component: () => import('/@/views/demo/excel/ImportExcel.vue'),
       meta: {
         title: '导入',
       },
     },
-    //   ],
-    // },
   ],
 } as AppRouteModule;

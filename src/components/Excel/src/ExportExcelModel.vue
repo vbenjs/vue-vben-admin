@@ -55,12 +55,13 @@
   ];
   export default defineComponent({
     components: { BasicModal, BasicForm },
+    emits: ['success', 'register'],
     setup(_, { emit }) {
       const [registerForm, { validateFields }] = useForm();
       const [registerModal, { closeModal }] = useModalInner();
 
       async function handleOk() {
-        const res: ExportModalResult = await validateFields();
+        const res = (await validateFields()) as ExportModalResult;
         const { filename, bookType } = res;
 
         emit('success', {
@@ -69,6 +70,7 @@
         });
         closeModal();
       }
+
       return {
         schemas,
         handleOk,
