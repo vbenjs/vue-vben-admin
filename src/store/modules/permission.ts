@@ -19,7 +19,8 @@ import { genRouteModule, transformObjToRoute } from '/@/utils/helper/routeHelper
 import { transformRouteToMenu } from '/@/utils/helper/menuHelper';
 
 import { useMessage } from '/@/hooks/web/useMessage';
-import { warn } from 'vue';
+import { warn } from '/@/utils/log';
+
 const { createMessage } = useMessage();
 const NAME = 'permission';
 hotModuleUnregisterModule(NAME);

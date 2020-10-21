@@ -1,25 +1,37 @@
 @import (reference) '../../../design/index.less';
 
+.active-style() {
+  color: @white;
+  background: linear-gradient(
+    118deg,
+    rgba(@primary-color, 0.7),
+    rgba(@primary-color, 1)
+  ) !important;
+  border-radius: 2px;
+  box-shadow: 0 0 4px 1px rgba(@primary-color, 0.7);
+}
+
 .active-menu-style() {
   .ant-menu-item-selected,
   .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
-    background: linear-gradient(
-      118deg,
-      rgba(@primary-color, 0.7),
-      rgba(@primary-color, 1)
-    ) !important;
-    border-radius: 2px;
-    box-shadow: 0 0 4px 1px rgba(@primary-color, 0.7);
+    .active-style();
   }
 }
 
 .basic-menu {
+  width: 100%;
+
   &.collapsed-show-title.ant-menu-inline-collapsed {
+    .basic-menu-item__level1 {
+      padding: 2px 0;
+    }
+
     & > li > .ant-menu-submenu-title {
       display: flex;
       margin-top: 12px;
       font-size: 12px;
       flex-direction: column;
+      line-height: 24px;
     }
 
     & > li[role='menuitem']:not(.ant-menu-submenu) {
@@ -106,7 +118,7 @@
         .ant-menu-submenu-open,
         .ant-menu-item-selected,
         .ant-menu-submenu-selected {
-          color: @primary-color;
+          color: @white !important;
           border-bottom: 3px solid @primary-color;
         }
 
@@ -115,7 +127,7 @@
         .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
         .ant-menu-submenu-active,
         .ant-menu-submenu-title:hover {
-          color: @primary-color;
+          color: @white !important;
           border-bottom: 3px solid @primary-color;
         }
 
@@ -194,11 +206,11 @@
     }
 
     .basic-menu-item__level1 {
+      margin-bottom: 0;
+
       > .ant-menu-sub > li {
         background-color: @sub-menu-item-dark-bg-color;
       }
-
-      margin-bottom: 0;
 
       &.top-active-menu {
         color: @white;
@@ -236,6 +248,11 @@
     }
 
     &.ant-menu-inline-collapsed {
+      .ant-menu-submenu-selected,
+      .ant-menu-item-selected {
+        .active-style();
+      }
+
       .ant-menu-item-selected {
         background: unset !important;
         box-shadow: none;

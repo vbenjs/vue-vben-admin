@@ -80,7 +80,7 @@ const viteConfig: UserConfig = {
    *  boolean | 'terser' | 'esbuild'
    * @default 'terser'
    */
-  minify: 'terser',
+  minify: isDevFn() ? 'esbuild' : 'terser',
   /**
    * 基本公共路径
    * @default '/'
