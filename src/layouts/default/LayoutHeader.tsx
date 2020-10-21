@@ -20,7 +20,6 @@ import { GITHUB_URL } from '/@/settings/siteSetting';
 import LockAction from './actions/LockActionItem';
 import { useModal } from '/@/components/Modal/index';
 import { errorStore } from '/@/store/modules/error';
-import { useGo } from '/@/hooks/web/usePage';
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
 import NoticeAction from './actions/notice/NoticeActionItem.vue';
 
@@ -28,11 +27,10 @@ export default defineComponent({
   name: 'DefaultLayoutHeader',
   setup() {
     const widthRef = ref(200);
-    const { refreshPage } = useTabs();
+    const { refreshPage, addTab } = useTabs();
     const [register, { openModal }] = useModal();
     const { toggleFullscreen, isFullscreenRef } = useFullscreen();
 
-    const go = useGo();
     const getProjectConfigRef = computed(() => {
       return appStore.getProjectConfig;
     });
@@ -72,7 +70,7 @@ export default defineComponent({
 
     function handleToErrorList() {
       errorStore.commitErrorListCountState(0);
-      go('/exception/error-log');
+      addTab('/exception/error-log', true);
     }
 
     /**
@@ -175,12 +173,8 @@ export default defineComponent({
                   <div>
                     <Tooltip>
                       {{
-                        title: () => '消息中心',
-                        default: () => (
-                          <div class={`layout-header__action-item`}>
-                            <NoticeAction />
-                          </div>
-                        ),
+                        title: () => '消息通知',
+                        default: () => <NoticeAction />,
                       }}
                     </Tooltip>
                   </div>

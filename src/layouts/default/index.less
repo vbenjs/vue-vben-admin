@@ -194,6 +194,11 @@
   }
 }
 
+.ant-layout-header {
+  height: @header-height;
+  line-height: @header-height;
+}
+
 .layout-header {
   display: flex;
   height: @header-height;
@@ -336,12 +341,12 @@
       display: flex;
       align-items: center;
       height: @header-height;
-      font-size: 1.3em;
+      font-size: 1.1em;
       cursor: pointer;
     }
 
     &-icon {
-      padding: 0 12px;
+      padding: 0 8px;
     }
   }
 
@@ -362,13 +367,14 @@
 .user-dropdown {
   display: flex;
   height: 100%;
+  font-size: 12px;
   cursor: pointer;
   align-items: center;
 
   img {
-    width: 32px;
-    height: 32px;
-    margin-right: 24px;
+    width: 26px;
+    height: 26px;
+    margin-right: 16px;
   }
 
   &__header {
@@ -404,7 +410,7 @@
   }
 
   &__name {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   &__desc {
