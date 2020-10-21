@@ -65,7 +65,7 @@ export default defineComponent({
 
     return () => (
       <>
-        <Breadcrumb class="layout-breadcrumb ">
+        <Breadcrumb class="layout-breadcrumb">
           {() => (
             <>
               <TransitionGroup name="breadcrumb">

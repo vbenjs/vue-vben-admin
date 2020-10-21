@@ -32,7 +32,11 @@ export interface FetchParams {
 
 export interface GetColumnsParams {
   ignoreIndex?: boolean;
+  ignoreAction?: boolean;
 }
+
+export type SizeType = 'default' | 'middle' | 'small' | 'large';
+
 export interface TableActionType {
   reload: (opt?: FetchParams) => Promise<void>;
   getSelectRows: () => any[];
@@ -41,7 +45,7 @@ export interface TableActionType {
   deleteSelectRowByKey: (key: string) => void;
   setPagination: (info: Partial<PaginationProps>) => void;
   setTableData: (values: any[]) => void;
-  getColumns: ({ ignoreIndex }?: GetColumnsParams) => BasicColumn[];
+  getColumns: (opt?: GetColumnsParams) => BasicColumn[];
   setColumns: (columns: BasicColumn[] | string[]) => void;
   getDataSource: () => any[];
   setLoading: (loading: boolean) => void;
@@ -49,6 +53,7 @@ export interface TableActionType {
   redoHeight: () => void;
   setSelectedRowKeys: (rowKeys: string[] | number[]) => void;
   getPaginationRef: () => PaginationProps | boolean;
+  getSize: () => SizeType;
 }
 
 export interface FetchSetting {
@@ -61,7 +66,18 @@ export interface FetchSetting {
   // 请求结果总数字段  支持 a.b.c
   totalField: string;
 }
+
+export interface TableSetting {
+  redo?: boolean;
+  size?: boolean;
+  setting?: boolean;
+  fullScreen?: boolean;
+}
+
 export interface BasicTableProps<T = any> {
+  // 显示表格设置
+  showTableSetting?: boolean;
+  tableSetting?: TableSetting;
   // 斑马纹
   striped?: boolean;
   // 是否自动生成key
@@ -234,7 +250,7 @@ export interface BasicTableProps<T = any> {
    * @default 'default'
    * @type string
    */
-  size?: 'default' | 'middle' | 'small' | 'large';
+  size?: SizeType;
 
   /**
    * Table title renderer

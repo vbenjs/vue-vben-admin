@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="wrapRef"
     class="basic-table"
     :class="{
       'table-form-container': getBindValues.useSearchForm,
@@ -33,7 +34,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, computed, unref, watch, nextTick } from 'vue';
+  import { defineComponent, ref, computed, unref, watch, nextTick, toRaw } from 'vue';
   import { Table } from 'ant-design-vue';
   import { basicProps } from './props';
   import type {
@@ -41,7 +42,9 @@
     FetchParams,
     GetColumnsParams,
     TableActionType,
+    SizeType,
   } from './types/table';
+
   import { isFunction, isString } from '/@/utils/is';
 
   import renderTitle from './components/renderTitle';
@@ -57,18 +60,20 @@
   import { provideTable } from './hooks/useProvinceTable';
   import { BasicForm, FormProps, useForm } from '/@/components/Form/index';
   import { omit } from 'lodash-es';
-  import './style/index.less';
   import { ROW_KEY } from './const';
   import { PaginationProps } from './types/pagination';
   import { deepMerge } from '/@/utils';
   import { TableCustomRecord } from 'ant-design-vue/types/table/table';
   import { useEvent } from '/@/hooks/event/useEvent';
+
+  import './style/index.less';
   export default defineComponent({
     props: basicProps,
     components: { Table, BasicForm },
     emits: ['fetch-success', 'fetch-error', 'selection-change', 'register'],
     setup(props, { attrs, emit, slots }) {
       const tableElRef = ref<any>(null);
+      const wrapRef = ref<Nullable<HTMLDivElement>>(null);
       const innerPropsRef = ref<Partial<BasicTableProps>>();
       const [registerForm, { getFieldsValue }] = useForm();
 
@@ -93,6 +98,7 @@
         },
         emit
       );
+
       const { getScrollRef, redoHeight } = useTableScroll(getMergeProps, tableElRef);
       const {
         getRowSelectionRef,
@@ -108,16 +114,26 @@
 
         return unref(getAutoCreateKey) ? ROW_KEY : rowKey;
       });
+
       const getBindValues = computed(() => {
-        const { title, titleHelpMessage, showSummary } = unref(getMergeProps);
+        const { title, titleHelpMessage, showSummary, showTableSetting, tableSetting } = unref(
+          getMergeProps
+        );
+        const hideTitle = !slots.tableTitle && !title && !slots.toolbar && !showTableSetting;
         const titleData: any =
-          !slots.tableTitle && !isString(title) && !title && !slots.toolbar
+          hideTitle && !isString(title)
             ? {}
             : {
-                title:
-                  !slots.tableTitle && !title && !slots.toolbar
-                    ? null
-                    : renderTitle.bind(null, title, titleHelpMessage, slots),
+                title: hideTitle
+                  ? null
+                  : renderTitle.bind(
+                      null,
+                      title,
+                      titleHelpMessage,
+                      slots,
+                      showTableSetting,
+                      tableSetting
+                    ),
               };
         const pagination = unref(getPaginationRef);
         const rowSelection = unref(getRowSelectionRef);
@@ -155,6 +171,7 @@
         }
         return propsData;
       });
+
       const getFormProps = computed(() => {
         const { formConfig } = unref(getBindValues);
         const formProps: FormProps = {
@@ -198,6 +215,7 @@
         setPagination(pagination);
         fetch();
       }
+
       watch(
         () => unref(getDataSourceRef),
         () => {
@@ -230,6 +248,10 @@
         { immediate: true }
       );
 
+      function setProps(props: Partial<BasicTableProps>) {
+        innerPropsRef.value = deepMerge(unref(innerPropsRef) || {}, props);
+      }
+
       const tableAction: TableActionType = {
         reload: async (opt?: FetchParams) => {
           await fetch(opt);
@@ -247,10 +269,13 @@
           return unref(getPaginationRef);
         },
         getColumns: (opt?: GetColumnsParams) => {
-          const { ignoreIndex } = opt || {};
-          let columns = unref(getColumnsRef);
+          const { ignoreIndex, ignoreAction } = opt || {};
+          let columns = toRaw(unref(getColumnsRef));
           if (ignoreIndex) {
             columns = columns.filter((item) => item.flag !== 'INDEX');
+          }
+          if (ignoreAction) {
+            columns = columns.filter((item) => item.flag !== 'ACTION');
           }
           return columns;
         },
@@ -260,12 +285,16 @@
         setLoading: (loading: boolean) => {
           loadingRef.value = loading;
         },
-        setProps: (props: Partial<BasicTableProps>) => {
-          innerPropsRef.value = deepMerge(unref(innerPropsRef) || {}, props);
+        setProps,
+        getSize: (): SizeType => {
+          return unref(getBindValues).size;
         },
       };
 
-      provideTable(tableAction);
+      provideTable({
+        ...tableAction,
+        wrapRef,
+      });
 
       emit('register', tableAction);
       return {
@@ -278,6 +307,7 @@
         getEmptyDataIsShowTable,
         handleTableChange,
         getRowClassName,
+        wrapRef,
         ...tableAction,
       };
     },
