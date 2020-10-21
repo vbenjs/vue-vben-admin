@@ -39,6 +39,8 @@ const setting: ProjectConfig = {
     showDoc: true,
     //  是否显示github
     showGithub: true,
+    // 显示消息中心按钮
+    showNotice: true,
   },
   // 菜单配置
   menuSetting: {
