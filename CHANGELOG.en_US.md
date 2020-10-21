@@ -1,3 +1,30 @@
+# 2.0.0-rc.4 (2020-10-21)
+
+### ✨ Features
+
+- New configuration toolbar for tables
+- New message notification module
+
+### 🎫 Chores
+
+- The table does not show borders by default
+- Dependency update
+- Update vue to `v3.0.2`
+- Interface style fine-tuning
+
+### ⚡ Performance Improvements
+
+- Optimize the size of the first screen
+- Optimize the TableAction component
+- Reduce the folding width of the menu
+
+### 🐛 Bug Fixes
+
+- Fix the problem of the menu name when the first level menu is folded
+- Fix the problem that the preview command is not packaged
+- Fix the problem that the form actionColOptions parameter does not take effect
+- Fix the problem that the loading does not take effect when refreshing the form
+
 # 2.0.0-rc.3 (2020-10-19)
 
 ### ✨ Features
