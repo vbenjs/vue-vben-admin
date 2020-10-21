@@ -22,6 +22,7 @@ import { useModal } from '/@/components/Modal/index';
 import { errorStore } from '/@/store/modules/error';
 import { useGo } from '/@/hooks/web/usePage';
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
+import NoticeAction from './actions/notice/NoticeActionItem.vue';
 
 export default defineComponent({
   name: 'DefaultLayoutHeader',
@@ -85,7 +86,14 @@ export default defineComponent({
       const {
         useErrorHandle,
         showLogo,
-        headerSetting: { theme: headerTheme, useLockPage, showRedo, showGithub, showFullScreen },
+        headerSetting: {
+          theme: headerTheme,
+          useLockPage,
+          showRedo,
+          showGithub,
+          showFullScreen,
+          showNotice,
+        },
         menuSetting: { mode, type: menuType, split: splitMenu, topMenuAlign },
         showBreadCrumb,
       } = getProjectConfig;
@@ -162,6 +170,20 @@ export default defineComponent({
                       ),
                     }}
                   </Tooltip>
+                )}
+                {showNotice && (
+                  <div>
+                    <Tooltip>
+                      {{
+                        title: () => '消息中心',
+                        default: () => (
+                          <div class={`layout-header__action-item`}>
+                            <NoticeAction />
+                          </div>
+                        ),
+                      }}
+                    </Tooltip>
+                  </div>
                 )}
                 {showRedo && (
                   <Tooltip>
