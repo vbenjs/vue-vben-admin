@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="layout-header__action-item notify-action">
     <Popover title="" trigger="click">
       <Badge :count="count" :numberStyle="numberStyle">
         <BellOutlined class="layout-header__action-icon" />
@@ -43,22 +43,25 @@
     },
   });
 </script>
-<style lang="less" scoped>
-  /deep/ .ant-tabs-tab {
-    padding-top: 8px;
-    margin-right: 12px;
-  }
+<style lang="less">
+  .notify-action {
+    padding-top: 2px;
 
-  /deep/ .ant-tabs-content {
-    width: 300px;
-  }
+    .ant-tabs-content {
+      width: 300px;
+    }
 
-  /deep/ .ant-badge {
-    font-size: 18px;
+    .ant-badge {
+      font-size: 18px;
 
-    .ant-badge-multiple-words {
-      padding: 0 4px;
-      transform: translate(26%, -48%);
+      .ant-badge-multiple-words {
+        padding: 0 4px;
+        transform: translate(26%, -40%);
+      }
+
+      svg {
+        width: 0.9em;
+      }
     }
   }
 </style>

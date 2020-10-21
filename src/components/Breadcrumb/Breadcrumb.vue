@@ -37,7 +37,7 @@
   .breadcrumb {
     height: @header-height;
     padding-right: 20px;
-    font-size: 14px;
+    font-size: 12px;
     line-height: @header-height;
     // line-height: 1;
 

@@ -35,7 +35,11 @@ export default defineComponent({
     const { currentRoute } = useRouter();
     const { addTab, activeKeyRef } = useTabs();
     onMounted(() => {
-      addTab(unref(currentRoute).path as PageEnum);
+      const route = unref(currentRoute);
+      addTab(unref(currentRoute).path as PageEnum, false, {
+        query: route.query,
+        params: route.params,
+      });
     });
 
     // 当前激活tab
@@ -60,6 +64,14 @@ export default defineComponent({
         // 监听路由的话虽然可以，但是路由切换的时间会造成卡顿现象？
         // 使用useTab的addTab的话，当用户手动调转，需要自行调用addTab
         // tabStore.commitAddTab((unref(currentRoute) as unknown) as AppRouteRecordRaw);
+        // const { affix } = currentRoute.value.meta || {};
+        // if (affix) return;
+        // const hasInTab = tabStore.getTabsState.some(
+        //   (item) => item.fullPath === currentRoute.value.fullPath
+        // );
+        // if (!hasInTab) {
+        //   tabStore.commitAddTab((unref(currentRoute) as unknown) as AppRouteRecordRaw);
+        // }
       },
       {
         immediate: true,
