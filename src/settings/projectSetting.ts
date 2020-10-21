@@ -96,7 +96,7 @@ const setting: ProjectConfig = {
   showBreadCrumb: true,
 
   // 使用error-handler-plugin
-  useErrorHandle: true,
+  useErrorHandle: isProdMode(),
 
   //  开启页面切换动画
   openRouterTransition: true,
