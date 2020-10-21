@@ -47,6 +47,8 @@ export interface HeaderSetting {
   // 显示文档按钮
   showDoc: boolean;
   showGithub: boolean;
+  // 显示消息中心按钮
+  showNotice: boolean;
 }
 export interface ProjectConfig {
   // 是否显示配置按钮
