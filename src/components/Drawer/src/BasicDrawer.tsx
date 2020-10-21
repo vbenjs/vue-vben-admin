@@ -109,7 +109,7 @@ export default defineComponent({
       if (showFooter && footerHeight) {
         return isNumber(footerHeight) ? `${footerHeight}px` : `${footerHeight.replace('px', '')}px`;
       }
-      return 0;
+      return `0px`;
     });
     function renderFooter() {
       const {
@@ -195,7 +195,6 @@ export default defineComponent({
 
     return () => {
       const footerHeight = unref(getFooterHeight);
-
       return (
         <Drawer
           class={prefixCls}
@@ -217,8 +216,9 @@ export default defineComponent({
                 <div
                   ref={scrollRef}
                   {...attrs}
+                  data-id="123"
                   style={{
-                    height: `calc(100% - ${footerHeight}px)`,
+                    height: `calc(100% - ${footerHeight})`,
                     overflow: 'auto',
                     padding: '16px',
                     paddingBottom: '30px',
