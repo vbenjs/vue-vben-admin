@@ -46,11 +46,13 @@ export default defineComponent({
       if (homeRoute.name === firstItem.name) return false;
       return homeRoute;
     }
+
     function pathCompile(path: string) {
       const { params } = unref(currentRoute);
       const toPath = compile(path);
       return toPath(params);
     }
+
     function handleItemClick(item: AppRouteRecordRaw) {
       const { redirect, path, meta } = item;
       if (meta.disabledRedirect) return;
@@ -71,37 +73,33 @@ export default defineComponent({
     );
 
     return () => (
-      <>
-        <Breadcrumb class="layout-breadcrumb">
-          {() => (
-            <>
-              <TransitionGroup name="breadcrumb">
-                {() => {
-                  return unref(itemList).map((item) => {
-                    const isLink = !!item.redirect && !item.meta.disabledRedirect;
-                    return (
-                      <BreadcrumbItem
-                        key={item.path}
-                        isLink={isLink}
-                        onClick={handleItemClick.bind(null, item)}
-                      >
-                        {() => (
-                          <>
-                            {props.showIcon && item.meta.icon && item.meta.icon.trim() !== '' && (
-                              <Icon icon={item.meta.icon} class="icon mr-1 mb-1" />
-                            )}
-                            {item.meta.title}
-                          </>
+      <Breadcrumb class="layout-breadcrumb">
+        {() => (
+          <TransitionGroup name="breadcrumb">
+            {() => {
+              return unref(itemList).map((item) => {
+                const isLink = !!item.redirect && !item.meta.disabledRedirect;
+                return (
+                  <BreadcrumbItem
+                    key={item.path}
+                    isLink={isLink}
+                    onClick={handleItemClick.bind(null, item)}
+                  >
+                    {() => (
+                      <>
+                        {props.showIcon && item.meta.icon && item.meta.icon.trim() !== '' && (
+                          <Icon icon={item.meta.icon} class="icon mr-1 mb-1" />
                         )}
-                      </BreadcrumbItem>
-                    );
-                  });
-                }}
-              </TransitionGroup>
-            </>
-          )}
-        </Breadcrumb>
-      </>
+                        {item.meta.title}
+                      </>
+                    )}
+                  </BreadcrumbItem>
+                );
+              });
+            }}
+          </TransitionGroup>
+        )}
+      </Breadcrumb>
     );
   },
 });
