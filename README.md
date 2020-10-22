@@ -7,7 +7,7 @@
 
 **中文** | [English](./README.en-US.md)
 
-[更新日志](CHANGELOG.md)
+[更新日志](CHANGELOG.zh_CN.md)
 
 - [介绍](#介绍)
 - [gitHub 地址](#github-地址)
