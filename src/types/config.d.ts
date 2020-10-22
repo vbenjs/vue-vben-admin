@@ -84,6 +84,8 @@ export interface ProjectConfig {
   lockTime: number;
   // 显示面包屑
   showBreadCrumb: boolean;
+  // 显示面包屑图标
+  showBreadCrumbIcon: boolean;
   // 使用error-handler-plugin
   useErrorHandle: boolean;
 
