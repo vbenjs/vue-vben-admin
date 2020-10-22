@@ -7,7 +7,7 @@
 
 [Chinese](./README.md) | **English**
 
-[CHANGELOG](CHANGELOG.md)
+[CHANGELOG](CHANGELOG.en_US.md)
 
 - [Introduction](#introduction)
 - [GitHub](#github)
