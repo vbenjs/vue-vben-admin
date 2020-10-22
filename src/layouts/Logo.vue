@@ -1,7 +1,7 @@
 <template>
   <div class="app-logo" @click="handleGoHome">
     <img :src="logo" />
-    <div v-if="show" class="logo-title ml-1 ellipsis">{{ globSetting.title }}</div>
+    <div v-if="show" class="logo-title ml-1 mt-1 ellipsis">{{ globSetting.title }}</div>
   </div>
 </template>
 <script lang="ts">
@@ -55,7 +55,7 @@
 
   .app-logo {
     display: flex;
-    justify-content: center;
+    // justify-content: center;
     align-items: center;
     cursor: pointer;
 
