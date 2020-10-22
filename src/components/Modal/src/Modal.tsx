@@ -80,17 +80,20 @@ export default defineComponent({
         };
       };
     };
+
     const handleDrag = () => {
       const dragWraps = document.querySelectorAll('.ant-modal-wrap');
       for (const wrap of dragWraps as any) {
         const display = getStyle(wrap, 'display');
+
         const draggable = wrap.getAttribute('data-drag');
         if (display !== 'none') {
           // 拖拽位置
-          draggable === null && drag(wrap);
+          (draggable === null || props.destroyOnClose) && drag(wrap);
         }
       }
     };
+
     watchEffect(() => {
       if (!props.visible) {
         return;
