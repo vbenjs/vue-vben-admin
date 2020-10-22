@@ -6,59 +6,59 @@ const menu: MenuModule = {
     name: 'Table',
     children: [
       {
-        path: '/basic',
+        path: 'basic',
         name: '基础表格',
       },
       {
-        path: '/treeTable',
+        path: 'treeTable',
         name: '树形表格',
       },
       {
-        path: '/fetchTable',
+        path: 'fetchTable',
         name: '远程加载',
       },
       {
-        path: '/fixedColumn',
+        path: 'fixedColumn',
         name: '固定列',
       },
       {
-        path: '/customerCell',
+        path: 'customerCell',
         name: '自定义列',
       },
       {
-        path: '/formTable',
+        path: 'formTable',
         name: '开启搜索区域',
       },
       {
-        path: '/useTable',
+        path: 'useTable',
         name: 'UseTable',
       },
       {
-        path: '/refTable',
+        path: 'refTable',
         name: 'RefTable',
       },
       {
-        path: '/multipleHeader',
+        path: 'multipleHeader',
         name: '多级表头',
       },
       {
-        path: '/mergeHeader',
+        path: 'mergeHeader',
         name: '合并单元格',
       },
       {
-        path: '/expandTable',
+        path: 'expandTable',
         name: '可展开表格',
       },
       {
-        path: '/fixedHeight',
+        path: 'fixedHeight',
         name: '定高/头部自定义',
       },
       {
-        path: '/footerTable',
+        path: 'footerTable',
         name: '表尾行合计',
       },
       {
-        path: '/editCellTable',
+        path: 'editCellTable',
         name: '可编辑单元格',
       },
     ],

@@ -43,7 +43,7 @@
     },
   ];
   export default defineComponent({
-    components: { BasicForm, CollapseContainer, Tinymce },
+    components: { BasicForm, CollapseContainer },
     setup() {
       const { createMessage } = useMessage();
 

@@ -1,59 +1,169 @@
 <template>
   <div class="tinymce-container" :style="{ width: containerWidth }">
-    <tinymce-editor
-      :id="id"
-      :init="initOptions"
-      :modelValue="tinymceContent"
-      @update:modelValue="handleChange"
-      :tinymceScriptSrc="tinymceScriptSrc"
-    ></tinymce-editor>
+    <textarea :id="tinymceId" visibility="hidden" ref="elRef"></textarea>
   </div>
 </template>
 
 <script lang="ts">
-  import TinymceEditor from './lib'; // TinyMCE vue wrapper
-  import { defineComponent, computed } from 'vue';
+  import {
+    defineComponent,
+    computed,
+    onMounted,
+    nextTick,
+    ref,
+    unref,
+    watch,
+    onUnmounted,
+    onDeactivated,
+  } from 'vue';
   import { basicProps } from './props';
   import toolbar from './toolbar';
   import plugins from './plugins';
+  import { getTinymce } from './getTinymce';
+  import { useScript } from '/@/hooks/web/useScript';
+  import { snowUuid } from '/@/utils/uuid';
+  import { bindHandlers } from './helper';
 
   const CDN_URL = 'https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1';
+
   const tinymceScriptSrc = `${CDN_URL}/tinymce.min.js`;
 
   export default defineComponent({
     name: 'Tinymce',
-    components: { TinymceEditor },
     props: basicProps,
-    setup(props, { emit }) {
-      const tinymceContent = computed(() => {
-        return props.value;
+    emits: ['change', 'update:modelValue'],
+    setup(props, { emit, attrs }) {
+      const editorRef = ref<any>(null);
+      const elRef = ref<Nullable<HTMLElement>>(null);
+
+      const tinymceId = computed(() => {
+        return snowUuid('tiny-vue');
       });
-      function handleChange(value: string) {
-        emit('change', value);
-      }
+
+      const tinymceContent = computed(() => {
+        return props.modelValue;
+      });
+
       const containerWidth = computed(() => {
         const width = props.width;
-        // Test matches `100`, `'100'`
         if (/^[\d]+(\.[\d]+)?$/.test(width.toString())) {
           return `${width}px`;
         }
         return width;
       });
+
       const initOptions = computed(() => {
-        const { id, height, menubar } = props;
+        const { height, menubar } = props;
         return {
-          selector: `#${id}`,
+          selector: `#${unref(tinymceId)}`,
           height: height,
           toolbar: toolbar,
+          theme: 'silver',
           menubar: menubar,
           plugins: plugins,
           // 语言包
           language_url: 'resource/tinymce/langs/zh_CN.js',
           // 中文
           language: 'zh_CN',
+          default_link_target: '_blank',
+          link_title: false,
+          advlist_bullet_styles: 'square',
+          advlist_number_styles: 'default',
+          object_resizing: false,
+          setup: (editor: any) => {
+            editorRef.value = editor;
+            editor.on('init', (e: Event) => initSetup(e));
+          },
         };
       });
-      return { containerWidth, initOptions, tinymceContent, handleChange, tinymceScriptSrc };
+
+      const { toPromise } = useScript({
+        src: tinymceScriptSrc,
+      });
+
+      watch(
+        () => attrs.disabled,
+        () => {
+          const editor = unref(editorRef);
+          if (!editor) return;
+          editor.setMode(attrs.disabled ? 'readonly' : 'design');
+        }
+      );
+
+      onMounted(() => {
+        nextTick(() => {
+          init();
+        });
+      });
+
+      onUnmounted(() => {
+        destory();
+      });
+
+      onDeactivated(() => {
+        destory();
+      });
+
+      function destory() {
+        if (getTinymce() !== null) {
+          getTinymce().remove(unref(editorRef));
+        }
+      }
+
+      function init() {
+        toPromise().then(() => {
+          initEditor();
+        });
+      }
+
+      function initEditor() {
+        getTinymce().init(unref(initOptions));
+      }
+
+      function initSetup(e: Event) {
+        const editor = unref(editorRef);
+        if (!editor) return;
+        const value = props.modelValue || '';
+
+        editor.setContent(value);
+        bindModelHandlers(editor);
+        bindHandlers(e, attrs, unref(editorRef));
+      }
+
+      function bindModelHandlers(editor: any) {
+        const modelEvents = attrs.modelEvents ? attrs.modelEvents : null;
+        const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
+        watch(
+          () => props.modelValue,
+          (val: string, prevVal: string) => {
+            if (
+              editor &&
+              typeof val === 'string' &&
+              val !== prevVal &&
+              val !== editor.getContent({ format: attrs.outputFormat })
+            ) {
+              editor.setContent(val);
+            }
+          }
+        );
+
+        editor.on(normalizedEvents ? normalizedEvents : 'change keyup undo redo', () => {
+          emit('update:modelValue', editor.getContent({ format: attrs.outputFormat }));
+        });
+      }
+
+      function handleChange(value: string) {
+        emit('change', value);
+      }
+      return {
+        containerWidth,
+        initOptions,
+        tinymceContent,
+        handleChange,
+        tinymceScriptSrc,
+        elRef,
+        tinymceId,
+      };
     },
   });
 </script>
