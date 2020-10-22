@@ -94,6 +94,8 @@ const setting: ProjectConfig = {
   lockTime: 0,
   // 显示面包屑
   showBreadCrumb: true,
+  // 显示面包屑图标
+  showBreadCrumbIcon: false,
 
   // 使用error-handler-plugin
   useErrorHandle: isProdMode(),
