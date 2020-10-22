@@ -10,10 +10,17 @@ import { PageEnum } from '/@/enums/pageEnum';
 import { isBoolean } from '/@/utils/is';
 
 import { compile } from 'path-to-regexp';
+import Icon from '/@/components/Icon';
 
 export default defineComponent({
   name: 'BasicBreadcrumb',
-  setup() {
+  props: {
+    showIcon: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup(props) {
     const itemList = ref<AppRouteRecordRaw[]>([]);
     const { currentRoute, push } = useRouter();
 
@@ -78,7 +85,14 @@ export default defineComponent({
                         isLink={isLink}
                         onClick={handleItemClick.bind(null, item)}
                       >
-                        {() => item.meta.title}
+                        {() => (
+                          <>
+                            {props.showIcon && item.meta.icon && item.meta.icon.trim() !== '' && (
+                              <Icon icon={item.meta.icon} class="icon mr-1 mb-1" />
+                            )}
+                            {item.meta.title}
+                          </>
+                        )}
                       </BreadcrumbItem>
                     );
                   });

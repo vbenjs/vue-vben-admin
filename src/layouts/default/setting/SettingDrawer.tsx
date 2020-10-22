@@ -343,6 +343,7 @@ export default defineComponent({
         menuSetting: { show: showMenu },
         multiTabsSetting: { show: showMultiple, showQuick, showIcon: showTabIcon },
         showBreadCrumb,
+        showBreadCrumbIcon,
       } = unref(getProjectConfigRef);
       return [
         renderSwitchItem('面包屑', {
@@ -350,6 +351,13 @@ export default defineComponent({
             baseHandler('showBreadCrumb', e);
           },
           def: showBreadCrumb,
+          disabled: !unref(getShowHeaderRef),
+        }),
+        renderSwitchItem('面包屑图标', {
+          handler: (e) => {
+            baseHandler('showBreadCrumbIcon', e);
+          },
+          def: showBreadCrumbIcon,
           disabled: !unref(getShowHeaderRef),
         }),
         renderSwitchItem('标签页', {
@@ -447,6 +455,11 @@ export default defineComponent({
       if (event === 'showBreadCrumb') {
         config = {
           showBreadCrumb: value,
+        };
+      }
+      if (event === 'showBreadCrumbIcon') {
+        config = {
+          showBreadCrumbIcon: value,
         };
       }
       if (event === 'collapsed') {
