@@ -6,15 +6,15 @@ const menu: MenuModule = {
     path: '/frame',
     children: [
       {
-        path: '/antv',
+        path: 'antv',
         name: 'antVue文档(内嵌)',
       },
       {
-        path: '/doc',
+        path: 'doc',
         name: '项目文档(内嵌)',
       },
       {
-        path: '/docExternal',
+        path: 'docExternal',
         name: '项目文档(外链)',
       },
     ],

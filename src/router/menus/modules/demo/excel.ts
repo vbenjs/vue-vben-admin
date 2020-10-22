@@ -6,23 +6,21 @@ const menu: MenuModule = {
     path: '/excel',
     children: [
       {
-        path: '/customExport',
+        path: 'customExport',
         name: '选择导出格式',
       },
       {
-        path: '/jsonExport',
+        path: 'jsonExport',
         name: 'JSON数据导出',
       },
       {
-        path: '/arrayExport',
+        path: 'arrayExport',
         name: 'Array数据导出',
       },
       {
-        path: '/importExcel',
+        path: 'importExcel',
         name: '导入',
       },
-      //     ],
-      //   },
     ],
   },
 };

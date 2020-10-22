@@ -6,27 +6,27 @@ const menu: MenuModule = {
     path: '/exception',
     children: [
       {
-        path: '/404',
+        path: '404',
         name: '404',
       },
       {
-        path: '/500',
+        path: '500',
         name: '500',
       },
       {
-        path: '/net-work-error',
+        path: 'net-work-error',
         name: '网络错误',
       },
       {
-        path: '/page-time-out',
+        path: 'page-time-out',
         name: '页面超时',
       },
       {
-        path: '/not-data',
+        path: 'not-data',
         name: '无数据',
       },
       {
-        path: '/error-log',
+        path: 'error-log',
         name: '错误日志',
       },
     ],

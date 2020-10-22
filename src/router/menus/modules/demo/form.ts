@@ -6,31 +6,31 @@ const menu: MenuModule = {
     name: 'Form',
     children: [
       {
-        path: '/basic',
+        path: 'basic',
         name: '基础表单',
       },
       {
-        path: '/useForm',
+        path: 'useForm',
         name: 'useForm',
       },
       {
-        path: '/refForm',
+        path: 'refForm',
         name: 'RefForm',
       },
       {
-        path: '/advancedForm',
+        path: 'advancedForm',
         name: '可收缩表单',
       },
       {
-        path: '/ruleForm',
+        path: 'ruleForm',
         name: '表单校验',
       },
       {
-        path: '/dynamicForm',
+        path: 'dynamicForm',
         name: '动态表单',
       },
       {
-        path: '/customerForm',
+        path: 'customerForm',
         name: '自定义组件',
       },
     ],

@@ -23,5 +23,32 @@ export default {
         title: 'markdown编辑器',
       },
     },
+    {
+      path: '/tinymce',
+      name: 'TinymceDemo',
+      meta: {
+        title: '富文本',
+      },
+      redirect: '/editor/tinymce/index',
+      children: [
+        {
+          path: 'index',
+          name: 'TinymceBasicDemo',
+          component: () => import('/@/views/demo/editor/tinymce/index.vue'),
+          meta: {
+            title: '基础使用',
+          },
+        },
+        // TODO
+        // {
+        //   path: 'editor',
+        //   name: 'TinymceFormDemo',
+        //   component: () => import('/@/views/demo/comp/tinymce/Editor.vue'),
+        //   meta: {
+        //     title: '嵌入form使用',
+        //   },
+        // },
+      ],
+    },
   ],
 } as AppRouteModule;
