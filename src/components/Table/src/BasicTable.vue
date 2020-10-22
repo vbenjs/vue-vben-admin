@@ -216,34 +216,36 @@
         fetch();
       }
 
+      function handleSummary() {
+        if (unref(getMergeProps).showSummary) {
+          nextTick(() => {
+            const tableEl = unref(tableElRef);
+            if (!tableEl) {
+              return;
+            }
+            const bodyDomList = tableEl.$el.querySelectorAll('.ant-table-body') as HTMLDivElement[];
+            const bodyDom = bodyDomList[0];
+            useEvent({
+              el: bodyDom,
+              name: 'scroll',
+              listener: () => {
+                const footerBodyDom = tableEl.$el.querySelector(
+                  '.ant-table-footer .ant-table-body'
+                ) as HTMLDivElement;
+                if (!footerBodyDom || !bodyDom) return;
+                footerBodyDom.scrollLeft = bodyDom.scrollLeft;
+              },
+              wait: 0,
+              options: true,
+            });
+          });
+        }
+      }
+
       watch(
         () => unref(getDataSourceRef),
         () => {
-          if (unref(getMergeProps).showSummary) {
-            nextTick(() => {
-              const tableEl = unref(tableElRef);
-              if (!tableEl) {
-                return;
-              }
-              const bodyDomList = tableEl.$el.querySelectorAll(
-                '.ant-table-body'
-              ) as HTMLDivElement[];
-              const bodyDom = bodyDomList[0];
-              useEvent({
-                el: bodyDom,
-                name: 'scroll',
-                listener: () => {
-                  const footerBodyDom = tableEl.$el.querySelector(
-                    '.ant-table-footer .ant-table-body'
-                  ) as HTMLDivElement;
-                  if (!footerBodyDom || !bodyDom) return;
-                  footerBodyDom.scrollLeft = bodyDom.scrollLeft;
-                },
-                wait: 0,
-                options: true,
-              });
-            });
-          }
+          handleSummary();
         },
         { immediate: true }
       );

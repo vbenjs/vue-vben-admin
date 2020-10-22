@@ -6,7 +6,7 @@
         <FormItem
           :schema="schema"
           :formProps="getProps"
-          :allDefaultValues="getAllDefaultValues"
+          :allDefaultValues="defaultValueRef"
           :formModel="formModel"
         >
           <template #[item]="data" v-for="item in Object.keys($slots)">
@@ -56,8 +56,8 @@
 
   export default defineComponent({
     name: 'BasicForm',
-    inheritAttrs: false,
     components: { FormItem, Form, Row, FormAction },
+    inheritAttrs: false,
     props: basicProps,
     emits: ['advanced-change', 'reset', 'submit', 'register'],
     setup(props, { emit }) {
@@ -68,6 +68,7 @@
         isLoad: false,
         actionSpan: 6,
       });
+      const defaultValueRef = ref<any>({});
       const propsRef = ref<Partial<FormProps>>({});
       const schemaRef = ref<FormSchema[] | null>(null);
       const formElRef = ref<Nullable<FormType>>(null);
@@ -132,17 +133,6 @@
         return schemas as FormSchema[];
       });
 
-      const getAllDefaultValues = computed(() => {
-        const schemas = unref(getSchema);
-        const obj: any = {};
-        schemas.forEach((item) => {
-          if (item.defaultValue) {
-            obj[item.field] = item.defaultValue;
-            (formModel as any)[item.field] = item.defaultValue;
-          }
-        });
-        return obj;
-      });
       const getEmptySpanRef = computed((): number => {
         if (!advanceState.isAdvanced) {
           return 0;
@@ -174,6 +164,19 @@
         },
         { immediate: true }
       );
+
+      function initDefault() {
+        const schemas = unref(getSchema);
+        const obj: any = {};
+        schemas.forEach((item) => {
+          if (item.defaultValue) {
+            obj[item.field] = item.defaultValue;
+            (formModel as any)[item.field] = item.defaultValue;
+          }
+        });
+        defaultValueRef.value = obj;
+      }
+
       function updateAdvanced() {
         let itemColSum = 0;
         let realItemColSum = 0;
@@ -191,7 +194,7 @@
               model: formModel,
               field: schema.field,
               values: {
-                ...getAllDefaultValues,
+                ...unerf(defaultValueRef),
                 ...formModel,
               },
             });
@@ -343,6 +346,7 @@
         }
         schemaRef.value = schemaList as any;
       }
+
       /**
        * @description: 根据字段名删除
        */
@@ -354,6 +358,7 @@
           }
         }
       }
+
       /**
        * @description: 往某个字段后面插入,如果没有插入最后一个
        */
@@ -400,7 +405,6 @@
             }
           });
         });
-
         schemaRef.value = unique(schema, 'field') as any;
       }
 
@@ -412,6 +416,7 @@
         toRef(props, 'transformDateFunc'),
         toRef(props, 'fieldMapToTime')
       );
+
       function getFieldsValue(): any {
         const formEl = unref(formElRef);
         if (!formEl) return;
@@ -426,6 +431,7 @@
           return item.field === key ? dateItemType.includes(item.component!) : false;
         });
       }
+
       /**
        * @description:设置表单
        */
@@ -438,6 +444,7 @@
         if (!formElRef.value) return;
         return formElRef.value.validateFields(nameList);
       }
+
       function validate(nameList?: NamePath[] | undefined) {
         if (!formElRef.value) return;
         return formElRef.value.validate(nameList);
@@ -460,14 +467,17 @@
         validateFields: validateFields as ValidateFields,
         validate: validate as ValidateFields,
       };
+
       onMounted(() => {
+        initDefault();
         emit('register', methods);
       });
+
       return {
         handleToggleAdvanced,
         formModel,
         getActionPropsRef,
-        getAllDefaultValues,
+        defaultValueRef,
         advanceState,
         getProps,
         formElRef,

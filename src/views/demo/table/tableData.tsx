@@ -227,7 +227,33 @@ export const getAdvanceSchema = (itemNumber = 6): FormSchema[] => {
 export function getFormConfig(): Partial<FormProps> {
   return {
     labelWidth: 100,
-    schemas: getAdvanceSchema(6),
+    schemas: [
+      ...getAdvanceSchema(5),
+      {
+        field: `field11`,
+        label: `字段33`,
+        component: 'Select',
+        defaultValue: '1',
+        componentProps: {
+          options: [
+            {
+              label: '选项1',
+              value: '1',
+              key: '1',
+            },
+            {
+              label: '选项2',
+              value: '2',
+              key: '2',
+            },
+          ],
+        },
+        colProps: {
+          xl: 12,
+          xxl: 8,
+        },
+      },
+    ],
   };
 }
 export function getBasicData() {

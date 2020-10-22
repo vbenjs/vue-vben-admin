@@ -51,9 +51,6 @@
 
     &__active {
       transform: rotate(90deg);
-      // > span {
-      //   transform: rotate(90deg);
-      // }
     }
   }
 </style>
