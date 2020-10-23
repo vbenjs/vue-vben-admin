@@ -239,12 +239,10 @@ export function getFormConfig(): Partial<FormProps> {
             {
               label: '选项1',
               value: '1',
-              key: '1',
             },
             {
               label: '选项2',
               value: '2',
-              key: '2',
             },
           ],
         },

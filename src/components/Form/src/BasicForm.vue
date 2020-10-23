@@ -194,7 +194,7 @@
               model: formModel,
               field: schema.field,
               values: {
-                ...unerf(defaultValueRef),
+                ...unref(defaultValueRef),
                 ...formModel,
               },
             });
@@ -271,11 +271,11 @@
         const formEl = unref(formElRef);
         if (!formEl) return;
         Object.keys(formModel).forEach((key) => {
-          (formModel as any)[key] = undefined;
+          (formModel as any)[key] = defaultValueRef.value[key];
         });
-        const values = formEl.resetFields();
+        // const values = formEl.resetFields();
         emit('reset', toRaw(formModel));
-        return values;
+        // return values;
       }
 
       /**
