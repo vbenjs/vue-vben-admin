@@ -1,6 +1,5 @@
 <template>
-  <div class="flex p-4">
-    {{ value }}
+  <div class="p-4">
     <Tinymce v-model="value" @change="handleChange" width="100%" />
   </div>
 </template>
@@ -15,9 +14,6 @@
       function handleChange(value: string) {
         console.log(value);
       }
-      // setTimeout(() => {
-      //   value.value = '1233';
-      // }, 5000);
       return { handleChange, value };
     },
   });

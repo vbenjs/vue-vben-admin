@@ -84,10 +84,11 @@ export default defineComponent({
       const { dropDownActions = [], actions } = props;
       return (
         <div class={prefixCls}>
-          {actions?.map((action, index) => {
-            return renderPopConfirm(action, index);
-          })}
-          {dropDownActions?.length && (
+          {actions &&
+            actions.map((action, index) => {
+              return renderPopConfirm(action, index);
+            })}
+          {dropDownActions && dropDownActions.length && (
             <Dropdown>
               {{
                 default: dropdownDefaultSLot,

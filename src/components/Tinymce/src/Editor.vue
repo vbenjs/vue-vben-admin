@@ -53,13 +53,12 @@
       });
 
       const initOptions = computed(() => {
-        const { height, menubar } = props;
+        const { height, options } = props;
         return {
           selector: `#${unref(tinymceId)}`,
           height: height,
           toolbar: toolbar,
-          theme: 'silver',
-          menubar: menubar,
+          menubar: 'file edit insert view format table',
           plugins: plugins,
           // 语言包
           language_url: 'resource/tinymce/langs/zh_CN.js',
@@ -70,6 +69,7 @@
           advlist_bullet_styles: 'square',
           advlist_number_styles: 'default',
           object_resizing: false,
+          ...options,
           setup: (editor: any) => {
             editorRef.value = editor;
             editor.on('init', (e: Event) => initSetup(e));

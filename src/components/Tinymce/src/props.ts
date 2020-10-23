@@ -1,9 +1,9 @@
 import { PropType } from 'vue';
 
 export const basicProps = {
-  menubar: {
-    type: String as PropType<string>,
-    default: 'file edit insert view format table',
+  options: {
+    type: Object as PropType<any>,
+    default: {},
   },
   value: {
     type: String as PropType<string>,
