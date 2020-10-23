@@ -7,19 +7,6 @@
     height: @multiple-height;
   }
 
-  // .ant-tabs:not(.ant-tabs-card) {
-  //   .ant-tabs-nav-container {
-  //     height: @multiple-height;
-  //     background: @white;
-  //   }
-
-  //   .ant-tabs-tab {
-  //     font-size: 14px;
-  //     line-height: 1.5515;
-  //     background: @white;
-  //   }
-  // }
-
   .ant-tabs.ant-tabs-card {
     .ant-tabs-card-bar {
       height: @multiple-height;
@@ -39,12 +26,19 @@
         line-height: calc(@multiple-height - 2px);
         color: @text-color-call-out;
         background: @white;
-        border: 1px solid @border-color-shallow-dark;
-        border-radius: 4px 4px 0 0;
+        border: 1px solid darken(@border-color-light, 6%);
+        border-radius: 2px 2px 0 0;
         transition: none;
 
         .ant-tabs-close-x {
+          // display: none;
           color: inherit;
+        }
+
+        &:hover {
+          .ant-tabs-close-x {
+            display: block;
+          }
         }
 
         > div {
@@ -72,7 +66,7 @@
 
         &:hover::before {
           transform: scaleX(1);
-          transition: transform 0.4s ease;
+          transition: transform 0.3s ease;
           transform-origin: bottom left;
         }
       }
@@ -80,14 +74,13 @@
       .ant-tabs-tab-active {
         height: calc(@multiple-height - 3px);
         color: @white;
-        // background: @primary-color;
         background: linear-gradient(
           118deg,
-          rgba(@primary-color, 0.8),
+          rgba(@primary-color, 0.7),
           rgba(@primary-color, 1)
         ) !important;
         border: 0;
-        box-shadow: 0 0 6px 1px rgba(@primary-color, 0.4);
+        box-shadow: 0 0 6px 1px rgba(@primary-color, 0.7);
 
         &::before {
           display: none;
