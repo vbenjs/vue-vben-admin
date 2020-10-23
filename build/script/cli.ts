@@ -4,7 +4,6 @@ import chalk from 'chalk';
 import { argv } from 'yargs';
 
 import { runChangeLog } from './changelog';
-import { runPostInstall } from './postinstall';
 import { runPreview } from './preview';
 // import { runPreserve } from './preserve';
 import { runBuild } from './build';
@@ -26,10 +25,6 @@ switch (task) {
   // case 'preserve':
   //   runPreserve();
   //   break;
-
-  case 'postinstall':
-    runPostInstall();
-    break;
 
   case 'preview':
     runPreview();
