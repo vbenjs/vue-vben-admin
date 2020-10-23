@@ -148,6 +148,7 @@ export default defineComponent({
           <Tabs
             type="editable-card"
             size="small"
+            animated={false}
             hideAdd={true}
             tabBarGutter={2}
             activeKey={unref(activeKeyRef)}
