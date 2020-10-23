@@ -8,7 +8,6 @@ import {
   // externals,
   cdnConf,
 } from './build/config/vite/cdn';
-
 import { createProxy } from './build/config/vite/proxy';
 import { createMockServer } from 'vite-plugin-mock';
 import PurgeIcons from 'vite-plugin-purge-icons';

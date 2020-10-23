@@ -89,7 +89,7 @@ export function useDataSource(
         pageParams = {};
       } else {
         const { current, pageSize } = unref(getPaginationRef) as PaginationProps;
-        pageParams[pageField] = opt?.page || current;
+        pageParams[pageField] = (opt && opt.page) || current;
         pageParams[sizeField] = pageSize;
       }
 
