@@ -116,7 +116,7 @@ const viteConfig: UserConfig = {
     '/@/': pathResolve('src'),
   },
   // terser配置
-  terserOption: {
+  terserOptions: {
     compress: {
       // 是否删除console
       drop_console: VITE_DROP_CONSOLE,
