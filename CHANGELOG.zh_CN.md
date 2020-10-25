@@ -5,6 +5,11 @@
 - 面包屑支持显示图标
 - 新增 tinymce 富文本组件
 - 表单新增 submitOnReset 控制是否在重置时重新发起请求
+- 表格新增`sortFn`支持自定义排序
+
+### ✨ Refactor
+
+- Drawer 组件的 detailType 修改为 isDetail
 
 ### 🎫 Chores
 

@@ -16,7 +16,7 @@ import { FullLoading } from '/@/components/Loading/index';
 
 import { getSlot } from '/@/utils/helper/tsxHelper';
 
-import { DrawerInstance, DrawerProps, DrawerType } from './types';
+import { DrawerInstance, DrawerProps } from './types';
 
 import { basicProps } from './props';
 import { isFunction, isNumber } from '/@/utils/is';
@@ -54,7 +54,7 @@ export default defineComponent({
       };
       opt.title = undefined;
 
-      if (opt.drawerType === DrawerType.DETAIL) {
+      if (opt.isDetail) {
         if (!opt.width) {
           opt.width = '100%';
         }
@@ -157,7 +157,7 @@ export default defineComponent({
 
     function renderHeader() {
       const { title } = unref(getMergeProps);
-      return props.drawerType === DrawerType.DETAIL ? (
+      return props.isDetail ? (
         getSlot(slots, 'title') || (
           <Row type="flex" align="middle" class={`${prefixCls}__detail-header`}>
             {() => (

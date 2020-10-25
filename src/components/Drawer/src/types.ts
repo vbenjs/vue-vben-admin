@@ -20,10 +20,6 @@ export interface ReturnInnerMethods extends DrawerInstance {
 
 export type UseDrawerReturnType = [RegisterFn, ReturnMethods];
 export type UseDrawerInnerReturnType = [RegisterFn, ReturnInnerMethods];
-export enum DrawerType {
-  DETAIL,
-  DEFAULT,
-}
 
 export interface DrawerFooterProps {
   showOkBtn: boolean;
@@ -69,7 +65,7 @@ export interface DrawerFooterProps {
   footerHeight: string | number;
 }
 export interface DrawerProps extends DrawerFooterProps {
-  drawerType: DrawerType;
+  isDetail?: boolean;
   loading?: boolean;
   showDetailBack?: boolean;
   visible?: boolean;
