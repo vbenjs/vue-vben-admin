@@ -190,6 +190,14 @@
         return !!unref(getDataSourceRef).length;
       });
 
+      watch(
+        () => unref(getDataSourceRef),
+        () => {
+          handleSummary();
+        },
+        { immediate: true }
+      );
+
       function getRowClassName(record: TableCustomRecord<any>, index: number) {
         const { striped, rowClassName } = unref(getMergeProps);
         if (!striped) return;
@@ -241,14 +249,6 @@
           });
         }
       }
-
-      watch(
-        () => unref(getDataSourceRef),
-        () => {
-          handleSummary();
-        },
-        { immediate: true }
-      );
 
       function setProps(props: Partial<BasicTableProps>) {
         innerPropsRef.value = deepMerge(unref(innerPropsRef) || {}, props);
