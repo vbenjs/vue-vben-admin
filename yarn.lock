@@ -2557,10 +2557,10 @@ esbuild@^0.6.33:
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.6.34.tgz#76565a60e006f45d5f273b6e59e61ed0816551f5"
   integrity sha512-InRdL/Q96pUucPqovJzvuLhquZr6jOn81FDVwFjCKz1rYKIm9OdOC+7Fs4vr6x48vKBl5LzKgtjU39BUpO636A==
 
-esbuild@^0.7.1:
-  version "0.7.14"
-  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.7.14.tgz#9de555e75669187c2315317fbf489b229b1a4cbb"
-  integrity sha512-w2CEVeRcUhCGYMHnNNwb8q+9w42scL7RcNzJm85gZVzNBE3AF0sLq5YP/IdaTBJIFBphIKG3bGbwRH+zsgH/ig==
+esbuild@^0.7.19:
+  version "0.7.19"
+  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.7.19.tgz#6f8b94445e06f8bf6125183a877de6046c965abc"
+  integrity sha512-0Ur8ZtuRPwJMj4+VjRLqn5z88WXf+2etZhe4dBA6eYFcdviQefb+Vrd59cTk0VXg08NU/BnAMkalCMHI8lig/A==
 
 escalade@^3.1.0:
   version "3.1.0"
@@ -5846,7 +5846,7 @@ rollup-plugin-dynamic-import-variables@^1.1.0:
     globby "^11.0.0"
     magic-string "^0.25.7"
 
-rollup-plugin-esbuild@^2.5.0:
+rollup-plugin-esbuild@^2.5.2:
   version "2.5.2"
   resolved "https://registry.npmjs.org/rollup-plugin-esbuild/-/rollup-plugin-esbuild-2.5.2.tgz#fd7d4a88518898012a9d07e4c3ef8b4009c244d3"
   integrity sha512-E4q3ac1AlMd0m0ZRYffdiorOt2eZcxfbdPaqBLs7JLnPE8krgIAihOD6cTUc54UJjoOMA9WcY63TR+JKWLzYNw==
@@ -5916,6 +5916,13 @@ rollup@^2.26.11:
   version "2.29.0"
   resolved "https://registry.npmjs.org/rollup/-/rollup-2.29.0.tgz#0c5c5968530b21ca0e32f8b94b7cd9346cfb0eec"
   integrity sha512-gtU0sjxMpsVlpuAf4QXienPmUAhd6Kc7owQ4f5lypoxBW18fw2UNYZ4NssLGsri6WhUZkE/Ts3EMRebN+gNLiQ==
+  optionalDependencies:
+    fsevents "~2.1.2"
+
+rollup@^2.32.1:
+  version "2.32.1"
+  resolved "https://registry.npmjs.org/rollup/-/rollup-2.32.1.tgz#625a92c54f5b4d28ada12d618641491d4dbb548c"
+  integrity sha512-Op2vWTpvK7t6/Qnm1TTh7VjEZZkN8RWgf0DHbkKzQBwNf748YhXbozHVefqpPp/Fuyk/PQPAnYsBxAEtlMvpUw==
   optionalDependencies:
     fsevents "~2.1.2"
 
@@ -7023,19 +7030,19 @@ vfile@^4.0.0:
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
 
-vite-plugin-mock@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-1.0.2.tgz#07bdd67a8006fd60a6a83198479f3c0c57c7df53"
-  integrity sha512-GuHLfI+cEt4GwTQPAmXzk2Ujl8K4adJbpmHD9/ixLBJXSoYwzmEXXCeH7z44GuDNRnXi0NE/dG5qa+zamhNLFg==
+vite-plugin-mock@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-1.0.4.tgz#56631559afcd77046b058f162b2b5e8f5aaa7b17"
+  integrity sha512-jtos6ri0GAE/abv9VQyVvpPF5yQZaFx7vB7GV9wAZ5TQWqzH9nKUdmVj9ret7lC/oCnpaZn+2twxh4qzkVsd5Q==
   dependencies:
     "@rollup/plugin-node-resolve" "^9.0.0"
     chalk "^4.1.0"
     chokidar "^3.4.2"
-    esbuild "^0.7.1"
+    esbuild "^0.7.19"
     glob "^7.1.6"
     koa-bodyparser "^4.3.0"
-    rollup "^2.26.11"
-    rollup-plugin-esbuild "^2.5.0"
+    rollup "^2.32.1"
+    rollup-plugin-esbuild "^2.5.2"
 
 vite-plugin-purge-icons@^0.4.4:
   version "0.4.4"
