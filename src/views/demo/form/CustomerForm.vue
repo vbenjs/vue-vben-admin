@@ -1,6 +1,5 @@
 <template>
   <div class="m-4">
-    <div class="mb-4"> </div>
     <CollapseContainer title="自定义表单">
       <BasicForm @register="register" @submit="handleSubmit" />
     </CollapseContainer>

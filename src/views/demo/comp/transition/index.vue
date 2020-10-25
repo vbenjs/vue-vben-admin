@@ -59,7 +59,6 @@
       Select,
       FadeTransition,
       ScaleTransition,
-
       SlideYTransition,
       ScrollYTransition,
       SlideYReverseTransition,

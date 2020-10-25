@@ -1,4 +1,4 @@
-import type { Form, ValidationRule } from 'ant-design-vue/types/form/form';
+import type { Form, NamePath, ValidationRule } from 'ant-design-vue/types/form/form';
 import type { VNode } from 'vue';
 import type { BasicButtonProps } from '/@/components/Button/types';
 import type { FormItem } from './formItem';
@@ -12,16 +12,23 @@ export interface RenderCallbackParams {
   model: any;
   field: string;
 }
+
+export interface ButtonProps extends BasicButtonProps {
+  text?: string;
+}
+
 export interface FormActionType extends Form {
-  submit(): Promise<void>;
-  setFieldsValue<T>(values: T): void;
-  resetFields(): Promise<any>;
+  submit: () => Promise<void>;
+  setFieldsValue: <T>(values: T) => void;
+  resetFields: () => Promise<any>;
   getFieldsValue: () => any;
   clearValidate: (name?: string | string[]) => void;
-  updateSchema(data: Partial<FormSchema> | Partial<FormSchema>[]): void;
-  setProps(formProps: Partial<FormProps>): void;
-  removeSchemaByFiled(field: string | string[]): void;
-  appendSchemaByField(schema: FormSchema, prefixField?: string): void;
+  updateSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => void;
+  setProps: (formProps: Partial<FormProps>) => void;
+  removeSchemaByFiled: (field: string | string[]) => void;
+  appendSchemaByField: (schema: FormSchema, prefixField?: string) => void;
+  validateFields: (nameList?: NamePath[]) => Promise<any>;
+  validate: (nameList?: NamePath[]) => Promise<any>;
 }
 export type RegisterFn = (formInstance: FormActionType) => void;
 
@@ -38,7 +45,7 @@ export interface FormProps {
   wrapperCol?: Partial<ColEx>;
 
   // 通用col配置
-  baseColProps?: any;
+  baseColProps?: Partial<ColEx>;
 
   // 表单配置规则
   schemas?: FormSchema[];
@@ -55,7 +62,7 @@ export interface FormProps {
   // 时间区间字段映射成多个
   fieldMapToTime?: FieldMapToTime;
   // 自动设置placeholder
-  autoSetPlaceHolder: boolean;
+  autoSetPlaceHolder?: boolean;
   // 校验信息是否加入label
   rulesMessageJoinLabel?: boolean;
   // 是否显示收起展开按钮
@@ -66,10 +73,10 @@ export interface FormProps {
   showActionButtonGroup?: boolean;
 
   // 重置按钮配置
-  resetButtonOptions?: Partial<BasicButtonProps>;
+  resetButtonOptions?: Partial<ButtonProps>;
 
   // 确认按钮配置
-  submitButtonOptions?: Partial<BasicButtonProps>;
+  submitButtonOptions?: Partial<ButtonProps>;
 
   // 操作列配置
   actionColOptions?: Partial<ColEx>;
@@ -129,7 +136,7 @@ export interface FormSchema {
   render?: (renderCallbackParams: RenderCallbackParams) => VNode | VNode[] | string;
 
   // 渲染 col内容,需要外层包裹 form-item
-  renderColContent?: (renderCallbackParams: RenderCallbackParams) => VNode | VNode[];
+  renderColContent?: (renderCallbackParams: RenderCallbackParams) => VNode | VNode[] | string;
 
   renderComponentContent?: (renderCallbackParams: RenderCallbackParams) => any;
 

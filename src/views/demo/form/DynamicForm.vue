@@ -6,7 +6,6 @@
       <a-button @click="appendField" class="mr-2">往字段3后面插入字段10</a-button>
       <a-button @click="deleteField" class="mr-2">删除字段11</a-button>
     </div>
-    <div class="mb-4"> </div>
     <CollapseContainer title="动态表单示例,动态根据表单内其他值改变">
       <BasicForm @register="register" />
     </CollapseContainer>
