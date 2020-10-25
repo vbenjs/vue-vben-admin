@@ -6,7 +6,6 @@
       <a-button @click="getFormValues" class="mr-2">获取表单值</a-button>
       <a-button @click="setFormValues" class="mr-2">设置表单值</a-button>
     </div>
-    <div class="mb-4"> </div>
     <CollapseContainer title="表单校验">
       <BasicForm @register="register" @submit="handleSubmit" />
     </CollapseContainer>

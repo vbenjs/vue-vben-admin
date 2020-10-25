@@ -53,7 +53,6 @@
         修改查询按钮
       </a-button>
     </div>
-    <div class="mb-4"> </div>
     <CollapseContainer title="使用ref调用表单内部函数示例">
       <BasicForm
         :schemas="schemas"
