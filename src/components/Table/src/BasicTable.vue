@@ -64,7 +64,7 @@
   import { ROW_KEY } from './const';
   import { PaginationProps } from './types/pagination';
   import { deepMerge } from '/@/utils';
-  import { TableCustomRecord } from 'ant-design-vue/types/table/table';
+  import { SorterResult, TableCustomRecord } from 'ant-design-vue/types/table/table';
   import { useEvent } from '/@/hooks/event/useEvent';
 
   import './style/index.less';
@@ -216,12 +216,22 @@
         fetch({ searchInfo: info, page: 1 });
       }
 
-      function handleTableChange(pagination: PaginationProps) {
-        const { clearSelectOnPageChange } = unref(getMergeProps);
+      function handleTableChange(
+        pagination: PaginationProps,
+        filters: Partial<Record<string, string[]>>,
+        sorter: SorterResult<any>
+      ) {
+        const { clearSelectOnPageChange, sortFn } = unref(getMergeProps);
         if (clearSelectOnPageChange) {
           clearSelectedRowKeys();
         }
         setPagination(pagination);
+
+        if (sorter && isFunction(sortFn)) {
+          const sortInfo = sortFn(sorter);
+          fetch({ sortInfo });
+          return;
+        }
         fetch();
       }
 

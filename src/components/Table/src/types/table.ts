@@ -28,6 +28,8 @@ export interface RenderEditableCellParams {
 export interface FetchParams {
   searchInfo?: any;
   page?: number;
+  sortInfo?: any;
+  filterInfo?: any;
 }
 
 export interface GetColumnsParams {
@@ -75,6 +77,8 @@ export interface TableSetting {
 }
 
 export interface BasicTableProps<T = any> {
+  // 自定义排序方法
+  sortFn?: (sortInfo: SorterResult<any>) => any;
   // 显示表格设置
   showTableSetting?: boolean;
   tableSetting?: TableSetting;
@@ -106,7 +110,6 @@ export interface BasicTableProps<T = any> {
   emptyDataIsShowTable?: boolean;
   // 额外的请求参数
   searchInfo?: any;
-
   // 使用搜索表单
   useSearchForm?: boolean;
   // 表单配置
