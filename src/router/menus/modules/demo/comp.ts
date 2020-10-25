@@ -49,6 +49,10 @@ const menu: MenuModule = {
         name: '详情组件',
       },
       {
+        path: 'lazy',
+        name: '懒加载组件',
+      },
+      {
         path: 'verify',
         name: '验证组件',
         children: [
