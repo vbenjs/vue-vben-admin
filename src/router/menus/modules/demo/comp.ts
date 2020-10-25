@@ -13,6 +13,10 @@ const menu: MenuModule = {
         path: 'countTo',
         name: '数字动画',
       },
+      {
+        path: 'transition',
+        name: '动画组件',
+      },
 
       {
         path: 'scroll',
