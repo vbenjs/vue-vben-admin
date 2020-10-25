@@ -266,7 +266,7 @@
       }
 
       async function resetFields(): Promise<any> {
-        const { resetFunc } = unref(getProps);
+        const { resetFunc, submitOnReset } = unref(getProps);
         resetFunc && isFunction(resetFunc) && (await resetFunc());
         const formEl = unref(formElRef);
         if (!formEl) return;
@@ -276,6 +276,7 @@
         // const values = formEl.resetFields();
         emit('reset', toRaw(formModel));
         // return values;
+        submitOnReset && handleSubmit();
       }
 
       /**

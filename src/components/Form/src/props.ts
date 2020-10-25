@@ -30,6 +30,10 @@ export const basicProps = {
     type: Boolean,
     default: true,
   },
+  submitOnReset: {
+    type: Boolean,
+    default: false,
+  },
   size: {
     type: String as PropType<'default' | 'small' | 'large'>,
     default: 'default',

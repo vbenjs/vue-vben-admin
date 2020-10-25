@@ -30,7 +30,8 @@ export type UseFormReturnType = [RegisterFn, FormActionType];
 export interface FormProps {
   // 整个表单所有项宽度
   labelWidth?: number | string;
-
+  // 重置时提交
+  submitOnReset?: boolean;
   // 整个表单通用Col配置
   labelCol?: Partial<ColEx>;
   // 整个表单通用Col配置
