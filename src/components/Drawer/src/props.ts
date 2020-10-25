@@ -1,5 +1,4 @@
 import type { PropType } from 'vue';
-import { DrawerType } from './types';
 // import {DrawerProps} from './types'
 export const footerProps = {
   confirmLoading: Boolean as PropType<boolean>,
@@ -41,9 +40,9 @@ export const footerProps = {
   },
 };
 export const basicProps = {
-  drawerType: {
-    type: Number as PropType<number>,
-    default: DrawerType.DEFAULT,
+  isDetail: {
+    type: Boolean as PropType<boolean>,
+    default: false,
   },
   title: {
     type: String as PropType<string>,
