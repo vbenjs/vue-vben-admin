@@ -24,6 +24,14 @@ export default {
       },
     },
     {
+      path: '/transition',
+      name: 'transitionDemo',
+      component: () => import('/@/views/demo/comp/transition/index.vue'),
+      meta: {
+        title: '动画组件',
+      },
+    },
+    {
       path: '/countTo',
       name: 'CountTo',
       component: () => import('/@/views/demo/comp/count-to/index.vue'),

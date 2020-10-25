@@ -6,6 +6,7 @@
 - 新增 tinymce 富文本组件
 - 表单新增 submitOnReset 控制是否在重置时重新发起请求
 - 表格新增`sortFn`支持自定义排序
+- 新增动画组件及示例
 
 ### ✨ Refactor
 
