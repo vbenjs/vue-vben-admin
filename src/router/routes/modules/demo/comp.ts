@@ -99,7 +99,14 @@ export default {
         title: '详情组件',
       },
     },
-
+    {
+      path: '/lazy',
+      name: 'lazyDemo',
+      component: () => import('/@/views/demo/comp/lazy/index.vue'),
+      meta: {
+        title: '懒加载组件',
+      },
+    },
     {
       path: '/verify',
       name: 'VerifyDemo',
