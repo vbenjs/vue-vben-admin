@@ -98,6 +98,8 @@ export function useDataSource(
         ...(useSearchForm ? getFieldsValue() : {}),
         ...searchInfo,
         ...(opt ? opt.searchInfo : {}),
+        ...(opt ? opt.sortInfo : {}),
+        ...(opt ? opt.filterInfo : {}),
       };
       if (beforeFetch && isFunction(beforeFetch)) {
         params = beforeFetch(params) || params;
