@@ -1,3 +1,36 @@
+## # 2.0.0-rc.5 (2020-10-26)
+
+### ✨ Features
+
+- Update component documentation
+- Breadcrumbs support display icon
+- Added tinymce rich text component
+- Add submitOnReset to the form to control whether to re-initiate the request when reset
+- Added `sortFn` to the table to support custom sorting
+- Added animation components and examples
+- Added lazy loading/delay loading components and examples
+
+### ✨ Refactor
+
+- The detailType of the Drawer component is changed to isDetail
+
+### 🎫 Chores
+
+- Remove the optional chain syntax in the code
+- Form reset logic modification
+- Turn off multi-tab page tabs animation
+- Upgrade vite version to `v1.0.0.rc6`
+- Delete Chinese path warning. rc6 has been fixed
+
+### 🐛 Bug Fixes
+
+- Fix the automatic height and display footer display problems of drawer components
+- Reset to default value after repairing form query
+- Fix the problem of displaying the collapsed menu when there are no child nodes
+- Fix the problem of breadcrumb display style
+- Fixed the problem of multiple open drag and drop failure when destroyOnClose=true in modal
+- Fixed multiple action columns in the table
+
 # 2.0.0-rc.4 (2020-10-21)
 
 ### ✨ Features
