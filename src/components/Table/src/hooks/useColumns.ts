@@ -1,6 +1,6 @@
 import { BasicColumn, BasicTableProps } from '../types/table';
 import { PaginationProps } from '../types/pagination';
-import { unref, ComputedRef, Ref, computed, watch, ref } from 'vue';
+import { unref, ComputedRef, Ref, computed, watchEffect, ref, toRaw } from 'vue';
 import { isBoolean, isArray, isObject } from '/@/utils/is';
 import { PAGE_SIZE } from '../const';
 import { useProps } from './useProps';
@@ -10,20 +10,9 @@ export function useColumns(
   getPaginationRef: ComputedRef<false | PaginationProps>
 ) {
   const { propsRef } = useProps(refProps);
-
   const columnsRef = (ref(unref(propsRef).columns) as unknown) as Ref<BasicColumn[]>;
   const cacheColumnsRef = (ref(unref(propsRef).columns) as unknown) as Ref<BasicColumn[]>;
 
-  watch(
-    () => unref(propsRef).columns,
-    (columns) => {
-      columnsRef.value = columns;
-      cacheColumnsRef.value = columns;
-    },
-    {
-      immediate: true,
-    }
-  );
   const getColumnsRef = computed(() => {
     const props = unref(propsRef);
     const { showIndexColumn, indexColumnProps, ellipsis, actionColumn, isTreeTable } = props;
@@ -81,14 +70,22 @@ export function useColumns(
     }
     if (actionColumn) {
       const hasIndex = columns.findIndex((column) => column.flag === 'ACTION');
-      columns.push({
-        ...(hasIndex === -1 ? columns[hasIndex] : {}),
-        fixed: 'right',
-        ...actionColumn,
-        flag: 'ACTION',
-      });
+      if (hasIndex === -1) {
+        columns.push({
+          ...columns[hasIndex],
+          fixed: 'right',
+          ...actionColumn,
+          flag: 'ACTION',
+        });
+      }
     }
     return columns;
+  });
+
+  watchEffect(() => {
+    const columns = toRaw(unref(propsRef).columns);
+    columnsRef.value = columns;
+    cacheColumnsRef.value = columns;
   });
 
   function setColumns(columns: BasicColumn[] | string[]) {
