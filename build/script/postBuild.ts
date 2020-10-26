@@ -12,7 +12,7 @@ export const runBuild = async (preview = false) => {
   try {
     const argvList = argv._;
     if (preview) {
-      let cmd = `cross-env NODE_ENV=production vite build`;
+      let cmd = `npm run build`;
       await sh(cmd, {
         async: true,
         nopipe: true,
@@ -33,3 +33,4 @@ export const runBuild = async (preview = false) => {
     process.exit(1);
   }
 };
+runBuild();

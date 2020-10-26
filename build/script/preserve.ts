@@ -4,29 +4,26 @@ import path from 'path';
 import fs from 'fs-extra';
 import { isEqual } from 'lodash';
 import { sh } from 'tasksfile';
-import {
-  successConsole,
-  //  errorConsole
-} from '../utils';
+import { successConsole, errorConsole } from '../utils';
 
 const resolve = (dir: string) => {
   return path.resolve(process.cwd(), dir);
 };
 
-// const reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+const reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
 
 let NEED_INSTALL = false;
 
 export async function runPreserve() {
   // rc.6 fixed
-  // const cwdPath = process.cwd();
-  // if (reg.test(cwdPath)) {
-  //   errorConsole(
-  //     'Do not include Chinese, Japanese or Korean in the full path of the project directory, please modify the directory name and run again!'
-  //   );
-  //   errorConsole('项目目录全路径请勿包含中文、日文、韩文,请修改目录名后再次重新运行!');
-  //   process.exit(1);
-  // }
+  const cwdPath = process.cwd();
+  if (reg.test(cwdPath)) {
+    errorConsole(
+      'Do not include Chinese, Japanese or Korean in the full path of the project directory, please modify the directory name and run again!'
+    );
+    errorConsole('项目目录全路径请勿包含中文、日文、韩文,请修改目录名后再次重新运行!');
+    process.exit(1);
+  }
 
   fs.mkdirp(resolve('build/.cache'));
   function checkPkgUpdate() {
