@@ -25,8 +25,6 @@
   import { bindHandlers } from './helper';
   import LineHeight from './lineHeight';
 
-  console.log(LineHeight);
-
   const CDN_URL = 'https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1';
 
   const tinymceScriptSrc = `${CDN_URL}/tinymce.min.js`;
