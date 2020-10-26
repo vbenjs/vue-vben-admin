@@ -23,7 +23,7 @@
   import { useScript } from '/@/hooks/web/useScript';
   import { snowUuid } from '/@/utils/uuid';
   import { bindHandlers } from './helper';
-  import LineHeight from './lineHeight';
+  // import lineHeight from './lineHeight';
 
   const CDN_URL = 'https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1';
 
@@ -71,7 +71,7 @@
           advlist_number_styles: 'default',
           object_resizing: false,
           fontsize_formats: '10px 11px 12px 14px 16px 18px 20px 24px 36px 48px',
-          lineheight_formats: "1 1.5 1.75 2.0 3.0 4.0 5.0",
+          lineheight_formats: '1 1.5 1.75 2.0 3.0 4.0 5.0',
           ...options,
           setup: (editor: any) => {
             editorRef.value = editor;
@@ -120,7 +120,7 @@
       }
 
       function initEditor() {
-        getTinymce().PluginManager.add('lineHeight', LineHeight(getTinymce()));
+        // getTinymce().PluginManager.add('lineHeight', lineHeight(getTinymce()));
         getTinymce().init(unref(initOptions));
       }
 
