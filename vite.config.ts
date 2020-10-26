@@ -60,6 +60,12 @@ const vitePlugins: VitePlugin[] = [];
 
 const viteConfig: UserConfig = {
   /**
+   * Entry. Use this to specify a js entry file in use cases where an
+   * `index.html` does not exist (e.g. serving vite assets from a different host)
+   * @default 'index.html'
+   */
+  entry: 'public/index.html',
+  /**
    * 端口号
    * @default '3000'
    */
