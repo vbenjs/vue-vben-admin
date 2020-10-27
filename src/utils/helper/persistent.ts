@@ -6,10 +6,15 @@ import { BASE_LOCAL_CACHE_KEY, BASE_SESSION_CACHE_KEY } from '/@/enums/cacheEnum
 const ls = createStorage(localStorage);
 const ss = createStorage();
 
+interface CacheStore {
+  local?: any;
+  session?: any;
+}
+
 /**
  * @description:  Persistent cache
  */
-const cacheStore: any = {
+const cacheStore: CacheStore = {
   // localstorage cache
   local: {},
   // sessionstorage cache

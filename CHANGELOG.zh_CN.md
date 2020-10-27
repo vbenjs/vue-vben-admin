@@ -15,6 +15,7 @@
 ### ⚡ Performance Improvements
 
 - `setTitle`逻辑调整
+- 将系统用到的 sessionStorage 及 LocalStorage 缓存设置默认 `7` 天过期
 
 ### ✨ Refactor
 
