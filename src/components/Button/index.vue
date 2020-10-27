@@ -4,9 +4,9 @@
       <slot :name="item" v-bind="data" />
     </template> -->
     <template #default="data">
-      <g-icon :icon="preIcon" class="mr-1" v-if="preIcon" />
+      <Icon :icon="preIcon" class="mr-1" v-if="preIcon" />
       <slot v-bind="data" />
-      <g-icon :icon="preIcon" class="ml-1" v-if="postIcon" />
+      <Icon :icon="postIcon" class="ml-1" v-if="postIcon" />
     </template>
   </Button>
 </template>
@@ -18,10 +18,11 @@
   // import { extendSlots } from '/@/utils/helper/tsxHelper';
   import { useThrottle } from '/@/hooks/core/useThrottle';
   import { isFunction } from '/@/utils/is';
+  import Icon from '/@/components/Icon';
   export default defineComponent({
     name: 'AButton',
     inheritAttrs: false,
-    components: { Button },
+    components: { Button, Icon },
     props: {
       // 按钮类型
       type: {

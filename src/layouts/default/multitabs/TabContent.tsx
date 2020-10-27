@@ -60,7 +60,7 @@ export default defineComponent({
       if (!tabItem) return;
       const icon = tabItem.meta && tabItem.meta.icon;
       if (!icon || !unref(getProjectConfigRef).multiTabsSetting.showIcon) return null;
-      return <Icon icon={icon} class="align-middle mb-1" />;
+      return <Icon icon={icon} class="align-middle " style={{ marginBottom: '2px' }} />;
     }
     function renderTabContent() {
       const { tabItem: { meta } = {} } = props;
