@@ -13,6 +13,7 @@
 - build 目录结构调整
 - 依赖更新
 - 文档更新
+- 修改默认路由切换动画
 
 ### ⚡ Performance Improvements
 
