@@ -1,7 +1,12 @@
 <template>
   <Button v-bind="getBindValue" :class="[getColor, $attrs.class]">
-    <template #[item]="data" v-for="item in Object.keys($slots)">
+    <!-- <template #[item]="data" v-for="item in Object.keys($slots)">
       <slot :name="item" v-bind="data" />
+    </template> -->
+    <template #default="data">
+      <g-icon :icon="preIcon" class="mr-1" v-if="preIcon" />
+      <slot v-bind="data" />
+      <g-icon :icon="preIcon" class="ml-1" v-if="postIcon" />
     </template>
   </Button>
 </template>
@@ -43,6 +48,12 @@
       disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
+      },
+      preIcon: {
+        type: String as PropType<string>,
+      },
+      postIcon: {
+        type: String as PropType<string>,
       },
     },
     setup(props, { attrs }) {
