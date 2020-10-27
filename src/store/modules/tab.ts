@@ -98,11 +98,21 @@ class Tab extends VuexModule {
       return;
     }
 
+    let updateIndex = -1;
     // 已经存在的页面，不重复添加tab
-    const hasTab = this.tabsState.some((tab) => {
-      return tab.fullPath === fullPath;
+    const hasTab = this.tabsState.some((tab, index) => {
+      updateIndex = index;
+      return (tab.fullPath || tab.path) === (fullPath || path);
     });
-    if (hasTab) return;
+    if (hasTab) {
+      const curTab = toRaw(this.tabsState)[updateIndex];
+      if (!curTab) return;
+      curTab.params = params || curTab.params;
+      curTab.query = query || curTab.query;
+      curTab.fullPath = fullPath || curTab.fullPath;
+      this.tabsState.splice(updateIndex, 1, curTab);
+      return;
+    }
 
     this.tabsState.push({ path, fullPath, name, meta, params, query });
     if (unref(getOpenKeepAliveRef) && name) {
