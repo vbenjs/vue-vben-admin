@@ -64,7 +64,8 @@ const viteConfig: UserConfig = {
    * `index.html` does not exist (e.g. serving vite assets from a different host)
    * @default 'index.html'
    */
-  entry: 'public/index.html',
+  // TODO build error
+  // entry: './public/index.html',
   /**
    * 端口号
    * @default '3000'
