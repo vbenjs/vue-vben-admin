@@ -104,7 +104,7 @@ const setting: ProjectConfig = {
   openRouterTransition: true,
 
   // 路由切换动画
-  routerTransition: RouterTransitionEnum.ZOOM_FADE,
+  routerTransition: RouterTransitionEnum.FADE_SIDE,
 
   // 是否开启登录安全校验
   openLoginVerify: true,

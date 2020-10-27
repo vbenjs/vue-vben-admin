@@ -55,7 +55,7 @@
       function handleLoading() {
         createMessage.loading('Loading...');
       }
-      function handleConfirm(type: 'warning' | 'error' | 'success') {
+      function handleConfirm(type: 'warning' | 'error' | 'success' | 'info') {
         createConfirm({
           iconType: type,
           title: 'Tip',

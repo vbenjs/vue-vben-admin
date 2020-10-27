@@ -65,7 +65,7 @@ const routerTransitionOptions = [
   RouterTransitionEnum.ZOOM_FADE,
   RouterTransitionEnum.FADE,
   RouterTransitionEnum.ZOOM_OUT,
-  RouterTransitionEnum.SIDE_FADE,
+  RouterTransitionEnum.FADE_SIDE,
   RouterTransitionEnum.FADE_BOTTOM,
 ].map((item) => {
   return {
