@@ -11,8 +11,8 @@ import gzipPlugin from './gzip/index';
 
 import { hmScript } from '../hm';
 
-const pkg = require('../../../package.json');
-
+// @ts-ignore
+import pkg from '../../../package.json';
 import { isDevFn, isProdFn, isSiteMode, ViteEnv, isReportMode, isBuildGzip } from '../../utils';
 import { GLOB_CONFIG_FILE_NAME } from '../../constant';
 
