@@ -23,7 +23,7 @@ export function genRouteModule(moduleList: AppRouteModule[]) {
   for (const routeMod of moduleList) {
     const routes = routeMod.routes as any;
     const layout = routeMod.layout;
-    const router = createRouter({ routes, history: createWebHashHistory() });
+    let router = createRouter({ routes, history: createWebHashHistory() });
 
     const flatList = toRaw(router.getRoutes()).filter((item) => item.children.length === 0);
     try {
