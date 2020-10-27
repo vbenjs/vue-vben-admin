@@ -31,6 +31,7 @@
 - [Finished features](#finished-features)
 - [Developing features](#developing-features)
 - [Browser support](#browser-support)
+- [Plugins](#plugins)
 
 ## Introduction
 
@@ -250,3 +251,10 @@ Support modern browsers, Not currently supported ie11，Follow-up consideration 
 | not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
 More browsers can view [Can I Use Es Module](https://caniuse.com/?search=ES%20Module)
+
+## Plugins
+
+If these plugins are helpful to you, you can give a star
+
+- [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock)
+- [vite-plugin-html](https://github.com/anncwb/vite-plugin-html)

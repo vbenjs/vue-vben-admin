@@ -1,62 +1,30 @@
+import type { UserConfig } from 'vite';
+
 import { resolve } from 'path';
 
-import type { UserConfig, Plugin as VitePlugin } from 'vite';
+import { modifyVars } from './build/config/lessModifyVars';
+import { createProxy } from './build/vite/proxy';
+import globbyTransform from './build/vite/plugin/context/transform';
 
-import visualizer from 'rollup-plugin-visualizer';
-import { modifyVars } from './build/config/glob/lessModifyVars';
-import {
-  // externals,
-  cdnConf,
-} from './build/config/vite/cdn';
-import { createProxy } from './build/config/vite/proxy';
-import { createMockServer } from 'vite-plugin-mock';
-import PurgeIcons from 'vite-plugin-purge-icons';
-import gzipPlugin from './build/plugin/gzip/index';
-import globbyTransform from './build/plugin/vite-plugin-context/transform';
+import { isDevFn, loadEnv } from './build/utils';
 
-import { isDevFn, isReportMode, isProdFn, loadEnv, isBuildGzip, isSiteMode } from './build/utils';
+import { createRollupPlugin, createVitePlugins } from './build/vite/plugin';
+
 const pkg = require('./package.json');
 
+const viteEnv = loadEnv();
+
 const {
-  VITE_USE_MOCK,
   VITE_PORT,
   VITE_PUBLIC_PATH,
   VITE_PROXY,
-  VITE_GLOB_APP_TITLE,
   VITE_DROP_CONSOLE,
   // VITE_USE_CDN,
-} = loadEnv();
+} = viteEnv;
 
 function pathResolve(dir: string) {
   return resolve(__dirname, '.', dir);
 }
-
-const rollupPlugins: any[] = [];
-const vitePlugins: VitePlugin[] = [];
-
-(() => {
-  if (isProdFn()) {
-    if (isReportMode()) {
-      // report
-      rollupPlugins.push(
-        visualizer({ filename: './build/.cache/stats.html', open: true }) as Plugin
-      );
-    }
-    if (isBuildGzip() || isSiteMode()) {
-      rollupPlugins.push(gzipPlugin());
-    }
-  }
-
-  if (isDevFn() && VITE_USE_MOCK) {
-    // open mock
-    vitePlugins.push(
-      createMockServer({
-        ignore: /^\_/,
-        mockPath: 'mock',
-      })
-    );
-  }
-})();
 
 const viteConfig: UserConfig = {
   /**
@@ -152,54 +120,14 @@ const viteConfig: UserConfig = {
 
   // 本地跨域代理
   proxy: createProxy(VITE_PROXY),
-
-  plugins: [PurgeIcons(), ...vitePlugins],
-  rollupOutputOptions: {},
+  plugins: createVitePlugins(viteEnv),
   rollupInputOptions: {
     // TODO
     // external: VITE_USE_CDN ? externals : [],
-    plugins: rollupPlugins,
+    plugins: createRollupPlugin(),
   },
 };
 
-// 扩展配置, 往打包后的html注入内容
-// 只针对生产环境
-// TODO 目前只是简单手动注入实现，后续vite应该会提供配置项
-export const htmlConfig: {
-  title: string;
-  addHm?: boolean;
-  cdnConf?: {
-    css?: string[];
-    js?: string[];
-  };
-  useCdn: boolean;
-  minify: {
-    enable: boolean;
-    removeComments: boolean;
-    collapseWhitespace: boolean;
-    minifyJS: boolean;
-    minifyCSS: boolean;
-  };
-} = {
-  // html title
-  title: VITE_GLOB_APP_TITLE,
-  // 百度统计，不需要可以删除
-  // 用于打包部署站点使用。实际项目可以删除
-  addHm: isSiteMode(),
-  // 使用cdn打包
-  // TODO Cdn esm使用方式需要只能支持google，暂时关闭，后续查询更好的方式
-  useCdn: false,
-  // useCdn: VITE_USE_CDN,
-  // cdn列表
-  cdnConf,
-  minify: {
-    enable: true,
-    removeComments: true,
-    collapseWhitespace: true,
-    minifyJS: true,
-    minifyCSS: true,
-  },
-};
 export default {
   ...viteConfig,
   transforms: [globbyTransform(viteConfig)],

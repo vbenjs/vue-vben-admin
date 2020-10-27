@@ -31,6 +31,7 @@
 - [已完成功能](#已完成功能)
 - [正在开发的功能](#正在开发的功能)
 - [浏览器支持](#浏览器支持)
+- [插件](#插件-1)
 - [加入我们](#加入我们)
 
 ## 介绍
@@ -248,6 +249,13 @@ yarn clean:lib # 删除node_modules，兼容window系统
 | not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
 更多浏览器可以查看 [Can I Use Es Module](https://caniuse.com/?search=ES%20Module)
+
+## 插件
+
+如果这些插件对你有帮助，可以给一个 star 支持下
+
+- [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock)
+- [vite-plugin-html](https://github.com/anncwb/vite-plugin-html)
 
 ## 加入我们
 
