@@ -1,3 +1,36 @@
+## 2.0.0-rc.6 (2020-10-28)
+
+### ✨ Features
+
+- Added `pwa` function, which can be turned on in `.env.production`
+- Button component extends `preIcon` and `postIcon` attributes to add icons before and after the text
+- Restore the breadcrumb display icon function
+
+### 🎫 Chores
+
+- Upgrade vite version to `v1.0.0.rc8`
+- vite.config.ts internal plugins extraction
+- Build directory structure adjustment
+- Dependency update
+- Documentation update
+- Modify the default route switching animation
+
+### ⚡ Performance Improvements
+
+- `setTitle` logic adjustment
+- The sessionStorage and LocalStorage cache settings used by the system expire in `7` days by default
+
+### ✨ Refactor
+
+- Separate `vite-plugin-html` and modify the logic of inserting html
+
+### 🐛 Bug Fixes
+
+- Fix the warning problem of multiple registration components during hot update
+- Fix the login tab page appears after login
+- Fix the problem of routing switch parameter disappearance
+- Fix the useMessage icon style problem
+
 ## # 2.0.0-rc.5 (2020-10-26)
 
 ### ✨ Features
