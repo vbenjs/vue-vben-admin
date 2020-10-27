@@ -1,11 +1,16 @@
 ## Wip
 
+### ✨ Features
+
+- 新增`pwa`功能，可在`.env.production`开启
+
 ### 🎫 Chores
 
 - 升级 vite 版本为`v1.0.0.rc8`
 - vite.config.ts 内部 plugins 抽取
 - build 目录结构调整
 - 依赖更新
+- 文档更新
 
 ### ✨ Refactor
 
