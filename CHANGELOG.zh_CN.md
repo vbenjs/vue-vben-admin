@@ -12,6 +12,10 @@
 - 依赖更新
 - 文档更新
 
+### ⚡ Performance Improvements
+
+- `setTitle`逻辑调整
+
 ### ✨ Refactor
 
 - 独立出`vite-plugin-html`,并修改相关插入 html 的逻辑
@@ -19,6 +23,7 @@
 ### 🐛 Bug Fixes
 
 - 修复热更新时多次注册组件警告问题
+- 修复登录后出现登录标签页
 
 ## 2.0.0-rc.5 (2020-10-26)
 
