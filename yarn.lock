@@ -1045,10 +1045,10 @@
   resolved "https://registry.npmjs.org/@iconify/iconify/-/iconify-2.0.0-rc.1.tgz#a8bae29d71016d5af98c69f56a73c4a040217b3a"
   integrity sha512-ji5H04VjYtR4seIEgVVLPxg1KRhrFquOiyfPyLVS6vYPkuqV6bcWdssi05YSmf/OAzG4E7Qsg80/bOKyd5tYTw==
 
-"@iconify/json@^1.1.247":
-  version "1.1.247"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.247.tgz#cdea97edc76d37ce9ba04410659a72af4e60b780"
-  integrity sha512-Af4WbD4ejTIrU/ESCPquCHFuQQrMv8YpBFsbVycRfq+jBYUpDj+PorqkXm1fdob8d1txvKXpnhHRX8U0FgD5gQ==
+"@iconify/json@^1.1.248":
+  version "1.1.248"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.248.tgz#32556cf0e4a394c720349fbf90574d5cfb5c2c24"
+  integrity sha512-wZPRBzozizKT1UIXZnHu/vyCol6KEq3whE72V6NsOCYOdEswlYXdP7X9A5Xrk2QOKSnhKHekYuCqt5w7A/JFYA==
 
 "@koa/cors@^3.1.0":
   version "3.1.0"
@@ -7954,10 +7954,10 @@ vary@^1.1.2:
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-vditor@^3.5.5:
-  version "3.5.5"
-  resolved "https://registry.npmjs.org/vditor/-/vditor-3.5.5.tgz#03b7c965470fd434cd098e3f6ac6c7e65ca5a52a"
-  integrity sha512-NpBa0c1tK3jnH/E+rWkDO2x/bDx33KIWuThjF70gING58zuluxicGczuVb2KvdLxWoozJ6MaH5DQjj66Jct1QA==
+vditor@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.npmjs.org/vditor/-/vditor-3.6.0.tgz#7739efea1e8a9fd37d2dbb3c0e3ca7b288aaed43"
+  integrity sha512-RzcHGntGEzpNcnRczhrWVYq9lZLEfiOGu3vX0wQQqFZUMHC3bjZIWSJJtHCUgrKdaHXheEhUH2vWLoJA3Ino6A==
   dependencies:
     diff-match-patch "^1.0.5"
 

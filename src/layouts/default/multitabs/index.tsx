@@ -77,6 +77,7 @@ export default defineComponent({
         }
       },
       {
+        flush: 'post',
         immediate: true,
       }
     );
