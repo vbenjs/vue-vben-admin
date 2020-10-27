@@ -1,5 +1,6 @@
 import type { AppRouteRecordRaw } from '/@/router/types';
 import type { RouteLocationMatched } from 'vue-router';
+import type { PropType } from 'vue';
 
 import { defineComponent, TransitionGroup, unref, watch, ref } from 'vue';
 import Breadcrumb from '/@/components/Breadcrumb/Breadcrumb.vue';
@@ -10,10 +11,17 @@ import { PageEnum } from '/@/enums/pageEnum';
 import { isBoolean } from '/@/utils/is';
 
 import { compile } from 'path-to-regexp';
+import Icon from '/@/components/Icon';
 
 export default defineComponent({
   name: 'BasicBreadcrumb',
-  setup() {
+  props: {
+    showIcon: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    },
+  },
+  setup(props) {
     const itemList = ref<AppRouteRecordRaw[]>([]);
 
     const { currentRoute, push } = useRouter();
@@ -82,7 +90,20 @@ export default defineComponent({
                     isLink={isLink}
                     onClick={handleItemClick.bind(null, item)}
                   >
-                    {() => item.meta.title}
+                    {() => (
+                      <>
+                        {props.showIcon && item.meta.icon && item.meta.icon.trim() !== '' && (
+                          <Icon
+                            icon={item.meta.icon}
+                            class="icon mr-1 "
+                            style={{
+                              marginBottom: '2px',
+                            }}
+                          />
+                        )}
+                        {item.meta.title}
+                      </>
+                    )}
                   </BreadcrumbItem>
                 );
               });
