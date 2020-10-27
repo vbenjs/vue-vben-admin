@@ -116,20 +116,20 @@ const transform: AxiosTransform = {
       } else {
         // 兼容restful风格
         config.url = config.url + config.params + `?_t=${now}`;
-        config.params = {};
+        config.params = undefined;
       }
     } else {
       if (!isString(config.params)) {
         formatDate && formatRequestDate(config.params);
         config.data = config.params;
-        config.params = {};
+        config.params = undefined;
         if (joinParamsToUrl) {
           config.url = setObjToUrlParams(config.url as string, config.data);
         }
       } else {
         // 兼容restful风格
         config.url = config.url + config.params;
-        config.params = {};
+        config.params = undefined;
       }
     }
     return config;
