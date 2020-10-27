@@ -2,6 +2,7 @@ import type { Plugin as VitePlugin } from 'vite';
 import type { Plugin as rollupPlugin } from 'rollup';
 
 import { createMockServer } from 'vite-plugin-mock';
+import { VitePWA } from 'vite-plugin-pwa';
 import ViteHtmlPlugin from 'vite-plugin-html';
 import PurgeIcons from 'vite-plugin-purge-icons';
 
@@ -17,7 +18,7 @@ import { GLOB_CONFIG_FILE_NAME } from '../../constant';
 
 // gen vite plugins
 export function createVitePlugins(viteEnv: ViteEnv) {
-  const { VITE_USE_MOCK, VITE_GLOB_APP_TITLE, VITE_PUBLIC_PATH } = viteEnv;
+  const { VITE_USE_MOCK, VITE_GLOB_APP_TITLE, VITE_PUBLIC_PATH, VITE_USE_PWA } = viteEnv;
 
   const vitePlugins: VitePlugin[] = [];
 
@@ -42,6 +43,13 @@ export function createVitePlugins(viteEnv: ViteEnv) {
 
   // vite-plugin-purge-icons
   vitePlugins.push(PurgeIcons());
+
+  if (isProdFn() && VITE_USE_PWA) {
+    console.log('======================');
+    console.log(VITE_USE_PWA);
+    console.log('======================');
+    vitePlugins.push(VitePWA());
+  }
 
   // vite-plugin-mock
   if (isDevFn() && VITE_USE_MOCK) {

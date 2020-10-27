@@ -91,6 +91,7 @@
     "vite-plugin-html": "^1.0.0-beta.2",
     "vite-plugin-mock": "^1.0.4",
     "vite-plugin-purge-icons": "^0.4.4",
+    "vite-plugin-pwa": "^0.1.2",
     "vue-eslint-parser": "^7.1.1",
     "yargs": "^16.1.0"
   },
