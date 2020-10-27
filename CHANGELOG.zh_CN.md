@@ -4,6 +4,7 @@
 
 - 新增`pwa`功能，可在`.env.production`开启
 - Button 组件扩展 `preIcon`和`postIcon`属性用于在文本前后添加图标
+- 恢复面包屑显示图标功能
 
 ### 🎫 Chores
 
