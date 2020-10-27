@@ -4,15 +4,15 @@ import { sh } from 'tasksfile';
 
 import { argv } from 'yargs';
 import { runBuildConfig } from './buildConf';
-import { runUpdateHtml } from './updateHtml';
+// import { runUpdateHtml } from './updateHtml';
 import { errorConsole, successConsole } from '../utils';
-import { startGzipStyle } from '../plugin/gzip/compress';
+import { startGzipStyle } from '../vite/plugin/gzip/compress';
 
 export const runBuild = async (preview = false) => {
   try {
     const argvList = argv._;
     if (preview) {
-      let cmd = `npm run build`;
+      let cmd = `cross-env NODE_ENV=production vite build`;
       await sh(cmd, {
         async: true,
         nopipe: true,
@@ -23,7 +23,7 @@ export const runBuild = async (preview = false) => {
     if (!argvList.includes('no-conf')) {
       await runBuildConfig();
     }
-    await runUpdateHtml();
+    // await runUpdateHtml();
     if (!preview) {
       await startGzipStyle();
     }
