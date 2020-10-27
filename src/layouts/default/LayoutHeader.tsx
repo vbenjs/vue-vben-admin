@@ -22,12 +22,13 @@ import { useModal } from '/@/components/Modal/index';
 import { errorStore } from '/@/store/modules/error';
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
 import NoticeAction from './actions/notice/NoticeActionItem.vue';
-
+import { useRouter } from 'vue-router';
 export default defineComponent({
   name: 'DefaultLayoutHeader',
   setup() {
     const widthRef = ref(200);
-    const { refreshPage, addTab } = useTabs();
+    const { refreshPage } = useTabs();
+    const { push } = useRouter();
     const [register, { openModal }] = useModal();
     const { toggleFullscreen, isFullscreenRef } = useFullscreen();
 
@@ -70,7 +71,7 @@ export default defineComponent({
 
     function handleToErrorList() {
       errorStore.commitErrorListCountState(0);
-      addTab('/exception/error-log', true);
+      push('/exception/error-log');
     }
 
     /**
