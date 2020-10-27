@@ -87,6 +87,6 @@ export interface MessageOptions {
   offset?: number;
 }
 export interface ModalOptionsEx extends Omit<ModalOptions, 'iconType'> {
-  iconType: 'warning' | 'success' | 'error';
+  iconType: 'warning' | 'success' | 'error' | 'info';
 }
 export type ModalOptionsPartial = Partial<ModalOptionsEx> & Pick<ModalOptionsEx, 'content'>;

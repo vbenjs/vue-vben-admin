@@ -13,6 +13,7 @@
     </CollapseContainer>
 
     <CollapseContainer class="px-20 bg-white w-full h-32 rounded-md mt-5" title="Comfirm">
+      <a-button @click="handleConfirm('info')" class="mr-2">Info</a-button>
       <a-button @click="handleConfirm('warning')" color="warning" class="mr-2">Warning</a-button>
       <a-button @click="handleConfirm('success')" color="success" class="mr-2">Success</a-button>
       <a-button @click="handleConfirm('error')" color="error" class="mr-2">Error</a-button>

@@ -13,6 +13,8 @@ function getIcon(iconType: string) {
     return <InfoCircleFilled class="modal-icon-warning" />;
   } else if (iconType === 'success') {
     return <CheckCircleFilled class="modal-icon-success" />;
+  } else if (iconType === 'info') {
+    return <InfoCircleFilled class="modal-icon-info" />;
   } else {
     return <CloseCircleFilled class="modal-icon-error" />;
   }
@@ -49,7 +51,7 @@ function createModalOptions(options: ModalOptionsPartial, icon: string): ModalOp
   };
 }
 function createSuccessModal(options: ModalOptionsPartial) {
-  return Modal.success(createModalOptions(options, 'check'));
+  return Modal.success(createModalOptions(options, 'success'));
 }
 function createErrorModal(options: ModalOptionsPartial) {
   return Modal.error(createModalOptions(options, 'close'));
@@ -58,7 +60,7 @@ function createInfoModal(options: ModalOptionsPartial) {
   return Modal.info(createModalOptions(options, 'info'));
 }
 function createWarningModal(options: ModalOptionsPartial) {
-  return Modal.warning(createModalOptions(options, 'info'));
+  return Modal.warning(createModalOptions(options, 'warning'));
 }
 
 notification.config({
