@@ -7993,10 +7993,10 @@ vite-plugin-html@^1.0.0-beta.2:
     html-minifier-terser "^5.1.1"
     lodash "^4.17.20"
 
-vite-plugin-mock@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-1.0.4.tgz#56631559afcd77046b058f162b2b5e8f5aaa7b17"
-  integrity sha512-jtos6ri0GAE/abv9VQyVvpPF5yQZaFx7vB7GV9wAZ5TQWqzH9nKUdmVj9ret7lC/oCnpaZn+2twxh4qzkVsd5Q==
+vite-plugin-mock@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-1.0.6.tgz#4f47f193fd48a02c66641fc7242bd5329f99b471"
+  integrity sha512-+IeCiZBgQt2BpKKzYwoB5bWrrUwiksQh/9zWUrsegGw14PXmXtXXmgHr3CkKjyIChZmvuBs1BPieHD8SyBQAGQ==
   dependencies:
     "@rollup/plugin-node-resolve" "^9.0.0"
     chalk "^4.1.0"

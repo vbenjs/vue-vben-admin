@@ -20,7 +20,7 @@
   moment.locale('zh-cn');
 
   export default defineComponent({
-    name: 'App1',
+    name: 'App',
     components: { ConfigProvider },
     setup() {
       useInitAppConfigStore();
