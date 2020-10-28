@@ -2,7 +2,7 @@
   <div class="collapse-container p-2">
     <CollapseHeader v-bind="$props" :show="show" @expand="handleExpand">
 			<template #title>
-					<slot name="title"></slot>
+				<slot name="title" />
 			</template>
     </CollapseHeader>
     <CollapseTransition :enable="canExpan">
