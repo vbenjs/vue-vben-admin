@@ -17,7 +17,7 @@ export default defineComponent({
   setup(props) {
     const thumbRef = ref<Nullable<HTMLDivElement>>(null);
     const elRef = ref<Nullable<HTMLDivElement>>(null);
-    const commonState = reactive<KeyString>({});
+    const commonState = reactive<Indexable>({});
     const getBarRef = computed(() => {
       return BAR_MAP[props.vertical ? 'vertical' : 'horizontal'];
     });
