@@ -21,15 +21,15 @@ export function useModal(): UseModalReturnType {
   const uidRef = ref<string>('');
   function register(modalMethod: ModalMethods, uuid: string) {
     uidRef.value = uuid;
+
     isProdMode() &&
       onUnmounted(() => {
         modalRef.value = null;
         loadedRef.value = false;
         dataTransferRef[unref(uidRef)] = null;
       });
-    if (unref(loadedRef) && isProdMode() && modalMethod === unref(modalRef)) {
-      return;
-    }
+    if (unref(loadedRef) && isProdMode() && modalMethod === unref(modalRef)) return;
+
     modalRef.value = modalMethod;
   }
   const getInstance = () => {
@@ -44,11 +44,13 @@ export function useModal(): UseModalReturnType {
     setModalProps: (props: Partial<ModalProps>): void => {
       getInstance().setModalProps(props);
     },
+
     openModal: (visible = true): void => {
       getInstance().setModalProps({
         visible: visible,
       });
     },
+
     transferModalData(val: any) {
       dataTransferRef[unref(uidRef)] = val;
     },
@@ -64,6 +66,7 @@ export const useModalInner = (): UseModalInnerReturnType => {
   if (!currentInstall) {
     throw new Error('instance is undefined!');
   }
+
   const getInstance = () => {
     const instance = unref(modalInstanceRef);
     if (!instance) {
@@ -71,26 +74,32 @@ export const useModalInner = (): UseModalInnerReturnType => {
     }
     return instance;
   };
+
   const register = (modalInstance: ModalMethods, uuid: string) => {
     uidRef.value = uuid;
     modalInstanceRef.value = modalInstance;
     currentInstall.emit('register', modalInstance);
   };
+
   return [
     register,
     {
       receiveModalDataRef: computed(() => {
         return dataTransferRef[unref(uidRef)];
       }),
+
       changeLoading: (loading = true) => {
         getInstance().setModalProps({ loading });
       },
+
       changeOkLoading: (loading = true) => {
         getInstance().setModalProps({ confirmLoading: loading });
       },
+
       closeModal: () => {
         getInstance().setModalProps({ visible: false });
       },
+
       setModalProps: (props: Partial<ModalProps>) => {
         getInstance().setModalProps(props);
       },

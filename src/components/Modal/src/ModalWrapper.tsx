@@ -13,10 +13,9 @@ import {
   onUnmounted,
 } from 'vue';
 import { Spin } from 'ant-design-vue';
-import { ScrollContainer } from '/@/components/Container/index';
 
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
-import { useTimeout } from '/@/hooks/core/useTimeout';
+// import { useTimeout } from '/@/hooks/core/useTimeout';
 
 import { getSlot } from '/@/utils/helper/tsxHelper';
 import { useElResize } from '/@/hooks/event/useElResize';
@@ -61,26 +60,46 @@ export default defineComponent({
     const wrapStyle = computed(() => {
       return {
         minHeight: `${props.minHeight}px`,
-        overflow: 'hidden',
+        height: `${unref(realHeightRef)}px`,
+        overflow: 'auto',
       };
     });
 
     // 重试次数
-    let tryCount = 0;
+    // let tryCount = 0;
+    let stopElResizeFn: Fn = () => {};
+
+    watchEffect(() => {
+      setModalHeight();
+    });
+
+    watch(
+      () => props.fullScreen,
+      (v) => {
+        !v && setModalHeight();
+      }
+    );
+
+    onMounted(() => {
+      const { modalHeaderHeight, modalFooterHeight } = props;
+      emit('getExtHeight', modalHeaderHeight + modalFooterHeight);
+      listenElResize();
+    });
+
+    onUnmounted(() => {
+      stopElResizeFn && stopElResizeFn();
+    });
+
+    useWindowSizeFn(setModalHeight);
+
     async function setModalHeight() {
       // 解决在弹窗关闭的时候监听还存在,导致再次打开弹窗没有高度
       // 加上这个,就必须在使用的时候传递父级的visible
-      if (!props.visible) {
-        return;
-      }
+      if (!props.visible) return;
       const wrapperRefDom = unref(wrapperRef);
-      if (!wrapperRefDom) {
-        return;
-      }
+      if (!wrapperRefDom) return;
       const bodyDom = wrapperRefDom.parentElement;
-      if (!bodyDom) {
-        return;
-      }
+      if (!bodyDom) return;
       bodyDom.style.padding = '0';
       await nextTick();
 
@@ -104,23 +123,23 @@ export default defineComponent({
         }
         await nextTick();
         const spinEl = unref(spinRef);
-        if (!spinEl) {
-          useTimeout(() => {
-            // retry
-            if (tryCount < 3) {
-              setModalHeight();
-            }
-            tryCount++;
-          }, 10);
-          return;
-        }
-        tryCount = 0;
+        // if (!spinEl) {
+        //   useTimeout(() => {
+        //     // retry
+        //     if (tryCount < 3) {
+        //       setModalHeight();
+        //     }
+        //     tryCount++;
+        //   }, 10);
+        //   return;
+        // }
+        // tryCount = 0;
 
-        const realHeight = (spinEl.$el.querySelector('.ant-spin-container') as HTMLElement)
-          .scrollHeight;
+        const spinContainerEl = spinEl.$el.querySelector('.ant-spin-container') as HTMLElement;
+        if (!spinContainerEl) return;
 
-        //  16为 p-2和m-2  加起来为4,基础4, 4*4=16
-        // 32 padding
+        const realHeight = spinContainerEl.scrollHeight;
+
         if (props.fullScreen) {
           realHeightRef.value =
             window.innerHeight - props.modalFooterHeight - props.modalHeaderHeight - 26;
@@ -138,6 +157,7 @@ export default defineComponent({
         console.log(error);
       }
     }
+
     function listenElResize() {
       const wrapper = unref(wrapperRef);
       if (!wrapper) return;
@@ -146,41 +166,16 @@ export default defineComponent({
       const [start, stop] = useElResize(container, () => {
         setModalHeight();
       });
+      stopElResizeFn = stop;
       start();
-      onUnmounted(() => {
-        stop();
-      });
     }
-    nextTick(() => {});
-    watchEffect(() => {
-      setModalHeight();
-    });
-    watch(
-      () => props.fullScreen,
-      (v) => {
-        !v && setModalHeight();
-      }
-    );
-
-    onMounted(() => {
-      const { modalHeaderHeight, modalFooterHeight } = props;
-      emit('getExtHeight', modalHeaderHeight + modalFooterHeight);
-      listenElResize();
-    });
-
-    useWindowSizeFn(setModalHeight);
 
     return () => {
-      const height = unref(realHeightRef);
       return (
         <div ref={wrapperRef} style={unref(wrapStyle)}>
-          <ScrollContainer>
-            {() => (
-              <Spin ref={spinRef} spinning={props.loading} style={{ height: `${height}px` }}>
-                {() => getSlot(slots)}
-              </Spin>
-            )}
-          </ScrollContainer>
+          <Spin ref={spinRef} spinning={props.loading}>
+            {() => getSlot(slots)}
+          </Spin>
         </div>
       );
     };

@@ -1,16 +1,15 @@
 <script lang="ts">
   import type { PropType } from 'vue';
+  import { defineComponent, computed, unref, h } from 'vue';
 
   import { Tooltip } from 'ant-design-vue';
   import { InfoCircleOutlined } from '@ant-design/icons-vue';
-  import { defineComponent, computed, unref, h } from 'vue';
 
   import { getPopupContainer } from '/@/utils';
-
   import { isString, isArray } from '/@/utils/is';
   import { getSlot } from '/@/utils/helper/tsxHelper';
   export default defineComponent({
-    name: 'BaseHelp',
+    name: 'BasicHelp',
     components: { Tooltip },
     props: {
       // max-width
@@ -56,12 +55,14 @@
           maxWidth: props.maxWidth,
         };
       });
+
       const getWrapStyleRef = computed(() => {
         return {
           color: props.color,
           fontSize: props.fontSize,
         };
       });
+
       const getMainStyleRef = computed(() => {
         return props.absolute ? props.position : {};
       });
@@ -81,6 +82,7 @@
         }
         return null;
       };
+
       return () => {
         return h(
           Tooltip,
