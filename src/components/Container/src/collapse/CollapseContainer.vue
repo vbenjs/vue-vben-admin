@@ -1,6 +1,10 @@
 <template>
   <div class="collapse-container p-2">
-    <CollapseHeader v-bind="$props" :show="show" @expand="handleExpand" />
+    <CollapseHeader v-bind="$props" :show="show" @expand="handleExpand">
+			<template #title>
+				<slot name="title" />
+			</template>
+    </CollapseHeader>
     <CollapseTransition :enable="canExpan">
       <Skeleton v-if="loading" />
       <div class="collapse-container__body" v-else v-show="show">
