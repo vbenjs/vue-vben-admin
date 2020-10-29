@@ -35,79 +35,89 @@ const viteConfig: UserConfig = {
   // TODO build error
   // entry: './public/index.html',
   /**
-   * 端口号
+   * port
    * @default '3000'
    */
   port: VITE_PORT,
   /**
-   * 服务地址
    * @default 'localhost'
    */
   hostname: 'localhost',
   /**
-   * 运行自动打开浏览器·
+   * Run to open the browser automatically
    * @default 'false'
    */
   open: false,
   /**
-   * 压缩代码
-   *  boolean | 'terser' | 'esbuild'
+   * Set to `false` to disable minification, or specify the minifier to use.
+   * Available options are 'terser' or 'esbuild'.
    * @default 'terser'
    */
   minify: isDevFn() ? 'esbuild' : 'terser',
   /**
-   * 基本公共路径
+   * Base public path when served in production.
    * @default '/'
    */
   base: VITE_PUBLIC_PATH,
 
   /**
-   * 打包输入路径
+   * Directory relative from `root` where build output will be placed. If the
+   * directory exists, it will be removed before the build.
    * @default 'dist'
    */
   outDir: 'dist',
   /**
-   * @default 'false'
+   * Whether to generate sourcemap
+   * @default false
    */
   sourcemap: false,
   /**
-   * 资源输出路径
+   * Directory relative from `outDir` where the built js/css/image assets will
+   * be placed.
    * @default '_assets'
    */
   assetsDir: '_assets',
   /**
-   * 静态资源小于该大小将会内联，默认4096kb
-   * @default '4096'
+   * Static asset files smaller than this number (in bytes) will be inlined as
+   * base64 strings. Default limit is `4096` (4kb). Set to `0` to disable.
+   * @default 4096
    */
   assetsInlineLimit: 4096,
   /**
-   * esbuild转换目标。
+   * Transpile target for esbuild.
    * @default 'es2020'
    */
   esbuildTarget: 'es2020',
+  /**
+   * Whether to log asset info to console
+   * @default false
+   */
   silent: false,
-  // 别名
+  /**
+   * Import alias. The entries can either be exact request -> request mappings
+   * (exact, no wildcard syntax), or request path -> fs directory mappings.
+   * When using directory mappings, the key **must start and end with a slash**.
+   * ```
+   */
   alias: {
     '/@/': pathResolve('src'),
   },
-  // terser配置
+  // terser options
   terserOptions: {
     compress: {
-      // 是否删除console
       drop_console: VITE_DROP_CONSOLE,
     },
   },
   define: {
     __VERSION__: pkg.version,
   },
-  // css预处理
   cssPreprocessOptions: {
     less: {
       modifyVars: modifyVars,
       javascriptEnabled: true,
     },
   },
-  // 会使用 rollup 对 包重新编译，将编译成符合 esm 模块规范的新的包放入 node_modules/.vite_opt_cache
+  // The package will be recompiled using rollup, and the new package compiled into the esm module specification will be put into node_modules/.vite_opt_cache
   optimizeDeps: {
     include: [
       'echarts',
@@ -118,7 +128,7 @@ const viteConfig: UserConfig = {
     ],
   },
 
-  // 本地跨域代理
+  // Local cross-domain proxy
   proxy: createProxy(VITE_PROXY),
   plugins: createVitePlugins(viteEnv),
   rollupInputOptions: {

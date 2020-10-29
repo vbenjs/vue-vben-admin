@@ -1,3 +1,4 @@
+// Application related functions
 import type { ProjectConfig } from '/@/types/config';
 import type { App } from 'vue';
 import { computed, ref } from 'vue';

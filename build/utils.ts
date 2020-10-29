@@ -7,6 +7,7 @@ import chalk from 'chalk';
 
 export const isFunction = (arg: unknown): arg is (...args: any[]) => any =>
   typeof arg === 'function';
+
 export const isRegExp = (arg: unknown): arg is RegExp =>
   Object.prototype.toString.call(arg) === '[object RegExp]';
 
@@ -43,6 +44,9 @@ export function readAllFile(root: string, reg: RegExp) {
   return resultArr;
 }
 
+/**
+ * get client ip address
+ */
 export function getIPAddress() {
   let interfaces = networkInterfaces();
   for (let devName in interfaces) {
@@ -67,12 +71,23 @@ export function isProdFn(): boolean {
   return process.env.NODE_ENV === 'production';
 }
 
+/**
+ * Whether to generate package preview
+ */
 export function isReportMode(): boolean {
   return process.env.REPORT === 'true';
 }
+
+/**
+ * Whether to generate gzip for packaging
+ */
 export function isBuildGzip(): boolean {
   return process.env.VITE_BUILD_GZIP === 'true';
 }
+
+/**
+ *  Whether to generate package site
+ */
 export function isSiteMode(): boolean {
   return process.env.SITE === 'true';
 }
@@ -89,6 +104,7 @@ export interface ViteEnv {
   VITE_BUILD_GZIP: boolean;
 }
 
+// Read all environment variable configuration files to process.env
 export function loadEnv(): ViteEnv {
   const env = process.env.NODE_ENV;
   const ret: any = {};
@@ -116,6 +132,11 @@ export function loadEnv(): ViteEnv {
   return ret;
 }
 
+/**
+ * Get the environment variables starting with the specified prefix
+ * @param match prefix
+ * @param confFiles ext
+ */
 export function getEnvConfig(match = 'VITE_GLOB_', confFiles = ['.env', '.env.production']) {
   let envConfig = {};
   confFiles.forEach((item) => {
@@ -142,18 +163,34 @@ function consoleFn(color: string, message: any) {
   );
 }
 
+/**
+ * warnConsole
+ * @param message
+ */
 export function successConsole(message: any) {
   consoleFn('green', '✨ ' + message);
 }
 
+/**
+ * warnConsole
+ * @param message
+ */
 export function errorConsole(message: any) {
   consoleFn('red', '✨ ' + message);
 }
 
+/**
+ * warnConsole
+ * @param message message
+ */
 export function warnConsole(message: any) {
   consoleFn('yellow', '✨ ' + message);
 }
 
+/**
+ * Get user root directory
+ * @param dir file path
+ */
 export function getCwdPath(...dir: string[]) {
   return path.resolve(process.cwd(), ...dir);
 }
