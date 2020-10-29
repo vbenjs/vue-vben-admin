@@ -1,5 +1,5 @@
-// 百度统计代码 用于站点部署
-// 只在build:site开启
+// Baidu statistics code for site deployment
+// Only open in build:site
 export const hmScript = `<script>
 var _hmt = _hmt || [];
 (function() {

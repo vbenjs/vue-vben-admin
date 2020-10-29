@@ -22,8 +22,10 @@ setupRouter(app);
 // store
 setupStore(app);
 
+// Directives
 setupDirectives(app);
 
+// error-handle
 setupErrorHandle(app);
 
 router.isReady().then(() => {
@@ -35,8 +37,10 @@ if (isDevMode()) {
   window.__APP__ = app;
 }
 
+// If you do not need to use the mock service in the production environment, you can comment the code
 if (isProdMode() && isUseMock()) {
   setupProdMockServer();
 }
 
+// Used to share app instances in other modules
 setApp(app);

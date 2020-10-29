@@ -1,14 +1,12 @@
+/**
+ * Generate additional configuration files when used for packaging. The file can be configured with some global variables, so that it can be changed directly externally without repackaging
+ */
 import { GLOB_CONFIG_FILE_NAME } from '../constant';
 import fs, { writeFileSync } from 'fs-extra';
 
 import viteConfig from '../../vite.config';
 import { errorConsole, successConsole, getCwdPath, getEnvConfig } from '../utils';
-
-const getShortName = (env: any) => {
-  return `__PRODUCTION__${env.VITE_GLOB_APP_SHORT_NAME || '__APP'}__CONF__`
-    .toUpperCase()
-    .replace(/\s/g, '');
-};
+import { getShortName } from '../getShortName';
 
 function createConfig(
   {
@@ -20,6 +18,7 @@ function createConfig(
   try {
     const windowConf = `window.${configName}`;
     const outDir = viteConfig.outDir || 'dist';
+    // Ensure that the variable will not be modified
     const configStr = `${windowConf}=${JSON.stringify(config)};
 
       Object.freeze(${windowConf});

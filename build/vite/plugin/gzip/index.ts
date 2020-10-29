@@ -1,6 +1,7 @@
 // 修改自https://github.com/kryops/rollup-plugin-gzip
 // 因为rollup-plugin-gzip不支持vite
 // vite对css打包独立的。所以不能在打包的时候顺带打包css
+// TODO rc.9会支持 configurBuild 配置项。到时候重新修改
 
 import { readFile, writeFile } from 'fs';
 import { basename } from 'path';
