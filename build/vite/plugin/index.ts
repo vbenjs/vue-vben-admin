@@ -45,10 +45,26 @@ export function createVitePlugins(viteEnv: ViteEnv) {
   vitePlugins.push(PurgeIcons());
 
   if (isProdFn() && VITE_USE_PWA) {
-    console.log('======================');
-    console.log(VITE_USE_PWA);
-    console.log('======================');
-    vitePlugins.push(VitePWA());
+    vitePlugins.push(
+      VitePWA({
+        manifest: {
+          name: 'Vben Admin',
+          short_name: 'vben_admin',
+          icons: [
+            {
+              src: './resource/img/pwa-192x192.png',
+              sizes: '192x192',
+              type: 'image/png',
+            },
+            {
+              src: './resource/img/pwa-512x512.png',
+              sizes: '512x512',
+              type: 'image/png',
+            },
+          ],
+        },
+      })
+    );
   }
 
   // vite-plugin-mock

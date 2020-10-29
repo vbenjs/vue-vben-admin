@@ -15,7 +15,6 @@
             </a-form-item>
             <a-form-item name="password">
               <a-input-password
-                autofocus="autofocus"
                 size="large"
                 visibilityToggle
                 v-model:value="formData.password"

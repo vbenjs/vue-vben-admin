@@ -1275,10 +1275,10 @@
     "@types/keygrip" "*"
     "@types/node" "*"
 
-"@types/echarts@^4.8.3":
-  version "4.8.3"
-  resolved "https://registry.npmjs.org/@types/echarts/-/echarts-4.8.3.tgz#78ef1ede01c3705b52342da997b3d54571d3604e"
-  integrity sha512-5aFZ7/6f+SPonLh4Nuso6pEZWwX8VBMYh2e83x1GVEpGkcN3GC0HzxPoF6ZSZPwoe5Rg4bhNwD9f2TVYxgU/QQ==
+"@types/echarts@^4.9.0":
+  version "4.9.0"
+  resolved "https://registry.npmjs.org/@types/echarts/-/echarts-4.9.0.tgz#e133ea5429ada1d814f9cc1deae855421dcdd2ef"
+  integrity sha512-9QIAUe6cxM5GyGNCIhlEwf7l5oclZDVM0HNRfehPx3dDUt1Jfhbvp/U2wfgwtL/IDqyASBVs1zu4qyaCsuJINA==
   dependencies:
     "@types/zrender" "*"
 
@@ -3267,10 +3267,10 @@ escape-string-regexp@^1.0.5:
   resolved "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-eslint-config-prettier@^6.14.0:
-  version "6.14.0"
-  resolved "https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-6.14.0.tgz#390e7863a8ae99970981933826476169285b3a27"
-  integrity sha512-DbVwh0qZhAC7CNDWcq8cBdK6FcVHiMTKmCypOPWeZkp9hJ8xYwTaWSa6bb6cjfi8KOeJy0e9a8Izxyx+O4+gCQ==
+eslint-config-prettier@^6.15.0:
+  version "6.15.0"
+  resolved "https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-6.15.0.tgz#7f93f6cb7d45a92f1537a70ecc06366e1ac6fed9"
+  integrity sha512-a1+kOYLR8wMGustcgAjdydMsQ2A/2ipRPwRKUmfYaSxc9ZPcrku080Ctl6zrZzZNs/U82MjSv+qKREkoq3bJaw==
   dependencies:
     get-stdin "^6.0.0"
 
@@ -8016,10 +8016,10 @@ vite-plugin-purge-icons@^0.4.4:
     "@purge-icons/generated" "^0.4.1"
     rollup-plugin-purge-icons "^0.4.4"
 
-vite-plugin-pwa@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.1.2.tgz#286b1b22a3b56268477defcd1e4a0029f09fcd06"
-  integrity sha512-u+jRU+4q0jHZ/xplsi+QbJA3dJB2/sA6CeH5to48/asxW3Zl3A9byqAnucbgX8mOswYUc/MhpSIK/B1ZartI3A==
+vite-plugin-pwa@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.1.3.tgz#e3934ffd1c916cd336ae45517d373f8114c740f4"
+  integrity sha512-WZ1zMQyXpZVprX69zD8KFYb0mcVKtacktXYfSNVPQl3mG1Ucsm6tl398eIZOshVEzhlRvUDH8xcLAB26+2sDeg==
   dependencies:
     debug "^4.3.0"
     fast-glob "^3.2.4"
