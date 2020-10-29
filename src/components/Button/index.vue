@@ -35,7 +35,7 @@
         default: 'throttle',
       },
       color: {
-        type: String as PropType<'error' | 'warning' | 'success'>,
+        type: String as PropType<'error' | 'warning' | 'success' | ''>,
       },
       // 防抖节流时间
       throttleTime: {

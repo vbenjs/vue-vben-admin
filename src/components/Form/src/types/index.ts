@@ -1,7 +1,7 @@
 import { ColSpanType } from 'ant-design-vue/types/grid/col';
 
 export interface ColEx {
-  style: object;
+  style?: any;
   /**
    * raster number of cells to occupy, 0 corresponds to display: none
    * @default none (0)
