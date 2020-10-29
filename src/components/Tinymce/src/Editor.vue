@@ -1,6 +1,6 @@
 <template>
   <div class="tinymce-container" :style="{ width: containerWidth }">
-    <textarea :id="tinymceId" visibility="hidden" ref="elRef"></textarea>
+    <textarea :id="tinymceId" ref="elRef"></textarea>
   </div>
 </template>
 
@@ -23,7 +23,7 @@
   import { useScript } from '/@/hooks/web/useScript';
   import { snowUuid } from '/@/utils/uuid';
   import { bindHandlers } from './helper';
-  // import lineHeight from './lineHeight';
+  import lineHeight from './lineHeight';
 
   const CDN_URL = 'https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1';
 
@@ -120,7 +120,7 @@
       }
 
       function initEditor() {
-        // getTinymce().PluginManager.add('lineHeight', lineHeight(getTinymce()));
+        getTinymce().PluginManager.add('lineHeight', lineHeight(getTinymce()));
         getTinymce().init(unref(initOptions));
       }
 

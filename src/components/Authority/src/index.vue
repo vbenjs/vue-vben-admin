@@ -12,7 +12,7 @@
     props: {
       // 指定角色可见
       value: {
-        type: [Number, Array, String] as PropType<RoleEnum | RoleEnum[]>,
+        type: [Number, Array, String] as PropType<RoleEnum | RoleEnum[] | string | string[]>,
         default: '',
       },
     },
