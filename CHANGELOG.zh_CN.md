@@ -1,8 +1,15 @@
 ## Wip
 
+### 🎫 Chores
+
+- 添加部分注释
+- pwa 图标补充
+- types 类型调整
+
 ### 🐛 Bug Fixes
 
 - 修复本地代理 post 接口到 https 地址超时错误
+- 修复 modal 在不显示 footer 的时候全屏高度计算问题
 
 ## 2.0.0-rc.6 (2020-10-28)
 

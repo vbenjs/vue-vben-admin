@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { defineComponent, PropType, computed, unref } from 'vue';
+  import type { PropType } from 'vue';
+  import { defineComponent, computed, unref } from 'vue';
 
   import { PermissionModeEnum } from '/@/enums/appEnum';
   import { RoleEnum } from '/@/enums/roleEnum';

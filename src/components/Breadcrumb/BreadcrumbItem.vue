@@ -31,10 +31,12 @@
     },
     setup(props) {
       const linkRef = ref<Nullable<HTMLElement>>(null);
+
       const parent = inject('breadcrumb') as {
         separator: string;
         separatorClass: string;
       };
+
       const { push, replace } = useRouter();
 
       onMounted(() => {

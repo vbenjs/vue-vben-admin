@@ -23,6 +23,7 @@ export default defineComponent({
       dialogHeaderEl.style.cursor = 'move';
 
       dialogHeaderEl.onmousedown = (e: any) => {
+        if (!e) return;
         // 鼠标按下，计算当前元素距离可视区的距离
         const disX = e.clientX;
         const disY = e.clientY;
@@ -84,8 +85,8 @@ export default defineComponent({
     const handleDrag = () => {
       const dragWraps = document.querySelectorAll('.ant-modal-wrap');
       for (const wrap of dragWraps as any) {
+        if (!wrap) continue;
         const display = getStyle(wrap, 'display');
-
         const draggable = wrap.getAttribute('data-drag');
         if (display !== 'none') {
           // 拖拽位置
@@ -98,7 +99,6 @@ export default defineComponent({
       if (!props.visible) {
         return;
       }
-      // context.$nextTick();
       useTimeout(() => {
         handleDrag();
       }, 30);
