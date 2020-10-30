@@ -66,25 +66,23 @@ export function scriptErrorHandler(
   if (event === 'Script error.' && !source) {
     return false;
   }
-  setTimeout(function () {
-    const errorInfo: Partial<ErrorInfo> = {};
-    colno = colno || (window.event && (window.event as any).errorCharacter) || 0;
-    errorInfo.message = event as string;
-    if (error && error.stack) {
-      errorInfo.stack = error.stack;
-    } else {
-      errorInfo.stack = '';
-    }
-    const name = source ? source.substr(source.lastIndexOf('/') + 1) : 'script';
-    errorStore.commitErrorInfoState({
-      type: ErrorTypeEnum.SCRIPT,
-      name: name,
-      file: source as string,
-      detail: 'lineno' + lineno,
-      url: window.location.href,
-      ...(errorInfo as Pick<ErrorInfo, 'message' | 'stack'>),
-    });
-  }, 0);
+  const errorInfo: Partial<ErrorInfo> = {};
+  colno = colno || (window.event && (window.event as any).errorCharacter) || 0;
+  errorInfo.message = event as string;
+  if (error && error.stack) {
+    errorInfo.stack = error.stack;
+  } else {
+    errorInfo.stack = '';
+  }
+  const name = source ? source.substr(source.lastIndexOf('/') + 1) : 'script';
+  errorStore.commitErrorInfoState({
+    type: ErrorTypeEnum.SCRIPT,
+    name: name,
+    file: source as string,
+    detail: 'lineno' + lineno,
+    url: window.location.href,
+    ...(errorInfo as Pick<ErrorInfo, 'message' | 'stack'>),
+  });
   return true;
 }
 

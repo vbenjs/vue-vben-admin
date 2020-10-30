@@ -1,13 +1,16 @@
 import type { Router } from 'vue-router';
 
 import { Modal, notification } from 'ant-design-vue';
-import { AxiosCanceler } from '/@/utils/http/axios/axiosCancel';
+
 import { createProgressGuard } from './progressGuard';
 import { createPermissionGuard } from './permissionGuard';
 import { createPageLoadingGuard } from './pageLoadingGuard';
+
 import { useSetting } from '/@/hooks/core/useSetting';
+
 import { getIsOpenTab, setCurrentTo } from '/@/utils/helper/routeHelper';
 import { setTitle } from '/@/utils/browser';
+import { AxiosCanceler } from '/@/utils/http/axios/axiosCancel';
 
 const { projectSetting, globSetting } = useSetting();
 export function createGuard(router: Router) {
@@ -36,10 +39,7 @@ export function createGuard(router: Router) {
 
   router.afterEach((to) => {
     // change html title
-
-    setTimeout(() => {
-      setTitle(to.meta.title, globSetting.title);
-    }, 0);
+    setTitle(to.meta.title, globSetting.title);
   });
 
   openNProgress && createProgressGuard(router);

@@ -9,33 +9,7 @@ import { PermissionModeEnum } from '/@/enums/appEnum';
 import { pathToRegexp } from 'path-to-regexp';
 import modules from 'globby!/@/router/menus/modules/**/*.@(ts)';
 
-// ===========================
-// ==========module import====
-// ===========================
-// import dashboard from './modules/dashboard';
-
-// import exceptionDemo from './modules/demo/exception';
-// import iframeDemo from './modules/demo/iframe';
-// import compDemo from './modules/demo/comp';
-// import permissionDemo from './modules/demo/permission';
-// import featDemo from './modules/demo/feat';
-// import chartsDemo from './modules/demo/charts';
-// import tableDemo from './modules/demo/table';
-// import formDemo from './modules/demo/form';
-// import treeDemo from './modules/demo/tree';
-
-const menuModules: MenuModule[] = [
-  // dashboard,
-  // featDemo,
-  // exceptionDemo,
-  // iframeDemo,
-  // compDemo,
-  // permissionDemo,
-  // chartsDemo,
-  // tableDemo,
-  // formDemo,
-  // treeDemo,
-];
+const menuModules: MenuModule[] = [];
 
 Object.keys(modules).forEach((key) => {
   menuModules.push(modules[key]);

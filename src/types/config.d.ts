@@ -70,7 +70,6 @@ export interface ProjectConfig {
   headerSetting: HeaderSetting;
   // 菜单类型
   // menuType: MenuTypeEnum;
-
   menuSetting: MenuSetting;
 
   messageSetting: MessageSetting;
@@ -88,15 +87,12 @@ export interface ProjectConfig {
   showBreadCrumbIcon: boolean;
   // 使用error-handler-plugin
   useErrorHandle: boolean;
-
   // 开启页面切换动画
   openRouterTransition: boolean;
   // 路由切换动画
   routerTransition: RouterTransitionEnum;
-
   // 是否开启登录安全校验
   openLoginVerify: boolean;
-
   // 是否监听网络变化
   listenNetWork: boolean;
   // 是否开启页面切换loading
@@ -116,23 +112,17 @@ export interface ProjectConfig {
 export interface GlobConfig {
   // 网站标题
   title: string;
-
   // 项目路径
   apiUrl: string;
-
   urlPrefix?: string;
-
   shortName: string;
 }
 export interface GlobEnvConfig {
   // 网站标题
   VITE_GLOB_APP_TITLE: string;
-
   // 项目路径
   VITE_GLOB_API_URL: string;
-
   VITE_GLOB_API_URL_PREFIX?: string;
-
   VITE_GLOB_APP_SHORT_NAME: string;
 }
 

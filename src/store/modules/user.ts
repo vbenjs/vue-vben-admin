@@ -58,7 +58,6 @@ class User extends VuexModule {
     this.userInfoState = null;
     this.tokenState = '';
     this.roleListState = [];
-    // permissionStore.commitReset();
   }
 
   @Mutation
@@ -136,7 +135,6 @@ class User extends VuexModule {
     resetRouter();
     clearSession();
     clearLocal();
-    // router.addRoute(FULL_PAGE_NOT_FOUND_ROUTE as RouteRecordRaw);
     permissionStore.commitResetState();
     tabStore.commitResetState();
     this.resetState();

@@ -34,18 +34,15 @@ const getOpenKeepAliveRef = computed(() => appStore.getProjectConfig.openKeepAli
 
 @Module({ namespaced: true, name: NAME, dynamic: true, store })
 class Tab extends VuexModule {
-  // tab列表
+  // tab list
   tabsState: TabItem[] = [];
-  // 缓存列表
+  // tab cache list
   keepAliveTabsState: CacheName[] = [];
 
   currentContextMenuIndexState = -1;
 
   currentContextMenuState: TabItem | null = null;
 
-  /**
-   * @description: 获取tabs
-   */
   get getTabsState() {
     return this.tabsState;
   }
@@ -58,9 +55,6 @@ class Tab extends VuexModule {
     return this.currentContextMenuState;
   }
 
-  /**
-   * @description: 获取缓存的tab列表
-   */
   get getKeepAliveTabsState() {
     return this.keepAliveTabsState;
   }
