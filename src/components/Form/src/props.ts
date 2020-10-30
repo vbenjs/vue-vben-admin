@@ -3,6 +3,10 @@ import type { PropType } from 'vue';
 import type { ColEx } from './types';
 
 export const basicProps = {
+  model: {
+    type: Object as PropType<any>,
+    default: {},
+  },
   // 标签宽度  固定宽度
   labelWidth: {
     type: [Number, String] as PropType<number | string>,

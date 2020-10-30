@@ -48,6 +48,12 @@
           data: 'content',
           info: 'Info',
         });
+        // setTimeout(() => {
+        //   transferModalData({
+        //     data: 'content1',
+        //     info: 'Info1',
+        //   });
+        // }, 3000);
         openModal4(true);
       }
       function openModalLoading() {

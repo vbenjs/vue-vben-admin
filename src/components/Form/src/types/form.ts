@@ -35,6 +35,8 @@ export type RegisterFn = (formInstance: FormActionType) => void;
 export type UseFormReturnType = [RegisterFn, FormActionType];
 
 export interface FormProps {
+  // 表单值
+  model?: any;
   // 整个表单所有项宽度
   labelWidth?: number | string;
   // 重置时提交

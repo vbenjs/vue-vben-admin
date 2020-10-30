@@ -57,6 +57,7 @@ export default defineComponent({
         ...props.resetButtonOptions,
       };
     });
+
     const getSubmitBtnOptionsRef = computed(() => {
       return {
         text: '查询',
@@ -80,10 +81,12 @@ export default defineComponent({
     function toggleAdvanced() {
       emit('toggle-advanced');
     }
+
     return () => {
       if (!props.show) {
         return;
       }
+
       const {
         showAdvancedButton,
         hideAdvanceBtn,
@@ -91,50 +94,49 @@ export default defineComponent({
         showResetButton,
         showSubmitButton,
       } = props;
+
       return (
-        <>
-          <Col {...unref(actionColOpt)} style={{ textAlign: 'right' }}>
-            {() => (
-              <Form.Item>
-                {() => (
-                  <>
-                    {getSlot(slots, 'advanceBefore')}
-                    {showAdvancedButton && !hideAdvanceBtn && (
-                      <Button type="default" class="mr-2" onClick={toggleAdvanced}>
-                        {() => (
-                          <>
-                            {isAdvanced ? '收起' : '展开'}
-                            {isAdvanced ? (
-                              <UpOutlined class="advanced-icon" />
-                            ) : (
-                              <DownOutlined class="advanced-icon" />
-                            )}
-                          </>
-                        )}
-                      </Button>
-                    )}
+        <Col {...unref(actionColOpt)} style={{ textAlign: 'right' }}>
+          {() => (
+            <Form.Item>
+              {() => (
+                <>
+                  {getSlot(slots, 'advanceBefore')}
+                  {showAdvancedButton && !hideAdvanceBtn && (
+                    <Button type="default" class="mr-2" onClick={toggleAdvanced}>
+                      {() => (
+                        <>
+                          {isAdvanced ? '收起' : '展开'}
+                          {isAdvanced ? (
+                            <UpOutlined class="advanced-icon" />
+                          ) : (
+                            <DownOutlined class="advanced-icon" />
+                          )}
+                        </>
+                      )}
+                    </Button>
+                  )}
 
-                    {getSlot(slots, 'resetBefore')}
-                    {showResetButton && (
-                      <Button type="default" class="mr-2" {...unref(getResetBtnOptionsRef)}>
-                        {() => unref(getResetBtnOptionsRef).text}
-                      </Button>
-                    )}
+                  {getSlot(slots, 'resetBefore')}
+                  {showResetButton && (
+                    <Button type="default" class="mr-2" {...unref(getResetBtnOptionsRef)}>
+                      {() => unref(getResetBtnOptionsRef).text}
+                    </Button>
+                  )}
 
-                    {getSlot(slots, 'submitBefore')}
-                    {showSubmitButton && (
-                      <Button type="primary" {...unref(getSubmitBtnOptionsRef)}>
-                        {() => unref(getSubmitBtnOptionsRef).text}
-                      </Button>
-                    )}
+                  {getSlot(slots, 'submitBefore')}
+                  {showSubmitButton && (
+                    <Button type="primary" {...unref(getSubmitBtnOptionsRef)}>
+                      {() => unref(getSubmitBtnOptionsRef).text}
+                    </Button>
+                  )}
 
-                    {getSlot(slots, 'submitAfter')}
-                  </>
-                )}
-              </Form.Item>
-            )}
-          </Col>
-        </>
+                  {getSlot(slots, 'submitAfter')}
+                </>
+              )}
+            </Form.Item>
+          )}
+        </Col>
       );
     };
   },

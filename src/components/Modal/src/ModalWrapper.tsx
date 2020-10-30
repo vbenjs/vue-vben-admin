@@ -15,13 +15,12 @@ import {
 import { Spin } from 'ant-design-vue';
 
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
-// import { useTimeout } from '/@/hooks/core/useTimeout';
+import { useTimeout } from '/@/hooks/core/useTimeout';
 
 import { getSlot } from '/@/utils/helper/tsxHelper';
 import { useElResize } from '/@/hooks/event/useElResize';
 export default defineComponent({
   name: 'ModalWrapper',
-  emits: ['heightChange', 'getExtHeight'],
   props: {
     loading: {
       type: Boolean as PropType<boolean>,
@@ -52,6 +51,7 @@ export default defineComponent({
       default: false,
     },
   },
+  emits: ['heightChange', 'getExtHeight'],
   setup(props: ModalWrapperProps, { slots, emit }) {
     const wrapperRef = ref<HTMLElement | null>(null);
     const spinRef = ref<any>(null);
@@ -66,7 +66,7 @@ export default defineComponent({
     });
 
     // 重试次数
-    // let tryCount = 0;
+    let tryCount = 0;
     let stopElResizeFn: Fn = () => {};
 
     watchEffect(() => {
@@ -123,17 +123,17 @@ export default defineComponent({
         }
         await nextTick();
         const spinEl = unref(spinRef);
-        // if (!spinEl) {
-        //   useTimeout(() => {
-        //     // retry
-        //     if (tryCount < 3) {
-        //       setModalHeight();
-        //     }
-        //     tryCount++;
-        //   }, 10);
-        //   return;
-        // }
-        // tryCount = 0;
+        if (!spinEl) {
+          useTimeout(() => {
+            // retry
+            if (tryCount < 3) {
+              setModalHeight();
+            }
+            tryCount++;
+          }, 10);
+          return;
+        }
+        tryCount = 0;
 
         const spinContainerEl = spinEl.$el.querySelector('.ant-spin-container') as HTMLElement;
         if (!spinContainerEl) return;
@@ -142,7 +142,7 @@ export default defineComponent({
 
         if (props.fullScreen) {
           realHeightRef.value =
-            window.innerHeight - props.modalFooterHeight - props.modalHeaderHeight - 26;
+            window.innerHeight - props.modalFooterHeight - props.modalHeaderHeight - 6;
         } else {
           realHeightRef.value = realHeight > maxHeight ? maxHeight : realHeight + 16 + 30;
         }

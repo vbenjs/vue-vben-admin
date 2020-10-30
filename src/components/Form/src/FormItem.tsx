@@ -1,17 +1,20 @@
-import { defineComponent, computed, unref, toRef } from 'vue';
-import { Form, Col } from 'ant-design-vue';
-import { componentMap } from './componentMap';
-
+import type { ValidationRule } from 'ant-design-vue/types/form/form';
 import type { PropType } from 'vue';
 import type { FormProps } from './types/form';
 import type { FormSchema } from './types/form';
-import { isBoolean, isFunction } from '/@/utils/is';
-import { useItemLabelWidth } from './hooks/useLabelWidth';
-import { getSlot } from '/@/utils/helper/tsxHelper';
+
+import { defineComponent, computed, unref, toRef } from 'vue';
+import { Form, Col } from 'ant-design-vue';
+import { componentMap } from './componentMap';
 import { BasicHelp } from '/@/components/Basic';
+
+import { isBoolean, isFunction } from '/@/utils/is';
+import { getSlot } from '/@/utils/helper/tsxHelper';
 import { createPlaceholderMessage } from './helper';
 import { upperFirst, cloneDeep } from 'lodash-es';
-import { ValidationRule } from 'ant-design-vue/types/form/form';
+
+import { useItemLabelWidth } from './hooks/useLabelWidth';
+
 export default defineComponent({
   name: 'BasicFormItem',
   inheritAttrs: false,
@@ -50,6 +53,7 @@ export default defineComponent({
         schema: schema,
       };
     });
+
     const getShowRef = computed(() => {
       const { show, ifShow, isAdvanced } = props.schema;
       const { showAdvancedButton } = props.formProps;
@@ -226,6 +230,7 @@ export default defineComponent({
         </span>
       );
     }
+
     function renderItem() {
       const { itemProps, slot, render, field } = props.schema;
       const { labelCol, wrapperCol } = unref(itemLabelWidthRef);
@@ -255,11 +260,8 @@ export default defineComponent({
       const { colProps = {}, colSlot, renderColContent, component } = props.schema;
       if (!componentMap.has(component)) return null;
       const { baseColProps = {} } = props.formProps;
-
       const realColProps = { ...baseColProps, ...colProps };
-
       const { isIfShow, isShow } = unref(getShowRef);
-
       const getContent = () => {
         return colSlot
           ? getSlot(slots, colSlot)
