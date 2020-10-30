@@ -11,7 +11,7 @@ export default defineComponent({
       return (
         <Row>
           {() => (
-            <div>
+            <>
               <Col md={24} lg={8}>
                 {() => (
                   <CollapseContainer
@@ -56,7 +56,7 @@ export default defineComponent({
                   </CollapseContainer>
                 )}
               </Col>
-            </div>
+            </>
           )}
         </Row>
       );

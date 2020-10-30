@@ -1,5 +1,4 @@
-import { ColSpanType } from 'ant-design-vue/types/grid/col';
-
+type ColSpanType = number | string;
 export interface ColEx {
   style?: any;
   /**

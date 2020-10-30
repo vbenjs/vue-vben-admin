@@ -1,4 +1,4 @@
-import type { Button } from 'ant-design-vue/types/button/button';
+import type { ButtonProps } from 'ant-design-vue/lib/button/buttonTypes';
 import type { CSSProperties, VNodeChild } from 'vue';
 import type { ScrollContainerOptions } from '/@/components/Container/index';
 
@@ -47,13 +47,13 @@ export interface DrawerFooterProps {
    * The ok button props, follow jsx rules
    * @type object
    */
-  okButtonProps: { props: Button; on: {} };
+  okButtonProps: { props: ButtonProps; on: {} };
 
   /**
    * The cancel button props, follow jsx rules
    * @type object
    */
-  cancelButtonProps: { props: Button; on: {} };
+  cancelButtonProps: { props: ButtonProps; on: {} };
   /**
    * Whether to apply loading visual effect for OK button or not
    * @default false

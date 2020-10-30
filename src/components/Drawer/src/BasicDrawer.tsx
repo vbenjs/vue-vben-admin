@@ -1,17 +1,6 @@
 import { Drawer, Row, Col, Button } from 'ant-design-vue';
-import {
-  defineComponent,
-  ref,
-  computed,
-  watchEffect,
-  watch,
-  unref,
-  // getCurrentInstance,
-  nextTick,
-  toRaw,
-} from 'vue';
+import { defineComponent, ref, computed, watchEffect, watch, unref, nextTick, toRaw } from 'vue';
 import { BasicTitle } from '/@/components/Basic';
-// import { ScrollContainer, ScrollContainerOptions } from '/@/components/Container/index';
 import { FullLoading } from '/@/components/Loading/index';
 
 import { getSlot } from '/@/utils/helper/tsxHelper';
@@ -21,8 +10,6 @@ import { DrawerInstance, DrawerProps } from './types';
 import { basicProps } from './props';
 import { isFunction, isNumber } from '/@/utils/is';
 import { LeftOutlined } from '@ant-design/icons-vue';
-// import { appStore } from '/@/store/modules/app';
-// import { useRouter } from 'vue-router';
 import { buildUUID } from '/@/utils/uuid';
 import { deepMerge } from '/@/utils';
 import './index.less';
@@ -38,7 +25,6 @@ export default defineComponent({
     const visibleRef = ref(false);
     const propsRef = ref<Partial<DrawerProps> | null>(null);
 
-    // 自定义title组件：获得title
     const getMergeProps = computed((): any => {
       return deepMerge(toRaw(props), unref(propsRef));
     });
@@ -68,9 +54,11 @@ export default defineComponent({
       }
       return opt;
     });
+
     watchEffect(() => {
       visibleRef.value = props.visible;
     });
+
     watch(
       () => visibleRef.value,
       (visible) => {
@@ -82,6 +70,15 @@ export default defineComponent({
         immediate: false,
       }
     );
+
+    // 底部按钮自定义实现,
+    const getFooterHeight = computed(() => {
+      const { footerHeight, showFooter }: DrawerProps = unref(getProps);
+      if (showFooter && footerHeight) {
+        return isNumber(footerHeight) ? `${footerHeight}px` : `${footerHeight.replace('px', '')}px`;
+      }
+      return `0px`;
+    });
 
     // 取消事件
     async function onClose(e: any) {
@@ -103,14 +100,6 @@ export default defineComponent({
       }
     }
 
-    // 底部按钮自定义实现,
-    const getFooterHeight = computed(() => {
-      const { footerHeight, showFooter }: DrawerProps = unref(getProps);
-      if (showFooter && footerHeight) {
-        return isNumber(footerHeight) ? `${footerHeight}px` : `${footerHeight.replace('px', '')}px`;
-      }
-      return `0px`;
-    });
     function renderFooter() {
       const {
         showCancelBtn,
@@ -171,11 +160,13 @@ export default defineComponent({
                     )}
                   </Col>
                 )}
+
                 {title && (
                   <Col style="flex:1" class={[`${prefixCls}__detail-title`, 'ellipsis', 'px-2']}>
                     {() => title}
                   </Col>
                 )}
+
                 {getSlot(slots, 'titleToolbar')}
               </>
             )}
@@ -208,22 +199,22 @@ export default defineComponent({
             title: () => renderHeader(),
             default: () => (
               <>
-                <FullLoading
-                  absolute
-                  class={[!unref(getProps).loading ? 'hidden' : '']}
-                  tip="加载中..."
-                />
                 <div
                   ref={scrollRef}
                   {...attrs}
-                  data-id="123"
                   style={{
+                    position: 'relative',
                     height: `calc(100% - ${footerHeight})`,
                     overflow: 'auto',
                     padding: '16px',
                     paddingBottom: '30px',
                   }}
                 >
+                  <FullLoading
+                    absolute
+                    tip="加载中..."
+                    class={[!unref(getProps).loading ? 'hidden' : '']}
+                  />
                   {getSlot(slots, 'default')}
                 </div>
                 {renderFooter()}

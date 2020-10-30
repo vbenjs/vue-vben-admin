@@ -7,5 +7,5 @@ export function provideModal(redoHeight: Fn) {
 }
 
 export function injectModal(): Fn {
-  return inject(key) as Fn;
+  return inject(key, () => {}) as Fn;
 }

@@ -69,8 +69,7 @@
     margin: 12px 9px;
 
     &__search--dark {
-      // .setPlaceholder('.ant-input',#fff);
-
+      .ant-input-affix-wrapper,
       .ant-input {
         .set-bg();
 
@@ -91,6 +90,7 @@
     }
 
     &__search--light {
+      .ant-input-affix-wrapper,
       .ant-input {
         color: @text-color-base;
         background: #fff;

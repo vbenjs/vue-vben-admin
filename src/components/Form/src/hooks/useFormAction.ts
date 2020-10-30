@@ -1,7 +1,6 @@
 import type { ComputedRef, Ref } from 'vue';
-import type { FormProps, FormSchema } from '../types/form';
-import type { Form as FormType } from 'ant-design-vue/types/form/form';
-import type { NamePath } from 'ant-design-vue/types/form/form-item';
+import type { FormProps, FormSchema, FormActionType } from '../types/form';
+import type { NamePath } from 'ant-design-vue/lib/form/interface';
 
 import { unref, toRaw } from 'vue';
 
@@ -17,7 +16,7 @@ interface UseFormActionContext {
   getSchema: ComputedRef<FormSchema[]>;
   formModel: any;
   defaultValueRef: Ref<any>;
-  formElRef: Ref<FormType>;
+  formElRef: Ref<FormActionType>;
   schemaRef: Ref<FormSchema[]>;
   handleFormValues: Fn;
   actionState: {
