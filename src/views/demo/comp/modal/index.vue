@@ -1,26 +1,24 @@
 <template>
-  <div class="px-10">
+  <div class="px-10 py-4">
     <Alert
       message="使用 useModal 进行弹窗操作，默认可以拖动，可以通过 draggable
     参数进行控制是否可以拖动/全屏"
       show-icon
-      class="my-4"
     />
-    <a-button type="primary" class="mr-2" @click="openModalLoading"
+    <a-button type="primary" class="my-4" @click="openModalLoading"
       >打开弹窗 默认可以拖动/全屏</a-button
     >
 
-    <Alert message="内外同时同时显示隐藏" show-icon class="my-4" />
-    <a-button type="primary" class="mr-2" @click="openModal2">打开弹窗</a-button>
-    <Alert message="自适应高度" show-icon class="my-4" />
-    <a-button type="primary" class="mr-2" @click="openModal3">打开弹窗</a-button>
+    <Alert message="内外同时同时显示隐藏" show-icon />
+    <a-button type="primary" class="my-4" @click="openModal2">打开弹窗</a-button>
+    <Alert message="自适应高度" show-icon />
+    <a-button type="primary" class="my-4" @click="openModal3">打开弹窗</a-button>
 
     <Alert
       message="内外数据交互,外部通过 transferModalData 发送，内部通过 receiveDrawerDataRef 接收。该数据具有响应式"
       show-icon
-      class="my-4"
     />
-    <a-button type="primary" class="mr-2" @click="send">打开弹窗并传递数据</a-button>
+    <a-button type="primary" class="my-4" @click="send">打开弹窗并传递数据</a-button>
 
     <Modal1 @register="register1" />
     <Modal2 @register="register2" />

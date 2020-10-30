@@ -5,7 +5,12 @@
 - 表单组件现在支持直接传入 model 直接进行 set 操作，参考**组件->弹窗扩展->打开弹窗并传递数据**
 
 - modal 的 useModalInner 现在支持传入回调函数，用于接收外部`transferModalData`传进来的值，
+
   - 用于处理打开弹窗对表单等组件的设置值。参考**组件->弹窗扩展->打开弹窗并传递数据**
+  - `receiveModalDataRef`这个值暂时保留。尽量少用。后续可能会删除。
+
+- drawer 的 useDrawerInner 现在支持传入回调函数，用于接收外部`transferModalData`传进来的值，
+  - 用于处理打开抽屉对表单等组件的设置值。参考**组件->抽屉扩展->打开抽屉并传递数据**
   - `receiveModalDataRef`这个值暂时保留。尽量少用。后续可能会删除。
 
 ### ✨ Refactor
