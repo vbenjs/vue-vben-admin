@@ -15,10 +15,12 @@ import {
 import { Spin } from 'ant-design-vue';
 
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
-import { useTimeout } from '/@/hooks/core/useTimeout';
+// import { useTimeout } from '/@/hooks/core/useTimeout';
 
 import { getSlot } from '/@/utils/helper/tsxHelper';
 import { useElResize } from '/@/hooks/event/useElResize';
+import { provideModal } from './provideModal';
+
 export default defineComponent({
   name: 'ModalWrapper',
   props: {
@@ -56,6 +58,11 @@ export default defineComponent({
     const wrapperRef = ref<HTMLElement | null>(null);
     const spinRef = ref<any>(null);
     const realHeightRef = ref(0);
+    // 重试次数
+    // let tryCount = 0;
+    let stopElResizeFn: Fn = () => {};
+
+    provideModal(setModalHeight);
 
     const wrapStyle = computed(() => {
       return {
@@ -64,10 +71,6 @@ export default defineComponent({
         overflow: 'auto',
       };
     });
-
-    // 重试次数
-    let tryCount = 0;
-    let stopElResizeFn: Fn = () => {};
 
     watchEffect(() => {
       setModalHeight();
@@ -123,17 +126,17 @@ export default defineComponent({
         }
         await nextTick();
         const spinEl = unref(spinRef);
-        if (!spinEl) {
-          useTimeout(() => {
-            // retry
-            if (tryCount < 3) {
-              setModalHeight();
-            }
-            tryCount++;
-          }, 10);
-          return;
-        }
-        tryCount = 0;
+        // if (!spinEl) {
+        //   useTimeout(() => {
+        //     // retry
+        //     if (tryCount < 3) {
+        //       setModalHeight();
+        //     }
+        //     tryCount++;
+        //   }, 10);
+        //   return;
+        // }
+        // tryCount = 0;
 
         const spinContainerEl = spinEl.$el.querySelector('.ant-spin-container') as HTMLElement;
         if (!spinContainerEl) return;
