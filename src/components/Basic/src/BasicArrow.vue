@@ -50,5 +50,11 @@
     &__active {
       transform: rotate(90deg);
     }
+
+    &.right.base-arrow__active {
+      span {
+        transform: rotate(90deg);
+      }
+    }
   }
 </style>
