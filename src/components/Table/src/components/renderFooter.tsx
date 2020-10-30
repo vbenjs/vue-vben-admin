@@ -1,9 +1,9 @@
 import { Table } from 'ant-design-vue';
-import { TableRowSelection } from 'ant-design-vue/types/table/table';
 import { cloneDeep } from 'lodash-es';
 import { unref, ComputedRef } from 'vue';
-import { BasicColumn } from '../types/table';
 import { isFunction } from '/@/utils/is';
+import type { BasicColumn, TableRowSelection } from '../types/table';
+
 export default ({
   scroll = {},
   columnsRef,
@@ -17,7 +17,7 @@ export default ({
   summaryFunc: any;
   rowKey?: string;
   dataSourceRef: ComputedRef<any[]>;
-  rowSelectionRef: ComputedRef<TableRowSelection<any> | null>;
+  rowSelectionRef: ComputedRef<TableRowSelection | null>;
 }) => {
   if (!summaryFunc) {
     return;

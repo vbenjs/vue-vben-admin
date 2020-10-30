@@ -1,21 +1,65 @@
-import { VNodeChild } from 'vue';
-import { PaginationProps } from './pagination';
-import { FormProps } from '/@/components/Form/index';
-import {
-  ExpandedRowRenderRecord,
-  PaginationConfig,
-  SorterResult,
-  TableCurrentDataSource,
-  TableCustomRecord,
-  TableRowSelection,
-} from 'ant-design-vue/types/table/table';
-import { ColumnProps } from 'ant-design-vue/types/table/column';
+import type { VNodeChild } from 'vue';
+import type { PaginationProps } from './pagination';
+import type { FormProps } from '/@/components/Form/index';
+import type { IColumnProps, ITableRowSelection } from 'ant-design-vue/lib/table/interface';
 import { ComponentType } from './componentType';
+import { ColumnProps } from './column';
 export declare type SortOrder = 'ascend' | 'descend';
+export interface TableCurrentDataSource<T = any> {
+  currentDataSource: T[];
+}
+
+export interface TableRowSelection<T = any> extends ITableRowSelection {
+  /**
+   * Callback executed when selected rows change
+   * @type Function
+   */
+  onChange?: (selectedRowKeys: string[] | number[], selectedRows: T[]) => any;
+
+  /**
+   * Callback executed when select/deselect one row
+   * @type FunctionT
+   */
+  onSelect?: (record: T, selected: boolean, selectedRows: Object[], nativeEvent: Event) => any;
+
+  /**
+   * Callback executed when select/deselect all rows
+   * @type Function
+   */
+  onSelectAll?: (selected: boolean, selectedRows: T[], changeRows: T[]) => any;
+
+  /**
+   * Callback executed when row selection is inverted
+   * @type Function
+   */
+  onSelectInvert?: (selectedRows: string[] | number[]) => any;
+}
+
+export interface TableCustomRecord<T> {
+  record?: T;
+  index?: number;
+}
+
+export interface ExpandedRowRenderRecord<T> extends TableCustomRecord<T> {
+  indent?: number;
+  expanded?: boolean;
+}
 export interface ColumnFilterItem {
   text?: string;
   value?: string;
   children?: any;
+}
+
+export interface TableCustomRecord<T = any> {
+  record?: T;
+  index?: number;
+}
+
+export interface SorterResult<T> {
+  column: ColumnProps<T>;
+  order: SortOrder;
+  field: string;
+  columnKey: string;
 }
 
 export interface RenderEditableCellParams {
@@ -231,7 +275,7 @@ export interface BasicTableProps<T = any> {
    * Row selection config
    * @type object
    */
-  rowSelection?: TableRowSelection<T>;
+  rowSelection?: TableRowSelection;
 
   /**
    * Set horizontal or vertical scrolling, can also be used to specify the width and height of the scroll area.
@@ -265,7 +309,7 @@ export interface BasicTableProps<T = any> {
    * Set props on per header row
    * @type Function
    */
-  customHeaderRow?: (column: ColumnProps<T>, index: number) => object;
+  customHeaderRow?: (column: IColumnProps, index: number) => object;
 
   /**
    * Set props on per row
@@ -305,12 +349,7 @@ export interface BasicTableProps<T = any> {
    * @param sorter
    * @param currentDataSource
    */
-  onChange?: (
-    pagination: PaginationConfig,
-    filters: Partial<Record<keyof T, string[]>>,
-    sorter: SorterResult<T>,
-    extra: TableCurrentDataSource<T>
-  ) => void;
+  onChange?: (pagination: any, filters: any, sorter: any, extra: any) => void;
 
   /**
    * Callback executed when the row expand icon is clicked
@@ -327,7 +366,7 @@ export interface BasicTableProps<T = any> {
   onExpandedRowsChange?: (expandedRows: string[] | number[]) => void;
 }
 
-export interface BasicColumn<T = any> extends ColumnProps<T> {
+export interface BasicColumn extends IColumnProps {
   children?: BasicColumn[];
   //
   flag?: 'INDEX' | 'DEFAULT' | 'CHECKBOX' | 'RADIO' | 'ACTION';

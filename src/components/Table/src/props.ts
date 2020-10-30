@@ -1,11 +1,13 @@
 import type { PropType } from 'vue';
 import type { PaginationProps } from './types/pagination';
-import type { BasicColumn, FetchSetting, TableSetting } from './types/table';
 import type {
+  BasicColumn,
+  FetchSetting,
+  TableSetting,
   SorterResult,
   TableCustomRecord,
   TableRowSelection,
-} from 'ant-design-vue/types/table/table';
+} from './types/table';
 import type { FormProps } from '/@/components/Form/index';
 import { DEFAULT_SORT_FN, FETCH_SETTING } from './const';
 
@@ -127,7 +129,7 @@ export const basicProps = {
     default: 0,
   },
   rowSelection: {
-    type: Object as PropType<TableRowSelection<any> | null>,
+    type: Object as PropType<TableRowSelection | null>,
     default: null,
   },
   title: {

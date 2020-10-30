@@ -4,10 +4,10 @@
     <Divider />
     国际化信息: {{ t('hello') }}
     <Divider />
-    <a-button :type="localeRef === 'zhCN' ? 'primary' : ''" @click="localeRef = 'zhCN'">
+    <a-button :type="localeRef === 'zhCN' ? 'primary' : 'default'" @click="localeRef = 'zhCN'">
       中文
     </a-button>
-    <a-button :type="localeRef === 'en' ? 'primary' : ''" @click="localeRef = 'en'">
+    <a-button :type="localeRef === 'en' ? 'primary' : 'default'" @click="localeRef = 'en'">
       英文
     </a-button>
     <Divider />

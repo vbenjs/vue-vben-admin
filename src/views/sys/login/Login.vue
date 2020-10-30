@@ -29,7 +29,7 @@
                 type="primary"
                 size="large"
                 class="rounded-sm"
-                block
+                :block="true"
                 @click="login"
                 :loading="formState.loading"
                 >登录</a-button

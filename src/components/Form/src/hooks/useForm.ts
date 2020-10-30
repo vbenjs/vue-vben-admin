@@ -4,8 +4,9 @@ import { isInSetup } from '/@/utils/helper/vueHelper';
 import { isProdMode } from '/@/utils/env';
 
 import type { FormProps, FormActionType, UseFormReturnType, FormSchema } from '../types/form';
-import type { NamePath } from 'ant-design-vue/types/form/form-item';
-import type { ValidateFields } from 'ant-design-vue/types/form/form';
+import type { NamePath } from 'ant-design-vue/lib/form/interface';
+
+export declare type ValidateFields = (nameList?: NamePath[]) => Promise<any>;
 
 export function useForm(props?: Partial<FormProps>): UseFormReturnType {
   isInSetup();

@@ -1,4 +1,4 @@
-import { SorterResult } from 'ant-design-vue/types/table/table';
+import type { SorterResult } from './types/table';
 
 export const ROW_KEY = 'key';
 

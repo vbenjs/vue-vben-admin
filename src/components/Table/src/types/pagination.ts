@@ -1,5 +1,15 @@
+import Pagination from 'ant-design-vue/lib/pagination';
 import { VNodeChild } from 'vue';
-import { PaginationRenderProps } from 'ant-design-vue/types/pagination';
+
+interface PaginationRenderProps {
+  page: number;
+  type: 'page' | 'prev' | 'next';
+  originalElement: any;
+}
+
+export declare class PaginationConfig extends Pagination {
+  position?: 'top' | 'bottom' | 'both';
+}
 export interface PaginationProps {
   /**
    * total number of data items
