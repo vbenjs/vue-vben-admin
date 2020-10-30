@@ -5,8 +5,11 @@ import type {
   DrawerProps,
   UseDrawerInnerReturnType,
 } from './types';
-import { ref, getCurrentInstance, onUnmounted, unref, reactive, computed } from 'vue';
+
+import { ref, getCurrentInstance, onUnmounted, unref, reactive, computed, watchEffect } from 'vue';
+
 import { isProdMode } from '/@/utils/env';
+import { isFunction } from '/@/utils/is';
 
 const dataTransferRef = reactive<any>({});
 /**
@@ -34,6 +37,7 @@ export function useDrawer(): UseDrawerReturnType {
     drawerRef.value = drawerInstance;
     loadedRef.value = true;
   }
+
   const getInstance = () => {
     const instance = unref(drawerRef);
     if (!instance) {
@@ -41,15 +45,18 @@ export function useDrawer(): UseDrawerReturnType {
     }
     return instance;
   };
+
   const methods: ReturnMethods = {
     setDrawerProps: (props: Partial<DrawerProps>): void => {
       getInstance().setDrawerProps(props);
     },
+
     openDrawer: (visible = true): void => {
       getInstance().setDrawerProps({
         visible: visible,
       });
     },
+
     transferDrawerData(val: any) {
       dataTransferRef[unref(uidRef)] = val;
     },
@@ -57,7 +64,7 @@ export function useDrawer(): UseDrawerReturnType {
 
   return [getDrawer, methods];
 }
-export const useDrawerInner = (): UseDrawerInnerReturnType => {
+export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
   const drawerInstanceRef = ref<DrawerInstance | null>(null);
   const currentInstall = getCurrentInstance();
   const uidRef = ref<string>('');
@@ -65,6 +72,7 @@ export const useDrawerInner = (): UseDrawerInnerReturnType => {
   if (!currentInstall) {
     throw new Error('instance is undefined!');
   }
+
   const getInstance = () => {
     const instance = unref(drawerInstanceRef);
     if (!instance) {
@@ -72,26 +80,39 @@ export const useDrawerInner = (): UseDrawerInnerReturnType => {
     }
     return instance;
   };
+
   const register = (modalInstance: DrawerInstance, uuid: string) => {
     uidRef.value = uuid;
     drawerInstanceRef.value = modalInstance;
     currentInstall.emit('register', modalInstance);
   };
+
+  watchEffect(() => {
+    const data = dataTransferRef[unref(uidRef)];
+    if (!data) return;
+    if (!callbackFn || !isFunction(callbackFn)) return;
+    callbackFn(data);
+  });
+
   return [
     register,
     {
       receiveDrawerDataRef: computed(() => {
         return dataTransferRef[unref(uidRef)];
       }),
+
       changeLoading: (loading = true) => {
         getInstance().setDrawerProps({ loading });
       },
+
       changeOkLoading: (loading = true) => {
         getInstance().setDrawerProps({ confirmLoading: loading });
       },
+
       closeDrawer: () => {
         getInstance().setDrawerProps({ visible: false });
       },
+
       setDrawerProps: (props: Partial<DrawerProps>) => {
         getInstance().setDrawerProps(props);
       },

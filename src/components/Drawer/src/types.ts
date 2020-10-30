@@ -5,10 +5,12 @@ import type { ScrollContainerOptions } from '/@/components/Container/index';
 export interface DrawerInstance {
   setDrawerProps: (props: Partial<DrawerProps> | boolean) => void;
 }
+
 export interface ReturnMethods extends DrawerInstance {
   openDrawer: (visible?: boolean) => void;
   transferDrawerData: (data: any) => void;
 }
+
 export type RegisterFn = (drawerInstance: DrawerInstance, uuid?: string) => void;
 
 export interface ReturnInnerMethods extends DrawerInstance {
@@ -19,6 +21,7 @@ export interface ReturnInnerMethods extends DrawerInstance {
 }
 
 export type UseDrawerReturnType = [RegisterFn, ReturnMethods];
+
 export type UseDrawerInnerReturnType = [RegisterFn, ReturnInnerMethods];
 
 export interface DrawerFooterProps {

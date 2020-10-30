@@ -1,17 +1,19 @@
-import { Drawer, Row, Col, Button } from 'ant-design-vue';
+import type { DrawerInstance, DrawerProps } from './types';
+
 import { defineComponent, ref, computed, watchEffect, watch, unref, nextTick, toRaw } from 'vue';
+import { Drawer, Row, Col, Button } from 'ant-design-vue';
+
 import { BasicTitle } from '/@/components/Basic';
 import { FullLoading } from '/@/components/Loading/index';
-
-import { getSlot } from '/@/utils/helper/tsxHelper';
-
-import { DrawerInstance, DrawerProps } from './types';
+import { LeftOutlined } from '@ant-design/icons-vue';
 
 import { basicProps } from './props';
+
+import { getSlot } from '/@/utils/helper/tsxHelper';
 import { isFunction, isNumber } from '/@/utils/is';
-import { LeftOutlined } from '@ant-design/icons-vue';
 import { buildUUID } from '/@/utils/uuid';
 import { deepMerge } from '/@/utils';
+
 import './index.less';
 
 const prefixCls = 'basic-drawer';
@@ -31,7 +33,6 @@ export default defineComponent({
 
     const getProps = computed(() => {
       const opt: any = {
-        // @ts-ignore
         placement: 'right',
         ...attrs,
         ...props,
@@ -47,7 +48,6 @@ export default defineComponent({
         opt.wrapClassName = opt.wrapClassName
           ? `${opt.wrapClassName} ${prefixCls}__detail`
           : `${prefixCls}__detail`;
-        // opt.maskClosable = false;
         if (!opt.getContainer) {
           opt.getContainer = `.default-layout__main`;
         }
@@ -128,11 +128,11 @@ export default defineComponent({
             {showOkBtn && (
               <Button
                 type={okType}
-                {...okButtonProps}
-                loading={confirmLoading}
                 onClick={() => {
                   emit('ok');
                 }}
+                {...okButtonProps}
+                loading={confirmLoading}
               >
                 {() => okText}
               </Button>
@@ -152,13 +152,9 @@ export default defineComponent({
             {() => (
               <>
                 {props.showDetailBack && (
-                  <Col class="mx-2">
-                    {() => (
-                      <Button size="small" type="link" onClick={onClose}>
-                        {() => <LeftOutlined />}
-                      </Button>
-                    )}
-                  </Col>
+                  <Button size="small" type="link" onClick={onClose}>
+                    {() => <LeftOutlined />}
+                  </Button>
                 )}
 
                 {title && (
