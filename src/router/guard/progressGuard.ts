@@ -11,6 +11,7 @@ export function createProgressGuard(router: Router) {
     !to.meta.inTab && NProgress.start();
     return true;
   });
+
   router.afterEach(async (to) => {
     !to.meta.inTab && NProgress.done();
     return true;

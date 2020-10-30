@@ -1,12 +1,8 @@
-// 文件: `shim-tsx.d.ts`
-import Vue, { VNode } from 'vue';
-import type { ComponentRenderProxy } from '@vue/composition-api';
+import type { ComponentRenderProxy, VNode } from 'vue';
 
 declare module '*.tsx' {
   import { defineComponent } from 'vue';
   const component: ReturnType<defineComponent>;
-  // import { ComponentOptions } from 'vue';
-  // const component: ReturnType<ComponentOptions>;
   export default component;
 }
 

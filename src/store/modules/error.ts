@@ -25,7 +25,10 @@ const NAME = 'error';
 hotModuleUnregisterModule(NAME);
 @Module({ dynamic: true, namespaced: true, store, name: NAME })
 class Error extends VuexModule implements ErrorState {
+  // error log list
   errorInfoState: ErrorInfo[] = [];
+
+  // error log count
   errorListCountState = 0;
 
   get getErrorInfoState() {

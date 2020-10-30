@@ -1,19 +1,17 @@
 import { computed, defineComponent, unref, Transition, KeepAlive, toRaw } from 'vue';
-
-import { appStore } from '/@/store/modules/app';
-
-import { useTransition } from './useTransition';
-
 import { RouterView, RouteLocation } from 'vue-router';
-import { tabStore } from '/@/store/modules/tab';
+
 import FrameLayout from '/@/layouts/iframe/index.vue';
 
+import { useTransition } from './useTransition';
 import { useSetting } from '/@/hooks/core/useSetting';
-// import { useRouter } from 'vue-router';
+
+import { tabStore } from '/@/store/modules/tab';
+import { appStore } from '/@/store/modules/app';
+
 export default defineComponent({
   name: 'PageLayout',
   setup() {
-    // const { currentRoute } = useRouter();
     const getProjectConfigRef = computed(() => {
       return appStore.getProjectConfig;
     });

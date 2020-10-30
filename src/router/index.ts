@@ -2,6 +2,7 @@ import type { RouteRecordRaw } from 'vue-router';
 import type { App } from 'vue';
 
 import { createRouter, createWebHashHistory } from 'vue-router';
+
 import { scrollWaiter } from '../utils/scrollWaiter';
 
 import { createGuard } from './guard/';
@@ -24,6 +25,7 @@ const router = createRouter({
     }
   },
 });
+
 // reset router
 export function resetRouter() {
   const resetWhiteNameList = [
@@ -45,21 +47,4 @@ export function setupRouter(app: App<Element>) {
   createGuard(router);
 }
 
-// // hmr
-// if (import.meta.hot) {
-//   let removeRoutes: (() => void)[] = [];
-
-//   for (let route of routes) {
-//     removeRoutes.push(router.addRoute(route as RouteRecordRaw));
-//   }
-
-//   import.meta.hot?.acceptDeps('./routes.ts', ({ routes }) => {
-//     for (let removeRoute of removeRoutes) removeRoute();
-//     removeRoutes = [];
-//     for (let route of routes) {
-//       removeRoutes.push(router.addRoute(route));
-//     }
-//     router.replace('');
-//   });
-// }
 export default router;

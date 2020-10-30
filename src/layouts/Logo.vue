@@ -23,12 +23,14 @@
       },
     },
     setup(props) {
+      const showRef = ref<boolean>(!!props.showTitle);
       const { globSetting } = useSetting();
       const go = useGo();
+
       function handleGoHome() {
         go(PageEnum.BASE_HOME);
       }
-      const showRef = ref<boolean>(!!props.showTitle);
+
       watch(
         () => props.showTitle,
         (show: boolean) => {
@@ -41,6 +43,7 @@
           }
         }
       );
+
       return {
         handleGoHome,
         globSetting,
@@ -55,7 +58,6 @@
 
   .app-logo {
     display: flex;
-    // justify-content: center;
     align-items: center;
     cursor: pointer;
 
