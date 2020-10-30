@@ -36,8 +36,8 @@ export function useItemLabelWidth(schemaItemRef: Ref<FormSchema>, propsRef: Ref<
       width = isNumber(width) ? `${width}px` : width;
     }
     return {
-      labelCol: { style: { width }, span: 1, ...labelCol },
-      wrapperCol: { style: { width: `calc(100% - ${width})` }, span: 23, ...wrapperCol },
+      labelCol: { style: { width }, ...labelCol },
+      wrapperCol: { style: { width: `calc(100% - ${width})` }, ...wrapperCol },
     };
   });
 }
