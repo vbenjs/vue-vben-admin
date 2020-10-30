@@ -5,8 +5,9 @@ import type {
   ReturnMethods,
   UseModalInnerReturnType,
 } from './types';
-import { ref, onUnmounted, unref, getCurrentInstance, reactive, computed } from 'vue';
+import { ref, onUnmounted, unref, getCurrentInstance, reactive, computed, watchEffect } from 'vue';
 import { isProdMode } from '/@/utils/env';
+import { isFunction } from '/@/utils/is';
 const dataTransferRef = reactive<any>({});
 
 /**
@@ -58,7 +59,7 @@ export function useModal(): UseModalReturnType {
   return [register, methods];
 }
 
-export const useModalInner = (): UseModalInnerReturnType => {
+export const useModalInner = (callbackFn?: Fn): UseModalInnerReturnType => {
   const modalInstanceRef = ref<ModalMethods | null>(null);
   const currentInstall = getCurrentInstance();
   const uidRef = ref<string>('');
@@ -80,6 +81,13 @@ export const useModalInner = (): UseModalInnerReturnType => {
     modalInstanceRef.value = modalInstance;
     currentInstall.emit('register', modalInstance);
   };
+
+  watchEffect(() => {
+    const data = dataTransferRef[unref(uidRef)];
+    if (!data) return;
+    if (!callbackFn || !isFunction(callbackFn)) return;
+    callbackFn(data);
+  });
 
   return [
     register,

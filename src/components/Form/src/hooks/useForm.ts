@@ -1,9 +1,9 @@
 import { ref, onUnmounted, unref } from 'vue';
 
 import { isInSetup } from '/@/utils/helper/vueHelper';
+import { isProdMode } from '/@/utils/env';
 
 import type { FormProps, FormActionType, UseFormReturnType, FormSchema } from '../types/form';
-import { isProdMode } from '/@/utils/env';
 import type { NamePath } from 'ant-design-vue/types/form/form-item';
 import type { ValidateFields } from 'ant-design-vue/types/form/form';
 
@@ -11,6 +11,7 @@ export function useForm(props?: Partial<FormProps>): UseFormReturnType {
   isInSetup();
   const formRef = ref<FormActionType | null>(null);
   const loadedRef = ref<boolean | null>(false);
+
   function getForm() {
     const form = unref(formRef);
     if (!form) {

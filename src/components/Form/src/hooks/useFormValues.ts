@@ -1,13 +1,23 @@
 import { isArray, isFunction, isObject, isString } from '/@/utils/is';
 import moment from 'moment';
 import { unref } from 'vue';
-import type { Ref } from 'vue';
-import type { FieldMapToTime } from '../types/form';
+import type { Ref, ComputedRef } from 'vue';
+import type { FieldMapToTime, FormSchema } from '../types/form';
 
-export function useFormValues(
-  transformDateFuncRef: Ref<Fn>,
-  fieldMapToTimeRef: Ref<FieldMapToTime>
-) {
+interface UseFormValuesContext {
+  transformDateFuncRef: Ref<Fn>;
+  fieldMapToTimeRef: Ref<FieldMapToTime>;
+  defaultValueRef: Ref<any>;
+  getSchema: ComputedRef<FormSchema[]>;
+  formModel: any;
+}
+export function useFormValues({
+  transformDateFuncRef,
+  fieldMapToTimeRef,
+  defaultValueRef,
+  getSchema,
+  formModel,
+}: UseFormValuesContext) {
   // 处理表单值
   function handleFormValues(values: any) {
     if (!isObject(values)) {
@@ -35,6 +45,7 @@ export function useFormValues(
     }
     return handleRangeTimeValue(resMap);
   }
+
   /**
    * @description: 处理时间区间参数
    */
@@ -58,5 +69,18 @@ export function useFormValues(
 
     return values;
   }
-  return handleFormValues;
+
+  function initDefault() {
+    const schemas = unref(getSchema);
+    const obj: any = {};
+    schemas.forEach((item) => {
+      if (item.defaultValue) {
+        obj[item.field] = item.defaultValue;
+        (formModel as any)[item.field] = item.defaultValue;
+      }
+    });
+    defaultValueRef.value = obj;
+  }
+
+  return { handleFormValues, initDefault };
 }

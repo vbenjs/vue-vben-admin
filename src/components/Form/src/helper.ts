@@ -1,4 +1,5 @@
-import { ComponentType } from './types/index';
+import type { ComponentType } from './types/index';
+
 /**
  * @description: 生成placeholder
  */
@@ -21,9 +22,11 @@ export function createPlaceholderMessage(component: ComponentType) {
   }
   return '';
 }
+
 function genType() {
   return ['DatePicker', 'MonthPicker', 'RangePicker', 'WeekPicker', 'TimePicker'];
 }
+
 /**
  * 时间字段
  */
