@@ -6,11 +6,14 @@ import { isBoolean } from '/@/utils/is';
 import { useTimeout } from '/@/hooks/core/useTimeout';
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
 import { useProps } from './useProps';
+import { injectModal } from '/@/components/Modal/src/provideModal';
 
 export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRef: Ref<any>) {
   const { propsRef } = useProps(refProps);
 
   const tableHeightRef: Ref<number | null> = ref(null);
+
+  const redoModalHeight = injectModal();
 
   watch(
     () => unref(propsRef).canResize,
@@ -18,35 +21,29 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
       redoHeight();
     }
   );
+
   function redoHeight() {
     const { canResize } = unref(propsRef);
 
-    if (!canResize) {
-      return;
-    }
+    if (!canResize) return;
     calcTableHeight();
   }
 
   async function calcTableHeight(cb?: () => void) {
     const { canResize, resizeHeightOffset, pagination, maxHeight } = unref(propsRef);
-    if (!canResize) {
-      return;
-    }
+    if (!canResize) return;
+
     await nextTick();
     const table = unref(tableElRef) as any;
+    if (!table) return;
 
-    if (!table) {
-      return;
-    }
     const tableEl: Element = table.$el;
-    if (!tableEl) {
-      return;
-    }
+    if (!tableEl) return;
+
     const el: HTMLElement | null = tableEl.querySelector('.ant-table-thead ');
     // const layoutMain: Element | null = document.querySelector('.default-layout__main ');
-    if (!el) {
-      return;
-    }
+    if (!el) return;
+
     // 表格距离底部高度
     const { bottomIncludeBody } = getViewportOffset(el);
     // 表格高度+距离底部高度-自定义偏移量
@@ -89,6 +86,8 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
       tableHeightRef.value =
         tableHeightRef.value! > maxHeight! ? (maxHeight as number) : tableHeightRef.value;
       cb && cb();
+      //  解决表格放modal内的时候，modal自适应高度计算问题
+      redoModalHeight && redoModalHeight();
     }, 0);
   }
 

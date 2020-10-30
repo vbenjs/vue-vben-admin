@@ -225,11 +225,11 @@ export default defineComponent({
         {...{ ...attrs, ...props, ...unref(getProps) }}
       >
         {{
+          footer: () => renderFooter(),
+          closeIcon: () => renderClose(),
+          title: () => renderTitle(),
           ...extendSlots(slots, ['default']),
           default: () => renderContent(),
-          closeIcon: () => renderClose(),
-          footer: () => renderFooter(),
-          title: () => renderTitle(),
         }}
       </Modal>
     );
