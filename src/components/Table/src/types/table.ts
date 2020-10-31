@@ -370,4 +370,6 @@ export interface BasicColumn extends IColumnProps {
   children?: BasicColumn[];
   //
   flag?: 'INDEX' | 'DEFAULT' | 'CHECKBOX' | 'RADIO' | 'ACTION';
+
+  slots?: Indexable;
 }
