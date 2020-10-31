@@ -1,3 +1,42 @@
+## 2.0.0-rc.7 (2020-10-31)
+
+### ✨ Features
+
+- The form component now supports directly passing in the model to directly perform the set operation, please refer to **Component -> Popup Extension -> Open Popup and Pass Data**
+
+- The useModalInner of modal now supports the incoming callback function to receive the value passed in from the external `transferModalData`
+
+  - Used to handle the setting values ​​of components such as forms when the pop-up window is opened. Refer to **Component -> Popup Extension -> Open Popup and Pass Data**
+  - The value of `receiveModalDataRef` is temporarily reserved. Use as little as possible. It may be deleted later.
+
+- The drawer’s useDrawerInner now supports the incoming callback function to receive the value passed in from the external `transferModalData`,，
+  - Used to handle the setting values ​​of components such as forms for opening the drawer Refer to **Component->Drawer Extension->Open the drawer and transfer data**
+  - The value of `receiveModalDataRef` is temporarily reserved. Use as little as possible. It may be deleted later.
+
+### ✨ Refactor
+
+- Form code optimization and reconstruction
+
+### ⚡ Performance Improvements
+
+- Modal slot can be overwritten
+- Optimize table embedding height calculation problem
+
+### 🎫 Chores
+
+- Add some notes
+- pwa icon supplement
+- Type adjustment
+- Upgrade ʻant-design-vue`to`beta.11`, and modify the known issues brought about, and some issues will be resolved after discovery
+
+### 🐛 Bug Fixes
+
+- Fix the timeout error of local proxy post interface to https address
+- Fix modal full screen height calculation problem when footer is not displayed
+- Fix the error that the verification information is not deleted when the form is reset
+- Fix the style problem of the split mode of the top menu
+- Fix the invalidation of table expansion icon animation
+
 ## 2.0.0-rc.6 (2020-10-28)
 
 ### ✨ Features
