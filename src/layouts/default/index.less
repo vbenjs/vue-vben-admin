@@ -1,12 +1,6 @@
 @import (reference) '../../design/index.less';
 
 .default-layout {
-  // .ant-menu-submenu .ant-menu-sub {
-  //   transition: none !important;
-  //   // transition: background 0.2s cubic-bezier(0.645, 0.045, 0.355, 1) 0s,
-  //   //   padding 0.2s cubic-bezier(0.645, 0.045, 0.355, 1) 0s !important;
-  // }
-
   &__content {
     position: relative;
 
@@ -72,6 +66,10 @@
   .layout-sidebar {
     background-size: 100% 100%;
 
+    &:not(.ant-layout-sider-dark) {
+      border-right: 1px solid @border-color-light;
+    }
+
     .ant-layout-sider-zero-width-trigger {
       top: 40%;
       z-index: 10;
@@ -99,25 +97,13 @@
     }
   }
 
-  .setting-button {
-    top: 45%;
-    right: 0;
-    padding: 8px;
-    border-radius: 6px 0 0 6px;
-
-    svg {
-      width: 1em;
-      height: 1em;
-    }
-  }
-
   &__tabs {
     z-index: 10;
     height: @multiple-height;
     padding: 0;
     line-height: @multiple-height;
     background: @border-color-shallow-light;
-    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.12);
   }
 }
 
@@ -194,9 +180,15 @@
   }
 }
 
-.ant-layout-header {
+.ant-layout-header:not(.default-layout__tabs) {
   height: @header-height;
   line-height: @header-height;
+}
+
+.ant-layout-header.default-layout__tabs {
+  height: @multiple-height + 2;
+  line-height: @multiple-height + 2;
+  background: @white;
 }
 
 .layout-header {
@@ -351,22 +343,20 @@
   }
 
   &__menu {
-    // display: flex;
     margin-left: 20px;
     overflow: hidden;
     align-items: center;
-    // flex-grow: 1;
   }
 
   &__user-dropdown {
-    height: 52px;
+    height: @header-height;
     padding: 0 0 0 10px;
   }
 }
 
 .user-dropdown {
   display: flex;
-  height: 100%;
+  padding-right: 10px;
   font-size: 12px;
   cursor: pointer;
   align-items: center;
@@ -374,48 +364,11 @@
   img {
     width: 26px;
     height: 26px;
-    margin-right: 16px;
+    margin-right: 12px;
   }
 
   &__header {
     border-radius: 50%;
-  }
-
-  &__divider {
-    width: 1px;
-    height: 30px;
-    margin-right: 20px;
-    background: #c6d9ee;
-  }
-
-  &__exit {
-    margin-top: -40px;
-    font-size: 12px;
-    color: #c6d9ee;
-    text-align: center;
-
-    > section {
-      height: 20px;
-    }
-  }
-
-  &__info {
-    display: flex;
-    margin-right: 12px;
-    flex-direction: column;
-
-    > section {
-      line-height: 1.8;
-    }
-  }
-
-  &__name {
-    font-size: 12px;
-  }
-
-  &__desc {
-    font-size: 12px;
-    .text-truncate();
   }
 }
 
@@ -425,8 +378,8 @@
 }
 
 .ant-layout-sider-trigger {
-  height: 30px;
-  line-height: 30px;
+  height: 36px;
+  line-height: 36px;
 }
 
 .hide-title {

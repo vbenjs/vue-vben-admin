@@ -1,4 +1,4 @@
-import { defineComponent, unref, onMounted, computed } from 'vue';
+import { defineComponent, unref, computed } from 'vue';
 import { Layout, BackTop } from 'ant-design-vue';
 import LayoutHeader from './LayoutHeader';
 
@@ -30,6 +30,7 @@ export default defineComponent({
     const getProjectConfigRef = computed(() => {
       return appStore.getProjectConfig;
     });
+
     const getLockMainScrollStateRef = computed(() => {
       return appStore.getLockMainScrollState;
     });
@@ -40,6 +41,7 @@ export default defineComponent({
       } = unref(getProjectConfigRef);
       return show;
     });
+
     const isShowMixHeaderRef = computed(() => {
       const {
         menuSetting: { type },
@@ -54,12 +56,6 @@ export default defineComponent({
       return show && mode !== MenuModeEnum.HORIZONTAL && !unref(getFullContent);
     });
 
-    // const { currentRoute } = useRouter();
-    onMounted(() => {
-      // Each refresh will request the latest user information, if you don’t need it, you can delete it
-      // userStore.getUserInfoAction({ userId: userStore.getUserInfoState.userId });
-    });
-
     // Get project configuration
     // const { getFullContent } = useFullContent(currentRoute);
     function getTarget(): any {
@@ -68,6 +64,7 @@ export default defineComponent({
       } = unref(getProjectConfigRef);
       return document.querySelector(`.default-layout__${fixed ? 'main' : 'content'}`);
     }
+
     return () => {
       const { getPageLoading, getLockInfo } = appStore;
       const {
@@ -77,10 +74,11 @@ export default defineComponent({
         multiTabsSetting: { show: showTabs },
         headerSetting: { fixed },
       } = unref(getProjectConfigRef);
-      // const fixedHeaderCls = fixed ? ('fixed' + getLockMainScrollState ? ' lock' : '') : '';
+
       const fixedHeaderCls = fixed
         ? 'fixed' + (unref(getLockMainScrollStateRef) ? ' lock' : '')
         : '';
+
       const { isLock } = getLockInfo;
       return (
         <Layout class="default-layout relative">

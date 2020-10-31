@@ -159,7 +159,7 @@ export default defineComponent({
             size="small"
             animated={false}
             hideAdd={true}
-            tabBarGutter={2}
+            tabBarGutter={4}
             activeKey={unref(activeKeyRef)}
             onChange={handleChange}
             onEdit={handleEdit}
