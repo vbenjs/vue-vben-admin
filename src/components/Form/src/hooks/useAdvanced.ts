@@ -1,6 +1,6 @@
 import type { ColEx } from '../types';
 import type { AdvanceState } from '../types/hooks';
-import type { ComputedRef, Ref } from 'vue';
+import { ComputedRef, Ref } from 'vue';
 import type { FormProps, FormSchema } from '../types/form';
 
 import { computed, unref, watch } from 'vue';
@@ -69,6 +69,7 @@ export default function ({
       actionColOptions,
     };
   });
+
   watch(
     [() => unref(getSchema), () => advanceState.isAdvanced, () => unref(realWidthRef)],
     () => {
@@ -169,6 +170,7 @@ export default function ({
       itemColSum,
       true
     );
+
     emit('advanced-change');
   }
 

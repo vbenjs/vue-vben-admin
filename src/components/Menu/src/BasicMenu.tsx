@@ -60,13 +60,13 @@ export default defineComponent({
       const { showLogo, search } = props;
       let offset = 0;
       if (search) {
-        offset += 60;
-      }
-      if (showLogo) {
         offset += 54;
       }
+      if (showLogo) {
+        offset += 46;
+      }
       return {
-        height: `calc(100% - ${offset - 38}px)`,
+        height: `calc(100% - ${offset - 10}px)`,
         position: 'relative',
         overflow: 'auto',
       };

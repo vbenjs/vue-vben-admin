@@ -24,9 +24,9 @@
 </template>
 <script lang="ts">
   import type { FormActionType, FormProps, FormSchema } from './types/form';
-  import type { Form as FormType, ValidateFields } from 'ant-design-vue/types/form/form';
   import type { AdvanceState } from './types/hooks';
   import type { Ref } from 'vue';
+  import type { ValidateFields } from 'ant-design-vue/lib/form/interface';
 
   import {
     defineComponent,
@@ -41,12 +41,13 @@
   import { Form, Row } from 'ant-design-vue';
   import FormItem from './FormItem';
   import { basicProps } from './props';
-  import { deepMerge } from '/@/utils';
   import FormAction from './FormAction';
 
   import { dateItemType } from './helper';
   import moment from 'moment';
   import { cloneDeep } from 'lodash-es';
+  import { deepMerge } from '/@/utils';
+
   import { useFormValues } from './hooks/useFormValues';
   import useAdvanced from './hooks/useAdvanced';
   import { useFormAction } from './hooks/useFormAction';
@@ -75,7 +76,7 @@
       const defaultValueRef = ref<any>({});
       const propsRef = ref<Partial<FormProps>>({});
       const schemaRef = ref<FormSchema[] | null>(null);
-      const formElRef = ref<Nullable<FormType>>(null);
+      const formElRef = ref<Nullable<FormActionType>>(null);
 
       const getMergePropsRef = computed(
         (): FormProps => {

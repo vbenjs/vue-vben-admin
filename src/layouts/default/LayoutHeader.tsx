@@ -145,6 +145,7 @@ export default defineComponent({
                         <Badge
                           count={errorStore.getErrorListCountState}
                           offset={[0, 10]}
+                          dot
                           overflowCount={99}
                         >
                           {() => (
