@@ -1045,10 +1045,10 @@
   resolved "https://registry.npmjs.org/@iconify/iconify/-/iconify-2.0.0-rc.1.tgz#a8bae29d71016d5af98c69f56a73c4a040217b3a"
   integrity sha512-ji5H04VjYtR4seIEgVVLPxg1KRhrFquOiyfPyLVS6vYPkuqV6bcWdssi05YSmf/OAzG4E7Qsg80/bOKyd5tYTw==
 
-"@iconify/json@^1.1.248":
-  version "1.1.248"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.248.tgz#32556cf0e4a394c720349fbf90574d5cfb5c2c24"
-  integrity sha512-wZPRBzozizKT1UIXZnHu/vyCol6KEq3whE72V6NsOCYOdEswlYXdP7X9A5Xrk2QOKSnhKHekYuCqt5w7A/JFYA==
+"@iconify/json@^1.1.249":
+  version "1.1.249"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.249.tgz#c5823a6feaebb8c09e246f61dde9b5ba162ce8df"
+  integrity sha512-LBq5vCroudxbAphEMkboTHcNcCBSRN1mQNUC/wXLrfWMGBzckPMdguQ94Ajo1f4NeoH4l/oJSWnTbocgqrMfOw==
 
 "@koa/cors@^3.1.0":
   version "3.1.0"
@@ -8290,10 +8290,10 @@ vuex-module-decorators@^1.0.1:
   resolved "https://registry.npmjs.org/vuex-module-decorators/-/vuex-module-decorators-1.0.1.tgz#d34dafb5428a3636f1c26d3d014c15fc9659ccd0"
   integrity sha512-FLWZsXV5XAtl/bcKUyQFpnSBtpc3wK/7zSdy9oKbyp71mZd4ut5y2zSd219wWW9OG7WUOlVwac4rXFFDVnq7ug==
 
-vuex@^4.0.0-beta.4:
-  version "4.0.0-beta.4"
-  resolved "https://registry.npmjs.org/vuex/-/vuex-4.0.0-beta.4.tgz#7b319ead2ef30432b7eaa4e37258ea3c5e44f698"
-  integrity sha512-/+4E1dokq5cwbl4mohOqOj8h0vOLOWmLSqlqTf++bfmN9/JKWtwYfsBrzlK0sYrNfuYcpQeX0BVxQHoHXDfYZQ==
+vuex@^4.0.0-rc.1:
+  version "4.0.0-rc.1"
+  resolved "https://registry.npmjs.org/vuex/-/vuex-4.0.0-rc.1.tgz#160cd5957972a61c7c01ab585995b78e092a298d"
+  integrity sha512-zgXVCQygF1Sm7ezyudEEMynoV2PBxZdcjE12D0BY1xIKZMrA7GFP6xqADTEAzwfVemXboExJ+/KThfxJFtM/5w==
 
 warning@^4.0.0:
   version "4.0.3"
