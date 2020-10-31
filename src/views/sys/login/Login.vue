@@ -134,16 +134,17 @@
       display: none;
       height: 100%;
       background: url(../../../assets/images/login/login-in.png) no-repeat;
-      background-size: 100% 100%;
+      background-position: 50% 30%;
+      background-size: 80% 80%;
 
-      .respond-to(large, { display: block;});
+      .respond-to(xlarge, { display: block;});
     }
 
     &-form {
       width: 100%;
       background: @white;
       border: 10px solid rgba(255, 255, 255, 0.5);
-      border-width: 10px;
+      border-width: 8px;
       border-radius: 4px;
       background-clip: padding-box;
       .respond-to(xlarge, { margin: 0 56px});
@@ -157,8 +158,11 @@
         height: 100%;
         justify-content: center;
         align-items: center;
-        .respond-to(large, { width: 40%;});
-        .respond-to(xlarge, { width: 33.3%;});
+        .respond-to(large, {
+          width: 520px;
+          right: calc(50% - 260px);
+          });
+        .respond-to(xlarge, { width: 520px; right:0});
       }
 
       &__content {
@@ -174,7 +178,7 @@
 
           img {
             display: inline-block;
-            width: 80px;
+            width: 64px;
           }
 
           h1 {

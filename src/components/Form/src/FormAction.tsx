@@ -1,9 +1,11 @@
+import type { ColEx } from './types/index';
+
 import { defineComponent, unref, computed, PropType } from 'vue';
 import { Form, Col } from 'ant-design-vue';
-import type { ColEx } from './types/index';
-import { getSlot } from '/@/utils/helper/tsxHelper';
 import Button from '/@/components/Button/index.vue';
-import { UpOutlined, DownOutlined } from '@ant-design/icons-vue';
+import { BasicArrow } from '/@/components/Basic/index';
+
+import { getSlot } from '/@/utils/helper/tsxHelper';
 
 export default defineComponent({
   name: 'BasicFormAction',
@@ -107,11 +109,7 @@ export default defineComponent({
                       {() => (
                         <>
                           {isAdvanced ? '收起' : '展开'}
-                          {isAdvanced ? (
-                            <UpOutlined class="advanced-icon" />
-                          ) : (
-                            <DownOutlined class="advanced-icon" />
-                          )}
+                          <BasicArrow expand={!isAdvanced} />
                         </>
                       )}
                     </Button>

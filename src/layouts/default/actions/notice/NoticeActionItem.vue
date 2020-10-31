@@ -1,7 +1,7 @@
 <template>
   <div class="layout-header__action-item notify-action">
     <Popover title="" trigger="click">
-      <Badge :count="count" :numberStyle="numberStyle">
+      <Badge :count="count" dot :numberStyle="numberStyle">
         <BellOutlined class="layout-header__action-icon" />
       </Badge>
       <template #content>
@@ -56,7 +56,7 @@
 
       .ant-badge-multiple-words {
         padding: 0 4px;
-        transform: translate(26%, -40%);
+        // transform: translate(26%, -40%);
       }
 
       svg {

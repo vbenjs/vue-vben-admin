@@ -21,11 +21,9 @@
     </BasicForm>
     <Table
       ref="tableElRef"
-      v-bind="getBindValues"
       :rowClassName="getRowClassName"
-      :class="{
-        hidden: !getEmptyDataIsShowTable,
-      }"
+      v-bind="getBindValues"
+      v-show="getEmptyDataIsShowTable"
       @change="handleTableChange"
     >
       <template #[item]="data" v-for="item in Object.keys($slots)">
@@ -44,6 +42,8 @@
     GetColumnsParams,
     TableActionType,
     SizeType,
+    SorterResult,
+    TableCustomRecord,
   } from './types/table';
 
   import { isFunction, isString } from '/@/utils/is';
@@ -64,7 +64,6 @@
   import { ROW_KEY } from './const';
   import { PaginationProps } from './types/pagination';
   import { deepMerge } from '/@/utils';
-  import { SorterResult, TableCustomRecord } from 'ant-design-vue/types/table/table';
   import { useEvent } from '/@/hooks/event/useEvent';
 
   import './style/index.less';
@@ -199,7 +198,7 @@
         { immediate: true }
       );
 
-      function getRowClassName(record: TableCustomRecord<any>, index: number) {
+      function getRowClassName(record: TableCustomRecord, index: number) {
         const { striped, rowClassName } = unref(getMergeProps);
         if (!striped) return;
         if (rowClassName && isFunction(rowClassName)) {
@@ -218,6 +217,7 @@
 
       function handleTableChange(
         pagination: PaginationProps,
+        // @ts-ignore
         filters: Partial<Record<string, string[]>>,
         sorter: SorterResult<any>
       ) {
