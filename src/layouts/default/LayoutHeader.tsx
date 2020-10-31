@@ -1,11 +1,12 @@
 import { defineComponent, unref, computed, ref } from 'vue';
+
 import { Layout, Tooltip, Badge } from 'ant-design-vue';
 import Logo from '/@/layouts/Logo.vue';
 import UserDropdown from './UserDropdown';
 import LayoutMenu from './LayoutMenu';
-import { appStore } from '/@/store/modules/app';
-import { MenuModeEnum, MenuSplitTyeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
 import LayoutBreadcrumb from './LayoutBreadcrumb';
+import LockAction from './actions/LockActionItem';
+import NoticeAction from './actions/notice/NoticeActionItem.vue';
 import {
   RedoOutlined,
   FullscreenExitOutlined,
@@ -14,19 +15,24 @@ import {
   LockOutlined,
   BugOutlined,
 } from '@ant-design/icons-vue';
+
 import { useFullscreen } from '/@/hooks/web/useFullScreen';
 import { useTabs } from '/@/hooks/web/useTabs';
-import { GITHUB_URL } from '/@/settings/siteSetting';
-import LockAction from './actions/LockActionItem';
-import { useModal } from '/@/components/Modal/index';
-import { errorStore } from '/@/store/modules/error';
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
-import NoticeAction from './actions/notice/NoticeActionItem.vue';
 import { useRouter } from 'vue-router';
+import { useModal } from '/@/components/Modal/index';
+
+import { appStore } from '/@/store/modules/app';
+import { errorStore } from '/@/store/modules/error';
+
+import { MenuModeEnum, MenuSplitTyeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
+import { GITHUB_URL } from '/@/settings/siteSetting';
 export default defineComponent({
   name: 'DefaultLayoutHeader',
   setup() {
     const widthRef = ref(200);
+    let logoEl: Element | null;
+
     const { refreshPage } = useTabs();
     const { push } = useRouter();
     const [register, { openModal }] = useModal();
@@ -35,6 +41,7 @@ export default defineComponent({
     const getProjectConfigRef = computed(() => {
       return appStore.getProjectConfig;
     });
+
     const showTopMenu = computed(() => {
       const getProjectConfig = unref(getProjectConfigRef);
       const {
@@ -43,7 +50,6 @@ export default defineComponent({
       return mode === MenuModeEnum.HORIZONTAL || splitMenu;
     });
 
-    let logoEl: Element | null;
     useWindowSizeFn(
       () => {
         if (!unref(showTopMenu)) return;
@@ -80,6 +86,7 @@ export default defineComponent({
     function handleLockPage() {
       openModal(true);
     }
+
     return () => {
       const getProjectConfig = unref(getProjectConfigRef);
       const {
@@ -99,7 +106,9 @@ export default defineComponent({
       } = getProjectConfig;
 
       const isSidebarType = menuType === MenuTypeEnum.SIDEBAR;
+
       const width = unref(widthRef);
+
       return (
         <Layout.Header class={['layout-header', 'flex p-0 px-4 ', unref(headerClass)]}>
           {() => (
@@ -112,10 +121,12 @@ export default defineComponent({
                 )}
                 {unref(showTopMenu) && (
                   <div
-                    class={[`layout-header__menu `, `justify-${topMenuAlign}`]}
+                    class={[`layout-header__menu `]}
                     style={{ width: `calc(100% - ${unref(width)}px)` }}
                   >
                     <LayoutMenu
+                      isTop={true}
+                      class={`justify-${topMenuAlign}`}
                       theme={headerTheme}
                       splitType={splitMenu ? MenuSplitTyeEnum.TOP : MenuSplitTyeEnum.NONE}
                       menuMode={splitMenu ? MenuModeEnum.HORIZONTAL : null}

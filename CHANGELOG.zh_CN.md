@@ -1,3 +1,13 @@
+## Wip
+
+### ⚡ Performance Improvements
+
+- Layout 界面布局样式调整
+
+### 🐛 Bug Fixes
+
+- 修复表格类型错误
+
 ## 2.0.0-rc.7 (2020-10-31)
 
 ### ✨ Features

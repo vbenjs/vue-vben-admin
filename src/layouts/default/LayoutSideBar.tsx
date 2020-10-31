@@ -7,7 +7,7 @@ import { menuStore } from '/@/store/modules/menu';
 // import darkMiniIMg from '/@/assets/images/sidebar/dark-mini.png';
 // import lightMiniImg from '/@/assets/images/sidebar/light-mini.png';
 import darkImg from '/@/assets/images/sidebar/dark.png';
-import lightImg from '/@/assets/images/sidebar/light.png';
+// import lightImg from '/@/assets/images/sidebar/light.png';
 import { appStore } from '/@/store/modules/app';
 import { MenuModeEnum, MenuSplitTyeEnum, MenuThemeEnum } from '/@/enums/menuEnum';
 import { SIDE_BAR_MINI_WIDTH, SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '/@/enums/appEnum';
@@ -39,15 +39,16 @@ export default defineComponent({
       // const collapse = unref(collapseRef);
 
       const theme = unref(getProjectConfigRef).menuSetting.theme;
+      if (theme === MenuThemeEnum.LIGHT) {
+        // bg = lightImg;
+        return {};
+      }
       let bg = '';
       if (theme === MenuThemeEnum.DARK) {
         // bg = collapse ? darkMiniIMg : darkImg;
         bg = darkImg;
       }
-      if (theme === MenuThemeEnum.LIGHT) {
-        bg = lightImg;
-        // bg = collapse ? lightMiniImg : lightImg;
-      }
+
       return {
         'background-image': `url(${bg})`,
       };

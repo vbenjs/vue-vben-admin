@@ -94,7 +94,7 @@
       .ant-input {
         color: @text-color-base;
         background: #fff;
-        border: 0;
+        // border: 0;
         outline: none;
 
         &:hover,

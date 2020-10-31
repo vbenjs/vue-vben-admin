@@ -24,7 +24,7 @@ export default defineComponent({
       schemas: [
         {
           field: 'password',
-          label: '锁屏密码',
+          label: '',
           component: 'InputPassword',
           componentProps: {
             placeholder: '请输入锁屏密码',

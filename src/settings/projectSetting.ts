@@ -55,7 +55,7 @@ const setting: ProjectConfig = {
     // 是否显示搜索框
     showSearch: true,
     // 菜单宽度
-    menuWidth: 180,
+    menuWidth: 200,
     // 菜单模式
     mode: MenuModeEnum.INLINE,
     // 菜单类型
@@ -65,7 +65,7 @@ const setting: ProjectConfig = {
     // 分割菜单
     split: false,
     // 顶部菜单布局
-    topMenuAlign: 'start',
+    topMenuAlign: 'center',
   },
   // 消息配置
   messageSetting: {
@@ -83,7 +83,7 @@ const setting: ProjectConfig = {
     // 开启快速操作
     showQuick: true,
     // 显示icon
-    showIcon: true,
+    showIcon: false,
     // 标签页缓存最大数量
     max: 12,
   },

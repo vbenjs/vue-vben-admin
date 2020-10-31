@@ -21,6 +21,11 @@ export default defineComponent({
       return appStore.getProjectConfig;
     });
 
+    const getUserInfo = computed(() => {
+      const { realName = '', desc } = userStore.getUserInfoState || {};
+      return { realName, desc };
+    });
+
     /**
      * @description: 退出登录
      */
@@ -41,10 +46,20 @@ export default defineComponent({
         openDoc();
       }
     }
-    const getUserInfo = computed(() => {
-      const { realName = '', desc } = userStore.getUserInfoState || {};
-      return { realName, desc };
-    });
+
+    function renderItem({ icon, text, key }: { icon: string; text: string; key: string }) {
+      return (
+        <Menu.Item key={key}>
+          {() => (
+            <span class="flex items-center">
+              <Icon icon={icon} class="mr-1" />
+              <span>{text}</span>
+            </span>
+          )}
+        </Menu.Item>
+      );
+    }
+
     return () => {
       const { realName } = unref(getUserInfo);
       const {
@@ -65,28 +80,13 @@ export default defineComponent({
               <Menu slot="overlay" onClick={handleMenuClick}>
                 {() => (
                   <>
-                    {showDoc && (
-                      <Menu.Item key="doc">
-                        {() => (
-                          <span class="flex items-center">
-                            <Icon icon="gg:loadbar-doc" class="mr-1" />
-                            <span>文档</span>
-                          </span>
-                        )}
-                      </Menu.Item>
-                    )}
+                    {showDoc && renderItem({ key: 'doc', text: '文档', icon: 'gg:loadbar-doc' })}
                     {showDoc && <Divider />}
-
-                    <Menu.Item key="loginOut">
-                      {() => (
-                        <>
-                          <span class="flex items-center">
-                            <Icon icon="ant-design:poweroff-outlined" class="mr-1" />
-                            <span>退出系统</span>
-                          </span>
-                        </>
-                      )}
-                    </Menu.Item>
+                    {renderItem({
+                      key: 'loginOut',
+                      text: '退出系统',
+                      icon: 'ant-design:poweroff-outlined',
+                    })}
                   </>
                 )}
               </Menu>

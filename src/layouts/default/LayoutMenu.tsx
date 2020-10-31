@@ -45,6 +45,10 @@ export default defineComponent({
       type: Boolean as PropType<boolean>,
       default: true,
     },
+    isTop: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    },
     menuMode: {
       type: [String] as PropType<MenuModeEnum | null>,
       default: '',
@@ -199,6 +203,7 @@ export default defineComponent({
           flatItems={unref(flatMenusRef)}
           onClickSearchInput={handleClickSearchInput}
           appendClass={props.splitType === MenuSplitTyeEnum.TOP}
+          isTop={props.isTop}
         >
           {{
             header: () =>

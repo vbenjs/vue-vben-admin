@@ -4,7 +4,6 @@ import { Layout } from 'ant-design-vue';
 
 import { ContentEnum } from '/@/enums/appEnum';
 import { appStore } from '/@/store/modules/app';
-// import { RouterView } from 'vue-router';
 import PageLayout from '/@/layouts/page/index';
 export default defineComponent({
   name: 'DefaultLayoutContent',
@@ -15,9 +14,7 @@ export default defineComponent({
       const wrapClass = contentMode === ContentEnum.FULL ? 'full' : 'fixed';
       return (
         <Layout.Content class={`layout-content ${wrapClass} `}>
-          {{
-            default: () => <PageLayout />,
-          }}
+          {() => <PageLayout />}
         </Layout.Content>
       );
     };

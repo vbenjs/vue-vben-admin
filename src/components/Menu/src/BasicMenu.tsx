@@ -66,7 +66,7 @@ export default defineComponent({
         offset += 54;
       }
       return {
-        height: `calc(100% - ${offset - 30}px)`,
+        height: `calc(100% - ${offset - 38}px)`,
         position: 'relative',
         overflow: 'auto',
       };
@@ -147,6 +147,7 @@ export default defineComponent({
     }
 
     const showTitle = computed(() => {
+      if (props.isTop) return true;
       if (!props.isAppMenu) return true;
       if (!props.collapsedShowTitle) {
         return !menuStore.getCollapsedState;
@@ -247,7 +248,6 @@ export default defineComponent({
     return () => {
       const { getCollapsedState } = menuStore;
       const { mode } = props;
-
       return mode === MenuModeEnum.HORIZONTAL ? (
         renderMenu()
       ) : (

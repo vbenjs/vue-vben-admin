@@ -54,6 +54,10 @@ export const basicProps = {
     type: Boolean as PropType<boolean>,
     default: true,
   },
+  isTop: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
   beforeClickFn: {
     type: Function as PropType<Fn>,
     default: null,
