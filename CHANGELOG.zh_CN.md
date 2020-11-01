@@ -1,5 +1,9 @@
 ## Wip
 
+### ✨ Features
+
+- 全局 loading 添加文本
+
 ### ⚡ Performance Improvements
 
 - Layout 界面布局样式调整
