@@ -1,5 +1,5 @@
 import type { VNode, Ref } from 'vue';
-import type { ModalOptions } from 'ant-design-vue/types/modal';
+import type { ModalFuncProps } from 'ant-design-vue/lib/modal/index';
 
 export type Fn<T> = () => T;
 export type AnyFn<T> = (...arg: any) => T;
@@ -86,7 +86,7 @@ export interface MessageOptions {
   /** Set the distance to the top of viewport. Default is 20 px. */
   offset?: number;
 }
-export interface ModalOptionsEx extends Omit<ModalOptions, 'iconType'> {
+export interface ModalOptionsEx extends Omit<ModalFuncProps, 'iconType'> {
   iconType: 'warning' | 'success' | 'error' | 'info';
 }
 export type ModalOptionsPartial = Partial<ModalOptionsEx> & Pick<ModalOptionsEx, 'content'>;
