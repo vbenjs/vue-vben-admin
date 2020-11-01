@@ -1,3 +1,32 @@
+## 2.0.0-rc.8 (2020-11-2)
+
+### ✨ Features
+
+- Global loading add text
+- Right-click menu supports multiple levels
+
+### 🎫 Chores
+
+- Login cache changed from sessionStorage to LocalStorage
+
+### ⚡ Performance Improvements
+
+- Update ʻant-design-vue`to`beta.12`
+- Layout interface layout style adjustment
+- Optimize lazy loading components
+- Optimize table rendering performance
+- Add animation to form folding search icon
+- routeModule can ignore the layout configuration. Convenient to configure the first-level menu
+
+### 🐛 Bug Fixes
+
+- Fix table type error
+- Fix bug in mock paging tool
+- Fix the folding problem of the search form when the table is opened
+- Fix the problem of fixed column style when the table size is samll
+- Fixed the error report when closing multiple tabs
+- Fix message type error
+
 ## 2.0.0-rc.7 (2020-10-31)
 
 ### ✨ Features
