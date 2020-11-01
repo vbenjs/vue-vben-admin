@@ -32,7 +32,7 @@
                 :block="true"
                 @click="login"
                 :loading="formState.loading"
-                >登录</a-button
+                >{{ $t('system.login.button') }}</a-button
               >
             </a-form-item>
           </a-form>

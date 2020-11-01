@@ -10,6 +10,7 @@ console.log(localeMessages);
 const localeData = {
   legacy: false,
   locale: getLocale(),
+  // TODO: setting fallback inside settings
   fallbackLocale: 'en',
   messages: {
     ...localeMessages,
@@ -17,7 +18,6 @@ const localeData = {
 };
 
 function setupI18n(app: App) {
-  console.log(localeData);
   const i18n = createI18n(localeData) as I18n;
   setI18nLanguage(i18n, getLocale());
 

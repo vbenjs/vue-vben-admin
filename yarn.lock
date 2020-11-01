@@ -1275,13 +1275,6 @@
     "@types/keygrip" "*"
     "@types/node" "*"
 
-"@types/dot-prop@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@types/dot-prop/-/dot-prop-5.0.1.tgz#7dffa5877b19161287a37d3b2bfa06b63724ec22"
-  integrity sha512-JveEixxPnUkV1UtrlHeEIeLCq1G8xecqmjXkEKW0bYXLEEXb7nLywPrScVCimmvNBaXd2SHJbY0pGBObTI8AMA==
-  dependencies:
-    dot-prop "*"
-
 "@types/echarts@^4.9.0":
   version "4.9.0"
   resolved "https://registry.npmjs.org/@types/echarts/-/echarts-4.9.0.tgz#e133ea5429ada1d814f9cc1deae855421dcdd2ef"
@@ -1415,6 +1408,11 @@
   version "2.0.3"
   resolved "https://registry.npmjs.org/@types/mime/-/mime-2.0.3.tgz#c893b73721db73699943bfc3653b1deb7faa4a3a"
   integrity sha512-Jus9s4CDbqwocc5pOAnh8ShfrnMcPHuJYzVcSUU7lrh8Ni5HuIqX3oilL86p3dlTrk0LzHRCgA/GQ7uNCw6l2Q==
+
+"@types/minimatch@*":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
+  integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
 "@types/minimist@^1.2.0":
   version "1.2.0"
@@ -3221,17 +3219,17 @@ dot-case@^3.0.3:
     no-case "^3.0.3"
     tslib "^1.10.0"
 
-dot-prop@*, dot-prop@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-6.0.0.tgz#bd579fd704d970981c4b05de591db648959f2ebb"
-  integrity sha512-xCbB8IN3IT+tdgoEPOnJmYTNJDrygGFOmiQEiVa5eAD+JEB1vTgMNhVGRnN5Eex/6amck7cdcrixb1qN9Go+GQ==
-  dependencies:
-    is-obj "^2.0.0"
-
 dot-prop@^5.1.0:
   version "5.3.0"
   resolved "https://registry.npmjs.org/dot-prop/-/dot-prop-5.3.0.tgz#90ccce708cd9cd82cc4dc8c3ddd9abdd55b20e88"
   integrity sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==
+  dependencies:
+    is-obj "^2.0.0"
+
+dot-prop@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-6.0.0.tgz#bd579fd704d970981c4b05de591db648959f2ebb"
+  integrity sha512-xCbB8IN3IT+tdgoEPOnJmYTNJDrygGFOmiQEiVa5eAD+JEB1vTgMNhVGRnN5Eex/6amck7cdcrixb1qN9Go+GQ==
   dependencies:
     is-obj "^2.0.0"
 

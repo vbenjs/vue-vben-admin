@@ -51,6 +51,7 @@ export interface HeaderSetting {
   showNotice: boolean;
 }
 export interface ProjectConfig {
+  locale: string;
   // 是否显示配置按钮
   showSettingButton: boolean;
   // 权限模式
