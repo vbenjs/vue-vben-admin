@@ -23,18 +23,24 @@ export function genRouteModule(moduleList: AppRouteModule[]) {
   for (const routeMod of moduleList) {
     const routes = routeMod.routes as any;
     const layout = routeMod.layout;
-    let router = createRouter({ routes, history: createWebHashHistory() });
+    const router = createRouter({ routes, history: createWebHashHistory() });
 
-    const flatList = toRaw(router.getRoutes()).filter((item) => item.children.length === 0);
+    const flatList = (toRaw(router.getRoutes()).filter(
+      (item) => item.children.length === 0
+    ) as unknown) as AppRouteRecordRaw[];
     try {
       (router as any) = null;
     } catch (error) {}
 
     flatList.forEach((item) => {
-      item.path = `${layout.path}${item.path}`;
+      item.path = `${layout ? layout.path : ''}${item.path}`;
     });
-    layout.children = (flatList as unknown) as AppRouteRecordRaw[];
-    ret.push(layout);
+    if (layout) {
+      layout.children = flatList;
+      ret.push(layout);
+    } else {
+      ret.push(...flatList);
+    }
   }
   return ret as RouteRecordRaw[];
 }

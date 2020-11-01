@@ -49,8 +49,12 @@ export function transformRouteToMenu(routeModList: AppRouteModule[]) {
   const routeList: AppRouteRecordRaw[] = [];
   cloneRouteModList.forEach((item) => {
     const { layout, routes } = item;
-    layout.children = routes;
-    routeList.push(layout);
+    if (layout) {
+      layout.children = routes;
+      routeList.push(layout);
+    } else {
+      routeList.push(...routes);
+    }
   });
   return treeMap(routeList, {
     conversion: (node: AppRouteRecordRaw) => {
