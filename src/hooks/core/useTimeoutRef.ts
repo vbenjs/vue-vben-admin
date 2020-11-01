@@ -1,7 +1,6 @@
-import type { TimeoutResult } from './types';
-
-import { ref } from 'vue';
+import { Ref, ref } from 'vue';
 import { tryOnUnmounted } from '/@/utils/helper/vueHelper';
+export type TimeoutResult = [Ref<boolean>, Fn<void>, Fn<void>];
 export function useTimeoutRef(wait: number): TimeoutResult {
   const readyRef = ref(false);
 
