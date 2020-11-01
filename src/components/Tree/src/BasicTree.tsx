@@ -1,18 +1,20 @@
+import type { ReplaceFields, TreeItem, Keys, CheckKeys, InsertNodeParams } from './types';
+
 import { defineComponent, reactive, computed, unref, ref, watchEffect } from 'vue';
 import { Tree } from 'ant-design-vue';
-import { extendSlots } from '/@/utils/helper/tsxHelper';
-import { useContextMenu, ContextMenuItem } from '/@/hooks/web/useContextMenu';
-import { basicProps } from './props';
-import { isFunction } from '/@/utils/is';
-import { omit } from 'lodash-es';
 import { DownOutlined } from '@ant-design/icons-vue';
 
-import type { ReplaceFields, TreeItem, Keys, CheckKeys, InsertNodeParams } from './types';
+import { useContextMenu, ContextMenuItem } from '/@/hooks/web/useContextMenu';
+
+import { isFunction } from '/@/utils/is';
+import { omit, cloneDeep } from 'lodash-es';
+import { forEach } from '/@/utils/helper/treeHelper';
+import { extendSlots } from '/@/utils/helper/tsxHelper';
 import { tryTsxEmit } from '/@/utils/helper/vueHelper';
 
+import { basicProps } from './props';
+
 import './index.less';
-import { forEach } from '/@/utils/helper/treeHelper';
-import { cloneDeep } from 'lodash-es';
 
 interface State {
   expandedKeys: Keys;
@@ -72,7 +74,6 @@ export default defineComponent({
       if (!data) {
         return null;
       }
-
       return data.map((item) => {
         const { title: titleField, key: keyField, children: childrenField } = unref(
           getReplaceFields
@@ -94,6 +95,7 @@ export default defineComponent({
         );
       });
     }
+
     // 处理右键事件
     async function handleRightClick({ event, node }: any) {
       const { rightMenuList: menuList = [], beforeRightClick } = props;
@@ -154,6 +156,7 @@ export default defineComponent({
       }
       return res as string[] | number[];
     }
+
     /**
      * 添加节点
      */

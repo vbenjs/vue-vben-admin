@@ -20,6 +20,7 @@
 
       .ant-tabs-tab {
         height: calc(@multiple-height - 2px);
+        padding-right: 12px;
         line-height: calc(@multiple-height - 2px);
         color: @text-color-call-out;
         background: @white;
@@ -37,14 +38,7 @@
           &:hover {
             svg {
               width: 0.8em;
-              transition: all 0.1s;
             }
-          }
-        }
-
-        &:hover {
-          .ant-tabs-close-x {
-            display: block;
           }
         }
 
@@ -106,9 +100,10 @@
     width: @multiple-height;
     height: @multiple-height;
     line-height: @multiple-height;
-    color: @primary-color;
+    color: #999;
     text-align: center;
     cursor: pointer;
+    border-left: 1px solid #eee;
     // box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
     span[role='img'] {
