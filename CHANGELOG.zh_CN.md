@@ -1,12 +1,31 @@
-## Wip
+## 2.0.0-rc.8 (2020-11-2)
+
+### ✨ Features
+
+- 全局 loading 添加文本
+- 右键菜单支持多级
+
+### 🎫 Chores
+
+- 登录缓存从 sessionStorage 改为 LocalStorage
 
 ### ⚡ Performance Improvements
 
+- 更新`ant-design-vue`到`beta.12`
 - Layout 界面布局样式调整
+- 优化懒加载组件
+- 优化表格渲染性能
+- 表单折叠搜索添图标添加动画
+- routeModule 可以忽略 layout 配置不写。方便配置一级菜单
 
 ### 🐛 Bug Fixes
 
 - 修复表格类型错误
+- 修复 mock 分页工具错误
+- 修复表格开启搜索表单折叠问题
+- 修复表格 size 为 samll 时候，fixed 列样式问题
+- 修复多标签页关闭报错问题
+- 修复 message 类型错误
 
 ## 2.0.0-rc.7 (2020-10-31)
 

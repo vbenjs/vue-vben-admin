@@ -1,5 +1,28 @@
 @import (reference) '../../../design/index.less';
 
+.item-style() {
+  li {
+    display: inline-block;
+    width: 100%;
+    height: 46px !important;
+    margin: 0 !important;
+    line-height: 46px;
+
+    span {
+      line-height: 46px;
+    }
+
+    > div {
+      margin: 0 !important;
+    }
+
+    &:hover {
+      color: @text-color-base;
+      background: #eee;
+    }
+  }
+}
+
 .context-menu {
   position: fixed;
   top: 0;
@@ -18,32 +41,17 @@
   background-clip: padding-box;
   user-select: none;
 
-  &.hidden {
-    display: none !important;
+  .item-style();
+
+  .ant-divider {
+    margin: 0 0;
   }
 
-  &__item {
-    a {
-      display: inline-block;
-      width: 100%;
-      padding: 10px 14px;
-
-      &:hover {
-        color: @text-color-base;
-        background: #eee;
-      }
+  &__popup {
+    .ant-divider {
+      margin: 0 0;
     }
 
-    &.disabled {
-      a {
-        color: @disabled-color;
-        cursor: not-allowed;
-
-        &:hover {
-          color: @disabled-color;
-          background: unset;
-        }
-      }
-    }
+    .item-style();
   }
 }

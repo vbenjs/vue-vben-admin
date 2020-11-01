@@ -1,13 +1,17 @@
-import { useTimeout } from '/@/hooks/core/useTimeout';
-import { BasicTableProps, FetchParams } from '../types/table';
-import { PaginationProps } from '../types/pagination';
+import type { BasicTableProps, FetchParams } from '../types/table';
+import type { PaginationProps } from '../types/pagination';
+
 import { watch, ref, unref, ComputedRef, computed, onMounted, Ref } from 'vue';
+
+import { useTimeout } from '/@/hooks/core/useTimeout';
+
 import { buildUUID } from '/@/utils/uuid';
 import { isFunction, isBoolean } from '/@/utils/is';
-import { FETCH_SETTING, ROW_KEY } from '../const';
 import { get } from 'lodash-es';
+
 import { useProps } from './useProps';
 
+import { FETCH_SETTING, ROW_KEY } from '../const';
 interface ActionType {
   getPaginationRef: ComputedRef<false | PaginationProps>;
   setPagination: (info: Partial<PaginationProps>) => void;
@@ -111,7 +115,6 @@ export function useDataSource(
       if (afterFetch && isFunction(afterFetch)) {
         resultItems = afterFetch(resultItems) || resultItems;
       }
-
       dataSourceRef.value = resultItems;
       setPagination({
         total: resultTotal || 0,

@@ -1,9 +1,9 @@
-import type { TimeoutFnResult, Fn } from './types';
-
 import { isFunction } from '/@/utils/is';
-import { watch } from 'vue';
+import { Ref, watch } from 'vue';
 
 import { useTimeoutRef } from '/@/hooks/core/useTimeoutRef';
+
+type TimeoutFnResult = [Fn<void>, Fn<void>, Ref<boolean>];
 
 export function useTimeout(handle: Fn<any>, wait: number): TimeoutFnResult {
   if (!isFunction(handle)) {

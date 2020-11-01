@@ -1,9 +1,9 @@
 <template>
   <div class="collapse-container p-2">
     <CollapseHeader v-bind="$props" :show="show" @expand="handleExpand">
-			<template #title>
-				<slot name="title" />
-			</template>
+      <template #title>
+        <slot name="title" />
+      </template>
     </CollapseHeader>
     <CollapseTransition :enable="canExpan">
       <Skeleton v-if="loading" />
@@ -102,7 +102,7 @@
 <style lang="less">
   .collapse-container {
     background: #fff;
-    border-radius: 8px;
+    border-radius: 2px;
     transition: all 0.3s ease-in-out;
 
     &.no-shadow {

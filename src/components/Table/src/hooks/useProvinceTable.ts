@@ -1,6 +1,7 @@
 import type { Ref } from 'vue';
+import type { TableActionType } from '../types/table';
+
 import { provide, inject } from 'vue';
-import { TableActionType } from '../types/table';
 
 const key = Symbol('table');
 

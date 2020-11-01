@@ -21,7 +21,7 @@ import { tabStore } from './tab';
 
 import { loginApi, getUserInfoById } from '/@/api/sys/user';
 
-import { setSession, getSession, clearSession, clearLocal } from '/@/utils/helper/persistent';
+import { setLocal, getLocal, clearSession, clearLocal } from '/@/utils/helper/persistent';
 // import { FULL_PAGE_NOT_FOUND_ROUTE } from '/@/router/constant';
 
 export type UserInfo = Omit<GetUserInfoByUserIdModel, 'roles'>;
@@ -40,17 +40,15 @@ class User extends VuexModule {
   private roleListState: RoleEnum[] = [];
 
   get getUserInfoState(): UserInfo {
-    return this.userInfoState || (getSession(USER_INFO_KEY) as UserInfo) || {};
+    return this.userInfoState || (getLocal(USER_INFO_KEY) as UserInfo) || {};
   }
 
   get getTokenState(): string {
-    return this.tokenState || (getSession(TOKEN_KEY) as string);
+    return this.tokenState || (getLocal(TOKEN_KEY) as string);
   }
 
   get getRoleListState(): RoleEnum[] {
-    return this.roleListState.length > 0
-      ? this.roleListState
-      : (getSession(ROLES_KEY) as RoleEnum[]);
+    return this.roleListState.length > 0 ? this.roleListState : (getLocal(ROLES_KEY) as RoleEnum[]);
   }
 
   @Mutation
@@ -64,7 +62,7 @@ class User extends VuexModule {
   commitUserInfoState(info: UserInfo): void {
     this.userInfoState = info;
     if (info) {
-      setSession(USER_INFO_KEY, info);
+      setLocal(USER_INFO_KEY, info, true);
     }
   }
 
@@ -72,7 +70,7 @@ class User extends VuexModule {
   commitRoleListState(roleList: RoleEnum[]): void {
     this.roleListState = roleList;
     if (roleList) {
-      setSession(ROLES_KEY, roleList);
+      setLocal(ROLES_KEY, roleList, true);
     }
   }
 
@@ -80,7 +78,7 @@ class User extends VuexModule {
   commitTokenState(info: string): void {
     this.tokenState = info;
     if (info) {
-      setSession(TOKEN_KEY, info);
+      setLocal(TOKEN_KEY, info, true);
     }
   }
 

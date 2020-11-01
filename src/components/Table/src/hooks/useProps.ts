@@ -1,5 +1,6 @@
 import { Ref, ref, watch, unref } from 'vue';
-import { BasicTableProps } from '../types/table';
+
+import type { BasicTableProps } from '../types/table';
 
 /**
  * @description:

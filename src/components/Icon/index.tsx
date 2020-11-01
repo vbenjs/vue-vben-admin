@@ -32,6 +32,7 @@ export default defineComponent({
       const { icon, prefix } = props;
       return `${prefix ? prefix + ':' : ''}${icon}`;
     });
+
     const update = async () => {
       const el = unref(elRef);
       if (el) {
@@ -67,6 +68,7 @@ export default defineComponent({
     });
 
     watch(() => props.icon, update, { flush: 'post' });
+
     onMounted(update);
 
     return () => (

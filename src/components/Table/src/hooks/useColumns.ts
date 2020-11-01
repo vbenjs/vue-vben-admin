@@ -101,7 +101,7 @@ export function useColumns(
       columnsRef.value = columns as any;
     } else {
       const newColumns = unref(cacheColumnsRef).filter((item) =>
-        (columns as string[]).includes(item.key! || item.dataIndex!)
+        (columns as string[]).includes(`${item.key}`! || item.dataIndex!)
       );
       columnsRef.value = newColumns;
     }
