@@ -27,9 +27,13 @@ function initCache() {
 }
 initCache();
 
-export function setLocal(key: string, value: any) {
+export function setLocal(key: string, value: any, immediate = false) {
   cacheStore.local[BASE_LOCAL_CACHE_KEY] = cacheStore.local[BASE_LOCAL_CACHE_KEY] || {};
   cacheStore.local[BASE_LOCAL_CACHE_KEY][key] = value;
+  if (immediate) {
+    const localCache = cacheStore.local;
+    ls.set(BASE_LOCAL_CACHE_KEY, localCache);
+  }
 }
 
 export function getLocal<T>(key: string): T | null {
@@ -49,9 +53,13 @@ export function clearLocal() {
   cacheStore.local = {};
 }
 
-export function setSession(key: string, value: any) {
+export function setSession(key: string, value: any, immediate = false) {
   cacheStore.session[BASE_SESSION_CACHE_KEY] = cacheStore.session[BASE_SESSION_CACHE_KEY] || {};
   cacheStore.session[BASE_SESSION_CACHE_KEY][key] = value;
+  if (immediate) {
+    const cache = cacheStore.session;
+    ls.set(BASE_SESSION_CACHE_KEY, cache);
+  }
 }
 
 export function removeSession(key: string) {

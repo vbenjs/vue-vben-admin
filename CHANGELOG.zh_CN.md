@@ -4,6 +4,10 @@
 
 - 全局 loading 添加文本
 
+### 🎫 Chores
+
+- 登录缓存从 sessionStorage 改为 LocalStorage
+
 ### ⚡ Performance Improvements
 
 - Layout 界面布局样式调整
