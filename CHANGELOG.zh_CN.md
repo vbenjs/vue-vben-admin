@@ -3,6 +3,7 @@
 ### ✨ Features
 
 - 全局 loading 添加文本
+- 右键菜单支持多级
 
 ### 🎫 Chores
 
@@ -13,7 +14,7 @@
 - Layout 界面布局样式调整
 - 优化表格渲染性能
 - 表单折叠搜索添图标添加动画
-- routeModule 可以忽略 layou 配置不写。方便配置一级菜单
+- routeModule 可以忽略 layout 配置不写。方便配置一级菜单
 
 ### 🐛 Bug Fixes
 

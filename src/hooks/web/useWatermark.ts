@@ -3,6 +3,7 @@ import { getCurrentInstance, onBeforeUnmount, ref, Ref, unref } from 'vue';
 const domSymbol = Symbol('watermark-dom');
 
 export function useWatermark(appendEl: Ref<HTMLElement | null> = ref(document.body)) {
+  let func: Fn = () => {};
   const id = domSymbol.toString();
   const clear = () => {
     const domId = document.getElementById(id);
@@ -10,6 +11,7 @@ export function useWatermark(appendEl: Ref<HTMLElement | null> = ref(document.bo
       const el = unref(appendEl);
       el && el.removeChild(domId);
     }
+    window.addEventListener('resize', func);
   };
   const createWatermark = (str: string) => {
     clear();
@@ -45,7 +47,7 @@ export function useWatermark(appendEl: Ref<HTMLElement | null> = ref(document.bo
 
   function setWatermark(str: string) {
     createWatermark(str);
-    const func = () => {
+    func = () => {
       createWatermark(str);
     };
     window.addEventListener('resize', func);
@@ -53,7 +55,6 @@ export function useWatermark(appendEl: Ref<HTMLElement | null> = ref(document.bo
     if (instance) {
       onBeforeUnmount(() => {
         clear();
-        window.addEventListener('resize', func);
       });
     }
   }

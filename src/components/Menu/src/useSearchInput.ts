@@ -48,9 +48,11 @@ export function useSearchInput({
     openKeys = es6Unique(openKeys);
     menuState.openKeys = openKeys;
   }
+
   // 搜索框点击
   function handleInputClick(e: any): void {
     emit('clickSearchInput', e);
   }
+
   return { handleInputChange, handleInputClick };
 }

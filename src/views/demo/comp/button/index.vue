@@ -7,8 +7,6 @@
       show-icon
     />
 
-    <Alert message="按钮扩展" type="info" show-icon class="mt-4" />
-
     <div class="my-2">
       <h3>success</h3>
       <a-button color="success">成功</a-button>

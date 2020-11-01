@@ -23,6 +23,7 @@ export default defineComponent({
         ...unref(propsRef),
       };
     });
+
     const getProps = computed(() => {
       const opt = {
         ...props,
@@ -31,12 +32,14 @@ export default defineComponent({
       };
       return opt;
     });
+
     /**
      * @description: 是否使用标题
      */
     const useWrapper = computed(() => {
       return !!unref(getMergeProps).title;
     });
+
     /**
      * @description: 获取配置Collapse
      */
@@ -49,6 +52,7 @@ export default defineComponent({
         };
       }
     );
+
     /**
      * @description:设置desc
      */
@@ -57,9 +61,11 @@ export default defineComponent({
       const mergeProps = deepMerge(unref(propsRef) || {}, descProps);
       propsRef.value = cloneDeep(mergeProps);
     }
+
     const methods: DescInstance = {
       setDescProps,
     };
+
     emit('register', methods);
 
     // 防止换行
@@ -95,6 +101,7 @@ export default defineComponent({
 
         const width = contentMinWidth;
         return (
+          // @ts-ignore
           <Descriptions.Item label={renderLabel(item)} key={field} span={span}>
             {() =>
               contentMinWidth ? (
@@ -113,13 +120,15 @@ export default defineComponent({
         );
       });
     }
+
     const renderDesc = () => {
       return (
-        <Descriptions class={`${prefixCls}`} {...{ ...attrs, ...unref(getProps) }}>
+        <Descriptions class={`${prefixCls}`} {...{ ...attrs, ...(unref(getProps) as any) }}>
           {() => renderItem()}
         </Descriptions>
       );
     };
+
     const renderContainer = () => {
       const content = props.useCollapse ? renderDesc() : <div>{renderDesc()}</div>;
       // 减少dom层级

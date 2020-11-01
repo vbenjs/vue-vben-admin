@@ -55,6 +55,7 @@ export default defineComponent({
       }
       return menuState.openKeys;
     });
+
     // menu外层样式
     const getMenuWrapStyle = computed((): any => {
       const { showLogo, search } = props;
@@ -130,6 +131,7 @@ export default defineComponent({
       menuState.selectedKeys = [path];
       emit('menuClick', menu);
     }
+
     function handleMenuChange() {
       const { flatItems } = props;
       if (!unref(flatItems) || flatItems.length === 0) {
