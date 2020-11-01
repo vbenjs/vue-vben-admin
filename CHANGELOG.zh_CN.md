@@ -5,6 +5,7 @@
 - Layout 界面布局样式调整
 - 优化表格渲染性能
 - 表单折叠搜索添图标添加动画
+- routeModule 可以忽略 layou 配置不写。方便配置一级菜单
 
 ### 🐛 Bug Fixes
 

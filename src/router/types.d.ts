@@ -67,6 +67,6 @@ export interface MenuModule {
 }
 
 export interface AppRouteModule {
-  layout: AppRouteRecordRaw;
+  layout?: AppRouteRecordRaw;
   routes: AppRouteRecordRaw[];
 }
