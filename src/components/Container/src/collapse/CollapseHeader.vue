@@ -11,22 +11,15 @@
 
     <div class="collapse-container__action">
       <slot name="action" />
-      <BasicArrow v-if="$attrs.canExpan" :expand="$attrs.show" @click="handleExpand" />
+      <BasicArrow v-if="$attrs.canExpan" :expand="$attrs.show" @click="$emit('expand')" />
     </div>
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { BasicArrow } from '/@/components/Basic';
-  import { BasicTitle } from '/@/components/Basic';
+  import { BasicArrow, BasicTitle } from '/@/components/Basic';
   export default defineComponent({
     inheritAttrs: false,
     components: { BasicArrow, BasicTitle },
-    setup(_, { emit }) {
-      function handleExpand() {
-        emit('expand');
-      }
-      return { handleExpand };
-    },
   });
 </script>
