@@ -219,6 +219,7 @@ export default defineComponent({
         </div>
       );
     };
+
     const renderIndex = () => {
       if (!unref(getIsMultipleImage)) {
         return null;

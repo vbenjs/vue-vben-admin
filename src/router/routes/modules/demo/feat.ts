@@ -18,7 +18,7 @@ export default {
     {
       path: '/icon',
       name: 'IconDemo',
-      component: () => import('/@/views/demo/comp/icon/index.vue'),
+      component: () => import('/@/views/demo/feat/icon/index.vue'),
       meta: {
         title: '图标',
       },
@@ -43,7 +43,7 @@ export default {
     {
       path: '/click-out-side',
       name: 'ClickOutSideDemo',
-      component: () => import('/@/views/demo/comp/click-out-side/index.vue'),
+      component: () => import('/@/views/demo/feat/click-out-side/index.vue'),
       meta: {
         title: 'ClickOutSide组件',
       },

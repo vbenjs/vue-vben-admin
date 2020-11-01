@@ -1,6 +1,6 @@
 <template>
-  <div class="px-10">
-    <Alert message="点内外部触发事件" show-icon class="mt-4"></Alert>
+  <div class="p-10">
+    <Alert message="点内外部触发事件" show-icon></Alert>
     <ClickOutSide @clickOutside="handleClickOutside" class="flex justify-center mt-10">
       <div @click="innerClick" class="demo-box">
         {{ text }}

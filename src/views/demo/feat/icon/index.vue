@@ -12,7 +12,7 @@
       </div>
     </CollapseContainer>
 
-    <CollapseContainer title="IconIfy 组件使用" class="mt-5">
+    <CollapseContainer title="IconIfy 组件使用" class="my-5">
       <div class="flex justify-around flex-wrap">
         <Icon icon="fa-solid:address-book" :size="30" />
         <Icon icon="mdi-light:bank" :size="30" />
@@ -23,7 +23,6 @@
 
     <Alert
       show-icon
-      class="mt-5"
       message="推荐使用Iconify组件"
       description="Icon组件基本包含所有的图标,在下面网址内你可以查询到你想要的任何图标。并且打包只会打包所用到的图标。唯一不足的可能就是需要连接外网进行使用。"
     />
