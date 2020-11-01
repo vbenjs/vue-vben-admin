@@ -233,9 +233,9 @@ export function closeTab(closedTab: TabItem | AppRouteRecordRaw) {
     const page = unref(getTabsState)[index - 1];
     const { params, path, query } = page;
     toObj = {
-      params,
+      params: params || {},
       path,
-      query,
+      query: query || {},
     };
   }
   const route = (unref(currentRoute) as unknown) as AppRouteRecordRaw;

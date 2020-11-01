@@ -28,10 +28,6 @@ export function genRouteModule(moduleList: AppRouteModule[]) {
     const flatList = (toRaw(router.getRoutes()).filter(
       (item) => item.children.length === 0
     ) as unknown) as AppRouteRecordRaw[];
-    try {
-      (router as any) = null;
-    } catch (error) {}
-
     flatList.forEach((item) => {
       item.path = `${layout ? layout.path : ''}${item.path}`;
     });
