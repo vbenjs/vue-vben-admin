@@ -1,10 +1,14 @@
-import type { ModalOptionsEx, ModalOptionsPartial } from '/@/hooks/core/types';
 import type { ModalFunc, ModalFuncProps } from 'ant-design-vue/lib/modal/Modal';
 
 import { Modal, message as Message, notification } from 'ant-design-vue';
 import { InfoCircleFilled, CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons-vue';
 
 import { useSetting } from '/@/hooks/core/useSetting';
+
+export interface ModalOptionsEx extends Omit<ModalFuncProps, 'iconType'> {
+  iconType: 'warning' | 'success' | 'error' | 'info';
+}
+export type ModalOptionsPartial = Partial<ModalOptionsEx> & Pick<ModalOptionsEx, 'content'>;
 
 interface ConfirmOptions {
   info: ModalFunc;
