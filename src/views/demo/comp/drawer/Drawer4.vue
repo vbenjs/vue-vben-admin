@@ -1,6 +1,6 @@
 <template>
   <BasicDrawer v-bind="$attrs" @register="register" title="Drawer Title" width="50%">
-    <div :style="{ background: '#fff' }">
+    <div>
       <p class="h-20">外部传递数据: {{ receiveDrawerDataRef }}</p>
       <BasicForm @register="registerForm" />
     </div>
