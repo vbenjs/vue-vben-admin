@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/anncwb/vue-vben-admin" target="_blank">
-    <img alt="VbenAdmin Logo" width="200" src="./.github/res/imgs/logo.png">
+    <img alt="VbenAdmin Logo" width="200" src="/anncwb/vue-vben-admin/raw/main/.github/res/imgs/logo.png">
   </a>
 </p>
 <h2 align="center">VUE VBEN ADMIN2.0</h2>
@@ -35,11 +35,7 @@
 
 ## Introduction
 
-This branch is a 2.0 new branch which use vue3 to develop.
-
-You can also switch to 1.0 branch which use `vue2.6` , `vue-composition-api` and `vue-cli` to develop.
-
-The project is based on the vue3 style background management system implemented by `ant-design-vue`,`typescript`,`vue3.0`,`vite`,`tsx`.
+The project is based on the vue3 style background management system implemented by ʻant-design-vue`, `typescript`,`vue3.0`,`vite`,`tsx`,
 
 ## GitHub
 
@@ -110,17 +106,17 @@ The documentation for 2.0 hasn't started yet, it will be provided later.
 
 ## Install
 
-```js
-//  Make git case sensitive to file names
+```bash
+#  Make git case sensitive to file names
 git config core.ignorecase false
 
-// Pull code of the project
+# Pull code of the project
 git clone https://github.com/anncwb/vue-vben-admin.git vue-vben-admin-2.0
 
 cd vue-vben-admin-2.0
 
-// If you use other package management tool, you can install it by yourself
-// if you hasn't install yarn, please run: npm install -g yarn
+# If you use other package management tool, you can install it by yourself
+#  if you hasn't install yarn, please run: npm install -g yarn
 yarn install
 
 ```
