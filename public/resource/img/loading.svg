@@ -18,21 +18,6 @@
         .bottom {
           fill: #9dbfe4;
         }
-        @keyframes load {
-          0% {
-            transform: rotate(-360deg);
-          }
-
-          100% {
-            transform: rotate(0);
-          }
-        }
-
-        .load {
-          animation: load 1.4s linear infinite;
-          transform-origin: center center;
-        }
-
         svg {
           display: block;
         }
@@ -42,7 +27,7 @@
           min-width: 100px;
           margin-top: 4px;
           font-size: 13px;
-          color: #303133;
+          color: #2C3A61;
           text-align: left;
         }
   </style>

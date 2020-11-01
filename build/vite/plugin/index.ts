@@ -37,6 +37,7 @@ export function createVitePlugins(viteEnv: ViteEnv) {
           : '',
         // Insert Baidu statistics code
         hmScript: isSiteMode() ? hmScript : '',
+        title: VITE_GLOB_APP_TITLE,
       },
     })
   );
