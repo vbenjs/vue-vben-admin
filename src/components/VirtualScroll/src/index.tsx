@@ -75,6 +75,7 @@ export default defineComponent({
     function getFirst(): number {
       return Math.floor(state.scrollTop / unref(getItemHeightRef));
     }
+
     function onScroll() {
       const wrapEl = unref(wrapElRef);
       if (!wrapEl) {
@@ -84,10 +85,12 @@ export default defineComponent({
       state.first = getFirst();
       state.last = getLast(state.first);
     }
+
     function renderChildren() {
       const { items = [] } = props;
       return items.slice(unref(getFirstToRenderRef), unref(getLastToRenderRef)).map(genChild);
     }
+
     function genChild(item: any, index: number) {
       index += unref(getFirstToRenderRef);
 
@@ -98,6 +101,7 @@ export default defineComponent({
         </div>
       );
     }
+
     onMounted(() => {
       state.last = getLast(0);
       nextTick(() => {

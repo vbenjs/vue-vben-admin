@@ -1,5 +1,6 @@
-import { computed, ref, unref, ComputedRef } from 'vue';
 import type { BasicTableProps, TableRowSelection } from '../types/table';
+
+import { computed, ref, unref, ComputedRef } from 'vue';
 import { useProps } from './useProps';
 
 /* eslint-disable */
@@ -28,6 +29,7 @@ export function useRowSelection(refProps: ComputedRef<BasicTableProps>, emit: Em
       ...rowSelection,
     };
   });
+
   function setSelectedRowKeys(rowKeys: string[]) {
     selectedRowKeysRef.value = rowKeys;
   }

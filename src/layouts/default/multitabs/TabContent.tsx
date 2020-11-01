@@ -5,7 +5,7 @@ import { getScaleAction, TabContentProps } from './tab.data';
 import { defineComponent, unref, computed } from 'vue';
 import { Dropdown } from '/@/components/Dropdown/index';
 import Icon from '/@/components/Icon/index';
-import { DoubleRightOutlined } from '@ant-design/icons-vue';
+import { RightOutlined } from '@ant-design/icons-vue';
 import { appStore } from '/@/store/modules/app';
 
 import { TabContentEnum } from './tab.data';
@@ -74,7 +74,7 @@ export default defineComponent({
     function renderExtraContent() {
       return (
         <span class={`multiple-tabs-content__extra `}>
-          <DoubleRightOutlined />
+          <RightOutlined />
         </span>
       );
     }

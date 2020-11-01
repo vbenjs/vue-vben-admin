@@ -1,12 +1,13 @@
-import { BasicTableProps } from '../types/table';
+import type { BasicTableProps } from '../types/table';
 import { computed, Ref, onMounted, unref, ref, nextTick, ComputedRef, watch } from 'vue';
+
+import { injectModal } from '/@/components/Modal/src/provideModal';
+
 import { getViewportOffset } from '/@/utils/domUtils';
-import { triggerWindowResize } from '/@/utils/event/triggerWindowResizeEvent';
 import { isBoolean } from '/@/utils/is';
-import { useTimeout } from '/@/hooks/core/useTimeout';
+
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
 import { useProps } from './useProps';
-import { injectModal } from '/@/components/Modal/src/provideModal';
 
 export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRef: Ref<any>) {
   const { propsRef } = useProps(refProps);
@@ -29,7 +30,9 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
     calcTableHeight();
   }
 
-  async function calcTableHeight(cb?: () => void) {
+  let paginationEl: HTMLElement | null;
+  let footerEl: HTMLElement | null;
+  async function calcTableHeight() {
     const { canResize, resizeHeightOffset, pagination, maxHeight } = unref(propsRef);
     if (!canResize) return;
 
@@ -39,40 +42,44 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
 
     const tableEl: Element = table.$el;
     if (!tableEl) return;
-
-    const el: HTMLElement | null = tableEl.querySelector('.ant-table-thead ');
+    const headEl = tableEl.querySelector('.ant-table-thead ');
     // const layoutMain: Element | null = document.querySelector('.default-layout__main ');
-    if (!el) return;
+    if (!headEl) return;
 
     // 表格距离底部高度
-    const { bottomIncludeBody } = getViewportOffset(el);
+    const { bottomIncludeBody } = getViewportOffset(headEl);
     // 表格高度+距离底部高度-自定义偏移量
 
     const paddingHeight = 32;
     const borderHeight = 2 * 2;
     // 分页器高度
 
-    // TODO 先固定20
-    const paginationHeight = 20;
-    // if (!isBoolean(pagination)) {
-    //   const paginationDom = tableEl.querySelector('.ant-pagination') as HTMLElement;
-    //   if (paginationDom) {
-    //     const offsetHeight = paginationDom.offsetHeight;
-    //     paginationHeight += offsetHeight || 0;
-    //   }
-    // }
+    let paginationHeight = 2;
+    if (!isBoolean(pagination)) {
+      if (!paginationEl) {
+        paginationEl = tableEl.querySelector('.ant-pagination') as HTMLElement;
+      }
+      if (paginationEl) {
+        const offsetHeight = paginationEl.offsetHeight;
+        paginationHeight += offsetHeight || 0;
+      } else {
+        // TODO 先固定24
+        paginationHeight += 24;
+      }
+    }
 
     let footerHeight = 0;
     if (!isBoolean(pagination)) {
-      const footerEl = tableEl.querySelector('.ant-table-footer') as HTMLElement;
-      if (footerEl) {
+      if (!footerEl) {
+        footerEl = tableEl.querySelector('.ant-table-footer') as HTMLElement;
+      } else {
         const offsetHeight = footerEl.offsetHeight;
         footerHeight += offsetHeight || 0;
       }
     }
     let headerHeight = 0;
-    if (el) {
-      headerHeight = (el as HTMLElement).offsetHeight;
+    if (headEl) {
+      headerHeight = (headEl as HTMLElement).offsetHeight;
     }
     tableHeightRef.value =
       bottomIncludeBody -
@@ -82,13 +89,13 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
       paginationHeight -
       footerHeight -
       headerHeight;
-    useTimeout(() => {
+
+    setTimeout(() => {
       tableHeightRef.value =
         tableHeightRef.value! > maxHeight! ? (maxHeight as number) : tableHeightRef.value;
-      cb && cb();
       //  解决表格放modal内的时候，modal自适应高度计算问题
       redoModalHeight && redoModalHeight();
-    }, 0);
+    }, 16);
   }
 
   const getCanResize = computed(() => {
@@ -98,24 +105,22 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
 
   useWindowSizeFn(calcTableHeight, 100);
 
-  // function clear() {
-  //   window.clearInterval(timer);
-  // }
-
   onMounted(() => {
     if (unref(getCanResize)) {
-      calcTableHeight();
-      const hasFixedLeft = (unref(propsRef).columns || []).some((item) => item.fixed === 'left');
-      // TODO antv table问题情况太多，只能先用下面方式定时器hack
-      useTimeout(() => {
-        calcTableHeight(() => {
-          // 有左侧固定列的时候才有问题
-          hasFixedLeft &&
-            useTimeout(() => {
-              triggerWindowResize();
-            }, 300);
-        });
-      }, 200);
+      nextTick(() => {
+        calcTableHeight();
+      });
+      // const hasFixedLeft = (unref(propsRef).columns || []).some((item) => item.fixed === 'left');
+      // // TODO antv table问题情况太多，只能先用下面方式定时器hack
+      // useTimeout(() => {
+      //   calcTableHeight(() => {
+      //     // 有左侧固定列的时候才有问题
+      //     hasFixedLeft &&
+      //       useTimeout(() => {
+      //         triggerWindowResize();
+      //       }, 300);
+      //   });
+      // }, 200);
     }
   });
   const getScrollRef = computed(() => {

@@ -79,6 +79,7 @@
     align-items: center;
     padding-left: 16px;
     cursor: pointer;
+    justify-content: center;
 
     .logo-title {
       display: none;
