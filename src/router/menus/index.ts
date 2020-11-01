@@ -13,6 +13,7 @@ const menuModules: MenuModule[] = [];
 
 Object.keys(modules).forEach((key) => {
   menuModules.push(modules[key]);
+  //console.log(key);
 });
 
 // ===========================

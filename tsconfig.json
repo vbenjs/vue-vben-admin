@@ -15,6 +15,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "experimentalDecorators": true,
+//    "types": [
+//      "./node_modules/@types",
+//      "./node_modules/vite/dist",
+//      "./node_modules/vue-i18n/dist",
+//      "./node_modules/@vue"
+//    ],
     "lib": [
       "dom",
       "esnext"

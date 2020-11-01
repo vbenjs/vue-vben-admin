@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/anncwb/vue-vben-admin" target="_blank">
-    <img alt="VbenAdmin Logo" width="200" src="./.github/res/imgs/logo.png">
+    <img alt="VbenAdmin Logo" width="200" src="/anncwb/vue-vben-admin/raw/main/.github/res/imgs/logo.png">
   </a>
 </p>
 <h2 align="center">VUE VBEN ADMIN2.0</h2>
@@ -19,6 +19,7 @@
   - [UI framework](#ui-framework)
   - [Icon](#icon)
   - [Plugin](#plugin)
+  - [Multilang Support](#internationalization)
   - [Suggested development environment](#suggested-development-environment)
 - [Install](#install)
 - [Usage](#usage)
@@ -91,7 +92,7 @@ The documentation for 2.0 hasn't started yet, it will be provided later.
 - [Vuex Next](https://github.com/vuejs/vuex)
 - [vuex-module-decorators](https://github.com/championswimmer/vuex-module-decorators) - vuex modular
 - [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock) - Mock plugin base on vite
-- [vue-i18n](https://github.com/intlify/vue-i18n-next) - Internationalization
+- [vue-i18n](https://github.com/intlify/vue-i18n-next) - Internationalization [multilanguage usage](#internationalization)
 - [lodash-es](https://github.com/lodash/lodash) - JavaScript utility library
 - [axios](https://github.com/axios/axios) - Http data interaction
 - [TypeScript](https://www.typescriptlang.org/)
@@ -110,7 +111,7 @@ The documentation for 2.0 hasn't started yet, it will be provided later.
 
 ## Install
 
-```js
+```bash
 //  Make git case sensitive to file names
 git config core.ignorecase false
 
@@ -126,6 +127,26 @@ yarn install
 ```
 
 ## Usage
+
+### Internationalization
+
+Add your json to [localizations folder](https://github.com/anncwb/vue-vben-admin/tree/main/src/locales) For add new language create new folder with two symbols of them like an (en, gb, etc..)
+
+then you can use inside components like
+
+```vue
+<template>
+  <a-button
+    type="primary"
+    size="large"
+    class="rounded-sm"
+    :block="true"
+    @click="login"
+    :loading="formState.loading"
+    >{{ $t('system.login.button') }}</a-button
+  >
+</template>
+```
 
 ### Development environment
 
@@ -230,6 +251,7 @@ yarn clean:lib # Delete node_modules, supported window
 - [x] Data import and export
 - [x] Global error handling
 - [x] Rich text component
+- [x] Multilanguage Support
 
 ## Developing features
 

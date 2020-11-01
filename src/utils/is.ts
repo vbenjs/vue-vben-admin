@@ -12,6 +12,17 @@ export const isUnDef = <T = unknown>(val?: T): val is T => {
   return !isDef(val);
 };
 
+export const isObjectEmpty = (object: Record<string, unknown>): boolean => {
+  for (const property in object) {
+    if (object.hasOwnProperty(property)) {
+      //console.log(property);
+      return false;
+    }
+  }
+
+  return true;
+};
+
 export const isObject = (val: any): val is Record<any, any> => {
   return val !== null && is(val, 'Object');
 };
