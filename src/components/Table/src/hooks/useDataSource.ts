@@ -115,7 +115,6 @@ export function useDataSource(
       if (afterFetch && isFunction(afterFetch)) {
         resultItems = afterFetch(resultItems) || resultItems;
       }
-
       dataSourceRef.value = resultItems;
       setPagination({
         total: resultTotal || 0,
