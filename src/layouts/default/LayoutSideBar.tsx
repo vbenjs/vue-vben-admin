@@ -6,10 +6,9 @@ import { menuStore } from '/@/store/modules/menu';
 
 // import darkMiniIMg from '/@/assets/images/sidebar/dark-mini.png';
 // import lightMiniImg from '/@/assets/images/sidebar/light-mini.png';
-import darkImg from '/@/assets/images/sidebar/dark.png';
 // import lightImg from '/@/assets/images/sidebar/light.png';
 import { appStore } from '/@/store/modules/app';
-import { MenuModeEnum, MenuSplitTyeEnum, MenuThemeEnum } from '/@/enums/menuEnum';
+import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
 import { SIDE_BAR_MINI_WIDTH, SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '/@/enums/appEnum';
 import { useDebounce } from '/@/hooks/core/useDebounce';
 import LayoutMenu from './LayoutMenu';
@@ -32,26 +31,6 @@ export default defineComponent({
         menuSetting: { collapsedShowTitle },
       } = unref(getProjectConfigRef);
       return collapsedShowTitle ? SIDE_BAR_SHOW_TIT_MINI_WIDTH : SIDE_BAR_MINI_WIDTH;
-    });
-
-    // 根据展开状态设置背景图片
-    const getStyle = computed((): any => {
-      // const collapse = unref(collapseRef);
-
-      const theme = unref(getProjectConfigRef).menuSetting.theme;
-      if (theme === MenuThemeEnum.LIGHT) {
-        // bg = lightImg;
-        return {};
-      }
-      let bg = '';
-      if (theme === MenuThemeEnum.DARK) {
-        // bg = collapse ? darkMiniIMg : darkImg;
-        bg = darkImg;
-      }
-
-      return {
-        'background-image': `url(${bg})`,
-      };
     });
 
     function onCollapseChange(val: boolean) {
@@ -182,7 +161,6 @@ export default defineComponent({
           class="layout-sidebar"
           ref={sideRef}
           onBreakpoint={handleBreakpoint}
-          style={unref(getStyle)}
         >
           {{
             trigger: () => <SideBarTrigger />,

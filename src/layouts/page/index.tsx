@@ -38,14 +38,16 @@ export default defineComponent({
           <RouterView>
             {{
               default: ({ Component, route }: { Component: any; route: RouteLocation }) => {
-                // 已经位于tab内的不再显示动画
+                // No longer show animations that are already in the tab
                 const name = route.meta.inTab ? 'fade' : null;
+
+                // TODO add key?
                 const Content = openCache ? (
                   <KeepAlive max={max} include={cacheTabs}>
-                    <Component {...route.params} />
+                    <Component />
                   </KeepAlive>
                 ) : (
-                  <Component {...route.params} />
+                  <Component />
                 );
                 return openRouterTransition ? (
                   <Transition

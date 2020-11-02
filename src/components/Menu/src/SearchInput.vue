@@ -5,7 +5,6 @@
       class="menu-search-input__search"
       allowClear
       @change="handleChange"
-      :disabled="collapsed"
     />
   </section>
 </template>
@@ -20,7 +19,7 @@
   export default defineComponent({
     name: 'BasicMenuSearchInput',
     props: {
-      // 是否展开,用于左侧菜单
+      // Whether to expand, used in the left menu
       collapsed: {
         type: Boolean as PropType<boolean>,
         default: true,
@@ -30,28 +29,27 @@
       },
     },
     setup(props, { emit }) {
+      const [debounceEmitChange] = useDebounce(emitChange, 200);
+
       function emitChange(value?: string): void {
         emit('change', value);
       }
-      const [debounceEmitChange] = useDebounce(emitChange, 200);
-      /**
-       * @description: 搜索
-       */
+
       function handleChange(e: ChangeEvent): void {
         const { collapsed } = props;
-        if (collapsed) {
-          return;
-        }
+        if (collapsed) return;
         debounceEmitChange(e.target.value);
       }
-      /**
-       * @description: 点击时间
-       */
+
       function handleClick(): void {
         emit('click');
       }
+
       const searchClass = computed(() => {
-        return props.theme ? `menu-search-input__search--${props.theme}` : '';
+        const cls: string[] = [];
+        cls.push(props.theme ? `menu-search-input__search--${props.theme}` : '');
+        // cls.push(props.collapsed ? 'hide-search-icon' : '');
+        return cls;
       });
 
       return { handleClick, searchClass, handleChange };
@@ -66,26 +64,24 @@
   @icon-color: #c0c4cc;
 
   .menu-search-input {
-    margin: 12px 9px;
+    margin: 12px 8px;
+
+    // &.hide-search-icon {
+    //   .ant-input,
+    //   .ant-input-suffix {
+    //     opacity: 0;
+    //   }
+    // }
 
     &__search--dark {
       .ant-input-affix-wrapper,
       .ant-input {
         .set-bg();
-
-        &:hover,
-        &:focus {
-          .hide-outline();
-        }
       }
 
       .ant-input-search-icon,
       .ant-input-clear-icon {
-        color: rgba(255, 255, 255, 0.6) !important;
-      }
-
-      .ant-input-clear-icon {
-        color: rgba(255, 255, 255, 0.3) !important;
+        color: rgba(255, 255, 255, 0.4) !important;
       }
     }
 
@@ -94,13 +90,7 @@
       .ant-input {
         color: @text-color-base;
         background: #fff;
-        // border: 0;
         outline: none;
-
-        &:hover,
-        &:focus {
-          .hide-outline();
-        }
       }
 
       .ant-input-search-icon {

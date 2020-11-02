@@ -26,14 +26,12 @@ export default defineComponent({
       return { realName, desc };
     });
 
-    /**
-     * @description: 退出登录
-     */
+    //  login out
     function handleLoginOut() {
       userStore.confirmLoginOut();
     }
 
-    // 打开文档
+    // open doc
     function openDoc() {
       window.open(DOC_URL, '__blank');
     }

@@ -51,9 +51,9 @@ export default defineComponent({
 
     const showSideBarRef = computed(() => {
       const {
-        menuSetting: { show, mode },
+        menuSetting: { show, mode, split },
       } = unref(getProjectConfigRef);
-      return show && mode !== MenuModeEnum.HORIZONTAL && !unref(getFullContent);
+      return split || (show && mode !== MenuModeEnum.HORIZONTAL && !unref(getFullContent));
     });
 
     // Get project configuration
@@ -73,6 +73,7 @@ export default defineComponent({
         showSettingButton,
         multiTabsSetting: { show: showTabs },
         headerSetting: { fixed },
+        menuSetting: { split, show },
       } = unref(getProjectConfigRef);
 
       const fixedHeaderCls = fixed
@@ -80,6 +81,8 @@ export default defineComponent({
         : '';
 
       const { isLock } = getLockInfo;
+
+      const showSideBar = split ? show : true;
       return (
         <Layout class="default-layout relative">
           {() => (
@@ -95,7 +98,7 @@ export default defineComponent({
               <Layout>
                 {() => (
                   <>
-                    {unref(showSideBarRef) && <LayoutSideBar />}
+                    {unref(showSideBarRef) && <LayoutSideBar class={showSideBar ? '' : 'hidden'} />}
                     <Layout class={[`default-layout__content`, fixedHeaderCls]}>
                       {() => (
                         <>
