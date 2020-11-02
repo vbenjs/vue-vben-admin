@@ -3,7 +3,7 @@
 import type { App } from 'vue';
 
 import { Form, Input, Row, Col } from 'ant-design-vue';
-import 'ant-design-vue/dist/antd.less';
+import 'ant-design-vue/dist/antd.css';
 
 import './spin';
 

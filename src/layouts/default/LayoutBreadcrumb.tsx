@@ -75,7 +75,7 @@ export default defineComponent({
     }
 
     return () => (
-      <Breadcrumb class="layout-breadcrumb">
+      <Breadcrumb class={['layout-breadcrumb', unref(itemList).length === 0 ? 'hidden' : '']}>
         {() => (
           <TransitionGroup name="breadcrumb">
             {() => {

@@ -49,7 +49,7 @@ const setting: ProjectConfig = {
     // 折叠菜单时候是否显示菜单名
     collapsedShowTitle: false,
     // 是否可拖拽
-    hasDrag: true,
+    hasDrag: false,
     // 是否显示
     show: true,
     // 是否显示搜索框

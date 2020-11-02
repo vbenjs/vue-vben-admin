@@ -66,6 +66,10 @@
   .layout-sidebar {
     background-size: 100% 100%;
 
+    &.ant-layout-sider-dark {
+      background: @first-menu-item-dark-bg-color;
+    }
+
     &:not(.ant-layout-sider-dark) {
       border-right: 1px solid @border-color-light;
     }
@@ -79,7 +83,7 @@
       position: absolute;
       top: 0;
       right: -2px;
-      z-index: @sider-drag-z-index;
+      z-index: @side-drag-z-index;
       width: 2px;
       height: 100%;
       cursor: col-resize;
@@ -377,18 +381,4 @@
 .ant-layout-sider-trigger {
   height: 36px;
   line-height: 36px;
-}
-
-.hide-title {
-  .ant-menu-inline-collapsed > .ant-menu-item,
-  .ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item,
-  .ant-menu-inline-collapsed
-    > .ant-menu-item-group
-    > .ant-menu-item-group-list
-    > .ant-menu-submenu
-    > .ant-menu-submenu-title,
-  .ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title {
-    padding-right: 20px !important;
-    padding-left: 20px !important;
-  }
 }

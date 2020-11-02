@@ -109,8 +109,22 @@ export default defineComponent({
       // 菜单分割模式-left
       if (splitType === MenuSplitTyeEnum.LEFT) {
         const children = await getChildrenMenus(parentPath);
-        if (!children) return;
+        if (!children) {
+          appStore.commitProjectConfigState({
+            menuSetting: {
+              show: false,
+            },
+          });
+          flatMenusRef.value = [];
+          menusRef.value = [];
+          return;
+        }
         const flatChildren = await getFlatChildrenMenus(children);
+        appStore.commitProjectConfigState({
+          menuSetting: {
+            show: true,
+          },
+        });
         flatMenusRef.value = flatChildren;
         menusRef.value = children;
       }

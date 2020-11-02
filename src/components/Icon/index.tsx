@@ -72,7 +72,7 @@ export default defineComponent({
     onMounted(update);
 
     return () => (
-      <div ref={elRef} class={[attrs.class, 'app-iconify']} style={unref(wrapStyleRef)} />
+      <div ref={elRef} class={[attrs.class, 'app-iconify anticon']} style={unref(wrapStyleRef)} />
     );
   },
 });
