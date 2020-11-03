@@ -5,7 +5,7 @@
       <div class="login-form mx-6">
         <div class="login-form__content px-2 py-10">
           <header>
-            <img src="/@/assets/images/logo.png" class="mr-4" />
+            <img :src="logo" class="mr-4" />
             <h1>{{ title }}</h1>
           </header>
 
@@ -74,6 +74,7 @@
   // import { appStore } from '/@/store/modules/app';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { useSetting } from '/@/hooks/core/useSetting';
+  import logo from '/@/assets/images/logo.png';
 
   export default defineComponent({
     components: {
@@ -149,6 +150,7 @@
         autoLogin: autoLoginRef,
         // openLoginVerify: openLoginVerifyRef,
         title: globSetting && globSetting.title,
+        logo,
       };
     },
   });
