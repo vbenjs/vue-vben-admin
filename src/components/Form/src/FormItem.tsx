@@ -56,8 +56,9 @@ export default defineComponent({
 
     const getDisableRef = computed(() => {
       const { disabled: globDisabled } = props.formProps;
-      const { dynamicDisabled } = props.schema;
-      let disabled = !!globDisabled;
+      const { dynamicDisabled, componentProps = {} } = props.schema;
+      const { disabled: itemDisabled = false } = componentProps;
+      let disabled = !!globDisabled || itemDisabled;
       if (isBoolean(dynamicDisabled)) {
         disabled = dynamicDisabled;
       }
