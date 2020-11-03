@@ -25,12 +25,14 @@ export function useApexCharts(elRef: Ref<HTMLDivElement>) {
   }
 
   tryOnUnmounted(() => {
-    const chartInstance = unref(chartInstanceRef);
+    let chartInstance = unref(chartInstanceRef);
     if (!chartInstance) {
       return;
     }
-    chartInstanceRef.value = null;
+
     chartInstance.destroy();
+    chartInstanceRef.value = null;
+    chartInstance = null;
   });
   return {
     setOptions,
