@@ -46,6 +46,10 @@ const menu: MenuModule = {
         name: '全屏',
       },
       {
+        path: 'error-log',
+        name: '错误日志',
+      },
+      {
         path: 'testTab',
         name: '带参Tab',
         children: [

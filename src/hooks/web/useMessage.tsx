@@ -1,9 +1,42 @@
 import type { ModalFunc, ModalFuncProps } from 'ant-design-vue/lib/modal/Modal';
+import type { MessageApi } from 'ant-design-vue/lib/message/index';
+import type { VNodeTypes, CSSProperties } from 'vue';
 
 import { Modal, message as Message, notification } from 'ant-design-vue';
 import { InfoCircleFilled, CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons-vue';
 
 import { useSetting } from '/@/hooks/core/useSetting';
+
+export interface ArgsProps {
+  message: VNodeTypes;
+  description?: VNodeTypes;
+  btn?: VNodeTypes;
+  key?: string;
+  onClose?: () => void;
+  duration?: number | null;
+  icon?: VNodeTypes;
+  placement?: NotificationPlacement;
+  style?: CSSProperties;
+  prefixCls?: string;
+  class?: string;
+  readonly type?: IconType;
+  onClick?: () => void;
+  top?: number;
+  bottom?: number;
+  getContainer?: () => HTMLElement;
+  closeIcon?: VNodeTypes;
+}
+
+export declare type NotificationPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
+export declare type IconType = 'success' | 'info' | 'error' | 'warning';
+export interface ConfigProps {
+  top?: string | number;
+  bottom?: string | number;
+  duration?: number;
+  placement?: NotificationPlacement;
+  getContainer?: () => HTMLElement;
+  closeIcon?: VNodeTypes;
+}
 
 export interface ModalOptionsEx extends Omit<ModalFuncProps, 'iconType'> {
   iconType: 'warning' | 'success' | 'error' | 'info';
@@ -84,8 +117,8 @@ notification.config({
  */
 export function useMessage() {
   return {
-    createMessage: Message,
-    notification,
+    createMessage: Message as MessageApi,
+    notification: notification as (arg: ArgsProps) => void,
     createConfirm: createConfirm,
     createSuccessModal,
     createErrorModal,
