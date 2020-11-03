@@ -17,8 +17,8 @@ const modifyVars = {
   'background-color-base': '#F0F2F5', // background color
   'font-size-base': '14px', //  Main font size
   'box-shadow-base': '0 2px 8px rgba(0, 0, 0, 0.15)', //  Floating shadow
-  'border-color-base': '#cececd', //  Border color,
-  'border-color-split': '#cececd', //  Border color,
+  'border-color-base': '#F0F0F0', //  Border color,
+  'border-color-split': '#F0F0F0', //  Border color,
   'border-radius-base': '2px', //  Component/float fillet
 };
 //}

@@ -83,7 +83,7 @@
 
     .logo-title {
       font-size: 18px;
-      font-weight: 400;
+      font-weight: 700;
       opacity: 0;
       transition: all 0.5s;
       .respond-to(medium,{

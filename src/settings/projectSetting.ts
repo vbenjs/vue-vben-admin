@@ -4,7 +4,7 @@ import { MenuTypeEnum, MenuThemeEnum, MenuModeEnum } from '/@/enums/menuEnum';
 import { ContentEnum, PermissionModeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 import { primaryColor } from '../../build/config/lessModifyVars';
 import { isProdMode } from '/@/utils/env';
-// ! 改动后需要清空浏览器缓存
+// ! You need to clear the browser cache after the change
 const setting: ProjectConfig = {
   // Whether to show the configuration button
   showSettingButton: true,
