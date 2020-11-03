@@ -99,13 +99,32 @@ export default {
         title: '详情组件',
       },
     },
+
     {
       path: '/lazy',
       name: 'lazyDemo',
-      component: () => import('/@/views/demo/comp/lazy/index.vue'),
+      redirect: '/comp/lazy/basic',
       meta: {
         title: '懒加载组件',
       },
+      children: [
+        {
+          path: 'basic',
+          name: 'BasicLazyDemo',
+          component: () => import('/@/views/demo/comp/lazy/index.vue'),
+          meta: {
+            title: '基础示例',
+          },
+        },
+        {
+          path: 'transition',
+          name: 'BasicTransitionDemo',
+          component: () => import('/@/views/demo/comp/lazy/Transition.vue'),
+          meta: {
+            title: '动画效果',
+          },
+        },
+      ],
     },
     {
       path: '/verify',
