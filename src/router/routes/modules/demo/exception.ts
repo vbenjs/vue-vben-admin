@@ -19,6 +19,18 @@ export default {
 
   routes: [
     {
+      path: '/403',
+      name: 'PageNotAccess',
+      component: ExceptionPage,
+      props: {
+        status: ExceptionEnum.PAGE_NOT_ACCESS,
+      },
+      meta: {
+        title: '403',
+        afterCloseLoading: true,
+      },
+    },
+    {
       path: '/404',
       name: 'PageNotFound',
       component: ExceptionPage,
@@ -51,18 +63,6 @@ export default {
       },
       meta: {
         title: '网络错误',
-        afterCloseLoading: true,
-      },
-    },
-    {
-      path: '/page-time-out',
-      name: 'PageTimeOut',
-      component: ExceptionPage,
-      props: {
-        status: ExceptionEnum.PAGE_TIMEOUT,
-      },
-      meta: {
-        title: '页面超时',
         afterCloseLoading: true,
       },
     },

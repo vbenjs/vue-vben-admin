@@ -193,18 +193,6 @@ export default defineComponent({
       const bindValue = {
         [isCheck ? 'checked' : 'value']: (props.formModel as any)[field],
       };
-      // TODO先兼容antd的警告，后面官方修复后删除
-      if (component === 'Select') {
-        if (Reflect.has(propsData, 'options')) {
-          propsData.options = propsData.options.map((item: any) => {
-            return {
-              key: item.value,
-              ...item,
-            };
-          });
-        }
-      }
-
       if (!renderComponentContent) {
         return <Comp {...propsData} {...on} {...bindValue} />;
       }

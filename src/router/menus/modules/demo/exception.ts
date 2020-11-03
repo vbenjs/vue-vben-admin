@@ -6,6 +6,10 @@ const menu: MenuModule = {
     path: '/exception',
     children: [
       {
+        path: '403',
+        name: '403',
+      },
+      {
         path: '404',
         name: '404',
       },
