@@ -11,7 +11,7 @@
 - 更新`ant-design-vue`版本为`beta13`
 - 更新`vite`版本为`rc.9`
 - 异常页调整
-- `BasicTitle` Color blocks are not displayed by default
+- `BasicTitle` 色块默认不显示
 
 ### 🐛 Bug Fixes
 
@@ -21,6 +21,7 @@
 - 修复表单项设置`disabled`不生效问题
 - 修复`useECharts`在`resize`时不能自适应,报错
 - 修复`useWatermark`在清空后`resize`未删除
+- 修复表单校验问题
 
 ## 2.0.0-rc.8 (2020-11-2)
 

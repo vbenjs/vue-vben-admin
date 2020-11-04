@@ -1,3 +1,28 @@
+## Wip
+
+### ⚡ Performance Improvements
+
+- Menu performance continues to be optimized and smoother
+- Optimize lazy loading components and examples
+
+### 🎫 Chores
+
+- Delete menu background image
+- Update the version of ʻant-design-vue`to`beta13`
+- Update `vite` version to `rc.9`
+- Exception page adjustment
+- `BasicTitle` Color blocks are not displayed by default
+
+### 🐛 Bug Fixes
+
+- Fix table type problem after upgrade
+- Fix the problem that the last submenu continues to be displayed when the menu is divided and there is no data in the left menu
+- Fix the issue of ʻuseMessage` type
+- Fix the problem that the form item setting `disabled` does not take effect
+- Fix that ʻuseECharts`can't adapt when`resize`, and an error is reported
+- Fix that `resize` is not deleted after ʻuseWatermark` is cleared
+- Fix form verification problem
+
 ## 2.0.0-rc.8 (2020-11-2)
 
 ### ✨ Features

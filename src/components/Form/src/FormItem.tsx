@@ -14,6 +14,8 @@ import { createPlaceholderMessage } from './helper';
 import { upperFirst, cloneDeep } from 'lodash-es';
 
 import { useItemLabelWidth } from './hooks/useLabelWidth';
+import { ComponentType } from './types';
+import { isNumber } from '../../../utils/is';
 
 export default defineComponent({
   name: 'BasicFormItem',
@@ -145,6 +147,14 @@ export default defineComponent({
       return rules;
     }
 
+    function handleValue(component: ComponentType, field: string) {
+      const val = (props.formModel as any)[field];
+      if (['Input', 'InputPassword', 'InputSearch', 'InputTextArea'].includes(component)) {
+        return isNumber(val) && val ? `${val}` : val;
+      }
+      return val;
+    }
+
     function renderComponent() {
       const {
         componentProps,
@@ -162,11 +172,7 @@ export default defineComponent({
           if (propsData[eventKey]) {
             propsData[eventKey](e);
           }
-          if (e && e.target) {
-            (props.formModel as any)[field] = e.target.value;
-          } else {
-            (props.formModel as any)[field] = e;
-          }
+          (props.formModel as any)[field] = e && e.target ? e.target.value : e;
         },
       };
       const Comp = componentMap.get(component);
@@ -190,9 +196,8 @@ export default defineComponent({
       propsData.placeholder = placeholder;
       propsData.codeField = field;
       propsData.formValues = unref(getValuesRef);
-
       const bindValue = {
-        [isCheck ? 'checked' : 'value']: (props.formModel as any)[field],
+        [isCheck ? 'checked' : 'value']: handleValue(component, field),
       };
       if (!renderComponentContent) {
         return <Comp {...propsData} {...on} {...bindValue} />;
