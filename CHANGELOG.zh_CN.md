@@ -11,6 +11,7 @@
 - 更新`ant-design-vue`版本为`beta13`
 - 更新`vite`版本为`rc.9`
 - 异常页调整
+- `BasicTitle` Color blocks are not displayed by default
 
 ### 🐛 Bug Fixes
 

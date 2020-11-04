@@ -26,17 +26,12 @@ export function tryOnMounted(fn: () => void, sync = true) {
 }
 
 export function tryOnUnmounted(fn: () => Promise<void> | void) {
-  if (getCurrentInstance()) {
-    onUnmounted(fn);
-  }
+  getCurrentInstance() && onUnmounted(fn);
 }
 
 export function tryTsxEmit(fn: (_instance: any) => Promise<void> | void) {
   const instance = getCurrentInstance();
-
-  if (instance) {
-    fn.call(null, instance);
-  }
+  instance && fn.call(null, instance);
 }
 
 export function isInSetup() {
