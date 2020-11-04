@@ -43,8 +43,6 @@ export function useFormAction({
     Object.keys(formModel).forEach((key) => {
       (formModel as any)[key] = defaultValueRef.value[key];
     });
-    // @ts-ignore
-    // TODO 官方组件库类型定义错误，可以不传参数
     formEl.clearValidate();
     emit('reset', toRaw(formModel));
     // return values;
@@ -58,10 +56,12 @@ export function useFormAction({
     const fields = unref(getSchema)
       .map((item) => item.field)
       .filter(Boolean);
-    const formEl = unref(formElRef);
+    // const formEl = unref(formElRef);
+
+    const validKeys: string[] = [];
     Object.keys(values).forEach((key) => {
       const element = values[key];
-      if (fields.includes(key) && element !== undefined && element !== null) {
+      if (element !== undefined && element !== null && fields.includes(key)) {
         // 时间
         if (itemIsDateType(key)) {
           if (Array.isArray(element)) {
@@ -76,11 +76,12 @@ export function useFormAction({
         } else {
           (formModel as any)[key] = element;
         }
-        if (formEl) {
-          formEl.validateFields([key]);
-        }
+        validKeys.push(key);
       }
     });
+    // if (formEl) {
+    //   formEl.validateFields(validKeys);
+    // }
   }
   /**
    * @description: 根据字段名删除
@@ -151,8 +152,8 @@ export function useFormAction({
     updateData.forEach((item) => {
       unref(getSchema).forEach((val) => {
         if (val.field === item.field) {
-          const newScheam = deepMerge(val, item);
-          schema.push(newScheam as FormSchema);
+          const newSchema = deepMerge(val, item);
+          schema.push(newSchema as FormSchema);
         } else {
           schema.push(val);
         }
