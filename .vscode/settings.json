@@ -136,6 +136,7 @@
   "vetur.format.defaultFormatter.scss": "prettier", // 使用js-beautify-html格式化
   "vetur.format.defaultFormatter.css": "prettier", // 使用js-beautify-html格式化
   //   "vetur.format.defaultFormatter.html": "prettyhtml",
+  "vetur.format.defaultFormatter.ts": "prettier-tslint",
   "vetur.format.defaultFormatter.js": "prettier",
   // "vetur.useWorkspaceDependencies": true,
   "vetur.format.defaultFormatterOptions": {
@@ -149,22 +150,6 @@
       "semi": false, // 使用分号, 默认true
       "singleQuote": true // 使用单引号, 默认false(在jsx中配置无效, 默认都是双引号)
     }
-  },
-  // ===========================================
-  // ============= Material Icon Theme =========
-  // ===========================================
-  "workbench.iconTheme": "material-icon-theme", // 主题色
-  // ===========================================
-  // ============= stylus Supremacy ============
-  // ===========================================
-  "stylusSupremacy.insertColons": false, // 是否插入冒号
-  "stylusSupremacy.insertSemicolons": false, // 是否插入分号
-  "stylusSupremacy.insertBraces": false, // 是否插入大括号
-  //===========================================
-  //============= koroFileHeaders ===============
-  //===========================================
-  "fileheader.configObj": {
-    "autoAdd": false // 将该选项设置为true即可开启
   },
   // 函数注释
   //===========================================
@@ -186,40 +171,7 @@
   "prettier.requireConfig": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.sideBar.location": "left",
-  "cSpell.enabledLanguageIds": [
-    "asciidoc",
-    "c",
-    "cpp",
-    "csharp",
-    "css",
-    "git-commit",
-    "go",
-    "handlebars",
-    "haskell",
-    "html",
-    "jade",
-    "java",
-    "javascript",
-    "javascriptreact",
-    "json",
-    "jsonc",
-    "latex",
-    "less",
-    "markdown",
-    "php",
-    "plaintext",
-    "pug",
-    "python",
-    "restructuredtext",
-    "rust",
-    "scala",
-    "scss",
-    "text",
-    "typescript",
-    "typescriptreact",
-    "yaml",
-    "yml"
-  ],
+
   "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -250,9 +202,7 @@
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "cSpell.words": [
-    "yfboilerplate"
-  ],
+
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   }

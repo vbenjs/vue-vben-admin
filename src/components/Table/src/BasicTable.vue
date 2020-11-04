@@ -219,7 +219,7 @@
         pagination: PaginationProps,
         // @ts-ignore
         filters: Partial<Record<string, string[]>>,
-        sorter: SorterResult<any>
+        sorter: SorterResult
       ) {
         const { clearSelectOnPageChange, sortFn } = unref(getMergeProps);
         if (clearSelectOnPageChange) {
