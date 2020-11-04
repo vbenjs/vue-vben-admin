@@ -18,6 +18,8 @@
 - 修复分割菜单且左侧菜单没有数据时候，继续展示上一次子菜单的问题
 - 修复`useMessage`类型问题
 - 修复表单项设置`disabled`不生效问题
+- 修复`useECharts`在`resize`时不能自适应,报错
+- 修复`useWatermark`在清空后`resize`未删除
 
 ## 2.0.0-rc.8 (2020-11-2)
 

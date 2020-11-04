@@ -42,7 +42,8 @@
     width: 100%;
     height: 100%;
     // background: rgba(255, 255, 255, 0.3);
-    background: rgba(241, 241, 246, 0.7);
+    // background: #f0f2f5;
+    background: rgba(240, 242, 245, 0.5);
     justify-content: center;
     align-items: center;
   }
