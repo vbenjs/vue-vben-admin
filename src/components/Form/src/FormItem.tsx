@@ -102,13 +102,19 @@ export default defineComponent({
         rulesMessageJoinLabel,
         label,
         dynamicRules,
+        required,
       } = props.schema;
 
       if (isFunction(dynamicRules)) {
         return dynamicRules(unref(getValuesRef));
       }
 
-      const rules: ValidationRule[] = cloneDeep(defRules);
+      let rules: ValidationRule[] = cloneDeep(defRules);
+
+      if ((!rules || rules.length === 0) && required) {
+        rules = [{ required }];
+      }
+
       const requiredRuleIndex: number = rules.findIndex(
         (rule) => Reflect.has(rule, 'required') && !Reflect.has(rule, 'validator')
       );

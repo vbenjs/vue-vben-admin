@@ -112,6 +112,8 @@ export interface FormSchema {
   component: ComponentType;
   // 组件参数
   componentProps?: any;
+  // 必填
+  required?: boolean;
 
   // 校验规则
   rules?: RuleObject[];
