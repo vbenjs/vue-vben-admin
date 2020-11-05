@@ -53,8 +53,8 @@
       const formModel = reactive({});
 
       const actionState = reactive({
-        resetAction: {},
-        submitAction: {},
+        resetAction: () => {},
+        submitAction: () => {},
       });
 
       const advanceState = reactive<AdvanceState>({
