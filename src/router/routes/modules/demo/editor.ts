@@ -40,14 +40,14 @@ export default {
           },
         },
         // TODO
-        // {
-        //   path: 'editor',
-        //   name: 'TinymceFormDemo',
-        //   component: () => import('/@/views/demo/comp/tinymce/Editor.vue'),
-        //   meta: {
-        //     title: '嵌入form使用',
-        //   },
-        // },
+        {
+          path: 'editor',
+          name: 'TinymceFormDemo',
+          component: () => import('/@/views/demo/editor/tinymce/Editor.vue'),
+          meta: {
+            title: '嵌入form使用',
+          },
+        },
       ],
     },
   ],

@@ -15,6 +15,7 @@
     watch,
     onUnmounted,
     onDeactivated,
+    watchEffect,
   } from 'vue';
   import { basicProps } from './props';
   import toolbar from './toolbar';
@@ -57,6 +58,8 @@
         const { height, options } = props;
         return {
           selector: `#${unref(tinymceId)}`,
+          base_url: CDN_URL,
+          suffix: '.min',
           height: height,
           toolbar: toolbar,
           menubar: 'file edit insert view format table',
@@ -134,36 +137,48 @@
         bindHandlers(e, attrs, unref(editorRef));
       }
 
+      function setValue(editor: any, val: string, prevVal: string) {
+        if (
+          editor &&
+          typeof val === 'string' &&
+          val !== prevVal &&
+          val !== editor.getContent({ format: attrs.outputFormat })
+        ) {
+          editor.setContent(val);
+        }
+      }
+
       function bindModelHandlers(editor: any) {
         const modelEvents = attrs.modelEvents ? attrs.modelEvents : null;
         const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
         watch(
           () => props.modelValue,
           (val: string, prevVal: string) => {
-            if (
-              editor &&
-              typeof val === 'string' &&
-              val !== prevVal &&
-              val !== editor.getContent({ format: attrs.outputFormat })
-            ) {
-              editor.setContent(val);
-            }
+            setValue(editor, val, prevVal);
+          }
+        );
+
+        watch(
+          () => props.value,
+          (val: string, prevVal: string) => {
+            setValue(editor, val, prevVal);
+          },
+          {
+            immediate: true,
           }
         );
 
         editor.on(normalizedEvents ? normalizedEvents : 'change keyup undo redo', () => {
-          emit('update:modelValue', editor.getContent({ format: attrs.outputFormat }));
+          const content = editor.getContent({ format: attrs.outputFormat });
+          emit('update:modelValue', content);
+          emit('change', content);
         });
       }
 
-      function handleChange(value: string) {
-        emit('change', value);
-      }
       return {
         containerWidth,
         initOptions,
         tinymceContent,
-        handleChange,
         tinymceScriptSrc,
         elRef,
         tinymceId,
