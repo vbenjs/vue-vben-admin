@@ -24,7 +24,7 @@
       colProps: {
         span: 8,
       },
-      rules: [{ required: true }],
+      required: true,
     },
     {
       field: 'field2',
@@ -33,7 +33,7 @@
       colProps: {
         span: 8,
       },
-      rules: [{ required: true }],
+      required: true,
     },
     {
       field: 'field3',
@@ -42,7 +42,7 @@
       colProps: {
         span: 8,
       },
-      rules: [{ required: true }],
+      required: true,
     },
     {
       field: 'field4',
@@ -65,7 +65,7 @@
           },
         ],
       },
-      rules: [{ required: true }],
+      rules: [{ required: true, message: '请输入aa' }],
     },
     {
       field: 'field5',
