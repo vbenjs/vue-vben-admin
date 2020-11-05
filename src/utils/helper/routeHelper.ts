@@ -44,8 +44,10 @@ export function genRouteModule(moduleList: AppRouteModule[]) {
 // 动态引入
 function asyncImportRoute(routes: AppRouteRecordRaw[]) {
   routes.forEach((item) => {
-    const { component, children } = item;
+    let { component } = item;
+    const { children } = item;
     if (component) {
+      component = component.replace(/^\//, '');
       item.component = () => import(`/@/views/${component}`);
     }
     children && asyncImportRoute(children);
