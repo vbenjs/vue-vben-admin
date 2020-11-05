@@ -51,10 +51,13 @@ export function useDrawer(): UseDrawerReturnType {
       getInstance().setDrawerProps(props);
     },
 
-    openDrawer: (visible = true): void => {
+    openDrawer: <T = any>(visible = true, data?: T): void => {
       getInstance().setDrawerProps({
         visible: visible,
       });
+      if (data) {
+        dataTransferRef[unref(uidRef)] = data;
+      }
     },
 
     transferDrawerData(val: any) {

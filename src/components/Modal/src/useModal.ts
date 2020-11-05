@@ -46,10 +46,13 @@ export function useModal(): UseModalReturnType {
       getInstance().setModalProps(props);
     },
 
-    openModal: (visible = true): void => {
+    openModal: <T = any>(visible = true, data?: T): void => {
       getInstance().setModalProps({
         visible: visible,
       });
+      if (data) {
+        dataTransferRef[unref(uidRef)] = data;
+      }
     },
 
     transferModalData(val: any) {
