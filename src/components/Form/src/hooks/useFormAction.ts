@@ -43,7 +43,7 @@ export function useFormAction({
     Object.keys(formModel).forEach((key) => {
       (formModel as any)[key] = defaultValueRef.value[key];
     });
-    formEl.clearValidate();
+    clearValidate();
     emit('reset', toRaw(formModel));
     // return values;
     submitOnReset && handleSubmit();
@@ -187,7 +187,7 @@ export function useFormAction({
     return formElRef.value.validate(nameList);
   }
 
-  function clearValidate(name: string | string[]) {
+  function clearValidate(name?: string | string[]) {
     if (!formElRef.value) return;
     formElRef.value.clearValidate(name);
   }
@@ -205,7 +205,7 @@ export function useFormAction({
     const formEl = unref(formElRef);
     if (!formEl) return;
     try {
-      const values = await formEl.validate();
+      const values = await validate();
       const res = handleFormValues(values);
       emit('submit', res);
     } catch (error) {}

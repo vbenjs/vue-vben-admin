@@ -150,7 +150,11 @@ export default defineComponent({
     function handleValue(component: ComponentType, field: string) {
       const val = (props.formModel as any)[field];
       if (['Input', 'InputPassword', 'InputSearch', 'InputTextArea'].includes(component)) {
-        return isNumber(val) && val ? `${val}` : val;
+        if (val && isNumber(val)) {
+          (props.formModel as any)[field] = `${val}`;
+          return `${val}`;
+        }
+        return val;
       }
       return val;
     }
