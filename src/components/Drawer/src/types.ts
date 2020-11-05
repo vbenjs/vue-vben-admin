@@ -7,7 +7,7 @@ export interface DrawerInstance {
 }
 
 export interface ReturnMethods extends DrawerInstance {
-  openDrawer: (visible?: boolean) => void;
+  openDrawer: <T = any>(visible?: boolean, data?: T) => void;
   transferDrawerData: (data: any) => void;
 }
 
