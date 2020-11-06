@@ -11,7 +11,7 @@
 
   import zhCN from 'ant-design-vue/es/locale/zh_CN';
   import moment from 'moment';
-  import 'moment/locale/zh-cn';
+  import 'moment/dist/locale/zh-cn';
 
   import { useConfigProvider, useInitAppConfigStore, useListenerNetWork } from './useApp';
   import { useLockPage } from '/@/hooks/web/useLockPage';

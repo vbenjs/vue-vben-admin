@@ -17,11 +17,10 @@
   &__main {
     position: relative;
     height: 100%;
-    // overflow: hidden;
-    // overflow: auto;
 
     &.fixed {
-      overflow: auto;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     &.fixed.lock {
@@ -373,9 +372,39 @@
   }
 }
 
-.layout-breadcrumb {
-  padding: 0 16px;
+.layout-header__left {
   flex-grow: 1;
+  display: flex;
+  align-items: center;
+
+  .layout-trigger {
+    padding: 4px 10px 0 16px;
+    cursor: pointer;
+
+    .anticon {
+      font-size: 17px;
+    }
+
+    &.light {
+      &:hover {
+        background: @header-light-bg-hover-color;
+      }
+
+      svg {
+        fill: #000;
+      }
+    }
+
+    &.dark {
+      &:hover {
+        background: @header-dark-bg-hover-color;
+      }
+    }
+  }
+
+  .layout-breadcrumb {
+    padding: 0 8px;
+  }
 }
 
 .ant-layout-sider-trigger {

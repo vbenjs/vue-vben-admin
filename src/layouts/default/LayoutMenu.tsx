@@ -68,9 +68,6 @@ export default defineComponent({
       return unref(getProjectConfigRef).menuSetting.mode === MenuModeEnum.HORIZONTAL;
     });
 
-    onMounted(() => {
-      genMenus();
-    });
     const [throttleHandleSplitLeftMenu] = useThrottle(handleSplitLeftMenu, 50);
 
     // watch(
@@ -90,6 +87,7 @@ export default defineComponent({
         immediate: true,
       }
     );
+
     watch(
       [() => permissionStore.getLastBuildMenuTimeState, permissionStore.getBackMenuListState],
       () => {
@@ -112,7 +110,7 @@ export default defineComponent({
         if (!children) {
           appStore.commitProjectConfigState({
             menuSetting: {
-              show: false,
+              hidden: false,
             },
           });
           flatMenusRef.value = [];
@@ -122,7 +120,7 @@ export default defineComponent({
         const flatChildren = await getFlatChildrenMenus(children);
         appStore.commitProjectConfigState({
           menuSetting: {
-            show: true,
+            hidden: true,
           },
         });
         flatMenusRef.value = flatChildren;
@@ -193,6 +191,10 @@ export default defineComponent({
       );
     });
 
+    onMounted(() => {
+      genMenus();
+    });
+
     return () => {
       const {
         showLogo,
@@ -229,7 +231,11 @@ export default defineComponent({
           {{
             header: () =>
               isShowLogo && (
-                <Logo showTitle={!collapsed} class={[`layout-menu__logo`, themeData]} />
+                <Logo
+                  showTitle={!collapsed}
+                  class={[`layout-menu__logo`, themeData]}
+                  theme={themeData}
+                />
               ),
           }}
         </BasicMenu>

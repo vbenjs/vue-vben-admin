@@ -2,7 +2,13 @@ import { defineComponent, computed, unref, ref } from 'vue';
 import { BasicDrawer } from '/@/components/Drawer/index';
 import { Divider, Switch, Tooltip, InputNumber, Select } from 'ant-design-vue';
 import Button from '/@/components/Button/index.vue';
-import { MenuModeEnum, MenuTypeEnum, MenuThemeEnum, TopMenuAlignEnum } from '/@/enums/menuEnum';
+import {
+  MenuModeEnum,
+  MenuTypeEnum,
+  MenuThemeEnum,
+  TopMenuAlignEnum,
+  TriggerEnum,
+} from '/@/enums/menuEnum';
 import { ContentEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 import { CopyOutlined, RedoOutlined, CheckOutlined } from '@ant-design/icons-vue';
 import { appStore } from '/@/store/modules/app';
@@ -23,41 +29,49 @@ const themeOptions = [
   {
     value: MenuThemeEnum.LIGHT,
     label: '亮色',
-    key: MenuThemeEnum.LIGHT,
   },
   {
     value: MenuThemeEnum.DARK,
     label: '暗色',
-    key: MenuThemeEnum.DARK,
   },
 ];
 const contentModeOptions = [
   {
     value: ContentEnum.FULL,
     label: '流式',
-    key: ContentEnum.FULL,
   },
   {
     value: ContentEnum.FIXED,
     label: '定宽',
-    key: ContentEnum.FIXED,
   },
 ];
 const topMenuAlignOptions = [
   {
     value: TopMenuAlignEnum.CENTER,
     label: '居中',
-    key: TopMenuAlignEnum.CENTER,
   },
   {
     value: TopMenuAlignEnum.START,
     label: '居左',
-    key: TopMenuAlignEnum.START,
   },
   {
     value: TopMenuAlignEnum.END,
     label: '居右',
-    key: TopMenuAlignEnum.END,
+  },
+];
+
+const menuTriggerOptions = [
+  {
+    value: TriggerEnum.NONE,
+    label: '不显示',
+  },
+  {
+    value: TriggerEnum.FOOTER,
+    label: '底部',
+  },
+  {
+    value: TriggerEnum.HEADER,
+    label: '顶部',
   },
 ];
 
@@ -181,7 +195,7 @@ export default defineComponent({
             baseHandler('splitMenu', e);
           },
           def: split,
-          disabled: !unref(getShowMenuRef),
+          disabled: !unref(getShowMenuRef) || type !== MenuTypeEnum.MIX,
         }),
         renderSelectItem('顶栏主题', {
           handler: (e) => {
@@ -215,6 +229,7 @@ export default defineComponent({
           menuWidth,
           topMenuAlign,
           collapsedShowTitle,
+          trigger,
         } = {},
       } = appStore.getProjectConfig;
       return [
@@ -262,6 +277,13 @@ export default defineComponent({
           options: topMenuAlignOptions,
           disabled: !unref(getShowHeaderRef),
         }),
+        renderSelectItem('菜单折叠按钮', {
+          handler: (e) => {
+            baseHandler('menuTrigger', e);
+          },
+          def: trigger,
+          options: menuTriggerOptions,
+        }),
         renderSelectItem('内容区域宽度', {
           handler: (e) => {
             baseHandler('contentMode', e);
@@ -298,7 +320,7 @@ export default defineComponent({
             disabled={!unref(getShowMenuRef)}
             defaultValue={menuWidth}
             formatter={(value: string) => `${parseInt(value)}px`}
-            onChange={(e) => {
+            onChange={(e: any) => {
               baseHandler('menuWidth', e);
             }}
           />
@@ -424,19 +446,34 @@ export default defineComponent({
       if (event === 'layout') {
         const { mode, type, split } = value;
         const splitOpt = split === undefined ? { split } : {};
+        let headerSetting = {};
+        if (type === MenuTypeEnum.TOP_MENU) {
+          headerSetting = {
+            theme: MenuThemeEnum.DARK,
+          };
+        }
         config = {
           menuSetting: {
             mode,
             type,
             collapsed: false,
+            show: true,
             ...splitOpt,
           },
+          headerSetting,
         };
       }
       if (event === 'hasDrag') {
         config = {
           menuSetting: {
             hasDrag: value,
+          },
+        };
+      }
+      if (event === 'menuTrigger') {
+        config = {
+          menuSetting: {
+            trigger: value,
           },
         };
       }
@@ -647,7 +684,7 @@ export default defineComponent({
           <Switch
             {...opt}
             disabled={disabled}
-            onChange={(e) => {
+            onChange={(e: any) => {
               handler && handler(e);
             }}
             checkedChildren="开"

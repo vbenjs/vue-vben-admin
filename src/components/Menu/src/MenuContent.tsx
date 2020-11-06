@@ -32,7 +32,7 @@ export default defineComponent({
      * @description: 渲染图标
      */
     function renderIcon(icon: string) {
-      return icon ? <Icon icon={icon} size={18} class="mr-1 menu-item-icon" /> : null;
+      return icon ? <Icon icon={icon} size={18} class="menu-item-icon" /> : null;
     }
 
     return () => {

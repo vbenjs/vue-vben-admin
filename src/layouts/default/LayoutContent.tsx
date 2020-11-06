@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue';
-import { Layout } from 'ant-design-vue';
+// import { Layout } from 'ant-design-vue';
 // hooks
 
 import { ContentEnum } from '/@/enums/appEnum';
@@ -13,9 +13,9 @@ export default defineComponent({
       const { contentMode } = getProjectConfig;
       const wrapClass = contentMode === ContentEnum.FULL ? 'full' : 'fixed';
       return (
-        <Layout.Content class={`layout-content ${wrapClass} `}>
-          {() => <PageLayout />}
-        </Layout.Content>
+        // <Layout.Content class={`layout-content ${wrapClass} `}>
+        <PageLayout class={`layout-content ${wrapClass} `} />
+        // </Layout.Content>
       );
     };
   },

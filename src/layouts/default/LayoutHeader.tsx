@@ -6,6 +6,7 @@ import UserDropdown from './UserDropdown';
 import LayoutMenu from './LayoutMenu';
 import LayoutBreadcrumb from './LayoutBreadcrumb';
 import LockAction from './actions/LockActionItem';
+import LayoutTrigger from './LayoutTrigger';
 import NoticeAction from './actions/notice/NoticeActionItem.vue';
 import {
   RedoOutlined,
@@ -25,7 +26,7 @@ import { useModal } from '/@/components/Modal/index';
 import { appStore } from '/@/store/modules/app';
 import { errorStore } from '/@/store/modules/error';
 
-import { MenuModeEnum, MenuSplitTyeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
+import { MenuModeEnum, MenuSplitTyeEnum, MenuTypeEnum, TriggerEnum } from '/@/enums/menuEnum';
 import { GITHUB_URL } from '/@/settings/siteSetting';
 export default defineComponent({
   name: 'DefaultLayoutHeader',
@@ -75,6 +76,13 @@ export default defineComponent({
       return theme ? `layout-header__header--${theme}` : '';
     });
 
+    const showHeaderTrigger = computed(() => {
+      const { show, trigger, hidden } = unref(getProjectConfigRef).menuSetting;
+
+      if (!show || !hidden) return false;
+      return trigger === TriggerEnum.HEADER;
+    });
+
     function handleToErrorList() {
       errorStore.commitErrorListCountState(0);
       push('/exception/error-log');
@@ -92,6 +100,7 @@ export default defineComponent({
       const {
         useErrorHandle,
         showLogo,
+        multiTabsSetting: { show: showTab },
         headerSetting: {
           theme: headerTheme,
           useLockPage,
@@ -114,11 +123,17 @@ export default defineComponent({
           {() => (
             <>
               <div class="layout-header__content ">
-                {showLogo && !isSidebarType && <Logo class={`layout-header__logo`} />}
-
-                {mode !== MenuModeEnum.HORIZONTAL && showBreadCrumb && !splitMenu && (
-                  <LayoutBreadcrumb showIcon={showBreadCrumbIcon} />
+                {showLogo && !isSidebarType && (
+                  <Logo class={`layout-header__logo`} theme={headerTheme} />
                 )}
+
+                <div class="layout-header__left">
+                  {unref(showHeaderTrigger) && <LayoutTrigger theme={headerTheme} sider={false} />}
+                  {mode !== MenuModeEnum.HORIZONTAL && showBreadCrumb && !splitMenu && (
+                    <LayoutBreadcrumb showIcon={showBreadCrumbIcon} />
+                  )}
+                </div>
+
                 {unref(showTopMenu) && (
                   <div
                     class={[`layout-header__menu `]}
@@ -193,7 +208,7 @@ export default defineComponent({
                     </Tooltip>
                   </div>
                 )}
-                {showRedo && (
+                {showRedo && showTab && (
                   <Tooltip>
                     {{
                       title: () => '刷新',
