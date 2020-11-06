@@ -41,6 +41,7 @@
       font-size: 12px;
       flex-direction: column;
       align-items: center;
+      line-height: 24px;
     }
 
     & > li > .ant-menu-submenu-title {
@@ -183,9 +184,17 @@
     transition: unset;
   }
 
+  &:not(.basic-menu__sidebar-hor).ant-menu-inline-collapsed {
+    .basic-menu-item__level1 {
+      > div {
+        align-items: center;
+      }
+    }
+  }
+
   &.ant-menu-dark:not(.basic-menu__sidebar-hor):not(.basic-menu__second) {
     // Reset menu item row height
-    .ant-menu-item,
+    .ant-menu-item:not(.basic-menu-item__level1),
     .ant-menu-sub.ant-menu-inline > .ant-menu-item,
     .ant-menu-sub.ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
       height: @app-menu-item-height;

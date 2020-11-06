@@ -28,6 +28,7 @@
     "echarts": "^4.9.0",
     "lodash-es": "^4.17.15",
     "mockjs": "^1.1.0",
+    "moment": "^2.29.1",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.0",
     "qrcode": "^1.4.4",

@@ -73,7 +73,7 @@ export default defineComponent({
         offset += 46;
       }
       return {
-        height: `calc(100% - ${offset - 10}px)`,
+        height: `calc(100% - ${offset - 12}px)`,
         position: 'relative',
         overflowY: 'auto',
       };

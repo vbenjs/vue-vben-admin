@@ -1,5 +1,5 @@
 // 左侧菜单, 顶部菜单
-import { MenuTypeEnum, MenuModeEnum, MenuThemeEnum } from '/@/enums/menuEnum';
+import { MenuTypeEnum, MenuModeEnum, MenuThemeEnum, TriggerEnum } from '/@/enums/menuEnum';
 import { ContentEnum, PermissionModeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 
 export interface MessageSetting {
@@ -15,6 +15,7 @@ export interface MenuSetting {
   hasDrag: boolean;
   showSearch: boolean;
   show: boolean;
+  hidden: boolean;
   split: boolean;
   menuWidth: number;
   mode: MenuModeEnum;
@@ -22,6 +23,7 @@ export interface MenuSetting {
   theme: MenuThemeEnum;
   topMenuAlign: 'start' | 'center' | 'end';
   collapsedShowSearch: boolean;
+  trigger: TriggerEnum;
 }
 
 export interface MultiTabsSetting {
