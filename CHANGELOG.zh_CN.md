@@ -6,6 +6,7 @@
 - 增加富文本嵌入表单的示例
 - 表单组件 schema 增加 `required`属性。简化配置
 - openModal 和 openDrawer 第二个参数可以代替`transferModalData`传参到内部
+- 带参路由可以被缓存
 
 ### ⚡ Performance Improvements
 

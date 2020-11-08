@@ -44,10 +44,10 @@ export default defineComponent({
                 // TODO add key?
                 const Content = openCache ? (
                   <KeepAlive max={max} include={cacheTabs}>
-                    <Component />
+                    <Component key={route.path} />
                   </KeepAlive>
                 ) : (
-                  <Component />
+                  <Component key={route.path} />
                 );
                 return openRouterTransition ? (
                   <Transition
