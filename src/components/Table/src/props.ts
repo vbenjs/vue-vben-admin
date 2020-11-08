@@ -18,7 +18,7 @@ export const basicProps = {
   },
 
   sortFn: {
-    type: Function as PropType<(sortInfo: SorterResult<any>) => any>,
+    type: Function as PropType<(sortInfo: SorterResult) => any>,
     default: DEFAULT_SORT_FN,
   },
 
