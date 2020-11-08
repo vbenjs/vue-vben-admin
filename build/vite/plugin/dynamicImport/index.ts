@@ -20,10 +20,11 @@ const dynamicImportTransform = function (env: any = {}): Transform {
       return path.includes('/src/utils/helper/dynamicImport.ts');
     },
     transform({ code }) {
-      const { VITE_GEN_MENU_MODE = '' } = env;
-      if (VITE_GEN_MENU_MODE !== 'BACK') {
+      const { VITE_DYNAMIC_IMPORT } = env;
+      if (!VITE_DYNAMIC_IMPORT) {
         return code;
       }
+
       // if (!isBuild) return code;
       // Only convert the dir
       try {

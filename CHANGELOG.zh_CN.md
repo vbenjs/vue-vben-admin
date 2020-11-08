@@ -11,6 +11,7 @@
 ### ✨ Refactor
 
 - 重构由后台生成菜单的逻辑
+- Route Module 结构改造
 
 ### ⚡ Performance Improvements
 
