@@ -23,18 +23,11 @@ export function useColumns(
     }
     let pushIndexColumns = false;
     columns.forEach((item) => {
-      const { key, dataIndex } = item;
-      item.align = item.align || 'center';
-      if (ellipsis) {
-        if (!key) {
-          item.key = dataIndex;
-        }
-        if (!isBoolean(item.ellipsis)) {
-          Object.assign(item, {
-            ellipsis,
-          });
-        }
-      }
+      const { children } = item;
+      handleItem(item, !!ellipsis);
+
+      handleChildren(children, !!ellipsis);
+
       const indIndex = columns.findIndex((column) => column.flag === 'INDEX');
       if (showIndexColumn && !isTreeTable) {
         pushIndexColumns = indIndex === -1;
@@ -87,6 +80,30 @@ export function useColumns(
     columnsRef.value = columns;
     cacheColumnsRef.value = columns;
   });
+
+  function handleItem(item: BasicColumn, ellipsis: boolean) {
+    const { key, dataIndex } = item;
+    item.align = item.align || 'center';
+    if (ellipsis) {
+      if (!key) {
+        item.key = dataIndex;
+      }
+      if (!isBoolean(item.ellipsis)) {
+        Object.assign(item, {
+          ellipsis,
+        });
+      }
+    }
+  }
+
+  function handleChildren(children: BasicColumn[] | undefined, ellipsis: boolean) {
+    if (!children) return;
+    children.forEach((item) => {
+      const { children } = item;
+      handleItem(item, ellipsis);
+      handleChildren(children, ellipsis);
+    });
+  }
 
   function setColumns(columns: BasicColumn[] | string[]) {
     if (!isArray(columns)) return;
