@@ -1,7 +1,9 @@
 <template>
   <div class="p-4">
     Current Param : {{ params }}
-    <!-- <input /> -->
+    <br />
+    Keep Alive
+    <input />
   </div>
 </template>
 <script lang="ts">
