@@ -1,4 +1,3 @@
-import { PermissionModeEnum } from '../enums/appEnum';
 import type { GlobEnvConfig } from '/@/types/config';
 
 export const getGlobEnvConfig = (): GlobEnvConfig => {
@@ -47,14 +46,3 @@ export const isProdMode = (): boolean => import.meta.env.PROD;
  * @example:
  */
 export const isUseMock = (): boolean => import.meta.env.VITE_USE_MOCK === 'true';
-
-/**
- * @description: 获取菜单生成方式
- * @param {type}
- * @returns:
- * @example:
- */
-export const getRoleMode = (): PermissionModeEnum =>
-  import.meta.env.VITE_GEN_MENU_MODE === PermissionModeEnum.ROLE
-    ? PermissionModeEnum.ROLE
-    : PermissionModeEnum.BACK;

@@ -2,17 +2,15 @@ import { resultSuccess } from '../_util';
 import { MockMethod } from 'vite-plugin-mock';
 
 const dashboardRoute = {
-  layout: {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: 'PAGE_LAYOUT',
-    redirect: '/dashboard/welcome',
-    meta: {
-      icon: 'ant-design:home-outlined',
-      title: 'Dashboard',
-    },
+  path: '/dashboard',
+  name: 'Dashboard',
+  component: 'PAGE_LAYOUT',
+  redirect: '/dashboard/welcome',
+  meta: {
+    icon: 'ant-design:home-outlined',
+    title: 'Dashboard',
   },
-  routes: [
+  children: [
     {
       path: '/welcome',
       name: 'Welcome',
@@ -86,33 +84,27 @@ const backRoute = {
   ],
 };
 const authRoute = {
-  layout: {
-    path: '/permission',
-    name: 'Permission',
-    component: 'PAGE_LAYOUT',
-    redirect: '/permission/front/page',
-    meta: {
-      icon: 'ant-design:home-outlined',
-      title: '权限管理',
-    },
+  path: '/permission',
+  name: 'Permission',
+  component: 'PAGE_LAYOUT',
+  redirect: '/permission/front/page',
+  meta: {
+    icon: 'ant-design:home-outlined',
+    title: '权限管理',
   },
-
-  routes: [frontRoute, backRoute],
+  children: [frontRoute, backRoute],
 };
 
 const authRoute1 = {
-  layout: {
-    path: '/permission',
-    name: 'Permission',
-    component: 'PAGE_LAYOUT',
-    redirect: '/permission/front/page',
-    meta: {
-      icon: 'ant-design:home-outlined',
-      title: '权限管理',
-    },
+  path: '/permission',
+  name: 'Permission',
+  component: 'PAGE_LAYOUT',
+  redirect: '/permission/front/page',
+  meta: {
+    icon: 'ant-design:home-outlined',
+    title: '权限管理',
   },
-
-  routes: [backRoute],
+  children: [backRoute],
 };
 export default [
   {
