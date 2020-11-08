@@ -1,15 +1,16 @@
 import type { ProjectConfig } from '/@/types/config';
 
 import { MenuTypeEnum, MenuThemeEnum, MenuModeEnum, TriggerEnum } from '/@/enums/menuEnum';
-import { ContentEnum, PermissionModeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
+import { ContentEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 import { primaryColor } from '../../build/config/lessModifyVars';
-import { isProdMode } from '/@/utils/env';
+import { isProdMode, getRoleMode } from '/@/utils/env';
+
 // ! You need to clear the browser cache after the change
 const setting: ProjectConfig = {
   // Whether to show the configuration button
   showSettingButton: true,
   // 权限模式
-  permissionMode: PermissionModeEnum.ROLE,
+  permissionMode: getRoleMode(),
   // 网站灰色模式，用于可能悼念的日期开启
   grayMode: false,
   // 色弱模式

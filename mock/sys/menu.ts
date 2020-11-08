@@ -16,7 +16,7 @@ const dashboardRoute = {
     {
       path: '/welcome',
       name: 'Welcome',
-      component: '/dashboard/welcome/index.vue',
+      component: '/dashboard/welcome/index',
       meta: {
         title: '欢迎页',
         affix: true,
@@ -34,28 +34,28 @@ const frontRoute = {
   children: [
     {
       path: 'page',
-      component: '/demo/permission/front/index.vue',
+      component: '/demo/permission/front/index',
       meta: {
         title: '页面权限',
       },
     },
     {
       path: 'btn',
-      component: '/demo/permission/front/Btn.vue',
+      component: '/demo/permission/front/Btn',
       meta: {
         title: '按钮权限',
       },
     },
     {
       path: 'auth-pageA',
-      component: '/demo/permission/front/AuthPageA.vue',
+      component: '/demo/permission/front/AuthPageA',
       meta: {
         title: '权限测试页A',
       },
     },
     {
       path: 'auth-pageB',
-      component: '/demo/permission/front/AuthPageB.vue',
+      component: '/demo/permission/front/AuthPageB',
       meta: {
         title: '权限测试页B',
       },
@@ -71,14 +71,14 @@ const backRoute = {
   children: [
     {
       path: 'page',
-      component: 'demo/permission/back/index.vue',
+      component: '/demo/permission/back/index',
       meta: {
         title: '页面权限',
       },
     },
     {
       path: 'btn',
-      component: '/demo/permission/back/Btn.vue',
+      component: '/demo/permission/back/Btn',
       meta: {
         title: '按钮权限',
       },

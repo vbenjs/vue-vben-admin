@@ -8,6 +8,10 @@
 - openModal 和 openDrawer 第二个参数可以代替`transferModalData`传参到内部
 - 带参路由可以被缓存
 
+### ✨ Refactor
+
+- 重构由后台生成菜单的逻辑
+
 ### ⚡ Performance Improvements
 
 - 菜单性能继续优化,更流畅

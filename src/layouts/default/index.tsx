@@ -107,7 +107,9 @@ export default defineComponent({
                             unref(showHeaderRef) && <LayoutHeader />}
 
                           {showTabs && !unref(getFullContent) && (
-                            <MultipleTabs class={`default-layout__tabs`} />
+                            <Layout.Header class={`default-layout__tabs`}>
+                              {() => <MultipleTabs />}
+                            </Layout.Header>
                           )}
 
                           {useOpenBackTop && <BackTop target={getTarget} />}
