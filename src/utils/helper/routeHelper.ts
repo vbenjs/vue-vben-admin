@@ -6,6 +6,8 @@ import { tabStore } from '/@/store/modules/tab';
 import { createRouter, createWebHashHistory } from 'vue-router';
 import { toRaw } from 'vue';
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
+// import { isDevMode } from '/@/utils/env';
+import dynamicImport from './dynamicImport';
 
 let currentTo: RouteLocationNormalized | null = null;
 
@@ -45,12 +47,12 @@ export function genRouteModule(moduleList: AppRouteModule[]) {
 // TODO  错误写法
 function asyncImportRoute(routes: AppRouteRecordRaw[]) {
   routes.forEach((item) => {
-    let { component } = item;
+    const { component } = item;
     const { children } = item;
     if (component) {
-      component = component.replace(/^\//, '');
-      item.component = () => import(`/@/views/${component}`);
+      item.component = dynamicImport(component);
     }
+
     children && asyncImportRoute(children);
   });
 }
