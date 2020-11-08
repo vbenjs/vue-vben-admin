@@ -55,7 +55,7 @@ const setting: ProjectConfig = {
     // 是否显示 没有dom
     show: true,
     // 是否显示 有dom
-    hidden: false,
+    hidden: true,
     // 是否显示搜索框
     showSearch: true,
     // 菜单宽度
