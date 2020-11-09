@@ -34,7 +34,6 @@ const dynamicImportTransform = function (env: any = {}): Transform {
         export default function (id) {
            switch (id) {
           ${files
-
             .map((p) =>
               `   case '${getPath(p)}': return  () => import('${p
                 .replace('src/views', '/@/views')

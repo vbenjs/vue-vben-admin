@@ -1,6 +1,6 @@
 <template>
   <div class="tinymce-container" :style="{ width: containerWidth }">
-    <textarea :id="tinymceId" ref="elRef"></textarea>
+    <textarea :id="tinymceId" ref="elRef" :style="{ visibility: 'hidden' }"></textarea>
   </div>
 </template>
 
@@ -15,7 +15,6 @@
     watch,
     onUnmounted,
     onDeactivated,
-    watchEffect,
   } from 'vue';
   import { basicProps } from './props';
   import toolbar from './toolbar';
@@ -36,11 +35,8 @@
     emits: ['change', 'update:modelValue'],
     setup(props, { emit, attrs }) {
       const editorRef = ref<any>(null);
+      const tinymceId = ref<string>(snowUuid('tiny-vue'));
       const elRef = ref<Nullable<HTMLElement>>(null);
-
-      const tinymceId = computed(() => {
-        return snowUuid('tiny-vue');
-      });
 
       const tinymceContent = computed(() => {
         return props.modelValue;
@@ -118,12 +114,18 @@
 
       function init() {
         toPromise().then(() => {
-          initEditor();
+          setTimeout(() => {
+            initEditor();
+          }, 0);
         });
       }
 
       function initEditor() {
         getTinymce().PluginManager.add('lineHeight', lineHeight(getTinymce()));
+        const el = unref(elRef);
+        if (el) {
+          el.style.visibility = '';
+        }
         getTinymce().init(unref(initOptions));
       }
 
