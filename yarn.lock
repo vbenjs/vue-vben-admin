@@ -6944,7 +6944,7 @@ rollup@^1.31.1:
     "@types/node" "*"
     acorn "^7.1.0"
 
-rollup@^2.32.1:
+rollup@^2.32.1, rollup@^2.33.1:
   version "2.33.1"
   resolved "https://registry.npmjs.org/rollup/-/rollup-2.33.1.tgz#802795164164ee63cd47769d8879c33ec8ae0c40"
   integrity sha512-uY4O/IoL9oNW8MMcbA5hcOaz6tZTMIh7qJHx/tzIJm+n1wLoY38BLn6fuy7DhR57oNFLMbDQtDeJoFURt5933w==
@@ -8161,6 +8161,14 @@ vfile@^4.0.0:
     replace-ext "1.0.0"
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
+
+vite-plugin-cdn@^1.0.0-beta.3:
+  version "1.0.0-beta.3"
+  resolved "https://registry.npmjs.org/vite-plugin-cdn/-/vite-plugin-cdn-1.0.0-beta.3.tgz#5846e80debba5e3968169931f5cba86aea5701cd"
+  integrity sha512-1oepxSSr8rROFhyP93EWVasKHAAbGfp3QyUrUmJW/zU80CvFPyHATckk8vy08pMiulErSqATjfofTJ+TxP4wkw==
+  dependencies:
+    lodash "^4.17.20"
+    rollup "^2.33.1"
 
 vite-plugin-html@^1.0.0-beta.2:
   version "1.0.0-beta.2"

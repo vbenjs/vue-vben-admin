@@ -53,7 +53,6 @@ export function genRouteModule(moduleList: AppRouteModule[]) {
 }
 
 // 动态引入
-// TODO  错误写法
 function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
   if (!routes) return;
   routes.forEach((item) => {
