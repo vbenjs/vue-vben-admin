@@ -17,7 +17,10 @@ const dynamicImportTransform = function (env: any = {}): Transform {
   return {
     test({ path }) {
       // Only convert the file
-      return path.includes('/src/utils/helper/dynamicImport.ts');
+      return (
+        path.includes('/src/utils/helper/dynamicImport.ts') ||
+        path.includes(`\\src\\utils\\helper\\dynamicImport.ts`)
+      );
     },
     transform({ code }) {
       const { VITE_DYNAMIC_IMPORT } = env;
