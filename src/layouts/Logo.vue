@@ -1,6 +1,6 @@
 <template>
   <div class="app-logo anticon" :class="theme" @click="handleGoHome" :style="wrapStyle">
-    <img :src="logo" />
+    <img src="/@/assets/images/logo.png" />
     <div v-if="show" class="logo-title ml-2 ellipsis">{{ globSetting.title }}</div>
   </div>
 </template>
@@ -13,8 +13,6 @@
 
   import { PageEnum } from '/@/enums/pageEnum';
   import { MenuTypeEnum } from '../enums/menuEnum';
-
-  import logo from '/@/assets/images/logo.png';
 
   import { menuStore } from '../store/modules/menu';
   import { appStore } from '../store/modules/app';
@@ -68,7 +66,6 @@
         handleGoHome,
         globSetting,
         show: showRef,
-        logo,
         wrapStyle,
       };
     },
