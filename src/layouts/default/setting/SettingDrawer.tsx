@@ -226,7 +226,13 @@ export default defineComponent({
           def: collapsedShowTitle,
           disabled: !unref(getShowMenuRef) || !collapsed,
         }),
-
+        renderSwitchItem('固定header', {
+          handler: (e) => {
+            baseHandler(HandlerEnum.HEADER_FIXED, e);
+          },
+          def: fixed,
+          disabled: !unref(getShowHeaderRef),
+        }),
         renderSelectItem('顶部菜单布局', {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_TOP_ALIGN, e);
@@ -242,13 +248,7 @@ export default defineComponent({
           def: trigger,
           options: menuTriggerOptions,
         }),
-        renderSwitchItem('固定header', {
-          handler: (e) => {
-            baseHandler(HandlerEnum.HEADER_FIXED, e);
-          },
-          def: fixed,
-          disabled: !unref(getShowHeaderRef),
-        }),
+
         renderSelectItem('内容区域宽度', {
           handler: (e) => {
             baseHandler(HandlerEnum.CONTENT_MODE, e);

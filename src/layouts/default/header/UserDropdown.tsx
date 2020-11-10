@@ -39,8 +39,7 @@ export default defineComponent({
     function handleMenuClick(e: any) {
       if (e.key === 'loginOut') {
         handleLoginOut();
-      }
-      if (e.key === 'doc') {
+      } else if (e.key === 'doc') {
         openDoc();
       }
     }

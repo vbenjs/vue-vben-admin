@@ -23,8 +23,9 @@
     },
   });
 </script>
-<style lang="less" scoped>
+<style lang="less">
   @import (reference) '../../../design/index.less';
+  @import './index.less';
 
   .setting-button {
     position: absolute;

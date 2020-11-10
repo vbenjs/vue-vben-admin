@@ -1,8 +1,10 @@
-import { TabItem, tabStore } from '/@/store/modules/tab';
+import { defineComponent, unref, computed } from 'vue';
+
 import type { PropType } from 'vue';
+
+import { TabItem, tabStore } from '/@/store/modules/tab';
 import { getScaleAction, TabContentProps } from './tab.data';
 
-import { defineComponent, unref, computed } from 'vue';
 import { Dropdown } from '/@/components/Dropdown/index';
 import Icon from '/@/components/Icon/index';
 import { RightOutlined } from '@ant-design/icons-vue';

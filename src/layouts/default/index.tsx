@@ -1,13 +1,12 @@
 import { defineComponent, unref, computed } from 'vue';
 import { Layout, BackTop } from 'ant-design-vue';
-import LayoutHeader from './LayoutHeader';
+import LayoutHeader from './header/LayoutHeader';
 
 import { appStore } from '/@/store/modules/app';
 import LayoutContent from './LayoutContent';
 import LayoutSideBar from './LayoutSideBar';
 import SettingBtn from './setting/index.vue';
 import MultipleTabs from './multitabs/index';
-import { FullLoading } from '/@/components/Loading/index';
 
 import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
 import { useFullContent } from '/@/hooks/web/useFullContent';
@@ -63,9 +62,8 @@ export default defineComponent({
     }
 
     return () => {
-      const { getPageLoading, getLockInfo } = appStore;
+      const { getLockInfo } = appStore;
       const {
-        openPageLoading,
         useOpenBackTop,
         showSettingButton,
         multiTabsSetting: { show: showTabs },
@@ -84,13 +82,16 @@ export default defineComponent({
         <Layout class="default-layout relative">
           {() => (
             <>
+              {/* lock page */}
               {isLock && <LockPage />}
+              {/* back top */}
+              {useOpenBackTop && <BackTop target={getTarget} />}
+              {/* open setting drawer */}
+              {showSettingButton && <SettingBtn />}
 
               {!unref(getFullContent) && unref(isShowMixHeaderRef) && unref(showHeaderRef) && (
                 <LayoutHeader />
               )}
-
-              {showSettingButton && <SettingBtn />}
 
               <Layout>
                 {() => (
@@ -103,22 +104,9 @@ export default defineComponent({
                             !unref(isShowMixHeaderRef) &&
                             unref(showHeaderRef) && <LayoutHeader />}
 
-                          {showTabs && !unref(getFullContent) && (
-                            <Layout.Header class={`default-layout__tabs`}>
-                              {() => <MultipleTabs />}
-                            </Layout.Header>
-                          )}
+                          {showTabs && !unref(getFullContent) && <MultipleTabs />}
 
-                          {useOpenBackTop && <BackTop target={getTarget} />}
-
-                          <div class={[`default-layout__main`, fixedHeaderCls]}>
-                            {openPageLoading && (
-                              <FullLoading
-                                class={[`default-layout__loading`, !getPageLoading && 'hidden']}
-                              />
-                            )}
-                            <LayoutContent />
-                          </div>
+                          <LayoutContent class={fixedHeaderCls} />
                         </>
                       )}
                     </Layout>
