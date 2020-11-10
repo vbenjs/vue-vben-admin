@@ -6,7 +6,7 @@ enum Api {
 }
 
 /**
- * @description: 获取示例列表值
+ * @description: Get sample list value
  */
 export function demoListApi(params: DemoParams) {
   return defHttp.request<DemoListGetResultModel>({

@@ -74,6 +74,8 @@ const setting: ProjectConfig = {
     collapsedShowSearch: false,
     // 折叠触发器的位置
     trigger: TriggerEnum.HEADER,
+    // 开启手风琴模式,只显示一个菜单
+    accordion: true,
   },
   // 消息配置
   messageSetting: {

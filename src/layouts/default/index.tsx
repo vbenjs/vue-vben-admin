@@ -19,12 +19,11 @@ import './index.less';
 export default defineComponent({
   name: 'DefaultLayout',
   setup() {
-    // ! 在这里才注册全局组件
-    // ! 可以减少首屏代码体积
-    // default layout是在登录后才加载的。所以不会打包到首屏去
+    // ! Only register global components here
+    // ! Can reduce the size of the first screen code
+    // default layout It is loaded after login. So it won’t be packaged to the first screen
     registerGlobComp();
 
-    // 获取项目配置
     const { getFullContent } = useFullContent();
 
     const getProjectConfigRef = computed(() => {
@@ -56,8 +55,6 @@ export default defineComponent({
       return split || (show && mode !== MenuModeEnum.HORIZONTAL && !unref(getFullContent));
     });
 
-    // Get project configuration
-    // const { getFullContent } = useFullContent(currentRoute);
     function getTarget(): any {
       const {
         headerSetting: { fixed },

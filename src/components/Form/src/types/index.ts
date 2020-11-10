@@ -89,7 +89,6 @@ export type ComponentType =
   | 'InputNumber'
   | 'InputCountDown'
   | 'Select'
-  | 'DictSelect'
   | 'SelectOptGroup'
   | 'SelectOption'
   | 'TreeSelect'

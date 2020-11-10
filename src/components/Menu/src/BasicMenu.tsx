@@ -52,7 +52,8 @@ export default defineComponent({
       toRef(props, 'items'),
       toRef(props, 'flatItems'),
       toRef(props, 'isAppMenu'),
-      toRef(props, 'mode')
+      toRef(props, 'mode'),
+      toRef(props, 'accordion')
     );
 
     const getOpenKeys = computed(() => {

@@ -55,27 +55,25 @@ export default defineComponent({
     },
   },
   setup(props) {
+    // Menu array
     const menusRef = ref<Menu[]>([]);
+    // flat menu array
     const flatMenusRef = ref<Menu[]>([]);
     const { currentRoute, push } = useRouter();
-    // const { addTab } = useTabs();
 
+    // get app config
     const getProjectConfigRef = computed(() => {
       return appStore.getProjectConfig;
     });
 
+    // get is Horizontal
     const getIsHorizontalRef = computed(() => {
       return unref(getProjectConfigRef).menuSetting.mode === MenuModeEnum.HORIZONTAL;
     });
 
     const [throttleHandleSplitLeftMenu] = useThrottle(handleSplitLeftMenu, 50);
 
-    // watch(
-    //   () => menuStore.getCurrentTopSplitMenuPathState,
-    //   async (parentPath: string) => {
-    //     throttleHandleSplitLeftMenu(parentPath);
-    //   }
-    // );
+    // Route change split menu
     watch(
       [() => unref(currentRoute).path, () => props.splitType],
       async ([path, splitType]: [string, MenuSplitTyeEnum]) => {
@@ -88,23 +86,26 @@ export default defineComponent({
       }
     );
 
+    // Menu changes
     watch(
-      [() => permissionStore.getLastBuildMenuTimeState, permissionStore.getBackMenuListState],
+      [() => permissionStore.getLastBuildMenuTimeState, () => permissionStore.getBackMenuListState],
       () => {
         genMenus();
       }
     );
 
+    // split Menu changes
     watch([() => appStore.getProjectConfig.menuSetting.split], () => {
       if (props.splitType !== MenuSplitTyeEnum.LEFT && !unref(getIsHorizontalRef)) return;
       genMenus();
     });
 
+    // Handle left menu split
     async function handleSplitLeftMenu(parentPath: string) {
       const isSplitMenu = unref(getProjectConfigRef).menuSetting.split;
       if (!isSplitMenu) return;
       const { splitType } = props;
-      // 菜单分割模式-left
+      // spilt mode left
       if (splitType === MenuSplitTyeEnum.LEFT) {
         const children = await getChildrenMenus(parentPath);
         if (!children) {
@@ -128,11 +129,11 @@ export default defineComponent({
       }
     }
 
+    // get menus
     async function genMenus() {
       const isSplitMenu = unref(getProjectConfigRef).menuSetting.split;
 
-      // 普通模式
-
+      // normal mode
       const { splitType } = props;
       if (splitType === MenuSplitTyeEnum.NONE || !isSplitMenu) {
         flatMenusRef.value = await getFlatMenus();
@@ -140,7 +141,7 @@ export default defineComponent({
         return;
       }
 
-      // 菜单分割模式-top
+      // split-top
       if (splitType === MenuSplitTyeEnum.TOP) {
         const parentPath = await getCurrentParentPath(unref(currentRoute).path);
         menuStore.commitCurrentTopSplitMenuPathState(parentPath);
@@ -156,12 +157,11 @@ export default defineComponent({
       const { path } = menu;
       if (path) {
         const { splitType } = props;
-        // 菜单分割模式-top
+        // split mode top
         if (splitType === MenuSplitTyeEnum.TOP) {
           menuStore.commitCurrentTopSplitMenuPathState(path);
         }
         push(path);
-        // addTab(path as PageEnum, true);
       }
     }
 
@@ -205,6 +205,7 @@ export default defineComponent({
           collapsed,
           collapsedShowTitle,
           collapsedShowSearch,
+          accordion,
         },
       } = unref(getProjectConfigRef);
 
@@ -227,6 +228,7 @@ export default defineComponent({
           onClickSearchInput={handleClickSearchInput}
           appendClass={props.splitType === MenuSplitTyeEnum.TOP}
           isTop={props.isTop}
+          accordion={accordion}
         >
           {{
             header: () =>

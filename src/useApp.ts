@@ -42,7 +42,7 @@ export function useThemeMode(mode: ThemeModeEnum) {
   };
 }
 
-// 初始化项目配置
+// Initial project configuration
 export function useInitAppConfigStore() {
   let projCfg: ProjectConfig = getLocal(PROJ_CFG_KEY) as ProjectConfig;
   if (!projCfg) {
@@ -78,12 +78,12 @@ export function useConfigProvider() {
   };
 }
 
-// 初始化网络监听
+// Initialize network monitoring
 export function useListenerNetWork() {
   const { listenNetWork } = appStore.getProjectConfig;
   if (!listenNetWork) return;
   const { replace } = useRouter();
-  // 检测网络状态
+  // Check network status
   useNetWork({
     onLineFn: () => {
       replace(PageEnum.BASE_HOME);

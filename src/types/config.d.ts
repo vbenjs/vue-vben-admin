@@ -24,6 +24,7 @@ export interface MenuSetting {
   topMenuAlign: 'start' | 'center' | 'end';
   collapsedShowSearch: boolean;
   trigger: TriggerEnum;
+  accordion: boolean;
 }
 
 export interface MultiTabsSetting {

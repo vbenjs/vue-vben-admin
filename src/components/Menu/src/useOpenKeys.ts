@@ -6,21 +6,31 @@ import type { Ref } from 'vue';
 import { unref } from 'vue';
 import { menuStore } from '/@/store/modules/menu';
 import { getAllParentPath } from '/@/utils/helper/menuHelper';
+import { es6Unique } from '/@/utils';
 
 export function useOpenKeys(
   menuState: MenuState,
   menus: Ref<MenuType[]>,
   flatMenusRef: Ref<MenuType[]>,
   isAppMenu: Ref<boolean>,
-  mode: Ref<MenuModeEnum>
+  mode: Ref<MenuModeEnum>,
+  accordion: Ref<boolean>
 ) {
   /**
    * @description:设置展开
    */
   function setOpenKeys(menu: MenuType) {
     const flatMenus = unref(flatMenusRef);
-    menuState.openKeys = getAllParentPath(flatMenus, menu.path);
+    if (!unref(accordion)) {
+      menuState.openKeys = es6Unique([
+        ...menuState.openKeys,
+        ...getAllParentPath(flatMenus, menu.path),
+      ]);
+    } else {
+      menuState.openKeys = getAllParentPath(flatMenus, menu.path);
+    }
   }
+
   /**
    * @description:  重置值
    */
@@ -30,7 +40,7 @@ export function useOpenKeys(
   }
 
   function handleOpenChange(openKeys: string[]) {
-    if (unref(mode) === MenuModeEnum.HORIZONTAL) {
+    if (unref(mode) === MenuModeEnum.HORIZONTAL || !unref(accordion)) {
       menuState.openKeys = openKeys;
     } else {
       const rootSubMenuKeys: string[] = [];

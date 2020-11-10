@@ -4,9 +4,6 @@ import { Layout } from 'ant-design-vue';
 import LayoutTrigger from './LayoutTrigger';
 import { menuStore } from '/@/store/modules/menu';
 
-// import darkMiniIMg from '/@/assets/images/sidebar/dark-mini.png';
-// import lightMiniImg from '/@/assets/images/sidebar/light-mini.png';
-// import lightImg from '/@/assets/images/sidebar/light.png';
 import { appStore } from '/@/store/modules/app';
 import { MenuModeEnum, MenuSplitTyeEnum, TriggerEnum } from '/@/enums/menuEnum';
 import { SIDE_BAR_MINI_WIDTH, SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '/@/enums/appEnum';
@@ -44,7 +41,7 @@ export default defineComponent({
       initRef.value = true;
     }
 
-    // 菜单区域拖拽 - 鼠标移动
+    // Menu area drag and drop-mouse movement
     function handleMouseMove(ele: any, wrap: any, clientX: number) {
       document.onmousemove = function (innerE) {
         let iT = ele.left + ((innerE || event).clientX - clientX);
@@ -98,7 +95,6 @@ export default defineComponent({
       const side = unref(sideRef);
 
       const wrap = (side || {}).$el;
-      // const eleWidth = 6;
       ele &&
         (ele.onmousedown = (e: any) => {
           menuStore.commitDragStartState(true);
