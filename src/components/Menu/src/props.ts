@@ -58,6 +58,10 @@ export const basicProps = {
     type: Boolean as PropType<boolean>,
     default: false,
   },
+  accordion: {
+    type: Boolean as PropType<boolean>,
+    default: true,
+  },
   beforeClickFn: {
     type: Function as PropType<Fn>,
     default: null,

@@ -30,12 +30,16 @@ declare type Indexable<T = any> = {
 
 declare type Hash<T> = Indexable<T>;
 
+// declare type DeepPartial<T> = {
+//   [P in keyof T]?: T[P] extends (infer U)[]
+//     ? RecursivePartial<U>[]
+//     : T[P] extends object
+//     ? RecursivePartial<T[P]>
+//     : T[P];
+// };
+
 declare type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
-    ? RecursivePartial<U>[]
-    : T[P] extends object
-    ? RecursivePartial<T[P]>
-    : T[P];
+  [P in keyof T]?: DeepPartial<T[P]>;
 };
 
 declare type SelectOptions = {

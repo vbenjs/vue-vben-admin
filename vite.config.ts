@@ -34,7 +34,7 @@ const viteConfig: UserConfig = {
    * @default 'index.html'
    */
   // TODO build error
-  // entry: './public/index.html',
+  // entry: 'public/index.html',
   /**
    * port
    * @default '3000'
