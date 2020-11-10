@@ -1,13 +1,13 @@
 import { defineComponent, unref, computed, ref } from 'vue';
 
 import { Layout, Tooltip, Badge } from 'ant-design-vue';
-import Logo from '/@/layouts/Logo.vue';
+import Logo from '/@/layouts/logo/index.vue';
 import UserDropdown from './UserDropdown';
-import LayoutMenu from './LayoutMenu';
+import LayoutMenu from '/@/layouts/default/menu/LayoutMenu';
 import LayoutBreadcrumb from './LayoutBreadcrumb';
-import LockAction from './actions/LockActionItem';
-import LayoutTrigger from './LayoutTrigger';
-import NoticeAction from './actions/notice/NoticeActionItem.vue';
+import LockAction from './LockActionItem';
+import LayoutTrigger from '../LayoutTrigger';
+import NoticeAction from './notice/NoticeActionItem.vue';
 import {
   RedoOutlined,
   FullscreenExitOutlined,
@@ -28,6 +28,8 @@ import { errorStore } from '/@/store/modules/error';
 
 import { MenuModeEnum, MenuSplitTyeEnum, MenuTypeEnum, TriggerEnum } from '/@/enums/menuEnum';
 import { GITHUB_URL } from '/@/settings/siteSetting';
+
+import './index.less';
 export default defineComponent({
   name: 'DefaultLayoutHeader',
   setup() {

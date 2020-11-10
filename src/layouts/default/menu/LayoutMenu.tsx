@@ -3,7 +3,7 @@ import type { Menu } from '/@/router/types';
 
 import { computed, defineComponent, unref, ref, onMounted, watch } from 'vue';
 import { BasicMenu } from '/@/components/Menu/index';
-import Logo from '/@/layouts/Logo.vue';
+import Logo from '/@/layouts/logo/index.vue';
 
 import { MenuModeEnum, MenuSplitTyeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
 
@@ -22,10 +22,8 @@ import {
 import { useRouter } from 'vue-router';
 import { useThrottle } from '/@/hooks/core/useThrottle';
 import { permissionStore } from '/@/store/modules/permission';
-// import { useTabs } from '/@/hooks/web/useTabs';
-// import { PageEnum } from '/@/enums/pageEnum';
 
-// import
+import './index.less';
 export default defineComponent({
   name: 'DefaultLayoutMenu',
   props: {

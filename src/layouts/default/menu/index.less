@@ -1,0 +1,25 @@
+@import (reference) '../../../design/index.less';
+
+.layout-menu {
+  &__logo {
+    height: @header-height;
+    padding: 10px 4px 10px 10px;
+
+    img {
+      width: @logo-width;
+      height: @logo-width;
+    }
+
+    &.light {
+      .logo-title {
+        color: @text-color-base;
+      }
+    }
+
+    &.dark {
+      .logo-title {
+        color: @white;
+      }
+    }
+  }
+}

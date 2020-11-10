@@ -12,10 +12,10 @@
   import { useGo } from '/@/hooks/web/usePage';
 
   import { PageEnum } from '/@/enums/pageEnum';
-  import { MenuTypeEnum } from '../enums/menuEnum';
+  import { MenuTypeEnum } from '/@/enums/menuEnum';
 
-  import { menuStore } from '../store/modules/menu';
-  import { appStore } from '../store/modules/app';
+  import { menuStore } from '/@/store/modules/menu';
+  import { appStore } from '/@/store/modules/app';
 
   export default defineComponent({
     name: 'Logo',
@@ -72,7 +72,7 @@
   });
 </script>
 <style lang="less" scoped>
-  @import (reference) '../design/index.less';
+  @import (reference) '../../design/index.less';
 
   .app-logo {
     display: flex;

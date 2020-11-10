@@ -1,0 +1,72 @@
+.setting-drawer {
+  .ant-drawer-body {
+    padding-top: 0;
+    background: @white;
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__cell-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 0;
+  }
+
+  &__theme-item {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 16px 0;
+
+    span {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-top: 10px;
+      margin-right: 10px;
+      cursor: pointer;
+      border-radius: 4px;
+
+      svg {
+        display: none;
+      }
+
+      &.active {
+        svg {
+          display: inline-block;
+          margin-left: 4px;
+          font-size: 0.8em;
+          fill: @white;
+        }
+      }
+    }
+  }
+
+  &__siderbar {
+    display: flex;
+
+    > div {
+      position: relative;
+
+      .check-icon {
+        position: absolute;
+        top: 40%;
+        left: 40%;
+        display: none;
+        color: @primary-color;
+
+        &.active {
+          display: inline-block;
+        }
+      }
+    }
+
+    img {
+      margin-right: 10px;
+      cursor: pointer;
+    }
+  }
+}

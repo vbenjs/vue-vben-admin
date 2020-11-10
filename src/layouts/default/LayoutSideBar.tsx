@@ -2,13 +2,15 @@ import { computed, defineComponent, nextTick, onMounted, ref, unref } from 'vue'
 
 import { Layout } from 'ant-design-vue';
 import LayoutTrigger from './LayoutTrigger';
-import { menuStore } from '/@/store/modules/menu';
+import LayoutMenu from '/@/layouts/default/menu/LayoutMenu';
 
+import { menuStore } from '/@/store/modules/menu';
 import { appStore } from '/@/store/modules/app';
+
 import { MenuModeEnum, MenuSplitTyeEnum, TriggerEnum } from '/@/enums/menuEnum';
 import { SIDE_BAR_MINI_WIDTH, SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '/@/enums/appEnum';
+
 import { useDebounce } from '/@/hooks/core/useDebounce';
-import LayoutMenu from './LayoutMenu';
 
 export default defineComponent({
   name: 'DefaultLayoutSideBar',
@@ -111,13 +113,6 @@ export default defineComponent({
       brokenRef.value = broken;
     }
 
-    onMounted(() => {
-      nextTick(() => {
-        const [exec] = useDebounce(changeWrapWidth, 20);
-        exec();
-      });
-    });
-
     const getDragBarStyle = computed(() => {
       if (menuStore.getCollapsedState) {
         return { left: `${unref(getMiniWidth)}px` };
@@ -134,6 +129,13 @@ export default defineComponent({
         menuSetting: { trigger },
       } = unref(getProjectConfigRef);
       return trigger !== TriggerEnum.NONE && trigger === TriggerEnum.FOOTER;
+    });
+
+    onMounted(() => {
+      nextTick(() => {
+        const [exec] = useDebounce(changeWrapWidth, 20);
+        exec();
+      });
     });
 
     function handleSiderClick(e: ChangeEvent) {
