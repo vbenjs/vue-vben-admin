@@ -50,12 +50,25 @@
   }
 
   // collapsed show title end
+  .ant-menu-submenu-title {
+    > .basic-menu__name {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
 
-  &__name {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
+  .ant-menu-item {
+    transition: unset;
+
+    > .basic-menu__name {
+      .basic-menu__tag {
+        float: right;
+        margin-top: @app-menu-item-height / 2;
+        transform: translate(0%, -50%);
+      }
+    }
   }
 
   &__tag {
@@ -217,10 +230,6 @@
         }
       }
     }
-  }
-
-  .ant-menu-item {
-    transition: unset;
   }
 
   &:not(.basic-menu__sidebar-hor).ant-menu-inline-collapsed {
