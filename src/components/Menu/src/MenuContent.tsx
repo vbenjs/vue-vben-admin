@@ -35,6 +35,23 @@ export default defineComponent({
       return icon ? <Icon icon={icon} size={18} class="menu-item-icon" /> : null;
     }
 
+    function renderTag() {
+      const { item, showTitle } = props;
+      if (!item || showTitle) return null;
+
+      const { tag } = item;
+      if (!tag) return null;
+
+      const { dot, content, type = 'error' } = tag;
+      if (!dot && !content) return null;
+      const cls = ['basic-menu__tag'];
+
+      dot && cls.push('dot');
+      type && cls.push(type);
+
+      return <span class={cls}>{dot ? '' : content}</span>;
+    }
+
     return () => {
       if (!props.item) {
         return null;
@@ -46,17 +63,21 @@ export default defineComponent({
 
       const beforeStr = name.substr(0, index);
       const afterStr = name.substr(index + searchValue.length);
+      const cls = showTitle ? 'show-title' : 'basic-menu__name';
       return (
         <>
           {renderIcon(icon!)}
           {index > -1 && searchValue ? (
-            <span class={showTitle ? 'show-title' : ''}>
+            <span class={cls}>
               {beforeStr}
               <span class={`basic-menu__keyword`}>{searchValue}</span>
               {afterStr}
             </span>
           ) : (
-            <span class={[showTitle ? 'show-title' : '']}>{name}</span>
+            <span class={[cls]}>
+              {name}
+              {renderTag()}
+            </span>
           )}
         </>
       );

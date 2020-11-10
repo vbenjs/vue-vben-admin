@@ -51,6 +51,45 @@
 
   // collapsed show title end
 
+  &__name {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__tag {
+    display: inline-block;
+    padding: 2px 4px;
+    margin-right: 4px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #fff;
+    border-radius: 2px;
+
+    &.dot {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border-radius: 50%;
+    }
+
+    &.primary {
+      background: @primary-color;
+    }
+
+    &.error {
+      background: @error-color;
+    }
+
+    &.success {
+      background: @success-color;
+    }
+
+    &.warn {
+      background: @warning-color;
+    }
+  }
   // scrollbar -s tart
   &__content {
     /* 滚动槽 */

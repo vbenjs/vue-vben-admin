@@ -3,6 +3,7 @@
 ### ✨ Features
 
 - 表单项的`componentsProps`支持函数类型
+- 菜单新增 tag 显示
 
 ### ⚡ Performance Improvements
 
