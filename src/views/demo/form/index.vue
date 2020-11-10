@@ -24,11 +24,13 @@
         span: 8,
       },
       defaultValue: '111',
-      componentProps: {
-        placeholder: '自定义placeholder',
-        onChange: (e: any) => {
-          console.log(e);
-        },
+      componentProps: () => {
+        return {
+          placeholder: '自定义placeholder',
+          onChange: (e: any) => {
+            console.log(e);
+          },
+        };
       },
     },
     {

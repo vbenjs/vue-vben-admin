@@ -1,5 +1,9 @@
 ## Wip
 
+### ✨ Features
+
+- 表单项的`componentsProps`支持函数类型
+
 ### 🐛 Bug Fixes
 
 - 修复多个富文本编辑器只显示一个

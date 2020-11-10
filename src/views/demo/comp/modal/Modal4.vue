@@ -5,7 +5,7 @@
   </BasicModal>
 </template>
 <script lang="ts">
-  import { defineComponent, nextTick, ref } from 'vue';
+  import { defineComponent, ref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
   const schemas: FormSchema[] = [
@@ -47,20 +47,18 @@
       });
 
       const [register, { receiveModalDataRef }] = useModalInner((data) => {
-        nextTick(() => {
-          // 方式1
-          // setFieldsValue({
-          //   field2: data.data,
-          //   field1: data.info,
-          // });
+        // 方式1
+        // setFieldsValue({
+        //   field2: data.data,
+        //   field1: data.info,
+        // });
 
-          // 方式2
-          modelRef.value = { field2: data.data, field1: data.info };
+        // 方式2
+        modelRef.value = { field2: data.data, field1: data.info };
 
-          // setProps({
-          //   model:{ field2: data.data, field1: data.info }
-          // })
-        });
+        // setProps({
+        //   model:{ field2: data.data, field1: data.info }
+        // })
       });
       return { register, receiveModalDataRef, schemas, registerForm, model: modelRef };
     },

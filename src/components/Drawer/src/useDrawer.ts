@@ -6,7 +6,16 @@ import type {
   UseDrawerInnerReturnType,
 } from './types';
 
-import { ref, getCurrentInstance, onUnmounted, unref, reactive, computed, watchEffect } from 'vue';
+import {
+  ref,
+  getCurrentInstance,
+  onUnmounted,
+  unref,
+  reactive,
+  computed,
+  watchEffect,
+  nextTick,
+} from 'vue';
 
 import { isProdMode } from '/@/utils/env';
 import { isFunction } from '/@/utils/is';
@@ -94,7 +103,9 @@ export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
     const data = dataTransferRef[unref(uidRef)];
     if (!data) return;
     if (!callbackFn || !isFunction(callbackFn)) return;
-    callbackFn(data);
+    nextTick(() => {
+      callbackFn(data);
+    });
   });
 
   return [

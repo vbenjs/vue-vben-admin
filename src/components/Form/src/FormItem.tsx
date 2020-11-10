@@ -2,6 +2,7 @@ import type { PropType } from 'vue';
 import type { FormProps } from './types/form';
 import type { FormSchema } from './types/form';
 import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
+import type { TableActionType } from '../../Table/src/types/table';
 
 import { defineComponent, computed, unref, toRef } from 'vue';
 import { Form, Col } from 'ant-design-vue';
@@ -37,6 +38,9 @@ export default defineComponent({
       type: Object as PropType<any>,
       default: {},
     },
+    tableAction: {
+      type: Object as PropType<TableActionType>,
+    },
   },
   setup(props, { slots }) {
     const itemLabelWidthRef = useItemLabelWidth(toRef(props, 'schema'), toRef(props, 'formProps'));
@@ -56,10 +60,19 @@ export default defineComponent({
       };
     });
 
+    const getComponentsPropsRef = computed(() => {
+      const { schema, tableAction, formModel } = props;
+      const { componentProps = {} } = schema;
+      if (!isFunction(componentProps)) {
+        return componentProps;
+      }
+      return componentProps({ schema, tableAction, formModel }) || {};
+    });
+
     const getDisableRef = computed(() => {
       const { disabled: globDisabled } = props.formProps;
-      const { dynamicDisabled, componentProps = {} } = props.schema;
-      const { disabled: itemDisabled = false } = componentProps;
+      const { dynamicDisabled } = props.schema;
+      const { disabled: itemDisabled = false } = unref(getComponentsPropsRef);
       let disabled = !!globDisabled || itemDisabled;
       if (isBoolean(dynamicDisabled)) {
         disabled = dynamicDisabled;
@@ -166,13 +179,7 @@ export default defineComponent({
     }
 
     function renderComponent() {
-      const {
-        componentProps,
-        renderComponentContent,
-        component,
-        field,
-        changeEvent = 'change',
-      } = props.schema;
+      const { renderComponentContent, component, field, changeEvent = 'change' } = props.schema;
 
       const isCheck = component && ['Switch'].includes(component);
 
@@ -192,7 +199,7 @@ export default defineComponent({
         allowClear: true,
         getPopupContainer: (trigger: Element) => trigger.parentNode,
         size,
-        ...componentProps,
+        ...unref(getComponentsPropsRef),
         disabled: unref(getDisableRef),
       };
 
@@ -201,7 +208,8 @@ export default defineComponent({
       // RangePicker place为数组
       if (isCreatePlaceholder && component !== 'RangePicker' && component) {
         placeholder =
-          (componentProps && componentProps.placeholder) || createPlaceholderMessage(component);
+          (unref(getComponentsPropsRef) && unref(getComponentsPropsRef).placeholder) ||
+          createPlaceholderMessage(component);
       }
       propsData.placeholder = placeholder;
       propsData.codeField = field;
