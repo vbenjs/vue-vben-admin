@@ -3,6 +3,7 @@ import type { VNode } from 'vue';
 import type { BasicButtonProps } from '/@/components/Button/types';
 import type { FormItem } from './formItem';
 import type { ColEx, ComponentType } from './index';
+import { TableActionType } from '../../../Table/src/types/table';
 
 export type FieldMapToTime = [string, [string, string], string?][];
 
@@ -111,7 +112,9 @@ export interface FormSchema {
   // 组件
   component: ComponentType;
   // 组件参数
-  componentProps?: any;
+  componentProps?:
+    | ((opt: { schema: FormSchema; tableAction: TableActionType; formModel: any }) => any)
+    | object;
   // 必填
   required?: boolean;
 

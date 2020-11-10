@@ -5,7 +5,16 @@ import type {
   ReturnMethods,
   UseModalInnerReturnType,
 } from './types';
-import { ref, onUnmounted, unref, getCurrentInstance, reactive, computed, watchEffect } from 'vue';
+import {
+  ref,
+  onUnmounted,
+  unref,
+  getCurrentInstance,
+  reactive,
+  computed,
+  watchEffect,
+  nextTick,
+} from 'vue';
 import { isProdMode } from '/@/utils/env';
 import { isFunction } from '/@/utils/is';
 const dataTransferRef = reactive<any>({});
@@ -89,7 +98,9 @@ export const useModalInner = (callbackFn?: Fn): UseModalInnerReturnType => {
     const data = dataTransferRef[unref(uidRef)];
     if (!data) return;
     if (!callbackFn || !isFunction(callbackFn)) return;
-    callbackFn(data);
+    nextTick(() => {
+      callbackFn(data);
+    });
   });
 
   return [

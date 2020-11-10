@@ -11,6 +11,7 @@
       v-if="getBindValues.useSearchForm"
       :submitOnReset="true"
       :submitButtonOptions="{ loading }"
+      :tableAction="tableAction"
       @register="registerForm"
       @submit="handleSearchInfoChange"
       @advanced-change="redoHeight"
@@ -321,6 +322,7 @@
         handleTableChange,
         getRowClassName,
         wrapRef,
+        tableAction,
         ...tableAction,
       };
     },
