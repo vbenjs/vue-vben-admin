@@ -2,15 +2,10 @@ import type { TabContentProps } from './tab.data';
 import type { TabItem } from '/@/store/modules/tab';
 import type { AppRouteRecordRaw } from '/@/router/types';
 
-import {
-  defineComponent,
-  watch,
-  computed,
-  // ref,
-  unref,
-  // onMounted,
-  toRaw,
-} from 'vue';
+import { defineComponent, watch, computed, unref, toRaw } from 'vue';
+import { useRouter } from 'vue-router';
+import router from '/@/router';
+
 import { Tabs } from 'ant-design-vue';
 import TabContent from './TabContent';
 
@@ -18,16 +13,13 @@ import { useGo } from '/@/hooks/web/usePage';
 
 import { TabContentEnum } from './tab.data';
 
-import { useRouter } from 'vue-router';
-
 import { tabStore } from '/@/store/modules/tab';
+import { userStore } from '/@/store/modules/user';
+
 import { closeTab } from './useTabDropdown';
-import router from '/@/router';
 import { useTabs } from '/@/hooks/web/useTabs';
-// import { PageEnum } from '/@/enums/pageEnum';
 
 import './index.less';
-import { userStore } from '/@/store/modules/user';
 export default defineComponent({
   name: 'MultiTabs',
   setup() {
@@ -41,20 +33,24 @@ export default defineComponent({
       return tabStore.getTabsState;
     });
 
-    if (!isAddAffix) {
-      addAffixTabs();
-      isAddAffix = true;
-    }
-
+    // If you monitor routing changes, tab switching will be stuck. So use this method
     watch(
-      () => unref(currentRoute).path,
+      () => tabStore.getLastChangeRouteState,
       () => {
-        if (!userStore.getTokenState) return;
-        const { path: rPath, fullPath } = unref(currentRoute);
-        if (activeKeyRef.value !== (fullPath || rPath)) {
-          activeKeyRef.value = fullPath || rPath;
+        if (!isAddAffix) {
+          addAffixTabs();
+          isAddAffix = true;
         }
-        tabStore.commitAddTab((unref(currentRoute) as unknown) as AppRouteRecordRaw);
+
+        const lastChangeRoute = unref(tabStore.getLastChangeRouteState);
+
+        if (!lastChangeRoute || !userStore.getTokenState) return;
+
+        const { path, fullPath } = lastChangeRoute;
+        if (activeKeyRef.value !== (fullPath || path)) {
+          activeKeyRef.value = fullPath || path;
+        }
+        tabStore.commitAddTab((lastChangeRoute as unknown) as AppRouteRecordRaw);
       },
       {
         immediate: true,

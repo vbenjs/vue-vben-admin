@@ -12,6 +12,8 @@ import { getIsOpenTab, setCurrentTo } from '/@/utils/helper/routeHelper';
 import { setTitle } from '/@/utils/browser';
 import { AxiosCanceler } from '/@/utils/http/axios/axiosCancel';
 
+import { tabStore } from '/@/store/modules/tab';
+
 const { projectSetting, globSetting } = useSetting();
 export function createGuard(router: Router) {
   const { openNProgress, closeMessageOnSwitch, removeAllHttpPending } = projectSetting;
@@ -20,8 +22,21 @@ export function createGuard(router: Router) {
     axiosCanceler = new AxiosCanceler();
   }
   router.beforeEach(async (to) => {
+    // Determine whether the tab has been opened
     const isOpen = getIsOpenTab(to.fullPath);
     to.meta.inTab = isOpen;
+
+    // Notify routing changes
+    const { fullPath, path, query, params, name, meta } = to;
+    tabStore.commitLastChangeRouteState({
+      fullPath,
+      path,
+      query,
+      params,
+      name,
+      meta,
+    } as any);
+
     try {
       if (closeMessageOnSwitch) {
         Modal.destroyAll();
