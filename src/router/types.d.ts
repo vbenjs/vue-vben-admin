@@ -43,6 +43,11 @@ export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
   props?: any;
   fullPath?: string;
 }
+export interface MenuTag {
+  type?: 'primary' | 'error' | 'warn' | 'success';
+  content?: string;
+  dot?: boolean;
+}
 
 export interface Menu {
   name: string;
@@ -60,6 +65,8 @@ export interface Menu {
   roles?: RoleEnum[];
 
   meta?: Partial<RouteMeta>;
+
+  tag?: MenuTag;
 }
 export interface MenuModule {
   orderNo?: number;
