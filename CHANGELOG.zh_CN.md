@@ -7,6 +7,7 @@
 ### ⚡ Performance Improvements
 
 - 优化 settingDrawer 代码
+- 优化多标签页切换速度
 
 ### 🐛 Bug Fixes
 

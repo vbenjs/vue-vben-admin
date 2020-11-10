@@ -206,7 +206,7 @@
   // 层级样式
   &.ant-menu-dark:not(.basic-menu__sidebar-hor) {
     overflow-x: hidden;
-    background: @first-menu-item-dark-bg-color;
+    background: @menu-item-dark-bg-color;
     .active-menu-style();
 
     .ant-menu-item.ant-menu-item-selected.basic-menu-menu-item__level1,
@@ -215,20 +215,21 @@
     }
 
     .basic-menu-item__level1 {
-      background-color: @first-menu-item-dark-bg-color;
+      background-color: @menu-item-dark-bg-color;
 
       > .ant-menu-sub > li {
-        background-color: @sub-menu-item-dark-bg-color;
+        background-color: lighten(@menu-item-dark-bg-color, 6%);
       }
     }
 
     .basic-menu-item__level2:not(.ant-menu-item-selected),
     .ant-menu-sub {
-      background-color: @sub-menu-item-dark-bg-color;
+      background-color: lighten(@menu-item-dark-bg-color, 6%);
+      // background-color: @sub-menu-item-dark-bg-color;
     }
 
     .basic-menu-item__level3:not(.ant-menu-item-selected) {
-      background-color: @children-menu-item-dark-bg-color;
+      background-color: lighten(@menu-item-dark-bg-color, 10%);
     }
 
     .ant-menu-submenu-title {
@@ -241,7 +242,7 @@
     &.ant-menu-inline-collapsed {
       .ant-menu-submenu-selected,
       .ant-menu-item-selected {
-        background: darken(@first-menu-item-dark-bg-color, 6%) !important;
+        background: darken(@menu-item-dark-bg-color, 6%) !important;
       }
     }
   }
@@ -310,7 +311,7 @@
 .ant-menu-dark {
   &.ant-menu-submenu-popup {
     > ul {
-      background: @first-menu-item-dark-bg-color;
+      background: @menu-item-dark-bg-color;
     }
 
     .active-menu-style();
