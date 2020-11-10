@@ -40,8 +40,17 @@ export function createPermissionGuard(router: Router) {
         return;
       }
       // redirect login page
-      const redirectPath = to.path ? `${LOGIN_PATH}?redirect=${to.path}` : LOGIN_PATH;
-      next(redirectPath);
+      const redirectData: { path: string; replace: boolean; query?: { [key: string]: string } } = {
+        path: LOGIN_PATH,
+        replace: true,
+      };
+      if (to.path) {
+        redirectData.query = {
+          ...redirectData.query,
+          redirect: to.path,
+        };
+      }
+      next(redirectData);
       return;
     }
     if (permissionStore.getIsDynamicAddedRouteState) {
