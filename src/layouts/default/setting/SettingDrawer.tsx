@@ -20,12 +20,12 @@ import { updateColorWeak, updateGrayMode } from '/@/setup/theme';
 import { baseHandler } from './handler';
 import {
   HandlerEnum,
-  themeOptions,
   contentModeOptions,
   topMenuAlignOptions,
   menuTriggerOptions,
   routerTransitionOptions,
 } from './const';
+import { HEADER_PRESET_BG_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from '/@/settings/colorSetting';
 
 interface SwitchOptions {
   config?: DeepPartial<ProjectConfig>;
@@ -38,6 +38,11 @@ interface SelectConfig {
   options?: SelectOptions;
   def?: any;
   disabled?: boolean;
+  handler?: Fn;
+}
+
+interface ThemeOptions {
+  def?: string;
   handler?: Fn;
 }
 
@@ -98,8 +103,7 @@ export default defineComponent({
 
     function renderSidebar() {
       const {
-        headerSetting: { theme: headerTheme },
-        menuSetting: { type, theme: menuTheme, split },
+        menuSetting: { type, split },
       } = unref(getProjectConfigRef);
 
       const typeList = ref([
@@ -154,22 +158,22 @@ export default defineComponent({
           def: split,
           disabled: !unref(getShowMenuRef) || type !== MenuTypeEnum.MIX,
         }),
-        renderSelectItem('顶栏主题', {
-          handler: (e) => {
-            baseHandler(HandlerEnum.HEADER_THEME, e);
-          },
-          def: headerTheme,
-          options: themeOptions,
-          disabled: !unref(getShowHeaderRef),
-        }),
-        renderSelectItem('菜单主题', {
-          handler: (e) => {
-            baseHandler(HandlerEnum.MENU_THEME, e);
-          },
-          def: menuTheme,
-          options: themeOptions,
-          disabled: !unref(getShowMenuRef),
-        }),
+        // renderSelectItem('顶栏主题', {
+        //   handler: (e) => {
+        //     baseHandler(HandlerEnum.HEADER_THEME, e);
+        //   },
+        //   def: headerTheme,
+        //   options: themeOptions,
+        //   disabled: !unref(getShowHeaderRef),
+        // }),
+        // renderSelectItem('菜单主题', {
+        //   handler: (e) => {
+        //     baseHandler(HandlerEnum.MENU_THEME, e);
+        //   },
+        //   def: menuTheme,
+        //   options: themeOptions,
+        //   disabled: !unref(getShowMenuRef),
+        // }),
       ];
     }
     /**
@@ -413,7 +417,6 @@ export default defineComponent({
       return (
         <div class={`setting-drawer__cell-item`}>
           <span>{text}</span>
-          {/* @ts-ignore */}
           <Select
             {...opt}
             disabled={disabled}
@@ -447,6 +450,50 @@ export default defineComponent({
       );
     }
 
+    function renderTheme() {
+      const { headerBgColor, menuBgColor } = unref(getProjectConfigRef);
+      return (
+        <>
+          <Divider>{() => '顶栏主题'}</Divider>
+          {renderThemeItem(HEADER_PRESET_BG_COLOR_LIST, {
+            def: headerBgColor,
+            handler: (e) => {
+              baseHandler(HandlerEnum.HEADER_THEME, e);
+            },
+          })}
+          <Divider>{() => '菜单主题'}</Divider>
+          {renderThemeItem(SIDE_BAR_BG_COLOR_LIST, {
+            def: menuBgColor,
+            handler: (e) => {
+              baseHandler(HandlerEnum.MENU_THEME, e);
+            },
+          })}
+        </>
+      );
+    }
+
+    function renderThemeItem(colorList: string[], opt: ThemeOptions) {
+      const { def, handler } = opt;
+      return (
+        <div class={`setting-drawer__theme-item`}>
+          {colorList.map((item) => {
+            return (
+              <span
+                onClick={() => handler && handler(item)}
+                key={item}
+                class={[def === item ? 'active' : '']}
+                style={{
+                  background: item,
+                }}
+              >
+                <CheckOutlined class="icon" />
+              </span>
+            );
+          })}
+        </div>
+      );
+    }
+
     return () => (
       <BasicDrawer {...attrs} title="项目配置" width={300} wrapClassName="setting-drawer">
         {{
@@ -454,6 +501,9 @@ export default defineComponent({
             <>
               <Divider>{() => '导航栏模式'}</Divider>
               {renderSidebar()}
+
+              {renderTheme()}
+
               <Divider>{() => '界面功能'}</Divider>
               {renderFeatures()}
               <Divider>{() => '界面显示'}</Divider>

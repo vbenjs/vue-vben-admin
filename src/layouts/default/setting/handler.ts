@@ -1,6 +1,11 @@
 import { HandlerEnum } from './const';
-import { MenuThemeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
-import { updateColorWeak, updateGrayMode } from '/@/setup/theme';
+// import { MenuThemeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
+import {
+  updateColorWeak,
+  updateGrayMode,
+  updateHeaderBgColor,
+  updateSidebarBgColor,
+} from '/@/setup/theme';
 import { appStore } from '/@/store/modules/app';
 import { ProjectConfig } from '/@/types/config';
 
@@ -14,12 +19,12 @@ export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConf
     case HandlerEnum.CHANGE_LAYOUT:
       const { mode, type, split } = value;
       const splitOpt = split === undefined ? { split } : {};
-      let headerSetting = {};
-      if (type === MenuTypeEnum.TOP_MENU) {
-        headerSetting = {
-          theme: MenuThemeEnum.DARK,
-        };
-      }
+      // let headerSetting = {};
+      // if (type === MenuTypeEnum.TOP_MENU) {
+      //   headerSetting = {
+      //     theme: MenuThemeEnum.DARK,
+      //   };
+      // }
       return {
         menuSetting: {
           mode,
@@ -28,7 +33,7 @@ export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConf
           show: true,
           ...splitOpt,
         },
-        headerSetting,
+        // headerSetting,
       };
 
     case HandlerEnum.MENU_HAS_DRAG:
@@ -81,10 +86,12 @@ export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConf
         },
       };
     case HandlerEnum.MENU_THEME:
+      updateSidebarBgColor(value);
       return {
-        menuSetting: {
-          theme: value,
-        },
+        menuBgColor: value,
+        // menuSetting: {
+        //   theme: value,
+        // },
       };
     case HandlerEnum.MENU_SPLIT:
       return {
@@ -150,7 +157,7 @@ export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConf
           showQuick: value,
         },
       };
-    case HandlerEnum.TABS_SHOW_QUICK:
+    case HandlerEnum.TABS_SHOW_ICON:
       return {
         multiTabsSetting: {
           showIcon: value,
@@ -163,10 +170,9 @@ export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConf
         },
       };
     case HandlerEnum.HEADER_THEME:
+      updateHeaderBgColor(value);
       return {
-        headerSetting: {
-          theme: value,
-        },
+        headerBgColor: value,
       };
     case HandlerEnum.HEADER_FIXED:
       return {

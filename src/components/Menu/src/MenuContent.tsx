@@ -26,6 +26,10 @@ export default defineComponent({
       type: Number as PropType<number>,
       default: 0,
     },
+    isTop: {
+      type: Boolean as PropType<boolean>,
+      default: true,
+    },
   },
   setup(props) {
     /**
@@ -56,14 +60,16 @@ export default defineComponent({
       if (!props.item) {
         return null;
       }
-      const { showTitle } = props;
+      const { showTitle, isTop } = props;
       const { name, icon } = props.item;
       const searchValue = props.searchValue || '';
       const index = name.indexOf(searchValue);
 
       const beforeStr = name.substr(0, index);
       const afterStr = name.substr(index + searchValue.length);
-      const cls = showTitle ? 'show-title' : 'basic-menu__name';
+      let cls = showTitle ? ['show-title'] : ['basic-menu__name'];
+
+      isTop && !showTitle && (cls = []);
       return (
         <>
           {renderIcon(icon!)}

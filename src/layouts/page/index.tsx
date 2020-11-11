@@ -41,13 +41,12 @@ export default defineComponent({
                 // No longer show animations that are already in the tab
                 const name = route.meta.inTab ? 'fade' : null;
 
-                // TODO add key?
                 const Content = openCache ? (
                   <KeepAlive max={max} include={cacheTabs}>
-                    <Component key={route.path} />
+                    <Component key={route.fullPath} />
                   </KeepAlive>
                 ) : (
-                  <Component key={route.path} />
+                  <Component key={route.fullPath} />
                 );
                 return openRouterTransition ? (
                   <Transition

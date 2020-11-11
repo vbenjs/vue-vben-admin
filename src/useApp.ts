@@ -9,7 +9,12 @@ import { PROJ_CFG_KEY } from '/@/enums/cacheEnum';
 import projectSetting from '/@/settings/projectSetting';
 import { getLocal } from '/@/utils/helper/persistent';
 import { isUnDef, isNull } from '/@/utils/is';
-import { updateGrayMode, updateColorWeak } from '/@/setup/theme';
+import {
+  updateGrayMode,
+  updateColorWeak,
+  updateHeaderBgColor,
+  updateSidebarBgColor,
+} from '/@/setup/theme';
 
 import { appStore } from '/@/store/modules/app';
 import { useNetWork } from '/@/hooks/web/useNetWork';
@@ -48,7 +53,7 @@ export function useInitAppConfigStore() {
   if (!projCfg) {
     projCfg = projectSetting;
   }
-  const { colorWeak, grayMode } = projCfg;
+  const { colorWeak, grayMode, headerBgColor, menuBgColor } = projCfg;
   try {
     // if (
     //   themeColor !== primaryColor &&
@@ -57,6 +62,8 @@ export function useInitAppConfigStore() {
     // ) {
     //   updateTheme(themeColor);
     // }
+    headerBgColor && updateHeaderBgColor(headerBgColor);
+    menuBgColor && updateSidebarBgColor(menuBgColor);
     grayMode && updateGrayMode(grayMode);
     colorWeak && updateColorWeak(colorWeak);
   } catch (error) {

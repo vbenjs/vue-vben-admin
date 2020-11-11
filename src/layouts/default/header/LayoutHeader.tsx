@@ -79,9 +79,8 @@ export default defineComponent({
     });
 
     const showHeaderTrigger = computed(() => {
-      const { show, trigger, hidden } = unref(getProjectConfigRef).menuSetting;
-
-      if (!show || !hidden) return false;
+      const { show, trigger, hidden, type } = unref(getProjectConfigRef).menuSetting;
+      if (type === MenuTypeEnum.TOP_MENU || !show || !hidden) return false;
       return trigger === TriggerEnum.HEADER;
     });
 
