@@ -102,7 +102,7 @@
 
   .set-bg() {
     color: #fff;
-    background: @input-dark-bg-color;
+    background: @sider-dark-lighten-1-bg-color;
     border: 0;
     outline: none;
   }

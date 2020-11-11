@@ -55,6 +55,10 @@ export interface HeaderSetting {
   showNotice: boolean;
 }
 export interface ProjectConfig {
+  // header背景色
+  headerBgColor: string;
+  // 左侧菜单背景色
+  menuBgColor: string;
   // 是否显示配置按钮
   showSettingButton: boolean;
   // 权限模式

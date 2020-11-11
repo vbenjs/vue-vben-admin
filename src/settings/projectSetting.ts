@@ -7,6 +7,16 @@ import { isProdMode } from '/@/utils/env';
 
 // ! You need to clear the browser cache after the change
 const setting: ProjectConfig = {
+  // color
+  // TODO 主题色
+  themeColor: primaryColor,
+
+  // header bg color
+  headerBgColor: '#ffffff',
+
+  // sidebar menu bg color
+  menuBgColor: '#273352',
+
   // Whether to show the configuration button
   showSettingButton: true,
   // 权限模式
@@ -15,8 +25,7 @@ const setting: ProjectConfig = {
   grayMode: false,
   // 色弱模式
   colorWeak: false,
-  // 主题色
-  themeColor: primaryColor,
+
   // 是否取消菜单,顶部,多标签页显示, 用于可能内嵌在别的系统内
   fullContent: false,
   // content mode

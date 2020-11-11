@@ -1,7 +1,7 @@
 import type { MenuState } from './types';
 import type { Menu as MenuType } from '/@/router/types';
 
-import { computed, defineComponent, unref, reactive, toRef, watch, onMounted, ref } from 'vue';
+import { computed, defineComponent, unref, reactive, watch, onMounted, ref, toRefs } from 'vue';
 import { Menu } from 'ant-design-vue';
 import SearchInput from './SearchInput.vue';
 import MenuContent from './MenuContent';
@@ -40,8 +40,10 @@ export default defineComponent({
     });
     const { currentRoute } = useRouter();
 
+    const { items, flatItems, isAppMenu, mode, accordion } = toRefs(props);
+
     const { handleInputChange, handleInputClick } = useSearchInput({
-      flatMenusRef: toRef(props, 'flatItems'),
+      flatMenusRef: flatItems,
       emit: emit,
       menuState,
       handleMenuChange,
@@ -49,11 +51,11 @@ export default defineComponent({
 
     const { handleOpenChange, resetKeys, setOpenKeys } = useOpenKeys(
       menuState,
-      toRef(props, 'items'),
-      toRef(props, 'flatItems'),
-      toRef(props, 'isAppMenu'),
-      toRef(props, 'mode'),
-      toRef(props, 'accordion')
+      items,
+      flatItems,
+      isAppMenu,
+      mode,
+      accordion
     );
 
     const getOpenKeys = computed(() => {
@@ -98,6 +100,8 @@ export default defineComponent({
       return cls;
     });
 
+    const showTitle = computed(() => props.collapsedShowTitle && menuStore.getCollapsedState);
+
     watch(
       () => currentRoute.value.name,
       (name: string) => {
@@ -130,9 +134,7 @@ export default defineComponent({
       const { beforeClickFn } = props;
       if (beforeClickFn && isFunction(beforeClickFn)) {
         const flag = await beforeClickFn(menu);
-        if (!flag) {
-          return;
-        }
+        if (!flag) return;
       }
       const { path } = menu;
       menuState.selectedKeys = [path];
@@ -141,9 +143,7 @@ export default defineComponent({
 
     function handleMenuChange() {
       const { flatItems } = props;
-      if (!unref(flatItems) || flatItems.length === 0) {
-        return;
-      }
+      if (!unref(flatItems) || flatItems.length === 0) return;
       const findMenu = flatItems.find((menu) => menu.path === unref(currentRoute).path);
       if (findMenu) {
         if (menuState.mode !== MenuModeEnum.HORIZONTAL) {
@@ -154,10 +154,6 @@ export default defineComponent({
         resetKeys();
       }
     }
-
-    const showTitle = computed(() => {
-      return props.collapsedShowTitle && menuStore.getCollapsedState;
-    });
 
     // render menu item
     function renderMenuItem(menuList?: MenuType[], index = 1) {
@@ -183,6 +179,7 @@ export default defineComponent({
                 <MenuContent
                   item={menu}
                   level={index}
+                  isTop={props.isTop}
                   showTitle={unref(showTitle)}
                   searchValue={menuState.searchValue}
                 />,
@@ -198,6 +195,7 @@ export default defineComponent({
                   showTitle={unref(showTitle)}
                   item={menu}
                   level={index}
+                  isTop={props.isTop}
                   searchValue={menuState.searchValue}
                 />,
               ],

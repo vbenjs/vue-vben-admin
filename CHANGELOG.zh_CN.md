@@ -4,6 +4,7 @@
 
 - 表单项的`componentsProps`支持函数类型
 - 菜单新增 tag 显示
+- 新增菜单及顶栏颜色选择配色
 
 ### ⚡ Performance Improvements
 

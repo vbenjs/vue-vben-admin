@@ -31,13 +31,31 @@ export const rgbToHex = function (r: number, g: number, b: number) {
  * @returns The RGB representation of the passed color
  */
 export const hexToRGB = function (hex: string) {
-  return (
-    parseInt(hex.substring(0, 2), 16) +
-    ',' +
-    parseInt(hex.substring(2, 4), 16) +
-    ',' +
-    parseInt(hex.substring(4, 6), 16)
-  );
+  let sHex = hex.toLowerCase();
+  if (isHexColor(hex)) {
+    if (sHex.length === 4) {
+      let sColorNew = '#';
+      for (let i = 1; i < 4; i += 1) {
+        sColorNew += sHex.slice(i, i + 1).concat(sHex.slice(i, i + 1));
+      }
+      sHex = sColorNew;
+    }
+    const sColorChange = [];
+    for (let i = 1; i < 7; i += 2) {
+      sColorChange.push(parseInt('0x' + sHex.slice(i, i + 2)));
+    }
+    return 'RGB(' + sColorChange.join(',') + ')';
+  }
+  return sHex;
+};
+
+export const colorIsDark = (color: string) => {
+  if (!isHexColor(color)) return;
+  const [r, g, b] = hexToRGB(color)
+    .replace(/(?:\(|\)|rgb|RGB)*/g, '')
+    .split(',')
+    .map((item) => Number(item));
+  return r * 0.299 + g * 0.578 + b * 0.114 < 192;
 };
 
 /**
@@ -89,7 +107,7 @@ const addLight = (color: string, amount: number) => {
  * @param {number} g green
  * @param {number} b blue
  */
-const luminanace = (r: stri, g: number, b: number) => {
+const luminanace = (r: number, g: number, b: number) => {
   const a = [r, g, b].map((v) => {
     v /= 255;
     return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
@@ -103,7 +121,7 @@ const luminanace = (r: stri, g: number, b: number) => {
  * @param {string} rgb2 rgb color 2
  */
 const contrast = (rgb1: string[], rgb2: number[]) =>
-  (luminanace(rgb1[0], ~~rgb1[1], ~~rgb1[2]) + 0.05) /
+  (luminanace(~~rgb1[0], ~~rgb1[1], ~~rgb1[2]) + 0.05) /
   (luminanace(rgb2[0], rgb2[1], rgb2[2]) + 0.05);
 
 /**

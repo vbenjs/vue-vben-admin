@@ -25,13 +25,9 @@ export default defineComponent({
 
     const { getFullContent } = useFullContent();
 
-    const getProjectConfigRef = computed(() => {
-      return appStore.getProjectConfig;
-    });
+    const getProjectConfigRef = computed(() => appStore.getProjectConfig);
 
-    const getLockMainScrollStateRef = computed(() => {
-      return appStore.getLockMainScrollState;
-    });
+    const getLockMainScrollStateRef = computed(() => appStore.getLockMainScrollState);
 
     const showHeaderRef = computed(() => {
       const {
@@ -47,11 +43,49 @@ export default defineComponent({
       return type !== MenuTypeEnum.SIDEBAR && unref(showHeaderRef);
     });
 
+    const getIsLockRef = computed(() => {
+      const { getLockInfo } = appStore;
+      const { isLock } = getLockInfo;
+      return isLock;
+    });
+
     const showSideBarRef = computed(() => {
       const {
         menuSetting: { show, mode, split },
       } = unref(getProjectConfigRef);
       return split || (show && mode !== MenuModeEnum.HORIZONTAL && !unref(getFullContent));
+    });
+
+    const showFullHeaderRef = computed(() => {
+      return !unref(getFullContent) && unref(isShowMixHeaderRef) && unref(showHeaderRef);
+    });
+
+    const showInsetHeaderRef = computed(() => {
+      return !unref(getFullContent) && !unref(isShowMixHeaderRef) && unref(showHeaderRef);
+    });
+
+    const fixedHeaderClsRef = computed(() => {
+      const {
+        headerSetting: { fixed },
+      } = unref(getProjectConfigRef);
+      const fixedHeaderCls = fixed
+        ? 'fixed' + (unref(getLockMainScrollStateRef) ? ' lock' : '')
+        : '';
+      return fixedHeaderCls;
+    });
+
+    const showTabsRef = computed(() => {
+      const {
+        multiTabsSetting: { show },
+      } = unref(getProjectConfigRef);
+      return show && !unref(getFullContent);
+    });
+
+    const showClassSideBarRef = computed(() => {
+      const {
+        menuSetting: { split, hidden },
+      } = unref(getProjectConfigRef);
+      return split ? hidden : true;
     });
 
     function getTarget(): any {
@@ -62,51 +96,34 @@ export default defineComponent({
     }
 
     return () => {
-      const { getLockInfo } = appStore;
-      const {
-        useOpenBackTop,
-        showSettingButton,
-        multiTabsSetting: { show: showTabs },
-        headerSetting: { fixed },
-        menuSetting: { split, hidden },
-      } = unref(getProjectConfigRef);
-
-      const fixedHeaderCls = fixed
-        ? 'fixed' + (unref(getLockMainScrollStateRef) ? ' lock' : '')
-        : '';
-
-      const { isLock } = getLockInfo;
-
-      const showSideBar = split ? hidden : true;
+      const { useOpenBackTop, showSettingButton } = unref(getProjectConfigRef);
       return (
         <Layout class="default-layout relative">
           {() => (
             <>
               {/* lock page */}
-              {isLock && <LockPage />}
+              {unref(getIsLockRef) && <LockPage />}
               {/* back top */}
               {useOpenBackTop && <BackTop target={getTarget} />}
               {/* open setting drawer */}
               {showSettingButton && <SettingBtn />}
 
-              {!unref(getFullContent) && unref(isShowMixHeaderRef) && unref(showHeaderRef) && (
-                <LayoutHeader />
-              )}
+              {unref(showFullHeaderRef) && <LayoutHeader />}
 
               <Layout>
                 {() => (
                   <>
-                    {unref(showSideBarRef) && <LayoutSideBar class={showSideBar ? '' : 'hidden'} />}
-                    <Layout class={[`default-layout__content`, fixedHeaderCls]}>
+                    {unref(showSideBarRef) && (
+                      <LayoutSideBar class={unref(showClassSideBarRef) ? '' : 'hidden'} />
+                    )}
+                    <Layout class={[`default-layout__content`, unref(fixedHeaderClsRef)]}>
                       {() => (
                         <>
-                          {!unref(getFullContent) &&
-                            !unref(isShowMixHeaderRef) &&
-                            unref(showHeaderRef) && <LayoutHeader />}
+                          {unref(showInsetHeaderRef) && <LayoutHeader />}
 
-                          {showTabs && !unref(getFullContent) && <MultipleTabs />}
+                          {unref(showTabsRef) && <MultipleTabs />}
 
-                          <LayoutContent class={fixedHeaderCls} />
+                          <LayoutContent class={unref(fixedHeaderClsRef)} />
                         </>
                       )}
                     </Layout>
