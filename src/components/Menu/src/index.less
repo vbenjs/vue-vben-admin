@@ -50,8 +50,11 @@
   }
 
   // collapsed show title end
+  .ant-menu-item,
   .ant-menu-submenu-title {
     > .basic-menu__name {
+      width: 100%;
+
       .basic-menu__tag {
         float: right;
         margin-top: @app-menu-item-height / 2;
@@ -62,14 +65,6 @@
 
   .ant-menu-item {
     transition: unset;
-
-    > .basic-menu__name {
-      .basic-menu__tag {
-        float: right;
-        margin-top: @app-menu-item-height / 2;
-        transform: translate(0%, -50%);
-      }
-    }
   }
 
   &__tag {

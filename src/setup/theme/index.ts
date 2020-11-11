@@ -1,4 +1,4 @@
-import useCssVar from '/@/hooks/web/useCssVar';
+import { setCssVar } from '/@/hooks/web/useCssVar';
 import { isHexColor, colorIsDark, lighten, darken } from '/@/utils/color';
 import { appStore } from '/@/store/modules/app';
 import { MenuThemeEnum } from '/@/enums/menuEnum';
@@ -29,15 +29,13 @@ export const updateGrayMode = (gray: boolean) => {
 
 export function updateHeaderBgColor(color: string) {
   if (!isHexColor(color)) return;
-  const bgColorRef = useCssVar(HEADER_BG_COLOR_VAR);
-  const bgHoverColorRef = useCssVar(HEADER_BG_HOVER_COLOR_VAR);
-  const topMenuActiveBgColorRef = useCssVar(HEADER_MENU_ACTIVE_BG_COLOR_VAR);
   // bg color
-  bgColorRef.value = color;
+  setCssVar(HEADER_BG_COLOR_VAR, color);
+
   // hover color
   const hoverColor = lighten(color, 6);
-  bgHoverColorRef.value = hoverColor;
-  topMenuActiveBgColorRef.value = hoverColor;
+  setCssVar(HEADER_BG_HOVER_COLOR_VAR, hoverColor);
+  setCssVar(HEADER_MENU_ACTIVE_BG_COLOR_VAR, hoverColor);
 
   const isDark = colorIsDark(color);
 
@@ -51,15 +49,11 @@ export function updateHeaderBgColor(color: string) {
 export function updateSidebarBgColor(color: string) {
   if (!isHexColor(color)) return;
 
-  const siderBgColor = useCssVar(SIDER_DARK_BG_COLOR);
-  const darkenBgColor = useCssVar(SIDER_DARK_DARKEN_BG_COLOR);
-  const lighten1Color = useCssVar(SIDER_LIGHTEN_1_BG_COLOR);
-  const lighten2Color = useCssVar(SIDER_LIGHTEN_2_BG_COLOR);
+  setCssVar(SIDER_DARK_BG_COLOR, color);
+  setCssVar(SIDER_DARK_DARKEN_BG_COLOR, darken(color, 6));
+  setCssVar(SIDER_LIGHTEN_1_BG_COLOR, lighten(color, 4));
+  setCssVar(SIDER_LIGHTEN_2_BG_COLOR, lighten(color, 8));
 
-  siderBgColor.value = color;
-  darkenBgColor.value = darken(color, 6);
-  lighten1Color.value = lighten(color, 4);
-  lighten2Color.value = lighten(color, 8);
   // only #ffffff is light
   const isLight = ['#fff', '#ffffff'].includes(color.toLowerCase());
 
