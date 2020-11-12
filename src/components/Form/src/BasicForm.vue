@@ -5,6 +5,7 @@
       <template v-for="schema in getSchema" :key="schema.field">
         <FormItem
           :tableAction="tableAction"
+          :formActionType="formActionType"
           :schema="schema"
           :formProps="getProps"
           :allDefaultValues="defaultValueRef"
@@ -164,7 +165,7 @@
         propsRef.value = mergeProps;
       }
 
-      const methods: Partial<FormActionType> = {
+      const formActionType: Partial<FormActionType> = {
         getFieldsValue,
         setFieldsValue,
         resetFields,
@@ -179,7 +180,7 @@
 
       onMounted(() => {
         initDefault();
-        emit('register', methods);
+        emit('register', formActionType);
       });
 
       return {
@@ -191,7 +192,8 @@
         getProps,
         formElRef,
         getSchema,
-        ...methods,
+        formActionType,
+        ...formActionType,
       };
     },
   });

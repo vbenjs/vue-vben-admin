@@ -1,5 +1,5 @@
 import type { PropType } from 'vue';
-import type { FormProps } from './types/form';
+import type { FormActionType, FormProps } from './types/form';
 import type { FormSchema } from './types/form';
 import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
 import type { TableActionType } from '/@/components/Table';
@@ -41,6 +41,9 @@ export default defineComponent({
     tableAction: {
       type: Object as PropType<TableActionType>,
     },
+    formActionType: {
+      type: Object as PropType<FormActionType>,
+    },
   },
   setup(props, { slots }) {
     const itemLabelWidthRef = useItemLabelWidth(toRef(props, 'schema'), toRef(props, 'formProps'));
@@ -61,12 +64,12 @@ export default defineComponent({
     });
 
     const getComponentsPropsRef = computed(() => {
-      const { schema, tableAction, formModel } = props;
+      const { schema, tableAction, formModel, formActionType } = props;
       const { componentProps = {} } = schema;
       if (!isFunction(componentProps)) {
         return componentProps;
       }
-      return componentProps({ schema, tableAction, formModel }) || {};
+      return componentProps({ schema, tableAction, formModel, formActionType }) || {};
     });
 
     const getDisableRef = computed(() => {
@@ -179,17 +182,27 @@ export default defineComponent({
     }
 
     function renderComponent() {
-      const { renderComponentContent, component, field, changeEvent = 'change' } = props.schema;
+      const {
+        renderComponentContent,
+        component,
+        field,
+        changeEvent = 'change',
+        valueField,
+      } = props.schema;
 
-      const isCheck = component && ['Switch'].includes(component);
+      const isCheck = component && ['Switch', 'Checkbox'].includes(component);
 
       const eventKey = `on${upperFirst(changeEvent)}`;
+
       const on = {
         [eventKey]: (e: any) => {
           if (propsData[eventKey]) {
             propsData[eventKey](e);
           }
-          (props.formModel as any)[field] = e && e.target ? e.target.value : e;
+
+          const target = e ? e.target : null;
+          const value = target ? (isCheck ? target.checked : target.value) : e;
+          (props.formModel as any)[field] = value;
         },
       };
       const Comp = componentMap.get(component);
@@ -215,17 +228,20 @@ export default defineComponent({
       propsData.codeField = field;
       propsData.formValues = unref(getValuesRef);
       const bindValue = {
-        [isCheck ? 'checked' : 'value']: handleValue(component, field),
+        [valueField || (isCheck ? 'checked' : 'value')]: handleValue(component, field),
       };
       if (!renderComponentContent) {
         return <Comp {...propsData} {...on} {...bindValue} />;
       }
+      const compSlot = isFunction(renderComponentContent)
+        ? { ...renderComponentContent(unref(getValuesRef)) }
+        : {
+            default: () => renderComponentContent,
+          };
 
       return (
         <Comp {...propsData} {...on} {...bindValue}>
-          {{
-            ...renderComponentContent(unref(getValuesRef)),
-          }}
+          {compSlot}
         </Comp>
       );
     }
@@ -249,7 +265,7 @@ export default defineComponent({
       const { colon } = props.formProps;
       const getContent = () => {
         return slot
-          ? getSlot(slots, slot)
+          ? getSlot(slots, slot, unref(getValuesRef))
           : render
           ? render(unref(getValuesRef))
           : renderComponent();
@@ -276,7 +292,7 @@ export default defineComponent({
       const { isIfShow, isShow } = getShow();
       const getContent = () => {
         return colSlot
-          ? getSlot(slots, colSlot)
+          ? getSlot(slots, colSlot, unref(getValuesRef))
           : renderColContent
           ? renderColContent(unref(getValuesRef))
           : renderItem();
