@@ -32,7 +32,8 @@
 
   import { triggerWindowResize } from '/@/utils/event/triggerWindowResizeEvent';
   // hook
-  import { useTimeout } from '/@/hooks/core/useTimeout';
+  import { useTimeoutFn } from '@vueuse/core';
+
   export default defineComponent({
     components: {
       Skeleton,
@@ -89,7 +90,7 @@
 
         if (props.triggerWindowResize) {
           // 这里200毫秒是因为展开有动画,
-          useTimeout(triggerWindowResize, 200);
+          useTimeoutFn(triggerWindowResize, 200);
         }
       }
       return {

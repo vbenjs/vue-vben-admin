@@ -1,4 +1,4 @@
-import { useTimeout } from '/@/hooks/core/useTimeout';
+import { useTimeoutFn } from '@vueuse/core';
 import { PageEnum } from '/@/enums/pageEnum';
 import { TabItem, tabStore } from '/@/store/modules/tab';
 import { appStore } from '/@/store/modules/app';
@@ -98,7 +98,7 @@ export function useTabs() {
       const to = getTo(path);
 
       if (!to) return;
-      useTimeout(() => {
+      useTimeoutFn(() => {
         tabStore.addTabByPathAction();
       }, 0);
       const { replace, query = {}, params = {} } = opt || {};

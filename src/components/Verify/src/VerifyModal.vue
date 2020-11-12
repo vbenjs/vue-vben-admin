@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { defineComponent, ref, unref } from 'vue';
   import { BasicModal } from '/@/components/Modal/index';
-  import { useTimeout } from '/@/hooks/core/useTimeout';
+  import { useTimeoutFn } from '@vueuse/core';
 
   import { RotateDragVerify, DragVerifyActionType } from '/@/components/Verify/index';
   export default defineComponent({
@@ -11,7 +11,7 @@
       const dragRef = ref<DragVerifyActionType | null>(null);
 
       function handleSuccess() {
-        useTimeout(() => {
+        useTimeoutFn(() => {
           emit('success');
           const dragEl = unref(dragRef);
           if (dragEl) {

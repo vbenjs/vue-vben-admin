@@ -22,8 +22,7 @@
   import { defineComponent, reactive, onMounted, ref, toRef, toRefs } from 'vue';
 
   import { Skeleton } from 'ant-design-vue';
-  import { useTimeout } from '/@/hooks/core/useTimeout';
-  import { useIntersectionObserver } from '/@/hooks/event/useIntersectionObserver';
+  import { useTimeoutFn, useIntersectionObserver } from '@vueuse/core';
   interface State {
     isInit: boolean;
     loading: boolean;
@@ -93,7 +92,7 @@
       function immediateInit() {
         const { timeout } = props;
         timeout &&
-          useTimeout(() => {
+          useTimeoutFn(() => {
             init();
           }, timeout);
       }
@@ -101,7 +100,7 @@
       function init() {
         state.loading = true;
 
-        useTimeout(() => {
+        useTimeoutFn(() => {
           if (state.isInit) return;
           state.isInit = true;
           emit('init');

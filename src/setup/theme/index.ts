@@ -1,4 +1,3 @@
-import { setCssVar } from '/@/hooks/web/useCssVar';
 import { isHexColor, colorIsDark, lighten, darken } from '/@/utils/color';
 import { appStore } from '/@/store/modules/app';
 import { MenuThemeEnum } from '/@/enums/menuEnum';
@@ -11,6 +10,10 @@ const SIDER_DARK_BG_COLOR = '--sider-dark-bg-color';
 const SIDER_DARK_DARKEN_BG_COLOR = '--sider-dark-darken-bg-color';
 const SIDER_LIGHTEN_1_BG_COLOR = '--sider-dark-lighten-1-bg-color';
 const SIDER_LIGHTEN_2_BG_COLOR = '--sider-dark-lighten-2-bg-color';
+
+export function setCssVar(prop: string, val: any, dom = document.documentElement) {
+  dom.style.setProperty(prop, val);
+}
 
 function toggleClass(flag: boolean, clsName: string) {
   const body = document.body;

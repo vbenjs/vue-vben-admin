@@ -19,7 +19,7 @@ import {
 
 import { useFullscreen } from '/@/hooks/web/useFullScreen';
 import { useTabs } from '/@/hooks/web/useTabs';
-import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
+import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
 import { useRouter } from 'vue-router';
 import { useModal } from '/@/components/Modal';
 

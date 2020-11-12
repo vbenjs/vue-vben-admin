@@ -15,7 +15,7 @@ export interface UseEventParams {
   isDebounce?: boolean;
   wait?: number;
 }
-export function useEvent({
+export function useEventListener({
   el = window,
   name,
   listener,

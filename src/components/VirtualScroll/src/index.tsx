@@ -1,5 +1,5 @@
 import { defineComponent, computed, ref, unref, reactive, onMounted, watch, nextTick } from 'vue';
-import { useEvent } from '/@/hooks/event/useEvent';
+import { useEventListener } from '/@/hooks/event/useEventListener';
 
 import { convertToUnit } from '/@/components/util';
 import { props as basicProps } from './props';
@@ -109,7 +109,7 @@ export default defineComponent({
         if (!wrapEl) {
           return;
         }
-        useEvent({
+        useEventListener({
           el: wrapEl,
           name: 'scroll',
           listener: onScroll,
