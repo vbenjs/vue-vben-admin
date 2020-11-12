@@ -1,4 +1,4 @@
-import { useTimeout } from '/@/hooks/core/useTimeout';
+import { useTimeoutFn } from '@vueuse/core';
 import { tryOnUnmounted } from '/@/utils/helper/vueHelper';
 import { unref, Ref, nextTick } from 'vue';
 
@@ -9,7 +9,7 @@ export function useApexCharts(elRef: Ref<HTMLDivElement>) {
 
   function setOptions(options: any) {
     nextTick(() => {
-      useTimeout(() => {
+      useTimeoutFn(() => {
         const el = unref(elRef);
 
         if (!el || !unref(el)) return;

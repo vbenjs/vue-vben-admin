@@ -14,8 +14,7 @@ import {
 } from 'vue';
 import { Spin } from 'ant-design-vue';
 
-import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
-// import { useTimeout } from '/@/hooks/core/useTimeout';
+import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
 
 import { getSlot } from '/@/utils/helper/tsxHelper';
 import { useElResize } from '/@/hooks/event/useElResize';
@@ -126,17 +125,6 @@ export default defineComponent({
         }
         await nextTick();
         const spinEl = unref(spinRef);
-        // if (!spinEl) {
-        //   useTimeout(() => {
-        //     // retry
-        //     if (tryCount < 3) {
-        //       setModalHeight();
-        //     }
-        //     tryCount++;
-        //   }, 10);
-        //   return;
-        // }
-        // tryCount = 0;
 
         const spinContainerEl = spinEl.$el.querySelector('.ant-spin-container') as HTMLElement;
         if (!spinContainerEl) return;

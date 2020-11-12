@@ -64,7 +64,7 @@
   import { useTableScroll } from './hooks/useTableScroll';
   import { provideTable } from './hooks/useProvinceTable';
 
-  import { useEvent } from '/@/hooks/event/useEvent';
+  import { useEventListener } from '/@/hooks/event/useEventListener';
   import { basicProps } from './props';
   import { ROW_KEY } from './const';
   import './style/index.less';
@@ -245,7 +245,7 @@
             }
             const bodyDomList = tableEl.$el.querySelectorAll('.ant-table-body') as HTMLDivElement[];
             const bodyDom = bodyDomList[0];
-            useEvent({
+            useEventListener({
               el: bodyDom,
               name: 'scroll',
               listener: () => {

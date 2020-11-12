@@ -13,7 +13,7 @@
   import moment from 'moment';
   import 'moment/dist/locale/zh-cn';
 
-  import { useConfigProvider, useInitAppConfigStore, useListenerNetWork } from './useApp';
+  import { useConfigProvider, useInitAppConfigStore } from './useApp';
   import { useLockPage } from '/@/hooks/web/useLockPage';
   import { useSetting } from '/@/hooks/core/useSetting';
 
@@ -25,8 +25,6 @@
     setup() {
       // Initialize application settings
       useInitAppConfigStore();
-      // Initialize network monitoring
-      useListenerNetWork();
       // Initialize breakpoint monitoring
       createBreakpointListen();
       // Get system configuration

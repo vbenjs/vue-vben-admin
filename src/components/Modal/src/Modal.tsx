@@ -1,7 +1,7 @@
 import { Modal } from 'ant-design-vue';
 import { defineComponent, watchEffect } from 'vue';
 import { basicProps } from './props';
-import { useTimeout } from '/@/hooks/core/useTimeout';
+import { useTimeoutFn } from '@vueuse/core';
 import { extendSlots } from '/@/utils/helper/tsxHelper';
 
 export default defineComponent({
@@ -99,7 +99,7 @@ export default defineComponent({
       if (!props.visible) {
         return;
       }
-      useTimeout(() => {
+      useTimeoutFn(() => {
         handleDrag();
       }, 30);
     });

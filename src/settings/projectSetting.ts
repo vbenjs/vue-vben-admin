@@ -128,9 +128,6 @@ const setting: ProjectConfig = {
   // 是否开启登录安全校验
   openLoginVerify: true,
 
-  // 是否监听网络变化
-  listenNetWork: false,
-
   // 是否开启页面切换loading
   openPageLoading: true,
 

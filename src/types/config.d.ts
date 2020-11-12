@@ -101,8 +101,6 @@ export interface ProjectConfig {
   routerTransition: RouterTransitionEnum;
   // 是否开启登录安全校验
   openLoginVerify: boolean;
-  // 是否监听网络变化
-  listenNetWork: boolean;
   // 是否开启页面切换loading
   openPageLoading: boolean;
   // 是否开启回到顶部

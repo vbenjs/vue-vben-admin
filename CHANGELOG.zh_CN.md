@@ -1,5 +1,10 @@
 ## Wip
 
+### ✨ Refactor
+
+- 重构 hook,引入 `@vueuse`，删除其中已有的`hook`,优化现有的 hook
+- `useEvent` 更名->`useEventListener`
+
 ### ✨ Features
 
 - 表单项的`componentsProps`支持函数类型
@@ -16,6 +21,7 @@
 - 修复多个富文本编辑器只显示一个
 - 修复登录过期后重新登录未跳转原来页面的
 - 修复 window 系统动态引入错误
+- 修复页面类型错误
 
 ## 2.0.0-rc.9 (2020-11-9)
 

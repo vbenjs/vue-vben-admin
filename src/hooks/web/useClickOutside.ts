@@ -1,17 +1,17 @@
 import { ref, Ref, unref } from 'vue';
-import { useEvent } from '/@/hooks/event/useEvent';
+import { useEventListener } from '/@/hooks/event/useEventListener';
 export function useClickOutside<T extends HTMLElement>(
   containerRef: Ref<T>,
   onClickOutside: (e: MouseEvent | TouchEvent) => void
 ) {
   const isTouchRef = ref(false);
-  useEvent({
+  useEventListener({
     el: document,
     name: 'touchend',
     listener: handler,
     options: true,
   });
-  useEvent({
+  useEventListener({
     el: document,
     name: 'click',
     listener: handler,

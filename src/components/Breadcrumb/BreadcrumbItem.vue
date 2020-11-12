@@ -11,7 +11,7 @@
 <script lang="ts">
   import { defineComponent, inject, ref, onMounted, unref } from 'vue';
   import { useRouter } from 'vue-router';
-  import { useEvent } from '/@/hooks/event/useEvent';
+  import { useEventListener } from '/@/hooks/event/useEventListener';
 
   export default defineComponent({
     name: 'BreadcrumbItem',
@@ -42,7 +42,7 @@
       onMounted(() => {
         const link = unref(linkRef);
         if (!link) return;
-        useEvent({
+        useEventListener({
           el: link,
           listener: () => {
             const { to } = props;

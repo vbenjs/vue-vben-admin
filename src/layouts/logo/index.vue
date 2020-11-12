@@ -8,7 +8,7 @@
   import { computed, defineComponent, PropType, ref, watch } from 'vue';
   // hooks
   import { useSetting } from '/@/hooks/core/useSetting';
-  import { useTimeout } from '/@/hooks/core/useTimeout';
+  import { useTimeoutFn } from '@vueuse/core';
   import { useGo } from '/@/hooks/web/usePage';
 
   import { PageEnum } from '/@/enums/pageEnum';
@@ -41,7 +41,7 @@
         () => props.showTitle,
         (show: boolean) => {
           if (show) {
-            useTimeout(() => {
+            useTimeoutFn(() => {
               showRef.value = show;
             }, 280);
           } else {

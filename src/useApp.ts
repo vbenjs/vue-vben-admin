@@ -17,11 +17,6 @@ import {
 } from '/@/setup/theme';
 
 import { appStore } from '/@/store/modules/app';
-import { useNetWork } from '/@/hooks/web/useNetWork';
-import { useRouter } from 'vue-router';
-import { PageEnum } from '/@/enums/pageEnum';
-import { useTimeout } from '/@/hooks/core/useTimeout';
-import { ExceptionEnum } from '/@/enums/exceptionEnum';
 
 let app: App;
 export function setApp(_app: App): void {
@@ -83,29 +78,4 @@ export function useConfigProvider() {
   return {
     transformCellText,
   };
-}
-
-// Initialize network monitoring
-export function useListenerNetWork() {
-  const { listenNetWork } = appStore.getProjectConfig;
-  if (!listenNetWork) return;
-  const { replace } = useRouter();
-  // Check network status
-  useNetWork({
-    onLineFn: () => {
-      replace(PageEnum.BASE_HOME).then(() => {
-        useTimeout(() => {
-          appStore.commitPageLoadingState(false);
-        }, 200);
-      });
-    },
-    offLineFn: () => {
-      replace({
-        path: PageEnum.ERROR_PAGE,
-        query: {
-          status: String(ExceptionEnum.NET_WORK_ERROR),
-        },
-      });
-    },
-  });
 }

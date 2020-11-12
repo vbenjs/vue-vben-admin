@@ -1,7 +1,7 @@
 import type { MoveData, DragVerifyActionType } from './types';
 
 import { defineComponent, computed, unref, reactive, watch, ref, getCurrentInstance } from 'vue';
-import { useTimeout } from '/@/hooks/core/useTimeout';
+import { useTimeoutFn } from '@vueuse/core';
 
 import BasicDragVerify from './DragVerify';
 
@@ -86,7 +86,7 @@ export default defineComponent({
       if (Math.abs(randomRotate - currentRotate) >= (diffDegree || 20)) {
         state.imgStyle = hackCss('transform', `rotateZ(${randomRotate}deg)`);
         state.toOrigin = true;
-        useTimeout(() => {
+        useTimeoutFn(() => {
           state.toOrigin = false;
           state.showTip = true;
           //  时间与动画时间保持一致
