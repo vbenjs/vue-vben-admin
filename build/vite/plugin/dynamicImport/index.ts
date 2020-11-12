@@ -33,7 +33,7 @@ const dynamicImportTransform = function (env: any = {}): Transform {
       try {
         const files = glob.sync('src/views/**/**.{vue,tsx}', { cwd: process.cwd() });
 
-        const _code = `
+        return `
         export default function (id) {
            switch (id) {
           ${files
@@ -47,7 +47,6 @@ const dynamicImportTransform = function (env: any = {}): Transform {
            }
     }\n\n
     `;
-        return _code;
       } catch (error) {
         console.error(error);
         return code;

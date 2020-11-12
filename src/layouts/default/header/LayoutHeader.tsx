@@ -21,7 +21,7 @@ import { useFullscreen } from '/@/hooks/web/useFullScreen';
 import { useTabs } from '/@/hooks/web/useTabs';
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
 import { useRouter } from 'vue-router';
-import { useModal } from '/@/components/Modal/index';
+import { useModal } from '/@/components/Modal';
 
 import { appStore } from '/@/store/modules/app';
 import { errorStore } from '/@/store/modules/error';

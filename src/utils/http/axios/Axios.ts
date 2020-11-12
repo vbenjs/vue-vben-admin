@@ -17,7 +17,7 @@ export * from './axiosTransform';
  */
 export class VAxios {
   private axiosInstance: AxiosInstance;
-  private options: CreateAxiosOptions;
+  private readonly options: CreateAxiosOptions;
 
   constructor(options: CreateAxiosOptions) {
     this.options = options;

@@ -1,5 +1,3 @@
-import type { Fn } from './types';
-
 import { tryOnMounted, tryOnUnmounted } from '/@/utils/helper/vueHelper';
 import { ref } from 'vue';
 

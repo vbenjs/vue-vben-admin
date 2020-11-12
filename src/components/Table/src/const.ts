@@ -22,7 +22,7 @@ export const FETCH_SETTING = {
 };
 
 // 配置通用排序函数
-export function DEFAULT_SORT_FN(sortInfo: SorterResult<any>) {
+export function DEFAULT_SORT_FN(sortInfo: SorterResult) {
   const { field, order } = sortInfo;
   return {
     // 传给后台的排序字段你

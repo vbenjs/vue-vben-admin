@@ -92,7 +92,7 @@ export const createStorage = ({ prefixKey = '', storage = sessionStorage } = {})
      * 添加cookie
      * @param name cookie名字
      * @param value cookie内容
-     * @param day 过期时间
+     * @param expire
      * 如果过期时间未设置,默认管理浏览器自动删除
      * 例子:
      *  cookieData.set('name','value',)

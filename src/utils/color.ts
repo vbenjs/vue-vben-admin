@@ -14,10 +14,10 @@ export const isHexColor = function (color: string) {
  * RGB 颜色值转换为 十六进制颜色值.
  * r, g, 和 b 需要在 [0, 255] 范围内
  *
- * @param   Number  r       红色色值
- * @param   Number  g       绿色色值
- * @param   Number  b       蓝色色值
  * @return  String          类似#ff00ff
+ * @param r
+ * @param g
+ * @param b
  */
 export const rgbToHex = function (r: number, g: number, b: number) {
   // tslint:disable-next-line:no-bitwise

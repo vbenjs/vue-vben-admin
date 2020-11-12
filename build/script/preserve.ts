@@ -25,7 +25,7 @@ export async function runPreserve() {
     process.exit(1);
   }
 
-  fs.mkdirp(resolve('build/.cache'));
+  await fs.mkdirp(resolve('build/.cache'));
   function checkPkgUpdate() {
     const pkg = require('../../package.json');
     const { dependencies, devDependencies } = pkg;

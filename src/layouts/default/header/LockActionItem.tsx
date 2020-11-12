@@ -54,7 +54,7 @@ export default defineComponent({
           isLock: true,
           pwd: password,
         });
-        resetFields();
+        await resetFields();
       } catch (error) {}
     }
     // 账号密码登录

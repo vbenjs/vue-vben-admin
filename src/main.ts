@@ -3,8 +3,8 @@ import { createApp } from 'vue';
 import router, { setupRouter } from '/@/router';
 import { setupStore } from '/@/store';
 import { setupAntd } from '/@/setup/ant-design-vue';
-import { setupErrorHandle } from '/@/setup/error-handle/index';
-import { setupDirectives } from '/@/setup/directives/index';
+import { setupErrorHandle } from '/@/setup/error-handle';
+import { setupDirectives } from '/@/setup/directives';
 
 import { isDevMode, isProdMode, isUseMock } from '/@/utils/env';
 import { setupProdMockServer } from '../mock/_createProductionServer';

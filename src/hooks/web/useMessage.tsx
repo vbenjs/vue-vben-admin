@@ -1,5 +1,5 @@
 import type { ModalFunc, ModalFuncProps } from 'ant-design-vue/lib/modal/Modal';
-import type { MessageApi } from 'ant-design-vue/lib/message/index';
+import type { MessageApi } from 'ant-design-vue/lib/message';
 import type { VNodeTypes, CSSProperties } from 'vue';
 
 import { Modal, message as Message, notification } from 'ant-design-vue';

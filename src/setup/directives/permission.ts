@@ -1,4 +1,4 @@
-import { appStore } from './../../store/modules/app';
+import { appStore } from '/@/store/modules/app';
 import type { App } from 'vue';
 import { usePermission } from '/@/hooks/web/usePermission';
 import { PermissionModeEnum } from '/@/enums/appEnum';

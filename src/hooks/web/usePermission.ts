@@ -1,4 +1,4 @@
-import { appStore } from './../../store/modules/app';
+import { appStore } from '/@/store/modules/app';
 import { permissionStore } from '/@/store/modules/permission';
 import { useTabs } from './useTabs';
 import { RoleEnum } from '/@/enums/roleEnum';

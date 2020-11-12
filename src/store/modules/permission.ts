@@ -10,7 +10,7 @@ import { PermissionModeEnum } from '/@/enums/appEnum';
 import { appStore } from '/@/store/modules/app';
 import { userStore } from '/@/store/modules/user';
 
-import { asyncRoutes } from '/@/router/routes/index';
+import { asyncRoutes } from '/@/router/routes';
 import { filter } from '/@/utils/helper/treeHelper';
 import { toRaw } from 'vue';
 import { getMenuListById } from '/@/api/sys/menu';

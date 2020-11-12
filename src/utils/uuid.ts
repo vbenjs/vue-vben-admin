@@ -10,7 +10,7 @@ export function buildUUID(): string {
     } else if (i === 15) {
       uuid += 4;
     } else if (i === 20) {
-      uuid += hexList[(Math.random() * 4) | (0 + 8)];
+      uuid += hexList[(Math.random() * 4) | 8];
     } else {
       uuid += hexList[(Math.random() * 16) | 0];
     }
