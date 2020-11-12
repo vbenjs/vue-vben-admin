@@ -6,6 +6,7 @@ import {
 
   // Optional
   Select,
+  Alert,
   Checkbox,
   DatePicker,
   Radio,
@@ -48,6 +49,7 @@ export function registerGlobComp() {
   // If you don’t need it, you can delete it
   getApp()
     .use(Select)
+    .use(Alert)
     .use(Checkbox)
     .use(DatePicker)
     .use(Radio)
