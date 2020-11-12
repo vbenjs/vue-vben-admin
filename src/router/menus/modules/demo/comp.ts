@@ -88,6 +88,16 @@ const menu: MenuModule = {
           },
         ],
       },
+      {
+        path: '/form',
+        name: '验证组件',
+        children: [
+          {
+            path: '/base',
+            name: '拖拽校验',
+          },
+        ],
+      },
     ],
   },
 };
