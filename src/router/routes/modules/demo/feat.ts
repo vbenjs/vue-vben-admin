@@ -41,6 +41,14 @@ const feat: AppRouteModule = {
       },
     },
     {
+      path: '/download',
+      name: 'DownLoadDemo',
+      component: () => import('/@/views/demo/feat/download/index.vue'),
+      meta: {
+        title: '文件下载',
+      },
+    },
+    {
       path: '/click-out-side',
       name: 'ClickOutSideDemo',
       component: () => import('/@/views/demo/feat/click-out-side/index.vue'),

@@ -4,6 +4,9 @@ const menu: MenuModule = {
   menu: {
     name: '功能',
     path: '/feat',
+    tag: {
+      dot: true,
+    },
     children: [
       {
         path: 'icon',
@@ -16,6 +19,13 @@ const menu: MenuModule = {
       {
         path: 'context-menu',
         name: '右键菜单',
+      },
+      {
+        path: 'download',
+        name: '文件下载',
+        tag: {
+          content: 'new',
+        },
       },
       {
         path: 'click-out-side',
