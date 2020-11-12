@@ -21,6 +21,8 @@ export function createGuard(router: Router) {
   if (removeAllHttpPending) {
     axiosCanceler = new AxiosCanceler();
   }
+
+  createPageLoadingGuard(router);
   router.beforeEach(async (to) => {
     // Determine whether the tab has been opened
     const isOpen = getIsOpenTab(to.fullPath);
@@ -59,5 +61,4 @@ export function createGuard(router: Router) {
 
   openNProgress && createProgressGuard(router);
   createPermissionGuard(router);
-  createPageLoadingGuard(router);
 }
