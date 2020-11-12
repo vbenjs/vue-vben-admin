@@ -2,7 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 
-export default {
+const form: AppRouteModule = {
   layout: {
     path: '/form',
     name: 'FormDemo',
@@ -72,4 +72,5 @@ export default {
       },
     },
   ],
-} as AppRouteModule;
+};
+export default form;

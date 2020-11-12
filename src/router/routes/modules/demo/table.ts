@@ -2,7 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 
-export default {
+const table: AppRouteModule = {
   layout: {
     path: '/table',
     name: 'TableDemo',
@@ -128,4 +128,6 @@ export default {
       },
     },
   ],
-} as AppRouteModule;
+};
+
+export default table;

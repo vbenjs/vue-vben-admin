@@ -2,7 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 
-export default {
+const comp: AppRouteModule = {
   layout: {
     path: '/comp',
     name: 'Comp',
@@ -179,4 +179,6 @@ export default {
       },
     },
   ],
-} as AppRouteModule;
+};
+
+export default comp;

@@ -3,7 +3,7 @@ import type { AppRouteModule } from '/@/router/types';
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 import { RoleEnum } from '/@/enums/roleEnum';
 
-export default {
+const permission: AppRouteModule = {
   layout: {
     path: '/permission',
     name: 'Permission',
@@ -25,6 +25,7 @@ export default {
       children: [
         {
           path: 'page',
+          name: 'FrontPageAuth',
           component: () => import('/@/views/demo/permission/front/index.vue'),
           meta: {
             title: '页面权限',
@@ -32,6 +33,7 @@ export default {
         },
         {
           path: 'btn',
+          name: 'FrontBtnAuth',
           component: () => import('/@/views/demo/permission/front/Btn.vue'),
           meta: {
             title: '按钮权限',
@@ -39,6 +41,7 @@ export default {
         },
         {
           path: 'auth-pageA',
+          name: 'FrontAuthPageA',
           component: () => import('/@/views/demo/permission/front/AuthPageA.vue'),
           meta: {
             title: '权限测试页A',
@@ -47,6 +50,7 @@ export default {
         },
         {
           path: 'auth-pageB',
+          name: 'FrontAuthPageB',
           component: () => import('/@/views/demo/permission/front/AuthPageB.vue'),
           meta: {
             title: '权限测试页B',
@@ -64,6 +68,7 @@ export default {
       children: [
         {
           path: 'page',
+          name: 'BackAuthPage',
           component: () => import('/@/views/demo/permission/back/index.vue'),
           meta: {
             title: '页面权限',
@@ -71,6 +76,7 @@ export default {
         },
         {
           path: 'btn',
+          name: 'BackAuthBtn',
           component: () => import('/@/views/demo/permission/back/Btn.vue'),
           meta: {
             title: '按钮权限',
@@ -79,4 +85,6 @@ export default {
       ],
     },
   ],
-} as AppRouteModule;
+};
+
+export default permission;

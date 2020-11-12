@@ -2,7 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 
-export default {
+const tree: AppRouteModule = {
   layout: {
     path: '/tree',
     name: 'TreeDemo',
@@ -39,4 +39,6 @@ export default {
       },
     },
   ],
-} as AppRouteModule;
+};
+
+export default tree;

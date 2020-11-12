@@ -3,7 +3,7 @@ import type { AppRouteModule } from '/@/router/types';
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 const IFrame = () => import('/@/views/sys/iframe/FrameBlank.vue');
 
-export default {
+const iframe: AppRouteModule = {
   layout: {
     path: '/frame',
     name: 'Frame',
@@ -46,4 +46,6 @@ export default {
       },
     },
   ],
-} as AppRouteModule;
+};
+
+export default iframe;
