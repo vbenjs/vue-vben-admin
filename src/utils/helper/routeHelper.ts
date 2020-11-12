@@ -1,9 +1,9 @@
-import type { AppRouteModule, AppRouteRecordRaw } from '/@/router/types';
+import type { AppRouteModule, AppRouteRecordRaw, RouteModule } from '/@/router/types';
 import type { RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 import { appStore } from '/@/store/modules/app';
 import { tabStore } from '/@/store/modules/tab';
-import { createRouter, createWebHashHistory } from 'vue-router';
 import { toRaw } from 'vue';
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 // import { isDevMode } from '/@/utils/env';
@@ -21,17 +21,17 @@ export function setCurrentTo(to: RouteLocationNormalized) {
 }
 // 转化路由模块
 // 将多级转成2层。keepAlive问题
-export function genRouteModule(moduleList: AppRouteModule[]) {
+export function genRouteModule(moduleList: AppRouteModule[] | AppRouteRecordRaw[]) {
   const ret: AppRouteRecordRaw[] = [];
   for (const routeMod of moduleList) {
-    let routes = [];
+    let routes: RouteRecordRaw[] = [];
     let layout: AppRouteRecordRaw | undefined;
     if (Reflect.has(routeMod, 'routes')) {
-      routes = routeMod.routes as any;
-      layout = routeMod.layout;
+      routes = (routeMod as RouteModule).routes as any;
+      layout = (routeMod as RouteModule).layout;
     } else if (Reflect.has(routeMod, 'path')) {
       layout = omit(routeMod, 'children') as any;
-      routes = routeMod.children || [];
+      routes = (routeMod.children as RouteRecordRaw[]) || ([] as RouteRecordRaw[]);
     }
 
     const router = createRouter({ routes, history: createWebHashHistory() });
@@ -66,20 +66,26 @@ function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
   });
 }
 
+function getLayoutComp(comp: string) {
+  return comp === 'PAGE_LAYOUT' ? PAGE_LAYOUT_COMPONENT : '';
+}
+
 // 将后台对象转成路由对象
-export function transformObjToRoute(routeList: AppRouteModule[]) {
+export function transformObjToRoute<T = any>(routeList: AppRouteModule[]): T[] {
   routeList.forEach((route) => {
-    asyncImportRoute(Reflect.has(route, 'routes') ? route.routes : route.children || []);
-    if (route.layout) {
-      route.layout.component =
-        route.layout.component === 'PAGE_LAYOUT' ? PAGE_LAYOUT_COMPONENT : '';
+    asyncImportRoute(
+      Reflect.has(route, 'routes') ? (route as RouteModule).routes : route.children || []
+    );
+    if ((route as RouteModule).layout) {
+      (route as RouteModule).layout.component = getLayoutComp(
+        (route as RouteModule).layout.component
+      );
     } else {
-      route.component = route.component === 'PAGE_LAYOUT' ? PAGE_LAYOUT_COMPONENT : '';
-      const _layout = omit(route, 'children') as any;
-      route.layout = _layout;
+      route.component = getLayoutComp(route.component);
+      (route as RouteModule).layout = omit(route, 'children') as any;
     }
   });
-  return routeList;
+  return (routeList as unknown) as T[];
 }
 
 //

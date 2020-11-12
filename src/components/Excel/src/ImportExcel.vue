@@ -96,7 +96,7 @@
           // fix can't select the same excel
           inputRefDom.value = '';
         }
-        readerData(rawFile);
+        await readerData(rawFile);
       }
 
       /**

@@ -8,7 +8,7 @@ import type {
   TableCustomRecord,
   TableRowSelection,
 } from './types/table';
-import type { FormProps } from '/@/components/Form/index';
+import type { FormProps } from '/@/components/Form';
 import { DEFAULT_SORT_FN, FETCH_SETTING } from './const';
 
 // 注释看 types/table

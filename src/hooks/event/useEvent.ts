@@ -41,7 +41,7 @@ export function useEvent({
 
     const removeWatch = watch(
       element,
-      (v, ov, cleanUp) => {
+      (v, _ov, cleanUp) => {
         if (v) {
           !unref(isAddRef) && addEventListener(v);
           cleanUp(() => {

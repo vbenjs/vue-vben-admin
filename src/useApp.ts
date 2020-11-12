@@ -93,10 +93,11 @@ export function useListenerNetWork() {
   // Check network status
   useNetWork({
     onLineFn: () => {
-      replace(PageEnum.BASE_HOME);
-      useTimeout(() => {
-        appStore.commitPageLoadingState(false);
-      }, 300);
+      replace(PageEnum.BASE_HOME).then(() => {
+        useTimeout(() => {
+          appStore.commitPageLoadingState(false);
+        }, 200);
+      });
     },
     offLineFn: () => {
       replace({

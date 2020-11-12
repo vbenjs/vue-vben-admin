@@ -1,4 +1,4 @@
-import { createStorage } from '/@/utils/storage/index';
+import { createStorage } from '/@/utils/storage';
 
 export function useLocalStorage() {
   return createStorage(localStorage);

@@ -1,4 +1,4 @@
-import { AppRouteModule } from '/@/router/types.d';
+import { AppRouteModule, RouteModule } from '/@/router/types.d';
 import type { MenuModule, Menu, AppRouteRecordRaw } from '/@/router/types';
 
 import { findPath, forEach, treeMap, treeToList } from './treeHelper';
@@ -48,7 +48,7 @@ export function transformRouteToMenu(routeModList: AppRouteModule[]) {
   const cloneRouteModList = cloneDeep(routeModList);
   const routeList: AppRouteRecordRaw[] = [];
   cloneRouteModList.forEach((item) => {
-    const { layout, routes, children } = item;
+    const { layout, routes, children } = item as RouteModule;
     if (layout) {
       layout.children = routes || children;
       routeList.push(layout);

@@ -1,7 +1,7 @@
 import type { FieldMapToTime, FormSchema } from './types/form';
 import type { PropType } from 'vue';
 import type { ColEx } from './types';
-import { TableActionType } from '../../Table/src/types/table';
+import { TableActionType } from '/@/components/Table';
 
 export const basicProps = {
   model: {

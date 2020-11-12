@@ -1,4 +1,4 @@
-import { createStorage } from '/@/utils/storage/index';
+import { createStorage } from '/@/utils/storage';
 import { isIeFn } from '/@/utils/browser';
 
 import { BASE_LOCAL_CACHE_KEY, BASE_SESSION_CACHE_KEY } from '/@/enums/cacheEnum';

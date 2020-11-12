@@ -2,7 +2,7 @@ import type { PropType } from 'vue';
 import type { FormProps } from './types/form';
 import type { FormSchema } from './types/form';
 import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
-import type { TableActionType } from '../../Table/src/types/table';
+import type { TableActionType } from '/@/components/Table';
 
 import { defineComponent, computed, unref, toRef } from 'vue';
 import { Form, Col } from 'ant-design-vue';
@@ -16,7 +16,7 @@ import { upperFirst, cloneDeep } from 'lodash-es';
 
 import { useItemLabelWidth } from './hooks/useLabelWidth';
 import { ComponentType } from './types';
-import { isNumber } from '../../../utils/is';
+import { isNumber } from '/@/utils/is';
 
 export default defineComponent({
   name: 'BasicFormItem',
