@@ -43,7 +43,6 @@ export default defineComponent({
         }
 
         const lastChangeRoute = unref(tabStore.getLastChangeRouteState);
-
         if (!lastChangeRoute || !userStore.getTokenState) return;
 
         const { path, fullPath } = lastChangeRoute;

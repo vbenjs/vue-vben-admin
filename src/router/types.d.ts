@@ -36,6 +36,7 @@ export interface RouteMeta {
 }
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
+  name: string;
   meta: RouteMeta;
   component?: any;
   components?: any;

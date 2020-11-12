@@ -5,7 +5,7 @@ import { ExceptionEnum } from '/@/enums/exceptionEnum';
 
 const ExceptionPage = () => import('/@/views/sys/exception/Exception');
 
-export default {
+const page: AppRouteModule = {
   path: '/page-demo',
   name: 'PageDemo',
   component: PAGE_LAYOUT_COMPONENT,
@@ -117,4 +117,6 @@ export default {
     },
     // =============================exception end=============================
   ],
-} as AppRouteModule;
+};
+
+export default page;
