@@ -1,6 +1,6 @@
 import type { MenuModule } from '/@/router/types.d';
 const menu: MenuModule = {
-  orderNo: 20,
+  orderNo: 15,
   menu: {
     name: '权限管理',
     path: '/permission',
