@@ -37,7 +37,7 @@ export function resetRouter() {
   router.getRoutes().forEach((route) => {
     const { name } = route;
     if (name && !resetWhiteNameList.includes(name as string)) {
-      router.removeRoute(name);
+      router.hasRoute(name) && router.removeRoute(name);
     }
   });
 }

@@ -40,8 +40,8 @@ export default defineComponent({
     }
 
     function renderTag() {
-      const { item, showTitle } = props;
-      if (!item || showTitle) return null;
+      const { item, showTitle, isTop } = props;
+      if (!item || showTitle || isTop) return null;
 
       const { tag } = item;
       if (!tag) return null;
@@ -60,16 +60,15 @@ export default defineComponent({
       if (!props.item) {
         return null;
       }
-      const { showTitle, isTop } = props;
+      const { showTitle } = props;
       const { name, icon } = props.item;
       const searchValue = props.searchValue || '';
       const index = name.indexOf(searchValue);
 
       const beforeStr = name.substr(0, index);
       const afterStr = name.substr(index + searchValue.length);
-      let cls = showTitle ? ['show-title'] : ['basic-menu__name'];
+      const cls = showTitle ? ['show-title'] : ['basic-menu__name'];
 
-      isTop && !showTitle && (cls = []);
       return (
         <>
           {renderIcon(icon!)}
