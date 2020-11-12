@@ -65,7 +65,33 @@
           },
         ],
       },
-      rules: [{ required: true, message: '请输入aa' }],
+      rules: [
+        {
+          required: true,
+          message: '请输入aa',
+        },
+      ],
+    },
+    {
+      field: 'field44',
+      component: 'Input',
+      label: '自定义校验',
+      colProps: {
+        span: 8,
+      },
+      rules: [
+        {
+          required: true,
+          // @ts-ignore
+          validator: async (rule, value) => {
+            if (value === '1') {
+              return Promise.reject('值不能为1');
+            }
+            return Promise.resolve();
+          },
+          trigger: 'blur',
+        },
+      ],
     },
     {
       field: 'field5',

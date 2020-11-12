@@ -14,8 +14,8 @@ import {
   Switch,
   TimePicker,
   TreeSelect,
-  Transfer,
 } from 'ant-design-vue';
+import RadioButtonGroup from './components/RadioButtonGroup.vue';
 
 import { ComponentType } from './types/index';
 
@@ -30,13 +30,13 @@ componentMap.set('InputNumber', InputNumber);
 componentMap.set('AutoComplete', AutoComplete);
 
 componentMap.set('Select', Select);
-componentMap.set('SelectOptGroup', Select.OptGroup);
-componentMap.set('SelectOption', Select.Option);
+// componentMap.set('SelectOptGroup', Select.OptGroup);
+// componentMap.set('SelectOption', Select.Option);
 componentMap.set('TreeSelect', TreeSelect);
-componentMap.set('Transfer', Transfer);
-componentMap.set('Radio', Radio);
+// componentMap.set('Transfer', Transfer);
+// componentMap.set('Radio', Radio);
 componentMap.set('Switch', Switch);
-componentMap.set('RadioButton', Radio.Button);
+componentMap.set('RadioButtonGroup', RadioButtonGroup);
 componentMap.set('RadioGroup', Radio.Group);
 componentMap.set('Checkbox', Checkbox);
 componentMap.set('CheckboxGroup', Checkbox.Group);

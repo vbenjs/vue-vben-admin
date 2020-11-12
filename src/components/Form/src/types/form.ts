@@ -7,6 +7,10 @@ import { TableActionType } from '../../../Table/src/types/table';
 
 export type FieldMapToTime = [string, [string, string], string?][];
 
+export type Rule = RuleObject & {
+  trigger?: 'blur' | 'change' | ['change', 'blur'];
+};
+
 export interface RenderCallbackParams {
   schema: FormSchema;
   values: any;
@@ -98,7 +102,10 @@ export interface FormProps {
 export interface FormSchema {
   // 字段名
   field: string;
+  // 内部值更改触发的事件名，默认 change
   changeEvent?: string;
+  // v-model绑定的变量名 默认 value
+  valueField?: string;
   // 标签名
   label: string;
   // 文本右侧帮助文本
@@ -113,13 +120,18 @@ export interface FormSchema {
   component: ComponentType;
   // 组件参数
   componentProps?:
-    | ((opt: { schema: FormSchema; tableAction: TableActionType; formModel: any }) => any)
+    | ((opt: {
+        schema: FormSchema;
+        tableAction: TableActionType;
+        formActionType: FormActionType;
+        formModel: any;
+      }) => any)
     | object;
   // 必填
   required?: boolean;
 
   // 校验规则
-  rules?: RuleObject[];
+  rules?: Rule[];
   // 校验信息是否加入label
   rulesMessageJoinLabel?: boolean;
 
@@ -146,7 +158,11 @@ export interface FormSchema {
   // 渲染 col内容,需要外层包裹 form-item
   renderColContent?: (renderCallbackParams: RenderCallbackParams) => VNode | VNode[] | string;
 
-  renderComponentContent?: (renderCallbackParams: RenderCallbackParams) => any;
+  renderComponentContent?:
+    | ((renderCallbackParams: RenderCallbackParams) => any)
+    | VNode
+    | VNode[]
+    | string;
 
   // 自定义slot, 在 from-item内
   slot?: string;
@@ -156,7 +172,7 @@ export interface FormSchema {
 
   dynamicDisabled?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
-  dynamicRules?: (renderCallbackParams: RenderCallbackParams) => RuleObject[];
+  dynamicRules?: (renderCallbackParams: RenderCallbackParams) => Rule[];
 }
 export interface HelpComponentProps {
   maxWidth: string;

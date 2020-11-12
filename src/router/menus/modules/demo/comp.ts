@@ -38,10 +38,10 @@ const menu: MenuModule = {
         path: 'strength-meter',
         name: '密码强度组件',
       },
-      {
-        path: 'upload',
-        name: '上传组件',
-      },
+      // {
+      //   path: 'upload',
+      //   name: '上传组件',
+      // },
       {
         path: 'scroll',
         name: '滚动组件',

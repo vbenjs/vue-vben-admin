@@ -4,6 +4,7 @@
 
 - 重构 hook,引入 `@vueuse`，删除其中已有的`hook`,优化现有的 hook
 - `useEvent` 更名->`useEventListener`
+- 表单`ComponentType`删除 `SelectOptGroup`,`SelectOption`,`Transfer`,`Radio`,四个类型。修改`RadioButtonGroup`组件
 
 ### ✨ Features
 
@@ -12,10 +13,15 @@
 - 新增菜单及顶栏颜色选择配色
 - 增加示例结果页
 
+### ⚡ Wip
+
+- 上传组件(未完成，测试中...)
+
 ### ⚡ Performance Improvements
 
 - 优化 settingDrawer 代码
 - 优化多标签页切换速度
+- 增加表单自定义及动态能力
 
 ### 🐛 Bug Fixes
 
@@ -23,6 +29,7 @@
 - 修复登录过期后重新登录未跳转原来页面的
 - 修复 window 系统动态引入错误
 - 修复页面类型错误
+- 修复表单 switch 和 checkBox 单独使用报错
 
 ## 2.0.0-rc.9 (2020-11-9)
 

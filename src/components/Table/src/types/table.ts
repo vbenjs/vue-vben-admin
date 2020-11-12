@@ -87,7 +87,7 @@ export interface GetColumnsParams {
 export type SizeType = 'default' | 'middle' | 'small' | 'large';
 
 export interface TableActionType {
-  reload: (opt?: FetchParams) => Promise<void>;
+  // reload: (opt?: FetchParams) => Promise<void>;
   getSelectRows: () => any[];
   clearSelectedRowKeys: () => void;
   getSelectRowKeys: () => string[];

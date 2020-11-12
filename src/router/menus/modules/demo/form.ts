@@ -4,10 +4,18 @@ const menu: MenuModule = {
   menu: {
     path: '/form',
     name: 'Form',
+    tag: {
+      type: 'warn',
+      dot: true,
+    },
     children: [
       {
         path: 'basic',
         name: '基础表单',
+        tag: {
+          type: 'warn',
+          content: 'updated',
+        },
       },
       {
         path: 'useForm',
@@ -24,14 +32,26 @@ const menu: MenuModule = {
       {
         path: 'ruleForm',
         name: '表单校验',
+        tag: {
+          type: 'warn',
+          content: 'updated',
+        },
       },
       {
         path: 'dynamicForm',
         name: '动态表单',
+        tag: {
+          type: 'warn',
+          content: 'updated',
+        },
       },
       {
         path: 'customerForm',
         name: '自定义组件',
+        tag: {
+          type: 'warn',
+          content: 'updated',
+        },
       },
     ],
   },
