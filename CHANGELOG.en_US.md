@@ -1,3 +1,37 @@
+## 2.0.0-rc.10 (2020-11-13)
+
+### ✨ Refactor
+
+- Refactor hook, introduce `@vueuse`, delete existing `hook`, optimize existing hook
+- ʻUseEvent` renamed ->ʻuseEventListener`
+- Delete the four types `SelectOptGroup`, `SelectOption`, `Transfer`, and `Radio` from the form `ComponentType`. Modify the `RadioButtonGroup` component
+
+### ✨ Features
+
+- `componentsProps` support function type of form item
+- Added tag display to the menu, supporting 4 types of colors and dot display
+- New menu and top bar color selection color matching
+- Add sample result page
+- New file download example
+
+### ⚡ Wip
+
+- Upload components (not completed, testing...)
+
+### ⚡ Performance Improvements
+
+- Optimize settingDrawer code
+- Optimize the switching speed of multiple tabs
+- Add form customization and dynamic capabilities
+
+### 🐛 Bug Fixes
+
+- Fixed multiple rich text editors showing only one
+- Fixed the problem of not redirecting to the original page after logging in again after expiration
+- Fix window system dynamic introduction error
+- Fix page type error
+- Fixed an error when the form switch and checkBox were used separately
+
 ## 2.0.0-rc.9 (2020-11-9)
 
 ### ✨ Features
