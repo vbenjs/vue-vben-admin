@@ -170,5 +170,13 @@ export default {
         title: '密码强度组件',
       },
     },
+    {
+      path: '/upload',
+      name: 'UploadDemo',
+      component: () => import('/@/views/demo/comp/upload/index.vue'),
+      meta: {
+        title: '上传组件',
+      },
+    },
   ],
 } as AppRouteModule;
