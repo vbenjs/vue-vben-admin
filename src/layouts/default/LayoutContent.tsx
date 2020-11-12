@@ -16,7 +16,6 @@ export default defineComponent({
     return () => {
       const { contentMode, openPageLoading } = unref(getProjectConfigRef);
       const { getPageLoading } = appStore;
-
       const wrapClass = contentMode === ContentEnum.FULL ? 'full' : 'fixed';
       return (
         <div class={[`default-layout__main`]}>
