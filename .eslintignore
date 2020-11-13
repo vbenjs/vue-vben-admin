@@ -20,9 +20,6 @@ lib
 Dockerfile
 vue.config.js
 commit-lint.js
-/src/assets/iconfont/
-/types/shims
-/src/types/shims
 postcss.config.js
 stylelint.config.js
 commitlint.config.js

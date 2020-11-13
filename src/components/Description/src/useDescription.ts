@@ -10,7 +10,7 @@ export function useDescription(props?: Partial<DescOptions>): UseDescReturnType 
   const descRef = ref<DescInstance | null>(null);
   const loadedRef = ref(false);
 
-  function getDescription(instance: DescInstance) {
+  function register(instance: DescInstance) {
     if (unref(loadedRef) && isProdMode()) {
       return;
     }
@@ -18,10 +18,11 @@ export function useDescription(props?: Partial<DescOptions>): UseDescReturnType 
     props && instance.setDescProps(props);
     loadedRef.value = true;
   }
+
   const methods: DescInstance = {
     setDescProps: (descProps: Partial<DescOptions>): void => {
       unref(descRef)!.setDescProps(descProps);
     },
   };
-  return [getDescription, methods];
+  return [register, methods];
 }

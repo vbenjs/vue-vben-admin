@@ -22,6 +22,7 @@ export const PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {
     hideBreadcrumb: true,
   },
 };
+
 export const REDIRECT_ROUTE: AppRouteRecordRaw = {
   path: '/redirect/:path(.*)*',
   name: 'Redirect',
@@ -31,16 +32,3 @@ export const REDIRECT_ROUTE: AppRouteRecordRaw = {
     hideBreadcrumb: true,
   },
 };
-
-// Whole site 404
-// export const FULL_PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {
-//   path: '/:path(.*)*',
-//   name: 'FullErrorPage',
-//   component: EXCEPTION_COMPONENT,
-//   props: {
-//     full: true,
-//   },
-//   meta: {
-//     title: 'FullErrorPage',
-//   },
-// };

@@ -25,6 +25,7 @@ export function downloadByData(data: BlobPart, filename: string, mime?: string, 
     window.URL.revokeObjectURL(blobURL);
   }
 }
+
 /**
  * 根据文件地址下载文件
  * @param {*} sUrl

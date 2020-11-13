@@ -1,12 +1,31 @@
-import { PropType } from 'vue';
-import { PaginationProps } from './types/pagination';
-import { BasicColumn, FetchSetting } from './types/table';
-import { TableCustomRecord, TableRowSelection } from 'ant-design-vue/types/table/table';
-import { FormProps } from '/@/components/Form/index';
-import { FETCH_SETTING } from './const';
+import type { PropType } from 'vue';
+import type { PaginationProps } from './types/pagination';
+import type {
+  BasicColumn,
+  FetchSetting,
+  TableSetting,
+  SorterResult,
+  TableCustomRecord,
+  TableRowSelection,
+} from './types/table';
+import type { FormProps } from '/@/components/Form';
+import { DEFAULT_SORT_FN, FETCH_SETTING } from './const';
 
 // 注释看 types/table
 export const basicProps = {
+  tableSetting: {
+    type: Object as PropType<TableSetting>,
+  },
+
+  sortFn: {
+    type: Function as PropType<(sortInfo: SorterResult) => any>,
+    default: DEFAULT_SORT_FN,
+  },
+
+  showTableSetting: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
   autoCreateKey: {
     type: Boolean as PropType<boolean>,
     default: true,
@@ -110,7 +129,7 @@ export const basicProps = {
     default: 0,
   },
   rowSelection: {
-    type: Object as PropType<TableRowSelection<any> | null>,
+    type: Object as PropType<TableRowSelection | null>,
     default: null,
   },
   title: {
@@ -133,7 +152,7 @@ export const basicProps = {
   },
   bordered: {
     type: Boolean as PropType<boolean>,
-    default: true,
+    default: false,
   },
   pagination: {
     type: [Object, Boolean] as PropType<PaginationProps | boolean>,

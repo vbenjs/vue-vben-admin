@@ -1,6 +1,5 @@
 <template>
   <div class="m-4">
-    <div class="mb-4"> </div>
     <CollapseContainer title="基础收缩示例">
       <BasicForm @register="register" />
     </CollapseContainer>

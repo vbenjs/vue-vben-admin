@@ -1,9 +1,10 @@
-import { EncryptionParams } from '/@/utils/cipher/aesEncryption';
-export interface CreateStorageParams extends EncryptionParams {
+import { DEFAULT_CACHE_TIME } from '/@/settings/cipherSetting';
+
+// import { EncryptionParams } from '/@/utils/cipher/aesEncryption';
+export interface CreateStorageParams {
   storage: Storage;
   hasEncrypt: boolean;
 }
-const defaultTime = 60 * 60 * 24 * 7;
 export const createStorage = ({ prefixKey = '', storage = sessionStorage } = {}) => {
   /**
    *缓存类
@@ -36,7 +37,7 @@ export const createStorage = ({ prefixKey = '', storage = sessionStorage } = {})
      * @expire 过期时间 单位秒
      * @memberof Cache
      */
-    set(key: string, value: any, expire: number | null = defaultTime) {
+    set(key: string, value: any, expire: number | null = DEFAULT_CACHE_TIME) {
       const stringData = JSON.stringify({
         value,
         expire: expire !== null ? new Date().getTime() + expire * 1000 : null,
@@ -91,12 +92,12 @@ export const createStorage = ({ prefixKey = '', storage = sessionStorage } = {})
      * 添加cookie
      * @param name cookie名字
      * @param value cookie内容
-     * @param day 过期时间
+     * @param expire
      * 如果过期时间未设置,默认管理浏览器自动删除
      * 例子:
      *  cookieData.set('name','value',)
      */
-    setCookie(name: string, value: any, expire: number | null = defaultTime) {
+    setCookie(name: string, value: any, expire: number | null = DEFAULT_CACHE_TIME) {
       document.cookie = this.getKey(name) + '=' + value + '; Max-Age=' + expire;
     }
 

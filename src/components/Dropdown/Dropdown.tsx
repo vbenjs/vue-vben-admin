@@ -34,6 +34,7 @@ export default defineComponent({
                       </>
                     )}
                   </Menu.Item>,
+                  // @ts-ignore
                   divider && <Menu.Divider key={`d-${index}`} />,
                 ];
               })}

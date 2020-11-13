@@ -10,6 +10,7 @@
     "jsx": "react",
     "baseUrl": ".",
     "allowJs": true,
+    "sourceMap": true,
     "esModuleInterop": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -26,6 +27,17 @@
       ]
     }
   },
+  "plugins": [
+    {
+      "name": "@vuedx/typescript-plugin-vue"
+    }
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+  ],
   "exclude": [
     "node_modules",
     "dist",

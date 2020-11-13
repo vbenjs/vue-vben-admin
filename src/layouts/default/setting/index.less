@@ -1,0 +1,73 @@
+.setting-drawer {
+  .ant-drawer-body {
+    padding-top: 0;
+    background: @white;
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__cell-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 0;
+  }
+
+  &__theme-item {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 16px 0;
+    justify-content: space-around;
+
+    > span {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      border: 1px solid #ddd;
+      border-radius: 2px;
+
+      svg {
+        display: none;
+      }
+
+      &.active {
+        border: 1px solid lighten(@primary-color, 10%);
+
+        svg {
+          display: inline-block;
+          margin: 0 0 3px 3px;
+          font-size: 12px;
+          fill: @white;
+        }
+      }
+    }
+  }
+
+  &__siderbar {
+    display: flex;
+
+    > div {
+      position: relative;
+
+      .check-icon {
+        position: absolute;
+        top: 40%;
+        left: 40%;
+        display: none;
+        color: @primary-color;
+
+        &.active {
+          display: inline-block;
+        }
+      }
+    }
+
+    img {
+      margin-right: 10px;
+      cursor: pointer;
+    }
+  }
+}

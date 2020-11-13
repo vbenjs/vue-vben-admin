@@ -2,8 +2,7 @@ import { defineComponent, computed, unref, ref } from 'vue';
 import { BasicDrawer } from '/@/components/Drawer/index';
 import { Divider, Switch, Tooltip, InputNumber, Select } from 'ant-design-vue';
 import Button from '/@/components/Button/index.vue';
-import { MenuModeEnum, MenuTypeEnum, MenuThemeEnum, TopMenuAlignEnum } from '/@/enums/menuEnum';
-import { ContentEnum, RouterTransitionEnum } from '/@/enums/appEnum';
+import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
 import { CopyOutlined, RedoOutlined, CheckOutlined } from '@ant-design/icons-vue';
 import { appStore } from '/@/store/modules/app';
 import { userStore } from '/@/store/modules/user';
@@ -18,62 +17,15 @@ import mixImg from '/@/assets/images/layout/menu-mix.svg';
 import sidebarImg from '/@/assets/images/layout/menu-sidebar.svg';
 import menuTopImg from '/@/assets/images/layout/menu-top.svg';
 import { updateColorWeak, updateGrayMode } from '/@/setup/theme';
-
-const themeOptions = [
-  {
-    value: MenuThemeEnum.LIGHT,
-    label: '亮色',
-    key: MenuThemeEnum.LIGHT,
-  },
-  {
-    value: MenuThemeEnum.DARK,
-    label: '暗色',
-    key: MenuThemeEnum.DARK,
-  },
-];
-const contentModeOptions = [
-  {
-    value: ContentEnum.FULL,
-    label: '流式',
-    key: ContentEnum.FULL,
-  },
-  {
-    value: ContentEnum.FIXED,
-    label: '定宽',
-    key: ContentEnum.FIXED,
-  },
-];
-const topMenuAlignOptions = [
-  {
-    value: TopMenuAlignEnum.CENTER,
-    label: '居中',
-    key: TopMenuAlignEnum.CENTER,
-  },
-  {
-    value: TopMenuAlignEnum.START,
-    label: '居左',
-    key: TopMenuAlignEnum.START,
-  },
-  {
-    value: TopMenuAlignEnum.END,
-    label: '居右',
-    key: TopMenuAlignEnum.END,
-  },
-];
-
-const routerTransitionOptions = [
-  RouterTransitionEnum.ZOOM_FADE,
-  RouterTransitionEnum.FADE,
-  RouterTransitionEnum.ZOOM_OUT,
-  RouterTransitionEnum.SIDE_FADE,
-  RouterTransitionEnum.FADE_BOTTOM,
-].map((item) => {
-  return {
-    label: item,
-    value: item,
-    key: item,
-  };
-});
+import { baseHandler } from './handler';
+import {
+  HandlerEnum,
+  contentModeOptions,
+  topMenuAlignOptions,
+  menuTriggerOptions,
+  routerTransitionOptions,
+} from './const';
+import { HEADER_PRESET_BG_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from '/@/settings/colorSetting';
 
 interface SwitchOptions {
   config?: DeepPartial<ProjectConfig>;
@@ -86,6 +38,11 @@ interface SelectConfig {
   options?: SelectOptions;
   def?: any;
   disabled?: boolean;
+  handler?: Fn;
+}
+
+interface ThemeOptions {
+  def?: string;
   handler?: Fn;
 }
 
@@ -125,10 +82,28 @@ export default defineComponent({
         });
     }
 
+    function handleResetSetting() {
+      try {
+        appStore.commitProjectConfigState(defaultSetting);
+        const { colorWeak, grayMode } = defaultSetting;
+        // updateTheme(themeColor);
+        updateColorWeak(colorWeak);
+        updateGrayMode(grayMode);
+        createMessage.success('重置成功！');
+      } catch (error) {
+        createMessage.error(error);
+      }
+    }
+
+    function handleClearAndRedo() {
+      localStorage.clear();
+      userStore.resumeAllState();
+      location.reload();
+    }
+
     function renderSidebar() {
       const {
-        headerSetting: { theme: headerTheme },
-        menuSetting: { type, theme: menuTheme, split },
+        menuSetting: { type, split },
       } = unref(getProjectConfigRef);
 
       const typeList = ref([
@@ -161,7 +136,7 @@ export default defineComponent({
                 {{
                   default: () => (
                     <div
-                      onClick={baseHandler.bind(null, 'layout', {
+                      onClick={baseHandler.bind(null, HandlerEnum.CHANGE_LAYOUT, {
                         mode: mode,
                         type: ItemType,
                         split: unref(getIsHorizontalRef) ? false : undefined,
@@ -178,27 +153,27 @@ export default defineComponent({
         </div>,
         renderSwitchItem('分割菜单', {
           handler: (e) => {
-            baseHandler('splitMenu', e);
+            baseHandler(HandlerEnum.MENU_SPLIT, e);
           },
           def: split,
-          disabled: !unref(getShowMenuRef),
+          disabled: !unref(getShowMenuRef) || type !== MenuTypeEnum.MIX,
         }),
-        renderSelectItem('顶栏主题', {
-          handler: (e) => {
-            baseHandler('headerMenu', e);
-          },
-          def: headerTheme,
-          options: themeOptions,
-          disabled: !unref(getShowHeaderRef),
-        }),
-        renderSelectItem('菜单主题', {
-          handler: (e) => {
-            baseHandler('menuTheme', e);
-          },
-          def: menuTheme,
-          options: themeOptions,
-          disabled: !unref(getShowMenuRef),
-        }),
+        // renderSelectItem('顶栏主题', {
+        //   handler: (e) => {
+        //     baseHandler(HandlerEnum.HEADER_THEME, e);
+        //   },
+        //   def: headerTheme,
+        //   options: themeOptions,
+        //   disabled: !unref(getShowHeaderRef),
+        // }),
+        // renderSelectItem('菜单主题', {
+        //   handler: (e) => {
+        //     baseHandler(HandlerEnum.MENU_THEME, e);
+        //   },
+        //   def: menuTheme,
+        //   options: themeOptions,
+        //   disabled: !unref(getShowMenuRef),
+        // }),
       ];
     }
     /**
@@ -208,49 +183,79 @@ export default defineComponent({
       const {
         contentMode,
         headerSetting: { fixed },
-        menuSetting: { hasDrag, collapsed, showSearch, menuWidth, topMenuAlign } = {},
+        menuSetting: {
+          hasDrag,
+          collapsed,
+          showSearch,
+          menuWidth,
+          topMenuAlign,
+          collapsedShowTitle,
+          trigger,
+          accordion,
+        } = {},
       } = appStore.getProjectConfig;
       return [
         renderSwitchItem('侧边菜单拖拽', {
           handler: (e) => {
-            baseHandler('hasDrag', e);
+            baseHandler(HandlerEnum.MENU_HAS_DRAG, e);
           },
           def: hasDrag,
           disabled: !unref(getShowMenuRef),
         }),
         renderSwitchItem('侧边菜单搜索', {
           handler: (e) => {
-            baseHandler('showSearch', e);
+            baseHandler(HandlerEnum.MENU_SHOW_SEARCH, e);
           },
           def: showSearch,
           disabled: !unref(getShowMenuRef),
         }),
+        renderSwitchItem('侧边菜单手风琴模式', {
+          handler: (e) => {
+            baseHandler(HandlerEnum.MENU_ACCORDION, e);
+          },
+          def: accordion,
+          disabled: !unref(getShowMenuRef),
+        }),
         renderSwitchItem('折叠菜单', {
           handler: (e) => {
-            baseHandler('collapsed', e);
+            baseHandler(HandlerEnum.MENU_COLLAPSED, e);
           },
           def: collapsed,
           disabled: !unref(getShowMenuRef),
         }),
-
+        renderSwitchItem('折叠菜单显示名称', {
+          handler: (e) => {
+            baseHandler(HandlerEnum.MENU_COLLAPSED_SHOW_TITLE, e);
+          },
+          def: collapsedShowTitle,
+          disabled: !unref(getShowMenuRef) || !collapsed,
+        }),
         renderSwitchItem('固定header', {
           handler: (e) => {
-            baseHandler('headerFixed', e);
+            baseHandler(HandlerEnum.HEADER_FIXED, e);
           },
           def: fixed,
           disabled: !unref(getShowHeaderRef),
         }),
         renderSelectItem('顶部菜单布局', {
           handler: (e) => {
-            baseHandler('topMenuAlign', e);
+            baseHandler(HandlerEnum.MENU_TOP_ALIGN, e);
           },
           def: topMenuAlign,
           options: topMenuAlignOptions,
           disabled: !unref(getShowHeaderRef),
         }),
+        renderSelectItem('菜单折叠按钮', {
+          handler: (e) => {
+            baseHandler(HandlerEnum.MENU_TRIGGER, e);
+          },
+          def: trigger,
+          options: menuTriggerOptions,
+        }),
+
         renderSelectItem('内容区域宽度', {
           handler: (e) => {
-            baseHandler('contentMode', e);
+            baseHandler(HandlerEnum.CONTENT_MODE, e);
           },
           def: contentMode,
           options: contentModeOptions,
@@ -261,8 +266,8 @@ export default defineComponent({
             style="width:120px"
             size="small"
             min={0}
-            onChange={(e) => {
-              baseHandler('lockTime', e);
+            onChange={(e: any) => {
+              baseHandler(HandlerEnum.LOCK_TIME, e);
             }}
             defaultValue={appStore.getProjectConfig.lockTime}
             formatter={(value: string) => {
@@ -284,8 +289,8 @@ export default defineComponent({
             disabled={!unref(getShowMenuRef)}
             defaultValue={menuWidth}
             formatter={(value: string) => `${parseInt(value)}px`}
-            onChange={(e) => {
-              baseHandler('menuWidth', e);
+            onChange={(e: any) => {
+              baseHandler(HandlerEnum.MENU_WIDTH, e);
             }}
           />
         </div>,
@@ -298,19 +303,19 @@ export default defineComponent({
         <>
           {renderSwitchItem('页面切换loading', {
             handler: (e) => {
-              baseHandler('openPageLoading', e);
+              baseHandler(HandlerEnum.OPEN_PAGE_LOADING, e);
             },
             def: openPageLoading,
           })}
           {renderSwitchItem('切换动画', {
             handler: (e) => {
-              baseHandler('openRouterTransition', e);
+              baseHandler(HandlerEnum.OPEN_ROUTE_TRANSITION, e);
             },
             def: openRouterTransition,
           })}
           {renderSelectItem('路由动画', {
             handler: (e) => {
-              baseHandler('routerTransition', e);
+              baseHandler(HandlerEnum.ROUTER_TRANSITION, e);
             },
             def: routerTransition,
             options: routerTransitionOptions,
@@ -329,258 +334,81 @@ export default defineComponent({
         menuSetting: { show: showMenu },
         multiTabsSetting: { show: showMultiple, showQuick, showIcon: showTabIcon },
         showBreadCrumb,
+        showBreadCrumbIcon,
       } = unref(getProjectConfigRef);
       return [
         renderSwitchItem('面包屑', {
           handler: (e) => {
-            baseHandler('showBreadCrumb', e);
+            baseHandler(HandlerEnum.SHOW_BREADCRUMB, e);
           },
           def: showBreadCrumb,
           disabled: !unref(getShowHeaderRef),
         }),
+        renderSwitchItem('面包屑图标', {
+          handler: (e) => {
+            baseHandler(HandlerEnum.SHOW_BREADCRUMB_ICON, e);
+          },
+          def: showBreadCrumbIcon,
+          disabled: !unref(getShowHeaderRef),
+        }),
         renderSwitchItem('标签页', {
           handler: (e) => {
-            baseHandler('showMultiple', e);
+            baseHandler(HandlerEnum.TABS_SHOW, e);
           },
           def: showMultiple,
         }),
         renderSwitchItem('标签页快捷按钮', {
           handler: (e) => {
-            baseHandler('showQuick', e);
+            baseHandler(HandlerEnum.TABS_SHOW_QUICK, e);
           },
           def: showQuick,
           disabled: !unref(getShowTabsRef),
         }),
         renderSwitchItem('标签页图标', {
           handler: (e) => {
-            baseHandler('showTabIcon', e);
+            baseHandler(HandlerEnum.TABS_SHOW_ICON, e);
           },
           def: showTabIcon,
           disabled: !unref(getShowTabsRef),
         }),
         renderSwitchItem('左侧菜单', {
           handler: (e) => {
-            baseHandler('showSidebar', e);
+            baseHandler(HandlerEnum.MENU_SHOW_SIDEBAR, e);
           },
           def: showMenu,
           disabled: unref(getIsHorizontalRef),
         }),
         renderSwitchItem('顶栏', {
           handler: (e) => {
-            baseHandler('showHeader', e);
+            baseHandler(HandlerEnum.HEADER_SHOW, e);
           },
           def: showHeader,
         }),
         renderSwitchItem('Logo', {
           handler: (e) => {
-            baseHandler('showLogo', e);
+            baseHandler(HandlerEnum.SHOW_LOGO, e);
           },
           def: showLogo,
         }),
         renderSwitchItem('全屏内容', {
           handler: (e) => {
-            baseHandler('fullContent', e);
+            baseHandler(HandlerEnum.FULL_CONTENT, e);
           },
           def: fullContent,
         }),
         renderSwitchItem('灰色模式', {
           handler: (e) => {
-            baseHandler('grayMode', e);
+            baseHandler(HandlerEnum.GRAY_MODE, e);
           },
           def: grayMode,
         }),
         renderSwitchItem('色弱模式', {
           handler: (e) => {
-            baseHandler('colorWeak', e);
+            baseHandler(HandlerEnum.COLOR_WEAK, e);
           },
           def: colorWeak,
         }),
       ];
-    }
-    function baseHandler(event: string, value: any) {
-      let config: DeepPartial<ProjectConfig> = {};
-      if (event === 'layout') {
-        const { mode, type, split } = value;
-        const splitOpt = split === undefined ? { split } : {};
-        config = {
-          menuSetting: {
-            mode,
-            type,
-            collapsed: false,
-            ...splitOpt,
-          },
-        };
-      }
-      if (event === 'hasDrag') {
-        config = {
-          menuSetting: {
-            hasDrag: value,
-          },
-        };
-      }
-      if (event === 'openPageLoading') {
-        config = {
-          openPageLoading: value,
-        };
-      }
-      if (event === 'topMenuAlign') {
-        config = {
-          menuSetting: {
-            topMenuAlign: value,
-          },
-        };
-      }
-      if (event === 'showBreadCrumb') {
-        config = {
-          showBreadCrumb: value,
-        };
-      }
-      if (event === 'collapsed') {
-        config = {
-          menuSetting: {
-            collapsed: value,
-          },
-        };
-      }
-      if (event === 'menuWidth') {
-        config = {
-          menuSetting: {
-            menuWidth: value,
-          },
-        };
-      }
-      if (event === 'lockTime') {
-        config = {
-          lockTime: value,
-        };
-      }
-      if (event === 'showQuick') {
-        config = {
-          multiTabsSetting: {
-            showQuick: value,
-          },
-        };
-      }
-      if (event === 'showTabIcon') {
-        config = {
-          multiTabsSetting: {
-            showIcon: value,
-          },
-        };
-      }
-      if (event === 'contentMode') {
-        config = {
-          contentMode: value,
-        };
-      }
-      if (event === 'menuTheme') {
-        config = {
-          menuSetting: {
-            theme: value,
-          },
-        };
-      }
-      if (event === 'splitMenu') {
-        config = {
-          menuSetting: {
-            split: value,
-          },
-        };
-      }
-      if (event === 'showMultiple') {
-        config = {
-          multiTabsSetting: {
-            show: value,
-          },
-        };
-      }
-      if (event === 'headerMenu') {
-        config = {
-          headerSetting: {
-            theme: value,
-          },
-        };
-      }
-      if (event === 'grayMode') {
-        config = {
-          grayMode: value,
-        };
-        updateGrayMode(value);
-      }
-      if (event === 'colorWeak') {
-        config = {
-          colorWeak: value,
-        };
-        updateColorWeak(value);
-      }
-      if (event === 'showLogo') {
-        config = {
-          showLogo: value,
-        };
-      }
-      if (event === 'showSearch') {
-        config = {
-          menuSetting: {
-            showSearch: value,
-          },
-        };
-      }
-      if (event === 'showSidebar') {
-        config = {
-          menuSetting: {
-            show: value,
-          },
-        };
-      }
-      if (event === 'openRouterTransition') {
-        config = {
-          openRouterTransition: value,
-        };
-      }
-      if (event === 'routerTransition') {
-        config = {
-          routerTransition: value,
-        };
-      }
-      if (event === 'headerFixed') {
-        config = {
-          headerSetting: {
-            fixed: value,
-          },
-        };
-      }
-      if (event === 'fullContent') {
-        config = {
-          fullContent: value,
-        };
-      }
-      if (event === 'showHeader') {
-        config = {
-          headerSetting: {
-            show: value,
-          },
-        };
-      }
-      appStore.commitProjectConfigState(config);
-    }
-
-    function handleResetSetting() {
-      try {
-        appStore.commitProjectConfigState(defaultSetting);
-        const { colorWeak, grayMode } = defaultSetting;
-        // updateTheme(themeColor);
-        updateColorWeak(colorWeak);
-        updateGrayMode(grayMode);
-        createMessage.success('重置成功！');
-      } catch (error) {
-        createMessage.error(error);
-      }
-    }
-
-    function handleClearAndRedo() {
-      localStorage.clear();
-      userStore.resumeAllState();
-      location.reload();
     }
 
     function renderSelectItem(text: string, config?: SelectConfig) {
@@ -589,7 +417,6 @@ export default defineComponent({
       return (
         <div class={`setting-drawer__cell-item`}>
           <span>{text}</span>
-          {/* @ts-ignore */}
           <Select
             {...opt}
             disabled={disabled}
@@ -613,7 +440,7 @@ export default defineComponent({
           <Switch
             {...opt}
             disabled={disabled}
-            onChange={(e) => {
+            onChange={(e: any) => {
               handler && handler(e);
             }}
             checkedChildren="开"
@@ -622,6 +449,51 @@ export default defineComponent({
         </div>
       );
     }
+
+    function renderTheme() {
+      const { headerBgColor, menuBgColor } = unref(getProjectConfigRef);
+      return (
+        <>
+          <Divider>{() => '顶栏主题'}</Divider>
+          {renderThemeItem(HEADER_PRESET_BG_COLOR_LIST, {
+            def: headerBgColor,
+            handler: (e) => {
+              baseHandler(HandlerEnum.HEADER_THEME, e);
+            },
+          })}
+          <Divider>{() => '菜单主题'}</Divider>
+          {renderThemeItem(SIDE_BAR_BG_COLOR_LIST, {
+            def: menuBgColor,
+            handler: (e) => {
+              baseHandler(HandlerEnum.MENU_THEME, e);
+            },
+          })}
+        </>
+      );
+    }
+
+    function renderThemeItem(colorList: string[], opt: ThemeOptions) {
+      const { def, handler } = opt;
+      return (
+        <div class={`setting-drawer__theme-item`}>
+          {colorList.map((item) => {
+            return (
+              <span
+                onClick={() => handler && handler(item)}
+                key={item}
+                class={[def === item ? 'active' : '']}
+                style={{
+                  background: item,
+                }}
+              >
+                <CheckOutlined class="icon" />
+              </span>
+            );
+          })}
+        </div>
+      );
+    }
+
     return () => (
       <BasicDrawer {...attrs} title="项目配置" width={300} wrapClassName="setting-drawer">
         {{
@@ -629,6 +501,9 @@ export default defineComponent({
             <>
               <Divider>{() => '导航栏模式'}</Divider>
               {renderSidebar()}
+
+              {renderTheme()}
+
               <Divider>{() => '界面功能'}</Divider>
               {renderFeatures()}
               <Divider>{() => '界面显示'}</Divider>

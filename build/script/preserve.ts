@@ -15,6 +15,7 @@ const reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
 let NEED_INSTALL = false;
 
 export async function runPreserve() {
+  // rc.6 fixed
   const cwdPath = process.cwd();
   if (reg.test(cwdPath)) {
     errorConsole(
@@ -24,7 +25,7 @@ export async function runPreserve() {
     process.exit(1);
   }
 
-  fs.mkdirp(resolve('build/.cache'));
+  await fs.mkdirp(resolve('build/.cache'));
   function checkPkgUpdate() {
     const pkg = require('../../package.json');
     const { dependencies, devDependencies } = pkg;
@@ -69,3 +70,5 @@ export async function runPreserve() {
     } catch (error) {}
   }
 }
+
+runPreserve();

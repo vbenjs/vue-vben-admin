@@ -7,6 +7,7 @@ import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
 
 import { PageEnum } from '/@/enums/pageEnum';
 import { appStore } from '/@/store/modules/app';
+import { userStore } from './user';
 
 import store from '/@/store';
 import router from '/@/router';
@@ -34,20 +35,24 @@ const getOpenKeepAliveRef = computed(() => appStore.getProjectConfig.openKeepAli
 
 @Module({ namespaced: true, name: NAME, dynamic: true, store })
 class Tab extends VuexModule {
-  // tab列表
+  // tab list
   tabsState: TabItem[] = [];
-  // 缓存列表
+  // tab cache list
   keepAliveTabsState: CacheName[] = [];
 
   currentContextMenuIndexState = -1;
 
   currentContextMenuState: TabItem | null = null;
 
-  /**
-   * @description: 获取tabs
-   */
+  // Last route change
+  lastChangeRouteState: AppRouteRecordRaw | null = null;
+
   get getTabsState() {
     return this.tabsState;
+  }
+
+  get getLastChangeRouteState() {
+    return this.lastChangeRouteState;
   }
 
   get getCurrentContextMenuIndexState() {
@@ -58,9 +63,6 @@ class Tab extends VuexModule {
     return this.currentContextMenuState;
   }
 
-  /**
-   * @description: 获取缓存的tab列表
-   */
   get getKeepAliveTabsState() {
     return this.keepAliveTabsState;
   }
@@ -68,6 +70,12 @@ class Tab extends VuexModule {
   get getCurrentTab(): TabItem {
     const route = unref(router.currentRoute);
     return this.tabsState.find((item) => item.path === route.path)!;
+  }
+
+  @Mutation
+  commitLastChangeRouteState(route: AppRouteRecordRaw): void {
+    if (!userStore.getTokenState) return;
+    this.lastChangeRouteState = route;
   }
 
   @Mutation
@@ -92,18 +100,27 @@ class Tab extends VuexModule {
   commitAddTab(route: AppRouteRecordRaw | TabItem): void {
     const { path, name, meta, fullPath, params, query } = route as TabItem;
     // 404  页面不需要添加tab
-    if (path === PageEnum.ERROR_PAGE) {
+    if (path === PageEnum.ERROR_PAGE || !name) {
       return;
     } else if ([REDIRECT_ROUTE.name, PAGE_NOT_FOUND_ROUTE.name].includes(name as string)) {
       return;
     }
 
+    let updateIndex = -1;
     // 已经存在的页面，不重复添加tab
-    const hasTab = this.tabsState.some((tab) => {
-      return tab.fullPath === fullPath;
+    const hasTab = this.tabsState.some((tab, index) => {
+      updateIndex = index;
+      return (tab.fullPath || tab.path) === (fullPath || path);
     });
-    if (hasTab) return;
-
+    if (hasTab) {
+      const curTab = toRaw(this.tabsState)[updateIndex];
+      if (!curTab) return;
+      curTab.params = params || curTab.params;
+      curTab.query = query || curTab.query;
+      curTab.fullPath = fullPath || curTab.fullPath;
+      this.tabsState.splice(updateIndex, 1, curTab);
+      return;
+    }
     this.tabsState.push({ path, fullPath, name, meta, params, query });
     if (unref(getOpenKeepAliveRef) && name) {
       const noKeepAlive = meta && meta.ignoreKeepAlive;

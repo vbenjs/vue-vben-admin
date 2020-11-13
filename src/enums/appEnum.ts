@@ -1,3 +1,6 @@
+export const SIDE_BAR_MINI_WIDTH = 58;
+export const SIDE_BAR_SHOW_TIT_MINI_WIDTH = 80;
+
 export enum ContentEnum {
   // auto width
   FULL = 'full',
@@ -26,7 +29,7 @@ export enum PermissionModeEnum {
 export enum RouterTransitionEnum {
   ZOOM_FADE = 'zoom-fade',
   ZOOM_OUT = 'zoom-out',
-  SIDE_FADE = 'slide-fade',
+  FADE_SIDE = 'fade-slide',
   FADE = 'fade',
   FADE_BOTTOM = 'fade-bottom',
 }

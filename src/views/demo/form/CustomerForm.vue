@@ -1,8 +1,11 @@
 <template>
   <div class="m-4">
-    <div class="mb-4"> </div>
     <CollapseContainer title="自定义表单">
-      <BasicForm @register="register" @submit="handleSubmit" />
+      <BasicForm @register="register" @submit="handleSubmit">
+        <template #f3="{ model, field }">
+          <a-input v-model:value="model[field]" placeholder="自定义slot" />
+        </template>
+      </BasicForm>
     </CollapseContainer>
   </div>
 </template>
@@ -16,7 +19,7 @@
     {
       field: 'field1',
       component: 'Input',
-      label: '字段1',
+      label: 'render方式',
       colProps: {
         span: 8,
       },
@@ -34,7 +37,7 @@
     {
       field: 'field2',
       component: 'Input',
-      label: '字段2',
+      label: 'render组件slot',
       colProps: {
         span: 8,
       },
@@ -44,6 +47,16 @@
           suffix: () => 'suffix',
         };
       },
+    },
+    {
+      field: 'field3',
+      component: 'Input',
+      label: '自定义Slot',
+      slot: 'f3',
+      colProps: {
+        span: 8,
+      },
+      rules: [{ required: true }],
     },
   ];
   export default defineComponent({

@@ -2,15 +2,10 @@ import type { TabContentProps } from './tab.data';
 import type { TabItem } from '/@/store/modules/tab';
 import type { AppRouteRecordRaw } from '/@/router/types';
 
-import {
-  defineComponent,
-  watch,
-  computed,
-  // ref,
-  unref,
-  onMounted,
-  toRaw,
-} from 'vue';
+import { defineComponent, watch, computed, unref, toRaw } from 'vue';
+import { useRouter } from 'vue-router';
+import router from '/@/router';
+
 import { Tabs } from 'ant-design-vue';
 import TabContent from './TabContent';
 
@@ -18,13 +13,11 @@ import { useGo } from '/@/hooks/web/usePage';
 
 import { TabContentEnum } from './tab.data';
 
-import { useRouter } from 'vue-router';
-
 import { tabStore } from '/@/store/modules/tab';
+import { userStore } from '/@/store/modules/user';
+
 import { closeTab } from './useTabDropdown';
-import router from '/@/router';
 import { useTabs } from '/@/hooks/web/useTabs';
-import { PageEnum } from '/@/enums/pageEnum';
 
 import './index.less';
 export default defineComponent({
@@ -33,33 +26,30 @@ export default defineComponent({
     let isAddAffix = false;
     const go = useGo();
     const { currentRoute } = useRouter();
-    const { addTab, activeKeyRef } = useTabs();
-    onMounted(() => {
-      addTab(unref(currentRoute).path as PageEnum);
-    });
-
-    // 当前激活tab
-    // const activeKeyRef = ref<string>('');
+    const { activeKeyRef } = useTabs();
 
     // 当前tab列表
     const getTabsState = computed(() => {
       return tabStore.getTabsState;
     });
 
-    if (!isAddAffix) {
-      addAffixTabs();
-      isAddAffix = true;
-    }
-
+    // If you monitor routing changes, tab switching will be stuck. So use this method
     watch(
-      () => unref(currentRoute).path,
-      (path) => {
-        if (activeKeyRef.value !== path) {
-          activeKeyRef.value = path;
+      () => tabStore.getLastChangeRouteState,
+      () => {
+        if (!isAddAffix) {
+          addAffixTabs();
+          isAddAffix = true;
         }
-        // 监听路由的话虽然可以，但是路由切换的时间会造成卡顿现象？
-        // 使用useTab的addTab的话，当用户手动调转，需要自行调用addTab
-        // tabStore.commitAddTab((unref(currentRoute) as unknown) as AppRouteRecordRaw);
+
+        const lastChangeRoute = unref(tabStore.getLastChangeRouteState);
+        if (!lastChangeRoute || !userStore.getTokenState) return;
+
+        const { path, fullPath } = lastChangeRoute;
+        if (activeKeyRef.value !== (fullPath || path)) {
+          activeKeyRef.value = fullPath || path;
+        }
+        tabStore.commitAddTab((lastChangeRoute as unknown) as AppRouteRecordRaw);
       },
       {
         immediate: true,
@@ -99,7 +89,9 @@ export default defineComponent({
     // 关闭当前ab
     function handleEdit(targetKey: string) {
       // 新增操作隐藏，目前只使用删除操作
-      const index = unref(getTabsState).findIndex((item) => item.path === targetKey);
+      const index = unref(getTabsState).findIndex(
+        (item) => (item.fullPath || item.path) === targetKey
+      );
       index !== -1 && closeTab(unref(getTabsState)[index]);
     }
 
@@ -117,8 +109,10 @@ export default defineComponent({
     }
     function renderTabs() {
       return unref(getTabsState).map((item: TabItem) => {
+        const key = item.query ? item.fullPath : item.path;
+
         return (
-          <Tabs.TabPane key={item.path} closable={!(item && item.meta && item.meta.affix)}>
+          <Tabs.TabPane key={key} closable={!(item && item.meta && item.meta.affix)}>
             {{
               tab: () => <TabContent tabItem={item} />,
             }}
@@ -133,8 +127,9 @@ export default defineComponent({
           <Tabs
             type="editable-card"
             size="small"
+            animated={false}
             hideAdd={true}
-            tabBarGutter={2}
+            tabBarGutter={4}
             activeKey={unref(activeKeyRef)}
             onChange={handleChange}
             onEdit={handleEdit}

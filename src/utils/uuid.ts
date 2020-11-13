@@ -10,10 +10,18 @@ export function buildUUID(): string {
     } else if (i === 15) {
       uuid += 4;
     } else if (i === 20) {
-      uuid += hexList[(Math.random() * 4) | (0 + 8)];
+      uuid += hexList[(Math.random() * 4) | 8];
     } else {
       uuid += hexList[(Math.random() * 16) | 0];
     }
   }
   return uuid.replace(/-/g, '');
+}
+
+let unique = 0;
+export function snowUuid(prefix: string): string {
+  const time = Date.now();
+  const random = Math.floor(Math.random() * 1000000000);
+  unique++;
+  return prefix + '_' + random + unique + String(time);
 }

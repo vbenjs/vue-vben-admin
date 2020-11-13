@@ -1,5 +1,6 @@
 import type { BasicTableProps, TableActionType, FetchParams, BasicColumn } from '../types/table';
 import type { PaginationProps } from '../types/pagination';
+
 import { ref, getCurrentInstance, onUnmounted, unref } from 'vue';
 import { isProdMode } from '/@/utils/env';
 
@@ -81,6 +82,9 @@ export function useTable(
     },
     getPaginationRef: () => {
       return getTableInstance().getPaginationRef();
+    },
+    getSize: () => {
+      return getTableInstance().getSize();
     },
   } as TableActionType;
 

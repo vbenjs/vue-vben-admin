@@ -17,6 +17,7 @@
         columns: getBasicColumns(),
         useSearchForm: true,
         formConfig: getFormConfig(),
+        showTableSetting: true,
       });
 
       return {

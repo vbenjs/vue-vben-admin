@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="wrapRef"
     class="basic-table"
     :class="{
       'table-form-container': getBindValues.useSearchForm,
@@ -8,7 +9,9 @@
     <BasicForm
       v-bind="getFormProps"
       v-if="getBindValues.useSearchForm"
+      :submitOnReset="true"
       :submitButtonOptions="{ loading }"
+      :tableAction="tableAction"
       @register="registerForm"
       @submit="handleSearchInfoChange"
       @advanced-change="redoHeight"
@@ -21,9 +24,7 @@
       ref="tableElRef"
       v-bind="getBindValues"
       :rowClassName="getRowClassName"
-      :class="{
-        hidden: !getEmptyDataIsShowTable,
-      }"
+      v-show="getEmptyDataIsShowTable"
       @change="handleTableChange"
     >
       <template #[item]="data" v-for="item in Object.keys($slots)">
@@ -33,20 +34,27 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, computed, unref, watch, nextTick } from 'vue';
-  import { Table } from 'ant-design-vue';
-  import { basicProps } from './props';
   import type {
     BasicTableProps,
     FetchParams,
     GetColumnsParams,
     TableActionType,
+    SizeType,
+    SorterResult,
+    TableCustomRecord,
   } from './types/table';
-  import { isFunction, isString } from '/@/utils/is';
+  import { PaginationProps } from './types/pagination';
 
+  import { defineComponent, ref, computed, unref, watch, nextTick, toRaw } from 'vue';
+  import { Table } from 'ant-design-vue';
   import renderTitle from './components/renderTitle';
   import renderFooter from './components/renderFooter';
   import renderExpandIcon from './components/renderExpandIcon';
+  import { BasicForm, FormProps, useForm } from '/@/components/Form/index';
+
+  import { isFunction, isString } from '/@/utils/is';
+  import { deepMerge } from '/@/utils';
+  import { omit } from 'lodash-es';
 
   import { usePagination } from './hooks/usePagination';
   import { useColumns } from './hooks/useColumns';
@@ -55,20 +63,18 @@
   import { useRowSelection } from './hooks/useRowSelection';
   import { useTableScroll } from './hooks/useTableScroll';
   import { provideTable } from './hooks/useProvinceTable';
-  import { BasicForm, FormProps, useForm } from '/@/components/Form/index';
-  import { omit } from 'lodash-es';
-  import './style/index.less';
+
+  import { useEventListener } from '/@/hooks/event/useEventListener';
+  import { basicProps } from './props';
   import { ROW_KEY } from './const';
-  import { PaginationProps } from './types/pagination';
-  import { deepMerge } from '/@/utils';
-  import { TableCustomRecord } from 'ant-design-vue/types/table/table';
-  import { useEvent } from '/@/hooks/event/useEvent';
+  import './style/index.less';
   export default defineComponent({
     props: basicProps,
     components: { Table, BasicForm },
     emits: ['fetch-success', 'fetch-error', 'selection-change', 'register'],
     setup(props, { attrs, emit, slots }) {
       const tableElRef = ref<any>(null);
+      const wrapRef = ref<Nullable<HTMLDivElement>>(null);
       const innerPropsRef = ref<Partial<BasicTableProps>>();
       const [registerForm, { getFieldsValue }] = useForm();
 
@@ -93,6 +99,7 @@
         },
         emit
       );
+
       const { getScrollRef, redoHeight } = useTableScroll(getMergeProps, tableElRef);
       const {
         getRowSelectionRef,
@@ -108,16 +115,26 @@
 
         return unref(getAutoCreateKey) ? ROW_KEY : rowKey;
       });
+
       const getBindValues = computed(() => {
-        const { title, titleHelpMessage, showSummary } = unref(getMergeProps);
+        const { title, titleHelpMessage, showSummary, showTableSetting, tableSetting } = unref(
+          getMergeProps
+        );
+        const hideTitle = !slots.tableTitle && !title && !slots.toolbar && !showTableSetting;
         const titleData: any =
-          !slots.tableTitle && !isString(title) && !title && !slots.toolbar
+          hideTitle && !isString(title)
             ? {}
             : {
-                title:
-                  !slots.tableTitle && !title && !slots.toolbar
-                    ? null
-                    : renderTitle.bind(null, title, titleHelpMessage, slots),
+                title: hideTitle
+                  ? null
+                  : renderTitle.bind(
+                      null,
+                      title,
+                      titleHelpMessage,
+                      slots,
+                      showTableSetting,
+                      tableSetting
+                    ),
               };
         const pagination = unref(getPaginationRef);
         const rowSelection = unref(getRowSelectionRef);
@@ -146,7 +163,7 @@
         }
         if (showSummary) {
           propsData.footer = renderFooter.bind(null, {
-            scroll,
+            scroll: scroll as any,
             columnsRef: getColumnsRef,
             summaryFunc: unref(getMergeProps).summaryFunc,
             dataSourceRef: getDataSourceRef,
@@ -155,6 +172,7 @@
         }
         return propsData;
       });
+
       const getFormProps = computed(() => {
         const { formConfig } = unref(getBindValues);
         const formProps: FormProps = {
@@ -173,7 +191,15 @@
         return !!unref(getDataSourceRef).length;
       });
 
-      function getRowClassName(record: TableCustomRecord<any>, index: number) {
+      watch(
+        () => unref(getDataSourceRef),
+        () => {
+          handleSummary();
+        },
+        { immediate: true }
+      );
+
+      function getRowClassName(record: TableCustomRecord, index: number) {
         const { striped, rowClassName } = unref(getMergeProps);
         if (!striped) return;
         if (rowClassName && isFunction(rowClassName)) {
@@ -190,45 +216,55 @@
         fetch({ searchInfo: info, page: 1 });
       }
 
-      function handleTableChange(pagination: PaginationProps) {
-        const { clearSelectOnPageChange } = unref(getMergeProps);
+      function handleTableChange(
+        pagination: PaginationProps,
+        // @ts-ignore
+        filters: Partial<Record<string, string[]>>,
+        sorter: SorterResult
+      ) {
+        const { clearSelectOnPageChange, sortFn } = unref(getMergeProps);
         if (clearSelectOnPageChange) {
           clearSelectedRowKeys();
         }
         setPagination(pagination);
+
+        if (sorter && isFunction(sortFn)) {
+          const sortInfo = sortFn(sorter);
+          fetch({ sortInfo });
+          return;
+        }
         fetch();
       }
-      watch(
-        () => unref(getDataSourceRef),
-        () => {
-          if (unref(getMergeProps).showSummary) {
-            nextTick(() => {
-              const tableEl = unref(tableElRef);
-              if (!tableEl) {
-                return;
-              }
-              const bodyDomList = tableEl.$el.querySelectorAll(
-                '.ant-table-body'
-              ) as HTMLDivElement[];
-              const bodyDom = bodyDomList[0];
-              useEvent({
-                el: bodyDom,
-                name: 'scroll',
-                listener: () => {
-                  const footerBodyDom = tableEl.$el.querySelector(
-                    '.ant-table-footer .ant-table-body'
-                  ) as HTMLDivElement;
-                  if (!footerBodyDom || !bodyDom) return;
-                  footerBodyDom.scrollLeft = bodyDom.scrollLeft;
-                },
-                wait: 0,
-                options: true,
-              });
+
+      function handleSummary() {
+        if (unref(getMergeProps).showSummary) {
+          nextTick(() => {
+            const tableEl = unref(tableElRef);
+            if (!tableEl) {
+              return;
+            }
+            const bodyDomList = tableEl.$el.querySelectorAll('.ant-table-body') as HTMLDivElement[];
+            const bodyDom = bodyDomList[0];
+            useEventListener({
+              el: bodyDom,
+              name: 'scroll',
+              listener: () => {
+                const footerBodyDom = tableEl.$el.querySelector(
+                  '.ant-table-footer .ant-table-body'
+                ) as HTMLDivElement;
+                if (!footerBodyDom || !bodyDom) return;
+                footerBodyDom.scrollLeft = bodyDom.scrollLeft;
+              },
+              wait: 0,
+              options: true,
             });
-          }
-        },
-        { immediate: true }
-      );
+          });
+        }
+      }
+
+      function setProps(props: Partial<BasicTableProps>) {
+        innerPropsRef.value = deepMerge(unref(innerPropsRef) || {}, props);
+      }
 
       const tableAction: TableActionType = {
         reload: async (opt?: FetchParams) => {
@@ -247,10 +283,13 @@
           return unref(getPaginationRef);
         },
         getColumns: (opt?: GetColumnsParams) => {
-          const { ignoreIndex } = opt || {};
-          let columns = unref(getColumnsRef);
+          const { ignoreIndex, ignoreAction } = opt || {};
+          let columns = toRaw(unref(getColumnsRef));
           if (ignoreIndex) {
             columns = columns.filter((item) => item.flag !== 'INDEX');
+          }
+          if (ignoreAction) {
+            columns = columns.filter((item) => item.flag !== 'ACTION');
           }
           return columns;
         },
@@ -260,12 +299,16 @@
         setLoading: (loading: boolean) => {
           loadingRef.value = loading;
         },
-        setProps: (props: Partial<BasicTableProps>) => {
-          innerPropsRef.value = deepMerge(unref(innerPropsRef) || {}, props);
+        setProps,
+        getSize: (): SizeType => {
+          return unref(getBindValues).size;
         },
       };
 
-      provideTable(tableAction);
+      provideTable({
+        ...tableAction,
+        wrapRef,
+      });
 
       emit('register', tableAction);
       return {
@@ -278,6 +321,8 @@
         getEmptyDataIsShowTable,
         handleTableChange,
         getRowClassName,
+        wrapRef,
+        tableAction,
         ...tableAction,
       };
     },

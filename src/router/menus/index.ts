@@ -1,4 +1,4 @@
-import type { Menu } from '/@/router/types';
+import type { Menu, MenuModule } from '/@/router/types';
 import type { RouteRecordNormalized } from 'vue-router';
 import { appStore } from '/@/store/modules/app';
 import { permissionStore } from '/@/store/modules/permission';
@@ -7,34 +7,13 @@ import { filter } from '/@/utils/helper/treeHelper';
 import router from '/@/router';
 import { PermissionModeEnum } from '/@/enums/appEnum';
 import { pathToRegexp } from 'path-to-regexp';
+import modules from 'globby!/@/router/menus/modules/**/*.@(ts)';
 
-// ===========================
-// ==========module import====
-// ===========================
-import dashboard from './modules/dashboard';
+const menuModules: MenuModule[] = [];
 
-import exceptionDemo from './modules/demo/exception';
-import iframeDemo from './modules/demo/iframe';
-import compDemo from './modules/demo/comp';
-import permissionDemo from './modules/demo/permission';
-import featDemo from './modules/demo/feat';
-import chartsDemo from './modules/demo/charts';
-import tableDemo from './modules/demo/table';
-import formDemo from './modules/demo/form';
-import treeDemo from './modules/demo/tree';
-
-const menuModules = [
-  dashboard,
-  featDemo,
-  exceptionDemo,
-  iframeDemo,
-  compDemo,
-  permissionDemo,
-  chartsDemo,
-  tableDemo,
-  formDemo,
-  treeDemo,
-];
+Object.keys(modules).forEach((key) => {
+  menuModules.push(modules[key]);
+});
 
 // ===========================
 // ==========Helper===========
@@ -108,8 +87,11 @@ export async function getFlatChildrenMenus(children: Menu[]) {
 function basicFilter(routes: RouteRecordNormalized[]) {
   return (menu: Menu) => {
     const matchRoute = routes.find((route) => {
-      if (route.meta && route.meta.carryParam) {
-        return pathToRegexp(route.path).test(menu.path);
+      if (route.meta) {
+        if (route.meta.carryParam) {
+          return pathToRegexp(route.path).test(menu.path);
+        }
+        if (route.meta.ignoreAuth) return false;
       }
       return route.path === menu.path;
     });

@@ -1,13 +1,17 @@
-import { useTimeout } from '/@/hooks/core/useTimeout';
-import { BasicTableProps, FetchParams } from '../types/table';
-import { PaginationProps } from '../types/pagination';
+import type { BasicTableProps, FetchParams } from '../types/table';
+import type { PaginationProps } from '../types/pagination';
+
 import { watch, ref, unref, ComputedRef, computed, onMounted, Ref } from 'vue';
+
+import { useTimeoutFn } from '@vueuse/core';
+
 import { buildUUID } from '/@/utils/uuid';
 import { isFunction, isBoolean } from '/@/utils/is';
-import { FETCH_SETTING, ROW_KEY } from '../const';
 import { get } from 'lodash-es';
+
 import { useProps } from './useProps';
 
+import { FETCH_SETTING, ROW_KEY } from '../const';
 interface ActionType {
   getPaginationRef: ComputedRef<false | PaginationProps>;
   setPagination: (info: Partial<PaginationProps>) => void;
@@ -89,7 +93,7 @@ export function useDataSource(
         pageParams = {};
       } else {
         const { current, pageSize } = unref(getPaginationRef) as PaginationProps;
-        pageParams[pageField] = opt?.page || current;
+        pageParams[pageField] = (opt && opt.page) || current;
         pageParams[sizeField] = pageSize;
       }
 
@@ -98,6 +102,8 @@ export function useDataSource(
         ...(useSearchForm ? getFieldsValue() : {}),
         ...searchInfo,
         ...(opt ? opt.searchInfo : {}),
+        ...(opt ? opt.sortInfo : {}),
+        ...(opt ? opt.filterInfo : {}),
       };
       if (beforeFetch && isFunction(beforeFetch)) {
         params = beforeFetch(params) || params;
@@ -109,7 +115,6 @@ export function useDataSource(
       if (afterFetch && isFunction(afterFetch)) {
         resultItems = afterFetch(resultItems) || resultItems;
       }
-
       dataSourceRef.value = resultItems;
       setPagination({
         total: resultTotal || 0,
@@ -131,6 +136,7 @@ export function useDataSource(
       });
     } finally {
       loadingRef.value = false;
+      // setSearchFormLoading(false);
     }
   }
 
@@ -139,7 +145,7 @@ export function useDataSource(
   }
   onMounted(() => {
     // 转异步任务
-    useTimeout(() => {
+    useTimeoutFn(() => {
       unref(propsRef).immediate && fetch();
     }, 0);
   });

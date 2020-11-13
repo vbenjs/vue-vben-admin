@@ -11,17 +11,24 @@ export default defineComponent({
       type: String as PropType<string>,
       default: '',
     },
+
     item: {
       type: Object as PropType<MenuType>,
       default: null,
     },
+
     showTitle: {
       type: Boolean as PropType<boolean>,
       default: true,
     },
+
     level: {
       type: Number as PropType<number>,
       default: 0,
+    },
+    isTop: {
+      type: Boolean as PropType<boolean>,
+      default: true,
     },
   },
   setup(props) {
@@ -29,33 +36,56 @@ export default defineComponent({
      * @description: 渲染图标
      */
     function renderIcon(icon: string) {
-      return icon ? <Icon icon={icon} size={18} class="mr-1 menu-item-icon" /> : null;
+      return icon ? <Icon icon={icon} size={18} class="menu-item-icon" /> : null;
+    }
+
+    function renderTag() {
+      const { item, showTitle, isTop } = props;
+      if (!item || showTitle || isTop) return null;
+
+      const { tag } = item;
+      if (!tag) return null;
+
+      const { dot, content, type = 'error' } = tag;
+      if (!dot && !content) return null;
+      const cls = ['basic-menu__tag'];
+
+      dot && cls.push('dot');
+      type && cls.push(type);
+
+      return <span class={cls}>{dot ? '' : content}</span>;
     }
 
     return () => {
       if (!props.item) {
         return null;
       }
-      const { showTitle, level } = props;
+      const { showTitle } = props;
       const { name, icon } = props.item;
       const searchValue = props.searchValue || '';
       const index = name.indexOf(searchValue);
 
       const beforeStr = name.substr(0, index);
       const afterStr = name.substr(index + searchValue.length);
-      const show = level === 1 ? showTitle : true;
-      return [
-        renderIcon(icon!),
-        index > -1 && searchValue ? (
-          <span class={!show && 'hidden'}>
-            {beforeStr}
-            <span class={`basic-menu__keyword`}>{searchValue}</span>
-            {afterStr}
-          </span>
-        ) : (
-          <span class={!show && 'hidden'}>{name}</span>
-        ),
-      ];
+      const cls = showTitle ? ['show-title'] : ['basic-menu__name'];
+
+      return (
+        <>
+          {renderIcon(icon!)}
+          {index > -1 && searchValue ? (
+            <span class={cls}>
+              {beforeStr}
+              <span class={`basic-menu__keyword`}>{searchValue}</span>
+              {afterStr}
+            </span>
+          ) : (
+            <span class={[cls]}>
+              {name}
+              {renderTag()}
+            </span>
+          )}
+        </>
+      );
     };
   },
 });

@@ -9,6 +9,7 @@ declare interface IObj<T = any> {
 }
 
 declare function parseInt(s: string | number, radix?: number): number;
+
 declare function parseFloat(string: string | number): number;
 
 declare type Dictionary<T> = Record<string, T>;
@@ -23,27 +24,29 @@ declare type RefType<T> = T | null;
 
 declare type CustomizedHTMLElement<T> = HTMLElement & T;
 
-declare type Indexable<T> = {
+declare type Indexable<T = any> = {
   [key: string]: T;
 };
 
-declare type KeyString<T = any> = {
-  [key: string]: T;
+declare type Hash<T> = Indexable<T>;
+
+// declare type DeepPartial<T> = {
+//   [P in keyof T]?: T[P] extends (infer U)[]
+//     ? RecursivePartial<U>[]
+//     : T[P] extends object
+//     ? RecursivePartial<T[P]>
+//     : T[P];
+// };
+
+declare type DeepPartial<T> = {
+  [P in keyof T]?: DeepPartial<T[P]>;
 };
 
-type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
-    ? RecursivePartial<U>[]
-    : T[P] extends object
-    ? RecursivePartial<T[P]>
-    : T[P];
-};
-
-type SelectOptions = {
+declare type SelectOptions = {
   label: string;
   value: any;
 }[];
 
-type EmitType = (event: string, ...args: any[]) => void;
+declare type EmitType = (event: string, ...args: any[]) => void;
 
-type TargetContext = '_self' | '_blank';
+declare type TargetContext = '_self' | '_blank';

@@ -12,6 +12,7 @@ import { PageEnum } from '/@/enums/pageEnum';
 import { useGo, useRedo } from '/@/hooks/web/usePage';
 import router from '/@/router';
 import { useTabs, isInitUseTab } from '/@/hooks/web/useTabs';
+import { RouteLocationRaw } from 'vue-router';
 
 const { initTabFn } = useTabs();
 /**
@@ -92,7 +93,11 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
     let toPath: PageEnum | string = PageEnum.BASE_HOME;
 
     if (len > 0) {
-      toPath = unref(getTabsState)[len - 1].path;
+      const page = unref(getTabsState)[len - 1];
+      const p = page.fullPath || page.path;
+      if (p) {
+        toPath = p;
+      }
     }
     // 跳到当前页面报错
     path !== toPath && go(toPath as PageEnum, true);
@@ -192,7 +197,7 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
   }
   return { getDropMenuList, handleMenuEvent };
 }
-export function closeTab(closedTab: TabItem) {
+export function closeTab(closedTab: TabItem | AppRouteRecordRaw) {
   const { currentRoute, replace } = router;
   // 当前tab列表
   const getTabsState = computed(() => {
@@ -205,23 +210,35 @@ export function closeTab(closedTab: TabItem) {
     return;
   }
   // 关闭的为激活atb
-  let toPath: PageEnum | string;
+  let toObj: RouteLocationRaw = {};
   const index = unref(getTabsState).findIndex((item) => item.path === path);
 
   // 如果当前为最左边tab
   if (index === 0) {
     // 只有一个tab，则跳转至首页，否则跳转至右tab
     if (unref(getTabsState).length === 1) {
-      toPath = PageEnum.BASE_HOME;
+      toObj = PageEnum.BASE_HOME;
     } else {
       //  跳转至右边tab
-      toPath = unref(getTabsState)[index + 1].path;
+      const page = unref(getTabsState)[index + 1];
+      const { params, path, query } = page;
+      toObj = {
+        params,
+        path,
+        query,
+      };
     }
   } else {
     // 跳转至左边tab
-    toPath = unref(getTabsState)[index - 1].path;
+    const page = unref(getTabsState)[index - 1];
+    const { params, path, query } = page;
+    toObj = {
+      params: params || {},
+      path,
+      query: query || {},
+    };
   }
   const route = (unref(currentRoute) as unknown) as AppRouteRecordRaw;
   tabStore.commitCloseTab(route);
-  replace(toPath);
+  replace(toObj);
 }

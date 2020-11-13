@@ -5,32 +5,46 @@
       <div class="login-form mx-6">
         <div class="login-form__content px-2 py-10">
           <header>
-            <img src="/@/assets/images/logo.png" class="mr-4" />
+            <img :src="logo" class="mr-4" />
             <h1>{{ title }}</h1>
           </header>
 
           <a-form class="mx-auto mt-10" :model="formData" :rules="formRules" ref="formRef">
             <a-form-item name="account">
-              <a-input size="large" v-model:value="formData.account" placeholder="vben" />
+              <a-input size="large" v-model:value="formData.account" placeholder="Username: vben" />
             </a-form-item>
             <a-form-item name="password">
               <a-input-password
-                autofocus="autofocus"
                 size="large"
                 visibilityToggle
                 v-model:value="formData.password"
-                placeholder="123456"
+                placeholder="Password: 123456"
               />
             </a-form-item>
-            <a-form-item name="verify" v-if="openLoginVerify">
+
+            <!-- <a-form-item name="verify" v-if="openLoginVerify">
               <BasicDragVerify v-model:value="formData.verify" ref="verifyRef" />
-            </a-form-item>
+            </a-form-item> -->
+            <a-row>
+              <a-col :span="12">
+                <a-form-item>
+                  <!-- 未做逻辑，需要自行处理 -->
+                  <a-checkbox v-model:checked="autoLogin" size="small">自动登录</a-checkbox>
+                </a-form-item>
+              </a-col>
+              <a-col :span="12">
+                <a-form-item :style="{ 'text-align': 'right' }">
+                  <!-- 未做逻辑，需要自行处理 -->
+                  <a-button type="link" size="small">忘记密码</a-button>
+                </a-form-item>
+              </a-col>
+            </a-row>
             <a-form-item>
               <a-button
                 type="primary"
                 size="large"
                 class="rounded-sm"
-                block
+                :block="true"
                 @click="login"
                 :loading="formState.loading"
                 >登录</a-button
@@ -43,26 +57,45 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, ref, unref, toRaw, computed } from 'vue';
-  import { BasicDragVerify, DragVerifyActionType } from '/@/components/Verify/index';
+  import {
+    defineComponent,
+    reactive,
+    ref,
+    unref,
+    toRaw,
+    // computed
+  } from 'vue';
+  import { Checkbox } from 'ant-design-vue';
+
+  import Button from '/@/components/Button/index.vue';
+  // import { BasicDragVerify, DragVerifyActionType } from '/@/components/Verify/index';
+
   import { userStore } from '/@/store/modules/user';
-  import { appStore } from '/@/store/modules/app';
+  // import { appStore } from '/@/store/modules/app';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { useSetting } from '/@/hooks/core/useSetting';
+  import logo from '/@/assets/images/logo.png';
+
   export default defineComponent({
-    components: { BasicDragVerify },
+    components: {
+      //  BasicDragVerify,
+      AButton: Button,
+      ACheckbox: Checkbox,
+    },
     setup() {
+      const formRef = ref<any>(null);
+      const autoLoginRef = ref(false);
+      // const verifyRef = ref<RefInstanceType<DragVerifyActionType>>(null);
+
       const { globSetting } = useSetting();
       const { notification } = useMessage();
-      const formRef = ref<any>(null);
-      const verifyRef = ref<RefInstanceType<DragVerifyActionType>>(null);
 
-      const openLoginVerifyRef = computed(() => appStore.getProjectConfig.openLoginVerify);
+      // const openLoginVerifyRef = computed(() => appStore.getProjectConfig.openLoginVerify);
 
       const formData = reactive({
         account: 'vben',
         password: '123456',
-        verify: undefined,
+        // verify: undefined,
       });
       const formState = reactive({
         loading: false,
@@ -71,15 +104,15 @@
       const formRules = reactive({
         account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        verify: unref(openLoginVerifyRef) ? [{ required: true, message: '请通过验证码校验' }] : [],
+        // verify: unref(openLoginVerifyRef) ? [{ required: true, message: '请通过验证码校验' }] : [],
       });
 
-      function resetVerify() {
-        const verify = unref(verifyRef);
-        if (!verify) return;
-        formData.verify && verify.$.resume();
-        formData.verify = undefined;
-      }
+      // function resetVerify() {
+      //   const verify = unref(verifyRef);
+      //   if (!verify) return;
+      //   formData.verify && verify.$.resume();
+      //   formData.verify = undefined;
+      // }
 
       async function handleLogin() {
         const form = unref(formRef);
@@ -102,20 +135,22 @@
           }
         } catch (error) {
         } finally {
-          resetVerify();
+          // resetVerify();
           formState.loading = false;
         }
       }
 
       return {
         formRef,
-        verifyRef,
+        // verifyRef,
         formData,
         formState,
         formRules,
         login: handleLogin,
-        openLoginVerify: openLoginVerifyRef,
+        autoLogin: autoLoginRef,
+        // openLoginVerify: openLoginVerifyRef,
         title: globSetting && globSetting.title,
+        logo,
       };
     },
   });
@@ -133,19 +168,20 @@
       display: none;
       height: 100%;
       background: url(../../../assets/images/login/login-in.png) no-repeat;
-      background-size: 100% 100%;
+      background-position: 30% 30%;
+      background-size: 80% 80%;
 
-      .respond-to(large, { display: block;});
+      .respond-to(xlarge, { display: block;});
     }
 
     &-form {
-      width: 100%;
+      width: 520px;
       background: @white;
       border: 10px solid rgba(255, 255, 255, 0.5);
-      border-width: 10px;
+      border-width: 8px;
       border-radius: 4px;
       background-clip: padding-box;
-      .respond-to(xlarge, { margin: 0 56px});
+      .respond-to(xlarge, { margin: 0 120px 0 50px});
 
       &-wrap {
         position: absolute;
@@ -153,11 +189,14 @@
         right: 0;
         display: flex;
         width: 100%;
-        height: 100%;
+        height: 90%;
         justify-content: center;
         align-items: center;
-        .respond-to(large, { width: 40%;});
-        .respond-to(xlarge, { width: 33.3%;});
+        .respond-to(large, {
+          width: 600px;
+          right: calc(50% - 270px);
+          });
+        .respond-to(xlarge, { width: 540px; right:0});
       }
 
       &__content {
@@ -173,13 +212,13 @@
 
           img {
             display: inline-block;
-            width: 80px;
+            width: 48px;
           }
 
           h1 {
             margin-bottom: 0;
             font-size: 24px;
-            color: @primary-color;
+            // color: @primary-color;
             text-align: center;
           }
         }

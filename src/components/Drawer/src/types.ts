@@ -1,14 +1,16 @@
-import type { Button } from 'ant-design-vue/types/button/button';
+import type { ButtonProps } from 'ant-design-vue/lib/button/buttonTypes';
 import type { CSSProperties, VNodeChild } from 'vue';
 import type { ScrollContainerOptions } from '/@/components/Container/index';
 
 export interface DrawerInstance {
   setDrawerProps: (props: Partial<DrawerProps> | boolean) => void;
 }
+
 export interface ReturnMethods extends DrawerInstance {
-  openDrawer: (visible?: boolean) => void;
+  openDrawer: <T = any>(visible?: boolean, data?: T) => void;
   transferDrawerData: (data: any) => void;
 }
+
 export type RegisterFn = (drawerInstance: DrawerInstance, uuid?: string) => void;
 
 export interface ReturnInnerMethods extends DrawerInstance {
@@ -19,11 +21,8 @@ export interface ReturnInnerMethods extends DrawerInstance {
 }
 
 export type UseDrawerReturnType = [RegisterFn, ReturnMethods];
+
 export type UseDrawerInnerReturnType = [RegisterFn, ReturnInnerMethods];
-export enum DrawerType {
-  DETAIL,
-  DEFAULT,
-}
 
 export interface DrawerFooterProps {
   showOkBtn: boolean;
@@ -51,13 +50,13 @@ export interface DrawerFooterProps {
    * The ok button props, follow jsx rules
    * @type object
    */
-  okButtonProps: { props: Button; on: {} };
+  okButtonProps: { props: ButtonProps; on: {} };
 
   /**
    * The cancel button props, follow jsx rules
    * @type object
    */
-  cancelButtonProps: { props: Button; on: {} };
+  cancelButtonProps: { props: ButtonProps; on: {} };
   /**
    * Whether to apply loading visual effect for OK button or not
    * @default false
@@ -69,7 +68,7 @@ export interface DrawerFooterProps {
   footerHeight: string | number;
 }
 export interface DrawerProps extends DrawerFooterProps {
-  drawerType: DrawerType;
+  isDetail?: boolean;
   loading?: boolean;
   showDetailBack?: boolean;
   visible?: boolean;

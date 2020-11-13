@@ -80,8 +80,8 @@ export function getMultipleHeaderColumns(): BasicColumn[] {
           dataIndex: 'no',
           width: 120,
           filters: [
-            { text: 'Male', value: 'male' },
-            { text: 'Female', value: 'female' },
+            { text: 'Male', value: 'male', children: [] },
+            { text: 'Female', value: 'female', children: [] },
           ],
         },
 
@@ -125,8 +125,8 @@ export function getCustomHeaderColumns(): BasicColumn[] {
       dataIndex: 'no',
       width: 120,
       filters: [
-        { text: 'Male', value: 'male' },
-        { text: 'Female', value: 'female' },
+        { text: 'Male', value: 'male', children: [] },
+        { text: 'Female', value: 'female', children: [] },
       ],
     },
     {
@@ -190,8 +190,8 @@ export function getMergeHeaderColumns(): BasicColumn[] {
       dataIndex: 'no',
       colSpan: 0,
       filters: [
-        { text: 'Male', value: 'male' },
-        { text: 'Female', value: 'female' },
+        { text: 'Male', value: 'male', children: [] },
+        { text: 'Female', value: 'female', children: [] },
       ],
       customRender: renderContent,
     },
@@ -227,7 +227,31 @@ export const getAdvanceSchema = (itemNumber = 6): FormSchema[] => {
 export function getFormConfig(): Partial<FormProps> {
   return {
     labelWidth: 100,
-    schemas: getAdvanceSchema(6),
+    schemas: [
+      ...getAdvanceSchema(5),
+      {
+        field: `field11`,
+        label: `字段33`,
+        component: 'Select',
+        defaultValue: '1',
+        componentProps: {
+          options: [
+            {
+              label: '选项1',
+              value: '1',
+            },
+            {
+              label: '选项2',
+              value: '2',
+            },
+          ],
+        },
+        colProps: {
+          xl: 12,
+          xxl: 8,
+        },
+      },
+    ],
   };
 }
 export function getBasicData() {

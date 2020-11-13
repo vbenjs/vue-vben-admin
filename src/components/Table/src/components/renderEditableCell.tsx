@@ -38,15 +38,16 @@ const EditableCell = defineComponent({
       default: 'Input',
     },
   },
-  setup(props, { attrs }) {
+  emits: ['submit', 'cancel'],
+  setup(props, { attrs, emit }) {
     const table = injectTable();
     const elRef = ref<any>(null);
 
     const isEditRef = ref(false);
     const currentValueRef = ref<string | boolean>(props.value);
 
-    function handleChange(e: ChangeEvent | string | boolean) {
-      if ((e as ChangeEvent).target && Reflect.has((e as ChangeEvent).target, 'value')) {
+    function handleChange(e: any) {
+      if (e && e.target && Reflect.has(e.target, 'value')) {
         currentValueRef.value = (e as ChangeEvent).target.value;
       }
       if (isString(e) || isBoolean(e)) {
@@ -58,12 +59,13 @@ const EditableCell = defineComponent({
       isEditRef.value = true;
       nextTick(() => {
         const el = unref(elRef);
-        el && el.focus && el.focus();
+        el && el.focus();
       });
     }
 
     function handleCancel() {
       isEditRef.value = false;
+      emit('cancel');
     }
 
     function handleSubmit() {
@@ -78,13 +80,14 @@ const EditableCell = defineComponent({
       const target = dataSource.find((item) => item.key === dataKey);
       if (target) {
         target[dataIndex] = unref(currentValueRef);
+        emit('submit', { dataKey, dataIndex, value: unref(currentValueRef) });
       }
     }
 
     function onClickOutside() {
       const { component } = props;
 
-      if (component?.includes('Input')) {
+      if (component && component.includes('Input')) {
         handleCancel();
       }
     }

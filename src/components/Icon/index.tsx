@@ -32,6 +32,7 @@ export default defineComponent({
       const { icon, prefix } = props;
       return `${prefix ? prefix + ':' : ''}${icon}`;
     });
+
     const update = async () => {
       const el = unref(elRef);
       if (el) {
@@ -53,8 +54,6 @@ export default defineComponent({
       }
     };
 
-    watch(() => props.icon, update, { flush: 'post' });
-
     const wrapStyleRef = computed((): any => {
       const { size, color } = props;
       let fs = size;
@@ -68,10 +67,12 @@ export default defineComponent({
       };
     });
 
+    watch(() => props.icon, update, { flush: 'post' });
+
     onMounted(update);
 
     return () => (
-      <div ref={elRef} class={[attrs.class, 'app-iconify']} style={unref(wrapStyleRef)} />
+      <div ref={elRef} class={[attrs.class, 'app-iconify anticon']} style={unref(wrapStyleRef)} />
     );
   },
 });

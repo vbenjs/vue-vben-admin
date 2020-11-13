@@ -4,10 +4,16 @@ const menu: MenuModule = {
   menu: {
     name: 'Dashboard',
     path: '/dashboard',
+    // tag: {
+    //   dot: true,
+    // },
     children: [
       {
         path: '/workbench',
         name: '工作台',
+        // tag: {
+        //   content: 'new',
+        // },
       },
       {
         path: '/analysis',

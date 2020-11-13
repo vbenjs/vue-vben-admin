@@ -8,16 +8,10 @@ const NAME = 'menu';
 hotModuleUnregisterModule(NAME);
 @Module({ namespaced: true, name: NAME, dynamic: true, store })
 class Menu extends VuexModule {
-  // 默认展开
-  private collapsedState: boolean = appStore.getProjectConfig.menuSetting.collapsed;
-
-  // 菜单宽度
-  private menuWidthState: number = appStore.getProjectConfig.menuSetting.menuWidth;
-
   // 是否开始拖拽
-  private dragStartState: boolean = false;
+  private dragStartState = false;
 
-  private currentTopSplitMenuPathState: string = '';
+  private currentTopSplitMenuPathState = '';
 
   /**
    * @description: 获取窗口名称
@@ -51,7 +45,7 @@ class Menu extends VuexModule {
   // 改变菜单展开状态
   @Mutation
   commitCollapsedState(collapsed: boolean): void {
-    this.collapsedState = collapsed;
+    // this.collapsedState = collapsed;
     appStore.commitProjectConfigState({
       menuSetting: {
         collapsed: collapsed,
@@ -61,7 +55,7 @@ class Menu extends VuexModule {
 
   @Mutation
   commitMenuWidthState(menuWidth: number): void {
-    this.menuWidthState = menuWidth;
+    // this.menuWidthState = menuWidth;
     appStore.commitProjectConfigState({
       menuSetting: {
         menuWidth: menuWidth,

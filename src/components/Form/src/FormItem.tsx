@@ -1,17 +1,23 @@
+import type { PropType } from 'vue';
+import type { FormActionType, FormProps } from './types/form';
+import type { FormSchema } from './types/form';
+import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
+import type { TableActionType } from '/@/components/Table';
+
 import { defineComponent, computed, unref, toRef } from 'vue';
 import { Form, Col } from 'ant-design-vue';
 import { componentMap } from './componentMap';
-
-import type { PropType } from 'vue';
-import type { FormProps } from './types/form';
-import type { FormSchema } from './types/form';
-import { isBoolean, isFunction } from '/@/utils/is';
-import { useItemLabelWidth } from './hooks/useLabelWidth';
-import { getSlot } from '/@/utils/helper/tsxHelper';
 import { BasicHelp } from '/@/components/Basic';
+
+import { isBoolean, isFunction } from '/@/utils/is';
+import { getSlot } from '/@/utils/helper/tsxHelper';
 import { createPlaceholderMessage } from './helper';
 import { upperFirst, cloneDeep } from 'lodash-es';
-import { ValidationRule } from 'ant-design-vue/types/form/form';
+
+import { useItemLabelWidth } from './hooks/useLabelWidth';
+import { ComponentType } from './types';
+import { isNumber } from '/@/utils/is';
+
 export default defineComponent({
   name: 'BasicFormItem',
   inheritAttrs: false,
@@ -32,6 +38,12 @@ export default defineComponent({
       type: Object as PropType<any>,
       default: {},
     },
+    tableAction: {
+      type: Object as PropType<TableActionType>,
+    },
+    formActionType: {
+      type: Object as PropType<FormActionType>,
+    },
   },
   setup(props, { slots }) {
     const itemLabelWidthRef = useItemLabelWidth(toRef(props, 'schema'), toRef(props, 'formProps'));
@@ -50,10 +62,36 @@ export default defineComponent({
         schema: schema,
       };
     });
-    const getShowRef = computed(() => {
-      const { show, ifShow, isAdvanced } = props.schema;
+
+    const getComponentsPropsRef = computed(() => {
+      const { schema, tableAction, formModel, formActionType } = props;
+      const { componentProps = {} } = schema;
+      if (!isFunction(componentProps)) {
+        return componentProps;
+      }
+      return componentProps({ schema, tableAction, formModel, formActionType }) || {};
+    });
+
+    const getDisableRef = computed(() => {
+      const { disabled: globDisabled } = props.formProps;
+      const { dynamicDisabled } = props.schema;
+      const { disabled: itemDisabled = false } = unref(getComponentsPropsRef);
+      let disabled = !!globDisabled || itemDisabled;
+      if (isBoolean(dynamicDisabled)) {
+        disabled = dynamicDisabled;
+      }
+
+      if (isFunction(dynamicDisabled)) {
+        disabled = dynamicDisabled(unref(getValuesRef));
+      }
+
+      return disabled;
+    });
+
+    function getShow() {
+      const { show, ifShow } = props.schema;
       const { showAdvancedButton } = props.formProps;
-      const itemIsAdvanced = showAdvancedButton ? !!isAdvanced : true;
+      const itemIsAdvanced = showAdvancedButton ? !!props.schema.isAdvanced : true;
       let isShow = true;
       let isIfShow = true;
 
@@ -71,22 +109,7 @@ export default defineComponent({
       }
       isShow = isShow && itemIsAdvanced;
       return { isShow, isIfShow };
-    });
-
-    const getDisableRef = computed(() => {
-      const { disabled: globDisabled } = props.formProps;
-      const { dynamicDisabled } = props.schema;
-      let disabled = !!globDisabled;
-      if (isBoolean(dynamicDisabled)) {
-        disabled = dynamicDisabled;
-      }
-
-      if (isFunction(dynamicDisabled)) {
-        disabled = dynamicDisabled(unref(getValuesRef));
-      }
-
-      return disabled;
-    });
+    }
 
     function handleRules(): ValidationRule[] {
       const {
@@ -95,13 +118,19 @@ export default defineComponent({
         rulesMessageJoinLabel,
         label,
         dynamicRules,
+        required,
       } = props.schema;
 
       if (isFunction(dynamicRules)) {
         return dynamicRules(unref(getValuesRef));
       }
 
-      const rules: ValidationRule[] = cloneDeep(defRules);
+      let rules: ValidationRule[] = cloneDeep(defRules);
+
+      if ((!rules || rules.length === 0) && required) {
+        rules = [{ required }];
+      }
+
       const requiredRuleIndex: number = rules.findIndex(
         (rule) => Reflect.has(rule, 'required') && !Reflect.has(rule, 'validator')
       );
@@ -139,31 +168,43 @@ export default defineComponent({
       }
       return rules;
     }
+
+    function handleValue(component: ComponentType, field: string) {
+      const val = (props.formModel as any)[field];
+      if (['Input', 'InputPassword', 'InputSearch', 'InputTextArea'].includes(component)) {
+        if (val && isNumber(val)) {
+          (props.formModel as any)[field] = `${val}`;
+          return `${val}`;
+        }
+        return val;
+      }
+      return val;
+    }
+
     function renderComponent() {
       const {
-        componentProps,
         renderComponentContent,
         component,
         field,
         changeEvent = 'change',
+        valueField,
       } = props.schema;
 
-      const isCheck = component && ['Switch'].includes(component);
+      const isCheck = component && ['Switch', 'Checkbox'].includes(component);
 
       const eventKey = `on${upperFirst(changeEvent)}`;
+
       const on = {
         [eventKey]: (e: any) => {
           if (propsData[eventKey]) {
             propsData[eventKey](e);
           }
-          if (e && e.target) {
-            (props.formModel as any)[field] = e.target.value;
-          } else {
-            (props.formModel as any)[field] = e;
-          }
+
+          const target = e ? e.target : null;
+          const value = target ? (isCheck ? target.checked : target.value) : e;
+          (props.formModel as any)[field] = value;
         },
       };
-
       const Comp = componentMap.get(component);
 
       const { autoSetPlaceHolder, size } = props.formProps;
@@ -171,7 +212,7 @@ export default defineComponent({
         allowClear: true,
         getPopupContainer: (trigger: Element) => trigger.parentNode,
         size,
-        ...componentProps,
+        ...unref(getComponentsPropsRef),
         disabled: unref(getDisableRef),
       };
 
@@ -180,23 +221,27 @@ export default defineComponent({
       // RangePicker place为数组
       if (isCreatePlaceholder && component !== 'RangePicker' && component) {
         placeholder =
-          (componentProps && componentProps.placeholder) || createPlaceholderMessage(component);
+          (unref(getComponentsPropsRef) && unref(getComponentsPropsRef).placeholder) ||
+          createPlaceholderMessage(component);
       }
       propsData.placeholder = placeholder;
       propsData.codeField = field;
       propsData.formValues = unref(getValuesRef);
-
       const bindValue = {
-        [isCheck ? 'checked' : 'value']: (props.formModel as any)[field],
+        [valueField || (isCheck ? 'checked' : 'value')]: handleValue(component, field),
       };
       if (!renderComponentContent) {
         return <Comp {...propsData} {...on} {...bindValue} />;
       }
+      const compSlot = isFunction(renderComponentContent)
+        ? { ...renderComponentContent(unref(getValuesRef)) }
+        : {
+            default: () => renderComponentContent,
+          };
+
       return (
         <Comp {...propsData} {...on} {...bindValue}>
-          {{
-            ...renderComponentContent(unref(getValuesRef)),
-          }}
+          {compSlot}
         </Comp>
       );
     }
@@ -213,13 +258,14 @@ export default defineComponent({
         </span>
       );
     }
+
     function renderItem() {
       const { itemProps, slot, render, field } = props.schema;
       const { labelCol, wrapperCol } = unref(itemLabelWidthRef);
       const { colon } = props.formProps;
       const getContent = () => {
         return slot
-          ? getSlot(slots, slot)
+          ? getSlot(slots, slot, unref(getValuesRef))
           : render
           ? render(unref(getValuesRef))
           : renderComponent();
@@ -228,7 +274,7 @@ export default defineComponent({
         <Form.Item
           name={field}
           colon={colon}
-          {...itemProps}
+          {...(itemProps as any)}
           label={renderLabelHelpMessage()}
           rules={handleRules()}
           labelCol={labelCol}
@@ -242,14 +288,11 @@ export default defineComponent({
       const { colProps = {}, colSlot, renderColContent, component } = props.schema;
       if (!componentMap.has(component)) return null;
       const { baseColProps = {} } = props.formProps;
-
       const realColProps = { ...baseColProps, ...colProps };
-
-      const { isIfShow, isShow } = unref(getShowRef);
-
+      const { isIfShow, isShow } = getShow();
       const getContent = () => {
         return colSlot
-          ? getSlot(slots, colSlot)
+          ? getSlot(slots, colSlot, unref(getValuesRef))
           : renderColContent
           ? renderColContent(unref(getValuesRef))
           : renderItem();

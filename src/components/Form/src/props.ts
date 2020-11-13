@@ -1,8 +1,13 @@
 import type { FieldMapToTime, FormSchema } from './types/form';
 import type { PropType } from 'vue';
 import type { ColEx } from './types';
+import { TableActionType } from '/@/components/Table';
 
 export const basicProps = {
+  model: {
+    type: Object as PropType<any>,
+    default: {},
+  },
   // 标签宽度  固定宽度
   labelWidth: {
     type: [Number, String] as PropType<number | string>,
@@ -29,6 +34,10 @@ export const basicProps = {
   autoSetPlaceHolder: {
     type: Boolean,
     default: true,
+  },
+  submitOnReset: {
+    type: Boolean,
+    default: false,
   },
   size: {
     type: String as PropType<'default' | 'small' | 'large'>,
@@ -94,6 +103,9 @@ export const basicProps = {
   layout: {
     type: String as PropType<'horizontal' | 'vertical' | 'inline'>,
     default: 'horizontal',
+  },
+  tableAction: {
+    type: Object as PropType<TableActionType>,
   },
 
   wrapperCol: Object as PropType<any>,

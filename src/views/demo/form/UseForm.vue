@@ -53,7 +53,6 @@
         修改查询按钮
       </a-button>
     </div>
-    <div class="mb-4"> </div>
     <CollapseContainer title="useForm示例">
       <BasicForm @register="register" @submit="handleSubmit" />
     </CollapseContainer>

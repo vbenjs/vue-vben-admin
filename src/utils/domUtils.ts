@@ -15,9 +15,11 @@ export function getBoundingClientRect(element: Element): DOMRect | number {
   }
   return element.getBoundingClientRect();
 }
+
 const trim = function (string: string) {
   return (string || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
 };
+
 /* istanbul ignore next */
 export function hasClass(el: Element, cls: string) {
   if (!el || !cls) return false;
@@ -28,6 +30,7 @@ export function hasClass(el: Element, cls: string) {
     return (' ' + el.className + ' ').indexOf(' ' + cls + ' ') > -1;
   }
 }
+
 /* istanbul ignore next */
 export function addClass(el: Element, cls: string) {
   if (!el) return;
@@ -130,7 +133,7 @@ export function hackCss(attr: string, value: string) {
 
 /* istanbul ignore next */
 export const on = function (
-  element: HTMLElement | Document | Window,
+  element: Element | HTMLElement | Document | Window,
   event: string,
   handler: EventListenerOrEventListenerObject
 ): void {
@@ -141,11 +144,22 @@ export const on = function (
 
 /* istanbul ignore next */
 export const off = function (
-  element: HTMLElement | Document | Window,
+  element: Element | HTMLElement | Document | Window,
   event: string,
   handler: Fn
 ): void {
   if (element && event && handler) {
     element.removeEventListener(event, handler, false);
   }
+};
+
+/* istanbul ignore next */
+export const once = function (el: HTMLElement, event: string, fn: EventListener): void {
+  const listener = function (this: any, ...args: unknown[]) {
+    if (fn) {
+      fn.apply(this, args);
+    }
+    off(el, event, listener);
+  };
+  on(el, event, listener);
 };

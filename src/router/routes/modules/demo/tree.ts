@@ -2,14 +2,14 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 
-export default {
+const tree: AppRouteModule = {
   layout: {
     path: '/tree',
     name: 'TreeDemo',
     component: PAGE_LAYOUT_COMPONENT,
     redirect: '/tree/basic',
     meta: {
-      icon: 'ant-design:table-outlined',
+      icon: 'clarity:tree-view-line',
       title: 'Tree',
     },
   },
@@ -39,4 +39,6 @@ export default {
       },
     },
   ],
-} as AppRouteModule;
+};
+
+export default tree;

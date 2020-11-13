@@ -1,11 +1,13 @@
-import { TabItem, tabStore } from '/@/store/modules/tab';
+import { defineComponent, unref, computed } from 'vue';
+
 import type { PropType } from 'vue';
+
+import { TabItem, tabStore } from '/@/store/modules/tab';
 import { getScaleAction, TabContentProps } from './tab.data';
 
-import { defineComponent, unref, computed } from 'vue';
 import { Dropdown } from '/@/components/Dropdown/index';
 import Icon from '/@/components/Icon/index';
-import { DoubleRightOutlined } from '@ant-design/icons-vue';
+import { RightOutlined } from '@ant-design/icons-vue';
 import { appStore } from '/@/store/modules/app';
 
 import { TabContentEnum } from './tab.data';
@@ -60,7 +62,7 @@ export default defineComponent({
       if (!tabItem) return;
       const icon = tabItem.meta && tabItem.meta.icon;
       if (!icon || !unref(getProjectConfigRef).multiTabsSetting.showIcon) return null;
-      return <Icon icon={icon} class="align-middle mb-1" />;
+      return <Icon icon={icon} class="align-middle " style={{ marginBottom: '2px' }} />;
     }
     function renderTabContent() {
       const { tabItem: { meta } = {} } = props;
@@ -74,7 +76,7 @@ export default defineComponent({
     function renderExtraContent() {
       return (
         <span class={`multiple-tabs-content__extra `}>
-          <DoubleRightOutlined />
+          <RightOutlined />
         </span>
       );
     }

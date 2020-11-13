@@ -1,13 +1,14 @@
-import store from '/@/store';
-import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
+import type { ProjectConfig } from '/@/types/config';
+
 import { VuexModule, getModule, Module, Mutation, Action } from 'vuex-module-decorators';
+import store from '/@/store';
 
 import { PROJ_CFG_KEY, LOCK_INFO_KEY } from '/@/enums/cacheEnum';
-import { ProjectConfig } from '/@/types/config';
 
-// import { userStore } from './user';
+import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
 import { setLocal, getLocal, removeLocal } from '/@/utils/helper/persistent';
 import { deepMerge } from '/@/utils';
+
 import { userStore } from './user';
 
 export interface LockInfo {
@@ -20,12 +21,16 @@ const NAME = 'app';
 hotModuleUnregisterModule(NAME);
 @Module({ dynamic: true, namespaced: true, store, name: NAME })
 class App extends VuexModule {
+  // Page loading status
   private pageLoadingState = false;
 
+  // project config
   private projectConfigState: ProjectConfig | null = getLocal(PROJ_CFG_KEY);
 
+  // lock info
   private lockInfoState: LockInfo | null = getLocal(LOCK_INFO_KEY);
 
+  // set main overflow hidden
   private lockMainScrollState = false;
 
   get getPageLoading() {
@@ -87,7 +92,7 @@ class App extends VuexModule {
   }
 
   // /**
-  //  * @description: 解锁
+  //  * @description: unlock page
   //  */
   @Action
   public async unLockAction({ password, valid = true }: { password: string; valid?: boolean }) {

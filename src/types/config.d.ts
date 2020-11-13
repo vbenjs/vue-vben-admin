@@ -1,5 +1,5 @@
 // 左侧菜单, 顶部菜单
-import { MenuTypeEnum, MenuModeEnum, MenuThemeEnum } from '/@/enums/menuEnum';
+import { MenuTypeEnum, MenuModeEnum, MenuThemeEnum, TriggerEnum } from '/@/enums/menuEnum';
 import { ContentEnum, PermissionModeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 
 export interface MessageSetting {
@@ -11,15 +11,20 @@ export interface MessageSetting {
 }
 export interface MenuSetting {
   collapsed: boolean;
+  collapsedShowTitle: boolean;
   hasDrag: boolean;
   showSearch: boolean;
   show: boolean;
+  hidden: boolean;
   split: boolean;
   menuWidth: number;
   mode: MenuModeEnum;
   type: MenuTypeEnum;
   theme: MenuThemeEnum;
   topMenuAlign: 'start' | 'center' | 'end';
+  collapsedShowSearch: boolean;
+  trigger: TriggerEnum;
+  accordion: boolean;
 }
 
 export interface MultiTabsSetting {
@@ -46,8 +51,14 @@ export interface HeaderSetting {
   // 显示文档按钮
   showDoc: boolean;
   showGithub: boolean;
+  // 显示消息中心按钮
+  showNotice: boolean;
 }
 export interface ProjectConfig {
+  // header背景色
+  headerBgColor: string;
+  // 左侧菜单背景色
+  menuBgColor: string;
   // 是否显示配置按钮
   showSettingButton: boolean;
   // 权限模式
@@ -67,7 +78,6 @@ export interface ProjectConfig {
   headerSetting: HeaderSetting;
   // 菜单类型
   // menuType: MenuTypeEnum;
-
   menuSetting: MenuSetting;
 
   messageSetting: MessageSetting;
@@ -81,19 +91,16 @@ export interface ProjectConfig {
   lockTime: number;
   // 显示面包屑
   showBreadCrumb: boolean;
+  // 显示面包屑图标
+  showBreadCrumbIcon: boolean;
   // 使用error-handler-plugin
   useErrorHandle: boolean;
-
   // 开启页面切换动画
   openRouterTransition: boolean;
   // 路由切换动画
   routerTransition: RouterTransitionEnum;
-
   // 是否开启登录安全校验
   openLoginVerify: boolean;
-
-  // 是否监听网络变化
-  listenNetWork: boolean;
   // 是否开启页面切换loading
   openPageLoading: boolean;
   // 是否开启回到顶部
@@ -111,23 +118,17 @@ export interface ProjectConfig {
 export interface GlobConfig {
   // 网站标题
   title: string;
-
   // 项目路径
   apiUrl: string;
-
   urlPrefix?: string;
-
   shortName: string;
 }
 export interface GlobEnvConfig {
   // 网站标题
   VITE_GLOB_APP_TITLE: string;
-
   // 项目路径
   VITE_GLOB_API_URL: string;
-
   VITE_GLOB_API_URL_PREFIX?: string;
-
   VITE_GLOB_APP_SHORT_NAME: string;
 }
 

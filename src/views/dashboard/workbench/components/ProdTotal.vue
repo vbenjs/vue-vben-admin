@@ -29,7 +29,7 @@
 
     &__item {
       display: inline-block;
-      width: calc(25% - 8px);
+      flex: 0 0 calc(25% - 8px);
       padding: 20px 10px;
       margin-right: 8px;
       border-radius: 4px;

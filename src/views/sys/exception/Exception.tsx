@@ -6,8 +6,6 @@ import { defineComponent, ref, computed, unref } from 'vue';
 import { ExceptionEnum } from '/@/enums/exceptionEnum';
 
 import netWorkImg from '/@/assets/images/exception/net-work.png';
-import error404 from '/@/assets/images/exception/404.png';
-import error500 from '/@/assets/images/exception/500.png';
 import notDataImg from '/@/assets/images/no-data.png';
 
 import { useRoute } from 'vue-router';
@@ -22,6 +20,7 @@ interface MapValue {
   btnText?: string;
   icon?: string;
   handler?: Fn;
+  status?: string;
 }
 
 export default defineComponent({
@@ -63,50 +62,52 @@ export default defineComponent({
       }
     );
 
+    unref(statusMapRef).set(ExceptionEnum.PAGE_NOT_ACCESS, {
+      title: '403',
+      status: `${ExceptionEnum.PAGE_NOT_ACCESS}`,
+      subTitle: `Sorry, you don't have access to this page.!`,
+      btnText: props.full ? 'Back Login' : 'Back Home',
+      handler: () => (props.full ? go(PageEnum.BASE_LOGIN) : go()),
+    });
+
     unref(statusMapRef).set(ExceptionEnum.PAGE_NOT_FOUND, {
       title: '404',
-      subTitle: '抱歉，您访问的页面不存在!',
-      btnText: props.full ? '返回登录' : '返回首页',
+      status: `${ExceptionEnum.PAGE_NOT_FOUND}`,
+      subTitle: `Sorry, the page you visited does not exist.`,
+      btnText: props.full ? 'Back Login' : 'Back Home',
       handler: () => (props.full ? go(PageEnum.BASE_LOGIN) : go()),
-      icon: error404,
     });
 
     unref(statusMapRef).set(ExceptionEnum.ERROR, {
       title: '500',
-      subTitle: '抱歉，服务器出现异常!',
-      btnText: '返回首页',
+      status: `${ExceptionEnum.ERROR}`,
+      subTitle: `Sorry, the server is reporting an error.`,
+      btnText: 'Back Home',
       handler: () => go(),
-      icon: error500,
     });
 
     unref(statusMapRef).set(ExceptionEnum.PAGE_NOT_DATA, {
-      title: '当前页面无数据',
+      title: 'No data on the current page',
       subTitle: '',
-      btnText: '刷新',
+      btnText: 'Refresh',
       handler: () => redo(),
       icon: notDataImg,
     });
 
     unref(statusMapRef).set(ExceptionEnum.NET_WORK_ERROR, {
-      title: '网络错误',
-      subTitle: '抱歉，您的网络连接已断开,请检查您的网络!',
-      btnText: '刷新',
+      title: 'Network Error',
+      subTitle: 'Sorry，Your network connection has been disconnected, please check your network!',
+      btnText: 'Refresh',
       handler: () => redo(),
       icon: netWorkImg,
     });
 
-    unref(statusMapRef).set(ExceptionEnum.PAGE_TIMEOUT, {
-      title: '页面加载失败',
-      subTitle: '抱歉，您的页面加载出错或者过久未响应,请检查您的网络!',
-      btnText: '刷新',
-      handler: () => redo(),
-      icon: netWorkImg,
-    });
     return () => {
-      const { title, subTitle, btnText, icon, handler } = unref(getMapValue) || {};
+      const { title, subTitle, btnText, icon, handler, status } = unref(getMapValue) || {};
       return (
         <Result
           class="exception "
+          status={status as any}
           title={props.title || title}
           sub-title={props.subTitle || subTitle}
         >
@@ -117,7 +118,7 @@ export default defineComponent({
                   {() => btnText}
                 </Button>
               ),
-            icon: () => icon && <img src={icon} />,
+            icon: () => (icon ? <img src={icon} /> : null),
           }}
         </Result>
       );

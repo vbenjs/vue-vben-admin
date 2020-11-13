@@ -2,7 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 
-export default {
+const comp: AppRouteModule = {
   layout: {
     path: '/comp',
     name: 'Comp',
@@ -21,6 +21,14 @@ export default {
       component: () => import('/@/views/demo/comp/button/index.vue'),
       meta: {
         title: '基础组件',
+      },
+    },
+    {
+      path: '/transition',
+      name: 'transitionDemo',
+      component: () => import('/@/views/demo/comp/transition/index.vue'),
+      meta: {
+        title: '动画组件',
       },
     },
     {
@@ -93,6 +101,32 @@ export default {
     },
 
     {
+      path: '/lazy',
+      name: 'lazyDemo',
+      redirect: '/comp/lazy/basic',
+      meta: {
+        title: '懒加载组件',
+      },
+      children: [
+        {
+          path: 'basic',
+          name: 'BasicLazyDemo',
+          component: () => import('/@/views/demo/comp/lazy/index.vue'),
+          meta: {
+            title: '基础示例',
+          },
+        },
+        {
+          path: 'transition',
+          name: 'BasicTransitionDemo',
+          component: () => import('/@/views/demo/comp/lazy/Transition.vue'),
+          meta: {
+            title: '动画效果',
+          },
+        },
+      ],
+    },
+    {
       path: '/verify',
       name: 'VerifyDemo',
       redirect: '/comp/verify/drag',
@@ -136,5 +170,15 @@ export default {
         title: '密码强度组件',
       },
     },
+    {
+      path: '/upload',
+      name: 'UploadDemo',
+      component: () => import('/@/views/demo/comp/upload/index.vue'),
+      meta: {
+        title: '上传组件',
+      },
+    },
   ],
-} as AppRouteModule;
+};
+
+export default comp;

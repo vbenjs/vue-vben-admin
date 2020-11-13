@@ -11,7 +11,7 @@ const demoList = (() => {
       address: '@city()',
       name: '@cname()',
       'no|100000-10000000': 100000,
-      'status|1': ['正常', '启用', '停用'],
+      'status|1': ['normal', 'enable', 'disable'],
     });
   }
   return result;

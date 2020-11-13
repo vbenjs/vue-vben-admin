@@ -4,7 +4,7 @@
       <template #customTitle>
         <span>
           姓名
-          <BaseHelp class="ml-2" text="姓名" />
+          <BasicHelp class="ml-2" text="姓名" />
         </span>
       </template>
       <template #customAddress>
@@ -20,9 +20,10 @@
   import { getCustomHeaderColumns } from './tableData';
   import { FormOutlined } from '@ant-design/icons-vue';
   import { demoListApi } from '/@/api/demo/table';
+  import { BasicHelp } from '/@/components/Basic';
 
   export default defineComponent({
-    components: { BasicTable, FormOutlined },
+    components: { BasicTable, FormOutlined, BasicHelp },
     setup() {
       const [registerTable] = useTable({
         title: '定高/头部自定义',

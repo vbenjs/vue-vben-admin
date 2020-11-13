@@ -2,7 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 
-export default {
+const feat: AppRouteModule = {
   layout: {
     path: '/feat',
     name: 'FeatDemo',
@@ -18,7 +18,7 @@ export default {
     {
       path: '/icon',
       name: 'IconDemo',
-      component: () => import('/@/views/demo/comp/icon/index.vue'),
+      component: () => import('/@/views/demo/feat/icon/index.vue'),
       meta: {
         title: '图标',
       },
@@ -41,9 +41,17 @@ export default {
       },
     },
     {
+      path: '/download',
+      name: 'DownLoadDemo',
+      component: () => import('/@/views/demo/feat/download/index.vue'),
+      meta: {
+        title: '文件下载',
+      },
+    },
+    {
       path: '/click-out-side',
       name: 'ClickOutSideDemo',
-      component: () => import('/@/views/demo/comp/click-out-side/index.vue'),
+      component: () => import('/@/views/demo/feat/click-out-side/index.vue'),
       meta: {
         title: 'ClickOutSide组件',
       },
@@ -97,6 +105,14 @@ export default {
       },
     },
     {
+      path: '/error-log',
+      name: 'ErrorLog',
+      component: () => import('/@/views/sys/error-log/index.vue'),
+      meta: {
+        title: '错误日志',
+      },
+    },
+    {
       path: '/testTab/:id',
       name: 'TestTab',
       component: () => import('/@/views/demo/feat/tab-params/index.vue'),
@@ -106,4 +122,6 @@ export default {
       },
     },
   ],
-} as AppRouteModule;
+};
+
+export default feat;

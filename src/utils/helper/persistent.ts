@@ -1,4 +1,4 @@
-import { createStorage } from '/@/utils/storage/index';
+import { createStorage } from '/@/utils/storage';
 import { isIeFn } from '/@/utils/browser';
 
 import { BASE_LOCAL_CACHE_KEY, BASE_SESSION_CACHE_KEY } from '/@/enums/cacheEnum';
@@ -6,10 +6,15 @@ import { BASE_LOCAL_CACHE_KEY, BASE_SESSION_CACHE_KEY } from '/@/enums/cacheEnum
 const ls = createStorage(localStorage);
 const ss = createStorage();
 
+interface CacheStore {
+  local?: any;
+  session?: any;
+}
+
 /**
  * @description:  Persistent cache
  */
-const cacheStore: any = {
+const cacheStore: CacheStore = {
   // localstorage cache
   local: {},
   // sessionstorage cache
@@ -22,9 +27,13 @@ function initCache() {
 }
 initCache();
 
-export function setLocal(key: string, value: any) {
+export function setLocal(key: string, value: any, immediate = false) {
   cacheStore.local[BASE_LOCAL_CACHE_KEY] = cacheStore.local[BASE_LOCAL_CACHE_KEY] || {};
   cacheStore.local[BASE_LOCAL_CACHE_KEY][key] = value;
+  if (immediate) {
+    const localCache = cacheStore.local;
+    ls.set(BASE_LOCAL_CACHE_KEY, localCache);
+  }
 }
 
 export function getLocal<T>(key: string): T | null {
@@ -44,9 +53,13 @@ export function clearLocal() {
   cacheStore.local = {};
 }
 
-export function setSession(key: string, value: any) {
+export function setSession(key: string, value: any, immediate = false) {
   cacheStore.session[BASE_SESSION_CACHE_KEY] = cacheStore.session[BASE_SESSION_CACHE_KEY] || {};
   cacheStore.session[BASE_SESSION_CACHE_KEY][key] = value;
+  if (immediate) {
+    const cache = cacheStore.session;
+    ss.set(BASE_SESSION_CACHE_KEY, cache);
+  }
 }
 
 export function removeSession(key: string) {

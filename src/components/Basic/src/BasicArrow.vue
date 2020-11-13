@@ -7,11 +7,10 @@
   import type { PropType } from 'vue';
 
   import { defineComponent, computed } from 'vue';
-
   import { RightOutlined } from '@ant-design/icons-vue';
 
   export default defineComponent({
-    name: 'BaseArrow',
+    name: 'BasicArrow',
     components: { RightOutlined },
     props: {
       // Expand contract, expand by default
@@ -24,7 +23,6 @@
       const getClass = computed(() => {
         const preCls = 'base-arrow';
         const cls = [preCls];
-
         props.expand && cls.push(`${preCls}__active`);
         return cls;
       });
@@ -51,9 +49,12 @@
 
     &__active {
       transform: rotate(90deg);
-      // > span {
-      //   transform: rotate(90deg);
-      // }
+    }
+
+    &.right.base-arrow__active {
+      span {
+        transform: rotate(90deg);
+      }
     }
   }
 </style>

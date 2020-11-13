@@ -6,10 +6,11 @@ import { Input } from 'ant-design-vue';
 
 import zxcvbn from 'zxcvbn';
 import { extendSlots } from '/@/utils/helper/tsxHelper';
+
 import './index.less';
-const prefixCls = 'streng-meter';
+const prefixCls = 'strength-meter';
 export default defineComponent({
-  name: 'StrengMeter',
+  name: 'StrengthMeter',
   emits: ['score-change', 'change'],
   props: {
     value: {

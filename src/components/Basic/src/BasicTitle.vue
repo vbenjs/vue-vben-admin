@@ -1,7 +1,7 @@
 <template>
   <span class="base-title" :class="{ 'show-span': showSpan && $slots.default }">
     <slot />
-    <BaseHelp class="base-title__help" v-if="helpMessage" :text="helpMessage" />
+    <BasicHelp class="base-title__help" v-if="helpMessage" :text="helpMessage" />
   </span>
 </template>
 <script lang="ts">
@@ -9,8 +9,11 @@
 
   import { defineComponent } from 'vue';
 
+  import BasicHelp from './BasicHelp.vue';
+
   export default defineComponent({
-    name: 'BaseTitle',
+    name: 'BasicTitle',
+    components: { BasicHelp },
     props: {
       helpMessage: {
         type: [String, Array] as PropType<string | string[]>,
@@ -18,7 +21,7 @@
       },
       showSpan: {
         type: Boolean as PropType<boolean>,
-        default: true,
+        default: false,
       },
     },
     setup() {

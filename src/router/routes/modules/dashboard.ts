@@ -2,7 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 
-export default {
+const dashboard: AppRouteModule = {
   layout: {
     path: '/dashboard',
     name: 'Dashboard',
@@ -41,4 +41,6 @@ export default {
       },
     },
   ],
-} as AppRouteModule;
+};
+
+export default dashboard;

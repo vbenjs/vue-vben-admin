@@ -11,10 +11,11 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, ref } from 'vue';
   import { BasicForm, FormSchema } from '/@/components/Form/index';
   import { CollapseContainer } from '/@/components/Container/index';
   import { useMessage } from '/@/hooks/web/useMessage';
+
   const schemas: FormSchema[] = [
     {
       field: 'field1',
@@ -23,20 +24,37 @@
       colProps: {
         span: 8,
       },
-      defaultValue: '111',
-      componentProps: {
-        placeholder: '自定义placeholder',
-        onChange: (e: any) => {
-          console.log(e);
-        },
+      // componentProps:{},
+      // can func
+      componentProps: ({ schema, formModel }) => {
+        console.log('form:', schema);
+        console.log('formModel:', formModel);
+        return {
+          placeholder: '自定义placeholder',
+          onChange: (e: any) => {
+            console.log(e);
+          },
+        };
+      },
+      renderComponentContent: () => {
+        return {
+          prefix: () => 'pSlot',
+          suffix: () => 'sSlot',
+        };
       },
     },
     {
       field: 'field2',
       component: 'Input',
       label: '字段2',
+      defaultValue: '111',
       colProps: {
         span: 8,
+      },
+      componentProps: {
+        onChange: (e: any) => {
+          console.log(e);
+        },
       },
     },
     {
@@ -109,17 +127,100 @@
         ],
       },
     },
+    {
+      field: 'field8',
+      component: 'Checkbox',
+      label: '字段8',
+      colProps: {
+        span: 8,
+      },
+      renderComponentContent: 'Check',
+    },
+    {
+      field: 'field9',
+      component: 'Switch',
+      label: '字段9',
+      colProps: {
+        span: 8,
+      },
+    },
+    {
+      field: 'field10',
+      component: 'RadioButtonGroup',
+      label: '字段10',
+      colProps: {
+        span: 8,
+      },
+      componentProps: {
+        options: [
+          {
+            label: '选项1',
+            value: '1',
+          },
+          {
+            label: '选项2',
+            value: '2',
+          },
+        ],
+      },
+    },
+    {
+      field: 'field11',
+      component: 'Cascader',
+      label: '字段11',
+      colProps: {
+        span: 8,
+      },
+      componentProps: {
+        options: [
+          {
+            value: 'zhejiang',
+            label: 'Zhejiang',
+            children: [
+              {
+                value: 'hangzhou',
+                label: 'Hangzhou',
+                children: [
+                  {
+                    value: 'xihu',
+                    label: 'West Lake',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            value: 'jiangsu',
+            label: 'Jiangsu',
+            children: [
+              {
+                value: 'nanjing',
+                label: 'Nanjing',
+                children: [
+                  {
+                    value: 'zhonghuamen',
+                    label: 'Zhong Hua Men',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    },
   ];
 
   export default defineComponent({
     components: { BasicForm, CollapseContainer },
     setup() {
+      const check = ref(null);
       const { createMessage } = useMessage();
       return {
         schemas,
         handleSubmit: (values: any) => {
           createMessage.success('click search,values:' + JSON.stringify(values));
         },
+        check,
       };
     },
   });

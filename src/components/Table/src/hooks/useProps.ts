@@ -1,14 +1,6 @@
-/*
- * @description:
- * @author: wenbin.chen
- * @Date: 2020-05-12 13:20:26
- * @LastEditors: vben
- * @LastEditTime: 2020-10-07 14:52:34
- * @email: 190848757@qq.com
- */
-
 import { Ref, ref, watch, unref } from 'vue';
-import { BasicTableProps } from '../types/table';
+
+import type { BasicTableProps } from '../types/table';
 
 /**
  * @description:

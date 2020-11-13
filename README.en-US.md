@@ -1,13 +1,13 @@
 <p align="center">
   <a href="https://github.com/anncwb/vue-vben-admin" target="_blank">
-    <img alt="VbenAdmin Logo" width="200" src="./.github/res/imgs/logo.png">
+    <img alt="VbenAdmin Logo" width="200" src="/anncwb/vue-vben-admin/raw/main/.github/res/imgs/logo.png">
   </a>
 </p>
 <h2 align="center">VUE VBEN ADMIN2.0</h2>
 
 [Chinese](./README.md) | **English**
 
-[CHANGELOG](CHANGELOG.md)
+[CHANGELOG](CHANGELOG.en_US.md)
 
 - [Introduction](#introduction)
 - [GitHub](#github)
@@ -31,14 +31,11 @@
 - [Finished features](#finished-features)
 - [Developing features](#developing-features)
 - [Browser support](#browser-support)
+- [Plugins](#plugins)
 
 ## Introduction
 
-This branch is a 2.0 new branch which use vue3 to develop.
-
-You can also switch to 1.0 branch which use `vue2.6` , `vue-composition-api` and `vue-cli` to develop.
-
-The project is based on the vue3 style background management system implemented by `ant-design-vue`,`typescript`,`vue3.0`,`vite`,`tsx`.
+The project is based on the vue3 style background management system implemented by ʻant-design-vue`, `typescript`,`vue3.0`,`vite`,`tsx`,
 
 ## GitHub
 
@@ -92,7 +89,6 @@ The documentation for 2.0 hasn't started yet, it will be provided later.
 - [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock) - Mock plugin base on vite
 - [vue-i18n](https://github.com/intlify/vue-i18n-next) - Internationalization
 - [lodash-es](https://github.com/lodash/lodash) - JavaScript utility library
-- [moment](https://github.com/moment/moment) - Time operation library
 - [axios](https://github.com/axios/axios) - Http data interaction
 - [TypeScript](https://www.typescriptlang.org/)
 
@@ -110,17 +106,17 @@ The documentation for 2.0 hasn't started yet, it will be provided later.
 
 ## Install
 
-```js
-//  Make git case sensitive to file names
+```bash
+#  Make git case sensitive to file names
 git config core.ignorecase false
 
-// Pull code of the project
+# Pull code of the project
 git clone https://github.com/anncwb/vue-vben-admin.git vue-vben-admin-2.0
 
 cd vue-vben-admin-2.0
 
-// If you use other package management tool, you can install it by yourself
-// if you hasn't install yarn, please run: npm install -g yarn
+# If you use other package management tool, you can install it by yourself
+#  if you hasn't install yarn, please run: npm install -g yarn
 yarn install
 
 ```
@@ -225,18 +221,18 @@ yarn clean:lib # Delete node_modules, supported window
 - [x] Digital animation
 - [x] First screen loading waiting animation
 - [x] Extract the production environment profile
+- [x] Build Gzip
+- [x] System performance optimization
+- [x] Data import and export
+- [x] Global error handling
+- [x] Rich text component
 
 ## Developing features
 
 - [ ] Upload component
-- [ ] Rich text component
-- [ ] Data import and export
-- [ ] Global error handling
 - [ ] Theme configuration
 - [ ] Dark theme
-- [ ] Build Gzip
 - [ ] Build CDN
-- [ ] System performance optimization
 
 If you have more components/functions/suggestions/bugs/, welcome to submit pr or issue.
 
@@ -246,6 +242,15 @@ It is recommended to use the `Chrome` browser for local development. Development
 
 Support modern browsers, Not currently supported ie11，Follow-up consideration support ie11
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| :-: | :-: | :-: | :-: |
-| Not currently supported | last 2 versions | last 2 versions | last 2 versions |
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
+| :-: | :-: | :-: | :-: | :-: |
+| not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
+
+More browsers can view [Can I Use Es Module](https://caniuse.com/?search=ES%20Module)
+
+## Plugins
+
+If these plugins are helpful to you, you can give a star
+
+- [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock)
+- [vite-plugin-html](https://github.com/anncwb/vite-plugin-html)

@@ -12,9 +12,11 @@
 
     setup(_, { emit }) {
       const wrapRef = ref<Nullable<HTMLDivElement | null>>(null);
+
       useClickOutside(wrapRef as Ref<HTMLDivElement>, () => {
         emit('clickOutside');
       });
+
       return { wrapRef };
     },
   });

@@ -1,9 +1,11 @@
+import type { ColEx } from './types/index';
+
 import { defineComponent, unref, computed, PropType } from 'vue';
 import { Form, Col } from 'ant-design-vue';
-import type { ColEx } from './types/index';
-import { getSlot } from '/@/utils/helper/tsxHelper';
 import Button from '/@/components/Button/index.vue';
-import { UpOutlined, DownOutlined } from '@ant-design/icons-vue';
+import { BasicArrow } from '/@/components/Basic/index';
+
+import { getSlot } from '/@/utils/helper/tsxHelper';
 
 export default defineComponent({
   name: 'BasicFormAction',
@@ -57,6 +59,7 @@ export default defineComponent({
         ...props.resetButtonOptions,
       };
     });
+
     const getSubmitBtnOptionsRef = computed(() => {
       return {
         text: '查询',
@@ -71,8 +74,8 @@ export default defineComponent({
       const advancedSpanObj = showAdvancedButton ? { span: actionSpan < 6 ? 24 : actionSpan } : {};
       const actionColOpt: Partial<ColEx> = {
         span: showAdvancedButton ? 6 : 4,
-        ...actionColOptions,
         ...advancedSpanObj,
+        ...actionColOptions,
       };
       return actionColOpt;
     });
@@ -80,10 +83,12 @@ export default defineComponent({
     function toggleAdvanced() {
       emit('toggle-advanced');
     }
+
     return () => {
       if (!props.show) {
         return;
       }
+
       const {
         showAdvancedButton,
         hideAdvanceBtn,
@@ -91,50 +96,45 @@ export default defineComponent({
         showResetButton,
         showSubmitButton,
       } = props;
+
       return (
-        <>
-          <Col {...unref(actionColOpt)} style={{ textAlign: 'right' }}>
-            {() => (
-              <Form.Item>
-                {() => (
-                  <>
-                    {getSlot(slots, 'advanceBefore')}
-                    {showAdvancedButton && !hideAdvanceBtn && (
-                      <Button type="default" class="mr-2" onClick={toggleAdvanced}>
-                        {() => (
-                          <>
-                            {isAdvanced ? '收起' : '展开'}
-                            {isAdvanced ? (
-                              <UpOutlined class="advanced-icon" />
-                            ) : (
-                              <DownOutlined class="advanced-icon" />
-                            )}
-                          </>
-                        )}
-                      </Button>
-                    )}
+        <Col {...unref(actionColOpt)} style={{ textAlign: 'right' }}>
+          {() => (
+            <Form.Item>
+              {() => (
+                <>
+                  {getSlot(slots, 'advanceBefore')}
+                  {showAdvancedButton && !hideAdvanceBtn && (
+                    <Button type="default" class="mr-2" onClick={toggleAdvanced}>
+                      {() => (
+                        <>
+                          {isAdvanced ? '收起' : '展开'}
+                          <BasicArrow expand={!isAdvanced} />
+                        </>
+                      )}
+                    </Button>
+                  )}
 
-                    {getSlot(slots, 'resetBefore')}
-                    {showResetButton && (
-                      <Button type="default" class="mr-2" {...unref(getResetBtnOptionsRef)}>
-                        {() => unref(getResetBtnOptionsRef).text}
-                      </Button>
-                    )}
+                  {getSlot(slots, 'resetBefore')}
+                  {showResetButton && (
+                    <Button type="default" class="mr-2" {...unref(getResetBtnOptionsRef)}>
+                      {() => unref(getResetBtnOptionsRef).text}
+                    </Button>
+                  )}
 
-                    {getSlot(slots, 'submitBefore')}
-                    {showSubmitButton && (
-                      <Button type="primary" {...unref(getSubmitBtnOptionsRef)}>
-                        {() => unref(getSubmitBtnOptionsRef).text}
-                      </Button>
-                    )}
+                  {getSlot(slots, 'submitBefore')}
+                  {showSubmitButton && (
+                    <Button type="primary" {...unref(getSubmitBtnOptionsRef)}>
+                      {() => unref(getSubmitBtnOptionsRef).text}
+                    </Button>
+                  )}
 
-                    {getSlot(slots, 'submitAfter')}
-                  </>
-                )}
-              </Form.Item>
-            )}
-          </Col>
-        </>
+                  {getSlot(slots, 'submitAfter')}
+                </>
+              )}
+            </Form.Item>
+          )}
+        </Col>
       );
     };
   },

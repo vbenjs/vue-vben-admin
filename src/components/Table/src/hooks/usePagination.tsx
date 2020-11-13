@@ -1,11 +1,13 @@
+import type { PaginationProps } from '../types/pagination';
+import type { BasicTableProps } from '../types/table';
+
 import { computed, unref, ref, ComputedRef } from 'vue';
-import { PaginationProps } from '../types/pagination';
-import { isBoolean } from '/@/utils/is';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue';
+
+import { isBoolean } from '/@/utils/is';
 
 import { PAGE_SIZE, PAGE_SIZE_OPTIONS } from '../const';
 import { useProps } from './useProps';
-import { BasicTableProps } from '../..';
 export function usePagination(refProps: ComputedRef<BasicTableProps>) {
   const configRef = ref<PaginationProps>({});
   const { propsRef } = useProps(refProps);

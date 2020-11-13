@@ -118,8 +118,8 @@
     &__entry {
       position: relative;
       width: 400px;
-      height: 260px;
-      padding: 80px 50px 0 50px;
+      // height: 260px;
+      padding: 80px 50px 50px 50px;
       margin-right: 50px;
       background: #fff;
       border-radius: 6px;

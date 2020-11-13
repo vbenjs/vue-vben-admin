@@ -1,6 +1,10 @@
 <template>
   <div class="collapse-container p-2">
-    <CollapseHeader v-bind="$props" :show="show" @expand="handleExpand" />
+    <CollapseHeader v-bind="$props" :show="show" @expand="handleExpand">
+      <template #title>
+        <slot name="title" />
+      </template>
+    </CollapseHeader>
     <CollapseTransition :enable="canExpan">
       <Skeleton v-if="loading" />
       <div class="collapse-container__body" v-else v-show="show">
@@ -10,7 +14,7 @@
             <slot name="lazySkeleton" />
           </template>
         </LazyContainer>
-        <slot />
+        <slot v-else />
       </div>
     </CollapseTransition>
   </div>
@@ -24,13 +28,19 @@
   import CollapseHeader from './CollapseHeader.vue';
   import { Skeleton } from 'ant-design-vue';
 
-  import LazyContainer from '../LazyContainer';
+  import LazyContainer from '../LazyContainer.vue';
 
   import { triggerWindowResize } from '/@/utils/event/triggerWindowResizeEvent';
   // hook
-  import { useTimeout } from '/@/hooks/core/useTimeout';
+  import { useTimeoutFn } from '@vueuse/core';
+
   export default defineComponent({
-    components: { Skeleton, LazyContainer, CollapseHeader, CollapseTransition },
+    components: {
+      Skeleton,
+      LazyContainer,
+      CollapseHeader,
+      CollapseTransition,
+    },
     name: 'CollapseContainer',
     props: {
       // 标题
@@ -66,7 +76,7 @@
       // 延时加载时间
       lazyTime: {
         type: Number as PropType<number>,
-        default: 3000,
+        default: 0,
       },
     },
     setup(props) {
@@ -80,7 +90,7 @@
 
         if (props.triggerWindowResize) {
           // 这里200毫秒是因为展开有动画,
-          useTimeout(triggerWindowResize, 200);
+          useTimeoutFn(triggerWindowResize, 200);
         }
       }
       return {
@@ -93,7 +103,7 @@
 <style lang="less">
   .collapse-container {
     background: #fff;
-    border-radius: 8px;
+    border-radius: 2px;
     transition: all 0.3s ease-in-out;
 
     &.no-shadow {

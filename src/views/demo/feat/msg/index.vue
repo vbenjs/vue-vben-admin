@@ -1,7 +1,7 @@
 <template>
   <div class="p-4">
     <CollapseContainer class="px-20 bg-white w-full h-32 rounded-md" title="Message">
-      <a-button @click="infoMsg('Info message')" class="mr-2">Info</a-button>
+      <a-button @click="infoMsg('Info message')" class="mr-2"> Info </a-button>
       <a-button @click="successMsg('Success message')" class="mr-2" color="success">
         Success
       </a-button>
@@ -13,6 +13,7 @@
     </CollapseContainer>
 
     <CollapseContainer class="px-20 bg-white w-full h-32 rounded-md mt-5" title="Comfirm">
+      <a-button @click="handleConfirm('info')" class="mr-2">Info</a-button>
       <a-button @click="handleConfirm('warning')" color="warning" class="mr-2">Warning</a-button>
       <a-button @click="handleConfirm('success')" color="success" class="mr-2">Success</a-button>
       <a-button @click="handleConfirm('error')" color="error" class="mr-2">Error</a-button>
@@ -54,7 +55,7 @@
       function handleLoading() {
         createMessage.loading('Loading...');
       }
-      function handleConfirm(type: 'warning' | 'error' | 'success') {
+      function handleConfirm(type: 'warning' | 'error' | 'success' | 'info') {
         createConfirm({
           iconType: type,
           title: 'Tip',

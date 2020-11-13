@@ -5,9 +5,10 @@ import { AxiosCanceler } from './axiosCancel';
 import { isFunction } from '/@/utils/is';
 import { cloneDeep } from 'lodash-es';
 
-import type { RequestOptions, CreateAxiosOptions, Result } from './types';
-import { ContentTypeEnum } from '/@/enums/httpEnum';
+import type { RequestOptions, CreateAxiosOptions, Result, UploadFileParams } from './types';
+// import { ContentTypeEnum } from '/@/enums/httpEnum';
 import { errorResult } from './const';
+import { ContentTypeEnum } from '/@/enums/httpEnum';
 
 export * from './axiosTransform';
 
@@ -16,7 +17,7 @@ export * from './axiosTransform';
  */
 export class VAxios {
   private axiosInstance: AxiosInstance;
-  private options: CreateAxiosOptions;
+  private readonly options: CreateAxiosOptions;
 
   constructor(options: CreateAxiosOptions) {
     this.options = options;
@@ -110,19 +111,36 @@ export class VAxios {
   /**
    * @description:  文件上传
    */
-  uploadFiles(config: AxiosRequestConfig, params: File[]) {
-    const formData = new FormData();
+  uploadFile<T = any>(config: AxiosRequestConfig, params: UploadFileParams) {
+    const formData = new window.FormData();
 
-    Object.keys(params).forEach((key) => {
-      formData.append(key, params[key as any]);
-    });
+    if (params.data) {
+      Object.keys(params.data).forEach((key) => {
+        if (!params.data) return;
+        const value = params.data[key];
+        // support key-value array data
+        if (Array.isArray(value)) {
+          value.forEach((item) => {
+            // { list: [ 11, 22 ] }
+            // formData.append('list[]', 11);
+            formData.append(`${key}[]`, item);
+          });
+          return;
+        }
 
-    return this.request({
+        formData.append(key, params.data[key]);
+      });
+    }
+
+    formData.append(params.name || 'file', params.file, params.filename);
+
+    return this.axiosInstance.request<T>({
       ...config,
       method: 'POST',
       data: formData,
       headers: {
         'Content-type': ContentTypeEnum.FORM_DATA,
+        ignoreCancelToken: true,
       },
     });
   }

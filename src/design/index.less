@@ -13,6 +13,16 @@
   box-sizing: border-box;
 }
 
+// Background color setting in full screen state in each browser
+::backdrop,
+html,
+*:fullscreen,
+*:-webkit-full-screen,
+*:-moz-full-screen {
+  z-index: 1;
+  background-color: #fff !important;
+}
+
 html,
 body {
   width: 100%;
@@ -36,7 +46,8 @@ input::-ms-reveal {
 }
 
 body {
-  font-family: 'Microsoft YaHei,微软雅黑,Arial,sans-serif,Helvetica Neue,Helvetica,Pingfang SC,Hiragino Sans GB';
+  // font-family: 'Microsoft YaHei,微软雅黑,Arial,sans-serif,Helvetica Neue,Helvetica,Pingfang SC,Hiragino Sans GB';
+  font-family: '-apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,noto sans,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol,noto color emoji';
   font-style: normal;
   font-weight: normal;
   line-height: 1.428571429; // 20/14
@@ -149,7 +160,7 @@ object {
 }
 
 .ant-layout {
-  background: #f1f1f6;
+  background: #f0f2f5;
 
   &-content {
     position: relative;

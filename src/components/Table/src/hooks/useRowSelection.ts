@@ -1,6 +1,6 @@
+import type { BasicTableProps, TableRowSelection } from '../types/table';
+
 import { computed, ref, unref, ComputedRef } from 'vue';
-import { BasicTableProps } from '../types/table';
-import { TableRowSelection } from 'ant-design-vue/types/table/table';
 import { useProps } from './useProps';
 
 /* eslint-disable */
@@ -10,7 +10,7 @@ export function useRowSelection(refProps: ComputedRef<BasicTableProps>, emit: Em
   const selectedRowKeysRef = ref<string[]>([]);
   const selectedRowRef = ref<any[]>([]);
 
-  const getRowSelectionRef = computed((): TableRowSelection<any> | null => {
+  const getRowSelectionRef = computed((): TableRowSelection | null => {
     const rowSelection = unref(propsRef).rowSelection;
     if (!rowSelection) {
       return null;
@@ -29,6 +29,7 @@ export function useRowSelection(refProps: ComputedRef<BasicTableProps>, emit: Em
       ...rowSelection,
     };
   });
+
   function setSelectedRowKeys(rowKeys: string[]) {
     selectedRowKeysRef.value = rowKeys;
   }

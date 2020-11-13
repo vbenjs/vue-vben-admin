@@ -1,7 +1,6 @@
-import { ColSpanType } from 'ant-design-vue/types/grid/col';
-
+type ColSpanType = number | string;
 export interface ColEx {
-  style: object;
+  style?: any;
   /**
    * raster number of cells to occupy, 0 corresponds to display: none
    * @default none (0)
@@ -90,13 +89,12 @@ export type ComponentType =
   | 'InputNumber'
   | 'InputCountDown'
   | 'Select'
-  | 'DictSelect'
   | 'SelectOptGroup'
   | 'SelectOption'
   | 'TreeSelect'
   | 'Transfer'
-  | 'Radio'
-  | 'RadioButton'
+  // | 'Radio'
+  | 'RadioButtonGroup'
   | 'RadioGroup'
   | 'Checkbox'
   | 'CheckboxGroup'

@@ -10,7 +10,7 @@ export interface DescItem {
   labelStyle?: any;
 
   field: string;
-  label: string;
+  label: any;
   // 和并列
   span?: number;
   show?: (...arg: any) => boolean;
@@ -30,7 +30,7 @@ export interface DescOptions {
    * 数据
    * @type object
    */
-  data: object;
+  data: any;
   /**
    * 内置的CollapseContainer组件配置
    * @type CollapseContainerOptions

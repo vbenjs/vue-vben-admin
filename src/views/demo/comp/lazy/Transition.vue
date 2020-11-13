@@ -1,0 +1,80 @@
+<template>
+  <div class="p-4 lazy-base-demo">
+    <Alert message="自定义动画" description="懒加载组件显示动画" type="info" show-icon />
+    <div class="lazy-base-demo-wrap">
+      <h1>向下滚动</h1>
+
+      <div class="lazy-base-demo-box">
+        <LazyContainer transitionName="custom">
+          <TargetContent />
+        </LazyContainer>
+      </div>
+    </div>
+  </div>
+</template>
+<script lang="ts">
+  import { defineComponent } from 'vue';
+  import { Skeleton, Alert } from 'ant-design-vue';
+  import TargetContent from './TargetContent.vue';
+  import { LazyContainer } from '/@/components/Container/index';
+  export default defineComponent({
+    components: { LazyContainer, TargetContent, Skeleton, Alert },
+    setup() {
+      return {};
+    },
+  });
+</script>
+<style lang="less">
+  .lazy-base-demo {
+    &-wrap {
+      display: flex;
+      width: 50%;
+      height: 2000px;
+      margin: 20px auto;
+      text-align: center;
+      background: #fff;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &-box {
+      width: 300px;
+      height: 300px;
+    }
+
+    h1 {
+      height: 1300px;
+      margin: 20px 0;
+    }
+  }
+
+  .custom-enter {
+    opacity: 0;
+    transform: scale(0.4) translate(100%);
+  }
+
+  .custom-enter-to {
+    opacity: 1;
+  }
+
+  .custom-enter-active {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    transition: all 0.5s;
+  }
+
+  .custom-leave {
+    opacity: 1;
+  }
+
+  .custom-leave-to {
+    opacity: 0;
+    transform: scale(0.4) translate(-100%);
+  }
+
+  .custom-leave-active {
+    transition: all 0.5s;
+  }
+</style>

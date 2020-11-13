@@ -2,7 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 
-export default {
+const charts: AppRouteModule = {
   layout: {
     path: '/charts',
     name: 'Charts',
@@ -57,4 +57,6 @@ export default {
       component: () => import('/@/views/demo/echarts/apex/index.vue'),
     },
   ],
-} as AppRouteModule;
+};
+
+export default charts;

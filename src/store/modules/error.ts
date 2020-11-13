@@ -1,15 +1,10 @@
 import store from '/@/store';
 import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
-import { VuexModule, getModule, Module, Mutation } from 'vuex-module-decorators';
+import { VuexModule, getModule, Module, Mutation, Action } from 'vuex-module-decorators';
 
 import { formatToDateTime } from '/@/utils/dateUtil';
-export enum ErrorTypeEnum {
-  VUE = 'vue',
-  SCRIPT = 'script',
-  RESOURCE = 'resource',
-  AJAX = 'ajax',
-  PROMISE = 'promise',
-}
+import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
+import { useSetting } from '/@/hooks/core/useSetting';
 
 export interface ErrorInfo {
   type: ErrorTypeEnum;
@@ -30,7 +25,10 @@ const NAME = 'error';
 hotModuleUnregisterModule(NAME);
 @Module({ dynamic: true, namespaced: true, store, name: NAME })
 class Error extends VuexModule implements ErrorState {
+  // error log list
   errorInfoState: ErrorInfo[] = [];
+
+  // error log count
   errorListCountState = 0;
 
   get getErrorInfoState() {
@@ -43,16 +41,41 @@ class Error extends VuexModule implements ErrorState {
 
   @Mutation
   commitErrorInfoState(info: ErrorInfo): void {
-    this.errorInfoState.unshift({
+    const item = {
       ...info,
       time: formatToDateTime(new Date()),
-    });
+    };
+    this.errorInfoState = [item, ...this.errorInfoState];
     this.errorListCountState += 1;
   }
 
   @Mutation
   commitErrorListCountState(count: number): void {
     this.errorListCountState = count;
+  }
+
+  @Action
+  setupErrorHandle(error: any) {
+    const { projectSetting } = useSetting();
+    const { useErrorHandle } = projectSetting;
+    if (!useErrorHandle) return;
+
+    const errInfo: Partial<ErrorInfo> = {
+      message: error.message,
+      type: ErrorTypeEnum.AJAX,
+    };
+    if (error.response) {
+      const {
+        config: { url = '', data: params = '', method = 'get', headers = {} } = {},
+        data = {},
+      } = error.response;
+      errInfo.url = url;
+      errInfo.name = 'Ajax Error!';
+      errInfo.file = '-';
+      errInfo.stack = JSON.stringify(data);
+      errInfo.detail = JSON.stringify({ params, method, headers });
+    }
+    this.commitErrorInfoState(errInfo as ErrorInfo);
   }
 }
 export { Error };

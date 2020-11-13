@@ -22,3 +22,5 @@ export const runChangeLog = async () => {
     process.exit(1);
   }
 };
+
+runChangeLog();

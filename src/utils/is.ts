@@ -67,3 +67,7 @@ export const isServer = typeof window === 'undefined';
 export function isImageDom(o: Element) {
   return o && ['IMAGE', 'IMG'].includes(o.tagName);
 }
+
+export const isTextarea = (element: Element | null): element is HTMLTextAreaElement => {
+  return element !== null && element.tagName.toLowerCase() === 'textarea';
+};
