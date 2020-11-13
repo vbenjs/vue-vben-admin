@@ -1,5 +1,12 @@
+import { dataURLtoBlob } from './stream';
+
+export function downloadByBase64(buf: string, filename: string, mime?: string, bom?: BlobPart) {
+  const base64Buf = dataURLtoBlob(buf);
+  downloadByData(base64Buf, filename, mime, bom);
+}
+
 /**
- * 根据后台接口文件流下载
+ * Download according to the background interface file stream
  * @param {*} data
  * @param {*} filename
  * @param {*} mime
@@ -27,7 +34,7 @@ export function downloadByData(data: BlobPart, filename: string, mime?: string, 
 }
 
 /**
- * 根据文件地址下载文件
+ * Download file according to file address
  * @param {*} sUrl
  */
 export function downloadByUrl({
@@ -43,7 +50,7 @@ export function downloadByUrl({
   const isSafari = window.navigator.userAgent.toLowerCase().indexOf('safari') > -1;
 
   if (/(iP)/g.test(window.navigator.userAgent)) {
-    console.error('您的浏览器不支持下载!');
+    console.error('Your browser does not support download!');
     return false;
   }
   if (isChrome || isSafari) {

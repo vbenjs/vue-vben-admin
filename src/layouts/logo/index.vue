@@ -93,5 +93,13 @@
        opacity: 1;
      });
     }
+
+    // &.dark .logo-title {
+    //   font-weight: 400;
+    // }
+
+    &.light .logo-title {
+      color: @primary-color;
+    }
   }
 </style>
