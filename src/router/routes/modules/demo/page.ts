@@ -116,6 +116,27 @@ const page: AppRouteModule = {
       ],
     },
     // =============================exception end=============================
+
+    // =============================account start=============================
+    {
+      path: '/account',
+      name: 'AccountPage',
+      redirect: '/page-demo/account/setting',
+      meta: {
+        title: '个人页',
+      },
+      children: [
+        {
+          path: 'setting',
+          name: 'AccountSettingPage',
+          component: () => import('/@/views/demo/page/account/setting/index.vue'),
+          meta: {
+            title: '个人设置',
+          },
+        },
+      ],
+    },
+    // =============================account end=============================
   ],
 };
 
