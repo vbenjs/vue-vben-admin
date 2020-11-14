@@ -51,6 +51,19 @@ const menu: MenuModule = {
           },
         ],
       },
+      {
+        path: 'account',
+        name: '个人页',
+        tag: {
+          content: 'new',
+        },
+        children: [
+          {
+            path: 'setting',
+            name: '个人设置',
+          },
+        ],
+      },
     ],
   },
 };
