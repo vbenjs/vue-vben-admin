@@ -1,8 +1,8 @@
 <template>
   <List :class="prefixCls">
-    <Row :gutter="16">
+    <a-row :gutter="16">
       <template v-for="(item, index) in list" :key="index">
-        <Col :span="6">
+        <a-col :span="6">
           <ListItem>
             <Card :hoverable="true" :class="`${prefixCls}__card`">
               <img :src="demoImg" />
@@ -12,9 +12,9 @@
               <div :class="`${prefixCls}__card-content`"> {{ item.content }}</div>
             </Card>
           </ListItem>
-        </Col>
+        </a-col>
       </template>
-    </Row>
+    </a-row>
   </List>
 </template>
 <script lang="ts">

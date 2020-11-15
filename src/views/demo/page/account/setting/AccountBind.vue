@@ -9,7 +9,9 @@
             </template>
             <template #title>
               {{ item.title }}
-              <div v-if="item.extra" class="extra"> {{ item.extra }} </div>
+              <a-button type="link" size="small" v-if="item.extra" class="extra">
+                {{ item.extra }}
+              </a-button>
             </template>
             <template #description>
               <div>{{ item.description }} </div>
@@ -52,8 +54,6 @@
     float: right;
     margin-top: 10px;
     margin-right: 30px;
-    font-weight: normal;
-    color: #1890ff;
     cursor: pointer;
   }
 </style>
