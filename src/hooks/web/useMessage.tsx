@@ -1,5 +1,4 @@
 import type { ModalFunc, ModalFuncProps } from 'ant-design-vue/lib/modal/Modal';
-import type { MessageApi } from 'ant-design-vue/lib/message';
 
 import { Modal, message as Message, notification } from 'ant-design-vue';
 import { InfoCircleFilled, CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons-vue';
@@ -100,7 +99,7 @@ notification.config({
  */
 export function useMessage() {
   return {
-    createMessage: Message as MessageApi,
+    createMessage: Message,
     notification: notification as NotifyApi,
     createConfirm: createConfirm,
     createSuccessModal,

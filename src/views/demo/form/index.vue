@@ -208,6 +208,15 @@
         ],
       },
     },
+    {
+      field: 'field20',
+      component: 'InputNumber',
+      label: '字段20',
+      required: true,
+      colProps: {
+        span: 8,
+      },
+    },
   ];
 
   export default defineComponent({
