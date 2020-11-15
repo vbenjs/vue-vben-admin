@@ -60,7 +60,7 @@ export const details: ListItem[] = [
   },
   {
     icon: 'ant-design:cluster-outlined',
-    title: '蚂蚁金服－某某某事业群',
+    title: '某某某事业群',
   },
   {
     icon: 'ant-design:home-outlined',
@@ -96,10 +96,9 @@ export const articleList = (() => {
   const result: any[] = [];
   for (let i = 0; i < 4; i++) {
     result.push({
-      title: 'Ant Design',
-      description: ['Ant Design', '设计语言', '蚂蚁金服'],
-      content:
-        '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案',
+      title: 'Vben Admin',
+      description: ['Vben', '设计语言', 'Typescript'],
+      content: '基于Vue Next, TypeScript, Ant Design实现的一套完整的企业级后台管理系统。',
       time: '2020-11-14 11:20',
     });
   }
@@ -110,9 +109,9 @@ export const applicationList = (() => {
   const result: any[] = [];
   for (let i = 0; i < 8; i++) {
     result.push({
-      title: 'Ant Design',
+      title: 'Vben Admin',
       icon: 'emojione-monotone:letter-a',
-      color: '#7c51b8',
+      color: '#1890ff',
       active: '100',
       new: '1,799',
       download: 'bx:bx-download',
