@@ -127,6 +127,14 @@ const page: AppRouteModule = {
       },
       children: [
         {
+          path: 'center',
+          name: 'AccountCenterPage',
+          component: () => import('/@/views/demo/page/account/center/index.vue'),
+          meta: {
+            title: '个人中心',
+          },
+        },
+        {
           path: 'setting',
           name: 'AccountSettingPage',
           component: () => import('/@/views/demo/page/account/setting/index.vue'),

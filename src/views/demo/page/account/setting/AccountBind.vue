@@ -22,7 +22,7 @@
 </template>
 <script lang="ts">
   import { List } from 'ant-design-vue';
-  import { defineComponent, onMounted } from 'vue';
+  import { defineComponent } from 'vue';
   import { CollapseContainer } from '/@/components/Container/index';
   import Icon from '/@/components/Icon/index';
 
