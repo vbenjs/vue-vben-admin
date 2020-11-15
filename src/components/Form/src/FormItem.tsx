@@ -122,10 +122,10 @@ export default defineComponent({
       } = props.schema;
 
       if (isFunction(dynamicRules)) {
-        return dynamicRules(unref(getValuesRef));
+        return dynamicRules(unref(getValuesRef)) as ValidationRule[];
       }
 
-      let rules: ValidationRule[] = cloneDeep(defRules);
+      let rules: ValidationRule[] = cloneDeep(defRules) as ValidationRule[];
 
       if ((!rules || rules.length === 0) && required) {
         rules = [{ required }];
@@ -156,6 +156,9 @@ export default defineComponent({
           }
           if (component.includes('RangePicker')) {
             rule.type = 'array';
+          }
+          if (component.includes('InputNumber')) {
+            rule.type = 'number';
           }
         }
       }
