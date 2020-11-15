@@ -1,4 +1,4 @@
-import { UploadApiResult } from '/@/api/demo/model/uploadModel';
+import { UploadApiResult } from '/@/api/sys/model/uploadModel';
 
 export enum UploadResultStatus {
   SUCCESS = 'success',

@@ -126,6 +126,8 @@ export interface TableSetting {
 export interface BasicTableProps<T = any> {
   // 自定义排序方法
   sortFn?: (sortInfo: SorterResult) => any;
+  // 取消表格的默认padding
+  inset?: boolean;
   // 显示表格设置
   showTableSetting?: boolean;
   tableSetting?: TableSetting;

@@ -84,7 +84,7 @@ export function useDataSource(
     const { api, searchInfo, fetchSetting, beforeFetch, afterFetch, useSearchForm } = unref(
       propsRef
     );
-    if (!api && !isFunction(api)) return;
+    if (!api || !isFunction(api)) return;
     try {
       loadingRef.value = true;
       const { pageField, sizeField, listField, totalField } = fetchSetting || FETCH_SETTING;

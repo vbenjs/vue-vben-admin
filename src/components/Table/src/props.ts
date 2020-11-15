@@ -16,7 +16,10 @@ export const basicProps = {
   tableSetting: {
     type: Object as PropType<TableSetting>,
   },
-
+  inset: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
   sortFn: {
     type: Function as PropType<(sortInfo: SorterResult) => any>,
     default: DEFAULT_SORT_FN,

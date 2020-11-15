@@ -118,11 +118,8 @@ export class VAxios {
       Object.keys(params.data).forEach((key) => {
         if (!params.data) return;
         const value = params.data[key];
-        // support key-value array data
         if (Array.isArray(value)) {
           value.forEach((item) => {
-            // { list: [ 11, 22 ] }
-            // formData.append('list[]', 11);
             formData.append(`${key}[]`, item);
           });
           return;

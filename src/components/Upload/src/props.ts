@@ -10,10 +10,10 @@ export const basicProps = {
     type: Number as PropType<number>,
     default: 2,
   },
-  // 最大数量的文件，0不限制
+  // 最大数量的文件，Infinity不限制
   maxNumber: {
     type: Number as PropType<number>,
-    default: 0,
+    default: Infinity,
   },
   // 根据后缀，或者其他
   accept: {
@@ -21,8 +21,17 @@ export const basicProps = {
     default: () => [],
   },
   multiple: {
-    type: Boolean,
+    type: Boolean as PropType<boolean>,
     default: true,
+  },
+  uploadParams: {
+    type: Object as PropType<any>,
+    default: {},
+  },
+  api: {
+    type: Function as PropType<PromiseFn>,
+    default: null,
+    required: true,
   },
 };
 
@@ -32,9 +41,17 @@ export const uploadContainerProps = {
     default: () => [],
   },
   ...basicProps,
+  showPreviewNumber: {
+    type: Boolean as PropType<boolean>,
+    default: true,
+  },
+  emptyHidePreview: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
 };
 
-export const priviewProps = {
+export const previewProps = {
   value: {
     type: Array as PropType<string[]>,
     default: () => [],

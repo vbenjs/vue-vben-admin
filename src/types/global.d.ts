@@ -1,5 +1,9 @@
-declare interface Fn<T = any> {
-  (...arg: T[]): T;
+declare interface Fn<T = any, R = T> {
+  (...arg: T[]): R;
+}
+
+declare interface PromiseFn<T = any, R = T> {
+  (...arg: T[]): Promise<R>;
 }
 
 // 任意对象

@@ -8,11 +8,21 @@
 
     <a-alert message="base64流下载" />
     <a-button type="primary" class="my-4" @click="handleDownloadByBase64"> base64流下载 </a-button>
+
+    <a-alert message="图片Url下载,如果有跨域问题，需要处理图片跨域" />
+    <a-button type="primary" class="my-4" @click="handleDownloadByOnlineUrl">
+      图片Url下载
+    </a-button>
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { downloadByUrl, downloadByData, downloadByBase64 } from '/@/utils/file/FileDownload';
+  import {
+    downloadByUrl,
+    downloadByData,
+    downloadByBase64,
+    downloadByOnlineUrl,
+  } from '/@/utils/file/download';
   import imgBase64 from './imgBase64';
   export default defineComponent({
     setup() {
@@ -24,15 +34,28 @@
           url: 'https://codeload.github.com/anncwb/vue-vben-admin-doc/zip/master',
           target: '_self',
         });
+
+        downloadByUrl({
+          url: 'https://vebn.oss-cn-beijing.aliyuncs.com/vben/logo.png',
+          target: '_self',
+        });
       }
 
       function handleDownloadByBase64() {
         downloadByBase64(imgBase64, 'logo.png');
       }
+
+      function handleDownloadByOnlineUrl() {
+        downloadByOnlineUrl(
+          'https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5944817f47b8408e9f1442ece49d68ca~tplv-k3u1fbpfcp-watermark.image',
+          'logo.png'
+        );
+      }
       return {
         handleDownloadByUrl,
         handleDownByData,
         handleDownloadByBase64,
+        handleDownloadByOnlineUrl,
       };
     },
   });

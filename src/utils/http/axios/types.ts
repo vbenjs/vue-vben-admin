@@ -38,4 +38,5 @@ export interface UploadFileParams {
   file: File | Blob;
   // 文件名
   filename?: string;
+  [key: string]: any;
 }

@@ -7,7 +7,7 @@
   import { defineComponent, watchEffect, PropType, ref, unref } from 'vue';
   import { toCanvas, QRCodeRenderersOptions, LogoType } from './qrcodePlus';
   import { toDataURL } from 'qrcode';
-  import { downloadByUrl } from '/@/utils/file/FileDownload';
+  import { downloadByUrl } from '/@/utils/file/download';
 
   export default defineComponent({
     name: 'QrCode',
