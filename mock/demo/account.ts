@@ -2,7 +2,7 @@ import { MockMethod } from 'vite-plugin-mock';
 import { resultSuccess } from '../_util';
 
 const userInfo = {
-  name: 'Serati Ma',
+  name: 'Vben',
   userid: '00000001',
   email: 'antdesign@alipay.com',
   signature: '海纳百川，有容乃大',
