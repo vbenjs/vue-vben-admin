@@ -1,3 +1,10 @@
+/*
+ * @description: Do not edit
+ * @author: cxiaoting
+ * @Date: 2020-11-13 14:00:37
+ * @LastEditors: cxiaoting
+ * @LastEditTime: 2020-11-13 18:07:11
+ */
 import type { MenuModule } from '/@/router/types.d';
 const menu: MenuModule = {
   orderNo: 20,
@@ -58,6 +65,10 @@ const menu: MenuModule = {
           content: 'new',
         },
         children: [
+          {
+            path: 'center',
+            name: '个人中心',
+          },
           {
             path: 'setting',
             name: '个人设置',
