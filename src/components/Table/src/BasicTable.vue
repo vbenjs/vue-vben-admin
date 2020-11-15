@@ -4,6 +4,7 @@
     class="basic-table"
     :class="{
       'table-form-container': getBindValues.useSearchForm,
+      inset: getBindValues.inset,
     }"
   >
     <BasicForm

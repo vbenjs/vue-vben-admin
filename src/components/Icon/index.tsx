@@ -18,7 +18,7 @@ export default defineComponent({
     // icon size
     size: {
       type: [String, Number] as PropType<string | number>,
-      default: 14,
+      default: 16,
     },
     prefix: {
       type: String as PropType<string>,

@@ -1,10 +1,10 @@
 <template>
   <BasicModal
+    width="800px"
+    title="预览"
     wrapClassName="upload-preview-modal"
     v-bind="$attrs"
-    width="800px"
     @register="register"
-    title="预览"
     :showOkBtn="false"
   >
     <BasicTable @register="registerTable" :dataSource="fileListRef" />
@@ -12,17 +12,18 @@
 </template>
 <script lang="ts">
   import { defineComponent, watch, ref, unref } from 'vue';
+
   import { BasicTable, useTable } from '/@/components/Table';
-  import { createPreviewColumns, createPreviewActionColumn } from './data';
   import { BasicModal, useModalInner } from '/@/components/Modal';
-  import { priviewProps } from './props';
+  import { previewProps } from './props';
   import { PreviewFileItem } from './types';
   import { createImgPreview } from '/@/components/Preview/index';
-  import { downloadByUrl } from '/@/utils/file/FileDownload';
+  import { downloadByUrl } from '/@/utils/file/download';
 
+  import { createPreviewColumns, createPreviewActionColumn } from './data';
   export default defineComponent({
     components: { BasicModal, BasicTable },
-    props: priviewProps,
+    props: previewProps,
     setup(props, { emit }) {
       const [register, { closeModal }] = useModalInner();
       const fileListRef = ref<PreviewFileItem[]>([]);
@@ -43,17 +44,19 @@
         },
         { immediate: true }
       );
+
       // 删除
       function handleRemove(record: PreviewFileItem) {
         const index = fileListRef.value.findIndex((item) => item.url === record.url);
         if (index !== -1) {
           fileListRef.value.splice(index, 1);
           emit(
-            'change',
+            'list-change',
             fileListRef.value.map((item) => item.url)
           );
         }
       }
+
       // 预览
       function handlePreview(record: PreviewFileItem) {
         const { url = '' } = record;
@@ -61,16 +64,19 @@
           imageList: [url],
         });
       }
+
       // 下载
       function handleDownload(record: PreviewFileItem) {
         const { url = '' } = record;
         downloadByUrl({ url });
       }
+
       const [registerTable] = useTable({
         columns: createPreviewColumns(),
         pagination: false,
         actionColumn: createPreviewActionColumn({ handleRemove, handlePreview, handleDownload }),
       });
+
       return {
         register,
         closeModal,

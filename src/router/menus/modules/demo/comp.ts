@@ -4,6 +4,9 @@ const menu: MenuModule = {
   menu: {
     name: '组件',
     path: '/comp',
+    tag: {
+      dot: true,
+    },
     children: [
       {
         path: 'basic',
@@ -38,10 +41,13 @@ const menu: MenuModule = {
         path: 'strength-meter',
         name: '密码强度组件',
       },
-      // {
-      //   path: 'upload',
-      //   name: '上传组件',
-      // },
+      {
+        path: 'upload',
+        name: '上传组件',
+        tag: {
+          content: 'new',
+        },
+      },
       {
         path: 'scroll',
         name: '滚动组件',

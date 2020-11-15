@@ -1,5 +1,25 @@
-import { dataURLtoBlob } from './stream';
+import { dataURLtoBlob, urlToBase64 } from './stream';
 
+/**
+ * Download online pictures
+ * @param url
+ * @param filename
+ * @param mime
+ * @param bom
+ */
+export function downloadByOnlineUrl(url: string, filename: string, mime?: string, bom?: BlobPart) {
+  urlToBase64(url).then((base64) => {
+    downloadByBase64(base64, filename, mime, bom);
+  });
+}
+
+/**
+ * Download pictures based on base64
+ * @param buf
+ * @param filename
+ * @param mime
+ * @param bom
+ */
 export function downloadByBase64(buf: string, filename: string, mime?: string, bom?: BlobPart) {
   const base64Buf = dataURLtoBlob(buf);
   downloadByData(base64Buf, filename, mime, bom);

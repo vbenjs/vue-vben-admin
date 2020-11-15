@@ -42,12 +42,12 @@ export function useUploadType({
 
     const maxSize = unref(maxSizeRef);
     if (maxSize) {
-      helpTexts.push(`不超过${maxSize}MB`);
+      helpTexts.push(`单个文件不超过${maxSize}MB`);
     }
 
     const maxNumber = unref(maxNumberRef);
-    if (maxNumber) {
-      helpTexts.push(`最多可选择${maxNumber}个文件`);
+    if (maxNumber && maxNumber !== Infinity) {
+      helpTexts.push(`最多只能上传${maxNumber}个文件`);
     }
     return helpTexts.join('，');
   });

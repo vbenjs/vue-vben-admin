@@ -24,7 +24,7 @@ export const footerProps = {
   okButtonProps: Object as PropType<any>,
   okText: {
     type: String as PropType<string>,
-    default: '保存',
+    default: '确认',
   },
   okType: {
     type: String as PropType<string>,

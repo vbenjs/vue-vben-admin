@@ -1,4 +1,5 @@
 import type { PropType } from 'vue';
+import { ButtonProps } from 'ant-design-vue/es/button/buttonTypes';
 export const modalProps = {
   visible: Boolean as PropType<boolean>,
   // open drag
@@ -16,7 +17,7 @@ export const modalProps = {
   },
   okText: {
     type: String as PropType<string>,
-    default: '保存',
+    default: '确认',
   },
   closeFunc: Function as PropType<() => Promise<boolean>>,
 };
@@ -100,9 +101,9 @@ export const basicProps = Object.assign({}, modalProps, {
     default: 'primary',
   },
 
-  okButtonProps: Object as PropType<any>,
+  okButtonProps: Object as PropType<ButtonProps>,
 
-  cancelButtonProps: Object as PropType<any>,
+  cancelButtonProps: Object as PropType<ButtonProps>,
 
   title: {
     type: String as PropType<string>,

@@ -1,10 +1,6 @@
-// import { BasicColumn, TableAction, ActionItem } from '@/components/table';
 import { checkImgType, isImgTypeByName } from './utils';
-// import ThumnUrl from './ThumbUrl.vue';
-import { Progress } from 'ant-design-vue';
+import { Progress, Tag } from 'ant-design-vue';
 import { FileItem, PreviewFileItem, UploadResultStatus } from './types';
-// import { ElecArchivesSaveResult } from '@/api/biz/file/model/fileModel';
-// import { quryFile } from '@/api/biz/file/file';
 import { BasicColumn, ActionItem, TableAction } from '/@/components/Table/index';
 
 // 文件上传列表
@@ -16,8 +12,7 @@ export function createTableColumns(): BasicColumn[] {
       width: 100,
       customRender: ({ record }) => {
         const { thumbUrl, type } = (record as FileItem) || {};
-        return <span>{thumbUrl ? <img src={thumbUrl} style={{ width: '50px' }} /> : type}</span>;
-        // return <ThumnUrl fileUrl={thumbUrl} fileType={type} fileName={type} />;
+        return <span>{thumbUrl ? <img style={{ maxWidth: '60px' }} src={thumbUrl} /> : type}</span>;
       },
     },
     {
@@ -26,7 +21,7 @@ export function createTableColumns(): BasicColumn[] {
       align: 'left',
       customRender: ({ text, record }) => {
         const { percent, status: uploadStatus } = (record as FileItem) || {};
-        let status = 'normal';
+        let status: 'normal' | 'exception' | 'active' | 'success' = 'normal';
         if (uploadStatus === UploadResultStatus.ERROR) {
           status = 'exception';
         } else if (uploadStatus === UploadResultStatus.UPLOADING) {
@@ -63,11 +58,11 @@ export function createTableColumns(): BasicColumn[] {
       width: 100,
       customRender: ({ text }) => {
         if (text === UploadResultStatus.SUCCESS) {
-          return '上传成功';
+          return <Tag color="green">{() => '上传成功'}</Tag>;
         } else if (text === UploadResultStatus.ERROR) {
-          return '上传失败';
+          return <Tag color="red">{() => '上传失败'}</Tag>;
         } else if (text === UploadResultStatus.UPLOADING) {
-          return '上传中';
+          return <Tag color="blue">{() => '上传中'}</Tag>;
         }
 
         return text;
@@ -85,6 +80,7 @@ export function createActionColumn(handleRemove: Function, handlePreview: Functi
       const actions: ActionItem[] = [
         {
           label: '删除',
+          color: 'error',
           onClick: handleRemove.bind(null, record),
         },
       ];
@@ -125,9 +121,9 @@ export function createPreviewActionColumn({
   handlePreview,
   handleDownload,
 }: {
-  handleRemove: Function;
-  handlePreview: Function;
-  handleDownload: Function;
+  handleRemove: Fn;
+  handlePreview: Fn;
+  handleDownload: Fn;
 }): BasicColumn {
   return {
     width: 160,
@@ -135,11 +131,12 @@ export function createPreviewActionColumn({
     dataIndex: 'action',
     fixed: false,
     customRender: ({ record }) => {
-      const { url } = (record as PreviewFileItem) || {};
+      const { url } = (record || {}) as PreviewFileItem;
 
       const actions: ActionItem[] = [
         {
           label: '删除',
+          color: 'error',
           onClick: handleRemove.bind(null, record),
         },
         {
