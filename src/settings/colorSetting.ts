@@ -8,7 +8,7 @@ export const HEADER_PRESET_BG_COLOR_LIST: string[] = [
   '#409eff',
   '#4e73df',
   '#e74c3c',
-  '#f39c12',
+  '#24292e',
   '#394664',
   '#001529',
 ];
@@ -17,6 +17,7 @@ export const HEADER_PRESET_BG_COLOR_LIST: string[] = [
 export const SIDE_BAR_BG_COLOR_LIST: string[] = [
   '#273352',
   '#ffffff',
+  '#191a23',
   '#001529',
   '#304156',
   '#28333E',
