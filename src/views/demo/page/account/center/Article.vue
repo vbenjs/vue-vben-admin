@@ -72,7 +72,8 @@
       padding: 0 16px;
       color: rgba(0, 0, 0, 0.45);
 
-      &:not(:last-child) {
+      &:nth-child(1),
+      &:nth-child(2) {
         border-right: 1px solid rgba(206, 206, 206, 0.4);
       }
 

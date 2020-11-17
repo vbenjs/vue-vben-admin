@@ -1,7 +1,7 @@
 <template>
   <ScrollContainer>
     <div ref="wrapperRef" class="m-4 account">
-      <Tabs tab-position="left">
+      <Tabs tab-position="left" :tabBarStyle="tabBarStyle">
         <template v-for="item in settingList" :key="item.key">
           <TabPane :tab="item.name">
             <component :is="item.component" />
@@ -35,7 +35,12 @@
       MsgNotify,
     },
     setup() {
-      return { settingList };
+      return {
+        settingList,
+        tabBarStyle: {
+          width: '220px',
+        },
+      };
     },
   });
 </script>
