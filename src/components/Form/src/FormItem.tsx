@@ -250,14 +250,21 @@ export default defineComponent({
     }
 
     function renderLabelHelpMessage() {
-      const { label, helpMessage, helpComponentProps } = props.schema;
+      const { label, helpMessage, helpComponentProps, subLabel } = props.schema;
+      const renderLabel = subLabel ? (
+        <span>
+          {label} <span style="color:#00000073">{subLabel}</span>
+        </span>
+      ) : (
+        label
+      );
       if (!helpMessage || (Array.isArray(helpMessage) && helpMessage.length === 0)) {
-        return label;
+        return renderLabel;
       }
       return (
         <span>
-          {label}
-          <BasicHelp class="mx-1" text={helpMessage} {...helpComponentProps} />
+          {renderLabel}
+          <BasicHelp placement="top" class="mx-1" text={helpMessage} {...helpComponentProps} />
         </span>
       );
     }
@@ -291,6 +298,7 @@ export default defineComponent({
       const { colProps = {}, colSlot, renderColContent, component } = props.schema;
       if (!componentMap.has(component)) return null;
       const { baseColProps = {} } = props.formProps;
+
       const realColProps = { ...baseColProps, ...colProps };
       const { isIfShow, isShow } = getShow();
       const getContent = () => {

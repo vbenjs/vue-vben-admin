@@ -1,18 +1,18 @@
 <template>
   <div class="p-4">
     <BasicTable @register="registerTable">
-      <template #action>
+      <template #action="{ record }">
         <TableAction
           :actions="[
             {
               label: '删除',
-              onClick: handleDelete,
+              onClick: handleDelete.bind(null, record),
             },
           ]"
           :dropDownActions="[
             {
               label: '启用',
-              onClick: handleOpen,
+              onClick: handleOpen.bind(null, record),
             },
           ]"
         />
@@ -73,11 +73,11 @@
           slots: { customRender: 'action' },
         },
       });
-      function handleDelete() {
-        console.log('点击了删除');
+      function handleDelete(record: any) {
+        console.log('点击了删除', record);
       }
-      function handleOpen() {
-        console.log('点击了启用');
+      function handleOpen(record: any) {
+        console.log('点击了启用', record);
       }
       return {
         registerTable,

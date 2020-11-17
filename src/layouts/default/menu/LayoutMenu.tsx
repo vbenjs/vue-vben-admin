@@ -154,12 +154,12 @@ export default defineComponent({
     function handleMenuClick(menu: Menu) {
       const { path } = menu;
       if (path) {
+        push(path);
         const { splitType } = props;
         // split mode top
         if (splitType === MenuSplitTyeEnum.TOP) {
           menuStore.commitCurrentTopSplitMenuPathState(path);
         }
-        push(path);
       }
     }
 
