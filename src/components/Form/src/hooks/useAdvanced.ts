@@ -132,6 +132,8 @@ export default function ({
   function updateAdvanced() {
     let itemColSum = 0;
     let realItemColSum = 0;
+    const { baseColProps = {} } = unref(getProps);
+
     for (const schema of unref(getSchema)) {
       const { show, colProps } = schema;
       let isShow = true;
@@ -152,8 +154,11 @@ export default function ({
         });
       }
 
-      if (isShow && colProps) {
-        const { itemColSum: sum, isAdvanced } = getAdvanced(colProps, itemColSum);
+      if (isShow && (colProps || baseColProps)) {
+        const { itemColSum: sum, isAdvanced } = getAdvanced(
+          { ...baseColProps, ...colProps },
+          itemColSum
+        );
 
         itemColSum = sum || 0;
         if (isAdvanced) {

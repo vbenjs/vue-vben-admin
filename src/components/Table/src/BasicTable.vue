@@ -8,9 +8,9 @@
     }"
   >
     <BasicForm
+      :submitOnReset="true"
       v-bind="getFormProps"
       v-if="getBindValues.useSearchForm"
-      :submitOnReset="true"
       :submitButtonOptions="{ loading }"
       :tableAction="tableAction"
       @register="registerForm"
