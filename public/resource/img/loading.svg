@@ -27,7 +27,7 @@
           min-width: 100px;
           margin-top: 4px;
           font-size: 13px;
-          color: #2C3A61;
+          color: rgba(0, 0, 0, 0.85);;
           text-align: left;
         }
   </style>

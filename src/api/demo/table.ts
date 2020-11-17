@@ -13,5 +13,8 @@ export function demoListApi(params: DemoParams) {
     url: Api.DEMO_LIST,
     method: 'GET',
     params,
+    headers: {
+      ignoreCancelToken: true,
+    },
   });
 }

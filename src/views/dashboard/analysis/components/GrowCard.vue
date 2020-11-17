@@ -69,7 +69,7 @@
       font-family: PingFangSC-Regular;
       font-size: 16px;
       letter-spacing: 0;
-      color: #2c3a61;
+      color: @text-color-base;
       opacity: 0.7;
     }
 

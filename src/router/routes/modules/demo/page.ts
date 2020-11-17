@@ -51,6 +51,34 @@ const page: AppRouteModule = {
       ],
     },
     // =============================form end=============================
+    // =============================desc start=============================
+    {
+      path: '/desc',
+      name: 'DescPage',
+      redirect: '/page-demo/desc/basic',
+      meta: {
+        title: '详情页',
+      },
+      children: [
+        {
+          path: 'basic',
+          name: 'DescBasicPage',
+          component: () => import('/@/views/demo/page/desc/basic/index.vue'),
+          meta: {
+            title: '基础详情页',
+          },
+        },
+        {
+          path: 'high',
+          name: 'DescHighPage',
+          component: () => import('/@/views/demo/page/desc/high/index.vue'),
+          meta: {
+            title: '高级详情页',
+          },
+        },
+      ],
+    },
+    // =============================desc end=============================
 
     // =============================result start=============================
     {
@@ -81,6 +109,34 @@ const page: AppRouteModule = {
     },
     // =============================result end=============================
 
+    // =============================account start=============================
+    {
+      path: '/account',
+      name: 'AccountPage',
+      redirect: '/page-demo/account/setting',
+      meta: {
+        title: '个人页',
+      },
+      children: [
+        {
+          path: 'center',
+          name: 'AccountCenterPage',
+          component: () => import('/@/views/demo/page/account/center/index.vue'),
+          meta: {
+            title: '个人中心',
+          },
+        },
+        {
+          path: 'setting',
+          name: 'AccountSettingPage',
+          component: () => import('/@/views/demo/page/account/setting/index.vue'),
+          meta: {
+            title: '个人设置',
+          },
+        },
+      ],
+    },
+    // =============================account end=============================
     // =============================exception start=============================
     {
       path: '/exception',
@@ -153,35 +209,6 @@ const page: AppRouteModule = {
       ],
     },
     // =============================exception end=============================
-
-    // =============================account start=============================
-    {
-      path: '/account',
-      name: 'AccountPage',
-      redirect: '/page-demo/account/setting',
-      meta: {
-        title: '个人页',
-      },
-      children: [
-        {
-          path: 'center',
-          name: 'AccountCenterPage',
-          component: () => import('/@/views/demo/page/account/center/index.vue'),
-          meta: {
-            title: '个人中心',
-          },
-        },
-        {
-          path: 'setting',
-          name: 'AccountSettingPage',
-          component: () => import('/@/views/demo/page/account/setting/index.vue'),
-          meta: {
-            title: '个人设置',
-          },
-        },
-      ],
-    },
-    // =============================account end=============================
   ],
 };
 
