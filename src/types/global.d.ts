@@ -1,5 +1,9 @@
-declare interface Fn<T = any> {
-  (...arg: T[]): T;
+declare interface Fn<T = any, R = T> {
+  (...arg: T[]): R;
+}
+
+declare interface PromiseFn<T = any, R = T> {
+  (...arg: T[]): Promise<R>;
 }
 
 // 任意对象
@@ -30,12 +34,16 @@ declare type Indexable<T = any> = {
 
 declare type Hash<T> = Indexable<T>;
 
+// declare type DeepPartial<T> = {
+//   [P in keyof T]?: T[P] extends (infer U)[]
+//     ? RecursivePartial<U>[]
+//     : T[P] extends object
+//     ? RecursivePartial<T[P]>
+//     : T[P];
+// };
+
 declare type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
-    ? RecursivePartial<U>[]
-    : T[P] extends object
-    ? RecursivePartial<T[P]>
-    : T[P];
+  [P in keyof T]?: DeepPartial<T[P]>;
 };
 
 declare type SelectOptions = {

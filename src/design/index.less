@@ -13,6 +13,16 @@
   box-sizing: border-box;
 }
 
+// Background color setting in full screen state in each browser
+::backdrop,
+html,
+*:fullscreen,
+*:-webkit-full-screen,
+*:-moz-full-screen {
+  z-index: 1;
+  background-color: #fff !important;
+}
+
 html,
 body {
   width: 100%;

@@ -3,10 +3,10 @@ import { isClient } from '/@/utils/is';
 import { Options, Props } from './src/types';
 import { createVNode, render } from 'vue';
 const menuManager: {
-  doms: Element[];
+  domList: Element[];
   resolve: Fn;
 } = {
-  doms: [],
+  domList: [],
   resolve: () => {},
 };
 export const createContextMenu = function (options: Options) {
@@ -32,9 +32,9 @@ export const createContextMenu = function (options: Options) {
     const bodyClick = function () {
       menuManager.resolve('');
     };
-    menuManager.doms.push(container);
+    menuManager.domList.push(container);
     const remove = function () {
-      menuManager.doms.forEach((dom: Element) => {
+      menuManager.domList.forEach((dom: Element) => {
         try {
           document.body.removeChild(dom);
         } catch (error) {}
@@ -55,7 +55,7 @@ export const createContextMenu = function (options: Options) {
 export const unMountedContextMenu = function () {
   if (menuManager) {
     menuManager.resolve('');
-    menuManager.doms = [];
+    menuManager.domList = [];
   }
 };
 

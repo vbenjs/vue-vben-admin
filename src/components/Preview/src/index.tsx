@@ -265,6 +265,7 @@ export default defineComponent({
         </div>
       );
     };
+
     return () => {
       return (
         imgState.show && (

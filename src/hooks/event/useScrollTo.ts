@@ -1,6 +1,7 @@
-import { useRaf } from '/@/hooks/event/useRaf';
 import { isFunction, isUnDef } from '/@/utils/is';
 import { ref, unref } from 'vue';
+import { requestAnimationFrame } from '/@/utils/animation';
+
 export interface ScrollToParams {
   el: HTMLElement;
   to: number;
@@ -30,7 +31,6 @@ export function useScrollTo({ el, to, duration = 500, callback }: ScrollToParams
   const increment = 20;
   let currentTime = 0;
   duration = isUnDef(duration) ? 500 : duration;
-  const { requestAnimationFrame } = useRaf();
 
   const animateScroll = function () {
     if (!unref(isActiveRef)) {

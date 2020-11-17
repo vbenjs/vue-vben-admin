@@ -6,7 +6,7 @@ import { injectModal } from '/@/components/Modal/src/provideModal';
 import { getViewportOffset } from '/@/utils/domUtils';
 import { isBoolean } from '/@/utils/is';
 
-import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
+import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
 import { useProps } from './useProps';
 
 export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRef: Ref<any>) {
@@ -110,17 +110,6 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
       nextTick(() => {
         calcTableHeight();
       });
-      // const hasFixedLeft = (unref(propsRef).columns || []).some((item) => item.fixed === 'left');
-      // // TODO antv table问题情况太多，只能先用下面方式定时器hack
-      // useTimeout(() => {
-      //   calcTableHeight(() => {
-      //     // 有左侧固定列的时候才有问题
-      //     hasFixedLeft &&
-      //       useTimeout(() => {
-      //         triggerWindowResize();
-      //       }, 300);
-      //   });
-      // }, 200);
     }
   });
   const getScrollRef = computed(() => {

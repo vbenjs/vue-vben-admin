@@ -3,12 +3,15 @@
     <Alert message="基础示例" description="向下滚动到可见区域才会加载组件" type="info" show-icon />
     <div class="lazy-base-demo-wrap">
       <h1>向下滚动</h1>
-      <LazyContainer @init="() => {}">
-        <TargetContent />
-        <template #skeleton>
-          <Skeleton :rows="10" />
-        </template>
-      </LazyContainer>
+
+      <div class="lazy-base-demo-box">
+        <LazyContainer>
+          <TargetContent />
+          <template #skeleton>
+            <Skeleton :rows="10" />
+          </template>
+        </LazyContainer>
+      </div>
     </div>
   </div>
 </template>
@@ -24,7 +27,7 @@
     },
   });
 </script>
-<style lang="less" scoped>
+<style lang="less">
   .lazy-base-demo {
     &-wrap {
       display: flex;
@@ -36,6 +39,11 @@
       justify-content: center;
       flex-direction: column;
       align-items: center;
+    }
+
+    &-box {
+      width: 300px;
+      height: 300px;
     }
 
     h1 {

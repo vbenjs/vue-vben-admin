@@ -248,10 +248,11 @@ yarn clean:lib # Delete node_modules, supported window
 - [x] Global error handling
 - [x] Rich text component
 - [x] Multilanguage Support
+- [x] Upload component
+
 
 ## Developing features
 
-- [ ] Upload component
 - [ ] Theme configuration
 - [ ] Dark theme
 - [ ] Build CDN

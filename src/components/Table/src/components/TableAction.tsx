@@ -2,7 +2,7 @@ import { defineComponent, PropType } from 'vue';
 import { Dropdown, Menu, Popconfirm } from 'ant-design-vue';
 import Icon from '/@/components/Icon/index';
 import { DownOutlined } from '@ant-design/icons-vue';
-import { ActionItem } from '../types/tableAction';
+import { ActionItem } from '/@/components/Table';
 import Button from '/@/components/Button/index.vue';
 const prefixCls = 'basic-table-action';
 export default defineComponent({
@@ -26,7 +26,14 @@ export default defineComponent({
     function renderButton(action: ActionItem, index: number) {
       const { disabled = false, label, icon, color = '', type = 'link' } = action;
       const button = (
-        <Button type={type} size="small" disabled={disabled} color={color} {...action} key={index}>
+        <Button
+          type={type as any}
+          size="small"
+          disabled={disabled}
+          color={color}
+          {...action}
+          key={index}
+        >
           {() => (
             <>
               {label}

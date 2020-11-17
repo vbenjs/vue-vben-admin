@@ -9,14 +9,14 @@ import { PROJ_CFG_KEY } from '/@/enums/cacheEnum';
 import projectSetting from '/@/settings/projectSetting';
 import { getLocal } from '/@/utils/helper/persistent';
 import { isUnDef, isNull } from '/@/utils/is';
-import { updateGrayMode, updateColorWeak } from '/@/setup/theme';
+import {
+  updateGrayMode,
+  updateColorWeak,
+  updateHeaderBgColor,
+  updateSidebarBgColor,
+} from '/@/setup/theme';
 
 import { appStore } from '/@/store/modules/app';
-import { useNetWork } from '/@/hooks/web/useNetWork';
-import { useRouter } from 'vue-router';
-import { PageEnum } from '/@/enums/pageEnum';
-import { useTimeout } from '/@/hooks/core/useTimeout';
-import { ExceptionEnum } from '/@/enums/exceptionEnum';
 
 let app: App;
 export function setApp(_app: App): void {
@@ -42,13 +42,13 @@ export function useThemeMode(mode: ThemeModeEnum) {
   };
 }
 
-// 初始化项目配置
+// Initial project configuration
 export function useInitAppConfigStore() {
   let projCfg: ProjectConfig = getLocal(PROJ_CFG_KEY) as ProjectConfig;
   if (!projCfg) {
     projCfg = projectSetting;
   }
-  const { colorWeak, grayMode } = projCfg;
+  const { colorWeak, grayMode, headerBgColor, menuBgColor } = projCfg;
   try {
     // if (
     //   themeColor !== primaryColor &&
@@ -57,6 +57,8 @@ export function useInitAppConfigStore() {
     // ) {
     //   updateTheme(themeColor);
     // }
+    headerBgColor && updateHeaderBgColor(headerBgColor);
+    menuBgColor && updateSidebarBgColor(menuBgColor);
     grayMode && updateGrayMode(grayMode);
     colorWeak && updateColorWeak(colorWeak);
   } catch (error) {
@@ -76,28 +78,4 @@ export function useConfigProvider() {
   return {
     transformCellText,
   };
-}
-
-// 初始化网络监听
-export function useListenerNetWork() {
-  const { listenNetWork } = appStore.getProjectConfig;
-  if (!listenNetWork) return;
-  const { replace } = useRouter();
-  // 检测网络状态
-  useNetWork({
-    onLineFn: () => {
-      replace(PageEnum.BASE_HOME);
-      useTimeout(() => {
-        appStore.commitPageLoadingState(false);
-      }, 300);
-    },
-    offLineFn: () => {
-      replace({
-        path: PageEnum.ERROR_PAGE,
-        query: {
-          status: String(ExceptionEnum.NET_WORK_ERROR),
-        },
-      });
-    },
-  });
 }

@@ -1,9 +1,12 @@
 import type { VNodeChild } from 'vue';
 import type { PaginationProps } from './pagination';
-import type { FormProps } from '/@/components/Form/index';
-import type { IColumnProps, ITableRowSelection } from 'ant-design-vue/lib/table/interface';
+import type { FormProps } from '/@/components/Form';
+import type {
+  ColumnProps,
+  TableRowSelection as ITableRowSelection,
+} from 'ant-design-vue/lib/table/interface';
 import { ComponentType } from './componentType';
-import { ColumnProps } from './column';
+// import { ColumnProps } from './column';
 export declare type SortOrder = 'ascend' | 'descend';
 export interface TableCurrentDataSource<T = any> {
   currentDataSource: T[];
@@ -55,8 +58,8 @@ export interface TableCustomRecord<T = any> {
   index?: number;
 }
 
-export interface SorterResult<T> {
-  column: ColumnProps<T>;
+export interface SorterResult {
+  column: ColumnProps;
   order: SortOrder;
   field: string;
   columnKey: string;
@@ -122,7 +125,9 @@ export interface TableSetting {
 
 export interface BasicTableProps<T = any> {
   // 自定义排序方法
-  sortFn?: (sortInfo: SorterResult<any>) => any;
+  sortFn?: (sortInfo: SorterResult) => any;
+  // 取消表格的默认padding
+  inset?: boolean;
   // 显示表格设置
   showTableSetting?: boolean;
   tableSetting?: TableSetting;
@@ -309,7 +314,7 @@ export interface BasicTableProps<T = any> {
    * Set props on per header row
    * @type Function
    */
-  customHeaderRow?: (column: IColumnProps, index: number) => object;
+  customHeaderRow?: (column: ColumnProps, index: number) => object;
 
   /**
    * Set props on per row
@@ -366,8 +371,9 @@ export interface BasicTableProps<T = any> {
   onExpandedRowsChange?: (expandedRows: string[] | number[]) => void;
 }
 
-export interface BasicColumn extends IColumnProps {
+export interface BasicColumn extends ColumnProps {
   children?: BasicColumn[];
+
   //
   flag?: 'INDEX' | 'DEFAULT' | 'CHECKBOX' | 'RADIO' | 'ACTION';
 

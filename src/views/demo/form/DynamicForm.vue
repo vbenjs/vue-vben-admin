@@ -9,6 +9,10 @@
     <CollapseContainer title="动态表单示例,动态根据表单内其他值改变">
       <BasicForm @register="register" />
     </CollapseContainer>
+
+    <CollapseContainer class="mt-5" title="componentProps动态改变">
+      <BasicForm @register="register1" />
+    </CollapseContainer>
   </div>
 </template>
 <script lang="ts">
@@ -120,6 +124,58 @@
     },
   ];
 
+  const schemas1: FormSchema[] = [
+    {
+      field: 'f1',
+      component: 'Input',
+      label: 'F1',
+      colProps: {
+        span: 12,
+      },
+      labelWidth: 200,
+      componentProps: ({ formModel }) => {
+        return {
+          placeholder: '同步f2的值为f1',
+          onChange: (e: ChangeEvent) => {
+            formModel.f2 = e.target.value;
+          },
+        };
+      },
+    },
+    {
+      field: 'f2',
+      component: 'Input',
+      label: 'F2',
+      colProps: {
+        span: 12,
+      },
+      labelWidth: 200,
+      componentProps: { disabled: true },
+    },
+    {
+      field: 'f3',
+      component: 'Input',
+      label: 'F3',
+      colProps: {
+        span: 12,
+      },
+      labelWidth: 200,
+      // @ts-ignore
+      componentProps: ({ formActionType, tableAction }) => {
+        return {
+          placeholder: '值改变时执行查询,查看控制台',
+          onChange: async () => {
+            const { validate } = formActionType;
+            // tableAction只适用于在表格内开启表单的例子
+            // const { reload } = tableAction;
+            const res = await validate();
+            console.log(res);
+          },
+        };
+      },
+    },
+  ];
+
   export default defineComponent({
     components: { BasicForm, CollapseContainer },
     setup() {
@@ -129,6 +185,13 @@
       ] = useForm({
         labelWidth: 120,
         schemas,
+        actionColOptions: {
+          span: 24,
+        },
+      });
+      const [register1] = useForm({
+        labelWidth: 120,
+        schemas: schemas1,
         actionColOptions: {
           span: 24,
         },
@@ -170,6 +233,7 @@
       }
       return {
         register,
+        register1,
         schemas,
         setProps,
         changeLabel3,

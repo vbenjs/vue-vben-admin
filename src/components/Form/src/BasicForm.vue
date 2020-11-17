@@ -4,6 +4,8 @@
       <slot name="formHeader" />
       <template v-for="schema in getSchema" :key="schema.field">
         <FormItem
+          :tableAction="tableAction"
+          :formActionType="formActionType"
           :schema="schema"
           :formProps="getProps"
           :allDefaultValues="defaultValueRef"
@@ -28,16 +30,7 @@
   import type { Ref } from 'vue';
   import type { ValidateFields } from 'ant-design-vue/lib/form/interface';
 
-  import {
-    defineComponent,
-    reactive,
-    ref,
-    computed,
-    unref,
-    toRef,
-    onMounted,
-    watchEffect,
-  } from 'vue';
+  import { defineComponent, reactive, ref, computed, unref, toRef, onMounted, watch } from 'vue';
   import { Form, Row } from 'ant-design-vue';
   import FormItem from './FormItem';
   import { basicProps } from './props';
@@ -51,7 +44,6 @@
   import { useFormValues } from './hooks/useFormValues';
   import useAdvanced from './hooks/useAdvanced';
   import { useFormAction } from './hooks/useFormAction';
-
   export default defineComponent({
     name: 'BasicForm',
     components: { FormItem, Form, Row, FormAction },
@@ -62,8 +54,8 @@
       const formModel = reactive({});
 
       const actionState = reactive({
-        resetAction: {},
-        submitAction: {},
+        resetAction: () => {},
+        submitAction: () => {},
       });
 
       const advanceState = reactive<AdvanceState>({
@@ -153,10 +145,16 @@
         actionState,
       });
 
-      watchEffect(() => {
-        if (!unref(getMergePropsRef).model) return;
-        setFieldsValue(unref(getMergePropsRef).model);
-      });
+      watch(
+        () => unref(getMergePropsRef).model,
+        () => {
+          if (!unref(getMergePropsRef).model) return;
+          setFieldsValue(unref(getMergePropsRef).model);
+        },
+        {
+          immediate: true,
+        }
+      );
 
       /**
        * @description:设置表单
@@ -166,7 +164,7 @@
         propsRef.value = mergeProps;
       }
 
-      const methods: Partial<FormActionType> = {
+      const formActionType: Partial<FormActionType> = {
         getFieldsValue,
         setFieldsValue,
         resetFields,
@@ -181,7 +179,7 @@
 
       onMounted(() => {
         initDefault();
-        emit('register', methods);
+        emit('register', formActionType);
       });
 
       return {
@@ -193,7 +191,8 @@
         getProps,
         formElRef,
         getSchema,
-        ...methods,
+        formActionType,
+        ...formActionType,
       };
     },
   });

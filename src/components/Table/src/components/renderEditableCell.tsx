@@ -38,7 +38,8 @@ const EditableCell = defineComponent({
       default: 'Input',
     },
   },
-  setup(props, { attrs }) {
+  emits: ['submit', 'cancel'],
+  setup(props, { attrs, emit }) {
     const table = injectTable();
     const elRef = ref<any>(null);
 
@@ -64,6 +65,7 @@ const EditableCell = defineComponent({
 
     function handleCancel() {
       isEditRef.value = false;
+      emit('cancel');
     }
 
     function handleSubmit() {
@@ -78,6 +80,7 @@ const EditableCell = defineComponent({
       const target = dataSource.find((item) => item.key === dataKey);
       if (target) {
         target[dataIndex] = unref(currentValueRef);
+        emit('submit', { dataKey, dataIndex, value: unref(currentValueRef) });
       }
     }
 

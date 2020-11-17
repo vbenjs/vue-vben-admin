@@ -35,9 +35,11 @@
   @import (reference) '../../design/index.less';
 
   .breadcrumb {
+    .unselect();
+
     height: @header-height;
     padding-right: 20px;
-    font-size: 14px;
+    font-size: 13px;
     line-height: @header-height;
     // line-height: 1;
 
@@ -71,7 +73,7 @@
 
       &.is-link,
       a {
-        font-weight: 700;
+        font-weight: 500;
         color: @text-color-base;
         text-decoration: none;
         transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);

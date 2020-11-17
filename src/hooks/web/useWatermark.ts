@@ -11,7 +11,7 @@ export function useWatermark(appendEl: Ref<HTMLElement | null> = ref(document.bo
       const el = unref(appendEl);
       el && el.removeChild(domId);
     }
-    window.addEventListener('resize', func);
+    window.removeEventListener('resize', func);
   };
   const createWatermark = (str: string) => {
     clear();

@@ -1,9 +1,12 @@
 import type { MenuModule } from '/@/router/types.d';
 const menu: MenuModule = {
-  orderNo: 10,
+  orderNo: 19,
   menu: {
-    name: '页面功能',
+    name: '功能',
     path: '/feat',
+    tag: {
+      dot: true,
+    },
     children: [
       {
         path: 'icon',
@@ -16,6 +19,13 @@ const menu: MenuModule = {
       {
         path: 'context-menu',
         name: '右键菜单',
+      },
+      {
+        path: 'download',
+        name: '文件下载',
+        tag: {
+          content: 'new',
+        },
       },
       {
         path: 'click-out-side',
@@ -44,6 +54,10 @@ const menu: MenuModule = {
       {
         path: 'full-screen',
         name: '全屏',
+      },
+      {
+        path: 'error-log',
+        name: '错误日志',
       },
       {
         path: 'testTab',

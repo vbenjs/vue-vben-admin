@@ -3,7 +3,7 @@ import type { App } from 'vue';
 
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import { scrollWaiter } from '../utils/scrollWaiter';
+import { scrollWaiter } from './scrollWaiter';
 
 import { createGuard } from './guard/';
 
@@ -13,6 +13,7 @@ import { basicRoutes } from './routes/';
 const router = createRouter({
   history: createWebHashHistory(),
   routes: basicRoutes as RouteRecordRaw[],
+  strict: true,
   scrollBehavior: async (to, from, savedPosition) => {
     await scrollWaiter.wait();
     if (savedPosition) {
@@ -36,7 +37,7 @@ export function resetRouter() {
   router.getRoutes().forEach((route) => {
     const { name } = route;
     if (name && !resetWhiteNameList.includes(name as string)) {
-      router.removeRoute(name);
+      router.hasRoute(name) && router.removeRoute(name);
     }
   });
 }

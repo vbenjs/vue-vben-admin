@@ -6,15 +6,13 @@
 <script lang="ts">
   import { defineComponent, reactive, computed, watch, onMounted, unref, toRef } from 'vue';
   import { countToProps } from './props';
-  import { useRaf } from '/@/hooks/event/useRaf';
   import { isNumber } from '/@/utils/is';
+  import { requestAnimationFrame, cancelAnimationFrame } from '/@/utils/animation';
   export default defineComponent({
     name: 'CountTo',
     props: countToProps,
     emits: ['mounted', 'callback'],
     setup(props, { emit }) {
-      const { requestAnimationFrame, cancelAnimationFrame } = useRaf();
-
       const state = reactive<{
         localStartVal: number;
         printVal: number | null;

@@ -160,20 +160,18 @@ const transform: AxiosTransform = {
     try {
       if (code === 'ECONNABORTED' && message.indexOf('timeout') !== -1) {
         createMessage.error('接口请求超时,请刷新页面重试!');
-        return;
       }
       if (err && err.includes('Network Error')) {
         createErrorModal({
           title: '网络异常',
           content: '请检查您的网络连接是否正常!',
         });
-        return;
       }
     } catch (error) {
       throw new Error(error);
     }
     checkStatus(error.response && error.response.status, msg);
-    return error;
+    return Promise.reject(error);
   },
 };
 

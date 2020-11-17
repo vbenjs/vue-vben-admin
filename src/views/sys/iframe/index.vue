@@ -10,7 +10,7 @@
   import { Spin } from 'ant-design-vue';
 
   import { getViewportOffset } from '/@/utils/domUtils';
-  import { useWindowSizeFn } from '/@/hooks/event/useWindowSize';
+  import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
 
   export default defineComponent({
     name: 'IFrame',

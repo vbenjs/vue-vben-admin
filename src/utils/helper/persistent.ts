@@ -1,4 +1,4 @@
-import { createStorage } from '/@/utils/storage/index';
+import { createStorage } from '/@/utils/storage';
 import { isIeFn } from '/@/utils/browser';
 
 import { BASE_LOCAL_CACHE_KEY, BASE_SESSION_CACHE_KEY } from '/@/enums/cacheEnum';
@@ -58,7 +58,7 @@ export function setSession(key: string, value: any, immediate = false) {
   cacheStore.session[BASE_SESSION_CACHE_KEY][key] = value;
   if (immediate) {
     const cache = cacheStore.session;
-    ls.set(BASE_SESSION_CACHE_KEY, cache);
+    ss.set(BASE_SESSION_CACHE_KEY, cache);
   }
 }
 

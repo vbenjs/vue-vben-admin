@@ -1,3 +1,92 @@
+## Wip
+
+### ✨ Features
+
+- 新增 base64 文件流下载
+- 优化上传组件及示例
+
+### 🎫 Chores
+
+- 更新 antdv 到`2.0.0-rc.1`
+
+### 🐛 Bug Fixes
+
+- 修复表单 inputNumber 校验错误
+
+## 2.0.0-rc.10 (2020-11-13)
+
+### ✨ Refactor
+
+- 重构 hook,引入 `@vueuse`，删除其中已有的`hook`,优化现有的 hook
+- `useEvent` 更名->`useEventListener`
+- 表单`ComponentType`删除 `SelectOptGroup`,`SelectOption`,`Transfer`,`Radio`,四个类型。修改`RadioButtonGroup`组件
+
+### ✨ Features
+
+- 表单项的`componentsProps`支持函数类型
+- 菜单新增 tag 显示，支持 4 中类型颜色及 dot 圆点显示
+- 新增菜单及顶栏颜色选择配色
+- 增加示例结果页
+- 新增文件下载示例
+
+### ⚡ Wip
+
+- 上传组件(未完成，测试中...)
+
+### ⚡ Performance Improvements
+
+- 优化 settingDrawer 代码
+- 优化多标签页切换速度
+- 增加表单自定义及动态能力
+
+### 🐛 Bug Fixes
+
+- 修复多个富文本编辑器只显示一个
+- 修复登录过期后重新登录未跳转原来页面的
+- 修复 window 系统动态引入错误
+- 修复页面类型错误
+- 修复表单 switch 和 checkBox 单独使用报错
+
+## 2.0.0-rc.9 (2020-11-9)
+
+### ✨ Features
+
+- 菜单 trigger 可以选择位置
+- 增加富文本嵌入表单的示例
+- 表单组件 schema 增加 `required`属性。简化配置
+- openModal 和 openDrawer 第二个参数可以代替`transferModalData`传参到内部
+- 带参路由可以被缓存
+
+### ✨ Refactor
+
+- 重构由后台生成菜单的逻辑
+- Route Module 结构改造
+
+### ⚡ Performance Improvements
+
+- 菜单性能继续优化,更流畅
+- 优化懒加载组件及示例
+- layout 样式微调
+
+### 🎫 Chores
+
+- 删除菜单背景图
+- 更新`ant-design-vue`版本为`beta15`
+- 更新`vite`版本为`rc.9`
+- 异常页调整
+- `BasicTitle` 色块默认不显示
+
+### 🐛 Bug Fixes
+
+- 修复升级之后 table 类型问题
+- 修复分割菜单且左侧菜单没有数据时候，继续展示上一次子菜单的问题
+- 修复`useMessage`类型问题
+- 修复表单项设置`disabled`不生效问题
+- 修复`useECharts`在`resize`时不能自适应,报错
+- 修复`useWatermark`在清空后`resize`未删除
+- 修复表单校验问题
+- 修复多级表头配置不生效问题
+
 ## 2.0.0-rc.8 (2020-11-2)
 
 ### ✨ Features

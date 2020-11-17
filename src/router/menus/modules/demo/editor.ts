@@ -17,10 +17,10 @@ const menu: MenuModule = {
             path: 'index',
             name: '基础使用',
           },
-          // {
-          //   path: 'editor',
-          //   name: '嵌入form使用',
-          // },
+          {
+            path: 'editor',
+            name: '嵌入form使用',
+          },
         ],
       },
     ],

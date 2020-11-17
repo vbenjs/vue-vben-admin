@@ -1,6 +1,6 @@
 import { BasicPageParams, BasicFetchResult } from '/@/api/model/baseModel';
 /**
- * @description: 请求列表接口参数
+ * @description: Request list interface parameters
  */
 export type DemoParams = BasicPageParams;
 
@@ -15,6 +15,6 @@ export interface DemoListItem {
 }
 
 /**
- * @description: 请求列表返回值
+ * @description: Request list return value
  */
 export type DemoListGetResultModel = BasicFetchResult<DemoListItem>;

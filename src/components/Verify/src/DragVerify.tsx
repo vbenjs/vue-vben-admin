@@ -1,6 +1,6 @@
 import { defineComponent, ref, computed, unref, reactive, watch, watchEffect } from 'vue';
-import { useTimeout } from '/@/hooks/core/useTimeout';
-import { useEvent } from '/@/hooks/event/useEvent';
+import { useTimeoutFn } from '@vueuse/core';
+import { useEventListener } from '/@/hooks/event/useEventListener';
 import { basicProps } from './props';
 import { getSlot } from '/@/utils/helper/tsxHelper';
 import './DragVerify.less';
@@ -91,7 +91,7 @@ export default defineComponent({
       return (e as MouseEvent).pageX || (e as TouchEvent).touches[0].pageX;
     }
 
-    useEvent({
+    useEventListener({
       el: document,
       name: 'mouseup',
       listener: () => {
@@ -201,7 +201,7 @@ export default defineComponent({
       const contentEl = unref(contentElRef);
       if (!actionEl || !barEl || !contentEl) return;
       state.toLeft = true;
-      useTimeout(() => {
+      useTimeoutFn(() => {
         state.toLeft = false;
         actionEl.style.left = '0';
         barEl.style.width = '0';

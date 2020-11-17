@@ -92,9 +92,7 @@ function basicFilter(routes: RouteRecordNormalized[]) {
         if (route.meta.carryParam) {
           return pathToRegexp(route.path).test(menu.path);
         }
-        if (route.meta.ignoreAuth) {
-          return false;
-        }
+        if (route.meta.ignoreAuth) return false;
       }
       return route.path === menu.path;
     });

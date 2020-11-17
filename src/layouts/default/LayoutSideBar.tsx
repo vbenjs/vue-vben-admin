@@ -1,18 +1,16 @@
 import { computed, defineComponent, nextTick, onMounted, ref, unref } from 'vue';
 
 import { Layout } from 'ant-design-vue';
-import SideBarTrigger from './SideBarTrigger';
-import { menuStore } from '/@/store/modules/menu';
+import LayoutTrigger from './LayoutTrigger';
+import LayoutMenu from '/@/layouts/default/menu/LayoutMenu';
 
-// import darkMiniIMg from '/@/assets/images/sidebar/dark-mini.png';
-// import lightMiniImg from '/@/assets/images/sidebar/light-mini.png';
-import darkImg from '/@/assets/images/sidebar/dark.png';
-// import lightImg from '/@/assets/images/sidebar/light.png';
+import { menuStore } from '/@/store/modules/menu';
 import { appStore } from '/@/store/modules/app';
-import { MenuModeEnum, MenuSplitTyeEnum, MenuThemeEnum } from '/@/enums/menuEnum';
+
+import { MenuModeEnum, MenuSplitTyeEnum, TriggerEnum } from '/@/enums/menuEnum';
 import { SIDE_BAR_MINI_WIDTH, SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '/@/enums/appEnum';
+
 import { useDebounce } from '/@/hooks/core/useDebounce';
-import LayoutMenu from './LayoutMenu';
 
 export default defineComponent({
   name: 'DefaultLayoutSideBar',
@@ -34,26 +32,6 @@ export default defineComponent({
       return collapsedShowTitle ? SIDE_BAR_SHOW_TIT_MINI_WIDTH : SIDE_BAR_MINI_WIDTH;
     });
 
-    // 根据展开状态设置背景图片
-    const getStyle = computed((): any => {
-      // const collapse = unref(collapseRef);
-
-      const theme = unref(getProjectConfigRef).menuSetting.theme;
-      if (theme === MenuThemeEnum.LIGHT) {
-        // bg = lightImg;
-        return {};
-      }
-      let bg = '';
-      if (theme === MenuThemeEnum.DARK) {
-        // bg = collapse ? darkMiniIMg : darkImg;
-        bg = darkImg;
-      }
-
-      return {
-        'background-image': `url(${bg})`,
-      };
-    });
-
     function onCollapseChange(val: boolean) {
       if (initRef.value) {
         collapseRef.value = val;
@@ -65,7 +43,7 @@ export default defineComponent({
       initRef.value = true;
     }
 
-    // 菜单区域拖拽 - 鼠标移动
+    // Menu area drag and drop-mouse movement
     function handleMouseMove(ele: any, wrap: any, clientX: number) {
       document.onmousemove = function (innerE) {
         let iT = ele.left + ((innerE || event).clientX - clientX);
@@ -119,7 +97,6 @@ export default defineComponent({
       const side = unref(sideRef);
 
       const wrap = (side || {}).$el;
-      // const eleWidth = 6;
       ele &&
         (ele.onmousedown = (e: any) => {
           menuStore.commitDragStartState(true);
@@ -136,13 +113,6 @@ export default defineComponent({
       brokenRef.value = broken;
     }
 
-    onMounted(() => {
-      nextTick(() => {
-        const [exec] = useDebounce(changeWrapWidth, 20);
-        exec();
-      });
-    });
-
     const getDragBarStyle = computed(() => {
       if (menuStore.getCollapsedState) {
         return { left: `${unref(getMiniWidth)}px` };
@@ -153,6 +123,32 @@ export default defineComponent({
     const getCollapsedWidth = computed(() => {
       return unref(brokenRef) ? 0 : unref(getMiniWidth);
     });
+
+    const showTrigger = computed(() => {
+      const {
+        menuSetting: { trigger },
+      } = unref(getProjectConfigRef);
+      return trigger !== TriggerEnum.NONE && trigger === TriggerEnum.FOOTER;
+    });
+
+    onMounted(() => {
+      nextTick(() => {
+        const [exec] = useDebounce(changeWrapWidth, 20);
+        exec();
+      });
+    });
+
+    function handleSiderClick(e: ChangeEvent) {
+      if (!e || !e.target || e.target.className !== 'basic-menu__content') return;
+
+      const { collapsed, show } = appStore.getProjectConfig.menuSetting;
+      if (!collapsed || !show) return;
+      appStore.commitProjectConfigState({
+        menuSetting: {
+          collapsed: false,
+        },
+      });
+    }
 
     function renderDragLine() {
       const { menuSetting: { hasDrag = true } = {} } = unref(getProjectConfigRef);
@@ -170,8 +166,22 @@ export default defineComponent({
         menuSetting: { theme, split: splitMenu },
       } = unref(getProjectConfigRef);
       const { getCollapsedState, getMenuWidthState } = menuStore;
+
+      const triggerDom = unref(showTrigger)
+        ? {
+            trigger: () => <LayoutTrigger />,
+          }
+        : {};
+
+      const triggerAttr = unref(showTrigger)
+        ? {}
+        : {
+            trigger: null,
+          };
+
       return (
         <Layout.Sider
+          onClick={handleSiderClick}
           onCollapse={onCollapseChange}
           breakpoint="md"
           width={getMenuWidthState}
@@ -182,10 +192,10 @@ export default defineComponent({
           class="layout-sidebar"
           ref={sideRef}
           onBreakpoint={handleBreakpoint}
-          style={unref(getStyle)}
+          {...triggerAttr}
         >
           {{
-            trigger: () => <SideBarTrigger />,
+            ...triggerDom,
             default: () => (
               <>
                 <LayoutMenu

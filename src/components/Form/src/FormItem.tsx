@@ -1,7 +1,8 @@
 import type { PropType } from 'vue';
-import type { FormProps } from './types/form';
+import type { FormActionType, FormProps } from './types/form';
 import type { FormSchema } from './types/form';
 import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
+import type { TableActionType } from '/@/components/Table';
 
 import { defineComponent, computed, unref, toRef } from 'vue';
 import { Form, Col } from 'ant-design-vue';
@@ -14,6 +15,8 @@ import { createPlaceholderMessage } from './helper';
 import { upperFirst, cloneDeep } from 'lodash-es';
 
 import { useItemLabelWidth } from './hooks/useLabelWidth';
+import { ComponentType } from './types';
+import { isNumber } from '/@/utils/is';
 
 export default defineComponent({
   name: 'BasicFormItem',
@@ -35,6 +38,12 @@ export default defineComponent({
       type: Object as PropType<any>,
       default: {},
     },
+    tableAction: {
+      type: Object as PropType<TableActionType>,
+    },
+    formActionType: {
+      type: Object as PropType<FormActionType>,
+    },
   },
   setup(props, { slots }) {
     const itemLabelWidthRef = useItemLabelWidth(toRef(props, 'schema'), toRef(props, 'formProps'));
@@ -54,10 +63,20 @@ export default defineComponent({
       };
     });
 
+    const getComponentsPropsRef = computed(() => {
+      const { schema, tableAction, formModel, formActionType } = props;
+      const { componentProps = {} } = schema;
+      if (!isFunction(componentProps)) {
+        return componentProps;
+      }
+      return componentProps({ schema, tableAction, formModel, formActionType }) || {};
+    });
+
     const getDisableRef = computed(() => {
       const { disabled: globDisabled } = props.formProps;
       const { dynamicDisabled } = props.schema;
-      let disabled = !!globDisabled;
+      const { disabled: itemDisabled = false } = unref(getComponentsPropsRef);
+      let disabled = !!globDisabled || itemDisabled;
       if (isBoolean(dynamicDisabled)) {
         disabled = dynamicDisabled;
       }
@@ -99,13 +118,19 @@ export default defineComponent({
         rulesMessageJoinLabel,
         label,
         dynamicRules,
+        required,
       } = props.schema;
 
       if (isFunction(dynamicRules)) {
-        return dynamicRules(unref(getValuesRef));
+        return dynamicRules(unref(getValuesRef)) as ValidationRule[];
       }
 
-      const rules: ValidationRule[] = cloneDeep(defRules);
+      let rules: ValidationRule[] = cloneDeep(defRules) as ValidationRule[];
+
+      if ((!rules || rules.length === 0) && required) {
+        rules = [{ required }];
+      }
+
       const requiredRuleIndex: number = rules.findIndex(
         (rule) => Reflect.has(rule, 'required') && !Reflect.has(rule, 'validator')
       );
@@ -132,6 +157,9 @@ export default defineComponent({
           if (component.includes('RangePicker')) {
             rule.type = 'array';
           }
+          if (component.includes('InputNumber')) {
+            rule.type = 'number';
+          }
         }
       }
 
@@ -144,28 +172,40 @@ export default defineComponent({
       return rules;
     }
 
+    function handleValue(component: ComponentType, field: string) {
+      const val = (props.formModel as any)[field];
+      if (['Input', 'InputPassword', 'InputSearch', 'InputTextArea'].includes(component)) {
+        if (val && isNumber(val)) {
+          (props.formModel as any)[field] = `${val}`;
+          return `${val}`;
+        }
+        return val;
+      }
+      return val;
+    }
+
     function renderComponent() {
       const {
-        componentProps,
         renderComponentContent,
         component,
         field,
         changeEvent = 'change',
+        valueField,
       } = props.schema;
 
-      const isCheck = component && ['Switch'].includes(component);
+      const isCheck = component && ['Switch', 'Checkbox'].includes(component);
 
       const eventKey = `on${upperFirst(changeEvent)}`;
+
       const on = {
         [eventKey]: (e: any) => {
           if (propsData[eventKey]) {
             propsData[eventKey](e);
           }
-          if (e && e.target) {
-            (props.formModel as any)[field] = e.target.value;
-          } else {
-            (props.formModel as any)[field] = e;
-          }
+
+          const target = e ? e.target : null;
+          const value = target ? (isCheck ? target.checked : target.value) : e;
+          (props.formModel as any)[field] = value;
         },
       };
       const Comp = componentMap.get(component);
@@ -175,7 +215,7 @@ export default defineComponent({
         allowClear: true,
         getPopupContainer: (trigger: Element) => trigger.parentNode,
         size,
-        ...componentProps,
+        ...unref(getComponentsPropsRef),
         disabled: unref(getDisableRef),
       };
 
@@ -184,36 +224,27 @@ export default defineComponent({
       // RangePicker place为数组
       if (isCreatePlaceholder && component !== 'RangePicker' && component) {
         placeholder =
-          (componentProps && componentProps.placeholder) || createPlaceholderMessage(component);
+          (unref(getComponentsPropsRef) && unref(getComponentsPropsRef).placeholder) ||
+          createPlaceholderMessage(component);
       }
       propsData.placeholder = placeholder;
       propsData.codeField = field;
       propsData.formValues = unref(getValuesRef);
-
       const bindValue = {
-        [isCheck ? 'checked' : 'value']: (props.formModel as any)[field],
+        [valueField || (isCheck ? 'checked' : 'value')]: handleValue(component, field),
       };
-      // TODO先兼容antd的警告，后面官方修复后删除
-      if (component === 'Select') {
-        if (Reflect.has(propsData, 'options')) {
-          propsData.options = propsData.options.map((item: any) => {
-            return {
-              key: item.value,
-              ...item,
-            };
-          });
-        }
-      }
-
       if (!renderComponentContent) {
         return <Comp {...propsData} {...on} {...bindValue} />;
       }
+      const compSlot = isFunction(renderComponentContent)
+        ? { ...renderComponentContent(unref(getValuesRef)) }
+        : {
+            default: () => renderComponentContent,
+          };
 
       return (
         <Comp {...propsData} {...on} {...bindValue}>
-          {{
-            ...renderComponentContent(unref(getValuesRef)),
-          }}
+          {compSlot}
         </Comp>
       );
     }
@@ -237,7 +268,7 @@ export default defineComponent({
       const { colon } = props.formProps;
       const getContent = () => {
         return slot
-          ? getSlot(slots, slot)
+          ? getSlot(slots, slot, unref(getValuesRef))
           : render
           ? render(unref(getValuesRef))
           : renderComponent();
@@ -264,7 +295,7 @@ export default defineComponent({
       const { isIfShow, isShow } = getShow();
       const getContent = () => {
         return colSlot
-          ? getSlot(slots, colSlot)
+          ? getSlot(slots, colSlot, unref(getValuesRef))
           : renderColContent
           ? renderColContent(unref(getValuesRef))
           : renderItem();

@@ -7,7 +7,7 @@
   </BasicDrawer>
 </template>
 <script lang="ts">
-  import { defineComponent, nextTick } from 'vue';
+  import { defineComponent } from 'vue';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
 
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
@@ -42,12 +42,10 @@
         },
       });
       const [register, { receiveDrawerDataRef }] = useDrawerInner((data) => {
-        nextTick(() => {
-          // 方式1
-          setFieldsValue({
-            field2: data.data,
-            field1: data.info,
-          });
+        // 方式1
+        setFieldsValue({
+          field2: data.data,
+          field1: data.info,
         });
       });
       return { register, receiveDrawerDataRef, schemas, registerForm };

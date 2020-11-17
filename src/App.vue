@@ -1,5 +1,5 @@
 <template>
-  <ConfigProvider :locale="zhCN" :transformCellText="transformCellText" v-bind="lockOn">
+  <ConfigProvider :locale="zhCN" :transform-cell-text="transformCellText" v-bind="lockOn">
     <router-view />
   </ConfigProvider>
 </template>
@@ -11,9 +11,9 @@
 
   import zhCN from 'ant-design-vue/es/locale/zh_CN';
   import moment from 'moment';
-  import 'moment/locale/zh-cn';
+  import 'moment/dist/locale/zh-cn';
 
-  import { useConfigProvider, useInitAppConfigStore, useListenerNetWork } from './useApp';
+  import { useConfigProvider, useInitAppConfigStore } from './useApp';
   import { useLockPage } from '/@/hooks/web/useLockPage';
   import { useSetting } from '/@/hooks/core/useSetting';
 
@@ -25,8 +25,6 @@
     setup() {
       // Initialize application settings
       useInitAppConfigStore();
-      // Initialize network monitoring
-      useListenerNetWork();
       // Initialize breakpoint monitoring
       createBreakpointListen();
       // Get system configuration

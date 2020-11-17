@@ -1,6 +1,7 @@
 import type { FieldMapToTime, FormSchema } from './types/form';
 import type { PropType } from 'vue';
 import type { ColEx } from './types';
+import { TableActionType } from '/@/components/Table';
 
 export const basicProps = {
   model: {
@@ -102,6 +103,9 @@ export const basicProps = {
   layout: {
     type: String as PropType<'horizontal' | 'vertical' | 'inline'>,
     default: 'horizontal',
+  },
+  tableAction: {
+    type: Object as PropType<TableActionType>,
   },
 
   wrapperCol: Object as PropType<any>,

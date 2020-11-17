@@ -10,7 +10,7 @@ import { PermissionModeEnum } from '/@/enums/appEnum';
 import { appStore } from '/@/store/modules/app';
 import { userStore } from '/@/store/modules/user';
 
-import { asyncRoutes } from '/@/router/routes/index';
+import { asyncRoutes } from '/@/router/routes';
 import { filter } from '/@/utils/helper/treeHelper';
 import { toRaw } from 'vue';
 import { getMenuListById } from '/@/api/sys/menu';
@@ -19,7 +19,7 @@ import { genRouteModule, transformObjToRoute } from '/@/utils/helper/routeHelper
 import { transformRouteToMenu } from '/@/utils/helper/menuHelper';
 
 import { useMessage } from '/@/hooks/web/useMessage';
-import { warn } from '/@/utils/log';
+// import { warn } from '/@/utils/log';
 
 const { createMessage } = useMessage();
 const NAME = 'permission';
@@ -99,9 +99,9 @@ class Permission extends VuexModule {
       });
       // this.commitRoutesState(routes);
       // Background permissions
-      warn(
-        `当前权限模式为:${PermissionModeEnum.ROLE},请将src/store/modules/permission.ts内的后台菜单获取函数注释,如果已注释可以忽略此信息!`
-      );
+      // warn(
+      //   `当前权限模式为:${PermissionModeEnum.ROLE},请将src/store/modules/permission.ts内的后台菜单获取函数注释,如果已注释可以忽略此信息!`
+      // );
       //  如果确定不需要做后台动态权限,请将下面整个判断注释
     } else if (permissionMode === PermissionModeEnum.BACK) {
       const messageKey = 'loadMenu';

@@ -2,7 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 
-export default {
+const editor: AppRouteModule = {
   layout: {
     path: '/editor',
     name: 'Editor',
@@ -40,15 +40,17 @@ export default {
           },
         },
         // TODO
-        // {
-        //   path: 'editor',
-        //   name: 'TinymceFormDemo',
-        //   component: () => import('/@/views/demo/comp/tinymce/Editor.vue'),
-        //   meta: {
-        //     title: '嵌入form使用',
-        //   },
-        // },
+        {
+          path: 'editor',
+          name: 'TinymceFormDemo',
+          component: () => import('/@/views/demo/editor/tinymce/Editor.vue'),
+          meta: {
+            title: '嵌入form使用',
+          },
+        },
       ],
     },
   ],
-} as AppRouteModule;
+};
+
+export default editor;

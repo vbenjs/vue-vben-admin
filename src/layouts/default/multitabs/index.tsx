@@ -2,15 +2,10 @@ import type { TabContentProps } from './tab.data';
 import type { TabItem } from '/@/store/modules/tab';
 import type { AppRouteRecordRaw } from '/@/router/types';
 
-import {
-  defineComponent,
-  watch,
-  computed,
-  // ref,
-  unref,
-  // onMounted,
-  toRaw,
-} from 'vue';
+import { defineComponent, watch, computed, unref, toRaw } from 'vue';
+import { useRouter } from 'vue-router';
+import router from '/@/router';
+
 import { Tabs } from 'ant-design-vue';
 import TabContent from './TabContent';
 
@@ -18,70 +13,45 @@ import { useGo } from '/@/hooks/web/usePage';
 
 import { TabContentEnum } from './tab.data';
 
-import { useRouter } from 'vue-router';
-
 import { tabStore } from '/@/store/modules/tab';
+import { userStore } from '/@/store/modules/user';
+
 import { closeTab } from './useTabDropdown';
-import router from '/@/router';
 import { useTabs } from '/@/hooks/web/useTabs';
-// import { PageEnum } from '/@/enums/pageEnum';
 
 import './index.less';
-import { userStore } from '/@/store/modules/user';
 export default defineComponent({
   name: 'MultiTabs',
   setup() {
     let isAddAffix = false;
     const go = useGo();
     const { currentRoute } = useRouter();
-    const {
-      // addTab,
-      activeKeyRef,
-    } = useTabs();
-    // onMounted(() => {
-    // const route = unref(currentRoute);
-    // addTab(unref(currentRoute).path as PageEnum, false, {
-    //   query: route.query,
-    //   params: route.params,
-    // });
-    // });
-
-    // 当前激活tab
-    // const activeKeyRef = ref<string>('');
+    const { activeKeyRef } = useTabs();
 
     // 当前tab列表
     const getTabsState = computed(() => {
       return tabStore.getTabsState;
     });
 
-    if (!isAddAffix) {
-      addAffixTabs();
-      isAddAffix = true;
-    }
-
+    // If you monitor routing changes, tab switching will be stuck. So use this method
     watch(
-      () => unref(currentRoute).path,
+      () => tabStore.getLastChangeRouteState,
       () => {
-        if (!userStore.getTokenState) return;
-        const { path: rPath, fullPath } = unref(currentRoute);
-        if (activeKeyRef.value !== (fullPath || rPath)) {
-          activeKeyRef.value = fullPath || rPath;
+        if (!isAddAffix) {
+          addAffixTabs();
+          isAddAffix = true;
         }
-        // 监听路由的话虽然可以，但是路由切换的时间会造成卡顿现象？
-        // 使用useTab的addTab的话，当用户手动调转，需要自行调用addTab
-        tabStore.commitAddTab((unref(currentRoute) as unknown) as AppRouteRecordRaw);
 
-        // const { affix } = currentRoute.value.meta || {};
-        // if (affix) return;
-        // const hasInTab = tabStore.getTabsState.some(
-        //   (item) => item.fullPath === currentRoute.value.fullPath
-        // );
-        // if (!hasInTab) {
-        //   tabStore.commitAddTab((unref(currentRoute) as unknown) as AppRouteRecordRaw);
-        // }
+        const lastChangeRoute = unref(tabStore.getLastChangeRouteState);
+        if (!lastChangeRoute || !userStore.getTokenState) return;
+
+        const { path, fullPath } = lastChangeRoute;
+        if (activeKeyRef.value !== (fullPath || path)) {
+          activeKeyRef.value = fullPath || path;
+        }
+        tabStore.commitAddTab((lastChangeRoute as unknown) as AppRouteRecordRaw);
       },
       {
-        // flush: 'post',
         immediate: true,
       }
     );

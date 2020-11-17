@@ -18,7 +18,7 @@ export default defineComponent({
     // icon size
     size: {
       type: [String, Number] as PropType<string | number>,
-      default: 14,
+      default: 16,
     },
     prefix: {
       type: String as PropType<string>,
@@ -72,7 +72,7 @@ export default defineComponent({
     onMounted(update);
 
     return () => (
-      <div ref={elRef} class={[attrs.class, 'app-iconify']} style={unref(wrapStyleRef)} />
+      <div ref={elRef} class={[attrs.class, 'app-iconify anticon']} style={unref(wrapStyleRef)} />
     );
   },
 });

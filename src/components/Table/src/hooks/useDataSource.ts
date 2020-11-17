@@ -3,7 +3,7 @@ import type { PaginationProps } from '../types/pagination';
 
 import { watch, ref, unref, ComputedRef, computed, onMounted, Ref } from 'vue';
 
-import { useTimeout } from '/@/hooks/core/useTimeout';
+import { useTimeoutFn } from '@vueuse/core';
 
 import { buildUUID } from '/@/utils/uuid';
 import { isFunction, isBoolean } from '/@/utils/is';
@@ -84,7 +84,7 @@ export function useDataSource(
     const { api, searchInfo, fetchSetting, beforeFetch, afterFetch, useSearchForm } = unref(
       propsRef
     );
-    if (!api && !isFunction(api)) return;
+    if (!api || !isFunction(api)) return;
     try {
       loadingRef.value = true;
       const { pageField, sizeField, listField, totalField } = fetchSetting || FETCH_SETTING;
@@ -145,7 +145,7 @@ export function useDataSource(
   }
   onMounted(() => {
     // 转异步任务
-    useTimeout(() => {
+    useTimeoutFn(() => {
       unref(propsRef).immediate && fetch();
     }, 0);
   });

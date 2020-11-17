@@ -2,7 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 
-export default {
+const excel: AppRouteModule = {
   layout: {
     path: '/excel',
     name: 'Excel',
@@ -48,4 +48,6 @@ export default {
       },
     },
   ],
-} as AppRouteModule;
+};
+
+export default excel;

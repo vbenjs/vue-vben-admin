@@ -2,7 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
 
-export default {
+const feat: AppRouteModule = {
   layout: {
     path: '/feat',
     name: 'FeatDemo',
@@ -38,6 +38,14 @@ export default {
       component: () => import('/@/views/demo/feat/context-menu/index.vue'),
       meta: {
         title: '右键菜单',
+      },
+    },
+    {
+      path: '/download',
+      name: 'DownLoadDemo',
+      component: () => import('/@/views/demo/feat/download/index.vue'),
+      meta: {
+        title: '文件下载',
       },
     },
     {
@@ -97,6 +105,14 @@ export default {
       },
     },
     {
+      path: '/error-log',
+      name: 'ErrorLog',
+      component: () => import('/@/views/sys/error-log/index.vue'),
+      meta: {
+        title: '错误日志',
+      },
+    },
+    {
       path: '/testTab/:id',
       name: 'TestTab',
       component: () => import('/@/views/demo/feat/tab-params/index.vue'),
@@ -106,4 +122,6 @@ export default {
       },
     },
   ],
-} as AppRouteModule;
+};
+
+export default feat;

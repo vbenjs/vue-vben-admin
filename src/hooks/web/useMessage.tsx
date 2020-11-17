@@ -4,7 +4,22 @@ import { Modal, message as Message, notification } from 'ant-design-vue';
 import { InfoCircleFilled, CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons-vue';
 
 import { useSetting } from '/@/hooks/core/useSetting';
+import { ArgsProps, ConfigProps } from 'ant-design-vue/lib/notification';
 
+export interface NotifyApi {
+  info(config: ArgsProps): void;
+  success(config: ArgsProps): void;
+  error(config: ArgsProps): void;
+  warn(config: ArgsProps): void;
+  warning(config: ArgsProps): void;
+  open(args: ArgsProps): void;
+  close(key: String): void;
+  config(options: ConfigProps): void;
+  destroy(): void;
+}
+
+export declare type NotificationPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
+export declare type IconType = 'success' | 'info' | 'error' | 'warning';
 export interface ModalOptionsEx extends Omit<ModalFuncProps, 'iconType'> {
   iconType: 'warning' | 'success' | 'error' | 'info';
 }
@@ -85,7 +100,7 @@ notification.config({
 export function useMessage() {
   return {
     createMessage: Message,
-    notification,
+    notification: notification as NotifyApi,
     createConfirm: createConfirm,
     createSuccessModal,
     createErrorModal,

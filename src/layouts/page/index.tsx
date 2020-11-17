@@ -12,9 +12,16 @@ import { appStore } from '/@/store/modules/app';
 export default defineComponent({
   name: 'PageLayout',
   setup() {
-    const getProjectConfigRef = computed(() => {
-      return appStore.getProjectConfig;
+    const getProjectConfigRef = computed(() => appStore.getProjectConfig);
+    const openCacheRef = computed(() => {
+      const {
+        openKeepAlive,
+        multiTabsSetting: { show },
+      } = unref(getProjectConfigRef);
+      return openKeepAlive && show;
     });
+    const getCacheTabsRef = computed(() => toRaw(tabStore.getKeepAliveTabsState) as string[]);
+
     const { openPageLoading } = unref(getProjectConfigRef);
 
     let on = {};
@@ -27,25 +34,25 @@ export default defineComponent({
       const {
         routerTransition,
         openRouterTransition,
-        openKeepAlive,
-        multiTabsSetting: { show, max },
+        multiTabsSetting: { max },
       } = unref(getProjectConfigRef);
 
-      const openCache = openKeepAlive && show;
-      const cacheTabs = toRaw(tabStore.getKeepAliveTabsState) as string[];
       return (
         <div>
           <RouterView>
             {{
               default: ({ Component, route }: { Component: any; route: RouteLocation }) => {
-                // 已经位于tab内的不再显示动画
-                const name = route.meta.inTab ? 'fade' : null;
-                const Content = openCache ? (
+                // No longer show animations that are already in the tab
+                const cacheTabs = unref(getCacheTabsRef);
+                const isInCache = cacheTabs.includes(route.name as string);
+                const name = isInCache && route.meta.inTab ? 'fade' : null;
+
+                const Content = unref(openCacheRef) ? (
                   <KeepAlive max={max} include={cacheTabs}>
-                    <Component {...route.params} />
+                    <Component key={route.fullPath} />
                   </KeepAlive>
                 ) : (
-                  <Component {...route.params} />
+                  <Component key={route.fullPath} />
                 );
                 return openRouterTransition ? (
                   <Transition

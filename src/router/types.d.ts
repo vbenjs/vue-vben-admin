@@ -36,12 +36,18 @@ export interface RouteMeta {
 }
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
+  name: string;
   meta: RouteMeta;
   component?: any;
   components?: any;
   children?: AppRouteRecordRaw[];
   props?: any;
   fullPath?: string;
+}
+export interface MenuTag {
+  type?: 'primary' | 'error' | 'warn' | 'success';
+  content?: string;
+  dot?: boolean;
 }
 
 export interface Menu {
@@ -60,13 +66,19 @@ export interface Menu {
   roles?: RoleEnum[];
 
   meta?: Partial<RouteMeta>;
+
+  tag?: MenuTag;
 }
 export interface MenuModule {
   orderNo?: number;
   menu: Menu;
 }
 
-export interface AppRouteModule {
-  layout?: AppRouteRecordRaw;
+interface RouteModule {
+  layout: AppRouteRecordRaw;
   routes: AppRouteRecordRaw[];
+  children?: AppRouteRecordRaw[];
+  component?: any;
 }
+
+export type AppRouteModule = RouteModule | AppRouteRecordRaw;

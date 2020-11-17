@@ -20,6 +20,7 @@ export function createPageLoadingGuard(router: Router) {
       appStore.commitPageLoadingState(true);
       return true;
     }
+
     if (show && openKeepAlive && !isFirstLoad) {
       const tabList = tabStore.getTabsState;
 

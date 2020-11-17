@@ -1,4 +1,4 @@
-import type { ButtonProps } from 'ant-design-vue/types/button/button';
+import type { ButtonProps } from 'ant-design-vue/lib/button/buttonTypes';
 import type { CSSProperties, VNodeChild } from 'vue';
 /**
  * @description: 弹窗对外暴露的方法
@@ -9,7 +9,7 @@ export interface ModalMethods {
 
 export type RegisterFn = (modalMethods: ModalMethods, uuid?: string) => void;
 export interface ReturnMethods extends ModalMethods {
-  openModal: (props?: boolean) => void;
+  openModal: <T = any>(props?: boolean, data?: T) => void;
   transferModalData: (data: any) => void;
 }
 export type UseModalReturnType = [RegisterFn, ReturnMethods];

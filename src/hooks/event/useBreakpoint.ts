@@ -1,10 +1,10 @@
-import { ref, computed, Ref, unref } from 'vue';
-import { useEvent } from './useEvent';
+import { ref, computed, ComputedRef, unref } from 'vue';
+import { useEventListener } from '/@/hooks/event/useEventListener';
 import { screenMap, sizeEnum, screenEnum } from '/@/enums/breakpointEnum';
 
-let globalScreenRef: Ref<sizeEnum | undefined>;
-let globalWidthRef: Ref<number>;
-let globalRealWidthRef: Ref<number>;
+let globalScreenRef: ComputedRef<sizeEnum | undefined>;
+let globalWidthRef: ComputedRef<number>;
+let globalRealWidthRef: ComputedRef<number>;
 
 export function useBreakpoint() {
   return {
@@ -15,7 +15,7 @@ export function useBreakpoint() {
   };
 }
 
-// 只要调用一次即可
+// Just call it once
 export function createBreakpointListen(fn?: Fn) {
   const screenRef = ref<sizeEnum>(sizeEnum.XL);
   const realWidthRef = ref(window.innerWidth);
@@ -43,7 +43,7 @@ export function createBreakpointListen(fn?: Fn) {
     realWidthRef.value = width;
   }
 
-  useEvent({
+  useEventListener({
     el: window,
     name: 'resize',
     listener: () => {

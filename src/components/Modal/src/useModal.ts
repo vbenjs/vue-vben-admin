@@ -5,7 +5,16 @@ import type {
   ReturnMethods,
   UseModalInnerReturnType,
 } from './types';
-import { ref, onUnmounted, unref, getCurrentInstance, reactive, computed, watchEffect } from 'vue';
+import {
+  ref,
+  onUnmounted,
+  unref,
+  getCurrentInstance,
+  reactive,
+  computed,
+  watchEffect,
+  nextTick,
+} from 'vue';
 import { isProdMode } from '/@/utils/env';
 import { isFunction } from '/@/utils/is';
 const dataTransferRef = reactive<any>({});
@@ -46,10 +55,13 @@ export function useModal(): UseModalReturnType {
       getInstance().setModalProps(props);
     },
 
-    openModal: (visible = true): void => {
+    openModal: <T = any>(visible = true, data?: T): void => {
       getInstance().setModalProps({
         visible: visible,
       });
+      if (data) {
+        dataTransferRef[unref(uidRef)] = data;
+      }
     },
 
     transferModalData(val: any) {
@@ -86,7 +98,9 @@ export const useModalInner = (callbackFn?: Fn): UseModalInnerReturnType => {
     const data = dataTransferRef[unref(uidRef)];
     if (!data) return;
     if (!callbackFn || !isFunction(callbackFn)) return;
-    callbackFn(data);
+    nextTick(() => {
+      callbackFn(data);
+    });
   });
 
   return [

@@ -5,6 +5,7 @@ import { resolve } from 'path';
 import { modifyVars } from './build/config/lessModifyVars';
 import { createProxy } from './build/vite/proxy';
 import globbyTransform from './build/vite/plugin/context/transform';
+import dynamicImportTransform from './build/vite/plugin/dynamicImport/index';
 
 import { isDevFn, loadEnv } from './build/utils';
 
@@ -33,7 +34,7 @@ const viteConfig: UserConfig = {
    * @default 'index.html'
    */
   // TODO build error
-  // entry: './public/index.html',
+  // entry: 'public/index.html',
   /**
    * port
    * @default '3000'
@@ -119,13 +120,7 @@ const viteConfig: UserConfig = {
   },
   // The package will be recompiled using rollup, and the new package compiled into the esm module specification will be put into node_modules/.vite_opt_cache
   optimizeDeps: {
-    include: [
-      'echarts',
-      'echarts/map/js/china',
-      'ant-design-vue/es/locale/zh_CN',
-      '@ant-design/icons-vue',
-      'moment/locale/zh-cn',
-    ],
+    include: ['echarts/map/js/china', 'ant-design-vue/es/locale/zh_CN', '@ant-design/icons-vue'],
   },
 
   // Local cross-domain proxy
@@ -140,5 +135,5 @@ const viteConfig: UserConfig = {
 
 export default {
   ...viteConfig,
-  transforms: [globbyTransform(viteConfig)],
+  transforms: [globbyTransform(viteConfig), dynamicImportTransform(viteEnv)],
 } as UserConfig;

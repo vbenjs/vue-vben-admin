@@ -8,7 +8,7 @@ import type {
   TableCustomRecord,
   TableRowSelection,
 } from './types/table';
-import type { FormProps } from '/@/components/Form/index';
+import type { FormProps } from '/@/components/Form';
 import { DEFAULT_SORT_FN, FETCH_SETTING } from './const';
 
 // 注释看 types/table
@@ -16,9 +16,12 @@ export const basicProps = {
   tableSetting: {
     type: Object as PropType<TableSetting>,
   },
-
+  inset: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
   sortFn: {
-    type: Function as PropType<(sortInfo: SorterResult<any>) => any>,
+    type: Function as PropType<(sortInfo: SorterResult) => any>,
     default: DEFAULT_SORT_FN,
   },
 
