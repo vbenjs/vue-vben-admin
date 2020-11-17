@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-  import { Row, Col, Tag, Tabs } from 'ant-design-vue';
+  import { Tag, Tabs } from 'ant-design-vue';
   import { defineComponent } from 'vue';
   import { CollapseContainer } from '/@/components/Container/index';
   import Icon from '/@/components/Icon/index';
@@ -66,8 +66,6 @@
     components: {
       CollapseContainer,
       Icon,
-      Row,
-      Col,
       Tag,
       Tabs,
       TabPane: Tabs.TabPane,
@@ -130,7 +128,7 @@
       &__team {
         &-item {
           display: inline-block;
-          padding: 4px 18px;
+          padding: 4px 24px;
         }
 
         span {

@@ -42,14 +42,14 @@ export const teams: ListItem[] = [
     color: '#00adf7',
   },
   {
-    icon: 'ant-design:dribbble-circle-filled',
+    icon: 'ant-design:behance-square-filled',
     title: '科学搬砖组',
-    color: '#ff4000',
+    color: '#7c51b8',
   },
   {
-    icon: 'ant-design:behance-square-filled',
+    icon: 'ant-design:dribbble-circle-filled',
     title: '程序员日常',
-    color: '#7c51b8',
+    color: '#ff4000',
   },
 ];
 
@@ -124,8 +124,8 @@ export const projectList = (() => {
   const result: any[] = [];
   for (let i = 0; i < 8; i++) {
     result.push({
-      title: 'Angular',
-      content: '那是一种内在的东西， 他们到达不了，',
+      title: 'Vben Admin',
+      content: '基于Vue Next, TypeScript, Ant Design实现的一套完整的企业级后台管理系统。',
     });
   }
   return result;
