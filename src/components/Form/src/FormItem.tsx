@@ -91,7 +91,11 @@ export default defineComponent({
     function getShow() {
       const { show, ifShow } = props.schema;
       const { showAdvancedButton } = props.formProps;
-      const itemIsAdvanced = showAdvancedButton ? !!props.schema.isAdvanced : true;
+      const itemIsAdvanced = showAdvancedButton
+        ? isBoolean(props.schema.isAdvanced)
+          ? props.schema.isAdvanced
+          : true
+        : true;
       let isShow = true;
       let isIfShow = true;
 
