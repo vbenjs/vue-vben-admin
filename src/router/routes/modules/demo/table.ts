@@ -127,6 +127,14 @@ const table: AppRouteModule = {
         title: '可编辑单元格',
       },
     },
+    {
+      path: '/editRowTable',
+      name: 'EditRowTableDemo',
+      component: () => import('/@/views/demo/table/EditRowTable.vue'),
+      meta: {
+        title: '可编辑行',
+      },
+    },
   ],
 };
 

@@ -136,9 +136,9 @@ export default defineComponent({
         const flag = await beforeClickFn(menu);
         if (!flag) return;
       }
+      emit('menuClick', menu);
       const { path } = menu;
       menuState.selectedKeys = [path];
-      emit('menuClick', menu);
     }
 
     function handleMenuChange() {
@@ -219,7 +219,6 @@ export default defineComponent({
         : {};
       return (
         <Menu
-          forceSubMenuRender={props.isAppMenu}
           selectedKeys={selectedKeys}
           defaultSelectedKeys={defaultSelectedKeys}
           mode={mode}

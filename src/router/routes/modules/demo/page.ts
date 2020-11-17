@@ -15,6 +15,43 @@ const page: AppRouteModule = {
     title: '页面',
   },
   children: [
+    // =============================form start=============================
+    {
+      path: '/form',
+      name: 'FormPage',
+      redirect: '/page-demo/form/basic',
+      meta: {
+        title: '表单页',
+      },
+      children: [
+        {
+          path: 'basic',
+          name: 'FormBasicPage',
+          component: () => import('/@/views/demo/page/form/basic/index.vue'),
+          meta: {
+            title: '基础表单',
+          },
+        },
+        {
+          path: 'step',
+          name: 'FormStepPage',
+          component: () => import('/@/views/demo/page/form/step/index.vue'),
+          meta: {
+            title: '分步表单',
+          },
+        },
+        {
+          path: 'high',
+          name: 'FormHightPage',
+          component: () => import('/@/views/demo/page/form/high/index.vue'),
+          meta: {
+            title: '高级表单',
+          },
+        },
+      ],
+    },
+    // =============================form end=============================
+
     // =============================result start=============================
     {
       path: '/result',

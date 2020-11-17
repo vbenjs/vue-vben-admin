@@ -41,6 +41,7 @@ export type RegisterFn = (formInstance: FormActionType) => void;
 export type UseFormReturnType = [RegisterFn, FormActionType];
 
 export interface FormProps {
+  // layout?: 'vertical' | 'inline' | 'horizontal';
   // 表单值
   model?: any;
   // 整个表单所有项宽度
@@ -108,6 +109,8 @@ export interface FormSchema {
   valueField?: string;
   // 标签名
   label: string;
+  // 辅助文本
+  subLabel?: string;
   // 文本右侧帮助文本
   helpMessage?: string | string[];
   // BaseHelp组件props

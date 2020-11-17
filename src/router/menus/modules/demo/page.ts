@@ -16,6 +16,27 @@ const menu: MenuModule = {
     },
     children: [
       {
+        path: 'form',
+        name: '表单页',
+        tag: {
+          content: 'new',
+        },
+        children: [
+          {
+            path: 'basic',
+            name: '基础表单',
+          },
+          {
+            path: 'step',
+            name: '分步表单',
+          },
+          {
+            path: 'high',
+            name: '高级表单',
+          },
+        ],
+      },
+      {
         path: 'result',
         name: '结果页',
         tag: {

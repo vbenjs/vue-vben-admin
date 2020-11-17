@@ -232,6 +232,8 @@ yarn clean:lib # 删除node_modules，兼容window系统
 
 ## 正在开发的功能
 
+- [ ] 新分支全局国家化
+- [ ] 示例 page 页面
 - [ ] 主题配置
 - [ ] 黑暗主题
 - [ ] 打包 CDN

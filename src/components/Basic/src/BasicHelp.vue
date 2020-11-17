@@ -48,6 +48,10 @@
           bottom: 0,
         }),
       },
+      placement: {
+        type: String as PropType<string>,
+        defualt: 'right',
+      },
     },
     setup(props, { slots }) {
       const getOverlayStyleRef = computed(() => {
@@ -97,7 +101,7 @@
             overlayClassName: 'base-help__wrap',
             autoAdjustOverflow: true,
             overlayStyle: unref(getOverlayStyleRef),
-            placement: 'right',
+            placement: props.placement,
             getPopupContainer: () => getPopupContainer(),
           },
           {

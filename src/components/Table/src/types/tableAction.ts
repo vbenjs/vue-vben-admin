@@ -1,5 +1,4 @@
 export interface ActionItem {
-  on?: any;
   onClick?: any;
   label: string;
   disabled?: boolean;

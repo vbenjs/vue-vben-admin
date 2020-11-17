@@ -13,6 +13,14 @@
   box-sizing: border-box;
 }
 
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+}
+
+:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+
 // Background color setting in full screen state in each browser
 ::backdrop,
 html,

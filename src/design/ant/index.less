@@ -109,18 +109,21 @@
   content: '';
 }
 
+.ant-form-item-with-help {
+  margin-bottom: 0;
+}
+
 .ant-form-item {
   &-label label::after {
     margin: 0 6px 0 2px;
   }
+}
 
-  &-control {
-    line-height: 36px;
-  }
+.ant-form-item:not(.ant-form-item-with-help) {
+  margin-bottom: 20px;
 }
 
 .ant-form-explain {
-  margin-bottom: 2px;
   font-size: 14px;
 }
 

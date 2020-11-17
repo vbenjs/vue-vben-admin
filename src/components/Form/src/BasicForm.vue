@@ -1,5 +1,5 @@
 <template>
-  <Form v-bind="$attrs" ref="formElRef" :model="formModel">
+  <Form v-bind="{ ...$attrs, ...$props }" ref="formElRef" :model="formModel">
     <Row :class="getProps.compact ? 'compact-form-row' : ''">
       <slot name="formHeader" />
       <template v-for="schema in getSchema" :key="schema.field">
@@ -54,8 +54,8 @@
       const formModel = reactive({});
 
       const actionState = reactive({
-        resetAction: () => {},
-        submitAction: () => {},
+        resetAction: {},
+        submitAction: {},
       });
 
       const advanceState = reactive<AdvanceState>({
@@ -67,7 +67,7 @@
 
       const defaultValueRef = ref<any>({});
       const propsRef = ref<Partial<FormProps>>({});
-      const schemaRef = ref<FormSchema[] | null>(null);
+      const schemaRef = ref<Nullable<FormSchema[]>>(null);
       const formElRef = ref<Nullable<FormActionType>>(null);
 
       const getMergePropsRef = computed(
@@ -98,7 +98,15 @@
         for (const schema of schemas) {
           const { defaultValue, component } = schema;
           if (defaultValue && dateItemType.includes(component!)) {
-            schema.defaultValue = moment(defaultValue);
+            if (!Array.isArray(defaultValue)) {
+              schema.defaultValue = moment(defaultValue);
+            } else {
+              const def: moment.Moment[] = [];
+              defaultValue.forEach((item) => {
+                def.push(moment(item));
+              });
+              schema.defaultValue = def;
+            }
           }
         }
         return schemas as FormSchema[];
@@ -139,8 +147,8 @@
         formModel,
         getSchema,
         defaultValueRef,
-        formElRef: formElRef as any,
-        schemaRef: schemaRef as any,
+        formElRef: formElRef as Ref<FormActionType>,
+        schemaRef: schemaRef as Ref<FormSchema[]>,
         handleFormValues,
         actionState,
       });
@@ -153,6 +161,13 @@
         },
         {
           immediate: true,
+        }
+      );
+
+      watch(
+        () => getSchema.value,
+        () => {
+          initDefault();
         }
       );
 
