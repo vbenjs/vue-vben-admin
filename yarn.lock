@@ -1850,7 +1850,7 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-ant-design-vue@^2.0.0-beta.15:
+ant-design-vue@^2.0.0-rc.1:
   version "2.0.0-rc.1"
   resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.0.0-rc.1.tgz#2ef02475f3aa4c1474f2fe3cf44a52c34787be02"
   integrity sha512-iKXkFtTHarvLHV7LWmYh6g/Cmkv+xK+vS621A1Qvg37Z6lCGg3K9BGAizmklAYzOTiPz0Ltt63eSiNqYMGh52g==
