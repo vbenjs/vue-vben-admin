@@ -31,6 +31,7 @@ import {
   Steps,
   PageHeader,
   Result,
+  Empty,
 } from 'ant-design-vue';
 import { getApp } from '/@/useApp';
 
@@ -75,5 +76,6 @@ export function registerGlobComp() {
     .use(Steps)
     .use(PageHeader)
     .use(Result)
+    .use(Empty)
     .use(Tabs);
 }
