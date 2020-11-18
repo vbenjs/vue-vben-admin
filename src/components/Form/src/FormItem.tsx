@@ -158,7 +158,7 @@ export default defineComponent({
           ) {
             rule.type = 'object';
           }
-          if (component.includes('RangePicker')) {
+          if (component.includes('RangePicker') || component.includes('Upload')) {
             rule.type = 'array';
           }
           if (component.includes('InputNumber')) {
