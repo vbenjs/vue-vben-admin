@@ -1,7 +1,10 @@
+import type { BasicColumn, ActionItem } from '/@/components/Table';
+
+import { FileItem, PreviewFileItem, UploadResultStatus } from './types';
 import { checkImgType, isImgTypeByName } from './utils';
 import { Progress, Tag } from 'ant-design-vue';
-import { FileItem, PreviewFileItem, UploadResultStatus } from './types';
-import { BasicColumn, ActionItem, TableAction } from '/@/components/Table/index';
+
+import TableAction from '/@/components/Table/src/components/TableAction';
 
 // 文件上传列表
 export function createTableColumns(): BasicColumn[] {
