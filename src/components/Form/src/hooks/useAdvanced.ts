@@ -114,7 +114,7 @@ export default function ({
       ) {
         advanceState.hideAdvanceBtn = false;
 
-        // 大于3行默认收起
+        // More than 3 lines collapsed by default
       } else if (!advanceState.isLoad) {
         advanceState.isLoad = true;
         advanceState.isAdvanced = !advanceState.isAdvanced;
@@ -124,7 +124,7 @@ export default function ({
     if (itemColSum > BASIC_COL_LEN) {
       return { isAdvanced: advanceState.isAdvanced, itemColSum };
     } else {
-      // 第一行始终显示
+      // The first line is always displayed
       return { isAdvanced: true, itemColSum };
     }
   }

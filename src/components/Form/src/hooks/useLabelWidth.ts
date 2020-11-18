@@ -31,7 +31,7 @@ export function useItemLabelWidth(schemaItemRef: Ref<FormSchema>, propsRef: Ref<
       wrapperCol: globWrapperCol,
     } = unref(propsRef) as any;
 
-    // 如果全局有设置labelWidth, 则所有item使用
+    // If labelWidth is set globally, all items use
     if ((!globalLabelWidth && !labelWidth && !globalLabelCol) || disabledLabelWidth) {
       return { labelCol, wrapperCol };
     }

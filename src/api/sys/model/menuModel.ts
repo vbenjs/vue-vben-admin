@@ -11,13 +11,13 @@ export interface RouteItem {
 }
 
 /**
- * @description: 获取菜单接口
+ * @description: Get menu interface
  */
 export interface getMenuListByIdParams {
   id: number | string;
 }
 
 /**
- * @description: 获取菜单返回值
+ * @description: Get menu return value
  */
 export type getMenuListByIdParamsResultModel = RouteItem[];

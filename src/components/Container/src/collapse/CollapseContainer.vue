@@ -43,23 +43,22 @@
     },
     name: 'CollapseContainer',
     props: {
-      // 标题
       title: {
         type: String as PropType<string>,
         default: '',
       },
-      // 是否可以展开
+      // Can it be expanded
       canExpan: {
         type: Boolean as PropType<boolean>,
         default: true,
       },
-      // 标题右侧温馨提醒
+      // Warm reminder on the right side of the title
       helpMessage: {
         type: [Array, String] as PropType<string[] | string>,
         default: '',
       },
-      // 展开收缩的时候是否触发window.resize,
-      // 可以适应表格和表单,当表单收缩起来,表格触发resize 自适应高度
+      // Whether to trigger window.resize when expanding and contracting,
+      // Can adapt to tables and forms, when the form shrinks, the form triggers resize to adapt to the height
       triggerWindowResize: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -68,12 +67,12 @@
         type: Boolean as PropType<boolean>,
         default: false,
       },
-      // 延时加载
+      // Delayed loading
       lazy: {
         type: Boolean as PropType<boolean>,
         default: false,
       },
-      // 延时加载时间
+      // Delayed loading time
       lazyTime: {
         type: Number as PropType<number>,
         default: 0,
@@ -82,14 +81,14 @@
     setup(props) {
       const showRef = ref(true);
       /**
-       * @description: 处理开展事件
+       * @description: Handling development events
        */
       function handleExpand() {
         const hasShow = !unref(showRef);
         showRef.value = hasShow;
 
         if (props.triggerWindowResize) {
-          // 这里200毫秒是因为展开有动画,
+          // 200 milliseconds here is because the expansion has animation,
           useTimeoutFn(triggerWindowResize, 200);
         }
       }

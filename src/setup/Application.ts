@@ -1,4 +1,7 @@
-// Application related functions
+/**
+ * Application configuration
+ */
+
 import type { ProjectConfig } from '/@/types/config';
 import type { App } from 'vue';
 import { computed, ref } from 'vue';
@@ -18,7 +21,9 @@ import {
 
 import { appStore } from '/@/store/modules/app';
 
+// Used to share global app instances
 let app: App;
+
 export function setApp(_app: App): void {
   app = _app;
 }
@@ -27,7 +32,7 @@ export function getApp(): App {
   return app;
 }
 
-// TODO 主题切换
+// TODO Theme switching
 export function useThemeMode(mode: ThemeModeEnum) {
   const modeRef = ref(mode);
   const html = document.documentElement;
@@ -43,7 +48,7 @@ export function useThemeMode(mode: ThemeModeEnum) {
 }
 
 // Initial project configuration
-export function useInitAppConfigStore() {
+export function initAppConfigStore() {
   let projCfg: ProjectConfig = getLocal(PROJ_CFG_KEY) as ProjectConfig;
   if (!projCfg) {
     projCfg = projectSetting;
@@ -67,8 +72,8 @@ export function useInitAppConfigStore() {
   appStore.commitProjectConfigState(projCfg);
 }
 
-// Config Provider
-export function useConfigProvider() {
+// antdv Config Provider
+export function getConfigProvider() {
   function transformCellText({ text }: { text: string }) {
     if (isNull(text) || isUnDef(text)) {
       return ' - ';

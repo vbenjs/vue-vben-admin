@@ -1,7 +1,8 @@
 import type { Menu } from '/@/router/types';
 import type { PropType } from 'vue';
 
-import { MenuModeEnum, MenuTypeEnum, MenuThemeEnum } from '/@/enums/menuEnum';
+import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
+import { ThemeEnum } from '/@/enums/appEnum';
 export const basicProps = {
   items: {
     type: Array as PropType<Menu[]>,
@@ -40,7 +41,7 @@ export const basicProps = {
   },
   theme: {
     type: String as PropType<string>,
-    default: MenuThemeEnum.DARK,
+    default: ThemeEnum.DARK,
   },
   showLogo: {
     type: Boolean as PropType<boolean>,

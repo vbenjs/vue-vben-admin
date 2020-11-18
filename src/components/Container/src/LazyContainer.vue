@@ -22,7 +22,8 @@
   import { defineComponent, reactive, onMounted, ref, toRef, toRefs } from 'vue';
 
   import { Skeleton } from 'ant-design-vue';
-  import { useTimeoutFn, useIntersectionObserver } from '@vueuse/core';
+  import { useTimeoutFn } from '@vueuse/core';
+  import { useIntersectionObserver } from '/@/hooks/event/useIntersectionObserver';
   interface State {
     isInit: boolean;
     loading: boolean;

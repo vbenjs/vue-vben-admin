@@ -73,7 +73,7 @@ export interface DrawerProps extends DrawerFooterProps {
   showDetailBack?: boolean;
   visible?: boolean;
   /**
-   * 内置的ScrollContainer组件配置
+   * Built-in ScrollContainer component configuration
    * @type ScrollContainerOptions
    */
   scrollOptions?: ScrollContainerOptions;

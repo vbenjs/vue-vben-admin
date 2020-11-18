@@ -1,5 +1,5 @@
-import { ContentEnum, RouterTransitionEnum } from '/@/enums/appEnum';
-import { MenuThemeEnum, TopMenuAlignEnum, TriggerEnum } from '/@/enums/menuEnum';
+import { ContentEnum, RouterTransitionEnum, ThemeEnum } from '/@/enums/appEnum';
+import { TopMenuAlignEnum, TriggerEnum } from '/@/enums/menuEnum';
 
 export enum HandlerEnum {
   CHANGE_LAYOUT,
@@ -40,11 +40,11 @@ export enum HandlerEnum {
 
 export const themeOptions = [
   {
-    value: MenuThemeEnum.LIGHT,
+    value: ThemeEnum.LIGHT,
     label: '亮色',
   },
   {
-    value: MenuThemeEnum.DARK,
+    value: ThemeEnum.DARK,
     label: '暗色',
   },
 ];

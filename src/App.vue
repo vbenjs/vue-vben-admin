@@ -1,5 +1,5 @@
 <template>
-  <ConfigProvider :locale="zhCN" :transform-cell-text="transformCellText" v-bind="lockOn">
+  <ConfigProvider v-bind="lockEvent" :locale="zhCN" :transform-cell-text="transformCellText">
     <router-view />
   </ConfigProvider>
 </template>
@@ -13,9 +13,8 @@
   import moment from 'moment';
   import 'moment/dist/locale/zh-cn';
 
-  import { useConfigProvider, useInitAppConfigStore } from './useApp';
+  import { getConfigProvider, initAppConfigStore } from '/@/setup/Application';
   import { useLockPage } from '/@/hooks/web/useLockPage';
-  import { useSetting } from '/@/hooks/core/useSetting';
 
   moment.locale('zh-cn');
 
@@ -23,26 +22,22 @@
     name: 'App',
     components: { ConfigProvider },
     setup() {
-      // Initialize application settings
-      useInitAppConfigStore();
-      // Initialize breakpoint monitoring
-      createBreakpointListen();
-      // Get system configuration
-      const { projectSetting } = useSetting();
-      // Get ConfigProvider configuration
-      const { transformCellText } = useConfigProvider();
+      // Initialize vuex internal system configuration
+      initAppConfigStore();
 
-      let lockOn = {};
-      if (projectSetting.lockTime) {
-        // Monitor the mouse or keyboard time, used to recalculate the lock screen time
-        const { on } = useLockPage();
-        lockOn = on;
-      }
+      // Create a global breakpoint monitor
+      createBreakpointListen();
+
+      // Get ConfigProvider configuration
+      const { transformCellText } = getConfigProvider();
+
+      // Create a lock screen monitor
+      const lockEvent = useLockPage();
 
       return {
         transformCellText,
         zhCN,
-        lockOn,
+        lockEvent,
       };
     },
   });

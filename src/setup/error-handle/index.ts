@@ -1,19 +1,28 @@
+/**
+ * Used to configure the global error handling function, which can monitor vue errors, script errors, static resource errors and Promise errors
+ */
+
 import { errorStore, ErrorInfo } from '/@/store/modules/error';
 import { useSetting } from '/@/hooks/core/useSetting';
 import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
 import { App } from 'vue';
+
+/**
+ * Handling error stack information
+ * @param error
+ */
 function processStackMsg(error: Error) {
   if (!error.stack) {
     return '';
   }
   let stack = error.stack
-    .replace(/\n/gi, '') // 去掉换行，节省传输内容大小
-    .replace(/\bat\b/gi, '@') // chrome中是at，ff中是@
-    .split('@') // 以@分割信息
-    .slice(0, 9) // 最大堆栈长度（Error.stackTraceLimit = 10），所以只取前10条
-    .map((v) => v.replace(/^\s*|\s*$/g, '')) // 去除多余空格
-    .join('~') // 手动添加分隔符，便于后期展示
-    .replace(/\?[^:]+/gi, ''); // 去除js文件链接的多余参数(?x=1之类)
+    .replace(/\n/gi, '') // Remove line breaks to save the size of the transmitted content
+    .replace(/\bat\b/gi, '@') // At in chrome, @ in ff
+    .split('@') // Split information with @
+    .slice(0, 9) // The maximum stack length (Error.stackTraceLimit = 10), so only take the first 10
+    .map((v) => v.replace(/^\s*|\s*$/g, '')) // Remove extra spaces
+    .join('~') // Manually add separators for later display
+    .replace(/\?[^:]+/gi, ''); // Remove redundant parameters of js file links (?x=1 and the like)
   const msg = error.toString();
   if (stack.indexOf(msg) < 0) {
     stack = msg + '@' + stack;
@@ -21,6 +30,10 @@ function processStackMsg(error: Error) {
   return stack;
 }
 
+/**
+ * get comp name
+ * @param vm
+ */
 function formatComponentName(vm: any) {
   if (vm.$root === vm) {
     return {
@@ -43,6 +56,10 @@ function formatComponentName(vm: any) {
   };
 }
 
+/**
+ * Configure Vue error handling function
+ */
+
 function vueErrorHandler(err: Error, vm: any, info: string) {
   const { name, path } = formatComponentName(vm);
   errorStore.commitErrorInfoState({
@@ -56,6 +73,9 @@ function vueErrorHandler(err: Error, vm: any, info: string) {
   });
 }
 
+/**
+ * Configure script error handling function
+ */
 export function scriptErrorHandler(
   event: Event | string,
   source?: string,
@@ -86,6 +106,9 @@ export function scriptErrorHandler(
   return true;
 }
 
+/**
+ * Configure Promise error handling function
+ */
 function registerPromiseErrorHandler() {
   window.addEventListener(
     'unhandledrejection',
@@ -104,8 +127,11 @@ function registerPromiseErrorHandler() {
   );
 }
 
+/**
+ * Configure monitoring resource loading error handling function
+ */
 function registerResourceErrorHandler() {
-  // 监控资源加载错误(img,script,css,以及jsonp)
+  // Monitoring resource loading error(img,script,css,and jsonp)
   window.addEventListener(
     'error',
     function (e: Event) {
@@ -129,19 +155,23 @@ function registerResourceErrorHandler() {
   );
 }
 
+/**
+ * Configure global error handling
+ * @param app
+ */
 export function setupErrorHandle(app: App) {
   const { projectSetting } = useSetting();
   const { useErrorHandle } = projectSetting;
-  if (!useErrorHandle) {
-    return;
-  }
-  // Vue异常监控;
+  if (!useErrorHandle) return;
+  // Vue exception monitoring;
   app.config.errorHandler = vueErrorHandler;
-  // js错误
+
+  // script error
   window.onerror = scriptErrorHandler;
-  //  promise 异常
+
+  //  promise exception
   registerPromiseErrorHandler();
 
-  // 静态资源异常
+  // Static resource exception
   registerResourceErrorHandler();
 }

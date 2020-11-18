@@ -7,7 +7,7 @@ enum Api {
 }
 
 /**
- * @description: 根据id获取用户菜单
+ * @description: Get user menu based on id
  */
 export function getMenuListById(params: getMenuListByIdParams) {
   return defHttp.request<getMenuListByIdParamsResultModel>({

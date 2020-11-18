@@ -9,9 +9,6 @@
   export default defineComponent({
     name: 'Welcome',
     components: { House },
-    setup() {
-      return {};
-    },
   });
 </script>
 <style lang="less" scoped>

@@ -62,7 +62,7 @@ export function useFormAction({
     Object.keys(values).forEach((key) => {
       const element = values[key];
       if (element !== undefined && element !== null && fields.includes(key)) {
-        // 时间
+        // time type
         if (itemIsDateType(key)) {
           if (Array.isArray(element)) {
             const arr: any[] = [];
@@ -84,7 +84,7 @@ export function useFormAction({
     // }
   }
   /**
-   * @description: 根据字段名删除
+   * @description: Delete based on field name
    */
   function removeSchemaByFiled(fields: string | string[]): void {
     const schemaList: FormSchema[] = cloneDeep(unref(getSchema));
@@ -102,7 +102,7 @@ export function useFormAction({
   }
 
   /**
-   * @description: 根据字段名删除
+   * @description: Delete based on field name
    */
   function _removeSchemaByFiled(field: string, schemaList: FormSchema[]): void {
     if (isString(field)) {
@@ -114,7 +114,7 @@ export function useFormAction({
   }
 
   /**
-   * @description: 往某个字段后面插入,如果没有插入最后一个
+   * @description: Insert after a certain field, if not insert the last
    */
   function appendSchemaByField(schema: FormSchema, prefixField?: string) {
     const schemaList: FormSchema[] = cloneDeep(unref(getSchema));
@@ -169,7 +169,7 @@ export function useFormAction({
   }
 
   /**
-   * @description: 是否是时间
+   * @description: Is it time
    */
   function itemIsDateType(key: string) {
     return unref(getSchema).some((item) => {
@@ -193,7 +193,7 @@ export function useFormAction({
   }
 
   /**
-   * @description: 表单提交
+   * @description: Form submission
    */
   async function handleSubmit(e?: Event): Promise<void> {
     e && e.preventDefault();

@@ -65,7 +65,7 @@
   import { userStore } from '/@/store/modules/user';
   import { RoleEnum } from '/@/enums/roleEnum';
   import { usePermission } from '/@/hooks/web/usePermission';
-  import Authority from '/@/components/Authority';
+  import { Authority } from '/@/components/Authority';
 
   export default defineComponent({
     components: { Alert, CurrentPermissionMode, Divider, Authority },
