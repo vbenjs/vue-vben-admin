@@ -1,4 +1,6 @@
 import { Component } from 'vue';
+import type { ComponentType } from './types/index';
+
 /**
  * Component list, register here to use it in the form
  */
@@ -16,8 +18,6 @@ import {
   TreeSelect,
 } from 'ant-design-vue';
 import RadioButtonGroup from './components/RadioButtonGroup.vue';
-
-import { ComponentType } from './types/index';
 
 const componentMap = new Map<ComponentType, any>();
 

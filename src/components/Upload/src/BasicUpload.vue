@@ -41,6 +41,7 @@
   import { omit } from 'lodash-es';
 
   export default defineComponent({
+    name: 'BasicUpload',
     components: { UploadModal, UploadPreviewModal, Icon, Tooltip },
     props: uploadContainerProps,
     setup(props, { emit, attrs }) {

@@ -7,7 +7,7 @@ import { setupErrorHandle } from '/@/setup/error-handle';
 import { setupGlobDirectives } from '/@/setup/directives';
 
 import { setupProdMockServer } from '../mock/_createProductionServer';
-import { setApp } from '/@/setup/Application';
+import { setApp } from '/@/setup/App';
 
 import App from './App.vue';
 

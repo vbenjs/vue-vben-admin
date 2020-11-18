@@ -108,4 +108,5 @@ export type ComponentType =
   | 'ImageUpload'
   | 'Switch'
   | 'StrengthMeter'
+  | 'Upload'
   | 'Render';
