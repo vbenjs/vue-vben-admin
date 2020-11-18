@@ -7,13 +7,15 @@
     @register="register"
     :showOkBtn="false"
   >
-    <BasicTable @register="registerTable" :dataSource="fileListRef" />
+    <FileList :dataSource="fileListRef" :columns="columns" :actionColumn="actionColumn" />
   </BasicModal>
 </template>
 <script lang="ts">
   import { defineComponent, watch, ref, unref } from 'vue';
 
-  import { BasicTable, useTable } from '/@/components/Table';
+  //   import { BasicTable, useTable } from '/@/components/Table';
+  import FileList from './FileList';
+
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { previewProps } from './props';
   import { PreviewFileItem } from './types';
@@ -22,7 +24,7 @@
 
   import { createPreviewColumns, createPreviewActionColumn } from './data';
   export default defineComponent({
-    components: { BasicModal, BasicTable },
+    components: { BasicModal, FileList },
     props: previewProps,
     setup(props, { emit }) {
       const [register, { closeModal }] = useModalInner();
@@ -71,17 +73,12 @@
         downloadByUrl({ url });
       }
 
-      const [registerTable] = useTable({
-        columns: createPreviewColumns(),
-        pagination: false,
-        actionColumn: createPreviewActionColumn({ handleRemove, handlePreview, handleDownload }),
-      });
-
       return {
         register,
         closeModal,
         fileListRef,
-        registerTable,
+        columns: createPreviewColumns(),
+        actionColumn: createPreviewActionColumn({ handleRemove, handlePreview, handleDownload }),
       };
     },
   });

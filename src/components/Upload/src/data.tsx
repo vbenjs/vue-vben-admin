@@ -12,7 +12,7 @@ export function createTableColumns(): BasicColumn[] {
       width: 100,
       customRender: ({ record }) => {
         const { thumbUrl, type } = (record as FileItem) || {};
-        return <span>{thumbUrl ? <img style={{ maxWidth: '60px' }} src={thumbUrl} /> : type}</span>;
+        return <span>{thumbUrl ? <img style={{ maxWidth: '100%' }} src={thumbUrl} /> : type}</span>;
       },
     },
     {

@@ -23,24 +23,25 @@
         {{ getUploadBtnText }}
       </a-button>
     </template>
-
-    <BasicTable @register="registerTable" :dataSource="fileListRef">
-      <template #toolbar>
-        <Upload :accept="getStringAccept" :multiple="multiple" :before-upload="beforeUpload">
-          <a-button type="primary"> 选择文件 </a-button>
-        </Upload>
-      </template>
-      <template #tableTitle>
-        <Alert :message="getHelpText" type="info" banner></Alert>
-      </template>
-    </BasicTable>
+    <div class="upload-modal-toolbar">
+      <Alert :message="getHelpText" type="info" banner class="upload-modal-toolbar__text"></Alert>
+      <Upload
+        :accept="getStringAccept"
+        :multiple="multiple"
+        :before-upload="beforeUpload"
+        class="upload-modal-toolbar__btn"
+      >
+        <a-button type="primary"> 选择文件 </a-button>
+      </Upload>
+    </div>
+    <FileList :dataSource="fileListRef" :columns="columns" :actionColumn="actionColumn" />
   </BasicModal>
 </template>
 <script lang="ts">
   import { defineComponent, reactive, ref, toRefs, unref, computed } from 'vue';
   import { Upload, Alert } from 'ant-design-vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
-  import { BasicTable, useTable } from '/@/components/Table';
+  //   import { BasicTable, useTable } from '/@/components/Table';
   // hooks
   import { useUploadType } from './useUpload';
   import { useMessage } from '/@/hooks/web/useMessage';
@@ -55,9 +56,9 @@
   import { uploadApi } from '/@/api/sys/upload';
   import { isFunction } from '/@/utils/is';
   import { warn } from '/@/utils/log';
-
+  import FileList from './FileList';
   export default defineComponent({
-    components: { BasicModal, Upload, BasicTable, Alert },
+    components: { BasicModal, Upload, Alert, FileList },
     props: basicProps,
     setup(props, { emit }) {
       //   是否正在上传
@@ -257,23 +258,25 @@
         }
       }
 
-      const [registerTable] = useTable({
+      //   const [registerTable] = useTable({
+      //     columns: createTableColumns(),
+      //     actionColumn: createActionColumn(handleRemove, handlePreview),
+      //     pagination: false,
+      //     inset: true,
+      //     scroll: {
+      //       y: 3000,
+      //     },
+      //   });
+      return {
         columns: createTableColumns(),
         actionColumn: createActionColumn(handleRemove, handlePreview),
-        pagination: false,
-        inset: true,
-        scroll: {
-          y: 3000,
-        },
-      });
-      return {
         register,
         closeModal,
         getHelpText,
         getStringAccept,
         getOkButtonProps,
         beforeUpload,
-        registerTable,
+        // registerTable,
         fileListRef,
         state,
         isUploadingRef,
@@ -294,6 +297,18 @@
 
     .ant-table-wrapper .ant-spin-nested-loading {
       padding: 0;
+    }
+
+    &-toolbar {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+
+      &__btn {
+        margin-left: 8px;
+        text-align: right;
+        flex: 1;
+      }
     }
   }
 </style>
