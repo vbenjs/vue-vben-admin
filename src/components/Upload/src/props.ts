@@ -1,4 +1,5 @@
 import type { PropType } from 'vue';
+import { FileBasicColumn } from './types';
 
 export const basicProps = {
   helpText: {
@@ -55,5 +56,20 @@ export const previewProps = {
   value: {
     type: Array as PropType<string[]>,
     default: () => [],
+  },
+};
+
+export const fileListProps = {
+  columns: {
+    type: [Array] as PropType<FileBasicColumn[]>,
+    default: null,
+  },
+  actionColumn: {
+    type: Object as PropType<FileBasicColumn>,
+    default: null,
+  },
+  dataSource: {
+    type: Array as PropType<any[]>,
+    default: null,
   },
 };
