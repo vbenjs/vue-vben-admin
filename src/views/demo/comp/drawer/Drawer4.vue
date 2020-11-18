@@ -1,7 +1,6 @@
 <template>
   <BasicDrawer v-bind="$attrs" @register="register" title="Drawer Title" width="50%">
     <div>
-      <p class="h-20">外部传递数据: {{ receiveDrawerDataRef }}</p>
       <BasicForm @register="registerForm" />
     </div>
   </BasicDrawer>
@@ -41,14 +40,14 @@
           span: 24,
         },
       });
-      const [register, { receiveDrawerDataRef }] = useDrawerInner((data) => {
+      const [register] = useDrawerInner((data) => {
         // 方式1
         setFieldsValue({
           field2: data.data,
           field1: data.info,
         });
       });
-      return { register, receiveDrawerDataRef, schemas, registerForm };
+      return { register, schemas, registerForm };
     },
   });
 </script>

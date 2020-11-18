@@ -5,16 +5,7 @@ import type {
   ReturnMethods,
   UseModalInnerReturnType,
 } from './types';
-import {
-  ref,
-  onUnmounted,
-  unref,
-  getCurrentInstance,
-  reactive,
-  computed,
-  watchEffect,
-  nextTick,
-} from 'vue';
+import { ref, onUnmounted, unref, getCurrentInstance, reactive, watchEffect, nextTick } from 'vue';
 import { isProdMode } from '/@/utils/env';
 import { isFunction } from '/@/utils/is';
 const dataTransferRef = reactive<any>({});
@@ -55,17 +46,18 @@ export function useModal(): UseModalReturnType {
       getInstance().setModalProps(props);
     },
 
-    openModal: <T = any>(visible = true, data?: T): void => {
+    openModal: <T = any>(visible = true, data?: T, openOnSet = false): void => {
       getInstance().setModalProps({
         visible: visible,
       });
       if (data) {
-        dataTransferRef[unref(uidRef)] = data;
+        dataTransferRef[unref(uidRef)] = openOnSet
+          ? {
+              ...data,
+              __t__: Date.now(),
+            }
+          : data;
       }
-    },
-
-    transferModalData(val: any) {
-      dataTransferRef[unref(uidRef)] = val;
     },
   };
   return [register, methods];
@@ -106,10 +98,6 @@ export const useModalInner = (callbackFn?: Fn): UseModalInnerReturnType => {
   return [
     register,
     {
-      receiveModalDataRef: computed(() => {
-        return dataTransferRef[unref(uidRef)];
-      }),
-
       changeLoading: (loading = true) => {
         getInstance().setModalProps({ loading });
       },
