@@ -1,6 +1,6 @@
 // 左侧菜单, 顶部菜单
-import { MenuTypeEnum, MenuModeEnum, MenuThemeEnum, TriggerEnum } from '/@/enums/menuEnum';
-import { ContentEnum, PermissionModeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
+import { MenuTypeEnum, MenuModeEnum, TriggerEnum } from '/@/enums/menuEnum';
+import { ContentEnum, PermissionModeEnum, ThemeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 
 export interface MessageSetting {
   title: string;
@@ -20,7 +20,7 @@ export interface MenuSetting {
   menuWidth: number;
   mode: MenuModeEnum;
   type: MenuTypeEnum;
-  theme: MenuThemeEnum;
+  theme: ThemeEnum;
   topMenuAlign: 'start' | 'center' | 'end';
   collapsedShowSearch: boolean;
   trigger: TriggerEnum;
@@ -41,7 +41,7 @@ export interface MultiTabsSetting {
 export interface HeaderSetting {
   fixed: boolean;
   show: boolean;
-  theme: MenuThemeEnum;
+  theme: ThemeEnum;
   // 显示刷新按钮
   showRedo: boolean;
   // 显示全屏按钮

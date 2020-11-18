@@ -11,7 +11,7 @@
 <script lang="ts">
   import type { PropType } from 'vue';
   import { defineComponent, computed } from 'vue';
-  import { MenuThemeEnum } from '/@/enums/menuEnum';
+  import { ThemeEnum } from '/@/enums/appEnum';
 
   // hook
   import { useDebounce } from '/@/hooks/core/useDebounce';
@@ -25,7 +25,7 @@
         default: true,
       },
       theme: {
-        type: String as PropType<MenuThemeEnum>,
+        type: String as PropType<ThemeEnum>,
       },
     },
     setup(props, { emit }) {

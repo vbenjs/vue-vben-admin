@@ -1,6 +1,6 @@
 import { isHexColor, colorIsDark, lighten, darken } from '/@/utils/color';
 import { appStore } from '/@/store/modules/app';
-import { MenuThemeEnum } from '/@/enums/menuEnum';
+import { ThemeEnum } from '/@/enums/appEnum';
 
 const HEADER_BG_COLOR_VAR = '--header-bg-color';
 const HEADER_BG_HOVER_COLOR_VAR = '--header-bg-hover-color';
@@ -22,14 +22,26 @@ function toggleClass(flag: boolean, clsName: string) {
   document.body.className = flag ? `${className} ${clsName} ` : className;
 }
 
+/**
+ * Change the status of the project's color weakness mode
+ * @param gray
+ */
 export const updateColorWeak = (colorWeak: boolean) => {
   toggleClass(colorWeak, 'color-weak');
 };
 
+/**
+ * Change project gray mode status
+ * @param gray
+ */
 export const updateGrayMode = (gray: boolean) => {
   toggleClass(gray, 'gray-mode');
 };
 
+/**
+ * Change the background color of the top header
+ * @param color
+ */
 export function updateHeaderBgColor(color: string) {
   if (!isHexColor(color)) return;
   // bg color
@@ -40,15 +52,20 @@ export function updateHeaderBgColor(color: string) {
   setCssVar(HEADER_BG_HOVER_COLOR_VAR, hoverColor);
   setCssVar(HEADER_MENU_ACTIVE_BG_COLOR_VAR, hoverColor);
 
+  // Determine the depth of the color value and automatically switch the theme
   const isDark = colorIsDark(color);
 
   appStore.commitProjectConfigState({
     headerSetting: {
-      theme: isDark ? MenuThemeEnum.DARK : MenuThemeEnum.LIGHT,
+      theme: isDark ? ThemeEnum.DARK : ThemeEnum.LIGHT,
     },
   });
 }
 
+/**
+ * Change the background color of the left menu
+ * @param color  bg color
+ */
 export function updateSidebarBgColor(color: string) {
   if (!isHexColor(color)) return;
 
@@ -58,11 +75,12 @@ export function updateSidebarBgColor(color: string) {
   setCssVar(SIDER_LIGHTEN_2_BG_COLOR, lighten(color, 8));
 
   // only #ffffff is light
+  // Only when the background color is #fff, the theme of the menu will be changed to light
   const isLight = ['#fff', '#ffffff'].includes(color.toLowerCase());
 
   appStore.commitProjectConfigState({
     menuSetting: {
-      theme: isLight ? MenuThemeEnum.LIGHT : MenuThemeEnum.DARK,
+      theme: isLight ? ThemeEnum.LIGHT : ThemeEnum.DARK,
     },
   });
 }

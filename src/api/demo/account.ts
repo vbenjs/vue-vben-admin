@@ -5,7 +5,7 @@ enum Api {
   ACCOUNT_INFO = '/account/getAccountInfo',
 }
 
-// 获取个人中心--基础设置内容
+// Get personal center-basic settings
 export function accountInfoApi() {
   return defHttp.request<GetAccountInfoModel>({
     url: Api.ACCOUNT_INFO,

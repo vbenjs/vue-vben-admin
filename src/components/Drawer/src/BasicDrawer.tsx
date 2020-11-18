@@ -71,7 +71,7 @@ export default defineComponent({
       }
     );
 
-    // 底部按钮自定义实现,
+    // Custom implementation of the bottom button,
     const getFooterHeight = computed(() => {
       const { footerHeight, showFooter }: DrawerProps = unref(getProps);
       if (showFooter && footerHeight) {
@@ -80,7 +80,7 @@ export default defineComponent({
       return `0px`;
     });
 
-    // 取消事件
+    // Cancel event
     async function onClose(e: any) {
       const { closeFunc } = unref(getProps);
       emit('close', e);
@@ -93,7 +93,7 @@ export default defineComponent({
     }
 
     function setDrawerProps(props: Partial<DrawerProps>): void {
-      // 保留上一次的setDrawerProps
+      // Keep the last setDrawerProps
       propsRef.value = deepMerge(unref(propsRef) || {}, props);
       if (Reflect.has(props, 'visible')) {
         visibleRef.value = !!props.visible;

@@ -1,6 +1,6 @@
 import { Component } from 'vue';
 /**
- * 组件列表,在这里注册才可以在表单使用
+ * Component list, register here to use it in the form
  */
 import {
   Input,

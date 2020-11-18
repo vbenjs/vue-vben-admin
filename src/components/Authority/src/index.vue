@@ -1,17 +1,28 @@
+<!--
+ * @Author: Vben
+ * @Description:Access control component for fine-grained access control.
+-->
 <script lang="ts">
   import type { PropType } from 'vue';
   import { defineComponent, computed, unref } from 'vue';
 
   import { PermissionModeEnum } from '/@/enums/appEnum';
   import { RoleEnum } from '/@/enums/roleEnum';
+
   import { usePermission } from '/@/hooks/web/usePermission';
   import { appStore } from '/@/store/modules/app';
+
   import { getSlot } from '/@/utils/helper/tsxHelper';
 
   export default defineComponent({
     name: 'Authority',
     props: {
-      // 指定角色可见
+      /**
+       * Specified role is visible
+       * When the permission mode is the role mode, the value value can pass the role value.
+       * When the permission mode is background, the value value can pass the code permission value
+       * @default ''
+       */
       value: {
         type: [Number, Array, String] as PropType<RoleEnum | RoleEnum[] | string | string[]>,
         default: '',
@@ -23,7 +34,7 @@
       });
 
       /**
-       * 渲染角色按钮
+       * Render role button
        */
       function renderRoleAuth() {
         const { value } = props;
@@ -34,10 +45,8 @@
         return hasPermission(value) ? getSlot(slots) : null;
       }
 
-      /**
-       * 渲染编码按钮
-       * 这里只判断是否包含，具体实现可以根据项目自行写逻辑
-       */
+      //  Render coding button
+      // Here only judge whether it is included, the specific implementation can be written according to the project logic
       function renderCodeAuth() {
         const { value } = props;
         if (!value) {
@@ -49,12 +58,12 @@
 
       return () => {
         const mode = unref(getModeRef);
-        // 基于角色渲染
+        // Role-based value control
         if (mode === PermissionModeEnum.ROLE) {
           return renderRoleAuth();
         }
 
-        // 基于后台编码渲染
+        // Based on background role permission control
         if (mode === PermissionModeEnum.BACK) {
           return renderCodeAuth();
         }

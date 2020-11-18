@@ -4,11 +4,11 @@ import { resultSuccess } from '../_util';
 const userInfo = {
   name: 'Vben',
   userid: '00000001',
-  email: 'antdesign@alipay.com',
+  email: 'test@gmail.com',
   signature: '海纳百川，有容乃大',
   introduction: '微笑着，努力着，欣赏着',
   title: '交互专家',
-  group: '蚂蚁集团11－某某某事业群－某某平台部－某某技术部－UED',
+  group: '某某某事业群－某某平台部－某某技术部－UED',
   tags: [
     {
       key: '0',
@@ -38,7 +38,7 @@ const userInfo = {
   notifyCount: 12,
   unreadCount: 11,
   country: 'China',
-  address: '厦门市 77 号',
+  address: 'Xiamen City 77',
   phone: '0592-268888888',
 };
 

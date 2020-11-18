@@ -22,7 +22,7 @@ import { isFunction } from '/@/utils/is';
 
 const dataTransferRef = reactive<any>({});
 /**
- * @description: 适用于将drawer独立出去,外面调用
+ * @description: Applicable to separate drawer and call outside
  */
 export function useDrawer(): UseDrawerReturnType {
   if (!getCurrentInstance()) {

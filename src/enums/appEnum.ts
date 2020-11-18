@@ -15,6 +15,13 @@ export enum ThemeModeEnum {
   SEMI_DARK = 'semi-dark-mode',
 }
 
+// menu theme enum
+export enum ThemeEnum {
+  DARK = 'dark',
+
+  LIGHT = 'light',
+}
+
 /**
  * 权限模式
  */

@@ -1,18 +1,24 @@
+import type { RouteRecordRaw } from 'vue-router';
+
 import { appStore } from '/@/store/modules/app';
 import { permissionStore } from '/@/store/modules/permission';
-import { useTabs } from './useTabs';
-import { RoleEnum } from '/@/enums/roleEnum';
-import router, { resetRouter } from '/@/router';
 import { userStore } from '/@/store/modules/user';
-import { isArray } from '/@/utils/is';
-import { RootRoute } from '/@/router/routes';
-import type { RouteRecordRaw } from 'vue-router';
-import { PermissionModeEnum } from '/@/enums/appEnum';
-import { intersection } from 'lodash-es';
 
+import { useTabs } from './useTabs';
+
+import router, { resetRouter } from '/@/router';
+import { RootRoute } from '/@/router/routes';
+
+import { PermissionModeEnum } from '/@/enums/appEnum';
+import { RoleEnum } from '/@/enums/roleEnum';
+
+import { intersection } from 'lodash-es';
+import { isArray } from '/@/utils/is';
+
+// User permissions related operations
 export function usePermission() {
   /**
-   * 更换权限模式
+   * Change permission mode
    */
   async function togglePermissionMode() {
     appStore.commitProjectConfigState({
@@ -25,6 +31,10 @@ export function usePermission() {
     // location.reload();
   }
 
+  /**
+   * Reset and regain authority resource information
+   * @param id
+   */
   async function resume(id?: string | number) {
     resetRouter();
     const routes = await permissionStore.buildRoutesAction(id);
@@ -41,12 +51,12 @@ export function usePermission() {
   }
 
   /**
-   * 角色模式下判断是否显示
+   * Determine whether there is permission
    */
   function hasPermission(value?: RoleEnum | RoleEnum[] | string | string[], def = true): boolean {
     const permMode = appStore.getProjectConfig.permissionMode;
     if (PermissionModeEnum.ROLE === permMode) {
-      // ！不传默认可见
+      // Visible by default
       if (!value) {
         return def;
       }
@@ -56,7 +66,7 @@ export function usePermission() {
       return (intersection(value, userStore.getRoleListState) as RoleEnum[]).length > 0;
     }
     if (PermissionModeEnum.BACK === permMode) {
-      // ！不传默认可见
+      // Visible by default
       if (!value) {
         return def;
       }
@@ -66,17 +76,18 @@ export function usePermission() {
       }
       return (intersection(value, allCodeList) as string[]).length > 0;
     }
-
     return true;
   }
 
   /**
-   * 更新角色
+   * Change roles
    * @param roles
    */
   async function changeRole(roles: RoleEnum | RoleEnum[]): Promise<void> {
     if (appStore.getProjectConfig.permissionMode !== PermissionModeEnum.ROLE) {
-      throw new Error('请在配置中将PermissionModeEnum切换为ROLE模式在进行操作!');
+      throw new Error(
+        'Please switch PermissionModeEnum to ROLE mode in the configuration to operate!'
+      );
     }
     if (!isArray(roles)) {
       roles = [roles];
@@ -86,10 +97,10 @@ export function usePermission() {
   }
 
   /**
-   *
+   * Change menu
    */
   async function changeMenu(id?: string | number) {
-    // 这里传入id是为测试，实际可以不用传，会自动获取登录人的id
+    // TODO The id passed in here is for testing. Actually, you don’t need to pass it. The id of the login person will be automatically obtained.
     resume(id);
   }
 

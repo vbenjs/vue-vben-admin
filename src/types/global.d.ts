@@ -6,7 +6,6 @@ declare interface PromiseFn<T = any, R = T> {
   (...arg: T[]): Promise<R>;
 }
 
-// 任意对象
 declare interface IObj<T = any> {
   [key: string]: T;
   [key: number]: T;
@@ -34,19 +33,11 @@ declare type Indexable<T = any> = {
 
 declare type Hash<T> = Indexable<T>;
 
-// declare type DeepPartial<T> = {
-//   [P in keyof T]?: T[P] extends (infer U)[]
-//     ? RecursivePartial<U>[]
-//     : T[P] extends object
-//     ? RecursivePartial<T[P]>
-//     : T[P];
-// };
-
 declare type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>;
 };
 
-declare type SelectOptions = {
+declare type LabelValueOptions = {
   label: string;
   value: any;
 }[];
@@ -54,3 +45,7 @@ declare type SelectOptions = {
 declare type EmitType = (event: string, ...args: any[]) => void;
 
 declare type TargetContext = '_self' | '_blank';
+
+declare type TimeoutHandle = ReturnType<typeof setTimeout>;
+
+declare type IntervalHandle = ReturnType<typeof setInterval>;

@@ -58,7 +58,7 @@
   import { Alert, Divider } from 'ant-design-vue';
   import CurrentPermissionMode from '../CurrentPermissionMode.vue';
   import { usePermission } from '/@/hooks/web/usePermission';
-  import Authority from '/@/components/Authority';
+  import { Authority } from '/@/components/Authority';
   import { getPermCodeByUserId } from '/@/api/sys/user';
   import { permissionStore } from '/@/store/modules/permission';
   import { PermissionModeEnum } from '/@/enums/appEnum';

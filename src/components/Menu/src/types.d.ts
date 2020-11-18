@@ -1,3 +1,4 @@
+import { ThemeEnum } from '/@/enums/appEnum';
 export interface MenuState {
   // 默认选中的列表
   defaultSelectedKeys: string[];
@@ -6,7 +7,7 @@ export interface MenuState {
   mode: MenuModeEnum;
 
   // 主题
-  theme: ComputedRef<MenuThemeEnum> | MenuThemeEnum;
+  theme: ComputedRef<ThemeEnum> | ThemeEnum;
 
   // 缩进
   inlineIndent?: number;

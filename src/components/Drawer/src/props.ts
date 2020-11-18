@@ -1,9 +1,8 @@
 import type { PropType } from 'vue';
-// import {DrawerProps} from './types'
 export const footerProps = {
   confirmLoading: Boolean as PropType<boolean>,
   /**
-   * @description: 显示关闭按钮
+   * @description: Show close button
    */
   showCancelBtn: {
     type: Boolean as PropType<boolean>,
@@ -15,7 +14,7 @@ export const footerProps = {
     default: '关闭',
   },
   /**
-   * @description: 显示确认按钮
+   * @description: Show confirmation button
    */
   showOkBtn: {
     type: Boolean as PropType<boolean>,

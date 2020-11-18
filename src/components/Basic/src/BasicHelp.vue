@@ -71,9 +71,6 @@
         return props.absolute ? props.position : {};
       });
 
-      /**
-       * @description: 渲染内容
-       */
       const renderTitle = () => {
         const list = props.text;
         if (isString(list)) {
@@ -89,6 +86,7 @@
 
       return () => {
         return h(
+          // @ts-ignores
           Tooltip,
           {
             title: h(

@@ -42,57 +42,57 @@ export type UseFormReturnType = [RegisterFn, FormActionType];
 
 export interface FormProps {
   // layout?: 'vertical' | 'inline' | 'horizontal';
-  // 表单值
+  // Form value
   model?: any;
-  // 整个表单所有项宽度
+  // The width of all items in the entire form
   labelWidth?: number | string;
-  // 重置时提交
+  // Submit form on reset
   submitOnReset?: boolean;
-  // 整个表单通用Col配置
+  // Col configuration for the entire form
   labelCol?: Partial<ColEx>;
-  // 整个表单通用Col配置
+  // Col configuration for the entire form
   wrapperCol?: Partial<ColEx>;
 
-  // 通用col配置
+  // General col configuration
   baseColProps?: Partial<ColEx>;
 
-  // 表单配置规则
+  // Form configuration rules
   schemas?: FormSchema[];
-  // 用于合并到动态控制表单项的 函数values
+  // Function values used to merge into dynamic control form items
   mergeDynamicData?: any;
-  // 紧凑模式,用于搜索表单
+  // Compact mode for search forms
   compact?: boolean;
-  // 空白行span
+  // Blank line span
   emptySpan?: number | Partial<ColEx>;
-  // 表单内部组件大小
+  // Internal component size of the form
   size?: 'default' | 'small' | 'large';
-  // 是否禁用
+  // Whether to disable
   disabled?: boolean;
-  // 时间区间字段映射成多个
+  // Time interval fields are mapped into multiple
   fieldMapToTime?: FieldMapToTime;
-  // 自动设置placeholder
+  // Placeholder is set automatically
   autoSetPlaceHolder?: boolean;
-  // 校验信息是否加入label
+  // Check whether the information is added to the label
   rulesMessageJoinLabel?: boolean;
-  // 是否显示收起展开按钮
+  // Whether to show collapse and expand buttons
   showAdvancedButton?: boolean;
-  // 超过指定行数自动收起
+  // Automatically collapse over the specified number of rows
   autoAdvancedLine?: number;
-  // 是否显示操作按钮
+  // Whether to show the operation button
   showActionButtonGroup?: boolean;
 
-  // 重置按钮配置
+  // Reset button configuration
   resetButtonOptions?: Partial<ButtonProps>;
 
-  // 确认按钮配置
+  // Confirm button configuration
   submitButtonOptions?: Partial<ButtonProps>;
 
-  // 操作列配置
+  // Operation column configuration
   actionColOptions?: Partial<ColEx>;
 
-  // 显示重置按钮
+  // Show reset button
   showResetButton?: boolean;
-  // 显示确认按钮
+  // Show confirmation button
   showSubmitButton?: boolean;
 
   resetFunc?: () => Promise<void>;
@@ -101,27 +101,27 @@ export interface FormProps {
   colon?: boolean;
 }
 export interface FormSchema {
-  // 字段名
+  // Field name
   field: string;
-  // 内部值更改触发的事件名，默认 change
+  // Event name triggered by internal value change, default change
   changeEvent?: string;
-  // v-model绑定的变量名 默认 value
+  // Variable name bound to v-model Default value
   valueField?: string;
-  // 标签名
+  // Label name
   label: string;
-  // 辅助文本
+  // Auxiliary text
   subLabel?: string;
-  // 文本右侧帮助文本
+  // Help text on the right side of the text
   helpMessage?: string | string[];
-  // BaseHelp组件props
+  // BaseHelp component props
   helpComponentProps?: Partial<HelpComponentProps>;
-  // label宽度,有传的话 itemProps配置的 labelCol 和WrapperCol会失效
+  // Label width, if it is passed, the labelCol and WrapperCol configured by itemProps will be invalid
   labelWidth?: string | number;
-  // 禁用调有formModel全局设置的labelWidth,自己手动设置 labelCol和wrapperCol
+  // Disable the adjustment of labelWidth with global settings of formModel, and manually set labelCol and wrapperCol by yourself
   disabledLabelWidth?: boolean;
-  // 组件
+  // render component
   component: ComponentType;
-  // 组件参数
+  // Component parameters
   componentProps?:
     | ((opt: {
         schema: FormSchema;
@@ -130,35 +130,35 @@ export interface FormSchema {
         formModel: any;
       }) => any)
     | object;
-  // 必填
+  // Required
   required?: boolean;
 
-  // 校验规则
+  // Validation rules
   rules?: Rule[];
-  // 校验信息是否加入label
+  // Check whether the information is added to the label
   rulesMessageJoinLabel?: boolean;
 
-  // 参考formModelItem
+  // Reference formModelItem
   itemProps?: Partial<FormItem>;
 
-  // formModelItem外层的col配置
+  // col configuration outside formModelItem
   colProps?: Partial<ColEx>;
 
   // 默认值
   defaultValue?: any;
   isAdvanced?: boolean;
 
-  // 配合详情组件
+  // Matching details components
   span?: number;
 
   ifShow?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
   show?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
-  // 渲染form-item标签内的内容
+  // Render the content in the form-item tag
   render?: (renderCallbackParams: RenderCallbackParams) => VNode | VNode[] | string;
 
-  // 渲染 col内容,需要外层包裹 form-item
+  // Rendering col content requires outer wrapper form-item
   renderColContent?: (renderCallbackParams: RenderCallbackParams) => VNode | VNode[] | string;
 
   renderComponentContent?:
@@ -167,10 +167,10 @@ export interface FormSchema {
     | VNode[]
     | string;
 
-  // 自定义slot, 在 from-item内
+  // Custom slot, in from-item
   slot?: string;
 
-  // 自定义slot,类似renderColContent
+  // Custom slot, similar to renderColContent
   colSlot?: string;
 
   dynamicDisabled?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
@@ -179,16 +179,16 @@ export interface FormSchema {
 }
 export interface HelpComponentProps {
   maxWidth: string;
-  // 是否显示序号
+  // Whether to display the serial number
   showIndex: boolean;
-  // 文本列表
+  // Text list
   text: any;
-  // 颜色
+  // colour
   color: string;
-  // 字体大小
+  // font size
   fontSize: string;
   icon: string;
   absolute: boolean;
-  // 定位
+  // Positioning
   position: any;
 }

@@ -27,7 +27,7 @@
 <script lang="ts">
   import type { FormActionType, FormProps, FormSchema } from './types/form';
   import type { AdvanceState } from './types/hooks';
-  import type { Ref } from 'vue';
+  import type { Ref, WatchStopHandle } from 'vue';
   import type { ValidateFields } from 'ant-design-vue/lib/form/interface';
 
   import { defineComponent, reactive, ref, computed, unref, toRef, onMounted, watch } from 'vue';
@@ -66,6 +66,7 @@
       });
 
       const defaultValueRef = ref<any>({});
+      const isInitedDefaultRef = ref(false);
       const propsRef = ref<Partial<FormProps>>({});
       const schemaRef = ref<Nullable<FormSchema[]>>(null);
       const formElRef = ref<Nullable<FormActionType>>(null);
@@ -164,16 +165,19 @@
         }
       );
 
-      watch(
+      const stopWatch: WatchStopHandle = watch(
         () => getSchema.value,
-        () => {
-          initDefault();
+        (schema) => {
+          if (unref(isInitedDefaultRef)) {
+            return stopWatch();
+          }
+          if (schema && schema.length) {
+            initDefault();
+            isInitedDefaultRef.value = true;
+          }
         }
       );
 
-      /**
-       * @description:设置表单
-       */
       function setProps(formProps: Partial<FormProps>): void {
         const mergeProps = deepMerge(unref(propsRef) || {}, formProps);
         propsRef.value = mergeProps;

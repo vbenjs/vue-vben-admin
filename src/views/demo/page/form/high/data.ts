@@ -1,6 +1,6 @@
 import { FormSchema } from '/@/components/Form';
 
-const basicOptions: SelectOptions = [
+const basicOptions: LabelValueOptions = [
   {
     label: '付晓晓',
     value: '1',
@@ -11,7 +11,7 @@ const basicOptions: SelectOptions = [
   },
 ];
 
-const storeTypeOptions: SelectOptions = [
+const storeTypeOptions: LabelValueOptions = [
   {
     label: '私密',
     value: '1',

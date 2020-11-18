@@ -1,5 +1,5 @@
 // Load on demand
-
+// This module only introduces components globally before login
 import type { App } from 'vue';
 
 import {
