@@ -1,4 +1,4 @@
-## Wip
+## 2.0.0-rc.11 (2020-11-18)
 
 ### ✨ Features
 
@@ -14,6 +14,11 @@
 
 - 更新 antdv 到`2.0.0-rc.1`（暂时还原到 beta15,rc1 菜单卡顿太严重.）
 - 添加部分注释
+
+### ✨ Refactor
+
+- 移除`useModal`与`useDrawer`的`receiveDrawerDataRef`和`transferDrawerData`属性
+- `useModal`与`useDrawer`对应的`openModal`与`openDrawer`扩展第三个参数。用于再次打开触发回调
 
 ### 🐛 Bug Fixes
 

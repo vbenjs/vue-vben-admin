@@ -1,6 +1,5 @@
 <template>
   <BasicModal v-bind="$attrs" @register="register" title="Modal Title">
-    <p class="h-20">外部传递数据: {{ receiveModalDataRef }}</p>
     <BasicForm @register="registerForm" :model="model" />
   </BasicModal>
 </template>
@@ -46,7 +45,7 @@
         },
       });
 
-      const [register, { receiveModalDataRef }] = useModalInner((data) => {
+      const [register] = useModalInner((data) => {
         // 方式1
         // setFieldsValue({
         //   field2: data.data,
@@ -60,7 +59,7 @@
         //   model:{ field2: data.data, field1: data.info }
         // })
       });
-      return { register, receiveModalDataRef, schemas, registerForm, model: modelRef };
+      return { register, schemas, registerForm, model: modelRef };
     },
   });
 </script>

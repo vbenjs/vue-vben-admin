@@ -7,8 +7,7 @@ export interface DrawerInstance {
 }
 
 export interface ReturnMethods extends DrawerInstance {
-  openDrawer: <T = any>(visible?: boolean, data?: T) => void;
-  transferDrawerData: (data: any) => void;
+  openDrawer: <T = any>(visible?: boolean, data?: T, openOnSet?: boolean) => void;
 }
 
 export type RegisterFn = (drawerInstance: DrawerInstance, uuid?: string) => void;
@@ -17,7 +16,6 @@ export interface ReturnInnerMethods extends DrawerInstance {
   closeDrawer: () => void;
   changeLoading: (loading: boolean) => void;
   changeOkLoading: (loading: boolean) => void;
-  receiveDrawerDataRef: any;
 }
 
 export type UseDrawerReturnType = [RegisterFn, ReturnMethods];

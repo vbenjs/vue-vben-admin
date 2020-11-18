@@ -1,3 +1,32 @@
+## 2.0.0-rc.11 (2020-11-18)
+
+### ✨ Features
+
+- Added base64 file stream download
+- Optimize upload components and examples
+- New editable row example
+- Add a personal page
+- New form page
+- Add details page
+- Integrate upload components into form by default
+
+### 🎫 Chores
+
+- Update antdv to `2.0.0-rc.1` (temporarily restore to beta15, rc1 menu freezes too seriously.)
+- Add some notes
+
+### ✨ Refactor
+
+- Removed `receiveDrawerDataRef` and `transferDrawerData` properties of `useModal` and `useDrawer`
+- `openModal` and `openDrawer` corresponding to `useModal` and `useDrawer` extend the third parameter. Used to open the trigger callback again
+
+### 🐛 Bug Fixes
+
+- Repair form inputNumber verification error
+- Fix the error of setting the default value of the form
+- Fix the problem of occupying position when the menu collapse button is hidden
+- Fix the form baseColProps does not take effect
+
 ## 2.0.0-rc.10 (2020-11-13)
 
 ### ✨ Refactor
