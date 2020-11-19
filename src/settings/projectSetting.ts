@@ -7,6 +7,7 @@ import { isProdMode } from '/@/utils/env';
 
 // ! You need to clear the browser cache after the change
 const setting: ProjectConfig = {
+  locale: 'en',
   // color
   // TODO 主题色
   themeColor: primaryColor,
