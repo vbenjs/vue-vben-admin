@@ -11,8 +11,10 @@ const modifyVars = {
   'warning-color': '#EFBD47', //   Warning color
   'link-color': primaryColor, //   Link color
   'disabled-color': '#C2C2CC', //  Failure color
-  'heading-color': '#2C3A61', //  Title color
-  'text-color': '#2C3A61', //  Main text color
+  'heading-color': 'rgba(0, 0, 0, 0.85)', //  Title color
+  'text-color': 'rgba(0, 0, 0, 0.85)', //  Main text color
+  // 'heading-color': '#2C3A61', //  Title color
+  // 'text-color': '#2C3A61', //  Main text color
   'text-color-secondary ': '#606266', // Subtext color
   'background-color-base': '#F0F2F5', // background color
   'font-size-base': '14px', //  Main font size

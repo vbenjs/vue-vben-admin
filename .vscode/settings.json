@@ -138,6 +138,7 @@
   //   "vetur.format.defaultFormatter.html": "prettyhtml",
   "vetur.format.defaultFormatter.ts": "prettier-tslint",
   "vetur.format.defaultFormatter.js": "prettier",
+    "vetur.languageFeatures.codeActions": false,
   // "vetur.useWorkspaceDependencies": true,
   "vetur.format.defaultFormatterOptions": {
     "js-beautify-html": {

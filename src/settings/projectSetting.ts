@@ -1,7 +1,7 @@
 import type { ProjectConfig } from '/@/types/config';
 
-import { MenuTypeEnum, MenuThemeEnum, MenuModeEnum, TriggerEnum } from '/@/enums/menuEnum';
-import { ContentEnum, PermissionModeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
+import { MenuTypeEnum, MenuModeEnum, TriggerEnum } from '/@/enums/menuEnum';
+import { ContentEnum, PermissionModeEnum, ThemeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 import { primaryColor } from '../../build/config/lessModifyVars';
 import { isProdMode } from '/@/utils/env';
 
@@ -39,7 +39,7 @@ const setting: ProjectConfig = {
     // 是否显示顶部
     show: true,
     // theme
-    theme: MenuThemeEnum.LIGHT,
+    theme: ThemeEnum.LIGHT,
     // 开启锁屏功能
     useLockPage: true,
     // 显示刷新按钮
@@ -74,7 +74,7 @@ const setting: ProjectConfig = {
     // 菜单类型
     type: MenuTypeEnum.SIDEBAR,
     // 菜单主题
-    theme: MenuThemeEnum.DARK,
+    theme: ThemeEnum.DARK,
     // 分割菜单
     split: false,
     // 顶部菜单布局

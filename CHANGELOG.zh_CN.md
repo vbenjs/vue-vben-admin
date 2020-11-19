@@ -1,17 +1,31 @@
-## Wip
+## 2.0.0-rc.11 (2020-11-18)
 
 ### ✨ Features
 
 - 新增 base64 文件流下载
 - 优化上传组件及示例
+- 新增可编辑行示例
+- 新增个人页
+- 新增表单页
+- 新增详情页
+- 将上传组件默认集成到 form
 
 ### 🎫 Chores
 
-- 更新 antdv 到`2.0.0-rc.1`
+- 更新 antdv 到`2.0.0-rc.1`（暂时还原到 beta15,rc1 菜单卡顿太严重.）
+- 添加部分注释
+
+### ✨ Refactor
+
+- 移除`useModal`与`useDrawer`的`receiveDrawerDataRef`和`transferDrawerData`属性
+- `useModal`与`useDrawer`对应的`openModal`与`openDrawer`扩展第三个参数。用于再次打开触发回调
 
 ### 🐛 Bug Fixes
 
 - 修复表单 inputNumber 校验错误
+- 修复表单默认值设置错误
+- 修复菜单折叠按钮隐藏时占位问题
+- 修复表单 baseColProps 不生效
 
 ## 2.0.0-rc.10 (2020-11-13)
 

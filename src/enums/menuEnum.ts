@@ -10,13 +10,6 @@ export enum MenuTypeEnum {
   TOP_MENU = 'top-menu',
 }
 
-// menu theme enum
-export enum MenuThemeEnum {
-  DARK = 'dark',
-
-  LIGHT = 'light',
-}
-
 // 折叠触发器位置
 export enum TriggerEnum {
   // 不显示

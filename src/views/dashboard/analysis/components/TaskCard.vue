@@ -108,7 +108,7 @@
       font-family: PingFangSC-Medium;
       font-size: 16px;
       line-height: 24px;
-      color: #2c3a61;
+      color: rgba(0, 0, 0, 0.85);
     }
 
     &__desc {

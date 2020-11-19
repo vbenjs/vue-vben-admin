@@ -19,7 +19,7 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { List, Card, Row, Col } from 'ant-design-vue';
+  import { List, Card } from 'ant-design-vue';
   import demoImg from '/@/assets/images/demo.png';
   import { projectList } from './data';
 
@@ -28,8 +28,6 @@
       List,
       ListItem: List.Item,
       Card,
-      Row,
-      Col,
     },
     setup() {
       return {
@@ -51,7 +49,7 @@
 
       img {
         width: 100%;
-        height: 100px;
+        height: 130px;
       }
 
       &-title {

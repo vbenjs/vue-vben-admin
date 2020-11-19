@@ -7,7 +7,7 @@ enum Api {
 }
 
 /**
- * @description: 上传接口
+ * @description: Upload interface
  */
 export function uploadApi(
   params: UploadFileParams,

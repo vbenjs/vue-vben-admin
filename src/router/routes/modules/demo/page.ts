@@ -15,6 +15,71 @@ const page: AppRouteModule = {
     title: '页面',
   },
   children: [
+    // =============================form start=============================
+    {
+      path: '/form',
+      name: 'FormPage',
+      redirect: '/page-demo/form/basic',
+      meta: {
+        title: '表单页',
+      },
+      children: [
+        {
+          path: 'basic',
+          name: 'FormBasicPage',
+          component: () => import('/@/views/demo/page/form/basic/index.vue'),
+          meta: {
+            title: '基础表单',
+          },
+        },
+        {
+          path: 'step',
+          name: 'FormStepPage',
+          component: () => import('/@/views/demo/page/form/step/index.vue'),
+          meta: {
+            title: '分步表单',
+          },
+        },
+        {
+          path: 'high',
+          name: 'FormHightPage',
+          component: () => import('/@/views/demo/page/form/high/index.vue'),
+          meta: {
+            title: '高级表单',
+          },
+        },
+      ],
+    },
+    // =============================form end=============================
+    // =============================desc start=============================
+    {
+      path: '/desc',
+      name: 'DescPage',
+      redirect: '/page-demo/desc/basic',
+      meta: {
+        title: '详情页',
+      },
+      children: [
+        {
+          path: 'basic',
+          name: 'DescBasicPage',
+          component: () => import('/@/views/demo/page/desc/basic/index.vue'),
+          meta: {
+            title: '基础详情页',
+          },
+        },
+        {
+          path: 'high',
+          name: 'DescHighPage',
+          component: () => import('/@/views/demo/page/desc/high/index.vue'),
+          meta: {
+            title: '高级详情页',
+          },
+        },
+      ],
+    },
+    // =============================desc end=============================
+
     // =============================result start=============================
     {
       path: '/result',
@@ -44,6 +109,34 @@ const page: AppRouteModule = {
     },
     // =============================result end=============================
 
+    // =============================account start=============================
+    {
+      path: '/account',
+      name: 'AccountPage',
+      redirect: '/page-demo/account/setting',
+      meta: {
+        title: '个人页',
+      },
+      children: [
+        {
+          path: 'center',
+          name: 'AccountCenterPage',
+          component: () => import('/@/views/demo/page/account/center/index.vue'),
+          meta: {
+            title: '个人中心',
+          },
+        },
+        {
+          path: 'setting',
+          name: 'AccountSettingPage',
+          component: () => import('/@/views/demo/page/account/setting/index.vue'),
+          meta: {
+            title: '个人设置',
+          },
+        },
+      ],
+    },
+    // =============================account end=============================
     // =============================exception start=============================
     {
       path: '/exception',
@@ -116,35 +209,6 @@ const page: AppRouteModule = {
       ],
     },
     // =============================exception end=============================
-
-    // =============================account start=============================
-    {
-      path: '/account',
-      name: 'AccountPage',
-      redirect: '/page-demo/account/setting',
-      meta: {
-        title: '个人页',
-      },
-      children: [
-        {
-          path: 'center',
-          name: 'AccountCenterPage',
-          component: () => import('/@/views/demo/page/account/center/index.vue'),
-          meta: {
-            title: '个人中心',
-          },
-        },
-        {
-          path: 'setting',
-          name: 'AccountSettingPage',
-          component: () => import('/@/views/demo/page/account/setting/index.vue'),
-          meta: {
-            title: '个人设置',
-          },
-        },
-      ],
-    },
-    // =============================account end=============================
   ],
 };
 

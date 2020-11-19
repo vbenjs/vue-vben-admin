@@ -6,7 +6,8 @@ import { Menu } from 'ant-design-vue';
 import SearchInput from './SearchInput.vue';
 import MenuContent from './MenuContent';
 
-import { MenuModeEnum, MenuThemeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
+import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
+import { ThemeEnum } from '/@/enums/appEnum';
 
 import { menuStore } from '/@/store/modules/menu';
 import { appStore } from '/@/store/modules/app';
@@ -136,9 +137,9 @@ export default defineComponent({
         const flag = await beforeClickFn(menu);
         if (!flag) return;
       }
+      emit('menuClick', menu);
       const { path } = menu;
       menuState.selectedKeys = [path];
-      emit('menuClick', menu);
     }
 
     function handleMenuChange() {
@@ -219,7 +220,6 @@ export default defineComponent({
         : {};
       return (
         <Menu
-          forceSubMenuRender={props.isAppMenu}
           selectedKeys={selectedKeys}
           defaultSelectedKeys={defaultSelectedKeys}
           mode={mode}
@@ -255,7 +255,7 @@ export default defineComponent({
           {getSlot(slots, 'header')}
           <SearchInput
             class={!props.search ? 'hidden' : ''}
-            theme={props.theme as MenuThemeEnum}
+            theme={props.theme as ThemeEnum}
             onChange={handleInputChange}
             onClick={handleInputClick}
             collapsed={getCollapsedState}

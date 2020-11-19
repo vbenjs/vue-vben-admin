@@ -18,7 +18,7 @@ export function useFormValues({
   getSchema,
   formModel,
 }: UseFormValuesContext) {
-  // 处理表单值
+  // Processing form values
   function handleFormValues(values: any) {
     if (!isObject(values)) {
       return {};
@@ -37,7 +37,7 @@ export function useFormValues({
       if (isArray(value) && value[0]._isAMomentObject && value[1]._isAMomentObject) {
         value = value.map((item) => transformDateFunc(item));
       }
-      // 去除空格
+      // Remove spaces
       if (isString(value)) {
         value = value.trim();
       }
@@ -47,7 +47,7 @@ export function useFormValues({
   }
 
   /**
-   * @description: 处理时间区间参数
+   * @description: Processing time interval parameters
    */
   function handleRangeTimeValue(values: any) {
     const fieldMapToTime = unref(fieldMapToTimeRef);

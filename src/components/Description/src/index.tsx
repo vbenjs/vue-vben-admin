@@ -14,9 +14,8 @@ export default defineComponent({
   props: descProps,
   emits: ['register'],
   setup(props, { attrs, slots, emit }) {
-    // props来自设置
     const propsRef = ref<Partial<DescOptions> | null>(null);
-    // 自定义title组件：获得title
+    // Custom title component: get title
     const getMergeProps = computed(() => {
       return {
         ...props,
@@ -34,19 +33,19 @@ export default defineComponent({
     });
 
     /**
-     * @description: 是否使用标题
+     * @description: Whether to use title
      */
     const useWrapper = computed(() => {
       return !!unref(getMergeProps).title;
     });
 
     /**
-     * @description: 获取配置Collapse
+     * @description: Get configuration Collapse
      */
     const getCollapseOptions = computed(
       (): CollapseContainerOptions => {
         return {
-          // 默认不能展开
+          // Cannot be expanded by default
           canExpand: false,
           ...unref(getProps).collapseOptions,
         };
@@ -57,7 +56,7 @@ export default defineComponent({
      * @description:设置desc
      */
     function setDescProps(descProps: Partial<DescOptions>): void {
-      // 保留上一次的setDrawerProps
+      // Keep the last setDrawerProps
       const mergeProps = deepMerge(unref(propsRef) || {}, descProps);
       propsRef.value = cloneDeep(mergeProps);
     }
@@ -68,7 +67,7 @@ export default defineComponent({
 
     emit('register', methods);
 
-    // 防止换行
+    // Prevent line breaks
     function renderLabel({ label, labelMinWidth, labelStyle }: DescItem) {
       if (!labelStyle && !labelMinWidth) {
         return label;
@@ -101,7 +100,6 @@ export default defineComponent({
 
         const width = contentMinWidth;
         return (
-          // @ts-ignore
           <Descriptions.Item label={renderLabel(item)} key={field} span={span}>
             {() =>
               contentMinWidth ? (
@@ -131,7 +129,7 @@ export default defineComponent({
 
     const renderContainer = () => {
       const content = props.useCollapse ? renderDesc() : <div>{renderDesc()}</div>;
-      // 减少dom层级
+      // Reduce the dom level
       return props.useCollapse ? (
         <CollapseContainer
           title={unref(getMergeProps).title}

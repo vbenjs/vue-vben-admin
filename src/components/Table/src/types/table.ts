@@ -68,8 +68,8 @@ export interface SorterResult {
 export interface RenderEditableCellParams {
   dataIndex: string;
   component?: ComponentType;
-  componentOn?: { [key: string]: Fn };
   componentProps?: any;
+  placeholder?: string;
 }
 
 export interface FetchParams {
@@ -88,15 +88,15 @@ export type SizeType = 'default' | 'middle' | 'small' | 'large';
 
 export interface TableActionType {
   reload: (opt?: FetchParams) => Promise<void>;
-  getSelectRows: () => any[];
+  getSelectRows: <T = any>() => T[];
   clearSelectedRowKeys: () => void;
   getSelectRowKeys: () => string[];
   deleteSelectRowByKey: (key: string) => void;
   setPagination: (info: Partial<PaginationProps>) => void;
-  setTableData: (values: any[]) => void;
+  setTableData: <T = any>(values: T[]) => void;
   getColumns: (opt?: GetColumnsParams) => BasicColumn[];
   setColumns: (columns: BasicColumn[] | string[]) => void;
-  getDataSource: () => any[];
+  getDataSource: <T = any>() => T[];
   setLoading: (loading: boolean) => void;
   setProps: (props: Partial<BasicTableProps>) => void;
   redoHeight: () => void;

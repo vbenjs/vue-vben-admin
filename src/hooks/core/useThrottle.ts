@@ -27,7 +27,7 @@ export function throttle<T extends unknown[]>(
   }
   let { immediate = false } = options;
   const { once = false, debounce = false } = options;
-  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  let timeoutId: Nullable<TimeoutHandle>;
   // Has it been cancelled
   let cancelled: boolean | null = false;
   /**
@@ -36,7 +36,7 @@ export function throttle<T extends unknown[]>(
   function clearTimer() {
     if (timeoutId) {
       window.clearTimeout(timeoutId);
-      timeoutId = undefined;
+      timeoutId = null;
     }
   }
   /** cancel exec */
@@ -63,7 +63,7 @@ export function throttle<T extends unknown[]>(
       const callNow = !timeoutId;
       if (callNow) {
         exec();
-        timeoutId = undefined;
+        timeoutId = null;
       }
     } else {
       debounce && clearTimer();

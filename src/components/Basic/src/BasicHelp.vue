@@ -48,6 +48,10 @@
           bottom: 0,
         }),
       },
+      placement: {
+        type: String as PropType<string>,
+        defualt: 'right',
+      },
     },
     setup(props, { slots }) {
       const getOverlayStyleRef = computed(() => {
@@ -67,9 +71,6 @@
         return props.absolute ? props.position : {};
       });
 
-      /**
-       * @description: 渲染内容
-       */
       const renderTitle = () => {
         const list = props.text;
         if (isString(list)) {
@@ -85,6 +86,7 @@
 
       return () => {
         return h(
+          // @ts-ignores
           Tooltip,
           {
             title: h(
@@ -97,7 +99,7 @@
             overlayClassName: 'base-help__wrap',
             autoAdjustOverflow: true,
             overlayStyle: unref(getOverlayStyleRef),
-            placement: 'right',
+            placement: props.placement,
             getPopupContainer: () => getPopupContainer(),
           },
           {

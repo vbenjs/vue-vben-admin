@@ -1,2 +1,2 @@
-// 对vue-count-to进行改造成支持vue3版本
+// Transform vue-count-to to support vue3 version
 export { default as CountTo } from './src/index.vue';

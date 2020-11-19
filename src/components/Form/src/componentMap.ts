@@ -1,6 +1,8 @@
 import { Component } from 'vue';
+import type { ComponentType } from './types/index';
+
 /**
- * 组件列表,在这里注册才可以在表单使用
+ * Component list, register here to use it in the form
  */
 import {
   Input,
@@ -16,8 +18,7 @@ import {
   TreeSelect,
 } from 'ant-design-vue';
 import RadioButtonGroup from './components/RadioButtonGroup.vue';
-
-import { ComponentType } from './types/index';
+import { BasicUpload } from '/@/components/Upload';
 
 const componentMap = new Map<ComponentType, any>();
 
@@ -47,6 +48,8 @@ componentMap.set('MonthPicker', DatePicker.MonthPicker);
 componentMap.set('RangePicker', DatePicker.RangePicker);
 componentMap.set('WeekPicker', DatePicker.WeekPicker);
 componentMap.set('TimePicker', TimePicker);
+
+componentMap.set('Upload', BasicUpload);
 
 export function add(compName: ComponentType, component: Component) {
   componentMap.set(compName, component);

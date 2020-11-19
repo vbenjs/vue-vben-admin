@@ -1,10 +1,3 @@
-/*
- * @description: Do not edit
- * @author: cxiaoting
- * @Date: 2020-11-13 14:00:37
- * @LastEditors: cxiaoting
- * @LastEditTime: 2020-11-13 18:07:11
- */
 import type { MenuModule } from '/@/router/types.d';
 const menu: MenuModule = {
   orderNo: 20,
@@ -15,6 +8,44 @@ const menu: MenuModule = {
       dot: true,
     },
     children: [
+      {
+        path: 'form',
+        name: '表单页',
+        tag: {
+          content: 'new',
+        },
+        children: [
+          {
+            path: 'basic',
+            name: '基础表单',
+          },
+          {
+            path: 'step',
+            name: '分步表单',
+          },
+          {
+            path: 'high',
+            name: '高级表单',
+          },
+        ],
+      },
+      {
+        path: 'desc',
+        name: '详情页',
+        tag: {
+          content: 'new',
+        },
+        children: [
+          {
+            path: 'basic',
+            name: '基础详情页',
+          },
+          {
+            path: 'high',
+            name: '高级详情页',
+          },
+        ],
+      },
       {
         path: 'result',
         name: '结果页',

@@ -4,37 +4,44 @@ import router, { setupRouter } from '/@/router';
 import { setupStore } from '/@/store';
 import { setupAntd } from '/@/setup/ant-design-vue';
 import { setupErrorHandle } from '/@/setup/error-handle';
-import { setupDirectives } from '/@/setup/directives';
+import { setupGlobDirectives } from '/@/setup/directives';
 
-import { isDevMode, isProdMode, isUseMock } from '/@/utils/env';
 import { setupProdMockServer } from '../mock/_createProductionServer';
-import { setApp } from './useApp';
+import { setApp } from '/@/setup/App';
 
 import App from './App.vue';
+
+import { isDevMode, isProdMode, isUseMock } from '/@/utils/env';
+
 import '/@/design/index.less';
 import setupI18n from '/@/setup/i18n/i18n';
 
 const app = createApp(App);
 
-//localization
+//Configure I18n
 setupI18n(app);
-// ui
+
+//Configure ui
 setupAntd(app);
-// router
+
+// Configure routing
 setupRouter(app);
-// store
+
+// Configure vuex store
 setupStore(app);
 
-// Directives
-setupDirectives(app);
+// Register global directive
+setupGlobDirectives(app);
 
-// error-handle
+// Configure global error handling
 setupErrorHandle(app);
 
+// Mount when the route is ready
 router.isReady().then(() => {
   app.mount('#app');
 });
 
+// The development environment takes effect
 if (isDevMode()) {
   app.config.performance = true;
   window.__APP__ = app;

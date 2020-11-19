@@ -14,7 +14,7 @@ const menu: MenuModule = {
         name: '基础表单',
         tag: {
           type: 'warn',
-          content: 'updated',
+          dot: true,
         },
       },
       {
@@ -34,7 +34,7 @@ const menu: MenuModule = {
         name: '表单校验',
         tag: {
           type: 'warn',
-          content: 'updated',
+          dot: true,
         },
       },
       {
@@ -42,7 +42,7 @@ const menu: MenuModule = {
         name: '动态表单',
         tag: {
           type: 'warn',
-          content: 'updated',
+          dot: true,
         },
       },
       {
@@ -50,7 +50,7 @@ const menu: MenuModule = {
         name: '自定义组件',
         tag: {
           type: 'warn',
-          content: 'updated',
+          dot: true,
         },
       },
     ],

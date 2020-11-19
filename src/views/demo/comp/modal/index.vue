@@ -40,24 +40,8 @@
       const [register1, { openModal: openModal1, setModalProps }] = useModal();
       const [register2, { openModal: openModal2 }] = useModal();
       const [register3, { openModal: openModal3 }] = useModal();
-      const [
-        register4,
-        {
-          openModal: openModal4,
-          // transferModalData
-        },
-      ] = useModal();
+      const [register4, { openModal: openModal4 }] = useModal();
       function send() {
-        // transferModalData({
-        //   data: 'content',
-        //   info: 'Info',
-        // });
-        // setTimeout(() => {
-        //   transferModalData({
-        //     data: 'content1',
-        //     info: 'Info1',
-        //   });
-        // }, 3000);
         openModal4(true, {
           data: 'content',
           info: 'Info',

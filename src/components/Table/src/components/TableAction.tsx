@@ -32,7 +32,7 @@ export default defineComponent({
           disabled={disabled}
           color={color}
           {...action}
-          key={index}
+          key={`${index}-${label}`}
         >
           {() => (
             <>
@@ -60,7 +60,7 @@ export default defineComponent({
       } = popConfirm;
       return (
         <Popconfirm
-          key={`P-${index}`}
+          key={`p-${index}-${title}`}
           title={title}
           onConfirm={confirm}
           onCancel={cancel}

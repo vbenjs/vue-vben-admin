@@ -7,7 +7,7 @@ export function createPlaceholderMessage(component: ComponentType) {
   if (component.includes('Input') || component.includes('Complete')) {
     return '请输入';
   }
-  if (component.includes('Picker') && !component.includes('Range')) {
+  if (component.includes('Picker')) {
     return '请选择';
   }
   if (

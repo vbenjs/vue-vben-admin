@@ -1,0 +1,34 @@
+@import (reference) '../../../design/index.less';
+
+.file-table {
+  width: 100%;
+  border-collapse: collapse;
+  //   border: 1px solid @border-color-light;
+
+  .center {
+    text-align: center;
+  }
+
+  .left {
+    text-align: left;
+  }
+
+  .right {
+    text-align: right;
+  }
+
+  &-th,
+  &-td {
+    padding: 12px 8px;
+  }
+
+  thead {
+    background-color: @background-color-dark;
+  }
+
+  table,
+  td,
+  th {
+    border: 1px solid @border-color-light;
+  }
+}

@@ -35,7 +35,7 @@ interface SwitchOptions {
 }
 
 interface SelectConfig {
-  options?: SelectOptions;
+  options?: LabelValueOptions;
   def?: any;
   disabled?: boolean;
   handler?: Fn;

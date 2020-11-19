@@ -61,10 +61,6 @@ export function isArray(val: unknown): val is Array<any> {
   return val && Array.isArray(val);
 }
 
-export const isClient = () => {
-  return typeof window !== 'undefined';
-};
-
 export const isWindow = (val: any): val is Window => {
   return typeof window !== 'undefined' && is(val, 'Window');
 };
@@ -74,6 +70,8 @@ export const isElement = (val: unknown): val is Element => {
 };
 
 export const isServer = typeof window === 'undefined';
+
+export const isClient = typeof window !== 'undefined';
 
 export function isImageDom(o: Element) {
   return o && ['IMAGE', 'IMG'].includes(o.tagName);

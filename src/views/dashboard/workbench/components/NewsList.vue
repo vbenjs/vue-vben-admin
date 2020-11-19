@@ -89,7 +89,7 @@
         &__title {
           font-size: 14px;
           line-height: 22px;
-          color: #2c3a61;
+          color: rgba(0, 0, 0, 0.85);
         }
       }
     }
