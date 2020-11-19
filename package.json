@@ -27,6 +27,7 @@
     "apexcharts": "3.22.0",
     "axios": "^0.21.0",
     "echarts": "^4.9.0",
+    "jsencrypt": "^3.0.0-rc.1",
     "lodash-es": "^4.17.15",
     "mockjs": "^1.1.0",
     "moment": "^2.29.1",
