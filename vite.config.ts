@@ -4,8 +4,9 @@ import { resolve } from 'path';
 
 import { modifyVars } from './build/config/lessModifyVars';
 import { createProxy } from './build/vite/proxy';
-import globbyTransform from './build/vite/plugin/context/transform';
-import dynamicImportTransform from './build/vite/plugin/dynamicImport/index';
+
+import globbyTransform from './build/vite/plugin/transform/globby';
+import dynamicImportTransform from './build/vite/plugin/transform/dynamic-import';
 
 import { isDevFn, loadEnv } from './build/utils';
 
@@ -111,6 +112,11 @@ const viteConfig: UserConfig = {
   },
   define: {
     __VERSION__: pkg.version,
+    // use vue-i18-next
+    // Suppress warning
+    __VUE_I18N_LEGACY_API__: false,
+    __VUE_I18N_FULL_INSTALL__: false,
+    __INTLIFY_PROD_DEVTOOLS__: false,
   },
   cssPreprocessOptions: {
     less: {
@@ -135,5 +141,13 @@ const viteConfig: UserConfig = {
 
 export default {
   ...viteConfig,
-  transforms: [globbyTransform(viteConfig), dynamicImportTransform(viteEnv)],
+  transforms: [
+    globbyTransform({
+      resolvers: viteConfig.resolvers,
+      root: viteConfig.root,
+      alias: viteConfig.alias,
+      includes: [resolve('src/router'), resolve('src/locales')],
+    }),
+    dynamicImportTransform(viteEnv),
+  ],
 } as UserConfig;

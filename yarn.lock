@@ -1323,6 +1323,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/globrex@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@types/globrex/-/globrex-0.1.0.tgz#baf4ac8e36947017612c01fde7c7b641dc0b6c89"
+  integrity sha512-aBkxDgp/UbnluE+CIT3V3PoNewwOlLCzXSF3ipD86Slv8xVjwxrDAfSGbsfGgMzPo/fEMPXc+gNUJbtiugwfoA==
+
 "@types/http-assert@*":
   version "1.5.1"
   resolved "https://registry.npmjs.org/@types/http-assert/-/http-assert-1.5.1.tgz#d775e93630c2469c2f980fc27e3143240335db3b"
@@ -1732,18 +1737,18 @@
     vscode-languageserver-textdocument "^1.0.1"
     vscode-uri "^2.1.2"
 
-"@vueuse/core@4.0.0-beta.41":
-  version "4.0.0-beta.41"
-  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.0.0-beta.41.tgz#0058aed5ade75ae2866283498009ad5172cbae84"
-  integrity sha512-CgUih65PzYScorm1S4F93e6XXm+qxA8GrRLOSB1kXaqtP6vXedwkBxKkNEYNACx4reL4VEHqM/BrM6FajXkQUg==
+"@vueuse/core@4.0.0-rc.3":
+  version "4.0.0-rc.3"
+  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.0.0-rc.3.tgz#5381ca657e10df596cd7027fc5c96b2d4b3a090c"
+  integrity sha512-dQ/FZgo0z7kBFOvDWxuzaUrmuO8X1AlQk17e3PU1TVtG2Uu+mCvjPNbuvI2fjhTjl5rzPJawwoU2WZFj+nlFvw==
   dependencies:
-    "@vueuse/shared" "4.0.0-beta.41"
+    "@vueuse/shared" "4.0.0-rc.3"
     vue-demi latest
 
-"@vueuse/shared@4.0.0-beta.41":
-  version "4.0.0-beta.41"
-  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.0.0-beta.41.tgz#395782ea2e580f1fc9488d25c89bd09f70170b25"
-  integrity sha512-dqnuEPPC3OUJ6L6rhMiOCuPWIR698DtdwOydwCZBISsG2V6gZ2QFND6xtRwLib6/lhUMYVYPwIz3hPjlx7BIzw==
+"@vueuse/shared@4.0.0-rc.3":
+  version "4.0.0-rc.3"
+  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.0.0-rc.3.tgz#42fb56fed3779f3b8a17a82c16a364bad20d01b7"
+  integrity sha512-VY0x/XxpeTMHp/0FDiv1cgUUxkJGQl7liiM2AjR/J7+Ys/2Y2dijD5cAKViq9FGUPQQsOcLptMvMvUsDMoN4DA==
   dependencies:
     vue-demi latest
 
@@ -3222,6 +3227,13 @@ dot-prop@^5.1.0:
   dependencies:
     is-obj "^2.0.0"
 
+dot-prop@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.npmjs.org/dot-prop/-/dot-prop-6.0.0.tgz#bd579fd704d970981c4b05de591db648959f2ebb"
+  integrity sha512-xCbB8IN3IT+tdgoEPOnJmYTNJDrygGFOmiQEiVa5eAD+JEB1vTgMNhVGRnN5Eex/6amck7cdcrixb1qN9Go+GQ==
+  dependencies:
+    is-obj "^2.0.0"
+
 dotenv-expand@^5.1.0:
   version "5.1.0"
   resolved "https://registry.npmjs.org/dotenv-expand/-/dotenv-expand-5.1.0.tgz#3fbaf020bfd794884072ea26b1e9791d45a629f0"
@@ -4091,6 +4103,11 @@ globjoin@^0.1.4:
   version "0.1.4"
   resolved "https://registry.npmjs.org/globjoin/-/globjoin-0.1.4.tgz#2f4494ac8919e3767c5cbb691e9f463324285d43"
   integrity sha1-L0SUrIkZ43Z8XLtpHp9GMyQoXUM=
+
+globrex@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/globrex/-/globrex-0.1.2.tgz#dd5d9ec826232730cd6793a5e33a9302985e6098"
+  integrity sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==
 
 gonzales-pe@^4.3.0:
   version "4.3.0"
@@ -8167,10 +8184,10 @@ vue-eslint-parser@^7.1.1:
     esquery "^1.0.1"
     lodash "^4.17.15"
 
-vue-i18n@^9.0.0-beta.7:
-  version "9.0.0-beta.7"
-  resolved "https://registry.npmjs.org/vue-i18n/-/vue-i18n-9.0.0-beta.7.tgz#f6fad5b4be218018aab4797f80dd2a95ee5236f9"
-  integrity sha512-hFl0XnV91P/4UyWvHYvdYxuk3GRnKIW9zXAm6hrUU4mOIwpqchi7jVQva2TJLr52Mpsu4zYXmzL1h5pgrKmCfQ==
+vue-i18n@^9.0.0-beta.8:
+  version "9.0.0-beta.8"
+  resolved "https://registry.npmjs.org/vue-i18n/-/vue-i18n-9.0.0-beta.8.tgz#92282d5b5e0e6f15cc04943ce11bf49db610468f"
+  integrity sha512-tViSN96jLi0AKvAVi4twcYYN5Ld++SqN1/140ua+YWm/iRbO2M0rAcsZ7e6/4LTm6Pd1ldSwWihSuv2bSQmlnw==
   dependencies:
     source-map "0.6.1"
 

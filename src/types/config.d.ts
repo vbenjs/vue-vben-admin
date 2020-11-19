@@ -1,7 +1,7 @@
 // 左侧菜单, 顶部菜单
 import { MenuTypeEnum, MenuModeEnum, TriggerEnum } from '/@/enums/menuEnum';
 import { ContentEnum, PermissionModeEnum, ThemeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
-
+import type { LocaleType } from '/@/locales/types';
 export interface MessageSetting {
   title: string;
   // 取消按钮的文字,
@@ -55,6 +55,7 @@ export interface HeaderSetting {
   showNotice: boolean;
 }
 export interface ProjectConfig {
+  locale: LocaleType;
   // header背景色
   headerBgColor: string;
   // 左侧菜单背景色

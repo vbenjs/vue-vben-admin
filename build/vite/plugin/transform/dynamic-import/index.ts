@@ -1,7 +1,6 @@
 // Used to import all files under `src/views`
-
 // The built-in dynamic import of vite cannot meet the needs of importing all files under views
-
+// Special usage ，Only for this project
 import glob from 'glob';
 import { Transform } from 'vite/dist/node/transform.js';
 
@@ -28,7 +27,6 @@ const dynamicImportTransform = function (env: any = {}): Transform {
         return code;
       }
 
-      // if (!isBuild) return code;
       // Only convert the dir
       try {
         const files = glob.sync('src/views/**/**.{vue,tsx}', { cwd: process.cwd() });

@@ -11,14 +11,14 @@
 
           <a-form class="mx-auto mt-10" :model="formData" :rules="formRules" ref="formRef">
             <a-form-item name="account">
-              <a-input size="large" v-model:value="formData.account" placeholder="Username: vben" />
+              <a-input size="large" v-model:value="formData.account" placeholder="username: vben" />
             </a-form-item>
             <a-form-item name="password">
               <a-input-password
                 size="large"
                 visibilityToggle
                 v-model:value="formData.password"
-                placeholder="Password: 123456"
+                placeholder="password: 123456"
               />
             </a-form-item>
 
@@ -28,13 +28,13 @@
             <a-row>
               <a-col :span="12">
                 <a-form-item>
-                  <!-- 未做逻辑，需要自行处理 -->
+                  <!-- No logic, you need to deal with it yourself -->
                   <a-checkbox v-model:checked="autoLogin" size="small">自动登录</a-checkbox>
                 </a-form-item>
               </a-col>
               <a-col :span="12">
                 <a-form-item :style="{ 'text-align': 'right' }">
-                  <!-- 未做逻辑，需要自行处理 -->
+                  <!-- No logic, you need to deal with it yourself -->
                   <a-button type="link" size="small">忘记密码</a-button>
                 </a-form-item>
               </a-col>
@@ -47,7 +47,7 @@
                 :block="true"
                 @click="login"
                 :loading="formState.loading"
-                >登录</a-button
+                >{{ t('system.login.button') }}</a-button
               >
             </a-form-item>
           </a-form>
@@ -57,20 +57,15 @@
   </div>
 </template>
 <script lang="ts">
-  import {
-    defineComponent,
-    reactive,
-    ref,
-    unref,
-    toRaw,
-    // computed
-  } from 'vue';
+  import { defineComponent, reactive, ref, unref, toRaw } from 'vue';
   import { Checkbox } from 'ant-design-vue';
 
   import Button from '/@/components/Button/index.vue';
   // import { BasicDragVerify, DragVerifyActionType } from '/@/components/Verify/index';
 
   import { userStore } from '/@/store/modules/user';
+  import { useI18n } from 'vue-i18n';
+
   // import { appStore } from '/@/store/modules/app';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { useSetting } from '/@/hooks/core/useSetting';
@@ -139,7 +134,7 @@
           formState.loading = false;
         }
       }
-
+      const { t } = useI18n();
       return {
         formRef,
         // verifyRef,
@@ -151,6 +146,7 @@
         // openLoginVerify: openLoginVerifyRef,
         title: globSetting && globSetting.title,
         logo,
+        t,
       };
     },
   });
