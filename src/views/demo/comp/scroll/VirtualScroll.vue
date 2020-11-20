@@ -49,7 +49,7 @@
       justify-content: center;
     }
 
-    /deep/ &__item {
+    &__item {
       height: 40px;
       padding: 0 20px;
       line-height: 40px;
