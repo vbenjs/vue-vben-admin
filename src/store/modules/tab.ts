@@ -15,6 +15,7 @@ import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/constant';
 import { getCurrentTo } from '/@/utils/helper/routeHelper';
 
 type CacheName = string | symbol | null | undefined;
+
 /**
  * @description:  vuex Tab模块
  */
@@ -29,6 +30,7 @@ export interface TabItem {
 }
 
 const NAME = 'tab';
+
 hotModuleUnregisterModule(NAME);
 
 const getOpenKeepAliveRef = computed(() => appStore.getProjectConfig.openKeepAlive);
@@ -252,5 +254,4 @@ class Tab extends VuexModule {
     this.closeMultipleTab({ pathList, nameList });
   }
 }
-export { Tab };
 export const tabStore = getModule<Tab>(Tab);

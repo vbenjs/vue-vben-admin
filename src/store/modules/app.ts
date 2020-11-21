@@ -81,7 +81,7 @@ class App extends VuexModule {
   public async setPageLoadingAction(loading: boolean): Promise<void> {
     if (loading) {
       clearTimeout(timeId);
-      // 防止闪动
+      // Prevent flicker
       timeId = setTimeout(() => {
         this.commitPageLoadingState(loading);
       }, 100);
@@ -91,9 +91,9 @@ class App extends VuexModule {
     }
   }
 
-  // /**
-  //  * @description: unlock page
-  //  */
+  /**
+   * @description: unlock page
+   */
   @Action
   public async unLockAction({ password, valid = true }: { password: string; valid?: boolean }) {
     if (!valid) {
@@ -125,5 +125,4 @@ class App extends VuexModule {
     return res;
   }
 }
-export { App };
 export const appStore = getModule<App>(App);

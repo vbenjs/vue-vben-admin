@@ -1,4 +1,4 @@
-import { dataURLtoBlob, urlToBase64 } from './stream';
+import { dataURLtoBlob, urlToBase64 } from './base64';
 
 /**
  * Download online pictures

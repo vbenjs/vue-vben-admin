@@ -78,5 +78,4 @@ class Error extends VuexModule implements ErrorState {
     this.commitErrorInfoState(errInfo as ErrorInfo);
   }
 }
-export { Error };
 export const errorStore = getModule<Error>(Error);

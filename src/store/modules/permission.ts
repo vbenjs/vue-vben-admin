@@ -128,5 +128,4 @@ class Permission extends VuexModule {
     return routes;
   }
 }
-export { Permission };
 export const permissionStore = getModule<Permission>(Permission);
