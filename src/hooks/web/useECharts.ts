@@ -1,4 +1,4 @@
-import { useTimeoutFn } from '@vueuse/core';
+import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 import { tryOnUnmounted } from '/@/utils/helper/vueHelper';
 import { unref, Ref, nextTick } from 'vue';
 import type { EChartOption, ECharts } from 'echarts';

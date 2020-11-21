@@ -8,7 +8,7 @@
   import { computed, defineComponent, PropType, ref, watch } from 'vue';
   // hooks
   import { useSetting } from '/@/hooks/core/useSetting';
-  import { useTimeoutFn } from '@vueuse/core';
+  import { useTimeoutFn } from '/@/hooks/core/useTimeout';
   import { useGo } from '/@/hooks/web/usePage';
 
   import { PageEnum } from '/@/enums/pageEnum';

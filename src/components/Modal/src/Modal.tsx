@@ -1,7 +1,7 @@
 import { Modal } from 'ant-design-vue';
 import { defineComponent, watchEffect } from 'vue';
 import { basicProps } from './props';
-import { useTimeoutFn } from '@vueuse/core';
+import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 import { extendSlots } from '/@/utils/helper/tsxHelper';
 
 export default defineComponent({
