@@ -1050,10 +1050,10 @@
   resolved "https://registry.npmjs.org/@iconify/iconify/-/iconify-2.0.0-rc.2.tgz#c4a95ddc06ca9b9496df03604e66fdefb39f4c4b"
   integrity sha512-BybEHU5/I9EQ0CcwKAqmreZ2bMnAXrqLCTptAc6vPetHMbrXdZfejP5mt57e/8PNSt/qE7BHniU5PCYA+PGIHw==
 
-"@iconify/json@^1.1.260":
-  version "1.1.260"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.260.tgz#75bfcdcaf01f1a0092bb26f4ce7aebf357da431a"
-  integrity sha512-gpRn0o55mvBTCcZRb8jBtqxV/5Av01BnnVn7/FyboBNdGkEQ8EMTqJL10SDUf9TLM8s63KKSg/ZeCJj870THtA==
+"@iconify/json@^1.1.261":
+  version "1.1.261"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.261.tgz#9a6986b6b36d77ca147c4be149db9a43280a8fb2"
+  integrity sha512-lnRk1OBqNxZ593oZyOXEMp/O+cr+lF54xaW6+F3krWdWhzxQgi0W1ffzvdiLySdbTEorQ2NvVU4e0+Af27rXPA==
 
 "@koa/cors@^3.1.0":
   version "3.1.0"
@@ -1737,7 +1737,7 @@
     vscode-languageserver-textdocument "^1.0.1"
     vscode-uri "^2.1.2"
 
-"@vueuse/core@4.0.0-rc.3":
+"@vueuse/core@^4.0.0-rc.3":
   version "4.0.0-rc.3"
   resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.0.0-rc.3.tgz#5381ca657e10df596cd7027fc5c96b2d4b3a090c"
   integrity sha512-dQ/FZgo0z7kBFOvDWxuzaUrmuO8X1AlQk17e3PU1TVtG2Uu+mCvjPNbuvI2fjhTjl5rzPJawwoU2WZFj+nlFvw==
@@ -3227,10 +3227,10 @@ dot-prop@^5.1.0:
   dependencies:
     is-obj "^2.0.0"
 
-dot-prop@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.npmjs.org/dot-prop/-/dot-prop-6.0.0.tgz#bd579fd704d970981c4b05de591db648959f2ebb"
-  integrity sha512-xCbB8IN3IT+tdgoEPOnJmYTNJDrygGFOmiQEiVa5eAD+JEB1vTgMNhVGRnN5Eex/6amck7cdcrixb1qN9Go+GQ==
+dot-prop@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.npmjs.org/dot-prop/-/dot-prop-6.0.1.tgz#fc26b3cf142b9e59b74dbd39ed66ce620c681083"
+  integrity sha512-tE7ztYzXHIeyvc7N+hR3oi7FIbf/NIjVP9hmAt3yMXzrQ072/fpjGLx2GxNxGxUl5V73MEqYzioOMoVhGMJ5cA==
   dependencies:
     is-obj "^2.0.0"
 
@@ -7869,10 +7869,10 @@ typescript@^3.9.7:
   resolved "https://registry.npmjs.org/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
   integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
 
-typescript@^4.0.5:
-  version "4.0.5"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-4.0.5.tgz#ae9dddfd1069f1cb5beb3ef3b2170dd7c1332389"
-  integrity sha512-ywmr/VrTVCmNTJ6iV2LwIrfG1P+lv6luD8sUJs+2eI9NLGigaN+nUQc13iHqisq7bra9lnmUSYqbJvegraBOPQ==
+typescript@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-4.1.2.tgz#6369ef22516fe5e10304aae5a5c4862db55380e9"
+  integrity sha512-thGloWsGH3SOxv1SoY7QojKi0tc+8FnOmiarEGMbd/lar7QOEd3hvlx3Fp5y6FlDUGl9L+pd4n2e+oToGMmhRQ==
 
 uglify-js@^3.1.4:
   version "3.11.6"
@@ -8033,10 +8033,10 @@ vary@^1.1.2:
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-vditor@^3.6.2:
-  version "3.6.2"
-  resolved "https://registry.npmjs.org/vditor/-/vditor-3.6.2.tgz#ee6011efa3ec563c6356ed82efbf2e00ba2e35c6"
-  integrity sha512-HPHHun5+IXmYGMKDWcUD83VfP1Qfncz7DmaIKoWpluJgE8ve7s+4RbFBcaEpYPXYzIuL2UTHoMnIjmTPbenOCA==
+vditor@^3.6.3:
+  version "3.6.3"
+  resolved "https://registry.npmjs.org/vditor/-/vditor-3.6.3.tgz#7d006f273208869b268268453b688ad4a0de8995"
+  integrity sha512-skLJQrVBdeBFLdYVckfovCxNnzOR1vlgEesUFAc0WJdbfj/m4FHB7SY/LgV7KtoiK+crDPFrIdw3jkEQmhkFGA==
   dependencies:
     diff-match-patch "^1.0.5"
 
