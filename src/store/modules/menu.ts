@@ -64,5 +64,4 @@ class Menu extends VuexModule {
   }
 }
 
-export { Menu };
 export const menuStore = getModule<Menu>(Menu);

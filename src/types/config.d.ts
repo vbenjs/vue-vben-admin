@@ -138,9 +138,11 @@ export type SetProjectSettingFn = <T extends keyof ProjectConfig>(
   key: T,
   value: ProjectConfig[T]
 ) => void;
+
 interface GlobWrap {
   globSetting: Readonly<GlobConfig>;
 }
+
 interface ProjectSettingWrap {
   projectSetting: Readonly<ProjectConfig>;
 }
