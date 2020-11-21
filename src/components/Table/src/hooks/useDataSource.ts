@@ -3,7 +3,7 @@ import type { PaginationProps } from '../types/pagination';
 
 import { watch, ref, unref, ComputedRef, computed, onMounted, Ref } from 'vue';
 
-import { useTimeoutFn } from '@vueuse/core';
+import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 
 import { buildUUID } from '/@/utils/uuid';
 import { isFunction, isBoolean } from '/@/utils/is';

@@ -1,4 +1,4 @@
-import { useTimeoutFn } from '@vueuse/core';
+import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 import { PageEnum } from '/@/enums/pageEnum';
 import { TabItem, tabStore } from '/@/store/modules/tab';
 import { appStore } from '/@/store/modules/app';

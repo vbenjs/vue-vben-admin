@@ -1,5 +1,5 @@
 import { defineComponent, ref, computed, unref, reactive, watch, watchEffect } from 'vue';
-import { useTimeoutFn } from '@vueuse/core';
+import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 import { useEventListener } from '/@/hooks/event/useEventListener';
 import { basicProps } from './props';
 import { getSlot } from '/@/utils/helper/tsxHelper';
