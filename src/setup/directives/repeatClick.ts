@@ -9,7 +9,7 @@ const repeatDirective: Directive = {
   beforeMount(el: Element, binding: DirectiveBinding<any>) {
     let interval: Nullable<IntervalHandle> = null;
     let startTime = 0;
-    const handler = (): void => binding.value && binding.value();
+    const handler = (): void => binding?.value();
     const clear = (): void => {
       if (Date.now() - startTime < 100) {
         handler();

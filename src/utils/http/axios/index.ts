@@ -10,7 +10,7 @@ import { AxiosTransform } from './axiosTransform';
 
 import { checkStatus } from './checkStatus';
 
-import { useSetting } from '/@/hooks/core/useSetting';
+import { useGlobSetting } from '/@/settings/use';
 import { useMessage } from '/@/hooks/web/useMessage';
 
 import { RequestEnum, ResultEnum, ContentTypeEnum } from '/@/enums/httpEnum';
@@ -21,7 +21,7 @@ import { setObjToUrlParams, deepMerge } from '/@/utils';
 import { errorStore } from '/@/store/modules/error';
 import { errorResult } from './const';
 
-const { globSetting } = useSetting();
+const globSetting = useGlobSetting();
 const prefix = globSetting.urlPrefix;
 const { createMessage, createErrorModal } = useMessage();
 

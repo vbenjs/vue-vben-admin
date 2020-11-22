@@ -3,7 +3,7 @@
  */
 
 import { errorStore, ErrorInfo } from '/@/store/modules/error';
-import { useSetting } from '/@/hooks/core/useSetting';
+import { useProjectSetting } from '/@/settings/use';
 import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
 import { App } from 'vue';
 
@@ -89,7 +89,7 @@ export function scriptErrorHandler(
   const errorInfo: Partial<ErrorInfo> = {};
   colno = colno || (window.event && (window.event as any).errorCharacter) || 0;
   errorInfo.message = event as string;
-  if (error && error.stack) {
+  if (error?.stack) {
     errorInfo.stack = error.stack;
   } else {
     errorInfo.stack = '';
@@ -160,8 +160,7 @@ function registerResourceErrorHandler() {
  * @param app
  */
 export function setupErrorHandle(app: App) {
-  const { projectSetting } = useSetting();
-  const { useErrorHandle } = projectSetting;
+  const { useErrorHandle } = useProjectSetting();
   if (!useErrorHandle) return;
   // Vue exception monitoring;
   app.config.errorHandler = vueErrorHandler;

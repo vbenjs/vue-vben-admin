@@ -2,13 +2,7 @@
 import { MenuTypeEnum, MenuModeEnum, TriggerEnum } from '/@/enums/menuEnum';
 import { ContentEnum, PermissionModeEnum, ThemeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 import type { LocaleType } from '/@/locales/types';
-export interface MessageSetting {
-  title: string;
-  // 取消按钮的文字,
-  cancelText: string;
-  // 确认按钮的文字
-  okText: string;
-}
+
 export interface MenuSetting {
   collapsed: boolean;
   collapsedShowTitle: boolean;
@@ -54,8 +48,18 @@ export interface HeaderSetting {
   // 显示消息中心按钮
   showNotice: boolean;
 }
+
+export interface LocaleSetting {
+  // Current language
+  lang: LocaleType;
+  // default language
+  fallback: LocaleType;
+  // available Locales
+  availableLocales: LocaleType[];
+}
+
 export interface ProjectConfig {
-  locale: LocaleType;
+  locale: LocaleSetting;
   // header背景色
   headerBgColor: string;
   // 左侧菜单背景色
@@ -80,8 +84,6 @@ export interface ProjectConfig {
   // 菜单类型
   // menuType: MenuTypeEnum;
   menuSetting: MenuSetting;
-
-  messageSetting: MessageSetting;
 
   // 多标签页设置
   multiTabsSetting: MultiTabsSetting;
@@ -133,12 +135,6 @@ export interface GlobEnvConfig {
   VITE_GLOB_APP_SHORT_NAME: string;
 }
 
-//  修改配置
-export type SetProjectSettingFn = <T extends keyof ProjectConfig>(
-  key: T,
-  value: ProjectConfig[T]
-) => void;
-
 interface GlobWrap {
   globSetting: Readonly<GlobConfig>;
 }
@@ -146,5 +142,3 @@ interface GlobWrap {
 interface ProjectSettingWrap {
   projectSetting: Readonly<ProjectConfig>;
 }
-
-export type SettingWrap = GlobWrap & ProjectSettingWrap;

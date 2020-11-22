@@ -1,3 +1,9 @@
+## Wip
+
+### 🎫 Chores
+
+- 移除 messageSetting 配置
+
 ## 2.0.0-rc.11 (2020-11-18)
 
 ### ✨ Features

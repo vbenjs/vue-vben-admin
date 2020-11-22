@@ -1,7 +1,7 @@
 import { getEnv } from '/@/utils/env';
-import { useSetting } from '/@/hooks/core/useSetting';
+import { useGlobSetting } from '/@/settings/use';
 import pkg from '../../../package.json';
-const { globSetting } = useSetting();
+const globSetting = useGlobSetting();
 
 // Generate cache key according to version
 export const getStorageShortName = () => {

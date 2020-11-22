@@ -5,7 +5,6 @@ import Button from '/@/components/Button/index.vue';
 import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
 import { CopyOutlined, RedoOutlined, CheckOutlined } from '@ant-design/icons-vue';
 import { appStore } from '/@/store/modules/app';
-import { userStore } from '/@/store/modules/user';
 import { ProjectConfig } from '/@/types/config';
 
 import { useMessage } from '/@/hooks/web/useMessage';
@@ -97,7 +96,7 @@ export default defineComponent({
 
     function handleClearAndRedo() {
       localStorage.clear();
-      userStore.resumeAllState();
+      appStore.resumeAllState();
       location.reload();
     }
 
