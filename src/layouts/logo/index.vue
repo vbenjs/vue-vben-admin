@@ -7,7 +7,7 @@
 <script lang="ts">
   import { computed, defineComponent, PropType, ref, watch } from 'vue';
   // hooks
-  import { useSetting } from '/@/hooks/core/useSetting';
+  import { useGlobSetting } from '/@/settings/use';
   import { useTimeoutFn } from '/@/hooks/core/useTimeout';
   import { useGo } from '/@/hooks/web/usePage';
 
@@ -30,7 +30,7 @@
     },
     setup(props) {
       const showRef = ref<boolean>(!!props.showTitle);
-      const { globSetting } = useSetting();
+      const globSetting = useGlobSetting();
       const go = useGo();
 
       function handleGoHome() {

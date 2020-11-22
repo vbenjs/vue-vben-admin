@@ -3,7 +3,6 @@ import type { ModalFunc, ModalFuncProps } from 'ant-design-vue/lib/modal/Modal';
 import { Modal, message as Message, notification } from 'ant-design-vue';
 import { InfoCircleFilled, CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons-vue';
 
-import { useSetting } from '/@/hooks/core/useSetting';
 import { ArgsProps, ConfigProps } from 'ant-design-vue/lib/notification';
 
 export interface NotifyApi {
@@ -33,8 +32,6 @@ interface ConfirmOptions {
   warning: ModalFunc;
 }
 
-const { projectSetting } = useSetting();
-
 function getIcon(iconType: string) {
   if (iconType === 'warning') {
     return <InfoCircleFilled class="modal-icon-warning" />;
@@ -60,7 +57,6 @@ function createConfirm(options: ModalOptionsEx): ConfirmOptions {
   const opt: ModalFuncProps = {
     centered: true,
     icon: getIcon(iconType),
-    ...projectSetting.messageSetting,
     ...options,
   };
   return Modal.confirm(opt) as any;

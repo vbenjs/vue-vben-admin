@@ -4,7 +4,7 @@ import { RouterView, RouteLocation } from 'vue-router';
 import FrameLayout from '/@/layouts/iframe/index.vue';
 
 import { useTransition } from './useTransition';
-import { useSetting } from '/@/hooks/core/useSetting';
+import { useProjectSetting } from '/@/settings/use';
 
 import { tabStore } from '/@/store/modules/tab';
 import { appStore } from '/@/store/modules/app';
@@ -29,7 +29,7 @@ export default defineComponent({
       const { on: transitionOn } = useTransition();
       on = transitionOn;
     }
-    const { projectSetting } = useSetting();
+    const projectSetting = useProjectSetting();
     return () => {
       const {
         routerTransition,

@@ -7,7 +7,16 @@ import { isProdMode } from '/@/utils/env';
 
 // ! You need to clear the browser cache after the change
 const setting: ProjectConfig = {
-  locale: 'en',
+  // locale setting
+  locale: {
+    // Locales
+    lang: 'zh_CN',
+    // Default locale
+    fallback: 'zh_CN',
+    // available Locales
+    availableLocales: ['zh_CN', 'en'],
+  },
+
   // color
   // TODO 主题色
   themeColor: primaryColor,
@@ -87,15 +96,7 @@ const setting: ProjectConfig = {
     // 开启手风琴模式,只显示一个菜单
     accordion: true,
   },
-  // 消息配置
-  messageSetting: {
-    // 弹窗title
-    title: '操作提示',
-    // 取消按钮的文子,
-    cancelText: '取消',
-    // 确认按钮的文字
-    okText: '确定',
-  },
+
   // 多标签
   multiTabsSetting: {
     // 开启

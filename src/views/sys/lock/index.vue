@@ -6,36 +6,38 @@
         <p class="lock-page__header-name">{{ realName }}</p>
       </div>
       <BasicForm @register="register" v-if="!getIsNotPwd" />
-      <Alert v-if="errMsgRef" type="error" message="锁屏密码错误" banner />
+      <Alert v-if="errMsgRef" type="error" :message="t('sys.lock.alert')" banner />
       <div class="lock-page__footer">
         <a-button type="default" class="mt-2 mr-2" @click="goLogin" v-if="!getIsNotPwd">
-          返回登录
+          {{ t('sys.lock.backToLogin') }}
         </a-button>
         <a-button type="primary" class="mt-2" @click="unLock(!getIsNotPwd)" :loading="loadingRef">
-          进入系统
+          {{ t('sys.lock.entry') }}
         </a-button>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-  // 组件相关
   import { defineComponent, ref, computed } from 'vue';
   import { Alert } from 'ant-design-vue';
-  // hook
+
   import { BasicForm, useForm } from '/@/components/Form';
 
   import { userStore } from '/@/store/modules/user';
   import { appStore } from '/@/store/modules/app';
+
+  import { useI18n } from 'vue-i18n';
+
   export default defineComponent({
     name: 'LockPage',
     components: { Alert, BasicForm },
 
     setup() {
-      // 获取配置文件
-      // 样式前缀
       const loadingRef = ref(false);
       const errMsgRef = ref(false);
+
+      const { t } = useI18n();
       const [register, { validateFields }] = useForm({
         showActionButtonGroup: false,
         schemas: [
@@ -45,7 +47,7 @@
             component: 'InputPassword',
             componentProps: {
               style: { width: '100%' },
-              placeholder: '请输入锁屏密码或者用户密码',
+              placeholder: t('sys.lock.placeholder'),
             },
             rules: [{ required: true }],
           },
@@ -55,6 +57,14 @@
         const { realName } = userStore.getUserInfoState || {};
         return realName;
       });
+
+      const getIsNotPwd = computed(() => {
+        if (!appStore.getLockInfo) {
+          return true;
+        }
+        return appStore.getLockInfo.pwd === undefined;
+      });
+
       /**
        * @description: unLock
        */
@@ -76,17 +86,12 @@
           loadingRef.value = false;
         }
       }
+
       function goLogin() {
         userStore.loginOut(true);
         appStore.resetLockInfo();
       }
-      const getIsNotPwd = computed(() => {
-        if (!appStore.getLockInfo) {
-          return true;
-        }
-        return appStore.getLockInfo.pwd === undefined;
-      });
-      // 账号密码登录
+
       return {
         register,
         getIsNotPwd,
@@ -95,6 +100,7 @@
         unLock,
         errMsgRef,
         loadingRef,
+        t,
       };
     },
   });

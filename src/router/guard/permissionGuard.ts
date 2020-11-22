@@ -1,6 +1,6 @@
 import type { Router, RouteRecordRaw } from 'vue-router';
 
-import { userStore } from '/@/store/modules/user';
+import { appStore } from '/@/store/modules/app';
 import { permissionStore } from '/@/store/modules/permission';
 
 import { PageEnum } from '/@/enums/pageEnum';
@@ -72,7 +72,7 @@ export function createPermissionGuard(router: Router) {
   router.afterEach((to) => {
     // Just enter the login page and clear the authentication information
     if (to.path === LOGIN_PATH) {
-      userStore.resumeAllState();
+      appStore.resumeAllState();
     }
   });
 }

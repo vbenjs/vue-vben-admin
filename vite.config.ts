@@ -126,7 +126,12 @@ const viteConfig: UserConfig = {
   },
   // The package will be recompiled using rollup, and the new package compiled into the esm module specification will be put into node_modules/.vite_opt_cache
   optimizeDeps: {
-    include: ['echarts/map/js/china', 'ant-design-vue/es/locale/zh_CN', '@ant-design/icons-vue'],
+    include: [
+      'echarts/map/js/china',
+      'ant-design-vue/es/locale/zh_CN',
+      'ant-design-vue/es/locale/en_US',
+      '@ant-design/icons-vue',
+    ],
   },
 
   // Local cross-domain proxy

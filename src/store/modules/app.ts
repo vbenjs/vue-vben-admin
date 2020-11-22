@@ -6,8 +6,18 @@ import store from '/@/store';
 import { PROJ_CFG_KEY, LOCK_INFO_KEY } from '/@/enums/cacheEnum';
 
 import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
-import { setLocal, getLocal, removeLocal } from '/@/utils/helper/persistent';
+import {
+  setLocal,
+  getLocal,
+  removeLocal,
+  clearSession,
+  clearLocal,
+} from '/@/utils/helper/persistent';
 import { deepMerge } from '/@/utils';
+
+import { resetRouter } from '/@/router';
+import { permissionStore } from './permission';
+import { tabStore } from './tab';
 
 import { userStore } from './user';
 
@@ -75,6 +85,17 @@ class App extends VuexModule {
   resetLockInfo(): void {
     removeLocal(LOCK_INFO_KEY);
     this.lockInfoState = null;
+  }
+
+  @Action
+  async resumeAllState() {
+    resetRouter();
+    clearSession();
+    clearLocal();
+
+    permissionStore.commitResetState();
+    tabStore.commitResetState();
+    userStore.commitResetState();
   }
 
   @Action

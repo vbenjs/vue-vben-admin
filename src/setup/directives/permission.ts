@@ -14,9 +14,7 @@ function isAuth(el: Element, binding: any) {
   const value = binding.value;
   if (!value) return;
   if (!hasPermission(value)) {
-    if (el.parentNode) {
-      el.parentNode.removeChild(el);
-    }
+    el.parentNode?.removeChild(el);
   }
 }
 

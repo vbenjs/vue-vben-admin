@@ -36,10 +36,6 @@ const menu: MenuModule = {
         name: '图片预览',
       },
       {
-        path: 'i18n',
-        name: '国际化',
-      },
-      {
         path: 'copy',
         name: '剪切板',
       },
