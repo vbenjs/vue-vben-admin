@@ -4,9 +4,6 @@ const menu: MenuModule = {
   menu: {
     path: '/table',
     name: 'Table',
-    tag: {
-      dot: true,
-    },
     children: [
       {
         path: 'basic',
@@ -67,9 +64,6 @@ const menu: MenuModule = {
       {
         path: 'editRowTable',
         name: '可编辑行',
-        tag: {
-          content: 'new',
-        },
       },
     ],
   },
