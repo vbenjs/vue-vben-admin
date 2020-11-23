@@ -1,6 +1,6 @@
 import './index.less';
 
-import { defineComponent, unref, computed, ref } from 'vue';
+import { defineComponent, unref, computed, ref, nextTick } from 'vue';
 
 import { Layout, Tooltip, Badge } from 'ant-design-vue';
 import { AppLogo } from '/@/components/Application';
@@ -39,8 +39,8 @@ export default defineComponent({
   setup() {
     let logoEl: Element | null;
 
-    const widthRef = ref(200);
-
+    const logoWidthRef = ref(200);
+    const logoRef = ref<any>(null);
     const { refreshPage } = useTabs();
 
     const { getShowTopMenu, getShowHeaderTrigger, getSplit, getTopMenuAlign } = useMenuSetting();
@@ -64,15 +64,17 @@ export default defineComponent({
 
     useWindowSizeFn(
       () => {
-        if (!unref(getShowTopMenu)) return;
-        let width = 0;
-        if (!logoEl) {
-          logoEl = document.querySelector('.layout-header__logo');
-        }
-        if (logoEl) {
-          width += logoEl.clientWidth;
-        }
-        widthRef.value = width + 60;
+        nextTick(() => {
+          if (!unref(getShowTopMenu)) return;
+          let width = 0;
+          if (!logoEl) {
+            logoEl = logoRef.value.$el;
+          }
+          if (logoEl) {
+            width += logoEl.clientWidth;
+          }
+          logoWidthRef.value = width + 80;
+        });
       },
       200,
       { immediate: true }
@@ -105,11 +107,11 @@ export default defineComponent({
     }
 
     function renderHeaderContent() {
-      const width = unref(widthRef);
+      const width = unref(logoWidthRef);
       return (
         <div class="layout-header__content ">
           {unref(getShowHeaderLogo) && (
-            <AppLogo class={`layout-header__logo`} theme={unref(getTheme)} />
+            <AppLogo class={`layout-header__logo`} ref={logoRef} theme={unref(getTheme)} />
           )}
 
           {unref(getShowContent) && (
