@@ -106,6 +106,19 @@ const menu: MenuModule = {
           },
         ],
       },
+      {
+        path: 'list',
+        name: '列表页',
+        tag: {
+          content: 'new',
+        },
+        children: [
+          {
+            path: 'card',
+            name: '卡片列表',
+          },
+        ],
+      },
     ],
   },
 };

@@ -209,6 +209,26 @@ const page: AppRouteModule = {
       ],
     },
     // =============================exception end=============================
+    // =============================list start=============================
+    {
+      path: '/list',
+      name: 'ListPage',
+      redirect: '/page-demo/list/card',
+      meta: {
+        title: '列表页',
+      },
+      children: [
+        {
+          path: 'card',
+          name: 'ListCardPage',
+          component: () => import('/@/views/demo/page/list/card/index.vue'),
+          meta: {
+            title: '卡片列表',
+          },
+        },
+      ],
+    },
+    // =============================list end=============================
   ],
 };
 

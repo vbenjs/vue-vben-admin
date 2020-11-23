@@ -52,6 +52,7 @@
   .account-center-application {
     &__card {
       width: 100%;
+      margin-bottom: -12px;
 
       .ant-card-body {
         padding: 16px;
