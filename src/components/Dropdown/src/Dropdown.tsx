@@ -15,7 +15,7 @@ export default defineComponent({
     const getMenuList = computed(() => props.dropMenuList);
 
     function handleClickMenu({ key }: any) {
-      const menu = unref(getMenuList).find((item) => item.event === key);
+      const menu = unref(getMenuList).find((item) => `${item.event}` === `${key}`);
       emit('menuEvent', menu);
     }
 

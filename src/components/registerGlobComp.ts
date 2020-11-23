@@ -31,6 +31,7 @@ import {
   PageHeader,
   Result,
   Empty,
+  Avatar,
 } from 'ant-design-vue';
 import { getApp } from '/@/setup/App';
 
@@ -76,5 +77,6 @@ export function registerGlobComp() {
     .use(PageHeader)
     .use(Result)
     .use(Empty)
+    .use(Avatar)
     .use(Tabs);
 }

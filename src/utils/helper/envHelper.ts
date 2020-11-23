@@ -1,5 +1,5 @@
 import { getEnv } from '/@/utils/env';
-import { useGlobSetting } from '/@/settings/use';
+import { useGlobSetting } from '/@/hooks/setting';
 import pkg from '../../../package.json';
 const globSetting = useGlobSetting();
 

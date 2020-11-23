@@ -33,7 +33,7 @@ export default defineComponent({
     });
 
     /**
-     * @description: Whether to use title
+     * @description: Whether to setting title
      */
     const useWrapper = computed(() => {
       return !!unref(getMergeProps).title;

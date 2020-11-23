@@ -11,15 +11,23 @@ import Icon from '/@/components/Icon/index';
 import { userStore } from '/@/store/modules/user';
 
 import { DOC_URL } from '/@/settings/siteSetting';
-import { appStore } from '/@/store/modules/app';
+
+import { openWindow } from '/@/utils';
+
+import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
+
+interface RenderItemParams {
+  icon: string;
+  text: string;
+  key: string;
+}
 
 const prefixCls = 'user-dropdown';
+
 export default defineComponent({
   name: 'UserDropdown',
   setup() {
-    const getProjectConfigRef = computed(() => {
-      return appStore.getProjectConfig;
-    });
+    const { getShowDoc } = useHeaderSetting();
 
     const getUserInfo = computed(() => {
       const { realName = '', desc } = userStore.getUserInfoState || {};
@@ -33,7 +41,7 @@ export default defineComponent({
 
     // open doc
     function openDoc() {
-      window.open(DOC_URL, '__blank');
+      openWindow(DOC_URL);
     }
 
     function handleMenuClick(e: any) {
@@ -44,7 +52,7 @@ export default defineComponent({
       }
     }
 
-    function renderItem({ icon, text, key }: { icon: string; text: string; key: string }) {
+    function renderItem({ icon, text, key }: RenderItemParams) {
       return (
         <Menu.Item key={key}>
           {() => (
@@ -57,37 +65,43 @@ export default defineComponent({
       );
     }
 
-    return () => {
+    function renderSlotsDefault() {
       const { realName } = unref(getUserInfo);
-      const {
-        headerSetting: { showDoc },
-      } = unref(getProjectConfigRef);
+      return (
+        <section class={prefixCls}>
+          <img class={`${prefixCls}__header`} src={headerImg} />
+          <section class={`${prefixCls}__info`}>
+            <section class={`${prefixCls}__name`}>{realName}</section>
+          </section>
+        </section>
+      );
+    }
+
+    function renderSlotOverlay() {
+      const showDoc = unref(getShowDoc);
+      return (
+        <Menu onClick={handleMenuClick}>
+          {() => (
+            <>
+              {showDoc && renderItem({ key: 'doc', text: '文档', icon: 'gg:loadbar-doc' })}
+              {showDoc && <Divider />}
+              {renderItem({
+                key: 'loginOut',
+                text: '退出系统',
+                icon: 'ant-design:poweroff-outlined',
+              })}
+            </>
+          )}
+        </Menu>
+      );
+    }
+
+    return () => {
       return (
         <Dropdown placement="bottomLeft">
           {{
-            default: () => (
-              <section class={prefixCls}>
-                <img class={`${prefixCls}__header`} src={headerImg} />
-                <section class={`${prefixCls}__info`}>
-                  <section class={`${prefixCls}__name`}>{realName}</section>
-                </section>
-              </section>
-            ),
-            overlay: () => (
-              <Menu slot="overlay" onClick={handleMenuClick}>
-                {() => (
-                  <>
-                    {showDoc && renderItem({ key: 'doc', text: '文档', icon: 'gg:loadbar-doc' })}
-                    {showDoc && <Divider />}
-                    {renderItem({
-                      key: 'loginOut',
-                      text: '退出系统',
-                      icon: 'ant-design:poweroff-outlined',
-                    })}
-                  </>
-                )}
-              </Menu>
-            ),
+            default: () => renderSlotsDefault(),
+            overlay: () => renderSlotOverlay(),
           }}
         </Dropdown>
       );

@@ -1,41 +1,39 @@
+import type { PropType } from 'vue';
+
+import { defineComponent, unref } from 'vue';
 import {
   DoubleRightOutlined,
   DoubleLeftOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from '@ant-design/icons-vue';
-import { defineComponent } from 'vue';
 
-// store
-import { menuStore } from '/@/store/modules/menu';
+import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 
 export default defineComponent({
   name: 'LayoutTrigger',
   props: {
     sider: {
-      type: Boolean,
+      type: Boolean as PropType<boolean>,
       default: true,
     },
     theme: {
-      type: String,
+      type: String as PropType<string>,
     },
   },
   setup(props) {
-    function toggleMenu() {
-      menuStore.commitCollapsedState(!menuStore.getCollapsedState);
-    }
+    const { toggleCollapsed, getCollapsed } = useMenuSetting();
 
     return () => {
-      const siderTrigger = menuStore.getCollapsedState ? (
-        <DoubleRightOutlined />
-      ) : (
-        <DoubleLeftOutlined />
-      );
-      if (props.sider) return siderTrigger;
+      const siderTrigger = unref(getCollapsed) ? <DoubleRightOutlined /> : <DoubleLeftOutlined />;
+
+      if (props.sider) {
+        return siderTrigger;
+      }
 
       return (
-        <span class={['layout-trigger', props.theme]} onClick={toggleMenu}>
-          {menuStore.getCollapsedState ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        <span class={['layout-trigger', props.theme]} onClick={toggleCollapsed}>
+          {unref(getCollapsed) ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         </span>
       );
     };

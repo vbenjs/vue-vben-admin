@@ -4,7 +4,7 @@ import { VuexModule, getModule, Module, Mutation, Action } from 'vuex-module-dec
 
 import { formatToDateTime } from '/@/utils/dateUtil';
 import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
-import { useProjectSetting } from '/@/settings/use';
+import { useProjectSetting } from '/@/hooks/setting';
 
 export interface ErrorInfo {
   type: ErrorTypeEnum;

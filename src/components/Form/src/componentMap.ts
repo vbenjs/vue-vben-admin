@@ -2,7 +2,7 @@ import { Component } from 'vue';
 import type { ComponentType } from './types/index';
 
 /**
- * Component list, register here to use it in the form
+ * Component list, register here to setting it in the form
  */
 import {
   Input,

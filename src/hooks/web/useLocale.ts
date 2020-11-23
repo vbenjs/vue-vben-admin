@@ -7,7 +7,7 @@ import { unref, ref } from 'vue';
 
 import { getI18n } from '/@/setup/i18n';
 
-import { useLocaleSetting } from '/@/settings/use/useLocaleSetting';
+import { useLocaleSetting } from '/@/hooks/setting/useLocaleSetting';
 
 import moment from 'moment';
 
@@ -67,7 +67,7 @@ export function useLocale() {
 }
 
 /**
- * For non-setup use
+ * For non-setup setting
  */
 export function useExternalI18n() {
   return getI18n().global;

@@ -1,6 +1,6 @@
 <template>
   <div class="layout-header__action-item notify-action">
-    <Popover title="" trigger="click">
+    <Popover title="" trigger="click" overlayClassName="layout-header__notify-action">
       <Badge :count="count" dot :numberStyle="numberStyle">
         <BellOutlined class="layout-header__action-icon" />
       </Badge>
@@ -31,6 +31,7 @@
     components: { Popover, BellOutlined, Tabs, TabPane: Tabs.TabPane, Badge, NoticeList },
     setup() {
       let count = 0;
+
       for (let i = 0; i < tabListData.length; i++) {
         count += tabListData[i].list.length;
       }
@@ -44,6 +45,10 @@
   });
 </script>
 <style lang="less">
+  .layout-header__notify-action {
+    max-width: 360px;
+  }
+
   .notify-action {
     padding-top: 2px;
 
@@ -56,7 +61,6 @@
 
       .ant-badge-multiple-words {
         padding: 0 4px;
-        // transform: translate(26%, -40%);
       }
 
       svg {

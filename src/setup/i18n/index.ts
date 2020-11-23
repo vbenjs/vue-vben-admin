@@ -4,7 +4,7 @@ import type { I18n, I18nOptions } from 'vue-i18n';
 import { createI18n } from 'vue-i18n';
 import localeMessages from '/@/locales';
 import { useLocale } from '/@/hooks/web/useLocale';
-import { useLocaleSetting } from '/@/settings/use/useLocaleSetting';
+import { useLocaleSetting } from '/@/hooks/setting/useLocaleSetting';
 
 const { setupLocale } = useLocale();
 

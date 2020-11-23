@@ -23,7 +23,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
     'vue/custom-event-name-casing': 'off',
     'no-use-before-define': 'off',
-    // 'no-use-before-define': [
+    // 'no-setting-before-define': [
     //   'error',
     //   {
     //     functions: false,
@@ -31,7 +31,7 @@ module.exports = {
     //   },
     // ],
     '@typescript-eslint/no-use-before-define': 'off',
-    // '@typescript-eslint/no-use-before-define': [
+    // '@typescript-eslint/no-setting-before-define': [
     //   'error',
     //   {
     //     functions: false,

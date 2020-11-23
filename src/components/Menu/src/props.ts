@@ -8,6 +8,10 @@ export const basicProps = {
     type: Array as PropType<Menu[]>,
     default: () => [],
   },
+  flatItems: {
+    type: Array as PropType<Menu[]>,
+    default: () => [],
+  },
   appendClass: {
     type: Boolean as PropType<boolean>,
     default: false,
@@ -15,10 +19,6 @@ export const basicProps = {
   collapsedShowTitle: {
     type: Boolean as PropType<boolean>,
     default: false,
-  },
-  flatItems: {
-    type: Array as PropType<Menu[]>,
-    default: () => [],
   },
   // 是否显示搜索框
   search: {
@@ -55,7 +55,7 @@ export const basicProps = {
     type: Boolean as PropType<boolean>,
     default: true,
   },
-  isTop: {
+  isHorizontal: {
     type: Boolean as PropType<boolean>,
     default: false,
   },

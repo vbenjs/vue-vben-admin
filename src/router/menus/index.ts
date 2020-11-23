@@ -7,6 +7,7 @@ import { filter } from '/@/utils/helper/treeHelper';
 import router from '/@/router';
 import { PermissionModeEnum } from '/@/enums/appEnum';
 import { pathToRegexp } from 'path-to-regexp';
+
 import modules from 'globby!/@/router/menus/modules/**/*.@(ts)';
 
 const menuModules: MenuModule[] = [];
@@ -44,7 +45,6 @@ async function getAsyncMenus() {
 // 获取深层扁平化菜单
 export const getFlatMenus = async () => {
   const menus = await getAsyncMenus();
-
   return flatMenus(menus);
 };
 

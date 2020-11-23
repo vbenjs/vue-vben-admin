@@ -4,7 +4,7 @@ import LayoutHeader from './header/LayoutHeader';
 
 import { appStore } from '/@/store/modules/app';
 import LayoutContent from './LayoutContent';
-import LayoutSideBar from './LayoutSideBar';
+import LayoutSideBar from './sider/LayoutSideBar';
 import SettingBtn from './setting/index.vue';
 import MultipleTabs from './multitabs/index';
 
@@ -36,7 +36,7 @@ export default defineComponent({
       return show;
     });
 
-    const isShowMixHeaderRef = computed(() => {
+    const showMixHeaderRef = computed(() => {
       const {
         menuSetting: { type },
       } = unref(getProjectConfigRef);
@@ -57,11 +57,11 @@ export default defineComponent({
     });
 
     const showFullHeaderRef = computed(() => {
-      return !unref(getFullContent) && unref(isShowMixHeaderRef) && unref(showHeaderRef);
+      return !unref(getFullContent) && unref(showMixHeaderRef) && unref(showHeaderRef);
     });
 
     const showInsetHeaderRef = computed(() => {
-      return !unref(getFullContent) && !unref(isShowMixHeaderRef) && unref(showHeaderRef);
+      return !unref(getFullContent) && !unref(showMixHeaderRef) && unref(showHeaderRef);
     });
 
     const fixedHeaderClsRef = computed(() => {

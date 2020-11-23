@@ -1,5 +1,5 @@
 import type { Menu as MenuType } from '/@/router/types';
-import type { MenuState } from './types';
+import type { MenuState } from '../types';
 import type { Ref } from 'vue';
 
 import { isString } from '/@/utils/is';

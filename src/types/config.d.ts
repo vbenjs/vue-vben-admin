@@ -44,7 +44,6 @@ export interface HeaderSetting {
   useLockPage: boolean;
   // 显示文档按钮
   showDoc: boolean;
-  showGithub: boolean;
   // 显示消息中心按钮
   showNotice: boolean;
 }

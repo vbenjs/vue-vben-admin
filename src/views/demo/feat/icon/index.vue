@@ -45,6 +45,8 @@
 
   import Icon from '/@/components/Icon/index';
 
+  import { openWindow } from '/@/utils';
+
   export default defineComponent({
     components: {
       CollapseContainer,
@@ -61,7 +63,7 @@
     setup() {
       return {
         toIconify: () => {
-          window.open('https://iconify.design/', '__blank');
+          openWindow('https://iconify.design/');
         },
       };
     },

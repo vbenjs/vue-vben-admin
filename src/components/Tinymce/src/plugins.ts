@@ -1,4 +1,4 @@
-// Any plugins you want to use has to be imported
+// Any plugins you want to setting has to be imported
 // Detail plugins list see https://www.tinymce.com/docs/plugins/
 // Custom builds see https://www.tinymce.com/download/custom-builds/
 // colorpicker/contextmenu/textcolor plugin is now built in to the core editor, please remove it from your editor configuration
