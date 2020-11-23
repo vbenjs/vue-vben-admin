@@ -1,7 +1,8 @@
 import AppLocalPicker from './src/AppLocalPicker.vue';
-import AppFooterToolbar from './src/AppFooterToolbar.vue';
+import AppPageFooter from './src/AppPageFooter.vue';
+import AppLogo from './src/AppLogo.vue';
 import { withInstall } from '../util';
 
-export { AppLocalPicker, AppFooterToolbar };
+export { AppLocalPicker, AppPageFooter, AppLogo };
 
-export default withInstall(AppLocalPicker, AppFooterToolbar);
+export default withInstall(AppLocalPicker, AppPageFooter, AppLogo);

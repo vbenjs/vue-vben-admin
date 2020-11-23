@@ -26,7 +26,7 @@ export default defineComponent({
       type: Number as PropType<number>,
       default: 0,
     },
-    isTop: {
+    isHorizontal: {
       type: Boolean as PropType<boolean>,
       default: true,
     },
@@ -40,8 +40,8 @@ export default defineComponent({
     }
 
     function renderTag() {
-      const { item, showTitle, isTop } = props;
-      if (!item || showTitle || isTop) return null;
+      const { item, showTitle, isHorizontal } = props;
+      if (!item || showTitle || isHorizontal) return null;
 
       const { tag } = item;
       if (!tag) return null;

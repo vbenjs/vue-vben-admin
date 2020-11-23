@@ -1,29 +1,21 @@
-import type { PropType } from 'vue';
+import './index.less';
+
+import { PropType, toRef } from 'vue';
 import type { Menu } from '/@/router/types';
 
-import { computed, defineComponent, unref, ref, onMounted, watch } from 'vue';
+import { computed, defineComponent, unref } from 'vue';
 import { BasicMenu } from '/@/components/Menu/index';
-import Logo from '/@/layouts/logo/index.vue';
+import { AppLogo } from '/@/components/Application';
 
-import { MenuModeEnum, MenuSplitTyeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
+import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
 
-// store
-import { appStore } from '/@/store/modules/app';
-import { menuStore } from '/@/store/modules/menu';
+import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
+import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 
-import {
-  getMenus,
-  getFlatMenus,
-  getShallowMenus,
-  getChildrenMenus,
-  getFlatChildrenMenus,
-  getCurrentParentPath,
-} from '/@/router/menus/index';
-import { useRouter } from 'vue-router';
-import { useThrottle } from '/@/hooks/core/useThrottle';
-import { permissionStore } from '/@/store/modules/permission';
+import { useGo } from '/@/hooks/web/usePage';
+import { useSplitMenu } from './useLayoutMenu';
+import { openWindow } from '/@/utils';
 
-import './index.less';
 export default defineComponent({
   name: 'DefaultLayoutMenu',
   props: {
@@ -43,7 +35,7 @@ export default defineComponent({
       type: Boolean as PropType<boolean>,
       default: true,
     },
-    isTop: {
+    isHorizontal: {
       type: Boolean as PropType<boolean>,
       default: false,
     },
@@ -53,190 +45,99 @@ export default defineComponent({
     },
   },
   setup(props) {
-    // Menu array
-    const menusRef = ref<Menu[]>([]);
-    // flat menu array
-    const flatMenusRef = ref<Menu[]>([]);
-    const { currentRoute, push } = useRouter();
+    const go = useGo();
 
-    // get app config
-    const getProjectConfigRef = computed(() => {
-      return appStore.getProjectConfig;
+    const {
+      setMenuSetting,
+      getShowSearch,
+      getMode,
+      getType,
+      getCollapsedShowTitle,
+      getCollapsedShowSearch,
+      getIsSidebarType,
+      getTheme,
+      getCollapsed,
+      getAccordion,
+    } = useMenuSetting();
+
+    const { getShowLogo } = useRootSetting();
+
+    const { flatMenusRef, menusRef } = useSplitMenu(toRef(props, 'splitType'));
+
+    const showLogo = computed(() => unref(getShowLogo) && unref(getIsSidebarType));
+
+    const getMenuMode = computed(() => props.menuMode || unref(getMode));
+
+    const getMenuTheme = computed(() => props.theme || unref(getTheme));
+
+    const appendClass = computed(() => props.splitType === MenuSplitTyeEnum.TOP);
+
+    const showSearch = computed(() => {
+      return (
+        unref(getShowSearch) &&
+        props.showSearch &&
+        (unref(getCollapsedShowSearch) ? true : !unref(getCollapsed))
+      );
     });
 
-    // get is Horizontal
-    const getIsHorizontalRef = computed(() => {
-      return unref(getProjectConfigRef).menuSetting.mode === MenuModeEnum.HORIZONTAL;
-    });
-
-    const [throttleHandleSplitLeftMenu] = useThrottle(handleSplitLeftMenu, 50);
-
-    // Route change split menu
-    watch(
-      [() => unref(currentRoute).path, () => props.splitType],
-      async ([path, splitType]: [string, MenuSplitTyeEnum]) => {
-        if (splitType !== MenuSplitTyeEnum.LEFT && !unref(getIsHorizontalRef)) return;
-        const parentPath = await getCurrentParentPath(path);
-        parentPath && throttleHandleSplitLeftMenu(parentPath);
-      },
-      {
-        immediate: true,
-      }
-    );
-
-    // Menu changes
-    watch(
-      [() => permissionStore.getLastBuildMenuTimeState, () => permissionStore.getBackMenuListState],
-      () => {
-        genMenus();
-      }
-    );
-
-    // split Menu changes
-    watch([() => appStore.getProjectConfig.menuSetting.split], () => {
-      if (props.splitType !== MenuSplitTyeEnum.LEFT && !unref(getIsHorizontalRef)) return;
-      genMenus();
-    });
-
-    // Handle left menu split
-    async function handleSplitLeftMenu(parentPath: string) {
-      const isSplitMenu = unref(getProjectConfigRef).menuSetting.split;
-      if (!isSplitMenu) return;
-      const { splitType } = props;
-      // spilt mode left
-      if (splitType === MenuSplitTyeEnum.LEFT) {
-        const children = await getChildrenMenus(parentPath);
-        if (!children) {
-          appStore.commitProjectConfigState({
-            menuSetting: {
-              hidden: false,
-            },
-          });
-          flatMenusRef.value = [];
-          menusRef.value = [];
-          return;
-        }
-        const flatChildren = await getFlatChildrenMenus(children);
-        appStore.commitProjectConfigState({
-          menuSetting: {
-            hidden: true,
-          },
-        });
-        flatMenusRef.value = flatChildren;
-        menusRef.value = children;
-      }
-    }
-
-    // get menus
-    async function genMenus() {
-      const isSplitMenu = unref(getProjectConfigRef).menuSetting.split;
-
-      // normal mode
-      const { splitType } = props;
-      if (splitType === MenuSplitTyeEnum.NONE || !isSplitMenu) {
-        flatMenusRef.value = await getFlatMenus();
-        menusRef.value = await getMenus();
-        return;
-      }
-
-      // split-top
-      if (splitType === MenuSplitTyeEnum.TOP) {
-        const parentPath = await getCurrentParentPath(unref(currentRoute).path);
-        menuStore.commitCurrentTopSplitMenuPathState(parentPath);
-        const shallowMenus = await getShallowMenus();
-
-        flatMenusRef.value = shallowMenus;
-        menusRef.value = shallowMenus;
-        return;
-      }
-    }
-
+    /**
+     * click menu
+     * @param menu
+     */
     function handleMenuClick(menu: Menu) {
-      const { path } = menu;
-      if (path) {
-        push(path);
-        const { splitType } = props;
-        // split mode top
-        if (splitType === MenuSplitTyeEnum.TOP) {
-          menuStore.commitCurrentTopSplitMenuPathState(path);
-        }
-      }
+      go(menu.path);
     }
 
+    /**
+     * before click menu
+     * @param menu
+     */
     async function beforeMenuClickFn(menu: Menu) {
       const { meta: { externalLink } = {} } = menu;
 
       if (externalLink) {
-        window.open(externalLink, '_blank');
+        openWindow(externalLink);
         return false;
       }
-
       return true;
     }
 
     function handleClickSearchInput() {
-      if (menuStore.getCollapsedState) {
-        menuStore.commitCollapsedState(false);
-      }
+      unref(getCollapsed) && setMenuSetting({ collapsed: false });
     }
 
-    const showSearchRef = computed(() => {
-      const { showSearch, type, mode } = unref(getProjectConfigRef).menuSetting;
+    function renderHeader() {
+      if (!unref(showLogo)) return null;
       return (
-        showSearch &&
-        props.showSearch &&
-        !(type === MenuTypeEnum.MIX && mode === MenuModeEnum.HORIZONTAL)
+        <AppLogo
+          showTitle={!unref(getCollapsed)}
+          class={[`layout-menu__logo`, unref(getMenuTheme)]}
+          theme={unref(getMenuTheme)}
+        />
       );
-    });
-
-    onMounted(() => {
-      genMenus();
-    });
+    }
 
     return () => {
-      const {
-        showLogo,
-        menuSetting: {
-          type: menuType,
-          mode,
-          theme,
-          collapsed,
-          collapsedShowTitle,
-          collapsedShowSearch,
-          accordion,
-        },
-      } = unref(getProjectConfigRef);
-
-      const isSidebarType = menuType === MenuTypeEnum.SIDEBAR;
-      const isShowLogo = showLogo && isSidebarType;
-      const themeData = props.theme || theme;
       return (
         <BasicMenu
-          beforeClickFn={beforeMenuClickFn}
-          onMenuClick={handleMenuClick}
-          type={menuType}
-          mode={props.menuMode || mode}
           class="layout-menu"
-          collapsedShowTitle={collapsedShowTitle}
-          theme={themeData}
-          showLogo={isShowLogo}
-          search={unref(showSearchRef) && (collapsedShowSearch ? true : !collapsed)}
+          beforeClickFn={beforeMenuClickFn}
+          isHorizontal={props.isHorizontal}
+          appendClass={unref(appendClass)}
+          type={unref(getType)}
+          mode={unref(getMenuMode)}
+          collapsedShowTitle={unref(getCollapsedShowTitle)}
+          theme={unref(getMenuTheme)}
+          showLogo={unref(showLogo)}
+          search={unref(showSearch)}
           items={unref(menusRef)}
           flatItems={unref(flatMenusRef)}
+          accordion={unref(getAccordion)}
+          onMenuClick={handleMenuClick}
           onClickSearchInput={handleClickSearchInput}
-          appendClass={props.splitType === MenuSplitTyeEnum.TOP}
-          isTop={props.isTop}
-          accordion={accordion}
         >
           {{
-            header: () =>
-              isShowLogo && (
-                <Logo
-                  showTitle={!collapsed}
-                  class={[`layout-menu__logo`, themeData]}
-                  theme={themeData}
-                />
-              ),
+            header: () => renderHeader(),
           }}
         </BasicMenu>
       );

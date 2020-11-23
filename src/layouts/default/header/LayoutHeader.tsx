@@ -1,7 +1,9 @@
+import './index.less';
+
 import { defineComponent, unref, computed, ref } from 'vue';
 
 import { Layout, Tooltip, Badge } from 'ant-design-vue';
-import Logo from '/@/layouts/logo/index.vue';
+import { AppLogo } from '/@/components/Application';
 import UserDropdown from './UserDropdown';
 import LayoutMenu from '/@/layouts/default/menu/LayoutMenu';
 import LayoutBreadcrumb from './LayoutBreadcrumb';
@@ -12,50 +14,57 @@ import {
   RedoOutlined,
   FullscreenExitOutlined,
   FullscreenOutlined,
-  GithubFilled,
   LockOutlined,
   BugOutlined,
 } from '@ant-design/icons-vue';
+import { useModal } from '/@/components/Modal';
 
 import { useFullscreen } from '/@/hooks/web/useFullScreen';
 import { useTabs } from '/@/hooks/web/useTabs';
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
-import { useRouter } from 'vue-router';
-import { useModal } from '/@/components/Modal';
+import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
+import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
+import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 
-import { appStore } from '/@/store/modules/app';
+import { useRouter } from 'vue-router';
+
 import { errorStore } from '/@/store/modules/error';
 
-import { MenuModeEnum, MenuSplitTyeEnum, MenuTypeEnum, TriggerEnum } from '/@/enums/menuEnum';
-import { GITHUB_URL } from '/@/settings/siteSetting';
+import { PageEnum } from '/@/enums/pageEnum';
+import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
+import { Component } from '/@/components/types';
 
-import './index.less';
 export default defineComponent({
-  name: 'DefaultLayoutHeader',
+  name: 'LayoutHeader',
   setup() {
-    const widthRef = ref(200);
     let logoEl: Element | null;
 
+    const widthRef = ref(200);
+
     const { refreshPage } = useTabs();
+
+    const { getShowTopMenu, getShowHeaderTrigger, getSplit, getTopMenuAlign } = useMenuSetting();
+
+    const { getUseErrorHandle, getShowBreadCrumbIcon } = useRootSetting();
+
+    const {
+      getTheme,
+      getShowRedo,
+      getUseLockPage,
+      getShowFullScreen,
+      getShowNotice,
+      getShowContent,
+      getShowBread,
+      getShowHeaderLogo,
+    } = useHeaderSetting();
+
     const { push } = useRouter();
     const [register, { openModal }] = useModal();
     const { toggleFullscreen, isFullscreenRef } = useFullscreen();
 
-    const getProjectConfigRef = computed(() => {
-      return appStore.getProjectConfig;
-    });
-
-    const showTopMenu = computed(() => {
-      const getProjectConfig = unref(getProjectConfigRef);
-      const {
-        menuSetting: { mode, split: splitMenu },
-      } = getProjectConfig;
-      return mode === MenuModeEnum.HORIZONTAL || splitMenu;
-    });
-
     useWindowSizeFn(
       () => {
-        if (!unref(showTopMenu)) return;
+        if (!unref(getShowTopMenu)) return;
         let width = 0;
         if (!logoEl) {
           logoEl = document.querySelector('.layout-header__logo');
@@ -69,24 +78,23 @@ export default defineComponent({
       { immediate: true }
     );
 
-    function goToGithub() {
-      window.open(GITHUB_URL, '__blank');
-    }
-
     const headerClass = computed(() => {
-      const theme = unref(getProjectConfigRef).headerSetting.theme;
+      const theme = unref(getTheme);
       return theme ? `layout-header__header--${theme}` : '';
     });
 
-    const showHeaderTrigger = computed(() => {
-      const { show, trigger, hidden, type } = unref(getProjectConfigRef).menuSetting;
-      if (type === MenuTypeEnum.TOP_MENU || !show || !hidden) return false;
-      return trigger === TriggerEnum.HEADER;
+    const getSplitType = computed(() => {
+      return unref(getSplit) ? MenuSplitTyeEnum.TOP : MenuSplitTyeEnum.NONE;
+    });
+
+    const getMenuMode = computed(() => {
+      return unref(getSplit) ? MenuModeEnum.HORIZONTAL : null;
     });
 
     function handleToErrorList() {
-      errorStore.commitErrorListCountState(0);
-      push('/exception/error-log');
+      push(PageEnum.ERROR_LOG_PAGE).then(() => {
+        errorStore.commitErrorListCountState(0);
+      });
     }
 
     /**
@@ -96,162 +104,129 @@ export default defineComponent({
       openModal(true);
     }
 
-    return () => {
-      const getProjectConfig = unref(getProjectConfigRef);
-      const {
-        useErrorHandle,
-        showLogo,
-        multiTabsSetting: { show: showTab },
-        headerSetting: {
-          theme: headerTheme,
-          useLockPage,
-          showRedo,
-          showGithub,
-          showFullScreen,
-          showNotice,
-        },
-        menuSetting: { mode, type: menuType, split: splitMenu, topMenuAlign },
-        showBreadCrumb,
-        showBreadCrumbIcon,
-      } = getProjectConfig;
-
-      const isSidebarType = menuType === MenuTypeEnum.SIDEBAR;
-
+    function renderHeaderContent() {
       const width = unref(widthRef);
+      return (
+        <div class="layout-header__content ">
+          {unref(getShowHeaderLogo) && (
+            <AppLogo class={`layout-header__logo`} theme={unref(getTheme)} />
+          )}
 
-      const showLeft =
-        (mode !== MenuModeEnum.HORIZONTAL && showBreadCrumb && !splitMenu) ||
-        unref(showHeaderTrigger);
+          {unref(getShowContent) && (
+            <div class="layout-header__left">
+              {unref(getShowHeaderTrigger) && (
+                <LayoutTrigger theme={unref(getTheme)} sider={false} />
+              )}
+              {unref(getShowBread) && <LayoutBreadcrumb showIcon={unref(getShowBreadCrumbIcon)} />}
+            </div>
+          )}
+
+          {unref(getShowTopMenu) && (
+            <div class={[`layout-header__menu `]} style={{ width: `calc(100% - ${width}px)` }}>
+              <LayoutMenu
+                isHorizontal={true}
+                class={`justify-${unref(getTopMenuAlign)}`}
+                theme={unref(getTheme)}
+                splitType={unref(getSplitType)}
+                menuMode={unref(getMenuMode)}
+                showSearch={false}
+              />
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    function renderActionDefault(Comp: Component | any, event: Fn) {
+      return (
+        <div class={`layout-header__action-item`} onClick={event}>
+          <Comp class={`layout-header__action-icon`} />
+        </div>
+      );
+    }
+
+    function renderAction() {
+      return (
+        <div class={`layout-header__action`}>
+          {unref(getUseErrorHandle) && (
+            <Tooltip>
+              {{
+                title: () => '错误日志',
+                default: () => (
+                  <Badge
+                    count={errorStore.getErrorListCountState}
+                    offset={[0, 10]}
+                    dot
+                    overflowCount={99}
+                  >
+                    {() => renderActionDefault(BugOutlined, handleToErrorList)}
+                  </Badge>
+                ),
+              }}
+            </Tooltip>
+          )}
+
+          {unref(getUseLockPage) && (
+            <Tooltip>
+              {{
+                title: () => '锁定屏幕',
+                default: () => renderActionDefault(LockOutlined, handleLockPage),
+              }}
+            </Tooltip>
+          )}
+
+          {unref(getShowNotice) && (
+            <Tooltip>
+              {{
+                title: () => '消息通知',
+                default: () => <NoticeAction />,
+              }}
+            </Tooltip>
+          )}
+
+          {unref(getShowRedo) && (
+            <Tooltip>
+              {{
+                title: () => '刷新',
+                default: () => renderActionDefault(RedoOutlined, refreshPage),
+              }}
+            </Tooltip>
+          )}
+
+          {unref(getShowFullScreen) && (
+            <Tooltip>
+              {{
+                title: () => (unref(isFullscreenRef) ? '退出全屏' : '全屏'),
+                default: () => {
+                  const Icon = !unref(isFullscreenRef) ? (
+                    <FullscreenOutlined />
+                  ) : (
+                    <FullscreenExitOutlined />
+                  );
+                  return renderActionDefault(Icon, toggleFullscreen);
+                },
+              }}
+            </Tooltip>
+          )}
+          <UserDropdown class={`layout-header__user-dropdown`} />
+        </div>
+      );
+    }
+
+    function renderHeaderDefault() {
+      return (
+        <>
+          {renderHeaderContent()}
+          {renderAction()}
+          <LockAction onRegister={register} />
+        </>
+      );
+    }
+
+    return () => {
       return (
         <Layout.Header class={['layout-header', 'flex p-0 px-4 ', unref(headerClass)]}>
-          {() => (
-            <>
-              <div class="layout-header__content ">
-                {showLogo && !isSidebarType && (
-                  <Logo class={`layout-header__logo`} theme={headerTheme} />
-                )}
-
-                {showLeft && (
-                  <div class="layout-header__left">
-                    {unref(showHeaderTrigger) && (
-                      <LayoutTrigger theme={headerTheme} sider={false} />
-                    )}
-                    {mode !== MenuModeEnum.HORIZONTAL && showBreadCrumb && !splitMenu && (
-                      <LayoutBreadcrumb showIcon={showBreadCrumbIcon} />
-                    )}
-                  </div>
-                )}
-
-                {unref(showTopMenu) && (
-                  <div
-                    class={[`layout-header__menu `]}
-                    style={{ width: `calc(100% - ${unref(width)}px)` }}
-                  >
-                    <LayoutMenu
-                      isTop={true}
-                      class={`justify-${topMenuAlign}`}
-                      theme={headerTheme}
-                      splitType={splitMenu ? MenuSplitTyeEnum.TOP : MenuSplitTyeEnum.NONE}
-                      menuMode={splitMenu ? MenuModeEnum.HORIZONTAL : null}
-                      showSearch={false}
-                    />
-                  </div>
-                )}
-              </div>
-
-              <div class={`layout-header__action`}>
-                {useErrorHandle && (
-                  <Tooltip>
-                    {{
-                      title: () => '错误日志',
-                      default: () => (
-                        <Badge
-                          count={errorStore.getErrorListCountState}
-                          offset={[0, 10]}
-                          dot
-                          overflowCount={99}
-                        >
-                          {() => (
-                            <div class={`layout-header__action-item`} onClick={handleToErrorList}>
-                              <BugOutlined class={`layout-header__action-icon`} />
-                            </div>
-                          )}
-                        </Badge>
-                      ),
-                    }}
-                  </Tooltip>
-                )}
-
-                {showGithub && (
-                  <Tooltip>
-                    {{
-                      title: () => 'github',
-                      default: () => (
-                        <div class={`layout-header__action-item`} onClick={goToGithub}>
-                          <GithubFilled class={`layout-header__action-icon`} />
-                        </div>
-                      ),
-                    }}
-                  </Tooltip>
-                )}
-                {useLockPage && (
-                  <Tooltip>
-                    {{
-                      title: () => '锁定屏幕',
-                      default: () => (
-                        <div class={`layout-header__action-item`} onClick={handleLockPage}>
-                          <LockOutlined class={`layout-header__action-icon`} />
-                        </div>
-                      ),
-                    }}
-                  </Tooltip>
-                )}
-                {showNotice && (
-                  <div>
-                    <Tooltip>
-                      {{
-                        title: () => '消息通知',
-                        default: () => <NoticeAction />,
-                      }}
-                    </Tooltip>
-                  </div>
-                )}
-                {showRedo && showTab && (
-                  <Tooltip>
-                    {{
-                      title: () => '刷新',
-                      default: () => (
-                        <div class={`layout-header__action-item`} onClick={refreshPage}>
-                          <RedoOutlined class={`layout-header__action-icon`} />
-                        </div>
-                      ),
-                    }}
-                  </Tooltip>
-                )}
-                {showFullScreen && (
-                  <Tooltip>
-                    {{
-                      title: () => (unref(isFullscreenRef) ? '退出全屏' : '全屏'),
-                      default: () => {
-                        const Icon: any = !unref(isFullscreenRef) ? (
-                          <FullscreenOutlined />
-                        ) : (
-                          <FullscreenExitOutlined />
-                        );
-                        return (
-                          <div class={`layout-header__action-item`} onClick={toggleFullscreen}>
-                            <Icon class={`layout-header__action-icon`} />
-                          </div>
-                        );
-                      },
-                    }}
-                  </Tooltip>
-                )}
-                <UserDropdown class={`layout-header__user-dropdown`} />
-              </div>
-              <LockAction onRegister={register} />
-            </>
-          )}
+          {() => renderHeaderDefault()}
         </Layout.Header>
       );
     };

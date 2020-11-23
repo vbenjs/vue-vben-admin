@@ -6,7 +6,7 @@ import { createProgressGuard } from './progressGuard';
 import { createPermissionGuard } from './permissionGuard';
 import { createPageLoadingGuard } from './pageLoadingGuard';
 
-import { useGlobSetting, useProjectSetting } from '/@/settings/use';
+import { useGlobSetting, useProjectSetting } from '/@/hooks/setting';
 
 import { getIsOpenTab, setCurrentTo } from '/@/utils/helper/routeHelper';
 import { setTitle } from '/@/utils/browser';

@@ -72,7 +72,7 @@
 
   // import { appStore } from '/@/store/modules/app';
   import { useMessage } from '/@/hooks/web/useMessage';
-  import { useGlobSetting } from '/@/settings/use';
+  import { useGlobSetting } from '/@/hooks/setting';
   import logo from '/@/assets/images/logo.png';
 
   export default defineComponent({

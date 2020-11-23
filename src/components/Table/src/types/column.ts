@@ -190,7 +190,7 @@ export interface ColumnProps<T> {
   onFilterDropdownVisibleChange?: (visible: boolean) => void;
 
   /**
-   * When using columns, you can use this property to configure the properties that support the slot,
+   * When using columns, you can setting this property to configure the properties that support the slot,
    * such as slots: { filterIcon: 'XXX'}
    * @type object
    */

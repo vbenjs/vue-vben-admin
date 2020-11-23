@@ -3,7 +3,7 @@
  */
 
 import { errorStore, ErrorInfo } from '/@/store/modules/error';
-import { useProjectSetting } from '/@/settings/use';
+import { useProjectSetting } from '/@/hooks/setting';
 import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
 import { App } from 'vue';
 

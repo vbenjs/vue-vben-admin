@@ -5,12 +5,29 @@ import { useRouter } from 'vue-router';
 import router from '/@/router';
 
 import { tabStore } from '/@/store/modules/tab';
-import { appStore } from '/@/store/modules/app';
 
 import { unique } from '/@/utils';
 
+import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
+
 export function useFrameKeepAlive() {
   const { currentRoute } = useRouter();
+  const { getShow } = useMultipleTabSetting();
+
+  const getFramePages = computed(() => {
+    const ret =
+      getAllFramePages((toRaw(router.getRoutes()) as unknown) as AppRouteRecordRaw[]) || [];
+    return ret;
+  });
+
+  const getOpenTabList = computed((): string[] => {
+    return tabStore.getTabsState.reduce((prev: string[], next) => {
+      if (next.meta && Reflect.has(next.meta, 'frameSrc')) {
+        prev.push(next.path!);
+      }
+      return prev;
+    }, []);
+  });
 
   function getAllFramePages(routes: AppRouteRecordRaw[]): AppRouteRecordRaw[] {
     let res: AppRouteRecordRaw[] = [];
@@ -30,26 +47,9 @@ export function useFrameKeepAlive() {
   function showIframe(item: AppRouteRecordRaw) {
     return item.path === unref(currentRoute).path;
   }
-  const getFramePages = computed(() => {
-    const ret =
-      getAllFramePages((toRaw(router.getRoutes()) as unknown) as AppRouteRecordRaw[]) || [];
-    return ret;
-  });
-
-  const getOpenTabList = computed((): string[] => {
-    return tabStore.getTabsState.reduce((prev: string[], next) => {
-      if (next.meta && Reflect.has(next.meta, 'frameSrc')) {
-        prev.push(next.path!);
-      }
-      return prev;
-    }, []);
-  });
 
   function hasRenderFrame(path: string) {
-    const {
-      multiTabsSetting: { show },
-    } = appStore.getProjectConfig;
-    return show ? unref(getOpenTabList).includes(path) : true;
+    return unref(getShow) ? unref(getOpenTabList).includes(path) : true;
   }
   return { hasRenderFrame, getFramePages, showIframe, getAllFramePages };
 }

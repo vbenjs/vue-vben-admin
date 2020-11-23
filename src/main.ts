@@ -49,7 +49,7 @@ if (isDevMode()) {
   window.__APP__ = app;
 }
 
-// If you do not need to use the mock service in the production environment, you can comment the code
+// If you do not need to setting the mock service in the production environment, you can comment the code
 if (isProdMode() && isUseMock()) {
   setupProdMockServer();
 }
