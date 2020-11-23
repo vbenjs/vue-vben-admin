@@ -1,4 +1,4 @@
-import { dataURLtoBlob, urlToBase64 } from './base64';
+import { dataURLtoBlob, urlToBase64 } from './base64Conver';
 
 /**
  * Download online pictures

@@ -10,11 +10,14 @@
 </template>
 <script lang="ts">
   import { defineComponent, computed, unref } from 'vue';
+
   import { SIDE_BAR_MINI_WIDTH, SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '/@/enums/appEnum';
+
   import { appStore } from '/@/store/modules/app';
   import { menuStore } from '/@/store/modules/menu';
+
   export default defineComponent({
-    name: 'AppFooter',
+    name: 'AppFooterToolbar',
     setup() {
       const getMiniWidth = computed(() => {
         const {

@@ -1,6 +1,5 @@
 import Icon from './Icon/index';
 import Button from './Button/index.vue';
-import { AppFooter } from './Footer';
 import {
   // Need
   Button as AntButton,
@@ -35,7 +34,7 @@ import {
 } from 'ant-design-vue';
 import { getApp } from '/@/setup/App';
 
-const compList = [Icon, Button, AntButton.Group, AppFooter];
+const compList = [Icon, Button, AntButton.Group];
 
 // Fix hmr multiple registered components
 let registered = false;
