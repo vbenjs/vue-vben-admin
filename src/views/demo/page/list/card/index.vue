@@ -1,7 +1,7 @@
 <template>
   <div :class="prefixCls">
     <a-page-header title="卡片列表" :ghost="false">
-      基于Vue Next, TypeScript, Ant Design实现的一套完整的企业级后台管理系统。
+      基于Vue Next, TypeScript, Ant Design Vue实现的一套完整的企业级后台管理系统。
       <div :class="`${prefixCls}__link`">
         <a><Icon icon="bx:bx-paper-plane" color="#1890ff" /><span>开始</span></a>
         <a><Icon icon="carbon:warning" color="#1890ff" /><span>简介</span></a>
@@ -10,36 +10,35 @@
     </a-page-header>
 
     <div :class="`${prefixCls}__content`">
-      <List>
+      <a-list>
         <a-row :gutter="16">
           <template v-for="(item, index) in list" :key="index">
             <a-col :span="6">
-              <ListItem>
-                <Card :hoverable="true" :class="`${prefixCls}__card`">
+              <a-list-item>
+                <a-card :hoverable="true" :class="`${prefixCls}__card`">
                   <div :class="`${prefixCls}__card-title`">
                     <Icon class="icon" v-if="item.icon" :icon="item.icon" :color="item.color" />
                     {{ item.title }}
                   </div>
                   <div :class="`${prefixCls}__card-detail`">
-                    基于Vue Next, TypeScript, Ant Design实现的一套完整的企业级后台管理系统
+                    基于Vue Next, TypeScript, Ant Design Vue实现的一套完整的企业级后台管理系统
                   </div>
-                </Card>
-              </ListItem>
+                </a-card>
+              </a-list-item>
             </a-col>
           </template>
         </a-row>
-      </List>
+      </a-list>
     </div>
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { List, Card } from 'ant-design-vue';
   import Icon from '/@/components/Icon/index';
   import { cardList } from './data';
 
   export default defineComponent({
-    components: { Icon, List, ListItem: List.Item, Card },
+    components: { Icon },
     setup() {
       return {
         prefixCls: 'list-card',
