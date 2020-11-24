@@ -17,6 +17,7 @@ import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
 import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
+import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
 
 import { updateColorWeak, updateGrayMode } from '/@/setup/theme';
 
@@ -177,9 +178,6 @@ export default defineComponent({
   setup(_, { attrs }) {
     const {
       getContentMode,
-      getRouterTransition,
-      getOpenRouterTransition,
-      getOpenPageLoading,
       getShowFooter,
       getShowBreadCrumb,
       getShowBreadCrumbIcon,
@@ -188,6 +186,13 @@ export default defineComponent({
       getColorWeak,
       getGrayMode,
     } = useRootSetting();
+
+    const {
+      getOpenPageLoading,
+      getBasicTransition,
+      getEnableTransition,
+      getOpenNProgress,
+    } = useTransitionSetting();
 
     const {
       getIsHorizontal,
@@ -447,27 +452,34 @@ export default defineComponent({
     function renderTransition() {
       return (
         <>
-          {renderSwitchItem('页面切换loading', {
+          {renderSwitchItem('顶部进度条', {
+            handler: (e) => {
+              baseHandler(HandlerEnum.OPEN_PROGRESS, e);
+            },
+            def: unref(getOpenNProgress),
+          })}
+          {renderSwitchItem('切换loading', {
             handler: (e) => {
               baseHandler(HandlerEnum.OPEN_PAGE_LOADING, e);
             },
             def: unref(getOpenPageLoading),
+            disabled: !unref(getEnableTransition),
           })}
 
           {renderSwitchItem('切换动画', {
             handler: (e) => {
               baseHandler(HandlerEnum.OPEN_ROUTE_TRANSITION, e);
             },
-            def: unref(getOpenRouterTransition),
+            def: unref(getEnableTransition),
           })}
 
-          {renderSelectItem('路由动画', {
+          {renderSelectItem('动画类型', {
             handler: (e) => {
               baseHandler(HandlerEnum.ROUTER_TRANSITION, e);
             },
-            def: unref(getRouterTransition),
+            def: unref(getBasicTransition),
             options: routerTransitionOptions,
-            disabled: !unref(getOpenRouterTransition),
+            disabled: !unref(getEnableTransition),
           })}
         </>
       );

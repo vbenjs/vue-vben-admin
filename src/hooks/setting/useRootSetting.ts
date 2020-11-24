@@ -12,15 +12,9 @@ type RootSetting = Omit<
 export function useRootSetting() {
   const getRootSetting = computed((): RootSetting => appStore.getProjectConfig);
 
-  const getOpenPageLoading = computed(() => unref(getRootSetting).openPageLoading);
-
   const getPageLoading = computed(() => appStore.getPageLoading);
 
-  const getOpenRouterTransition = computed(() => unref(getRootSetting).openRouterTransition);
-
   const getOpenKeepAlive = computed(() => unref(getRootSetting).openKeepAlive);
-
-  const getRouterTransition = computed(() => unref(getRootSetting).routerTransition);
 
   const getCanEmbedIFramePage = computed(() => unref(getRootSetting).canEmbedIFramePage);
 
@@ -65,10 +59,7 @@ export function useRootSetting() {
     getRootSetting,
     getLayoutContentMode,
     getPageLoading,
-    getOpenPageLoading,
-    getOpenRouterTransition,
     getOpenKeepAlive,
-    getRouterTransition,
     getCanEmbedIFramePage,
     getPermissionMode,
     getShowLogo,

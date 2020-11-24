@@ -3,20 +3,18 @@ import { tabStore } from '/@/store/modules/tab';
 import { appStore } from '/@/store/modules/app';
 import { userStore } from '/@/store/modules/user';
 import { getParams } from '/@/utils/helper/routeHelper';
+import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
+import { unref } from 'vue';
 
+const { getOpenPageLoading, getEnableTransition } = useTransitionSetting();
 export function createPageLoadingGuard(router: Router) {
   let isFirstLoad = true;
   router.beforeEach(async (to) => {
-    const {
-      openKeepAlive,
-      openRouterTransition,
-      openPageLoading,
-      multiTabsSetting: { show } = {},
-    } = appStore.getProjectConfig;
+    const { openKeepAlive, multiTabsSetting: { show } = {} } = appStore.getProjectConfig;
     if (!userStore.getTokenState) {
       return true;
     }
-    if (!openRouterTransition && openPageLoading) {
+    if (!unref(getEnableTransition) && unref(getOpenPageLoading)) {
       appStore.commitPageLoadingState(true);
       return true;
     }
@@ -32,11 +30,10 @@ export function createPageLoadingGuard(router: Router) {
     return true;
   });
   router.afterEach(async (to, from) => {
-    const { openRouterTransition, openPageLoading } = appStore.getProjectConfig;
     const realToPath = to.path.replace(getParams(to), '');
     const realFormPath = from.path.replace(getParams(from), '');
     if (
-      (!openRouterTransition && openPageLoading) ||
+      (!unref(getEnableTransition) && unref(getOpenPageLoading)) ||
       isFirstLoad ||
       to.meta.afterCloseLoading ||
       realToPath === realFormPath

@@ -12,24 +12,24 @@
     lodash-es "^4.17.15"
     resize-observer-polyfill "^1.5.1"
 
-"@ant-design/colors@^4.0.0":
-  version "4.0.5"
-  resolved "https://registry.npmjs.org/@ant-design/colors/-/colors-4.0.5.tgz#d7d100d7545cca8f624954604a6892fc48ba5aae"
-  integrity sha512-3mnuX2prnWOWvpFTS2WH2LoouWlOgtnIpc6IarWN6GOzzLF8dW/U8UctuvIPhoboETehZfJ61XP+CGakBEPJ3Q==
+"@ant-design/colors@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.npmjs.org/@ant-design/colors/-/colors-5.0.0.tgz#46b73b4cc6935b35fc8b84555e8e42c8cfc190e6"
+  integrity sha512-Pe1rYorgVC1v4f+InDXvIlQH715pO1g7BsOhy/ehX/U6ebPKqojmkYJKU3lF+84Zmvyar7ngZ28hesAa1nWjLg==
   dependencies:
-    tinycolor2 "^1.4.1"
+    "@ctrl/tinycolor" "^3.1.6"
 
 "@ant-design/icons-svg@^4.0.0":
   version "4.1.0"
   resolved "https://registry.npmjs.org/@ant-design/icons-svg/-/icons-svg-4.1.0.tgz#480b025f4b20ef7fe8f47d4a4846e4fee84ea06c"
   integrity sha512-Fi03PfuUqRs76aI3UWYpP864lkrfPo0hluwGqh7NJdLhvH4iRDc3jbJqZIvRDLHKbXrvAfPPV3+zjUccfFvWOQ==
 
-"@ant-design/icons-vue@^5.1.5":
-  version "5.1.5"
-  resolved "https://registry.npmjs.org/@ant-design/icons-vue/-/icons-vue-5.1.5.tgz#8e83ba90a29b7ed8b4c2e7282f5908b9b3de519b"
-  integrity sha512-j1qHhzFCLh4UNoOoVNDFKp4qbzX2bpc/am+rNCqNDeze/TpbQ38nSBSmNPucHuD7koQtAjBW+AIcnToYCgKvpA==
+"@ant-design/icons-vue@^5.1.6":
+  version "5.1.6"
+  resolved "https://registry.npmjs.org/@ant-design/icons-vue/-/icons-vue-5.1.6.tgz#af15cbf2375d95199e90166adce4c9f6ad1c17f1"
+  integrity sha512-1KY04c/0iDM88ICdu6EW2/ZPOrH+FyL0uvR350XnVqvnDiLijdcrRaLzkZgCdBcy7cy5t5+onXKocymndCOdRA==
   dependencies:
-    "@ant-design/colors" "^4.0.0"
+    "@ant-design/colors" "^5.0.0"
     "@ant-design/icons-svg" "^4.0.0"
     "@babel/runtime" "^7.10.4"
     lodash "^4.17.15"
@@ -992,6 +992,11 @@
   resolved "https://registry.npmjs.org/@commitlint/types/-/types-11.0.0.tgz#719cf05fcc1abb6533610a2e0f5dd1e61eac14fe"
   integrity sha512-VoNqai1vR5anRF5Tuh/+SWDFk7xi7oMwHrHrbm1BprYXjB2RJsWLhUrStMssDxEl5lW/z3EUdg8RvH/IUBccSQ==
 
+"@ctrl/tinycolor@^3.1.6":
+  version "3.1.7"
+  resolved "https://registry.npmjs.org/@ctrl/tinycolor/-/tinycolor-3.1.7.tgz#1585f67629882002a9f8e15a2941c9a4321bf80c"
+  integrity sha512-/0C6fjXbCwu22k8mMsKRSAo9zgu61d2p75Or9IuIC0Vu5CWN88t2QHK93LhNnxnqHWf5SFwFU28w9cKfTmnfvg==
+
 "@eslint/eslintrc@^0.2.1":
   version "0.2.1"
   resolved "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-0.2.1.tgz#f72069c330461a06684d119384435e12a5d76e3c"
@@ -1847,13 +1852,13 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-ant-design-vue@2.0.0-beta.15:
-  version "2.0.0-beta.15"
-  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.0.0-beta.15.tgz#3c787dabb70a33885d0e751e58f9a5610ed06134"
-  integrity sha512-OxZy+ZYU3LauIL4Rhqwy441K/iD++Cit6upnQy5+LVUrX0PSObPqPqMWVpncbAmJJYTEz88gkvgGeYqBdzouWA==
+ant-design-vue@2.0.0-rc.2:
+  version "2.0.0-rc.2"
+  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.0.0-rc.2.tgz#fd3b4a5a64fccbb53ed488a194317a040de2223e"
+  integrity sha512-XA7X/7HHIveiTh41bZWGfoQ2Rys/rqWknK2zzdHwVnfw9ST3v+ciMKH0Uegyn7m14QL/EdUkC8zGsXpiSXqKNQ==
   dependencies:
     "@ant-design-vue/use" "^0.0.1-0"
-    "@ant-design/icons-vue" "^5.1.5"
+    "@ant-design/icons-vue" "^5.1.6"
     "@babel/runtime" "^7.10.5"
     "@simonwep/pickr" "~1.7.0"
     add-dom-event-listener "^1.0.2"
@@ -7704,11 +7709,6 @@ through@2, "through@>=2.2.7 <3", through@^2.3.6, through@^2.3.8:
   version "2.3.8"
   resolved "https://registry.npmjs.org/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
-
-tinycolor2@^1.4.1:
-  version "1.4.2"
-  resolved "https://registry.npmjs.org/tinycolor2/-/tinycolor2-1.4.2.tgz#3f6a4d1071ad07676d7fa472e1fac40a719d8803"
-  integrity sha512-vJhccZPs965sV/L2sU4oRQVAos0pQXwsvTLkWYdqJ+a8Q5kPFzJTuOFwy7UniPli44NKQGAglksjvOcpo95aZA==
 
 tmp@^0.0.33:
   version "0.0.33"

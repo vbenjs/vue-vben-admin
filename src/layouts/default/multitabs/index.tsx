@@ -24,14 +24,13 @@ export default defineComponent({
   name: 'MultiTabs',
   setup() {
     let isAddAffix = false;
+
     const go = useGo();
+
     const { currentRoute } = useRouter();
     const { activeKeyRef } = useTabs();
 
-    // 当前tab列表
-    const getTabsState = computed(() => {
-      return tabStore.getTabsState;
-    });
+    const getTabsState = computed(() => tabStore.getTabsState);
 
     // If you monitor routing changes, tab switching will be stuck. So setting this method
     watch(
@@ -43,6 +42,7 @@ export default defineComponent({
         }
 
         const lastChangeRoute = unref(tabStore.getLastChangeRouteState);
+
         if (!lastChangeRoute || !userStore.getTokenState) return;
 
         const { path, fullPath } = lastChangeRoute;

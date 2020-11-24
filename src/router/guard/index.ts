@@ -16,7 +16,7 @@ import { tabStore } from '/@/store/modules/tab';
 
 const globSetting = useGlobSetting();
 export function createGuard(router: Router) {
-  const { openNProgress, closeMessageOnSwitch, removeAllHttpPending } = useProjectSetting();
+  const { closeMessageOnSwitch, removeAllHttpPending } = useProjectSetting();
   let axiosCanceler: AxiosCanceler | null;
   if (removeAllHttpPending) {
     axiosCanceler = new AxiosCanceler();
@@ -44,7 +44,6 @@ export function createGuard(router: Router) {
         Modal.destroyAll();
         notification.destroy();
       }
-      // TODO Some special interfaces require long connections
       // Switching the route will delete the previous request
       removeAllHttpPending && axiosCanceler!.removeAllPending();
     } catch (error) {
@@ -58,7 +57,6 @@ export function createGuard(router: Router) {
     // change html title
     setTitle(to.meta.title, globSetting.title);
   });
-
-  openNProgress && createProgressGuard(router);
+  createProgressGuard(router);
   createPermissionGuard(router);
 }

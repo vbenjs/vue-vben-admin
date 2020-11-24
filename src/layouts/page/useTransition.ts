@@ -1,11 +1,12 @@
-import { useRootSetting } from '/@/hooks/setting/useRootSetting';
+import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
+
 import { appStore } from '/@/store/modules/app';
 import { tryOnUnmounted } from '/@/utils/helper/vueHelper';
 
 export function useTransition() {
   function handleAfterEnter() {
-    const { getOpenPageLoading, getOpenRouterTransition } = useRootSetting();
-    if (!getOpenPageLoading.value || !getOpenRouterTransition.value) return;
+    const { getOpenPageLoading, getEnableTransition } = useTransitionSetting();
+    if (!getOpenPageLoading.value || !getEnableTransition.value) return;
     // Close loading after the route switching animation ends
     appStore.setPageLoadingAction(false);
   }

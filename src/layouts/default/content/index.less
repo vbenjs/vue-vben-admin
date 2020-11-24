@@ -11,11 +11,15 @@
   }
 
   &__loading {
-    position: fixed;
+    position: absolute;
     z-index: @page-loading-z-index;
 
+    &.fill {
+      background: rgba(240, 242, 245) !important;
+    }
+
     > .basic-loading {
-      margin-bottom: 20%;
+      margin-bottom: 30%;
     }
   }
 }

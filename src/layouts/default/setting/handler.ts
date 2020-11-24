@@ -66,17 +66,20 @@ export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConf
     case HandlerEnum.MENU_SHOW_SEARCH:
       return { menuSetting: { showSearch: value } };
 
-    // ============root==================
-
+    // ============transition==================
     case HandlerEnum.OPEN_PAGE_LOADING:
       appStore.commitPageLoadingState(false);
-      return { openPageLoading: value };
-
-    case HandlerEnum.OPEN_ROUTE_TRANSITION:
-      return { openRouterTransition: value };
+      return { transitionSetting: { openPageLoading: value } };
 
     case HandlerEnum.ROUTER_TRANSITION:
-      return { routerTransition: value };
+      return { transitionSetting: { basicTransition: value } };
+
+    case HandlerEnum.OPEN_ROUTE_TRANSITION:
+      return { transitionSetting: { enable: value } };
+
+    case HandlerEnum.OPEN_PROGRESS:
+      return { transitionSetting: { openNProgress: value } };
+    // ============root==================
 
     case HandlerEnum.LOCK_TIME:
       return { lockTime: value };

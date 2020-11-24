@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.2",
-    "ant-design-vue": "2.0.0-beta.15",
+    "ant-design-vue": "2.0.0-rc.2",
     "apexcharts": "3.22.0",
     "axios": "^0.21.0",
     "crypto-es": "^1.2.6",

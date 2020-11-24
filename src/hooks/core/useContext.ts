@@ -5,9 +5,8 @@ export const createContext = <T>(
   contextInjectKey: InjectionKey<T> = Symbol(),
   _readonly = true
 ) => {
-  const state = reactive({
-    ...context,
-  });
+  const state = reactive({ ...context });
+
   const provideData = _readonly ? readonly(state) : state;
   provide(contextInjectKey, provideData);
 };

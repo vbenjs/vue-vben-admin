@@ -59,6 +59,20 @@ export interface LocaleSetting {
   availableLocales: LocaleType[];
 }
 
+export interface TransitionSetting {
+  //  Whether to open the page switching animation
+  enable: boolean;
+
+  // Route basic switching animation
+  basicTransition: RouterTransitionEnum;
+
+  // Whether to open page switching loading
+  openPageLoading: boolean;
+
+  // Whether to open the top progress bar
+  openNProgress: boolean;
+}
+
 export interface ProjectConfig {
   locale: LocaleSetting;
 
@@ -86,6 +100,9 @@ export interface ProjectConfig {
 
   // 多标签页设置
   multiTabsSetting: MultiTabsSetting;
+
+  transitionSetting: TransitionSetting;
+
   // pageLayout是否开启keep-alive
   openKeepAlive: boolean;
 
@@ -97,18 +114,8 @@ export interface ProjectConfig {
   showBreadCrumbIcon: boolean;
   // 使用error-handler-plugin
   useErrorHandle: boolean;
-  // 开启页面切换动画
-  openRouterTransition: boolean;
-  // 路由切换动画
-  routerTransition: RouterTransitionEnum;
-  // 是否开启登录安全校验
-  openLoginVerify: boolean;
-  // 是否开启页面切换loading
-  openPageLoading: boolean;
   // 是否开启回到顶部
   useOpenBackTop: boolean;
-  // 开启顶部进度条
-  openNProgress: boolean;
   // 是否可以嵌入iframe页面
   canEmbedIFramePage: boolean;
   // 切换界面的时候是否删除未关闭的message及notify
