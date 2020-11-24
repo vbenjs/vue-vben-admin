@@ -17,7 +17,7 @@ import { useSplitMenu } from './useLayoutMenu';
 import { openWindow } from '/@/utils';
 
 export default defineComponent({
-  name: 'DefaultLayoutMenu',
+  name: 'LayoutMenu',
   props: {
     theme: {
       type: String as PropType<string>,
@@ -50,12 +50,12 @@ export default defineComponent({
     const {
       setMenuSetting,
       getShowSearch,
-      getMode,
-      getType,
+      getMenuMode,
+      getMenuType,
       getCollapsedShowTitle,
       getCollapsedShowSearch,
       getIsSidebarType,
-      getTheme,
+      getMenuTheme,
       getCollapsed,
       getAccordion,
     } = useMenuSetting();
@@ -66,9 +66,9 @@ export default defineComponent({
 
     const showLogo = computed(() => unref(getShowLogo) && unref(getIsSidebarType));
 
-    const getMenuMode = computed(() => props.menuMode || unref(getMode));
+    const getComputedMenuMode = computed(() => props.menuMode || unref(getMenuMode));
 
-    const getMenuTheme = computed(() => props.theme || unref(getTheme));
+    const getComputedMenuTheme = computed(() => props.theme || unref(getMenuTheme));
 
     const appendClass = computed(() => props.splitType === MenuSplitTyeEnum.TOP);
 
@@ -111,8 +111,8 @@ export default defineComponent({
       return (
         <AppLogo
           showTitle={!unref(getCollapsed)}
-          class={[`layout-menu__logo`, unref(getMenuTheme)]}
-          theme={unref(getMenuTheme)}
+          class={[`layout-menu__logo`, unref(getComputedMenuTheme)]}
+          theme={unref(getComputedMenuTheme)}
         />
       );
     }
@@ -124,10 +124,10 @@ export default defineComponent({
           beforeClickFn={beforeMenuClickFn}
           isHorizontal={props.isHorizontal}
           appendClass={unref(appendClass)}
-          type={unref(getType)}
-          mode={unref(getMenuMode)}
+          type={unref(getMenuType)}
+          mode={unref(getComputedMenuMode)}
           collapsedShowTitle={unref(getCollapsedShowTitle)}
-          theme={unref(getMenuTheme)}
+          theme={unref(getComputedMenuTheme)}
           showLogo={unref(showLogo)}
           search={unref(showSearch)}
           items={unref(menusRef)}

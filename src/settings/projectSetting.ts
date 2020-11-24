@@ -21,12 +21,6 @@ const setting: ProjectConfig = {
   // TODO 主题色
   themeColor: primaryColor,
 
-  // header bg color
-  headerBgColor: '#ffffff',
-
-  // sidebar menu bg color
-  menuBgColor: '#273352',
-
   // Whether to show the configuration button
   showSettingButton: true,
 
@@ -48,8 +42,13 @@ const setting: ProjectConfig = {
   // 是否显示logo
   showLogo: true,
 
+  // 是否显示页脚
+  showFooter: true,
+
   // 头部配置
   headerSetting: {
+    // header bg color
+    bgColor: '#ffffff',
     fixed: true,
     // 是否显示顶部
     show: true,
@@ -69,6 +68,10 @@ const setting: ProjectConfig = {
 
   // 菜单配置
   menuSetting: {
+    // sidebar menu bg color
+    bgColor: '#273352',
+
+    fixed: true,
     // 菜单折叠
     collapsed: false,
     // 折叠菜单时候是否显示菜单名
@@ -107,8 +110,7 @@ const setting: ProjectConfig = {
     show: true,
     // 开启快速操作
     showQuick: true,
-    // 显示icon
-    showIcon: false,
+
     // 标签页缓存最大数量
     max: 12,
   },

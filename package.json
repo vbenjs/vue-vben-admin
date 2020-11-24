@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.2",
-    "@vueuse/core": "^4.0.0-rc.3",
     "ant-design-vue": "2.0.0-beta.15",
     "apexcharts": "3.22.0",
     "axios": "^0.21.0",

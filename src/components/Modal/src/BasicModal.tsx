@@ -219,11 +219,7 @@ export default defineComponent({
     emit('register', modalMethods, uuid);
 
     return () => (
-      <Modal
-        onCancel={handleCancel}
-        getContainer={() => document.querySelector('.default-layout__main')}
-        {...{ ...attrs, ...props, ...unref(getProps) }}
-      >
+      <Modal onCancel={handleCancel} {...{ ...attrs, ...props, ...unref(getProps) }}>
         {{
           footer: () => renderFooter(),
           closeIcon: () => renderClose(),

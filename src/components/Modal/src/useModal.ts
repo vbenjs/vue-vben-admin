@@ -33,6 +33,7 @@ export function useModal(): UseModalReturnType {
 
     modalRef.value = modalMethod;
   }
+
   const getInstance = () => {
     const instance = unref(modalRef);
     if (!instance) {
@@ -50,6 +51,7 @@ export function useModal(): UseModalReturnType {
       getInstance().setModalProps({
         visible: visible,
       });
+
       if (data) {
         dataTransferRef[unref(uidRef)] = openOnSet
           ? {

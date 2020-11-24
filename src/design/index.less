@@ -35,7 +35,7 @@ html,
 body {
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
 
   &.color-weak {
     filter: invert(80%);
@@ -160,9 +160,7 @@ object {
   vertical-align: baseline !important;
 }
 
-#app,
-#app > div,
-.ant-layout {
+#app {
   width: 100%;
   height: 100%;
 }
@@ -170,8 +168,8 @@ object {
 .ant-layout {
   background: #f0f2f5;
 
-  &-content {
-    position: relative;
-    overflow: hidden;
-  }
+  // &-content {
+  //   position: relative;
+  //   overflow: hidden;
+  // }
 }

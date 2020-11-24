@@ -55,3 +55,11 @@ declare type TargetContext = '_self' | '_blank';
 declare type TimeoutHandle = ReturnType<typeof setTimeout>;
 
 declare type IntervalHandle = ReturnType<typeof setInterval>;
+
+declare interface ComponentElRef<T extends HTMLElement = HTMLDivElement> {
+  $el: T;
+}
+
+declare type ComponentRef<T extends HTMLElement = HTMLDivElement> = ComponentElRef<T> | null;
+
+declare type ElRef<T extends HTMLElement = HTMLDivElement> = Nullable<T>;

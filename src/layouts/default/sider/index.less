@@ -1,7 +1,14 @@
 @import (reference) '../../../design/index.less';
 
 .layout-sidebar {
-  background-size: 100% 100%;
+  overflow: hidden;
+
+  &.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
 
   &.ant-layout-sider-dark {
     background: @sider-dark-bg-color;
@@ -9,6 +16,7 @@
 
   &:not(.ant-layout-sider-dark) {
     border-right: 1px solid @border-color-light;
+    box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
   }
 
   .ant-layout-sider-zero-width-trigger {

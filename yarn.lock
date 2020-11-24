@@ -1737,21 +1737,6 @@
     vscode-languageserver-textdocument "^1.0.1"
     vscode-uri "^2.1.2"
 
-"@vueuse/core@^4.0.0-rc.3":
-  version "4.0.0-rc.3"
-  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.0.0-rc.3.tgz#5381ca657e10df596cd7027fc5c96b2d4b3a090c"
-  integrity sha512-dQ/FZgo0z7kBFOvDWxuzaUrmuO8X1AlQk17e3PU1TVtG2Uu+mCvjPNbuvI2fjhTjl5rzPJawwoU2WZFj+nlFvw==
-  dependencies:
-    "@vueuse/shared" "4.0.0-rc.3"
-    vue-demi latest
-
-"@vueuse/shared@4.0.0-rc.3":
-  version "4.0.0-rc.3"
-  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.0.0-rc.3.tgz#42fb56fed3779f3b8a17a82c16a364bad20d01b7"
-  integrity sha512-VY0x/XxpeTMHp/0FDiv1cgUUxkJGQl7liiM2AjR/J7+Ys/2Y2dijD5cAKViq9FGUPQQsOcLptMvMvUsDMoN4DA==
-  dependencies:
-    vue-demi latest
-
 JSONStream@^1.0.4:
   version "1.3.5"
   resolved "https://registry.npmjs.org/JSONStream/-/JSONStream-1.3.5.tgz#3208c1f08d3a4d99261ab64f92302bc15e111ca0"
@@ -8176,11 +8161,6 @@ vscode-uri@^2.1.2:
   version "2.1.2"
   resolved "https://registry.npmjs.org/vscode-uri/-/vscode-uri-2.1.2.tgz#c8d40de93eb57af31f3c715dd650e2ca2c096f1c"
   integrity sha512-8TEXQxlldWAuIODdukIb+TR5s+9Ds40eSJrw+1iDDA9IFORPjMELarNQE3myz5XIkWWpdprmJjm1/SxMlWOC8A==
-
-vue-demi@latest:
-  version "0.4.3"
-  resolved "https://registry.npmjs.org/vue-demi/-/vue-demi-0.4.3.tgz#6aaa9b52f02c32b4f9d4d11f02a1ae71031453c3"
-  integrity sha512-1DzLcZgHC9ZyFEYR4qZ83TdS1u9DglG8XVesBXqtbbmqFuO7sb8KG36kMfZCszieAweRDwAAVSAzjmEMG0+WwA==
 
 vue-eslint-parser@^7.1.1:
   version "7.1.1"

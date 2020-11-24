@@ -49,7 +49,7 @@ export default defineComponent({
           ? `${opt.wrapClassName} ${prefixCls}__detail`
           : `${prefixCls}__detail`;
         if (!opt.getContainer) {
-          opt.getContainer = `.default-layout__main`;
+          opt.getContainer = '.layout-content';
         }
       }
       return opt;

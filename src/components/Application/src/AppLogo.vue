@@ -1,7 +1,11 @@
 <template>
-  <div class="app-logo anticon" :class="theme" @click="handleGoHome">
+  <div
+    class="app-logo anticon"
+    :class="{ theme, 'collapsed-show-title': getCollapsedShowTitle }"
+    @click="handleGoHome"
+  >
     <img src="/@/assets/images/logo.png" />
-    <div class="app-logo__title ml-2 ellipsis">{{ globSetting.title }}</div>
+    <div class="app-logo__title ml-2 ellipsis" v-show="showTitle">{{ globSetting.title }}</div>
   </div>
 </template>
 <script lang="ts">
@@ -10,6 +14,7 @@
 
   import { useGlobSetting } from '/@/hooks/setting';
   import { useGo } from '/@/hooks/web/usePage';
+  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 
   import { PageEnum } from '/@/enums/pageEnum';
 
@@ -22,8 +27,13 @@
       theme: {
         type: String as PropType<string>,
       },
+      showTitle: {
+        type: Boolean,
+        default: true,
+      },
     },
     setup() {
+      const { getCollapsedShowTitle } = useMenuSetting();
       const globSetting = useGlobSetting();
       const go = useGo();
 
@@ -34,6 +44,7 @@
       return {
         handleGoHome,
         globSetting,
+        getCollapsedShowTitle,
       };
     },
   });
@@ -44,8 +55,12 @@
   .app-logo {
     display: flex;
     align-items: center;
-    padding-left: 16px;
+    padding-left: 10px;
     cursor: pointer;
+
+    &.collapsed-show-title {
+      padding-left: 20px;
+    }
 
     &.light {
       border-bottom: 1px solid @border-color-base;
@@ -64,6 +79,7 @@
       font-weight: 700;
       opacity: 0;
       transition: all 0.5s;
+
       .respond-to(medium,{
        opacity: 1;
       });

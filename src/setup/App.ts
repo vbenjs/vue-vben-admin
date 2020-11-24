@@ -53,7 +53,12 @@ export function initAppConfigStore() {
   if (!projCfg) {
     projCfg = projectSetting;
   }
-  const { colorWeak, grayMode, headerBgColor, menuBgColor } = projCfg;
+  const {
+    colorWeak,
+    grayMode,
+    headerSetting: { bgColor: headerBgColor },
+    menuSetting: { bgColor },
+  } = projCfg;
   try {
     // if (
     //   themeColor !== primaryColor &&
@@ -63,7 +68,7 @@ export function initAppConfigStore() {
     //   updateTheme(themeColor);
     // }
     headerBgColor && updateHeaderBgColor(headerBgColor);
-    menuBgColor && updateSidebarBgColor(menuBgColor);
+    bgColor && updateSidebarBgColor(bgColor);
     grayMode && updateGrayMode(grayMode);
     colorWeak && updateColorWeak(colorWeak);
   } catch (error) {

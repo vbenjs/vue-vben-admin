@@ -43,7 +43,6 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
     const tableEl: Element = table.$el;
     if (!tableEl) return;
     const headEl = tableEl.querySelector('.ant-table-thead ');
-    // const layoutMain: Element | null = document.querySelector('.default-layout__main ');
     if (!headEl) return;
 
     // 表格距离底部高度

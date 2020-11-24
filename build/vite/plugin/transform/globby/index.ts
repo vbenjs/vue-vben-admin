@@ -154,15 +154,17 @@ const globTransform = function (config: SharedConfig): Transform {
 
             const groups: Array<string>[] = [];
             const replaceFiles = files.map((f, i) => {
-              const fileNameWithAlias = resolver.fileToRequest(f);
-
-              const file = bareExporter + fileNameWithAlias + bareExporter;
+              const filePath = resolver.fileToRequest(f);
+              const file = bareExporter + filePath + bareExporter;
 
               if (isLocale) {
                 const globrexRes = globrex(globPath, { extended: true, globstar: true });
 
                 // Get segments for files like an en/system ch/modules for:
                 // ['en', 'system'] ['ch', 'modules']
+
+                // TODO The window system and mac system path are inconsistent？
+                const fileNameWithAlias = filePath.replace(/^(\/src\/)/, '/@/');
                 const matchedGroups = globrexRes.regex.exec(fileNameWithAlias);
 
                 if (matchedGroups && matchedGroups.length) {

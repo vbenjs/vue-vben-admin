@@ -1,39 +1,12 @@
 @import (reference) '../../design/index.less';
 
 .default-layout {
-  &__content {
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
 
-    &.fixed {
-      overflow: hidden;
-    }
-  }
-
-  &__loading {
-    position: absolute;
-    z-index: @page-loading-z-index;
-  }
-
-  &__main {
-    position: relative;
-    height: 100%;
-
-    &.fixed {
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-
-    &.fixed.lock {
-      overflow: hidden;
-    }
-  }
-
-  .layout-content {
-    position: relative;
-
-    &.fixed {
-      width: 1200px;
-      margin: 0 auto;
-    }
+  > .ant-layout {
+    min-height: 100%;
   }
 }

@@ -20,7 +20,7 @@ interface DefaultContext {
 export default defineComponent({
   name: 'PageLayout',
   setup() {
-    const { getShow } = useMenuSetting();
+    const { getShowMenu } = useMenuSetting();
     const {
       getOpenKeepAlive,
       getRouterTransition,
@@ -32,7 +32,7 @@ export default defineComponent({
 
     const transitionEvent = useTransition();
 
-    const openCacheRef = computed(() => unref(getOpenKeepAlive) && unref(getShow));
+    const openCacheRef = computed(() => unref(getOpenKeepAlive) && unref(getShowMenu));
 
     const getCacheTabsRef = computed(() => tabStore.getKeepAliveTabsState as string[]);
 

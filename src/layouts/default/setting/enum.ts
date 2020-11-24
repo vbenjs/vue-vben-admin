@@ -1,5 +1,9 @@
 import { ContentEnum, RouterTransitionEnum, ThemeEnum } from '/@/enums/appEnum';
-import { TopMenuAlignEnum, TriggerEnum } from '/@/enums/menuEnum';
+import { MenuModeEnum, MenuTypeEnum, TopMenuAlignEnum, TriggerEnum } from '/@/enums/menuEnum';
+
+import mixImg from '/@/assets/images/layout/menu-mix.svg';
+import sidebarImg from '/@/assets/images/layout/menu-sidebar.svg';
+import menuTopImg from '/@/assets/images/layout/menu-top.svg';
 
 export enum HandlerEnum {
   CHANGE_LAYOUT,
@@ -15,6 +19,7 @@ export enum HandlerEnum {
   MENU_THEME,
   MENU_SPLIT,
   MENU_SHOW_SEARCH,
+  MENU_FIXED,
 
   // header
   HEADER_SHOW,
@@ -23,7 +28,6 @@ export enum HandlerEnum {
 
   TABS_SHOW_QUICK,
   TABS_SHOW,
-  TABS_SHOW_ICON,
 
   OPEN_PAGE_LOADING,
   OPEN_ROUTE_TRANSITION,
@@ -36,6 +40,7 @@ export enum HandlerEnum {
   GRAY_MODE,
   COLOR_WEAK,
   SHOW_LOGO,
+  SHOW_FOOTER,
 }
 
 export const themeOptions = [
@@ -102,3 +107,25 @@ export const routerTransitionOptions = [
     value: item,
   };
 });
+
+export const menuTypeList = [
+  {
+    title: '左侧菜单模式',
+    mode: MenuModeEnum.INLINE,
+    type: MenuTypeEnum.SIDEBAR,
+    src: sidebarImg,
+  },
+  {
+    title: '混合模式',
+    mode: MenuModeEnum.INLINE,
+    type: MenuTypeEnum.MIX,
+    src: mixImg,
+  },
+
+  {
+    title: '顶部菜单模式',
+    mode: MenuModeEnum.HORIZONTAL,
+    type: MenuTypeEnum.TOP_MENU,
+    src: menuTopImg,
+  },
+];

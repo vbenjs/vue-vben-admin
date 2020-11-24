@@ -9,7 +9,9 @@ export function useMultipleTabSetting() {
 
   const getMax = computed(() => unref(getMultipleTabSetting).max);
 
-  const getShow = computed(() => unref(getMultipleTabSetting).show);
+  const getShowMultipleTab = computed(() => unref(getMultipleTabSetting).show);
+
+  const getShowQuick = computed(() => unref(getMultipleTabSetting).showQuick);
 
   function setMultipleTabSetting(multiTabsSetting: Partial<MultiTabsSetting>) {
     appStore.commitProjectConfigState({ multiTabsSetting });
@@ -20,6 +22,7 @@ export function useMultipleTabSetting() {
 
     getMultipleTabSetting,
     getMax,
-    getShow,
+    getShowMultipleTab,
+    getShowQuick,
   };
 }

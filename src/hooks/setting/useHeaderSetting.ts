@@ -7,20 +7,50 @@ import { appStore } from '/@/store/modules/app';
 import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 import { useRootSetting } from '/@/hooks/setting/useRootSetting';
+import { useFullContent } from '/@/hooks/web/useFullContent';
 
 import { MenuModeEnum } from '/@/enums/menuEnum';
 
 export function useHeaderSetting() {
-  const { getShow: getShowMultipleTab } = useMultipleTabSetting();
-  const { getMode, getSplit, getShowHeaderTrigger, getIsSidebarType } = useMenuSetting();
+  const { getFullContent } = useFullContent();
+  const { getShowMultipleTab } = useMultipleTabSetting();
+  const {
+    getMenuMode,
+    getSplit,
+    getShowHeaderTrigger,
+    getIsSidebarType,
+    getIsTopMenu,
+  } = useMenuSetting();
   const { getShowBreadCrumb, getShowLogo } = useRootSetting();
+
+  const getShowMixHeaderRef = computed(() => !unref(getIsSidebarType) && unref(getShowHeader));
+
+  const getShowFullHeaderRef = computed(() => {
+    return (
+      !unref(getFullContent) &&
+      unref(getShowMixHeaderRef) &&
+      unref(getShowHeader) &&
+      !unref(getIsTopMenu)
+    );
+  });
+
+  const getShowInsetHeaderRef = computed(() => {
+    const need = !unref(getFullContent) && unref(getShowHeader);
+    return (need && !unref(getShowMixHeaderRef)) || (need && unref(getIsTopMenu));
+  });
 
   // Get header configuration
   const getHeaderSetting = computed(() => appStore.getProjectConfig.headerSetting);
 
   const getShowDoc = computed(() => unref(getHeaderSetting).showDoc);
 
-  const getTheme = computed(() => unref(getHeaderSetting).theme);
+  const getHeaderTheme = computed(() => unref(getHeaderSetting).theme);
+
+  const getShowHeader = computed(() => unref(getHeaderSetting).show);
+
+  const getFixed = computed(() => unref(getHeaderSetting).fixed);
+
+  const getHeaderBgColor = computed(() => unref(getHeaderSetting).bgColor);
 
   const getShowRedo = computed(() => unref(getHeaderSetting).showRedo && unref(getShowMultipleTab));
 
@@ -30,9 +60,11 @@ export function useHeaderSetting() {
 
   const getShowNotice = computed(() => unref(getHeaderSetting).showNotice);
 
+  const getUnFixedAndFull = computed(() => !unref(getFixed) && !unref(getShowFullHeaderRef));
+
   const getShowBread = computed(() => {
     return (
-      unref(getMode) !== MenuModeEnum.HORIZONTAL && unref(getShowBreadCrumb) && !unref(getSplit)
+      unref(getMenuMode) !== MenuModeEnum.HORIZONTAL && unref(getShowBreadCrumb) && !unref(getSplit)
     );
   });
 
@@ -55,7 +87,7 @@ export function useHeaderSetting() {
     getHeaderSetting,
 
     getShowDoc,
-    getTheme,
+    getHeaderTheme,
     getShowRedo,
     getUseLockPage,
     getShowFullScreen,
@@ -63,5 +95,12 @@ export function useHeaderSetting() {
     getShowBread,
     getShowContent,
     getShowHeaderLogo,
+    getShowHeader,
+    getFixed,
+    getShowMixHeaderRef,
+    getShowFullHeaderRef,
+    getShowInsetHeaderRef,
+    getUnFixedAndFull,
+    getHeaderBgColor,
   };
 }

@@ -12,7 +12,7 @@ import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
 
 export function useFrameKeepAlive() {
   const { currentRoute } = useRouter();
-  const { getShow } = useMultipleTabSetting();
+  const { getShowMultipleTab } = useMultipleTabSetting();
 
   const getFramePages = computed(() => {
     const ret =
@@ -49,7 +49,7 @@ export function useFrameKeepAlive() {
   }
 
   function hasRenderFrame(path: string) {
-    return unref(getShow) ? unref(getOpenTabList).includes(path) : true;
+    return unref(getShowMultipleTab) ? unref(getOpenTabList).includes(path) : true;
   }
   return { hasRenderFrame, getFramePages, showIframe, getAllFramePages };
 }

@@ -6,7 +6,6 @@ import { TabItem, tabStore } from '/@/store/modules/tab';
 import { getScaleAction, TabContentProps } from './tab.data';
 
 import { Dropdown } from '/@/components/Dropdown/index';
-import Icon from '/@/components/Icon/index';
 import { RightOutlined } from '@ant-design/icons-vue';
 import { appStore } from '/@/store/modules/app';
 
@@ -57,18 +56,11 @@ export default defineComponent({
     /**
      * @description: 渲染图标
      */
-    function renderIcon() {
-      const { tabItem } = props;
-      if (!tabItem) return;
-      const icon = tabItem.meta && tabItem.meta.icon;
-      if (!icon || !unref(getProjectConfigRef).multiTabsSetting.showIcon) return null;
-      return <Icon icon={icon} class="align-middle " style={{ marginBottom: '2px' }} />;
-    }
+
     function renderTabContent() {
       const { tabItem: { meta } = {} } = props;
       return (
         <div class={`multiple-tabs-content__content `} onContextmenu={handleContextMenu}>
-          {renderIcon()}
           <span class="ml-1">{meta && meta.title}</span>
         </div>
       );

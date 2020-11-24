@@ -4,6 +4,8 @@ import { ContentEnum, PermissionModeEnum, ThemeEnum, RouterTransitionEnum } from
 import type { LocaleType } from '/@/locales/types';
 
 export interface MenuSetting {
+  bgColor: string;
+  fixed: boolean;
   collapsed: boolean;
   collapsedShowTitle: boolean;
   hasDrag: boolean;
@@ -26,13 +28,13 @@ export interface MultiTabsSetting {
   show: boolean;
   // 开启快速操作
   showQuick: boolean;
-  // 显示icon
-  showIcon: boolean;
+
   // 缓存最大数量
   max: number;
 }
 
 export interface HeaderSetting {
+  bgColor: string;
   fixed: boolean;
   show: boolean;
   theme: ThemeEnum;
@@ -59,10 +61,7 @@ export interface LocaleSetting {
 
 export interface ProjectConfig {
   locale: LocaleSetting;
-  // header背景色
-  headerBgColor: string;
-  // 左侧菜单背景色
-  menuBgColor: string;
+
   // 是否显示配置按钮
   showSettingButton: boolean;
   // 权限模式
@@ -79,6 +78,7 @@ export interface ProjectConfig {
   contentMode: ContentEnum;
   // 是否显示logo
   showLogo: boolean;
+  showFooter: boolean;
   headerSetting: HeaderSetting;
   // 菜单类型
   // menuType: MenuTypeEnum;

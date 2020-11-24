@@ -1,4 +1,4 @@
-import type { PropType } from 'vue';
+import type { PropType, FunctionalComponent } from 'vue';
 
 import { defineComponent, unref } from 'vue';
 import {
@@ -9,6 +9,22 @@ import {
 } from '@ant-design/icons-vue';
 
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
+
+const SiderTrigger: FunctionalComponent = () => {
+  const { getCollapsed } = useMenuSetting();
+  return unref(getCollapsed) ? <DoubleRightOutlined /> : <DoubleLeftOutlined />;
+};
+
+const HeaderTrigger: FunctionalComponent<{
+  theme?: string;
+}> = (props) => {
+  const { toggleCollapsed, getCollapsed } = useMenuSetting();
+  return (
+    <span class={['layout-trigger', props.theme]} onClick={toggleCollapsed}>
+      {unref(getCollapsed) ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+    </span>
+  );
+};
 
 export default defineComponent({
   name: 'LayoutTrigger',
@@ -22,20 +38,8 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { toggleCollapsed, getCollapsed } = useMenuSetting();
-
     return () => {
-      const siderTrigger = unref(getCollapsed) ? <DoubleRightOutlined /> : <DoubleLeftOutlined />;
-
-      if (props.sider) {
-        return siderTrigger;
-      }
-
-      return (
-        <span class={['layout-trigger', props.theme]} onClick={toggleCollapsed}>
-          {unref(getCollapsed) ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-        </span>
-      );
+      return props.sider ? <SiderTrigger /> : <HeaderTrigger theme={props.theme} />;
     };
   },
 });

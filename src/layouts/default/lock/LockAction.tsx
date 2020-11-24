@@ -1,4 +1,4 @@
-import './LockActionItem.less';
+import './LockAction.less';
 
 import { defineComponent } from 'vue';
 import { BasicModal, useModalInner } from '/@/components/Modal/index';

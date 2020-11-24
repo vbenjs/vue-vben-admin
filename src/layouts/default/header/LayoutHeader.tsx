@@ -1,13 +1,15 @@
 import './index.less';
 
+import type { FunctionalComponent } from 'vue';
+
 import { defineComponent, unref, computed, ref, nextTick } from 'vue';
 
 import { Layout, Tooltip, Badge } from 'ant-design-vue';
 import { AppLogo } from '/@/components/Application';
 import UserDropdown from './UserDropdown';
-import LayoutMenu from '/@/layouts/default/menu/LayoutMenu';
+import LayoutMenu from '../menu';
 import LayoutBreadcrumb from './LayoutBreadcrumb';
-import LockAction from './LockActionItem';
+import LockAction from '../lock/LockAction';
 import LayoutTrigger from '../LayoutTrigger';
 import NoticeAction from './notice/NoticeActionItem.vue';
 import {
@@ -34,9 +36,30 @@ import { PageEnum } from '/@/enums/pageEnum';
 import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
 import { Component } from '/@/components/types';
 
+interface TooltipItemProps {
+  title: string;
+}
+
+const TooltipItem: FunctionalComponent<TooltipItemProps> = (props, { slots }) => {
+  return (
+    <Tooltip>
+      {{
+        title: () => props.title,
+        default: () => slots.default?.(),
+      }}
+    </Tooltip>
+  );
+};
+
 export default defineComponent({
   name: 'LayoutHeader',
-  setup() {
+  props: {
+    fixed: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup(props) {
     let logoEl: Element | null;
 
     const logoWidthRef = ref(200);
@@ -48,7 +71,7 @@ export default defineComponent({
     const { getUseErrorHandle, getShowBreadCrumbIcon } = useRootSetting();
 
     const {
-      getTheme,
+      getHeaderTheme,
       getShowRedo,
       getUseLockPage,
       getShowFullScreen,
@@ -69,8 +92,7 @@ export default defineComponent({
           let width = 0;
           if (!logoEl) {
             logoEl = logoRef.value.$el;
-          }
-          if (logoEl) {
+          } else {
             width += logoEl.clientWidth;
           }
           logoWidthRef.value = width + 80;
@@ -81,7 +103,7 @@ export default defineComponent({
     );
 
     const headerClass = computed(() => {
-      const theme = unref(getTheme);
+      const theme = unref(getHeaderTheme);
       return theme ? `layout-header__header--${theme}` : '';
     });
 
@@ -99,9 +121,6 @@ export default defineComponent({
       });
     }
 
-    /**
-     * @description: 锁定屏幕
-     */
     function handleLockPage() {
       openModal(true);
     }
@@ -111,13 +130,13 @@ export default defineComponent({
       return (
         <div class="layout-header__content ">
           {unref(getShowHeaderLogo) && (
-            <AppLogo class={`layout-header__logo`} ref={logoRef} theme={unref(getTheme)} />
+            <AppLogo class={`layout-header__logo`} ref={logoRef} theme={unref(getHeaderTheme)} />
           )}
 
           {unref(getShowContent) && (
             <div class="layout-header__left">
               {unref(getShowHeaderTrigger) && (
-                <LayoutTrigger theme={unref(getTheme)} sider={false} />
+                <LayoutTrigger theme={unref(getHeaderTheme)} sider={false} />
               )}
               {unref(getShowBread) && <LayoutBreadcrumb showIcon={unref(getShowBreadCrumbIcon)} />}
             </div>
@@ -128,7 +147,7 @@ export default defineComponent({
               <LayoutMenu
                 isHorizontal={true}
                 class={`justify-${unref(getTopMenuAlign)}`}
-                theme={unref(getTheme)}
+                theme={unref(getHeaderTheme)}
                 splitType={unref(getSplitType)}
                 menuMode={unref(getMenuMode)}
                 showSearch={false}
@@ -151,64 +170,47 @@ export default defineComponent({
       return (
         <div class={`layout-header__action`}>
           {unref(getUseErrorHandle) && (
-            <Tooltip>
-              {{
-                title: () => '错误日志',
-                default: () => (
-                  <Badge
-                    count={errorStore.getErrorListCountState}
-                    offset={[0, 10]}
-                    dot
-                    overflowCount={99}
-                  >
-                    {() => renderActionDefault(BugOutlined, handleToErrorList)}
-                  </Badge>
-                ),
-              }}
-            </Tooltip>
+            <TooltipItem title="错误日志">
+              {() => (
+                <Badge
+                  count={errorStore.getErrorListCountState}
+                  offset={[0, 10]}
+                  dot
+                  overflowCount={99}
+                >
+                  {() => renderActionDefault(BugOutlined, handleToErrorList)}
+                </Badge>
+              )}
+            </TooltipItem>
           )}
 
           {unref(getUseLockPage) && (
-            <Tooltip>
-              {{
-                title: () => '锁定屏幕',
-                default: () => renderActionDefault(LockOutlined, handleLockPage),
-              }}
-            </Tooltip>
+            <TooltipItem title="锁定屏幕">
+              {() => renderActionDefault(LockOutlined, handleLockPage)}
+            </TooltipItem>
           )}
 
           {unref(getShowNotice) && (
-            <Tooltip>
-              {{
-                title: () => '消息通知',
-                default: () => <NoticeAction />,
-              }}
-            </Tooltip>
+            <TooltipItem title="消息通知">{() => <NoticeAction />}</TooltipItem>
           )}
 
           {unref(getShowRedo) && (
-            <Tooltip>
-              {{
-                title: () => '刷新',
-                default: () => renderActionDefault(RedoOutlined, refreshPage),
-              }}
-            </Tooltip>
+            <TooltipItem title="刷新">
+              {() => renderActionDefault(RedoOutlined, refreshPage)}
+            </TooltipItem>
           )}
 
           {unref(getShowFullScreen) && (
-            <Tooltip>
-              {{
-                title: () => (unref(isFullscreenRef) ? '退出全屏' : '全屏'),
-                default: () => {
-                  const Icon = !unref(isFullscreenRef) ? (
-                    <FullscreenOutlined />
-                  ) : (
-                    <FullscreenExitOutlined />
-                  );
-                  return renderActionDefault(Icon, toggleFullscreen);
-                },
+            <TooltipItem title={unref(isFullscreenRef) ? '退出全屏' : '全屏'}>
+              {() => {
+                const Icon = !unref(isFullscreenRef) ? (
+                  <FullscreenOutlined />
+                ) : (
+                  <FullscreenExitOutlined />
+                );
+                return renderActionDefault(Icon, toggleFullscreen);
               }}
-            </Tooltip>
+            </TooltipItem>
           )}
           <UserDropdown class={`layout-header__user-dropdown`} />
         </div>
@@ -227,7 +229,9 @@ export default defineComponent({
 
     return () => {
       return (
-        <Layout.Header class={['layout-header', 'flex p-0 px-4 ', unref(headerClass)]}>
+        <Layout.Header
+          class={['layout-header', 'flex p-0 px-4 ', unref(headerClass), { fixed: props.fixed }]}
+        >
           {() => renderHeaderDefault()}
         </Layout.Header>
       );

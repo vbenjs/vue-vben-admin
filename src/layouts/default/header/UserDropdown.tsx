@@ -15,14 +15,30 @@ import { DOC_URL } from '/@/settings/siteSetting';
 import { openWindow } from '/@/utils';
 
 import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
+import { FunctionalComponent } from 'vue';
 
-interface RenderItemParams {
+type MenuEvent = 'loginOut' | 'doc';
+interface MenuItemProps {
   icon: string;
   text: string;
-  key: string;
+  key: MenuEvent;
 }
 
 const prefixCls = 'user-dropdown';
+
+const MenuItem: FunctionalComponent<MenuItemProps> = (props) => {
+  const { key, icon, text } = props;
+  return (
+    <Menu.Item key={key}>
+      {() => (
+        <span class="flex items-center">
+          <Icon icon={icon} class="mr-1" />
+          <span>{text}</span>
+        </span>
+      )}
+    </Menu.Item>
+  );
+};
 
 export default defineComponent({
   name: 'UserDropdown',
@@ -44,25 +60,15 @@ export default defineComponent({
       openWindow(DOC_URL);
     }
 
-    function handleMenuClick(e: any) {
-      if (e.key === 'loginOut') {
-        handleLoginOut();
-      } else if (e.key === 'doc') {
-        openDoc();
+    function handleMenuClick(e: { key: MenuEvent }) {
+      switch (e.key) {
+        case 'loginOut':
+          handleLoginOut();
+          break;
+        case 'doc':
+          openDoc();
+          break;
       }
-    }
-
-    function renderItem({ icon, text, key }: RenderItemParams) {
-      return (
-        <Menu.Item key={key}>
-          {() => (
-            <span class="flex items-center">
-              <Icon icon={icon} class="mr-1" />
-              <span>{text}</span>
-            </span>
-          )}
-        </Menu.Item>
-      );
     }
 
     function renderSlotsDefault() {
@@ -83,13 +89,9 @@ export default defineComponent({
         <Menu onClick={handleMenuClick}>
           {() => (
             <>
-              {showDoc && renderItem({ key: 'doc', text: '文档', icon: 'gg:loadbar-doc' })}
+              {showDoc && <MenuItem key="doc" text="文档" icon="gg:loadbar-doc" />}
               {showDoc && <Divider />}
-              {renderItem({
-                key: 'loginOut',
-                text: '退出系统',
-                icon: 'ant-design:poweroff-outlined',
-              })}
+              <MenuItem key="loginOut" text="退出系统" icon="ant-design:poweroff-outlined" />
             </>
           )}
         </Menu>

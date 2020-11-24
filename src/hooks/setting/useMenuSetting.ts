@@ -11,23 +11,27 @@ export function useMenuSetting() {
   // Get menu configuration
   const getMenuSetting = computed(() => appStore.getProjectConfig.menuSetting);
 
-  const getMiniWidth = computed(() => unref(getMenuSetting).menuWidth);
-
   const getCollapsed = computed(() => unref(getMenuSetting).collapsed);
 
-  const getType = computed(() => unref(getMenuSetting).type);
+  const getMenuType = computed(() => unref(getMenuSetting).type);
 
-  const getMode = computed(() => unref(getMenuSetting).mode);
+  const getMenuMode = computed(() => unref(getMenuSetting).mode);
 
-  const getShow = computed(() => unref(getMenuSetting).show);
+  const getMenuFixed = computed(() => unref(getMenuSetting).fixed);
+
+  const getShowMenu = computed(() => unref(getMenuSetting).show);
+
+  const getMenuHidden = computed(() => unref(getMenuSetting).hidden);
 
   const getMenuWidth = computed(() => unref(getMenuSetting).menuWidth);
 
   const getTrigger = computed(() => unref(getMenuSetting).trigger);
 
-  const getTheme = computed(() => unref(getMenuSetting).theme);
+  const getMenuTheme = computed(() => unref(getMenuSetting).theme);
 
   const getSplit = computed(() => unref(getMenuSetting).split);
+
+  const getMenuBgColor = computed(() => unref(getMenuSetting).bgColor);
 
   const getHasDrag = computed(() => unref(getMenuSetting).hasDrag);
 
@@ -39,17 +43,19 @@ export function useMenuSetting() {
 
   const getTopMenuAlign = computed(() => unref(getMenuSetting).topMenuAlign);
 
-  const getIsSidebarType = computed(() => unref(getType) === MenuTypeEnum.SIDEBAR);
+  const getIsSidebarType = computed(() => unref(getMenuType) === MenuTypeEnum.SIDEBAR);
+
+  const getIsTopMenu = computed(() => unref(getMenuType) === MenuTypeEnum.TOP_MENU);
 
   const getShowTopMenu = computed(() => {
-    return unref(getMode) === MenuModeEnum.HORIZONTAL || unref(getSplit);
+    return unref(getMenuMode) === MenuModeEnum.HORIZONTAL || unref(getSplit);
   });
 
   const getShowHeaderTrigger = computed(() => {
     if (
-      unref(getType) === MenuTypeEnum.TOP_MENU ||
-      !unref(getShow) ||
-      !unref(getMenuSetting).hidden
+      unref(getMenuType) === MenuTypeEnum.TOP_MENU ||
+      !unref(getShowMenu) ||
+      !unref(getMenuHidden)
     ) {
       return false;
     }
@@ -60,12 +66,16 @@ export function useMenuSetting() {
   const getShowSearch = computed(() => {
     return (
       unref(getMenuSetting).showSearch &&
-      !(unref(getType) === MenuTypeEnum.MIX && unref(getMode) === MenuModeEnum.HORIZONTAL)
+      !(unref(getMenuType) === MenuTypeEnum.MIX && unref(getMenuMode) === MenuModeEnum.HORIZONTAL)
     );
   });
 
   const getIsHorizontal = computed(() => {
-    return unref(getMode) === MenuModeEnum.HORIZONTAL;
+    return unref(getMenuMode) === MenuModeEnum.HORIZONTAL;
+  });
+
+  const getRealWidth = computed(() => {
+    return unref(getCollapsed) ? unref(getMiniWidthNumber) : unref(getMenuWidth);
   });
 
   const getMiniWidthNumber = computed(() => {
@@ -74,8 +84,8 @@ export function useMenuSetting() {
   });
 
   const getCalcContentWidth = computed(() => {
-    const width = unref(getCollapsed) ? unref(getMiniWidthNumber) : unref(getMiniWidth);
-    return `calc(100% - ${width}px)`;
+    const width = unref(getIsTopMenu) || !unref(getShowMenu) ? 0 : unref(getRealWidth);
+    return `calc(100% - ${unref(width)}px)`;
   });
 
   // Set menu configuration
@@ -94,18 +104,19 @@ export function useMenuSetting() {
 
     toggleCollapsed,
 
+    getMenuFixed,
     getMenuSetting,
-    getMiniWidth,
-    getType,
-    getMode,
-    getShow,
+    getRealWidth,
+    getMenuType,
+    getMenuMode,
+    getShowMenu,
     getCollapsed,
     getMiniWidthNumber,
     getCalcContentWidth,
     getMenuWidth,
     getTrigger,
     getSplit,
-    getTheme,
+    getMenuTheme,
     getHasDrag,
     getIsHorizontal,
     getShowSearch,
@@ -116,5 +127,8 @@ export function useMenuSetting() {
     getShowTopMenu,
     getShowHeaderTrigger,
     getTopMenuAlign,
+    getMenuHidden,
+    getIsTopMenu,
+    getMenuBgColor,
   };
 }
