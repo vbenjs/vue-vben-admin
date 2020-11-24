@@ -53,6 +53,9 @@ export interface FormProps {
   // Col configuration for the entire form
   wrapperCol?: Partial<ColEx>;
 
+  // General row style
+  baseRowStyle?: object;
+
   // General col configuration
   baseColProps?: Partial<ColEx>;
 
