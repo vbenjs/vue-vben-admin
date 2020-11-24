@@ -1,7 +1,7 @@
 import type { MoveData, DragVerifyActionType } from './types';
 
 import { defineComponent, computed, unref, reactive, watch, ref, getCurrentInstance } from 'vue';
-import { useTimeoutFn } from '@vueuse/core';
+import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 
 import BasicDragVerify from './DragVerify';
 

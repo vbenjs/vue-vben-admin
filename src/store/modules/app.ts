@@ -6,8 +6,18 @@ import store from '/@/store';
 import { PROJ_CFG_KEY, LOCK_INFO_KEY } from '/@/enums/cacheEnum';
 
 import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
-import { setLocal, getLocal, removeLocal } from '/@/utils/helper/persistent';
+import {
+  setLocal,
+  getLocal,
+  removeLocal,
+  clearSession,
+  clearLocal,
+} from '/@/utils/helper/persistent';
 import { deepMerge } from '/@/utils';
+
+import { resetRouter } from '/@/router';
+import { permissionStore } from './permission';
+import { tabStore } from './tab';
 
 import { userStore } from './user';
 
@@ -78,10 +88,21 @@ class App extends VuexModule {
   }
 
   @Action
+  async resumeAllState() {
+    resetRouter();
+    clearSession();
+    clearLocal();
+
+    permissionStore.commitResetState();
+    tabStore.commitResetState();
+    userStore.commitResetState();
+  }
+
+  @Action
   public async setPageLoadingAction(loading: boolean): Promise<void> {
     if (loading) {
       clearTimeout(timeId);
-      // 防止闪动
+      // Prevent flicker
       timeId = setTimeout(() => {
         this.commitPageLoadingState(loading);
       }, 100);
@@ -91,9 +112,9 @@ class App extends VuexModule {
     }
   }
 
-  // /**
-  //  * @description: unlock page
-  //  */
+  /**
+   * @description: unlock page
+   */
   @Action
   public async unLockAction({ password, valid = true }: { password: string; valid?: boolean }) {
     if (!valid) {
@@ -125,5 +146,4 @@ class App extends VuexModule {
     return res;
   }
 }
-export { App };
 export const appStore = getModule<App>(App);

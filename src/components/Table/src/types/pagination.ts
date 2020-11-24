@@ -86,7 +86,7 @@ export interface PaginationProps {
   size?: string;
 
   /**
-   * whether to use simple mode
+   * whether to setting simple mode
    * @type boolean
    */
   simple?: boolean;

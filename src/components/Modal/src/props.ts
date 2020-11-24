@@ -35,7 +35,7 @@ export const basicProps = Object.assign({}, modalProps, {
   },
   // Warm reminder message
   helpMessage: [String, Array] as PropType<string | string[]>,
-  // Whether to use wrapper
+  // Whether to setting wrapper
   useWrapper: {
     type: Boolean as PropType<boolean>,
     default: true,

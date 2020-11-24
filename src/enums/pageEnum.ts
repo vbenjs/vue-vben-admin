@@ -5,4 +5,6 @@ export enum PageEnum {
   BASE_HOME = '/dashboard',
   // error page path
   ERROR_PAGE = '/exception',
+  // error log page path
+  ERROR_LOG_PAGE = '/exception/error-log',
 }

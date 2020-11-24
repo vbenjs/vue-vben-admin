@@ -48,12 +48,13 @@
     },
   });
 </script>
-<style lang="less" scoped>
+<style lang="less">
   .account-center-application {
     &__card {
       width: 100%;
+      margin-bottom: -12px;
 
-      /deep/ .ant-card-body {
+      .ant-card-body {
         padding: 16px;
       }
 

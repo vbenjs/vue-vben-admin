@@ -68,7 +68,7 @@ export interface FormItem {
    */
   labelAlign?: 'left' | 'right';
   /**
-   * a key of model. In the use of validate and resetFields method, the attribute is required
+   * a key of model. In the setting of validate and resetFields method, the attribute is required
    */
   name?: NamePath;
   /**
@@ -76,7 +76,7 @@ export interface FormItem {
    */
   rules?: object | object[];
   /**
-   * Whether to automatically associate form fields. In most cases, you can use automatic association.
+   * Whether to automatically associate form fields. In most cases, you can setting automatic association.
    * If the conditions for automatic association are not met, you can manually associate them. See the notes below.
    */
   autoLink?: boolean;

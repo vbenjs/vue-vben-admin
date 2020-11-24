@@ -4,8 +4,9 @@ import { resolve } from 'path';
 
 import { modifyVars } from './build/config/lessModifyVars';
 import { createProxy } from './build/vite/proxy';
-import globbyTransform from './build/vite/plugin/context/transform';
-import dynamicImportTransform from './build/vite/plugin/dynamicImport/index';
+
+import globbyTransform from './build/vite/plugin/transform/globby';
+import dynamicImportTransform from './build/vite/plugin/transform/dynamic-import';
 
 import { isDevFn, loadEnv } from './build/utils';
 
@@ -29,7 +30,7 @@ function pathResolve(dir: string) {
 
 const viteConfig: UserConfig = {
   /**
-   * Entry. Use this to specify a js entry file in use cases where an
+   * Entry. Use this to specify a js entry file in setting cases where an
    * `index.html` does not exist (e.g. serving vite assets from a different host)
    * @default 'index.html'
    */
@@ -50,7 +51,7 @@ const viteConfig: UserConfig = {
    */
   open: false,
   /**
-   * Set to `false` to disable minification, or specify the minifier to use.
+   * Set to `false` to disable minification, or specify the minifier to setting.
    * Available options are 'terser' or 'esbuild'.
    * @default 'terser'
    */
@@ -111,6 +112,11 @@ const viteConfig: UserConfig = {
   },
   define: {
     __VERSION__: pkg.version,
+    // setting vue-i18-next
+    // Suppress warning
+    __VUE_I18N_LEGACY_API__: false,
+    __VUE_I18N_FULL_INSTALL__: false,
+    __INTLIFY_PROD_DEVTOOLS__: false,
   },
   cssPreprocessOptions: {
     less: {
@@ -120,7 +126,12 @@ const viteConfig: UserConfig = {
   },
   // The package will be recompiled using rollup, and the new package compiled into the esm module specification will be put into node_modules/.vite_opt_cache
   optimizeDeps: {
-    include: ['echarts/map/js/china', 'ant-design-vue/es/locale/zh_CN', '@ant-design/icons-vue'],
+    include: [
+      'echarts/map/js/china',
+      'ant-design-vue/es/locale/zh_CN',
+      'ant-design-vue/es/locale/en_US',
+      '@ant-design/icons-vue',
+    ],
   },
 
   // Local cross-domain proxy
@@ -135,5 +146,13 @@ const viteConfig: UserConfig = {
 
 export default {
   ...viteConfig,
-  transforms: [globbyTransform(viteConfig), dynamicImportTransform(viteEnv)],
+  transforms: [
+    globbyTransform({
+      resolvers: viteConfig.resolvers,
+      root: viteConfig.root,
+      alias: viteConfig.alias,
+      includes: [resolve('src/router'), resolve('src/locales')],
+    }),
+    dynamicImportTransform(viteEnv),
+  ],
 } as UserConfig;

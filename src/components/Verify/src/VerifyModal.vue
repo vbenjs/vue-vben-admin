@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { defineComponent, ref, unref } from 'vue';
   import { BasicModal } from '/@/components/Modal/index';
-  import { useTimeoutFn } from '@vueuse/core';
+  import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 
   import { RotateDragVerify, DragVerifyActionType } from '/@/components/Verify/index';
   export default defineComponent({

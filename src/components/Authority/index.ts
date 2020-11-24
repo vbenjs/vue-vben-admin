@@ -1,8 +1,7 @@
-import type { App } from 'vue';
 import Authority from './src/index.vue';
 
-export default (app: App): void => {
-  app.component(Authority.name, Authority);
-};
+import { withInstall } from '../util';
+
+export default withInstall(Authority);
 
 export { Authority };

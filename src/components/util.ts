@@ -1,4 +1,13 @@
 import type { VNodeChild } from 'vue';
+import type { App, Component } from 'vue';
+
+export function withInstall(...components: Component[]) {
+  return (app: App) => {
+    components.forEach((comp) => {
+      comp.name && app.component(comp.name, comp);
+    });
+  };
+}
 
 export function convertToUnit(
   str: string | number | null | undefined,

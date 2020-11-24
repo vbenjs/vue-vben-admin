@@ -11,9 +11,7 @@ const menu: MenuModule = {
       {
         path: 'form',
         name: '表单页',
-        tag: {
-          content: 'new',
-        },
+
         children: [
           {
             path: 'basic',
@@ -32,9 +30,7 @@ const menu: MenuModule = {
       {
         path: 'desc',
         name: '详情页',
-        tag: {
-          content: 'new',
-        },
+
         children: [
           {
             path: 'basic',
@@ -49,9 +45,7 @@ const menu: MenuModule = {
       {
         path: 'result',
         name: '结果页',
-        tag: {
-          content: 'new',
-        },
+
         children: [
           {
             path: 'success',
@@ -92,9 +86,6 @@ const menu: MenuModule = {
       {
         path: 'account',
         name: '个人页',
-        tag: {
-          content: 'new',
-        },
         children: [
           {
             path: 'center',
@@ -103,6 +94,19 @@ const menu: MenuModule = {
           {
             path: 'setting',
             name: '个人设置',
+          },
+        ],
+      },
+      {
+        path: 'list',
+        name: '列表页',
+        tag: {
+          content: 'new',
+        },
+        children: [
+          {
+            path: 'card',
+            name: '卡片列表',
           },
         ],
       },

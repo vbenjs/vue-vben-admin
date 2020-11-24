@@ -15,13 +15,11 @@ import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 
 import { useMessage } from '/@/hooks/web/useMessage';
 
-import router, { resetRouter } from '/@/router';
-import { permissionStore } from './permission';
-import { tabStore } from './tab';
+import router from '/@/router';
 
 import { loginApi, getUserInfoById } from '/@/api/sys/user';
 
-import { setLocal, getLocal, clearSession, clearLocal } from '/@/utils/helper/persistent';
+import { setLocal, getLocal } from '/@/utils/helper/persistent';
 // import { FULL_PAGE_NOT_FOUND_ROUTE } from '/@/router/constant';
 
 export type UserInfo = Omit<GetUserInfoByUserIdModel, 'roles'>;
@@ -52,7 +50,7 @@ class User extends VuexModule {
   }
 
   @Mutation
-  resetState(): void {
+  commitResetState(): void {
     this.userInfoState = null;
     this.tokenState = '';
     this.roleListState = [];
@@ -128,16 +126,6 @@ class User extends VuexModule {
     goLogin && router.push(PageEnum.BASE_LOGIN);
   }
 
-  @Action
-  async resumeAllState() {
-    resetRouter();
-    clearSession();
-    clearLocal();
-    permissionStore.commitResetState();
-    tabStore.commitResetState();
-    this.resetState();
-  }
-
   /**
    * @description: Confirm before logging out
    */
@@ -154,5 +142,4 @@ class User extends VuexModule {
     });
   }
 }
-export { User };
 export const userStore = getModule<User>(User);

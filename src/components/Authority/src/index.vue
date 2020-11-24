@@ -1,16 +1,15 @@
 <!--
- * @Author: Vben
- * @Description:Access control component for fine-grained access control.
+ Access control component for fine-grained access control.
 -->
 <script lang="ts">
   import type { PropType } from 'vue';
-  import { defineComponent, computed, unref } from 'vue';
+  import { defineComponent, unref } from 'vue';
 
   import { PermissionModeEnum } from '/@/enums/appEnum';
   import { RoleEnum } from '/@/enums/roleEnum';
+  import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 
   import { usePermission } from '/@/hooks/web/usePermission';
-  import { appStore } from '/@/store/modules/app';
 
   import { getSlot } from '/@/utils/helper/tsxHelper';
 
@@ -29,9 +28,8 @@
       },
     },
     setup(props, { slots }) {
-      const getModeRef = computed(() => {
-        return appStore.getProjectConfig.permissionMode;
-      });
+      const { getPermissionMode } = useRootSetting();
+      const { hasPermission } = usePermission();
 
       /**
        * Render role button
@@ -41,7 +39,6 @@
         if (!value) {
           return getSlot(slots);
         }
-        const { hasPermission } = usePermission();
         return hasPermission(value) ? getSlot(slots) : null;
       }
 
@@ -52,12 +49,11 @@
         if (!value) {
           return getSlot(slots);
         }
-        const { hasPermission } = usePermission();
         return hasPermission(value) ? getSlot(slots) : null;
       }
 
       return () => {
-        const mode = unref(getModeRef);
+        const mode = unref(getPermissionMode);
         // Role-based value control
         if (mode === PermissionModeEnum.ROLE) {
           return renderRoleAuth();

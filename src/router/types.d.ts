@@ -69,6 +69,7 @@ export interface Menu {
 
   tag?: MenuTag;
 }
+
 export interface MenuModule {
   orderNo?: number;
   menu: Menu;

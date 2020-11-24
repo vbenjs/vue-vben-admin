@@ -1,36 +1,37 @@
 <template>
-  <List class="list">
+  <a-list class="list">
     <template v-for="item in list" :key="item.id">
-      <ListItem class="list__item">
-        <ListItemMeta>
+      <a-list-item class="list-item">
+        <a-list-item-meta>
           <template #title>
             <div class="title">
               {{ item.title }}
               <div class="extra" v-if="item.extra">
-                <Tag class="tag" :color="item.color">
+                <a-tag class="tag" :color="item.color">
                   {{ item.extra }}
-                </Tag>
+                </a-tag>
               </div>
             </div>
           </template>
+
           <template #avatar>
-            <Avatar v-if="item.avatar" class="avatar" :src="item.avatar" />
+            <a-avatar v-if="item.avatar" class="avatar" :src="item.avatar" />
             <span v-else> {{ item.avatar }}</span>
           </template>
+
           <template #description>
             <div>
               <div class="description">{{ item.description }}</div>
               <div class="datetime">{{ item.datetime }}</div>
             </div>
           </template>
-        </ListItemMeta>
-      </ListItem>
+        </a-list-item-meta>
+      </a-list-item>
     </template>
-  </List>
+  </a-list>
 </template>
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
-  import { List, Avatar, Tag } from 'ant-design-vue';
   import { ListItem } from './data';
 
   export default defineComponent({
@@ -40,19 +41,6 @@
         default: () => [],
       },
     },
-    components: {
-      List,
-      ListItem: List.Item,
-      ListItemMeta: List.Item.Meta,
-      Avatar,
-      Tag,
-    },
-    setup(props) {
-      const { list = [] } = props;
-      return {
-        list,
-      };
-    },
   });
 </script>
 <style lang="less" scoped>
@@ -61,7 +49,7 @@
       display: none;
     }
 
-    &__item {
+    &-item {
       padding: 6px;
       overflow: hidden;
       cursor: pointer;

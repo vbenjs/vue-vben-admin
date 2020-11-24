@@ -81,14 +81,6 @@ const feat: AppRouteModule = {
       },
     },
     {
-      path: '/i18n',
-      name: 'I18nDemo',
-      component: () => import('/@/views/demo/feat/i18n/index.vue'),
-      meta: {
-        title: '国际化',
-      },
-    },
-    {
       path: '/watermark',
       name: 'WatermarkDemo',
       component: () => import('/@/views/demo/feat/watermark/index.vue'),

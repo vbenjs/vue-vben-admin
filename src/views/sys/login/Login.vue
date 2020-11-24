@@ -4,6 +4,7 @@
     <div class="login-form-wrap">
       <div class="login-form mx-6">
         <div class="login-form__content px-2 py-10">
+          <AppLocalPicker class="login-form__locale" />
           <header>
             <img :src="logo" class="mr-4" />
             <h1>{{ title }}</h1>
@@ -11,14 +12,14 @@
 
           <a-form class="mx-auto mt-10" :model="formData" :rules="formRules" ref="formRef">
             <a-form-item name="account">
-              <a-input size="large" v-model:value="formData.account" placeholder="Username: vben" />
+              <a-input size="large" v-model:value="formData.account" placeholder="username: vben" />
             </a-form-item>
             <a-form-item name="password">
               <a-input-password
                 size="large"
                 visibilityToggle
                 v-model:value="formData.password"
-                placeholder="Password: 123456"
+                placeholder="password: 123456"
               />
             </a-form-item>
 
@@ -28,14 +29,16 @@
             <a-row>
               <a-col :span="12">
                 <a-form-item>
-                  <!-- 未做逻辑，需要自行处理 -->
-                  <a-checkbox v-model:checked="autoLogin" size="small">自动登录</a-checkbox>
+                  <!-- No logic, you need to deal with it yourself -->
+                  <a-checkbox v-model:checked="autoLogin" size="small">{{
+                    t('sys.login.autoLogin')
+                  }}</a-checkbox>
                 </a-form-item>
               </a-col>
               <a-col :span="12">
                 <a-form-item :style="{ 'text-align': 'right' }">
-                  <!-- 未做逻辑，需要自行处理 -->
-                  <a-button type="link" size="small">忘记密码</a-button>
+                  <!-- No logic, you need to deal with it yourself -->
+                  <a-button type="link" size="small">{{ t('sys.login.forgetPassword') }}</a-button>
                 </a-form-item>
               </a-col>
             </a-row>
@@ -47,7 +50,7 @@
                 :block="true"
                 @click="login"
                 :loading="formState.loading"
-                >登录</a-button
+                >{{ t('sys.login.loginButton') }}</a-button
               >
             </a-form-item>
           </a-form>
@@ -57,23 +60,19 @@
   </div>
 </template>
 <script lang="ts">
-  import {
-    defineComponent,
-    reactive,
-    ref,
-    unref,
-    toRaw,
-    // computed
-  } from 'vue';
+  import { defineComponent, reactive, ref, unref, toRaw } from 'vue';
   import { Checkbox } from 'ant-design-vue';
 
   import Button from '/@/components/Button/index.vue';
+  import { AppLocalPicker } from '/@/components/Application';
   // import { BasicDragVerify, DragVerifyActionType } from '/@/components/Verify/index';
 
   import { userStore } from '/@/store/modules/user';
+  import { useI18n } from 'vue-i18n';
+
   // import { appStore } from '/@/store/modules/app';
   import { useMessage } from '/@/hooks/web/useMessage';
-  import { useSetting } from '/@/hooks/core/useSetting';
+  import { useGlobSetting } from '/@/hooks/setting';
   import logo from '/@/assets/images/logo.png';
 
   export default defineComponent({
@@ -81,14 +80,16 @@
       //  BasicDragVerify,
       AButton: Button,
       ACheckbox: Checkbox,
+      AppLocalPicker,
     },
     setup() {
       const formRef = ref<any>(null);
       const autoLoginRef = ref(false);
       // const verifyRef = ref<RefInstanceType<DragVerifyActionType>>(null);
 
-      const { globSetting } = useSetting();
+      const globSetting = useGlobSetting();
       const { notification } = useMessage();
+      const { t } = useI18n();
 
       // const openLoginVerifyRef = computed(() => appStore.getProjectConfig.openLoginVerify);
 
@@ -102,8 +103,10 @@
       });
 
       const formRules = reactive({
-        account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        account: [{ required: true, message: t('sys.login.accountPlaceholder'), trigger: 'blur' }],
+        password: [
+          { required: true, message: t('sys.login.passwordPlaceholder'), trigger: 'blur' },
+        ],
         // verify: unref(openLoginVerifyRef) ? [{ required: true, message: '请通过验证码校验' }] : [],
       });
 
@@ -128,8 +131,8 @@
           );
           if (userInfo) {
             notification.success({
-              message: '登录成功',
-              description: `欢迎回来: ${userInfo.realName}`,
+              message: t('sys.login.loginSuccessTitle'),
+              description: `${t('sys.login.loginSuccessDesc')}: ${userInfo.realName}`,
               duration: 3,
             });
           }
@@ -139,7 +142,6 @@
           formState.loading = false;
         }
       }
-
       return {
         formRef,
         // verifyRef,
@@ -151,6 +153,7 @@
         // openLoginVerify: openLoginVerifyRef,
         title: globSetting && globSetting.title,
         logo,
+        t,
       };
     },
   });
@@ -199,7 +202,14 @@
         .respond-to(xlarge, { width: 540px; right:0});
       }
 
+      &__locale {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
       &__content {
+        position: relative;
         width: 100%;
         height: 100%;
         border: 1px solid #999;

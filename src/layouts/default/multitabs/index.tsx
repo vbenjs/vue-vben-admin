@@ -33,7 +33,7 @@ export default defineComponent({
       return tabStore.getTabsState;
     });
 
-    // If you monitor routing changes, tab switching will be stuck. So use this method
+    // If you monitor routing changes, tab switching will be stuck. So setting this method
     watch(
       () => tabStore.getLastChangeRouteState,
       () => {

@@ -4,9 +4,7 @@ const menu: MenuModule = {
   menu: {
     name: '组件',
     path: '/comp',
-    tag: {
-      dot: true,
-    },
+
     children: [
       {
         path: 'basic',
@@ -44,9 +42,6 @@ const menu: MenuModule = {
       {
         path: 'upload',
         name: '上传组件',
-        tag: {
-          content: 'new',
-        },
       },
       {
         path: 'scroll',

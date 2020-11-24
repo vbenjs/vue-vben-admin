@@ -2,11 +2,15 @@ import { Tag } from 'ant-design-vue';
 import { BasicColumn } from '/@/components/Table/index';
 import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
 
+import { useExternalI18n } from '/@/hooks/web/useLocale';
+
+const { t } = useExternalI18n();
+
 export function getColumns(): BasicColumn[] {
   return [
     {
       dataIndex: 'type',
-      title: '类型',
+      title: t('sys.errorLog.tableColumnType'),
       width: 80,
       customRender: ({ text }) => {
         const color =
@@ -24,17 +28,17 @@ export function getColumns(): BasicColumn[] {
     },
     {
       dataIndex: 'url',
-      title: '地址',
+      title: 'URL',
       width: 200,
     },
     {
       dataIndex: 'time',
-      title: '时间',
+      title: t('sys.errorLog.tableColumnDate'),
       width: 160,
     },
     {
       dataIndex: 'file',
-      title: '文件',
+      title: t('sys.errorLog.tableColumnFile'),
       width: 200,
     },
     {
@@ -44,12 +48,12 @@ export function getColumns(): BasicColumn[] {
     },
     {
       dataIndex: 'message',
-      title: '错误信息',
+      title: t('sys.errorLog.tableColumnMsg'),
       width: 300,
     },
     {
       dataIndex: 'stack',
-      title: 'stack信息',
+      title: t('sys.errorLog.tableColumnStackMsg'),
       width: 300,
     },
   ];

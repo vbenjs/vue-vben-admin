@@ -3,7 +3,6 @@ import type { ModalFunc, ModalFuncProps } from 'ant-design-vue/lib/modal/Modal';
 import { Modal, message as Message, notification } from 'ant-design-vue';
 import { InfoCircleFilled, CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons-vue';
 
-import { useSetting } from '/@/hooks/core/useSetting';
 import { ArgsProps, ConfigProps } from 'ant-design-vue/lib/notification';
 
 export interface NotifyApi {
@@ -33,8 +32,6 @@ interface ConfirmOptions {
   warning: ModalFunc;
 }
 
-const { projectSetting } = useSetting();
-
 function getIcon(iconType: string) {
   if (iconType === 'warning') {
     return <InfoCircleFilled class="modal-icon-warning" />;
@@ -46,6 +43,7 @@ function getIcon(iconType: string) {
     return <CloseCircleFilled class="modal-icon-error" />;
   }
 }
+
 function renderContent({ content }: Pick<ModalOptionsEx, 'content'>) {
   return <div innerHTML={`<div>${content as string}</div>`}></div>;
 }
@@ -59,11 +57,11 @@ function createConfirm(options: ModalOptionsEx): ConfirmOptions {
   const opt: ModalFuncProps = {
     centered: true,
     icon: getIcon(iconType),
-    ...projectSetting.messageSetting,
     ...options,
   };
   return Modal.confirm(opt) as any;
 }
+
 const baseOptions = {
   okText: '确定',
   centered: true,
@@ -77,15 +75,19 @@ function createModalOptions(options: ModalOptionsPartial, icon: string): ModalOp
     icon: getIcon(icon),
   };
 }
+
 function createSuccessModal(options: ModalOptionsPartial) {
   return Modal.success(createModalOptions(options, 'success'));
 }
+
 function createErrorModal(options: ModalOptionsPartial) {
   return Modal.error(createModalOptions(options, 'close'));
 }
+
 function createInfoModal(options: ModalOptionsPartial) {
   return Modal.info(createModalOptions(options, 'info'));
 }
+
 function createWarningModal(options: ModalOptionsPartial) {
   return Modal.warning(createModalOptions(options, 'warning'));
 }
@@ -94,6 +96,7 @@ notification.config({
   placement: 'topRight',
   duration: 3,
 });
+
 /**
  * @description: message
  */

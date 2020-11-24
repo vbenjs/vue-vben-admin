@@ -4,14 +4,17 @@ import type { PropType } from 'vue';
 
 import { defineComponent, TransitionGroup, unref, watch, ref } from 'vue';
 import Breadcrumb from '/@/components/Breadcrumb/Breadcrumb.vue';
-import BreadcrumbItem from '/@/components/Breadcrumb/BreadcrumbItem.vue';
-import { useRouter } from 'vue-router';
-import router from '/@/router';
-import { PageEnum } from '/@/enums/pageEnum';
-import { isBoolean } from '/@/utils/is';
-
-import { compile } from 'path-to-regexp';
 import Icon from '/@/components/Icon';
+import BreadcrumbItem from '/@/components/Breadcrumb/BreadcrumbItem.vue';
+
+import { useRouter } from 'vue-router';
+
+import { isBoolean } from '/@/utils/is';
+import { compile } from 'path-to-regexp';
+
+import router from '/@/router';
+
+import { PageEnum } from '/@/enums/pageEnum';
 
 export default defineComponent({
   name: 'BasicBreadcrumb',
@@ -40,7 +43,6 @@ export default defineComponent({
       const matchedList = matched.filter((item) => item.meta && item.meta.title).slice(1);
       const firstItem = matchedList[0];
       const ret = getHomeRoute(firstItem);
-
       if (!isBoolean(ret)) {
         matchedList.unshift(ret);
       }
@@ -74,42 +76,51 @@ export default defineComponent({
       return push(pathCompile(path));
     }
 
+    function renderItemContent(item: AppRouteRecordRaw) {
+      return (
+        <>
+          {props.showIcon && item.meta.icon && item.meta.icon.trim() !== '' && (
+            <Icon
+              icon={item.meta.icon}
+              class="icon mr-1 "
+              style={{
+                marginBottom: '2px',
+              }}
+            />
+          )}
+          {item.meta.title}
+        </>
+      );
+    }
+
+    function renderBreadcrumbItemList() {
+      return unref(itemList).map((item) => {
+        const isLink =
+          (!!item.redirect && !item.meta.disabledRedirect) ||
+          !item.children ||
+          item.children.length === 0;
+
+        return (
+          <BreadcrumbItem
+            key={item.path}
+            isLink={isLink}
+            onClick={handleItemClick.bind(null, item)}
+          >
+            {() => renderItemContent(item as AppRouteRecordRaw)}
+          </BreadcrumbItem>
+        );
+      });
+    }
+
+    function renderBreadcrumbDefault() {
+      return (
+        <TransitionGroup name="breadcrumb">{() => renderBreadcrumbItemList()}</TransitionGroup>
+      );
+    }
+
     return () => (
       <Breadcrumb class={['layout-breadcrumb', unref(itemList).length === 0 ? 'hidden' : '']}>
-        {() => (
-          <TransitionGroup name="breadcrumb">
-            {() => {
-              return unref(itemList).map((item) => {
-                const isLink =
-                  (!!item.redirect && !item.meta.disabledRedirect) ||
-                  !item.children ||
-                  item.children.length === 0;
-                return (
-                  <BreadcrumbItem
-                    key={item.path}
-                    isLink={isLink}
-                    onClick={handleItemClick.bind(null, item)}
-                  >
-                    {() => (
-                      <>
-                        {props.showIcon && item.meta.icon && item.meta.icon.trim() !== '' && (
-                          <Icon
-                            icon={item.meta.icon}
-                            class="icon mr-1 "
-                            style={{
-                              marginBottom: '2px',
-                            }}
-                          />
-                        )}
-                        {item.meta.title}
-                      </>
-                    )}
-                  </BreadcrumbItem>
-                );
-              });
-            }}
-          </TransitionGroup>
-        )}
+        {() => renderBreadcrumbDefault()}
       </Breadcrumb>
     );
   },

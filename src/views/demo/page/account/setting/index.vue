@@ -1,6 +1,6 @@
 <template>
   <ScrollContainer>
-    <div ref="wrapperRef" class="m-4 account">
+    <div ref="wrapperRef" :class="prefixCls">
       <Tabs tab-position="left" :tabBarStyle="tabBarStyle">
         <template v-for="item in settingList" :key="item.key">
           <TabPane :tab="item.name">
@@ -36,6 +36,7 @@
     },
     setup() {
       return {
+        prefixCls: 'account-setting',
         settingList,
         tabBarStyle: {
           width: '220px',
@@ -44,19 +45,16 @@
     },
   });
 </script>
-<style lang="less" scoped>
-  .account {
+<style lang="less">
+  .account-setting {
+    margin: 12px;
     background: #fff;
 
-    /deep/ .base-title {
+    .base-title {
       padding-left: 0;
     }
 
-    /deep/ .ant-tabs {
-      padding: 16px 0;
-    }
-
-    /deep/ .ant-tabs-tab-active {
+    .ant-tabs-tab-active {
       background-color: #e6f7ff;
     }
   }

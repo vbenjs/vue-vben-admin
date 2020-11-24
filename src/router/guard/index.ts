@@ -6,7 +6,7 @@ import { createProgressGuard } from './progressGuard';
 import { createPermissionGuard } from './permissionGuard';
 import { createPageLoadingGuard } from './pageLoadingGuard';
 
-import { useSetting } from '/@/hooks/core/useSetting';
+import { useGlobSetting, useProjectSetting } from '/@/hooks/setting';
 
 import { getIsOpenTab, setCurrentTo } from '/@/utils/helper/routeHelper';
 import { setTitle } from '/@/utils/browser';
@@ -14,9 +14,9 @@ import { AxiosCanceler } from '/@/utils/http/axios/axiosCancel';
 
 import { tabStore } from '/@/store/modules/tab';
 
-const { projectSetting, globSetting } = useSetting();
+const globSetting = useGlobSetting();
 export function createGuard(router: Router) {
-  const { openNProgress, closeMessageOnSwitch, removeAllHttpPending } = projectSetting;
+  const { openNProgress, closeMessageOnSwitch, removeAllHttpPending } = useProjectSetting();
   let axiosCanceler: AxiosCanceler | null;
   if (removeAllHttpPending) {
     axiosCanceler = new AxiosCanceler();

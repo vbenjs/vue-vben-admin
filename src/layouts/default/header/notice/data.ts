@@ -56,14 +56,6 @@ export const tabListData: TabItem[] = [
         datetime: '2017-08-07',
         type: '1',
       },
-      // {
-      //   id: '000000005',
-      //   avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png',
-      //   title: '内容不要超过两行字，超出时自动截断',
-      //   description: '',
-      //   datetime: '2017-08-07',
-      //   type: '1',
-      // },
     ],
   },
   {

@@ -1,4 +1,5 @@
-import { dataURLtoBlob, urlToBase64 } from './stream';
+import { openWindow } from '..';
+import { dataURLtoBlob, urlToBase64 } from './base64Conver';
 
 /**
  * Download online pictures
@@ -93,6 +94,6 @@ export function downloadByUrl({
     url += '?download';
   }
 
-  window.open(url, target);
+  openWindow(url, { target });
   return true;
 }

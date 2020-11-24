@@ -32,7 +32,7 @@
 
   import { triggerWindowResize } from '/@/utils/event/triggerWindowResizeEvent';
   // hook
-  import { useTimeoutFn } from '@vueuse/core';
+  import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 
   export default defineComponent({
     components: {

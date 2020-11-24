@@ -1,2 +1,2 @@
-export { default as Dropdown } from './Dropdown';
-export * from './types';
+export { default as Dropdown } from './src/Dropdown';
+export * from './src/types';

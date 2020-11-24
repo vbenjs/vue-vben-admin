@@ -12,6 +12,7 @@ import { useRoute } from 'vue-router';
 
 import { useGo, useRedo } from '/@/hooks/web/usePage';
 import { PageEnum } from '/@/enums/pageEnum';
+import { useI18n } from 'vue-i18n';
 
 import './exception.less';
 interface MapValue {
@@ -47,9 +48,12 @@ export default defineComponent({
   },
   setup(props) {
     const statusMapRef = ref(new Map<string | number, MapValue>());
+
     const { query } = useRoute();
     const go = useGo();
     const redo = useRedo();
+    const { t } = useI18n();
+
     const getStatus = computed(() => {
       const { status: routeStatus } = query;
       const { status } = props;
@@ -62,41 +66,44 @@ export default defineComponent({
       }
     );
 
+    const backLoginI18n = t('sys.exception.backLogin');
+    const backHomeI18n = t('sys.exception.backHome');
+
     unref(statusMapRef).set(ExceptionEnum.PAGE_NOT_ACCESS, {
       title: '403',
       status: `${ExceptionEnum.PAGE_NOT_ACCESS}`,
-      subTitle: `Sorry, you don't have access to this page.!`,
-      btnText: props.full ? 'Back Login' : 'Back Home',
+      subTitle: t('sys.exception.subTitle403'),
+      btnText: props.full ? backLoginI18n : backHomeI18n,
       handler: () => (props.full ? go(PageEnum.BASE_LOGIN) : go()),
     });
 
     unref(statusMapRef).set(ExceptionEnum.PAGE_NOT_FOUND, {
       title: '404',
       status: `${ExceptionEnum.PAGE_NOT_FOUND}`,
-      subTitle: `Sorry, the page you visited does not exist.`,
-      btnText: props.full ? 'Back Login' : 'Back Home',
+      subTitle: t('sys.exception.subTitle404'),
+      btnText: props.full ? backLoginI18n : backHomeI18n,
       handler: () => (props.full ? go(PageEnum.BASE_LOGIN) : go()),
     });
 
     unref(statusMapRef).set(ExceptionEnum.ERROR, {
       title: '500',
       status: `${ExceptionEnum.ERROR}`,
-      subTitle: `Sorry, the server is reporting an error.`,
-      btnText: 'Back Home',
+      subTitle: t('sys.exception.subTitle500'),
+      btnText: backHomeI18n,
       handler: () => go(),
     });
 
     unref(statusMapRef).set(ExceptionEnum.PAGE_NOT_DATA, {
-      title: 'No data on the current page',
+      title: t('sys.exception.noDataTitle'),
       subTitle: '',
-      btnText: 'Refresh',
+      btnText: t('sys.exception.redo'),
       handler: () => redo(),
       icon: notDataImg,
     });
 
     unref(statusMapRef).set(ExceptionEnum.NET_WORK_ERROR, {
-      title: 'Network Error',
-      subTitle: 'Sorry，Your network connection has been disconnected, please check your network!',
+      title: t('sys.exception.networkErrorTitle'),
+      subTitle: t('sys.exception.networkErrorSubTitle'),
       btnText: 'Refresh',
       handler: () => redo(),
       icon: netWorkImg,
