@@ -1,16 +1,15 @@
 import { Tag } from 'ant-design-vue';
 import { BasicColumn } from '/@/components/Table/index';
 import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
+import { useI18n } from '/@/hooks/web/useI18n';
 
-import { useExternalI18n } from '/@/hooks/web/useLocale';
-
-const { t } = useExternalI18n();
+const { t } = useI18n('sys.errorLog');
 
 export function getColumns(): BasicColumn[] {
   return [
     {
       dataIndex: 'type',
-      title: t('sys.errorLog.tableColumnType'),
+      title: t('tableColumnType'),
       width: 80,
       customRender: ({ text }) => {
         const color =
@@ -33,12 +32,12 @@ export function getColumns(): BasicColumn[] {
     },
     {
       dataIndex: 'time',
-      title: t('sys.errorLog.tableColumnDate'),
+      title: t('tableColumnDate'),
       width: 160,
     },
     {
       dataIndex: 'file',
-      title: t('sys.errorLog.tableColumnFile'),
+      title: t('tableColumnFile'),
       width: 200,
     },
     {
@@ -48,12 +47,12 @@ export function getColumns(): BasicColumn[] {
     },
     {
       dataIndex: 'message',
-      title: t('sys.errorLog.tableColumnMsg'),
+      title: t('tableColumnMsg'),
       width: 300,
     },
     {
       dataIndex: 'stack',
-      title: t('sys.errorLog.tableColumnStackMsg'),
+      title: t('tableColumnStackMsg'),
       width: 300,
     },
   ];

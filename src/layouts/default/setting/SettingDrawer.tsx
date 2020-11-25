@@ -18,6 +18,7 @@ import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
 import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
 import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
+import { useI18n } from '/@/hooks/web/useI18n';
 
 import { updateColorWeak, updateGrayMode } from '/@/setup/theme';
 
@@ -55,6 +56,7 @@ interface ThemePickerProps {
 }
 
 const { createSuccessModal, createMessage } = useMessage();
+const { t } = useI18n('layout.setting');
 
 /**
  * Menu type Picker comp
@@ -120,8 +122,8 @@ const FooterButton: FunctionalComponent = () => {
     const { isSuccessRef } = useCopyToClipboard(JSON.stringify(unref(getRootSetting), null, 2));
     unref(isSuccessRef) &&
       createSuccessModal({
-        title: '操作成功',
-        content: '复制成功,请到 src/settings/projectSetting.ts 中修改配置！',
+        title: t('operatingTitle'),
+        content: t('operatingContent'),
       });
   }
   function handleResetSetting() {
@@ -131,7 +133,7 @@ const FooterButton: FunctionalComponent = () => {
       // updateTheme(themeColor);
       updateColorWeak(colorWeak);
       updateGrayMode(grayMode);
-      createMessage.success('重置成功！');
+      createMessage.success(t('resetSuccess'));
     } catch (error) {
       createMessage.error(error);
     }
@@ -149,7 +151,7 @@ const FooterButton: FunctionalComponent = () => {
         {() => (
           <>
             <CopyOutlined class="mr-2" />
-            拷贝
+            {t('copyBtn')}
           </>
         )}
       </Button>
@@ -157,7 +159,7 @@ const FooterButton: FunctionalComponent = () => {
         {() => (
           <>
             <RedoOutlined class="mr-2" />
-            重置
+            {t('resetBtn')}
           </>
         )}
       </Button>
@@ -165,7 +167,7 @@ const FooterButton: FunctionalComponent = () => {
         {() => (
           <>
             <RedoOutlined class="mr-2" />
-            清空缓存并返回登录页
+            {t('clearBtn')}
           </>
         )}
       </Button>
@@ -224,7 +226,7 @@ export default defineComponent({
       return (
         <>
           <MenuTypePicker />
-          {renderSwitchItem('分割菜单', {
+          {renderSwitchItem(t('splitMenu'), {
             handler: (e) => {
               baseHandler(HandlerEnum.MENU_SPLIT, e);
             },
@@ -238,7 +240,7 @@ export default defineComponent({
     function renderTheme() {
       return (
         <>
-          <Divider>{() => '顶栏主题'}</Divider>
+          <Divider>{() => t('headerTheme')}</Divider>
           <ThemePicker
             colorList={HEADER_PRESET_BG_COLOR_LIST}
             def={unref(getHeaderBgColor)}
@@ -246,7 +248,7 @@ export default defineComponent({
               baseHandler(HandlerEnum.HEADER_THEME, e);
             }}
           />
-          <Divider>{() => '菜单主题'}</Divider>
+          <Divider>{() => t('sidebarTheme')}</Divider>
           <ThemePicker
             colorList={SIDE_BAR_BG_COLOR_LIST}
             def={unref(getMenuBgColor)}
@@ -263,56 +265,56 @@ export default defineComponent({
      */
     function renderFeatures() {
       return [
-        renderSwitchItem('侧边菜单拖拽', {
+        renderSwitchItem(t('menuDrag'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_HAS_DRAG, e);
           },
           def: unref(getCanDrag),
           disabled: !unref(getShowMenuRef),
         }),
-        renderSwitchItem('侧边菜单搜索', {
+        renderSwitchItem(t('menuSearch'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_SHOW_SEARCH, e);
           },
           def: unref(getShowSearch),
           disabled: !unref(getShowMenuRef),
         }),
-        renderSwitchItem('侧边菜单手风琴模式', {
+        renderSwitchItem(t('menuAccordion'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_ACCORDION, e);
           },
           def: unref(getAccordion),
           disabled: !unref(getShowMenuRef),
         }),
-        renderSwitchItem('折叠菜单', {
+        renderSwitchItem(t('menuCollapse'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_COLLAPSED, e);
           },
           def: unref(getCollapsed),
           disabled: !unref(getShowMenuRef),
         }),
-        renderSwitchItem('折叠菜单显示名称', {
+        renderSwitchItem(t('collapseMenuDisplayName'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_COLLAPSED_SHOW_TITLE, e);
           },
           def: unref(getCollapsedShowTitle),
           disabled: !unref(getShowMenuRef) || !unref(getCollapsed),
         }),
-        renderSwitchItem('固定header', {
+        renderSwitchItem(t('fixedHeader'), {
           handler: (e) => {
             baseHandler(HandlerEnum.HEADER_FIXED, e);
           },
           def: unref(getHeaderFixed),
           disabled: !unref(getShowHeader),
         }),
-        renderSwitchItem('固定Siderbar', {
+        renderSwitchItem(t('fixedSideBar'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_FIXED, e);
           },
           def: unref(getMenuFixed),
           disabled: !unref(getShowMenuRef),
         }),
-        renderSelectItem('顶部菜单布局', {
+        renderSelectItem(t('topMenuLayout'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_TOP_ALIGN, e);
           },
@@ -320,7 +322,7 @@ export default defineComponent({
           options: topMenuAlignOptions,
           disabled: !unref(getShowHeader) || (!unref(getIsTopMenu) && !unref(getSplit)),
         }),
-        renderSelectItem('菜单折叠按钮', {
+        renderSelectItem(t('menuCollapseButton'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_TRIGGER, e);
           },
@@ -329,7 +331,7 @@ export default defineComponent({
           options: menuTriggerOptions,
         }),
 
-        renderSelectItem('内容区域宽度', {
+        renderSelectItem(t('contentMode'), {
           handler: (e) => {
             baseHandler(HandlerEnum.CONTENT_MODE, e);
           },
@@ -337,9 +339,9 @@ export default defineComponent({
           options: contentModeOptions,
         }),
         <div class={`setting-drawer__cell-item`}>
-          <span>自动锁屏</span>
+          <span>{t('autoScreenLock')}</span>
           <InputNumber
-            style="width:120px"
+            style="width:126px"
             size="small"
             min={0}
             onChange={(e: any) => {
@@ -348,16 +350,16 @@ export default defineComponent({
             defaultValue={appStore.getProjectConfig.lockTime}
             formatter={(value: string) => {
               if (parseInt(value) === 0) {
-                return '0(不自动锁屏)';
+                return `0(${t('notAutoScreenLock')})`;
               }
-              return `${value}分钟`;
+              return `${value}${t('minute')}`;
             }}
           />
         </div>,
         <div class={`setting-drawer__cell-item`}>
-          <span>菜单展开宽度</span>
+          <span>{t('expandedMenuWidth')}</span>
           <InputNumber
-            style="width:120px"
+            style="width:126px"
             size="small"
             max={600}
             min={100}
@@ -375,27 +377,27 @@ export default defineComponent({
 
     function renderContent() {
       return [
-        renderSwitchItem('面包屑', {
+        renderSwitchItem(t('breadcrumb'), {
           handler: (e) => {
             baseHandler(HandlerEnum.SHOW_BREADCRUMB, e);
           },
           def: unref(getShowBreadCrumb),
           disabled: !unref(getShowHeader),
         }),
-        renderSwitchItem('面包屑图标', {
+        renderSwitchItem(t('breadcrumbIcon'), {
           handler: (e) => {
             baseHandler(HandlerEnum.SHOW_BREADCRUMB_ICON, e);
           },
           def: unref(getShowBreadCrumbIcon),
           disabled: !unref(getShowHeader),
         }),
-        renderSwitchItem('标签页', {
+        renderSwitchItem(t('tabs'), {
           handler: (e) => {
             baseHandler(HandlerEnum.TABS_SHOW, e);
           },
           def: unref(getShowMultipleTab),
         }),
-        renderSwitchItem('标签页快捷按钮', {
+        renderSwitchItem(t('tabsQuickBtn'), {
           handler: (e) => {
             baseHandler(HandlerEnum.TABS_SHOW_QUICK, e);
           },
@@ -403,14 +405,14 @@ export default defineComponent({
           disabled: !unref(getShowMultipleTab),
         }),
 
-        renderSwitchItem('左侧菜单', {
+        renderSwitchItem(t('sidebar'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_SHOW_SIDEBAR, e);
           },
           def: unref(getShowMenu),
           disabled: unref(getIsHorizontal),
         }),
-        renderSwitchItem('顶栏', {
+        renderSwitchItem(t('header'), {
           handler: (e) => {
             baseHandler(HandlerEnum.HEADER_SHOW, e);
           },
@@ -422,25 +424,25 @@ export default defineComponent({
           },
           def: unref(getShowLogo),
         }),
-        renderSwitchItem('页脚', {
+        renderSwitchItem(t('footer'), {
           handler: (e) => {
             baseHandler(HandlerEnum.SHOW_FOOTER, e);
           },
           def: unref(getShowFooter),
         }),
-        renderSwitchItem('全屏内容', {
+        renderSwitchItem(t('fullContent'), {
           handler: (e) => {
             baseHandler(HandlerEnum.FULL_CONTENT, e);
           },
           def: unref(getFullContent),
         }),
-        renderSwitchItem('灰色模式', {
+        renderSwitchItem(t('grayMode'), {
           handler: (e) => {
             baseHandler(HandlerEnum.GRAY_MODE, e);
           },
           def: unref(getGrayMode),
         }),
-        renderSwitchItem('色弱模式', {
+        renderSwitchItem(t('colorWeak'), {
           handler: (e) => {
             baseHandler(HandlerEnum.COLOR_WEAK, e);
           },
@@ -452,13 +454,13 @@ export default defineComponent({
     function renderTransition() {
       return (
         <>
-          {renderSwitchItem('顶部进度条', {
+          {renderSwitchItem(t('progress'), {
             handler: (e) => {
               baseHandler(HandlerEnum.OPEN_PROGRESS, e);
             },
             def: unref(getOpenNProgress),
           })}
-          {renderSwitchItem('切换loading', {
+          {renderSwitchItem(t('switchLoading'), {
             handler: (e) => {
               baseHandler(HandlerEnum.OPEN_PAGE_LOADING, e);
             },
@@ -466,14 +468,14 @@ export default defineComponent({
             disabled: !unref(getEnableTransition),
           })}
 
-          {renderSwitchItem('切换动画', {
+          {renderSwitchItem(t('switchAnimation'), {
             handler: (e) => {
               baseHandler(HandlerEnum.OPEN_ROUTE_TRANSITION, e);
             },
             def: unref(getEnableTransition),
           })}
 
-          {renderSelectItem('动画类型', {
+          {renderSelectItem(t('animationType'), {
             handler: (e) => {
               baseHandler(HandlerEnum.ROUTER_TRANSITION, e);
             },
@@ -495,7 +497,7 @@ export default defineComponent({
             {...opt}
             disabled={disabled}
             size="small"
-            style={{ width: '120px' }}
+            style={{ width: '126px' }}
             onChange={(e) => {
               handler && handler(e);
             }}
@@ -517,26 +519,26 @@ export default defineComponent({
             onChange={(e: any) => {
               handler && handler(e);
             }}
-            checkedChildren="开"
-            unCheckedChildren="关"
+            checkedChildren={t('on')}
+            unCheckedChildren={t('off')}
           />
         </div>
       );
     }
 
     return () => (
-      <BasicDrawer {...attrs} title="项目配置" width={300} wrapClassName="setting-drawer">
+      <BasicDrawer {...attrs} title={t('drawerTitle')} width={330} wrapClassName="setting-drawer">
         {{
           default: () => (
             <>
-              <Divider>{() => '导航栏模式'}</Divider>
+              <Divider>{() => t('navMode')}</Divider>
               {renderSidebar()}
               {renderTheme()}
-              <Divider>{() => '界面功能'}</Divider>
+              <Divider>{() => t('interfaceFunction')}</Divider>
               {renderFeatures()}
-              <Divider>{() => '界面显示'}</Divider>
+              <Divider>{() => t('interfaceDisplay')}</Divider>
               {renderContent()}
-              <Divider>{() => '切换动画'}</Divider>
+              <Divider>{() => t('animation')}</Divider>
               {renderTransition()}
               <Divider />
               <FooterButton />

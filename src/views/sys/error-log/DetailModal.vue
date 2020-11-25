@@ -1,15 +1,15 @@
 <template>
-  <BasicModal :width="800" :title="t('sys.errorLog.tableActionDesc')" v-bind="$attrs">
+  <BasicModal :width="800" :title="t('tableActionDesc')" v-bind="$attrs">
     <Description :data="info" @register="register" />
   </BasicModal>
 </template>
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
-  import { useI18n } from 'vue-i18n';
 
   import { BasicModal } from '/@/components/Modal/index';
   import { ErrorInfo } from '/@/store/modules/error';
   import { Description, useDescription } from '/@/components/Description/index';
+  import { useI18n } from '/@/hooks/web/useI18n';
 
   import { getDescSchema } from './data';
 
@@ -23,7 +23,7 @@
       },
     },
     setup() {
-      const { t } = useI18n();
+      const { t } = useI18n('sys.errorLog');
       const [register] = useDescription({
         column: 2,
         schema: getDescSchema(),

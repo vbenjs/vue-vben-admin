@@ -65,10 +65,3 @@ export function useLocale() {
     antConfigLocale: antConfigLocaleRef,
   };
 }
-
-/**
- * For non-setup setting
- */
-export function useExternalI18n() {
-  return getI18n().global;
-}

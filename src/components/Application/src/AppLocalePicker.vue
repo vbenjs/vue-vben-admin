@@ -4,6 +4,7 @@
     :dropMenuList="localeList"
     :selectedKeys="selectedKeys"
     @menuEvent="handleMenuEvent"
+    overlayClassName="app-locale-picker-overlay"
   >
     <span class="app-local-picker">
       <GlobalOutlined class="app-local-picker__icon" />
@@ -30,8 +31,12 @@
         type: Boolean,
         default: true,
       },
+      reload: {
+        type: Boolean,
+        default: false,
+      },
     },
-    setup() {
+    setup(props) {
       const { localeList } = useLocaleSetting();
       const selectedKeys = ref<string[]>([]);
 
@@ -50,6 +55,7 @@
       function toggleLocale(lang: LocaleType | string) {
         changeLocale(lang as LocaleType);
         selectedKeys.value = [lang as string];
+        props.reload && location.reload();
       }
 
       function handleMenuEvent(menu: DropMenu) {
@@ -61,7 +67,13 @@
   });
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
+  .app-locale-picker-overlay {
+    .ant-dropdown-menu-item {
+      min-width: 160px;
+    }
+  }
+
   .app-local-picker {
     display: flex;
     align-items: center;

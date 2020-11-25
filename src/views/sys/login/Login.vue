@@ -4,7 +4,7 @@
     <div class="login-form-wrap">
       <div class="login-form mx-6">
         <div class="login-form__content px-2 py-10">
-          <AppLocalPicker class="login-form__locale" />
+          <AppLocalePicker v-if="showLocale" class="login-form__locale" />
           <header>
             <img :src="logo" class="mr-4" />
             <h1>{{ title }}</h1>
@@ -64,23 +64,23 @@
   import { Checkbox } from 'ant-design-vue';
 
   import Button from '/@/components/Button/index.vue';
-  import { AppLocalPicker } from '/@/components/Application';
+  import { AppLocalePicker } from '/@/components/Application';
   // import { BasicDragVerify, DragVerifyActionType } from '/@/components/Verify/index';
 
   import { userStore } from '/@/store/modules/user';
-  import { useI18n } from 'vue-i18n';
 
   // import { appStore } from '/@/store/modules/app';
   import { useMessage } from '/@/hooks/web/useMessage';
-  import { useGlobSetting } from '/@/hooks/setting';
+  import { useGlobSetting, useProjectSetting } from '/@/hooks/setting';
   import logo from '/@/assets/images/logo.png';
+  import { useI18n } from '/@/hooks/web/useI18n';
 
   export default defineComponent({
     components: {
       //  BasicDragVerify,
       AButton: Button,
       ACheckbox: Checkbox,
-      AppLocalPicker,
+      AppLocalePicker,
     },
     setup() {
       const formRef = ref<any>(null);
@@ -88,8 +88,9 @@
       // const verifyRef = ref<RefInstanceType<DragVerifyActionType>>(null);
 
       const globSetting = useGlobSetting();
+      const { locale } = useProjectSetting();
       const { notification } = useMessage();
-      const { t } = useI18n();
+      const { t } = useI18n('sys.login');
 
       // const openLoginVerifyRef = computed(() => appStore.getProjectConfig.openLoginVerify);
 
@@ -103,10 +104,8 @@
       });
 
       const formRules = reactive({
-        account: [{ required: true, message: t('sys.login.accountPlaceholder'), trigger: 'blur' }],
-        password: [
-          { required: true, message: t('sys.login.passwordPlaceholder'), trigger: 'blur' },
-        ],
+        account: [{ required: true, message: t('accountPlaceholder'), trigger: 'blur' }],
+        password: [{ required: true, message: t('passwordPlaceholder'), trigger: 'blur' }],
         // verify: unref(openLoginVerifyRef) ? [{ required: true, message: '请通过验证码校验' }] : [],
       });
 
@@ -131,8 +130,8 @@
           );
           if (userInfo) {
             notification.success({
-              message: t('sys.login.loginSuccessTitle'),
-              description: `${t('sys.login.loginSuccessDesc')}: ${userInfo.realName}`,
+              message: t('loginSuccessTitle'),
+              description: `${t('loginSuccessDesc')}: ${userInfo.realName}`,
               duration: 3,
             });
           }
@@ -154,6 +153,7 @@
         title: globSetting && globSetting.title,
         logo,
         t,
+        showLocale: locale.show,
       };
     },
   });

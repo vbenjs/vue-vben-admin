@@ -2,6 +2,10 @@ import { DropMenu } from '/@/components/Dropdown/index';
 import { AppRouteRecordRaw } from '/@/router/types';
 import type { TabItem } from '/@/store/modules/tab';
 
+import { useI18n } from '/@/hooks/web/useI18n';
+
+const { t } = useI18n('layout.multipleTab');
+
 export enum TabContentEnum {
   TAB_TYPE,
   EXTRA_TYPE,
@@ -37,40 +41,40 @@ export function getActions() {
   const REFRESH_PAGE: DropMenu = {
     icon: 'ant-design:reload-outlined',
     event: MenuEventEnum.REFRESH_PAGE,
-    text: '刷新',
+    text: t('redo'),
     disabled: false,
   };
   const CLOSE_CURRENT: DropMenu = {
     icon: 'ant-design:close-outlined',
     event: MenuEventEnum.CLOSE_CURRENT,
-    text: '关闭',
+    text: t('close'),
     disabled: false,
     divider: true,
   };
   const CLOSE_LEFT: DropMenu = {
     icon: 'ant-design:pic-left-outlined',
     event: MenuEventEnum.CLOSE_LEFT,
-    text: '关闭左侧',
+    text: t('closeLeft'),
     disabled: false,
     divider: false,
   };
   const CLOSE_RIGHT: DropMenu = {
     icon: 'ant-design:pic-right-outlined',
     event: MenuEventEnum.CLOSE_RIGHT,
-    text: '关闭右侧',
+    text: t('closeRight'),
     disabled: false,
     divider: true,
   };
   const CLOSE_OTHER: DropMenu = {
     icon: 'ant-design:pic-center-outlined',
     event: MenuEventEnum.CLOSE_OTHER,
-    text: '关闭其他',
+    text: t('closeOther'),
     disabled: false,
   };
   const CLOSE_ALL: DropMenu = {
     icon: 'ant-design:line-outlined',
     event: MenuEventEnum.CLOSE_ALL,
-    text: '关闭全部',
+    text: t('closeAll'),
     disabled: false,
   };
   return [REFRESH_PAGE, CLOSE_CURRENT, CLOSE_LEFT, CLOSE_RIGHT, CLOSE_OTHER, CLOSE_ALL];

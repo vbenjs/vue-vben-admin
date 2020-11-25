@@ -9,11 +9,13 @@ import headerImg from '/@/assets/images/header.jpg';
 
 import { appStore } from '/@/store/modules/app';
 import { userStore } from '/@/store/modules/user';
+import { useI18n } from '/@/hooks/web/useI18n';
 
 const prefixCls = 'lock-modal';
 export default defineComponent({
   name: 'LockModal',
   setup(_, { attrs }) {
+    const { t } = useI18n('layout.header');
     const [register, { closeModal }] = useModalInner();
 
     const [registerForm, { validateFields, resetFields }] = useForm({
@@ -21,7 +23,7 @@ export default defineComponent({
       schemas: [
         {
           field: 'password',
-          label: '锁屏密码',
+          label: t('lockScreenPassword'),
           component: 'InputPassword',
           required: true,
         },
@@ -49,7 +51,13 @@ export default defineComponent({
     }
 
     return () => (
-      <BasicModal footer={null} title="锁定屏幕" {...attrs} class={prefixCls} onRegister={register}>
+      <BasicModal
+        footer={null}
+        title={t('lockScreen')}
+        {...attrs}
+        class={prefixCls}
+        onRegister={register}
+      >
         {() => (
           <div class={`${prefixCls}__entry`}>
             <div class={`${prefixCls}__header`}>
@@ -61,10 +69,10 @@ export default defineComponent({
 
             <div class={`${prefixCls}__footer`}>
               <Button type="primary" block class="mt-2" onClick={lock}>
-                {() => '锁屏'}
+                {() => t('lockScreenBtn')}
               </Button>
               <Button block class="mt-2" onClick={lock.bind(null, false)}>
-                {() => ' 不设置密码锁屏'}
+                {() => t('notLockScreenPassword')}
               </Button>
             </div>
           </div>

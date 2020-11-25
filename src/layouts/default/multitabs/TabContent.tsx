@@ -13,6 +13,7 @@ import { useTabDropdown } from './useTabDropdown';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
 import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
+import { useI18n } from '/@/hooks/web/useI18n';
 
 const ExtraContent: FunctionalComponent = () => {
   return (
@@ -56,6 +57,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { t } = useI18n('layout.multipleTab');
     const { getShowMenu } = useMenuSetting();
     const { getShowHeader } = useHeaderSetting();
     const { getShowQuick } = useMultipleTabSetting();
@@ -71,7 +73,10 @@ export default defineComponent({
     const { getDropMenuList, handleMenuEvent } = useTabDropdown(props as TabContentProps);
 
     return () => {
-      const scaleAction = getScaleAction(unref(getIsScale) ? '收起' : '展开', unref(getIsScale));
+      const scaleAction = getScaleAction(
+        unref(getIsScale) ? t('putAway') : t('unfold'),
+        unref(getIsScale)
+      );
       const dropMenuList = unref(getDropMenuList) || [];
 
       const isTab = unref(getIsTab);

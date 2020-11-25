@@ -1,6 +1,7 @@
 import './index.less';
 
 import type { FunctionalComponent } from 'vue';
+import type { Component } from '/@/components/types';
 
 import { defineComponent, unref, computed, ref, nextTick } from 'vue';
 
@@ -27,6 +28,7 @@ import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
 import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 import { useRootSetting } from '/@/hooks/setting/useRootSetting';
+import { useLocaleSetting } from '/@/hooks/setting/useLocaleSetting';
 
 import { useRouter } from 'vue-router';
 
@@ -34,7 +36,8 @@ import { errorStore } from '/@/store/modules/error';
 
 import { PageEnum } from '/@/enums/pageEnum';
 import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
-import { Component } from '/@/components/types';
+import { AppLocalePicker } from '/@/components/Application';
+import { useI18n } from '/@/hooks/web/useI18n';
 
 interface TooltipItemProps {
   title: string;
@@ -65,9 +68,11 @@ export default defineComponent({
     const logoWidthRef = ref(200);
     const logoRef = ref<ComponentRef>(null);
     const { refreshPage } = useTabs();
+    const { t } = useI18n('layout.header');
 
     const { getShowTopMenu, getShowHeaderTrigger, getSplit, getTopMenuAlign } = useMenuSetting();
 
+    const { getShowLocale } = useLocaleSetting();
     const { getUseErrorHandle, getShowBreadCrumbIcon } = useRootSetting();
 
     const {
@@ -160,8 +165,8 @@ export default defineComponent({
 
     function renderActionDefault(Comp: Component | any, event: Fn) {
       return (
-        <div class={`layout-header__action-item`} onClick={event}>
-          <Comp class={`layout-header__action-icon`} />
+        <div class="layout-header__action-item" onClick={event}>
+          <Comp class="layout-header__action-icon" />
         </div>
       );
     }
@@ -170,7 +175,7 @@ export default defineComponent({
       return (
         <div class={`layout-header__action`}>
           {unref(getUseErrorHandle) && (
-            <TooltipItem title="错误日志">
+            <TooltipItem title={t('layout.header.tooltipErrorLog')}>
               {() => (
                 <Badge
                   count={errorStore.getErrorListCountState}
@@ -185,23 +190,31 @@ export default defineComponent({
           )}
 
           {unref(getUseLockPage) && (
-            <TooltipItem title="锁定屏幕">
+            <TooltipItem title={t('layout.header.tooltipLock')}>
               {() => renderActionDefault(LockOutlined, handleLockPage)}
             </TooltipItem>
           )}
 
           {unref(getShowNotice) && (
-            <TooltipItem title="消息通知">{() => <NoticeAction />}</TooltipItem>
+            <TooltipItem title={t('layout.header.tooltipNotify')}>
+              {() => <NoticeAction />}
+            </TooltipItem>
           )}
 
           {unref(getShowRedo) && (
-            <TooltipItem title="刷新">
+            <TooltipItem title={t('layout.header.tooltipRedo')}>
               {() => renderActionDefault(RedoOutlined, refreshPage)}
             </TooltipItem>
           )}
 
           {unref(getShowFullScreen) && (
-            <TooltipItem title={unref(isFullscreenRef) ? '退出全屏' : '全屏'}>
+            <TooltipItem
+              title={
+                unref(isFullscreenRef)
+                  ? t('layout.header.tooltipExitFull')
+                  : t('layout.header.tooltipEntryFull')
+              }
+            >
               {() => {
                 const Icon = !unref(isFullscreenRef) ? (
                   <FullscreenOutlined />
@@ -212,7 +225,14 @@ export default defineComponent({
               }}
             </TooltipItem>
           )}
-          <UserDropdown class={`layout-header__user-dropdown`} />
+          <UserDropdown class="layout-header__user-dropdown" />
+          {unref(getShowLocale) && (
+            <AppLocalePicker
+              reload={true}
+              showText={false}
+              class="layout-header__action-item locale"
+            />
+          )}
         </div>
       );
     }

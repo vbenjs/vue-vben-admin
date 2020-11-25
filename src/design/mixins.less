@@ -16,33 +16,33 @@
     color: @color;
   }
 }
-// 文本截断
+// Text truncation
 .text-truncate() {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-/* 强制不换行 */
+/* Force no line break */
 .word-nowrap() {
   word-wrap: normal;
   white-space: nowrap;
 }
 
-/* 强制换行 */
+/* Force line break */
 .break-all() {
   word-break: break-all;
   word-wrap: break-word;
   white-space: normal;
 }
 
-// 禁止选中
+// Prohibit selection
 .unselect() {
   cursor: pointer;
   user-select: none;
 }
 
-/* 适用于webkit内核和移动端 */
+/* Suitable for webkit core and mobile */
 .ellipsis-multiple(@num: 1) {
   display: -webkit-box;
   overflow: hidden;

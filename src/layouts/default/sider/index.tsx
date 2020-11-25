@@ -1,6 +1,6 @@
 import './index.less';
 
-import { computed, defineComponent, ref, unref, watch, nextTick } from 'vue';
+import { computed, defineComponent, ref, unref, watch, nextTick, CSSProperties } from 'vue';
 
 import { Layout } from 'ant-design-vue';
 import LayoutMenu from '../menu';
@@ -91,17 +91,19 @@ export default defineComponent({
       }
     );
 
-    const getHiddenDomStyle = computed(() => {
-      const width = `${unref(getRealWidth)}px`;
-      return {
-        width: width,
-        overflow: 'hidden',
-        flex: `0 0 ${width}`,
-        'max-width': width,
-        'min-width': width,
-        transition: 'all 0.2s',
-      };
-    });
+    const getHiddenDomStyle = computed(
+      (): CSSProperties => {
+        const width = `${unref(getRealWidth)}px`;
+        return {
+          width: width,
+          overflow: 'hidden',
+          flex: `0 0 ${width}`,
+          maxWidth: width,
+          minWidth: width,
+          transition: 'all 0.2s',
+        };
+      }
+    );
 
     function renderDefault() {
       return (

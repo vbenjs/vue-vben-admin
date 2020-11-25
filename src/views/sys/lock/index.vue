@@ -6,7 +6,7 @@
         <p class="lock-page__header-name">{{ realName }}</p>
       </div>
       <BasicForm @register="register" v-if="!getIsNotPwd" />
-      <Alert v-if="errMsgRef" type="error" :message="t('sys.lock.alert')" banner />
+      <Alert v-if="errMsgRef" type="error" :message="t('alert')" banner />
       <div class="lock-page__footer">
         <a-button type="default" class="mt-2 mr-2" @click="goLogin" v-if="!getIsNotPwd">
           {{ t('sys.lock.backToLogin') }}
@@ -26,8 +26,7 @@
 
   import { userStore } from '/@/store/modules/user';
   import { appStore } from '/@/store/modules/app';
-
-  import { useI18n } from 'vue-i18n';
+  import { useI18n } from '/@/hooks/web/useI18n';
 
   export default defineComponent({
     name: 'LockPage',
@@ -37,7 +36,7 @@
       const loadingRef = ref(false);
       const errMsgRef = ref(false);
 
-      const { t } = useI18n();
+      const { t } = useI18n('sys.lock');
       const [register, { validateFields }] = useForm({
         showActionButtonGroup: false,
         schemas: [
@@ -47,7 +46,7 @@
             component: 'InputPassword',
             componentProps: {
               style: { width: '100%' },
-              placeholder: t('sys.lock.placeholder'),
+              placeholder: t('placeholder'),
             },
             rules: [{ required: true }],
           },

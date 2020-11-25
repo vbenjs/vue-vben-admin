@@ -1,5 +1,5 @@
 // components
-import { Dropdown, Menu, Divider } from 'ant-design-vue';
+import { Dropdown, Menu } from 'ant-design-vue';
 
 import { defineComponent, computed, unref } from 'vue';
 
@@ -16,6 +16,7 @@ import { openWindow } from '/@/utils';
 
 import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
 import { FunctionalComponent } from 'vue';
+import { useI18n } from '/@/hooks/web/useI18n';
 
 type MenuEvent = 'loginOut' | 'doc';
 interface MenuItemProps {
@@ -43,6 +44,7 @@ const MenuItem: FunctionalComponent<MenuItemProps> = (props) => {
 export default defineComponent({
   name: 'UserDropdown',
   setup() {
+    const { t } = useI18n('layout.header');
     const { getShowDoc } = useHeaderSetting();
 
     const getUserInfo = computed(() => {
@@ -89,9 +91,14 @@ export default defineComponent({
         <Menu onClick={handleMenuClick}>
           {() => (
             <>
-              {showDoc && <MenuItem key="doc" text="文档" icon="gg:loadbar-doc" />}
-              {showDoc && <Divider />}
-              <MenuItem key="loginOut" text="退出系统" icon="ant-design:poweroff-outlined" />
+              {showDoc && <MenuItem key="doc" text={t('dropdownItemDoc')} icon="gg:loadbar-doc" />}
+              {/* @ts-ignore */}
+              {showDoc && <Menu.Divider />}
+              <MenuItem
+                key="loginOut"
+                text={t('dropdownItemLoginOut')}
+                icon="ant-design:poweroff-outlined"
+              />
             </>
           )}
         </Menu>
@@ -100,7 +107,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <Dropdown placement="bottomLeft">
+        <Dropdown placement="bottomLeft" overlayClassName="app-layout-header-user-dropdown-overlay">
           {{
             default: () => renderSlotsDefault(),
             overlay: () => renderSlotOverlay(),

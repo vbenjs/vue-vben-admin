@@ -19,10 +19,20 @@ export function useLocaleSetting() {
   // get Fallback Locales
   const getFallbackLocale = computed((): string => unref(getLocale).fallback);
 
+  const getShowLocale = computed(() => unref(getLocale).show);
+
   // Set locale configuration
   function setLocale(locale: Partial<LocaleSetting>): void {
     appStore.commitProjectConfigState({ locale });
   }
 
-  return { getLocale, getLang, localeList, setLocale, getAvailableLocales, getFallbackLocale };
+  return {
+    getLocale,
+    getLang,
+    localeList,
+    setLocale,
+    getShowLocale,
+    getAvailableLocales,
+    getFallbackLocale,
+  };
 }

@@ -1,9 +1,12 @@
-import { ContentEnum, RouterTransitionEnum, ThemeEnum } from '/@/enums/appEnum';
+import { ContentEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 import { MenuModeEnum, MenuTypeEnum, TopMenuAlignEnum, TriggerEnum } from '/@/enums/menuEnum';
 
 import mixImg from '/@/assets/images/layout/menu-mix.svg';
 import sidebarImg from '/@/assets/images/layout/menu-sidebar.svg';
 import menuTopImg from '/@/assets/images/layout/menu-top.svg';
+import { useI18n } from '/@/hooks/web/useI18n';
+
+const { t } = useI18n('layout.setting');
 
 export enum HandlerEnum {
   CHANGE_LAYOUT,
@@ -45,55 +48,44 @@ export enum HandlerEnum {
   OPEN_ROUTE_TRANSITION,
 }
 
-export const themeOptions = [
-  {
-    value: ThemeEnum.LIGHT,
-    label: '亮色',
-  },
-  {
-    value: ThemeEnum.DARK,
-    label: '暗色',
-  },
-];
-
 export const contentModeOptions = [
   {
     value: ContentEnum.FULL,
-    label: '流式',
+    label: t('contentModeFull'),
   },
   {
     value: ContentEnum.FIXED,
-    label: '定宽',
+    label: t('contentModeFixed'),
   },
 ];
 
 export const topMenuAlignOptions = [
   {
     value: TopMenuAlignEnum.CENTER,
-    label: '居中',
+    label: t('topMenuAlignRight'),
   },
   {
     value: TopMenuAlignEnum.START,
-    label: '居左',
+    label: t('topMenuAlignLeft'),
   },
   {
     value: TopMenuAlignEnum.END,
-    label: '居右',
+    label: t('topMenuAlignCenter'),
   },
 ];
 
 export const menuTriggerOptions = [
   {
     value: TriggerEnum.NONE,
-    label: '不显示',
+    label: t('menuTriggerNone'),
   },
   {
     value: TriggerEnum.FOOTER,
-    label: '底部',
+    label: t('menuTriggerBottom'),
   },
   {
     value: TriggerEnum.HEADER,
-    label: '顶部',
+    label: t('menuTriggerTop'),
   },
 ];
 
@@ -112,20 +104,20 @@ export const routerTransitionOptions = [
 
 export const menuTypeList = [
   {
-    title: '左侧菜单模式',
+    title: t('menuTypeSidebar'),
     mode: MenuModeEnum.INLINE,
     type: MenuTypeEnum.SIDEBAR,
     src: sidebarImg,
   },
   {
-    title: '混合模式',
+    title: t('menuTypeMix'),
     mode: MenuModeEnum.INLINE,
     type: MenuTypeEnum.MIX,
     src: mixImg,
   },
 
   {
-    title: '顶部菜单模式',
+    title: t('menuTypeTopMenu'),
     mode: MenuModeEnum.HORIZONTAL,
     type: MenuTypeEnum.TOP_MENU,
     src: menuTopImg,

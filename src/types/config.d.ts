@@ -51,6 +51,7 @@ export interface HeaderSetting {
 }
 
 export interface LocaleSetting {
+  show: boolean;
   // Current language
   lang: LocaleType;
   // default language

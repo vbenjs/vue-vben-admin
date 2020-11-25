@@ -35,7 +35,7 @@
 
   import { useModal } from '/@/components/Modal/index';
   import { useMessage } from '/@/hooks/web/useMessage';
-  import { useI18n } from 'vue-i18n';
+  import { useI18n } from '/@/hooks/web/useI18n';
 
   import { errorStore, ErrorInfo } from '/@/store/modules/error';
 
@@ -53,7 +53,7 @@
       const rowInfoRef = ref<ErrorInfo>();
       const imgListRef = ref<string[]>([]);
 
-      const { t } = useI18n();
+      const { t } = useI18n('sys.errorLog');
 
       const [register, { setTableData }] = useTable({
         title: t('sys.errorLog.tableTitle'),
@@ -80,7 +80,7 @@
       );
       const { createMessage } = useMessage();
       if (isDevMode()) {
-        createMessage.info(t('sys.errorLog.enableMessage'));
+        createMessage.info(t('enableMessage'));
       }
       // 查看详情
       function handleDetail(row: ErrorInfo) {
