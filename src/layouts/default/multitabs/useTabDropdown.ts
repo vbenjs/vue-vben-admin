@@ -1,11 +1,11 @@
 import type { AppRouteRecordRaw } from '/@/router/types';
-import type { TabContentProps } from './tab.data';
+import type { TabContentProps } from './data';
 import type { Ref } from 'vue';
 import type { TabItem } from '/@/store/modules/tab';
 import type { DropMenu } from '/@/components/Dropdown';
 
 import { computed, unref } from 'vue';
-import { TabContentEnum, MenuEventEnum, getActions } from './tab.data';
+import { TabContentEnum, MenuEventEnum, getActions } from './data';
 import { tabStore } from '/@/store/modules/tab';
 import { appStore } from '/@/store/modules/app';
 import { PageEnum } from '/@/enums/pageEnum';
@@ -15,9 +15,7 @@ import { useTabs, isInitUseTab } from '/@/hooks/web/useTabs';
 import { RouteLocationRaw } from 'vue-router';
 
 const { initTabFn } = useTabs();
-/**
- * @description: 右键下拉
- */
+
 export function useTabDropdown(tabContentProps: TabContentProps) {
   const { currentRoute } = router;
   const redo = useRedo();
@@ -30,26 +28,24 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
       : ((unref(currentRoute) as any) as AppRouteRecordRaw);
   });
 
-  // 当前tab列表
-  const getTabsState = computed(() => {
-    return tabStore.getTabsState;
-  });
+  // Current tab list
+  const getTabsState = computed(() => tabStore.getTabsState);
 
   /**
-   * @description: 下拉列表
+   * @description: drop-down list
    */
   const getDropMenuList = computed(() => {
     const dropMenuList = getActions();
-    // 重置为初始状态
+    // Reset to initial state
     for (const item of dropMenuList) {
       item.disabled = false;
     }
 
-    // 没有tab
+    // No tab
     if (!unref(getTabsState) || unref(getTabsState).length <= 0) {
       return dropMenuList;
     } else if (unref(getTabsState).length === 1) {
-      // 只有一个tab
+      // Only one tab
       for (const item of dropMenuList) {
         if (item.event !== MenuEventEnum.REFRESH_PAGE) {
           item.disabled = true;
@@ -57,22 +53,20 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
       }
       return dropMenuList;
     }
-    if (!unref(getCurrentTab)) {
-      return;
-    }
+    if (!unref(getCurrentTab)) return;
     const { meta, path } = unref(getCurrentTab);
-    // console.log(unref(getCurrentTab));
 
-    // 刷新按钮
+    // Refresh button
     const curItem = tabStore.getCurrentContextMenuState;
     const index = tabStore.getCurrentContextMenuIndexState;
     const refreshDisabled = curItem ? curItem.path !== path : true;
-    // 关闭左侧
+    // Close left
     const closeLeftDisabled = index === 0;
 
-    // 关闭右侧
+    // Close right
     const closeRightDisabled = index === unref(getTabsState).length - 1;
-    // 当前为固定tab
+    // Currently fixed tab
+    // TODO PERf
     dropMenuList[0].disabled = unref(isTabsRef) ? refreshDisabled : false;
     if (meta && meta.affix) {
       dropMenuList[1].disabled = true;
@@ -84,7 +78,7 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
   });
 
   /**
-   * @description: 关闭所有页面时，跳转页面
+   * @description: Jump to page when closing all pages
    */
   function gotoPage() {
     const len = unref(getTabsState).length;
@@ -99,14 +93,14 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
         toPath = p;
       }
     }
-    // 跳到当前页面报错
+    // Jump to the current page and report an error
     path !== toPath && go(toPath as PageEnum, true);
   }
 
   function isGotoPage(currentTab?: TabItem) {
     const { path } = unref(currentRoute);
     const currentPath = (currentTab || unref(getCurrentTab)).path;
-    // 不是当前tab，关闭左侧/右侧时，需跳转页面
+    // Not the current tab, when you close the left/right side, you need to jump to the page
     if (path !== currentPath) {
       go(currentPath as PageEnum, true);
     }
@@ -117,25 +111,31 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
     } catch (error) {}
     redo();
   }
+
   function closeAll() {
     tabStore.commitCloseAllTab();
     gotoPage();
   }
+
   function closeLeft(tabItem?: TabItem) {
     tabStore.closeLeftTabAction(tabItem || unref(getCurrentTab));
     isGotoPage(tabItem);
   }
+
   function closeRight(tabItem?: TabItem) {
     tabStore.closeRightTabAction(tabItem || unref(getCurrentTab));
     isGotoPage(tabItem);
   }
+
   function closeOther(tabItem?: TabItem) {
     tabStore.closeOtherTabAction(tabItem || unref(getCurrentTab));
     isGotoPage(tabItem);
   }
+
   function closeCurrent(tabItem?: TabItem) {
     closeTab(unref(tabItem || unref(getCurrentTab)));
   }
+
   function scaleScreen() {
     const {
       headerSetting: { show: showHeader },
@@ -159,7 +159,7 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
     });
   }
 
-  // 处理右键事件
+  // Handle right click event
   function handleMenuEvent(menu: DropMenu): void {
     const { event } = menu;
 
@@ -168,76 +168,74 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
         scaleScreen();
         break;
       case MenuEventEnum.REFRESH_PAGE:
-        // 刷新页面
+        // refresh page
         refreshPage();
         break;
-      // 关闭当前
+      // Close current
       case MenuEventEnum.CLOSE_CURRENT:
         closeCurrent();
         break;
-      // 关闭左侧
+      // Close left
       case MenuEventEnum.CLOSE_LEFT:
         closeLeft();
         break;
-      // 关闭右侧
+      // Close right
       case MenuEventEnum.CLOSE_RIGHT:
         closeRight();
         break;
-      // 关闭其他
+      // Close other
       case MenuEventEnum.CLOSE_OTHER:
         closeOther();
         break;
-      // 关闭其他
+      // Close all
       case MenuEventEnum.CLOSE_ALL:
         closeAll();
-        break;
-      default:
         break;
     }
   }
   return { getDropMenuList, handleMenuEvent };
 }
+
+export function getObj(tabItem: TabItem) {
+  const { params, path, query } = tabItem;
+  return {
+    params: params || {},
+    path,
+    query: query || {},
+  };
+}
+
 export function closeTab(closedTab: TabItem | AppRouteRecordRaw) {
   const { currentRoute, replace } = router;
-  // 当前tab列表
-  const getTabsState = computed(() => {
-    return tabStore.getTabsState;
-  });
+  // Current tab list
+  const getTabsState = computed(() => tabStore.getTabsState);
 
   const { path } = unref(currentRoute);
   if (path !== closedTab.path) {
-    // 关闭的不是激活tab
+    // Closed is not the activation tab
     tabStore.commitCloseTab(closedTab);
     return;
   }
-  // 关闭的为激活atb
+
+  // Closed is activated atb
   let toObj: RouteLocationRaw = {};
+
   const index = unref(getTabsState).findIndex((item) => item.path === path);
 
-  // 如果当前为最左边tab
+  // If the current is the leftmost tab
   if (index === 0) {
-    // 只有一个tab，则跳转至首页，否则跳转至右tab
+    // There is only one tab, then jump to the homepage, otherwise jump to the right tab
     if (unref(getTabsState).length === 1) {
       toObj = PageEnum.BASE_HOME;
     } else {
-      //  跳转至右边tab
+      //  Jump to the right tab
       const page = unref(getTabsState)[index + 1];
-      const { params, path, query } = page;
-      toObj = {
-        params,
-        path,
-        query,
-      };
+      toObj = getObj(page);
     }
   } else {
-    // 跳转至左边tab
+    // Close the current tab
     const page = unref(getTabsState)[index - 1];
-    const { params, path, query } = page;
-    toObj = {
-      params: params || {},
-      path,
-      query: query || {},
-    };
+    toObj = getObj(page);
   }
   const route = (unref(currentRoute) as unknown) as AppRouteRecordRaw;
   tabStore.commitCloseTab(route);

@@ -30,7 +30,7 @@ export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConf
       };
 
     case HandlerEnum.MENU_HAS_DRAG:
-      return { menuSetting: { hasDrag: value } };
+      return { menuSetting: { canDrag: value } };
 
     case HandlerEnum.MENU_ACCORDION:
       return { menuSetting: { accordion: value } };

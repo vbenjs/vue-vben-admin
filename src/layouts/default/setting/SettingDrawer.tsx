@@ -203,7 +203,7 @@ export default defineComponent({
       getMenuFixed,
       getCollapsed,
       getShowSearch,
-      getHasDrag,
+      getCanDrag,
       getTopMenuAlign,
       getAccordion,
       getMenuWidth,
@@ -267,7 +267,7 @@ export default defineComponent({
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_HAS_DRAG, e);
           },
-          def: unref(getHasDrag),
+          def: unref(getCanDrag),
           disabled: !unref(getShowMenuRef),
         }),
         renderSwitchItem('侧边菜单搜索', {

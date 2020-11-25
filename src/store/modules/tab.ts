@@ -176,6 +176,14 @@ class Tab extends VuexModule {
   }
 
   @Mutation
+  commitSortTabs({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }): void {
+    const currentTab = this.tabsState[oldIndex];
+
+    this.tabsState.splice(oldIndex, 1);
+    this.tabsState.splice(newIndex, 0, currentTab);
+  }
+
+  @Mutation
   closeMultipleTab({ pathList, nameList }: { pathList: string[]; nameList: string[] }): void {
     this.tabsState = toRaw(this.tabsState).filter((item) => !pathList.includes(item.fullPath));
     if (unref(getOpenKeepAliveRef) && nameList) {

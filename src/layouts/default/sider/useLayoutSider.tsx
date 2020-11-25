@@ -82,7 +82,7 @@ export function useTrigger() {
  * @param dragBarRef
  */
 export function useDragLine(siderRef: Ref<any>, dragBarRef: Ref<any>) {
-  const { getMiniWidthNumber, getCollapsed, setMenuSetting, getHasDrag } = useMenuSetting();
+  const { getMiniWidthNumber, getCollapsed, setMenuSetting, getCanDrag } = useMenuSetting();
 
   const getDragBarStyle = computed(() => {
     if (unref(getCollapsed)) {
@@ -101,7 +101,7 @@ export function useDragLine(siderRef: Ref<any>, dragBarRef: Ref<any>) {
   function renderDragLine() {
     return (
       <div
-        class={[`layout-sidebar__darg-bar`, !unref(getHasDrag) ? 'hide' : '']}
+        class={[`layout-sidebar__darg-bar`, { hide: !unref(getCanDrag) }]}
         style={unref(getDragBarStyle)}
         ref={dragBarRef}
       />

@@ -2,11 +2,12 @@
 
 .multiple-tabs {
   z-index: 10;
-  height: @multiple-height+2;
+  height: @multiple-height + 2;
   padding: 0 0 2px 0;
-  line-height: @multiple-height+2;
+  margin-left: -1px;
+  line-height: @multiple-height + 2;
   background: @white;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 2px 0 rgba(29, 35, 41, 0.05);
 
   .ant-tabs-small {
     height: @multiple-height;
@@ -32,19 +33,25 @@
         color: @text-color-call-out;
         background: @white;
         border: 1px solid darken(@border-color-light, 8%);
-        border-radius: none !important;
         transition: none;
 
+        &:hover {
+          .ant-tabs-close-x {
+            opacity: 1;
+          }
+        }
+
         .ant-tabs-close-x {
-          width: 12px;
+          width: 8px;
           height: 12px;
           font-size: 12px;
           color: inherit;
+          opacity: 0;
           transition: none;
 
           &:hover {
             svg {
-              width: 0.8em;
+              width: 0.75em;
             }
           }
         }
@@ -61,12 +68,26 @@
       }
 
       .ant-tabs-tab-active {
+        position: relative;
+        padding-left: 26px;
         color: @white;
         background: fade(@primary-color, 100%);
         border: 0;
 
         &::before {
-          display: none;
+          position: absolute;
+          top: calc(50% - 3px);
+          left: 8px;
+          width: 6px;
+          height: 6px;
+          background: #fff;
+          border-radius: 50%;
+          content: '';
+          transition: none;
+        }
+
+        .ant-tabs-close-x {
+          opacity: 1;
         }
 
         svg {
@@ -78,6 +99,10 @@
 
     .ant-tabs-nav > div:nth-child(1) {
       padding: 0 10px;
+
+      .ant-tabs-tab {
+        margin-right: 3px !important;
+      }
     }
   }
 
@@ -111,7 +136,10 @@
     text-align: center;
     cursor: pointer;
     border-left: 1px solid #eee;
-    // box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+
+    &:hover {
+      color: @text-color-base;
+    }
 
     span[role='img'] {
       transform: rotate(90deg);

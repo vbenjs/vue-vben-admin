@@ -33,7 +33,7 @@ export function useMenuSetting() {
 
   const getMenuBgColor = computed(() => unref(getMenuSetting).bgColor);
 
-  const getHasDrag = computed(() => unref(getMenuSetting).hasDrag);
+  const getCanDrag = computed(() => unref(getMenuSetting).canDrag);
 
   const getAccordion = computed(() => unref(getMenuSetting).accordion);
 
@@ -117,7 +117,7 @@ export function useMenuSetting() {
     getTrigger,
     getSplit,
     getMenuTheme,
-    getHasDrag,
+    getCanDrag,
     getIsHorizontal,
     getShowSearch,
     getCollapsedShowTitle,

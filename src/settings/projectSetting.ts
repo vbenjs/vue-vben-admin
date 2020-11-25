@@ -83,7 +83,7 @@ const setting: ProjectConfig = {
     collapsedShowTitle: false,
     // Whether it can be dragged
     // Only limited to the opening of the left menu, the mouse has a drag bar on the right side of the menu
-    hasDrag: false,
+    canDrag: false,
     // Whether to show no dom
     show: true,
     // Whether to show dom
@@ -114,6 +114,8 @@ const setting: ProjectConfig = {
   multiTabsSetting: {
     // Turn on
     show: true,
+    // Is it possible to drag and drop sorting tabs
+    canDrag: true,
     // Turn on quick actions
     showQuick: true,
     // Maximum number of tab cache

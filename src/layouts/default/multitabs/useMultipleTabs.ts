@@ -1,9 +1,10 @@
-import { toRaw } from 'vue';
+import { toRaw, ref } from 'vue';
 import router from '/@/router';
 import { AppRouteRecordRaw } from '/@/router/types';
 import { TabItem, tabStore } from '/@/store/modules/tab';
 
 export function initAffixTabs() {
+  const affixList = ref<TabItem[]>([]);
   /**
    * @description: Filter all fixed routes
    */
@@ -23,13 +24,16 @@ export function initAffixTabs() {
    */
   function addAffixTabs(): void {
     const affixTabs = filterAffixTabs((router.getRoutes() as unknown) as AppRouteRecordRaw[]);
+    affixList.value = affixTabs;
     for (const tab of affixTabs) {
       tabStore.commitAddTab(tab);
     }
   }
+
   let isAddAffix = false;
   if (!isAddAffix) {
     addAffixTabs();
     isAddAffix = true;
   }
+  return affixList.value.map((item) => item.meta?.title).filter(Boolean);
 }

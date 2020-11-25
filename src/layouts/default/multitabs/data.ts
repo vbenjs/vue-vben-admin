@@ -6,11 +6,13 @@ export enum TabContentEnum {
   TAB_TYPE,
   EXTRA_TYPE,
 }
+
 export interface TabContentProps {
   tabItem: TabItem | AppRouteRecordRaw;
   type?: TabContentEnum;
   trigger?: Array<'click' | 'hover' | 'contextmenu'>;
 }
+
 /**
  * @description: 右键：下拉菜单文字
  */
