@@ -1,6 +1,7 @@
 import type { ProjectConfig } from '/@/types/config';
 
 import { MenuTypeEnum, MenuModeEnum, TriggerEnum } from '/@/enums/menuEnum';
+import { CacheTypeEnum } from '/@/enums/cacheEnum';
 import { ContentEnum, PermissionModeEnum, ThemeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 import { primaryColor } from '../../build/config/lessModifyVars';
 import { isProdMode } from '/@/utils/env';
@@ -12,6 +13,9 @@ const setting: ProjectConfig = {
 
   // Permission mode
   permissionMode: PermissionModeEnum.ROLE,
+
+  // Permission-related cache is stored in sessionStorage or localStorage
+  permissionCacheType: CacheTypeEnum.LOCAL,
 
   // color
   // TODO Theme color
@@ -130,7 +134,7 @@ const setting: ProjectConfig = {
     openPageLoading: true,
 
     // Whether to open the top progress bar
-    openNProgress: true,
+    openNProgress: false,
   },
 
   // Whether to enable KeepAlive cache is best to close during development, otherwise the cache needs to be cleared every time

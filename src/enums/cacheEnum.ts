@@ -18,3 +18,8 @@ export const BASE_LOCAL_CACHE_KEY = 'LOCAL__CACHE__KEY__';
 
 // base global session key
 export const BASE_SESSION_CACHE_KEY = 'SESSION__CACHE__KEY__';
+
+export enum CacheTypeEnum {
+  SESSION,
+  LOCAL,
+}

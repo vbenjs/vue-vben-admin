@@ -26,7 +26,7 @@ export interface LockInfo {
   isLock: boolean;
 }
 
-let timeId: ReturnType<typeof setTimeout>;
+let timeId: TimeoutHandle;
 const NAME = 'app';
 hotModuleUnregisterModule(NAME);
 @Module({ dynamic: true, namespaced: true, store, name: NAME })

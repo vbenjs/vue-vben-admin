@@ -1,6 +1,6 @@
-// 左侧菜单, 顶部菜单
 import { MenuTypeEnum, MenuModeEnum, TriggerEnum } from '/@/enums/menuEnum';
 import { ContentEnum, PermissionModeEnum, ThemeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
+import { CacheTypeEnum } from '/@/enums/cacheEnum';
 import type { LocaleType } from '/@/locales/types';
 
 export interface MenuSetting {
@@ -75,6 +75,8 @@ export interface TransitionSetting {
 
 export interface ProjectConfig {
   locale: LocaleSetting;
+
+  permissionCacheType: CacheTypeEnum;
 
   // 是否显示配置按钮
   showSettingButton: boolean;

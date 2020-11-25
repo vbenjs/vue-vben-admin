@@ -7,7 +7,7 @@ import { appStore } from '/@/store/modules/app';
 export function useTransitionSetting() {
   const getTransitionSetting = computed(() => appStore.getProjectConfig.transitionSetting);
 
-  const getEnableTransition = computed(() => unref(getTransitionSetting).enable);
+  const getEnableTransition = computed(() => unref(getTransitionSetting)?.enable);
 
   const getOpenNProgress = computed(() => unref(getTransitionSetting)?.openNProgress);
 

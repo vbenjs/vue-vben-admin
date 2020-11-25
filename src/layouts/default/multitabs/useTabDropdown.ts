@@ -203,6 +203,7 @@ export function closeTab(closedTab: TabItem | AppRouteRecordRaw) {
   const getTabsState = computed(() => {
     return tabStore.getTabsState;
   });
+
   const { path } = unref(currentRoute);
   if (path !== closedTab.path) {
     // 关闭的不是激活tab

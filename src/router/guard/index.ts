@@ -14,9 +14,9 @@ import { AxiosCanceler } from '/@/utils/http/axios/axiosCancel';
 
 import { tabStore } from '/@/store/modules/tab';
 
+const { closeMessageOnSwitch, removeAllHttpPending } = useProjectSetting();
 const globSetting = useGlobSetting();
 export function createGuard(router: Router) {
-  const { closeMessageOnSwitch, removeAllHttpPending } = useProjectSetting();
   let axiosCanceler: AxiosCanceler | null;
   if (removeAllHttpPending) {
     axiosCanceler = new AxiosCanceler();

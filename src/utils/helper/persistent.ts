@@ -29,8 +29,12 @@ function initCache() {
 initCache();
 
 export function setLocal(key: string, value: any, immediate = false) {
-  cacheStore.local[BASE_LOCAL_CACHE_KEY] = cacheStore.local[BASE_LOCAL_CACHE_KEY] || {};
+  const local = ls.get(BASE_LOCAL_CACHE_KEY)?.[BASE_LOCAL_CACHE_KEY] || {};
+
+  cacheStore.local[BASE_LOCAL_CACHE_KEY] =
+    { ...local, ...cacheStore.local[BASE_LOCAL_CACHE_KEY] } || {};
   cacheStore.local[BASE_LOCAL_CACHE_KEY][key] = value;
+
   if (immediate) {
     ls.set(BASE_LOCAL_CACHE_KEY, cacheStore.local);
   }
@@ -50,16 +54,21 @@ export function removeLocal(key: string) {
   }
 }
 
-export function clearLocal() {
+export function clearLocal(immediate = false) {
   cacheStore.local = {};
+  immediate && ls.remove(BASE_LOCAL_CACHE_KEY);
 }
 
 export function setSession(key: string, value: any, immediate = false) {
-  cacheStore.session[BASE_SESSION_CACHE_KEY] = cacheStore.session[BASE_SESSION_CACHE_KEY] || {};
+  const session = ss.get(BASE_SESSION_CACHE_KEY)?.[BASE_SESSION_CACHE_KEY] || {};
+
+  cacheStore.session[BASE_SESSION_CACHE_KEY] =
+    { ...session, ...cacheStore.session[BASE_SESSION_CACHE_KEY] } || {};
+
   cacheStore.session[BASE_SESSION_CACHE_KEY][key] = value;
+
   if (immediate) {
-    const cache = cacheStore.session;
-    ss.set(BASE_SESSION_CACHE_KEY, cache);
+    ss.set(BASE_SESSION_CACHE_KEY, cacheStore.session);
   }
 }
 
@@ -77,8 +86,9 @@ export function getSession<T>(key: string): T | null {
   }
 }
 
-export function clearSession() {
+export function clearSession(immediate = false) {
   cacheStore.session = {};
+  immediate && ss.remove(BASE_SESSION_CACHE_KEY);
 }
 
 export function clearAll() {
@@ -86,14 +96,17 @@ export function clearAll() {
   clearSession();
 }
 
+export function persistentCache() {
+  const localCache = cacheStore.local;
+  const sessionCache = cacheStore.session;
+  ls.set(BASE_LOCAL_CACHE_KEY, localCache);
+  ss.set(BASE_SESSION_CACHE_KEY, sessionCache);
+}
+
 (() => {
   // /** Write to local before closing window */
   window.addEventListener('beforeunload', () => {
-    const localCache = cacheStore.local;
-    const sessionCache = cacheStore.session;
-
-    ls.set(BASE_LOCAL_CACHE_KEY, localCache);
-    ss.set(BASE_SESSION_CACHE_KEY, sessionCache);
+    persistentCache();
   });
 
   function storageChange(e: any) {

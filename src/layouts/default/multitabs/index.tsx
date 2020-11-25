@@ -1,10 +1,11 @@
+import './index.less';
+
 import type { TabContentProps } from './tab.data';
 import type { TabItem } from '/@/store/modules/tab';
 import type { AppRouteRecordRaw } from '/@/router/types';
 
-import { defineComponent, watch, computed, unref, toRaw } from 'vue';
+import { defineComponent, watch, computed, unref } from 'vue';
 import { useRouter } from 'vue-router';
-import router from '/@/router';
 
 import { Tabs } from 'ant-design-vue';
 import TabContent from './TabContent';
@@ -18,12 +19,12 @@ import { userStore } from '/@/store/modules/user';
 
 import { closeTab } from './useTabDropdown';
 import { useTabs } from '/@/hooks/web/useTabs';
+import { initAffixTabs } from './useAffixTabs';
 
-import './index.less';
 export default defineComponent({
-  name: 'MultiTabs',
+  name: 'MultipleTabs',
   setup() {
-    let isAddAffix = false;
+    initAffixTabs();
 
     const go = useGo();
 
@@ -36,11 +37,6 @@ export default defineComponent({
     watch(
       () => tabStore.getLastChangeRouteState,
       () => {
-        if (!isAddAffix) {
-          addAffixTabs();
-          isAddAffix = true;
-        }
-
         const lastChangeRoute = unref(tabStore.getLastChangeRouteState);
 
         if (!lastChangeRoute || !userStore.getTokenState) return;
@@ -56,39 +52,15 @@ export default defineComponent({
       }
     );
 
-    /**
-     * @description: 过滤所有固定路由
-     */
-    function filterAffixTabs(routes: AppRouteRecordRaw[]) {
-      const tabs: TabItem[] = [];
-      routes &&
-        routes.forEach((route) => {
-          if (route.meta && route.meta.affix) {
-            tabs.push(toRaw(route) as TabItem);
-          }
-        });
-      return tabs;
-    }
-
-    /**
-     * @description: 设置固定tabs
-     */
-    function addAffixTabs(): void {
-      const affixTabs = filterAffixTabs((router.getRoutes() as unknown) as AppRouteRecordRaw[]);
-      for (const tab of affixTabs) {
-        tabStore.commitAddTab(tab);
-      }
-    }
-
     // tab切换
     function handleChange(activeKey: any) {
       activeKeyRef.value = activeKey;
       go(activeKey, false);
     }
 
-    // 关闭当前ab
+    // 关闭当前tab
     function handleEdit(targetKey: string) {
-      // 新增操作隐藏，目前只使用删除操作
+      // Added operation to hide, currently only use delete operation
       const index = unref(getTabsState).findIndex(
         (item) => (item.fullPath || item.path) === targetKey
       );
@@ -107,12 +79,13 @@ export default defineComponent({
         </span>
       );
     }
+
     function renderTabs() {
       return unref(getTabsState).map((item: TabItem) => {
         const key = item.query ? item.fullPath : item.path;
-
+        const closable = !(item && item.meta && item.meta.affix);
         return (
-          <Tabs.TabPane key={key} closable={!(item && item.meta && item.meta.affix)}>
+          <Tabs.TabPane key={key} closable={closable}>
             {{
               tab: () => <TabContent tabItem={item} />,
             }}

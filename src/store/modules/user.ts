@@ -11,7 +11,7 @@ import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
 
 import { PageEnum } from '/@/enums/pageEnum';
 import { RoleEnum } from '/@/enums/roleEnum';
-import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
+import { CacheTypeEnum, ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 
 import { useMessage } from '/@/hooks/web/useMessage';
 
@@ -19,13 +19,29 @@ import router from '/@/router';
 
 import { loginApi, getUserInfoById } from '/@/api/sys/user';
 
-import { setLocal, getLocal } from '/@/utils/helper/persistent';
-// import { FULL_PAGE_NOT_FOUND_ROUTE } from '/@/router/constant';
+import { setLocal, getLocal, getSession, setSession } from '/@/utils/helper/persistent';
+import { useProjectSetting } from '/@/hooks/setting';
 
 export type UserInfo = Omit<GetUserInfoByUserIdModel, 'roles'>;
 
 const NAME = 'user';
 hotModuleUnregisterModule(NAME);
+
+const { permissionCacheType } = useProjectSetting();
+
+function getCache<T>(key: string) {
+  const fn = permissionCacheType === CacheTypeEnum.LOCAL ? getLocal : getSession;
+  return fn(key) as T;
+}
+
+function setCache(USER_INFO_KEY: string, info: any) {
+  if (!info) return;
+  // const fn = permissionCacheType === CacheTypeEnum.LOCAL ? setLocal : setSession;
+  setLocal(USER_INFO_KEY, info, true);
+  // TODO
+  setSession(USER_INFO_KEY, info, true);
+}
+
 @Module({ namespaced: true, name: NAME, dynamic: true, store })
 class User extends VuexModule {
   // user info
@@ -38,15 +54,15 @@ class User extends VuexModule {
   private roleListState: RoleEnum[] = [];
 
   get getUserInfoState(): UserInfo {
-    return this.userInfoState || (getLocal(USER_INFO_KEY) as UserInfo) || {};
+    return this.userInfoState || getCache<UserInfo>(USER_INFO_KEY) || {};
   }
 
   get getTokenState(): string {
-    return this.tokenState || (getLocal(TOKEN_KEY) as string);
+    return this.tokenState || getCache<string>(TOKEN_KEY);
   }
 
   get getRoleListState(): RoleEnum[] {
-    return this.roleListState.length > 0 ? this.roleListState : (getLocal(ROLES_KEY) as RoleEnum[]);
+    return this.roleListState.length > 0 ? this.roleListState : getCache<RoleEnum[]>(ROLES_KEY);
   }
 
   @Mutation
@@ -59,25 +75,19 @@ class User extends VuexModule {
   @Mutation
   commitUserInfoState(info: UserInfo): void {
     this.userInfoState = info;
-    if (info) {
-      setLocal(USER_INFO_KEY, info, true);
-    }
+    setCache(USER_INFO_KEY, info);
   }
 
   @Mutation
   commitRoleListState(roleList: RoleEnum[]): void {
     this.roleListState = roleList;
-    if (roleList) {
-      setLocal(ROLES_KEY, roleList, true);
-    }
+    setCache(ROLES_KEY, roleList);
   }
 
   @Mutation
   commitTokenState(info: string): void {
     this.tokenState = info;
-    if (info) {
-      setLocal(TOKEN_KEY, info, true);
-    }
+    setCache(TOKEN_KEY, info);
   }
 
   /**
