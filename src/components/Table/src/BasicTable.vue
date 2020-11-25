@@ -74,7 +74,7 @@
     components: { Table, BasicForm },
     emits: ['fetch-success', 'fetch-error', 'selection-change', 'register'],
     setup(props, { attrs, emit, slots }) {
-      const tableElRef = ref<any>(null);
+      const tableElRef = ref<ComponentRef>(null);
       const wrapRef = ref<Nullable<HTMLDivElement>>(null);
       const innerPropsRef = ref<Partial<BasicTableProps>>();
       const [registerForm, { getFieldsValue }] = useForm();
@@ -241,10 +241,8 @@
         if (unref(getMergeProps).showSummary) {
           nextTick(() => {
             const tableEl = unref(tableElRef);
-            if (!tableEl) {
-              return;
-            }
-            const bodyDomList = tableEl.$el.querySelectorAll('.ant-table-body') as HTMLDivElement[];
+            if (!tableEl) return;
+            const bodyDomList = tableEl.$el.querySelectorAll('.ant-table-body');
             const bodyDom = bodyDomList[0];
             useEventListener({
               el: bodyDom,

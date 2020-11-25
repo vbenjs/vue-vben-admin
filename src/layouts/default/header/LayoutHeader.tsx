@@ -60,10 +60,10 @@ export default defineComponent({
     },
   },
   setup(props) {
-    let logoEl: Element | null;
+    let logoEl: Element | null | undefined;
 
     const logoWidthRef = ref(200);
-    const logoRef = ref<any>(null);
+    const logoRef = ref<ComponentRef>(null);
     const { refreshPage } = useTabs();
 
     const { getShowTopMenu, getShowHeaderTrigger, getSplit, getTopMenuAlign } = useMenuSetting();
@@ -91,7 +91,7 @@ export default defineComponent({
           if (!unref(getShowTopMenu)) return;
           let width = 0;
           if (!logoEl) {
-            logoEl = logoRef.value.$el;
+            logoEl = unref(logoRef)?.$el;
           } else {
             width += logoEl.clientWidth;
           }

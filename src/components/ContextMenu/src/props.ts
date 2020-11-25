@@ -1,16 +1,16 @@
-import type { PropType } from 'vue';
+import type { PropType, CSSProperties } from 'vue';
 import type { Axis, ContextMenuItem } from './types';
 export const props = {
   width: {
     type: Number as PropType<number>,
-    default: 180,
+    default: 156,
   },
   customEvent: {
     type: Object as PropType<Event>,
     default: null,
   },
   styles: {
-    type: Object as PropType<any>,
+    type: Object as PropType<CSSProperties>,
     default: null,
   },
   showIcon: {
@@ -30,9 +30,5 @@ export const props = {
     default() {
       return [];
     },
-  },
-  resolve: {
-    type: Function as PropType<any>,
-    default: null,
   },
 };

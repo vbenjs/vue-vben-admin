@@ -22,7 +22,7 @@ export default defineComponent({
   setup(props, { slots, emit, attrs }) {
     const visibleRef = ref(false);
     const propsRef = ref<Partial<ModalProps> | null>(null);
-    const modalWrapperRef = ref<any>(null);
+    const modalWrapperRef = ref<ComponentRef>(null);
     // modal   Bottom and top height
     const extHeightRef = ref(0);
     // Unexpanded height of the popup

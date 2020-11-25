@@ -11,15 +11,14 @@ export interface ContextMenuItem {
   divider?: boolean;
   children?: ContextMenuItem[];
 }
-export interface Options {
+export interface CreateContextOptions {
   event: MouseEvent;
   icon?: string;
   styles?: any;
   items?: ContextMenuItem[];
 }
 
-export type Props = {
-  resolve?: (...arg: any) => void;
+export interface ContextMenuProps {
   event?: MouseEvent;
   styles?: any;
   items: ContextMenuItem[];
@@ -27,4 +26,10 @@ export type Props = {
   axis?: Axis;
   width?: number;
   showIcon?: boolean;
-};
+}
+
+export interface ItemContentProps {
+  showIcon: boolean;
+  item: ContextMenuItem;
+  handler: Fn;
+}

@@ -22,7 +22,7 @@ export default defineComponent({
   props: basicProps,
   emits: ['visible-change', 'ok', 'close', 'register'],
   setup(props, { slots, emit, attrs }) {
-    const scrollRef = ref<any>(null);
+    const scrollRef = ref<ElRef>(null);
 
     const visibleRef = ref(false);
     const propsRef = ref<Partial<DrawerProps> | null>(null);

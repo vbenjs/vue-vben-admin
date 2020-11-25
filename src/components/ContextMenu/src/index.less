@@ -1,22 +1,28 @@
 @import (reference) '../../../design/index.less';
 
+@default-height: 42px !important;
+
+@small-height: 36px !important;
+
+@large-height: 36px !important;
+
 .item-style() {
   li {
     display: inline-block;
     width: 100%;
-    height: 46px !important;
+    height: @default-height;
     margin: 0 !important;
-    line-height: 46px;
+    line-height: @default-height;
 
     span {
-      line-height: 46px;
+      line-height: @default-height;
     }
 
     > div {
       margin: 0 !important;
     }
 
-    &:hover {
+    &:not(.ant-menu-item-disabled):hover {
       color: @text-color-base;
       background: #eee;
     }
@@ -27,10 +33,9 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1500;
+  z-index: 200;
   display: block;
   width: 156px;
-  min-width: 10rem;
   margin: 0;
   list-style: none;
   background-color: #fff;

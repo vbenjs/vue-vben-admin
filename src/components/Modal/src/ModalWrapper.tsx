@@ -55,7 +55,7 @@ export default defineComponent({
   emits: ['heightChange', 'getExtHeight'],
   setup(props: ModalWrapperProps, { slots, emit }) {
     const wrapperRef = ref<HTMLElement | null>(null);
-    const spinRef = ref<any>(null);
+    const spinRef = ref<ComponentRef>(null);
     const realHeightRef = ref(0);
     // 重试次数
     // let tryCount = 0;
@@ -125,6 +125,8 @@ export default defineComponent({
         }
         await nextTick();
         const spinEl = unref(spinRef);
+
+        if (!spinEl) return;
 
         const spinContainerEl = spinEl.$el.querySelector('.ant-spin-container') as HTMLElement;
         if (!spinContainerEl) return;

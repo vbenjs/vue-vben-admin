@@ -1,99 +1,98 @@
-import {
-  defineComponent,
-  nextTick,
-  onMounted,
-  reactive,
-  computed,
-  ref,
-  unref,
-  onUnmounted,
-} from 'vue';
+import './index.less';
 
-import { props } from './props';
+import type { ContextMenuItem, ItemContentProps } from './types';
+import type { FunctionalComponent, CSSProperties } from 'vue';
+
+import { defineComponent, nextTick, onMounted, computed, ref, unref, onUnmounted } from 'vue';
+
 import Icon from '/@/components/Icon';
 import { Menu, Divider } from 'ant-design-vue';
 
-import type { ContextMenuItem } from './types';
+import { props } from './props';
 
-import './index.less';
 const prefixCls = 'context-menu';
+
+const ItemContent: FunctionalComponent<ItemContentProps> = (props) => {
+  const { item } = props;
+  return (
+    <span style="display: inline-block; width: 100%;" onClick={props.handler.bind(null, item)}>
+      {props.showIcon && item.icon && <Icon class="mr-2" icon={item.icon} />}
+      <span>{item.label}</span>
+    </span>
+  );
+};
+
 export default defineComponent({
   name: 'ContextMenu',
   props,
   setup(props) {
-    const wrapRef = ref<Nullable<HTMLDivElement>>(null);
-    const state = reactive({
-      show: false,
-    });
+    const wrapRef = ref<ElRef>(null);
+    const showRef = ref(false);
+
+    const getStyle = computed(
+      (): CSSProperties => {
+        const { axis, items, styles, width } = props;
+        const { x, y } = axis || { x: 0, y: 0 };
+        const menuHeight = (items || []).length * 40;
+        const menuWidth = width;
+        const body = document.body;
+
+        const left = body.clientWidth < x + menuWidth ? x - menuWidth : x;
+        const top = body.clientHeight < y + menuHeight ? y - menuHeight : y;
+        return {
+          ...styles,
+          width: `${width}px`,
+          left: `${left + 1}px`,
+          top: `${top + 1}px`,
+        };
+      }
+    );
 
     onMounted(() => {
-      nextTick(() => {
-        state.show = true;
-      });
+      nextTick(() => (showRef.value = true));
     });
 
     onUnmounted(() => {
       const el = unref(wrapRef);
       el && document.body.removeChild(el);
     });
-    const getStyle = computed(() => {
-      const { axis, items, styles, width } = props;
-      const { x, y } = axis || { x: 0, y: 0 };
-      const menuHeight = (items || []).length * 40;
-      const menuWidth = width;
-      const body = document.body;
-      return {
-        ...(styles as any),
-        width: `${width}px`,
-        left: (body.clientWidth < x + menuWidth ? x - menuWidth : x) + 'px',
-        top: (body.clientHeight < y + menuHeight ? y - menuHeight : y) + 'px',
-      };
-    });
 
     function handleAction(item: ContextMenuItem, e: MouseEvent) {
-      state.show = false;
       const { handler, disabled } = item;
-      if (disabled) {
-        return;
-      }
-      if (e) {
-        e.stopPropagation();
-        e.preventDefault();
-      }
+      if (disabled) return;
+      showRef.value = false;
 
-      handler && handler();
-    }
-
-    function renderContent(item: ContextMenuItem) {
-      const { icon, label } = item;
-
-      const { showIcon } = props;
-      return (
-        <span style="display: inline-block; width: 100%;" onClick={handleAction.bind(null, item)}>
-          {showIcon && icon && <Icon class="mr-2" icon={icon} />}
-          <span>{label}</span>
-        </span>
-      );
+      e?.stopPropagation();
+      e?.preventDefault();
+      handler?.();
     }
 
     function renderMenuItem(items: ContextMenuItem[]) {
-      return items.map((item, index) => {
+      return items.map((item) => {
         const { disabled, label, children, divider = false } = item;
 
-        const DividerComp = divider ? <Divider key={`d-${index}`} /> : null;
+        const DividerComp = divider ? <Divider key={`d-${label}`} /> : null;
         if (!children || children.length === 0) {
-          return [
-            <Menu.Item disabled={disabled} class={`${prefixCls}__item`} key={label}>
-              {() => [renderContent(item)]}
-            </Menu.Item>,
-            DividerComp,
-          ];
+          return (
+            <>
+              <Menu.Item disabled={disabled} class={`${prefixCls}__item`} key={label}>
+                {() => [
+                  <ItemContent showIcon={props.showIcon} item={item} handler={handleAction} />,
+                ]}
+              </Menu.Item>
+              {DividerComp}
+            </>
+          );
         }
-        return !state.show ? null : (
-          <Menu.SubMenu key={label} disabled={disabled} popupClassName={`${prefixCls}__popup `}>
+        if (!unref(showRef)) return null;
+
+        return (
+          <Menu.SubMenu key={label} disabled={disabled} popupClassName={`${prefixCls}__popup`}>
             {{
-              title: () => renderContent(item),
-              default: () => [renderMenuItem(children)],
+              title: () => (
+                <ItemContent showIcon={props.showIcon} item={item} handler={handleAction} />
+              ),
+              default: () => renderMenuItem(children),
             }}
           </Menu.SubMenu>
         );
@@ -101,11 +100,12 @@ export default defineComponent({
     }
     return () => {
       const { items } = props;
-      return !state.show ? null : (
+      if (!unref(showRef)) return null;
+      return (
         <Menu
           inlineIndent={12}
           mode="vertical"
-          class={[prefixCls]}
+          class={prefixCls}
           ref={wrapRef}
           style={unref(getStyle)}
         >

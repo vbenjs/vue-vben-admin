@@ -39,26 +39,30 @@ export default defineComponent({
       return unref(getShowMultipleTab) && !unref(getFullContent);
     });
 
-    const getPlaceholderDomStyle = computed(() => {
-      return {
-        height: `${unref(placeholderHeightRef)}px`,
-      };
-    });
+    const getPlaceholderDomStyle = computed(
+      (): CSSProperties => {
+        return {
+          height: `${unref(placeholderHeightRef)}px`,
+        };
+      }
+    );
 
     const getIsShowPlaceholderDom = computed(() => {
       return unref(getFixed) || unref(getShowFullHeaderRef);
     });
 
-    const getWrapStyle = computed(() => {
-      const style: CSSProperties = {};
-      if (unref(getFixed)) {
-        style.width = unref(getCalcContentWidth);
+    const getWrapStyle = computed(
+      (): CSSProperties => {
+        const style: CSSProperties = {};
+        if (unref(getFixed)) {
+          style.width = unref(getCalcContentWidth);
+        }
+        if (unref(getShowFullHeaderRef)) {
+          style.top = `${unref(fullHeaderHeightRef)}px`;
+        }
+        return style;
       }
-      if (unref(getShowFullHeaderRef)) {
-        style.top = `${unref(fullHeaderHeightRef)}px`;
-      }
-      return style;
-    });
+    );
 
     const getIsFixed = computed(() => {
       return unref(getFixed) || unref(getShowFullHeaderRef);
