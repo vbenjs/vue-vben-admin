@@ -1,6 +1,6 @@
 <template>
   <Form v-bind="{ ...$attrs, ...$props }" ref="formElRef" :model="formModel">
-    <Row :class="getProps.compact ? 'compact-form-row' : ''">
+    <Row :class="getProps.compact ? 'compact-form-row' : ''" :style="getRowWrapStyleRef">
       <slot name="formHeader" />
       <template v-for="schema in getSchema" :key="schema.field">
         <FormItem
@@ -70,6 +70,11 @@
       const propsRef = ref<Partial<FormProps>>({});
       const schemaRef = ref<Nullable<FormSchema[]>>(null);
       const formElRef = ref<Nullable<FormActionType>>(null);
+
+      const getRowWrapStyleRef = computed((): any => {
+        const { baseRowStyle } = unref(getProps);
+        return baseRowStyle || {};
+      });
 
       const getMergePropsRef = computed(
         (): FormProps => {
@@ -207,6 +212,7 @@
         getActionPropsRef,
         defaultValueRef,
         advanceState,
+        getRowWrapStyleRef,
         getProps,
         formElRef,
         getSchema,

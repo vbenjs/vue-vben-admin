@@ -28,6 +28,9 @@ export const basicProps = {
     type: Object as PropType<any>,
     default: null,
   },
+  baseRowStyle: {
+    type: Object as PropType<any>,
+  },
   baseColProps: {
     type: Object as PropType<any>,
   },
