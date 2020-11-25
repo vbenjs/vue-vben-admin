@@ -79,7 +79,7 @@
               /* DO SOMETHING WITH workbook HERE */
               const excelData = getExcelData(workbook);
               emit('success', excelData);
-              resolve();
+              resolve('');
             } catch (error) {
               reject(error);
             } finally {

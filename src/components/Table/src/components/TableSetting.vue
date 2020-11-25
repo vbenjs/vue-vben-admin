@@ -4,27 +4,27 @@
 
     <Tooltip placement="top" v-if="getSetting.redo">
       <template #title>
-        <span>刷新</span>
+        <span>{{ t('settingRedo') }}</span>
       </template>
       <RedoOutlined @click="redo" />
     </Tooltip>
 
     <Tooltip placement="top" v-if="getSetting.size">
       <template #title>
-        <span>密度</span>
+        <span>{{ t('settingDens') }}</span>
       </template>
       <Dropdown placement="bottomCenter" :trigger="['click']">
         <ColumnHeightOutlined />
         <template #overlay>
           <Menu @click="handleTitleClick" selectable v-model:selectedKeys="selectedKeysRef">
             <MenuItem key="default">
-              <span>默认</span>
+              <span>{{ t('settingDensDefault') }}</span>
             </MenuItem>
             <MenuItem key="middle">
-              <span>中等</span>
+              <span>{{ t('settingDensMiddle') }}</span>
             </MenuItem>
             <MenuItem key="small">
-              <span>紧凑</span>
+              <span>{{ t('settingDensSmall') }}</span>
             </MenuItem>
           </Menu>
         </template>
@@ -33,7 +33,7 @@
 
     <Tooltip placement="top" v-if="getSetting.setting">
       <template #title>
-        <span>列设置</span>
+        <span>{{ t('settingColumn') }}</span>
       </template>
       <Popover
         placement="bottomLeft"
@@ -58,9 +58,9 @@
               v-model:checked="checkAll"
               @change="onCheckAllChange"
             >
-              列展示
+              {{ t('settingColumnShow') }}
             </Checkbox>
-            <a-button size="small" type="link" @click="reset">重置</a-button>
+            <a-button size="small" type="link" @click="reset"> {{ t('settingReset') }}</a-button>
           </div>
         </template>
         <SettingOutlined />
@@ -69,7 +69,7 @@
 
     <Tooltip placement="top" v-if="getSetting.fullScreen">
       <template #title>
-        <span>全屏</span>
+        <span>{{ t('settingFullScreen') }}</span>
       </template>
       <FullscreenOutlined @click="handleFullScreen" v-if="!isFullscreenRef" />
       <FullscreenExitOutlined @click="handleFullScreen" v-else />
@@ -90,6 +90,7 @@
   import { useFullscreen } from '/@/hooks/web/useFullScreen';
 
   import type { SizeType, TableSetting } from '../types/table';
+  import { useI18n } from '/@/hooks/web/useI18n';
 
   interface Options {
     label: string;
@@ -138,6 +139,8 @@
         checkedList: [],
         defaultCheckList: [],
       });
+
+      const { t } = useI18n('component.table');
 
       function init() {
         let ret: Options[] = [];
@@ -217,6 +220,7 @@
         reset,
         getSetting,
         ...toRefs(state),
+        t,
       };
     },
   });

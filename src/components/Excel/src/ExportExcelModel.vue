@@ -1,5 +1,10 @@
 <template>
-  <BasicModal v-bind="$attrs" title="导出数据" @ok="handleOk" @register="registerModal">
+  <BasicModal
+    v-bind="$attrs"
+    :title="t('exportModalTitle')"
+    @ok="handleOk"
+    @register="registerModal"
+  >
     <BasicForm
       :labelWidth="100"
       :schemas="schemas"
@@ -9,22 +14,26 @@
   </BasicModal>
 </template>
 <script lang="ts">
+  import type { ExportModalResult } from './types';
   import { defineComponent } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { ExportModalResult } from './types';
+
+  import { useI18n } from '/@/hooks/web/useI18n';
+
+  const { t } = useI18n('component.excel');
 
   const schemas: FormSchema[] = [
     {
       field: 'filename',
       component: 'Input',
-      label: '文件名',
+      label: t('fileName'),
       rules: [{ required: true }],
     },
     {
       field: 'bookType',
       component: 'Select',
-      label: '文件类型',
+      label: t('fileType'),
       defaultValue: 'xlsx',
       rules: [{ required: true }],
       componentProps: {
@@ -76,6 +85,7 @@
         handleOk,
         registerForm,
         registerModal,
+        t,
       };
     },
   });

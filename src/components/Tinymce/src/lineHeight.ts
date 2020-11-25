@@ -13,7 +13,7 @@ const lineHeight = function (tinymce: any) {
 
     t.ui.registry.addMenuButton('lineheight', {
       icon: 'lineheight',
-      tooltip: '设置行高',
+      tooltip: 'Line Height',
       // fetch: function (callback: Fn) {
       //   var dom = t.dom;
       //   var blocks = t.selection.getSelectedBlocks();

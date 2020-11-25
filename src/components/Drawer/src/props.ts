@@ -1,4 +1,8 @@
 import type { PropType } from 'vue';
+
+import { useI18n } from '/@/hooks/web/useI18n';
+const { t } = useI18n('component.drawer');
+
 export const footerProps = {
   confirmLoading: Boolean as PropType<boolean>,
   /**
@@ -11,7 +15,7 @@ export const footerProps = {
   cancelButtonProps: Object as PropType<any>,
   cancelText: {
     type: String as PropType<string>,
-    default: '关闭',
+    default: t('cancelText'),
   },
   /**
    * @description: Show confirmation button
@@ -23,7 +27,7 @@ export const footerProps = {
   okButtonProps: Object as PropType<any>,
   okText: {
     type: String as PropType<string>,
-    default: '确认',
+    default: t('okText'),
   },
   okType: {
     type: String as PropType<string>,

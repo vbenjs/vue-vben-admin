@@ -1,5 +1,9 @@
 import type { PropType } from 'vue';
 import { ButtonProps } from 'ant-design-vue/es/button/buttonTypes';
+
+import { useI18n } from '/@/hooks/web/useI18n';
+const { t } = useI18n('component.modal');
+
 export const modalProps = {
   visible: Boolean as PropType<boolean>,
   // open drag
@@ -13,11 +17,11 @@ export const modalProps = {
   },
   cancelText: {
     type: String as PropType<string>,
-    default: '关闭',
+    default: t('cancelText'),
   },
   okText: {
     type: String as PropType<string>,
-    default: '确认',
+    default: t('okText'),
   },
   closeFunc: Function as PropType<() => Promise<boolean>>,
 };

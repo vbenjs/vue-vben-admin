@@ -1,5 +1,6 @@
 import { Ref, unref, computed } from 'vue';
-
+import { useI18n } from '/@/hooks/web/useI18n';
+const { t } = useI18n('component.upload');
 export function useUploadType({
   acceptRef,
   //   uploadTypeRef,
@@ -37,17 +38,17 @@ export function useUploadType({
 
     const accept = unref(acceptRef);
     if (accept.length > 0) {
-      helpTexts.push(`支持${accept.join(',')}格式`);
+      helpTexts.push(t('accept', [accept.join(',')]));
     }
 
     const maxSize = unref(maxSizeRef);
     if (maxSize) {
-      helpTexts.push(`单个文件不超过${maxSize}MB`);
+      helpTexts.push(t('maxSize', [maxSize]));
     }
 
     const maxNumber = unref(maxNumberRef);
     if (maxNumber && maxNumber !== Infinity) {
-      helpTexts.push(`最多只能上传${maxNumber}个文件`);
+      helpTexts.push(t('maxNumber', [maxNumber]));
     }
     return helpTexts.join('，');
   });

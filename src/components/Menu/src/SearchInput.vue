@@ -1,7 +1,7 @@
 <template>
   <section class="menu-search-input" @Click="handleClick" :class="searchClass">
     <a-input-search
-      placeholder="菜单搜索"
+      :placeholder="t('search')"
       class="menu-search-input__search"
       allowClear
       @change="handleChange"
@@ -12,9 +12,9 @@
   import type { PropType } from 'vue';
   import { defineComponent, computed } from 'vue';
   import { ThemeEnum } from '/@/enums/appEnum';
-
   // hook
   import { useDebounce } from '/@/hooks/core/useDebounce';
+  import { useI18n } from '/@/hooks/web/useI18n';
   //
   export default defineComponent({
     name: 'BasicMenuSearchInput',
@@ -29,6 +29,8 @@
       },
     },
     setup(props, { emit }) {
+      const { t } = useI18n('component.menu');
+
       const [debounceEmitChange] = useDebounce(emitChange, 200);
 
       function emitChange(value?: string): void {
@@ -52,7 +54,7 @@
         return cls;
       });
 
-      return { handleClick, searchClass, handleChange };
+      return { handleClick, searchClass, handleChange, t };
     },
   });
 </script>
