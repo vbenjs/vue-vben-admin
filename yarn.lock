@@ -1360,6 +1360,13 @@
   resolved "https://registry.npmjs.org/@types/http-errors/-/http-errors-1.8.0.tgz#682477dbbbd07cd032731cb3b0e7eaee3d026b69"
   integrity sha512-2aoSC4UUbHDj2uCsCxcG/vRMXey/m17bC7UwitVm5hn22nI8O8Y9iDpA76Orc+DWkQ4zZrOKEshCqR/jSuXAHA==
 
+"@types/http-proxy@^1.17.4":
+  version "1.17.4"
+  resolved "https://registry.npmjs.org/@types/http-proxy/-/http-proxy-1.17.4.tgz#e7c92e3dbe3e13aa799440ff42e6d3a17a9d045b"
+  integrity sha512-IrSHl2u6AWXduUaDLqYpt45tLVCtYv7o4Z0s1KghBCDgIIS9oW5K1H8mZG/A2CfeLdEa7rTd1ACOiHBc1EMT2Q==
+  dependencies:
+    "@types/node" "*"
+
 "@types/json-schema@^7.0.3":
   version "7.0.6"
   resolved "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.6.tgz#f4c7ec43e81b319a9815115031709f26987891f0"
@@ -8216,10 +8223,10 @@ vite-plugin-pwa@^0.1.5:
     fast-glob "^3.2.4"
     rollup-plugin-workbox "^5.2.1"
 
-vite@^1.0.0-rc.10:
-  version "1.0.0-rc.10"
-  resolved "https://registry.npmjs.org/vite/-/vite-1.0.0-rc.10.tgz#d8d139dc640fa073e4a1b8abdb037a131fa364cc"
-  integrity sha512-Kh2lq2zpsbyYRlI/uXHEyEMLzOSBXmza23k69LB6imIeH8HddvSoi+AqOTbSK/CQhfw3lvoPgb3h+tIbK5zymg==
+vite@^1.0.0-rc.13:
+  version "1.0.0-rc.13"
+  resolved "https://registry.npmjs.org/vite/-/vite-1.0.0-rc.13.tgz#0e0b3b6138998a1d0c02459908a6c4fb2f294727"
+  integrity sha512-hLfTbhNPDhwXMCAWR6s6C79G/O8Is0MbslglgoHSQsRby+KnqHgtHChCVBHFeV2oZBV/3xhHhnfm94BDPFe8Ww==
   dependencies:
     "@babel/parser" "^7.12.7"
     "@koa/cors" "^3.1.0"
@@ -8227,6 +8234,7 @@ vite@^1.0.0-rc.10:
     "@rollup/plugin-json" "^4.1.0"
     "@rollup/plugin-node-resolve" "^10.0.0"
     "@rollup/pluginutils" "^4.1.0"
+    "@types/http-proxy" "^1.17.4"
     "@types/koa" "^2.11.4"
     "@types/lru-cache" "^5.1.0"
     "@vue/compiler-dom" "^3.0.3"
@@ -8331,10 +8339,10 @@ vuex-module-decorators@^1.0.1:
   resolved "https://registry.npmjs.org/vuex-module-decorators/-/vuex-module-decorators-1.0.1.tgz#d34dafb5428a3636f1c26d3d014c15fc9659ccd0"
   integrity sha512-FLWZsXV5XAtl/bcKUyQFpnSBtpc3wK/7zSdy9oKbyp71mZd4ut5y2zSd219wWW9OG7WUOlVwac4rXFFDVnq7ug==
 
-vuex@^4.0.0-rc.1:
-  version "4.0.0-rc.1"
-  resolved "https://registry.npmjs.org/vuex/-/vuex-4.0.0-rc.1.tgz#160cd5957972a61c7c01ab585995b78e092a298d"
-  integrity sha512-zgXVCQygF1Sm7ezyudEEMynoV2PBxZdcjE12D0BY1xIKZMrA7GFP6xqADTEAzwfVemXboExJ+/KThfxJFtM/5w==
+vuex@^4.0.0-rc.2:
+  version "4.0.0-rc.2"
+  resolved "https://registry.npmjs.org/vuex/-/vuex-4.0.0-rc.2.tgz#3681c84eb6f5171b039edaa17cc78105e20724f3"
+  integrity sha512-HCPzYGea1xL7fMpDoMiHKujC1Bi/HM9LS5ML0Kv55zQtZJvOl0Lq7eWvJoen+SI4Lf7p9V5AqcVsoLPXNBywjg==
 
 warning@^4.0.0:
   version "4.0.3"

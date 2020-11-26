@@ -38,7 +38,7 @@
     "vue": "^3.0.3",
     "vue-i18n": "^9.0.0-beta.8",
     "vue-router": "^4.0.0-rc.5",
-    "vuex": "^4.0.0-rc.1",
+    "vuex": "^4.0.0-rc.2",
     "vuex-module-decorators": "^1.0.1",
     "xlsx": "^0.16.9",
     "zxcvbn": "^4.4.2"
@@ -96,7 +96,7 @@
     "tasksfile": "^5.1.1",
     "ts-node": "^9.0.0",
     "typescript": "^4.1.2",
-    "vite": "^1.0.0-rc.10",
+    "vite": "^1.0.0-rc.13",
     "vite-plugin-html": "^1.0.0-beta.2",
     "vite-plugin-mock": "^1.0.6",
     "vite-plugin-purge-icons": "^0.4.5",
