@@ -1,5 +1,10 @@
-export { default as ScrollContainer } from './src/ScrollContainer.vue';
-export { default as CollapseContainer } from './src/collapse/CollapseContainer.vue';
-export { default as LazyContainer } from './src/LazyContainer.vue';
+import ScrollContainer from './src/ScrollContainer.vue';
+import CollapseContainer from './src/collapse/CollapseContainer.vue';
+import LazyContainer from './src/LazyContainer.vue';
+import { withInstall } from '../util';
 
-export * from './src/types.d';
+export * from './src/types';
+
+export { ScrollContainer, CollapseContainer, LazyContainer };
+
+export default withInstall(ScrollContainer, CollapseContainer, LazyContainer);

@@ -1,6 +1,12 @@
-export { default as ImportExcel } from './src/ImportExcel.vue';
-export { default as ExportExcelModel } from './src/ExportExcelModel.vue';
+import ImportExcel from './src/ImportExcel.vue';
+import ExportExcelModel from './src/ExportExcelModel.vue';
+
+import { withInstall } from '../util';
+
+export * from './src/types';
 
 export { jsonToSheetXlsx, aoaToSheetXlsx } from './src/Export2Excel';
 
-export * from './src/types';
+export { ImportExcel, ExportExcelModel };
+
+export default withInstall(ImportExcel, ExportExcelModel);

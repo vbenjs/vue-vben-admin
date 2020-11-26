@@ -11,7 +11,7 @@
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
   import { Alert } from 'ant-design-vue';
-  import ClickOutSide from '/@/components/ClickOutSide/index.vue';
+  import { ClickOutSide } from '/@/components/ClickOutSide';
   export default defineComponent({
     components: { ClickOutSide, Alert },
     setup() {

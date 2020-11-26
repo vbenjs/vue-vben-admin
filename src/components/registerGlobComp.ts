@@ -1,5 +1,5 @@
 import Icon from './Icon/index';
-import Button from './Button/index.vue';
+import { Button } from './Button';
 import {
   // Need
   Button as AntButton,

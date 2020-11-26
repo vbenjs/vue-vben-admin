@@ -2,7 +2,6 @@ import type { Trigger } from './types';
 
 import { defineComponent, computed, unref } from 'vue';
 import { Dropdown, Menu } from 'ant-design-vue';
-
 import Icon from '/@/components/Icon/index';
 
 import { basicDropdownProps } from './props';

@@ -3,7 +3,7 @@ import { Dropdown, Menu, Popconfirm } from 'ant-design-vue';
 import Icon from '/@/components/Icon/index';
 import { DownOutlined } from '@ant-design/icons-vue';
 import { ActionItem } from '/@/components/Table';
-import Button from '/@/components/Button/index.vue';
+import { Button } from '/@/components/Button';
 const prefixCls = 'basic-table-action';
 export default defineComponent({
   name: 'TableAction',

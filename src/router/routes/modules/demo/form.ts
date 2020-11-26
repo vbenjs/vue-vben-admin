@@ -10,7 +10,7 @@ const form: AppRouteModule = {
     redirect: '/form/basic',
     meta: {
       icon: 'ant-design:table-outlined',
-      title: 'rroutes.demo.form.form',
+      title: 'routes.demo.form.form',
     },
   },
 
@@ -20,7 +20,7 @@ const form: AppRouteModule = {
       name: 'FormBasicDemo',
       component: () => import('/@/views/demo/form/index.vue'),
       meta: {
-        title: 'rroutes.demo.form.basic',
+        title: 'routes.demo.form.basic',
       },
     },
     {
@@ -28,7 +28,7 @@ const form: AppRouteModule = {
       name: 'UseFormDemo',
       component: () => import('/@/views/demo/form/UseForm.vue'),
       meta: {
-        title: 'rroutes.demo.form.useForm',
+        title: 'routes.demo.form.useForm',
       },
     },
     {
@@ -36,7 +36,7 @@ const form: AppRouteModule = {
       name: 'RefFormDemo',
       component: () => import('/@/views/demo/form/RefForm.vue'),
       meta: {
-        title: 'rroutes.demo.form.refForm',
+        title: 'routes.demo.form.refForm',
       },
     },
     {
@@ -44,7 +44,7 @@ const form: AppRouteModule = {
       name: 'AdvancedFormDemo',
       component: () => import('/@/views/demo/form/AdvancedForm.vue'),
       meta: {
-        title: 'rroutes.demo.form.advancedForm',
+        title: 'routes.demo.form.advancedForm',
       },
     },
     {
@@ -52,7 +52,7 @@ const form: AppRouteModule = {
       name: 'RuleFormDemo',
       component: () => import('/@/views/demo/form/RuleForm.vue'),
       meta: {
-        title: 'rroutes.demo.form.ruleForm',
+        title: 'routes.demo.form.ruleForm',
       },
     },
     {
@@ -60,7 +60,7 @@ const form: AppRouteModule = {
       name: 'DynamicFormDemo',
       component: () => import('/@/views/demo/form/DynamicForm.vue'),
       meta: {
-        title: 'rroutes.demo.form.dynamicForm',
+        title: 'routes.demo.form.dynamicForm',
       },
     },
     {
@@ -68,7 +68,7 @@ const form: AppRouteModule = {
       name: 'CustomerFormDemo',
       component: () => import('/@/views/demo/form/CustomerForm.vue'),
       meta: {
-        title: 'rroutes.demo.form.customerForm',
+        title: 'routes.demo.form.customerForm',
       },
     },
   ],

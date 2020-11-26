@@ -13,14 +13,6 @@ export function createSimpleTransition(name: string, origin = 'top center 0', mo
         type: Boolean as PropType<boolean>,
         default: false,
       },
-      // hideOnLeave: {
-      //   type: Boolean as PropType<boolean>,
-      //   default: false,
-      // },
-      // leaveAbsolute: {
-      //   type: Boolean as PropType<boolean>,
-      //   default: false,
-      // },
       mode: {
         type: String as PropType<Mode>,
         default: mode,

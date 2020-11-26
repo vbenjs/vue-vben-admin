@@ -5,20 +5,14 @@
 </template>
 
 <script lang="ts">
-  import type { PropType } from 'vue';
   import { defineComponent, provide, ref } from 'vue';
+  import { propTypes } from '/@/utils/propTypes';
 
   export default defineComponent({
     name: 'Breadcrumb',
     props: {
-      separator: {
-        type: String as PropType<string>,
-        default: '/',
-      },
-      separatorClass: {
-        type: String as PropType<string>,
-        default: '',
-      },
+      separator: propTypes.string.def('/'),
+      separatorClass: propTypes.string,
     },
     setup(props) {
       const breadcrumbRef = ref<Nullable<HTMLElement>>(null);
@@ -32,7 +26,7 @@
   });
 </script>
 <style lang="less">
-  @import (reference) '../../design/index.less';
+  @import (reference) '../../../design/index.less';
 
   .breadcrumb {
     .unselect();

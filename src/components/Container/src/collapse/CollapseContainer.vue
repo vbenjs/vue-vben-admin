@@ -5,6 +5,7 @@
         <slot name="title" />
       </template>
     </CollapseHeader>
+
     <CollapseTransition :enable="canExpan">
       <Skeleton v-if="loading" />
       <div class="collapse-container__body" v-else v-show="show">
@@ -22,36 +23,31 @@
 <script lang="ts">
   import type { PropType } from 'vue';
 
-  import { defineComponent, ref, unref } from 'vue';
+  import { defineComponent, ref } from 'vue';
+
   // component
+  import { Skeleton } from 'ant-design-vue';
   import { CollapseTransition } from '/@/components/Transition/index';
   import CollapseHeader from './CollapseHeader.vue';
-  import { Skeleton } from 'ant-design-vue';
-
   import LazyContainer from '../LazyContainer.vue';
 
   import { triggerWindowResize } from '/@/utils/event/triggerWindowResizeEvent';
   // hook
   import { useTimeoutFn } from '/@/hooks/core/useTimeout';
+  import { propTypes } from '/@/utils/propTypes';
 
   export default defineComponent({
+    name: 'CollapseContainer',
     components: {
       Skeleton,
       LazyContainer,
       CollapseHeader,
       CollapseTransition,
     },
-    name: 'CollapseContainer',
     props: {
-      title: {
-        type: String as PropType<string>,
-        default: '',
-      },
+      title: propTypes.string.def(''),
       // Can it be expanded
-      canExpan: {
-        type: Boolean as PropType<boolean>,
-        default: true,
-      },
+      canExpan: propTypes.bool.def(true),
       // Warm reminder on the right side of the title
       helpMessage: {
         type: [Array, String] as PropType<string[] | string>,
@@ -59,41 +55,27 @@
       },
       // Whether to trigger window.resize when expanding and contracting,
       // Can adapt to tables and forms, when the form shrinks, the form triggers resize to adapt to the height
-      triggerWindowResize: {
-        type: Boolean as PropType<boolean>,
-        default: false,
-      },
-      loading: {
-        type: Boolean as PropType<boolean>,
-        default: false,
-      },
+      triggerWindowResize: propTypes.bool,
+      loading: propTypes.bool,
       // Delayed loading
-      lazy: {
-        type: Boolean as PropType<boolean>,
-        default: false,
-      },
+      lazy: propTypes.bool,
       // Delayed loading time
-      lazyTime: {
-        type: Number as PropType<number>,
-        default: 0,
-      },
+      lazyTime: propTypes.number.def(0),
     },
     setup(props) {
-      const showRef = ref(true);
+      const show = ref(true);
       /**
        * @description: Handling development events
        */
       function handleExpand() {
-        const hasShow = !unref(showRef);
-        showRef.value = hasShow;
-
+        show.value = !show.value;
         if (props.triggerWindowResize) {
           // 200 milliseconds here is because the expansion has animation,
           useTimeoutFn(triggerWindowResize, 200);
         }
       }
       return {
-        show: showRef,
+        show,
         handleExpand,
       };
     },

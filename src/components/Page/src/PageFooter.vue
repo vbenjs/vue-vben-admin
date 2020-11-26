@@ -14,10 +14,9 @@
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 
   export default defineComponent({
-    name: 'AppFooterToolbar',
+    name: 'PageFooter',
     setup() {
       const { getCalcContentWidth } = useMenuSetting();
-
       return { getCalcContentWidth };
     },
   });

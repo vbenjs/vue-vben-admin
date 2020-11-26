@@ -13,5 +13,4 @@ export const localeList: DropMenu[] = [
     event: 'en',
   },
 ];
-
 export default messages;

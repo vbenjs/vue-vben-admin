@@ -2,7 +2,7 @@ import './LockAction.less';
 
 import { defineComponent } from 'vue';
 import { BasicModal, useModalInner } from '/@/components/Modal/index';
-import Button from '/@/components/Button/index.vue';
+import { Button } from '/@/components/Button';
 import { BasicForm, useForm } from '/@/components/Form/index';
 
 import headerImg from '/@/assets/images/header.jpg';

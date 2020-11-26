@@ -10,11 +10,9 @@
 </template>
 
 <script lang="ts">
-  // component
   import { defineComponent, ref, unref, nextTick } from 'vue';
   import { Scrollbar } from '/@/components/Scrollbar';
 
-  // hook
   import { useScrollTo } from '/@/hooks/event/useScrollTo';
 
   export default defineComponent({
@@ -26,6 +24,7 @@
       function scrollTo(to: number, duration = 500) {
         const scrollbar = unref(scrollbarRef);
         if (!scrollbar) return;
+
         nextTick(() => {
           const { start } = useScrollTo({
             el: unref(scrollbar.$.wrap),
@@ -45,6 +44,7 @@
       function scrollBottom() {
         const scrollbar = unref(scrollbarRef);
         if (!scrollbar) return;
+
         nextTick(() => {
           const scrollHeight = scrollbar.$.wrap.scrollHeight as number;
           const { start } = useScrollTo({
@@ -54,6 +54,7 @@
           start();
         });
       }
+
       return {
         scrollbarRef,
         scrollTo,

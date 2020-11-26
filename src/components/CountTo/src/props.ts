@@ -1,25 +1,10 @@
 import { PropType } from 'vue';
+import { propTypes } from '/@/utils/propTypes';
 export const countToProps = {
-  startVal: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
-  },
-  endVal: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 2017,
-  },
-  duration: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 3000,
-  },
-  autoplay: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
-  },
+  startVal: propTypes.number.def(0),
+  endVal: propTypes.number.def(2020),
+  duration: propTypes.number.def(1300),
+  autoplay: propTypes.bool.def(true),
   decimals: {
     type: Number as PropType<number>,
     required: false,
@@ -28,31 +13,11 @@ export const countToProps = {
       return value >= 0;
     },
   },
-  decimal: {
-    type: String as PropType<string>,
-    required: false,
-    default: '.',
-  },
-  separator: {
-    type: String as PropType<string>,
-    required: false,
-    default: ',',
-  },
-  prefix: {
-    type: String as PropType<string>,
-    required: false,
-    default: '',
-  },
-  suffix: {
-    type: String as PropType<string>,
-    required: false,
-    default: '',
-  },
-  useEasing: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
-  },
+  decimal: propTypes.string.def('.'),
+  separator: propTypes.string.def(','),
+  prefix: propTypes.string.def(''),
+  suffix: propTypes.string.def(''),
+  useEasing: propTypes.bool.def(true),
   easingFn: {
     type: Function as PropType<(t: number, b: number, c: number, d: number) => number>,
     default(t: number, b: number, c: number, d: number) {

@@ -3,9 +3,9 @@ import type { RouteLocationMatched } from 'vue-router';
 import type { PropType } from 'vue';
 
 import { defineComponent, TransitionGroup, unref, watch, ref } from 'vue';
-import Breadcrumb from '/@/components/Breadcrumb/Breadcrumb.vue';
 import Icon from '/@/components/Icon';
-import BreadcrumbItem from '/@/components/Breadcrumb/BreadcrumbItem.vue';
+
+import { Breadcrumb, BreadcrumbItem } from '/@/components/Breadcrumb';
 
 import { useRouter } from 'vue-router';
 

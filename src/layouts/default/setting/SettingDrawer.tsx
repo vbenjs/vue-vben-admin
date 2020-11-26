@@ -5,7 +5,7 @@ import defaultSetting from '/@/settings/projectSetting';
 import { defineComponent, computed, unref, FunctionalComponent } from 'vue';
 import { BasicDrawer } from '/@/components/Drawer/index';
 import { Divider, Switch, Tooltip, InputNumber, Select } from 'ant-design-vue';
-import Button from '/@/components/Button/index.vue';
+import { Button } from '/@/components/Button';
 import { CopyOutlined, RedoOutlined, CheckOutlined } from '@ant-design/icons-vue';
 
 import { MenuTypeEnum } from '/@/enums/menuEnum';

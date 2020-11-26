@@ -1,9 +1,10 @@
 import type { NamePath, RuleObject } from 'ant-design-vue/lib/form/interface';
 import type { VNode } from 'vue';
-import type { BasicButtonProps } from '/@/components/Button/types';
+import type { ButtonProps as AntdButtonProps } from 'ant-design-vue/es/button/buttonTypes';
+
 import type { FormItem } from './formItem';
 import type { ColEx, ComponentType } from './index';
-import { TableActionType } from '../../../Table/src/types/table';
+import type { TableActionType } from '/@/components/Table/src/types/table';
 
 export type FieldMapToTime = [string, [string, string], string?][];
 
@@ -18,7 +19,7 @@ export interface RenderCallbackParams {
   field: string;
 }
 
-export interface ButtonProps extends BasicButtonProps {
+export interface ButtonProps extends AntdButtonProps {
   text?: string;
 }
 

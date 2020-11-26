@@ -2,7 +2,7 @@ import type { ColEx } from './types/index';
 
 import { defineComponent, unref, computed, PropType } from 'vue';
 import { Form, Col } from 'ant-design-vue';
-import Button from '/@/components/Button/index.vue';
+import { Button } from '/@/components/Button';
 import { BasicArrow } from '/@/components/Basic/index';
 
 import { getSlot } from '/@/utils/helper/tsxHelper';
@@ -12,7 +12,6 @@ const { t } = useI18n('component.form');
 
 export default defineComponent({
   name: 'BasicFormAction',
-  emits: ['toggle-advanced'],
   props: {
     show: {
       type: Boolean,
@@ -55,6 +54,7 @@ export default defineComponent({
       default: false,
     },
   },
+  emits: ['toggle-advanced'],
   setup(props, { slots, emit }) {
     const getResetBtnOptionsRef = computed(() => {
       return {
@@ -112,7 +112,7 @@ export default defineComponent({
                       {() => (
                         <>
                           {isAdvanced ? t('putAway') : t('unfold')}
-                          <BasicArrow expand={!isAdvanced} />
+                          <BasicArrow expand={!isAdvanced} top />
                         </>
                       )}
                     </Button>

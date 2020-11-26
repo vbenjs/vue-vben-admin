@@ -16,23 +16,23 @@
       </a-card>
     </div>
 
-    <AppPageFooter>
+    <PageFooter>
       <template #right>
         <a-button type="primary" @click="submitAll">提交</a-button>
       </template>
-    </AppPageFooter>
+    </PageFooter>
   </div>
 </template>
 <script lang="ts">
   import { BasicForm, useForm } from '/@/components/Form';
   import { defineComponent, ref } from 'vue';
   import PersonTable from './PersonTable.vue';
-  import { AppPageFooter } from '/@/components/Application';
+  import { PageFooter } from '/@/components/Page';
 
   import { schemas, taskSchemas } from './data';
 
   export default defineComponent({
-    components: { BasicForm, PersonTable, AppPageFooter },
+    components: { BasicForm, PersonTable, PageFooter },
     setup() {
       const tableRef = ref<{ getDataSource: () => any } | null>(null);
 

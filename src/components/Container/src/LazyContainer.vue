@@ -24,19 +24,20 @@
   import { Skeleton } from 'ant-design-vue';
   import { useTimeoutFn } from '/@/hooks/core/useTimeout';
   import { useIntersectionObserver } from '/@/hooks/event/useIntersectionObserver';
+  import { propTypes } from '/@/utils/propTypes';
+
   interface State {
     isInit: boolean;
     loading: boolean;
     intersectionObserverInstance: IntersectionObserver | null;
   }
+
   export default defineComponent({
     name: 'LazyContainer',
     components: { Skeleton },
     props: {
       // Waiting time, if the time is specified, whether visible or not, it will be automatically loaded after the specified time
-      timeout: {
-        type: Number as PropType<number>,
-      },
+      timeout: propTypes.number,
 
       // The viewport where the component is located. If the component is scrolling in the page container, the viewport is the container
       viewport: {
@@ -47,33 +48,18 @@
       },
 
       // Preload threshold, css unit
-      threshold: {
-        type: String as PropType<string>,
-        default: '0px',
-      },
+      threshold: propTypes.string.def('0px'),
 
       // The scroll direction of the viewport, vertical represents the vertical direction, horizontal represents the horizontal direction
-      direction: {
-        type: String as PropType<'vertical' | 'horizontal'>,
-        default: 'vertical',
-      },
+      direction: propTypes.oneOf(['vertical', 'horizontal']).def('vertical'),
 
       // The label name of the outer container that wraps the component
-      tag: {
-        type: String as PropType<string>,
-        default: 'div',
-      },
+      tag: propTypes.string.def('div'),
 
-      maxWaitingTime: {
-        type: Number as PropType<number>,
-        default: 80,
-      },
+      maxWaitingTime: propTypes.number.def(80),
 
       // transition name
-      transitionName: {
-        type: String as PropType<string>,
-        default: 'lazy-container',
-      },
+      transitionName: propTypes.string.def('lazy-container'),
     },
     emits: ['init'],
     setup(props, { emit }) {

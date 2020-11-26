@@ -1,14 +1,14 @@
 import xlsx from 'xlsx';
 import type { WorkBook } from 'xlsx';
 import type { JsonToSheet, AoAToSheet } from './types';
-// import { isObject } from '@/src/utils/is';
 
 const { utils, writeFile } = xlsx;
 
+const DEF_FILE_NAME = 'excel-list.xlsx';
 export function jsonToSheetXlsx<T = any>({
   data,
   header,
-  filename = 'excel-list.xlsx',
+  filename = DEF_FILE_NAME,
   json2sheetOpts = {},
   write2excelOpts = { bookType: 'xlsx' },
 }: JsonToSheet<T>) {
@@ -34,7 +34,7 @@ export function jsonToSheetXlsx<T = any>({
 export function aoaToSheetXlsx<T = any>({
   data,
   header,
-  filename = 'excel-list.xlsx',
+  filename = DEF_FILE_NAME,
   write2excelOpts = { bookType: 'xlsx' },
 }: AoAToSheet<T>) {
   const arrData = [...data];

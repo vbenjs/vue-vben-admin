@@ -1,16 +1,23 @@
 ## Wip
 
+## (破坏性更新) Breaking changes
+
+- ClickOutSide 组件引入方式由 `import ClickOutSide from '/@/components/ClickOutSide/index.vue'`变更为`import { ClickOutSide } from '/@/components/ClickOutSide'`
+- Button 组件引入方式由 `import ClickOutSide from '/@/components/Button/index.vue'`变更为`import { Button } from '/@/components/Button'`
+- StrengthMeter 组件引入方式由 `import StrengthMeter from '/@/components/StrengthMeter'`变更为`import { StrengthMeter } from '/@/components/StrengthMeter'`
+- 除示例外加入全局国际化功能，支持中文与英文
+
 ### ✨ Refactor
 
 - 重构整体 layout。更改代码实现方式。代码更精简
 - 配置项重构
 - 移除 messageSetting 配置
+- BasicTitle 组件 `showSpan`=> `span`
 
 ### ✨ Features
 
 - 缓存可以配置是否加密,默认生产环境开启 Aes 加密
 - 新增标签页拖拽排序
-- 除示例外加入全局国际化功能，支持中文与英文
 
 ### 🎫 Chores
 

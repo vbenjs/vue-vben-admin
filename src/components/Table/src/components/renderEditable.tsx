@@ -1,5 +1,7 @@
+import '../style/editable-cell.less';
+
 import { defineComponent, PropType, ref, unref, nextTick, watchEffect } from 'vue';
-import ClickOutSide from '/@/components/ClickOutSide/index.vue';
+import { ClickOutSide } from '/@/components/ClickOutSide';
 
 import { RenderEditableCellParams } from '../types/table';
 import { ComponentType } from '../types/componentType';
@@ -7,8 +9,6 @@ import { ComponentType } from '../types/componentType';
 import { componentMap } from '../componentMap';
 import { isString, isBoolean } from '/@/utils/is';
 import { FormOutlined, CloseOutlined, CheckOutlined } from '@ant-design/icons-vue';
-
-import '../style/editable-cell.less';
 
 const prefixCls = 'editable-cell';
 const EditableCell = defineComponent({

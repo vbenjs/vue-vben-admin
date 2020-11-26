@@ -1,6 +1,7 @@
-import type { PropType, FunctionalComponent } from 'vue';
+import type { FunctionalComponent } from 'vue';
 
 import { defineComponent, unref } from 'vue';
+
 import {
   DoubleRightOutlined,
   DoubleLeftOutlined,
@@ -9,6 +10,7 @@ import {
 } from '@ant-design/icons-vue';
 
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
+import { propTypes } from '/@/utils/propTypes';
 
 const SiderTrigger: FunctionalComponent = () => {
   const { getCollapsed } = useMenuSetting();
@@ -29,13 +31,8 @@ const HeaderTrigger: FunctionalComponent<{
 export default defineComponent({
   name: 'LayoutTrigger',
   props: {
-    sider: {
-      type: Boolean as PropType<boolean>,
-      default: true,
-    },
-    theme: {
-      type: String as PropType<string>,
-    },
+    sider: propTypes.bool.def(true),
+    theme: propTypes.oneOf(['light', 'dark']),
   },
   setup(props) {
     return () => {

@@ -8318,7 +8318,7 @@ vue-router@^4.0.0-rc.5:
   resolved "https://registry.npmjs.org/vue-router/-/vue-router-4.0.0-rc.5.tgz#191d32e3d5276641ff21e881d34e33a71dc6e8f0"
   integrity sha512-Q8Tt6VGwGMN5qASeIdjSydU3uRADK9AUkqnbnzmTz+zZKS0W6GZOAuP235lf3y5/MqEFSKRJGaTWPEY0t+Rjmg==
 
-vue-types@^3.0.0:
+vue-types@^3.0.0, vue-types@^3.0.1:
   version "3.0.1"
   resolved "https://registry.npmjs.org/vue-types/-/vue-types-3.0.1.tgz#20e9baae8673de8093d0a989234695d08d544be0"
   integrity sha512-UbvbzPu8DNzZRfMB1RDTFKBB6seMm80scMFdP+GkKaw00EugC3cjq9AtlS4y258vDkpAe9HfqbRO4cp63qVHXQ==

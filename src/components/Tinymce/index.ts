@@ -1,1 +1,5 @@
-export { default as Tinymce } from './src/Editor.vue';
+import Tinymce from './src/Editor.vue';
+import { withInstall } from '../util';
+
+export { Tinymce };
+export default withInstall(Tinymce);

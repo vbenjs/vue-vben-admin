@@ -2,39 +2,27 @@
   <div class="markdown" ref="wrapRef" />
 </template>
 <script lang="ts">
-  import {
-    defineComponent,
-    ref,
-    onMounted,
-    unref,
-    PropType,
-    onUnmounted,
-    nextTick,
-    watchEffect,
-  } from 'vue';
+  import { defineComponent, ref, onMounted, unref, onUnmounted, nextTick, watchEffect } from 'vue';
   import Vditor from 'vditor';
   import 'vditor/dist/index.css';
+
+  import { propTypes } from '/@/utils/propTypes';
+
   export default defineComponent({
     emits: ['update:value'],
     props: {
-      height: {
-        type: Number as PropType<number>,
-        default: 360,
-      },
-      value: {
-        type: String,
-        default: '',
-      },
+      height: propTypes.number.def(360),
+      value: propTypes.string.def(''),
     },
     setup(props, { attrs, emit }) {
-      const wrapRef = ref<Nullable<HTMLDivElement>>(null);
+      const wrapRef = ref<ElRef>(null);
       const vditorRef = ref<Nullable<Vditor>>(null);
       const initedRef = ref(false);
 
       function init() {
         const wrapEl = unref(wrapRef);
         if (!wrapEl) return;
-        const data = { ...attrs, ...props };
+        const bindValue = { ...attrs, ...props };
         vditorRef.value = new Vditor(wrapEl, {
           mode: 'sv',
           preview: {
@@ -43,7 +31,7 @@
           input: (v) => {
             emit('update:value', v);
           },
-          ...data,
+          ...bindValue,
           cache: {
             enable: false,
           },

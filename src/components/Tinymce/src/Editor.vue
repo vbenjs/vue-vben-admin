@@ -8,7 +8,6 @@
   import {
     defineComponent,
     computed,
-    onMounted,
     nextTick,
     ref,
     unref,
@@ -24,6 +23,7 @@
   import { snowUuid } from '/@/utils/uuid';
   import { bindHandlers } from './helper';
   import lineHeight from './lineHeight';
+  import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
 
   const CDN_URL = 'https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1';
 
@@ -91,8 +91,7 @@
           editor.setMode(attrs.disabled ? 'readonly' : 'design');
         }
       );
-
-      onMounted(() => {
+      onMountedOrActivated(() => {
         nextTick(() => {
           init();
         });

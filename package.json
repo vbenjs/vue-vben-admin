@@ -38,6 +38,7 @@
     "vue": "^3.0.3",
     "vue-i18n": "^9.0.0-beta.8",
     "vue-router": "^4.0.0-rc.5",
+    "vue-types": "^3.0.1",
     "vuex": "^4.0.0-rc.2",
     "vuex-module-decorators": "^1.0.1",
     "xlsx": "^0.16.9",

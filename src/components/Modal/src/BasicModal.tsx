@@ -3,7 +3,7 @@ import type { ModalProps, ModalMethods } from './types';
 import { defineComponent, computed, ref, watch, unref, watchEffect } from 'vue';
 
 import Modal from './Modal';
-import Button from '/@/components/Button/index.vue';
+import { Button } from '/@/components/Button';
 import ModalWrapper from './ModalWrapper';
 import { BasicTitle } from '/@/components/Basic';
 import { FullscreenExitOutlined, FullscreenOutlined, CloseOutlined } from '@ant-design/icons-vue';

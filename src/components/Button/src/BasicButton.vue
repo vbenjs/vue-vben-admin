@@ -8,51 +8,33 @@
   </Button>
 </template>
 <script lang="ts">
-  import { PropType } from 'vue';
-
   import { defineComponent, computed } from 'vue';
+
   import { Button } from 'ant-design-vue';
   import Icon from '/@/components/Icon';
+  import { propTypes } from '/@/utils/propTypes';
+
   export default defineComponent({
     name: 'AButton',
     inheritAttrs: false,
     components: { Button, Icon },
     props: {
-      type: {
-        type: String as PropType<'primary' | 'default' | 'danger' | 'dashed' | 'link'>,
-        default: 'default',
-      },
-      color: {
-        type: String as PropType<'error' | 'warning' | 'success' | ''>,
-      },
-      loading: {
-        type: Boolean as PropType<boolean>,
-        default: false,
-      },
-      disabled: {
-        type: Boolean as PropType<boolean>,
-        default: false,
-      },
-      preIcon: {
-        type: String as PropType<string>,
-      },
-      postIcon: {
-        type: String as PropType<string>,
-      },
+      type: propTypes.oneOf(['primary', 'default', 'danger', 'dashed', 'link']).def('default'),
+      color: propTypes.oneOf(['error', 'warning', 'success', '']),
+      loading: propTypes.bool,
+      disabled: propTypes.bool,
+      preIcon: propTypes.string,
+      postIcon: propTypes.string,
     },
     setup(props, { attrs }) {
-      const getIsCircleBtn = computed(() => {
-        return attrs.shape === 'circle';
-      });
+      const getIsCircleBtn = computed(() => attrs.shape === 'circle');
 
       const getColor = computed(() => {
         const { color, disabled } = props;
-        return [
-          {
-            [`ant-btn-${color}`]: !!color,
-            [`is-disabled`]: disabled,
-          },
-        ];
+        return {
+          [`ant-btn-${color}`]: !!color,
+          [`is-disabled`]: disabled,
+        };
       });
 
       const getBindValue = computed((): any => {

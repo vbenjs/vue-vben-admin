@@ -6,6 +6,7 @@ export function withInstall(...components: Component[]) {
     components.forEach((comp) => {
       comp.name && app.component(comp.name, comp);
     });
+    return app;
   };
 }
 

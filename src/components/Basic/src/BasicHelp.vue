@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { PropType } from 'vue';
+  import type { CSSProperties, PropType } from 'vue';
   import { defineComponent, computed, unref, h } from 'vue';
 
   import { Tooltip } from 'ant-design-vue';
@@ -8,36 +8,23 @@
   import { getPopupContainer } from '/@/utils';
   import { isString, isArray } from '/@/utils/is';
   import { getSlot } from '/@/utils/helper/tsxHelper';
+  import { propTypes } from '/@/utils/propTypes';
   export default defineComponent({
     name: 'BasicHelp',
     components: { Tooltip },
     props: {
       // max-width
-      maxWidth: {
-        type: String as PropType<string>,
-        default: '600px',
-      },
+      maxWidth: propTypes.string.def('600px'),
       // Whether to display the serial number
-      showIndex: {
-        type: Boolean as PropType<boolean>,
-        default: false,
-      },
+      showIndex: propTypes.bool,
+      // color
+      color: propTypes.string.def('#ffffff'),
+      fontSize: propTypes.string.def('14px'),
+      placement: propTypes.string.def('right'),
+      absolute: propTypes.bool,
       // Text list
       text: {
         type: [Array, String] as PropType<string[] | string>,
-      },
-      // color
-      color: {
-        type: String as PropType<string>,
-        default: '#ffffff',
-      },
-      fontSize: {
-        type: String as PropType<string>,
-        default: '14px',
-      },
-      absolute: {
-        type: Boolean as PropType<boolean>,
-        default: false,
       },
       // 定位
       position: {
@@ -48,24 +35,24 @@
           bottom: 0,
         }),
       },
-      placement: {
-        type: String as PropType<string>,
-        defualt: 'right',
-      },
     },
     setup(props, { slots }) {
-      const getOverlayStyleRef = computed(() => {
-        return {
-          maxWidth: props.maxWidth,
-        };
-      });
+      const getOverlayStyleRef = computed(
+        (): CSSProperties => {
+          return {
+            maxWidth: props.maxWidth,
+          };
+        }
+      );
 
-      const getWrapStyleRef = computed(() => {
-        return {
-          color: props.color,
-          fontSize: props.fontSize,
-        };
-      });
+      const getWrapStyleRef = computed(
+        (): CSSProperties => {
+          return {
+            color: props.color,
+            fontSize: props.fontSize,
+          };
+        }
+      );
 
       const getMainStyleRef = computed(() => {
         return props.absolute ? props.position : {};
@@ -73,14 +60,17 @@
 
       const renderTitle = () => {
         const list = props.text;
+
         if (isString(list)) {
           return h('p', list);
         }
+
         if (isArray(list)) {
           return list.map((item, index) => {
             return h('p', { key: item }, [props.showIndex ? `${index + 1}. ` : '', item]);
           });
         }
+
         return null;
       };
 
@@ -95,7 +85,7 @@
                 style: unref(getWrapStyleRef),
               },
               [renderTitle()]
-            ) as any,
+            ),
             overlayClassName: 'base-help__wrap',
             autoAdjustOverflow: true,
             overlayStyle: unref(getOverlayStyleRef),

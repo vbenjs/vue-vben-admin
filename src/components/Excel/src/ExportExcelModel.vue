@@ -72,7 +72,6 @@
       async function handleOk() {
         const res = (await validateFields()) as ExportModalResult;
         const { filename, bookType } = res;
-
         emit('success', {
           filename: `${filename.split('.').shift()}.${bookType}`,
           bookType,

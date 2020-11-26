@@ -23,18 +23,16 @@
 
   import { LocaleType } from '/@/locales/types';
 
+  import { propTypes } from '/@/utils/propTypes';
+
   export default defineComponent({
     name: 'AppLocalPicker',
     components: { GlobalOutlined, Dropdown },
     props: {
-      showText: {
-        type: Boolean,
-        default: true,
-      },
-      reload: {
-        type: Boolean,
-        default: false,
-      },
+      // Whether to display text
+      showText: propTypes.bool.def(true),
+      // Whether to refresh the interface when changing
+      reload: propTypes.bool,
     },
     setup(props) {
       const { localeList } = useLocaleSetting();

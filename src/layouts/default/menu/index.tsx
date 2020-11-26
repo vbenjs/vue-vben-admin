@@ -15,32 +15,25 @@ import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 import { useGo } from '/@/hooks/web/usePage';
 import { useSplitMenu } from './useLayoutMenu';
 import { openWindow } from '/@/utils';
+import { propTypes } from '/@/utils/propTypes';
 
 export default defineComponent({
   name: 'LayoutMenu',
   props: {
-    theme: {
-      type: String as PropType<string>,
-      default: '',
-    },
+    theme: propTypes.oneOf(['light', 'dark']),
+
     splitType: {
       type: Number as PropType<MenuSplitTyeEnum>,
       default: MenuSplitTyeEnum.NONE,
     },
-    parentMenuPath: {
-      type: String as PropType<string>,
-      default: '',
-    },
-    showSearch: {
-      type: Boolean as PropType<boolean>,
-      default: true,
-    },
-    isHorizontal: {
-      type: Boolean as PropType<boolean>,
-      default: false,
-    },
+
+    // Whether to show search box
+    showSearch: propTypes.bool.def(true),
+
+    isHorizontal: propTypes.bool,
+    // menu Mode
     menuMode: {
-      type: [String] as PropType<MenuModeEnum | null>,
+      type: [String] as PropType<Nullable<MenuModeEnum>>,
       default: '',
     },
   },

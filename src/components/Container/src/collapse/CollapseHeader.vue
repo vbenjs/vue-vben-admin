@@ -11,7 +11,7 @@
 
     <div class="collapse-container__action">
       <slot name="action" />
-      <BasicArrow v-if="$attrs.canExpan" :expand="$attrs.show" @click="$emit('expand')" />
+      <BasicArrow v-if="$attrs.canExpan" top :expand="$attrs.show" @click="$emit('expand')" />
     </div>
   </div>
 </template>

@@ -37,7 +37,7 @@
   export default defineComponent({
     props: {
       list: {
-        type: Array as PropType<Array<ListItem>>,
+        type: Array as PropType<ListItem[]>,
         default: () => [],
       },
     },

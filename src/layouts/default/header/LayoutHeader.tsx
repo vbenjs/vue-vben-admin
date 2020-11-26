@@ -38,6 +38,7 @@ import { PageEnum } from '/@/enums/pageEnum';
 import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
 import { AppLocalePicker } from '/@/components/Application';
 import { useI18n } from '/@/hooks/web/useI18n';
+import { propTypes } from '/@/utils/propTypes';
 
 interface TooltipItemProps {
   title: string;
@@ -57,10 +58,7 @@ const TooltipItem: FunctionalComponent<TooltipItemProps> = (props, { slots }) =>
 export default defineComponent({
   name: 'LayoutHeader',
   props: {
-    fixed: {
-      type: Boolean,
-      default: false,
-    },
+    fixed: propTypes.bool,
   },
   setup(props) {
     let logoEl: Element | null | undefined;

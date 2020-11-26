@@ -9,7 +9,6 @@
   </div>
 </template>
 <script lang="ts">
-  import type { PropType } from 'vue';
   import { defineComponent } from 'vue';
 
   import { useGlobSetting } from '/@/hooks/setting';
@@ -18,23 +17,23 @@
 
   import { PageEnum } from '/@/enums/pageEnum';
 
+  import { propTypes } from '/@/utils/propTypes';
+
   export default defineComponent({
     name: 'AppLogo',
     props: {
       /**
        * The theme of the current parent component
        */
-      theme: {
-        type: String as PropType<string>,
-      },
-      showTitle: {
-        type: Boolean,
-        default: true,
-      },
+      theme: propTypes.oneOf(['light', 'dark']),
+      // Whether to show title
+      showTitle: propTypes.bool.def(true),
     },
     setup() {
       const { getCollapsedShowTitle } = useMenuSetting();
+
       const globSetting = useGlobSetting();
+
       const go = useGo();
 
       function handleGoHome(): void {

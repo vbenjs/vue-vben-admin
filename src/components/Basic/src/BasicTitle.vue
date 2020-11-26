@@ -1,5 +1,5 @@
 <template>
-  <span class="base-title" :class="{ 'show-span': showSpan && $slots.default }">
+  <span class="base-title" :class="{ 'show-span': span && $slots.default }">
     <slot />
     <BasicHelp class="base-title__help" v-if="helpMessage" :text="helpMessage" />
   </span>
@@ -10,6 +10,7 @@
   import { defineComponent } from 'vue';
 
   import BasicHelp from './BasicHelp.vue';
+  import { propTypes } from '/@/utils/propTypes';
 
   export default defineComponent({
     name: 'BasicTitle',
@@ -19,13 +20,7 @@
         type: [String, Array] as PropType<string | string[]>,
         default: '',
       },
-      showSpan: {
-        type: Boolean as PropType<boolean>,
-        default: false,
-      },
-    },
-    setup() {
-      return {};
+      span: propTypes.bool,
     },
   });
 </script>

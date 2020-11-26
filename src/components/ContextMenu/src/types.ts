@@ -29,7 +29,7 @@ export interface ContextMenuProps {
 }
 
 export interface ItemContentProps {
-  showIcon: boolean;
+  showIcon: boolean | undefined;
   item: ContextMenuItem;
   handler: Fn;
 }

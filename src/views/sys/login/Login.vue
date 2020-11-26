@@ -63,7 +63,7 @@
   import { defineComponent, reactive, ref, unref, toRaw } from 'vue';
   import { Checkbox } from 'ant-design-vue';
 
-  import Button from '/@/components/Button/index.vue';
+  import { Button } from '/@/components/Button';
   import { AppLocalePicker } from '/@/components/Application';
   // import { BasicDragVerify, DragVerifyActionType } from '/@/components/Verify/index';
 

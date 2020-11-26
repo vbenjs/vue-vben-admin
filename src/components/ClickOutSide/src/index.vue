@@ -9,9 +9,8 @@
 
   export default defineComponent({
     name: 'ClickOutSide',
-
     setup(_, { emit }) {
-      const wrapRef = ref<Nullable<HTMLDivElement | null>>(null);
+      const wrapRef = ref<ElRef>(null);
 
       useClickOutside(wrapRef as Ref<HTMLDivElement>, () => {
         emit('clickOutside');

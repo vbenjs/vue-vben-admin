@@ -1,7 +1,8 @@
-import { defineComponent, computed, ref, unref } from 'vue';
+import type { DescOptions, DescInstance, DescItem } from './types';
+
+import { defineComponent, computed, ref, unref, CSSProperties } from 'vue';
 import { Descriptions } from 'ant-design-vue';
 import { CollapseContainer, CollapseContainerOptions } from '/@/components/Container/index';
-import type { DescOptions, DescInstance, DescItem } from './types';
 import descProps from './props';
 
 import { isFunction } from '/@/utils/is';
@@ -11,6 +12,7 @@ import { deepMerge } from '/@/utils';
 
 const prefixCls = 'description';
 export default defineComponent({
+  name: 'Description',
   props: descProps,
   emits: ['register'],
   setup(props, { attrs, slots, emit }) {
@@ -72,17 +74,13 @@ export default defineComponent({
       if (!labelStyle && !labelMinWidth) {
         return label;
       }
-      return (
-        <div
-          style={{
-            ...labelStyle,
 
-            minWidth: `${labelMinWidth}px`,
-          }}
-        >
-          {label}
-        </div>
-      );
+      const labelStyles: CSSProperties = {
+        ...labelStyle,
+
+        minWidth: `${labelMinWidth}px `,
+      };
+      return <div style={labelStyles}>{label}</div>;
     }
 
     function renderItem() {
@@ -90,9 +88,11 @@ export default defineComponent({
       return unref(schema).map((item) => {
         const { render, field, span, show, contentMinWidth } = item;
         const { data } = unref(getProps) as any;
+
         if (show && isFunction(show) && !show(data)) {
           return null;
         }
+
         const getContent = () =>
           isFunction(render)
             ? render(data && data[field], data)
@@ -130,12 +130,9 @@ export default defineComponent({
     const renderContainer = () => {
       const content = props.useCollapse ? renderDesc() : <div>{renderDesc()}</div>;
       // Reduce the dom level
+      const { title, canExpand, helpMessage } = unref(getCollapseOptions);
       return props.useCollapse ? (
-        <CollapseContainer
-          title={unref(getMergeProps).title}
-          canExpan={unref(getCollapseOptions).canExpand}
-          helpMessage={unref(getCollapseOptions).helpMessage}
-        >
+        <CollapseContainer title={title} canExpan={canExpand} helpMessage={helpMessage}>
           {{
             default: () => content,
             action: () => getSlot(slots, 'action'),

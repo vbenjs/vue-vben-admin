@@ -13,21 +13,14 @@
   import { useRouter } from 'vue-router';
   import { useEventListener } from '/@/hooks/event/useEventListener';
 
+  import { propTypes } from '/@/utils/propTypes';
+
   export default defineComponent({
     name: 'BreadcrumbItem',
     props: {
-      to: {
-        type: [String, Object],
-        default: '',
-      },
-      replace: {
-        type: Boolean,
-        default: false,
-      },
-      isLink: {
-        type: Boolean,
-        default: false,
-      },
+      to: propTypes.oneOfType([propTypes.string, propTypes.object]),
+      replace: propTypes.bool,
+      isLink: propTypes.bool,
     },
     setup(props) {
       const linkRef = ref<Nullable<HTMLElement>>(null);

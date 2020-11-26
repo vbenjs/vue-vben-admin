@@ -8,7 +8,6 @@ export default () => {
           props.onExpand(props.record, e);
         }}
         expand={props.expanded}
-        class="right"
       />
     );
   };

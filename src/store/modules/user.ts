@@ -30,8 +30,6 @@ hotModuleUnregisterModule(NAME);
 
 const { permissionCacheType } = useProjectSetting();
 
-const { t } = useI18n('sys.app');
-
 function getCache<T>(key: string) {
   const fn = permissionCacheType === CacheTypeEnum.LOCAL ? getLocal : getSession;
   return fn(key) as T;
@@ -145,6 +143,7 @@ class User extends VuexModule {
   @Action
   async confirmLoginOut() {
     const { createConfirm } = useMessage();
+    const { t } = useI18n('sys.app');
     createConfirm({
       iconType: 'warning',
       title: t('loginOutTip'),
