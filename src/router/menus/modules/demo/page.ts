@@ -106,6 +106,10 @@ const menu: MenuModule = {
         },
         children: [
           {
+            path: 'basic',
+            name: '标准列表',
+          },
+          {
             path: 'card',
             name: 'routes.demo.page.listCard',
           },

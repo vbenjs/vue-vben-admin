@@ -219,6 +219,14 @@ const page: AppRouteModule = {
       },
       children: [
         {
+          path: 'basic',
+          name: 'ListBasicPage',
+          component: () => import('/@/views/demo/page/list/basic/index.vue'),
+          meta: {
+            title: '标准列表',
+          },
+        },
+        {
           path: 'card',
           name: 'ListCardPage',
           component: () => import('/@/views/demo/page/list/card/index.vue'),
