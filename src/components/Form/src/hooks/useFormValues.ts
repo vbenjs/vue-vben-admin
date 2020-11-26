@@ -19,11 +19,11 @@ export function useFormValues({
   formModel,
 }: UseFormValuesContext) {
   // Processing form values
-  function handleFormValues(values: any) {
+  function handleFormValues(values: Record<string, any>) {
     if (!isObject(values)) {
       return {};
     }
-    const resMap: any = {};
+    const resMap: Record<string, any> = {};
     for (const item of Object.entries(values)) {
       let [, value] = item;
       const [key] = item;
@@ -49,7 +49,7 @@ export function useFormValues({
   /**
    * @description: Processing time interval parameters
    */
-  function handleRangeTimeValue(values: any) {
+  function handleRangeTimeValue(values: Record<string, any>) {
     const fieldMapToTime = unref(fieldMapToTimeRef);
 
     if (!fieldMapToTime || !Array.isArray(fieldMapToTime)) {
@@ -72,7 +72,7 @@ export function useFormValues({
 
   function initDefault() {
     const schemas = unref(getSchema);
-    const obj: any = {};
+    const obj: Record<string, any> = {};
     schemas.forEach((item) => {
       if (item.defaultValue) {
         obj[item.field] = item.defaultValue;

@@ -71,16 +71,16 @@
       const schemaRef = ref<Nullable<FormSchema[]>>(null);
       const formElRef = ref<Nullable<FormActionType>>(null);
 
-      const getRowWrapStyleRef = computed((): any => {
-        const { baseRowStyle } = unref(getProps);
-        return baseRowStyle || {};
-      });
-
       const getMergePropsRef = computed(
         (): FormProps => {
           return deepMerge(cloneDeep(props), unref(propsRef));
         }
       );
+
+      const getRowWrapStyleRef = computed((): any => {
+        const { baseRowStyle } = unref(getMergePropsRef);
+        return baseRowStyle || {};
+      });
 
       // 获取表单基本配置
       const getProps = computed(
@@ -103,7 +103,7 @@
         const schemas: FormSchema[] = unref(schemaRef) || (unref(getProps).schemas as any);
         for (const schema of schemas) {
           const { defaultValue, component } = schema;
-          if (defaultValue && dateItemType.includes(component!)) {
+          if (defaultValue && dateItemType.includes(component)) {
             if (!Array.isArray(defaultValue)) {
               schema.defaultValue = moment(defaultValue);
             } else {

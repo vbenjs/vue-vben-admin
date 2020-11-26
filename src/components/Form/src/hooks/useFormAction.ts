@@ -79,9 +79,7 @@ export function useFormAction({
         validKeys.push(key);
       }
     });
-    // if (formEl) {
-    //   formEl.validateFields(validKeys);
-    // }
+    validateFields(validKeys);
   }
   /**
    * @description: Delete based on field name

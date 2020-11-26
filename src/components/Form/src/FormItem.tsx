@@ -17,6 +17,7 @@ import { upperFirst, cloneDeep } from 'lodash-es';
 import { useItemLabelWidth } from './hooks/useLabelWidth';
 import { ComponentType } from './types';
 import { isNumber } from '/@/utils/is';
+import { useI18n } from '/@/hooks/web/useI18n';
 
 export default defineComponent({
   name: 'BasicFormItem',
@@ -46,6 +47,8 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
+    const { t } = useI18n('component.form');
+    // @ts-ignore
     const itemLabelWidthRef = useItemLabelWidth(toRef(props, 'schema'), toRef(props, 'formProps'));
 
     const getValuesRef = computed(() => {
@@ -132,7 +135,7 @@ export default defineComponent({
       let rules: ValidationRule[] = cloneDeep(defRules) as ValidationRule[];
 
       if ((!rules || rules.length === 0) && required) {
-        rules = [{ required }];
+        rules = [{ required, type: 'string' }];
       }
 
       const requiredRuleIndex: number = rules.findIndex(
@@ -142,6 +145,9 @@ export default defineComponent({
       if (requiredRuleIndex !== -1) {
         const rule = rules[requiredRuleIndex];
         if (rule.required && component) {
+          if (!Reflect.has(rule, 'type')) {
+            rule.type = 'string';
+          }
           const joinLabel = Reflect.has(props.schema, 'rulesMessageJoinLabel')
             ? rulesMessageJoinLabel
             : globalRulesMessageJoinLabel;
@@ -157,11 +163,9 @@ export default defineComponent({
             component.includes('TimePicker')
           ) {
             rule.type = 'object';
-          }
-          if (component.includes('RangePicker') || component.includes('Upload')) {
+          } else if (component.includes('RangePicker') || component.includes('Upload')) {
             rule.type = 'array';
-          }
-          if (component.includes('InputNumber')) {
+          } else if (component.includes('InputNumber')) {
             rule.type = 'number';
           }
         }
@@ -171,7 +175,7 @@ export default defineComponent({
       const characterInx = rules.findIndex((val) => val.max);
       if (characterInx !== -1 && !rules[characterInx].validator) {
         rules[characterInx].message =
-          rules[characterInx].message || `字符数应小于${rules[characterInx].max}位`;
+          rules[characterInx].message || t('maxTip', [rules[characterInx].max]);
       }
       return rules;
     }
@@ -237,6 +241,7 @@ export default defineComponent({
       const bindValue = {
         [valueField || (isCheck ? 'checked' : 'value')]: handleValue(component, field),
       };
+
       if (!renderComponentContent) {
         return <Comp {...propsData} {...on} {...bindValue} />;
       }

@@ -6,4 +6,6 @@ export default {
 
   input: 'Please Input',
   choose: 'Please Choose',
+
+  maxTip: 'The number of characters should be less than {0}',
 };

@@ -6,4 +6,6 @@ export default {
 
   input: '请输入',
   choose: '请选择',
+
+  maxTip: '字符数应小于{0}位',
 };
