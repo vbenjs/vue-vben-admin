@@ -1,20 +1,20 @@
-import type { ReplaceFields, TreeItem, Keys, CheckKeys, InsertNodeParams } from './types';
+import './index.less';
 
-import { defineComponent, reactive, computed, unref, ref, watchEffect } from 'vue';
+import type { ReplaceFields, TreeItem, Keys, CheckKeys } from './types';
+
+import { defineComponent, reactive, computed, unref, ref, watchEffect, CSSProperties } from 'vue';
 import { Tree } from 'ant-design-vue';
 import { DownOutlined } from '@ant-design/icons-vue';
 
 import { useContextMenu, ContextMenuItem } from '/@/hooks/web/useContextMenu';
 
 import { isFunction } from '/@/utils/is';
-import { omit, cloneDeep } from 'lodash-es';
-import { forEach } from '/@/utils/helper/treeHelper';
+import { omit } from 'lodash-es';
 import { extendSlots } from '/@/utils/helper/tsxHelper';
 import { tryTsxEmit } from '/@/utils/helper/vueHelper';
 
 import { basicProps } from './props';
-
-import './index.less';
+import { useTree } from './useTree';
 
 interface State {
   expandedKeys: Keys;
@@ -49,17 +49,55 @@ export default defineComponent({
       }
     );
 
-    const getTreeData = computed(() => {
-      return unref(treeDataRef);
+    const getContentStyle = computed(
+      (): CSSProperties => {
+        const { actionList } = props;
+        const width = actionList.length * 18;
+        return {
+          width: `calc(100% - ${width}px)`,
+        };
+      }
+    );
+
+    const getBindValues = computed(() => {
+      let propsData = {
+        blockNode: true,
+        ...attrs,
+        ...props,
+        expandedKeys: state.expandedKeys,
+        selectedKeys: state.selectedKeys,
+        checkedKeys: state.checkedKeys,
+        replaceFields: unref(getReplaceFields),
+        'onUpdate:expandedKeys': (v: Keys) => {
+          state.expandedKeys = v;
+          emit('update:expandedKeys', v);
+        },
+        'onUpdate:selectedKeys': (v: Keys) => {
+          state.selectedKeys = v;
+          emit('update:selectedKeys', v);
+        },
+        onCheck: (v: CheckKeys) => {
+          state.checkedKeys = v;
+          emit('update:value', v);
+        },
+        onRightClick: handleRightClick,
+      };
+      propsData = omit(propsData, 'treeData');
+      return propsData;
     });
+
+    const getTreeData = computed((): TreeItem[] => unref(treeDataRef));
+
+    const { deleteNodeByKey, insertNodeByKey, filterByLevel, updateNodeByKey } = useTree(
+      treeDataRef,
+      getReplaceFields
+    );
 
     //  渲染操作按钮
     function renderAction(node: TreeItem) {
       const { actionList } = props;
 
-      if (!actionList || actionList.length === 0) {
-        return;
-      }
+      if (!actionList || actionList.length === 0) return;
 
       return actionList.map((item, index) => {
         return (
@@ -81,12 +119,15 @@ export default defineComponent({
         const propsData = omit(item, 'title');
         const anyItem = item as any;
         return (
-          <Tree.TreeNode {...propsData} key={keyField && anyItem[keyField]}>
+          <Tree.TreeNode {...propsData} key={anyItem?.[keyField]}>
             {{
               title: () => (
                 <span class={`${prefixCls}-title`}>
-                  {titleField && anyItem[titleField]}
-                  {renderAction(item)}
+                  <span class={`${prefixCls}__content`} style={unref(getContentStyle)}>
+                    {' '}
+                    {titleField && anyItem[titleField]}
+                  </span>
+                  <span class={`${prefixCls}__actions`}> {renderAction(item)}</span>
                 </span>
               ),
               default: () => renderTreeNode({ data: childrenField ? anyItem[childrenField] : [] }),
@@ -135,86 +176,6 @@ export default defineComponent({
       return state.checkedKeys;
     }
 
-    // 展开指定级别
-    function filterByLevel(level = 1, list?: TreeItem[], currentLevel = 1) {
-      if (!level) {
-        return [];
-      }
-      const res: (string | number)[] = [];
-      const data = list || props.treeData || [];
-      for (let index = 0; index < data.length; index++) {
-        const item = data[index] as any;
-
-        const { key: keyField, children: childrenField } = unref(getReplaceFields);
-        const key = keyField ? item[keyField] : '';
-        const children = childrenField ? item[childrenField] : [];
-        res.push(key);
-        if (children && children.length && currentLevel < level) {
-          currentLevel += 1;
-          res.push(...filterByLevel(level, children, currentLevel));
-        }
-      }
-      return res as string[] | number[];
-    }
-
-    /**
-     * 添加节点
-     */
-    function insertNodeByKey({ parentKey = null, node, push = 'push' }: InsertNodeParams) {
-      const treeData: any = cloneDeep(unref(treeDataRef));
-      if (!parentKey) {
-        treeData[push](node);
-        treeDataRef.value = treeData;
-        return;
-      }
-      const { key: keyField, children: childrenField } = unref(getReplaceFields);
-      forEach(treeData, (treeItem) => {
-        if (treeItem[keyField] === parentKey) {
-          treeItem[childrenField] = treeItem[childrenField] || [];
-          treeItem[childrenField][push](node);
-        }
-      });
-      treeDataRef.value = treeData;
-    }
-
-    // 删除节点
-    function deleteNodeByKey(key: string, list: TreeItem[]) {
-      if (!key) return;
-      const treeData = list || unref(treeDataRef);
-      const { key: keyField, children: childrenField } = unref(getReplaceFields);
-
-      for (let index = 0; index < treeData.length; index++) {
-        const element: any = treeData[index];
-        const children = element[childrenField];
-
-        if (element[keyField] === key) {
-          treeData.splice(index, 1);
-          break;
-        } else if (children && children.length) {
-          deleteNodeByKey(key, element[childrenField]);
-        }
-      }
-    }
-
-    // 更新节点
-    function updateNodeByKey(key: string, node: TreeItem, list: TreeItem[]) {
-      if (!key) return;
-      const treeData = list || unref(treeDataRef);
-      const { key: keyField, children: childrenField } = unref(getReplaceFields);
-
-      for (let index = 0; index < treeData.length; index++) {
-        const element: any = treeData[index];
-        const children = element[childrenField];
-
-        if (element[keyField] === key) {
-          treeData[index] = { ...treeData[index], ...node };
-          break;
-        } else if (children && children.length) {
-          updateNodeByKey(key, node, element[childrenField]);
-        }
-      }
-    }
-
     watchEffect(() => {
       treeDataRef.value = props.treeData as TreeItem[];
       state.expandedKeys = props.expandedKeys;
@@ -237,31 +198,8 @@ export default defineComponent({
       };
     });
     return () => {
-      let propsData: any = {
-        blockNode: true,
-        ...attrs,
-        ...props,
-        expandedKeys: state.expandedKeys,
-        selectedKeys: state.selectedKeys,
-        checkedKeys: state.checkedKeys,
-        replaceFields: unref(getReplaceFields),
-        'onUpdate:expandedKeys': (v: Keys) => {
-          state.expandedKeys = v;
-          emit('update:expandedKeys', v);
-        },
-        'onUpdate:selectedKeys': (v: Keys) => {
-          state.selectedKeys = v;
-          emit('update:selectedKeys', v);
-        },
-        onCheck: (v: CheckKeys) => {
-          state.checkedKeys = v;
-          emit('update:value', v);
-        },
-        onRightClick: handleRightClick,
-      };
-      propsData = omit(propsData, 'treeData');
       return (
-        <Tree {...propsData} class={prefixCls}>
+        <Tree {...unref(getBindValues)} class={prefixCls}>
           {{
             switcherIcon: () => <DownOutlined />,
             default: () => renderTreeNode({ data: unref(getTreeData) }),

@@ -17,6 +17,7 @@ import {
 import { Menu } from 'ant-design-vue';
 import SearchInput from './SearchInput.vue';
 import MenuContent from './MenuContent';
+// import { ScrollContainer } from '/@/components/Container';
 
 import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
 import { ThemeEnum } from '/@/enums/appEnum';
@@ -272,7 +273,10 @@ export default defineComponent({
             onClick={handleInputClick}
             collapsed={unref(getCollapsed)}
           />
+
+          {/* <section style={unref(getMenuWrapStyle)}> */}
           <section style={unref(getMenuWrapStyle)} class="basic-menu__content">
+            {/* <ScrollContainer>{() => renderMenu()}</ScrollContainer> */}
             {renderMenu()}
           </section>
         </section>

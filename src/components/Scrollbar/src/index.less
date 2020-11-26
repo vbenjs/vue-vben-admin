@@ -38,12 +38,12 @@
     z-index: 1;
     border-radius: 4px;
     opacity: 0;
-    -webkit-transition: opacity 120ms ease-out;
-    transition: opacity 120ms ease-out;
+    -webkit-transition: opacity 80ms ease;
+    transition: opacity 80ms ease;
 
     &.is-vertical {
       top: 2px;
-      width: 6px;
+      width: 5px;
 
       & > div {
         width: 100%;
@@ -52,7 +52,7 @@
 
     &.is-horizontal {
       left: 2px;
-      height: 6px;
+      height: 5px;
 
       & > div {
         height: 100%;
@@ -65,5 +65,5 @@
 .scrollbar:focus > .scrollbar__bar,
 .scrollbar:hover > .scrollbar__bar {
   opacity: 1;
-  transition: opacity 280ms ease-out;
+  transition: opacity 180ms ease;
 }

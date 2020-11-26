@@ -1,7 +1,7 @@
 import type { PropType } from 'vue';
 import type { Axis, ContextMenuItem } from './types';
 import { propTypes } from '/@/utils/propTypes';
-export const props = {
+export const contextMenuProps = {
   width: propTypes.number.def(156),
   customEvent: {
     type: Object as PropType<Event>,

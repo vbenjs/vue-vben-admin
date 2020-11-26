@@ -17,10 +17,10 @@ import {
   getShallowMenus,
 } from '/@/router/menus';
 import { permissionStore } from '/@/store/modules/permission';
-import { useI18n } from '/@/hooks/web/useI18n';
-import { cloneDeep } from 'lodash-es';
+// import { useI18n } from '/@/hooks/web/useI18n';
+// import { cloneDeep } from 'lodash-es';
 
-const { t } = useI18n();
+// const { t } = useI18n();
 export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
   // Menu array
   const menusRef = ref<Menu[]>([]);
@@ -45,13 +45,13 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
     return unref(splitType) === MenuSplitTyeEnum.NONE || !unref(getSplit);
   });
 
-  const getI18nFlatMenus = computed(() => {
-    return setI18nName(flatMenusRef.value, true, false);
-  });
+  // const getI18nFlatMenus = computed(() => {
+  //   return setI18nName(flatMenusRef.value, true, false);
+  // });
 
-  const getI18nMenus = computed(() => {
-    return setI18nName(menusRef.value, true, true);
-  });
+  // const getI18nMenus = computed(() => {
+  //   return setI18nName(menusRef.value, true, true);
+  // });
 
   watch(
     [() => unref(currentRoute).path, () => unref(splitType)],
@@ -83,17 +83,19 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
     genMenus();
   });
 
-  function setI18nName(list: Menu[], clone = false, deep = true) {
-    const menus = clone ? cloneDeep(list) : list;
-    menus.forEach((item) => {
-      if (!item.name.includes('.')) return;
-      item.name = t(item.name);
-      if (item.children && deep) {
-        setI18nName(item.children, false, deep);
-      }
-    });
-    return menus;
-  }
+  // function setI18nName(list: Menu[], clone = false, deep = true) {
+  //   const menus = clone ? cloneDeep(list) : list;
+  //   const arr: Menu[] = [];
+  //   menus.forEach((item) => {
+  //     if (!item.name.includes('.')) return;
+  //     item.name = t(item.name);
+
+  //     if (item.children && deep) {
+  //       setI18nName(item.children, false, deep);
+  //     }
+  //   });
+  //   return menus;
+  // }
 
   // Handle left menu split
   async function handleSplitLeftMenu(parentPath: string) {
@@ -133,5 +135,5 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
     }
   }
 
-  return { flatMenusRef: getI18nFlatMenus, menusRef: getI18nMenus };
+  return { flatMenusRef, menusRef };
 }

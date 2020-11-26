@@ -2,7 +2,7 @@ import { TreeItem } from '/@/components/Tree/index';
 
 export const treeData: TreeItem[] = [
   {
-    title: 'parent 1',
+    title: 'parent 1parent ',
     key: '0-0',
     icon: 'home|svg',
     children: [

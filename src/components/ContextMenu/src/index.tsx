@@ -8,7 +8,7 @@ import { defineComponent, nextTick, onMounted, computed, ref, unref, onUnmounted
 import Icon from '/@/components/Icon';
 import { Menu, Divider } from 'ant-design-vue';
 
-import { props } from './props';
+import { contextMenuProps } from './props';
 
 const prefixCls = 'context-menu';
 
@@ -24,7 +24,7 @@ const ItemContent: FunctionalComponent<ItemContentProps> = (props) => {
 
 export default defineComponent({
   name: 'ContextMenu',
-  props,
+  props: contextMenuProps,
   setup(props) {
     const wrapRef = ref<ElRef>(null);
     const showRef = ref(false);

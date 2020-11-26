@@ -2,19 +2,34 @@
   position: relative;
 
   &-title {
+    position: relative;
     display: inline-block;
     width: 100%;
     padding-right: 10px;
 
-    .basic-tree__action {
-      display: none;
-      float: right;
-    }
-
     &:hover {
       .basic-tree__action {
-        display: inline-block;
+        visibility: visible;
       }
     }
+  }
+
+  &__content {
+    display: inline-block;
+    overflow: hidden;
+  }
+
+  &__actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+  }
+
+  &__action {
+    margin-left: 4px;
+    // float: right;
+    // display: none;
+    visibility: hidden;
   }
 }
