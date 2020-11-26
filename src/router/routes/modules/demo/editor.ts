@@ -10,7 +10,7 @@ const editor: AppRouteModule = {
     redirect: '/editor/markdown',
     meta: {
       icon: 'ant-design:table-outlined',
-      title: '编辑器',
+      title: 'routes.demo.editor.editor',
     },
   },
 
@@ -20,14 +20,14 @@ const editor: AppRouteModule = {
       name: 'MarkdownDemo',
       component: () => import('/@/views/demo/editor/Markdown.vue'),
       meta: {
-        title: 'markdown编辑器',
+        title: 'routes.demo.editor.markdown',
       },
     },
     {
       path: '/tinymce',
       name: 'TinymceDemo',
       meta: {
-        title: '富文本',
+        title: 'routes.demo.editor.tinymce',
       },
       redirect: '/editor/tinymce/index',
       children: [
@@ -36,7 +36,7 @@ const editor: AppRouteModule = {
           name: 'TinymceBasicDemo',
           component: () => import('/@/views/demo/editor/tinymce/index.vue'),
           meta: {
-            title: '基础使用',
+            title: 'routes.demo.editor.tinymceBasic',
           },
         },
         // TODO
@@ -45,7 +45,7 @@ const editor: AppRouteModule = {
           name: 'TinymceFormDemo',
           component: () => import('/@/views/demo/editor/tinymce/Editor.vue'),
           meta: {
-            title: '嵌入form使用',
+            title: 'routes.demo.editor.tinymceForm',
           },
         },
       ],

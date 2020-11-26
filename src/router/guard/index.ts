@@ -13,6 +13,7 @@ import { setTitle } from '/@/utils/browser';
 import { AxiosCanceler } from '/@/utils/http/axios/axiosCancel';
 
 import { tabStore } from '/@/store/modules/tab';
+import { useI18n } from '/@/hooks/web/useI18n';
 
 const { closeMessageOnSwitch, removeAllHttpPending } = useProjectSetting();
 const globSetting = useGlobSetting();
@@ -54,8 +55,9 @@ export function createGuard(router: Router) {
   });
 
   router.afterEach((to) => {
+    const { t } = useI18n();
     // change html title
-    setTitle(to.meta.title, globSetting.title);
+    setTitle(t(to.meta.title), globSetting.title);
   });
   createProgressGuard(router);
   createPermissionGuard(router);

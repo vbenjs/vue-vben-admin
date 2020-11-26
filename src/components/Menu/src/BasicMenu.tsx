@@ -3,7 +3,17 @@ import './index.less';
 import type { MenuState } from './types';
 import type { Menu as MenuType } from '/@/router/types';
 
-import { computed, defineComponent, unref, reactive, watch, onMounted, ref, toRefs } from 'vue';
+import {
+  computed,
+  defineComponent,
+  unref,
+  reactive,
+  watch,
+  onMounted,
+  ref,
+  toRefs,
+  ComputedRef,
+} from 'vue';
 import { Menu } from 'ant-design-vue';
 import SearchInput from './SearchInput.vue';
 import MenuContent from './MenuContent';
@@ -34,7 +44,7 @@ export default defineComponent({
     const menuState = reactive<MenuState>({
       defaultSelectedKeys: [],
       mode: props.mode,
-      theme: computed(() => props.theme),
+      theme: computed(() => props.theme) as ComputedRef<ThemeEnum>,
       openKeys: [],
       searchValue: '',
       selectedKeys: [],

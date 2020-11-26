@@ -11,7 +11,7 @@ const permission: AppRouteModule = {
     redirect: '/permission/front/page',
     meta: {
       icon: 'carbon:user-role',
-      title: '权限管理',
+      title: 'routes.demo.permission.permission',
     },
   },
 
@@ -20,7 +20,7 @@ const permission: AppRouteModule = {
       path: '/front',
       name: 'PermissionFrontDemo',
       meta: {
-        title: '基于前端权限',
+        title: 'routes.demo.permission.front',
       },
       children: [
         {
@@ -28,7 +28,7 @@ const permission: AppRouteModule = {
           name: 'FrontPageAuth',
           component: () => import('/@/views/demo/permission/front/index.vue'),
           meta: {
-            title: '页面权限',
+            title: 'routes.demo.permission.frontPage',
           },
         },
         {
@@ -36,7 +36,7 @@ const permission: AppRouteModule = {
           name: 'FrontBtnAuth',
           component: () => import('/@/views/demo/permission/front/Btn.vue'),
           meta: {
-            title: '按钮权限',
+            title: 'routes.demo.permission.frontBtn',
           },
         },
         {
@@ -44,7 +44,7 @@ const permission: AppRouteModule = {
           name: 'FrontAuthPageA',
           component: () => import('/@/views/demo/permission/front/AuthPageA.vue'),
           meta: {
-            title: '权限测试页A',
+            title: 'routes.demo.permission.frontTestA',
             roles: [RoleEnum.SUPER],
           },
         },
@@ -53,7 +53,7 @@ const permission: AppRouteModule = {
           name: 'FrontAuthPageB',
           component: () => import('/@/views/demo/permission/front/AuthPageB.vue'),
           meta: {
-            title: '权限测试页B',
+            title: 'routes.demo.permission.frontTestB',
             roles: [RoleEnum.TEST],
           },
         },
@@ -63,7 +63,7 @@ const permission: AppRouteModule = {
       path: '/back',
       name: 'PermissionBackDemo',
       meta: {
-        title: '基于后台权限',
+        title: 'routes.demo.permission.back',
       },
       children: [
         {
@@ -71,7 +71,7 @@ const permission: AppRouteModule = {
           name: 'BackAuthPage',
           component: () => import('/@/views/demo/permission/back/index.vue'),
           meta: {
-            title: '页面权限',
+            title: 'routes.demo.permission.backPage',
           },
         },
         {
@@ -79,7 +79,7 @@ const permission: AppRouteModule = {
           name: 'BackAuthBtn',
           component: () => import('/@/views/demo/permission/back/Btn.vue'),
           meta: {
-            title: '按钮权限',
+            title: 'routes.demo.permission.backBtn',
           },
         },
       ],

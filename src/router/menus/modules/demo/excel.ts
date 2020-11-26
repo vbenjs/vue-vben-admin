@@ -1,25 +1,26 @@
 import type { MenuModule } from '/@/router/types.d';
+
 const menu: MenuModule = {
   orderNo: 500,
   menu: {
-    name: 'Excel',
+    name: 'routes.demo.excel.excel',
     path: '/excel',
     children: [
       {
         path: 'customExport',
-        name: '选择导出格式',
+        name: 'routes.demo.excel.customExport',
       },
       {
         path: 'jsonExport',
-        name: 'JSON数据导出',
+        name: 'routes.demo.excel.jsonExport',
       },
       {
         path: 'arrayExport',
-        name: 'Array数据导出',
+        name: 'routes.demo.excel.arrayExport',
       },
       {
         path: 'importExcel',
-        name: '导入',
+        name: 'routes.demo.excel.importExcel',
       },
     ],
   },

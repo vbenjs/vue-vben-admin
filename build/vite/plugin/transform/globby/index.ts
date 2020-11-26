@@ -61,13 +61,20 @@ function varTemplate(data: string[][], name: string) {
 
     // lastKey is a data
     let pathValue = v[0].replace(/\//g, '.').split('.');
+    // let scopeKey = '';
+    //   const len=pathValue.length
+    //   const scope=pathValue[len-2]
     let lastKey: string | undefined = pathValue.pop();
 
     let deepValue: Record<any, any> = {};
     if (lastKey) {
-      deepValue[lastKey.replace('_' + pathValue[0], '')] = lastKey;
+      // Solve the problem of files with the same name in different folders
+      const lastKeyList = lastKey.replace('_' + pathValue[0], '').split('_');
+      const key = lastKeyList.pop();
+      if (key) {
+        deepValue[key] = lastKey;
+      }
     }
-
     // Set Deep Value
     deepValue = Object.assign(deepValue, dotProp.get(deepData, pathValue.join('.')));
     dotProp.set(deepData, pathValue.join('.'), deepValue);
@@ -169,7 +176,15 @@ const globTransform = function (config: SharedConfig): Transform {
 
                 if (matchedGroups && matchedGroups.length) {
                   const matchedSegments = matchedGroups[1]; //first everytime "Full Match"
-                  const name = matchedGroups[2] + '_' + matchedSegments.split('/').shift();
+                  const matchList = matchedSegments.split('/').filter(Boolean);
+                  const lang = matchList.shift();
+                  const scope = matchList.pop();
+
+                  // Solve the problem of files with the same name in different folders
+                  const scopeKey = scope ? `${scope}_` : '';
+                  const fileName = matchedGroups[2];
+                  const name = scopeKey + fileName + '_' + lang;
+
                   //send deep way like an (en/modules/system/dashboard) into groups
                   groups.push([matchedSegments + name, file]);
                   return templateRender({
@@ -186,6 +201,10 @@ const globTransform = function (config: SharedConfig): Transform {
             const filesJoined = replaceFiles.join('\n');
 
             urlMap.set(path, filesJoined);
+
+            // console.log('======================');
+            // console.log(filesJoined, varTemplate(groups, name));
+            // console.log('======================');
             return [
               filesJoined,
               compareString(injectPath, groups),

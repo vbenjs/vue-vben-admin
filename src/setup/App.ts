@@ -20,7 +20,7 @@ import {
 } from '/@/setup/theme';
 
 import { appStore } from '/@/store/modules/app';
-import { deepMerge } from '../utils/index';
+import { deepMerge } from '/@/utils';
 
 // Used to share global app instances
 let app: App;

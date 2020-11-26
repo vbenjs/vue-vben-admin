@@ -20,6 +20,9 @@ import { transformRouteToMenu } from '/@/utils/helper/menuHelper';
 
 import { useMessage } from '/@/hooks/web/useMessage';
 // import { warn } from '/@/utils/log';
+import { useI18n } from '/@/hooks/web/useI18n';
+
+const { t } = useI18n('sys.app');
 
 const { createMessage } = useMessage();
 const NAME = 'permission';
@@ -101,7 +104,7 @@ class Permission extends VuexModule {
     } else if (permissionMode === PermissionModeEnum.BACK) {
       const messageKey = 'loadMenu';
       createMessage.loading({
-        content: '菜单加载中...',
+        content: t('menuLoading'),
         key: messageKey,
         duration: 1,
       });

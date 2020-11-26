@@ -1,13 +1,14 @@
 import type { MenuModule } from '/@/router/types.d';
+
 const menu: MenuModule = {
   orderNo: 500,
   menu: {
-    name: '图表',
+    name: 'routes.demo.charts.charts',
     path: '/charts',
     children: [
       {
         path: 'apexChart',
-        name: 'ApexChart',
+        name: 'routes.demo.charts.apexChart',
       },
       {
         path: 'echarts',
@@ -15,15 +16,15 @@ const menu: MenuModule = {
         children: [
           {
             path: 'map',
-            name: '地图',
+            name: 'routes.demo.charts.map',
           },
           {
             path: 'line',
-            name: '折线图',
+            name: 'routes.demo.charts.line',
           },
           {
             path: 'pie',
-            name: '饼图',
+            name: 'routes.demo.charts.pie',
           },
         ],
       },

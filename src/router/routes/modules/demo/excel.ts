@@ -10,7 +10,7 @@ const excel: AppRouteModule = {
     redirect: '/excel/customExport',
     meta: {
       icon: 'mdi:microsoft-excel',
-      title: 'Excel',
+      title: 'routes.demo.excel.excel',
     },
   },
 
@@ -20,7 +20,7 @@ const excel: AppRouteModule = {
       name: 'CustomExport',
       component: () => import('/@/views/demo/excel/CustomExport.vue'),
       meta: {
-        title: '选择导出格式',
+        title: 'routes.demo.excel.customExport',
       },
     },
     {
@@ -28,7 +28,7 @@ const excel: AppRouteModule = {
       name: 'JsonExport',
       component: () => import('/@/views/demo/excel/JsonExport.vue'),
       meta: {
-        title: 'JSON数据导出',
+        title: 'routes.demo.excel.jsonExport',
       },
     },
     {
@@ -36,7 +36,7 @@ const excel: AppRouteModule = {
       name: 'ArrayExport',
       component: () => import('/@/views/demo/excel/ArrayExport.vue'),
       meta: {
-        title: 'Array数据导出',
+        title: 'routes.demo.excel.arrayExport',
       },
     },
     {
@@ -44,7 +44,7 @@ const excel: AppRouteModule = {
       name: 'ImportExcel',
       component: () => import('/@/views/demo/excel/ImportExcel.vue'),
       meta: {
-        title: '导入',
+        title: 'routes.demo.excel.importExcel',
       },
     },
   ],

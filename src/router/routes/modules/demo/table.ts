@@ -10,7 +10,7 @@ const table: AppRouteModule = {
     redirect: '/table/basic',
     meta: {
       icon: 'ant-design:table-outlined',
-      title: 'Table',
+      title: 'routes.demo.table.table',
     },
   },
 
@@ -20,7 +20,7 @@ const table: AppRouteModule = {
       name: 'TableBasicDemo',
       component: () => import('/@/views/demo/table/Basic.vue'),
       meta: {
-        title: '基础表格',
+        title: 'routes.demo.table.basic',
       },
     },
     {
@@ -28,7 +28,7 @@ const table: AppRouteModule = {
       name: 'TreeTableDemo',
       component: () => import('/@/views/demo/table/TreeTable.vue'),
       meta: {
-        title: '树形表格',
+        title: 'routes.demo.table.treeTable',
       },
     },
     {
@@ -36,7 +36,7 @@ const table: AppRouteModule = {
       name: 'FetchTableDemo',
       component: () => import('/@/views/demo/table/FetchTable.vue'),
       meta: {
-        title: '远程加载示例',
+        title: 'routes.demo.table.fetchTable',
       },
     },
     {
@@ -44,7 +44,7 @@ const table: AppRouteModule = {
       name: 'FixedColumnDemo',
       component: () => import('/@/views/demo/table/FixedColumn.vue'),
       meta: {
-        title: '固定列',
+        title: 'routes.demo.table.fixedColumn',
       },
     },
     {
@@ -52,7 +52,7 @@ const table: AppRouteModule = {
       name: 'CustomerCellDemo',
       component: () => import('/@/views/demo/table/CustomerCell.vue'),
       meta: {
-        title: '自定义列',
+        title: 'routes.demo.table.customerCell',
       },
     },
     {
@@ -60,7 +60,7 @@ const table: AppRouteModule = {
       name: 'FormTableDemo',
       component: () => import('/@/views/demo/table/FormTable.vue'),
       meta: {
-        title: '开启搜索区域',
+        title: 'routes.demo.table.formTable',
       },
     },
     {
@@ -68,7 +68,7 @@ const table: AppRouteModule = {
       name: 'UseTableDemo',
       component: () => import('/@/views/demo/table/UseTable.vue'),
       meta: {
-        title: 'UseTable',
+        title: 'routes.demo.table.useTable',
       },
     },
     {
@@ -76,7 +76,7 @@ const table: AppRouteModule = {
       name: 'RefTableDemo',
       component: () => import('/@/views/demo/table/RefTable.vue'),
       meta: {
-        title: 'RefTable',
+        title: 'routes.demo.table.refTable',
       },
     },
     {
@@ -84,7 +84,7 @@ const table: AppRouteModule = {
       name: 'MultipleHeaderDemo',
       component: () => import('/@/views/demo/table/MultipleHeader.vue'),
       meta: {
-        title: '多级表头',
+        title: 'routes.demo.table.multipleHeader',
       },
     },
     {
@@ -92,7 +92,7 @@ const table: AppRouteModule = {
       name: 'MergeHeaderDemo',
       component: () => import('/@/views/demo/table/MergeHeader.vue'),
       meta: {
-        title: '合并单元格',
+        title: 'routes.demo.table.mergeHeader',
       },
     },
     {
@@ -100,7 +100,7 @@ const table: AppRouteModule = {
       name: 'ExpandTableDemo',
       component: () => import('/@/views/demo/table/ExpandTable.vue'),
       meta: {
-        title: '可展开表格',
+        title: 'routes.demo.table.expandTable',
       },
     },
     {
@@ -108,7 +108,7 @@ const table: AppRouteModule = {
       name: 'FixedHeightDemo',
       component: () => import('/@/views/demo/table/FixedHeight.vue'),
       meta: {
-        title: '定高/头部自定义',
+        title: 'routes.demo.table.fixedHeight',
       },
     },
     {
@@ -116,7 +116,7 @@ const table: AppRouteModule = {
       name: 'FooterTableDemo',
       component: () => import('/@/views/demo/table/FooterTable.vue'),
       meta: {
-        title: '表尾行合计',
+        title: 'routes.demo.table.footerTable',
       },
     },
     {
@@ -124,7 +124,7 @@ const table: AppRouteModule = {
       name: 'EditCellTableDemo',
       component: () => import('/@/views/demo/table/EditCellTable.vue'),
       meta: {
-        title: '可编辑单元格',
+        title: 'routes.demo.table.editCellTable',
       },
     },
     {
@@ -132,7 +132,7 @@ const table: AppRouteModule = {
       name: 'EditRowTableDemo',
       component: () => import('/@/views/demo/table/EditRowTable.vue'),
       meta: {
-        title: '可编辑行',
+        title: 'routes.demo.table.editRowTable',
       },
     },
   ],

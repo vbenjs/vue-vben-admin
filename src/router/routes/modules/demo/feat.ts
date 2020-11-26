@@ -10,7 +10,7 @@ const feat: AppRouteModule = {
     redirect: '/feat/icon',
     meta: {
       icon: 'ic:outline-featured-play-list',
-      title: '页面功能',
+      title: 'routes.demo.feat.feat',
     },
   },
 
@@ -20,7 +20,7 @@ const feat: AppRouteModule = {
       name: 'IconDemo',
       component: () => import('/@/views/demo/feat/icon/index.vue'),
       meta: {
-        title: '图标',
+        title: 'routes.demo.feat.icon',
       },
     },
     {
@@ -28,7 +28,7 @@ const feat: AppRouteModule = {
       name: 'TabsDemo',
       component: () => import('/@/views/demo/feat/tabs/index.vue'),
       meta: {
-        title: '标签页操作',
+        title: 'routes.demo.feat.tabs',
       },
     },
 
@@ -37,7 +37,7 @@ const feat: AppRouteModule = {
       name: 'ContextMenuDemo',
       component: () => import('/@/views/demo/feat/context-menu/index.vue'),
       meta: {
-        title: '右键菜单',
+        title: 'routes.demo.feat.contextMenu',
       },
     },
     {
@@ -45,7 +45,7 @@ const feat: AppRouteModule = {
       name: 'DownLoadDemo',
       component: () => import('/@/views/demo/feat/download/index.vue'),
       meta: {
-        title: '文件下载',
+        title: 'routes.demo.feat.download',
       },
     },
     {
@@ -53,7 +53,7 @@ const feat: AppRouteModule = {
       name: 'ClickOutSideDemo',
       component: () => import('/@/views/demo/feat/click-out-side/index.vue'),
       meta: {
-        title: 'ClickOutSide组件',
+        title: 'routes.demo.feat.clickOutSide',
       },
     },
     {
@@ -61,7 +61,7 @@ const feat: AppRouteModule = {
       name: 'ImgPreview',
       component: () => import('/@/views/demo/feat/img-preview/index.vue'),
       meta: {
-        title: '图片预览',
+        title: 'routes.demo.feat.imgPreview',
       },
     },
     {
@@ -69,7 +69,7 @@ const feat: AppRouteModule = {
       name: 'CopyDemo',
       component: () => import('/@/views/demo/feat/copy/index.vue'),
       meta: {
-        title: '剪切板',
+        title: 'routes.demo.feat.copy',
       },
     },
     {
@@ -77,7 +77,7 @@ const feat: AppRouteModule = {
       name: 'MsgDemo',
       component: () => import('/@/views/demo/feat/msg/index.vue'),
       meta: {
-        title: '消息提示',
+        title: 'routes.demo.feat.msg',
       },
     },
     {
@@ -85,7 +85,7 @@ const feat: AppRouteModule = {
       name: 'WatermarkDemo',
       component: () => import('/@/views/demo/feat/watermark/index.vue'),
       meta: {
-        title: '水印',
+        title: 'routes.demo.feat.watermark',
       },
     },
     {
@@ -93,7 +93,7 @@ const feat: AppRouteModule = {
       name: 'FullScreenDemo',
       component: () => import('/@/views/demo/feat/full-screen/index.vue'),
       meta: {
-        title: '全屏',
+        title: 'routes.demo.feat.fullScreen',
       },
     },
     {
@@ -101,7 +101,7 @@ const feat: AppRouteModule = {
       name: 'ErrorLog',
       component: () => import('/@/views/sys/error-log/index.vue'),
       meta: {
-        title: '错误日志',
+        title: 'routes.demo.feat.errorLog',
       },
     },
     {
@@ -109,7 +109,7 @@ const feat: AppRouteModule = {
       name: 'TestTab',
       component: () => import('/@/views/demo/feat/tab-params/index.vue'),
       meta: {
-        title: 'Tab带参',
+        title: 'routes.demo.feat.tab',
         carryParam: true,
       },
     },

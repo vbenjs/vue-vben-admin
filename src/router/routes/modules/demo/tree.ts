@@ -10,7 +10,7 @@ const tree: AppRouteModule = {
     redirect: '/tree/basic',
     meta: {
       icon: 'clarity:tree-view-line',
-      title: 'Tree',
+      title: 'routes.demo.tree.tree',
     },
   },
   routes: [
@@ -19,7 +19,7 @@ const tree: AppRouteModule = {
       name: 'BasicTreeDemo',
       component: () => import('/@/views/demo/tree/index.vue'),
       meta: {
-        title: '基础树',
+        title: 'routes.demo.tree.basic',
       },
     },
     {
@@ -27,7 +27,7 @@ const tree: AppRouteModule = {
       name: 'EditTreeDemo',
       component: () => import('/@/views/demo/tree/EditTree.vue'),
       meta: {
-        title: '右键示例',
+        title: 'routes.demo.tree.editTree',
       },
     },
     {
@@ -35,7 +35,7 @@ const tree: AppRouteModule = {
       name: 'ActionTreeDemo',
       component: () => import('/@/views/demo/tree/ActionTree.vue'),
       meta: {
-        title: '函数操作示例',
+        title: 'routes.demo.tree.actionTree',
       },
     },
   ],

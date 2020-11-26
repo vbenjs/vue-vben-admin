@@ -1,101 +1,92 @@
 import type { MenuModule } from '/@/router/types.d';
+
 const menu: MenuModule = {
   orderNo: 30,
   menu: {
-    name: '组件',
+    name: 'routes.demo.comp.comp',
     path: '/comp',
 
     children: [
       {
         path: 'basic',
-        name: '基础组件',
+        name: 'routes.demo.comp.basic',
       },
       {
         path: 'countTo',
-        name: '数字动画',
+        name: 'routes.demo.comp.countTo',
       },
       {
         path: 'transition',
-        name: '动画组件',
+        name: 'routes.demo.comp.transition',
       },
 
       {
         path: 'modal',
-        name: '弹窗扩展',
+        name: 'routes.demo.comp.modal',
       },
       {
         path: 'drawer',
-        name: '抽屉扩展',
+        name: 'routes.demo.comp.drawer',
       },
       {
         path: 'desc',
-        name: '详情组件',
+        name: 'routes.demo.comp.desc',
       },
       {
         path: 'qrcode',
-        name: '二维码组件',
+        name: 'routes.demo.comp.qrcode',
       },
       {
         path: 'strength-meter',
-        name: '密码强度组件',
+        name: 'routes.demo.comp.strength',
       },
       {
         path: 'upload',
-        name: '上传组件',
+        name: 'routes.demo.comp.upload',
       },
       {
         path: 'scroll',
-        name: '滚动组件',
+        name: 'routes.demo.comp.scroll',
         children: [
           {
             path: 'basic',
-            name: '基础示例',
+            name: 'routes.demo.comp.scrollBasic',
           },
           {
             path: 'action',
-            name: '函数操作示例',
+            name: 'routes.demo.comp.scrollAction',
           },
           {
             path: 'virtualScroll',
-            name: '虚拟滚动',
+            name: 'routes.demo.comp.virtualScroll',
           },
         ],
       },
       {
         path: 'lazy',
-        name: '懒加载组件',
+        name: 'routes.demo.comp.lazy',
         children: [
           {
             path: 'basic',
-            name: '基础示例',
+            name: 'routes.demo.comp.lazyBasic',
           },
           {
             path: 'transition',
-            name: '动画效果',
+            name: 'routes.demo.comp.lazyTransition',
           },
         ],
       },
       {
         path: 'verify',
-        name: '验证组件',
+        name: 'routes.demo.comp.verify',
         children: [
           {
             path: 'drag',
-            name: '拖拽校验',
+            name: 'routes.demo.comp.verifyDrag',
           },
           {
             path: 'rotate',
-            name: '图片还原校验',
-          },
-        ],
-      },
-      {
-        path: '/form',
-        name: '验证组件',
-        children: [
-          {
-            path: '/base',
-            name: '拖拽校验',
+            name: 'routes.demo.comp.verifyRotate',
           },
         ],
       },

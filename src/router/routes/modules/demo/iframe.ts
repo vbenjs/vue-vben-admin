@@ -11,7 +11,7 @@ const iframe: AppRouteModule = {
     redirect: '/frame/antv',
     meta: {
       icon: 'mdi:page-next-outline',
-      title: '外部页面',
+      title: 'routes.demo.iframe.frame',
     },
   },
 
@@ -22,7 +22,7 @@ const iframe: AppRouteModule = {
       component: IFrame,
       meta: {
         frameSrc: 'https://2x.antdv.com/docs/vue/introduce-cn/',
-        title: 'antVue文档(内嵌)',
+        title: 'routes.demo.iframe.antv',
         afterCloseLoading: true,
       },
     },
@@ -32,7 +32,7 @@ const iframe: AppRouteModule = {
       component: IFrame,
       meta: {
         frameSrc: 'https://vvbin.cn/doc-next/',
-        title: '项目文档(内嵌)',
+        title: 'routes.demo.iframe.doc',
         afterCloseLoading: true,
       },
     },
@@ -42,7 +42,7 @@ const iframe: AppRouteModule = {
       component: IFrame,
       meta: {
         externalLink: 'https://vvbin.cn/doc-next/',
-        title: '项目文档(外链)',
+        title: 'routes.demo.iframe.docExternal',
       },
     },
   ],

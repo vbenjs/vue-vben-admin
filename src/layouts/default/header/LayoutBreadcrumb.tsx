@@ -15,6 +15,7 @@ import { compile } from 'path-to-regexp';
 import router from '/@/router';
 
 import { PageEnum } from '/@/enums/pageEnum';
+import { useI18n } from '/@/hooks/web/useI18n';
 
 export default defineComponent({
   name: 'BasicBreadcrumb',
@@ -28,7 +29,7 @@ export default defineComponent({
     const itemList = ref<AppRouteRecordRaw[]>([]);
 
     const { currentRoute, push } = useRouter();
-
+    const { t } = useI18n();
     watch(
       () => currentRoute.value,
       () => {
@@ -88,7 +89,7 @@ export default defineComponent({
               }}
             />
           )}
-          {item.meta.title}
+          {t(item.meta.title)}
         </>
       );
     }

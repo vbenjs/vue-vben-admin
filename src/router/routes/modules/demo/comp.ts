@@ -10,7 +10,7 @@ const comp: AppRouteModule = {
     redirect: '/comp/basic',
     meta: {
       icon: 'ant-design:table-outlined',
-      title: '组件',
+      title: 'routes.demo.comp.comp',
     },
   },
 
@@ -20,7 +20,7 @@ const comp: AppRouteModule = {
       name: 'BasicDemo',
       component: () => import('/@/views/demo/comp/button/index.vue'),
       meta: {
-        title: '基础组件',
+        title: 'routes.demo.comp.basic',
       },
     },
     {
@@ -28,7 +28,7 @@ const comp: AppRouteModule = {
       name: 'transitionDemo',
       component: () => import('/@/views/demo/comp/transition/index.vue'),
       meta: {
-        title: '动画组件',
+        title: 'routes.demo.comp.transition',
       },
     },
     {
@@ -36,7 +36,7 @@ const comp: AppRouteModule = {
       name: 'CountTo',
       component: () => import('/@/views/demo/comp/count-to/index.vue'),
       meta: {
-        title: '数字动画',
+        title: 'routes.demo.comp.countTo',
       },
     },
 
@@ -45,7 +45,7 @@ const comp: AppRouteModule = {
       name: 'ScrollDemo',
       redirect: '/comp/scroll/basic',
       meta: {
-        title: '滚动组件',
+        title: 'routes.demo.comp.scroll',
       },
       children: [
         {
@@ -53,7 +53,7 @@ const comp: AppRouteModule = {
           name: 'BasicScrollDemo',
           component: () => import('/@/views/demo/comp/scroll/index.vue'),
           meta: {
-            title: '基础滚动',
+            title: 'routes.demo.comp.scrollBasic',
           },
         },
         {
@@ -61,7 +61,7 @@ const comp: AppRouteModule = {
           name: 'ActionScrollDemo',
           component: () => import('/@/views/demo/comp/scroll/Action.vue'),
           meta: {
-            title: '滚动函数',
+            title: 'routes.demo.comp.scrollAction',
           },
         },
         {
@@ -69,7 +69,7 @@ const comp: AppRouteModule = {
           name: 'VirtualScrollDemo',
           component: () => import('/@/views/demo/comp/scroll/VirtualScroll.vue'),
           meta: {
-            title: '虚拟滚动',
+            title: 'routes.demo.comp.virtualScroll',
           },
         },
       ],
@@ -80,7 +80,7 @@ const comp: AppRouteModule = {
       name: 'ModalDemo',
       component: () => import('/@/views/demo/comp/modal/index.vue'),
       meta: {
-        title: '弹窗扩展',
+        title: 'routes.demo.comp.modal',
       },
     },
     {
@@ -88,7 +88,7 @@ const comp: AppRouteModule = {
       name: 'DrawerDemo',
       component: () => import('/@/views/demo/comp/drawer/index.vue'),
       meta: {
-        title: '抽屉扩展',
+        title: 'routes.demo.comp.drawer',
       },
     },
     {
@@ -96,7 +96,7 @@ const comp: AppRouteModule = {
       name: 'DescDemo',
       component: () => import('/@/views/demo/comp/desc/index.vue'),
       meta: {
-        title: '详情组件',
+        title: 'routes.demo.comp.desc',
       },
     },
 
@@ -105,7 +105,7 @@ const comp: AppRouteModule = {
       name: 'lazyDemo',
       redirect: '/comp/lazy/basic',
       meta: {
-        title: '懒加载组件',
+        title: 'routes.demo.comp.lazy',
       },
       children: [
         {
@@ -113,7 +113,7 @@ const comp: AppRouteModule = {
           name: 'BasicLazyDemo',
           component: () => import('/@/views/demo/comp/lazy/index.vue'),
           meta: {
-            title: '基础示例',
+            title: 'routes.demo.comp.lazyBasic',
           },
         },
         {
@@ -121,7 +121,7 @@ const comp: AppRouteModule = {
           name: 'BasicTransitionDemo',
           component: () => import('/@/views/demo/comp/lazy/Transition.vue'),
           meta: {
-            title: '动画效果',
+            title: 'routes.demo.comp.lazyTransition',
           },
         },
       ],
@@ -131,7 +131,7 @@ const comp: AppRouteModule = {
       name: 'VerifyDemo',
       redirect: '/comp/verify/drag',
       meta: {
-        title: '验证组件',
+        title: 'routes.demo.comp.verify',
       },
       children: [
         {
@@ -139,7 +139,7 @@ const comp: AppRouteModule = {
           name: 'VerifyDragDemo',
           component: () => import('/@/views/demo/comp/verify/index.vue'),
           meta: {
-            title: '拖拽校验',
+            title: 'routes.demo.comp.verifyDrag',
           },
         },
         {
@@ -147,7 +147,7 @@ const comp: AppRouteModule = {
           name: 'VerifyRotateDemo',
           component: () => import('/@/views/demo/comp/verify/Rotate.vue'),
           meta: {
-            title: '图片还原',
+            title: 'routes.demo.comp.verifyRotate',
           },
         },
       ],
@@ -159,7 +159,7 @@ const comp: AppRouteModule = {
       name: 'QrCodeDemo',
       component: () => import('/@/views/demo/comp/qrcode/index.vue'),
       meta: {
-        title: '二维码组件',
+        title: 'routes.demo.comp.qrcode',
       },
     },
     {
@@ -167,7 +167,7 @@ const comp: AppRouteModule = {
       name: 'StrengthMeterDemo',
       component: () => import('/@/views/demo/comp/strength-meter/index.vue'),
       meta: {
-        title: '密码强度组件',
+        title: 'routes.demo.comp.strength',
       },
     },
     {
@@ -175,7 +175,7 @@ const comp: AppRouteModule = {
       name: 'UploadDemo',
       component: () => import('/@/views/demo/comp/upload/index.vue'),
       meta: {
-        title: '上传组件',
+        title: 'routes.demo.comp.upload',
       },
     },
   ],

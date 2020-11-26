@@ -1,66 +1,67 @@
 import type { MenuModule } from '/@/router/types.d';
+
 const menu: MenuModule = {
   orderNo: 19,
   menu: {
-    name: '功能',
+    name: 'routes.demo.feat.feat',
     path: '/feat',
 
     children: [
       {
         path: 'icon',
-        name: '图标',
+        name: 'routes.demo.feat.icon',
       },
       {
         path: 'tabs',
-        name: '标签页操作',
+        name: 'routes.demo.feat.tabs',
       },
       {
         path: 'context-menu',
-        name: '右键菜单',
+        name: 'routes.demo.feat.contextMenu',
       },
       {
         path: 'download',
-        name: '文件下载',
+        name: 'routes.demo.feat.download',
       },
       {
         path: 'click-out-side',
-        name: 'ClickOutSide',
+        name: 'routes.demo.feat.clickOutSide',
       },
       {
         path: 'img-preview',
-        name: '图片预览',
+        name: 'routes.demo.feat.imgPreview',
       },
       {
         path: 'copy',
-        name: '剪切板',
+        name: 'routes.demo.feat.copy',
       },
       {
         path: 'msg',
-        name: '消息提示',
+        name: 'routes.demo.feat.msg',
       },
       {
         path: 'watermark',
-        name: '水印',
+        name: 'routes.demo.feat.watermark',
       },
       {
         path: 'full-screen',
-        name: '全屏',
+        name: 'routes.demo.feat.fullScreen',
       },
       {
         path: 'error-log',
-        name: '错误日志',
+        name: 'routes.demo.feat.errorLog',
       },
       {
         path: 'testTab',
-        name: '带参Tab',
+        name: 'routes.demo.feat.tab',
         children: [
           {
             path: 'id1',
-            name: '带参tab1',
+            name: 'routes.demo.feat.tab1',
           },
           {
             path: 'id2',
-            name: '带参tab2',
+            name: 'routes.demo.feat.tab2',
           },
         ],
       },

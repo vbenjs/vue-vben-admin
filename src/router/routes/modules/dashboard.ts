@@ -10,7 +10,7 @@ const dashboard: AppRouteModule = {
     redirect: '/dashboard/workbench',
     meta: {
       icon: 'ant-design:home-outlined',
-      title: 'Dashboard',
+      title: 'routes.dashboard.dashboard',
     },
   },
 
@@ -20,7 +20,7 @@ const dashboard: AppRouteModule = {
       name: 'Welcome',
       component: () => import('/@/views/dashboard/welcome/index.vue'),
       meta: {
-        title: '首页',
+        title: 'routes.dashboard.welcome',
       },
     },
     {
@@ -28,7 +28,7 @@ const dashboard: AppRouteModule = {
       name: 'Workbench',
       component: () => import('/@/views/dashboard/workbench/index.vue'),
       meta: {
-        title: '工作台',
+        title: 'routes.dashboard.workbench',
         affix: true,
       },
     },
@@ -37,7 +37,7 @@ const dashboard: AppRouteModule = {
       name: 'Analysis',
       component: () => import('/@/views/dashboard/analysis/index.vue'),
       meta: {
-        title: '分析页',
+        title: 'routes.dashboard.analysis',
       },
     },
   ],

@@ -21,6 +21,7 @@ import { loginApi, getUserInfoById } from '/@/api/sys/user';
 
 import { setLocal, getLocal, getSession, setSession } from '/@/utils/helper/persistent';
 import { useProjectSetting } from '/@/hooks/setting';
+import { useI18n } from '/@/hooks/web/useI18n';
 
 export type UserInfo = Omit<GetUserInfoByUserIdModel, 'roles'>;
 
@@ -28,6 +29,8 @@ const NAME = 'user';
 hotModuleUnregisterModule(NAME);
 
 const { permissionCacheType } = useProjectSetting();
+
+const { t } = useI18n('sys.app');
 
 function getCache<T>(key: string) {
   const fn = permissionCacheType === CacheTypeEnum.LOCAL ? getLocal : getSession;
@@ -144,8 +147,8 @@ class User extends VuexModule {
     const { createConfirm } = useMessage();
     createConfirm({
       iconType: 'warning',
-      title: '温馨提醒',
-      content: '是否确认退出系统?',
+      title: t('loginOutTip'),
+      content: t('loginOutMessage'),
       onOk: async () => {
         await this.loginOut(true);
       },

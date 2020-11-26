@@ -3,8 +3,8 @@
     <div class="login-mask" />
     <div class="login-form-wrap">
       <div class="login-form mx-6">
+        <AppLocalePicker v-if="showLocale" class="login-form__locale" />
         <div class="login-form__content px-2 py-10">
-          <AppLocalePicker v-if="showLocale" class="login-form__locale" />
           <header>
             <img :src="logo" class="mr-4" />
             <h1>{{ title }}</h1>
@@ -158,8 +158,15 @@
     },
   });
 </script>
-<style lang="less" scoped>
+<style lang="less">
   @import (reference) '../../../design/index.less';
+
+  .login-form__locale {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 1;
+  }
 
   .login {
     position: relative;
@@ -178,7 +185,9 @@
     }
 
     &-form {
-      width: 520px;
+      position: relative;
+      bottom: 60px;
+      width: 400px;
       background: @white;
       border: 10px solid rgba(255, 255, 255, 0.5);
       border-width: 8px;
@@ -192,26 +201,20 @@
         right: 0;
         display: flex;
         width: 100%;
-        height: 90%;
+        height: 100%;
+        // height: 90%;
         justify-content: center;
         align-items: center;
-        .respond-to(large, {
-          width: 600px;
-          right: calc(50% - 270px);
+        .respond-to(xlarge, {
+        justify-content: flex-end;
           });
-        .respond-to(xlarge, { width: 540px; right:0});
-      }
-
-      &__locale {
-        position: absolute;
-        top: 10px;
-        right: 10px;
       }
 
       &__content {
         position: relative;
         width: 100%;
         height: 100%;
+        padding: 60px 0 40px 0;
         border: 1px solid #999;
         border-radius: 2px;
 
@@ -228,7 +231,6 @@
           h1 {
             margin-bottom: 0;
             font-size: 24px;
-            // color: @primary-color;
             text-align: center;
           }
         }

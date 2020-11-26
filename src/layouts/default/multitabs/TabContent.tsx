@@ -15,6 +15,8 @@ import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
 import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
 import { useI18n } from '/@/hooks/web/useI18n';
 
+const { t: titleT } = useI18n();
+
 const ExtraContent: FunctionalComponent = () => {
   return (
     <span class={`multiple-tabs-content__extra `}>
@@ -38,7 +40,7 @@ const TabContent: FunctionalComponent<{ tabItem: TabItem }> = (props) => {
 
   return (
     <div class={`multiple-tabs-content__content `} onContextmenu={handleContextMenu}>
-      <span class="ml-1">{meta && meta.title}</span>
+      <span class="ml-1">{meta && titleT(meta.title)}</span>
     </div>
   );
 };

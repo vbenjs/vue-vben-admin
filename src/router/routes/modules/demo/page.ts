@@ -12,7 +12,7 @@ const page: AppRouteModule = {
   redirect: '/page-demo/exception',
   meta: {
     icon: 'mdi:page-next-outline',
-    title: '页面',
+    title: 'routes.demo.page.page',
   },
   children: [
     // =============================form start=============================
@@ -21,7 +21,7 @@ const page: AppRouteModule = {
       name: 'FormPage',
       redirect: '/page-demo/form/basic',
       meta: {
-        title: '表单页',
+        title: 'routes.demo.page.form',
       },
       children: [
         {
@@ -29,7 +29,7 @@ const page: AppRouteModule = {
           name: 'FormBasicPage',
           component: () => import('/@/views/demo/page/form/basic/index.vue'),
           meta: {
-            title: '基础表单',
+            title: 'routes.demo.page.formBasic',
           },
         },
         {
@@ -37,7 +37,7 @@ const page: AppRouteModule = {
           name: 'FormStepPage',
           component: () => import('/@/views/demo/page/form/step/index.vue'),
           meta: {
-            title: '分步表单',
+            title: 'routes.demo.page.formStep',
           },
         },
         {
@@ -45,7 +45,7 @@ const page: AppRouteModule = {
           name: 'FormHightPage',
           component: () => import('/@/views/demo/page/form/high/index.vue'),
           meta: {
-            title: '高级表单',
+            title: 'routes.demo.page.formHigh',
           },
         },
       ],
@@ -57,7 +57,7 @@ const page: AppRouteModule = {
       name: 'DescPage',
       redirect: '/page-demo/desc/basic',
       meta: {
-        title: '详情页',
+        title: 'routes.demo.page.desc',
       },
       children: [
         {
@@ -65,7 +65,7 @@ const page: AppRouteModule = {
           name: 'DescBasicPage',
           component: () => import('/@/views/demo/page/desc/basic/index.vue'),
           meta: {
-            title: '基础详情页',
+            title: 'routes.demo.page.descBasic',
           },
         },
         {
@@ -73,7 +73,7 @@ const page: AppRouteModule = {
           name: 'DescHighPage',
           component: () => import('/@/views/demo/page/desc/high/index.vue'),
           meta: {
-            title: '高级详情页',
+            title: 'routes.demo.page.descHigh',
           },
         },
       ],
@@ -86,7 +86,7 @@ const page: AppRouteModule = {
       name: 'ResultPage',
       redirect: '/page-demo/result/success',
       meta: {
-        title: '结果页',
+        title: 'routes.demo.page.result',
       },
       children: [
         {
@@ -94,7 +94,7 @@ const page: AppRouteModule = {
           name: 'ResultSuccessPage',
           component: () => import('/@/views/demo/page/result/success/index.vue'),
           meta: {
-            title: '成功页',
+            title: 'routes.demo.page.resultSuccess',
           },
         },
         {
@@ -102,7 +102,7 @@ const page: AppRouteModule = {
           name: 'ResultFailPage',
           component: () => import('/@/views/demo/page/result/fail/index.vue'),
           meta: {
-            title: '失败页',
+            title: 'routes.demo.page.resultFail',
           },
         },
       ],
@@ -115,7 +115,7 @@ const page: AppRouteModule = {
       name: 'AccountPage',
       redirect: '/page-demo/account/setting',
       meta: {
-        title: '个人页',
+        title: 'routes.demo.page.account',
       },
       children: [
         {
@@ -123,7 +123,7 @@ const page: AppRouteModule = {
           name: 'AccountCenterPage',
           component: () => import('/@/views/demo/page/account/center/index.vue'),
           meta: {
-            title: '个人中心',
+            title: 'routes.demo.page.accountCenter',
           },
         },
         {
@@ -131,7 +131,7 @@ const page: AppRouteModule = {
           name: 'AccountSettingPage',
           component: () => import('/@/views/demo/page/account/setting/index.vue'),
           meta: {
-            title: '个人设置',
+            title: 'routes.demo.page.accountSetting',
           },
         },
       ],
@@ -143,7 +143,7 @@ const page: AppRouteModule = {
       name: 'ExceptionPage',
       redirect: '/page-demo/exception/404',
       meta: {
-        title: '异常页',
+        title: 'routes.demo.page.exception',
       },
       children: [
         {
@@ -190,7 +190,7 @@ const page: AppRouteModule = {
             status: ExceptionEnum.NET_WORK_ERROR,
           },
           meta: {
-            title: '网络错误',
+            title: 'routes.demo.page.netWorkError',
             afterCloseLoading: true,
           },
         },
@@ -202,7 +202,7 @@ const page: AppRouteModule = {
             status: ExceptionEnum.PAGE_NOT_DATA,
           },
           meta: {
-            title: '无数据',
+            title: 'routes.demo.page.notData',
             afterCloseLoading: true,
           },
         },
@@ -215,7 +215,7 @@ const page: AppRouteModule = {
       name: 'ListPage',
       redirect: '/page-demo/list/card',
       meta: {
-        title: '列表页',
+        title: 'routes.demo.page.list',
       },
       children: [
         {
@@ -223,7 +223,7 @@ const page: AppRouteModule = {
           name: 'ListCardPage',
           component: () => import('/@/views/demo/page/list/card/index.vue'),
           meta: {
-            title: '卡片列表',
+            title: 'routes.demo.page.listCard',
           },
         },
       ],

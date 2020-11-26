@@ -20,7 +20,9 @@ import { formatRequestDate } from '/@/utils/dateUtil';
 import { setObjToUrlParams, deepMerge } from '/@/utils';
 import { errorStore } from '/@/store/modules/error';
 import { errorResult } from './const';
+import { useI18n } from '/@/hooks/web/useI18n';
 
+const { t } = useI18n('sys.api');
 const globSetting = useGlobSetting();
 const prefix = globSetting.urlPrefix;
 const { createMessage, createErrorModal } = useMessage();
@@ -55,7 +57,7 @@ const transform: AxiosTransform = {
       if (message) {
         // errorMessageMode=‘modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
         if (options.errorMessageMode === 'modal') {
-          createErrorModal({ title: '错误提示', content: message });
+          createErrorModal({ title: t('errorTip'), content: message });
         } else {
           createMessage.error(message);
         }
@@ -74,7 +76,7 @@ const transform: AxiosTransform = {
         createMessage.error(data.message);
         Promise.reject(new Error(message));
       } else {
-        const msg = '操作失败,系统异常!';
+        const msg = t('errorMessage');
         createMessage.error(msg);
         Promise.reject(new Error(msg));
       }
@@ -82,9 +84,9 @@ const transform: AxiosTransform = {
     }
     // 登录超时
     if (code === ResultEnum.TIMEOUT) {
-      const timeoutMsg = '登录超时,请重新登录!';
+      const timeoutMsg = t('timeoutMessage');
       createErrorModal({
-        title: '操作失败',
+        title: t('operationFailed'),
         content: timeoutMsg,
       });
       Promise.reject(new Error(timeoutMsg));
@@ -159,12 +161,12 @@ const transform: AxiosTransform = {
     const err: string = error.toString();
     try {
       if (code === 'ECONNABORTED' && message.indexOf('timeout') !== -1) {
-        createMessage.error('接口请求超时,请刷新页面重试!');
+        createMessage.error(t('apiTimeoutMessage'));
       }
       if (err && err.includes('Network Error')) {
         createErrorModal({
-          title: '网络异常',
-          content: '请检查您的网络连接是否正常!',
+          title: t('networkException'),
+          content: t('networkExceptionMsg'),
         });
       }
     } catch (error) {

@@ -1,8 +1,9 @@
 import type { MenuModule } from '/@/router/types.d';
+
 const menu: MenuModule = {
   orderNo: 20,
   menu: {
-    name: '页面',
+    name: 'routes.demo.page.page',
     path: '/page-demo',
     tag: {
       dot: true,
@@ -10,56 +11,56 @@ const menu: MenuModule = {
     children: [
       {
         path: 'form',
-        name: '表单页',
+        name: 'routes.demo.page.form',
 
         children: [
           {
             path: 'basic',
-            name: '基础表单',
+            name: 'routes.demo.page.formBasic',
           },
           {
             path: 'step',
-            name: '分步表单',
+            name: 'routes.demo.page.formStep',
           },
           {
             path: 'high',
-            name: '高级表单',
+            name: 'routes.demo.page.formHigh',
           },
         ],
       },
       {
         path: 'desc',
-        name: '详情页',
+        name: 'routes.demo.page.desc',
 
         children: [
           {
             path: 'basic',
-            name: '基础详情页',
+            name: 'routes.demo.page.descBasic',
           },
           {
             path: 'high',
-            name: '高级详情页',
+            name: 'routes.demo.page.descHigh',
           },
         ],
       },
       {
         path: 'result',
-        name: '结果页',
+        name: 'routes.demo.page.result',
 
         children: [
           {
             path: 'success',
-            name: '成功页',
+            name: 'routes.demo.page.resultSuccess',
           },
           {
             path: 'fail',
-            name: '失败页',
+            name: 'routes.demo.page.resultFail',
           },
         ],
       },
       {
         path: 'exception',
-        name: '异常页',
+        name: 'routes.demo.page.exception',
         children: [
           {
             path: '403',
@@ -75,38 +76,38 @@ const menu: MenuModule = {
           },
           {
             path: 'net-work-error',
-            name: '网络错误',
+            name: 'routes.demo.page.netWorkError',
           },
           {
             path: 'not-data',
-            name: '无数据',
+            name: 'routes.demo.page.notData',
           },
         ],
       },
       {
         path: 'account',
-        name: '个人页',
+        name: 'routes.demo.page.account',
         children: [
           {
             path: 'center',
-            name: '个人中心',
+            name: 'routes.demo.page.accountCenter',
           },
           {
             path: 'setting',
-            name: '个人设置',
+            name: 'routes.demo.page.accountSetting',
           },
         ],
       },
       {
         path: 'list',
-        name: '列表页',
+        name: 'routes.demo.page.list',
         tag: {
           content: 'new',
         },
         children: [
           {
             path: 'card',
-            name: '卡片列表',
+            name: 'routes.demo.page.listCard',
           },
         ],
       },

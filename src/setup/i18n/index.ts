@@ -1,20 +1,19 @@
-import { App, unref } from 'vue';
+import { App } from 'vue';
 import type { I18n, I18nOptions } from 'vue-i18n';
 
 import { createI18n } from 'vue-i18n';
 import localeMessages from '/@/locales';
 import { useLocale } from '/@/hooks/web/useLocale';
-import { useLocaleSetting } from '/@/hooks/setting/useLocaleSetting';
-
+import projectSetting from '/@/settings/projectSetting';
 const { setupLocale } = useLocale();
 
-const { getLang, getAvailableLocales, getFallbackLocale } = useLocaleSetting();
+const { lang, availableLocales, fallback } = projectSetting?.locale;
 const localeData: I18nOptions = {
   legacy: false,
-  locale: unref(getLang),
-  fallbackLocale: unref(getFallbackLocale),
+  locale: lang,
+  fallbackLocale: fallback,
   messages: localeMessages,
-  availableLocales: unref(getAvailableLocales),
+  availableLocales: availableLocales,
   sync: true, //If you don’t want to inherit locale from global scope, you need to set sync of i18n component option to false.
   silentTranslationWarn: false, // true - warning off
   silentFallbackWarn: true,

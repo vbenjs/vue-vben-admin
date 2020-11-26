@@ -1,43 +1,44 @@
 import type { MenuModule } from '/@/router/types.d';
+
 const menu: MenuModule = {
   orderNo: 15,
   menu: {
-    name: '权限管理',
+    name: 'routes.demo.permission.permission',
     path: '/permission',
     children: [
       {
         path: 'front',
-        name: '基于前端',
+        name: 'routes.demo.permission.front',
         children: [
           {
             path: 'page',
-            name: '页面权限',
+            name: 'routes.demo.permission.frontPage',
           },
           {
             path: 'btn',
-            name: '按钮权限',
+            name: 'routes.demo.permission.frontBtn',
           },
           {
             path: 'auth-pageA',
-            name: '权限测试页A',
+            name: 'routes.demo.permission.frontTestA',
           },
           {
             path: 'auth-pageB',
-            name: '权限测试页B',
+            name: 'routes.demo.permission.frontTestB',
           },
         ],
       },
       {
         path: 'back',
-        name: '基于后台',
+        name: 'routes.demo.permission.back',
         children: [
           {
             path: 'page',
-            name: '页面权限',
+            name: 'routes.demo.permission.backPage',
           },
           {
             path: 'btn',
-            name: '按钮权限',
+            name: 'routes.demo.permission.backBtn',
           },
         ],
       },

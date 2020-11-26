@@ -1,69 +1,70 @@
 import type { MenuModule } from '/@/router/types.d';
+
 const menu: MenuModule = {
   orderNo: 30,
   menu: {
     path: '/table',
-    name: 'Table',
+    name: 'routes.demo.table.table',
     children: [
       {
         path: 'basic',
-        name: '基础表格',
+        name: 'routes.demo.table.basic',
       },
       {
         path: 'treeTable',
-        name: '树形表格',
+        name: 'routes.demo.table.treeTable',
       },
       {
         path: 'fetchTable',
-        name: '远程加载',
+        name: 'routes.demo.table.fetchTable',
       },
       {
         path: 'fixedColumn',
-        name: '固定列',
+        name: 'routes.demo.table.fixedColumn',
       },
       {
         path: 'customerCell',
-        name: '自定义列',
+        name: 'routes.demo.table.customerCell',
       },
       {
         path: 'formTable',
-        name: '开启搜索区域',
+        name: 'routes.demo.table.formTable',
       },
       {
         path: 'useTable',
-        name: 'UseTable',
+        name: 'routes.demo.table.useTable',
       },
       {
         path: 'refTable',
-        name: 'RefTable',
+        name: 'routes.demo.table.refTable',
       },
       {
         path: 'multipleHeader',
-        name: '多级表头',
+        name: 'routes.demo.table.multipleHeader',
       },
       {
         path: 'mergeHeader',
-        name: '合并单元格',
+        name: 'routes.demo.table.mergeHeader',
       },
       {
         path: 'expandTable',
-        name: '可展开表格',
+        name: 'routes.demo.table.expandTable',
       },
       {
         path: 'fixedHeight',
-        name: '定高/头部自定义',
+        name: 'routes.demo.table.fixedHeight',
       },
       {
         path: 'footerTable',
-        name: '表尾行合计',
+        name: 'routes.demo.table.footerTable',
       },
       {
         path: 'editCellTable',
-        name: '可编辑单元格',
+        name: 'routes.demo.table.editCellTable',
       },
       {
         path: 'editRowTable',
-        name: '可编辑行',
+        name: 'routes.demo.table.editRowTable',
       },
     ],
   },
