@@ -22,6 +22,7 @@
 ### 🐛 Bug Fixes
 
 - 修复 tree 文本超出挡住操作按钮问题
+- 修复通过 useRedo 刷新页面参数丢失问题
 
 ### 🎫 Chores
 

@@ -36,9 +36,12 @@ export function useGo() {
  */
 export const useRedo = () => {
   const { push, currentRoute } = useRouter();
+  const { query, params } = currentRoute.value;
   function redo() {
     push({
       path: '/redirect' + unref(currentRoute).fullPath,
+      query,
+      params,
     });
   }
   return redo;

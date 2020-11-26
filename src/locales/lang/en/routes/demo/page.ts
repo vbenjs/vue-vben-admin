@@ -24,4 +24,5 @@ export default {
 
   list: 'List page',
   listCard: 'Card list',
+  basic: 'Basic list',
 };

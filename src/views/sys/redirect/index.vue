@@ -1,6 +1,3 @@
-<template>
-  <div />
-</template>
 <script lang="ts">
   import { defineComponent, unref } from 'vue';
 
@@ -26,7 +23,7 @@
           appStore.setPageLoadingAction(false);
         }, 0);
       }
-      return {};
+      return () => null;
     },
   });
 </script>

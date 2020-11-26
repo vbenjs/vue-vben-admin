@@ -24,4 +24,5 @@ export default {
 
   list: '列表页',
   listCard: '卡片列表',
+  basic: '标准列表',
 };

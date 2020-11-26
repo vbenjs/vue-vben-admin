@@ -57,7 +57,7 @@ export function createGuard(router: Router) {
   router.afterEach((to) => {
     const { t } = useI18n();
     // change html title
-    setTitle(t(to.meta.title), globSetting.title);
+    to.name !== 'Redirect' && setTitle(t(to.meta.title), globSetting.title);
   });
   createProgressGuard(router);
   createPermissionGuard(router);
