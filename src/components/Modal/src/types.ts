@@ -8,9 +8,11 @@ export interface ModalMethods {
 }
 
 export type RegisterFn = (modalMethods: ModalMethods, uuid?: string) => void;
+
 export interface ReturnMethods extends ModalMethods {
   openModal: <T = any>(props?: boolean, data?: T, openOnSet?: boolean) => void;
 }
+
 export type UseModalReturnType = [RegisterFn, ReturnMethods];
 
 export interface ReturnInnerMethods extends ModalMethods {
@@ -18,6 +20,7 @@ export interface ReturnInnerMethods extends ModalMethods {
   changeLoading: (loading: boolean) => void;
   changeOkLoading: (loading: boolean) => void;
 }
+
 export type UseModalInnerReturnType = [RegisterFn, ReturnInnerMethods];
 
 export interface ModalProps {

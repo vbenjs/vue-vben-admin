@@ -75,7 +75,7 @@ export interface DrawerProps extends DrawerFooterProps {
    * @type ScrollContainerOptions
    */
   scrollOptions?: ScrollContainerOptions;
-  closeFunc?: () => Promise<void>;
+  closeFunc?: () => Promise<any>;
   triggerWindowResize?: boolean;
   /**
    * Whether a close (x) button is visible on top right of the Drawer dialog or not.

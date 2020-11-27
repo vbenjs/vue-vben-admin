@@ -1,6 +1,6 @@
 import './index.less';
 
-import type { ReplaceFields, TreeItem, Keys, CheckKeys } from './types';
+import type { ReplaceFields, TreeItem, Keys, CheckKeys, TreeActionType } from './types';
 
 import { defineComponent, reactive, computed, unref, ref, watchEffect, CSSProperties } from 'vue';
 import { Tree } from 'ant-design-vue';
@@ -124,7 +124,6 @@ export default defineComponent({
               title: () => (
                 <span class={`${prefixCls}-title`}>
                   <span class={`${prefixCls}__content`} style={unref(getContentStyle)}>
-                    {' '}
                     {titleField && anyItem[titleField]}
                   </span>
                   <span class={`${prefixCls}__actions`}> {renderAction(item)}</span>
@@ -183,7 +182,7 @@ export default defineComponent({
       state.checkedKeys = props.checkedKeys;
     });
 
-    tryTsxEmit((currentInstance) => {
+    tryTsxEmit<TreeActionType>((currentInstance) => {
       currentInstance.setExpandedKeys = setExpandedKeys;
       currentInstance.getExpandedKeys = getExpandedKeys;
       currentInstance.setSelectedKeys = setSelectedKeys;

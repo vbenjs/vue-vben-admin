@@ -1,4 +1,6 @@
-export { default as BasicDrawer } from './src/BasicDrawer';
+import BasicDrawerLib from './src/BasicDrawer';
+import { withInstall } from '../util';
 
-export { useDrawer, useDrawerInner } from './src/useDrawer';
 export * from './src/types';
+export { useDrawer, useDrawerInner } from './src/useDrawer';
+export const BasicDrawer = withInstall(BasicDrawerLib);

@@ -1,6 +1,6 @@
 import type { ModalProps, ModalMethods } from './types';
 
-import { defineComponent, computed, ref, watch, unref, watchEffect } from 'vue';
+import { defineComponent, computed, ref, watch, unref, watchEffect, toRef } from 'vue';
 
 import Modal from './Modal';
 import { Button } from '/@/components/Button';
@@ -11,10 +11,10 @@ import { FullscreenExitOutlined, FullscreenOutlined, CloseOutlined } from '@ant-
 import { getSlot, extendSlots } from '/@/utils/helper/tsxHelper';
 import { isFunction } from '/@/utils/is';
 import { deepMerge } from '/@/utils';
-import { buildUUID } from '/@/utils/uuid';
+import { tryTsxEmit } from '/@/utils/helper/vueHelper';
 
 import { basicProps } from './props';
-// import { triggerWindowResize } from '@/utils/event/triggerWindowResizeEvent';
+import { useFullScreen } from './useFullScreen';
 export default defineComponent({
   name: 'BasicModal',
   props: basicProps,
@@ -26,31 +26,41 @@ export default defineComponent({
     // modal   Bottom and top height
     const extHeightRef = ref(0);
     // Unexpanded height of the popup
-    const formerHeightRef = ref(0);
-    const fullScreenRef = ref(false);
 
     // Custom title component: get title
-    const getMergeProps = computed(() => {
-      return {
-        ...props,
-        ...(unref(propsRef) as any),
-      };
+    const getMergeProps = computed(
+      (): ModalProps => {
+        return {
+          ...props,
+          ...(unref(propsRef) as any),
+        };
+      }
+    );
+
+    const { handleFullScreen, getWrapClassName, fullScreenRef } = useFullScreen({
+      modalWrapperRef,
+      extHeightRef,
+      wrapClassName: toRef(getMergeProps.value, 'wrapClassName'),
     });
 
     // modal component does not need title
-    const getProps = computed((): any => {
-      const opt = {
-        ...props,
-        ...((unref(propsRef) || {}) as any),
-        visible: unref(visibleRef),
-        title: undefined,
-      };
-      const { wrapClassName = '' } = opt;
-      const className = unref(fullScreenRef) ? `${wrapClassName} fullscreen-modal` : wrapClassName;
-      return {
-        ...opt,
-        wrapClassName: className,
-      };
+    const getProps = computed(
+      (): ModalProps => {
+        const opt = {
+          ...unref(getMergeProps),
+          visible: unref(visibleRef),
+          title: undefined,
+        };
+
+        return {
+          ...opt,
+          wrapClassName: unref(getWrapClassName),
+        };
+      }
+    );
+
+    const getModalBindValue = computed((): any => {
+      return { ...attrs, ...unref(getProps) };
     });
 
     watchEffect(() => {
@@ -80,7 +90,35 @@ export default defineComponent({
       );
     }
 
+    // 取消事件
+    async function handleCancel(e: Event) {
+      e?.stopPropagation();
+
+      if (props.closeFunc && isFunction(props.closeFunc)) {
+        const isClose: boolean = await props.closeFunc();
+        visibleRef.value = !isClose;
+        return;
+      }
+
+      visibleRef.value = false;
+      emit('cancel');
+    }
+
+    /**
+     * @description: 设置modal参数
+     */
+    function setModalProps(props: Partial<ModalProps>): void {
+      // Keep the last setModalProps
+      propsRef.value = deepMerge(unref(propsRef) || {}, props);
+      if (!Reflect.has(props, 'visible')) return;
+      visibleRef.value = !!props.visible;
+    }
+
     function renderContent() {
+      type OmitWrapperType = Omit<
+        ModalProps,
+        'fullScreen' | 'modalFooterHeight' | 'visible' | 'loading'
+      >;
       const { useWrapper, loading, wrapperProps } = unref(getProps);
       if (!useWrapper) return getSlot(slots);
 
@@ -93,7 +131,7 @@ export default defineComponent({
           loading={loading}
           visible={unref(visibleRef)}
           modalFooterHeight={showFooter}
-          {...wrapperProps}
+          {...((wrapperProps as unknown) as OmitWrapperType)}
           onGetExtHeight={(height: number) => {
             extHeightRef.value = height;
           }}
@@ -104,18 +142,6 @@ export default defineComponent({
           {() => getSlot(slots)}
         </ModalWrapper>
       );
-    }
-
-    // 取消事件
-    async function handleCancel(e: Event) {
-      e && e.stopPropagation();
-      if (props.closeFunc && isFunction(props.closeFunc)) {
-        const isClose: boolean = await props.closeFunc();
-        visibleRef.value = !isClose;
-        return;
-      }
-      visibleRef.value = false;
-      emit('cancel');
     }
 
     // 底部按钮自定义实现,
@@ -162,64 +188,37 @@ export default defineComponent({
      */
     function renderClose() {
       const { canFullscreen } = unref(getProps);
-      if (!canFullscreen) {
-        return null;
-      }
+
+      const fullScreen = unref(fullScreenRef) ? (
+        <FullscreenExitOutlined role="full" onClick={handleFullScreen} />
+      ) : (
+        <FullscreenOutlined role="close" onClick={handleFullScreen} />
+      );
+
+      const cls = [
+        'custom-close-icon',
+        {
+          'can-full': canFullscreen,
+        },
+      ];
+
       return (
-        <div class="custom-close-icon">
-          {unref(fullScreenRef) ? (
-            <FullscreenExitOutlined role="full" onClick={handleFullScreen} />
-          ) : (
-            <FullscreenOutlined role="close" onClick={handleFullScreen} />
-          )}
+        <div class={cls}>
+          {canFullscreen && fullScreen}
           <CloseOutlined onClick={handleCancel} />
         </div>
       );
-    }
-
-    function handleFullScreen(e: Event) {
-      e && e.stopPropagation();
-      fullScreenRef.value = !unref(fullScreenRef);
-
-      const modalWrapper = unref(modalWrapperRef);
-      if (!modalWrapper) return;
-
-      const wrapperEl = modalWrapper.$el as HTMLElement;
-      if (!wrapperEl) return;
-
-      const modalWrapSpinEl = wrapperEl.querySelector('.ant-spin-nested-loading') as HTMLElement;
-      if (!modalWrapSpinEl) return;
-
-      if (!unref(formerHeightRef) && unref(fullScreenRef)) {
-        formerHeightRef.value = modalWrapSpinEl.offsetHeight;
-      }
-
-      if (unref(fullScreenRef)) {
-        modalWrapSpinEl.style.height = `${window.innerHeight - unref(extHeightRef)}px`;
-      } else {
-        modalWrapSpinEl.style.height = `${unref(formerHeightRef)}px`;
-      }
-    }
-
-    /**
-     * @description: 设置modal参数
-     */
-    function setModalProps(props: Partial<ModalProps>): void {
-      // Keep the last setModalProps
-      propsRef.value = deepMerge(unref(propsRef) || {}, props);
-      if (!Reflect.has(props, 'visible')) return;
-      visibleRef.value = !!props.visible;
     }
 
     const modalMethods: ModalMethods = {
       setModalProps,
     };
 
-    const uuid = buildUUID();
-    emit('register', modalMethods, uuid);
-
+    tryTsxEmit((instance) => {
+      emit('register', modalMethods, instance.uid);
+    });
     return () => (
-      <Modal onCancel={handleCancel} {...{ ...attrs, ...props, ...unref(getProps) }}>
+      <Modal onCancel={handleCancel} {...unref(getModalBindValue)}>
         {{
           footer: () => renderFooter(),
           closeIcon: () => renderClose(),

@@ -1,20 +1,19 @@
 import type { BasicTableProps } from '../types/table';
 import { computed, Ref, onMounted, unref, ref, nextTick, ComputedRef, watch } from 'vue';
 
-import { injectModal } from '/@/components/Modal/src/provideModal';
-
 import { getViewportOffset } from '/@/utils/domUtils';
 import { isBoolean } from '/@/utils/is';
 
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
 import { useProps } from './useProps';
+import { useModalContext } from '/@/components/Modal';
 
 export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRef: Ref<any>) {
   const { propsRef } = useProps(refProps);
 
   const tableHeightRef: Ref<number | null> = ref(null);
 
-  const redoModalHeight = injectModal();
+  const modalFn = useModalContext();
 
   watch(
     () => unref(propsRef).canResize,
@@ -93,7 +92,7 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
       tableHeightRef.value =
         tableHeightRef.value! > maxHeight! ? (maxHeight as number) : tableHeightRef.value;
       //  解决表格放modal内的时候，modal自适应高度计算问题
-      redoModalHeight && redoModalHeight();
+      modalFn?.redoModalHeight?.();
     }, 16);
   }
 

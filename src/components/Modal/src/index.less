@@ -9,6 +9,11 @@
     bottom: 0 !important;
     left: 0 !important;
     width: 100% !important;
+    height: 100%;
+
+    &-content {
+      height: 100%;
+    }
   }
 }
 
@@ -35,8 +40,23 @@
     height: 95%;
     align-items: center;
 
-    > * {
-      margin-left: 12px;
+    > span {
+      margin-left: 48px;
+      font-size: 16px;
+    }
+
+    &.can-full {
+      > span {
+        margin-left: 12px;
+      }
+    }
+
+    &:not(.can-full) {
+      > span:nth-child(1) {
+        &:hover {
+          font-weight: 700;
+        }
+      }
     }
 
     & span:nth-child(1) {
@@ -76,7 +96,7 @@
   }
 
   &-footer {
-    padding: 10px 26px 26px 16px;
+    // padding: 10px 26px 26px 16px;
 
     button + button {
       margin-left: 10px;

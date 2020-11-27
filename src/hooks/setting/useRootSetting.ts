@@ -46,7 +46,7 @@ export function useRootSetting() {
     unref(getRootSetting).contentMode === ContentEnum.FULL ? ContentEnum.FULL : ContentEnum.FIXED
   );
 
-  function setRootSetting(setting: RootSetting) {
+  function setRootSetting(setting: Partial<RootSetting>) {
     appStore.commitProjectConfigState(setting);
   }
 

@@ -7,6 +7,7 @@ import {
   onUnmounted,
   nextTick,
   reactive,
+  ComponentInternalInstance,
 } from 'vue';
 
 export function explicitComputed<T, S>(source: WatchSource<S>, fn: () => T) {
@@ -29,8 +30,10 @@ export function tryOnUnmounted(fn: () => Promise<void> | void) {
   getCurrentInstance() && onUnmounted(fn);
 }
 
-export function tryTsxEmit(fn: (_instance: any) => Promise<void> | void) {
-  const instance = getCurrentInstance();
+export function tryTsxEmit<T extends any = ComponentInternalInstance>(
+  fn: (_instance: T) => Promise<void> | void
+) {
+  const instance = getCurrentInstance() as any;
   instance && fn.call(null, instance);
 }
 

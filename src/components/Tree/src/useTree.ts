@@ -10,7 +10,7 @@ export function useTree(
   getReplaceFields: ComputedRef<ReplaceFields>
 ) {
   // 更新节点
-  function updateNodeByKey(key: string, node: TreeItem, list: TreeItem[]) {
+  function updateNodeByKey(key: string, node: TreeItem, list?: TreeItem[]) {
     if (!key) return;
     const treeData = list || unref(treeDataRef);
     const { key: keyField, children: childrenField } = unref(getReplaceFields);
@@ -75,7 +75,7 @@ export function useTree(
   }
 
   // 删除节点
-  function deleteNodeByKey(key: string, list: TreeItem[]) {
+  function deleteNodeByKey(key: string, list?: TreeItem[]) {
     if (!key) return;
     const treeData = list || unref(treeDataRef);
     const { key: keyField, children: childrenField } = unref(getReplaceFields);

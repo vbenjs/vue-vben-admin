@@ -65,7 +65,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      tryTsxEmit((instance) => {
+      tryTsxEmit<any>((instance) => {
         instance.wrap = unref(wrapElRef);
       });
 

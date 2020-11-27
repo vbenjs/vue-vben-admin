@@ -18,12 +18,18 @@
 
 - 缓存可以配置是否加密,默认生产环境开启 Aes 加密
 - 新增标签页拖拽排序
+- 新增 LayoutFooter.默认显示，可以在配置内关闭
+
+### ⚡ Performance Improvements
+
+- 优化`Modal`组件全屏动画不流畅问题
 
 ### 🐛 Bug Fixes
 
 - 修复 tree 文本超出挡住操作按钮问题
 - 修复通过 useRedo 刷新页面参数丢失问题
 - 修复表单校验先设置在校验及控制台错误信息问题
+- 修复`modal`与`drawer`组件传递数组参数问题
 
 ### 🎫 Chores
 
