@@ -2,7 +2,9 @@ import type { DescOptions, DescInstance, DescItem } from './types';
 
 import { defineComponent, computed, ref, unref, CSSProperties } from 'vue';
 import { Descriptions } from 'ant-design-vue';
+import { DescriptionsProps } from 'ant-design-vue/es/descriptions/index';
 import { CollapseContainer, CollapseContainerOptions } from '/@/components/Container/index';
+
 import descProps from './props';
 
 import { isFunction } from '/@/utils/is';
@@ -17,29 +19,27 @@ export default defineComponent({
   emits: ['register'],
   setup(props, { attrs, slots, emit }) {
     const propsRef = ref<Partial<DescOptions> | null>(null);
+
     // Custom title component: get title
     const getMergeProps = computed(() => {
       return {
         ...props,
-        ...unref(propsRef),
-      };
+        ...(unref(propsRef) as any),
+      } as DescOptions;
     });
 
     const getProps = computed(() => {
       const opt = {
-        ...props,
-        ...(unref(propsRef) || {}),
+        ...unref(getMergeProps),
         title: undefined,
       };
-      return opt;
+      return opt as DescOptions;
     });
 
     /**
      * @description: Whether to setting title
      */
-    const useWrapper = computed(() => {
-      return !!unref(getMergeProps).title;
-    });
+    const useWrapper = computed(() => !!unref(getMergeProps).title);
 
     /**
      * @description: Get configuration Collapse
@@ -54,6 +54,10 @@ export default defineComponent({
       }
     );
 
+    const getDescriptionsProps = computed(() => {
+      return { ...attrs, ...unref(getProps) } as DescriptionsProps;
+    });
+
     /**
      * @description:设置desc
      */
@@ -62,12 +66,6 @@ export default defineComponent({
       const mergeProps = deepMerge(unref(propsRef) || {}, descProps);
       propsRef.value = cloneDeep(mergeProps);
     }
-
-    const methods: DescInstance = {
-      setDescProps,
-    };
-
-    emit('register', methods);
 
     // Prevent line breaks
     function renderLabel({ label, labelMinWidth, labelStyle }: DescItem) {
@@ -87,33 +85,27 @@ export default defineComponent({
       const { schema } = unref(getProps);
       return unref(schema).map((item) => {
         const { render, field, span, show, contentMinWidth } = item;
-        const { data } = unref(getProps) as any;
+        const { data } = unref(getProps) as DescOptions;
 
         if (show && isFunction(show) && !show(data)) {
           return null;
         }
 
         const getContent = () =>
-          isFunction(render)
-            ? render(data && data[field], data)
-            : unref(data) && unref(data)[field];
+          isFunction(render) ? render(data?.[field], data) : unref(data) && unref(data)[field];
 
         const width = contentMinWidth;
         return (
           <Descriptions.Item label={renderLabel(item)} key={field} span={span}>
-            {() =>
-              contentMinWidth ? (
-                <div
-                  style={{
-                    minWidth: `${width}px`,
-                  }}
-                >
-                  {getContent()}
-                </div>
-              ) : (
-                getContent()
-              )
-            }
+            {() => {
+              if (!contentMinWidth) {
+                return getContent();
+              }
+              const style: CSSProperties = {
+                minWidth: `${width}px`,
+              };
+              return <div style={style}>{getContent()}</div>;
+            }}
           </Descriptions.Item>
         );
       });
@@ -121,7 +113,7 @@ export default defineComponent({
 
     const renderDesc = () => {
       return (
-        <Descriptions class={`${prefixCls}`} {...{ ...attrs, ...(unref(getProps) as any) }}>
+        <Descriptions class={`${prefixCls}`} {...(unref(getDescriptionsProps) as any)}>
           {() => renderItem()}
         </Descriptions>
       );
@@ -130,19 +122,29 @@ export default defineComponent({
     const renderContainer = () => {
       const content = props.useCollapse ? renderDesc() : <div>{renderDesc()}</div>;
       // Reduce the dom level
-      const { title, canExpand, helpMessage } = unref(getCollapseOptions);
-      return props.useCollapse ? (
+
+      if (!props.useCollapse) {
+        return content;
+      }
+
+      const { canExpand, helpMessage } = unref(getCollapseOptions);
+      const { title } = unref(getMergeProps);
+
+      return (
         <CollapseContainer title={title} canExpan={canExpand} helpMessage={helpMessage}>
           {{
             default: () => content,
             action: () => getSlot(slots, 'action'),
           }}
         </CollapseContainer>
-      ) : (
-        content
       );
     };
 
+    const methods: DescInstance = {
+      setDescProps,
+    };
+
+    emit('register', methods);
     return () => (unref(useWrapper) ? renderContainer() : renderDesc());
   },
 });
