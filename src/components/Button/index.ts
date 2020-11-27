@@ -1,6 +1,4 @@
-import Button from './src/BasicButton.vue';
+import ButtonLib from './src/BasicButton.vue';
 import { withInstall } from '../util';
 
-export { Button };
-
-export default withInstall(Button);
+export const Button = withInstall(ButtonLib);

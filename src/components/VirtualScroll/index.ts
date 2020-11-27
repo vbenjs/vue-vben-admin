@@ -1,6 +1,4 @@
-import VirtualScroll from './src/index';
+import VirtualScrollLib from './src/index';
 import { withInstall } from '../util';
 
-export { VirtualScroll };
-
-export default withInstall(VirtualScroll);
+export const VirtualScroll = withInstall(VirtualScrollLib);

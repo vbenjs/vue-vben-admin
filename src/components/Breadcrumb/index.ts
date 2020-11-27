@@ -1,7 +1,6 @@
-import Breadcrumb from './src/Breadcrumb.vue';
-import BreadcrumbItem from './src/BreadcrumbItem.vue';
+import BreadcrumbLib from './src/Breadcrumb.vue';
+import BreadcrumbItemLib from './src/BreadcrumbItem.vue';
 import { withInstall } from '../util';
 
-export { Breadcrumb, BreadcrumbItem };
-
-export default withInstall(Breadcrumb, BreadcrumbItem);
+export const Breadcrumb = withInstall(BreadcrumbLib);
+export const BreadcrumbItem = withInstall(BreadcrumbItemLib);

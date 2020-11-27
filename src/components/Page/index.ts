@@ -1,6 +1,4 @@
-import PageFooter from './src/PageFooter.vue';
+import PageFooterLib from './src/PageFooter.vue';
 import { withInstall } from '../util';
 
-export { PageFooter };
-
-export default withInstall(PageFooter);
+export const PageFooter = withInstall(PageFooterLib);
