@@ -1,3 +1,46 @@
+## 2.0.0-rc.12 (2020-11-30)
+
+## (破坏性更新) Breaking changes
+
+- The ClickOutSide component import method is changed from `import ClickOutSide from'/@/components/ClickOutSide/index.vue'` to `import {ClickOutSide} from'/@/components/ClickOutSide'`
+- Button component import method changed from `import ClickOutSide from'/@/components/Button/index.vue'` to `import {Button} from'/@/components/Button'`
+- StrengthMeter component import method is changed from `import StrengthMeter from'/@/components/StrengthMeter'` to `import {StrengthMeter} from'/@/components/StrengthMeter'`
+- In addition to the examples, the global internationalization function is added, supporting Chinese and English
+
+### ✨ Refactor
+
+- Refactor the overall layout. Change the code implementation method. Code is more streamlined
+- Configuration item reconstruction
+- Remove messageSetting configuration
+- BasicTitle component `showSpan`=> `span`
+
+### ✨ Features
+
+- The cache can be configured to encrypt or not, and Aes encryption is enabled in the production environment by default
+- Add tab drag and drop sort
+- Added LayoutFooter. The default display, can be closed in the configuration
+
+### ⚡ Performance Improvements
+
+- Optimized the problem that the full screen animation of `Modal` component is not smooth
+
+### 🐛 Bug Fixes
+
+- tree: Fix the problem that the text exceeds the operation button
+- useRedo: Fix the problem of missing parameters when refreshing the page through useRedo
+- form: Fix the problem that the form verification is first set in the verification and the console error message
+- `modal`&`drawer` fix the problem of component passing array parameters
+- form: fix `updateSchema` does not take effect when the value contains `[]`
+- table: Fix the display problem of the table `TableAction` icon
+- table: fix table column settings not displayed by `setColumns` setting
+
+### 🎫 Chores
+
+- Update antdv to `2.0.0-rc.2`
+- Update vue to `3.0.3`
+- Update vite to `1.0.0.rc13`
+- Temporarily delete `@vueuse/core`. After it is stable, it will be integrated. It is currently not stable.
+
 ## 2.0.0-rc.11 (2020-11-18)
 
 ### ✨ Features

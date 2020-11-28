@@ -1,6 +1,6 @@
 {
   "name": "vben-admin-2.0",
-  "version": "2.0.0-rc.11",
+  "version": "2.0.0-rc.12",
   "scripts": {
     "bootstrap": "yarn install",
     "serve": "esno ./build/script/preserve.ts && cross-env NODE_ENV=development vite",
