@@ -55,7 +55,7 @@ const viteConfig: UserConfig = {
    * Available options are 'terser' or 'esbuild'.
    * @default 'terser'
    */
-  minify: isDevFn() ? 'esbuild' : 'terser',
+  minify: isDevFn() ? false : 'terser',
   /**
    * Base public path when served in production.
    * @default '/'

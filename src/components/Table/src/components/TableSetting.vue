@@ -77,7 +77,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, reactive, toRefs, PropType, computed } from 'vue';
+  import { defineComponent, ref, reactive, toRefs, PropType, computed, watchEffect } from 'vue';
   import { injectTable } from '../hooks/useProvinceTable';
   import { Tooltip, Divider, Dropdown, Menu, Popover, Checkbox } from 'ant-design-vue';
   import {
@@ -132,7 +132,7 @@
       const { toggleFullscreen, isFullscreenRef } = useFullscreen(table.wrapRef);
       const selectedKeysRef = ref<SizeType[]>([table.getSize()]);
 
-      let plainOptions: Options[] = [];
+      const plainOptions = ref<Options[]>([]);
       const state = reactive<State>({
         indeterminate: false,
         checkAll: true,
@@ -142,6 +142,12 @@
 
       const { t } = useI18n('component.table');
 
+      watchEffect(() => {
+        const columns = table.getColumns();
+        if (columns.length) {
+          init();
+        }
+      });
       function init() {
         let ret: Options[] = [];
         table.getColumns({ ignoreIndex: true, ignoreAction: true }).forEach((item) => {
@@ -150,7 +156,8 @@
             value: (item.dataIndex || item.title) as string,
           });
         });
-        plainOptions = ret;
+
+        plainOptions.value = ret;
         const checkList = table
           .getColumns()
           .map((item) => item.dataIndex || item.title) as string[];
@@ -171,7 +178,7 @@
 
       function onCheckAllChange(e: ChangeEvent) {
         state.indeterminate = false;
-        const checkList = plainOptions.map((item) => item.value);
+        const checkList = plainOptions.value.map((item) => item.value);
         if (e.target.checked) {
           state.checkedList = checkList;
           table.setColumns(checkList);
@@ -182,8 +189,9 @@
       }
 
       function onChange(checkedList: string[]) {
-        state.indeterminate = !!checkedList.length && checkedList.length < plainOptions.length;
-        state.checkAll = checkedList.length === plainOptions.length;
+        const len = plainOptions.value.length;
+        state.indeterminate = !!checkedList.length && checkedList.length < len;
+        state.checkAll = checkedList.length === len;
         table.setColumns(checkedList);
       }
 
@@ -207,7 +215,6 @@
         }
       );
 
-      init();
       return {
         redo: () => table.reload(),
         handleTitleClick,
