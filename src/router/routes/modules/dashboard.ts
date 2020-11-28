@@ -7,7 +7,7 @@ const dashboard: AppRouteModule = {
     path: '/dashboard',
     name: 'Dashboard',
     component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/dashboard/workbench',
+    redirect: '/dashboard/welcome',
     meta: {
       icon: 'ant-design:home-outlined',
       title: 'routes.dashboard.dashboard',
@@ -21,6 +21,8 @@ const dashboard: AppRouteModule = {
       component: () => import('/@/views/dashboard/welcome/index.vue'),
       meta: {
         title: 'routes.dashboard.welcome',
+        affix: true,
+        icon: 'ant-design:home-outlined',
       },
     },
     {
@@ -29,7 +31,6 @@ const dashboard: AppRouteModule = {
       component: () => import('/@/views/dashboard/workbench/index.vue'),
       meta: {
         title: 'routes.dashboard.workbench',
-        affix: true,
       },
     },
     {

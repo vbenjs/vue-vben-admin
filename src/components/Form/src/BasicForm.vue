@@ -16,6 +16,7 @@
           </template>
         </FormItem>
       </template>
+
       <FormAction
         v-bind="{ ...getActionPropsRef, ...advanceState }"
         @toggle-advanced="handleToggleAdvanced"
@@ -30,7 +31,17 @@
   import type { Ref, WatchStopHandle } from 'vue';
   import type { ValidateFields } from 'ant-design-vue/lib/form/interface';
 
-  import { defineComponent, reactive, ref, computed, unref, toRef, onMounted, watch } from 'vue';
+  import {
+    defineComponent,
+    reactive,
+    ref,
+    computed,
+    unref,
+    toRef,
+    onMounted,
+    watch,
+    toRefs,
+  } from 'vue';
   import { Form, Row } from 'ant-design-vue';
   import FormItem from './FormItem';
   import { basicProps } from './props';
@@ -103,6 +114,7 @@
         const schemas: FormSchema[] = unref(schemaRef) || (unref(getProps).schemas as any);
         for (const schema of schemas) {
           const { defaultValue, component } = schema;
+          // handle date type
           if (defaultValue && dateItemType.includes(component)) {
             if (!Array.isArray(defaultValue)) {
               schema.defaultValue = moment(defaultValue);
@@ -127,10 +139,10 @@
         formModel,
         defaultValueRef,
       });
-
+      const { transformDateFunc, fieldMapToTime } = toRefs(props);
       const { handleFormValues, initDefault } = useFormValues({
-        transformDateFuncRef: toRef(props, 'transformDateFunc') as Ref<Fn<any>>,
-        fieldMapToTimeRef: toRef(props, 'fieldMapToTime'),
+        transformDateFuncRef: transformDateFunc as Ref<Fn<any>>,
+        fieldMapToTimeRef: fieldMapToTime,
         defaultValueRef,
         getSchema,
         formModel,

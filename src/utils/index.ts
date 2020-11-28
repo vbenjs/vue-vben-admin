@@ -1,4 +1,5 @@
 export const timestamp = () => +Date.now();
+import { isObject } from '/@/utils/is';
 export const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
 export const noop = () => {};
 export const now = () => Date.now();
@@ -40,10 +41,7 @@ export function setObjToUrlParams(baseUrl: string, obj: any): string {
 export function deepMerge<T = any>(src: any, target: any): T {
   let key: string;
   for (key in target) {
-    src[key] =
-      src[key] && src[key].toString() === '[object Object]'
-        ? deepMerge(src[key], target[key])
-        : (src[key] = target[key]);
+    src[key] = isObject(src[key]) ? deepMerge(src[key], target[key]) : (src[key] = target[key]);
   }
   return src;
 }

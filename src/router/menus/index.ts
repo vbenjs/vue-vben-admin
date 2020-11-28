@@ -13,7 +13,9 @@ import modules from 'globby!/@/router/menus/modules/**/*.@(ts)';
 const menuModules: MenuModule[] = [];
 
 Object.keys(modules).forEach((key) => {
-  menuModules.push(modules[key]);
+  const moduleItem = modules[key];
+  const menuModule = Array.isArray(moduleItem) ? [...moduleItem] : [moduleItem];
+  menuModules.push(...menuModule);
 });
 
 // ===========================
@@ -25,6 +27,7 @@ const staticMenus: Menu[] = [];
   menuModules.sort((a, b) => {
     return (a.orderNo || 0) - (b.orderNo || 0);
   });
+
   for (const menu of menuModules) {
     staticMenus.push(transformMenuModule(menu));
   }
