@@ -32,6 +32,7 @@ import {
   Result,
   Empty,
   Avatar,
+  Menu,
 } from 'ant-design-vue';
 import { getApp } from '/@/setup/App';
 
@@ -78,5 +79,6 @@ export function registerGlobComp() {
     .use(Result)
     .use(Empty)
     .use(Avatar)
+    .use(Menu)
     .use(Tabs);
 }

@@ -6,6 +6,7 @@
           :actions="[
             {
               label: '删除',
+              icon: 'ant-design:area-chart-outlined',
               onClick: handleDelete.bind(null, record),
             },
           ]"

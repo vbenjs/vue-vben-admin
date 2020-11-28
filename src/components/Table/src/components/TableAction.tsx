@@ -24,20 +24,20 @@ export default defineComponent({
   },
   setup(props) {
     function renderButton(action: ActionItem, index: number) {
-      const { disabled = false, label, icon, color = '', type = 'link' } = action;
+      const { disabled = false, label, icon, color = '', type = 'link', ...actionProps } = action;
       const button = (
         <Button
-          type={type as any}
+          type={type}
           size="small"
           disabled={disabled}
           color={color}
-          {...action}
+          {...actionProps}
           key={`${index}-${label}`}
         >
           {() => (
             <>
+              {icon && <Icon icon={icon} class="mr-1" />}
               {label}
-              {icon && <Icon icon={icon} />}
             </>
           )}
         </Button>
@@ -96,7 +96,7 @@ export default defineComponent({
               return renderPopConfirm(action, index);
             })}
           {dropDownActions && dropDownActions.length && (
-            <Dropdown>
+            <Dropdown overlayClassName="basic-tale-action-dropdown">
               {{
                 default: dropdownDefaultSLot,
                 overlay: () => {
@@ -106,6 +106,7 @@ export default defineComponent({
                         default: () => {
                           return dropDownActions.map((action, index) => {
                             const { disabled = false } = action;
+                            action.ghost = true;
                             return (
                               <Menu.Item key={`${index}`} disabled={disabled}>
                                 {() => {

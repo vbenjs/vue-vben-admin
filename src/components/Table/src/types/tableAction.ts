@@ -1,10 +1,8 @@
-export interface ActionItem {
+import { ButtonProps } from 'ant-design-vue/es/button/buttonTypes';
+export interface ActionItem extends ButtonProps {
   onClick?: any;
   label: string;
-  disabled?: boolean;
   color?: 'success' | 'error' | 'warning';
-  type?: string;
-  props?: any;
   icon?: string;
   popConfirm?: PopConfirm;
 }
