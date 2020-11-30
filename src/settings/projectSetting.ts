@@ -66,6 +66,8 @@ const setting: ProjectConfig = {
     split: false,
     // 顶部菜单布局
     topMenuAlign: 'center',
+    // 折叠菜单时候隐藏搜索框
+    collapsedShowSearch: true,
   },
   // 消息配置
   messageSetting: {

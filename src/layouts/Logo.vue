@@ -1,5 +1,5 @@
 <template>
-  <div class="app-logo" @click="handleGoHome" :style="wrapStyle">
+  <div class="app-logo anticon" @click="handleGoHome" :style="wrapStyle">
     <img :src="logo" />
     <div v-if="show" class="logo-title ml-2 ellipsis">{{ globSetting.title }}</div>
   </div>
@@ -79,14 +79,15 @@
     align-items: center;
     padding-left: 16px;
     cursor: pointer;
-    justify-content: center;
+    // justify-content: center;
 
     .logo-title {
-      display: none;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 400;
+      opacity: 0;
+      transition: all 0.5s;
       .respond-to(medium,{
-       display: block;
+       opacity: 1;
      });
     }
   }

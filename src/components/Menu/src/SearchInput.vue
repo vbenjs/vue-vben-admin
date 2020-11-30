@@ -48,7 +48,7 @@
       const searchClass = computed(() => {
         const cls: string[] = [];
         cls.push(props.theme ? `menu-search-input__search--${props.theme}` : '');
-        // cls.push(props.collapsed ? 'hide-search-icon' : '');
+        cls.push(props.collapsed ? 'hide-search-icon' : '');
         return cls;
       });
 
@@ -66,12 +66,13 @@
   .menu-search-input {
     margin: 12px 8px;
 
-    // &.hide-search-icon {
-    //   .ant-input,
-    //   .ant-input-suffix {
-    //     opacity: 0;
-    //   }
-    // }
+    &.hide-search-icon {
+      .ant-input,
+      .ant-input-suffix {
+        opacity: 0;
+        transition: all 0.5s;
+      }
+    }
 
     &__search--dark {
       .ant-input-affix-wrapper,

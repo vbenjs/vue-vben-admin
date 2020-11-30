@@ -21,6 +21,7 @@ export interface MenuSetting {
   type: MenuTypeEnum;
   theme: MenuThemeEnum;
   topMenuAlign: 'start' | 'center' | 'end';
+  collapsedShowSearch: boolean;
 }
 
 export interface MultiTabsSetting {

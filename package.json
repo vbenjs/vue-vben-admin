@@ -4,7 +4,7 @@
   "scripts": {
     "bootstrap": "yarn install",
     "serve": "esno ./build/script/preserve.ts && cross-env NODE_ENV=development vite",
-    "build": " rimraf dist && cross-env NODE_ENV=production vite build && esno ./build/script/postBuild.ts",
+    "build": "cross-env NODE_ENV=production vite build && esno ./build/script/postBuild.ts",
     "build:site": "cross-env SITE=true npm run build ",
     "build:no-cache": "yarn  clean:cache && npm run build",
     "typecheck": "typecheck .",
