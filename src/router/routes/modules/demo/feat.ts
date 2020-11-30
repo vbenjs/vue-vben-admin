@@ -97,6 +97,14 @@ export default {
       },
     },
     {
+      path: '/error-log',
+      name: 'ErrorLog',
+      component: () => import('/@/views/sys/error-log/index.vue'),
+      meta: {
+        title: '错误日志',
+      },
+    },
+    {
       path: '/testTab/:id',
       name: 'TestTab',
       component: () => import('/@/views/demo/feat/tab-params/index.vue'),

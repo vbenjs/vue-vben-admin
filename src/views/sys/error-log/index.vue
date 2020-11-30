@@ -22,6 +22,7 @@
 
   import DetailModal from './DetailModal.vue';
   import { useModal } from '/@/components/Modal/index';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table/index';
 
@@ -32,6 +33,7 @@
   import { getColumns } from './data';
 
   import { cloneDeep } from 'lodash-es';
+  import { isDevMode } from '/@/utils/env';
 
   export default defineComponent({
     name: 'ErrorHandler',
@@ -39,8 +41,8 @@
     setup() {
       const rowInfoRef = ref<ErrorInfo>();
       const imgListRef = ref<string[]>([]);
+
       const [register, { setTableData }] = useTable({
-        titleHelpMessage: '只在`/src/settings/projectSetting.ts` 内的useErrorHandle=true时生效！',
         title: '错误日志列表',
         columns: getColumns(),
         actionColumn: {
@@ -50,8 +52,8 @@
           slots: { customRender: 'action' },
         },
       });
-
       const [registerModal, { openModal }] = useModal();
+
       watch(
         () => errorStore.getErrorInfoState,
         (list) => {
@@ -63,7 +65,10 @@
           immediate: true,
         }
       );
-
+      const { createMessage } = useMessage();
+      if (isDevMode()) {
+        createMessage.info('只在`/src/settings/projectSetting.ts` 内的useErrorHandle=true时生效！');
+      }
       // 查看详情
       function handleDetail(row: ErrorInfo) {
         rowInfoRef.value = row;

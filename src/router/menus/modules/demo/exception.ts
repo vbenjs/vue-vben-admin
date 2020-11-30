@@ -25,10 +25,6 @@ const menu: MenuModule = {
         path: 'not-data',
         name: '无数据',
       },
-      {
-        path: 'error-log',
-        name: '错误日志',
-      },
     ],
   },
 };
