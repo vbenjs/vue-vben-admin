@@ -19,6 +19,26 @@ const menu: MenuModule = {
       },
 
       {
+        path: 'modal',
+        name: '弹窗扩展',
+      },
+      {
+        path: 'drawer',
+        name: '抽屉扩展',
+      },
+      {
+        path: 'desc',
+        name: '详情组件',
+      },
+      {
+        path: 'qrcode',
+        name: '二维码组件',
+      },
+      {
+        path: 'strength-meter',
+        name: '密码强度组件',
+      },
+      {
         path: 'scroll',
         name: '滚动组件',
         children: [
@@ -37,20 +57,18 @@ const menu: MenuModule = {
         ],
       },
       {
-        path: 'modal',
-        name: '弹窗扩展',
-      },
-      {
-        path: 'drawer',
-        name: '抽屉扩展',
-      },
-      {
-        path: 'desc',
-        name: '详情组件',
-      },
-      {
         path: 'lazy',
         name: '懒加载组件',
+        children: [
+          {
+            path: 'basic',
+            name: '基础示例',
+          },
+          {
+            path: 'transition',
+            name: '动画效果',
+          },
+        ],
       },
       {
         path: 'verify',
@@ -65,14 +83,6 @@ const menu: MenuModule = {
             name: '图片还原校验',
           },
         ],
-      },
-      {
-        path: 'qrcode',
-        name: '二维码组件',
-      },
-      {
-        path: 'strength-meter',
-        name: '密码强度组件',
       },
     ],
   },

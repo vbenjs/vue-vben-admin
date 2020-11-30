@@ -25,11 +25,13 @@ export default defineComponent({
     const state = reactive({
       show: false,
     });
+
     onMounted(() => {
       nextTick(() => {
         state.show = true;
       });
     });
+
     onUnmounted(() => {
       const el = unref(wrapRef);
       el && document.body.removeChild(el);
@@ -61,6 +63,7 @@ export default defineComponent({
 
       handler && handler();
     }
+
     function renderContent(item: ContextMenuItem) {
       const { icon, label } = item;
 
@@ -72,6 +75,7 @@ export default defineComponent({
         </span>
       );
     }
+
     function renderMenuItem(items: ContextMenuItem[]) {
       return items.map((item, index) => {
         const { disabled, label, children, divider = false } = item;

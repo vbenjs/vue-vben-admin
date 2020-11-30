@@ -1,9 +1,16 @@
 <template>
-  <transition-group v-bind="$attrs" ref="elRef" :name="transitionName" :tag="tag">
+  <transition-group
+    class="lazy-container"
+    v-bind="$attrs"
+    ref="elRef"
+    :name="transitionName"
+    :tag="tag"
+    mode="out-in"
+  >
     <div key="component" v-if="isInit">
       <slot :loading="loading" />
     </div>
-    <div key="skeleton">
+    <div key="skeleton" v-else name="lazy-skeleton">
       <slot name="skeleton" v-if="$slots.skeleton" />
       <Skeleton v-else />
     </div>
@@ -12,19 +19,9 @@
 <script lang="ts">
   import type { PropType } from 'vue';
 
-  import {
-    defineComponent,
-    reactive,
-    onMounted,
-    ref,
-    unref,
-    onUnmounted,
-    toRef,
-    toRefs,
-  } from 'vue';
+  import { defineComponent, reactive, onMounted, ref, toRef, toRefs } from 'vue';
 
   import { Skeleton } from 'ant-design-vue';
-  import { useRaf } from '/@/hooks/event/useRaf';
   import { useTimeout } from '/@/hooks/core/useTimeout';
   import { useIntersectionObserver } from '/@/hooks/event/useIntersectionObserver';
   interface State {
@@ -36,13 +33,12 @@
     name: 'LazyContainer',
     components: { Skeleton },
     props: {
-      // 等待时间，如果指定了时间，不论可见与否，在指定时间之后自动加载
+      // Waiting time, if the time is specified, whether visible or not, it will be automatically loaded after the specified time
       timeout: {
         type: Number as PropType<number>,
-        default: 0,
-        // default: 8000,
       },
-      // 组件所在的视口，如果组件是在页面容器内滚动，视口就是该容器
+
+      // The viewport where the component is located. If the component is scrolling in the page container, the viewport is the container
       viewport: {
         type: (typeof window !== 'undefined' ? window.HTMLElement : Object) as PropType<
           HTMLElement
@@ -50,19 +46,19 @@
         default: () => null,
       },
 
-      // 预加载阈值, css单位
+      // Preload threshold, css unit
       threshold: {
         type: String as PropType<string>,
         default: '0px',
       },
 
-      // 视口的滚动方向, vertical代表垂直方向，horizontal代表水平方向
+      // The scroll direction of the viewport, vertical represents the vertical direction, horizontal represents the horizontal direction
       direction: {
         type: String as PropType<'vertical' | 'horizontal'>,
         default: 'vertical',
       },
 
-      // 包裹组件的外层容器的标签名
+      // The label name of the outer container that wraps the component
       tag: {
         type: String as PropType<string>,
         default: 'div',
@@ -105,23 +101,11 @@
       function init() {
         state.loading = true;
 
-        requestAnimationFrameFn(() => {
-          state.isInit = true;
-          emit('init');
-        });
-      }
-
-      function requestAnimationFrameFn(callback: () => any) {
-        // Prevent waiting too long without executing the callback
-        // Set the maximum waiting time
         useTimeout(() => {
           if (state.isInit) return;
-          callback();
+          state.isInit = true;
+          emit('init');
         }, props.maxWaitingTime || 80);
-
-        const { requestAnimationFrame } = useRaf();
-
-        return requestAnimationFrame;
       }
 
       function initIntersectionObserver() {
@@ -165,31 +149,8 @@
   });
 </script>
 <style lang="less">
-  .lazy-container-enter {
-    opacity: 0;
-  }
-
-  .lazy-container-enter-to {
-    opacity: 1;
-  }
-
-  .lazy-container-enter-from,
-  .lazy-container-enter-active {
-    position: absolute;
-    top: 0;
+  .lazy-container {
     width: 100%;
-    transition: opacity 0.3s 0.2s;
-  }
-
-  .lazy-container-leave {
-    opacity: 1;
-  }
-
-  .lazy-container-leave-to {
-    opacity: 0;
-  }
-
-  .lazy-container-leave-active {
-    transition: opacity 0.5s;
+    height: 100%;
   }
 </style>
