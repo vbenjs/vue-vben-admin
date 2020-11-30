@@ -58,7 +58,7 @@ export function setSession(key: string, value: any, immediate = false) {
   cacheStore.session[BASE_SESSION_CACHE_KEY][key] = value;
   if (immediate) {
     const cache = cacheStore.session;
-    ls.set(BASE_SESSION_CACHE_KEY, cache);
+    ss.set(BASE_SESSION_CACHE_KEY, cache);
   }
 }
 
