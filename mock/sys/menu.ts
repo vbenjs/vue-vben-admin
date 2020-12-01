@@ -32,6 +32,7 @@ const frontRoute = {
   children: [
     {
       path: 'page',
+      name: 'FrontPageAuth',
       component: '/demo/permission/front/index',
       meta: {
         title: '页面权限',
@@ -39,6 +40,7 @@ const frontRoute = {
     },
     {
       path: 'btn',
+      name: 'FrontBtnAuth',
       component: '/demo/permission/front/Btn',
       meta: {
         title: '按钮权限',
@@ -46,6 +48,7 @@ const frontRoute = {
     },
     {
       path: 'auth-pageA',
+      name: 'FrontAuthPageA',
       component: '/demo/permission/front/AuthPageA',
       meta: {
         title: '权限测试页A',
@@ -53,6 +56,7 @@ const frontRoute = {
     },
     {
       path: 'auth-pageB',
+      name: 'FrontAuthPageB',
       component: '/demo/permission/front/AuthPageB',
       meta: {
         title: '权限测试页B',
@@ -69,6 +73,7 @@ const backRoute = {
   children: [
     {
       path: 'page',
+      name: 'BackAuthPage',
       component: '/demo/permission/back/index',
       meta: {
         title: '页面权限',
@@ -76,6 +81,7 @@ const backRoute = {
     },
     {
       path: 'btn',
+      name: 'BackAuthBtn',
       component: '/demo/permission/back/Btn',
       meta: {
         title: '按钮权限',
