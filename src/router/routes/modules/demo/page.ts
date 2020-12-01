@@ -223,7 +223,7 @@ const page: AppRouteModule = {
           name: 'ListBasicPage',
           component: () => import('/@/views/demo/page/list/basic/index.vue'),
           meta: {
-            title: 'routes.demo.page.basic',
+            title: 'routes.demo.page.listBasic',
           },
         },
         {
@@ -232,6 +232,14 @@ const page: AppRouteModule = {
           component: () => import('/@/views/demo/page/list/card/index.vue'),
           meta: {
             title: 'routes.demo.page.listCard',
+          },
+        },
+        {
+          path: 'search',
+          name: 'ListSearchPage',
+          component: () => import('/@/views/demo/page/list/search/index.vue'),
+          meta: {
+            title: 'routes.demo.page.listSearch',
           },
         },
       ],

@@ -107,11 +107,15 @@ const menu: MenuModule = {
         children: [
           {
             path: 'basic',
-            name: '标准列表',
+            name: 'routes.demo.page.listBasic',
           },
           {
             path: 'card',
             name: 'routes.demo.page.listCard',
+          },
+          {
+            path: 'search',
+            name: 'routes.demo.page.listSearch',
           },
         ],
       },
