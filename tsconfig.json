@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es2016",
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,

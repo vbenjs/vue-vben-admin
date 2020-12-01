@@ -1,16 +1,17 @@
+import './index.less';
+
 import { defineComponent, ref, unref, computed, reactive, watchEffect } from 'vue';
 
 import { basicProps } from './props';
 import { Props } from './types';
-import './index.less';
 
-import { CloseOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons-vue';
+import { CloseOutlined, LeftOutlined, RightOutlined, LoadingOutlined } from '@ant-design/icons-vue';
+import { Spin } from 'ant-design-vue';
 
 import resumeSvg from '/@/assets/svg/preview/resume.svg';
 import rotateSvg from '/@/assets/svg/preview/p-rotate.svg';
 import scaleSvg from '/@/assets/svg/preview/scale.svg';
 import unScaleSvg from '/@/assets/svg/preview/unscale.svg';
-import loadingSvg from '/@/assets/images/loading.svg';
 import unRotateSvg from '/@/assets/svg/preview/unrotate.svg';
 enum StatueEnum {
   LOADING,
@@ -271,12 +272,14 @@ export default defineComponent({
         imgState.show && (
           <div class={prefixCls} ref={wrapElRef} onMouseup={handleMouseUp}>
             <div class={`${prefixCls}-content`}>
-              <img
-                width="32"
-                src={loadingSvg}
+              <Spin
+                indicator={<LoadingOutlined style="font-size: 24px" spin />}
+                spinning={true}
                 class={[
                   `${prefixCls}-image`,
-                  imgState.status === StatueEnum.LOADING ? '' : 'hidden',
+                  {
+                    hidden: imgState.status !== StatueEnum.LOADING,
+                  },
                 ]}
               />
               <img

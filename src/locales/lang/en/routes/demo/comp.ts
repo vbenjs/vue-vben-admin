@@ -24,4 +24,6 @@ export default {
   qrcode: 'QR code',
   strength: 'Password strength',
   upload: 'Upload',
+
+  loading: 'Loading',
 };

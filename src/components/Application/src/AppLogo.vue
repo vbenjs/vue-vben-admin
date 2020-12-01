@@ -1,3 +1,7 @@
+<!--
+ * @Author: Vben
+ * @Description: logo component
+-->
 <template>
   <div
     class="app-logo anticon"

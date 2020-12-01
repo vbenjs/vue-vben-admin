@@ -7,7 +7,7 @@ import { defineComponent, ref, computed, watchEffect, watch, unref, nextTick, to
 import { Drawer, Row, Col, Button } from 'ant-design-vue';
 
 import { BasicTitle } from '/@/components/Basic';
-import { FullLoading } from '/@/components/Loading/index';
+import { Loading } from '/@/components/Loading';
 import { LeftOutlined } from '@ant-design/icons-vue';
 
 import { useI18n } from '/@/hooks/web/useI18n';
@@ -97,9 +97,7 @@ export default defineComponent({
     );
 
     const getLoading = computed(() => {
-      return {
-        hidden: !unref(getProps).loading,
-      };
+      return !!unref(getProps)?.loading;
     });
 
     watchEffect(() => {
@@ -230,7 +228,7 @@ export default defineComponent({
             default: () => (
               <>
                 <div ref={scrollRef} style={unref(getScrollContentStyle)}>
-                  <FullLoading absolute tip={t('loadingText')} class={unref(getLoading)} />
+                  <Loading absolute tip={t('loadingText')} loading={unref(getLoading)} />
                   {getSlot(slots)}
                 </div>
                 {renderFooter()}

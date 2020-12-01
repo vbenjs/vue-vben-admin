@@ -45,6 +45,10 @@ const menu: MenuModule = {
         name: 'routes.demo.comp.upload',
       },
       {
+        path: 'loading',
+        name: 'routes.demo.comp.loading',
+      },
+      {
         path: 'scroll',
         name: 'routes.demo.comp.scroll',
         children: [

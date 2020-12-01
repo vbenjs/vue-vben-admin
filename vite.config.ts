@@ -8,7 +8,7 @@ import { createProxy } from './build/vite/proxy';
 import globbyTransform from './build/vite/plugin/transform/globby';
 import dynamicImportTransform from './build/vite/plugin/transform/dynamic-import';
 
-import { isDevFn, loadEnv } from './build/utils';
+import { loadEnv } from './build/utils';
 
 import { createRollupPlugin, createVitePlugins } from './build/vite/plugin';
 
@@ -55,7 +55,7 @@ const viteConfig: UserConfig = {
    * Available options are 'terser' or 'esbuild'.
    * @default 'terser'
    */
-  minify: isDevFn() ? false : 'terser',
+  minify: 'terser',
   /**
    * Base public path when served in production.
    * @default '/'

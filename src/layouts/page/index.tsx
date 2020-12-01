@@ -22,6 +22,7 @@ export default defineComponent({
   name: 'PageLayout',
   setup() {
     const { getShowMenu } = useMenuSetting();
+
     const { getOpenKeepAlive, getCanEmbedIFramePage } = useRootSetting();
 
     const { getBasicTransition, getEnableTransition } = useTransitionSetting();

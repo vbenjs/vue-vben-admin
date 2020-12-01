@@ -25,13 +25,14 @@
   integrity sha512-Fi03PfuUqRs76aI3UWYpP864lkrfPo0hluwGqh7NJdLhvH4iRDc3jbJqZIvRDLHKbXrvAfPPV3+zjUccfFvWOQ==
 
 "@ant-design/icons-vue@^5.1.6":
-  version "5.1.6"
-  resolved "https://registry.npmjs.org/@ant-design/icons-vue/-/icons-vue-5.1.6.tgz#af15cbf2375d95199e90166adce4c9f6ad1c17f1"
-  integrity sha512-1KY04c/0iDM88ICdu6EW2/ZPOrH+FyL0uvR350XnVqvnDiLijdcrRaLzkZgCdBcy7cy5t5+onXKocymndCOdRA==
+  version "5.1.7"
+  resolved "https://registry.npmjs.org/@ant-design/icons-vue/-/icons-vue-5.1.7.tgz#5f8e26b547c3ecc16c0820152b935e8a44b5fad3"
+  integrity sha512-6UN/FydLs/bHC0WZxgSpdk0Ct8Ejzr7gdOx5sAIULpSprkxoHWiUbzTy8BMmUduImL42YY1L/qtZYJD6pIzmcQ==
   dependencies:
     "@ant-design/colors" "^5.0.0"
     "@ant-design/icons-svg" "^4.0.0"
     "@babel/runtime" "^7.10.4"
+    "@types/lodash" "^4.14.165"
     lodash "^4.17.15"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.5.5", "@babel/code-frame@^7.8.3":
@@ -1420,7 +1421,7 @@
   dependencies:
     "@types/lodash" "*"
 
-"@types/lodash@*":
+"@types/lodash@*", "@types/lodash@^4.14.165":
   version "4.14.165"
   resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.165.tgz#74d55d947452e2de0742bad65270433b63a8c30f"
   integrity sha512-tjSSOTHhI5mCHTy/OOXYIhi2Wt1qcbHmuXD1Ha7q70CgI/I71afO4XtLb/cVexki1oVYchpul/TOuu3Arcdxrg==
@@ -1959,7 +1960,7 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-ant-design-vue@2.0.0-rc.2:
+ant-design-vue@^2.0.0-rc.2:
   version "2.0.0-rc.2"
   resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.0.0-rc.2.tgz#fd3b4a5a64fccbb53ed488a194317a040de2223e"
   integrity sha512-XA7X/7HHIveiTh41bZWGfoQ2Rys/rqWknK2zzdHwVnfw9ST3v+ciMKH0Uegyn7m14QL/EdUkC8zGsXpiSXqKNQ==

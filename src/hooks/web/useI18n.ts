@@ -26,6 +26,7 @@ export function useI18n(namespace?: string) {
   return {
     ...methods,
     t: (key: string, ...arg: Parameters<typeof t>) => {
+      if (!key) return '';
       return t(getKey(key), ...arg);
     },
   };

@@ -13,68 +13,136 @@
     <title></title>
     <link rel="icon" href="/favicon.ico" />
     <%= viteHtmlPluginOptions.injectConfig %>
-
-    <style>
-      @keyframes load {
-        0% {
-          -webkit-transform: rotate(-360deg);
-          transform: rotate(-360deg);
-        }
-
-        100% {
-          -webkit-transform: rotate(0);
-          transform: rotate(0);
-        }
-      }
-
-      .app-loading {
-        width: 100%;
-        height: 100%;
-        background: #f0f2f5;
-      }
-
-      .app-loading .app-loading-wrap {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -webkit-transform: translate3d(-50%, -50%, 0);
-        transform: translate3d(-50%, -50%, 0);
-      }
-
-      .app-loading .g-loading {
-        display: block;
-        width: 48px;
-        margin: 30px auto;
-        -webkit-animation: load 1.2s linear infinite;
-        animation: load 1.2s linear infinite;
-        -webkit-transform-origin: center center;
-        transform-origin: center center;
-      }
-
-      .app-loading .app-loading-wrap img.logo {
-        display: block;
-        width: 90px;
-        margin: 0 auto;
-        margin-bottom: 20px;
-      }
-
-      .app-loading .app-loading-wrap .app-loading__tip {
-        display: block;
-        margin: 20px auto 0 0;
-        font-size: 30px;
-        color: rgba(0, 0, 0, 0.85);
-      }
-    </style>
   </head>
   <body>
     <div id="app">
-      <section class="app-loading">
-        <section class="app-loading-wrap">
-          <img src="./resource/img/logo.png" class="logo" alt="Logo" />
-          <img src="./resource/img/loading.svg" alt="" class="g-loading" />
-          <h1 class="app-loading__tip"><%= viteHtmlPluginOptions.title %></h1>
-        </section>
-      </section>
+      <style>
+        .app-loading {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+
+        .app-loading .app-loading-wrap {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          display: flex;
+          -webkit-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+
+        .app-loading .dots {
+          display: flex;
+          padding: 98px;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .app-loading .app-loading-title {
+          display: flex;
+          margin-top: 30px;
+          font-size: 30px;
+          color: rgba(0, 0, 0, 0.85);
+          justify-content: center;
+          align-items: center;
+        }
+
+        .app-loading .app-loading-logo {
+          display: block;
+          width: 90px;
+          margin: 0 auto;
+          margin-bottom: 20px;
+        }
+
+        .dot {
+          position: relative;
+          display: inline-block;
+          width: 48px;
+          height: 48px;
+          margin-top: 30px;
+          font-size: 32px;
+          transform: rotate(45deg);
+          box-sizing: border-box;
+          animation: antRotate 1.2s infinite linear;
+        }
+
+        .dot i {
+          position: absolute;
+          display: block;
+          width: 20px;
+          height: 20px;
+          background-color: #0065cc;
+          border-radius: 100%;
+          opacity: 0.3;
+          transform: scale(0.75);
+          animation: antSpinMove 1s infinite linear alternate;
+          transform-origin: 50% 50%;
+        }
+
+        .dot i:nth-child(1) {
+          top: 0;
+          left: 0;
+        }
+
+        .dot i:nth-child(2) {
+          top: 0;
+          right: 0;
+          -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+        }
+
+        .dot i:nth-child(3) {
+          right: 0;
+          bottom: 0;
+          -webkit-animation-delay: 0.8s;
+          animation-delay: 0.8s;
+        }
+
+        .dot i:nth-child(4) {
+          bottom: 0;
+          left: 0;
+          -webkit-animation-delay: 1.2s;
+          animation-delay: 1.2s;
+        }
+        @keyframes antRotate {
+          to {
+            -webkit-transform: rotate(405deg);
+            transform: rotate(405deg);
+          }
+        }
+        @-webkit-keyframes antRotate {
+          to {
+            -webkit-transform: rotate(405deg);
+            transform: rotate(405deg);
+          }
+        }
+        @keyframes antSpinMove {
+          to {
+            opacity: 1;
+          }
+        }
+        @-webkit-keyframes antSpinMove {
+          to {
+            opacity: 1;
+          }
+        }
+      </style>
+      <div class="app-loading">
+        <div class="app-loading-wrap">
+          <img src="./resource/img/logo.png" class="app-loading-logo" alt="Logo" />
+          <div class="app-loading-dots">
+            <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
+          </div>
+          <div class="app-loading-title"><%= viteHtmlPluginOptions.title %></div>
+        </div>
+      </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

@@ -1,9 +1,19 @@
+## Wip
+
+### ✨ Features
+
+- 还原 antdv 默认 loading，重构 `Loading` 组件，增加`useLoading`和`v-loading`指令。并增加示例
+
+### 🎫 Chores
+
+- 首屏 loading 修改
+
 ## 2.0.0-rc.12 (2020-11-30)
 
 ## (破坏性更新) Breaking changes
 
 - ClickOutSide 组件引入方式由 `import ClickOutSide from '/@/components/ClickOutSide/index.vue'`变更为`import { ClickOutSide } from '/@/components/ClickOutSide'`
-- Button 组件引入方式由 `import ClickOutSide from '/@/components/Button/index.vue'`变更为`import { Button } from '/@/components/Button'`
+- Button 组件引入方式由 `import Button from '/@/components/Button/index.vue'`变更为`import { Button } from '/@/components/Button'`
 - StrengthMeter 组件引入方式由 `import StrengthMeter from '/@/components/StrengthMeter'`变更为`import { StrengthMeter } from '/@/components/StrengthMeter'`
 - 除示例外加入全局国际化功能，支持中文与英文
 

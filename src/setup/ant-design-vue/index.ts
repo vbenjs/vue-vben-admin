@@ -12,8 +12,6 @@ import {
 } from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 
-import './spin';
-
 export function setupAntd(app: App<Element>) {
   // need
   // Here are the components required before registering and logging in
