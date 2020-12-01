@@ -12,7 +12,7 @@ function getPath(path: string) {
   return path.replace('src/views', '');
 }
 
-const dynamicImportTransform = function (env: any = {}): Transform {
+const dynamicImportTransform = function (enableDynamicImport: boolean): Transform {
   return {
     test({ path }) {
       // Only convert the file
@@ -22,8 +22,7 @@ const dynamicImportTransform = function (env: any = {}): Transform {
       );
     },
     transform({ code }) {
-      const { VITE_DYNAMIC_IMPORT } = env;
-      if (!VITE_DYNAMIC_IMPORT) {
+      if (!enableDynamicImport) {
         return code;
       }
 

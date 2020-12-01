@@ -102,6 +102,7 @@ export interface ViteEnv {
   VITE_USE_CDN: boolean;
   VITE_DROP_CONSOLE: boolean;
   VITE_BUILD_GZIP: boolean;
+  VITE_DYNAMIC_IMPORT: boolean;
 }
 
 // Read all environment variable configuration files to process.env
