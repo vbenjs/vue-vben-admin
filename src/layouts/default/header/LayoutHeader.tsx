@@ -66,7 +66,7 @@ export default defineComponent({
     const logoWidthRef = ref(200);
     const logoRef = ref<ComponentRef>(null);
     const { refreshPage } = useTabs();
-    const { t } = useI18n('layout.header');
+    const { t } = useI18n();
 
     const { getShowTopMenu, getShowHeaderTrigger, getSplit, getTopMenuAlign } = useMenuSetting();
 

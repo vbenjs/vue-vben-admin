@@ -36,7 +36,7 @@
       const loadingRef = ref(false);
       const errMsgRef = ref(false);
 
-      const { t } = useI18n('sys.lock');
+      const { t } = useI18n();
       const [register, { validateFields }] = useForm({
         showActionButtonGroup: false,
         schemas: [
@@ -46,7 +46,7 @@
             component: 'InputPassword',
             componentProps: {
               style: { width: '100%' },
-              placeholder: t('placeholder'),
+              placeholder: t('sys.lock.placeholder'),
             },
             rules: [{ required: true }],
           },

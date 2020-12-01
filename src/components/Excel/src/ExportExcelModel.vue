@@ -1,7 +1,7 @@
 <template>
   <BasicModal
     v-bind="$attrs"
-    :title="t('exportModalTitle')"
+    :title="t('component.excel.exportModalTitle')"
     @ok="handleOk"
     @register="registerModal"
   >
@@ -21,19 +21,19 @@
 
   import { useI18n } from '/@/hooks/web/useI18n';
 
-  const { t } = useI18n('component.excel');
+  const { t } = useI18n();
 
   const schemas: FormSchema[] = [
     {
       field: 'filename',
       component: 'Input',
-      label: t('fileName'),
+      label: t('component.excel.fileName'),
       rules: [{ required: true }],
     },
     {
       field: 'bookType',
       component: 'Select',
-      label: t('fileType'),
+      label: t('component.excel.fileType'),
       defaultValue: 'xlsx',
       rules: [{ required: true }],
       componentProps: {

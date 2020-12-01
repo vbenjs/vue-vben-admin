@@ -4,7 +4,7 @@ import type { TabItem } from '/@/store/modules/tab';
 
 import { useI18n } from '/@/hooks/web/useI18n';
 
-const { t } = useI18n('layout.multipleTab');
+const { t } = useI18n();
 
 export enum TabContentEnum {
   TAB_TYPE,
@@ -41,40 +41,40 @@ export function getActions() {
   const REFRESH_PAGE: DropMenu = {
     icon: 'ant-design:reload-outlined',
     event: MenuEventEnum.REFRESH_PAGE,
-    text: t('redo'),
+    text: t('layout.multipleTab.redo'),
     disabled: false,
   };
   const CLOSE_CURRENT: DropMenu = {
     icon: 'ant-design:close-outlined',
     event: MenuEventEnum.CLOSE_CURRENT,
-    text: t('close'),
+    text: t('layout.multipleTab.close'),
     disabled: false,
     divider: true,
   };
   const CLOSE_LEFT: DropMenu = {
     icon: 'ant-design:pic-left-outlined',
     event: MenuEventEnum.CLOSE_LEFT,
-    text: t('closeLeft'),
+    text: t('layout.multipleTab.closeLeft'),
     disabled: false,
     divider: false,
   };
   const CLOSE_RIGHT: DropMenu = {
     icon: 'ant-design:pic-right-outlined',
     event: MenuEventEnum.CLOSE_RIGHT,
-    text: t('closeRight'),
+    text: t('layout.multipleTab.closeRight'),
     disabled: false,
     divider: true,
   };
   const CLOSE_OTHER: DropMenu = {
     icon: 'ant-design:pic-center-outlined',
     event: MenuEventEnum.CLOSE_OTHER,
-    text: t('closeOther'),
+    text: t('layout.multipleTab.closeOther'),
     disabled: false,
   };
   const CLOSE_ALL: DropMenu = {
     icon: 'ant-design:line-outlined',
     event: MenuEventEnum.CLOSE_ALL,
-    text: t('closeAll'),
+    text: t('layout.multipleTab.closeAll'),
     disabled: false,
   };
   return [REFRESH_PAGE, CLOSE_CURRENT, CLOSE_LEFT, CLOSE_RIGHT, CLOSE_OTHER, CLOSE_ALL];

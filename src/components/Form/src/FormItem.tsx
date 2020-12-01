@@ -47,7 +47,7 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    const { t } = useI18n('component.form');
+    const { t } = useI18n();
     // @ts-ignore
     const itemLabelWidthRef = useItemLabelWidth(toRef(props, 'schema'), toRef(props, 'formProps'));
 
@@ -175,7 +175,7 @@ export default defineComponent({
       const characterInx = rules.findIndex((val) => val.max);
       if (characterInx !== -1 && !rules[characterInx].validator) {
         rules[characterInx].message =
-          rules[characterInx].message || t('maxTip', [rules[characterInx].max]);
+          rules[characterInx].message || t('component.form.maxTip', [rules[characterInx].max]);
       }
       return rules;
     }

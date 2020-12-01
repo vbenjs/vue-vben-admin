@@ -143,11 +143,11 @@ class User extends VuexModule {
   @Action
   async confirmLoginOut() {
     const { createConfirm } = useMessage();
-    const { t } = useI18n('sys.app');
+    const { t } = useI18n();
     createConfirm({
       iconType: 'warning',
-      title: t('loginOutTip'),
-      content: t('loginOutMessage'),
+      title: t('sys.app.loginOutTip'),
+      content: t('sys.app.loginOutMessage'),
       onOk: async () => {
         await this.loginOut(true);
       },

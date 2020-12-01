@@ -44,7 +44,7 @@ const MenuItem: FunctionalComponent<MenuItemProps> = (props) => {
 export default defineComponent({
   name: 'UserDropdown',
   setup() {
-    const { t } = useI18n('layout.header');
+    const { t } = useI18n();
     const { getShowDoc } = useHeaderSetting();
 
     const getUserInfo = computed(() => {
@@ -91,12 +91,18 @@ export default defineComponent({
         <Menu onClick={handleMenuClick}>
           {() => (
             <>
-              {showDoc && <MenuItem key="doc" text={t('dropdownItemDoc')} icon="gg:loadbar-doc" />}
+              {showDoc && (
+                <MenuItem
+                  key="doc"
+                  text={t('layout.header.dropdownItemDoc')}
+                  icon="gg:loadbar-doc"
+                />
+              )}
               {/* @ts-ignore */}
               {showDoc && <Menu.Divider />}
               <MenuItem
                 key="loginOut"
-                text={t('dropdownItemLoginOut')}
+                text={t('layout.header.dropdownItemLoginOut')}
                 icon="ant-design:poweroff-outlined"
               />
             </>

@@ -29,7 +29,7 @@ export default defineComponent({
     const visibleRef = ref(false);
     const propsRef = ref<Partial<Nullable<DrawerProps>>>(null);
 
-    const { t } = useI18n('component.drawer');
+    const { t } = useI18n();
 
     const getMergeProps = computed(
       (): DrawerProps => {
@@ -228,7 +228,11 @@ export default defineComponent({
             default: () => (
               <>
                 <div ref={scrollRef} style={unref(getScrollContentStyle)}>
-                  <Loading absolute tip={t('loadingText')} loading={unref(getLoading)} />
+                  <Loading
+                    absolute
+                    tip={t('component.drawer.loadingText')}
+                    loading={unref(getLoading)}
+                  />
                   {getSlot(slots)}
                 </div>
                 {renderFooter()}

@@ -53,7 +53,7 @@ export default defineComponent({
     const { query } = useRoute();
     const go = useGo();
     const redo = useRedo();
-    const { t } = useI18n('sys.exception');
+    const { t } = useI18n();
 
     const getStatus = computed(() => {
       const { status: routeStatus } = query;
@@ -67,13 +67,13 @@ export default defineComponent({
       }
     );
 
-    const backLoginI18n = t('backLogin');
-    const backHomeI18n = t('backHome');
+    const backLoginI18n = t('sys.exception.backLogin');
+    const backHomeI18n = t('sys.exception.backHome');
 
     unref(statusMapRef).set(ExceptionEnum.PAGE_NOT_ACCESS, {
       title: '403',
       status: `${ExceptionEnum.PAGE_NOT_ACCESS}`,
-      subTitle: t('subTitle403'),
+      subTitle: t('sys.exception.subTitle403'),
       btnText: props.full ? backLoginI18n : backHomeI18n,
       handler: () => (props.full ? go(PageEnum.BASE_LOGIN) : go()),
     });
@@ -81,7 +81,7 @@ export default defineComponent({
     unref(statusMapRef).set(ExceptionEnum.PAGE_NOT_FOUND, {
       title: '404',
       status: `${ExceptionEnum.PAGE_NOT_FOUND}`,
-      subTitle: t('subTitle404'),
+      subTitle: t('sys.exception.subTitle404'),
       btnText: props.full ? backLoginI18n : backHomeI18n,
       handler: () => (props.full ? go(PageEnum.BASE_LOGIN) : go()),
     });
@@ -89,22 +89,22 @@ export default defineComponent({
     unref(statusMapRef).set(ExceptionEnum.ERROR, {
       title: '500',
       status: `${ExceptionEnum.ERROR}`,
-      subTitle: t('subTitle500'),
+      subTitle: t('sys.exception.subTitle500'),
       btnText: backHomeI18n,
       handler: () => go(),
     });
 
     unref(statusMapRef).set(ExceptionEnum.PAGE_NOT_DATA, {
-      title: t('noDataTitle'),
+      title: t('sys.exception.noDataTitle'),
       subTitle: '',
-      btnText: t('redo'),
+      btnText: t('sys.exception.redo'),
       handler: () => redo(),
       icon: notDataImg,
     });
 
     unref(statusMapRef).set(ExceptionEnum.NET_WORK_ERROR, {
-      title: t('networkErrorTitle'),
-      subTitle: t('networkErrorSubTitle'),
+      title: t('sys.exception.networkErrorTitle'),
+      subTitle: t('sys.exception.networkErrorSubTitle'),
       btnText: 'Refresh',
       handler: () => redo(),
       icon: netWorkImg,

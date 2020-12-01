@@ -1,7 +1,7 @@
 <template>
   <BasicModal
     width="800px"
-    :title="t('preview')"
+    :title="t('component.upload.preview')"
     wrapClassName="upload-preview-modal"
     v-bind="$attrs"
     @register="register"
@@ -30,7 +30,7 @@
     props: previewProps,
     setup(props, { emit }) {
       const [register, { closeModal }] = useModalInner();
-      const { t } = useI18n('component.upload');
+      const { t } = useI18n();
 
       const fileListRef = ref<PreviewFileItem[]>([]);
       watch(

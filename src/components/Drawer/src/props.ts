@@ -2,7 +2,7 @@ import type { PropType } from 'vue';
 
 import { useI18n } from '/@/hooks/web/useI18n';
 import { propTypes } from '/@/utils/propTypes';
-const { t } = useI18n('component.drawer');
+const { t } = useI18n();
 
 export const footerProps = {
   confirmLoading: propTypes.bool,
@@ -11,13 +11,13 @@ export const footerProps = {
    */
   showCancelBtn: propTypes.bool.def(true),
   cancelButtonProps: Object as PropType<any>,
-  cancelText: propTypes.string.def(t('cancelText')),
+  cancelText: propTypes.string.def(t('component.drawer.cancelText')),
   /**
    * @description: Show confirmation button
    */
   showOkBtn: propTypes.bool.def(true),
   okButtonProps: propTypes.any,
-  okText: propTypes.string.def(t('okText')),
+  okText: propTypes.string.def(t('component.drawer.okText')),
   okType: propTypes.string.def('primary'),
   showFooter: propTypes.bool,
   footerHeight: {

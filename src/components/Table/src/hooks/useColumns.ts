@@ -6,7 +6,7 @@ import { PAGE_SIZE } from '../const';
 import { useProps } from './useProps';
 import { useI18n } from '/@/hooks/web/useI18n';
 
-const { t } = useI18n('component.table');
+const { t } = useI18n();
 export function useColumns(
   refProps: ComputedRef<BasicTableProps>,
   getPaginationRef: ComputedRef<false | PaginationProps>
@@ -44,7 +44,7 @@ export function useColumns(
       columns.unshift({
         flag: 'INDEX',
         width: 50,
-        title: t('index'),
+        title: t('component.table.index'),
         align: 'center',
         customRender: ({ index }) => {
           const getPagination = unref(getPaginationRef);

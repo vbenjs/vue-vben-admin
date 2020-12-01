@@ -6,7 +6,7 @@ import sidebarImg from '/@/assets/images/layout/menu-sidebar.svg';
 import menuTopImg from '/@/assets/images/layout/menu-top.svg';
 import { useI18n } from '/@/hooks/web/useI18n';
 
-const { t } = useI18n('layout.setting');
+const { t } = useI18n();
 
 export enum HandlerEnum {
   CHANGE_LAYOUT,
@@ -51,41 +51,41 @@ export enum HandlerEnum {
 export const contentModeOptions = [
   {
     value: ContentEnum.FULL,
-    label: t('contentModeFull'),
+    label: t('layout.setting.contentModeFull'),
   },
   {
     value: ContentEnum.FIXED,
-    label: t('contentModeFixed'),
+    label: t('layout.setting.contentModeFixed'),
   },
 ];
 
 export const topMenuAlignOptions = [
   {
     value: TopMenuAlignEnum.CENTER,
-    label: t('topMenuAlignRight'),
+    label: t('layout.setting.topMenuAlignRight'),
   },
   {
     value: TopMenuAlignEnum.START,
-    label: t('topMenuAlignLeft'),
+    label: t('layout.setting.topMenuAlignLeft'),
   },
   {
     value: TopMenuAlignEnum.END,
-    label: t('topMenuAlignCenter'),
+    label: t('layout.setting.topMenuAlignCenter'),
   },
 ];
 
 export const menuTriggerOptions = [
   {
     value: TriggerEnum.NONE,
-    label: t('menuTriggerNone'),
+    label: t('layout.setting.menuTriggerNone'),
   },
   {
     value: TriggerEnum.FOOTER,
-    label: t('menuTriggerBottom'),
+    label: t('layout.setting.menuTriggerBottom'),
   },
   {
     value: TriggerEnum.HEADER,
-    label: t('menuTriggerTop'),
+    label: t('layout.setting.menuTriggerTop'),
   },
 ];
 
@@ -104,20 +104,20 @@ export const routerTransitionOptions = [
 
 export const menuTypeList = [
   {
-    title: t('menuTypeSidebar'),
+    title: t('layout.setting.menuTypeSidebar'),
     mode: MenuModeEnum.INLINE,
     type: MenuTypeEnum.SIDEBAR,
     src: sidebarImg,
   },
   {
-    title: t('menuTypeMix'),
+    title: t('layout.setting.menuTypeMix'),
     mode: MenuModeEnum.INLINE,
     type: MenuTypeEnum.MIX,
     src: mixImg,
   },
 
   {
-    title: t('menuTypeTopMenu'),
+    title: t('layout.setting.menuTypeTopMenu'),
     mode: MenuModeEnum.HORIZONTAL,
     type: MenuTypeEnum.TOP_MENU,
     src: menuTopImg,

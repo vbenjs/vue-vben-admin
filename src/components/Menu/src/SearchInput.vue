@@ -1,7 +1,7 @@
 <template>
   <section class="menu-search-input" @Click="handleClick" :class="searchClass">
     <a-input-search
-      :placeholder="t('search')"
+      :placeholder="t('component.menu.search')"
       class="menu-search-input__search"
       allowClear
       @change="handleChange"
@@ -29,7 +29,7 @@
       },
     },
     setup(props, { emit }) {
-      const { t } = useI18n('component.menu');
+      const { t } = useI18n();
 
       const [debounceEmitChange] = useDebounce(emitChange, 200);
 

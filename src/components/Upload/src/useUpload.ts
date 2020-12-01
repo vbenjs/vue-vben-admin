@@ -1,6 +1,6 @@
 import { Ref, unref, computed } from 'vue';
 import { useI18n } from '/@/hooks/web/useI18n';
-const { t } = useI18n('component.upload');
+const { t } = useI18n();
 export function useUploadType({
   acceptRef,
   //   uploadTypeRef,
@@ -38,17 +38,17 @@ export function useUploadType({
 
     const accept = unref(acceptRef);
     if (accept.length > 0) {
-      helpTexts.push(t('accept', [accept.join(',')]));
+      helpTexts.push(t('component.upload.accept', [accept.join(',')]));
     }
 
     const maxSize = unref(maxSizeRef);
     if (maxSize) {
-      helpTexts.push(t('maxSize', [maxSize]));
+      helpTexts.push(t('component.upload.maxSize', [maxSize]));
     }
 
     const maxNumber = unref(maxNumberRef);
     if (maxNumber && maxNumber !== Infinity) {
-      helpTexts.push(t('maxNumber', [maxNumber]));
+      helpTexts.push(t('component.upload.maxNumber', [maxNumber]));
     }
     return helpTexts.join('，');
   });

@@ -10,14 +10,13 @@
   "editor.smoothScrolling": true,
   "editor.cursorBlinking": "phase",
   "editor.cursorSmoothCaretAnimation": true,
-  "editor.detectIndentation": false, // vscode默认启用了根据文件类型自动设置tabsize的选项
+  "editor.detectIndentation": false,
   "diffEditor.ignoreTrimWhitespace": false,
-  "editor.formatOnPaste": true, //自动格式化粘贴的内容
-  "editor.formatOnSave": true, //保存自动格式化
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
   "editor.suggestSelection": "first",
   "editor.trimAutoWhitespace": true,
   "editor.quickSuggestions": {
-    //   快速提示
     "other": true,
     "comments": true,
     "strings": true
@@ -25,41 +24,33 @@
   //===========================================
   //============= Other =======================
   //===========================================
-  "breadcrumbs.enabled": true, // 启用/禁用导航路径
-  "open-in-browser.default": "chrome", // 默认浏览器
+  "breadcrumbs.enabled": true,
+  "open-in-browser.default": "chrome",
   //===========================================
   //============= emmet =======================
   //===========================================
-  "emmet.triggerExpansionOnTab": true, // 配置emmet是否启用tab展开缩写
+  "emmet.triggerExpansionOnTab": true,
   "emmet.showAbbreviationSuggestions": true,
   "emmet.showExpandedAbbreviation": "always",
   "emmet.syntaxProfiles": {
-    // 配置emmet对文件类型的支持，比如vue后缀文件按照html文件来进行emmet扩写
     "vue-html": "html",
     "vue": "html",
     "javascript": "javascriptreact",
-    // xml类型文件默认都是单引号，开启对非单引号的emmet识别
     "xml": {
       "attr_quotes": "single"
     }
   },
   "emmet.includeLanguages": {
-    // 在react的jsx中添加对emmet的支持
     "jsx-sublime-babel-tags": "javascriptreact"
   },
   //===========================================
   //============= files =======================
   //===========================================
-  // "files.autoSave": "onWindowChange", // 窗口失去焦点自动保存
-  // "files.autoSaveDelay": 1000, // 自动保存时间
-  "files.trimTrailingWhitespace": true, // 启用后，将在保存文件时剪裁尾随空格。
-  // 文件末尾插入新行
+  "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
-  // 删除文件末尾多余的新行
   "files.trimFinalNewlines": true,
   "files.eol": "\n",
   "search.exclude": {
-    // 搜索排除这些区域
     "**/node_modules": true,
     "**/*.log": true,
     "**/*.log*": true,
@@ -76,8 +67,6 @@
     "**/tmp": true
   },
   "files.exclude": {
-    // 排除文件搜索区域，比如node_modules(默认设置已经屏蔽了)
-    // "**/node_modules": true,
     "**/bower_components": true,
     "**/.idea": true,
     "**/yarn.lock": true,
@@ -100,7 +89,6 @@
     "**/yarn.lock": true
   },
   "files.associations": {
-    // 配置文件关联，以便启用对应的智能提示，比如wxss使用css
     "*.vue": "vue",
     "*.wxss": "css"
   },
@@ -109,13 +97,11 @@
   "css.validate": true,
   "less.validate": true,
   "scss.validate": true,
-  // ↓↓↓↓↓↓↓↓↓↓↓↓↓ 以下为插件设置 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-  // ↓↓↓↓↓↓↓↓↓↓↓↓↓ 需要安装对应的插件 ↓↓↓↓↓↓↓↓↓↓↓↓
   // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
   // ===========================================
   // ================ Eslint ===================
   // ===========================================
-  "eslint.enable": true, // 是否开启eslint
+  "eslint.enable": true,
   "eslint.options": {
     // 配置
     "plugins": [
@@ -126,53 +112,41 @@
       "typescript"
     ]
   },
-  "eslint.autoFixOnSave": true, // 保存自动格式化
+  "eslint.autoFixOnSave": true,
   // ===========================================
   // ================ Vetur ====================
   // ===========================================
   "vetur.experimental.templateInterpolationService": true,
   "vetur.format.options.tabSize": 2,
-  "vetur.format.defaultFormatter.html": "js-beautify-html", // 使用js-beautify-html格式化
-  "vetur.format.defaultFormatter.scss": "prettier", // 使用js-beautify-html格式化
-  "vetur.format.defaultFormatter.css": "prettier", // 使用js-beautify-html格式化
-  //   "vetur.format.defaultFormatter.html": "prettyhtml",
+  "vetur.format.defaultFormatter.html": "js-beautify-html",
+  "vetur.format.defaultFormatter.scss": "prettier",
+  "vetur.format.defaultFormatter.css": "prettier",
   "vetur.format.defaultFormatter.ts": "prettier-tslint",
   "vetur.format.defaultFormatter.js": "prettier",
-    "vetur.languageFeatures.codeActions": false,
-  // "vetur.useWorkspaceDependencies": true,
+  "vetur.languageFeatures.codeActions": false,
   "vetur.format.defaultFormatterOptions": {
     "js-beautify-html": {
-      //   "wrap_attributes": "force-aligned", // 单行
-      "wrap_attributes": "force-expand-multiline" // 属性强制折行对齐 多行
+      "wrap_attributes": "force-expand-multiline"
     },
     "prettier": {
-      "eslintIntegration": true, // 让perttier使用eslint的格式进行检查
-      "arrowParens": "always", // 箭头函数参数括号 默认avoid 可选 avoid | always
-      "semi": false, // 使用分号, 默认true
-      "singleQuote": true // 使用单引号, 默认false(在jsx中配置无效, 默认都是双引号)
+      "eslintIntegration": true,
+      "arrowParens": "always",
+      "semi": false,
+      "singleQuote": true
     }
   },
-  // 函数注释
-  //===========================================
-  //============= Code Runner =================
-  //===========================================
   "javascript.updateImportsOnFileMove.enabled": "never",
   "liveServer.settings.donotShowInfoMsg": true,
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "terminal.integrated.rendererType": "dom", //关闭liveserver提示
+  "terminal.integrated.rendererType": "dom",
   "telemetry.enableCrashReporter": false,
   "telemetry.enableTelemetry": false,
   "workbench.settings.enableNaturalLanguageSearch": false,
-  // 引用路径设置
   "path-intellisense.mappings": {
     "/@/": "${workspaceRoot}/src"
   },
   "prettier.requireConfig": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.sideBar.location": "left",
-
   "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -203,8 +177,18 @@
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "i18n-ally.localesPaths": [
+    "src/locales/lang",
+  ],
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.sortKeys": true,
+  "i18n-ally.namespace": true,
+  "i18n-ally.pathMatcher":"{locale}/{namespaces}.{ext}",
+  "i18n-ally.enabledParsers": [
+    "ts"
+  ],
+  "i18n-ally.sourceLanguage": "zh"
 }

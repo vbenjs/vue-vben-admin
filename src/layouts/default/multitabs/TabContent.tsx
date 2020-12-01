@@ -59,7 +59,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { t } = useI18n('layout.multipleTab');
+    const { t } = useI18n();
     const { getShowMenu } = useMenuSetting();
     const { getShowHeader } = useHeaderSetting();
     const { getShowQuick } = useMultipleTabSetting();
@@ -76,7 +76,7 @@ export default defineComponent({
 
     return () => {
       const scaleAction = getScaleAction(
-        unref(getIsScale) ? t('putAway') : t('unfold'),
+        unref(getIsScale) ? t('layout.multipleTab.putAway') : t('layout.multipleTab.unfold'),
         unref(getIsScale)
       );
       const dropMenuList = unref(getDropMenuList) || [];

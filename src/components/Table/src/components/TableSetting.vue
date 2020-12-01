@@ -4,27 +4,27 @@
 
     <Tooltip placement="top" v-if="getSetting.redo">
       <template #title>
-        <span>{{ t('settingRedo') }}</span>
+        <span>{{ t('component.table.settingRedo') }}</span>
       </template>
       <RedoOutlined @click="redo" />
     </Tooltip>
 
     <Tooltip placement="top" v-if="getSetting.size">
       <template #title>
-        <span>{{ t('settingDens') }}</span>
+        <span>{{ t('component.table.settingDens') }}</span>
       </template>
       <Dropdown placement="bottomCenter" :trigger="['click']">
         <ColumnHeightOutlined />
         <template #overlay>
           <Menu @click="handleTitleClick" selectable v-model:selectedKeys="selectedKeysRef">
             <MenuItem key="default">
-              <span>{{ t('settingDensDefault') }}</span>
+              <span>{{ t('component.table.settingDensDefault') }}</span>
             </MenuItem>
             <MenuItem key="middle">
-              <span>{{ t('settingDensMiddle') }}</span>
+              <span>{{ t('component.table.settingDensMiddle') }}</span>
             </MenuItem>
             <MenuItem key="small">
-              <span>{{ t('settingDensSmall') }}</span>
+              <span>{{ t('component.table.settingDensSmall') }}</span>
             </MenuItem>
           </Menu>
         </template>
@@ -140,7 +140,7 @@
         defaultCheckList: [],
       });
 
-      const { t } = useI18n('component.table');
+      const { t } = useI18n();
 
       watchEffect(() => {
         const columns = table.getColumns();

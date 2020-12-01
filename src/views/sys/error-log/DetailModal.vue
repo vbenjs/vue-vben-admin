@@ -1,5 +1,5 @@
 <template>
-  <BasicModal :width="800" :title="t('tableActionDesc')" v-bind="$attrs">
+  <BasicModal :width="800" :title="t('sys.errorLog.tableActionDesc')" v-bind="$attrs">
     <Description :data="info" @register="register" />
   </BasicModal>
 </template>
@@ -23,7 +23,7 @@
       },
     },
     setup() {
-      const { t } = useI18n('sys.errorLog');
+      const { t } = useI18n();
       const [register] = useDescription({
         column: 2,
         schema: getDescSchema(),

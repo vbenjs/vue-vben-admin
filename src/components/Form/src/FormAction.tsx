@@ -9,7 +9,7 @@ import { getSlot } from '/@/utils/helper/tsxHelper';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { propTypes } from '/@/utils/propTypes';
 
-const { t } = useI18n('component.form');
+const { t } = useI18n();
 
 export default defineComponent({
   name: 'BasicFormAction',
@@ -38,14 +38,14 @@ export default defineComponent({
   setup(props, { slots, emit }) {
     const getResetBtnOptionsRef = computed(() => {
       return {
-        text: t('resetButton'),
+        text: t('component.form.resetButton'),
         ...props.resetButtonOptions,
       };
     });
 
     const getSubmitBtnOptionsRef = computed(() => {
       return {
-        text: t('submitButton'),
+        text: t('component.form.submitButton'),
         // htmlType: 'submit',
         ...props.submitButtonOptions,
       };
@@ -77,7 +77,7 @@ export default defineComponent({
         <Button type="default" class="mr-2" onClick={toggleAdvanced}>
           {() => (
             <>
-              {isAdvanced ? t('putAway') : t('unfold')}
+              {isAdvanced ? t('component.form.putAway') : t('component.form.unfold')}
               <BasicArrow expand={!isAdvanced} top />
             </>
           )}

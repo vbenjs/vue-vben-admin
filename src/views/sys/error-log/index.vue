@@ -53,7 +53,7 @@
       const rowInfoRef = ref<ErrorInfo>();
       const imgListRef = ref<string[]>([]);
 
-      const { t } = useI18n('sys.errorLog');
+      const { t } = useI18n();
 
       const [register, { setTableData }] = useTable({
         title: t('sys.errorLog.tableTitle'),
@@ -80,7 +80,7 @@
       );
       const { createMessage } = useMessage();
       if (isDevMode()) {
-        createMessage.info(t('enableMessage'));
+        createMessage.info(t('sys.errorLog.enableMessage'));
       }
       // 查看详情
       function handleDetail(row: ErrorInfo) {

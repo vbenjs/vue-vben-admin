@@ -3,13 +3,13 @@ import { BasicColumn } from '/@/components/Table/index';
 import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
 import { useI18n } from '/@/hooks/web/useI18n';
 
-const { t } = useI18n('sys.errorLog');
+const { t } = useI18n();
 
 export function getColumns(): BasicColumn[] {
   return [
     {
       dataIndex: 'type',
-      title: t('tableColumnType'),
+      title: t('sys.errorLog.tableColumnType'),
       width: 80,
       customRender: ({ text }) => {
         const color =
@@ -32,12 +32,12 @@ export function getColumns(): BasicColumn[] {
     },
     {
       dataIndex: 'time',
-      title: t('tableColumnDate'),
+      title: t('sys.errorLog.tableColumnDate'),
       width: 160,
     },
     {
       dataIndex: 'file',
-      title: t('tableColumnFile'),
+      title: t('sys.errorLog.tableColumnFile'),
       width: 200,
     },
     {
@@ -47,12 +47,12 @@ export function getColumns(): BasicColumn[] {
     },
     {
       dataIndex: 'message',
-      title: t('tableColumnMsg'),
+      title: t('sys.errorLog.tableColumnMsg'),
       width: 300,
     },
     {
       dataIndex: 'stack',
-      title: t('tableColumnStackMsg'),
+      title: t('sys.errorLog.tableColumnStackMsg'),
       width: 300,
     },
   ];

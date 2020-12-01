@@ -56,7 +56,7 @@ interface ThemePickerProps {
 }
 
 const { createSuccessModal, createMessage } = useMessage();
-const { t } = useI18n('layout.setting');
+const { t } = useI18n();
 
 /**
  * Menu type Picker comp
@@ -122,8 +122,8 @@ const FooterButton: FunctionalComponent = () => {
     const { isSuccessRef } = useCopyToClipboard(JSON.stringify(unref(getRootSetting), null, 2));
     unref(isSuccessRef) &&
       createSuccessModal({
-        title: t('operatingTitle'),
-        content: t('operatingContent'),
+        title: t('layout.setting.operatingTitle'),
+        content: t('layout.setting.operatingContent'),
       });
   }
   function handleResetSetting() {
@@ -133,7 +133,7 @@ const FooterButton: FunctionalComponent = () => {
       // updateTheme(themeColor);
       updateColorWeak(colorWeak);
       updateGrayMode(grayMode);
-      createMessage.success(t('resetSuccess'));
+      createMessage.success(t('layout.setting.resetSuccess'));
     } catch (error) {
       createMessage.error(error);
     }
@@ -151,7 +151,7 @@ const FooterButton: FunctionalComponent = () => {
         {() => (
           <>
             <CopyOutlined class="mr-2" />
-            {t('copyBtn')}
+            {t('layout.setting.copyBtn')}
           </>
         )}
       </Button>
@@ -159,7 +159,7 @@ const FooterButton: FunctionalComponent = () => {
         {() => (
           <>
             <RedoOutlined class="mr-2" />
-            {t('resetBtn')}
+            {t('layout.setting.resetBtn')}
           </>
         )}
       </Button>
@@ -167,7 +167,7 @@ const FooterButton: FunctionalComponent = () => {
         {() => (
           <>
             <RedoOutlined class="mr-2" />
-            {t('clearBtn')}
+            {t('layout.setting.clearBtn')}
           </>
         )}
       </Button>
@@ -226,7 +226,7 @@ export default defineComponent({
       return (
         <>
           <MenuTypePicker />
-          {renderSwitchItem(t('splitMenu'), {
+          {renderSwitchItem(t('layout.setting.splitMenu'), {
             handler: (e) => {
               baseHandler(HandlerEnum.MENU_SPLIT, e);
             },
@@ -240,7 +240,7 @@ export default defineComponent({
     function renderTheme() {
       return (
         <>
-          <Divider>{() => t('headerTheme')}</Divider>
+          <Divider>{() => t('layout.setting.headerTheme')}</Divider>
           <ThemePicker
             colorList={HEADER_PRESET_BG_COLOR_LIST}
             def={unref(getHeaderBgColor)}
@@ -248,7 +248,7 @@ export default defineComponent({
               baseHandler(HandlerEnum.HEADER_THEME, e);
             }}
           />
-          <Divider>{() => t('sidebarTheme')}</Divider>
+          <Divider>{() => t('layout.setting.sidebarTheme')}</Divider>
           <ThemePicker
             colorList={SIDE_BAR_BG_COLOR_LIST}
             def={unref(getMenuBgColor)}
@@ -265,56 +265,56 @@ export default defineComponent({
      */
     function renderFeatures() {
       return [
-        renderSwitchItem(t('menuDrag'), {
+        renderSwitchItem(t('layout.setting.menuDrag'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_HAS_DRAG, e);
           },
           def: unref(getCanDrag),
           disabled: !unref(getShowMenuRef),
         }),
-        renderSwitchItem(t('menuSearch'), {
+        renderSwitchItem(t('layout.setting.menuSearch'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_SHOW_SEARCH, e);
           },
           def: unref(getShowSearch),
           disabled: !unref(getShowMenuRef),
         }),
-        renderSwitchItem(t('menuAccordion'), {
+        renderSwitchItem(t('layout.setting.menuAccordion'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_ACCORDION, e);
           },
           def: unref(getAccordion),
           disabled: !unref(getShowMenuRef),
         }),
-        renderSwitchItem(t('menuCollapse'), {
+        renderSwitchItem(t('layout.setting.menuCollapse'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_COLLAPSED, e);
           },
           def: unref(getCollapsed),
           disabled: !unref(getShowMenuRef),
         }),
-        renderSwitchItem(t('collapseMenuDisplayName'), {
+        renderSwitchItem(t('layout.setting.collapseMenuDisplayName'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_COLLAPSED_SHOW_TITLE, e);
           },
           def: unref(getCollapsedShowTitle),
           disabled: !unref(getShowMenuRef) || !unref(getCollapsed),
         }),
-        renderSwitchItem(t('fixedHeader'), {
+        renderSwitchItem(t('layout.setting.fixedHeader'), {
           handler: (e) => {
             baseHandler(HandlerEnum.HEADER_FIXED, e);
           },
           def: unref(getHeaderFixed),
           disabled: !unref(getShowHeader),
         }),
-        renderSwitchItem(t('fixedSideBar'), {
+        renderSwitchItem(t('layout.setting.fixedSideBar'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_FIXED, e);
           },
           def: unref(getMenuFixed),
           disabled: !unref(getShowMenuRef),
         }),
-        renderSelectItem(t('topMenuLayout'), {
+        renderSelectItem(t('layout.setting.topMenuLayout'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_TOP_ALIGN, e);
           },
@@ -322,7 +322,7 @@ export default defineComponent({
           options: topMenuAlignOptions,
           disabled: !unref(getShowHeader) || (!unref(getIsTopMenu) && !unref(getSplit)),
         }),
-        renderSelectItem(t('menuCollapseButton'), {
+        renderSelectItem(t('layout.setting.menuCollapseButton'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_TRIGGER, e);
           },
@@ -331,7 +331,7 @@ export default defineComponent({
           options: menuTriggerOptions,
         }),
 
-        renderSelectItem(t('contentMode'), {
+        renderSelectItem(t('layout.setting.contentMode'), {
           handler: (e) => {
             baseHandler(HandlerEnum.CONTENT_MODE, e);
           },
@@ -339,7 +339,7 @@ export default defineComponent({
           options: contentModeOptions,
         }),
         <div class={`setting-drawer__cell-item`}>
-          <span>{t('autoScreenLock')}</span>
+          <span>{t('layout.setting.autoScreenLock')}</span>
           <InputNumber
             style="width:126px"
             size="small"
@@ -350,14 +350,14 @@ export default defineComponent({
             defaultValue={appStore.getProjectConfig.lockTime}
             formatter={(value: string) => {
               if (parseInt(value) === 0) {
-                return `0(${t('notAutoScreenLock')})`;
+                return `0(${t('layout.setting.notAutoScreenLock')})`;
               }
-              return `${value}${t('minute')}`;
+              return `${value}${t('layout.setting.minute')}`;
             }}
           />
         </div>,
         <div class={`setting-drawer__cell-item`}>
-          <span>{t('expandedMenuWidth')}</span>
+          <span>{t('layout.setting.expandedMenuWidth')}</span>
           <InputNumber
             style="width:126px"
             size="small"
@@ -377,27 +377,27 @@ export default defineComponent({
 
     function renderContent() {
       return [
-        renderSwitchItem(t('breadcrumb'), {
+        renderSwitchItem(t('layout.setting.breadcrumb'), {
           handler: (e) => {
             baseHandler(HandlerEnum.SHOW_BREADCRUMB, e);
           },
           def: unref(getShowBreadCrumb),
           disabled: !unref(getShowHeader),
         }),
-        renderSwitchItem(t('breadcrumbIcon'), {
+        renderSwitchItem(t('layout.setting.breadcrumbIcon'), {
           handler: (e) => {
             baseHandler(HandlerEnum.SHOW_BREADCRUMB_ICON, e);
           },
           def: unref(getShowBreadCrumbIcon),
           disabled: !unref(getShowHeader),
         }),
-        renderSwitchItem(t('tabs'), {
+        renderSwitchItem(t('layout.setting.tabs'), {
           handler: (e) => {
             baseHandler(HandlerEnum.TABS_SHOW, e);
           },
           def: unref(getShowMultipleTab),
         }),
-        renderSwitchItem(t('tabsQuickBtn'), {
+        renderSwitchItem(t('layout.setting.tabsQuickBtn'), {
           handler: (e) => {
             baseHandler(HandlerEnum.TABS_SHOW_QUICK, e);
           },
@@ -405,14 +405,14 @@ export default defineComponent({
           disabled: !unref(getShowMultipleTab),
         }),
 
-        renderSwitchItem(t('sidebar'), {
+        renderSwitchItem(t('layout.setting.sidebar'), {
           handler: (e) => {
             baseHandler(HandlerEnum.MENU_SHOW_SIDEBAR, e);
           },
           def: unref(getShowMenu),
           disabled: unref(getIsHorizontal),
         }),
-        renderSwitchItem(t('header'), {
+        renderSwitchItem(t('layout.setting.header'), {
           handler: (e) => {
             baseHandler(HandlerEnum.HEADER_SHOW, e);
           },
@@ -424,25 +424,25 @@ export default defineComponent({
           },
           def: unref(getShowLogo),
         }),
-        renderSwitchItem(t('footer'), {
+        renderSwitchItem(t('layout.setting.footer'), {
           handler: (e) => {
             baseHandler(HandlerEnum.SHOW_FOOTER, e);
           },
           def: unref(getShowFooter),
         }),
-        renderSwitchItem(t('fullContent'), {
+        renderSwitchItem(t('layout.setting.fullContent'), {
           handler: (e) => {
             baseHandler(HandlerEnum.FULL_CONTENT, e);
           },
           def: unref(getFullContent),
         }),
-        renderSwitchItem(t('grayMode'), {
+        renderSwitchItem(t('layout.setting.grayMode'), {
           handler: (e) => {
             baseHandler(HandlerEnum.GRAY_MODE, e);
           },
           def: unref(getGrayMode),
         }),
-        renderSwitchItem(t('colorWeak'), {
+        renderSwitchItem(t('layout.setting.colorWeak'), {
           handler: (e) => {
             baseHandler(HandlerEnum.COLOR_WEAK, e);
           },
@@ -454,13 +454,13 @@ export default defineComponent({
     function renderTransition() {
       return (
         <>
-          {renderSwitchItem(t('progress'), {
+          {renderSwitchItem(t('layout.setting.progress'), {
             handler: (e) => {
               baseHandler(HandlerEnum.OPEN_PROGRESS, e);
             },
             def: unref(getOpenNProgress),
           })}
-          {renderSwitchItem(t('switchLoading'), {
+          {renderSwitchItem(t('layout.setting.switchLoading'), {
             handler: (e) => {
               baseHandler(HandlerEnum.OPEN_PAGE_LOADING, e);
             },
@@ -468,14 +468,14 @@ export default defineComponent({
             disabled: !unref(getEnableTransition),
           })}
 
-          {renderSwitchItem(t('switchAnimation'), {
+          {renderSwitchItem(t('layout.setting.switchAnimation'), {
             handler: (e) => {
               baseHandler(HandlerEnum.OPEN_ROUTE_TRANSITION, e);
             },
             def: unref(getEnableTransition),
           })}
 
-          {renderSelectItem(t('animationType'), {
+          {renderSelectItem(t('layout.setting.animationType'), {
             handler: (e) => {
               baseHandler(HandlerEnum.ROUTER_TRANSITION, e);
             },
@@ -519,26 +519,31 @@ export default defineComponent({
             onChange={(e: any) => {
               handler && handler(e);
             }}
-            checkedChildren={t('on')}
-            unCheckedChildren={t('off')}
+            checkedChildren={t('layout.setting.on')}
+            unCheckedChildren={t('layout.setting.off')}
           />
         </div>
       );
     }
 
     return () => (
-      <BasicDrawer {...attrs} title={t('drawerTitle')} width={330} wrapClassName="setting-drawer">
+      <BasicDrawer
+        {...attrs}
+        title={t('layout.setting.drawerTitle')}
+        width={330}
+        wrapClassName="setting-drawer"
+      >
         {{
           default: () => (
             <>
-              <Divider>{() => t('navMode')}</Divider>
+              <Divider>{() => t('layout.setting.navMode')}</Divider>
               {renderSidebar()}
               {renderTheme()}
-              <Divider>{() => t('interfaceFunction')}</Divider>
+              <Divider>{() => t('layout.setting.interfaceFunction')}</Divider>
               {renderFeatures()}
-              <Divider>{() => t('interfaceDisplay')}</Divider>
+              <Divider>{() => t('layout.setting.interfaceDisplay')}</Divider>
               {renderContent()}
-              <Divider>{() => t('animation')}</Divider>
+              <Divider>{() => t('layout.setting.animation')}</Divider>
               {renderTransition()}
               <Divider />
               <FooterButton />

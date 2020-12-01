@@ -15,7 +15,7 @@ const prefixCls = 'lock-modal';
 export default defineComponent({
   name: 'LockModal',
   setup(_, { attrs }) {
-    const { t } = useI18n('layout.header');
+    const { t } = useI18n();
     const [register, { closeModal }] = useModalInner();
 
     const [registerForm, { validateFields, resetFields }] = useForm({
@@ -23,7 +23,7 @@ export default defineComponent({
       schemas: [
         {
           field: 'password',
-          label: t('lockScreenPassword'),
+          label: t('layout.header.lockScreenPassword'),
           component: 'InputPassword',
           required: true,
         },
@@ -53,7 +53,7 @@ export default defineComponent({
     return () => (
       <BasicModal
         footer={null}
-        title={t('lockScreen')}
+        title={t('layout.header.lockScreen')}
         {...attrs}
         class={prefixCls}
         onRegister={register}
@@ -69,10 +69,10 @@ export default defineComponent({
 
             <div class={`${prefixCls}__footer`}>
               <Button type="primary" block class="mt-2" onClick={lock}>
-                {() => t('lockScreenBtn')}
+                {() => t('layout.header.lockScreenBtn')}
               </Button>
               <Button block class="mt-2" onClick={lock.bind(null, false)}>
-                {() => t('notLockScreenPassword')}
+                {() => t('layout.header.notLockScreenPassword')}
               </Button>
             </div>
           </div>

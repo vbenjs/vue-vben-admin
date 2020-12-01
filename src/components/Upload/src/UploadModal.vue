@@ -1,8 +1,8 @@
 <template>
   <BasicModal
     width="800px"
-    :title="t('upload')"
-    :okText="t('save')"
+    :title="t('component.upload.upload')"
+    :okText="t('component.upload.save')"
     v-bind="$attrs"
     @register="register"
     @ok="handleOk"
@@ -31,7 +31,7 @@
         :before-upload="beforeUpload"
         class="upload-modal-toolbar__btn"
       >
-        <a-button type="primary"> {{ t('choose') }} </a-button>
+        <a-button type="primary"> {{ t('component.upload.choose') }} </a-button>
       </Upload>
     </div>
     <FileList :dataSource="fileListRef" :columns="columns" :actionColumn="actionColumn" />
@@ -64,7 +64,7 @@
     props: basicProps,
     setup(props, { emit }) {
       //   是否正在上传
-      const { t } = useI18n('component.upload');
+      const { t } = useI18n();
 
       const isUploadingRef = ref(false);
       const fileListRef = ref<FileItem[]>([]);
@@ -105,10 +105,10 @@
           (item) => item.status === UploadResultStatus.ERROR
         );
         return isUploadingRef.value
-          ? t('uploading')
+          ? t('component.upload.uploading')
           : someError
-          ? t('reUploadFailed')
-          : t('startUpload');
+          ? t('component.upload.reUploadFailed')
+          : t('component.upload.startUpload');
       });
 
       // 上传前校验
@@ -119,13 +119,13 @@
 
         // 设置最大值，则判断
         if (maxSize && file.size / 1024 / 1024 >= maxSize) {
-          createMessage.error(t('maxSizeMultiple', [maxSize]));
+          createMessage.error(t('component.upload.maxSizeMultiple', [maxSize]));
           return false;
         }
 
         // 设置类型,则判断
         if (accept.length > 0 && !checkFileType(file, accept)) {
-          createMessage.error!(t('acceptUpload', [accept.join(',')]));
+          createMessage.error!(t('acomponent.upload.cceptUpload', [accept.join(',')]));
           return false;
         }
         const commonItem = {
@@ -206,7 +206,7 @@
       async function handleStartUpload() {
         const { maxNumber } = props;
         if (fileListRef.value.length > maxNumber) {
-          return createMessage.warning(t('maxNumber', [maxNumber]));
+          return createMessage.warning(t('component.upload.maxNumber', [maxNumber]));
         }
         try {
           isUploadingRef.value = true;
@@ -233,10 +233,10 @@
         const { maxNumber } = props;
 
         if (fileListRef.value.length > maxNumber) {
-          return createMessage.warning(t('maxNumber', [maxNumber]));
+          return createMessage.warning(t('component.upload.maxNumber', [maxNumber]));
         }
         if (isUploadingRef.value) {
-          return createMessage.warning(t('saveWarn'));
+          return createMessage.warning(t('component.upload.saveWarn'));
         }
         const fileList: string[] = [];
 
@@ -248,7 +248,7 @@
         }
         // 存在一个上传成功的即可保存
         if (fileList.length <= 0) {
-          return createMessage.warning(t('saveError'));
+          return createMessage.warning(t('component.upload.saveError'));
         }
         fileListRef.value = [];
         closeModal();
@@ -261,7 +261,7 @@
           fileListRef.value = [];
           return true;
         } else {
-          createMessage.warning(t('uploadWait'));
+          createMessage.warning(t('component.upload.uploadWait'));
           return false;
         }
       }
