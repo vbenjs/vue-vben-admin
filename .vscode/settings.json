@@ -64,7 +64,14 @@
     "**/.idea": true,
     "**/.vscode": false,
     "**/yarn.lock": true,
-    "**/tmp": true
+    "**/tmp": true,
+    "out": true,
+    "dist": true,
+    "node_modules": true,
+    "CHANGELOG.md": true,
+    "examples": true,
+    "res": true,
+    "screenshots": true
   },
   "files.exclude": {
     "**/bower_components": true,
@@ -157,7 +164,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
@@ -186,9 +193,10 @@
   "i18n-ally.keystyle": "nested",
   "i18n-ally.sortKeys": true,
   "i18n-ally.namespace": true,
-  "i18n-ally.pathMatcher":"{locale}/{namespaces}.{ext}",
+  "i18n-ally.pathMatcher": "{locale}/{namespaces}.{ext}",
   "i18n-ally.enabledParsers": [
     "ts"
   ],
-  "i18n-ally.sourceLanguage": "zh"
+  "i18n-ally.sourceLanguage": "zh",
+  "i18n-ally.enabledFrameworks":["vue","react"]
 }
