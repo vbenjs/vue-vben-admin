@@ -17,8 +17,8 @@ const dynamicImportTransform = function (enableDynamicImport: boolean): Transfor
     test({ path }) {
       // Only convert the file
       return (
-        path.includes('/src/utils/helper/dynamicImport.ts') ||
-        path.includes(`\\src\\utils\\helper\\dynamicImport.ts`)
+        path.includes('/src/router/helper/dynamicImport.ts') ||
+        path.includes(`\\src\\router\\helper\\dynamicImport.ts`)
       );
     },
     transform({ code }) {

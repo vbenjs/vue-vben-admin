@@ -9,7 +9,7 @@ import { Layout, Tooltip, Badge } from 'ant-design-vue';
 import { AppLogo } from '/@/components/Application';
 import UserDropdown from './UserDropdown';
 import LayoutMenu from '../menu';
-import LayoutBreadcrumb from './LayoutBreadcrumb';
+import LayoutBreadcrumb from './LayoutBreadcrumb.vue';
 import LockAction from '../lock/LockAction';
 import LayoutTrigger from '../LayoutTrigger';
 import NoticeAction from './notice/NoticeActionItem.vue';

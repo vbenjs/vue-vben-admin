@@ -15,4 +15,6 @@ export default {
   lockScreen: 'Lock screen',
   lockScreenBtn: 'Locking',
   notLockScreenPassword: 'No password lock screen',
+
+  home: 'Home',
 };

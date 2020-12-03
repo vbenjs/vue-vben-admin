@@ -7,13 +7,14 @@ import { userStore } from '/@/store/modules/user';
 import { useTabs } from './useTabs';
 
 import router, { resetRouter } from '/@/router';
-import { RootRoute } from '/@/router/routes';
+// import { RootRoute } from '/@/router/routes';
 
 import { PermissionModeEnum } from '/@/enums/appEnum';
 import { RoleEnum } from '/@/enums/roleEnum';
 
 import { intersection } from 'lodash-es';
 import { isArray } from '/@/utils/is';
+import { tabStore } from '/@/store/modules/tab';
 
 // User permissions related operations
 export function usePermission() {
@@ -27,8 +28,7 @@ export function usePermission() {
           ? PermissionModeEnum.ROLE
           : PermissionModeEnum.BACK,
     });
-    resume();
-    // location.reload();
+    location.reload();
   }
 
   /**
@@ -36,18 +36,15 @@ export function usePermission() {
    * @param id
    */
   async function resume(id?: string | number) {
+    tabStore.commitClearCache();
     resetRouter();
     const routes = await permissionStore.buildRoutesAction(id);
     routes.forEach((route) => {
-      router.addRoute(RootRoute.name!, route as RouteRecordRaw);
+      router.addRoute(route as RouteRecordRaw);
     });
     permissionStore.commitLastBuildMenuTimeState();
-    const {
-      // closeAll,
-      closeOther,
-    } = useTabs();
-    // closeAll();
-    closeOther();
+    const { closeAll } = useTabs();
+    closeAll();
   }
 
   /**

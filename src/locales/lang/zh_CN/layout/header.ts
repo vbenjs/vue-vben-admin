@@ -16,4 +16,6 @@ export default {
   lockScreen: '锁定屏幕',
   lockScreenBtn: '锁定',
   notLockScreenPassword: '不设置密码锁屏',
+
+  home: '首页',
 };

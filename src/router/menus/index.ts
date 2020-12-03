@@ -2,7 +2,7 @@ import type { Menu, MenuModule } from '/@/router/types';
 import type { RouteRecordNormalized } from 'vue-router';
 import { appStore } from '/@/store/modules/app';
 import { permissionStore } from '/@/store/modules/permission';
-import { transformMenuModule, flatMenus, getAllParentPath } from '/@/utils/helper/menuHelper';
+import { transformMenuModule, flatMenus, getAllParentPath } from '/@/router/helper/menuHelper';
 import { filter } from '/@/utils/helper/treeHelper';
 import router from '/@/router';
 import { PermissionModeEnum } from '/@/enums/appEnum';

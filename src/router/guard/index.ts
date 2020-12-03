@@ -8,17 +8,19 @@ import { createPageLoadingGuard } from './pageLoadingGuard';
 
 import { useGlobSetting, useProjectSetting } from '/@/hooks/setting';
 
-import { getIsOpenTab, setCurrentTo } from '/@/utils/helper/routeHelper';
+import { getIsOpenTab, getRoute } from '/@/router/helper/routeHelper';
 import { setTitle } from '/@/utils/browser';
 import { AxiosCanceler } from '/@/utils/http/axios/axiosCancel';
 
 import { tabStore } from '/@/store/modules/tab';
 import { useI18n } from '/@/hooks/web/useI18n';
+import { REDIRECT_NAME } from '/@/router/constant';
 
 const { closeMessageOnSwitch, removeAllHttpPending } = useProjectSetting();
 const globSetting = useGlobSetting();
+
 export function createGuard(router: Router) {
-  let axiosCanceler: AxiosCanceler | null;
+  let axiosCanceler: Nullable<AxiosCanceler>;
   if (removeAllHttpPending) {
     axiosCanceler = new AxiosCanceler();
   }
@@ -30,15 +32,7 @@ export function createGuard(router: Router) {
     to.meta.inTab = isOpen;
 
     // Notify routing changes
-    const { fullPath, path, query, params, name, meta } = to;
-    tabStore.commitLastChangeRouteState({
-      fullPath,
-      path,
-      query,
-      params,
-      name,
-      meta,
-    } as any);
+    tabStore.commitLastChangeRouteState(getRoute(to));
 
     try {
       if (closeMessageOnSwitch) {
@@ -50,14 +44,13 @@ export function createGuard(router: Router) {
     } catch (error) {
       console.warn('basic guard error:' + error);
     }
-    setCurrentTo(to);
     return true;
   });
 
   router.afterEach((to) => {
     const { t } = useI18n();
     // change html title
-    to.name !== 'Redirect' && setTitle(t(to.meta.title), globSetting.title);
+    to.name !== REDIRECT_NAME && setTitle(t(to.meta.title), globSetting.title);
   });
   createProgressGuard(router);
   createPermissionGuard(router);

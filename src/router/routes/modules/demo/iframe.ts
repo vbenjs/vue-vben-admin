@@ -1,23 +1,21 @@
 import type { AppRouteModule } from '/@/router/types';
 
-import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
+import { LAYOUT } from '/@/router/constant';
 const IFrame = () => import('/@/views/sys/iframe/FrameBlank.vue');
 
 const iframe: AppRouteModule = {
-  layout: {
-    path: '/frame',
-    name: 'Frame',
-    component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/frame/antv',
-    meta: {
-      icon: 'mdi:page-next-outline',
-      title: 'routes.demo.iframe.frame',
-    },
+  path: '/frame',
+  name: 'Frame',
+  component: LAYOUT,
+  redirect: '/frame/antv',
+  meta: {
+    icon: 'mdi:page-next-outline',
+    title: 'routes.demo.iframe.frame',
   },
 
-  routes: [
+  children: [
     {
-      path: '/antv',
+      path: 'antv',
       name: 'Antv',
       component: IFrame,
       meta: {
@@ -27,7 +25,7 @@ const iframe: AppRouteModule = {
       },
     },
     {
-      path: '/doc',
+      path: 'doc',
       name: 'Doc',
       component: IFrame,
       meta: {
@@ -37,7 +35,7 @@ const iframe: AppRouteModule = {
       },
     },
     {
-      path: '/docExternal',
+      path: 'docExternal',
       name: 'DocExternal',
       component: IFrame,
       meta: {

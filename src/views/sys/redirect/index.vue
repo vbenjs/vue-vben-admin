@@ -1,3 +1,6 @@
+<template>
+  <div />
+</template>
 <script lang="ts">
   import { defineComponent, unref } from 'vue';
 
@@ -18,12 +21,13 @@
         path: '/' + _path,
         query,
       });
+      // close loading
       if (unref(getEnableTransition) && unref(getOpenPageLoading)) {
         setTimeout(() => {
           appStore.setPageLoadingAction(false);
         }, 0);
       }
-      return () => null;
+      return {};
     },
   });
 </script>

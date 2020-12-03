@@ -5,7 +5,7 @@ import type { Ref } from 'vue';
 import { isString } from '/@/utils/is';
 import { unref } from 'vue';
 import { es6Unique } from '/@/utils';
-import { getAllParentPath } from '/@/utils/helper/menuHelper';
+import { getAllParentPath } from '/@/router/helper/menuHelper';
 
 interface UseSearchInputOptions {
   menuState: MenuState;

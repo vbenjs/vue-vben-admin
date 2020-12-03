@@ -33,7 +33,7 @@
 
     <Tooltip placement="top" v-if="getSetting.setting">
       <template #title>
-        <span>{{ t('settingColumn') }}</span>
+        <span>{{ t('component.table.settingColumn') }}</span>
       </template>
       <Popover
         placement="bottomLeft"
@@ -58,9 +58,11 @@
               v-model:checked="checkAll"
               @change="onCheckAllChange"
             >
-              {{ t('settingColumnShow') }}
+              {{ t('component.table.settingColumnShow') }}
             </Checkbox>
-            <a-button size="small" type="link" @click="reset"> {{ t('settingReset') }}</a-button>
+            <a-button size="small" type="link" @click="reset">
+              {{ t('component.table.settingReset') }}</a-button
+            >
           </div>
         </template>
         <SettingOutlined />
@@ -69,7 +71,7 @@
 
     <Tooltip placement="top" v-if="getSetting.fullScreen">
       <template #title>
-        <span>{{ t('settingFullScreen') }}</span>
+        <span>{{ t('component.table.settingFullScreen') }}</span>
       </template>
       <FullscreenOutlined @click="handleFullScreen" v-if="!isFullscreenRef" />
       <FullscreenExitOutlined @click="handleFullScreen" v-else />

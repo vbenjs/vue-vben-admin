@@ -163,12 +163,6 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -198,5 +192,8 @@
     "ts"
   ],
   "i18n-ally.sourceLanguage": "zh",
-  "i18n-ally.enabledFrameworks":["vue","react"]
+  "i18n-ally.enabledFrameworks": [
+    "vue",
+    "react"
+  ]
 }

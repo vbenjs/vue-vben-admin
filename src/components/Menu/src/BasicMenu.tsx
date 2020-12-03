@@ -36,6 +36,7 @@ import { getCurrentParentPath } from '/@/router/menus';
 
 import { basicProps } from './props';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
+import { REDIRECT_NAME } from '/@/router/constant';
 export default defineComponent({
   name: 'BasicMenu',
   props: basicProps,
@@ -120,7 +121,7 @@ export default defineComponent({
     watch(
       () => currentRoute.value.name,
       (name: string) => {
-        if (name === 'Redirect') return;
+        if (name === REDIRECT_NAME) return;
         handleMenuChange();
         props.isHorizontal && appStore.getProjectConfig.menuSetting.split && getParentPath();
       }

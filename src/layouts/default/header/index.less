@@ -21,11 +21,15 @@
 
   &__left {
     display: flex;
+    height: 100%;
     align-items: center;
 
     .layout-trigger {
+      display: flex;
+      height: 100%;
       padding: 1px 10px 0 16px;
       cursor: pointer;
+      align-items: center;
 
       .anticon {
         font-size: 17px;
@@ -49,12 +53,22 @@
     }
 
     .layout-breadcrumb {
+      display: flex;
       padding: 0 8px;
+      align-items: center;
+
+      .ant-breadcrumb-link {
+        .anticon {
+          margin-right: 4px;
+          margin-bottom: 2px;
+        }
+      }
     }
   }
 
   &__content {
     display: flex;
+    height: 100%;
     flex-grow: 1;
     align-items: center;
   }
@@ -69,6 +83,24 @@
       .ant-menu-submenu {
         height: @header-height;
         line-height: @header-height;
+      }
+    }
+
+    .layout-breadcrumb {
+      .ant-breadcrumb-link {
+        color: @breadcrumb-item-normal-color;
+
+        a {
+          color: @text-color-base;
+
+          &:hover {
+            color: @primary-color;
+          }
+        }
+      }
+
+      .ant-breadcrumb-separator {
+        color: @breadcrumb-item-normal-color;
       }
     }
 
@@ -152,20 +184,22 @@
       }
     }
 
-    .breadcrumb {
-      &__item:last-child .breadcrumb__inner,
-      &__item:last-child &__inner a,
-      &__item:last-child &__inner a:hover,
-      &__item:last-child &__inner:hover {
-        font-weight: 400;
+    .layout-breadcrumb {
+      .ant-breadcrumb-link {
         color: rgba(255, 255, 255, 0.6);
-        cursor: text;
+
+        a {
+          color: rgba(255, 255, 255, 0.8);
+
+          &:hover {
+            color: @white;
+          }
+        }
       }
 
-      &__inner,
-      &__inner.is-link,
-      &__separator {
-        color: @white;
+      .ant-breadcrumb-separator,
+      .anticon {
+        color: rgba(255, 255, 255, 0.8);
       }
     }
   }

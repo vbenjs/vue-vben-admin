@@ -1,24 +1,23 @@
 import type { AppRouteModule } from '/@/router/types';
 
-import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
+import { getParentLayout, LAYOUT } from '/@/router/constant';
 import { RoleEnum } from '/@/enums/roleEnum';
 
 const permission: AppRouteModule = {
-  layout: {
-    path: '/permission',
-    name: 'Permission',
-    component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/permission/front/page',
-    meta: {
-      icon: 'carbon:user-role',
-      title: 'routes.demo.permission.permission',
-    },
+  path: '/permission',
+  name: 'Permission',
+  component: LAYOUT,
+  redirect: '/permission/front/page',
+  meta: {
+    icon: 'carbon:user-role',
+    title: 'routes.demo.permission.permission',
   },
 
-  routes: [
+  children: [
     {
-      path: '/front',
+      path: 'front',
       name: 'PermissionFrontDemo',
+      component: getParentLayout('PermissionFrontDemo'),
       meta: {
         title: 'routes.demo.permission.front',
       },
@@ -60,8 +59,9 @@ const permission: AppRouteModule = {
       ],
     },
     {
-      path: '/back',
+      path: 'back',
       name: 'PermissionBackDemo',
+      component: getParentLayout('PermissionBackDemo'),
       meta: {
         title: 'routes.demo.permission.back',
       },

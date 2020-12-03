@@ -1,22 +1,20 @@
 import type { AppRouteModule } from '/@/router/types';
 
-import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
+import { LAYOUT } from '/@/router/constant';
 
 const table: AppRouteModule = {
-  layout: {
-    path: '/table',
-    name: 'TableDemo',
-    component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/table/basic',
-    meta: {
-      icon: 'ant-design:table-outlined',
-      title: 'routes.demo.table.table',
-    },
+  path: '/table',
+  name: 'TableDemo',
+  component: LAYOUT,
+  redirect: '/table/basic',
+  meta: {
+    icon: 'ant-design:table-outlined',
+    title: 'routes.demo.table.table',
   },
 
-  routes: [
+  children: [
     {
-      path: '/basic',
+      path: 'basic',
       name: 'TableBasicDemo',
       component: () => import('/@/views/demo/table/Basic.vue'),
       meta: {
@@ -24,7 +22,7 @@ const table: AppRouteModule = {
       },
     },
     {
-      path: '/treeTable',
+      path: 'treeTable',
       name: 'TreeTableDemo',
       component: () => import('/@/views/demo/table/TreeTable.vue'),
       meta: {
@@ -32,7 +30,7 @@ const table: AppRouteModule = {
       },
     },
     {
-      path: '/fetchTable',
+      path: 'fetchTable',
       name: 'FetchTableDemo',
       component: () => import('/@/views/demo/table/FetchTable.vue'),
       meta: {
@@ -40,7 +38,7 @@ const table: AppRouteModule = {
       },
     },
     {
-      path: '/fixedColumn',
+      path: 'fixedColumn',
       name: 'FixedColumnDemo',
       component: () => import('/@/views/demo/table/FixedColumn.vue'),
       meta: {
@@ -48,7 +46,7 @@ const table: AppRouteModule = {
       },
     },
     {
-      path: '/customerCell',
+      path: 'customerCell',
       name: 'CustomerCellDemo',
       component: () => import('/@/views/demo/table/CustomerCell.vue'),
       meta: {
@@ -56,7 +54,7 @@ const table: AppRouteModule = {
       },
     },
     {
-      path: '/formTable',
+      path: 'formTable',
       name: 'FormTableDemo',
       component: () => import('/@/views/demo/table/FormTable.vue'),
       meta: {
@@ -64,7 +62,7 @@ const table: AppRouteModule = {
       },
     },
     {
-      path: '/useTable',
+      path: 'useTable',
       name: 'UseTableDemo',
       component: () => import('/@/views/demo/table/UseTable.vue'),
       meta: {
@@ -72,7 +70,7 @@ const table: AppRouteModule = {
       },
     },
     {
-      path: '/refTable',
+      path: 'refTable',
       name: 'RefTableDemo',
       component: () => import('/@/views/demo/table/RefTable.vue'),
       meta: {
@@ -80,7 +78,7 @@ const table: AppRouteModule = {
       },
     },
     {
-      path: '/multipleHeader',
+      path: 'multipleHeader',
       name: 'MultipleHeaderDemo',
       component: () => import('/@/views/demo/table/MultipleHeader.vue'),
       meta: {
@@ -88,7 +86,7 @@ const table: AppRouteModule = {
       },
     },
     {
-      path: '/mergeHeader',
+      path: 'mergeHeader',
       name: 'MergeHeaderDemo',
       component: () => import('/@/views/demo/table/MergeHeader.vue'),
       meta: {
@@ -96,7 +94,7 @@ const table: AppRouteModule = {
       },
     },
     {
-      path: '/expandTable',
+      path: 'expandTable',
       name: 'ExpandTableDemo',
       component: () => import('/@/views/demo/table/ExpandTable.vue'),
       meta: {
@@ -104,7 +102,7 @@ const table: AppRouteModule = {
       },
     },
     {
-      path: '/fixedHeight',
+      path: 'fixedHeight',
       name: 'FixedHeightDemo',
       component: () => import('/@/views/demo/table/FixedHeight.vue'),
       meta: {
@@ -112,7 +110,7 @@ const table: AppRouteModule = {
       },
     },
     {
-      path: '/footerTable',
+      path: 'footerTable',
       name: 'FooterTableDemo',
       component: () => import('/@/views/demo/table/FooterTable.vue'),
       meta: {
@@ -120,7 +118,7 @@ const table: AppRouteModule = {
       },
     },
     {
-      path: '/editCellTable',
+      path: 'editCellTable',
       name: 'EditCellTableDemo',
       component: () => import('/@/views/demo/table/EditCellTable.vue'),
       meta: {
@@ -128,7 +126,7 @@ const table: AppRouteModule = {
       },
     },
     {
-      path: '/editRowTable',
+      path: 'editRowTable',
       name: 'EditRowTableDemo',
       component: () => import('/@/views/demo/table/EditRowTable.vue'),
       meta: {

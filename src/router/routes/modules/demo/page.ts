@@ -1,6 +1,6 @@
 import type { AppRouteModule } from '/@/router/types';
 
-import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
+import { getParentLayout, LAYOUT } from '/@/router/constant';
 import { ExceptionEnum } from '/@/enums/exceptionEnum';
 
 const ExceptionPage = () => import('/@/views/sys/exception/Exception');
@@ -8,7 +8,7 @@ const ExceptionPage = () => import('/@/views/sys/exception/Exception');
 const page: AppRouteModule = {
   path: '/page-demo',
   name: 'PageDemo',
-  component: PAGE_LAYOUT_COMPONENT,
+  component: LAYOUT,
   redirect: '/page-demo/exception',
   meta: {
     icon: 'mdi:page-next-outline',
@@ -17,9 +17,10 @@ const page: AppRouteModule = {
   children: [
     // =============================form start=============================
     {
-      path: '/form',
+      path: 'form',
       name: 'FormPage',
       redirect: '/page-demo/form/basic',
+      component: getParentLayout('FormPage'),
       meta: {
         title: 'routes.demo.page.form',
       },
@@ -53,8 +54,9 @@ const page: AppRouteModule = {
     // =============================form end=============================
     // =============================desc start=============================
     {
-      path: '/desc',
+      path: 'desc',
       name: 'DescPage',
+      component: getParentLayout('DescPage'),
       redirect: '/page-demo/desc/basic',
       meta: {
         title: 'routes.demo.page.desc',
@@ -82,9 +84,11 @@ const page: AppRouteModule = {
 
     // =============================result start=============================
     {
-      path: '/result',
+      path: 'result',
       name: 'ResultPage',
       redirect: '/page-demo/result/success',
+      component: getParentLayout('ResultPage'),
+
       meta: {
         title: 'routes.demo.page.result',
       },
@@ -111,8 +115,9 @@ const page: AppRouteModule = {
 
     // =============================account start=============================
     {
-      path: '/account',
+      path: 'account',
       name: 'AccountPage',
+      component: getParentLayout('AccountPage'),
       redirect: '/page-demo/account/setting',
       meta: {
         title: 'routes.demo.page.account',
@@ -139,8 +144,9 @@ const page: AppRouteModule = {
     // =============================account end=============================
     // =============================exception start=============================
     {
-      path: '/exception',
+      path: 'exception',
       name: 'ExceptionPage',
+      component: getParentLayout('ExceptionPage'),
       redirect: '/page-demo/exception/404',
       meta: {
         title: 'routes.demo.page.exception',
@@ -211,8 +217,9 @@ const page: AppRouteModule = {
     // =============================exception end=============================
     // =============================list start=============================
     {
-      path: '/list',
+      path: 'list',
       name: 'ListPage',
+      component: getParentLayout('ListPage'),
       redirect: '/page-demo/list/card',
       meta: {
         title: 'routes.demo.page.list',

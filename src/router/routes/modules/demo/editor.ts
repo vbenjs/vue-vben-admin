@@ -1,22 +1,19 @@
 import type { AppRouteModule } from '/@/router/types';
 
-import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
+import { getParentLayout, LAYOUT } from '/@/router/constant';
 
 const editor: AppRouteModule = {
-  layout: {
-    path: '/editor',
-    name: 'Editor',
-    component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/editor/markdown',
-    meta: {
-      icon: 'ant-design:table-outlined',
-      title: 'routes.demo.editor.editor',
-    },
+  path: '/editor',
+  name: 'Editor',
+  component: LAYOUT,
+  redirect: '/editor/markdown',
+  meta: {
+    icon: 'ant-design:table-outlined',
+    title: 'routes.demo.editor.editor',
   },
-
-  routes: [
+  children: [
     {
-      path: '/markdown',
+      path: 'markdown',
       name: 'MarkdownDemo',
       component: () => import('/@/views/demo/editor/Markdown.vue'),
       meta: {
@@ -24,7 +21,8 @@ const editor: AppRouteModule = {
       },
     },
     {
-      path: '/tinymce',
+      path: 'tinymce',
+      component: getParentLayout('TinymceDemo'),
       name: 'TinymceDemo',
       meta: {
         title: 'routes.demo.editor.tinymce',
@@ -39,7 +37,6 @@ const editor: AppRouteModule = {
             title: 'routes.demo.editor.tinymceBasic',
           },
         },
-        // TODO
         {
           path: 'editor',
           name: 'TinymceFormDemo',

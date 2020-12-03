@@ -1,22 +1,19 @@
 import type { AppRouteModule } from '/@/router/types';
 
-import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
+import { LAYOUT } from '/@/router/constant';
 
 const form: AppRouteModule = {
-  layout: {
-    path: '/form',
-    name: 'FormDemo',
-    component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/form/basic',
-    meta: {
-      icon: 'ant-design:table-outlined',
-      title: 'routes.demo.form.form',
-    },
+  path: '/form',
+  name: 'FormDemo',
+  component: LAYOUT,
+  redirect: '/form/basic',
+  meta: {
+    icon: 'ant-design:table-outlined',
+    title: 'routes.demo.form.form',
   },
-
-  routes: [
+  children: [
     {
-      path: '/basic',
+      path: 'basic',
       name: 'FormBasicDemo',
       component: () => import('/@/views/demo/form/index.vue'),
       meta: {
@@ -24,7 +21,7 @@ const form: AppRouteModule = {
       },
     },
     {
-      path: '/useForm',
+      path: 'useForm',
       name: 'UseFormDemo',
       component: () => import('/@/views/demo/form/UseForm.vue'),
       meta: {
@@ -32,7 +29,7 @@ const form: AppRouteModule = {
       },
     },
     {
-      path: '/refForm',
+      path: 'refForm',
       name: 'RefFormDemo',
       component: () => import('/@/views/demo/form/RefForm.vue'),
       meta: {
@@ -40,7 +37,7 @@ const form: AppRouteModule = {
       },
     },
     {
-      path: '/advancedForm',
+      path: 'advancedForm',
       name: 'AdvancedFormDemo',
       component: () => import('/@/views/demo/form/AdvancedForm.vue'),
       meta: {
@@ -48,7 +45,7 @@ const form: AppRouteModule = {
       },
     },
     {
-      path: '/ruleForm',
+      path: 'ruleForm',
       name: 'RuleFormDemo',
       component: () => import('/@/views/demo/form/RuleForm.vue'),
       meta: {
@@ -56,7 +53,7 @@ const form: AppRouteModule = {
       },
     },
     {
-      path: '/dynamicForm',
+      path: 'dynamicForm',
       name: 'DynamicFormDemo',
       component: () => import('/@/views/demo/form/DynamicForm.vue'),
       meta: {
@@ -64,7 +61,7 @@ const form: AppRouteModule = {
       },
     },
     {
-      path: '/customerForm',
+      path: 'customerForm',
       name: 'CustomerFormDemo',
       component: () => import('/@/views/demo/form/CustomerForm.vue'),
       meta: {

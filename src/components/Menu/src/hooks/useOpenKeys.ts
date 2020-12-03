@@ -4,7 +4,7 @@ import type { MenuState } from '../types';
 import type { Ref } from 'vue';
 
 import { unref } from 'vue';
-import { getAllParentPath } from '/@/utils/helper/menuHelper';
+import { getAllParentPath } from '/@/router/helper/menuHelper';
 import { es6Unique } from '/@/utils';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 

@@ -2,7 +2,7 @@ import type { Router } from 'vue-router';
 import { tabStore } from '/@/store/modules/tab';
 import { appStore } from '/@/store/modules/app';
 import { userStore } from '/@/store/modules/user';
-import { getParams } from '/@/utils/helper/routeHelper';
+import { getParams } from '/@/router/helper/routeHelper';
 import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
 import { unref } from 'vue';
 
@@ -14,6 +14,7 @@ export function createPageLoadingGuard(router: Router) {
     if (!userStore.getTokenState) {
       return true;
     }
+
     if (!unref(getEnableTransition) && unref(getOpenPageLoading)) {
       appStore.commitPageLoadingState(true);
       return true;

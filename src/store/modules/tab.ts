@@ -1,53 +1,43 @@
-import { computed, toRaw } from 'vue';
-import type { AppRouteRecordRaw, RouteMeta } from '/@/router/types.d';
+import { toRaw } from 'vue';
 
 import { unref } from 'vue';
 import { Action, Module, Mutation, VuexModule, getModule } from 'vuex-module-decorators';
 import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
 
 import { PageEnum } from '/@/enums/pageEnum';
-import { appStore } from '/@/store/modules/app';
 import { userStore } from './user';
 
 import store from '/@/store';
 import router from '/@/router';
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/constant';
-import { getCurrentTo } from '/@/utils/helper/routeHelper';
+import { RouteLocationNormalized, RouteLocationRaw } from 'vue-router';
+import { getRoute } from '/@/router/helper/routeHelper';
+import { useGo, useRedo } from '/@/hooks/web/usePage';
 
-type CacheName = string | symbol | null | undefined;
-
-/**
- * @description:  vuex Tab模块
- */
 // declare namespace TabsStore {
-export interface TabItem {
-  fullPath: string;
-  path?: string;
-  params?: any;
-  query?: any;
-  name?: CacheName;
-  meta?: RouteMeta;
-}
 
 const NAME = 'tab';
 
 hotModuleUnregisterModule(NAME);
 
-const getOpenKeepAliveRef = computed(() => appStore.getProjectConfig.openKeepAlive);
+export const PAGE_LAYOUT_KEY = '__PAGE_LAYOUT__';
+
+function isGotoPage() {
+  const go = useGo();
+  go(unref(router.currentRoute).path, true);
+}
 
 @Module({ namespaced: true, name: NAME, dynamic: true, store })
 class Tab extends VuexModule {
+  cachedMapState = new Map<string, string[]>();
+
   // tab list
-  tabsState: TabItem[] = [];
-  // tab cache list
-  keepAliveTabsState: CacheName[] = [];
-
-  currentContextMenuIndexState = -1;
-
-  currentContextMenuState: TabItem | null = null;
+  tabsState: RouteLocationNormalized[] = [];
 
   // Last route change
-  lastChangeRouteState: AppRouteRecordRaw | null = null;
+  lastChangeRouteState: RouteLocationNormalized | null = null;
+
+  lastDragEndIndexState = 0;
 
   get getTabsState() {
     return this.tabsState;
@@ -57,56 +47,93 @@ class Tab extends VuexModule {
     return this.lastChangeRouteState;
   }
 
-  get getCurrentContextMenuIndexState() {
-    return this.currentContextMenuIndexState;
-  }
-
-  get getCurrentContextMenuState() {
-    return this.currentContextMenuState;
-  }
-
-  get getKeepAliveTabsState() {
-    return this.keepAliveTabsState;
-  }
-
-  get getCurrentTab(): TabItem {
+  get getCurrentTab(): RouteLocationNormalized {
     const route = unref(router.currentRoute);
     return this.tabsState.find((item) => item.path === route.path)!;
   }
 
+  get getCachedMapState(): Map<string, string[]> {
+    return this.cachedMapState;
+  }
+
+  get getLastDragEndIndexState(): number {
+    return this.lastDragEndIndexState;
+  }
+
   @Mutation
-  commitLastChangeRouteState(route: AppRouteRecordRaw): void {
+  commitLastChangeRouteState(route: RouteLocationNormalized): void {
     if (!userStore.getTokenState) return;
     this.lastChangeRouteState = route;
   }
 
   @Mutation
   commitClearCache(): void {
-    this.keepAliveTabsState = [];
+    this.cachedMapState = new Map();
   }
 
   @Mutation
-  commitCurrentContextMenuIndexState(index: number): void {
-    this.currentContextMenuIndexState = index;
-  }
+  goToPage() {
+    const go = useGo();
+    const len = this.tabsState.length;
+    const { path } = unref(router.currentRoute);
 
-  @Mutation
-  commitCurrentContextMenuState(item: TabItem): void {
-    this.currentContextMenuState = item;
-  }
+    let toPath: PageEnum | string = PageEnum.BASE_HOME;
 
-  /**
-   * @description: add tab
-   */
-  @Mutation
-  commitAddTab(route: AppRouteRecordRaw | TabItem): void {
-    const { path, name, meta, fullPath, params, query } = route as TabItem;
-    // 404  页面不需要添加tab
-    if (path === PageEnum.ERROR_PAGE || !name) {
-      return;
-    } else if ([REDIRECT_ROUTE.name, PAGE_NOT_FOUND_ROUTE.name].includes(name as string)) {
-      return;
+    if (len > 0) {
+      const page = this.tabsState[len - 1];
+      const p = page.fullPath || page.path;
+      if (p) {
+        toPath = p;
+      }
     }
+    // Jump to the current page and report an error
+    path !== toPath && go(toPath as PageEnum, true);
+  }
+
+  @Mutation
+  commitCachedMapState(): void {
+    const cacheMap = new Map<string, string[]>();
+
+    const pageCacheSet = new Set<string>();
+    this.tabsState.forEach((tab) => {
+      const item = getRoute(tab);
+      const needAuth = !item.meta.ignoreAuth;
+      if (item.meta.affix) {
+        const name = item.name as string;
+        pageCacheSet.add(name);
+      } else if (item.matched && needAuth) {
+        const matched = item.matched;
+        const len = matched.length;
+
+        if (len < 2) return;
+
+        for (let i = 0; i < matched.length; i++) {
+          const key = matched[i].name as string;
+
+          if (i < 2) {
+            pageCacheSet.add(key);
+          }
+          if (i < len - 1) {
+            const { meta, name } = matched[i + 1];
+            if (meta && (meta.affix || needAuth)) {
+              const mapList = cacheMap.get(key) || [];
+              if (!mapList.includes(name as string)) {
+                mapList.push(name as string);
+              }
+              cacheMap.set(key, mapList);
+            }
+          }
+        }
+      }
+    });
+
+    cacheMap.set(PAGE_LAYOUT_KEY, Array.from(pageCacheSet));
+    this.cachedMapState = cacheMap;
+  }
+
+  @Mutation
+  commitTabRoutesState(route: RouteLocationNormalized) {
+    const { path, fullPath, params, query } = route;
 
     let updateIndex = -1;
     // 已经存在的页面，不重复添加tab
@@ -123,39 +150,18 @@ class Tab extends VuexModule {
       this.tabsState.splice(updateIndex, 1, curTab);
       return;
     }
-    this.tabsState.push({ path, fullPath, name, meta, params, query });
-    if (unref(getOpenKeepAliveRef) && name) {
-      const noKeepAlive = meta && meta.ignoreKeepAlive;
-      const hasName = this.keepAliveTabsState.includes(name);
-      !noKeepAlive && !hasName && this.keepAliveTabsState.push(name);
-    }
+    this.tabsState.push(route);
   }
 
   /**
    * @description: close tab
    */
   @Mutation
-  commitCloseTab(route: AppRouteRecordRaw | TabItem): void {
-    try {
-      const { fullPath, name, meta: { affix } = {} } = route;
-      if (affix) return;
-      const index = this.tabsState.findIndex((item) => item.fullPath === fullPath);
-      index !== -1 && this.tabsState.splice(index, 1);
-
-      if (unref(getOpenKeepAliveRef) && name) {
-        const i = this.keepAliveTabsState.findIndex((item) => item === name);
-        i !== -1 && this.keepAliveTabsState.splice(i, 1);
-      }
-    } catch (error) {}
-  }
-
-  @Mutation
-  commitCloseTabKeepAlive(route: AppRouteRecordRaw | TabItem): void {
-    const { name } = route;
-    if (unref(getOpenKeepAliveRef) && name) {
-      const i = this.keepAliveTabsState.findIndex((item) => item === name);
-      i !== -1 && toRaw(this.keepAliveTabsState).splice(i, 1);
-    }
+  commitCloseTab(route: RouteLocationNormalized): void {
+    const { fullPath, meta: { affix } = {} } = route;
+    if (affix) return;
+    const index = this.tabsState.findIndex((item) => item.fullPath === fullPath);
+    index !== -1 && this.tabsState.splice(index, 1);
   }
 
   @Mutation
@@ -163,16 +169,12 @@ class Tab extends VuexModule {
     this.tabsState = this.tabsState.filter((item) => {
       return item.meta && item.meta.affix;
     });
-    const names = this.tabsState.map((item) => item.name);
-    this.keepAliveTabsState = names as string[];
   }
 
   @Mutation
   commitResetState(): void {
     this.tabsState = [];
-    this.currentContextMenuState = null;
-    this.currentContextMenuIndexState = -1;
-    this.keepAliveTabsState = [];
+    this.cachedMapState = new Map();
   }
 
   @Mutation
@@ -181,73 +183,149 @@ class Tab extends VuexModule {
 
     this.tabsState.splice(oldIndex, 1);
     this.tabsState.splice(newIndex, 0, currentTab);
+    this.lastDragEndIndexState = this.lastDragEndIndexState + 1;
   }
 
   @Mutation
-  closeMultipleTab({ pathList, nameList }: { pathList: string[]; nameList: string[] }): void {
+  closeMultipleTab({ pathList }: { pathList: string[] }): void {
     this.tabsState = toRaw(this.tabsState).filter((item) => !pathList.includes(item.fullPath));
-    if (unref(getOpenKeepAliveRef) && nameList) {
-      this.keepAliveTabsState = toRaw(this.keepAliveTabsState).filter(
-        (item) => !nameList.includes(item as string)
-      );
-    }
   }
 
   @Action
-  closeLeftTabAction(route: AppRouteRecordRaw | TabItem): void {
+  addTabAction(route: RouteLocationNormalized) {
+    const { path, name } = route;
+    // 404  页面不需要添加tab
+    if (
+      path === PageEnum.ERROR_PAGE ||
+      !name ||
+      [REDIRECT_ROUTE.name, PAGE_NOT_FOUND_ROUTE.name].includes(name as string)
+    ) {
+      return;
+    }
+    this.commitTabRoutesState(getRoute(route));
+
+    this.commitCachedMapState();
+  }
+
+  @Mutation
+  commitRedoPage() {
+    const route = router.currentRoute.value;
+
+    for (const [key, value] of this.cachedMapState) {
+      const index = value.findIndex((item) => item === (route.name as string));
+      if (index === -1) {
+        continue;
+      }
+      if (value.length === 1) {
+        this.cachedMapState.delete(key);
+        continue;
+      }
+      value.splice(index, 1);
+      this.cachedMapState.set(key, value);
+    }
+    const redo = useRedo();
+    redo();
+  }
+
+  @Action
+  closeAllTabAction() {
+    this.commitCloseAllTab();
+    this.commitClearCache();
+    this.goToPage();
+  }
+
+  @Action
+  closeTabAction(tab: RouteLocationNormalized) {
+    function getObj(tabItem: RouteLocationNormalized) {
+      const { params, path, query } = tabItem;
+      return {
+        params: params || {},
+        path,
+        query: query || {},
+      };
+    }
+    const { currentRoute, replace } = router;
+
+    const { path } = unref(currentRoute);
+    if (path !== tab.path) {
+      // Closed is not the activation tab
+      this.commitCloseTab(tab);
+      return;
+    }
+
+    // Closed is activated atb
+    let toObj: RouteLocationRaw = {};
+
+    const index = this.getTabsState.findIndex((item) => item.path === path);
+
+    // If the current is the leftmost tab
+    if (index === 0) {
+      // There is only one tab, then jump to the homepage, otherwise jump to the right tab
+      if (this.getTabsState.length === 1) {
+        toObj = PageEnum.BASE_HOME;
+      } else {
+        //  Jump to the right tab
+        const page = this.getTabsState[index + 1];
+        toObj = getObj(page);
+      }
+    } else {
+      // Close the current tab
+      const page = this.getTabsState[index - 1];
+      toObj = getObj(page);
+    }
+    this.commitCloseTab(currentRoute.value);
+    replace(toObj);
+  }
+
+  @Action
+  closeTabByKeyAction(key: string) {
+    const index = this.tabsState.findIndex((item) => (item.fullPath || item.path) === key);
+    index !== -1 && this.closeTabAction(this.tabsState[index]);
+  }
+
+  @Action
+  closeLeftTabAction(route: RouteLocationNormalized): void {
     const index = this.tabsState.findIndex((item) => item.path === route.path);
 
     if (index > 0) {
       const leftTabs = this.tabsState.slice(0, index);
       const pathList: string[] = [];
-      const nameList: string[] = [];
       for (const item of leftTabs) {
         const affix = item.meta ? item.meta.affix : false;
         if (!affix) {
           pathList.push(item.fullPath);
-          nameList.push(item.name as string);
         }
       }
-      this.closeMultipleTab({ pathList, nameList });
+      this.closeMultipleTab({ pathList });
     }
+    this.commitCachedMapState();
+    isGotoPage();
   }
 
   @Action
-  addTabByPathAction(): void {
-    const toRoute = getCurrentTo();
-    if (!toRoute) return;
-    const { meta } = toRoute;
-    if (meta && meta.affix) {
-      return;
-    }
-    this.commitAddTab((toRoute as unknown) as AppRouteRecordRaw);
-  }
-
-  @Action
-  closeRightTabAction(route: AppRouteRecordRaw | TabItem): void {
+  closeRightTabAction(route: RouteLocationNormalized): void {
     const index = this.tabsState.findIndex((item) => item.fullPath === route.fullPath);
 
     if (index >= 0 && index < this.tabsState.length - 1) {
       const rightTabs = this.tabsState.slice(index + 1, this.tabsState.length);
 
       const pathList: string[] = [];
-      const nameList: string[] = [];
       for (const item of rightTabs) {
         const affix = item.meta ? item.meta.affix : false;
         if (!affix) {
           pathList.push(item.fullPath);
-          nameList.push(item.name as string);
         }
       }
-      this.closeMultipleTab({ pathList, nameList });
+      this.closeMultipleTab({ pathList });
     }
+    this.commitCachedMapState();
+    isGotoPage();
   }
 
   @Action
-  closeOtherTabAction(route: AppRouteRecordRaw | TabItem): void {
+  closeOtherTabAction(route: RouteLocationNormalized): void {
     const closePathList = this.tabsState.map((item) => item.fullPath);
     const pathList: string[] = [];
-    const nameList: string[] = [];
     closePathList.forEach((path) => {
       if (path !== route.fullPath) {
         const closeItem = this.tabsState.find((item) => item.path === path);
@@ -255,11 +333,12 @@ class Tab extends VuexModule {
         const affix = closeItem.meta ? closeItem.meta.affix : false;
         if (!affix) {
           pathList.push(closeItem.fullPath);
-          nameList.push(closeItem.name as string);
         }
       }
     });
-    this.closeMultipleTab({ pathList, nameList });
+    this.closeMultipleTab({ pathList });
+    this.commitCachedMapState();
+    isGotoPage();
   }
 }
 export const tabStore = getModule<Tab>(Tab);

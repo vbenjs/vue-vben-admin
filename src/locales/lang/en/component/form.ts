@@ -4,8 +4,8 @@ export default {
   putAway: 'Put away',
   unfold: 'Unfold',
 
-  input: 'Please Input',
-  choose: 'Please Choose',
+  input: 'Please Input ',
+  choose: 'Please Choose ',
 
   maxTip: 'The number of characters should be less than {0}',
 };

@@ -1,23 +1,21 @@
 import type { AppRouteModule } from '/@/router/types';
 
-import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
+import { getParentLayout, LAYOUT } from '/@/router/constant';
 
 const charts: AppRouteModule = {
-  layout: {
-    path: '/charts',
-    name: 'Charts',
-    component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/charts/apexChart',
-    meta: {
-      icon: 'ant-design:area-chart-outlined',
-      title: 'routes.demo.charts.charts',
-    },
+  path: '/charts',
+  name: 'Charts',
+  component: LAYOUT,
+  redirect: '/charts/apexChart',
+  meta: {
+    icon: 'ant-design:area-chart-outlined',
+    title: 'routes.demo.charts.charts',
   },
-
-  routes: [
+  children: [
     {
-      path: '/echarts',
+      path: 'echarts',
       name: 'Echarts',
+      component: getParentLayout('Echarts'),
       meta: {
         title: 'Echarts',
       },
@@ -49,7 +47,7 @@ const charts: AppRouteModule = {
       ],
     },
     {
-      path: '/apexChart',
+      path: 'apexChart',
       name: 'ApexChart',
       meta: {
         title: 'routes.demo.charts.apexChart',

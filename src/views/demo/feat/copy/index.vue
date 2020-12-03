@@ -15,6 +15,7 @@
   import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
+    name: 'Copy',
     components: { CollapseContainer },
     setup() {
       const valueRef = ref('');

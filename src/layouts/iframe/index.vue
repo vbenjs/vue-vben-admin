@@ -1,7 +1,7 @@
 <template>
   <template v-for="frame in getFramePages" :key="frame.path">
     <FramePage
-      v-if="frame.meta.frameSrc && hasRenderFrame(frame.path)"
+      v-if="frame.meta.frameSrc && hasRenderFrame(frame.name)"
       v-show="showIframe(frame)"
       :frameSrc="frame.meta.frameSrc"
     />

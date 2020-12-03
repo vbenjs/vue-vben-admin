@@ -1,5 +1,5 @@
 export default {
-  feat: '页面功能',
+  feat: '功能',
   icon: '图标',
   tabs: '标签页操作',
   contextMenu: '右键菜单',

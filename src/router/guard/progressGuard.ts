@@ -9,9 +9,6 @@ import { unref } from 'vue';
 const { getOpenNProgress } = useTransitionSetting();
 
 export function createProgressGuard(router: Router) {
-  // NProgress.inc(0.1);
-  // NProgress.configure({ easing: 'ease', speed: 200, showSpinner: false });
-
   router.beforeEach(async (to) => {
     !to.meta.inTab && unref(getOpenNProgress) && NProgress.start();
     return true;

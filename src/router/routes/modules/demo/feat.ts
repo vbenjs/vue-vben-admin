@@ -1,22 +1,19 @@
 import type { AppRouteModule } from '/@/router/types';
 
-import { PAGE_LAYOUT_COMPONENT } from '/@/router/constant';
+import { LAYOUT } from '/@/router/constant';
 
 const feat: AppRouteModule = {
-  layout: {
-    path: '/feat',
-    name: 'FeatDemo',
-    component: PAGE_LAYOUT_COMPONENT,
-    redirect: '/feat/icon',
-    meta: {
-      icon: 'ic:outline-featured-play-list',
-      title: 'routes.demo.feat.feat',
-    },
+  path: '/feat',
+  name: 'FeatDemo',
+  component: LAYOUT,
+  redirect: '/feat/icon',
+  meta: {
+    icon: 'ic:outline-featured-play-list',
+    title: 'routes.demo.feat.feat',
   },
-
-  routes: [
+  children: [
     {
-      path: '/icon',
+      path: 'icon',
       name: 'IconDemo',
       component: () => import('/@/views/demo/feat/icon/index.vue'),
       meta: {
@@ -24,7 +21,7 @@ const feat: AppRouteModule = {
       },
     },
     {
-      path: '/tabs',
+      path: 'tabs',
       name: 'TabsDemo',
       component: () => import('/@/views/demo/feat/tabs/index.vue'),
       meta: {
@@ -33,7 +30,7 @@ const feat: AppRouteModule = {
     },
 
     {
-      path: '/context-menu',
+      path: 'context-menu',
       name: 'ContextMenuDemo',
       component: () => import('/@/views/demo/feat/context-menu/index.vue'),
       meta: {
@@ -41,7 +38,7 @@ const feat: AppRouteModule = {
       },
     },
     {
-      path: '/download',
+      path: 'download',
       name: 'DownLoadDemo',
       component: () => import('/@/views/demo/feat/download/index.vue'),
       meta: {
@@ -49,7 +46,7 @@ const feat: AppRouteModule = {
       },
     },
     {
-      path: '/click-out-side',
+      path: 'click-out-side',
       name: 'ClickOutSideDemo',
       component: () => import('/@/views/demo/feat/click-out-side/index.vue'),
       meta: {
@@ -57,7 +54,7 @@ const feat: AppRouteModule = {
       },
     },
     {
-      path: '/img-preview',
+      path: 'img-preview',
       name: 'ImgPreview',
       component: () => import('/@/views/demo/feat/img-preview/index.vue'),
       meta: {
@@ -65,7 +62,7 @@ const feat: AppRouteModule = {
       },
     },
     {
-      path: '/copy',
+      path: 'copy',
       name: 'CopyDemo',
       component: () => import('/@/views/demo/feat/copy/index.vue'),
       meta: {
@@ -73,7 +70,7 @@ const feat: AppRouteModule = {
       },
     },
     {
-      path: '/msg',
+      path: 'msg',
       name: 'MsgDemo',
       component: () => import('/@/views/demo/feat/msg/index.vue'),
       meta: {
@@ -81,7 +78,7 @@ const feat: AppRouteModule = {
       },
     },
     {
-      path: '/watermark',
+      path: 'watermark',
       name: 'WatermarkDemo',
       component: () => import('/@/views/demo/feat/watermark/index.vue'),
       meta: {
@@ -89,7 +86,7 @@ const feat: AppRouteModule = {
       },
     },
     {
-      path: '/full-screen',
+      path: 'full-screen',
       name: 'FullScreenDemo',
       component: () => import('/@/views/demo/feat/full-screen/index.vue'),
       meta: {
@@ -97,7 +94,7 @@ const feat: AppRouteModule = {
       },
     },
     {
-      path: '/error-log',
+      path: 'error-log',
       name: 'ErrorLog',
       component: () => import('/@/views/sys/error-log/index.vue'),
       meta: {
@@ -105,7 +102,7 @@ const feat: AppRouteModule = {
       },
     },
     {
-      path: '/testTab/:id',
+      path: 'testTab/:id',
       name: 'TestTab',
       component: () => import('/@/views/demo/feat/tab-params/index.vue'),
       meta: {

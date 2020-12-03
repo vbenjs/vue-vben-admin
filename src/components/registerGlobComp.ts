@@ -33,6 +33,7 @@ import {
   Empty,
   Avatar,
   Menu,
+  Breadcrumb,
 } from 'ant-design-vue';
 import { getApp } from '/@/setup/App';
 
@@ -55,6 +56,7 @@ export function registerGlobComp() {
   getApp()
     .use(Select)
     .use(Alert)
+    .use(Breadcrumb)
     .use(Checkbox)
     .use(DatePicker)
     .use(Radio)

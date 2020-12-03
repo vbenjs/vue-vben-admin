@@ -1,19 +1,18 @@
 import type { PropType } from 'vue';
-
-import { defineComponent, unref, computed, FunctionalComponent } from 'vue';
-
-import { TabItem, tabStore } from '/@/store/modules/tab';
-import { getScaleAction, TabContentProps } from './data';
-
 import { Dropdown } from '/@/components/Dropdown/index';
+
+import { defineComponent, unref, FunctionalComponent } from 'vue';
+
+import { TabContentProps } from './types';
+
 import { RightOutlined } from '@ant-design/icons-vue';
 
-import { TabContentEnum } from './data';
+import { TabContentEnum } from './types';
+
 import { useTabDropdown } from './useTabDropdown';
-import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
-import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
-import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
 import { useI18n } from '/@/hooks/web/useI18n';
+
+import { RouteLocationNormalized } from 'vue-router';
 
 const { t: titleT } = useI18n();
 
@@ -25,21 +24,13 @@ const ExtraContent: FunctionalComponent = () => {
   );
 };
 
-const TabContent: FunctionalComponent<{ tabItem: TabItem }> = (props) => {
+const TabContent: FunctionalComponent<{ tabItem: RouteLocationNormalized; handler: Fn }> = (
+  props
+) => {
   const { tabItem: { meta } = {} } = props;
 
-  function handleContextMenu(e: Event) {
-    if (!props.tabItem) return;
-    const tableItem = props.tabItem;
-    e?.preventDefault();
-    const index = unref(tabStore.getTabsState).findIndex((tab) => tab.path === tableItem.path);
-
-    tabStore.commitCurrentContextMenuIndexState(index);
-    tabStore.commitCurrentContextMenuState(props.tabItem);
-  }
-
   return (
-    <div class={`multiple-tabs-content__content `} onContextmenu={handleContextMenu}>
+    <div class={`multiple-tabs-content__content `} onContextmenu={props.handler(props.tabItem)}>
       <span class="ml-1">{meta && titleT(meta.title)}</span>
     </div>
   );
@@ -49,7 +40,7 @@ export default defineComponent({
   name: 'TabContent',
   props: {
     tabItem: {
-      type: Object as PropType<TabItem>,
+      type: Object as PropType<RouteLocationNormalized>,
       default: null,
     },
 
@@ -59,36 +50,27 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { t } = useI18n();
-    const { getShowMenu } = useMenuSetting();
-    const { getShowHeader } = useHeaderSetting();
-    const { getShowQuick } = useMultipleTabSetting();
-
-    const getIsScale = computed(() => {
-      return !unref(getShowMenu) && !unref(getShowHeader);
-    });
-
-    const getIsTab = computed(() => {
-      return !unref(getShowQuick) ? true : props.type === TabContentEnum.TAB_TYPE;
-    });
-
-    const { getDropMenuList, handleMenuEvent } = useTabDropdown(props as TabContentProps);
+    const {
+      getDropMenuList,
+      handleMenuEvent,
+      handleContextMenu,
+      getTrigger,
+      isTabs,
+    } = useTabDropdown(props as TabContentProps);
 
     return () => {
-      const scaleAction = getScaleAction(
-        unref(getIsScale) ? t('layout.multipleTab.putAway') : t('layout.multipleTab.unfold'),
-        unref(getIsScale)
-      );
-      const dropMenuList = unref(getDropMenuList) || [];
-
-      const isTab = unref(getIsTab);
       return (
         <Dropdown
-          dropMenuList={!isTab ? [scaleAction, ...dropMenuList] : dropMenuList}
-          trigger={isTab ? ['contextmenu'] : ['click']}
+          dropMenuList={unref(getDropMenuList)}
+          trigger={unref(getTrigger)}
           onMenuEvent={handleMenuEvent}
         >
-          {() => (isTab ? <TabContent tabItem={props.tabItem} /> : <ExtraContent />)}
+          {() => {
+            if (!unref(isTabs)) {
+              return <ExtraContent />;
+            }
+            return <TabContent handler={handleContextMenu} tabItem={props.tabItem} />;
+          }}
         </Dropdown>
       );
     };

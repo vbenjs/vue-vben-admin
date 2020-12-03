@@ -1,168 +1,148 @@
-import type { AppRouteRecordRaw } from '/@/router/types';
-import type { TabContentProps } from './data';
-import type { Ref } from 'vue';
-import type { TabItem } from '/@/store/modules/tab';
+import type { TabContentProps } from './types';
 import type { DropMenu } from '/@/components/Dropdown';
 
-import { computed, unref } from 'vue';
-import { TabContentEnum, MenuEventEnum, getActions } from './data';
+import { computed, unref, reactive } from 'vue';
+import { TabContentEnum, MenuEventEnum } from './types';
 import { tabStore } from '/@/store/modules/tab';
-import { appStore } from '/@/store/modules/app';
-import { PageEnum } from '/@/enums/pageEnum';
-import { useGo, useRedo } from '/@/hooks/web/usePage';
 import router from '/@/router';
-import { useTabs, isInitUseTab } from '/@/hooks/web/useTabs';
-import { RouteLocationRaw } from 'vue-router';
+import { RouteLocationNormalized } from 'vue-router';
+import { useTabs } from '/@/hooks/web/useTabs';
+import { useI18n } from '/@/hooks/web/useI18n';
+import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
+import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
+import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
 
-const { initTabFn } = useTabs();
+const { t } = useI18n();
 
 export function useTabDropdown(tabContentProps: TabContentProps) {
-  const { currentRoute } = router;
-  const redo = useRedo();
-  const go = useGo();
-
-  const isTabsRef = computed(() => tabContentProps.type === TabContentEnum.TAB_TYPE);
-  const getCurrentTab: Ref<TabItem | AppRouteRecordRaw> = computed(() => {
-    return unref(isTabsRef)
-      ? tabContentProps.tabItem
-      : ((unref(currentRoute) as any) as AppRouteRecordRaw);
+  const state = reactive({
+    current: null as Nullable<RouteLocationNormalized>,
+    currentIndex: 0,
   });
 
-  // Current tab list
-  const getTabsState = computed(() => tabStore.getTabsState);
+  const { currentRoute } = router;
+
+  const { getShowMenu, setMenuSetting } = useMenuSetting();
+  const { getShowHeader, setHeaderSetting } = useHeaderSetting();
+  const { getShowQuick } = useMultipleTabSetting();
+
+  const isTabs = computed(() =>
+    !unref(getShowQuick) ? true : tabContentProps.type === TabContentEnum.TAB_TYPE
+  );
+
+  const getCurrentTab = computed(
+    (): RouteLocationNormalized => {
+      return unref(isTabs) ? tabContentProps.tabItem : unref(currentRoute);
+    }
+  );
+
+  const getIsScale = computed(() => {
+    return !unref(getShowMenu) && !unref(getShowHeader);
+  });
 
   /**
    * @description: drop-down list
    */
   const getDropMenuList = computed(() => {
-    const dropMenuList = getActions();
-    // Reset to initial state
-    for (const item of dropMenuList) {
-      item.disabled = false;
-    }
-
-    // No tab
-    if (!unref(getTabsState) || unref(getTabsState).length <= 0) {
-      return dropMenuList;
-    } else if (unref(getTabsState).length === 1) {
-      // Only one tab
-      for (const item of dropMenuList) {
-        if (item.event !== MenuEventEnum.REFRESH_PAGE) {
-          item.disabled = true;
-        }
-      }
-      return dropMenuList;
-    }
     if (!unref(getCurrentTab)) return;
-    const { meta, path } = unref(getCurrentTab);
+    const { meta } = unref(getCurrentTab);
+    const { path } = unref(currentRoute);
 
     // Refresh button
-    const curItem = tabStore.getCurrentContextMenuState;
-    const index = tabStore.getCurrentContextMenuIndexState;
+    const curItem = state.current;
+    const index = state.currentIndex;
     const refreshDisabled = curItem ? curItem.path !== path : true;
     // Close left
     const closeLeftDisabled = index === 0;
 
+    const disabled = tabStore.getTabsState.length === 1;
+
     // Close right
-    const closeRightDisabled = index === unref(getTabsState).length - 1;
-    // Currently fixed tab
-    // TODO PERf
-    dropMenuList[0].disabled = unref(isTabsRef) ? refreshDisabled : false;
-    if (meta && meta.affix) {
-      dropMenuList[1].disabled = true;
+    const closeRightDisabled =
+      index === tabStore.getTabsState.length - 1 && tabStore.getLastDragEndIndexState >= 0;
+    const dropMenuList: DropMenu[] = [
+      {
+        icon: 'ant-design:reload-outlined',
+        event: MenuEventEnum.REFRESH_PAGE,
+        text: t('layout.multipleTab.redo'),
+        disabled: refreshDisabled,
+      },
+      {
+        icon: 'ant-design:close-outlined',
+        event: MenuEventEnum.CLOSE_CURRENT,
+        text: t('layout.multipleTab.close'),
+        disabled: meta?.affix || disabled,
+        divider: true,
+      },
+      {
+        icon: 'ant-design:pic-left-outlined',
+        event: MenuEventEnum.CLOSE_LEFT,
+        text: t('layout.multipleTab.closeLeft'),
+        disabled: closeLeftDisabled,
+        divider: false,
+      },
+      {
+        icon: 'ant-design:pic-right-outlined',
+        event: MenuEventEnum.CLOSE_RIGHT,
+        text: t('layout.multipleTab.closeRight'),
+        disabled: closeRightDisabled,
+        divider: true,
+      },
+      {
+        icon: 'ant-design:pic-center-outlined',
+        event: MenuEventEnum.CLOSE_OTHER,
+        text: t('layout.multipleTab.closeOther'),
+        disabled: disabled,
+      },
+      {
+        icon: 'ant-design:line-outlined',
+        event: MenuEventEnum.CLOSE_ALL,
+        text: t('layout.multipleTab.closeAll'),
+        disabled: disabled,
+      },
+    ];
+
+    if (!unref(isTabs)) {
+      const isScale = unref(getIsScale);
+      dropMenuList.unshift({
+        icon: isScale ? 'codicon:screen-normal' : 'codicon:screen-full',
+        event: MenuEventEnum.SCALE,
+        text: isScale ? t('layout.multipleTab.putAway') : t('layout.multipleTab.unfold'),
+        disabled: false,
+      });
     }
-    dropMenuList[2].disabled = closeLeftDisabled;
-    dropMenuList[3].disabled = closeRightDisabled;
 
     return dropMenuList;
   });
 
-  /**
-   * @description: Jump to page when closing all pages
-   */
-  function gotoPage() {
-    const len = unref(getTabsState).length;
-    const { path } = unref(currentRoute);
+  const getTrigger = computed(() => {
+    return unref(isTabs) ? ['contextmenu'] : ['click'];
+  });
 
-    let toPath: PageEnum | string = PageEnum.BASE_HOME;
-
-    if (len > 0) {
-      const page = unref(getTabsState)[len - 1];
-      const p = page.fullPath || page.path;
-      if (p) {
-        toPath = p;
-      }
-    }
-    // Jump to the current page and report an error
-    path !== toPath && go(toPath as PageEnum, true);
-  }
-
-  function isGotoPage(currentTab?: TabItem) {
-    const { path } = unref(currentRoute);
-    const currentPath = (currentTab || unref(getCurrentTab)).path;
-    // Not the current tab, when you close the left/right side, you need to jump to the page
-    if (path !== currentPath) {
-      go(currentPath as PageEnum, true);
-    }
-  }
-  function refreshPage(tabItem?: TabItem) {
-    try {
-      tabStore.commitCloseTabKeepAlive(tabItem || unref(getCurrentTab));
-    } catch (error) {}
-    redo();
-  }
-
-  function closeAll() {
-    tabStore.commitCloseAllTab();
-    gotoPage();
-  }
-
-  function closeLeft(tabItem?: TabItem) {
-    tabStore.closeLeftTabAction(tabItem || unref(getCurrentTab));
-    isGotoPage(tabItem);
-  }
-
-  function closeRight(tabItem?: TabItem) {
-    tabStore.closeRightTabAction(tabItem || unref(getCurrentTab));
-    isGotoPage(tabItem);
-  }
-
-  function closeOther(tabItem?: TabItem) {
-    tabStore.closeOtherTabAction(tabItem || unref(getCurrentTab));
-    isGotoPage(tabItem);
-  }
-
-  function closeCurrent(tabItem?: TabItem) {
-    closeTab(unref(tabItem || unref(getCurrentTab)));
+  function handleContextMenu(tabItem: RouteLocationNormalized) {
+    return (e: Event) => {
+      if (!tabItem) return;
+      e?.preventDefault();
+      const index = tabStore.getTabsState.findIndex((tab) => tab.path === tabItem.path);
+      state.current = tabItem;
+      state.currentIndex = index;
+    };
   }
 
   function scaleScreen() {
-    const {
-      headerSetting: { show: showHeader },
-      menuSetting: { show: showMenu },
-    } = appStore.getProjectConfig;
-    const isScale = !showHeader && !showMenu;
-    appStore.commitProjectConfigState({
-      headerSetting: { show: isScale },
-      menuSetting: { show: isScale },
+    const isScale = !unref(getShowMenu) && !unref(getShowHeader);
+    setMenuSetting({
+      show: isScale,
     });
-  }
-
-  if (!isInitUseTab) {
-    initTabFn({
-      refreshPageFn: refreshPage,
-      closeAllFn: closeAll,
-      closeCurrentFn: closeCurrent,
-      closeLeftFn: closeLeft,
-      closeOtherFn: closeOther,
-      closeRightFn: closeRight,
+    setHeaderSetting({
+      show: isScale,
     });
   }
 
   // Handle right click event
   function handleMenuEvent(menu: DropMenu): void {
+    const { refreshPage, closeAll, closeCurrent, closeLeft, closeOther, closeRight } = useTabs();
     const { event } = menu;
-
     switch (event) {
       case MenuEventEnum.SCALE:
         scaleScreen();
@@ -193,51 +173,5 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
         break;
     }
   }
-  return { getDropMenuList, handleMenuEvent };
-}
-
-export function getObj(tabItem: TabItem) {
-  const { params, path, query } = tabItem;
-  return {
-    params: params || {},
-    path,
-    query: query || {},
-  };
-}
-
-export function closeTab(closedTab: TabItem | AppRouteRecordRaw) {
-  const { currentRoute, replace } = router;
-  // Current tab list
-  const getTabsState = computed(() => tabStore.getTabsState);
-
-  const { path } = unref(currentRoute);
-  if (path !== closedTab.path) {
-    // Closed is not the activation tab
-    tabStore.commitCloseTab(closedTab);
-    return;
-  }
-
-  // Closed is activated atb
-  let toObj: RouteLocationRaw = {};
-
-  const index = unref(getTabsState).findIndex((item) => item.path === path);
-
-  // If the current is the leftmost tab
-  if (index === 0) {
-    // There is only one tab, then jump to the homepage, otherwise jump to the right tab
-    if (unref(getTabsState).length === 1) {
-      toObj = PageEnum.BASE_HOME;
-    } else {
-      //  Jump to the right tab
-      const page = unref(getTabsState)[index + 1];
-      toObj = getObj(page);
-    }
-  } else {
-    // Close the current tab
-    const page = unref(getTabsState)[index - 1];
-    toObj = getObj(page);
-  }
-  const route = (unref(currentRoute) as unknown) as AppRouteRecordRaw;
-  tabStore.commitCloseTab(route);
-  replace(toObj);
+  return { getDropMenuList, handleMenuEvent, handleContextMenu, getTrigger, isTabs };
 }

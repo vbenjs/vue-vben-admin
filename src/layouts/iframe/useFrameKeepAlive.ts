@@ -23,7 +23,7 @@ export function useFrameKeepAlive() {
   const getOpenTabList = computed((): string[] => {
     return tabStore.getTabsState.reduce((prev: string[], next) => {
       if (next.meta && Reflect.has(next.meta, 'frameSrc')) {
-        prev.push(next.path!);
+        prev.push(next.name as string);
       }
       return prev;
     }, []);
@@ -45,11 +45,14 @@ export function useFrameKeepAlive() {
   }
 
   function showIframe(item: AppRouteRecordRaw) {
-    return item.path === unref(currentRoute).path;
+    return item.name === unref(currentRoute).name;
   }
 
-  function hasRenderFrame(path: string) {
-    return unref(getShowMultipleTab) ? unref(getOpenTabList).includes(path) : true;
+  function hasRenderFrame(name: string) {
+    if (!unref(getShowMultipleTab)) {
+      return true;
+    }
+    return unref(getOpenTabList).includes(name);
   }
   return { hasRenderFrame, getFramePages, showIframe, getAllFramePages };
 }

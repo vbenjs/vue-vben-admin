@@ -1,5 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 import { RoleEnum } from '/@/enums/roleEnum';
+import Component from '/@/components/types';
 export interface RouteMeta {
   // title
   title: string;
@@ -24,24 +25,23 @@ export interface RouteMeta {
   // Whether the route has been dynamically added
   hideBreadcrumb?: boolean;
 
-  // disabled redirect
-  disabledRedirect?: boolean;
-
   // close loading
   afterCloseLoading?: boolean;
   // Is it in the tab
   inTab?: boolean;
   // Carrying parameters
   carryParam?: boolean;
+
+  single?: boolean;
 }
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
   name: string;
   meta: RouteMeta;
-  component?: any;
-  components?: any;
+  component?: Component;
+  components?: Component;
   children?: AppRouteRecordRaw[];
-  props?: any;
+  props?: Record<string, any>;
   fullPath?: string;
 }
 export interface MenuTag {
@@ -75,11 +75,12 @@ export interface MenuModule {
   menu: Menu;
 }
 
-interface RouteModule {
-  layout: AppRouteRecordRaw;
-  routes: AppRouteRecordRaw[];
-  children?: AppRouteRecordRaw[];
-  component?: any;
-}
+// interface RouteModule {
+//   layout: AppRouteRecordRaw;
+//   routes: AppRouteRecordRaw[];
+//   children?: AppRouteRecordRaw[];
+//   component?: Component;
+// }
 
-export type AppRouteModule = RouteModule | AppRouteRecordRaw;
+// export type AppRouteModule = RouteModule | AppRouteRecordRaw;
+export type AppRouteModule = AppRouteRecordRaw;
