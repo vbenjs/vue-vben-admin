@@ -40,7 +40,7 @@ class ScrollQueue {
 
   add() {
     this.promise = new Promise((resolve) => {
-      this.resolve = resolve;
+      this.resolve = resolve as () => void;
     });
   }
 
