@@ -29,6 +29,7 @@ export default defineComponent({
       getShowFullHeaderRef,
       getShowHeader,
       getUnFixedAndFull,
+      getHeaderTheme,
     } = useHeaderSetting();
 
     const { getFullContent } = useFullContent();
@@ -110,7 +111,7 @@ export default defineComponent({
           {unref(getIsShowPlaceholderDom) && <div style={unref(getPlaceholderDomStyle)} />}
           <div
             style={unref(getWrapStyle)}
-            class={['multiple-tab-header', { fixed: unref(getIsFixed) }]}
+            class={['multiple-tab-header', unref(getHeaderTheme), { fixed: unref(getIsFixed) }]}
           >
             {unref(getShowInsetHeaderRef) && <LayoutHeader ref={headerElRef} />}
             {unref(showTabsRef) && <MultipleTabs ref={tabElRef} />}

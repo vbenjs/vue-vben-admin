@@ -212,6 +212,10 @@
     background: @sider-dark-bg-color;
     .active-menu-style();
 
+    .menu-item-icon.app-iconify {
+      display: inline-block !important;
+    }
+
     .ant-menu-item.ant-menu-item-selected.basic-menu-menu-item__level1,
     .ant-menu-submenu-selected.basic-menu-menu-item__level1 {
       color: @white;
@@ -232,6 +236,10 @@
 
     .basic-menu-item__level3:not(.ant-menu-item-selected) {
       background-color: @sider-dark-lighten-2-bg-color;
+
+      .ant-menu-item {
+        background-color: @sider-dark-lighten-2-bg-color;
+      }
     }
 
     .ant-menu-submenu-title {
@@ -252,6 +260,10 @@
   &.ant-menu-light:not(.basic-menu__sidebar-hor) {
     overflow-x: hidden;
     border-right: none;
+
+    .menu-item-icon.app-iconify {
+      display: inline-block !important;
+    }
 
     // .ant-menu-item-selected {
     //   background: fade(@primary-color, 18%);
