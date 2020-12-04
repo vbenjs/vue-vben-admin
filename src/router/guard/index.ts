@@ -1,4 +1,4 @@
-import { isNavigationFailure, Router } from 'vue-router';
+import { isNavigationFailure, RouteLocationNormalized, Router } from 'vue-router';
 
 import { Modal, notification } from 'ant-design-vue';
 
@@ -18,6 +18,12 @@ import { REDIRECT_NAME } from '/@/router/constant';
 
 const { closeMessageOnSwitch, removeAllHttpPending } = useProjectSetting();
 const globSetting = useGlobSetting();
+
+const body = document.body;
+
+const isHash = (href: string) => {
+  return /^#/.test(href);
+};
 
 export function createGuard(router: Router) {
   let axiosCanceler: Nullable<AxiosCanceler>;
@@ -45,8 +51,13 @@ export function createGuard(router: Router) {
   });
 
   router.afterEach((to, from, failure) => {
+    // scroll top
+    isHash((to as RouteLocationNormalized & { href: string })?.href) && body.scrollTo(0, 0);
+
     loadedPageMap.set(to.path, true);
+
     const { t } = useI18n();
+
     // change html title
     to.name !== REDIRECT_NAME && setTitle(t(to.meta.title), globSetting.title);
 

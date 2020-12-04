@@ -8,9 +8,11 @@ import { createGuard } from './guard/';
 import { basicRoutes } from './routes/';
 import { scrollBehavior } from './scrollBehaviour';
 
+export const hashRouter = createWebHashHistory();
+
 // app router
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: hashRouter,
   routes: basicRoutes as RouteRecordRaw[],
   strict: true,
   scrollBehavior: scrollBehavior,
