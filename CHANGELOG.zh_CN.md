@@ -10,6 +10,7 @@
 - 还原 antdv 默认 loading，重构 `Loading` 组件，增加`useLoading`和`v-loading`指令。并增加示例
 - i18n 支持 vscode `i18n-ally`插件
 - 新增多级路由缓存示例
+- 打包代码拆分(试验)
 
 ### ⚡ Performance Improvements
 
