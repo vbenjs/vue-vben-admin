@@ -1,8 +1,6 @@
 import type { AppRouteModule, AppRouteRecordRaw } from '/@/router/types';
 import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router';
 
-import { appStore } from '/@/store/modules/app';
-import { tabStore } from '/@/store/modules/tab';
 import { getParentLayout, LAYOUT } from '/@/router/constant';
 import dynamicImport from './dynamicImport';
 import { cloneDeep } from 'lodash-es';
@@ -46,20 +44,6 @@ export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModul
     route.children && asyncImportRoute(route.children);
   });
   return (routeList as unknown) as T[];
-}
-
-/**
- *  Determine whether the tab has been opened
- * @param toPath
- */
-export function getIsOpenTab(toPath: string) {
-  const { openKeepAlive, multiTabsSetting: { show } = {} } = appStore.getProjectConfig;
-
-  if (show && openKeepAlive) {
-    const tabList = tabStore.getTabsState;
-    return tabList.some((tab) => tab.path === toPath);
-  }
-  return false;
 }
 
 export function getParams(data: any = {}) {

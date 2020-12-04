@@ -105,7 +105,7 @@ class App extends VuexModule {
       // Prevent flicker
       timeId = setTimeout(() => {
         this.commitPageLoadingState(loading);
-      }, 100);
+      }, 50);
     } else {
       this.commitPageLoadingState(loading);
       clearTimeout(timeId);

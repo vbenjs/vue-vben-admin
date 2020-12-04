@@ -7,8 +7,6 @@ import { appStore } from '/@/store/modules/app';
 export function useMultipleTabSetting() {
   const getMultipleTabSetting = computed(() => appStore.getProjectConfig.multiTabsSetting);
 
-  const getMax = computed(() => unref(getMultipleTabSetting).max);
-
   const getShowMultipleTab = computed(() => unref(getMultipleTabSetting).show);
 
   const getShowQuick = computed(() => unref(getMultipleTabSetting).showQuick);
@@ -21,7 +19,6 @@ export function useMultipleTabSetting() {
     setMultipleTabSetting,
 
     getMultipleTabSetting,
-    getMax,
     getShowMultipleTab,
     getShowQuick,
   };

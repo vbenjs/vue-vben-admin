@@ -33,4 +33,8 @@ export function setupRouter(app: App<Element>) {
   createGuard(router);
 }
 
+router.onError((error) => {
+  console.error(error);
+});
+
 export default router;

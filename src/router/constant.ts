@@ -1,5 +1,5 @@
 import type { AppRouteRecordRaw } from '/@/router/types';
-import ParentLayout from '/@/layouts/parent/index.vue';
+import ParentLayout from '/@/layouts/page/ParentView.vue';
 
 const EXCEPTION_COMPONENT = () => import('../views/sys/exception/Exception');
 
@@ -7,11 +7,6 @@ const EXCEPTION_COMPONENT = () => import('../views/sys/exception/Exception');
  * @description: default layout
  */
 export const LAYOUT = () => import('/@/layouts/default/index');
-
-/**
- * @description: page-layout
- */
-export const PAGE_LAYOUT_COMPONENT = () => import('/@/layouts/page/index.vue');
 
 /**
  * @description: page-layout

@@ -11,10 +11,7 @@ export type RouteLocationRawEx = Omit<RouteLocationRaw, 'path'> & { path: PageEn
 
 function handleError(e: Error) {
   console.error(e);
-  // 101是为了 大于 打开时候设置的100延时防止闪动
-  setTimeout(() => {
-    appStore.commitPageLoadingState(false);
-  }, 101);
+  appStore.commitPageLoadingState(false);
 }
 
 // page switch

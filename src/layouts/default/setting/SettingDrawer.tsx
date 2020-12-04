@@ -465,7 +465,6 @@ export default defineComponent({
               baseHandler(HandlerEnum.OPEN_PAGE_LOADING, e);
             },
             def: unref(getOpenPageLoading),
-            disabled: !unref(getEnableTransition),
           })}
 
           {renderSwitchItem(t('layout.setting.switchAnimation'), {

@@ -11,6 +11,10 @@
 - i18n 支持 vscode `i18n-ally`插件
 - 新增多级路由缓存示例
 
+### ⚡ Performance Improvements
+
+- 页面切换 loading 逻辑修改。对于已经加载过的页面不管有没有关闭,再次打开不会在显示 loading(已经打开过的页面在此打开速度比较快)，刷新后恢复。
+
 ### 🎫 Chores
 
 - 首屏 loading 修改

@@ -119,8 +119,6 @@ const setting: ProjectConfig = {
     canDrag: true,
     // Turn on quick actions
     showQuick: true,
-    // Maximum number of tab cache
-    max: 12,
   },
 
   // Transition Setting

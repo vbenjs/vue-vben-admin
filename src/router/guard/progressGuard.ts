@@ -10,12 +10,14 @@ const { getOpenNProgress } = useTransitionSetting();
 
 export function createProgressGuard(router: Router) {
   router.beforeEach(async (to) => {
-    !to.meta.inTab && unref(getOpenNProgress) && NProgress.start();
+    if (to.meta.loaded) return true;
+    unref(getOpenNProgress) && NProgress.start();
     return true;
   });
 
   router.afterEach(async (to) => {
-    !to.meta.inTab && unref(getOpenNProgress) && NProgress.done();
+    if (to.meta.loaded) return true;
+    unref(getOpenNProgress) && NProgress.done();
     return true;
   });
 }

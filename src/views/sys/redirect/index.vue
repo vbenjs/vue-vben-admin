@@ -4,15 +4,11 @@
 <script lang="ts">
   import { defineComponent, unref } from 'vue';
 
-  import { appStore } from '/@/store/modules/app';
-
   import { useRouter } from 'vue-router';
-  import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
   export default defineComponent({
     name: 'Redirect',
     setup() {
       const { currentRoute, replace } = useRouter();
-      const { getOpenPageLoading, getEnableTransition } = useTransitionSetting();
 
       const { params, query } = unref(currentRoute);
       const { path } = params;
@@ -21,12 +17,7 @@
         path: '/' + _path,
         query,
       });
-      // close loading
-      if (unref(getEnableTransition) && unref(getOpenPageLoading)) {
-        setTimeout(() => {
-          appStore.setPageLoadingAction(false);
-        }, 0);
-      }
+
       return {};
     },
   });

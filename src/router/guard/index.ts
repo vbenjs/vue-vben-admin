@@ -1,4 +1,4 @@
-import type { Router } from 'vue-router';
+import { isNavigationFailure, Router } from 'vue-router';
 
 import { Modal, notification } from 'ant-design-vue';
 
@@ -8,7 +8,7 @@ import { createPageLoadingGuard } from './pageLoadingGuard';
 
 import { useGlobSetting, useProjectSetting } from '/@/hooks/setting';
 
-import { getIsOpenTab, getRoute } from '/@/router/helper/routeHelper';
+import { getRoute } from '/@/router/helper/routeHelper';
 import { setTitle } from '/@/utils/browser';
 import { AxiosCanceler } from '/@/utils/http/axios/axiosCancel';
 
@@ -24,13 +24,10 @@ export function createGuard(router: Router) {
   if (removeAllHttpPending) {
     axiosCanceler = new AxiosCanceler();
   }
+  const loadedPageMap = new Map<string, boolean>();
 
-  createPageLoadingGuard(router);
   router.beforeEach(async (to) => {
-    // Determine whether the tab has been opened
-    const isOpen = getIsOpenTab(to.fullPath);
-    to.meta.inTab = isOpen;
-
+    to.meta.loaded = !!loadedPageMap.get(to.path);
     // Notify routing changes
     tabStore.commitLastChangeRouteState(getRoute(to));
 
@@ -47,11 +44,17 @@ export function createGuard(router: Router) {
     return true;
   });
 
-  router.afterEach((to) => {
+  router.afterEach((to, from, failure) => {
+    loadedPageMap.set(to.path, true);
     const { t } = useI18n();
     // change html title
     to.name !== REDIRECT_NAME && setTitle(t(to.meta.title), globSetting.title);
+
+    if (isNavigationFailure(failure)) {
+      console.error('router navigation failed:', failure);
+    }
   });
+  createPageLoadingGuard(router);
   createProgressGuard(router);
   createPermissionGuard(router);
 }

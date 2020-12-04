@@ -29,8 +29,6 @@ export interface MultiTabsSetting {
   // 开启快速操作
   showQuick: boolean;
   canDrag: boolean;
-  // 缓存最大数量
-  max: number;
 }
 
 export interface HeaderSetting {

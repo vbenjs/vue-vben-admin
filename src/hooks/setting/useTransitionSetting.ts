@@ -11,8 +11,8 @@ export function useTransitionSetting() {
 
   const getOpenNProgress = computed(() => unref(getTransitionSetting)?.openNProgress);
 
-  const getOpenPageLoading = computed(() => {
-    return unref(getTransitionSetting)?.openPageLoading && unref(getEnableTransition);
+  const getOpenPageLoading = computed((): boolean => {
+    return !!unref(getTransitionSetting)?.openPageLoading;
   });
 
   const getBasicTransition = computed(() => unref(getTransitionSetting)?.basicTransition);

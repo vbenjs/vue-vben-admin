@@ -10,9 +10,8 @@ export function useCache(isPage: boolean) {
   const name = ref('');
   const { currentRoute } = useRouter();
 
-  tryTsxEmit((instance: any) => {
-    const routeName = instance.ctx.$options.name;
-
+  tryTsxEmit((instance) => {
+    const routeName = instance.type.name;
     if (routeName && ![ParentLayoutName].includes(routeName)) {
       name.value = routeName;
     } else {
@@ -22,6 +21,7 @@ export function useCache(isPage: boolean) {
       name.value = matched[len - 2].name as string;
     }
   });
+
   const { getOpenKeepAlive } = useRootSetting();
 
   const getCaches = computed((): string[] => {
