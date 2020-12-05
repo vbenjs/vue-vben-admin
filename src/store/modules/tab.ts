@@ -97,11 +97,13 @@ class Tab extends VuexModule {
     const pageCacheSet = new Set<string>();
     this.tabsState.forEach((tab) => {
       const item = getRoute(tab);
-      const needAuth = !item.meta.ignoreAuth;
+      const needCache = !item.meta.ignoreKeepAlive;
+      if (!needCache) return;
+
       if (item.meta.affix) {
         const name = item.name as string;
         pageCacheSet.add(name);
-      } else if (item.matched && needAuth) {
+      } else if (item.matched && needCache) {
         const matched = item.matched;
         const len = matched.length;
 
@@ -115,7 +117,7 @@ class Tab extends VuexModule {
           }
           if (i < len - 1) {
             const { meta, name } = matched[i + 1];
-            if (meta && (meta.affix || needAuth)) {
+            if (meta && (meta.affix || needCache)) {
               const mapList = cacheMap.get(key) || [];
               if (!mapList.includes(name as string)) {
                 mapList.push(name as string);
@@ -210,7 +212,6 @@ class Tab extends VuexModule {
   @Mutation
   commitRedoPage() {
     const route = router.currentRoute.value;
-
     for (const [key, value] of this.cachedMapState) {
       const index = value.findIndex((item) => item === (route.name as string));
       if (index === -1) {

@@ -1,4 +1,4 @@
-import { isNavigationFailure, RouteLocationNormalized, Router } from 'vue-router';
+import { RouteLocationNormalized, Router } from 'vue-router';
 
 import { Modal, notification } from 'ant-design-vue';
 
@@ -50,7 +50,7 @@ export function createGuard(router: Router) {
     return true;
   });
 
-  router.afterEach((to, from, failure) => {
+  router.afterEach((to) => {
     // scroll top
     isHash((to as RouteLocationNormalized & { href: string })?.href) && body.scrollTo(0, 0);
 
@@ -60,10 +60,6 @@ export function createGuard(router: Router) {
 
     // change html title
     to.name !== REDIRECT_NAME && setTitle(t(to.meta.title), globSetting.title);
-
-    if (isNavigationFailure(failure)) {
-      console.error('router navigation failed:', failure);
-    }
   });
   createPageLoadingGuard(router);
   createProgressGuard(router);

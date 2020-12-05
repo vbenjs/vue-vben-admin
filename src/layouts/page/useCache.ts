@@ -35,17 +35,18 @@ export function useCache(isPage: boolean) {
       // not parent layout
       return cached.get(PAGE_LAYOUT_KEY) || [];
     }
-
     const cacheSet = new Set<string>();
     cacheSet.add(unref(name));
 
     const list = cached.get(unref(name));
+
     if (!list) {
       return Array.from(cacheSet);
     }
     list.forEach((item) => {
       cacheSet.add(item);
     });
+
     return Array.from(cacheSet);
   });
   return { getCaches };

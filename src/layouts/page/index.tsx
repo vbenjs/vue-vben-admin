@@ -45,7 +45,7 @@ export default defineComponent({
                 const renderComp = () => <Component key={route.fullPath} />;
 
                 const PageContent = unref(openCache) ? (
-                  <KeepAlive>{renderComp()}</KeepAlive>
+                  <KeepAlive include={cacheTabs}>{renderComp()}</KeepAlive>
                 ) : (
                   renderComp()
                 );
