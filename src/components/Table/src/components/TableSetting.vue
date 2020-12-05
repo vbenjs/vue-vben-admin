@@ -158,8 +158,9 @@
             value: (item.dataIndex || item.title) as string,
           });
         });
-
-        plainOptions.value = ret;
+        if (!plainOptions.value.length) {
+          plainOptions.value = ret;
+        }
         const checkList = table
           .getColumns()
           .map((item) => item.dataIndex || item.title) as string[];

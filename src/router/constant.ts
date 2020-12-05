@@ -25,11 +25,23 @@ export const getParentLayout = (name: string) => {
 export const PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {
   path: '/:path(.*)*',
   name: 'ErrorPage',
-  component: EXCEPTION_COMPONENT,
+  redirect: '/error/404',
+  component: LAYOUT,
   meta: {
     title: 'ErrorPage',
     hideBreadcrumb: true,
   },
+  children: [
+    {
+      path: '/error/404',
+      name: 'ErrorPage',
+      component: EXCEPTION_COMPONENT,
+      meta: {
+        title: 'ErrorPage',
+        hideBreadcrumb: true,
+      },
+    },
+  ],
 };
 
 export const REDIRECT_NAME = 'Redirect';
