@@ -1928,6 +1928,21 @@
     vscode-languageserver-textdocument "^1.0.1"
     vscode-uri "^2.1.2"
 
+"@vueuse/core@^4.0.0-rc.6":
+  version "4.0.0-rc.6"
+  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.0.0-rc.6.tgz#510cbeb98123a179586aa9becd9f5f84639a1fa2"
+  integrity sha512-06Evdrbi46DM+Pp1b4pyhFEx9/3LbHs36sYdehoth1FQdzFDrMHiBMlb/Qx2ePjPoQ796GTqC+COyk22mmkSyA==
+  dependencies:
+    "@vueuse/shared" "4.0.0-rc.6"
+    vue-demi latest
+
+"@vueuse/shared@4.0.0-rc.6":
+  version "4.0.0-rc.6"
+  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.0.0-rc.6.tgz#d707ffb291e481f2ce0aa4c7cfcb7756c82d718d"
+  integrity sha512-GMaxHfskamFz+kziEYLWoOt7iqeFIq0KIKg+Vb3VS3lCXCzeGMvDZFYFK4HGB2blOcblUD4oZLa06za8pHgFzg==
+  dependencies:
+    vue-demi latest
+
 JSONStream@^1.0.4:
   version "1.3.5"
   resolved "https://registry.npmjs.org/JSONStream/-/JSONStream-1.3.5.tgz#3208c1f08d3a4d99261ab64f92302bc15e111ca0"
@@ -2038,10 +2053,10 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-ant-design-vue@^2.0.0-rc.2:
-  version "2.0.0-rc.2"
-  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.0.0-rc.2.tgz#fd3b4a5a64fccbb53ed488a194317a040de2223e"
-  integrity sha512-XA7X/7HHIveiTh41bZWGfoQ2Rys/rqWknK2zzdHwVnfw9ST3v+ciMKH0Uegyn7m14QL/EdUkC8zGsXpiSXqKNQ==
+ant-design-vue@^2.0.0-rc.3:
+  version "2.0.0-rc.3"
+  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.0.0-rc.3.tgz#22f81d0fc495d2aeff343925d5750e0e34106f86"
+  integrity sha512-dz7VOfxJZIHy7xCrMDBV8zYaVOyeuAFAxewWZy0StCWpbILqQWynb9sK4Nseh3N5ZMFPOD/e8FFiA9cXdNtEyw==
   dependencies:
     "@ant-design-vue/use" "^0.0.1-0"
     "@ant-design/icons-vue" "^5.1.6"
@@ -8396,6 +8411,11 @@ vscode-uri@^2.1.2:
   version "2.1.2"
   resolved "https://registry.npmjs.org/vscode-uri/-/vscode-uri-2.1.2.tgz#c8d40de93eb57af31f3c715dd650e2ca2c096f1c"
   integrity sha512-8TEXQxlldWAuIODdukIb+TR5s+9Ds40eSJrw+1iDDA9IFORPjMELarNQE3myz5XIkWWpdprmJjm1/SxMlWOC8A==
+
+vue-demi@latest:
+  version "0.4.5"
+  resolved "https://registry.npmjs.org/vue-demi/-/vue-demi-0.4.5.tgz#ea422a4468cb6321a746826a368a770607f87791"
+  integrity sha512-51xf1B6hV2PfjnzYHO/yUForFCRQ49KS8ngQb5T6l1HDEmfghTFtsxtRa5tbx4eqQsH76ll/0gIxuf1gei0ubw==
 
 vue-eslint-parser@^7.2.0:
   version "7.2.0"
