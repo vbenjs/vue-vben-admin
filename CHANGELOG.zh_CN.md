@@ -20,6 +20,7 @@
 
 - 首屏 loading 修改
 - 升级`vue`到`3.0.4`
+- 移除 route meta 内的`afterCloseLoading`属性
 
 ### 🐛 Bug Fixes
 

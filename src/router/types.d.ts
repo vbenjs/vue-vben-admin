@@ -25,8 +25,6 @@ export interface RouteMeta {
   // Whether the route has been dynamically added
   hideBreadcrumb?: boolean;
 
-  // close loading
-  afterCloseLoading?: boolean;
   // Carrying parameters
   carryParam?: boolean;
 

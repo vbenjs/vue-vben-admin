@@ -161,7 +161,6 @@ const page: AppRouteModule = {
           },
           meta: {
             title: '403',
-            afterCloseLoading: true,
           },
         },
         {
@@ -173,7 +172,6 @@ const page: AppRouteModule = {
           },
           meta: {
             title: '404',
-            afterCloseLoading: true,
           },
         },
         {
@@ -185,7 +183,6 @@ const page: AppRouteModule = {
           },
           meta: {
             title: '500',
-            afterCloseLoading: true,
           },
         },
         {
@@ -197,7 +194,6 @@ const page: AppRouteModule = {
           },
           meta: {
             title: 'routes.demo.page.netWorkError',
-            afterCloseLoading: true,
           },
         },
         {
@@ -209,7 +205,6 @@ const page: AppRouteModule = {
           },
           meta: {
             title: 'routes.demo.page.notData',
-            afterCloseLoading: true,
           },
         },
       ],

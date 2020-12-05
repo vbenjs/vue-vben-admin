@@ -21,7 +21,6 @@ const iframe: AppRouteModule = {
       meta: {
         frameSrc: 'https://2x.antdv.com/docs/vue/introduce-cn/',
         title: 'routes.demo.iframe.antv',
-        afterCloseLoading: true,
       },
     },
     {
@@ -31,7 +30,6 @@ const iframe: AppRouteModule = {
       meta: {
         frameSrc: 'https://vvbin.cn/doc-next/',
         title: 'routes.demo.iframe.doc',
-        afterCloseLoading: true,
       },
     },
     {
