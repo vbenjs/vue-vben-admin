@@ -1061,10 +1061,10 @@
   resolved "https://registry.npmjs.org/@iconify/iconify/-/iconify-2.0.0-rc.2.tgz#c4a95ddc06ca9b9496df03604e66fdefb39f4c4b"
   integrity sha512-BybEHU5/I9EQ0CcwKAqmreZ2bMnAXrqLCTptAc6vPetHMbrXdZfejP5mt57e/8PNSt/qE7BHniU5PCYA+PGIHw==
 
-"@iconify/json@^1.1.267":
-  version "1.1.267"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.267.tgz#52ab5390fcaf95e0d68260523a3a3fbc575dfe01"
-  integrity sha512-VKNvyALvbuwsXO7r2XvdoqdctmvJzp1/XYOXRfhJ4w+sjtWYp8T3oRGDJ0AZTafzGiBBUaMwCZVP+j87rqgD3w==
+"@iconify/json@^1.1.267yar":
+  version "1.1.268"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.268.tgz#a2691302a6b49b52bc7c47da80e4a5f8fc8919db"
+  integrity sha512-eGk+KuK0Ld/XGb+SzRV2TVBddiGThTiw0ZT+19eMvt8yufRWzi9DeSaogvd5pZoXaDFH25r1fb06nz6PEMqefw==
 
 "@koa/cors@^3.1.0":
   version "3.1.0"
@@ -1174,6 +1174,18 @@
     is-module "^1.0.0"
     resolve "^1.17.0"
 
+"@rollup/plugin-node-resolve@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.npmjs.org/@rollup/plugin-node-resolve/-/plugin-node-resolve-11.0.0.tgz#770458fb26691a686c5f29f37dded94832ffce59"
+  integrity sha512-8Hrmwjn1pLYjUxcv7U7IPP0qfnzEJWHyHE6CaZ8jbLM+8axaarJRB1jB6JgKTDp5gNga+TpsgX6F8iuvgOerKQ==
+  dependencies:
+    "@rollup/pluginutils" "^3.1.0"
+    "@types/resolve" "1.17.1"
+    builtin-modules "^3.1.0"
+    deepmerge "^4.2.2"
+    is-module "^1.0.0"
+    resolve "^1.19.0"
+
 "@rollup/plugin-node-resolve@^7.1.1":
   version "7.1.3"
   resolved "https://registry.npmjs.org/@rollup/plugin-node-resolve/-/plugin-node-resolve-7.1.3.tgz#80de384edfbd7bfc9101164910f86078151a3eca"
@@ -1198,18 +1210,6 @@
     is-module "^1.0.0"
     resolve "^1.17.0"
 
-"@rollup/plugin-node-resolve@^9.0.0":
-  version "9.0.0"
-  resolved "https://registry.npmjs.org/@rollup/plugin-node-resolve/-/plugin-node-resolve-9.0.0.tgz#39bd0034ce9126b39c1699695f440b4b7d2b62e6"
-  integrity sha512-gPz+utFHLRrd41WMP13Jq5mqqzHL3OXrfj3/MkSyB6UBIcuNt9j60GCbarzMzdf1VHFpOxfQh/ez7wyadLMqkg==
-  dependencies:
-    "@rollup/pluginutils" "^3.1.0"
-    "@types/resolve" "1.17.1"
-    builtin-modules "^3.1.0"
-    deepmerge "^4.2.2"
-    is-module "^1.0.0"
-    resolve "^1.17.0"
-
 "@rollup/plugin-replace@^2.3.1", "@rollup/plugin-replace@^2.3.3":
   version "2.3.4"
   resolved "https://registry.npmjs.org/@rollup/plugin-replace/-/plugin-replace-2.3.4.tgz#7dd84c17755d62b509577f2db37eb524d7ca88ca"
@@ -1227,7 +1227,7 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@rollup/pluginutils@^4.0.0", "@rollup/pluginutils@^4.1.0":
+"@rollup/pluginutils@^4.1.0":
   version "4.1.0"
   resolved "https://registry.npmjs.org/@rollup/pluginutils/-/pluginutils-4.1.0.tgz#0dcc61c780e39257554feb7f77207dceca13c838"
   integrity sha512-TrBhfJkFxA+ER+ew2U2/fHbebhLT/l/2pRk0hfj9KusXUuRXd2v0R58AfaZK9VXDQ4TogOSEmICVrQAA3zFnHQ==
@@ -2557,7 +2557,7 @@ chardet@^0.7.0:
   resolved "https://registry.npmjs.org/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
-chokidar@^3.4.2:
+chokidar@^3.4.2, chokidar@^3.4.3:
   version "3.4.3"
   resolved "https://registry.npmjs.org/chokidar/-/chokidar-3.4.3.tgz#c1df38231448e45ca4ac588e6c79573ba6a57d5b"
   integrity sha512-DtM3g7juCXQxFVSNPNByEC2+NImtBuxQQvWlHunpJIS5Ocr0lG306cC7FCi7cEA0fzmybPUIl4txBIobk1gGOQ==
@@ -3170,6 +3170,11 @@ dateformat@^3.0.0:
   resolved "https://registry.npmjs.org/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
+dayjs@^1.9.6:
+  version "1.9.6"
+  resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.9.6.tgz#6f0c77d76ac1ff63720dd1197e5cb87b67943d70"
+  integrity sha512-HngNLtPEBWRo8EFVmHFmSXAjtCX8rGNqeXQI0Gh7wCTSqwaKgPIDqu9m07wABVopNwzvOeCb+2711vQhDlcIXw==
+
 de-indent@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/de-indent/-/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
@@ -3542,11 +3547,6 @@ esbuild-register@^1.1.1:
     source-map-support "^0.5.19"
     strip-json-comments "^3.1.1"
 
-esbuild@^0.7.19:
-  version "0.7.22"
-  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.7.22.tgz#9149b903f8128b7c45a754046c24199d76bbe08e"
-  integrity sha512-B43SYg8LGWYTCv9Gs0RnuLNwjzpuWOoCaZHTWEDEf5AfrnuDMerPVMdCEu7xOdhFvQ+UqfP2MGU9lxEy0JzccA==
-
 esbuild@^0.8.12:
   version "0.8.15"
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.8.15.tgz#cbc4d82a7fc4571d455233456e6fba83fd0364f1"
@@ -3556,6 +3556,11 @@ esbuild@^0.8.17:
   version "0.8.17"
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.8.17.tgz#1c16c6d5988dcfdcf27a7e1612b7fd05e1477c54"
   integrity sha512-ReHap+Iyn5BQF0B8F3xrLwu+j57ri5uDUw2ej9XTPAuFDebYiWwRzBY4jhF610bklveXLbCGim/8/2wQKQlu1w==
+
+esbuild@^0.8.18:
+  version "0.8.18"
+  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.8.18.tgz#4a8c70df8fffa27164a26daa3ec58ce6f1315446"
+  integrity sha512-EPbCSr7Ems1loeoy1faUGnJOwTwSrGcoYVQ4f4T4JMKjxJxrWAg+zqXkZK7GvqxfvokPp3HV6Raqn6rqAuW7+Q==
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -6955,7 +6960,7 @@ resolve-url@^0.2.1:
   resolved "https://registry.npmjs.org/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
   integrity sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
 
-resolve@^1.1.6, resolve@^1.1.7, resolve@^1.10.0, resolve@^1.14.2, resolve@^1.17.0, resolve@^1.3.2:
+resolve@^1.1.6, resolve@^1.1.7, resolve@^1.10.0, resolve@^1.14.2, resolve@^1.17.0, resolve@^1.19.0, resolve@^1.3.2:
   version "1.19.0"
   resolved "https://registry.npmjs.org/resolve/-/resolve-1.19.0.tgz#1af5bf630409734a067cae29318aac7fa29a267c"
   integrity sha512-rArEXAgsBG4UgRGcynxWIWKFvh/XZCcS8UJdHhwy91zwAvCZIbcs+vAbflgBnNjYMs/i/i+/Ux6IZhML1yPvxg==
@@ -7021,12 +7026,12 @@ rollup-plugin-dynamic-import-variables@^1.1.0:
     globby "^11.0.0"
     magic-string "^0.25.7"
 
-rollup-plugin-esbuild@^2.5.2:
-  version "2.5.2"
-  resolved "https://registry.npmjs.org/rollup-plugin-esbuild/-/rollup-plugin-esbuild-2.5.2.tgz#fd7d4a88518898012a9d07e4c3ef8b4009c244d3"
-  integrity sha512-E4q3ac1AlMd0m0ZRYffdiorOt2eZcxfbdPaqBLs7JLnPE8krgIAihOD6cTUc54UJjoOMA9WcY63TR+JKWLzYNw==
+rollup-plugin-esbuild@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.npmjs.org/rollup-plugin-esbuild/-/rollup-plugin-esbuild-2.6.0.tgz#80336399b113a179ccb2af5bdf7c03f061f37146"
+  integrity sha512-wtyDAX8kNABrBfwkrrG2xLRKRGSWUyMBURS067IRvRMpgJlLRo14WcFl95uGc4iYWfdAx436/z1LMzYqdlY4ig==
   dependencies:
-    "@rollup/pluginutils" "^4.0.0"
+    "@rollup/pluginutils" "^4.1.0"
     joycon "^2.2.5"
     strip-json-comments "^3.1.1"
 
@@ -7132,6 +7137,13 @@ rollup@^2.32.1:
   version "2.33.2"
   resolved "https://registry.npmjs.org/rollup/-/rollup-2.33.2.tgz#c4c76cd405a7605e6ebe90976398c46d4c2ea166"
   integrity sha512-QPQ6/fWCrzHtSXkI269rhKaC7qXGghYBwXU04b1JsDZ6ibZa3DJ9D1SFAYRMgx1inDg0DaTbb3N4Z1NK/r3fhw==
+  optionalDependencies:
+    fsevents "~2.1.2"
+
+rollup@^2.34.1:
+  version "2.34.1"
+  resolved "https://registry.npmjs.org/rollup/-/rollup-2.34.1.tgz#a387230df02c58b242794a213dfb68b42de2c8fb"
+  integrity sha512-tGveB6NU5x4MS/iXaIsjfUkEv4hxzJJ4o0FRy5LO62Ndx3R2cmE1qsLYlSfRkvHUUPqWiFoxEm8pRftzh1a5HA==
   optionalDependencies:
     fsevents "~2.1.2"
 
@@ -8281,19 +8293,20 @@ vite-plugin-html@^1.0.0-beta.2:
     html-minifier-terser "^5.1.1"
     lodash "^4.17.20"
 
-vite-plugin-mock@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-1.0.6.tgz#4f47f193fd48a02c66641fc7242bd5329f99b471"
-  integrity sha512-+IeCiZBgQt2BpKKzYwoB5bWrrUwiksQh/9zWUrsegGw14PXmXtXXmgHr3CkKjyIChZmvuBs1BPieHD8SyBQAGQ==
+vite-plugin-mock@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-1.0.9.tgz#035a63787f70f1094f3b3928ea0c0419dc353619"
+  integrity sha512-qWiF56y/U82EdyckZBxhEkrDQBaUc7QhLPcRN+Lu5eI0diA0MvVvucgCueq4/0mEYJpBcaVWsy83cAGb49AQsA==
   dependencies:
-    "@rollup/plugin-node-resolve" "^9.0.0"
+    "@rollup/plugin-node-resolve" "^11.0.0"
     chalk "^4.1.0"
-    chokidar "^3.4.2"
-    esbuild "^0.7.19"
+    chokidar "^3.4.3"
+    dayjs "^1.9.6"
+    esbuild "^0.8.18"
     glob "^7.1.6"
     koa-bodyparser "^4.3.0"
-    rollup "^2.32.1"
-    rollup-plugin-esbuild "^2.5.2"
+    rollup "^2.34.1"
+    rollup-plugin-esbuild "^2.6.0"
 
 vite-plugin-purge-icons@^0.4.5:
   version "0.4.5"

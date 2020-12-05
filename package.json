@@ -47,7 +47,7 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "@iconify/json": "^1.1.267",
+    "@iconify/json": "^1.1.267yar",
     "@ls-lint/ls-lint": "^1.9.2",
     "@purge-icons/generated": "^0.4.1",
     "@types/echarts": "^4.9.2",
@@ -99,7 +99,7 @@
     "typescript": "^4.1.2",
     "vite": "^1.0.0-rc.13",
     "vite-plugin-html": "^1.0.0-beta.2",
-    "vite-plugin-mock": "^1.0.6",
+    "vite-plugin-mock": "^1.0.9",
     "vite-plugin-purge-icons": "^0.4.5",
     "vite-plugin-pwa": "^0.1.7",
     "vue-eslint-parser": "^7.2.0",

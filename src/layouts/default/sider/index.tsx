@@ -81,7 +81,7 @@ export default defineComponent({
         topRef.value = 0;
         if (unref(getUnFixedAndFull)) return;
         nextTick(() => {
-          const fullHeaderEl = unref(injectValue.fullHeaderRef)?.$el;
+          const fullHeaderEl = unref(injectValue.fullHeader)?.$el;
           if (!fullHeaderEl) return;
           topRef.value = fullHeaderEl.offsetHeight;
         });
@@ -121,10 +121,9 @@ export default defineComponent({
     return () => {
       return (
         <>
-          {unref(getMenuFixed) && (
+          {unref(getMenuFixed) && !unref(injectValue.isMobile) && (
             <div style={unref(getHiddenDomStyle)} class={{ hidden: !unref(showClassSideBarRef) }} />
           )}
-
           <Layout.Sider
             ref={sideRef}
             breakpoint="md"

@@ -45,6 +45,7 @@ import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
 import { AppLocalePicker } from '/@/components/Application';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { propTypes } from '/@/utils/propTypes';
+import { useLayoutContext } from '../useLayoutContext';
 
 interface TooltipItemProps {
   title: string;
@@ -71,6 +72,9 @@ export default defineComponent({
 
     // const logoWidthRef = ref(200);
     const logoRef = ref<ComponentRef>(null);
+
+    const injectValue = useLayoutContext();
+
     const { refreshPage } = useTabs();
     const { t } = useI18n();
 
@@ -116,6 +120,10 @@ export default defineComponent({
       return theme ? `layout-header__header--${theme}` : '';
     });
 
+    const isPc = computed(() => {
+      return !unref(injectValue.isMobile);
+    });
+
     const getSplitType = computed(() => {
       return unref(getSplit) ? MenuSplitTyeEnum.TOP : MenuSplitTyeEnum.NONE;
     });
@@ -147,11 +155,13 @@ export default defineComponent({
               {unref(getShowHeaderTrigger) && (
                 <LayoutTrigger theme={unref(getHeaderTheme)} sider={false} />
               )}
-              {unref(getShowBread) && <LayoutBreadcrumb showIcon={unref(getShowBreadCrumbIcon)} />}
+              {unref(getShowBread) && unref(isPc) && (
+                <LayoutBreadcrumb showIcon={unref(getShowBreadCrumbIcon)} />
+              )}
             </div>
           )}
 
-          {unref(getShowTopMenu) && (
+          {unref(getShowTopMenu) && unref(isPc) && (
             // <div class={[`layout-header__menu `]} style={{ width: `calc(100% - ${width}px)` }}>
             <div class={[`layout-header__menu `]}>
               <LayoutMenu
@@ -179,7 +189,7 @@ export default defineComponent({
     function renderAction() {
       return (
         <div class={`layout-header__action`}>
-          {unref(getUseErrorHandle) && (
+          {unref(getUseErrorHandle) && unref(isPc) && (
             <TooltipItem title={t('layout.header.tooltipErrorLog')}>
               {() => (
                 <Badge
@@ -194,25 +204,25 @@ export default defineComponent({
             </TooltipItem>
           )}
 
-          {unref(getUseLockPage) && (
+          {unref(getUseLockPage) && unref(isPc) && (
             <TooltipItem title={t('layout.header.tooltipLock')}>
               {() => renderActionDefault(LockOutlined, handleLockPage)}
             </TooltipItem>
           )}
 
-          {unref(getShowNotice) && (
+          {unref(getShowNotice) && unref(isPc) && (
             <TooltipItem title={t('layout.header.tooltipNotify')}>
               {() => <NoticeAction />}
             </TooltipItem>
           )}
 
-          {unref(getShowRedo) && (
+          {unref(getShowRedo) && unref(isPc) && (
             <TooltipItem title={t('layout.header.tooltipRedo')}>
               {() => renderActionDefault(RedoOutlined, refreshPage)}
             </TooltipItem>
           )}
 
-          {unref(getShowFullScreen) && (
+          {unref(getShowFullScreen) && unref(isPc) && (
             <TooltipItem
               title={
                 unref(isFullscreenRef)

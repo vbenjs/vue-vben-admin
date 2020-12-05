@@ -56,7 +56,7 @@ export default defineComponent({
       (): CSSProperties => {
         const style: CSSProperties = {};
         if (unref(getFixed)) {
-          style.width = unref(getCalcContentWidth);
+          style.width = unref(injectValue.isMobile) ? '100%' : unref(getCalcContentWidth);
         }
         if (unref(getShowFullHeaderRef)) {
           style.top = `${unref(fullHeaderHeightRef)}px`;
@@ -81,7 +81,7 @@ export default defineComponent({
         nextTick(() => {
           const headerEl = unref(headerElRef)?.$el;
           const tabEl = unref(tabElRef)?.$el;
-          const fullHeaderEl = unref(injectValue.fullHeaderRef)?.$el;
+          const fullHeaderEl = unref(injectValue.fullHeader)?.$el;
 
           let height = 0;
           if (headerEl && !unref(getShowFullHeaderRef)) {

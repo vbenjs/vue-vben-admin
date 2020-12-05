@@ -97,10 +97,10 @@ class Tab extends VuexModule {
     const pageCacheSet = new Set<string>();
     this.tabsState.forEach((tab) => {
       const item = getRoute(tab);
-      const needCache = !item.meta.ignoreKeepAlive;
+      const needCache = !item.meta?.ignoreKeepAlive;
       if (!needCache) return;
 
-      if (item.meta.affix) {
+      if (item.meta?.affix) {
         const name = item.name as string;
         pageCacheSet.add(name);
       } else if (item.matched && needCache) {

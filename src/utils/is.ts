@@ -73,3 +73,9 @@ export function isImageDom(o: Element) {
 export const isTextarea = (element: Element | null): element is HTMLTextAreaElement => {
   return element !== null && element.tagName.toLowerCase() === 'textarea';
 };
+
+export const isMobile = (): boolean => {
+  return !!navigator.userAgent.match(
+    /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+  );
+};

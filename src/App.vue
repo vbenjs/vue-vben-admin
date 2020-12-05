@@ -16,7 +16,6 @@
 
   import { useLockPage } from '/@/hooks/web/useLockPage';
   import { useLocale } from '/@/hooks/web/useLocale';
-  import { createBreakpointListen } from '/@/hooks/event/useBreakpoint';
 
   export default defineComponent({
     name: 'App',
@@ -24,9 +23,6 @@
     setup() {
       // Initialize vuex internal system configuration
       initAppConfigStore();
-
-      // Create a global breakpoint monitor
-      createBreakpointListen();
 
       // Get ConfigProvider configuration
       const { transformCellText } = getConfigProvider();
