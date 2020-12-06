@@ -23,8 +23,10 @@
         {{ getUploadBtnText }}
       </a-button>
     </template>
+
     <div class="upload-modal-toolbar">
-      <Alert :message="getHelpText" type="info" banner class="upload-modal-toolbar__text"></Alert>
+      <Alert :message="getHelpText" type="info" banner class="upload-modal-toolbar__text" />
+
       <Upload
         :accept="getStringAccept"
         :multiple="multiple"
@@ -50,7 +52,7 @@
   import { basicProps } from './props';
   import { createTableColumns, createActionColumn } from './data';
   // utils
-  import { checkFileType, checkImgType, getBase64WithFile } from './utils';
+  import { checkFileType, checkImgType, getBase64WithFile } from './helper';
   import { buildUUID } from '/@/utils/uuid';
   import { createImgPreview } from '/@/components/Preview/index';
   import { uploadApi } from '/@/api/sys/upload';
@@ -63,9 +65,9 @@
     components: { BasicModal, Upload, Alert, FileList },
     props: basicProps,
     setup(props, { emit }) {
-      //   是否正在上传
       const { t } = useI18n();
 
+      //   是否正在上传
       const isUploadingRef = ref(false);
       const fileListRef = ref<FileItem[]>([]);
       const state = reactive<{ fileList: FileItem[] }>({
@@ -116,7 +118,6 @@
         const { size, name } = file;
         const { maxSize } = props;
         const accept = unref(getAccept);
-
         // 设置最大值，则判断
         if (maxSize && file.size / 1024 / 1024 >= maxSize) {
           createMessage.error(t('component.upload.maxSizeMultiple', [maxSize]));
@@ -175,7 +176,6 @@
         }
         try {
           item.status = UploadResultStatus.UPLOADING;
-
           const { data } = await uploadApi(
             {
               ...(props.uploadParams || {}),
@@ -266,15 +266,6 @@
         }
       }
 
-      //   const [registerTable] = useTable({
-      //     columns: createTableColumns(),
-      //     actionColumn: createActionColumn(handleRemove, handlePreview),
-      //     pagination: false,
-      //     inset: true,
-      //     scroll: {
-      //       y: 3000,
-      //     },
-      //   });
       return {
         columns: createTableColumns(),
         actionColumn: createActionColumn(handleRemove, handlePreview),

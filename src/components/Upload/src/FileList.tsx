@@ -10,13 +10,14 @@ export default defineComponent({
     return () => {
       const { columns, actionColumn, dataSource } = props;
 
+      const columnList = [...columns, actionColumn];
       return (
         <table class="file-table">
           <colgroup>
-            {[...columns, actionColumn].map((item) => {
-              const { width = 0 } = item;
+            {columnList.map((item) => {
+              const { width = 0, dataIndex } = item;
               return width ? (
-                <col style={'width:' + width + 'px;min-width:' + width + 'px;'} />
+                <col style={'width:' + width + 'px;min-width:' + width + 'px;'} key={dataIndex} />
               ) : (
                 <col />
               );
@@ -24,9 +25,13 @@ export default defineComponent({
           </colgroup>
           <thead>
             <tr class="file-table-tr">
-              {[...columns, actionColumn].map((item) => {
-                const { title = '', align = 'center' } = item;
-                return <th class={['file-table-th', align]}>{title}</th>;
+              {columnList.map((item) => {
+                const { title = '', align = 'center', dataIndex } = item;
+                return (
+                  <th class={['file-table-th', align]} key={dataIndex}>
+                    {title}
+                  </th>
+                );
               })}
             </tr>
           </thead>
@@ -34,16 +39,20 @@ export default defineComponent({
             {dataSource.map((record = {}) => {
               return (
                 <tr class="file-table-tr">
-                  {[...columns, actionColumn].map((item) => {
+                  {columnList.map((item) => {
                     const { dataIndex = '', customRender, align = 'center' } = item;
                     if (customRender && isFunction(customRender)) {
                       return (
-                        <td class={['file-table-td', align]}>
+                        <td class={['file-table-td', align]} key={dataIndex}>
                           {customRender({ text: record[dataIndex], record })}
                         </td>
                       );
                     } else {
-                      return <td class={['file-table-td', align]}>{record[dataIndex]}</td>;
+                      return (
+                        <td class={['file-table-td', align]} key={dataIndex}>
+                          {record[dataIndex]}
+                        </td>
+                      );
                     }
                   })}
                 </tr>

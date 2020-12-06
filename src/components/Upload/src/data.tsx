@@ -1,11 +1,11 @@
 import type { BasicColumn, ActionItem } from '/@/components/Table';
 
 import { FileItem, PreviewFileItem, UploadResultStatus } from './types';
-import { checkImgType, isImgTypeByName } from './utils';
+import { checkImgType, isImgTypeByName } from './helper';
 import { Progress, Tag } from 'ant-design-vue';
 
 import TableAction from '/@/components/Table/src/components/TableAction';
-
+import ThumbUrl from './ThumbUrl.vue';
 import { useI18n } from '/@/hooks/web/useI18n';
 const { t } = useI18n();
 
@@ -17,8 +17,8 @@ export function createTableColumns(): BasicColumn[] {
       title: t('component.upload.legend'),
       width: 100,
       customRender: ({ record }) => {
-        const { thumbUrl, type } = (record as FileItem) || {};
-        return <span>{thumbUrl ? <img style={{ maxWidth: '100%' }} src={thumbUrl} /> : type}</span>;
+        const { thumbUrl } = (record as FileItem) || {};
+        return thumbUrl && <ThumbUrl fileUrl={thumbUrl} />;
       },
     },
     {
@@ -108,10 +108,8 @@ export function createPreviewColumns(): BasicColumn[] {
       title: t('component.upload.legend'),
       width: 100,
       customRender: ({ record }) => {
-        const { url, type } = (record as PreviewFileItem) || {};
-        return (
-          <span>{isImgTypeByName(url) ? <img src={url} style={{ width: '50px' }} /> : type}</span>
-        );
+        const { url } = (record as PreviewFileItem) || {};
+        return isImgTypeByName(url) && <ThumbUrl fileUrl={url} />;
       },
     },
     {
