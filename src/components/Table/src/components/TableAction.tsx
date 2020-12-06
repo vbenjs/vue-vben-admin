@@ -4,6 +4,7 @@ import Icon from '/@/components/Icon/index';
 import { DownOutlined } from '@ant-design/icons-vue';
 import { ActionItem } from '/@/components/Table';
 import { Button } from '/@/components/Button';
+import { snowUuid } from '/@/utils/uuid';
 const prefixCls = 'basic-table-action';
 export default defineComponent({
   name: 'TableAction',
@@ -23,7 +24,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    function renderButton(action: ActionItem, index: number) {
+    function renderButton(action: ActionItem) {
       const { disabled = false, label, icon, color = '', type = 'link', ...actionProps } = action;
       const button = (
         <Button
@@ -32,7 +33,7 @@ export default defineComponent({
           disabled={disabled}
           color={color}
           {...actionProps}
-          key={`${index}-${label}`}
+          key={`${snowUuid()}`}
         >
           {() => (
             <>
@@ -45,10 +46,10 @@ export default defineComponent({
       return button;
     }
 
-    function renderPopConfirm(action: ActionItem, index: number) {
+    function renderPopConfirm(action: ActionItem) {
       const { popConfirm = null } = action;
       if (!popConfirm) {
-        return renderButton(action, index);
+        return renderButton(action);
       }
       const {
         title,
@@ -60,7 +61,7 @@ export default defineComponent({
       } = popConfirm;
       return (
         <Popconfirm
-          key={`p-${index}-${title}`}
+          key={`${snowUuid()}`}
           title={title}
           onConfirm={confirm}
           onCancel={cancel}
@@ -68,7 +69,7 @@ export default defineComponent({
           cancelText={cancelText}
           icon={icon}
         >
-          {() => renderButton(action, index)}
+          {() => renderButton(action)}
         </Popconfirm>
       );
     }
@@ -92,8 +93,8 @@ export default defineComponent({
       return (
         <div class={prefixCls}>
           {actions &&
-            actions.map((action, index) => {
-              return renderPopConfirm(action, index);
+            actions.map((action) => {
+              return renderPopConfirm(action);
             })}
           {dropDownActions && dropDownActions.length && (
             <Dropdown overlayClassName="basic-tale-action-dropdown">
@@ -104,13 +105,13 @@ export default defineComponent({
                     <Menu>
                       {{
                         default: () => {
-                          return dropDownActions.map((action, index) => {
+                          return dropDownActions.map((action) => {
                             const { disabled = false } = action;
                             action.ghost = true;
                             return (
-                              <Menu.Item key={`${index}`} disabled={disabled}>
+                              <Menu.Item key={`${snowUuid()}`} disabled={disabled}>
                                 {() => {
-                                  return renderPopConfirm(action, index);
+                                  return renderPopConfirm(action);
                                 }}
                               </Menu.Item>
                             );

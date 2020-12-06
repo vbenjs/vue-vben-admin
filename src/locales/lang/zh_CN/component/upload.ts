@@ -18,7 +18,7 @@ export default {
   maxSizeMultiple: '只能上传不超过{0}MB的文件!',
   maxNumber: '最多只能上传{0}个文件',
 
-  legend: '图例',
+  legend: '略缩图',
   fileName: '文件名',
   fileSize: '文件大小',
   fileStatue: '状态',
