@@ -3,6 +3,7 @@ import type { MenuModule, Menu, AppRouteRecordRaw } from '/@/router/types';
 
 import { findPath, forEach, treeMap, treeToList } from '/@/utils/helper/treeHelper';
 import { cloneDeep } from 'lodash-es';
+import { isUrl } from '/@/utils/is';
 
 export function getAllParentPath(treeData: any[], path: string) {
   const menuList = findPath(treeData, (n) => n.path === path) as Menu[];
@@ -39,7 +40,7 @@ export function transformMenuModule(menuModule: MenuModule): Menu {
 
   const menuList = [menu];
   forEach(menuList, (m) => {
-    joinParentPath(menuList, m);
+    !isUrl(m.path) && joinParentPath(menuList, m);
   });
   return menuList[0];
 }
@@ -58,7 +59,8 @@ export function transformRouteToMenu(routeModList: AppRouteModule[]) {
   return treeMap(routeList, {
     conversion: (node: AppRouteRecordRaw) => {
       const { meta: { title, icon } = {} } = node;
-      joinParentPath(routeList, node);
+
+      !isUrl(node.path) && joinParentPath(routeList, node);
       return {
         name: title,
         icon,

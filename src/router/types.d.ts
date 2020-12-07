@@ -17,7 +17,7 @@ export interface RouteMeta {
   // Jump address
   frameSrc?: string;
   // Outer link jump address
-  externalLink?: string;
+  externalLink?: boolean;
 
   // current page transition
   transitionName?: string;
@@ -28,6 +28,7 @@ export interface RouteMeta {
   // Carrying parameters
   carryParam?: boolean;
 
+  // Used internally to mark single-level menus
   single?: boolean;
 }
 

@@ -89,12 +89,17 @@ export async function getFlatChildrenMenus(children: Menu[]) {
 function basicFilter(routes: RouteRecordNormalized[]) {
   return (menu: Menu) => {
     const matchRoute = routes.find((route) => {
+      if (route.meta.externalLink) {
+        return true;
+      }
+
       if (route.meta) {
         if (route.meta.carryParam) {
           return pathToRegexp(route.path).test(menu.path);
         }
-        if (route.meta.ignoreAuth) return false;
+        if (route.meta.ignoreAuth) return true;
       }
+
       return route.path === menu.path;
     });
 
