@@ -20,11 +20,7 @@ export const basicProps = {
     type: Boolean as PropType<boolean>,
     default: false,
   },
-  // 是否显示搜索框
-  search: {
-    type: Boolean as PropType<boolean>,
-    default: true,
-  },
+
   // 最好是4 倍数
   inlineIndent: {
     type: Number as PropType<number>,
@@ -51,10 +47,7 @@ export const basicProps = {
     type: Boolean as PropType<boolean>,
     default: false,
   },
-  isAppMenu: {
-    type: Boolean as PropType<boolean>,
-    default: true,
-  },
+
   isHorizontal: {
     type: Boolean as PropType<boolean>,
     default: false,

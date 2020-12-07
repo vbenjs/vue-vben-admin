@@ -1,21 +1,54 @@
-import { InjectionKey, provide, inject, reactive, readonly } from 'vue';
+import {
+  InjectionKey,
+  provide,
+  inject,
+  reactive,
+  readonly as defineReadonly,
+  defineComponent,
+  UnwrapRef,
+} from 'vue';
 
-export const createContext = <T>(
-  context: any,
-  contextInjectKey: InjectionKey<T> = Symbol(),
-  _readonly = true
-) => {
-  const state = reactive({ ...context });
+export interface CreateContextOptions {
+  readonly?: boolean;
+  createProvider?: boolean;
+}
 
-  const provideData = _readonly ? readonly(state) : state;
-  provide(contextInjectKey, provideData);
+type ShallowUnwrap<T> = {
+  [P in keyof T]: UnwrapRef<T[P]>;
 };
 
+export function createContext<T>(
+  context: any,
+  key: InjectionKey<T> = Symbol(),
+  options: CreateContextOptions = {}
+) {
+  const { readonly = true, createProvider = false } = options;
+
+  const state = reactive(context);
+
+  const provideData = readonly ? defineReadonly(state) : state;
+  !createProvider && provide(key, provideData);
+
+  const Provider = createProvider
+    ? defineComponent({
+        name: 'Provider',
+        inheritAttrs: false,
+        setup(_, { slots }) {
+          provide(key, provideData);
+          return () => slots.default?.();
+        },
+      })
+    : null;
+
+  return { Provider, state };
+}
+
 export const useContext = <T>(
-  contextInjectKey: InjectionKey<T> = Symbol(),
+  key: InjectionKey<T> = Symbol(),
   defaultValue?: any,
-  _readonly = true
-): T => {
-  const state = inject(contextInjectKey, defaultValue || {});
-  return _readonly ? readonly(state) : state;
+  readonly = false
+): ShallowUnwrap<T> => {
+  const state = inject(key, defaultValue || {});
+
+  return readonly ? defineReadonly(state) : state;
 };

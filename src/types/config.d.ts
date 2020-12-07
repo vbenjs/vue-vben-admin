@@ -9,7 +9,6 @@ export interface MenuSetting {
   collapsed: boolean;
   collapsedShowTitle: boolean;
   canDrag: boolean;
-  showSearch: boolean;
   show: boolean;
   hidden: boolean;
   split: boolean;

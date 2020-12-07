@@ -17,9 +17,6 @@ export interface MenuState {
   // 展开数组
   openKeys: string[];
 
-  // 搜索值
-  searchValue: string;
-
   // 当前选中的菜单项 key 数组
   selectedKeys: string[];
 

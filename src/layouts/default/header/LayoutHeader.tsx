@@ -188,7 +188,6 @@ export default defineComponent({
                 theme={unref(getHeaderTheme)}
                 splitType={unref(getSplitType)}
                 menuMode={unref(getMenuMode)}
-                showSearch={false}
               />
             </div>
           )}

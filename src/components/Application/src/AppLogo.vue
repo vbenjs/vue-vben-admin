@@ -4,12 +4,14 @@
 -->
 <template>
   <div
-    class="app-logo anticon"
-    :class="{ theme, 'collapsed-show-title': getCollapsedShowTitle }"
+    class="anticon"
+    :class="[prefixCls, theme, { 'collapsed-show-title': getCollapsedShowTitle }]"
     @click="handleGoHome"
   >
     <img src="/@/assets/images/logo.png" />
-    <div class="app-logo__title ml-2 ellipsis" v-show="showTitle">{{ globSetting.title }}</div>
+    <div class="ml-2 ellipsis" :class="[`${prefixCls}__title`]" v-show="showTitle">
+      {{ globSetting.title }}
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -23,6 +25,8 @@
 
   import { propTypes } from '/@/utils/propTypes';
 
+  import { useDesign } from '/@/hooks/web/useDesign';
+
   export default defineComponent({
     name: 'AppLogo',
     props: {
@@ -34,6 +38,8 @@
       showTitle: propTypes.bool.def(true),
     },
     setup() {
+      const { prefixCls } = useDesign('app-logo');
+
       const { getCollapsedShowTitle } = useMenuSetting();
 
       const globSetting = useGlobSetting();
@@ -48,17 +54,19 @@
         handleGoHome,
         globSetting,
         getCollapsedShowTitle,
+        prefixCls,
       };
     },
   });
 </script>
 <style lang="less" scoped>
   @import (reference) '../../../design/index.less';
+  @prefix-cls: ~'@{namespace}-app-logo';
 
-  .app-logo {
+  .@{prefix-cls} {
     display: flex;
     align-items: center;
-    padding-left: 10px;
+    padding-left: 12px;
     cursor: pointer;
 
     &.collapsed-show-title {

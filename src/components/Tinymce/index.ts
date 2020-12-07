@@ -1,4 +1,5 @@
-import TinymceLib from './src/Editor.vue';
+import Tinymce from './src/Editor.vue';
 import { withInstall } from '../util';
 
-export const Tinymce = withInstall(TinymceLib);
+withInstall(Tinymce);
+export { Tinymce };

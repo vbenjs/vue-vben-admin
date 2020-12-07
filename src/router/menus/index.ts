@@ -21,6 +21,9 @@ Object.keys(modules).forEach((key) => {
 // ===========================
 // ==========Helper===========
 // ===========================
+const isBackMode = () => {
+  return appStore.getProjectConfig.permissionMode === PermissionModeEnum.BACK;
+};
 
 const staticMenus: Menu[] = [];
 (() => {
@@ -32,10 +35,6 @@ const staticMenus: Menu[] = [];
     staticMenus.push(transformMenuModule(menu));
   }
 })();
-
-const isBackMode = () => {
-  return appStore.getProjectConfig.permissionMode === PermissionModeEnum.BACK;
-};
 
 async function getAsyncMenus() {
   // 前端角色控制菜单 直接取菜单文件

@@ -21,7 +21,6 @@ export enum HandlerEnum {
   MENU_SHOW_SIDEBAR,
   MENU_THEME,
   MENU_SPLIT,
-  MENU_SHOW_SEARCH,
   MENU_FIXED,
 
   // header

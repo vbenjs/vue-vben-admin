@@ -89,8 +89,6 @@ const setting: ProjectConfig = {
     show: true,
     // Whether to show dom
     hidden: true,
-    // Whether to show search box
-    showSearch: true,
     // Menu width
     menuWidth: 210,
     // Menu mode

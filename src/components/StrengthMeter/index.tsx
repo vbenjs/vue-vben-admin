@@ -1,4 +1,5 @@
-import StrengthMeterLib from './src/index';
+import StrengthMeter from './src/index';
 import { withInstall } from '../util';
 
-export const StrengthMeter = withInstall(StrengthMeterLib);
+withInstall(StrengthMeter);
+export { StrengthMeter };

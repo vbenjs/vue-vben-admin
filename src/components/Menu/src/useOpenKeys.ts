@@ -1,6 +1,6 @@
 import { MenuModeEnum } from '/@/enums/menuEnum';
 import type { Menu as MenuType } from '/@/router/types';
-import type { MenuState } from '../types';
+import type { MenuState } from './types';
 import type { Ref } from 'vue';
 
 import { unref } from 'vue';
@@ -12,14 +12,11 @@ export function useOpenKeys(
   menuState: MenuState,
   menus: Ref<MenuType[]>,
   flatMenusRef: Ref<MenuType[]>,
-  isAppMenu: Ref<boolean>,
   mode: Ref<MenuModeEnum>,
   accordion: Ref<boolean>
 ) {
   const { getCollapsed } = useMenuSetting();
-  /**
-   * @description:设置展开
-   */
+
   function setOpenKeys(menu: MenuType) {
     const flatMenus = unref(flatMenusRef);
     if (!unref(accordion)) {
@@ -50,7 +47,7 @@ export function useOpenKeys(
           rootSubMenuKeys.push(path);
         }
       }
-      if (!unref(getCollapsed) || !unref(isAppMenu)) {
+      if (!unref(getCollapsed)) {
         const latestOpenKey = openKeys.find((key) => menuState.openKeys.indexOf(key) === -1);
         if (rootSubMenuKeys.indexOf(latestOpenKey as string) === -1) {
           menuState.openKeys = openKeys;

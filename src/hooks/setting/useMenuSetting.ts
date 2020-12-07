@@ -39,8 +39,6 @@ export function useMenuSetting() {
 
   const getCollapsedShowTitle = computed(() => unref(getMenuSetting).collapsedShowTitle);
 
-  const getCollapsedShowSearch = computed(() => unref(getMenuSetting).collapsedShowSearch);
-
   const getTopMenuAlign = computed(() => unref(getMenuSetting).topMenuAlign);
 
   const getIsSidebarType = computed(() => unref(getMenuType) === MenuTypeEnum.SIDEBAR);
@@ -61,13 +59,6 @@ export function useMenuSetting() {
     }
 
     return unref(getTrigger) === TriggerEnum.HEADER;
-  });
-
-  const getShowSearch = computed(() => {
-    return (
-      unref(getMenuSetting).showSearch &&
-      !(unref(getMenuType) === MenuTypeEnum.MIX && unref(getMenuMode) === MenuModeEnum.HORIZONTAL)
-    );
   });
 
   const getIsHorizontal = computed(() => {
@@ -119,9 +110,7 @@ export function useMenuSetting() {
     getMenuTheme,
     getCanDrag,
     getIsHorizontal,
-    getShowSearch,
     getCollapsedShowTitle,
-    getCollapsedShowSearch,
     getIsSidebarType,
     getAccordion,
     getShowTopMenu,
