@@ -12,10 +12,25 @@
 
   &.ant-layout-sider-dark {
     background: @sider-dark-bg-color;
+
+    .ant-layout-sider-trigger {
+      color: darken(@white, 25%);
+      background: @trigger-dark-bg-color;
+
+      &:hover {
+        color: @white;
+        background: @trigger-dark-hover-bg-color;
+      }
+    }
   }
 
   &:not(.ant-layout-sider-dark) {
     box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
+
+    .ant-layout-sider-trigger {
+      color: @text-color-base;
+      border-top: 1px solid @border-color-light;
+    }
   }
 
   .ant-layout-sider-zero-width-trigger {
@@ -43,9 +58,9 @@
       box-shadow: 0 0 4px 0 rgba(28, 36, 56, 0.15);
     }
   }
-}
 
-.ant-layout-sider-trigger {
-  height: 36px;
-  line-height: 36px;
+  & .ant-layout-sider-trigger {
+    height: 36px;
+    line-height: 36px;
+  }
 }

@@ -8,24 +8,12 @@ import { MenuSplitTyeEnum } from '/@/enums/menuEnum';
 import { useThrottle } from '/@/hooks/core/useThrottle';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 
-import {
-  getChildrenMenus,
-  getCurrentParentPath,
-  getFlatChildrenMenus,
-  getFlatMenus,
-  getMenus,
-  getShallowMenus,
-} from '/@/router/menus';
+import { getChildrenMenus, getCurrentParentPath, getMenus, getShallowMenus } from '/@/router/menus';
 import { permissionStore } from '/@/store/modules/permission';
-// import { useI18n } from '/@/hooks/web/useI18n';
-// import { cloneDeep } from 'lodash-es';
 
-// const { t } = useI18n();
 export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
   // Menu array
   const menusRef = ref<Menu[]>([]);
-  // flat menu array
-  const flatMenusRef = ref<Menu[]>([]);
 
   const { currentRoute } = useRouter();
 
@@ -44,14 +32,6 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
   const normalType = computed(() => {
     return unref(splitType) === MenuSplitTyeEnum.NONE || !unref(getSplit);
   });
-
-  // const getI18nFlatMenus = computed(() => {
-  //   return setI18nName(flatMenusRef.value, true, false);
-  // });
-
-  // const getI18nMenus = computed(() => {
-  //   return setI18nName(menusRef.value, true, true);
-  // });
 
   watch(
     [() => unref(currentRoute).path, () => unref(splitType)],
@@ -83,20 +63,6 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
     genMenus();
   });
 
-  // function setI18nName(list: Menu[], clone = false, deep = true) {
-  //   const menus = clone ? cloneDeep(list) : list;
-  //   const arr: Menu[] = [];
-  //   menus.forEach((item) => {
-  //     if (!item.name.includes('.')) return;
-  //     item.name = t(item.name);
-
-  //     if (item.children && deep) {
-  //       setI18nName(item.children, false, deep);
-  //     }
-  //   });
-  //   return menus;
-  // }
-
   // Handle left menu split
   async function handleSplitLeftMenu(parentPath: string) {
     if (unref(splitLeft)) return;
@@ -105,14 +71,11 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
     const children = await getChildrenMenus(parentPath);
     if (!children) {
       setMenuSetting({ hidden: false });
-      flatMenusRef.value = [];
       menusRef.value = [];
       return;
     }
 
-    const flatChildren = await getFlatChildrenMenus(children);
     setMenuSetting({ hidden: true });
-    flatMenusRef.value = flatChildren;
     menusRef.value = children;
   }
 
@@ -120,7 +83,6 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
   async function genMenus() {
     // normal mode
     if (unref(normalType)) {
-      flatMenusRef.value = await getFlatMenus();
       menusRef.value = await getMenus();
       return;
     }
@@ -129,11 +91,10 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
     if (unref(spiltTop)) {
       const shallowMenus = await getShallowMenus();
 
-      flatMenusRef.value = shallowMenus;
       menusRef.value = shallowMenus;
       return;
     }
   }
 
-  return { flatMenusRef, menusRef };
+  return { menusRef };
 }

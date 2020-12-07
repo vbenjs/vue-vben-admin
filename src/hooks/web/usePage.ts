@@ -1,4 +1,3 @@
-import { appStore } from '/@/store/modules/app';
 import type { RouteLocationRaw } from 'vue-router';
 
 import { PageEnum } from '/@/enums/pageEnum';
@@ -11,7 +10,6 @@ export type RouteLocationRawEx = Omit<RouteLocationRaw, 'path'> & { path: PageEn
 
 function handleError(e: Error) {
   console.error(e);
-  appStore.commitPageLoadingState(false);
 }
 
 // page switch

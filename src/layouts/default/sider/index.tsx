@@ -100,7 +100,7 @@ export default defineComponent({
           flex: `0 0 ${width}`,
           maxWidth: width,
           minWidth: width,
-          transition: 'all 0.2s',
+          transition: 'all 0.15s',
         };
       }
     );
@@ -126,7 +126,7 @@ export default defineComponent({
           )}
           <Layout.Sider
             ref={sideRef}
-            breakpoint="md"
+            breakpoint="lg"
             collapsible
             class={unref(getSiderClass)}
             style={unref(getSiderStyle)}

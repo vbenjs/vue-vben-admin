@@ -1,5 +1,7 @@
 @import (reference) '../../../design/index.less';
 
+@basic-menu-prefix-cls: ~'@{namespace}-basic-menu';
+
 .active-style() {
   color: @white;
   background: linear-gradient(
@@ -16,21 +18,48 @@
   }
 }
 
-.basic-menu {
+.@{basic-menu-prefix-cls} {
   width: 100%;
 
-  &-wrap {
-    height: 100%;
-  }
+  // &__expand-icon {
+  //   position: absolute;
+  //   top: calc(50% - 6px);
+  //   right: 16px;
+  //   width: 10px;
+  //   transform-origin: none;
+
+  //   span[role='img'] {
+  //     margin-right: 0;
+  //     font-size: 11px;
+  //   }
+
+  //   &--collapsed {
+  //     opacity: 0;
+  //   }
+  // }
 
   //  collapsed show title start
-  .show-title {
+  &--show-title {
     max-width: unset !important;
     opacity: 1 !important;
   }
 
-  &.collapsed-show-title.ant-menu-inline-collapsed {
-    .basic-menu-item__level1 {
+  &--hide-title {
+    &.ant-menu-inline-collapsed > .ant-menu-item,
+    &.ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item,
+    &.ant-menu-inline-collapsed
+      > .ant-menu-item-group
+      > .ant-menu-item-group-list
+      > .ant-menu-submenu
+      > .ant-menu-submenu-title,
+    &.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title {
+      padding-right: 20px !important;
+      padding-left: 20px !important;
+    }
+  }
+
+  &--collapsed-show-title.ant-menu-inline-collapsed {
+    .@{basic-menu-prefix-cls}-item__level1 {
       padding: 2px 0;
     }
 
@@ -47,14 +76,23 @@
     & > li > .ant-menu-submenu-title {
       line-height: 24px;
     }
+    .@{basic-menu-prefix-cls}__content-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      .@{basic-menu-prefix-cls}--show-title {
+        line-height: 30px;
+      }
+    }
   }
 
-  .ant-menu-item {
-    transition: unset;
-  }
+  // .ant-menu-item {
+  //   transition: unset;
+  // }
 
   // scrollbar -s tart
-  &__content {
+  &-wrapper {
     /* 滚动槽 */
     &::-webkit-scrollbar {
       width: 5px;
@@ -75,7 +113,19 @@
       background: @border-color-dark;
     }
   }
+
   // scrollbar  end
+
+  &-item__level1.light {
+    &.top-active-menu {
+      top: 0 !important;
+    }
+
+    &.top-active-menu:not(.ant-menu-item-selected) {
+      color: @primary-color;
+      border-bottom: 3px solid @primary-color;
+    }
+  }
 
   &__sidebar-hor {
     // overflow: hidden;
@@ -85,20 +135,13 @@
       border: 0;
       align-items: center;
 
-      .basic-menu-item__level1 {
+      .@{basic-menu-prefix-cls}-item__level1 {
         margin-right: 2px;
       }
 
       &.ant-menu-light {
-        .basic-menu-item__level1 {
-          &.top-active-menu {
-            color: @primary-color;
-            border-bottom: 3px solid @primary-color;
-          }
-        }
-
         .ant-menu-item {
-          &.basic-menu-item__level1 {
+          &.@{basic-menu-prefix-cls}-item__level1 {
             height: @header-height;
             line-height: @header-height;
           }
@@ -155,7 +198,7 @@
           background: @top-menu-active-bg-color;
         }
 
-        .basic-menu-item__level1 {
+        .@{basic-menu-prefix-cls}-item__level1 {
           background: transparent;
 
           &.top-active-menu {
@@ -172,7 +215,7 @@
 
         .ant-menu-item,
         .ant-menu-submenu {
-          &.basic-menu-item__level1,
+          &.@{basic-menu-prefix-cls}-item__level1,
           .ant-menu-submenu-title {
             height: @header-height;
             line-height: @header-height;
@@ -182,17 +225,17 @@
     }
   }
 
-  &:not(.basic-menu__sidebar-hor).ant-menu-inline-collapsed {
-    .basic-menu-item__level1 {
+  &:not(.@{basic-menu-prefix-cls}__sidebar-hor).ant-menu-inline-collapsed {
+    .@{basic-menu-prefix-cls}-item__level1 {
       > div {
         align-items: center;
       }
     }
   }
 
-  &.ant-menu-dark:not(.basic-menu__sidebar-hor):not(.basic-menu__second) {
+  &.ant-menu-dark:not(.@{basic-menu-prefix-cls}__sidebar-hor):not(.@{basic-menu-prefix-cls}__second) {
     // Reset menu item row height
-    .ant-menu-item:not(.basic-menu-item__level1),
+    .ant-menu-item:not(.@{basic-menu-prefix-cls}-item__level1),
     .ant-menu-sub.ant-menu-inline > .ant-menu-item,
     .ant-menu-sub.ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
       height: @app-menu-item-height;
@@ -200,28 +243,28 @@
       line-height: @app-menu-item-height;
     }
 
-    .ant-menu-item.basic-menu-item__level1 {
+    .ant-menu-item.@{basic-menu-prefix-cls}-item__level1 {
       height: @app-menu-item-height;
       line-height: @app-menu-item-height;
     }
   }
 
   // 层级样式
-  &.ant-menu-dark:not(.basic-menu__sidebar-hor) {
-    overflow-x: hidden;
+  &.ant-menu-dark:not(.@{basic-menu-prefix-cls}__sidebar-hor) {
+    overflow: hidden;
     background: @sider-dark-bg-color;
     .active-menu-style();
 
-    .menu-item-icon.app-iconify {
-      display: inline-block !important;
-    }
+    // .menu-item-icon.app-iconify {
+    //   display: inline-block !important;
+    // }
 
-    .ant-menu-item.ant-menu-item-selected.basic-menu-menu-item__level1,
-    .ant-menu-submenu-selected.basic-menu-menu-item__level1 {
+    .ant-menu-item.ant-menu-item-selected.@{basic-menu-prefix-cls}-menu-item__level1,
+    .ant-menu-submenu-selected.@{basic-menu-prefix-cls}-menu-item__level1 {
       color: @white;
     }
 
-    .basic-menu-item__level1 {
+    .@{basic-menu-prefix-cls}-item__level1 {
       background-color: @sider-dark-bg-color;
 
       > .ant-menu-sub > li {
@@ -229,12 +272,12 @@
       }
     }
 
-    .basic-menu-item__level2:not(.ant-menu-item-selected),
+    .@{basic-menu-prefix-cls}-item__level2:not(.ant-menu-item-selected),
     .ant-menu-sub {
       background-color: @sider-dark-lighten-1-bg-color;
     }
 
-    .basic-menu-item__level3:not(.ant-menu-item-selected) {
+    .@{basic-menu-prefix-cls}-item__level3:not(.ant-menu-item-selected) {
       background-color: @sider-dark-lighten-2-bg-color;
 
       .ant-menu-item {
@@ -257,27 +300,18 @@
     }
   }
 
-  &.ant-menu-light:not(.basic-menu__sidebar-hor) {
-    overflow-x: hidden;
+  &.ant-menu-light:not(.@{basic-menu-prefix-cls}__sidebar-hor) {
+    overflow: hidden;
     border-right: none;
 
-    .menu-item-icon.app-iconify {
-      display: inline-block !important;
-    }
-
-    // .ant-menu-item-selected {
-    //   background: fade(@primary-color, 18%);
+    // .menu-item-icon.app-iconify {
+    //   display: inline-block !important;
     // }
 
-    .ant-menu-item.ant-menu-item-selected.basic-menu-menu-item__level1,
-    .ant-menu-submenu-selected.basic-menu-menu-item__level1 {
+    .ant-menu-item.ant-menu-item-selected.@{basic-menu-prefix-cls}-menu-item__level1,
+    .ant-menu-submenu-selected.@{basic-menu-prefix-cls}-menu-item__level1 {
       color: @primary-color;
     }
-  }
-
-  // 关键字的颜色
-  &__keyword {
-    color: lighten(@primary-color, 20%);
   }
 
   // 激活的子菜单样式
@@ -285,7 +319,7 @@
     position: relative;
   }
 
-  &.basic-menu__second.ant-menu-inline-collapsed:not(.basic-menu__sidebar-hor) {
+  &.@{basic-menu-prefix-cls}__second.ant-menu-inline-collapsed:not(.@{basic-menu-prefix-cls}__sidebar-hor) {
     // Reset menu item row height
     .ant-menu-item,
     .ant-menu-sub.ant-menu-inline > .ant-menu-item,
@@ -298,26 +332,40 @@
       align-items: center;
     }
   }
-}
+  .@{basic-menu-prefix-cls}__tag {
+    position: absolute;
+    top: calc(50% - 8px);
+    right: 30px;
+    display: inline-block;
+    padding: 2px 4px;
+    margin-right: 4px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #fff;
+    border-radius: 2px;
 
-// 触发器样式
-.ant-layout-sider {
-  &-dark {
-    .ant-layout-sider-trigger {
-      color: darken(@white, 25%);
-      background: @trigger-dark-bg-color;
-
-      &:hover {
-        color: @white;
-        background: @trigger-dark-hover-bg-color;
-      }
+    &.dot {
+      top: calc(50% - 4px);
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border-radius: 50%;
     }
-  }
 
-  &-light {
-    .ant-layout-sider-trigger {
-      color: @text-color-base;
-      border-top: 1px solid @border-color-light;
+    &.primary {
+      background: @primary-color;
+    }
+
+    &.error {
+      background: @error-color;
+    }
+
+    &.success {
+      background: @success-color;
+    }
+
+    &.warn {
+      background: @warning-color;
     }
   }
 }
@@ -332,71 +380,16 @@
   }
 }
 
-.hide-title {
-  .ant-menu-inline-collapsed > .ant-menu-item,
-  .ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item,
-  .ant-menu-inline-collapsed
-    > .ant-menu-item-group
-    > .ant-menu-item-group-list
-    > .ant-menu-submenu
-    > .ant-menu-submenu-title,
-  .ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title {
-    padding-right: 20px !important;
-    padding-left: 20px !important;
-  }
-
-  .ant-menu-inline-collapsed {
-    .basic-menu-item__level1 {
-      display: flex;
-      justify-content: center;
-    }
-  }
-}
 // collapsed show title end
 .ant-menu-item,
 .ant-menu-submenu-title {
-  > .basic-menu__name {
+  > .@{basic-menu-prefix-cls}__name {
     width: 100%;
 
-    .basic-menu__tag {
+    .@{basic-menu-prefix-cls}__tag {
       float: right;
       margin-top: @app-menu-item-height / 2;
       transform: translate(0%, -50%);
     }
-  }
-}
-
-.basic-menu__tag {
-  display: inline-block;
-  padding: 2px 4px;
-  margin-right: 4px;
-  font-size: 12px;
-  line-height: 14px;
-  color: #fff;
-  border-radius: 2px;
-
-  &.dot {
-    width: 8px;
-    height: 8px;
-    padding: 0;
-    margin-top: 21px !important;
-    margin-bottom: 2px;
-    border-radius: 50%;
-  }
-
-  &.primary {
-    background: @primary-color;
-  }
-
-  &.error {
-    background: @error-color;
-  }
-
-  &.success {
-    background: @success-color;
-  }
-
-  &.warn {
-    background: @warning-color;
   }
 }

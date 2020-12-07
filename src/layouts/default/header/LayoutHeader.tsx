@@ -80,13 +80,7 @@ export default defineComponent({
     const { refreshPage } = useTabs();
     const { t } = useI18n();
 
-    const {
-      getShowTopMenu,
-      getShowHeaderTrigger,
-      getSplit,
-      getTopMenuAlign,
-      getIsHorizontal,
-    } = useMenuSetting();
+    const { getShowTopMenu, getShowHeaderTrigger, getSplit, getIsHorizontal } = useMenuSetting();
 
     const { getShowLocale } = useLocaleSetting();
     const { getUseErrorHandle, getShowBreadCrumbIcon } = useRootSetting();
@@ -184,7 +178,7 @@ export default defineComponent({
               {/* <div class={[`layout-header__menu `]}> */}
               <LayoutMenu
                 isHorizontal={true}
-                class={`justify-${unref(getTopMenuAlign)}`}
+                // class={`justify-${unref(getTopMenuAlign)}`}
                 theme={unref(getHeaderTheme)}
                 splitType={unref(getSplitType)}
                 menuMode={unref(getMenuMode)}

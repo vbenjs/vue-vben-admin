@@ -8,10 +8,10 @@
     :dropMenuList="localeList"
     :selectedKeys="selectedKeys"
     @menuEvent="handleMenuEvent"
-    overlayClassName="app-locale-picker-overlay"
+    :overlayClassName="`${prefixCls}-overlay`"
   >
-    <span class="app-local-picker">
-      <GlobalOutlined class="app-local-picker__icon" />
+    <span :class="prefixCls">
+      <GlobalOutlined :class="`${prefixCls}__icon`" />
       <span v-if="showText">{{ getLangText }}</span>
     </span>
   </Dropdown>
@@ -28,6 +28,7 @@
   import { LocaleType } from '/@/locales/types';
 
   import { propTypes } from '/@/utils/propTypes';
+  import { useDesign } from '/@/hooks/web/useDesign';
 
   export default defineComponent({
     name: 'AppLocalPicker',
@@ -39,8 +40,11 @@
       reload: propTypes.bool,
     },
     setup(props) {
-      const { localeList } = useLocaleSetting();
       const selectedKeys = ref<string[]>([]);
+
+      const { prefixCls } = useDesign('app-locale-picker');
+
+      const { localeList } = useLocaleSetting();
 
       const { changeLocale, getLang } = useLocale();
 
@@ -64,19 +68,22 @@
         toggleLocale(menu.event as string);
       }
 
-      return { localeList, handleMenuEvent, selectedKeys, getLangText };
+      return { localeList, handleMenuEvent, selectedKeys, getLangText, prefixCls };
     },
   });
 </script>
 
 <style lang="less" scoped>
-  :global(.app-locale-picker-overlay) {
+  @import (reference) '../../../design/index.less';
+  @prefix-cls: ~'@{namespace}-app-locale-picker';
+
+  :global(.@{prefix-cls}-overlay) {
     .ant-dropdown-menu-item {
       min-width: 160px;
     }
   }
 
-  .app-local-picker {
+  .@{prefix-cls} {
     display: flex;
     align-items: center;
     cursor: pointer;
