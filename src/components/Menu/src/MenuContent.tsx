@@ -8,11 +8,6 @@ import { useI18n } from '/@/hooks/web/useI18n';
 export default defineComponent({
   name: 'MenuContent',
   props: {
-    searchValue: {
-      type: String as PropType<string>,
-      default: '',
-    },
-
     item: {
       type: Object as PropType<MenuType>,
       default: null,
@@ -35,11 +30,7 @@ export default defineComponent({
   setup(props) {
     const { t } = useI18n();
 
-    const getI18nName = computed(() => {
-      const { name } = props.item;
-
-      return t(name);
-    });
+    const getI18nName = computed(() => t(props.item?.name));
     /**
      * @description: 渲染图标
      */
@@ -71,28 +62,18 @@ export default defineComponent({
       const { showTitle } = props;
       const { icon } = props.item;
       const name = unref(getI18nName);
-      const searchValue = props.searchValue || '';
-      const index = name.indexOf(searchValue);
 
-      const beforeStr = name.substr(0, index);
-      const afterStr = name.substr(index + searchValue.length);
       const cls = showTitle ? ['show-title'] : ['basic-menu__name'];
 
       return (
         <>
           {renderIcon(icon!)}
-          {index > -1 && searchValue ? (
-            <span class={cls}>
-              {beforeStr}
-              <span class={`basic-menu__keyword`}>{searchValue}</span>
-              {afterStr}
-            </span>
-          ) : (
+          {
             <span class={[cls]}>
               {name}
               {renderTag()}
             </span>
-          )}
+          }
         </>
       );
     };

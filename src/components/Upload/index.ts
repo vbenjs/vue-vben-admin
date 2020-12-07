@@ -1,8 +1,5 @@
-import type { App } from 'vue';
 import BasicUpload from './src/BasicUpload.vue';
+import { withInstall } from '../util';
 
-export default (app: App): void => {
-  app.component(BasicUpload.name, BasicUpload);
-};
-
+withInstall(BasicUpload);
 export { BasicUpload };

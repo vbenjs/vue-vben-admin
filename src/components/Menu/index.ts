@@ -1,4 +1,5 @@
-import BasicMenuLib from './src/BasicMenu';
+import BasicMenu from './src/BasicMenu';
 import { withInstall } from '../util';
 
-export const BasicMenu = withInstall(BasicMenuLib);
+withInstall(BasicMenu);
+export { BasicMenu };

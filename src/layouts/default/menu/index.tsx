@@ -27,9 +27,6 @@ export default defineComponent({
       default: MenuSplitTyeEnum.NONE,
     },
 
-    // Whether to show search box
-    showSearch: propTypes.bool.def(true),
-
     isHorizontal: propTypes.bool,
     // menu Mode
     menuMode: {
@@ -42,11 +39,9 @@ export default defineComponent({
 
     const {
       setMenuSetting,
-      getShowSearch,
       getMenuMode,
       getMenuType,
       getCollapsedShowTitle,
-      getCollapsedShowSearch,
       getIsSidebarType,
       getMenuTheme,
       getCollapsed,
@@ -64,14 +59,6 @@ export default defineComponent({
     const getComputedMenuTheme = computed(() => props.theme || unref(getMenuTheme));
 
     const appendClass = computed(() => props.splitType === MenuSplitTyeEnum.TOP);
-
-    const showSearch = computed(() => {
-      return (
-        unref(getShowSearch) &&
-        props.showSearch &&
-        (unref(getCollapsedShowSearch) ? true : !unref(getCollapsed))
-      );
-    });
 
     /**
      * click menu
@@ -122,7 +109,6 @@ export default defineComponent({
           collapsedShowTitle={unref(getCollapsedShowTitle)}
           theme={unref(getComputedMenuTheme)}
           showLogo={unref(showLogo)}
-          search={unref(showSearch)}
           items={unref(menusRef)}
           flatItems={unref(flatMenusRef)}
           accordion={unref(getAccordion)}

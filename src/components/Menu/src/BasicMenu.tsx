@@ -15,7 +15,6 @@ import {
   ComputedRef,
 } from 'vue';
 import { Menu } from 'ant-design-vue';
-import SearchInput from './SearchInput.vue';
 import MenuContent from './MenuContent';
 // import { ScrollContainer } from '/@/components/Container';
 
@@ -24,8 +23,7 @@ import { ThemeEnum } from '/@/enums/appEnum';
 
 import { appStore } from '/@/store/modules/app';
 
-import { useSearchInput } from './hooks/useSearchInput';
-import { useOpenKeys } from './hooks/useOpenKeys';
+import { useOpenKeys } from './useOpenKeys';
 import { useRouter } from 'vue-router';
 
 import { isFunction } from '/@/utils/is';
@@ -43,51 +41,39 @@ export default defineComponent({
   emits: ['menuClick'],
   setup(props, { slots, emit }) {
     const currentParentPath = ref('');
+
     const menuState = reactive<MenuState>({
       defaultSelectedKeys: [],
       mode: props.mode,
       theme: computed(() => props.theme) as ComputedRef<ThemeEnum>,
       openKeys: [],
-      searchValue: '',
       selectedKeys: [],
       collapsedOpenKeys: [],
     });
 
     const { getCollapsed } = useMenuSetting();
+
     const { currentRoute } = useRouter();
 
-    const { items, flatItems, isAppMenu, mode, accordion } = toRefs(props);
-
-    const { handleInputChange, handleInputClick } = useSearchInput({
-      flatMenusRef: flatItems,
-      emit: emit,
-      menuState,
-      handleMenuChange,
-    });
+    const { items, flatItems, mode, accordion } = toRefs(props);
 
     const { handleOpenChange, resetKeys, setOpenKeys } = useOpenKeys(
       menuState,
       items,
       flatItems,
-      isAppMenu,
       mode,
       accordion
     );
 
     const getOpenKeys = computed(() => {
-      if (props.isAppMenu) {
-        return unref(getCollapsed) ? menuState.collapsedOpenKeys : menuState.openKeys;
-      }
-      return menuState.openKeys;
+      return unref(getCollapsed) ? menuState.collapsedOpenKeys : menuState.openKeys;
     });
 
     // menu外层样式
     const getMenuWrapStyle = computed((): any => {
-      const { showLogo, search } = props;
+      const { showLogo } = props;
       let offset = 0;
-      if (search) {
-        offset += 54;
-      }
+
       if (showLogo) {
         offset += 46;
       }
@@ -110,7 +96,7 @@ export default defineComponent({
         cls.push('basic-menu__sidebar-hor');
       }
 
-      if (!props.isHorizontal && props.isAppMenu && appStore.getProjectConfig.menuSetting.split) {
+      if (!props.isHorizontal && appStore.getProjectConfig.menuSetting.split) {
         cls.push('basic-menu__second');
       }
       return cls;
@@ -197,7 +183,6 @@ export default defineComponent({
                   level={index}
                   isHorizontal={props.isHorizontal}
                   showTitle={unref(showTitle)}
-                  searchValue={menuState.searchValue}
                 />,
               ]}
             </Menu.Item>
@@ -212,7 +197,6 @@ export default defineComponent({
                   item={menu}
                   level={index}
                   isHorizontal={props.isHorizontal}
-                  searchValue={menuState.searchValue}
                 />,
               ],
               default: () => renderMenuItem(menu.children, index + 1),
@@ -227,11 +211,9 @@ export default defineComponent({
       const { selectedKeys, defaultSelectedKeys, mode, theme } = menuState;
 
       const inlineCollapsedObj = isInline
-        ? props.isAppMenu
-          ? {
-              inlineCollapsed: unref(getCollapsed),
-            }
-          : { inlineCollapsed: props.inlineCollapsed }
+        ? {
+            inlineCollapsed: unref(getCollapsed),
+          }
         : {};
       return (
         <Menu
@@ -267,17 +249,8 @@ export default defineComponent({
       ) : (
         <section class={[`basic-menu-wrap`, !unref(showTitle) && 'hide-title']}>
           {getSlot(slots, 'header')}
-          <SearchInput
-            class={!props.search ? 'hidden' : ''}
-            theme={props.theme as ThemeEnum}
-            onChange={handleInputChange}
-            onClick={handleInputClick}
-            collapsed={unref(getCollapsed)}
-          />
 
-          {/* <section style={unref(getMenuWrapStyle)}> */}
           <section style={unref(getMenuWrapStyle)} class="basic-menu__content">
-            {/* <ScrollContainer>{() => renderMenu()}</ScrollContainer> */}
             {renderMenu()}
           </section>
         </section>

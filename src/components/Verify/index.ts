@@ -1,8 +1,9 @@
-import BasicDragVerifyLib from './src/DragVerify';
-import RotateDragVerifyLib from './src/ImgRotate';
+import BasicDragVerify from './src/DragVerify';
+import RotateDragVerify from './src/ImgRotate';
 import { withInstall } from '../util';
+
+withInstall(BasicDragVerify, RotateDragVerify);
 
 export * from './src/types';
 
-export const RotateDragVerify = withInstall(RotateDragVerifyLib);
-export const BasicDragVerify = withInstall(BasicDragVerifyLib);
+export { BasicDragVerify, RotateDragVerify };

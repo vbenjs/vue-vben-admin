@@ -1,8 +1,9 @@
 import './src/indicator';
-import LoadingLib from './src/index.vue';
+import Loading from './src/index.vue';
 import { withInstall } from '../util';
 
+withInstall(Loading);
 export { useLoading } from './src/useLoading';
 export { createLoading } from './src/createLoading';
 
-export const Loading = withInstall(LoadingLib);
+export { Loading };

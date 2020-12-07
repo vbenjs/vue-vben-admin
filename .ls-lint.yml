@@ -3,6 +3,7 @@ ls:
     .js: kebab-case | PascalCase
     .vue: PascalCase | regex:^index
     .ts: camelCase | PascalCase
+    .tsx: camelCase | PascalCase
     .d.ts: kebab-case
     .mock.ts: kebab-case
     .data.ts: camelCase | kebab-case

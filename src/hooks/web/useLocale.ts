@@ -27,7 +27,6 @@ export function useLocale() {
     setLocalSetting({ lang });
     // i18n.global.setLocaleMessage(locale, messages);
 
-    antConfigLocaleRef.value = { a: 1 };
     switch (lang) {
       // Simplified Chinese
       case 'zh_CN':

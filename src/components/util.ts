@@ -1,12 +1,12 @@
-import type { VNodeChild, Plugin } from 'vue';
+import type { VNodeChild } from 'vue';
 import type { App } from 'vue';
 
-export function withInstall<T>(component: T) {
-  const comp = component as any;
-  comp.install = (app: App) => {
-    app.component(comp.displayName || comp.name, comp);
-  };
-  return comp as T & Plugin;
+export function withInstall(...components: any[]) {
+  components.forEach((comp) => {
+    comp.install = (app: App) => {
+      app.component(comp.displayName || comp.name, comp);
+    };
+  });
 }
 
 export function convertToUnit(

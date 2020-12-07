@@ -1,6 +1,7 @@
-import DropdownLib from './src/Dropdown';
+import Dropdown from './src/Dropdown';
 import { withInstall } from '../util';
 
+withInstall(Dropdown);
 export * from './src/types';
 
-export const Dropdown = withInstall(DropdownLib);
+export { Dropdown };
