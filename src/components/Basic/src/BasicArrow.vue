@@ -20,15 +20,17 @@
       expand: propTypes.bool,
       top: propTypes.bool,
       bottom: propTypes.bool,
+      inset: propTypes.bool,
     },
     setup(props) {
       const getClass = computed(() => {
-        const { expand, top, bottom } = props;
+        const { expand, top, bottom, inset } = props;
         return [
           'base-arrow',
           {
             'base-arrow__active': expand,
             top,
+            inset,
             bottom,
           },
         ];
@@ -46,6 +48,10 @@
     transform: rotate(0deg);
     transition: all 0.3s ease 0.1s;
     transform-origin: center center;
+
+    &.inset {
+      line-height: 0px;
+    }
 
     &__active {
       transform: rotate(90deg);

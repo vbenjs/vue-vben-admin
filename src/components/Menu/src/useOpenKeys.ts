@@ -1,33 +1,34 @@
 import { MenuModeEnum } from '/@/enums/menuEnum';
 import type { Menu as MenuType } from '/@/router/types';
 import type { MenuState } from './types';
-import type { Ref } from 'vue';
+
+import { computed, Ref, toRaw } from 'vue';
 
 import { unref } from 'vue';
-import { getAllParentPath } from '/@/router/helper/menuHelper';
 import { es6Unique } from '/@/utils';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
+import { getAllParentPath } from '/@/router/helper/menuHelper';
 
 export function useOpenKeys(
   menuState: MenuState,
   menus: Ref<MenuType[]>,
-  flatMenusRef: Ref<MenuType[]>,
   mode: Ref<MenuModeEnum>,
   accordion: Ref<boolean>
 ) {
   const { getCollapsed } = useMenuSetting();
 
-  function setOpenKeys(menu: MenuType) {
-    const flatMenus = unref(flatMenusRef);
+  function setOpenKeys(path: string) {
+    const menuList = toRaw(menus.value);
     if (!unref(accordion)) {
-      menuState.openKeys = es6Unique([
-        ...menuState.openKeys,
-        ...getAllParentPath(flatMenus, menu.path),
-      ]);
+      menuState.openKeys = es6Unique([...menuState.openKeys, ...getAllParentPath(menuList, path)]);
     } else {
-      menuState.openKeys = getAllParentPath(flatMenus, menu.path);
+      menuState.openKeys = getAllParentPath(menuList, path);
     }
   }
+
+  const getOpenKeys = computed(() => {
+    return unref(getCollapsed) ? menuState.collapsedOpenKeys : menuState.openKeys;
+  });
 
   /**
    * @description:  重置值
@@ -59,5 +60,5 @@ export function useOpenKeys(
       }
     }
   }
-  return { setOpenKeys, resetKeys, handleOpenChange };
+  return { setOpenKeys, resetKeys, getOpenKeys, handleOpenChange };
 }
