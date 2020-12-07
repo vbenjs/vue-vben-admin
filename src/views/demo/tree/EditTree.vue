@@ -29,14 +29,14 @@
             handler: () => {
               console.log('点击了新增', node);
             },
-            icon: 'ant-design:plus-outlined',
+            icon: 'bi:plus',
           },
           {
             label: '删除',
             handler: () => {
               console.log('点击了删除', node);
             },
-            icon: 'ant-design:folder-open-filled',
+            icon: 'bx:bxs-folder-open',
           },
         ];
       }

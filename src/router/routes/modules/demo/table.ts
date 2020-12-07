@@ -8,7 +8,7 @@ const table: AppRouteModule = {
   component: LAYOUT,
   redirect: '/table/basic',
   meta: {
-    icon: 'ant-design:table-outlined',
+    icon: 'carbon:table-split',
     title: 'routes.demo.table.table',
   },
 

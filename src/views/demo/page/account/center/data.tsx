@@ -19,10 +19,10 @@ export const tags: string[] = [
   '前端开发',
   'vue3',
 ];
-
+<span class="iconify" data-icon="jam:codepen-circle" data-inline="false"></span>;
 export const teams: ListItem[] = [
   {
-    icon: 'ant-design:alipay-circle-outlined',
+    icon: 'ri:alipay-fill',
     title: '科学搬砖组',
     color: '#ff4000',
   },
@@ -32,22 +32,22 @@ export const teams: ListItem[] = [
     color: '#7c51b8',
   },
   {
-    icon: 'ant-design:alipay-circle-outlined',
+    icon: 'ri:alipay-fill',
     title: '高逼格设计',
     color: '#00adf7',
   },
   {
-    icon: 'ant-design:codepen-circle-filled',
+    icon: 'jam:codepen-circle',
     title: '程序员日常',
     color: '#00adf7',
   },
   {
-    icon: 'ant-design:behance-square-filled',
+    icon: 'fa:behance-square',
     title: '科学搬砖组',
     color: '#7c51b8',
   },
   {
-    icon: 'ant-design:dribbble-circle-filled',
+    icon: 'jam:codepen-circle',
     title: '程序员日常',
     color: '#ff4000',
   },
@@ -55,15 +55,15 @@ export const teams: ListItem[] = [
 
 export const details: ListItem[] = [
   {
-    icon: 'ant-design:contacts-outlined',
+    icon: 'ic:outline-contacts',
     title: '交互专家',
   },
   {
-    icon: 'ant-design:cluster-outlined',
+    icon: 'grommet-icons:cluster',
     title: '某某某事业群',
   },
   {
-    icon: 'ant-design:home-outlined',
+    icon: 'bx:bx-home-circle',
     title: '福建省厦门市',
   },
 ];
@@ -87,9 +87,9 @@ export const achieveList: TabItem[] = [
 ];
 
 export const actions: any[] = [
-  { icon: 'ant-design:star-outlined', text: '156', color: '#018ffb' },
-  { icon: 'ant-design:like-filled', text: '156', color: '#459ae8' },
-  { icon: 'ant-design:message-filled', text: '2', color: '#42d27d' },
+  { icon: 'clarity:star-line', text: '156', color: '#018ffb' },
+  { icon: 'bx:bxs-like', text: '156', color: '#459ae8' },
+  { icon: 'bx:bxs-message-dots', text: '2', color: '#42d27d' },
 ];
 
 export const articleList = (() => {

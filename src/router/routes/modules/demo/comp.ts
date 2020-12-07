@@ -8,7 +8,7 @@ const comp: AppRouteModule = {
   component: LAYOUT,
   redirect: '/comp/basic',
   meta: {
-    icon: 'ant-design:table-outlined',
+    icon: 'ic:outline-settings-input-component',
     title: 'routes.demo.comp.comp',
   },
 
