@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue';
+import { defineComponent, CSSProperties } from 'vue';
 import { fileListProps } from './props';
 import { isFunction } from '/@/utils/is';
 import './FileList.less';
@@ -16,11 +16,13 @@ export default defineComponent({
           <colgroup>
             {columnList.map((item) => {
               const { width = 0, dataIndex } = item;
-              return width ? (
-                <col style={'width:' + width + 'px;min-width:' + width + 'px;'} key={dataIndex} />
-              ) : (
-                <col />
-              );
+
+              const style: CSSProperties = {
+                width: `${width}px`,
+                minWidth: `${width}px`,
+              };
+
+              return <col style={width ? style : {}} key={dataIndex} />;
             })}
           </colgroup>
           <thead>
@@ -38,22 +40,17 @@ export default defineComponent({
           <tbody>
             {dataSource.map((record = {}) => {
               return (
-                <tr class="file-table-tr">
+                <tr class="file-table-tr" key={record.uuid}>
                   {columnList.map((item) => {
                     const { dataIndex = '', customRender, align = 'center' } = item;
-                    if (customRender && isFunction(customRender)) {
-                      return (
-                        <td class={['file-table-td', align]} key={dataIndex}>
-                          {customRender({ text: record[dataIndex], record })}
-                        </td>
-                      );
-                    } else {
-                      return (
-                        <td class={['file-table-td', align]} key={dataIndex}>
-                          {record[dataIndex]}
-                        </td>
-                      );
-                    }
+                    const render = customRender && isFunction(customRender);
+                    return (
+                      <td class={['file-table-td', align]} key={dataIndex}>
+                        {render
+                          ? customRender?.({ text: record[dataIndex], record })
+                          : record[dataIndex]}
+                      </td>
+                    );
                   })}
                 </tr>
               );
