@@ -25,14 +25,14 @@
           items: [
             {
               label: 'New',
-              icon: 'ant-design:plus-outlined',
+              icon: 'bi:plus',
               handler: () => {
                 createMessage.success('click new');
               },
             },
             {
               label: 'Open',
-              icon: 'ant-design:folder-open-filled',
+              icon: 'bx:bxs-folder-open',
               handler: () => {
                 createMessage.success('click open');
               },
@@ -47,12 +47,12 @@
           items: [
             {
               label: 'New',
-              icon: 'ant-design:plus-outlined',
+              icon: 'bi:plus',
 
               children: [
                 {
                   label: 'New1-1',
-                  icon: 'ant-design:plus-outlined',
+                  icon: 'bi:plus',
                   divider: true,
                   children: [
                     {
@@ -69,7 +69,7 @@
                 },
                 {
                   label: 'New1-2',
-                  icon: 'ant-design:plus-outlined',
+                  icon: 'bi:plus',
                 },
               ],
             },

@@ -9,9 +9,7 @@
           <div class="mb-2">头像</div>
           <img width="140" :src="headerImg" />
           <Upload :showUploadList="false">
-            <Button type="ghost" class="ml-5">
-              <Icon icon="ant-design:upload-outlined" />更换头像
-            </Button>
+            <Button type="ghost" class="ml-5"> <Icon icon="feather:upload" />更换头像 </Button>
           </Upload>
         </div>
       </a-col>

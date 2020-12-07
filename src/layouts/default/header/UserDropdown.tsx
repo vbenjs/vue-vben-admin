@@ -103,7 +103,7 @@ export default defineComponent({
               <MenuItem
                 key="loginOut"
                 text={t('layout.header.dropdownItemLoginOut')}
-                icon="ant-design:poweroff-outlined"
+                icon="carbon:power"
               />
             </>
           )}

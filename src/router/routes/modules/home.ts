@@ -8,7 +8,7 @@ const dashboard: AppRouteModule = {
   component: LAYOUT,
   redirect: '/home/welcome',
   meta: {
-    icon: 'ant-design:home-outlined',
+    icon: 'bx:bx-home',
     title: 'routes.dashboard.welcome',
   },
   children: [
@@ -19,7 +19,7 @@ const dashboard: AppRouteModule = {
       meta: {
         title: 'routes.dashboard.welcome',
         affix: true,
-        icon: 'ant-design:home-outlined',
+        icon: 'bx:bx-home',
       },
     },
   ],

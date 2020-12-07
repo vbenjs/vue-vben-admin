@@ -8,7 +8,7 @@ const form: AppRouteModule = {
   component: LAYOUT,
   redirect: '/form/basic',
   meta: {
-    icon: 'ant-design:table-outlined',
+    icon: 'mdi:form-select',
     title: 'routes.demo.form.form',
   },
   children: [

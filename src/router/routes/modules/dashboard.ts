@@ -8,7 +8,7 @@ const dashboard: AppRouteModule = {
   component: LAYOUT,
   redirect: '/dashboard/welcome',
   meta: {
-    icon: 'ant-design:home-outlined',
+    icon: 'bx:bx-home',
     title: 'routes.dashboard.dashboard',
   },
   children: [

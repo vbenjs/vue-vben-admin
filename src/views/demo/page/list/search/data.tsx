@@ -15,9 +15,9 @@ export const searchList = (() => {
 })();
 
 export const actions: any[] = [
-  { icon: 'ant-design:star-outlined', text: '156', color: '#018ffb' },
-  { icon: 'ant-design:like-filled', text: '156', color: '#459ae8' },
-  { icon: 'ant-design:message-filled', text: '2', color: '#42d27d' },
+  { icon: 'clarity:star-line', text: '156', color: '#018ffb' },
+  { icon: 'bx:bxs-like', text: '156', color: '#459ae8' },
+  { icon: 'bx:bxs-message-dots', text: '2', color: '#42d27d' },
 ];
 
 export const schemas: FormSchema[] = [

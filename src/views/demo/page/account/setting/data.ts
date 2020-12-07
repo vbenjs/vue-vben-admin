@@ -108,7 +108,7 @@ export const accountBindList: ListItem[] = [
     title: '绑定淘宝',
     description: '当前未绑定淘宝账号',
     extra: '绑定',
-    avatar: 'ant-design:taobao-outlined',
+    avatar: 'ri:taobao-fill',
     color: '#ff4000',
   },
   {
@@ -116,7 +116,7 @@ export const accountBindList: ListItem[] = [
     title: '绑定支付宝',
     description: '当前未绑定支付宝账号',
     extra: '绑定',
-    avatar: 'ant-design:alipay-outlined',
+    avatar: 'fa-brands:alipay',
     color: '#2eabff',
   },
   {

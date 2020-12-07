@@ -20,7 +20,7 @@ const MainRoute: AppRouteModule = {
   component: LAYOUT,
   redirect: PageEnum.BASE_HOME,
   meta: {
-    icon: 'ant-design:home-outlined',
+    icon: 'bx:bx-home',
     title: 'routes.dashboard.dashboard',
   },
 };

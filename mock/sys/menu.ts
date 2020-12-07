@@ -9,7 +9,7 @@ const dashboardRoute = {
   meta: {
     title: 'routes.dashboard.welcome',
     affix: true,
-    icon: 'ant-design:home-outlined',
+    icon: 'bx:bx-home',
   },
 };
 

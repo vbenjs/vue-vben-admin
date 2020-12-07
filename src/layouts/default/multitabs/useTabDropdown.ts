@@ -62,40 +62,40 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
       index === tabStore.getTabsState.length - 1 && tabStore.getLastDragEndIndexState >= 0;
     const dropMenuList: DropMenu[] = [
       {
-        icon: 'ant-design:reload-outlined',
+        icon: 'ion:reload-sharp',
         event: MenuEventEnum.REFRESH_PAGE,
         text: t('layout.multipleTab.redo'),
         disabled: refreshDisabled,
       },
       {
-        icon: 'ant-design:close-outlined',
+        icon: 'clarity:close-line',
         event: MenuEventEnum.CLOSE_CURRENT,
         text: t('layout.multipleTab.close'),
         disabled: meta?.affix || disabled,
         divider: true,
       },
       {
-        icon: 'ant-design:pic-left-outlined',
+        icon: 'line-md:arrow-close-left',
         event: MenuEventEnum.CLOSE_LEFT,
         text: t('layout.multipleTab.closeLeft'),
         disabled: closeLeftDisabled,
         divider: false,
       },
       {
-        icon: 'ant-design:pic-right-outlined',
+        icon: 'line-md:arrow-close-right',
         event: MenuEventEnum.CLOSE_RIGHT,
         text: t('layout.multipleTab.closeRight'),
         disabled: closeRightDisabled,
         divider: true,
       },
       {
-        icon: 'ant-design:pic-center-outlined',
+        icon: 'dashicons:align-center',
         event: MenuEventEnum.CLOSE_OTHER,
         text: t('layout.multipleTab.closeOther'),
         disabled: disabled,
       },
       {
-        icon: 'ant-design:line-outlined',
+        icon: 'clarity:minus-line',
         event: MenuEventEnum.CLOSE_ALL,
         text: t('layout.multipleTab.closeAll'),
         disabled: disabled,

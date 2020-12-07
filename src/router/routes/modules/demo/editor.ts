@@ -8,7 +8,7 @@ const editor: AppRouteModule = {
   component: LAYOUT,
   redirect: '/editor/markdown',
   meta: {
-    icon: 'ant-design:table-outlined',
+    icon: 'carbon:table-split',
     title: 'routes.demo.editor.editor',
   },
   children: [
