@@ -33,11 +33,11 @@ const iframe: AppRouteModule = {
       },
     },
     {
-      path: 'docExternal',
+      path: 'https://vvbin.cn/doc-next/',
       name: 'DocExternal',
       component: IFrame,
       meta: {
-        externalLink: 'https://vvbin.cn/doc-next/',
+        externalLink: true,
         title: 'routes.demo.iframe.docExternal',
       },
     },

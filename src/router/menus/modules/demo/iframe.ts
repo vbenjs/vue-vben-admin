@@ -15,7 +15,7 @@ const menu: MenuModule = {
         name: 'routes.demo.iframe.doc',
       },
       {
-        path: 'docExternal',
+        path: 'https://vvbin.cn/doc-next/',
         name: 'routes.demo.iframe.docExternal',
       },
     ],
