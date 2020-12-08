@@ -12,3 +12,7 @@ export interface BarMap {
   vertical: BarMapItem;
   horizontal: BarMapItem;
 }
+
+export interface ScrollbarType {
+  wrap: ElRef;
+}

@@ -15,8 +15,9 @@ import {
   onBeforeUnmount,
 } from 'vue';
 import { getSlot } from '/@/utils/helper/tsxHelper';
-import { tryTsxEmit } from '/@/utils/helper/vueHelper';
 import './index.less';
+import { useExpose } from '/@/hooks/core/useExpose';
+import { ScrollbarType } from './types';
 
 export default defineComponent({
   name: 'Scrollbar',
@@ -65,10 +66,9 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      tryTsxEmit<any>((instance) => {
-        instance.wrap = unref(wrapElRef);
+      useExpose<ScrollbarType>({
+        wrap: unref(wrapElRef),
       });
-
       const { native, noresize } = props;
       const resizeEl = unref(resizeRef);
       const warpEl = unref(wrapElRef);

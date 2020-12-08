@@ -11,10 +11,10 @@ import { useContextMenu, ContextMenuItem } from '/@/hooks/web/useContextMenu';
 import { isFunction } from '/@/utils/is';
 import { omit } from 'lodash-es';
 import { extendSlots } from '/@/utils/helper/tsxHelper';
-import { tryTsxEmit } from '/@/utils/helper/vueHelper';
 
 import { basicProps } from './props';
 import { useTree } from './useTree';
+import { useExpose } from '/@/hooks/core/useExpose';
 
 interface State {
   expandedKeys: Keys;
@@ -182,20 +182,21 @@ export default defineComponent({
       state.checkedKeys = props.checkedKeys;
     });
 
-    tryTsxEmit<TreeActionType>((currentInstance) => {
-      currentInstance.setExpandedKeys = setExpandedKeys;
-      currentInstance.getExpandedKeys = getExpandedKeys;
-      currentInstance.setSelectedKeys = setSelectedKeys;
-      currentInstance.getSelectedKeys = getSelectedKeys;
-      currentInstance.setCheckedKeys = setCheckedKeys;
-      currentInstance.getCheckedKeys = getCheckedKeys;
-      currentInstance.insertNodeByKey = insertNodeByKey;
-      currentInstance.deleteNodeByKey = deleteNodeByKey;
-      currentInstance.updateNodeByKey = updateNodeByKey;
-      currentInstance.filterByLevel = (level: number) => {
+    useExpose<TreeActionType>({
+      setExpandedKeys,
+      getExpandedKeys,
+      setSelectedKeys,
+      getSelectedKeys,
+      setCheckedKeys,
+      getCheckedKeys,
+      insertNodeByKey,
+      deleteNodeByKey,
+      updateNodeByKey,
+      filterByLevel: (level: number) => {
         state.expandedKeys = filterByLevel(level);
-      };
+      },
     });
+
     return () => {
       return (
         <Tree {...unref(getBindValues)} class={prefixCls}>

@@ -18,7 +18,7 @@ export default defineComponent({
   props: rotateProps,
   emits: ['success', 'change', 'update:value'],
   setup(props, { emit, attrs }) {
-    const basicRef = ref<RefInstanceType<DragVerifyActionType>>(null);
+    const basicRef = ref<Nullable<DragVerifyActionType>>(null);
     const state = reactive({
       showTip: false,
       isPassing: false,
@@ -113,7 +113,7 @@ export default defineComponent({
       }
       state.isPassing = false;
 
-      basicEl.$.resume();
+      basicEl.resume();
       handleImgOnLoad();
     }
 

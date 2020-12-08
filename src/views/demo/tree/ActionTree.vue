@@ -32,14 +32,14 @@
   export default defineComponent({
     components: { BasicTree, CollapseContainer },
     setup() {
-      const treeRef = ref<RefInstanceType<TreeActionType>>(null);
+      const treeRef = ref<Nullable<TreeActionType>>(null);
       const { createMessage } = useMessage();
       function getTree() {
         const tree = unref(treeRef);
         if (!tree) {
           throw new Error('tree is null!');
         }
-        return tree.$;
+        return tree;
       }
 
       function handleLevel(level: number) {

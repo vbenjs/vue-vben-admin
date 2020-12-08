@@ -69,6 +69,7 @@
   import { basicProps } from './props';
   import { ROW_KEY } from './const';
   import './style/index.less';
+  import { useExpose } from '/@/hooks/core/useExpose';
   export default defineComponent({
     props: basicProps,
     components: { Table, BasicForm },
@@ -309,6 +310,8 @@
         wrapRef,
       });
 
+      useExpose<TableActionType>(tableAction);
+
       emit('register', tableAction);
       return {
         tableElRef,
@@ -322,7 +325,7 @@
         getRowClassName,
         wrapRef,
         tableAction,
-        ...tableAction,
+        redoHeight,
       };
     },
   });
