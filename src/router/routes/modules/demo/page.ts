@@ -2,6 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { getParentLayout, LAYOUT } from '/@/router/constant';
 import { ExceptionEnum } from '/@/enums/exceptionEnum';
+import { t } from '/@/hooks/web/useI18n';
 
 const ExceptionPage = () => import('/@/views/sys/exception/Exception');
 
@@ -12,7 +13,7 @@ const page: AppRouteModule = {
   redirect: '/page-demo/exception',
   meta: {
     icon: 'mdi:page-next-outline',
-    title: 'routes.demo.page.page',
+    title: t('routes.demo.page.page'),
   },
   children: [
     // =============================form start=============================
@@ -22,7 +23,7 @@ const page: AppRouteModule = {
       redirect: '/page-demo/form/basic',
       component: getParentLayout('FormPage'),
       meta: {
-        title: 'routes.demo.page.form',
+        title: t('routes.demo.page.form'),
       },
       children: [
         {
@@ -30,7 +31,7 @@ const page: AppRouteModule = {
           name: 'FormBasicPage',
           component: () => import('/@/views/demo/page/form/basic/index.vue'),
           meta: {
-            title: 'routes.demo.page.formBasic',
+            title: t('routes.demo.page.formBasic'),
           },
         },
         {
@@ -38,7 +39,7 @@ const page: AppRouteModule = {
           name: 'FormStepPage',
           component: () => import('/@/views/demo/page/form/step/index.vue'),
           meta: {
-            title: 'routes.demo.page.formStep',
+            title: t('routes.demo.page.formStep'),
           },
         },
         {
@@ -46,7 +47,7 @@ const page: AppRouteModule = {
           name: 'FormHightPage',
           component: () => import('/@/views/demo/page/form/high/index.vue'),
           meta: {
-            title: 'routes.demo.page.formHigh',
+            title: t('routes.demo.page.formHigh'),
           },
         },
       ],
@@ -59,7 +60,7 @@ const page: AppRouteModule = {
       component: getParentLayout('DescPage'),
       redirect: '/page-demo/desc/basic',
       meta: {
-        title: 'routes.demo.page.desc',
+        title: t('routes.demo.page.desc'),
       },
       children: [
         {
@@ -67,7 +68,7 @@ const page: AppRouteModule = {
           name: 'DescBasicPage',
           component: () => import('/@/views/demo/page/desc/basic/index.vue'),
           meta: {
-            title: 'routes.demo.page.descBasic',
+            title: t('routes.demo.page.descBasic'),
           },
         },
         {
@@ -75,7 +76,7 @@ const page: AppRouteModule = {
           name: 'DescHighPage',
           component: () => import('/@/views/demo/page/desc/high/index.vue'),
           meta: {
-            title: 'routes.demo.page.descHigh',
+            title: t('routes.demo.page.descHigh'),
           },
         },
       ],
@@ -90,7 +91,7 @@ const page: AppRouteModule = {
       component: getParentLayout('ResultPage'),
 
       meta: {
-        title: 'routes.demo.page.result',
+        title: t('routes.demo.page.result'),
       },
       children: [
         {
@@ -98,7 +99,7 @@ const page: AppRouteModule = {
           name: 'ResultSuccessPage',
           component: () => import('/@/views/demo/page/result/success/index.vue'),
           meta: {
-            title: 'routes.demo.page.resultSuccess',
+            title: t('routes.demo.page.resultSuccess'),
           },
         },
         {
@@ -106,7 +107,7 @@ const page: AppRouteModule = {
           name: 'ResultFailPage',
           component: () => import('/@/views/demo/page/result/fail/index.vue'),
           meta: {
-            title: 'routes.demo.page.resultFail',
+            title: t('routes.demo.page.resultFail'),
           },
         },
       ],
@@ -120,7 +121,7 @@ const page: AppRouteModule = {
       component: getParentLayout('AccountPage'),
       redirect: '/page-demo/account/setting',
       meta: {
-        title: 'routes.demo.page.account',
+        title: t('routes.demo.page.account'),
       },
       children: [
         {
@@ -128,7 +129,7 @@ const page: AppRouteModule = {
           name: 'AccountCenterPage',
           component: () => import('/@/views/demo/page/account/center/index.vue'),
           meta: {
-            title: 'routes.demo.page.accountCenter',
+            title: t('routes.demo.page.accountCenter'),
           },
         },
         {
@@ -136,7 +137,7 @@ const page: AppRouteModule = {
           name: 'AccountSettingPage',
           component: () => import('/@/views/demo/page/account/setting/index.vue'),
           meta: {
-            title: 'routes.demo.page.accountSetting',
+            title: t('routes.demo.page.accountSetting'),
           },
         },
       ],
@@ -149,7 +150,7 @@ const page: AppRouteModule = {
       component: getParentLayout('ExceptionPage'),
       redirect: '/page-demo/exception/404',
       meta: {
-        title: 'routes.demo.page.exception',
+        title: t('routes.demo.page.exception'),
       },
       children: [
         {
@@ -193,7 +194,7 @@ const page: AppRouteModule = {
             status: ExceptionEnum.NET_WORK_ERROR,
           },
           meta: {
-            title: 'routes.demo.page.netWorkError',
+            title: t('routes.demo.page.netWorkError'),
           },
         },
         {
@@ -204,7 +205,7 @@ const page: AppRouteModule = {
             status: ExceptionEnum.PAGE_NOT_DATA,
           },
           meta: {
-            title: 'routes.demo.page.notData',
+            title: t('routes.demo.page.notData'),
           },
         },
       ],
@@ -217,7 +218,7 @@ const page: AppRouteModule = {
       component: getParentLayout('ListPage'),
       redirect: '/page-demo/list/card',
       meta: {
-        title: 'routes.demo.page.list',
+        title: t('routes.demo.page.list'),
       },
       children: [
         {
@@ -225,7 +226,7 @@ const page: AppRouteModule = {
           name: 'ListBasicPage',
           component: () => import('/@/views/demo/page/list/basic/index.vue'),
           meta: {
-            title: 'routes.demo.page.listBasic',
+            title: t('routes.demo.page.listBasic'),
           },
         },
         {
@@ -233,7 +234,7 @@ const page: AppRouteModule = {
           name: 'ListCardPage',
           component: () => import('/@/views/demo/page/list/card/index.vue'),
           meta: {
-            title: 'routes.demo.page.listCard',
+            title: t('routes.demo.page.listCard'),
           },
         },
         {
@@ -241,7 +242,7 @@ const page: AppRouteModule = {
           name: 'ListSearchPage',
           component: () => import('/@/views/demo/page/list/search/index.vue'),
           meta: {
-            title: 'routes.demo.page.listSearch',
+            title: t('routes.demo.page.listSearch'),
           },
         },
       ],

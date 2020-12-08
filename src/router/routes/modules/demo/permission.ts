@@ -2,6 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { getParentLayout, LAYOUT } from '/@/router/constant';
 import { RoleEnum } from '/@/enums/roleEnum';
+import { t } from '/@/hooks/web/useI18n';
 
 const permission: AppRouteModule = {
   path: '/permission',
@@ -10,7 +11,7 @@ const permission: AppRouteModule = {
   redirect: '/permission/front/page',
   meta: {
     icon: 'carbon:user-role',
-    title: 'routes.demo.permission.permission',
+    title: t('routes.demo.permission.permission'),
   },
 
   children: [
@@ -19,7 +20,7 @@ const permission: AppRouteModule = {
       name: 'PermissionFrontDemo',
       component: getParentLayout('PermissionFrontDemo'),
       meta: {
-        title: 'routes.demo.permission.front',
+        title: t('routes.demo.permission.front'),
       },
       children: [
         {
@@ -27,7 +28,7 @@ const permission: AppRouteModule = {
           name: 'FrontPageAuth',
           component: () => import('/@/views/demo/permission/front/index.vue'),
           meta: {
-            title: 'routes.demo.permission.frontPage',
+            title: t('routes.demo.permission.frontPage'),
           },
         },
         {
@@ -35,7 +36,7 @@ const permission: AppRouteModule = {
           name: 'FrontBtnAuth',
           component: () => import('/@/views/demo/permission/front/Btn.vue'),
           meta: {
-            title: 'routes.demo.permission.frontBtn',
+            title: t('routes.demo.permission.frontBtn'),
           },
         },
         {
@@ -43,7 +44,7 @@ const permission: AppRouteModule = {
           name: 'FrontAuthPageA',
           component: () => import('/@/views/demo/permission/front/AuthPageA.vue'),
           meta: {
-            title: 'routes.demo.permission.frontTestA',
+            title: t('routes.demo.permission.frontTestA'),
             roles: [RoleEnum.SUPER],
           },
         },
@@ -52,7 +53,7 @@ const permission: AppRouteModule = {
           name: 'FrontAuthPageB',
           component: () => import('/@/views/demo/permission/front/AuthPageB.vue'),
           meta: {
-            title: 'routes.demo.permission.frontTestB',
+            title: t('routes.demo.permission.frontTestB'),
             roles: [RoleEnum.TEST],
           },
         },
@@ -63,7 +64,7 @@ const permission: AppRouteModule = {
       name: 'PermissionBackDemo',
       component: getParentLayout('PermissionBackDemo'),
       meta: {
-        title: 'routes.demo.permission.back',
+        title: t('routes.demo.permission.back'),
       },
       children: [
         {
@@ -71,7 +72,7 @@ const permission: AppRouteModule = {
           name: 'BackAuthPage',
           component: () => import('/@/views/demo/permission/back/index.vue'),
           meta: {
-            title: 'routes.demo.permission.backPage',
+            title: t('routes.demo.permission.backPage'),
           },
         },
         {
@@ -79,7 +80,7 @@ const permission: AppRouteModule = {
           name: 'BackAuthBtn',
           component: () => import('/@/views/demo/permission/back/Btn.vue'),
           meta: {
-            title: 'routes.demo.permission.backBtn',
+            title: t('routes.demo.permission.backBtn'),
           },
         },
       ],

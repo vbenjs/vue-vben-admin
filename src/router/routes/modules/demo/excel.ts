@@ -1,6 +1,7 @@
 import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
+import { t } from '/@/hooks/web/useI18n';
 
 const excel: AppRouteModule = {
   path: '/excel',
@@ -9,7 +10,7 @@ const excel: AppRouteModule = {
   redirect: '/excel/customExport',
   meta: {
     icon: 'mdi:microsoft-excel',
-    title: 'routes.demo.excel.excel',
+    title: t('routes.demo.excel.excel'),
   },
 
   children: [
@@ -18,7 +19,7 @@ const excel: AppRouteModule = {
       name: 'CustomExport',
       component: () => import('/@/views/demo/excel/CustomExport.vue'),
       meta: {
-        title: 'routes.demo.excel.customExport',
+        title: t('routes.demo.excel.customExport'),
       },
     },
     {
@@ -26,7 +27,7 @@ const excel: AppRouteModule = {
       name: 'JsonExport',
       component: () => import('/@/views/demo/excel/JsonExport.vue'),
       meta: {
-        title: 'routes.demo.excel.jsonExport',
+        title: t('routes.demo.excel.jsonExport'),
       },
     },
     {
@@ -34,7 +35,7 @@ const excel: AppRouteModule = {
       name: 'ArrayExport',
       component: () => import('/@/views/demo/excel/ArrayExport.vue'),
       meta: {
-        title: 'routes.demo.excel.arrayExport',
+        title: t('routes.demo.excel.arrayExport'),
       },
     },
     {
@@ -42,7 +43,7 @@ const excel: AppRouteModule = {
       name: 'ImportExcel',
       component: () => import('/@/views/demo/excel/ImportExcel.vue'),
       meta: {
-        title: 'routes.demo.excel.importExcel',
+        title: t('routes.demo.excel.importExcel'),
       },
     },
   ],

@@ -1,6 +1,7 @@
 import type { AppRouteModule } from '/@/router/types';
 
 import { getParentLayout, LAYOUT } from '/@/router/constant';
+import { t } from '/@/hooks/web/useI18n';
 
 const permission: AppRouteModule = {
   path: '/level',
@@ -9,7 +10,7 @@ const permission: AppRouteModule = {
   redirect: '/level/menu1/menu1-1',
   meta: {
     icon: 'carbon:user-role',
-    title: 'routes.demo.level.level',
+    title: t('routes.demo.level.level'),
   },
 
   children: [

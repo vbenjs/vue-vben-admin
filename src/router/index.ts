@@ -20,7 +20,7 @@ const router = createRouter({
 
 // reset router
 export function resetRouter() {
-  const resetWhiteNameList = ['Login', 'Root'];
+  const resetWhiteNameList = ['Login'];
   router.getRoutes().forEach((route) => {
     const { name } = route;
     if (name && !resetWhiteNameList.includes(name as string)) {

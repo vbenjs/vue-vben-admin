@@ -1,9 +1,10 @@
 import type { MenuModule } from '/@/router/types.d';
+import { t } from '/@/hooks/web/useI18n';
 
 const menu: MenuModule = {
   orderNo: 2000,
   menu: {
-    name: 'routes.demo.level.level',
+    name: t('routes.demo.level.level'),
     path: '/level',
     tag: {
       dot: true,

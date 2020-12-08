@@ -2,6 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
 const IFrame = () => import('/@/views/sys/iframe/FrameBlank.vue');
+import { t } from '/@/hooks/web/useI18n';
 
 const iframe: AppRouteModule = {
   path: '/frame',
@@ -10,7 +11,7 @@ const iframe: AppRouteModule = {
   redirect: '/frame/antv',
   meta: {
     icon: 'mdi:page-next-outline',
-    title: 'routes.demo.iframe.frame',
+    title: t('routes.demo.iframe.frame'),
   },
 
   children: [
@@ -20,7 +21,7 @@ const iframe: AppRouteModule = {
       component: IFrame,
       meta: {
         frameSrc: 'https://2x.antdv.com/docs/vue/introduce-cn/',
-        title: 'routes.demo.iframe.antv',
+        title: t('routes.demo.iframe.antv'),
       },
     },
     {
@@ -29,7 +30,7 @@ const iframe: AppRouteModule = {
       component: IFrame,
       meta: {
         frameSrc: 'https://vvbin.cn/doc-next/',
-        title: 'routes.demo.iframe.doc',
+        title: t('routes.demo.iframe.doc'),
       },
     },
     {
@@ -38,7 +39,7 @@ const iframe: AppRouteModule = {
       component: IFrame,
       meta: {
         externalLink: true,
-        title: 'routes.demo.iframe.docExternal',
+        title: t('routes.demo.iframe.docExternal'),
       },
     },
   ],

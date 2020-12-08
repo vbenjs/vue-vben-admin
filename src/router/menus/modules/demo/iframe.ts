@@ -1,22 +1,23 @@
 import type { MenuModule } from '/@/router/types.d';
+import { t } from '/@/hooks/web/useI18n';
 
 const menu: MenuModule = {
   orderNo: 1000,
   menu: {
-    name: 'routes.demo.iframe.frame',
+    name: t('routes.demo.iframe.frame'),
     path: '/frame',
     children: [
       {
         path: 'antv',
-        name: 'routes.demo.iframe.antv',
+        name: t('routes.demo.iframe.antv'),
       },
       {
         path: 'doc',
-        name: 'routes.demo.iframe.doc',
+        name: t('routes.demo.iframe.doc'),
       },
       {
         path: 'https://vvbin.cn/doc-next/',
-        name: 'routes.demo.iframe.docExternal',
+        name: t('routes.demo.iframe.docExternal'),
       },
     ],
   },

@@ -1,9 +1,10 @@
 import type { MenuModule } from '/@/router/types.d';
+import { t } from '/@/hooks/web/useI18n';
 
 const menu: MenuModule = {
   orderNo: 30,
   menu: {
-    name: 'routes.demo.comp.comp',
+    name: t('routes.demo.comp.comp'),
     path: '/comp',
     tag: {
       dot: true,
@@ -11,91 +12,91 @@ const menu: MenuModule = {
     children: [
       {
         path: 'basic',
-        name: 'routes.demo.comp.basic',
+        name: t('routes.demo.comp.basic'),
       },
       {
         path: 'countTo',
-        name: 'routes.demo.comp.countTo',
+        name: t('routes.demo.comp.countTo'),
       },
       {
         path: 'transition',
-        name: 'routes.demo.comp.transition',
+        name: t('routes.demo.comp.transition'),
       },
 
       {
         path: 'modal',
-        name: 'routes.demo.comp.modal',
+        name: t('routes.demo.comp.modal'),
       },
       {
         path: 'drawer',
-        name: 'routes.demo.comp.drawer',
+        name: t('routes.demo.comp.drawer'),
       },
       {
         path: 'desc',
-        name: 'routes.demo.comp.desc',
+        name: t('routes.demo.comp.desc'),
       },
       {
         path: 'qrcode',
-        name: 'routes.demo.comp.qrcode',
+        name: t('routes.demo.comp.qrcode'),
       },
       {
         path: 'strength-meter',
-        name: 'routes.demo.comp.strength',
+        name: t('routes.demo.comp.strength'),
       },
       {
         path: 'upload',
-        name: 'routes.demo.comp.upload',
+        name: t('routes.demo.comp.upload'),
       },
       {
         path: 'loading',
-        name: 'routes.demo.comp.loading',
+        name: t('routes.demo.comp.loading'),
         tag: {
           content: 'new',
         },
       },
       {
         path: 'scroll',
-        name: 'routes.demo.comp.scroll',
+        name: t('routes.demo.comp.scroll'),
         children: [
           {
             path: 'basic',
-            name: 'routes.demo.comp.scrollBasic',
+            name: t('routes.demo.comp.scrollBasic'),
           },
           {
             path: 'action',
-            name: 'routes.demo.comp.scrollAction',
+            name: t('routes.demo.comp.scrollAction'),
           },
           {
             path: 'virtualScroll',
-            name: 'routes.demo.comp.virtualScroll',
+            name: t('routes.demo.comp.virtualScroll'),
           },
         ],
       },
       {
         path: 'lazy',
-        name: 'routes.demo.comp.lazy',
+        name: t('routes.demo.comp.lazy'),
         children: [
           {
             path: 'basic',
-            name: 'routes.demo.comp.lazyBasic',
+            name: t('routes.demo.comp.lazyBasic'),
           },
           {
             path: 'transition',
-            name: 'routes.demo.comp.lazyTransition',
+            name: t('routes.demo.comp.lazyTransition'),
           },
         ],
       },
       {
         path: 'verify',
-        name: 'routes.demo.comp.verify',
+        name: t('routes.demo.comp.verify'),
         children: [
           {
             path: 'drag',
-            name: 'routes.demo.comp.verifyDrag',
+            name: t('routes.demo.comp.verifyDrag'),
           },
           {
             path: 'rotate',
-            name: 'routes.demo.comp.verifyRotate',
+            name: t('routes.demo.comp.verifyRotate'),
           },
         ],
       },
