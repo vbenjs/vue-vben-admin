@@ -190,6 +190,7 @@ export default defineComponent({
       const { appendClass } = props;
       const isAppendActiveCls =
         appendClass && level === 1 && menu.path === unref(currentParentPath);
+
       const levelCls = [
         `${prefixCls}-item__level${level}`,
         ` ${menuState.theme} `,

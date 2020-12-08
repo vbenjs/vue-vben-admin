@@ -17,6 +17,7 @@ export interface JsonToSheet<T = any> {
   json2sheetOpts?: JSON2SheetOpts;
   write2excelOpts?: WritingOptions;
 }
+
 export interface AoAToSheet<T = any> {
   data: T[][];
   header?: T[];

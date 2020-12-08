@@ -38,9 +38,9 @@ export default defineComponent({
             </tr>
           </thead>
           <tbody>
-            {dataSource.map((record = {}) => {
+            {dataSource.map((record = {}, index) => {
               return (
-                <tr class="file-table-tr" key={record.uuid}>
+                <tr class="file-table-tr" key={`${index + record.name || ''}`}>
                   {columnList.map((item) => {
                     const { dataIndex = '', customRender, align = 'center' } = item;
                     const render = customRender && isFunction(customRender);
