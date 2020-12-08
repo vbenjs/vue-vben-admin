@@ -6,13 +6,15 @@
   import { defineComponent, toRefs } from 'vue';
 
   import { createAppProviderContext } from './useAppContext';
+
+  import designSetting from '/@/settings/designSetting';
   export default defineComponent({
     name: 'AppProvider',
     inheritAttrs: false,
     props: {
       prefixCls: {
         type: String as PropType<string>,
-        default: 'vben',
+        default: designSetting.prefixCls,
       },
     },
     setup(props) {
