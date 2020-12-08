@@ -17,7 +17,7 @@
   import type { ExcelData } from './types';
   export default defineComponent({
     name: 'ImportExcel',
-    emits: ['success'],
+    emits: ['success', 'error'],
     setup(_, { emit }) {
       const inputRef = ref<HTMLInputElement | null>(null);
       const loadingRef = ref<Boolean>(false);
@@ -82,6 +82,7 @@
               resolve('');
             } catch (error) {
               reject(error);
+              emit('error');
             } finally {
               loadingRef.value = false;
             }

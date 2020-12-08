@@ -11,6 +11,7 @@
 - i18n 支持 vscode `i18n-ally`插件
 - 新增多级路由缓存示例
 - 打包代码拆分(试验)
+- 提取上传地址到全局变量，打包可以动态配置
 
 ### ⚡ Performance Improvements
 
@@ -23,6 +24,7 @@
 - 升级`ant-design-vue`到`2.0.0-rc.3`
 - 重新引入`vueuse`
 - 移除 route meta 内的`afterCloseLoading`属性
+- 文档更新
 
 ### 🐛 Bug Fixes
 
@@ -31,6 +33,7 @@
 - 修复顶部菜单宽度计算问题
 - 修复表格 tabSetting 问题
 - 修复文件上传删除失效
+- 修复表格行编辑保存错误问题
 
 ## 2.0.0-rc.12 (2020-11-30)
 

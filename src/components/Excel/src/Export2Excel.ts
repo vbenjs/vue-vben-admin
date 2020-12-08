@@ -31,6 +31,7 @@ export function jsonToSheetXlsx<T = any>({
   writeFile(workbook, filename, write2excelOpts);
   /* at this point, out.xlsb will have been downloaded */
 }
+
 export function aoaToSheetXlsx<T = any>({
   data,
   header,

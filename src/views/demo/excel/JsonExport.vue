@@ -12,11 +12,11 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable } from '/@/components/Table';
-  import { jsonToSheetXlsx, ExportExcelModel } from '/@/components/Excel';
+  import { jsonToSheetXlsx } from '/@/components/Excel';
   import { columns, data } from './data';
 
   export default defineComponent({
-    components: { BasicTable, ExportExcelModel },
+    components: { BasicTable },
     setup() {
       function defaultHeader() {
         // 默认Object.keys(data[0])作为header
@@ -25,6 +25,7 @@
           filename: '使用key作为默认头部.xlsx',
         });
       }
+
       function customHeader() {
         jsonToSheetXlsx({
           data,

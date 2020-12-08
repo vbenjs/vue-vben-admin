@@ -93,7 +93,6 @@ export type ComponentType =
   | 'SelectOption'
   | 'TreeSelect'
   | 'Transfer'
-  // | 'Radio'
   | 'RadioButtonGroup'
   | 'RadioGroup'
   | 'Checkbox'

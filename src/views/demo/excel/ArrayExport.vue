@@ -11,11 +11,11 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable } from '/@/components/Table';
-  import { aoaToSheetXlsx, ExportExcelModel } from '/@/components/Excel';
+  import { aoaToSheetXlsx } from '/@/components/Excel';
   import { arrHeader, arrData, columns, data } from './data';
 
   export default defineComponent({
-    components: { BasicTable, ExportExcelModel },
+    components: { BasicTable },
     setup() {
       function aoaToExcel() {
         // 保证data顺序与header一致
