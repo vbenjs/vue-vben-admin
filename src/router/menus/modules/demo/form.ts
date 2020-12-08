@@ -1,39 +1,40 @@
 import type { MenuModule } from '/@/router/types.d';
+import { t } from '/@/hooks/web/useI18n';
 
 const menu: MenuModule = {
   orderNo: 40,
   menu: {
     path: '/form',
-    name: 'routes.demo.form.form',
+    name: t('routes.demo.form.form'),
 
     children: [
       {
         path: 'basic',
-        name: 'routes.demo.form.basic',
+        name: t('routes.demo.form.basic'),
       },
       {
         path: 'useForm',
-        name: 'routes.demo.form.useForm',
+        name: t('routes.demo.form.useForm'),
       },
       {
         path: 'refForm',
-        name: 'routes.demo.form.refForm',
+        name: t('routes.demo.form.refForm'),
       },
       {
         path: 'advancedForm',
-        name: 'routes.demo.form.advancedForm',
+        name: t('routes.demo.form.advancedForm'),
       },
       {
         path: 'ruleForm',
-        name: 'routes.demo.form.ruleForm',
+        name: t('routes.demo.form.ruleForm'),
       },
       {
         path: 'dynamicForm',
-        name: 'routes.demo.form.dynamicForm',
+        name: t('routes.demo.form.dynamicForm'),
       },
       {
         path: 'customerForm',
-        name: 'routes.demo.form.customerForm',
+        name: t('routes.demo.form.customerForm'),
       },
     ],
   },

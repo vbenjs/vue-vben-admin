@@ -1,9 +1,10 @@
 import type { AppRouteRecordRaw, AppRouteModule } from '/@/router/types';
 
-import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE, LAYOUT } from '../constant';
-import { PageEnum } from '/@/enums/pageEnum';
+import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '../constant';
 
 import modules from 'globby!/@/router/routes/modules/**/*.@(ts)';
+
+import { t } from '/@/hooks/web/useI18n';
 
 const routeModuleList: AppRouteModule[] = [];
 
@@ -14,25 +15,14 @@ Object.keys(modules).forEach((key) => {
 
 export const asyncRoutes = [PAGE_NOT_FOUND_ROUTE, ...routeModuleList];
 
-const MainRoute: AppRouteModule = {
-  path: '/',
-  name: 'MainRoute',
-  component: LAYOUT,
-  redirect: PageEnum.BASE_HOME,
-  meta: {
-    icon: 'bx:bx-home',
-    title: 'routes.dashboard.dashboard',
-  },
-};
-
 export const LoginRoute: AppRouteRecordRaw = {
   path: '/login',
   name: 'Login',
   component: () => import('/@/views/sys/login/Login.vue'),
   meta: {
-    title: 'routes.basic.login',
+    title: t('routes.basic.login'),
   },
 };
 
 // 基础路由 不用权限
-export const basicRoutes = [LoginRoute, MainRoute, REDIRECT_ROUTE];
+export const basicRoutes = [LoginRoute, REDIRECT_ROUTE];

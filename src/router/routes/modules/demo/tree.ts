@@ -1,6 +1,7 @@
 import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
+import { t } from '/@/hooks/web/useI18n';
 
 const tree: AppRouteModule = {
   path: '/tree',
@@ -9,7 +10,7 @@ const tree: AppRouteModule = {
   redirect: '/tree/basic',
   meta: {
     icon: 'clarity:tree-view-line',
-    title: 'routes.demo.tree.tree',
+    title: t('routes.demo.tree.tree'),
   },
   children: [
     {
@@ -17,7 +18,7 @@ const tree: AppRouteModule = {
       name: 'BasicTreeDemo',
       component: () => import('/@/views/demo/tree/index.vue'),
       meta: {
-        title: 'routes.demo.tree.basic',
+        title: t('routes.demo.tree.basic'),
       },
     },
     {
@@ -25,7 +26,7 @@ const tree: AppRouteModule = {
       name: 'EditTreeDemo',
       component: () => import('/@/views/demo/tree/EditTree.vue'),
       meta: {
-        title: 'routes.demo.tree.editTree',
+        title: t('routes.demo.tree.editTree'),
       },
     },
     {
@@ -33,7 +34,7 @@ const tree: AppRouteModule = {
       name: 'ActionTreeDemo',
       component: () => import('/@/views/demo/tree/ActionTree.vue'),
       meta: {
-        title: 'routes.demo.tree.actionTree',
+        title: t('routes.demo.tree.actionTree'),
       },
     },
   ],

@@ -1,6 +1,7 @@
 import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
+import { t } from '/@/hooks/web/useI18n';
 
 const form: AppRouteModule = {
   path: '/form',
@@ -9,7 +10,7 @@ const form: AppRouteModule = {
   redirect: '/form/basic',
   meta: {
     icon: 'mdi:form-select',
-    title: 'routes.demo.form.form',
+    title: t('routes.demo.form.form'),
   },
   children: [
     {
@@ -17,7 +18,7 @@ const form: AppRouteModule = {
       name: 'FormBasicDemo',
       component: () => import('/@/views/demo/form/index.vue'),
       meta: {
-        title: 'routes.demo.form.basic',
+        title: t('routes.demo.form.basic'),
       },
     },
     {
@@ -25,7 +26,7 @@ const form: AppRouteModule = {
       name: 'UseFormDemo',
       component: () => import('/@/views/demo/form/UseForm.vue'),
       meta: {
-        title: 'routes.demo.form.useForm',
+        title: t('routes.demo.form.useForm'),
       },
     },
     {
@@ -33,7 +34,7 @@ const form: AppRouteModule = {
       name: 'RefFormDemo',
       component: () => import('/@/views/demo/form/RefForm.vue'),
       meta: {
-        title: 'routes.demo.form.refForm',
+        title: t('routes.demo.form.refForm'),
       },
     },
     {
@@ -41,7 +42,7 @@ const form: AppRouteModule = {
       name: 'AdvancedFormDemo',
       component: () => import('/@/views/demo/form/AdvancedForm.vue'),
       meta: {
-        title: 'routes.demo.form.advancedForm',
+        title: t('routes.demo.form.advancedForm'),
       },
     },
     {
@@ -49,7 +50,7 @@ const form: AppRouteModule = {
       name: 'RuleFormDemo',
       component: () => import('/@/views/demo/form/RuleForm.vue'),
       meta: {
-        title: 'routes.demo.form.ruleForm',
+        title: t('routes.demo.form.ruleForm'),
       },
     },
     {
@@ -57,7 +58,7 @@ const form: AppRouteModule = {
       name: 'DynamicFormDemo',
       component: () => import('/@/views/demo/form/DynamicForm.vue'),
       meta: {
-        title: 'routes.demo.form.dynamicForm',
+        title: t('routes.demo.form.dynamicForm'),
       },
     },
     {
@@ -65,7 +66,7 @@ const form: AppRouteModule = {
       name: 'CustomerFormDemo',
       component: () => import('/@/views/demo/form/CustomerForm.vue'),
       meta: {
-        title: 'routes.demo.form.customerForm',
+        title: t('routes.demo.form.customerForm'),
       },
     },
   ],

@@ -1,14 +1,15 @@
 import type { MenuModule } from '/@/router/types.d';
+import { t } from '/@/hooks/web/useI18n';
 
 const menu: MenuModule = {
   orderNo: 500,
   menu: {
-    name: 'routes.demo.charts.charts',
+    name: t('routes.demo.charts.charts'),
     path: '/charts',
     children: [
       {
         path: 'apexChart',
-        name: 'routes.demo.charts.apexChart',
+        name: t('routes.demo.charts.apexChart'),
       },
       {
         path: 'echarts',
@@ -16,15 +17,15 @@ const menu: MenuModule = {
         children: [
           {
             path: 'map',
-            name: 'routes.demo.charts.map',
+            name: t('routes.demo.charts.map'),
           },
           {
             path: 'line',
-            name: 'routes.demo.charts.line',
+            name: t('routes.demo.charts.line'),
           },
           {
             path: 'pie',
-            name: 'routes.demo.charts.pie',
+            name: t('routes.demo.charts.pie'),
           },
         ],
       },

@@ -1,44 +1,45 @@
 import type { MenuModule } from '/@/router/types.d';
+import { t } from '/@/hooks/web/useI18n';
 
 const menu: MenuModule = {
   orderNo: 15,
   menu: {
-    name: 'routes.demo.permission.permission',
+    name: t('routes.demo.permission.permission'),
     path: '/permission',
     children: [
       {
         path: 'front',
-        name: 'routes.demo.permission.front',
+        name: t('routes.demo.permission.front'),
         children: [
           {
             path: 'page',
-            name: 'routes.demo.permission.frontPage',
+            name: t('routes.demo.permission.frontPage'),
           },
           {
             path: 'btn',
-            name: 'routes.demo.permission.frontBtn',
+            name: t('routes.demo.permission.frontBtn'),
           },
           {
             path: 'auth-pageA',
-            name: 'routes.demo.permission.frontTestA',
+            name: t('routes.demo.permission.frontTestA'),
           },
           {
             path: 'auth-pageB',
-            name: 'routes.demo.permission.frontTestB',
+            name: t('routes.demo.permission.frontTestB'),
           },
         ],
       },
       {
         path: 'back',
-        name: 'routes.demo.permission.back',
+        name: t('routes.demo.permission.back'),
         children: [
           {
             path: 'page',
-            name: 'routes.demo.permission.backPage',
+            name: t('routes.demo.permission.backPage'),
           },
           {
             path: 'btn',
-            name: 'routes.demo.permission.backBtn',
+            name: t('routes.demo.permission.backBtn'),
           },
         ],
       },

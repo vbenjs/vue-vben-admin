@@ -1,6 +1,7 @@
 import type { AppRouteModule } from '/@/router/types';
 
 import { getParentLayout, LAYOUT } from '/@/router/constant';
+import { t } from '/@/hooks/web/useI18n';
 
 const comp: AppRouteModule = {
   path: '/comp',
@@ -9,7 +10,7 @@ const comp: AppRouteModule = {
   redirect: '/comp/basic',
   meta: {
     icon: 'ic:outline-settings-input-component',
-    title: 'routes.demo.comp.comp',
+    title: t('routes.demo.comp.comp'),
   },
 
   children: [
@@ -18,7 +19,7 @@ const comp: AppRouteModule = {
       name: 'BasicDemo',
       component: () => import('/@/views/demo/comp/button/index.vue'),
       meta: {
-        title: 'routes.demo.comp.basic',
+        title: t('routes.demo.comp.basic'),
       },
     },
     {
@@ -26,7 +27,7 @@ const comp: AppRouteModule = {
       name: 'transitionDemo',
       component: () => import('/@/views/demo/comp/transition/index.vue'),
       meta: {
-        title: 'routes.demo.comp.transition',
+        title: t('routes.demo.comp.transition'),
       },
     },
     {
@@ -34,7 +35,7 @@ const comp: AppRouteModule = {
       name: 'CountTo',
       component: () => import('/@/views/demo/comp/count-to/index.vue'),
       meta: {
-        title: 'routes.demo.comp.countTo',
+        title: t('routes.demo.comp.countTo'),
       },
     },
 
@@ -44,7 +45,7 @@ const comp: AppRouteModule = {
       redirect: '/comp/scroll/basic',
       component: getParentLayout('ScrollDemo'),
       meta: {
-        title: 'routes.demo.comp.scroll',
+        title: t('routes.demo.comp.scroll'),
       },
       children: [
         {
@@ -52,7 +53,7 @@ const comp: AppRouteModule = {
           name: 'BasicScrollDemo',
           component: () => import('/@/views/demo/comp/scroll/index.vue'),
           meta: {
-            title: 'routes.demo.comp.scrollBasic',
+            title: t('routes.demo.comp.scrollBasic'),
           },
         },
         {
@@ -60,7 +61,7 @@ const comp: AppRouteModule = {
           name: 'ActionScrollDemo',
           component: () => import('/@/views/demo/comp/scroll/Action.vue'),
           meta: {
-            title: 'routes.demo.comp.scrollAction',
+            title: t('routes.demo.comp.scrollAction'),
           },
         },
         {
@@ -68,7 +69,7 @@ const comp: AppRouteModule = {
           name: 'VirtualScrollDemo',
           component: () => import('/@/views/demo/comp/scroll/VirtualScroll.vue'),
           meta: {
-            title: 'routes.demo.comp.virtualScroll',
+            title: t('routes.demo.comp.virtualScroll'),
           },
         },
       ],
@@ -79,7 +80,7 @@ const comp: AppRouteModule = {
       name: 'ModalDemo',
       component: () => import('/@/views/demo/comp/modal/index.vue'),
       meta: {
-        title: 'routes.demo.comp.modal',
+        title: t('routes.demo.comp.modal'),
       },
     },
     {
@@ -87,7 +88,7 @@ const comp: AppRouteModule = {
       name: 'DrawerDemo',
       component: () => import('/@/views/demo/comp/drawer/index.vue'),
       meta: {
-        title: 'routes.demo.comp.drawer',
+        title: t('routes.demo.comp.drawer'),
       },
     },
     {
@@ -95,7 +96,7 @@ const comp: AppRouteModule = {
       name: 'DescDemo',
       component: () => import('/@/views/demo/comp/desc/index.vue'),
       meta: {
-        title: 'routes.demo.comp.desc',
+        title: t('routes.demo.comp.desc'),
       },
     },
 
@@ -105,7 +106,7 @@ const comp: AppRouteModule = {
       component: getParentLayout('LazyDemo'),
       redirect: '/comp/lazy/basic',
       meta: {
-        title: 'routes.demo.comp.lazy',
+        title: t('routes.demo.comp.lazy'),
       },
       children: [
         {
@@ -113,7 +114,7 @@ const comp: AppRouteModule = {
           name: 'BasicLazyDemo',
           component: () => import('/@/views/demo/comp/lazy/index.vue'),
           meta: {
-            title: 'routes.demo.comp.lazyBasic',
+            title: t('routes.demo.comp.lazyBasic'),
           },
         },
         {
@@ -121,7 +122,7 @@ const comp: AppRouteModule = {
           name: 'BasicTransitionDemo',
           component: () => import('/@/views/demo/comp/lazy/Transition.vue'),
           meta: {
-            title: 'routes.demo.comp.lazyTransition',
+            title: t('routes.demo.comp.lazyTransition'),
           },
         },
       ],
@@ -132,7 +133,7 @@ const comp: AppRouteModule = {
       component: getParentLayout('VerifyDemo'),
       redirect: '/comp/verify/drag',
       meta: {
-        title: 'routes.demo.comp.verify',
+        title: t('routes.demo.comp.verify'),
       },
       children: [
         {
@@ -140,7 +141,7 @@ const comp: AppRouteModule = {
           name: 'VerifyDragDemo',
           component: () => import('/@/views/demo/comp/verify/index.vue'),
           meta: {
-            title: 'routes.demo.comp.verifyDrag',
+            title: t('routes.demo.comp.verifyDrag'),
           },
         },
         {
@@ -148,7 +149,7 @@ const comp: AppRouteModule = {
           name: 'VerifyRotateDemo',
           component: () => import('/@/views/demo/comp/verify/Rotate.vue'),
           meta: {
-            title: 'routes.demo.comp.verifyRotate',
+            title: t('routes.demo.comp.verifyRotate'),
           },
         },
       ],
@@ -160,7 +161,7 @@ const comp: AppRouteModule = {
       name: 'QrCodeDemo',
       component: () => import('/@/views/demo/comp/qrcode/index.vue'),
       meta: {
-        title: 'routes.demo.comp.qrcode',
+        title: t('routes.demo.comp.qrcode'),
       },
     },
     {
@@ -168,7 +169,7 @@ const comp: AppRouteModule = {
       name: 'StrengthMeterDemo',
       component: () => import('/@/views/demo/comp/strength-meter/index.vue'),
       meta: {
-        title: 'routes.demo.comp.strength',
+        title: t('routes.demo.comp.strength'),
       },
     },
     {
@@ -176,7 +177,7 @@ const comp: AppRouteModule = {
       name: 'UploadDemo',
       component: () => import('/@/views/demo/comp/upload/index.vue'),
       meta: {
-        title: 'routes.demo.comp.upload',
+        title: t('routes.demo.comp.upload'),
       },
     },
     {
@@ -184,7 +185,7 @@ const comp: AppRouteModule = {
       name: 'LoadingDemo',
       component: () => import('/@/views/demo/comp/loading/index.vue'),
       meta: {
-        title: 'routes.demo.comp.loading',
+        title: t('routes.demo.comp.loading'),
       },
     },
   ],

@@ -1,6 +1,7 @@
 import type { AppRouteModule } from '/@/router/types';
 
 import { getParentLayout, LAYOUT } from '/@/router/constant';
+import { t } from '/@/hooks/web/useI18n';
 
 const charts: AppRouteModule = {
   path: '/charts',
@@ -9,7 +10,7 @@ const charts: AppRouteModule = {
   redirect: '/charts/apexChart',
   meta: {
     icon: 'vaadin:spline-area-chart',
-    title: 'routes.demo.charts.charts',
+    title: t('routes.demo.charts.charts'),
   },
   children: [
     {
@@ -25,7 +26,7 @@ const charts: AppRouteModule = {
           name: 'Map',
           component: () => import('/@/views/demo/echarts/Map.vue'),
           meta: {
-            title: 'routes.demo.charts.map',
+            title: t('routes.demo.charts.map'),
           },
         },
         {
@@ -33,7 +34,7 @@ const charts: AppRouteModule = {
           name: 'Line',
           component: () => import('/@/views/demo/echarts/Line.vue'),
           meta: {
-            title: 'routes.demo.charts.line',
+            title: t('routes.demo.charts.line'),
           },
         },
         {
@@ -41,7 +42,7 @@ const charts: AppRouteModule = {
           name: 'Pie',
           component: () => import('/@/views/demo/echarts/Pie.vue'),
           meta: {
-            title: 'routes.demo.charts.pie',
+            title: t('routes.demo.charts.pie'),
           },
         },
       ],
@@ -50,7 +51,7 @@ const charts: AppRouteModule = {
       path: 'apexChart',
       name: 'ApexChart',
       meta: {
-        title: 'routes.demo.charts.apexChart',
+        title: t('routes.demo.charts.apexChart'),
       },
       component: () => import('/@/views/demo/echarts/apex/index.vue'),
     },

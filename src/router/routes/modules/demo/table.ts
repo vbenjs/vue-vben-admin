@@ -1,6 +1,7 @@
 import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
+import { t } from '/@/hooks/web/useI18n';
 
 const table: AppRouteModule = {
   path: '/table',
@@ -9,7 +10,7 @@ const table: AppRouteModule = {
   redirect: '/table/basic',
   meta: {
     icon: 'carbon:table-split',
-    title: 'routes.demo.table.table',
+    title: t('routes.demo.table.table'),
   },
 
   children: [
@@ -18,7 +19,7 @@ const table: AppRouteModule = {
       name: 'TableBasicDemo',
       component: () => import('/@/views/demo/table/Basic.vue'),
       meta: {
-        title: 'routes.demo.table.basic',
+        title: t('routes.demo.table.basic'),
       },
     },
     {
@@ -26,7 +27,7 @@ const table: AppRouteModule = {
       name: 'TreeTableDemo',
       component: () => import('/@/views/demo/table/TreeTable.vue'),
       meta: {
-        title: 'routes.demo.table.treeTable',
+        title: t('routes.demo.table.treeTable'),
       },
     },
     {
@@ -34,7 +35,7 @@ const table: AppRouteModule = {
       name: 'FetchTableDemo',
       component: () => import('/@/views/demo/table/FetchTable.vue'),
       meta: {
-        title: 'routes.demo.table.fetchTable',
+        title: t('routes.demo.table.fetchTable'),
       },
     },
     {
@@ -42,7 +43,7 @@ const table: AppRouteModule = {
       name: 'FixedColumnDemo',
       component: () => import('/@/views/demo/table/FixedColumn.vue'),
       meta: {
-        title: 'routes.demo.table.fixedColumn',
+        title: t('routes.demo.table.fixedColumn'),
       },
     },
     {
@@ -50,7 +51,7 @@ const table: AppRouteModule = {
       name: 'CustomerCellDemo',
       component: () => import('/@/views/demo/table/CustomerCell.vue'),
       meta: {
-        title: 'routes.demo.table.customerCell',
+        title: t('routes.demo.table.customerCell'),
       },
     },
     {
@@ -58,7 +59,7 @@ const table: AppRouteModule = {
       name: 'FormTableDemo',
       component: () => import('/@/views/demo/table/FormTable.vue'),
       meta: {
-        title: 'routes.demo.table.formTable',
+        title: t('routes.demo.table.formTable'),
       },
     },
     {
@@ -66,7 +67,7 @@ const table: AppRouteModule = {
       name: 'UseTableDemo',
       component: () => import('/@/views/demo/table/UseTable.vue'),
       meta: {
-        title: 'routes.demo.table.useTable',
+        title: t('routes.demo.table.useTable'),
       },
     },
     {
@@ -74,7 +75,7 @@ const table: AppRouteModule = {
       name: 'RefTableDemo',
       component: () => import('/@/views/demo/table/RefTable.vue'),
       meta: {
-        title: 'routes.demo.table.refTable',
+        title: t('routes.demo.table.refTable'),
       },
     },
     {
@@ -82,7 +83,7 @@ const table: AppRouteModule = {
       name: 'MultipleHeaderDemo',
       component: () => import('/@/views/demo/table/MultipleHeader.vue'),
       meta: {
-        title: 'routes.demo.table.multipleHeader',
+        title: t('routes.demo.table.multipleHeader'),
       },
     },
     {
@@ -90,7 +91,7 @@ const table: AppRouteModule = {
       name: 'MergeHeaderDemo',
       component: () => import('/@/views/demo/table/MergeHeader.vue'),
       meta: {
-        title: 'routes.demo.table.mergeHeader',
+        title: t('routes.demo.table.mergeHeader'),
       },
     },
     {
@@ -98,7 +99,7 @@ const table: AppRouteModule = {
       name: 'ExpandTableDemo',
       component: () => import('/@/views/demo/table/ExpandTable.vue'),
       meta: {
-        title: 'routes.demo.table.expandTable',
+        title: t('routes.demo.table.expandTable'),
       },
     },
     {
@@ -106,7 +107,7 @@ const table: AppRouteModule = {
       name: 'FixedHeightDemo',
       component: () => import('/@/views/demo/table/FixedHeight.vue'),
       meta: {
-        title: 'routes.demo.table.fixedHeight',
+        title: t('routes.demo.table.fixedHeight'),
       },
     },
     {
@@ -114,7 +115,7 @@ const table: AppRouteModule = {
       name: 'FooterTableDemo',
       component: () => import('/@/views/demo/table/FooterTable.vue'),
       meta: {
-        title: 'routes.demo.table.footerTable',
+        title: t('routes.demo.table.footerTable'),
       },
     },
     {
@@ -122,7 +123,7 @@ const table: AppRouteModule = {
       name: 'EditCellTableDemo',
       component: () => import('/@/views/demo/table/EditCellTable.vue'),
       meta: {
-        title: 'routes.demo.table.editCellTable',
+        title: t('routes.demo.table.editCellTable'),
       },
     },
     {
@@ -130,7 +131,7 @@ const table: AppRouteModule = {
       name: 'EditRowTableDemo',
       component: () => import('/@/views/demo/table/EditRowTable.vue'),
       meta: {
-        title: 'routes.demo.table.editRowTable',
+        title: t('routes.demo.table.editRowTable'),
       },
     },
   ],
