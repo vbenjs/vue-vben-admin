@@ -31,17 +31,7 @@
   import type { Ref, WatchStopHandle } from 'vue';
   import type { ValidateFields } from 'ant-design-vue/lib/form/interface';
 
-  import {
-    defineComponent,
-    reactive,
-    ref,
-    computed,
-    unref,
-    toRef,
-    onMounted,
-    watch,
-    toRefs,
-  } from 'vue';
+  import { defineComponent, reactive, ref, computed, unref, onMounted, watch, toRefs } from 'vue';
   import { Form, Row } from 'ant-design-vue';
   import FormItem from './FormItem';
   import { basicProps } from './props';

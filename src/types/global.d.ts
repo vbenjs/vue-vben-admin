@@ -19,10 +19,6 @@ declare type Dictionary<T> = Record<string, T>;
 
 declare type Nullable<T> = T | null;
 
-declare type RefInstanceType<T> = {
-  $: T;
-} | null;
-
 declare type RefType<T> = T | null;
 
 declare type CustomizedHTMLElement<T> = HTMLElement & T;

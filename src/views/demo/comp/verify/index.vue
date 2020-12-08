@@ -59,22 +59,22 @@
     components: { BasicDragVerify, BugOutlined, RightOutlined },
     setup() {
       const { createMessage } = useMessage();
-      const el1 = ref<RefInstanceType<DragVerifyActionType>>(null);
-      const el2 = ref<RefInstanceType<DragVerifyActionType>>(null);
-      const el3 = ref<RefInstanceType<DragVerifyActionType>>(null);
-      const el4 = ref<RefInstanceType<DragVerifyActionType>>(null);
-      const el5 = ref<RefInstanceType<DragVerifyActionType>>(null);
+      const el1 = ref<Nullable<DragVerifyActionType>>(null);
+      const el2 = ref<Nullable<DragVerifyActionType>>(null);
+      const el3 = ref<Nullable<DragVerifyActionType>>(null);
+      const el4 = ref<Nullable<DragVerifyActionType>>(null);
+      const el5 = ref<Nullable<DragVerifyActionType>>(null);
 
       function handleSuccess(data: PassingData) {
         const { time } = data;
         createMessage.success(`校验成功,耗时${time}秒`);
       }
 
-      function handleBtnClick(elRef: RefInstanceType<DragVerifyActionType>) {
+      function handleBtnClick(elRef: Nullable<DragVerifyActionType>) {
         if (!elRef) {
           return;
         }
-        elRef.$.resume();
+        elRef.resume();
       }
       return {
         handleSuccess,
