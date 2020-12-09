@@ -1,3 +1,29 @@
+## 2.0.0-rc.13 (2020-12-10)
+
+## (Breaking changes) Breaking changes
+
+-Route reconstruction, the previous format is no longer supported. Change to support the original default structure of vue-router, the specific format can be changed by referring to the example. Realize multi-level route caching, and no longer convert routes to level 2. -Refactor breadcrumbs and use antd's breadcrumbs component. The previous component has been deleted
+
+### ✨ Features
+
+-Restore the default loading of antdv, refactor the `Loading` component, and add `useLoading` and `v-loading` instructions. And add examples -i18n supports vscode `i18n-ally` plugin -New examples of increased routing cache -Packaged code split (experimental) -Extract upload address to global variable, package can be dynamically configured
+
+### ✨ Refactor
+
+-Tree component ref function call to delete `$` -Reconstruction and beautification of the lock screen interface, delete unnecessary background pictures
+
+### ⚡ Performance Improvements
+
+-Page switching loading logic modification. Regardless of whether the loaded page is closed or not, loading will not be displayed when opened again (pages that have been opened are opened again faster, and loading is not required, and the logic of the top progress bar is the same), and it will be restored after refreshing.
+
+### 🎫 Chores
+
+-First screen loading modification -Upgrade `vue` to `3.0.4` -Upgrade `ant-design-vue` to `2.0.0-rc.3` -Re-introduction of `vueuse` -Remove the `afterCloseLoading` attribute in route meta -Documentation update
+
+### 🐛 Bug Fixes
+
+-Fix form i18n error -Fix the inconsistent size of menu icons -Fix the calculation of the top menu width -Fix table tabSetting problem -Repair file upload and delete invalidation -Fix the problem of editing and saving table rows
+
 ## 2.0.0-rc.12 (2020-11-30)
 
 ## (破坏性更新) Breaking changes
