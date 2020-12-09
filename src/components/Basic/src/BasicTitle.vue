@@ -1,7 +1,7 @@
 <template>
-  <span class="base-title" :class="{ 'show-span': span && $slots.default }">
+  <span :class="[prefixCls, { 'show-span': span && $slots.default }]">
     <slot />
-    <BasicHelp class="base-title__help" v-if="helpMessage" :text="helpMessage" />
+    <BasicHelp :class="`${prefixCls}__help`" v-if="helpMessage" :text="helpMessage" />
   </span>
 </template>
 <script lang="ts">
@@ -11,6 +11,7 @@
 
   import BasicHelp from './BasicHelp.vue';
   import { propTypes } from '/@/utils/propTypes';
+  import { useDesign } from '/@/hooks/web/useDesign';
 
   export default defineComponent({
     name: 'BasicTitle',
@@ -22,12 +23,17 @@
       },
       span: propTypes.bool,
     },
+    setup() {
+      const { prefixCls } = useDesign('basic-title');
+      return { prefixCls };
+    },
   });
 </script>
 <style lang="less" scoped>
   @import (reference) '../../../design/index.less';
+  @prefix-cls: ~'@{namespace}-basic-title';
 
-  .base-title {
+  .@{prefix-cls} {
     position: relative;
     display: flex;
     padding-left: 7px;

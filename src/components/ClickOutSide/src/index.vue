@@ -1,5 +1,5 @@
 <template>
-  <div ref="wrapRef"><slot /></div>
+  <div ref="wrap"><slot /></div>
 </template>
 <script lang="ts">
   import type { Ref } from 'vue';
@@ -10,13 +10,13 @@
   export default defineComponent({
     name: 'ClickOutSide',
     setup(_, { emit }) {
-      const wrapRef = ref<ElRef>(null);
+      const wrap = ref<ElRef>(null);
 
-      useClickOutside(wrapRef as Ref<HTMLDivElement>, () => {
+      useClickOutside(wrap as Ref<HTMLDivElement>, () => {
         emit('clickOutside');
       });
 
-      return { wrapRef };
+      return { wrap };
     },
   });
 </script>

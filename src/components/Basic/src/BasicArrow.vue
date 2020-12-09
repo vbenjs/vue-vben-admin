@@ -11,6 +11,7 @@
   import { defineComponent, computed } from 'vue';
   import { RightOutlined } from '@ant-design/icons-vue';
   import { propTypes } from '/@/utils/propTypes';
+  import { useDesign } from '/@/hooks/web/useDesign';
 
   export default defineComponent({
     name: 'BasicArrow',
@@ -23,12 +24,14 @@
       inset: propTypes.bool,
     },
     setup(props) {
+      const { prefixCls } = useDesign('basic-arrow');
+
       const getClass = computed(() => {
         const { expand, top, bottom, inset } = props;
         return [
-          'base-arrow',
+          prefixCls,
           {
-            'base-arrow__active': expand,
+            [`${prefixCls}--active`]: expand,
             top,
             inset,
             bottom,
@@ -43,18 +46,21 @@
   });
 </script>
 <style lang="less" scoped>
-  .base-arrow {
+  @import (reference) '../../../design/index.less';
+  @prefix-cls: ~'@{namespace}-basic-arrow';
+
+  .@{prefix-cls} {
     display: inline-block;
     transform: rotate(0deg);
     transition: all 0.3s ease 0.1s;
     transform-origin: center center;
 
-    &.inset {
-      line-height: 0px;
+    &--active {
+      transform: rotate(90deg);
     }
 
-    &__active {
-      transform: rotate(90deg);
+    &.inset {
+      line-height: 0px;
     }
 
     &.top {
@@ -65,11 +71,11 @@
       transform: rotate(90deg);
     }
 
-    &.top.base-arrow__active {
+    &.top.@{prefix-cls}--active {
       transform: rotate(90deg);
     }
 
-    &.bottom.base-arrow__active {
+    &.bottom.@{prefix-cls}--active {
       transform: rotate(-90deg);
     }
   }
