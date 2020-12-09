@@ -16,6 +16,7 @@ import { tabStore } from '/@/store/modules/tab';
 import { userStore } from '/@/store/modules/user';
 
 import { initAffixTabs, useTabsDrag } from './useMultipleTabs';
+import { REDIRECT_NAME } from '/@/router/constant';
 
 export default defineComponent({
   name: 'MultipleTabs',
@@ -35,6 +36,9 @@ export default defineComponent({
     watch(
       () => tabStore.getLastChangeRouteState?.path,
       () => {
+        if (tabStore.getLastChangeRouteState?.name === REDIRECT_NAME) {
+          return;
+        }
         const lastChangeRoute = unref(tabStore.getLastChangeRouteState);
         if (!lastChangeRoute || !userStore.getTokenState) return;
         const { path, fullPath } = lastChangeRoute;
