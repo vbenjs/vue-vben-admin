@@ -16,6 +16,7 @@
 ### ✨ Refactor
 
 - tree 组件 ref 函数调用删除 `$`
+- 锁屏界面重构美化，删除不必要的背景图片
 
 ### ⚡ Performance Improvements
 

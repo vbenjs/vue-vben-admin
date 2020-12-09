@@ -5,6 +5,7 @@ import {
   GetUserInfoByUserIdParams,
   GetUserInfoByUserIdModel,
 } from './model/userModel';
+import { ErrorMessageMode } from '/@/utils/http/axios/types';
 
 enum Api {
   Login = '/login',
@@ -15,7 +16,7 @@ enum Api {
 /**
  * @description: user login api
  */
-export function loginApi(params: LoginParams) {
+export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') {
   return defHttp.request<LoginResultModel>(
     {
       url: Api.Login,
@@ -23,7 +24,7 @@ export function loginApi(params: LoginParams) {
       params,
     },
     {
-      errorMessageMode: 'modal',
+      errorMessageMode: mode,
     }
   );
 }

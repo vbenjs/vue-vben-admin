@@ -1,10 +1,13 @@
-import { computed, onUnmounted, watchEffect } from 'vue';
+import { computed, onUnmounted, unref, watchEffect } from 'vue';
 import { useThrottle } from '/@/hooks/core/useThrottle';
 
 import { appStore } from '/@/store/modules/app';
+import { lockStore } from '/@/store/modules/lock';
 import { userStore } from '/@/store/modules/user';
+import { useRootSetting } from '../setting/useRootSetting';
 
 export function useLockPage() {
+  const { getLockTime } = useRootSetting();
   let timeId: TimeoutHandle;
 
   function clear(): void {
@@ -30,7 +33,7 @@ export function useLockPage() {
   }
 
   function lockPage(): void {
-    appStore.commitLockInfoState({
+    lockStore.commitLockInfoState({
       isLock: true,
       pwd: undefined,
     });
@@ -54,8 +57,7 @@ export function useLockPage() {
   const [keyupFn] = useThrottle(resetCalcLockTimeout, 2000);
 
   return computed(() => {
-    const openLockPage = appStore.getProjectConfig.lockTime;
-    if (openLockPage) {
+    if (unref(getLockTime)) {
       return { onKeyup: keyupFn, onMousemove: keyupFn };
     } else {
       clear();
@@ -63,3 +65,9 @@ export function useLockPage() {
     }
   });
 }
+
+export const getIsLock = computed(() => {
+  const { getLockInfo } = lockStore;
+  const { isLock } = getLockInfo;
+  return isLock;
+});

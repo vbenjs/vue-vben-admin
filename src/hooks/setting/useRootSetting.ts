@@ -42,6 +42,8 @@ const getColorWeak = computed(() => unref(getRootSetting).colorWeak);
 
 const getGrayMode = computed(() => unref(getRootSetting).grayMode);
 
+const getLockTime = computed(() => unref(getRootSetting).lockTime);
+
 const getLayoutContentMode = computed(() =>
   unref(getRootSetting).contentMode === ContentEnum.FULL ? ContentEnum.FULL : ContentEnum.FIXED
 );
@@ -71,5 +73,6 @@ export function useRootSetting() {
     getShowSettingButton,
     getShowFooter,
     getContentMode,
+    getLockTime,
   };
 }

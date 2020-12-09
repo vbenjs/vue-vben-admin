@@ -1,6 +1,8 @@
 import type { AxiosRequestConfig } from 'axios';
 import { AxiosTransform } from './axiosTransform';
 
+export type ErrorMessageMode = 'none' | 'modal' | 'message' | undefined;
+
 export interface RequestOptions {
   // 请求参数拼接到url
   joinParamsToUrl?: boolean;
@@ -13,7 +15,7 @@ export interface RequestOptions {
   // 接口地址， 不填则使用默认apiUrl
   apiUrl?: string;
   // 错误消息提示类型
-  errorMessageMode?: 'none' | 'modal';
+  errorMessageMode?: ErrorMessageMode;
 }
 
 export interface CreateAxiosOptions extends AxiosRequestConfig {
