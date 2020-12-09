@@ -58,7 +58,7 @@ const transform: AxiosTransform = {
         // errorMessageMode=‘modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
         if (options.errorMessageMode === 'modal') {
           createErrorModal({ title: t('sys.api.errorTip'), content: message });
-        } else {
+        } else if (options.errorMessageMode === 'message') {
           createMessage.error(message);
         }
       }
@@ -201,7 +201,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           // 格式化提交参数时间
           formatDate: true,
           // 消息提示类型
-          errorMessageMode: 'none',
+          errorMessageMode: 'message',
           // 接口地址
           apiUrl: globSetting.apiUrl,
         },

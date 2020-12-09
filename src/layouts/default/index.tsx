@@ -6,7 +6,7 @@ import LayoutHeader from './header/LayoutHeader';
 
 import LayoutContent from './content';
 import LayoutFooter from './footer';
-import LayoutLockPage from './lock';
+import LayoutLockPage from './lock/index.vue';
 import LayoutSideBar from './sider';
 import SettingBtn from './setting/index.vue';
 import LayoutMultipleHeader from './header/LayoutMultipleHeader';
