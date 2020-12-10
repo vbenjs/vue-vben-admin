@@ -70,6 +70,8 @@ const setting: ProjectConfig = {
     showDoc: true,
     // Whether to show the notification button
     showNotice: true,
+    // Whether to display the menu search
+    showSearch: true,
   },
 
   // Menu configuration
@@ -101,8 +103,6 @@ const setting: ProjectConfig = {
     split: false,
     // Top menu layout
     topMenuAlign: 'center',
-    // Hide the search box when the menu is collapsed
-    collapsedShowSearch: false,
     // Fold trigger position
     trigger: TriggerEnum.HEADER,
     // Turn on accordion mode, only show a menu

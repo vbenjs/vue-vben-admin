@@ -1,0 +1,55 @@
+<template>
+  <div :class="prefixCls" v-if="getShowSearch" @click="handleSearch">
+    <Tooltip>
+      <template #title> {{ t('component.app.search') }} </template>
+      <SearchOutlined />
+    </Tooltip>
+
+    <transition name="zoom-fade" mode="out-in">
+      <AppSearchModal @close="handleClose" v-if="showModal" />
+    </transition>
+  </div>
+</template>
+<script lang="ts">
+  import { defineComponent, ref } from 'vue';
+  import { Tooltip } from 'ant-design-vue';
+
+  import { useDesign } from '/@/hooks/web/useDesign';
+  import AppSearchModal from './AppSearchModal.vue';
+  import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
+  import { SearchOutlined } from '@ant-design/icons-vue';
+  import { useI18n } from '/@/hooks/web/useI18n';
+
+  export default defineComponent({
+    name: 'AppSearch',
+    components: { AppSearchModal, Tooltip, SearchOutlined },
+    setup() {
+      const showModal = ref(false);
+      const { prefixCls } = useDesign('app-search');
+      const { getShowSearch } = useHeaderSetting();
+      const { t } = useI18n();
+
+      function handleSearch() {
+        showModal.value = true;
+      }
+      return {
+        t,
+        prefixCls,
+        showModal,
+        getShowSearch,
+        handleClose: () => {
+          showModal.value = false;
+        },
+        handleSearch,
+      };
+    },
+  });
+</script>
+<style lang="less" scoped>
+  @import (reference) '../../../../design/index.less';
+  @prefix-cls: ~'@{namespace}-app-search';
+
+  .@{prefix-cls} {
+    padding: 0 10px;
+  }
+</style>

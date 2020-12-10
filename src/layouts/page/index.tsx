@@ -30,7 +30,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <>
+        <div>
           <RouterView>
             {{
               default: ({ Component, route }: DefaultContext) => {
@@ -65,7 +65,7 @@ export default defineComponent({
             }}
           </RouterView>
           {unref(getCanEmbedIFramePage) && <FrameLayout />}
-        </>
+        </div>
       );
     };
   },

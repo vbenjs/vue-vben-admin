@@ -124,7 +124,7 @@ export function filter<T = any>(
   tree: T[],
   func: (n: T) => boolean,
   config: Partial<TreeHelperConfig> = {}
-) {
+): T[] {
   config = getConfig(config);
   const children = config.children as string;
   function listFilter(list: T[]) {
@@ -142,7 +142,7 @@ export function forEach<T = any>(
   tree: T[],
   func: (n: T) => any,
   config: Partial<TreeHelperConfig> = {}
-) {
+): void {
   config = getConfig(config);
   const list: any[] = [...tree];
   const { children } = config;
@@ -155,7 +155,7 @@ export function forEach<T = any>(
 /**
  * @description: 提取tree指定结构
  */
-export function treeMap(treeData: any[], opt: { children?: string; conversion: Fn }) {
+export function treeMap<T = any>(treeData: T[], opt: { children?: string; conversion: Fn }): T[] {
   return treeData.map((item) => treeMapEach(item, opt));
 }
 

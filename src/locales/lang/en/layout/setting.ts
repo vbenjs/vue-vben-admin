@@ -40,7 +40,7 @@ export default {
   sidebarTheme: 'Menu theme',
 
   menuDrag: 'Drag Sidebar',
-  menuSearch: 'Sidebar search',
+  menuSearch: 'Menu search',
   menuAccordion: 'Sidebar accordion',
   menuCollapse: 'Collapse menu',
   collapseMenuDisplayName: 'Collapse menu display name',

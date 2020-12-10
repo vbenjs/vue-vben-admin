@@ -17,7 +17,6 @@ export interface MenuSetting {
   type: MenuTypeEnum;
   theme: ThemeEnum;
   topMenuAlign: 'start' | 'center' | 'end';
-  collapsedShowSearch: boolean;
   trigger: TriggerEnum;
   accordion: boolean;
 }
@@ -45,6 +44,8 @@ export interface HeaderSetting {
   showDoc: boolean;
   // 显示消息中心按钮
   showNotice: boolean;
+
+  showSearch: boolean;
 }
 
 export interface LocaleSetting {
