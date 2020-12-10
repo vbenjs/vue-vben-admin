@@ -51,6 +51,8 @@ const getFixed = computed(() => unref(getHeaderSetting).fixed);
 
 const getHeaderBgColor = computed(() => unref(getHeaderSetting).bgColor);
 
+const getShowSearch = computed(() => unref(getHeaderSetting).showSearch);
+
 const getShowRedo = computed(() => unref(getHeaderSetting).showRedo && unref(getShowMultipleTab));
 
 const getUseLockPage = computed(() => unref(getHeaderSetting).useLockPage);
@@ -87,6 +89,7 @@ export function useHeaderSetting() {
     getHeaderSetting,
 
     getShowDoc,
+    getShowSearch,
     getHeaderTheme,
     getShowRedo,
     getUseLockPage,

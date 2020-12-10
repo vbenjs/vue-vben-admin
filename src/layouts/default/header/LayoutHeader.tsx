@@ -18,7 +18,7 @@ import { AppLogo } from '/@/components/Application';
 import UserDropdown from './UserDropdown';
 import LayoutMenu from '../menu';
 import LayoutBreadcrumb from './LayoutBreadcrumb.vue';
-import LockAction from '../lock/LockAction';
+import LockAction from './actions/LockAction';
 import LayoutTrigger from '../LayoutTrigger';
 import NoticeAction from './notice/NoticeActionItem.vue';
 import {
@@ -28,6 +28,8 @@ import {
   LockOutlined,
   BugOutlined,
 } from '@ant-design/icons-vue';
+
+import { AppSearch } from '/@/components/Application';
 import { useModal } from '/@/components/Modal';
 
 import { useFullscreen } from '/@/hooks/web/useFullScreen';
@@ -200,6 +202,8 @@ export default defineComponent({
     function renderAction() {
       return (
         <div class={`layout-header__action`}>
+          {unref(isPc) && <AppSearch class="layout-header__action-item" />}
+
           {unref(getUseErrorHandle) && unref(isPc) && (
             <TooltipItem title={t('layout.header.tooltipErrorLog')}>
               {() => (

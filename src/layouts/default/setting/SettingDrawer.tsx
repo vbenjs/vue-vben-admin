@@ -204,7 +204,6 @@ export default defineComponent({
       getCollapsedShowTitle,
       getMenuFixed,
       getCollapsed,
-      getShowSearch,
       getCanDrag,
       getTopMenuAlign,
       getAccordion,
@@ -214,7 +213,12 @@ export default defineComponent({
       getSplit,
     } = useMenuSetting();
 
-    const { getShowHeader, getFixed: getHeaderFixed, getHeaderBgColor } = useHeaderSetting();
+    const {
+      getShowHeader,
+      getFixed: getHeaderFixed,
+      getHeaderBgColor,
+      getShowSearch,
+    } = useHeaderSetting();
 
     const { getShowMultipleTab, getShowQuick } = useMultipleTabSetting();
 
@@ -274,10 +278,10 @@ export default defineComponent({
         }),
         renderSwitchItem(t('layout.setting.menuSearch'), {
           handler: (e) => {
-            baseHandler(HandlerEnum.MENU_SHOW_SEARCH, e);
+            baseHandler(HandlerEnum.HEADER_SEARCH, e);
           },
           def: unref(getShowSearch),
-          disabled: !unref(getShowMenuRef),
+          disabled: !unref(getShowHeader),
         }),
         renderSwitchItem(t('layout.setting.menuAccordion'), {
           handler: (e) => {

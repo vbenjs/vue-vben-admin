@@ -45,13 +45,13 @@ async function getAsyncMenus() {
 }
 
 // 获取深层扁平化菜单
-export const getFlatMenus = async () => {
+export const getFlatMenus = async (): Promise<Menu[]> => {
   const menus = await getAsyncMenus();
   return flatMenus(menus);
 };
 
 // 获取菜单 树级
-export const getMenus = async () => {
+export const getMenus = async (): Promise<Menu[]> => {
   const menus = await getAsyncMenus();
   const routes = router.getRoutes();
   return !isBackMode() ? filter(menus, basicFilter(routes)) : menus;
@@ -65,7 +65,7 @@ export async function getCurrentParentPath(currentPath: string) {
 }
 
 // 获取1级菜单，删除children
-export async function getShallowMenus() {
+export async function getShallowMenus(): Promise<Menu[]> {
   const menus = await getAsyncMenus();
   const routes = router.getRoutes();
   const shallowMenuList = menus.map((item) => ({ ...item, children: undefined }));

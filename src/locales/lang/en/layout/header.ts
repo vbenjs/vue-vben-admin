@@ -3,6 +3,7 @@ export default {
   dropdownItemDoc: 'Document',
   dropdownItemLoginOut: 'Login Out',
 
+  search: 'Search',
   tooltipErrorLog: 'Error log',
   tooltipLock: 'Lock screen',
   tooltipNotify: 'Notification',

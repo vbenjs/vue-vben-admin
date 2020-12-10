@@ -119,6 +119,9 @@ export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConf
       updateHeaderBgColor(value);
       return { headerSetting: { bgColor: value } };
 
+    case HandlerEnum.HEADER_SEARCH:
+      return { headerSetting: { showSearch: value } };
+
     case HandlerEnum.HEADER_FIXED:
       return { headerSetting: { fixed: value } };
 

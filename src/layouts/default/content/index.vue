@@ -1,0 +1,62 @@
+<template>
+  <div :class="[prefixCls, getLayoutContentMode]">
+    <transition name="fade">
+      <Loading
+        v-if="getOpenPageLoading"
+        :loading="getPageLoading"
+        background="rgba(240, 242, 245, 0.6)"
+        absolute
+        :class="`${prefixCls}__loading`"
+      />
+    </transition>
+    <PageLayout />
+  </div>
+</template>
+<script lang="ts">
+  import { defineComponent } from 'vue';
+
+  import { useDesign } from '/@/hooks/web/useDesign';
+  import { useRootSetting } from '/@/hooks/setting/useRootSetting';
+  import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
+  import PageLayout from '/@/layouts/page/index';
+  import { Loading } from '/@/components/Loading';
+  import Transition from '/@/views/demo/comp/lazy/Transition.vue';
+
+  export default defineComponent({
+    name: 'LayoutContent',
+    components: { PageLayout, Loading, Transition },
+    setup() {
+      const { prefixCls } = useDesign('layout-content');
+      const { getOpenPageLoading } = useTransitionSetting();
+      const { getLayoutContentMode, getPageLoading } = useRootSetting();
+
+      return {
+        prefixCls,
+        getOpenPageLoading,
+        getLayoutContentMode,
+        getPageLoading,
+      };
+    },
+  });
+</script>
+<style lang="less">
+  @import (reference) '../../../design/index.less';
+  @prefix-cls: ~'@{namespace}-layout-content';
+
+  .@{prefix-cls} {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+
+    &.fixed {
+      width: 1200px;
+      margin: 0 auto;
+    }
+
+    &__loading {
+      position: absolute;
+      top: 200px;
+      z-index: @page-loading-z-index;
+    }
+  }
+</style>

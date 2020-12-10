@@ -39,7 +39,7 @@ export default {
   sidebarTheme: '菜单主题',
 
   menuDrag: '侧边菜单拖拽',
-  menuSearch: '侧边菜单搜索',
+  menuSearch: '菜单搜索',
   menuAccordion: '侧边菜单手风琴模式',
   menuCollapse: '折叠菜单',
   collapseMenuDisplayName: '折叠菜单显示名称',

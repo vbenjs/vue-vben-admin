@@ -4,9 +4,9 @@ import { defineComponent, unref, computed, ref } from 'vue';
 import { Layout, BackTop } from 'ant-design-vue';
 import LayoutHeader from './header/LayoutHeader';
 
-import LayoutContent from './content';
+import LayoutContent from './content/index.vue';
 import LayoutFooter from './footer';
-import LayoutLockPage from './lock/index.vue';
+import LayoutLockPage from '/@/views/sys/lock/index.vue';
 import LayoutSideBar from './sider';
 import SettingBtn from './setting/index.vue';
 import LayoutMultipleHeader from './header/LayoutMultipleHeader';
