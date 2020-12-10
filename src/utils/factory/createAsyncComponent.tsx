@@ -1,16 +1,25 @@
 import { defineAsyncComponent } from 'vue';
 import { Spin } from 'ant-design-vue';
+import { noop } from '/@/utils/index';
+interface Options {
+  size?: 'default' | 'small' | 'large';
+  delay?: number;
+  timeout?: number;
+  loading?: boolean;
+  retry?: boolean;
+}
 
-export function createAsyncComponent(loader: any) {
+export function createAsyncComponent(loader: Fn, options: Options = {}) {
+  const { size = 'small', delay = 100, timeout = 3000, loading = true, retry = true } = options;
   return defineAsyncComponent({
-    loader: loader,
-    loadingComponent: <Spin spinning={true} />,
+    loader,
+    loadingComponent: loading ? <Spin spinning={true} size={size} /> : undefined,
     // The error component will be displayed if a timeout is
     // provided and exceeded. Default: Infinity.
-    timeout: 3000,
+    timeout,
     // Defining if component is suspensible. Default: true.
     // suspensible: false,
-    delay: 100,
+    delay,
     /**
      *
      * @param {*} error Error message object
@@ -18,15 +27,17 @@ export function createAsyncComponent(loader: any) {
      * @param {*} fail  End of failure
      * @param {*} attempts Maximum allowed retries number
      */
-    onError(error, retry, fail, attempts) {
-      if (error.message.match(/fetch/) && attempts <= 3) {
-        // retry on fetch errors, 3 max attempts
-        retry();
-      } else {
-        // Note that retry/fail are like resolve/reject of a promise:
-        // one of them must be called for the error handling to continue.
-        fail();
-      }
-    },
+    onError: !retry
+      ? noop
+      : (error, retry, fail, attempts) => {
+          if (error.message.match(/fetch/) && attempts <= 3) {
+            // retry on fetch errors, 3 max attempts
+            retry();
+          } else {
+            // Note that retry/fail are like resolve/reject of a promise:
+            // one of them must be called for the error handling to continue.
+            fail();
+          }
+        },
   });
 }
