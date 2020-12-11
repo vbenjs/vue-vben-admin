@@ -23,6 +23,7 @@
   import { useCache } from './useCache';
 
   export default defineComponent({
+    parentView: true,
     setup() {
       const { getCaches } = useCache(false);
 

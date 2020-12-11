@@ -1757,18 +1757,18 @@
     vscode-languageserver-textdocument "^1.0.1"
     vscode-uri "^2.1.2"
 
-"@vueuse/core@^4.0.0-rc.7":
-  version "4.0.0-rc.7"
-  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.0.0-rc.7.tgz#beb2378d97ca03bc65ad05df048df95b1fbf41b0"
-  integrity sha512-a45qj5TfihUJ5Q7BGHPjl7J5ugoikEoWCisiHXo2tCiSKoCVIu9GD/p0+ldYeDNyIAQZQuEO2Kn9weP8kw3LiQ==
+"@vueuse/core@^4.0.0-rc.8":
+  version "4.0.0-rc.8"
+  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.0.0-rc.8.tgz#d4d1521d8bf1f5a5c45cac4cb81812c9f1d91d1e"
+  integrity sha512-xQGBl9tUMnk0QpqQzdf/awMUW3sQPD9iM2IzmUfcygF43CDDAaoUT8mjH6v8oTm304IJYcjueW2VzqlonxPjwQ==
   dependencies:
-    "@vueuse/shared" "4.0.0-rc.7"
+    "@vueuse/shared" "4.0.0-rc.8"
     vue-demi latest
 
-"@vueuse/shared@4.0.0-rc.7":
-  version "4.0.0-rc.7"
-  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.0.0-rc.7.tgz#3f7095caef42c3d2d7b0ea48bd7652257c95d5c2"
-  integrity sha512-KX/JS48jejv6Ezx4TLymjltKlfRFcdw9n9qT89D4J6ygU6cechJEtpD6ACCKGehy8VkW2xKHduvioZtSLr3cNQ==
+"@vueuse/shared@4.0.0-rc.8":
+  version "4.0.0-rc.8"
+  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.0.0-rc.8.tgz#4f948ad3a5600daaadd3136480ddd26e1cd8f246"
+  integrity sha512-oXPPaKAAdknvXD/unbqsXdZ2E0w1iMYrgAvEqd82ei9STyGBhPL4mQ1aXq4uKwFpVi1Qt6GxXRfAurbvbDox2Q==
   dependencies:
     vue-demi latest
 
