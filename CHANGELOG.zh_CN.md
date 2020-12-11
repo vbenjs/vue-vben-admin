@@ -21,6 +21,7 @@
 - 修改 `VirtualScroll`和`ImportExcel`组件名为`VScroll`与`ImpExcel`,暂时解决含有关键字的组件在 vue 模版内使用内存溢出
 - 修复 axios 大小写问题
 - 修复按钮样式问题
+- 修复菜单分割模式问题
 
 ## 2.0.0-rc.13 (2020-12-10)
 

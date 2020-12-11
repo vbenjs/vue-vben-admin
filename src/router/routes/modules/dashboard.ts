@@ -7,7 +7,7 @@ const dashboard: AppRouteModule = {
   path: '/dashboard',
   name: 'Dashboard',
   component: LAYOUT,
-  redirect: '/dashboard/welcome',
+  redirect: '/dashboard/workbench',
   meta: {
     icon: 'bx:bx-home',
     title: t('routes.dashboard.dashboard'),
