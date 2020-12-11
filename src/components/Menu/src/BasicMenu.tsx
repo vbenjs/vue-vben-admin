@@ -104,7 +104,7 @@ export default defineComponent({
         return {
           height: isHorizontal
             ? `calc(100% + 1px)`
-            : `calc(100%  - ${props.showLogo ? '48px' : '0'})`,
+            : `calc(100% - ${props.showLogo ? '48px' : '0px'})`,
           overflowY: isHorizontal ? 'hidden' : 'auto',
         };
       }
