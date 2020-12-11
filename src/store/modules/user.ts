@@ -114,7 +114,7 @@ class User extends VuexModule {
 
       // const name = FULL_PAGE_NOT_FOUND_ROUTE.name;
       // name && router.removeRoute(name);
-      goHome && router.replace(PageEnum.BASE_HOME);
+      goHome && (await router.replace(PageEnum.BASE_HOME));
       return userInfo;
     } catch (error) {
       return null;
