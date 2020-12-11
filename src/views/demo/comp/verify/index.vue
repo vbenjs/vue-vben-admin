@@ -2,12 +2,12 @@
   <div class="p-10">
     <div class="flex justify-center p-4 items-center bg-gray-700">
       <BasicDragVerify ref="el1" @success="handleSuccess" />
-      <a-button color="primary" class="ml-2" @click="handleBtnClick(el1)">还原</a-button>
+      <a-button type="primary" class="ml-2" @click="handleBtnClick(el1)">还原</a-button>
     </div>
 
     <div class="flex justify-center p-4 items-center bg-gray-700">
       <BasicDragVerify ref="el2" @success="handleSuccess" circle />
-      <a-button color="primary" class="ml-2" @click="handleBtnClick(el2)">还原</a-button>
+      <a-button type="primary" class="ml-2" @click="handleBtnClick(el2)">还原</a-button>
     </div>
 
     <div class="flex justify-center p-4 items-center bg-gray-700">
@@ -20,7 +20,7 @@
           background: '#018ffb',
         }"
       />
-      <a-button color="primary" class="ml-2" @click="handleBtnClick(el3)">还原</a-button>
+      <a-button type="primary" class="ml-2" @click="handleBtnClick(el3)">还原</a-button>
     </div>
 
     <div class="flex justify-center p-4 items-center bg-gray-700">
@@ -30,7 +30,7 @@
           <RightOutlined v-else />
         </template>
       </BasicDragVerify>
-      <a-button color="primary" class="ml-2" @click="handleBtnClick(el4)">还原</a-button>
+      <a-button type="primary" class="ml-2" @click="handleBtnClick(el4)">还原</a-button>
     </div>
 
     <div class="flex justify-center p-4 items-center bg-gray-700">
@@ -46,7 +46,7 @@
           </div>
         </template>
       </BasicDragVerify>
-      <a-button color="primary" class="ml-2" @click="handleBtnClick(el5)">还原</a-button>
+      <a-button type="primary" class="ml-2" @click="handleBtnClick(el5)">还原</a-button>
     </div>
   </div>
 </template>

@@ -54,7 +54,10 @@ export default defineComponent({
                   renderComp()
                 );
 
-                return unref(getEnableTransition) ? (
+                if (!unref(getEnableTransition)) {
+                  return PageContent;
+                }
+                return (
                   <Transition
                     name={name || route.meta.transitionName || unref(getBasicTransition)}
                     mode="out-in"
@@ -62,8 +65,6 @@ export default defineComponent({
                   >
                     {() => PageContent}
                   </Transition>
-                ) : (
-                  PageContent
                 );
               },
             }}

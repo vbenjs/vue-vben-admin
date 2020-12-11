@@ -1,8 +1,8 @@
 <template>
   <div class="m-4">
-    <ImportExcel @success="loadDataSuccess">
+    <ImpExcel @success="loadDataSuccess">
       <a-button class="m-3">导入Excel</a-button>
-    </ImportExcel>
+    </ImpExcel>
     <BasicTable
       v-for="(table, index) in tableListRef"
       :key="index"
@@ -15,11 +15,11 @@
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
 
-  import { ImportExcel, ExcelData } from '/@/components/Excel';
+  import { ImpExcel, ExcelData } from '/@/components/Excel';
   import { BasicTable, BasicColumn } from '/@/components/Table';
 
   export default defineComponent({
-    components: { BasicTable, ImportExcel },
+    components: { BasicTable, ImpExcel },
 
     setup() {
       const tableListRef = ref<
