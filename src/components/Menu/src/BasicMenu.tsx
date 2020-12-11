@@ -100,11 +100,10 @@ export default defineComponent({
 
     const getWrapperStyle = computed(
       (): CSSProperties => {
-        const isHorizontal = unref(getIsHorizontal);
+        const isHorizontal = unref(getIsHorizontal) || getSplit.value;
+
         return {
-          height: isHorizontal
-            ? `calc(100% + 1px)`
-            : `calc(100% - ${props.showLogo ? '48px' : '0px'})`,
+          height: isHorizontal ? `calc(100%)` : `calc(100% - ${props.showLogo ? '48px' : '0px'})`,
           overflowY: isHorizontal ? 'hidden' : 'auto',
         };
       }

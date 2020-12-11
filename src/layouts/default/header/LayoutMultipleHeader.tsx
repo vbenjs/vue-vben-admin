@@ -21,7 +21,7 @@ export default defineComponent({
 
     const injectValue = useLayoutContext();
 
-    const { getCalcContentWidth, getSplit } = useMenuSetting();
+    const { getCalcContentWidth } = useMenuSetting();
 
     const {
       getFixed,
@@ -56,8 +56,7 @@ export default defineComponent({
       (): CSSProperties => {
         const style: CSSProperties = {};
         if (unref(getFixed)) {
-          style.width =
-            unref(injectValue.isMobile) || unref(getSplit) ? '100%' : unref(getCalcContentWidth);
+          style.width = unref(injectValue.isMobile) ? '100%' : unref(getCalcContentWidth);
         }
         if (unref(getShowFullHeaderRef)) {
           style.top = `${unref(fullHeaderHeightRef)}px`;
