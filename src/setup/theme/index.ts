@@ -15,11 +15,11 @@ export function setCssVar(prop: string, val: any, dom = document.documentElement
   dom.style.setProperty(prop, val);
 }
 
-function toggleClass(flag: boolean, clsName: string) {
-  const body = document.body;
-  let { className } = body;
+function toggleClass(flag: boolean, clsName: string, target?: HTMLElement) {
+  const targetEl = target || document.body;
+  let { className } = targetEl;
   className = className.replace(clsName, '');
-  document.body.className = flag ? `${className} ${clsName} ` : className;
+  targetEl.className = flag ? `${className} ${clsName} ` : className;
 }
 
 /**
@@ -27,7 +27,7 @@ function toggleClass(flag: boolean, clsName: string) {
  * @param gray
  */
 export const updateColorWeak = (colorWeak: boolean) => {
-  toggleClass(colorWeak, 'color-weak');
+  toggleClass(colorWeak, 'color-weak', document.documentElement);
 };
 
 /**
@@ -35,7 +35,7 @@ export const updateColorWeak = (colorWeak: boolean) => {
  * @param gray
  */
 export const updateGrayMode = (gray: boolean) => {
-  toggleClass(gray, 'gray-mode');
+  toggleClass(gray, 'gray-mode', document.documentElement);
 };
 
 /**
