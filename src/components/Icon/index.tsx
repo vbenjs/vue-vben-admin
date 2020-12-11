@@ -1,5 +1,7 @@
 import './index.less';
 
+import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+
 import type { PropType } from 'vue';
 import {
   defineComponent,
@@ -14,7 +16,7 @@ import {
 import Iconify from '@purge-icons/generated';
 import { isString } from '/@/utils/is';
 import { propTypes } from '/@/utils/propTypes';
-export default defineComponent({
+const Icon = defineComponent({
   name: 'GIcon',
   props: {
     // icon name
@@ -80,4 +82,10 @@ export default defineComponent({
       <div ref={elRef} class={[attrs.class, 'app-iconify anticon']} style={unref(wrapStyleRef)} />
     );
   },
+});
+
+export default createAsyncComponent(() => {
+  return new Promise((resolve) => {
+    resolve(Icon);
+  });
 });

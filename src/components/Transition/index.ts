@@ -1,4 +1,5 @@
 import { createSimpleTransition, createJavascriptTransition } from './src/CreateTransition';
+import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
 import ExpandTransitionGenerator from './src/ExpandTransition';
 
@@ -28,4 +29,4 @@ export const ExpandXTransition = createJavascriptTransition(
   ExpandTransitionGenerator('', true)
 );
 
-export { default as ExpandTransition } from './src/ExpandTransition.vue';
+export const ExpandTransition = createAsyncComponent(() => import('./src/ExpandTransition.vue'));

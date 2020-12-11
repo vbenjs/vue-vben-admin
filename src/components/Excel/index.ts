@@ -1,12 +1,12 @@
-import ImportExcel from './src/ImportExcel.vue';
-import ExportExcelModel from './src/ExportExcelModel.vue';
+import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
 import { withInstall } from '../util';
 
-withInstall(ImportExcel, ExportExcelModel);
+export const ImpExcel = createAsyncComponent(() => import('./src/ImportExcel.vue'));
+export const ExpExcelModel = createAsyncComponent(() => import('./src/ExportExcelModel.vue'));
+
+withInstall(ImpExcel, ExpExcelModel);
 
 export * from './src/types';
 
 export { jsonToSheetXlsx, aoaToSheetXlsx } from './src/Export2Excel';
-
-export { ImportExcel, ExportExcelModel };

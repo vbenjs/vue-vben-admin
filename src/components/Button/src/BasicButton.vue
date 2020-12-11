@@ -1,9 +1,9 @@
 <template>
   <Button v-bind="getBindValue" :class="[getColor, $attrs.class]">
     <template #default="data">
-      <Icon :icon="preIcon" :class="{ 'mr-1': !getIsCircleBtn }" v-if="preIcon" />
+      <Icon :icon="preIcon" v-if="preIcon" :size="14" />
       <slot v-bind="data" />
-      <Icon :icon="postIcon" :class="{ 'ml-1': !getIsCircleBtn }" v-if="postIcon" />
+      <Icon :icon="postIcon" v-if="postIcon" :size="14" />
     </template>
   </Button>
 </template>
@@ -27,8 +27,6 @@
       postIcon: propTypes.string,
     },
     setup(props, { attrs }) {
-      const getIsCircleBtn = computed(() => attrs.shape === 'circle');
-
       const getColor = computed(() => {
         const { color, disabled } = props;
         return {
@@ -41,7 +39,7 @@
         return { ...attrs, ...props };
       });
 
-      return { getBindValue, getColor, getIsCircleBtn };
+      return { getBindValue, getColor };
     },
   });
 </script>
