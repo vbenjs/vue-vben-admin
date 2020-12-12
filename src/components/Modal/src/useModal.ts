@@ -90,6 +90,9 @@ export const useModalInner = (callbackFn?: Fn): UseModalInnerReturnType => {
     throw new Error('instance is undefined!');
   }
 
+  // currentInstall.type.emits = [...currentInstall.type.emits, 'register'];
+  // Object.assign(currentInstall.type.emits, ['register']);
+
   const getInstance = () => {
     const instance = unref(modalInstanceRef);
     if (!instance) {
@@ -103,10 +106,9 @@ export const useModalInner = (callbackFn?: Fn): UseModalInnerReturnType => {
       tryOnUnmounted(() => {
         modalInstanceRef.value = null;
       });
-
     uidRef.value = uuid;
     modalInstanceRef.value = modalInstance;
-    currentInstall.emit('register', modalInstance);
+    currentInstall.emit('register', modalInstance, uuid);
   };
 
   watchEffect(() => {

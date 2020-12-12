@@ -102,7 +102,7 @@ export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
 
     uidRef.value = uuid;
     drawerInstanceRef.value = modalInstance;
-    currentInstall.emit('register', modalInstance);
+    currentInstall.emit('register', modalInstance, uuid);
   };
 
   watchEffect(() => {
