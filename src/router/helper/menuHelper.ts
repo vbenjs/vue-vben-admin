@@ -42,6 +42,7 @@ export function transformMenuModule(menuModule: MenuModule): Menu {
   forEach(menuList, (m) => {
     !isUrl(m.path) && joinParentPath(menuList, m);
   });
+
   return menuList[0];
 }
 
