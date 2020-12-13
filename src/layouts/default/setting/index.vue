@@ -1,5 +1,5 @@
 <template>
-  <div @click="openDrawer" class="setting-button">
+  <div @click="openDrawer" :class="prefixCls">
     <SettingOutlined />
     <SettingDrawer @register="register" />
   </div>
@@ -10,13 +10,17 @@
   import SettingDrawer from './SettingDrawer';
 
   import { useDrawer } from '/@/components/Drawer';
+  import { useDesign } from '/@/hooks/web/useDesign';
 
   export default defineComponent({
     name: 'SettingBtn',
     components: { SettingOutlined, SettingDrawer },
     setup() {
       const [register, { openDrawer }] = useDrawer();
+
+      const { prefixCls } = useDesign('setting-button');
       return {
+        prefixCls,
         register,
         openDrawer,
       };
@@ -25,9 +29,9 @@
 </script>
 <style lang="less">
   @import (reference) '../../../design/index.less';
-  @import './index.less';
+  @prefix-cls: ~'@{namespace}-setting-button';
 
-  .setting-button {
+  .@{prefix-cls} {
     position: absolute;
     top: 45%;
     right: 0;
