@@ -1,32 +1,28 @@
 import './index.less';
 
-import { defineComponent, unref, computed, ref } from 'vue';
-import { Layout, BackTop } from 'ant-design-vue';
-import LayoutHeader from './header/LayoutHeader';
+import { defineComponent, unref, ref } from 'vue';
+import { Layout } from 'ant-design-vue';
+import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
+import LayoutHeader from './header/LayoutHeader';
 import LayoutContent from './content/index.vue';
-import LayoutFooter from './footer';
-import LayoutLockPage from '/@/views/sys/lock/index.vue';
 import LayoutSideBar from './sider';
-import SettingBtn from './setting/index.vue';
 import LayoutMultipleHeader from './header/LayoutMultipleHeader';
 
-import { MenuModeEnum } from '/@/enums/menuEnum';
-
-import { useRouter } from 'vue-router';
-import { useFullContent } from '/@/hooks/web/useFullContent';
 import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
-import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 import { createLayoutContext } from './useLayoutContext';
 
 import { registerGlobComp } from '/@/components/registerGlobComp';
 import { createBreakpointListen } from '/@/hooks/event/useBreakpoint';
 import { isMobile } from '/@/utils/is';
+
+const LayoutFeatures = createAsyncComponent(() => import('/@/layouts/default/feature/index.vue'));
+const LayoutFooter = createAsyncComponent(() => import('/@/layouts/default/footer/index.vue'));
+
 export default defineComponent({
   name: 'DefaultLayout',
   setup() {
-    const { currentRoute } = useRouter();
     const headerRef = ref<ComponentRef>(null);
     const isMobileRef = ref(false);
 
@@ -43,56 +39,27 @@ export default defineComponent({
 
     const { getShowFullHeaderRef } = useHeaderSetting();
 
-    const { getUseOpenBackTop, getShowSettingButton, getShowFooter } = useRootSetting();
-
-    const { getShowMenu, getMenuMode, getSplit } = useMenuSetting();
-
-    const { getFullContent } = useFullContent();
-
-    const getShowLayoutFooter = computed(() => {
-      return unref(getShowFooter) && !unref(currentRoute).meta?.hiddenFooter;
-    });
-
-    const showSideBarRef = computed(() => {
-      return (
-        unref(getSplit) ||
-        (unref(getShowMenu) &&
-          unref(getMenuMode) !== MenuModeEnum.HORIZONTAL &&
-          !unref(getFullContent))
-      );
-    });
-
-    function renderFeatures() {
-      return (
-        <>
-          <LayoutLockPage />
-          {/* back top */}
-          {unref(getUseOpenBackTop) && <BackTop target={() => document.body} />}
-          {/* open setting drawer */}
-          {unref(getShowSettingButton) && <SettingBtn />}
-        </>
-      );
-    }
+    const { getShowSidebar } = useMenuSetting();
 
     return () => {
       return (
         <Layout class="default-layout">
           {() => (
             <>
-              {renderFeatures()}
+              <LayoutFeatures />
 
               {unref(getShowFullHeaderRef) && <LayoutHeader fixed={true} ref={headerRef} />}
 
               <Layout>
                 {() => (
                   <>
-                    {unref(showSideBarRef) && <LayoutSideBar />}
+                    {unref(getShowSidebar) && <LayoutSideBar />}
                     <Layout class="default-layout__main">
                       {() => (
                         <>
                           <LayoutMultipleHeader />
                           <LayoutContent />
-                          {unref(getShowLayoutFooter) && <LayoutFooter />}
+                          <LayoutFooter />
                         </>
                       )}
                     </Layout>

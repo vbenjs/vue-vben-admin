@@ -1,7 +1,7 @@
 import type { Ref } from 'vue';
 
 import { computed, unref, onMounted, nextTick, ref } from 'vue';
-import LayoutTrigger from '/@/layouts/default/LayoutTrigger';
+import LayoutTrigger from '/@/layouts/default/trigger/index.vue';
 
 import { TriggerEnum } from '/@/enums/menuEnum';
 

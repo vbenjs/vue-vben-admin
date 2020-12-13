@@ -32,7 +32,6 @@ export function useCache(isPage: boolean) {
 
     if (isPage) {
       //  page Layout
-      // not parent layout
       return cached.get(PAGE_LAYOUT_KEY) || [];
     }
     const cacheSet = new Set<string>();

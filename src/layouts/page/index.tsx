@@ -10,12 +10,14 @@ import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
 import { useCache } from './useCache';
 import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
+// import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
 interface DefaultContext {
   Component: FunctionalComponent & { type: { [key: string]: any } };
   route: RouteLocation;
 }
 
+// const FrameLayout=createAsyncComponent(()=>'/@/layouts/iframe/index.vue')
 export default defineComponent({
   name: 'PageLayout',
   setup() {

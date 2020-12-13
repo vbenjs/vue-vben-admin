@@ -13,7 +13,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
 
   export default defineComponent({
-    name: 'SettingBtn',
+    name: 'SettingButton',
     components: { SettingOutlined, SettingDrawer },
     setup() {
       const [register, { openDrawer }] = useDrawer();

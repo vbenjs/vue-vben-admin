@@ -1,8 +1,6 @@
 import type { AppRouteRecordRaw } from '/@/router/types';
 
 import { computed, toRaw, unref } from 'vue';
-import { useRouter } from 'vue-router';
-import router from '/@/router';
 
 import { tabStore } from '/@/store/modules/tab';
 
@@ -10,8 +8,10 @@ import { unique } from '/@/utils';
 
 import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
 
+import router from '/@/router';
+
 export function useFrameKeepAlive() {
-  const { currentRoute } = useRouter();
+  const { currentRoute } = router;
   const { getShowMultipleTab } = useMultipleTabSetting();
 
   const getFramePages = computed(() => {
