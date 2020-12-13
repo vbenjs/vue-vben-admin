@@ -1,26 +1,23 @@
-import type { ProjectConfig } from '/@/types/config';
-
-import defaultSetting from '/@/settings/projectSetting';
-
-import { defineComponent, computed, unref, FunctionalComponent } from 'vue';
+import { defineComponent, computed, unref } from 'vue';
 import { BasicDrawer } from '/@/components/Drawer/index';
-import { Divider, Switch, Tooltip, InputNumber, Select } from 'ant-design-vue';
-import { Button } from '/@/components/Button';
-import { CopyOutlined, RedoOutlined, CheckOutlined } from '@ant-design/icons-vue';
+import { Divider } from 'ant-design-vue';
+import {
+  TypePicker,
+  ThemePicker,
+  SettingFooter,
+  SwitchItem,
+  SelectItem,
+  InputNumberItem,
+} from './components';
 
 import { MenuTypeEnum } from '/@/enums/menuEnum';
-import { appStore } from '/@/store/modules/app';
 
-import { useMessage } from '/@/hooks/web/useMessage';
-import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard';
 import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
 import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
 import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
 import { useI18n } from '/@/hooks/web/useI18n';
-
-import { updateColorWeak, updateGrayMode } from '/@/setup/theme';
 
 import { baseHandler } from './handler';
 
@@ -35,145 +32,7 @@ import {
 
 import { HEADER_PRESET_BG_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from '/@/settings/colorSetting';
 
-interface SwitchOptions {
-  config?: DeepPartial<ProjectConfig>;
-  def?: any;
-  disabled?: boolean;
-  handler?: Fn;
-}
-
-interface SelectConfig {
-  options?: LabelValueOptions;
-  def?: any;
-  disabled?: boolean;
-  handler?: Fn;
-}
-
-interface ThemePickerProps {
-  colorList: string[];
-  handler: Fn;
-  def: string;
-}
-
-const { createSuccessModal, createMessage } = useMessage();
 const { t } = useI18n();
-
-/**
- * Menu type Picker comp
- */
-const MenuTypePicker: FunctionalComponent = () => {
-  const { getIsHorizontal, getMenuType } = useMenuSetting();
-  return (
-    <div class={`setting-drawer__siderbar`}>
-      {menuTypeList.map((item) => {
-        const { title, type: ItemType, mode, src } = item;
-        return (
-          <Tooltip title={title} placement="bottom" key={title}>
-            {{
-              default: () => (
-                <div
-                  onClick={baseHandler.bind(null, HandlerEnum.CHANGE_LAYOUT, {
-                    mode: mode,
-                    type: ItemType,
-                    split: unref(getIsHorizontal) ? false : undefined,
-                  })}
-                >
-                  <CheckOutlined
-                    class={['check-icon', unref(getMenuType) === ItemType ? 'active' : '']}
-                  />
-                  <img src={src} />
-                </div>
-              ),
-            }}
-          </Tooltip>
-        );
-      })}
-    </div>
-  );
-};
-
-const ThemePicker: FunctionalComponent<ThemePickerProps> = (props) => {
-  return (
-    <div class={`setting-drawer__theme-item`}>
-      {props.colorList.map((color) => {
-        return (
-          <span
-            onClick={() => props.handler?.(color)}
-            key={color}
-            class={[props.def === color ? 'active' : '']}
-            style={{
-              background: color,
-            }}
-          >
-            <CheckOutlined class="icon" />
-          </span>
-        );
-      })}
-    </div>
-  );
-};
-
-/**
- * FooterButton component
- */
-const FooterButton: FunctionalComponent = () => {
-  const { getRootSetting } = useRootSetting();
-  function handleCopy() {
-    const { isSuccessRef } = useCopyToClipboard(JSON.stringify(unref(getRootSetting), null, 2));
-    unref(isSuccessRef) &&
-      createSuccessModal({
-        title: t('layout.setting.operatingTitle'),
-        content: t('layout.setting.operatingContent'),
-      });
-  }
-  function handleResetSetting() {
-    try {
-      appStore.commitProjectConfigState(defaultSetting);
-      const { colorWeak, grayMode } = defaultSetting;
-      // updateTheme(themeColor);
-      updateColorWeak(colorWeak);
-      updateGrayMode(grayMode);
-      createMessage.success(t('layout.setting.resetSuccess'));
-    } catch (error) {
-      createMessage.error(error);
-    }
-  }
-
-  function handleClearAndRedo() {
-    localStorage.clear();
-    appStore.resumeAllState();
-    location.reload();
-  }
-
-  return (
-    <div class="setting-drawer__footer">
-      <Button type="primary" block onClick={handleCopy}>
-        {() => (
-          <>
-            <CopyOutlined class="mr-2" />
-            {t('layout.setting.copyBtn')}
-          </>
-        )}
-      </Button>
-      <Button block class="mt-2" onClick={handleResetSetting} color="warning">
-        {() => (
-          <>
-            <RedoOutlined class="mr-2" />
-            {t('layout.setting.resetBtn')}
-          </>
-        )}
-      </Button>
-      <Button block class="mt-2" onClick={handleClearAndRedo} color="error">
-        {() => (
-          <>
-            <RedoOutlined class="mr-2" />
-            {t('layout.setting.clearBtn')}
-          </>
-        )}
-      </Button>
-    </div>
-  );
-};
 
 export default defineComponent({
   name: 'SettingDrawer',
@@ -187,6 +46,7 @@ export default defineComponent({
       getFullContent,
       getColorWeak,
       getGrayMode,
+      getLockTime,
     } = useRootSetting();
 
     const {
@@ -229,38 +89,44 @@ export default defineComponent({
     function renderSidebar() {
       return (
         <>
-          <MenuTypePicker />
-          {renderSwitchItem(t('layout.setting.splitMenu'), {
-            handler: (e) => {
-              baseHandler(HandlerEnum.MENU_SPLIT, e);
-            },
-            def: unref(getSplit),
-            disabled: !unref(getShowMenuRef) || unref(getMenuType) !== MenuTypeEnum.MIX,
-          })}
+          <TypePicker
+            menuTypeList={menuTypeList}
+            handler={(item: typeof menuTypeList[0]) => {
+              baseHandler(HandlerEnum.CHANGE_LAYOUT, {
+                mode: item.mode,
+                type: item.type,
+                split: unref(getIsHorizontal) ? false : undefined,
+              });
+            }}
+            def={unref(getMenuType)}
+          />
+          <SwitchItem
+            title={t('layout.setting.splitMenu')}
+            event={HandlerEnum.MENU_SPLIT}
+            def={unref(getSplit)}
+            disabled={!unref(getShowMenuRef) || unref(getMenuType) !== MenuTypeEnum.MIX}
+          />
         </>
       );
     }
 
-    function renderTheme() {
+    function renderHeaderTheme() {
       return (
-        <>
-          <Divider>{() => t('layout.setting.headerTheme')}</Divider>
-          <ThemePicker
-            colorList={HEADER_PRESET_BG_COLOR_LIST}
-            def={unref(getHeaderBgColor)}
-            handler={(e) => {
-              baseHandler(HandlerEnum.HEADER_THEME, e);
-            }}
-          />
-          <Divider>{() => t('layout.setting.sidebarTheme')}</Divider>
-          <ThemePicker
-            colorList={SIDE_BAR_BG_COLOR_LIST}
-            def={unref(getMenuBgColor)}
-            handler={(e) => {
-              baseHandler(HandlerEnum.MENU_THEME, e);
-            }}
-          />
-        </>
+        <ThemePicker
+          colorList={HEADER_PRESET_BG_COLOR_LIST}
+          def={unref(getHeaderBgColor)}
+          event={HandlerEnum.HEADER_THEME}
+        />
+      );
+    }
+
+    function renderSiderTheme() {
+      return (
+        <ThemePicker
+          colorList={SIDE_BAR_BG_COLOR_LIST}
+          def={unref(getMenuBgColor)}
+          event={HandlerEnum.MENU_THEME}
+        />
       );
     }
 
@@ -268,264 +134,192 @@ export default defineComponent({
      * @description:
      */
     function renderFeatures() {
-      return [
-        renderSwitchItem(t('layout.setting.menuDrag'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.MENU_HAS_DRAG, e);
-          },
-          def: unref(getCanDrag),
-          disabled: !unref(getShowMenuRef),
-        }),
-        renderSwitchItem(t('layout.setting.menuSearch'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.HEADER_SEARCH, e);
-          },
-          def: unref(getShowSearch),
-          disabled: !unref(getShowHeader),
-        }),
-        renderSwitchItem(t('layout.setting.menuAccordion'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.MENU_ACCORDION, e);
-          },
-          def: unref(getAccordion),
-          disabled: !unref(getShowMenuRef),
-        }),
-        renderSwitchItem(t('layout.setting.menuCollapse'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.MENU_COLLAPSED, e);
-          },
-          def: unref(getCollapsed),
-          disabled: !unref(getShowMenuRef),
-        }),
-        renderSwitchItem(t('layout.setting.collapseMenuDisplayName'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.MENU_COLLAPSED_SHOW_TITLE, e);
-          },
-          def: unref(getCollapsedShowTitle),
-          disabled: !unref(getShowMenuRef) || !unref(getCollapsed),
-        }),
-        renderSwitchItem(t('layout.setting.fixedHeader'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.HEADER_FIXED, e);
-          },
-          def: unref(getHeaderFixed),
-          disabled: !unref(getShowHeader),
-        }),
-        renderSwitchItem(t('layout.setting.fixedSideBar'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.MENU_FIXED, e);
-          },
-          def: unref(getMenuFixed),
-          disabled: !unref(getShowMenuRef),
-        }),
-        renderSelectItem(t('layout.setting.topMenuLayout'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.MENU_TOP_ALIGN, e);
-          },
-          def: unref(getTopMenuAlign),
-          options: topMenuAlignOptions,
-          disabled: !unref(getShowHeader) || (!unref(getIsTopMenu) && !unref(getSplit)),
-        }),
-        renderSelectItem(t('layout.setting.menuCollapseButton'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.MENU_TRIGGER, e);
-          },
-          disabled: !unref(getShowMenuRef),
-          def: unref(getTrigger),
-          options: menuTriggerOptions,
-        }),
-
-        renderSelectItem(t('layout.setting.contentMode'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.CONTENT_MODE, e);
-          },
-          def: unref(getContentMode),
-          options: contentModeOptions,
-        }),
-        <div class={`setting-drawer__cell-item`}>
-          <span>{t('layout.setting.autoScreenLock')}</span>
-          <InputNumber
-            style="width:126px"
-            size="small"
+      return (
+        <>
+          <SwitchItem
+            title={t('layout.setting.menuDrag')}
+            event={HandlerEnum.MENU_HAS_DRAG}
+            def={unref(getCanDrag)}
+            disabled={!unref(getShowMenuRef)}
+          />
+          <SwitchItem
+            title={t('layout.setting.menuSearch')}
+            event={HandlerEnum.HEADER_SEARCH}
+            def={unref(getShowSearch)}
+            disabled={!unref(getShowHeader)}
+          />
+          <SwitchItem
+            title={t('layout.setting.menuAccordion')}
+            event={HandlerEnum.MENU_ACCORDION}
+            def={unref(getAccordion)}
+            disabled={!unref(getShowMenuRef)}
+          />
+          <SwitchItem
+            title={t('layout.setting.menuCollapse')}
+            event={HandlerEnum.MENU_COLLAPSED}
+            def={unref(getCollapsed)}
+            disabled={!unref(getShowMenuRef)}
+          />
+          <SwitchItem
+            title={t('layout.setting.collapseMenuDisplayName')}
+            event={HandlerEnum.MENU_COLLAPSED_SHOW_TITLE}
+            def={unref(getCollapsedShowTitle)}
+            disabled={!unref(getShowMenuRef) || !unref(getCollapsed)}
+          />
+          <SwitchItem
+            title={t('layout.setting.fixedHeader')}
+            event={HandlerEnum.HEADER_FIXED}
+            def={unref(getHeaderFixed)}
+            disabled={!unref(getShowHeader)}
+          />
+          <SwitchItem
+            title={t('layout.setting.fixedSideBar')}
+            event={HandlerEnum.MENU_FIXED}
+            def={unref(getMenuFixed)}
+            disabled={!unref(getShowMenuRef)}
+          />
+          <SelectItem
+            title={t('layout.setting.topMenuLayout')}
+            event={HandlerEnum.MENU_TOP_ALIGN}
+            def={unref(getTopMenuAlign)}
+            options={topMenuAlignOptions}
+            disabled={!unref(getShowHeader) || (!unref(getIsTopMenu) && !unref(getSplit))}
+          />
+          <SelectItem
+            title={t('layout.setting.menuCollapseButton')}
+            event={HandlerEnum.MENU_TRIGGER}
+            def={unref(getTrigger)}
+            options={menuTriggerOptions}
+            disabled={!unref(getShowMenuRef)}
+          />
+          <SelectItem
+            title={t('layout.setting.contentMode')}
+            event={HandlerEnum.CONTENT_MODE}
+            def={unref(getContentMode)}
+            options={contentModeOptions}
+          />
+          <InputNumberItem
+            title={t('layout.setting.autoScreenLock')}
             min={0}
-            onChange={(e: any) => {
-              baseHandler(HandlerEnum.LOCK_TIME, e);
-            }}
-            defaultValue={appStore.getProjectConfig.lockTime}
+            event={HandlerEnum.LOCK_TIME}
+            defaultValue={unref(getLockTime)}
             formatter={(value: string) => {
-              if (parseInt(value) === 0) {
-                return `0(${t('layout.setting.notAutoScreenLock')})`;
-              }
-              return `${value}${t('layout.setting.minute')}`;
+              return parseInt(value) === 0
+                ? `0(${t('layout.setting.notAutoScreenLock')})`
+                : `${value}${t('layout.setting.minute')}`;
             }}
           />
-        </div>,
-        <div class={`setting-drawer__cell-item`}>
-          <span>{t('layout.setting.expandedMenuWidth')}</span>
-          <InputNumber
-            style="width:126px"
-            size="small"
+          <InputNumberItem
+            title={t('layout.setting.expandedMenuWidth')}
             max={600}
             min={100}
             step={10}
+            event={HandlerEnum.MENU_WIDTH}
             disabled={!unref(getShowMenuRef)}
             defaultValue={unref(getMenuWidth)}
             formatter={(value: string) => `${parseInt(value)}px`}
-            onChange={(e: any) => {
-              baseHandler(HandlerEnum.MENU_WIDTH, e);
-            }}
           />
-        </div>,
-      ];
+        </>
+      );
     }
 
     function renderContent() {
-      return [
-        renderSwitchItem(t('layout.setting.breadcrumb'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.SHOW_BREADCRUMB, e);
-          },
-          def: unref(getShowBreadCrumb),
-          disabled: !unref(getShowHeader),
-        }),
-        renderSwitchItem(t('layout.setting.breadcrumbIcon'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.SHOW_BREADCRUMB_ICON, e);
-          },
-          def: unref(getShowBreadCrumbIcon),
-          disabled: !unref(getShowHeader),
-        }),
-        renderSwitchItem(t('layout.setting.tabs'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.TABS_SHOW, e);
-          },
-          def: unref(getShowMultipleTab),
-        }),
-        renderSwitchItem(t('layout.setting.tabsQuickBtn'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.TABS_SHOW_QUICK, e);
-          },
-          def: unref(getShowQuick),
-          disabled: !unref(getShowMultipleTab),
-        }),
+      return (
+        <>
+          <SwitchItem
+            title={t('layout.setting.breadcrumb')}
+            event={HandlerEnum.SHOW_BREADCRUMB}
+            def={unref(getShowBreadCrumb)}
+            disabled={!unref(getShowHeader)}
+          />
 
-        renderSwitchItem(t('layout.setting.sidebar'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.MENU_SHOW_SIDEBAR, e);
-          },
-          def: unref(getShowMenu),
-          disabled: unref(getIsHorizontal),
-        }),
-        renderSwitchItem(t('layout.setting.header'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.HEADER_SHOW, e);
-          },
-          def: unref(getShowHeader),
-        }),
-        renderSwitchItem('Logo', {
-          handler: (e) => {
-            baseHandler(HandlerEnum.SHOW_LOGO, e);
-          },
-          def: unref(getShowLogo),
-        }),
-        renderSwitchItem(t('layout.setting.footer'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.SHOW_FOOTER, e);
-          },
-          def: unref(getShowFooter),
-        }),
-        renderSwitchItem(t('layout.setting.fullContent'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.FULL_CONTENT, e);
-          },
-          def: unref(getFullContent),
-        }),
-        renderSwitchItem(t('layout.setting.grayMode'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.GRAY_MODE, e);
-          },
-          def: unref(getGrayMode),
-        }),
-        renderSwitchItem(t('layout.setting.colorWeak'), {
-          handler: (e) => {
-            baseHandler(HandlerEnum.COLOR_WEAK, e);
-          },
-          def: unref(getColorWeak),
-        }),
-      ];
+          <SwitchItem
+            title={t('layout.setting.breadcrumbIcon')}
+            event={HandlerEnum.SHOW_BREADCRUMB_ICON}
+            def={unref(getShowBreadCrumbIcon)}
+            disabled={!unref(getShowHeader)}
+          />
+
+          <SwitchItem
+            title={t('layout.setting.tabs')}
+            event={HandlerEnum.TABS_SHOW}
+            def={unref(getShowMultipleTab)}
+          />
+
+          <SwitchItem
+            title={t('layout.setting.tabsQuickBtn')}
+            event={HandlerEnum.TABS_SHOW_QUICK}
+            def={unref(getShowQuick)}
+            disabled={!unref(getShowMultipleTab)}
+          />
+
+          <SwitchItem
+            title={t('layout.setting.sidebar')}
+            event={HandlerEnum.MENU_SHOW_SIDEBAR}
+            def={unref(getShowMenu)}
+            disabled={unref(getIsHorizontal)}
+          />
+
+          <SwitchItem
+            title={t('layout.setting.header')}
+            event={HandlerEnum.HEADER_SHOW}
+            def={unref(getShowHeader)}
+          />
+          <SwitchItem title="Logo" event={HandlerEnum.SHOW_LOGO} def={unref(getShowLogo)} />
+          <SwitchItem
+            title={t('layout.setting.footer')}
+            event={HandlerEnum.SHOW_FOOTER}
+            def={unref(getShowFooter)}
+          />
+          <SwitchItem
+            title={t('layout.setting.fullContent')}
+            event={HandlerEnum.FULL_CONTENT}
+            def={unref(getFullContent)}
+          />
+
+          <SwitchItem
+            title={t('layout.setting.grayMode')}
+            event={HandlerEnum.GRAY_MODE}
+            def={unref(getGrayMode)}
+          />
+
+          <SwitchItem
+            title={t('layout.setting.colorWeak')}
+            event={HandlerEnum.COLOR_WEAK}
+            def={unref(getColorWeak)}
+          />
+        </>
+      );
     }
 
     function renderTransition() {
       return (
         <>
-          {renderSwitchItem(t('layout.setting.progress'), {
-            handler: (e) => {
-              baseHandler(HandlerEnum.OPEN_PROGRESS, e);
-            },
-            def: unref(getOpenNProgress),
-          })}
-          {renderSwitchItem(t('layout.setting.switchLoading'), {
-            handler: (e) => {
-              baseHandler(HandlerEnum.OPEN_PAGE_LOADING, e);
-            },
-            def: unref(getOpenPageLoading),
-          })}
+          <SwitchItem
+            title={t('layout.setting.progress')}
+            event={HandlerEnum.OPEN_PROGRESS}
+            def={unref(getOpenNProgress)}
+          />
+          <SwitchItem
+            title={t('layout.setting.switchLoading')}
+            event={HandlerEnum.OPEN_PAGE_LOADING}
+            def={unref(getOpenPageLoading)}
+          />
 
-          {renderSwitchItem(t('layout.setting.switchAnimation'), {
-            handler: (e) => {
-              baseHandler(HandlerEnum.OPEN_ROUTE_TRANSITION, e);
-            },
-            def: unref(getEnableTransition),
-          })}
+          <SwitchItem
+            title={t('layout.setting.switchAnimation')}
+            event={HandlerEnum.OPEN_ROUTE_TRANSITION}
+            def={unref(getEnableTransition)}
+          />
 
-          {renderSelectItem(t('layout.setting.animationType'), {
-            handler: (e) => {
-              baseHandler(HandlerEnum.ROUTER_TRANSITION, e);
-            },
-            def: unref(getBasicTransition),
-            options: routerTransitionOptions,
-            disabled: !unref(getEnableTransition),
-          })}
+          <SelectItem
+            title={t('layout.setting.animationType')}
+            event={HandlerEnum.ROUTER_TRANSITION}
+            def={unref(getBasicTransition)}
+            options={routerTransitionOptions}
+            disabled={!unref(getEnableTransition)}
+          />
         </>
-      );
-    }
-
-    function renderSelectItem(text: string, config?: SelectConfig) {
-      const { handler, def, disabled = false, options } = config || {};
-      const opt = def ? { value: def, defaultValue: def } : {};
-      return (
-        <div class={`setting-drawer__cell-item`}>
-          <span>{text}</span>
-          <Select
-            {...opt}
-            disabled={disabled}
-            size="small"
-            style={{ width: '126px' }}
-            onChange={(e) => {
-              handler && handler(e);
-            }}
-            options={options}
-          />
-        </div>
-      );
-    }
-
-    function renderSwitchItem(text: string, options?: SwitchOptions) {
-      const { handler, def, disabled = false } = options || {};
-      const opt = def ? { checked: def } : {};
-      return (
-        <div class={`setting-drawer__cell-item`}>
-          <span>{text}</span>
-          <Switch
-            {...opt}
-            disabled={disabled}
-            onChange={(e: any) => {
-              handler && handler(e);
-            }}
-            checkedChildren={t('layout.setting.on')}
-            unCheckedChildren={t('layout.setting.off')}
-          />
-        </div>
       );
     }
 
@@ -541,7 +335,10 @@ export default defineComponent({
             <>
               <Divider>{() => t('layout.setting.navMode')}</Divider>
               {renderSidebar()}
-              {renderTheme()}
+              <Divider>{() => t('layout.setting.headerTheme')}</Divider>
+              {renderHeaderTheme()}
+              <Divider>{() => t('layout.setting.sidebarTheme')}</Divider>
+              {renderSiderTheme()}
               <Divider>{() => t('layout.setting.interfaceFunction')}</Divider>
               {renderFeatures()}
               <Divider>{() => t('layout.setting.interfaceDisplay')}</Divider>
@@ -549,7 +346,7 @@ export default defineComponent({
               <Divider>{() => t('layout.setting.animation')}</Divider>
               {renderTransition()}
               <Divider />
-              <FooterButton />
+              <SettingFooter />
             </>
           ),
         }}
