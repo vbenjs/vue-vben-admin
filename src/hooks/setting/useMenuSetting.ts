@@ -6,6 +6,7 @@ import { appStore } from '/@/store/modules/app';
 
 import { SIDE_BAR_MINI_WIDTH, SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '/@/enums/appEnum';
 import { MenuModeEnum, MenuTypeEnum, TriggerEnum } from '/@/enums/menuEnum';
+import { useFullContent } from '/@/hooks/web/useFullContent';
 
 // Get menu configuration
 const getMenuSetting = computed(() => appStore.getProjectConfig.menuSetting);
@@ -78,6 +79,15 @@ const getCalcContentWidth = computed(() => {
   return `calc(100% - ${unref(width)}px)`;
 });
 
+const { getFullContent: fullContent } = useFullContent();
+
+const getShowSidebar = computed(() => {
+  return (
+    unref(getSplit) ||
+    (unref(getShowMenu) && unref(getMenuMode) !== MenuModeEnum.HORIZONTAL && !unref(fullContent))
+  );
+});
+
 // Set menu configuration
 function setMenuSetting(menuSetting: Partial<MenuSetting>): void {
   appStore.commitProjectConfigState({ menuSetting });
@@ -119,5 +129,6 @@ export function useMenuSetting() {
     getMenuHidden,
     getIsTopMenu,
     getMenuBgColor,
+    getShowSidebar,
   };
 }

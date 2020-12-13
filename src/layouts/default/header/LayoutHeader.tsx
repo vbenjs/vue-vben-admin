@@ -19,7 +19,7 @@ import UserDropdown from './UserDropdown';
 import LayoutMenu from '../menu';
 import LayoutBreadcrumb from './LayoutBreadcrumb.vue';
 import LockAction from './actions/LockAction';
-import LayoutTrigger from '../LayoutTrigger';
+import LayoutTrigger from '../trigger/index.vue';
 import NoticeAction from './notice/NoticeActionItem.vue';
 import {
   RedoOutlined,

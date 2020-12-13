@@ -2,6 +2,7 @@ import Sortable from 'sortablejs';
 import { toRaw, ref, nextTick, onMounted } from 'vue';
 import { RouteLocationNormalized } from 'vue-router';
 import { useProjectSetting } from '/@/hooks/setting';
+import { useDesign } from '/@/hooks/web/useDesign';
 import router from '/@/router';
 import { tabStore } from '/@/store/modules/tab';
 import { isNullAndUnDef } from '/@/utils/is';
@@ -48,12 +49,12 @@ export function initAffixTabs(): string[] {
 export function useTabsDrag(affixTextList: string[]) {
   const { multiTabsSetting } = useProjectSetting();
 
+  const { prefixCls } = useDesign('multiple-tabs');
+
   function initSortableTabs() {
     if (!multiTabsSetting.canDrag) return;
     nextTick(() => {
-      const el = document.querySelectorAll(
-        '.multiple-tabs .ant-tabs-nav > div'
-      )?.[0] as HTMLElement;
+      const el = document.querySelectorAll(`.${prefixCls} .ant-tabs-nav > div`)?.[0] as HTMLElement;
 
       if (!el) return;
       Sortable.create(el, {

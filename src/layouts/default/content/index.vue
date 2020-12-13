@@ -6,7 +6,7 @@
         :loading="getPageLoading"
         background="rgba(240, 242, 245, 0.6)"
         absolute
-        :class="`${prefixCls}__loading`"
+        :class="`${prefixCls}-loading`"
       />
     </transition>
     <PageLayout />
@@ -53,7 +53,7 @@
       margin: 0 auto;
     }
 
-    &__loading {
+    &-loading {
       position: absolute;
       top: 200px;
       z-index: @page-loading-z-index;
