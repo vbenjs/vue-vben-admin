@@ -7,6 +7,7 @@ import { createGuard } from './guard/';
 
 import { basicRoutes } from './routes/';
 import { scrollBehavior } from './scrollBehavior';
+import { REDIRECT_NAME } from './constant';
 
 export const hashRouter = createWebHashHistory();
 
@@ -20,7 +21,7 @@ const router = createRouter({
 
 // reset router
 export function resetRouter() {
-  const resetWhiteNameList = ['Login'];
+  const resetWhiteNameList = ['Login', REDIRECT_NAME];
   router.getRoutes().forEach((route) => {
     const { name } = route;
     if (name && !resetWhiteNameList.includes(name as string)) {
