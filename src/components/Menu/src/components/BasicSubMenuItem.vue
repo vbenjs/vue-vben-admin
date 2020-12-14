@@ -2,7 +2,7 @@
   <BasicMenuItem v-if="!menuHasChildren(item)" v-bind="$props" />
   <SubMenu v-else :class="[`${prefixCls}__level${level}`, theme]">
     <template #title>
-      <MenuContent v-bind="$props" :item="item" />
+      <MenuItemContent v-bind="$props" :item="item" />
     </template>
     <!-- <template #expandIcon="{ key }">
       <ExpandIcon :key="key" />
@@ -21,17 +21,17 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   import { itemProps } from '../props';
   import BasicMenuItem from './BasicMenuItem.vue';
-  import MenuContent from '../MenuContent';
-  // import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+  import MenuItemContent from './MenuItemContent.vue';
 
+  // import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
   export default defineComponent({
     name: 'BasicSubMenuItem',
-
+    isSubMenu: true,
     components: {
       BasicMenuItem,
       SubMenu: Menu.SubMenu,
       MenuItem: Menu.Item,
-      MenuContent,
+      MenuItemContent,
       // ExpandIcon: createAsyncComponent(() => import('./ExpandIcon.vue')),
     },
     props: itemProps,

@@ -65,6 +65,10 @@ const getIsHorizontal = computed(() => {
   return unref(getMenuMode) === MenuModeEnum.HORIZONTAL;
 });
 
+const getIsMixMode = computed(() => {
+  return unref(getMenuMode) === MenuModeEnum.INLINE && unref(getMenuType) === MenuTypeEnum.MIX;
+});
+
 const getRealWidth = computed(() => {
   return unref(getCollapsed) ? unref(getMiniWidthNumber) : unref(getMenuWidth);
 });
@@ -130,5 +134,6 @@ export function useMenuSetting() {
     getIsTopMenu,
     getMenuBgColor,
     getShowSidebar,
+    getIsMixMode,
   };
 }

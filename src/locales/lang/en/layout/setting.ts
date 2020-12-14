@@ -53,6 +53,7 @@ export default {
   breadcrumbIcon: 'Breadcrumbs Icon',
   tabs: 'Tabs',
   tabsQuickBtn: 'Tabs quick button',
+  tabsRedoBtn: 'Tabs redo button',
   sidebar: 'Sidebar',
   header: 'Header',
   footer: 'Footer',

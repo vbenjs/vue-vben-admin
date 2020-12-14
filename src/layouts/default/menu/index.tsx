@@ -9,6 +9,7 @@ import { AppLogo } from '/@/components/Application';
 import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
 
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
+import { ScrollContainer } from '/@/components/Container';
 
 import { useGo } from '/@/hooks/web/usePage';
 import { useSplitMenu } from './useLayoutMenu';
@@ -16,6 +17,7 @@ import { openWindow } from '/@/utils';
 import { propTypes } from '/@/utils/propTypes';
 import { isUrl } from '/@/utils/is';
 import { useRootSetting } from '/@/hooks/setting/useRootSetting';
+import { CSSProperties } from 'vue';
 
 export default defineComponent({
   name: 'LayoutMenu',
@@ -53,12 +55,25 @@ export default defineComponent({
     const getComputedMenuMode = computed(() => props.menuMode || unref(getMenuMode));
 
     const getComputedMenuTheme = computed(() => props.theme || unref(getMenuTheme));
-    const showLogo = computed(() => unref(getShowLogo) && unref(getIsSidebarType));
-    const appendClass = computed(() => props.splitType === MenuSplitTyeEnum.TOP);
+
+    const getIsShowLogo = computed(() => unref(getShowLogo) && unref(getIsSidebarType));
+
+    const getUseScroll = computed(() => {
+      return unref(getIsSidebarType) || props.splitType === MenuSplitTyeEnum.LEFT;
+    });
+
+    const getWrapperStyle = computed(
+      (): CSSProperties => {
+        return {
+          height: `calc(100% - ${unref(getIsShowLogo) ? '48px' : '0px'})`,
+        };
+      }
+    );
     /**
      * click menu
      * @param menu
      */
+
     function handleMenuClick(path: string) {
       go(path);
     }
@@ -76,7 +91,7 @@ export default defineComponent({
     }
 
     function renderHeader() {
-      if (!unref(showLogo)) return null;
+      if (!unref(getIsShowLogo)) return null;
 
       return (
         <AppLogo
@@ -87,7 +102,7 @@ export default defineComponent({
       );
     }
 
-    return () => {
+    function renderMenu() {
       return (
         <BasicMenu
           beforeClickFn={beforeMenuClickFn}
@@ -99,13 +114,22 @@ export default defineComponent({
           items={unref(menusRef)}
           accordion={unref(getAccordion)}
           onMenuClick={handleMenuClick}
-          appendClass={unref(appendClass)}
-          showLogo={unref(showLogo)}
-        >
-          {{
-            header: () => renderHeader(),
-          }}
-        </BasicMenu>
+          showLogo={unref(getIsShowLogo)}
+        />
+      );
+    }
+
+    return () => {
+      return (
+        <>
+          {renderHeader()}
+          {unref(getUseScroll) ? (
+            <ScrollContainer style={unref(getWrapperStyle)}>{() => renderMenu()}</ScrollContainer>
+          ) : (
+            renderMenu()
+          )}
+          ;
+        </>
       );
     };
   },

@@ -22,11 +22,13 @@
   });
 </script>
 <style lang="less" scoped>
+  @import (reference) '../../../design/index.less';
+
   .app-footer {
     position: fixed;
     right: 0;
     bottom: 0;
-    z-index: 99;
+    z-index: @page-footer-z-index;
     display: flex;
     width: 100%;
     align-items: center;

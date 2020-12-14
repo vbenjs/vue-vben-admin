@@ -18,7 +18,7 @@
   import { Layout } from 'ant-design-vue';
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
-  import LayoutHeader from './header/LayoutHeader';
+  import LayoutHeader from './header/index.vue';
   import LayoutContent from './content/index.vue';
   import LayoutSideBar from './sider';
   import LayoutMultipleHeader from './header/LayoutMultipleHeader';
@@ -29,8 +29,6 @@
   import { createLayoutContext } from './useLayoutContext';
 
   import { registerGlobComp } from '/@/components/registerGlobComp';
-  import { createBreakpointListen } from '/@/hooks/event/useBreakpoint';
-  import { isMobile } from '/@/utils/is';
 
   export default defineComponent({
     name: 'DefaultLayout',
@@ -44,21 +42,16 @@
       Layout,
     },
     setup() {
-      const headerRef = ref<ComponentRef>(null);
-      const isMobileRef = ref(false);
-
-      const { prefixCls } = useDesign('default-layout');
-
-      createLayoutContext({ fullHeader: headerRef, isMobile: isMobileRef });
-
-      createBreakpointListen(() => {
-        isMobileRef.value = isMobile();
-      });
-
       // ! Only register global components here
       // ! Can reduce the size of the first screen code
       // default layout It is loaded after login. So it won’t be packaged to the first screen
       registerGlobComp();
+
+      const headerRef = ref<ComponentRef>(null);
+
+      const { prefixCls } = useDesign('default-layout');
+
+      createLayoutContext({ fullHeader: headerRef });
 
       const { getShowFullHeaderRef } = useHeaderSetting();
 

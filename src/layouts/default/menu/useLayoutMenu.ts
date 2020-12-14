@@ -14,9 +14,7 @@ import { permissionStore } from '/@/store/modules/permission';
 export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
   // Menu array
   const menusRef = ref<Menu[]>([]);
-
   const { currentRoute } = useRouter();
-
   const { setMenuSetting, getIsHorizontal, getSplit } = useMenuSetting();
 
   const [throttleHandleSplitLeftMenu] = useThrottle(handleSplitLeftMenu, 50);
@@ -25,9 +23,11 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
     () => unref(splitType) !== MenuSplitTyeEnum.LEFT && !unref(getIsHorizontal)
   );
 
-  const splitLeft = computed(() => !unref(getSplit) || unref(splitType) !== MenuSplitTyeEnum.LEFT);
+  const getSplitLeft = computed(
+    () => !unref(getSplit) || unref(splitType) !== MenuSplitTyeEnum.LEFT
+  );
 
-  const spiltTop = computed(() => unref(splitType) === MenuSplitTyeEnum.TOP);
+  const getSpiltTop = computed(() => unref(splitType) === MenuSplitTyeEnum.TOP);
 
   const normalType = computed(() => {
     return unref(splitType) === MenuSplitTyeEnum.NONE || !unref(getSplit);
@@ -65,7 +65,7 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
 
   // Handle left menu split
   async function handleSplitLeftMenu(parentPath: string) {
-    if (unref(splitLeft)) return;
+    if (unref(getSplitLeft)) return;
 
     // spilt mode left
     const children = await getChildrenMenus(parentPath);
@@ -88,7 +88,7 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
     }
 
     // split-top
-    if (unref(spiltTop)) {
+    if (unref(getSpiltTop)) {
       const shallowMenus = await getShallowMenus();
 
       menusRef.value = shallowMenus;

@@ -1,6 +1,6 @@
 import './index.less';
 
-import { computed, defineComponent, ref, unref, watch, nextTick, CSSProperties } from 'vue';
+import { computed, defineComponent, ref, unref, CSSProperties } from 'vue';
 
 import { Layout } from 'ant-design-vue';
 import LayoutMenu from '../menu';
@@ -8,14 +8,13 @@ import LayoutMenu from '../menu';
 import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
 
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
-import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
 import { useTrigger, useDragLine, useSiderEvent } from './useLayoutSider';
-import { useLayoutContext } from '../useLayoutContext';
+import { useAppInject } from '/@/hooks/web/useAppInject';
+import { useDesign } from '/@/hooks/web/useDesign';
 
 export default defineComponent({
   name: 'LayoutSideBar',
   setup() {
-    const topRef = ref(0);
     const dragBarRef = ref<ElRef>(null);
     const sideRef = ref<ElRef>(null);
 
@@ -27,22 +26,18 @@ export default defineComponent({
       getRealWidth,
       getMenuHidden,
       getMenuFixed,
+      getIsMixMode,
     } = useMenuSetting();
 
-    const { getShowFullHeaderRef, getUnFixedAndFull } = useHeaderSetting();
-
-    const injectValue = useLayoutContext();
+    const { prefixCls } = useDesign('layout-sideBar');
 
     const { getTriggerAttr, getTriggerSlot } = useTrigger();
 
+    const { getIsMobile } = useAppInject();
+
     const { renderDragLine } = useDragLine(sideRef, dragBarRef);
 
-    const {
-      getCollapsedWidth,
-      onBreakpointChange,
-      onCollapseChange,
-      onSiderClick,
-    } = useSiderEvent();
+    const { getCollapsedWidth, onBreakpointChange, onCollapseChange } = useSiderEvent();
 
     const getMode = computed(() => {
       return unref(getSplit) ? MenuModeEnum.INLINE : null;
@@ -57,39 +52,15 @@ export default defineComponent({
     });
 
     const getSiderClass = computed(() => {
-      return {
-        'layout-sidebar': true,
-        fixed: unref(getMenuFixed),
-        hidden: !unref(showClassSideBarRef),
-      };
+      return [
+        prefixCls,
+        {
+          [`${prefixCls}--fixed`]: unref(getMenuFixed),
+          hidden: !unref(showClassSideBarRef),
+          [`${prefixCls}--mix`]: unref(getIsMixMode),
+        },
+      ];
     });
-
-    const getSiderStyle = computed(() => {
-      const top = `${unref(topRef)}px`;
-      if (!unref(getMenuFixed)) {
-        return { top };
-      }
-      return {
-        top,
-        height: `calc(100% - ${top})`,
-      };
-    });
-
-    watch(
-      () => getShowFullHeaderRef.value,
-      () => {
-        topRef.value = 0;
-        if (unref(getUnFixedAndFull)) return;
-        nextTick(() => {
-          const fullHeaderEl = unref(injectValue.fullHeader)?.$el;
-          if (!fullHeaderEl) return;
-          topRef.value = fullHeaderEl.offsetHeight;
-        });
-      },
-      {
-        immediate: true,
-      }
-    );
 
     const getHiddenDomStyle = computed(
       (): CSSProperties => {
@@ -121,7 +92,7 @@ export default defineComponent({
     return () => {
       return (
         <>
-          {unref(getMenuFixed) && !unref(injectValue.isMobile) && (
+          {unref(getMenuFixed) && !unref(getIsMobile) && (
             <div style={unref(getHiddenDomStyle)} class={{ hidden: !unref(showClassSideBarRef) }} />
           )}
           <Layout.Sider
@@ -129,12 +100,10 @@ export default defineComponent({
             breakpoint="lg"
             collapsible
             class={unref(getSiderClass)}
-            style={unref(getSiderStyle)}
             width={unref(getMenuWidth)}
             collapsed={unref(getCollapsed)}
             collapsedWidth={unref(getCollapsedWidth)}
             theme={unref(getMenuTheme)}
-            onClick={onSiderClick}
             onCollapse={onCollapseChange}
             onBreakpoint={onBreakpointChange}
             {...unref(getTriggerAttr)}

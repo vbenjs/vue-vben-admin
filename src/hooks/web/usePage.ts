@@ -33,11 +33,13 @@ export function useGo() {
 export const useRedo = () => {
   const { push, currentRoute } = router;
   const { query, params } = currentRoute.value;
-  function redo() {
-    push({
-      path: '/redirect' + unref(currentRoute).fullPath,
-      query,
-      params,
+  function redo(): Promise<boolean> {
+    return new Promise((resolve) => {
+      push({
+        path: '/redirect' + unref(currentRoute).fullPath,
+        query,
+        params,
+      }).then(() => resolve(true));
     });
   }
   return redo;

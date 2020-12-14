@@ -11,7 +11,11 @@ export function useTabs() {
   }
 
   return {
-    refreshPage: () => canIUseFn() && tabStore.commitRedoPage(),
+    refreshPage: async () => {
+      if (canIUseFn()) {
+        await tabStore.commitRedoPage();
+      }
+    },
     closeAll: () => canIUseFn() && tabStore.closeAllTabAction(),
     closeLeft: () => canIUseFn() && tabStore.closeLeftTabAction(tabStore.getCurrentTab),
     closeRight: () => canIUseFn() && tabStore.closeRightTabAction(tabStore.getCurrentTab),

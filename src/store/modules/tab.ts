@@ -5,7 +5,6 @@ import { Action, Module, Mutation, VuexModule, getModule } from 'vuex-module-dec
 import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
 
 import { PageEnum } from '/@/enums/pageEnum';
-import { userStore } from './user';
 
 import store from '/@/store';
 import router from '/@/router';
@@ -13,8 +12,7 @@ import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/constant';
 import { RouteLocationNormalized, RouteLocationRaw } from 'vue-router';
 import { getRoute } from '/@/router/helper/routeHelper';
 import { useGo, useRedo } from '/@/hooks/web/usePage';
-
-// declare namespace TabsStore {
+import { cloneDeep } from 'lodash-es';
 
 const NAME = 'tab';
 
@@ -34,17 +32,10 @@ class Tab extends VuexModule {
   // tab list
   tabsState: RouteLocationNormalized[] = [];
 
-  // Last route change
-  lastChangeRouteState: RouteLocationNormalized | null = null;
-
   lastDragEndIndexState = 0;
 
   get getTabsState() {
     return this.tabsState;
-  }
-
-  get getLastChangeRouteState() {
-    return this.lastChangeRouteState;
   }
 
   get getCurrentTab(): RouteLocationNormalized {
@@ -58,12 +49,6 @@ class Tab extends VuexModule {
 
   get getLastDragEndIndexState(): number {
     return this.lastDragEndIndexState;
-  }
-
-  @Mutation
-  commitLastChangeRouteState(route: RouteLocationNormalized): void {
-    if (!userStore.getTokenState) return;
-    this.lastChangeRouteState = route;
   }
 
   @Mutation
@@ -152,7 +137,7 @@ class Tab extends VuexModule {
       this.tabsState.splice(updateIndex, 1, curTab);
       return;
     }
-    this.tabsState.push(route);
+    this.tabsState = cloneDeep([...this.tabsState, route]);
   }
 
   /**
@@ -210,7 +195,7 @@ class Tab extends VuexModule {
   }
 
   @Mutation
-  commitRedoPage() {
+  async commitRedoPage() {
     const route = router.currentRoute.value;
     for (const [key, value] of this.cachedMapState) {
       const index = value.findIndex((item) => item === (route.name as string));
@@ -225,7 +210,7 @@ class Tab extends VuexModule {
       this.cachedMapState.set(key, value);
     }
     const redo = useRedo();
-    redo();
+    await redo();
   }
 
   @Action

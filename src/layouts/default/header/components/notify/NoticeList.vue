@@ -1,5 +1,5 @@
 <template>
-  <a-list class="list">
+  <a-list :class="prefixCls">
     <template v-for="item in list" :key="item.id">
       <a-list-item class="list-item">
         <a-list-item-meta>
@@ -33,6 +33,7 @@
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
   import { ListItem } from './data';
+  import { useDesign } from '/@/hooks/web/useDesign';
 
   export default defineComponent({
     props: {
@@ -41,10 +42,17 @@
         default: () => [],
       },
     },
+    setup() {
+      const { prefixCls } = useDesign('header-notify-list');
+      return { prefixCls };
+    },
   });
 </script>
 <style lang="less" scoped>
-  .list {
+  @import (reference) '../../../../../design/index.less';
+  @prefix-cls: ~'@{namespace}-header-notify-list';
+
+  .@{prefix-cls} {
     &::-webkit-scrollbar {
       display: none;
     }

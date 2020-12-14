@@ -1,3 +1,5 @@
+@import (reference) '../../../design/index.less';
+
 .multiple-tab-header {
   margin-left: 1px;
   transition: width 0.2s;
@@ -10,7 +12,7 @@
   &.fixed {
     position: fixed;
     top: 0;
-    z-index: 100;
+    z-index: @multiple-tab-fixed-z-index;
     width: 100%;
   }
 }

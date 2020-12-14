@@ -2,7 +2,7 @@ import './LayoutMultipleHeader.less';
 
 import { defineComponent, unref, computed, ref, watch, nextTick, CSSProperties } from 'vue';
 
-import LayoutHeader from './LayoutHeader';
+import LayoutHeader from './index.vue';
 import MultipleTabs from '../tabs/index.vue';
 
 import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
@@ -10,6 +10,7 @@ import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 import { useFullContent } from '/@/hooks/web/useFullContent';
 import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
 import { useLayoutContext } from '../useLayoutContext';
+import { useAppInject } from '/@/hooks/web/useAppInject';
 
 export default defineComponent({
   name: 'LayoutMultipleHeader',
@@ -21,8 +22,8 @@ export default defineComponent({
 
     const injectValue = useLayoutContext();
 
-    const { getCalcContentWidth } = useMenuSetting();
-
+    const { getCalcContentWidth, getSplit } = useMenuSetting();
+    const { getIsMobile } = useAppInject();
     const {
       getFixed,
       getShowInsetHeaderRef,
@@ -36,7 +37,7 @@ export default defineComponent({
 
     const { getShowMultipleTab } = useMultipleTabSetting();
 
-    const showTabsRef = computed(() => {
+    const getShowTabs = computed(() => {
       return unref(getShowMultipleTab) && !unref(getFullContent);
     });
 
@@ -56,7 +57,7 @@ export default defineComponent({
       (): CSSProperties => {
         const style: CSSProperties = {};
         if (unref(getFixed)) {
-          style.width = unref(injectValue.isMobile) ? '100%' : unref(getCalcContentWidth);
+          style.width = unref(getIsMobile) ? '100%' : unref(getCalcContentWidth);
         }
         if (unref(getShowFullHeaderRef)) {
           style.top = `${unref(fullHeaderHeightRef)}px`;
@@ -84,7 +85,7 @@ export default defineComponent({
           const fullHeaderEl = unref(injectValue.fullHeader)?.$el;
 
           let height = 0;
-          if (headerEl && !unref(getShowFullHeaderRef)) {
+          if (headerEl && !unref(getShowFullHeaderRef) && !unref(getSplit)) {
             height += headerEl.offsetHeight;
           }
 
@@ -97,6 +98,7 @@ export default defineComponent({
             height += fullHeaderHeight;
             fullHeaderHeightRef.value = fullHeaderHeight;
           }
+
           placeholderHeightRef.value = height;
         });
       },
@@ -114,7 +116,7 @@ export default defineComponent({
             class={['multiple-tab-header', unref(getHeaderTheme), { fixed: unref(getIsFixed) }]}
           >
             {unref(getShowInsetHeaderRef) && <LayoutHeader ref={headerElRef} />}
-            {unref(showTabsRef) && <MultipleTabs ref={tabElRef} />}
+            {unref(getShowTabs) && <MultipleTabs ref={tabElRef} />}
           </div>
         </>
       );

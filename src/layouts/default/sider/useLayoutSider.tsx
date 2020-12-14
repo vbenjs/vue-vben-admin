@@ -16,7 +16,7 @@ export function useSiderEvent() {
   const brokenRef = ref(false);
   const collapseRef = ref(true);
 
-  const { setMenuSetting, getCollapsed, getMiniWidthNumber, getShowMenu } = useMenuSetting();
+  const { setMenuSetting, getCollapsed, getMiniWidthNumber } = useMenuSetting();
 
   const getCollapsedWidth = computed(() => {
     return unref(brokenRef) ? 0 : unref(getMiniWidthNumber);
@@ -36,12 +36,7 @@ export function useSiderEvent() {
     brokenRef.value = broken;
   }
 
-  function onSiderClick(e: ChangeEvent) {
-    if (!e || !e.target || e.target.className !== 'basic-menu__content') return;
-    if (!unref(getCollapsed) || !unref(getShowMenu)) return;
-    setMenuSetting({ collapsed: false });
-  }
-  return { getCollapsedWidth, onCollapseChange, onBreakpointChange, onSiderClick };
+  return { getCollapsedWidth, onCollapseChange, onBreakpointChange };
 }
 
 /**

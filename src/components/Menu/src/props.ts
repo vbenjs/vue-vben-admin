@@ -9,7 +9,6 @@ export const basicProps = {
     type: Array as PropType<Menu[]>,
     default: () => [],
   },
-  appendClass: propTypes.bool,
 
   collapsedShowTitle: propTypes.bool,
 
@@ -42,8 +41,16 @@ export const itemProps = {
   },
   level: propTypes.number,
   theme: propTypes.oneOf(['dark', 'light']),
-  appendClass: propTypes.bool,
-  parentPath: propTypes.string,
   showTitle: propTypes.bool,
   isHorizontal: propTypes.bool,
+};
+
+export const contentProps = {
+  item: {
+    type: Object as PropType<Menu>,
+    default: null,
+  },
+  showTitle: propTypes.bool.def(true),
+  level: propTypes.number.def(0),
+  isHorizontal: propTypes.bool.def(true),
 };

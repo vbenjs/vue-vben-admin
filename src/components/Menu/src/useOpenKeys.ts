@@ -42,6 +42,8 @@ export function useOpenKeys(
     if (unref(mode) === MenuModeEnum.HORIZONTAL || !unref(accordion)) {
       menuState.openKeys = openKeys;
     } else {
+      // const menuList = toRaw(menus.value);
+      // getAllParentPath(menuList, path);
       const rootSubMenuKeys: string[] = [];
       for (const { children, path } of unref(menus)) {
         if (children && children.length > 0) {
