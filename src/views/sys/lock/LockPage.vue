@@ -144,7 +144,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 3000;
+    z-index: @lock-page-z-index;
     display: flex;
     width: 100vw;
     height: 100vh;

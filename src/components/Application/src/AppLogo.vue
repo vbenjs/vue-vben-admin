@@ -87,7 +87,7 @@
     }
 
     &__title {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
       opacity: 0;
       transition: all 0.5s;

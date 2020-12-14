@@ -1,13 +1,19 @@
 @import (reference) '../../../design/index.less';
+@prefix-cls: ~'@{namespace}-layout-sideBar';
 
-.layout-sidebar {
-  // overflow: hidden;
+.@{prefix-cls} {
+  z-index: @layout-sider-fixed-z-index;
 
-  &.fixed {
+  &--fixed {
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
+  }
+
+  &--mix {
+    top: @header-height;
+    height: calc(100% - @header-height);
   }
 
   &.ant-layout-sider-dark {

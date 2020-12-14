@@ -3,7 +3,6 @@ import { createContext, useContext } from '/@/hooks/core/useContext';
 
 export interface LayoutContextProps {
   fullHeader: Ref<ComponentRef>;
-  isMobile: Ref<boolean>;
 }
 
 const key: InjectionKey<LayoutContextProps> = Symbol();

@@ -113,6 +113,8 @@ export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConf
 
     case HandlerEnum.TABS_SHOW:
       return { multiTabsSetting: { show: value } };
+    case HandlerEnum.TABS_SHOW_REDO:
+      return { multiTabsSetting: { showRedo: value } };
 
     // ============header==================
     case HandlerEnum.HEADER_THEME:

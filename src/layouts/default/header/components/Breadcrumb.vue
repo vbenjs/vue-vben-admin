@@ -1,8 +1,8 @@
 <template>
-  <div class="layout-breadcrumb">
+  <div :class="[prefixCls, `${prefixCls}--${theme}`]">
     <a-breadcrumb :routes="routes">
       <template #itemRender="{ route, routes }">
-        <Icon :icon="route.meta.icon" v-if="showIcon && route.meta.icon" />
+        <Icon :icon="route.meta.icon" v-if="getShowBreadCrumbIcon && route.meta.icon" />
         <span v-if="routes.indexOf(route) === routes.length - 1">
           {{ t(route.meta.title) }}
         </span>
@@ -14,7 +14,6 @@
   </div>
 </template>
 <script lang="ts">
-  import { PropType } from 'vue';
   import { defineComponent, ref, toRaw, watchEffect } from 'vue';
   import { useI18n } from 'vue-i18n';
 
@@ -26,18 +25,23 @@
 
   import { HomeOutlined } from '@ant-design/icons-vue';
   import { PageEnum } from '/@/enums/pageEnum';
+
+  import { useDesign } from '/@/hooks/web/useDesign';
+  import { useRootSetting } from '/@/hooks/setting/useRootSetting';
+
+  import { propTypes } from '/@/utils/propTypes';
+
   export default defineComponent({
     name: 'LayoutBreadcrumb',
     components: { HomeOutlined, Icon },
     props: {
-      showIcon: {
-        type: Boolean as PropType<boolean>,
-        default: false,
-      },
+      theme: propTypes.oneOf(['dark', 'light']),
     },
     setup() {
       const routes = ref<RouteLocationMatched[]>([]);
       const { currentRoute } = useRouter();
+      const { prefixCls } = useDesign('layout-breadcrumb');
+      const { getShowBreadCrumbIcon } = useRootSetting();
 
       const { t } = useI18n();
       watchEffect(() => {
@@ -63,17 +67,71 @@
         );
 
         if (filterBreadcrumbList.length === breadcrumbList.length) {
-          filterBreadcrumbList.unshift({
+          filterBreadcrumbList.unshift(({
             path: PageEnum.BASE_HOME,
             meta: {
               title: t('layout.header.home'),
             },
-          });
+          } as unknown) as RouteLocationMatched);
         }
-        routes.value = filterBreadcrumbList;
+        routes.value = filterBreadcrumbList.length === 1 ? [] : filterBreadcrumbList;
       });
 
-      return { routes, t };
+      return { routes, t, prefixCls, getShowBreadCrumbIcon };
     },
   });
 </script>
+<style lang="less">
+  @import (reference) '../../../../design/index.less';
+  @prefix-cls: ~'@{namespace}-layout-breadcrumb';
+
+  .@{prefix-cls} {
+    display: flex;
+    padding: 0 8px;
+    align-items: center;
+
+    .ant-breadcrumb-link {
+      .anticon {
+        margin-right: 4px;
+        margin-bottom: 2px;
+      }
+    }
+
+    &--light {
+      .ant-breadcrumb-link {
+        color: @breadcrumb-item-normal-color;
+
+        a {
+          color: @text-color-base;
+
+          &:hover {
+            color: @primary-color;
+          }
+        }
+      }
+
+      .ant-breadcrumb-separator {
+        color: @breadcrumb-item-normal-color;
+      }
+    }
+
+    &--dark {
+      .ant-breadcrumb-link {
+        color: rgba(255, 255, 255, 0.6);
+
+        a {
+          color: rgba(255, 255, 255, 0.8);
+
+          &:hover {
+            color: @white;
+          }
+        }
+      }
+
+      .ant-breadcrumb-separator,
+      .anticon {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+</style>

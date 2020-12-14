@@ -7,4 +7,5 @@ export default {
   closeAll: 'Close All',
   putAway: 'PutAway',
   unfold: 'Unfold',
+  tooltipRedo: 'Refresh',
 };

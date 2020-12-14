@@ -1,6 +1,8 @@
 @import (reference) '../../../design/index.less';
 
 @basic-menu-prefix-cls: ~'@{namespace}-basic-menu';
+@basic-menu-content-prefix-cls: ~'@{namespace}-basic-menu-item-content';
+@basic-menu-tag-prefix-cls: ~'@{namespace}-basic-menu-item-tag';
 
 .active-style() {
   color: @white;
@@ -41,7 +43,7 @@
   // }
 
   //  collapsed show title start
-  &--show-title {
+  .@{basic-menu-content-prefix-cls}--show-title {
     max-width: unset !important;
     opacity: 1 !important;
   }
@@ -78,14 +80,22 @@
     & > li > .ant-menu-submenu-title {
       line-height: 24px;
     }
-    .@{basic-menu-prefix-cls}__content-wrapper {
+    .@{basic-menu-content-prefix-cls}-wrapper {
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      .@{basic-menu-prefix-cls}--show-title {
+      .@{basic-menu-content-prefix-cls}--show-title {
         line-height: 30px;
       }
+    }
+  }
+
+  .@{basic-menu-content-prefix-cls}-wrapper {
+    width: 100%;
+
+    &__icon {
+      vertical-align: text-top;
     }
   }
 
@@ -93,88 +103,10 @@
     transition: unset;
   }
 
-  // scrollbar -s tart
-  // &-wrapper {
-
-  /* 滚动槽 */
-  // &::-webkit-scrollbar {
-  //   width: 5px;
-  //   height: 5px;
-  // }
-
-  // &::-webkit-scrollbar-track {
-  //   background: rgba(0, 0, 0, 0);
-  // }
-
-  // &::-webkit-scrollbar-thumb {
-  //   background: rgba(255, 255, 255, 0.2);
-  //   border-radius: 3px;
-  //   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
-  // }
-
-  // ::-webkit-scrollbar-thumb:hover {
-  //   background: @border-color-dark;
-  // }
-  // }
-
-  // scrollbar  end
-
-  &-item__level1.light {
-    &.top-active-menu {
-      top: 0 !important;
-    }
-
-    &.top-active-menu:not(.ant-menu-item-selected) {
-      color: @primary-color;
-      border-bottom: 3px solid @primary-color;
-    }
-  }
-
   &__sidebar-hor {
-    // overflow: hidden;
-
     &.ant-menu-horizontal {
       display: flex;
-      border: 0;
       align-items: center;
-
-      .@{basic-menu-prefix-cls}-item__level1 {
-        margin-right: 2px;
-      }
-
-      &.ant-menu-light {
-        .ant-menu-item {
-          &.@{basic-menu-prefix-cls}-item__level1 {
-            height: @header-height;
-            line-height: @header-height;
-          }
-        }
-
-        .ant-menu-submenu:hover,
-        .ant-menu-item-open,
-        .ant-menu-submenu-open,
-        .ant-menu-item-selected,
-        .ant-menu-submenu-selected,
-        .ant-menu-item:hover,
-        .ant-menu-item-active,
-        .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
-        .ant-menu-submenu-active,
-        .ant-menu-submenu-title:hover {
-          color: @primary-color !important;
-          border-bottom: 3px solid @primary-color;
-        }
-
-        .ant-menu-submenu {
-          &:hover {
-            border-bottom: 3px solid @primary-color;
-          }
-
-          &.ant-menu-selected,
-          &.ant-menu-submenu-selected {
-            border-bottom: 3px solid @primary-color;
-          }
-        }
-      }
 
       &.ant-menu-dark {
         background: transparent;
@@ -203,12 +135,6 @@
 
         .@{basic-menu-prefix-cls}-item__level1 {
           background: transparent;
-
-          &.top-active-menu {
-            color: @white;
-            background: @top-menu-active-bg-color;
-            border-radius: 2px 2px 0 0;
-          }
 
           &.ant-menu-item-selected,
           &.ant-menu-submenu-selected {
@@ -292,7 +218,7 @@
   }
 
   &.ant-menu-light:not(.@{basic-menu-prefix-cls}__sidebar-hor) {
-    overflow: hidden;
+    // overflow: hidden;
     border-right: none;
 
     .ant-menu-item.ant-menu-item-selected.@{basic-menu-prefix-cls}-menu-item__level1,
@@ -301,26 +227,32 @@
     }
   }
 
-  // 激活的子菜单样式
-  .ant-menu-item.ant-menu-item-selected {
-    position: relative;
-  }
-
   &.@{basic-menu-prefix-cls}__second.ant-menu-inline-collapsed:not(.@{basic-menu-prefix-cls}__sidebar-hor) {
     // Reset menu item row height
-    .ant-menu-item,
-    .ant-menu-sub.ant-menu-inline > .ant-menu-item,
-    .ant-menu-sub.ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+    .@{basic-menu-prefix-cls}-item__level1 {
       display: flex;
       height: @app-menu-item-height * 1.4;
       padding: 6px 0 !important;
       margin: 0;
+      font-size: 12px;
       line-height: @app-menu-item-height;
       align-items: center;
+      text-align: center;
+
+      > div {
+        padding: 6px 0 !important;
+        font-size: 12px;
+      }
+
+      .@{basic-menu-content-prefix-cls}__name {
+        display: inline-block;
+        width: 50%;
+        overflow: hidden;
+      }
     }
   }
 
-  .@{basic-menu-prefix-cls}__tag {
+  .@{basic-menu-tag-prefix-cls} {
     position: absolute;
     top: calc(50% - 8px);
     right: 30px;
@@ -332,7 +264,7 @@
     color: #fff;
     border-radius: 2px;
 
-    &.dot {
+    &--dot {
       top: calc(50% - 4px);
       width: 8px;
       height: 8px;
@@ -340,19 +272,19 @@
       border-radius: 50%;
     }
 
-    &.primary {
+    &--primary {
       background: @primary-color;
     }
 
-    &.error {
+    &--error {
       background: @error-color;
     }
 
-    &.success {
+    &--success {
       background: @success-color;
     }
 
-    &.warn {
+    &--warn {
       background: @warning-color;
     }
   }
@@ -361,10 +293,6 @@
   .ant-menu-submenu-inline {
     transition: unset;
   }
-
-  // .ant-menu-submenu-arrow {
-  //   transition: all 0.15s ease 0s;
-  // }
 
   .ant-menu-inline.ant-menu-sub {
     box-shadow: unset !important;
@@ -384,10 +312,10 @@
 // collapsed show title end
 .ant-menu-item,
 .ant-menu-submenu-title {
-  > .@{basic-menu-prefix-cls}__name {
+  > .@{basic-menu-content-prefix-cls}__name {
     width: 100%;
 
-    .@{basic-menu-prefix-cls}__tag {
+    .@{basic-menu-tag-prefix-cls} {
       float: right;
       margin-top: @app-menu-item-height / 2;
       transform: translate(0%, -50%);

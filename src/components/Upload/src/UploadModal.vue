@@ -55,7 +55,6 @@
   import { checkFileType, checkImgType, getBase64WithFile } from './helper';
   import { buildUUID } from '/@/utils/uuid';
   import { createImgPreview } from '/@/components/Preview/index';
-  import { uploadApi } from '/@/api/sys/upload';
   import { isFunction } from '/@/utils/is';
   import { warn } from '/@/utils/log';
   import FileList from './FileList';
@@ -176,7 +175,7 @@
         }
         try {
           item.status = UploadResultStatus.UPLOADING;
-          const { data } = await uploadApi(
+          const { data } = await props.api?.(
             {
               ...(props.uploadParams || {}),
               file: item.file,

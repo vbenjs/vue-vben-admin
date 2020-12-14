@@ -20,11 +20,10 @@
   import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
   import PageLayout from '/@/layouts/page/index';
   import { Loading } from '/@/components/Loading';
-  import Transition from '/@/views/demo/comp/lazy/Transition.vue';
 
   export default defineComponent({
     name: 'LayoutContent',
-    components: { PageLayout, Loading, Transition },
+    components: { PageLayout, Loading },
     setup() {
       const { prefixCls } = useDesign('layout-content');
       const { getOpenPageLoading } = useTransitionSetting();

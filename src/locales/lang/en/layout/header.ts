@@ -7,7 +7,7 @@ export default {
   tooltipErrorLog: 'Error log',
   tooltipLock: 'Lock screen',
   tooltipNotify: 'Notification',
-  tooltipRedo: 'Refresh',
+
   tooltipEntryFull: 'Full Screen',
   tooltipExitFull: 'Exit Full Screen',
 

@@ -10,6 +10,9 @@ export interface CreateCallbackParams {
   screen: ComputedRef<sizeEnum | undefined>;
   width: ComputedRef<number>;
   realWidth: ComputedRef<number>;
+  screenEnum: typeof screenEnum;
+  screenMap: Map<sizeEnum, number>;
+  sizeEnum: typeof sizeEnum;
 }
 
 export function useBreakpoint() {
@@ -54,8 +57,8 @@ export function createBreakpointListen(fn?: (opt: CreateCallbackParams) => void)
     name: 'resize',
 
     listener: () => {
-      resizeFn();
       getWindowWidth();
+      resizeFn();
     },
   });
 
@@ -65,12 +68,14 @@ export function createBreakpointListen(fn?: (opt: CreateCallbackParams) => void)
   globalRealWidthRef = computed((): number => unref(realWidthRef));
 
   function resizeFn() {
-    fn &&
-      fn({
-        screen: globalScreenRef,
-        width: globalWidthRef,
-        realWidth: globalRealWidthRef,
-      });
+    fn?.({
+      screen: globalScreenRef,
+      width: globalWidthRef,
+      realWidth: globalRealWidthRef,
+      screenEnum,
+      screenMap,
+      sizeEnum,
+    });
   }
 
   resizeFn();

@@ -6,13 +6,13 @@
  * @returns {Function} The function's instance
  */
 export default class Mitt {
-  private cache: Map<string, Array<(data: any) => void>>;
+  private cache: Map<string | Symbol, Array<(...data: any) => void>>;
   constructor(all = []) {
     // A Map of event names to registered handler functions.
     this.cache = new Map(all);
   }
 
-  once(type: string, handler: Fn) {
+  once(type: string | Symbol, handler: Fn) {
     const decor = (...args: any[]) => {
       handler && handler.apply(this, args);
       this.off(type, decor);
@@ -27,7 +27,7 @@ export default class Mitt {
    * @param {string|symbol} type Type of event to listen for, or `"*"` for all events
    * @param {Function} handler Function to call in response to given event
    */
-  on(type: string, handler: Fn) {
+  on(type: string | Symbol, handler: Fn) {
     const handlers = this.cache.get(type);
     const added = handlers && handlers.push(handler);
     if (!added) {
@@ -41,7 +41,7 @@ export default class Mitt {
    * @param {string|symbol} type Type of event to unregister `handler` from, or `"*"`
    * @param {Function} handler Handler function to remove
    */
-  off(type: string, handler: Fn) {
+  off(type: string | Symbol, handler: Fn) {
     const handlers = this.cache.get(type);
     if (handlers) {
       handlers.splice(handlers.indexOf(handler) >>> 0, 1);
@@ -57,7 +57,7 @@ export default class Mitt {
    * @param {string|symbol} type The event type to invoke
    * @param {*} [evt] Any value (object is recommended and powerful), passed to each handler
    */
-  emit(type: string, evt: any) {
+  emit(type: string | Symbol, evt: any) {
     for (const handler of (this.cache.get(type) || []).slice()) handler(evt);
     for (const handler of (this.cache.get('*') || []).slice()) handler(type, evt);
   }

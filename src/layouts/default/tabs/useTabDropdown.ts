@@ -10,7 +10,6 @@ import { useTabs } from '/@/hooks/web/useTabs';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
-import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
 
 const { t } = useI18n();
 
@@ -24,11 +23,8 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
 
   const { getShowMenu, setMenuSetting } = useMenuSetting();
   const { getShowHeader, setHeaderSetting } = useHeaderSetting();
-  const { getShowQuick } = useMultipleTabSetting();
 
-  const isTabs = computed(() =>
-    !unref(getShowQuick) ? true : tabContentProps.type === TabContentEnum.TAB_TYPE
-  );
+  const isTabs = computed(() => tabContentProps.type === TabContentEnum.TAB_TYPE);
 
   const getCurrentTab = computed(
     (): RouteLocationNormalized => {

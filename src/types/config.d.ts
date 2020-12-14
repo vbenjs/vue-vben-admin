@@ -27,6 +27,9 @@ export interface MultiTabsSetting {
   // 开启快速操作
   showQuick: boolean;
   canDrag: boolean;
+
+  // 显示刷新按钮
+  showRedo: boolean;
 }
 
 export interface HeaderSetting {
@@ -34,8 +37,7 @@ export interface HeaderSetting {
   fixed: boolean;
   show: boolean;
   theme: ThemeEnum;
-  // 显示刷新按钮
-  showRedo: boolean;
+
   // 显示全屏按钮
   showFullScreen: boolean;
   // 开启全屏功能

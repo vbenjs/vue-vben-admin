@@ -52,6 +52,7 @@ export default {
   breadcrumbIcon: '面包屑图标',
   tabs: '标签页',
   tabsQuickBtn: '标签页快捷按钮',
+  tabsRedoBtn: '标签页刷新按钮',
   sidebar: '左侧菜单',
   header: '顶栏',
   footer: '页脚',

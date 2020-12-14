@@ -7,4 +7,5 @@ export default {
   closeAll: '关闭全部',
   putAway: '收起',
   unfold: '展开',
+  tooltipRedo: '刷新',
 };

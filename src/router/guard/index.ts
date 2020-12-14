@@ -8,13 +8,12 @@ import { createPageLoadingGuard } from './pageLoadingGuard';
 
 import { useGlobSetting, useProjectSetting } from '/@/hooks/setting';
 
-import { getRoute } from '/@/router/helper/routeHelper';
 import { setTitle } from '/@/utils/browser';
 import { AxiosCanceler } from '/@/utils/http/axios/axiosCancel';
 
-import { tabStore } from '/@/store/modules/tab';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { REDIRECT_NAME } from '/@/router/constant';
+import { setLastChangeTab } from '/@/logics/mitt/tabChange';
 
 const { closeMessageOnSwitch, removeAllHttpPending } = useProjectSetting();
 const globSetting = useGlobSetting();
@@ -35,8 +34,7 @@ export function createGuard(router: Router) {
   router.beforeEach(async (to) => {
     to.meta.loaded = !!loadedPageMap.get(to.path);
     // Notify routing changes
-    tabStore.commitLastChangeRouteState(getRoute(to));
-
+    setLastChangeTab(to);
     try {
       if (closeMessageOnSwitch) {
         Modal.destroyAll();

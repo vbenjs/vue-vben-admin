@@ -1,6 +1,6 @@
 <template>
   <MenuItem :class="getLevelClass">
-    <MenuContent v-bind="$props" :item="item" />
+    <MenuItemContent v-bind="$props" :item="item" />
   </MenuItem>
 </template>
 <script lang="ts">
@@ -9,25 +9,18 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   import { itemProps } from '../props';
 
-  import MenuContent from '../MenuContent';
+  import MenuItemContent from './MenuItemContent.vue';
   export default defineComponent({
     name: 'BasicMenuItem',
-    components: { MenuItem: Menu.Item, MenuContent },
+    components: { MenuItem: Menu.Item, MenuItemContent },
     props: itemProps,
     setup(props) {
       const { prefixCls } = useDesign('basic-menu-item');
 
       const getLevelClass = computed(() => {
-        const { appendClass, level, item, parentPath, theme } = props;
-        const isAppendActiveCls = appendClass && level === 1 && item.path === parentPath;
+        const { level, theme } = props;
 
-        const levelCls = [
-          `${prefixCls}__level${level}`,
-          theme,
-          {
-            'top-active-menu': isAppendActiveCls,
-          },
-        ];
+        const levelCls = [`${prefixCls}__level${level}`, theme];
         return levelCls;
       });
       return {
