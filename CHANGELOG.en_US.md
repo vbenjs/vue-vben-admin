@@ -1,3 +1,25 @@
+## 2.0.0-rc.14 (2020-12-15)
+
+### ✨ Features
+
+-Remove the left menu search, add the top menu search function -Layout mobile terminal adaptation. Business page is not adapted -axios join the joinTime configuration. Control whether the response includes a timestamp
+
+### ⚡ Performance Improvements
+
+-Import components asynchronously -Optimize the overall structure -Replace the default scroll bar of the menu as a scroll component -Menu performance optimization
+
+### 🎫 Chores
+
+-Return to the top to adjust the style to avoid covering other elements -Upgrade `ant-design-vue` to `2.0.0-rc.5` -Refresh button layout adjustment -`route.meta` removes the `externalLink` attribute
+
+### ✨ Refactor
+
+-`openModal` and `openDrawer` third parameter `openOnSet` is set to true by default
+
+### 🐛 Bug Fixes
+
+-Fixed an issue where multi-level routing cache caused components to render multiple times -Fixed the problem of disappearing after switching the map chart -Fix the issue of successful login and notify disappearing -Modify the names of `VirtualScroll` and `ImportExcel` components as `VScroll` and `ImpExcel` to temporarily solve the memory overflow of components containing keywords in the vue template -Fix axios case problem -Fix button style problem -Fix the problem of menu split mode -Fix the issue of invalid data transmission when using emits in `Modal` and `Drawer` components -Fix the known problems of the menu -Fix the issue of upload component api failure -Fix the problem of invalid menu permission filtering
+
 ## 2.0.0-rc.13 (2020-12-10)
 
 ## (Breaking changes) Breaking changes
