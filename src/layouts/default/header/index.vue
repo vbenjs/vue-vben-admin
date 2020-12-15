@@ -3,17 +3,17 @@
     <!-- left start -->
     <div :class="`${prefixCls}-left`">
       <!-- logo -->
-      <AppLogo v-if="getShowHeaderLogo" :class="`${prefixCls}-logo`" :theme="getHeaderTheme" />
-
+      <AppLogo
+        v-if="getShowHeaderLogo || getIsMobile"
+        :class="`${prefixCls}-logo`"
+        :theme="getHeaderTheme"
+      />
       <LayoutTrigger
-        v-if="getShowContent && getShowHeaderTrigger"
+        v-if="(getShowContent && getShowHeaderTrigger && !getSplit) || getIsMobile"
         :theme="getHeaderTheme"
         :sider="false"
       />
-      <LayoutBreadcrumb
-        v-if="getShowContent && getShowBread && !getIsMobile"
-        :theme="getHeaderTheme"
-      />
+      <LayoutBreadcrumb v-if="getShowContent && getShowBread" :theme="getHeaderTheme" />
     </div>
     <!-- left end -->
 
@@ -30,15 +30,15 @@
 
     <!-- action  -->
     <div :class="`${prefixCls}-action`">
-      <AppSearch v-if="!getIsMobile" :class="`${prefixCls}-action__item`" />
+      <AppSearch :class="`${prefixCls}-action__item `" />
 
-      <ErrorAction v-if="getUseErrorHandle && !getIsMobile" :class="`${prefixCls}-action__item`" />
+      <ErrorAction v-if="getUseErrorHandle" :class="`${prefixCls}-action__item error-action`" />
 
-      <LockItem v-if="getUseLockPage && !getIsMobile" :class="`${prefixCls}-action__item`" />
+      <LockItem v-if="getUseLockPage" :class="`${prefixCls}-action__item lock-item`" />
 
-      <Notify v-if="getShowNotice && !getIsMobile" :class="`${prefixCls}-action__item`" />
+      <Notify v-if="getShowNotice" :class="`${prefixCls}-action__item notify-item`" />
 
-      <FullScreen v-if="getShowFullScreen && !getIsMobile" :class="`${prefixCls}-action__item`" />
+      <FullScreen v-if="getShowFullScreen" :class="`${prefixCls}-action__item fullscreen-item`" />
 
       <UserDropDown :theme="getHeaderTheme" />
 
@@ -123,7 +123,11 @@
         const theme = unref(getHeaderTheme);
         return [
           prefixCls,
-          { [`${prefixCls}--fixed`]: props.fixed, [`${prefixCls}--${theme}`]: theme },
+          {
+            [`${prefixCls}--fixed`]: props.fixed,
+            [`${prefixCls}--mobile`]: unref(getIsMobile),
+            [`${prefixCls}--${theme}`]: theme,
+          },
         ];
       });
 
@@ -145,6 +149,7 @@
         getShowBread,
         getShowContent,
         getSplitType,
+        getSplit,
         getMenuMode,
         getShowTopMenu,
         getShowLocale,

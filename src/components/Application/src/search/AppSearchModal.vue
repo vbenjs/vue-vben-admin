@@ -1,48 +1,58 @@
 <template>
-  <div :class="prefixCls" @click.stop>
-    <ClickOutSide @clickOutside="handleClose">
-      <div :class="`${prefixCls}-content`">
-        <a-input
-          :class="`${prefixCls}-input`"
-          :placeholder="t('component.app.search')"
-          allow-clear
-          @change="handleSearch"
-        >
-          <template #prefix>
-            <SearchOutlined />
-          </template>
-        </a-input>
-        <div :class="`${prefixCls}-not-data`" v-show="getIsNotData">
-          {{ t('component.app.searchNotData') }}
-        </div>
-        <ul :class="`${prefixCls}-list`" v-show="!getIsNotData" ref="scrollWrap">
-          <li
-            :ref="setRefs(index)"
-            v-for="(item, index) in searchResult"
-            :key="item.path"
-            :data-index="index"
-            @mouseenter="handleMouseenter"
-            @click="handleEnter"
-            :class="[
-              `${prefixCls}-list__item`,
-              {
-                [`${prefixCls}-list__item--active`]: activeIndex === index,
-              },
-            ]"
-          >
-            <div :class="`${prefixCls}-list__item-icon`">
-              <g-icon :icon="item.icon || 'mdi:form-select'" :size="20" />
+  <Teleport to="body">
+    <transition name="zoom-fade" mode="out-in">
+      <div :class="getClass" @click.stop v-if="visible">
+        <ClickOutSide @clickOutside="handleClose">
+          <div :class="`${prefixCls}-content`">
+            <div :class="`${prefixCls}-input__wrapper`">
+              <a-input
+                :class="`${prefixCls}-input`"
+                :placeholder="t('component.app.search')"
+                allow-clear
+                @change="handleSearch"
+              >
+                <template #prefix>
+                  <SearchOutlined />
+                </template>
+              </a-input>
+              <span :class="`${prefixCls}-cancel`" @click="handleClose">{{
+                t('component.app.cancel')
+              }}</span>
             </div>
-            <div :class="`${prefixCls}-list__item-text`">{{ item.name }}</div>
-            <div :class="`${prefixCls}-list__item-enter`">
-              <g-icon icon="ant-design:enter-outlined" :size="20" />
+
+            <div :class="`${prefixCls}-not-data`" v-show="getIsNotData">
+              {{ t('component.app.searchNotData') }}
             </div>
-          </li>
-        </ul>
-        <AppSearchFooter />
+            <ul :class="`${prefixCls}-list`" v-show="!getIsNotData" ref="scrollWrap">
+              <li
+                :ref="setRefs(index)"
+                v-for="(item, index) in searchResult"
+                :key="item.path"
+                :data-index="index"
+                @mouseenter="handleMouseenter"
+                @click="handleEnter"
+                :class="[
+                  `${prefixCls}-list__item`,
+                  {
+                    [`${prefixCls}-list__item--active`]: activeIndex === index,
+                  },
+                ]"
+              >
+                <div :class="`${prefixCls}-list__item-icon`">
+                  <g-icon :icon="item.icon || 'mdi:form-select'" :size="20" />
+                </div>
+                <div :class="`${prefixCls}-list__item-text`">{{ item.name }}</div>
+                <div :class="`${prefixCls}-list__item-enter`">
+                  <g-icon icon="ant-design:enter-outlined" :size="20" />
+                </div>
+              </li>
+            </ul>
+            <AppSearchFooter />
+          </div>
+        </ClickOutSide>
       </div>
-    </ClickOutSide>
-  </div>
+    </transition>
+  </Teleport>
 </template>
 <script lang="ts">
   import { defineComponent, computed, unref, ref } from 'vue';
@@ -54,15 +64,20 @@
   import AppSearchFooter from './AppSearchFooter.vue';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { ClickOutSide } from '/@/components/ClickOutSide';
+  import { useAppInject } from '/@/hooks/web/useAppInject';
   export default defineComponent({
     name: 'AppSearchModal',
     components: { SearchOutlined, ClickOutSide, AppSearchFooter },
     emits: ['close'],
+    props: {
+      visible: Boolean,
+    },
     setup(_, { emit }) {
       const scrollWrap = ref<ElRef>(null);
       const { prefixCls } = useDesign('app-search-modal');
       const { t } = useI18n();
       const [refs, setRefs] = useRefs();
+      const { getIsMobile } = useAppInject();
 
       const {
         handleSearch,
@@ -77,9 +92,19 @@
         return !keyword || unref(searchResult).length === 0;
       });
 
+      const getClass = computed(() => {
+        return [
+          prefixCls,
+          {
+            [`${prefixCls}--mobile`]: unref(getIsMobile),
+          },
+        ];
+      });
+
       return {
         t,
         prefixCls,
+        getClass,
         handleSearch,
         searchResult,
         activeIndex,
@@ -98,12 +123,12 @@
 <style lang="less" scoped>
   @import (reference) '../../../../design/index.less';
   @prefix-cls: ~'@{namespace}-app-search-modal';
-
+  @footer-prefix-cls: ~'@{namespace}-app-search-footer';
   .@{prefix-cls} {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 800;
     display: flex;
     width: 100%;
     height: 100%;
@@ -112,6 +137,43 @@
     background: rgba(0, 0, 0, 0.8);
     justify-content: center;
     // backdrop-filter: blur(2px);
+
+    &--mobile {
+      padding: 0;
+
+      > div {
+        width: 100%;
+      }
+
+      .@{prefix-cls}-input {
+        width: calc(100% - 38px);
+      }
+
+      .@{prefix-cls}-cancel {
+        display: inline-block;
+      }
+
+      .@{prefix-cls}-content {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+      }
+
+      .@{footer-prefix-cls} {
+        display: none;
+      }
+
+      .@{prefix-cls}-list {
+        height: calc(100% - 80px);
+        max-height: unset;
+
+        &__item {
+          &-enter {
+            opacity: 0 !important;
+          }
+        }
+      }
+    }
 
     &-content {
       position: relative;
@@ -124,16 +186,28 @@
       flex-direction: column;
     }
 
+    &-input__wrapper {
+      display: flex;
+      padding: 14px 14px 0 14px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     &-input {
-      width: calc(100% - 28px);
+      width: 100%;
       height: 56px;
-      margin: 14px 14px 0 14px;
       font-size: 1.5em;
       color: #1c1e21;
 
       span[role='img'] {
         color: #999;
       }
+    }
+
+    &-cancel {
+      display: none;
+      font-size: 1em;
+      color: #666;
     }
 
     &-not-data {

@@ -221,25 +221,35 @@
         font-size: 23em;
       }
       @media (min-width: @screen-sm-max) and (max-width: @screen-md-max) {
-        font-size: 19em;
+        height: 50%;
+        font-size: 12em;
+        border-radius: 10px;
+
+        .meridiem {
+          font-size: 20px;
+        }
       }
       @media (min-width: @screen-xs-max) and (max-width: @screen-sm-max) {
         font-size: 13em;
       }
       @media (max-width: @screen-xs) {
-        height: 50%;
-        font-size: 6em;
-        border-radius: 20px;
+        height: 30%;
+        font-size: 5em;
+        border-radius: 10px;
+
+        .meridiem {
+          font-size: 14px;
+        }
       }
     }
 
     &__footer-date {
       position: absolute;
       bottom: 20px;
-      left: 50%;
+      width: 100%;
       font-family: helvetica;
       color: #bababa;
-      transform: translate(-50%, 0);
+      text-align: center;
 
       .time {
         font-size: 50px;

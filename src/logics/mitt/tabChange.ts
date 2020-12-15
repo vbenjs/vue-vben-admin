@@ -13,8 +13,9 @@ const key = Symbol();
 let lastChangeTab: RouteLocationNormalized;
 
 export function setLastChangeTab(lastChangeRoute: RouteLocationNormalized) {
-  mitt.emit(key, getRoute(lastChangeRoute));
-  lastChangeTab = getRoute(lastChangeRoute);
+  const r = getRoute(lastChangeRoute);
+  mitt.emit(key, r);
+  lastChangeTab = r;
 }
 
 export function listenerLastChangeTab(

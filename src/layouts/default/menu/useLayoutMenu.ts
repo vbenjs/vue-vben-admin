@@ -10,11 +10,13 @@ import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 
 import { getChildrenMenus, getCurrentParentPath, getMenus, getShallowMenus } from '/@/router/menus';
 import { permissionStore } from '/@/store/modules/permission';
+import { useAppInject } from '/@/hooks/web/useAppInject';
 
 export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
   // Menu array
   const menusRef = ref<Menu[]>([]);
   const { currentRoute } = useRouter();
+  const { getIsMobile } = useAppInject();
   const { setMenuSetting, getIsHorizontal, getSplit } = useMenuSetting();
 
   const [throttleHandleSplitLeftMenu] = useThrottle(handleSplitLeftMenu, 50);
@@ -36,7 +38,7 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
   watch(
     [() => unref(currentRoute).path, () => unref(splitType)],
     async ([path]: [string, MenuSplitTyeEnum]) => {
-      if (unref(splitNotLeft)) return;
+      if (unref(splitNotLeft) || unref(getIsMobile)) return;
 
       const parentPath = await getCurrentParentPath(path);
       parentPath && throttleHandleSplitLeftMenu(parentPath);
@@ -65,24 +67,24 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
 
   // Handle left menu split
   async function handleSplitLeftMenu(parentPath: string) {
-    if (unref(getSplitLeft)) return;
+    if (unref(getSplitLeft) || unref(getIsMobile)) return;
 
     // spilt mode left
     const children = await getChildrenMenus(parentPath);
     if (!children) {
-      setMenuSetting({ hidden: false });
+      setMenuSetting({ hidden: true });
       menusRef.value = [];
       return;
     }
 
-    setMenuSetting({ hidden: true });
+    setMenuSetting({ hidden: false });
     menusRef.value = children;
   }
 
   // get menus
   async function genMenus() {
     // normal mode
-    if (unref(normalType)) {
+    if (unref(normalType) || unref(getIsMobile)) {
       menusRef.value = await getMenus();
       return;
     }

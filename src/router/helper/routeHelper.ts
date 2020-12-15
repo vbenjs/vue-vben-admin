@@ -5,6 +5,10 @@ import { getParentLayout, LAYOUT } from '/@/router/constant';
 import dynamicImport from './dynamicImport';
 import { cloneDeep } from 'lodash-es';
 
+export type LayoutMapKey = 'LAYOUT';
+
+const LayoutMap = new Map<LayoutMapKey, () => Promise<typeof import('*.vue')>>();
+
 // 动态引入
 function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
   if (!routes) return;
@@ -20,16 +24,14 @@ function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
   });
 }
 
-function getLayoutComp(comp: string) {
-  return comp === 'LAYOUT' ? LAYOUT : '';
-}
-
 // Turn background objects into routing objects
 export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModule[]): T[] {
+  LayoutMap.set('LAYOUT', LAYOUT);
+
   routeList.forEach((route) => {
     if (route.component) {
       if ((route.component as string).toUpperCase() === 'LAYOUT') {
-        route.component = getLayoutComp(route.component);
+        route.component = LayoutMap.get(route.component);
       } else {
         route.children = [cloneDeep(route)];
         route.component = LAYOUT;
@@ -44,16 +46,6 @@ export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModul
     route.children && asyncImportRoute(route.children);
   });
   return (routeList as unknown) as T[];
-}
-
-export function getParams(data: any = {}) {
-  const { params = {} } = data;
-  let ret = '';
-  Object.keys(params).forEach((key) => {
-    const p = params[key];
-    ret += `/${p}`;
-  });
-  return ret;
 }
 
 // Return to the new routing structure, not affected by the original example

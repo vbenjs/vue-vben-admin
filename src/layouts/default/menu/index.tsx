@@ -1,8 +1,8 @@
 import './index.less';
 
-import { PropType, toRef } from 'vue';
+import type { PropType, CSSProperties } from 'vue';
 
-import { computed, defineComponent, unref } from 'vue';
+import { computed, defineComponent, unref, toRef } from 'vue';
 import { BasicMenu } from '/@/components/Menu';
 import { AppLogo } from '/@/components/Application';
 
@@ -17,7 +17,8 @@ import { openWindow } from '/@/utils';
 import { propTypes } from '/@/utils/propTypes';
 import { isUrl } from '/@/utils/is';
 import { useRootSetting } from '/@/hooks/setting/useRootSetting';
-import { CSSProperties } from 'vue';
+import { useAppInject } from '/@/hooks/web/useAppInject';
+import { useDesign } from '/@/hooks/web/useDesign';
 
 export default defineComponent({
   name: 'LayoutMenu',
@@ -50,9 +51,15 @@ export default defineComponent({
     } = useMenuSetting();
     const { getShowLogo } = useRootSetting();
 
+    const { prefixCls } = useDesign('layout-menu');
+
     const { menusRef } = useSplitMenu(toRef(props, 'splitType'));
 
-    const getComputedMenuMode = computed(() => props.menuMode || unref(getMenuMode));
+    const { getIsMobile } = useAppInject();
+
+    const getComputedMenuMode = computed(() =>
+      unref(getIsMobile) ? MenuModeEnum.INLINE : props.menuMode || unref(getMenuMode)
+    );
 
     const getComputedMenuTheme = computed(() => props.theme || unref(getMenuTheme));
 
@@ -69,6 +76,16 @@ export default defineComponent({
         };
       }
     );
+
+    const getLogoClass = computed(() => {
+      return [
+        `${prefixCls}-logo`,
+        unref(getComputedMenuTheme),
+        {
+          [`${prefixCls}--mobile`]: unref(getIsMobile),
+        },
+      ];
+    });
     /**
      * click menu
      * @param menu
@@ -91,12 +108,12 @@ export default defineComponent({
     }
 
     function renderHeader() {
-      if (!unref(getIsShowLogo)) return null;
+      if (!unref(getIsShowLogo) && !unref(getIsMobile)) return null;
 
       return (
         <AppLogo
           showTitle={!unref(getCollapsed)}
-          class={[`layout-menu__logo`, unref(getComputedMenuTheme)]}
+          class={unref(getLogoClass)}
           theme={unref(getComputedMenuTheme)}
         />
       );
@@ -128,7 +145,6 @@ export default defineComponent({
           ) : (
             renderMenu()
           )}
-          ;
         </>
       );
     };
