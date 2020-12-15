@@ -16,6 +16,8 @@ export interface RequestOptions {
   apiUrl?: string;
   // 错误消息提示类型
   errorMessageMode?: ErrorMessageMode;
+  // 是否加入时间戳
+  joinTime?: boolean;
 }
 
 export interface CreateAxiosOptions extends AxiosRequestConfig {

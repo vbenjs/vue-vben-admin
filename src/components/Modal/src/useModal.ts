@@ -60,7 +60,7 @@ export function useModal(): UseModalReturnType {
       getInstance().setModalProps(props);
     },
 
-    openModal: <T = any>(visible = true, data?: T, openOnSet = false): void => {
+    openModal: <T = any>(visible = true, data?: T, openOnSet = true): void => {
       getInstance().setModalProps({
         visible: visible,
       });
