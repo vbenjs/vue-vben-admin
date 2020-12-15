@@ -50,11 +50,7 @@ const getShowTopMenu = computed(() => {
 });
 
 const getShowHeaderTrigger = computed(() => {
-  if (
-    unref(getMenuType) === MenuTypeEnum.TOP_MENU ||
-    !unref(getShowMenu) ||
-    !unref(getMenuHidden)
-  ) {
+  if (unref(getMenuType) === MenuTypeEnum.TOP_MENU || !unref(getShowMenu) || unref(getMenuHidden)) {
     return false;
   }
 
@@ -79,7 +75,11 @@ const getMiniWidthNumber = computed(() => {
 });
 
 const getCalcContentWidth = computed(() => {
-  const width = unref(getIsTopMenu) || !unref(getShowMenu) ? 0 : unref(getRealWidth);
+  const width =
+    unref(getIsTopMenu) || !unref(getShowMenu) || (unref(getSplit) && unref(getMenuHidden))
+      ? 0
+      : unref(getRealWidth);
+
   return `calc(100% - ${unref(width)}px)`;
 });
 

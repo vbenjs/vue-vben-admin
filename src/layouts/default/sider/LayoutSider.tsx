@@ -12,6 +12,7 @@ import { useTrigger, useDragLine, useSiderEvent } from './useLayoutSider';
 import { useAppInject } from '/@/hooks/web/useAppInject';
 import { useDesign } from '/@/hooks/web/useDesign';
 
+import DragBar from './DragBar.vue';
 export default defineComponent({
   name: 'LayoutSideBar',
   setup() {
@@ -31,11 +32,11 @@ export default defineComponent({
 
     const { prefixCls } = useDesign('layout-sideBar');
 
-    const { getTriggerAttr, getTriggerSlot } = useTrigger();
-
     const { getIsMobile } = useAppInject();
 
-    const { renderDragLine } = useDragLine(sideRef, dragBarRef);
+    const { getTriggerAttr, getTriggerSlot } = useTrigger(getIsMobile);
+
+    useDragLine(sideRef, dragBarRef);
 
     const { getCollapsedWidth, onBreakpointChange, onCollapseChange } = useSiderEvent();
 
@@ -48,7 +49,7 @@ export default defineComponent({
     });
 
     const showClassSideBarRef = computed(() => {
-      return unref(getSplit) ? unref(getMenuHidden) : true;
+      return unref(getSplit) ? !unref(getMenuHidden) : true;
     });
 
     const getSiderClass = computed(() => {
@@ -57,7 +58,7 @@ export default defineComponent({
         {
           [`${prefixCls}--fixed`]: unref(getMenuFixed),
           hidden: !unref(showClassSideBarRef),
-          [`${prefixCls}--mix`]: unref(getIsMixMode),
+          [`${prefixCls}--mix`]: unref(getIsMixMode) && !unref(getIsMobile),
         },
       ];
     });
@@ -84,7 +85,7 @@ export default defineComponent({
             menuMode={unref(getMode)}
             splitType={unref(getSplitType)}
           />
-          {renderDragLine()}
+          <DragBar ref={dragBarRef} />
         </>
       );
     }
@@ -101,7 +102,7 @@ export default defineComponent({
             collapsible
             class={unref(getSiderClass)}
             width={unref(getMenuWidth)}
-            collapsed={unref(getCollapsed)}
+            collapsed={unref(getIsMobile) ? false : unref(getCollapsed)}
             collapsedWidth={unref(getCollapsedWidth)}
             theme={unref(getMenuTheme)}
             onCollapse={onCollapseChange}

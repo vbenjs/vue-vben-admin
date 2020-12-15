@@ -38,7 +38,6 @@ const iframe: AppRouteModule = {
       name: 'DocExternal',
       component: IFrame,
       meta: {
-        externalLink: true,
         title: t('routes.demo.iframe.docExternal'),
       },
     },

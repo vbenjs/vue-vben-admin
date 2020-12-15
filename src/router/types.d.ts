@@ -15,9 +15,6 @@ export interface RouteMeta {
   // icon on tab
   icon?: string;
   // Jump address
-  frameSrc?: string;
-  // Outer link jump address
-  externalLink?: boolean;
 
   // current page transition
   transitionName?: string;

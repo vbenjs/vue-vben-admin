@@ -1,17 +1,13 @@
 import { AppRouteModule } from '/@/router/types.d';
 import type { MenuModule, Menu, AppRouteRecordRaw } from '/@/router/types';
 
-import { findPath, forEach, treeMap, treeToList } from '/@/utils/helper/treeHelper';
+import { findPath, forEach, treeMap } from '/@/utils/helper/treeHelper';
 import { cloneDeep } from 'lodash-es';
 import { isUrl } from '/@/utils/is';
 
 export function getAllParentPath(treeData: any[], path: string) {
   const menuList = findPath(treeData, (n) => n.path === path) as Menu[];
   return (menuList || []).map((item) => item.path);
-}
-
-export function flatMenus(menus: Menu[]) {
-  return treeToList(menus);
 }
 
 // 拼接父级路径

@@ -42,12 +42,17 @@ export function useSiderEvent() {
 /**
  * Handle related operations of menu folding
  */
-export function useTrigger() {
-  const { getTrigger } = useMenuSetting();
+export function useTrigger(getIsMobile: Ref<boolean>) {
+  const { getTrigger, getSplit } = useMenuSetting();
 
   const showTrigger = computed(() => {
     const trigger = unref(getTrigger);
-    return trigger !== TriggerEnum.NONE && trigger === TriggerEnum.FOOTER;
+
+    return (
+      trigger !== TriggerEnum.NONE &&
+      !unref(getIsMobile) &&
+      (trigger === TriggerEnum.FOOTER || unref(getSplit))
+    );
   });
 
   const getTriggerAttr = computed(() => {
@@ -77,14 +82,7 @@ export function useTrigger() {
  * @param dragBarRef
  */
 export function useDragLine(siderRef: Ref<any>, dragBarRef: Ref<any>) {
-  const { getMiniWidthNumber, getCollapsed, setMenuSetting, getCanDrag } = useMenuSetting();
-
-  const getDragBarStyle = computed(() => {
-    if (unref(getCollapsed)) {
-      return { left: `${unref(getMiniWidthNumber)}px` };
-    }
-    return {};
-  });
+  const { getMiniWidthNumber, getCollapsed, setMenuSetting } = useMenuSetting();
 
   onMounted(() => {
     nextTick(() => {
@@ -92,16 +90,6 @@ export function useDragLine(siderRef: Ref<any>, dragBarRef: Ref<any>) {
       exec();
     });
   });
-
-  function renderDragLine() {
-    return (
-      <div
-        class={[`layout-sidebar__darg-bar`, { hide: !unref(getCanDrag) }]}
-        style={unref(getDragBarStyle)}
-        ref={dragBarRef}
-      />
-    );
-  }
 
   function handleMouseMove(ele: HTMLElement, wrap: HTMLElement, clientX: number) {
     document.onmousemove = function (innerE) {
@@ -138,21 +126,22 @@ export function useDragLine(siderRef: Ref<any>, dragBarRef: Ref<any>) {
   }
 
   function changeWrapWidth() {
-    const ele = unref(dragBarRef) as any;
+    const ele = unref(dragBarRef)?.$el;
+    if (!ele) {
+      return;
+    }
     const side = unref(siderRef);
-
     const wrap = (side || {}).$el;
-    ele &&
-      (ele.onmousedown = (e: any) => {
-        wrap.style.transition = 'unset';
-        const clientX = e?.clientX;
-        ele.left = ele.offsetLeft;
-        handleMouseMove(ele, wrap, clientX);
-        removeMouseup(ele);
-        ele.setCapture?.();
-        return false;
-      });
+    ele.onmousedown = (e: any) => {
+      wrap.style.transition = 'unset';
+      const clientX = e?.clientX;
+      ele.left = ele.offsetLeft;
+      handleMouseMove(ele, wrap, clientX);
+      removeMouseup(ele);
+      ele.setCapture?.();
+      return false;
+    };
   }
 
-  return { renderDragLine };
+  return {};
 }

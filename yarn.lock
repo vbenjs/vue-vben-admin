@@ -1051,43 +1051,43 @@
   resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.272.tgz#27c7caee9764e0304161261ec08ffc2794944b66"
   integrity sha512-FyiTc7UiXJ5cDfk09lv70sYOSi5uLyK+a0LnF1KgWmofkikL06p98ksNRN7stmHryOYarSy75xgi6MbgAwtltQ==
 
-"@intlify/core@9.0.0-beta.12":
-  version "9.0.0-beta.12"
-  resolved "https://registry.npmjs.org/@intlify/core/-/core-9.0.0-beta.12.tgz#f7d2d09060b8e00ae37157e00a0daa1c86290802"
-  integrity sha512-0wdOS9d0ZEvGkbNIdaxEHQQOfAIuhv1Q8CSpNImThh8ZDD+5Sa38wTerHBO0/Rk0HfHUP/hjPqbxxRqITmSo1g==
+"@intlify/core-base@9.0.0-beta.13":
+  version "9.0.0-beta.13"
+  resolved "https://registry.npmjs.org/@intlify/core-base/-/core-base-9.0.0-beta.13.tgz#fb6bc278209cb7bef44853a42160fedb0560c3f8"
+  integrity sha512-ukImWV+QvRmNZtCTLrSW391z46eMuBheCMPZh801nM3v0Dosfu2PtWO5/z8Q9Bsom4Q+PNQ5eBtOQj2yCAhVEA==
   dependencies:
-    "@intlify/message-compiler" "9.0.0-beta.12"
-    "@intlify/message-resolver" "9.0.0-beta.12"
-    "@intlify/runtime" "9.0.0-beta.12"
-    "@intlify/shared" "9.0.0-beta.12"
+    "@intlify/message-compiler" "9.0.0-beta.13"
+    "@intlify/message-resolver" "9.0.0-beta.13"
+    "@intlify/runtime" "9.0.0-beta.13"
+    "@intlify/shared" "9.0.0-beta.13"
 
-"@intlify/message-compiler@9.0.0-beta.12":
-  version "9.0.0-beta.12"
-  resolved "https://registry.npmjs.org/@intlify/message-compiler/-/message-compiler-9.0.0-beta.12.tgz#836a49cfd057ecb2c536680cc01aa16693211891"
-  integrity sha512-EMzBDBIsFvWV9w0tRAHzn2BD1C7nkJkXYwDWinROmoL6C4jgKUgon+9Uxp7lV0H1E+7hUfhGj6zHdtJrwFhH+g==
+"@intlify/message-compiler@9.0.0-beta.13":
+  version "9.0.0-beta.13"
+  resolved "https://registry.npmjs.org/@intlify/message-compiler/-/message-compiler-9.0.0-beta.13.tgz#3b8ddcb2be3f80b28c6e4f6028c0b3ec4e709849"
+  integrity sha512-1z7716InFM8FdTAz64wqZvFuT4wL7WKF63v+vUEW4s9FLoL0U+xIccor9P5XHAvvG1gPMH/Zxd0deg/ULZ1Mcg==
   dependencies:
-    "@intlify/message-resolver" "9.0.0-beta.12"
-    "@intlify/shared" "9.0.0-beta.12"
+    "@intlify/message-resolver" "9.0.0-beta.13"
+    "@intlify/shared" "9.0.0-beta.13"
     source-map "0.6.1"
 
-"@intlify/message-resolver@9.0.0-beta.12":
-  version "9.0.0-beta.12"
-  resolved "https://registry.npmjs.org/@intlify/message-resolver/-/message-resolver-9.0.0-beta.12.tgz#98cf346f5da0fdf3408ba132c24841295a4e02db"
-  integrity sha512-i8bmWzhiBH59YED3SXqvdUfwecl7OUPOU/8yvfdhg2rXuZ4e2chCPnLpPafXz6bi88HcRsWF4aRGlpwDVDYadg==
+"@intlify/message-resolver@9.0.0-beta.13":
+  version "9.0.0-beta.13"
+  resolved "https://registry.npmjs.org/@intlify/message-resolver/-/message-resolver-9.0.0-beta.13.tgz#ae6de0bf0e54093160442d465e719bf03fd0f146"
+  integrity sha512-mR1eSpRtB4jh11TpQTUyzjEwqZ6D30mJYREEfSrl5YKfUKwDQrulrOaIO8T5gVQG2m09vfxJHVrgfJ2hR8z/0Q==
 
-"@intlify/runtime@9.0.0-beta.12":
-  version "9.0.0-beta.12"
-  resolved "https://registry.npmjs.org/@intlify/runtime/-/runtime-9.0.0-beta.12.tgz#647a62a326d92690569798ef046d29e8daa25c96"
-  integrity sha512-4ucZHqk/VGhrQEgu9xU5tE/sJTNfqKBhQtaXyEgYHchL9PvLoS1HFwPjABHvWjo3aVcv4d2cGtUPBwH4oLROKA==
+"@intlify/runtime@9.0.0-beta.13":
+  version "9.0.0-beta.13"
+  resolved "https://registry.npmjs.org/@intlify/runtime/-/runtime-9.0.0-beta.13.tgz#8deff103ee6982c6d531314e9f965b90768d8a27"
+  integrity sha512-hcb3sg75SokuzNDG8IC6PJmwjsS/xdgevd99UNG1zKb7s5qFFb90ApvPDpiH0+R9TMQe11fZqg5dyrVBKqAV4A==
   dependencies:
-    "@intlify/message-compiler" "9.0.0-beta.12"
-    "@intlify/message-resolver" "9.0.0-beta.12"
-    "@intlify/shared" "9.0.0-beta.12"
+    "@intlify/message-compiler" "9.0.0-beta.13"
+    "@intlify/message-resolver" "9.0.0-beta.13"
+    "@intlify/shared" "9.0.0-beta.13"
 
-"@intlify/shared@9.0.0-beta.12":
-  version "9.0.0-beta.12"
-  resolved "https://registry.npmjs.org/@intlify/shared/-/shared-9.0.0-beta.12.tgz#e939575bc4047411b9fc65347779f5b3173c1130"
-  integrity sha512-XtHAzQ2KBcdN0Khc7ZDCo5GnKQK4Vv0GKD1BplCWntpA2d5XqjdDpFuKumvbiOjPvYtuCFnksJU0OgJiCWG+KQ==
+"@intlify/shared@9.0.0-beta.13":
+  version "9.0.0-beta.13"
+  resolved "https://registry.npmjs.org/@intlify/shared/-/shared-9.0.0-beta.13.tgz#2d93d695f19fd699ea8b336066f9d6dfc185f094"
+  integrity sha512-/rqC3YEGHs3uu3XSsF1zdBKJb+on34Yn8Z58K3YxJsFxKPHa8mH73EUtN79hTZWh6Js4zEa/WsCgZCM62b8eJA==
 
 "@koa/cors@^3.1.0":
   version "3.1.0"
@@ -8256,16 +8256,13 @@ vue-eslint-parser@^7.3.0:
     esquery "^1.0.1"
     lodash "^4.17.15"
 
-vue-i18n@^9.0.0-beta.12:
-  version "9.0.0-beta.12"
-  resolved "https://registry.npmjs.org/vue-i18n/-/vue-i18n-9.0.0-beta.12.tgz#f6e2fc1cc366b8f16aa4754642931e937ebde303"
-  integrity sha512-hDnr+GsIGCIKRtZsdDczkhqyzbpLuPgEkH5bQyMzrKTLelXipLvIVmUCAsSjyR7xMHDCwP6AwVTIZwk6ENXkwg==
+vue-i18n@^9.0.0-beta.13:
+  version "9.0.0-beta.13"
+  resolved "https://registry.npmjs.org/vue-i18n/-/vue-i18n-9.0.0-beta.13.tgz#89cf5dd1566025f441132231d15ed621ef70ba96"
+  integrity sha512-ZN6r5ITODu9NYAAbe1IGVUkNeamuleaXTLn5NMn/YZQ+5NSjDjysyVZVLkVOEOIw6bT2tLveyjsWlAZBVtfcPw==
   dependencies:
-    "@intlify/core" "9.0.0-beta.12"
-    "@intlify/message-compiler" "9.0.0-beta.12"
-    "@intlify/message-resolver" "9.0.0-beta.12"
-    "@intlify/runtime" "9.0.0-beta.12"
-    "@intlify/shared" "9.0.0-beta.12"
+    "@intlify/core-base" "9.0.0-beta.13"
+    "@intlify/shared" "9.0.0-beta.13"
     "@vue/devtools-api" "^6.0.0-beta.2"
 
 vue-router@^4.0.1:

@@ -3,17 +3,21 @@
 ### ✨ Features
 
 - 移除左侧菜单搜索，新增顶部菜单搜索功能
+- layout 移动端适配。页面未适配
 
 ### ⚡ Performance Improvements
 
 - 异步引入组件
 - 优化整体结构
+- 替换菜单默认滚动条为滚动组件
+- 菜单性能优化
 
 ### 🎫 Chores
 
 - 返回顶部样式调整,避免遮住其他元素
 - 升级`ant-design-vue`到`2.0.0-rc.5`
 - 刷新按钮布局调整
+- `route.meta` 移除 `externalLink` 属性
 
 ### 🐛 Bug Fixes
 

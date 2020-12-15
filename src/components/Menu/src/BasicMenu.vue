@@ -151,7 +151,7 @@
         if (props.mode !== MenuModeEnum.HORIZONTAL) {
           setOpenKeys(path);
         }
-        if (unref(getIsTopMenu)) {
+        if (props.isHorizontal && unref(getSplit)) {
           const parentPath = await getCurrentParentPath(path);
           menuState.selectedKeys = [parentPath];
         } else {
