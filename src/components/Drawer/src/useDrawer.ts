@@ -56,7 +56,7 @@ export function useDrawer(): UseDrawerReturnType {
       getInstance().setDrawerProps(props);
     },
 
-    openDrawer: <T = any>(visible = true, data?: T, openOnSet = false): void => {
+    openDrawer: <T = any>(visible = true, data?: T, openOnSet = true): void => {
       getInstance().setDrawerProps({
         visible: visible,
       });

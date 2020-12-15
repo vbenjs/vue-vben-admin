@@ -3,7 +3,6 @@
 
 import type { AxiosResponse } from 'axios';
 import type { CreateAxiosOptions, RequestOptions, Result } from './types';
-
 import { VAxios } from './Axios';
 import { getToken } from '/@/utils/auth';
 import { AxiosTransform } from './axiosTransform';
@@ -16,11 +15,11 @@ import { useMessage } from '/@/hooks/web/useMessage';
 import { RequestEnum, ResultEnum, ContentTypeEnum } from '/@/enums/httpEnum';
 
 import { isString } from '/@/utils/is';
-import { formatRequestDate } from '/@/utils/dateUtil';
 import { setObjToUrlParams, deepMerge } from '/@/utils';
 import { errorStore } from '/@/store/modules/error';
 import { errorResult } from './const';
 import { useI18n } from '/@/hooks/web/useI18n';
+import { createNow, formatRequestDate } from './helper';
 
 const globSetting = useGlobSetting();
 const prefix = globSetting.urlPrefix;
@@ -97,7 +96,7 @@ const transform: AxiosTransform = {
 
   // 请求之前处理config
   beforeRequestHook: (config, options) => {
-    const { apiUrl, joinPrefix, joinParamsToUrl, formatDate } = options;
+    const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true } = options;
 
     if (joinPrefix) {
       config.url = `${prefix}${config.url}`;
@@ -107,17 +106,14 @@ const transform: AxiosTransform = {
       config.url = `${apiUrl}${config.url}`;
     }
     if (config.method?.toUpperCase() === RequestEnum.GET) {
-      const now = new Date().getTime();
       if (!isString(config.params)) {
         config.data = {
           // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
-          params: Object.assign(config.params || {}, {
-            _t: now,
-          }),
+          params: Object.assign(config.params || {}, createNow(joinTime, false)),
         };
       } else {
         // 兼容restful风格
-        config.url = config.url + config.params + `?_t=${now}`;
+        config.url = config.url + config.params + `${createNow(joinTime, true)}`;
         config.params = undefined;
       }
     } else {
@@ -187,6 +183,8 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
         // 接口可能会有通用的地址部分，可以统一抽取出来
         prefixUrl: prefix,
         headers: { 'Content-Type': ContentTypeEnum.JSON },
+        // 如果是form-data格式
+        // headers: { 'Content-Type': ContentTypeEnum.FORM_URLENCODED },
         // 数据处理方式
         transform,
         // 配置项，下面的选项都可以在独立的接口请求中覆盖
@@ -203,6 +201,8 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           errorMessageMode: 'message',
           // 接口地址
           apiUrl: globSetting.apiUrl,
+          //  是否加入时间戳
+          joinTime: true,
         },
       },
       opt || {}
