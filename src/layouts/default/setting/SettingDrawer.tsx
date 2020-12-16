@@ -10,7 +10,7 @@ import {
   InputNumberItem,
 } from './components';
 
-import { MenuTypeEnum } from '/@/enums/menuEnum';
+import { MenuTypeEnum, TriggerEnum } from '/@/enums/menuEnum';
 
 import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
@@ -25,7 +25,7 @@ import {
   HandlerEnum,
   contentModeOptions,
   topMenuAlignOptions,
-  menuTriggerOptions,
+  getMenuTriggerOptions,
   routerTransitionOptions,
   menuTypeList,
 } from './enum';
@@ -134,6 +134,14 @@ export default defineComponent({
      * @description:
      */
     function renderFeatures() {
+      let triggerDef = unref(getTrigger);
+
+      const triggerOptions = getMenuTriggerOptions(unref(getSplit));
+      const some = triggerOptions.some((item) => item.value === triggerDef);
+      if (!some) {
+        triggerDef = TriggerEnum.FOOTER;
+      }
+
       return (
         <>
           <SwitchItem
@@ -183,13 +191,15 @@ export default defineComponent({
             event={HandlerEnum.MENU_TOP_ALIGN}
             def={unref(getTopMenuAlign)}
             options={topMenuAlignOptions}
-            disabled={!unref(getShowHeader) || (!unref(getIsTopMenu) && !unref(getSplit))}
+            disabled={
+              !unref(getShowHeader) || unref(getSplit) || (!unref(getIsTopMenu) && !unref(getSplit))
+            }
           />
           <SelectItem
             title={t('layout.setting.menuCollapseButton')}
             event={HandlerEnum.MENU_TRIGGER}
-            def={unref(getTrigger)}
-            options={menuTriggerOptions}
+            def={triggerDef}
+            options={triggerOptions}
             disabled={!unref(getShowMenuRef)}
           />
           <SelectItem

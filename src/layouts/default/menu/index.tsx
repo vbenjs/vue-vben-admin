@@ -47,6 +47,7 @@ export default defineComponent({
       getMenuTheme,
       getCollapsed,
       getAccordion,
+      getIsHorizontal,
       getIsSidebarType,
     } = useMenuSetting();
     const { getShowLogo } = useRootSetting();
@@ -66,7 +67,12 @@ export default defineComponent({
     const getIsShowLogo = computed(() => unref(getShowLogo) && unref(getIsSidebarType));
 
     const getUseScroll = computed(() => {
-      return unref(getIsSidebarType) || props.splitType === MenuSplitTyeEnum.LEFT;
+      return (
+        !unref(getIsHorizontal) &&
+        (unref(getIsSidebarType) ||
+          props.splitType === MenuSplitTyeEnum.LEFT ||
+          props.splitType === MenuSplitTyeEnum.NONE)
+      );
     });
 
     const getWrapperStyle = computed(

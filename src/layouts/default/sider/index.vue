@@ -15,7 +15,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
 
-  import Sider from './LayoutSider';
+  import Sider from './LayoutSider.vue';
   import { Drawer } from 'ant-design-vue';
   import { useAppInject } from '/@/hooks/web/useAppInject';
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';

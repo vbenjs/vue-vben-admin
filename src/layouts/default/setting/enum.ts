@@ -76,20 +76,26 @@ export const topMenuAlignOptions = [
   },
 ];
 
-export const menuTriggerOptions = [
-  {
-    value: TriggerEnum.NONE,
-    label: t('layout.setting.menuTriggerNone'),
-  },
-  {
-    value: TriggerEnum.FOOTER,
-    label: t('layout.setting.menuTriggerBottom'),
-  },
-  {
-    value: TriggerEnum.HEADER,
-    label: t('layout.setting.menuTriggerTop'),
-  },
-];
+export const getMenuTriggerOptions = (hideTop: boolean) => {
+  return [
+    {
+      value: TriggerEnum.NONE,
+      label: t('layout.setting.menuTriggerNone'),
+    },
+    {
+      value: TriggerEnum.FOOTER,
+      label: t('layout.setting.menuTriggerBottom'),
+    },
+    ...(hideTop
+      ? []
+      : [
+          {
+            value: TriggerEnum.HEADER,
+            label: t('layout.setting.menuTriggerTop'),
+          },
+        ]),
+  ];
+};
 
 export const routerTransitionOptions = [
   RouterTransitionEnum.ZOOM_FADE,
