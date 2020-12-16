@@ -90,9 +90,10 @@
       });
 
       const getMenuClass = computed(() => {
+        const align = props.isHorizontal && unref(getSplit) ? 'start' : unref(getTopMenuAlign);
         return [
           prefixCls,
-          `justify-${unref(getTopMenuAlign)}`,
+          `justify-${align}`,
           {
             [`${prefixCls}--hide-title`]: !unref(showTitle),
             [`${prefixCls}--collapsed-show-title`]: props.collapsedShowTitle,

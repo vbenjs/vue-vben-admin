@@ -25,6 +25,7 @@ export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConf
           type,
           collapsed: false,
           show: true,
+          hidden: false,
           ...splitOpt,
         },
       };

@@ -1,7 +1,6 @@
 import type { Ref } from 'vue';
 
 import { computed, unref, onMounted, nextTick, ref } from 'vue';
-import LayoutTrigger from '/@/layouts/default/trigger/index.vue';
 
 import { TriggerEnum } from '/@/enums/menuEnum';
 
@@ -45,7 +44,7 @@ export function useSiderEvent() {
 export function useTrigger(getIsMobile: Ref<boolean>) {
   const { getTrigger, getSplit } = useMenuSetting();
 
-  const showTrigger = computed(() => {
+  const getShowTrigger = computed(() => {
     const trigger = unref(getTrigger);
 
     return (
@@ -56,7 +55,7 @@ export function useTrigger(getIsMobile: Ref<boolean>) {
   });
 
   const getTriggerAttr = computed(() => {
-    if (unref(showTrigger)) {
+    if (unref(getShowTrigger)) {
       return {};
     }
     return {
@@ -64,16 +63,7 @@ export function useTrigger(getIsMobile: Ref<boolean>) {
     };
   });
 
-  const getTriggerSlot = computed(() => {
-    if (unref(showTrigger)) {
-      return {
-        trigger: () => <LayoutTrigger />,
-      };
-    }
-    return {};
-  });
-
-  return { getTriggerAttr, getTriggerSlot };
+  return { getTriggerAttr, getShowTrigger };
 }
 
 /**
