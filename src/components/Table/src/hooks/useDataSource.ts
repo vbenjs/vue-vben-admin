@@ -89,10 +89,12 @@ export function useDataSource(
       loadingRef.value = true;
       const { pageField, sizeField, listField, totalField } = fetchSetting || FETCH_SETTING;
       let pageParams: any = {};
+      
+      const { current, pageSize } = unref(getPaginationRef) as PaginationProps;
+      
       if (isBoolean(getPaginationRef)) {
         pageParams = {};
       } else {
-        const { current, pageSize } = unref(getPaginationRef) as PaginationProps;
         pageParams[pageField] = (opt && opt.page) || current;
         pageParams[sizeField] = pageSize;
       }
@@ -112,6 +114,16 @@ export function useDataSource(
       const res = await api(params);
       let resultItems: any[] = get(res, listField);
       const resultTotal: number = get(res, totalField);
+      
+      // 假如数据变少，导致总页数变少并小于当前选中页码，通过getPaginationRef获取到的页码是不正确的，需获取正确的页码再次执行
+      var currentTotalPage = Math.ceil(resultTotal / pageSize);
+      if (current > currentTotalPage) {
+          setPagination({
+            current: currentTotalPage,
+          });
+          fetch(opt);
+      }
+      
       if (afterFetch && isFunction(afterFetch)) {
         resultItems = afterFetch(resultItems) || resultItems;
       }
