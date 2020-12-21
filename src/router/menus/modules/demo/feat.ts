@@ -6,6 +6,9 @@ const menu: MenuModule = {
   menu: {
     name: t('routes.demo.feat.feat'),
     path: '/feat',
+    tag: {
+      dot: true,
+    },
 
     children: [
       {
@@ -43,6 +46,13 @@ const menu: MenuModule = {
       {
         path: 'watermark',
         name: t('routes.demo.feat.watermark'),
+      },
+      {
+        path: 'ripple',
+        name: t('routes.demo.feat.ripple'),
+        tag: {
+          content: 'new',
+        },
       },
       {
         path: 'full-screen',

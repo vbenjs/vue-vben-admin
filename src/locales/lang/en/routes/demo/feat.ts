@@ -9,6 +9,7 @@ export default {
   copy: 'Clipboard',
   msg: 'Message prompt',
   watermark: 'Watermark',
+  ripple: 'Ripple',
   fullScreen: 'Full Screen',
   errorLog: 'Error Log',
   tab: 'Tab with parameters',
