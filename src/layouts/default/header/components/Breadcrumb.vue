@@ -48,7 +48,7 @@
         if (currentRoute.value.name === REDIRECT_NAME) {
           return;
         }
-        const matched = currentRoute.value.matched;
+        const matched = currentRoute.value?.matched;
         if (!matched || matched.length === 0) return;
 
         let breadcrumbList = filter(toRaw(matched), (item) => {
@@ -102,7 +102,7 @@
         color: @breadcrumb-item-normal-color;
 
         a {
-          color: @text-color-base;
+          color: rgba(0, 0, 0, 0.65);
 
           &:hover {
             color: @primary-color;

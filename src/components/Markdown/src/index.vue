@@ -57,7 +57,7 @@
       onUnmounted(() => {
         const vditorInstance = unref(vditorRef);
         if (!vditorInstance) return;
-        vditorInstance.destroy();
+        vditorInstance?.destroy?.();
       });
 
       return {

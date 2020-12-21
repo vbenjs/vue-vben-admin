@@ -43,7 +43,6 @@ export default defineComponent({
     const {
       getMenuMode,
       getMenuType,
-      getCollapsedShowTitle,
       getMenuTheme,
       getCollapsed,
       getAccordion,
@@ -132,12 +131,10 @@ export default defineComponent({
           isHorizontal={props.isHorizontal}
           type={unref(getMenuType)}
           mode={unref(getComputedMenuMode)}
-          collapsedShowTitle={unref(getCollapsedShowTitle)}
           theme={unref(getComputedMenuTheme)}
           items={unref(menusRef)}
           accordion={unref(getAccordion)}
           onMenuClick={handleMenuClick}
-          showLogo={unref(getIsShowLogo)}
         />
       );
     }

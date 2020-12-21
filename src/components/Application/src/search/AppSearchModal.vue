@@ -65,10 +65,12 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { ClickOutSide } from '/@/components/ClickOutSide';
   import { useAppInject } from '/@/hooks/web/useAppInject';
+
   export default defineComponent({
     name: 'AppSearchModal',
     components: { SearchOutlined, ClickOutSide, AppSearchFooter },
     emits: ['close'],
+
     props: {
       visible: Boolean,
     },

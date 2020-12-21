@@ -107,7 +107,7 @@
 
       function destory() {
         if (getTinymce() !== null) {
-          getTinymce().remove(unref(editorRef));
+          getTinymce()?.remove?.(unref(editorRef));
         }
       }
 
