@@ -71,21 +71,30 @@ export function useTrigger(getIsMobile: Ref<boolean>) {
  * @param siderRef
  * @param dragBarRef
  */
-export function useDragLine(siderRef: Ref<any>, dragBarRef: Ref<any>) {
+export function useDragLine(siderRef: Ref<any>, dragBarRef: Ref<any>, mix = false) {
   const { getMiniWidthNumber, getCollapsed, setMenuSetting } = useMenuSetting();
 
   onMounted(() => {
     nextTick(() => {
-      const [exec] = useDebounce(changeWrapWidth, 20);
+      const [exec] = useDebounce(changeWrapWidth, 80);
       exec();
     });
   });
+
+  function getEl(elRef: Ref<ElRef | ComponentRef>): any {
+    const el = unref(elRef);
+    if (!el) return null;
+    if (Reflect.has(el, '$el')) {
+      return (unref(elRef) as ComponentRef)?.$el;
+    }
+    return unref(elRef);
+  }
 
   function handleMouseMove(ele: HTMLElement, wrap: HTMLElement, clientX: number) {
     document.onmousemove = function (innerE) {
       let iT = (ele as any).left + (innerE.clientX - clientX);
       innerE = innerE || window.event;
-      const maxT = 600;
+      const maxT = 800;
       const minT = unref(getMiniWidthNumber);
       iT < 0 && (iT = 0);
       iT > maxT && (iT = maxT);
@@ -97,31 +106,36 @@ export function useDragLine(siderRef: Ref<any>, dragBarRef: Ref<any>) {
 
   // Drag and drop in the menu area-release the mouse
   function removeMouseup(ele: any) {
-    const wrap = unref(siderRef).$el;
+    const wrap = getEl(siderRef);
     document.onmouseup = function () {
       document.onmousemove = null;
       document.onmouseup = null;
+      wrap.style.transition = 'width 0.2s';
       const width = parseInt(wrap.style.width);
-      const miniWidth = unref(getMiniWidthNumber);
 
-      if (!unref(getCollapsed)) {
-        width > miniWidth + 20
-          ? setMenuSetting({ menuWidth: width })
-          : setMenuSetting({ collapsed: true });
+      if (!mix) {
+        const miniWidth = unref(getMiniWidthNumber);
+        if (!unref(getCollapsed)) {
+          width > miniWidth + 20
+            ? setMenuSetting({ menuWidth: width })
+            : setMenuSetting({ collapsed: true });
+        } else {
+          width > miniWidth && setMenuSetting({ collapsed: false, menuWidth: width });
+        }
       } else {
-        width > miniWidth && setMenuSetting({ collapsed: false, menuWidth: width });
+        setMenuSetting({ menuWidth: width });
       }
+
       ele.releaseCapture?.();
     };
   }
 
   function changeWrapWidth() {
-    const ele = unref(dragBarRef)?.$el;
-    if (!ele) {
-      return;
-    }
-    const side = unref(siderRef);
-    const wrap = (side || {}).$el;
+    const ele = getEl(dragBarRef);
+    if (!ele) return;
+    const wrap = getEl(siderRef);
+    if (!wrap) return;
+
     ele.onmousedown = (e: any) => {
       wrap.style.transition = 'unset';
       const clientX = e?.clientX;

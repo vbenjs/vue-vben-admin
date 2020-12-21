@@ -16,6 +16,7 @@ const {
   getSplit,
   getShowHeaderTrigger,
   getIsSidebarType,
+  getIsMixSidebar,
   getIsTopMenu,
 } = useMenuSetting();
 const { getShowBreadCrumb, getShowLogo } = useRootSetting();
@@ -27,13 +28,18 @@ const getShowFullHeaderRef = computed(() => {
     !unref(getFullContent) &&
     unref(getShowMixHeaderRef) &&
     unref(getShowHeader) &&
-    !unref(getIsTopMenu)
+    !unref(getIsTopMenu) &&
+    !unref(getIsMixSidebar)
   );
 });
 
 const getShowInsetHeaderRef = computed(() => {
   const need = !unref(getFullContent) && unref(getShowHeader);
-  return (need && !unref(getShowMixHeaderRef)) || (need && unref(getIsTopMenu));
+  return (
+    (need && !unref(getShowMixHeaderRef)) ||
+    (need && unref(getIsTopMenu)) ||
+    (need && unref(getIsMixSidebar))
+  );
 });
 
 // Get header configuration
@@ -66,7 +72,7 @@ const getShowBread = computed(() => {
 });
 
 const getShowHeaderLogo = computed(() => {
-  return unref(getShowLogo) && !unref(getIsSidebarType);
+  return unref(getShowLogo) && !unref(getIsSidebarType) && !unref(getIsMixSidebar);
 });
 
 const getShowContent = computed(() => {

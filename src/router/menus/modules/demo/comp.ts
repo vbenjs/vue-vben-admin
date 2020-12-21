@@ -15,6 +15,107 @@ const menu: MenuModule = {
         name: t('routes.demo.comp.basic'),
       },
       {
+        path: 'form',
+        name: t('routes.demo.form.form'),
+
+        children: [
+          {
+            path: 'basic',
+            name: t('routes.demo.form.basic'),
+          },
+          {
+            path: 'useForm',
+            name: t('routes.demo.form.useForm'),
+          },
+          {
+            path: 'refForm',
+            name: t('routes.demo.form.refForm'),
+          },
+          {
+            path: 'advancedForm',
+            name: t('routes.demo.form.advancedForm'),
+          },
+          {
+            path: 'ruleForm',
+            name: t('routes.demo.form.ruleForm'),
+          },
+          {
+            path: 'dynamicForm',
+            name: t('routes.demo.form.dynamicForm'),
+          },
+          {
+            path: 'customerForm',
+            name: t('routes.demo.form.customerForm'),
+          },
+        ],
+      },
+      {
+        path: 'table',
+        name: t('routes.demo.table.table'),
+        children: [
+          {
+            path: 'basic',
+            name: t('routes.demo.table.basic'),
+          },
+          {
+            path: 'treeTable',
+            name: t('routes.demo.table.treeTable'),
+          },
+          {
+            path: 'fetchTable',
+            name: t('routes.demo.table.fetchTable'),
+          },
+          {
+            path: 'fixedColumn',
+            name: t('routes.demo.table.fixedColumn'),
+          },
+          {
+            path: 'customerCell',
+            name: t('routes.demo.table.customerCell'),
+          },
+          {
+            path: 'formTable',
+            name: t('routes.demo.table.formTable'),
+          },
+          {
+            path: 'useTable',
+            name: t('routes.demo.table.useTable'),
+          },
+          {
+            path: 'refTable',
+            name: t('routes.demo.table.refTable'),
+          },
+          {
+            path: 'multipleHeader',
+            name: t('routes.demo.table.multipleHeader'),
+          },
+          {
+            path: 'mergeHeader',
+            name: t('routes.demo.table.mergeHeader'),
+          },
+          {
+            path: 'expandTable',
+            name: t('routes.demo.table.expandTable'),
+          },
+          {
+            path: 'fixedHeight',
+            name: t('routes.demo.table.fixedHeight'),
+          },
+          {
+            path: 'footerTable',
+            name: t('routes.demo.table.footerTable'),
+          },
+          {
+            path: 'editCellTable',
+            name: t('routes.demo.table.editCellTable'),
+          },
+          {
+            path: 'editRowTable',
+            name: t('routes.demo.table.editRowTable'),
+          },
+        ],
+      },
+      {
         path: 'countTo',
         name: t('routes.demo.comp.countTo'),
       },
@@ -53,6 +154,48 @@ const menu: MenuModule = {
         tag: {
           content: 'new',
         },
+      },
+      {
+        path: 'tree',
+        name: t('routes.demo.comp.tree'),
+        children: [
+          {
+            path: 'basic',
+            name: t('routes.demo.comp.treeBasic'),
+          },
+          {
+            path: 'editTree',
+            name: t('routes.demo.comp.editTree'),
+          },
+          {
+            path: 'actionTree',
+            name: t('routes.demo.comp.actionTree'),
+          },
+        ],
+      },
+      {
+        name: t('routes.demo.editor.editor'),
+        path: 'editor',
+        children: [
+          {
+            path: 'markdown',
+            name: t('routes.demo.editor.markdown'),
+          },
+          {
+            path: 'tinymce',
+            name: t('routes.demo.editor.tinymce'),
+            children: [
+              {
+                path: 'index',
+                name: t('routes.demo.editor.tinymceBasic'),
+              },
+              {
+                path: 'editor',
+                name: t('routes.demo.editor.tinymceForm'),
+              },
+            ],
+          },
+        ],
       },
       {
         path: 'scroll',

@@ -10,8 +10,6 @@ export const basicProps = {
     default: () => [],
   },
 
-  collapsedShowTitle: propTypes.bool,
-
   // 最好是4 倍数
   inlineIndent: propTypes.number.def(20),
   // 菜单组件的mode属性
@@ -19,7 +17,6 @@ export const basicProps = {
     type: String as PropType<MenuModeEnum>,
     default: MenuModeEnum.INLINE,
   },
-  showLogo: propTypes.bool,
   type: {
     type: String as PropType<MenuTypeEnum>,
     default: MenuTypeEnum.MIX,

@@ -88,8 +88,9 @@ class Tab extends VuexModule {
       if (item.meta?.affix) {
         const name = item.name as string;
         pageCacheSet.add(name);
-      } else if (item.matched && needCache) {
-        const matched = item.matched;
+      } else if (item?.matched && needCache) {
+        const matched = item?.matched;
+        if (!matched) return;
         const len = matched.length;
 
         if (len < 2) return;

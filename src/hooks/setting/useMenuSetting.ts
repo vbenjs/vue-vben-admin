@@ -37,9 +37,9 @@ const getCanDrag = computed(() => unref(getMenuSetting).canDrag);
 
 const getAccordion = computed(() => unref(getMenuSetting).accordion);
 
-const getCollapsedShowTitle = computed(() => unref(getMenuSetting).collapsedShowTitle);
-
 const getTopMenuAlign = computed(() => unref(getMenuSetting).topMenuAlign);
+
+const getCloseMixSidebarOnChange = computed(() => unref(getMenuSetting).closeMixSidebarOnChange);
 
 const getIsSidebarType = computed(() => unref(getMenuType) === MenuTypeEnum.SIDEBAR);
 
@@ -61,6 +61,10 @@ const getIsHorizontal = computed(() => {
   return unref(getMenuMode) === MenuModeEnum.HORIZONTAL;
 });
 
+const getIsMixSidebar = computed(() => {
+  return unref(getMenuType) === MenuTypeEnum.MIX_SIDEBAR;
+});
+
 const getIsMixMode = computed(() => {
   return unref(getMenuMode) === MenuModeEnum.INLINE && unref(getMenuType) === MenuTypeEnum.MIX;
 });
@@ -70,14 +74,15 @@ const getRealWidth = computed(() => {
 });
 
 const getMiniWidthNumber = computed(() => {
-  const { collapsedShowTitle } = unref(getMenuSetting);
-  return collapsedShowTitle ? SIDE_BAR_SHOW_TIT_MINI_WIDTH : SIDE_BAR_MINI_WIDTH;
+  return SIDE_BAR_MINI_WIDTH;
 });
 
 const getCalcContentWidth = computed(() => {
   const width =
     unref(getIsTopMenu) || !unref(getShowMenu) || (unref(getSplit) && unref(getMenuHidden))
       ? 0
+      : unref(getIsMixSidebar)
+      ? SIDE_BAR_SHOW_TIT_MINI_WIDTH
       : unref(getRealWidth);
 
   return `calc(100% - ${unref(width)}px)`;
@@ -124,7 +129,6 @@ export function useMenuSetting() {
     getMenuTheme,
     getCanDrag,
     getIsHorizontal,
-    getCollapsedShowTitle,
     getIsSidebarType,
     getAccordion,
     getShowTopMenu,
@@ -135,5 +139,7 @@ export function useMenuSetting() {
     getMenuBgColor,
     getShowSidebar,
     getIsMixMode,
+    getIsMixSidebar,
+    getCloseMixSidebarOnChange,
   };
 }

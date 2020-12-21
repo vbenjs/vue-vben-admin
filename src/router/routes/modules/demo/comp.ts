@@ -22,6 +22,208 @@ const comp: AppRouteModule = {
         title: t('routes.demo.comp.basic'),
       },
     },
+
+    {
+      path: 'form',
+      name: 'FormDemo',
+      redirect: '/comp/form/basic',
+      component: getParentLayout('FormDemo'),
+      meta: {
+        // icon: 'mdi:form-select',
+        title: t('routes.demo.form.form'),
+      },
+      children: [
+        {
+          path: 'basic',
+          name: 'FormBasicDemo',
+          component: () => import('/@/views/demo/form/index.vue'),
+          meta: {
+            title: t('routes.demo.form.basic'),
+          },
+        },
+        {
+          path: 'useForm',
+          name: 'UseFormDemo',
+          component: () => import('/@/views/demo/form/UseForm.vue'),
+          meta: {
+            title: t('routes.demo.form.useForm'),
+          },
+        },
+        {
+          path: 'refForm',
+          name: 'RefFormDemo',
+          component: () => import('/@/views/demo/form/RefForm.vue'),
+          meta: {
+            title: t('routes.demo.form.refForm'),
+          },
+        },
+        {
+          path: 'advancedForm',
+          name: 'AdvancedFormDemo',
+          component: () => import('/@/views/demo/form/AdvancedForm.vue'),
+          meta: {
+            title: t('routes.demo.form.advancedForm'),
+          },
+        },
+        {
+          path: 'ruleForm',
+          name: 'RuleFormDemo',
+          component: () => import('/@/views/demo/form/RuleForm.vue'),
+          meta: {
+            title: t('routes.demo.form.ruleForm'),
+          },
+        },
+        {
+          path: 'dynamicForm',
+          name: 'DynamicFormDemo',
+          component: () => import('/@/views/demo/form/DynamicForm.vue'),
+          meta: {
+            title: t('routes.demo.form.dynamicForm'),
+          },
+        },
+        {
+          path: 'customerForm',
+          name: 'CustomerFormDemo',
+          component: () => import('/@/views/demo/form/CustomerForm.vue'),
+          meta: {
+            title: t('routes.demo.form.customerForm'),
+          },
+        },
+      ],
+    },
+    {
+      path: 'table',
+      name: 'TableDemo',
+      redirect: '/comp/table/basic',
+      component: getParentLayout('TableDemo'),
+      meta: {
+        // icon: 'carbon:table-split',
+        title: t('routes.demo.table.table'),
+      },
+
+      children: [
+        {
+          path: 'basic',
+          name: 'TableBasicDemo',
+          component: () => import('/@/views/demo/table/Basic.vue'),
+          meta: {
+            title: t('routes.demo.table.basic'),
+          },
+        },
+        {
+          path: 'treeTable',
+          name: 'TreeTableDemo',
+          component: () => import('/@/views/demo/table/TreeTable.vue'),
+          meta: {
+            title: t('routes.demo.table.treeTable'),
+          },
+        },
+        {
+          path: 'fetchTable',
+          name: 'FetchTableDemo',
+          component: () => import('/@/views/demo/table/FetchTable.vue'),
+          meta: {
+            title: t('routes.demo.table.fetchTable'),
+          },
+        },
+        {
+          path: 'fixedColumn',
+          name: 'FixedColumnDemo',
+          component: () => import('/@/views/demo/table/FixedColumn.vue'),
+          meta: {
+            title: t('routes.demo.table.fixedColumn'),
+          },
+        },
+        {
+          path: 'customerCell',
+          name: 'CustomerCellDemo',
+          component: () => import('/@/views/demo/table/CustomerCell.vue'),
+          meta: {
+            title: t('routes.demo.table.customerCell'),
+          },
+        },
+        {
+          path: 'formTable',
+          name: 'FormTableDemo',
+          component: () => import('/@/views/demo/table/FormTable.vue'),
+          meta: {
+            title: t('routes.demo.table.formTable'),
+          },
+        },
+        {
+          path: 'useTable',
+          name: 'UseTableDemo',
+          component: () => import('/@/views/demo/table/UseTable.vue'),
+          meta: {
+            title: t('routes.demo.table.useTable'),
+          },
+        },
+        {
+          path: 'refTable',
+          name: 'RefTableDemo',
+          component: () => import('/@/views/demo/table/RefTable.vue'),
+          meta: {
+            title: t('routes.demo.table.refTable'),
+          },
+        },
+        {
+          path: 'multipleHeader',
+          name: 'MultipleHeaderDemo',
+          component: () => import('/@/views/demo/table/MultipleHeader.vue'),
+          meta: {
+            title: t('routes.demo.table.multipleHeader'),
+          },
+        },
+        {
+          path: 'mergeHeader',
+          name: 'MergeHeaderDemo',
+          component: () => import('/@/views/demo/table/MergeHeader.vue'),
+          meta: {
+            title: t('routes.demo.table.mergeHeader'),
+          },
+        },
+        {
+          path: 'expandTable',
+          name: 'ExpandTableDemo',
+          component: () => import('/@/views/demo/table/ExpandTable.vue'),
+          meta: {
+            title: t('routes.demo.table.expandTable'),
+          },
+        },
+        {
+          path: 'fixedHeight',
+          name: 'FixedHeightDemo',
+          component: () => import('/@/views/demo/table/FixedHeight.vue'),
+          meta: {
+            title: t('routes.demo.table.fixedHeight'),
+          },
+        },
+        {
+          path: 'footerTable',
+          name: 'FooterTableDemo',
+          component: () => import('/@/views/demo/table/FooterTable.vue'),
+          meta: {
+            title: t('routes.demo.table.footerTable'),
+          },
+        },
+        {
+          path: 'editCellTable',
+          name: 'EditCellTableDemo',
+          component: () => import('/@/views/demo/table/EditCellTable.vue'),
+          meta: {
+            title: t('routes.demo.table.editCellTable'),
+          },
+        },
+        {
+          path: 'editRowTable',
+          name: 'EditRowTableDemo',
+          component: () => import('/@/views/demo/table/EditRowTable.vue'),
+          meta: {
+            title: t('routes.demo.table.editRowTable'),
+          },
+        },
+      ],
+    },
     {
       path: 'transition',
       name: 'transitionDemo',
@@ -38,7 +240,89 @@ const comp: AppRouteModule = {
         title: t('routes.demo.comp.countTo'),
       },
     },
-
+    {
+      path: 'tree',
+      name: 'TreeDemo',
+      redirect: '/comp/tree/basic',
+      component: getParentLayout('TreeDemo'),
+      meta: {
+        // icon: 'clarity:tree-view-line',
+        title: t('routes.demo.comp.tree'),
+      },
+      children: [
+        {
+          path: 'basic',
+          name: 'BasicTreeDemo',
+          component: () => import('/@/views/demo/tree/index.vue'),
+          meta: {
+            title: t('routes.demo.comp.treeBasic'),
+          },
+        },
+        {
+          path: 'editTree',
+          name: 'EditTreeDemo',
+          component: () => import('/@/views/demo/tree/EditTree.vue'),
+          meta: {
+            title: t('routes.demo.comp.editTree'),
+          },
+        },
+        {
+          path: 'actionTree',
+          name: 'ActionTreeDemo',
+          component: () => import('/@/views/demo/tree/ActionTree.vue'),
+          meta: {
+            title: t('routes.demo.comp.actionTree'),
+          },
+        },
+      ],
+    },
+    {
+      path: 'editor',
+      name: 'EditorDemo',
+      redirect: '/comp/editor/markdown',
+      component: getParentLayout('EditorDemo'),
+      meta: {
+        // icon: 'carbon:table-split',
+        title: t('routes.demo.editor.editor'),
+      },
+      children: [
+        {
+          path: 'markdown',
+          name: 'MarkdownDemo',
+          component: () => import('/@/views/demo/editor/Markdown.vue'),
+          meta: {
+            title: t('routes.demo.editor.markdown'),
+          },
+        },
+        {
+          path: 'tinymce',
+          component: getParentLayout('TinymceDemo'),
+          name: 'TinymceDemo',
+          meta: {
+            title: t('routes.demo.editor.tinymce'),
+          },
+          redirect: '/comp/editor/tinymce/index',
+          children: [
+            {
+              path: 'index',
+              name: 'TinymceBasicDemo',
+              component: () => import('/@/views/demo/editor/tinymce/index.vue'),
+              meta: {
+                title: t('routes.demo.editor.tinymceBasic'),
+              },
+            },
+            {
+              path: 'editor',
+              name: 'TinymceFormDemo',
+              component: () => import('/@/views/demo/editor/tinymce/Editor.vue'),
+              meta: {
+                title: t('routes.demo.editor.tinymceForm'),
+              },
+            },
+          ],
+        },
+      ],
+    },
     {
       path: 'scroll',
       name: 'ScrollDemo',

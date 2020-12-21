@@ -10,7 +10,9 @@
         :style="getLogoWidth"
       />
       <LayoutTrigger
-        v-if="(getShowContent && getShowHeaderTrigger && !getSplit) || getIsMobile"
+        v-if="
+          (getShowContent && getShowHeaderTrigger && !getSplit && !getIsMixSidebar) || getIsMobile
+        "
         :theme="getHeaderTheme"
         :sider="false"
       />
@@ -110,6 +112,7 @@
         getSplit,
         getIsMixMode,
         getMenuWidth,
+        getIsMixSidebar,
       } = useMenuSetting();
       const { getShowLocale } = useLocaleSetting();
       const { getUseErrorHandle } = useRootSetting();
@@ -173,6 +176,7 @@
         getUseLockPage,
         getUseErrorHandle,
         getLogoWidth,
+        getIsMixSidebar,
       };
     },
   });

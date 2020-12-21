@@ -15,6 +15,7 @@
 
       const getShowTag = computed(() => {
         const { item, showTitle, isHorizontal } = props;
+
         if (!item || showTitle || isHorizontal) return false;
 
         const { tag } = item;

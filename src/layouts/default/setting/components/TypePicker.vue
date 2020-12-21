@@ -6,12 +6,13 @@
           @click="handler(item)"
           :class="[
             `${prefixCls}__item`,
+            `${prefixCls}__item--${item.type}`,
             {
               [`${prefixCls}__item--active`]: def === item.type,
             },
           ]"
         >
-          <img :src="item.src" />
+          <div class="mix-sidebar" />
         </div>
       </Tooltip>
     </template>
@@ -58,33 +59,118 @@
 
     &__item {
       position: relative;
-      width: 70px;
-      height: 50px;
-      margin: 0 20px 20px 0;
+      width: 56px;
+      height: 48px;
+      margin-right: 16px;
+      overflow: hidden;
       cursor: pointer;
-      border-radius: 6px;
+      background-color: #f0f2f5;
+      border-radius: 4px;
+      box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.18);
 
+      &::before,
       &::after {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
         content: '';
-        opacity: 0;
-        transition: all 0.3s;
       }
+
+      &--sidebar {
+        &::before {
+          top: 0;
+          left: 0;
+          z-index: 1;
+          width: 33%;
+          height: 100%;
+          background-color: #273352;
+          border-radius: 4px 0 0 4px;
+        }
+
+        &::after {
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 25%;
+          background-color: #fff;
+        }
+      }
+
+      &--mix {
+        &::before {
+          top: 0;
+          left: 0;
+          width: 33%;
+          height: 100%;
+          background-color: #fff;
+          border-radius: 4px 0 0 4px;
+        }
+
+        &::after {
+          top: 0;
+          left: 0;
+          z-index: 1;
+          width: 100%;
+          height: 25%;
+          background-color: #273352;
+        }
+      }
+
+      &--top-menu {
+        &::after {
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 25%;
+          background-color: #273352;
+        }
+      }
+
+      &--mix-sidebar {
+        &::before {
+          top: 0;
+          left: 0;
+          z-index: 1;
+          width: 25%;
+          height: 100%;
+          background-color: #273352;
+          border-radius: 4px 0 0 4px;
+        }
+
+        &::after {
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 25%;
+          background-color: #fff;
+        }
+
+        .mix-sidebar {
+          position: absolute;
+          left: 25%;
+          width: 15%;
+          height: 100%;
+          background-color: #fff;
+        }
+      }
+
+      // &::after {
+      //   position: absolute;
+      //   top: 50%;
+      //   left: 50%;
+      //   width: 0;
+      //   height: 0;
+      //   content: '';
+      //   opacity: 0;
+      //   transition: all 0.3s;
+      // }
 
       &:hover,
       &--active {
+        padding: 12px;
+        border: 2px solid @primary-color;
+
+        &::before,
         &::after {
-          top: -8px;
-          left: -4px;
-          width: 80px;
-          height: 64px;
-          border: 2px solid @primary-color;
-          border-radius: 6px;
-          opacity: 1;
+          border-radius: 0;
         }
       }
     }

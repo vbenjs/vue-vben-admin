@@ -1,9 +1,6 @@
 import { ContentEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 import { MenuModeEnum, MenuTypeEnum, TopMenuAlignEnum, TriggerEnum } from '/@/enums/menuEnum';
 
-import mixImg from '/@/assets/images/layout/menu-mix.svg';
-import sidebarImg from '/@/assets/images/layout/menu-sidebar.svg';
-import menuTopImg from '/@/assets/images/layout/menu-top.svg';
 import { useI18n } from '/@/hooks/web/useI18n';
 
 const { t } = useI18n();
@@ -22,6 +19,7 @@ export enum HandlerEnum {
   MENU_THEME,
   MENU_SPLIT,
   MENU_FIXED,
+  MENU_CLOSE_MIX_SIDEBAR_ON_CHANGE,
 
   // header
   HEADER_SHOW,
@@ -116,19 +114,21 @@ export const menuTypeList = [
     title: t('layout.setting.menuTypeSidebar'),
     mode: MenuModeEnum.INLINE,
     type: MenuTypeEnum.SIDEBAR,
-    src: sidebarImg,
   },
   {
     title: t('layout.setting.menuTypeMix'),
     mode: MenuModeEnum.INLINE,
     type: MenuTypeEnum.MIX,
-    src: mixImg,
   },
 
   {
     title: t('layout.setting.menuTypeTopMenu'),
     mode: MenuModeEnum.HORIZONTAL,
     type: MenuTypeEnum.TOP_MENU,
-    src: menuTopImg,
+  },
+  {
+    title: t('layout.setting.menuTypeMixSidebar'),
+    mode: MenuModeEnum.INLINE,
+    type: MenuTypeEnum.MIX_SIDEBAR,
   },
 ];

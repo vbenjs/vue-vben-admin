@@ -9,6 +9,11 @@ export default {
   scrollAction: '滚动函数',
   virtualScroll: '虚拟滚动',
 
+  tree: 'Tree',
+  treeBasic: '基础树',
+  editTree: '右键示例',
+  actionTree: '函数操作示例',
+
   modal: '弹窗扩展',
   drawer: '抽屉扩展',
   desc: '详情组件',

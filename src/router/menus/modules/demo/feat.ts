@@ -63,6 +63,28 @@ const menu: MenuModule = {
         name: t('routes.demo.feat.errorLog'),
       },
       {
+        name: t('routes.demo.excel.excel'),
+        path: 'excel',
+        children: [
+          {
+            path: 'customExport',
+            name: t('routes.demo.excel.customExport'),
+          },
+          {
+            path: 'jsonExport',
+            name: t('routes.demo.excel.jsonExport'),
+          },
+          {
+            path: 'arrayExport',
+            name: t('routes.demo.excel.arrayExport'),
+          },
+          {
+            path: 'importExcel',
+            name: t('routes.demo.excel.importExcel'),
+          },
+        ],
+      },
+      {
         path: 'testTab',
         name: t('routes.demo.feat.tab'),
         children: [
