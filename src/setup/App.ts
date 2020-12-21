@@ -17,7 +17,7 @@ import {
   updateColorWeak,
   updateHeaderBgColor,
   updateSidebarBgColor,
-} from '/@/setup/theme';
+} from '/@/logics/theme';
 
 import { appStore } from '/@/store/modules/app';
 import { deepMerge } from '/@/utils';

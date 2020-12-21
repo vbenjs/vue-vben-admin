@@ -4,7 +4,7 @@ import {
   updateGrayMode,
   updateHeaderBgColor,
   updateSidebarBgColor,
-} from '/@/setup/theme';
+} from '/@/logics/theme';
 import { appStore } from '/@/store/modules/app';
 import { ProjectConfig } from '/@/types/config';
 

@@ -27,7 +27,7 @@
   import { useMessage } from '/@/hooks/web/useMessage';
   import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard';
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
-  import { updateColorWeak, updateGrayMode } from '/@/setup/theme';
+  import { updateColorWeak, updateGrayMode } from '/@/logics/theme';
 
   export default defineComponent({
     name: 'SettingFooter',

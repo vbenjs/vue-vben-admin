@@ -14,7 +14,8 @@ export interface RouteMeta {
   affix?: boolean;
   // icon on tab
   icon?: string;
-  // Jump address
+
+  frameSrc?: string;
 
   // current page transition
   transitionName?: string;
