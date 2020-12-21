@@ -24,7 +24,7 @@ function toggleClass(flag: boolean, clsName: string, target?: HTMLElement) {
 
 /**
  * Change the status of the project's color weakness mode
- * @param gray
+ * @param colorWeak
  */
 export const updateColorWeak = (colorWeak: boolean) => {
   toggleClass(colorWeak, 'color-weak', document.documentElement);
