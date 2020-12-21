@@ -1,5 +1,9 @@
 ## Wip
 
+### ✨ Features
+
+- 新增 `v-ripple`水波纹指令
+
 ### 🐛 Bug Fixes
 
 - 修复混合模式下滚动条丢失问题
