@@ -15,7 +15,6 @@
     { value: 234, name: '其他', itemStyle: { color: '#7dd9b9' } },
   ];
   export default defineComponent({
-    name: 'AnalysisLine',
     props: basicProps,
     setup() {
       const chartRef = ref<HTMLDivElement | null>(null);

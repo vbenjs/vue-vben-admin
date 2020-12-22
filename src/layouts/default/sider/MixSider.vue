@@ -110,7 +110,6 @@
         getCanDrag,
         getCloseMixSidebarOnChange,
         getMenuTheme,
-        getMixSidebarTheme,
       } = useMenuSetting();
       const { title } = useGlobSetting();
 
@@ -193,7 +192,6 @@
         title,
         openMenu,
         getMenuTheme,
-        getMixSidebarTheme,
       };
     },
   });
@@ -290,9 +288,12 @@
       }
     }
 
+    > .scrollbar {
+      height: calc(100% - @header-height) !important;
+    }
+
     &-module {
       position: relative;
-      height: calc(100% - @header-height) !important;
       padding-top: 1px;
 
       &__item {
