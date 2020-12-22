@@ -61,6 +61,7 @@ export default defineComponent({
       getShowMenu,
       getMenuType,
       getTrigger,
+      getCollapsedShowTitle,
       getMenuFixed,
       getCollapsed,
       getCanDrag,
@@ -175,6 +176,12 @@ export default defineComponent({
             event={HandlerEnum.MENU_COLLAPSED}
             def={unref(getCollapsed)}
             disabled={!unref(getShowMenuRef) || unref(getIsMixSidebar)}
+          />
+          <SwitchItem
+            title={t('layout.setting.collapseMenuDisplayName')}
+            event={HandlerEnum.MENU_COLLAPSED_SHOW_TITLE}
+            def={unref(getCollapsedShowTitle)}
+            disabled={!unref(getShowMenuRef) || !unref(getCollapsed)}
           />
 
           <SwitchItem

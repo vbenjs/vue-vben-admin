@@ -45,6 +45,8 @@ const getIsSidebarType = computed(() => unref(getMenuType) === MenuTypeEnum.SIDE
 
 const getIsTopMenu = computed(() => unref(getMenuType) === MenuTypeEnum.TOP_MENU);
 
+const getCollapsedShowTitle = computed(() => unref(getMenuSetting).collapsedShowTitle);
+
 const getShowTopMenu = computed(() => {
   return unref(getMenuMode) === MenuModeEnum.HORIZONTAL || unref(getSplit);
 });
@@ -74,7 +76,8 @@ const getRealWidth = computed(() => {
 });
 
 const getMiniWidthNumber = computed(() => {
-  return SIDE_BAR_MINI_WIDTH;
+  const { collapsedShowTitle } = unref(getMenuSetting);
+  return collapsedShowTitle ? SIDE_BAR_SHOW_TIT_MINI_WIDTH : SIDE_BAR_MINI_WIDTH;
 });
 
 const getCalcContentWidth = computed(() => {
@@ -128,6 +131,7 @@ export function useMenuSetting() {
     getSplit,
     getMenuTheme,
     getCanDrag,
+    getCollapsedShowTitle,
     getIsHorizontal,
     getIsSidebarType,
     getAccordion,

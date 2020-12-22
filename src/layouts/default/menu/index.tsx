@@ -45,6 +45,7 @@ export default defineComponent({
       getMenuType,
       getMenuTheme,
       getCollapsed,
+      getCollapsedShowTitle,
       getAccordion,
       getIsHorizontal,
       getIsSidebarType,
@@ -130,6 +131,8 @@ export default defineComponent({
           beforeClickFn={beforeMenuClickFn}
           isHorizontal={props.isHorizontal}
           type={unref(getMenuType)}
+          collapsedShowTitle={unref(getCollapsedShowTitle)}
+          showLogo={unref(getIsShowLogo)}
           mode={unref(getComputedMenuMode)}
           theme={unref(getComputedMenuTheme)}
           items={unref(menusRef)}

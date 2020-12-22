@@ -48,6 +48,63 @@
     opacity: 1 !important;
   }
 
+  &--hide-title {
+    &.ant-menu-inline-collapsed > .ant-menu-item,
+    &.ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item,
+    &.ant-menu-inline-collapsed
+      > .ant-menu-item-group
+      > .ant-menu-item-group-list
+      > .ant-menu-submenu
+      > .ant-menu-submenu-title,
+    &.ant-menu-inline-collapsed .ant-menu-submenu-title {
+      padding-right: 16px !important;
+      padding-left: 16px !important;
+    }
+  }
+
+  &--collapsed-show-title.ant-menu-inline-collapsed {
+    .@{basic-menu-prefix-cls}-item__level1 {
+      padding: 2px 0;
+      justify-content: center !important;
+
+      &.ant-menu-item {
+        display: flex;
+        align-items: center;
+        height: 60px !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        line-height: 60px !important;
+
+        > span {
+          margin-top: 10px;
+        }
+      }
+    }
+
+    & > li[role='menuitem']:not(.ant-menu-submenu),
+    & > li > .ant-menu-submenu-title {
+      display: flex;
+      margin-top: 10px;
+      font-size: 12px;
+      flex-direction: column;
+      align-items: center;
+      line-height: 24px;
+    }
+
+    & > li > .ant-menu-submenu-title {
+      line-height: 24px;
+    }
+    .@{basic-menu-content-prefix-cls}-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      .@{basic-menu-content-prefix-cls}--show-title {
+        line-height: 30px;
+      }
+    }
+  }
+
   &.ant-menu-inline-collapsed > .ant-menu-item,
   &.ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item,
   &.ant-menu-inline-collapsed
@@ -62,6 +119,7 @@
 
   .@{basic-menu-content-prefix-cls}-wrapper {
     width: 100%;
+    margin-top: 4px;
 
     &__icon {
       vertical-align: text-top;
@@ -181,7 +239,20 @@
     &.ant-menu-inline-collapsed {
       .ant-menu-submenu-selected,
       .ant-menu-item-selected {
+        position: relative;
+        font-weight: 500;
+        color: @white;
         background: @sider-dark-darken-bg-color !important;
+
+        &::before {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 3px;
+          height: 100%;
+          background: @primary-color;
+          content: '';
+        }
       }
     }
   }

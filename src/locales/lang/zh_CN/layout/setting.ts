@@ -44,6 +44,7 @@ export default {
   menuSearch: '菜单搜索',
   menuAccordion: '侧边菜单手风琴模式',
   menuCollapse: '折叠菜单',
+  collapseMenuDisplayName: '折叠菜单显示名称',
   topMenuLayout: '顶部菜单布局',
   menuCollapseButton: '菜单折叠按钮',
   contentMode: '内容区域宽度',

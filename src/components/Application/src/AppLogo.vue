@@ -3,7 +3,11 @@
  * @Description: logo component
 -->
 <template>
-  <div class="anticon" :class="[prefixCls, theme]" @click="handleGoHome">
+  <div
+    class="anticon"
+    :class="[prefixCls, theme, { 'collapsed-show-title': getCollapsedShowTitle }]"
+    @click="handleGoHome"
+  >
     <img src="/@/assets/images/logo.png" />
     <div class="ml-2 ellipsis" :class="[`${prefixCls}__title`]" v-show="showTitle">
       {{ title }}
@@ -35,6 +39,7 @@
     },
     setup() {
       const { prefixCls } = useDesign('app-logo');
+      const { getCollapsedShowTitle } = useMenuSetting();
 
       const { title } = useGlobSetting();
 
@@ -48,6 +53,7 @@
         handleGoHome,
         title,
         prefixCls,
+        getCollapsedShowTitle,
       };
     },
   });
@@ -65,6 +71,10 @@
 
     &.light {
       border-bottom: 1px solid @border-color-base;
+    }
+
+    &.collapsed-show-title {
+      padding-left: 20px;
     }
 
     &.light &__title {
