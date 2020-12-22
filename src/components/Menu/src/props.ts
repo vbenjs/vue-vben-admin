@@ -9,7 +9,7 @@ export const basicProps = {
     type: Array as PropType<Menu[]>,
     default: () => [],
   },
-
+  collapsedShowTitle: propTypes.bool,
   // 最好是4 倍数
   inlineIndent: propTypes.number.def(20),
   // 菜单组件的mode属性

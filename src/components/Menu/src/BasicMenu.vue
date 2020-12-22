@@ -17,7 +17,7 @@
         :item="item"
         :theme="theme"
         :level="1"
-        :showTitle="!getCollapsed"
+        :showTitle="showTitle"
         :isHorizontal="isHorizontal"
       />
     </template>
@@ -95,11 +95,15 @@
           prefixCls,
           `justify-${align}`,
           {
+            [`${prefixCls}--hide-title`]: !unref(showTitle),
+            [`${prefixCls}--collapsed-show-title`]: props.collapsedShowTitle,
             [`${prefixCls}__second`]: !props.isHorizontal && unref(getSplit),
             [`${prefixCls}__sidebar-hor`]: unref(getIsTopMenu),
           },
         ];
       });
+
+      const showTitle = computed(() => props.collapsedShowTitle && unref(getCollapsed));
 
       const getInlineCollapseOptions = computed(() => {
         const isInline = props.mode === MenuModeEnum.INLINE;
@@ -164,7 +168,7 @@
         getMenuClass,
         handleOpenChange,
         getOpenKeys,
-        getCollapsed,
+        showTitle,
         ...toRefs(menuState),
       };
     },

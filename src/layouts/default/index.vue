@@ -2,7 +2,11 @@
   <Layout :class="prefixCls">
     <LayoutFeatures />
     <LayoutHeader fixed v-if="getShowFullHeaderRef" />
-    <Layout class="ant-layout-has-sider">
+    <Layout
+      :class="{
+        'ant-layout-has-sider': getIsMixSidebar,
+      }"
+    >
       <LayoutSideBar v-if="getShowSidebar || getIsMobile" />
       <Layout :class="`${prefixCls}__main`">
         <LayoutMultipleHeader />

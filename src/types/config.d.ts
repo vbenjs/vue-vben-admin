@@ -19,6 +19,7 @@ export interface MenuSetting {
   trigger: TriggerEnum;
   accordion: boolean;
   closeMixSidebarOnChange: boolean;
+  collapsedShowTitle: boolean;
 }
 
 export interface MultiTabsSetting {

@@ -45,6 +45,7 @@ export default {
   menuSearch: 'Menu search',
   menuAccordion: 'Sidebar accordion',
   menuCollapse: 'Collapse menu',
+  collapseMenuDisplayName: 'Collapse menu display name',
   topMenuLayout: 'Top menu layout',
   menuCollapseButton: 'Menu collapse button',
   contentMode: 'Content area width',
