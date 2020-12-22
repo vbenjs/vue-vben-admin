@@ -1,8 +1,13 @@
 import { VitePWA } from 'vite-plugin-pwa';
 import type { Plugin } from 'vite';
-import { isProdFn, ViteEnv } from '../../utils';
+import { ViteEnv } from '../../utils';
 
-export function setupPwaPlugin(plugins: Plugin[], env: ViteEnv) {
+export function setupPwaPlugin(
+  plugins: Plugin[],
+  env: ViteEnv,
+  // @ts-ignore
+  mode: 'development' | 'production'
+) {
   const { VITE_USE_PWA } = env;
 
   const pwaPlugin = VitePWA({
@@ -23,8 +28,7 @@ export function setupPwaPlugin(plugins: Plugin[], env: ViteEnv) {
       ],
     },
   });
-
-  if (isProdFn() && VITE_USE_PWA) {
+  if (VITE_USE_PWA) {
     plugins.push(pwaPlugin);
   }
   return plugins;

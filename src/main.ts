@@ -38,7 +38,7 @@ setupErrorHandle(app);
 
 // Mount when the route is ready
 router.isReady().then(() => {
-  app.mount('#app');
+  app.mount('#app', true);
 });
 
 // The development environment takes effect

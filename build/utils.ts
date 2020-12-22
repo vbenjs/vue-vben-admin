@@ -63,12 +63,12 @@ export function getIPAddress() {
   return '';
 }
 
-export function isDevFn(): boolean {
-  return process.env.NODE_ENV === 'development';
+export function isDevFn(mode: 'development' | 'production'): boolean {
+  return mode === 'development';
 }
 
-export function isProdFn(): boolean {
-  return process.env.NODE_ENV === 'production';
+export function isProdFn(mode: 'development' | 'production'): boolean {
+  return mode === 'production';
 }
 
 /**
@@ -106,18 +106,11 @@ export interface ViteEnv {
 }
 
 // Read all environment variable configuration files to process.env
-export function loadEnv(): ViteEnv {
-  const env = process.env.NODE_ENV;
+export function wrapperEnv(envConf: any): ViteEnv {
   const ret: any = {};
-  const envList = [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env', ,];
-  envList.forEach((e) => {
-    dotenv.config({
-      path: e,
-    });
-  });
 
-  for (const envName of Object.keys(process.env)) {
-    let realName = (process.env as any)[envName].replace(/\\n/g, '\n');
+  for (const envName of Object.keys(envConf)) {
+    let realName = envConf[envName].replace(/\\n/g, '\n');
     realName = realName === 'true' ? true : realName === 'false' ? false : realName;
     if (envName === 'VITE_PORT') {
       realName = Number(realName);
