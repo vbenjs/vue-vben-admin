@@ -3,8 +3,8 @@
   "version": "2.0.0-rc.14",
   "scripts": {
     "bootstrap": "yarn install",
-    "serve": "esno ./build/script/preserve.ts && cross-env NODE_ENV=development vite",
-    "build": "cross-env NODE_ENV=production vite build && esno ./build/script/postBuild.ts",
+    "serve": "cross-env  vite --mode=development",
+    "build": "cross-env  vite build --mode=production && esno ./build/script/postBuild.ts",
     "build:site": "cross-env SITE=true npm run build ",
     "build:no-cache": "yarn  clean:cache && npm run build",
     "typecheck": "typecheck .",

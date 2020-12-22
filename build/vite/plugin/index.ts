@@ -8,21 +8,21 @@ import gzipPlugin from './gzip/index';
 
 // @ts-ignore
 import pkg from '../../../package.json';
-import { isProdFn, isSiteMode, ViteEnv, isReportMode, isBuildGzip } from '../../utils';
+import { isSiteMode, ViteEnv, isReportMode, isBuildGzip } from '../../utils';
 import { setupHtmlPlugin } from './html';
 import { setupPwaPlugin } from './pwa';
 import { setupMockPlugin } from './mock';
 
 // gen vite plugins
-export function createVitePlugins(viteEnv: ViteEnv) {
+export function createVitePlugins(viteEnv: ViteEnv, mode: 'development' | 'production') {
   const vitePlugins: VitePlugin[] = [];
 
   // vite-plugin-html
-  setupHtmlPlugin(vitePlugins, viteEnv);
+  setupHtmlPlugin(vitePlugins, viteEnv, mode);
   // vite-plugin-pwa
-  setupPwaPlugin(vitePlugins, viteEnv);
+  setupPwaPlugin(vitePlugins, viteEnv, mode);
   // vite-plugin-mock
-  setupMockPlugin(vitePlugins, viteEnv);
+  setupMockPlugin(vitePlugins, viteEnv, mode);
 
   // vite-plugin-purge-icons
   vitePlugins.push(PurgeIcons());
@@ -34,12 +34,11 @@ export function createVitePlugins(viteEnv: ViteEnv) {
 export function createRollupPlugin() {
   const rollupPlugins: rollupPlugin[] = [];
 
-  if (!isProdFn() && isReportMode()) {
+  if (isReportMode()) {
     // rollup-plugin-visualizer
     rollupPlugins.push(visualizer({ filename: './build/.cache/stats.html', open: true }) as Plugin);
   }
-
-  if (!isProdFn() && (isBuildGzip() || isSiteMode())) {
+  if (isBuildGzip() || isSiteMode()) {
     // rollup-plugin-gizp
     rollupPlugins.push(gzipPlugin());
   }

@@ -4,7 +4,6 @@
 import { GLOB_CONFIG_FILE_NAME } from '../constant';
 import fs, { writeFileSync } from 'fs-extra';
 
-import viteConfig from '../../vite.config';
 import { errorConsole, successConsole, getCwdPath, getEnvConfig } from '../utils';
 import { getShortName } from '../getShortName';
 
@@ -17,7 +16,7 @@ function createConfig(
 ) {
   try {
     const windowConf = `window.${configName}`;
-    const outDir = viteConfig.outDir || 'dist';
+    const outDir = 'dist';
     // Ensure that the variable will not be modified
     const configStr = `${windowConf}=${JSON.stringify(config)};
 
