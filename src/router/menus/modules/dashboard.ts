@@ -8,11 +8,11 @@ const menu: MenuModule = {
     path: '/dashboard',
     children: [
       {
-        path: '/workbench',
+        path: 'workbench',
         name: t('routes.dashboard.workbench'),
       },
       {
-        path: '/analysis',
+        path: 'analysis',
         name: t('routes.dashboard.analysis'),
       },
     ],

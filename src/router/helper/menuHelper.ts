@@ -23,7 +23,7 @@ function joinParentPath(list: any, node: any) {
       parentPath += /^\//.test(p) ? p : `/${p}`;
     });
   }
-  node.path = `${parentPath}${/^\//.test(node.path) ? node.path : `/${node.path}`}`.replace(
+  node.path = `${/^\//.test(node.path) ? node.path : `${parentPath}/${node.path}`}`.replace(
     /\/\//g,
     '/'
   );
