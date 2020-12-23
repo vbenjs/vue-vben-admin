@@ -1,6 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router';
 import { RoleEnum } from '/@/enums/roleEnum';
-import Component from '/@/components/types';
+
+import type { Component } from '/@/components/types';
+
 export interface RouteMeta {
   // title
   title: string;
@@ -30,6 +32,7 @@ export interface RouteMeta {
   single?: boolean;
 }
 
+// @ts-ignore
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
   name: string;
   meta: RouteMeta;
