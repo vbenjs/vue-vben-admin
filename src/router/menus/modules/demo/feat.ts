@@ -62,6 +62,7 @@ const menu: MenuModule = {
         path: 'error-log',
         name: t('routes.demo.feat.errorLog'),
       },
+
       {
         name: t('routes.demo.excel.excel'),
         path: 'excel',
