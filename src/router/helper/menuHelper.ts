@@ -1,4 +1,4 @@
-import { AppRouteModule } from '/@/router/types.d';
+import { AppRouteModule } from '/@/router/types';
 import type { MenuModule, Menu, AppRouteRecordRaw } from '/@/router/types';
 
 import { findPath, forEach, treeMap } from '/@/utils/helper/treeHelper';
