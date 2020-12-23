@@ -1,7 +1,7 @@
 <template>
   <div class="p-4">
     <a-button @click="toggleTheme" class="mb-2" type="primary">黑暗主题</a-button>
-    <MarkDown v-model:value="value" ref="markDownRef" />
+    <MarkDown :value="value" @change="handleChange" ref="markDownRef" />
   </div>
 </template>
 <script lang="ts">
@@ -23,10 +23,16 @@
         const vditor = markDown.getVditor();
         vditor.setTheme('dark');
       }
+
+      function handleChange(v: string) {
+        valueRef.value = v;
+      }
+
       return {
         value: valueRef,
         toggleTheme,
         markDownRef,
+        handleChange,
       };
     },
   });

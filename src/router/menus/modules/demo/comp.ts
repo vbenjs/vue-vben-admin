@@ -180,6 +180,16 @@ const menu: MenuModule = {
           {
             path: 'markdown',
             name: t('routes.demo.editor.markdown'),
+            children: [
+              {
+                path: 'index',
+                name: t('routes.demo.editor.tinymceBasic'),
+              },
+              {
+                path: 'editor',
+                name: t('routes.demo.editor.tinymceForm'),
+              },
+            ],
           },
           {
             path: 'tinymce',

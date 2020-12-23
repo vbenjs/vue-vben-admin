@@ -4,6 +4,7 @@
     :wrapClass="`scrollbar__wrap`"
     :viewClass="`scrollbar__view`"
     class="scroll-container"
+    v-bind="$attrs"
   >
     <slot />
   </Scrollbar>
