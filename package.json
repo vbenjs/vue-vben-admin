@@ -25,7 +25,7 @@
     "@vueuse/core": "^4.0.0",
     "ant-design-vue": "^2.0.0-rc.5",
     "apexcharts": "^3.23.0",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "crypto-es": "^1.2.6",
     "echarts": "^4.9.0",
     "lodash-es": "^4.17.20",
