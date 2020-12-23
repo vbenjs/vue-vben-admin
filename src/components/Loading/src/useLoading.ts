@@ -8,6 +8,10 @@ export interface UseLoadingOptions {
   props?: Partial<LoadingProps>;
 }
 
+interface Fn {
+  (): void;
+}
+
 export function useLoading(props: Partial<LoadingProps>): [Fn, Fn];
 export function useLoading(opt: Partial<UseLoadingOptions>): [Fn, Fn];
 

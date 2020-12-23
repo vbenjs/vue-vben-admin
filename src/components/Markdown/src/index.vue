@@ -1,17 +1,8 @@
 <template>
-  <div class="markdown" ref="wrapRef" />
+  <div ref="wrapRef" />
 </template>
 <script lang="ts">
-  import {
-    defineComponent,
-    ref,
-    onMounted,
-    unref,
-    onUnmounted,
-    nextTick,
-    // watch,
-    computed,
-  } from 'vue';
+  import { defineComponent, ref, onMounted, unref, onUnmounted, nextTick, computed } from 'vue';
   import Vditor from 'vditor';
   import 'vditor/dist/index.css';
 
@@ -74,21 +65,6 @@
         });
         initedRef.value = true;
       }
-
-      // watch(
-      //   () => props.value,
-      //   () => {
-      //     nextTick(() => {
-      //       const vditor = unref(vditorRef);
-      //       if (unref(initedRef) && props.value && vditor) {
-      //         vditor.setValue(props.value);
-      //       }
-      //     });
-      //   },
-      //   {
-      //     immediate: true,
-      //   }
-      // );
 
       onMounted(() => {
         nextTick(() => {
