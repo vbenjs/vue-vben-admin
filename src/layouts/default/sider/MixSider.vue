@@ -38,6 +38,7 @@
 
     <div :class="`${prefixCls}-menu-list`" ref="sideRef" :style="getMenuStyle">
       <div
+        v-show="openMenu"
         :class="[
           `${prefixCls}-menu-list__title`,
           {

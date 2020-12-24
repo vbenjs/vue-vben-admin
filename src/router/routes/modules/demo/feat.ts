@@ -29,6 +29,68 @@ const feat: AppRouteModule = {
         title: t('routes.demo.feat.tabs'),
       },
     },
+    {
+      path: 'breadcrumb',
+      name: 'BreadcrumbDemo',
+      redirect: '/feat/breadcrumb/flat',
+      component: getParentLayout('BreadcrumbDemo'),
+      meta: {
+        title: t('routes.demo.feat.breadcrumb'),
+      },
+
+      children: [
+        {
+          path: 'flat',
+          name: 'BreadcrumbFlatDemo',
+          component: () => import('/@/views/demo/feat/breadcrumb/FlatList.vue'),
+          meta: {
+            title: t('routes.demo.feat.breadcrumbFlat'),
+          },
+        },
+        {
+          path: 'flatDetail',
+          name: 'BreadcrumbFlatDetailDemo',
+          component: () => import('/@/views/demo/feat/breadcrumb/FlatListDetail.vue'),
+          meta: {
+            title: t('routes.demo.feat.breadcrumbFlatDetail'),
+            hideMenu: true,
+            hideTab: true,
+            currentActiveMenu: '/feat/breadcrumb/flat',
+          },
+        },
+        {
+          path: 'children',
+          name: 'BreadcrumbChildrenDemo',
+          component: getParentLayout('BreadcrumbChildrenDemo'),
+          redirect: '/feat/breadcrumb/children',
+          meta: {
+            title: t('routes.demo.feat.breadcrumbFlat'),
+          },
+          children: [
+            {
+              path: '',
+              name: 'BreadcrumbChildren',
+              component: () => import('/@/views/demo/feat/breadcrumb/ChildrenList.vue'),
+              meta: {
+                title: t('routes.demo.feat.breadcrumbChildren'),
+                hideBreadcrumb: true,
+              },
+            },
+            {
+              path: 'childrenDetail',
+              name: 'BreadcrumbChildrenDetailDemo',
+              component: () => import('/@/views/demo/feat/breadcrumb/ChildrenListDetail.vue'),
+              meta: {
+                currentActiveMenu: '/feat/breadcrumb/children',
+                title: t('routes.demo.feat.breadcrumbChildrenDetail'),
+                hideTab: true,
+                hideMenu: true,
+              },
+            },
+          ],
+        },
+      ],
+    },
 
     {
       path: 'context-menu',

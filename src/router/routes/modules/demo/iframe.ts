@@ -8,7 +8,7 @@ const iframe: AppRouteModule = {
   path: '/frame',
   name: 'Frame',
   component: LAYOUT,
-  redirect: '/frame/antv',
+  redirect: '/frame/doc',
   meta: {
     icon: 'mdi:page-next-outline',
     title: t('routes.demo.iframe.frame'),
@@ -16,21 +16,21 @@ const iframe: AppRouteModule = {
 
   children: [
     {
-      path: 'antv',
-      name: 'Antv',
-      component: IFrame,
-      meta: {
-        frameSrc: 'https://2x.antdv.com/docs/vue/introduce-cn/',
-        title: t('routes.demo.iframe.antv'),
-      },
-    },
-    {
       path: 'doc',
       name: 'Doc',
       component: IFrame,
       meta: {
         frameSrc: 'https://vvbin.cn/doc-next/',
         title: t('routes.demo.iframe.doc'),
+      },
+    },
+    {
+      path: 'antv',
+      name: 'Antv',
+      component: IFrame,
+      meta: {
+        frameSrc: 'https://2x.antdv.com/docs/vue/introduce-cn/',
+        title: t('routes.demo.iframe.antv'),
       },
     },
     {

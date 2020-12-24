@@ -15,4 +15,11 @@ export default {
   tab: 'Tab带参',
   tab1: 'Tab带参1',
   tab2: 'Tab带参2',
+
+  breadcrumb: '面包屑导航',
+  breadcrumbFlat: '平级模式',
+  breadcrumbFlatDetail: '平级详情',
+
+  breadcrumbChildren: '层级模式',
+  breadcrumbChildrenDetail: '层级详情',
 };

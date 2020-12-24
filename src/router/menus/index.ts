@@ -71,8 +71,10 @@ export async function getShallowMenus(): Promise<Menu[]> {
 export async function getChildrenMenus(parentPath: string) {
   const menus = await getAsyncMenus();
   const parent = menus.find((item) => item.path === parentPath);
-  if (!parent) return [] as Menu[];
-  return parent.children;
+  if (!parent || !parent.children) return [] as Menu[];
+  const routes = router.getRoutes();
+
+  return !isBackMode() ? filter(parent.children, basicFilter(routes)) : parent.children;
 }
 
 // 通用过滤方法
