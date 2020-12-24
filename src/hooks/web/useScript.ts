@@ -16,7 +16,7 @@ export function useScript(opts: ScriptOptions) {
         isLoading.value = false;
         success.value = true;
         error.value = false;
-        resolve();
+        resolve('');
       };
 
       script.onerror = function (err) {
