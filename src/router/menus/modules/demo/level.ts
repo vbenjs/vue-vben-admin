@@ -6,9 +6,6 @@ const menu: MenuModule = {
   menu: {
     name: t('routes.demo.level.level'),
     path: '/level',
-    tag: {
-      dot: true,
-    },
     children: [
       {
         path: 'menu1',

@@ -1,12 +1,12 @@
 <template>
   <div :class="[prefixCls, `${prefixCls}--${theme}`]">
     <a-breadcrumb :routes="routes">
-      <template #itemRender="{ route, routes }">
+      <template #itemRender="{ route, routes, paths }">
         <Icon :icon="route.meta.icon" v-if="getShowBreadCrumbIcon && route.meta.icon" />
-        <span v-if="routes.indexOf(route) === routes.length - 1">
+        <span v-if="!hasRedirect(routes, route)">
           {{ t(route.meta.title) }}
         </span>
-        <router-link v-else :to="route.path">
+        <router-link v-else to="" @click="handleClick(route, paths, $event)">
           {{ t(route.meta.title) }}
         </router-link>
       </template>
@@ -30,6 +30,8 @@
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 
   import { propTypes } from '/@/utils/propTypes';
+  import { useGo } from '/@/hooks/web/usePage';
+  import { isString } from '/@/utils/is';
 
   export default defineComponent({
     name: 'LayoutBreadcrumb',
@@ -45,22 +47,12 @@
 
       const { t } = useI18n();
       watchEffect(() => {
-        if (currentRoute.value.name === REDIRECT_NAME) {
-          return;
-        }
+        if (currentRoute.value.name === REDIRECT_NAME) return;
+
         const matched = currentRoute.value?.matched;
         if (!matched || matched.length === 0) return;
 
-        let breadcrumbList = filter(toRaw(matched), (item) => {
-          if (!item.meta) {
-            return false;
-          }
-          const { title, hideBreadcrumb } = item.meta;
-          if (!title || hideBreadcrumb) {
-            return false;
-          }
-          return true;
-        });
+        let breadcrumbList = filterItem(toRaw(matched));
 
         const filterBreadcrumbList = breadcrumbList.filter(
           (item) => item.path !== PageEnum.BASE_HOME
@@ -71,13 +63,86 @@
             path: PageEnum.BASE_HOME,
             meta: {
               title: t('layout.header.home'),
+              isLink: true,
             },
           } as unknown) as RouteLocationMatched);
         }
-        routes.value = filterBreadcrumbList.length === 1 ? [] : filterBreadcrumbList;
+
+        if (currentRoute.value.meta?.currentActiveMenu) {
+          filterBreadcrumbList.push((currentRoute.value as unknown) as RouteLocationMatched);
+        }
+        // routes.value = filterBreadcrumbList.length === 1 ? [] : filterBreadcrumbList;
+        routes.value = filterBreadcrumbList;
       });
 
-      return { routes, t, prefixCls, getShowBreadCrumbIcon };
+      function filterItem(list: RouteLocationMatched[]) {
+        let resultList = filter(list, (item) => {
+          const { meta } = item;
+
+          if (!meta) {
+            return false;
+          }
+          const { title, hideBreadcrumb, hideMenu } = meta;
+          if (!title || hideBreadcrumb || hideMenu) {
+            return false;
+          }
+
+          return true;
+        }).filter((item) => !item.meta?.hideBreadcrumb || !item.meta?.hideMenu);
+
+        resultList = resultList.filter((item) => item.path !== PageEnum.BASE_HOME);
+        return resultList;
+      }
+
+      function handleClick(route: RouteLocationMatched, paths: string[], e: Event) {
+        e?.preventDefault();
+        const {
+          children,
+          redirect,
+          meta,
+          //  components
+        } = route;
+
+        // const isParent =
+        //   components?.default?.name === 'DefaultLayout' || (components?.default as any)?.parentView;
+
+        if (
+          children?.length &&
+          !redirect
+          // && !isParent
+        ) {
+          e?.stopPropagation();
+          return;
+        }
+        if (meta?.carryParam) {
+          return;
+        }
+
+        const go = useGo();
+        if (redirect && isString(redirect)) {
+          go(redirect);
+        } else {
+          const ps = paths.slice(1);
+          const lastPath = ps.pop() || '';
+          const parentPath = ps.pop() || '';
+          let path = `${parentPath}/${lastPath}`;
+          path = /^\//.test(path) ? path : `/${path}`;
+          go(path);
+        }
+      }
+
+      function hasRedirect(routes: RouteLocationMatched[], route: RouteLocationMatched) {
+        if (route?.meta?.isLink) {
+          return true;
+        }
+
+        if (routes.indexOf(route) === routes.length - 1) {
+          return false;
+        }
+        return true;
+      }
+
+      return { routes, t, prefixCls, getShowBreadCrumbIcon, handleClick, hasRedirect };
     },
   });
 </script>

@@ -8,12 +8,12 @@ const menu: MenuModule = {
     path: '/frame',
     children: [
       {
-        path: 'antv',
-        name: t('routes.demo.iframe.antv'),
-      },
-      {
         path: 'doc',
         name: t('routes.demo.iframe.doc'),
+      },
+      {
+        path: 'antv',
+        name: t('routes.demo.iframe.antv'),
       },
       {
         path: 'https://vvbin.cn/doc-next/',

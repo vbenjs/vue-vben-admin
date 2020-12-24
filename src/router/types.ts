@@ -30,13 +30,22 @@ export interface RouteMeta {
 
   // Used internally to mark single-level menus
   single?: boolean;
+
+  // Currently active menu
+  currentActiveMenu?: string;
+
+  // Never show in tab
+  hideTab?: boolean;
+
+  // Never show in menu
+  hideMenu?: boolean;
 }
 
 // @ts-ignore
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
   name: string;
   meta: RouteMeta;
-  component?: Component;
+  component?: Component | string;
   components?: Component;
   children?: AppRouteRecordRaw[];
   props?: Record<string, any>;

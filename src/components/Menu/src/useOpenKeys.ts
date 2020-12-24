@@ -18,6 +18,9 @@ export function useOpenKeys(
   const { getCollapsed } = useMenuSetting();
 
   function setOpenKeys(path: string) {
+    if (mode.value === MenuModeEnum.HORIZONTAL) {
+      return;
+    }
     const menuList = toRaw(menus.value);
     if (!unref(accordion)) {
       menuState.openKeys = es6Unique([...menuState.openKeys, ...getAllParentPath(menuList, path)]);

@@ -151,9 +151,6 @@ const menu: MenuModule = {
       {
         path: 'loading',
         name: t('routes.demo.comp.loading'),
-        tag: {
-          content: 'new',
-        },
       },
       {
         path: 'tree',
@@ -176,6 +173,9 @@ const menu: MenuModule = {
       {
         name: t('routes.demo.editor.editor'),
         path: 'editor',
+        tag: {
+          content: 'new',
+        },
         children: [
           {
             path: 'markdown',

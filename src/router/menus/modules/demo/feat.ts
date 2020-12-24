@@ -19,6 +19,7 @@ const menu: MenuModule = {
         path: 'tabs',
         name: t('routes.demo.feat.tabs'),
       },
+
       {
         path: 'context-menu',
         name: t('routes.demo.feat.contextMenu'),
@@ -82,6 +83,27 @@ const menu: MenuModule = {
           {
             path: 'importExcel',
             name: t('routes.demo.excel.importExcel'),
+          },
+        ],
+      },
+      {
+        name: t('routes.demo.feat.breadcrumb'),
+        path: 'breadcrumb',
+        tag: {
+          content: 'new',
+        },
+        children: [
+          {
+            path: 'flat',
+            name: t('routes.demo.feat.breadcrumbFlat'),
+          },
+          {
+            path: 'flatDetail',
+            name: t('routes.demo.feat.breadcrumbFlatDetail'),
+          },
+          {
+            path: 'children',
+            name: t('routes.demo.feat.breadcrumbChildrenDetail'),
           },
         ],
       },

@@ -30,6 +30,7 @@
 
   import { Tabs } from 'ant-design-vue';
   import TabContent from './components/TabContent.vue';
+  import type { RouteLocationNormalized } from 'vue-router';
 
   import { useGo } from '/@/hooks/web/usePage';
 
@@ -42,6 +43,8 @@
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
   import { listenerLastChangeTab } from '/@/logics/mitt/tabChange';
   import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
+
+  import router from '/@/router';
 
   export default defineComponent({
     name: 'MultipleTabs',
@@ -61,7 +64,9 @@
       const go = useGo();
       const { getShowQuick, getShowRedo } = useMultipleTabSetting();
 
-      const getTabsState = computed(() => tabStore.getTabsState);
+      const getTabsState = computed(() => {
+        return tabStore.getTabsState.filter((item) => !item.meta?.hideTab);
+      });
 
       const unClose = computed(() => unref(getTabsState).length === 1);
 
@@ -78,13 +83,24 @@
         const { name } = route;
         if (name === REDIRECT_NAME || !route || !userStore.getTokenState) return;
 
-        const { path, fullPath } = route;
-        const p = fullPath || path;
+        const { path, fullPath, meta = {} } = route;
 
+        const { currentActiveMenu, hideTab } = meta;
+        const isHide = !hideTab ? null : currentActiveMenu;
+        const p = isHide || fullPath || path;
         if (activeKeyRef.value !== p) {
           activeKeyRef.value = p;
         }
-        tabStore.addTabAction(unref(route));
+
+        if (isHide) {
+          const findParentRoute = router
+            .getRoutes()
+            .find((item) => item.path === currentActiveMenu);
+          findParentRoute &&
+            tabStore.addTabAction((findParentRoute as unknown) as RouteLocationNormalized);
+        } else {
+          tabStore.addTabAction(unref(route));
+        }
       });
 
       function handleChange(activeKey: any) {

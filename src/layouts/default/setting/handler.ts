@@ -59,7 +59,7 @@ export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConf
       return { menuSetting: { bgColor: value } };
 
     case HandlerEnum.MENU_SPLIT:
-      return { menuSetting: { split: value, collapsedShowTitle: true } };
+      return { menuSetting: { split: value } };
 
     case HandlerEnum.MENU_CLOSE_MIX_SIDEBAR_ON_CHANGE:
       return { menuSetting: { closeMixSidebarOnChange: value } };
