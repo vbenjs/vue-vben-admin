@@ -15,17 +15,19 @@ declare function parseInt(s: string | number, radix?: number): number;
 
 declare function parseFloat(string: string | number): number;
 
-declare type Dictionary<T> = Record<string, T>;
-
 declare type Nullable<T> = T | null;
+
+declare type NonNullable<T> = T extends null | undefined ? never : T;
 
 declare type RefType<T> = T | null;
 
 declare type CustomizedHTMLElement<T> = HTMLElement & T;
 
-declare type Indexable<T = any> = {
+declare type Indexable<T extends any = any> = {
   [key: string]: T;
 };
+
+declare type Recordable<T extends any = any> = Record<string, T>;
 
 declare type Hash<T> = Indexable<T>;
 
@@ -59,3 +61,5 @@ declare interface ComponentElRef<T extends HTMLElement = HTMLDivElement> {
 declare type ComponentRef<T extends HTMLElement = HTMLDivElement> = ComponentElRef<T> | null;
 
 declare type ElRef<T extends HTMLElement = HTMLDivElement> = Nullable<T>;
+
+type IsSame<A, B> = A | B extends A & B ? true : false;

@@ -40,7 +40,7 @@ const pattern = {
 } as const;
 
 function parseStyle(style: string) {
-  const styleMap: Dictionary<any> = {};
+  const styleMap: Recordable = {};
 
   for (const s of style.split(pattern.styleList)) {
     let [key, val] = s.split(pattern.styleProp);
@@ -161,8 +161,8 @@ export function mergeClasses(target: any, source: any) {
 }
 
 export function mergeListeners(
-  target: { [key: string]: Function | Function[] } | undefined,
-  source: { [key: string]: Function | Function[] } | undefined
+  target: Indexable<Function | Function[]> | undefined,
+  source: Indexable<Function | Function[]> | undefined
 ) {
   if (!target) return source;
   if (!source) return target;

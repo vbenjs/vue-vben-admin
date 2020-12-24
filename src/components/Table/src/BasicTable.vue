@@ -221,7 +221,7 @@
       function handleTableChange(
         pagination: PaginationProps,
         // @ts-ignore
-        filters: Partial<Record<string, string[]>>,
+        filters: Partial<Recordable<string[]>>,
         sorter: SorterResult
       ) {
         const { clearSelectOnPageChange, sortFn } = unref(getMergeProps);

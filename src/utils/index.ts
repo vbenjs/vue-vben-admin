@@ -38,7 +38,7 @@ export function setObjToUrlParams(baseUrl: string, obj: any): string {
   return url;
 }
 
-export function deepMerge<T = any>(src: any, target: any): T {
+export function deepMerge<T = any>(src: any = {}, target: any = {}): T {
   let key: string;
   for (key in target) {
     src[key] = isObject(src[key]) ? deepMerge(src[key], target[key]) : (src[key] = target[key]);

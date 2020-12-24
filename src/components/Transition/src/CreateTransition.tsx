@@ -40,7 +40,7 @@ export function createSimpleTransition(name: string, origin = 'top center 0', mo
 }
 export function createJavascriptTransition(
   name: string,
-  functions: Record<string, any>,
+  functions: Recordable,
   mode: Mode = 'in-out'
 ) {
   return defineComponent({

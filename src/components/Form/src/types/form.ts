@@ -5,6 +5,7 @@ import type { ButtonProps as AntdButtonProps } from 'ant-design-vue/es/button/bu
 import type { FormItem } from './formItem';
 import type { ColEx, ComponentType } from './index';
 import type { TableActionType } from '/@/components/Table/src/types/table';
+import type { CSSProperties } from 'vue';
 
 export type FieldMapToTime = [string, [string, string], string?][];
 
@@ -14,8 +15,8 @@ export type Rule = RuleObject & {
 
 export interface RenderCallbackParams {
   schema: FormSchema;
-  values: any;
-  model: any;
+  values: Recordable;
+  model: Recordable;
   field: string;
 }
 
@@ -25,18 +26,19 @@ export interface ButtonProps extends AntdButtonProps {
 
 export interface FormActionType {
   submit: () => Promise<void>;
-  setFieldsValue: <T>(values: T) => void;
-  resetFields: () => Promise<any>;
-  getFieldsValue: () => any;
-  clearValidate: (name?: string | string[]) => void;
-  updateSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => void;
-  setProps: (formProps: Partial<FormProps>) => void;
-  removeSchemaByFiled: (field: string | string[]) => void;
-  appendSchemaByField: (schema: FormSchema, prefixField?: string) => void;
+  setFieldsValue: <T>(values: T) => Promise<void>;
+  resetFields: () => Promise<void>;
+  getFieldsValue: () => Recordable;
+  clearValidate: (name?: string | string[]) => Promise<void>;
+  updateSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void>;
+  setProps: (formProps: Partial<FormProps>) => Promise<void>;
+  removeSchemaByFiled: (field: string | string[]) => Promise<void>;
+  appendSchemaByField: (schema: FormSchema, prefixField?: string) => Promise<void>;
   validateFields: (nameList?: NamePath[]) => Promise<any>;
   validate: (nameList?: NamePath[]) => Promise<any>;
-  scrollToField: (name: NamePath, options?: ScrollOptions) => void;
+  scrollToField: (name: NamePath, options?: ScrollOptions) => Promise<void>;
 }
+
 export type RegisterFn = (formInstance: FormActionType) => void;
 
 export type UseFormReturnType = [RegisterFn, FormActionType];
@@ -44,7 +46,7 @@ export type UseFormReturnType = [RegisterFn, FormActionType];
 export interface FormProps {
   // layout?: 'vertical' | 'inline' | 'horizontal';
   // Form value
-  model?: any;
+  model?: Recordable;
   // The width of all items in the entire form
   labelWidth?: number | string;
   // Submit form on reset
@@ -55,7 +57,7 @@ export interface FormProps {
   wrapperCol?: Partial<ColEx>;
 
   // General row style
-  baseRowStyle?: object;
+  baseRowStyle?: CSSProperties;
 
   // General col configuration
   baseColProps?: Partial<ColEx>;
@@ -63,7 +65,7 @@ export interface FormProps {
   // Form configuration rules
   schemas?: FormSchema[];
   // Function values used to merge into dynamic control form items
-  mergeDynamicData?: any;
+  mergeDynamicData?: Recordable;
   // Compact mode for search forms
   compact?: boolean;
   // Blank line span
@@ -131,8 +133,8 @@ export interface FormSchema {
         schema: FormSchema;
         tableAction: TableActionType;
         formActionType: FormActionType;
-        formModel: any;
-      }) => any)
+        formModel: Recordable;
+      }) => Recordable)
     | object;
   // Required
   required?: boolean;

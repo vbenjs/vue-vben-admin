@@ -23,7 +23,7 @@ export type EventOption = {
 const defaultEvents: keyEvent[] = ['keydown'];
 
 // 键盘事件 keyCode 别名
-const aliasKeyCodeMap: Record<string, number | number[]> = {
+const aliasKeyCodeMap: Recordable<number | number[]> = {
   esc: 27,
   tab: 9,
   enter: 13,
@@ -36,7 +36,7 @@ const aliasKeyCodeMap: Record<string, number | number[]> = {
 };
 
 // 键盘事件 key 别名
-const aliasKeyMap: Record<string, string | string[]> = {
+const aliasKeyMap: Recordable<string | string[]> = {
   esc: 'Escape',
   tab: 'Tab',
   enter: 'Enter',
@@ -50,7 +50,7 @@ const aliasKeyMap: Record<string, string | string[]> = {
 };
 
 // 修饰键
-const modifierKey: Record<string, (event: KeyboardEvent) => boolean> = {
+const modifierKey: Recordable<(event: KeyboardEvent) => boolean> = {
   ctrl: (event: KeyboardEvent) => event.ctrlKey,
   shift: (event: KeyboardEvent) => event.shiftKey,
   alt: (event: KeyboardEvent) => event.altKey,
