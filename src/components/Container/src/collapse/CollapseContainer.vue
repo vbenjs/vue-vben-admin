@@ -101,7 +101,10 @@
 
     &__action {
       display: flex;
+      text-align: right;
+      flex: 1;
       align-items: center;
+      justify-content: flex-end;
     }
   }
 </style>

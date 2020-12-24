@@ -154,7 +154,7 @@ function rippler({
     setTimeout(() => {
       let clearPosition = true;
       for (let i = 0; i < el.childNodes.length; i++) {
-        if ((el.childNodes[i] as any).className === 'ripple-container') {
+        if ((el.childNodes[i] as Recordable).className === 'ripple-container') {
           clearPosition = false;
         }
       }
@@ -173,7 +173,7 @@ function rippler({
     clearRipple();
   }
 
-  (el as any).setBackground = (bgColor: string) => {
+  (el as Recordable).setBackground = (bgColor: string) => {
     if (!bgColor) {
       return;
     }
@@ -181,8 +181,8 @@ function rippler({
   };
 }
 
-function setProps(modifiers: { [key: string]: any }, props: Record<string, any>) {
-  modifiers.forEach((item: any) => {
+function setProps(modifiers: Hash<any>, props: Recordable) {
+  modifiers.forEach((item: Recordable) => {
     if (isNaN(Number(item))) props.event = item;
     else props.transition = item;
   });

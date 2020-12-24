@@ -7,8 +7,8 @@ const ls = createStorage(localStorage);
 const ss = createStorage();
 
 interface CacheStore {
-  local: Record<string, any>;
-  session: Record<string, any>;
+  local: Recordable;
+  session: Recordable;
 }
 
 /**

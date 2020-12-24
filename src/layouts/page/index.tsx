@@ -13,7 +13,7 @@ import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
 // import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
 interface DefaultContext {
-  Component: FunctionalComponent & { type: { [key: string]: any } };
+  Component: FunctionalComponent & { type: Indexable };
   route: RouteLocation;
 }
 

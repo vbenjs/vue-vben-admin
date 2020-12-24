@@ -194,5 +194,5 @@ export interface ColumnProps<T> {
    * such as slots: { filterIcon: 'XXX'}
    * @type object
    */
-  slots?: Record<string, string>;
+  slots?: Recordable<string>;
 }

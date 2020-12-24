@@ -1,6 +1,6 @@
 <template>
   <Form v-bind="{ ...$attrs, ...$props }" ref="formElRef" :model="formModel">
-    <Row :class="getProps.compact ? 'compact-form-row' : ''" :style="getRowWrapStyleRef">
+    <Row :class="getProps.compact ? 'compact-form-row' : ''" :style="getRowWrapStyle">
       <slot name="formHeader" />
       <template v-for="schema in getSchema" :key="schema.field">
         <FormItem
@@ -10,6 +10,7 @@
           :formProps="getProps"
           :allDefaultValues="defaultValueRef"
           :formModel="formModel"
+          :setFormModel="setFormModel"
         >
           <template #[item]="data" v-for="item in Object.keys($slots)">
             <slot :name="item" v-bind="data" />
@@ -17,8 +18,9 @@
         </FormItem>
       </template>
 
+      <!--  -->
       <FormAction
-        v-bind="{ ...getActionPropsRef, ...advanceState }"
+        v-bind="{ ...getProps, ...advanceState }"
         @toggle-advanced="handleToggleAdvanced"
       />
       <slot name="formFooter" />
@@ -28,14 +30,12 @@
 <script lang="ts">
   import type { FormActionType, FormProps, FormSchema } from './types/form';
   import type { AdvanceState } from './types/hooks';
-  import type { Ref, WatchStopHandle } from 'vue';
-  import type { ValidateFields } from 'ant-design-vue/lib/form/interface';
+  import type { CSSProperties, Ref, WatchStopHandle } from 'vue';
 
   import { defineComponent, reactive, ref, computed, unref, onMounted, watch, toRefs } from 'vue';
   import { Form, Row } from 'ant-design-vue';
-  import FormItem from './FormItem';
-  import { basicProps } from './props';
-  import FormAction from './FormAction';
+  import FormItem from './components/FormItem';
+  import FormAction from './components/FormAction.vue';
 
   import { dateItemType } from './helper';
   import moment from 'moment';
@@ -44,7 +44,11 @@
 
   import { useFormValues } from './hooks/useFormValues';
   import useAdvanced from './hooks/useAdvanced';
-  import { useFormAction } from './hooks/useFormAction';
+  import { useFormEvents } from './hooks/useFormEvents';
+  import { createFormContext } from './hooks/useFormContext';
+
+  import { basicProps } from './props';
+
   export default defineComponent({
     name: 'BasicForm',
     components: { FormItem, Form, Row, FormAction },
@@ -52,12 +56,7 @@
     props: basicProps,
     emits: ['advanced-change', 'reset', 'submit', 'register'],
     setup(props, { emit }) {
-      const formModel = reactive({});
-
-      const actionState = reactive({
-        resetAction: {},
-        submitAction: {},
-      });
+      const formModel = reactive<Recordable>({});
 
       const advanceState = reactive<AdvanceState>({
         isAdvanced: true,
@@ -66,37 +65,24 @@
         actionSpan: 6,
       });
 
-      const defaultValueRef = ref<any>({});
+      const defaultValueRef = ref<Recordable>({});
       const isInitedDefaultRef = ref(false);
       const propsRef = ref<Partial<FormProps>>({});
       const schemaRef = ref<Nullable<FormSchema[]>>(null);
       const formElRef = ref<Nullable<FormActionType>>(null);
 
-      const getMergePropsRef = computed(
+      // Get the basic configuration of the form
+      const getProps = computed(
         (): FormProps => {
           return deepMerge(cloneDeep(props), unref(propsRef));
         }
       );
 
-      const getRowWrapStyleRef = computed((): any => {
-        const { baseRowStyle } = unref(getMergePropsRef);
-        return baseRowStyle || {};
-      });
-
-      // 获取表单基本配置
-      const getProps = computed(
-        (): FormProps => {
-          return {
-            ...unref(getMergePropsRef),
-            resetButtonOptions: deepMerge(
-              actionState.resetAction,
-              unref(getMergePropsRef).resetButtonOptions || {}
-            ),
-            submitButtonOptions: deepMerge(
-              actionState.submitAction,
-              unref(getMergePropsRef).submitButtonOptions || {}
-            ),
-          };
+      // Get uniform row style
+      const getRowWrapStyle = computed(
+        (): CSSProperties => {
+          const { baseRowStyle = {} } = unref(getProps);
+          return baseRowStyle;
         }
       );
 
@@ -120,18 +106,19 @@
         return schemas as FormSchema[];
       });
 
-      const { getActionPropsRef, handleToggleAdvanced } = useAdvanced({
+      const { handleToggleAdvanced } = useAdvanced({
         advanceState,
         emit,
-        getMergePropsRef,
         getProps,
         getSchema,
         formModel,
         defaultValueRef,
       });
+
       const { transformDateFunc, fieldMapToTime } = toRefs(props);
+
       const { handleFormValues, initDefault } = useFormValues({
-        transformDateFuncRef: transformDateFunc as Ref<Fn<any>>,
+        transformDateFuncRef: transformDateFunc,
         fieldMapToTimeRef: fieldMapToTime,
         defaultValueRef,
         getSchema,
@@ -139,7 +126,7 @@
       });
 
       const {
-        // handleSubmit,
+        handleSubmit,
         setFieldsValue,
         clearValidate,
         validate,
@@ -149,7 +136,8 @@
         appendSchemaByField,
         removeSchemaByFiled,
         resetFields,
-      } = useFormAction({
+        scrollToField,
+      } = useFormEvents({
         emit,
         getProps,
         formModel,
@@ -158,14 +146,19 @@
         formElRef: formElRef as Ref<FormActionType>,
         schemaRef: schemaRef as Ref<FormSchema[]>,
         handleFormValues,
-        actionState,
+      });
+
+      createFormContext({
+        resetAction: resetFields,
+        submitAction: handleSubmit,
       });
 
       watch(
-        () => unref(getMergePropsRef).model,
+        () => unref(getProps).model,
         () => {
-          if (!unref(getMergePropsRef).model) return;
-          setFieldsValue(unref(getMergePropsRef).model);
+          const { model } = unref(getProps);
+          if (!model) return;
+          setFieldsValue(model);
         },
         {
           immediate: true,
@@ -178,16 +171,19 @@
           if (unref(isInitedDefaultRef)) {
             return stopWatch();
           }
-          if (schema && schema.length) {
+          if (schema?.length) {
             initDefault();
             isInitedDefaultRef.value = true;
           }
         }
       );
 
-      function setProps(formProps: Partial<FormProps>): void {
-        const mergeProps = deepMerge(unref(propsRef) || {}, formProps);
-        propsRef.value = mergeProps;
+      async function setProps(formProps: Partial<FormProps>): Promise<void> {
+        propsRef.value = deepMerge(unref(propsRef) || {}, formProps);
+      }
+
+      function setFormModel(key: string, value: any) {
+        formModel[key] = value;
       }
 
       const formActionType: Partial<FormActionType> = {
@@ -199,8 +195,10 @@
         removeSchemaByFiled,
         appendSchemaByField,
         clearValidate,
-        validateFields: validateFields as ValidateFields,
-        validate: validate as ValidateFields,
+        validateFields,
+        validate,
+        submit: handleSubmit,
+        scrollToField: scrollToField,
       };
 
       onMounted(() => {
@@ -211,14 +209,14 @@
       return {
         handleToggleAdvanced,
         formModel,
-        getActionPropsRef,
         defaultValueRef,
         advanceState,
-        getRowWrapStyleRef,
+        getRowWrapStyle,
         getProps,
         formElRef,
         getSchema,
         formActionType,
+        setFormModel,
         ...formActionType,
       };
     },

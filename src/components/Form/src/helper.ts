@@ -1,3 +1,4 @@
+import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
 import type { ComponentType } from './types/index';
 import { useI18n } from '/@/hooks/web/useI18n';
 
@@ -28,6 +29,16 @@ export function createPlaceholderMessage(component: ComponentType) {
 
 function genType() {
   return ['DatePicker', 'MonthPicker', 'RangePicker', 'WeekPicker', 'TimePicker'];
+}
+
+export function setComponentRuleType(rule: ValidationRule, component: ComponentType) {
+  if (['DatePicker', 'MonthPicker', 'WeekPicker', 'TimePicker'].includes(component)) {
+    rule.type = 'object';
+  } else if (['RangePicker', 'Upload', 'CheckboxGroup', 'TimePicker'].includes(component)) {
+    rule.type = 'array';
+  } else if (['InputNumber'].includes(component)) {
+    rule.type = 'number';
+  }
 }
 
 /**

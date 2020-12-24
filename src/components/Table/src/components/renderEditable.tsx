@@ -232,7 +232,7 @@ export function renderEditableRow({
   };
 }
 
-export type EditRecordRow<T = { [key: string]: any }> = {
+export type EditRecordRow<T = Hash<any>> = {
   editable: boolean;
   onCancel: Fn;
   onSubmit: Fn;
