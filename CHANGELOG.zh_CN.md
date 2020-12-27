@@ -16,6 +16,10 @@
 
 - 优化`modal`与`drawer`滚动条组件
 
+### 🎫 Chores
+
+- 升级`ant-design-vue`到`2.0.0-rc.6`
+
 ### 🐛 Bug Fixes
 
 - 修复混合模式下滚动条丢失问题

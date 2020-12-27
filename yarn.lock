@@ -1956,10 +1956,10 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-ant-design-vue@^2.0.0-rc.5:
-  version "2.0.0-rc.5"
-  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.0.0-rc.5.tgz#cad07b4f9d8153cd399f1e374f438a2322b74b37"
-  integrity sha512-1gdMaSjxiYuqWvfUTW9kTEOXqxWjk7gjI5zWiCv24vJ9O04SvxWtZEY1Rfcp3FZJl37BP7LT1Ee1CdHTBk0/+A==
+ant-design-vue@^2.0.0-rc.6:
+  version "2.0.0-rc.6"
+  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.0.0-rc.6.tgz#f25f61cde1c75c32a78b536751731c0b223b6590"
+  integrity sha512-NRxzIC4CSM56MXYHdg3K2oTc+pkcSJd6BJtIBCxUsbFfbBGp+F7ei7C1bQDdHHos3o/Oe2iqGwzfrZ7+Ot2Uew==
   dependencies:
     "@ant-design-vue/use" "^0.0.1-0"
     "@ant-design/icons-vue" "^5.1.7"
@@ -3448,10 +3448,10 @@ eslint-plugin-prettier@^3.3.0:
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
-eslint-plugin-vue@^7.3.0:
-  version "7.3.0"
-  resolved "https://registry.npmjs.org/eslint-plugin-vue/-/eslint-plugin-vue-7.3.0.tgz#0faf0fcf0e1b1052bf800d4dee42d64f50679cb0"
-  integrity sha512-4rc9xrZgwT4aLz3XE6lrHu+FZtDLWennYvtzVvvS81kW9c65U4DUzQQWAFjDCgCFvN6HYWxi7ueEtxZVSB+f0g==
+eslint-plugin-vue@^7.4.0:
+  version "7.4.0"
+  resolved "https://registry.npmjs.org/eslint-plugin-vue/-/eslint-plugin-vue-7.4.0.tgz#27324cbe8f00705708c9fa9e8c0401d8f0742c20"
+  integrity sha512-bYJV3nHSGV5IL40Ti1231vlY8I2DzjDHYyDjRv9Z1koEI7qyV2RR3+uKMafHdOioXYH9W3e1+iwe4wy7FIBNCQ==
   dependencies:
     eslint-utils "^2.1.0"
     natural-compare "^1.4.0"
@@ -8202,10 +8202,10 @@ vue-i18n@9.0.0-beta.14:
     "@intlify/shared" "9.0.0-beta.14"
     "@vue/devtools-api" "^6.0.0-beta.2"
 
-vue-router@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/vue-router/-/vue-router-4.0.1.tgz#309240e50524b1e7d4e82e27f0a0fa25fe3d1d71"
-  integrity sha512-2C2nRxA2nCusgJyUpvcbd9Bnc9kACp/VLUCK4drXtgeRXHjQliZJcgjjP268vkGvvEKun9jjp8Ic1PpzUgbYKg==
+vue-router@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.npmjs.org/vue-router/-/vue-router-4.0.2.tgz#5702bf8fa14535b80142fde226bf41a84917b1f4"
+  integrity sha512-LCsTSb5H25dZCxjsLasM9UED1BTg9vyTnp0Z9UhwC6QoqgLuHr/ySf7hjI/V0j2+xCKqJtecfmpghk6U8I2e4w==
 
 vue-types@^3.0.0, vue-types@^3.0.1:
   version "3.0.1"
