@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.4",
-    "@vueuse/core": "^4.0.0",
+    "@vueuse/core": "^4.0.1",
     "ant-design-vue": "^2.0.0-rc.5",
     "apexcharts": "^3.23.0",
     "axios": "^0.21.1",
@@ -35,7 +35,7 @@
     "path-to-regexp": "^6.2.0",
     "qrcode": "^1.4.4",
     "sortablejs": "^1.12.0",
-    "vditor": "^3.7.3",
+    "vditor": "^3.7.4",
     "vue": "^3.0.4",
     "vue-i18n": "9.0.0-beta.14",
     "vue-router": "^4.0.1",
@@ -48,7 +48,7 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "@iconify/json": "^1.1.276",
+    "@iconify/json": "^1.1.277",
     "@ls-lint/ls-lint": "^1.9.2",
     "@purge-icons/generated": "^0.4.1",
     "@types/echarts": "^4.9.3",

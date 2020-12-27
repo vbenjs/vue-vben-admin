@@ -3,7 +3,6 @@ import type { FormActionType, FormProps } from '../types/form';
 import type { FormSchema } from '../types/form';
 import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
 import type { TableActionType } from '/@/components/Table';
-import type { ComponentType } from '../types';
 
 import { defineComponent, computed, unref, toRefs } from 'vue';
 import { Form, Col } from 'ant-design-vue';
@@ -16,7 +15,6 @@ import { createPlaceholderMessage, setComponentRuleType } from '../helper';
 import { upperFirst, cloneDeep } from 'lodash-es';
 
 import { useItemLabelWidth } from '../hooks/useLabelWidth';
-import { isNumber } from '/@/utils/is';
 import { useI18n } from '/@/hooks/web/useI18n';
 
 export default defineComponent({
@@ -81,7 +79,7 @@ export default defineComponent({
       if (!isFunction(componentProps)) {
         return componentProps;
       }
-      return componentProps({ schema, tableAction, formModel, formActionType }) || {};
+      return componentProps({ schema, tableAction, formModel, formActionType }) ?? {};
     });
 
     const getDisable = computed(() => {
@@ -99,7 +97,7 @@ export default defineComponent({
       return disabled;
     });
 
-    function getShow() {
+    const getShow = computed(() => {
       const { show, ifShow } = props.schema;
       const { showAdvancedButton } = props.formProps;
       const itemIsAdvanced = showAdvancedButton
@@ -124,7 +122,7 @@ export default defineComponent({
       }
       isShow = isShow && itemIsAdvanced;
       return { isShow, isIfShow };
-    }
+    });
 
     function handleRules(): ValidationRule[] {
       const {
@@ -171,27 +169,13 @@ export default defineComponent({
         }
       }
 
-      // 最大输入长度规则校验
+      // Maximum input length rule check
       const characterInx = rules.findIndex((val) => val.max);
       if (characterInx !== -1 && !rules[characterInx].validator) {
         rules[characterInx].message =
           rules[characterInx].message || t('component.form.maxTip', [rules[characterInx].max]);
       }
       return rules;
-    }
-
-    function handleValue(component: ComponentType, field: string) {
-      const val = props.formModel[field];
-      if (['Input', 'InputPassword', 'InputSearch', 'InputTextArea'].includes(component)) {
-        if (val && isNumber(val)) {
-          props.setFormModel(field, `${val}`);
-
-          // props.formModel[field] = `${val}`;
-          return `${val}`;
-        }
-        return val;
-      }
-      return val;
     }
 
     function renderComponent() {
@@ -217,7 +201,6 @@ export default defineComponent({
 
           const value = target ? (isCheck ? target.checked : target.value) : e;
           props.setFormModel(field, value);
-          // props.formModel[field] = value;
         },
       };
       const Comp = componentMap.get(component) as typeof defineComponent;
@@ -233,7 +216,7 @@ export default defineComponent({
 
       const isCreatePlaceholder = !propsData.disabled && autoSetPlaceHolder;
       let placeholder;
-      // RangePicker place为数组
+      // RangePicker place is an array
       if (isCreatePlaceholder && component !== 'RangePicker' && component) {
         placeholder = unref(getComponentsProps)?.placeholder || createPlaceholderMessage(component);
       }
@@ -242,7 +225,7 @@ export default defineComponent({
       propsData.formValues = unref(getValues);
 
       const bindValue: Recordable = {
-        [valueField || (isCheck ? 'checked' : 'value')]: handleValue(component, field),
+        [valueField || (isCheck ? 'checked' : 'value')]: props.formModel[field],
       };
 
       const compAttr: Recordable = {
@@ -284,7 +267,7 @@ export default defineComponent({
     }
 
     function renderItem() {
-      const { itemProps, slot, render, field } = props.schema;
+      const { itemProps, slot, render, field, suffix } = props.schema;
       const { labelCol, wrapperCol } = unref(itemLabelWidthProp);
       const { colon } = props.formProps;
 
@@ -296,17 +279,27 @@ export default defineComponent({
           : renderComponent();
       };
 
+      const showSuffix = !!suffix;
+
+      const getSuffix = isFunction(suffix) ? suffix(unref(getValues)) : suffix;
+
       return (
         <Form.Item
           name={field}
           colon={colon}
+          class={{ 'suffix-item': showSuffix }}
           {...(itemProps as Recordable)}
           label={renderLabelHelpMessage()}
           rules={handleRules()}
           labelCol={labelCol}
           wrapperCol={wrapperCol}
         >
-          {() => getContent()}
+          {() => (
+            <>
+              {getContent()}
+              {showSuffix && <span class="suffix">{getSuffix}</span>}
+            </>
+          )}
         </Form.Item>
       );
     }
@@ -317,7 +310,7 @@ export default defineComponent({
       const { baseColProps = {} } = props.formProps;
 
       const realColProps = { ...baseColProps, ...colProps };
-      const { isIfShow, isShow } = getShow();
+      const { isIfShow, isShow } = unref(getShow);
 
       const getContent = () => {
         return colSlot

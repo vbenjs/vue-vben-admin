@@ -8,6 +8,9 @@
 - 新增主框架外页面示例
 - `route.meta` 新增`currentActiveMenu`,`hideTab`,`hideMenu`参数 用于控制详情页面包屑级菜单显示隐藏。
 - 新增面包屑导航示例
+- form: 新增`suffix`属性，用于配置后缀内容
+- form: 新增远程下拉`ApiSelect`及示例
+- form: 新增`autoFocusFirstItem`配置。用于配置是否聚焦表单第一个输入框
 
 ### 🐛 Bug Fixes
 

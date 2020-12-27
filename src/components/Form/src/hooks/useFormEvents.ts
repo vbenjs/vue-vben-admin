@@ -6,7 +6,7 @@ import { unref, toRaw } from 'vue';
 
 import { isArray, isFunction, isObject, isString } from '/@/utils/is';
 import { deepMerge, unique } from '/@/utils';
-import { dateItemType } from '../helper';
+import { dateItemType, handleInputNumberValue } from '../helper';
 import moment from 'moment';
 import { cloneDeep } from 'lodash-es';
 import { error } from '/@/utils/log';
@@ -49,29 +49,32 @@ export function useFormEvents({
   /**
    * @description: Set form value
    */
-  async function setFieldsValue(values: any): Promise<void> {
+  async function setFieldsValue(values: Recordable): Promise<void> {
     const fields = unref(getSchema)
       .map((item) => item.field)
       .filter(Boolean);
 
     const validKeys: string[] = [];
     Object.keys(values).forEach((key) => {
-      const element = values[key];
+      const schema = unref(getSchema).find((item) => item.field === key);
+      let value = values[key];
+
+      value = handleInputNumberValue(schema?.component, value);
       // 0| '' is allow
-      if (element !== undefined && element !== null && fields.includes(key)) {
+      if (value !== undefined && value !== null && fields.includes(key)) {
         // time type
         if (itemIsDateType(key)) {
-          if (Array.isArray(element)) {
-            const arr: any[] = [];
-            for (const ele of element) {
+          if (Array.isArray(value)) {
+            const arr: moment.Moment[] = [];
+            for (const ele of value) {
               arr.push(moment(ele));
             }
             formModel[key] = arr;
           } else {
-            formModel[key] = moment(element);
+            formModel[key] = moment(value);
           }
         } else {
-          formModel[key] = element;
+          formModel[key] = value;
         }
         validKeys.push(key);
       }

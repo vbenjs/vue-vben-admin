@@ -170,7 +170,7 @@
       }
       function setFormValues() {
         setFieldsValue({
-          field1: '1111',
+          field1: 1111,
           field5: ['1'],
           field7: '1',
         });
