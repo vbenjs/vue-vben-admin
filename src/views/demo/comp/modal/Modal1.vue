@@ -8,8 +8,5 @@
   import { BasicModal } from '/@/components/Modal';
   export default defineComponent({
     components: { BasicModal },
-    setup() {
-      return {};
-    },
   });
 </script>
