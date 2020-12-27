@@ -1,5 +1,5 @@
 <template>
-  <div class="collapse-container__header">
+  <div :class="`${prefixCls}__header`">
     <BasicTitle :helpMessage="$attrs.helpMessage">
       <template v-if="$attrs.title">
         {{ $attrs.title }}
@@ -9,7 +9,7 @@
       </template>
     </BasicTitle>
 
-    <div class="collapse-container__action">
+    <div :class="`${prefixCls}__action`">
       <slot name="action" />
       <BasicArrow v-if="$attrs.canExpan" top :expand="$attrs.show" @click="$emit('expand')" />
     </div>
@@ -21,5 +21,8 @@
   export default defineComponent({
     inheritAttrs: false,
     components: { BasicArrow, BasicTitle },
+    props: {
+      prefixCls: String,
+    },
   });
 </script>

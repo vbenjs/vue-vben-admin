@@ -1,5 +1,5 @@
 import { getCurrentInstance, reactive, shallowRef, watchEffect } from 'vue';
-
+import type { Ref } from 'vue';
 interface Params {
   excludeListeners?: boolean;
   excludeKeys?: string[];
@@ -12,7 +12,7 @@ export function entries<T>(obj: Hash<T>): [string, T][] {
   return Object.keys(obj).map((key: string) => [key, obj[key]]);
 }
 
-export function useAttrs(params: Params = {}) {
+export function useAttrs(params: Params = {}): Ref<Recordable> | {} {
   const instance = getCurrentInstance();
   if (!instance) return {};
 

@@ -1,6 +1,6 @@
 <template>
-  <div class="collapse-container p-2">
-    <CollapseHeader v-bind="$props" :show="show" @expand="handleExpand">
+  <div :class="['p-2', prefixCls]">
+    <CollapseHeader v-bind="$props" :prefixCls="prefixCls" :show="show" @expand="handleExpand">
       <template #title>
         <slot name="title" />
       </template>
@@ -8,7 +8,7 @@
 
     <CollapseTransition :enable="canExpan">
       <Skeleton v-if="loading" />
-      <div class="collapse-container__body" v-else v-show="show">
+      <div :class="`${prefixCls}__body`" v-else v-show="show">
         <LazyContainer :timeout="lazyTime" v-if="lazy">
           <slot />
           <template #skeleton>
@@ -35,6 +35,7 @@
   // hook
   import { useTimeoutFn } from '/@/hooks/core/useTimeout';
   import { propTypes } from '/@/utils/propTypes';
+  import { useDesign } from '/@/hooks/web/useDesign';
 
   export default defineComponent({
     name: 'CollapseContainer',
@@ -64,6 +65,9 @@
     },
     setup(props) {
       const show = ref(true);
+
+      const { prefixCls } = useDesign('collapse-container');
+
       /**
        * @description: Handling development events
        */
@@ -77,19 +81,19 @@
       return {
         show,
         handleExpand,
+        prefixCls,
       };
     },
   });
 </script>
 <style lang="less">
-  .collapse-container {
+  @import (reference) '../../../../design/index.less';
+  @prefix-cls: ~'@{namespace}-collapse-container';
+
+  .@{prefix-cls} {
     background: #fff;
     border-radius: 2px;
     transition: all 0.3s ease-in-out;
-
-    &.no-shadow {
-      box-shadow: none;
-    }
 
     &__header {
       display: flex;
