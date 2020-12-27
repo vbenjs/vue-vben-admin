@@ -146,7 +146,7 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
     emit('close');
   }
 
-  useKeyPress(['enter', 'up', 'down'], (events) => {
+  useKeyPress(['enter', 'up', 'down', 'esc'], (events) => {
     const keyCode = events.keyCode;
     switch (keyCode) {
       case KeyCodeEnum.UP:
