@@ -16,6 +16,7 @@
     <template #footer v-if="!$slots.footer">
       <ModalFooter v-bind="getProps" @ok="handleOk" @cancel="handleCancel" />
     </template>
+
     <ModalWrapper
       :useWrapper="getProps.useWrapper"
       :footerOffset="wrapperFooterOffset"
@@ -30,6 +31,10 @@
     >
       <slot />
     </ModalWrapper>
+
+    <template #[item]="data" v-for="item in Object.keys(omit($slots, 'default'))">
+      <slot :name="item" v-bind="data" />
+    </template>
   </Modal>
 </template>
 <script lang="ts">

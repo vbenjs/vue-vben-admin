@@ -48,6 +48,7 @@
       const wrapperRef = ref<ComponentRef>(null);
       const spinRef = ref<ElRef>(null);
       const realHeightRef = ref(0);
+      const minRealHeightRef = ref(0);
 
       let stopElResizeFn: Fn = () => {};
 
@@ -82,10 +83,13 @@
 
       watch(
         () => props.fullScreen,
-        () => {
-          setTimeout(() => {
-            setModalHeight();
-          }, 0);
+        (v) => {
+          setModalHeight();
+          if (!v) {
+            realHeightRef.value = minRealHeightRef.value;
+          } else {
+            minRealHeightRef.value = realHeightRef.value;
+          }
         }
       );
 
