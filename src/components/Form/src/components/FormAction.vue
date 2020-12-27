@@ -55,7 +55,7 @@
   export default defineComponent({
     name: 'BasicFormAction',
     components: {
-      FormItem: Form,
+      FormItem: Form.Item,
       Button,
       BasicArrow,
     },

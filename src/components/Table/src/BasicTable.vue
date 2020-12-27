@@ -80,14 +80,13 @@
       const innerPropsRef = ref<Partial<BasicTableProps>>();
       const [registerForm, { getFieldsValue }] = useForm();
 
-      const getMergeProps = computed(
-        (): BasicTableProps => {
-          return {
-            ...props,
-            ...unref(innerPropsRef),
-          } as BasicTableProps;
-        }
-      );
+      const getMergeProps = computed(() => {
+        return {
+          ...props,
+          ...unref(innerPropsRef),
+        } as BasicTableProps;
+      });
+
       const { loadingRef } = useLoading(getMergeProps);
       const { getPaginationRef, setPagination } = usePagination(getMergeProps);
       const { getColumnsRef, setColumns } = useColumns(getMergeProps, getPaginationRef);
@@ -123,7 +122,7 @@
           getMergeProps
         );
         const hideTitle = !slots.tableTitle && !title && !slots.toolbar && !showTableSetting;
-        const titleData: any =
+        const titleData: Recordable =
           hideTitle && !isString(title)
             ? {}
             : {
@@ -313,6 +312,7 @@
       useExpose<TableActionType>(tableAction);
 
       emit('register', tableAction);
+
       return {
         tableElRef,
         getBindValues,

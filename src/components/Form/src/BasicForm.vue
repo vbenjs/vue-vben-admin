@@ -53,7 +53,6 @@
   export default defineComponent({
     name: 'BasicForm',
     components: { FormItem, Form, Row, FormAction },
-    inheritAttrs: false,
     props: basicProps,
     emits: ['advanced-change', 'reset', 'submit', 'register'],
     setup(props, { emit }) {
@@ -279,7 +278,7 @@
 
     &--compact {
       .ant-form-item {
-        margin-bottom: 8px;
+        margin-bottom: 8px !important;
       }
     }
   }
