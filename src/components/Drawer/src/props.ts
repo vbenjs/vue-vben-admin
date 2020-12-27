@@ -10,13 +10,13 @@ export const footerProps = {
    * @description: Show close button
    */
   showCancelBtn: propTypes.bool.def(true),
-  cancelButtonProps: Object as PropType<any>,
+  cancelButtonProps: Object as PropType<Recordable>,
   cancelText: propTypes.string.def(t('component.drawer.cancelText')),
   /**
    * @description: Show confirmation button
    */
   showOkBtn: propTypes.bool.def(true),
-  okButtonProps: propTypes.any,
+  okButtonProps: Object as PropType<Recordable>,
   okText: propTypes.string.def(t('component.drawer.okText')),
   okType: propTypes.string.def('primary'),
   showFooter: propTypes.bool,
@@ -28,6 +28,7 @@ export const footerProps = {
 export const basicProps = {
   isDetail: propTypes.bool,
   title: propTypes.string.def(''),
+  loadingText: propTypes.string,
   showDetailBack: propTypes.bool.def(true),
   visible: propTypes.bool,
   loading: propTypes.bool,

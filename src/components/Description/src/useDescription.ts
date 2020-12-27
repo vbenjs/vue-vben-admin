@@ -19,7 +19,7 @@ export function useDescription(props?: Partial<DescOptions>): UseDescReturnType 
 
   const methods: DescInstance = {
     setDescProps: (descProps: Partial<DescOptions>): void => {
-      unref(descRef)!.setDescProps(descProps);
+      unref(descRef)?.setDescProps(descProps);
     },
   };
 

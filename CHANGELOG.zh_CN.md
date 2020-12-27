@@ -12,6 +12,10 @@
 - form: 新增远程下拉`ApiSelect`及示例
 - form: 新增`autoFocusFirstItem`配置。用于配置是否聚焦表单第一个输入框
 
+### ⚡ Performance Improvements
+
+- 优化`modal`与`drawer`滚动条组件
+
 ### 🐛 Bug Fixes
 
 - 修复混合模式下滚动条丢失问题
@@ -21,6 +25,7 @@
 - 修复路由类型错误
 - 修复菜单分割时权限失效问题
 - 关闭多标签页时 iframe 提前加载
+- 修复`modal`与`drawer`已知问题
 
 ## 2.0.0-rc.14 (2020-12-15)
 

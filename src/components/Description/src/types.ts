@@ -15,7 +15,10 @@ export interface DescItem {
   span?: number;
   show?: (...arg: any) => boolean;
   // render
-  render?: (val: string, data: any) => VNode | undefined | JSX.Element | Element | string | number;
+  render?: (
+    val: string,
+    data: Recordable
+  ) => VNode | undefined | JSX.Element | Element | string | number;
 }
 
 export interface DescOptions extends DescriptionsProps {
@@ -30,7 +33,7 @@ export interface DescOptions extends DescriptionsProps {
    * 数据
    * @type object
    */
-  data: any;
+  data: Recordable;
   /**
    * Built-in CollapseContainer component configuration
    * @type CollapseContainerOptions
