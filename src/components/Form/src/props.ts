@@ -65,6 +65,8 @@ export const basicProps = {
   actionColOptions: Object as PropType<Partial<ColEx>>,
   // 显示重置按钮
   showResetButton: propTypes.bool.def(true),
+  // 是否聚焦第一个输入框，只在第一个表单项为input的时候作用
+  autoFocusFirstItem: propTypes.bool,
   // 重置按钮配置
   resetButtonOptions: Object as PropType<Partial<ButtonProps>>,
 

@@ -1076,10 +1076,10 @@
   resolved "https://registry.npmjs.org/@iconify/iconify/-/iconify-2.0.0-rc.4.tgz#46098fb544a4eb3af724219e4955c9022801835e"
   integrity sha512-YCSECbeXKFJEIVkKgKMjUzJ439ysufmL/a31B1j7dCvnHaBWsX9J4XehhJgg/aTy3yvhHaVhI6xt1kSMZP799A==
 
-"@iconify/json@^1.1.276":
-  version "1.1.276"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.276.tgz#c8d51751abc84cc73a466f55bc2f352686451786"
-  integrity sha512-Ra/mGT+n38vhi/i1cjsPYOmSR2d6rNIXZ+OsrIWp9J35zAPQ93sSTQMpTyxZdLu3QxU0vYwtcaC7h/Y1/3H3wg==
+"@iconify/json@^1.1.277":
+  version "1.1.277"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.277.tgz#e11e01833b05845ce1afc5ad61759804f6ed2eb2"
+  integrity sha512-66n4lsv57iRwtcb2Q8ax8iasVLzFz9VWcqtgobHVrvyfsVqf8hSldJELnTl/gtqayqa35pT4mHEpdfsqt1mnLA==
 
 "@intlify/core-base@9.0.0-beta.14":
   version "9.0.0-beta.14"
@@ -1831,18 +1831,18 @@
     vscode-languageserver-textdocument "^1.0.1"
     vscode-uri "^2.1.2"
 
-"@vueuse/core@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.0.0.tgz#5bea3eaa848e3b3e00427f5053fb98e7e4834b0f"
-  integrity sha512-BBkqriC2j9SH/LuHCggS2MP7VSwBfGkTB9qQh1lzadodk2TnM1JHwM76f3G0hCGqqhEF7ab8Xs+1M1PlvuEQYA==
+"@vueuse/core@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.0.1.tgz#be90fd09de0264dbe61c571b5967334ca94d8cb2"
+  integrity sha512-bC6H/ES9aFnzp6rT3W3d5j/CqB8mN1UrvBj1RO639QMwxPbJ5/JDjDD4HHtOdIZfA82d6p2Ijbv4Y04mXmkHng==
   dependencies:
-    "@vueuse/shared" "4.0.0"
+    "@vueuse/shared" "4.0.1"
     vue-demi latest
 
-"@vueuse/shared@4.0.0":
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.0.0.tgz#d495b8fd2f28a453ef0fccae175ca848a4a84bb0"
-  integrity sha512-8tn1BpnaMJU2LqFyFzzN6Dvmc1uDsSlb3Neli5bwwb9f+rcASpuOS3nAWAY6/rIODZP1iwXDNCL4rNFR3YxYtQ==
+"@vueuse/shared@4.0.1":
+  version "4.0.1"
+  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.0.1.tgz#28750d34400cd0cabf2576342c5ee7471b0e27bd"
+  integrity sha512-7SQ1OqUPiuOSe5OFGIn5NvawZ7mfID5V4AwsHwpMAQn22Ex73az6TFE1N/6fL4rZBx6wLrkPfVO9v7vSsOkvlg==
   dependencies:
     vue-demi latest
 
@@ -8039,10 +8039,10 @@ vary@^1.1.2:
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-vditor@^3.7.3:
-  version "3.7.3"
-  resolved "https://registry.npmjs.org/vditor/-/vditor-3.7.3.tgz#6f7bdee7dca758985b29be1533ed952178f0aac4"
-  integrity sha512-2EHwAc9l+HOo6dcScSJDPmVTsVuEqHK2ucZwAHgvctpua3pMz/CAGMHgPoyB5X1Pju7yrLfsESHZh8V6Ndh6rg==
+vditor@^3.7.4:
+  version "3.7.4"
+  resolved "https://registry.npmjs.org/vditor/-/vditor-3.7.4.tgz#e2ec46f009e99d4ef1804d4ef355d44be7efb9a3"
+  integrity sha512-NfpXCoiVEeaORwGPNaxVDQGHs6Sib2RlI+slSFc5eXV8pFfYM639O6iOLjG2Ks+lN7nM9SsmpcGXwnQ0/S90xA==
   dependencies:
     diff-match-patch "^1.0.5"
 

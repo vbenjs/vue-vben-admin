@@ -82,6 +82,8 @@ export interface FormProps {
   rulesMessageJoinLabel?: boolean;
   // Whether to show collapse and expand buttons
   showAdvancedButton?: boolean;
+  // Whether to focus on the first input box, only works when the first form item is input
+  autoFocusFirstItem?: boolean;
   // Automatically collapse over the specified number of rows
   autoAdvancedLine?: number;
   // Whether to show the operation button
@@ -138,6 +140,8 @@ export interface FormSchema {
     | object;
   // Required
   required?: boolean;
+
+  suffix?: string | number | ((values: RenderCallbackParams) => string | number);
 
   // Validation rules
   rules?: Rule[];

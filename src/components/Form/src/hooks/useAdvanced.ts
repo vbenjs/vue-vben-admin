@@ -1,6 +1,6 @@
 import type { ColEx } from '../types';
 import type { AdvanceState } from '../types/hooks';
-import { ComputedRef, Ref } from 'vue';
+import type { ComputedRef, Ref } from 'vue';
 import type { FormProps, FormSchema } from '../types/form';
 
 import { computed, unref, watch } from 'vue';
