@@ -97,7 +97,7 @@ export default defineComponent({
       return disabled;
     });
 
-    const getShow = computed(() => {
+    function getShow() {
       const { show, ifShow } = props.schema;
       const { showAdvancedButton } = props.formProps;
       const itemIsAdvanced = showAdvancedButton
@@ -122,7 +122,7 @@ export default defineComponent({
       }
       isShow = isShow && itemIsAdvanced;
       return { isShow, isIfShow };
-    });
+    }
 
     function handleRules(): ValidationRule[] {
       const {
@@ -310,7 +310,7 @@ export default defineComponent({
       const { baseColProps = {} } = props.formProps;
 
       const realColProps = { ...baseColProps, ...colProps };
-      const { isIfShow, isShow } = unref(getShow);
+      const { isIfShow, isShow } = getShow();
 
       const getContent = () => {
         return colSlot
