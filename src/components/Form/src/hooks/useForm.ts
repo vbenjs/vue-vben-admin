@@ -1,15 +1,19 @@
-import { ref, onUnmounted, unref, nextTick } from 'vue';
+import { ref, onUnmounted, unref, nextTick, watchEffect } from 'vue';
 
 import { isInSetup } from '/@/utils/helper/vueHelper';
 import { isProdMode } from '/@/utils/env';
 import { error } from '/@/utils/log';
+import { getDynamicProps } from '/@/utils';
 
 import type { FormProps, FormActionType, UseFormReturnType, FormSchema } from '../types/form';
 import type { NamePath } from 'ant-design-vue/lib/form/interface';
+import type { DynamicProps } from '/@/types/utils';
 
 export declare type ValidateFields = (nameList?: NamePath[]) => Promise<Recordable>;
 
-export function useForm(props?: Partial<FormProps>): UseFormReturnType {
+type Props = Partial<DynamicProps<FormProps>>;
+
+export function useForm(props?: Props): UseFormReturnType {
   isInSetup();
 
   const formRef = ref<Nullable<FormActionType>>(null);
@@ -25,6 +29,7 @@ export function useForm(props?: Partial<FormProps>): UseFormReturnType {
     await nextTick();
     return form as FormActionType;
   }
+
   function register(instance: FormActionType) {
     isProdMode() &&
       onUnmounted(() => {
@@ -34,8 +39,12 @@ export function useForm(props?: Partial<FormProps>): UseFormReturnType {
     if (unref(loadedRef) && isProdMode() && instance === unref(formRef)) return;
 
     formRef.value = instance;
-    props && instance.setProps(props);
+
     loadedRef.value = true;
+
+    watchEffect(() => {
+      props && instance.setProps(getDynamicProps(props));
+    });
   }
 
   const methods: FormActionType = {

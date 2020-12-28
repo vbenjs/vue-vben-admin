@@ -11,6 +11,7 @@
 - form: 新增`suffix`属性，用于配置后缀内容
 - form: 新增远程下拉`ApiSelect`及示例
 - form: 新增`autoFocusFirstItem`配置。用于配置是否聚焦表单第一个输入框
+- useForm: 支持动态改变参数。可以传入`Ref`类型与`Computed`类型进行动态更改
 
 ### ⚡ Performance Improvements
 
@@ -18,7 +19,7 @@
 
 ### 🎫 Chores
 
-- 升级`ant-design-vue`到`2.0.0-rc.6`
+- 升级`ant-design-vue`到`2.0.0-rc.7`
 
 ### 🐛 Bug Fixes
 

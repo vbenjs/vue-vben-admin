@@ -38,7 +38,7 @@
         type: String as PropType<string>,
       },
       api: {
-        type: Function as PropType<(arg: Recordable) => Promise<OptionsItem[]>>,
+        type: Function as PropType<(arg?: Recordable) => Promise<OptionsItem[]>>,
         default: null,
       },
       params: {

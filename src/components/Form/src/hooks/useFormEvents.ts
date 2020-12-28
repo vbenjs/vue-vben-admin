@@ -178,12 +178,10 @@ export function useFormEvents({
   }
 
   async function validateFields(nameList?: NamePath[] | undefined) {
-    const res = await unref(formElRef)?.validateFields(nameList || []);
-    return res;
+    return unref(formElRef)?.validateFields(nameList);
   }
-
   async function validate(nameList?: NamePath[] | undefined) {
-    return await unref(formElRef)?.validate(nameList || []);
+    return await unref(formElRef)?.validate(nameList);
   }
 
   async function clearValidate(name?: string | string[]) {

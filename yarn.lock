@@ -1956,10 +1956,10 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-ant-design-vue@^2.0.0-rc.6:
-  version "2.0.0-rc.6"
-  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.0.0-rc.6.tgz#f25f61cde1c75c32a78b536751731c0b223b6590"
-  integrity sha512-NRxzIC4CSM56MXYHdg3K2oTc+pkcSJd6BJtIBCxUsbFfbBGp+F7ei7C1bQDdHHos3o/Oe2iqGwzfrZ7+Ot2Uew==
+ant-design-vue@^2.0.0-rc.7:
+  version "2.0.0-rc.7"
+  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.0.0-rc.7.tgz#5d83a7f13275574ec1fc1ea8c1fe8d9aa6de067c"
+  integrity sha512-QMStvwaLfV1Q3RaQ8D926aCkW6iqWBHXlNv7dBdTPvU8eeFXPaPKenLu1OTpSi+wpCncJqgumFOEcENPvh0nKw==
   dependencies:
     "@ant-design-vue/use" "^0.0.1-0"
     "@ant-design/icons-vue" "^5.1.7"

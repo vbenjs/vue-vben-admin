@@ -6,10 +6,10 @@
 
     <div class="m-5">
       <a-card title="仓库管理" :bordered="false">
-        <BasicForm @register="register" layout="vertical" />
+        <BasicForm @register="register" />
       </a-card>
       <a-card title="任务管理" :bordered="false" class="mt-5">
-        <BasicForm @register="registerTask" layout="vertical" />
+        <BasicForm @register="registerTask" />
       </a-card>
       <a-card title="成员管理" :bordered="false" class="mt-5">
         <PersonTable ref="tableRef" />
