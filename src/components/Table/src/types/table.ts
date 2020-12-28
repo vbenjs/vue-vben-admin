@@ -124,6 +124,8 @@ export interface TableSetting {
 }
 
 export interface BasicTableProps<T = any> {
+  // 点击行选中
+  clickToRowSelect?: boolean;
   // 自定义排序方法
   sortFn?: (sortInfo: SorterResult) => any;
   // 取消表格的默认padding
@@ -141,8 +143,6 @@ export interface BasicTableProps<T = any> {
   showSummary?: boolean;
   // 是否可拖拽列
   canColDrag?: boolean;
-  // 是否树表
-  isTreeTable?: boolean;
   // 接口请求对象
   api?: (...arg: any) => Promise<any>;
   // 请求之前处理参数
@@ -158,7 +158,7 @@ export interface BasicTableProps<T = any> {
   // 在开起搜索表单的时候，如果没有数据是否显示表格
   emptyDataIsShowTable?: boolean;
   // 额外的请求参数
-  searchInfo?: any;
+  searchInfo?: Recordable;
   // 使用搜索表单
   useSearchForm?: boolean;
   // 表单配置
@@ -180,9 +180,9 @@ export interface BasicTableProps<T = any> {
   // 在分页改变的时候清空选项
   clearSelectOnPageChange?: boolean;
   //
-  rowKey?: string | ((record: any) => string);
+  rowKey?: string | ((record: Recordable) => string);
   // 数据
-  dataSource?: any[];
+  dataSource?: Recordable[];
   // 标题右侧提示
   titleHelpMessage?: string | string[];
   // 表格滚动最大高度

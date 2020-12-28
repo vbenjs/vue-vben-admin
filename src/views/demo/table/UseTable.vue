@@ -44,12 +44,13 @@
           clearSelectedRowKeys,
         },
       ] = useTable({
-        canResize: false,
+        canResize: true,
         title: 'useTable示例',
         titleHelpMessage: '使用useTable调用表格内方法',
         api: demoListApi,
         columns: getBasicColumns(),
         rowKey: 'id',
+        showTableSetting: true,
         rowSelection: {
           type: 'checkbox',
         },

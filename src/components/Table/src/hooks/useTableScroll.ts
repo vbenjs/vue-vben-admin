@@ -1,57 +1,63 @@
 import type { BasicTableProps } from '../types/table';
-import { computed, Ref, onMounted, unref, ref, nextTick, ComputedRef, watch } from 'vue';
+import type { Ref, ComputedRef } from 'vue';
+import { computed, unref, ref, nextTick, watchEffect } from 'vue';
 
 import { getViewportOffset } from '/@/utils/domUtils';
 import { isBoolean } from '/@/utils/is';
 
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
-import { useProps } from './useProps';
 import { useModalContext } from '/@/components/Modal';
 
-export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRef: Ref<any>) {
-  const { propsRef } = useProps(refProps);
-
-  const tableHeightRef: Ref<number | null> = ref(null);
+export function useTableScroll(
+  propsRef: ComputedRef<BasicTableProps>,
+  tableElRef: Ref<ComponentRef>
+) {
+  const tableHeightRef: Ref<Nullable<number>> = ref(null);
 
   const modalFn = useModalContext();
 
-  watch(
-    () => unref(propsRef).canResize,
-    () => {
-      redoHeight();
-    }
-  );
+  const getCanResize = computed(() => {
+    const { canResize, scroll } = unref(propsRef);
+    return canResize && !(scroll || {}).y;
+  });
+
+  watchEffect(() => {
+    redoHeight();
+  });
 
   function redoHeight() {
-    const { canResize } = unref(propsRef);
-
-    if (!canResize) return;
-    calcTableHeight();
+    if (unref(getCanResize)) {
+      nextTick(() => {
+        calcTableHeight();
+      });
+    }
   }
 
+  // No need to repeat queries
   let paginationEl: HTMLElement | null;
   let footerEl: HTMLElement | null;
+
   async function calcTableHeight() {
-    const { canResize, resizeHeightOffset, pagination, maxHeight } = unref(propsRef);
-    if (!canResize) return;
+    const { resizeHeightOffset, pagination, maxHeight } = unref(propsRef);
+    if (!unref(getCanResize)) return;
 
     await nextTick();
-    const table = unref(tableElRef) as any;
+    const table = unref(tableElRef);
     if (!table) return;
 
     const tableEl: Element = table.$el;
     if (!tableEl) return;
+
     const headEl = tableEl.querySelector('.ant-table-thead ');
     if (!headEl) return;
 
-    // 表格距离底部高度
+    // Table height from bottom
     const { bottomIncludeBody } = getViewportOffset(headEl);
-    // 表格高度+距离底部高度-自定义偏移量
+    // Table height from bottom height-custom offset
 
     const paddingHeight = 32;
     const borderHeight = 2 * 2;
-    // 分页器高度
-
+    // Pager height
     let paginationHeight = 2;
     if (!isBoolean(pagination)) {
       if (!paginationEl) {
@@ -61,7 +67,7 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
         const offsetHeight = paginationEl.offsetHeight;
         paginationHeight += offsetHeight || 0;
       } else {
-        // TODO 先固定24
+        // TODO First fix 24
         paginationHeight += 24;
       }
     }
@@ -75,11 +81,13 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
         footerHeight += offsetHeight || 0;
       }
     }
+
     let headerHeight = 0;
     if (headEl) {
       headerHeight = (headEl as HTMLElement).offsetHeight;
     }
-    tableHeightRef.value =
+
+    const height =
       bottomIncludeBody -
       (resizeHeightOffset || 0) -
       paddingHeight -
@@ -89,27 +97,14 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
       headerHeight;
 
     setTimeout(() => {
-      tableHeightRef.value =
-        tableHeightRef.value! > maxHeight! ? (maxHeight as number) : tableHeightRef.value;
-      //  解决表格放modal内的时候，modal自适应高度计算问题
+      tableHeightRef.value = (height > maxHeight! ? (maxHeight as number) : height) ?? height;
+      //  Solve the problem of modal adaptive height calculation when the form is placed in the modal
       modalFn?.redoModalHeight?.();
-    }, 16);
+    }, 0);
   }
-
-  const getCanResize = computed(() => {
-    const { canResize, scroll } = unref(propsRef);
-    return canResize && !(scroll || {}).y;
-  });
 
   useWindowSizeFn(calcTableHeight, 100);
 
-  onMounted(() => {
-    if (unref(getCanResize)) {
-      nextTick(() => {
-        calcTableHeight();
-      });
-    }
-  });
   const getScrollRef = computed(() => {
     const tableHeight = unref(tableHeightRef);
     const { canResize, scroll } = unref(propsRef);
@@ -121,5 +116,6 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
       ...scroll,
     };
   });
+
   return { getScrollRef, redoHeight };
 }
