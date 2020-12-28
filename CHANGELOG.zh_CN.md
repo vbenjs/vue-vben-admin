@@ -12,10 +12,13 @@
 - form: 新增远程下拉`ApiSelect`及示例
 - form: 新增`autoFocusFirstItem`配置。用于配置是否聚焦表单第一个输入框
 - useForm: 支持动态改变参数。可以传入`Ref`类型与`Computed`类型进行动态更改
+- table: 新增`clickToRowSelect`属性。用于控制点击行是否选中勾选狂
+- table: 监听行点击事件
 
 ### ⚡ Performance Improvements
 
 - 优化`modal`与`drawer`滚动条组件
+- table: 移除 `isTreeTable`属性
 
 ### 🎫 Chores
 

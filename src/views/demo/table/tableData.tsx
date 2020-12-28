@@ -5,13 +5,13 @@ export function getBasicColumns(): BasicColumn[] {
   return [
     {
       title: 'ID',
-      width: 150,
       dataIndex: 'id',
+      width: 150,
     },
     {
       title: '姓名',
       dataIndex: 'name',
-      width: 120,
+      width: 150,
     },
     {
       title: '地址',
@@ -20,14 +20,16 @@ export function getBasicColumns(): BasicColumn[] {
     {
       title: '编号',
       dataIndex: 'no',
-      width: 80,
+      width: 150,
     },
     {
       title: '开始时间',
+      width: 120,
       dataIndex: 'beginTime',
     },
     {
       title: '结束时间',
+      width: 120,
       sorter: true,
       dataIndex: 'endTime',
     },

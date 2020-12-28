@@ -14,6 +14,7 @@ import { propTypes } from '/@/utils/propTypes';
 
 // 注释看 types/table
 export const basicProps = {
+  clickToRowSelect: propTypes.bool.def(true),
   tableSetting: {
     type: Object as PropType<TableSetting>,
   },
@@ -34,7 +35,6 @@ export const basicProps = {
   },
 
   canColDrag: propTypes.bool.def(true),
-  isTreeTable: propTypes.bool,
   api: {
     type: Function as PropType<(...arg: any[]) => Promise<any>>,
     default: null,

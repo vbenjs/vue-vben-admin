@@ -14,10 +14,11 @@ export function useTable(
   const loadedRef = ref<Nullable<boolean>>(false);
 
   function register(instance: TableActionType) {
-    onUnmounted(() => {
-      tableRef.value = null;
-      loadedRef.value = null;
-    });
+    isProdMode() &&
+      onUnmounted(() => {
+        tableRef.value = null;
+        loadedRef.value = null;
+      });
 
     if (unref(loadedRef) && isProdMode() && instance === unref(tableRef)) {
       return;

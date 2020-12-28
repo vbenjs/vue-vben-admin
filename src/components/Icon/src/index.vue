@@ -43,7 +43,7 @@
         if (el) {
           await nextTick();
           const icon = unref(getIconRef);
-
+          if (!icon) return;
           const svg = Iconify.renderSVG(icon, {});
 
           if (svg) {
@@ -74,7 +74,7 @@
         }
       );
 
-      watch(() => props.icon, update, { flush: 'post' });
+      // watch(() => props.icon, update, { flush: 'post' });
 
       onMounted(update);
 

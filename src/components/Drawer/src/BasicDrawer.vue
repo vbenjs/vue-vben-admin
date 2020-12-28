@@ -225,6 +225,10 @@
         padding: 16px !important;
         margin-bottom: 0 !important;
       }
+
+      > .scrollbar > .scrollbar__bar.is-horizontal {
+        display: none;
+      }
     }
   }
 
