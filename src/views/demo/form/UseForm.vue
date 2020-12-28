@@ -162,6 +162,7 @@
     components: { BasicForm, CollapseContainer },
     setup() {
       const { createMessage } = useMessage();
+
       const [register, { setProps }] = useForm({
         labelWidth: 120,
         schemas,
@@ -172,7 +173,7 @@
       return {
         register,
         schemas,
-        handleSubmit: (values: any) => {
+        handleSubmit: (values: Recordable) => {
           createMessage.success('click search,values:' + JSON.stringify(values));
         },
         setProps,

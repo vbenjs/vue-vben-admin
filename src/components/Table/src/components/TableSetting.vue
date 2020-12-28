@@ -90,7 +90,6 @@
     SettingOutlined,
   } from '@ant-design/icons-vue';
   import { useFullscreen } from '/@/hooks/web/useFullScreen';
-
   import type { SizeType, TableSetting } from '../types/table';
   import { useI18n } from '/@/hooks/web/useI18n';
 
@@ -150,6 +149,7 @@
           init();
         }
       });
+
       function init() {
         let ret: Options[] = [];
         table.getColumns({ ignoreIndex: true, ignoreAction: true }).forEach((item) => {

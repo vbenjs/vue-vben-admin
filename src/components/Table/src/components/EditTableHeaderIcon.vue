@@ -16,6 +16,5 @@
         default: '',
       },
     },
-    setup() {},
   });
 </script>

@@ -68,8 +68,9 @@
   import { useEventListener } from '/@/hooks/event/useEventListener';
   import { basicProps } from './props';
   import { ROW_KEY } from './const';
-  import './style/index.less';
   import { useExpose } from '/@/hooks/core/useExpose';
+
+  import './style/index.less';
   export default defineComponent({
     props: basicProps,
     components: { Table, BasicForm },
@@ -86,6 +87,12 @@
           ...unref(innerPropsRef),
         } as BasicTableProps;
       });
+
+      //  const getProps = computed(
+      //   (): FormProps => {
+      //     return deepMerge(toRaw(props), unref(innerPropsRef));
+      //   }
+      // );
 
       const { loadingRef } = useLoading(getMergeProps);
       const { getPaginationRef, setPagination } = usePagination(getMergeProps);
@@ -299,8 +306,8 @@
           loadingRef.value = loading;
         },
         setProps,
-        getSize: (): SizeType => {
-          return unref(getBindValues).size;
+        getSize: () => {
+          return unref(getBindValues).size as SizeType;
         },
       };
 

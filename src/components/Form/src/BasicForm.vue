@@ -31,14 +31,24 @@
   import type { AdvanceState } from './types/hooks';
   import type { CSSProperties, Ref, WatchStopHandle } from 'vue';
 
-  import { defineComponent, reactive, ref, computed, unref, onMounted, watch, toRefs } from 'vue';
+  import {
+    defineComponent,
+    reactive,
+    ref,
+    computed,
+    unref,
+    onMounted,
+    watch,
+    toRefs,
+    toRaw,
+  } from 'vue';
   import { Form, Row } from 'ant-design-vue';
   import FormItem from './components/FormItem';
   import FormAction from './components/FormAction.vue';
 
   import { dateItemType } from './helper';
   import moment from 'moment';
-  import { cloneDeep } from 'lodash-es';
+  // import { cloneDeep } from 'lodash-es';
   import { deepMerge } from '/@/utils';
 
   import { useFormValues } from './hooks/useFormValues';
@@ -76,7 +86,7 @@
       // Get the basic configuration of the form
       const getProps = computed(
         (): FormProps => {
-          return deepMerge(cloneDeep(props), unref(propsRef));
+          return { ...props, ...unref(propsRef) } as FormProps;
         }
       );
 

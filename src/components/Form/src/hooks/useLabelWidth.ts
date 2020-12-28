@@ -18,6 +18,9 @@ export function useItemLabelWidth(schemaItemRef: Ref<FormSchema>, propsRef: Ref<
 
     // If labelWidth is set globally, all items setting
     if ((!globalLabelWidth && !labelWidth && !globalLabelCol) || disabledLabelWidth) {
+      labelCol.style = {
+        textAlign: 'left',
+      };
       return { labelCol, wrapperCol };
     }
     let width = labelWidth || globalLabelWidth;
@@ -27,6 +30,7 @@ export function useItemLabelWidth(schemaItemRef: Ref<FormSchema>, propsRef: Ref<
     if (width) {
       width = isNumber(width) ? `${width}px` : width;
     }
+
     return {
       labelCol: { style: { width }, ...col },
       wrapperCol: { style: { width: `calc(100% - ${width})` }, ...wrapCol },

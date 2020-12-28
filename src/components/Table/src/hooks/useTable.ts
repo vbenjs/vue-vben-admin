@@ -1,24 +1,24 @@
 import type { BasicTableProps, TableActionType, FetchParams, BasicColumn } from '../types/table';
 import type { PaginationProps } from '../types/pagination';
 
-import { ref, getCurrentInstance, onUnmounted, unref } from 'vue';
+import { ref, onUnmounted, unref } from 'vue';
 import { isProdMode } from '/@/utils/env';
+import { isInSetup } from '/@/utils/helper/vueHelper';
 
 export function useTable(
   tableProps?: Partial<BasicTableProps>
 ): [(instance: TableActionType) => void, TableActionType] {
-  if (!getCurrentInstance()) {
-    throw new Error('Please put useTable function in the setup function!');
-  }
+  isInSetup();
 
-  const tableRef = ref<TableActionType | null>(null);
-  const loadedRef = ref<boolean | null>(false);
+  const tableRef = ref<Nullable<TableActionType>>(null);
+  const loadedRef = ref<Nullable<boolean>>(false);
 
   function register(instance: TableActionType) {
     onUnmounted(() => {
       tableRef.value = null;
       loadedRef.value = null;
     });
+
     if (unref(loadedRef) && isProdMode() && instance === unref(tableRef)) {
       return;
     }

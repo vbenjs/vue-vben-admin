@@ -1,4 +1,5 @@
 export const timestamp = () => +Date.now();
+import { unref } from 'vue';
 import { isObject } from '/@/utils/is';
 export const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
 export const noop = () => {};
@@ -75,4 +76,15 @@ export function openWindow(
   noreferrer && feature.push('noreferrer=yes');
 
   window.open(url, target, feature.join(','));
+}
+
+// dynamic use hook props
+export function getDynamicProps<T, U>(props: T): Partial<U> {
+  const ret: Recordable = {};
+
+  Object.keys(props).map((key) => {
+    ret[key] = unref((props as Recordable)[key]);
+  });
+
+  return ret as Partial<U>;
 }
