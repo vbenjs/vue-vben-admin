@@ -117,7 +117,7 @@ export function useFormEvents({
     const schemaList: FormSchema[] = cloneDeep(unref(getSchema));
 
     const index = schemaList.findIndex((schema) => schema.field === prefixField);
-    const hasInList = schemaList.some((item) => item.field === schema.field);
+    const hasInList = schemaList.some((item) => item.field === prefixField);
 
     if (!hasInList) return;
 
