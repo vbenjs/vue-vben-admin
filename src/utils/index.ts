@@ -8,10 +8,7 @@ export const now = () => Date.now();
  * @description:  Set ui mount node
  */
 export function getPopupContainer(node?: HTMLElement): HTMLElement {
-  if (node) {
-    return node.parentNode as HTMLElement;
-  }
-  return document.body;
+  return (node?.parentNode as HTMLElement) ?? document.body;
 }
 
 /**

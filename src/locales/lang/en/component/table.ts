@@ -6,7 +6,11 @@ export default {
   settingDensSmall: 'Compact',
   settingColumn: 'Column settings',
   settingColumnShow: 'Column display',
+  settingIndexColumnShow: 'Index Column',
+  settingSelectColumnShow: 'Selection Column',
   settingReset: 'Reset',
+  settingFixedLeft: 'Fixed Left',
+  settingFixedRight: 'Fixed Right',
   settingFullScreen: 'Full Screen',
 
   index: 'Index',

@@ -6,7 +6,8 @@ export function getBasicColumns(): BasicColumn[] {
     {
       title: 'ID',
       dataIndex: 'id',
-      width: 150,
+      fixed: 'left',
+      width: 400,
     },
     {
       title: '姓名',
@@ -21,6 +22,7 @@ export function getBasicColumns(): BasicColumn[] {
       title: '编号',
       dataIndex: 'no',
       width: 150,
+      defaultHidden: true,
     },
     {
       title: '开始时间',
@@ -42,6 +44,8 @@ export function getBasicShortColumns(): BasicColumn[] {
       title: 'ID',
       width: 150,
       dataIndex: 'id',
+      sorter: true,
+      sortOrder: 'ascend',
     },
     {
       title: '姓名',
@@ -118,6 +122,7 @@ export function getCustomHeaderColumns(): BasicColumn[] {
     {
       // title: '地址',
       dataIndex: 'address',
+      width: 120,
       slots: { title: 'customAddress' },
       sorter: true,
     },
@@ -236,6 +241,7 @@ export function getFormConfig(): Partial<FormProps> {
         label: `字段33`,
         component: 'Select',
         defaultValue: '1',
+        slot: 'custom',
         componentProps: {
           options: [
             {

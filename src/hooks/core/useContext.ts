@@ -25,7 +25,6 @@ export function createContext<T>(
   const { readonly = true, createProvider = false } = options;
 
   const state = reactive(context);
-
   const provideData = readonly ? defineReadonly(state) : state;
   !createProvider && provide(key, provideData);
 

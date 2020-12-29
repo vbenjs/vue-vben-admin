@@ -1,11 +1,21 @@
-@import (reference) '../../../../design/index.less';
 @border-color: #cecece4d;
 
-.basic-table {
-  &-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+@prefix-cls: ~'@{namespace}-basic-table';
+
+.@{prefix-cls} {
+  &-form-container {
+    padding: 16px;
+
+    .ant-form {
+      padding: 20px 20px 4px 12px;
+      margin-bottom: 18px;
+      background: #fff;
+      border-radius: 4px;
+    }
+
+    .ant-table-wrapper {
+      border-radius: 2px;
+    }
   }
 
   &-row__striped {
@@ -22,28 +32,16 @@
     }
   }
 
-  &-action {
-    display: flex;
-
-    button {
-      display: flex;
-      align-items: center;
-    }
-  }
-
-  &-toolbar {
-    display: flex;
-    align-items: center;
-
-    > * {
-      margin-right: 10px;
+  &--inset {
+    .ant-table-wrapper {
+      padding: 0;
     }
   }
 
   .ant-table-wrapper {
     padding: 8px;
     background: #fff;
-    border-radius: 2px;
+    border-radius: 4px;
 
     .ant-table-title {
       padding: 0 0 8px 0 !important;
@@ -51,12 +49,6 @@
 
     .ant-table.ant-table-bordered .ant-table-title {
       border: none !important;
-    }
-  }
-
-  &.inset {
-    .ant-table-wrapper {
-      padding: 0;
     }
   }
 
@@ -192,20 +184,5 @@
     td {
       padding: 12px 8px;
     }
-  }
-}
-
-.table-form-container {
-  padding: 16px;
-
-  .ant-form {
-    padding: 20px 20px 4px 12px;
-    margin-bottom: 18px;
-    background: #fff;
-    border-radius: 2px;
-  }
-
-  .ant-table-wrapper {
-    border-radius: 2px;
   }
 }

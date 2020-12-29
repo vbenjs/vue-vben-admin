@@ -1,9 +1,10 @@
 import { BasicColumn, BasicTableProps, GetColumnsParams } from '../types/table';
 import { PaginationProps } from '../types/pagination';
 import { unref, ComputedRef, Ref, computed, watchEffect, ref, toRaw } from 'vue';
-import { isBoolean, isArray, isObject } from '/@/utils/is';
+import { isBoolean, isArray, isString } from '/@/utils/is';
 import { DEFAULT_ALIGN, PAGE_SIZE, INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG } from '../const';
 import { useI18n } from '/@/hooks/web/useI18n';
+import { isEqual, cloneDeep } from 'lodash-es';
 
 const { t } = useI18n();
 
@@ -107,27 +108,31 @@ export function useColumns(
 
   const getColumnsRef = computed(() => {
     const columns = unref(columnsRef);
-    if (!columns) {
-      return [];
-    }
 
     handleIndexColumn(propsRef, getPaginationRef, columns);
     handleActionColumn(propsRef, columns);
-
+    if (!columns) {
+      return [];
+    }
     return columns;
+  });
+
+  const getSortFixedColumns = computed(() => {
+    return useFixedColumn(unref(getColumnsRef));
   });
 
   watchEffect(() => {
     const columns = toRaw(unref(propsRef).columns);
     columnsRef.value = columns;
-    cacheColumns = columns;
+    cacheColumns = columns?.filter((item) => !item.flag) ?? [];
   });
 
   /**
    * set columns
-   * @param columns key｜column
+   * @param columnList key｜column
    */
-  function setColumns(columns: Partial<BasicColumn>[] | string[]) {
+  function setColumns(columnList: Partial<BasicColumn>[] | string[]) {
+    const columns = cloneDeep(columnList);
     if (!isArray(columns)) return;
 
     if (columns.length <= 0) {
@@ -137,20 +142,36 @@ export function useColumns(
 
     const firstColumn = columns[0];
 
-    if (isObject(firstColumn)) {
+    const cacheKeys = cacheColumns.map((item) => item.dataIndex);
+
+    if (!isString(firstColumn)) {
       columnsRef.value = columns as BasicColumn[];
     } else {
-      const newColumns = cacheColumns.filter(
-        (item) =>
-          (item.dataIndex || `${item.key}`) &&
-          (columns as string[]).includes(`${item.key}`! || item.dataIndex!)
-      );
+      const columnKeys = columns as string[];
+      const newColumns: BasicColumn[] = [];
+      cacheColumns.forEach((item) => {
+        if (columnKeys.includes(`${item.key}`! || item.dataIndex!)) {
+          newColumns.push({
+            ...item,
+            defaultHidden: false,
+          });
+        }
+      });
+      // Sort according to another array
+      if (!isEqual(cacheKeys, columns)) {
+        newColumns.sort((prev, next) => {
+          return (
+            columnKeys.indexOf(prev.dataIndex as string) -
+            columnKeys.indexOf(next.dataIndex as string)
+          );
+        });
+      }
       columnsRef.value = newColumns;
     }
   }
 
   function getColumns(opt?: GetColumnsParams) {
-    const { ignoreIndex, ignoreAction } = opt || {};
+    const { ignoreIndex, ignoreAction, sort } = opt || {};
     let columns = toRaw(unref(getColumnsRef));
     if (ignoreIndex) {
       columns = columns.filter((item) => item.flag !== INDEX_COLUMN_FLAG);
@@ -158,8 +179,38 @@ export function useColumns(
     if (ignoreAction) {
       columns = columns.filter((item) => item.flag !== ACTION_COLUMN_FLAG);
     }
+
+    if (sort) {
+      columns = useFixedColumn(columns);
+    }
+
     return columns;
   }
+  function getCacheColumns() {
+    return cacheColumns;
+  }
 
-  return { getColumnsRef, getColumns, setColumns };
+  return { getColumnsRef, getCacheColumns, getColumns, setColumns, getSortFixedColumns };
+}
+
+export function useFixedColumn(columns: BasicColumn[]) {
+  const fixedLeftColumns: BasicColumn[] = [];
+  const fixedRightColumns: BasicColumn[] = [];
+  const defColumns: BasicColumn[] = [];
+  for (const column of columns) {
+    if (column.fixed === 'left') {
+      fixedLeftColumns.push(column);
+      continue;
+    }
+    if (column.fixed === 'right') {
+      fixedRightColumns.push(column);
+      continue;
+    }
+    defColumns.push(column);
+  }
+  const resultColumns = [...fixedLeftColumns, ...defColumns, ...fixedRightColumns].filter(
+    (item) => !item.defaultHidden
+  );
+
+  return resultColumns;
 }

@@ -1,4 +1,4 @@
-import type { BasicTableProps } from '../types/table';
+import type { BasicTableProps, TableRowSelection } from '../types/table';
 import type { Ref, ComputedRef } from 'vue';
 import { computed, unref, ref, nextTick, watchEffect } from 'vue';
 
@@ -7,14 +7,21 @@ import { isBoolean } from '/@/utils/is';
 
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
 import { useModalContext } from '/@/components/Modal';
+import { useDebounce } from '/@/hooks/core/useDebounce';
+import type { BasicColumn } from '/@/components/Table';
 
 export function useTableScroll(
   propsRef: ComputedRef<BasicTableProps>,
-  tableElRef: Ref<ComponentRef>
+  tableElRef: Ref<ComponentRef>,
+  columnsRef: ComputedRef<BasicColumn[]>,
+  rowSelectionRef: ComputedRef<TableRowSelection<any> | null>
 ) {
   const tableHeightRef: Ref<Nullable<number>> = ref(null);
 
   const modalFn = useModalContext();
+
+  // const [debounceCalcTableHeight] = useDebounce(calcTableHeight, 80);
+  const [debounceRedoHeight] = useDebounce(redoHeight, 250);
 
   const getCanResize = computed(() => {
     const { canResize, scroll } = unref(propsRef);
@@ -22,7 +29,7 @@ export function useTableScroll(
   });
 
   watchEffect(() => {
-    redoHeight();
+    unref(getCanResize) && debounceRedoHeight();
   });
 
   function redoHeight() {
@@ -31,6 +38,12 @@ export function useTableScroll(
         calcTableHeight();
       });
     }
+  }
+
+  function setHeight(heigh: number) {
+    tableHeightRef.value = heigh;
+    //  Solve the problem of modal adaptive height calculation when the form is placed in the modal
+    modalFn?.redoModalHeight?.();
   }
 
   // No need to repeat queries
@@ -87,7 +100,7 @@ export function useTableScroll(
       headerHeight = (headEl as HTMLElement).offsetHeight;
     }
 
-    const height =
+    let height =
       bottomIncludeBody -
       (resizeHeightOffset || 0) -
       paddingHeight -
@@ -96,21 +109,41 @@ export function useTableScroll(
       footerHeight -
       headerHeight;
 
-    setTimeout(() => {
-      tableHeightRef.value = (height > maxHeight! ? (maxHeight as number) : height) ?? height;
-      //  Solve the problem of modal adaptive height calculation when the form is placed in the modal
-      modalFn?.redoModalHeight?.();
-    }, 0);
+    height = (height > maxHeight! ? (maxHeight as number) : height) ?? height;
+    setHeight(height);
   }
 
-  useWindowSizeFn(calcTableHeight, 100);
+  useWindowSizeFn(calcTableHeight, 200);
+
+  const getScrollX = computed(() => {
+    let width = 0;
+    if (unref(rowSelectionRef)) {
+      width += 60;
+    }
+
+    // TODO props
+    const NORMAL_WIDTH = 150;
+
+    const columns = unref(columnsRef);
+
+    columns.forEach((item) => {
+      width += Number.parseInt(item.width as string) || 0;
+    });
+    const unsetWidthColumns = columns.filter((item) => !Reflect.has(item, 'width'));
+
+    const len = unsetWidthColumns.length;
+    if (len !== 0) {
+      width += len * NORMAL_WIDTH;
+    }
+    return width;
+  });
 
   const getScrollRef = computed(() => {
     const tableHeight = unref(tableHeightRef);
     const { canResize, scroll } = unref(propsRef);
 
     return {
-      x: '100%',
+      x: unref(getScrollX),
       y: canResize ? tableHeight : null,
       scrollToFirstRowOnChange: false,
       ...scroll,

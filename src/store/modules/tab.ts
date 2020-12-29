@@ -182,7 +182,7 @@ class Tab extends VuexModule {
   @Action
   addTabAction(route: RouteLocationNormalized) {
     const { path, name } = route;
-    // 404  页面不需要添加tab
+    // 404  The page does not need to add a tab
     if (
       path === PageEnum.ERROR_PAGE ||
       !name ||

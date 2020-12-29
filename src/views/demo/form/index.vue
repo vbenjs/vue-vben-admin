@@ -224,6 +224,7 @@
       colProps: {
         span: 8,
       },
+      defaultValue: '0',
     },
     {
       field: 'field20',

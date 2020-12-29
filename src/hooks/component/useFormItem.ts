@@ -1,5 +1,5 @@
 import type { UnwrapRef } from 'vue';
-import { reactive, readonly, computed, getCurrentInstance } from 'vue';
+import { reactive, readonly, computed, getCurrentInstance, watchEffect } from 'vue';
 
 import { isEqual } from 'lodash-es';
 
@@ -20,6 +20,11 @@ export function useRuleFormItem<T extends Indexable>(
   const setState = (val: UnwrapRef<T[keyof T]>) => {
     innerState.value = val as T[keyof T];
   };
+
+  watchEffect(() => {
+    innerState.value = props[key];
+  });
+
   const state = computed({
     get() {
       return innerState.value;
