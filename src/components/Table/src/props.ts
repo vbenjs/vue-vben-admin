@@ -75,7 +75,7 @@ export const basicProps = {
   },
   columns: {
     type: [Array] as PropType<BasicColumn[]>,
-    default: null,
+    default: () => [],
   },
   showIndexColumn: propTypes.bool.def(true),
   indexColumnProps: {
@@ -95,7 +95,7 @@ export const basicProps = {
     default: null,
   },
   title: {
-    type: [String, Function] as PropType<string | ((data: any) => any)>,
+    type: [String, Function] as PropType<string | ((data: Recordable) => string)>,
     default: null,
   },
   titleHelpMessage: {

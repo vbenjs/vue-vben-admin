@@ -14,6 +14,12 @@
 - useForm: 支持动态改变参数。可以传入`Ref`类型与`Computed`类型进行动态更改
 - table: 新增`clickToRowSelect`属性。用于控制点击行是否选中勾选狂
 - table: 监听行点击事件
+- table: 表格列配置按钮增加 列拖拽，列固定功能。
+- table:表格列配置新增`defaultHidden` 属性。用于默认隐藏。可在表格列配置勾选显示
+
+### ✨ Refactor
+
+- 重构表单，解决已知 bug
 
 ### ⚡ Performance Improvements
 

@@ -82,6 +82,7 @@ export interface FetchParams {
 export interface GetColumnsParams {
   ignoreIndex?: boolean;
   ignoreAction?: boolean;
+  sort?: boolean;
 }
 
 export type SizeType = 'default' | 'middle' | 'small' | 'large';
@@ -93,16 +94,18 @@ export interface TableActionType {
   getSelectRowKeys: () => string[];
   deleteSelectRowByKey: (key: string) => void;
   setPagination: (info: Partial<PaginationProps>) => void;
-  setTableData: <T = any>(values: T[]) => void;
+  setTableData: <T = Recordable>(values: T[]) => void;
   getColumns: (opt?: GetColumnsParams) => BasicColumn[];
   setColumns: (columns: BasicColumn[] | string[]) => void;
-  getDataSource: <T = any>() => T[];
+  getDataSource: <T = Recordable>() => T[];
   setLoading: (loading: boolean) => void;
   setProps: (props: Partial<BasicTableProps>) => void;
   redoHeight: () => void;
   setSelectedRowKeys: (rowKeys: string[] | number[]) => void;
   getPaginationRef: () => PaginationProps | boolean;
   getSize: () => SizeType;
+  getRowSelection: () => TableRowSelection<Recordable>;
+  getCacheColumns: () => BasicColumn[];
 }
 
 export interface FetchSetting {
@@ -308,7 +311,7 @@ export interface BasicTableProps<T = any> {
    * Table title renderer
    * @type Function | ScopedSlot
    */
-  title?: VNodeChild | JSX.Element;
+  title?: VNodeChild | JSX.Element | string | ((data: Recordable) => string);
 
   /**
    * Set props on per header row
@@ -378,4 +381,6 @@ export interface BasicColumn extends ColumnProps {
   flag?: 'INDEX' | 'DEFAULT' | 'CHECKBOX' | 'RADIO' | 'ACTION';
 
   slots?: Indexable;
+
+  defaultHidden?: boolean;
 }

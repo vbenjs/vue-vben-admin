@@ -78,7 +78,11 @@ export default (mode: 'development' | 'production'): UserConfig => {
 
     cssPreprocessOptions: {
       less: {
-        modifyVars: modifyVars,
+        modifyVars: {
+          // reference ： Avoid repeated references
+          hack: `true; @import (reference) "${resolve('src/design/config.less')}";`,
+          ...modifyVars,
+        },
         javascriptEnabled: true,
       },
     },

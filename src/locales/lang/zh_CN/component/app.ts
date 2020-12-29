@@ -5,4 +5,6 @@ export default {
   toSearch: '确认',
   toNavigate: '切换',
   toClose: '关闭',
+  okText: '确认',
+  cancelText: '取消',
 };

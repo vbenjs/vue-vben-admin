@@ -5,6 +5,8 @@ export interface ActionItem extends ButtonProps {
   color?: 'success' | 'error' | 'warning';
   icon?: string;
   popConfirm?: PopConfirm;
+  disabled?: boolean;
+  divider?: boolean;
 }
 
 export interface PopConfirm {

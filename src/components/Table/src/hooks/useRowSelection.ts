@@ -53,7 +53,12 @@ export function useRowSelection(propsRef: ComputedRef<BasicTableProps>, emit: Em
     return unref(selectedRowRef) as T[];
   }
 
+  function getRowSelection() {
+    return unref(getRowSelectionRef)!;
+  }
+
   return {
+    getRowSelection,
     getRowSelectionRef,
     getSelectRows,
     getSelectRowKeys,

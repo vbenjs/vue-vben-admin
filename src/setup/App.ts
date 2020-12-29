@@ -11,7 +11,6 @@ import { PROJ_CFG_KEY } from '/@/enums/cacheEnum';
 
 import projectSetting from '/@/settings/projectSetting';
 import { getLocal } from '/@/utils/helper/persistent';
-import { isUnDef, isNull } from '/@/utils/is';
 import {
   updateGrayMode,
   updateColorWeak,
@@ -75,17 +74,4 @@ export function initAppConfigStore() {
     console.log(error);
   }
   appStore.commitProjectConfigState(projCfg);
-}
-
-// antdv Config Provider
-export function getConfigProvider() {
-  function transformCellText({ text }: { text: string }) {
-    if (isNull(text) || isUnDef(text)) {
-      return ' - ';
-    }
-    return text;
-  }
-  return {
-    transformCellText,
-  };
 }

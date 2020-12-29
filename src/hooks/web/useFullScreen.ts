@@ -17,7 +17,7 @@ type FSEPropName =
   | 'fullscreenElement';
 
 export function useFullscreen(
-  target: Ref<Nullable<HTMLElement>> = ref(document.documentElement),
+  target: Ref<Nullable<HTMLElement>> | Nullable<HTMLElement> = ref(document.documentElement),
   options?: FullscreenOptions
 ) {
   const isFullscreenRef = ref(false);
@@ -43,7 +43,7 @@ export function useFullscreen(
   }
   function enterFullscreen(): Promise<void> {
     isFullscreenRef.value = true;
-    return (target.value as any)[RFC_METHOD_NAME](options);
+    return (unref(target) as any)[RFC_METHOD_NAME](options);
   }
 
   function exitFullscreen(): Promise<void> {
@@ -55,7 +55,9 @@ export function useFullscreen(
     return unref(target) === (document as any)[FSE_PROP_NAME];
   }
 
-  function toggleFullscreen(): Promise<void> {
+  async function toggleFullscreen(): Promise<void> {
+    if (!unref(target)) return;
+
     if (isFullscreen()) {
       return exitFullscreen();
     } else {
