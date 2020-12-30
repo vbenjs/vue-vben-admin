@@ -54,6 +54,7 @@
           mode="inline"
           :items="chilrenMenus"
           :theme="getMenuTheme"
+          mixSider
           @menuClick="handleMenuClick"
         />
       </ScrollContainer>
