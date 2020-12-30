@@ -49,13 +49,13 @@
         return props.actions.map((action) => {
           const { popConfirm } = action;
           return {
+            type: 'link',
+            size: 'small',
             ...action,
             ...(popConfirm || {}),
             onConfirm: popConfirm?.confirm,
             onCancel: popConfirm?.cancel,
             enable: !!popConfirm,
-            type: 'link',
-            size: 'small',
           };
         });
       });
