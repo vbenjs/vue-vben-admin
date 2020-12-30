@@ -40,12 +40,12 @@ function handleIndexColumn(
   getPaginationRef: ComputedRef<boolean | PaginationProps>,
   columns: BasicColumn[]
 ) {
-  const { showIndexColumn, indexColumnProps, ellipsis } = unref(propsRef);
+  const { showIndexColumn, indexColumnProps } = unref(propsRef);
 
   let pushIndexColumns = false;
   columns.forEach((item) => {
     const { children } = item;
-    handleItem(item, !!ellipsis);
+
     const isTreeTable = children && children.length;
 
     const indIndex = columns.findIndex((column) => column.flag === INDEX_COLUMN_FLAG);
@@ -114,6 +114,16 @@ export function useColumns(
     if (!columns) {
       return [];
     }
+    const { ellipsis } = unref(propsRef);
+
+    columns.forEach((item) => {
+      const { customRender, slots } = item;
+
+      handleItem(
+        item,
+        Reflect.has(item, 'ellipsis') ? !!item.ellipsis : !!ellipsis && !customRender && !slots
+      );
+    });
     return columns;
   });
 
