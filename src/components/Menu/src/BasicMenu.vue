@@ -110,7 +110,7 @@
 
         const inlineCollapseOptions: { inlineCollapsed?: boolean } = {};
         if (isInline) {
-          inlineCollapseOptions.inlineCollapsed = unref(getCollapsed);
+          inlineCollapseOptions.inlineCollapsed = props.mixSider ? false : unref(getCollapsed);
         }
         return inlineCollapseOptions;
       });

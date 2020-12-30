@@ -17,12 +17,14 @@ export const basicProps = {
     type: String as PropType<MenuModeEnum>,
     default: MenuModeEnum.INLINE,
   },
+
   type: {
     type: String as PropType<MenuTypeEnum>,
     default: MenuTypeEnum.MIX,
   },
   theme: propTypes.string.def(ThemeEnum.DARK),
   inlineCollapsed: propTypes.bool,
+  mixSider: propTypes.bool,
 
   isHorizontal: propTypes.bool,
   accordion: propTypes.bool.def(true),
