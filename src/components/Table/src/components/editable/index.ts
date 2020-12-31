@@ -41,12 +41,14 @@ export function renderEditCell(column: BasicColumn) {
   };
 }
 
-export type EditRecordRow<T = Hash<any>> = {
-  onEdit: (editable: boolean, submit?: boolean) => Promise<boolean>;
-  editable: boolean;
-  onCancel: Fn;
-  onSubmit: Fn;
-  submitCbs: Fn[];
-  cancelCbs: Fn[];
-  validCbs: Fn[];
-} & T;
+export type EditRecordRow<T = Hash<any>> = Partial<
+  {
+    onEdit: (editable: boolean, submit?: boolean) => Promise<boolean>;
+    editable: boolean;
+    onCancel: Fn;
+    onSubmit: Fn;
+    submitCbs: Fn[];
+    cancelCbs: Fn[];
+    validCbs: Fn[];
+  } & T
+>;
