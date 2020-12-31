@@ -1,5 +1,55 @@
 ## Wip
 
+### ✨ 表格破坏性更新
+
+- 重构了可编辑单元格及可编辑行。具体看示例。写法已改变。针对可编辑表格。
+
+- 表格编辑支持表单校验
+
+- 在表格列配置增加了以下配置
+
+```bash
+{
+
+  # 默认是否显示列。不显示的可以在列配置打开
+  defaultHidden?: boolean;
+  # 列头右侧帮助文本
+  helpMessage?: string | string[];
+  # 自定义格式化 单元格内容。 支持时间/枚举自动转化
+  format?: CellFormat;
+
+  # Editable
+  # 是否是可编辑单元格
+  edit?: boolean;
+  # 是否是可编辑行
+  editRow?: boolean;
+  # 编辑状态。
+  editable?: boolean;
+  #  编辑组件
+  editComponent?: ComponentType;
+  # 所对应组件的参数
+  editComponentProps?: Recordable;
+  # 校验
+  editRule?: boolean | ((text: string, record: Recordable) => Promise<string>);
+  # 值枚举转化
+  editValueMap?: (value: any) => string;
+  # 触发编辑正航
+  record.onEditRow?: () => void;
+}
+
+```
+
+### ✨ 表格重构
+
+- 新增`clickToRowSelect`属性。用于控制点击行是否选中勾选框
+- 监听行点击事件
+- 表格列配置按钮增加 列拖拽，列固定功能。
+- 表格列配置新增`defaultHidden` 属性。用于默认隐藏。可在表格列配置勾选显示
+- 更强大的列配置
+- useTable:支持动态改变参数。可以传入`Ref`类型与`Computed`类型进行动态更改
+- useTable:新增返回 `getForm`函数。可以用于操作表格内的表单
+- 修复表格已知的问题
+
 ### ✨ Features
 
 - 新增 `v-ripple`水波纹指令
@@ -12,14 +62,6 @@
 - form: 新增远程下拉`ApiSelect`及示例
 - form: 新增`autoFocusFirstItem`配置。用于配置是否聚焦表单第一个输入框
 - useForm: 支持动态改变参数。可以传入`Ref`类型与`Computed`类型进行动态更改
-- table: 新增`clickToRowSelect`属性。用于控制点击行是否选中勾选狂
-- table: 监听行点击事件
-- table: 表格列配置按钮增加 列拖拽，列固定功能。
-- table:表格列配置新增`defaultHidden` 属性。用于默认隐藏。可在表格列配置勾选显示
-
-### ✨ Refactor
-
-- 重构表单，解决已知 bug
 
 ### ⚡ Performance Improvements
 
@@ -30,6 +72,7 @@
 ### 🎫 Chores
 
 - 升级`ant-design-vue`到`2.0.0-rc.7`
+- 升级`vue`到`3.0.5`
 
 ### 🐛 Bug Fixes
 

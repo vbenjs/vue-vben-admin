@@ -1,10 +1,13 @@
-import { BasicColumn, BasicTableProps, GetColumnsParams } from '../types/table';
-import { PaginationProps } from '../types/pagination';
+import type { BasicColumn, BasicTableProps, CellFormat, GetColumnsParams } from '../types/table';
+import type { PaginationProps } from '../types/pagination';
 import { unref, ComputedRef, Ref, computed, watchEffect, ref, toRaw } from 'vue';
-import { isBoolean, isArray, isString } from '/@/utils/is';
+import { isBoolean, isArray, isString, isObject } from '/@/utils/is';
 import { DEFAULT_ALIGN, PAGE_SIZE, INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG } from '../const';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { isEqual, cloneDeep } from 'lodash-es';
+import { isFunction } from '/@/utils/is';
+import { formatToDate } from '/@/utils/dateUtil';
+import { renderEditCell } from '../components/editable';
 
 const { t } = useI18n();
 
@@ -127,8 +130,30 @@ export function useColumns(
     return columns;
   });
 
-  const getSortFixedColumns = computed(() => {
-    return useFixedColumn(unref(getColumnsRef));
+  const getViewColumns = computed(() => {
+    const viewColumns = sortFixedColumn(unref(getColumnsRef));
+
+    viewColumns.forEach((column) => {
+      const { slots, dataIndex, customRender, format, edit, editRow, flag } = column;
+
+      if (!slots || !slots?.title) {
+        column.slots = { title: `header-${dataIndex}`, ...(slots || {}) };
+        column.customTitle = column.title;
+        Reflect.deleteProperty(column, 'title');
+      }
+      const isDefaultAction = [INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG].includes(flag!);
+      if (!customRender && format && !edit && !isDefaultAction) {
+        column.customRender = ({ text, record, index }) => {
+          return formatCell(text, format, record, index);
+        };
+      }
+
+      // edit table
+      if ((edit || editRow) && !isDefaultAction) {
+        column.customRender = renderEditCell(column);
+      }
+    });
+    return viewColumns;
   });
 
   watchEffect(() => {
@@ -191,7 +216,7 @@ export function useColumns(
     }
 
     if (sort) {
-      columns = useFixedColumn(columns);
+      columns = sortFixedColumn(columns);
     }
 
     return columns;
@@ -200,10 +225,10 @@ export function useColumns(
     return cacheColumns;
   }
 
-  return { getColumnsRef, getCacheColumns, getColumns, setColumns, getSortFixedColumns };
+  return { getColumnsRef, getCacheColumns, getColumns, setColumns, getViewColumns };
 }
 
-export function useFixedColumn(columns: BasicColumn[]) {
+function sortFixedColumn(columns: BasicColumn[]) {
   const fixedLeftColumns: BasicColumn[] = [];
   const fixedRightColumns: BasicColumn[] = [];
   const defColumns: BasicColumn[] = [];
@@ -223,4 +248,36 @@ export function useFixedColumn(columns: BasicColumn[]) {
   );
 
   return resultColumns;
+}
+
+// format cell
+export function formatCell(text: string, format: CellFormat, record: Recordable, index: number) {
+  if (!format) {
+    return text;
+  }
+
+  // custom function
+  if (isFunction(format)) {
+    return format(text, record, index);
+  }
+
+  try {
+    // date type
+    const DATE_FORMAT_PREFIX = 'date|';
+    if (isString(format) && format.startsWith(DATE_FORMAT_PREFIX)) {
+      const dateFormat = format.replace(DATE_FORMAT_PREFIX, '');
+
+      if (!dateFormat) {
+        return text;
+      }
+      return formatToDate(text, dateFormat);
+    }
+
+    // enum
+    if (isObject(format) && Reflect.has(format, 'size')) {
+      return format.get(text);
+    }
+  } catch (error) {
+    return text;
+  }
 }

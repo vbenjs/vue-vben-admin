@@ -121,7 +121,7 @@ export function useTableScroll(
       width += 60;
     }
 
-    // TODO props
+    // TODO propsdth ?? 0;
     const NORMAL_WIDTH = 150;
 
     const columns = unref(columnsRef);
@@ -135,7 +135,10 @@ export function useTableScroll(
     if (len !== 0) {
       width += len * NORMAL_WIDTH;
     }
-    return width;
+
+    const table = unref(tableElRef);
+    const tableWidth = table?.$el?.offsetWidth ?? 0;
+    return tableWidth > width ? tableWidth - 24 : width;
   });
 
   const getScrollRef = computed(() => {
