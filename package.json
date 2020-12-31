@@ -1,6 +1,6 @@
 {
   "name": "vben-admin-2.0",
-  "version": "2.0.0-rc.14",
+  "version": "2.0.0-rc.15",
   "scripts": {
     "bootstrap": "yarn install",
     "serve": "cross-env  vite --mode=development",
