@@ -50,7 +50,8 @@
       labelField: propTypes.string.def('label'),
       valueField: propTypes.string.def('value'),
     },
-    setup(props) {
+    emits: ['options-change', 'change'],
+    setup(props, { emit }) {
       const options = ref<OptionsItem[]>([]);
       const loading = ref(false);
       const attrs = useAttrs();
@@ -86,11 +87,13 @@
           const res = await api(props.params);
           if (Array.isArray(res)) {
             options.value = res;
+            emit('options-change', unref(options));
             return;
           }
           if (props.resultField) {
             options.value = get(res, props.resultField) || [];
           }
+          emit('options-change', unref(options));
         } catch (error) {
           console.warn(error);
         } finally {

@@ -133,14 +133,18 @@
     overflow-y: scroll !important;
   }
 
-  .ant-table-fixed-right .ant-table-header {
-    border-left: 1px solid @border-color !important;
+  .ant-table-fixed-right {
+    right: -1px;
 
-    .ant-table-fixed {
-      border-bottom: none;
+    .ant-table-header {
+      border-left: 1px solid @border-color !important;
 
-      .ant-table-thead th {
-        background: rgb(241, 243, 244);
+      .ant-table-fixed {
+        border-bottom: none;
+
+        .ant-table-thead th {
+          background: rgb(241, 243, 244);
+        }
       }
     }
   }

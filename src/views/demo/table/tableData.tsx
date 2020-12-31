@@ -7,12 +7,16 @@ export function getBasicColumns(): BasicColumn[] {
       title: 'ID',
       dataIndex: 'id',
       fixed: 'left',
-      width: 400,
+      width: 200,
     },
     {
       title: '姓名',
       dataIndex: 'name',
       width: 150,
+      filters: [
+        { text: 'Male', value: 'male' },
+        { text: 'Female', value: 'female' },
+      ],
     },
     {
       title: '地址',
@@ -22,11 +26,13 @@ export function getBasicColumns(): BasicColumn[] {
       title: '编号',
       dataIndex: 'no',
       width: 150,
+      sorter: true,
       defaultHidden: true,
     },
     {
       title: '开始时间',
       width: 120,
+      sorter: true,
       dataIndex: 'beginTime',
     },
     {

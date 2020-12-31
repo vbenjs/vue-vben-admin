@@ -34,18 +34,18 @@
       <template #[item]="data" v-for="item in Object.keys($slots)">
         <slot :name="item" v-bind="data" />
       </template>
+      <template #[`header-${column.dataIndex}`] v-for="column in columns" :key="column.dataIndex">
+        <HeaderCell :column="column" />
+      </template>
     </Table>
   </div>
 </template>
 <script lang="ts">
-  import type { BasicTableProps, TableActionType, SizeType, SorterResult } from './types/table';
-  import { PaginationProps } from './types/pagination';
+  import type { BasicTableProps, TableActionType, SizeType } from './types/table';
 
   import { defineComponent, ref, computed, unref } from 'vue';
   import { Table } from 'ant-design-vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
-
-  import { isFunction } from '/@/utils/is';
 
   import { omit } from 'lodash-es';
 
@@ -61,15 +61,20 @@
   import { createTableContext } from './hooks/useTableContext';
   import { useTableFooter } from './hooks/useTableFooter';
   import { useTableForm } from './hooks/useTableForm';
+  import { useExpose } from '/@/hooks/core/useExpose';
+  import { useDesign } from '/@/hooks/web/useDesign';
 
   import { basicProps } from './props';
-  import { useExpose } from '/@/hooks/core/useExpose';
+  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
   import './style/index.less';
-  import { useDesign } from '/@/hooks/web/useDesign';
   export default defineComponent({
     props: basicProps,
-    components: { Table, BasicForm },
+    components: {
+      Table,
+      BasicForm,
+      HeaderCell: createAsyncComponent(() => import('./components/HeaderCell.vue')),
+    },
     emits: [
       'fetch-success',
       'fetch-error',
@@ -80,6 +85,8 @@
       'row-contextmenu',
       'row-mouseenter',
       'row-mouseleave',
+      'edit-end',
+      'edit-cancel',
     ],
     setup(props, { attrs, emit, slots }) {
       const tableElRef = ref<ComponentRef>(null);
@@ -96,32 +103,6 @@
 
       const { getLoading, setLoading } = useLoading(getProps);
       const { getPaginationInfo, getPagination, setPagination } = usePagination(getProps);
-      const {
-        getSortFixedColumns,
-        getColumns,
-        setColumns,
-        getColumnsRef,
-        getCacheColumns,
-      } = useColumns(getProps, getPaginationInfo);
-
-      const {
-        getDataSourceRef,
-        getDataSource,
-        setTableData,
-        fetch,
-        getRowKey,
-        reload,
-        getAutoCreateKey,
-      } = useDataSource(
-        getProps,
-        {
-          getPaginationInfo,
-          setLoading,
-          setPagination,
-          getFieldsValue: formActions.getFieldsValue,
-        },
-        emit
-      );
 
       const {
         getRowSelection,
@@ -132,6 +113,33 @@
         deleteSelectRowByKey,
         setSelectedRowKeys,
       } = useRowSelection(getProps, emit);
+
+      const {
+        handleTableChange,
+        getDataSourceRef,
+        getDataSource,
+        setTableData,
+        fetch,
+        getRowKey,
+        reload,
+        getAutoCreateKey,
+        updateTableData,
+      } = useDataSource(
+        getProps,
+        {
+          getPaginationInfo,
+          setLoading,
+          setPagination,
+          getFieldsValue: formActions.getFieldsValue,
+          clearSelectedRowKeys,
+        },
+        emit
+      );
+
+      const { getViewColumns, getColumns, setColumns, getColumnsRef, getCacheColumns } = useColumns(
+        getProps,
+        getPaginationInfo
+      );
 
       const { getScrollRef, redoHeight } = useTableScroll(
         getProps,
@@ -178,7 +186,7 @@
           tableLayout: 'fixed',
           rowSelection: unref(getRowSelectionRef),
           rowKey: unref(getRowKey),
-          columns: unref(getSortFixedColumns),
+          columns: unref(getViewColumns),
           pagination: unref(getPaginationInfo),
           dataSource: unref(getDataSourceRef),
           footer: unref(getFooterProps),
@@ -196,26 +204,6 @@
         }
         return !!unref(getDataSourceRef).length;
       });
-
-      function handleTableChange(
-        pagination: PaginationProps,
-        // @ts-ignore
-        filters: Partial<Recordable<string[]>>,
-        sorter: SorterResult
-      ) {
-        const { clearSelectOnPageChange, sortFn } = unref(getProps);
-        if (clearSelectOnPageChange) {
-          clearSelectedRowKeys();
-        }
-        setPagination(pagination);
-
-        if (sorter && isFunction(sortFn)) {
-          const sortInfo = sortFn(sorter);
-          fetch({ sortInfo });
-          return;
-        }
-        fetch();
-      }
 
       function setProps(props: Partial<BasicTableProps>) {
         innerPropsRef.value = { ...unref(innerPropsRef), ...props };
@@ -239,6 +227,8 @@
         getPaginationRef: getPagination,
         getColumns,
         getCacheColumns,
+        emit,
+        updateTableData,
         getSize: () => {
           return unref(getBindValues).size as SizeType;
         },
@@ -265,6 +255,7 @@
         replaceFormSlotKey,
         getFormSlotKeys,
         prefixCls,
+        columns: getViewColumns,
       };
     },
   });

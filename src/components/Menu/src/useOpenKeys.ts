@@ -15,7 +15,7 @@ export function useOpenKeys(
   mode: Ref<MenuModeEnum>,
   accordion: Ref<boolean>
 ) {
-  const { getCollapsed } = useMenuSetting();
+  const { getCollapsed, getIsMixSidebar } = useMenuSetting();
 
   function setOpenKeys(path: string) {
     if (mode.value === MenuModeEnum.HORIZONTAL) {
@@ -30,7 +30,9 @@ export function useOpenKeys(
   }
 
   const getOpenKeys = computed(() => {
-    return unref(getCollapsed) ? menuState.collapsedOpenKeys : menuState.openKeys;
+    const collapse = unref(getIsMixSidebar) ? false : unref(getCollapsed);
+
+    return collapse ? menuState.collapsedOpenKeys : menuState.openKeys;
   });
 
   /**
@@ -42,7 +44,7 @@ export function useOpenKeys(
   }
 
   function handleOpenChange(openKeys: string[]) {
-    if (unref(mode) === MenuModeEnum.HORIZONTAL || !unref(accordion)) {
+    if (unref(mode) === MenuModeEnum.HORIZONTAL || !unref(accordion) || unref(getIsMixSidebar)) {
       menuState.openKeys = openKeys;
     } else {
       // const menuList = toRaw(menus.value);

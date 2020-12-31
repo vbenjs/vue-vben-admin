@@ -32,6 +32,10 @@ export function DEFAULT_SORT_FN(sortInfo: SorterResult) {
   };
 }
 
+export function DEFAULT_FILTER_FN(data: Partial<Recordable<string[]>>) {
+  return data;
+}
+
 //  表格单元格默认布局
 export const DEFAULT_ALIGN = 'center';
 

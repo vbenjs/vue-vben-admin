@@ -351,6 +351,11 @@
         position: absolute;
         top: 10px;
         right: 30px;
+
+        &--dot {
+          top: 50%;
+          margin-top: -3px;
+        }
       }
 
       &__title {

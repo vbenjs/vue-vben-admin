@@ -1,14 +1,13 @@
 <template>
   <div :class="[prefixCls, getAlign]">
-    <template v-for="(action, index) in getActions" :key="`${index}`">
+    <template v-for="(action, index) in getActions" :key="`${index}-${action.label}`">
       <PopConfirmButton v-bind="action">
         <Icon :icon="action.icon" class="mr-1" v-if="action.icon" />
         {{ action.label }}
       </PopConfirmButton>
       <Divider type="vertical" v-if="divider && index < getActions.length" />
     </template>
-
-    <Dropdown :trigger="['hover']" :dropMenuList="getDropList">
+    <Dropdown :trigger="['hover']" :dropMenuList="getDropList" v-if="dropDownActions">
       <slot name="more" />
       <a-button type="link" size="small" v-if="!$slots.more">
         <MoreOutlined class="icon-more" />
@@ -61,7 +60,7 @@
       });
 
       const getDropList = computed(() => {
-        return props.dropDownActions.map((action, index) => {
+        return (props.dropDownActions || []).map((action, index) => {
           const { label } = action;
           return {
             ...action,

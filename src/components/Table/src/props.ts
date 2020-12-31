@@ -9,19 +9,27 @@ import type {
   TableRowSelection,
 } from './types/table';
 import type { FormProps } from '/@/components/Form';
-import { DEFAULT_SORT_FN, FETCH_SETTING } from './const';
+import { DEFAULT_FILTER_FN, DEFAULT_SORT_FN, FETCH_SETTING } from './const';
 import { propTypes } from '/@/utils/propTypes';
 
 // 注释看 types/table
 export const basicProps = {
   clickToRowSelect: propTypes.bool.def(true),
+
   tableSetting: {
     type: Object as PropType<TableSetting>,
   },
+
   inset: propTypes.bool,
+
   sortFn: {
     type: Function as PropType<(sortInfo: SorterResult) => any>,
     default: DEFAULT_SORT_FN,
+  },
+
+  filterFn: {
+    type: Function as PropType<(data: Partial<Recordable<string[]>>) => any>,
+    default: DEFAULT_FILTER_FN,
   },
 
   showTableSetting: propTypes.bool,

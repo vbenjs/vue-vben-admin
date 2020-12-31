@@ -41,7 +41,6 @@
     {
       title: '地址',
       dataIndex: 'address',
-      width: 260,
     },
     {
       title: '编号',
@@ -67,6 +66,7 @@
         api: demoListApi,
         columns: columns,
         rowSelection: { type: 'radio' },
+        bordered: true,
         actionColumn: {
           width: 160,
           title: 'Action',

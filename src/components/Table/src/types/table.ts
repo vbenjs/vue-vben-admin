@@ -6,9 +6,10 @@ import type {
   TableRowSelection as ITableRowSelection,
 } from 'ant-design-vue/lib/table/interface';
 import { ComponentType } from './componentType';
+import { VueNode } from '/@/utils/propTypes';
 // import { ColumnProps } from './column';
 export declare type SortOrder = 'ascend' | 'descend';
-export interface TableCurrentDataSource<T = any> {
+export interface TableCurrentDataSource<T = Recordable> {
   currentDataSource: T[];
 }
 
@@ -53,7 +54,7 @@ export interface ColumnFilterItem {
   children?: any;
 }
 
-export interface TableCustomRecord<T = any> {
+export interface TableCustomRecord<T = Recordable> {
   record?: T;
   index?: number;
 }
@@ -65,18 +66,11 @@ export interface SorterResult {
   columnKey: string;
 }
 
-export interface RenderEditableCellParams {
-  dataIndex: string;
-  component?: ComponentType;
-  componentProps?: any;
-  placeholder?: string;
-}
-
 export interface FetchParams {
-  searchInfo?: any;
+  searchInfo?: Recordable;
   page?: number;
-  sortInfo?: any;
-  filterInfo?: any;
+  sortInfo?: Recordable;
+  filterInfo?: Recordable;
 }
 
 export interface GetColumnsParams {
@@ -89,7 +83,7 @@ export type SizeType = 'default' | 'middle' | 'small' | 'large';
 
 export interface TableActionType {
   reload: (opt?: FetchParams) => Promise<void>;
-  getSelectRows: <T = any>() => T[];
+  getSelectRows: <T = Recordable>() => T[];
   clearSelectedRowKeys: () => void;
   getSelectRowKeys: () => string[];
   deleteSelectRowByKey: (key: string) => void;
@@ -106,6 +100,8 @@ export interface TableActionType {
   getSize: () => SizeType;
   getRowSelection: () => TableRowSelection<Recordable>;
   getCacheColumns: () => BasicColumn[];
+  emit?: EmitType;
+  updateTableData: (index: number, key: string, value: any) => Recordable;
 }
 
 export interface FetchSetting {
@@ -131,6 +127,8 @@ export interface BasicTableProps<T = any> {
   clickToRowSelect?: boolean;
   // 自定义排序方法
   sortFn?: (sortInfo: SorterResult) => any;
+  // 排序方法
+  filterFn?: (data: Partial<Recordable<string[]>>) => any;
   // 取消表格的默认padding
   inset?: boolean;
   // 显示表格设置
@@ -141,7 +139,7 @@ export interface BasicTableProps<T = any> {
   // 是否自动生成key
   autoCreateKey?: boolean;
   // 计算合计行的方法
-  summaryFunc?: (...arg: any) => any[];
+  summaryFunc?: (...arg: any) => Recordable[];
   // 是否显示合计行
   showSummary?: boolean;
   // 是否可拖拽列
@@ -374,13 +372,43 @@ export interface BasicTableProps<T = any> {
   onExpandedRowsChange?: (expandedRows: string[] | number[]) => void;
 }
 
+export type CellFormat =
+  | string
+  | ((text: string, record: Recordable, index: number) => string | number)
+  | Map<string | number, any>;
+
+// @ts-ignore
 export interface BasicColumn extends ColumnProps {
   children?: BasicColumn[];
+  filters?: {
+    text: string;
+    value: string;
+    children?:
+      | unknown[]
+      | (((props: Record<string, unknown>) => unknown[]) & (() => unknown[]) & (() => unknown[]));
+  }[];
 
   //
   flag?: 'INDEX' | 'DEFAULT' | 'CHECKBOX' | 'RADIO' | 'ACTION';
+  customTitle?: VueNode;
 
   slots?: Indexable;
 
+  // Whether to hide the column by default, it can be displayed in the column configuration
   defaultHidden?: boolean;
+
+  // Help text for table column header
+  helpMessage?: string | string[];
+
+  format?: CellFormat;
+
+  // Editable
+  edit?: boolean;
+  editRow?: boolean;
+  editable?: boolean;
+  editComponent?: ComponentType;
+  editComponentProps?: Recordable;
+  editRule?: boolean | ((text: string, record: Recordable) => Promise<string>);
+  editValueMap?: (value: any) => string;
+  onEditRow?: () => void;
 }
