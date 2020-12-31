@@ -92,6 +92,7 @@
         }
       );
       onMountedOrActivated(() => {
+        tinymceId.value = snowUuid('tiny-vue');
         nextTick(() => {
           init();
         });
@@ -152,6 +153,7 @@
       function bindModelHandlers(editor: any) {
         const modelEvents = attrs.modelEvents ? attrs.modelEvents : null;
         const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
+
         watch(
           () => props.modelValue,
           (val: string, prevVal: string) => {
