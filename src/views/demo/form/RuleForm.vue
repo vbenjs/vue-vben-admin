@@ -84,12 +84,15 @@
           required: true,
           // @ts-ignore
           validator: async (rule, value) => {
+            if (!value) {
+              return Promise.reject('值不能为空');
+            }
             if (value === '1') {
               return Promise.reject('值不能为1');
             }
             return Promise.resolve();
           },
-          trigger: 'blur',
+          trigger: 'change',
         },
       ],
     },
@@ -167,7 +170,7 @@
       }
       function setFormValues() {
         setFieldsValue({
-          field1: '1111',
+          field1: 1111,
           field5: ['1'],
           field7: '1',
         });

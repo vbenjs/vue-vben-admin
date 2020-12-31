@@ -15,7 +15,10 @@ export function useCache(isPage: boolean) {
     if (routeName && ![ParentLayoutName].includes(routeName)) {
       name.value = routeName;
     } else {
-      const matched = currentRoute.value.matched;
+      const matched = currentRoute.value?.matched;
+      if (!matched) {
+        return;
+      }
       const len = matched.length;
       if (len < 2) return;
       name.value = matched[len - 2].name as string;

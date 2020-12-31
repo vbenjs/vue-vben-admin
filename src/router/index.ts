@@ -9,11 +9,9 @@ import { basicRoutes } from './routes/';
 import { scrollBehavior } from './scrollBehavior';
 import { REDIRECT_NAME } from './constant';
 
-export const hashRouter = createWebHashHistory();
-
 // app router
 const router = createRouter({
-  history: hashRouter,
+  history: createWebHashHistory(),
   routes: basicRoutes as RouteRecordRaw[],
   strict: true,
   scrollBehavior: scrollBehavior,

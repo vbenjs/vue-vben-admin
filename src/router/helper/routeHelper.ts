@@ -16,7 +16,7 @@ function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
     const { component, name } = item;
     const { children } = item;
     if (component) {
-      item.component = dynamicImport(component);
+      item.component = dynamicImport(component as string);
     } else if (name) {
       item.component = getParentLayout(name);
     }
@@ -31,7 +31,7 @@ export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModul
   routeList.forEach((route) => {
     if (route.component) {
       if ((route.component as string).toUpperCase() === 'LAYOUT') {
-        route.component = LayoutMap.get(route.component);
+        route.component = LayoutMap.get(route.component as LayoutMapKey);
       } else {
         route.children = [cloneDeep(route)];
         route.component = LAYOUT;

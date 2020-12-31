@@ -5,4 +5,7 @@ export default {
   toSearch: 'to search',
   toNavigate: 'to navigate',
   toClose: 'to close',
+
+  okText: 'Confirm',
+  cancelText: 'Cancel',
 };

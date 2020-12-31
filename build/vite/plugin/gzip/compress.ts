@@ -1,7 +1,6 @@
 import { gzip } from 'zlib';
 import { readFileSync, writeFileSync } from 'fs';
 import { GzipPluginOptions } from './types';
-import viteConfig from '../../../../vite.config';
 import { readAllFile, getCwdPath, isBuildGzip, isSiteMode } from '../../../utils';
 
 export function startGzip(
@@ -22,8 +21,8 @@ export function startGzip(
 // 手动压缩css
 export async function startGzipStyle() {
   if (isBuildGzip() || isSiteMode()) {
-    const outDir = viteConfig.outDir || 'dist';
-    const assets = viteConfig.assetsDir || '_assets';
+    const outDir = 'dist';
+    const assets = '_assets';
     const allCssFile = readAllFile(getCwdPath(outDir, assets), /\.(css)$/);
     for (const path of allCssFile) {
       const source = readFileSync(path);

@@ -12,7 +12,7 @@
         <p :class="`${prefixCls}__header-name`">{{ getRealName }}</p>
       </div>
 
-      <BasicForm @register="registerForm" layout="vertical" />
+      <BasicForm @register="registerForm" />
 
       <div :class="`${prefixCls}__footer`">
         <a-button type="primary" block class="mt-2" @click="handleLock">

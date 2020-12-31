@@ -9,9 +9,17 @@ export default {
   copy: '剪切板',
   msg: '消息提示',
   watermark: '水印',
+  ripple: '水波纹',
   fullScreen: '全屏',
   errorLog: '错误日志',
   tab: 'Tab带参',
   tab1: 'Tab带参1',
   tab2: 'Tab带参2',
+
+  breadcrumb: '面包屑导航',
+  breadcrumbFlat: '平级模式',
+  breadcrumbFlatDetail: '平级详情',
+
+  breadcrumbChildren: '层级模式',
+  breadcrumbChildrenDetail: '层级详情',
 };

@@ -34,7 +34,9 @@ export function createAsyncComponent(loader: Fn, options: Options = {}) {
     loadingComponent: loading ? <Spin spinning={true} size={size} /> : undefined,
     // The error component will be displayed if a timeout is
     // provided and exceeded. Default: Infinity.
+    // TODO
     timeout,
+    // errorComponent
     // Defining if component is suspensible. Default: true.
     // suspensible: false,
     delay,

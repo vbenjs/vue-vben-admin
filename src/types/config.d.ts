@@ -7,7 +7,6 @@ export interface MenuSetting {
   bgColor: string;
   fixed: boolean;
   collapsed: boolean;
-  collapsedShowTitle: boolean;
   canDrag: boolean;
   show: boolean;
   hidden: boolean;
@@ -19,6 +18,8 @@ export interface MenuSetting {
   topMenuAlign: 'start' | 'center' | 'end';
   trigger: TriggerEnum;
   accordion: boolean;
+  closeMixSidebarOnChange: boolean;
+  collapsedShowTitle: boolean;
 }
 
 export interface MultiTabsSetting {
@@ -109,6 +110,7 @@ export interface ProjectConfig {
   // pageLayout是否开启keep-alive
   openKeepAlive: boolean;
 
+  //
   // 锁屏时间
   lockTime: number;
   // 显示面包屑

@@ -105,28 +105,29 @@ const transform: AxiosTransform = {
     if (apiUrl && isString(apiUrl)) {
       config.url = `${apiUrl}${config.url}`;
     }
+    const params = config.params || {};
     if (config.method?.toUpperCase() === RequestEnum.GET) {
-      if (!isString(config.params)) {
+      if (!isString(params)) {
         config.data = {
           // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
-          params: Object.assign(config.params || {}, createNow(joinTime, false)),
+          params: Object.assign(params || {}, createNow(joinTime, false)),
         };
       } else {
         // 兼容restful风格
-        config.url = config.url + config.params + `${createNow(joinTime, true)}`;
+        config.url = config.url + params + `${createNow(joinTime, true)}`;
         config.params = undefined;
       }
     } else {
-      if (!isString(config.params)) {
-        formatDate && formatRequestDate(config.params);
-        config.data = config.params;
+      if (!isString(params)) {
+        formatDate && formatRequestDate(params);
+        config.data = params;
         config.params = undefined;
         if (joinParamsToUrl) {
           config.url = setObjToUrlParams(config.url as string, config.data);
         }
       } else {
         // 兼容restful风格
-        config.url = config.url + config.params;
+        config.url = config.url + params;
         config.params = undefined;
       }
     }

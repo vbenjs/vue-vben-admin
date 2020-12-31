@@ -8,4 +8,6 @@ export default {
   choose: '请选择',
 
   maxTip: '字符数应小于{0}位',
+
+  apiSelectNotFound: '请等待数据加载完成...',
 };

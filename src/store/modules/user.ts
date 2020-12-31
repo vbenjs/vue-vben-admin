@@ -106,11 +106,12 @@ class User extends VuexModule {
       const data = await loginApi(loginParams, mode);
 
       const { token, userId } = data;
-      // get user info
-      const userInfo = await this.getUserInfoAction({ userId });
 
       // save token
       this.commitTokenState(token);
+
+      // get user info
+      const userInfo = await this.getUserInfoAction({ userId });
 
       // const name = FULL_PAGE_NOT_FOUND_ROUTE.name;
       // name && router.removeRoute(name);

@@ -24,7 +24,7 @@ export default defineComponent({
     const getMergeProps = computed(() => {
       return {
         ...props,
-        ...(unref(propsRef) as any),
+        ...(unref(propsRef) as Recordable),
       } as DescOptions;
     });
 

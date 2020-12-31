@@ -1,5 +1,5 @@
 export default {
-  charts: '图表库',
+  charts: '图表',
   map: '地图',
   line: '折线图',
   pie: '饼图',

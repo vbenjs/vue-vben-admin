@@ -1,19 +1,19 @@
-import { Component } from 'vue';
+import type { Component } from 'vue';
 
 import { Input, Select, Checkbox, InputNumber, Switch } from 'ant-design-vue';
 
-import { ComponentType } from './types/componentType';
+import type { ComponentType } from './types/componentType';
+import { ApiSelect } from '/@/components/Form';
 
 const componentMap = new Map<ComponentType, Component>();
 
 componentMap.set('Input', Input);
-componentMap.set('InputPassword', Input.Password);
 componentMap.set('InputNumber', InputNumber);
 
 componentMap.set('Select', Select);
+componentMap.set('ApiSelect', ApiSelect);
 componentMap.set('Switch', Switch);
 componentMap.set('Checkbox', Checkbox);
-componentMap.set('CheckboxGroup', Checkbox.Group);
 
 export function add(compName: ComponentType, component: Component) {
   componentMap.set(compName, component);

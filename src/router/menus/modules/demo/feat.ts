@@ -1,4 +1,4 @@
-import type { MenuModule } from '/@/router/types.d';
+import type { MenuModule } from '/@/router/types';
 import { t } from '/@/hooks/web/useI18n';
 
 const menu: MenuModule = {
@@ -6,6 +6,9 @@ const menu: MenuModule = {
   menu: {
     name: t('routes.demo.feat.feat'),
     path: '/feat',
+    tag: {
+      dot: true,
+    },
 
     children: [
       {
@@ -16,6 +19,7 @@ const menu: MenuModule = {
         path: 'tabs',
         name: t('routes.demo.feat.tabs'),
       },
+
       {
         path: 'context-menu',
         name: t('routes.demo.feat.contextMenu'),
@@ -45,12 +49,63 @@ const menu: MenuModule = {
         name: t('routes.demo.feat.watermark'),
       },
       {
+        path: 'ripple',
+        name: t('routes.demo.feat.ripple'),
+        tag: {
+          content: 'new',
+        },
+      },
+      {
         path: 'full-screen',
         name: t('routes.demo.feat.fullScreen'),
       },
       {
         path: 'error-log',
         name: t('routes.demo.feat.errorLog'),
+      },
+
+      {
+        name: t('routes.demo.excel.excel'),
+        path: 'excel',
+        children: [
+          {
+            path: 'customExport',
+            name: t('routes.demo.excel.customExport'),
+          },
+          {
+            path: 'jsonExport',
+            name: t('routes.demo.excel.jsonExport'),
+          },
+          {
+            path: 'arrayExport',
+            name: t('routes.demo.excel.arrayExport'),
+          },
+          {
+            path: 'importExcel',
+            name: t('routes.demo.excel.importExcel'),
+          },
+        ],
+      },
+      {
+        name: t('routes.demo.feat.breadcrumb'),
+        path: 'breadcrumb',
+        tag: {
+          content: 'new',
+        },
+        children: [
+          {
+            path: 'flat',
+            name: t('routes.demo.feat.breadcrumbFlat'),
+          },
+          {
+            path: 'flatDetail',
+            name: t('routes.demo.feat.breadcrumbFlatDetail'),
+          },
+          {
+            path: 'children',
+            name: t('routes.demo.feat.breadcrumbChildrenDetail'),
+          },
+        ],
       },
       {
         path: 'testTab',

@@ -37,7 +37,7 @@ const setting: ProjectConfig = {
   showLogo: true,
 
   // Whether to show footer
-  showFooter: true,
+  showFooter: false,
 
   // locale setting
   locale: {
@@ -85,7 +85,7 @@ const setting: ProjectConfig = {
     collapsedShowTitle: false,
     // Whether it can be dragged
     // Only limited to the opening of the left menu, the mouse has a drag bar on the right side of the menu
-    canDrag: false,
+    canDrag: true,
     // Whether to show no dom
     show: true,
     // Whether to show dom
@@ -106,6 +106,8 @@ const setting: ProjectConfig = {
     trigger: TriggerEnum.HEADER,
     // Turn on accordion mode, only show a menu
     accordion: true,
+    // Switch page to close menu
+    closeMixSidebarOnChange: false,
   },
 
   // Multi-label

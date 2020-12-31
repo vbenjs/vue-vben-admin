@@ -1,4 +1,4 @@
-import type { MenuModule } from '/@/router/types.d';
+import type { MenuModule } from '/@/router/types';
 import { t } from '/@/hooks/web/useI18n';
 
 const menu: MenuModule = {
@@ -6,9 +6,7 @@ const menu: MenuModule = {
   menu: {
     name: t('routes.demo.page.page'),
     path: '/page-demo',
-    tag: {
-      dot: true,
-    },
+
     children: [
       {
         path: 'form',
@@ -102,9 +100,6 @@ const menu: MenuModule = {
       {
         path: 'list',
         name: t('routes.demo.page.list'),
-        tag: {
-          content: 'new',
-        },
         children: [
           {
             path: 'basic',

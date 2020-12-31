@@ -1,5 +1,4 @@
 import { getI18n } from '/@/setup/i18n';
-import projectSetting from '/@/settings/projectSetting';
 
 export function useI18n(namespace?: string) {
   function getKey(key: string) {
@@ -17,7 +16,7 @@ export function useI18n(namespace?: string) {
     },
   };
 
-  if (!projectSetting.locale.show || !getI18n()) {
+  if (!getI18n()) {
     return normalFn;
   }
 
@@ -25,7 +24,7 @@ export function useI18n(namespace?: string) {
 
   return {
     ...methods,
-    t: (key: string, ...arg: any) => {
+    t: (key: string, ...arg: any): string => {
       if (!key) return '';
       return t(getKey(key), ...(arg as Parameters<typeof t>));
     },
@@ -36,5 +35,5 @@ export function useI18n(namespace?: string) {
 // Mainly to configure the vscode i18nn ally plugin. This function is only used for routing and menus. Please use useI18n for other places
 
 // 为什么要编写此函数？
-// 主要用于配合vscode i18nn ally插件。此功能仅用于路由和菜单。请在其他地方使用useIs18n
+// 主要用于配合vscode i18nn ally插件。此功能仅用于路由和菜单。请在其他地方使用useI18n
 export const t = (key: string) => key;

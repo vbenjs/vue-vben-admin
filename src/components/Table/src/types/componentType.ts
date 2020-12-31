@@ -1,8 +1,7 @@
 export type ComponentType =
   | 'Input'
-  | 'InputPassword'
   | 'InputNumber'
   | 'Select'
+  | 'ApiSelect'
   | 'Checkbox'
-  | 'CheckboxGroup'
   | 'Switch';

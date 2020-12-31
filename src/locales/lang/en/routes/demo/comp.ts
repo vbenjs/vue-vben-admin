@@ -9,6 +9,12 @@ export default {
   scrollAction: 'Scroll Function',
   virtualScroll: 'Virtual Scroll',
 
+  tree: 'Tree',
+
+  treeBasic: 'Basic',
+  editTree: 'Right-click',
+  actionTree: 'Function operation',
+
   modal: 'Modal',
   drawer: 'Drawer',
   desc: 'Desc',

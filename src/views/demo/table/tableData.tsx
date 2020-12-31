@@ -5,13 +5,18 @@ export function getBasicColumns(): BasicColumn[] {
   return [
     {
       title: 'ID',
-      width: 150,
       dataIndex: 'id',
+      fixed: 'left',
+      width: 200,
     },
     {
       title: '姓名',
       dataIndex: 'name',
-      width: 120,
+      width: 150,
+      filters: [
+        { text: 'Male', value: 'male' },
+        { text: 'Female', value: 'female' },
+      ],
     },
     {
       title: '地址',
@@ -20,14 +25,19 @@ export function getBasicColumns(): BasicColumn[] {
     {
       title: '编号',
       dataIndex: 'no',
-      width: 80,
+      width: 150,
+      sorter: true,
+      defaultHidden: true,
     },
     {
       title: '开始时间',
+      width: 120,
+      sorter: true,
       dataIndex: 'beginTime',
     },
     {
       title: '结束时间',
+      width: 120,
       sorter: true,
       dataIndex: 'endTime',
     },
@@ -40,6 +50,8 @@ export function getBasicShortColumns(): BasicColumn[] {
       title: 'ID',
       width: 150,
       dataIndex: 'id',
+      sorter: true,
+      sortOrder: 'ascend',
     },
     {
       title: '姓名',
@@ -116,6 +128,7 @@ export function getCustomHeaderColumns(): BasicColumn[] {
     {
       // title: '地址',
       dataIndex: 'address',
+      width: 120,
       slots: { title: 'customAddress' },
       sorter: true,
     },
@@ -234,6 +247,7 @@ export function getFormConfig(): Partial<FormProps> {
         label: `字段33`,
         component: 'Select',
         defaultValue: '1',
+        slot: 'custom',
         componentProps: {
           options: [
             {
