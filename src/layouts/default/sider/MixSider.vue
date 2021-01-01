@@ -10,6 +10,7 @@
         open: openMenu,
       },
     ]"
+    v-bind="getMenuEvents"
   >
     <AppLogo :showTitle="false" :class="`${prefixCls}-logo`" />
     <ScrollContainer>
@@ -23,7 +24,7 @@
           ]"
           v-for="item in menuModules"
           :key="item.path"
-          @click="hanldeModuleClick(item.path)"
+          v-bind="getItemEvents(item)"
         >
           <MenuTag :item="item" :showTitle="false" :isHorizontal="false" />
           <g-icon
@@ -112,6 +113,7 @@
         getCanDrag,
         getCloseMixSidebarOnChange,
         getMenuTheme,
+        getMixSideTrigger,
       } = useMenuSetting();
       const { title } = useGlobSetting();
 
@@ -124,6 +126,16 @@
           };
         }
       );
+
+      const getMenuEvents = computed(() => {
+        return unref(getMixSideTrigger) === 'hover'
+          ? {
+              onMouseleave: () => {
+                openMenu.value = false;
+              },
+            }
+          : {};
+      });
 
       const getShowDragBar = computed(() => unref(getCanDrag));
 
@@ -139,11 +151,13 @@
         }
       });
 
-      async function hanldeModuleClick(path: string) {
+      async function hanldeModuleClick(path: string, hover = false) {
         const children = await getChildrenMenus(path);
 
         if (unref(activePath) === path) {
-          openMenu.value = !unref(openMenu);
+          if (!hover) {
+            openMenu.value = !unref(openMenu);
+          }
           if (!unref(openMenu)) {
             setActive();
           }
@@ -178,6 +192,17 @@
         setActive();
       }
 
+      function getItemEvents(item: Menu) {
+        if (unref(getMixSideTrigger) === 'hover') {
+          return {
+            onMouseenter: () => hanldeModuleClick(item.path, true),
+          };
+        }
+        return {
+          onClick: () => hanldeModuleClick(item.path),
+        };
+      }
+
       return {
         t,
         prefixCls,
@@ -194,6 +219,8 @@
         title,
         openMenu,
         getMenuTheme,
+        getItemEvents,
+        getMenuEvents,
       };
     },
   });

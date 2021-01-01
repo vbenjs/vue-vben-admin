@@ -20,6 +20,7 @@ export interface MenuSetting {
   accordion: boolean;
   closeMixSidebarOnChange: boolean;
   collapsedShowTitle: boolean;
+  mixSideTrigger: 'click' | 'hover';
 }
 
 export interface MultiTabsSetting {
