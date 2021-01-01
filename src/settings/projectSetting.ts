@@ -108,6 +108,8 @@ const setting: ProjectConfig = {
     accordion: true,
     // Switch page to close menu
     closeMixSidebarOnChange: false,
+    // Module opening method ‘click’ |'hover'
+    mixSideTrigger: 'hover',
   },
 
   // Multi-label

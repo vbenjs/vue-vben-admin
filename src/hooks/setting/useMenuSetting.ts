@@ -33,6 +33,8 @@ const getSplit = computed(() => unref(getMenuSetting).split);
 
 const getMenuBgColor = computed(() => unref(getMenuSetting).bgColor);
 
+const getMixSideTrigger = computed(() => unref(getMenuSetting).mixSideTrigger);
+
 const getCanDrag = computed(() => unref(getMenuSetting).canDrag);
 
 const getAccordion = computed(() => unref(getMenuSetting).accordion);
@@ -145,5 +147,6 @@ export function useMenuSetting() {
     getIsMixMode,
     getIsMixSidebar,
     getCloseMixSidebarOnChange,
+    getMixSideTrigger,
   };
 }
