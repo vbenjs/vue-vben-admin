@@ -73,4 +73,8 @@ export default {
 
   fixedHeader: 'Fixed header',
   fixedSideBar: 'Fixed Sidebar',
+
+  mixSidebarTrigger: 'Mixed menu Trigger',
+  triggerHover: 'Hover',
+  triggerClick: 'Click',
 };
