@@ -7,16 +7,30 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue';
 import { isBoolean } from '/@/utils/is';
 
 import { PAGE_SIZE, PAGE_SIZE_OPTIONS } from '../const';
-import { useProps } from './useProps';
 import { useI18n } from '/@/hooks/web/useI18n';
 
-const { t } = useI18n();
+interface ItemRender {
+  page: number;
+  type: 'page' | 'prev' | 'next';
+  originalElement: any;
+}
+
+function itemRender({ page, type, originalElement }: ItemRender) {
+  if (type === 'prev') {
+    return page === 0 ? null : <LeftOutlined />;
+  } else if (type === 'next') {
+    return page === 1 ? null : <RightOutlined />;
+  }
+  return originalElement;
+}
+
 export function usePagination(refProps: ComputedRef<BasicTableProps>) {
   const configRef = ref<PaginationProps>({});
-  const { propsRef } = useProps(refProps);
 
-  const getPaginationRef = computed((): PaginationProps | false => {
-    const { pagination } = unref(propsRef);
+  const { t } = useI18n();
+  const getPaginationInfo = computed((): PaginationProps | boolean => {
+    const { pagination } = unref(refProps);
+
     if (isBoolean(pagination) && !pagination) {
       return false;
     }
@@ -28,20 +42,7 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
       showTotal: (total) => t('component.table.total', { total }),
       showSizeChanger: true,
       pageSizeOptions: PAGE_SIZE_OPTIONS,
-      itemRender: ({ page, type, originalElement }) => {
-        if (type === 'prev') {
-          if (page === 0) {
-            return null;
-          }
-          return <LeftOutlined />;
-        } else if (type === 'next') {
-          if (page === 1) {
-            return null;
-          }
-          return <RightOutlined />;
-        }
-        return originalElement;
-      },
+      itemRender: itemRender,
       showQuickJumper: true,
       ...(isBoolean(pagination) ? {} : pagination),
       ...unref(configRef),
@@ -49,10 +50,15 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
   });
 
   function setPagination(info: Partial<PaginationProps>) {
+    const paginationInfo = unref(getPaginationInfo);
     configRef.value = {
-      ...unref(getPaginationRef),
+      ...(!isBoolean(paginationInfo) ? paginationInfo : {}),
       ...info,
     };
   }
-  return { getPaginationRef, setPagination };
+
+  function getPagination() {
+    return unref(getPaginationInfo);
+  }
+  return { getPagination, getPaginationInfo, setPagination };
 }

@@ -5,7 +5,7 @@ import router, { setupRouter } from '/@/router';
 import { setupStore } from '/@/store';
 import { setupAntd } from '/@/setup/ant-design-vue';
 import { setupErrorHandle } from '/@/setup/error-handle';
-import { setupGlobDirectives } from '/@/setup/directives';
+import { setupGlobDirectives } from '/@/directives';
 import { setupI18n } from '/@/setup/i18n';
 import { setupProdMockServer } from '../mock/_createProductionServer';
 import { setApp } from '/@/setup/App';
@@ -38,7 +38,7 @@ setupErrorHandle(app);
 
 // Mount when the route is ready
 router.isReady().then(() => {
-  app.mount('#app');
+  app.mount('#app', true);
 });
 
 // The development environment takes effect

@@ -1,10 +1,5 @@
 <template>
-  <Scrollbar
-    ref="scrollbarRef"
-    :wrapClass="`scrollbar__wrap`"
-    :viewClass="`scrollbar__view`"
-    class="scroll-container"
-  >
+  <Scrollbar ref="scrollbarRef" class="scroll-container" v-bind="$attrs">
     <slot />
   </Scrollbar>
 </template>

@@ -2,7 +2,11 @@
   <Layout :class="prefixCls">
     <LayoutFeatures />
     <LayoutHeader fixed v-if="getShowFullHeaderRef" />
-    <Layout>
+    <Layout
+      :class="{
+        'ant-layout-has-sider': getIsMixSidebar,
+      }"
+    >
       <LayoutSideBar v-if="getShowSidebar || getIsMobile" />
       <Layout :class="`${prefixCls}__main`">
         <LayoutMultipleHeader />
@@ -53,13 +57,14 @@
 
       const { getShowFullHeaderRef } = useHeaderSetting();
 
-      const { getShowSidebar } = useMenuSetting();
+      const { getShowSidebar, getIsMixSidebar } = useMenuSetting();
 
       return {
         getShowFullHeaderRef,
         getShowSidebar,
         prefixCls,
         getIsMobile,
+        getIsMixSidebar,
       };
     },
   });
@@ -77,10 +82,6 @@
 
     > .ant-layout {
       min-height: 100%;
-    }
-
-    &__main {
-      margin-left: 1px;
     }
   }
 </style>

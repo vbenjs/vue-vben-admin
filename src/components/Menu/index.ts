@@ -1,9 +1,5 @@
-import { withInstall } from '../util';
-
 import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
-export const BasicMenu = createAsyncComponent(() => import('./src/BasicMenu.vue'), {
-  loading: false,
-});
+export const BasicMenu = createAsyncComponent(() => import('./src/BasicMenu.vue'));
 
-withInstall(BasicMenu);
+export const MenuTag = createAsyncComponent(() => import('./src/components/MenuItemTag.vue'));

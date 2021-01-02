@@ -1,7 +1,7 @@
-import type { BasicTableProps, FetchParams } from '../types/table';
+import type { BasicTableProps, FetchParams, SorterResult } from '../types/table';
 import type { PaginationProps } from '../types/pagination';
 
-import { watch, ref, unref, ComputedRef, computed, onMounted, Ref } from 'vue';
+import { ref, unref, ComputedRef, computed, onMounted, watchEffect, reactive } from 'vue';
 
 import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 
@@ -9,39 +9,70 @@ import { buildUUID } from '/@/utils/uuid';
 import { isFunction, isBoolean } from '/@/utils/is';
 import { get } from 'lodash-es';
 
-import { useProps } from './useProps';
+import { FETCH_SETTING, ROW_KEY, PAGE_SIZE } from '../const';
 
-import { FETCH_SETTING, ROW_KEY } from '../const';
 interface ActionType {
-  getPaginationRef: ComputedRef<false | PaginationProps>;
+  getPaginationInfo: ComputedRef<boolean | PaginationProps>;
   setPagination: (info: Partial<PaginationProps>) => void;
-  loadingRef: Ref<boolean | undefined>;
-  getFieldsValue: () => {
-    [field: string]: any;
-  };
+  setLoading: (loading: boolean) => void;
+  getFieldsValue: () => Recordable;
+  clearSelectedRowKeys: () => void;
+}
+
+interface SearchState {
+  sortInfo: Recordable;
+  filterInfo: Record<string, string[]>;
 }
 export function useDataSource(
-  refProps: ComputedRef<BasicTableProps>,
-  { getPaginationRef, setPagination, loadingRef, getFieldsValue }: ActionType,
+  propsRef: ComputedRef<BasicTableProps>,
+  {
+    getPaginationInfo,
+    setPagination,
+    setLoading,
+    getFieldsValue,
+    clearSelectedRowKeys,
+  }: ActionType,
   emit: EmitType
 ) {
-  const { propsRef } = useProps(refProps);
+  const searchState = reactive<SearchState>({
+    sortInfo: {},
+    filterInfo: {},
+  });
+  const dataSourceRef = ref<Recordable[]>([]);
 
-  const dataSourceRef = ref<any[]>([]);
+  watchEffect(() => {
+    const { dataSource, api } = unref(propsRef);
+    !api && dataSource && (dataSourceRef.value = dataSource);
+  });
 
-  watch(
-    () => unref(propsRef).dataSource,
-    (data: any[]) => {
-      const { api } = unref(propsRef);
-      !api && (dataSourceRef.value = data);
-    },
-    { immediate: true }
-  );
+  function handleTableChange(
+    pagination: PaginationProps,
+    filters: Partial<Recordable<string[]>>,
+    sorter: SorterResult
+  ) {
+    const { clearSelectOnPageChange, sortFn, filterFn } = unref(propsRef);
+    if (clearSelectOnPageChange) {
+      clearSelectedRowKeys();
+    }
+    setPagination(pagination);
+
+    const params: Recordable = {};
+    if (sorter && isFunction(sortFn)) {
+      const sortInfo = sortFn(sorter);
+      searchState.sortInfo = sortInfo;
+      params.sortInfo = sortInfo;
+    }
+
+    if (filters && isFunction(filterFn)) {
+      const filterInfo = filterFn(filters);
+      searchState.filterInfo = filterInfo;
+      params.filterInfo = filterInfo;
+    }
+    fetch(params);
+  }
 
   function setTableKey(items: any[]) {
-    if (!items || !Array.isArray(items)) {
-      return;
-    }
+    if (!items || !Array.isArray(items)) return;
     items.forEach((item) => {
       if (!item[ROW_KEY]) {
         item[ROW_KEY] = buildUUID();
@@ -51,8 +82,14 @@ export function useDataSource(
       }
     });
   }
+
   const getAutoCreateKey = computed(() => {
     return unref(propsRef).autoCreateKey && !unref(propsRef).rowKey;
+  });
+
+  const getRowKey = computed(() => {
+    const { rowKey } = unref(propsRef);
+    return unref(getAutoCreateKey) ? ROW_KEY : rowKey;
   });
 
   const getDataSourceRef = computed(() => {
@@ -80,50 +117,65 @@ export function useDataSource(
     return unref(dataSourceRef);
   });
 
+  async function updateTableData(index: number, key: string, value: any) {
+    const record = dataSourceRef.value[index];
+    if (record) {
+      dataSourceRef.value[index][key] = value;
+    }
+    return dataSourceRef.value[index];
+  }
+
   async function fetch(opt?: FetchParams) {
     const { api, searchInfo, fetchSetting, beforeFetch, afterFetch, useSearchForm } = unref(
       propsRef
     );
     if (!api || !isFunction(api)) return;
     try {
-      loadingRef.value = true;
+      setLoading(true);
       const { pageField, sizeField, listField, totalField } = fetchSetting || FETCH_SETTING;
-      let pageParams: any = {};
-      
-      const { current, pageSize } = unref(getPaginationRef) as PaginationProps;
-      
-      if (isBoolean(getPaginationRef)) {
+      let pageParams: Recordable = {};
+
+      const { current = 1, pageSize = PAGE_SIZE } = unref(getPaginationInfo) as PaginationProps;
+
+      if (isBoolean(getPaginationInfo)) {
         pageParams = {};
       } else {
         pageParams[pageField] = (opt && opt.page) || current;
         pageParams[sizeField] = pageSize;
       }
 
-      let params: any = {
+      const { sortInfo = {}, filterInfo } = searchState;
+
+      let params: Recordable = {
         ...pageParams,
         ...(useSearchForm ? getFieldsValue() : {}),
         ...searchInfo,
         ...(opt ? opt.searchInfo : {}),
         ...(opt ? opt.sortInfo : {}),
         ...(opt ? opt.filterInfo : {}),
+        ...sortInfo,
+        ...filterInfo,
       };
       if (beforeFetch && isFunction(beforeFetch)) {
         params = beforeFetch(params) || params;
       }
 
       const res = await api(params);
-      let resultItems: any[] = get(res, listField);
-      const resultTotal: number = get(res, totalField);
-      
+
+      const isArrayResult = Array.isArray(res);
+
+      let resultItems: Recordable[] = isArrayResult ? res : get(res, listField);
+      const resultTotal: number = isArrayResult ? 0 : get(res, totalField);
+
       // 假如数据变少，导致总页数变少并小于当前选中页码，通过getPaginationRef获取到的页码是不正确的，需获取正确的页码再次执行
-      var currentTotalPage = Math.ceil(resultTotal / pageSize);
+      const currentTotalPage = Math.ceil(resultTotal / pageSize);
       if (current > currentTotalPage) {
-          setPagination({
-            current: currentTotalPage,
-          });
-          fetch(opt);
+        setPagination({
+          current: currentTotalPage,
+        });
+        fetch(opt);
       }
-      
+
       if (afterFetch && isFunction(afterFetch)) {
         resultItems = afterFetch(resultItems) || resultItems;
       }
@@ -147,20 +199,37 @@ export function useDataSource(
         total: 0,
       });
     } finally {
-      loadingRef.value = false;
-      // setSearchFormLoading(false);
+      setLoading(false);
     }
   }
 
-  function setTableData(values: any[]) {
+  function setTableData<T = Recordable>(values: T[]) {
     dataSourceRef.value = values;
   }
+
+  function getDataSource<T = Recordable>() {
+    return getDataSourceRef.value as T[];
+  }
+
+  async function reload(opt?: FetchParams) {
+    await fetch(opt);
+  }
+
   onMounted(() => {
-    // 转异步任务
     useTimeoutFn(() => {
       unref(propsRef).immediate && fetch();
     }, 0);
   });
 
-  return { getDataSourceRef, setTableData, getAutoCreateKey, fetch: fetch };
+  return {
+    getDataSourceRef,
+    getDataSource,
+    getRowKey,
+    setTableData,
+    getAutoCreateKey,
+    fetch,
+    reload,
+    updateTableData,
+    handleTableChange,
+  };
 }

@@ -9,9 +9,7 @@ export const basicProps = {
     type: Array as PropType<Menu[]>,
     default: () => [],
   },
-
   collapsedShowTitle: propTypes.bool,
-
   // 最好是4 倍数
   inlineIndent: propTypes.number.def(20),
   // 菜单组件的mode属性
@@ -19,13 +17,14 @@ export const basicProps = {
     type: String as PropType<MenuModeEnum>,
     default: MenuModeEnum.INLINE,
   },
-  showLogo: propTypes.bool,
+
   type: {
     type: String as PropType<MenuTypeEnum>,
     default: MenuTypeEnum.MIX,
   },
   theme: propTypes.string.def(ThemeEnum.DARK),
   inlineCollapsed: propTypes.bool,
+  mixSider: propTypes.bool,
 
   isHorizontal: propTypes.bool,
   accordion: propTypes.bool.def(true),

@@ -1,8 +1,9 @@
-import type { PropType } from 'vue';
+import type { PropType, CSSProperties } from 'vue';
 import { ButtonProps } from 'ant-design-vue/es/button/buttonTypes';
 
 import { useI18n } from '/@/hooks/web/useI18n';
-import { propTypes } from '/@/utils/propTypes';
+import { propTypes, VueNode } from '/@/utils/propTypes';
+import type { ModalWrapperProps } from './types';
 const { t } = useI18n();
 
 export const modalProps = {
@@ -26,6 +27,7 @@ export const basicProps = Object.assign({}, modalProps, {
   // Whether to setting wrapper
   useWrapper: propTypes.bool.def(true),
   loading: propTypes.bool,
+  loadingTip: propTypes.string,
   /**
    * @description: Show close button
    */
@@ -35,65 +37,44 @@ export const basicProps = Object.assign({}, modalProps, {
    */
   showOkBtn: propTypes.bool.def(true),
 
-  wrapperProps: Object as PropType<any>,
+  wrapperProps: Object as PropType<Partial<ModalWrapperProps>>,
 
-  afterClose: Function as PropType<() => Promise<any>>,
+  afterClose: Function as PropType<() => Promise<VueNode>>,
 
-  bodyStyle: Object as PropType<any>,
+  bodyStyle: Object as PropType<CSSProperties>,
 
-  closable: {
-    type: Boolean as PropType<boolean>,
-    default: true,
-  },
+  closable: propTypes.bool.def(true),
 
-  closeIcon: Object as PropType<any>,
+  closeIcon: Object as PropType<VueNode>,
 
-  confirmLoading: Boolean as PropType<boolean>,
+  confirmLoading: propTypes.bool,
 
-  destroyOnClose: Boolean as PropType<boolean>,
+  destroyOnClose: propTypes.bool,
 
-  footer: Object as PropType<any>,
+  footer: Object as PropType<VueNode>,
 
   getContainer: Function as PropType<() => any>,
 
-  mask: {
-    type: Boolean as PropType<boolean>,
-    default: true,
-  },
+  mask: propTypes.bool.def(true),
 
-  maskClosable: {
-    type: Boolean as PropType<boolean>,
-    default: true,
-  },
-  keyboard: {
-    type: Boolean as PropType<boolean>,
-    default: true,
-  },
+  maskClosable: propTypes.bool.def(true),
+  keyboard: propTypes.bool.def(true),
 
-  maskStyle: Object as PropType<any>,
+  maskStyle: Object as PropType<CSSProperties>,
 
-  okType: {
-    type: String as PropType<string>,
-    default: 'primary',
-  },
+  okType: propTypes.string.def('primary'),
 
   okButtonProps: Object as PropType<ButtonProps>,
 
   cancelButtonProps: Object as PropType<ButtonProps>,
 
-  title: {
-    type: String as PropType<string>,
-  },
+  title: propTypes.string,
 
-  visible: Boolean as PropType<boolean>,
+  visible: propTypes.bool,
 
   width: [String, Number] as PropType<string | number>,
 
-  wrapClassName: {
-    type: String as PropType<string>,
-  },
+  wrapClassName: propTypes.string,
 
-  zIndex: {
-    type: Number as PropType<number>,
-  },
+  zIndex: propTypes.number,
 });

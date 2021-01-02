@@ -1,17 +1,19 @@
 import { ButtonProps } from 'ant-design-vue/es/button/buttonTypes';
 export interface ActionItem extends ButtonProps {
-  onClick?: any;
+  onClick?: Fn;
   label: string;
   color?: 'success' | 'error' | 'warning';
   icon?: string;
   popConfirm?: PopConfirm;
+  disabled?: boolean;
+  divider?: boolean;
 }
 
 export interface PopConfirm {
   title: string;
   okText?: string;
   cancelText?: string;
-  confirm: any;
-  cancel?: any;
+  confirm: Fn;
+  cancel?: Fn;
   icon?: string;
 }

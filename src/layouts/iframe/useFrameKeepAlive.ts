@@ -50,9 +50,10 @@ export function useFrameKeepAlive() {
 
   function hasRenderFrame(name: string) {
     if (!unref(getShowMultipleTab)) {
-      return true;
+      return router.currentRoute.value.name === name;
     }
     return unref(getOpenTabList).includes(name);
   }
+
   return { hasRenderFrame, getFramePages, showIframe, getAllFramePages };
 }

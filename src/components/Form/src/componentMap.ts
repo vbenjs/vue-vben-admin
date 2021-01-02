@@ -1,4 +1,4 @@
-import { Component } from 'vue';
+import type { Component } from 'vue';
 import type { ComponentType } from './types/index';
 
 /**
@@ -17,10 +17,12 @@ import {
   TimePicker,
   TreeSelect,
 } from 'ant-design-vue';
+
 import RadioButtonGroup from './components/RadioButtonGroup.vue';
+import ApiSelect from './components/ApiSelect.vue';
 import { BasicUpload } from '/@/components/Upload';
 
-const componentMap = new Map<ComponentType, any>();
+const componentMap = new Map<ComponentType, Component>();
 
 componentMap.set('Input', Input);
 componentMap.set('InputGroup', Input.Group);
@@ -31,6 +33,7 @@ componentMap.set('InputNumber', InputNumber);
 componentMap.set('AutoComplete', AutoComplete);
 
 componentMap.set('Select', Select);
+componentMap.set('ApiSelect', ApiSelect);
 // componentMap.set('SelectOptGroup', Select.OptGroup);
 // componentMap.set('SelectOption', Select.Option);
 componentMap.set('TreeSelect', TreeSelect);

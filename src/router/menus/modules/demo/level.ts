@@ -1,4 +1,4 @@
-import type { MenuModule } from '/@/router/types.d';
+import type { MenuModule } from '/@/router/types';
 import { t } from '/@/hooks/web/useI18n';
 
 const menu: MenuModule = {
@@ -6,9 +6,6 @@ const menu: MenuModule = {
   menu: {
     name: t('routes.demo.level.level'),
     path: '/level',
-    tag: {
-      dot: true,
-    },
     children: [
       {
         path: 'menu1',

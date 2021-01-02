@@ -88,8 +88,9 @@ class Tab extends VuexModule {
       if (item.meta?.affix) {
         const name = item.name as string;
         pageCacheSet.add(name);
-      } else if (item.matched && needCache) {
-        const matched = item.matched;
+      } else if (item?.matched && needCache) {
+        const matched = item?.matched;
+        if (!matched) return;
         const len = matched.length;
 
         if (len < 2) return;
@@ -181,7 +182,7 @@ class Tab extends VuexModule {
   @Action
   addTabAction(route: RouteLocationNormalized) {
     const { path, name } = route;
-    // 404  页面不需要添加tab
+    // 404  The page does not need to add a tab
     if (
       path === PageEnum.ERROR_PAGE ||
       !name ||

@@ -1,8 +1,100 @@
 ## Wip
 
+### ✨ Features
+
+- 新增`mixSideTrigger`配置。用于配置左侧混合模式菜单打开方式。可选`hover`,默认`click`
+
+### 🐛 Bug Fixes
+
+- 修复表格列配置已知问题
+
+## 2.0.0-rc.15 (2020-12-31)
+
+### ✨ 表格破坏性更新
+
+- 重构了可编辑单元格及可编辑行。具体看示例。写法已改变。针对可编辑表格。
+
+- 表格编辑支持表单校验
+
+- 在表格列配置增加了以下配置
+
+```bash
+{
+
+  # 默认是否显示列。不显示的可以在列配置打开
+  defaultHidden?: boolean;
+  # 列头右侧帮助文本
+  helpMessage?: string | string[];
+  # 自定义格式化 单元格内容。 支持时间/枚举自动转化
+  format?: CellFormat;
+
+  # Editable
+  # 是否是可编辑单元格
+  edit?: boolean;
+  # 是否是可编辑行
+  editRow?: boolean;
+  # 编辑状态。
+  editable?: boolean;
+  #  编辑组件
+  editComponent?: ComponentType;
+  # 所对应组件的参数
+  editComponentProps?: Recordable;
+  # 校验
+  editRule?: boolean | ((text: string, record: Recordable) => Promise<string>);
+  # 值枚举转化
+  editValueMap?: (value: any) => string;
+  # 触发编辑正航
+  record.onEditRow?: () => void;
+}
+
+```
+
+### ✨ 表格重构
+
+- 新增`clickToRowSelect`属性。用于控制点击行是否选中勾选框
+- 监听行点击事件
+- 表格列配置按钮增加 列拖拽，列固定功能。
+- 表格列配置新增`defaultHidden` 属性。用于默认隐藏。可在表格列配置勾选显示
+- 更强大的列配置
+- useTable:支持动态改变参数。可以传入`Ref`类型与`Computed`类型进行动态更改
+- useTable:新增返回 `getForm`函数。可以用于操作表格内的表单
+- 修复表格已知的问题
+
+### ✨ Features
+
+- 新增 `v-ripple`水波纹指令
+- 新增左侧菜单混合模式
+- 新增 markdown 嵌入表单内示例
+- 新增主框架外页面示例
+- `route.meta` 新增`currentActiveMenu`,`hideTab`,`hideMenu`参数 用于控制详情页面包屑级菜单显示隐藏。
+- 新增面包屑导航示例
+- form: 新增`suffix`属性，用于配置后缀内容
+- form: 新增远程下拉`ApiSelect`及示例
+- form: 新增`autoFocusFirstItem`配置。用于配置是否聚焦表单第一个输入框
+- useForm: 支持动态改变参数。可以传入`Ref`类型与`Computed`类型进行动态更改
+
+### ⚡ Performance Improvements
+
+- 优化`modal`与`drawer`滚动条组件
+- table: 移除 `isTreeTable`属性
+- 全局引入`less`文件。无需手动在组件再次引入
+
+### 🎫 Chores
+
+- 升级`ant-design-vue`到`2.0.0-rc.7`
+- 升级`vue`到`3.0.5`
+
 ### 🐛 Bug Fixes
 
 - 修复混合模式下滚动条丢失问题
+- 修复环境变量配置失效以及 history 模式下 logo 地址问题
+- 修复图表库切换页面导致宽高计算错误
+- 修复多语言配置 `Locale.show`导致配置不生效
+- 修复路由类型错误
+- 修复菜单分割时权限失效问题
+- 关闭多标签页时 iframe 提前加载
+- 修复`modal`与`drawer`已知问题
+- 修复左侧菜单混合模式适配问题
 
 ## 2.0.0-rc.14 (2020-12-15)
 

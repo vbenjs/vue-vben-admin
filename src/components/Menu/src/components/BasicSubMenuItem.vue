@@ -1,6 +1,9 @@
 <template>
-  <BasicMenuItem v-if="!menuHasChildren(item)" v-bind="$props" />
-  <SubMenu v-else :class="[`${prefixCls}__level${level}`, theme]">
+  <BasicMenuItem v-if="!menuHasChildren(item) && getShowMenu" v-bind="$props" />
+  <SubMenu
+    v-if="menuHasChildren(item) && getShowMenu"
+    :class="[`${prefixCls}__level${level}`, theme]"
+  >
     <template #title>
       <MenuItemContent v-bind="$props" :item="item" />
     </template>
@@ -16,7 +19,7 @@
 <script lang="ts">
   import type { Menu as MenuType } from '/@/router/types';
 
-  import { defineComponent } from 'vue';
+  import { defineComponent, computed } from 'vue';
   import { Menu } from 'ant-design-vue';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { itemProps } from '../props';
@@ -35,8 +38,12 @@
       // ExpandIcon: createAsyncComponent(() => import('./ExpandIcon.vue')),
     },
     props: itemProps,
-    setup() {
+    setup(props) {
       const { prefixCls } = useDesign('basic-menu-item');
+
+      const getShowMenu = computed(() => {
+        return !props.item.meta?.hideMenu;
+      });
       function menuHasChildren(menuTreeItem: MenuType): boolean {
         return (
           Reflect.has(menuTreeItem, 'children') &&
@@ -47,6 +54,7 @@
       return {
         prefixCls,
         menuHasChildren,
+        getShowMenu,
       };
     },
   });

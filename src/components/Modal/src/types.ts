@@ -1,16 +1,18 @@
 import type { ButtonProps } from 'ant-design-vue/lib/button/buttonTypes';
-import type { CSSProperties, VNodeChild } from 'vue';
+import type { CSSProperties, VNodeChild, ComputedRef } from 'vue';
 /**
  * @description: 弹窗对外暴露的方法
  */
 export interface ModalMethods {
   setModalProps: (props: Partial<ModalProps>) => void;
+  emitVisible?: (visible: boolean, uid: number) => void;
 }
 
 export type RegisterFn = (modalMethods: ModalMethods, uuid?: string) => void;
 
 export interface ReturnMethods extends ModalMethods {
   openModal: <T = any>(props?: boolean, data?: T, openOnSet?: boolean) => void;
+  getVisible?: ComputedRef<boolean>;
 }
 
 export type UseModalReturnType = [RegisterFn, ReturnMethods];
@@ -19,6 +21,7 @@ export interface ReturnInnerMethods extends ModalMethods {
   closeModal: () => void;
   changeLoading: (loading: boolean) => void;
   changeOkLoading: (loading: boolean) => void;
+  getVisible?: ComputedRef<boolean>;
 }
 
 export type UseModalInnerReturnType = [RegisterFn, ReturnInnerMethods];
@@ -38,6 +41,7 @@ export interface ModalProps {
   useWrapper: boolean;
 
   loading: boolean;
+  loadingTip?: string;
 
   wrapperProps: Omit<ModalWrapperProps, 'loading'>;
 
@@ -193,4 +197,5 @@ export interface ModalWrapperProps {
   minHeight: number;
   visible: boolean;
   fullScreen: boolean;
+  useWrapper: boolean;
 }

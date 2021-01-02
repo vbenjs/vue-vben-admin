@@ -1,3 +1,90 @@
+## 2.0.0-rc.15 (2020-12-31)
+
+### ✨ Table destructive update
+
+- Refactored editable cells and editable rows. See examples for details. The writing has changed. For editable tables.
+
+- Form editing supports form validation
+
+- Added the following configuration in the table column configuration
+
+```bash
+{
+
+  # Whether to display columns by default. Those that are not displayed can be opened in the column configuration
+  defaultHidden?: boolean;
+  # Help text on the right side of the column header
+  helpMessage?: string | string[];
+  # Custom formatting Cell content. Support time/enumeration automatic conversion
+  format?: CellFormat;
+
+  # Editable
+  # Is it an editable cell
+  edit?: boolean;
+  # Is it an editable line
+  editRow?: boolean;
+  # Edit status.
+  editable?: boolean;
+  # Edit component
+  editComponent?: ComponentType;
+  # The parameters of the corresponding component
+  editComponentProps?: Recordable;
+  # Check
+  editRule?: boolean | ((text: string, record: Recordable) => Promise<string>);
+  # Value enumeration conversion
+  editValueMap?: (value: any) => string;
+  # Trigger editing Zhenghang
+  record.onEditRow?: () => void;
+}
+
+```
+
+### ✨ Table reconstruction
+
+- Added `clickToRowSelect` attribute. Used to control whether the clicked row is checked or not
+- Monitor row click event
+- Add column drag and drop and column fix function for the table column configuration button.
+- Added `defaultHidden` attribute to table column configuration. Used to hide by default. You can configure the tick display in the table column
+- More powerful column configuration
+- useTable: Support for dynamically changing parameters. You can pass in `Ref` type and `Computed` type for dynamic changes
+- useTable: Added return function `getForm`. Can be used to manipulate forms in the form Fix known issues in the table
+
+### ✨ Features
+
+- Added `v-ripple` water ripple command
+- Added the left menu mixed mode
+- Add an example of markdown embedded in the form
+- Add an example of a page outside the main frame
+- `route.meta` added `currentActiveMenu`, `hideTab`, and `hideMenu` parameters to control the display and hide of the crumb-level menu on the detail page.
+- Added breadcrumb navigation example
+- form: Added `suffix` attribute to configure suffix content
+- form: Added remote drop-down `ApiSelect` and examples
+- form: Add `autoFocusFirstItem` configuration. Used to configure whether to focus on the first input box of the form
+- useForm: Support for dynamically changing parameters. You can pass in `Ref` type and `Computed` type for dynamic changes
+
+### ⚡ Performance Improvements
+
+- Optimize the scroll bar components of `modal` and `drawer`
+- table: remove the `isTreeTable` attribute
+- Import `less` files globally. No need to manually re-introduce the component
+
+### 🎫 Chores
+
+- Upgrade `ant-design-vue` to `2.0.0-rc.7`
+- Upgrade `vue` to `3.0.5`
+
+### 🐛 Bug Fixes
+
+- Fixed the issue of missing scroll bars in mixed mode
+- Fix the invalid configuration of environment variables and the logo address problem in history mode
+- Fix the calculation error of width and height caused by switching page of chart library
+- Fixed the issue of multi-language configuration `Locale.show` causing the configuration not to take effect
+- Fix routing type error
+- Fix the problem of invalid permissions when the menu is split
+- Iframe loads early when closing multi-tab pages
+- Fix known issues with `modal` and `drawer`
+- Fix the problem of mixing mode adaptation in the left menu
+
 ## 2.0.0-rc.14 (2020-12-15)
 
 ### ✨ Features

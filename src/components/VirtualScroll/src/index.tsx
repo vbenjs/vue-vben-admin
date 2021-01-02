@@ -54,7 +54,7 @@ export default defineComponent({
 
     const getWrapStyleRef = computed(
       (): CSSProperties => {
-        const styles: Record<string, string> = {};
+        const styles: Recordable<string> = {};
         const height = convertToUnit(props.height);
         const minHeight = convertToUnit(props.minHeight);
         const minWidth = convertToUnit(props.minWidth);

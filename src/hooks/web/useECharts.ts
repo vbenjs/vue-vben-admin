@@ -21,10 +21,10 @@ export function useECharts(
 
   function init() {
     const el = unref(elRef);
-
     if (!el || !unref(el)) {
       return;
     }
+
     chartInstance = echarts.init(el, theme);
     const { removeEvent } = useEventListener({
       el: window,
@@ -33,7 +33,7 @@ export function useECharts(
     });
     removeResizeFn = removeEvent;
     const { widthRef, screenEnum } = useBreakpoint();
-    if (unref(widthRef) <= screenEnum.MD) {
+    if (unref(widthRef) <= screenEnum.MD || el.offsetHeight === 0) {
       useTimeoutFn(() => {
         resizeFn();
       }, 30);
@@ -41,6 +41,12 @@ export function useECharts(
   }
 
   function setOptions(options: any, clear = true) {
+    if (unref(elRef)?.offsetHeight === 0) {
+      useTimeoutFn(() => {
+        setOptions(options);
+      }, 30);
+      return;
+    }
     nextTick(() => {
       useTimeoutFn(() => {
         if (!chartInstance) {
@@ -48,16 +54,15 @@ export function useECharts(
 
           if (!chartInstance) return;
         }
-        clear && chartInstance.clear();
+        clear && chartInstance?.clear();
 
-        chartInstance && chartInstance.setOption(options);
+        chartInstance?.setOption(options);
       }, 30);
     });
   }
 
   function resize() {
-    if (!chartInstance) return;
-    chartInstance.resize();
+    chartInstance?.resize();
   }
 
   tryOnUnmounted(() => {

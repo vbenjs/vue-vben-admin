@@ -9,7 +9,8 @@
       :loading="loading"
       :striped="striped"
       :bordered="border"
-      :pagination="{ pageSize: 20 }"
+      showTableSetting
+      :pagination="pagination"
     >
       <template #toolbar>
         <a-button type="primary" @click="toggleCanResize">
@@ -38,6 +39,7 @@
       const loading = ref(false);
       const striped = ref(true);
       const border = ref(true);
+      const pagination = ref<any>(false);
       function toggleCanResize() {
         canResize.value = !canResize.value;
       }
@@ -48,6 +50,7 @@
         loading.value = true;
         setTimeout(() => {
           loading.value = false;
+          pagination.value = { pageSize: 20 };
         }, 3000);
       }
       function toggleBorder() {
@@ -64,6 +67,7 @@
         toggleCanResize,
         toggleLoading,
         toggleBorder,
+        pagination,
       };
     },
   });
