@@ -109,7 +109,7 @@ const setting: ProjectConfig = {
     // Switch page to close menu
     closeMixSidebarOnChange: false,
     // Module opening method ‘click’ |'hover'
-    mixSideTrigger: 'hover',
+    mixSideTrigger: 'click',
   },
 
   // Multi-label

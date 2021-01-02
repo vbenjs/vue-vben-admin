@@ -250,7 +250,7 @@
         if (props.record) {
           /* eslint-disable  */
           isArray(props.record[cbs])
-            ? props.record[cbs].push(handle)
+            ? props.record[cbs]?.push(handle)
             : (props.record[cbs] = [handle]);
         }
       }
@@ -267,9 +267,9 @@
         /* eslint-disable */
         props.record.onSubmitEdit = async () => {
           if (isArray(props.record?.submitCbs)) {
-            const validFns = props.record?.validCbs || [];
+            const validFns = (props.record?.validCbs || []).map((fn) => fn());
 
-            const res = await Promise.all(validFns.map((fn) => fn()));
+            const res = await Promise.all(validFns);
             const pass = res.every((item) => !!item);
 
             if (!pass) return;
