@@ -43,19 +43,17 @@ function handleIndexColumn(
   getPaginationRef: ComputedRef<boolean | PaginationProps>,
   columns: BasicColumn[]
 ) {
-  const { showIndexColumn, indexColumnProps } = unref(propsRef);
+  const { showIndexColumn, indexColumnProps, isTreeTable } = unref(propsRef);
 
   let pushIndexColumns = false;
-  columns.forEach((item) => {
-    const { children } = item;
-
-    const isTreeTable = children && children.length;
-
+  if (unref(isTreeTable)) {
+    return;
+  }
+  columns.forEach(() => {
     const indIndex = columns.findIndex((column) => column.flag === INDEX_COLUMN_FLAG);
-
-    if (showIndexColumn && !isTreeTable) {
+    if (showIndexColumn) {
       pushIndexColumns = indIndex === -1;
-    } else if (!showIndexColumn && !isTreeTable && indIndex !== -1) {
+    } else if (!showIndexColumn && indIndex !== -1) {
       columns.splice(indIndex, 1);
     }
   });

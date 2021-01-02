@@ -8,6 +8,7 @@
       :dataSource="data"
       rowKey="id"
       :indentSize="20"
+      isTreeTable
     />
   </div>
 </template>
