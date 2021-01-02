@@ -38,6 +38,7 @@
       modalHeaderHeight: propTypes.number.def(50),
       modalFooterHeight: propTypes.number.def(54),
       minHeight: propTypes.number.def(200),
+      height: propTypes.number,
       footerOffset: propTypes.number.def(0),
       visible: propTypes.bool,
       fullScreen: propTypes.bool,
@@ -142,7 +143,11 @@
             realHeightRef.value =
               window.innerHeight - props.modalFooterHeight - props.modalHeaderHeight;
           } else {
-            realHeightRef.value = realHeight > maxHeight ? maxHeight : realHeight + 16 + 30;
+            realHeightRef.value = props.height
+              ? props.height
+              : realHeight > maxHeight
+              ? maxHeight
+              : realHeight + 16 + 30;
           }
           emit('height-change', unref(realHeightRef));
         } catch (error) {

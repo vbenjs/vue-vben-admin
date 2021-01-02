@@ -27,6 +27,8 @@ export interface ReturnInnerMethods extends ModalMethods {
 export type UseModalInnerReturnType = [RegisterFn, ReturnInnerMethods];
 
 export interface ModalProps {
+  minHeight?: number;
+  height?: number;
   // 启用wrapper后 底部可以适当增加高度
   wrapperFooterOffset?: number;
   draggable?: boolean;
@@ -195,6 +197,7 @@ export interface ModalWrapperProps {
   modalHeaderHeight: number;
   modalFooterHeight: number;
   minHeight: number;
+  height: number;
   visible: boolean;
   fullScreen: boolean;
   useWrapper: boolean;

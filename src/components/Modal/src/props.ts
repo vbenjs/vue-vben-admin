@@ -8,6 +8,8 @@ const { t } = useI18n();
 
 export const modalProps = {
   visible: propTypes.bool,
+  height: propTypes.number,
+  minHeight: propTypes.number,
   // open drag
   draggable: propTypes.bool.def(true),
   centered: propTypes.bool,
