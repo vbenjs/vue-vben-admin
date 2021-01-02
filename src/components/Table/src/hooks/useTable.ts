@@ -3,11 +3,10 @@ import type { PaginationProps } from '../types/pagination';
 import type { DynamicProps } from '/@/types/utils';
 import { getDynamicProps } from '/@/utils';
 
-import { ref, onUnmounted, unref } from 'vue';
+import { ref, onUnmounted, unref, watch } from 'vue';
 import { isProdMode } from '/@/utils/env';
 import { isInSetup } from '/@/utils/helper/vueHelper';
 import { error } from '/@/utils/log';
-import { watchEffect } from 'vue';
 import type { FormActionType } from '/@/components/Form';
 
 type Props = Partial<DynamicProps<BasicTableProps>>;
@@ -33,12 +32,18 @@ export function useTable(
     }
     tableRef.value = instance;
     formRef.value = formInstance;
-    // tableProps && instance.setProps(tableProps);
+    tableProps && instance.setProps(getDynamicProps(tableProps));
     loadedRef.value = true;
 
-    watchEffect(() => {
-      tableProps && instance.setProps(getDynamicProps(tableProps));
-    });
+    watch(
+      () => tableProps,
+      () => {
+        tableProps && instance.setProps(getDynamicProps(tableProps));
+      },
+      {
+        immediate: true,
+      }
+    );
   }
 
   function getTableInstance(): TableActionType {
