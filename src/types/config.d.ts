@@ -1,4 +1,4 @@
-import { MenuTypeEnum, MenuModeEnum, TriggerEnum } from '/@/enums/menuEnum';
+import { MenuTypeEnum, MenuModeEnum, TriggerEnum, MixSidebarTriggerEnum } from '/@/enums/menuEnum';
 import { ContentEnum, PermissionModeEnum, ThemeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 import { CacheTypeEnum } from '/@/enums/cacheEnum';
 import type { LocaleType } from '/@/locales/types';
@@ -20,7 +20,7 @@ export interface MenuSetting {
   accordion: boolean;
   closeMixSidebarOnChange: boolean;
   collapsedShowTitle: boolean;
-  mixSideTrigger: 'click' | 'hover';
+  mixSideTrigger: MixSidebarTriggerEnum;
 }
 
 export interface MultiTabsSetting {

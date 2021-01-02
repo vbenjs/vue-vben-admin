@@ -28,6 +28,7 @@ import {
   getMenuTriggerOptions,
   routerTransitionOptions,
   menuTypeList,
+  mixSidebarTriggerOptions,
 } from './enum';
 
 import { HEADER_PRESET_BG_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from '/@/settings/colorSetting';
@@ -73,6 +74,7 @@ export default defineComponent({
       getSplit,
       getIsMixSidebar,
       getCloseMixSidebarOnChange,
+      getMixSideTrigger,
     } = useMenuSetting();
 
     const {
@@ -113,6 +115,14 @@ export default defineComponent({
             title={t('layout.setting.closeMixSidebarOnChange')}
             event={HandlerEnum.MENU_CLOSE_MIX_SIDEBAR_ON_CHANGE}
             def={unref(getCloseMixSidebarOnChange)}
+            disabled={!unref(getIsMixSidebar)}
+          />
+
+          <SelectItem
+            title={t('layout.setting.mixSidebarTrigger')}
+            event={HandlerEnum.MENU_TRIGGER_MIX_SIDEBAR}
+            def={unref(getMixSideTrigger)}
+            options={mixSidebarTriggerOptions}
             disabled={!unref(getIsMixSidebar)}
           />
         </>
