@@ -185,13 +185,14 @@ export function useColumns(
       const columnKeys = columns as string[];
       const newColumns: BasicColumn[] = [];
       cacheColumns.forEach((item) => {
-        if (columnKeys.includes(`${item.key}`! || item.dataIndex!)) {
+        if (columnKeys.includes(item.dataIndex! || (item.key as string))) {
           newColumns.push({
             ...item,
             defaultHidden: false,
           });
         }
       });
+
       // Sort according to another array
       if (!isEqual(cacheKeys, columns)) {
         newColumns.sort((prev, next) => {
