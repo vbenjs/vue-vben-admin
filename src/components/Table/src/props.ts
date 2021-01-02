@@ -16,6 +16,8 @@ import { propTypes } from '/@/utils/propTypes';
 export const basicProps = {
   clickToRowSelect: propTypes.bool.def(true),
 
+  isTreeTable: propTypes.bool.def(false),
+
   tableSetting: {
     type: Object as PropType<TableSetting>,
   },
