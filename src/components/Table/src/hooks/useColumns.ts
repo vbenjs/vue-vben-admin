@@ -1,6 +1,6 @@
 import type { BasicColumn, BasicTableProps, CellFormat, GetColumnsParams } from '../types/table';
 import type { PaginationProps } from '../types/pagination';
-import { unref, ComputedRef, Ref, computed, watchEffect, ref, toRaw } from 'vue';
+import { unref, ComputedRef, Ref, computed, watch, ref, toRaw } from 'vue';
 import { isBoolean, isArray, isString, isObject } from '/@/utils/is';
 import { DEFAULT_ALIGN, PAGE_SIZE, INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG } from '../const';
 import { useI18n } from '/@/hooks/web/useI18n';
@@ -156,11 +156,22 @@ export function useColumns(
     return viewColumns;
   });
 
-  watchEffect(() => {
-    const columns = toRaw(unref(propsRef).columns);
-    columnsRef.value = columns;
-    cacheColumns = columns?.filter((item) => !item.flag) ?? [];
-  });
+  watch(
+    () => unref(propsRef).columns,
+    (columns) => {
+      columnsRef.value = columns;
+      cacheColumns = columns?.filter((item) => !item.flag) ?? [];
+    }
+  );
+
+  // watchEffect(() => {
+  //   const columns = toRaw(unref(propsRef).columns);
+  //   console.log('======================');
+  //   console.log(111);
+  //   console.log('======================');
+  //   columnsRef.value = columns;
+  //   cacheColumns = columns?.filter((item) => !item.flag) ?? [];
+  // });
 
   /**
    * set columns
