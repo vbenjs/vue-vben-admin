@@ -23,6 +23,8 @@
       :fullScreen="fullScreenRef"
       ref="modalWrapperRef"
       :loading="getProps.loading"
+      :minHeight="getProps.minHeight"
+      :height="getProps.height"
       :visible="visibleRef"
       :modalFooterHeight="footer !== undefined && !footer ? 0 : undefined"
       v-bind="omit(getProps.wrapperProps, 'visible')"
