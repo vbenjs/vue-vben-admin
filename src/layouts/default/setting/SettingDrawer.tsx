@@ -75,6 +75,7 @@ export default defineComponent({
       getIsMixSidebar,
       getCloseMixSidebarOnChange,
       getMixSideTrigger,
+      getMixSideFixed,
     } = useMenuSetting();
 
     const {
@@ -109,6 +110,12 @@ export default defineComponent({
             event={HandlerEnum.MENU_SPLIT}
             def={unref(getSplit)}
             disabled={!unref(getShowMenuRef) || unref(getMenuType) !== MenuTypeEnum.MIX}
+          />
+          <SwitchItem
+            title={t('layout.setting.mixSidebarFixed')}
+            event={HandlerEnum.MENU_FIXED_MIX_SIDEBAR}
+            def={unref(getMixSideFixed)}
+            disabled={!unref(getIsMixSidebar)}
           />
 
           <SwitchItem

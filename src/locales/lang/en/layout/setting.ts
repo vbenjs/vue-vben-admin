@@ -77,4 +77,6 @@ export default {
   mixSidebarTrigger: 'Mixed menu Trigger',
   triggerHover: 'Hover',
   triggerClick: 'Click',
+
+  mixSidebarFixed: 'Fixed expanded menu',
 };

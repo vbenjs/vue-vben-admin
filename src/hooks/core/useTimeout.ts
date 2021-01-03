@@ -3,20 +3,23 @@ import { tryOnUnmounted } from '/@/utils/helper/vueHelper';
 
 import { isFunction } from '/@/utils/is';
 
-export function useTimeoutFn(handle: Fn<any>, wait: number) {
+export function useTimeoutFn(handle: Fn<any>, wait: number, native = false) {
   if (!isFunction(handle)) {
     throw new Error('handle is not Function!');
   }
 
   const { readyRef, stop, start } = useTimeoutRef(wait);
-
-  watch(
-    readyRef,
-    (maturity) => {
-      maturity && handle();
-    },
-    { immediate: false }
-  );
+  if (native) {
+    handle();
+  } else {
+    watch(
+      readyRef,
+      (maturity) => {
+        maturity && handle();
+      },
+      { immediate: false }
+    );
+  }
   return { readyRef, stop, start };
 }
 

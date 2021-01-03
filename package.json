@@ -7,7 +7,7 @@
     "build": "cross-env  vite build --mode=production && esno ./build/script/postBuild.ts",
     "build:site": "cross-env SITE=true npm run build ",
     "build:no-cache": "yarn  clean:cache && npm run build",
-    "typecheck": "typecheck .",
+    "typecheck": "vuedx-typecheck .",
     "report": "cross-env REPORT=true npm run build ",
     "preview": "npm run build && esno ./build/script/preview.ts",
     "preview:dist": "esno ./build/script/preview.ts",

@@ -76,4 +76,6 @@ export default {
   mixSidebarTrigger: '混合菜单触发方式',
   triggerHover: '悬停',
   triggerClick: '点击',
+
+  mixSidebarFixed: '固定展开菜单',
 };

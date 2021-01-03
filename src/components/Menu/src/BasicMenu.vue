@@ -125,15 +125,13 @@
         }
       });
 
-      watch(
-        () => props.items,
-        () => {
-          handleMenuChange();
-        }
-        // {
-        //   immediate: true,
-        // }
-      );
+      !props.mixSider &&
+        watch(
+          () => props.items,
+          () => {
+            handleMenuChange();
+          }
+        );
 
       async function handleMenuClick({ key, keyPath }: { key: string; keyPath: string[] }) {
         const { beforeClickFn } = props;
