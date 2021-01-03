@@ -8,6 +8,7 @@ import { unref } from 'vue';
 import { es6Unique } from '/@/utils';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 import { getAllParentPath } from '/@/router/helper/menuHelper';
+import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 
 export function useOpenKeys(
   menuState: MenuState,
@@ -15,18 +16,29 @@ export function useOpenKeys(
   mode: Ref<MenuModeEnum>,
   accordion: Ref<boolean>
 ) {
-  const { getCollapsed, getIsMixSidebar } = useMenuSetting();
+  const { getCollapsed, getIsMixSidebar, getMixSideFixed } = useMenuSetting();
 
-  function setOpenKeys(path: string) {
+  async function setOpenKeys(path: string) {
     if (mode.value === MenuModeEnum.HORIZONTAL) {
       return;
     }
-    const menuList = toRaw(menus.value);
-    if (!unref(accordion)) {
-      menuState.openKeys = es6Unique([...menuState.openKeys, ...getAllParentPath(menuList, path)]);
-    } else {
-      menuState.openKeys = getAllParentPath(menuList, path);
-    }
+    const native = unref(getIsMixSidebar) && unref(getMixSideFixed);
+
+    useTimeoutFn(
+      () => {
+        const menuList = toRaw(menus.value);
+        if (!unref(accordion)) {
+          menuState.openKeys = es6Unique([
+            ...menuState.openKeys,
+            ...getAllParentPath(menuList, path),
+          ]);
+        } else {
+          menuState.openKeys = getAllParentPath(menuList, path);
+        }
+      },
+      16,
+      native
+    );
   }
 
   const getOpenKeys = computed(() => {

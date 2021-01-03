@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2016",
+    "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "strictFunctionTypes": false,
-    "jsx": "react",
+    "jsx": "preserve",
     "baseUrl": ".",
     "allowJs": true,
     "sourceMap": true,

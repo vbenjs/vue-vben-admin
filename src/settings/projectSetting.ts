@@ -110,6 +110,8 @@ const setting: ProjectConfig = {
     closeMixSidebarOnChange: false,
     // Module opening method ‘click’ |'hover'
     mixSideTrigger: MixSidebarTriggerEnum.CLICK,
+    // Fixed expanded menu
+    mixSideFixed: false,
   },
 
   // Multi-label

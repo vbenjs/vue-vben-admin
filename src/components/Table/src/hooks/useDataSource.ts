@@ -218,7 +218,7 @@ export function useDataSource(
   onMounted(() => {
     useTimeoutFn(() => {
       unref(propsRef).immediate && fetch();
-    }, 0);
+    }, 16);
   });
 
   return {

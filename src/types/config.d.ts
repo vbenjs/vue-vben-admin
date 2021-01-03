@@ -21,6 +21,7 @@ export interface MenuSetting {
   closeMixSidebarOnChange: boolean;
   collapsedShowTitle: boolean;
   mixSideTrigger: MixSidebarTriggerEnum;
+  mixSideFixed: boolean;
 }
 
 export interface MultiTabsSetting {

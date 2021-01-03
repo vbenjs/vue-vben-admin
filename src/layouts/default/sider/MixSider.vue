@@ -1,5 +1,5 @@
 <template>
-  <div :class="`${prefixCls}-dom`" />
+  <div :class="`${prefixCls}-dom`" :style="getDomStyle" />
 
   <div
     v-click-outside="handleClickOutside"
@@ -27,7 +27,7 @@
           v-bind="getItemEvents(item)"
         >
           <MenuTag :item="item" :showTitle="false" :isHorizontal="false" />
-          <g-icon
+          <Icon
             :class="`${prefixCls}-module__icon`"
             :size="22"
             :icon="item.meta && item.meta.icon"
@@ -48,6 +48,14 @@
         ]"
       >
         <span class="text"> {{ title }}</span>
+        <Icon
+          :size="16"
+          v-if="getMixSideFixed"
+          icon="ri:pushpin-2-fill"
+          class="pushpin"
+          @click="handleFixedMenu"
+        />
+        <Icon :size="16" v-else icon="ri:pushpin-2-line" class="pushpin" @click="handleFixedMenu" />
       </div>
       <ScrollContainer :class="`${prefixCls}-menu-list__content`">
         <BasicMenu
@@ -70,20 +78,23 @@
 <script lang="ts">
   import { defineComponent, onMounted, ref, computed, CSSProperties, unref } from 'vue';
   import type { Menu } from '/@/router/types';
-  import type { RouteLocationNormalized } from 'vue-router';
+  import { RouteLocationNormalized } from 'vue-router';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { getShallowMenus, getChildrenMenus, getCurrentParentPath } from '/@/router/menus';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { ScrollContainer } from '/@/components/Container';
+  import Icon from '/@/components/Icon';
   import { AppLogo } from '/@/components/Application';
   import { useGo } from '/@/hooks/web/usePage';
   import { BasicMenu, MenuTag } from '/@/components/Menu';
   import { listenerLastChangeTab } from '/@/logics/mitt/tabChange';
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { useDragLine } from './useLayoutSider';
+  import { useGlobSetting } from '/@/hooks/setting';
+
+  import { SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '/@/enums/appEnum';
 
   import clickOutside from '/@/directives/clickOutside';
-  import { useGlobSetting } from '/@/hooks/setting';
 
   export default defineComponent({
     name: 'LayoutMixSider',
@@ -92,6 +103,7 @@
       AppLogo,
       BasicMenu,
       MenuTag,
+      Icon,
     },
     directives: {
       clickOutside,
@@ -101,6 +113,7 @@
       const activePath = ref('');
       const chilrenMenus = ref<Menu[]>([]);
       const openMenu = ref(false);
+      const isInit = ref(false);
       const dragBarRef = ref<ElRef>(null);
       const sideRef = ref<ElRef>(null);
       const currentRoute = ref<Nullable<RouteLocationNormalized>>(null);
@@ -114,7 +127,12 @@
         getCloseMixSidebarOnChange,
         getMenuTheme,
         getMixSideTrigger,
+        getRealWidth,
+        getMixSideFixed,
+        mixSideHasChildren,
+        setMenuSetting,
       } = useMenuSetting();
+
       const { title } = useGlobSetting();
 
       useDragLine(sideRef, dragBarRef, true);
@@ -127,14 +145,41 @@
         }
       );
 
+      const getIsFixed = computed(() => {
+        mixSideHasChildren.value = unref(chilrenMenus).length > 0;
+        const isFixed = unref(getMixSideFixed) && unref(mixSideHasChildren);
+        if (isFixed) {
+          openMenu.value = true;
+        }
+        return isFixed;
+      });
+
+      const getDomStyle = computed(
+        (): CSSProperties => {
+          const fixedWidth = unref(getIsFixed) ? unref(getRealWidth) : 0;
+          const width = `${SIDE_BAR_SHOW_TIT_MINI_WIDTH + fixedWidth}px`;
+          return {
+            width,
+            maxWidth: width,
+            minWidth: width,
+            flex: `0 0 ${width}`,
+          };
+        }
+      );
+
       const getMenuEvents = computed(() => {
-        return unref(getMixSideTrigger) === 'hover'
-          ? {
-              onMouseleave: () => {
-                openMenu.value = false;
-              },
-            }
-          : {};
+        // return unref(getMixSideTrigger) === 'hover'
+        //   ? {
+        //       onMouseleave: () => {
+        //         closeMenu();
+        //       },
+        //     }
+        //   : {};
+        return {
+          onMouseleave: () => {
+            closeMenu();
+          },
+        };
       });
 
       const getShowDragBar = computed(() => unref(getCanDrag));
@@ -145,9 +190,9 @@
 
       listenerLastChangeTab((route) => {
         currentRoute.value = route;
-        setActive();
+        setActive(true);
         if (unref(getCloseMixSidebarOnChange)) {
-          openMenu.value = false;
+          closeMenu();
         }
       });
 
@@ -156,7 +201,11 @@
 
         if (unref(activePath) === path) {
           if (!hover) {
-            openMenu.value = !unref(openMenu);
+            if (!unref(openMenu)) {
+              openMenu.value = true;
+            } else {
+              closeMenu();
+            }
           }
           if (!unref(openMenu)) {
             setActive();
@@ -169,18 +218,32 @@
         if (!children || children.length === 0) {
           go(path);
           chilrenMenus.value = [];
-          openMenu.value = false;
+          closeMenu();
           return;
         }
         chilrenMenus.value = children;
       }
 
-      async function setActive() {
+      async function setActive(setChildren = false) {
         const path = currentRoute.value?.path;
         if (!path) return;
         const parentPath = await getCurrentParentPath(path);
         activePath.value = parentPath;
         // hanldeModuleClick(parentPath);
+        if (unref(getMixSideFixed)) {
+          const activeMenu = unref(menuModules).find((item) => item.path === unref(activePath));
+          const p = activeMenu?.path;
+          if (p) {
+            const children = await getChildrenMenus(p);
+            if (setChildren) {
+              chilrenMenus.value = children;
+              openMenu.value = children.length > 0;
+            }
+            if (children.length === 0) {
+              chilrenMenus.value = [];
+            }
+          }
+        }
       }
 
       function handleMenuClick(path: string) {
@@ -188,7 +251,7 @@
       }
 
       function handleClickOutside() {
-        openMenu.value = false;
+        closeMenu();
         setActive();
       }
 
@@ -201,6 +264,18 @@
         return {
           onClick: () => hanldeModuleClick(item.path),
         };
+      }
+
+      function handleFixedMenu() {
+        setMenuSetting({
+          mixSideFixed: !unref(getIsFixed),
+        });
+      }
+
+      function closeMenu() {
+        if (!unref(getIsFixed)) {
+          openMenu.value = false;
+        }
       }
 
       return {
@@ -221,6 +296,9 @@
         getMenuTheme,
         getItemEvents,
         getMenuEvents,
+        getDomStyle,
+        handleFixedMenu,
+        getMixSideFixed,
       };
     },
   });
@@ -241,7 +319,7 @@
     min-width: @width;
     overflow: hidden;
     background: @sider-dark-bg-color;
-    transition: all 0.2s ease 0s;
+    transition: all 0.3s ease 0s;
     flex: 0 0 @width;
     .@{tag-prefix-cls} {
       position: absolute;
@@ -290,6 +368,17 @@
           &--active {
             color: @primary-color;
             background: unset;
+          }
+        }
+      }
+      .@{prefix-cls}-menu-list {
+        &__title {
+          .pushpin {
+            color: rgba(0, 0, 0, 0.35);
+
+            &:hover {
+              color: rgba(0, 0, 0, 0.85);
+            }
           }
         }
       }
@@ -388,19 +477,29 @@
       &__title {
         display: flex;
         height: @header-height;
-        margin-left: -6px;
+        // margin-left: -6px;
         font-size: 18px;
         color: @primary-color;
         border-bottom: 1px solid rgb(238, 238, 238);
         opacity: 0;
         transition: unset;
-        // justify-content: center;
         align-items: center;
-        justify-content: start;
+        justify-content: space-between;
 
         &.show {
+          min-width: 130px;
           opacity: 1;
           transition: all 0.5s ease;
+        }
+
+        .pushpin {
+          margin-right: 6px;
+          color: rgba(255, 255, 255, 0.65);
+          cursor: pointer;
+
+          &:hover {
+            color: #fff;
+          }
         }
       }
 
