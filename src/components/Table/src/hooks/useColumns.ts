@@ -131,7 +131,8 @@ export function useColumns(
   const getViewColumns = computed(() => {
     const viewColumns = sortFixedColumn(unref(getColumnsRef));
 
-    viewColumns.forEach((column) => {
+    const columns = cloneDeep(viewColumns);
+    columns.forEach((column) => {
       const { slots, dataIndex, customRender, format, edit, editRow, flag } = column;
 
       if (!slots || !slots?.title) {
