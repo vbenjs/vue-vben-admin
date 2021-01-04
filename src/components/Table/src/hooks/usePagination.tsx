@@ -27,13 +27,16 @@ function itemRender({ page, type, originalElement }: ItemRender) {
 export function usePagination(refProps: ComputedRef<BasicTableProps>) {
   const configRef = ref<PaginationProps>({});
 
+  const show = ref(true);
+
   const { t } = useI18n();
   const getPaginationInfo = computed((): PaginationProps | boolean => {
     const { pagination } = unref(refProps);
 
-    if (isBoolean(pagination) && !pagination) {
+    if (!unref(show) || (isBoolean(pagination) && !pagination)) {
       return false;
     }
+
     return {
       current: 1,
       pageSize: PAGE_SIZE,
@@ -60,5 +63,14 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
   function getPagination() {
     return unref(getPaginationInfo);
   }
-  return { getPagination, getPaginationInfo, setPagination };
+
+  function getShowPagination() {
+    return unref(show);
+  }
+
+  async function setShowPagination(flag: boolean) {
+    show.value = flag;
+  }
+
+  return { getPagination, getPaginationInfo, setShowPagination, getShowPagination, setPagination };
 }
