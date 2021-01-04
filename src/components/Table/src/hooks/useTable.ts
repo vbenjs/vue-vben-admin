@@ -42,6 +42,7 @@ export function useTable(
       },
       {
         immediate: true,
+        deep: true,
       }
     );
   }

@@ -1,4 +1,5 @@
 import type { FunctionalComponent } from 'vue';
+import type { DefaultContext } from './transition';
 
 import { computed, defineComponent, unref, Transition, KeepAlive } from 'vue';
 import { RouterView, RouteLocation } from 'vue-router';
@@ -10,6 +11,7 @@ import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
 import { useCache } from './useCache';
 import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
+import { getTransitionName } from './transition';
 // import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
 interface DefaultContext {
@@ -32,17 +34,20 @@ export default defineComponent({
 
     return () => {
       return (
-        <div>
+        <>
           <RouterView>
             {{
               default: ({ Component, route }: DefaultContext) => {
                 // No longer show animations that are already in the tab
                 const cacheTabs = unref(getCaches);
-                const isInCache = cacheTabs.includes(route.name as string);
-                const name =
-                  isInCache && route.meta.loaded && unref(getEnableTransition)
-                    ? 'fade-slide'
-                    : null;
+
+                const name = getTransitionName({
+                  route,
+                  openCache: unref(openCache),
+                  enableTransition: unref(getEnableTransition),
+                  cacheTabs,
+                  def: unref(getBasicTransition),
+                });
 
                 // When the child element is the parentView, adding the key will cause the component to be executed multiple times. When it is not parentView, you need to add a key, because it needs to be compatible with the same route carrying different parameters
                 const isParentView = Component?.type.parentView;
@@ -60,11 +65,7 @@ export default defineComponent({
                   return PageContent;
                 }
                 return (
-                  <Transition
-                    name={name || route.meta.transitionName || unref(getBasicTransition)}
-                    mode="out-in"
-                    appear={true}
-                  >
+                  <Transition name={name} mode="out-in" appear={true}>
                     {() => PageContent}
                   </Transition>
                 );
@@ -72,7 +73,7 @@ export default defineComponent({
             }}
           </RouterView>
           {unref(getCanEmbedIFramePage) && <FrameLayout />}
-        </div>
+        </>
       );
     };
   },

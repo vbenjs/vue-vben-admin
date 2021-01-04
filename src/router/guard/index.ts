@@ -11,11 +11,11 @@ import { createPageGuard } from './pageGuard';
 
 export function createGuard(router: Router) {
   createPageGuard(router);
+  createPageLoadingGuard(router);
   createHttpGuard(router);
   createScrollGuard(router);
   createMessageGuard(router);
   createTitleGuard(router);
-  createPageLoadingGuard(router);
   createProgressGuard(router);
   createPermissionGuard(router);
 }
