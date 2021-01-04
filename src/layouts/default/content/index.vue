@@ -28,7 +28,6 @@
       const { prefixCls } = useDesign('layout-content');
       const { getOpenPageLoading } = useTransitionSetting();
       const { getLayoutContentMode, getPageLoading } = useRootSetting();
-
       return {
         prefixCls,
         getOpenPageLoading,
