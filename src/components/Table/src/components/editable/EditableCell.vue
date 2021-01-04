@@ -148,10 +148,16 @@
       });
 
       watchEffect(() => {
+        console.log('======================');
+        console.log(1);
+        console.log('======================');
         defaultValueRef.value = props.value;
       });
 
       watchEffect(() => {
+        console.log('======================');
+        console.log(2);
+        console.log('======================');
         const { editable } = props.column;
         if (isBoolean(editable) || isBoolean(unref(getRowEditable))) {
           isEdit.value = !!editable || unref(getRowEditable);
