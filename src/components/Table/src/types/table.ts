@@ -102,6 +102,8 @@ export interface TableActionType {
   getCacheColumns: () => BasicColumn[];
   emit?: EmitType;
   updateTableData: (index: number, key: string, value: any) => Recordable;
+  setShowPagination: (show: boolean) => Promise<void>;
+  getShowPagination: () => boolean;
 }
 
 export interface FetchSetting {

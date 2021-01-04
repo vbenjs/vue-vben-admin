@@ -211,18 +211,17 @@
           cachePlainOptions.value = columns;
           state.defaultCheckList = checkList;
         } else {
-          const fixedColumns = columns.filter((item) =>
-            Reflect.has(item, 'fixed')
-          ) as BasicColumn[];
+          // const fixedColumns = columns.filter((item) =>
+          //   Reflect.has(item, 'fixed')
+          // ) as BasicColumn[];
 
           unref(plainOptions).forEach((item: BasicColumn) => {
-            const findItem = fixedColumns.find((fCol) => fCol.dataIndex === item.dataIndex);
+            const findItem = columns.find((col: BasicColumn) => col.dataIndex === item.dataIndex);
             if (findItem) {
               item.fixed = findItem.fixed;
             }
           });
         }
-
         state.checkedList = checkList;
       }
 

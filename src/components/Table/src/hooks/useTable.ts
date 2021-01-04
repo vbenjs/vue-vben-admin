@@ -121,6 +121,12 @@ export function useTable(
     getForm: () => {
       return unref(formRef) as FormActionType;
     },
+    setShowPagination: async (show: boolean) => {
+      getTableInstance().setShowPagination(show);
+    },
+    getShowPagination: () => {
+      return getTableInstance().getShowPagination();
+    },
   };
 
   return [register, methods];
