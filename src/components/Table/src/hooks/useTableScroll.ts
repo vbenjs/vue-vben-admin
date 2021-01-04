@@ -1,6 +1,6 @@
 import type { BasicTableProps, TableRowSelection } from '../types/table';
 import type { Ref, ComputedRef } from 'vue';
-import { computed, unref, ref, nextTick, watchEffect } from 'vue';
+import { computed, unref, ref, nextTick, watch } from 'vue';
 
 import { getViewportOffset } from '/@/utils/domUtils';
 import { isBoolean } from '/@/utils/is';
@@ -28,9 +28,15 @@ export function useTableScroll(
     return canResize && !(scroll || {}).y;
   });
 
-  watchEffect(() => {
-    unref(getCanResize) && debounceRedoHeight();
-  });
+  watch(
+    () => unref(getCanResize),
+    () => {
+      debounceRedoHeight();
+    },
+    {
+      immediate: true,
+    }
+  );
 
   function redoHeight() {
     if (unref(getCanResize)) {

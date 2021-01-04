@@ -34,6 +34,7 @@
         getShowInsetHeaderRef,
         getShowFullHeaderRef,
         getHeaderTheme,
+        getShowHeader,
       } = useHeaderSetting();
 
       const { getFullContent } = useFullContent();
@@ -68,7 +69,7 @@
       const getPlaceholderDomStyle = computed(
         (): CSSProperties => {
           let height = 0;
-          if (unref(getShowFullHeaderRef) || !unref(getSplit)) {
+          if ((unref(getShowFullHeaderRef) || !unref(getSplit)) && unref(getShowHeader)) {
             height += HEADER_HEIGHT;
           }
           if (unref(getShowMultipleTab)) {

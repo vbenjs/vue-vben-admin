@@ -129,6 +129,7 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
     const isScale = !unref(getShowMenu) && !unref(getShowHeader);
     setMenuSetting({
       show: isScale,
+      hidden: !isScale,
     });
     setHeaderSetting({
       show: isScale,

@@ -1,7 +1,7 @@
 import type { BasicTableProps, FetchParams, SorterResult } from '../types/table';
 import type { PaginationProps } from '../types/pagination';
 
-import { ref, unref, ComputedRef, computed, onMounted, watchEffect, reactive } from 'vue';
+import { ref, unref, ComputedRef, computed, onMounted, watch, reactive } from 'vue';
 
 import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 
@@ -40,10 +40,21 @@ export function useDataSource(
   });
   const dataSourceRef = ref<Recordable[]>([]);
 
-  watchEffect(() => {
-    const { dataSource, api } = unref(propsRef);
-    !api && dataSource && (dataSourceRef.value = dataSource);
-  });
+  // watchEffect(() => {
+  //   const { dataSource, api } = unref(propsRef);
+  //   !api && dataSource && (dataSourceRef.value = dataSource);
+  // });
+
+  watch(
+    () => unref(propsRef).dataSource,
+    () => {
+      const { dataSource, api } = unref(propsRef);
+      !api && dataSource && (dataSourceRef.value = dataSource);
+    },
+    {
+      immediate: true,
+    }
+  );
 
   function handleTableChange(
     pagination: PaginationProps,

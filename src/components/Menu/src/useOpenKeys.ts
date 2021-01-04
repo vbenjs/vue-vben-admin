@@ -23,7 +23,6 @@ export function useOpenKeys(
       return;
     }
     const native = unref(getIsMixSidebar) && unref(getMixSideFixed);
-
     useTimeoutFn(
       () => {
         const menuList = toRaw(menus.value);
@@ -37,7 +36,7 @@ export function useOpenKeys(
         }
       },
       16,
-      native
+      !native
     );
   }
 
