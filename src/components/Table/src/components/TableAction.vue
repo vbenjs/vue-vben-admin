@@ -45,7 +45,7 @@
       const { prefixCls } = useDesign('basic-table-action');
       const table = useTableContext();
       const getActions = computed(() => {
-        return props.actions.map((action) => {
+        return (props.actions || []).map((action) => {
           const { popConfirm } = action;
           return {
             type: 'link',

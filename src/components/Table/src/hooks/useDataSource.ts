@@ -163,11 +163,11 @@ export function useDataSource(
         ...pageParams,
         ...(useSearchForm ? getFieldsValue() : {}),
         ...searchInfo,
-        ...(opt ? opt.searchInfo : {}),
-        ...(opt ? opt.sortInfo : {}),
-        ...(opt ? opt.filterInfo : {}),
+        ...(opt?.searchInfo ?? {}),
         ...sortInfo,
         ...filterInfo,
+        ...(opt?.sortInfo ?? {}),
+        ...(opt?.filterInfo ?? {}),
       };
       if (beforeFetch && isFunction(beforeFetch)) {
         params = beforeFetch(params) || params;

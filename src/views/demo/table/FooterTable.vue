@@ -13,7 +13,7 @@
   export default defineComponent({
     components: { BasicTable },
     setup() {
-      function handleSummary(tableData: any[]) {
+      function handleSummary(tableData: Recordable[]) {
         const totalNo = tableData.reduce((prev, next) => {
           prev += next.no;
           return prev;
