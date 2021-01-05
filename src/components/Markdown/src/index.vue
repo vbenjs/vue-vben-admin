@@ -8,18 +8,22 @@
 
   import { propTypes } from '/@/utils/propTypes';
   import { useLocale } from '/@/hooks/web/useLocale';
+  import { useModalContext } from '../../Modal';
 
   type Lang = 'zh_CN' | 'en_US' | 'ja_JP' | 'ko_KR' | undefined;
   export default defineComponent({
-    emits: ['change'],
+    inheritAttrs: false,
     props: {
       height: propTypes.number.def(360),
       value: propTypes.string.def(''),
     },
+    emits: ['change', 'get'],
     setup(props, { attrs, emit }) {
       const wrapRef = ref<ElRef>(null);
       const vditorRef = ref<Nullable<Vditor>>(null);
       const initedRef = ref(false);
+
+      const modalFn = useModalContext();
 
       const lang = ref<Lang>();
 
@@ -66,10 +70,19 @@
         initedRef.value = true;
       }
 
+      const instance = {
+        getVditor: (): Vditor => vditorRef.value!,
+      };
+
       onMounted(() => {
         nextTick(() => {
           init();
+          setTimeout(() => {
+            modalFn?.redoModalHeight?.();
+          }, 200);
         });
+
+        emit('get', instance);
       });
 
       onUnmounted(() => {
@@ -82,7 +95,7 @@
 
       return {
         wrapRef,
-        getVditor: (): Vditor => vditorRef.value!,
+        ...instance,
       };
     },
   });

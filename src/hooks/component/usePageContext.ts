@@ -1,8 +1,6 @@
 import type { InjectionKey, ComputedRef, Ref } from 'vue';
 import { createContext, useContext } from '/@/hooks/core/useContext';
 
-import {} from 'vue';
-
 export interface PageContextProps {
   contentHeight: ComputedRef<number>;
   pageHeight: Ref<number>;

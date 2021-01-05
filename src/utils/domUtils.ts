@@ -132,7 +132,7 @@ export function hackCss(attr: string, value: string) {
 }
 
 /* istanbul ignore next */
-export const on = function (
+export function on(
   element: Element | HTMLElement | Document | Window,
   event: string,
   handler: EventListenerOrEventListenerObject
@@ -140,10 +140,10 @@ export const on = function (
   if (element && event && handler) {
     element.addEventListener(event, handler, false);
   }
-};
+}
 
 /* istanbul ignore next */
-export const off = function (
+export function off(
   element: Element | HTMLElement | Document | Window,
   event: string,
   handler: Fn
@@ -151,10 +151,10 @@ export const off = function (
   if (element && event && handler) {
     element.removeEventListener(event, handler, false);
   }
-};
+}
 
 /* istanbul ignore next */
-export const once = function (el: HTMLElement, event: string, fn: EventListener): void {
+export function once(el: HTMLElement, event: string, fn: EventListener): void {
   const listener = function (this: any, ...args: unknown[]) {
     if (fn) {
       fn.apply(this, args);
@@ -162,4 +162,4 @@ export const once = function (el: HTMLElement, event: string, fn: EventListener)
     off(el, event, listener);
   };
   on(el, event, listener);
-};
+}

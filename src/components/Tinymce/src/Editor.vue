@@ -31,6 +31,7 @@
 
   export default defineComponent({
     name: 'Tinymce',
+    inheritAttrs: false,
     props: basicProps,
     emits: ['change', 'update:modelValue'],
     setup(props, { emit, attrs }) {

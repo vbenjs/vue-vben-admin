@@ -113,7 +113,6 @@
       const activePath = ref('');
       const chilrenMenus = ref<Menu[]>([]);
       const openMenu = ref(false);
-      const isInit = ref(false);
       const dragBarRef = ref<ElRef>(null);
       const sideRef = ref<ElRef>(null);
       const currentRoute = ref<Nullable<RouteLocationNormalized>>(null);
@@ -251,8 +250,8 @@
       }
 
       function handleClickOutside() {
+        setActive(true);
         closeMenu();
-        setActive();
       }
 
       function getItemEvents(item: Menu) {
