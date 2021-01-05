@@ -1,13 +1,13 @@
 <template>
-  <div :class="prefixCls">
-    <a-page-header title="卡片列表" :ghost="false">
+  <PageWrapper :class="prefixCls" title="卡片列表">
+    <template #headerContent>
       基于Vue Next, TypeScript, Ant Design Vue实现的一套完整的企业级后台管理系统。
       <div :class="`${prefixCls}__link`">
         <a><Icon icon="bx:bx-paper-plane" color="#1890ff" /><span>开始</span></a>
         <a><Icon icon="carbon:warning" color="#1890ff" /><span>简介</span></a>
         <a><Icon icon="gg:loadbar-doc" color="#1890ff" /><span>文档</span></a>
       </div>
-    </a-page-header>
+    </template>
 
     <div :class="`${prefixCls}__content`">
       <a-list>
@@ -30,15 +30,16 @@
         </a-row>
       </a-list>
     </div>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import Icon from '/@/components/Icon/index';
   import { cardList } from './data';
+  import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
-    components: { Icon },
+    components: { Icon, PageWrapper },
     setup() {
       return {
         prefixCls: 'list-card',
@@ -60,11 +61,6 @@
       span {
         margin-left: 5px;
       }
-    }
-
-    &__content {
-      padding: 12px 24px;
-      // background: #fff;
     }
 
     &__card {

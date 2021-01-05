@@ -12,6 +12,7 @@
   "editor.cursorSmoothCaretAnimation": true,
   "editor.detectIndentation": false,
   "diffEditor.ignoreTrimWhitespace": false,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "editor.suggestSelection": "first",
@@ -108,18 +109,22 @@
   // ===========================================
   // ================ Eslint ===================
   // ===========================================
-  "eslint.enable": true,
+  // "eslint.enable": true,
+  "eslint.alwaysShowStatus": true,
   "eslint.options": {
     // 配置
-    "plugins": [
-      "html",
-      "vue",
-      "javascript",
-      "jsx",
-      "typescript"
-    ]
+    "plugins": ["html", "vue", "javascript", "jsx", "typescript"],
+    "extensions": [".js", ".jsx", ".ts", ".tsx", ".vue"]
   },
-  "eslint.autoFixOnSave": true,
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "reacttypescript",
+    "reactjavascript",
+    "html",
+    "vue"
+  ],
+  // "eslint.autoFixOnSave": true,
   // ===========================================
   // ================ Vetur ====================
   // ===========================================
@@ -181,19 +186,12 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "i18n-ally.localesPaths": [
-    "src/locales/lang",
-  ],
+  "i18n-ally.localesPaths": ["src/locales/lang"],
   "i18n-ally.keystyle": "nested",
   "i18n-ally.sortKeys": true,
   "i18n-ally.namespace": true,
   "i18n-ally.pathMatcher": "{locale}/{namespaces}.{ext}",
-  "i18n-ally.enabledParsers": [
-    "ts"
-  ],
+  "i18n-ally.enabledParsers": ["ts"],
   "i18n-ally.sourceLanguage": "zh",
-  "i18n-ally.enabledFrameworks": [
-    "vue",
-    "react"
-  ]
+  "i18n-ally.enabledFrameworks": ["vue", "react"]
 }

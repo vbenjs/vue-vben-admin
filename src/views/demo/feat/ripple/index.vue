@@ -1,19 +1,17 @@
 <template>
-  <div class="p-4">
+  <PageWrapper title="Ripple示例">
     <div class="demo-box" v-ripple>content</div>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { Alert } from 'ant-design-vue';
   import RippleDirective from '/@/directives/ripple';
+  import { PageWrapper } from '/@/components/Page';
+
   export default defineComponent({
-    components: { Alert },
+    components: { PageWrapper },
     directives: {
       Ripple: RippleDirective,
-    },
-    setup() {
-      return {};
     },
   });
 </script>

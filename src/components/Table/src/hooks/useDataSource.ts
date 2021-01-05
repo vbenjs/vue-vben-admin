@@ -7,7 +7,7 @@ import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 
 import { buildUUID } from '/@/utils/uuid';
 import { isFunction, isBoolean } from '/@/utils/is';
-import { get } from 'lodash-es';
+import { get, cloneDeep } from 'lodash-es';
 
 import { FETCH_SETTING, ROW_KEY, PAGE_SIZE } from '../const';
 
@@ -114,7 +114,8 @@ export function useDataSource(
 
       if (firstItem && lastItem) {
         if (!firstItem[ROW_KEY] || !lastItem[ROW_KEY]) {
-          unref(dataSourceRef).forEach((item) => {
+          const data = cloneDeep(unref(dataSourceRef));
+          data.forEach((item) => {
             if (!item[ROW_KEY]) {
               item[ROW_KEY] = buildUUID();
             }
@@ -122,6 +123,7 @@ export function useDataSource(
               setTableKey(item.children);
             }
           });
+          dataSourceRef.value = data;
         }
       }
     }

@@ -5,6 +5,7 @@
 - 新增`mixSideTrigger`配置。用于配置左侧混合模式菜单打开方式。可选`hover`,默认`click`
 - 新增`mixSideFixed`配置。用于固定左侧混合模式菜单
 - modal 组件新增`height`和`min-height`属性
+- 新增`PageWrapper`组件。并应用于示例页面
 
 ### 🐛 Bug Fixes
 

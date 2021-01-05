@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <PageWrapper title="水印示例">
     <CollapseContainer class="px-20 bg-white w-full h-32 rounded-md" title="Global WaterMark">
       <a-button type="primary" class="mr-2" @click="setWatermark('WaterMark Info')">
         Create
@@ -9,15 +9,16 @@
         Reset
       </a-button>
     </CollapseContainer>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
   import { CollapseContainer } from '/@/components/Container/index';
   import { useWatermark } from '/@/hooks/web/useWatermark';
+  import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
-    components: { CollapseContainer },
+    components: { CollapseContainer, PageWrapper },
     setup() {
       const areaRef = ref<Nullable<HTMLElement>>(null);
       const { setWatermark, clear } = useWatermark();

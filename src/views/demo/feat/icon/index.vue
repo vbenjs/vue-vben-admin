@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4">
+  <PageWrapper title="Icon组件示例">
     <CollapseContainer title="Antv Icon使用 (直接按需引入相应组件即可)">
       <div class="flex justify-around">
         <GithubFilled :style="{ fontSize: '30px' }" />
@@ -27,7 +27,7 @@
       description="Icon组件基本包含所有的图标,在下面网址内你可以查询到你想要的任何图标。并且打包只会打包所用到的图标。唯一不足的可能就是需要连接外网进行使用。"
     />
     <a-button type="link" @click="toIconify">Iconify 图标大全</a-button>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
@@ -46,9 +46,11 @@
   import Icon from '/@/components/Icon/index';
 
   import { openWindow } from '/@/utils';
+  import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
     components: {
+      PageWrapper,
       CollapseContainer,
       GithubFilled,
       QqCircleFilled,

@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4">
+  <PageWrapper title="excel数据导入示例">
     <ImpExcel @success="loadDataSuccess">
       <a-button class="m-3">导入Excel</a-button>
     </ImpExcel>
@@ -10,16 +10,17 @@
       :columns="table.columns"
       :dataSource="table.dataSource"
     ></BasicTable>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
 
   import { ImpExcel, ExcelData } from '/@/components/Excel';
   import { BasicTable, BasicColumn } from '/@/components/Table';
+  import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
-    components: { BasicTable, ImpExcel },
+    components: { BasicTable, ImpExcel, PageWrapper },
 
     setup() {
       const tableListRef = ref<

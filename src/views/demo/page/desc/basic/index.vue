@@ -1,37 +1,34 @@
 <template>
-  <div>
-    <a-page-header title="基础详情页" :ghost="false" />
+  <PageWrapper title="基础详情页" contentBackgrond>
+    <Description
+      size="middle"
+      title="退款申请"
+      :bordered="false"
+      :column="3"
+      :data="refundData"
+      :schema="refundSchema"
+    />
+    <a-divider />
+    <Description
+      size="middle"
+      title="用户信息"
+      :bordered="false"
+      :column="3"
+      :data="personData"
+      :schema="personSchema"
+    />
+    <a-divider />
 
-    <div class="m-5 desc-wrap">
-      <Description
-        size="middle"
-        title="退款申请"
-        :bordered="false"
-        :column="3"
-        :data="refundData"
-        :schema="refundSchema"
-      />
-      <a-divider />
-      <Description
-        size="middle"
-        title="用户信息"
-        :bordered="false"
-        :column="3"
-        :data="personData"
-        :schema="personSchema"
-      />
-      <a-divider />
-
-      <BasicTable @register="registerRefundTable" />
-      <a-divider />
-      <BasicTable @register="registerTimeTable" />
-    </div>
-  </div>
+    <BasicTable @register="registerRefundTable" />
+    <a-divider />
+    <BasicTable @register="registerTimeTable" />
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { Description } from '/@/components/Description/index';
   import { BasicTable, useTable } from '/@/components/Table';
+  import { PageWrapper } from '/@/components/Page';
 
   import {
     refundSchema,
@@ -44,7 +41,7 @@
     refundTimeTableData,
   } from './data';
   export default defineComponent({
-    components: { Description, BasicTable },
+    components: { Description, BasicTable, PageWrapper },
     setup() {
       const [registerRefundTable] = useTable({
         title: '退货商品',
