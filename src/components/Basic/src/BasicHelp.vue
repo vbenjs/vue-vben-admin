@@ -12,6 +12,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   export default defineComponent({
     name: 'BasicHelp',
+    inheritAttrs: false,
     components: { Tooltip },
     props: {
       // max-width

@@ -15,6 +15,7 @@ import { extendSlots } from '/@/utils/helper/tsxHelper';
 import { basicProps } from './props';
 import { useTree } from './useTree';
 import { useExpose } from '/@/hooks/core/useExpose';
+import { onMounted } from 'vue';
 
 interface State {
   expandedKeys: Keys;
@@ -25,7 +26,7 @@ const prefixCls = 'basic-tree';
 export default defineComponent({
   name: 'BasicTree',
   props: basicProps,
-  emits: ['update:expandedKeys', 'update:selectedKeys', 'update:value'],
+  emits: ['update:expandedKeys', 'update:selectedKeys', 'update:value', 'get'],
   setup(props, { attrs, slots, emit }) {
     const state = reactive<State>({
       expandedKeys: props.expandedKeys || [],
@@ -182,7 +183,7 @@ export default defineComponent({
       state.checkedKeys = props.checkedKeys;
     });
 
-    useExpose<TreeActionType>({
+    const instance: TreeActionType = {
       setExpandedKeys,
       getExpandedKeys,
       setSelectedKeys,
@@ -195,6 +196,12 @@ export default defineComponent({
       filterByLevel: (level: number) => {
         state.expandedKeys = filterByLevel(level);
       },
+    };
+
+    useExpose<TreeActionType>(instance);
+
+    onMounted(() => {
+      emit('get', instance);
     });
 
     return () => {

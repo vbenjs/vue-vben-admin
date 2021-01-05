@@ -31,6 +31,7 @@
 
   export default defineComponent({
     name: 'ModalWrapper',
+    inheritAttrs: false,
     components: { Spin, ScrollContainer },
     props: {
       loading: propTypes.bool,
@@ -50,6 +51,8 @@
       const spinRef = ref<ElRef>(null);
       const realHeightRef = ref(0);
       const minRealHeightRef = ref(0);
+
+      let realHeight = 0;
 
       let stopElResizeFn: Fn = () => {};
 
@@ -137,8 +140,9 @@
 
           if (!spinEl) return;
 
-          const realHeight = spinEl.scrollHeight;
-
+          if (!realHeight) {
+            realHeight = spinEl.scrollHeight;
+          }
           if (props.fullScreen) {
             realHeightRef.value =
               window.innerHeight - props.modalFooterHeight - props.modalHeaderHeight;
@@ -147,7 +151,7 @@
               ? props.height
               : realHeight > maxHeight
               ? maxHeight
-              : realHeight + 16 + 30;
+              : realHeight + 46;
           }
           emit('height-change', unref(realHeightRef));
         } catch (error) {
