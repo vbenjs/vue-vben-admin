@@ -17,6 +17,7 @@
   import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
   import { useAppInject } from '/@/hooks/web/useAppInject';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { headerHeightRef } from '../content/useContentViewHeight';
 
   const HEADER_HEIGHT = 48;
 
@@ -75,6 +76,7 @@
           if (unref(getShowMultipleTab)) {
             height += TABS_HEIGHT;
           }
+          headerHeightRef.value = height;
           return {
             height: `${height}px`,
           };

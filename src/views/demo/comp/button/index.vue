@@ -1,11 +1,11 @@
 <template>
-  <div class="p-4">
-    <Alert
-      message="温馨提醒"
-      description="基础组件依赖于 ant-design-vue,组件库已有的基础组件,项目中不会再次进行demo展示（二次封装组件除外）"
-      type="info"
-      show-icon
-    />
+  <PageWrapper
+    title="基础组件"
+    content=" 基础组件依赖于ant-design-vue,组件库已有的基础组件,项目中不会再次进行demo展示（二次封装组件除外）"
+  >
+    <template #rightFooter>
+      <a-button type="primary">确认</a-button>
+    </template>
 
     <div class="my-2">
       <h3>success</h3>
@@ -73,15 +73,12 @@
       <a-button type="dashed" class="ml-2" disabled> 禁用 </a-button>
       <a-button type="dashed" class="ml-2" loading> loading </a-button>
     </div>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { Alert } from 'ant-design-vue';
+  import { PageWrapper } from '/@/components/Page';
   export default defineComponent({
-    components: { Alert },
-    setup() {
-      return {};
-    },
+    components: { PageWrapper },
   });
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="p-10">
+  <PageWrapper title="拖动校验示例">
     <div class="flex justify-center p-4 items-center bg-gray-700">
       <BasicDragVerify ref="el1" @success="handleSuccess" />
       <a-button type="primary" class="ml-2" @click="handleBtnClick(el1)">还原</a-button>
@@ -48,15 +48,17 @@
       </BasicDragVerify>
       <a-button type="primary" class="ml-2" @click="handleBtnClick(el5)">还原</a-button>
     </div>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
   import { BasicDragVerify, DragVerifyActionType, PassingData } from '/@/components/Verify/index';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { BugOutlined, RightOutlined } from '@ant-design/icons-vue';
+  import { PageWrapper } from '/@/components/Page';
+
   export default defineComponent({
-    components: { BasicDragVerify, BugOutlined, RightOutlined },
+    components: { BasicDragVerify, BugOutlined, RightOutlined, PageWrapper },
     setup() {
       const { createMessage } = useMessage();
       const el1 = ref<Nullable<DragVerifyActionType>>(null);

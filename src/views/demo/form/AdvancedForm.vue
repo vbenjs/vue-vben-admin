@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4">
+  <PageWrapper title="可折叠表单示例">
     <CollapseContainer title="基础收缩示例">
       <BasicForm @register="register" />
     </CollapseContainer>
@@ -7,12 +7,13 @@
     <CollapseContainer title="超过3行自动收起" class="mt-4">
       <BasicForm @register="register1" />
     </CollapseContainer>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
   import { CollapseContainer } from '/@/components/Container/index';
+  import { PageWrapper } from '/@/components/Page';
 
   const getSchamas = (): FormSchema[] => {
     return [
@@ -148,7 +149,7 @@
     ];
   }
   export default defineComponent({
-    components: { BasicForm, CollapseContainer },
+    components: { BasicForm, CollapseContainer, PageWrapper },
     setup() {
       const [register] = useForm({
         labelWidth: 120,

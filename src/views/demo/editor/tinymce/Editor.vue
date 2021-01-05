@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4">
+  <PageWrapper title="富文本嵌入表单示例">
     <CollapseContainer title="富文本表单">
       <BasicForm
         :labelWidth="100"
@@ -9,7 +9,7 @@
       >
       </BasicForm>
     </CollapseContainer>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent, h } from 'vue';
@@ -17,6 +17,7 @@
   import { CollapseContainer } from '/@/components/Container/index';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { Tinymce } from '/@/components/Tinymce/index';
+  import { PageWrapper } from '/@/components/Page';
 
   const schemas: FormSchema[] = [
     {
@@ -43,7 +44,7 @@
     },
   ];
   export default defineComponent({
-    components: { BasicForm, CollapseContainer },
+    components: { BasicForm, CollapseContainer, PageWrapper },
     setup() {
       const { createMessage } = useMessage();
 

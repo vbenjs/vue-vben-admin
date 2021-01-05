@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4">
+  <PageWrapper title="UseForm操作示例">
     <div class="mb-4">
       <a-button @click="setProps({ labelWidth: 150 })" class="mr-2">更改labelWidth</a-button>
       <a-button @click="setProps({ labelWidth: 120 })" class="mr-2">还原labelWidth</a-button>
@@ -56,13 +56,15 @@
     <CollapseContainer title="useForm示例">
       <BasicForm @register="register" @submit="handleSubmit" />
     </CollapseContainer>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
   import { CollapseContainer } from '/@/components/Container/index';
   import { useMessage } from '/@/hooks/web/useMessage';
+  import { PageWrapper } from '/@/components/Page';
+
   const schemas: FormSchema[] = [
     {
       field: 'field1',
@@ -159,7 +161,7 @@
   ];
 
   export default defineComponent({
-    components: { BasicForm, CollapseContainer },
+    components: { BasicForm, CollapseContainer, PageWrapper },
     setup() {
       const { createMessage } = useMessage();
 

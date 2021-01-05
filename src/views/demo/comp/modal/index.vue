@@ -1,5 +1,5 @@
 <template>
-  <div class="px-10 py-4">
+  <PageWrapper title="modal组件使用示例">
     <Alert
       message="使用 useModal 进行弹窗操作，默认可以拖动，可以通过 draggable
     参数进行控制是否可以拖动/全屏"
@@ -24,7 +24,7 @@
     <Modal2 @register="register2" />
     <Modal3 @register="register3" />
     <Modal4 @register="register4" />
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
@@ -34,8 +34,10 @@
   import Modal2 from './Modal2.vue';
   import Modal3 from './Modal3.vue';
   import Modal4 from './Modal4.vue';
+  import { PageWrapper } from '/@/components/Page';
+
   export default defineComponent({
-    components: { Alert, Modal1, Modal2, Modal3, Modal4 },
+    components: { Alert, Modal1, Modal2, Modal3, Modal4, PageWrapper },
     setup() {
       const [register1, { openModal: openModal1, setModalProps }] = useModal();
       const [register2, { openModal: openModal2 }] = useModal();

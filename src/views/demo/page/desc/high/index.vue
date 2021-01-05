@@ -1,17 +1,19 @@
 <template>
-  <div>
-    <a-page-header title="单号：234231029431" class="high-desc">
-      <template #extra>
-        <a-button key="3"> 操作一 </a-button>
-        <a-button key="2"> 操作二 </a-button>
-        <a-button key="1" type="primary"> 主操作 </a-button>
-      </template>
-      <template #footer>
-        <a-tabs default-active-key="1">
-          <a-tab-pane key="1" tab="详情" />
-          <a-tab-pane key="2" tab="规则" />
-        </a-tabs>
-      </template>
+  <PageWrapper title="单号：234231029431" contentBackgrond>
+    <template #extra>
+      <a-button key="3"> 操作一 </a-button>
+      <a-button key="2"> 操作二 </a-button>
+      <a-button key="1" type="primary"> 主操作 </a-button>
+    </template>
+
+    <template #footer>
+      <a-tabs default-active-key="1">
+        <a-tab-pane key="1" tab="详情" />
+        <a-tab-pane key="2" tab="规则" />
+      </a-tabs>
+    </template>
+
+    <div class="m-4 pt-4 desc-wrap">
       <a-descriptions size="small" :column="2">
         <a-descriptions-item label="创建人"> 曲丽丽 </a-descriptions-item>
         <a-descriptions-item label="订购产品"> XX 服务 </a-descriptions-item>
@@ -20,9 +22,6 @@
         <a-descriptions-item label="生效日期"> 2017-07-07 ~ 2017-08-08 </a-descriptions-item>
         <a-descriptions-item label="备注"> 请于两个工作日内确认 </a-descriptions-item>
       </a-descriptions>
-    </a-page-header>
-
-    <div class="m-5 desc-wrap">
       <a-card title="流程进度" :bordered="false">
         <a-steps :current="1" progress-dot size="small">
           <a-step title="创建项目">
@@ -84,16 +83,17 @@
       </a-card>
       <BasicTable @register="registerTimeTable" />
     </div>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { Description } from '/@/components/Description/index';
   import { BasicTable, useTable } from '/@/components/Table';
+  import { PageWrapper } from '/@/components/Page';
 
   import { refundTimeTableSchema, refundTimeTableData } from './data';
   export default defineComponent({
-    components: { Description, BasicTable },
+    components: { Description, BasicTable, PageWrapper },
     setup() {
       const [registerTimeTable] = useTable({
         title: '退货进度',
@@ -110,8 +110,3 @@
     },
   });
 </script>
-<style lang="less" scoped>
-  .high-desc {
-    background: #fff;
-  }
-</style>

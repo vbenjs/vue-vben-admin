@@ -1,13 +1,13 @@
 <template>
-  <div :class="prefixCls">
-    <a-page-header title="搜索列表" :ghost="false" :class="`${prefixCls}__header`">
+  <PageWrapper :class="prefixCls" title="搜索列表">
+    <template #headerContent>
       <BasicForm
         :class="`${prefixCls}__header-form`"
         :labelWidth="100"
         :schemas="schemas"
         :showActionButtonGroup="false"
       />
-    </a-page-header>
+    </template>
 
     <div :class="`${prefixCls}__container`">
       <a-list>
@@ -44,7 +44,7 @@
         </template>
       </a-list>
     </div>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { Tag } from 'ant-design-vue';
@@ -52,9 +52,10 @@
   import Icon from '/@/components/Icon/index';
   import { BasicForm } from '/@/components/Form/index';
   import { actions, searchList, schemas } from './data';
+  import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
-    components: { Icon, Tag, BasicForm },
+    components: { Icon, Tag, BasicForm, PageWrapper },
     setup() {
       return {
         prefixCls: 'list-search',
@@ -75,7 +76,6 @@
 
     &__container {
       padding: 12px;
-      margin: 24px;
       background: #fff;
     }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4">
+  <PageWrapper title="表单基础示例">
     <CollapseContainer title="基础示例">
       <BasicForm
         autoFocusFirstItem
@@ -9,13 +9,14 @@
         @submit="handleSubmit"
       />
     </CollapseContainer>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
   import { BasicForm, FormSchema } from '/@/components/Form/index';
   import { CollapseContainer } from '/@/components/Container/index';
   import { useMessage } from '/@/hooks/web/useMessage';
+  import { PageWrapper } from '/@/components/Page';
 
   import { optionsListApi } from '/@/api/demo/select';
   const schemas: FormSchema[] = [
@@ -238,7 +239,7 @@
   ];
 
   export default defineComponent({
-    components: { BasicForm, CollapseContainer },
+    components: { BasicForm, CollapseContainer, PageWrapper },
     setup() {
       const check = ref(null);
       const { createMessage } = useMessage();

@@ -1,21 +1,21 @@
 <template>
-  <div>
-    <a-page-header title="基础表单" :ghost="false">
-      表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。
-    </a-page-header>
-
-    <div class="m-5 form-wrap">
-      <BasicForm @register="register" />
-    </div>
-  </div>
+  <PageWrapper
+    title="基础表单"
+    contentBackgrond
+    content=" 表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。"
+  >
+    <BasicForm @register="register" />
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { BasicForm, useForm } from '/@/components/Form';
   import { defineComponent } from 'vue';
   import { schemas } from './data';
   import { useMessage } from '/@/hooks/web/useMessage';
+  import { PageWrapper } from '/@/components/Page';
+
   export default defineComponent({
-    components: { BasicForm },
+    components: { BasicForm, PageWrapper },
     setup() {
       const { createMessage } = useMessage();
       const [register, { validate, setProps }] = useForm({

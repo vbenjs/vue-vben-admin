@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <PageWrapper title="消息示例">
     <CollapseContainer class="px-20 bg-white w-full h-32 rounded-md" title="Message">
       <a-button @click="infoMsg('Info message')" class="mr-2"> Info </a-button>
       <a-button @click="successMsg('Success message')" class="mr-2" color="success">
@@ -32,14 +32,16 @@
     >
       <a-button @click="handleNotify" color="success" class="mr-2">Success</a-button>
     </CollapseContainer>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { CollapseContainer } from '/@/components/Container/index';
   import { useMessage } from '/@/hooks/web/useMessage';
+  import { PageWrapper } from '/@/components/Page';
+
   export default defineComponent({
-    components: { CollapseContainer },
+    components: { CollapseContainer, PageWrapper },
     setup() {
       const {
         createMessage,

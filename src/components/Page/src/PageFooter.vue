@@ -1,9 +1,10 @@
 <template>
-  <div class="app-footer" :style="{ width: getCalcContentWidth }">
-    <div class="app-footer__left">
+  <div :class="prefixCls" :style="{ width: getCalcContentWidth }">
+    <div :class="`${prefixCls}__left`">
       <slot name="left" />
     </div>
-    <div class="app-footer__right">
+    <slot />
+    <div :class="`${prefixCls}__right`">
       <slot name="right" />
     </div>
   </div>
@@ -12,19 +13,21 @@
   import { defineComponent } from 'vue';
 
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
+  import { useDesign } from '/@/hooks/web/useDesign';
 
   export default defineComponent({
     name: 'PageFooter',
     setup() {
+      const { prefixCls } = useDesign('page-footer');
       const { getCalcContentWidth } = useMenuSetting();
-      return { getCalcContentWidth };
+      return { prefixCls, getCalcContentWidth };
     },
   });
 </script>
 <style lang="less" scoped>
-  @import (reference) '../../../design/index.less';
+  @prefix-cls: ~'@{namespace}-page-footer';
 
-  .app-footer {
+  .@{prefix-cls} {
     position: fixed;
     right: 0;
     bottom: 0;

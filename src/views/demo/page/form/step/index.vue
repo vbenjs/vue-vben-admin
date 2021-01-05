@@ -1,37 +1,37 @@
 <template>
-  <div>
-    <a-page-header title="分步表单" :ghost="false">
-      将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。
-    </a-page-header>
-
-    <div class="m-5 step-form-content">
-      <div class="step-form-form">
-        <a-steps :current="current">
-          <a-step title="填写转账信息"> </a-step>
-          <a-step title="确认转账信息"> </a-step>
-          <a-step title="完成"> </a-step>
-        </a-steps>
-      </div>
-      <div class="mt-5">
-        <Step1 @next="handleStep1Next" v-show="current === 0" />
-        <Step2
-          @prev="handleStepPrev"
-          @next="handleStep2Next"
-          v-show="current === 1"
-          v-if="initSetp2"
-        />
-        <Step3 v-show="current === 2" @redo="handleRedo" v-if="initSetp3" />
-      </div>
+  <PageWrapper
+    title="分步表单"
+    contentBackgrond
+    content=" 将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。"
+  >
+    <div class="step-form-form">
+      <a-steps :current="current">
+        <a-step title="填写转账信息"> </a-step>
+        <a-step title="确认转账信息"> </a-step>
+        <a-step title="完成"> </a-step>
+      </a-steps>
     </div>
-  </div>
+    <div class="mt-5">
+      <Step1 @next="handleStep1Next" v-show="current === 0" />
+      <Step2
+        @prev="handleStepPrev"
+        @next="handleStep2Next"
+        v-show="current === 1"
+        v-if="initSetp2"
+      />
+      <Step3 v-show="current === 2" @redo="handleRedo" v-if="initSetp3" />
+    </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent, ref, reactive, toRefs } from 'vue';
   import Step1 from './Step1.vue';
   import Step2 from './Step2.vue';
   import Step3 from './Step3.vue';
+  import { PageWrapper } from '/@/components/Page';
+
   export default defineComponent({
-    components: { Step1, Step2, Step3 },
+    components: { Step1, Step2, Step3, PageWrapper },
     setup() {
       const current = ref(0);
 

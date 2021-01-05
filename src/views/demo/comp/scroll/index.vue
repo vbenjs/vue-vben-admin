@@ -1,6 +1,5 @@
 <template>
-  <div class="p-4">
-    <Alert message="抽取el-scrollbar，并对其进行扩展,滚动条美化,适用于各个浏览器" type="info" />
+  <PageWrapper title="滚动组件示例" content="基于el-scrollbar">
     <div class="scroll-wrap">
       <ScrollContainer class="mt-4">
         <ul class="p-3">
@@ -10,18 +9,16 @@
         </ul>
       </ScrollContainer>
     </div>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { CollapseContainer } from '/@/components/Container/index';
   import { ScrollContainer } from '/@/components/Container/index';
-  import { Alert } from 'ant-design-vue';
+  import { PageWrapper } from '/@/components/Page';
+
   export default defineComponent({
-    components: { CollapseContainer, ScrollContainer, Alert },
-    setup() {
-      return {};
-    },
+    components: { CollapseContainer, ScrollContainer, PageWrapper },
   });
 </script>
 <style lang="less" scoped>

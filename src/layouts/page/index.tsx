@@ -1,8 +1,7 @@
-import type { FunctionalComponent } from 'vue';
 import type { DefaultContext } from './transition';
 
 import { computed, defineComponent, unref, Transition, KeepAlive } from 'vue';
-import { RouterView, RouteLocation } from 'vue-router';
+import { RouterView } from 'vue-router';
 
 import FrameLayout from '/@/layouts/iframe/index.vue';
 
@@ -12,14 +11,7 @@ import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
 import { useCache } from './useCache';
 import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
 import { getTransitionName } from './transition';
-// import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
-interface DefaultContext {
-  Component: FunctionalComponent & { type: Indexable };
-  route: RouteLocation;
-}
-
-// const FrameLayout=createAsyncComponent(()=>'/@/layouts/iframe/index.vue')
 export default defineComponent({
   name: 'PageLayout',
   setup() {

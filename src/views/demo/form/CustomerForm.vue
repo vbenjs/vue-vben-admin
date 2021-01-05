@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4">
+  <PageWrapper title="自定义组件示例">
     <CollapseContainer title="自定义表单">
       <BasicForm @register="register" @submit="handleSubmit">
         <template #f3="{ model, field }">
@@ -7,7 +7,7 @@
         </template>
       </BasicForm>
     </CollapseContainer>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent, h } from 'vue';
@@ -15,6 +15,8 @@
   import { CollapseContainer } from '/@/components/Container/index';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { Input } from 'ant-design-vue';
+  import { PageWrapper } from '/@/components/Page';
+
   const schemas: FormSchema[] = [
     {
       field: 'field1',
@@ -60,7 +62,7 @@
     },
   ];
   export default defineComponent({
-    components: { BasicForm, CollapseContainer },
+    components: { BasicForm, CollapseContainer, PageWrapper },
     setup() {
       const { createMessage } = useMessage();
       const [register, { setProps }] = useForm({

@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4">
+  <PageWrapper title="表单校验示例">
     <div class="mb-4">
       <a-button @click="validateForm" class="mr-2">手动校验表单</a-button>
       <a-button @click="resetValidate" class="mr-2">清空校验信息</a-button>
@@ -9,13 +9,15 @@
     <CollapseContainer title="表单校验">
       <BasicForm @register="register" @submit="handleSubmit" />
     </CollapseContainer>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
   import { CollapseContainer } from '/@/components/Container/index';
   import { useMessage } from '/@/hooks/web/useMessage';
+  import { PageWrapper } from '/@/components/Page';
+
   const schemas: FormSchema[] = [
     {
       field: 'field1',
@@ -141,7 +143,7 @@
   ];
 
   export default defineComponent({
-    components: { BasicForm, CollapseContainer },
+    components: { BasicForm, CollapseContainer, PageWrapper },
     setup() {
       const { createMessage } = useMessage();
       const [register, { validateFields, clearValidate, getFieldsValue, setFieldsValue }] = useForm(
