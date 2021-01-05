@@ -44,6 +44,11 @@ export const basicProps = {
     default: null,
   },
 
+  summaryData: {
+    type: Array as PropType<Recordable[]>,
+    default: null,
+  },
+
   canColDrag: propTypes.bool.def(true),
   api: {
     type: Function as PropType<(...arg: any[]) => Promise<any>>,
@@ -73,7 +78,7 @@ export const basicProps = {
   emptyDataIsShowTable: propTypes.bool.def(true),
   // 额外的请求参数
   searchInfo: {
-    type: Object as PropType<any>,
+    type: Object as PropType<Recordable>,
     default: null,
   },
   // 使用搜索表单

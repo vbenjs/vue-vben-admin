@@ -70,10 +70,14 @@
       const getPlaceholderDomStyle = computed(
         (): CSSProperties => {
           let height = 0;
-          if ((unref(getShowFullHeaderRef) || !unref(getSplit)) && unref(getShowHeader)) {
+          if (
+            (unref(getShowFullHeaderRef) || !unref(getSplit)) &&
+            unref(getShowHeader) &&
+            !unref(getFullContent)
+          ) {
             height += HEADER_HEIGHT;
           }
-          if (unref(getShowMultipleTab)) {
+          if (unref(getShowMultipleTab) && !unref(getFullContent)) {
             height += TABS_HEIGHT;
           }
           headerHeightRef.value = height;
