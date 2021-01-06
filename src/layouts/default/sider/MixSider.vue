@@ -15,6 +15,9 @@
     v-bind="getMenuEvents"
   >
     <AppLogo :showTitle="false" :class="`${prefixCls}-logo`" />
+
+    <Trigger :class="`${prefixCls}-trigger`" />
+
     <ScrollContainer>
       <ul :class="`${prefixCls}-module`">
         <li
@@ -76,25 +79,30 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, onMounted, ref, computed, CSSProperties, unref } from 'vue';
   import type { Menu } from '/@/router/types';
-  import { RouteLocationNormalized } from 'vue-router';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { getShallowMenus, getChildrenMenus, getCurrentParentPath } from '/@/router/menus';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import type { CSSProperties } from 'vue';
+  import type { RouteLocationNormalized } from 'vue-router';
+
+  import { defineComponent, onMounted, ref, computed, unref } from 'vue';
+
+  import { BasicMenu, MenuTag } from '/@/components/Menu';
   import { ScrollContainer } from '/@/components/Container';
   import Icon from '/@/components/Icon';
   import { AppLogo } from '/@/components/Application';
-  import { useGo } from '/@/hooks/web/usePage';
-  import { BasicMenu, MenuTag } from '/@/components/Menu';
-  import { listenerLastChangeTab } from '/@/logics/mitt/tabChange';
+  import Trigger from '../trigger/HeaderTrigger.vue';
+
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { useDragLine } from './useLayoutSider';
   import { useGlobSetting } from '/@/hooks/setting';
+  import { useDesign } from '/@/hooks/web/useDesign';
+  import { useI18n } from '/@/hooks/web/useI18n';
+  import { useGo } from '/@/hooks/web/usePage';
 
   import { SIDE_BAR_SHOW_TIT_MINI_WIDTH, SIDE_BAR_MINI_WIDTH } from '/@/enums/appEnum';
 
   import clickOutside from '/@/directives/clickOutside';
+  import { getShallowMenus, getChildrenMenus, getCurrentParentPath } from '/@/router/menus';
+  import { listenerLastChangeTab } from '/@/logics/mitt/tabChange';
 
   export default defineComponent({
     name: 'LayoutMixSider',
@@ -104,6 +112,7 @@
       BasicMenu,
       MenuTag,
       Icon,
+      Trigger,
     },
     directives: {
       clickOutside,
@@ -419,7 +428,7 @@
     }
 
     > .scrollbar {
-      height: calc(100% - @header-height) !important;
+      height: calc(100% - @header-height - 38px);
     }
 
     &.mini &-module {
@@ -468,12 +477,32 @@
       &__icon {
         margin-bottom: 8px;
         font-size: 24px;
+        transition: all 0.2s;
       }
 
       &__name {
         margin-bottom: 0;
         font-size: 12px;
+        transition: all 0.2s;
       }
+    }
+
+    &-trigger {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 6px;
+      padding-left: 12px;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.65);
+      cursor: pointer;
+      background: @sider-dark-bg-color;
+    }
+
+    &.light &-trigger {
+      color: rgba(0, 0, 0, 0.65);
+      background: #fff;
     }
 
     &-menu-list {
@@ -483,7 +512,7 @@
       width: 200px;
       height: calc(100%);
       background: #fff;
-      transition: width 0.2s;
+      transition: all 0.2s;
       .@{tag-prefix-cls} {
         position: absolute;
         top: 10px;
