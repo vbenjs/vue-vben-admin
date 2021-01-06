@@ -15,7 +15,6 @@
 
   export default defineComponent({
     name: 'BasicArrow',
-    inheritAttrs: false,
     components: { RightOutlined },
     props: {
       // Expand contract, expand by default
