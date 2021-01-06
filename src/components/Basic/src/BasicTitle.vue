@@ -15,7 +15,6 @@
 
   export default defineComponent({
     name: 'BasicTitle',
-    inheritAttrs: false,
     components: { BasicHelp },
     props: {
       helpMessage: {

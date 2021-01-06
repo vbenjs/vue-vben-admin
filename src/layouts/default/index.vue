@@ -83,5 +83,9 @@
     > .ant-layout {
       min-height: 100%;
     }
+
+    &__main {
+      margin-left: 1px;
+    }
   }
 </style>

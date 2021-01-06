@@ -132,7 +132,7 @@
     position: relative;
 
     .ant-page-header {
-      padding: 12px 16px;
+      // padding: 12px 16px;
 
       &:empty {
         padding: 0;

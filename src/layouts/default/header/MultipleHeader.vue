@@ -113,7 +113,7 @@
   @prefix-cls: ~'@{namespace}-layout-multiple-header';
 
   .@{prefix-cls} {
-    margin-left: 1px;
+    // margin-left: 1px;
     transition: width 0.2s;
     flex: 0 0 auto;
 
