@@ -3,11 +3,13 @@
 
   <div
     v-click-outside="handleClickOutside"
+    :style="getWrapStyle"
     :class="[
       prefixCls,
       getMenuTheme,
       {
         open: openMenu,
+        mini: getCollapsed,
       },
     ]"
     v-bind="getMenuEvents"
@@ -29,7 +31,7 @@
           <MenuTag :item="item" :showTitle="false" :isHorizontal="false" />
           <Icon
             :class="`${prefixCls}-module__icon`"
-            :size="22"
+            :size="getCollapsed ? 16 : 20"
             :icon="item.meta && item.meta.icon"
           />
           <p :class="`${prefixCls}-module__name`">{{ t(item.name) }}</p>
@@ -50,12 +52,10 @@
         <span class="text"> {{ title }}</span>
         <Icon
           :size="16"
-          v-if="getMixSideFixed"
-          icon="ri:pushpin-2-fill"
+          :icon="getMixSideFixed ? 'ri:pushpin-2-fill' : 'ri:pushpin-2-line'"
           class="pushpin"
           @click="handleFixedMenu"
         />
-        <Icon :size="16" v-else icon="ri:pushpin-2-line" class="pushpin" @click="handleFixedMenu" />
       </div>
       <ScrollContainer :class="`${prefixCls}-menu-list__content`">
         <BasicMenu
@@ -92,7 +92,7 @@
   import { useDragLine } from './useLayoutSider';
   import { useGlobSetting } from '/@/hooks/setting';
 
-  import { SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '/@/enums/appEnum';
+  import { SIDE_BAR_SHOW_TIT_MINI_WIDTH, SIDE_BAR_MINI_WIDTH } from '/@/enums/appEnum';
 
   import clickOutside from '/@/directives/clickOutside';
 
@@ -130,6 +130,8 @@
         getMixSideFixed,
         mixSideHasChildren,
         setMenuSetting,
+        getIsMixSidebar,
+        getCollapsed,
       } = useMenuSetting();
 
       const { title } = useGlobSetting();
@@ -140,6 +142,7 @@
         (): CSSProperties => {
           return {
             width: unref(openMenu) ? `${unref(getMenuWidth)}px` : 0,
+            left: `${unref(getMixSideWidth)}px`,
           };
         }
       );
@@ -153,32 +156,33 @@
         return isFixed;
       });
 
+      const getMixSideWidth = computed(() => {
+        return unref(getCollapsed) ? SIDE_BAR_MINI_WIDTH : SIDE_BAR_SHOW_TIT_MINI_WIDTH;
+      });
+
       const getDomStyle = computed(
         (): CSSProperties => {
           const fixedWidth = unref(getIsFixed) ? unref(getRealWidth) : 0;
-          const width = `${SIDE_BAR_SHOW_TIT_MINI_WIDTH + fixedWidth}px`;
-          return {
-            width,
-            maxWidth: width,
-            minWidth: width,
-            flex: `0 0 ${width}`,
-          };
+          const width = `${unref(getMixSideWidth) + fixedWidth}px`;
+          return getWrapCommonStyle(width);
+        }
+      );
+
+      const getWrapStyle = computed(
+        (): CSSProperties => {
+          const width = `${unref(getMixSideWidth)}px`;
+          return getWrapCommonStyle(width);
         }
       );
 
       const getMenuEvents = computed(() => {
-        // return unref(getMixSideTrigger) === 'hover'
-        //   ? {
-        //       onMouseleave: () => {
-        //         closeMenu();
-        //       },
-        //     }
-        //   : {};
-        return {
-          onMouseleave: () => {
-            closeMenu();
-          },
-        };
+        return !unref(getMixSideFixed)
+          ? {
+              onMouseleave: () => {
+                closeMenu();
+              },
+            }
+          : {};
       });
 
       const getShowDragBar = computed(() => unref(getCanDrag));
@@ -195,6 +199,16 @@
         }
       });
 
+      function getWrapCommonStyle(width: string): CSSProperties {
+        return {
+          width,
+          maxWidth: width,
+          minWidth: width,
+          flex: `0 0 ${width}`,
+        };
+      }
+
+      // Process module menu click
       async function hanldeModuleClick(path: string, hover = false) {
         const children = await getChildrenMenus(path);
 
@@ -223,20 +237,24 @@
         chilrenMenus.value = children;
       }
 
+      // Set the currently active menu and submenu
       async function setActive(setChildren = false) {
         const path = currentRoute.value?.path;
         if (!path) return;
         const parentPath = await getCurrentParentPath(path);
         activePath.value = parentPath;
         // hanldeModuleClick(parentPath);
-        if (unref(getMixSideFixed)) {
+        if (unref(getIsMixSidebar)) {
           const activeMenu = unref(menuModules).find((item) => item.path === unref(activePath));
           const p = activeMenu?.path;
           if (p) {
             const children = await getChildrenMenus(p);
             if (setChildren) {
               chilrenMenus.value = children;
-              openMenu.value = children.length > 0;
+
+              if (unref(getMixSideFixed)) {
+                openMenu.value = children.length > 0;
+              }
             }
             if (children.length === 0) {
               chilrenMenus.value = [];
@@ -271,6 +289,7 @@
         });
       }
 
+      // Close menu
       function closeMenu() {
         if (!unref(getIsFixed)) {
           openMenu.value = false;
@@ -298,6 +317,8 @@
         getDomStyle,
         handleFixedMenu,
         getMixSideFixed,
+        getWrapStyle,
+        getCollapsed,
       };
     },
   });
@@ -312,14 +333,10 @@
     top: 0;
     left: 0;
     z-index: @layout-mix-sider-fixed-z-index;
-    width: @width;
     height: 100%;
-    max-width: @width;
-    min-width: @width;
     overflow: hidden;
     background: @sider-dark-bg-color;
-    transition: all 0.3s ease 0s;
-    flex: 0 0 @width;
+    transition: all 0.2s ease 0s;
     .@{tag-prefix-cls} {
       position: absolute;
       top: 6px;
@@ -327,13 +344,9 @@
     }
 
     &-dom {
-      width: @width;
       height: 100%;
-      max-width: @width;
-      min-width: @width;
       overflow: hidden;
       transition: all 0.2s ease 0s;
-      flex: 0 0 @width;
     }
 
     &-logo {
@@ -354,7 +367,7 @@
       }
 
       &.open {
-        > .scroll-container {
+        > .scrollbar {
           border-right: 1px solid rgb(238, 238, 238);
         }
       }
@@ -390,7 +403,7 @@
           border-bottom: 1px solid @border-color;
         }
 
-        > .scroll-container {
+        > .scrollbar {
           border-right: 1px solid @border-color;
         }
       }
@@ -407,6 +420,16 @@
 
     > .scrollbar {
       height: calc(100% - @header-height) !important;
+    }
+
+    &.mini &-module {
+      &__name {
+        display: none;
+      }
+
+      &__icon {
+        margin-bottom: 0;
+      }
     }
 
     &-module {
@@ -456,7 +479,6 @@
     &-menu-list {
       position: fixed;
       top: 0;
-      left: 80px;
       width: 0;
       width: 200px;
       height: calc(100%);

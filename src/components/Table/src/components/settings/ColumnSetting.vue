@@ -421,7 +421,7 @@
         // flex-wrap: wrap;
       }
 
-      .scroll-container {
+      .scrollbar {
         height: 220px;
       }
     }

@@ -16,16 +16,20 @@ export function useOpenKeys(
   mode: Ref<MenuModeEnum>,
   accordion: Ref<boolean>
 ) {
-  const { getCollapsed, getIsMixSidebar, getMixSideFixed } = useMenuSetting();
+  const { getCollapsed, getIsMixSidebar } = useMenuSetting();
 
   async function setOpenKeys(path: string) {
     if (mode.value === MenuModeEnum.HORIZONTAL) {
       return;
     }
-    const native = unref(getIsMixSidebar) && unref(getMixSideFixed);
+    const native = unref(getIsMixSidebar);
     useTimeoutFn(
       () => {
         const menuList = toRaw(menus.value);
+        if (menuList?.length === 0) {
+          menuState.openKeys = [];
+          return;
+        }
         if (!unref(accordion)) {
           menuState.openKeys = es6Unique([
             ...menuState.openKeys,

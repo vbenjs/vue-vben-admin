@@ -78,7 +78,9 @@ const getIsMixMode = computed(() => {
 });
 
 const getRealWidth = computed(() => {
-  return unref(getCollapsed) ? unref(getMiniWidthNumber) : unref(getMenuWidth);
+  return unref(getCollapsed) && !unref(getMixSideFixed)
+    ? unref(getMiniWidthNumber)
+    : unref(getMenuWidth);
 });
 
 const getMiniWidthNumber = computed(() => {
@@ -94,7 +96,6 @@ const getCalcContentWidth = computed(() => {
       ? SIDE_BAR_SHOW_TIT_MINI_WIDTH +
         (unref(getMixSideFixed) && unref(mixSideHasChildren) ? unref(getRealWidth) : 0)
       : unref(getRealWidth);
-
   return `calc(100% - ${unref(width)}px)`;
 });
 

@@ -74,7 +74,7 @@
         }
       );
 
-      // watch(() => props.icon, update, { flush: 'post' });
+      watch(() => props.icon, update, { flush: 'post' });
 
       onMounted(update);
 

@@ -1,9 +1,9 @@
 <template>
   <PageWrapper title="单号：234231029431" contentBackgrond>
     <template #extra>
-      <a-button key="3"> 操作一 </a-button>
-      <a-button key="2"> 操作二 </a-button>
-      <a-button key="1" type="primary"> 主操作 </a-button>
+      <a-button> 操作一 </a-button>
+      <a-button> 操作二 </a-button>
+      <a-button type="primary"> 主操作 </a-button>
     </template>
 
     <template #footer>

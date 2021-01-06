@@ -85,7 +85,7 @@ export default defineComponent({
       getShowSearch,
     } = useHeaderSetting();
 
-    const { getShowMultipleTab, getShowQuick, getShowRedo } = useMultipleTabSetting();
+    const { getShowMultipleTab, getShowQuick, getShowRedo, getShowFold } = useMultipleTabSetting();
 
     const getShowMenuRef = computed(() => {
       return unref(getShowMenu) && !unref(getIsHorizontal);
@@ -104,33 +104,6 @@ export default defineComponent({
               });
             }}
             def={unref(getMenuType)}
-          />
-          <SwitchItem
-            title={t('layout.setting.splitMenu')}
-            event={HandlerEnum.MENU_SPLIT}
-            def={unref(getSplit)}
-            disabled={!unref(getShowMenuRef) || unref(getMenuType) !== MenuTypeEnum.MIX}
-          />
-          <SwitchItem
-            title={t('layout.setting.mixSidebarFixed')}
-            event={HandlerEnum.MENU_FIXED_MIX_SIDEBAR}
-            def={unref(getMixSideFixed)}
-            disabled={!unref(getIsMixSidebar)}
-          />
-
-          <SwitchItem
-            title={t('layout.setting.closeMixSidebarOnChange')}
-            event={HandlerEnum.MENU_CLOSE_MIX_SIDEBAR_ON_CHANGE}
-            def={unref(getCloseMixSidebarOnChange)}
-            disabled={!unref(getIsMixSidebar)}
-          />
-
-          <SelectItem
-            title={t('layout.setting.mixSidebarTrigger')}
-            event={HandlerEnum.MENU_TRIGGER_MIX_SIDEBAR}
-            def={unref(getMixSideTrigger)}
-            options={mixSidebarTriggerOptions}
-            disabled={!unref(getIsMixSidebar)}
           />
         </>
       );
@@ -171,6 +144,32 @@ export default defineComponent({
       return (
         <>
           <SwitchItem
+            title={t('layout.setting.splitMenu')}
+            event={HandlerEnum.MENU_SPLIT}
+            def={unref(getSplit)}
+            disabled={!unref(getShowMenuRef) || unref(getMenuType) !== MenuTypeEnum.MIX}
+          />
+          <SwitchItem
+            title={t('layout.setting.mixSidebarFixed')}
+            event={HandlerEnum.MENU_FIXED_MIX_SIDEBAR}
+            def={unref(getMixSideFixed)}
+            disabled={!unref(getIsMixSidebar)}
+          />
+
+          <SwitchItem
+            title={t('layout.setting.closeMixSidebarOnChange')}
+            event={HandlerEnum.MENU_CLOSE_MIX_SIDEBAR_ON_CHANGE}
+            def={unref(getCloseMixSidebarOnChange)}
+            disabled={!unref(getIsMixSidebar)}
+          />
+          <SwitchItem
+            title={t('layout.setting.menuCollapse')}
+            event={HandlerEnum.MENU_COLLAPSED}
+            def={unref(getCollapsed)}
+            disabled={!unref(getShowMenuRef)}
+          />
+
+          <SwitchItem
             title={t('layout.setting.menuDrag')}
             event={HandlerEnum.MENU_HAS_DRAG}
             def={unref(getCanDrag)}
@@ -188,17 +187,12 @@ export default defineComponent({
             def={unref(getAccordion)}
             disabled={!unref(getShowMenuRef)}
           />
-          <SwitchItem
-            title={t('layout.setting.menuCollapse')}
-            event={HandlerEnum.MENU_COLLAPSED}
-            def={unref(getCollapsed)}
-            disabled={!unref(getShowMenuRef) || unref(getIsMixSidebar)}
-          />
+
           <SwitchItem
             title={t('layout.setting.collapseMenuDisplayName')}
             event={HandlerEnum.MENU_COLLAPSED_SHOW_TITLE}
             def={unref(getCollapsedShowTitle)}
-            disabled={!unref(getShowMenuRef) || !unref(getCollapsed)}
+            disabled={!unref(getShowMenuRef) || !unref(getCollapsed) || unref(getIsMixSidebar)}
           />
 
           <SwitchItem
@@ -212,6 +206,13 @@ export default defineComponent({
             event={HandlerEnum.MENU_FIXED}
             def={unref(getMenuFixed)}
             disabled={!unref(getShowMenuRef) || unref(getIsMixSidebar)}
+          />
+          <SelectItem
+            title={t('layout.setting.mixSidebarTrigger')}
+            event={HandlerEnum.MENU_TRIGGER_MIX_SIDEBAR}
+            def={unref(getMixSideTrigger)}
+            options={mixSidebarTriggerOptions}
+            disabled={!unref(getIsMixSidebar)}
           />
           <SelectItem
             title={t('layout.setting.topMenuLayout')}
@@ -297,6 +298,12 @@ export default defineComponent({
             title={t('layout.setting.tabsQuickBtn')}
             event={HandlerEnum.TABS_SHOW_QUICK}
             def={unref(getShowQuick)}
+            disabled={!unref(getShowMultipleTab)}
+          />
+          <SwitchItem
+            title={t('layout.setting.tabsFoldBtn')}
+            event={HandlerEnum.TABS_SHOW_FOLD}
+            def={unref(getShowFold)}
             disabled={!unref(getShowMultipleTab)}
           />
 

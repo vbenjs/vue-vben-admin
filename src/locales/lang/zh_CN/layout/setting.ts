@@ -55,6 +55,7 @@ export default {
   tabs: '标签页',
   tabsQuickBtn: '标签页快捷按钮',
   tabsRedoBtn: '标签页刷新按钮',
+  tabsFoldBtn: '标签页折叠按钮',
   sidebar: '左侧菜单',
   header: '顶栏',
   footer: '页脚',

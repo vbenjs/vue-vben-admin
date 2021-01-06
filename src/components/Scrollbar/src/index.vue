@@ -18,7 +18,8 @@
 </template>
 <script lang="ts">
   import { addResizeListener, removeResizeListener } from '/@/utils/event/resizeEvent';
-
+  import componentSetting from '/@/settings/componentSetting';
+  const { scrollbar } = componentSetting;
   import { toObject } from './util';
   import {
     defineComponent,
@@ -38,7 +39,7 @@
     props: {
       native: {
         type: Boolean,
-        default: false,
+        default: scrollbar?.native ?? false,
       },
       wrapStyle: {
         type: [String, Array],

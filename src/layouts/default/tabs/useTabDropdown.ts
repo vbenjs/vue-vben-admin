@@ -8,8 +8,6 @@ import router from '/@/router';
 import { RouteLocationNormalized } from 'vue-router';
 import { useTabs } from '/@/hooks/web/useTabs';
 import { useI18n } from '/@/hooks/web/useI18n';
-import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
-import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 
 const { t } = useI18n();
 
@@ -21,9 +19,6 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
 
   const { currentRoute } = router;
 
-  const { getShowMenu, setMenuSetting } = useMenuSetting();
-  const { getShowHeader, setHeaderSetting } = useHeaderSetting();
-
   const isTabs = computed(() => tabContentProps.type === TabContentEnum.TAB_TYPE);
 
   const getCurrentTab = computed(
@@ -31,10 +26,6 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
       return unref(isTabs) ? tabContentProps.tabItem : unref(currentRoute);
     }
   );
-
-  const getIsScale = computed(() => {
-    return !unref(getShowMenu) && !unref(getShowHeader);
-  });
 
   /**
    * @description: drop-down list
@@ -98,16 +89,6 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
       },
     ];
 
-    if (!unref(isTabs)) {
-      const isScale = unref(getIsScale);
-      dropMenuList.unshift({
-        icon: isScale ? 'codicon:screen-normal' : 'codicon:screen-full',
-        event: MenuEventEnum.SCALE,
-        text: isScale ? t('layout.multipleTab.putAway') : t('layout.multipleTab.unfold'),
-        disabled: false,
-      });
-    }
-
     return dropMenuList;
   });
 
@@ -125,20 +106,9 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
     };
   }
 
-  function scaleScreen() {
-    const isScale = !unref(getShowMenu) && !unref(getShowHeader);
-    setMenuSetting({
-      show: isScale,
-      hidden: !isScale,
-    });
-    setHeaderSetting({
-      show: isScale,
-    });
-  }
-
   // Handle right click event
   function handleMenuEvent(menu: DropMenu): void {
-    const { refreshPage, closeAll, closeCurrent, closeLeft, closeOther, closeRight } = useTabs();
+    const { refreshPage, closeAll, close, closeLeft, closeOther, closeRight } = useTabs();
     const { event } = menu;
     switch (event) {
       case MenuEventEnum.SCALE:
@@ -150,7 +120,7 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
         break;
       // Close current
       case MenuEventEnum.CLOSE_CURRENT:
-        closeCurrent();
+        close(tabContentProps.tabItem);
         break;
       // Close left
       case MenuEventEnum.CLOSE_LEFT:
