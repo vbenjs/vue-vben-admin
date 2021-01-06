@@ -51,7 +51,6 @@
     watchEffect,
     toRef,
     getCurrentInstance,
-    nextTick,
   } from 'vue';
 
   import Modal from './components/Modal';
@@ -111,7 +110,6 @@
             visible: unref(visibleRef),
             title: undefined,
           };
-
           return {
             ...opt,
             wrapClassName: unref(getWrapClassName),

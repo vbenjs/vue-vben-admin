@@ -33,6 +33,9 @@ export interface MultiTabsSetting {
 
   // 显示刷新按钮
   showRedo: boolean;
+
+  // 显示折叠按钮
+  showFold: boolean;
 }
 
 export interface HeaderSetting {

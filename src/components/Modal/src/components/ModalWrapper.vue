@@ -1,5 +1,5 @@
 <template>
-  <ScrollContainer ref="wrapperRef" :style="wrapStyle">
+  <ScrollContainer ref="wrapperRef">
     <div ref="spinRef" :style="spinStyle" v-loading="loading" :loading-tip="loadingTip">
       <slot />
     </div>
@@ -62,19 +62,10 @@
         redoModalHeight: setModalHeight,
       });
 
-      const wrapStyle = computed(
-        (): CSSProperties => {
-          return {
-            minHeight: `${props.minHeight}px`,
-            height: `${unref(realHeightRef)}px`,
-            // overflow: 'auto',
-          };
-        }
-      );
-
       const spinStyle = computed(
         (): CSSProperties => {
           return {
+            minHeight: `${props.minHeight}px`,
             // padding 28
             height: `${unref(realHeightRef) - 28}px`,
           };
@@ -159,7 +150,7 @@
         }
       }
 
-      return { wrapStyle, wrapperRef, spinRef, spinStyle };
+      return { wrapperRef, spinRef, spinStyle };
     },
   });
 </script>

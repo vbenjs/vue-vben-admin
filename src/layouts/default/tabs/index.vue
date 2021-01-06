@@ -21,6 +21,7 @@
       <template #tabBarExtraContent v-if="getShowRedo || getShowQuick">
         <TabRedo v-if="getShowRedo" />
         <QuickButton v-if="getShowQuick" />
+        <FoldButton v-if="getShowFold" />
       </template>
     </Tabs>
   </div>
@@ -51,6 +52,7 @@
     components: {
       QuickButton: createAsyncComponent(() => import('./components/QuickButton.vue')),
       TabRedo: createAsyncComponent(() => import('./components/TabRedo.vue')),
+      FoldButton: createAsyncComponent(() => import('./components/FoldButton.vue')),
       Tabs,
       TabPane: Tabs.TabPane,
       TabContent,
@@ -62,7 +64,7 @@
       useTabsDrag(affixTextList);
       const { prefixCls } = useDesign('multiple-tabs');
       const go = useGo();
-      const { getShowQuick, getShowRedo } = useMultipleTabSetting();
+      const { getShowQuick, getShowRedo, getShowFold } = useMultipleTabSetting();
 
       const getTabsState = computed(() => {
         return tabStore.getTabsState.filter((item) => !item.meta?.hideTab);
@@ -125,6 +127,7 @@
         getTabsState,
         getShowQuick,
         getShowRedo,
+        getShowFold,
       };
     },
   });

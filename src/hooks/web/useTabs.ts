@@ -1,5 +1,6 @@
 import { tabStore } from '/@/store/modules/tab';
 import { appStore } from '/@/store/modules/app';
+import type { RouteLocationNormalized } from 'vue-router';
 
 export function useTabs() {
   function canIUseFn(): boolean {
@@ -21,5 +22,7 @@ export function useTabs() {
     closeRight: () => canIUseFn() && tabStore.closeRightTabAction(tabStore.getCurrentTab),
     closeOther: () => canIUseFn() && tabStore.closeOtherTabAction(tabStore.getCurrentTab),
     closeCurrent: () => canIUseFn() && tabStore.closeTabAction(tabStore.getCurrentTab),
+    close: (tab?: RouteLocationNormalized) =>
+      canIUseFn() && tabStore.closeTabAction(tab || tabStore.getCurrentTab),
   };
 }

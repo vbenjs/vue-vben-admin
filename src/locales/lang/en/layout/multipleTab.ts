@@ -5,7 +5,5 @@ export default {
   closeRight: 'Close Right',
   closeOther: 'Close Other',
   closeAll: 'Close All',
-  putAway: 'PutAway',
-  unfold: 'Unfold',
   tooltipRedo: 'Refresh',
 };

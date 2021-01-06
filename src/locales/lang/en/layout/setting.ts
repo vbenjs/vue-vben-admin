@@ -56,6 +56,7 @@ export default {
   tabs: 'Tabs',
   tabsQuickBtn: 'Tabs quick button',
   tabsRedoBtn: 'Tabs redo button',
+  tabsFoldBtn: 'Tabs flod button',
   sidebar: 'Sidebar',
   header: 'Header',
   footer: 'Footer',
