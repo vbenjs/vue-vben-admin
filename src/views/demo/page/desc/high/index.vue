@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper title="单号：234231029431" contentBackgrond>
+  <PageWrapper title="单号：234231029431" contentBackground>
     <template #extra>
       <a-button> 操作一 </a-button>
       <a-button> 操作二 </a-button>

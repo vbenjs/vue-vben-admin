@@ -154,8 +154,8 @@ const transform: AxiosTransform = {
     const { t } = useI18n();
     errorStore.setupErrorHandle(error);
     const { response, code, message } = error || {};
-    const msg: string = response?.data?.error ? response.data.error.message : '';
-    const err: string = error?.toString();
+    const msg: string = response?.data?.error?.message ?? '';
+    const err: string = error?.toString?.() ?? '';
     try {
       if (code === 'ECONNABORTED' && message.indexOf('timeout') !== -1) {
         createMessage.error(t('sys.api.apiTimeoutMessage'));

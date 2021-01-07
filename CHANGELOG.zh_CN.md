@@ -1,5 +1,9 @@
 ## Wip
 
+### ✨ Refactor
+
+独立组件配置到 `/@/settings/componentsSetting`
+
 ### ✨ Features
 
 - 新增`mixSideTrigger`配置。用于配置左侧混合模式菜单打开方式。可选`hover`,默认`click`
@@ -15,6 +19,10 @@
 - 修复表格内存溢出问题
 - 修复`layout` 收缩展开功能在分割模式下失效
 - 修复 modal 高度计算错误
+
+### 🎫 Chores
+
+- 文档更新
 
 ## 2.0.0-rc.15 (2020-12-31)
 

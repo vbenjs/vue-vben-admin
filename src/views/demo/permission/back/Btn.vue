@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper contentBackgrond title="按钮权限控制" contentClass="p-4">
+  <PageWrapper contentBackground title="按钮权限控制" contentClass="p-4">
     <Alert message="刷新后会还原" show-icon />
 
     <CurrentPermissionMode />

@@ -18,10 +18,14 @@
         </FormItem>
       </template>
 
-      <FormAction
-        v-bind="{ ...getProps, ...advanceState }"
-        @toggle-advanced="handleToggleAdvanced"
-      />
+      <FormAction v-bind="{ ...getProps, ...advanceState }" @toggle-advanced="handleToggleAdvanced">
+        <template
+          #[item]="data"
+          v-for="item in ['resetBefore', 'submitBefore', 'advanceBefore', 'advanceAfter']"
+        >
+          <slot :name="item" v-bind="data" />
+        </template>
+      </FormAction>
       <slot name="formFooter" />
     </Row>
   </Form>
