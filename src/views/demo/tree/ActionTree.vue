@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper title="Tree函数操作示例" contentBackgrond contentClass="p-4">
+  <PageWrapper title="Tree函数操作示例" contentBackground contentClass="p-4">
     <div class="mb-4">
       <a-button @click="handleLevel(2)" class="mr-2">显示到第2级</a-button>
       <a-button @click="handleLevel(1)" class="mr-2">显示到第1级</a-button>

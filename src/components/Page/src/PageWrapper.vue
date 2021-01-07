@@ -45,7 +45,7 @@
       contentStyle: {
         type: Object as PropType<CSSProperties>,
       },
-      contentBackgrond: propTypes.bool,
+      contentBackground: propTypes.bool,
       contentFullHeight: propTypes.bool,
     },
     setup(props, { slots }) {
@@ -71,8 +71,8 @@
 
       const getContentStyle = computed(
         (): CSSProperties => {
-          const { contentBackgrond, contentFullHeight, contentStyle } = props;
-          const bg = contentBackgrond ? { backgroundColor: '#fff' } : {};
+          const { contentBackground, contentFullHeight, contentStyle } = props;
+          const bg = contentBackground ? { backgroundColor: '#fff' } : {};
           if (!contentFullHeight) {
             return { ...bg, ...contentStyle };
           }

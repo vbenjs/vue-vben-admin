@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper title="基础详情页" contentBackgrond>
+  <PageWrapper title="基础详情页" contentBackground>
     <Description
       size="middle"
       title="退款申请"
