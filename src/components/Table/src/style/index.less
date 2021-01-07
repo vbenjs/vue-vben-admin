@@ -50,14 +50,16 @@
 
   //
   .ant-table {
+    width: 100%;
+    overflow-x: auto;
     border: none;
 
     &-title {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
       padding: 8px 6px;
       border-bottom: none;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .ant-table-thead > tr > th,
@@ -107,6 +109,20 @@
 
   .ant-table td {
     white-space: nowrap;
+  }
+
+  .ant-table-tbody > tr > td,
+  .ant-table-tbody > tr > th,
+  .ant-table-thead > tr > td,
+  .ant-table-thead > tr > th {
+    white-space: pre;
+  }
+
+  .ant-table-tbody > tr > td > span,
+  .ant-table-tbody > tr > th > span,
+  .ant-table-thead > tr > td > span,
+  .ant-table-thead > tr > th > span {
+    display: block;
   }
 
   .ant-table-row-cell-last {

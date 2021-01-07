@@ -29,6 +29,10 @@ declare type Indexable<T extends any = any> = {
 
 declare type Recordable<T extends any = any> = Record<string, T>;
 
+declare type ReadonlyRecordable<T extends any = any> = {
+  readonly [key: string]: T;
+};
+
 declare type Hash<T> = Indexable<T>;
 
 declare type DeepPartial<T> = {
