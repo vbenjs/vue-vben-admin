@@ -173,7 +173,8 @@ export default defineComponent({
       const characterInx = rules.findIndex((val) => val.max);
       if (characterInx !== -1 && !rules[characterInx].validator) {
         rules[characterInx].message =
-          rules[characterInx].message || t('component.form.maxTip', [rules[characterInx].max]);
+          rules[characterInx].message ||
+          t('component.form.maxTip', [rules[characterInx].max] as Recordable);
       }
       return rules;
     }
@@ -294,12 +295,10 @@ export default defineComponent({
           labelCol={labelCol}
           wrapperCol={wrapperCol}
         >
-          {() => (
-            <>
-              {getContent()}
-              {showSuffix && <span class="suffix">{getSuffix}</span>}
-            </>
-          )}
+          <>
+            {getContent()}
+            {showSuffix && <span class="suffix">{getSuffix}</span>}
+          </>
         </Form.Item>
       );
     }
@@ -323,7 +322,7 @@ export default defineComponent({
       return (
         isIfShow && (
           <Col {...realColProps} class={{ hidden: !isShow }}>
-            {() => getContent()}
+            {getContent()}
           </Col>
         )
       );

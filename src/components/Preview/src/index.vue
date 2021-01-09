@@ -58,7 +58,6 @@
   });
 </script>
 <style lang="less">
-  @import (reference) '../../../design/index.less';
   @prefix-cls: ~'@{namespace}-image-preview';
 
   .@{prefix-cls} {

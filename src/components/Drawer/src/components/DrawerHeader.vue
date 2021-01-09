@@ -45,7 +45,6 @@
 </script>
 
 <style lang="less">
-  @import (reference) '../../../../design/index.less';
   @prefix-cls: ~'@{namespace}-basic-drawer-header';
   @footer-height: 60px;
   .@{prefix-cls} {

@@ -2,18 +2,16 @@
  * Multi-language related operations
  */
 import type { LocaleType } from '/@/locales/types';
+import type { Ref } from 'vue';
 
 import { unref, ref } from 'vue';
-
-import { getI18n } from '/@/setup/i18n';
-
 import { useLocaleSetting } from '/@/hooks/setting/useLocaleSetting';
 
 import moment from 'moment';
 
 import 'moment/dist/locale/zh-cn';
 
-moment.locale('zh-cn');
+import { i18n } from './setupI18n';
 
 const antConfigLocaleRef = ref<any>(null);
 
@@ -23,7 +21,11 @@ export function useLocale() {
   // Switching the language will change the locale of useI18n
   // And submit to configuration modification
   function changeLocale(lang: LocaleType): void {
-    (getI18n().global.locale as any).value = lang;
+    if (i18n.mode === 'legacy') {
+      i18n.global.locale = lang;
+    } else {
+      ((i18n.global.locale as unknown) as Ref<string>).value = lang;
+    }
     setLocalSetting({ lang });
     // i18n.global.setLocaleMessage(locale, messages);
 
@@ -51,13 +53,13 @@ export function useLocale() {
   }
 
   // initialization
-  function setupLocale() {
+  function setLocale() {
     const lang = unref(getLang);
     lang && changeLocale(lang);
   }
 
   return {
-    setupLocale,
+    setLocale,
     getLocale,
     getLang,
     changeLocale,

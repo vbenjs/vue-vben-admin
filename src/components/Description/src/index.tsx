@@ -114,7 +114,7 @@ export default defineComponent({
     const renderDesc = () => {
       return (
         <Descriptions class={`${prefixCls}`} {...(unref(getDescriptionsProps) as any)}>
-          {() => renderItem()}
+          {renderItem()}
         </Descriptions>
       );
     };

@@ -31,7 +31,6 @@
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { useDesign } from '/@/hooks/web/useDesign';
 
-  import { registerGlobComp } from '/@/components/registerGlobComp';
   import { useAppInject } from '/@/hooks/web/useAppInject';
 
   export default defineComponent({
@@ -46,11 +45,6 @@
       Layout,
     },
     setup() {
-      // ! Only register global components here
-      // ! Can reduce the size of the first screen code
-      // default layout It is loaded after login. So it won’t be packaged to the first screen
-      registerGlobComp();
-
       const { prefixCls } = useDesign('default-layout');
 
       const { getIsMobile } = useAppInject();
@@ -70,7 +64,6 @@
   });
 </script>
 <style lang="less">
-  @import (reference) '../../design/index.less';
   @prefix-cls: ~'@{namespace}-default-layout';
 
   .@{prefix-cls} {

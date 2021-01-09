@@ -68,8 +68,6 @@
   });
 </script>
 <style lang="less" scoped>
-  @import (reference) '../../../design/index.less';
-
   .analysis {
     width: 100%;
 

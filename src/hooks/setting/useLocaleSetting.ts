@@ -4,7 +4,7 @@ import { computed, unref } from 'vue';
 import { appStore } from '/@/store/modules/app';
 
 import getProjectSetting from '/@/settings/projectSetting';
-import { localeList } from '/@/locales';
+import { localeList } from '/@/locales/constant';
 
 // Get locale configuration
 const getLocale = computed(() => appStore.getProjectConfig.locale || getProjectSetting.locale);

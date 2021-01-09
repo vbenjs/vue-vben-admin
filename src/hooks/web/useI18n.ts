@@ -1,4 +1,4 @@
-import { getI18n } from '/@/setup/i18n';
+import { i18n } from '/@/locales/setupI18n';
 
 export function useI18n(namespace?: string) {
   function getKey(key: string) {
@@ -16,18 +16,19 @@ export function useI18n(namespace?: string) {
     },
   };
 
-  if (!getI18n()) {
+  if (!i18n) {
     return normalFn;
   }
 
-  const { t, ...methods } = getI18n().global;
+  const { t, ...methods } = i18n.global;
 
+  const tFn = function (...arg: Parameters<typeof t>) {
+    if (!arg[0]) return '';
+    return t(getKey(arg[0]), ...(arg as Parameters<typeof t>));
+  };
   return {
     ...methods,
-    t: (key: string, ...arg: any): string => {
-      if (!key) return '';
-      return t(getKey(key), ...(arg as Parameters<typeof t>));
-    },
+    t: tFn,
   };
 }
 

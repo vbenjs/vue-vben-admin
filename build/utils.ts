@@ -63,11 +63,11 @@ export function getIPAddress() {
   return '';
 }
 
-export function isDevFn(mode: 'development' | 'production'): boolean {
+export function isDevFn(mode: string): boolean {
   return mode === 'development';
 }
 
-export function isProdFn(mode: 'development' | 'production'): boolean {
+export function isProdFn(mode: string): boolean {
   return mode === 'production';
 }
 
@@ -85,13 +85,6 @@ export function isBuildGzip(): boolean {
   return process.env.VITE_BUILD_GZIP === 'true';
 }
 
-/**
- *  Whether to generate package site
- */
-export function isSiteMode(): boolean {
-  return process.env.SITE === 'true';
-}
-
 export interface ViteEnv {
   VITE_PORT: number;
   VITE_USE_MOCK: boolean;
@@ -99,10 +92,12 @@ export interface ViteEnv {
   VITE_PUBLIC_PATH: string;
   VITE_PROXY: [string, string][];
   VITE_GLOB_APP_TITLE: string;
+  VITE_GLOB_APP_SHORT_NAME: string;
   VITE_USE_CDN: boolean;
   VITE_DROP_CONSOLE: boolean;
   VITE_BUILD_GZIP: boolean;
   VITE_DYNAMIC_IMPORT: boolean;
+  VITE_LEGACY: boolean;
 }
 
 // Read all environment variable configuration files to process.env

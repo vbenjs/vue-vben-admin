@@ -41,7 +41,6 @@
   });
 </script>
 <style lang="less" scoped>
-  @import (reference) '../../../design/index.less';
   @prefix-cls: ~'@{namespace}-darg-bar';
 
   .@{prefix-cls} {

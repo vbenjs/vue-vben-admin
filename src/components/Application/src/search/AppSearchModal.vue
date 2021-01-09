@@ -123,7 +123,6 @@
   });
 </script>
 <style lang="less" scoped>
-  @import (reference) '../../../../design/index.less';
   @prefix-cls: ~'@{namespace}-app-search-modal';
   @footer-prefix-cls: ~'@{namespace}-app-search-footer';
   .@{prefix-cls} {

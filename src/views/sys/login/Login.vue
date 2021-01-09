@@ -162,8 +162,6 @@
   });
 </script>
 <style lang="less">
-  @import (reference) '../../../design/index.less';
-
   .login-form__locale {
     position: absolute;
     top: 14px;

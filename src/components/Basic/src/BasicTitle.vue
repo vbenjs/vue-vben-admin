@@ -30,7 +30,6 @@
   });
 </script>
 <style lang="less" scoped>
-  @import (reference) '../../../design/index.less';
   @prefix-cls: ~'@{namespace}-basic-title';
 
   .@{prefix-cls} {

@@ -22,7 +22,7 @@
   import { Dropdown, DropMenu } from '/@/components/Dropdown';
   import { GlobalOutlined } from '@ant-design/icons-vue';
 
-  import { useLocale } from '/@/hooks/web/useLocale';
+  import { useLocale } from '/@/locales/useLocale';
   import { useLocaleSetting } from '/@/hooks/setting/useLocaleSetting';
 
   import { LocaleType } from '/@/locales/types';
@@ -75,7 +75,6 @@
 </script>
 
 <style lang="less" scoped>
-  @import (reference) '../../../design/index.less';
   @prefix-cls: ~'@{namespace}-app-locale-picker';
 
   :global(.@{prefix-cls}-overlay) {

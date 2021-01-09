@@ -7,7 +7,7 @@
   import 'vditor/dist/index.css';
 
   import { propTypes } from '/@/utils/propTypes';
-  import { useLocale } from '/@/hooks/web/useLocale';
+  import { useLocale } from '/@/locales/useLocale';
   import { useModalContext } from '../../Modal';
 
   type Lang = 'zh_CN' | 'en_US' | 'ja_JP' | 'ko_KR' | undefined;

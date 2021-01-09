@@ -37,7 +37,6 @@
   });
 </script>
 <style lang="less" scoped>
-  @import (reference) '../../../../design/index.less';
   @prefix-cls: ~'@{namespace}-app-search-footer';
 
   .@{prefix-cls} {

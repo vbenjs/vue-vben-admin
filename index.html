@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%= viteHtmlPluginOptions.hmScript %>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit" />
@@ -10,9 +9,8 @@
       content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0"
     />
 
-    <title></title>
+    <title><%= title %></title>
     <link rel="icon" href="/favicon.ico" />
-    <%= viteHtmlPluginOptions.injectConfig %>
   </head>
   <body>
     <div id="app">
@@ -137,15 +135,11 @@
       </style>
       <div class="app-loading">
         <div class="app-loading-wrap">
-          <img
-            src="<%= viteHtmlPluginOptions.publicPath %>resource/img/logo.png"
-            class="app-loading-logo"
-            alt="Logo"
-          />
+          <img src="/resource/img/logo.png" class="app-loading-logo" alt="Logo" />
           <div class="app-loading-dots">
             <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
           </div>
-          <div class="app-loading-title"><%= viteHtmlPluginOptions.title %></div>
+          <div class="app-loading-title"><%= title %></div>
         </div>
       </div>
     </div>
