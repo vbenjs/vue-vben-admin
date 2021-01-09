@@ -83,8 +83,6 @@
   });
 </script>
 <style lang="less">
-  @import (reference) '../../../design/index.less';
-
   .app-iconify {
     display: inline-block;
     vertical-align: middle;

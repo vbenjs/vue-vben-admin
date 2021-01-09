@@ -135,7 +135,6 @@
   });
 </script>
 <style lang="less" scoped>
-  @import (reference) '../../../design/index.less';
   @prefix-cls: ~'@{namespace}-lock-page';
 
   .@{prefix-cls} {

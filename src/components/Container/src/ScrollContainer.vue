@@ -12,7 +12,7 @@
 
   export default defineComponent({
     name: 'ScrollContainer',
-    inheritAttrs: false,
+    // inheritAttrs: false,
     components: { Scrollbar },
     setup() {
       const scrollbarRef = ref<Nullable<ScrollbarType>>(null);

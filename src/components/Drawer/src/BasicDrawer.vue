@@ -199,7 +199,6 @@
   });
 </script>
 <style lang="less">
-  @import (reference) '../../../design/index.less';
   @header-height: 60px;
   @detail-header-height: 40px;
   @prefix-cls: ~'@{namespace}-basic-drawer';

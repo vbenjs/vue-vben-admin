@@ -62,7 +62,6 @@
   });
 </script>
 <style lang="less" scoped>
-  @import (reference) '../../../../design/index.less';
   @prefix-cls: ~'@{namespace}-setting-select-item';
 
   .@{prefix-cls} {

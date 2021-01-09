@@ -333,7 +333,6 @@
   });
 </script>
 <style lang="less">
-  @import (reference) '../../../design/index.less';
   @prefix-cls: ~'@{namespace}-layout-mix-sider';
   @tag-prefix-cls: ~'@{namespace}-basic-menu-item-tag';
   @width: 80px;

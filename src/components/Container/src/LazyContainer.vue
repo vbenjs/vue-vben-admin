@@ -140,7 +140,6 @@
   });
 </script>
 <style lang="less">
-  @import (reference) '../../../design/index.less';
   @prefix-cls: ~'@{namespace}-lazy-container';
 
   .@{prefix-cls} {

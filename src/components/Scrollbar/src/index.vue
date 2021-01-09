@@ -34,7 +34,7 @@
 
   export default defineComponent({
     name: 'Scrollbar',
-    inheritAttrs: false,
+    // inheritAttrs: false,
     components: { Bar },
     props: {
       native: {

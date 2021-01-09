@@ -1,47 +1,44 @@
-import type { Plugin as VitePlugin } from 'vite';
-import type { Plugin as rollupPlugin } from 'rollup';
+import type { Plugin } from 'vite';
 
 import PurgeIcons from 'vite-plugin-purge-icons';
 
 import visualizer from 'rollup-plugin-visualizer';
-import gzipPlugin from './gzip/index';
 
 // @ts-ignore
 import pkg from '../../../package.json';
-import { isSiteMode, ViteEnv, isReportMode, isBuildGzip } from '../../utils';
-import { setupHtmlPlugin } from './html';
-import { setupPwaPlugin } from './pwa';
-import { setupMockPlugin } from './mock';
+import { ViteEnv, isReportMode } from '../../utils';
+import { configHtmlPlugin } from './html';
+import { configPwaConfig } from './pwa';
+import { configMockPlugin } from './mock';
+import { configDynamicImport } from './importContext';
+import { configGzipPlugin } from './gzip';
 
 // gen vite plugins
-export function createVitePlugins(viteEnv: ViteEnv, mode: 'development' | 'production') {
-  const vitePlugins: VitePlugin[] = [];
+export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean, mode: string) {
+  const vitePlugins: (Plugin | Plugin[])[] = [];
 
   // vite-plugin-html
-  setupHtmlPlugin(vitePlugins, viteEnv, mode);
+  vitePlugins.push(configHtmlPlugin(viteEnv, isBuild));
+
   // vite-plugin-pwa
-  setupPwaPlugin(vitePlugins, viteEnv, mode);
+  vitePlugins.push(configPwaConfig(viteEnv, isBuild));
+
   // vite-plugin-mock
-  setupMockPlugin(vitePlugins, viteEnv, mode);
+  vitePlugins.push(configMockPlugin(viteEnv, isBuild));
+
+  // vite-plugin-import-context
+  vitePlugins.push(configDynamicImport(viteEnv));
 
   // vite-plugin-purge-icons
   vitePlugins.push(PurgeIcons());
 
-  return vitePlugins;
-}
+  // rollup-plugin-gzip
+  vitePlugins.push(configGzipPlugin(isBuild));
 
-// gen rollup plugins
-export function createRollupPlugin() {
-  const rollupPlugins: rollupPlugin[] = [];
-
+  // rollup-plugin-visualizer
   if (isReportMode()) {
-    // rollup-plugin-visualizer
-    rollupPlugins.push(visualizer({ filename: './build/.cache/stats.html', open: true }) as Plugin);
-  }
-  if (isBuildGzip() || isSiteMode()) {
-    // rollup-plugin-gizp
-    rollupPlugins.push(gzipPlugin());
+    vitePlugins.push(visualizer({ filename: './build/.cache/stats.html', open: true }) as Plugin);
   }
 
-  return rollupPlugins;
+  return vitePlugins;
 }

@@ -9,17 +9,17 @@ import router from '/@/router';
 import { PermissionModeEnum } from '/@/enums/appEnum';
 import { pathToRegexp } from 'path-to-regexp';
 
-import modules from 'globby!/@/router/menus/modules/**/*.@(ts)';
-
-const reg = /(((https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
+import modules from 'glob:./modules/**/*.ts';
 
 const menuModules: MenuModule[] = [];
 
 Object.keys(modules).forEach((key) => {
-  const moduleItem = modules[key];
-  const menuModule = Array.isArray(moduleItem) ? [...moduleItem] : [moduleItem];
-  menuModules.push(...menuModule);
+  const mod = modules[key].default || {};
+  const modList = Array.isArray(mod) ? [...mod] : [mod];
+  menuModules.push(...modList);
 });
+
+const reg = /(((https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
 
 // ===========================
 // ==========Helper===========

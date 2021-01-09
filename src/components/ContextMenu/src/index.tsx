@@ -76,9 +76,7 @@ export default defineComponent({
           return (
             <>
               <Menu.Item disabled={disabled} class={`${prefixCls}__item`} key={label}>
-                {() => [
-                  <ItemContent showIcon={props.showIcon} item={item} handler={handleAction} />,
-                ]}
+                <ItemContent showIcon={props.showIcon} item={item} handler={handleAction} />
               </Menu.Item>
               {DividerComp}
             </>
@@ -109,7 +107,7 @@ export default defineComponent({
           ref={wrapRef}
           style={unref(getStyle)}
         >
-          {() => renderMenuItem(items)}
+          {renderMenuItem(items)}
         </Menu>
       );
     };

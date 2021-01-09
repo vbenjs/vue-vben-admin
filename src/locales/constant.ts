@@ -1,5 +1,3 @@
-import messages from 'globby?locale!/@/locales/lang/**/*.@(ts)';
-
 import type { DropMenu } from '/@/components/Dropdown';
 
 // locale list
@@ -13,4 +11,3 @@ export const localeList: DropMenu[] = [
     event: 'en',
   },
 ];
-export default messages;

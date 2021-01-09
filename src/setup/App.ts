@@ -3,7 +3,6 @@
  */
 
 import type { ProjectConfig } from '/@/types/config';
-import type { App } from 'vue';
 import { computed, ref } from 'vue';
 
 import { ThemeModeEnum } from '/@/enums/appEnum';
@@ -20,17 +19,6 @@ import {
 
 import { appStore } from '/@/store/modules/app';
 import { deepMerge } from '/@/utils';
-
-// Used to share global app instances
-let app: App;
-
-export function setApp(_app: App): void {
-  app = _app;
-}
-
-export function getApp(): App {
-  return app;
-}
 
 // TODO Theme switching
 export function useThemeMode(mode: ThemeModeEnum) {

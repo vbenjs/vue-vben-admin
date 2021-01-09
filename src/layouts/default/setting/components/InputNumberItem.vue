@@ -43,7 +43,6 @@
   });
 </script>
 <style lang="less" scoped>
-  @import (reference) '../../../../design/index.less';
   @prefix-cls: ~'@{namespace}-setting-input-number-item';
 
   .@{prefix-cls} {
