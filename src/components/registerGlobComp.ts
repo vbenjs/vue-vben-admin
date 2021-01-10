@@ -34,7 +34,14 @@ import {
   Avatar,
   Menu,
   Breadcrumb,
+  Form,
+  Input,
+  Row,
+  Col,
+  Spin,
 } from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.css';
+
 import { App } from 'vue';
 
 const compList = [Icon, Button, AntButton.Group];
@@ -46,7 +53,6 @@ export function registerGlobComp(app: App) {
   });
 
   // Optional
-  // Why register here： The main reason for registering here is not to increase the size of the first screen code
   // If you need to customize global components, you can write here
   // If you don’t need it, you can delete it
   app
@@ -78,5 +84,10 @@ export function registerGlobComp(app: App) {
     .use(Empty)
     .use(Avatar)
     .use(Menu)
-    .use(Tabs);
+    .use(Tabs)
+    .use(Form)
+    .use(Input)
+    .use(Row)
+    .use(Col)
+    .use(Spin);
 }
