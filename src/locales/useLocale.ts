@@ -7,9 +7,7 @@ import type { Ref } from 'vue';
 import { unref, ref } from 'vue';
 import { useLocaleSetting } from '/@/hooks/setting/useLocaleSetting';
 
-import moment from 'moment';
-
-import 'moment/dist/locale/zh-cn';
+import { dateUtil } from '/@/utils/dateUtil';
 
 import { i18n } from './setupI18n';
 
@@ -36,14 +34,14 @@ export function useLocale() {
           antConfigLocaleRef.value = locale.default;
         });
 
-        moment.locale('cn');
+        dateUtil.locale('cn');
         break;
       // English
       case 'en':
         import('ant-design-vue/es/locale/en_US').then((locale) => {
           antConfigLocaleRef.value = locale.default;
         });
-        moment.locale('en-us');
+        dateUtil.locale('en-us');
         break;
 
       // other

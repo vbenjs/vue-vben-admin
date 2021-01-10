@@ -925,7 +925,7 @@
     globals "^11.1.0"
     lodash "^4.17.19"
 
-"@babel/traverse@^7.0.0", "@babel/traverse@^7.12.12":
+"@babel/traverse@^7.0.0":
   version "7.12.12"
   resolved "https://registry.npmjs.org/@babel/traverse/-/traverse-7.12.12.tgz#d0cd87892704edd8da002d674bc811ce64743376"
   integrity sha512-s88i0X0lPy45RrLM8b9mz8RPH5FqO9G9p7ti59cToE44xFm1Q+Pjh5Gq4SXBbtb88X7Uy7pexeqRIQDDMNkL0w==
@@ -7798,21 +7798,10 @@ vite-plugin-html@^2.0.0-beta.5:
     ejs "^3.1.5"
     html-minifier-terser "^5.1.1"
 
-vite-plugin-import-context@^1.0.0-rc.1:
-  version "1.0.0-rc.1"
-  resolved "https://registry.npmjs.org/vite-plugin-import-context/-/vite-plugin-import-context-1.0.0-rc.1.tgz#ce3faf51b0c8d2e33bb434326b5dbd89ec7e7229"
-  integrity sha512-ZVhj9npqduN+WFhA59LxvyHnrN4lEJlA5RkpYChqtVev7greyemioUpyzdgKxkXhdDVApYBOlGcRTU7rr1+Fdg==
-  dependencies:
-    "@babel/core" "^7.12.10"
-    "@babel/plugin-transform-typescript" "^7.12.1"
-    "@babel/traverse" "^7.12.12"
-    "@rollup/pluginutils" "^4.1.0"
-    debug "^4.3.1"
-
-vite-plugin-mock@^2.0.0-beta.1:
-  version "2.0.0-beta.1"
-  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.0.0-beta.1.tgz#660c3b7867c84d20c82bf2e074e9b8377d2a9427"
-  integrity sha512-wnMAfVGXsYDlSWD4kV0xG9X6ZWir1UGsH4xeGzxbAU0XlkgQgJxxFJ1/j+QjD8bauKmuU9QUW1uAr9TWwzTShg==
+vite-plugin-mock@^2.0.0-beta.3:
+  version "2.0.0-beta.3"
+  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.0.0-beta.3.tgz#5276b86734106ccd7aaa299bfb0d16a86c8d2823"
+  integrity sha512-LfgXV3Mzulz89OfuXysxLpnyu66mDiFAeBjwx24N/OiEyZEHagbVRVOJU8Xz/oTmtH7EP/AyrYjQFRb2elQ0BQ==
   dependencies:
     "@rollup/plugin-node-resolve" "^11.0.1"
     body-parser "^1.19.0"
@@ -7835,20 +7824,20 @@ vite-plugin-purge-icons@^0.5.0:
     "@purge-icons/generated" "^0.5.0"
     rollup-plugin-purge-icons "^0.5.0"
 
-vite-plugin-pwa@^0.3.3:
-  version "0.3.3"
-  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.3.3.tgz#00ece9b7b558153a4afa3fbbac2913c5b3ff6fa8"
-  integrity sha512-aojgEk9u1Aaoo80zT8AdhGlPUrWHmV9fdJhbj/9vvEyj02DJQCvu7rr5gEJJRjtUSS+xtzIWzy2Rc3P+x4gD5A==
+vite-plugin-pwa@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.3.5.tgz#a1700e60ab91fa5fa92d0bdf7102ac87187ac00e"
+  integrity sha512-mabDRu/rk6w/f5eXGlNzD8GJCw8kKeg82UTLmaUYj3M7G5eKvyRYTXVPY2TPe1WWPMTE1c3Ypw9iL4QDV707Ww==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.4"
     pretty-bytes "^5.5.0"
     workbox-build "^6.0.2"
 
-vite@^2.0.0-beta.19:
-  version "2.0.0-beta.19"
-  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0-beta.19.tgz#9e1a3ff4843d8e72fc2b771691c43124ceeacd21"
-  integrity sha512-6EJAPypH8m9lCK2pB1UfU+qBw65wCHFoMITtFotDAd03m5hz2d9cPXfPgaCk0PhQPgtGcgn5xeAfLIdZ5e6cPA==
+vite@^2.0.0-beta.21:
+  version "2.0.0-beta.21"
+  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0-beta.21.tgz#9a7233c93ed59c5b5de28c3a74f1e94b815d746e"
+  integrity sha512-B6OhGHwh4DTkDBxZXtGhxmDkK75M3o0sKFz/cfZ2bdqxRze870sJgH66kPuYWjgSVDdPz0NTIKBaxrbcA8wwmw==
   dependencies:
     esbuild "^0.8.26"
     postcss "^8.2.1"
