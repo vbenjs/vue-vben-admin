@@ -12,10 +12,11 @@ const LayoutMap = new Map<LayoutMapKey, () => Promise<typeof import('*.vue')>>()
 // 动态引入
 function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
   // TODO Because xlsx does not support vite2.0 temporarily. So filter the excel example first
+  // regexp: /^(?!.*\/demo\/excel).*\.(tsx?|vue)$/,
   const dynamicViewsModules = importContext({
     dir: '/@/views',
     deep: true,
-    regexp: /^(?!.*\/demo\/excel).*\.(tsx?|vue)$/,
+    regexp: /\.(tsx?|vue)$/,
     dynamicImport: true,
     dynamicEnabled: 'autoImportRoute',
   });

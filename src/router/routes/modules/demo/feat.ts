@@ -172,51 +172,51 @@ const feat: AppRouteModule = {
         title: t('routes.demo.feat.errorLog'),
       },
     },
-    // {
-    //   path: 'excel',
-    //   name: 'Excel',
-    //   redirect: '/feat/excel/customExport',
-    //   component: getParentLayout('Excel'),
-    //   meta: {
-    //     // icon: 'mdi:microsoft-excel',
-    //     title: t('routes.demo.excel.excel'),
-    //   },
+    {
+      path: 'excel',
+      name: 'Excel',
+      redirect: '/feat/excel/customExport',
+      component: getParentLayout('Excel'),
+      meta: {
+        // icon: 'mdi:microsoft-excel',
+        title: t('routes.demo.excel.excel'),
+      },
 
-    //   children: [
-    //     {
-    //       path: 'customExport',
-    //       name: 'CustomExport',
-    //       component: () => import('/@/views/demo/excel/CustomExport.vue'),
-    //       meta: {
-    //         title: t('routes.demo.excel.customExport'),
-    //       },
-    //     },
-    //     {
-    //       path: 'jsonExport',
-    //       name: 'JsonExport',
-    //       component: () => import('/@/views/demo/excel/JsonExport.vue'),
-    //       meta: {
-    //         title: t('routes.demo.excel.jsonExport'),
-    //       },
-    //     },
-    //     {
-    //       path: 'arrayExport',
-    //       name: 'ArrayExport',
-    //       component: () => import('/@/views/demo/excel/ArrayExport.vue'),
-    //       meta: {
-    //         title: t('routes.demo.excel.arrayExport'),
-    //       },
-    //     },
-    //     {
-    //       path: 'importExcel',
-    //       name: 'ImportExcel',
-    //       component: () => import('/@/views/demo/excel/ImportExcel.vue'),
-    //       meta: {
-    //         title: t('routes.demo.excel.importExcel'),
-    //       },
-    //     },
-    //   ],
-    // },
+      children: [
+        {
+          path: 'customExport',
+          name: 'CustomExport',
+          component: () => import('/@/views/demo/excel/CustomExport.vue'),
+          meta: {
+            title: t('routes.demo.excel.customExport'),
+          },
+        },
+        {
+          path: 'jsonExport',
+          name: 'JsonExport',
+          component: () => import('/@/views/demo/excel/JsonExport.vue'),
+          meta: {
+            title: t('routes.demo.excel.jsonExport'),
+          },
+        },
+        {
+          path: 'arrayExport',
+          name: 'ArrayExport',
+          component: () => import('/@/views/demo/excel/ArrayExport.vue'),
+          meta: {
+            title: t('routes.demo.excel.arrayExport'),
+          },
+        },
+        {
+          path: 'importExcel',
+          name: 'ImportExcel',
+          component: () => import('/@/views/demo/excel/ImportExcel.vue'),
+          meta: {
+            title: t('routes.demo.excel.importExcel'),
+          },
+        },
+      ],
+    },
     {
       path: 'testTab/:id',
       name: 'TestTab',
