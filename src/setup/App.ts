@@ -39,7 +39,6 @@ export function useThemeMode(mode: ThemeModeEnum) {
 export function initAppConfigStore() {
   let projCfg: ProjectConfig = getLocal(PROJ_CFG_KEY) as ProjectConfig;
   projCfg = deepMerge(projectSetting, projCfg || {});
-
   try {
     const {
       colorWeak,

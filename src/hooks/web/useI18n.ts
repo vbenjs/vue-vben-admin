@@ -22,9 +22,9 @@ export function useI18n(namespace?: string) {
 
   const { t, ...methods } = i18n.global;
 
-  const tFn = function (...arg: Parameters<typeof t>) {
-    if (!arg[0]) return '';
-    return t(getKey(arg[0]), ...(arg as Parameters<typeof t>));
+  const tFn: typeof t = (key: string, ...arg: any) => {
+    if (!key) return '';
+    return t(getKey(key), ...(arg as Parameters<typeof t>));
   };
   return {
     ...methods,
