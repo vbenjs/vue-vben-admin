@@ -9,7 +9,7 @@ import router from '/@/router';
 import { PermissionModeEnum } from '/@/enums/appEnum';
 import { pathToRegexp } from 'path-to-regexp';
 
-import modules from 'glob:./modules/**/*.ts';
+const modules = import.meta.globEager('./modules/**/*.ts');
 
 const menuModules: MenuModule[] = [];
 
