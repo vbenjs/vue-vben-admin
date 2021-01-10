@@ -1,4 +1,4 @@
 import { genMessage } from './helper';
-import modules from 'glob:./lang/**/*.ts';
+const modules = import.meta.globEager('./lang/**/*.ts');
 
 export default genMessage(modules);
