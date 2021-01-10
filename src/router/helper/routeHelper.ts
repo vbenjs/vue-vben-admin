@@ -9,17 +9,10 @@ export type LayoutMapKey = 'LAYOUT';
 
 const LayoutMap = new Map<LayoutMapKey, () => Promise<typeof import('*.vue')>>();
 
+const dynamicViewsModules = import.meta.glob('../../views/**/*.{vue,tsx}');
+
 // 动态引入
 function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
-  // TODO Because xlsx does not support vite2.0 temporarily. So filter the excel example first
-  // regexp: /^(?!.*\/demo\/excel).*\.(tsx?|vue)$/,
-  const dynamicViewsModules = importContext({
-    dir: '/@/views',
-    deep: true,
-    regexp: /\.(tsx?|vue)$/,
-    dynamicImport: true,
-    dynamicEnabled: 'autoImportRoute',
-  });
   if (!routes) return;
   routes.forEach((item) => {
     const { component, name } = item;
@@ -33,15 +26,23 @@ function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
   });
 }
 
-function dynamicImport(dynamicViewsModules: DynamicImportContextResult, component: string) {
-  const keys = dynamicViewsModules.keys();
+function dynamicImport(
+  dynamicViewsModules: Record<
+    string,
+    () => Promise<{
+      [key: string]: any;
+    }>
+  >,
+  component: string
+) {
+  const keys = Object.keys(dynamicViewsModules);
   const matchKeys = keys.filter((key) => {
-    const k = key.substr(1);
-    return k.startsWith(component) || k.startsWith(`/${component}`);
+    const k = key.replace('../../views', '');
+    return k.startsWith(`${component}`) || k.startsWith(`/${component}`);
   });
   if (matchKeys?.length === 1) {
     const matchKey = matchKeys[0];
-    return dynamicViewsModules(matchKey);
+    return dynamicViewsModules[matchKey];
   }
   if (matchKeys?.length > 1) {
     warn(

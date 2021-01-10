@@ -16,7 +16,7 @@
     "noUnusedParameters": true,
     "experimentalDecorators": true,
     "lib": ["dom", "esnext"],
-    "types": ["vite/client", "vite-plugin-import-context/client"],
+    "types": ["vite/client"],
     "incremental": true,
     "skipLibCheck": true,
     "paths": {

@@ -10,7 +10,6 @@ import { ViteEnv, isReportMode } from '../../utils';
 import { configHtmlPlugin } from './html';
 import { configPwaConfig } from './pwa';
 import { configMockPlugin } from './mock';
-import { configDynamicImport } from './importContext';
 import { configGzipPlugin } from './gzip';
 
 // gen vite plugins
@@ -25,9 +24,6 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean, mode: stri
 
   // vite-plugin-mock
   vitePlugins.push(configMockPlugin(viteEnv, isBuild));
-
-  // vite-plugin-import-context
-  vitePlugins.push(configDynamicImport(viteEnv));
 
   // vite-plugin-purge-icons
   vitePlugins.push(PurgeIcons());
