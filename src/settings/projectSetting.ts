@@ -12,7 +12,7 @@ const setting: ProjectConfig = {
   showSettingButton: true,
 
   // Permission mode
-  permissionMode: PermissionModeEnum.BACK,
+  permissionMode: PermissionModeEnum.ROLE,
 
   // Permission-related cache is stored in sessionStorage or localStorage
   permissionCacheType: CacheTypeEnum.LOCAL,
