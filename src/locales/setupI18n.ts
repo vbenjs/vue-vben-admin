@@ -3,8 +3,6 @@ import type { I18n, I18nOptions } from 'vue-i18n';
 
 import { createI18n } from 'vue-i18n';
 
-import 'moment/dist/locale/zh-cn';
-
 import projectSetting from '/@/settings/projectSetting';
 
 import messages from './getMessage';

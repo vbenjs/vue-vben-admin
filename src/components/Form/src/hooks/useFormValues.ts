@@ -1,5 +1,6 @@
 import { isArray, isFunction, isObject, isString } from '/@/utils/is';
-import moment from 'moment';
+import { dateUtil } from '/@/utils/dateUtil';
+
 import { unref, nextTick } from 'vue';
 import type { Ref, ComputedRef } from 'vue';
 import type { FieldMapToTime, FormSchema } from '../types/form';
@@ -65,8 +66,8 @@ export function useFormValues({
 
       const [startTime, endTime]: string[] = values[field];
 
-      values[startTimeKey] = moment(startTime).format(format);
-      values[endTimeKey] = moment(endTime).format(format);
+      values[startTimeKey] = dateUtil(startTime).format(format);
+      values[endTimeKey] = dateUtil(endTime).format(format);
       Reflect.deleteProperty(values, field);
     }
 

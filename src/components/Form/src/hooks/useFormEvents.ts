@@ -7,7 +7,7 @@ import { unref, toRaw } from 'vue';
 import { isArray, isFunction, isObject, isString } from '/@/utils/is';
 import { deepMerge, unique } from '/@/utils';
 import { dateItemType, handleInputNumberValue } from '../helper';
-import moment from 'moment';
+import { dateUtil } from '/@/utils/dateUtil';
 import { cloneDeep } from 'lodash-es';
 import { error } from '/@/utils/log';
 
@@ -67,11 +67,11 @@ export function useFormEvents({
           if (Array.isArray(value)) {
             const arr: moment.Moment[] = [];
             for (const ele of value) {
-              arr.push(moment(ele));
+              arr.push(dateUtil(ele));
             }
             formModel[key] = arr;
           } else {
-            formModel[key] = moment(value);
+            formModel[key] = dateUtil(value);
           }
         } else {
           formModel[key] = value;

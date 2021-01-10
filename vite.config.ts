@@ -8,7 +8,6 @@ import { loadEnv } from 'vite';
 
 import { modifyVars } from './build/config/lessModifyVars';
 import { createProxy } from './build/vite/proxy';
-import { configManualChunk } from './build/vite/optimizer';
 
 import { wrapperEnv } from './build/utils';
 
@@ -53,8 +52,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       rollupOptions: {
         output: {
           compact: true,
-          manualChunks: configManualChunk,
         },
+      },
+      commonjsOptions: {
+        ignore: ['fs', 'crypto', 'stream'],
       },
     },
     define: {
@@ -69,7 +70,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       preprocessorOptions: {
         less: {
           modifyVars: {
-            // reference: Avoid repeated references
+            // reference:  Avoid repeated references
             hack: `true; @import (reference) "${resolve('src/design/config.less')}";`,
             ...modifyVars,
           },
@@ -86,7 +87,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     ],
 
     optimizeDeps: {
-      include: ['ant-design-vue/es/locale/zh_CN', 'ant-design-vue/es/locale/en_US'],
+      include: [
+        'ant-design-vue/es/locale/zh_CN',
+        'moment/dist/locale/zh-cn',
+        'ant-design-vue/es/locale/en_US',
+      ],
     },
   };
 };

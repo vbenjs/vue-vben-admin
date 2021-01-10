@@ -41,7 +41,8 @@
   import FormAction from './components/FormAction.vue';
 
   import { dateItemType } from './helper';
-  import moment from 'moment';
+  import { dateUtil } from '/@/utils/dateUtil';
+
   // import { cloneDeep } from 'lodash-es';
   import { deepMerge } from '/@/utils';
 
@@ -108,11 +109,11 @@
           // handle date type
           if (defaultValue && dateItemType.includes(component)) {
             if (!Array.isArray(defaultValue)) {
-              schema.defaultValue = moment(defaultValue);
+              schema.defaultValue = dateUtil(defaultValue);
             } else {
               const def: moment.Moment[] = [];
               defaultValue.forEach((item) => {
-                def.push(moment(item));
+                def.push(dateUtil(item));
               });
               schema.defaultValue = def;
             }
