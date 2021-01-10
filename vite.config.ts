@@ -69,7 +69,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       preprocessorOptions: {
         less: {
           modifyVars: {
-            // reference ： Avoid repeated references
+            // reference: Avoid repeated references
             hack: `true; @import (reference) "${resolve('src/design/config.less')}";`,
             ...modifyVars,
           },

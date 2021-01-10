@@ -15,7 +15,9 @@
     "lint:eslint": "eslint --fix --ext \"src/**/*.{vue,less,css,scss}\"",
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint:stylelint": "stylelint --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
-    "reinstall": "rimraf yarn.lock && rimraf package.lock.json && rimraf node_modules && npm run bootstrap"
+    "reinstall": "rimraf yarn.lock && rimraf package.lock.json && rimraf node_modules && npm run bootstrap",
+    "hack-esm:xlsx": "esno ./build/script/hackXlsx",
+    "postinstall": "npm run hack-esm:xlsx"
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.5",
@@ -39,6 +41,7 @@
     "vue-types": "^3.0.1",
     "vuex": "^4.0.0-rc.2",
     "vuex-module-decorators": "^1.0.1",
+    "xlsx": "^0.16.9",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
@@ -61,8 +64,8 @@
     "@types/zxcvbn": "^4.4.0",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
     "@typescript-eslint/parser": "^4.12.0",
-    "@vitejs/plugin-legacy": "^1.1.0",
-    "@vitejs/plugin-vue": "^1.0.4",
+    "@vitejs/plugin-legacy": "^1.1.1",
+    "@vitejs/plugin-vue": "^1.0.5",
     "@vitejs/plugin-vue-jsx": "^1.0.1",
     "@vue/compiler-sfc": "^3.0.5",
     "@vuedx/typecheck": "^0.4.1",
@@ -95,7 +98,7 @@
     "stylelint-order": "^4.1.0",
     "ts-node": "^9.1.0",
     "typescript": "^4.1.3",
-    "vite": "^2.0.0-beta.15",
+    "vite": "^2.0.0-beta.16",
     "vite-plugin-html": "^2.0.0-beta.5",
     "vite-plugin-import-context": "^1.0.0-rc.1",
     "vite-plugin-mock": "^2.0.0-beta.1",
