@@ -2,7 +2,11 @@
 
 ### ✨ Refactor
 
-独立组件配置到 `/@/settings/componentsSetting`
+- 独立组件配置到 `/@/settings/componentsSetting`
+- `colorSetting`和`designSetting`现在合并为`designSetting`
+- `ant-design-vue`组件注册移动到`components/registerComponent`
+- 移除 `setup` 文件夹
+- 升级到`vite2`
 
 ### ✨ Features
 
@@ -11,6 +15,7 @@
 - modal 组件新增`height`和`min-height`属性
 - 新增`PageWrapper`组件。并应用于示例页面
 - 新增标签页折叠功能
+- 兼容旧版浏览器
 
 ### 🐛 Bug Fixes
 

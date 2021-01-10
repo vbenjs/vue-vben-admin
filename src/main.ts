@@ -3,8 +3,7 @@ import App from './App.vue';
 
 import router, { setupRouter } from '/@/router';
 import { setupStore } from '/@/store';
-import { setupAntd } from '/@/setup/ant-design-vue';
-import { setupErrorHandle } from '/@/setup/error-handle';
+import { setupErrorHandle } from '/@/logics/error-handle';
 import { setupGlobDirectives } from '/@/directives';
 import { setupI18n } from '/@/locales/setupI18n';
 import { setupProdMockServer } from '../mock/_createProductionServer';
@@ -18,9 +17,6 @@ import '/@/design/index.less';
 const app = createApp(App);
 
 registerGlobComp(app);
-
-// Configure component library
-setupAntd(app);
 
 // Multilingual configuration
 setupI18n(app);

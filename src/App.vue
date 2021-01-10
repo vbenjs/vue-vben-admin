@@ -10,7 +10,7 @@
   import { defineComponent } from 'vue';
   import { ConfigProvider } from 'ant-design-vue';
 
-  import { initAppConfigStore } from '/@/setup/App';
+  import { initAppConfigStore } from '/@/logics/initAppConfig';
 
   import { useLockPage } from '/@/hooks/web/useLockPage';
   import { useLocale } from '/@/locales/useLocale';

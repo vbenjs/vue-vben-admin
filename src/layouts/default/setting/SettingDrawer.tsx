@@ -31,7 +31,7 @@ import {
   mixSidebarTriggerOptions,
 } from './enum';
 
-import { HEADER_PRESET_BG_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from '/@/settings/colorSetting';
+import { HEADER_PRESET_BG_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from '/@/settings/designSetting';
 
 const { t } = useI18n();
 

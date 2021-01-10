@@ -3,9 +3,7 @@
  */
 
 import type { ProjectConfig } from '/@/types/config';
-import { computed, ref } from 'vue';
 
-import { ThemeModeEnum } from '/@/enums/appEnum';
 import { PROJ_CFG_KEY } from '/@/enums/cacheEnum';
 
 import projectSetting from '/@/settings/projectSetting';
@@ -19,21 +17,6 @@ import {
 
 import { appStore } from '/@/store/modules/app';
 import { deepMerge } from '/@/utils';
-
-// TODO Theme switching
-export function useThemeMode(mode: ThemeModeEnum) {
-  const modeRef = ref(mode);
-  const html = document.documentElement;
-  const clsList = html.classList;
-
-  const change = () => {
-    clsList.contains(mode) ? clsList.remove(mode) : clsList.add(mode);
-  };
-  return {
-    runChangeThemeMode: change,
-    mode: computed(() => modeRef.value),
-  };
-}
 
 // Initial project configuration
 export function initAppConfigStore() {
