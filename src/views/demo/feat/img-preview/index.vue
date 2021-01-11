@@ -1,5 +1,6 @@
 <template>
   <PageWrapper title="图片预览示例">
+    <ImagePreview :imageList="imgList" />
     <Alert message="有预览图" type="info" />
     <div class="flex justify-center mt-4">
       <img :src="img" v-for="img in imgList" :key="img" class="mr-2" @click="handleClick(img)" />
@@ -11,7 +12,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { Alert } from 'ant-design-vue';
-  import { createImgPreview } from '/@/components/Preview/index';
+  import { createImgPreview, ImagePreview } from '/@/components/Preview/index';
   import { PageWrapper } from '/@/components/Page';
 
   const imgList: string[] = [
@@ -20,7 +21,7 @@
     'https://picsum.photos/id/68/346/216',
   ];
   export default defineComponent({
-    components: { Alert, PageWrapper },
+    components: { Alert, PageWrapper, ImagePreview },
     setup() {
       function handleClick(img: string) {
         createImgPreview({ imageList: [img] });
