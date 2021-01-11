@@ -1,16 +1,18 @@
 <template>
-  <PreviewGroup :class="prefixCls">
-    <slot v-if="!imageList || $slots.default" />
-    <template v-else>
-      <template v-for="item in getImageList" :key="item.src">
-        <Image v-bind="item">
-          <template #placeholder v-if="item.placeholder">
-            <Image v-bind="item" :src="item.placeholder" :preview="false" />
-          </template>
-        </Image>
+  <div :class="prefixCls">
+    <PreviewGroup>
+      <slot v-if="!imageList || $slots.default" />
+      <template v-else>
+        <template v-for="item in getImageList" :key="item.src">
+          <Image v-bind="item">
+            <template #placeholder v-if="item.placeholder">
+              <Image v-bind="item" :src="item.placeholder" :preview="false" />
+            </template>
+          </Image>
+        </template>
       </template>
-    </template>
-  </PreviewGroup>
+    </PreviewGroup>
+  </div>
 </template>
 <script lang="ts">
   import type { PropType } from 'vue';
@@ -53,7 +55,10 @@
         });
       });
 
-      return { prefixCls, getImageList };
+      return {
+        prefixCls,
+        getImageList,
+      };
     },
   });
 </script>
@@ -61,6 +66,10 @@
   @prefix-cls: ~'@{namespace}-image-preview';
 
   .@{prefix-cls} {
+    .ant-image {
+      margin-right: 10px;
+    }
+
     .ant-image-preview-operations {
       background: rgba(0, 0, 0, 0.4);
     }

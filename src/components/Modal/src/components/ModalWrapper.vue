@@ -67,7 +67,7 @@
           return {
             minHeight: `${props.minHeight}px`,
             // padding 28
-            height: `${unref(realHeightRef) - 28}px`,
+            height: `${unref(realHeightRef)}px`,
           };
         }
       );
@@ -130,10 +130,11 @@
           const spinEl = unref(spinRef);
 
           if (!spinEl) return;
+          await nextTick();
+          // if (!realHeight) {
+          realHeight = spinEl.scrollHeight;
+          // }
 
-          if (!realHeight) {
-            realHeight = spinEl.scrollHeight;
-          }
           if (props.fullScreen) {
             realHeightRef.value =
               window.innerHeight - props.modalFooterHeight - props.modalHeaderHeight;
@@ -142,7 +143,7 @@
               ? props.height
               : realHeight > maxHeight
               ? maxHeight
-              : realHeight + 46;
+              : realHeight;
           }
           emit('height-change', unref(realHeightRef));
         } catch (error) {

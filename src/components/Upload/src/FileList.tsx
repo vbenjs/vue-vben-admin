@@ -1,15 +1,24 @@
-import { defineComponent, CSSProperties } from 'vue';
+import { defineComponent, CSSProperties, watch, nextTick } from 'vue';
 import { fileListProps } from './props';
 import { isFunction } from '/@/utils/is';
 import './FileList.less';
+import { useModalContext } from '/@/components/Modal/src/hooks/useModalContext';
 
 export default defineComponent({
   name: 'FileList',
   props: fileListProps,
   setup(props) {
+    const modalFn = useModalContext();
+    watch(
+      () => props.dataSource,
+      () => {
+        nextTick(() => {
+          modalFn?.redoModalHeight?.();
+        });
+      }
+    );
     return () => {
       const { columns, actionColumn, dataSource } = props;
-
       const columnList = [...columns, actionColumn];
       return (
         <table class="file-table">

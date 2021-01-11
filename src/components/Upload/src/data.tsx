@@ -1,7 +1,10 @@
 import type { BasicColumn, ActionItem } from '/@/components/Table';
 
 import { FileItem, PreviewFileItem, UploadResultStatus } from './types';
-import { checkImgType, isImgTypeByName } from './helper';
+import {
+  // checkImgType,
+  isImgTypeByName,
+} from './helper';
 import { Progress, Tag } from 'ant-design-vue';
 
 import TableAction from '/@/components/Table/src/components/TableAction.vue';
@@ -76,7 +79,7 @@ export function createTableColumns(): BasicColumn[] {
     },
   ];
 }
-export function createActionColumn(handleRemove: Function, handlePreview: Function): BasicColumn {
+export function createActionColumn(handleRemove: Function): BasicColumn {
   return {
     width: 120,
     title: t('component.upload.operating'),
@@ -90,13 +93,13 @@ export function createActionColumn(handleRemove: Function, handlePreview: Functi
           onClick: handleRemove.bind(null, record),
         },
       ];
-      if (checkImgType(record)) {
-        actions.unshift({
-          label: t('component.upload.preview'),
-          onClick: handlePreview.bind(null, record),
-        });
-      }
-      return <TableAction actions={actions} />;
+      // if (checkImgType(record)) {
+      //   actions.unshift({
+      //     label: t('component.upload.preview'),
+      //     onClick: handlePreview.bind(null, record),
+      //   });
+      // }
+      return <TableAction actions={actions} outside={true} />;
     },
   };
 }
@@ -122,7 +125,6 @@ export function createPreviewColumns(): BasicColumn[] {
 
 export function createPreviewActionColumn({
   handleRemove,
-  handlePreview,
   handleDownload,
 }: {
   handleRemove: Fn;
@@ -135,7 +137,7 @@ export function createPreviewActionColumn({
     dataIndex: 'action',
     fixed: false,
     customRender: ({ record }) => {
-      const { url } = (record || {}) as PreviewFileItem;
+      // const { url } = (record || {}) as PreviewFileItem;
 
       const actions: ActionItem[] = [
         {
@@ -148,12 +150,12 @@ export function createPreviewActionColumn({
           onClick: handleDownload.bind(null, record),
         },
       ];
-      if (isImgTypeByName(url)) {
-        actions.unshift({
-          label: t('component.upload.preview'),
-          onClick: handlePreview.bind(null, record),
-        });
-      }
+      // if (isImgTypeByName(url)) {
+      //   actions.unshift({
+      //     label: t('component.upload.preview'),
+      //     onClick: handlePreview.bind(null, record),
+      //   });
+      // }
       return <TableAction actions={actions} />;
     },
   };
