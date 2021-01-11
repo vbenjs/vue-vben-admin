@@ -35,6 +35,7 @@
       dataIndex: 'category',
       width: 80,
       align: 'center',
+      defaultHidden: true,
       slots: { customRender: 'category' },
     },
     {
@@ -74,6 +75,7 @@
         api: demoListApi,
         columns: columns,
         bordered: true,
+        showTableSetting: true,
       });
 
       return {

@@ -143,10 +143,14 @@
         emit
       );
 
-      const { getViewColumns, getColumns, setColumns, getColumnsRef, getCacheColumns } = useColumns(
-        getProps,
-        getPaginationInfo
-      );
+      const {
+        getViewColumns,
+        getColumns,
+        setCacheColumnsByField,
+        setColumns,
+        getColumnsRef,
+        getCacheColumns,
+      } = useColumns(getProps, getPaginationInfo);
 
       const { getScrollRef, redoHeight } = useTableScroll(
         getProps,
@@ -238,6 +242,7 @@
         updateTableData,
         setShowPagination,
         getShowPagination,
+        setCacheColumnsByField,
         getSize: () => {
           return unref(getBindValues).size as SizeType;
         },

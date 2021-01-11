@@ -7887,10 +7887,10 @@ vue-i18n@^9.0.0-rc.1:
     "@intlify/shared" "9.0.0-rc.1"
     "@vue/devtools-api" "^6.0.0-beta.3"
 
-vue-router@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.npmjs.org/vue-router/-/vue-router-4.0.2.tgz#5702bf8fa14535b80142fde226bf41a84917b1f4"
-  integrity sha512-LCsTSb5H25dZCxjsLasM9UED1BTg9vyTnp0Z9UhwC6QoqgLuHr/ySf7hjI/V0j2+xCKqJtecfmpghk6U8I2e4w==
+vue-router@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.npmjs.org/vue-router/-/vue-router-4.0.3.tgz#8b26050c88b2dec7e27a88835f71046b365823ec"
+  integrity sha512-AD1OjtVPyQHTSpoRsEGfPpxRQwhAhxcacOYO3zJ3KNkYP/r09mileSp6kdMQKhZWP2cFsPR3E2M3PZguSN5/ww==
 
 vue-types@^3.0.0, vue-types@^3.0.1:
   version "3.0.1"

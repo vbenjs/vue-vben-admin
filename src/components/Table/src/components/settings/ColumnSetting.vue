@@ -326,7 +326,7 @@
         if (isFixed && !item.width) {
           item.width = 100;
         }
-
+        table.setCacheColumnsByField?.(item.dataIndex, { fixed: isFixed });
         table.setColumns(columns);
       }
 
