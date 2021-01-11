@@ -1,18 +1,13 @@
 import { PropType } from 'vue';
+import { propTypes } from '/@/utils/propTypes';
 
 export const basicProps = {
   options: {
     type: Object as PropType<any>,
     default: {},
   },
-  value: {
-    type: String as PropType<string>,
-    // default: ''
-  },
-  modelValue: {
-    type: String as PropType<string>,
-    // default: ''
-  },
+  value: propTypes.string,
+  modelValue: propTypes.string,
   // 高度
   height: {
     type: [Number, String] as PropType<string | number>,
@@ -26,4 +21,5 @@ export const basicProps = {
     required: false,
     default: 'auto',
   },
+  showImageUpload: propTypes.bool.def(true),
 };

@@ -1,6 +1,7 @@
 export default {
   save: '保存',
   upload: '上传',
+  imgUpload: '图片上传',
   uploaded: '已上传',
 
   operating: '操作',
