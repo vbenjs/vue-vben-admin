@@ -1,3 +1,33 @@
+## Wip
+
+### ✨ Refactor
+
+- Independent component configuration to `/@/settings/componentsSetting`
+- `colorSetting` and `designSetting` are now merged into `designSetting`
+- `ant-design-vue` component registration moved to `components/registerComponent`
+- Remove the `setup` folder
+- Upgrade to `vite2`
+- Image preview is changed to `Image` component implementation, temporarily removing functional usage
+
+### ✨ Features
+
+- Added `mixSideTrigger` configuration. Used to configure how to open the mixed mode menu on the left. Optional `hover`, default `click`
+- Added `mixSideFixed` configuration. Used to fix the left mixed mode menu
+- Added `height` and `min-height` properties to the modal component
+- Added `PageWrapper` component. And applied to the sample page
+- Added tab folding function
+- Compatible with older browsers
+- tinymce new image upload
+
+### 🐛 Bug Fixes
+
+- Fix known issues with table column configuration
+- Restore the `isTreeTable` property of the table
+- Fix table memory overflow problem
+- Fix the function of `layout` shrinking and expanding in split mode
+- Fix modal height calculation error
+- Fix file upload error
+
 ## 2.0.0-rc.15 (2020-12-31)
 
 ### ✨ Table destructive update
