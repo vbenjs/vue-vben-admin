@@ -127,11 +127,10 @@ export function useTableScroll(
       width += 60;
     }
 
-    // TODO propsdth ?? 0;
+    // TODO props ?? 0;
     const NORMAL_WIDTH = 150;
 
-    const columns = unref(columnsRef);
-
+    const columns = unref(columnsRef).filter((item) => !item.defaultHidden);
     columns.forEach((item) => {
       width += Number.parseInt(item.width as string) || 0;
     });
@@ -150,7 +149,6 @@ export function useTableScroll(
   const getScrollRef = computed(() => {
     const tableHeight = unref(tableHeightRef);
     const { canResize, scroll } = unref(propsRef);
-
     return {
       x: unref(getScrollX),
       y: canResize ? tableHeight : null,

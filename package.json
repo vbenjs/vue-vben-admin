@@ -35,7 +35,7 @@
     "vditor": "^3.7.5",
     "vue": "^3.0.5",
     "vue-i18n": "^9.0.0-rc.1",
-    "vue-router": "^4.0.2",
+    "vue-router": "^4.0.3",
     "vue-types": "^3.0.1",
     "vuex": "^4.0.0-rc.2",
     "vuex-module-decorators": "^1.0.1",
