@@ -1,6 +1,7 @@
 export default {
   save: 'Save',
   upload: 'Upload',
+  imgUpload: 'ImageUpload',
   uploaded: 'Uploaded',
 
   operating: 'Operating',
