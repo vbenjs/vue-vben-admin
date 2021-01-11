@@ -18,7 +18,7 @@
 <script lang="ts">
   import { defineComponent, PropType, computed } from 'vue';
   import Icon from '/@/components/Icon/index';
-  import { ActionItem } from '/@/components/Table';
+  import { ActionItem, TableActionType } from '/@/components/Table';
   import { PopConfirmButton } from '/@/components/Button';
   import { Divider } from 'ant-design-vue';
   import { Dropdown } from '/@/components/Dropdown';
@@ -40,10 +40,15 @@
         default: null,
       },
       divider: propTypes.bool.def(true),
+      outside: propTypes.bool,
     },
     setup(props) {
       const { prefixCls } = useDesign('basic-table-action');
-      const table = useTableContext();
+      let table = {};
+      if (!props.outside) {
+        table = useTableContext();
+      }
+
       const getActions = computed(() => {
         return (props.actions || []).map((action) => {
           const { popConfirm } = action;
@@ -71,7 +76,7 @@
       });
 
       const getAlign = computed(() => {
-        const columns = table.getColumns();
+        const columns = (table as TableActionType)?.getColumns?.() || [];
         const actionColumn = columns.find((item) => item.flag === ACTION_COLUMN_FLAG);
         return actionColumn?.align ?? 'left';
       });
