@@ -7,7 +7,7 @@
             <div :class="`${prefixCls}-input__wrapper`">
               <a-input
                 :class="`${prefixCls}-input`"
-                :placeholder="t('component.app.search')"
+                :placeholder="t('common.searchText')"
                 allow-clear
                 @change="handleSearch"
               >
@@ -16,7 +16,7 @@
                 </template>
               </a-input>
               <span :class="`${prefixCls}-cancel`" @click="handleClose">{{
-                t('component.app.cancel')
+                t('common.cancelText')
               }}</span>
             </div>
 
@@ -116,6 +116,7 @@
         scrollWrap,
         handleMouseenter,
         handleClose: () => {
+          searchResult.value = [];
           emit('close');
         },
       };
@@ -135,7 +136,7 @@
     height: 100%;
     padding-top: 50px;
     // background: #656c85cc;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.25);
     justify-content: center;
     // backdrop-filter: blur(2px);
 
@@ -178,12 +179,13 @@
 
     &-content {
       position: relative;
-      width: 532px;
+      width: 632px;
       // padding: 14px;
       margin: 0 auto auto auto;
       background: #f5f6f7;
-      border-radius: 6px;
-      box-shadow: inset 1px 1px 0 0 hsla(0, 0%, 100%, 0.5), 0 3px 8px 0 #555a64;
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      // box-shadow: inset 1px 1px 0 0 hsla(0, 0%, 100%, 0.5), 0 3px 8px 0 #555a64;
       flex-direction: column;
     }
 
@@ -196,9 +198,10 @@
 
     &-input {
       width: 100%;
-      height: 56px;
+      height: 48px;
       font-size: 1.5em;
       color: #1c1e21;
+      border-radius: 6px;
 
       span[role='img'] {
         color: #999;

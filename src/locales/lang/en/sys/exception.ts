@@ -1,7 +1,6 @@
 export default {
   backLogin: 'Back Login',
   backHome: 'Back Home',
-  redo: 'Refresh',
   subTitle403: "Sorry, you don't have access to this page.",
   subTitle404: 'Sorry, the page you visited does not exist.',
   subTitle500: 'Sorry, the server is reporting an error.',

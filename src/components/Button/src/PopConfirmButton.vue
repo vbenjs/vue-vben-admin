@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { defineComponent, h, unref } from 'vue';
+  import { defineComponent, h, unref, computed } from 'vue';
 
   import { Popconfirm } from 'ant-design-vue';
   import BasicButton from './BasicButton.vue';
@@ -7,7 +7,6 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { extendSlots } from '/@/utils/helper/tsxHelper';
   import { omit } from 'lodash-es';
-  const { t } = useI18n();
 
   export default defineComponent({
     name: 'PopButton',
@@ -15,19 +14,29 @@
     components: { Popconfirm, BasicButton },
     props: {
       enable: propTypes.bool.def(true),
-      okText: propTypes.string.def(t('component.drawer.okText')),
-      cancelText: propTypes.string.def(t('component.drawer.cancelText')),
+      okText: propTypes.string,
+      cancelText: propTypes.string,
     },
     setup(props, { slots, attrs }) {
-      return () => {
-        const popValues = { ...props, ...unref(attrs) };
+      const { t } = useI18n();
 
+      const getBindValues = computed(() => {
+        const popValues = Object.assign(
+          {
+            okText: t('common.okText'),
+            cancelText: t('common.cancelText'),
+          },
+          { ...props, ...unref(attrs) }
+        );
+        return popValues;
+      });
+      return () => {
         const Button = h(BasicButton, omit(unref(attrs), 'icon'), extendSlots(slots));
         if (!props.enable) {
           return Button;
         }
 
-        return h(Popconfirm, omit(popValues, 'icon'), { default: () => Button });
+        return h(Popconfirm, omit(unref(getBindValues), 'icon'), { default: () => Button });
       };
     },
   });

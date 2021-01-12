@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash-es';
-import { ref, onBeforeMount, unref, Ref } from 'vue';
+import { ref, onBeforeMount, unref, Ref, nextTick } from 'vue';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { getMenus } from '/@/router/menus';
 import type { Menu } from '/@/router/types';
@@ -130,7 +130,7 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
     start();
   }
 
-  function handleEnter() {
+  async function handleEnter() {
     if (!searchResult.value.length) return;
     const result = unref(searchResult);
     const index = unref(activeIndex);
@@ -139,10 +139,12 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
     }
     const to = result[index];
     handleClose();
+    await nextTick();
     go(to.path);
   }
 
   function handleClose() {
+    searchResult.value = [];
     emit('close');
   }
 

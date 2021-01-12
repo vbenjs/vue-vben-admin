@@ -13,13 +13,14 @@ export const modalProps = {
   // open drag
   draggable: propTypes.bool.def(true),
   centered: propTypes.bool,
-  cancelText: propTypes.string.def(t('component.modal.cancelText')),
-  okText: propTypes.string.def(t('component.modal.okText')),
+  cancelText: propTypes.string.def(t('common.cancelText')),
+  okText: propTypes.string.def(t('common.okText')),
 
   closeFunc: Function as PropType<() => Promise<boolean>>,
 };
 
 export const basicProps = Object.assign({}, modalProps, {
+  defaultFullscreen: propTypes.bool,
   // Can it be full screen
   canFullscreen: propTypes.bool.def(true),
   // After enabling the wrapper, the bottom can be increased in height

@@ -1,5 +1,4 @@
 export default {
-  settingRedo: 'Refresh',
   settingDens: 'Density',
   settingDensDefault: 'Default',
   settingDensMiddle: 'Middle',
@@ -8,7 +7,6 @@ export default {
   settingColumnShow: 'Column display',
   settingIndexColumnShow: 'Index Column',
   settingSelectColumnShow: 'Selection Column',
-  settingReset: 'Reset',
   settingFixedLeft: 'Fixed Left',
   settingFixedRight: 'Fixed Right',
   settingFullScreen: 'Full Screen',

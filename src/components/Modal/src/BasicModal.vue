@@ -127,6 +127,7 @@
 
       watchEffect(() => {
         visibleRef.value = !!props.visible;
+        fullScreenRef.value = !!props.defaultFullscreen;
       });
 
       watch(

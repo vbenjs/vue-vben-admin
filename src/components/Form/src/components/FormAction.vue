@@ -101,7 +101,7 @@
         (): ButtonOptions => {
           return Object.assign(
             {
-              text: t('component.form.resetButton'),
+              text: t('common.resetText'),
             },
             props.resetButtonOptions
           );
@@ -111,7 +111,7 @@
       const getSubmitBtnOptions = computed(() => {
         return Object.assign(
           {
-            text: t('component.form.submitButton'),
+            text: t('common.queryText'),
           },
           props.submitButtonOptions
         );

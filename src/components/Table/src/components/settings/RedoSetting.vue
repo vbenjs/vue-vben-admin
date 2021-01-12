@@ -1,7 +1,7 @@
 <template>
   <Tooltip placement="top">
     <template #title>
-      <span>{{ t('component.table.settingRedo') }}</span>
+      <span>{{ t('common.redo') }}</span>
     </template>
     <RedoOutlined @click="redo" />
   </Tooltip>
