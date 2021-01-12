@@ -8,10 +8,10 @@ const { t } = useI18n();
  */
 export function createPlaceholderMessage(component: ComponentType) {
   if (component.includes('Input')) {
-    return t('component.form.input');
+    return t('common.inputText');
   }
   if (component.includes('Picker')) {
-    return t('component.form.choose');
+    return t('common.chooseText');
   }
 
   if (
@@ -20,7 +20,7 @@ export function createPlaceholderMessage(component: ComponentType) {
     component.includes('Radio') ||
     component.includes('Switch')
   ) {
-    return t('component.form.choose');
+    return t('common.chooseText');
   }
   return '';
 }

@@ -85,6 +85,18 @@
         return unref(ruleMessage) && unref(ruleVisible);
       });
 
+      // const getSize = computed(() => {
+      //   const size = table?.getSize?.();
+      //   if (size === 'middle' || !size) {
+      //     return;
+      //   }
+
+      //   if (size === 'default') {
+      //     return 'large';
+      //   }
+      //   return size;
+      // });
+
       const getIsCheckComp = computed(() => {
         const component = unref(getComponent);
         return ['Checkbox', 'Switch'].includes(component);
@@ -300,6 +312,7 @@
         handleOptionsChange,
         getWrapperStyle,
         getRowEditable,
+        // getSize,
       };
     },
   });

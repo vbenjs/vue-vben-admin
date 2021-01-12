@@ -51,7 +51,7 @@
   //
   .ant-table {
     width: 100%;
-    overflow-x: auto;
+    overflow-x: hidden;
     border: none;
 
     &-title {
@@ -107,22 +107,11 @@
     border: 1px solid @border-color !important;
   }
 
-  .ant-table td {
-    white-space: nowrap;
-  }
-
   .ant-table-tbody > tr > td,
   .ant-table-tbody > tr > th,
   .ant-table-thead > tr > td,
   .ant-table-thead > tr > th {
-    white-space: pre;
-  }
-
-  .ant-table-tbody > tr > td > span,
-  .ant-table-tbody > tr > th > span,
-  .ant-table-thead > tr > td > span,
-  .ant-table-thead > tr > th > span {
-    display: block;
+    white-space: nowrap;
   }
 
   .ant-table-row-cell-last {
