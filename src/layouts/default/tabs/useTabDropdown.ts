@@ -51,7 +51,7 @@ export function useTabDropdown(tabContentProps: TabContentProps) {
       {
         icon: 'ion:reload-sharp',
         event: MenuEventEnum.REFRESH_PAGE,
-        text: t('layout.multipleTab.redo'),
+        text: t('layout.multipleTab.reload'),
         disabled: refreshDisabled,
       },
       {

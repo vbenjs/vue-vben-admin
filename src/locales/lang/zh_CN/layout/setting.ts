@@ -25,7 +25,6 @@ export default {
   resetSuccess: '重置成功！',
 
   copyBtn: '拷贝',
-  resetBtn: '重置',
   clearBtn: '清空缓存并返回登录页',
 
   drawerTitle: '项目配置',

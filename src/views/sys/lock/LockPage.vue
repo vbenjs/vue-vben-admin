@@ -31,7 +31,7 @@
               :disabled="loadingRef"
               @click="handleShowForm(true)"
             >
-              {{ t('sys.lock.back') }}
+              {{ t('common.back') }}
             </a-button>
             <a-button
               type="link"

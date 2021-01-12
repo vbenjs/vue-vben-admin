@@ -26,7 +26,6 @@ export default {
   resetSuccess: 'Successfully reset!',
 
   copyBtn: 'Copy',
-  resetBtn: 'Reset',
   clearBtn: 'Clear cache and to the login page',
 
   drawerTitle: 'Configuration',

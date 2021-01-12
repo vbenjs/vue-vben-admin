@@ -16,7 +16,7 @@
     <ScrollContainer
       :style="getScrollContentStyle"
       v-loading="getLoading"
-      :loading-tip="loadingText || t('component.drawer.loadingText')"
+      :loading-tip="loadingText || t('common.loadingText')"
     >
       <slot />
     </ScrollContainer>
