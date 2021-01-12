@@ -13,6 +13,7 @@
     inheritAttrs: false,
     components: { Popconfirm, BasicButton },
     props: {
+      size: propTypes.oneOf(['large', 'default', 'small']).def(),
       enable: propTypes.bool.def(true),
       okText: propTypes.string,
       cancelText: propTypes.string,
@@ -31,7 +32,7 @@
         return popValues;
       });
       return () => {
-        const Button = h(BasicButton, omit(unref(attrs), 'icon'), extendSlots(slots));
+        const Button = h(BasicButton, unref(getBindValues), extendSlots(slots));
         if (!props.enable) {
           return Button;
         }

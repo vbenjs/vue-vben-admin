@@ -5,7 +5,10 @@
         <Icon :icon="action.icon" class="mr-1" v-if="action.icon" />
         {{ action.label }}
       </PopConfirmButton>
-      <Divider type="vertical" v-if="divider && index < getActions.length" />
+      <Divider
+        type="vertical"
+        v-if="divider && index < getActions.length - (dropDownActions ? 0 : 1)"
+      />
     </template>
     <Dropdown :trigger="['hover']" :dropMenuList="getDropList" v-if="dropDownActions">
       <slot name="more" />
@@ -44,17 +47,31 @@
     },
     setup(props) {
       const { prefixCls } = useDesign('basic-table-action');
-      let table = {};
+      let table: Partial<TableActionType> = {};
       if (!props.outside) {
         table = useTableContext();
       }
 
+      // const getSize = computed(() => {
+      //   const size = table?.getSize?.();
+      //   if (size === 'middle' || !size) {
+      //     return;
+      //   }
+
+      //   if (size === 'default') {
+      //     return 'large';
+      //   }
+      //   return size;
+      // });
+
       const getActions = computed(() => {
         return (props.actions || []).map((action) => {
           const { popConfirm } = action;
+          // const size = unref(getSize);
           return {
             type: 'link',
             size: 'small',
+            // ...(size ? { size } : {}),
             ...action,
             ...(popConfirm || {}),
             onConfirm: popConfirm?.confirm,
