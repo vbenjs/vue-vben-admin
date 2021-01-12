@@ -8,7 +8,7 @@
   >
     <div :class="`${prefixCls}__entry`">
       <div :class="`${prefixCls}__header`">
-        <img src="/@/assets/images/header.jpg" :class="`${prefixCls}__header-img`" />
+        <img :src="headerImg" :class="`${prefixCls}__header-img`" />
         <p :class="`${prefixCls}__header-name`">{{ getRealName }}</p>
       </div>
 
@@ -31,6 +31,7 @@
 
   import { userStore } from '/@/store/modules/user';
   import { lockStore } from '/@/store/modules/lock';
+  import headerImg from '/@/assets/images/header.jpg';
   export default defineComponent({
     name: 'LockModal',
     components: { BasicModal, BasicForm },
@@ -75,6 +76,7 @@
         register,
         registerForm,
         handleLock,
+        headerImg,
       };
     },
   });

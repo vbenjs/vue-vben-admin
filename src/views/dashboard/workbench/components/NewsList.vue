@@ -6,7 +6,7 @@
           <ListItem class="news-list__item">
             <ListItemMeta>
               <template #avatar>
-                <img src="/@/assets/images/header.jpg" class="news-list__item-avatar" />
+                <img :src="headerImg" class="news-list__item-avatar" />
               </template>
               <template #description>
                 <div class="news-list__item-desc">
@@ -36,6 +36,7 @@
   import { defineComponent } from 'vue';
   import { List } from 'ant-design-vue';
   import { CollapseContainer, ScrollContainer } from '/@/components/Container/index';
+  import headerImg from '/@/assets/images/header.jpg';
 
   import { newList } from '../data';
   export default defineComponent({
@@ -47,7 +48,7 @@
       ScrollContainer,
     },
     setup() {
-      return { newList };
+      return { newList, headerImg };
     },
   });
 </script>
