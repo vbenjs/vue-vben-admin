@@ -1,6 +1,6 @@
 {
   "name": "vben-admin",
-  "version": "2.0.0-rc.15",
+  "version": "2.0.0-rc.16",
   "scripts": {
     "bootstrap": "yarn install",
     "serve": "vite",
@@ -18,7 +18,7 @@
     "reinstall": "rimraf yarn.lock && rimraf package.lock.json && rimraf node_modules && npm run bootstrap"
   },
   "dependencies": {
-    "@iconify/iconify": "^2.0.0-rc.5",
+    "@iconify/iconify": "^2.0.0-rc.6",
     "@vueuse/core": "^4.0.5",
     "ant-design-vue": "^2.0.0-rc.8",
     "apexcharts": "^3.23.1",
@@ -34,7 +34,7 @@
     "sortablejs": "^1.13.0",
     "vditor": "^3.7.5",
     "vue": "^3.0.5",
-    "vue-i18n": "^9.0.0-rc.1",
+    "vue-i18n": "^9.0.0-rc.2",
     "vue-router": "^4.0.3",
     "vue-types": "^3.0.1",
     "vuex": "^4.0.0-rc.2",
@@ -45,7 +45,7 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "@iconify/json": "^1.1.284",
+    "@iconify/json": "^1.1.285",
     "@ls-lint/ls-lint": "^1.9.2",
     "@purge-icons/generated": "^0.5.0",
     "@types/echarts": "^4.9.3",
@@ -66,8 +66,8 @@
     "@vitejs/plugin-vue": "^1.0.5",
     "@vitejs/plugin-vue-jsx": "^1.0.1",
     "@vue/compiler-sfc": "^3.0.5",
-    "@vuedx/typecheck": "^0.4.1",
-    "@vuedx/typescript-plugin-vue": "^0.4.1",
+    "@vuedx/typecheck": "^0.5.0",
+    "@vuedx/typescript-plugin-vue": "^0.5.0",
     "autoprefixer": "^10.2.1",
     "commitizen": "^4.2.2",
     "conventional-changelog-cli": "^2.1.1",
@@ -100,7 +100,7 @@
     "vite-plugin-html": "^2.0.0-beta.5",
     "vite-plugin-mock": "^2.0.0-beta.3",
     "vite-plugin-purge-icons": "^0.5.0",
-    "vite-plugin-pwa": "^0.3.5",
+    "vite-plugin-pwa": "^0.3.6",
     "vue-eslint-parser": "^7.3.0",
     "yargs": "^16.2.0"
   },
