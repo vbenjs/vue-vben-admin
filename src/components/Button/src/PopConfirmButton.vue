@@ -32,12 +32,13 @@
         return popValues;
       });
       return () => {
-        const Button = h(BasicButton, unref(getBindValues), extendSlots(slots));
+        const values = omit(unref(getBindValues), 'icon');
+        const Button = h(BasicButton, values, extendSlots(slots));
         if (!props.enable) {
           return Button;
         }
 
-        return h(Popconfirm, omit(unref(getBindValues), 'icon'), { default: () => Button });
+        return h(Popconfirm, values, { default: () => Button });
       };
     },
   });
