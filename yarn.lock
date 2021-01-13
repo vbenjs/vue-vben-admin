@@ -7850,10 +7850,10 @@ vite-plugin-pwa@^0.3.6:
     pretty-bytes "^5.5.0"
     workbox-build "^6.0.2"
 
-vite@^2.0.0-beta.26:
-  version "2.0.0-beta.26"
-  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0-beta.26.tgz#70e2277003de609b218ddb33d740f76d01f01dc2"
-  integrity sha512-/OZ5X5nq9xV3UKO2x3Xl83RQM0DsRWsa4htaRyzZ6e+G5Z+SfMiUlveJctSoPJ3JjoIBm4bbDAe0rXM5Mt2tlw==
+vite@^2.0.0-beta.27:
+  version "2.0.0-beta.27"
+  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0-beta.27.tgz#a2e4b3a698e67c89fd963ff51ee5283ec564c65c"
+  integrity sha512-1fGPjSVE4MmCGVguFy7pPurCLnvHu4fJSzVjejd9GoFqCNie+JKCpe3KGsxIb9B8ot/aDd4ISCB0+fH1/01FUA==
   dependencies:
     esbuild "^0.8.26"
     postcss "^8.2.1"
