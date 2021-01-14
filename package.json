@@ -45,7 +45,7 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "@iconify/json": "^1.1.285",
+    "@iconify/json": "^1.1.286",
     "@ls-lint/ls-lint": "^1.9.2",
     "@purge-icons/generated": "^0.5.1",
     "@types/echarts": "^4.9.3",
@@ -62,7 +62,7 @@
     "@types/zxcvbn": "^4.4.0",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.13.0",
-    "@vitejs/plugin-legacy": "^1.2.0",
+    "@vitejs/plugin-legacy": "^1.2.1",
     "@vitejs/plugin-vue": "^1.0.5",
     "@vitejs/plugin-vue-jsx": "^1.0.2",
     "@vue/compiler-sfc": "^3.0.5",
