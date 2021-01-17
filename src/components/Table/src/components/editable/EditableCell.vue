@@ -31,7 +31,7 @@
   import type { CSSProperties, PropType } from 'vue';
   import type { BasicColumn } from '../../types/table';
 
-  import { defineComponent, ref, unref, nextTick, computed, watchEffect, toRaw } from 'vue';
+  import { defineComponent, ref, unref, nextTick, computed, watchEffect } from 'vue';
   import { FormOutlined, CloseOutlined, CheckOutlined } from '@ant-design/icons-vue';
 
   import { useDesign } from '/@/hooks/web/useDesign';

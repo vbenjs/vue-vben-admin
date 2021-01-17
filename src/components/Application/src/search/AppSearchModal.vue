@@ -2,54 +2,52 @@
   <Teleport to="body">
     <transition name="zoom-fade" mode="out-in">
       <div :class="getClass" @click.stop v-if="visible">
-        <ClickOutSide @clickOutside="handleClose">
-          <div :class="`${prefixCls}-content`">
-            <div :class="`${prefixCls}-input__wrapper`">
-              <a-input
-                :class="`${prefixCls}-input`"
-                :placeholder="t('common.searchText')"
-                allow-clear
-                @change="handleSearch"
-              >
-                <template #prefix>
-                  <SearchOutlined />
-                </template>
-              </a-input>
-              <span :class="`${prefixCls}-cancel`" @click="handleClose">{{
-                t('common.cancelText')
-              }}</span>
-            </div>
-
-            <div :class="`${prefixCls}-not-data`" v-show="getIsNotData">
-              {{ t('component.app.searchNotData') }}
-            </div>
-            <ul :class="`${prefixCls}-list`" v-show="!getIsNotData" ref="scrollWrap">
-              <li
-                :ref="setRefs(index)"
-                v-for="(item, index) in searchResult"
-                :key="item.path"
-                :data-index="index"
-                @mouseenter="handleMouseenter"
-                @click="handleEnter"
-                :class="[
-                  `${prefixCls}-list__item`,
-                  {
-                    [`${prefixCls}-list__item--active`]: activeIndex === index,
-                  },
-                ]"
-              >
-                <div :class="`${prefixCls}-list__item-icon`">
-                  <g-icon :icon="item.icon || 'mdi:form-select'" :size="20" />
-                </div>
-                <div :class="`${prefixCls}-list__item-text`">{{ item.name }}</div>
-                <div :class="`${prefixCls}-list__item-enter`">
-                  <g-icon icon="ant-design:enter-outlined" :size="20" />
-                </div>
-              </li>
-            </ul>
-            <AppSearchFooter />
+        <div :class="`${prefixCls}-content`" v-click-outside="handleClose">
+          <div :class="`${prefixCls}-input__wrapper`">
+            <a-input
+              :class="`${prefixCls}-input`"
+              :placeholder="t('common.searchText')"
+              allow-clear
+              @change="handleSearch"
+            >
+              <template #prefix>
+                <SearchOutlined />
+              </template>
+            </a-input>
+            <span :class="`${prefixCls}-cancel`" @click="handleClose">{{
+              t('common.cancelText')
+            }}</span>
           </div>
-        </ClickOutSide>
+
+          <div :class="`${prefixCls}-not-data`" v-show="getIsNotData">
+            {{ t('component.app.searchNotData') }}
+          </div>
+          <ul :class="`${prefixCls}-list`" v-show="!getIsNotData" ref="scrollWrap">
+            <li
+              :ref="setRefs(index)"
+              v-for="(item, index) in searchResult"
+              :key="item.path"
+              :data-index="index"
+              @mouseenter="handleMouseenter"
+              @click="handleEnter"
+              :class="[
+                `${prefixCls}-list__item`,
+                {
+                  [`${prefixCls}-list__item--active`]: activeIndex === index,
+                },
+              ]"
+            >
+              <div :class="`${prefixCls}-list__item-icon`">
+                <g-icon :icon="item.icon || 'mdi:form-select'" :size="20" />
+              </div>
+              <div :class="`${prefixCls}-list__item-text`">{{ item.name }}</div>
+              <div :class="`${prefixCls}-list__item-enter`">
+                <g-icon icon="ant-design:enter-outlined" :size="20" />
+              </div>
+            </li>
+          </ul>
+          <AppSearchFooter />
+        </div>
       </div>
     </transition>
   </Teleport>
@@ -63,16 +61,19 @@
   import { SearchOutlined } from '@ant-design/icons-vue';
   import AppSearchFooter from './AppSearchFooter.vue';
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { ClickOutSide } from '/@/components/ClickOutSide';
   import { useAppInject } from '/@/hooks/web/useAppInject';
+  import clickOutside from '/@/directives/clickOutside';
 
   export default defineComponent({
     name: 'AppSearchModal',
-    components: { SearchOutlined, ClickOutSide, AppSearchFooter },
+    components: { SearchOutlined, AppSearchFooter },
     emits: ['close'],
 
     props: {
       visible: Boolean,
+    },
+    directives: {
+      clickOutside,
     },
     setup(_, { emit }) {
       const scrollWrap = ref<ElRef>(null);

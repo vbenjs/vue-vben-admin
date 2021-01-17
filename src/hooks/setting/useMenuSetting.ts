@@ -78,9 +78,12 @@ const getIsMixMode = computed(() => {
 });
 
 const getRealWidth = computed(() => {
-  return unref(getCollapsed) && !unref(getMixSideFixed)
-    ? unref(getMiniWidthNumber)
-    : unref(getMenuWidth);
+  if (unref(getIsMixSidebar)) {
+    return unref(getCollapsed) && !unref(getMixSideFixed)
+      ? unref(getMiniWidthNumber)
+      : unref(getMenuWidth);
+  }
+  return unref(getCollapsed) ? unref(getMiniWidthNumber) : unref(getMenuWidth);
 });
 
 const getMiniWidthNumber = computed(() => {
