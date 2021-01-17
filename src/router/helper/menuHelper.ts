@@ -45,6 +45,13 @@ export function transformMenuModule(menuModule: MenuModule): Menu {
 export function transformRouteToMenu(routeModList: AppRouteModule[]) {
   const cloneRouteModList = cloneDeep(routeModList);
   const routeList: AppRouteRecordRaw[] = [];
+
+  // cloneRouteModList = filter(cloneRouteModList, (node) => {
+  //   if (Reflect.has(node?.meta ?? {}, 'hideMenu')) {
+  //     return !node?.meta.hideMenu;
+  //   }
+  //   return true;
+  // });
   cloneRouteModList.forEach((item) => {
     if (item.meta?.single) {
       const realItem = item?.children?.[0];
@@ -55,13 +62,14 @@ export function transformRouteToMenu(routeModList: AppRouteModule[]) {
   });
   return treeMap(routeList, {
     conversion: (node: AppRouteRecordRaw) => {
-      const { meta: { title, icon } = {} } = node;
+      const { meta: { title, icon, hideMenu = false } = {} } = node;
 
       !isUrl(node.path) && joinParentPath(routeList, node);
       return {
         name: title,
         icon,
         path: node.path,
+        hideMenu,
       };
     },
   });

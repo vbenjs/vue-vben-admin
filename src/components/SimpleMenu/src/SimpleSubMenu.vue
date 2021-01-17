@@ -76,7 +76,7 @@
       const { prefixCls } = useDesign('simple-menu');
 
       const getShowMenu = computed(() => {
-        return !props.item.meta?.hideMenu;
+        return !props.item?.hideMenu;
       });
 
       const getIcon = computed(() => props.item?.icon);
