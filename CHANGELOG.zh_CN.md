@@ -4,6 +4,10 @@
 
 - 新增 `SimpleMenu`组件替代左侧菜单组件(顶部菜单没有替换,功能尽量做到简单不卡)。解决菜单卡顿问题。
 
+### ✨ Features
+
+- `css` 按需引入
+
 ### 🐛 Bug Fixes
 
 - 修复 `TableAction`图标问题

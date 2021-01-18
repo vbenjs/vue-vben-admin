@@ -40,7 +40,7 @@ import {
   Col,
   Spin,
 } from 'ant-design-vue';
-import 'ant-design-vue/dist/antd.css';
+// import 'ant-design-vue/dist/antd.css';
 
 import { App } from 'vue';
 
