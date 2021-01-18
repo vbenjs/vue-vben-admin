@@ -8086,10 +8086,10 @@ vite-plugin-pwa@^0.3.8:
     pretty-bytes "^5.5.0"
     workbox-build "^6.0.2"
 
-vite-plugin-style-import@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-0.4.0.tgz#050664a6d3ce78bb1a32f7ac8e971ee49ab889f4"
-  integrity sha512-OXQ0J9Mtndag0dmSKGKpu3T2NbVvKm6vbIa1M6RprVVThRAwBgX+LSwhK7GRQiSDGH5aI6yZuVQRloVFx+pK+Q==
+vite-plugin-style-import@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-0.4.2.tgz#aba65645581dbb8e9d61d4cd3b8d8320796517a8"
+  integrity sha512-zBWaPrKfLwP4CJzLe1PYXCLJl0agCQLppTWB0CwxVqxUgSn9eEoi7hJG8ROpY6OiWA8mpnj7uLm7iG0+bnv/Kg==
   dependencies:
     "@babel/core" "^7.12.10"
     "@babel/helper-module-imports" "^7.12.5"
