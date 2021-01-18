@@ -11,6 +11,7 @@ import { configHtmlPlugin } from './html';
 import { configPwaConfig } from './pwa';
 import { configMockPlugin } from './mock';
 import { configGzipPlugin } from './gzip';
+import { configStyleImportConfig } from './style-import';
 
 // gen vite plugins
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean, mode: string) {
@@ -27,6 +28,9 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean, mode: stri
 
   // vite-plugin-purge-icons
   vitePlugins.push(PurgeIcons());
+
+  // vite-plugin-style-import
+  vitePlugins.push(configStyleImportConfig());
 
   // rollup-plugin-gzip
   vitePlugins.push(configGzipPlugin(isBuild));
