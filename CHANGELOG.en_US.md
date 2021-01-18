@@ -1,3 +1,21 @@
+## 2.0.0-rc.17 (2020-01-18)
+
+### ✨ Refactor
+
+- Added `SimpleMenu` component to replace the left menu component (the top menu is not replaced, the function should be as simple as possible without stuck). Solve the menu stuck problem.
+- The `ant-design-vue` component is no longer registered globally. In order to better coordinate with the introduction of css on demand. If you need to register globally, you need to add it yourself
+
+### ✨ Features
+
+- `css` import on demand
+
+### 🐛 Bug Fixes
+
+- Fix `TableAction` icon problem
+- Fix the problem of missing menu folding buttons
+- Fix menu related issues
+- Fix moment multilingual issue
+
 ## 2.0.0-rc.16 (2020-01-12)
 
 ### ✨ Refactor
