@@ -49,7 +49,7 @@
   import TaskCard from './components/TaskCard.vue';
   import FlowAnalysis from './components/FlowAnalysis';
   import { CollapseContainer } from '/@/components/Container/index';
-
+  import { Row, Col } from 'ant-design-vue';
   import { growCardList, taskList } from './data';
   export default defineComponent({
     components: {
@@ -61,6 +61,8 @@
       AnalysisBar,
       TaskCard,
       FlowAnalysis,
+      [Row.name]: Row,
+      [Col.name]: Col,
     },
     setup() {
       return { growCardList, taskList };

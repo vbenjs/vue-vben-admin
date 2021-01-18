@@ -29,7 +29,7 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { List, Card } from 'ant-design-vue';
+  import { List, Card, Row, Col } from 'ant-design-vue';
   import Icon from '/@/components/Icon/index';
   import { applicationList } from './data';
 
@@ -39,6 +39,8 @@
       ListItem: List.Item,
       Card,
       Icon,
+      [Row.name]: Row,
+      [Col.name]: Col,
     },
     setup() {
       return {

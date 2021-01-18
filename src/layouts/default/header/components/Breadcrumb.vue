@@ -14,10 +14,12 @@
   </div>
 </template>
 <script lang="ts">
+  import type { RouteLocationMatched } from 'vue-router';
+
   import { defineComponent, ref, toRaw, watchEffect } from 'vue';
+  import { Breadcrumb } from 'ant-design-vue';
   import { useI18n } from 'vue-i18n';
 
-  import type { RouteLocationMatched } from 'vue-router';
   import { useRouter } from 'vue-router';
   import { filter } from '/@/utils/helper/treeHelper';
   import { REDIRECT_NAME } from '/@/router/constant';
@@ -35,7 +37,7 @@
 
   export default defineComponent({
     name: 'LayoutBreadcrumb',
-    components: { HomeOutlined, Icon },
+    components: { HomeOutlined, Icon, [Breadcrumb.name]: Breadcrumb },
     props: {
       theme: propTypes.oneOf(['dark', 'light']),
     },

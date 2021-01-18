@@ -42,7 +42,7 @@
   import type { ButtonProps } from 'ant-design-vue/es/button/buttonTypes';
 
   import { defineComponent, computed, PropType } from 'vue';
-  import { Form } from 'ant-design-vue';
+  import { Form, Col } from 'ant-design-vue';
   import { Button } from '/@/components/Button';
   import { BasicArrow } from '/@/components/Basic/index';
   import { useFormContext } from '../hooks/useFormContext';
@@ -58,6 +58,7 @@
       FormItem: Form.Item,
       Button,
       BasicArrow,
+      [Col.name]: Col,
     },
     props: {
       showActionButtonGroup: propTypes.bool.def(true),

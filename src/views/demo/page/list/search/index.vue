@@ -53,9 +53,18 @@
   import { BasicForm } from '/@/components/Form/index';
   import { actions, searchList, schemas } from './data';
   import { PageWrapper } from '/@/components/Page';
+  import { List } from 'ant-design-vue';
 
   export default defineComponent({
-    components: { Icon, Tag, BasicForm, PageWrapper },
+    components: {
+      Icon,
+      Tag,
+      BasicForm,
+      PageWrapper,
+      [List.name]: List,
+      [List.Item.name]: List.Item,
+      AListItemMeta: List.Item.Meta,
+    },
     setup() {
       return {
         prefixCls: 'list-search',

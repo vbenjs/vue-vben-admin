@@ -31,8 +31,16 @@
   import { BasicForm, useForm } from '/@/components/Form';
   import { step1Schemas } from './data';
 
+  import { Select, Input, Divider } from 'ant-design-vue';
   export default defineComponent({
-    components: { BasicForm },
+    components: {
+      BasicForm,
+      [Select.name]: Select,
+      ASelectOption: Select.Option,
+      [Input.name]: Input,
+      [Input.Group.name]: Input.Group,
+      [Divider.name]: Divider,
+    },
     emits: ['next'],
     setup(_, { emit }) {
       const [register, { validate }] = useForm({

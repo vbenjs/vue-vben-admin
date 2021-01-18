@@ -18,7 +18,7 @@
   </CollapseContainer>
 </template>
 <script lang="ts">
-  import { Button, Upload } from 'ant-design-vue';
+  import { Button, Upload, Row, Col } from 'ant-design-vue';
   import { defineComponent, onMounted } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { CollapseContainer } from '/@/components/Container/index';
@@ -31,7 +31,15 @@
   import { baseSetschemas } from './data';
 
   export default defineComponent({
-    components: { BasicForm, CollapseContainer, Button, Upload, Icon },
+    components: {
+      BasicForm,
+      CollapseContainer,
+      Button,
+      Upload,
+      Icon,
+      [Row.name]: Row,
+      [Col.name]: Col,
+    },
     setup() {
       const { createMessage } = useMessage();
 

@@ -49,14 +49,24 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { Progress } from 'ant-design-vue';
+  import { Progress, Row, Col } from 'ant-design-vue';
   import { defineComponent } from 'vue';
   import Icon from '/@/components/Icon/index';
   import { cardList } from './data';
   import { PageWrapper } from '/@/components/Page';
+  import { List } from 'ant-design-vue';
 
   export default defineComponent({
-    components: { Icon, Progress, PageWrapper },
+    components: {
+      Icon,
+      Progress,
+      PageWrapper,
+      [List.name]: List,
+      [List.Item.name]: List.Item,
+      AListItemMeta: List.Item.Meta,
+      [Row.name]: Row,
+      [Col.name]: Col,
+    },
     setup() {
       return {
         prefixCls: 'list-basic',
