@@ -102,7 +102,7 @@
     "vite-plugin-mock": "^2.0.0-beta.3",
     "vite-plugin-purge-icons": "^0.5.1",
     "vite-plugin-pwa": "^0.3.8",
-    "vite-plugin-style-import": "^0.4.2",
+    "vite-plugin-style-import": "^0.4.3",
     "vue-eslint-parser": "^7.3.0",
     "yargs": "^16.2.0"
   },
