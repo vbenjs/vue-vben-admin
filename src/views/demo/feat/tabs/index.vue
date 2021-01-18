@@ -19,9 +19,11 @@
   import { CollapseContainer } from '/@/components/Container/index';
   import { useTabs } from '/@/hooks/web/useTabs';
   import { PageWrapper } from '/@/components/Page';
+  import { Input } from 'ant-design-vue';
+
   export default defineComponent({
     name: 'TabsDemo',
-    components: { CollapseContainer, PageWrapper },
+    components: { CollapseContainer, PageWrapper, [Input.name]: Input },
     setup() {
       const { closeAll, closeLeft, closeRight, closeOther, closeCurrent, refreshPage } = useTabs();
 

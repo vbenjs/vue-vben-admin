@@ -63,10 +63,11 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useAppInject } from '/@/hooks/web/useAppInject';
   import clickOutside from '/@/directives/clickOutside';
+  import { Input } from 'ant-design-vue';
 
   export default defineComponent({
     name: 'AppSearchModal',
-    components: { SearchOutlined, AppSearchFooter },
+    components: { SearchOutlined, AppSearchFooter, [Input.name]: Input },
     emits: ['close'],
 
     props: {

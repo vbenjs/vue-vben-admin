@@ -51,6 +51,7 @@
     setup(props, { slots }) {
       const headerRef = ref<ComponentRef>(null);
       const footerRef = ref<ComponentRef>(null);
+      const footerHeight = ref(0);
       const { prefixCls } = useDesign('page-wrapper');
       const { contentHeight, setPageHeight, pageHeight } = usePageContext();
 
@@ -80,30 +81,33 @@
             ...bg,
             ...contentStyle,
             minHeight: `${unref(pageHeight)}px`,
+            paddingBottom: `${unref(footerHeight)}px`,
           };
         }
       );
 
       watch(
-        () => contentHeight?.value,
-        (height) => {
+        () => [contentHeight?.value, getShowFooter.value],
+        () => {
           if (!props.contentFullHeight) {
             return;
           }
           nextTick(() => {
             const footer = unref(footerRef);
             const header = unref(headerRef);
-            let footetHeight = 0;
+            footerHeight.value = 0;
             const footerEl = footer?.$el;
+
             if (footerEl) {
-              footetHeight += footerEl?.offsetHeight ?? 0;
+              footerHeight.value += footerEl?.offsetHeight ?? 0;
             }
             let headerHeight = 0;
             const headerEl = header?.$el;
             if (headerEl) {
               headerHeight += headerEl?.offsetHeight ?? 0;
             }
-            setPageHeight?.(height - footetHeight - headerHeight);
+
+            setPageHeight?.(unref(contentHeight) - unref(footerHeight) - headerHeight);
           });
         },
         {

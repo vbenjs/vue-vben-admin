@@ -62,7 +62,7 @@
     },
   ];
   export default defineComponent({
-    components: { BasicForm, CollapseContainer, PageWrapper },
+    components: { BasicForm, CollapseContainer, PageWrapper, [Input.name]: Input },
     setup() {
       const { createMessage } = useMessage();
       const [register, { setProps }] = useForm({

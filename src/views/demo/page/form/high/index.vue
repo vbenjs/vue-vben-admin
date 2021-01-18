@@ -27,9 +27,10 @@
   import PersonTable from './PersonTable.vue';
   import { PageWrapper } from '/@/components/Page';
   import { schemas, taskSchemas } from './data';
+  import { Card } from 'ant-design-vue';
 
   export default defineComponent({
-    components: { BasicForm, PersonTable, PageWrapper },
+    components: { BasicForm, PersonTable, PageWrapper, [Card.name]: Card },
     setup() {
       const tableRef = ref<{ getDataSource: () => any } | null>(null);
 
