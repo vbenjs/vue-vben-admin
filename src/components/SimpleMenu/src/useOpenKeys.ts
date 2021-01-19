@@ -1,7 +1,7 @@
 import type { Menu as MenuType } from '/@/router/types';
 import type { MenuState } from './types';
 
-import { Ref, toRaw } from 'vue';
+import { computed, Ref, toRaw } from 'vue';
 
 import { unref } from 'vue';
 import { es6Unique } from '/@/utils';
@@ -12,7 +12,8 @@ export function useOpenKeys(
   menuState: MenuState,
   menus: Ref<MenuType[]>,
   accordion: Ref<boolean>,
-  mixSider: Ref<boolean>
+  mixSider: Ref<boolean>,
+  collapse: Ref<boolean>
   // mode: Ref<MenuModeEnum>,
 ) {
   async function setOpenKeys(path: string) {
@@ -41,5 +42,9 @@ export function useOpenKeys(
     );
   }
 
-  return { setOpenKeys };
+  const getOpenKeys = computed(() => {
+    return unref(collapse) ? [] : menuState.openNames;
+  });
+
+  return { setOpenKeys, getOpenKeys };
 }

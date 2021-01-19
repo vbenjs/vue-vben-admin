@@ -5,7 +5,7 @@ export default {
   timeoutMessage: '登录超时,请重新登录!',
   apiTimeoutMessage: '接口请求超时,请刷新页面重试!',
   networkException: '网络异常',
-  networkExceptionMsg: '网请检查您的网络连接是否正常!络异常',
+  networkExceptionMsg: '请检查您的网络连接是否正常!',
 
   errMsg401: '用户没有权限（令牌、用户名、密码错误）!',
   errMsg403: '用户得到授权，但是访问是被禁止的。!',
