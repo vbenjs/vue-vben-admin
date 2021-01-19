@@ -10,7 +10,7 @@
       {{ getI18nName }}
     </div>
     <template #title>
-      <span :class="['ml-2']">
+      <span :class="['ml-2', `${prefixCls}-sub-title`]">
         {{ getI18nName }}
       </span>
       <SimpleMenuTag :item="item" :collapseParent="getIsCollapseParent" />

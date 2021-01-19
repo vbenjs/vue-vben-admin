@@ -19,10 +19,16 @@
 
   .collapse-title {
     font-size: 12px;
+    .text-truncate();
   }
 }
 
 .@{simple-prefix-cls} {
+  &-sub-title {
+    transition: all 0.3s;
+    .text-truncate();
+  }
+
   &-tag {
     position: absolute;
     top: calc(50% - 10px);
