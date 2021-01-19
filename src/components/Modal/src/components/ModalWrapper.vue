@@ -36,8 +36,8 @@
     props: {
       loading: propTypes.bool,
       useWrapper: propTypes.bool.def(true),
-      modalHeaderHeight: propTypes.number.def(50),
-      modalFooterHeight: propTypes.number.def(54),
+      modalHeaderHeight: propTypes.number.def(57),
+      modalFooterHeight: propTypes.number.def(74),
       minHeight: propTypes.number.def(200),
       height: propTypes.number,
       footerOffset: propTypes.number.def(0),
@@ -137,7 +137,7 @@
 
           if (props.fullScreen) {
             realHeightRef.value =
-              window.innerHeight - props.modalFooterHeight - props.modalHeaderHeight;
+              window.innerHeight - props.modalFooterHeight - props.modalHeaderHeight - 28;
           } else {
             realHeightRef.value = props.height
               ? props.height
@@ -145,6 +145,9 @@
               ? maxHeight
               : realHeight;
           }
+          console.log('======================');
+          console.log(realHeightRef.value, props);
+          console.log('======================');
           emit('height-change', unref(realHeightRef));
         } catch (error) {
           console.log(error);
