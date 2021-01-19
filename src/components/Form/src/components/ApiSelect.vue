@@ -36,6 +36,7 @@
     },
     props: {
       value: propTypes.string,
+      numberToString: propTypes.bool,
       api: {
         type: Function as PropType<(arg?: Recordable) => Promise<OptionsItem[]>>,
         default: null,
@@ -61,13 +62,14 @@
       const [state] = useRuleFormItem(props);
 
       const getOptions = computed(() => {
-        const { labelField, valueField } = props;
+        const { labelField, valueField, numberToString } = props;
 
         return unref(options).reduce((prev, next: Recordable) => {
           if (next) {
+            const value = next[valueField];
             prev.push({
               label: next[labelField],
-              value: next[valueField],
+              value: numberToString ? `${value}` : value,
             });
           }
           return prev;
