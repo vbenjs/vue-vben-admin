@@ -8277,10 +8277,10 @@ vite-plugin-style-import@^0.4.6:
     "@rollup/pluginutils" "^4.1.0"
     change-case "^4.1.2"
 
-vite@^2.0.0-beta.32:
-  version "2.0.0-beta.32"
-  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0-beta.32.tgz#c9281013dfd73794887fc0ed7e96579677beb79a"
-  integrity sha512-RluPnnm4Zyjfu/IBxEmGZe/2QcFqc7qXfhjxzFNiqzyVkmc935HcmSnejkVa7KoW/PeX0wKrtag432esByKVGg==
+vite@2.0.0-beta.31:
+  version "2.0.0-beta.31"
+  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0-beta.31.tgz#0ce5f6c496c29f72062f9f0ae70dd6dfb18b0916"
+  integrity sha512-tHBgSsSp0+dbz8tas6zOj2KbJSKOme62jXN13rk8BZdJEum5FDnwon9+7oas4db3NnVBLnciWa1r8QUNoOZjrA==
   dependencies:
     esbuild "^0.8.26"
     postcss "^8.2.1"
