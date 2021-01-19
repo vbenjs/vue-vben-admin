@@ -20,9 +20,10 @@
   import { defineComponent, reactive, toRefs, ref } from 'vue';
   import { Loading, useLoading } from '/@/components/Loading';
   import { PageWrapper } from '/@/components/Page';
+  import { Alert } from 'ant-design-vue';
 
   export default defineComponent({
-    components: { Loading, PageWrapper },
+    components: { Loading, PageWrapper, [Alert.name]: Alert },
     setup() {
       const wrapEl = ref<ElRef>(null);
 

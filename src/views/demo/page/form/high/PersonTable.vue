@@ -30,7 +30,6 @@
       title: '工号',
       dataIndex: 'no',
       editRow: true,
-
       // customRender: renderEditableRow({ dataIndex: 'no', placeholder: '请输入工号' }),
     },
     {

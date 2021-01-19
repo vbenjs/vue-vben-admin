@@ -14,6 +14,7 @@
   import { useMessage } from '/@/hooks/web/useMessage';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
   import { PageWrapper } from '/@/components/Page';
+  import { Alert } from 'ant-design-vue';
 
   import { uploadApi } from '/@/api/sys/upload';
 
@@ -32,7 +33,7 @@
     },
   ];
   export default defineComponent({
-    components: { BasicUpload, BasicForm, PageWrapper },
+    components: { BasicUpload, BasicForm, PageWrapper, [Alert.name]: Alert },
     setup() {
       const { createMessage } = useMessage();
       const [register] = useForm({

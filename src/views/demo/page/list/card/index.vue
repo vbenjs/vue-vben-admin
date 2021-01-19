@@ -37,9 +37,18 @@
   import Icon from '/@/components/Icon/index';
   import { cardList } from './data';
   import { PageWrapper } from '/@/components/Page';
+  import { Card, Row, Col, List } from 'ant-design-vue';
 
   export default defineComponent({
-    components: { Icon, PageWrapper },
+    components: {
+      Icon,
+      PageWrapper,
+      [Card.name]: Card,
+      [List.name]: List,
+      [List.Item.name]: List.Item,
+      [Row.name]: Row,
+      [Col.name]: Col,
+    },
     setup() {
       return {
         prefixCls: 'list-card',

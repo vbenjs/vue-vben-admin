@@ -88,8 +88,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 
     optimizeDeps: {
       include: [
+        'moment',
+        '@ant-design/icons-vue',
+        'echarts/map/js/china',
         'ant-design-vue/es/locale/zh_CN',
-        'moment/dist/locale/zh-cn',
+        'moment/locale/zh-cn',
         'ant-design-vue/es/locale/en_US',
       ],
     },

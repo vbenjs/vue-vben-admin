@@ -73,8 +73,7 @@ function handleIndexColumn(
         return `${index + 1}`;
       }
       const { current = 1, pageSize = PAGE_SIZE } = getPagination;
-      const currentIndex = (current - 1) * pageSize + index + 1;
-      return currentIndex;
+      return ((current < 1 ? 1 : current) - 1) * pageSize + index + 1;
     },
     ...(isFixedLeft
       ? {

@@ -3,6 +3,7 @@
     title="分步表单"
     contentBackground
     content=" 将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。"
+    contentClass="p-4"
   >
     <div class="step-form-form">
       <a-steps :current="current">
@@ -29,9 +30,17 @@
   import Step2 from './Step2.vue';
   import Step3 from './Step3.vue';
   import { PageWrapper } from '/@/components/Page';
+  import { Steps } from 'ant-design-vue';
 
   export default defineComponent({
-    components: { Step1, Step2, Step3, PageWrapper },
+    components: {
+      Step1,
+      Step2,
+      Step3,
+      PageWrapper,
+      [Steps.name]: Steps,
+      [Steps.Step.name]: Steps.Step,
+    },
     setup() {
       const current = ref(0);
 

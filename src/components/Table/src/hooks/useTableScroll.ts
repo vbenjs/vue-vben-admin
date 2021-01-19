@@ -143,7 +143,7 @@ export function useTableScroll(
 
     const table = unref(tableElRef);
     const tableWidth = table?.$el?.offsetWidth ?? 0;
-    return tableWidth > width ? tableWidth - 24 : width;
+    return tableWidth > width ? '100%' : width;
   });
 
   const getScrollRef = computed(() => {

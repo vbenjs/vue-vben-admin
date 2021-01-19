@@ -14,10 +14,11 @@
   import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PageWrapper } from '/@/components/Page';
+  import { Input } from 'ant-design-vue';
 
   export default defineComponent({
     name: 'Copy',
-    components: { CollapseContainer, PageWrapper },
+    components: { CollapseContainer, PageWrapper, [Input.name]: Input },
     setup() {
       const valueRef = ref('');
       const { createMessage } = useMessage();

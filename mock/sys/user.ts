@@ -39,7 +39,7 @@ export default [
   // mock user login
   {
     url: '/api/login',
-    timeout: 1000,
+    timeout: 200,
     method: 'post',
     response: ({ body }) => {
       const { username, password } = body;
@@ -62,7 +62,6 @@ export default [
   },
   {
     url: '/api/getUserInfoById',
-    timeout: 200,
     method: 'get',
     response: ({ query }) => {
       const { userId } = query;

@@ -5,5 +5,4 @@ export default {
   closeRight: 'Close Right',
   closeOther: 'Close Other',
   closeAll: 'Close All',
-  tooltipRedo: 'Refresh',
 };

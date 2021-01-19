@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-  import { Tag, Tabs } from 'ant-design-vue';
+  import { Tag, Tabs, Row, Col } from 'ant-design-vue';
   import { defineComponent } from 'vue';
   import { CollapseContainer } from '/@/components/Container/index';
   import Icon from '/@/components/Icon/index';
@@ -72,6 +72,8 @@
       Article,
       Application,
       Project,
+      [Row.name]: Row,
+      [Col.name]: Col,
     },
     setup() {
       return {

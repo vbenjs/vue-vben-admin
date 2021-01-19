@@ -1,5 +1,5 @@
 <template>
-  <Tooltip :title="t('layout.multipleTab.tooltipRedo')" placement="bottom" :mouseEnterDelay="0.5">
+  <Tooltip :title="t('common.redo')" placement="bottom" :mouseEnterDelay="0.5">
     <span :class="`${prefixCls}__extra-redo`" @click="handleRedo">
       <RedoOutlined :spin="loading" />
     </span>

@@ -142,7 +142,7 @@
       });
 
       const getLogoWidth = computed(() => {
-        if (!unref(getIsMixMode)) {
+        if (!unref(getIsMixMode) || unref(getIsMobile)) {
           return {};
         }
         const width = unref(getMenuWidth) < 180 ? 180 : unref(getMenuWidth);

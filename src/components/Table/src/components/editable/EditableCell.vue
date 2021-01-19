@@ -31,7 +31,7 @@
   import type { CSSProperties, PropType } from 'vue';
   import type { BasicColumn } from '../../types/table';
 
-  import { defineComponent, ref, unref, nextTick, computed, watchEffect, toRaw } from 'vue';
+  import { defineComponent, ref, unref, nextTick, computed, watchEffect } from 'vue';
   import { FormOutlined, CloseOutlined, CheckOutlined } from '@ant-design/icons-vue';
 
   import { useDesign } from '/@/hooks/web/useDesign';
@@ -84,6 +84,18 @@
       const getRuleVisible = computed(() => {
         return unref(ruleMessage) && unref(ruleVisible);
       });
+
+      // const getSize = computed(() => {
+      //   const size = table?.getSize?.();
+      //   if (size === 'middle' || !size) {
+      //     return;
+      //   }
+
+      //   if (size === 'default') {
+      //     return 'large';
+      //   }
+      //   return size;
+      // });
 
       const getIsCheckComp = computed(() => {
         const component = unref(getComponent);
@@ -300,6 +312,7 @@
         handleOptionsChange,
         getWrapperStyle,
         getRowEditable,
+        // getSize,
       };
     },
   });

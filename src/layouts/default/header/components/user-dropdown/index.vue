@@ -1,7 +1,7 @@
 <template>
   <Dropdown placement="bottomLeft" :overlayClassName="`${prefixCls}-dropdown-overlay`">
     <span :class="[prefixCls, `${prefixCls}--${theme}`]">
-      <img :class="`${prefixCls}__header`" src="/@/assets/images/header.jpg" />
+      <img :class="`${prefixCls}__header`" :src="headerImg" />
       <span :class="`${prefixCls}__info`">
         <span :class="`${prefixCls}__name anticon`">{{ getUserInfo.realName }}</span>
       </span>
@@ -47,6 +47,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
   import { propTypes } from '/@/utils/propTypes';
+  import headerImg from '/@/assets/images/header.jpg';
 
   type MenuEvent = 'loginOut' | 'doc';
 
@@ -99,6 +100,7 @@
         getUserInfo,
         handleMenuClick,
         getShowDoc,
+        headerImg,
       };
     },
   });

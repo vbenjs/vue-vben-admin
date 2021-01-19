@@ -33,7 +33,7 @@
           </Checkbox>
 
           <a-button size="small" type="link" @click="reset">
-            {{ t('component.table.settingReset') }}
+            {{ t('common.resetText') }}
           </a-button>
         </div>
       </template>

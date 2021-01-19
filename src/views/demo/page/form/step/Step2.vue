@@ -15,9 +15,16 @@
   import { defineComponent } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form';
   import { step2Schemas } from './data';
+  import { Alert, Divider, Descriptions } from 'ant-design-vue';
 
   export default defineComponent({
-    components: { BasicForm },
+    components: {
+      BasicForm,
+      [Alert.name]: Alert,
+      [Divider.name]: Divider,
+      [Descriptions.name]: Descriptions,
+      [Descriptions.Item.name]: Descriptions.Item,
+    },
     emits: ['next', 'prev'],
     setup(_, { emit }) {
       const [register, { validate, setProps }] = useForm({

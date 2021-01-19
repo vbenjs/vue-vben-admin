@@ -28,7 +28,7 @@ export default class Mitt {
    * @param {Function} handler Function to call in response to given event
    */
   on(type: string | Symbol, handler: Fn) {
-    const handlers = this.cache.get(type);
+    const handlers = this.cache?.get(type);
     const added = handlers && handlers.push(handler);
     if (!added) {
       this.cache.set(type, [handler]);
@@ -57,7 +57,7 @@ export default class Mitt {
    * @param {string|symbol} type The event type to invoke
    * @param {*} [evt] Any value (object is recommended and powerful), passed to each handler
    */
-  emit(type: string | Symbol, evt: any) {
+  emit(type: string | Symbol, evt?: any) {
     for (const handler of (this.cache.get(type) || []).slice()) handler(evt);
     for (const handler of (this.cache.get('*') || []).slice()) handler(type, evt);
   }

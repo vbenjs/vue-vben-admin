@@ -71,7 +71,7 @@ export function updateSidebarBgColor(color: string) {
 
   setCssVar(SIDER_DARK_BG_COLOR, color);
   setCssVar(SIDER_DARK_DARKEN_BG_COLOR, darken(color, 6));
-  setCssVar(SIDER_LIGHTEN_1_BG_COLOR, lighten(color, 4));
+  setCssVar(SIDER_LIGHTEN_1_BG_COLOR, lighten(color, 5));
   setCssVar(SIDER_LIGHTEN_2_BG_COLOR, lighten(color, 8));
 
   // only #ffffff is light

@@ -11,13 +11,13 @@ export const footerProps = {
    */
   showCancelBtn: propTypes.bool.def(true),
   cancelButtonProps: Object as PropType<Recordable>,
-  cancelText: propTypes.string.def(t('component.drawer.cancelText')),
+  cancelText: propTypes.string.def(t('common.cancelText')),
   /**
    * @description: Show confirmation button
    */
   showOkBtn: propTypes.bool.def(true),
   okButtonProps: Object as PropType<Recordable>,
-  okText: propTypes.string.def(t('component.drawer.okText')),
+  okText: propTypes.string.def(t('common.okText')),
   okType: propTypes.string.def('primary'),
   showFooter: propTypes.bool,
   footerHeight: {

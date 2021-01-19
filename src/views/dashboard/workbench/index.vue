@@ -19,9 +19,18 @@
   import Week from './components/Week.vue';
   import NewsList from './components/NewsList.vue';
   import ShortCuts from './components/ShortCuts.vue';
+  import { Row, Col } from 'ant-design-vue';
 
   export default defineComponent({
-    components: { ProdTotal, TodoList, Week, ShortCuts, NewsList },
+    components: {
+      ProdTotal,
+      TodoList,
+      Week,
+      ShortCuts,
+      NewsList,
+      [Row.name]: Row,
+      [Col.name]: Col,
+    },
     setup() {
       return {};
     },

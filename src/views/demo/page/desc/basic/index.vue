@@ -29,6 +29,7 @@
   import { Description } from '/@/components/Description/index';
   import { BasicTable, useTable } from '/@/components/Table';
   import { PageWrapper } from '/@/components/Page';
+  import { Divider } from 'ant-design-vue';
 
   import {
     refundSchema,
@@ -41,7 +42,7 @@
     refundTimeTableData,
   } from './data';
   export default defineComponent({
-    components: { Description, BasicTable, PageWrapper },
+    components: { Description, BasicTable, PageWrapper, [Divider.name]: Divider },
     setup() {
       const [registerRefundTable] = useTable({
         title: '退货商品',

@@ -8,7 +8,7 @@
     :class="[prefixCls, theme, { 'collapsed-show-title': getCollapsedShowTitle }]"
     @click="handleGoHome"
   >
-    <img src="/@/assets/images/logo.png" />
+    <img src="../../../assets/images/logo.png" />
     <div class="ml-2 ellipsis" :class="[`${prefixCls}__title`]" v-show="showTitle">
       {{ title }}
     </div>
