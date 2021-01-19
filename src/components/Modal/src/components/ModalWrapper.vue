@@ -145,9 +145,6 @@
               ? maxHeight
               : realHeight;
           }
-          console.log('======================');
-          console.log(realHeightRef.value, props);
-          console.log('======================');
           emit('height-change', unref(realHeightRef));
         } catch (error) {
           console.log(error);
