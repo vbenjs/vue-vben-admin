@@ -21,6 +21,7 @@
     name: 'App',
     components: { ConfigProvider, AppProvider },
     setup() {
+      // support Multi-language
       const { antConfigLocale, setLocale } = useLocale();
       setLocale();
 
@@ -29,8 +30,6 @@
 
       // Create a lock screen monitor
       const lockEvent = useLockPage();
-
-      // support Multi-language
 
       return {
         antConfigLocale,

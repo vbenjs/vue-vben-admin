@@ -3,7 +3,7 @@
     v-bind="getBindValues"
     @select="handleSelect"
     :activeName="activeName"
-    :openNames="openNames"
+    :openNames="getOpenKeys"
     :class="prefixCls"
     :activeSubMenuNames="activeSubMenuNames"
   >
@@ -67,8 +67,14 @@
 
       const { currentRoute } = useRouter();
       const { prefixCls } = useDesign('simple-menu');
-      const { items, accordion, mixSider } = toRefs(props);
-      const { setOpenKeys } = useOpenKeys(menuState, items, accordion, mixSider);
+      const { items, accordion, mixSider, collapse } = toRefs(props);
+      const { setOpenKeys, getOpenKeys } = useOpenKeys(
+        menuState,
+        items,
+        accordion,
+        mixSider,
+        collapse
+      );
 
       const getBindValues = computed(() => ({ ...attrs, ...props }));
 
@@ -125,6 +131,7 @@
         prefixCls,
         getBindValues,
         handleSelect,
+        getOpenKeys,
         ...toRefs(menuState),
       };
     },

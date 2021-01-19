@@ -1,4 +1,4 @@
-import { isArray, isFunction, isObject, isString } from '/@/utils/is';
+import { isArray, isFunction, isObject, isString, isNullOrUnDef } from '/@/utils/is';
 import { dateUtil } from '/@/utils/dateUtil';
 
 import { unref, nextTick } from 'vue';
@@ -78,9 +78,10 @@ export function useFormValues({
     const schemas = unref(getSchema);
     const obj: Recordable = {};
     schemas.forEach((item) => {
-      if (item.defaultValue) {
-        obj[item.field] = item.defaultValue;
-        formModel[item.field] = item.defaultValue;
+      const { defaultValue } = item;
+      if (!isNullOrUnDef(defaultValue)) {
+        obj[item.field] = defaultValue;
+        formModel[item.field] = defaultValue;
       }
     });
     defaultValueRef.value = obj;
