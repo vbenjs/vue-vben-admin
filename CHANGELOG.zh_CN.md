@@ -1,3 +1,15 @@
+## Wip
+
+### ✨ Features
+
+- `ApiSelect`新增 `numberToString`属性,用于将 value 为`number`的值全部转化为`string`
+
+### 🐛 Bug Fixes
+
+- 修复 modal 高度计算错误
+- 修复菜单折叠状态下点击标签页弹出菜单
+- 修复 form 表单初始化值为 0 问题
+
 ## 2.0.0-rc.17 (2020-01-18)
 
 ### ✨ Refactor
