@@ -2,8 +2,6 @@
 @menu-popup-prefix-cls: ~'@{namespace}-menu-popup';
 @submenu-popup-prefix-cls: ~'@{namespace}-menu-submenu-popup';
 
-// @menu-dark: #191a23;
-// @menu-dark-active-bg: #101117;
 @transition-time: 0.2s;
 @menu-dark-subsidiary-color: rgba(255, 255, 255, 0.7);
 
@@ -167,6 +165,7 @@
       z-index: 1;
       padding: 12px 24px;
       cursor: pointer;
+      .text-truncate();
       // transition: all @transition-time @ease-in-out;
 
       &:hover {

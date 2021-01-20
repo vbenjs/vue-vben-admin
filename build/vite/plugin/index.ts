@@ -37,7 +37,12 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean, mode: stri
 
   // rollup-plugin-visualizer
   if (isReportMode()) {
-    vitePlugins.push(visualizer({ filename: './build/.cache/stats.html', open: true }) as Plugin);
+    vitePlugins.push(
+      visualizer({
+        filename: './build/.cache/stats.html',
+        open: true,
+      }) as Plugin
+    );
   }
 
   return vitePlugins;

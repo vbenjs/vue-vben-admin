@@ -55,7 +55,12 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         },
       },
       commonjsOptions: {
-        ignore: ['fs', 'crypto', 'stream'],
+        ignore: [
+          // xlsx
+          'fs',
+          'crypto',
+          'stream',
+        ],
       },
     },
     define: {
