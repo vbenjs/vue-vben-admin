@@ -11,6 +11,7 @@
     "Orta.vscode-jest",
     "antfu.iconify",
     "mikestead.dotenv",
-    "bradlc.vscode-tailwindcss"
+    "bradlc.vscode-tailwindcss",
+    "heybourn.headwind"
   ]
 }

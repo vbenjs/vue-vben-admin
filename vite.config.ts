@@ -42,6 +42,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
     build: {
       base: VITE_PUBLIC_PATH,
+      polyfillDynamicImport: VITE_LEGACY,
       terserOptions: {
         compress: {
           keep_infinity: true,
