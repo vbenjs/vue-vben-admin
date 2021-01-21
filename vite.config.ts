@@ -100,6 +100,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         'ant-design-vue/es/locale/zh_CN',
         'moment/locale/zh-cn',
         'ant-design-vue/es/locale/en_US',
+        'resize-observer-polyfill',
       ],
     },
   };
