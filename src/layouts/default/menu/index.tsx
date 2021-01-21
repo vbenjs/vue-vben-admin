@@ -131,6 +131,7 @@ export default defineComponent({
       if (!menus || !menus.length) return null;
       return !props.isHorizontal ? (
         <SimpleMenu
+          beforeClickFn={beforeMenuClickFn}
           items={menus}
           theme={unref(getComputedMenuTheme)}
           accordion={unref(getAccordion)}
