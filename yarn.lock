@@ -3400,10 +3400,10 @@ dateformat@^3.0.0:
   resolved "https://registry.npmjs.org/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dayjs@^1.10.1:
-  version "1.10.2"
-  resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.10.2.tgz#8f3a424ceb944a8193506804b0045a773d2d0672"
-  integrity sha512-h/YtykNNTR8Qgtd1Fxl5J1/SFP1b7SOk/M1P+Re+bCdFMV0IMkuKNgHPN7rlvvuhfw24w0LX78iYKt4YmePJNQ==
+dayjs@^1.10.3:
+  version "1.10.3"
+  resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.10.3.tgz#cf3357c8e7f508432826371672ebf376cb7d619b"
+  integrity sha512-/2fdLN987N8Ki7Id8BUN2nhuiRyxTLumQnSQf9CNncFCyqFsSKb9TNhzRYcC8K8eJSJOKvbvkImo/MKKhNi4iw==
 
 de-indent@^1.0.2:
   version "1.0.2"
@@ -6588,13 +6588,6 @@ postcss-modules@^3.2.2:
     postcss-modules-values "^3.0.0"
     string-hash "^1.1.1"
 
-postcss-nested@^5.0.3:
-  version "5.0.3"
-  resolved "https://registry.npmjs.org/postcss-nested/-/postcss-nested-5.0.3.tgz#2f46d77a06fc98d9c22344fd097396f5431386db"
-  integrity sha512-R2LHPw+u5hFfDgJG748KpGbJyTv7Yr33/2tIMWxquYuHTd9EXu27PYnKi7BxMXLtzKC0a0WVsqHtd7qIluQu/g==
-  dependencies:
-    postcss-selector-parser "^6.0.4"
-
 postcss-resolve-nested-selector@^0.1.1:
   version "0.1.1"
   resolved "https://registry.npmjs.org/postcss-resolve-nested-selector/-/postcss-resolve-nested-selector-0.1.1.tgz#29ccbc7c37dedfac304e9fff0bf1596b3f6a0e4e"
@@ -8320,28 +8313,28 @@ vfile@^4.0.0:
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
 
-vite-plugin-html@^2.0.0-beta.5:
-  version "2.0.0-beta.5"
-  resolved "https://registry.npmjs.org/vite-plugin-html/-/vite-plugin-html-2.0.0-beta.5.tgz#89bf3a9a2daef30f4c2d133091e85829243a9160"
-  integrity sha512-S3aJ9dqP7hxNYO3LCSnm2OgzsLzPNwgc0pq2ToL5EKDOIcs5+E4Ubb97vKfi3s5UjU/XkhkZBQcbeqMR4f51XQ==
+vite-plugin-html@^2.0.0-beta.6:
+  version "2.0.0-beta.6"
+  resolved "https://registry.npmjs.org/vite-plugin-html/-/vite-plugin-html-2.0.0-beta.6.tgz#468c7f0af73ae32f2018265e3b1314b12466ff20"
+  integrity sha512-oHV+boqFmFs25FgeuyIrNbAtwGvywYwFA+6wHx+YhXP4HzrQv4mXP71we1HM+YRRc3hhKy+HLsiLke6XCgZJ3A==
   dependencies:
     ejs "^3.1.5"
     html-minifier-terser "^5.1.1"
 
-vite-plugin-mock@^2.0.0-beta.3:
-  version "2.0.0-beta.3"
-  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.0.0-beta.3.tgz#5276b86734106ccd7aaa299bfb0d16a86c8d2823"
-  integrity sha512-LfgXV3Mzulz89OfuXysxLpnyu66mDiFAeBjwx24N/OiEyZEHagbVRVOJU8Xz/oTmtH7EP/AyrYjQFRb2elQ0BQ==
+vite-plugin-mock@^2.0.0-rc.2:
+  version "2.0.0-rc.2"
+  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.0.0-rc.2.tgz#02aacfd90617c4584df54b6c457832ba9b9f90fa"
+  integrity sha512-MfQJc5eGqBmZ8mudT5+Y55wfISBgFebBjrUe4fDAKSFxKTIZ6Dz8KRAQJl82GQRENjoWhcF6kt70azrdZGwM9w==
   dependencies:
     "@rollup/plugin-node-resolve" "^11.0.1"
     body-parser "^1.19.0"
     chalk "^4.1.0"
     chokidar "^3.4.3"
     connect "^3.7.0"
-    dayjs "^1.10.1"
+    dayjs "^1.10.3"
     debug "^4.3.1"
     esbuild "^0.8.29"
-    glob "^7.1.6"
+    fast-glob "^3.2.5"
     rollup "^2.35.1"
     rollup-plugin-esbuild "^2.6.1"
 
