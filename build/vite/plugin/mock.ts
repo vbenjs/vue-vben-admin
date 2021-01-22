@@ -4,14 +4,21 @@ import { ViteEnv } from '../../utils';
 export function configMockPlugin(env: ViteEnv, isBuild: boolean) {
   const { VITE_USE_MOCK } = env;
 
-  const useMock = !isBuild && VITE_USE_MOCK;
+  const useLocalMock = !isBuild && VITE_USE_MOCK;
+  const useProdMock = isBuild && VITE_USE_MOCK;
 
-  if (useMock) {
+  if (useLocalMock || useProdMock) {
     const mockPlugin = viteMockServe({
       ignore: /^\_/,
       mockPath: 'mock',
       showTime: true,
-      localEnabled: useMock,
+      localEnabled: useLocalMock,
+      prodEnabled: useProdMock,
+      injectCode: `
+      import { setupProdMockServer } from '../mock/_createProductionServer';
+
+      setupProdMockServer();
+      `,
     });
     return mockPlugin;
   }

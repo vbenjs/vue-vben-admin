@@ -4,6 +4,10 @@
 
 - `ApiSelect`新增 `numberToString`属性,用于将 value 为`number`的值全部转化为`string`
 
+### ⚡ Performance Improvements
+
+当不使用 mock 时,将 `mock.js` 移出打包文件
+
 ### 🐛 Bug Fixes
 
 - 修复 modal 高度计算错误

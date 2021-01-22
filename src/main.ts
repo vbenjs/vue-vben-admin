@@ -6,11 +6,10 @@ import { setupStore } from '/@/store';
 import { setupErrorHandle } from '/@/logics/error-handle';
 import { setupGlobDirectives } from '/@/directives';
 import { setupI18n } from '/@/locales/setupI18n';
-import { setupProdMockServer } from '../mock/_createProductionServer';
 
 import { registerGlobComp } from '/@/components/registerGlobComp';
 
-import { isDevMode, isProdMode, isUseMock } from '/@/utils/env';
+import { isDevMode } from '/@/utils/env';
 
 import '/@/design/index.less';
 
@@ -41,9 +40,4 @@ router.isReady().then(() => {
 if (isDevMode()) {
   app.config.performance = true;
   window.__APP__ = app;
-}
-
-// If you do not need to setting the mock service in the production environment, you can comment the code
-if (isProdMode() && isUseMock()) {
-  setupProdMockServer();
 }
