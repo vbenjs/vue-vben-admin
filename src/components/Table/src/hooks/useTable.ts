@@ -11,16 +11,20 @@ import type { FormActionType } from '/@/components/Form';
 
 type Props = Partial<DynamicProps<BasicTableProps>>;
 
+type UseTableMethod = TableActionType & {
+  getForm: () => FormActionType;
+};
+
 export function useTable(
   tableProps?: Props
-): [(instance: TableActionType, formInstance: FormActionType) => void, TableActionType] {
+): [(instance: TableActionType, formInstance: UseTableMethod) => void, TableActionType] {
   isInSetup();
 
   const tableRef = ref<Nullable<TableActionType>>(null);
   const loadedRef = ref<Nullable<boolean>>(false);
-  const formRef = ref<Nullable<FormActionType>>(null);
+  const formRef = ref<Nullable<UseTableMethod>>(null);
 
-  function register(instance: TableActionType, formInstance: FormActionType) {
+  function register(instance: TableActionType, formInstance: UseTableMethod) {
     isProdMode() &&
       onUnmounted(() => {
         tableRef.value = null;
@@ -119,7 +123,7 @@ export function useTable(
       return getTableInstance().getCacheColumns();
     },
     getForm: () => {
-      return unref(formRef) as FormActionType;
+      return (unref(formRef) as unknown) as FormActionType;
     },
     setShowPagination: async (show: boolean) => {
       getTableInstance().setShowPagination(show);
