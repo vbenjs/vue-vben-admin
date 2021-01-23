@@ -29,6 +29,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   const isBuild = command === 'build';
 
   return {
+    base: VITE_PUBLIC_PATH,
     root,
     alias: {
       '/@/': `${pathResolve('src')}/`,
@@ -41,7 +42,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       },
     },
     build: {
-      base: VITE_PUBLIC_PATH,
       polyfillDynamicImport: VITE_LEGACY,
       terserOptions: {
         compress: {

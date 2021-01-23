@@ -19,6 +19,7 @@ registerGlobComp(app);
 
 // Multilingual configuration
 setupI18n(app);
+
 // Configure routing
 setupRouter(app);
 
