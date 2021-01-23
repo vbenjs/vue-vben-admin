@@ -1184,10 +1184,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.289":
-  version "1.1.289"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.289.tgz#ae9dac0fc022bfee52c69903e26d02387c0c0afa"
-  integrity sha512-KZBT4ypgNiCHzfUxqutisZGU3Bs14xX+/YPAGY6yt0/xTld+CB8W5w8mZMdPfjZHsdygYnR1iHNEJfAuR9BkKg==
+"@iconify/json@^1.1.290":
+  version "1.1.290"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.290.tgz#14a568464f7d21fe644540aba29f3fa52a9c4080"
+  integrity sha512-CZkFvzNvAk56No7gWldVCDrh+tz8zmCA0bBH0UDf4APVFwxofR/Ri7vPWB1Lj9fTiMlavYYGkz0oTIWYTH+CyQ==
 
 "@intlify/core-base@9.0.0-beta.16":
   version "9.0.0-beta.16"
@@ -1840,10 +1840,10 @@
     "@vue/babel-plugin-jsx" "^1.0.1"
     hash-sum "^2.0.0"
 
-"@vitejs/plugin-vue@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/@vitejs/plugin-vue/-/plugin-vue-1.1.0.tgz#8ae0b11388897b07259c9e5198c0e3fb5e4b37d9"
-  integrity sha512-ExlAt3nb3PB31jV9AgRZSMoGd+aQRU53fc/seghV8/l0JCzaX2mqlgpG8iytWkRxbBPgtAx4TpCPdiVKnTFT/A==
+"@vitejs/plugin-vue@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/@vitejs/plugin-vue/-/plugin-vue-1.1.1.tgz#6eccd9aa0a2c3365048bf82b9fee437e995ae15d"
+  integrity sha512-Oia369l4L4Wd6hW0paQ1OUsPbGHd85KQllismua65C45xMu40og5lzGreSuGEtW+6yB0I5FyLrC7tk5yCucHwA==
 
 "@vue/babel-helper-vue-transform-on@^1.0.0":
   version "1.0.0"
@@ -3121,11 +3121,6 @@ conventional-changelog-core@^4.2.1:
     shelljs "^0.8.3"
     through2 "^4.0.0"
 
-conventional-changelog-custom-config@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.npmjs.org/conventional-changelog-custom-config/-/conventional-changelog-custom-config-0.3.1.tgz#4a6433138d602a2b7ecc81729feb6fa1855bff7b"
-  integrity sha512-d4Lre8VZll1SVRmpoUe/LSj8Ge8QOt7u8MQyGz8vu/H/KiWf5rvdYkBo5z268QvkUrF43eI64QxVcqd9XOLsew==
-
 conventional-changelog-ember@^2.0.9:
   version "2.0.9"
   resolved "https://registry.npmjs.org/conventional-changelog-ember/-/conventional-changelog-ember-2.0.9.tgz#619b37ec708be9e74a220f4dcf79212ae1c92962"
@@ -3736,15 +3731,15 @@ esbuild-register@^1.2.1:
     source-map-support "^0.5.19"
     strip-json-comments "^3.1.1"
 
-esbuild@^0.8.26:
-  version "0.8.31"
-  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.8.31.tgz#c21e7adb3ad283c951a53de7ad64a5ae2df2ed34"
-  integrity sha512-7EIU0VdUxltwivjVezX3HgeNzeIVR1snkrAo57WdUnuBMykdzin5rTrxwCDM6xQqj0RL/HjOEm3wFr2ijHKeaA==
-
 esbuild@^0.8.29:
   version "0.8.30"
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.8.30.tgz#3d057ff9ffe6d5d30bccb0afe8cc92a2e69622d3"
   integrity sha512-gCJQYUMO9QNrfpNOIiCnFoX41nWiPFCvURBQF+qWckyJ7gmw2xCShdKCXvS+RZcQ5krcxEOLIkzujqclePKhfw==
+
+esbuild@^0.8.34:
+  version "0.8.34"
+  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.8.34.tgz#16b4ac58f74c821d2c5a8c2f0585ca96a38ab4e6"
+  integrity sha512-tnr0V1ooakYr1aRLXQLzCn2GVG1kBTW3FWpRyC+NgrR3ntsouVpJOlTOV0BS4YLATx3/c+x3h/uBq9lWJlUAtQ==
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -8368,12 +8363,12 @@ vite-plugin-style-import@^0.4.6:
     "@rollup/pluginutils" "^4.1.0"
     change-case "^4.1.2"
 
-vite@2.0.0-beta.36:
-  version "2.0.0-beta.36"
-  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0-beta.36.tgz#ccecac854ded0b7c0fe14c52c0460e1c23a9c70b"
-  integrity sha512-+Q/Twq1/tpNQIZl0HSFTqiEuP7lXj+6H/f9q63+s5I2K/sqgSUajL3PL7W9uUUIv9dYpJ1eLqkO42ppH9w9Ldw==
+vite@2.0.0-beta.44:
+  version "2.0.0-beta.44"
+  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0-beta.44.tgz#df3846160066a121d85dbc8ec11c9fa9a71347f2"
+  integrity sha512-NTzmP7HEKDg3J5r3I22f87jK3ugPVEU81BQ8hWn3hNWU0msCziUlj7aHwItSUEbQA+ymqO3TBO2fN7Aa+OKckQ==
   dependencies:
-    esbuild "^0.8.26"
+    esbuild "^0.8.34"
     postcss "^8.2.1"
     resolve "^1.19.0"
     rollup "^2.35.1"
@@ -8396,9 +8391,9 @@ vscode-web-custom-data@^0.3.2:
   integrity sha512-GGZ99dJbARyh6rv03dXZImGlP5WvNG382A3nIt0yX1uyqBa558L/klHWcgEJzcVkG4t16OQWwPedMR3JkeD2Qg==
 
 vue-demi@latest:
-  version "0.4.5"
-  resolved "https://registry.npmjs.org/vue-demi/-/vue-demi-0.4.5.tgz#ea422a4468cb6321a746826a368a770607f87791"
-  integrity sha512-51xf1B6hV2PfjnzYHO/yUForFCRQ49KS8ngQb5T6l1HDEmfghTFtsxtRa5tbx4eqQsH76ll/0gIxuf1gei0ubw==
+  version "0.6.0"
+  resolved "https://registry.npmjs.org/vue-demi/-/vue-demi-0.6.0.tgz#e314282f704cb449119b9fd002cbbc0e39f591fe"
+  integrity sha512-8GEJa0mHJpYJeGeq5fD1pJct2kfdl30PHfmL1NaJ97mgKPyKojlIRt/3inGBK4Y0ylCI6T5vOo3chwpqDOq/Hw==
 
 vue-eslint-parser@^7.4.1:
   version "7.4.1"
