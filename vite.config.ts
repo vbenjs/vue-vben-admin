@@ -49,21 +49,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           drop_console: VITE_DROP_CONSOLE,
         },
       },
-      // minify: 'esbuild',
       rollupOptions: {
         output: {
           compact: true,
           manualChunks: undefined,
         },
-      },
-      minify: 'esbuild',
-      commonjsOptions: {
-        ignore: [
-          // xlsx
-          'fs',
-          'crypto',
-          'stream',
-        ],
       },
     },
     define: {
