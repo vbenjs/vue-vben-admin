@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { networkInterfaces } from 'os';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
 // import execa from 'execa';
@@ -10,25 +9,6 @@ export const isFunction = (arg: unknown): arg is (...args: any[]) => any =>
 
 export const isRegExp = (arg: unknown): arg is RegExp =>
   Object.prototype.toString.call(arg) === '[object RegExp]';
-
-/**
- * get client ip address
- */
-export function getIPAddress() {
-  let interfaces = networkInterfaces();
-  for (let devName in interfaces) {
-    let iFace = interfaces[devName];
-    if (!iFace) return;
-    for (let i = 0; i < iFace.length; i++) {
-      let alias = iFace[i];
-      if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
-        return alias.address;
-      }
-    }
-  }
-
-  return '';
-}
 
 export function isDevFn(mode: string): boolean {
   return mode === 'development';
