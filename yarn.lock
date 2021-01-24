@@ -24,14 +24,13 @@
   resolved "https://registry.npmjs.org/@ant-design/icons-svg/-/icons-svg-4.1.0.tgz#480b025f4b20ef7fe8f47d4a4846e4fee84ea06c"
   integrity sha512-Fi03PfuUqRs76aI3UWYpP864lkrfPo0hluwGqh7NJdLhvH4iRDc3jbJqZIvRDLHKbXrvAfPPV3+zjUccfFvWOQ==
 
-"@ant-design/icons-vue@^5.1.9":
-  version "5.1.9"
-  resolved "https://registry.npmjs.org/@ant-design/icons-vue/-/icons-vue-5.1.9.tgz#8d741a3290be61af7c71618c308cc1a946c4e434"
-  integrity sha512-4SJ8v9tXESKHNerrPPAkV9+EnuJhpY99wXgvtnbnTfE3QfpWaIw+7dP3wDxzD/Rjyz3wl3mj3mFlI889oPZoHg==
+"@ant-design/icons-vue@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.npmjs.org/@ant-design/icons-vue/-/icons-vue-6.0.0.tgz#e00ed23d5369323ee599ab4f4eb8aaa4f85f7877"
+  integrity sha512-pQglbNH1b/KzpqM6C/U29xNt46c8f+OMAThyCGhDBGVNzzzPjI4v0U7Qyipc0SfPlYt7oPIXIuhMGhFQGGnbbg==
   dependencies:
     "@ant-design/colors" "^5.0.0"
     "@ant-design/icons-svg" "^4.0.0"
-    "@babel/runtime" "^7.10.4"
     "@types/lodash" "^4.14.165"
     lodash "^4.17.15"
 
@@ -889,7 +888,7 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/runtime@^7.10.4", "@babel/runtime@^7.10.5", "@babel/runtime@^7.11.2", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.10.5", "@babel/runtime@^7.11.2", "@babel/runtime@^7.8.4":
   version "7.12.5"
   resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
   integrity sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==
@@ -1441,12 +1440,12 @@
     "@sentry/types" "5.30.0"
     tslib "^1.9.3"
 
-"@simonwep/pickr@~1.7.0":
-  version "1.7.4"
-  resolved "https://registry.npmjs.org/@simonwep/pickr/-/pickr-1.7.4.tgz#b14fcd945890388b870cd6db4d6c78d531f25141"
-  integrity sha512-fq7jgKJT21uWGC1mARBHvvd1JYlEf93o7SuVOB4Lr0x/2UPuNC9Oe9n/GzVeg4oVtqMDfh1wIEJpsdOJEZb+3g==
+"@simonwep/pickr@~1.8.0":
+  version "1.8.0"
+  resolved "https://registry.npmjs.org/@simonwep/pickr/-/pickr-1.8.0.tgz#adbff9a4f7f0e59dec9946508c5e481b7abae0f8"
+  integrity sha512-VaSD7TwktOsro5nQ/FjRx5JAJ09k5CNfGRHacgVRxeVPolUQwelz1SjL8HAOKZwTSmcnIObptpHABQS4zgN7sw==
   dependencies:
-    core-js "^3.6.5"
+    core-js "^3.8.0"
     nanopop "^2.1.0"
 
 "@stylelint/postcss-css-in-js@^0.37.2":
@@ -1840,10 +1839,10 @@
     "@vue/babel-plugin-jsx" "^1.0.1"
     hash-sum "^2.0.0"
 
-"@vitejs/plugin-vue@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@vitejs/plugin-vue/-/plugin-vue-1.1.1.tgz#6eccd9aa0a2c3365048bf82b9fee437e995ae15d"
-  integrity sha512-Oia369l4L4Wd6hW0paQ1OUsPbGHd85KQllismua65C45xMu40og5lzGreSuGEtW+6yB0I5FyLrC7tk5yCucHwA==
+"@vitejs/plugin-vue@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.npmjs.org/@vitejs/plugin-vue/-/plugin-vue-1.1.2.tgz#64d1f0e0739675f5717015ffb4d861c53af8fe60"
+  integrity sha512-a5ORYuPsiAO4Kb2blA/x63mDiBQBxEJkbjhVtiv5IP/I7fGfpwXPPGHx9LHD4MedpXp8icngJYMKO0hOwahtmQ==
 
 "@vue/babel-helper-vue-transform-on@^1.0.0":
   version "1.0.0"
@@ -2105,18 +2104,18 @@
     vscode-languageserver-textdocument "^1.0.1"
     vscode-uri "^2.1.2"
 
-"@vueuse/core@^4.0.8":
-  version "4.0.8"
-  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.0.8.tgz#d5690154c147ae787bf5d67bf8fe3046dff96d85"
-  integrity sha512-wD0JJUXpRgRBPCnGsAqcVk9Zz545zOmIjGv/1Mlco3rVmal7LEZ3rJh8SnBelxuyVNvRwifkK1gtbT24jY6V8Q==
+"@vueuse/core@^4.0.10":
+  version "4.0.10"
+  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.0.10.tgz#863ae7bb9d3325908e3ce388e9050c8bec09f502"
+  integrity sha512-2TxaF9JWutJlrgRtz9r/vFPvpaKKQ8HL5eMIiIMNBpfAkf0BZkT5HsSzphNyJ9vMhjlM+DIlhGKdWVASOdc3Aw==
   dependencies:
-    "@vueuse/shared" "4.0.8"
+    "@vueuse/shared" "4.0.10"
     vue-demi latest
 
-"@vueuse/shared@4.0.8":
-  version "4.0.8"
-  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.0.8.tgz#ba6c350b5f0ef12e2a603d956cc6d2809ff5be4f"
-  integrity sha512-euAfdZeFHGAyCBoy7izgufC/kTt+yEjuVjeCmfuDQNAj7QsdzEpRlyblD+EGifHbyGFx8F3Ql6/bQzdTdwRFHA==
+"@vueuse/shared@4.0.10":
+  version "4.0.10"
+  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.0.10.tgz#3f175d7c33831ab7226c5c712ad2a53093a52c19"
+  integrity sha512-x60po8a7v1tyaQNbXJWf/YTzgUzYU5rbmxKgxbxrHC2aDIcSLTMgqmwFrFpqbLwbNxvDta7z/R0MJms5bSaWwg==
   dependencies:
     vue-demi latest
 
@@ -2240,15 +2239,15 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-ant-design-vue@^2.0.0-rc.8:
-  version "2.0.0-rc.8"
-  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.0.0-rc.8.tgz#0f219aedb27f1797228aab79fbbd8328a7389a9f"
-  integrity sha512-sPH/raQZhnzxUpFT5z8ONEvaf3SvUss6Llv9eBK05wqDTaj/+QSnJYflFGPZh4ScXGpJ4Pth9FMd+F0ogusGHg==
+ant-design-vue@^2.0.0-rc.9:
+  version "2.0.0-rc.9"
+  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.0.0-rc.9.tgz#9f4d89b02bf2c6f3295633048001b2e13c229f1e"
+  integrity sha512-lnDKOXkaxWGnV3nEzSl0bggnM1F568sBMD2ctPLLctdhYBAKZQto+4my4p8RbLHfvZVE/xVDE80HYgufibTMYw==
   dependencies:
     "@ant-design-vue/use" "^0.0.1-0"
-    "@ant-design/icons-vue" "^5.1.9"
+    "@ant-design/icons-vue" "^6.0.0"
     "@babel/runtime" "^7.10.5"
-    "@simonwep/pickr" "~1.7.0"
+    "@simonwep/pickr" "~1.8.0"
     array-tree-filter "^2.1.0"
     async-validator "^3.3.0"
     dom-align "^1.10.4"
@@ -3261,10 +3260,15 @@ core-js-compat@^3.8.0:
     browserslist "^4.15.0"
     semver "7.0.0"
 
-core-js@^3.6.1, core-js@^3.6.5:
+core-js@^3.6.1:
   version "3.8.1"
   resolved "https://registry.npmjs.org/core-js/-/core-js-3.8.1.tgz#f51523668ac8a294d1285c3b9db44025fda66d47"
   integrity sha512-9Id2xHY1W7m8hCl8NkhQn5CufmF/WuR30BTRewvCXc1aZd3kMECwNZ69ndLbekKfakw9Rf2Xyc+QR6E7Gg+obg==
+
+core-js@^3.8.0:
+  version "3.8.3"
+  resolved "https://registry.npmjs.org/core-js/-/core-js-3.8.3.tgz#c21906e1f14f3689f93abcc6e26883550dd92dd0"
+  integrity sha512-KPYXeVZYemC2TkNEkX/01I+7yd+nX3KddKwZ1Ww7SKWdI2wQprSgLmrTddT8nw92AjEklTsPBoSdQBhbI1bQ6Q==
 
 core-js@^3.8.2:
   version "3.8.2"
@@ -8342,13 +8346,13 @@ vite-plugin-purge-icons@^0.5.2:
     "@purge-icons/generated" "^0.5.2"
     rollup-plugin-purge-icons "^0.5.2"
 
-vite-plugin-pwa@^0.3.9:
-  version "0.3.9"
-  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.3.9.tgz#d55bb90f927228f6567a16483d406649c897631e"
-  integrity sha512-7UwG/jmBBzmmwFllc6fUmEpXyMYlBZsLBpjBfteHPp4lVptNrXVRT6Ou/ggVjPK2vlJqlh3GzvSo1sCNUxecgw==
+vite-plugin-pwa@^0.3.10:
+  version "0.3.10"
+  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.3.10.tgz#254f29ae1f449874e6cbcc3be23881edec32984b"
+  integrity sha512-UMvOTsTQumIy1yJ7imIEsjdealbeOzc30PjNK1By4aEuRUHCI2kJ7Mmh8xUbLJWSLVaUfIKIG1zguk5cpmD3SQ==
   dependencies:
     debug "^4.3.2"
-    fast-glob "^3.2.4"
+    fast-glob "^3.2.5"
     pretty-bytes "^5.5.0"
     workbox-build "^6.0.2"
 
