@@ -53,8 +53,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       rollupOptions: {
         output: {
           compact: true,
+          manualChunks: undefined,
         },
       },
+      minify: 'esbuild',
       commonjsOptions: {
         ignore: [
           // xlsx

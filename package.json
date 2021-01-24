@@ -21,8 +21,8 @@
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.6",
-    "@vueuse/core": "^4.0.8",
-    "ant-design-vue": "^2.0.0-rc.8",
+    "@vueuse/core": "^4.0.10",
+    "ant-design-vue": "^2.0.0-rc.9",
     "apexcharts": "^3.23.1",
     "axios": "^0.21.1",
     "crypto-es": "^1.2.6",
@@ -64,7 +64,7 @@
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
     "@vitejs/plugin-legacy": "^1.2.1",
-    "@vitejs/plugin-vue": "^1.1.1",
+    "@vitejs/plugin-vue": "^1.1.2",
     "@vitejs/plugin-vue-jsx": "^1.0.2",
     "@vue/compiler-sfc": "^3.0.5",
     "@vuedx/typecheck": "^0.6.0",
@@ -102,7 +102,7 @@
     "vite-plugin-html": "^2.0.0-beta.6",
     "vite-plugin-mock": "^2.0.0-rc.2",
     "vite-plugin-purge-icons": "^0.5.2",
-    "vite-plugin-pwa": "^0.3.9",
+    "vite-plugin-pwa": "^0.3.10",
     "vite-plugin-style-import": "^0.4.6",
     "vue-eslint-parser": "^7.4.1",
     "yargs": "^16.2.0"
