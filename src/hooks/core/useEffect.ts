@@ -1,8 +1,10 @@
-import { WatchOptions } from 'vue';
 import { watch } from 'vue';
 import { isFunction } from '/@/utils/is';
 
-export const useEffect = (effectHandler: Fn, dependencies: any[]) => {
+export function useEffect<T extends any = any>(
+  effectHandler: (deps: T[], prevDeps?: T[]) => () => void,
+  dependencies: T[]
+) {
   return watch(
     dependencies,
     (changedDependencies, prevDependencies, onCleanUp) => {
@@ -11,6 +13,6 @@ export const useEffect = (effectHandler: Fn, dependencies: any[]) => {
         onCleanUp(effectCleaner);
       }
     },
-    { immediate: true, deep: true } as WatchOptions
+    { immediate: true, deep: true }
   );
-};
+}

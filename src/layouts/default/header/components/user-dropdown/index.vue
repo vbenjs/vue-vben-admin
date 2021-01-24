@@ -1,7 +1,7 @@
 <template>
   <Dropdown placement="bottomLeft" :overlayClassName="`${prefixCls}-dropdown-overlay`">
     <span :class="[prefixCls, `${prefixCls}--${theme}`]">
-      <img :class="`${prefixCls}__header`" src="/@/assets/images/header.jpg" />
+      <img :class="`${prefixCls}__header`" :src="headerImg" />
       <span :class="`${prefixCls}__info`">
         <span :class="`${prefixCls}__name anticon`">{{ getUserInfo.realName }}</span>
       </span>
@@ -9,8 +9,13 @@
 
     <template #overlay>
       <Menu @click="handleMenuClick">
-        <MenuItem key="doc" :text="t('layout.header.dropdownItemDoc')" icon="gg:loadbar-doc" />
-        <MenuDivider v-if="getShowDoc" />
+        <MenuItem
+          key="doc"
+          :text="t('layout.header.dropdownItemDoc')"
+          icon="gg:loadbar-doc"
+          v-if="getShowDoc"
+        />
+        <MenuDivider />
         <MenuItem
           key="loginOut"
           :text="t('layout.header.dropdownItemLoginOut')"
@@ -42,6 +47,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
   import { propTypes } from '/@/utils/propTypes';
+  import headerImg from '/@/assets/images/header.jpg';
 
   type MenuEvent = 'loginOut' | 'doc';
 
@@ -94,12 +100,12 @@
         getUserInfo,
         handleMenuClick,
         getShowDoc,
+        headerImg,
       };
     },
   });
 </script>
 <style lang="less">
-  @import (reference) '../../../../../design/index.less';
   @prefix-cls: ~'@{namespace}-header-user-dropdown';
 
   .@{prefix-cls} {

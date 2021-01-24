@@ -1,26 +1,29 @@
 <template>
   <div
     ref="wrapRef"
-    class="basic-table"
-    :class="{
-      'table-form-container': getBindValues.useSearchForm,
-      inset: getBindValues.inset,
-    }"
+    :class="[
+      prefixCls,
+      {
+        [`${prefixCls}-form-container`]: getBindValues.useSearchForm,
+        [`${prefixCls}--inset`]: getBindValues.inset,
+      },
+    ]"
   >
     <BasicForm
-      :submitOnReset="true"
+      submitOnReset
       v-bind="getFormProps"
       v-if="getBindValues.useSearchForm"
-      :submitButtonOptions="{ loading }"
+      :submitButtonOptions="{ loading: getLoading }"
       :tableAction="tableAction"
       @register="registerForm"
       @submit="handleSearchInfoChange"
       @advanced-change="redoHeight"
     >
-      <template #[item]="data" v-for="item in Object.keys($slots)">
-        <slot :name="`form-${item}`" v-bind="data" />
+      <template #[replaceFormSlotKey(item)]="data" v-for="item in getFormSlotKeys">
+        <slot :name="item" v-bind="data" />
       </template>
     </BasicForm>
+
     <Table
       ref="tableElRef"
       v-bind="getBindValues"
@@ -31,30 +34,19 @@
       <template #[item]="data" v-for="item in Object.keys($slots)">
         <slot :name="item" v-bind="data" />
       </template>
+      <template #[`header-${column.dataIndex}`] v-for="column in columns" :key="column.dataIndex">
+        <HeaderCell :column="column" />
+      </template>
     </Table>
   </div>
 </template>
 <script lang="ts">
-  import type {
-    BasicTableProps,
-    FetchParams,
-    GetColumnsParams,
-    TableActionType,
-    SizeType,
-    SorterResult,
-    TableCustomRecord,
-  } from './types/table';
-  import { PaginationProps } from './types/pagination';
+  import type { BasicTableProps, TableActionType, SizeType } from './types/table';
 
-  import { defineComponent, ref, computed, unref, watch, nextTick, toRaw } from 'vue';
+  import { defineComponent, ref, computed, unref } from 'vue';
   import { Table } from 'ant-design-vue';
-  import renderTitle from './components/renderTitle';
-  import renderFooter from './components/renderFooter';
-  import renderExpandIcon from './components/renderExpandIcon';
-  import { BasicForm, FormProps, useForm } from '/@/components/Form/index';
+  import { BasicForm, useForm } from '/@/components/Form/index';
 
-  import { isFunction, isString } from '/@/utils/is';
-  import { deepMerge } from '/@/utils';
   import { omit } from 'lodash-es';
 
   import { usePagination } from './hooks/usePagination';
@@ -63,213 +55,173 @@
   import { useLoading } from './hooks/useLoading';
   import { useRowSelection } from './hooks/useRowSelection';
   import { useTableScroll } from './hooks/useTableScroll';
-  import { provideTable } from './hooks/useProvinceTable';
-
-  import { useEventListener } from '/@/hooks/event/useEventListener';
-  import { basicProps } from './props';
-  import { ROW_KEY } from './const';
-  import './style/index.less';
+  import { useCustomRow } from './hooks/useCustomRow';
+  import { useTableStyle } from './hooks/useTableStyle';
+  import { useTableHeader } from './hooks/useTableHeader';
+  import { createTableContext } from './hooks/useTableContext';
+  import { useTableFooter } from './hooks/useTableFooter';
+  import { useTableForm } from './hooks/useTableForm';
   import { useExpose } from '/@/hooks/core/useExpose';
+  import { useDesign } from '/@/hooks/web/useDesign';
+
+  import { basicProps } from './props';
+  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+
+  import './style/index.less';
   export default defineComponent({
     props: basicProps,
-    components: { Table, BasicForm },
-    emits: ['fetch-success', 'fetch-error', 'selection-change', 'register'],
+    components: {
+      Table,
+      BasicForm,
+      HeaderCell: createAsyncComponent(() => import('./components/HeaderCell.vue')),
+    },
+    emits: [
+      'fetch-success',
+      'fetch-error',
+      'selection-change',
+      'register',
+      'row-click',
+      'row-dbClick',
+      'row-contextmenu',
+      'row-mouseenter',
+      'row-mouseleave',
+      'edit-end',
+      'edit-cancel',
+      'edit-row-end',
+    ],
     setup(props, { attrs, emit, slots }) {
       const tableElRef = ref<ComponentRef>(null);
+
       const wrapRef = ref<Nullable<HTMLDivElement>>(null);
       const innerPropsRef = ref<Partial<BasicTableProps>>();
-      const [registerForm, { getFieldsValue }] = useForm();
 
-      const getMergeProps = computed(
-        (): BasicTableProps => {
-          return {
-            ...props,
-            ...unref(innerPropsRef),
-          } as BasicTableProps;
-        }
-      );
-      const { loadingRef } = useLoading(getMergeProps);
-      const { getPaginationRef, setPagination } = usePagination(getMergeProps);
-      const { getColumnsRef, setColumns } = useColumns(getMergeProps, getPaginationRef);
-      const { getDataSourceRef, setTableData, fetch, getAutoCreateKey } = useDataSource(
-        getMergeProps,
-        {
-          getPaginationRef,
-          loadingRef,
-          setPagination,
-          getFieldsValue,
-        },
-        emit
-      );
+      const { prefixCls } = useDesign('basic-table');
+      const [registerForm, formActions] = useForm();
 
-      const { getScrollRef, redoHeight } = useTableScroll(getMergeProps, tableElRef);
+      const getProps = computed(() => {
+        return { ...props, ...unref(innerPropsRef) } as BasicTableProps;
+      });
+
+      const { getLoading, setLoading } = useLoading(getProps);
       const {
+        getPaginationInfo,
+        getPagination,
+        setPagination,
+        setShowPagination,
+        getShowPagination,
+      } = usePagination(getProps);
+
+      const {
+        getRowSelection,
         getRowSelectionRef,
         getSelectRows,
         clearSelectedRowKeys,
         getSelectRowKeys,
         deleteSelectRowByKey,
         setSelectedRowKeys,
-      } = useRowSelection(getMergeProps, emit);
+      } = useRowSelection(getProps, emit);
 
-      const getRowKey = computed(() => {
-        const { rowKey } = unref(getMergeProps);
+      const {
+        handleTableChange,
+        getDataSourceRef,
+        getDataSource,
+        setTableData,
+        fetch,
+        getRowKey,
+        reload,
+        getAutoCreateKey,
+        updateTableData,
+      } = useDataSource(
+        getProps,
+        {
+          getPaginationInfo,
+          setLoading,
+          setPagination,
+          getFieldsValue: formActions.getFieldsValue,
+          clearSelectedRowKeys,
+        },
+        emit
+      );
 
-        return unref(getAutoCreateKey) ? ROW_KEY : rowKey;
+      const {
+        getViewColumns,
+        getColumns,
+        setCacheColumnsByField,
+        setColumns,
+        getColumnsRef,
+        getCacheColumns,
+      } = useColumns(getProps, getPaginationInfo);
+
+      const { getScrollRef, redoHeight } = useTableScroll(
+        getProps,
+        tableElRef,
+        getColumnsRef,
+        getRowSelectionRef
+      );
+
+      const { customRow } = useCustomRow(getProps, {
+        setSelectedRowKeys,
+        getSelectRowKeys,
+        clearSelectedRowKeys,
+        getAutoCreateKey,
+        emit,
       });
 
+      const { getRowClassName } = useTableStyle(getProps, prefixCls);
+
+      const { getHeaderProps } = useTableHeader(getProps, slots);
+
+      const { getFooterProps } = useTableFooter(
+        getProps,
+        getScrollRef,
+        tableElRef,
+        getDataSourceRef
+      );
+
+      const {
+        getFormProps,
+        replaceFormSlotKey,
+        getFormSlotKeys,
+        handleSearchInfoChange,
+      } = useTableForm(getProps, slots, fetch);
+
       const getBindValues = computed(() => {
-        const { title, titleHelpMessage, showSummary, showTableSetting, tableSetting } = unref(
-          getMergeProps
-        );
-        const hideTitle = !slots.tableTitle && !title && !slots.toolbar && !showTableSetting;
-        const titleData: any =
-          hideTitle && !isString(title)
-            ? {}
-            : {
-                title: hideTitle
-                  ? null
-                  : renderTitle.bind(
-                      null,
-                      title,
-                      titleHelpMessage,
-                      slots,
-                      showTableSetting,
-                      tableSetting
-                    ),
-              };
-        const pagination = unref(getPaginationRef);
-        const rowSelection = unref(getRowSelectionRef);
-        const scroll = unref(getScrollRef);
-        const loading = unref(loadingRef);
-        const rowKey = unref(getRowKey);
-        const columns = unref(getColumnsRef);
-        const dataSource = unref(getDataSourceRef);
-        let propsData = {
+        let propsData: Recordable = {
           size: 'middle',
-          ...(slots.expandedRowRender ? { expandIcon: renderExpandIcon() } : {}),
           ...attrs,
-          ...unref(getMergeProps),
-          ...titleData,
-          scroll,
-          loading,
+          customRow,
+          ...unref(getProps),
+          ...unref(getHeaderProps),
+          scroll: unref(getScrollRef),
+          loading: unref(getLoading),
           tableLayout: 'fixed',
-          rowSelection,
-          rowKey,
-          columns,
-          pagination,
-          dataSource,
+          rowSelection: unref(getRowSelectionRef),
+          rowKey: unref(getRowKey),
+          columns: unref(getViewColumns),
+          pagination: unref(getPaginationInfo),
+          dataSource: unref(getDataSourceRef),
+          footer: unref(getFooterProps),
         };
         if (slots.expandedRowRender) {
           propsData = omit(propsData, 'scroll');
         }
-        if (showSummary) {
-          propsData.footer = renderFooter.bind(null, {
-            scroll: scroll as any,
-            columnsRef: getColumnsRef,
-            summaryFunc: unref(getMergeProps).summaryFunc,
-            dataSourceRef: getDataSourceRef,
-            rowSelectionRef: getRowSelectionRef,
-          });
-        }
         return propsData;
       });
 
-      const getFormProps = computed(() => {
-        const { formConfig } = unref(getBindValues);
-        const formProps: FormProps = {
-          showAdvancedButton: true,
-          ...(formConfig as FormProps),
-          compact: true,
-        };
-        return formProps;
-      });
-
       const getEmptyDataIsShowTable = computed(() => {
-        const { emptyDataIsShowTable, useSearchForm } = unref(getMergeProps);
+        const { emptyDataIsShowTable, useSearchForm } = unref(getProps);
         if (emptyDataIsShowTable || !useSearchForm) {
           return true;
         }
         return !!unref(getDataSourceRef).length;
       });
 
-      watch(
-        () => unref(getDataSourceRef),
-        () => {
-          handleSummary();
-        },
-        { immediate: true }
-      );
-
-      function getRowClassName(record: TableCustomRecord, index: number) {
-        const { striped, rowClassName } = unref(getMergeProps);
-        if (!striped) return;
-        if (rowClassName && isFunction(rowClassName)) {
-          return rowClassName(record);
-        }
-        return (index || 0) % 2 === 1 ? 'basic-table-row__striped' : '';
-      }
-
-      function handleSearchInfoChange(info: any) {
-        const { handleSearchInfoFn } = unref(getMergeProps);
-        if (handleSearchInfoFn && isFunction(handleSearchInfoFn)) {
-          info = handleSearchInfoFn(info) || info;
-        }
-        fetch({ searchInfo: info, page: 1 });
-      }
-
-      function handleTableChange(
-        pagination: PaginationProps,
-        // @ts-ignore
-        filters: Partial<Record<string, string[]>>,
-        sorter: SorterResult
-      ) {
-        const { clearSelectOnPageChange, sortFn } = unref(getMergeProps);
-        if (clearSelectOnPageChange) {
-          clearSelectedRowKeys();
-        }
-        setPagination(pagination);
-
-        if (sorter && isFunction(sortFn)) {
-          const sortInfo = sortFn(sorter);
-          fetch({ sortInfo });
-          return;
-        }
-        fetch();
-      }
-
-      function handleSummary() {
-        if (unref(getMergeProps).showSummary) {
-          nextTick(() => {
-            const tableEl = unref(tableElRef);
-            if (!tableEl) return;
-            const bodyDomList = tableEl.$el.querySelectorAll('.ant-table-body');
-            const bodyDom = bodyDomList[0];
-            useEventListener({
-              el: bodyDom,
-              name: 'scroll',
-              listener: () => {
-                const footerBodyDom = tableEl.$el.querySelector(
-                  '.ant-table-footer .ant-table-body'
-                ) as HTMLDivElement;
-                if (!footerBodyDom || !bodyDom) return;
-                footerBodyDom.scrollLeft = bodyDom.scrollLeft;
-              },
-              wait: 0,
-              options: true,
-            });
-          });
-        }
-      }
-
       function setProps(props: Partial<BasicTableProps>) {
-        innerPropsRef.value = deepMerge(unref(innerPropsRef) || {}, props);
+        innerPropsRef.value = { ...unref(innerPropsRef), ...props };
       }
 
       const tableAction: TableActionType = {
-        reload: async (opt?: FetchParams) => {
-          await fetch(opt);
-        },
+        reload,
         getSelectRows,
         clearSelectedRowKeys,
         getSelectRowKeys,
@@ -279,53 +231,45 @@
         redoHeight,
         setSelectedRowKeys,
         setColumns,
-        getPaginationRef: () => {
-          return unref(getPaginationRef);
-        },
-        getColumns: (opt?: GetColumnsParams) => {
-          const { ignoreIndex, ignoreAction } = opt || {};
-          let columns = toRaw(unref(getColumnsRef));
-          if (ignoreIndex) {
-            columns = columns.filter((item) => item.flag !== 'INDEX');
-          }
-          if (ignoreAction) {
-            columns = columns.filter((item) => item.flag !== 'ACTION');
-          }
-          return columns;
-        },
-        getDataSource: () => {
-          return unref(getDataSourceRef);
-        },
-        setLoading: (loading: boolean) => {
-          loadingRef.value = loading;
-        },
+        setLoading,
+        getDataSource,
         setProps,
-        getSize: (): SizeType => {
-          return unref(getBindValues).size;
+        getRowSelection,
+        getPaginationRef: getPagination,
+        getColumns,
+        getCacheColumns,
+        emit,
+        updateTableData,
+        setShowPagination,
+        getShowPagination,
+        setCacheColumnsByField,
+        getSize: () => {
+          return unref(getBindValues).size as SizeType;
         },
       };
-
-      provideTable({
-        ...tableAction,
-        wrapRef,
-      });
+      createTableContext({ ...tableAction, wrapRef, getBindValues });
 
       useExpose<TableActionType>(tableAction);
 
-      emit('register', tableAction);
+      emit('register', tableAction, formActions);
+
       return {
         tableElRef,
         getBindValues,
-        loading: loadingRef,
+        getLoading,
         registerForm,
         handleSearchInfoChange,
-        getFormProps,
         getEmptyDataIsShowTable,
         handleTableChange,
         getRowClassName,
         wrapRef,
         tableAction,
         redoHeight,
+        getFormProps,
+        replaceFormSlotKey,
+        getFormSlotKeys,
+        prefixCls,
+        columns: getViewColumns,
       };
     },
   });

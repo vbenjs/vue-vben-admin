@@ -59,7 +59,7 @@ function createConfirm(options: ModalOptionsEx): ConfirmOptions {
     icon: getIcon(iconType),
     ...options,
   };
-  return Modal.confirm(opt) as any;
+  return (Modal.confirm(opt) as unknown) as ConfirmOptions;
 }
 
 const baseOptions = {

@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <PageWrapper title="Tree函数操作示例" contentBackground contentClass="p-4">
     <div class="mb-4">
       <a-button @click="handleLevel(2)" class="mr-2">显示到第2级</a-button>
       <a-button @click="handleLevel(1)" class="mr-2">显示到第1级</a-button>
@@ -20,7 +20,7 @@
     <CollapseContainer title="函数操作" class="mr-4" :canExpan="false" :style="{ width: '33%' }">
       <BasicTree :treeData="treeData" ref="treeRef" :checkable="true" />
     </CollapseContainer>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent, ref, unref } from 'vue';
@@ -28,9 +28,10 @@
   import { treeData } from './data';
   import { CollapseContainer } from '/@/components/Container/index';
   import { useMessage } from '/@/hooks/web/useMessage';
+  import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
-    components: { BasicTree, CollapseContainer },
+    components: { BasicTree, CollapseContainer, PageWrapper },
     setup() {
       const treeRef = ref<Nullable<TreeActionType>>(null);
       const { createMessage } = useMessage();

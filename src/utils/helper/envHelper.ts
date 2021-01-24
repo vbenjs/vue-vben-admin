@@ -4,6 +4,6 @@ import pkg from '../../../package.json';
 const globSetting = useGlobSetting();
 
 // Generate cache key according to version
-export const getStorageShortName = () => {
+export function getStorageShortName() {
   return `${globSetting.shortName}__${getEnv()}${`__${pkg.version}`}__`.toUpperCase();
-};
+}

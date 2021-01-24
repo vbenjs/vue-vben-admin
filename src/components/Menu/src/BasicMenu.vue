@@ -17,7 +17,7 @@
         :item="item"
         :theme="theme"
         :level="1"
-        :showTitle="!getCollapsed"
+        :showTitle="showTitle"
         :isHorizontal="isHorizontal"
       />
     </template>
@@ -58,6 +58,7 @@
     emits: ['menuClick'],
     setup(props, { emit }) {
       const isClickGo = ref(false);
+      const currentActiveMenu = ref('');
 
       const menuState = reactive<MenuState>({
         defaultSelectedKeys: [],
@@ -95,18 +96,22 @@
           prefixCls,
           `justify-${align}`,
           {
+            [`${prefixCls}--hide-title`]: !unref(showTitle),
+            [`${prefixCls}--collapsed-show-title`]: props.collapsedShowTitle,
             [`${prefixCls}__second`]: !props.isHorizontal && unref(getSplit),
             [`${prefixCls}__sidebar-hor`]: unref(getIsTopMenu),
           },
         ];
       });
 
+      const showTitle = computed(() => props.collapsedShowTitle && unref(getCollapsed));
+
       const getInlineCollapseOptions = computed(() => {
         const isInline = props.mode === MenuModeEnum.INLINE;
 
         const inlineCollapseOptions: { inlineCollapsed?: boolean } = {};
         if (isInline) {
-          inlineCollapseOptions.inlineCollapsed = unref(getCollapsed);
+          inlineCollapseOptions.inlineCollapsed = props.mixSider ? false : unref(getCollapsed);
         }
         return inlineCollapseOptions;
       });
@@ -114,17 +119,21 @@
       listenerLastChangeTab((route) => {
         if (route.name === REDIRECT_NAME) return;
         handleMenuChange(route);
-      }, false);
+        currentActiveMenu.value = route.meta?.currentActiveMenu;
 
-      watch(
-        () => props.items,
-        () => {
-          handleMenuChange();
-        },
-        {
-          immediate: true,
+        if (unref(currentActiveMenu)) {
+          menuState.selectedKeys = [unref(currentActiveMenu)];
+          setOpenKeys(unref(currentActiveMenu));
         }
-      );
+      });
+
+      !props.mixSider &&
+        watch(
+          () => props.items,
+          () => {
+            handleMenuChange();
+          }
+        );
 
       async function handleMenuClick({ key, keyPath }: { key: string; keyPath: string[] }) {
         const { beforeClickFn } = props;
@@ -145,9 +154,8 @@
           return;
         }
         const path = (route || unref(currentRoute)).path;
-        if (props.mode !== MenuModeEnum.HORIZONTAL) {
-          setOpenKeys(path);
-        }
+        setOpenKeys(path);
+        if (unref(currentActiveMenu)) return;
         if (props.isHorizontal && unref(getSplit)) {
           const parentPath = await getCurrentParentPath(path);
           menuState.selectedKeys = [parentPath];
@@ -164,7 +172,7 @@
         getMenuClass,
         handleOpenChange,
         getOpenKeys,
-        getCollapsed,
+        showTitle,
         ...toRefs(menuState),
       };
     },

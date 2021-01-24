@@ -1,8 +1,9 @@
-import { withInstall } from '../util';
 import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+import BasicArrow from './src/BasicArrow.vue';
+import BasicTitle from './src/BasicTitle.vue';
 
-export const BasicArrow = createAsyncComponent(() => import('./src/BasicArrow.vue'));
+export { BasicArrow, BasicTitle };
+
+// export const BasicArrow = createAsyncComponent(() => import('./src/BasicArrow.vue'));
 export const BasicHelp = createAsyncComponent(() => import('./src/BasicHelp.vue'));
-export const BasicTitle = createAsyncComponent(() => import('./src/BasicTitle.vue'));
-
-withInstall(BasicArrow, BasicHelp, BasicTitle);
+// export const BasicTitle = createAsyncComponent(() => import('./src/BasicTitle.vue'));

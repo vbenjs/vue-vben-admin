@@ -17,12 +17,12 @@ const modifyVars = {
   // 'heading-color': '#2C3A61', //  Title color
   // 'text-color': '#2C3A61', //  Main text color
   'text-color-secondary ': '#606266', // Subtext color
-  'background-color-base': '#F0F2F5', // background color
+  'background-color-base': '#f4f7f9', // background color
   'font-size-base': '14px', //  Main font size
   'box-shadow-base': '0 2px 8px rgba(0, 0, 0, 0.15)', //  Floating shadow
   'border-color-base': '#F0F0F0', //  Border color,
   'border-color-split': '#F0F0F0', //  Border color,
-  'border-radius-base': '2px', //  Component/float fillet
+  'border-radius-base': '4px', //  Component/float fillet
 };
 //}
 

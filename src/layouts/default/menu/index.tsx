@@ -4,6 +4,7 @@ import type { PropType, CSSProperties } from 'vue';
 
 import { computed, defineComponent, unref, toRef } from 'vue';
 import { BasicMenu } from '/@/components/Menu';
+import { SimpleMenu } from '/@/components/SimpleMenu';
 import { AppLogo } from '/@/components/Application';
 
 import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
@@ -45,6 +46,7 @@ export default defineComponent({
       getMenuType,
       getMenuTheme,
       getCollapsed,
+      getCollapsedShowTitle,
       getAccordion,
       getIsHorizontal,
       getIsSidebarType,
@@ -125,14 +127,28 @@ export default defineComponent({
     }
 
     function renderMenu() {
-      return (
+      const menus = unref(menusRef);
+      if (!menus || !menus.length) return null;
+      return !props.isHorizontal ? (
+        <SimpleMenu
+          beforeClickFn={beforeMenuClickFn}
+          items={menus}
+          theme={unref(getComputedMenuTheme)}
+          accordion={unref(getAccordion)}
+          collapse={unref(getCollapsed)}
+          collapsedShowTitle={unref(getCollapsedShowTitle)}
+          onMenuClick={handleMenuClick}
+        />
+      ) : (
         <BasicMenu
           beforeClickFn={beforeMenuClickFn}
           isHorizontal={props.isHorizontal}
           type={unref(getMenuType)}
+          collapsedShowTitle={unref(getCollapsedShowTitle)}
+          showLogo={unref(getIsShowLogo)}
           mode={unref(getComputedMenuMode)}
           theme={unref(getComputedMenuTheme)}
-          items={unref(menusRef)}
+          items={menus}
           accordion={unref(getAccordion)}
           onMenuClick={handleMenuClick}
         />

@@ -40,7 +40,12 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
     async ([path]: [string, MenuSplitTyeEnum]) => {
       if (unref(splitNotLeft) || unref(getIsMobile)) return;
 
-      const parentPath = await getCurrentParentPath(path);
+      const { meta } = unref(currentRoute);
+      const currentActiveMenu = meta.currentActiveMenu;
+      let parentPath = await getCurrentParentPath(path);
+      if (!parentPath) {
+        parentPath = await getCurrentParentPath(currentActiveMenu);
+      }
       parentPath && throttleHandleSplitLeftMenu(parentPath);
     },
     {
@@ -67,11 +72,15 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
 
   // Handle left menu split
   async function handleSplitLeftMenu(parentPath: string) {
+    console.log('======================');
+    console.log(unref(getSplitLeft));
+    console.log('======================');
     if (unref(getSplitLeft) || unref(getIsMobile)) return;
 
     // spilt mode left
     const children = await getChildrenMenus(parentPath);
-    if (!children) {
+
+    if (!children || !children.length) {
       setMenuSetting({ hidden: true });
       menusRef.value = [];
       return;

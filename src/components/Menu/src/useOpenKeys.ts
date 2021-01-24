@@ -8,6 +8,7 @@ import { unref } from 'vue';
 import { es6Unique } from '/@/utils';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 import { getAllParentPath } from '/@/router/helper/menuHelper';
+import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 
 export function useOpenKeys(
   menuState: MenuState,
@@ -15,19 +16,38 @@ export function useOpenKeys(
   mode: Ref<MenuModeEnum>,
   accordion: Ref<boolean>
 ) {
-  const { getCollapsed } = useMenuSetting();
+  const { getCollapsed, getIsMixSidebar } = useMenuSetting();
 
-  function setOpenKeys(path: string) {
-    const menuList = toRaw(menus.value);
-    if (!unref(accordion)) {
-      menuState.openKeys = es6Unique([...menuState.openKeys, ...getAllParentPath(menuList, path)]);
-    } else {
-      menuState.openKeys = getAllParentPath(menuList, path);
+  async function setOpenKeys(path: string) {
+    if (mode.value === MenuModeEnum.HORIZONTAL) {
+      return;
     }
+    const native = unref(getIsMixSidebar);
+    useTimeoutFn(
+      () => {
+        const menuList = toRaw(menus.value);
+        if (menuList?.length === 0) {
+          menuState.openKeys = [];
+          return;
+        }
+        if (!unref(accordion)) {
+          menuState.openKeys = es6Unique([
+            ...menuState.openKeys,
+            ...getAllParentPath(menuList, path),
+          ]);
+        } else {
+          menuState.openKeys = getAllParentPath(menuList, path);
+        }
+      },
+      16,
+      !native
+    );
   }
 
   const getOpenKeys = computed(() => {
-    return unref(getCollapsed) ? menuState.collapsedOpenKeys : menuState.openKeys;
+    const collapse = unref(getIsMixSidebar) ? false : unref(getCollapsed);
+
+    return collapse ? menuState.collapsedOpenKeys : menuState.openKeys;
   });
 
   /**
@@ -39,7 +59,7 @@ export function useOpenKeys(
   }
 
   function handleOpenChange(openKeys: string[]) {
-    if (unref(mode) === MenuModeEnum.HORIZONTAL || !unref(accordion)) {
+    if (unref(mode) === MenuModeEnum.HORIZONTAL || !unref(accordion) || unref(getIsMixSidebar)) {
       menuState.openKeys = openKeys;
     } else {
       // const menuList = toRaw(menus.value);

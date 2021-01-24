@@ -1,5 +1,7 @@
 <template>
-  <BasicTable @register="registerTable" />
+  <BasicTable @register="registerTable">
+    <template #form-custom> custom-slot</template>
+  </BasicTable>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
@@ -18,6 +20,7 @@
         useSearchForm: true,
         formConfig: getFormConfig(),
         showTableSetting: true,
+        rowSelection: { type: 'checkbox' },
       });
 
       return {

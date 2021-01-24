@@ -1,4 +1,4 @@
-import type { MenuModule } from '/@/router/types.d';
+import type { MenuModule } from '/@/router/types';
 import { t } from '/@/hooks/web/useI18n';
 
 const menu: MenuModule = {
@@ -19,6 +19,7 @@ const menu: MenuModule = {
         path: 'tabs',
         name: t('routes.demo.feat.tabs'),
       },
+
       {
         path: 'context-menu',
         name: t('routes.demo.feat.contextMenu'),
@@ -62,6 +63,7 @@ const menu: MenuModule = {
         path: 'error-log',
         name: t('routes.demo.feat.errorLog'),
       },
+
       {
         name: t('routes.demo.excel.excel'),
         path: 'excel',
@@ -81,6 +83,27 @@ const menu: MenuModule = {
           {
             path: 'importExcel',
             name: t('routes.demo.excel.importExcel'),
+          },
+        ],
+      },
+      {
+        name: t('routes.demo.feat.breadcrumb'),
+        path: 'breadcrumb',
+        tag: {
+          content: 'new',
+        },
+        children: [
+          {
+            path: 'flat',
+            name: t('routes.demo.feat.breadcrumbFlat'),
+          },
+          {
+            path: 'flatDetail',
+            name: t('routes.demo.feat.breadcrumbFlatDetail'),
+          },
+          {
+            path: 'children',
+            name: t('routes.demo.feat.breadcrumbChildrenDetail'),
           },
         ],
       },

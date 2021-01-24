@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <PageWrapper title="详情组件示例">
     <Description
       title="基础示例"
       :collapseOptions="{ canExpand: true, helpMessage: 'help me' }"
@@ -20,13 +20,14 @@
 
     <Description @register="register" class="mt-4" />
     <Description @register="register1" class="mt-4" />
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { Alert } from 'ant-design-vue';
   import { Description, DescItem, useDescription } from '/@/components/Description/index';
-  const mockData: any = {
+  import { PageWrapper } from '/@/components/Page';
+
+  const mockData: Recordable = {
     username: 'test',
     nickName: 'VB',
     age: 25,
@@ -63,7 +64,7 @@
     },
   ];
   export default defineComponent({
-    components: { Description, Alert },
+    components: { Description, PageWrapper },
     setup() {
       const [register] = useDescription({
         title: 'useDescription',

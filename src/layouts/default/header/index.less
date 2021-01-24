@@ -1,4 +1,3 @@
-@import (reference) '../../../design/index.less';
 @header-trigger-prefix-cls: ~'@{namespace}-layout-header-trigger';
 @header-prefix-cls: ~'@{namespace}-layout-header';
 @locale-prefix-cls: ~'@{namespace}-app-locale-picker';
@@ -109,7 +108,7 @@
     align-items: center;
 
     &__item {
-      display: flex;
+      display: flex !important;
       height: @header-height;
       padding: 0 2px;
       font-size: 1.2em;
@@ -135,6 +134,7 @@
   &--light {
     background: @white;
     border-bottom: 1px solid @header-light-bottom-border-color;
+    border-left: 1px solid @header-light-bottom-border-color;
 
     .@{header-prefix-cls}-logo {
       color: @text-color-base;

@@ -1,9 +1,10 @@
 <template>
-  <div class="p-4 m-4 demo">
-    <Alert
-      message="目前mock了两组数据， id为1 和 2 具体返回的菜单可以在mock/sys/menu.ts内查看"
-      show-icon
-    />
+  <PageWrapper
+    title="后台权限示例"
+    contentBackground
+    contentClass="p-4"
+    content="目前mock了两组数据， id为1 和 2 具体返回的菜单可以在mock/sys/menu.ts内查看"
+  >
     <CurrentPermissionMode />
 
     <Alert class="mt-4" type="info" message="点击后请查看左侧菜单变化" show-icon />
@@ -15,17 +16,17 @@
         <a-button @click="changeMenu('2')"> 获取用户id为2的菜单 </a-button>
       </a-button-group>
     </div>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { Alert } from 'ant-design-vue';
   import CurrentPermissionMode from '../CurrentPermissionMode.vue';
   import { RoleEnum } from '/@/enums/roleEnum';
   import { usePermission } from '/@/hooks/web/usePermission';
-
+  import { PageWrapper } from '/@/components/Page';
+  import { Alert } from 'ant-design-vue';
   export default defineComponent({
-    components: { Alert, CurrentPermissionMode },
+    components: { Alert, CurrentPermissionMode, PageWrapper },
     setup() {
       const { changeMenu } = usePermission();
       return {

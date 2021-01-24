@@ -9,6 +9,7 @@ import {
   reactive,
   ComponentInternalInstance,
 } from 'vue';
+import { error } from '../log';
 
 export function explicitComputed<T, S>(source: WatchSource<S>, fn: () => T) {
   const v = reactive<any>({ value: fn() });
@@ -39,6 +40,6 @@ export function tryTsxEmit<T extends any = ComponentInternalInstance>(
 
 export function isInSetup() {
   if (!getCurrentInstance()) {
-    throw new Error('Please put useForm function in the setup function!');
+    error('Please put useForm function in the setup function!');
   }
 }

@@ -16,7 +16,6 @@
     TableAction,
     BasicColumn,
     ActionItem,
-    renderEditableRow,
     EditTableHeaderIcon,
     EditRecordRow,
   } from '/@/components/Table';
@@ -25,17 +24,20 @@
     {
       title: '成员姓名',
       dataIndex: 'name',
-      customRender: renderEditableRow({ dataIndex: 'name', placeholder: '请输入成员姓名' }),
+      editRow: true,
     },
     {
       title: '工号',
       dataIndex: 'no',
-      customRender: renderEditableRow({ dataIndex: 'no', placeholder: '请输入工号' }),
+      editRow: true,
+      // customRender: renderEditableRow({ dataIndex: 'no', placeholder: '请输入工号' }),
     },
     {
       title: '所属部门',
       dataIndex: 'dept',
-      customRender: renderEditableRow({ dataIndex: 'dept', placeholder: '请输入所属部门' }),
+      editRow: true,
+
+      // customRender: renderEditableRow({ dataIndex: 'dept', placeholder: '请输入所属部门' }),
     },
   ];
 
@@ -73,12 +75,11 @@
       });
 
       function handleEdit(record: EditRecordRow) {
-        record.editable = true;
+        record.onEdit?.(true);
       }
 
       function handleCancel(record: EditRecordRow) {
-        record.editable = false;
-        record.onCancel && record.onCancel();
+        record.onEdit?.(false);
         if (record.isNew) {
           const data = getDataSource();
           const index = data.findIndex((item) => item.key === record.key);
@@ -87,8 +88,7 @@
       }
 
       function handleSave(record: EditRecordRow) {
-        record.editable = false;
-        record.onSubmit && record.onSubmit();
+        record.onEdit?.(false, true);
       }
 
       function handleAdd() {

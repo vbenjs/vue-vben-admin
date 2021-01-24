@@ -43,3 +43,8 @@ export enum TopMenuAlignEnum {
   START = 'start',
   END = 'end',
 }
+
+export enum MixSidebarTriggerEnum {
+  HOVER = 'hover',
+  CLICK = 'click',
+}

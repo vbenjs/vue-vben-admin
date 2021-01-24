@@ -18,7 +18,8 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
   import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
-  import PageLayout from '/@/layouts/page/index';
+  import PageLayout from '/@/layouts/page/index.vue';
+  import { useContentViewHeight } from './useContentViewHeight';
   import { Loading } from '/@/components/Loading';
 
   export default defineComponent({
@@ -29,6 +30,7 @@
       const { getOpenPageLoading } = useTransitionSetting();
       const { getLayoutContentMode, getPageLoading } = useRootSetting();
 
+      useContentViewHeight();
       return {
         prefixCls,
         getOpenPageLoading,
@@ -39,7 +41,6 @@
   });
 </script>
 <style lang="less">
-  @import (reference) '../../../design/index.less';
   @prefix-cls: ~'@{namespace}-layout-content';
 
   .@{prefix-cls} {

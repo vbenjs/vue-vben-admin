@@ -28,7 +28,6 @@
   });
 </script>
 <style lang="less">
-  @import (reference) '../../../design/index.less';
   @prefix-cls: ~'@{namespace}-setting-button';
 
   .@{prefix-cls} {

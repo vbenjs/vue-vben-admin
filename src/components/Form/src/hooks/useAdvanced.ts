@@ -1,6 +1,6 @@
 import type { ColEx } from '../types';
 import type { AdvanceState } from '../types/hooks';
-import { ComputedRef, Ref } from 'vue';
+import type { ComputedRef, Ref } from 'vue';
 import type { FormProps, FormSchema } from '../types/form';
 
 import { computed, unref, watch } from 'vue';
@@ -13,28 +13,28 @@ const BASIC_COL_LEN = 24;
 interface UseAdvancedContext {
   advanceState: AdvanceState;
   emit: EmitType;
-  getMergePropsRef: ComputedRef<FormProps>;
   getProps: ComputedRef<FormProps>;
   getSchema: ComputedRef<FormSchema[]>;
-  formModel: any;
-  defaultValueRef: Ref<any>;
+  formModel: Recordable;
+  defaultValueRef: Ref<Recordable>;
 }
 
 export default function ({
   advanceState,
   emit,
-  getMergePropsRef,
   getProps,
   getSchema,
   formModel,
   defaultValueRef,
 }: UseAdvancedContext) {
   const { realWidthRef, screenEnum, screenRef } = useBreakpoint();
-  const getEmptySpanRef = computed((): number => {
+
+  const getEmptySpan = computed((): number => {
     if (!advanceState.isAdvanced) {
       return 0;
     }
-    const emptySpan = unref(getMergePropsRef).emptySpan || 0;
+    // For some special cases, you need to manually specify additional blank lines
+    const emptySpan = unref(getProps).emptySpan || 0;
 
     if (isNumber(emptySpan)) {
       return emptySpan;
@@ -47,27 +47,6 @@ export default function ({
       return screenSpan || span || 0;
     }
     return 0;
-  });
-
-  const getActionPropsRef = computed(() => {
-    const {
-      resetButtonOptions,
-      submitButtonOptions,
-      showActionButtonGroup,
-      showResetButton,
-      showSubmitButton,
-      showAdvancedButton,
-      actionColOptions,
-    } = unref(getProps);
-    return {
-      resetButtonOptions,
-      submitButtonOptions,
-      show: showActionButtonGroup,
-      showResetButton,
-      showSubmitButton,
-      showAdvancedButton,
-      actionColOptions,
-    };
   });
 
   watch(
@@ -90,6 +69,7 @@ export default function ({
       parseInt(itemCol.sm as string) ||
       (itemCol.span as number) ||
       BASIC_COL_LEN;
+
     const lgWidth = parseInt(itemCol.lg as string) || mdWidth;
     const xlWidth = parseInt(itemCol.xl as string) || lgWidth;
     const xxlWidth = parseInt(itemCol.xxl as string) || xlWidth;
@@ -102,15 +82,16 @@ export default function ({
     } else {
       itemColSum += xxlWidth;
     }
+
     if (isLastAction) {
       advanceState.hideAdvanceBtn = false;
       if (itemColSum <= BASIC_COL_LEN * 2) {
-        // 小于等于2行时，不显示收起展开按钮
+        // When less than or equal to 2 lines, the collapse and expand buttons are not displayed
         advanceState.hideAdvanceBtn = true;
         advanceState.isAdvanced = true;
       } else if (
         itemColSum > BASIC_COL_LEN * 2 &&
-        itemColSum <= BASIC_COL_LEN * (unref(getMergePropsRef).autoAdvancedLine || 3)
+        itemColSum <= BASIC_COL_LEN * (unref(getProps).autoAdvancedLine || 3)
       ) {
         advanceState.hideAdvanceBtn = false;
 
@@ -168,13 +149,9 @@ export default function ({
       }
     }
 
-    advanceState.actionSpan = (realItemColSum % BASIC_COL_LEN) + unref(getEmptySpanRef);
+    advanceState.actionSpan = (realItemColSum % BASIC_COL_LEN) + unref(getEmptySpan);
 
-    getAdvanced(
-      unref(getActionPropsRef).actionColOptions || { span: BASIC_COL_LEN },
-      itemColSum,
-      true
-    );
+    getAdvanced(unref(getProps).actionColOptions || { span: BASIC_COL_LEN }, itemColSum, true);
 
     emit('advanced-change');
   }
@@ -182,5 +159,6 @@ export default function ({
   function handleToggleAdvanced() {
     advanceState.isAdvanced = !advanceState.isAdvanced;
   }
-  return { getActionPropsRef, handleToggleAdvanced };
+
+  return { handleToggleAdvanced };
 }

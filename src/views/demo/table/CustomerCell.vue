@@ -10,6 +10,12 @@
           :imgList="['https://picsum.photos/id/66/346/216', 'https://picsum.photos/id/67/346/216']"
         />
       </template>
+
+      <template #category="{ record }">
+        <Tag color="green">
+          {{ record.no }}
+        </Tag>
+      </template>
     </BasicTable>
   </div>
 </template>
@@ -23,6 +29,14 @@
       title: 'ID',
       dataIndex: 'id',
       slots: { customRender: 'id' },
+    },
+    {
+      title: '分类',
+      dataIndex: 'category',
+      width: 80,
+      align: 'center',
+      defaultHidden: true,
+      slots: { customRender: 'category' },
     },
     {
       title: '姓名',
@@ -60,6 +74,8 @@
         title: '自定义列内容',
         api: demoListApi,
         columns: columns,
+        bordered: true,
+        showTableSetting: true,
       });
 
       return {

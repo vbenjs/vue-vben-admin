@@ -26,7 +26,6 @@ export default {
   resetSuccess: 'Successfully reset!',
 
   copyBtn: 'Copy',
-  resetBtn: 'Reset',
   clearBtn: 'Clear cache and to the login page',
 
   drawerTitle: 'Configuration',
@@ -45,6 +44,7 @@ export default {
   menuSearch: 'Menu search',
   menuAccordion: 'Sidebar accordion',
   menuCollapse: 'Collapse menu',
+  collapseMenuDisplayName: 'Collapse menu display name',
   topMenuLayout: 'Top menu layout',
   menuCollapseButton: 'Menu collapse button',
   contentMode: 'Content area width',
@@ -55,6 +55,7 @@ export default {
   tabs: 'Tabs',
   tabsQuickBtn: 'Tabs quick button',
   tabsRedoBtn: 'Tabs redo button',
+  tabsFoldBtn: 'Tabs flod button',
   sidebar: 'Sidebar',
   header: 'Header',
   footer: 'Footer',
@@ -72,4 +73,10 @@ export default {
 
   fixedHeader: 'Fixed header',
   fixedSideBar: 'Fixed Sidebar',
+
+  mixSidebarTrigger: 'Mixed menu Trigger',
+  triggerHover: 'Hover',
+  triggerClick: 'Click',
+
+  mixSidebarFixed: 'Fixed expanded menu',
 };

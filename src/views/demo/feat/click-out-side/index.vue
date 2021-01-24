@@ -1,19 +1,19 @@
 <template>
-  <div class="p-10">
-    <Alert message="点内外部触发事件" show-icon></Alert>
-    <ClickOutSide @clickOutside="handleClickOutside" class="flex justify-center mt-10">
+  <PageWrapper title="点内外部触发事件">
+    <ClickOutSide @clickOutside="handleClickOutside" class="flex justify-center">
       <div @click="innerClick" class="demo-box">
         {{ text }}
       </div>
     </ClickOutSide>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
-  import { Alert } from 'ant-design-vue';
   import { ClickOutSide } from '/@/components/ClickOutSide';
+  import { PageWrapper } from '/@/components/Page';
+
   export default defineComponent({
-    components: { ClickOutSide, Alert },
+    components: { ClickOutSide, PageWrapper },
     setup() {
       const text = ref('Click');
       function handleClickOutside() {

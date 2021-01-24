@@ -1,5 +1,11 @@
 <template>
-  <div class="tinymce-container" :style="{ width: containerWidth }">
+  <div :class="prefixCls" :style="{ width: containerWidth }">
+    <ImgUpload
+      @uploading="handleImageUploading"
+      @done="handleDone"
+      v-if="showImageUpload"
+      v-show="editorRef"
+    />
     <textarea :id="tinymceId" ref="elRef" :style="{ visibility: 'hidden' }"></textarea>
   </div>
 </template>
@@ -24,6 +30,8 @@
   import { bindHandlers } from './helper';
   import lineHeight from './lineHeight';
   import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
+  import ImgUpload from './ImgUpload.vue';
+  import { useDesign } from '/@/hooks/web/useDesign';
 
   const CDN_URL = 'https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1';
 
@@ -31,12 +39,16 @@
 
   export default defineComponent({
     name: 'Tinymce',
+    inheritAttrs: false,
     props: basicProps,
+    components: { ImgUpload },
     emits: ['change', 'update:modelValue'],
     setup(props, { emit, attrs }) {
       const editorRef = ref<any>(null);
       const tinymceId = ref<string>(snowUuid('tiny-vue'));
       const elRef = ref<Nullable<HTMLElement>>(null);
+
+      const { prefixCls } = useDesign('tinymce-container');
 
       const tinymceContent = computed(() => {
         return props.modelValue;
@@ -92,6 +104,7 @@
         }
       );
       onMountedOrActivated(() => {
+        tinymceId.value = snowUuid('tiny-vue');
         nextTick(() => {
           init();
         });
@@ -138,7 +151,7 @@
         bindHandlers(e, attrs, unref(editorRef));
       }
 
-      function setValue(editor: any, val: string, prevVal: string) {
+      function setValue(editor: Recordable, val: string, prevVal?: string) {
         if (
           editor &&
           typeof val === 'string' &&
@@ -152,6 +165,7 @@
       function bindModelHandlers(editor: any) {
         const modelEvents = attrs.modelEvents ? attrs.modelEvents : null;
         const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
+
         watch(
           () => props.modelValue,
           (val: string, prevVal: string) => {
@@ -176,45 +190,54 @@
         });
       }
 
+      function handleImageUploading(name: string) {
+        const editor = unref(editorRef);
+        if (!editor) return;
+        const content = editor?.getContent() ?? '';
+        setValue(editor, `${content}\n${getImgName(name)}`);
+      }
+
+      function handleDone(name: string, url: string) {
+        const editor = unref(editorRef);
+        if (!editor) return;
+
+        const content = editor?.getContent() ?? '';
+        const val = content?.replace(getImgName(name), `<img src="${url}"/>`) ?? '';
+        setValue(editor, val);
+      }
+
+      function getImgName(name: string) {
+        return `[uploading:${name}]`;
+      }
+
       return {
+        prefixCls,
         containerWidth,
         initOptions,
         tinymceContent,
         tinymceScriptSrc,
         elRef,
         tinymceId,
+        handleImageUploading,
+        handleDone,
+        editorRef,
       };
     },
   });
 </script>
 
-<style lang="less" scoped>
-  .tinymce-container {
+<style lang="less" scoped></style>
+
+<style lang="less">
+  @prefix-cls: ~'@{namespace}-tinymce-container';
+
+  .@{prefix-cls} {
     position: relative;
     line-height: normal;
 
-    .mce-fullscreen {
-      z-index: 10000;
+    textarea {
+      z-index: -1;
+      visibility: hidden;
     }
-  }
-
-  .editor-custom-btn-container {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-
-    &.fullscreen {
-      position: fixed;
-      z-index: 10000;
-    }
-  }
-
-  .editor-upload-btn {
-    display: inline-block;
-  }
-
-  textarea {
-    z-index: -1;
-    visibility: hidden;
   }
 </style>

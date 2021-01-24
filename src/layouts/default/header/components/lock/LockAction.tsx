@@ -57,7 +57,7 @@ export default defineComponent({
               <p class={`${prefixCls}__header-name`}>{userStore.getUserInfoState.realName}</p>
             </div>
 
-            <BasicForm onRegister={registerForm} layout="vertical" />
+            <BasicForm onRegister={registerForm} />
 
             <div class={`${prefixCls}__footer`}>
               <Button type="primary" block class="mt-2" onClick={lock}>

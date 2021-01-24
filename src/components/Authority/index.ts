@@ -1,6 +1,7 @@
 import { withInstall } from '../util';
-import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
-export const Authority = createAsyncComponent(() => import('./src/index.vue'));
+import Authority from './src/index.vue';
 
 withInstall(Authority);
+
+export { Authority };

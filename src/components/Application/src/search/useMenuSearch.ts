@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash-es';
-import { ref, onBeforeUnmount, onBeforeMount, unref, Ref } from 'vue';
+import { ref, onBeforeMount, unref, Ref, nextTick } from 'vue';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { getMenus } from '/@/router/menus';
 import type { Menu } from '/@/router/types';
@@ -7,6 +7,7 @@ import { filter, forEach } from '/@/utils/helper/treeHelper';
 import { useDebounce } from '/@/hooks/core/useDebounce';
 import { useGo } from '/@/hooks/web/usePage';
 import { useScrollTo } from '/@/hooks/event/useScrollTo';
+import { useKeyPress } from '/@/hooks/event/useKeyPress';
 
 export interface SearchResult {
   name: string;
@@ -50,12 +51,6 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
     forEach(menuList, (item) => {
       item.name = t(item.name);
     });
-
-    document.addEventListener('keydown', registerKeyDown);
-  });
-
-  onBeforeUnmount(() => {
-    document.removeEventListener('keydown', registerKeyDown);
   });
 
   function search(e: ChangeEvent) {
@@ -135,7 +130,7 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
     start();
   }
 
-  function handleEnter() {
+  async function handleEnter() {
     if (!searchResult.value.length) return;
     const result = unref(searchResult);
     const index = unref(activeIndex);
@@ -144,15 +139,17 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
     }
     const to = result[index];
     handleClose();
+    await nextTick();
     go(to.path);
   }
 
   function handleClose() {
+    searchResult.value = [];
     emit('close');
   }
 
-  function registerKeyDown(e: KeyboardEvent) {
-    const keyCode = window.event ? e.keyCode : e.which;
+  useKeyPress(['enter', 'up', 'down', 'esc'], (events) => {
+    const keyCode = events.keyCode;
     switch (keyCode) {
       case KeyCodeEnum.UP:
         handleUp();
@@ -167,7 +164,7 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
         handleClose();
         break;
     }
-  }
+  });
 
   return { handleSearch, searchResult, keyword, activeIndex, handleMouseenter, handleEnter };
 }

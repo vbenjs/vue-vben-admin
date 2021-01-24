@@ -1,18 +1,20 @@
 <template>
-  <div class="p-4">
+  <PageWrapper title="上传组件示例">
     <a-alert message="基础示例" class="my-5"></a-alert>
     <BasicUpload :maxSize="20" :maxNumber="10" @change="handleChange" :api="uploadApi" />
 
     <a-alert message="嵌入表单,加入表单校验" class="my-5"></a-alert>
 
     <BasicForm @register="register" />
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicUpload } from '/@/components/Upload';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
+  import { PageWrapper } from '/@/components/Page';
+  import { Alert } from 'ant-design-vue';
 
   import { uploadApi } from '/@/api/sys/upload';
 
@@ -31,7 +33,7 @@
     },
   ];
   export default defineComponent({
-    components: { BasicUpload, BasicForm },
+    components: { BasicUpload, BasicForm, PageWrapper, [Alert.name]: Alert },
     setup() {
       const { createMessage } = useMessage();
       const [register] = useForm({

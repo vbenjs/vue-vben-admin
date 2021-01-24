@@ -1,4 +1,5 @@
 export const timestamp = () => +Date.now();
+import { unref } from 'vue';
 import { isObject } from '/@/utils/is';
 export const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
 export const noop = () => {};
@@ -7,10 +8,7 @@ export const now = () => Date.now();
  * @description:  Set ui mount node
  */
 export function getPopupContainer(node?: HTMLElement): HTMLElement {
-  if (node) {
-    return node.parentNode as HTMLElement;
-  }
-  return document.body;
+  return (node?.parentNode as HTMLElement) ?? document.body;
 }
 
 /**
@@ -38,7 +36,7 @@ export function setObjToUrlParams(baseUrl: string, obj: any): string {
   return url;
 }
 
-export function deepMerge<T = any>(src: any, target: any): T {
+export function deepMerge<T = any>(src: any = {}, target: any = {}): T {
   let key: string;
   for (key in target) {
     src[key] = isObject(src[key]) ? deepMerge(src[key], target[key]) : (src[key] = target[key]);
@@ -75,4 +73,29 @@ export function openWindow(
   noreferrer && feature.push('noreferrer=yes');
 
   window.open(url, target, feature.join(','));
+}
+
+// dynamic use hook props
+export function getDynamicProps<T, U>(props: T): Partial<U> {
+  const ret: Recordable = {};
+
+  Object.keys(props).map((key) => {
+    ret[key] = unref((props as Recordable)[key]);
+  });
+
+  return ret as Partial<U>;
+}
+
+export function getLastItem<T extends any>(list: T) {
+  if (Array.isArray(list)) {
+    return list.slice(-1)[0];
+  }
+
+  if (list instanceof Set) {
+    return Array.from(list).slice(-1)[0];
+  }
+
+  if (list instanceof Map) {
+    return Array.from(list.values()).slice(-1)[0];
+  }
 }

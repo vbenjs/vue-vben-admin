@@ -13,7 +13,7 @@
     :okButtonProps="getOkButtonProps"
     :cancelButtonProps="{ disabled: isUploadingRef }"
   >
-    <template #centerdFooter>
+    <template #centerFooter>
       <a-button
         @click="handleStartUpload"
         color="success"
@@ -54,7 +54,6 @@
   // utils
   import { checkFileType, checkImgType, getBase64WithFile } from './helper';
   import { buildUUID } from '/@/utils/uuid';
-  import { createImgPreview } from '/@/components/Preview/index';
   import { isFunction } from '/@/utils/is';
   import { warn } from '/@/utils/log';
   import FileList from './FileList';
@@ -125,7 +124,7 @@
 
         // 设置类型,则判断
         if (accept.length > 0 && !checkFileType(file, accept)) {
-          createMessage.error!(t('acomponent.upload.cceptUpload', [accept.join(',')]));
+          createMessage.error!(t('component.upload.acceptUpload', [accept.join(',')]));
           return false;
         }
         const commonItem = {
@@ -161,12 +160,12 @@
       }
 
       // 预览
-      function handlePreview(record: FileItem) {
-        const { thumbUrl = '' } = record;
-        createImgPreview({
-          imageList: [thumbUrl],
-        });
-      }
+      // function handlePreview(record: FileItem) {
+      //   const { thumbUrl = '' } = record;
+      //   createImgPreview({
+      //     imageList: [thumbUrl],
+      //   });
+      // }
 
       async function uploadApiByItem(item: FileItem) {
         const { api } = props;
@@ -267,7 +266,7 @@
 
       return {
         columns: createTableColumns(),
-        actionColumn: createActionColumn(handleRemove, handlePreview),
+        actionColumn: createActionColumn(handleRemove),
         register,
         closeModal,
         getHelpText,

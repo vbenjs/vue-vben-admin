@@ -1,26 +1,30 @@
 <template>
-  <div class="m-4">
+  <PageWrapper title="表单基础示例">
     <CollapseContainer title="基础示例">
       <BasicForm
+        autoFocusFirstItem
         :labelWidth="100"
         :schemas="schemas"
         :actionColOptions="{ span: 24 }"
         @submit="handleSubmit"
       />
     </CollapseContainer>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
   import { BasicForm, FormSchema } from '/@/components/Form/index';
   import { CollapseContainer } from '/@/components/Container/index';
   import { useMessage } from '/@/hooks/web/useMessage';
+  import { PageWrapper } from '/@/components/Page';
 
+  import { optionsListApi } from '/@/api/demo/select';
   const schemas: FormSchema[] = [
     {
       field: 'field1',
       component: 'Input',
       label: '字段1',
+
       colProps: {
         span: 8,
       },
@@ -46,7 +50,7 @@
     {
       field: 'field2',
       component: 'Input',
-      label: '字段2',
+      label: '带后缀',
       defaultValue: '111',
       colProps: {
         span: 8,
@@ -56,6 +60,7 @@
           console.log(e);
         },
       },
+      suffix: '天',
     },
     {
       field: 'field3',
@@ -208,6 +213,20 @@
         ],
       },
     },
+
+    {
+      field: 'field30',
+      component: 'ApiSelect',
+      label: '远程下拉',
+      required: true,
+      componentProps: {
+        api: optionsListApi,
+      },
+      colProps: {
+        span: 8,
+      },
+      defaultValue: '0',
+    },
     {
       field: 'field20',
       component: 'InputNumber',
@@ -220,7 +239,7 @@
   ];
 
   export default defineComponent({
-    components: { BasicForm, CollapseContainer },
+    components: { BasicForm, CollapseContainer, PageWrapper },
     setup() {
       const check = ref(null);
       const { createMessage } = useMessage();

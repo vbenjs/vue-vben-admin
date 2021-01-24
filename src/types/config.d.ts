@@ -1,4 +1,4 @@
-import { MenuTypeEnum, MenuModeEnum, TriggerEnum } from '/@/enums/menuEnum';
+import { MenuTypeEnum, MenuModeEnum, TriggerEnum, MixSidebarTriggerEnum } from '/@/enums/menuEnum';
 import { ContentEnum, PermissionModeEnum, ThemeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 import { CacheTypeEnum } from '/@/enums/cacheEnum';
 import type { LocaleType } from '/@/locales/types';
@@ -19,6 +19,9 @@ export interface MenuSetting {
   trigger: TriggerEnum;
   accordion: boolean;
   closeMixSidebarOnChange: boolean;
+  collapsedShowTitle: boolean;
+  mixSideTrigger: MixSidebarTriggerEnum;
+  mixSideFixed: boolean;
 }
 
 export interface MultiTabsSetting {
@@ -30,6 +33,9 @@ export interface MultiTabsSetting {
 
   // 显示刷新按钮
   showRedo: boolean;
+
+  // 显示折叠按钮
+  showFold: boolean;
 }
 
 export interface HeaderSetting {

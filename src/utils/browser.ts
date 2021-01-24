@@ -75,7 +75,7 @@ export function isOperaFn() {
  * set page Title
  * @param {*} title  :page Title
  */
-const setDocumentTitle = (title: string) => {
+function setDocumentTitle(title: string) {
   document.title = title;
   const ua = navigator.userAgent;
   const regex = /\bMicroMessenger\/([\d.]+)/;
@@ -91,7 +91,7 @@ const setDocumentTitle = (title: string) => {
     };
     document.body.appendChild(i);
   }
-};
+}
 
 export function setTitle(title: string, appTitle?: string) {
   if (title) {

@@ -10,7 +10,7 @@
             <h1>{{ title }}</h1>
           </header>
 
-          <a-form class="mx-auto mt-10" :model="formData" :rules="formRules" ref="formRef">
+          <a-form class="login-form__main" :model="formData" :rules="formRules" ref="formRef">
             <a-form-item name="account">
               <a-input size="large" v-model:value="formData.account" placeholder="username: vben" />
             </a-form-item>
@@ -23,9 +23,6 @@
               />
             </a-form-item>
 
-            <!-- <a-form-item name="verify" v-if="openLoginVerify">
-              <BasicDragVerify v-model:value="formData.verify" ref="verifyRef" />
-            </a-form-item> -->
             <a-row>
               <a-col :span="12">
                 <a-form-item>
@@ -61,15 +58,13 @@
 </template>
 <script lang="ts">
   import { defineComponent, reactive, ref, unref, toRaw } from 'vue';
-  import { Checkbox } from 'ant-design-vue';
+  import { Checkbox, Form, Input, Row, Col } from 'ant-design-vue';
 
   import { Button } from '/@/components/Button';
   import { AppLocalePicker } from '/@/components/Application';
-  // import { BasicDragVerify, DragVerifyActionType } from '/@/components/Verify/index';
 
   import { userStore } from '/@/store/modules/user';
 
-  // import { appStore } from '/@/store/modules/app';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { useGlobSetting, useProjectSetting } from '/@/hooks/setting';
   import logo from '/@/assets/images/logo.png';
@@ -77,27 +72,28 @@
 
   export default defineComponent({
     components: {
-      //  BasicDragVerify,
+      [Checkbox.name]: Checkbox,
+      [Form.name]: Form,
+      [Form.Item.name]: Form.Item,
+      [Input.name]: Input,
+      [Input.Password.name]: Input.Password,
       AButton: Button,
-      ACheckbox: Checkbox,
       AppLocalePicker,
+      [Row.name]: Row,
+      [Col.name]: Col,
     },
     setup() {
       const formRef = ref<any>(null);
       const autoLoginRef = ref(false);
-      // const verifyRef = ref<RefInstanceType<DragVerifyActionType>>(null);
 
       const globSetting = useGlobSetting();
       const { locale } = useProjectSetting();
       const { notification } = useMessage();
       const { t } = useI18n();
 
-      // const openLoginVerifyRef = computed(() => appStore.getProjectConfig.openLoginVerify);
-
       const formData = reactive({
         account: 'vben',
         password: '123456',
-        // verify: undefined,
       });
 
       const formState = reactive({
@@ -109,15 +105,7 @@
         password: [
           { required: true, message: t('sys.login.passwordPlaceholder'), trigger: 'blur' },
         ],
-        // verify: unref(openLoginVerifyRef) ? [{ required: true, message: '请通过验证码校验' }] : [],
       });
-
-      // function resetVerify() {
-      //   const verify = unref(verifyRef);
-      //   if (!verify) return;
-      //   formData.verify && verify.$.resume();
-      //   formData.verify = undefined;
-      // }
 
       async function handleLogin() {
         const form = unref(formRef);
@@ -140,19 +128,16 @@
           }
         } catch (error) {
         } finally {
-          // resetVerify();
           formState.loading = false;
         }
       }
       return {
         formRef,
-        // verifyRef,
         formData,
         formState,
         formRules,
         login: handleLogin,
         autoLogin: autoLoginRef,
-        // openLoginVerify: openLoginVerifyRef,
         title: globSetting && globSetting.title,
         logo,
         t,
@@ -162,8 +147,6 @@
   });
 </script>
 <style lang="less">
-  @import (reference) '../../../design/index.less';
-
   .login-form__locale {
     position: absolute;
     top: 14px;
@@ -197,6 +180,10 @@
       border-radius: 4px;
       background-clip: padding-box;
       .respond-to(xlarge, { margin: 0 120px 0 50px});
+
+      &__main {
+        margin: 30px auto 0 auto !important;
+      }
 
       &-wrap {
         position: absolute;

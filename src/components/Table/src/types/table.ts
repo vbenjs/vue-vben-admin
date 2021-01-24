@@ -6,9 +6,10 @@ import type {
   TableRowSelection as ITableRowSelection,
 } from 'ant-design-vue/lib/table/interface';
 import { ComponentType } from './componentType';
+import { VueNode } from '/@/utils/propTypes';
 // import { ColumnProps } from './column';
 export declare type SortOrder = 'ascend' | 'descend';
-export interface TableCurrentDataSource<T = any> {
+export interface TableCurrentDataSource<T = Recordable> {
   currentDataSource: T[];
 }
 
@@ -53,7 +54,7 @@ export interface ColumnFilterItem {
   children?: any;
 }
 
-export interface TableCustomRecord<T = any> {
+export interface TableCustomRecord<T = Recordable> {
   record?: T;
   index?: number;
 }
@@ -65,44 +66,45 @@ export interface SorterResult {
   columnKey: string;
 }
 
-export interface RenderEditableCellParams {
-  dataIndex: string;
-  component?: ComponentType;
-  componentProps?: any;
-  placeholder?: string;
-}
-
 export interface FetchParams {
-  searchInfo?: any;
+  searchInfo?: Recordable;
   page?: number;
-  sortInfo?: any;
-  filterInfo?: any;
+  sortInfo?: Recordable;
+  filterInfo?: Recordable;
 }
 
 export interface GetColumnsParams {
   ignoreIndex?: boolean;
   ignoreAction?: boolean;
+  sort?: boolean;
 }
 
 export type SizeType = 'default' | 'middle' | 'small' | 'large';
 
 export interface TableActionType {
   reload: (opt?: FetchParams) => Promise<void>;
-  getSelectRows: <T = any>() => T[];
+  getSelectRows: <T = Recordable>() => T[];
   clearSelectedRowKeys: () => void;
   getSelectRowKeys: () => string[];
   deleteSelectRowByKey: (key: string) => void;
   setPagination: (info: Partial<PaginationProps>) => void;
-  setTableData: <T = any>(values: T[]) => void;
+  setTableData: <T = Recordable>(values: T[]) => void;
   getColumns: (opt?: GetColumnsParams) => BasicColumn[];
   setColumns: (columns: BasicColumn[] | string[]) => void;
-  getDataSource: <T = any>() => T[];
+  getDataSource: <T = Recordable>() => T[];
   setLoading: (loading: boolean) => void;
   setProps: (props: Partial<BasicTableProps>) => void;
   redoHeight: () => void;
   setSelectedRowKeys: (rowKeys: string[] | number[]) => void;
   getPaginationRef: () => PaginationProps | boolean;
   getSize: () => SizeType;
+  getRowSelection: () => TableRowSelection<Recordable>;
+  getCacheColumns: () => BasicColumn[];
+  emit?: EmitType;
+  updateTableData: (index: number, key: string, value: any) => Recordable;
+  setShowPagination: (show: boolean) => Promise<void>;
+  getShowPagination: () => boolean;
+  setCacheColumnsByField?: (dataIndex: string | undefined, value: BasicColumn) => void;
 }
 
 export interface FetchSetting {
@@ -124,8 +126,13 @@ export interface TableSetting {
 }
 
 export interface BasicTableProps<T = any> {
+  // 点击行选中
+  clickToRowSelect?: boolean;
+  isTreeTable?: boolean;
   // 自定义排序方法
   sortFn?: (sortInfo: SorterResult) => any;
+  // 排序方法
+  filterFn?: (data: Partial<Recordable<string[]>>) => any;
   // 取消表格的默认padding
   inset?: boolean;
   // 显示表格设置
@@ -136,13 +143,13 @@ export interface BasicTableProps<T = any> {
   // 是否自动生成key
   autoCreateKey?: boolean;
   // 计算合计行的方法
-  summaryFunc?: (...arg: any) => any[];
+  summaryFunc?: (...arg: any) => Recordable[];
+  // 自定义合计表格内容
+  summaryData?: Recordable[];
   // 是否显示合计行
   showSummary?: boolean;
   // 是否可拖拽列
   canColDrag?: boolean;
-  // 是否树表
-  isTreeTable?: boolean;
   // 接口请求对象
   api?: (...arg: any) => Promise<any>;
   // 请求之前处理参数
@@ -158,7 +165,7 @@ export interface BasicTableProps<T = any> {
   // 在开起搜索表单的时候，如果没有数据是否显示表格
   emptyDataIsShowTable?: boolean;
   // 额外的请求参数
-  searchInfo?: any;
+  searchInfo?: Recordable;
   // 使用搜索表单
   useSearchForm?: boolean;
   // 表单配置
@@ -180,9 +187,9 @@ export interface BasicTableProps<T = any> {
   // 在分页改变的时候清空选项
   clearSelectOnPageChange?: boolean;
   //
-  rowKey?: string | ((record: any) => string);
+  rowKey?: string | ((record: Recordable) => string);
   // 数据
-  dataSource?: any[];
+  dataSource?: Recordable[];
   // 标题右侧提示
   titleHelpMessage?: string | string[];
   // 表格滚动最大高度
@@ -308,7 +315,7 @@ export interface BasicTableProps<T = any> {
    * Table title renderer
    * @type Function | ScopedSlot
    */
-  title?: VNodeChild | JSX.Element;
+  title?: VNodeChild | JSX.Element | string | ((data: Recordable) => string);
 
   /**
    * Set props on per header row
@@ -371,11 +378,43 @@ export interface BasicTableProps<T = any> {
   onExpandedRowsChange?: (expandedRows: string[] | number[]) => void;
 }
 
+export type CellFormat =
+  | string
+  | ((text: string, record: Recordable, index: number) => string | number)
+  | Map<string | number, any>;
+
+// @ts-ignore
 export interface BasicColumn extends ColumnProps {
   children?: BasicColumn[];
+  filters?: {
+    text: string;
+    value: string;
+    children?:
+      | unknown[]
+      | (((props: Record<string, unknown>) => unknown[]) & (() => unknown[]) & (() => unknown[]));
+  }[];
 
   //
   flag?: 'INDEX' | 'DEFAULT' | 'CHECKBOX' | 'RADIO' | 'ACTION';
+  customTitle?: VueNode;
 
   slots?: Indexable;
+
+  // Whether to hide the column by default, it can be displayed in the column configuration
+  defaultHidden?: boolean;
+
+  // Help text for table column header
+  helpMessage?: string | string[];
+
+  format?: CellFormat;
+
+  // Editable
+  edit?: boolean;
+  editRow?: boolean;
+  editable?: boolean;
+  editComponent?: ComponentType;
+  editComponentProps?: Recordable;
+  editRule?: boolean | ((text: string, record: Recordable) => Promise<string>);
+  editValueMap?: (value: any) => string;
+  onEditRow?: () => void;
 }

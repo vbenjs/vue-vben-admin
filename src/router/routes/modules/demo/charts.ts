@@ -14,12 +14,21 @@ const charts: AppRouteModule = {
   },
   children: [
     {
+      path: 'apexChart',
+      name: 'ApexChart',
+      meta: {
+        title: t('routes.demo.charts.apexChart'),
+      },
+      component: () => import('/@/views/demo/echarts/apex/index.vue'),
+    },
+    {
       path: 'echarts',
       name: 'Echarts',
       component: getParentLayout('Echarts'),
       meta: {
         title: 'Echarts',
       },
+      redirect: '/charts/echarts/map',
       children: [
         {
           path: 'map',
@@ -46,14 +55,6 @@ const charts: AppRouteModule = {
           },
         },
       ],
-    },
-    {
-      path: 'apexChart',
-      name: 'ApexChart',
-      meta: {
-        title: t('routes.demo.charts.apexChart'),
-      },
-      component: () => import('/@/views/demo/echarts/apex/index.vue'),
     },
   ],
 };

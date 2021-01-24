@@ -1,58 +1,57 @@
 <p align="center">
   <a href="https://github.com/anncwb/vue-vben-admin" target="_blank">
-    <img alt="VbenAdmin Logo" width="200" src="./.github/res/imgs/logo.png">
+    <img alt="VbenAdmin Logo" width="200" src="/anncwb/vue-vben-admin/raw/main/.github/res/imgs/logo.png">
   </a>
 </p>
 <h2 align="center">VUE VBEN ADMIN2.0</h2>
 
-**中文** | [English](./README.en-US.md)
+[Chinese](./README.zh-CN.md) | **English**
 
-[更新日志](CHANGELOG.zh_CN.md)
+[CHANGELOG](CHANGELOG.en_US.md)
 
-- [介绍](#介绍)
-- [gitHub 地址](#github-地址)
-  - [精简版地址](#精简版地址)
-- [预览地址](#预览地址)
-- [文档](#文档)
-- [预安装](#预安装)
-  - [环境要求](#环境要求)
-  - [UI 框架](#ui-框架)
-  - [图标](#图标)
-  - [插件](#插件)
-  - [建议开发环境](#建议开发环境)
-- [安装](#安装)
-- [使用](#使用)
-  - [开发环境](#开发环境)
-  - [打包](#打包)
-  - [格式化](#格式化)
-  - [其他](#其他)
-- [Git 提交规范](#git-提交规范)
-- [代码贡献](#代码贡献)
-- [已完成功能](#已完成功能)
-- [正在开发的功能](#正在开发的功能)
-- [浏览器支持](#浏览器支持)
-- [插件](#插件-1)
-- [加入我们](#加入我们)
+- [Introduction](#introduction)
+- [GitHub](#github)
+  - [Thin](#thin)
+- [Preview](#preview)
+- [Documentation](#documentation)
+- [Preinstallation](#preinstallation)
+  - [Environmental requirements](#environmental-requirements)
+  - [UI framework](#ui-framework)
+  - [Icon](#icon)
+  - [Plugin](#plugin)
+  - [Suggested development environment](#suggested-development-environment)
+- [Install](#install)
+- [Usage](#usage)
+  - [Development environment](#development-environment)
+  - [Build](#build)
+  - [Format](#format)
+  - [Other](#other)
+- [Git submit specifications](#git-submit-specifications)
+- [Code contribution](#code-contribution)
+- [Finished features](#finished-features)
+- [Developing features](#developing-features)
+- [Browser support](#browser-support)
+- [Plugins](#plugins)
 
-## 介绍
+## Introduction
 
-项目基于`ant-design-vue`,`typescript`,`vue3.0`,`vite`,`tsx`实现的 vue3 风格的后台管理系统，
+The project is based on the vue3 style background management system implemented by ʻant-design-vue`, `typescript`,`vue3.0`,`vite`,`tsx`,
 
-## gitHub 地址
+## GitHub
 
-[vue-vben-admin2.0](https://github.com/anncwb/vue-vben-admin) - `main` 分支
+[vue-vben-admin2.0](https://github.com/anncwb/vue-vben-admin) - `main` branch
 
-### 精简版地址
+### Thin
 
 [vue-vben-admin-thin-next](https://github.com/anncwb/vben-admin-thin-next)
 
-## 预览地址
+## Preview
 
-- [2.0 在线预览](https://vvbin.cn/next/)
+- [2.0 preview](https://vvbin.cn/next/)
 
-- [2.0 精简版 在线预览](https://vvbin.cn/thin/next/)
+- [2.0 Thin Preview](https://vvbin.cn/thin/next/)
 
-测试账号: vben/123456
+Account for test: vben/123456
 
 <p align="center">
     <img alt="VbenAdmin Logo" width="100%" src="./.github/res/imgs/preview1.png">
@@ -60,209 +59,199 @@
     <img alt="VbenAdmin Logo" width="100%" src="./.github/res/imgs/preview3.png">
 </p>
 
-## 文档
+## Documentation
 
-[文档地址,持续更新中。。，](https://vvbin.cn/doc-next/)
+The documentation for 2.0 hasn't started yet, it will be provided later.
 
-## 预安装
+## Preinstallation
 
-### 环境要求
+### Environmental requirements
 
-- `Node.js`: - 版本最好大于 `12.0.0`
-- `yarn` : - 包管理工具.
+- `Node.js`: - Version>`12.0.0` is better.
+- `yarn` > `npm` > `cnpm`: - Package management tool.
 
-### UI 框架
+### UI framework
 
-- [Tailwind CSS](https://tailwindcss.com/) - 2.0.0-beta.5 已删除
+- [Tailwind CSS](https://tailwindcss.com/) - 2.0.0-beta.5 has deleted.
 - [Ant Design Vue 2.0](https://2x.antdv.com/docs/vue/introduce-cn/)
 
-### 图标
+### Icon
 
-- [Ant Design Vue Icon Component](https://2x.antdv.com/components/icon-cn/) - 按需引入所需图标.
-- [Iconify](https://iconify.design) - 使用任何图标集中的图标 [Icônes](https://icones.netlify.app/)
-- [PurgeIcons](https://github.com/antfu/purge-icons) - 仅打包所使用到的图标.
+- [Ant Design Vue Icon Component](https://2x.antdv.com/components/icon-cn/) - Icon which is imported on demand.
+- [Iconify](https://iconify.design) - Icon can be used [Icônes](https://icones.netlify.app/)
+- [PurgeIcons](https://github.com/antfu/purge-icons) - Icon which is used by build.
 
-### 插件
+### Plugin
 
 - [Vue Router Next](https://github.com/vuejs/vue-router-next)
 - [Vuex Next](https://github.com/vuejs/vuex)
-- [vuex-module-decorators](https://github.com/championswimmer/vuex-module-decorators) - vuex 模块化
-- [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock) - 基于 vite 的 mock 插件.
-- [vue-i18n](https://github.com/intlify/vue-i18n-next) - 国际化
-- [lodash-es](https://github.com/lodash/lodash) - JavaScript 实用程序库
-- [axios](https://github.com/axios/axios) - Http 数据交互
+- [vuex-module-decorators](https://github.com/championswimmer/vuex-module-decorators) - vuex modular
+- [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock) - Mock plugin base on vite
+- [vue-i18n](https://github.com/intlify/vue-i18n-next) - Internationalization
+- [lodash-es](https://github.com/lodash/lodash) - JavaScript utility library
+- [axios](https://github.com/axios/axios) - Http data interaction
 - [TypeScript](https://www.typescriptlang.org/)
 
-### 建议开发环境
+### Suggested development environment
 
-- `Git`: - 版本管理工具
-- `Visual Studio Code` - (VSCode): 最新版本
+- `Git`: - Tool of version management
+- `Visual Studio Code` - (VSCode): Latest version
   - [VS Code Extensions](./.vscode/extensions.json)
     - [Iconify IntelliSense](https://marketplace.visualstudio.com/items?itemName=antfu.iconify)
-    - [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) - Tailwind Css 样式联想
-    - [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) - vue 开发必备
-    - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - 脚本代码检查
-    - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - 代码格式化
-    - [Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint) - css 格式化
+    - [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) - Tailwind css style association
+    - [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) - Essential for vue development
+    - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - Checking script code
+    - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - Code formatting
+    - [Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint) - Css formatting
 
-## 安装
+## Install
 
-```js
-//  使git对文件名大小写敏感
+```bash
+#  Make git case sensitive to file names
 git config core.ignorecase false
 
-// 拉取项目代码
-
+# Pull code of the project
 git clone https://github.com/anncwb/vue-vben-admin.git vue-vben-admin-2.0
 
 cd vue-vben-admin-2.0
 
-// 如果使用别的包管理工具，可以自行安装
-// 如果未安装yarn，请运行：npm install -g yarn
+# If you use other package management tool, you can install it by yourself
+#  if you hasn't install yarn, please run: npm install -g yarn
 yarn install
 
 ```
 
-## 使用
+## Usage
 
-### 开发环境
+### Development environment
 
 ```bash
 yarn serve
 ```
 
-### 打包
+### Build
 
 ```bash
 
-yarn build # 打包
+yarn build # build
 
-yarn build:no-cache # 打包，执行之前会先删除缓存
+yarn build:no-cache # build, cache will be removed before build
 
-yarn report # 生成构建包报表预览
+yarn report # Generate build package report preview
 ```
 
-### 格式化
+### Format
 
 ```bash
-yarn lint:stylelint # 样式格式化
+yarn lint:stylelint # css formatting
 
-yarn lint:prettier # js/ts代码格式化
+yarn lint:prettier # js/ts code formatting
 ```
 
-### 其他
+### Other
 
 ```bash
-yarn reinstall # 删除依赖重新装，兼容window
+yarn reinstall # Remove dependencies and reinstall, supported window
 
-yarn preview # 本地进行打包预览
+yarn preview # Build and preview in local
 
-yarn log # 生成CHANGELOG
+yarn log # Generate CHANGELOG
 
-yarn clean:cache # 删除缓存
+yarn clean:cache # Delete cache
 
-yarn clean:lib # 删除node_modules，兼容window系统
+yarn clean:lib # Delete node_modules, supported window
 ```
 
-## Git 提交规范
+## Git submit specifications
 
-- 参考 [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) 规范 ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
+- Refer to [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) specifications ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
 
-  - `feat` 增加新功能
-  - `fix` 修复问题/BUG
-  - `style` 代码风格相关无影响运行结果的
-  - `perf` 优化/性能提升
-  - `refactor` 重构
-  - `revert` 撤销修改
-  - `test` 测试相关
-  - `docs` 文档/注释
-  - `chore` 依赖更新/脚手架配置修改等
-  - `workflow` 工作流改进
-  - `ci` 持续集成
-  - `types` 类型定义文件更改
-  - `wip` 开发中
+  - `feat` Add new features
+  - `fix` Fix problem/BUG
+  - `style` Code style related and doesn't affect the running result
+  - `perf` Optimization/performance improvement
+  - `refactor` Refactor
+  - `revert` Undo edit
+  - `test` Test related
+  - `docs` Documentation/notes
+  - `chore` Dependent update/scaffolding configuration modification etc
+  - `workflow` Workflow improvements
+  - `ci` Continuous integration
+  - `types` Update file of type definition
+  - `wip` Developing
 
-## 代码贡献
+## Code contribution
 
-1. Fork 代码!
-2. 创建自己的分支: `git checkout -b feat/xxxx`
-3. 提交你的修改: `git commit -am 'feat(function): add xxxxx'`
-4. 推送您的分支: `git push origin feat/xxxx`
-5. 提交`pull request`
+1. Fork code!
+2. Create your own branch: `git checkout -b feat/xxxx`
+3. Submit your changes: `git commit -am 'feat(function): add xxxxx'`
+4. Push your branch: `git push origin feat/xxxx`
+5. submit`pull request`
 
-## 已完成功能
+## Finished features
 
-- [x] 项目搭建（基于 vite）
-- [x] 登录和注销
-- [x] 菜单（可以搜索及拖拽以及菜单布局）
-- [x] 多标签页/面包屑
-- [x] 基于角色的权限管理
-- [x] 基于后台的权限管理
-- [x] 分离的路由和菜单设置
-- [x] 可折叠侧边栏
-- [x] 可拖拽侧边栏
-- [x] 多标签页模式/全局控制
-- [x] 菜单搜索
-- [x] 页面加载 loading
-- [x] 滚动条组件
-- [x] 弹窗扩展（可拖拽,全屏,自适应高度）
-- [x] 模拟数据
-- [x] hook 封装
-- [x] 表单组件
-- [x] 右键菜单
-- [x] 水印插件
-- [x] 动画组件
-- [x] 二维码插件
-- [x] 国际化插件
-- [x] 详情组件
-- [x] 验证组件
-- [x] 树组件
-- [x] 图片预览组件
-- [x] 表格组件
-- [x] 图表库
-- [x] 数字动画
-- [x] 首屏加载等待动画
-- [x] 抽取生产环境配置文件
-- [x] 打包 Gzip
-- [x] 数据导入导出
-- [x] 系统性能优化
-- [x] 全局错误处理
-- [x] 富文本组件
-- [x] 上传组件
+- [x] Project construction (based on vite）)
+- [x] Login and exit
+- [x] Menu (can search, drag and drop and menu layout)
+- [x] Multiple tabs/breadcrumbs
+- [x] Permission management base on role
+- [x] Permission management base on background
+- [x] The separation of routing and menu settings
+- [x] Collapsible sidebar
+- [x] Draggable sidebar
+- [x] Multi-tab mode/global control
+- [x] Menu search
+- [x] Page loading
+- [x] Scroll bar component
+- [x] Pop-up window expansion (dragable, full screen, adaptive height)
+- [x] Mock data
+- [x] hook Package
+- [x] Form component
+- [x] Right-click menu
+- [x] Watermark plugin
+- [x] Animation component
+- [x] QR code plugin
+- [x] Internationalization plugin
+- [x] Details component
+- [x] Validation component
+- [x] Tree component
+- [x] Picture preview component
+- [x] Table component
+- [x] Chart library
+- [x] Digital animation
+- [x] First screen loading waiting animation
+- [x] Extract the production environment profile
+- [x] Build Gzip
+- [x] System performance optimization
+- [x] Data import and export
+- [x] Global error handling
+- [x] Rich text component
+- [x] Upload component
 
-## 正在开发的功能
+## Developing features
 
-- [ ] 新分支全局国家化
-- [ ] 示例 page 页面
-- [ ] 主题配置
-- [ ] 黑暗主题
-- [ ] 打包 CDN
+- [ ] Theme configuration
+- [ ] Dark theme
+- [ ] Build CDN
 
-更多组件/功能/建议/bug/欢迎提交 pr 或者 issue
+If you have more components/functions/suggestions/bugs/, welcome to submit pr or issue.
 
-## 浏览器支持
+## Browser support
 
-本地开发推荐使用`Chrome`浏览器,在火狐浏览器进行开发相对卡顿。
+It is recommended to use the `Chrome` browser for local development. Development in the Firefox browser is relatively slow.
 
-支持现代浏览器, IE 暂不支持，后续考虑支持 ie11
+Support modern browsers, Not currently supported ie11，Follow-up consideration support ie11
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
 | :-: | :-: | :-: | :-: | :-: |
 | not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
-更多浏览器可以查看 [Can I Use Es Module](https://caniuse.com/?search=ES%20Module)
+More browsers can view [Can I Use Es Module](https://caniuse.com/?search=ES%20Module)
 
-## 插件
+## Plugins
 
-如果这些插件对你有帮助，可以给一个 star 支持下
+If these plugins are helpful to you, you can give a star
 
 - [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock)
 - [vite-plugin-html](https://github.com/anncwb/vite-plugin-html)
-
-## 加入我们
-
-`Vue-Vben-Aadmin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供 QQ 交流群(项目刚起步，人数较少，有兴趣的可以加群一起讨论)，使用问题欢迎在群内提问。
-
-- QQ 群 `569291866`
-
- <img alt="VbenAdmin Logo" width="100" src="./.github/res/imgs/qq.jpeg">
+- [vite-plugin-style-import](https://github.com/vbenjs/vite-plugin-style-import)

@@ -1,4 +1,4 @@
-import type { MenuModule } from '/@/router/types.d';
+import type { MenuModule } from '/@/router/types';
 import { t } from '/@/hooks/web/useI18n';
 
 const menu: MenuModule = {
@@ -52,6 +52,9 @@ const menu: MenuModule = {
       {
         path: 'table',
         name: t('routes.demo.table.table'),
+        tag: {
+          dot: true,
+        },
         children: [
           {
             path: 'basic',
@@ -108,10 +111,16 @@ const menu: MenuModule = {
           {
             path: 'editCellTable',
             name: t('routes.demo.table.editCellTable'),
+            tag: {
+              dot: true,
+            },
           },
           {
             path: 'editRowTable',
             name: t('routes.demo.table.editRowTable'),
+            tag: {
+              dot: true,
+            },
           },
         ],
       },
@@ -151,9 +160,6 @@ const menu: MenuModule = {
       {
         path: 'loading',
         name: t('routes.demo.comp.loading'),
-        tag: {
-          content: 'new',
-        },
       },
       {
         path: 'tree',
@@ -176,10 +182,23 @@ const menu: MenuModule = {
       {
         name: t('routes.demo.editor.editor'),
         path: 'editor',
+        tag: {
+          content: 'new',
+        },
         children: [
           {
             path: 'markdown',
             name: t('routes.demo.editor.markdown'),
+            children: [
+              {
+                path: 'index',
+                name: t('routes.demo.editor.tinymceBasic'),
+              },
+              {
+                path: 'editor',
+                name: t('routes.demo.editor.tinymceForm'),
+              },
+            ],
           },
           {
             path: 'tinymce',

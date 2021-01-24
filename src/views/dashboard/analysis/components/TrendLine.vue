@@ -8,7 +8,6 @@
 
   import { basicProps } from './props';
   export default defineComponent({
-    name: 'AnalysisLine',
     props: basicProps,
     setup() {
       const chartRef = ref<HTMLDivElement | null>(null);

@@ -1,7 +1,8 @@
 <template>
   <span>
+    <slot />
     {{ title }}
-    <FormOutlined class="ml-2" />
+    <FormOutlined />
   </span>
 </template>
 <script lang="ts">
@@ -16,6 +17,5 @@
         default: '',
       },
     },
-    setup() {},
   });
 </script>

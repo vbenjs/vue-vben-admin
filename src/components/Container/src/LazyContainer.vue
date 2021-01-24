@@ -1,6 +1,6 @@
 <template>
   <transition-group
-    class="lazy-container"
+    :class="prefixCls"
     v-bind="$attrs"
     ref="elRef"
     :name="transitionName"
@@ -25,6 +25,7 @@
   import { useTimeoutFn } from '/@/hooks/core/useTimeout';
   import { useIntersectionObserver } from '/@/hooks/event/useIntersectionObserver';
   import { propTypes } from '/@/utils/propTypes';
+  import { useDesign } from '/@/hooks/web/useDesign';
 
   interface State {
     isInit: boolean;
@@ -34,6 +35,7 @@
 
   export default defineComponent({
     name: 'LazyContainer',
+    inheritAttrs: false,
     components: { Skeleton },
     props: {
       // Waiting time, if the time is specified, whether visible or not, it will be automatically loaded after the specified time
@@ -69,6 +71,8 @@
         loading: false,
         intersectionObserverInstance: null,
       });
+
+      const { prefixCls } = useDesign('lazy-container');
 
       onMounted(() => {
         immediateInit();
@@ -129,13 +133,16 @@
       }
       return {
         elRef,
+        prefixCls,
         ...toRefs(state),
       };
     },
   });
 </script>
 <style lang="less">
-  .lazy-container {
+  @prefix-cls: ~'@{namespace}-lazy-container';
+
+  .@{prefix-cls} {
     width: 100%;
     height: 100%;
   }

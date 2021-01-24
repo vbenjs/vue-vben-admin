@@ -97,7 +97,7 @@ export default defineComponent({
     unref(statusMapRef).set(ExceptionEnum.PAGE_NOT_DATA, {
       title: t('sys.exception.noDataTitle'),
       subTitle: '',
-      btnText: t('sys.exception.redo'),
+      btnText: t('common.redo'),
       handler: () => redo(),
       icon: notDataImg,
     });

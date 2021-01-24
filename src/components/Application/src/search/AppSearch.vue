@@ -1,7 +1,7 @@
 <template>
   <div :class="prefixCls" v-if="getShowSearch" @click.stop="handleSearch">
     <Tooltip>
-      <template #title> {{ t('component.app.search') }} </template>
+      <template #title> {{ t('common.searchText') }} </template>
       <SearchOutlined />
     </Tooltip>
 
@@ -44,7 +44,6 @@
   });
 </script>
 <style lang="less" scoped>
-  @import (reference) '../../../../design/index.less';
   @prefix-cls: ~'@{namespace}-app-search';
 
   .@{prefix-cls} {

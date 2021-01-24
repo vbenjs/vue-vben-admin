@@ -1,7 +1,21 @@
-import { getI18n } from '/@/setup/i18n';
-import projectSetting from '/@/settings/projectSetting';
+import { i18n } from '/@/locales/setupI18n';
 
-export function useI18n(namespace?: string) {
+type I18nGlobalTranslation = {
+  (key: string): string;
+  (key: string, locale: string): string;
+  (key: string, locale: string, list: unknown[]): string;
+  (key: string, locale: string, named: Record<string, unknown>): string;
+  (key: string, list: unknown[]): string;
+  (key: string, named: Record<string, unknown>): string;
+};
+
+type I18nTranslationRestParameters = [string, any];
+
+export function useI18n(
+  namespace?: string
+): {
+  t: I18nGlobalTranslation;
+} {
   function getKey(key: string) {
     if (!namespace) {
       return key;
@@ -17,18 +31,19 @@ export function useI18n(namespace?: string) {
     },
   };
 
-  if (!projectSetting.locale.show || !getI18n()) {
+  if (!i18n) {
     return normalFn;
   }
 
-  const { t, ...methods } = getI18n().global;
+  const { t, ...methods } = i18n.global;
 
+  const tFn: I18nGlobalTranslation = (key: string, ...arg: any[]) => {
+    if (!key) return '';
+    return t(getKey(key), ...(arg as I18nTranslationRestParameters));
+  };
   return {
     ...methods,
-    t: (key: string, ...arg: any) => {
-      if (!key) return '';
-      return t(getKey(key), ...(arg as Parameters<typeof t>));
-    },
+    t: tFn,
   };
 }
 

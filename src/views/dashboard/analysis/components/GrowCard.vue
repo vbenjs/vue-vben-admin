@@ -41,8 +41,6 @@
   });
 </script>
 <style lang="less">
-  @import (reference) '../../../../design/index.less';
-
   .grow-card {
     display: flex;
     width: calc(100% - 12px);

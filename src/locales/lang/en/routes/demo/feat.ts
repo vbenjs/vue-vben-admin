@@ -15,4 +15,11 @@ export default {
   tab: 'Tab with parameters',
   tab1: 'Tab with parameter 1',
   tab2: 'Tab with parameter 2',
+
+  breadcrumb: 'Breadcrumbs',
+  breadcrumbFlat: 'Flat Mode',
+  breadcrumbFlatDetail: 'Flat mode details',
+
+  breadcrumbChildren: 'Level mode',
+  breadcrumbChildrenDetail: 'Level mode detail',
 };

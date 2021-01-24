@@ -1,15 +1,23 @@
-import { watch, ref, ComputedRef, unref } from 'vue';
-import { BasicTableProps } from '../types/table';
-import { useProps } from './useProps';
-export function useLoading(refProps: ComputedRef<BasicTableProps>) {
-  const { propsRef } = useProps(refProps);
+import { ref, ComputedRef, unref, computed, watch } from 'vue';
+import type { BasicTableProps } from '../types/table';
 
-  const loadingRef = ref(unref(propsRef).loading);
+export function useLoading(props: ComputedRef<BasicTableProps>) {
+  const loadingRef = ref(unref(props).loading);
+
   watch(
-    () => unref(propsRef).loading,
-    (v: boolean) => {
-      loadingRef.value = v;
+    () => unref(props).loading,
+    (loading) => {
+      loadingRef.value = loading;
     }
   );
-  return { loadingRef };
+
+  const getLoading = computed(() => {
+    return unref(loadingRef);
+  });
+
+  function setLoading(loading: boolean) {
+    loadingRef.value = loading;
+  }
+
+  return { getLoading, setLoading };
 }

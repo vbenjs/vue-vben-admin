@@ -1,17 +1,20 @@
 <template>
-  <div class="p-10">
+  <PageWrapper title="旋转校验示例">
     <div class="flex justify-center p-4 items-center bg-gray-700">
       <RotateDragVerify :src="img" ref="el" @success="handleSuccess" />
     </div>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { RotateDragVerify } from '/@/components/Verify/index';
 
   import img from '/@/assets/images/header.jpg';
+
+  import { PageWrapper } from '/@/components/Page';
+
   export default defineComponent({
-    components: { RotateDragVerify },
+    components: { RotateDragVerify, PageWrapper },
     setup() {
       const handleSuccess = () => {
         console.log('success!');

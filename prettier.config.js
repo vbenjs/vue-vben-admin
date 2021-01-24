@@ -1,7 +1,3 @@
-/*
- * @Author: Vben
- * @Description:
- */
 module.exports = {
   printWidth: 100,
   tabWidth: 2,

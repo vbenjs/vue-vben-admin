@@ -2,16 +2,18 @@ import type { AppRouteRecordRaw, AppRouteModule } from '/@/router/types';
 
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '../constant';
 
-import modules from 'globby!/@/router/routes/modules/**/*.@(ts)';
+import { mainOutRoutes } from './mainOut';
 import { PageEnum } from '/@/enums/pageEnum';
-
 import { t } from '/@/hooks/web/useI18n';
+
+const modules = import.meta.globEager('./modules/**/*.ts');
 
 const routeModuleList: AppRouteModule[] = [];
 
 Object.keys(modules).forEach((key) => {
-  const mod = Array.isArray(modules[key]) ? [...modules[key]] : [modules[key]];
-  routeModuleList.push(...mod);
+  const mod = modules[key].default || {};
+  const modList = Array.isArray(mod) ? [...mod] : [mod];
+  routeModuleList.push(...modList);
 });
 
 export const asyncRoutes = [PAGE_NOT_FOUND_ROUTE, ...routeModuleList];
@@ -35,4 +37,4 @@ export const LoginRoute: AppRouteRecordRaw = {
 };
 
 // 基础路由 不用权限
-export const basicRoutes = [LoginRoute, RootRoute, REDIRECT_ROUTE];
+export const basicRoutes = [LoginRoute, RootRoute, ...mainOutRoutes, REDIRECT_ROUTE];

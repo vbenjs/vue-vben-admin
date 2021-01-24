@@ -16,7 +16,7 @@
       <div :class="`${prefixCls}-entry`" v-show="!showDate">
         <div :class="`${prefixCls}-entry-content`">
           <div :class="`${prefixCls}-entry__header`">
-            <img src="/@/assets/images/header.jpg" :class="`${prefixCls}-entry__header-img`" />
+            <img :src="headerImg" :class="`${prefixCls}-entry__header-img`" />
             <p :class="`${prefixCls}-entry__header-name`">{{ realName }}</p>
           </div>
           <InputPassword :placeholder="t('sys.lock.placeholder')" v-model:value="password" />
@@ -31,7 +31,7 @@
               :disabled="loadingRef"
               @click="handleShowForm(true)"
             >
-              {{ t('sys.lock.back') }}
+              {{ t('common.back') }}
             </a-button>
             <a-button
               type="link"
@@ -70,6 +70,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
 
   import { LockOutlined } from '@ant-design/icons-vue';
+  import headerImg from '/@/assets/images/header.jpg';
 
   export default defineComponent({
     name: 'LockPage',
@@ -129,13 +130,13 @@
         showDate,
         password: passwordRef,
         handleShowForm,
+        headerImg,
         ...state,
       };
     },
   });
 </script>
 <style lang="less" scoped>
-  @import (reference) '../../../design/index.less';
   @prefix-cls: ~'@{namespace}-lock-page';
 
   .@{prefix-cls} {

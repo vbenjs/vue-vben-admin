@@ -7,7 +7,7 @@ const permission: AppRouteModule = {
   path: '/level',
   name: 'Level',
   component: LAYOUT,
-  redirect: '/level/menu1/menu1-1',
+  redirect: '/level/menu1/menu1-1/menu1-1-1',
   meta: {
     icon: 'carbon:user-role',
     title: t('routes.demo.level.level'),
@@ -21,6 +21,7 @@ const permission: AppRouteModule = {
       meta: {
         title: 'Menu1',
       },
+      redirect: '/level/menu1/menu1-1/menu1-1-1',
       children: [
         {
           path: 'menu1-1',
@@ -29,6 +30,7 @@ const permission: AppRouteModule = {
           meta: {
             title: 'Menu1-1',
           },
+          redirect: '/level/menu1/menu1-1/menu1-1-1',
           children: [
             {
               path: 'menu1-1-1',

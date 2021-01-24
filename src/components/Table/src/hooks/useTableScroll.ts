@@ -1,57 +1,82 @@
-import type { BasicTableProps } from '../types/table';
-import { computed, Ref, onMounted, unref, ref, nextTick, ComputedRef, watch } from 'vue';
+import type { BasicTableProps, TableRowSelection } from '../types/table';
+import type { Ref, ComputedRef } from 'vue';
+import { computed, unref, ref, nextTick, watch } from 'vue';
 
 import { getViewportOffset } from '/@/utils/domUtils';
 import { isBoolean } from '/@/utils/is';
 
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
-import { useProps } from './useProps';
 import { useModalContext } from '/@/components/Modal';
+import { useDebounce } from '/@/hooks/core/useDebounce';
+import type { BasicColumn } from '/@/components/Table';
 
-export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRef: Ref<any>) {
-  const { propsRef } = useProps(refProps);
-
-  const tableHeightRef: Ref<number | null> = ref(null);
+export function useTableScroll(
+  propsRef: ComputedRef<BasicTableProps>,
+  tableElRef: Ref<ComponentRef>,
+  columnsRef: ComputedRef<BasicColumn[]>,
+  rowSelectionRef: ComputedRef<TableRowSelection<any> | null>
+) {
+  const tableHeightRef: Ref<Nullable<number>> = ref(null);
 
   const modalFn = useModalContext();
 
+  // const [debounceCalcTableHeight] = useDebounce(calcTableHeight, 80);
+  const [debounceRedoHeight] = useDebounce(redoHeight, 250);
+
+  const getCanResize = computed(() => {
+    const { canResize, scroll } = unref(propsRef);
+    return canResize && !(scroll || {}).y;
+  });
+
   watch(
-    () => unref(propsRef).canResize,
+    () => unref(getCanResize),
     () => {
-      redoHeight();
+      debounceRedoHeight();
+    },
+    {
+      immediate: true,
     }
   );
 
   function redoHeight() {
-    const { canResize } = unref(propsRef);
-
-    if (!canResize) return;
-    calcTableHeight();
+    if (unref(getCanResize)) {
+      nextTick(() => {
+        calcTableHeight();
+      });
+    }
   }
 
+  function setHeight(heigh: number) {
+    tableHeightRef.value = heigh;
+    //  Solve the problem of modal adaptive height calculation when the form is placed in the modal
+    modalFn?.redoModalHeight?.();
+  }
+
+  // No need to repeat queries
   let paginationEl: HTMLElement | null;
   let footerEl: HTMLElement | null;
+
   async function calcTableHeight() {
-    const { canResize, resizeHeightOffset, pagination, maxHeight } = unref(propsRef);
-    if (!canResize) return;
+    const { resizeHeightOffset, pagination, maxHeight } = unref(propsRef);
+    if (!unref(getCanResize)) return;
 
     await nextTick();
-    const table = unref(tableElRef) as any;
+    const table = unref(tableElRef);
     if (!table) return;
 
     const tableEl: Element = table.$el;
     if (!tableEl) return;
+
     const headEl = tableEl.querySelector('.ant-table-thead ');
     if (!headEl) return;
 
-    // 表格距离底部高度
+    // Table height from bottom
     const { bottomIncludeBody } = getViewportOffset(headEl);
-    // 表格高度+距离底部高度-自定义偏移量
+    // Table height from bottom height-custom offset
 
     const paddingHeight = 32;
     const borderHeight = 2 * 2;
-    // 分页器高度
-
+    // Pager height
     let paginationHeight = 2;
     if (!isBoolean(pagination)) {
       if (!paginationEl) {
@@ -61,7 +86,7 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
         const offsetHeight = paginationEl.offsetHeight;
         paginationHeight += offsetHeight || 0;
       } else {
-        // TODO 先固定24
+        // TODO First fix 24
         paginationHeight += 24;
       }
     }
@@ -75,11 +100,13 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
         footerHeight += offsetHeight || 0;
       }
     }
+
     let headerHeight = 0;
     if (headEl) {
       headerHeight = (headEl as HTMLElement).offsetHeight;
     }
-    tableHeightRef.value =
+
+    let height =
       bottomIncludeBody -
       (resizeHeightOffset || 0) -
       paddingHeight -
@@ -88,38 +115,47 @@ export function useTableScroll(refProps: ComputedRef<BasicTableProps>, tableElRe
       footerHeight -
       headerHeight;
 
-    setTimeout(() => {
-      tableHeightRef.value =
-        tableHeightRef.value! > maxHeight! ? (maxHeight as number) : tableHeightRef.value;
-      //  解决表格放modal内的时候，modal自适应高度计算问题
-      modalFn?.redoModalHeight?.();
-    }, 16);
+    height = (height > maxHeight! ? (maxHeight as number) : height) ?? height;
+    setHeight(height);
   }
 
-  const getCanResize = computed(() => {
-    const { canResize, scroll } = unref(propsRef);
-    return canResize && !(scroll || {}).y;
-  });
+  useWindowSizeFn(calcTableHeight, 200);
 
-  useWindowSizeFn(calcTableHeight, 100);
-
-  onMounted(() => {
-    if (unref(getCanResize)) {
-      nextTick(() => {
-        calcTableHeight();
-      });
+  const getScrollX = computed(() => {
+    let width = 0;
+    if (unref(rowSelectionRef)) {
+      width += 60;
     }
+
+    // TODO props ?? 0;
+    const NORMAL_WIDTH = 150;
+
+    const columns = unref(columnsRef).filter((item) => !item.defaultHidden);
+    columns.forEach((item) => {
+      width += Number.parseInt(item.width as string) || 0;
+    });
+    const unsetWidthColumns = columns.filter((item) => !Reflect.has(item, 'width'));
+
+    const len = unsetWidthColumns.length;
+    if (len !== 0) {
+      width += len * NORMAL_WIDTH;
+    }
+
+    const table = unref(tableElRef);
+    const tableWidth = table?.$el?.offsetWidth ?? 0;
+    return tableWidth > width ? '100%' : width;
   });
+
   const getScrollRef = computed(() => {
     const tableHeight = unref(tableHeightRef);
     const { canResize, scroll } = unref(propsRef);
-
     return {
-      x: '100%',
+      x: unref(getScrollX),
       y: canResize ? tableHeight : null,
       scrollToFirstRowOnChange: false,
       ...scroll,
     };
   });
+
   return { getScrollRef, redoHeight };
 }

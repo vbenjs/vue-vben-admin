@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 m-4 demo">
+  <PageWrapper contentBackground title="按钮权限控制" contentClass="p-4">
     <Alert message="刷新后会还原" show-icon />
 
     <CurrentPermissionMode />
@@ -51,7 +51,7 @@
     <a-button v-auth="['1000', '2000']" color="error" class="mx-4">
       拥有code ['1000','2000']角色权限可见
     </a-button>
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
@@ -62,8 +62,10 @@
   import { getPermCodeByUserId } from '/@/api/sys/user';
   import { permissionStore } from '/@/store/modules/permission';
   import { PermissionModeEnum } from '/@/enums/appEnum';
+  import { PageWrapper } from '/@/components/Page';
+
   export default defineComponent({
-    components: { Alert, CurrentPermissionMode, Divider, Authority },
+    components: { Alert, PageWrapper, CurrentPermissionMode, Divider, Authority },
     setup() {
       const { hasPermission } = usePermission();
 

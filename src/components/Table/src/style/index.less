@@ -1,11 +1,21 @@
-@import (reference) '../../../../design/index.less';
 @border-color: #cecece4d;
 
-.basic-table {
-  &-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+@prefix-cls: ~'@{namespace}-basic-table';
+
+.@{prefix-cls} {
+  &-form-container {
+    padding: 16px;
+
+    .ant-form {
+      padding: 20px 20px 4px 12px;
+      margin-bottom: 18px;
+      background: #fff;
+      border-radius: 4px;
+    }
+
+    .ant-table-wrapper {
+      border-radius: 2px;
+    }
   }
 
   &-row__striped {
@@ -14,36 +24,20 @@
     }
   }
 
-  &-img__preview {
-    display: flex;
-
-    img {
-      margin-right: 4px;
+  &--inset {
+    .ant-table-wrapper {
+      padding: 0;
     }
   }
 
-  &-action {
-    display: flex;
-
-    button {
-      display: flex;
-      align-items: center;
-    }
-  }
-
-  &-toolbar {
-    display: flex;
-    align-items: center;
-
-    > * {
-      margin-right: 10px;
-    }
+  .ant-tag {
+    margin-right: 0;
   }
 
   .ant-table-wrapper {
     padding: 8px;
     background: #fff;
-    border-radius: 2px;
+    border-radius: 4px;
 
     .ant-table-title {
       padding: 0 0 8px 0 !important;
@@ -54,22 +48,18 @@
     }
   }
 
-  &.inset {
-    .ant-table-wrapper {
-      padding: 0;
-    }
-  }
-
   //
   .ant-table {
+    width: 100%;
+    overflow-x: hidden;
     border: none;
 
     &-title {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
       padding: 8px 6px;
       border-bottom: none;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .ant-table-thead > tr > th,
@@ -117,8 +107,11 @@
     border: 1px solid @border-color !important;
   }
 
-  .ant-table td {
-    white-space: nowrap;
+  .ant-table-tbody > tr > td,
+  .ant-table-tbody > tr > th,
+  .ant-table-thead > tr > td,
+  .ant-table-thead > tr > th {
+    white-space: pre;
   }
 
   .ant-table-row-cell-last {
@@ -145,14 +138,18 @@
     overflow-y: scroll !important;
   }
 
-  .ant-table-fixed-right .ant-table-header {
-    border-left: 1px solid @border-color !important;
+  .ant-table-fixed-right {
+    right: -1px;
 
-    .ant-table-fixed {
-      border-bottom: none;
+    .ant-table-header {
+      border-left: 1px solid @border-color !important;
 
-      .ant-table-thead th {
-        background: rgb(241, 243, 244);
+      .ant-table-fixed {
+        border-bottom: none;
+
+        .ant-table-thead th {
+          background: rgb(241, 243, 244);
+        }
       }
     }
   }
@@ -164,20 +161,6 @@
 
     .ant-table-fixed {
       border-bottom: none;
-    }
-  }
-
-  .ant-radio {
-    &-inner {
-      border-color: @text-color-base;
-    }
-  }
-
-  .ant-checkbox {
-    &:not(.ant-checkbox-checked) {
-      .ant-checkbox-inner {
-        border-color: @text-color-base;
-      }
     }
   }
 
@@ -206,20 +189,5 @@
     td {
       padding: 12px 8px;
     }
-  }
-}
-
-.table-form-container {
-  padding: 16px;
-
-  .ant-form {
-    padding: 20px 20px 4px 12px;
-    margin-bottom: 18px;
-    background: #fff;
-    border-radius: 2px;
-  }
-
-  .ant-table-wrapper {
-    border-radius: 2px;
   }
 }

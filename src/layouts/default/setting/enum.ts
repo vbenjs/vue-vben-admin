@@ -1,5 +1,11 @@
 import { ContentEnum, RouterTransitionEnum } from '/@/enums/appEnum';
-import { MenuModeEnum, MenuTypeEnum, TopMenuAlignEnum, TriggerEnum } from '/@/enums/menuEnum';
+import {
+  MenuModeEnum,
+  MenuTypeEnum,
+  TopMenuAlignEnum,
+  TriggerEnum,
+  MixSidebarTriggerEnum,
+} from '/@/enums/menuEnum';
 
 import { useI18n } from '/@/hooks/web/useI18n';
 
@@ -20,6 +26,8 @@ export enum HandlerEnum {
   MENU_SPLIT,
   MENU_FIXED,
   MENU_CLOSE_MIX_SIDEBAR_ON_CHANGE,
+  MENU_TRIGGER_MIX_SIDEBAR,
+  MENU_FIXED_MIX_SIDEBAR,
 
   // header
   HEADER_SHOW,
@@ -31,6 +39,7 @@ export enum HandlerEnum {
   TABS_SHOW_QUICK,
   TABS_SHOW_REDO,
   TABS_SHOW,
+  TABS_SHOW_FOLD,
 
   LOCK_TIME,
   FULL_CONTENT,
@@ -130,5 +139,16 @@ export const menuTypeList = [
     title: t('layout.setting.menuTypeMixSidebar'),
     mode: MenuModeEnum.INLINE,
     type: MenuTypeEnum.MIX_SIDEBAR,
+  },
+];
+
+export const mixSidebarTriggerOptions = [
+  {
+    value: MixSidebarTriggerEnum.HOVER,
+    label: t('layout.setting.triggerHover'),
+  },
+  {
+    value: MixSidebarTriggerEnum.CLICK,
+    label: t('layout.setting.triggerClick'),
   },
 ];

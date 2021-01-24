@@ -1,8 +1,8 @@
-import Sortable from 'sortablejs';
-import { toRaw, ref, nextTick, onMounted } from 'vue';
+import { toRaw, ref, nextTick } from 'vue';
 import { RouteLocationNormalized } from 'vue-router';
 import { useProjectSetting } from '/@/hooks/setting';
 import { useDesign } from '/@/hooks/web/useDesign';
+import { useSortable } from '/@/hooks/web/useSortable';
 import router from '/@/router';
 import { tabStore } from '/@/store/modules/tab';
 import { isNullAndUnDef } from '/@/utils/is';
@@ -50,36 +50,25 @@ export function useTabsDrag(affixTextList: string[]) {
   const { multiTabsSetting } = useProjectSetting();
 
   const { prefixCls } = useDesign('multiple-tabs');
-
-  function initSortableTabs() {
+  nextTick(() => {
     if (!multiTabsSetting.canDrag) return;
-    nextTick(() => {
-      const el = document.querySelectorAll(`.${prefixCls} .ant-tabs-nav > div`)?.[0] as HTMLElement;
+    const el = document.querySelectorAll(`.${prefixCls} .ant-tabs-nav > div`)?.[0] as HTMLElement;
+    const { initSortable } = useSortable(el, {
+      filter: (e: ChangeEvent) => {
+        const text = e?.target?.innerText;
+        if (!text) return false;
+        return affixTextList.includes(text);
+      },
+      onEnd: (evt) => {
+        const { oldIndex, newIndex } = evt;
 
-      if (!el) return;
-      Sortable.create(el, {
-        animation: 500,
-        delay: 400,
-        delayOnTouchOnly: true,
-        filter: (e: ChangeEvent) => {
-          const text = e?.target?.innerText;
-          if (!text) return false;
-          return affixTextList.includes(text);
-        },
-        onEnd: (evt) => {
-          const { oldIndex, newIndex } = evt;
+        if (isNullAndUnDef(oldIndex) || isNullAndUnDef(newIndex) || oldIndex === newIndex) {
+          return;
+        }
 
-          if (isNullAndUnDef(oldIndex) || isNullAndUnDef(newIndex) || oldIndex === newIndex) {
-            return;
-          }
-
-          tabStore.commitSortTabs({ oldIndex, newIndex });
-        },
-      });
+        tabStore.commitSortTabs({ oldIndex, newIndex });
+      },
     });
-  }
-
-  onMounted(() => {
-    initSortableTabs();
+    initSortable();
   });
 }

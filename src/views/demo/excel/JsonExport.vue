@@ -1,12 +1,12 @@
 <template>
-  <div class="m-4">
+  <PageWrapper title="导出示例" content="根据JSON格式的数据进行导出">
     <BasicTable title="基础表格" :columns="columns" :dataSource="data">
       <template #toolbar>
         <a-button @click="defaultHeader">导出：默认头部</a-button>
         <a-button @click="customHeader">导出：自定义头部</a-button>
       </template>
     </BasicTable>
-  </div>
+  </PageWrapper>
 </template>
 
 <script lang="ts">
@@ -14,9 +14,10 @@
   import { BasicTable } from '/@/components/Table';
   import { jsonToSheetXlsx } from '/@/components/Excel';
   import { columns, data } from './data';
+  import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
-    components: { BasicTable },
+    components: { BasicTable, PageWrapper },
     setup() {
       function defaultHeader() {
         // 默认Object.keys(data[0])作为header

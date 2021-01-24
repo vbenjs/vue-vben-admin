@@ -18,9 +18,13 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-
+  import { Result, Descriptions } from 'ant-design-vue';
   export default defineComponent({
-    components: {},
+    components: {
+      [Result.name]: Result,
+      [Descriptions.name]: Descriptions,
+      [Descriptions.Item.name]: Descriptions.Item,
+    },
     emits: ['redo'],
     setup(_, { emit }) {
       return {
