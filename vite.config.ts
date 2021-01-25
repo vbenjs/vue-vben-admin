@@ -49,12 +49,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           drop_console: VITE_DROP_CONSOLE,
         },
       },
-      rollupOptions: {
-        output: {
-          compact: true,
-          manualChunks: undefined,
-        },
-      },
     },
     define: {
       __VERSION__: pkg.version,
