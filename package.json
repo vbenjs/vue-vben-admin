@@ -64,7 +64,7 @@
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
     "@vitejs/plugin-legacy": "^1.2.1",
-    "@vitejs/plugin-vue": "^1.1.2",
+    "@vitejs/plugin-vue": "1.1.0",
     "@vitejs/plugin-vue-jsx": "^1.0.2",
     "@vue/compiler-sfc": "^3.0.5",
     "@vuedx/typecheck": "^0.6.0",

@@ -1768,10 +1768,10 @@
     "@vue/babel-plugin-jsx" "^1.0.1"
     hash-sum "^2.0.0"
 
-"@vitejs/plugin-vue@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.npmjs.org/@vitejs/plugin-vue/-/plugin-vue-1.1.2.tgz#64d1f0e0739675f5717015ffb4d861c53af8fe60"
-  integrity sha512-a5ORYuPsiAO4Kb2blA/x63mDiBQBxEJkbjhVtiv5IP/I7fGfpwXPPGHx9LHD4MedpXp8icngJYMKO0hOwahtmQ==
+"@vitejs/plugin-vue@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@vitejs/plugin-vue/-/plugin-vue-1.1.0.tgz#8ae0b11388897b07259c9e5198c0e3fb5e4b37d9"
+  integrity sha512-ExlAt3nb3PB31jV9AgRZSMoGd+aQRU53fc/seghV8/l0JCzaX2mqlgpG8iytWkRxbBPgtAx4TpCPdiVKnTFT/A==
 
 "@vue/babel-helper-vue-transform-on@^1.0.2":
   version "1.0.2"

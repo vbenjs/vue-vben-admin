@@ -2,17 +2,15 @@
   <BasicMenuItem v-if="!menuHasChildren(item) && getShowMenu" v-bind="$props" />
   <SubMenu
     v-if="menuHasChildren(item) && getShowMenu"
-    :class="[`${prefixCls}__level${level}`, theme]"
+    :class="[theme]"
+    popupClassName="app-top-menu-popup"
   >
     <template #title>
       <MenuItemContent v-bind="$props" :item="item" />
     </template>
-    <!-- <template #expandIcon="{ key }">
-      <ExpandIcon :key="key" />
-    </template> -->
 
     <template v-for="childrenItem in item.children || []" :key="childrenItem.path">
-      <BasicSubMenuItem v-bind="$props" :item="childrenItem" :level="level + 1" />
+      <BasicSubMenuItem v-bind="$props" :item="childrenItem" />
     </template>
   </SubMenu>
 </template>
@@ -26,7 +24,6 @@
   import BasicMenuItem from './BasicMenuItem.vue';
   import MenuItemContent from './MenuItemContent.vue';
 
-  // import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
   export default defineComponent({
     name: 'BasicSubMenuItem',
     isSubMenu: true,
@@ -35,7 +32,6 @@
       SubMenu: Menu.SubMenu,
       MenuItem: Menu.Item,
       MenuItemContent,
-      // ExpandIcon: createAsyncComponent(() => import('./ExpandIcon.vue')),
     },
     props: itemProps,
     setup(props) {

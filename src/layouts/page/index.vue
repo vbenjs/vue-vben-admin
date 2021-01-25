@@ -27,9 +27,6 @@
 </template>
 
 <script lang="ts">
-  import type { FunctionalComponent } from 'vue';
-  import type { RouteLocation } from 'vue-router';
-
   import { computed, defineComponent, unref } from 'vue';
 
   import FrameLayout from '/@/layouts/iframe/index.vue';
@@ -37,7 +34,7 @@
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 
   import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
-  import { useCache } from './useCache';
+  import { useCache, getKey } from './useCache';
   import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
   import { getTransitionName } from './transition';
 
@@ -53,10 +50,6 @@
       const { getBasicTransition, getEnableTransition } = useTransitionSetting();
 
       const openCache = computed(() => unref(getOpenKeepAlive) && unref(getShowMultipleTab));
-
-      function getKey(component: FunctionalComponent & { type: Indexable }, route: RouteLocation) {
-        return !!component?.type.parentView ? {} : { key: route.fullPath };
-      }
 
       return {
         getTransitionName,
