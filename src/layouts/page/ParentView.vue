@@ -19,9 +19,9 @@
           appear
         >
           <keep-alive v-if="openCache" :include="getCaches">
-            <component :is="Component" :key="route.fullPath" />
+            <component :is="Component" v-bind="getKey(Component, route)" />
           </keep-alive>
-          <component v-else :is="Component" :key="route.fullPath" />
+          <component v-else :is="Component" v-bind="getKey(Component, route)" />
         </transition>
       </template>
     </router-view>
@@ -34,7 +34,7 @@
   import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
 
   import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
-  import { useCache } from './useCache';
+  import { useCache, getKey } from './useCache';
   import { getTransitionName } from './transition';
 
   export default defineComponent({
@@ -56,6 +56,7 @@
         openCache,
         getEnableTransition,
         getTransitionName,
+        getKey,
       };
     },
   });

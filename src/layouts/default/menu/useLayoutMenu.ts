@@ -72,9 +72,6 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
 
   // Handle left menu split
   async function handleSplitLeftMenu(parentPath: string) {
-    console.log('======================');
-    console.log(unref(getSplitLeft));
-    console.log('======================');
     if (unref(getSplitLeft) || unref(getIsMobile)) return;
 
     // spilt mode left
