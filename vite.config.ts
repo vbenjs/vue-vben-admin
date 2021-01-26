@@ -84,7 +84,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         '@ant-design/icons-vue',
         'echarts/map/js/china',
         'ant-design-vue/es/locale/zh_CN',
-        'moment/locale/zh-cn',
+        'moment/dist/locale/zh-cn',
         'ant-design-vue/es/locale/en_US',
         'resize-observer-polyfill',
       ],

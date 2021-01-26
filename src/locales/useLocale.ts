@@ -9,7 +9,7 @@ import { useLocaleSetting } from '/@/hooks/setting/useLocaleSetting';
 
 import { i18n } from './setupI18n';
 
-import 'moment/locale/zh-cn';
+import 'moment/dist/locale/zh-cn';
 
 const antConfigLocaleRef = ref<any>(null);
 
