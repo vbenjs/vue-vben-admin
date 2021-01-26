@@ -27,7 +27,7 @@ export function useNow(immediate = true) {
     const s = now.get('s');
 
     state.year = now.get('y');
-    state.month = now.get('M');
+    state.month = now.get('M') + 1;
     state.week = localData.weekdays()[now.day()];
     state.day = now.get('D');
     state.hour = h;
