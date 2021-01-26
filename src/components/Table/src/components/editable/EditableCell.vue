@@ -1,7 +1,7 @@
 <template>
   <div :class="prefixCls">
     <div v-show="!isEdit" :class="`${prefixCls}__normal`" @click="handleEdit">
-      {{ value || '&nbsp;' }}
+      {{ getValues || '&nbsp;' }}
       <FormOutlined :class="`${prefixCls}__normal-icon`" v-if="!column.editRow" />
     </div>
 
@@ -312,6 +312,7 @@
         handleOptionsChange,
         getWrapperStyle,
         getRowEditable,
+        getValues,
         // getSize,
       };
     },
