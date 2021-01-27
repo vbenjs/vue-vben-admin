@@ -33,9 +33,19 @@
 <script lang="ts">
   import type { FormActionType, FormProps, FormSchema } from './types/form';
   import type { AdvanceState } from './types/hooks';
-  import type { CSSProperties, Ref, WatchStopHandle } from 'vue';
+  import type { CSSProperties, Ref } from 'vue';
 
-  import { defineComponent, reactive, ref, computed, unref, onMounted, watch, toRefs } from 'vue';
+  import {
+    defineComponent,
+    reactive,
+    ref,
+    computed,
+    unref,
+    onMounted,
+    watch,
+    toRefs,
+    nextTick,
+  } from 'vue';
   import { Form, Row } from 'ant-design-vue';
   import FormItem from './components/FormItem';
   import FormAction from './components/FormAction.vue';
@@ -51,6 +61,7 @@
   import { useFormEvents } from './hooks/useFormEvents';
   import { createFormContext } from './hooks/useFormContext';
   import { useAutoFocus } from './hooks/useAutoFocus';
+  import { useModalContext } from '/@/components/Modal';
 
   import { basicProps } from './props';
   import { useDesign } from '/@/hooks/web/useDesign';
@@ -62,6 +73,7 @@
     emits: ['advanced-change', 'reset', 'submit', 'register'],
     setup(props, { emit }) {
       const formModel = reactive<Recordable>({});
+      const modalFn = useModalContext();
 
       const advanceState = reactive<AdvanceState>({
         isAdvanced: true,
@@ -188,11 +200,15 @@
         }
       );
 
-      const stopWatch: WatchStopHandle = watch(
+      watch(
         () => getSchema.value,
         (schema) => {
+          nextTick(() => {
+            //  Solve the problem of modal adaptive height calculation when the form is placed in the modal
+            modalFn?.redoModalHeight?.();
+          });
           if (unref(isInitedDefaultRef)) {
-            return stopWatch();
+            return;
           }
           if (schema?.length) {
             initDefault();
