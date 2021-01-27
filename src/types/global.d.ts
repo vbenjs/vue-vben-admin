@@ -39,12 +39,6 @@ declare type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>;
 };
 
-// type DeepPartial<T> = T extends Function
-//   ? T
-//   : T extends object
-//   ? { [K in keyof T]?: DeepPartial<T[K]> }
-//   : T;
-
 declare type LabelValueOptions = {
   label: string;
   value: any;
