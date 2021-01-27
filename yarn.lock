@@ -7722,10 +7722,10 @@ vite-plugin-purge-icons@^0.6.0:
     "@purge-icons/generated" "^0.6.0"
     rollup-plugin-purge-icons "^0.6.0"
 
-vite-plugin-pwa@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.4.0.tgz#be7723315beed00ca7f9d23b24c5b1356276747c"
-  integrity sha512-+qsqpR6QgkxY8IdSyjHDGz5L5+3pbXKVP2KztqMeamu8Rpki45kEUMrdhloFSPiSNA7L+xS/U6WDyNe+u0IP4A==
+vite-plugin-pwa@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.4.1.tgz#eae03c4dd10cd51600c08fd1aaa179a92577c456"
+  integrity sha512-UvcdW93FT0+2dRSLasQtvJepBwXj+UTcvzBekca6YuVdn/MTdEX01J/QqPL+v3KUZBnNM2MAOFpLIkZ3wi9t8g==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"

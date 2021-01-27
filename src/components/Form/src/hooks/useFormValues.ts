@@ -1,10 +1,9 @@
 import { isArray, isFunction, isObject, isString, isNullOrUnDef } from '/@/utils/is';
 import { dateUtil } from '/@/utils/dateUtil';
 
-import { unref, nextTick } from 'vue';
+import { unref } from 'vue';
 import type { Ref, ComputedRef } from 'vue';
 import type { FieldMapToTime, FormSchema } from '../types/form';
-import { useModalContext } from '/@/components/Modal';
 
 interface UseFormValuesContext {
   transformDateFuncRef: Ref<Fn>;
@@ -20,7 +19,6 @@ export function useFormValues({
   getSchema,
   formModel,
 }: UseFormValuesContext) {
-  const modalFn = useModalContext();
   // Processing form values
   function handleFormValues(values: Recordable) {
     if (!isObject(values)) {
@@ -85,10 +83,6 @@ export function useFormValues({
       }
     });
     defaultValueRef.value = obj;
-    nextTick(() => {
-      //  Solve the problem of modal adaptive height calculation when the form is placed in the modal
-      modalFn?.redoModalHeight?.();
-    });
   }
 
   return { handleFormValues, initDefault };
