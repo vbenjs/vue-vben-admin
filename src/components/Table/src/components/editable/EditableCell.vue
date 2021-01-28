@@ -18,8 +18,7 @@
         @change="handleChange"
         @options-change="handleOptionsChange"
         @pressEnter="handleSubmit"
-      >
-      </CellComponent>
+      />
       <div :class="`${prefixCls}__action`" v-if="!getRowEditable">
         <CheckOutlined :class="[`${prefixCls}__icon`, 'mx-2']" @click="handleSubmit" />
         <CloseOutlined :class="`${prefixCls}__icon `" @click="handleCancel" />
@@ -48,6 +47,9 @@
   export default defineComponent({
     name: 'EditableCell',
     components: { FormOutlined, CloseOutlined, CheckOutlined, CellComponent },
+    directives: {
+      clickOutside,
+    },
     props: {
       value: {
         type: [String, Number, Boolean, Object] as PropType<string | number | boolean | Recordable>,
@@ -62,10 +64,6 @@
       },
       index: propTypes.number,
     },
-    directives: {
-      clickOutside,
-    },
-
     setup(props) {
       const table = useTableContext();
       const isEdit = ref(false);
@@ -232,7 +230,7 @@
         const dataKey = (dataIndex || key) as string;
 
         const record = await table.updateTableData(index, dataKey, value);
-        needEmit && table.emit?.('edit-end', { record, index, key, value});
+        needEmit && table.emit?.('edit-end', { record, index, key, value });
         isEdit.value = false;
       }
 

@@ -21,8 +21,12 @@
 
           <template #description>
             <div>
-              <div class="description">{{ item.description }}</div>
-              <div class="datetime">{{ item.datetime }}</div>
+              <div class="description">
+                {{ item.description }}
+              </div>
+              <div class="datetime">
+                {{ item.datetime }}
+              </div>
             </div>
           </template>
         </a-list-item-meta>

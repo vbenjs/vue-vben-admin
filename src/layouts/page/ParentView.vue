@@ -4,7 +4,7 @@
 <template>
   <div>
     <router-view>
-      <template v-slot="{ Component, route }">
+      <template #default="{ Component, route }">
         <transition
           :name="
             getTransitionName({

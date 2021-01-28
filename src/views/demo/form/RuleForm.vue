@@ -1,10 +1,10 @@
 <template>
   <PageWrapper title="表单校验示例">
     <div class="mb-4">
-      <a-button @click="validateForm" class="mr-2">手动校验表单</a-button>
-      <a-button @click="resetValidate" class="mr-2">清空校验信息</a-button>
-      <a-button @click="getFormValues" class="mr-2">获取表单值</a-button>
-      <a-button @click="setFormValues" class="mr-2">设置表单值</a-button>
+      <a-button @click="validateForm" class="mr-2"> 手动校验表单 </a-button>
+      <a-button @click="resetValidate" class="mr-2"> 清空校验信息 </a-button>
+      <a-button @click="getFormValues" class="mr-2"> 获取表单值 </a-button>
+      <a-button @click="setFormValues" class="mr-2"> 设置表单值 </a-button>
     </div>
     <CollapseContainer title="表单校验">
       <BasicForm @register="register" @submit="handleSubmit" />
@@ -87,9 +87,11 @@
           // @ts-ignore
           validator: async (rule, value) => {
             if (!value) {
+              /* eslint-disable-next-line */
               return Promise.reject('值不能为空');
             }
             if (value === '1') {
+              /* eslint-disable-next-line */
               return Promise.reject('值不能为1');
             }
             return Promise.resolve();

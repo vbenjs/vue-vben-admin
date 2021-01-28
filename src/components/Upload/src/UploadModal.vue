@@ -33,7 +33,9 @@
         :before-upload="beforeUpload"
         class="upload-modal-toolbar__btn"
       >
-        <a-button type="primary"> {{ t('component.upload.choose') }} </a-button>
+        <a-button type="primary">
+          {{ t('component.upload.choose') }}
+        </a-button>
       </Upload>
     </div>
     <FileList :dataSource="fileListRef" :columns="columns" :actionColumn="actionColumn" />
@@ -62,6 +64,7 @@
   export default defineComponent({
     components: { BasicModal, Upload, Alert, FileList },
     props: basicProps,
+    emits: ['change'],
     setup(props, { emit }) {
       const { t } = useI18n();
 

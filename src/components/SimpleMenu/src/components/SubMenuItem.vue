@@ -287,7 +287,9 @@
         );
 
         rootMenuEmitter.on('on-update-active-name:submenu', (data: number[]) => {
-          state.active = data.includes(instance?.uid!);
+          if (instance?.uid) {
+            state.active = data.includes(instance?.uid);
+          }
         });
       });
 

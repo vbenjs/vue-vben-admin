@@ -31,10 +31,9 @@
   import { defineComponent, ref } from 'vue';
   import { BasicTable } from '/@/components/Table';
   import { getBasicColumns, getBasicData } from './tableData';
-  import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
-    components: { BasicTable, PageWrapper },
+    components: { BasicTable },
     setup() {
       const canResize = ref(false);
       const loading = ref(false);

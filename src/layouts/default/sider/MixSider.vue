@@ -1,5 +1,5 @@
 <template>
-  <div :class="`${prefixCls}-dom`" :style="getDomStyle" />
+  <div :class="`${prefixCls}-dom`" :style="getDomStyle"></div>
 
   <div
     v-click-outside="handleClickOutside"
@@ -37,7 +37,9 @@
             :size="getCollapsed ? 16 : 20"
             :icon="item.meta && item.meta.icon"
           />
-          <p :class="`${prefixCls}-module__name`">{{ t(item.name) }}</p>
+          <p :class="`${prefixCls}-module__name`">
+            {{ t(item.name) }}
+          </p>
         </li>
       </ul>
     </ScrollContainer>
@@ -156,9 +158,11 @@
       );
 
       const getIsFixed = computed(() => {
+        /* eslint-disable-next-line */
         mixSideHasChildren.value = unref(chilrenMenus).length > 0;
         const isFixed = unref(getMixSideFixed) && unref(mixSideHasChildren);
         if (isFixed) {
+          /* eslint-disable-next-line */
           openMenu.value = true;
         }
         return isFixed;

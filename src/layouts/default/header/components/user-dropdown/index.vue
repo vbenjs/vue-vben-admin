@@ -33,8 +33,6 @@
 
   // res
 
-  import Icon from '/@/components/Icon/index';
-
   import { userStore } from '/@/store/modules/user';
 
   import { DOC_URL } from '/@/settings/siteSetting';
@@ -58,7 +56,6 @@
       Menu,
       MenuItem: createAsyncComponent(() => import('./DropMenuItem.vue')),
       MenuDivider: Menu.Divider,
-      Icon,
     },
     props: {
       theme: propTypes.oneOf(['dark', 'light']),

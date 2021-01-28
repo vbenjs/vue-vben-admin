@@ -1,6 +1,6 @@
 <template>
   <PageWrapper title="MarkDown组件示例">
-    <a-button @click="toggleTheme" class="mb-2" type="primary">黑暗主题</a-button>
+    <a-button @click="toggleTheme" class="mb-2" type="primary"> 黑暗主题 </a-button>
     <MarkDown :value="value" @change="handleChange" ref="markDownRef" />
   </PageWrapper>
 </template>

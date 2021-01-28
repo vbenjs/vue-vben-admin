@@ -1,7 +1,7 @@
 <template>
   <Form v-bind="{ ...$attrs, ...$props }" :class="getFormClass" ref="formElRef" :model="formModel">
     <Row :style="getRowWrapStyle">
-      <slot name="formHeader" />
+      <slot name="formHeader"></slot>
       <template v-for="schema in getSchema" :key="schema.field">
         <FormItem
           :tableAction="tableAction"
@@ -13,7 +13,7 @@
           :setFormModel="setFormModel"
         >
           <template #[item]="data" v-for="item in Object.keys($slots)">
-            <slot :name="item" v-bind="data" />
+            <slot :name="item" v-bind="data"></slot>
           </template>
         </FormItem>
       </template>
@@ -23,10 +23,10 @@
           #[item]="data"
           v-for="item in ['resetBefore', 'submitBefore', 'advanceBefore', 'advanceAfter']"
         >
-          <slot :name="item" v-bind="data" />
+          <slot :name="item" v-bind="data"></slot>
         </template>
       </FormAction>
-      <slot name="formFooter" />
+      <slot name="formFooter"></slot>
     </Row>
   </Form>
 </template>

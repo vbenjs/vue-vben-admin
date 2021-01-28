@@ -1,10 +1,10 @@
 <template>
   <PageWrapper title="动态表单示例">
     <div class="mb-4">
-      <a-button @click="changeLabel3" class="mr-2">更改字段3label</a-button>
-      <a-button @click="changeLabel34" class="mr-2">同时更改字段3,4label</a-button>
-      <a-button @click="appendField" class="mr-2">往字段3后面插入字段10</a-button>
-      <a-button @click="deleteField" class="mr-2">删除字段11</a-button>
+      <a-button @click="changeLabel3" class="mr-2"> 更改字段3label </a-button>
+      <a-button @click="changeLabel34" class="mr-2"> 同时更改字段3,4label </a-button>
+      <a-button @click="appendField" class="mr-2"> 往字段3后面插入字段10 </a-button>
+      <a-button @click="deleteField" class="mr-2"> 删除字段11 </a-button>
     </div>
     <CollapseContainer title="动态表单示例,动态根据表单内其他值改变">
       <BasicForm @register="register" />
@@ -163,7 +163,7 @@
       },
       labelWidth: 200,
       // @ts-ignore
-      componentProps: ({ formActionType, tableAction }) => {
+      componentProps: ({ formActionType }) => {
         return {
           placeholder: '值改变时执行查询,查看控制台',
           onChange: async () => {

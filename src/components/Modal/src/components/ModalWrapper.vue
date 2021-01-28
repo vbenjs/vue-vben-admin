@@ -1,7 +1,7 @@
 <template>
   <ScrollContainer ref="wrapperRef">
     <div ref="spinRef" :style="spinStyle" v-loading="loading" :loading-tip="loadingTip">
-      <slot />
+      <slot></slot>
     </div>
   </ScrollContainer>
 </template>
@@ -20,7 +20,6 @@
     nextTick,
     onUnmounted,
   } from 'vue';
-  import { Spin } from 'ant-design-vue';
 
   import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
   import { ScrollContainer } from '/@/components/Container';
@@ -31,8 +30,8 @@
 
   export default defineComponent({
     name: 'ModalWrapper',
+    components: { ScrollContainer },
     inheritAttrs: false,
-    components: { Spin, ScrollContainer },
     props: {
       loading: propTypes.bool,
       useWrapper: propTypes.bool.def(true),

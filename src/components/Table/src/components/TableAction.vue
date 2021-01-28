@@ -11,7 +11,7 @@
       />
     </template>
     <Dropdown :trigger="['hover']" :dropMenuList="getDropList" v-if="dropDownActions">
-      <slot name="more" />
+      <slot name="more"></slot>
       <a-button type="link" size="small" v-if="!$slots.more">
         <MoreOutlined class="icon-more" />
       </a-button>

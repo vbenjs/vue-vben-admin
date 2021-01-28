@@ -3,7 +3,7 @@
     v-if="getMenuFixed && !getIsMobile"
     :style="getHiddenDomStyle"
     :class="{ hidden: !showClassSideBarRef }"
-  />
+  ></div>
   <Sider
     ref="sideRef"
     breakpoint="lg"

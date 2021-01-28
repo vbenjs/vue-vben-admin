@@ -1,6 +1,6 @@
 <template>
   <BasicTitle v-if="!isDetail" :class="prefixCls">
-    <slot name="title" />
+    <slot name="title"></slot>
     {{ !$slots.title ? title : '' }}
   </BasicTitle>
 
@@ -13,7 +13,7 @@
     </span>
 
     <span :class="`${prefixCls}__toolbar`">
-      <slot name="titleToolbar" />
+      <slot name="titleToolbar"></slot>
     </span>
   </div>
 </template>
@@ -33,6 +33,7 @@
       showDetailBack: propTypes.bool,
       title: propTypes.string,
     },
+    emits: ['close'],
     setup(_, { emit }) {
       const { prefixCls } = useDesign('basic-drawer-header');
 

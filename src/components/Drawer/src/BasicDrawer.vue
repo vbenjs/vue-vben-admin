@@ -8,7 +8,7 @@
         @close="onClose"
       >
         <template #titleToolbar>
-          <slot name="titleToolbar" />
+          <slot name="titleToolbar"></slot>
         </template>
       </DrawerHeader>
     </template>
@@ -18,11 +18,11 @@
       v-loading="getLoading"
       :loading-tip="loadingText || t('common.loadingText')"
     >
-      <slot />
+      <slot></slot>
     </ScrollContainer>
     <DrawerFooter v-bind="getProps" @close="onClose" @ok="handleOk" :height="getFooterHeight">
       <template #[item]="data" v-for="item in Object.keys($slots)">
-        <slot :name="item" v-bind="data" />
+        <slot :name="item" v-bind="data"></slot>
       </template>
     </DrawerFooter>
   </Drawer>
@@ -57,8 +57,8 @@
   import { useAttrs } from '/@/hooks/core/useAttrs';
 
   export default defineComponent({
-    inheritAttrs: false,
     components: { Drawer, ScrollContainer, DrawerFooter, DrawerHeader },
+    inheritAttrs: false,
     props: basicProps,
     emits: ['visible-change', 'ok', 'close', 'register'],
     setup(props, { emit }) {

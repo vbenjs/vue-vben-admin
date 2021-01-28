@@ -1,5 +1,7 @@
 <template>
-  <div ref="wrap"><slot /></div>
+  <div ref="wrap">
+    <slot></slot>
+  </div>
 </template>
 <script lang="ts">
   import type { Ref } from 'vue';

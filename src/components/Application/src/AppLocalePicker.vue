@@ -20,7 +20,6 @@
   import { defineComponent, ref, watchEffect, unref, computed } from 'vue';
 
   import { Dropdown, DropMenu } from '/@/components/Dropdown';
-  import { GlobalOutlined } from '@ant-design/icons-vue';
 
   import { useLocale } from '/@/locales/useLocale';
   import { useLocaleSetting } from '/@/hooks/setting/useLocaleSetting';
@@ -33,7 +32,7 @@
   import Icon from '/@/components/Icon';
   export default defineComponent({
     name: 'AppLocalPicker',
-    components: { GlobalOutlined, Dropdown, Icon },
+    components: { Dropdown, Icon },
     props: {
       // Whether to display text
       showText: propTypes.bool.def(true),

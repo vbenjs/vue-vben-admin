@@ -1,13 +1,13 @@
 <template>
-  <Row class="prod-total">
+  <a-row class="prod-total">
     <template v-for="(item, index) in wokbProd" :key="item.type">
-      <Col :xs="12" :sm="6" class="prod-total__item" :class="`prod-total__item-${index}`">
-        <div class="img" :class="`prod-total__item-${index}-img`" />
+      <a-col :xs="12" :sm="6" class="prod-total__item" :class="`prod-total__item-${index}`">
+        <div class="img" :class="`prod-total__item-${index}-img`"></div>
         <div>{{ item.amount }}</div>
         <span>{{ item.type }}</span>
-      </Col>
+      </a-col>
     </template>
-  </Row>
+  </a-row>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
@@ -16,7 +16,7 @@
   import { wokbProd } from '../data';
   // import {ProdTypeEnum} from '@/api/dashboard/model/wokbModel'
   export default defineComponent({
-    components: { Row, Col },
+    components: { [Row.name]: Row, [Col.name]: Col },
     setup() {
       return { wokbProd };
     },

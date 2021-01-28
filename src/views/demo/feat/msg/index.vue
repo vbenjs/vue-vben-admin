@@ -13,24 +13,24 @@
     </CollapseContainer>
 
     <CollapseContainer class="px-20 bg-white w-full h-32 rounded-md mt-5" title="Comfirm">
-      <a-button @click="handleConfirm('info')" class="mr-2">Info</a-button>
-      <a-button @click="handleConfirm('warning')" color="warning" class="mr-2">Warning</a-button>
-      <a-button @click="handleConfirm('success')" color="success" class="mr-2">Success</a-button>
-      <a-button @click="handleConfirm('error')" color="error" class="mr-2">Error</a-button>
+      <a-button @click="handleConfirm('info')" class="mr-2"> Info </a-button>
+      <a-button @click="handleConfirm('warning')" color="warning" class="mr-2"> Warning </a-button>
+      <a-button @click="handleConfirm('success')" color="success" class="mr-2"> Success </a-button>
+      <a-button @click="handleConfirm('error')" color="error" class="mr-2"> Error </a-button>
     </CollapseContainer>
 
     <CollapseContainer class="px-20 bg-white w-full h-32 rounded-md mt-5" title="Modal">
-      <a-button @click="handleInfoModal" class="mr-2">Info</a-button>
-      <a-button @click="handleSuccessModal" color="success" class="mr-2">Success</a-button>
-      <a-button @click="handleErrorModal" color="error" class="mr-2">Error</a-button>
-      <a-button @click="handleWarningModal" color="warning" class="mr-2">Warning</a-button>
+      <a-button @click="handleInfoModal" class="mr-2"> Info </a-button>
+      <a-button @click="handleSuccessModal" color="success" class="mr-2"> Success </a-button>
+      <a-button @click="handleErrorModal" color="error" class="mr-2"> Error </a-button>
+      <a-button @click="handleWarningModal" color="warning" class="mr-2"> Warning </a-button>
     </CollapseContainer>
 
     <CollapseContainer
       class="px-20 bg-white w-full h-32 rounded-md mt-5"
       title="Notification 用法与上面一致"
     >
-      <a-button @click="handleNotify" color="success" class="mr-2">Success</a-button>
+      <a-button @click="handleNotify" color="success" class="mr-2"> Success </a-button>
     </CollapseContainer>
   </PageWrapper>
 </template>

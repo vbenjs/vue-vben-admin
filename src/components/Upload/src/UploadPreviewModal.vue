@@ -27,6 +27,7 @@
   export default defineComponent({
     components: { BasicModal, FileList },
     props: previewProps,
+    emits: ['list-change'],
     setup(props, { emit }) {
       const [register, { closeModal }] = useModalInner();
       const { t } = useI18n();

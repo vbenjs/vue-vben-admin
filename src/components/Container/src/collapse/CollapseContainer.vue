@@ -2,7 +2,7 @@
   <div :class="['p-2', prefixCls]">
     <CollapseHeader v-bind="$props" :prefixCls="prefixCls" :show="show" @expand="handleExpand">
       <template #title>
-        <slot name="title" />
+        <slot name="title"></slot>
       </template>
     </CollapseHeader>
 
@@ -10,12 +10,12 @@
       <Skeleton v-if="loading" />
       <div :class="`${prefixCls}__body`" v-else v-show="show">
         <LazyContainer :timeout="lazyTime" v-if="lazy">
-          <slot />
+          <slot></slot>
           <template #skeleton>
-            <slot name="lazySkeleton" />
+            <slot name="lazySkeleton"></slot>
           </template>
         </LazyContainer>
-        <slot v-else />
+        <slot v-else></slot>
       </div>
     </CollapseTransition>
   </div>

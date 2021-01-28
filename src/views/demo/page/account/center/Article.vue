@@ -4,19 +4,25 @@
       <ListItem>
         <ListItemMeta>
           <template #description>
-            <div :class="`${prefixCls}__content`">{{ item.content }}</div>
+            <div :class="`${prefixCls}__content`">
+              {{ item.content }}
+            </div>
           </template>
           <template #title>
-            <p :class="`${prefixCls}__title`"> {{ item.title }}</p>
+            <p :class="`${prefixCls}__title`">
+              {{ item.title }}
+            </p>
             <div>
-              <template v-for="(tag, index) in item.description" :key="index">
-                <Tag class="mb-2">{{ tag }}</Tag>
+              <template v-for="(tag, ti) in item.description" :key="ti">
+                <Tag class="mb-2">
+                  {{ tag }}
+                </Tag>
               </template>
             </div>
           </template>
         </ListItemMeta>
         <div>
-          <template v-for="(action, index) in actions" :key="index">
+          <template v-for="(action, ai) in actions" :key="ai">
             <div :class="`${prefixCls}__action`">
               <Icon
                 v-if="action.icon"

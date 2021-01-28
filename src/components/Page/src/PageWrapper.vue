@@ -5,21 +5,21 @@
         <template v-if="content">
           {{ content }}
         </template>
-        <slot name="headerContent" v-else />
+        <slot name="headerContent" v-else></slot>
       </template>
       <template #[item]="data" v-for="item in getHeaderSlots">
-        <slot :name="item" v-bind="data" />
+        <slot :name="item" v-bind="data"></slot>
       </template>
     </PageHeader>
     <div :class="[`${prefixCls}-content`, $attrs.contentClass]" :style="getContentStyle">
-      <slot />
+      <slot></slot>
     </div>
     <PageFooter v-if="getShowFooter" ref="footerRef">
       <template #left>
-        <slot name="leftFooter" />
+        <slot name="leftFooter"></slot>
       </template>
       <template #right>
-        <slot name="rightFooter" />
+        <slot name="rightFooter"></slot>
       </template>
     </PageFooter>
   </div>

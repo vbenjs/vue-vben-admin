@@ -1747,7 +1747,7 @@
     "@typescript-eslint/types" "4.14.1"
     eslint-visitor-keys "^2.0.0"
 
-"@vitejs/plugin-legacy@^1.2.1":
+"@vitejs/plugin-legacy@^1.2.2":
   version "1.2.2"
   resolved "https://registry.npmjs.org/@vitejs/plugin-legacy/-/plugin-legacy-1.2.2.tgz#65039ca35be1542b5ad612b54641da5a89d7687f"
   integrity sha512-ec3hvD4OrQusH42ERrTtjOmeBoGmVWtwg7mVMvvlWkR7wUwZSnr8J6HYYynmGUaBcC95+3xm6bRks7sh2DKq+w==
@@ -7743,10 +7743,10 @@ vite-plugin-style-import@^0.4.6:
     "@rollup/pluginutils" "^4.1.0"
     change-case "^4.1.2"
 
-vite@2.0.0-beta.50:
-  version "2.0.0-beta.50"
-  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0-beta.50.tgz#04e66d009470ca90ab8a4a43687e899b670a0f25"
-  integrity sha512-zzMgrWJK92/aQ1rxvc+0QKeOCdOP4m2EPGwK2HKhlifQVnSdpYQzQkWLzaGh1GQAp61W+Su8cu6cWINpFgNrfQ==
+vite@2.0.0-beta.52:
+  version "2.0.0-beta.52"
+  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0-beta.52.tgz#a06275d8b7c789358586dca51b8c01caf8599b08"
+  integrity sha512-goc3hwnL7ot9NnzRv7jWz4pDMgBpoL272+WuKc3D/gjYtVLd9KG46Z68IlU3OSN5ng334WEI1pmAlawb4iGJ8g==
   dependencies:
     esbuild "^0.8.34"
     postcss "^8.2.1"

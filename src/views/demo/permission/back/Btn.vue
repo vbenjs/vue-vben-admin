@@ -19,15 +19,15 @@
 
     <Divider>组件方式判断权限</Divider>
     <Authority :value="'1000'">
-      <a-button type="primary" class="mx-4">拥有code ['1000']权限可见</a-button>
+      <a-button type="primary" class="mx-4"> 拥有code ['1000']权限可见 </a-button>
     </Authority>
 
     <Authority :value="'2000'">
-      <a-button color="success" class="mx-4">拥有code ['2000']权限可见</a-button>
+      <a-button color="success" class="mx-4"> 拥有code ['2000']权限可见 </a-button>
     </Authority>
 
     <Authority :value="['1000', '2000']">
-      <a-button color="error" class="mx-4">拥有code ['1000','2000']角色权限可见</a-button>
+      <a-button color="error" class="mx-4"> 拥有code ['1000','2000']角色权限可见 </a-button>
     </Authority>
 
     <Divider>函数方式方式判断权限</Divider>

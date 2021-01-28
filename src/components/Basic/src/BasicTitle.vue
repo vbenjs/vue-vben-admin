@@ -1,6 +1,6 @@
 <template>
   <span :class="[prefixCls, { 'show-span': span && $slots.default }]">
-    <slot />
+    <slot></slot>
     <BasicHelp :class="`${prefixCls}__help`" v-if="helpMessage" :text="helpMessage" />
   </span>
 </template>

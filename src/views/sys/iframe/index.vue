@@ -1,7 +1,7 @@
 <template>
   <div class="iframe-page" :style="getWrapStyle">
     <Spin :spinning="loading" size="large" :style="getWrapStyle">
-      <iframe :src="frameSrc" class="iframe-page__main" ref="frameRef" />
+      <iframe :src="frameSrc" class="iframe-page__main" ref="frameRef"></iframe>
     </Spin>
   </div>
 </template>
@@ -18,6 +18,7 @@
     props: {
       frameSrc: {
         type: String as PropType<string>,
+        default: '',
       },
     },
     setup() {

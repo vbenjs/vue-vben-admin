@@ -25,7 +25,9 @@
       <a-col :span="7" :class="`${prefixCls}-col`">
         <CollapseContainer title="标签" :canExpan="false">
           <template v-for="(tag, index) in tags" :key="index">
-            <Tag class="mb-2">{{ tag }}</Tag>
+            <Tag class="mb-2">
+              {{ tag }}
+            </Tag>
           </template>
         </CollapseContainer>
       </a-col>

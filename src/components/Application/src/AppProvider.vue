@@ -1,5 +1,5 @@
 <template>
-  <slot />
+  <slot></slot>
 </template>
 <script lang="ts">
   import type { PropType } from 'vue';

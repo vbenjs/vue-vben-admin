@@ -1,5 +1,5 @@
 <template>
-  <span ref="elRef" :class="[$attrs.class, 'app-iconify anticon']" :style="getWrapStyle" />
+  <span ref="elRef" :class="[$attrs.class, 'app-iconify anticon']" :style="getWrapStyle"></span>
 </template>
 <script lang="ts">
   import type { PropType } from 'vue';

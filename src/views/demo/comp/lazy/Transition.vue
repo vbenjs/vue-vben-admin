@@ -13,13 +13,12 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { Skeleton } from 'ant-design-vue';
   import TargetContent from './TargetContent.vue';
   import { LazyContainer } from '/@/components/Container/index';
   import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
-    components: { LazyContainer, TargetContent, Skeleton, PageWrapper },
+    components: { LazyContainer, TargetContent, PageWrapper },
   });
 </script>
 <style lang="less">

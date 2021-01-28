@@ -4,7 +4,7 @@
       <a-button type="primary" class="mr-2" @click="setWatermark('WaterMark Info')">
         Create
       </a-button>
-      <a-button color="error" class="mr-2" @click="clear">Clear</a-button>
+      <a-button color="error" class="mr-2" @click="clear"> Clear </a-button>
       <a-button color="warning" class="mr-2" @click="setWatermark('WaterMark Info New')">
         Reset
       </a-button>

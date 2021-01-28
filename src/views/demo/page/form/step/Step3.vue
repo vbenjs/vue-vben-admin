@@ -2,7 +2,7 @@
   <div class="step3">
     <a-result status="success" title="操作成功" sub-title="预计两小时内到账">
       <template #extra>
-        <a-button type="primary" @click="redo">再转一笔 </a-button>
+        <a-button type="primary" @click="redo"> 再转一笔 </a-button>
         <a-button> 查看账单 </a-button>
       </template>
     </a-result>

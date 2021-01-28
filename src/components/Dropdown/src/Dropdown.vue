@@ -1,7 +1,7 @@
 <template>
   <a-dropdown :trigger="trigger" v-bind="$attrs">
     <span>
-      <slot />
+      <slot></slot>
     </span>
     <template #overlay>
       <a-menu :selectedKeys="selectedKeys">

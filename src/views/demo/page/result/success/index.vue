@@ -22,7 +22,9 @@
           <template #description> <div>Vben</div> <p>2016-12-12 12:32</p> </template>
         </Step>
         <Step title="部门初审">
-          <template #description> <p>Chad</p> </template>
+          <template #description>
+            <p>Chad</p>
+          </template>
         </Step>
         <Step title="财务复核" />
         <Step title="完成" />

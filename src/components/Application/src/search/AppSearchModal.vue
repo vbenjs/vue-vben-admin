@@ -40,7 +40,9 @@
               <div :class="`${prefixCls}-list__item-icon`">
                 <g-icon :icon="item.icon || 'mdi:form-select'" :size="20" />
               </div>
-              <div :class="`${prefixCls}-list__item-text`">{{ item.name }}</div>
+              <div :class="`${prefixCls}-list__item-text`">
+                {{ item.name }}
+              </div>
               <div :class="`${prefixCls}-list__item-enter`">
                 <g-icon icon="ant-design:enter-outlined" :size="20" />
               </div>
@@ -68,14 +70,14 @@
   export default defineComponent({
     name: 'AppSearchModal',
     components: { SearchOutlined, AppSearchFooter, [Input.name]: Input },
-    emits: ['close'],
+    directives: {
+      clickOutside,
+    },
 
     props: {
       visible: Boolean,
     },
-    directives: {
-      clickOutside,
-    },
+    emits: ['close'],
     setup(_, { emit }) {
       const scrollWrap = ref<ElRef>(null);
       const { prefixCls } = useDesign('app-search-modal');

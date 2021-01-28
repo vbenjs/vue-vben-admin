@@ -39,9 +39,9 @@
 
   export default defineComponent({
     name: 'Tinymce',
+    components: { ImgUpload },
     inheritAttrs: false,
     props: basicProps,
-    components: { ImgUpload },
     emits: ['change', 'update:modelValue'],
     setup(props, { emit, attrs }) {
       const editorRef = ref<any>(null);

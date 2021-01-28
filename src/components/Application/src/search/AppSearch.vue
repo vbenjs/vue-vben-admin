@@ -1,7 +1,9 @@
 <template>
   <div :class="prefixCls" v-if="getShowSearch" @click.stop="handleSearch">
     <Tooltip>
-      <template #title> {{ t('common.searchText') }} </template>
+      <template #title>
+        {{ t('common.searchText') }}
+      </template>
       <SearchOutlined />
     </Tooltip>
 

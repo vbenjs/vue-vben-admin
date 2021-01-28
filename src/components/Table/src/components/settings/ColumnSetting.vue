@@ -44,10 +44,14 @@
             <template v-for="item in plainOptions" :key="item.value">
               <div :class="`${prefixCls}__check-item`">
                 <DragOutlined class="table-coulmn-drag-icon" />
-                <Checkbox :value="item.value"> {{ item.label }} </Checkbox>
+                <Checkbox :value="item.value">
+                  {{ item.label }}
+                </Checkbox>
 
                 <Tooltip placement="bottomLeft" :mouseLeaveDelay="0.4">
-                  <template #title> {{ t('component.table.settingFixedLeft') }}</template>
+                  <template #title>
+                    {{ t('component.table.settingFixedLeft') }}
+                  </template>
                   <Icon
                     icon="line-md:arrow-align-left"
                     :class="[
@@ -62,7 +66,9 @@
                 </Tooltip>
                 <Divider type="vertical" />
                 <Tooltip placement="bottomLeft" :mouseLeaveDelay="0.4">
-                  <template #title> {{ t('component.table.settingFixedRight') }}</template>
+                  <template #title>
+                    {{ t('component.table.settingFixedRight') }}
+                  </template>
                   <Icon
                     icon="line-md:arrow-align-left"
                     :class="[
