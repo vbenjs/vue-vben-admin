@@ -1112,10 +1112,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.291":
-  version "1.1.291"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.291.tgz#d0f328cd800139068ff4c617734773ee0d3f2e3a"
-  integrity sha512-7OIO57UeHsmOY6mPC7NTnWtDfrRyUyAzK1OFLEGP0d/d+DUFsQfpGJUkIYchRKg3z0W78LssnkBv+UeYqTwSXA==
+"@iconify/json@^1.1.293":
+  version "1.1.293"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.293.tgz#f61583bb9de76fbdb3495aa7f6883a49d85c73fd"
+  integrity sha512-0xRreoBhdMSwVP3UhPX7x5+NqpN6vrS5/UJgH4uvvLd/QlEnrfkxUy3Ld33LUXMdu1rDZwTPt6MPbbfgWkQusw==
 
 "@intlify/core-base@9.0.0-beta.16":
   version "9.0.0-beta.16"
@@ -7743,10 +7743,10 @@ vite-plugin-style-import@^0.4.6:
     "@rollup/pluginutils" "^4.1.0"
     change-case "^4.1.2"
 
-vite@2.0.0-beta.52:
-  version "2.0.0-beta.52"
-  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0-beta.52.tgz#a06275d8b7c789358586dca51b8c01caf8599b08"
-  integrity sha512-goc3hwnL7ot9NnzRv7jWz4pDMgBpoL272+WuKc3D/gjYtVLd9KG46Z68IlU3OSN5ng334WEI1pmAlawb4iGJ8g==
+vite@2.0.0-beta.55:
+  version "2.0.0-beta.55"
+  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0-beta.55.tgz#db0da6ec8f0a18cef3348881b95967d71cf3eccb"
+  integrity sha512-IlLTGIWgOiXh9TG6UQo2UttQmymfOzkTviTQJM1Os/XDAkD/xm22vjnbix3OpbmQ0/kjE33dVmSf8aNklVOuVg==
   dependencies:
     esbuild "^0.8.34"
     postcss "^8.2.1"
