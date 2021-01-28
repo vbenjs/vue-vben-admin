@@ -15,7 +15,6 @@
     TableAction,
     BasicColumn,
     ActionItem,
-    EditTableHeaderIcon,
     EditRecordRow,
   } from '/@/components/Table';
   import { optionsListApi } from '/@/api/demo/select';
@@ -117,7 +116,7 @@
     },
   ];
   export default defineComponent({
-    components: { BasicTable, EditTableHeaderIcon, TableAction },
+    components: { BasicTable, TableAction },
     setup() {
       const currentEditKeyRef = ref('');
 

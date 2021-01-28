@@ -16,7 +16,7 @@
     <template #footer v-if="!$slots.footer">
       <ModalFooter v-bind="getProps" @ok="handleOk" @cancel="handleCancel">
         <template #[item]="data" v-for="item in Object.keys($slots)">
-          <slot :name="item" v-bind="data" />
+          <slot :name="item" v-bind="data"></slot>
         </template>
       </ModalFooter>
     </template>
@@ -35,11 +35,11 @@
       @ext-height="handleExtHeight"
       @height-change="handleHeightChange"
     >
-      <slot />
+      <slot></slot>
     </ModalWrapper>
 
     <template #[item]="data" v-for="item in Object.keys(omit($slots, 'default'))">
-      <slot :name="item" v-bind="data" />
+      <slot :name="item" v-bind="data"></slot>
     </template>
   </Modal>
 </template>
@@ -71,8 +71,8 @@
   import { omit } from 'lodash-es';
   export default defineComponent({
     name: 'BasicModal',
-    inheritAttrs: false,
     components: { Modal, ModalWrapper, ModalClose, ModalFooter, ModalHeader },
+    inheritAttrs: false,
     props: basicProps,
     emits: ['visible-change', 'height-change', 'cancel', 'ok', 'register'],
     setup(props, { emit, attrs }) {

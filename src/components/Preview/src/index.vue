@@ -1,7 +1,7 @@
 <template>
   <div :class="prefixCls">
     <PreviewGroup>
-      <slot v-if="!imageList || $slots.default" />
+      <slot v-if="!imageList || $slots.default"></slot>
       <template v-else>
         <template v-for="item in getImageList" :key="item.src">
           <Image v-bind="item">

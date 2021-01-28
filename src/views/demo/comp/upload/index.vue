@@ -1,9 +1,9 @@
 <template>
   <PageWrapper title="上传组件示例">
-    <a-alert message="基础示例" class="my-5"></a-alert>
+    <a-alert message="基础示例" class="my-5" />
     <BasicUpload :maxSize="20" :maxNumber="10" @change="handleChange" :api="uploadApi" />
 
-    <a-alert message="嵌入表单,加入表单校验" class="my-5"></a-alert>
+    <a-alert message="嵌入表单,加入表单校验" class="my-5" />
 
     <BasicForm @register="register" />
   </PageWrapper>

@@ -36,10 +36,12 @@ export default defineComponent({
 
     title: {
       type: String as PropType<string>,
+      default: '',
     },
 
     subTitle: {
       type: String as PropType<string>,
+      default: '',
     },
 
     full: {

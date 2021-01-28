@@ -30,7 +30,6 @@
     components: {
       BasicMenuItem,
       SubMenu: Menu.SubMenu,
-      MenuItem: Menu.Item,
       MenuItemContent,
     },
     props: itemProps,

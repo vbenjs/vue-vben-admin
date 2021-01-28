@@ -1,5 +1,5 @@
 <template>
-  <div ref="chartRef" :style="{ width: '100%' }" />
+  <div ref="chartRef" :style="{ width: '100%' }"></div>
 </template>
 <script lang="ts">
   import { defineComponent, ref, Ref, onMounted } from 'vue';

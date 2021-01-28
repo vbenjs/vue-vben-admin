@@ -1,6 +1,6 @@
 <template>
   <span>
-    <slot />
+    <slot></slot>
     {{ title }}
     <FormOutlined />
   </span>

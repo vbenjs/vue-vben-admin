@@ -7,7 +7,9 @@
       <Tooltip placement="bottom" v-if="showPreview">
         <template #title>
           {{ t('component.upload.uploaded') }}
-          <template v-if="fileListRef.length">{{ fileListRef.length }}</template>
+          <template v-if="fileListRef.length">
+            {{ fileListRef.length }}
+          </template>
         </template>
         <a-button @click="openPreviewModal">
           <Icon icon="bi:eye" />
@@ -45,6 +47,8 @@
     name: 'BasicUpload',
     components: { UploadModal, UploadPreviewModal, Icon, Tooltip },
     props: uploadContainerProps,
+    emits: ['change'],
+
     setup(props, { emit, attrs }) {
       const { t } = useI18n();
       // 上传modal

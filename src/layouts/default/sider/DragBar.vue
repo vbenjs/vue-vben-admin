@@ -1,5 +1,5 @@
 <template>
-  <div :class="getClass" :style="getDragBarStyle" />
+  <div :class="getClass" :style="getDragBarStyle"></div>
 </template>
 <script lang="ts">
   import { defineComponent, computed, unref } from 'vue';

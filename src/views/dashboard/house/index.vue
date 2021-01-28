@@ -15,26 +15,26 @@
       <div class="circle"></div>
       <div class="plastic">
         <div class="plastic__g">
-          <div class="plastic__item" />
-          <div class="plastic__item" />
-          <div class="plastic__item" />
-          <div class="plastic__item" />
-          <div class="plastic__item" />
-          <div class="plastic__item" />
-          <div class="plastic__item" />
-          <div class="plastic__item" />
+          <div class="plastic__item"></div>
+          <div class="plastic__item"></div>
+          <div class="plastic__item"></div>
+          <div class="plastic__item"></div>
+          <div class="plastic__item"></div>
+          <div class="plastic__item"></div>
+          <div class="plastic__item"></div>
+          <div class="plastic__item"></div>
         </div>
       </div>
       <div class="line">
-        <div class="line__item" />
-        <div class="line__item" />
-        <div class="line__item" />
-        <div class="line__item" />
-        <div class="line__item" />
-        <div class="line__item" />
-        <div class="line__item" />
-        <div class="line__item" />
-        <div class="line__item" />
+        <div class="line__item"></div>
+        <div class="line__item"></div>
+        <div class="line__item"></div>
+        <div class="line__item"></div>
+        <div class="line__item"></div>
+        <div class="line__item"></div>
+        <div class="line__item"></div>
+        <div class="line__item"></div>
+        <div class="line__item"></div>
       </div>
     </div>
     <div class="clouds">
@@ -43,29 +43,29 @@
         <div class="cloud__item"></div>
       </div>
       <div class="cloud">
-        <div class="cloud__item" />
-        <div class="cloud__item" />
+        <div class="cloud__item"></div>
+        <div class="cloud__item"></div>
       </div>
       <div class="cloud">
-        <div class="cloud__item" />
-        <div class="cloud__item" />
+        <div class="cloud__item"></div>
+        <div class="cloud__item"></div>
       </div>
-      <div class="bird" />
+      <div class="bird"></div>
     </div>
     <div class="birds">
-      <div class="bird" />
-      <div class="bird" />
+      <div class="bird"></div>
+      <div class="bird"></div>
     </div>
     <div class="tree">
-      <div class="tree__item" />
-      <div class="tree__item" />
-      <div class="tree__item" />
+      <div class="tree__item"></div>
+      <div class="tree__item"></div>
+      <div class="tree__item"></div>
     </div>
     <div class="bush">
-      <div class="bush__item" />
-      <div class="bush__item" />
+      <div class="bush__item"></div>
+      <div class="bush__item"></div>
     </div>
-    <div class="dot" />
+    <div class="dot"></div>
   </div>
 </template>
 <script lang="ts">

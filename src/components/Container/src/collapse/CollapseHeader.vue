@@ -5,12 +5,12 @@
         {{ $attrs.title }}
       </template>
       <template v-else>
-        <slot name="title" />
+        <slot name="title"></slot>
       </template>
     </BasicTitle>
 
     <div :class="`${prefixCls}__action`">
-      <slot name="action" />
+      <slot name="action"></slot>
       <BasicArrow v-if="$attrs.canExpan" top :expand="$attrs.show" @click="$emit('expand')" />
     </div>
   </div>
@@ -19,10 +19,11 @@
   import { defineComponent } from 'vue';
   import { BasicArrow, BasicTitle } from '/@/components/Basic';
   export default defineComponent({
-    inheritAttrs: false,
     components: { BasicArrow, BasicTitle },
+    inheritAttrs: false,
     props: {
       prefixCls: String,
     },
+    emits: ['expand'],
   });
 </script>

@@ -8,7 +8,9 @@
       :showUploadList="false"
       accept=".jpg,.jpeg,.gif,.png,.webp"
     >
-      <a-button type="primary">{{ t('component.upload.imgUpload') }}</a-button>
+      <a-button type="primary">
+        {{ t('component.upload.imgUpload') }}
+      </a-button>
     </Upload>
   </div>
 </template>
@@ -16,14 +18,13 @@
   import { defineComponent } from 'vue';
 
   import { Upload } from 'ant-design-vue';
-  import { InboxOutlined } from '@ant-design/icons-vue';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useGlobSetting } from '/@/hooks/setting';
   import { useI18n } from '/@/hooks/web/useI18n';
 
   export default defineComponent({
     name: 'TinymceImageUpload',
-    components: { Upload, InboxOutlined },
+    components: { Upload },
     emits: ['uploading', 'done', 'error'],
     setup(_, { emit }) {
       let uploading = false;

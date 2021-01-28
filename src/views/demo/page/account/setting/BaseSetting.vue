@@ -6,7 +6,7 @@
       </a-col>
       <a-col :span="10">
         <div class="change-avatar">
-          <div class="mb-2">头像</div>
+          <div class="mb-2"> 头像 </div>
           <img width="140" :src="headerImg" />
           <Upload :showUploadList="false">
             <Button type="ghost" class="ml-5"> <Icon icon="feather:upload" />更换头像 </Button>
@@ -14,7 +14,7 @@
         </div>
       </a-col>
     </a-row>
-    <Button type="primary" @click="handleSubmit">更新基本信息</Button>
+    <Button type="primary" @click="handleSubmit"> 更新基本信息 </Button>
   </CollapseContainer>
 </template>
 <script lang="ts">

@@ -23,14 +23,14 @@
             </template>
           </ListItemMeta>
           <a-button type="link">
-            <Tag color="blue">待审批</Tag>
+            <Tag color="blue"> 待审批 </Tag>
           </a-button>
         </ListItem>
       </template>
     </List>
     <div class="todo-list__all">
       <Tooltip placement="topRight">
-        <template #title>查看更多</template>
+        <template #title> 查看更多 </template>
         <EllipsisOutlined />
       </Tooltip>
     </div>

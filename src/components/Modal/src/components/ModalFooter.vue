@@ -1,10 +1,10 @@
 <template>
   <div>
-    <slot name="insertFooter" />
+    <slot name="insertFooter"></slot>
     <a-button v-bind="cancelButtonProps" @click="handleCancel" v-if="showCancelBtn">
       {{ cancelText }}
     </a-button>
-    <slot name="centerFooter" />
+    <slot name="centerFooter"></slot>
     <a-button
       :type="okType"
       @click="handleOk"
@@ -14,7 +14,7 @@
     >
       {{ okText }}
     </a-button>
-    <slot name="appendFooter" />
+    <slot name="appendFooter"></slot>
   </div>
 </template>
 <script lang="ts">

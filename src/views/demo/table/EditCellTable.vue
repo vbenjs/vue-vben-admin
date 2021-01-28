@@ -1,12 +1,15 @@
 <template>
   <div class="p-4">
-    <BasicTable @register="registerTable" @edit-end="handleEditEnd" @edit-cancel="handleEditCancel">
-    </BasicTable>
+    <BasicTable
+      @register="registerTable"
+      @edit-end="handleEditEnd"
+      @edit-cancel="handleEditCancel"
+    />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { BasicTable, useTable, BasicColumn, EditTableHeaderIcon } from '/@/components/Table';
+  import { BasicTable, useTable, BasicColumn } from '/@/components/Table';
   import { optionsListApi } from '/@/api/demo/select';
 
   import { demoListApi } from '/@/api/demo/table';
@@ -106,7 +109,7 @@
     },
   ];
   export default defineComponent({
-    components: { BasicTable, EditTableHeaderIcon },
+    components: { BasicTable },
     setup() {
       const [registerTable] = useTable({
         title: '可编辑单元格示例',

@@ -5,7 +5,7 @@
         <slot name="title"></slot>
       </template>
       <div :class="`${prefixCls}-tooltip`">
-        <slot />
+        <slot></slot>
       </div>
     </Tooltip>
 

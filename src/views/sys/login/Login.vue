@@ -1,10 +1,10 @@
 <template>
   <div class="login">
-    <div class="login-mask" />
+    <div class="login-mask"></div>
     <div class="login-form-wrap">
-      <div class="login-form mx-6">
+      <div class="mx-6 login-form">
         <AppLocalePicker v-if="showLocale" class="login-form__locale" />
-        <div class="login-form__content px-2 py-10">
+        <div class="px-2 py-10 login-form__content">
           <header>
             <img :src="logo" class="mr-4" />
             <h1>{{ title }}</h1>
@@ -35,7 +35,9 @@
               <a-col :span="12">
                 <a-form-item :style="{ 'text-align': 'right' }">
                   <!-- No logic, you need to deal with it yourself -->
-                  <a-button type="link" size="small">{{ t('sys.login.forgetPassword') }}</a-button>
+                  <a-button type="link" size="small">
+                    {{ t('sys.login.forgetPassword') }}
+                  </a-button>
                 </a-form-item>
               </a-col>
             </a-row>
@@ -47,8 +49,9 @@
                 :block="true"
                 @click="login"
                 :loading="formState.loading"
-                >{{ t('sys.login.loginButton') }}</a-button
               >
+                {{ t('sys.login.loginButton') }}
+              </a-button>
             </a-form-item>
           </a-form>
         </div>

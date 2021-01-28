@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component :is="tag" ref="wrapRef"></component>
+    <component :is="tag" ref="wrapRef" />
   </div>
 </template>
 <script lang="ts">
@@ -11,7 +11,6 @@
 
   export default defineComponent({
     name: 'QrCode',
-    emits: { done: (url: string) => !!url, error: (error: any) => !!error },
     props: {
       value: {
         type: [String, Array] as PropType<string | any[]>,
@@ -39,6 +38,7 @@
         validator: (v: string) => ['canvas', 'img'].includes(v),
       },
     },
+    emits: { done: (url: string) => !!url, error: (error: any) => !!error },
     setup(props, { emit }) {
       const wrapRef = ref<HTMLCanvasElement | HTMLImageElement | null>(null);
       const urlRef = ref<string>('');

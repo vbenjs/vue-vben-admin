@@ -3,7 +3,7 @@
     <CollapseContainer class="px-20 bg-white w-full h-32 rounded-md" title="Copy Example">
       <div class="flex justify-center">
         <a-input placeholder="请输入" v-model:value="value" />
-        <a-button type="primary" @click="handleCopy">Copy</a-button>
+        <a-button type="primary" @click="handleCopy"> Copy </a-button>
       </div>
     </CollapseContainer>
   </PageWrapper>

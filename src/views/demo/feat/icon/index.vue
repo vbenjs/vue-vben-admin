@@ -26,7 +26,7 @@
       message="推荐使用Iconify组件"
       description="Icon组件基本包含所有的图标,在下面网址内你可以查询到你想要的任何图标。并且打包只会打包所用到的图标。唯一不足的可能就是需要连接外网进行使用。"
     />
-    <a-button type="link" @click="toIconify">Iconify 图标大全</a-button>
+    <a-button type="link" @click="toIconify"> Iconify 图标大全 </a-button>
   </PageWrapper>
 </template>
 <script lang="ts">

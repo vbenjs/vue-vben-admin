@@ -5,7 +5,7 @@
         <TableAction :actions="createActions(record, column)" />
       </template>
     </BasicTable>
-    <a-button block class="mt-5" type="dashed" @click="handleAdd">新增成员</a-button>
+    <a-button block class="mt-5" type="dashed" @click="handleAdd"> 新增成员 </a-button>
   </div>
 </template>
 <script lang="ts">
@@ -16,7 +16,6 @@
     TableAction,
     BasicColumn,
     ActionItem,
-    EditTableHeaderIcon,
     EditRecordRow,
   } from '/@/components/Table';
 
@@ -59,7 +58,7 @@
     },
   ];
   export default defineComponent({
-    components: { BasicTable, EditTableHeaderIcon, TableAction },
+    components: { BasicTable, TableAction },
     setup() {
       const [registerTable, { getDataSource }] = useTable({
         columns: columns,

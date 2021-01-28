@@ -1,21 +1,21 @@
 <template>
   <PageWrapper title="Tree函数操作示例" contentBackground contentClass="p-4">
     <div class="mb-4">
-      <a-button @click="handleLevel(2)" class="mr-2">显示到第2级</a-button>
-      <a-button @click="handleLevel(1)" class="mr-2">显示到第1级</a-button>
-      <a-button @click="handleSetCheckData" class="mr-2">设置勾选数据</a-button>
-      <a-button @click="handleGetCheckData" class="mr-2">获取勾选数据</a-button>
-      <a-button @click="handleSetSelectData" class="mr-2">设置选中数据</a-button>
-      <a-button @click="handleGetSelectData" class="mr-2">获取选中数据</a-button>
+      <a-button @click="handleLevel(2)" class="mr-2"> 显示到第2级 </a-button>
+      <a-button @click="handleLevel(1)" class="mr-2"> 显示到第1级 </a-button>
+      <a-button @click="handleSetCheckData" class="mr-2"> 设置勾选数据 </a-button>
+      <a-button @click="handleGetCheckData" class="mr-2"> 获取勾选数据 </a-button>
+      <a-button @click="handleSetSelectData" class="mr-2"> 设置选中数据 </a-button>
+      <a-button @click="handleGetSelectData" class="mr-2"> 获取选中数据 </a-button>
 
-      <a-button @click="handleSetExpandData" class="mr-2">设置展开数据</a-button>
-      <a-button @click="handleGetExpandData" class="mr-2">获取展开数据</a-button>
+      <a-button @click="handleSetExpandData" class="mr-2"> 设置展开数据 </a-button>
+      <a-button @click="handleGetExpandData" class="mr-2"> 获取展开数据 </a-button>
     </div>
     <div class="mb-4">
-      <a-button @click="appendNodeByKey(null)" class="mr-2">添加根节点</a-button>
-      <a-button @click="appendNodeByKey('2-2')" class="mr-2">添加在parent3内添加节点</a-button>
-      <a-button @click="deleteNodeByKey('2-2')" class="mr-2">删除parent3节点</a-button>
-      <a-button @click="updateNodeByKey('1-1')" class="mr-2">更新parent2节点</a-button>
+      <a-button @click="appendNodeByKey(null)" class="mr-2"> 添加根节点 </a-button>
+      <a-button @click="appendNodeByKey('2-2')" class="mr-2"> 添加在parent3内添加节点 </a-button>
+      <a-button @click="deleteNodeByKey('2-2')" class="mr-2"> 删除parent3节点 </a-button>
+      <a-button @click="updateNodeByKey('1-1')" class="mr-2"> 更新parent2节点 </a-button>
     </div>
     <CollapseContainer title="函数操作" class="mr-4" :canExpan="false" :style="{ width: '33%' }">
       <BasicTree :treeData="treeData" ref="treeRef" :checkable="true" />

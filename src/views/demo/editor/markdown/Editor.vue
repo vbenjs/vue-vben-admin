@@ -6,8 +6,7 @@
         :schemas="schemas"
         :actionColOptions="{ span: 24 }"
         @submit="handleSubmit"
-      >
-      </BasicForm>
+      />
     </CollapseContainer>
   </PageWrapper>
 </template>

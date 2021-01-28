@@ -25,7 +25,6 @@
   import { REDIRECT_NAME } from '/@/router/constant';
   import Icon from '/@/components/Icon';
 
-  import { HomeOutlined } from '@ant-design/icons-vue';
   import { PageEnum } from '/@/enums/pageEnum';
 
   import { useDesign } from '/@/hooks/web/useDesign';
@@ -37,7 +36,7 @@
 
   export default defineComponent({
     name: 'LayoutBreadcrumb',
-    components: { HomeOutlined, Icon, [Breadcrumb.name]: Breadcrumb },
+    components: { Icon, [Breadcrumb.name]: Breadcrumb },
     props: {
       theme: propTypes.oneOf(['dark', 'light']),
     },

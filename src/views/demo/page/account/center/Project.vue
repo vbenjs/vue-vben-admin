@@ -9,7 +9,9 @@
               <div :class="`${prefixCls}__card-title`">
                 {{ item.title }}
               </div>
-              <div :class="`${prefixCls}__card-content`"> {{ item.content }}</div>
+              <div :class="`${prefixCls}__card-content`">
+                {{ item.content }}
+              </div>
             </Card>
           </ListItem>
         </a-col>

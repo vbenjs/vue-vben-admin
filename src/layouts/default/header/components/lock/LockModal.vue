@@ -9,7 +9,9 @@
     <div :class="`${prefixCls}__entry`">
       <div :class="`${prefixCls}__header`">
         <img :src="headerImg" :class="`${prefixCls}__header-img`" />
-        <p :class="`${prefixCls}__header-name`">{{ getRealName }}</p>
+        <p :class="`${prefixCls}__header-name`">
+          {{ getRealName }}
+        </p>
       </div>
 
       <BasicForm @register="registerForm" />

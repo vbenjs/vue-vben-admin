@@ -10,8 +10,8 @@
 
   export default defineComponent({
     name: 'PopButton',
-    inheritAttrs: false,
     components: { Popconfirm, BasicButton },
+    inheritAttrs: false,
     props: {
       size: propTypes.oneOf(['large', 'default', 'small']).def(),
       enable: propTypes.bool.def(true),
