@@ -1112,10 +1112,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.293":
-  version "1.1.293"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.293.tgz#f61583bb9de76fbdb3495aa7f6883a49d85c73fd"
-  integrity sha512-0xRreoBhdMSwVP3UhPX7x5+NqpN6vrS5/UJgH4uvvLd/QlEnrfkxUy3Ld33LUXMdu1rDZwTPt6MPbbfgWkQusw==
+"@iconify/json@^1.1.294":
+  version "1.1.294"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.294.tgz#2696352e8548c3cec9084213633b008ae0941702"
+  integrity sha512-4h+jUC2ZAtUHScR3XzbhtCyo1wExQsnokILHWqvzeTogUk/8c1jdINQHYBMq8tWdGBokvoAuPttsR1Ldaw50bg==
 
 "@intlify/core-base@9.0.0-beta.16":
   version "9.0.0-beta.16"
@@ -1659,10 +1659,10 @@
   resolved "https://registry.npmjs.org/@types/yargs-parser/-/yargs-parser-20.2.0.tgz#dd3e6699ba3237f0348cd085e4698780204842f9"
   integrity sha512-37RSHht+gzzgYeobbG+KWryeAW8J33Nhr69cjTqSYymXVZEN9NbRYWoYlRtDhHKPVT1FyNKwaTPC1NynKZpzRA==
 
-"@types/yargs@^15.0.12":
-  version "15.0.12"
-  resolved "https://registry.npmjs.org/@types/yargs/-/yargs-15.0.12.tgz#6234ce3e3e3fa32c5db301a170f96a599c960d74"
-  integrity sha512-f+fD/fQAo3BCbCDlrUpznF1A5Zp9rB0noS5vnoormHSIPFKL0Z2DcUJ3Gxp5ytH4uLRNxy7AwYUC9exZzqGMAw==
+"@types/yargs@^16.0.0":
+  version "16.0.0"
+  resolved "https://registry.npmjs.org/@types/yargs/-/yargs-16.0.0.tgz#0e033b23452da5d61b6c44747612cb80ac528751"
+  integrity sha512-2nN6AGeMwe8+O6nO9ytQfbMQOJy65oi1yK2y/9oReR08DaXSGtMsrLyCM1ooKqfICpCx4oITaR4LkOmdzz41Ww==
   dependencies:
     "@types/yargs-parser" "*"
 
@@ -1768,10 +1768,10 @@
     "@vue/babel-plugin-jsx" "^1.0.1"
     hash-sum "^2.0.0"
 
-"@vitejs/plugin-vue@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.npmjs.org/@vitejs/plugin-vue/-/plugin-vue-1.1.2.tgz#64d1f0e0739675f5717015ffb4d861c53af8fe60"
-  integrity sha512-a5ORYuPsiAO4Kb2blA/x63mDiBQBxEJkbjhVtiv5IP/I7fGfpwXPPGHx9LHD4MedpXp8icngJYMKO0hOwahtmQ==
+"@vitejs/plugin-vue@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.npmjs.org/@vitejs/plugin-vue/-/plugin-vue-1.1.3.tgz#94c3822d3c2425ca240b86437b8a8c92f29e22b1"
+  integrity sha512-RjqnMVIGoo+4dyjm8/5sAHkcbPNhFuFyQWO8OeaJMq6HBGqULHphf6J2UvnEi8TOmjfSFHJl1mzls3DtBvvz9w==
 
 "@vue/babel-helper-vue-transform-on@^1.0.2":
   version "1.0.2"
@@ -1985,18 +1985,18 @@
     vscode-languageserver-textdocument "^1.0.1"
     vscode-uri "^2.1.2"
 
-"@vueuse/core@^4.0.10":
-  version "4.0.10"
-  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.0.10.tgz#863ae7bb9d3325908e3ce388e9050c8bec09f502"
-  integrity sha512-2TxaF9JWutJlrgRtz9r/vFPvpaKKQ8HL5eMIiIMNBpfAkf0BZkT5HsSzphNyJ9vMhjlM+DIlhGKdWVASOdc3Aw==
+"@vueuse/core@^4.0.11":
+  version "4.0.11"
+  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.0.11.tgz#783c824d18296f82a2c28756e67b129b22a3e9f3"
+  integrity sha512-wvfcSqMZLo0568T2rIIS4QtCAQsNz+vuoqCLgwuVxoBMr9WrMJWJEkdIxoH5+hj/YXSWYFvwTQdBto4a5S1Iuw==
   dependencies:
-    "@vueuse/shared" "4.0.10"
+    "@vueuse/shared" "4.0.11"
     vue-demi latest
 
-"@vueuse/shared@4.0.10":
-  version "4.0.10"
-  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.0.10.tgz#3f175d7c33831ab7226c5c712ad2a53093a52c19"
-  integrity sha512-x60po8a7v1tyaQNbXJWf/YTzgUzYU5rbmxKgxbxrHC2aDIcSLTMgqmwFrFpqbLwbNxvDta7z/R0MJms5bSaWwg==
+"@vueuse/shared@4.0.11":
+  version "4.0.11"
+  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.0.11.tgz#3188b6a9854b7db68c53a8eb3fcbb9a8adbf087b"
+  integrity sha512-r6Hm35lsByliKtIr6/fuqo+kpbb6324nGEgu0KLMApeLfOutQKXYEAuGD81cnXAPKTHunRO0dNH8+GGRp5uPxg==
   dependencies:
     vue-demi latest
 
@@ -2247,13 +2247,13 @@ atob@^2.1.2:
   resolved "https://registry.npmjs.org/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-autoprefixer@^10.2.3:
-  version "10.2.3"
-  resolved "https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.2.3.tgz#2834b55b75cfc10fa80c66000a66dc94b7136804"
-  integrity sha512-vlz+iv+EnLkVaTgX8wApfYzmK3LUfK8Z9XAnmflzxMy/+oFuNK8fVGQV79SOpBv4jxk2YQJimw4hXIKZ29570A==
+autoprefixer@^10.2.4:
+  version "10.2.4"
+  resolved "https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.2.4.tgz#c0e7cf24fcc6a1ae5d6250c623f0cb8beef2f7e1"
+  integrity sha512-DCCdUQiMD+P/as8m3XkeTUkUKuuRqLGcwD0nll7wevhqoJfMRpJlkFd1+MQh1pvupjiQuip42lc/VFvfUTMSKw==
   dependencies:
     browserslist "^4.16.1"
-    caniuse-lite "^1.0.30001178"
+    caniuse-lite "^1.0.30001181"
     colorette "^1.2.1"
     fraction.js "^4.0.13"
     normalize-range "^0.1.2"
@@ -2501,10 +2501,15 @@ camelcase@^6.0.0:
   resolved "https://registry.npmjs.org/camelcase/-/camelcase-6.2.0.tgz#924af881c9d525ac9d87f40d964e5cea982a1809"
   integrity sha512-c7wVvbw3f37nuobQNtgsgG9POC9qMbNuMQmTCqZv23b6MIz0fcYpBiOlv9gEN/hdLdnZTDQhg6e9Dq5M1vKvfg==
 
-caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001173, caniuse-lite@^1.0.30001178:
+caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001173:
   version "1.0.30001179"
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001179.tgz#b0803883b4471a6c62066fb1752756f8afc699c8"
   integrity sha512-blMmO0QQujuUWZKyVrD1msR4WNDAqb/UPO1Sw2WWsQ7deoM5bJiicKnWJ1Y0NS/aGINSnKPIWBMw5luX+NDUCA==
+
+caniuse-lite@^1.0.30001181:
+  version "1.0.30001181"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001181.tgz#4f0e5184e1ea7c3bf2727e735cbe7ca9a451d673"
+  integrity sha512-m5ul/ARCX50JB8BSNM+oiPmQrR5UmngaQ3QThTTp5HcIIQGP/nPBs82BYLE+tigzm3VW+F4BJIhUyaVtEweelQ==
 
 capital-case@^1.0.4:
   version "1.0.4"
@@ -3449,6 +3454,11 @@ error-ex@^1.2.0, error-ex@^1.3.1:
   integrity sha512-7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==
   dependencies:
     is-arrayish "^0.2.1"
+
+es-module-lexer@^0.3.26:
+  version "0.3.26"
+  resolved "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-0.3.26.tgz#7b507044e97d5b03b01d4392c74ffeb9c177a83b"
+  integrity sha512-Va0Q/xqtrss45hWzP8CZJwzGSZJjDM5/MJRE3IXXnUCcVLElR9BRaE9F62BopysASyc4nM3uwhSW7FFB9nlWAA==
 
 esbuild-register@^1.2.1:
   version "1.2.1"
@@ -7688,12 +7698,13 @@ vfile@^4.0.0:
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
 
-vite-plugin-html@^2.0.0-beta.6:
-  version "2.0.0-beta.6"
-  resolved "https://registry.npmjs.org/vite-plugin-html/-/vite-plugin-html-2.0.0-beta.6.tgz#468c7f0af73ae32f2018265e3b1314b12466ff20"
-  integrity sha512-oHV+boqFmFs25FgeuyIrNbAtwGvywYwFA+6wHx+YhXP4HzrQv4mXP71we1HM+YRRc3hhKy+HLsiLke6XCgZJ3A==
+vite-plugin-html@^2.0.0-rc.3:
+  version "2.0.0-rc.3"
+  resolved "https://registry.npmjs.org/vite-plugin-html/-/vite-plugin-html-2.0.0-rc.3.tgz#7e0ef3227e4f55583cabeba20f3525e87666c25e"
+  integrity sha512-D3SMz1Rxg+x5UFf1bDV7EYpCjc5HRlVSE5qoZYiriGVVDlG7RpoJe18hF37CxxfHOy/4Ote5tAJuY+zVW/N01A==
   dependencies:
     ejs "^3.1.5"
+    fs-extra "^9.1.0"
     html-minifier-terser "^5.1.1"
 
 vite-plugin-mock@^2.0.0-rc.2:
@@ -7732,21 +7743,20 @@ vite-plugin-pwa@^0.4.1:
     pretty-bytes "^5.5.0"
     workbox-build "^6.0.2"
 
-vite-plugin-style-import@^0.4.6:
-  version "0.4.6"
-  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-0.4.6.tgz#5351f6d9f62930dbd94f3e5292d445838ae88681"
-  integrity sha512-aCE22nLLqm7a/ugOFN2UxvFP953yXmZBxCvTHAAJ0L3kxL61o9FKQRBSblqB78LGYSGA5oGlq5GRQrdcJiaHuw==
+vite-plugin-style-import@^0.5.5:
+  version "0.5.5"
+  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-0.5.5.tgz#a73847d4fb9079f404d39c5a7d463f2d8943f5a6"
+  integrity sha512-C8ISIpUhwlMt8aYj76+QhnIQnJc5SSnYVvpyFKJxUQUDM8jZIeawlsrPdydk4Ff/sBLg8Ahq1f4TEA2AItJmbA==
   dependencies:
-    "@babel/core" "^7.12.10"
-    "@babel/helper-module-imports" "^7.12.5"
-    "@babel/plugin-transform-typescript" "^7.12.1"
     "@rollup/pluginutils" "^4.1.0"
     change-case "^4.1.2"
+    es-module-lexer "^0.3.26"
+    magic-string "^0.25.7"
 
-vite@2.0.0-beta.55:
-  version "2.0.0-beta.55"
-  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0-beta.55.tgz#db0da6ec8f0a18cef3348881b95967d71cf3eccb"
-  integrity sha512-IlLTGIWgOiXh9TG6UQo2UttQmymfOzkTviTQJM1Os/XDAkD/xm22vjnbix3OpbmQ0/kjE33dVmSf8aNklVOuVg==
+vite@2.0.0-beta.59:
+  version "2.0.0-beta.59"
+  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0-beta.59.tgz#e01a795aebedc0cb44d653c33b72ab7b831057ae"
+  integrity sha512-tlxEPFpVI1wV+vk+t/ypwBZfNmxKcorok8YF82MrQIqCDeRXnHvp33oWPIsRrO0V7UdnnlkKQOJJiIi3AIUFOA==
   dependencies:
     esbuild "^0.8.34"
     postcss "^8.2.1"
