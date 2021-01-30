@@ -255,9 +255,9 @@ yarn clean:lib # 删除node_modules，兼容window系统
 
 如果这些插件对你有帮助，可以给一个 star 支持下
 
-- [vite-plugin-mock](https://github.com/vbenjs/vite-plugin-mock)
-- [vite-plugin-html](https://github.com/vbenjs/vite-plugin-html)
-- [vite-plugin-style-import](https://github.com/vbenjs/vite-plugin-style-import)
+- [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock)
+- [vite-plugin-html](https://github.com/anncwb/vite-plugin-html)
+- [vite-plugin-style-import](https://github.com/anncwb/vite-plugin-style-import)
 
 ## 加入我们
 

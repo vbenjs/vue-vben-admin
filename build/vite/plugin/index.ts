@@ -13,7 +13,7 @@ import { configStyleImportConfig } from './styleImport';
 import { configVisualizerConfig } from './visualizer';
 
 // gen vite plugins
-export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean, mode: string) {
+export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   const vitePlugins: (Plugin | Plugin[])[] = [];
 
   // vite-plugin-html

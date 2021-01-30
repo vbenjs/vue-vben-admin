@@ -254,4 +254,4 @@ If these plugins are helpful to you, you can give a star
 
 - [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock)
 - [vite-plugin-html](https://github.com/anncwb/vite-plugin-html)
-- [vite-plugin-style-import](https://github.com/vbenjs/vite-plugin-style-import)
+- [vite-plugin-style-import](https://github.com/anncwb/vite-plugin-style-import)
