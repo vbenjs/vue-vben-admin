@@ -140,7 +140,7 @@
 
       function handleCancel(record: EditRecordRow) {
         currentEditKeyRef.value = '';
-        record.onEdit?.(false, true);
+        record.onEdit?.(false, false);
       }
 
       async function handleSave(record: EditRecordRow) {
