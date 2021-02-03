@@ -34,6 +34,8 @@ const getShowFooter = computed(() => unref(getRootSetting).showFooter);
 
 const getShowBreadCrumb = computed(() => unref(getRootSetting).showBreadCrumb);
 
+const getThemeColor = computed(() => unref(getRootSetting).themeColor);
+
 const getShowBreadCrumbIcon = computed(() => unref(getRootSetting).showBreadCrumbIcon);
 
 const getFullContent = computed(() => unref(getRootSetting).fullContent);
@@ -74,5 +76,6 @@ export function useRootSetting() {
     getShowFooter,
     getContentMode,
     getLockTime,
+    getThemeColor,
   };
 }

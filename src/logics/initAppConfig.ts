@@ -8,15 +8,14 @@ import { PROJ_CFG_KEY } from '/@/enums/cacheEnum';
 
 import projectSetting from '/@/settings/projectSetting';
 import { getLocal } from '/@/utils/helper/persistent';
-import {
-  updateGrayMode,
-  updateColorWeak,
-  updateHeaderBgColor,
-  updateSidebarBgColor,
-} from '/@/logics/theme';
+import { updateHeaderBgColor, updateSidebarBgColor } from '/@/logics/theme/updateBackground';
+import { updateColorWeak } from '/@/logics/theme/updateColorWeak';
+import { updateGrayMode } from '/@/logics/theme/updateGrayMode';
+import { changeTheme } from '/@/logics/theme';
 
 import { appStore } from '/@/store/modules/app';
 import { deepMerge } from '/@/utils';
+import { primaryColor } from '../../build/config/themeConfig';
 
 // Initial project configuration
 export function initAppConfigStore() {
@@ -26,16 +25,13 @@ export function initAppConfigStore() {
     const {
       colorWeak,
       grayMode,
+      themeColor,
       headerSetting: { bgColor: headerBgColor } = {},
       menuSetting: { bgColor } = {},
     } = projCfg;
-    // if (
-    //   themeColor !== primaryColor &&
-    //   themeColor &&
-    //   process.env.VUE_APP_USE_THEME_REPLACER !== 'TRUE'
-    // ) {
-    //   updateTheme(themeColor);
-    // }
+    if (themeColor && themeColor !== primaryColor) {
+      changeTheme(themeColor);
+    }
     headerBgColor && updateHeaderBgColor(headerBgColor);
     bgColor && updateSidebarBgColor(bgColor);
     grayMode && updateGrayMode(grayMode);

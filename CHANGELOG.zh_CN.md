@@ -3,6 +3,7 @@
 ### ✨ Features
 
 - `ApiSelect`新增 `numberToString`属性,用于将 value 为`number`的值全部转化为`string`
+- 新增主题色切换
 
 ### ⚡ Performance Improvements
 

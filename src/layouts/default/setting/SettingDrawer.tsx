@@ -31,7 +31,11 @@ import {
   mixSidebarTriggerOptions,
 } from './enum';
 
-import { HEADER_PRESET_BG_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from '/@/settings/designSetting';
+import {
+  HEADER_PRESET_BG_COLOR_LIST,
+  SIDE_BAR_BG_COLOR_LIST,
+  APP_PRESET_COLOR_LIST,
+} from '/@/settings/designSetting';
 
 const { t } = useI18n();
 
@@ -48,6 +52,7 @@ export default defineComponent({
       getColorWeak,
       getGrayMode,
       getLockTime,
+      getThemeColor,
     } = useRootSetting();
 
     const {
@@ -125,6 +130,16 @@ export default defineComponent({
           colorList={SIDE_BAR_BG_COLOR_LIST}
           def={unref(getMenuBgColor)}
           event={HandlerEnum.MENU_THEME}
+        />
+      );
+    }
+
+    function renderMainTheme() {
+      return (
+        <ThemePicker
+          colorList={APP_PRESET_COLOR_LIST}
+          def={unref(getThemeColor)}
+          event={HandlerEnum.CHANGE_THEME_COLOR}
         />
       );
     }
@@ -391,6 +406,8 @@ export default defineComponent({
       >
         <Divider>{() => t('layout.setting.navMode')}</Divider>
         {renderSidebar()}
+        <Divider>{() => t('layout.setting.sysTheme')}</Divider>
+        {renderMainTheme()}
         <Divider>{() => t('layout.setting.headerTheme')}</Divider>
         {renderHeaderTheme()}
         <Divider>{() => t('layout.setting.sidebarTheme')}</Divider>
