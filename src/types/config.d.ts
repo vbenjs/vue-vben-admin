@@ -2,6 +2,7 @@ import { MenuTypeEnum, MenuModeEnum, TriggerEnum, MixSidebarTriggerEnum } from '
 import { ContentEnum, PermissionModeEnum, ThemeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 import { CacheTypeEnum } from '/@/enums/cacheEnum';
 import type { LocaleType } from '/@/locales/types';
+import { ThemeMode } from '../../build/config/lessModifyVars';
 
 export interface MenuSetting {
   bgColor: string;
@@ -95,6 +96,7 @@ export interface ProjectConfig {
   colorWeak: boolean;
   // 主题色
   themeColor: string;
+  themeMode: ThemeMode;
   // 全屏显示主界面,不显示菜单,及顶部
   fullContent: boolean;
   // 区域宽度

@@ -3,14 +3,24 @@ export default {
 };
 
 // header preset color
+export const APP_PRESET_COLOR_LIST: string[] = [
+  '#0084f4',
+  '#009688',
+  '#536dfe',
+  '#ff5c93',
+  '#ee4f12',
+  '#0096c7',
+  '#9c27b0',
+  '#ff9800',
+];
+
+// header preset color
 export const HEADER_PRESET_BG_COLOR_LIST: string[] = [
   '#ffffff',
   '#009688',
   '#5172DC',
-  '#1E9FFF',
   '#018ffb',
   '#409eff',
-  '#4e73df',
   '#e74c3c',
   '#24292e',
   '#394664',

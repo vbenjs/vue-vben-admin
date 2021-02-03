@@ -1,12 +1,12 @@
 import { HandlerEnum } from './enum';
-import {
-  updateColorWeak,
-  updateGrayMode,
-  updateHeaderBgColor,
-  updateSidebarBgColor,
-} from '/@/logics/theme';
+import { updateHeaderBgColor, updateSidebarBgColor } from '/@/logics/theme/updateBackground';
+import { updateColorWeak } from '/@/logics/theme/updateColorWeak';
+import { updateGrayMode } from '/@/logics/theme/updateGrayMode';
+
 import { appStore } from '/@/store/modules/app';
 import { ProjectConfig } from '/@/types/config';
+import { changeTheme } from '/@/logics/theme';
+import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 
 export function baseHandler(event: HandlerEnum, value: any) {
   const config = handler(event, value);
@@ -14,6 +14,7 @@ export function baseHandler(event: HandlerEnum, value: any) {
 }
 
 export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConfig> {
+  const { getThemeColor } = useRootSetting();
   switch (event) {
     case HandlerEnum.CHANGE_LAYOUT:
       const { mode, type, split } = value;
@@ -29,6 +30,13 @@ export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConf
           ...splitOpt,
         },
       };
+
+    case HandlerEnum.CHANGE_THEME_COLOR:
+      if (getThemeColor.value === value) {
+        return {};
+      }
+      changeTheme(value);
+      return { themeColor: value };
 
     case HandlerEnum.MENU_HAS_DRAG:
       return { menuSetting: { canDrag: value } };

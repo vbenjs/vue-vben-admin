@@ -3,7 +3,7 @@ import type { ProjectConfig } from '/@/types/config';
 import { MenuTypeEnum, MenuModeEnum, TriggerEnum, MixSidebarTriggerEnum } from '/@/enums/menuEnum';
 import { CacheTypeEnum } from '/@/enums/cacheEnum';
 import { ContentEnum, PermissionModeEnum, ThemeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
-import { primaryColor } from '../../build/config/lessModifyVars';
+import { primaryColor, themeMode } from '../../build/config/themeConfig';
 import { isProdMode } from '/@/utils/env';
 
 // ! You need to clear the browser cache after the change
@@ -20,6 +20,8 @@ const setting: ProjectConfig = {
   // color
   // TODO Theme color
   themeColor: primaryColor,
+  // TODO dark theme
+  themeMode: themeMode,
 
   // Website gray mode, open for possible mourning dates
   grayMode: false,

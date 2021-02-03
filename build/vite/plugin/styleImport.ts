@@ -1,6 +1,6 @@
 import styleImport from 'vite-plugin-style-import';
 
-export function configStyleImportConfig() {
+export function configStyleImportPlugin() {
   const pwaPlugin = styleImport({
     libs: [
       {
