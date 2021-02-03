@@ -1,6 +1,7 @@
 import type { DescOptions, DescInstance, DescItem } from './types';
 
 import { defineComponent, computed, ref, unref, CSSProperties } from 'vue';
+import { get } from 'lodash-es';
 import { Descriptions } from 'ant-design-vue';
 import { DescriptionsProps } from 'ant-design-vue/es/descriptions/index';
 import { CollapseContainer, CollapseContainerOptions } from '/@/components/Container/index';
@@ -91,8 +92,11 @@ export default defineComponent({
           return null;
         }
 
-        const getContent = () =>
-          isFunction(render) ? render(data?.[field], data) : unref(data) && unref(data)[field];
+        const getContent = () => {
+          const _data = unref(data);
+          const getField = get(_data, field);
+          return isFunction(render) ? render(getField, _data) : getField ?? '';
+        };
 
         const width = contentMinWidth;
         return (
