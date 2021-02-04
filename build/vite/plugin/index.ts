@@ -12,6 +12,7 @@ import { configGzipPlugin } from './gzip';
 import { configStyleImportPlugin } from './styleImport';
 import { configVisualizerConfig } from './visualizer';
 import { configThemePlugin } from './theme';
+import { configImageminPlugin } from './imagemin';
 
 // gen vite plugins
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
@@ -19,9 +20,6 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
 
   // vite-plugin-html
   vitePlugins.push(configHtmlPlugin(viteEnv, isBuild));
-
-  // vite-plugin-pwa
-  vitePlugins.push(configPwaConfig(viteEnv, isBuild));
 
   // vite-plugin-mock
   vitePlugins.push(configMockPlugin(viteEnv, isBuild));
@@ -32,14 +30,22 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   // vite-plugin-style-import
   vitePlugins.push(configStyleImportPlugin());
 
-  // rollup-plugin-gzip
-  vitePlugins.push(configGzipPlugin(isBuild));
-
   // rollup-plugin-visualizer
   vitePlugins.push(configVisualizerConfig());
 
   //vite-plugin-theme
   vitePlugins.push(configThemePlugin());
+
+  if (isBuild) {
+    //vite-plugin-imagemin
+    viteEnv.VITE_USE_IMAGEMIN && vitePlugins.push(configImageminPlugin());
+
+    // rollup-plugin-gzip
+    vitePlugins.push(configGzipPlugin(isBuild));
+
+    // vite-plugin-pwa
+    vitePlugins.push(configPwaConfig(viteEnv));
+  }
 
   return vitePlugins;
 }

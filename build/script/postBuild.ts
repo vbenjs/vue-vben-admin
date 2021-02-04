@@ -2,7 +2,7 @@
 
 import { argv } from 'yargs';
 import { runBuildConfig } from './buildConf';
-import { errorConsole, successConsole } from '../utils';
+import chalk from 'chalk';
 
 export const runBuild = async () => {
   try {
@@ -12,9 +12,9 @@ export const runBuild = async () => {
     if (!argvList.includes('no-conf')) {
       await runBuildConfig();
     }
-    successConsole('Vite Build successfully!');
+    console.log(chalk.green.bold('✨ vite build successfully!\n'));
   } catch (error) {
-    errorConsole('Vite Build Error\n' + error);
+    console.log(chalk.red('vite build error:\n' + error));
     process.exit(1);
   }
 };
