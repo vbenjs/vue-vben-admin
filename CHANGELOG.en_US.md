@@ -1,3 +1,25 @@
+## 2.0.0-rc.18 (2021-02-05)
+
+### ✨ Features
+
+- `ApiSelect` adds `numberToString` property, which is used to convert all the value of `number` into `string`
+- Added theme color switch
+- Packed image compression
+
+### ⚡ Performance Improvements
+
+When mock is not used, move `mock.js` out of the package file
+
+### 🐛 Bug Fixes
+
+- Fix modal height calculation error
+- Fix the pop-up menu when the menu is clicked on the tab when the menu is collapsed
+- Fix the problem that the initial value of form is 0
+- Fix table wrapping problem
+- Fix the menu outside link does not jump
+- Fix the display problem at the top of the menu
+- Fix the issue of `modifyVars` configuration failure
+
 ## 2.0.0-rc.17 (2020-01-18)
 
 ### ✨ Refactor
