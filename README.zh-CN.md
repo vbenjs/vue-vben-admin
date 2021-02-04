@@ -258,6 +258,8 @@ yarn clean:lib # 删除node_modules，兼容window系统
 - [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock)
 - [vite-plugin-html](https://github.com/anncwb/vite-plugin-html)
 - [vite-plugin-style-import](https://github.com/anncwb/vite-plugin-style-import)
+- [vite-plugin-theme](https://github.com/anncwb/vite-plugin-theme)
+- [vite-plugin-imagemin](https://github.com/anncwb/vite-plugin-imagemin)
 
 ## 加入我们
 
