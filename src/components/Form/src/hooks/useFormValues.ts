@@ -57,7 +57,7 @@ export function useFormValues({
       return values;
     }
 
-    for (const [field, [startTimeKey, endTimeKey, format = 'YYYY-MM-DD']] of fieldMapToTime) {
+    for (const [field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD'] of fieldMapToTime) {
       if (!field || !startTimeKey || !endTimeKey || !values[field]) {
         continue;
       }
