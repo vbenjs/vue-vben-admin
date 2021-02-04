@@ -44,6 +44,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         overlay: true,
       },
     },
+
     build: {
       polyfillDynamicImport: VITE_LEGACY,
       terserOptions: {
@@ -52,6 +53,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           drop_console: VITE_DROP_CONSOLE,
         },
       },
+      brotliSize: false,
+      chunkSizeWarningLimit: 1000,
     },
     define: {
       __VERSION__: pkg.version,
