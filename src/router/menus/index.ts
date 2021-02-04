@@ -64,7 +64,6 @@ export async function getCurrentParentPath(currentPath: string) {
 export async function getShallowMenus(): Promise<Menu[]> {
   const menus = await getAsyncMenus();
   const routes = router.getRoutes();
-
   const shallowMenuList = menus.map((item) => ({ ...item, children: undefined }));
   return !isBackMode() ? shallowMenuList.filter(basicFilter(routes)) : shallowMenuList;
 }

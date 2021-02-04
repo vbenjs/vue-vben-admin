@@ -64,7 +64,7 @@
   export default defineComponent({
     components: { BasicModal, Upload, Alert, FileList },
     props: basicProps,
-    emits: ['change'],
+    emits: ['change', 'register'],
     setup(props, { emit }) {
       const { t } = useI18n();
 
