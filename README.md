@@ -67,8 +67,8 @@ The documentation for 2.0 hasn't started yet, it will be provided later.
 
 ### Environmental requirements
 
-- `Node.js`: - Version>`12.0.0` is better.
-- `yarn` > `npm` > `cnpm`: - Package management tool.
+- `Node.js`: - Version > `12.0.0` .
+- `yarn` : - Package management tool.
 
 ### UI framework
 

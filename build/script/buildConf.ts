@@ -3,8 +3,9 @@
  */
 import { GLOB_CONFIG_FILE_NAME } from '../constant';
 import fs, { writeFileSync } from 'fs-extra';
+import chalk from 'chalk';
 
-import { errorConsole, successConsole, getCwdPath, getEnvConfig } from '../utils';
+import { getCwdPath, getEnvConfig } from '../utils';
 import { getShortName } from '../getShortName';
 
 function createConfig(
@@ -29,9 +30,10 @@ function createConfig(
     fs.mkdirp(getCwdPath(outDir));
     writeFileSync(getCwdPath(`${outDir}/${configFileName}`), configStr);
 
-    successConsole('The configuration file is build successfully！');
+    console.log(chalk.cyan('✨ configuration file is build successfully:'));
+    console.log(chalk.gray(outDir + '/' + chalk.green(configFileName)) + '\n');
   } catch (error) {
-    errorConsole('Configuration file configuration file failed to package\n' + error);
+    console.log(chalk.red('configuration file configuration file failed to package:\n' + error));
   }
 }
 
