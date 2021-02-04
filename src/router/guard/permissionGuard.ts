@@ -56,8 +56,8 @@ export function createPermissionGuard(router: Router) {
       return;
     }
     const routes = await permissionStore.buildRoutesAction();
+
     routes.forEach((route) => {
-      // router.addRoute(RootRoute.name!, route as RouteRecordRaw);
       router.addRoute(route as RouteRecordRaw);
     });
 

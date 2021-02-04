@@ -128,6 +128,7 @@ export default defineComponent({
 
     function renderMenu() {
       const menus = unref(menusRef);
+      // console.log(menus);
       if (!menus || !menus.length) return null;
       return !props.isHorizontal ? (
         <SimpleMenu
