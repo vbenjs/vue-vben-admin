@@ -20,7 +20,12 @@
       </Tooltip>
     </a-button-group>
 
-    <UploadModal v-bind="bindValue" @register="registerUploadModal" @change="handleChange" />
+    <UploadModal
+      v-bind="bindValue"
+      :previewFileList="fileListRef"
+      @register="registerUploadModal"
+      @change="handleChange"
+    />
 
     <UploadPreviewModal
       :value="fileListRef"
