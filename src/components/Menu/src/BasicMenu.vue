@@ -122,6 +122,9 @@
         watch(
           () => props.items,
           () => {
+            if (import.meta.hot && props.items.length === 0) {
+              return;
+            }
             handleMenuChange();
           }
         );

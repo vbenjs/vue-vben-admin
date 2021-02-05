@@ -13,6 +13,11 @@
   box-sizing: border-box;
 }
 
+:root {
+  -moz-tab-size: 4;
+  tab-size: 4;
+}
+
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px white inset !important;
 }
@@ -33,6 +38,8 @@ html,
 
 html {
   overflow: hidden;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
 }
 
 html,
@@ -53,34 +60,9 @@ body {
 }
 
 body {
-  font-family: 'BlinkMacSystemFont,segoe ui,Microsoft YaHei,Arial,sans-serif,Helvetica Neue,Helvetica,Pingfang SC,Hiragino Sans GB,Roboto,helvetica neue,Arial,noto sans,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol,noto color emoji';
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1.428571429; // 20/14
-  letter-spacing: normal;
-  word-spacing: normal;
-  text-align: left; // Fallback for where `start` is not supported
-  text-align: start;
-  text-decoration: none;
-  text-size-adjust: 100%;
-  text-shadow: none;
-  text-transform: none;
-  word-break: normal;
-  word-wrap: normal;
-  white-space: normal;
-  line-break: auto;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-top: 0;
-  margin-bottom: 0.5em;
-  font-weight: 500;
-  color: @heading-color;
+  font-family: system-ui, -apple-system, 'Segoe UI', Microsoft YaHei, Arial, sans-serif,
+    Helvetica Neue, Helvetica, Pingfang SC, Hiragino Sans GB, Roboto, helvetica neue, noto sans,
+    apple color emoji, segoe ui emoji, segoe ui symbol, noto color emoji;
 }
 
 ul,
@@ -92,68 +74,121 @@ li {
   list-style-type: none;
 }
 
-img {
-  vertical-align: top;
-  border: 0;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
 a:focus,
 a:active {
   outline: none;
 }
 
-i,
-em {
-  font-style: normal;
+hr {
+  height: 0;
+  color: inherit;
+}
+
+abbr[title] {
+  text-decoration: underline dotted;
+}
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+code,
+kbd,
+samp,
+pre {
+  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 1em;
+}
+
+small {
+  font-size: 80%;
+}
+
+sub,
+sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+table {
+  text-indent: 0;
+  border-color: inherit;
 }
 
 button,
-div:focus {
-  outline: none !important;
+input,
+optgroup,
+select,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
 }
 
-a {
-  color: @link-color;
-  text-decoration: none;
-  cursor: pointer;
-  background-color: transparent; // remove the gray background on active links in IE 10.
-  outline: none;
-  transition: color 0.3s;
-  -webkit-text-decoration-skip: objects; // remove gaps in links underline in iOS 8+ and Safari 8+.
-
-  &:hover {
-    color: @link-hover-color;
-  }
-
-  &:active {
-    color: @link-active-color;
-  }
-
-  &:active,
-  &:hover {
-    text-decoration: none;
-    outline: 0;
-  }
-
-  &[disabled] {
-    color: @disabled-color;
-    pointer-events: none;
-    cursor: not-allowed;
-  }
+button,
+select {
+  text-transform: none;
 }
 
-img,
-svg,
-video,
-canvas,
-audio,
-iframe,
-embed,
-object {
-  vertical-align: baseline !important;
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  -webkit-appearance: button;
+}
+
+::-moz-focus-inner {
+  padding: 0;
+  border-style: none;
+}
+
+:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+
+legend {
+  padding: 0;
+}
+
+progress {
+  vertical-align: baseline;
+}
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  height: auto;
+}
+
+[type='search'] {
+  outline-offset: -2px;
+  -webkit-appearance: textfield;
+}
+
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+  font: inherit;
+  -webkit-appearance: button;
+}
+
+summary {
+  display: list-item;
 }

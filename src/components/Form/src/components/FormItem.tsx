@@ -321,7 +321,7 @@ export default defineComponent({
 
       return (
         isIfShow && (
-          <Col {...realColProps} class={{ hidden: !isShow }}>
+          <Col {...realColProps} v-show={isShow}>
             {getContent()}
           </Col>
         )

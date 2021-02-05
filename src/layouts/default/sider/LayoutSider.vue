@@ -2,9 +2,10 @@
   <div
     v-if="getMenuFixed && !getIsMobile"
     :style="getHiddenDomStyle"
-    :class="{ hidden: !showClassSideBarRef }"
+    v-show="showClassSideBarRef"
   ></div>
   <Sider
+    v-show="showClassSideBarRef"
     ref="sideRef"
     breakpoint="lg"
     collapsible
@@ -84,7 +85,6 @@
           prefixCls,
           {
             [`${prefixCls}--fixed`]: unref(getMenuFixed),
-            hidden: !unref(showClassSideBarRef),
             [`${prefixCls}--mix`]: unref(getIsMixMode) && !unref(getIsMobile),
           },
         ];
