@@ -12,6 +12,7 @@
     "allowJs": true,
     "sourceMap": true,
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "experimentalDecorators": true,
