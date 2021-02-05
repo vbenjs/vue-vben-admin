@@ -156,7 +156,7 @@ export function createPreviewActionColumn({
       //     onClick: handlePreview.bind(null, record),
       //   });
       // }
-      return <TableAction actions={actions} />;
+      return <TableAction actions={actions} outside={true} />;
     },
   };
 }
