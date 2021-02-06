@@ -7,6 +7,7 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { extendSlots } from '/@/utils/helper/tsxHelper';
   import { omit } from 'lodash-es';
+  import { useAttrs } from '/@/hooks/core/useAttrs';
 
   export default defineComponent({
     name: 'PopButton',
@@ -18,8 +19,9 @@
       okText: propTypes.string,
       cancelText: propTypes.string,
     },
-    setup(props, { slots, attrs }) {
+    setup(props, { slots }) {
       const { t } = useI18n();
+      const attrs = useAttrs();
 
       const getBindValues = computed(() => {
         const popValues = Object.assign(
