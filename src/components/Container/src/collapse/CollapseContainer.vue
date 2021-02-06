@@ -1,6 +1,11 @@
 <template>
   <div :class="['p-2', prefixCls]">
-    <CollapseHeader v-bind="$props" :prefixCls="prefixCls" :show="show" @expand="handleExpand">
+    <CollapseHeader
+      v-bind="getBindValues"
+      :prefixCls="prefixCls"
+      :show="show"
+      @expand="handleExpand"
+    >
       <template #title>
         <slot name="title"></slot>
       </template>
@@ -23,7 +28,7 @@
 <script lang="ts">
   import type { PropType } from 'vue';
 
-  import { defineComponent, ref } from 'vue';
+  import { defineComponent, ref, computed } from 'vue';
 
   // component
   import { Skeleton } from 'ant-design-vue';
@@ -78,10 +83,16 @@
           useTimeoutFn(triggerWindowResize, 200);
         }
       }
+
+      const getBindValues = computed((): any => {
+        return props;
+      });
+
       return {
         show,
         handleExpand,
         prefixCls,
+        getBindValues,
       };
     },
   });

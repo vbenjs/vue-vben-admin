@@ -14,9 +14,9 @@
                 <SearchOutlined />
               </template>
             </a-input>
-            <span :class="`${prefixCls}-cancel`" @click="handleClose">{{
-              t('common.cancelText')
-            }}</span>
+            <span :class="`${prefixCls}-cancel`" @click="handleClose">
+              {{ t('common.cancelText') }}
+            </span>
           </div>
 
           <div :class="`${prefixCls}-not-data`" v-show="getIsNotData">
@@ -38,13 +38,13 @@
               ]"
             >
               <div :class="`${prefixCls}-list__item-icon`">
-                <g-icon :icon="item.icon || 'mdi:form-select'" :size="20" />
+                <Icon :icon="item.icon || 'mdi:form-select'" :size="20" />
               </div>
               <div :class="`${prefixCls}-list__item-text`">
                 {{ item.name }}
               </div>
               <div :class="`${prefixCls}-list__item-enter`">
-                <g-icon icon="ant-design:enter-outlined" :size="20" />
+                <Icon icon="ant-design:enter-outlined" :size="20" />
               </div>
             </li>
           </ul>
@@ -66,10 +66,11 @@
   import { useAppInject } from '/@/hooks/web/useAppInject';
   import clickOutside from '/@/directives/clickOutside';
   import { Input } from 'ant-design-vue';
+  import Icon from '/@/components/Icon';
 
   export default defineComponent({
     name: 'AppSearchModal',
-    components: { SearchOutlined, AppSearchFooter, [Input.name]: Input },
+    components: { Icon, SearchOutlined, AppSearchFooter, [Input.name]: Input },
     directives: {
       clickOutside,
     },
