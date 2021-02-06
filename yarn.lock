@@ -9214,10 +9214,10 @@ vite-plugin-imagemin@^0.2.2:
     imagemin-svgo "^8.0.0"
     imagemin-webp "^6.0.0"
 
-vite-plugin-mock@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.1.0.tgz#9e80d9fca6b83ddc07ddfdf9390902b46cb43095"
-  integrity sha512-aK+kaY+4wppRGYaLkzy78qBrikPoDE8v4Ja2Ko+Ljt7PvcYYrkt3s9g48FdhSTTa8RM8lZdms8eFHT4FCBx5Zg==
+vite-plugin-mock@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.1.1.tgz#162f1ca93bed22c3f371997b394228e67e156fee"
+  integrity sha512-FFgKA9dNBmaodWSRxsKU5s7Ls9gtSCBvnEDZ6R9bTgswkv4yTTvpbFb3Vh2bKdfJgv9fTU1A33vTcfz0EgLCMg==
   dependencies:
     "@rollup/plugin-node-resolve" "^11.1.1"
     "@types/mockjs" "^1.0.3"

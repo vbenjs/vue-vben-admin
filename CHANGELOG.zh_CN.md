@@ -5,6 +5,7 @@
 - 修复菜单在 hmr 时数据被置空
 - 修复 Upload 组件 maxNumber 失效问题
 - 修复打包 sourcemap 报错
+- 修复 mock 插件 post 请求错误问题
 
 ### 🎫 Chores
 
