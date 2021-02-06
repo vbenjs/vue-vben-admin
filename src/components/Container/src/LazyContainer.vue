@@ -10,7 +10,7 @@
     <div key="component" v-if="isInit">
       <slot :loading="loading"></slot>
     </div>
-    <div key="skeleton" v-else name="lazy-skeleton">
+    <div key="skeleton" v-else>
       <slot name="skeleton" v-if="$slots.skeleton"></slot>
       <Skeleton v-else />
     </div>

@@ -46,6 +46,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
 
     build: {
+      // sourcemap: true,
       polyfillDynamicImport: VITE_LEGACY,
       terserOptions: {
         compress: {
@@ -54,7 +55,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         },
       },
       brotliSize: false,
-      chunkSizeWarningLimit: 1000,
+      chunkSizeWarningLimit: 1200,
     },
     define: {
       __VERSION__: pkg.version,

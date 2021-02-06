@@ -88,7 +88,7 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
     return ret;
   }
 
-  function handleMouseenter(e: ChangeEvent) {
+  function handleMouseenter(e: any) {
     const index = e.target.dataset.index;
     activeIndex.value = Number(index);
   }

@@ -19,6 +19,7 @@
     "lib": ["dom", "esnext"],
     "types": ["vite/client"],
     "incremental": true,
+    "noImplicitAny": false,
     "skipLibCheck": true,
     "paths": {
       "/@/*": ["src/*"]

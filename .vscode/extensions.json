@@ -12,6 +12,7 @@
     "antfu.iconify",
     "mikestead.dotenv",
     "bradlc.vscode-tailwindcss",
-    "heybourn.headwind"
+    "heybourn.headwind",
+    "znck.vue-language-features"
   ]
 }
