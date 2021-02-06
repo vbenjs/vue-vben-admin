@@ -96,7 +96,7 @@
     "vite": "2.0.0-beta.65",
     "vite-plugin-html": "^2.0.0",
     "vite-plugin-imagemin": "^0.2.2",
-    "vite-plugin-mock": "^2.1.0",
+    "vite-plugin-mock": "^2.1.1",
     "vite-plugin-purge-icons": "^0.6.0",
     "vite-plugin-pwa": "^0.4.4",
     "vite-plugin-style-import": "^0.7.0",
