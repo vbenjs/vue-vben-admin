@@ -83,7 +83,7 @@
         &-selected {
           z-index: 2;
           color: @primary-color;
-          background: fade(@primary-color, 8);
+          background: fade(@primary-color, 10);
 
           .light-border();
         }
@@ -226,7 +226,7 @@
       &-active:not(.@{menu-prefix-cls}-submenu) {
         z-index: 2;
         color: @primary-color;
-        background: fade(@primary-color, 8);
+        background: fade(@primary-color, 10);
 
         .light-border();
       }
@@ -239,7 +239,7 @@
       > li.@{menu-prefix-cls}-item-active,
       .@{menu-prefix-cls}-submenu-active {
         position: relative;
-        background: fade(@primary-color, 3);
+        background: fade(@primary-color, 5);
 
         &::after {
           display: none;

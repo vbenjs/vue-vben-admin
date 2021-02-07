@@ -46,7 +46,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
 
     build: {
-      // sourcemap: true,
       polyfillDynamicImport: VITE_LEGACY,
       terserOptions: {
         compress: {

@@ -27,7 +27,6 @@
 
       // Initialize vuex internal system configuration
       initAppConfigStore();
-
       // Create a lock screen monitor
       const lockEvent = useLockPage();
 
