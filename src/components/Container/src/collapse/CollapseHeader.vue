@@ -1,7 +1,7 @@
 <template>
   <div :class="`${prefixCls}__header`">
     <BasicTitle :helpMessage="helpMessage">
-      <template v-if="$attrs.title">
+      <template v-if="title">
         {{ title }}
       </template>
       <template v-else>
