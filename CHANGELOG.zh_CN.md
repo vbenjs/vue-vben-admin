@@ -1,5 +1,9 @@
 ## Wip
 
+### ✨ Features
+
+- useModal 新增返回值函数 `redoModalHeight`,用于在 modal 内为动态内容时刷新 modal 高度
+
 ### 🐛 Bug Fixes
 
 - 修复 Upload 组件 maxNumber 失效问题

@@ -98,6 +98,7 @@
           dept: '',
           editable: true,
           isNew: true,
+          key: `${Date.now()}`,
         };
         data.push(addRow);
       }

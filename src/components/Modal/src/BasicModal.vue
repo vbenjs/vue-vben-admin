@@ -55,6 +55,7 @@
     watchEffect,
     toRef,
     getCurrentInstance,
+    nextTick,
   } from 'vue';
 
   import Modal from './components/Modal';
@@ -68,6 +69,7 @@
 
   import { basicProps } from './props';
   import { useFullScreen } from './hooks/useModalFullScreen';
+
   import { omit } from 'lodash-es';
   export default defineComponent({
     name: 'BasicModal',
@@ -79,12 +81,21 @@
       const visibleRef = ref(false);
       const propsRef = ref<Partial<ModalProps> | null>(null);
       const modalWrapperRef = ref<ComponentRef>(null);
+
       // modal   Bottom and top height
       const extHeightRef = ref(0);
       const modalMethods: ModalMethods = {
         setModalProps,
         emitVisible: undefined,
+        redoModalHeight: () => {
+          nextTick(() => {
+            if (unref(modalWrapperRef)) {
+              (unref(modalWrapperRef) as any).setModalHeight();
+            }
+          });
+        },
       };
+
       const instance = getCurrentInstance();
       if (instance) {
         emit('register', modalMethods, instance.uid);
@@ -135,6 +146,11 @@
         (v) => {
           emit('visible-change', v);
           instance && modalMethods.emitVisible?.(v, instance.uid);
+          nextTick(() => {
+            if (props.scrollTop && v && unref(modalWrapperRef)) {
+              (unref(modalWrapperRef) as any).scrollTop();
+            }
+          });
         },
         {
           immediate: false,
