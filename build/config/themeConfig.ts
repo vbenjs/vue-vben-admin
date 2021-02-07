@@ -80,15 +80,13 @@ export function generateModifyVars() {
   const primaryColorObj: Record<string, string> = {};
 
   for (let index = 0; index < 10; index++) {
-    primaryColorObj[`primary-${index}`] = palettes[index];
+    primaryColorObj[`primary-${index + 1}`] = palettes[index];
   }
 
   return {
     'primary-color': primary,
     ...primaryColorObj,
     'info-color': primary,
-    'alert-info-bg-color': palettes[0],
-    'alert-info-border-color': palettes[2],
     'processing-color': primary,
     'success-color': '#55D187', //  Success color
     'error-color': '#ED6F6F', //  False color

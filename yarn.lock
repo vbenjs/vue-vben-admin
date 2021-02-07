@@ -2068,18 +2068,18 @@
     vscode-languageserver-textdocument "^1.0.1"
     vscode-uri "^2.1.2"
 
-"@vueuse/core@^4.0.12":
-  version "4.0.12"
-  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.0.12.tgz#e6273feee1373c16d408b94be9382fa945c494a8"
-  integrity sha512-0pAEWyUP6HAqJ6Qzbybfpa8fNVdERMizrgjQI8vRe8+Fu5Ge5a8M2aLYCrdrLNxV6DsEZJ0bUFeTWb3aUnbxUA==
+"@vueuse/core@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.1.0.tgz#041ea810403433d9156e3903a45fc9ad83106b15"
+  integrity sha512-rcMceTJS6zDd5UOQr6bxhvqEsOitMNPlXAfTf0AJ9CaXs3ALAhtAyisGZCwZfHE5/Cid3Qy8bl3yWJwmrCOJSA==
   dependencies:
-    "@vueuse/shared" "4.0.12"
+    "@vueuse/shared" "4.1.0"
     vue-demi latest
 
-"@vueuse/shared@4.0.12":
-  version "4.0.12"
-  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.0.12.tgz#fe42215a0cc60afcda2dcbfbdd73a4dd780647ec"
-  integrity sha512-t5Amxc3BIwi+M2mI0iy9yHKe5plYJUMbxpIBuMDR953J5s12ewRe3s8MLvQdlhAiNN8FTh9CBKU+mfdNgbWauw==
+"@vueuse/shared@4.1.0":
+  version "4.1.0"
+  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.1.0.tgz#60d2a7b2d43173657816ae27dbb76d46dde480f4"
+  integrity sha512-E0g3MGu2RKLjPm6+EEsl93Q8+SDt1FDBnnzLz0iiUjpdo8KmHM6ivcGNe58B44/fNi9p+y0db53fubT0d/XJJQ==
   dependencies:
     vue-demi latest
 
@@ -9192,10 +9192,10 @@ vite-plugin-html@^2.0.0:
     fs-extra "^9.1.0"
     html-minifier-terser "^5.1.1"
 
-vite-plugin-imagemin@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.npmjs.org/vite-plugin-imagemin/-/vite-plugin-imagemin-0.2.2.tgz#e85c5956f787f1c636f40af449f1b064c919149f"
-  integrity sha512-bEf5kznbWFo7wxaJ0G9e0WQ4/Ce6FtNxwoMt2w+9SoIxPAraP/etQ/L+rnLuuiKwl2L22YrPoS2hWa4XxMK5Rw==
+vite-plugin-imagemin@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.npmjs.org/vite-plugin-imagemin/-/vite-plugin-imagemin-0.2.4.tgz#c44f7a39d84b8a0af8468b90505a147fd5297b67"
+  integrity sha512-7VQwm2mip/JNp0oTqVOLZ+eo7ijZT5wP3AZF3PwJErZ48iT02PcDbC1Ij00Q2zoFPbtMkAuEbcLh1vK5C1m+pQ==
   dependencies:
     "@types/imagemin" "^7.0.0"
     "@types/imagemin-gifsicle" "^7.0.0"
@@ -9214,10 +9214,10 @@ vite-plugin-imagemin@^0.2.2:
     imagemin-svgo "^8.0.0"
     imagemin-webp "^6.0.0"
 
-vite-plugin-mock@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.1.1.tgz#162f1ca93bed22c3f371997b394228e67e156fee"
-  integrity sha512-FFgKA9dNBmaodWSRxsKU5s7Ls9gtSCBvnEDZ6R9bTgswkv4yTTvpbFb3Vh2bKdfJgv9fTU1A33vTcfz0EgLCMg==
+vite-plugin-mock@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.1.2.tgz#a66d65947d565862395a0a181cb210b0076db9cc"
+  integrity sha512-b/YoQyBQhuyXOm/30bfVOKKBD7N50nw/5xTyyIXOTsry8LOPa5AZR9/2s2zPTioMeb63Ey4vga6CG8E2Tj8XVg==
   dependencies:
     "@rollup/plugin-node-resolve" "^11.1.1"
     "@types/mockjs" "^1.0.3"
@@ -9241,30 +9241,30 @@ vite-plugin-purge-icons@^0.6.0:
     "@purge-icons/generated" "^0.6.0"
     rollup-plugin-purge-icons "^0.6.0"
 
-vite-plugin-pwa@^0.4.4:
-  version "0.4.4"
-  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.4.4.tgz#58624cd049aa0ca30b84523e9f24e6f1a435d7b1"
-  integrity sha512-GboCS5XJYHtCYjmU2XU0C8VTccYstJOX8m2Qy1izoUA5YendhjQRByjj9EYTgvh+ImsoXW6gHkMK2eR+AsCFDg==
+vite-plugin-pwa@^0.4.6:
+  version "0.4.6"
+  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.4.6.tgz#e759b7840211f83cae367d306654da505cecbceb"
+  integrity sha512-3LonumSG4EcH9FT61d7wWouHkCmEciy3RPfvt25b835HMx9gb2Dt71t140+85Z5d+uANMSguC3miBnnGzagAMA==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"
     pretty-bytes "^5.5.0"
     workbox-build "^6.1.0"
 
-vite-plugin-style-import@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-0.7.0.tgz#fbaa5444cad1efbc52fae533f1584d5f75a3ae06"
-  integrity sha512-VOx2vXGja4fpJgmFhP3oJzRp5BPDzU3zOvLHNjILVadQP3UfZYXUAR6UxmbrR8I+3PjnrDDMrOdDzsVwplL7aQ==
+vite-plugin-style-import@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-0.7.1.tgz#f55949f6821937a7027c4afa8f6ce4c0b6ef9609"
+  integrity sha512-Nr2PH8i8i9GIQhQRkipwYTYKur+/1mkCrMi4sXbMLcoUsz7wq7uZ1c3XcXA8B0Au3lZm+AKN3KiUrDD4Evx9EQ==
   dependencies:
     "@rollup/pluginutils" "^4.1.0"
     change-case "^4.1.2"
     es-module-lexer "^0.3.26"
     magic-string "^0.25.7"
 
-vite-plugin-theme@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.npmjs.org/vite-plugin-theme/-/vite-plugin-theme-0.4.0.tgz#4fcee86e775ef181771698bc07f1467cd5aac3c0"
-  integrity sha512-TB2urU0YmDmbrSjRcb+JoRds95aoi7nocxbxie3dFbvKRu3qicpUvCWGqIu5//EcvMLUzBvvu+KdvUb9omy6mw==
+vite-plugin-theme@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.npmjs.org/vite-plugin-theme/-/vite-plugin-theme-0.4.1.tgz#02157947d1954ef59e3747e1b4f7d002b6b3f7cd"
+  integrity sha512-ap0NpgBAKOdKQD1zW5P56sYPTJc6DO9FtXsrnOjXtxQ2gb2qKuRAnVV5+UFuO/Mgjh2QyuN9AnT5ANwGTjl0og==
   dependencies:
     "@types/tinycolor2" "^1.4.2"
     clean-css "^4.2.3"
