@@ -83,10 +83,9 @@ export default defineComponent({
     }
 
     function renderItem() {
-      const { schema } = unref(getProps);
+      const { schema, data } = unref(getProps);
       return unref(schema).map((item) => {
         const { render, field, span, show, contentMinWidth } = item;
-        const { data } = unref(getProps) as DescOptions;
 
         if (show && isFunction(show) && !show(data)) {
           return null;
@@ -112,7 +111,8 @@ export default defineComponent({
             }}
           </Descriptions.Item>
         );
-      });
+      })
+      .filter((item) => !!item);
     }
 
     const renderDesc = () => {
