@@ -112,7 +112,8 @@ export default defineComponent({
             }}
           </Descriptions.Item>
         );
-      });
+      })
+      .filter((item) => !!item);
     }
 
     const renderDesc = () => {
