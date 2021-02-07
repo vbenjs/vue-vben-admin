@@ -64,9 +64,14 @@ export function useModal(): UseModalReturnType {
     setModalProps: (props: Partial<ModalProps>): void => {
       getInstance()?.setModalProps(props);
     },
+
     getVisible: computed((): boolean => {
       return visibleData[~~unref(uidRef)];
     }),
+
+    redoModalHeight: () => {
+      getInstance()?.redoModalHeight?.();
+    },
 
     openModal: <T = any>(visible = true, data?: T, openOnSet = true): void => {
       getInstance()?.setModalProps({
