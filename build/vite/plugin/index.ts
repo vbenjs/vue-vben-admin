@@ -2,8 +2,6 @@ import type { Plugin } from 'vite';
 
 import PurgeIcons from 'vite-plugin-purge-icons';
 
-// @ts-ignore
-import pkg from '../../../package.json';
 import { ViteEnv } from '../../utils';
 import { configHtmlPlugin } from './html';
 import { configPwaConfig } from './pwa';
@@ -16,13 +14,15 @@ import { configImageminPlugin } from './imagemin';
 
 // gen vite plugins
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
+  const { VITE_USE_IMAGEMIN, VITE_USE_MOCK } = viteEnv;
+
   const vitePlugins: (Plugin | Plugin[])[] = [];
 
   // vite-plugin-html
   vitePlugins.push(configHtmlPlugin(viteEnv, isBuild));
 
   // vite-plugin-mock
-  vitePlugins.push(configMockPlugin(viteEnv, isBuild));
+  VITE_USE_MOCK && vitePlugins.push(configMockPlugin(isBuild));
 
   // vite-plugin-purge-icons
   vitePlugins.push(PurgeIcons());
@@ -38,7 +38,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
 
   if (isBuild) {
     //vite-plugin-imagemin
-    viteEnv.VITE_USE_IMAGEMIN && vitePlugins.push(configImageminPlugin());
+    VITE_USE_IMAGEMIN && vitePlugins.push(configImageminPlugin());
 
     // rollup-plugin-gzip
     vitePlugins.push(configGzipPlugin(isBuild));

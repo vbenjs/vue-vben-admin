@@ -1112,10 +1112,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.298":
-  version "1.1.298"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.298.tgz#32f4090d1b83e1a753e7cce7fe972efb856a72e1"
-  integrity sha512-h+IxOqYrW5zL4O+4zyaFl3kVnErHZEBE6d9ZCd6hK+oOAOx0uMkaUgesoR0Ci54U9igyY3Mp6vdMDzHLDCdzkg==
+"@iconify/json@^1.1.299":
+  version "1.1.299"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.299.tgz#e1aca556b83461316ba5ec04b232906b499a67a5"
+  integrity sha512-oYHUgp5RZNE2CT3wKE/MWbmGK7lmubi30PD5l33HUU7yh4CznmzPL0Ewgg51Wn86NkFveZDcT+odMBTaayh9Ew==
 
 "@intlify/core-base@9.0.0-beta.16":
   version "9.0.0-beta.16"
@@ -3377,10 +3377,10 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.1, cross-spawn@^7.0.2:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-crypto-es@^1.2.6:
-  version "1.2.6"
-  resolved "https://registry.npmjs.org/crypto-es/-/crypto-es-1.2.6.tgz#468f3573a5d7b82e3b63b0004f55f905a6d3b12c"
-  integrity sha512-PQnrovdr5ibmOxqAh/Vy+A30RokHom7kb9Z61EPwfASfbcJCrCG4+vNNegmebNVHiXvS7WjYpHDePxnE/biEbA==
+crypto-es@^1.2.7:
+  version "1.2.7"
+  resolved "https://registry.npmjs.org/crypto-es/-/crypto-es-1.2.7.tgz#754a6d52319a94fb4eb1f119297f17196b360f88"
+  integrity sha512-UUqiVJ2gUuZFmbFsKmud3uuLcNP2+Opt+5ysmljycFCyhA0+T16XJmo1ev/t5kMChMqWh7IEvURNCqsg+SjZGQ==
 
 crypto-random-string@^2.0.0:
   version "2.0.0"
@@ -4919,10 +4919,15 @@ got@^8.3.1:
     url-parse-lax "^3.0.0"
     url-to-options "^1.0.1"
 
-graceful-fs@^4.1.10, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.2:
+graceful-fs@^4.1.10, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0:
   version "4.2.4"
   resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
   integrity sha512-WjKPNJF79dtJAVniUlGGWHYGz2jWxT6VhN/4m1NdkbZ2nOsEF+cI1Edgql5zCRhs/VsQYRvrXctxktVXZUkixw==
+
+graceful-fs@^4.2.2:
+  version "4.2.5"
+  resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.5.tgz#bc18864a6c9fc7b303f2e2abdb9155ad178fbe29"
+  integrity sha512-kBBSQbz2K0Nyn+31j/w36fUfxkBW9/gfwRWdUY1ULReH3iokVJgddZAFcD1D0xlgTmFxJCbUkUclAlc6/IDJkw==
 
 handlebars@^4.7.6:
   version "4.7.6"
@@ -9192,10 +9197,10 @@ vite-plugin-html@^2.0.0:
     fs-extra "^9.1.0"
     html-minifier-terser "^5.1.1"
 
-vite-plugin-imagemin@^0.2.4:
-  version "0.2.4"
-  resolved "https://registry.npmjs.org/vite-plugin-imagemin/-/vite-plugin-imagemin-0.2.4.tgz#c44f7a39d84b8a0af8468b90505a147fd5297b67"
-  integrity sha512-7VQwm2mip/JNp0oTqVOLZ+eo7ijZT5wP3AZF3PwJErZ48iT02PcDbC1Ij00Q2zoFPbtMkAuEbcLh1vK5C1m+pQ==
+vite-plugin-imagemin@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.npmjs.org/vite-plugin-imagemin/-/vite-plugin-imagemin-0.2.5.tgz#926b57f570f55d29081ebbea5c073298e411ef42"
+  integrity sha512-wweK2QLJTNIkqEoCXuKJJP1Y+Duu2tA0CKtST6ovzXra4kMx6BQ3nWCRkr66Ye6fQii5yPSuE1ZtTNVLSi9mmw==
   dependencies:
     "@types/imagemin" "^7.0.0"
     "@types/imagemin-gifsicle" "^7.0.0"
@@ -9205,6 +9210,7 @@ vite-plugin-imagemin@^0.2.4:
     "@types/imagemin-svgo" "^8.0.0"
     "@types/imagemin-webp" "^5.1.1"
     chalk "^4.1.0"
+    debug "^4.3.1"
     fs-extra "^9.1.0"
     imagemin "^7.0.1"
     imagemin-gifsicle "^7.0.0"
@@ -9214,10 +9220,10 @@ vite-plugin-imagemin@^0.2.4:
     imagemin-svgo "^8.0.0"
     imagemin-webp "^6.0.0"
 
-vite-plugin-mock@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.1.2.tgz#a66d65947d565862395a0a181cb210b0076db9cc"
-  integrity sha512-b/YoQyBQhuyXOm/30bfVOKKBD7N50nw/5xTyyIXOTsry8LOPa5AZR9/2s2zPTioMeb63Ey4vga6CG8E2Tj8XVg==
+vite-plugin-mock@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.1.4.tgz#b1f91418e7ed4678c969d5581276fe68c27a27d0"
+  integrity sha512-3qYMDZ7jmTVk7mxPpKEgnbA6B19NKvkuEzpZrKq3I9yJH1tjsTIQi/t3EaH2rXJip4EZff6NRJO8aarW3OAsOg==
   dependencies:
     "@rollup/plugin-node-resolve" "^11.1.1"
     "@types/mockjs" "^1.0.3"
@@ -9251,23 +9257,26 @@ vite-plugin-pwa@^0.4.6:
     pretty-bytes "^5.5.0"
     workbox-build "^6.1.0"
 
-vite-plugin-style-import@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-0.7.1.tgz#f55949f6821937a7027c4afa8f6ce4c0b6ef9609"
-  integrity sha512-Nr2PH8i8i9GIQhQRkipwYTYKur+/1mkCrMi4sXbMLcoUsz7wq7uZ1c3XcXA8B0Au3lZm+AKN3KiUrDD4Evx9EQ==
+vite-plugin-style-import@^0.7.2:
+  version "0.7.3"
+  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-0.7.3.tgz#4a9fb08bf5f2fc4796391c9be9a587ecb5c97e9e"
+  integrity sha512-oKM6vOl7iWaB5U1HcR5oM1oPRhT1n5yJt7h4h9jwpMPCD5ckHPcSjjSU7ZlOJkoS/IWEnDkQqoZi162bOs1rTQ==
   dependencies:
     "@rollup/pluginutils" "^4.1.0"
     change-case "^4.1.2"
+    debug "^4.3.1"
     es-module-lexer "^0.3.26"
     magic-string "^0.25.7"
 
-vite-plugin-theme@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.npmjs.org/vite-plugin-theme/-/vite-plugin-theme-0.4.1.tgz#02157947d1954ef59e3747e1b4f7d002b6b3f7cd"
-  integrity sha512-ap0NpgBAKOdKQD1zW5P56sYPTJc6DO9FtXsrnOjXtxQ2gb2qKuRAnVV5+UFuO/Mgjh2QyuN9AnT5ANwGTjl0og==
+vite-plugin-theme@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.npmjs.org/vite-plugin-theme/-/vite-plugin-theme-0.4.2.tgz#bb4791ddd88205f2fd07ae9aff7a92d5d427b516"
+  integrity sha512-NOk56zCYloaVmqWh8o+OShJLVTNVsDZRLEeToHsv0yGXd94gCiYTflguGtcmsSQjQfQYOz/gGKjLAU4KPH/FKA==
   dependencies:
     "@types/tinycolor2" "^1.4.2"
+    chalk "^4.1.0"
     clean-css "^4.2.3"
+    debug "^4.3.1"
     es-module-lexer "^0.3.26"
     tinycolor2 "^1.4.2"
 
