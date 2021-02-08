@@ -8,10 +8,9 @@ import { loadEnv } from 'vite';
 
 import { generateModifyVars } from './build/config/themeConfig';
 import { createProxy } from './build/vite/proxy';
-
 import { wrapperEnv } from './build/utils';
-
 import { createVitePlugins } from './build/vite/plugin';
+import { OUTPUT_DIR } from './build/constant';
 
 const pkg = require('./package.json');
 
@@ -19,7 +18,7 @@ function pathResolve(dir: string) {
   return resolve(__dirname, '.', dir);
 }
 
-const root: string = process.cwd();
+const root = process.cwd();
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
   const env = loadEnv(mode, root);
@@ -46,6 +45,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
 
     build: {
+      outDir: OUTPUT_DIR,
       polyfillDynamicImport: VITE_LEGACY,
       terserOptions: {
         compress: {
