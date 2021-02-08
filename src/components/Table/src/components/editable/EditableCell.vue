@@ -17,7 +17,7 @@
         ref="elRef"
         @change="handleChange"
         @options-change="handleOptionsChange"
-        @pressEnter="handleSubmit"
+        @pressEnter="handleEnter"
       />
       <div :class="`${prefixCls}__action`" v-if="!getRowEditable">
         <CheckOutlined :class="[`${prefixCls}__icon`, 'mx-2']" @click="handleSubmit" />
@@ -234,6 +234,13 @@
         isEdit.value = false;
       }
 
+      async function handleEnter() {
+        if (props.column?.editRow) {
+          return;
+        }
+        handleSubmit();
+      }
+
       function handleCancel() {
         isEdit.value = false;
         currentValueRef.value = defaultValueRef.value;
@@ -311,6 +318,7 @@
         getWrapperStyle,
         getRowEditable,
         getValues,
+        handleEnter,
         // getSize,
       };
     },
