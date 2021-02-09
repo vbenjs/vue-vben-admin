@@ -4,12 +4,15 @@
   </BasicModal>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
+  import type { PropType } from 'vue';
 
+  import { defineComponent } from 'vue';
   import { BasicModal } from '/@/components/Modal/index';
-  import { ErrorInfo } from '/@/store/modules/error';
   import { Description, useDescription } from '/@/components/Description/index';
+
   import { useI18n } from '/@/hooks/web/useI18n';
+
+  import { ErrorInfo } from '/@/store/modules/error';
 
   import { getDescSchema } from './data';
 
@@ -24,10 +27,12 @@
     },
     setup() {
       const { t } = useI18n();
+
       const [register] = useDescription({
         column: 2,
         schema: getDescSchema(),
       });
+
       return {
         register,
         useI18n,

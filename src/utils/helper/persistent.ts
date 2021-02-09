@@ -1,5 +1,4 @@
 import { createStorage } from '/@/utils/cache';
-import { isIeFn } from '/@/utils/browser';
 
 import { BASE_LOCAL_CACHE_KEY, BASE_SESSION_CACHE_KEY } from '/@/enums/cacheEnum';
 
@@ -127,9 +126,5 @@ export function persistentCache() {
     }
   }
 
-  if (isIeFn() && (document as any).attachEvent) {
-    (document as any).attachEvent('onstorage', storageChange);
-  } else {
-    window.addEventListener('storage', storageChange);
-  }
+  window.addEventListener('storage', storageChange);
 })();

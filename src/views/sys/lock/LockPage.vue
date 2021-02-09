@@ -203,15 +203,12 @@
       display: flex;
       width: 40%;
       height: 74%;
-      // font-size: 50em;
       font-weight: 700;
       color: #bababa;
       background: #141313;
       border-radius: 30px;
       justify-content: center;
       align-items: center;
-      // .respond-to(large-only, { font-size: 25em;});
-      // .respond-to(large-only, { font-size: 30em;});
       @media (min-width: @screen-xxxl-min) {
         font-size: 46em;
       }

@@ -6,7 +6,7 @@
  * @return  Boolean
  */
 export function isHexColor(color: string) {
-  const reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+  const reg = /^#([0-9a-fA-F]{3}|[0-9a-fA-f]{6})$/;
   return reg.test(color);
 }
 
@@ -40,7 +40,7 @@ export function hexToRGB(hex: string) {
       }
       sHex = sColorNew;
     }
-    const sColorChange = [];
+    const sColorChange: number[] = [];
     for (let i = 1; i < 7; i += 2) {
       sColorChange.push(parseInt('0x' + sHex.slice(i, i + 2)));
     }
