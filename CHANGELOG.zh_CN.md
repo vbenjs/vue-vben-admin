@@ -3,6 +3,7 @@
 ### ✨ Features
 
 - useModal 新增返回值函数 `redoModalHeight`,用于在 modal 内为动态内容时刷新 modal 高度
+- 升级 husky 到 5.0
 
 ### 🐛 Bug Fixes
 

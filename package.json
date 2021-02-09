@@ -17,7 +17,10 @@
     "lint:eslint": "eslint \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint:stylelint": "stylelint --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
-    "reinstall": "rimraf yarn.lock && rimraf package.lock.json && rimraf node_modules && npm run bootstrap"
+    "lint:ls-lint": "ls-lint",
+    "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
+    "reinstall": "rimraf yarn.lock && rimraf package.lock.json && rimraf node_modules && npm run bootstrap",
+    "postinstall": "is-ci || husky install"
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.6",
@@ -61,11 +64,11 @@
     "@types/sortablejs": "^1.10.6",
     "@types/yargs": "^16.0.0",
     "@types/zxcvbn": "^4.4.0",
-    "@typescript-eslint/eslint-plugin": "^4.14.2",
-    "@typescript-eslint/parser": "^4.14.2",
+    "@typescript-eslint/eslint-plugin": "^4.15.0",
+    "@typescript-eslint/parser": "^4.15.0",
     "@vitejs/plugin-legacy": "^1.2.3",
     "@vitejs/plugin-vue": "^1.1.4",
-    "@vitejs/plugin-vue-jsx": "^1.0.2",
+    "@vitejs/plugin-vue-jsx": "^1.0.3",
     "@vue/compiler-sfc": "^3.0.5",
     "@vuedx/typecheck": "^0.6.3",
     "@vuedx/typescript-plugin-vue": "^0.6.3",
@@ -80,7 +83,8 @@
     "eslint-plugin-vue": "^7.5.0",
     "esno": "^0.4.3",
     "fs-extra": "^9.1.0",
-    "husky": "^4.3.8",
+    "husky": "^5.0.9",
+    "is-ci": "^2.0.0",
     "less": "^4.1.1",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
@@ -93,7 +97,7 @@
     "stylelint-order": "^4.1.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3",
-    "vite": "2.0.0-beta.65",
+    "vite": "2.0.0-beta.66",
     "vite-plugin-html": "^2.0.0",
     "vite-plugin-imagemin": "^0.2.5",
     "vite-plugin-mock": "^2.1.4",
@@ -117,12 +121,6 @@
     "url": "https://github.com/anncwb/vue-vben-admin/issues"
   },
   "homepage": "https://github.com/anncwb/vue-vben-admin",
-  "husky": {
-    "hooks": {
-      "pre-commit": "ls-lint && lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "engines": {
     "node": "^12 || ^14 || ^15 || ^16"
   }
