@@ -1,3 +1,6 @@
+/**
+ * Package file volume analysis
+ */
 import visualizer from 'rollup-plugin-visualizer';
 import { isReportMode } from '../../utils';
 

@@ -1,3 +1,8 @@
+/**
+ * Zero-config PWA for Vite
+ * https://github.com/antfu/vite-plugin-pwa
+ */
+
 import { VitePWA } from 'vite-plugin-pwa';
 
 import { ViteEnv } from '../../utils';

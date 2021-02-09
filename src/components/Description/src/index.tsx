@@ -84,35 +84,36 @@ export default defineComponent({
 
     function renderItem() {
       const { schema, data } = unref(getProps);
-      return unref(schema).map((item) => {
-        const { render, field, span, show, contentMinWidth } = item;
+      return unref(schema)
+        .map((item) => {
+          const { render, field, span, show, contentMinWidth } = item;
 
-        if (show && isFunction(show) && !show(data)) {
-          return null;
-        }
+          if (show && isFunction(show) && !show(data)) {
+            return null;
+          }
 
-        const getContent = () => {
-          const _data = unref(data);
-          const getField = get(_data, field);
-          return isFunction(render) ? render(getField, _data) : getField ?? '';
-        };
+          const getContent = () => {
+            const _data = unref(data);
+            const getField = get(_data, field);
+            return isFunction(render) ? render(getField, _data) : getField ?? '';
+          };
 
-        const width = contentMinWidth;
-        return (
-          <Descriptions.Item label={renderLabel(item)} key={field} span={span}>
-            {() => {
-              if (!contentMinWidth) {
-                return getContent();
-              }
-              const style: CSSProperties = {
-                minWidth: `${width}px`,
-              };
-              return <div style={style}>{getContent()}</div>;
-            }}
-          </Descriptions.Item>
-        );
-      })
-      .filter((item) => !!item);
+          const width = contentMinWidth;
+          return (
+            <Descriptions.Item label={renderLabel(item)} key={field} span={span}>
+              {() => {
+                if (!contentMinWidth) {
+                  return getContent();
+                }
+                const style: CSSProperties = {
+                  minWidth: `${width}px`,
+                };
+                return <div style={style}>{getContent()}</div>;
+              }}
+            </Descriptions.Item>
+          );
+        })
+        .filter((item) => !!item);
     }
 
     const renderDesc = () => {

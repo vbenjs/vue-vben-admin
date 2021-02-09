@@ -1,3 +1,7 @@
+/**
+ * Vite plugin for website theme color switching
+ * https://github.com/anncwb/vite-plugin-theme
+ */
 import { viteThemePlugin, mixLighten, mixDarken, tinycolor } from 'vite-plugin-theme';
 import { getThemeColors, generateColors } from '../../config/themeConfig';
 
