@@ -141,11 +141,7 @@ export default defineComponent({
     async function handleRightClick({ event, node }: any) {
       const { rightMenuList: menuList = [], beforeRightClick } = props;
       let rightMenuList: ContextMenuItem[] = [];
-      if (beforeRightClick && isFunction(beforeRightClick)) {
-        rightMenuList = await beforeRightClick(node);
-      } else {
-        rightMenuList = menuList;
-      }
+      rightMenuList = beforeRightClick && isFunction(beforeRightClick) ? (await beforeRightClick(node)) : menuList;
       if (!rightMenuList.length) return;
       createContextMenu({
         event,

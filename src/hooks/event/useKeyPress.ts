@@ -163,10 +163,6 @@ export function getTargetElement(
 
   let targetElement: TargetElement | undefined | null;
 
-  if (isFunction(target)) {
-    targetElement = target();
-  } else {
-    targetElement = unref(target);
-  }
+  targetElement = isFunction(target) ? target() : unref(target);
   return targetElement;
 }
