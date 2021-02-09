@@ -168,8 +168,7 @@ export function treeMapEach(
 ) {
   const haveChildren = Array.isArray(data[children]) && data[children].length > 0;
   const conversionData = conversion(data) || {};
-  if (haveChildren) {
-    return {
+  return haveChildren ? {
       ...conversionData,
       [children]: data[children].map((i: number) =>
         treeMapEach(i, {
@@ -177,10 +176,7 @@ export function treeMapEach(
           conversion,
         })
       ),
-    };
-  } else {
-    return {
+    } : {
       ...conversionData,
     };
-  }
 }
