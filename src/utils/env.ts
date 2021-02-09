@@ -1,22 +1,25 @@
 import type { GlobEnvConfig } from '/@/types/config';
 
+/**
+ * Get the global configuration (the configuration will be extracted independently when packaging)
+ */
 export function getGlobEnvConfig(): GlobEnvConfig {
   const env = import.meta.env;
   return (env as unknown) as GlobEnvConfig;
 }
 
 /**
- * @description: 开发模式
+ * @description: Development model
  */
 export const devMode = 'development';
 
 /**
- * @description: 生产模式
+ * @description: Production mode
  */
 export const prodMode = 'production';
 
 /**
- * @description: 获取环境变量
+ * @description: Get environment variables
  * @returns:
  * @example:
  */
@@ -25,7 +28,7 @@ export function getEnv(): string {
 }
 
 /**
- * @description: 是否是开发模式
+ * @description: Is it a development mode
  * @returns:
  * @example:
  */
@@ -34,7 +37,7 @@ export function isDevMode(): boolean {
 }
 
 /**
- * @description: 是否是生产模式模式
+ * @description: Is it a production mode
  * @returns:
  * @example:
  */
@@ -43,7 +46,7 @@ export function isProdMode(): boolean {
 }
 
 /**
- * @description: 是否开启mock
+ * @description: Whether to open mock
  * @returns:
  * @example:
  */

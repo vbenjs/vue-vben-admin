@@ -18,12 +18,13 @@
     <span>{{ t('common.closeText') }}</span>
   </div>
 </template>
+
 <script lang="ts">
   import { defineComponent } from 'vue';
+  import Icon from '/@/components/Icon';
 
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useI18n } from '/@/hooks/web/useI18n';
-  import Icon from '/@/components/Icon';
   export default defineComponent({
     name: 'AppSearchFooter',
     components: { Icon },

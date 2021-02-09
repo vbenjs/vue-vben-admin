@@ -1,23 +1,11 @@
-<template>
-  <div :class="prefixCls" v-if="getShowSearch" @click.stop="handleSearch">
-    <Tooltip>
-      <template #title>
-        {{ t('common.searchText') }}
-      </template>
-      <SearchOutlined />
-    </Tooltip>
-
-    <AppSearchModal @close="handleClose" :visible="showModal" />
-  </div>
-</template>
-<script lang="ts">
-  import { defineComponent, ref } from 'vue';
+<script lang="tsx">
+  import { defineComponent, ref, unref } from 'vue';
   import { Tooltip } from 'ant-design-vue';
+  import { SearchOutlined } from '@ant-design/icons-vue';
+  import AppSearchModal from './AppSearchModal.vue';
 
   import { useDesign } from '/@/hooks/web/useDesign';
-  import AppSearchModal from './AppSearchModal.vue';
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
-  import { SearchOutlined } from '@ant-design/icons-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
 
   export default defineComponent({
@@ -32,15 +20,26 @@
       function handleSearch() {
         showModal.value = true;
       }
-      return {
-        t,
-        prefixCls,
-        showModal,
-        getShowSearch,
-        handleClose: () => {
-          showModal.value = false;
-        },
-        handleSearch,
+
+      function handleClose() {
+        showModal.value = false;
+      }
+
+      return () => {
+        if (!getShowSearch.value) {
+          return null;
+        }
+        return (
+          <div class={prefixCls} onClick={handleSearch}>
+            <Tooltip>
+              {{
+                title: () => t('common.searchText'),
+                default: () => <SearchOutlined />,
+              }}
+            </Tooltip>
+            <AppSearchModal onClose={handleClose} visible={unref(showModal)} />
+          </div>
+        );
       };
     },
   });

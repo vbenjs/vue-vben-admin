@@ -1,6 +1,3 @@
-<template>
-  <slot></slot>
-</template>
 <script lang="ts">
   import type { PropType } from 'vue';
   import { defineComponent, toRefs, ref } from 'vue';
@@ -19,7 +16,7 @@
         default: designSetting.prefixCls,
       },
     },
-    setup(props) {
+    setup(props, { slots }) {
       const isMobileRef = ref(false);
 
       createBreakpointListen(({ screenMap, sizeEnum, width }) => {
@@ -31,7 +28,7 @@
 
       const { prefixCls } = toRefs(props);
       createAppProviderContext({ prefixCls, isMobile: isMobileRef });
-      return {};
+      return () => slots.default?.();
     },
   });
 </script>
