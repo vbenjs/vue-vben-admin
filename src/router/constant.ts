@@ -1,7 +1,7 @@
 import type { AppRouteRecordRaw } from '/@/router/types';
 import ParentLayout from '/@/layouts/page/ParentView.vue';
 
-const EXCEPTION_COMPONENT = () => import('../views/sys/exception/Exception');
+const EXCEPTION_COMPONENT = () => import('../views/sys/exception/Exception.vue');
 
 /**
  * @description: default layout

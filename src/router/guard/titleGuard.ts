@@ -2,7 +2,7 @@ import type { Router } from 'vue-router';
 
 import { useGlobSetting } from '/@/hooks/setting';
 
-import { setTitle } from '/@/utils/browser';
+import { setTitle } from '/@/utils';
 import { useI18n } from '/@/hooks/web/useI18n';
 
 import { REDIRECT_NAME } from '/@/router/constant';
