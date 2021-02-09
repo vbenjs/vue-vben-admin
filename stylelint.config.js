@@ -28,7 +28,7 @@ module.exports = {
         ignore: ['after-comment', 'first-nested'],
       },
     ],
-    // 指定声明块内属性的字母顺序
+    // Specify the alphabetical order of the attributes in the declaration block
     'order/properties-order': [
       'position',
       'top',

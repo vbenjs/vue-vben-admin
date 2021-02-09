@@ -18,6 +18,7 @@ export default [
     timeout: 4000,
     method: 'get',
     response: ({ query }) => {
+      console.log(query);
       return resultSuccess(demoList);
     },
   },

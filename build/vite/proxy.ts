@@ -1,3 +1,6 @@
+/**
+ * Used to parse the .env.development proxy configuration
+ */
 import type { ServerOptions } from 'http-proxy';
 
 type ProxyItem = [string, string];

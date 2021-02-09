@@ -1,3 +1,5 @@
+// Image resource files used to compress the output of the production environment
+
 import viteImagemin from 'vite-plugin-imagemin';
 
 export function configImageminPlugin() {
