@@ -56,17 +56,18 @@
 </template>
 <script lang="ts">
   import { defineComponent, computed, unref, ref } from 'vue';
+  import { SearchOutlined } from '@ant-design/icons-vue';
+  import { Input } from 'ant-design-vue';
+  import AppSearchFooter from './AppSearchFooter.vue';
+  import Icon from '/@/components/Icon';
+
+  import clickOutside from '/@/directives/clickOutside';
 
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useRefs } from '/@/hooks/core/useRefs';
   import { useMenuSearch } from './useMenuSearch';
-  import { SearchOutlined } from '@ant-design/icons-vue';
-  import AppSearchFooter from './AppSearchFooter.vue';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useAppInject } from '/@/hooks/web/useAppInject';
-  import clickOutside from '/@/directives/clickOutside';
-  import { Input } from 'ant-design-vue';
-  import Icon from '/@/components/Icon';
 
   export default defineComponent({
     name: 'AppSearchModal',
@@ -108,6 +109,11 @@
         ];
       });
 
+      function handleClose() {
+        searchResult.value = [];
+        emit('close');
+      }
+
       return {
         t,
         prefixCls,
@@ -120,10 +126,7 @@
         setRefs,
         scrollWrap,
         handleMouseenter,
-        handleClose: () => {
-          searchResult.value = [];
-          emit('close');
-        },
+        handleClose,
       };
     },
   });

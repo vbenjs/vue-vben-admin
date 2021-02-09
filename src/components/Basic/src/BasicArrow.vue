@@ -10,8 +10,10 @@
 <script lang="ts">
   import { defineComponent, computed } from 'vue';
   import { RightOutlined } from '@ant-design/icons-vue';
-  import { propTypes } from '/@/utils/propTypes';
+
   import { useDesign } from '/@/hooks/web/useDesign';
+
+  import { propTypes } from '/@/utils/propTypes';
 
   export default defineComponent({
     name: 'BasicArrow',

@@ -17,19 +17,18 @@
   </Dropdown>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, watchEffect, unref, computed } from 'vue';
+  import type { LocaleType } from '/@/locales/types';
+  import type { DropMenu } from '/@/components/Dropdown';
 
-  import { Dropdown, DropMenu } from '/@/components/Dropdown';
+  import { defineComponent, ref, watchEffect, unref, computed } from 'vue';
+  import { Dropdown } from '/@/components/Dropdown';
+  import Icon from '/@/components/Icon';
 
   import { useLocale } from '/@/locales/useLocale';
   import { useLocaleSetting } from '/@/hooks/setting/useLocaleSetting';
-
-  import { LocaleType } from '/@/locales/types';
-
-  import { propTypes } from '/@/utils/propTypes';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { propTypes } from '/@/utils/propTypes';
 
-  import Icon from '/@/components/Icon';
   export default defineComponent({
     name: 'AppLocalPicker',
     components: { Dropdown, Icon },

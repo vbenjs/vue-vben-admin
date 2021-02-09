@@ -12,6 +12,7 @@
 
   import { Button } from 'ant-design-vue';
   import Icon from '/@/components/Icon';
+
   import { propTypes } from '/@/utils/propTypes';
 
   export default defineComponent({

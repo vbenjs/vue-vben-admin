@@ -1,4 +1,4 @@
-import { Directive } from 'vue';
+import type { Directive } from 'vue';
 import './index.less';
 export interface RippleOptions {
   event: string;

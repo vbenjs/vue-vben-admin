@@ -8,10 +8,11 @@
   import type { PropType } from 'vue';
 
   import { defineComponent } from 'vue';
-
   import BasicHelp from './BasicHelp.vue';
-  import { propTypes } from '/@/utils/propTypes';
+
   import { useDesign } from '/@/hooks/web/useDesign';
+
+  import { propTypes } from '/@/utils/propTypes';
 
   export default defineComponent({
     name: 'BasicTitle',
