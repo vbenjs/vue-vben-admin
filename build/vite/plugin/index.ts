@@ -9,14 +9,14 @@ import { ViteEnv } from '../../utils';
 import { configHtmlPlugin } from './html';
 import { configPwaConfig } from './pwa';
 import { configMockPlugin } from './mock';
-import { configGzipPlugin } from './gzip';
+import { configCompressPlugin } from './compress';
 import { configStyleImportPlugin } from './styleImport';
 import { configVisualizerConfig } from './visualizer';
 import { configThemePlugin } from './theme';
 import { configImageminPlugin } from './imagemin';
 
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
-  const { VITE_USE_IMAGEMIN, VITE_USE_MOCK, VITE_LEGACY } = viteEnv;
+  const { VITE_USE_IMAGEMIN, VITE_USE_MOCK, VITE_LEGACY, VITE_BUILD_COMPRESS } = viteEnv;
 
   const vitePlugins: (Plugin | Plugin[])[] = [
     // have to
@@ -52,7 +52,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
     VITE_USE_IMAGEMIN && vitePlugins.push(configImageminPlugin());
 
     // rollup-plugin-gzip
-    vitePlugins.push(configGzipPlugin(isBuild));
+    vitePlugins.push(configCompressPlugin(VITE_BUILD_COMPRESS));
 
     // vite-plugin-pwa
     vitePlugins.push(configPwaConfig(viteEnv));

@@ -30,13 +30,15 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   return {
     base: VITE_PUBLIC_PATH,
     root,
-    alias: [
-      {
-        // /@/xxxx  =>  src/xxx
-        find: /^\/@\//,
-        replacement: pathResolve('src') + '/',
-      },
-    ],
+    resolve: {
+      alias: [
+        {
+          // /@/xxxx  =>  src/xxx
+          find: /^\/@\//,
+          replacement: pathResolve('src') + '/',
+        },
+      ],
+    },
     server: {
       port: VITE_PORT,
       // Load proxy configuration from .env
@@ -88,6 +90,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     optimizeDeps: {
       // @iconify/iconify: The dependency is dynamically and virtually loaded by @purge-icons/generated, so it needs to be specified explicitly
       include: ['@iconify/iconify'],
+      exclude: ['vue-demi'],
     },
   };
 };

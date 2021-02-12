@@ -257,3 +257,4 @@ If these plugins are helpful to you, you can give a star
 - [vite-plugin-style-import](https://github.com/anncwb/vite-plugin-style-import)
 - [vite-plugin-theme](https://github.com/anncwb/vite-plugin-theme)
 - [vite-plugin-imagemin](https://github.com/anncwb/vite-plugin-imagemin)
+- [vite-plugin-compression](https://github.com/anncwb/vite-plugin-compression)
