@@ -23,13 +23,6 @@ export function isReportMode(): boolean {
   return process.env.REPORT === 'true';
 }
 
-/**
- * Whether to generate gzip for packaging
- */
-export function isBuildGzip(): boolean {
-  return process.env.VITE_BUILD_GZIP === 'true';
-}
-
 export interface ViteEnv {
   VITE_PORT: number;
   VITE_USE_MOCK: boolean;
@@ -40,7 +33,7 @@ export interface ViteEnv {
   VITE_GLOB_APP_SHORT_NAME: string;
   VITE_USE_CDN: boolean;
   VITE_DROP_CONSOLE: boolean;
-  VITE_BUILD_GZIP: boolean;
+  VITE_BUILD_COMPRESS: 'gzip' | 'brotli' | 'none';
   VITE_DYNAMIC_IMPORT: boolean;
   VITE_LEGACY: boolean;
   VITE_USE_IMAGEMIN: boolean;
