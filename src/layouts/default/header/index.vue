@@ -41,14 +41,16 @@
 
       <FullScreen v-if="getShowFullScreen" :class="`${prefixCls}-action__item fullscreen-item`" />
 
-      <UserDropDown :theme="getHeaderTheme" />
-
       <AppLocalePicker
         v-if="getShowLocale"
         :reload="true"
         :showText="false"
         :class="`${prefixCls}-action__item`"
       />
+
+      <UserDropDown :theme="getHeaderTheme" />
+
+      <SettingDrawer v-if="getShowSettingButton" :class="`${prefixCls}-action__item`" />
     </div>
   </Header>
 </template>
@@ -76,6 +78,8 @@
   import { useAppInject } from '/@/hooks/web/useAppInject';
   import { useDesign } from '/@/hooks/web/useDesign';
 
+  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+
   export default defineComponent({
     name: 'LayoutHeader',
     components: {
@@ -90,6 +94,9 @@
       Notify,
       AppSearch,
       ErrorAction,
+      SettingDrawer: createAsyncComponent(() => import('/@/layouts/default/setting/index.vue'), {
+        loading: true,
+      }),
     },
     props: {
       fixed: propTypes.bool,
@@ -105,7 +112,7 @@
         getIsMixSidebar,
       } = useMenuSetting();
       const { getShowLocale } = useLocaleSetting();
-      const { getUseErrorHandle } = useRootSetting();
+      const { getUseErrorHandle, getShowSettingButton } = useRootSetting();
 
       const {
         getHeaderTheme,
@@ -167,6 +174,7 @@
         getUseErrorHandle,
         getLogoWidth,
         getIsMixSidebar,
+        getShowSettingButton,
       };
     },
   });
