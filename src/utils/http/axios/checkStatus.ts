@@ -10,9 +10,9 @@ export function checkStatus(status: number, msg: string): void {
     case 400:
       error(`${msg}`);
       break;
-    // 401: 未登录
-    // 未登录则跳转登录页面，并携带当前页面的路径
-    // 在登录成功后返回当前页面，这一步需要在登录页操作。
+    // 401: Not logged in
+    // Jump to the login page if not logged in, and carry the path of the current page
+    // Return to the current page after successful login. This step needs to be operated on the login page.
     case 401:
       error(t('sys.api.errMsg401'));
       userStore.loginOut(true);

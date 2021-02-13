@@ -113,8 +113,6 @@ class User extends VuexModule {
       // get user info
       const userInfo = await this.getUserInfoAction({ userId });
 
-      // const name = FULL_PAGE_NOT_FOUND_ROUTE.name;
-      // name && router.removeRoute(name);
       goHome && (await router.replace(PageEnum.BASE_HOME));
       return userInfo;
     } catch (error) {
@@ -125,8 +123,8 @@ class User extends VuexModule {
   @Action
   async getUserInfoAction({ userId }: GetUserInfoByUserIdParams) {
     const userInfo = await getUserInfoById({ userId });
-    const { role } = userInfo;
-    const roleList = [role.value] as RoleEnum[];
+    const { roles } = userInfo;
+    const roleList = roles.map((item) => item.value) as RoleEnum[];
     this.commitUserInfoState(userInfo);
     this.commitRoleListState(roleList);
     return userInfo;
