@@ -124,7 +124,7 @@ function setDocumentTitle(title: string) {
 
 export function setTitle(title: string, appTitle?: string) {
   if (title) {
-    const _title = title ? ` ${title}-${appTitle} ` : `${appTitle}`;
+    const _title = title ? ` ${title} - ${appTitle} ` : `${appTitle}`;
     setDocumentTitle(_title);
   }
 }
