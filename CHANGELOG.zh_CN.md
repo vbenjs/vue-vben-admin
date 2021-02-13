@@ -9,6 +9,7 @@
 ### ⚡ Performance Improvements
 
 - 调整获取用户信息接口返回值为数组格式
+- 将 error-log 列表固定为系统路由
 
 ### 🐛 Bug Fixes
 
