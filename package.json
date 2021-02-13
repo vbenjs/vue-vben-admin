@@ -113,7 +113,8 @@
   },
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China.If it is abroad, you can delete it",
-    "bin-wrapper": "npm:bin-wrapper-china"
+    "bin-wrapper": "npm:bin-wrapper-china",
+    "ecstatic": "4.1.4"
   },
   "repository": {
     "type": "git",
