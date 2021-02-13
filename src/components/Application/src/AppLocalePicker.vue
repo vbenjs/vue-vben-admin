@@ -11,7 +11,7 @@
     :overlayClassName="`${prefixCls}-overlay`"
   >
     <span :class="prefixCls">
-      <Icon icon="cil:language" />
+      <Icon icon="ion:language" />
       <span v-if="showText" :class="`${prefixCls}__text`">{{ getLangText }}</span>
     </span>
   </Dropdown>

@@ -18,9 +18,8 @@ import { transformObjToRoute } from '/@/router/helper/routeHelper';
 import { transformRouteToMenu } from '/@/router/helper/menuHelper';
 
 import { useMessage } from '/@/hooks/web/useMessage';
-// import { warn } from '/@/utils/log';
 import { useI18n } from '/@/hooks/web/useI18n';
-import { PAGE_NOT_FOUND_ROUTE } from '/@/router/constant';
+import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/constant';
 
 const { createMessage } = useMessage();
 const NAME = 'permission';
@@ -121,6 +120,7 @@ class Permission extends VuexModule {
 
       routes = [PAGE_NOT_FOUND_ROUTE, ...routeList];
     }
+    routes.push(ERROR_LOG_ROUTE);
     return routes;
   }
 }

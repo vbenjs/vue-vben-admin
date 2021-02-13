@@ -10,7 +10,7 @@
 
   export default defineComponent({
     name: 'AppSearch',
-    components: { AppSearchModal, Tooltip, SearchOutlined },
+    components: { AppSearchModal, Tooltip },
     setup() {
       const showModal = ref(false);
       const { prefixCls } = useDesign('app-search');
