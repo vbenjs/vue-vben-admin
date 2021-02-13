@@ -12,18 +12,24 @@
         <MenuItem
           key="doc"
           :text="t('layout.header.dropdownItemDoc')"
-          icon="gg:loadbar-doc"
+          icon="ion:document-text-outline"
           v-if="getShowDoc"
         />
         <MenuDivider />
         <MenuItem
+          key="lock"
+          :text="t('layout.header.tooltipLock')"
+          icon="ion:lock-closed-outline"
+        />
+        <MenuItem
           key="loginOut"
           :text="t('layout.header.dropdownItemLoginOut')"
-          icon="carbon:power"
+          icon="ion:exit-outline"
         />
       </Menu>
     </template>
   </Dropdown>
+  <LockAction @register="register" />
 </template>
 <script lang="ts">
   // components
@@ -31,23 +37,21 @@
 
   import { defineComponent, computed } from 'vue';
 
-  // res
-
-  import { userStore } from '/@/store/modules/user';
-
   import { DOC_URL } from '/@/settings/siteSetting';
 
-  import { openWindow } from '/@/utils';
-
+  import { userStore } from '/@/store/modules/user';
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
   import { useI18n } from '/@/hooks/web/useI18n';
-
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
-  import { propTypes } from '/@/utils/propTypes';
-  import headerImg from '/@/assets/images/header.jpg';
+  import { useModal } from '/@/components/Modal';
 
-  type MenuEvent = 'loginOut' | 'doc';
+  import headerImg from '/@/assets/images/header.jpg';
+  import { propTypes } from '/@/utils/propTypes';
+  import { openWindow } from '/@/utils';
+
+  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+
+  type MenuEvent = 'loginOut' | 'doc' | 'lock';
 
   export default defineComponent({
     name: 'UserDropdown',
@@ -56,6 +60,7 @@
       Menu,
       MenuItem: createAsyncComponent(() => import('./DropMenuItem.vue')),
       MenuDivider: Menu.Divider,
+      LockAction: createAsyncComponent(() => import('../lock/LockModal.vue')),
     },
     props: {
       theme: propTypes.oneOf(['dark', 'light']),
@@ -69,6 +74,12 @@
         const { realName = '', desc } = userStore.getUserInfoState || {};
         return { realName, desc };
       });
+
+      const [register, { openModal }] = useModal();
+
+      function handleLock() {
+        openModal(true);
+      }
 
       //  login out
       function handleLoginOut() {
@@ -88,6 +99,9 @@
           case 'doc':
             openDoc();
             break;
+          case 'lock':
+            handleLock();
+            break;
         }
       }
 
@@ -98,6 +112,7 @@
         handleMenuClick,
         getShowDoc,
         headerImg,
+        register,
       };
     },
   });

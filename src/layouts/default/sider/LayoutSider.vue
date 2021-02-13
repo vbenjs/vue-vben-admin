@@ -29,7 +29,7 @@
   import { computed, defineComponent, ref, unref, CSSProperties } from 'vue';
 
   import { Layout } from 'ant-design-vue';
-  import LayoutMenu from '../menu';
+  import LayoutMenu from '../menu/index.vue';
   import LayoutTrigger from '/@/layouts/default/trigger/index.vue';
 
   import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
