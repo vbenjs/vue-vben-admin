@@ -4,7 +4,6 @@ import { MenuTypeEnum, MenuModeEnum, TriggerEnum, MixSidebarTriggerEnum } from '
 import { CacheTypeEnum } from '/@/enums/cacheEnum';
 import { ContentEnum, PermissionModeEnum, ThemeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
 import { primaryColor, themeMode } from '../../build/config/themeConfig';
-import { isProdMode } from '/@/utils/env';
 
 // ! You need to clear the browser cache after the change
 const setting: ProjectConfig = {
@@ -161,7 +160,7 @@ const setting: ProjectConfig = {
   showBreadCrumbIcon: false,
 
   // Use error-handler-plugin
-  useErrorHandle: isProdMode(),
+  useErrorHandle: false,
 
   // Whether to open back to top
   useOpenBackTop: true,

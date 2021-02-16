@@ -24,7 +24,7 @@
         <MenuItem
           key="loginOut"
           :text="t('layout.header.dropdownItemLoginOut')"
-          icon="ion:exit-outline"
+          icon="ion:power-outline"
         />
       </Menu>
     </template>
