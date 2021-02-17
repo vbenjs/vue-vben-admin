@@ -4,7 +4,6 @@
 <script lang="ts">
   import { defineComponent, PropType, ref, Ref, onMounted } from 'vue';
 
-  import echarts from 'echarts';
   import { useECharts } from '/@/hooks/web/useECharts';
   import { getLineData } from './data';
 
@@ -21,7 +20,7 @@
     },
     setup() {
       const chartRef = ref<HTMLDivElement | null>(null);
-      const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
+      const { setOptions, echarts } = useECharts(chartRef as Ref<HTMLDivElement>);
       const { barData, lineData, category } = getLineData;
       onMounted(() => {
         setOptions({
@@ -63,7 +62,7 @@
               name: 'line',
               type: 'line',
               smooth: true,
-              showAllSymbol: true,
+              showAllSymbol: 'auto',
               symbol: 'emptyCircle',
               symbolSize: 15,
               data: lineData,
@@ -73,13 +72,11 @@
               type: 'bar',
               barWidth: 10,
               itemStyle: {
-                normal: {
-                  barBorderRadius: 5,
-                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    { offset: 0, color: '#14c8d4' },
-                    { offset: 1, color: '#43eec6' },
-                  ]),
-                },
+                borderRadius: 5,
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: '#14c8d4' },
+                  { offset: 1, color: '#43eec6' },
+                ]),
               },
               data: barData,
             },
@@ -89,13 +86,11 @@
               barGap: '-100%',
               barWidth: 10,
               itemStyle: {
-                normal: {
-                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    { offset: 0, color: 'rgba(20,200,212,0.5)' },
-                    { offset: 0.2, color: 'rgba(20,200,212,0.2)' },
-                    { offset: 1, color: 'rgba(20,200,212,0)' },
-                  ]),
-                },
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: 'rgba(20,200,212,0.5)' },
+                  { offset: 0.2, color: 'rgba(20,200,212,0.2)' },
+                  { offset: 1, color: 'rgba(20,200,212,0)' },
+                ]),
               },
               z: -12,
               data: lineData,
@@ -105,9 +100,7 @@
               type: 'pictorialBar',
               symbol: 'rect',
               itemStyle: {
-                normal: {
-                  color: '#0f375f',
-                },
+                color: '#0f375f',
               },
               symbolRepeat: true,
               symbolSize: [12, 4],

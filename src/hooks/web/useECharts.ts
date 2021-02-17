@@ -1,25 +1,25 @@
 import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 import { tryOnUnmounted } from '/@/utils/helper/vueHelper';
 import { unref, Ref, nextTick } from 'vue';
-import type { EChartOption, ECharts } from 'echarts';
-import echarts from 'echarts';
+import type { EChartsType, EChartsOption } from 'echarts';
 import { useDebounce } from '/@/hooks/core/useDebounce';
 import { useEventListener } from '/@/hooks/event/useEventListener';
 import { useBreakpoint } from '/@/hooks/event/useBreakpoint';
 
-export type { EChartOption, ECharts };
+import echarts from '/@/plugins/echarts';
+
 export function useECharts(
   elRef: Ref<HTMLDivElement>,
   theme: 'light' | 'dark' | 'default' = 'light'
 ) {
-  let chartInstance: Nullable<ECharts> = null;
+  let chartInstance: Nullable<EChartsType> = null;
   let resizeFn: Fn = resize;
   let removeResizeFn: Fn = () => {};
 
   const [debounceResize] = useDebounce(resize, 200);
   resizeFn = debounceResize;
 
-  function init() {
+  function initCharts() {
     const el = unref(elRef);
     if (!el || !unref(el)) {
       return;
@@ -40,7 +40,7 @@ export function useECharts(
     }
   }
 
-  function setOptions(options: any, clear = true) {
+  function setOptions(options: EChartsOption, clear = true) {
     if (unref(elRef)?.offsetHeight === 0) {
       useTimeoutFn(() => {
         setOptions(options);
@@ -50,7 +50,7 @@ export function useECharts(
     nextTick(() => {
       useTimeoutFn(() => {
         if (!chartInstance) {
-          init();
+          initCharts();
 
           if (!chartInstance) return;
         }
@@ -74,7 +74,7 @@ export function useECharts(
 
   return {
     setOptions,
-    echarts,
     resize,
+    echarts,
   };
 }
