@@ -41,8 +41,8 @@
     font-weight: 700;
     line-height: 24px;
     color: @text-color-base;
-
-    .unselect();
+    cursor: pointer;
+    user-select: none;
 
     &.show-span::before {
       position: absolute;

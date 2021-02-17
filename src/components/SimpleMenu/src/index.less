@@ -18,15 +18,19 @@
   }
 
   .collapse-title {
+    overflow: hidden;
     font-size: 12px;
-    .text-truncate();
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
 .@{simple-prefix-cls} {
   &-sub-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     transition: all 0.3s;
-    .text-truncate();
   }
 
   &-tag {

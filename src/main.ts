@@ -1,3 +1,6 @@
+import '/@/design/index.less';
+import 'windi.css';
+
 import { createApp } from 'vue';
 import App from './App.vue';
 
@@ -10,8 +13,6 @@ import { setupI18n } from '/@/locales/setupI18n';
 import { registerGlobComp } from '/@/components/registerGlobComp';
 
 import { isDevMode } from '/@/utils/env';
-
-import '/@/design/index.less';
 
 const app = createApp(App);
 

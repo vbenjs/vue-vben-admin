@@ -1,6 +1,6 @@
 <template>
   <PageWrapper title="水印示例">
-    <CollapseContainer class="px-20 bg-white w-full h-32 rounded-md" title="Global WaterMark">
+    <CollapseContainer class="w-full h-32 bg-white rounded-md" title="Global WaterMark">
       <a-button type="primary" class="mr-2" @click="setWatermark('WaterMark Info')">
         Create
       </a-button>

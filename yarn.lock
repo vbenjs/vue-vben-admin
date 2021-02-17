@@ -1112,10 +1112,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.299":
-  version "1.1.299"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.299.tgz#e1aca556b83461316ba5ec04b232906b499a67a5"
-  integrity sha512-oYHUgp5RZNE2CT3wKE/MWbmGK7lmubi30PD5l33HUU7yh4CznmzPL0Ewgg51Wn86NkFveZDcT+odMBTaayh9Ew==
+"@iconify/json@^1.1.303":
+  version "1.1.303"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.303.tgz#364daf69a97c02647227cc0d851a2e79a893e8e3"
+  integrity sha512-O8KDBcIVQolvUeVL9JiEIc2ifYKWyKu/5cX6PNC4EAPvtfvieOHs1YVPV4tphVhafjTTftR5XbZBmZHKG6uNIA==
 
 "@intlify/core-base@9.0.0-beta.16":
   version "9.0.0-beta.16"
@@ -1226,21 +1226,21 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@purge-icons/core@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.npmjs.org/@purge-icons/core/-/core-0.6.0.tgz#b966d042c504a256299b2d63b4d16ae26c9e0317"
-  integrity sha512-Gp7Fvx1mtPykejxldJ8+1o2C/Gzw54Mpv22JKNoKnaUlKGe1m4f0rAl2MgHDGJd/ghm4kDcfxFzjnna6Z4L5cA==
+"@purge-icons/core@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.npmjs.org/@purge-icons/core/-/core-0.7.0.tgz#097ba8d4d8b7e8d662df687bd2391eb8b83caba0"
+  integrity sha512-PaCeTFjkQUX+MzBsNg3L8x5aCZqXwaUSNw1FY3Jn7wlLqNqxRNoShw5P//a1DQAy7hLlUHvEL6IGeDoN/xf98A==
   dependencies:
     "@iconify/iconify" "2.0.0-rc.6"
     axios "^0.21.1"
     debug "^4.3.2"
-    fast-glob "^3.2.4"
-    fs-extra "^9.0.1"
+    fast-glob "^3.2.5"
+    fs-extra "^9.1.0"
 
-"@purge-icons/generated@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.npmjs.org/@purge-icons/generated/-/generated-0.6.0.tgz#2aa9a78fef6a4dc79d265c84548e110375b554df"
-  integrity sha512-Xg2ckJu/wRSSNEloebCaKSIAamKMZffws4+2oOjA1J3JEyD5FlP3Ewt+kkcuun/i7Mo2czjTKJG9wwSwZgf0cg==
+"@purge-icons/generated@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.npmjs.org/@purge-icons/generated/-/generated-0.7.0.tgz#d87dbb3145e8b9a64e2e12ff660aa3cb13cbeb56"
+  integrity sha512-4SHVpZnKaW5ekRTjhPY9b1pALVlF0pDuGIDRAlxAm0V+gQVOL0+Ghav6U9XqXFj2kiG1+eQ8swpvB+kd0a+tqg==
   dependencies:
     "@iconify/iconify" ">=2.0.0-rc.6"
 
@@ -7859,13 +7859,13 @@ rollup-plugin-esbuild@^2.6.1:
     joycon "^2.2.5"
     strip-json-comments "^3.1.1"
 
-rollup-plugin-purge-icons@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.npmjs.org/rollup-plugin-purge-icons/-/rollup-plugin-purge-icons-0.6.0.tgz#cfddf4935107180bdb14385228449c0d8b0557a2"
-  integrity sha512-8huBXnq7D1Lj2gPZP/rOjuj2hkZ3AXoGQc2r5+MK3lcD3xEgfuONd+G4WIk7P8wJTEVGux5xJ2Ho7nSISLqP1A==
+rollup-plugin-purge-icons@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.npmjs.org/rollup-plugin-purge-icons/-/rollup-plugin-purge-icons-0.7.0.tgz#4419b810d5d75f1bba3af72a238e70b4a675f03c"
+  integrity sha512-zAff7SrjC2nA7TCm6gaOclh1cZ2IBupX1tnebn+sfvcvrezu+avS7k0BhhAC2pAtfhdOvD6G/2a+kkkm6hvpiw==
   dependencies:
-    "@purge-icons/core" "^0.6.0"
-    "@purge-icons/generated" "^0.6.0"
+    "@purge-icons/core" "^0.7.0"
+    "@purge-icons/generated" "^0.7.0"
 
 rollup-plugin-terser@^7.0.0:
   version "7.0.2"
@@ -9334,19 +9334,19 @@ vite-plugin-mock@^2.1.4:
     rollup "^2.38.4"
     rollup-plugin-esbuild "^2.6.1"
 
-vite-plugin-purge-icons@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.npmjs.org/vite-plugin-purge-icons/-/vite-plugin-purge-icons-0.6.0.tgz#f165266f157d88368edcc7ae3baf933d6d92e779"
-  integrity sha512-YGW3wh+Pj4Tob23x29+NgVkslru5tAInIMTY0J2eltDNy32RKxSRh8ohb+W0O/X9h2xKkMeiUpNI7mY6k8Uzsw==
+vite-plugin-purge-icons@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.npmjs.org/vite-plugin-purge-icons/-/vite-plugin-purge-icons-0.7.0.tgz#c460037438fd71372153360ccb9e7d97b030fb58"
+  integrity sha512-oGZUKFAL4waIZIeiCPT5KZvGbBA500AO/03oxW+ODTKUMq+0jbh9s+T8NPzfJQFC1jtE7eUb2ium82IP/gxZjA==
   dependencies:
-    "@purge-icons/core" "^0.6.0"
-    "@purge-icons/generated" "^0.6.0"
-    rollup-plugin-purge-icons "^0.6.0"
+    "@purge-icons/core" "^0.7.0"
+    "@purge-icons/generated" "^0.7.0"
+    rollup-plugin-purge-icons "^0.7.0"
 
-vite-plugin-pwa@^0.4.6:
-  version "0.4.6"
-  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.4.6.tgz#e759b7840211f83cae367d306654da505cecbceb"
-  integrity sha512-3LonumSG4EcH9FT61d7wWouHkCmEciy3RPfvt25b835HMx9gb2Dt71t140+85Z5d+uANMSguC3miBnnGzagAMA==
+vite-plugin-pwa@^0.4.7:
+  version "0.4.7"
+  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.4.7.tgz#32d934171fc7ec5cada741c559b5fbf2fe5a39af"
+  integrity sha512-KsC9tenzn1r6AG/Hda4wg9Es6AokVRz2RqQp+R+uM3qvfNDbdDjJWAEhB/2zUx7D0YDu5Y0h+cDC0zD0vxBoog==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"
@@ -9376,10 +9376,18 @@ vite-plugin-theme@^0.4.3:
     es-module-lexer "^0.3.26"
     tinycolor2 "^1.4.2"
 
-vite@2.0.0-beta.70:
-  version "2.0.0-beta.70"
-  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0-beta.70.tgz#ec0d4f2bfd02f31d2c59aa9760f27c26647f41ce"
-  integrity sha512-rbuAYZE8T0jNOUykkyfjiiKmz4MpW2KqzHO8++WCCDXyxzIg56ICQ/B6NLZzVpWyk0iSKiUKr2k8NMkmDlZAQQ==
+vite-plugin-windicss@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.2.2.tgz#2abf1533153f5dc214a9e1a06fb58274e5892c19"
+  integrity sha512-P+iyrcuLjLfjiYP+bBisfKbg9bmeQMUBpjsTFJ9kWWX2fyqo968CHmS3euz+MzRcK5ZECccpOxx60ZXzc12VAw==
+  dependencies:
+    fast-glob "^3.2.5"
+    windicss "^2.1.11"
+
+vite@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0.tgz#156f35eadaa7947629aa8a24eb23129b07116ee3"
+  integrity sha512-rNli5g0DaQ6+btlRqkmaR06neWaJGApmt40gocqrYDNi2XoEXYQgKiHSWzMeUgc1Cdva2HduqazaE+RaKjBpdQ==
   dependencies:
     esbuild "^0.8.34"
     postcss "^8.2.1"
@@ -9506,6 +9514,11 @@ which@^2.0.1:
   integrity sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==
   dependencies:
     isexe "^2.0.0"
+
+windicss@^2.1.11:
+  version "2.1.11"
+  resolved "https://registry.npmjs.org/windicss/-/windicss-2.1.11.tgz#35dc9d683488dcfacf94331967b59765a505f18b"
+  integrity sha512-79mPoUmvamwdJb+MJ/ug+XILxFzrTNCXo/HmacUn3V9sRQ6w5lA9KkpTrG70N7Oab0hbIFaq+X3Yva+QLSV0Pw==
 
 wmf@~1.0.1:
   version "1.0.2"

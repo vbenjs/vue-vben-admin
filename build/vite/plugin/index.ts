@@ -1,9 +1,11 @@
 import type { Plugin } from 'vite';
 
-import PurgeIcons from 'vite-plugin-purge-icons';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import legacy from '@vitejs/plugin-legacy';
+
+import windiCSS from 'vite-plugin-windicss';
+import PurgeIcons from 'vite-plugin-purge-icons';
 
 import { ViteEnv } from '../../utils';
 import { configHtmlPlugin } from './html';
@@ -23,6 +25,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
     vue(),
     // have to
     vueJsx(),
+    ...windiCSS(),
   ];
 
   // @vitejs/plugin-legacy

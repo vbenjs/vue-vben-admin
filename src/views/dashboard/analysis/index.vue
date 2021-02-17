@@ -70,9 +70,5 @@
 <style lang="less" scoped>
   .analysis {
     width: 100%;
-
-    .product-total {
-      .respond-to(small-and-medium, {padding-right: 0;margin-bottom: 24px;});
-    }
   }
 </style>

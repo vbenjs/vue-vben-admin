@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-view>
+    <RouterView>
       <template #default="{ Component, route }">
         <transition
           :name="
@@ -21,7 +21,7 @@
           <component v-else :is="Component" v-bind="getKey(Component, route)" />
         </transition>
       </template>
-    </router-view>
+    </RouterView>
     <FrameLayout v-if="getCanEmbedIFramePage" />
   </div>
 </template>

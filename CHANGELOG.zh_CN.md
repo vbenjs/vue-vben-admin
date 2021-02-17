@@ -1,10 +1,15 @@
 ## Wip
 
+### ✨ Refactor
+
+- 移除`global.less`,`mixin.less`,`design/helper`,由`windicss`代替,有用到的需要修改对应的样式
+
 ### ✨ Features
 
 - useModal 新增返回值函数 `redoModalHeight`,用于在 modal 内为动态内容时刷新 modal 高度
 - 升级 husky 到 5.0
 - 新增 `brotli`|`gzip`压缩及相关测试命令
+- 重新引入 `windicss` (与`tailwind`一样).在速度上更快
 
 ### ⚡ Performance Improvements
 
@@ -23,7 +28,8 @@
 ### 🎫 Chores
 
 - 文档更新
-- 升级 ant-design-vue 到 2.0.0
+- 升级 ant-design-vue 到 `2.0.0`
+- 升级 vite 到 `2.0.0`
 
 ## 2.0.0-rc.18 (2021-02-05)
 

@@ -1,7 +1,7 @@
 <template>
   <ConfigProvider v-bind="lockEvent" :locale="antConfigLocale">
     <AppProvider>
-      <router-view />
+      <RouterView />
     </AppProvider>
   </ConfigProvider>
 </template>
