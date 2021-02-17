@@ -39,24 +39,33 @@
           title: [
             {
               text: '各渠道投诉占比',
-              x: '2%',
-              y: '1%',
-              textStyle: { color: '#fff', fontSize: 14 },
+              left: '2%',
+              top: '1%',
+              textStyle: {
+                color: '#fff',
+                fontSize: 14,
+              },
             },
             {
               text: '投诉原因TOP10',
-              x: '40%',
-              y: '1%',
-              textStyle: { color: '#fff', fontSize: 14 },
+              left: '40%',
+              top: '1%',
+              textStyle: {
+                color: '#fff',
+                fontSize: 14,
+              },
             },
             {
               text: '各级别投诉占比',
-              x: '2%',
-              y: '50%',
-              textStyle: { color: '#fff', fontSize: 14 },
+              left: '2%',
+              top: '50%',
+              textStyle: {
+                color: '#fff',
+                fontSize: 14,
+              },
             },
           ],
-          grid: [{ x: '50%', y: '7%', width: '45%', height: '90%' }],
+          grid: [{ left: '50%', top: '7%', width: '45%', height: '90%' }],
           tooltip: {
             formatter: '{b} ({c})',
           },
@@ -86,7 +95,6 @@
               type: 'pie',
               radius: '30%',
               center: ['22%', '25%'],
-              color: ['#86c9f4', '#4da8ec', '#3a91d2', '#005fa6', '#315f97'],
               data: [
                 { value: 335, name: '客服电话' },
                 { value: 310, name: '奥迪官网' },
@@ -94,15 +102,11 @@
                 { value: 135, name: '质检总局' },
                 { value: 105, name: '其他' },
               ],
-              labelLine: { normal: { show: false } },
-              itemStyle: {
-                normal: {
-                  label: {
-                    show: true,
-                    formatter: '{b} \n ({d}%)',
-                    textStyle: { color: '#B1B9D3' },
-                  },
-                },
+              labelLine: { show: false },
+              label: {
+                show: true,
+                formatter: '{b} \n ({d}%)',
+                color: '#B1B9D3',
               },
             },
             {
@@ -110,22 +114,17 @@
               type: 'pie',
               radius: '30%',
               center: ['22%', '75%'],
-              color: ['#86c9f4', '#4da8ec', '#3a91d2', '#005fa6', '#315f97'],
-              labelLine: { normal: { show: false } },
+              labelLine: { show: false },
               data: [
                 { value: 335, name: 'A级' },
                 { value: 310, name: 'B级' },
                 { value: 234, name: 'C级' },
                 { value: 135, name: 'D级' },
               ],
-              itemStyle: {
-                normal: {
-                  label: {
-                    show: true,
-                    formatter: '{b} \n ({d}%)',
-                    textStyle: { color: '#B1B9D3' },
-                  },
-                },
+              label: {
+                show: true,
+                formatter: '{b} \n ({d}%)',
+                color: '#B1B9D3',
               },
             },
             {
@@ -134,8 +133,8 @@
               xAxisIndex: 0,
               yAxisIndex: 0,
               barWidth: '45%',
-              itemStyle: { normal: { color: '#86c9f4' } },
-              label: { normal: { show: true, position: 'right', textStyle: { color: '#9EA7C4' } } },
+              itemStyle: { color: '#86c9f4' },
+              label: { show: true, position: 'right', color: '#9EA7C4' },
               data: dataAll.sort(),
             },
           ],

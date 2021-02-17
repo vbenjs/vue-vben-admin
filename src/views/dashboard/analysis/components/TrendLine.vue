@@ -15,9 +15,6 @@
 
       onMounted(() => {
         setOptions({
-          // title: {
-          //   text: '产品成交额',
-          // },
           tooltip: {
             trigger: 'axis',
             padding: 3,
@@ -38,7 +35,7 @@
             type: 'category',
             boundaryGap: false,
             axisTick: {
-              inside: true, // 刻度朝内
+              inside: true,
             },
             data: [
               '一月',
@@ -58,7 +55,7 @@
           yAxis: {
             type: 'value',
             axisTick: {
-              inside: true, // 刻度朝内
+              inside: true,
             },
           },
           series: [
@@ -69,8 +66,6 @@
                 color: '#5B8FF9',
               },
               areaStyle: {
-                // 线性渐变，前4个参数分别是x0,y0,x2,y2(范围0~1);相当于图形包围盒中的百分比。如果最后一个参数是‘true’，则该四个值是绝对像素位置。
-                // @ts-ignore
                 color: new echarts.graphic.LinearGradient(
                   0,
                   0,
@@ -88,10 +83,9 @@
                   ],
                   false
                 ),
-                shadowColor: 'rgba(118,168,248, 0.9)', // 阴影颜色
-                shadowBlur: 20, // shadowBlur设图形阴影的模糊大小。配合shadowColor,shadowOffsetX/Y, 设置图形的阴影效果。
+                shadowColor: 'rgba(118,168,248, 0.9)',
+                shadowBlur: 20,
               },
-              // areaStyle: {},
               data: [134, 330, 132, 101, 90, 230, 210, 150, 230, 400, 232, 234],
               animationDuration: 3000,
             },

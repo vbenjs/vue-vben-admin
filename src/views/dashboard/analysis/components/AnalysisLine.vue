@@ -73,11 +73,8 @@
               name: '产品一',
               type: 'line',
               itemStyle: {
-                normal: {
-                  color: '#5B8FF9',
-                },
+                color: '#5B8FF9',
               },
-              // areaStyle: {},
               data: [330, 132, 101, 134, 90, 230, 210, 150, 232, 234, 230, 400],
               animationDuration: 4000,
             },
@@ -85,9 +82,7 @@
               name: '产品二',
               type: 'line',
               itemStyle: {
-                normal: {
-                  color: '#55D187',
-                },
+                color: '#55D187',
               },
               data: [220, 182, 191, 234, 290, 330, 310, 330, 232, 201, 330, 190],
               animationDuration: 4000,

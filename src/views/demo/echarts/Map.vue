@@ -6,8 +6,8 @@
 
   import { useECharts } from '/@/hooks/web/useECharts';
   import { mapData } from './data';
+  import { registerMap } from 'echarts';
 
-  import 'echarts/map/js/china';
   export default defineComponent({
     props: {
       width: {
@@ -23,21 +23,25 @@
       const chartRef = ref<HTMLDivElement | null>(null);
       const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
 
-      onMounted(() => {
+      onMounted(async () => {
+        const json = (await (await import('./china.json')).default) as any;
+        registerMap('china', json);
         setOptions({
-          visualMap: {
-            min: 0,
-            max: 1000,
-            left: 'left',
-            top: 'bottom',
-            text: ['高', '低'],
-            calculable: false,
-            orient: 'horizontal',
-            inRange: {
-              color: ['#e0ffff', '#006edd'],
-              symbolSize: [30, 100],
+          visualMap: [
+            {
+              min: 0,
+              max: 1000,
+              left: 'left',
+              top: 'bottom',
+              text: ['高', '低'],
+              calculable: false,
+              orient: 'horizontal',
+              inRange: {
+                color: ['#e0ffff', '#006edd'],
+                symbolSize: [30, 100],
+              },
             },
-          },
+          ],
           tooltip: {
             trigger: 'item',
             backgroundColor: 'rgba(0, 0, 0, .6)',
@@ -50,33 +54,15 @@
             {
               name: 'iphone4',
               type: 'map',
-              mapType: 'china',
+              map: 'china',
               label: {
-                normal: {
-                  show: true,
-                  textStyle: {
-                    color: 'rgb(249, 249, 249)',
-                    fontSize: 10,
-                  },
-                },
-                emphasis: {
-                  show: true,
-                  textStyle: {
-                    color: 'rgb(249, 249, 249)',
-                    fontSize: 14,
-                  },
-                },
+                show: true,
+                color: 'rgb(249, 249, 249)',
+                fontSize: 10,
               },
               itemStyle: {
-                normal: {
-                  label: { show: true },
-                  areaColor: '#2f82ce',
-                  borderColor: '#0DAAC1',
-                },
-                emphasis: {
-                  label: { show: true },
-                  areaColor: '#2f82ce',
-                },
+                areaColor: '#2f82ce',
+                borderColor: '#0DAAC1',
               },
               data: mapData,
             },

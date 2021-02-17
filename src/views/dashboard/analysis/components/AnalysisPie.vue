@@ -35,9 +35,8 @@
                 color: 'black',
               },
               textAlign: 'center',
-              // @ts-ignore
-              x: '34.5%',
-              y: '40%',
+              left: '34.5%',
+              top: '40%',
             },
           ],
           tooltip: {

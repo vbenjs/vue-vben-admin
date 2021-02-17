@@ -1,5 +1,9 @@
 ## Wip
 
+## (破坏性更新) Breaking changes
+
+- `echarts` 升级到 5.0,并且进行按需引入(只需使用 `useECharts` 即可).
+
 ### ✨ Refactor
 
 - 移除`global.less`,`mixin.less`,`design/helper`,由`windicss`代替,有用到的需要修改对应的样式
