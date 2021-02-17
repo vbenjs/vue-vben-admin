@@ -9370,7 +9370,7 @@ vite-plugin-theme@^0.4.3:
     es-module-lexer "^0.3.26"
     tinycolor2 "^1.4.2"
 
-vite-plugin-windicss@^0.2.2:
+vite-plugin-windicss@0.2.2:
   version "0.2.2"
   resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.2.2.tgz#2abf1533153f5dc214a9e1a06fb58274e5892c19"
   integrity sha512-P+iyrcuLjLfjiYP+bBisfKbg9bmeQMUBpjsTFJ9kWWX2fyqo968CHmS3euz+MzRcK5ZECccpOxx60ZXzc12VAw==
@@ -9378,10 +9378,10 @@ vite-plugin-windicss@^0.2.2:
     fast-glob "^3.2.5"
     windicss "^2.1.11"
 
-vite@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/vite/-/vite-2.0.0.tgz#156f35eadaa7947629aa8a24eb23129b07116ee3"
-  integrity sha512-rNli5g0DaQ6+btlRqkmaR06neWaJGApmt40gocqrYDNi2XoEXYQgKiHSWzMeUgc1Cdva2HduqazaE+RaKjBpdQ==
+vite@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/vite/-/vite-2.0.1.tgz#348fc5c0de510aa90bd01ecf87df210ce741b38e"
+  integrity sha512-x7ZfikjNs+6n4cdvwb9L5r5xBCdjmtmHFHaI4JVR3nAkJbMCK/dynfDWky8/NseZ9Ncz1jVxTQ/Bcf+n1ps1Ww==
   dependencies:
     esbuild "^0.8.34"
     postcss "^8.2.1"
