@@ -1,6 +1,6 @@
 <template>
   <PageWrapper title="全屏示例">
-    <CollapseContainer class="px-20 bg-white w-full h-32 rounded-md" title="Window Full Screen">
+    <CollapseContainer class="w-full h-32 bg-white rounded-md" title="Window Full Screen">
       <a-button type="primary" @click="enterFullscreen" class="mr-2">
         Enter Window Full Screen
       </a-button>
@@ -15,13 +15,13 @@
       Current State: {{ isFullscreenRef }}
     </CollapseContainer>
 
-    <CollapseContainer class="px-20 bg-white w-full h-32 rounded-md mt-5" title="Dom Full Screen">
+    <CollapseContainer class="w-full mt-5 bg-white rounded-md" title="Dom Full Screen">
       <a-button type="primary" @click="toggleDom" class="mr-2"> Enter Dom Full Screen </a-button>
     </CollapseContainer>
 
     <div
       ref="domRef"
-      class="w-1/2 h-64 flex justify-center rounded-md items-center bg-white mx-auto mt-10"
+      class="flex items-center justify-center w-1/2 h-64 mx-auto mt-10 bg-white rounded-md"
     >
       <a-button type="primary" @click="toggleDom" class="mr-2"> Exit Dom Full Screen </a-button>
     </div>

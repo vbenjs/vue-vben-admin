@@ -41,10 +41,6 @@
       cursor: pointer;
       transition: all @transition-time @ease-in-out;
 
-      // &:hover {
-      //   color: @primary-color;
-      // }
-
       &-icon {
         position: absolute;
         top: 50%;
@@ -164,9 +160,10 @@
       position: relative;
       z-index: 1;
       padding: 12px 24px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       cursor: pointer;
-      .text-truncate();
-      // transition: all @transition-time @ease-in-out;
 
       &:hover {
         color: @primary-color;

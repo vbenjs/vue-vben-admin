@@ -1,7 +1,7 @@
 <template>
   <div class="login">
-    <div class="login-mask"></div>
-    <div class="login-form-wrap">
+    <div class="opacity-0 login-mask lg:opacity-100"></div>
+    <div class="justify-center login-form-wrap lg:justify-end">
       <div class="mx-6 login-form">
         <AppLocalePicker v-if="showLocale" class="login-form__locale" />
         <div class="px-2 py-10 login-form__content">
@@ -164,13 +164,10 @@
     background-size: 100% 100%;
 
     &-mask {
-      display: none;
       height: 100%;
       background: url(../../../assets/images/login/login-in.png) no-repeat;
       background-position: 30% 30%;
       background-size: 80% 80%;
-
-      .respond-to(xlarge, { display: block;});
     }
 
     &-form {
@@ -182,7 +179,6 @@
       border-width: 8px;
       border-radius: 4px;
       background-clip: padding-box;
-      .respond-to(xlarge, { margin: 0 120px 0 50px});
 
       &__main {
         margin: 30px auto 0 auto !important;
@@ -195,12 +191,7 @@
         display: flex;
         width: 100%;
         height: 100%;
-        // height: 90%;
-        justify-content: center;
         align-items: center;
-        .respond-to(xlarge, {
-        justify-content: flex-end;
-          });
       }
 
       &__content {
