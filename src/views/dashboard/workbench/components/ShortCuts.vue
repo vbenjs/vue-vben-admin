@@ -7,7 +7,6 @@
       <template v-for="item in shortCuts" :key="item.img">
         <a-col :span="8" class="p-3 shortcuts__item">
           <img :src="item.img" class="mb-2 shortcuts__item-img" />
-          <br />
           <span>{{ item.name }}</span>
         </a-col>
       </template>
@@ -84,6 +83,8 @@
 
       &-img {
         width: 36px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       &-all {
