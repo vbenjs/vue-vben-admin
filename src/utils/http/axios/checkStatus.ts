@@ -15,7 +15,7 @@ export function checkStatus(status: number, msg: string): void {
     // Return to the current page after successful login. This step needs to be operated on the login page.
     case 401:
       error(t('sys.api.errMsg401'));
-      userStore.loginOut(true);
+      userStore.logout(true);
       break;
     case 403:
       error(t('sys.api.errMsg403'));

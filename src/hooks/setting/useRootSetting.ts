@@ -16,6 +16,8 @@ const getPageLoading = computed(() => appStore.getPageLoading);
 
 const getOpenKeepAlive = computed(() => unref(getRootSetting).openKeepAlive);
 
+const getSettingButtonPosition = computed(() => unref(getRootSetting).settingButtonPosition);
+
 const getCanEmbedIFramePage = computed(() => unref(getRootSetting).canEmbedIFramePage);
 
 const getPermissionMode = computed(() => unref(getRootSetting).permissionMode);
@@ -58,6 +60,7 @@ export function useRootSetting() {
   return {
     setRootSetting,
 
+    getSettingButtonPosition,
     getFullContent,
     getColorWeak,
     getGrayMode,

@@ -1,3 +1,9 @@
+## Wip
+
+### ✨ Features
+
+- 新增 `settingButtonPosition`配置项,用于配置`设置`按钮位置
+
 ## 2.0.0 (2021-02-18)
 
 ## (破坏性更新) Breaking changes

@@ -98,22 +98,22 @@ class Permission extends VuexModule {
         if (!roles) return true;
         return roleList.some((role) => roles.includes(role));
       });
-      //  如果确定不需要做后台动态权限,请将下面整个判断注释
+      //  If you are sure that you do not need to do background dynamic permissions, please comment the entire judgment below
     } else if (permissionMode === PermissionModeEnum.BACK) {
       createMessage.loading({
         content: t('sys.app.menuLoading'),
         duration: 1,
       });
-      // 这里获取后台路由菜单逻辑自行修改
+      // Here to get the background routing menu logic to modify by yourself
       const paramId = id || userStore.getUserInfoState.userId;
       if (!paramId) {
         throw new Error('paramId is undefined!');
       }
       let routeList = (await getMenuListById({ id: paramId })) as AppRouteRecordRaw[];
 
-      // 动态引入组件
+      // Dynamically introduce components
       routeList = transformObjToRoute(routeList);
-      //  后台路由转菜单结构
+      //  Background routing to menu structure
       const backMenuList = transformRouteToMenu(routeList);
 
       this.commitBackMenuListState(backMenuList);

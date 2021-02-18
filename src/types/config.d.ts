@@ -1,5 +1,11 @@
 import { MenuTypeEnum, MenuModeEnum, TriggerEnum, MixSidebarTriggerEnum } from '/@/enums/menuEnum';
-import { ContentEnum, PermissionModeEnum, ThemeEnum, RouterTransitionEnum } from '/@/enums/appEnum';
+import {
+  ContentEnum,
+  PermissionModeEnum,
+  ThemeEnum,
+  RouterTransitionEnum,
+  SettingButtonPositionEnum,
+} from '/@/enums/appEnum';
 import { CacheTypeEnum } from '/@/enums/cacheEnum';
 import type { LocaleType } from '/@/locales/types';
 import { ThemeMode } from '../../build/config/lessModifyVars';
@@ -88,6 +94,7 @@ export interface ProjectConfig {
 
   // 是否显示配置按钮
   showSettingButton: boolean;
+  settingButtonPosition: SettingButtonPositionEnum;
   // 权限模式
   permissionMode: PermissionModeEnum;
   // 网站灰色模式，用于可能悼念的日期开启

@@ -9370,12 +9370,13 @@ vite-plugin-theme@^0.4.3:
     es-module-lexer "^0.3.26"
     tinycolor2 "^1.4.2"
 
-vite-plugin-windicss@0.2.2:
-  version "0.2.2"
-  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.2.2.tgz#2abf1533153f5dc214a9e1a06fb58274e5892c19"
-  integrity sha512-P+iyrcuLjLfjiYP+bBisfKbg9bmeQMUBpjsTFJ9kWWX2fyqo968CHmS3euz+MzRcK5ZECccpOxx60ZXzc12VAw==
+vite-plugin-windicss@0.3.3:
+  version "0.3.3"
+  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.3.3.tgz#9ff2fc485dd5cf1717cde6eed462fd9893ea9eab"
+  integrity sha512-2gm0sTexkmvx9PR4NP1UESly8hX2souOruQztu1qghfw4M3tlUUvwneRpJG5HVJCKCctmAgYRcW4e04TE5R1fA==
   dependencies:
     fast-glob "^3.2.5"
+    micromatch "^4.0.2"
     windicss "^2.1.11"
 
 vite@2.0.1:

@@ -100,9 +100,9 @@ export function findPath<T = any>(
 
 export function findPathAll(tree: any, func: Fn, config: Partial<TreeHelperConfig> = {}) {
   config = getConfig(config);
-  const path = [];
+  const path: any[] = [];
   const list = [...tree];
-  const result = [];
+  const result: any[] = [];
   const visitedSet = new Set(),
     { children } = config;
   while (list.length) {
@@ -153,14 +153,14 @@ export function forEach<T = any>(
 }
 
 /**
- * @description: 提取tree指定结构
+ * @description: Extract tree specified structure
  */
 export function treeMap<T = any>(treeData: T[], opt: { children?: string; conversion: Fn }): T[] {
   return treeData.map((item) => treeMapEach(item, opt));
 }
 
 /**
- * @description: 提取tree指定结构
+ * @description: Extract tree specified structure
  */
 export function treeMapEach(
   data: any,
