@@ -57,12 +57,7 @@ export function useFullscreen(
 
   async function toggleFullscreen(): Promise<void> {
     if (!unref(target)) return;
-
-    if (isFullscreen()) {
-      return exitFullscreen();
-    } else {
-      return enterFullscreen();
-    }
+    return isFullscreen() ? exitFullscreen() : enterFullscreen();
   }
 
   return {

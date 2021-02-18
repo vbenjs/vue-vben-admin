@@ -1,5 +1,5 @@
 export default {
-  loginOutTip: 'Reminder',
-  loginOutMessage: 'Confirm to exit the system?',
+  logoutTip: 'Reminder',
+  logoutMessage: 'Confirm to exit the system?',
   menuLoading: 'Menu loading...',
 };

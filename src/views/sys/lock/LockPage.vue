@@ -115,7 +115,7 @@
       }
 
       function goLogin() {
-        userStore.loginOut(true);
+        userStore.logout(true);
         lockStore.resetLockInfo();
       }
 
@@ -287,6 +287,7 @@
 
         &-img {
           width: 70px;
+          margin: 0 auto;
           border-radius: 50%;
         }
 

@@ -50,7 +50,7 @@
 
       <UserDropDown :theme="getHeaderTheme" />
 
-      <SettingDrawer v-if="getShowSettingButton" :class="`${prefixCls}-action__item`" />
+      <SettingDrawer v-if="getShowSetting" :class="`${prefixCls}-action__item`" />
     </div>
   </Header>
 </template>
@@ -72,6 +72,7 @@
   import { useLocaleSetting } from '/@/hooks/setting/useLocaleSetting';
 
   import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
+  import { SettingButtonPositionEnum } from '/@/enums/appEnum';
   import { AppLocalePicker } from '/@/components/Application';
 
   import { UserDropDown, LayoutBreadcrumb, FullScreen, Notify, ErrorAction } from './components';
@@ -112,7 +113,11 @@
         getIsMixSidebar,
       } = useMenuSetting();
       const { getShowLocale } = useLocaleSetting();
-      const { getUseErrorHandle, getShowSettingButton } = useRootSetting();
+      const {
+        getUseErrorHandle,
+        getShowSettingButton,
+        getSettingButtonPosition,
+      } = useRootSetting();
 
       const {
         getHeaderTheme,
@@ -122,6 +127,7 @@
         getShowContent,
         getShowBread,
         getShowHeaderLogo,
+        getShowHeader,
       } = useHeaderSetting();
 
       const { getIsMobile } = useAppInject();
@@ -136,6 +142,18 @@
             [`${prefixCls}--${theme}`]: theme,
           },
         ];
+      });
+
+      const getShowSetting = computed(() => {
+        if (!unref(getShowSettingButton)) {
+          return false;
+        }
+        const settingButtonPosition = unref(getSettingButtonPosition);
+
+        if (settingButtonPosition === SettingButtonPositionEnum.AUTO) {
+          return unref(getShowHeader);
+        }
+        return settingButtonPosition === SettingButtonPositionEnum.HEADER;
       });
 
       const getLogoWidth = computed(() => {
@@ -175,6 +193,7 @@
         getLogoWidth,
         getIsMixSidebar,
         getShowSettingButton,
+        getShowSetting,
       };
     },
   });

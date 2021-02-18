@@ -22,7 +22,7 @@
           icon="ion:lock-closed-outline"
         />
         <MenuItem
-          key="loginOut"
+          key="logout"
           :text="t('layout.header.dropdownItemLoginOut')"
           icon="ion:power-outline"
         />
@@ -51,7 +51,7 @@
 
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
-  type MenuEvent = 'loginOut' | 'doc' | 'lock';
+  type MenuEvent = 'logout' | 'doc' | 'lock';
 
   export default defineComponent({
     name: 'UserDropdown',
@@ -93,7 +93,7 @@
 
       function handleMenuClick(e: { key: MenuEvent }) {
         switch (e.key) {
-          case 'loginOut':
+          case 'logout':
             handleLoginOut();
             break;
           case 'doc':

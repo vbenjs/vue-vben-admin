@@ -1,5 +1,5 @@
 <template>
-  <div @click="openDrawer" :class="prefixCls">
+  <div @click="openDrawer">
     <Icon icon="ion:settings-outline" />
     <SettingDrawer @register="register" />
   </div>
@@ -10,7 +10,6 @@
   import Icon from '/@/components/Icon';
 
   import { useDrawer } from '/@/components/Drawer';
-  import { useDesign } from '/@/hooks/web/useDesign';
 
   export default defineComponent({
     name: 'SettingButton',
@@ -18,9 +17,7 @@
     setup() {
       const [register, { openDrawer }] = useDrawer();
 
-      const { prefixCls } = useDesign('setting-button');
       return {
-        prefixCls,
         register,
         openDrawer,
       };
