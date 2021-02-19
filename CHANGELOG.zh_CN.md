@@ -3,6 +3,7 @@
 ### ✨ Features
 
 - 新增 `settingButtonPosition`配置项,用于配置`设置`按钮位置
+- `modal`可以通过双击头部切换全屏
 
 ### ⚡ Performance Improvements
 

@@ -10,7 +10,11 @@
     </template>
 
     <template #title v-if="!$slots.title">
-      <ModalHeader :helpMessage="getProps.helpMessage" :title="getMergeProps.title" />
+      <ModalHeader
+        :helpMessage="getProps.helpMessage"
+        :title="getMergeProps.title"
+        @dblclick="handleTitleDbClick"
+      />
     </template>
 
     <template #footer v-if="!$slots.footer">
@@ -193,6 +197,12 @@
         extHeightRef.value = height;
       }
 
+      function handleTitleDbClick(e: ChangeEvent) {
+        if (!props.canFullscreen) return;
+        e.stopPropagation();
+        handleFullScreen(e);
+      }
+
       return {
         handleCancel,
         getBindValue,
@@ -206,6 +216,7 @@
         modalWrapperRef,
         handleExtHeight,
         handleHeightChange,
+        handleTitleDbClick,
       };
     },
   });
