@@ -5,7 +5,7 @@
     </div>
 
     <span :class="`${prefixCls}__extra-quick`" v-else @click="handleContext">
-      <Icon icon="ion:chevron-down"></Icon>
+      <Icon icon="ion:chevron-down" />
     </span>
   </Dropdown>
 </template>
@@ -18,8 +18,6 @@
 
   import { TabContentProps, TabContentEnum } from '../types';
 
-  import { RightOutlined } from '@ant-design/icons-vue';
-
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useTabDropdown } from '../useTabDropdown';
   import { useI18n } from '/@/hooks/web/useI18n';
@@ -27,7 +25,7 @@
   import { RouteLocationNormalized } from 'vue-router';
   export default defineComponent({
     name: 'TabContent',
-    components: { Dropdown, RightOutlined, Icon },
+    components: { Dropdown, Icon },
     props: {
       tabItem: {
         type: Object as PropType<RouteLocationNormalized>,
