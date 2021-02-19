@@ -29,20 +29,20 @@
 <script lang="ts">
   import type { CSSProperties, PropType } from 'vue';
   import type { BasicColumn } from '../../types/table';
+  import type { EditRecordRow } from './index';
 
-  import { defineComponent, ref, unref, nextTick, computed, watchEffect } from 'vue';
+  import { defineComponent, ref, unref, nextTick, computed, watchEffect, toRaw } from 'vue';
   import { FormOutlined, CloseOutlined, CheckOutlined } from '@ant-design/icons-vue';
+  import { CellComponent } from './CellComponent';
 
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { isString, isBoolean, isFunction, isNumber, isArray } from '/@/utils/is';
+  import { useTableContext } from '../../hooks/useTableContext';
+
   import clickOutside from '/@/directives/clickOutside';
 
-  import { CellComponent } from './CellComponent';
-  import { useTableContext } from '../../hooks/useTableContext';
   import { propTypes } from '/@/utils/propTypes';
+  import { isString, isBoolean, isFunction, isNumber, isArray } from '/@/utils/is';
   import { createPlaceholderMessage } from './helper';
-
-  import type { EditRecordRow } from './index';
 
   export default defineComponent({
     name: 'EditableCell',
@@ -136,9 +136,11 @@
         if (!component.includes('Select')) {
           return value;
         }
+
         const options: LabelValueOptions = editComponentProps?.options ?? (unref(optionsRef) || []);
         const option = options.find((item) => `${item.value}` === `${value}`);
-        return option?.label;
+
+        return option?.label ?? value;
       });
 
       const getWrapperStyle = computed(
@@ -188,6 +190,11 @@
         } else if (isString(e) || isBoolean(e) || isNumber(e)) {
           currentValueRef.value = e;
         }
+        table.emit?.('edit-change', {
+          column: props.column,
+          value: unref(currentValueRef),
+          record: toRaw(props.record),
+        });
         handleSubmiRule();
       }
 
@@ -220,13 +227,17 @@
         return true;
       }
 
-      async function handleSubmit(needEmit = true) {
-        const isPass = await handleSubmiRule();
-        if (!isPass) return false;
+      async function handleSubmit(needEmit = true, valid = true) {
+        if (valid) {
+          const isPass = await handleSubmiRule();
+          if (!isPass) return false;
+        }
+
         const { column, index } = props;
         const { key, dataIndex } = column;
         const value = unref(currentValueRef);
         if (!key || !dataIndex) return;
+
         const dataKey = (dataIndex || key) as string;
 
         const record = await table.updateTableData(index, dataKey, value);
@@ -287,15 +298,15 @@
             const validFns = (props.record?.validCbs || []).map((fn) => fn());
 
             const res = await Promise.all(validFns);
+
             const pass = res.every((item) => !!item);
 
             if (!pass) return;
             const submitFns = props.record?.submitCbs || [];
-            submitFns.forEach((fn) => fn(false));
+            submitFns.forEach((fn) => fn(false, false));
             table.emit?.('edit-row-end');
             return true;
           }
-          // isArray(props.record?.submitCbs) && props.record?.submitCbs.forEach((fn) => fn());
         };
       }
 
@@ -328,10 +339,6 @@
   @prefix-cls: ~'@{namespace}-editable-cell';
 
   .edit-cell-rule-popover {
-    // .ant-popover-arrow {
-    //   // border-color: transparent @error-color @error-color transparent !important;
-    // }
-
     .ant-popover-inner-content {
       padding: 4px 8px;
       color: @error-color;
@@ -346,6 +353,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
+      > .ant-select {
+        min-width: calc(100% - 50px);
+      }
     }
 
     &__icon {
@@ -359,8 +370,6 @@
     }
 
     &__normal {
-      padding-right: 48px;
-
       &-icon {
         position: absolute;
         top: 4px;

@@ -4,9 +4,16 @@
 
 - 新增 `settingButtonPosition`配置项,用于配置`设置`按钮位置
 
+### ⚡ Performance Improvements
+
+- 优化可编辑居中样式及下拉框宽度过短
+- 表格新增编辑时`edit-change`事件监听
+
 ### 🐛 Bug Fixes
 
 - 修复图片预览样式错误
+- 修复图标样式问题
+- 修复可编辑表格下拉回显问题
 
 ## 2.0.0 (2021-02-18)
 
