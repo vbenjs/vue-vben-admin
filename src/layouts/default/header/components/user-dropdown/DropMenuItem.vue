@@ -7,7 +7,7 @@
   </MenuItem>
 </template>
 <script lang="ts">
-  import { Menu, Badge } from 'ant-design-vue';
+  import { Menu } from 'ant-design-vue';
 
   import { defineComponent } from 'vue';
 
@@ -16,7 +16,7 @@
 
   export default defineComponent({
     name: 'DropdownMenuItem',
-    components: { MenuItem: Menu.Item, Badge, Icon },
+    components: { MenuItem: Menu.Item, Icon },
     props: {
       key: propTypes.string,
       text: propTypes.string,

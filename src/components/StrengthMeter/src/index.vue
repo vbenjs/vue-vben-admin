@@ -19,13 +19,11 @@
 </template>
 
 <script lang="ts">
-  import { PropType } from 'vue';
-
   import { defineComponent, computed, ref, watch, unref, watchEffect } from 'vue';
 
   import { Input } from 'ant-design-vue';
 
-  import zxcvbn from 'zxcvbn';
+  import zxcvbn from '@zxcvbn-ts/core';
   import { propTypes } from '/@/utils/propTypes';
   import { useDesign } from '/@/hooks/web/useDesign';
 
@@ -34,11 +32,6 @@
     components: { InputPassword: Input.Password },
     props: {
       value: propTypes.string,
-
-      userInputs: {
-        type: Array as PropType<string[]>,
-        default: () => [],
-      },
 
       showInput: propTypes.bool.def(true),
       disabled: propTypes.bool,
@@ -49,12 +42,10 @@
       const { prefixCls } = useDesign('strength-meter');
 
       const getPasswordStrength = computed(() => {
-        const { userInputs, disabled } = props;
+        const { disabled } = props;
         if (disabled) return null;
         const innerValue = unref(innerValueRef);
-        const score = innerValue
-          ? zxcvbn(unref(innerValueRef), (userInputs as string[]) || null).score
-          : null;
+        const score = innerValue ? zxcvbn(unref(innerValueRef)).score : null;
         emit('score-change', score);
         return score;
       });
