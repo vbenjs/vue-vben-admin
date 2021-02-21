@@ -14,7 +14,7 @@ export class Encryption {
     this.iv = CryptoES.enc.Utf8.parse(iv);
   }
 
-  get getOpt(): CryptoES.lib.CipherCfg {
+  get getOptions(): CryptoES.lib.CipherCfg {
     return {
       mode: CryptoES.mode.CBC as any,
       padding: CryptoES.pad.Pkcs7,
@@ -23,13 +23,11 @@ export class Encryption {
   }
 
   encryptByAES(str: string) {
-    const encrypted = CryptoES.AES.encrypt(str, this.key, this.getOpt);
-    return encrypted.toString();
+    return CryptoES.AES.encrypt(str, this.key, this.getOptions).toString();
   }
 
   decryptByAES(str: string) {
-    const decrypted = CryptoES.AES.decrypt(str, this.key, this.getOpt);
-    return decrypted.toString(CryptoES.enc.Utf8);
+    return CryptoES.AES.decrypt(str, this.key, this.getOptions).toString(CryptoES.enc.Utf8);
   }
 }
 export default Encryption;

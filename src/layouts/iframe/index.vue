@@ -21,9 +21,7 @@
     setup() {
       const { getFramePages, hasRenderFrame, showIframe } = useFrameKeepAlive();
 
-      const showFrame = computed(() => {
-        return unref(getFramePages).length > 0;
-      });
+      const showFrame = computed(() => unref(getFramePages).length > 0);
 
       return { getFramePages, hasRenderFrame, showIframe, showFrame };
     },

@@ -4,7 +4,6 @@
 import type { AxiosResponse } from 'axios';
 import type { CreateAxiosOptions, RequestOptions, Result } from './types';
 import { VAxios } from './Axios';
-import { getToken } from '/@/utils/auth';
 import { AxiosTransform } from './axiosTransform';
 
 import { checkStatus } from './checkStatus';
@@ -20,6 +19,7 @@ import { errorStore } from '/@/store/modules/error';
 import { errorResult } from './const';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { createNow, formatRequestDate } from './helper';
+import { userStore } from '/@/store/modules/user';
 
 const globSetting = useGlobSetting();
 const prefix = globSetting.urlPrefix;
@@ -137,7 +137,7 @@ const transform: AxiosTransform = {
    */
   requestInterceptors: (config) => {
     // 请求之前处理config
-    const token = getToken();
+    const token = userStore.getTokenState;
     if (token) {
       // jwt token
       config.headers.Authorization = token;

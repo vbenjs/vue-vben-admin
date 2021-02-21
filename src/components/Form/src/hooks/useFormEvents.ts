@@ -5,10 +5,10 @@ import type { NamePath } from 'ant-design-vue/lib/form/interface';
 import { unref, toRaw } from 'vue';
 
 import { isArray, isFunction, isObject, isString } from '/@/utils/is';
-import { deepMerge, unique } from '/@/utils';
+import { deepMerge } from '/@/utils';
 import { dateItemType, handleInputNumberValue } from '../helper';
 import { dateUtil } from '/@/utils/dateUtil';
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep, uniqBy } from 'lodash-es';
 import { error } from '/@/utils/log';
 
 interface UseFormActionContext {
@@ -160,7 +160,7 @@ export function useFormEvents({
         }
       });
     });
-    schemaRef.value = unique(schema, 'field');
+    schemaRef.value = uniqBy(schema, 'field');
   }
 
   function getFieldsValue(): Recordable {
