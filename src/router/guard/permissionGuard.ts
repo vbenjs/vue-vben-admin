@@ -3,7 +3,7 @@ import type { Router, RouteRecordRaw } from 'vue-router';
 import { permissionStore } from '/@/store/modules/permission';
 
 import { PageEnum } from '/@/enums/pageEnum';
-import { getToken } from '/@/utils/auth';
+import { userStore } from '/@/store/modules/user';
 
 import { PAGE_NOT_FOUND_ROUTE } from '/@/router/constant';
 
@@ -25,7 +25,7 @@ export function createPermissionGuard(router: Router) {
       return;
     }
 
-    const token = getToken();
+    const token = userStore.getTokenState;
 
     // token does not exist
     if (!token) {

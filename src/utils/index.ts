@@ -38,24 +38,6 @@ export function deepMerge<T = any>(src: any = {}, target: any = {}): T {
   return src;
 }
 
-/**
- * @description: Deduplication according to the value of an object in the array
- */
-export function unique<T = any>(arr: T[], key: string): T[] {
-  const map = new Map();
-  return arr.filter((item) => {
-    const _item = item as any;
-    return !map.has(_item[key]) && map.set(_item[key], 1);
-  });
-}
-
-/**
- * @description: es6 array to repeat
- */
-export function es6Unique<T>(arr: T[]): T[] {
-  return Array.from(new Set(arr));
-}
-
 export function openWindow(
   url: string,
   opt?: { target?: TargetContext | string; noopener?: boolean; noreferrer?: boolean }
@@ -78,20 +60,6 @@ export function getDynamicProps<T, U>(props: T): Partial<U> {
   });
 
   return ret as Partial<U>;
-}
-
-export function getLastItem<T extends any>(list: T) {
-  if (Array.isArray(list)) {
-    return list.slice(-1)[0];
-  }
-
-  if (list instanceof Set) {
-    return Array.from(list).slice(-1)[0];
-  }
-
-  if (list instanceof Map) {
-    return Array.from(list.values()).slice(-1)[0];
-  }
 }
 
 /**

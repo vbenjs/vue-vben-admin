@@ -4,7 +4,7 @@ import { computed, toRaw, unref } from 'vue';
 
 import { tabStore } from '/@/store/modules/tab';
 
-import { unique } from '/@/utils';
+import { uniqBy } from 'lodash-es';
 
 import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
 
@@ -40,7 +40,7 @@ export function useFrameKeepAlive() {
         res.push(...getAllFramePages(children));
       }
     }
-    res = unique(res, 'name');
+    res = uniqBy(res, 'name');
     return res;
   }
 
