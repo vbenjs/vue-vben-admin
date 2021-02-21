@@ -10,8 +10,13 @@
   >
     <img src="../../../assets/images/logo.png" />
     <div
-      class="ml-2 truncate xs:opacity-0 md:opacity-100"
-      :class="`${prefixCls}__title`"
+      class="ml-2 truncate md:opacity-100"
+      :class="[
+        `${prefixCls}__title`,
+        {
+          'xs:opacity-0': !alwaysShowTitle,
+        },
+      ]"
       v-show="showTitle"
     >
       {{ title }}
@@ -38,6 +43,7 @@
       theme: propTypes.oneOf(['light', 'dark']),
       // Whether to show title
       showTitle: propTypes.bool.def(true),
+      alwaysShowTitle: propTypes.bool.def(false),
     },
     setup() {
       const { prefixCls } = useDesign('app-logo');
