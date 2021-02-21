@@ -54,7 +54,7 @@
 <script lang="ts">
   import { defineComponent, reactive, ref } from 'vue';
 
-  import { Form, Input, Button, Divider, Checkbox } from 'ant-design-vue';
+  import { Form, Input, Button, Checkbox } from 'ant-design-vue';
   import { StrengthMeter } from '/@/components/StrengthMeter';
   import { CountdownInput } from '/@/components/CountDown';
 
@@ -68,7 +68,6 @@
       Form,
       FormItem: Form.Item,
       Input,
-      Divider,
       InputPassword: Input.Password,
       Checkbox,
       StrengthMeter,

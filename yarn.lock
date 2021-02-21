@@ -1112,10 +1112,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.305":
-  version "1.1.305"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.305.tgz#a23ae3a635167ee88fb41eeab72adbc094a22657"
-  integrity sha512-9zV2MHpP01Qdq6CBEszb9oOahsvLY+f2D3vbtOv22tPgopz2F4Uuzl/TB6+zOuQDohCVsGJzKuU5K6gjrM4P5Q==
+"@iconify/json@^1.1.306":
+  version "1.1.306"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.306.tgz#cad12ad858a61689009c12d3d2df0fde6a202bb9"
+  integrity sha512-OT1H/non+J8i9BBery8VhXn2JJeUMr8iKA166wsW74UWgez2HsPnkNNdtQmZxIuAyL6FuHQ+WvDi18uD9eAo0Q==
 
 "@intlify/core-base@9.0.0-beta.16":
   version "9.0.0-beta.16"
@@ -5933,10 +5933,15 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
-lodash-es@^4.17.15, lodash-es@^4.17.20:
+lodash-es@^4.17.15:
   version "4.17.20"
   resolved "https://registry.npmjs.org/lodash-es/-/lodash-es-4.17.20.tgz#29f6332eefc60e849f869c264bc71126ad61e8f7"
   integrity sha512-JD1COMZsq8maT6mnuz1UMV0jvYD0E0aUsSOdrr1/nAG3dhqQXwRRgeW0cSqH1U43INKcqxaiVIQNOUDld7gRDA==
+
+lodash-es@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.npmjs.org/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
 
 lodash._reinterpolate@^3.0.0:
   version "3.0.0"
@@ -9219,10 +9224,10 @@ vite-plugin-html@^2.0.0:
     fs-extra "^9.1.0"
     html-minifier-terser "^5.1.1"
 
-vite-plugin-imagemin@^0.2.6:
-  version "0.2.6"
-  resolved "https://registry.npmjs.org/vite-plugin-imagemin/-/vite-plugin-imagemin-0.2.6.tgz#e8c3f2e4dcd9c8017d5624b52868bbfa60374d0b"
-  integrity sha512-fnMFMQjQGYdvIEkISkVawFiyttgfjcAzBbDDVR2ThSnV4NHhCh8Y3WuduyH1kpEJLdJ4H83vP+94CkJZy7RP9Q==
+vite-plugin-imagemin@^0.2.7:
+  version "0.2.7"
+  resolved "https://registry.npmjs.org/vite-plugin-imagemin/-/vite-plugin-imagemin-0.2.7.tgz#74b4a5e00e9ebef241e6bcd1c7eddd61e833614c"
+  integrity sha512-WRHnZ1QATluxqUNpOyFUtShLm+X+FfVoP6ZBcVqeaFU9EmmhR/Bp6TuqWP8jufRyy4lzprW8nxaRUwPD8ZOxYA==
   dependencies:
     "@types/imagemin" "^7.0.0"
     "@types/imagemin-gifsicle" "^7.0.0"
@@ -9232,7 +9237,7 @@ vite-plugin-imagemin@^0.2.6:
     "@types/imagemin-svgo" "^8.0.0"
     "@types/imagemin-webp" "^5.1.1"
     chalk "^4.1.0"
-    debug "^4.3.1"
+    debug "^4.3.2"
     fs-extra "^9.1.0"
     imagemin "^7.0.1"
     imagemin-gifsicle "^7.0.0"
