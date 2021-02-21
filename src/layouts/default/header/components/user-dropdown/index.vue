@@ -3,7 +3,7 @@
     <span :class="[prefixCls, `${prefixCls}--${theme}`]">
       <img :class="`${prefixCls}__header`" :src="headerImg" />
       <span :class="`${prefixCls}__info`">
-        <span :class="`${prefixCls}__name anticon`">{{ getUserInfo.realName }}</span>
+        <span :class="`${prefixCls}__name`" class="truncate">{{ getUserInfo.realName }}</span>
       </span>
     </span>
 

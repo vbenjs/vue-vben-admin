@@ -1936,14 +1936,16 @@
   dependencies:
     vue-demi latest
 
-"@windicss/plugin-utils@0.3.12":
-  version "0.3.12"
-  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.3.12.tgz#69b55be1ffb45753e6f01aa236f5ecd8df7a92ee"
-  integrity sha512-XA+xeyu5KM322dIp+EEHeXnAPuK+KxuWyoGvJnxXi9U50nIp0QraqXAH7xl9ghIkVHvVrb8pmm8vHpzFvsqF2A==
+"@windicss/plugin-utils@0.4.3":
+  version "0.4.3"
+  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.4.3.tgz#84e85fd3cd6eaf54ca72cae276f9cf0610f45e56"
+  integrity sha512-ilddLED+sZQIA9rOwE5eYwdBEBWKREvAVkkiAOOTNf7oDcP/a1cxT3f/nE4tgfhz+MC/FKcy7NkfrqfXRdEQaQ==
   dependencies:
+    esbuild "^0.8.49"
+    esbuild-register "^2.0.0"
     fast-glob "^3.2.5"
     micromatch "^4.0.2"
-    windicss "^2.1.12"
+    windicss "^2.1.15"
 
 "@zxcvbn-ts/core@^0.2.0":
   version "0.2.0"
@@ -3869,6 +3871,11 @@ esbuild@^0.8.48:
   version "0.8.48"
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.8.48.tgz#a57e4dde84ec56da1c6ecaefee97e9da6c5b00b5"
   integrity sha512-lrH8lA8wWQ6Lpe1z6C7ZZaFSmRsUlcQAqe16nf7ITySQ7MV4+vI7qAqQlT/u+c3+9AL3VXmT4MXTxV2e63pO4A==
+
+esbuild@^0.8.49:
+  version "0.8.49"
+  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.8.49.tgz#3d33f71b3966611f822cf4c838115f3fbd16def2"
+  integrity sha512-itiFVYv5UZz4NooO7/Y0bRGVDGz/M/cxKbl6zyNI5pnKaz1mZjvZXAFhhDVz6rGCmcdTKj5oag6rh8DaaSSmfQ==
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -8454,10 +8461,10 @@ stylelint-order@^4.1.0:
     postcss "^7.0.31"
     postcss-sorting "^5.0.1"
 
-stylelint@^13.10.0:
-  version "13.10.0"
-  resolved "https://registry.npmjs.org/stylelint/-/stylelint-13.10.0.tgz#67b0c6f378c3fa61aa569a55d38feb8570b0b587"
-  integrity sha512-eDuLrL0wzPKbl5/TbNGZcbw0lTIGbDEr5W6lCODvb1gAg0ncbgCRt7oU0C2VFDvbrcY0A3MFZOwltwTRmc0XCw==
+stylelint@^13.11.0:
+  version "13.11.0"
+  resolved "https://registry.npmjs.org/stylelint/-/stylelint-13.11.0.tgz#591981fbdd68c9d3d3e6147a0cd6a07539fc216d"
+  integrity sha512-DhrKSWDWGZkCiQMtU+VroXM6LWJVC8hSK24nrUngTSQvXGK75yZUq4yNpynqrxD3a/fzKMED09V+XxO4z4lTbw==
   dependencies:
     "@stylelint/postcss-css-in-js" "^0.37.2"
     "@stylelint/postcss-markdown" "^0.36.2"
@@ -9262,17 +9269,17 @@ vite-plugin-purge-icons@^0.7.0:
     "@purge-icons/generated" "^0.7.0"
     rollup-plugin-purge-icons "^0.7.0"
 
-vite-plugin-pwa@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.5.1.tgz#7f94b8c4092ba0bba0a1bceb690e7420b18071e7"
-  integrity sha512-hf8BgyH0XLNEJUoMsk7ywMoE+OoQelK/+4RQoftQomZhlKXgsTWrfshFGOV7sKUbLsxMh0cVoh1DmAulQmRzKQ==
+vite-plugin-pwa@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.5.2.tgz#48131ebadc0c98c34a543dbf1bb1c86aeef532e0"
+  integrity sha512-4SHKxYhd5sCF/ebbgxGYlN91UHlylzh7C32a5+Y2c2vbrWzw5x62ZxsYzolQzBosdOim4Ez+e/dX4hmP3BCmow==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"
     pretty-bytes "^5.5.0"
     workbox-build "^6.1.0"
 
-vite-plugin-style-import@^0.7.2:
+vite-plugin-style-import@^0.7.3:
   version "0.7.3"
   resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-0.7.3.tgz#4a9fb08bf5f2fc4796391c9be9a587ecb5c97e9e"
   integrity sha512-oKM6vOl7iWaB5U1HcR5oM1oPRhT1n5yJt7h4h9jwpMPCD5ckHPcSjjSU7ZlOJkoS/IWEnDkQqoZi162bOs1rTQ==
@@ -9295,13 +9302,13 @@ vite-plugin-theme@^0.4.3:
     es-module-lexer "^0.3.26"
     tinycolor2 "^1.4.2"
 
-vite-plugin-windicss@0.3.12:
-  version "0.3.12"
-  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.3.12.tgz#5503b4ee738268a37c857c0cf55cea41f28fa3e6"
-  integrity sha512-NuzIjSrqBQKvpbLJoU9qi8PIWBBXCqBmuLg9Dl/cFl4MB/vAHIOB6sZYJatCBFTU39Kw4UU0GhAjDBSNqzTn0w==
+vite-plugin-windicss@0.4.3:
+  version "0.4.3"
+  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.4.3.tgz#f86e5a3b78882caa3cdd50cba2b08770e2d627c8"
+  integrity sha512-Lnv6OhcYzcJvecTs4LIpMSfo54rSewkHrW85IVwy8hacR0krY319jXr5nwiDpSTp6HM3QJhoJ4zxHF+t5Q+Nwg==
   dependencies:
-    "@windicss/plugin-utils" "0.3.12"
-    windicss "^2.1.12"
+    "@windicss/plugin-utils" "0.4.3"
+    windicss "^2.1.15"
 
 vite@2.0.1:
   version "2.0.1"
@@ -9356,10 +9363,10 @@ vue-i18n@9.0.0-rc.2:
     "@intlify/shared" "9.0.0-rc.2"
     "@vue/devtools-api" "^6.0.0-beta.3"
 
-vue-router@^4.0.3:
-  version "4.0.3"
-  resolved "https://registry.npmjs.org/vue-router/-/vue-router-4.0.3.tgz#8b26050c88b2dec7e27a88835f71046b365823ec"
-  integrity sha512-AD1OjtVPyQHTSpoRsEGfPpxRQwhAhxcacOYO3zJ3KNkYP/r09mileSp6kdMQKhZWP2cFsPR3E2M3PZguSN5/ww==
+vue-router@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.npmjs.org/vue-router/-/vue-router-4.0.4.tgz#ad9b4b7bbdad622407b4ff189b1646f48c1e9053"
+  integrity sha512-uN6PDEaYdU9aRO7mU+Dkr1uaY49hV3fucEDG/Vre/Qj8ct3RoJS16vcPrvKVzn69zDDjBV5b9Xw7fZA9r6b/Iw==
 
 vue-types@^3.0.0:
   version "3.0.1"
@@ -9434,10 +9441,10 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
-windicss@^2.1.12:
-  version "2.1.12"
-  resolved "https://registry.npmjs.org/windicss/-/windicss-2.1.12.tgz#840b963f03af7a3e31b989d2b51de52dcd57a37a"
-  integrity sha512-VC057iG65zlvdqUI+1ynzOuKikalvYg6XqPGbG17HEAfwQ0sg1dACTk2plEp1QAEQNtKU3BnLnueWa4oKlltEQ==
+windicss@^2.1.15:
+  version "2.1.15"
+  resolved "https://registry.npmjs.org/windicss/-/windicss-2.1.15.tgz#0a5bf1a56711ab53de8093a3c855764d93ffac00"
+  integrity sha512-gBihXNJPzv/kBaelOlXvbrmWsWuv98OPSf/yUYjc8EnRGCOxDOQIRin4FYPTWCmZi91PZThh7nMjzQZiBV+MYg==
 
 wmf@~1.0.1:
   version "1.0.2"

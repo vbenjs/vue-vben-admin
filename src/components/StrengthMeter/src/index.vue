@@ -1,5 +1,5 @@
 <template>
-  <div :class="prefixCls">
+  <div :class="prefixCls" class="relative">
     <InputPassword
       v-if="showInput"
       v-bind="$attrs"
@@ -24,15 +24,14 @@
   import { Input } from 'ant-design-vue';
 
   import zxcvbn from '@zxcvbn-ts/core';
-  import { propTypes } from '/@/utils/propTypes';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { propTypes } from '/@/utils/propTypes';
 
   export default defineComponent({
     name: 'StrengthMeter',
     components: { InputPassword: Input.Password },
     props: {
       value: propTypes.string,
-
       showInput: propTypes.bool.def(true),
       disabled: propTypes.bool,
     },
@@ -43,9 +42,9 @@
 
       const getPasswordStrength = computed(() => {
         const { disabled } = props;
-        if (disabled) return null;
+        if (disabled) return -1;
         const innerValue = unref(innerValueRef);
-        const score = innerValue ? zxcvbn(unref(innerValueRef)).score : null;
+        const score = innerValue ? zxcvbn(unref(innerValueRef)).score : -1;
         emit('score-change', score);
         return score;
       });
@@ -57,6 +56,7 @@
       watchEffect(() => {
         innerValueRef.value = props.value || '';
       });
+
       watch(
         () => unref(innerValueRef),
         (val) => {
@@ -77,14 +77,12 @@
   @prefix-cls: ~'@{namespace}-strength-meter';
 
   .@{prefix-cls} {
-    position: relative;
-
     &-bar {
       position: relative;
-      height: 4px;
+      height: 6px;
       margin: 10px auto 6px;
       background: @disabled-color;
-      border-radius: 3px;
+      border-radius: 6px;
 
       &::before,
       &::after {

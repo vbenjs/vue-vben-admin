@@ -1,9 +1,14 @@
 ## Wip
 
+### ✨ Refactor
+
+- 登录页重构,新增注册页面/重置密码页面/手机登录/二维码登录
+
 ### ✨ Features
 
 - 新增 `settingButtonPosition`配置项,用于配置`设置`按钮位置
 - `modal`可以通过双击头部切换全屏
+- 新增`CountDownInput`组件
 
 ### ⚡ Performance Improvements
 
