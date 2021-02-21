@@ -1,3 +1,26 @@
+## 2.0.1 (2021-02-21)
+
+### ✨ Refactor
+
+- Refactored login page, new registration page/reset password page/mobile phone login/QR code login
+
+### ✨ Features
+
+- Added the `settingButtonPosition` configuration item for configuring the position of the `settings` button
+- `modal` can switch the full screen by double-clicking the head
+- Added `CountDownInput` component
+
+### ⚡ Performance Improvements
+
+- Optimize the editable center style and the width of the drop-down box is too short
+- The `edit-change` event listener when the table is added and edited
+
+### 🐛 Bug Fixes
+
+- Fix image preview style error
+- Fix icon style problem
+- Fix the drop-down echo problem of editable table
+
 ## 2.0.0 (2021-02-18)
 
 ## Breaking changes
