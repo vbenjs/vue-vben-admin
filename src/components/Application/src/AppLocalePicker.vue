@@ -65,6 +65,7 @@
       }
 
       function handleMenuEvent(menu: DropMenu) {
+        if (unref(getLang) === menu.event) return;
         toggleLocale(menu.event as string);
       }
 

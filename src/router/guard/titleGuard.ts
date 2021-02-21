@@ -12,7 +12,7 @@ const globSetting = useGlobSetting();
 export function createTitleGuard(router: Router) {
   router.afterEach(async (to) => {
     const { t } = useI18n();
-    to.name !== REDIRECT_NAME && setTitle(t(to.meta.title), globSetting.title);
+    to.name !== REDIRECT_NAME && setTitle(t(to.meta.title as string), globSetting.title);
     return true;
   });
 }

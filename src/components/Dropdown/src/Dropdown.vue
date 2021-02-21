@@ -6,7 +6,11 @@
     <template #overlay>
       <a-menu :selectedKeys="selectedKeys">
         <template v-for="item in getMenuList" :key="`${item.event}`">
-          <a-menu-item @click="handleClickMenu(item)" :disabled="item.disabled">
+          <a-menu-item
+            v-bind="getAttr(item.event)"
+            @click="handleClickMenu(item)"
+            :disabled="item.disabled"
+          >
             <Icon :icon="item.icon" v-if="item.icon" />
             <span class="ml-1">{{ item.text }}</span>
           </a-menu-item>
@@ -66,7 +70,11 @@
         item.onClick?.();
       }
 
-      return { handleClickMenu, getMenuList };
+      return {
+        handleClickMenu,
+        getMenuList,
+        getAttr: (key: string) => ({ key }),
+      };
     },
   });
 </script>
