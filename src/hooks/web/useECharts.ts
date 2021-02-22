@@ -1,7 +1,7 @@
 import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 import { tryOnUnmounted } from '/@/utils/helper/vueHelper';
 import { unref, Ref, nextTick } from 'vue';
-import type { EChartsType, EChartsOption } from 'echarts';
+import type { EChartsOption } from 'echarts';
 import { useDebounce } from '/@/hooks/core/useDebounce';
 import { useEventListener } from '/@/hooks/event/useEventListener';
 import { useBreakpoint } from '/@/hooks/event/useBreakpoint';
@@ -12,7 +12,7 @@ export function useECharts(
   elRef: Ref<HTMLDivElement>,
   theme: 'light' | 'dark' | 'default' = 'light'
 ) {
-  let chartInstance: Nullable<EChartsType> = null;
+  let chartInstance: echarts.ECharts | null = null;
   let resizeFn: Fn = resize;
   let removeResizeFn: Fn = () => {};
 

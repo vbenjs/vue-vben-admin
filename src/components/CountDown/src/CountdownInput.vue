@@ -1,11 +1,9 @@
 <template>
-  <div :class="prefixCls">
-    <AInput v-bind="$attrs" :size="size" v-model:value="state">
-      <template #addonAfter>
-        <CountButton :size="size" :count="count" :beforeStartFunc="sendCodeApi" />
-      </template>
-    </AInput>
-  </div>
+  <AInput v-bind="$attrs" :class="prefixCls" :size="size">
+    <template #addonAfter>
+      <CountButton :size="size" :count="count" :beforeStartFunc="sendCodeApi" />
+    </template>
+  </AInput>
 </template>
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
@@ -32,7 +30,6 @@
     },
     setup(props) {
       const { prefixCls } = useDesign('countdown-input');
-
       const [state] = useRuleFormItem(props);
       return { prefixCls, state };
     },

@@ -6,7 +6,6 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import { createGuard } from './guard/';
 
 import { basicRoutes } from './routes/';
-import { scrollBehavior } from './scrollBehavior';
 import { REDIRECT_NAME } from './constant';
 
 // app router
@@ -14,7 +13,7 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes: (basicRoutes as unknown) as RouteRecordRaw[],
   strict: true,
-  scrollBehavior: scrollBehavior,
+  scrollBehavior: () => ({ left: 0, top: 0 }),
 });
 
 // reset router

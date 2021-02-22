@@ -1,8 +1,10 @@
 import CryptoES from 'crypto-es';
+
 export interface EncryptionParams {
   key: string;
   iv: string;
 }
+
 export class Encryption {
   private key;
 
@@ -16,7 +18,7 @@ export class Encryption {
 
   get getOptions(): CryptoES.lib.CipherCfg {
     return {
-      mode: CryptoES.mode.CBC as any,
+      mode: CryptoES.mode.CBC,
       padding: CryptoES.pad.Pkcs7,
       iv: this.iv,
     };
