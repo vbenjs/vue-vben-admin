@@ -206,7 +206,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <Tree {...unref(getBindValues)} class={prefixCls}>
+        <Tree {...(unref(getBindValues) as any)} class={prefixCls}>
           {{
             switcherIcon: () => <DownOutlined />,
             default: () => renderTreeNode({ data: unref(getTreeData) }),
