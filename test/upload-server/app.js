@@ -50,13 +50,13 @@ const uploadFilePublic = function (ctx, files, flag) {
       ctx.body = {
         url: url,
         code: 0,
-        message: '上传成功',
+        message: 'upload Success!',
       };
     } else {
       ctx.body = {
         url: uploadUrl + `/${files.name}`,
         code: 0,
-        message: '上传成功',
+        message: 'upload Success!',
       };
     }
   };

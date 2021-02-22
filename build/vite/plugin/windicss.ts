@@ -4,7 +4,7 @@ import type { Plugin } from 'vite';
 
 export function configWindiCssPlugin(): Plugin[] {
   return windiCSS({
-    safelist: 'shadow shadow-xl',
+    safelist: 'no-select',
     preflight: {
       enableAll: true,
     },

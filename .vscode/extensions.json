@@ -8,7 +8,6 @@
     "antfu.i18n-ally",
     "antfu.iconify",
     "mikestead.dotenv",
-    "bradlc.vscode-tailwindcss",
     "heybourn.headwind"
   ]
 }
