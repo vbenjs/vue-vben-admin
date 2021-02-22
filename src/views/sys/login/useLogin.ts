@@ -12,22 +12,6 @@ export enum LoginStateEnum {
 
 const currentState = ref(LoginStateEnum.LOGIN);
 
-export function useFormTitle() {
-  const { t } = useI18n();
-
-  const getFormTitle = computed(() => {
-    const titleObj = {
-      [LoginStateEnum.RESET_PASSWORD]: t('sys.login.forgetFormTitle'),
-      [LoginStateEnum.LOGIN]: t('sys.login.signInFormTitle'),
-      [LoginStateEnum.REGISTER]: t('sys.login.signUpFormTitle'),
-      [LoginStateEnum.MOBILE]: t('sys.login.mobileSignInFormTitle'),
-      [LoginStateEnum.QR_CODE]: t('sys.login.qrSignInFormTitle'),
-    };
-    return titleObj[unref(currentState)];
-  });
-  return { getFormTitle };
-}
-
 export function useLoginState() {
   function setLoginState(state: LoginStateEnum) {
     currentState.value = state;
@@ -35,19 +19,11 @@ export function useLoginState() {
 
   const getLoginState = computed(() => currentState.value);
 
-  return { setLoginState, getLoginState };
-}
+  function handleBackLogin() {
+    setLoginState(LoginStateEnum.LOGIN);
+  }
 
-export function useShowLoginForm() {
-  const getShowLogin = computed(() => unref(currentState) === LoginStateEnum.LOGIN);
-  const getShowResetPassword = computed(
-    () => unref(currentState) === LoginStateEnum.RESET_PASSWORD
-  );
-  const getShowRegister = computed(() => unref(currentState) === LoginStateEnum.REGISTER);
-  const getShowMobile = computed(() => unref(currentState) === LoginStateEnum.MOBILE);
-  const getShowQrCode = computed(() => unref(currentState) === LoginStateEnum.QR_CODE);
-
-  return { getShowLogin, getShowResetPassword, getShowRegister, getShowMobile, getShowQrCode };
+  return { setLoginState, getLoginState, handleBackLogin };
 }
 
 export function useFormValid<T extends Object = any>(formRef: Ref<any>) {
@@ -96,6 +72,7 @@ export function useFormRules(formData?: Recordable) {
       mobile: mobileFormRule,
     };
     switch (unref(currentState)) {
+      // register form rules
       case LoginStateEnum.REGISTER:
         return {
           account: accountFormRule,
@@ -106,13 +83,19 @@ export function useFormRules(formData?: Recordable) {
           policy: [{ validator: validatePolicy, trigger: 'change' }],
           ...mobileRule,
         };
+
+      // reset password form rules
       case LoginStateEnum.RESET_PASSWORD:
         return {
           account: accountFormRule,
           ...mobileRule,
         };
+
+      // mobile form rules
       case LoginStateEnum.MOBILE:
         return mobileRule;
+
+      // login form rules
       default:
         return {
           account: accountFormRule,

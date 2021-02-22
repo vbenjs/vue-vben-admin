@@ -2,7 +2,9 @@ import type { AppRouteRecordRaw } from '/@/router/types';
 import ParentLayout from '/@/layouts/page/ParentView.vue';
 import { t } from '/@/hooks/web/useI18n';
 
-const EXCEPTION_COMPONENT = () => import('../views/sys/exception/Exception.vue');
+export const REDIRECT_NAME = 'Redirect';
+
+export const EXCEPTION_COMPONENT = () => import('../views/sys/exception/Exception.vue');
 
 /**
  * @description: default layout
@@ -43,8 +45,6 @@ export const PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {
     },
   ],
 };
-
-export const REDIRECT_NAME = 'Redirect';
 
 export const REDIRECT_ROUTE: AppRouteRecordRaw = {
   path: '/redirect',

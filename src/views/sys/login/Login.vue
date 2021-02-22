@@ -9,7 +9,7 @@
       <AppLogo :alwaysShowTitle="true" />
     </span>
 
-    <div class="container relative h-full py-2 mx-auto sm:px-10">
+    <div class="container relative h-full py-2 mx-auto sm:px-10 -enter-x">
       <div class="flex h-full">
         <div class="hidden xl:flex xl:flex-col xl:w-6/12 min-h-full mr-4 pl-4">
           <AppLogo class="-enter-x" />
@@ -31,14 +31,11 @@
           <div
             class="my-auto mx-auto xl:ml-20 bg-white xl:bg-transparent px-5 py-8 sm:px-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto enter-x relative"
           >
-            <h2 class="font-bold text-2xl xl:text-3xl enter-x text-center xl:text-left mb-6">
-              {{ getFormTitle }}
-            </h2>
-            <LoginForm v-show="getShowLogin" />
-            <ForgetPasswordForm v-if="getShowResetPassword" />
-            <RegisterForm v-if="getShowRegister" />
-            <MobileForm v-if="getShowMobile" />
-            <QrCodeForm v-if="getShowQrCode" />
+            <LoginForm />
+            <ForgetPasswordForm />
+            <RegisterForm />
+            <MobileForm />
+            <QrCodeForm />
           </div>
         </div>
       </div>
@@ -59,7 +56,6 @@
   import { useGlobSetting, useProjectSetting } from '/@/hooks/setting';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { useShowLoginForm, useFormTitle } from './useLogin';
 
   export default defineComponent({
     name: 'Login',
@@ -74,7 +70,6 @@
     },
     setup() {
       const globSetting = useGlobSetting();
-      const { getFormTitle } = useFormTitle();
       const { prefixCls } = useDesign('login');
       const { locale } = useProjectSetting();
       const { t } = useI18n();
@@ -84,8 +79,6 @@
         prefixCls,
         title: computed(() => globSetting?.title ?? ''),
         showLocale: computed(() => locale.show),
-        getFormTitle,
-        ...useShowLoginForm(),
       };
     },
   });

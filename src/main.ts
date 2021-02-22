@@ -16,6 +16,7 @@ import { isDevMode } from '/@/utils/env';
 
 const app = createApp(App);
 
+// Register global components
 registerGlobComp(app);
 
 // Multilingual configuration

@@ -1,9 +1,11 @@
 <template>
   <Dropdown placement="bottomLeft" :overlayClassName="`${prefixCls}-dropdown-overlay`">
-    <span :class="[prefixCls, `${prefixCls}--${theme}`]">
+    <span :class="[prefixCls, `${prefixCls}--${theme}`]" class="flex">
       <img :class="`${prefixCls}__header`" :src="headerImg" />
-      <span :class="`${prefixCls}__info`">
-        <span :class="`${prefixCls}__name`" class="truncate">{{ getUserInfo.realName }}</span>
+      <span :class="`${prefixCls}__info hidden md:block`">
+        <span :class="`${prefixCls}__name  `" class="truncate">
+          {{ getUserInfo.realName }}
+        </span>
       </span>
     </span>
 
@@ -121,9 +123,7 @@
   @prefix-cls: ~'@{namespace}-header-user-dropdown';
 
   .@{prefix-cls} {
-    display: flex;
     height: @header-height;
-    min-width: 100px;
     padding: 0 0 0 10px;
     padding-right: 10px;
     overflow: hidden;

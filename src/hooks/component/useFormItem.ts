@@ -17,7 +17,7 @@ export function useRuleFormItem<T extends Indexable>(
 
   const defaultState = readonly(innerState);
 
-  const setState = (val: UnwrapRef<T[keyof T]>) => {
+  const setState = (val: UnwrapRef<T[keyof T]>): void => {
     innerState.value = val as T[keyof T];
   };
 

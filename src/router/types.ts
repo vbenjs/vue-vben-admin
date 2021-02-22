@@ -89,12 +89,5 @@ export interface MenuModule {
   menu: Menu;
 }
 
-// interface RouteModule {
-//   layout: AppRouteRecordRaw;
-//   routes: AppRouteRecordRaw[];
-//   children?: AppRouteRecordRaw[];
-//   component?: Component;
-// }
-
 // export type AppRouteModule = RouteModule | AppRouteRecordRaw;
 export type AppRouteModule = AppRouteRecordRaw;
