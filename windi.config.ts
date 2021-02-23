@@ -44,14 +44,15 @@ function createEnterPlugin(maxOutput = 10) {
     };
   };
   const handler = ({ addBase }) => {
+    const addRawCss = {};
     for (let index = 1; index < maxOutput; index++) {
-      addBase({
+      Object.assign(addRawCss, {
         ...createCss(index, 'x'),
         ...createCss(index, 'y'),
       });
     }
-
     addBase({
+      ...addRawCss,
       [`@keyframes enter-x-animation`]: {
         to: {
           opacity: '1',

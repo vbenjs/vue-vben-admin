@@ -3,6 +3,7 @@
 ### ⚡ Performance Improvements
 
 - 登录界面动画优化
+- 修复 github 仓库体积过大问题.
 
 ### 🐛 Bug Fixes
 
