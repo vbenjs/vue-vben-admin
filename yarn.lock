@@ -1574,10 +1574,10 @@
     regenerator-runtime "^0.13.7"
     systemjs "^6.8.3"
 
-"@vitejs/plugin-vue-jsx@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/@vitejs/plugin-vue-jsx/-/plugin-vue-jsx-1.1.0.tgz#9bd45834db9e8d29a569e330917142c073dab347"
-  integrity sha512-7fpB9rdhWZ7DSdcK/w2sEuSaeOiSyhwu/2ojwl8qz1pshWEPQj9F2g9TaZtEBz298nOKBM0hUOCcKKRUO8Ga8A==
+"@vitejs/plugin-vue-jsx@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/@vitejs/plugin-vue-jsx/-/plugin-vue-jsx-1.1.1.tgz#f9e1bb89591f8529218974d6e55d205964784bc9"
+  integrity sha512-xVpDaXmBsSMkUrYm1qhCrXqlzWuadwbYCPp0pm5N9g6pECTtd5+KgGN7SkIyDER+1cl+0vhkXdZAHu1MaS11gw==
   dependencies:
     "@babel/core" "^7.12.10"
     "@babel/plugin-syntax-import-meta" "^7.10.4"
@@ -1708,10 +1708,10 @@
   dependencies:
     vue-demi latest
 
-"@windicss/plugin-utils@0.4.9":
-  version "0.4.9"
-  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.4.9.tgz#d2f61423c82421cf5507374120691ea39127d060"
-  integrity sha512-dD1Fagdtunr5om8SQMoJyxsFRL1Gh4JqEWlCIWxduMddHbY+S+4Atwifehy6T/2dCoyaGxlLk5yHbeNEdw40eA==
+"@windicss/plugin-utils@0.4.12":
+  version "0.4.12"
+  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.4.12.tgz#b75f218ec11e2970e6ccb7db556cf9930c1cb9ec"
+  integrity sha512-5nZm/qHfnBBYWdtNZmU6IpXO5i/ckIiv+PhyeBOAGl5EXfly7h84YJ4NrkixusbhWMBwUdPi9Bs5m9rOR3oMpg==
   dependencies:
     esbuild "^0.8.50"
     esbuild-register "^2.0.0"
@@ -8600,10 +8600,10 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@^4.1.5:
-  version "4.1.5"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-4.1.5.tgz#123a3b214aaff3be32926f0d8f1f6e704eb89a72"
-  integrity sha512-6OSu9PTIzmn9TCDiovULTnET6BgXtDYL4Gg4szY+cGsc3JP1dQL8qvE8kShTRx1NIw4Q9IBHlwODjkjWEtMUyA==
+typescript@^4.2.2:
+  version "4.2.2"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-4.2.2.tgz#1450f020618f872db0ea17317d16d8da8ddb8c4c"
+  integrity sha512-tbb+NVrLfnsJy3M59lsDgrzWIflR4d4TIUjz+heUnHZwdF7YsrMTKoRERiIvI2lvBG95dfpLxB21WZhys1bgaQ==
 
 uglify-js@^3.1.4:
   version "3.12.5"
@@ -8953,12 +8953,12 @@ vite-plugin-theme@^0.4.8:
     es-module-lexer "^0.3.26"
     tinycolor2 "^1.4.2"
 
-vite-plugin-windicss@0.4.9:
-  version "0.4.9"
-  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.4.9.tgz#af7fdfb5b23487e562fa7f7f78c6ea42633df719"
-  integrity sha512-Q5S2fnVyOcAA12ERHLbXwCzr6NWQmCOluUVtlnKW29liMv7rN3k21bokyLlL+S7o23MLtK5Dbi54FuNqMQGibA==
+vite-plugin-windicss@0.4.12:
+  version "0.4.12"
+  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.4.12.tgz#6a967daaaea084afea4352a019c316ff03eea099"
+  integrity sha512-IXYgvJ58jMF1/lOejZGeOOmNotI+L+W9vMvdJBOykphsk7X+qc8nZfWKW0VvmX2JcI5Ry+QuQMM4JX0xVKnWYQ==
   dependencies:
-    "@windicss/plugin-utils" "0.4.9"
+    "@windicss/plugin-utils" "0.4.12"
     windicss "^2.2.0"
 
 vite@2.0.2:

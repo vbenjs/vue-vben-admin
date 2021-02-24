@@ -54,7 +54,7 @@ jobs:
           REMOTE_DIR: /srv/www/vben-admin
           ARGS: --delete --verbose --parallel=80
 
-  push-to-gh-page:
+  push-to-gh-pages:
     if: "contains(github.event.head_commit.message, '[deploy]')"
     runs-on: ubuntu-latest
     steps:
@@ -94,8 +94,8 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com > ~/.ssh/known_hosts
           chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
-          git config --global user.email "vbenadmin@163.com"
-          git config --global user.name "vbenAdmin"
+          git config --locale user.email "vbenadmin@163.com"
+          git config --locale user.name "vbenAdmin"
 
       - name: Delete gh-pages branch
         run: |
