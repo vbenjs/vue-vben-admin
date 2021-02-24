@@ -3,7 +3,7 @@ import type { PaginationProps } from '../types/pagination';
 import type { DynamicProps } from '/@/types/utils';
 import { getDynamicProps } from '/@/utils';
 
-import { ref, onUnmounted, unref, watch } from 'vue';
+import { ref, onUnmounted, unref, watch, toRaw } from 'vue';
 import { isProdMode } from '/@/utils/env';
 import { isInSetup } from '/@/utils/helper/vueHelper';
 import { error } from '/@/utils/log';
@@ -77,11 +77,11 @@ export function useTable(
       getTableInstance().setLoading(loading);
     },
     getDataSource: () => {
-      return getTableInstance().getDataSource();
+      return toRaw(getTableInstance().getDataSource());
     },
     getColumns: ({ ignoreIndex = false }: { ignoreIndex?: boolean } = {}) => {
       const columns = getTableInstance().getColumns({ ignoreIndex }) || [];
-      return columns;
+      return toRaw(columns);
     },
     setColumns: (columns: BasicColumn[]) => {
       getTableInstance().setColumns(columns);
@@ -96,10 +96,10 @@ export function useTable(
       getTableInstance().deleteSelectRowByKey(key);
     },
     getSelectRowKeys: () => {
-      return getTableInstance().getSelectRowKeys();
+      return toRaw(getTableInstance().getSelectRowKeys());
     },
     getSelectRows: () => {
-      return getTableInstance().getSelectRows();
+      return toRaw(getTableInstance().getSelectRows());
     },
     clearSelectedRowKeys: () => {
       getTableInstance().clearSelectedRowKeys();
@@ -111,16 +111,16 @@ export function useTable(
       return getTableInstance().getPaginationRef();
     },
     getSize: () => {
-      return getTableInstance().getSize();
+      return toRaw(getTableInstance().getSize());
     },
     updateTableData: (index: number, key: string, value: any) => {
       return getTableInstance().updateTableData(index, key, value);
     },
     getRowSelection: () => {
-      return getTableInstance().getRowSelection();
+      return toRaw(getTableInstance().getRowSelection());
     },
     getCacheColumns: () => {
-      return getTableInstance().getCacheColumns();
+      return toRaw(getTableInstance().getCacheColumns());
     },
     getForm: () => {
       return (unref(formRef) as unknown) as FormActionType;
@@ -129,7 +129,7 @@ export function useTable(
       getTableInstance().setShowPagination(show);
     },
     getShowPagination: () => {
-      return getTableInstance().getShowPagination();
+      return toRaw(getTableInstance().getShowPagination());
     },
   };
 
