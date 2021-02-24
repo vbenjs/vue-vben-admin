@@ -92,6 +92,7 @@
     ],
     setup(props, { attrs, emit, slots }) {
       const tableElRef = ref<ComponentRef>(null);
+      const tableData = ref<Recordable[]>([]);
 
       const wrapRef = ref<Nullable<HTMLDivElement>>(null);
       const innerPropsRef = ref<Partial<BasicTableProps>>();
@@ -120,7 +121,7 @@
         getSelectRowKeys,
         deleteSelectRowByKey,
         setSelectedRowKeys,
-      } = useRowSelection(getProps, emit);
+      } = useRowSelection(getProps, tableData, emit);
 
       const {
         handleTableChange,
@@ -135,6 +136,7 @@
       } = useDataSource(
         getProps,
         {
+          tableData,
           getPaginationInfo,
           setLoading,
           setPagination,

@@ -1,7 +1,17 @@
 import type { BasicTableProps, FetchParams, SorterResult } from '../types/table';
 import type { PaginationProps } from '../types/pagination';
 
-import { ref, unref, ComputedRef, computed, onMounted, watch, reactive } from 'vue';
+import {
+  ref,
+  unref,
+  ComputedRef,
+  computed,
+  onMounted,
+  watch,
+  reactive,
+  Ref,
+  watchEffect,
+} from 'vue';
 
 import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 
@@ -17,6 +27,7 @@ interface ActionType {
   setLoading: (loading: boolean) => void;
   getFieldsValue: () => Recordable;
   clearSelectedRowKeys: () => void;
+  tableData: Ref<Recordable[]>;
 }
 
 interface SearchState {
@@ -31,6 +42,7 @@ export function useDataSource(
     setLoading,
     getFieldsValue,
     clearSelectedRowKeys,
+    tableData,
   }: ActionType,
   emit: EmitType
 ) {
@@ -44,6 +56,10 @@ export function useDataSource(
   //   const { dataSource, api } = unref(propsRef);
   //   !api && dataSource && (dataSourceRef.value = dataSource);
   // });
+
+  watchEffect(() => {
+    tableData.value = unref(dataSourceRef);
+  });
 
   watch(
     () => unref(propsRef).dataSource,
