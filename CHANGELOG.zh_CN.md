@@ -1,5 +1,9 @@
 ## Wip
 
+### ✨ Features
+
+- axios 支持 form-data 格式请求
+
 ### ⚡ Performance Improvements
 
 - 登录界面动画优化
