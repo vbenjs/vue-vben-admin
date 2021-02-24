@@ -1446,6 +1446,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/qs@^6.9.5":
+  version "6.9.5"
+  resolved "https://registry.npmjs.org/@types/qs/-/qs-6.9.5.tgz#434711bdd49eb5ee69d90c1d67c354a9a8ecb18b"
+  integrity sha512-/JHkVHtx/REVG0VVToGRGH2+23hsYLHdyG+GrvoUGlGAd0ErauXDyvHtRI/7H7mzLm+tBCKA7pfcpkQ1lf58iQ==
+
 "@types/resolve@1.17.1":
   version "1.17.1"
   resolved "https://registry.npmjs.org/@types/resolve/-/resolve-1.17.1.tgz#3afd6ad8967c77e4376c598a82ddd58f46ec45d6"
@@ -3566,6 +3571,11 @@ es-module-lexer@^0.3.26:
   version "0.3.26"
   resolved "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-0.3.26.tgz#7b507044e97d5b03b01d4392c74ffeb9c177a83b"
   integrity sha512-Va0Q/xqtrss45hWzP8CZJwzGSZJjDM5/MJRE3IXXnUCcVLElR9BRaE9F62BopysASyc4nM3uwhSW7FFB9nlWAA==
+
+es-module-lexer@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-0.4.0.tgz#21f4181cc8b7eee06855f1c59e6087c7bc4f77b0"
+  integrity sha512-iuEGihqqhKWFgh72Q/Jtch7V2t/ft8w8IPP2aEN8ArYKO+IWyo6hsi96hCdgyeEDQIV3InhYQ9BlwUFPGXrbEQ==
 
 es-to-primitive@^1.2.1:
   version "1.2.1"
@@ -8930,15 +8940,15 @@ vite-plugin-pwa@^0.5.3:
     pretty-bytes "^5.5.0"
     workbox-build "^6.1.0"
 
-vite-plugin-style-import@^0.7.4:
-  version "0.7.4"
-  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-0.7.4.tgz#999d8930db67ff0b3786bca25187cc1dc734befa"
-  integrity sha512-a9f44QXEz7D/YLmykkK1Oif9IOOsqfHZRjsaNBwpWdcF7zfL4OE93Z8Xm++Qm+jUuHLuo9BGcfDAwY7+ObxRkQ==
+vite-plugin-style-import@^0.7.5:
+  version "0.7.5"
+  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-0.7.5.tgz#da0455fd79e273767e84ead66e96b82a10cc891c"
+  integrity sha512-0jdP+fnt/duEmpS6gaI5yfLNUNF2KIDcQIzWAH4w1R+fwK98Zt3F+UZprIQAlreRCD+WDLPJJ/M4ECeqKzCtUQ==
   dependencies:
     "@rollup/pluginutils" "^4.1.0"
     change-case "^4.1.2"
     debug "^4.3.2"
-    es-module-lexer "^0.3.26"
+    es-module-lexer "^0.4.0"
     magic-string "^0.25.7"
 
 vite-plugin-theme@^0.4.8:
