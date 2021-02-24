@@ -54,6 +54,7 @@
         span: 8,
       },
       componentProps: {
+        mode: 'multiple',
         options: [
           {
             label: '选项1',
@@ -71,6 +72,7 @@
         {
           required: true,
           message: '请输入aa',
+          type: 'array',
         },
       ],
     },

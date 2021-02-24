@@ -74,7 +74,6 @@ export const basicProps = {
   },
   // 立即请求接口
   immediate: propTypes.bool.def(true),
-
   emptyDataIsShowTable: propTypes.bool.def(true),
   // 额外的请求参数
   searchInfo: {
@@ -130,12 +129,10 @@ export const basicProps = {
     type: [Object, Boolean] as PropType<PaginationProps | boolean>,
     default: null,
   },
-
   loading: propTypes.bool,
   rowClassName: {
     type: Function as PropType<(record: TableCustomRecord<any>, index: number) => string>,
   },
-
   scroll: {
     type: Object as PropType<{ x: number | true; y: number }>,
     default: null,

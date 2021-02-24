@@ -37,7 +37,7 @@
             redo: true,
             size: true,
             setting: true,
-            fullScreen: true,
+            fullScreen: false,
             ...props.setting,
           };
         }

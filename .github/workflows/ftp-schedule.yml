@@ -7,7 +7,7 @@ on:
     - cron: '0 15 * * *'
 
 jobs:
-  push-to-ftp:
+  schedule-push-to-ftp:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
