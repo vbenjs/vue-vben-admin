@@ -65,9 +65,3 @@ export function useLockPage() {
     }
   });
 }
-
-export const getIsLock = computed(() => {
-  const { getLockInfo } = lockStore;
-  const { isLock } = getLockInfo;
-  return isLock;
-});

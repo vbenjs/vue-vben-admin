@@ -20,7 +20,7 @@ export function buildUUID(): string {
 }
 
 let unique = 0;
-export function snowUuid(prefix = ''): string {
+export function shortUuid(prefix = ''): string {
   const time = Date.now();
   const random = Math.floor(Math.random() * 1000000000);
   unique++;

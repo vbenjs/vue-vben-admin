@@ -1,4 +1,5 @@
 import type { Plugin } from 'vite';
+import type { ViteEnv } from '../../utils';
 
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
@@ -6,7 +7,6 @@ import legacy from '@vitejs/plugin-legacy';
 
 import PurgeIcons from 'vite-plugin-purge-icons';
 
-import { ViteEnv } from '../../utils';
 import { configHtmlPlugin } from './html';
 import { configPwaConfig } from './pwa';
 import { configMockPlugin } from './mock';

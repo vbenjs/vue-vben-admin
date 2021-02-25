@@ -43,7 +43,7 @@ export function initAffixTabs(): string[] {
     addAffixTabs();
     isAddAffix = true;
   }
-  return affixList.value.map((item) => item.meta?.title).filter(Boolean);
+  return affixList.value.map((item) => item.meta?.title).filter(Boolean) as string[];
 }
 
 export function useTabsDrag(affixTextList: string[]) {

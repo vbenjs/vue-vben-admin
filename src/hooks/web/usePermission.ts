@@ -40,7 +40,7 @@ export function usePermission() {
     resetRouter();
     const routes = await permissionStore.buildRoutesAction(id);
     routes.forEach((route) => {
-      router.addRoute(route as RouteRecordRaw);
+      router.addRoute((route as unknown) as RouteRecordRaw);
     });
     permissionStore.commitLastBuildMenuTimeState();
     const { closeAll } = useTabs();

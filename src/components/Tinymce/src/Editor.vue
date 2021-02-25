@@ -26,7 +26,7 @@
   import plugins from './plugins';
   import { getTinymce } from './getTinymce';
   import { useScript } from '/@/hooks/web/useScript';
-  import { snowUuid } from '/@/utils/uuid';
+  import { shortUuid } from '/@/utils/uuid';
   import { bindHandlers } from './helper';
   import lineHeight from './lineHeight';
   import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
@@ -45,7 +45,7 @@
     emits: ['change', 'update:modelValue'],
     setup(props, { emit, attrs }) {
       const editorRef = ref<any>(null);
-      const tinymceId = ref<string>(snowUuid('tiny-vue'));
+      const tinymceId = ref<string>(shortUuid('tiny-vue'));
       const elRef = ref<Nullable<HTMLElement>>(null);
 
       const { prefixCls } = useDesign('tinymce-container');
@@ -104,7 +104,7 @@
         }
       );
       onMountedOrActivated(() => {
-        tinymceId.value = snowUuid('tiny-vue');
+        tinymceId.value = shortUuid('tiny-vue');
         nextTick(() => {
           init();
         });

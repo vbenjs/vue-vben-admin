@@ -6,9 +6,10 @@ import {
   RouterTransitionEnum,
   SettingButtonPositionEnum,
 } from '/@/enums/appEnum';
+
 import { CacheTypeEnum } from '/@/enums/cacheEnum';
 import type { LocaleType } from '/@/locales/types';
-import { ThemeMode } from '../../build/config/lessModifyVars';
+import { ThemeMode } from '../../build/config/themeConfig';
 
 export interface MenuSetting {
   bgColor: string;
@@ -32,16 +33,10 @@ export interface MenuSetting {
 }
 
 export interface MultiTabsSetting {
-  // 是否显示
   show: boolean;
-  // 开启快速操作
   showQuick: boolean;
   canDrag: boolean;
-
-  // 显示刷新按钮
   showRedo: boolean;
-
-  // 显示折叠按钮
   showFold: boolean;
 }
 
@@ -50,16 +45,14 @@ export interface HeaderSetting {
   fixed: boolean;
   show: boolean;
   theme: ThemeEnum;
-
-  // 显示全屏按钮
+  // Turn on full screen
   showFullScreen: boolean;
-  // 开启全屏功能
+  // Whether to show the lock screen
   useLockPage: boolean;
-  // 显示文档按钮
+  // Show document button
   showDoc: boolean;
-  // 显示消息中心按钮
+  // Show message center button
   showNotice: boolean;
-
   showSearch: boolean;
 }
 
@@ -76,96 +69,90 @@ export interface LocaleSetting {
 export interface TransitionSetting {
   //  Whether to open the page switching animation
   enable: boolean;
-
   // Route basic switching animation
   basicTransition: RouterTransitionEnum;
-
   // Whether to open page switching loading
   openPageLoading: boolean;
-
   // Whether to open the top progress bar
   openNProgress: boolean;
 }
 
 export interface ProjectConfig {
+  // Multilingual configuration
   locale: LocaleSetting;
-
+  // Storage location of permission related information
   permissionCacheType: CacheTypeEnum;
-
-  // 是否显示配置按钮
+  // Whether to show the configuration button
   showSettingButton: boolean;
+  // Configure where the button is displayed
   settingButtonPosition: SettingButtonPositionEnum;
-  // 权限模式
+  // Permission mode
   permissionMode: PermissionModeEnum;
-  // 网站灰色模式，用于可能悼念的日期开启
+  // Website gray mode, open for possible mourning dates
   grayMode: boolean;
-  // 是否开启色弱模式
+  // Whether to turn on the color weak mode
   colorWeak: boolean;
-  // 主题色
+  // Theme color
   themeColor: string;
+
   themeMode: ThemeMode;
-  // 全屏显示主界面,不显示菜单,及顶部
+  // The main interface is displayed in full screen, the menu is not displayed, and the top
   fullContent: boolean;
-  // 区域宽度
+  // content width
   contentMode: ContentEnum;
-  // 是否显示logo
+  // Whether to display the logo
   showLogo: boolean;
+  // Whether to show the global footer
   showFooter: boolean;
-  headerSetting: HeaderSetting;
-  // 菜单类型
   // menuType: MenuTypeEnum;
+  headerSetting: HeaderSetting;
+  // menuSetting
   menuSetting: MenuSetting;
-
-  // 多标签页设置
+  // Multi-tab settings
   multiTabsSetting: MultiTabsSetting;
-
+  // Animation configuration
   transitionSetting: TransitionSetting;
-
-  // pageLayout是否开启keep-alive
+  // pageLayout whether to enable keep-alive
   openKeepAlive: boolean;
-
-  //
-  // 锁屏时间
+  // Lock screen time
   lockTime: number;
-  // 显示面包屑
+  // Show breadcrumbs
   showBreadCrumb: boolean;
-  // 显示面包屑图标
+  // Show breadcrumb icon
   showBreadCrumbIcon: boolean;
-  // 使用error-handler-plugin
+  // Use error-handler-plugin
   useErrorHandle: boolean;
-  // 是否开启回到顶部
+  // Whether to open back to top
   useOpenBackTop: boolean;
-  // 是否可以嵌入iframe页面
+  // Is it possible to embed iframe pages
   canEmbedIFramePage: boolean;
-  // 切换界面的时候是否删除未关闭的message及notify
+  // Whether to delete unclosed messages and notify when switching the interface
   closeMessageOnSwitch: boolean;
-  // 切换界面的时候是否取消已经发送但是未响应的http请求。
+  // Whether to cancel the http request that has been sent but not responded when switching the interface.
   removeAllHttpPending: boolean;
 }
 
 export interface GlobConfig {
-  // 网站标题
+  // Site title
   title: string;
-  // 项目路径
+  // Service interface url
   apiUrl: string;
+  // Upload url
   uploadUrl?: string;
+  //  Service interface url prefix
   urlPrefix?: string;
+  // Project abbreviation
   shortName: string;
 }
 export interface GlobEnvConfig {
-  // 网站标题
+  // Site title
   VITE_GLOB_APP_TITLE: string;
-  // 项目路径
+  // Service interface url
   VITE_GLOB_API_URL: string;
+  // Service interface url prefix
   VITE_GLOB_API_URL_PREFIX?: string;
+  // Project abbreviation
   VITE_GLOB_APP_SHORT_NAME: string;
+  // Upload url
   VITE_GLOB_UPLOAD_URL?: string;
-}
-
-interface GlobWrap {
-  globSetting: Readonly<GlobConfig>;
-}
-
-interface ProjectSettingWrap {
-  projectSetting: Readonly<ProjectConfig>;
 }

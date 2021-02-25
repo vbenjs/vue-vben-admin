@@ -4,7 +4,7 @@ import store from '/@/store';
 import { LOCK_INFO_KEY } from '/@/enums/cacheEnum';
 
 import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
-import { setLocal, getLocal, removeLocal } from '/@/utils/helper/persistent';
+import { setLocal, getLocal, removeLocal } from '/@/utils/cache/persistent';
 
 import { userStore } from './user';
 
