@@ -2,8 +2,6 @@ import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 import { tryOnUnmounted } from '/@/utils/helper/vueHelper';
 import { unref, Ref, nextTick } from 'vue';
 
-import ApexCharts from 'apexcharts';
-
 interface CallBackFn {
   (instance: Nullable<ApexCharts>): void;
 }
@@ -13,21 +11,22 @@ export function useApexCharts(elRef: Ref<HTMLDivElement>) {
 
   function setOptions(options: any, callback?: CallBackFn) {
     nextTick(() => {
-      useTimeoutFn(() => {
+      useTimeoutFn(async () => {
         const el = unref(elRef);
 
         if (!el || !unref(el)) return;
+        const ApexCharts = await (await import('apexcharts')).default;
         chartInstance = new ApexCharts(el, options);
 
         chartInstance && chartInstance.render();
 
-        // setOptions增加callback方法，返回chartInstance，以便于对图表进行再操作，例如调用updateOptions方法更新图表
+        // The callback method is added to setOptions to return the chartInstance to facilitate the re-operation of the chart, such as calling the updateOptions method to update the chart
         callback && callback(chartInstance);
       }, 30);
     });
   }
 
-  // 新增调用ApexCharts的updateOptions方法更新图表
+  // Call the updateOptions method of ApexCharts to update the chart
   function updateOptions(
     chartInstance: Nullable<ApexCharts>,
     options: any,

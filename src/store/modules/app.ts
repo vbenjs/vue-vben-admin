@@ -6,7 +6,7 @@ import store from '/@/store';
 import { PROJ_CFG_KEY } from '/@/enums/cacheEnum';
 
 import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
-import { setLocal, getLocal, clearSession, clearLocal } from '/@/utils/helper/persistent';
+import { setLocal, getLocal, clearSession, clearLocal } from '/@/utils/cache/persistent';
 import { deepMerge } from '/@/utils';
 
 import { resetRouter } from '/@/router';

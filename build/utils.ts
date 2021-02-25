@@ -2,12 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
 
-export const isFunction = (arg: unknown): arg is (...args: any[]) => any =>
-  typeof arg === 'function';
-
-export const isRegExp = (arg: unknown): arg is RegExp =>
-  Object.prototype.toString.call(arg) === '[object RegExp]';
-
 export function isDevFn(mode: string): boolean {
   return mode === 'development';
 }
@@ -34,18 +28,18 @@ export interface ViteEnv {
   VITE_USE_CDN: boolean;
   VITE_DROP_CONSOLE: boolean;
   VITE_BUILD_COMPRESS: 'gzip' | 'brotli' | 'none';
-  VITE_DYNAMIC_IMPORT: boolean;
   VITE_LEGACY: boolean;
   VITE_USE_IMAGEMIN: boolean;
 }
 
 // Read all environment variable configuration files to process.env
-export function wrapperEnv(envConf: any): ViteEnv {
+export function wrapperEnv(envConf: Recordable): ViteEnv {
   const ret: any = {};
 
   for (const envName of Object.keys(envConf)) {
     let realName = envConf[envName].replace(/\\n/g, '\n');
     realName = realName === 'true' ? true : realName === 'false' ? false : realName;
+
     if (envName === 'VITE_PORT') {
       realName = Number(realName);
     }
@@ -70,10 +64,10 @@ export function getEnvConfig(match = 'VITE_GLOB_', confFiles = ['.env', '.env.pr
   confFiles.forEach((item) => {
     try {
       const env = dotenv.parse(fs.readFileSync(path.resolve(process.cwd(), item)));
-
       envConfig = { ...envConfig, ...env };
     } catch (error) {}
   });
+
   Object.keys(envConfig).forEach((key) => {
     const reg = new RegExp(`^(${match})`);
     if (!reg.test(key)) {
@@ -87,6 +81,6 @@ export function getEnvConfig(match = 'VITE_GLOB_', confFiles = ['.env', '.env.pr
  * Get user root directory
  * @param dir file path
  */
-export function getCwdPath(...dir: string[]) {
+export function getRootPath(...dir: string[]) {
   return path.resolve(process.cwd(), ...dir);
 }

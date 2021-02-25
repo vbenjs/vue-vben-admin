@@ -3,9 +3,8 @@ import type { App } from 'vue';
 
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import { createGuard } from './guard/';
-
-import { basicRoutes } from './routes/';
+import { createGuard } from './guard';
+import { basicRoutes } from './routes';
 import { REDIRECT_NAME } from './constant';
 
 // app router
@@ -32,9 +31,5 @@ export function setupRouter(app: App<Element>) {
   app.use(router);
   createGuard(router);
 }
-
-// router.onError((error) => {
-//   console.error(error);
-// });
 
 export default router;

@@ -14,6 +14,7 @@ export const runBuild = async () => {
     if (!argvList.includes('no-conf')) {
       await runBuildConfig();
     }
+
     console.log(`✨ ${chalk.cyan(`[${pkg.name}]`)}` + ' - build successfully!');
   } catch (error) {
     console.log(chalk.red('vite build error:\n' + error));

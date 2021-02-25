@@ -5,8 +5,8 @@ import { GLOB_CONFIG_FILE_NAME, OUTPUT_DIR } from '../constant';
 import fs, { writeFileSync } from 'fs-extra';
 import chalk from 'chalk';
 
-import { getCwdPath, getEnvConfig } from '../utils';
-import { getShortName } from '../getShortName';
+import { getRootPath, getEnvConfig } from '../utils';
+import { getConfigFileName } from '../getConfigFileName';
 
 import pkg from '../../package.json';
 
@@ -27,8 +27,8 @@ function createConfig(
         writable: false,
       });
     `.replace(/\s/g, '');
-    fs.mkdirp(getCwdPath(OUTPUT_DIR));
-    writeFileSync(getCwdPath(`${OUTPUT_DIR}/${configFileName}`), configStr);
+    fs.mkdirp(getRootPath(OUTPUT_DIR));
+    writeFileSync(getRootPath(`${OUTPUT_DIR}/${configFileName}`), configStr);
 
     console.log(chalk.cyan(`✨ [${pkg.name}]`) + ` - configuration file is build successfully:`);
     console.log(chalk.gray(OUTPUT_DIR + '/' + chalk.green(configFileName)) + '\n');
@@ -39,6 +39,6 @@ function createConfig(
 
 export function runBuildConfig() {
   const config = getEnvConfig();
-  const configFileName = getShortName(config);
+  const configFileName = getConfigFileName(config);
   createConfig({ config, configName: configFileName });
 }

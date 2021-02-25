@@ -28,6 +28,7 @@ module.exports = {
         ignore: ['after-comment', 'first-nested'],
       },
     ],
+    'unit-no-unknown': [true, { ignoreUnits: ['rpx'] }],
     // Specify the alphabetical order of the attributes in the declaration block
     'order/properties-order': [
       'position',
@@ -178,4 +179,5 @@ module.exports = {
       'speak',
     ],
   },
+  ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts'],
 };

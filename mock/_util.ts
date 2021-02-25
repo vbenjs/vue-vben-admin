@@ -18,13 +18,11 @@ export function resultPageSuccess<T = any>(
   const pageData = pagination(page, pageSize, list);
 
   return {
-    code: 0,
-    result: {
+    ...resultSuccess({
       items: pageData,
       total: list.length,
-    },
+    }),
     message,
-    type: 'success',
   };
 }
 
