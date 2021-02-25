@@ -156,8 +156,17 @@
 
     input:not([type='checkbox']) {
       min-width: 360px;
+
+      @media (max-width: @screen-lg) {
+        min-width: 300px;
+      }
+
+      @media (max-width: @screen-md) {
+        min-width: 280px;
+      }
+
       @media (max-width: @screen-sm) {
-        min-width: 240px;
+        min-width: 260px;
       }
     }
     .@{countdown-prefix-cls} input {
