@@ -1,19 +1,21 @@
-import { DEFAULT_CACHE_TIME } from '/@/settings/encryptionSetting';
 import { cacheCipher } from '/@/settings/encryptionSetting';
-import Encryption, { EncryptionParams } from '/@/utils/encryption/aesEncryption';
+
+import Encryption, { EncryptionParams } from './aesEncryption';
 
 export interface CreateStorageParams extends EncryptionParams {
+  prefixKey: string;
   storage: Storage;
-
   hasEncrypt: boolean;
+  timeout?: Nullable<number>;
 }
 export const createStorage = ({
   prefixKey = '',
   storage = sessionStorage,
   key = cacheCipher.key,
   iv = cacheCipher.iv,
+  timeout = null,
   hasEncrypt = true,
-} = {}) => {
+}: Partial<CreateStorageParams> = {}) => {
   if (hasEncrypt && [key.length, iv.length].some((item) => item !== 16)) {
     throw new Error('When hasEncrypt is true, the key or iv must be 16 bits!');
   }
@@ -54,7 +56,7 @@ export const createStorage = ({
      * @expire Expiration time in seconds
      * @memberof Cache
      */
-    set(key: string, value: any, expire: number | null = DEFAULT_CACHE_TIME) {
+    set(key: string, value: any, expire: number | null = timeout) {
       const stringData = JSON.stringify({
         value,
         expire: expire !== null ? new Date().getTime() + expire * 1000 : null,

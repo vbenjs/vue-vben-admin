@@ -1,6 +1,7 @@
-import { getStorageShortName } from '/@/utils/helper/envHelper';
+import { getStorageShortName } from '/@/utils/env';
 import { createStorage as create } from './storageCache';
 import { enableStorageEncryption } from '/@/settings/encryptionSetting';
+import { DEFAULT_CACHE_TIME } from '/@/settings/encryptionSetting';
 
 const createOptions = (storage = sessionStorage) => {
   return {
@@ -8,6 +9,7 @@ const createOptions = (storage = sessionStorage) => {
     hasEncrypt: enableStorageEncryption,
     storage,
     prefixKey: getStorageShortName(),
+    timeout: DEFAULT_CACHE_TIME,
   };
 };
 
