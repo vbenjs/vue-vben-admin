@@ -1298,6 +1298,11 @@
     ejs "^2.6.1"
     magic-string "^0.25.0"
 
+"@types/crypto-js@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.npmjs.org/@types/crypto-js/-/crypto-js-4.0.1.tgz#3a4bd24518b0e6c5940da4e2659eeb2ef0806963"
+  integrity sha512-6+OPzqhKX/cx5xh+yO8Cqg3u3alrkhoxhE5ZOdSEv0DOzJ13lwJ6laqGU0Kv6+XDMFmlnGId04LtY22PsFLQUw==
+
 "@types/estree@0.0.39":
   version "0.0.39"
   resolved "https://registry.npmjs.org/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
@@ -3025,10 +3030,10 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.1, cross-spawn@^7.0.2:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-crypto-es@^1.2.7:
-  version "1.2.7"
-  resolved "https://registry.npmjs.org/crypto-es/-/crypto-es-1.2.7.tgz#754a6d52319a94fb4eb1f119297f17196b360f88"
-  integrity sha512-UUqiVJ2gUuZFmbFsKmud3uuLcNP2+Opt+5ysmljycFCyhA0+T16XJmo1ev/t5kMChMqWh7IEvURNCqsg+SjZGQ==
+crypto-js@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/crypto-js/-/crypto-js-4.0.0.tgz#2904ab2677a9d042856a2ea2ef80de92e4a36dcc"
+  integrity sha512-bzHZN8Pn+gS7DQA6n+iUmBfl0hO5DJq++QP3U6uTucDtk/0iGpXd/Gg7CGR0p8tJhofJyaKoWBuJI4eAO00BBg==
 
 crypto-random-string@^2.0.0:
   version "2.0.0"
@@ -8930,10 +8935,10 @@ vite-plugin-purge-icons@^0.7.0:
     "@purge-icons/generated" "^0.7.0"
     rollup-plugin-purge-icons "^0.7.0"
 
-vite-plugin-pwa@^0.5.3:
-  version "0.5.3"
-  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.5.3.tgz#60d97d62335846144c8e6b6a911704d6c0f75171"
-  integrity sha512-xGh0gIgzczvYNj8ED5HhpJ2iT5kMiieim2qI8kT/3+rfo83hTyuzhEICkljIbhausvOaGxtzLKWE8RS6cUg0Fw==
+vite-plugin-pwa@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.5.4.tgz#ce6fb85da140359057290e5eba3c22548392bea5"
+  integrity sha512-Zcr190GixdvvHBS1poTevtuw0irRvRi9rLFdXUbkPyY5hozQ+JhR8i/ORRvl6a9wV6Gl/mVwJ3IaY5IjTf3zFw==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"

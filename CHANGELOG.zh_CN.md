@@ -9,6 +9,7 @@
 - 登录界面动画优化
 - 修复 github 仓库体积过大问题.
 - 默认隐藏表格全屏按钮
+- `crypto-es`改为`crypto-js`，减小打包体积
 
 ### 🐛 Bug Fixes
 
