@@ -1,2 +1,2 @@
-// 接口返回值data不能为这个，否则会判为请求失败
+// The interface return value data cannot be this, otherwise the request will be judged as a failure
 export const errorResult = '__ERROR_RESULT__';

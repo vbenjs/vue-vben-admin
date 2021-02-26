@@ -1,22 +1,21 @@
 import type { AxiosRequestConfig } from 'axios';
-import { AxiosTransform } from './axiosTransform';
-
+import type { AxiosTransform } from './axiosTransform';
 export type ErrorMessageMode = 'none' | 'modal' | 'message' | undefined;
 
 export interface RequestOptions {
-  // 请求参数拼接到url
+  // Splicing request parameters to url
   joinParamsToUrl?: boolean;
-  // 格式化请求参数时间
+  // Format request parameter time
   formatDate?: boolean;
-  //  是否处理请求结果
+  //  Whether to process the request result
   isTransformRequestResult?: boolean;
-  // 是否加入url
+  // Whether to join url
   joinPrefix?: boolean;
-  // 接口地址， 不填则使用默认apiUrl
+  // Interface address, use the default apiUrl if you leave it blank
   apiUrl?: string;
-  // 错误消息提示类型
+  // Error message prompt type
   errorMessageMode?: ErrorMessageMode;
-  // 是否加入时间戳
+  // Whether to add a timestamp
   joinTime?: boolean;
 }
 
@@ -32,15 +31,16 @@ export interface Result<T = any> {
   message: string;
   result: T;
 }
-// multipart/form-data：上传文件
+
+// multipart/form-data: upload file
 export interface UploadFileParams {
-  // 其他参数
+  // Other parameters
   data?: Indexable;
-  // 文件参数的接口字段名
+  // File parameter interface field name
   name?: string;
-  // 文件
+  // file name
   file: File | Blob;
-  // 文件名
+  // file name
   filename?: string;
   [key: string]: any;
 }
