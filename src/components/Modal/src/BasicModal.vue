@@ -32,7 +32,7 @@
       ref="modalWrapperRef"
       :loading="getProps.loading"
       :minHeight="getProps.minHeight"
-      :height="getProps.height"
+      :height="getWrapperHeight"
       :visible="visibleRef"
       :modalFooterHeight="footer !== undefined && !footer ? 0 : undefined"
       v-bind="omit(getProps.wrapperProps, 'visible', 'height')"
@@ -136,8 +136,19 @@
         }
       );
 
-      const getBindValue = computed((): any => {
-        return { ...attrs, ...unref(getProps) };
+      const getBindValue = computed(
+        (): Recordable => {
+          const attr = { ...attrs, ...unref(getProps) };
+          if (unref(fullScreenRef)) {
+            return omit(attr, 'height');
+          }
+          return attr;
+        }
+      );
+
+      const getWrapperHeight = computed(() => {
+        if (unref(fullScreenRef)) return undefined;
+        return unref(getProps).height;
       });
 
       watchEffect(() => {
@@ -217,6 +228,7 @@
         handleExtHeight,
         handleHeightChange,
         handleTitleDbClick,
+        getWrapperHeight,
       };
     },
   });
