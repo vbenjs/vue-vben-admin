@@ -103,10 +103,10 @@
     "vite-plugin-imagemin": "^0.2.8",
     "vite-plugin-mock": "^2.1.5",
     "vite-plugin-purge-icons": "^0.7.0",
-    "vite-plugin-pwa": "^0.5.4",
+    "vite-plugin-pwa": "^0.5.5",
     "vite-plugin-style-import": "^0.7.5",
     "vite-plugin-theme": "^0.4.8",
-    "vite-plugin-windicss": "0.5.0",
+    "vite-plugin-windicss": "0.5.3",
     "vue-eslint-parser": "^7.5.0",
     "yargs": "^16.2.0"
   },
