@@ -4,7 +4,7 @@
 
   <div :class="`${prefixCls}__toolbar`">
     <slot name="toolbar"></slot>
-    <Divider type="vertical" v-if="$slots.toolbar" />
+    <Divider type="vertical" v-if="$slots.toolbar && showTableSetting" />
     <TableSetting :setting="tableSetting" v-if="showTableSetting" />
   </div>
 </template>
