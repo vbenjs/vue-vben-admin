@@ -1,5 +1,5 @@
 import { useDebounce } from '/@/hooks/core/useDebounce';
-import { addResizeListener, removeResizeListener } from '/@/utils/event/resizeEvent';
+import { addResizeListener, removeResizeListener } from '/@/utils/event';
 
 interface WindowSizeOptions {
   once?: boolean;

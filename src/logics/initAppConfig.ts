@@ -2,7 +2,7 @@
  * Application configuration
  */
 
-import type { ProjectConfig } from '/@/types/config';
+import type { ProjectConfig } from '/#/config';
 
 import { PROJ_CFG_KEY } from '/@/enums/cacheEnum';
 

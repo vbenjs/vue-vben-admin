@@ -1,4 +1,4 @@
-import type { ProjectConfig } from '/@/types/config';
+import type { ProjectConfig } from '/#/config';
 
 import { MenuTypeEnum, MenuModeEnum, TriggerEnum, MixSidebarTriggerEnum } from '/@/enums/menuEnum';
 import { CacheTypeEnum } from '/@/enums/cacheEnum';

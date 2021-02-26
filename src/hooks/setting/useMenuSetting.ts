@@ -1,4 +1,4 @@
-import type { MenuSetting } from '/@/types/config';
+import type { MenuSetting } from '/#/config';
 
 import { computed, unref, ref } from 'vue';
 

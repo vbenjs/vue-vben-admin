@@ -1,4 +1,4 @@
-import type { LocaleSetting } from '/@/types/config';
+import type { LocaleSetting } from '/#/config';
 
 import { computed, unref } from 'vue';
 import { appStore } from '/@/store/modules/app';

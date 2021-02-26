@@ -36,7 +36,7 @@
   import CollapseHeader from './CollapseHeader.vue';
   import LazyContainer from '../LazyContainer.vue';
 
-  import { triggerWindowResize } from '/@/utils/event/triggerWindowResizeEvent';
+  import { triggerWindowResize } from '/@/utils/event';
   // hook
   import { useTimeoutFn } from '/@/hooks/core/useTimeout';
   import { propTypes } from '/@/utils/propTypes';

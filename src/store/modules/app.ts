@@ -1,4 +1,4 @@
-import type { ProjectConfig } from '/@/types/config';
+import type { ProjectConfig } from '/#/config';
 
 import { VuexModule, getModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import store from '/@/store';
@@ -24,7 +24,7 @@ let timeId: TimeoutHandle;
 const NAME = 'app';
 hotModuleUnregisterModule(NAME);
 @Module({ dynamic: true, namespaced: true, store, name: NAME })
-class App extends VuexModule {
+export default class App extends VuexModule {
   // Page loading status
   private pageLoadingState = false;
 

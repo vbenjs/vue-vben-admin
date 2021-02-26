@@ -35,6 +35,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           find: /^\/@\//,
           replacement: pathResolve('src') + '/',
         },
+        {
+          // /@/xxxx  =>  src/xxx
+          find: /^\/#\//,
+          replacement: pathResolve('types') + '/',
+        },
       ],
     },
     server: {

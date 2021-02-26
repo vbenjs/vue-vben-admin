@@ -1,4 +1,4 @@
-import type { GlobEnvConfig } from '/@/types/config';
+import type { GlobEnvConfig } from '/#/config';
 
 import { useGlobSetting } from '/@/hooks/setting';
 import pkg from '../../package.json';
