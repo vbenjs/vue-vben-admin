@@ -75,12 +75,15 @@
             Reflect.deleteProperty(columns[index], 'customRender');
           }
         }
+
         if (table.getRowSelection() && hasRowSummary) {
+          const isFixed = columns.some((col) => col.fixed === 'left');
           columns.unshift({
             width: 60,
             title: 'selection',
             key: 'selectionKey',
             align: 'center',
+            ...(isFixed ? { fixed: 'left' } : {}),
             customRender: ({ record }) => record[SUMMARY_ROW_KEY],
           });
         }
