@@ -9,7 +9,7 @@ import {
 
 import { CacheTypeEnum } from '/@/enums/cacheEnum';
 import type { LocaleType } from '/@/locales/types';
-import { ThemeMode } from '../../build/config/themeConfig';
+import { ThemeMode } from '../build/config/themeConfig';
 
 export interface MenuSetting {
   bgColor: string;
