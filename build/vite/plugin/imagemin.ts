@@ -16,10 +16,10 @@ export function configImageminPlugin() {
       quality: 75,
     },
     mozjpeg: {
-      quality: 65,
+      quality: 8,
     },
     pngquant: {
-      quality: [0.65, 0.9],
+      quality: [0.8, 0.9],
       speed: 4,
     },
     svgo: {
