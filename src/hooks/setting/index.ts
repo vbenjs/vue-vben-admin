@@ -1,4 +1,4 @@
-import type { ProjectConfig, GlobConfig, GlobEnvConfig } from '/@/types/config';
+import type { ProjectConfig, GlobConfig, GlobEnvConfig } from '/#/config';
 
 import { getConfigFileName } from '../../../build/getConfigFileName';
 

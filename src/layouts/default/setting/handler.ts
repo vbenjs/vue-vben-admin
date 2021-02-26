@@ -4,7 +4,7 @@ import { updateColorWeak } from '/@/logics/theme/updateColorWeak';
 import { updateGrayMode } from '/@/logics/theme/updateGrayMode';
 
 import { appStore } from '/@/store/modules/app';
-import { ProjectConfig } from '/@/types/config';
+import { ProjectConfig } from '/#/config';
 import { changeTheme } from '/@/logics/theme';
 import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 

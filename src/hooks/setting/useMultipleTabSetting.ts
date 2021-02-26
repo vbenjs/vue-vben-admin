@@ -1,4 +1,4 @@
-import type { MultiTabsSetting } from '/@/types/config';
+import type { MultiTabsSetting } from '/#/config';
 
 import { computed, unref } from 'vue';
 

@@ -1,6 +1,8 @@
 import { cacheCipher } from '/@/settings/encryptionSetting';
 
-import Encryption, { EncryptionParams } from './aesEncryption';
+import type { EncryptionParams } from '/@/utils/cipher';
+
+import { AesEncryption } from '/@/utils/cipher';
 
 export interface CreateStorageParams extends EncryptionParams {
   prefixKey: string;
@@ -20,7 +22,7 @@ export const createStorage = ({
     throw new Error('When hasEncrypt is true, the key or iv must be 16 bits!');
   }
 
-  const encryption = new Encryption({ key, iv });
+  const encryption = new AesEncryption({ key, iv });
 
   /**
    *Cache class
@@ -31,7 +33,7 @@ export const createStorage = ({
   const WebStorage = class WebStorage {
     private storage: Storage;
     private prefixKey?: string;
-    private encryption: Encryption;
+    private encryption: AesEncryption;
     private hasEncrypt: boolean;
     /**
      *

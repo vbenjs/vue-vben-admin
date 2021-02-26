@@ -10,6 +10,7 @@
 - 修复 github 仓库体积过大问题.
 - 默认隐藏表格全屏按钮
 - `crypto-es`改为`crypto-js`，减小打包体积
+- `types`目录移动到根目录,兼容其他目录全局类型
 
 ### 🐛 Bug Fixes
 

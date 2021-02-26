@@ -17,7 +17,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { addResizeListener, removeResizeListener } from '/@/utils/event/resizeEvent';
+  import { addResizeListener, removeResizeListener } from '/@/utils/event';
   import componentSetting from '/@/settings/componentSetting';
   const { scrollbar } = componentSetting;
   import { toObject } from './util';
