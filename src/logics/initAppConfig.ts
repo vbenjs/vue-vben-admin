@@ -7,7 +7,7 @@ import type { ProjectConfig } from '/#/config';
 import { PROJ_CFG_KEY } from '/@/enums/cacheEnum';
 
 import projectSetting from '/@/settings/projectSetting';
-import { getLocal } from '/@/utils/cache/persistent';
+import { Persistent } from '/@/utils/cache/persistent';
 import { updateHeaderBgColor, updateSidebarBgColor } from '/@/logics/theme/updateBackground';
 import { updateColorWeak } from '/@/logics/theme/updateColorWeak';
 import { updateGrayMode } from '/@/logics/theme/updateGrayMode';
@@ -19,7 +19,7 @@ import { primaryColor } from '../../build/config/themeConfig';
 
 // Initial project configuration
 export function initAppConfigStore() {
-  let projCfg: ProjectConfig = getLocal(PROJ_CFG_KEY) as ProjectConfig;
+  let projCfg: ProjectConfig = Persistent.getLocal(PROJ_CFG_KEY) as ProjectConfig;
   projCfg = deepMerge(projectSetting, projCfg || {});
   try {
     const {

@@ -4,7 +4,7 @@ import store from '/@/store';
 import { LOCK_INFO_KEY } from '/@/enums/cacheEnum';
 
 import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
-import { setLocal, getLocal, removeLocal } from '/@/utils/cache/persistent';
+import { Persistent } from '/@/utils/cache/persistent';
 
 import { userStore } from './user';
 
@@ -18,7 +18,7 @@ hotModuleUnregisterModule(NAME);
 @Module({ dynamic: true, namespaced: true, store, name: NAME })
 class Lock extends VuexModule {
   // lock info
-  private lockInfoState: LockInfo | null = getLocal(LOCK_INFO_KEY);
+  private lockInfoState: LockInfo | null = Persistent.getLocal(LOCK_INFO_KEY);
 
   get getLockInfo(): LockInfo {
     return this.lockInfoState || ({} as LockInfo);
@@ -27,12 +27,12 @@ class Lock extends VuexModule {
   @Mutation
   commitLockInfoState(info: LockInfo): void {
     this.lockInfoState = Object.assign({}, this.lockInfoState, info);
-    setLocal(LOCK_INFO_KEY, this.lockInfoState);
+    Persistent.setLocal(LOCK_INFO_KEY, this.lockInfoState);
   }
 
   @Mutation
   resetLockInfo(): void {
-    removeLocal(LOCK_INFO_KEY);
+    Persistent.removeLocal(LOCK_INFO_KEY);
     this.lockInfoState = null;
   }
 

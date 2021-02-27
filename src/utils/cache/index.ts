@@ -1,22 +1,32 @@
 import { getStorageShortName } from '/@/utils/env';
-import { createStorage as create } from './storageCache';
+import { createStorage as create, CreateStorageParams } from './storageCache';
 import { enableStorageEncryption } from '/@/settings/encryptionSetting';
 import { DEFAULT_CACHE_TIME } from '/@/settings/encryptionSetting';
 
-const createOptions = (storage = sessionStorage) => {
+export type Options = Partial<CreateStorageParams>;
+
+const createOptions = (storage: Storage, options: Options = {}): Options => {
   return {
     // No encryption in debug mode
     hasEncrypt: enableStorageEncryption,
     storage,
     prefixKey: getStorageShortName(),
-    timeout: DEFAULT_CACHE_TIME,
+
+    ...options,
   };
 };
 
-export const WebStorage = create(createOptions());
+export const WebStorage = create(createOptions(sessionStorage));
 
-export const createStorage = (storage: Storage = sessionStorage) => {
-  return create(createOptions(storage))!;
+export const createStorage = (storage: Storage = sessionStorage, options: Options = {}) => {
+  return create(createOptions(storage, options));
+};
+
+export const createPersistentStorage = (
+  storage: Storage = sessionStorage,
+  options: Options = {}
+) => {
+  return createStorage(storage, { ...options, timeout: DEFAULT_CACHE_TIME });
 };
 
 export default WebStorage;

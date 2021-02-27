@@ -18,28 +18,21 @@ import router from '/@/router';
 
 import { loginApi, getUserInfoById } from '/@/api/sys/user';
 
-import { setLocal, getLocal, getSession, setSession } from '/@/utils/cache/persistent';
-import { useProjectSetting } from '/@/hooks/setting';
+import { Persistent, BasicKeys } from '/@/utils/cache/persistent';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import projectSetting from '/@/settings/projectSetting';
 
 export type UserInfo = Omit<GetUserInfoByUserIdModel, 'roles'>;
 
 const NAME = 'user';
 hotModuleUnregisterModule(NAME);
 
-const { permissionCacheType } = useProjectSetting();
-
-function getCache<T>(key: string) {
-  const fn = permissionCacheType === CacheTypeEnum.LOCAL ? getLocal : getSession;
+function getCache<T>(key: BasicKeys) {
+  const { permissionCacheType } = projectSetting;
+  const fn =
+    permissionCacheType === CacheTypeEnum.LOCAL ? Persistent.getLocal : Persistent.getSession;
   return fn(key) as T;
-}
-
-function setCache(USER_INFO_KEY: string, info: any) {
-  if (!info) return;
-  setLocal(USER_INFO_KEY, info, true);
-  // TODO
-  setSession(USER_INFO_KEY, info, true);
 }
 
 @Module({ namespaced: true, name: NAME, dynamic: true, store })
@@ -75,19 +68,19 @@ class User extends VuexModule {
   @Mutation
   commitUserInfoState(info: UserInfo): void {
     this.userInfoState = info;
-    setCache(USER_INFO_KEY, info);
+    Persistent.setLocal(USER_INFO_KEY, info);
   }
 
   @Mutation
   commitRoleListState(roleList: RoleEnum[]): void {
     this.roleListState = roleList;
-    setCache(ROLES_KEY, roleList);
+    Persistent.setLocal(ROLES_KEY, roleList);
   }
 
   @Mutation
   commitTokenState(info: string): void {
     this.tokenState = info;
-    setCache(TOKEN_KEY, info);
+    Persistent.setLocal(TOKEN_KEY, info);
   }
 
   /**
