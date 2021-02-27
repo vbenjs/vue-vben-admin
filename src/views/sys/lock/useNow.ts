@@ -1,11 +1,10 @@
 import { dateUtil } from '/@/utils/dateUtil';
 import { reactive, toRefs } from 'vue';
 import { tryOnMounted, tryOnUnmounted } from '/@/utils/helper/vueHelper';
-import { useLocaleSetting } from '/@/hooks/setting/useLocaleSetting';
+import { localeStore } from '/@/store/modules/locale';
 
 export function useNow(immediate = true) {
-  const { getLang } = useLocaleSetting();
-  const localData = dateUtil.localeData(getLang.value);
+  const localData = dateUtil.localeData(localeStore.getLocale);
   let timer: IntervalHandle;
 
   const state = reactive({

@@ -1,64 +1,73 @@
 /**
  * Multi-language related operations
  */
-import type { LocaleType } from '/@/locales/types';
-import type { Ref } from 'vue';
+import type { LocaleType } from '/#/config';
 
-import { unref, ref } from 'vue';
-import { useLocaleSetting } from '/@/hooks/setting/useLocaleSetting';
+import { ref } from 'vue';
+import moment from 'moment';
+import { computed } from 'vue';
 
 import { i18n } from './setupI18n';
+import { localeStore } from '/@/store/modules/locale';
+import { unref } from 'vue';
 
-import 'moment/dist/locale/zh-cn';
+interface LangModule {
+  message: Recordable;
+  momentLocale: Recordable;
+  momentLocaleName: string;
+}
 
-const antConfigLocaleRef = ref<any>(null);
+const antConfigLocale = ref<Nullable<Recordable>>(null);
+
+const loadLocalePool: LocaleType[] = [];
+
+function setI18nLanguage(locale: LocaleType) {
+  if (i18n.mode === 'legacy') {
+    i18n.global.locale = locale;
+  } else {
+    (i18n.global.locale as any).value = locale;
+  }
+  localeStore.setLocaleInfo({ locale });
+  document.querySelector('html')?.setAttribute('lang', locale);
+}
 
 export function useLocale() {
-  const { getLang, getLocale, setLocale: setLocalSetting } = useLocaleSetting();
+  const getLocale = computed(() => localeStore.getLocale);
+  const getShowLocalePicker = computed(() => localeStore.getShowPicker);
+
+  const getAntdLocale = computed(() => {
+    return i18n.global.getLocaleMessage(unref(getLocale))?.antdLocale;
+  });
 
   // Switching the language will change the locale of useI18n
   // And submit to configuration modification
-  function changeLocale(lang: LocaleType): void {
-    if (i18n.mode === 'legacy') {
-      i18n.global.locale = lang;
-    } else {
-      ((i18n.global.locale as unknown) as Ref<string>).value = lang;
+  async function changeLocale(locale: LocaleType) {
+    const globalI18n = i18n.global;
+    const currentLocale = unref(globalI18n.locale);
+    if (currentLocale === locale) return locale;
+
+    if (loadLocalePool.includes(locale)) {
+      setI18nLanguage(locale);
+      return locale;
     }
-    setLocalSetting({ lang });
-    // i18n.global.setLocaleMessage(locale, messages);
+    const langModule = ((await import(`./lang/${locale}.ts`)) as any).default as LangModule;
+    if (!langModule) return;
 
-    switch (lang) {
-      // Simplified Chinese
-      case 'zh_CN':
-        import('ant-design-vue/es/locale/zh_CN').then((locale) => {
-          antConfigLocaleRef.value = locale.default;
-        });
+    const { message, momentLocale, momentLocaleName } = langModule;
 
-        break;
-      // English
-      case 'en':
-        import('ant-design-vue/es/locale/en_US').then((locale) => {
-          antConfigLocaleRef.value = locale.default;
-        });
-        break;
+    globalI18n.setLocaleMessage(locale, message);
+    moment.updateLocale(momentLocaleName, momentLocale);
+    loadLocalePool.push(locale);
 
-      // other
-      default:
-        break;
-    }
-  }
-
-  // initialization
-  function setLocale() {
-    const lang = unref(getLang);
-    lang && changeLocale(lang);
+    setI18nLanguage(locale);
+    return locale;
   }
 
   return {
-    setLocale,
     getLocale,
-    getLang,
+    getShowLocalePicker,
     changeLocale,
-    antConfigLocale: antConfigLocaleRef,
+    antConfigLocale,
+    getAntdLocale,
   };
 }

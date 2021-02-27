@@ -57,7 +57,7 @@ export class Memory<T = any, V = any> {
     if (!expires) {
       return value;
     }
-    item.time = new Date().getTime() + this.alive * 1000;
+    item.time = new Date().getTime() + this.alive;
     item.timeoutId = setTimeout(() => {
       this.remove(key);
     }, expires);
@@ -80,7 +80,7 @@ export class Memory<T = any, V = any> {
       const item = cache[k];
       if (item && item.time) {
         const now = new Date().getTime();
-        const expire = now + item.time * 1000;
+        const expire = item.time;
         if (expire > now) {
           this.set(k, item.value, expire);
         }

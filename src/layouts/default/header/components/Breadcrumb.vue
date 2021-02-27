@@ -18,7 +18,6 @@
 
   import { defineComponent, ref, toRaw, watchEffect } from 'vue';
   import { Breadcrumb } from 'ant-design-vue';
-  import { useI18n } from 'vue-i18n';
 
   import { useRouter } from 'vue-router';
   import { filter } from '/@/utils/helper/treeHelper';
@@ -33,6 +32,7 @@
   import { propTypes } from '/@/utils/propTypes';
   import { useGo } from '/@/hooks/web/usePage';
   import { isString } from '/@/utils/is';
+  import { useI18n } from '/@/hooks/web/useI18n';
 
   export default defineComponent({
     name: 'LayoutBreadcrumb',

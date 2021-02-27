@@ -2,19 +2,26 @@ import type { GlobEnvConfig } from '/#/config';
 
 import { useGlobSetting } from '/@/hooks/setting';
 import pkg from '../../package.json';
+import { getConfigFileName } from '../../build/getConfigFileName';
 
-/**
- * Get the global configuration (the configuration will be extracted independently when packaging)
- */
-export function getGlobEnvConfig(): GlobEnvConfig {
-  const env = import.meta.env;
-  return (env as unknown) as GlobEnvConfig;
+export function getCommonStoragePrefix() {
+  const globSetting = useGlobSetting();
+  return `${globSetting.shortName}__${getEnv()}`.toUpperCase();
 }
 
 // Generate cache key according to version
 export function getStorageShortName() {
-  const globSetting = useGlobSetting();
-  return `${globSetting.shortName}__${getEnv()}${`__${pkg.version}`}__`.toUpperCase();
+  return `${getCommonStoragePrefix()}${`__${pkg.version}`}__`.toUpperCase();
+}
+
+export function getAppEnvConfig() {
+  const ENV_NAME = getConfigFileName(import.meta.env);
+
+  const ENV = ((isDevMode()
+    ? // Get the global configuration (the configuration will be extracted independently when packaging)
+      ((import.meta.env as unknown) as GlobEnvConfig)
+    : window[ENV_NAME as any]) as unknown) as GlobEnvConfig;
+  return ENV;
 }
 
 /**

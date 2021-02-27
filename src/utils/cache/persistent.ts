@@ -1,4 +1,4 @@
-import { createPersistentStorage } from '/@/utils/cache';
+import { createLocalStorage, createSessionStorage } from '/@/utils/cache';
 import { Memory } from './memory';
 import {
   TOKEN_KEY,
@@ -28,19 +28,19 @@ export type BasicKeys = keyof BasicStore;
 type LocalKeys = keyof LocalStore;
 type SessionKeys = keyof SessionStore;
 
-const ls = createPersistentStorage(localStorage);
-const ss = createPersistentStorage(sessionStorage);
+const ls = createLocalStorage();
+const ss = createSessionStorage();
 
 const localMemory = new Memory(DEFAULT_CACHE_TIME);
 const sessionMemory = new Memory(DEFAULT_CACHE_TIME);
 
-function initMemory() {
+function initPersistentMemory() {
   const localCache = ls.get(APP_LOCAL_CACHE_KEY);
   const sessionCache = ls.get(APP_SESSION_CACHE_KEY);
   localCache && localMemory.resetCache(localCache);
   sessionCache && sessionMemory.resetCache(sessionCache);
 }
-initMemory();
+
 export class Persistent {
   static getLocal<T>(key: LocalKeys) {
     return localMemory.get(key)?.value as Nullable<T>;
@@ -106,4 +106,4 @@ function storageChange(e: any) {
 
 window.addEventListener('storage', storageChange);
 
-export default {};
+initPersistentMemory();

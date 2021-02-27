@@ -4,8 +4,10 @@ import type { App } from 'vue';
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 import { createGuard } from './guard';
-import { basicRoutes } from './routes';
+import { basicRoutes, LoginRoute } from './routes';
 import { REDIRECT_NAME } from './constant';
+
+const WHITE_NAME_LIST = [LoginRoute.name, REDIRECT_NAME];
 
 // app router
 const router = createRouter({
@@ -17,10 +19,9 @@ const router = createRouter({
 
 // reset router
 export function resetRouter() {
-  const resetWhiteNameList = ['Login', REDIRECT_NAME];
   router.getRoutes().forEach((route) => {
     const { name } = route;
-    if (name && !resetWhiteNameList.includes(name as string)) {
+    if (name && !WHITE_NAME_LIST.includes(name as string)) {
       router.hasRoute(name) && router.removeRoute(name);
     }
   });
