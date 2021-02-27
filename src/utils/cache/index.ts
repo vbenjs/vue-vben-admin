@@ -11,7 +11,6 @@ const createOptions = (storage: Storage, options: Options = {}): Options => {
     hasEncrypt: enableStorageEncryption,
     storage,
     prefixKey: getStorageShortName(),
-
     ...options,
   };
 };
@@ -22,11 +21,12 @@ export const createStorage = (storage: Storage = sessionStorage, options: Option
   return create(createOptions(storage, options));
 };
 
-export const createPersistentStorage = (
-  storage: Storage = sessionStorage,
-  options: Options = {}
-) => {
-  return createStorage(storage, { ...options, timeout: DEFAULT_CACHE_TIME });
+export const createSessionStorage = (options: Options = {}) => {
+  return createStorage(sessionStorage, { ...options, timeout: DEFAULT_CACHE_TIME });
+};
+
+export const createLocalStorage = (options: Options = {}) => {
+  return createStorage(localStorage, { ...options, timeout: DEFAULT_CACHE_TIME });
 };
 
 export default WebStorage;

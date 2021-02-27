@@ -18,7 +18,7 @@
   </Dropdown>
 </template>
 <script lang="ts">
-  import type { LocaleType } from '/@/locales/types';
+  import type { LocaleType } from '/#/config';
   import type { DropMenu } from '/@/components/Dropdown';
 
   import { defineComponent, ref, watchEffect, unref, computed } from 'vue';
@@ -26,7 +26,7 @@
   import Icon from '/@/components/Icon';
 
   import { useLocale } from '/@/locales/useLocale';
-  import { useLocaleSetting } from '/@/hooks/setting/useLocaleSetting';
+  import { localeList } from '/@/settings/localeSetting';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { propTypes } from '/@/utils/propTypes';
 
@@ -44,9 +44,7 @@
 
       const { prefixCls } = useDesign('app-locale-picker');
 
-      const { localeList } = useLocaleSetting();
-
-      const { changeLocale, getLang } = useLocale();
+      const { changeLocale, getLocale } = useLocale();
 
       const getLangText = computed(() => {
         const key = selectedKeys.value[0];
@@ -55,17 +53,17 @@
       });
 
       watchEffect(() => {
-        selectedKeys.value = [unref(getLang)];
+        selectedKeys.value = [unref(getLocale)];
       });
 
-      function toggleLocale(lang: LocaleType | string) {
-        changeLocale(lang as LocaleType);
+      async function toggleLocale(lang: LocaleType | string) {
+        await changeLocale(lang as LocaleType);
         selectedKeys.value = [lang as string];
         props.reload && location.reload();
       }
 
       function handleMenuEvent(menu: DropMenu) {
-        if (unref(getLang) === menu.event) return;
+        if (unref(getLocale) === menu.event) return;
         toggleLocale(menu.event as string);
       }
 

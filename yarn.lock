@@ -1718,10 +1718,10 @@
   dependencies:
     vue-demi latest
 
-"@windicss/plugin-utils@0.5.4":
-  version "0.5.4"
-  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.5.4.tgz#69476a9d1fee92046695766bf7fbfe48e48809a7"
-  integrity sha512-zxpHdTsVZl7TF8A3uAymJCqMRlG83dMRAXf//fXonluoLDSJCuGBJyxN3NdkAyNZZR1L1DvoUUtkZLYOba+ElQ==
+"@windicss/plugin-utils@0.6.0":
+  version "0.6.0"
+  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.6.0.tgz#34eb852b7ff338bb933b0079112318a30d2aee00"
+  integrity sha512-CpXn3CRrAaDrpTjenidVfBz0JONLuGTFP6qjrwZ2tmhsKOuvTWw8Ic9JQ2a9L0AkYBH33lTso1qk70/PjnE6WQ==
   dependencies:
     esbuild "^0.8.52"
     esbuild-register "^2.0.0"
@@ -1849,10 +1849,10 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-ant-design-vue@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.0.0.tgz#d30ec06938dc3b43b08a117818fab91d7b083e5f"
-  integrity sha512-Uv35Z9V+8iT1PBO0QOqWHaVE4Gju94UfikL8NGxtAqy/yZDnTn8K2gz5n7PfQbB5oBqkEyn2O0mtOpUBUEXZ+g==
+ant-design-vue@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.0.1.tgz#3a5964523aac10fd2b16d84d651145cd2b65f1d5"
+  integrity sha512-CFIF+srTui4ZwdKPBXNoFA9/0fkSpypanQeOts0PAq1vEuMLxUoZHapDDn7wzsxZH3sYLF+mvMp8gYMRkaNn+w==
   dependencies:
     "@ant-design-vue/use" "^0.0.1-0"
     "@ant-design/icons-vue" "^6.0.0"
@@ -8968,12 +8968,12 @@ vite-plugin-theme@^0.4.8:
     es-module-lexer "^0.3.26"
     tinycolor2 "^1.4.2"
 
-vite-plugin-windicss@0.5.4:
-  version "0.5.4"
-  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.5.4.tgz#35764e91536d596ac2c9266c3e16c546915d8b3e"
-  integrity sha512-iPLoqfpZdnRIY1AzweumpdE8ILQQnyhywZwJDqFpj8SZ3h43e5tfQFnJb5nS6FLccOsBcCV9JFugD2w6pGyfqg==
+vite-plugin-windicss@0.6.0:
+  version "0.6.0"
+  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.6.0.tgz#ac8f24e70439904b67adc1f133e692fb6257ecaf"
+  integrity sha512-PSFdm0hrAGaKFzkFOiz31+dODoKNbh9wo/3m/7/012WwV9oJ1mX/9OxDxACykW7hMR0YvWHFmC0UwtvMra+InQ==
   dependencies:
-    "@windicss/plugin-utils" "0.5.4"
+    "@windicss/plugin-utils" "0.6.0"
     windicss "^2.2.0"
 
 vite@2.0.4:

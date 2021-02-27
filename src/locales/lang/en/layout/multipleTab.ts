@@ -1,5 +1,5 @@
 export default {
-  redo: 'Refresh current',
+  reload: 'Refresh current',
   close: 'Close current',
   closeLeft: 'Close Left',
   closeRight: 'Close Right',

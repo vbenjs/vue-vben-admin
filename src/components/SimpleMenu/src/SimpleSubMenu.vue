@@ -52,7 +52,6 @@
   import { propTypes } from '/@/utils/propTypes';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
-  const { t } = useI18n();
 
   export default defineComponent({
     name: 'SimpleSubMenu',
@@ -73,6 +72,7 @@
       theme: propTypes.oneOf(['dark', 'light']),
     },
     setup(props) {
+      const { t } = useI18n();
       const { prefixCls } = useDesign('simple-menu');
 
       const getShowMenu = computed(() => {

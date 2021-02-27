@@ -17,7 +17,7 @@
           icon="ion:document-text-outline"
           v-if="getShowDoc"
         />
-        <MenuDivider />
+        <MenuDivider v-if="getShowDoc" />
         <MenuItem
           key="lock"
           :text="t('layout.header.tooltipLock')"

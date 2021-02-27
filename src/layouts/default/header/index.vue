@@ -42,7 +42,7 @@
       <FullScreen v-if="getShowFullScreen" :class="`${prefixCls}-action__item fullscreen-item`" />
 
       <AppLocalePicker
-        v-if="getShowLocale"
+        v-if="getShowLocalePicker"
         :reload="true"
         :showText="false"
         :class="`${prefixCls}-action__item`"
@@ -69,7 +69,6 @@
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
-  import { useLocaleSetting } from '/@/hooks/setting/useLocaleSetting';
 
   import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
   import { SettingButtonPositionEnum } from '/@/enums/appEnum';
@@ -80,6 +79,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
 
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+  import { useLocale } from '/@/locales/useLocale';
 
   export default defineComponent({
     name: 'LayoutHeader',
@@ -112,7 +112,6 @@
         getMenuWidth,
         getIsMixSidebar,
       } = useMenuSetting();
-      const { getShowLocale } = useLocaleSetting();
       const {
         getUseErrorHandle,
         getShowSettingButton,
@@ -129,6 +128,8 @@
         getShowHeaderLogo,
         getShowHeader,
       } = useHeaderSetting();
+
+      const { getShowLocalePicker } = useLocale();
 
       const { getIsMobile } = useAppInject();
 
@@ -185,7 +186,7 @@
         getSplit,
         getMenuMode,
         getShowTopMenu,
-        getShowLocale,
+        getShowLocalePicker,
         getShowFullScreen,
         getShowNotice,
         getUseLockPage,

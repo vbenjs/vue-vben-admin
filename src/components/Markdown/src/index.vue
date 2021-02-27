@@ -34,13 +34,13 @@
 
       const modalFn = useModalContext();
 
-      const { getLang } = useLocale();
+      const { getLocale } = useLocale();
 
       watchEffect(() => {});
 
       const getCurrentLang = computed((): 'zh_CN' | 'en_US' | 'ja_JP' | 'ko_KR' => {
         let lang: Lang;
-        switch (unref(getLang)) {
+        switch (unref(getLocale)) {
           case 'en':
             lang = 'en_US';
             break;

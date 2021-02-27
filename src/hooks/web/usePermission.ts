@@ -58,7 +58,7 @@ export function usePermission() {
         return def;
       }
       if (!isArray(value)) {
-        return userStore.getRoleListState.includes(value as RoleEnum);
+        return userStore.getRoleListState?.includes(value as RoleEnum);
       }
       return (intersection(value, userStore.getRoleListState) as RoleEnum[]).length > 0;
     }

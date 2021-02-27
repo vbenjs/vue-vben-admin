@@ -28,7 +28,7 @@
     "@iconify/iconify": "^2.0.0-rc.6",
     "@vueuse/core": "^4.3.0",
     "@zxcvbn-ts/core": "^0.2.0",
-    "ant-design-vue": "2.0.0",
+    "ant-design-vue": "2.0.1",
     "apexcharts": "^3.25.0",
     "axios": "^0.21.1",
     "crypto-js": "^4.0.0",
@@ -106,7 +106,7 @@
     "vite-plugin-pwa": "^0.5.5",
     "vite-plugin-style-import": "^0.7.5",
     "vite-plugin-theme": "^0.4.8",
-    "vite-plugin-windicss": "0.5.4",
+    "vite-plugin-windicss": "0.6.0",
     "vue-eslint-parser": "^7.5.0",
     "yargs": "^16.2.0"
   },

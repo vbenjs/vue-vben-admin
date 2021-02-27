@@ -1,5 +1,9 @@
 ## Wip
 
+### ✨ Refactor
+
+- 重构多语言模块,支持懒加载及远程加载
+
 ### ✨ Features
 
 - axios 支持 form-data 格式请求

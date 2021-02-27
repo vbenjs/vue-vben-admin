@@ -1,7 +1,6 @@
 import type { Router } from 'vue-router';
-import { useProjectSetting } from '/@/hooks/setting';
 import { Modal, notification } from 'ant-design-vue';
-
+import projectSetting from '/@/settings/projectSetting';
 import { warn } from '/@/utils/log';
 
 /**
@@ -9,7 +8,7 @@ import { warn } from '/@/utils/log';
  * @param router
  */
 export function createMessageGuard(router: Router) {
-  const { closeMessageOnSwitch } = useProjectSetting();
+  const { closeMessageOnSwitch } = projectSetting;
 
   router.beforeEach(async () => {
     try {

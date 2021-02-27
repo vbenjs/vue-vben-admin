@@ -53,9 +53,10 @@
   import MobileForm from './MobileForm.vue';
   import QrCodeForm from './QrCodeForm.vue';
 
-  import { useGlobSetting, useProjectSetting } from '/@/hooks/setting';
+  import { useGlobSetting } from '/@/hooks/setting';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { localeStore } from '/@/store/modules/locale';
 
   export default defineComponent({
     name: 'Login',
@@ -71,14 +72,13 @@
     setup() {
       const globSetting = useGlobSetting();
       const { prefixCls } = useDesign('login');
-      const { locale } = useProjectSetting();
       const { t } = useI18n();
 
       return {
         t,
         prefixCls,
         title: computed(() => globSetting?.title ?? ''),
-        showLocale: computed(() => locale.show),
+        showLocale: localeStore.getShowPicker,
       };
     },
   });

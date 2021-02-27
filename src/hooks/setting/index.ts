@@ -1,26 +1,16 @@
-import type { ProjectConfig, GlobConfig, GlobEnvConfig } from '/#/config';
-
-import { getConfigFileName } from '../../../build/getConfigFileName';
-
-import getProjectSetting from '/@/settings/projectSetting';
+import type { GlobConfig } from '/#/config';
 
 import { warn } from '/@/utils/log';
-import { getGlobEnvConfig, isDevMode } from '/@/utils/env';
+import { getAppEnvConfig } from '/@/utils/env';
 
 export const useGlobSetting = (): Readonly<GlobConfig> => {
-  const ENV_NAME = getConfigFileName(import.meta.env);
-
-  const ENV = ((isDevMode()
-    ? getGlobEnvConfig()
-    : window[ENV_NAME as any]) as unknown) as GlobEnvConfig;
-
   const {
     VITE_GLOB_APP_TITLE,
     VITE_GLOB_API_URL,
     VITE_GLOB_APP_SHORT_NAME,
     VITE_GLOB_API_URL_PREFIX,
     VITE_GLOB_UPLOAD_URL,
-  } = ENV;
+  } = getAppEnvConfig();
 
   if (!/[a-zA-Z\_]*/.test(VITE_GLOB_APP_SHORT_NAME)) {
     warn(
@@ -37,9 +27,4 @@ export const useGlobSetting = (): Readonly<GlobConfig> => {
     uploadUrl: VITE_GLOB_UPLOAD_URL,
   };
   return glob as Readonly<GlobConfig>;
-};
-
-export const useProjectSetting = (): ProjectConfig => {
-  // TODO computed
-  return getProjectSetting;
 };

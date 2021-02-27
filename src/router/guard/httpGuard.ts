@@ -1,13 +1,13 @@
 import type { Router } from 'vue-router';
-import { useProjectSetting } from '/@/hooks/setting';
 import { AxiosCanceler } from '/@/utils/http/axios/axiosCancel';
+import projectSetting from '/@/settings/projectSetting';
 
 /**
  * The interface used to close the current page to complete the request when the route is switched
  * @param router
  */
 export function createHttpGuard(router: Router) {
-  const { removeAllHttpPending } = useProjectSetting();
+  const { removeAllHttpPending } = projectSetting;
   let axiosCanceler: Nullable<AxiosCanceler>;
   if (removeAllHttpPending) {
     axiosCanceler = new AxiosCanceler();
