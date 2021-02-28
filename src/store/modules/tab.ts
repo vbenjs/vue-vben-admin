@@ -14,7 +14,7 @@ import { getRoute } from '/@/router/helper/routeHelper';
 import { useGo, useRedo } from '/@/hooks/web/usePage';
 import { cloneDeep } from 'lodash-es';
 
-const NAME = 'tab';
+const NAME = 'app-tab';
 
 hotModuleUnregisterModule(NAME);
 

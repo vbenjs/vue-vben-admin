@@ -13,7 +13,7 @@ export interface LockInfo {
   isLock: boolean;
 }
 
-const NAME = 'lock';
+const NAME = 'app-lock';
 hotModuleUnregisterModule(NAME);
 @Module({ dynamic: true, namespaced: true, store, name: NAME })
 class Lock extends VuexModule {

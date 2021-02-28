@@ -22,7 +22,7 @@ export interface ErrorState {
   errorListCountState: number;
 }
 
-const NAME = 'error';
+const NAME = 'app-error';
 hotModuleUnregisterModule(NAME);
 @Module({ dynamic: true, namespaced: true, store, name: NAME })
 class Error extends VuexModule implements ErrorState {

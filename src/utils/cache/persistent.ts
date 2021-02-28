@@ -1,3 +1,7 @@
+import type { UserInfo } from '/@/store/modules/user';
+import type { LockInfo } from '/@/store/modules/lock';
+import { ProjectConfig } from '/#/config';
+
 import { createLocalStorage, createSessionStorage } from '/@/utils/cache';
 import { Memory } from './memory';
 import {
@@ -14,10 +18,10 @@ import { toRaw } from 'vue';
 
 interface BasicStore {
   [TOKEN_KEY]: string | number | null | undefined;
-  [USER_INFO_KEY]: Recordable;
-  [ROLES_KEY]: Recordable;
-  [LOCK_INFO_KEY]: Recordable;
-  [PROJ_CFG_KEY]: Recordable;
+  [USER_INFO_KEY]: UserInfo;
+  [ROLES_KEY]: string[];
+  [LOCK_INFO_KEY]: LockInfo;
+  [PROJ_CFG_KEY]: ProjectConfig;
 }
 
 type LocalStore = BasicStore;
@@ -36,7 +40,7 @@ const sessionMemory = new Memory(DEFAULT_CACHE_TIME);
 
 function initPersistentMemory() {
   const localCache = ls.get(APP_LOCAL_CACHE_KEY);
-  const sessionCache = ls.get(APP_SESSION_CACHE_KEY);
+  const sessionCache = ss.get(APP_SESSION_CACHE_KEY);
   localCache && localMemory.resetCache(localCache);
   sessionCache && sessionMemory.resetCache(sessionCache);
 }
@@ -65,7 +69,7 @@ export class Persistent {
 
   static setSession(key: SessionKeys, value: SessionStore[SessionKeys], immediate = false): void {
     sessionMemory.set(key, toRaw(value));
-    immediate && ss.set(APP_SESSION_CACHE_KEY, localMemory);
+    immediate && ss.set(APP_SESSION_CACHE_KEY, sessionMemory);
   }
 
   static removeSession(key: SessionKeys): void {
