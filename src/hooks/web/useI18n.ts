@@ -40,7 +40,7 @@ export function useI18n(
 
   const tFn: I18nGlobalTranslation = (key: string, ...arg: any[]) => {
     if (!key) return '';
-    if (!key.includes('.')) return key;
+    if (!key.includes('.') && !namespace) return key;
     return t(getKey(namespace, key), ...(arg as I18nTranslationRestParameters));
   };
   return {

@@ -91,7 +91,7 @@
         const isHide = !hideTab ? null : currentActiveMenu;
         const p = isHide || fullPath || path;
         if (activeKeyRef.value !== p) {
-          activeKeyRef.value = p;
+          activeKeyRef.value = p as string;
         }
 
         if (isHide) {

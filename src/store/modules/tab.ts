@@ -124,7 +124,7 @@ class Tab extends VuexModule {
     const { path, fullPath, params, query } = route;
 
     let updateIndex = -1;
-    // 已经存在的页面，不重复添加tab
+    // Existing pages, do not add tabs repeatedly
     const hasTab = this.tabsState.some((tab, index) => {
       updateIndex = index;
       return (tab.fullPath || tab.path) === (fullPath || path);
