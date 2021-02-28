@@ -9,7 +9,7 @@ const charts: AppRouteModule = {
   component: LAYOUT,
   redirect: '/charts/apexChart',
   meta: {
-    icon: 'vaadin:spline-area-chart',
+    icon: 'ion:bar-chart-outline',
     title: t('routes.demo.charts.charts'),
   },
   children: [

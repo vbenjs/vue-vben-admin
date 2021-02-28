@@ -10,7 +10,7 @@ const permission: AppRouteModule = {
   component: LAYOUT,
   redirect: '/permission/front/page',
   meta: {
-    icon: 'carbon:user-role',
+    icon: 'ion:key-outline',
     title: t('routes.demo.permission.permission'),
   },
 

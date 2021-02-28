@@ -12,7 +12,7 @@ const page: AppRouteModule = {
   component: LAYOUT,
   redirect: '/page-demo/exception',
   meta: {
-    icon: 'mdi:page-next-outline',
+    icon: 'ion:aperture-outline',
     title: t('routes.demo.page.page'),
   },
   children: [

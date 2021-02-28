@@ -9,7 +9,7 @@ const permission: AppRouteModule = {
   component: LAYOUT,
   redirect: '/level/menu1/menu1-1/menu1-1-1',
   meta: {
-    icon: 'carbon:user-role',
+    icon: 'ion:menu-outline',
     title: t('routes.demo.level.level'),
   },
 
