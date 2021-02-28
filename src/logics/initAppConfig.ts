@@ -1,7 +1,9 @@
 /**
  * Application configuration
  */
+import type { ProjectConfig } from '/#/config';
 
+import { PROJ_CFG_KEY } from '/@/enums/cacheEnum';
 import projectSetting from '/@/settings/projectSetting';
 
 import { updateHeaderBgColor, updateSidebarBgColor } from '/@/logics/theme/updateBackground';
@@ -15,9 +17,13 @@ import { localeStore } from '/@/store/modules/locale';
 import { getCommonStoragePrefix, getStorageShortName } from '/@/utils/env';
 
 import { primaryColor } from '../../build/config/themeConfig';
+import { Persistent } from '/@/utils/cache/persistent';
+import { deepMerge } from '/@/utils';
 
 // Initial project configuration
 export function initAppConfigStore() {
+  let projCfg: ProjectConfig = Persistent.getLocal(PROJ_CFG_KEY) as ProjectConfig;
+  projCfg = deepMerge(projectSetting, projCfg || {});
   try {
     const {
       colorWeak,
@@ -25,7 +31,7 @@ export function initAppConfigStore() {
       themeColor,
       headerSetting: { bgColor: headerBgColor } = {},
       menuSetting: { bgColor } = {},
-    } = projectSetting;
+    } = projCfg;
     if (themeColor && themeColor !== primaryColor) {
       changeTheme(themeColor);
     }
@@ -36,7 +42,7 @@ export function initAppConfigStore() {
   } catch (error) {
     console.log(error);
   }
-  appStore.commitProjectConfigState(projectSetting);
+  appStore.commitProjectConfigState(projCfg);
   localeStore.initLocale();
 
   setTimeout(() => {

@@ -21,5 +21,6 @@ export const useFullContent = () => {
     // Return to the configuration in the configuration file
     return appStore.getProjectConfig.fullContent;
   });
+
   return { getFullContent };
 };

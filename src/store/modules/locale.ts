@@ -13,7 +13,7 @@ const ls = createLocalStorage();
 
 const lsSetting = (ls.get(LOCALE_KEY) || localeSetting) as LocaleSetting;
 
-const NAME = 'locale';
+const NAME = 'app-locale';
 hotModuleUnregisterModule(NAME);
 @Module({ dynamic: true, namespaced: true, store, name: NAME })
 class Locale extends VuexModule {

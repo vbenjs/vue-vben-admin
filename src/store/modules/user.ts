@@ -25,14 +25,20 @@ import projectSetting from '/@/settings/projectSetting';
 
 export type UserInfo = Omit<GetUserInfoByUserIdModel, 'roles'>;
 
-const NAME = 'user';
+const { permissionCacheType } = projectSetting;
+const isLocal = permissionCacheType === CacheTypeEnum.LOCAL;
+
+const NAME = 'app-user';
 hotModuleUnregisterModule(NAME);
 
 function getCache<T>(key: BasicKeys) {
-  const { permissionCacheType } = projectSetting;
-  const fn =
-    permissionCacheType === CacheTypeEnum.LOCAL ? Persistent.getLocal : Persistent.getSession;
+  const fn = isLocal ? Persistent.getLocal : Persistent.getSession;
   return fn(key) as T;
+}
+
+function setCache(key: BasicKeys, value) {
+  const fn = isLocal ? Persistent.setLocal : Persistent.setSession;
+  return fn(key, value);
 }
 
 @Module({ namespaced: true, name: NAME, dynamic: true, store })
@@ -68,19 +74,19 @@ class User extends VuexModule {
   @Mutation
   commitUserInfoState(info: UserInfo): void {
     this.userInfoState = info;
-    Persistent.setLocal(USER_INFO_KEY, info);
+    setCache(USER_INFO_KEY, info);
   }
 
   @Mutation
   commitRoleListState(roleList: RoleEnum[]): void {
     this.roleListState = roleList;
-    Persistent.setLocal(ROLES_KEY, roleList);
+    setCache(ROLES_KEY, roleList);
   }
 
   @Mutation
   commitTokenState(info: string): void {
     this.tokenState = info;
-    Persistent.setLocal(TOKEN_KEY, info);
+    setCache(TOKEN_KEY, info);
   }
 
   /**
