@@ -9,7 +9,7 @@ const comp: AppRouteModule = {
   component: LAYOUT,
   redirect: '/comp/basic',
   meta: {
-    icon: 'ic:outline-settings-input-component',
+    icon: 'ion:layers-outline',
     title: t('routes.demo.comp.comp'),
   },
 
