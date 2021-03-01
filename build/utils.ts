@@ -30,6 +30,7 @@ export interface ViteEnv {
   VITE_BUILD_COMPRESS: 'gzip' | 'brotli' | 'none';
   VITE_LEGACY: boolean;
   VITE_USE_IMAGEMIN: boolean;
+  VITE_DYNAMIC_IMPORT: boolean;
 }
 
 // Read all environment variable configuration files to process.env

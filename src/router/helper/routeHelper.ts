@@ -9,10 +9,22 @@ export type LayoutMapKey = 'LAYOUT';
 
 const LayoutMap = new Map<LayoutMapKey, () => Promise<typeof import('*.vue')>>();
 
-const dynamicViewsModules = import.meta.glob('../../views/**/*.{vue,tsx}');
+let dynamicViewsModules: Record<
+  string,
+  () => Promise<{
+    [key: string]: any;
+  }>
+>;
 
 // 动态引入
 function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
+  // TODO It may be a bug in Vite. When the conditions are not established, the dynamically imported files will still be packaged in.
+  if (!__DYNAMIC_IMPORT__) {
+    dynamicViewsModules = {};
+  } else {
+    dynamicViewsModules = dynamicViewsModules || import.meta.glob('../../views/**/*.{vue,tsx}');
+  }
+
   if (!routes) return;
   routes.forEach((item) => {
     const { component, name } = item;
@@ -37,8 +49,10 @@ function dynamicImport(
 ) {
   const keys = Object.keys(dynamicViewsModules);
   const matchKeys = keys.filter((key) => {
-    const k = key.replace('../../views', '');
-    return k.startsWith(`${component}`) || k.startsWith(`/${component}`);
+    let k = key.replace('../../views', '');
+    const lastIndex = k.lastIndexOf('.');
+    k = k.substring(0, lastIndex);
+    return k === component;
   });
   if (matchKeys?.length === 1) {
     const matchKey = matchKeys[0];
