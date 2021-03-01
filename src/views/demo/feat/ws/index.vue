@@ -54,7 +54,7 @@
 </template>
 <script lang="ts">
   import { defineComponent, reactive, watchEffect, computed, toRefs } from 'vue';
-  import { Alert, Tag, Input } from 'ant-design-vue';
+  import { Tag, Input } from 'ant-design-vue';
 
   import { PageWrapper } from '/@/components/Page';
 
@@ -66,7 +66,6 @@
       PageWrapper,
       [Input.name]: Input,
       InputTextArea: Input.TextArea,
-      Alert,
       Tag,
     },
     setup() {
