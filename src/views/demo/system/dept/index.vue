@@ -1,8 +1,8 @@
 <template>
-  <div :class="[prefixCls]">
+  <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreateAccount"> 新增账号 </a-button>
+        <a-button type="primary" @click="handleCreate"> 新增部门 </a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -23,48 +23,50 @@
         />
       </template>
     </BasicTable>
-    <AccountModal @register="registerModal" />
+    <DeptModal @register="registerModal" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
 
-  import { useDesign } from '/@/hooks/web/useDesign';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getAccountList } from '/@/api/demo/system';
+  import { getDeptList } from '/@/api/demo/system';
 
   import { useModal } from '/@/components/Modal';
-  import AccountModal from './AccountModal.vue';
+  import DeptModal from './DeptModal.vue';
 
-  import { columns, searchFormSchema } from './account.data';
+  import { columns, searchFormSchema } from './dept.data';
 
   export default defineComponent({
-    name: 'AccountManagement',
-    components: { BasicTable, AccountModal, TableAction },
+    name: 'DeptManagement',
+    components: { BasicTable, DeptModal, TableAction },
     setup() {
-      const { prefixCls } = useDesign('account-management');
-
       const [registerModal, { openModal }] = useModal();
-      const [registerTable] = useTable({
-        title: '账号列表',
-        api: getAccountList,
+      const [registerTable, { reload }] = useTable({
+        title: '部门列表',
+        api: getDeptList,
         columns,
         formConfig: {
           labelWidth: 120,
           schemas: searchFormSchema,
         },
+        pagination: false,
+        striped: false,
         useSearchForm: true,
         showTableSetting: true,
         bordered: true,
+        showIndexColumn: false,
+        indentSize: 20,
         actionColumn: {
           width: 80,
           title: '操作',
           dataIndex: 'action',
           slots: { customRender: 'action' },
+          fixed: undefined,
         },
       });
 
-      function handleCreateAccount() {
+      function handleCreate() {
         openModal(true, {
           isUpdate: false,
         });
@@ -81,21 +83,18 @@
         console.log(record);
       }
 
+      function handleSuccess() {
+        reload();
+      }
+
       return {
-        prefixCls,
         registerTable,
         registerModal,
-        handleCreateAccount,
+        handleCreate,
         handleEdit,
         handleDelete,
+        handleSuccess,
       };
     },
   });
 </script>
-<style lang="less" scoped>
-  @prefix-cls: ~'@{namespace}-account-management';
-
-  .@{prefix-cls} {
-    display: flex;
-  }
-</style>

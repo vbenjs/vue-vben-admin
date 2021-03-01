@@ -4,7 +4,7 @@
 -->
 <template>
   <span :class="getClass">
-    <RightOutlined />
+    <Icon icon="ion:chevron-forward" :style="$attrs.iconStyle" />
   </span>
 </template>
 <script lang="ts">
@@ -15,9 +15,11 @@
 
   import { propTypes } from '/@/utils/propTypes';
 
+  import { Icon } from '/@/components/Icon';
+
   export default defineComponent({
     name: 'BasicArrow',
-    components: { RightOutlined },
+    components: { RightOutlined, Icon },
     props: {
       // Expand contract, expand by default
       expand: propTypes.bool,

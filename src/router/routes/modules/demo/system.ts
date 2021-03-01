@@ -15,11 +15,30 @@ const system: AppRouteModule = {
   children: [
     {
       path: 'account',
-      name: 'Account',
+      name: 'AccountManagement',
       meta: {
         title: t('routes.demo.system.account'),
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/demo/system/account/index.vue'),
+    },
+    {
+      path: 'dept',
+      name: 'DeptManagement',
+      meta: {
+        title: t('routes.demo.system.dept'),
+        ignoreKeepAlive: true,
+      },
+      component: () => import('/@/views/demo/system/dept/index.vue'),
+    },
+    {
+      path: 'changePassword',
+      name: 'ChangePassword',
+      meta: {
+        title: t('routes.demo.system.password'),
+        ignoreKeepAlive: true,
+      },
+      component: () => import('/@/views/demo/system/password/index.vue'),
     },
   ],
 };

@@ -11,6 +11,16 @@ const menu: MenuModule = {
         path: 'account',
         name: t('routes.demo.system.account'),
       },
+
+      {
+        path: 'dept',
+        name: t('routes.demo.system.dept'),
+      },
+
+      {
+        path: 'changePassword',
+        name: t('routes.demo.system.password'),
+      },
     ],
   },
 };
