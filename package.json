@@ -22,7 +22,9 @@
     "test:gzip": "http-server dist --cors --gzip -c-1",
     "test:br": "http-server dist --cors --brotli -c-1",
     "reinstall": "rimraf yarn.lock && rimraf package.lock.json && rimraf node_modules && npm run bootstrap",
-    "postinstall": "is-ci || husky install"
+    "install:husky": "is-ci || husky install",
+    "gen:icon": "esno ./build/gen/generateIconJson.ts",
+    "postinstall": "npm run install:husky"
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.6",
@@ -55,8 +57,9 @@
     "@ls-lint/ls-lint": "^1.9.2",
     "@purge-icons/generated": "^0.7.0",
     "@types/crypto-js": "^4.0.1",
-    "@types/fs-extra": "^9.0.7",
+    "@types/fs-extra": "^9.0.8",
     "@types/http-proxy": "^1.17.5",
+    "@types/inquirer": "^7.3.1",
     "@types/lodash-es": "^4.17.4",
     "@types/mockjs": "^1.0.3",
     "@types/nprogress": "^0.2.0",
@@ -84,6 +87,7 @@
     "fs-extra": "^9.1.0",
     "http-server": "^0.12.3",
     "husky": "^5.1.2",
+    "inquirer": "^8.0.0",
     "is-ci": "^3.0.0",
     "less": "^4.1.1",
     "lint-staged": "^10.5.4",

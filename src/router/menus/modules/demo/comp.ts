@@ -6,9 +6,7 @@ const menu: MenuModule = {
   menu: {
     name: t('routes.demo.comp.comp'),
     path: '/comp',
-    tag: {
-      dot: true,
-    },
+
     children: [
       {
         path: 'basic',
@@ -52,9 +50,7 @@ const menu: MenuModule = {
       {
         path: 'table',
         name: t('routes.demo.table.table'),
-        tag: {
-          dot: true,
-        },
+
         children: [
           {
             path: 'basic',
@@ -111,16 +107,10 @@ const menu: MenuModule = {
           {
             path: 'editCellTable',
             name: t('routes.demo.table.editCellTable'),
-            tag: {
-              dot: true,
-            },
           },
           {
             path: 'editRowTable',
             name: t('routes.demo.table.editRowTable'),
-            tag: {
-              dot: true,
-            },
           },
         ],
       },
