@@ -16,6 +16,8 @@ export default {
   tab1: 'Tab with parameter 1',
   tab2: 'Tab with parameter 2',
 
+  ws: 'Websocket test',
+
   breadcrumb: 'Breadcrumbs',
   breadcrumbFlat: 'Flat Mode',
   breadcrumbFlatDetail: 'Flat mode details',

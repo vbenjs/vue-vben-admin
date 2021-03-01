@@ -22,6 +22,14 @@ const feat: AppRouteModule = {
       },
     },
     {
+      path: 'ws',
+      name: 'WebSocket',
+      component: () => import('/@/views/demo/feat/ws/index.vue'),
+      meta: {
+        title: t('routes.demo.feat.ws'),
+      },
+    },
+    {
       path: 'tabs',
       name: 'TabsDemo',
       component: () => import('/@/views/demo/feat/tabs/index.vue'),

@@ -1,11 +1,15 @@
 const Koa = require('koa');
-const fs = require('fs');
 const path = require('path');
 const router = require('koa-router')();
 const koaBody = require('koa-body');
 const static = require('koa-static');
 const cors = require('koa2-cors');
+const fs = require('fs-extra');
 const app = new Koa();
+
+const uploadUrl = 'http://localhost:3001/static/upload';
+
+fs.ensureDir(path.join(__dirname, 'static/upload'));
 
 app.use(cors());
 
@@ -18,8 +22,6 @@ app.use(
     },
   })
 );
-
-const uploadUrl = 'http://localhost:3001/static/upload';
 
 router.get('/', (ctx) => {
   ctx.type = 'html';
@@ -61,7 +63,6 @@ const uploadFilePublic = function (ctx, files, flag) {
     }
   };
   if (flag) {
-    // 多个文件上传
     for (let i = 0; i < files.length; i++) {
       const f1 = files[i];
       fileFunc(f1);
