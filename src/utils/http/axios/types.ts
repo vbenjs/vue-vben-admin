@@ -17,6 +17,7 @@ export interface RequestOptions {
   errorMessageMode?: ErrorMessageMode;
   // Whether to add a timestamp
   joinTime?: boolean;
+  ignoreCancelToken?: boolean;
 }
 
 export interface CreateAxiosOptions extends AxiosRequestConfig {

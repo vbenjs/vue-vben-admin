@@ -65,6 +65,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
 
   import { basicProps } from './props';
+  import expandIcon from './components/ExpandIcon';
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
   import './style/index.less';
@@ -193,6 +194,7 @@
           size: 'middle',
           ...attrs,
           customRow,
+          expandIcon: expandIcon(),
           ...unref(getProps),
           ...unref(getHeaderProps),
           scroll: unref(getScrollRef),

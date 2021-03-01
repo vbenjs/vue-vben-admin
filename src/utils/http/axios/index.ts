@@ -202,6 +202,8 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           apiUrl: globSetting.apiUrl,
           //  是否加入时间戳
           joinTime: true,
+          // 忽略重复请求
+          ignoreCancelToken: true,
         },
       },
       opt || {}

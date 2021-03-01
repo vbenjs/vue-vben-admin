@@ -3,11 +3,6 @@ import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
-    title: 'ID',
-    dataIndex: 'id',
-    width: 80,
-  },
-  {
     title: '用户名',
     dataIndex: 'account',
     width: 120,
@@ -23,8 +18,8 @@ export const columns: BasicColumn[] = [
     width: 200,
   },
   {
-    title: '更新时间',
-    dataIndex: 'updateTime',
+    title: '创建时间',
+    dataIndex: 'createTime',
     width: 180,
   },
   {
@@ -35,7 +30,6 @@ export const columns: BasicColumn[] = [
   {
     title: '备注',
     dataIndex: 'remark',
-    width: 200,
   },
 ];
 
