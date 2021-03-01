@@ -9,7 +9,6 @@
 </template>
 <script lang="ts">
   import { defineComponent, computed } from 'vue';
-  import { RightOutlined } from '@ant-design/icons-vue';
 
   import { useDesign } from '/@/hooks/web/useDesign';
 
@@ -19,7 +18,7 @@
 
   export default defineComponent({
     name: 'BasicArrow',
-    components: { RightOutlined, Icon },
+    components: { Icon },
     props: {
       // Expand contract, expand by default
       expand: propTypes.bool,

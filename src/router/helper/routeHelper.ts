@@ -18,12 +18,7 @@ let dynamicViewsModules: Record<
 
 // 动态引入
 function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
-  // TODO It may be a bug in Vite. When the conditions are not established, the dynamically imported files will still be packaged in.
-  if (!__DYNAMIC_IMPORT__) {
-    dynamicViewsModules = {};
-  } else {
-    dynamicViewsModules = dynamicViewsModules || import.meta.glob('../../views/**/*.{vue,tsx}');
-  }
+  dynamicViewsModules = dynamicViewsModules || import.meta.glob('../../views/**/*.{vue,tsx}');
 
   if (!routes) return;
   routes.forEach((item) => {

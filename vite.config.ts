@@ -21,14 +21,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   // The boolean type read by loadEnv is a string. This function can be converted to boolean type
   const viteEnv = wrapperEnv(env);
 
-  const {
-    VITE_PORT,
-    VITE_PUBLIC_PATH,
-    VITE_PROXY,
-    VITE_DROP_CONSOLE,
-    VITE_LEGACY,
-    VITE_DYNAMIC_IMPORT,
-  } = viteEnv;
+  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE, VITE_LEGACY } = viteEnv;
 
   const isBuild = command === 'build';
 
@@ -75,7 +68,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     define: {
       // setting vue-i18-next
       // Suppress warning
-      __DYNAMIC_IMPORT__: VITE_DYNAMIC_IMPORT,
       __VUE_I18N_LEGACY_API__: false,
       __VUE_I18N_FULL_INSTALL__: false,
       __INTLIFY_PROD_DEVTOOLS__: false,
