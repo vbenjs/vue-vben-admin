@@ -19,6 +19,13 @@ const menu: MenuModule = {
         },
       },
       {
+        path: 'ws',
+        name: t('routes.demo.feat.ws'),
+        tag: {
+          content: 'new',
+        },
+      },
+      {
         path: 'tabs',
         name: t('routes.demo.feat.tabs'),
       },

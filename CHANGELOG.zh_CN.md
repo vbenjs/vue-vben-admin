@@ -10,6 +10,7 @@
 - 新增图标选择器组件
 - 新增修改密码界面
 - 新增部门管理示例界面
+- 新增 WebSocket 示例和服务脚本
 
 ### ⚡ Performance Improvements
 
