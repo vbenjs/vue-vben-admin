@@ -7,6 +7,9 @@
 ### ✨ Features
 
 - axios 支持 form-data 格式请求
+- 新增图标选择器组件
+- 新增修改密码界面
+- 新增部门管理示例界面
 
 ### ⚡ Performance Improvements
 
