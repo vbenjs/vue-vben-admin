@@ -19,7 +19,6 @@ let dynamicViewsModules: Record<
 // 动态引入
 function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
   dynamicViewsModules = dynamicViewsModules || import.meta.glob('../../views/**/*.{vue,tsx}');
-
   if (!routes) return;
   routes.forEach((item) => {
     const { component, name } = item;

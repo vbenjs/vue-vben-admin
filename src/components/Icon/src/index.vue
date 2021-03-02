@@ -46,7 +46,6 @@
           const icon = unref(getIconRef);
           if (!icon) return;
           const svg = Iconify.renderSVG(icon, {});
-
           if (svg) {
             el.textContent = '';
             el.appendChild(svg);

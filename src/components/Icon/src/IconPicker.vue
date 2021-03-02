@@ -34,6 +34,7 @@
                   class="p-2 w-1/8 cursor-pointer mr-1 mt-1 flex justify-center items-center border border-solid hover:bg-primary hover:text-white"
                   @click="handleClick(icon)"
                 >
+                  <!-- <Icon :icon="icon" :prefix="prefix" /> -->
                   <Icon :icon="icon" />
                 </li>
               </ul>
@@ -66,14 +67,28 @@
   import { Input, Popover, Pagination, Empty } from 'ant-design-vue';
   import Icon from './index.vue';
 
-  import icons from '../json/ion-info.json';
+  import iconsData from '../data/icons.data';
   import { propTypes } from '/@/utils/propTypes';
   import { usePagination } from '/@/hooks/web/usePagination';
   import { useDebounce } from '/@/hooks/core/useDebounce';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard';
   import { useMessage } from '/@/hooks/web/useMessage';
+  // import '@iconify/iconify';
 
+  function getIcons() {
+    const data = iconsData as any;
+    const prefix: string = data?.prefix ?? '';
+    let result: string[] = [];
+    if (prefix) {
+      result = (data?.icons ?? []).map((item) => `${prefix}:${item}`);
+    } else if (Array.isArray(iconsData)) {
+      result = iconsData as string[];
+    }
+    return result;
+  }
+
+  const icons = getIcons();
   export default defineComponent({
     name: 'IconPicker',
     components: { [Input.name]: Input, Icon, Popover, ScrollContainer, Pagination, Empty },
