@@ -1,8 +1,8 @@
 <template>
   <PageWrapper title="Tree函数操作示例">
     <div class="flex">
-      <CollapseContainer title="右侧操作按钮" class="mr-4" :style="{ width: '33%' }">
-        <BasicTree :treeData="treeData" :actionList="actionList" />
+      <CollapseContainer title="右侧操作按钮/自定义图标" class="mr-4" :style="{ width: '33%' }">
+        <BasicTree :treeData="treeData" :actionList="actionList" :renderIcon="createIcon" />
       </CollapseContainer>
 
       <CollapseContainer title="右键菜单" class="mr-4" :style="{ width: '33%' }">
@@ -61,7 +61,19 @@
           },
         },
       ];
-      return { treeData, actionList, getRightMenuList };
+
+      function createIcon({ level }) {
+        if (level === 1) {
+          return 'ion:git-compare-outline';
+        }
+        if (level === 2) {
+          return 'ion:home';
+        }
+        if (level === 3) {
+          return 'ion:airplane';
+        }
+      }
+      return { treeData, actionList, getRightMenuList, createIcon };
     },
   });
 </script>
