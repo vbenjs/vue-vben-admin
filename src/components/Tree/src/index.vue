@@ -1,7 +1,16 @@
 <script lang="tsx">
   import type { ReplaceFields, Keys, CheckKeys, TreeActionType, TreeItem } from './types';
 
-  import { defineComponent, reactive, computed, unref, ref, watchEffect, onMounted } from 'vue';
+  import {
+    defineComponent,
+    reactive,
+    computed,
+    unref,
+    ref,
+    watchEffect,
+    onMounted,
+    toRaw,
+  } from 'vue';
   import { Tree } from 'ant-design-vue';
   import { TreeIcon } from './TreeIcon';
   // import { DownOutlined } from '@ant-design/icons-vue';
@@ -77,9 +86,8 @@
             state.selectedKeys = v;
             emit('update:selectedKeys', v);
           },
-          onCheck: (v: CheckKeys, e) => {
+          onCheck: (v: CheckKeys) => {
             state.checkedKeys = v;
-            console.log(e);
             emit('update:value', v);
           },
           onRightClick: handleRightClick,
@@ -128,7 +136,7 @@
           const propsData = omit(item, 'title');
           const icon = getIcon({ ...item, level }, item.icon);
           return (
-            <Tree.TreeNode {...propsData} key={get(item, keyField)}>
+            <Tree.TreeNode {...propsData} node={toRaw(item)} key={get(item, keyField)}>
               {{
                 title: () => (
                   <span class={`${prefixCls}-title`}>
