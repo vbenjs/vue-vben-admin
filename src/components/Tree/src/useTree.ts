@@ -39,7 +39,7 @@ export function useTree(
     const res: (string | number)[] = [];
     const data = list || unref(treeDataRef) || [];
     for (let index = 0; index < data.length; index++) {
-      const item = data[index] as any;
+      const item = data[index];
 
       const { key: keyField, children: childrenField } = unref(getReplaceFields);
       const key = keyField ? item[keyField] : '';
