@@ -16,7 +16,7 @@
   // import { DownOutlined } from '@ant-design/icons-vue';
 
   import { omit, get } from 'lodash-es';
-  import { isFunction } from '/@/utils/is';
+  import { isBoolean, isFunction } from '/@/utils/is';
   import { extendSlots } from '/@/utils/helper/tsxHelper';
 
   import { useTree } from './useTree';
@@ -116,6 +116,14 @@
         const { actionList } = props;
         if (!actionList || actionList.length === 0) return;
         return actionList.map((item, index) => {
+          if (isFunction(item.show)) {
+            return item.show?.(node);
+          }
+
+          if (isBoolean(item.show)) {
+            return item.show;
+          }
+
           return (
             <span key={index} class={`${prefixCls}__action`}>
               {item.render(node)}
@@ -147,7 +155,7 @@
                     >
                       {get(item, titleField)}
                     </span>
-                    <span class={`${prefixCls}__actions`}> {renderAction(item)}</span>
+                    <span class={`${prefixCls}__actions`}> {renderAction({ ...item, level })}</span>
                   </span>
                 ),
                 default: () =>
