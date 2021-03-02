@@ -1,6 +1,7 @@
 import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree';
 export interface ActionItem {
-  render: (record: any) => any;
+  render: (record: Recordable) => any;
+  show?: boolean | ((record: Recordable) => boolean);
 }
 
 export interface TreeItem extends TreeDataItem {

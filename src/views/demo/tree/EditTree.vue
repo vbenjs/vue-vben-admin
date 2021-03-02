@@ -46,6 +46,7 @@
       }
       const actionList: ActionItem[] = [
         {
+          // show:()=>boolean;
           render: (node) => {
             return h(PlusOutlined, {
               class: 'ml-2',
