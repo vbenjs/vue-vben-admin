@@ -35,6 +35,7 @@
     setup() {
       const treeRef = ref<Nullable<TreeActionType>>(null);
       const { createMessage } = useMessage();
+
       function getTree() {
         const tree = unref(treeRef);
         if (!tree) {

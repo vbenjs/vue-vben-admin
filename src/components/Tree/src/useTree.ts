@@ -1,16 +1,17 @@
-import type { InsertNodeParams, ReplaceFields, TreeItem } from './types';
+import type { InsertNodeParams, ReplaceFields } from './types';
 import type { Ref, ComputedRef } from 'vue';
+import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree';
 
 import { cloneDeep } from 'lodash-es';
 import { unref } from 'vue';
 import { forEach } from '/@/utils/helper/treeHelper';
 
 export function useTree(
-  treeDataRef: Ref<TreeItem[]>,
+  treeDataRef: Ref<TreeDataItem[]>,
   getReplaceFields: ComputedRef<ReplaceFields>
 ) {
-  // 更新节点
-  function updateNodeByKey(key: string, node: TreeItem, list?: TreeItem[]) {
+  // Update node
+  function updateNodeByKey(key: string, node: TreeDataItem, list?: TreeDataItem[]) {
     if (!key) return;
     const treeData = list || unref(treeDataRef);
     const { key: keyField, children: childrenField } = unref(getReplaceFields);
@@ -30,8 +31,8 @@ export function useTree(
     }
   }
 
-  // 展开指定级别
-  function filterByLevel(level = 1, list?: TreeItem[], currentLevel = 1) {
+  // Expand the specified level
+  function filterByLevel(level = 1, list?: TreeDataItem[], currentLevel = 1) {
     if (!level) {
       return [];
     }
@@ -74,8 +75,8 @@ export function useTree(
     treeDataRef.value = treeData;
   }
 
-  // 删除节点
-  function deleteNodeByKey(key: string, list?: TreeItem[]) {
+  // Delete node
+  function deleteNodeByKey(key: string, list?: TreeDataItem[]) {
     if (!key) return;
     const treeData = list || unref(treeDataRef);
     const { key: keyField, children: childrenField } = unref(getReplaceFields);

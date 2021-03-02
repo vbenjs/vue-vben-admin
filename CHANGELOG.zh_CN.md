@@ -11,6 +11,7 @@
 - 新增修改密码界面
 - 新增部门管理示例界面
 - 新增 WebSocket 示例和服务脚本
+- BasicTree 组件新增 `renderIcon` 属性用于控制层级图标显示
 
 ### ⚡ Performance Improvements
 
