@@ -1,7 +1,7 @@
 <script lang="tsx">
   import type { ReplaceFields, Keys, CheckKeys, TreeActionType, TreeItem } from './types';
 
-  import { defineComponent, reactive, computed, unref, ref, watchEffect, toRaw } from 'vue';
+  import { defineComponent, reactive, computed, unref, ref, watchEffect, toRaw, watch } from 'vue';
   import { Tree } from 'ant-design-vue';
   import { TreeIcon } from './TreeIcon';
   import TreeHeader from './TreeHeader.vue';
@@ -27,6 +27,7 @@
   }
   export default defineComponent({
     name: 'BasicTree',
+    inheritAttrs: false,
     props: basicProps,
     emits: ['update:expandedKeys', 'update:selectedKeys', 'update:value', 'change'],
     setup(props, { attrs, slots, emit }) {
@@ -89,8 +90,9 @@
           },
           onCheck: (v: CheckKeys) => {
             state.checkedKeys = v;
-            emit('change', v);
-            emit('update:value', v);
+            const rawVal = toRaw(v);
+            emit('change', rawVal);
+            emit('update:value', rawVal);
           },
           onRightClick: handleRightClick,
         };
@@ -191,11 +193,21 @@
         state.checkedKeys = props.checkedKeys;
       });
 
-      watchEffect(() => {
-        if (props.value) {
-          state.checkedKeys = props.value;
+      watch(
+        () => props.value,
+        () => {
+          state.checkedKeys = toRaw(props.value || []);
         }
-      });
+      );
+
+      // watchEffect(() => {
+      //   console.log('======================');
+      //   console.log(props.value);
+      //   console.log('======================');
+      //   if (props.value) {
+      //     state.checkedKeys = props.value;
+      //   }
+      // });
 
       watchEffect(() => {
         state.checkStrictly = props.checkStrictly;

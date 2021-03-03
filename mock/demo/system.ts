@@ -116,12 +116,20 @@ export default [
     },
   },
   {
-    url: '/api/system/getRoleList',
+    url: '/api/system/getRoleListByPage',
     timeout: 100,
     method: 'get',
     response: ({ query }) => {
       const { page = 1, pageSize = 20 } = query;
       return resultPageSuccess(page, pageSize, roleList);
+    },
+  },
+  {
+    url: '/api/system/getAllRoleList',
+    timeout: 100,
+    method: 'get',
+    response: () => {
+      return resultSuccess(roleList);
     },
   },
   {

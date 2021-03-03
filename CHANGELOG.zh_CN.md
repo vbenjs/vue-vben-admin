@@ -8,12 +8,11 @@
 
 - axios 支持 form-data 格式请求
 - 新增图标选择器组件(支持本地和在线方式)
-- 新增修改密码界面
-- 新增部门管理示例界面
 - 新增 WebSocket 示例和服务脚本
 - Tree 组件新增 `renderIcon` 属性用于控制层级图标显示
 - Tree->actionItem 新增 show 属性，用于动态控制按钮显示
 - Tree 新增工具栏/title/搜索功能
+- 新增部门管理/修改密码/账号管理/角色管理/菜单管理示例界面
 
 ### ⚡ Performance Improvements
 

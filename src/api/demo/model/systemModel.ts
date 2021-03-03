@@ -4,10 +4,13 @@ export type AccountParams = BasicPageParams & {
   account?: string;
   nickname?: string;
 };
-export type RoleParams = BasicPageParams & {
+
+export type RoleParams = {
   roleName?: string;
   status?: string;
 };
+
+export type RolePageParams = BasicPageParams & RoleParams;
 
 export type DeptParams = {
   deptName?: string;
@@ -66,4 +69,6 @@ export type DeptListGetResultModel = BasicFetchResult<DeptListItem>;
 
 export type MenuListGetResultModel = BasicFetchResult<MenuListItem>;
 
-export type RoleListGetResultModel = BasicFetchResult<RoleListItem>;
+export type RolePageListGetResultModel = BasicFetchResult<RoleListItem>;
+
+export type RoleListGetResultModel = RoleListItem[];

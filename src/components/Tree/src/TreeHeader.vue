@@ -10,9 +10,12 @@
         <Icon icon="ion:ellipsis-vertical" />
         <template #overlay>
           <Menu @click="handleMenuClick">
-            <MenuItem v-for="item in toolbarList" :key="item.value">
-              {{ item.label }}
-            </MenuItem>
+            <template v-for="item in toolbarList" :key="item.value">
+              <MenuItem v-bind="{ key: item.value }">
+                {{ item.label }}
+              </MenuItem>
+              <MenuDivider v-if="item.divider" />
+            </template>
           </Menu>
         </template>
       </Dropdown>
@@ -46,6 +49,7 @@
       Dropdown,
       Menu,
       MenuItem: Menu.Item,
+      MenuDivider: Menu.Divider,
       InputSearch: Input.Search,
     },
     props: {
@@ -64,9 +68,9 @@
       const { t } = useI18n();
       const toolbarList = ref([
         { label: t('component.tree.selectAll'), value: ToolbarEnum.SELECT_ALL },
-        { label: t('component.tree.unSelectAll'), value: ToolbarEnum.UN_SELECT_ALL },
+        { label: t('component.tree.unSelectAll'), value: ToolbarEnum.UN_SELECT_ALL, divider: true },
         { label: t('component.tree.expandAll'), value: ToolbarEnum.EXPAND_ALL },
-        { label: t('component.tree.unExpandAll'), value: ToolbarEnum.UN_EXPAND_ALL },
+        { label: t('component.tree.unExpandAll'), value: ToolbarEnum.UN_EXPAND_ALL, divider: true },
         { label: t('component.tree.checkStrictly'), value: ToolbarEnum.CHECK_STRICTLY },
         { label: t('component.tree.checkUnStrictly'), value: ToolbarEnum.CHECK_UN_STRICTLY },
       ]);

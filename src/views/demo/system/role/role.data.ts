@@ -2,7 +2,6 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
-
 export const columns: BasicColumn[] = [
   {
     title: '角色名称',
@@ -94,9 +93,9 @@ export const formSchema: FormSchema[] = [
     component: 'InputTextArea',
   },
   {
-    label: '菜单分配',
+    label: ' ',
     field: 'menu',
     slot: 'menu',
-    component: 'Render',
+    component: 'Input',
   },
 ];
