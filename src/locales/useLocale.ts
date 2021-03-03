@@ -3,21 +3,17 @@
  */
 import type { LocaleType } from '/#/config';
 
-import { ref } from 'vue';
 import moment from 'moment';
-import { computed } from 'vue';
 
 import { i18n } from './setupI18n';
 import { localeStore } from '/@/store/modules/locale';
-import { unref } from 'vue';
+import { unref, computed } from 'vue';
 
 interface LangModule {
   message: Recordable;
   momentLocale: Recordable;
   momentLocaleName: string;
 }
-
-const antConfigLocale = ref<Nullable<Recordable>>(null);
 
 const loadLocalePool: LocaleType[] = [];
 
@@ -67,7 +63,6 @@ export function useLocale() {
     getLocale,
     getShowLocalePicker,
     changeLocale,
-    antConfigLocale,
     getAntdLocale,
   };
 }

@@ -3,7 +3,7 @@ import { BasicArrow } from '/@/components/Basic';
 export default () => {
   return (props: Recordable) => {
     if (!props.expandable) {
-      return null;
+      return <span />;
     }
     return (
       <BasicArrow

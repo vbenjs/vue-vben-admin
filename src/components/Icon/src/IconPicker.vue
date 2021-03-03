@@ -3,8 +3,8 @@
     disabled
     :style="{ width }"
     :placeholder="t('component.icon.placeholder')"
-    v-model:value="currentSelect"
     :class="prefixCls"
+    v-model:value="currentSelect"
   >
     <template #addonAfter>
       <Popover
@@ -91,6 +91,7 @@
   const icons = getIcons();
   export default defineComponent({
     name: 'IconPicker',
+    inheritAttrs: false,
     components: { [Input.name]: Input, Icon, Popover, ScrollContainer, Pagination, Empty },
     props: {
       value: propTypes.string,

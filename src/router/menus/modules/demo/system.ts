@@ -18,7 +18,20 @@ const menu: MenuModule = {
           type: 'warn',
         },
       },
-
+      {
+        path: 'role',
+        name: t('routes.demo.system.role'),
+        tag: {
+          content: 'new',
+        },
+      },
+      {
+        path: 'menu',
+        name: t('routes.demo.system.menu'),
+        tag: {
+          content: 'new',
+        },
+      },
       {
         path: 'dept',
         name: t('routes.demo.system.dept'),

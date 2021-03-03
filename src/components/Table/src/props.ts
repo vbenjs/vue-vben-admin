@@ -49,6 +49,8 @@ export const basicProps = {
     default: null,
   },
 
+  indentSize: propTypes.number.def(24),
+
   canColDrag: propTypes.bool.def(true),
   api: {
     type: Function as PropType<(...arg: any[]) => Promise<any>>,
