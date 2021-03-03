@@ -1,13 +1,29 @@
 <template>
   <PageWrapper title="Tree函数操作示例">
     <div class="flex">
-      <CollapseContainer title="右侧操作按钮/自定义图标" class="mr-4" :style="{ width: '33%' }">
-        <BasicTree :treeData="treeData" :actionList="actionList" :renderIcon="createIcon" />
-      </CollapseContainer>
-
-      <CollapseContainer title="右键菜单" class="mr-4" :style="{ width: '33%' }">
-        <BasicTree :treeData="treeData" :beforeRightClick="getRightMenuList" />
-      </CollapseContainer>
+      <BasicTree
+        class="w-1/3"
+        title="右侧操作按钮/自定义图标"
+        helpMessage="帮助信息"
+        :treeData="treeData"
+        :actionList="actionList"
+        :renderIcon="createIcon"
+      />
+      <BasicTree
+        class="w-1/3 mx-4"
+        title="右键菜单"
+        :treeData="treeData"
+        :beforeRightClick="getRightMenuList"
+      />
+      <BasicTree
+        class="w-1/3"
+        title="工具栏使用"
+        toolbar
+        checkable
+        search
+        :treeData="treeData"
+        :beforeRightClick="getRightMenuList"
+      />
     </div>
   </PageWrapper>
 </template>
@@ -15,12 +31,11 @@
   import { defineComponent, h } from 'vue';
   import { BasicTree, ActionItem, ContextMenuItem } from '/@/components/Tree/index';
   import { treeData } from './data';
-  import { CollapseContainer } from '/@/components/Container/index';
   import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue';
   import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
-    components: { BasicTree, CollapseContainer, PageWrapper },
+    components: { BasicTree, PageWrapper },
     setup() {
       function handlePlus(node: any) {
         console.log(node);

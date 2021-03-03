@@ -12,7 +12,7 @@ export default {
   tree: 'Tree',
 
   treeBasic: 'Basic',
-  editTree: 'Right-click',
+  editTree: 'Searchable/toolbar',
   actionTree: 'Function operation',
 
   modal: 'Modal',

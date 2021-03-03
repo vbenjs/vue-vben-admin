@@ -1,23 +1,16 @@
 <script lang="tsx">
   import type { ReplaceFields, Keys, CheckKeys, TreeActionType, TreeItem } from './types';
 
-  import {
-    defineComponent,
-    reactive,
-    computed,
-    unref,
-    ref,
-    watchEffect,
-    onMounted,
-    toRaw,
-  } from 'vue';
+  import { defineComponent, reactive, computed, unref, ref, watchEffect, toRaw } from 'vue';
   import { Tree } from 'ant-design-vue';
   import { TreeIcon } from './TreeIcon';
+  import TreeHeader from './TreeHeader.vue';
   // import { DownOutlined } from '@ant-design/icons-vue';
 
   import { omit, get } from 'lodash-es';
   import { isBoolean, isFunction } from '/@/utils/is';
   import { extendSlots } from '/@/utils/helper/tsxHelper';
+  import { filter } from '/@/utils/helper/treeHelper';
 
   import { useTree } from './useTree';
   import { useContextMenu, ContextMenuItem } from '/@/hooks/web/useContextMenu';
@@ -30,16 +23,23 @@
     expandedKeys: Keys;
     selectedKeys: Keys;
     checkedKeys: CheckKeys;
+    checkStrictly: boolean;
   }
   export default defineComponent({
     name: 'BasicTree',
     props: basicProps,
-    emits: ['update:expandedKeys', 'update:selectedKeys', 'update:value', 'get'],
+    emits: ['update:expandedKeys', 'update:selectedKeys', 'update:value', 'change'],
     setup(props, { attrs, slots, emit }) {
       const state = reactive<State>({
+        checkStrictly: props.checkStrictly,
         expandedKeys: props.expandedKeys || [],
         selectedKeys: props.selectedKeys || [],
         checkedKeys: props.checkedKeys || [],
+      });
+
+      const searchState = reactive({
+        startSearch: false,
+        searchData: [] as TreeItem[],
       });
 
       const treeDataRef = ref<TreeItem[]>([]);
@@ -77,6 +77,7 @@
           expandedKeys: state.expandedKeys,
           selectedKeys: state.selectedKeys,
           checkedKeys: state.checkedKeys,
+          checkStrictly: state.checkStrictly,
           replaceFields: unref(getReplaceFields),
           'onUpdate:expandedKeys': (v: Keys) => {
             state.expandedKeys = v;
@@ -88,20 +89,26 @@
           },
           onCheck: (v: CheckKeys) => {
             state.checkedKeys = v;
+            emit('change', v);
             emit('update:value', v);
           },
           onRightClick: handleRightClick,
         };
-        propsData = omit(propsData, 'treeData');
+        propsData = omit(propsData, 'treeData', 'class');
         return propsData;
       });
 
-      const getTreeData = computed((): TreeItem[] => unref(treeDataRef));
-
-      const { deleteNodeByKey, insertNodeByKey, filterByLevel, updateNodeByKey } = useTree(
-        treeDataRef,
-        getReplaceFields
+      const getTreeData = computed((): TreeItem[] =>
+        searchState.startSearch ? searchState.searchData : unref(treeDataRef)
       );
+
+      const {
+        deleteNodeByKey,
+        insertNodeByKey,
+        filterByLevel,
+        updateNodeByKey,
+        getAllKeys,
+      } = useTree(treeDataRef, getReplaceFields);
 
       function getIcon(params: Recordable, icon?: string) {
         if (!icon) {
@@ -110,60 +117,6 @@
           }
         }
         return icon;
-      }
-
-      function renderAction(node: TreeItem) {
-        const { actionList } = props;
-        if (!actionList || actionList.length === 0) return;
-        return actionList.map((item, index) => {
-          if (isFunction(item.show)) {
-            return item.show?.(node);
-          }
-
-          if (isBoolean(item.show)) {
-            return item.show;
-          }
-
-          return (
-            <span key={index} class={`${prefixCls}__action`}>
-              {item.render(node)}
-            </span>
-          );
-        });
-      }
-
-      function renderTreeNode({ data, level }: { data: TreeItem[] | undefined; level: number }) {
-        if (!data) {
-          return null;
-        }
-        return data.map((item) => {
-          const { title: titleField, key: keyField, children: childrenField } = unref(
-            getReplaceFields
-          );
-
-          const propsData = omit(item, 'title');
-          const icon = getIcon({ ...item, level }, item.icon);
-          return (
-            <Tree.TreeNode {...propsData} node={toRaw(item)} key={get(item, keyField)}>
-              {{
-                title: () => (
-                  <span class={`${prefixCls}-title`}>
-                    {icon && <TreeIcon icon={icon} />}
-                    <span
-                      class={`${prefixCls}__content`}
-                      //  style={unref(getContentStyle)}
-                    >
-                      {get(item, titleField)}
-                    </span>
-                    <span class={`${prefixCls}__actions`}> {renderAction({ ...item, level })}</span>
-                  </span>
-                ),
-                default: () =>
-                  renderTreeNode({ data: get(item, childrenField) || [], level: level + 1 }),
-              }}
-            </Tree.TreeNode>
-          );
-        });
       }
 
       async function handleRightClick({ event, node }: any) {
@@ -205,11 +158,47 @@
         return state.checkedKeys;
       }
 
+      function checkAll(checkAll: boolean) {
+        state.checkedKeys = checkAll ? getAllKeys() : ([] as Keys);
+      }
+
+      function expandAll(expandAll: boolean) {
+        state.expandedKeys = expandAll ? getAllKeys() : ([] as Keys);
+      }
+
+      function onStrictlyChange(strictly: boolean) {
+        state.checkStrictly = strictly;
+      }
+
+      function handleSearch(searchValue: string) {
+        if (!searchValue) {
+          searchState.startSearch = false;
+          return;
+        }
+        searchState.startSearch = true;
+
+        searchState.searchData = filter(unref(treeDataRef), (node) => {
+          const { title } = node;
+          return title?.includes(searchValue) ?? false;
+          // || key?.includes(searchValue);
+        });
+      }
+
       watchEffect(() => {
         treeDataRef.value = props.treeData as TreeItem[];
         state.expandedKeys = props.expandedKeys;
         state.selectedKeys = props.selectedKeys;
         state.checkedKeys = props.checkedKeys;
+      });
+
+      watchEffect(() => {
+        if (props.value) {
+          state.checkedKeys = props.value;
+        }
+      });
+
+      watchEffect(() => {
+        state.checkStrictly = props.checkStrictly;
       });
 
       const instance: TreeActionType = {
@@ -222,6 +211,8 @@
         insertNodeByKey,
         deleteNodeByKey,
         updateNodeByKey,
+        checkAll,
+        expandAll,
         filterByLevel: (level: number) => {
           state.expandedKeys = filterByLevel(level);
         },
@@ -229,19 +220,83 @@
 
       useExpose<TreeActionType>(instance);
 
-      onMounted(() => {
-        emit('get', instance);
-      });
+      function renderAction(node: TreeItem) {
+        const { actionList } = props;
+        if (!actionList || actionList.length === 0) return;
+        return actionList.map((item, index) => {
+          if (isFunction(item.show)) {
+            return item.show?.(node);
+          }
 
+          if (isBoolean(item.show)) {
+            return item.show;
+          }
+
+          return (
+            <span key={index} class={`${prefixCls}__action`}>
+              {item.render(node)}
+            </span>
+          );
+        });
+      }
+
+      function renderTreeNode({ data, level }: { data: TreeItem[] | undefined; level: number }) {
+        if (!data) {
+          return null;
+        }
+        return data.map((item) => {
+          const { title: titleField, key: keyField, children: childrenField } = unref(
+            getReplaceFields
+          );
+
+          const propsData = omit(item, 'title');
+          const icon = getIcon({ ...item, level }, item.icon);
+          return (
+            <Tree.TreeNode {...propsData} node={toRaw(item)} key={get(item, keyField)}>
+              {{
+                title: () => (
+                  <span class={`${prefixCls}-title pl-2`}>
+                    {icon && <TreeIcon icon={icon} />}
+                    <span
+                      class={`${prefixCls}__content`}
+                      //  style={unref(getContentStyle)}
+                    >
+                      {get(item, titleField)}
+                    </span>
+                    <span class={`${prefixCls}__actions`}> {renderAction({ ...item, level })}</span>
+                  </span>
+                ),
+                default: () =>
+                  renderTreeNode({ data: get(item, childrenField) || [], level: level + 1 }),
+              }}
+            </Tree.TreeNode>
+          );
+        });
+      }
       return () => {
+        const { title, helpMessage, toolbar, search } = props;
         return (
-          <Tree {...unref(getBindValues)} showIcon={false} class={[prefixCls]}>
-            {{
-              // switcherIcon: () => <DownOutlined />,
-              default: () => renderTreeNode({ data: unref(getTreeData), level: 1 }),
-              ...extendSlots(slots),
-            }}
-          </Tree>
+          <div class={[prefixCls, 'h-full bg-white']}>
+            {(title || toolbar || search) && (
+              <TreeHeader
+                checkAll={checkAll}
+                expandAll={expandAll}
+                title={title}
+                search={search}
+                toolbar={toolbar}
+                helpMessage={helpMessage}
+                onStrictlyChange={onStrictlyChange}
+                onSearch={handleSearch}
+              />
+            )}
+            <Tree {...unref(getBindValues)} showIcon={false}>
+              {{
+                // switcherIcon: () => <DownOutlined />,
+                default: () => renderTreeNode({ data: unref(getTreeData), level: 1 }),
+                ...extendSlots(slots),
+              }}
+            </Tree>
+          </div>
         );
       };
     },
@@ -251,8 +306,6 @@
   @prefix-cls: ~'@{namespace}-basic-tree';
 
   .@{prefix-cls} {
-    position: relative;
-
     .ant-tree-node-content-wrapper {
       position: relative;
 
@@ -278,14 +331,14 @@
     }
 
     &__content {
-      display: inline-block;
+      // display: inline-block;
       overflow: hidden;
     }
 
     &__actions {
       position: absolute;
       top: 2px;
-      right: 2px;
+      right: 3px;
       display: flex;
     }
 

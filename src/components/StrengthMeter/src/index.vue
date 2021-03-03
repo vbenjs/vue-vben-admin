@@ -23,7 +23,8 @@
 
   import { Input } from 'ant-design-vue';
 
-  import zxcvbn from '@zxcvbn-ts/core';
+  // @ts-ignore
+  import { zxcvbn } from '@zxcvbn-ts/core';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { propTypes } from '/@/utils/propTypes';
 

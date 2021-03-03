@@ -21,6 +21,8 @@ export type CheckKeys =
   | { checked: string[] | number[]; halfChecked: string[] | number[] };
 
 export interface TreeActionType {
+  checkAll: (checkAll: boolean) => void;
+  expandAll: (expandAll: boolean) => void;
   setExpandedKeys: (keys: Keys) => void;
   getExpandedKeys: () => Keys;
   setSelectedKeys: (keys: Keys) => void;

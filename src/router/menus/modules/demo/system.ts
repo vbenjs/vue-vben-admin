@@ -22,21 +22,21 @@ const menu: MenuModule = {
         path: 'role',
         name: t('routes.demo.system.role'),
         tag: {
-          content: 'new',
+          dot: true,
         },
       },
       {
         path: 'menu',
         name: t('routes.demo.system.menu'),
         tag: {
-          content: 'new',
+          dot: true,
         },
       },
       {
         path: 'dept',
         name: t('routes.demo.system.dept'),
         tag: {
-          content: 'new',
+          dot: true,
         },
       },
 
@@ -44,7 +44,7 @@ const menu: MenuModule = {
         path: 'changePassword',
         name: t('routes.demo.system.password'),
         tag: {
-          content: 'new',
+          dot: true,
         },
       },
     ],
