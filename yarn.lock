@@ -1117,10 +1117,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.310":
-  version "1.1.310"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.310.tgz#4180cfdafbf4e218b8f78abae3434089bcb6ccf6"
-  integrity sha512-gLCuqulJPC2ly3upqPILOA1nV2fYfb99Dx64hLvneUb0r22opL+TfMfl352AjSZTFMGKV6ve8pNSAOS5gvY3vg==
+"@iconify/json@^1.1.311":
+  version "1.1.311"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.311.tgz#cafa09c427fdacce8198e787f87c194eaa7e3e38"
+  integrity sha512-ghm5JynA3aft0goTlEt6w2aYZCTaOO4IE59Cf99ip81NDs0qw4OJ/JSoR09jIrcVDSVZJdp3jf0Tni1iRV1j+w==
 
 "@intlify/core-base@9.0.0":
   version "9.0.0"
@@ -1780,16 +1780,16 @@
   dependencies:
     vue-demi latest
 
-"@windicss/plugin-utils@0.6.2":
-  version "0.6.2"
-  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.6.2.tgz#8fc76d9f2a1e3de123ffd54fdd9d1583801bb087"
-  integrity sha512-qR2h/vDn3LZtL0cC3id9nxPwhYqCtkcwASs63sHTUOzLhxz+zkG4xR+odndbR6PTjrlTgBC7n5hLjpq0lxRksg==
+"@windicss/plugin-utils@0.6.4":
+  version "0.6.4"
+  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.6.4.tgz#854f411b156fea61b2e6724799e91f0f9407a637"
+  integrity sha512-5RZQ71snmoKmZEXHyCByOohUM/SsWIX856+geMwOfbMOGL0guv/1TVg2PalFrZh3k/HfqQnO2ft5YSWKtrW32A==
   dependencies:
-    esbuild "^0.8.52"
+    esbuild "^0.8.54"
     esbuild-register "^2.0.0"
     fast-glob "^3.2.5"
     micromatch "^4.0.2"
-    windicss "^2.2.0"
+    windicss "^2.2.3"
 
 "@zxcvbn-ts/core@^0.2.0":
   version "0.2.0"
@@ -8957,13 +8957,13 @@ vite-plugin-theme@^0.4.8:
     es-module-lexer "^0.3.26"
     tinycolor2 "^1.4.2"
 
-vite-plugin-windicss@0.6.2:
-  version "0.6.2"
-  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.6.2.tgz#2b406c65768ce7df22451dc7b47c0026abd4bb24"
-  integrity sha512-V4WnjkxvriJSVQjswY+SrDKogOLNq1eG6dQw1wWcJRV+0QUz9pAGrMolSwed4d4MwSSbJrCA7If8xa+EFLUigw==
+vite-plugin-windicss@0.6.4:
+  version "0.6.4"
+  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.6.4.tgz#2d2bc7831dddff129d597959efaff616c6408a01"
+  integrity sha512-4BuUglBXeNIrIDfSKyg7rvqKEmxvyja2aKJxgHdOCICV8jIz2MvrZaRS9a74gUihz+OohBYqLnkOlfD+sCIQBg==
   dependencies:
-    "@windicss/plugin-utils" "0.6.2"
-    windicss "^2.2.0"
+    "@windicss/plugin-utils" "0.6.4"
+    windicss "^2.2.3"
 
 vite@^2.0.5:
   version "2.0.5"
@@ -9090,10 +9090,10 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
-windicss@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.npmjs.org/windicss/-/windicss-2.2.0.tgz#42fe83b9bff6d4fc9caf85272fb6c6ddb990fbc1"
-  integrity sha512-UuPhwe/NMgGOmUMnaTR+64eMeoiRCYb/zKJfo4pm9XUb4BRFlaFMm1x0KF1RF8EtK/8jKvDlXMc/J6UPBj8/OA==
+windicss@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.npmjs.org/windicss/-/windicss-2.2.3.tgz#5d25cab4b397d64f74660cac9b947b29cda240e9"
+  integrity sha512-rDaHpCgF3nq6tt21KC3691vhNZcbDHo0DJN+fgY5OmNCqd8muvZ9N4Zp9eqjWaJetg+ulz++MBM/pG9D70sj2w==
 
 wmf@~1.0.1:
   version "1.0.2"

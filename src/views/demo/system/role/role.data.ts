@@ -5,10 +5,14 @@ import { Tag } from 'ant-design-vue';
 
 export const columns: BasicColumn[] = [
   {
-    title: '部门名称',
-    dataIndex: 'deptName',
-    width: 160,
-    align: 'left',
+    title: '角色名称',
+    dataIndex: 'roleName',
+    width: 200,
+  },
+  {
+    title: '角色值',
+    dataIndex: 'roleValue',
+    width: 180,
   },
   {
     title: '排序',
@@ -40,8 +44,8 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'deptName',
-    label: '部门名称',
+    field: 'roleNme',
+    label: '角色名称',
     component: 'Input',
     colProps: { span: 8 },
   },
@@ -61,31 +65,16 @@ export const searchFormSchema: FormSchema[] = [
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'deptName',
-    label: '部门名称',
+    field: 'roleName',
+    label: '角色名称',
+    required: true,
     component: 'Input',
-    required: true,
   },
   {
-    field: 'parentDept',
-    label: '上级部门',
-    component: 'TreeSelect',
-
-    componentProps: {
-      replaceFields: {
-        title: 'deptName',
-        key: 'id',
-        value: 'id',
-      },
-      getPopupContainer: () => document.body,
-    },
+    field: 'roleValue',
+    label: '角色值',
     required: true,
-  },
-  {
-    field: 'orderNo',
-    label: '排序',
-    component: 'InputNumber',
-    required: true,
+    component: 'Input',
   },
   {
     field: 'status',
@@ -98,11 +87,16 @@ export const formSchema: FormSchema[] = [
         { label: '停用', value: '1' },
       ],
     },
-    required: true,
   },
   {
     label: '备注',
     field: 'remark',
     component: 'InputTextArea',
+  },
+  {
+    label: '菜单分配',
+    field: 'menu',
+    slot: 'menu',
+    component: 'Render',
   },
 ];

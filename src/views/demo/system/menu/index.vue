@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增部门 </a-button>
+        <a-button type="primary" @click="handleCreate"> 新增菜单 </a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -23,28 +23,28 @@
         />
       </template>
     </BasicTable>
-    <DeptModal @register="registerModal" @success="handleSuccess" />
+    <MenuDrawer @register="registerDrawer" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getDeptList } from '/@/api/demo/system';
+  import { getMenuList } from '/@/api/demo/system';
 
-  import { useModal } from '/@/components/Modal';
-  import DeptModal from './DeptModal.vue';
+  import { useDrawer } from '/@/components/Drawer';
+  import MenuDrawer from './MenuDrawer.vue';
 
-  import { columns, searchFormSchema } from './dept.data';
+  import { columns, searchFormSchema } from './menu.data';
 
   export default defineComponent({
-    name: 'DeptManagement',
-    components: { BasicTable, DeptModal, TableAction },
+    name: 'MenuManagement',
+    components: { BasicTable, MenuDrawer, TableAction },
     setup() {
-      const [registerModal, { openModal }] = useModal();
+      const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload }] = useTable({
-        title: '部门列表',
-        api: getDeptList,
+        title: '菜单列表',
+        api: getMenuList,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -67,13 +67,13 @@
       });
 
       function handleCreate() {
-        openModal(true, {
+        openDrawer(true, {
           isUpdate: false,
         });
       }
 
       function handleEdit(record: Recordable) {
-        openModal(true, {
+        openDrawer(true, {
           record,
           isUpdate: true,
         });
@@ -89,7 +89,7 @@
 
       return {
         registerTable,
-        registerModal,
+        registerDrawer,
         handleCreate,
         handleEdit,
         handleDelete,

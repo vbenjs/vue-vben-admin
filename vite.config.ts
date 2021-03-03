@@ -36,7 +36,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           replacement: pathResolve('src') + '/',
         },
         {
-          // /@/xxxx  =>  src/xxx
+          // /#/xxxx  =>  types/xxx
           find: /^\/#\//,
           replacement: pathResolve('types') + '/',
         },
@@ -52,6 +52,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
 
     build: {
+      cssCodeSplit: false,
       // minify: 'esbuild',
       outDir: OUTPUT_DIR,
       polyfillDynamicImport: VITE_LEGACY,
