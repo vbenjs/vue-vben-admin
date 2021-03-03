@@ -1,3 +1,35 @@
+## 2.0.1 (2021-03-04)
+
+### ✨ Refactor
+
+- Refactored multi-language modules to support lazy loading and remote loading
+
+### ✨ Features
+
+- axios supports form-data format request
+- Added icon selector component (support local and online methods)
+- Added WebSocket examples and service scripts
+- Added the `renderIcon` property to the Tree component to control the display of level icons
+- Tree->actionItem added show attribute, used to dynamically control button display
+- New toolbar/title/search function for Tree
+- Added department management/password modification/account management/role management/menu management sample interface
+
+### ⚡ Performance Improvements
+
+- Optimized login interface animation
+- Fix the problem of excessively large github warehouse.
+- Hide table full screen button by default
+- `crypto-es` is changed to `crypto-js` to reduce the package size
+- `types` directory moved to the root directory, compatible with other directory global types
+
+### 🐛 Bug Fixes
+
+- Fix the warning problem of verification code component
+- Fix the table cannot get the selected row correctly
+- Fixed modal height calculation error in full screen state
+- Fix some table style issues
+- Fix the invalidation of the tree form `indentSize` setting
+
 ## 2.0.1 (2021-02-21)
 
 ### ✨ Refactor
