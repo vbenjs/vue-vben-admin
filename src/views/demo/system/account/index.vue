@@ -2,7 +2,7 @@
   <div :class="[prefixCls]">
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreateAccount"> 新增账号 </a-button>
+        <a-button type="primary" @click="handleCreate"> 新增账号 </a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -23,7 +23,7 @@
         />
       </template>
     </BasicTable>
-    <AccountModal @register="registerModal" />
+    <AccountModal @register="registerModal" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
@@ -45,7 +45,7 @@
       const { prefixCls } = useDesign('account-management');
 
       const [registerModal, { openModal }] = useModal();
-      const [registerTable] = useTable({
+      const [registerTable, { reload }] = useTable({
         title: '账号列表',
         api: getAccountList,
         columns,
@@ -64,7 +64,7 @@
         },
       });
 
-      function handleCreateAccount() {
+      function handleCreate() {
         openModal(true, {
           isUpdate: false,
         });
@@ -81,13 +81,18 @@
         console.log(record);
       }
 
+      function handleSuccess() {
+        reload();
+      }
+
       return {
         prefixCls,
         registerTable,
         registerModal,
-        handleCreateAccount,
+        handleCreate,
         handleEdit,
         handleDelete,
+        handleSuccess,
       };
     },
   });
