@@ -1,4 +1,4 @@
-import type { InsertNodeParams, ReplaceFields } from './types';
+import type { InsertNodeParams, Keys, ReplaceFields } from './types';
 import type { Ref, ComputedRef } from 'vue';
 import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree';
 
@@ -10,6 +10,23 @@ export function useTree(
   treeDataRef: Ref<TreeDataItem[]>,
   getReplaceFields: ComputedRef<ReplaceFields>
 ) {
+  function getAllKeys(list?: TreeDataItem[]) {
+    const keys: string[] = [];
+    const treeData = list || unref(treeDataRef);
+    const { key: keyField, children: childrenField } = unref(getReplaceFields);
+    if (!childrenField || !keyField) return keys;
+
+    for (let index = 0; index < treeData.length; index++) {
+      const node = treeData[index];
+      keys.push(node[keyField]!);
+      const children = node[childrenField];
+      if (children && children.length) {
+        keys.push(...(getAllKeys(children) as string[]));
+      }
+    }
+    return keys as Keys;
+  }
+
   // Update node
   function updateNodeByKey(key: string, node: TreeDataItem, list?: TreeDataItem[]) {
     if (!key) return;
@@ -94,5 +111,5 @@ export function useTree(
       }
     }
   }
-  return { deleteNodeByKey, insertNodeByKey, filterByLevel, updateNodeByKey };
+  return { deleteNodeByKey, insertNodeByKey, filterByLevel, updateNodeByKey, getAllKeys };
 }

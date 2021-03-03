@@ -1791,10 +1791,10 @@
     micromatch "^4.0.2"
     windicss "^2.2.3"
 
-"@zxcvbn-ts/core@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/@zxcvbn-ts/core/-/core-0.2.0.tgz#ba3af1fed2213464ae12c0ab565798590afe8ef7"
-  integrity sha512-1NVKw2Tz3Iv3NE4RFTTcF2EQlmHfkNi48U0H80ZR/KLt3ANOFsCDp/mxGawdzCnBrf64E121xI49mpZDAACYZw==
+"@zxcvbn-ts/core@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.npmjs.org/@zxcvbn-ts/core/-/core-0.3.0.tgz#1a021afef29b97a5f8f72458de005fa149628e32"
+  integrity sha512-H1SOAoC7MbccN/CU9ENZHXwvwTwh6aRt88SOkGROAN9nT88o/qDPJ5B5bElRSbjKLfmmO1LqK2K4u2lUxjbQKQ==
 
 JSONStream@^1.0.4:
   version "1.3.5"

@@ -1,22 +1,18 @@
 <template>
   <PageWrapper title="Tree基础示例">
     <div class="flex">
-      <CollapseContainer title="基础示例" :style="{ width: '33%' }" class="mr-4">
-        <BasicTree :treeData="treeData" />
-      </CollapseContainer>
+      <BasicTree :treeData="treeData" title="基础示例" class="w-1/3" />
 
-      <CollapseContainer title="可勾选" class="mr-4" :style="{ width: '33%' }">
-        <BasicTree :treeData="treeData" :checkable="true" />
-      </CollapseContainer>
+      <BasicTree :treeData="treeData" title="可勾选" :checkable="true" class="w-1/3 mx-4" />
 
-      <CollapseContainer title="默认展开/勾选示例" :style="{ width: '33%' }">
-        <BasicTree
-          :treeData="treeData"
-          :checkable="true"
-          :expandedKeys="['0-0']"
-          :checkedKeys="['0-0']"
-        />
-      </CollapseContainer>
+      <BasicTree
+        title="默认展开/勾选示例"
+        :treeData="treeData"
+        :checkable="true"
+        :expandedKeys="['0-0']"
+        :checkedKeys="['0-0']"
+        class="w-1/3"
+      />
     </div>
   </PageWrapper>
 </template>
@@ -24,11 +20,10 @@
   import { defineComponent } from 'vue';
   import { BasicTree } from '/@/components/Tree/index';
   import { treeData } from './data';
-  import { CollapseContainer } from '/@/components/Container/index';
   import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
-    components: { BasicTree, CollapseContainer, PageWrapper },
+    components: { BasicTree, PageWrapper },
     setup() {
       return { treeData };
     },

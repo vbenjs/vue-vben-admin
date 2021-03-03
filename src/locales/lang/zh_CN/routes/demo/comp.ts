@@ -11,7 +11,7 @@ export default {
 
   tree: 'Tree',
   treeBasic: '基础树',
-  editTree: '右键示例',
+  editTree: '可搜索/工具栏',
   actionTree: '函数操作示例',
 
   modal: '弹窗扩展',
