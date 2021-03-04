@@ -4,6 +4,7 @@
 
 - 修复`Description`已知问题
 - 修复`BasicForm`已知问题
+- 修复`BasicTree`下 ActionItem 的 show 属性逻辑问题
 
 ## 2.0.2 (2021-03-04)
 

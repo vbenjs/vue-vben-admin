@@ -236,13 +236,14 @@
         const { actionList } = props;
         if (!actionList || actionList.length === 0) return;
         return actionList.map((item, index) => {
+          let nodeShow = true;
           if (isFunction(item.show)) {
-            return item.show?.(node);
+            nodeShow = item.show?.(node);
+          } else if (isBoolean(item.show)) {
+            nodeShow = item.show;
           }
 
-          if (isBoolean(item.show)) {
-            return item.show;
-          }
+          if (!nodeShow) return null;
 
           return (
             <span key={index} class={`${prefixCls}__action`}>
@@ -343,7 +344,6 @@
     }
 
     &__content {
-      // display: inline-block;
       overflow: hidden;
     }
 
