@@ -11,6 +11,7 @@
 - 修复`BasicTree`下 ActionItem 的 show 属性逻辑问题
 - 修复树组件 demo 示例样式错误
 - 修复账号管理新增未清空旧数据
+- form 组件应允许 setFieldsValue 方法值为 null 或者 undefined
 
 ## 2.0.2 (2021-03-04)
 
