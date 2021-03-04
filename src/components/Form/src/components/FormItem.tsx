@@ -105,6 +105,7 @@ export default defineComponent({
           ? props.schema.isAdvanced
           : true
         : true;
+
       let isShow = true;
       let isIfShow = true;
 

@@ -26,7 +26,7 @@
         },
       });
 
-      const [registerModal, { setModalProps }] = useModalInner(async (data) => {
+      const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {
         resetFields();
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
@@ -58,6 +58,7 @@
           setModalProps({ confirmLoading: true });
           // TODO custom api
           console.log(values);
+          closeModal();
           emit('success');
         } finally {
           setModalProps({ confirmLoading: false });

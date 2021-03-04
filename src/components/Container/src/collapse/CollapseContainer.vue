@@ -5,6 +5,7 @@
       :prefixCls="prefixCls"
       :show="show"
       @expand="handleExpand"
+      :class="show ? 'mb-3' : ''"
     >
       <template #title>
         <slot name="title"></slot>
@@ -108,7 +109,7 @@
     &__header {
       display: flex;
       height: 32px;
-      margin-bottom: 10px;
+      // margin-bottom: 10px;
       justify-content: space-between;
       align-items: center;
     }
