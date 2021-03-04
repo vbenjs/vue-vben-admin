@@ -1,39 +1,39 @@
 ---
 name: 🐛 Bug report
 about: Create a report to help us improve
-labels: 🔍 status/open, 🐛 type/bug
+title: ''
+labels: 'bug: pending triage'
+assignees: ''
 ---
 
 <!--
+抱歉，您遇到了一个错误。感谢您抽出宝贵的时间进行举报！
+
+请尽可能填写以下模板。
+
 Ouch, sorry you’ve run into a bug.  Thank for taking the time to report it!
 
 Please fill in as much of the template below as you’re able.
 
 P.S. have you seen our support and contributing docs?
-https://github.com/get-alex/.github/blob/master/support.md
-https://github.com/get-alex/.github/blob/master/contributing.md
 -->
 
-### Subject of the issue
+**⚠️ IMPORTANT ⚠️ Please check the following list before proceeding. If you ignore this issue template, your issue will be directly closed.**
 
-Describe your issue here.
+- [ ] Read [the docs](https://anncwb.github.io/vue-vben-admin-doc/).
+- [ ] Make sure the code is up to date. (Some bugs have been fixed in the latest code)
+- [ ] This is a concrete bug. For Q&A open a [GitHub Discussion](https://github.com/anncwb/vue-vben-admin/discussions) or join our [Discord](https://discord.gg/8GuAdwDhj6) Chat Server.
 
-### Your environment
+### Describe the bug
 
-- **OS**: <!-- Name and version of operating system -->
-- **Packages**: <!-- Names and version of required packages -->
-- **Env**: <!-- Version of node, npm, yarn, or names and versions of browser -->
+A clear and concise description of what the bug is..
 
-### Steps to reproduce
+### Reproduction
 
-Tell us how to reproduce this issue. Please provide a working and simplified example.
+Please describe the steps of the problem in detail to ensure that we can restore the correct problem
 
-🎉 BONUS POINTS for creating a [minimal reproduction](https://stackoverflow.com/help/mcve) and uploading it to GitHub. This will get you the fastest support. 🎉
+## System Info
 
-### Expected behaviour
-
-What should happen?
-
-### Actual behaviour
-
-What happens instead?
+- Operating System:
+- Node version:
+- Package manager (npm/yarn/pnpm) and version:

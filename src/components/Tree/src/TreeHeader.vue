@@ -26,7 +26,7 @@
   import type { PropType } from 'vue';
   import { defineComponent, ref } from 'vue';
 
-  import { Dropdown, Menu, Checkbox, Input } from 'ant-design-vue';
+  import { Dropdown, Menu, Input } from 'ant-design-vue';
   import { Icon } from '/@/components/Icon';
   import { BasicTitle } from '/@/components/Basic';
 
@@ -45,7 +45,6 @@
     components: {
       BasicTitle,
       Icon,
-      Checkbox,
       Dropdown,
       Menu,
       MenuItem: Menu.Item,
