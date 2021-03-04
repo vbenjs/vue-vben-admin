@@ -91,8 +91,8 @@
   const icons = getIcons();
   export default defineComponent({
     name: 'IconPicker',
-    inheritAttrs: false,
     components: { [Input.name]: Input, Icon, Popover, ScrollContainer, Pagination, Empty },
+    inheritAttrs: false,
     props: {
       value: propTypes.string,
       width: propTypes.string.def('100%'),

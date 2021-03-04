@@ -110,7 +110,7 @@
     "vite-plugin-pwa": "^0.5.6",
     "vite-plugin-style-import": "^0.7.6",
     "vite-plugin-theme": "^0.4.8",
-    "vite-plugin-windicss": "0.6.4",
+    "vite-plugin-windicss": "0.6.5",
     "vue-eslint-parser": "^7.6.0",
     "yargs": "^16.2.0"
   },
