@@ -17,6 +17,7 @@
 
   export default defineComponent({
     name: 'PageFooter',
+    inheritAttrs: false,
     setup() {
       const { prefixCls } = useDesign('page-footer');
       const { getCalcContentWidth } = useMenuSetting();

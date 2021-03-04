@@ -72,12 +72,13 @@
         schema: schema,
       });
 
-      const [register1] = useDescription({
+      const [register1, { setDescProps }] = useDescription({
         title: '无边框',
         bordered: false,
         data: mockData,
         schema: schema,
       });
+
       return { mockData, schema, register, register1 };
     },
   });

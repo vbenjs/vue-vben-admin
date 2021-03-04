@@ -156,7 +156,7 @@ yarn build
 
 ![donate](https://anncwb.github.io/anncwb/images/sponsor.png)
 
-[Paypal Me](https://www.paypal.com/paypalme/cvvben)
+<a style="display: block;width: 100px;height: 50px;line-height: 50px; color: #fff;text-align: center; background: #408aed;border-radius: 4px;" href="https://www.paypal.com/paypalme/cvvben">Paypal Me</a>
 
 ## 交流
 
