@@ -121,7 +121,7 @@
         return icon;
       }
 
-      async function handleRightClick({ event, node }: any) {
+      async function handleRightClick({ event, node }: Recordable) {
         const { rightMenuList: menuList = [], beforeRightClick } = props;
         let rightMenuList: ContextMenuItem[] = [];
 
@@ -137,14 +137,14 @@
         });
       }
 
-      function setExpandedKeys(keys: string[]) {
+      function setExpandedKeys(keys: Keys) {
         state.expandedKeys = keys;
       }
 
       function getExpandedKeys() {
         return state.expandedKeys;
       }
-      function setSelectedKeys(keys: string[]) {
+      function setSelectedKeys(keys: Keys) {
         state.selectedKeys = keys;
       }
 
@@ -182,8 +182,21 @@
         searchState.searchData = filter(unref(treeDataRef), (node) => {
           const { title } = node;
           return title?.includes(searchValue) ?? false;
-          // || key?.includes(searchValue);
         });
+      }
+
+      function handleClickNode(key: string, children: TreeItem[]) {
+        if (!props.clickRowToExpand || !children || children.length === 0) return;
+        if (!state.expandedKeys.includes(key)) {
+          setExpandedKeys([...state.expandedKeys, key]);
+        } else {
+          const keys = [...state.expandedKeys];
+          const index = keys.findIndex((item) => item === key);
+          if (index !== -1) {
+            keys.splice(index, 1);
+          }
+          setExpandedKeys(keys);
+        }
       }
 
       watchEffect(() => {
@@ -264,11 +277,15 @@
 
           const propsData = omit(item, 'title');
           const icon = getIcon({ ...item, level }, item.icon);
+          const children = get(item, childrenField) || [];
           return (
             <Tree.TreeNode {...propsData} node={toRaw(item)} key={get(item, keyField)}>
               {{
                 title: () => (
-                  <span class={`${prefixCls}-title pl-2`}>
+                  <span
+                    class={`${prefixCls}-title pl-2`}
+                    onClick={handleClickNode.bind(null, item.key, children)}
+                  >
                     {icon && <TreeIcon icon={icon} />}
                     <span
                       class={`${prefixCls}__content`}
@@ -279,8 +296,7 @@
                     <span class={`${prefixCls}__actions`}> {renderAction({ ...item, level })}</span>
                   </span>
                 ),
-                default: () =>
-                  renderTreeNode({ data: get(item, childrenField) || [], level: level + 1 }),
+                default: () => renderTreeNode({ data: children, level: level + 1 }),
               }}
             </Tree.TreeNode>
           );
@@ -289,7 +305,7 @@
       return () => {
         const { title, helpMessage, toolbar, search } = props;
         return (
-          <div class={[prefixCls, 'h-full bg-white']}>
+          <div class={[prefixCls, 'h-full bg-white', attrs.class]}>
             {(title || toolbar || search) && (
               <TreeHeader
                 checkAll={checkAll}

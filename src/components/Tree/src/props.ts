@@ -21,6 +21,7 @@ export const basicProps = {
   toolbar: propTypes.bool,
   search: propTypes.bool,
   checkStrictly: propTypes.bool,
+  clickRowToExpand: propTypes.bool.def(true),
 
   replaceFields: {
     type: Object as PropType<ReplaceFields>,
