@@ -59,9 +59,11 @@ export function useFormEvents({
       const schema = unref(getSchema).find((item) => item.field === key);
       let value = values[key];
 
+      const hasKey = Reflect.has(values, key);
+
       value = handleInputNumberValue(schema?.component, value);
       // 0| '' is allow
-      if (value !== undefined && value !== null && fields.includes(key)) {
+      if (hasKey && fields.includes(key)) {
         // time type
         if (itemIsDateType(key)) {
           if (Array.isArray(value)) {

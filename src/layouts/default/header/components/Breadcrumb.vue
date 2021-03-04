@@ -91,7 +91,7 @@
           return true;
         }).filter((item) => !item.meta?.hideBreadcrumb || !item.meta?.hideMenu);
 
-        resultList = resultList.filter((item) => item.path !== PageEnum.BASE_HOME);
+        // resultList = resultList.filter((item) => item.path !== PageEnum.BASE_HOME);
         return resultList;
       }
 
