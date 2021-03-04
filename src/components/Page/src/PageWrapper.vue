@@ -37,6 +37,7 @@
   import { PageHeader } from 'ant-design-vue';
   export default defineComponent({
     name: 'PageWrapper',
+    inheritAttrs: false,
     components: { PageFooter, PageHeader },
     props: {
       dense: propTypes.bool,

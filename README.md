@@ -148,7 +148,7 @@ Support modern browsers, not IE
 
 ## Maintainer
 
-[@Vben](https://github.com/anncwb)。
+[@Vben](https://github.com/anncwb)
 
 ## Donate
 
@@ -156,7 +156,7 @@ If you think this project is helpful to you, you can help the author buy a cup o
 
 ![donate](https://anncwb.github.io/anncwb/images/sponsor.png)
 
-[Paypal Me](https://www.paypal.com/paypalme/cvvben)
+<a style="display: block;width: 100px;height: 50px;line-height: 50px; color: #fff;text-align: center; background: #408aed;border-radius: 4px;" href="https://www.paypal.com/paypalme/cvvben">Paypal Me</a>
 
 ## Discord
 
