@@ -13,8 +13,6 @@
 
   import { isFunction } from '/@/utils/is';
   import { getSlot } from '/@/utils/helper/tsxHelper';
-  import { cloneDeep } from 'lodash-es';
-  import { deepMerge } from '/@/utils';
 
   import descProps from './props';
   import { useAttrs } from '/@/hooks/core/useAttrs';

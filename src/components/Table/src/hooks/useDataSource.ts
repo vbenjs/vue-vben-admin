@@ -155,9 +155,15 @@ export function useDataSource(
   }
 
   async function fetch(opt?: FetchParams) {
-    const { api, searchInfo, fetchSetting, beforeFetch, afterFetch, useSearchForm } = unref(
-      propsRef
-    );
+    const {
+      api,
+      searchInfo,
+      fetchSetting,
+      beforeFetch,
+      afterFetch,
+      useSearchForm,
+      pagination,
+    } = unref(propsRef);
     if (!api || !isFunction(api)) return;
     try {
       setLoading(true);
@@ -166,7 +172,7 @@ export function useDataSource(
 
       const { current = 1, pageSize = PAGE_SIZE } = unref(getPaginationInfo) as PaginationProps;
 
-      if (isBoolean(getPaginationInfo)) {
+      if (!pagination || isBoolean(getPaginationInfo)) {
         pageParams = {};
       } else {
         pageParams[pageField] = (opt && opt.page) || current;

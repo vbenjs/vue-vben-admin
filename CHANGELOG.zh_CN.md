@@ -4,6 +4,11 @@
 
 - `BasicTree` 新增`clickRowToExpand`,用于单击树节点展开
 
+### ⚡ Performance Improvements
+
+- 表格关闭分页时不再携带分页参数
+- 登录页监听回车事件进行登录
+
 ### 🐛 Bug Fixes
 
 - 修复`Description`已知问题

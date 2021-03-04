@@ -3,6 +3,7 @@ import type { Menu } from '/@/router/types';
 import { ref, onBeforeMount, unref, Ref, nextTick } from 'vue';
 
 import { getMenus } from '/@/router/menus';
+import { KeyCodeEnum } from '/@/enums/keyCodeEnum';
 
 import { cloneDeep } from 'lodash-es';
 import { filter, forEach } from '/@/utils/helper/treeHelper';
@@ -17,13 +18,6 @@ export interface SearchResult {
   name: string;
   path: string;
   icon?: string;
-}
-
-const enum KeyCodeEnum {
-  UP = 38,
-  DOWN = 40,
-  ENTER = 13,
-  ESC = 27,
 }
 
 // Translate special characters

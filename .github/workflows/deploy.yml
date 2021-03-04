@@ -55,7 +55,7 @@ jobs:
   #         ARGS: --delete --verbose --parallel=80
 
   push-to-gh-pages:
-    if: "contains(github.event.head_commit.message, '[deploy]')"
+    if: "contains(github.event.head_commit.message, '[release]')"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
