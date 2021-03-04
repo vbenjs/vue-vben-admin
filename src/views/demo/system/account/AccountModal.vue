@@ -17,7 +17,7 @@
     setup(_, { emit }) {
       const isUpdate = ref(true);
 
-      const [registerForm, { setFieldsValue, updateSchema, validate }] = useForm({
+      const [registerForm, { setFieldsValue, updateSchema, resetFields, validate }] = useForm({
         labelWidth: 100,
         schemas: accountFormSchema,
         showActionButtonGroup: false,
@@ -27,6 +27,7 @@
       });
 
       const [registerModal, { setModalProps }] = useModalInner(async (data) => {
+        resetFields();
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
 

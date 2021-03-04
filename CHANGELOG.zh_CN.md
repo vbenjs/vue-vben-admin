@@ -1,10 +1,16 @@
 ## Wip
 
+### ✨ Features
+
+- `BasicTree` 新增`clickRowToExpand`,用于单击树节点展开
+
 ### 🐛 Bug Fixes
 
 - 修复`Description`已知问题
 - 修复`BasicForm`已知问题
 - 修复`BasicTree`下 ActionItem 的 show 属性逻辑问题
+- 修复树组件 demo 示例样式错误
+- 修复账号管理新增未清空旧数据
 
 ## 2.0.2 (2021-03-04)
 
