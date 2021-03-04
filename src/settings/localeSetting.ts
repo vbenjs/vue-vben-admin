@@ -7,7 +7,7 @@ export const LOCALE: { [key: string]: LocaleType } = {
 };
 
 export const localeSetting: LocaleSetting = {
-  showPicker: true,
+  showPicker: false,
   // Locale
   locale: LOCALE.ZH_CN,
   // Default locale

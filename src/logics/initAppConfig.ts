@@ -23,7 +23,7 @@ import { deepMerge } from '/@/utils';
 // Initial project configuration
 export function initAppConfigStore() {
   let projCfg: ProjectConfig = Persistent.getLocal(PROJ_CFG_KEY) as ProjectConfig;
-  projCfg = deepMerge(projectSetting, projCfg || {});
+  projCfg = deepMerge(projCfg || {}, projectSetting);
   try {
     const {
       colorWeak,
