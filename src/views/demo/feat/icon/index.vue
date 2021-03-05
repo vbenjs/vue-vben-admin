@@ -21,6 +21,12 @@
       </div>
     </CollapseContainer>
 
+    <CollapseContainer title="svg Sprite" class="my-5">
+      <div class="flex justify-around flex-wrap">
+        <SvgIcon name="test" size="32" />
+      </div>
+    </CollapseContainer>
+
     <CollapseContainer title="图标选择器" class="my-5">
       <div class="flex justify-around flex-wrap">
         <IconPicker />
@@ -49,7 +55,7 @@
     CodepenCircleFilled,
   } from '@ant-design/icons-vue';
 
-  import { Icon, IconPicker } from '/@/components/Icon/index';
+  import { Icon, IconPicker, SvgIcon } from '/@/components/Icon/index';
 
   import { openWindow } from '/@/utils';
   import { PageWrapper } from '/@/components/Page';
@@ -68,6 +74,7 @@
       Icon,
       Alert,
       IconPicker,
+      SvgIcon,
     },
     setup() {
       return {
