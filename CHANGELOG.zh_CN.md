@@ -3,6 +3,7 @@
 ### ✨ Features
 
 - `BasicTree` 新增`clickRowToExpand`,用于单击树节点展开
+- 新增 SvgIcon 插件及示例
 
 ### ⚡ Performance Improvements
 

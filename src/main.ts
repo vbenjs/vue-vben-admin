@@ -12,6 +12,8 @@ import { setupI18n } from '/@/locales/setupI18n';
 
 import { registerGlobComp } from '/@/components/registerGlobComp';
 
+import 'vite-plugin-svg-icons/register';
+
 import { isDevMode } from '/@/utils/env';
 
 (async () => {
