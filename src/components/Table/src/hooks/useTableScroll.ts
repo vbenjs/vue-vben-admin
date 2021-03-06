@@ -55,6 +55,7 @@ export function useTableScroll(
   // No need to repeat queries
   let paginationEl: HTMLElement | null;
   let footerEl: HTMLElement | null;
+  let bodyEl: HTMLElement | null;
 
   async function calcTableHeight() {
     const { resizeHeightOffset, pagination, maxHeight } = unref(propsRef);
@@ -68,6 +69,7 @@ export function useTableScroll(
     if (!tableEl) return;
 
     const headEl = tableEl.querySelector('.ant-table-thead ');
+
     if (!headEl) return;
 
     // Table height from bottom
@@ -117,6 +119,11 @@ export function useTableScroll(
 
     height = (height > maxHeight! ? (maxHeight as number) : height) ?? height;
     setHeight(height);
+
+    if (!bodyEl) {
+      bodyEl = tableEl.querySelector('.ant-table-body');
+    }
+    bodyEl!.style.height = `${height}px`;
   }
 
   useWindowSizeFn(calcTableHeight, 200);

@@ -1,6 +1,11 @@
 <template>
   <div :class="getClass">
-    <PageHeader :ghost="ghost" v-bind="$attrs" ref="headerRef">
+    <PageHeader
+      :ghost="ghost"
+      v-bind="$attrs"
+      ref="headerRef"
+      v-if="content || $slots.headerContent"
+    >
       <template #default>
         <template v-if="content">
           {{ content }}
@@ -11,7 +16,11 @@
         <slot :name="item" v-bind="data"></slot>
       </template>
     </PageHeader>
-    <div :class="[`${prefixCls}-content`, $attrs.contentClass]" :style="getContentStyle">
+    <div
+      class="m-4 overflow-hidden"
+      :class="[`${prefixCls}-content`, contentClass]"
+      :style="getContentStyle"
+    >
       <slot></slot>
     </div>
     <PageFooter v-if="getShowFooter" ref="footerRef">
@@ -48,6 +57,8 @@
       },
       contentBackground: propTypes.bool,
       contentFullHeight: propTypes.bool,
+      contentClass: propTypes.string,
+      fixedHeight: propTypes.bool,
     },
     setup(props, { slots }) {
       const headerRef = ref<ComponentRef>(null);
@@ -73,15 +84,17 @@
 
       const getContentStyle = computed(
         (): CSSProperties => {
-          const { contentBackground, contentFullHeight, contentStyle } = props;
+          const { contentBackground, contentFullHeight, contentStyle, fixedHeight } = props;
           const bg = contentBackground ? { backgroundColor: '#fff' } : {};
           if (!contentFullHeight) {
             return { ...bg, ...contentStyle };
           }
+          const height = `${unref(pageHeight)}px`;
           return {
             ...bg,
             ...contentStyle,
-            minHeight: `${unref(pageHeight)}px`,
+            minHeight: height,
+            ...(fixedHeight ? { height } : {}),
             paddingBottom: `${unref(footerHeight)}px`,
           };
         }
@@ -137,16 +150,9 @@
     position: relative;
 
     .ant-page-header {
-      // padding: 12px 16px;
-
       &:empty {
         padding: 0;
       }
-    }
-
-    &-content {
-      // padding: 12px;
-      margin: 16px;
     }
 
     &--dense {

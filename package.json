@@ -109,7 +109,7 @@
     "vite-plugin-mock": "^2.2.0",
     "vite-plugin-purge-icons": "^0.7.0",
     "vite-plugin-pwa": "^0.5.6",
-    "vite-plugin-style-import": "^0.7.6",
+    "vite-plugin-style-import": "^0.8.1",
     "vite-plugin-svg-icons": "^0.2.1",
     "vite-plugin-theme": "^0.4.8",
     "vite-plugin-windicss": "0.6.10",
