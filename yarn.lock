@@ -3662,10 +3662,10 @@ es-module-lexer@^0.3.26:
   resolved "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-0.3.26.tgz#7b507044e97d5b03b01d4392c74ffeb9c177a83b"
   integrity sha512-Va0Q/xqtrss45hWzP8CZJwzGSZJjDM5/MJRE3IXXnUCcVLElR9BRaE9F62BopysASyc4nM3uwhSW7FFB9nlWAA==
 
-es-module-lexer@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-0.4.0.tgz#21f4181cc8b7eee06855f1c59e6087c7bc4f77b0"
-  integrity sha512-iuEGihqqhKWFgh72Q/Jtch7V2t/ft8w8IPP2aEN8ArYKO+IWyo6hsi96hCdgyeEDQIV3InhYQ9BlwUFPGXrbEQ==
+es-module-lexer@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-0.4.1.tgz#dda8c6a14d8f340a24e34331e0fab0cb50438e0e"
+  integrity sha512-ooYciCUtfw6/d2w56UVeqHPcoCFAiJdz5XOkYpv/Txl1HMUozpXjz/2RIQgqwKdXNDPSF1W7mJCFse3G+HDyAA==
 
 es-to-primitive@^1.2.1:
   version "1.2.1"
@@ -9120,15 +9120,15 @@ vite-plugin-pwa@^0.5.6:
     pretty-bytes "^5.6.0"
     workbox-build "^6.1.1"
 
-vite-plugin-style-import@^0.7.6:
-  version "0.7.6"
-  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-0.7.6.tgz#909a5402f3a915fb2512e2a039e9cdb360fd2882"
-  integrity sha512-EDjscCzMsmi6mJ0UbMLMkCGLo7LCdFsRJZdjO7sfUIB+2wsC1FjDJcIEGWg0Lzl+4gghv9rk+AP+WCibI83WNw==
+vite-plugin-style-import@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-0.8.1.tgz#e098c633cba3abef9b5a156aaf47f001567ebbb9"
+  integrity sha512-qZg73SA2+tbuEk7b0VjubjceUKVzHB6NwDYd3R9Hd6At4+sJ/85UIlTkzxSWHNgkTQh4sIOMQi1olXjkSF7tjg==
   dependencies:
     "@rollup/pluginutils" "^4.1.0"
     change-case "^4.1.2"
     debug "^4.3.2"
-    es-module-lexer "^0.4.0"
+    es-module-lexer "^0.4.1"
     magic-string "^0.25.7"
 
 vite-plugin-svg-icons@^0.2.1:

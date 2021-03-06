@@ -1,6 +1,7 @@
 <template>
-  <div :class="[prefixCls]">
-    <BasicTable @register="registerTable">
+  <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
+    <DeptTree class="w-1/4 xl:w-1/5" @select="handleSelect" />
+    <BasicTable @register="registerTable" class="w-3/4 xl:w-4/5">
       <template #toolbar>
         <a-button type="primary" @click="handleCreate"> 新增账号 </a-button>
       </template>
@@ -24,14 +25,15 @@
       </template>
     </BasicTable>
     <AccountModal @register="registerModal" @success="handleSuccess" />
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
 
-  import { useDesign } from '/@/hooks/web/useDesign';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getAccountList } from '/@/api/demo/system';
+  import { PageWrapper } from '/@/components/Page';
+  import DeptTree from './DeptTree.vue';
 
   import { useModal } from '/@/components/Modal';
   import AccountModal from './AccountModal.vue';
@@ -40,10 +42,8 @@
 
   export default defineComponent({
     name: 'AccountManagement',
-    components: { BasicTable, AccountModal, TableAction },
+    components: { BasicTable, PageWrapper, DeptTree, AccountModal, TableAction },
     setup() {
-      const { prefixCls } = useDesign('account-management');
-
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
         title: '账号列表',
@@ -86,22 +86,19 @@
         reload();
       }
 
+      function handleSelect(deptId: string = '') {
+        reload({ searchInfo: { deptId } });
+      }
+
       return {
-        prefixCls,
         registerTable,
         registerModal,
         handleCreate,
         handleEdit,
         handleDelete,
         handleSuccess,
+        handleSelect,
       };
     },
   });
 </script>
-<style lang="less" scoped>
-  @prefix-cls: ~'@{namespace}-account-management';
-
-  .@{prefix-cls} {
-    display: flex;
-  }
-</style>

@@ -1,10 +1,21 @@
 <script lang="tsx">
   import type { ReplaceFields, Keys, CheckKeys, TreeActionType, TreeItem } from './types';
 
-  import { defineComponent, reactive, computed, unref, ref, watchEffect, toRaw, watch } from 'vue';
-  import { Tree } from 'ant-design-vue';
+  import {
+    defineComponent,
+    reactive,
+    computed,
+    unref,
+    ref,
+    watchEffect,
+    toRaw,
+    watch,
+    CSSProperties,
+  } from 'vue';
+  import { Tree, Empty } from 'ant-design-vue';
   import { TreeIcon } from './TreeIcon';
   import TreeHeader from './TreeHeader.vue';
+  import { ScrollContainer } from '/@/components/Container';
   // import { DownOutlined } from '@ant-design/icons-vue';
 
   import { omit, get } from 'lodash-es';
@@ -95,6 +106,11 @@
             emit('update:value', rawVal);
           },
           onRightClick: handleRightClick,
+          // onSelect: (k, e) => {
+          //   setTimeout(() => {
+          //     emit('select', k, e);
+          //   }, 16);
+          // },
         };
         propsData = omit(propsData, 'treeData', 'class');
         return propsData;
@@ -103,6 +119,10 @@
       const getTreeData = computed((): TreeItem[] =>
         searchState.startSearch ? searchState.searchData : unref(treeDataRef)
       );
+
+      const getNotFound = computed((): boolean => {
+        return searchState.startSearch && searchState.searchData?.length === 0;
+      });
 
       const {
         deleteNodeByKey,
@@ -178,10 +198,10 @@
           return;
         }
         searchState.startSearch = true;
+        const { title: titleField } = unref(getReplaceFields);
 
         searchState.searchData = filter(unref(treeDataRef), (node) => {
-          const { title } = node;
-          return title?.includes(searchValue) ?? false;
+          return node[titleField]?.includes(searchValue) ?? false;
         });
       }
 
@@ -284,7 +304,7 @@
                 title: () => (
                   <span
                     class={`${prefixCls}-title pl-2`}
-                    onClick={handleClickNode.bind(null, item.key, children)}
+                    onClick={handleClickNode.bind(null, item[keyField], item[childrenField])}
                   >
                     {icon && <TreeIcon icon={icon} />}
                     <span
@@ -304,9 +324,11 @@
       }
       return () => {
         const { title, helpMessage, toolbar, search } = props;
+        const showTitle = title || toolbar || search;
+        const scrollStyle: CSSProperties = { height: 'calc(100% - 38px)' };
         return (
           <div class={[prefixCls, 'h-full bg-white', attrs.class]}>
-            {(title || toolbar || search) && (
+            {showTitle && (
               <TreeHeader
                 checkAll={checkAll}
                 expandAll={expandAll}
@@ -318,13 +340,17 @@
                 onSearch={handleSearch}
               />
             )}
-            <Tree {...unref(getBindValues)} showIcon={false}>
-              {{
-                // switcherIcon: () => <DownOutlined />,
-                default: () => renderTreeNode({ data: unref(getTreeData), level: 1 }),
-                ...extendSlots(slots),
-              }}
-            </Tree>
+            <ScrollContainer style={scrollStyle} v-show={!unref(getNotFound)}>
+              <Tree {...unref(getBindValues)} showIcon={false}>
+                {{
+                  // switcherIcon: () => <DownOutlined />,
+                  default: () => renderTreeNode({ data: unref(getTreeData), level: 1 }),
+                  ...extendSlots(slots),
+                }}
+              </Tree>
+            </ScrollContainer>
+
+            <Empty v-show={unref(getNotFound)} class="!mt-4" />
           </div>
         );
       };
