@@ -1770,31 +1770,31 @@
   resolved "https://registry.npmjs.org/@vue/shared/-/shared-3.0.7.tgz#96d52988efc07444c108c7c6803ba7cc93e40045"
   integrity sha512-dn5FyfSc4ky424jH4FntiHno7Ss5yLkqKNmM/NXwANRnlkmqu74pnGetexDFVG5phMk9/FhwovUZCWGxsotVKg==
 
-"@vueuse/core@^4.3.1":
-  version "4.3.1"
-  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.3.1.tgz#f6fdb2afef6acbe59abb9832d0a7cfa01e65ce36"
-  integrity sha512-/UkL83zSkE1qb1aqidSjUxADB9ggRnchXe5CliqAb5Ak7Rt9IfdUC4zfvvAtwlIgNvT1Fo9YCtgRma4H2TVLEQ==
+"@vueuse/core@^4.3.4":
+  version "4.3.4"
+  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.3.4.tgz#32dcd4b48536c6b8051495389a259ed1b96e9413"
+  integrity sha512-OKMJNdQltsMu8l9MMQ0qvjKK4kO5x0tHveqn6ypWcSQ/NSSMRcUynbE4G404DM52Adg3aFtgrirXcM4uoM6cjg==
   dependencies:
-    "@vueuse/shared" "4.3.1"
+    "@vueuse/shared" "4.3.4"
     vue-demi latest
 
-"@vueuse/shared@4.3.1":
-  version "4.3.1"
-  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.3.1.tgz#6f0f6c82f096ca329d9541d6f37f29a2d19dd107"
-  integrity sha512-K2F+z16BqcOtEp/pJEK7cPvOMsgBChGGfx0UAatXt8Awk+b4Vi6L6//KclAV1N7w+e9u2kJlC1Ld8GqdY5ZxRg==
+"@vueuse/shared@4.3.4":
+  version "4.3.4"
+  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.3.4.tgz#fe8e66842da4b7b5005a4a427d673e89f472f958"
+  integrity sha512-O1PxiG8cSD4YQKHJXWAeBVVTJNpBwCse7TkTsMqqLzqOjP2apbncfPzOcYJHVR5NkUXmtvPBIWAQuRavXKmHSw==
   dependencies:
     vue-demi latest
 
-"@windicss/plugin-utils@0.6.6":
-  version "0.6.6"
-  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.6.6.tgz#cc193cbf7f09011049e718703a1dbb64471280c2"
-  integrity sha512-9W6sy8oSDqYDeTtv03S5AMm5qc8w70f2obwFiVeI0JuhFM1lra3+bMin4HEbRJqJQCjy6xDiSkF6vxOiLSg9kQ==
+"@windicss/plugin-utils@0.6.10":
+  version "0.6.10"
+  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.6.10.tgz#39a7f5df9f515eae556ef610a8ae21be9b07ef0c"
+  integrity sha512-dMPHtUHmOktnikLah8tmMQjU2gb5AGxuXO8wen3lMo/G8YZI1H9Ua9qnMUIbaJ11mlGhpv89iYEsyfRHThbi/w==
   dependencies:
-    esbuild "^0.8.54"
-    esbuild-register "^2.0.0"
+    esbuild "^0.8.56"
+    esbuild-register "^2.2.0"
     fast-glob "^3.2.5"
     micromatch "^4.0.2"
-    windicss "^2.2.3"
+    windicss "^2.2.6"
 
 "@zxcvbn-ts/core@^0.3.0":
   version "0.3.0"
@@ -3676,17 +3676,14 @@ es-to-primitive@^1.2.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
-esbuild-register@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/esbuild-register/-/esbuild-register-2.0.0.tgz#579a6eff4e5713a318602b4d305bcb6f8c5b08f9"
-  integrity sha512-98i1+7OnCURCbKaWw5wnY05e4v7uknFEER7LtVxi/lCs8U+sl6/LnITvfeoDLrsqxlA3O6BjxK8QqsirfYULfA==
+esbuild-register@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.npmjs.org/esbuild-register/-/esbuild-register-2.2.0.tgz#1c68af6e8e6c4a23af01825224e71bcbd3c85d83"
+  integrity sha512-27039YMtpC3lI8yYGGm78SAQBtBo/4IPMReWVsNh4++VtvozmasBd1a2HiTdk0297iuA2pMzrzvL5cZJqQCKxQ==
   dependencies:
-    joycon "^2.2.5"
-    pirates "^4.0.1"
-    source-map-support "^0.5.19"
-    strip-json-comments "^3.1.1"
+    jsonc-parser "^3.0.0"
 
-esbuild@0.8.56, esbuild@^0.8.52, esbuild@^0.8.53, esbuild@^0.8.54:
+esbuild@0.8.56, esbuild@^0.8.52, esbuild@^0.8.54, esbuild@^0.8.56:
   version "0.8.56"
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.8.56.tgz#9c7c3d6e614db7367afa348adb0ab287c296735e"
   integrity sha512-PTMdAWK3JI2MNW811znGssGP5GR44tQPr++VQ1rPP0n8Z1cTKbCPD3S/kXPLr3ZZDIwAaVm08fuFym6Rp8l/0A==
@@ -3796,13 +3793,13 @@ eslint@^7.21.0:
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
 
-esno@^0.4.5:
-  version "0.4.5"
-  resolved "https://registry.npmjs.org/esno/-/esno-0.4.5.tgz#befd93a0b9021b8879aef359d2938d38be960c5a"
-  integrity sha512-QzQZPVlpII0RJCDecsi28gjJFa6DXb/kAn3IHE+XHTw382wAA89jF40DcP/t+Yn/usrHyDlmseBppvr5Jxy7qw==
+esno@^0.4.6:
+  version "0.4.6"
+  resolved "https://registry.npmjs.org/esno/-/esno-0.4.6.tgz#2482fa119c7f111224c091575c7d43ad13cfbcc6"
+  integrity sha512-6sjoAqYmkLL5h/9eNchRblH6Eq1WrUmak2ROHjH/6lyakGSmdPsl/pigp+pXez7yqPU0bsy4W5hpyoUUjlxhsQ==
   dependencies:
-    esbuild "^0.8.53"
-    esbuild-register "^2.0.0"
+    esbuild "^0.8.56"
+    esbuild-register "^2.2.0"
 
 espree@^6.2.1:
   version "6.2.1"
@@ -5564,6 +5561,11 @@ json5@^2.1.2:
   dependencies:
     minimist "^1.2.5"
 
+jsonc-parser@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/jsonc-parser/-/jsonc-parser-3.0.0.tgz#abdd785701c7e7eaca8a9ec8cf070ca51a745a22"
+  integrity sha512-fQzRfAbIBnR0IQvftw9FJveWiHp72Fg20giDrHz6TdfB12UH/uue0D3hm57UB5KgAVuniLMCaS8P1IMj9NR7cA==
+
 jsonfile@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/jsonfile/-/jsonfile-4.0.0.tgz#8771aae0799b64076b76640fca058f9c10e33ecb"
@@ -6346,11 +6348,6 @@ node-fetch@2.6.1:
   resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
-node-modules-regexp@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/node-modules-regexp/-/node-modules-regexp-1.0.0.tgz#8d9dbe28964a4ac5712e9131642107c71e90ec40"
-  integrity sha1-jZ2+KJZKSsVxLpExZCEHxx6Q7EA=
-
 node-releases@^1.1.69:
   version "1.1.70"
   resolved "https://registry.npmjs.org/node-releases/-/node-releases-1.1.70.tgz#66e0ed0273aa65666d7fe78febe7634875426a08"
@@ -6922,13 +6919,6 @@ pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.npmjs.org/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
   integrity sha1-clVrgM+g1IqXToDnckjoDtT3+HA=
-
-pirates@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/pirates/-/pirates-4.0.1.tgz#643a92caf894566f91b2b986d2c66950a8e2fb87"
-  integrity sha512-WuNqLTbMI3tmfef2TKxlQmAiLHKtFhlsCZnPIpuv2Ow0RDVO8lfy1Opf4NUzlMXLjPl+Men7AuVdX6TA+s+uGA==
-  dependencies:
-    node-modules-regexp "^1.0.0"
 
 please-upgrade-node@^3.2.0:
   version "3.2.0"
@@ -7959,7 +7949,7 @@ source-map-resolve@^0.5.0:
     source-map-url "^0.4.0"
     urix "^0.1.0"
 
-source-map-support@^0.5.17, source-map-support@^0.5.19, source-map-support@~0.5.12, source-map-support@~0.5.19:
+source-map-support@^0.5.17, source-map-support@~0.5.12, source-map-support@~0.5.19:
   version "0.5.19"
   resolved "https://registry.npmjs.org/source-map-support/-/source-map-support-0.5.19.tgz#a98b62f86dcaf4f67399648c085291ab9e8fed61"
   integrity sha512-Wonm7zOCIJzBGQdB+thsPar0kYuCIzYvxZwlBa87yi/Mdjv7Tip2cyVbLj5o0cFPN4EVkuTwb3GDDyUx2DGnGw==
@@ -9141,10 +9131,10 @@ vite-plugin-style-import@^0.7.6:
     es-module-lexer "^0.4.0"
     magic-string "^0.25.7"
 
-vite-plugin-svg-icons@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.npmjs.org/vite-plugin-svg-icons/-/vite-plugin-svg-icons-0.1.2.tgz#fe5ca5e896cba7b7c1a4582721b94894bef754e4"
-  integrity sha512-MWeZjiI5zK916Z+bEYvgPD+Tv/71PFgZ8PBy287yZIBt/9CNshnohuK8oP91IhYaPwwyQNU3lHUlj3PCpT4wpg==
+vite-plugin-svg-icons@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.npmjs.org/vite-plugin-svg-icons/-/vite-plugin-svg-icons-0.2.1.tgz#85a456ac30e8c67ab781a175d59daf36ef115ffd"
+  integrity sha512-LgbBfKIsUPyPMXeBY/gEsr8l44ooDL5jbqGf8YjouMGTGfE4K2xXdO/5azyJZBkvvfPZBCCrAcGucMG08dAE/A==
   dependencies:
     debug "^4.3.2"
     etag "^1.8.1"
@@ -9164,13 +9154,13 @@ vite-plugin-theme@^0.4.8:
     es-module-lexer "^0.3.26"
     tinycolor2 "^1.4.2"
 
-vite-plugin-windicss@0.6.6:
-  version "0.6.6"
-  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.6.6.tgz#502c321a1764dff1a232195cb7bfc04fd98ffc84"
-  integrity sha512-V2UlnHKxCmH1BwrI96YMaBocpIoHzBRYsfv1GOi0jMs7gyakAz3QcnjGwdB2ZtSsE+wPlv5MhSFbL1CFVsvW/A==
+vite-plugin-windicss@0.6.10:
+  version "0.6.10"
+  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.6.10.tgz#b2719bc9f29220208162e04c342a8983f7536fdb"
+  integrity sha512-ofeJGvHu/Tz+HIP9Ap0uQHBt5YNi2uv/4yoJH30I3zFE5gAdsKN3GgzrcySQEPaQIgWmcDNbpWqAFejLHFLpzw==
   dependencies:
-    "@windicss/plugin-utils" "0.6.6"
-    windicss "^2.2.3"
+    "@windicss/plugin-utils" "0.6.10"
+    windicss "^2.2.6"
 
 vite@^2.0.5:
   version "2.0.5"
@@ -9297,10 +9287,10 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
-windicss@^2.2.3:
-  version "2.2.3"
-  resolved "https://registry.npmjs.org/windicss/-/windicss-2.2.3.tgz#5d25cab4b397d64f74660cac9b947b29cda240e9"
-  integrity sha512-rDaHpCgF3nq6tt21KC3691vhNZcbDHo0DJN+fgY5OmNCqd8muvZ9N4Zp9eqjWaJetg+ulz++MBM/pG9D70sj2w==
+windicss@^2.2.6:
+  version "2.2.6"
+  resolved "https://registry.npmjs.org/windicss/-/windicss-2.2.6.tgz#1e1b40ca329f8dd5ab735734212f9f91c9497004"
+  integrity sha512-RK502Xwsw0ptjVueJum0TEr286YJgtqK6kXpa60R6a1z2gGkVpEcaIfr6okQ5EYUk8WMRLrXoK6B2E6dSRg/sw==
 
 wmf@~1.0.1:
   version "1.0.2"
