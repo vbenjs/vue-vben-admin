@@ -3,8 +3,8 @@
   "version": "2.0.2",
   "scripts": {
     "bootstrap": "yarn install",
-    "serve": "vite",
-    "dev": "vite",
+    "serve": "npx --max_old_space_size=4096 vite",
+    "dev": "npx --max_old_space_size=4096 vite",
     "build": "vite build && esno ./build/script/postBuild.ts",
     "build:no-cache": "yarn clean:cache && npm run build",
     "report": "cross-env REPORT=true npm run build ",
@@ -64,7 +64,7 @@
     "@types/mockjs": "^1.0.3",
     "@types/nprogress": "^0.2.0",
     "@types/qrcode": "^1.4.0",
-    "@types/qs": "^6.9.5",
+    "@types/qs": "^6.9.6",
     "@types/rollup-plugin-visualizer": "^2.6.0",
     "@types/sortablejs": "^1.10.6",
     "@types/yargs": "^16.0.0",
@@ -74,7 +74,7 @@
     "@vitejs/plugin-vue": "^1.1.5",
     "@vitejs/plugin-vue-jsx": "^1.1.2",
     "@vue/compiler-sfc": "^3.0.7",
-    "autoprefixer": "^10.2.4",
+    "autoprefixer": "^10.2.5",
     "commitizen": "^4.2.3",
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.3",
@@ -96,9 +96,9 @@
     "pretty-quick": "^3.1.0",
     "rimraf": "^3.0.2",
     "rollup-plugin-visualizer": "^4.2.0",
-    "stylelint": "^13.11.0",
+    "stylelint": "^13.12.0",
     "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-standard": "^20.0.0",
+    "stylelint-config-standard": "^21.0.0",
     "stylelint-order": "^4.1.0",
     "ts-node": "^9.1.1",
     "typescript": "4.2.3",
@@ -110,9 +110,9 @@
     "vite-plugin-purge-icons": "^0.7.0",
     "vite-plugin-pwa": "^0.5.6",
     "vite-plugin-style-import": "^0.8.1",
-    "vite-plugin-svg-icons": "^0.2.1",
+    "vite-plugin-svg-icons": "^0.3.3",
     "vite-plugin-theme": "^0.4.8",
-    "vite-plugin-windicss": "0.6.10",
+    "vite-plugin-windicss": "0.6.11",
     "vue-eslint-parser": "^7.6.0",
     "yargs": "^16.2.0"
   },
@@ -132,6 +132,6 @@
   },
   "homepage": "https://github.com/anncwb/vue-vben-admin",
   "engines": {
-    "node": "^12 || ^14 || ^15 || ^16"
+    "node": "^12 || >=14"
   }
 }
