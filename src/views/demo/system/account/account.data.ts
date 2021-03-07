@@ -61,7 +61,7 @@ export const accountFormSchema: FormSchema[] = [
     label: '密码',
     component: 'InputPassword',
     required: true,
-    show: true,
+    show: false,
   },
   {
     label: '角色',
