@@ -183,6 +183,7 @@ export function useFormEvents({
   async function validateFields(nameList?: NamePath[] | undefined) {
     return unref(formElRef)?.validateFields(nameList);
   }
+
   async function validate(nameList?: NamePath[] | undefined) {
     return await unref(formElRef)?.validate(nameList);
   }
