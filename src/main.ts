@@ -27,10 +27,11 @@ import { isDevMode } from '/@/utils/env';
 
 (async () => {
   const app = createApp(App);
-
   // Register global components
   registerGlobComp(app);
 
+  // Multilingual configuration
+  await setupI18n(app);
   // Configure routing
   setupRouter(app);
 
@@ -43,12 +44,8 @@ import { isDevMode } from '/@/utils/env';
   // Configure global error handling
   setupErrorHandle(app);
 
-  await Promise.all([
-    // Multilingual configuration
-    setupI18n(app),
-    // Mount when the route is ready
-    router.isReady(),
-  ]);
+  // Mount when the route is ready
+  await router.isReady();
 
   app.mount('#app', true);
 

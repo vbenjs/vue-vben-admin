@@ -16,6 +16,7 @@ module.exports = {
       },
     ],
     'no-empty-source': null,
+    'named-grid-areas-no-invalid': null,
     'unicode-bom': 'never',
     'no-descending-specificity': null,
     'font-family-no-missing-generic-family-keyword': null,
