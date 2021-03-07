@@ -72,9 +72,24 @@
         if (currentRoute.value.meta?.currentActiveMenu) {
           filterBreadcrumbList.push((currentRoute.value as unknown) as RouteLocationMatched);
         }
-        // routes.value = filterBreadcrumbList.length === 1 ? [] : filterBreadcrumbList;
-        routes.value = filterBreadcrumbList;
+        routes.value = subRouteExtraction(filterBreadcrumbList);
       });
+
+      function subRouteExtraction(routeList: RouteLocationMatched[]) {
+        const resultRoutes: RouteLocationMatched[] = [];
+        routeList.forEach((route) => {
+          if (route.children?.length === 1) {
+            const subRoute = route.children[0] as RouteLocationMatched;
+            const subRouteName = subRoute.name as string;
+            const routeName = route.name;
+            if (subRouteName && `${subRouteName}Parent` === routeName) {
+              route = subRoute;
+            }
+          }
+          resultRoutes.push(route);
+        });
+        return resultRoutes;
+      }
 
       function filterItem(list: RouteLocationMatched[]) {
         let resultList = filter(list, (item) => {
@@ -83,15 +98,14 @@
           if (!meta) {
             return false;
           }
+
           const { title, hideBreadcrumb, hideMenu } = meta;
           if (!title || hideBreadcrumb || hideMenu) {
             return false;
           }
-
           return true;
         }).filter((item) => !item.meta?.hideBreadcrumb || !item.meta?.hideMenu);
 
-        // resultList = resultList.filter((item) => item.path !== PageEnum.BASE_HOME);
         return resultList;
       }
 
@@ -101,7 +115,8 @@
           children,
           redirect,
           meta,
-          //  components
+
+          // components
         } = route;
 
         // const isParent =
@@ -123,23 +138,29 @@
         if (redirect && isString(redirect)) {
           go(redirect);
         } else {
-          const ps = paths.slice(1);
-          const lastPath = ps.pop() || '';
-          const parentPath = ps.pop() || '';
-          let path = `${parentPath}/${lastPath}`;
-          path = /^\//.test(path) ? path : `/${path}`;
-          go(path);
+          let goPath = '';
+          if (paths.length === 1) {
+            goPath = paths[0];
+          } else {
+            const ps = paths.slice(1);
+            const lastPath = ps.pop() || '';
+            const parentPath = ps.pop() || '';
+            goPath = `${parentPath}/${lastPath}`;
+          }
+          goPath = /^\//.test(goPath) ? goPath : `/${goPath}`;
+          go(goPath);
         }
       }
 
       function hasRedirect(routes: RouteLocationMatched[], route: RouteLocationMatched) {
-        if (route?.meta?.isLink) {
-          return true;
-        }
-
         if (routes.indexOf(route) === routes.length - 1) {
           return false;
         }
+
+        // if (route?.meta?.isLink) {
+        //   return true;
+        // }
+
         return true;
       }
 

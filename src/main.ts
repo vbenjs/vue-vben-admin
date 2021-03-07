@@ -51,7 +51,7 @@ import { isDevMode } from '/@/utils/env';
 
   // The development environment takes effect
   if (isDevMode()) {
-    app.config.performance = true;
+    // app.config.performance = true;
     window.__APP__ = app;
   }
 })();
