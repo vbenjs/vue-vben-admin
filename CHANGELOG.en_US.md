@@ -1,3 +1,30 @@
+## 2.0.3 (2021-03-07)
+
+### ✨ Features
+
+- `BasicTree` added `clickRowToExpand`, used to click tree node to expand
+- Added SvgIcon plugin and examples
+- Add the department tree on the left side of the account management interface·
+
+### ⚡ Performance Improvements
+
+- Pagination parameters are no longer carried when the table is closed
+- The login page monitors the carriage return event to log in
+- When the adaptive size of the table is set, the height is filled according to the screen.
+- Tree scroll bar optimization
+- Optimize the loading speed of local development
+
+### 🐛 Bug Fixes
+
+- Fix known issues with `Description`
+- Fix known issues with `BasicForm`
+- Fix the logic problem of show attribute of ActionItem under `BasicTree`
+- Fix the style error of the tree component demo example
+- Repair account management to add new but not cleared old data
+- The form component should allow the setFieldsValue method to be null or undefined
+- Ensure that the single-level breadcrumbs jump correctly
+- Ensure that the Form component does not verify hidden form items
+
 ## 2.0.2 (2021-03-04)
 
 ### ✨ Refactor
