@@ -1,10 +1,10 @@
-## Wip
+## 2.0.3 (2021-03-07)
 
 ### ✨ Features
 
 - `BasicTree` 新增`clickRowToExpand`,用于单击树节点展开
 - 新增 SvgIcon 插件及示例
-- 账号管理界面增加左侧部门树
+- 账号管理界面增加左侧部门树·
 
 ### ⚡ Performance Improvements
 
