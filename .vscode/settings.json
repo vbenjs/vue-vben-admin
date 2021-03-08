@@ -138,7 +138,7 @@
   "vetur.format.defaultFormatter.ts": "prettier-tslint",
   "vetur.format.defaultFormatter.js": "prettier",
   "vetur.languageFeatures.codeActions": false,
-  "vetur.validation.script": false,
+  // "vetur.validation.script": false,
   "vetur.format.defaultFormatterOptions": {
     "js-beautify-html": {
       "wrap_attributes": "force-expand-multiline"

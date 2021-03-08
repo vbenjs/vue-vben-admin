@@ -1,5 +1,5 @@
 import '/@/design/index.less';
-import 'windi.css';
+import '@virtual/windi.css';
 
 // Do not introduce on-demand in local development?
 // In the local development for on-demand introduction, the number of browser requests will increase by about 20%.
