@@ -1,6 +1,6 @@
-import { toRaw } from 'vue';
+import type { RouteLocationNormalized, RouteLocationRaw } from 'vue-router';
 
-import { unref } from 'vue';
+import { toRaw, unref } from 'vue';
 import { Action, Module, Mutation, VuexModule, getModule } from 'vuex-module-decorators';
 import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
 
@@ -9,8 +9,8 @@ import { PageEnum } from '/@/enums/pageEnum';
 import store from '/@/store';
 import router from '/@/router';
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/constant';
-import { RouteLocationNormalized, RouteLocationRaw } from 'vue-router';
 import { getRoute } from '/@/router/helper/routeHelper';
+
 import { useGo, useRedo } from '/@/hooks/web/usePage';
 import { cloneDeep } from 'lodash-es';
 

@@ -19,17 +19,23 @@
 <script lang="ts">
   import { defineComponent, unref } from 'vue';
 
+  import { CopyOutlined, RedoOutlined } from '@ant-design/icons-vue';
+
+  import { appStore } from '/@/store/modules/app';
+  import { permissionStore } from '/@/store/modules/permission';
+  import { tabStore } from '/@/store/modules/tab';
+  import { userStore } from '/@/store/modules/user';
+
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { CopyOutlined, RedoOutlined } from '@ant-design/icons-vue';
-  import { appStore } from '/@/store/modules/app';
-  import defaultSetting from '/@/settings/projectSetting';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard';
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
+
   import { updateColorWeak } from '/@/logics/theme/updateColorWeak';
   import { updateGrayMode } from '/@/logics/theme/updateGrayMode';
 
+  import defaultSetting from '/@/settings/projectSetting';
   export default defineComponent({
     name: 'SettingFooter',
     components: { CopyOutlined, RedoOutlined },
@@ -63,6 +69,9 @@
       function handleClearAndRedo() {
         localStorage.clear();
         appStore.resumeAllState();
+        permissionStore.commitResetState();
+        tabStore.commitResetState();
+        userStore.commitResetState();
         location.reload();
       }
       return {

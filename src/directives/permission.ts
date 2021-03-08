@@ -5,12 +5,13 @@
  */
 import type { App, Directive, DirectiveBinding } from 'vue';
 
-import { appStore } from '/@/store/modules/app';
+import projectSetting from '/@/settings/projectSetting';
 import { usePermission } from '/@/hooks/web/usePermission';
 import { PermissionModeEnum } from '/@/enums/appEnum';
-const { hasPermission } = usePermission();
 
 function isAuth(el: Element, binding: any) {
+  const { hasPermission } = usePermission();
+
   const value = binding.value;
   if (!value) return;
   if (!hasPermission(value)) {
@@ -19,7 +20,7 @@ function isAuth(el: Element, binding: any) {
 }
 
 function isBackMode() {
-  return appStore.getProjectConfig.permissionMode === PermissionModeEnum.BACK;
+  return projectSetting.permissionMode === PermissionModeEnum.BACK;
 }
 
 const mounted = (el: Element, binding: DirectiveBinding<any>) => {

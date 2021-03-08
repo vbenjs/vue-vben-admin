@@ -5,6 +5,7 @@ import {
   GetUserInfoByUserIdParams,
   GetUserInfoByUserIdModel,
 } from './model/userModel';
+
 import { ErrorMessageMode } from '/@/utils/http/axios/types';
 
 enum Api {

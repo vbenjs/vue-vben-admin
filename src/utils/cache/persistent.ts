@@ -1,5 +1,5 @@
-import type { UserInfo } from '/@/store/modules/user';
-import type { LockInfo } from '/@/store/modules/lock';
+import type { LockInfo, UserInfo } from '/@/store/types';
+
 import { ProjectConfig } from '/#/config';
 
 import { createLocalStorage, createSessionStorage } from '/@/utils/cache';

@@ -10,10 +10,6 @@ import { Persistent } from '/@/utils/cache/persistent';
 import { deepMerge } from '/@/utils';
 
 import { resetRouter } from '/@/router';
-import { permissionStore } from './permission';
-import { tabStore } from './tab';
-
-import { userStore } from './user';
 
 export interface LockInfo {
   pwd: string | undefined;
@@ -66,10 +62,6 @@ export default class App extends VuexModule {
   async resumeAllState() {
     resetRouter();
     Persistent.clearAll();
-
-    permissionStore.commitResetState();
-    tabStore.commitResetState();
-    userStore.commitResetState();
   }
 
   @Action
