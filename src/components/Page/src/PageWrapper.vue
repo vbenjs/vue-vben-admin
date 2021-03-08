@@ -2,9 +2,10 @@
   <div :class="getClass">
     <PageHeader
       :ghost="ghost"
+      :title="title"
       v-bind="$attrs"
       ref="headerRef"
-      v-if="content || $slots.headerContent"
+      v-if="content || $slots.headerContent || title || getHeaderSlots.length"
     >
       <template #default>
         <template v-if="content">
@@ -49,6 +50,7 @@
     components: { PageFooter, PageHeader },
     inheritAttrs: false,
     props: {
+      title: propTypes.string,
       dense: propTypes.bool,
       ghost: propTypes.bool,
       content: propTypes.string,

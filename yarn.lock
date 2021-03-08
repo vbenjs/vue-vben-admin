@@ -1785,10 +1785,10 @@
   dependencies:
     vue-demi latest
 
-"@windicss/plugin-utils@0.7.0":
-  version "0.7.0"
-  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.7.0.tgz#0321328cd4e7ef673cdeccf0104e8e5f81f7496b"
-  integrity sha512-Bfk3AF/CLKyj22iSaAkjHCI5Nw0Lp2GFo0bS3ymUSWrWn2Xx7w0K8INkZ9bjDpdrh/m1yImA+sbas302+NqXEQ==
+"@windicss/plugin-utils@0.7.1":
+  version "0.7.1"
+  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.7.1.tgz#001ba282b78a9d4e110e531d59309d2b9cb0929e"
+  integrity sha512-ZloIRRKCnArFyDNuhZiFRA15XqhlWaeTcOf3soP9VxWJ+i6/IkH6cnaYgBefDATA/zJodOPsXBnbX333zKVk1Q==
   dependencies:
     esbuild "^0.8.57"
     esbuild-register "^2.2.0"
@@ -9182,12 +9182,12 @@ vite-plugin-theme@^0.4.8:
     es-module-lexer "^0.3.26"
     tinycolor2 "^1.4.2"
 
-vite-plugin-windicss@0.7.0:
-  version "0.7.0"
-  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.7.0.tgz#9e1bee2d041aee7a0b5a4bf08c483fe5b2525898"
-  integrity sha512-zKQEnDKhKZT4mYoUfLfOy8hPviAWTUbLE5POo2OACKxMCBdcOHmakh+RfkMIUrejgrRZbX9bBezKzSfxPqO65Q==
+vite-plugin-windicss@0.7.1:
+  version "0.7.1"
+  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.7.1.tgz#1e1c41c2f62d18a2777819057c981a1ec26d8901"
+  integrity sha512-0NNrTBgjx11KOwqS/4szfVIt3LURFor4cEEVVJjB8p7JDTnC4K8Cu11bcAvY+QMOfflxv4s2ONo2SU4xkq68kA==
   dependencies:
-    "@windicss/plugin-utils" "0.7.0"
+    "@windicss/plugin-utils" "0.7.1"
     windicss "^2.3.0"
 
 vite@^2.0.5:
