@@ -138,6 +138,7 @@
   "vetur.format.defaultFormatter.ts": "prettier-tslint",
   "vetur.format.defaultFormatter.js": "prettier",
   "vetur.languageFeatures.codeActions": false,
+  "vetur.validation.script": false,
   "vetur.format.defaultFormatterOptions": {
     "js-beautify-html": {
       "wrap_attributes": "force-expand-multiline"
@@ -187,6 +188,11 @@
   },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
+  },
+  "[vue]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": false
+    }
   },
   "i18n-ally.localesPaths": ["src/locales/lang"],
   "i18n-ally.keystyle": "nested",

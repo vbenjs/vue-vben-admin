@@ -17,8 +17,10 @@ import { setupStore } from '/@/store';
 import { setupErrorHandle } from '/@/logics/error-handle';
 import { setupGlobDirectives } from '/@/directives';
 import { setupI18n } from '/@/locales/setupI18n';
-
 import { registerGlobComp } from '/@/components/registerGlobComp';
+
+// router-guard
+import '/@/router/guard';
 
 // Register icon Sprite
 import 'vite-plugin-svg-icons/register';
@@ -32,6 +34,7 @@ import { isDevMode } from '/@/utils/env';
 
   // Multilingual configuration
   await setupI18n(app);
+
   // Configure routing
   setupRouter(app);
 

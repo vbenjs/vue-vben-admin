@@ -1,4 +1,4 @@
-import { Router } from 'vue-router';
+import router from '/@/router';
 
 import { createProgressGuard } from './progressGuard';
 import { createPermissionGuard } from './permissionGuard';
@@ -10,14 +10,12 @@ import { createHttpGuard } from './httpGuard';
 import { createPageGuard } from './pageGuard';
 import { createStateGuard } from './stateGuard';
 
-export function createGuard(router: Router) {
-  createPageGuard(router);
-  createPageLoadingGuard(router);
-  createHttpGuard(router);
-  createScrollGuard(router);
-  createMessageGuard(router);
-  createTitleGuard(router);
-  createProgressGuard(router);
-  createPermissionGuard(router);
-  createStateGuard(router);
-}
+createPageGuard(router);
+createPageLoadingGuard(router);
+createHttpGuard(router);
+createScrollGuard(router);
+createMessageGuard(router);
+createTitleGuard(router);
+createProgressGuard(router);
+createPermissionGuard(router);
+createStateGuard(router);

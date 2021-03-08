@@ -2,10 +2,10 @@
 // The axios configuration can be changed according to the project, just change the file, other files can be left unchanged
 
 import type { AxiosResponse } from 'axios';
-import type { CreateAxiosOptions, RequestOptions, Result } from './types';
-import { VAxios } from './Axios';
-import { AxiosTransform } from './axiosTransform';
+import type { RequestOptions, Result } from './types';
+import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
 
+import { VAxios } from './Axios';
 import { checkStatus } from './checkStatus';
 
 import { useGlobSetting } from '/@/hooks/setting';
@@ -14,12 +14,12 @@ import { useMessage } from '/@/hooks/web/useMessage';
 import { RequestEnum, ResultEnum, ContentTypeEnum } from '/@/enums/httpEnum';
 
 import { isString } from '/@/utils/is';
+import { getToken } from '/@/utils/auth';
 import { setObjToUrlParams, deepMerge } from '/@/utils';
 import { errorStore } from '/@/store/modules/error';
 import { errorResult } from './const';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { createNow, formatRequestDate } from './helper';
-import { userStore } from '/@/store/modules/user';
 
 const globSetting = useGlobSetting();
 const prefix = globSetting.urlPrefix;
@@ -137,7 +137,7 @@ const transform: AxiosTransform = {
    */
   requestInterceptors: (config) => {
     // 请求之前处理config
-    const token = userStore.getTokenState;
+    const token = getToken();
     if (token) {
       // jwt token
       config.headers.Authorization = token;

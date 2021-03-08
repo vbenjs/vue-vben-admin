@@ -9,6 +9,7 @@ import { useTabs } from './useTabs';
 import router, { resetRouter } from '/@/router';
 // import { RootRoute } from '/@/router/routes';
 
+import projectSetting from '/@/settings/projectSetting';
 import { PermissionModeEnum } from '/@/enums/appEnum';
 import { RoleEnum } from '/@/enums/roleEnum';
 
@@ -24,7 +25,7 @@ export function usePermission() {
   async function togglePermissionMode() {
     appStore.commitProjectConfigState({
       permissionMode:
-        appStore.getProjectConfig.permissionMode === PermissionModeEnum.BACK
+        projectSetting.permissionMode === PermissionModeEnum.BACK
           ? PermissionModeEnum.ROLE
           : PermissionModeEnum.BACK,
     });
@@ -51,7 +52,7 @@ export function usePermission() {
    * Determine whether there is permission
    */
   function hasPermission(value?: RoleEnum | RoleEnum[] | string | string[], def = true): boolean {
-    const permMode = appStore.getProjectConfig.permissionMode;
+    const permMode = projectSetting.permissionMode;
     if (PermissionModeEnum.ROLE === permMode) {
       // Visible by default
       if (!value) {
@@ -81,7 +82,7 @@ export function usePermission() {
    * @param roles
    */
   async function changeRole(roles: RoleEnum | RoleEnum[]): Promise<void> {
-    if (appStore.getProjectConfig.permissionMode !== PermissionModeEnum.ROLE) {
+    if (projectSetting.permissionMode !== PermissionModeEnum.ROLE) {
       throw new Error(
         'Please switch PermissionModeEnum to ROLE mode in the configuration to operate!'
       );

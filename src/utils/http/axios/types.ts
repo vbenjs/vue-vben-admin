@@ -1,5 +1,3 @@
-import type { AxiosRequestConfig } from 'axios';
-import type { AxiosTransform } from './axiosTransform';
 export type ErrorMessageMode = 'none' | 'modal' | 'message' | undefined;
 
 export interface RequestOptions {
@@ -18,12 +16,6 @@ export interface RequestOptions {
   // Whether to add a timestamp
   joinTime?: boolean;
   ignoreCancelToken?: boolean;
-}
-
-export interface CreateAxiosOptions extends AxiosRequestConfig {
-  prefixUrl?: string;
-  transform?: AxiosTransform;
-  requestOptions?: RequestOptions;
 }
 
 export interface Result<T = any> {

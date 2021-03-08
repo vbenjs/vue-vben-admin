@@ -1,6 +1,8 @@
 import { useMessage } from '/@/hooks/web/useMessage';
-import { userStore } from '/@/store/modules/user';
 import { useI18n } from '/@/hooks/web/useI18n';
+import router from '/@/router';
+import { PageEnum } from '/@/enums/pageEnum';
+
 const { createMessage } = useMessage();
 
 const error = createMessage.error!;
@@ -15,7 +17,7 @@ export function checkStatus(status: number, msg: string): void {
     // Return to the current page after successful login. This step needs to be operated on the login page.
     case 401:
       error(t('sys.api.errMsg401'));
-      userStore.logout(true);
+      router.push(PageEnum.BASE_LOGIN);
       break;
     case 403:
       error(t('sys.api.errMsg403'));

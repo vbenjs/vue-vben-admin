@@ -3,7 +3,6 @@ import type { App } from 'vue';
 
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import { createGuard } from './guard';
 import { basicRoutes, LoginRoute } from './routes';
 import { REDIRECT_NAME } from './constant';
 
@@ -30,7 +29,6 @@ export function resetRouter() {
 // config router
 export function setupRouter(app: App<Element>) {
   app.use(router);
-  createGuard(router);
 }
 
 export default router;
