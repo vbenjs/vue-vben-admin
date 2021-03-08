@@ -323,13 +323,14 @@
         });
       }
       return () => {
-        const { title, helpMessage, toolbar, search } = props;
+        const { title, helpMessage, toolbar, search, checkable } = props;
         const showTitle = title || toolbar || search;
         const scrollStyle: CSSProperties = { height: 'calc(100% - 38px)' };
         return (
           <div class={[prefixCls, 'h-full bg-white', attrs.class]}>
             {showTitle && (
               <TreeHeader
+                checkable={checkable}
                 checkAll={checkAll}
                 expandAll={expandAll}
                 title={title}

@@ -82,12 +82,12 @@ export function useModal(): UseModalReturnType {
 
       if (openOnSet) {
         dataTransferRef[unref(uidRef)] = null;
-        dataTransferRef[unref(uidRef)] = data;
+        dataTransferRef[unref(uidRef)] = toRaw(data);
         return;
       }
-      const equal = isEqual(toRaw(dataTransferRef[unref(uidRef)]), data);
+      const equal = isEqual(toRaw(dataTransferRef[unref(uidRef)]), toRaw(data));
       if (!equal) {
-        dataTransferRef[unref(uidRef)] = data;
+        dataTransferRef[unref(uidRef)] = toRaw(data);
       }
     },
   };

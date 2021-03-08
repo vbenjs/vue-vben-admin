@@ -86,7 +86,7 @@
         reload();
       }
 
-      function handleSelect(deptId: string = '') {
+      function handleSelect(deptId = '') {
         reload({ searchInfo: { deptId } });
       }
 
