@@ -18,7 +18,7 @@
       </template>
     </PageHeader>
     <div
-      class="m-4 overflow-hidden"
+      class="overflow-hidden"
       :class="[`${prefixCls}-content`, contentClass]"
       :style="getContentStyle"
     >
@@ -109,21 +109,38 @@
             return;
           }
           nextTick(() => {
-            const footer = unref(footerRef);
-            const header = unref(headerRef);
-            footerHeight.value = 0;
-            const footerEl = footer?.$el;
+            //fix:in contentHeight mode: delay getting footer and header dom element to get the correct height
+            setTimeout(() => {
+              const footer = unref(footerRef);
+              const header = unref(headerRef);
+              footerHeight.value = 0;
+              const footerEl = footer?.$el;
 
-            if (footerEl) {
-              footerHeight.value += footerEl?.offsetHeight ?? 0;
-            }
-            let headerHeight = 0;
-            const headerEl = header?.$el;
-            if (headerEl) {
-              headerHeight += headerEl?.offsetHeight ?? 0;
-            }
-
-            setPageHeight?.(unref(contentHeight) - unref(footerHeight) - headerHeight);
+              if (footerEl) {
+                footerHeight.value += footerEl?.offsetHeight ?? 0;
+              }
+              let headerHeight = 0;
+              const headerEl = header?.$el;
+              if (headerEl) {
+                headerHeight += headerEl?.offsetHeight ?? 0;
+              }
+              //fix:subtract content's marginTop and marginBottom value
+              let subtractHeight = 0;
+              const attributes = getComputedStyle(
+                document.querySelectorAll('.vben-page-wrapper-content')[0]
+              );
+              if (attributes.marginBottom) {
+                const contentMarginBottom = Number(attributes.marginBottom.replace(/[^\d]/g, ''));
+                subtractHeight += contentMarginBottom;
+              }
+              if (attributes.marginTop) {
+                const contentMarginTop = Number(attributes.marginTop.replace(/[^\d]/g, ''));
+                subtractHeight += contentMarginTop;
+              }
+              setPageHeight?.(
+                unref(contentHeight) - unref(footerHeight) - headerHeight - subtractHeight
+              );
+            }, 400);
           });
         },
         {
@@ -151,6 +168,9 @@
   .@{prefix-cls} {
     position: relative;
 
+    .@{prefix-cls}-content {
+      margin: 16px 16px 0 16px;
+    }
     .ant-page-header {
       &:empty {
         padding: 0;
