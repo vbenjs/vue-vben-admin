@@ -92,7 +92,7 @@ const feat: AppRouteModule = {
                 currentActiveMenu: '/feat/breadcrumb/children',
                 title: t('routes.demo.feat.breadcrumbChildrenDetail'),
                 hideTab: true,
-                hideMenu: true,
+                // hideMenu: true,
               },
             },
           ],

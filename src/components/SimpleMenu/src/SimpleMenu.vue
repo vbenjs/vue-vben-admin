@@ -94,7 +94,7 @@
       listenerLastChangeTab((route) => {
         if (route.name === REDIRECT_NAME) return;
 
-        currentActiveMenu.value = route.meta?.currentActiveMenu;
+        currentActiveMenu.value = route.meta?.currentActiveMenu as string;
         handleMenuChange(route);
 
         if (unref(currentActiveMenu)) {
