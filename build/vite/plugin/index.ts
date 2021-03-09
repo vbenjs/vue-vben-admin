@@ -47,7 +47,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   vitePlugins.push(PurgeIcons());
 
   // vite-plugin-style-import
-  vitePlugins.push(configStyleImportPlugin(isBuild));
+  vitePlugins.push(configStyleImportPlugin());
 
   // rollup-plugin-visualizer
   vitePlugins.push(configVisualizerConfig());
