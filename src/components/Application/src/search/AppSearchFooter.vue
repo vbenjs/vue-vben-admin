@@ -14,14 +14,13 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import Icon from '/@/components/Icon';
   import AppSearchKeyItem from './AppSearchKeyItem.vue';
 
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useI18n } from '/@/hooks/web/useI18n';
   export default defineComponent({
     name: 'AppSearchFooter',
-    components: { Icon, AppSearchKeyItem },
+    components: { AppSearchKeyItem },
     setup() {
       const { prefixCls } = useDesign('app-search-footer');
       const { t } = useI18n();

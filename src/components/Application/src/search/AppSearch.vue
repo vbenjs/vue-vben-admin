@@ -13,6 +13,7 @@
     components: { AppSearchModal, Tooltip },
     setup() {
       const showModal = ref(false);
+
       const { getShowSearch } = useHeaderSetting();
       const { t } = useI18n();
 

@@ -105,17 +105,12 @@
   },
   "stylelint.enable": true,
   "stylelint.packageManager": "yarn",
-  "css.validate": true,
-  "less.validate": true,
-  "scss.validate": true,
   // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
   // ===========================================
   // ================ Eslint ===================
   // ===========================================
-  // "eslint.enable": true,
   "eslint.alwaysShowStatus": true,
   "eslint.options": {
-    // 配置
     "plugins": ["html", "vue", "javascript", "jsx", "typescript"],
     "extensions": [".js", ".jsx", ".ts", ".tsx", ".vue"]
   },
@@ -127,7 +122,6 @@
     "html",
     "vue"
   ],
-  // "eslint.autoFixOnSave": true,
   // ===========================================
   // ================ Vetur ====================
   // ===========================================
@@ -139,7 +133,6 @@
   "vetur.format.defaultFormatter.ts": "prettier-tslint",
   "vetur.format.defaultFormatter.js": "prettier",
   "vetur.languageFeatures.codeActions": false,
-  // "vetur.validation.script": false,
   "vetur.format.defaultFormatterOptions": {
     "js-beautify-html": {
       "wrap_attributes": "force-expand-multiline"
@@ -201,6 +194,6 @@
   "i18n-ally.namespace": true,
   "i18n-ally.pathMatcher": "{locale}/{namespaces}.{ext}",
   "i18n-ally.enabledParsers": ["ts"],
-  "i18n-ally.sourceLanguage": "zh",
+  "i18n-ally.sourceLanguage": "en",
   "i18n-ally.enabledFrameworks": ["vue", "react"]
 }

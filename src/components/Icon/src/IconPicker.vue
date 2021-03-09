@@ -30,16 +30,17 @@
                 <li
                   v-for="icon in getPaginationList"
                   :key="icon"
-                  :class="currentSelect === icon ? 'bg-primary text-white' : ''"
-                  class="p-2 w-1/8 cursor-pointer mr-1 mt-1 flex justify-center items-center border border-solid hover:bg-primary hover:text-white"
+                  :class="currentSelect === icon ? 'border border-primary' : ''"
+                  class="p-2 w-1/8 cursor-pointer mr-1 mt-1 flex justify-center items-center border border-solid hover:border-primary"
                   @click="handleClick(icon)"
                 >
                   <!-- <Icon :icon="icon" :prefix="prefix" /> -->
-                  <Icon :icon="icon" />
+                  <SvgIcon v-if="isSvgMode" :name="icon" />
+                  <Icon :icon="icon" v-else />
                 </li>
               </ul>
             </ScrollContainer>
-            <div class="flex py-2 items-center justify-center">
+            <div class="flex py-2 items-center justify-center" v-if="getTotal >= pageSize">
               <Pagination
                 showLessItems
                 size="small"
@@ -53,7 +54,11 @@
             ><div class="p-5"> <Empty /></div>
           </template>
         </template>
-        <Icon :icon="currentSelect || 'ion:apps-outline'" class="cursor-pointer px-2 py-1" />
+
+        <span class="cursor-pointer px-2 py-1 flex items-center" v-if="isSvgMode && currentSelect">
+          <SvgIcon :name="currentSelect" />
+        </span>
+        <Icon :icon="currentSelect || 'ion:apps-outline'" class="cursor-pointer px-2 py-1" v-else />
       </Popover>
     </template>
   </a-input>
@@ -66,6 +71,7 @@
 
   import { Input, Popover, Pagination, Empty } from 'ant-design-vue';
   import Icon from './index.vue';
+  import SvgIcon from './SvgIcon.vue';
 
   import iconsData from '../data/icons.data';
   import { propTypes } from '/@/utils/propTypes';
@@ -74,7 +80,7 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard';
   import { useMessage } from '/@/hooks/web/useMessage';
-  // import '@iconify/iconify';
+  import svgIcons from 'vite-plugin-svg-icons/client';
 
   function getIcons() {
     const data = iconsData as any;
@@ -88,25 +94,35 @@
     return result;
   }
 
-  const icons = getIcons();
+  function getSvgIcons() {
+    return svgIcons.map((icon) => icon.replace('icon-', ''));
+  }
+
   export default defineComponent({
     name: 'IconPicker',
-    components: { [Input.name]: Input, Icon, Popover, ScrollContainer, Pagination, Empty },
+    components: { [Input.name]: Input, Icon, Popover, ScrollContainer, Pagination, Empty, SvgIcon },
     inheritAttrs: false,
     props: {
       value: propTypes.string,
       width: propTypes.string.def('100%'),
       pageSize: propTypes.number.def(140),
       copy: propTypes.bool.def(false),
+      mode: propTypes
+        .oneOf<('svg' | 'iconify')[]>(['svg', 'iconify'])
+        .def('iconify'),
     },
     emits: ['change'],
     setup(props, { emit }) {
+      const isSvgMode = props.mode === 'svg';
+      const icons = isSvgMode ? getSvgIcons() : getIcons();
+
       const currentSelect = ref('');
       const visible = ref(false);
       const currentList = ref(icons);
 
-      const { prefixCls } = useDesign('icon-picker');
       const { t } = useI18n();
+      const { prefixCls } = useDesign('icon-picker');
+
       const [debounceHandleSearchChange] = useDebounce(handleSearchChange, 100);
       const { clipboardRef, isSuccessRef } = useCopyToClipboard(props.value);
       const { createMessage } = useMessage();
@@ -153,6 +169,7 @@
         t,
         prefixCls,
         visible,
+        isSvgMode,
         getTotal,
         getPaginationList,
         handlePageChange,

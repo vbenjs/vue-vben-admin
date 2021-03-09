@@ -1117,10 +1117,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.313":
-  version "1.1.313"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.313.tgz#c225be3c5ce3280a2c34e753a65dc257b85b6652"
-  integrity sha512-gv00rSX4apKE0i/fUjXp5+sBb8LHzzdJqrXkBNVby7Nl7yzRqeQ/EyY+7ixtSpEu3f1P/co/vrgdbZN6wlw6DA==
+"@iconify/json@^1.1.314":
+  version "1.1.314"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.314.tgz#43b417e5131b55e879f94b6fc40b09928eea42ad"
+  integrity sha512-KDc2dtNnbUryuUWs4ov1e8xCcEjrU/9r3PLOsElzsRpMjaGe/RfpAvU1NkDlv7Mmriaah+Dj6SVoLeRSUB5q3g==
 
 "@intlify/core-base@9.0.0":
   version "9.0.0"
@@ -7680,10 +7680,10 @@ rollup-plugin-visualizer@^4.2.0:
     source-map "^0.7.3"
     yargs "^16.0.3"
 
-rollup@2.40.0, rollup@^0.63.4, rollup@^2.25.0, rollup@^2.38.5, rollup@^2.40.0:
-  version "2.40.0"
-  resolved "https://registry.npmjs.org/rollup/-/rollup-2.40.0.tgz#efc218eaede7ab590954df50f96195188999c304"
-  integrity sha512-WiOGAPbXoHu+TOz6hyYUxIksOwsY/21TRWoO593jgYt8mvYafYqQl+axaA8y1z2HFazNUUrsMSjahV2A6/2R9A==
+rollup@2.41.0, rollup@^0.63.4, rollup@^2.25.0, rollup@^2.38.5, rollup@^2.40.0:
+  version "2.41.0"
+  resolved "https://registry.npmjs.org/rollup/-/rollup-2.41.0.tgz#b2a398bbabbf227738dedaef099e494aed468982"
+  integrity sha512-Gk76XHTggulWPH95q8V62bw6uqDH6UGvbD6LOa3QUyhuMF3eOuaeDHR7SLm1T9faitkpNrqzUAVYx47klcMnlA==
   optionalDependencies:
     fsevents "~2.3.1"
 
@@ -9160,10 +9160,10 @@ vite-plugin-style-import@^0.8.1:
     es-module-lexer "^0.4.1"
     magic-string "^0.25.7"
 
-vite-plugin-svg-icons@^0.3.3:
-  version "0.3.3"
-  resolved "https://registry.npmjs.org/vite-plugin-svg-icons/-/vite-plugin-svg-icons-0.3.3.tgz#b699e1af244500d893cc32b48a772492c1fae72b"
-  integrity sha512-ZI3FLspeM3PV0OE503m7/11jW5aSSCwxXUEcJZL3RwSYmpkLE0cSsM7UFZf0tx3cRoSB/JpeOlRIRH6G2BhWiQ==
+vite-plugin-svg-icons@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.npmjs.org/vite-plugin-svg-icons/-/vite-plugin-svg-icons-0.3.4.tgz#505aacff35f19d4e1c81f05a85bded0d6f1f6323"
+  integrity sha512-N4KYqmyF/gnsYIBxvMTyotjWSdur/6EyycE6eJvM2m7oHHxe8Y+SZZlD+XTz8Nl+zfurXYDkrbbHAdtWlpJovw==
   dependencies:
     debug "^4.3.2"
     etag "^1.8.1"
