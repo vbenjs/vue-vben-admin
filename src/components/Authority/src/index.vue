@@ -7,8 +7,8 @@
 
   import { PermissionModeEnum } from '/@/enums/appEnum';
   import { RoleEnum } from '/@/enums/roleEnum';
-  import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 
+  import { useRootSetting } from '/@/hooks/setting/useRootSetting';
   import { usePermission } from '/@/hooks/web/usePermission';
 
   import { getSlot } from '/@/utils/helper/tsxHelper';

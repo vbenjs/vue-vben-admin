@@ -9,11 +9,11 @@
     :dropMenuList="localeList"
     :selectedKeys="selectedKeys"
     @menuEvent="handleMenuEvent"
-    :overlayClassName="`${prefixCls}-overlay`"
+    overlayClassName="app-locale-picker-overlay"
   >
-    <span :class="prefixCls">
+    <span class="cursor-pointer flex items-center">
       <Icon icon="ion:language" />
-      <span v-if="showText" :class="`${prefixCls}__text`">{{ getLangText }}</span>
+      <span v-if="showText" class="ml-1">{{ getLangText }}</span>
     </span>
   </Dropdown>
 </template>
@@ -27,7 +27,6 @@
 
   import { useLocale } from '/@/locales/useLocale';
   import { localeList } from '/@/settings/localeSetting';
-  import { useDesign } from '/@/hooks/web/useDesign';
   import { propTypes } from '/@/utils/propTypes';
 
   export default defineComponent({
@@ -41,8 +40,6 @@
     },
     setup(props) {
       const selectedKeys = ref<string[]>([]);
-
-      const { prefixCls } = useDesign('app-locale-picker');
 
       const { changeLocale, getLocale } = useLocale();
 
@@ -67,27 +64,15 @@
         toggleLocale(menu.event as string);
       }
 
-      return { localeList, handleMenuEvent, selectedKeys, getLangText, prefixCls };
+      return { localeList, handleMenuEvent, selectedKeys, getLangText };
     },
   });
 </script>
 
 <style lang="less" scoped>
-  @prefix-cls: ~'@{namespace}-app-locale-picker';
-
-  :global(.@{prefix-cls}-overlay) {
+  :global(.app-locale-picker-overlay) {
     .ant-dropdown-menu-item {
       min-width: 160px;
-    }
-  }
-
-  .@{prefix-cls} {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-
-    &__text {
-      margin-left: 6px;
     }
   }
 </style>

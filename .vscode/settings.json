@@ -13,6 +13,7 @@
   "editor.cursorBlinking": "phase",
   "editor.cursorSmoothCaretAnimation": true,
   "editor.detectIndentation": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "diffEditor.ignoreTrimWhitespace": false,
   "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
   "editor.formatOnPaste": true,
