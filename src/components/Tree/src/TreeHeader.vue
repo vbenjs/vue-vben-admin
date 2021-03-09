@@ -24,7 +24,7 @@
 </template>
 <script lang="ts">
   import type { PropType } from 'vue';
-  import { defineComponent, ref, computed } from 'vue';
+  import { defineComponent, computed } from 'vue';
 
   import { Dropdown, Menu, Input } from 'ant-design-vue';
   import { Icon } from '/@/components/Icon';

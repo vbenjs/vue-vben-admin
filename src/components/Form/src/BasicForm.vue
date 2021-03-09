@@ -47,7 +47,7 @@
     nextTick,
   } from 'vue';
   import { Form, Row } from 'ant-design-vue';
-  import FormItem from './components/FormItem';
+  import FormItem from './components/FormItem.vue';
   import FormAction from './components/FormAction.vue';
 
   import { dateItemType } from './helper';
