@@ -11,6 +11,7 @@
               @change="handleSearch"
             >
               <template #prefix>
+                <!-- <Icon icon="ion:search"/> -->
                 <SearchOutlined />
               </template>
             </a-input>
@@ -22,6 +23,7 @@
           <div :class="`${prefixCls}-not-data`" v-show="getIsNotData">
             {{ t('component.app.searchNotData') }}
           </div>
+
           <ul :class="`${prefixCls}-list`" v-show="!getIsNotData" ref="scrollWrap">
             <li
               :ref="setRefs(index)"
@@ -56,6 +58,7 @@
 </template>
 <script lang="ts">
   import { defineComponent, computed, unref, ref } from 'vue';
+
   import { SearchOutlined } from '@ant-design/icons-vue';
   import { Input } from 'ant-design-vue';
   import AppSearchFooter from './AppSearchFooter.vue';
@@ -69,15 +72,16 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useAppInject } from '/@/hooks/web/useAppInject';
 
+  import { propTypes } from '/@/utils/propTypes';
+
   export default defineComponent({
     name: 'AppSearchModal',
     components: { Icon, SearchOutlined, AppSearchFooter, [Input.name]: Input },
     directives: {
       clickOutside,
     },
-
     props: {
-      visible: Boolean,
+      visible: propTypes.bool,
     },
     emits: ['close'],
     setup(_, { emit }) {
@@ -143,10 +147,8 @@
     width: 100%;
     height: 100%;
     padding-top: 50px;
-    // background: #656c85cc;
     background: rgba(0, 0, 0, 0.25);
     justify-content: center;
-    // backdrop-filter: blur(2px);
 
     &--mobile {
       padding: 0;
