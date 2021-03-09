@@ -10,20 +10,32 @@
         <template v-if="content">
           {{ content }}
         </template>
-        <slot name="headerContent" v-else></slot>
+        <slot
+          name="headerContent"
+          v-else
+        ></slot>
       </template>
-      <template #[item]="data" v-for="item in getHeaderSlots">
-        <slot :name="item" v-bind="data"></slot>
+      <template
+        #[item]="data"
+        v-for="item in getHeaderSlots"
+      >
+        <slot
+          :name="item"
+          v-bind="data"
+        ></slot>
       </template>
     </PageHeader>
     <div
-      class="m-4 overflow-hidden"
+      class="overflow-hidden"
       :class="[`${prefixCls}-content`, contentClass]"
       :style="getContentStyle"
     >
       <slot></slot>
     </div>
-    <PageFooter v-if="getShowFooter" ref="footerRef">
+    <PageFooter
+      v-if="getShowFooter"
+      ref="footerRef"
+    >
       <template #left>
         <slot name="leftFooter"></slot>
       </template>
@@ -34,79 +46,82 @@
   </div>
 </template>
 <script lang="ts">
-  import type { CSSProperties, PropType } from 'vue';
+import type { CSSProperties, PropType } from 'vue';
 
-  import { defineComponent, computed, watch, nextTick, ref, unref } from 'vue';
-  import PageFooter from './PageFooter.vue';
-  import { usePageContext } from '/@/hooks/component/usePageContext';
+import { defineComponent, computed, watch, nextTick, ref, unref } from 'vue';
+import PageFooter from './PageFooter.vue';
+import { usePageContext } from '/@/hooks/component/usePageContext';
 
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { propTypes } from '/@/utils/propTypes';
-  import { omit } from 'lodash-es';
-  import { PageHeader } from 'ant-design-vue';
-  export default defineComponent({
-    name: 'PageWrapper',
-    components: { PageFooter, PageHeader },
-    inheritAttrs: false,
-    props: {
-      dense: propTypes.bool,
-      ghost: propTypes.bool,
-      content: propTypes.string,
-      contentStyle: {
-        type: Object as PropType<CSSProperties>,
-      },
-      contentBackground: propTypes.bool,
-      contentFullHeight: propTypes.bool,
-      contentClass: propTypes.string,
-      fixedHeight: propTypes.bool,
+import { useDesign } from '/@/hooks/web/useDesign';
+import { propTypes } from '/@/utils/propTypes';
+import { omit } from 'lodash-es';
+import { PageHeader } from 'ant-design-vue';
+import { isNumber } from '/@/utils/is';
+export default defineComponent({
+  name: 'PageWrapper',
+  components: { PageFooter, PageHeader },
+  inheritAttrs: false,
+  props: {
+    dense: propTypes.bool,
+    ghost: propTypes.bool,
+    content: propTypes.string,
+    contentStyle: {
+      type: Object as PropType<CSSProperties>,
     },
-    setup(props, { slots }) {
-      const headerRef = ref<ComponentRef>(null);
-      const footerRef = ref<ComponentRef>(null);
-      const footerHeight = ref(0);
-      const { prefixCls } = useDesign('page-wrapper');
-      const { contentHeight, setPageHeight, pageHeight } = usePageContext();
+    contentBackground: propTypes.bool,
+    contentFullHeight: propTypes.bool,
+    contentClass: propTypes.string,
+    fixedHeight: propTypes.bool,
+  },
+  setup(props, { slots }) {
+    const headerRef = ref<ComponentRef>(null);
+    const footerRef = ref<ComponentRef>(null);
+    const footerHeight = ref(0);
+    const { prefixCls } = useDesign('page-wrapper');
+    const { contentHeight, setPageHeight, pageHeight } = usePageContext();
 
-      const getClass = computed(() => {
-        return [
-          prefixCls,
-          {
-            [`${prefixCls}--dense`]: props.dense,
-          },
-        ];
-      });
+    const getClass = computed(() => {
+      return [
+        prefixCls,
+        {
+          [`${prefixCls}--dense`]: props.dense,
+        },
+      ];
+    });
 
-      const getShowFooter = computed(() => slots?.leftFooter || slots?.rightFooter);
+    const getShowFooter = computed(() => slots?.leftFooter || slots?.rightFooter);
 
-      const getHeaderSlots = computed(() => {
-        return Object.keys(omit(slots, 'default', 'leftFooter', 'rightFooter', 'headerContent'));
-      });
+    const getHeaderSlots = computed(() => {
+      return Object.keys(omit(slots, 'default', 'leftFooter', 'rightFooter', 'headerContent'));
+    });
 
-      const getContentStyle = computed(
-        (): CSSProperties => {
-          const { contentBackground, contentFullHeight, contentStyle, fixedHeight } = props;
-          const bg = contentBackground ? { backgroundColor: '#fff' } : {};
-          if (!contentFullHeight) {
-            return { ...bg, ...contentStyle };
-          }
-          const height = `${unref(pageHeight)}px`;
-          return {
-            ...bg,
-            ...contentStyle,
-            minHeight: height,
-            ...(fixedHeight ? { height } : {}),
-            paddingBottom: `${unref(footerHeight)}px`,
-          };
+    const getContentStyle = computed(
+      (): CSSProperties => {
+        const { contentBackground, contentFullHeight, contentStyle, fixedHeight } = props;
+        const bg = contentBackground ? { backgroundColor: '#fff' } : {};
+        if (!contentFullHeight) {
+          return { ...bg, ...contentStyle };
         }
-      );
+        const height = `${unref(pageHeight)}px`;
+        return {
+          ...bg,
+          ...contentStyle,
+          minHeight: height,
+          ...(fixedHeight ? { height } : {}),
+          paddingBottom: `${unref(footerHeight)}px`,
+        };
+      }
+    );
 
-      watch(
-        () => [contentHeight?.value, getShowFooter.value],
-        () => {
-          if (!props.contentFullHeight) {
-            return;
-          }
-          nextTick(() => {
+    watch(
+      () => [contentHeight?.value, getShowFooter.value],
+      () => {
+        if (!props.contentFullHeight) {
+          return;
+        }
+        nextTick(() => {
+          //fix:in contentHeight mode: delay getting footer and header dom element to get the correct height
+          setTimeout(() => {
             const footer = unref(footerRef);
             const header = unref(headerRef);
             footerHeight.value = 0;
@@ -120,45 +135,64 @@
             if (headerEl) {
               headerHeight += headerEl?.offsetHeight ?? 0;
             }
+            //fix:subtract content's marginTop and marginBottom value
+            let subtractHeight = 0;
+            const attributes = getComputedStyle(
+              document.querySelectorAll('.vben-page-wrapper-content')[0]
+            );
+            if (attributes.marginBottom) {
+              const contentMarginBottom = Number(attributes.marginBottom.replace(/[^\d]/g, ''));
+              subtractHeight += contentMarginBottom;
+            }
+            if (attributes.marginTop) {
+              const contentMarginTop = Number(attributes.marginTop.replace(/[^\d]/g, ''));
+              subtractHeight += contentMarginTop;
+            }
+            setPageHeight?.(
+              unref(contentHeight) - unref(footerHeight) - headerHeight - subtractHeight
+            );
+          }, 400);
+        });
+      },
+      {
+        immediate: true,
+      }
+    );
 
-            setPageHeight?.(unref(contentHeight) - unref(footerHeight) - headerHeight);
-          });
-        },
-        {
-          immediate: true,
-        }
-      );
-
-      return {
-        getContentStyle,
-        footerRef,
-        headerRef,
-        getClass,
-        getHeaderSlots,
-        prefixCls,
-        getShowFooter,
-        pageHeight,
-        omit,
-      };
-    },
-  });
+    return {
+      getContentStyle,
+      footerRef,
+      headerRef,
+      getClass,
+      getHeaderSlots,
+      prefixCls,
+      getShowFooter,
+      pageHeight,
+      omit,
+    };
+  },
+});
 </script>
 <style lang="less">
-  @prefix-cls: ~'@{namespace}-page-wrapper';
+@prefix-cls: ~'@{namespace}-page-wrapper';
 
-  .@{prefix-cls} {
-    position: relative;
+.@{prefix-cls} {
+  position: relative;
 
-    .ant-page-header {
-      &:empty {
-        padding: 0;
-      }
-    }
+  .@{prefix-cls}-content {
+    margin: 16px 16px 0 16px;
+  }
 
-    &--dense {
-      .@{prefix-cls}-content {
-        margin: 0;
-      }
+  .ant-page-header {
+    &:empty {
+      padding: 0;
     }
   }
+
+  &--dense {
+    .@{prefix-cls}-content {
+      margin: 0;
+    }
+  }
+}
 </style>
