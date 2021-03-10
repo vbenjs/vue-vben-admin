@@ -1,6 +1,6 @@
 import { useTimeoutFn } from '/@/hooks/core/useTimeout';
-import { tryOnUnmounted } from '/@/utils/helper/vueHelper';
 import { unref, Ref, nextTick } from 'vue';
+import { tryOnUnmounted } from '@vueuse/core';
 
 interface CallBackFn {
   (instance: Nullable<ApexCharts>): void;

@@ -10,14 +10,14 @@
   import type { BasicColumn } from '../types/table';
 
   import { defineComponent, computed } from 'vue';
-
-  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+  import BasicHelp from '/@/components/Basic/src/BasicHelp.vue';
+  import EditTableHeaderCell from './EditTableHeaderIcon.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
   export default defineComponent({
     name: 'TableHeaderCell',
     components: {
-      EditTableHeaderCell: createAsyncComponent(() => import('./EditTableHeaderIcon.vue')),
-      BasicHelp: createAsyncComponent(() => import('/@/components/Basic/src/BasicHelp.vue')),
+      EditTableHeaderCell,
+      BasicHelp,
     },
     props: {
       column: {
