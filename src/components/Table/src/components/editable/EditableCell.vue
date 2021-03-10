@@ -13,6 +13,7 @@
         :popoverVisible="getRuleVisible"
         :rule="getRule"
         :ruleMessage="ruleMessage"
+        allowClear
         size="small"
         ref="elRef"
         @change="handleChange"

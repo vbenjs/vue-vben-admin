@@ -112,7 +112,7 @@
     "vite-plugin-style-import": "^0.8.1",
     "vite-plugin-svg-icons": "^0.3.4",
     "vite-plugin-theme": "^0.4.8",
-    "vite-plugin-windicss": "0.7.1",
+    "vite-plugin-windicss": "0.7.2",
     "vue-eslint-parser": "^7.6.0",
     "yargs": "^16.2.0"
   },

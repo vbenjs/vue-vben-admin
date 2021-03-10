@@ -107,7 +107,7 @@ const menuList = (() => {
 
 export default [
   {
-    url: '/api/system/getAccountList',
+    url: '/basic-api/system/getAccountList',
     timeout: 100,
     method: 'get',
     response: ({ query }) => {
@@ -116,7 +116,7 @@ export default [
     },
   },
   {
-    url: '/api/system/getRoleListByPage',
+    url: '/basic-api/system/getRoleListByPage',
     timeout: 100,
     method: 'get',
     response: ({ query }) => {
@@ -125,7 +125,7 @@ export default [
     },
   },
   {
-    url: '/api/system/getAllRoleList',
+    url: '/basic-api/system/getAllRoleList',
     timeout: 100,
     method: 'get',
     response: () => {
@@ -133,7 +133,7 @@ export default [
     },
   },
   {
-    url: '/api/system/getDeptList',
+    url: '/basic-api/system/getDeptList',
     timeout: 100,
     method: 'get',
     response: () => {
@@ -141,7 +141,7 @@ export default [
     },
   },
   {
-    url: '/api/system/getMenuList',
+    url: '/basic-api/system/getMenuList',
     timeout: 100,
     method: 'get',
     response: () => {
