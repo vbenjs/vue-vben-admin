@@ -31,6 +31,9 @@
 
   import { Tabs } from 'ant-design-vue';
   import TabContent from './components/TabContent.vue';
+  import QuickButton from './components/QuickButton.vue';
+  import FoldButton from './components/FoldButton.vue';
+  import TabRedo from './components/TabRedo.vue';
   import type { RouteLocationNormalized } from 'vue-router';
 
   import { useGo } from '/@/hooks/web/usePage';
@@ -39,20 +42,20 @@
   import { userStore } from '/@/store/modules/user';
 
   import { initAffixTabs, useTabsDrag } from './useMultipleTabs';
-  import { REDIRECT_NAME } from '/@/router/constant';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
-  import { listenerLastChangeTab } from '/@/logics/mitt/tabChange';
   import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
+
+  import { REDIRECT_NAME } from '/@/router/constant';
+  import { listenerLastChangeTab } from '/@/logics/mitt/tabChange';
 
   import router from '/@/router';
 
   export default defineComponent({
     name: 'MultipleTabs',
     components: {
-      QuickButton: createAsyncComponent(() => import('./components/QuickButton.vue')),
-      TabRedo: createAsyncComponent(() => import('./components/TabRedo.vue')),
-      FoldButton: createAsyncComponent(() => import('./components/FoldButton.vue')),
+      QuickButton,
+      TabRedo: TabRedo,
+      FoldButton,
       Tabs,
       TabPane: Tabs.TabPane,
       TabContent,

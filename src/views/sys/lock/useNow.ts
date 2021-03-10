@@ -1,7 +1,7 @@
 import { dateUtil } from '/@/utils/dateUtil';
 import { reactive, toRefs } from 'vue';
-import { tryOnMounted, tryOnUnmounted } from '/@/utils/helper/vueHelper';
 import { localeStore } from '/@/store/modules/locale';
+import { tryOnMounted, tryOnUnmounted } from '@vueuse/core';
 
 export function useNow(immediate = true) {
   const localData = dateUtil.localeData(localeStore.getLocale);

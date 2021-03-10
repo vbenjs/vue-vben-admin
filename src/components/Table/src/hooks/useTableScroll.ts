@@ -23,7 +23,7 @@ export function useTableScroll(
   const modalFn = useModalContext();
 
   // Greater than animation time 280
-  const [debounceRedoHeight] = useDebounce(redoHeight, 100);
+  const [debounceRedoHeight] = useDebounce(redoHeight, 200);
 
   const getCanResize = computed(() => {
     const { canResize, scroll } = unref(propsRef);
@@ -31,7 +31,7 @@ export function useTableScroll(
   });
 
   watch(
-    () => [unref(getCanResize), , unref(getDataSourceRef)?.length],
+    () => [unref(getCanResize), unref(getDataSourceRef)?.length],
     () => {
       debounceRedoHeight();
     },
@@ -130,7 +130,6 @@ export function useTableScroll(
 
     bodyEl!.style.height = `${height}px`;
   }
-
   useWindowSizeFn(calcTableHeight, 280);
   onMountedOrActivated(() => {
     calcTableHeight();

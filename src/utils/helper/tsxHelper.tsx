@@ -33,14 +33,3 @@ export function extendSlots(slots: Slots, excludeKeys: string[] = []) {
   });
   return ret;
 }
-
-// Get events on attrs
-export function getListeners(attrs: Recordable<unknown>) {
-  const listeners: any = {};
-  Object.keys(attrs).forEach((key) => {
-    if (/^on/.test(key)) {
-      listeners[key] = attrs[key];
-    }
-  });
-  return listeners;
-}

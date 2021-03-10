@@ -5,7 +5,6 @@ import { getDynamicProps } from '/@/utils';
 
 import { ref, onUnmounted, unref, watch, toRaw } from 'vue';
 import { isProdMode } from '/@/utils/env';
-import { isInSetup } from '/@/utils/helper/vueHelper';
 import { error } from '/@/utils/log';
 import type { FormActionType } from '/@/components/Form';
 
@@ -18,8 +17,6 @@ type UseTableMethod = TableActionType & {
 export function useTable(
   tableProps?: Props
 ): [(instance: TableActionType, formInstance: UseTableMethod) => void, TableActionType] {
-  isInSetup();
-
   const tableRef = ref<Nullable<TableActionType>>(null);
   const loadedRef = ref<Nullable<boolean>>(false);
   const formRef = ref<Nullable<UseTableMethod>>(null);

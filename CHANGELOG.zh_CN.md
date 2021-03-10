@@ -7,6 +7,7 @@
 ### ✨ Refactor
 
 - 重构项目以解决循环依赖项导致的热更新问题
+- 移除 vueHelper/useClickoutside,使用@vueuse/core 代替
 
 ### 🐛 Bug Fixes
 

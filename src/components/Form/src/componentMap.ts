@@ -36,11 +36,7 @@ componentMap.set('AutoComplete', AutoComplete);
 
 componentMap.set('Select', Select);
 componentMap.set('ApiSelect', ApiSelect);
-// componentMap.set('SelectOptGroup', Select.OptGroup);
-// componentMap.set('SelectOption', Select.Option);
 componentMap.set('TreeSelect', TreeSelect);
-// componentMap.set('Transfer', Transfer);
-// componentMap.set('Radio', Radio);
 componentMap.set('Switch', Switch);
 componentMap.set('RadioButtonGroup', RadioButtonGroup);
 componentMap.set('RadioGroup', Radio.Group);

@@ -1,6 +1,3 @@
-// import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
-// export const Description = createAsyncComponent(() => import('./src/index'));
-
 import Description from './src/index.vue';
 
 export { Description };

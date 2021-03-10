@@ -7126,10 +7126,10 @@ postcss@^8.1.10, postcss@^8.2.1:
     nanoid "^3.1.20"
     source-map "^0.6.1"
 
-postcss@^8.2.7:
-  version "8.2.7"
-  resolved "https://registry.npmjs.org/postcss/-/postcss-8.2.7.tgz#48ed8d88b4de10afa0dfd1c3f840aa57b55c4d47"
-  integrity sha512-DsVLH3xJzut+VT+rYr0mtvOtpTjSyqDwPf5EZWXcb0uAKfitGpTY9Ec+afi2+TgdN8rWS9Cs88UDYehKo/RvOw==
+postcss@^8.2.8:
+  version "8.2.8"
+  resolved "https://registry.npmjs.org/postcss/-/postcss-8.2.8.tgz#0b90f9382efda424c4f0f69a2ead6f6830d08ece"
+  integrity sha512-1F0Xb2T21xET7oQV9eKuctbM9S7BC0fetoHCc4H13z0PT6haiRLP4T0ZY4XWh7iLP0usgqykT6p9B2RtOf4FPw==
   dependencies:
     colorette "^1.2.2"
     nanoid "^3.1.20"
@@ -9113,10 +9113,10 @@ vite-plugin-imagemin@^0.2.9:
     imagemin-svgo "^8.0.0"
     imagemin-webp "^6.0.0"
 
-vite-plugin-mock@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.2.2.tgz#94c5aa6851c82f30417e9dd0feedf809e9ff6265"
-  integrity sha512-2qqQvjQHS2ENxdyNqHlUKdo4hx7EDAlZ3CW+sUKmjZi/3ItvMJdSbKvIkiM/aBb3MEI450iAdxLOPubikDkGhQ==
+vite-plugin-mock@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.2.3.tgz#b2194ca4346933d9d9f0ec39ea1c4c1ea3c744f2"
+  integrity sha512-xbHo2k2fENJu6Y5eOCxZiZovUgSIRL0efgdhWb9rRjF8k+MHRWbtXgMufRWFtthgZCfz1m3U4uV4TIA4IO/8eQ==
   dependencies:
     "@rollup/plugin-node-resolve" "^11.2.0"
     "@types/mockjs" "^1.0.3"
