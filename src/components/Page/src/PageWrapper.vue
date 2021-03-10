@@ -45,6 +45,7 @@
   import { propTypes } from '/@/utils/propTypes';
   import { omit } from 'lodash-es';
   import { PageHeader } from 'ant-design-vue';
+  import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
   export default defineComponent({
     name: 'PageWrapper',
     components: { PageFooter, PageHeader },
@@ -105,47 +106,59 @@
       watch(
         () => [contentHeight?.value, getShowFooter.value],
         () => {
-          if (!props.contentFullHeight) {
-            return;
-          }
-          nextTick(() => {
-            //fix:in contentHeight mode: delay getting footer and header dom element to get the correct height
-            const footer = unref(footerRef);
-            const header = unref(headerRef);
-            footerHeight.value = 0;
-            const footerEl = footer?.$el;
-
-            if (footerEl) {
-              footerHeight.value += footerEl?.offsetHeight ?? 0;
-            }
-            let headerHeight = 0;
-            const headerEl = header?.$el;
-            if (headerEl) {
-              headerHeight += headerEl?.offsetHeight ?? 0;
-            }
-            // fix:subtract content's marginTop and marginBottom value
-            let subtractHeight = 0;
-            const { marginBottom, marginTop } = getComputedStyle(
-              document.querySelectorAll(`.${prefixVar}-page-wrapper-content`)?.[0]
-            );
-            if (marginBottom) {
-              const contentMarginBottom = Number(marginBottom.replace(/[^\d]/g, ''));
-              subtractHeight += contentMarginBottom;
-            }
-            if (marginTop) {
-              const contentMarginTop = Number(marginTop.replace(/[^\d]/g, ''));
-              subtractHeight += contentMarginTop;
-            }
-            setPageHeight?.(
-              unref(contentHeight) - unref(footerHeight) - headerHeight - subtractHeight
-            );
-          });
+          calcContentHeight();
         },
         {
           flush: 'post',
           immediate: true,
         }
       );
+
+      onMountedOrActivated(() => {
+        nextTick(() => {
+          calcContentHeight();
+        });
+      });
+
+      function calcContentHeight() {
+        if (!props.contentFullHeight) {
+          return;
+        }
+        //fix:in contentHeight mode: delay getting footer and header dom element to get the correct height
+        const footer = unref(footerRef);
+        const header = unref(headerRef);
+        footerHeight.value = 0;
+        const footerEl = footer?.$el;
+
+        if (footerEl) {
+          footerHeight.value += footerEl?.offsetHeight ?? 0;
+        }
+        let headerHeight = 0;
+        const headerEl = header?.$el;
+        if (headerEl) {
+          headerHeight += headerEl?.offsetHeight ?? 0;
+        }
+        // fix:subtract content's marginTop and marginBottom value
+        let subtractHeight = 0;
+        let marginBottom = '0px';
+        let marginTop = '0px';
+        const classElments = document.querySelectorAll(`.${prefixVar}-page-wrapper-content`);
+        if (classElments && classElments.length > 0) {
+          const contentEl = classElments[0];
+          const cssStyle = getComputedStyle(contentEl);
+          marginBottom = cssStyle?.marginBottom;
+          marginTop = cssStyle?.marginTop;
+        }
+        if (marginBottom) {
+          const contentMarginBottom = Number(marginBottom.replace(/[^\d]/g, ''));
+          subtractHeight += contentMarginBottom;
+        }
+        if (marginTop) {
+          const contentMarginTop = Number(marginTop.replace(/[^\d]/g, ''));
+          subtractHeight += contentMarginTop;
+        }
+        setPageHeight?.(unref(contentHeight) - unref(footerHeight) - headerHeight - subtractHeight);
+      }
 
       return {
         getContentStyle,

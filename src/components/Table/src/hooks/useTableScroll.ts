@@ -9,6 +9,7 @@ import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
 import { useModalContext } from '/@/components/Modal';
 import { useDebounce } from '/@/hooks/core/useDebounce';
 import type { BasicColumn } from '/@/components/Table';
+import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
 
 export function useTableScroll(
   propsRef: ComputedRef<BasicTableProps>,
@@ -21,8 +22,8 @@ export function useTableScroll(
 
   const modalFn = useModalContext();
 
-  //320  Greater than animation time 280
-  const [debounceRedoHeight] = useDebounce(redoHeight, 300);
+  // Greater than animation time 280
+  const [debounceRedoHeight] = useDebounce(redoHeight, 100);
 
   const getCanResize = computed(() => {
     const { canResize, scroll } = unref(propsRef);
@@ -30,13 +31,12 @@ export function useTableScroll(
   });
 
   watch(
-    () => unref(getCanResize),
+    () => [unref(getCanResize), , unref(getDataSourceRef)?.length],
     () => {
       debounceRedoHeight();
     },
     {
       flush: 'post',
-      immediate: true,
     }
   );
 
@@ -132,6 +132,12 @@ export function useTableScroll(
   }
 
   useWindowSizeFn(calcTableHeight, 280);
+  onMountedOrActivated(() => {
+    calcTableHeight();
+    nextTick(() => {
+      debounceRedoHeight();
+    });
+  });
 
   const getScrollX = computed(() => {
     let width = 0;
