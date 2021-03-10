@@ -23,7 +23,7 @@ export function useTableScroll(
   const modalFn = useModalContext();
 
   // Greater than animation time 280
-  const [debounceRedoHeight] = useDebounce(redoHeight, 200);
+  const [debounceRedoHeight] = useDebounce(redoHeight, 100);
 
   const getCanResize = computed(() => {
     const { canResize, scroll } = unref(propsRef);
@@ -41,11 +41,9 @@ export function useTableScroll(
   );
 
   function redoHeight() {
-    if (unref(getCanResize)) {
-      nextTick(() => {
-        calcTableHeight();
-      });
-    }
+    nextTick(() => {
+      calcTableHeight();
+    });
   }
 
   function setHeight(heigh: number) {
@@ -63,15 +61,23 @@ export function useTableScroll(
     const { resizeHeightOffset, pagination, maxHeight } = unref(propsRef);
     const tableData = unref(getDataSourceRef);
 
-    if (!unref(getCanResize) || tableData.length === 0) return;
-
-    await nextTick();
-    //Add a delay to get the correct bottomIncludeBody paginationHeight footerHeight headerHeight
     const table = unref(tableElRef);
     if (!table) return;
 
     const tableEl: Element = table.$el;
     if (!tableEl) return;
+
+    if (!bodyEl) {
+      bodyEl = tableEl.querySelector('.ant-table-body');
+    }
+
+    bodyEl!.style.height = 'unset';
+
+    if (!unref(getCanResize) || tableData.length === 0) return;
+
+    await nextTick();
+    //Add a delay to get the correct bottomIncludeBody paginationHeight footerHeight headerHeight
+
     const headEl = tableEl.querySelector('.ant-table-thead ');
 
     if (!headEl) return;
@@ -123,10 +129,6 @@ export function useTableScroll(
 
     height = (height > maxHeight! ? (maxHeight as number) : height) ?? height;
     setHeight(height);
-
-    if (!bodyEl) {
-      bodyEl = tableEl.querySelector('.ant-table-body');
-    }
 
     bodyEl!.style.height = `${height}px`;
   }
