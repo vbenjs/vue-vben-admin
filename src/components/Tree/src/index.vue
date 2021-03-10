@@ -16,11 +16,10 @@
   import { TreeIcon } from './TreeIcon';
   import TreeHeader from './TreeHeader.vue';
   import { ScrollContainer } from '/@/components/Container';
-  // import { DownOutlined } from '@ant-design/icons-vue';
 
   import { omit, get } from 'lodash-es';
   import { isBoolean, isFunction } from '/@/utils/is';
-  import { extendSlots } from '/@/utils/helper/tsxHelper';
+  import { extendSlots, getSlot } from '/@/utils/helper/tsxHelper';
   import { filter } from '/@/utils/helper/treeHelper';
 
   import { useTree } from './useTree';
@@ -71,16 +70,6 @@
         }
       );
 
-      // const getContentStyle = computed(
-      //   (): CSSProperties => {
-      //     const { actionList } = props;
-      //     const width = actionList.length * 18;
-      //     return {
-      //       width: `calc(100% - ${width}px)`,
-      //     };
-      //   }
-      // );
-
       const getBindValues = computed(() => {
         let propsData = {
           blockNode: true,
@@ -106,11 +95,6 @@
             emit('update:value', rawVal);
           },
           onRightClick: handleRightClick,
-          // onSelect: (k, e) => {
-          //   setTimeout(() => {
-          //     emit('select', k, e);
-          //   }, 16);
-          // },
         };
         propsData = omit(propsData, 'treeData', 'class');
         return propsData;
@@ -306,14 +290,17 @@
                     class={`${prefixCls}-title pl-2`}
                     onClick={handleClickNode.bind(null, item[keyField], item[childrenField])}
                   >
-                    {icon && <TreeIcon icon={icon} />}
-                    <span
-                      class={`${prefixCls}__content`}
-                      //  style={unref(getContentStyle)}
-                    >
-                      {get(item, titleField)}
-                    </span>
-                    <span class={`${prefixCls}__actions`}> {renderAction({ ...item, level })}</span>
+                    {slots?.title ? (
+                      getSlot(slots, 'title', item)
+                    ) : (
+                      <>
+                        {icon && <TreeIcon icon={icon} />}
+                        <span class={`${prefixCls}__content`}>{get(item, titleField)}</span>
+                        <span class={`${prefixCls}__actions`}>
+                          {renderAction({ ...item, level })}
+                        </span>
+                      </>
+                    )}
                   </span>
                 ),
                 default: () => renderTreeNode({ data: children, level: level + 1 }),
