@@ -63,7 +63,7 @@ export function useTableScroll(
     const { resizeHeightOffset, pagination, maxHeight } = unref(propsRef);
     const tableData = unref(getDataSourceRef);
 
-    if (!unref(getCanResize) || tableData.length === 0) return;
+    if (!unref(getCanResize)) return;
 
     await nextTick();
     //Add a delay to get the correct bottomIncludeBody paginationHeight footerHeight headerHeight
@@ -72,6 +72,15 @@ export function useTableScroll(
 
     const tableEl: Element = table.$el;
     if (!tableEl) return;
+
+    if (tableData.length === 0) {
+      if (!bodyEl) {
+        bodyEl = tableEl.querySelector('.ant-table-body');
+      }
+      bodyEl!.style.height = `0px`;
+      return;
+    }
+
     const headEl = tableEl.querySelector('.ant-table-thead ');
 
     if (!headEl) return;
@@ -85,9 +94,7 @@ export function useTableScroll(
     // Pager height
     let paginationHeight = 2;
     if (!isBoolean(pagination)) {
-      if (!paginationEl) {
-        paginationEl = tableEl.querySelector('.ant-pagination') as HTMLElement;
-      }
+      paginationEl = tableEl.querySelector('.ant-pagination') as HTMLElement;
       if (paginationEl) {
         const offsetHeight = paginationEl.offsetHeight;
         paginationHeight += offsetHeight || 0;
@@ -122,6 +129,17 @@ export function useTableScroll(
       headerHeight;
 
     height = (height > maxHeight! ? (maxHeight as number) : height) ?? height;
+    console.error(
+      'bottomIncludeBody=%s, resizeHeightOffset=%s, paddingHeight=%s, borderHeight=%s, paginationHeight=%s, footerHeight=%s, headerHeight=%s, height=%s',
+      bottomIncludeBody,
+      resizeHeightOffset,
+      paddingHeight,
+      borderHeight,
+      paginationHeight,
+      footerHeight,
+      headerHeight,
+      height
+    );
     setHeight(height);
 
     if (!bodyEl) {
