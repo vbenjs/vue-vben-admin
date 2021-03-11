@@ -1,6 +1,11 @@
 {
   "name": "vben-admin",
   "version": "2.0.3",
+  "author": {
+    "name": "vben",
+    "email": "anncwb@126.com",
+    "url": "https://github.com/anncwb"
+  },
   "scripts": {
     "bootstrap": "yarn install",
     "serve": "npx --max_old_space_size=4096 vite",
@@ -28,7 +33,7 @@
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.6",
-    "@vueuse/core": "^4.3.4",
+    "@vueuse/core": "^4.3.5",
     "@zxcvbn-ts/core": "^0.3.0",
     "ant-design-vue": "2.0.1",
     "apexcharts": "^3.25.0",
@@ -91,6 +96,7 @@
     "is-ci": "^3.0.0",
     "less": "^4.1.1",
     "lint-staged": "^10.5.4",
+    "madge": "^4.0.2",
     "postcss": "^8.2.8",
     "prettier": "^2.2.1",
     "pretty-quick": "^3.1.0",
@@ -106,7 +112,7 @@
     "vite-plugin-compression": "^0.2.3",
     "vite-plugin-html": "^2.0.3",
     "vite-plugin-imagemin": "^0.2.9",
-    "vite-plugin-mock": "^2.2.3",
+    "vite-plugin-mock": "^2.2.4",
     "vite-plugin-purge-icons": "^0.7.0",
     "vite-plugin-pwa": "^0.5.6",
     "vite-plugin-style-import": "^0.8.1",
@@ -120,7 +126,7 @@
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China.If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
     "esbuild": "0.8.57",
-    "rollup": "2.41.0"
+    "rollup": "2.41.1"
   },
   "repository": {
     "type": "git",

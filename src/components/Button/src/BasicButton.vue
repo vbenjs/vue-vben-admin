@@ -1,5 +1,5 @@
 <template>
-  <Button v-bind="getBindValue" :class="[getColor, $attrs.class]">
+  <Button v-bind="getBindValue" :class="[getColor, $attrs.class]" @click="onClick">
     <template #default="data">
       <Icon :icon="preIcon" v-if="preIcon" :size="14" />
       <slot v-bind="data"></slot>
@@ -26,6 +26,7 @@
       disabled: propTypes.bool,
       preIcon: propTypes.string,
       postIcon: propTypes.string,
+      onClick: propTypes.func,
     },
     setup(props, { attrs }) {
       const getColor = computed(() => {
