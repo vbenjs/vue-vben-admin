@@ -129,19 +129,7 @@ export function useTableScroll(
       headerHeight;
 
     height = (height > maxHeight! ? (maxHeight as number) : height) ?? height;
-    console.error(
-      'bottomIncludeBody=%s, resizeHeightOffset=%s, paddingHeight=%s, borderHeight=%s, paginationHeight=%s, footerHeight=%s, headerHeight=%s, height=%s',
-      bottomIncludeBody,
-      resizeHeightOffset,
-      paddingHeight,
-      borderHeight,
-      paginationHeight,
-      footerHeight,
-      headerHeight,
-      height
-    );
     setHeight(height);
-
     if (!bodyEl) {
       bodyEl = tableEl.querySelector('.ant-table-body');
     }
