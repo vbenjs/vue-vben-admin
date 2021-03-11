@@ -31,7 +31,7 @@ export function useTableScroll(
   });
 
   watch(
-    () => [unref(getCanResize), , unref(getDataSourceRef)?.length],
+    () => [unref(getCanResize), unref(getDataSourceRef)?.length],
     () => {
       debounceRedoHeight();
     },
