@@ -205,8 +205,17 @@
 
       watchEffect(() => {
         treeDataRef.value = props.treeData as TreeItem[];
+      });
+
+      watchEffect(() => {
         state.expandedKeys = props.expandedKeys;
+      });
+
+      watchEffect(() => {
         state.selectedKeys = props.selectedKeys;
+      });
+
+      watchEffect(() => {
         state.checkedKeys = props.checkedKeys;
       });
 
