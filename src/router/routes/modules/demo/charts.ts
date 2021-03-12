@@ -27,7 +27,7 @@ const charts: AppRouteModule = {
       meta: {
         title: t('routes.demo.charts.aMap'),
       },
-      component: () => import('/@/views/demo/charts/map/Amap.vue'),
+      component: () => import('/@/views/demo/charts/map/Gaode.vue'),
     },
     {
       path: 'googleMap',
