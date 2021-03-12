@@ -5,13 +5,10 @@ import { resolve } from 'path';
 
 import { generateModifyVars } from './build/config/themeConfig';
 import { createProxy } from './build/vite/proxy';
+import { createAlias } from './build/vite/alias';
 import { wrapperEnv } from './build/utils';
 import { createVitePlugins } from './build/vite/plugin';
 import { OUTPUT_DIR } from './build/constant';
-
-function pathResolve(dir: string) {
-  return resolve(__dirname, '.', dir);
-}
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
   const root = process.cwd();
@@ -29,18 +26,12 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     base: VITE_PUBLIC_PATH,
     root,
     resolve: {
-      alias: [
-        {
-          // /@/xxxx  =>  src/xxx
-          find: /^\/@\//,
-          replacement: pathResolve('src') + '/',
-        },
-        {
-          // /#/xxxx  =>  types/xxx
-          find: /^\/#\//,
-          replacement: pathResolve('types') + '/',
-        },
-      ],
+      alias: createAlias([
+        // /@/xxxx => src/xxxx
+        ['/@/', 'src'],
+        // /#/xxxx => types/xxxx
+        ['/#/', 'types'],
+      ]),
     },
     server: {
       port: VITE_PORT,
@@ -52,7 +43,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
 
     build: {
-      // minify: 'esbuild',
+      minify: 'esbuild',
       outDir: OUTPUT_DIR,
       polyfillDynamicImport: VITE_LEGACY,
       terserOptions: {
