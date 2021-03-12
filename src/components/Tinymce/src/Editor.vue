@@ -32,6 +32,7 @@
   import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
   import ImgUpload from './ImgUpload.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { isNumber } from '/@/utils/is';
 
   const CDN_URL = 'https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1';
 
@@ -56,7 +57,7 @@
 
       const containerWidth = computed(() => {
         const width = props.width;
-        if (/^[\d]+(\.[\d]+)?$/.test(width.toString())) {
+        if (isNumber(width)) {
           return `${width}px`;
         }
         return width;

@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.6",
-    "@vueuse/core": "^4.3.5",
+    "@vueuse/core": "^4.3.6",
     "@zxcvbn-ts/core": "^0.3.0",
     "ant-design-vue": "2.0.1",
     "apexcharts": "^3.25.0",
@@ -117,7 +117,7 @@
     "vite-plugin-pwa": "^0.5.6",
     "vite-plugin-style-import": "^0.8.1",
     "vite-plugin-svg-icons": "^0.3.4",
-    "vite-plugin-theme": "^0.4.8",
+    "vite-plugin-theme": "^0.5.0",
     "vite-plugin-windicss": "0.8.2",
     "vue-eslint-parser": "^7.6.0",
     "yargs": "^16.2.0"
