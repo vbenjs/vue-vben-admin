@@ -14,6 +14,11 @@
   //     bottom: 1px;
   //   }
   // }
+  &-link:hover,
+  &-link:focus,
+  &-link:active {
+    border-color: transparent !important;
+  }
 
   &-primary {
     color: @white;
@@ -70,6 +75,7 @@
     &:hover,
     &:focus {
       color: @button-success-hover-color;
+      border-color: transparent;
     }
   }
 
@@ -111,6 +117,7 @@
     &:hover,
     &:focus {
       color: @button-warn-hover-color;
+      border-color: transparent;
     }
   }
 
@@ -144,6 +151,7 @@
     &:hover,
     &:focus {
       color: @button-error-hover-color;
+      border-color: transparent;
     }
   }
 
@@ -165,9 +173,6 @@
       color: @white;
       background-color: fade(@button-error-color, 40%);
       border-color: fade(@button-error-color, 40%);
-
-      // background-color: @button-error-disabled-color;
-      // border-color: @button-error-disabled-color ;
     }
   }
 
