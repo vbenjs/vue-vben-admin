@@ -8,7 +8,6 @@ const menu: MenuModule = {
     path: '/comp',
     tag: {
       dot: true,
-      type: 'warn',
     },
     children: [
       {
