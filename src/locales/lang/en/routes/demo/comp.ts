@@ -32,4 +32,6 @@ export default {
   upload: 'Upload',
 
   loading: 'Loading',
+
+  time: 'Time',
 };

@@ -6,18 +6,18 @@
   //============= Editor ======================
   //===========================================
   "explorer.openEditors.visible": 0,
+  "editor.tabSize": 2,
+  "editor.renderControlCharacters": true,
+  "window.zoomLevel": -1,
   "editor.minimap.renderCharacters": false,
   "editor.minimap.maxColumn": 300,
   "editor.minimap.showSlider": "always",
-  "editor.smoothScrolling": true,
   "editor.cursorBlinking": "phase",
   "editor.cursorSmoothCaretAnimation": true,
   "editor.detectIndentation": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "diffEditor.ignoreTrimWhitespace": false,
   "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
-  "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
   "editor.suggestSelection": "first",
   "editor.trimAutoWhitespace": true,
   "editor.quickSuggestions": {
@@ -39,7 +39,6 @@
   "emmet.syntaxProfiles": {
     "vue-html": "html",
     "vue": "html",
-    "javascript": "javascriptreact",
     "xml": {
       "attr_quotes": "single"
     }
@@ -80,7 +79,6 @@
   "files.exclude": {
     "**/bower_components": true,
     "**/.idea": true,
-    "**/yarn.lock": true,
     "**/tmp": true,
     "**/.git": true,
     "**/.svn": true,
@@ -89,7 +87,6 @@
     "**/.DS_Store": true
   },
   "files.watcherExclude": {
-    // 文件监视排除
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
     "**/.vscode/**": true,
@@ -98,10 +95,6 @@
     "**/bower_components/**": true,
     "**/dist/**": true,
     "**/yarn.lock": true
-  },
-  "files.associations": {
-    "*.vue": "vue",
-    "*.wxss": "css"
   },
   "stylelint.enable": true,
   "stylelint.packageManager": "yarn",

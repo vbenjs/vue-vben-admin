@@ -3,6 +3,7 @@
 ### ✨ Features
 
 - 图标选择器新增 svg 模式
+- 新增时间组件
 
 ### ✨ Refactor
 

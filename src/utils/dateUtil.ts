@@ -1,3 +1,6 @@
+/**
+ * Independent time operation tool to facilitate subsequent switch to dayjs
+ */
 import moment from 'moment';
 
 const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm';
