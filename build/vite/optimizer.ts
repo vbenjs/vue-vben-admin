@@ -1,5 +1,5 @@
 // TODO
-import type { GetManualChunk, GetManualChunkApi } from 'rollup';
+import type { GetManualChunk } from 'rollup';
 
 //
 const vendorLibs: { match: string[]; output: string }[] = [
@@ -10,8 +10,7 @@ const vendorLibs: { match: string[]; output: string }[] = [
 ];
 
 // @ts-ignore
-export const configManualChunk: GetManualChunk = (id: string, api: GetManualChunkApi) => {
-  console.log(api);
+export const configManualChunk: GetManualChunk = (id: string) => {
   if (/[\\/]node_modules[\\/]/.test(id)) {
     const matchItem = vendorLibs.find((item) => {
       const reg = new RegExp(`[\\/]node_modules[\\/]_?(${item.match.join('|')})(.*)`, 'ig');

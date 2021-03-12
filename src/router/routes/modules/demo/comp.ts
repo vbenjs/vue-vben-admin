@@ -233,6 +233,14 @@ const comp: AppRouteModule = {
       },
     },
     {
+      path: 'timestamp',
+      name: 'TimeDemo',
+      component: () => import('/@/views/demo/comp/time/index.vue'),
+      meta: {
+        title: t('routes.demo.comp.time'),
+      },
+    },
+    {
       path: 'countTo',
       name: 'CountTo',
       component: () => import('/@/views/demo/comp/count-to/index.vue'),

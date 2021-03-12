@@ -122,6 +122,13 @@ const menu: MenuModule = {
         name: t('routes.demo.comp.countTo'),
       },
       {
+        path: 'timestamp',
+        name: t('routes.demo.comp.time'),
+        tag: {
+          content: 'new',
+        },
+      },
+      {
         path: 'transition',
         name: t('routes.demo.comp.transition'),
       },
