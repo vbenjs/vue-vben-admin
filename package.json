@@ -1,6 +1,6 @@
 {
   "name": "vben-admin",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "author": {
     "name": "vben",
     "email": "anncwb@126.com",
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.6",
-    "@vueuse/core": "^4.3.6",
+    "@vueuse/core": "^4.4.1",
     "@zxcvbn-ts/core": "^0.3.0",
     "ant-design-vue": "2.0.1",
     "apexcharts": "^3.25.0",
@@ -46,7 +46,7 @@
     "path-to-regexp": "^6.2.0",
     "qrcode": "^1.4.4",
     "sortablejs": "^1.13.0",
-    "vditor": "^3.8.2",
+    "vditor": "^3.8.3",
     "vue": "^3.0.7",
     "vue-i18n": "^9.0.0",
     "vue-router": "^4.0.5",
@@ -58,7 +58,7 @@
   "devDependencies": {
     "@commitlint/cli": "^12.0.1",
     "@commitlint/config-conventional": "^12.0.1",
-    "@iconify/json": "^1.1.314",
+    "@iconify/json": "^1.1.316",
     "@ls-lint/ls-lint": "^1.9.2",
     "@purge-icons/generated": "^0.7.0",
     "@types/crypto-js": "^4.0.1",
@@ -84,7 +84,7 @@
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
-    "eslint": "^7.21.0",
+    "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.7.0",
@@ -126,7 +126,7 @@
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China.If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
     "esbuild": "0.8.57",
-    "rollup": "2.41.1"
+    "rollup": "2.41.2"
   },
   "repository": {
     "type": "git",
