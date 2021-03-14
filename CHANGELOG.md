@@ -1,3 +1,33 @@
+# [2.1.0](https://github.com/anncwb/vue-vben-admin/compare/v2.0.3...v2.1.0) (2021-03-15)
+
+### Bug Fixes
+
+- **button:** fix button style error close [#312](https://github.com/anncwb/vue-vben-admin/issues/312) ([7a6c87f](https://github.com/anncwb/vue-vben-admin/commit/7a6c87f8c1aa34a7a00506fb89fb231e3a176f6f))
+- **menu:** fix hideMenu not working close [#338](https://github.com/anncwb/vue-vben-admin/issues/338) ([5b2fbfb](https://github.com/anncwb/vue-vben-admin/commit/5b2fbfb6ce4054ece60c851c45baf60f3a07a4db))
+- **page-wraper:** fix PageWrapper the scroll bar on the right side of the content area when the user clicks on the tab page to reload the page ([#341](https://github.com/anncwb/vue-vben-admin/issues/341)) ([fcff2cb](https://github.com/anncwb/vue-vben-admin/commit/fcff2cb1911f1e18017f25b3509d1c67f7e86e81))
+- **page-wrapper:** fix PageWrapper title not showing ([9e3adaa](https://github.com/anncwb/vue-vben-admin/commit/9e3adaa30c7cdaf23855922100e16717856ba1d9))
+- **table:** ensure that editable cell values are echoed correctly close [#335](https://github.com/anncwb/vue-vben-admin/issues/335) ([fab7a6c](https://github.com/anncwb/vue-vben-admin/commit/fab7a6c58d586300d58e1b6837927e1569b57aa5))
+- **table:** ensure that the height calculation is normal close [#349](https://github.com/anncwb/vue-vben-admin/issues/349) ([6095cb5](https://github.com/anncwb/vue-vben-admin/commit/6095cb54afe3f4fcabbfff26ac6704ecfbbddae5))
+- **table:** ensure that the table height is correct when the data is empty ([53867a8](https://github.com/anncwb/vue-vben-admin/commit/53867a846154d9a3529f50d20d92ce5fdb41986f))
+- **table:** ensure that the value of the table action is updated correctly close [#301](https://github.com/anncwb/vue-vben-admin/issues/301) [#313](https://github.com/anncwb/vue-vben-admin/issues/313) ([7156e47](https://github.com/anncwb/vue-vben-admin/commit/7156e47c1813ec01594d9dff4a1e7d593f3c17db))
+- **table:** fix table height calculation problem ([0fe42a0](https://github.com/anncwb/vue-vben-admin/commit/0fe42a06c1f2ef69805dbfeecbcac919ff0aedd0)), closes [#348](https://github.com/anncwb/vue-vben-admin/issues/348)
+- **table:** fix table row misalignment close [#353](https://github.com/anncwb/vue-vben-admin/issues/353) ([e15737b](https://github.com/anncwb/vue-vben-admin/commit/e15737b9d17d8ebea4f4e9897aeae9b250910a15))
+- **table:** fix TableAction row height error close [#350](https://github.com/anncwb/vue-vben-admin/issues/350) ([a759e44](https://github.com/anncwb/vue-vben-admin/commit/a759e44c6e5c223d2fef52c5a9698e571eed2d52))
+- **transition:** fix transition not work close [#334](https://github.com/anncwb/vue-vben-admin/issues/334) ([7d8b8db](https://github.com/anncwb/vue-vben-admin/commit/7d8b8db256f78b228b2b4629a472834a4cce9bd4))
+- **tree:** ebsure the expansion is functioning properly close [#362](https://github.com/anncwb/vue-vben-admin/issues/362) ([a405de8](https://github.com/anncwb/vue-vben-admin/commit/a405de8d202710264e802edb270bbd5cd4a1ab80))
+- **tree:** tree can customize title close [#344](https://github.com/anncwb/vue-vben-admin/issues/344) ([ed422b7](https://github.com/anncwb/vue-vben-admin/commit/ed422b7c56bf9d44be001b8a54358d69c100ff35))
+- **useTableScroll:** query paginationel every time to get the correct height ([#355](https://github.com/anncwb/vue-vben-admin/issues/355)) ([f818bb9](https://github.com/anncwb/vue-vben-admin/commit/f818bb9a107e43adfb8ef2a095635f5fffb5800b))
+
+### Features
+
+- **icon:** added svg icon picker ([1418dc6](https://github.com/anncwb/vue-vben-admin/commit/1418dc6a597a8410711359f07ae66f0fea858977))
+- **map:** added AMap/Baidu/Google Map example close [#81](https://github.com/anncwb/vue-vben-admin/issues/81) ([a9462f0](https://github.com/anncwb/vue-vben-admin/commit/a9462f0d4dacb8db9300c416b2d3f094be624220))
+- **time:** added time compoennt close [#285](https://github.com/anncwb/vue-vben-admin/issues/285) ([a89eeef](https://github.com/anncwb/vue-vben-admin/commit/a89eeef6f3a0b9863d28cf516b126a938eed7361))
+
+### Performance Improvements
+
+- **icon:** icon and SvgIcon integration ([e8fe6a9](https://github.com/anncwb/vue-vben-admin/commit/e8fe6a929be025a889ddec624ff9c2729313c818))
+
 ## [2.0.3](https://github.com/anncwb/vue-vben-admin/compare/v2.0.2...v2.0.3) (2021-03-07)
 
 ### Bug Fixes

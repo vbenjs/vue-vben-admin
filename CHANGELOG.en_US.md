@@ -1,3 +1,25 @@
+## 2.1.0 (2021-03-15)
+
+### ✨ Features
+
+- Added svg mode to icon selector
+- Added time component
+- Added AutoNavi/Baidu/Google Map example
+
+### ✨ Refactor
+
+- Refactor the project to solve the hot update problem caused by circular dependencies
+- Remove vueHelper/useClickoutside, use @vueuse/core instead
+
+### 🐛 Bug Fixes
+
+- Ensure that the value of `table action` is updated correctly
+- Fix the animation of page switching cannot be closed
+- Fix `PageWrapper`title not showing
+- Fix the known issues of the table
+- Fix the problem that the BasicTree component can't customize the title
+- Fix the button style problem after theme switching
+
 ## 2.0.3 (2021-03-07)
 
 ### ✨ Features
