@@ -7,7 +7,8 @@ import type { ViteEnv } from '../../utils';
 
 import html from 'vite-plugin-html';
 
-import pkg from '../../../package.json';
+const pkg = require('../../../package.json');
+// import pkg from '../../../package.json';
 import { GLOB_CONFIG_FILE_NAME } from '../../constant';
 
 export function configHtmlPlugin(env: ViteEnv, isBuild: boolean) {
