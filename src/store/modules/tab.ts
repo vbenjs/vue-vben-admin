@@ -8,8 +8,8 @@ import { PageEnum } from '/@/enums/pageEnum';
 
 import store from '/@/store';
 import router from '/@/router';
-import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/constant';
-import { getRoute } from '/@/router/helper/routeHelper';
+import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/routes/basic';
+import { getRawRoute } from '/@/utils';
 
 import { useGo, useRedo } from '/@/hooks/web/usePage';
 import { cloneDeep } from 'lodash-es';
@@ -18,8 +18,6 @@ const NAME = 'app-tab';
 
 hotModuleUnregisterModule(NAME);
 
-export const PAGE_LAYOUT_KEY = '__PAGE_LAYOUT__';
-
 function isGotoPage() {
   const go = useGo();
   go(unref(router.currentRoute).path, true);
@@ -27,7 +25,7 @@ function isGotoPage() {
 
 @Module({ namespaced: true, name: NAME, dynamic: true, store })
 class Tab extends VuexModule {
-  cachedMapState = new Map<string, string[]>();
+  cachedTabsState: Set<string> = new Set();
 
   // tab list
   tabsState: RouteLocationNormalized[] = [];
@@ -43,8 +41,8 @@ class Tab extends VuexModule {
     return this.tabsState.find((item) => item.path === route.path)!;
   }
 
-  get getCachedMapState(): Map<string, string[]> {
-    return this.cachedMapState;
+  get getCachedTabsState(): string[] {
+    return Array.from(this.cachedTabsState);
   }
 
   get getLastDragEndIndexState(): number {
@@ -53,7 +51,7 @@ class Tab extends VuexModule {
 
   @Mutation
   commitClearCache(): void {
-    this.cachedMapState = new Map();
+    this.cachedTabsState = new Set();
   }
 
   @Mutation
@@ -77,46 +75,16 @@ class Tab extends VuexModule {
 
   @Mutation
   commitCachedMapState(): void {
-    const cacheMap = new Map<string, string[]>();
+    const cacheMap: Set<string> = new Set();
 
-    const pageCacheSet = new Set<string>();
     this.tabsState.forEach((tab) => {
-      const item = getRoute(tab);
+      const item = getRawRoute(tab);
       const needCache = !item.meta?.ignoreKeepAlive;
       if (!needCache) return;
-
-      if (item.meta?.affix) {
-        const name = item.name as string;
-        pageCacheSet.add(name);
-      } else if (item?.matched && needCache) {
-        const matched = item?.matched;
-        if (!matched) return;
-        const len = matched.length;
-
-        if (len < 2) return;
-
-        for (let i = 0; i < matched.length; i++) {
-          const key = matched[i].name as string;
-
-          if (i < 2) {
-            pageCacheSet.add(key);
-          }
-          if (i < len - 1) {
-            const { meta, name } = matched[i + 1];
-            if (meta && (meta.affix || needCache)) {
-              const mapList = cacheMap.get(key) || [];
-              if (!mapList.includes(name as string)) {
-                mapList.push(name as string);
-              }
-              cacheMap.set(key, mapList);
-            }
-          }
-        }
-      }
+      const name = item.name as string;
+      cacheMap.add(name);
     });
-
-    cacheMap.set(PAGE_LAYOUT_KEY, Array.from(pageCacheSet));
-    this.cachedMapState = cacheMap;
+    this.cachedTabsState = cacheMap;
   }
 
   @Mutation
@@ -162,7 +130,7 @@ class Tab extends VuexModule {
   @Mutation
   commitResetState(): void {
     this.tabsState = [];
-    this.cachedMapState = new Map();
+    this.cachedTabsState = new Set();
   }
 
   @Mutation
@@ -190,7 +158,7 @@ class Tab extends VuexModule {
     ) {
       return;
     }
-    this.commitTabRoutesState(getRoute(route));
+    this.commitTabRoutesState(getRawRoute(route));
 
     this.commitCachedMapState();
   }
@@ -198,17 +166,12 @@ class Tab extends VuexModule {
   @Mutation
   async commitRedoPage() {
     const route = router.currentRoute.value;
-    for (const [key, value] of this.cachedMapState) {
-      const index = value.findIndex((item) => item === (route.name as string));
-      if (index === -1) {
-        continue;
-      }
-      if (value.length === 1) {
-        this.cachedMapState.delete(key);
-        continue;
-      }
-      value.splice(index, 1);
-      this.cachedMapState.set(key, value);
+    const name = route.name;
+
+    const findVal = Array.from(this.cachedTabsState).find((item) => item === name);
+    if (findVal) {
+      this.cachedTabsState.delete(findVal);
+      // this.cachedTabsState.splice(index, 1);
     }
     const redo = useRedo();
     await redo();

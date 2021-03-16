@@ -33,6 +33,7 @@
   import { useGo } from '/@/hooks/web/usePage';
   import { isString } from '/@/utils/is';
   import { useI18n } from '/@/hooks/web/useI18n';
+  import { getMenus } from '/@/router/menus';
 
   export default defineComponent({
     name: 'LayoutBreadcrumb',
@@ -47,7 +48,7 @@
       const { getShowBreadCrumbIcon } = useRootSetting();
 
       const { t } = useI18n();
-      watchEffect(() => {
+      watchEffect(async () => {
         if (currentRoute.value.name === REDIRECT_NAME) return;
 
         const matched = currentRoute.value?.matched;

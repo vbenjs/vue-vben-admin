@@ -38,15 +38,15 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
-        argsIgnorePattern: '^h$',
-        varsIgnorePattern: '^h$',
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
       },
     ],
     'no-unused-vars': [
       'error',
       {
-        argsIgnorePattern: '^h$',
-        varsIgnorePattern: '^h$',
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
       },
     ],
     'space-before-function-paren': 'off',
