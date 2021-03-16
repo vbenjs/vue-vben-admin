@@ -1346,10 +1346,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.316":
-  version "1.1.316"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.316.tgz#010b50c64f7a1f159918d9a328a81b0b58e2395e"
-  integrity sha512-PFXr6OExcIS9tdEO1j2YmwFUlVZL7YN/2EWoLxLDI5i2pfEE95vdMI1ghc7VWhmk7gM6/GL36tTJmtrzNkc1fQ==
+"@iconify/json@^1.1.317":
+  version "1.1.317"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.317.tgz#ee0c6b2f9da3c0b0e63b75233df567dc3d361db2"
+  integrity sha512-GLlQhfZkyTv6JqzLZZ7bMKURVMyQeInZUaN4ZlwJl9PvTZzJ/zE3uMvXCpLq1nWWA5//DbV7Au8shjLGmaJn6Q==
 
 "@intlify/core-base@9.0.0":
   version "9.0.0"
@@ -9842,10 +9842,10 @@ rollup-plugin-visualizer@^4.2.0:
     source-map "^0.7.3"
     yargs "^16.0.3"
 
-rollup@2.41.2, rollup@^0.63.4, rollup@^2.25.0, rollup@^2.38.5, rollup@^2.40.0:
-  version "2.41.2"
-  resolved "https://registry.npmjs.org/rollup/-/rollup-2.41.2.tgz#b7db5cb7c21c2d524e8b26ef39c7e9808a290c7e"
-  integrity sha512-6u8fJJXJx6fmvKrAC9DHYZgONvSkz8S9b/VFBjoQ6dkKdHyPpPbpqiNl2Bao9XBzDHpq672X6sGZ9G1ZBqAHMg==
+rollup@2.41.4, rollup@^0.63.4, rollup@^2.25.0, rollup@^2.38.5, rollup@^2.40.0:
+  version "2.41.4"
+  resolved "https://registry.npmjs.org/rollup/-/rollup-2.41.4.tgz#2a674d64db4322482d440699acb060dc6dd9e65f"
+  integrity sha512-f9IHfMO8p2Y8OdisI7Oj3oKkPuaQ6cgSwYqAi0TDvP3w2p+oX1VejX/w28a1h8WTnrapzfO5d4Uqhww+gL0b0g==
   optionalDependencies:
     fsevents "~2.3.1"
 
@@ -11634,10 +11634,10 @@ vite-plugin-windicss@0.8.3:
     "@windicss/plugin-utils" "0.8.3"
     windicss "^2.4.5"
 
-vite@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/vite/-/vite-2.1.0.tgz#fdaab9cca360a88b654eaf942d13be29ed0958eb"
-  integrity sha512-qWYmX8slkv91C3hWA2iu0o0ZvFbO2dSfWIN4dbMfSeMdNn+XeirkGWU3dy5/W1Nv13cQZvVoMTl8zyC13VFRZQ==
+vite@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/vite/-/vite-2.1.1.tgz#13c7a7a5665b435f28fe8549caab181e0ad9af7b"
+  integrity sha512-nlTQrfYIkahcElD8O/oogbLbuKgAZRbvoFOth3GmRSglfPdY4RgfBjj0Fu7HeCU/2u3Jxc6jW4UuV22LGw1Yaw==
   dependencies:
     esbuild "^0.9.2"
     postcss "^8.2.1"
