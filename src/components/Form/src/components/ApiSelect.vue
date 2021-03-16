@@ -30,6 +30,7 @@
 
   export default defineComponent({
     name: 'ApiSelect',
+    inheritAttrs: false,
     components: {
       Select,
       LoadingOutlined,

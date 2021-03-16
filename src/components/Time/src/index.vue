@@ -40,7 +40,7 @@
 
       function getTime() {
         const { value } = props;
-        let time: number = 0;
+        let time = 0;
         if (isNumber(value)) {
           const timestamp = value.toString().length > 10 ? value : value * 1000;
           time = new Date(timestamp).getTime();

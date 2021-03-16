@@ -2005,6 +2005,11 @@
   resolved "https://registry.npmjs.org/@types/svgo/-/svgo-1.3.3.tgz#4684af265b4e1125c738f5aaafb302c723f4efe0"
   integrity sha512-eDLVUvvTn+mol3NpP211DTH9JzSS6YKssRIhHNmXk5BiCl+gc4s+xQQjRFTSsGBohmka5qBsHX6qhL4x88Wkvg==
 
+"@types/svgo@^1.3.5":
+  version "1.3.5"
+  resolved "https://registry.npmjs.org/@types/svgo/-/svgo-1.3.5.tgz#18a0166fbcdfbfc7f17d0491da2ea07ee397d3f9"
+  integrity sha512-y9Pw8IK50OqFRDpdI9Is29KlWiENVW9FDvlTmGHelvTfR2brYFJbsClvulZfeq6YKacFrDsG9a39w0kJZdHLaw==
+
 "@types/through@*":
   version "0.0.30"
   resolved "https://registry.npmjs.org/@types/through/-/through-0.0.30.tgz#e0e42ce77e897bd6aead6f6ea62aeb135b8a3895"
@@ -2041,13 +2046,27 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/eslint-plugin@^4.16.1", "@typescript-eslint/eslint-plugin@^4.17.0":
+"@typescript-eslint/eslint-plugin@^4.16.1":
   version "4.17.0"
   resolved "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-4.17.0.tgz#6f856eca4e6a52ce9cf127dfd349096ad936aa2d"
   integrity sha512-/fKFDcoHg8oNan39IKFOb5WmV7oWhQe1K6CDaAVfJaNWEhmfqlA24g+u1lqU5bMH7zuNasfMId4LaYWC5ijRLw==
   dependencies:
     "@typescript-eslint/experimental-utils" "4.17.0"
     "@typescript-eslint/scope-manager" "4.17.0"
+    debug "^4.1.1"
+    functional-red-black-tree "^1.0.1"
+    lodash "^4.17.15"
+    regexpp "^3.0.0"
+    semver "^7.3.2"
+    tsutils "^3.17.1"
+
+"@typescript-eslint/eslint-plugin@^4.18.0":
+  version "4.18.0"
+  resolved "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-4.18.0.tgz#50fbce93211b5b690895d20ebec6fe8db48af1f6"
+  integrity sha512-Lzkc/2+7EoH7+NjIWLS2lVuKKqbEmJhtXe3rmfA8cyiKnZm3IfLf51irnBcmow8Q/AptVV0XBZmBJKuUJTe6cQ==
+  dependencies:
+    "@typescript-eslint/experimental-utils" "4.18.0"
+    "@typescript-eslint/scope-manager" "4.18.0"
     debug "^4.1.1"
     functional-red-black-tree "^1.0.1"
     lodash "^4.17.15"
@@ -2067,7 +2086,19 @@
     eslint-scope "^5.0.0"
     eslint-utils "^2.0.0"
 
-"@typescript-eslint/parser@^4.16.1", "@typescript-eslint/parser@^4.17.0":
+"@typescript-eslint/experimental-utils@4.18.0":
+  version "4.18.0"
+  resolved "https://registry.npmjs.org/@typescript-eslint/experimental-utils/-/experimental-utils-4.18.0.tgz#ed6c955b940334132b17100d2917449b99a91314"
+  integrity sha512-92h723Kblt9JcT2RRY3QS2xefFKar4ZQFVs3GityOKWQYgtajxt/tuXIzL7sVCUlM1hgreiV5gkGYyBpdOwO6A==
+  dependencies:
+    "@types/json-schema" "^7.0.3"
+    "@typescript-eslint/scope-manager" "4.18.0"
+    "@typescript-eslint/types" "4.18.0"
+    "@typescript-eslint/typescript-estree" "4.18.0"
+    eslint-scope "^5.0.0"
+    eslint-utils "^2.0.0"
+
+"@typescript-eslint/parser@^4.16.1":
   version "4.17.0"
   resolved "https://registry.npmjs.org/@typescript-eslint/parser/-/parser-4.17.0.tgz#141b647ffc72ebebcbf9b0fe6087f65b706d3215"
   integrity sha512-KYdksiZQ0N1t+6qpnl6JeK9ycCFprS9xBAiIrw4gSphqONt8wydBw4BXJi3C11ywZmyHulvMaLjWsxDjUSDwAw==
@@ -2075,6 +2106,16 @@
     "@typescript-eslint/scope-manager" "4.17.0"
     "@typescript-eslint/types" "4.17.0"
     "@typescript-eslint/typescript-estree" "4.17.0"
+    debug "^4.1.1"
+
+"@typescript-eslint/parser@^4.18.0":
+  version "4.18.0"
+  resolved "https://registry.npmjs.org/@typescript-eslint/parser/-/parser-4.18.0.tgz#a211edb14a69fc5177054bec04c95b185b4dde21"
+  integrity sha512-W3z5S0ZbecwX3PhJEAnq4mnjK5JJXvXUDBYIYGoweCyWyuvAKfGHvzmpUzgB5L4cRBb+cTu9U/ro66dx7dIimA==
+  dependencies:
+    "@typescript-eslint/scope-manager" "4.18.0"
+    "@typescript-eslint/types" "4.18.0"
+    "@typescript-eslint/typescript-estree" "4.18.0"
     debug "^4.1.1"
 
 "@typescript-eslint/scope-manager@4.17.0":
@@ -2085,10 +2126,23 @@
     "@typescript-eslint/types" "4.17.0"
     "@typescript-eslint/visitor-keys" "4.17.0"
 
+"@typescript-eslint/scope-manager@4.18.0":
+  version "4.18.0"
+  resolved "https://registry.npmjs.org/@typescript-eslint/scope-manager/-/scope-manager-4.18.0.tgz#d75b55234c35d2ff6ac945758d6d9e53be84a427"
+  integrity sha512-olX4yN6rvHR2eyFOcb6E4vmhDPsfdMyfQ3qR+oQNkAv8emKKlfxTWUXU5Mqxs2Fwe3Pf1BoPvrwZtwngxDzYzQ==
+  dependencies:
+    "@typescript-eslint/types" "4.18.0"
+    "@typescript-eslint/visitor-keys" "4.18.0"
+
 "@typescript-eslint/types@4.17.0":
   version "4.17.0"
   resolved "https://registry.npmjs.org/@typescript-eslint/types/-/types-4.17.0.tgz#f57d8fc7f31b348db946498a43050083d25f40ad"
   integrity sha512-RN5z8qYpJ+kXwnLlyzZkiJwfW2AY458Bf8WqllkondQIcN2ZxQowAToGSd9BlAUZDB5Ea8I6mqL2quGYCLT+2g==
+
+"@typescript-eslint/types@4.18.0":
+  version "4.18.0"
+  resolved "https://registry.npmjs.org/@typescript-eslint/types/-/types-4.18.0.tgz#bebe323f81f2a7e2e320fac9415e60856267584a"
+  integrity sha512-/BRociARpj5E+9yQ7cwCF/SNOWwXJ3qhjurMuK2hIFUbr9vTuDeu476Zpu+ptxY2kSxUHDGLLKy+qGq2sOg37A==
 
 "@typescript-eslint/typescript-estree@4.17.0", "@typescript-eslint/typescript-estree@^4.8.2":
   version "4.17.0"
@@ -2103,12 +2157,33 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
+"@typescript-eslint/typescript-estree@4.18.0":
+  version "4.18.0"
+  resolved "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-4.18.0.tgz#756d3e61da8c16ab99185532c44872f4cd5538cb"
+  integrity sha512-wt4xvF6vvJI7epz+rEqxmoNQ4ZADArGQO9gDU+cM0U5fdVv7N+IAuVoVAoZSOZxzGHBfvE3XQMLdy+scsqFfeg==
+  dependencies:
+    "@typescript-eslint/types" "4.18.0"
+    "@typescript-eslint/visitor-keys" "4.18.0"
+    debug "^4.1.1"
+    globby "^11.0.1"
+    is-glob "^4.0.1"
+    semver "^7.3.2"
+    tsutils "^3.17.1"
+
 "@typescript-eslint/visitor-keys@4.17.0":
   version "4.17.0"
   resolved "https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-4.17.0.tgz#9c304cfd20287c14a31d573195a709111849b14d"
   integrity sha512-WfuMN8mm5SSqXuAr9NM+fItJ0SVVphobWYkWOwQ1odsfC014Vdxk/92t4JwS1Q6fCA/ABfCKpa3AVtpUKTNKGQ==
   dependencies:
     "@typescript-eslint/types" "4.17.0"
+    eslint-visitor-keys "^2.0.0"
+
+"@typescript-eslint/visitor-keys@4.18.0":
+  version "4.18.0"
+  resolved "https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-4.18.0.tgz#4e6fe2a175ee33418318a029610845a81e2ff7b6"
+  integrity sha512-Q9t90JCvfYaN0OfFUgaLqByOfz8yPeTAdotn/XYNm5q9eHax90gzdb+RJ6E9T5s97Kv/UHWKERTmqA0jTKAEHw==
+  dependencies:
+    "@typescript-eslint/types" "4.18.0"
     eslint-visitor-keys "^2.0.0"
 
 "@vitejs/plugin-legacy@^1.3.1":
@@ -2304,15 +2379,15 @@
   dependencies:
     vue-demi latest
 
-"@windicss/plugin-utils@0.8.2":
-  version "0.8.2"
-  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.8.2.tgz#032b21a79ff5af5031bf29bc3faeb0efcce73afb"
-  integrity sha512-jBv9w3VrUF5BjkP/WjY5Brf6CzJYeFMwcZFfOYiSPGuK+4+a/UmYX8B0/bISp5GnY9plVYr5aibTY9PTbt597Q==
+"@windicss/plugin-utils@0.8.3":
+  version "0.8.3"
+  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.8.3.tgz#b694121cb1b4e022c1ebb97d2507d292ca1ce293"
+  integrity sha512-Tk0/EOwRnfi3KzvYJwfDyrImbHRXd7jMUw0MsAJWee0pzHre5Se7IM8/8SrcafJ29aL3v9KcB/qd/uBD8TBmow==
   dependencies:
     fast-glob "^3.2.5"
     micromatch "^4.0.2"
     sucrase "^3.17.1"
-    windicss "^2.4.0"
+    windicss "^2.4.5"
 
 "@zxcvbn-ts/core@^0.3.0":
   version "0.3.0"
@@ -2501,10 +2576,10 @@ anymatch@^3.0.3, anymatch@~3.1.1:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-apexcharts@^3.25.0:
-  version "3.25.0"
-  resolved "https://registry.npmjs.org/apexcharts/-/apexcharts-3.25.0.tgz#f3f0f9f344f997230f5c7f2918408aa072627496"
-  integrity sha512-uM7OF+jLL4ba79noYcrMwMgJW8DI+Ff28CCQoGq23g25z8nGSQEoU+u12YWlECA9gBA5tbmdaQhMxjlK+M6B9Q==
+apexcharts@^3.26.0:
+  version "3.26.0"
+  resolved "https://registry.npmjs.org/apexcharts/-/apexcharts-3.26.0.tgz#a78abc108b2e1b3086a738f0ec7c98e292f4a14b"
+  integrity sha512-zdYHs3k3tgmCn1BpYLj7rhGEndBYF33Pq1+g0ora37xAr+3act5CJrpdXM2jx2boVUyXgavoSp6sa8WpK7RkSA==
   dependencies:
     svg.draggable.js "^2.2.2"
     svg.easing.js "^2.0.0"
@@ -4659,10 +4734,15 @@ esbuild-register@^2.2.0:
   dependencies:
     jsonc-parser "^3.0.0"
 
-esbuild@0.8.57, esbuild@^0.8.52, esbuild@^0.8.56, esbuild@^0.8.57:
+esbuild@^0.8.57:
   version "0.8.57"
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.8.57.tgz#a42d02bc2b57c70bcd0ef897fe244766bb6dd926"
   integrity sha512-j02SFrUwFTRUqiY0Kjplwjm1psuzO1d6AjaXKuOR9hrY0HuPsT6sV42B6myW34h1q4CRy+Y3g4RU/cGJeI/nNA==
+
+esbuild@^0.9.2:
+  version "0.9.2"
+  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.9.2.tgz#7e9fde247c913ed8ee059e2648b0c53f7d00abe5"
+  integrity sha512-xE3oOILjnmN8PSjkG3lT9NBbd1DbxNqolJ5qNyrLhDWsFef3yTp/KTQz1C/x7BYFKbtrr9foYtKA6KA1zuNAUQ==
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -4848,12 +4928,12 @@ eslint@^7.22.0:
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
 
-esno@^0.4.6:
-  version "0.4.6"
-  resolved "https://registry.npmjs.org/esno/-/esno-0.4.6.tgz#2482fa119c7f111224c091575c7d43ad13cfbcc6"
-  integrity sha512-6sjoAqYmkLL5h/9eNchRblH6Eq1WrUmak2ROHjH/6lyakGSmdPsl/pigp+pXez7yqPU0bsy4W5hpyoUUjlxhsQ==
+esno@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.npmjs.org/esno/-/esno-0.5.0.tgz#49849227d5cecc29b0fc1705fc575721af8485b2"
+  integrity sha512-r0tsflar7RB918JCjTNyU2QWfgyH2jgfAzHK1tABr3A5y84ruS86JanVHc6wove/V5I98soLZbg8Foso1dqCMA==
   dependencies:
-    esbuild "^0.8.56"
+    esbuild "^0.9.2"
     esbuild-register "^2.2.0"
 
 espree@^6.2.1:
@@ -10710,16 +10790,15 @@ svgo@^1.3.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-svgo@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.npmjs.org/svgo/-/svgo-2.2.0.tgz#36bc3950507fd06e210493b8bc7722c1e14b1213"
-  integrity sha512-78w27VB+Vvca8TNRZrpbN70OTaVXgyQKm/rBiEqFPZmEJkn6i3PqEgIniPqPY6H2kFevakixAfBaQlwuStZuBA==
+svgo@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.npmjs.org/svgo/-/svgo-2.2.2.tgz#51d67c7149661282d22a3c8683f4795cdb40f687"
+  integrity sha512-kJugY2d0yrsONnG4YavppVkKmKULMw2iFRbB9+usyWqzTaqoBuUaqdMnQ2G1n5P1dmOA2tZvc5zmMM6sPOVBSQ==
   dependencies:
     "@trysound/sax" "0.1.1"
     chalk "^4.1.0"
     commander "^7.1.0"
     css-select "^3.1.2"
-    css-select-base-adapter "^0.1.1"
     css-tree "^1.1.2"
     csso "^4.2.0"
     stable "^0.1.8"
@@ -11505,16 +11584,17 @@ vite-plugin-style-import@^0.8.1:
     es-module-lexer "^0.4.1"
     magic-string "^0.25.7"
 
-vite-plugin-svg-icons@^0.3.4:
-  version "0.3.4"
-  resolved "https://registry.npmjs.org/vite-plugin-svg-icons/-/vite-plugin-svg-icons-0.3.4.tgz#505aacff35f19d4e1c81f05a85bded0d6f1f6323"
-  integrity sha512-N4KYqmyF/gnsYIBxvMTyotjWSdur/6EyycE6eJvM2m7oHHxe8Y+SZZlD+XTz8Nl+zfurXYDkrbbHAdtWlpJovw==
+vite-plugin-svg-icons@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.npmjs.org/vite-plugin-svg-icons/-/vite-plugin-svg-icons-0.3.5.tgz#7fb72fcd17ee8b8a1c19fac1682e83169b72ad99"
+  integrity sha512-MyldHrtpfhc2zZH0/AS4bW1TtpluBpdINCODiBZpfvwO9YavvT827kp4TnXfqUhiiCNZbkMUS16u2vDijaL7CQ==
   dependencies:
+    "@types/svgo" "^1.3.5"
     debug "^4.3.2"
     etag "^1.8.1"
     fs-extra "^9.1.0"
     svg-baker "1.7.0"
-    svgo "^2.2.0"
+    svgo "^2.2.2"
 
 vite-plugin-theme@^0.5.0:
   version "0.5.0"
@@ -11546,20 +11626,20 @@ vite-plugin-theme@^0.5.0:
     tinycolor2 "^1.4.2"
     ts-jest "^26.5.3"
 
-vite-plugin-windicss@0.8.2:
-  version "0.8.2"
-  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.8.2.tgz#cb7a4e03ed218007425be60e54cd4f21cca836d1"
-  integrity sha512-eeHmCAbmeKg1k0r5moPEQrVPFebfsCCGkKUSb8MYWkglLfpcBZfCHyTTdpn/PONy/JcvWrdpbND2/tsy30it3g==
+vite-plugin-windicss@0.8.3:
+  version "0.8.3"
+  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.8.3.tgz#81944473f642a4d4da81f9f8d77012e73095e4a3"
+  integrity sha512-VhiYUBIexKD1Il1dxV6yB4SN+ufza3HWhKK7IFFGrf4gj2JqSX9MNUdS2jPOEInyJszw+fT7WrHj1hsYd7ROJA==
   dependencies:
-    "@windicss/plugin-utils" "0.8.2"
-    windicss "^2.4.0"
+    "@windicss/plugin-utils" "0.8.3"
+    windicss "^2.4.5"
 
-vite@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.npmjs.org/vite/-/vite-2.0.5.tgz#ac46857a3fa8686d077921e61bd48a986931df1d"
-  integrity sha512-QTgEDbq1WsTtr6j+++ewjhBFEk6c8v0xz4fb/OWJQKNYU8ZZtphOshwOqAlnarSstPBtWCBR0tsugXx6ajfoUg==
+vite@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/vite/-/vite-2.1.0.tgz#fdaab9cca360a88b654eaf942d13be29ed0958eb"
+  integrity sha512-qWYmX8slkv91C3hWA2iu0o0ZvFbO2dSfWIN4dbMfSeMdNn+XeirkGWU3dy5/W1Nv13cQZvVoMTl8zyC13VFRZQ==
   dependencies:
-    esbuild "^0.8.52"
+    esbuild "^0.9.2"
     postcss "^8.2.1"
     resolve "^1.19.0"
     rollup "^2.38.5"
@@ -11743,10 +11823,10 @@ which@^2.0.1, which@^2.0.2:
   dependencies:
     isexe "^2.0.0"
 
-windicss@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.npmjs.org/windicss/-/windicss-2.4.0.tgz#9aa0108399d5d3925d5ad5860e76c80299de0cab"
-  integrity sha512-EcGkGnZpuoH0r/hNuj4GLheb9Lg3P+s5KOHUZU63zkl6yoMQNAwTvNXai7OjylbXLFDEWii7SAJbwQIFxE56qQ==
+windicss@^2.4.5:
+  version "2.4.7"
+  resolved "https://registry.npmjs.org/windicss/-/windicss-2.4.7.tgz#6154cc128eec80bd0cb71b34dda02dfcbacfb1aa"
+  integrity sha512-7CuHMxa4r/sUHVqF1v+glcxWVetbG2j5V+JXRk/C//+CN8Sn8yoWHl8KcDqaDtX6nLF8WQRl0q56GUshgWgxwQ==
 
 wmf@~1.0.1:
   version "1.0.2"
