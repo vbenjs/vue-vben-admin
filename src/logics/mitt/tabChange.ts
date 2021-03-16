@@ -4,7 +4,7 @@
 
 import Mitt from '/@/utils/mitt';
 import type { RouteLocationNormalized } from 'vue-router';
-import { getRoute } from '/@/router/helper/routeHelper';
+import { getRawRoute } from '/@/utils';
 
 const mitt = new Mitt();
 
@@ -13,7 +13,7 @@ const key = Symbol();
 let lastChangeTab: RouteLocationNormalized;
 
 export function setLastChangeTab(lastChangeRoute: RouteLocationNormalized) {
-  const r = getRoute(lastChangeRoute);
+  const r = getRawRoute(lastChangeRoute);
   mitt.emit(key, r);
   lastChangeTab = r;
 }

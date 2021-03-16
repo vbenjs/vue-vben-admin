@@ -8,7 +8,6 @@
   "explorer.openEditors.visible": 0,
   "editor.tabSize": 2,
   "editor.renderControlCharacters": true,
-  "window.zoomLevel": -1,
   "editor.minimap.renderCharacters": false,
   "editor.minimap.maxColumn": 300,
   "editor.minimap.showSlider": "always",

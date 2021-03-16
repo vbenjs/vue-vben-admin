@@ -16,9 +16,9 @@
           appear
         >
           <keep-alive v-if="openCache" :include="getCaches">
-            <component :is="Component" v-bind="getKey(Component, route)" />
+            <component :is="Component" :key="route.fullPath" />
           </keep-alive>
-          <component v-else :is="Component" v-bind="getKey(Component, route)" />
+          <component v-else :is="Component" :key="route.fullPath" />
         </transition>
       </template>
     </RouterView>
@@ -34,15 +34,15 @@
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 
   import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
-  import { useCache, getKey } from './useCache';
   import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
   import { getTransitionName } from './transition';
+
+  import { useStore } from 'vuex';
 
   export default defineComponent({
     name: 'PageLayout',
     components: { FrameLayout },
     setup() {
-      const { getCaches } = useCache(true);
       const { getShowMultipleTab } = useMultipleTabSetting();
 
       const { getOpenKeepAlive, getCanEmbedIFramePage } = useRootSetting();
@@ -51,6 +51,17 @@
 
       const openCache = computed(() => unref(getOpenKeepAlive) && unref(getShowMultipleTab));
 
+      const { getters } = useStore();
+
+      const getCaches = computed((): string[] => {
+        if (!unref(getOpenKeepAlive)) {
+          return [];
+        }
+        // TODO The useStore is used here mainly to solve the problem of circular dependency hot update
+        const cacheTabs = getters['app-tab/getCachedTabsState'];
+        return cacheTabs;
+      });
+
       return {
         getTransitionName,
         openCache,
@@ -58,7 +69,6 @@
         getBasicTransition,
         getCaches,
         getCanEmbedIFramePage,
-        getKey,
       };
     },
   });

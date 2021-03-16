@@ -1,9 +1,8 @@
-export const timestamp = () => +Date.now();
+import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router';
 import { unref } from 'vue';
 import { isObject } from '/@/utils/is';
-export const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
+
 export const noop = () => {};
-export const now = () => Date.now();
 
 /**
  * @description:  Set ui mount node
@@ -90,4 +89,19 @@ export function setTitle(title: string, appTitle?: string) {
     const _title = title ? ` ${title} - ${appTitle} ` : `${appTitle}`;
     setDocumentTitle(_title);
   }
+}
+
+export function getRawRoute(route: RouteLocationNormalized): RouteLocationNormalized {
+  if (!route) return route;
+  const { matched, ...opt } = route;
+  return {
+    ...opt,
+    matched: (matched
+      ? matched.map((item) => ({
+          meta: item.meta,
+          name: item.name,
+          path: item.path,
+        }))
+      : undefined) as RouteRecordNormalized[],
+  };
 }

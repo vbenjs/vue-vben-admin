@@ -5,7 +5,7 @@ import { permissionStore } from '/@/store/modules/permission';
 import { PageEnum } from '/@/enums/pageEnum';
 import { userStore } from '/@/store/modules/user';
 
-import { PAGE_NOT_FOUND_ROUTE } from '/@/router/constant';
+import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN;
 

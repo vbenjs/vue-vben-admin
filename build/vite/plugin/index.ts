@@ -17,6 +17,7 @@ import { configThemePlugin } from './theme';
 import { configImageminPlugin } from './imagemin';
 import { configWindiCssPlugin } from './windicss';
 import { configSvgIconsPlugin } from './svgSprite';
+import { configHmrPlugin } from './hmr';
 
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   const { VITE_USE_IMAGEMIN, VITE_USE_MOCK, VITE_LEGACY, VITE_BUILD_COMPRESS } = viteEnv;
@@ -27,6 +28,9 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
     // have to
     vueJsx(),
   ];
+
+  // TODO
+  !isBuild && vitePlugins.push(configHmrPlugin());
 
   // @vitejs/plugin-legacy
   VITE_LEGACY && isBuild && vitePlugins.push(legacy());
