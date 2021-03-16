@@ -58,7 +58,7 @@
   "devDependencies": {
     "@commitlint/cli": "^12.0.1",
     "@commitlint/config-conventional": "^12.0.1",
-    "@iconify/json": "^1.1.316",
+    "@iconify/json": "^1.1.317",
     "@ls-lint/ls-lint": "^1.9.2",
     "@purge-icons/generated": "^0.7.0",
     "@types/crypto-js": "^4.0.1",
@@ -108,7 +108,7 @@
     "stylelint-order": "^4.1.0",
     "ts-node": "^9.1.1",
     "typescript": "4.2.3",
-    "vite": "^2.1.0",
+    "vite": "2.0.5",
     "vite-plugin-compression": "^0.2.3",
     "vite-plugin-html": "^2.0.3",
     "vite-plugin-imagemin": "^0.2.9",
@@ -125,7 +125,7 @@
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China.If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
-    "rollup": "2.41.2"
+    "rollup": "2.41.4"
   },
   "repository": {
     "type": "git",
