@@ -1,4 +1,5 @@
 import type { ProjectConfig } from '/#/config';
+import type { BeforeMiniState } from '../types';
 
 import { VuexModule, getModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import store from '/@/store';
@@ -30,8 +31,15 @@ export default class App extends VuexModule {
   // set main overflow hidden
   private lockMainScrollState = false;
 
+  // When the window shrinks, remember some states, and restore these states when the window is restored
+  private beforeMiniState: BeforeMiniState = {};
+
   get getPageLoading() {
     return this.pageLoadingState;
+  }
+
+  get getBeforeMiniState() {
+    return this.beforeMiniState;
   }
 
   get getLockMainScrollState() {
@@ -45,6 +53,11 @@ export default class App extends VuexModule {
   @Mutation
   commitPageLoadingState(loading: boolean): void {
     this.pageLoadingState = loading;
+  }
+
+  @Mutation
+  commitBeforeMiniState(state: BeforeMiniState): void {
+    this.beforeMiniState = state;
   }
 
   @Mutation

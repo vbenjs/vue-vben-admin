@@ -1,3 +1,5 @@
+import { MenuModeEnum, MenuTypeEnum } from '../enums/menuEnum';
+
 export interface LockInfo {
   pwd: string | undefined;
   isLock: boolean;
@@ -12,4 +14,11 @@ export interface UserInfo {
   realName: string;
   // 介绍
   desc?: string;
+}
+
+export interface BeforeMiniState {
+  menuCollapsed?: boolean;
+  menuSplit?: boolean;
+  menuMode?: MenuModeEnum;
+  menuType?: MenuTypeEnum;
 }
