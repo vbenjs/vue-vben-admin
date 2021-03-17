@@ -11634,7 +11634,7 @@ vite-plugin-windicss@0.8.3:
     "@windicss/plugin-utils" "0.8.3"
     windicss "^2.4.5"
 
-vite@^2.1.1:
+vite@2.1.1:
   version "2.1.1"
   resolved "https://registry.npmjs.org/vite/-/vite-2.1.1.tgz#13c7a7a5665b435f28fe8549caab181e0ad9af7b"
   integrity sha512-nlTQrfYIkahcElD8O/oogbLbuKgAZRbvoFOth3GmRSglfPdY4RgfBjj0Fu7HeCU/2u3Jxc6jW4UuV22LGw1Yaw==
