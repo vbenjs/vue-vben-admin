@@ -8,6 +8,7 @@ import {
   RouterTransitionEnum,
   SettingButtonPositionEnum,
 } from '/@/enums/appEnum';
+import { SIDE_BAR_BG_COLOR_LIST, HEADER_PRESET_BG_COLOR_LIST } from './designSetting';
 import { primaryColor, themeMode } from '../../build/config/themeConfig';
 
 // ! You need to clear the browser cache after the change
@@ -51,7 +52,7 @@ const setting: ProjectConfig = {
   // Header configuration
   headerSetting: {
     // header bg color
-    bgColor: '#ffffff',
+    bgColor: HEADER_PRESET_BG_COLOR_LIST[0],
     // Fixed at the top
     fixed: true,
     // Whether to show top
@@ -74,7 +75,7 @@ const setting: ProjectConfig = {
   // Menu configuration
   menuSetting: {
     // sidebar menu bg color
-    bgColor: '#001529',
+    bgColor: SIDE_BAR_BG_COLOR_LIST[0],
     //  Whether to fix the left menu
     fixed: true,
     // Menu collapse

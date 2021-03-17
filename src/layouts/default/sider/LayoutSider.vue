@@ -11,10 +11,9 @@
     collapsible
     :class="getSiderClass"
     :width="getMenuWidth"
-    :collapsed="getIsMobile ? false : getCollapsed"
+    :collapsed="getCollapsed"
     :collapsedWidth="getCollapsedWidth"
     :theme="getMenuTheme"
-    @collapse="onCollapseChange"
     @breakpoint="onBreakpointChange"
     v-bind="getTriggerAttr"
   >
@@ -66,7 +65,7 @@
 
       useDragLine(sideRef, dragBarRef);
 
-      const { getCollapsedWidth, onBreakpointChange, onCollapseChange } = useSiderEvent();
+      const { getCollapsedWidth, onBreakpointChange } = useSiderEvent();
 
       const getMode = computed(() => {
         return unref(getSplit) ? MenuModeEnum.INLINE : null;
@@ -121,7 +120,6 @@
         onBreakpointChange,
         getMode,
         getSplitType,
-        onCollapseChange,
         getShowTrigger,
       };
     },
