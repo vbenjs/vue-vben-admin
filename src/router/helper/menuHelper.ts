@@ -47,13 +47,15 @@ export function transformRouteToMenu(routeModList: AppRouteModule[]) {
   const list = treeMap(routeList, {
     conversion: (node: AppRouteRecordRaw) => {
       const { meta: { title, hideMenu = false } = {} } = node;
+
       return {
         ...(node.meta || {}),
         name: title,
         hideMenu,
+        path: node.path,
       };
     },
   });
   joinParentPath(list);
-  return list;
+  return cloneDeep(list);
 }
