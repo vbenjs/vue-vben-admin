@@ -31,6 +31,7 @@ export function useRuleFormItem<T extends Indexable>(
     },
     set(value) {
       if (isEqual(value, defaultState.value)) return;
+
       innerState.value = value as T[keyof T];
       emit?.(changeEvent, value);
     },

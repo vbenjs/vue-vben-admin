@@ -5,6 +5,7 @@
       <a-button @click="resetValidate" class="mr-2"> 清空校验信息 </a-button>
       <a-button @click="getFormValues" class="mr-2"> 获取表单值 </a-button>
       <a-button @click="setFormValues" class="mr-2"> 设置表单值 </a-button>
+      <a-button @click="resetFields" class="mr-2"> 重置 </a-button>
     </div>
     <CollapseContainer title="表单校验">
       <BasicForm @register="register" @submit="handleSubmit" />
@@ -41,6 +42,15 @@
       field: 'field3',
       component: 'DatePicker',
       label: '字段3',
+      colProps: {
+        span: 8,
+      },
+      required: true,
+    },
+    {
+      field: 'field44',
+      component: 'InputCountDown',
+      label: '验证码',
       colProps: {
         span: 8,
       },
@@ -150,15 +160,16 @@
     components: { BasicForm, CollapseContainer, PageWrapper },
     setup() {
       const { createMessage } = useMessage();
-      const [register, { validateFields, clearValidate, getFieldsValue, setFieldsValue }] = useForm(
-        {
-          labelWidth: 120,
-          schemas,
-          actionColOptions: {
-            span: 24,
-          },
-        }
-      );
+      const [
+        register,
+        { validateFields, clearValidate, getFieldsValue, resetFields, setFieldsValue },
+      ] = useForm({
+        labelWidth: 120,
+        schemas,
+        actionColOptions: {
+          span: 24,
+        },
+      });
       async function validateForm() {
         try {
           const res = await validateFields();
@@ -191,6 +202,7 @@
         setFormValues,
         validateForm,
         resetValidate,
+        resetFields,
       };
     },
   });

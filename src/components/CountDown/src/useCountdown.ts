@@ -14,8 +14,8 @@ export function useCountdown(count: number) {
 
   function stop() {
     isStart.value = false;
-    timerId = null;
     clear();
+    timerId = null;
   }
 
   function start() {
