@@ -259,6 +259,12 @@
         box-shadow: 0 1px 3px 0 #d4d9e1;
         align-items: center;
 
+        > div:first-child,
+        > div:last-child {
+          display: flex;
+          align-items: center;
+        }
+
         &--active {
           color: #fff;
           background: @primary-color;

@@ -4,10 +4,10 @@
       <template #itemRender="{ route, routes, paths }">
         <Icon :icon="route.meta.icon" v-if="getShowBreadCrumbIcon && route.meta.icon" />
         <span v-if="!hasRedirect(routes, route)">
-          {{ t(route.meta.title) }}
+          {{ t(route.name || route.meta.title) }}
         </span>
         <router-link v-else to="" @click="handleClick(route, paths, $event)">
-          {{ t(route.meta.title) }}
+          {{ t(route.name || route.meta.title) }}
         </router-link>
       </template>
     </a-breadcrumb>
@@ -15,25 +15,28 @@
 </template>
 <script lang="ts">
   import type { RouteLocationMatched } from 'vue-router';
+  import type { Menu } from '/@/router/types';
 
-  import { defineComponent, ref, toRaw, watchEffect } from 'vue';
+  import { defineComponent, ref, watchEffect } from 'vue';
+
   import { Breadcrumb } from 'ant-design-vue';
-
-  import { useRouter } from 'vue-router';
-  import { filter } from '/@/utils/helper/treeHelper';
-  import { REDIRECT_NAME } from '/@/router/constant';
   import Icon from '/@/components/Icon';
 
   import { PageEnum } from '/@/enums/pageEnum';
 
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
+  import { useGo } from '/@/hooks/web/usePage';
+  import { useI18n } from '/@/hooks/web/useI18n';
+  import { useRouter } from 'vue-router';
 
   import { propTypes } from '/@/utils/propTypes';
-  import { useGo } from '/@/hooks/web/usePage';
   import { isString } from '/@/utils/is';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import { filter } from '/@/utils/helper/treeHelper';
   import { getMenus } from '/@/router/menus';
+
+  import { REDIRECT_NAME } from '/@/router/constant';
+  import { getAllParentPath } from '/@/router/helper/menuHelper';
 
   export default defineComponent({
     name: 'LayoutBreadcrumb',
@@ -50,31 +53,51 @@
       const { t } = useI18n();
       watchEffect(async () => {
         if (currentRoute.value.name === REDIRECT_NAME) return;
+        const menus = await getMenus();
+        const path = currentRoute.value.path;
 
-        const matched = currentRoute.value?.matched;
+        const parent = getAllParentPath(menus, path);
+
+        const filterMenus = menus.filter((item) => item.path === parent[0]);
+
+        const matched = getMatched(filterMenus, parent) as any;
+
         if (!matched || matched.length === 0) return;
 
-        let breadcrumbList = filterItem(toRaw(matched));
+        let breadcrumbList = filterItem(matched);
 
         const filterBreadcrumbList = breadcrumbList.filter(
           (item) => item.path !== PageEnum.BASE_HOME
         );
 
-        if (filterBreadcrumbList.length === breadcrumbList.length) {
-          filterBreadcrumbList.unshift(({
-            path: PageEnum.BASE_HOME,
-            meta: {
-              title: t('layout.header.home'),
-              isLink: true,
-            },
-          } as unknown) as RouteLocationMatched);
-        }
+        // if (filterBreadcrumbList.length === breadcrumbList.length) {
+        //   filterBreadcrumbList.unshift(({
+        //     path: PageEnum.BASE_HOME,
+        //     meta: {
+        //       title: t('layout.header.home'),
+        //       isLink: true,
+        //     },
+        //   } as unknown) as RouteLocationMatched);
+        // }
 
         if (currentRoute.value.meta?.currentActiveMenu) {
           filterBreadcrumbList.push((currentRoute.value as unknown) as RouteLocationMatched);
         }
         routes.value = subRouteExtraction(filterBreadcrumbList);
       });
+
+      function getMatched(menus: Menu[], parent: string[]) {
+        const metched: Menu[] = [];
+        menus.forEach((item) => {
+          if (parent.includes(item.path)) {
+            metched.push(item);
+          }
+          if (item.children?.length) {
+            metched.push(...getMatched(item.children, parent));
+          }
+        });
+        return metched;
+      }
 
       function subRouteExtraction(routeList: RouteLocationMatched[]) {
         const resultRoutes: RouteLocationMatched[] = [];
@@ -112,22 +135,9 @@
 
       function handleClick(route: RouteLocationMatched, paths: string[], e: Event) {
         e?.preventDefault();
-        const {
-          children,
-          redirect,
-          meta,
+        const { children, redirect, meta } = route;
 
-          // components
-        } = route;
-
-        // const isParent =
-        //   components?.default?.name === 'DefaultLayout' || (components?.default as any)?.parentView;
-
-        if (
-          children?.length &&
-          !redirect
-          // && !isParent
-        ) {
+        if (children?.length && !redirect) {
           e?.stopPropagation();
           return;
         }
@@ -145,8 +155,7 @@
           } else {
             const ps = paths.slice(1);
             const lastPath = ps.pop() || '';
-            const parentPath = ps.pop() || '';
-            goPath = `${parentPath}/${lastPath}`;
+            goPath = `${lastPath}`;
           }
           goPath = /^\//.test(goPath) ? goPath : `/${goPath}`;
           go(goPath);
@@ -157,11 +166,6 @@
         if (routes.indexOf(route) === routes.length - 1) {
           return false;
         }
-
-        // if (route?.meta?.isLink) {
-        //   return true;
-        // }
-
         return true;
       }
 
