@@ -91,6 +91,7 @@
 
       function menuHasChildren(menuTreeItem: Menu): boolean {
         return (
+          !menuTreeItem.meta?.hideChildrenInMenu &&
           Reflect.has(menuTreeItem, 'children') &&
           !!menuTreeItem.children &&
           menuTreeItem.children.length > 0
