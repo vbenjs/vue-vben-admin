@@ -81,7 +81,7 @@ const feat: AppRouteModule = {
               component: () => import('/@/views/demo/feat/breadcrumb/ChildrenList.vue'),
               meta: {
                 title: t('routes.demo.feat.breadcrumbChildren'),
-                hideBreadcrumb: true,
+                // hideBreadcrumb: true,
               },
             },
             {

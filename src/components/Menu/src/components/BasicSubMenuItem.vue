@@ -39,6 +39,7 @@
       const getShowMenu = computed(() => !props.item.meta?.hideMenu);
       function menuHasChildren(menuTreeItem: MenuType): boolean {
         return (
+          !menuTreeItem.meta?.hideChildrenInMenu &&
           Reflect.has(menuTreeItem, 'children') &&
           !!menuTreeItem.children &&
           menuTreeItem.children.length > 0

@@ -30,6 +30,9 @@ export interface RouteMeta {
   // Whether the route has been dynamically added
   hideBreadcrumb?: boolean;
 
+  // Hide submenu
+  hideChildrenInMenu?: boolean;
+
   // Carrying parameters
   carryParam?: boolean;
 

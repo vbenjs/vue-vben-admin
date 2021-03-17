@@ -54,7 +54,13 @@
       watchEffect(async () => {
         if (currentRoute.value.name === REDIRECT_NAME) return;
         const menus = await getMenus();
-        const path = currentRoute.value.path;
+        const routeMatched = currentRoute.value.matched;
+        const cur = routeMatched?.[routeMatched.length - 1];
+        let path = currentRoute.value.path;
+
+        if (cur && cur?.meta?.currentActiveMenu) {
+          path = cur.meta.currentActiveMenu as string;
+        }
 
         const parent = getAllParentPath(menus, path);
 
@@ -70,49 +76,29 @@
           (item) => item.path !== PageEnum.BASE_HOME
         );
 
-        // if (filterBreadcrumbList.length === breadcrumbList.length) {
-        //   filterBreadcrumbList.unshift(({
-        //     path: PageEnum.BASE_HOME,
-        //     meta: {
-        //       title: t('layout.header.home'),
-        //       isLink: true,
-        //     },
-        //   } as unknown) as RouteLocationMatched);
-        // }
-
         if (currentRoute.value.meta?.currentActiveMenu) {
-          filterBreadcrumbList.push((currentRoute.value as unknown) as RouteLocationMatched);
+          filterBreadcrumbList.push(({
+            ...currentRoute.value,
+            name: currentRoute.value.meta?.title || currentRoute.value.name,
+          } as unknown) as RouteLocationMatched);
         }
-        routes.value = subRouteExtraction(filterBreadcrumbList);
+        routes.value = filterBreadcrumbList;
       });
 
       function getMatched(menus: Menu[], parent: string[]) {
         const metched: Menu[] = [];
         menus.forEach((item) => {
           if (parent.includes(item.path)) {
-            metched.push(item);
+            metched.push({
+              ...item,
+              name: item.meta?.title || item.name,
+            });
           }
           if (item.children?.length) {
             metched.push(...getMatched(item.children, parent));
           }
         });
         return metched;
-      }
-
-      function subRouteExtraction(routeList: RouteLocationMatched[]) {
-        const resultRoutes: RouteLocationMatched[] = [];
-        routeList.forEach((route) => {
-          if (route.children?.length === 1) {
-            const subRoute = route.children[0] as RouteLocationMatched;
-            const subRouteName = subRoute.name as string;
-            const routeName = route.name;
-            if (subRouteName && `${subRouteName}Parent` === routeName) {
-              route = subRoute;
-            }
-          }
-          resultRoutes.push(route);
-        });
-        return resultRoutes;
       }
 
       function filterItem(list: RouteLocationMatched[]) {
