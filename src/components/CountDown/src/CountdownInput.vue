@@ -18,8 +18,8 @@
 
   export default defineComponent({
     name: 'CountDownInput',
-    inheritAttrs: false,
     components: { [Input.name]: Input, CountButton },
+    inheritAttrs: false,
     props: {
       value: propTypes.string,
       size: propTypes.oneOf(['default', 'large', 'small']),

@@ -1,7 +1,7 @@
 <template>
   <div class="table-settings">
-    <RedoSetting v-if="getSetting.size" />
-    <SizeSetting v-if="getSetting.redo" />
+    <RedoSetting v-if="getSetting.redo" />
+    <SizeSetting v-if="getSetting.size" />
     <ColumnSetting v-if="getSetting.setting" />
     <FullScreenSetting v-if="getSetting.fullScreen" />
   </div>

@@ -54,6 +54,7 @@
       watchEffect(async () => {
         if (currentRoute.value.name === REDIRECT_NAME) return;
         const menus = await getMenus();
+
         const routeMatched = currentRoute.value.matched;
         const cur = routeMatched?.[routeMatched.length - 1];
         let path = currentRoute.value.path;
@@ -63,26 +64,20 @@
         }
 
         const parent = getAllParentPath(menus, path);
-
         const filterMenus = menus.filter((item) => item.path === parent[0]);
-
         const matched = getMatched(filterMenus, parent) as any;
 
         if (!matched || matched.length === 0) return;
 
-        let breadcrumbList = filterItem(matched);
-
-        const filterBreadcrumbList = breadcrumbList.filter(
-          (item) => item.path !== PageEnum.BASE_HOME
-        );
+        const breadcrumbList = filterItem(matched);
 
         if (currentRoute.value.meta?.currentActiveMenu) {
-          filterBreadcrumbList.push(({
+          breadcrumbList.push(({
             ...currentRoute.value,
             name: currentRoute.value.meta?.title || currentRoute.value.name,
           } as unknown) as RouteLocationMatched);
         }
-        routes.value = filterBreadcrumbList;
+        routes.value = breadcrumbList;
       });
 
       function getMatched(menus: Menu[], parent: string[]) {
@@ -103,12 +98,10 @@
 
       function filterItem(list: RouteLocationMatched[]) {
         let resultList = filter(list, (item) => {
-          const { meta } = item;
-
+          const { meta, name } = item;
           if (!meta) {
-            return false;
+            return !!name;
           }
-
           const { title, hideBreadcrumb, hideMenu } = meta;
           if (!title || hideBreadcrumb || hideMenu) {
             return false;
