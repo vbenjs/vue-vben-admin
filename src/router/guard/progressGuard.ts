@@ -15,8 +15,8 @@ export function createProgressGuard(router: Router) {
     return true;
   });
 
-  router.afterEach(async (to) => {
-    if (to.meta.loaded) return true;
+  router.afterEach(async () => {
+    // if (to.meta.loaded) return true;
     unref(getOpenNProgress) && nProgress.done();
     return true;
   });
