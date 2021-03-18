@@ -5,9 +5,7 @@
  */
 import type { App, Directive, DirectiveBinding } from 'vue';
 
-import projectSetting from '/@/settings/projectSetting';
 import { usePermission } from '/@/hooks/web/usePermission';
-import { PermissionModeEnum } from '/@/enums/appEnum';
 
 function isAuth(el: Element, binding: any) {
   const { hasPermission } = usePermission();
@@ -19,23 +17,12 @@ function isAuth(el: Element, binding: any) {
   }
 }
 
-function isBackMode() {
-  return projectSetting.permissionMode === PermissionModeEnum.BACK;
-}
-
 const mounted = (el: Element, binding: DirectiveBinding<any>) => {
-  if (isBackMode()) return;
-  isAuth(el, binding);
-};
-
-const updated = (el: Element, binding: DirectiveBinding<any>) => {
-  if (!isBackMode()) return;
   isAuth(el, binding);
 };
 
 const authDirective: Directive = {
   mounted,
-  updated,
 };
 
 export function setupPermissionDirective(app: App) {

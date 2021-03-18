@@ -38,22 +38,22 @@ export function generateColors({
   tinycolor,
 }: GenerateColorsParams) {
   const arr = new Array(19).fill(0);
-  const lightens = arr.map((t, i) => {
+  const lightens = arr.map((_t, i) => {
     return mixLighten(color, i / 5);
   });
 
-  const darkens = arr.map((t, i) => {
+  const darkens = arr.map((_t, i) => {
     return mixDarken(color, i / 5);
   });
 
-  const alphaColors = arr.map((t, i) => {
+  const alphaColors = arr.map((_t, i) => {
     return tinycolor(color)
       .setAlpha(i / 20)
       .toRgbString();
   });
 
   const tinycolorLightens = arr
-    .map((t, i) => {
+    .map((_t, i) => {
       return tinycolor(color)
         .lighten(i * 5)
         .toHexString();
@@ -61,7 +61,7 @@ export function generateColors({
     .filter((item) => item !== '#ffffff');
 
   const tinycolorDarkens = arr
-    .map((t, i) => {
+    .map((_t, i) => {
       return tinycolor(color)
         .darken(i * 5)
         .toHexString();

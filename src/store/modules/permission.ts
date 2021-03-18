@@ -13,6 +13,7 @@ import { asyncRoutes } from '/@/router/routes';
 import { filter } from '/@/utils/helper/treeHelper';
 import { toRaw } from 'vue';
 import { getMenuListById } from '/@/api/sys/menu';
+import { getPermCodeByUserId } from '/@/api/sys/user';
 
 import { transformObjToRoute, flatRoutes } from '/@/router/helper/routeHelper';
 import { transformRouteToMenu } from '/@/router/helper/menuHelper';
@@ -83,6 +84,12 @@ class Permission extends VuexModule {
   }
 
   @Action
+  async changePermissionCode(userId: string) {
+    const codeList = await getPermCodeByUserId({ userId });
+    this.commitPermCodeListState(codeList);
+  }
+
+  @Action
   async buildRoutesAction(id?: number | string): Promise<AppRouteRecordRaw[]> {
     const { t } = useI18n();
     let routes: AppRouteRecordRaw[] = [];
@@ -106,6 +113,10 @@ class Permission extends VuexModule {
       });
       // Here to get the background routing menu logic to modify by yourself
       const paramId = id || userStore.getUserInfoState.userId;
+
+      // !Simulate to obtain permission codes from the background,
+      // this function may only need to be executed once, and the actual project can be put at the right time by itself
+      this.changePermissionCode('1');
       if (!paramId) {
         throw new Error('paramId is undefined!');
       }
