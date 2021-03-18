@@ -111,7 +111,6 @@
 
       .@{menu-prefix-cls}-submenu-active {
         color: @primary-color !important;
-        // background: fade(@primary-color, 8);
 
         &-border {
           .light-border();
@@ -120,8 +119,6 @@
     }
 
     &-dark {
-      // background: @menu-dark;
-
       .@{menu-prefix-cls}-submenu-active {
         color: #fff !important;
       }
@@ -137,7 +134,6 @@
       cursor: pointer;
       outline: none;
       align-items: center;
-      // transition: all @transition-time @ease-in-out;
 
       &:hover,
       &:active {
@@ -264,12 +260,7 @@
 
       &:hover {
         color: #fff;
-        // background: @menu-dark;
       }
-
-      // &-active:not(.@{menu-prefix-cls}-submenu) {
-      //   color: @primary-color;
-      // }
     }
 
     &-dark&-vertical&-collapse {
@@ -296,11 +287,6 @@
     }
 
     &-dark&-vertical &-submenu &-item {
-      // &:hover {
-      //   color: #fff;
-      //   background: transparent;
-      // }
-
       &-active,
       &-active:hover {
         color: #fff;
@@ -313,11 +299,6 @@
     }
 
     &-dark&-vertical &-opened {
-      // background: @menu-dark-active-bg;
-      // .@{menu-prefix-cls}-submenu-title {
-      //   background: @menu-dark;
-      // }
-
       .@{menu-prefix-cls}-submenu-has-parent-submenu {
         .@{menu-prefix-cls}-submenu-title {
           background: transparent;

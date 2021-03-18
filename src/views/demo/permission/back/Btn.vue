@@ -59,7 +59,6 @@
   import CurrentPermissionMode from '../CurrentPermissionMode.vue';
   import { usePermission } from '/@/hooks/web/usePermission';
   import { Authority } from '/@/components/Authority';
-  import { getPermCodeByUserId } from '/@/api/sys/user';
   import { permissionStore } from '/@/store/modules/permission';
   import { PermissionModeEnum } from '/@/enums/appEnum';
   import { PageWrapper } from '/@/components/Page';
@@ -69,13 +68,10 @@
     setup() {
       const { hasPermission } = usePermission();
 
-      // !模拟从后台获取权限编码， 该函数可能只需要执行一次，实际项目可以自行放到合适的时机
-      async function changePermissionCode(userId: string) {
-        const codeList = await getPermCodeByUserId({ userId });
-        permissionStore.commitPermCodeListState(codeList);
+      function changePermissionCode(userId: string) {
+        permissionStore.changePermissionCode(userId);
       }
-      // 默认初始化为1
-      changePermissionCode('1');
+
       return {
         hasPermission,
         permissionStore,
