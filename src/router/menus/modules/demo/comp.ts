@@ -8,7 +8,6 @@ const menu: MenuModule = {
     path: '/comp',
     tag: {
       dot: true,
-      type: 'warn',
     },
     children: [
       {
@@ -120,6 +119,13 @@ const menu: MenuModule = {
       {
         path: 'countTo',
         name: t('routes.demo.comp.countTo'),
+      },
+      {
+        path: 'timestamp',
+        name: t('routes.demo.comp.time'),
+        tag: {
+          content: 'new',
+        },
       },
       {
         path: 'transition',

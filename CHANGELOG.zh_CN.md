@@ -1,4 +1,64 @@
-## 2.0.1 (2021-03-04)
+## Wip
+
+### ✨ Refactor
+
+- 重构路由多层模式,解决嵌套 keepalive 执行多次问题
+
+### 🐛 Bug Fixes
+
+- 确保 CountDownInput 组件重置清空值
+- 修复分割模式下在小屏幕中显示问题
+
+## 2.1.0 (2021-03-15)
+
+### ✨ Features
+
+- 图标选择器新增 svg 模式
+- 新增时间组件
+- 新增高德/百度/谷歌地图示例
+
+### ✨ Refactor
+
+- 重构项目以解决循环依赖项导致的热更新问题
+- 移除 vueHelper/useClickoutside,使用@vueuse/core 代替
+
+### 🐛 Bug Fixes
+
+- 确保 `table action` 的值被正确更新
+- 修复页面切换的动画无法关闭
+- 修复`PageWrapper`title 不显示
+- 修复表格已知问题
+- 修复 BasicTree 组件不能自定义 title 问题
+- 修复主题切换后按钮样式问题
+
+## 2.0.3 (2021-03-07)
+
+### ✨ Features
+
+- `BasicTree` 新增`clickRowToExpand`,用于单击树节点展开
+- 新增 SvgIcon 插件及示例
+- 账号管理界面增加左侧部门树·
+
+### ⚡ Performance Improvements
+
+- 表格关闭分页时不再携带分页参数
+- 登录页监听回车事件进行登录
+- 当表格设置自适应大小时,根据屏幕来铺满了高度.
+- Tree 滚动条优化
+- 优化本地开发加载速度
+
+### 🐛 Bug Fixes
+
+- 修复`Description`已知问题
+- 修复`BasicForm`已知问题
+- 修复`BasicTree`下 ActionItem 的 show 属性逻辑问题
+- 修复树组件 demo 示例样式错误
+- 修复账号管理新增未清空旧数据
+- form 组件应允许 setFieldsValue 方法值为 null 或者 undefined
+- 确保单级面包屑正确跳转
+- 确保 Form 组件不校验隐藏的表单项
+
+## 2.0.2 (2021-03-04)
 
 ### ✨ Refactor
 

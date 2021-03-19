@@ -20,7 +20,6 @@
     name: 'BasicArrow',
     components: { Icon },
     props: {
-      // Expand contract, expand by default
       expand: propTypes.bool,
       top: propTypes.bool,
       bottom: propTypes.bool,

@@ -5,10 +5,12 @@ import type {
   ColumnProps,
   TableRowSelection as ITableRowSelection,
 } from 'ant-design-vue/lib/table/interface';
+
 import { ComponentType } from './componentType';
 import { VueNode } from '/@/utils/propTypes';
-// import { ColumnProps } from './column';
+
 export declare type SortOrder = 'ascend' | 'descend';
+
 export interface TableCurrentDataSource<T = Recordable> {
   currentDataSource: T[];
 }

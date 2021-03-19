@@ -1,33 +1,26 @@
 <template>
   <div :class="`${prefixCls}`">
-    <span :class="`${prefixCls}__item`">
-      <Icon icon="ant-design:enter-outlined" />
-    </span>
+    <AppSearchKeyItem :class="`${prefixCls}__item`" icon="ant-design:enter-outlined" />
     <span>{{ t('component.app.toSearch') }}</span>
 
-    <span :class="`${prefixCls}__item`">
-      <Icon icon="bi:arrow-up" />
-    </span>
-    <span :class="`${prefixCls}__item`">
-      <Icon icon="bi:arrow-down" />
-    </span>
+    <AppSearchKeyItem :class="`${prefixCls}__item`" icon="ion:arrow-up-outline" />
+    <AppSearchKeyItem :class="`${prefixCls}__item`" icon="ion:arrow-down-outline" />
     <span>{{ t('component.app.toNavigate') }}</span>
-    <span :class="`${prefixCls}__item`">
-      <Icon icon="mdi:keyboard-esc" />
-    </span>
+    <AppSearchKeyItem :class="`${prefixCls}__item`" icon="mdi:keyboard-esc" />
+
     <span>{{ t('common.closeText') }}</span>
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import Icon from '/@/components/Icon';
+  import AppSearchKeyItem from './AppSearchKeyItem.vue';
 
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useI18n } from '/@/hooks/web/useI18n';
   export default defineComponent({
     name: 'AppSearchFooter',
-    components: { Icon },
+    components: { AppSearchKeyItem },
     setup() {
       const { prefixCls } = useDesign('app-search-footer');
       const { t } = useI18n();

@@ -81,7 +81,7 @@ const feat: AppRouteModule = {
               component: () => import('/@/views/demo/feat/breadcrumb/ChildrenList.vue'),
               meta: {
                 title: t('routes.demo.feat.breadcrumbChildren'),
-                hideBreadcrumb: true,
+                // hideBreadcrumb: true,
               },
             },
             {
@@ -92,7 +92,7 @@ const feat: AppRouteModule = {
                 currentActiveMenu: '/feat/breadcrumb/children',
                 title: t('routes.demo.feat.breadcrumbChildrenDetail'),
                 hideTab: true,
-                hideMenu: true,
+                // hideMenu: true,
               },
             },
           ],

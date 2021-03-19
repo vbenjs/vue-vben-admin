@@ -40,7 +40,7 @@
   import { CountdownInput } from '/@/components/CountDown';
 
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { useLoginState, useFormRules, useFormValid, LoginStateEnum } from './useLogin';
+  import { useLoginState, useFormRules, LoginStateEnum } from './useLogin';
 
   export default defineComponent({
     name: 'ForgetPasswordForm',
@@ -66,14 +66,12 @@
         sms: '',
       });
 
-      const { validForm } = useFormValid(formRef);
-
       const getShow = computed(() => unref(getLoginState) === LoginStateEnum.RESET_PASSWORD);
 
       async function handleReset() {
-        const data = await validForm();
-        if (!data) return;
-        console.log(data);
+        const form = unref(formRef);
+        if (!form) return;
+        await form.resetFields();
       }
 
       return {

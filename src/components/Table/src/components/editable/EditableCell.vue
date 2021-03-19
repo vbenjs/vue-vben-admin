@@ -182,14 +182,16 @@
 
       async function handleChange(e: any) {
         const component = unref(getComponent);
-        if (e?.target && Reflect.has(e.target, 'value')) {
+        if (!e) {
+          currentValueRef.value = e;
+        } else if (e?.target && Reflect.has(e.target, 'value')) {
           currentValueRef.value = (e as ChangeEvent).target.value;
-        }
-        if (component === 'Checkbox') {
+        } else if (component === 'Checkbox') {
           currentValueRef.value = (e as ChangeEvent).target.checked;
         } else if (isString(e) || isBoolean(e) || isNumber(e)) {
           currentValueRef.value = e;
         }
+
         table.emit?.('edit-change', {
           column: props.column,
           value: unref(currentValueRef),

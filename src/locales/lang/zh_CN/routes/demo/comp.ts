@@ -31,4 +31,6 @@ export default {
   upload: '上传组件',
 
   loading: 'Loading',
+
+  time: '时间组件',
 };

@@ -5,6 +5,7 @@ import { appStore } from '/@/store/modules/app';
 import { permissionStore } from '/@/store/modules/permission';
 import { transformMenuModule, getAllParentPath } from '/@/router/helper/menuHelper';
 import { filter } from '/@/utils/helper/treeHelper';
+import { isUrl } from '/@/utils/is';
 import router from '/@/router';
 import { PermissionModeEnum } from '/@/enums/appEnum';
 import { pathToRegexp } from 'path-to-regexp';
@@ -18,8 +19,6 @@ Object.keys(modules).forEach((key) => {
   const modList = Array.isArray(mod) ? [...mod] : [mod];
   menuModules.push(...modList);
 });
-
-const reg = /(((https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
 
 // ===========================
 // ==========Helper===========
@@ -40,18 +39,15 @@ const staticMenus: Menu[] = [];
 })();
 
 async function getAsyncMenus() {
-  // 前端角色控制菜单 直接取菜单文件
   return !isBackMode() ? staticMenus : permissionStore.getBackMenuListState;
 }
 
-// 获取菜单 树级
 export const getMenus = async (): Promise<Menu[]> => {
   const menus = await getAsyncMenus();
   const routes = router.getRoutes();
   return !isBackMode() ? filter(menus, basicFilter(routes)) : menus;
 };
 
-// 获取当前路径的顶级路径
 export async function getCurrentParentPath(currentPath: string) {
   const menus = await getAsyncMenus();
 
@@ -60,7 +56,7 @@ export async function getCurrentParentPath(currentPath: string) {
   return allParentPath?.[0];
 }
 
-// 获取1级菜单，删除children
+// Get the level 1 menu, delete children
 export async function getShallowMenus(): Promise<Menu[]> {
   const menus = await getAsyncMenus();
   const routes = router.getRoutes();
@@ -68,24 +64,20 @@ export async function getShallowMenus(): Promise<Menu[]> {
   return !isBackMode() ? shallowMenuList.filter(basicFilter(routes)) : shallowMenuList;
 }
 
-// 获取菜单的children
+// Get the children of the menu
 export async function getChildrenMenus(parentPath: string) {
-  const menus = await getAsyncMenus();
+  const menus = await getMenus();
   const parent = menus.find((item) => item.path === parentPath);
-  if (!parent || !parent.children) return [] as Menu[];
+  if (!parent || !parent.children || !!parent?.meta?.hideChildrenInMenu) return [] as Menu[];
   const routes = router.getRoutes();
 
   return !isBackMode() ? filter(parent.children, basicFilter(routes)) : parent.children;
 }
 
-// 通用过滤方法
 function basicFilter(routes: RouteRecordNormalized[]) {
   return (menu: Menu) => {
     const matchRoute = routes.find((route) => {
-      const match = route.path.match(reg)?.[0];
-      if (match && match === menu.path) {
-        return true;
-      }
+      if (isUrl(menu.path)) return true;
 
       if (route.meta?.carryParam) {
         return pathToRegexp(route.path).test(menu.path);

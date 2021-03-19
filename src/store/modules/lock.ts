@@ -1,3 +1,5 @@
+import type { LockInfo } from '/@/store/types';
+
 import { VuexModule, getModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import store from '/@/store';
 
@@ -7,11 +9,6 @@ import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
 import { Persistent } from '/@/utils/cache/persistent';
 
 import { userStore } from './user';
-
-export interface LockInfo {
-  pwd: string | undefined;
-  isLock: boolean;
-}
 
 const NAME = 'app-lock';
 hotModuleUnregisterModule(NAME);

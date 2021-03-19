@@ -24,9 +24,9 @@
 </template>
 <script lang="ts">
   import type { PropType } from 'vue';
-  import { defineComponent, ref } from 'vue';
+  import { defineComponent, computed } from 'vue';
 
-  import { Dropdown, Menu, Checkbox, Input } from 'ant-design-vue';
+  import { Dropdown, Menu, Input } from 'ant-design-vue';
   import { Icon } from '/@/components/Icon';
   import { BasicTitle } from '/@/components/Basic';
 
@@ -45,7 +45,6 @@
     components: {
       BasicTitle,
       Icon,
-      Checkbox,
       Dropdown,
       Menu,
       MenuItem: Menu.Item,
@@ -59,6 +58,7 @@
       },
       title: propTypes.string,
       toolbar: propTypes.bool,
+      checkable: propTypes.bool,
       search: propTypes.bool,
       checkAll: propTypes.func,
       expandAll: propTypes.func,
@@ -66,14 +66,32 @@
     emits: ['strictly-change', 'search'],
     setup(props, { emit }) {
       const { t } = useI18n();
-      const toolbarList = ref([
-        { label: t('component.tree.selectAll'), value: ToolbarEnum.SELECT_ALL },
-        { label: t('component.tree.unSelectAll'), value: ToolbarEnum.UN_SELECT_ALL, divider: true },
-        { label: t('component.tree.expandAll'), value: ToolbarEnum.EXPAND_ALL },
-        { label: t('component.tree.unExpandAll'), value: ToolbarEnum.UN_EXPAND_ALL, divider: true },
-        { label: t('component.tree.checkStrictly'), value: ToolbarEnum.CHECK_STRICTLY },
-        { label: t('component.tree.checkUnStrictly'), value: ToolbarEnum.CHECK_UN_STRICTLY },
-      ]);
+
+      const toolbarList = computed(() => {
+        const { checkable } = props;
+        const defaultToolbarList = [
+          { label: t('component.tree.expandAll'), value: ToolbarEnum.EXPAND_ALL },
+          {
+            label: t('component.tree.unExpandAll'),
+            value: ToolbarEnum.UN_EXPAND_ALL,
+            divider: checkable,
+          },
+        ];
+
+        return checkable
+          ? [
+              { label: t('component.tree.selectAll'), value: ToolbarEnum.SELECT_ALL },
+              {
+                label: t('component.tree.unSelectAll'),
+                value: ToolbarEnum.UN_SELECT_ALL,
+                divider: checkable,
+              },
+              ...defaultToolbarList,
+              { label: t('component.tree.checkStrictly'), value: ToolbarEnum.CHECK_STRICTLY },
+              { label: t('component.tree.checkUnStrictly'), value: ToolbarEnum.CHE },
+            ]
+          : defaultToolbarList;
+      });
 
       function handleMenuClick(e: MenuInfo) {
         const { key } = e;

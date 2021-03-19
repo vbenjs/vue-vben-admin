@@ -67,7 +67,7 @@
     .@{header-trigger-prefix-cls} {
       display: flex;
       height: 100%;
-      padding: 1px 10px 0 16px;
+      padding: 1px 10px 0 10px;
       cursor: pointer;
       align-items: center;
 
@@ -175,6 +175,11 @@
 
     .@{header-prefix-cls}-action {
       &__item {
+        .app-iconify {
+          padding: 0 10px;
+          font-size: 16px !important;
+        }
+
         &:hover {
           background: @header-dark-bg-hover-color;
         }

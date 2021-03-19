@@ -1,5 +1,5 @@
 <template>
-  <span :class="`${prefixCls}-wrapper`">
+  <span :class="`${prefixCls}- flex items-center `">
     <Icon v-if="getIcon" :icon="getIcon" :size="18" :class="`${prefixCls}-wrapper__icon`" />
     {{ getI18nName }}
   </span>

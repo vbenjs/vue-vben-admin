@@ -1,6 +1,6 @@
 <script lang="tsx">
   import type { CSSProperties, PropType } from 'vue';
-  import { defineComponent, computed, unref, h } from 'vue';
+  import { defineComponent, computed, unref } from 'vue';
 
   import { Tooltip } from 'ant-design-vue';
   import { InfoCircleOutlined } from '@ant-design/icons-vue';

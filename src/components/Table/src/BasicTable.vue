@@ -3,6 +3,7 @@
     ref="wrapRef"
     :class="[
       prefixCls,
+      $attrs.class,
       {
         [`${prefixCls}-form-container`]: getBindValues.useSearchForm,
         [`${prefixCls}--inset`]: getBindValues.inset,
@@ -66,14 +67,14 @@
 
   import { basicProps } from './props';
   import expandIcon from './components/ExpandIcon';
-  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+  import HeaderCell from './components/HeaderCell.vue';
 
   import './style/index.less';
   export default defineComponent({
     components: {
       Table,
       BasicForm,
-      HeaderCell: createAsyncComponent(() => import('./components/HeaderCell.vue')),
+      HeaderCell,
     },
     props: basicProps,
     emits: [
@@ -160,7 +161,8 @@
         getProps,
         tableElRef,
         getColumnsRef,
-        getRowSelectionRef
+        getRowSelectionRef,
+        getDataSourceRef
       );
 
       const { customRow } = useCustomRow(getProps, {
@@ -210,6 +212,8 @@
         if (slots.expandedRowRender) {
           propsData = omit(propsData, 'scroll');
         }
+
+        propsData = omit(propsData, 'class');
 
         return propsData;
       });

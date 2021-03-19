@@ -16,7 +16,7 @@ export const columns: BasicColumn[] = [
   {
     title: '邮箱',
     dataIndex: 'email',
-    width: 200,
+    width: 120,
   },
   {
     title: '创建时间',
@@ -61,7 +61,7 @@ export const accountFormSchema: FormSchema[] = [
     label: '密码',
     component: 'InputPassword',
     required: true,
-    show: true,
+    show: false,
   },
   {
     label: '角色',

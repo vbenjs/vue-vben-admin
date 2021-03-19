@@ -6,11 +6,37 @@ const menu: MenuModule = {
   menu: {
     name: t('routes.demo.charts.charts'),
     path: '/charts',
+    tag: {
+      content: 'new',
+    },
     children: [
+      {
+        path: 'aMap',
+        name: t('routes.demo.charts.aMap'),
+        tag: {
+          dot: true,
+        },
+      },
+
+      {
+        path: 'baiduMap',
+        name: t('routes.demo.charts.baiduMap'),
+        tag: {
+          dot: true,
+        },
+      },
+      {
+        path: 'googleMap',
+        name: t('routes.demo.charts.googleMap'),
+        tag: {
+          dot: true,
+        },
+      },
       {
         path: 'apexChart',
         name: t('routes.demo.charts.apexChart'),
       },
+
       {
         path: 'echarts',
         name: 'Echarts',

@@ -13,13 +13,14 @@ import { asyncRoutes } from '/@/router/routes';
 import { filter } from '/@/utils/helper/treeHelper';
 import { toRaw } from 'vue';
 import { getMenuListById } from '/@/api/sys/menu';
+import { getPermCodeByUserId } from '/@/api/sys/user';
 
-import { transformObjToRoute } from '/@/router/helper/routeHelper';
+import { transformObjToRoute, flatRoutes } from '/@/router/helper/routeHelper';
 import { transformRouteToMenu } from '/@/router/helper/menuHelper';
 
 import { useMessage } from '/@/hooks/web/useMessage';
-// import { useI18n } from '/@/hooks/web/useI18n';
-import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/constant';
+import { useI18n } from '/@/hooks/web/useI18n';
+import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
 
 const { createMessage } = useMessage();
 const NAME = 'app-permission';
@@ -83,8 +84,14 @@ class Permission extends VuexModule {
   }
 
   @Action
+  async changePermissionCode(userId: string) {
+    const codeList = await getPermCodeByUserId({ userId });
+    this.commitPermCodeListState(codeList);
+  }
+
+  @Action
   async buildRoutesAction(id?: number | string): Promise<AppRouteRecordRaw[]> {
-    // const { t } = useI18n();
+    const { t } = useI18n();
     let routes: AppRouteRecordRaw[] = [];
     const roleList = toRaw(userStore.getRoleListState);
 
@@ -101,12 +108,15 @@ class Permission extends VuexModule {
       //  If you are sure that you do not need to do background dynamic permissions, please comment the entire judgment below
     } else if (permissionMode === PermissionModeEnum.BACK) {
       createMessage.loading({
-        content: 'Loading menu...',
-        // content: 't('sys.app.menuLoading')',
+        content: t('sys.app.menuLoading'),
         duration: 1,
       });
       // Here to get the background routing menu logic to modify by yourself
       const paramId = id || userStore.getUserInfoState.userId;
+
+      // !Simulate to obtain permission codes from the background,
+      // this function may only need to be executed once, and the actual project can be put at the right time by itself
+      this.changePermissionCode('1');
       if (!paramId) {
         throw new Error('paramId is undefined!');
       }
@@ -114,11 +124,12 @@ class Permission extends VuexModule {
 
       // Dynamically introduce components
       routeList = transformObjToRoute(routeList);
+
       //  Background routing to menu structure
       const backMenuList = transformRouteToMenu(routeList);
-
       this.commitBackMenuListState(backMenuList);
 
+      flatRoutes(routeList);
       routes = [PAGE_NOT_FOUND_ROUTE, ...routeList];
     }
     routes.push(ERROR_LOG_ROUTE);

@@ -14,12 +14,37 @@ const charts: AppRouteModule = {
   },
   children: [
     {
+      path: 'baiduMap',
+      name: 'BaiduMap',
+      meta: {
+        title: t('routes.demo.charts.baiduMap'),
+      },
+      component: () => import('/@/views/demo/charts/map/Baidu.vue'),
+    },
+    {
+      path: 'aMap',
+      name: 'AMap',
+      meta: {
+        title: t('routes.demo.charts.aMap'),
+      },
+      component: () => import('/@/views/demo/charts/map/Gaode.vue'),
+    },
+    {
+      path: 'googleMap',
+      name: 'GoogleMap',
+      meta: {
+        title: t('routes.demo.charts.googleMap'),
+      },
+      component: () => import('/@/views/demo/charts/map/Google.vue'),
+    },
+
+    {
       path: 'apexChart',
       name: 'ApexChart',
       meta: {
         title: t('routes.demo.charts.apexChart'),
       },
-      component: () => import('/@/views/demo/echarts/apex/index.vue'),
+      component: () => import('/@/views/demo/charts/apex/index.vue'),
     },
     {
       path: 'echarts',
@@ -33,7 +58,7 @@ const charts: AppRouteModule = {
         {
           path: 'map',
           name: 'Map',
-          component: () => import('/@/views/demo/echarts/Map.vue'),
+          component: () => import('/@/views/demo/charts/Map.vue'),
           meta: {
             title: t('routes.demo.charts.map'),
           },
@@ -41,7 +66,7 @@ const charts: AppRouteModule = {
         {
           path: 'line',
           name: 'Line',
-          component: () => import('/@/views/demo/echarts/Line.vue'),
+          component: () => import('/@/views/demo/charts/Line.vue'),
           meta: {
             title: t('routes.demo.charts.line'),
           },
@@ -49,7 +74,7 @@ const charts: AppRouteModule = {
         {
           path: 'pie',
           name: 'Pie',
-          component: () => import('/@/views/demo/echarts/Pie.vue'),
+          component: () => import('/@/views/demo/charts/Pie.vue'),
           meta: {
             title: t('routes.demo.charts.pie'),
           },

@@ -1,5 +1,5 @@
 import { useTimeoutFn } from '/@/hooks/core/useTimeout';
-import { tryOnUnmounted } from '/@/utils/helper/vueHelper';
+import { tryOnUnmounted } from '@vueuse/core';
 import { unref, Ref, nextTick } from 'vue';
 import type { EChartsOption } from 'echarts';
 import { useDebounce } from '/@/hooks/core/useDebounce';

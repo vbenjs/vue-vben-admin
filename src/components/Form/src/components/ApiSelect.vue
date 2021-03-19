@@ -34,6 +34,7 @@
       Select,
       LoadingOutlined,
     },
+    inheritAttrs: false,
     props: {
       value: propTypes.string,
       numberToString: propTypes.bool,

@@ -11,7 +11,7 @@
   import { propTypes } from '/@/utils/propTypes';
 
   export default defineComponent({
-    name: 'SiderTrigger',
+    name: 'HeaderTrigger',
     components: { MenuUnfoldOutlined, MenuFoldOutlined },
     props: {
       theme: propTypes.oneOf(['light', 'dark']),

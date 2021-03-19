@@ -1,7 +1,7 @@
 <template>
-  <AInput v-bind="$attrs" :class="prefixCls" :size="size">
+  <AInput v-bind="$attrs" :class="prefixCls" :size="size" :value="state">
     <template #addonAfter>
-      <CountButton :size="size" :count="count" :beforeStartFunc="sendCodeApi" />
+      <CountButton :size="size" :count="count" :value="state" :beforeStartFunc="sendCodeApi" />
     </template>
   </AInput>
 </template>
@@ -19,6 +19,7 @@
   export default defineComponent({
     name: 'CountDownInput',
     components: { [Input.name]: Input, CountButton },
+    inheritAttrs: false,
     props: {
       value: propTypes.string,
       size: propTypes.oneOf(['default', 'large', 'small']),

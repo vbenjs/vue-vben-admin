@@ -1,4 +1,5 @@
 import type { ProjectConfig } from '/#/config';
+import type { BeforeMiniState } from '../types';
 
 import { VuexModule, getModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import store from '/@/store';
@@ -10,10 +11,6 @@ import { Persistent } from '/@/utils/cache/persistent';
 import { deepMerge } from '/@/utils';
 
 import { resetRouter } from '/@/router';
-import { permissionStore } from './permission';
-import { tabStore } from './tab';
-
-import { userStore } from './user';
 
 export interface LockInfo {
   pwd: string | undefined;
@@ -34,8 +31,15 @@ export default class App extends VuexModule {
   // set main overflow hidden
   private lockMainScrollState = false;
 
+  // When the window shrinks, remember some states, and restore these states when the window is restored
+  private beforeMiniState: BeforeMiniState = {};
+
   get getPageLoading() {
     return this.pageLoadingState;
+  }
+
+  get getBeforeMiniState() {
+    return this.beforeMiniState;
   }
 
   get getLockMainScrollState() {
@@ -49,6 +53,11 @@ export default class App extends VuexModule {
   @Mutation
   commitPageLoadingState(loading: boolean): void {
     this.pageLoadingState = loading;
+  }
+
+  @Mutation
+  commitBeforeMiniState(state: BeforeMiniState): void {
+    this.beforeMiniState = state;
   }
 
   @Mutation
@@ -66,10 +75,6 @@ export default class App extends VuexModule {
   async resumeAllState() {
     resetRouter();
     Persistent.clearAll();
-
-    permissionStore.commitResetState();
-    tabStore.commitResetState();
-    userStore.commitResetState();
   }
 
   @Action

@@ -5,13 +5,10 @@ import { resolve } from 'path';
 
 import { generateModifyVars } from './build/config/themeConfig';
 import { createProxy } from './build/vite/proxy';
+import { createAlias } from './build/vite/alias';
 import { wrapperEnv } from './build/utils';
 import { createVitePlugins } from './build/vite/plugin';
 import { OUTPUT_DIR } from './build/constant';
-
-function pathResolve(dir: string) {
-  return resolve(__dirname, '.', dir);
-}
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
   const root = process.cwd();
@@ -21,7 +18,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   // The boolean type read by loadEnv is a string. This function can be converted to boolean type
   const viteEnv = wrapperEnv(env);
 
-  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE, VITE_LEGACY } = viteEnv;
+  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE } = viteEnv;
 
   const isBuild = command === 'build';
 
@@ -29,18 +26,12 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     base: VITE_PUBLIC_PATH,
     root,
     resolve: {
-      alias: [
-        {
-          // /@/xxxx  =>  src/xxx
-          find: /^\/@\//,
-          replacement: pathResolve('src') + '/',
-        },
-        {
-          // /#/xxxx  =>  types/xxx
-          find: /^\/#\//,
-          replacement: pathResolve('types') + '/',
-        },
-      ],
+      alias: createAlias([
+        // /@/xxxx => src/xxxx
+        ['/@/', 'src'],
+        // /#/xxxx => types/xxxx
+        ['/#/', 'types'],
+      ]),
     },
     server: {
       port: VITE_PORT,
@@ -52,10 +43,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
 
     build: {
-      cssCodeSplit: false,
       // minify: 'esbuild',
       outDir: OUTPUT_DIR,
-      polyfillDynamicImport: VITE_LEGACY,
       terserOptions: {
         compress: {
           keep_infinity: true,

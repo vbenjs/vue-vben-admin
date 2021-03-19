@@ -1,5 +1,10 @@
 <template>
-  <div :class="prefixCls" v-if="imgList && imgList.length">
+  <div
+    :class="prefixCls"
+    class="flex mx-auto items-center"
+    v-if="imgList && imgList.length"
+    :style="getWrapStyle"
+  >
     <PreviewGroup>
       <template v-for="img in imgList" :key="img">
         <Image :width="size" :src="img" />
@@ -8,27 +13,31 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
+  import type { CSSProperties } from 'vue';
+  import { defineComponent, computed } from 'vue';
   import { useDesign } from '/@/hooks/web/useDesign';
 
   import { Image } from 'ant-design-vue';
+  import { propTypes } from '/@/utils/propTypes';
 
   export default defineComponent({
     name: 'TableImage',
     components: { Image, PreviewGroup: Image.PreviewGroup },
     props: {
-      imgList: {
-        type: Array as PropType<string[]>,
-        default: null,
-      },
-      size: {
-        type: Number as PropType<number>,
-        default: 40,
-      },
+      imgList: propTypes.arrayOf(propTypes.string),
+      size: propTypes.number.def(40),
     },
-    setup() {
+    setup(props) {
+      const getWrapStyle = computed(
+        (): CSSProperties => {
+          const { size } = props;
+          const wh = `${size}px`;
+          return { height: wh, width: wh };
+        }
+      );
+
       const { prefixCls } = useDesign('basic-table-img');
-      return { prefixCls };
+      return { prefixCls, getWrapStyle };
     },
   });
 </script>
@@ -36,8 +45,6 @@
   @prefix-cls: ~'@{namespace}-basic-table-img';
 
   .@{prefix-cls} {
-    display: flex;
-
     .ant-image {
       margin-right: 4px;
       cursor: zoom-in;

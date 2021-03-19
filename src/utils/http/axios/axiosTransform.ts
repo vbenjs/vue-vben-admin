@@ -4,6 +4,12 @@
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import type { RequestOptions, Result } from './types';
 
+export interface CreateAxiosOptions extends AxiosRequestConfig {
+  prefixUrl?: string;
+  transform?: AxiosTransform;
+  requestOptions?: RequestOptions;
+}
+
 export abstract class AxiosTransform {
   /**
    * @description: Process configuration before request
