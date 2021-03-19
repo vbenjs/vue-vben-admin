@@ -31,6 +31,7 @@
       :fullScreen="fullScreenRef"
       ref="modalWrapperRef"
       :loading="getProps.loading"
+      :loading-tip="getProps.loadingTip"
       :minHeight="getProps.minHeight"
       :height="getWrapperHeight"
       :visible="visibleRef"
