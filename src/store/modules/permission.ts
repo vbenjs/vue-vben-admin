@@ -116,7 +116,9 @@ class Permission extends VuexModule {
 
       // !Simulate to obtain permission codes from the background,
       // this function may only need to be executed once, and the actual project can be put at the right time by itself
-      this.changePermissionCode('1');
+      try {
+        this.changePermissionCode('1');
+      } catch (error) {}
       if (!paramId) {
         throw new Error('paramId is undefined!');
       }
