@@ -80,6 +80,7 @@
     "@vitejs/plugin-vue-jsx": "^1.1.2",
     "@vue/compiler-sfc": "^3.0.7",
     "autoprefixer": "^10.2.5",
+    "body-parser": "^1.19.0",
     "commitizen": "^4.2.3",
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.3",
@@ -116,16 +117,15 @@
     "vite-plugin-purge-icons": "^0.7.0",
     "vite-plugin-pwa": "^0.5.6",
     "vite-plugin-style-import": "^0.8.1",
-    "vite-plugin-svg-icons": "^0.3.5",
+    "vite-plugin-svg-icons": "^0.4.0",
     "vite-plugin-theme": "^0.5.0",
-    "vite-plugin-windicss": "0.8.3",
+    "vite-plugin-windicss": "0.9.4",
     "vue-eslint-parser": "^7.6.0",
     "yargs": "^16.2.0"
   },
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China.If it is abroad, you can delete it",
-    "bin-wrapper": "npm:bin-wrapper-china",
-    "vite": "2.0.5"
+    "bin-wrapper": "npm:bin-wrapper-china"
   },
   "repository": {
     "type": "git",
