@@ -1,5 +1,9 @@
 ## Wip
 
+### ✨ Features
+
+- 路由新增 hideChildrenInMenu 配置。用于隐藏子菜单
+
 ### ✨ Refactor
 
 - 重构路由多层模式,解决嵌套 keepalive 执行多次问题
@@ -8,6 +12,11 @@
 
 - 确保 CountDownInput 组件重置清空值
 - 修复分割模式下在小屏幕中显示问题
+- 修复表格高度计算问题
+- 修复后台路由获取不到组件问题
+- 修复 Modal 组件 loadingTip 配置不生效
+- 修复后台权限指令不生效
+- 确保 progress 进度条正确关闭
 
 ## 2.1.0 (2021-03-15)
 
