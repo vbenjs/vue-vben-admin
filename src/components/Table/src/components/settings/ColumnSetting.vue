@@ -113,6 +113,7 @@
 
   import { isNullAndUnDef } from '/@/utils/is';
   import { getPopupContainer } from '/@/utils';
+  import { omit } from 'lodash-es';
 
   import type { BasicColumn } from '../../types/table';
 
@@ -147,7 +148,7 @@
       const { t } = useI18n();
       const table = useTableContext();
 
-      const defaultRowSelection = table.getRowSelection();
+      const defaultRowSelection = omit(table.getRowSelection(), 'selectedRowKeys');
       let inited = false;
 
       const cachePlainOptions = ref<Options[]>([]);
