@@ -58,7 +58,8 @@ export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModul
   routeList.forEach((route) => {
     if (route.component) {
       if ((route.component as string).toUpperCase() === 'LAYOUT') {
-        route.component = LayoutMap.get(route.component as LayoutMapKey);
+        //route.component = LayoutMap.get(route.component as LayoutMapKey);
+        route.component = LayoutMap.get((route.component as string).toUpperCase() as LayoutMapKey);
       } else {
         route.children = [cloneDeep(route)];
         route.component = LAYOUT;
