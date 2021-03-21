@@ -3,6 +3,7 @@
 ### ✨ Features
 
 - 路由新增 hideChildrenInMenu 配置。用于隐藏子菜单
+- 树形表格内置展开/折叠全部函数
 
 ### ✨ Refactor
 

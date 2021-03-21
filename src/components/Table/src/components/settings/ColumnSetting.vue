@@ -3,7 +3,6 @@
     <template #title>
       <span>{{ t('component.table.settingColumn') }}</span>
     </template>
-    <!-- :getPopupContainer="getPopupContainer" -->
     <Popover
       placement="bottomLeft"
       trigger="click"

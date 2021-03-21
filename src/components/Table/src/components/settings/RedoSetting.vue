@@ -8,10 +8,11 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { useTableContext } from '../../hooks/useTableContext';
   import { Tooltip } from 'ant-design-vue';
   import { RedoOutlined } from '@ant-design/icons-vue';
+
   import { useI18n } from '/@/hooks/web/useI18n';
+  import { useTableContext } from '../../hooks/useTableContext';
 
   export default defineComponent({
     name: 'RedoSetting',
@@ -19,7 +20,6 @@
       RedoOutlined,
       Tooltip,
     },
-
     setup() {
       const table = useTableContext();
       const { t } = useI18n();
@@ -28,10 +28,7 @@
         table.reload();
       }
 
-      return {
-        redo,
-        t,
-      };
+      return { redo, t };
     },
   });
 </script>
