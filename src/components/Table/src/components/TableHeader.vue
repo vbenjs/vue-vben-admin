@@ -1,5 +1,6 @@
 <template>
   <slot name="tableTitle" v-if="$slots.tableTitle"></slot>
+
   <TableTitle :helpMessage="titleHelpMessage" :title="title" v-if="!$slots.tableTitle && title" />
 
   <div :class="`${prefixCls}__toolbar`">
@@ -11,19 +12,20 @@
 <script lang="ts">
   import type { TableSetting } from '../types/table';
   import type { PropType } from 'vue';
-  import { Divider } from 'ant-design-vue';
+
   import { defineComponent } from 'vue';
+  import { Divider } from 'ant-design-vue';
+  import TableSettingComponent from './settings/index.vue';
+  import TableTitle from './TableTitle.vue';
 
   import { useDesign } from '/@/hooks/web/useDesign';
-  import TableSettingComp from './settings/index.vue';
-  import TableTitle from './TableTitle.vue';
 
   export default defineComponent({
     name: 'BasicTableHeader',
     components: {
       Divider,
       TableTitle,
-      TableSetting: TableSettingComp,
+      TableSetting: TableSettingComponent,
     },
     props: {
       title: {

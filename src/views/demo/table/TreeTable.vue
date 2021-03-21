@@ -1,29 +1,31 @@
 <template>
   <div class="p-4">
-    <BasicTable
-      :rowSelection="{ type: 'checkbox' }"
-      title="树形表格"
-      titleHelpMessage="树形组件不能和序列号列同时存在"
-      :columns="columns"
-      :dataSource="data"
-      rowKey="id"
-      :indentSize="20"
-      isTreeTable
-    />
+    <BasicTable @register="register">
+      <template #toolbar>
+        <a-button type="primary" @click="expandAll">展开全部</a-button>
+        <a-button type="primary" @click="collapseAll">折叠全部</a-button>
+      </template>
+    </BasicTable>
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { BasicTable } from '/@/components/Table';
+  import { BasicTable, useTable } from '/@/components/Table';
   import { getBasicColumns, getTreeTableData } from './tableData';
 
   export default defineComponent({
     components: { BasicTable },
     setup() {
-      return {
+      const [register, { expandAll, collapseAll }] = useTable({
+        title: '树形表格',
+        isTreeTable: true,
+        rowSelection: { type: 'checkbox' },
+        titleHelpMessage: '树形组件不能和序列号列同时存在',
         columns: getBasicColumns(),
-        data: getTreeTableData(),
-      };
+        dataSource: getTreeTableData(),
+        rowKey: 'id',
+      });
+      return { register, expandAll, collapseAll };
     },
   });
 </script>

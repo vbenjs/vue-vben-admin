@@ -19,17 +19,21 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, computed } from 'vue';
+  import { defineComponent, PropType, computed, toRaw } from 'vue';
+
+  import { MoreOutlined } from '@ant-design/icons-vue';
   import Icon from '/@/components/Icon/index';
   import { ActionItem, TableActionType } from '/@/components/Table';
   import { PopConfirmButton } from '/@/components/Button';
   import { Divider } from 'ant-design-vue';
   import { Dropdown } from '/@/components/Dropdown';
+
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { MoreOutlined } from '@ant-design/icons-vue';
-  import { propTypes } from '/@/utils/propTypes';
   import { useTableContext } from '../hooks/useTableContext';
+
+  import { propTypes } from '/@/utils/propTypes';
   import { ACTION_COLUMN_FLAG } from '../const';
+
   export default defineComponent({
     name: 'TableAction',
     components: { Icon, PopConfirmButton, Divider, Dropdown, MoreOutlined },
@@ -52,26 +56,12 @@
         table = useTableContext();
       }
 
-      // const getSize = computed(() => {
-      //   const size = table?.getSize?.();
-      //   if (size === 'middle' || !size) {
-      //     return;
-      //   }
-
-      //   if (size === 'default') {
-      //     return 'large';
-      //   }
-      //   return size;
-      // });
-
       const getActions = computed(() => {
-        return (props.actions || []).map((action) => {
+        return (toRaw(props.actions) || []).map((action) => {
           const { popConfirm } = action;
-          // const size = unref(getSize);
           return {
             type: 'link',
             size: 'small',
-            // ...(size ? { size } : {}),
             ...action,
             ...(popConfirm || {}),
             onConfirm: popConfirm?.confirm,
@@ -82,7 +72,7 @@
       });
 
       const getDropList = computed(() => {
-        return (props.dropDownActions || []).map((action, index) => {
+        return (toRaw(props.dropDownActions) || []).map((action, index) => {
           const { label } = action;
           return {
             ...action,
