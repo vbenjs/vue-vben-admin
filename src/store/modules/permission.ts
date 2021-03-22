@@ -15,7 +15,7 @@ import { toRaw } from 'vue';
 import { getMenuListById } from '/@/api/sys/menu';
 import { getPermCodeByUserId } from '/@/api/sys/user';
 
-import { transformObjToRoute, flatRoutes } from '/@/router/helper/routeHelper';
+import { transformObjToRoute, flatMultiLevelRoutes } from '/@/router/helper/routeHelper';
 import { transformRouteToMenu } from '/@/router/helper/menuHelper';
 
 import { useMessage } from '/@/hooks/web/useMessage';
@@ -99,12 +99,16 @@ class Permission extends VuexModule {
 
     // role permissions
     if (permissionMode === PermissionModeEnum.ROLE) {
-      routes = filter(asyncRoutes, (route) => {
+      const routeFilter = (route) => {
         const { meta } = route as AppRouteRecordRaw;
         const { roles } = meta || {};
         if (!roles) return true;
         return roleList.some((role) => roles.includes(role));
-      });
+      };
+      routes = filter(asyncRoutes, routeFilter);
+      routes = routes.filter(routeFilter);
+      // Convert multi-level routing to level 2 routing
+      routes = flatMultiLevelRoutes(routes);
       //  If you are sure that you do not need to do background dynamic permissions, please comment the entire judgment below
     } else if (permissionMode === PermissionModeEnum.BACK) {
       createMessage.loading({
@@ -131,7 +135,7 @@ class Permission extends VuexModule {
       const backMenuList = transformRouteToMenu(routeList);
       this.commitBackMenuListState(backMenuList);
 
-      flatRoutes(routeList);
+      routeList = flatMultiLevelRoutes(routeList);
       routes = [PAGE_NOT_FOUND_ROUTE, ...routeList];
     }
     routes.push(ERROR_LOG_ROUTE);
