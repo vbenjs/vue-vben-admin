@@ -45,6 +45,7 @@ async function getAsyncMenus() {
 export const getMenus = async (): Promise<Menu[]> => {
   const menus = await getAsyncMenus();
   const routes = router.getRoutes();
+
   return !isBackMode() ? filter(menus, basicFilter(routes)) : menus;
 };
 
