@@ -1121,10 +1121,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.317":
-  version "1.1.318"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.318.tgz#7d4e56de65dd0c7c6381a94dde1d574efea308ff"
-  integrity sha512-t66mtNPASeG/MQm3CWIJSr9jy8nXWNVs1L3auWc41xHqS114/dGkSlgu1LkMPUgBdyIB5AD4bjZrl50QuEf44Q==
+"@iconify/json@^1.1.320":
+  version "1.1.320"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.320.tgz#2f3685f8f3394bc1e6c734621a62551e85cad63e"
+  integrity sha512-cQpdMwjnGsKHCkabowCQ01figNBSwZ3UQxRLDD9gVlEpLuccpE2aWmRYPhbp7ofvZEyhffFn/zX9tPeoCAZnNQ==
 
 "@intlify/core-base@9.0.0":
   version "9.0.0"
@@ -2026,16 +2026,16 @@
   dependencies:
     vue-demi latest
 
-"@windicss/plugin-utils@0.9.4":
-  version "0.9.4"
-  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.9.4.tgz#6f1212f672257a391e0077a7baf172a55282e631"
-  integrity sha512-udA6kvgj1/zUrDvKw8To0BqG3PsaDwJkOHgT0GnEzyXg3b37TUEJ/8H1sW98ai12K5jL+ovd6/8hmve0wkvvoA==
+"@windicss/plugin-utils@0.9.6":
+  version "0.9.6"
+  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.9.6.tgz#89e4709bc48c9eb03c2484054f519560791ccafa"
+  integrity sha512-rpuRPjndF5GR2BZFaISGAwe6DHii16Cfs0/003El6vBxQbWpL75BslfNYeJKAhnRfkqfPxcq4lybxHGWmvsaug==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"
     micromatch "^4.0.2"
     sucrase "^3.17.1"
-    windicss "^2.5.2"
+    windicss "^2.5.4"
 
 "@zxcvbn-ts/core@^0.3.0":
   version "0.3.0"
@@ -4453,10 +4453,10 @@ eslint-plugin-prettier@^3.3.1:
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
-eslint-plugin-vue@^7.7.0:
-  version "7.7.0"
-  resolved "https://registry.npmjs.org/eslint-plugin-vue/-/eslint-plugin-vue-7.7.0.tgz#a90df4595e670821bf243bd2750ededdb74948b8"
-  integrity sha512-mYz4bpLGv5jx6YG/GvKkqbGSfV7uma2u1P3mLA41Q5vQl8W1MeuTneB8tfsLq6xxxesFubcrOC0BZBJ5R+eaCQ==
+eslint-plugin-vue@^7.8.0:
+  version "7.8.0"
+  resolved "https://registry.npmjs.org/eslint-plugin-vue/-/eslint-plugin-vue-7.8.0.tgz#cb0e85d65b65fa8d15e783fbb03c049d2c4cfdae"
+  integrity sha512-OGrnPz+PuYL2HmVyBHxm4mRjxW2kfFCQE6Hw9G6qOHs/Pcu0srOlCCW0FMa8SLzIEqxl8WuKoBSPcMnrjUG2vw==
   dependencies:
     eslint-utils "^2.1.0"
     natural-compare "^1.4.0"
@@ -5799,6 +5799,11 @@ husky@^5.1.3:
   version "5.1.3"
   resolved "https://registry.npmjs.org/husky/-/husky-5.1.3.tgz#1a0645a4fe3ffc006c4d0d8bd0bcb4c98787cc9d"
   integrity sha512-fbNJ+Gz5wx2LIBtMweJNY1D7Uc8p1XERi5KNRMccwfQA+rXlxWNSdUxswo0gT8XqxywTIw7Ywm/F4v/O35RdMg==
+
+husky@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.npmjs.org/husky/-/husky-5.2.0.tgz#fc5e1c2300d34855d47de4753607d00943fc0802"
+  integrity sha512-AM8T/auHXRBxlrfPVLKP6jt49GCM2Zz47m8G3FOMsLmTv8Dj/fKVWE0Rh2d4Qrvmy131xEsdQnb3OXRib67PGg==
 
 iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@^0.4.4:
   version "0.4.24"
@@ -11284,14 +11289,14 @@ vite-plugin-theme@^0.5.0:
     tinycolor2 "^1.4.2"
     ts-jest "^26.5.3"
 
-vite-plugin-windicss@0.9.4:
-  version "0.9.4"
-  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.9.4.tgz#cc77935b60b6f7ae6b51cbed9c9fd13e48bc705f"
-  integrity sha512-hLrPV+9KF260iIRVK4XirG3zb7T9qJyZ5xfUGrF560cA7I8IsTMI91ePk8F0H70cWzME+h/wSQiUejRvcvaSnA==
+vite-plugin-windicss@0.9.6:
+  version "0.9.6"
+  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.9.6.tgz#8c1b55e365ef311296e0db427ed358b5b46247b1"
+  integrity sha512-vNyPTuVyCV34slkbzaARvMOCC93ueuP0bw0ETyoUduCwIjP2NwI9C88b3LneVM46TAEDIzHtlTJjkq+APADVOA==
   dependencies:
-    "@windicss/plugin-utils" "0.9.4"
+    "@windicss/plugin-utils" "0.9.6"
     debug "^4.3.2"
-    windicss "^2.5.2"
+    windicss "^2.5.4"
 
 vite@2.0.5:
   version "2.0.5"
@@ -11477,10 +11482,10 @@ which@^2.0.1, which@^2.0.2:
   dependencies:
     isexe "^2.0.0"
 
-windicss@^2.5.2:
-  version "2.5.2"
-  resolved "https://registry.npmjs.org/windicss/-/windicss-2.5.2.tgz#831858fe45edbf8400d5e8c6b9275fa3ffffcb2f"
-  integrity sha512-WzynOx1rQGzgUq62wqyWjUzOEPArwP8oeWyLqymiF54LSFC7f0oIYXR01bxY/y6OK2wODyK/OuwahPNAsseqqg==
+windicss@^2.5.4:
+  version "2.5.4"
+  resolved "https://registry.npmjs.org/windicss/-/windicss-2.5.4.tgz#e89cd614cc4a7c2c13cc5af588642959de6746db"
+  integrity sha512-K+w/TOxbY38bIjRyJVgQ29ndZ0xZsbpf4a7wClqyFDQdCTbuCnzChBMpO13BqLmksIaHRzL46TeBRpFyV6n5/A==
 
 wmf@~1.0.1:
   version "1.0.2"
