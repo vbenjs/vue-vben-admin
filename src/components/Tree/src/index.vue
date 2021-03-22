@@ -39,7 +39,7 @@
     name: 'BasicTree',
     inheritAttrs: false,
     props: basicProps,
-    emits: ['update:expandedKeys', 'update:selectedKeys', 'update:value', 'change'],
+    emits: ['update:expandedKeys', 'update:selectedKeys', 'update:value', 'change', 'check'],
     setup(props, { attrs, slots, emit }) {
       const state = reactive<State>({
         checkStrictly: props.checkStrictly,
@@ -92,6 +92,7 @@
             state.checkedKeys = v;
             const rawVal = toRaw(v);
             emit('change', rawVal);
+            emit('check', rawVal);
             emit('update:value', rawVal);
           },
           onRightClick: handleRightClick,
