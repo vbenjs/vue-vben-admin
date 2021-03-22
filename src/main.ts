@@ -32,9 +32,6 @@ import { isDevMode } from '/@/utils/env';
   // Register global components
   registerGlobComp(app);
 
-  // Multilingual configuration
-  await setupI18n(app);
-
   // Configure routing
   setupRouter(app);
 
@@ -48,7 +45,7 @@ import { isDevMode } from '/@/utils/env';
   setupErrorHandle(app);
 
   // Mount when the route is ready
-  await router.isReady();
+  await Promise.all([setupI18n(app), router.isReady()]);
 
   app.mount('#app', true);
 
