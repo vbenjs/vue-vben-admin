@@ -43,7 +43,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
 
     build: {
-      // minify: 'esbuild',
       outDir: OUTPUT_DIR,
       terserOptions: {
         compress: {

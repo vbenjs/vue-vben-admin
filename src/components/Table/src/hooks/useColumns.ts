@@ -1,15 +1,18 @@
 import type { BasicColumn, BasicTableProps, CellFormat, GetColumnsParams } from '../types/table';
 import type { PaginationProps } from '../types/pagination';
-import { unref, ComputedRef, Ref, computed, watch, ref, toRaw } from 'vue';
-import { isBoolean, isArray, isString, isObject } from '/@/utils/is';
-import { DEFAULT_ALIGN, PAGE_SIZE, INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG } from '../const';
-import { useI18n } from '/@/hooks/web/useI18n';
-import { isEqual, cloneDeep } from 'lodash-es';
-import { isFunction } from '/@/utils/is';
-import { formatToDate } from '/@/utils/dateUtil';
+import type { ComputedRef } from 'vue';
+
+import { unref, Ref, computed, watch, ref, toRaw } from 'vue';
+
 import { renderEditCell } from '../components/editable';
 
-const { t } = useI18n();
+import { useI18n } from '/@/hooks/web/useI18n';
+
+import { isBoolean, isArray, isString, isObject, isFunction } from '/@/utils/is';
+import { isEqual, cloneDeep } from 'lodash-es';
+import { formatToDate } from '/@/utils/dateUtil';
+
+import { DEFAULT_ALIGN, PAGE_SIZE, INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG } from '../const';
 
 function handleItem(item: BasicColumn, ellipsis: boolean) {
   const { key, dataIndex, children } = item;
@@ -43,6 +46,8 @@ function handleIndexColumn(
   getPaginationRef: ComputedRef<boolean | PaginationProps>,
   columns: BasicColumn[]
 ) {
+  const { t } = useI18n();
+
   const { showIndexColumn, indexColumnProps, isTreeTable } = unref(propsRef);
 
   let pushIndexColumns = false;
@@ -162,15 +167,6 @@ export function useColumns(
       cacheColumns = columns?.filter((item) => !item.flag) ?? [];
     }
   );
-
-  // watchEffect(() => {
-  //   const columns = toRaw(unref(propsRef).columns);
-  //   console.log('======================');
-  //   console.log(111);
-  //   console.log('======================');
-  //   columnsRef.value = columns;
-  //   cacheColumns = columns?.filter((item) => !item.flag) ?? [];
-  // });
 
   function setCacheColumnsByField(dataIndex: string | undefined, value: Partial<BasicColumn>) {
     if (!dataIndex || !value) {

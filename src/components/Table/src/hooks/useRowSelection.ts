@@ -16,10 +16,11 @@ export function useRowSelection(
     if (!rowSelection) {
       return null;
     }
+
     return {
       selectedRowKeys: unref(selectedRowKeysRef),
       hideDefaultSelections: false,
-      onChange: (selectedRowKeys: string[], selectedRows: any[]) => {
+      onChange: (selectedRowKeys: string[], selectedRows: Recordable[]) => {
         selectedRowKeysRef.value = selectedRowKeys;
         selectedRowRef.value = selectedRows;
         emit('selection-change', {
@@ -27,7 +28,7 @@ export function useRowSelection(
           rows: selectedRows,
         });
       },
-      ...rowSelection,
+      ...(rowSelection === undefined ? {} : rowSelection),
     };
   });
 

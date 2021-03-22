@@ -7,13 +7,18 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, computed } from 'vue';
+  import type { PropType } from 'vue';
   import type { TableSetting } from '../../types/table';
-  import { useI18n } from '/@/hooks/web/useI18n';
+
+  import { defineComponent, computed } from 'vue';
+
   import ColumnSetting from './ColumnSetting.vue';
   import SizeSetting from './SizeSetting.vue';
   import RedoSetting from './RedoSetting.vue';
   import FullScreenSetting from './FullScreenSetting.vue';
+
+  import { useI18n } from '/@/hooks/web/useI18n';
+
   export default defineComponent({
     name: 'TableSetting',
     components: {

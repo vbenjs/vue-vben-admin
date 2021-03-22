@@ -54,6 +54,7 @@ export function transformRouteToMenu(routeModList: AppRouteModule[]) {
 
       return {
         ...(node.meta || {}),
+        meta: node.meta,
         name: title,
         hideMenu,
         path: node.path,

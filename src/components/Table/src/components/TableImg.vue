@@ -31,8 +31,8 @@
       const getWrapStyle = computed(
         (): CSSProperties => {
           const { size } = props;
-          const wh = `${size}px`;
-          return { height: wh, width: wh };
+          const s = `${size}px`;
+          return { height: s, width: s };
         }
       );
 

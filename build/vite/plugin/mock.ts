@@ -8,7 +8,6 @@ export function configMockPlugin(isBuild: boolean) {
   return viteMockServe({
     ignore: /^\_/,
     mockPath: 'mock',
-    showTime: true,
     localEnabled: !isBuild,
     prodEnabled: isBuild,
     injectCode: `
