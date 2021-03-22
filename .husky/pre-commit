@@ -4,10 +4,6 @@
 
 [ -n "$CI" ] && exit 0
 
-# Check the file name
-# ! ls-lint cannot be used normally in mac pro of M1 system.
-npm run lint:ls-lint
-
 # Format and submit code according to lintstagedrc.js configuration
 npm run lint:lint-staged
 
