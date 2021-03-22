@@ -6,22 +6,21 @@ const { pageSizeOptions, defaultPageSize, fetchSetting, defaultSortFn, defaultFi
 
 export const ROW_KEY = 'key';
 
-// 可选的每页显示条数;
+// Optional display number per page;
 export const PAGE_SIZE_OPTIONS = pageSizeOptions;
 
-// 每页显示条数
+// Number of items displayed per page
 export const PAGE_SIZE = defaultPageSize;
 
-// 通用接口字段设置
+// Common interface field settings
 export const FETCH_SETTING = fetchSetting;
 
-// 配置通用排序函数
+// Configure general sort function
 export const DEFAULT_SORT_FN = defaultSortFn;
 
 export const DEFAULT_FILTER_FN = defaultFilterFn;
 
-//  表格单元格默认布局
+//  Default layout of table cells
 export const DEFAULT_ALIGN = 'center';
-
 export const INDEX_COLUMN_FLAG = 'INDEX';
 export const ACTION_COLUMN_FLAG = 'ACTION';

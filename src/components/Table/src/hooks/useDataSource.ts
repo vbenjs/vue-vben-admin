@@ -52,11 +52,6 @@ export function useDataSource(
   });
   const dataSourceRef = ref<Recordable[]>([]);
 
-  // watchEffect(() => {
-  //   const { dataSource, api } = unref(propsRef);
-  //   !api && dataSource && (dataSourceRef.value = dataSource);
-  // });
-
   watchEffect(() => {
     tableData.value = unref(dataSourceRef);
   });

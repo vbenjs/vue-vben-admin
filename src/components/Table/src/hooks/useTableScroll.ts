@@ -87,7 +87,6 @@ export function useTableScroll(
     // Table height from bottom height-custom offset
 
     const paddingHeight = 32;
-    const borderHeight = 0;
     // Pager height
     let paginationHeight = 2;
     if (!isBoolean(pagination)) {
@@ -99,6 +98,8 @@ export function useTableScroll(
         // TODO First fix 24
         paginationHeight += 24;
       }
+    } else {
+      paginationHeight = -8;
     }
 
     let footerHeight = 0;
@@ -120,7 +121,6 @@ export function useTableScroll(
       bottomIncludeBody -
       (resizeHeightOffset || 0) -
       paddingHeight -
-      borderHeight -
       paginationHeight -
       footerHeight -
       headerHeight;

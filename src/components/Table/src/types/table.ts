@@ -87,6 +87,8 @@ export interface TableActionType {
   reload: (opt?: FetchParams) => Promise<void>;
   getSelectRows: <T = Recordable>() => T[];
   clearSelectedRowKeys: () => void;
+  expandAll: () => void;
+  collapseAll: () => void;
   getSelectRowKeys: () => string[];
   deleteSelectRowByKey: (key: string) => void;
   setPagination: (info: Partial<PaginationProps>) => void;
@@ -208,7 +210,7 @@ export interface BasicTableProps<T = any> {
    * @default 'children'
    * @type string | string[]
    */
-  childrenColumnName?: string | string[];
+  childrenColumnName?: string;
 
   /**
    * Override default table elements
