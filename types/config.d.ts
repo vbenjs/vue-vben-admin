@@ -142,6 +142,8 @@ export interface GlobConfig {
   urlPrefix?: string;
   // Project abbreviation
   shortName: string;
+  // pablic path
+  publicPath?: string;
 }
 export interface GlobEnvConfig {
   // Site title
@@ -154,4 +156,6 @@ export interface GlobEnvConfig {
   VITE_GLOB_APP_SHORT_NAME: string;
   // Upload url
   VITE_GLOB_UPLOAD_URL?: string;
+  // pablic path
+  VITE_PUBLIC_PATH?: string;
 }
