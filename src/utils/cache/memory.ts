@@ -59,7 +59,7 @@ export class Memory<T = any, V = any> {
     }
     item.time = new Date().getTime() + this.alive;
     item.timeoutId = setTimeout(() => {
-      this.remove(key);
+      // this.remove(key);
     }, expires);
 
     return value;

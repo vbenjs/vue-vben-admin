@@ -23,7 +23,7 @@ const setting: ProjectConfig = {
   permissionMode: PermissionModeEnum.ROLE,
 
   // Permission-related cache is stored in sessionStorage or localStorage
-  permissionCacheType: CacheTypeEnum.SESSION,
+  permissionCacheType: CacheTypeEnum.LOCAL,
 
   // color
   themeColor: primaryColor,
