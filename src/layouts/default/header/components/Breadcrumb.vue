@@ -22,8 +22,6 @@
   import { Breadcrumb } from 'ant-design-vue';
   import Icon from '/@/components/Icon';
 
-  import { PageEnum } from '/@/enums/pageEnum';
-
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
   import { useGo } from '/@/hooks/web/usePage';

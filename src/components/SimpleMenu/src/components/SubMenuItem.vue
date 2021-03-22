@@ -43,8 +43,8 @@
           :class="`${prefixCls}-submenu-title-icon`"
         />
       </div>
-      <template #content v-show="opened">
-        <div v-bind="getEvents(true)">
+      <template #content>
+        <div v-bind="getEvents(true)" v-show="opened">
           <ul :class="[prefixCls, `${prefixCls}-${getTheme}`, `${prefixCls}-popup`]">
             <slot></slot>
           </ul>
