@@ -1,6 +1,6 @@
 // Interface data format used to return a unified format
 
-export function resultSuccess<T = any>(result: T, { message = 'ok' } = {}) {
+export function resultSuccess<T = Recordable>(result: T, { message = 'ok' } = {}) {
   return {
     code: 0,
     result,
