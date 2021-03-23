@@ -3,7 +3,6 @@
  * https://github.com/anncwb/vite-plugin-html
  */
 import type { Plugin } from 'vite';
-import type { ViteEnv } from '../../utils';
 
 import html from 'vite-plugin-html';
 
