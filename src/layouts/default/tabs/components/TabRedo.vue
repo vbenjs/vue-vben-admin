@@ -14,7 +14,7 @@
   import { useTabs } from '/@/hooks/web/useTabs';
 
   export default defineComponent({
-    name: 'TabContent',
+    name: 'TabRedo',
     components: { RedoOutlined, Tooltip },
 
     setup() {
