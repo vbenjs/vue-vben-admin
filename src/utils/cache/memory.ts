@@ -57,10 +57,14 @@ export class Memory<T = any, V = any> {
     if (!expires) {
       return value;
     }
-    item.time = new Date().getTime() + this.alive;
-    item.timeoutId = setTimeout(() => {
-      // this.remove(key);
-    }, expires);
+    const now = new Date().getTime();
+    item.time = now + this.alive;
+    item.timeoutId = setTimeout(
+      () => {
+        this.remove(key);
+      },
+      expires > now ? expires - now : expires
+    );
 
     return value;
   }
