@@ -70,7 +70,9 @@ declare interface WheelEvent {
   path?: EventTarget[];
 }
 
-type ImportMetaEnv = ViteEnv;
+interface ImportMetaEnv extends ViteEnv {
+  __: unknown;
+}
 
 declare interface ViteEnv {
   VITE_PORT: number;
@@ -85,4 +87,5 @@ declare interface ViteEnv {
   VITE_BUILD_COMPRESS: 'gzip' | 'brotli' | 'none';
   VITE_LEGACY: boolean;
   VITE_USE_IMAGEMIN: boolean;
+  VITE_GENERATE_UI: string;
 }

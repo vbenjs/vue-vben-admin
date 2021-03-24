@@ -1121,10 +1121,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.320":
-  version "1.1.320"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.320.tgz#2f3685f8f3394bc1e6c734621a62551e85cad63e"
-  integrity sha512-cQpdMwjnGsKHCkabowCQ01figNBSwZ3UQxRLDD9gVlEpLuccpE2aWmRYPhbp7ofvZEyhffFn/zX9tPeoCAZnNQ==
+"@iconify/json@^1.1.321":
+  version "1.1.321"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.321.tgz#266c93b9192004b5c6ebd26094aaf6a64aa3dadb"
+  integrity sha512-Z72vJVwgtQ9FrM3dQ2EWkVlRgsg0eSugLhBUpXjj6Mt45gS358HmLT45kg9x2tNwFOJ4fzcVol2fO/J5ryYP0w==
 
 "@intlify/core-base@9.0.0":
   version "9.0.0"
@@ -1698,7 +1698,7 @@
   resolved "https://registry.npmjs.org/@types/mockjs/-/mockjs-1.0.3.tgz#bd8ee3c7cbbd9a18788ab677b9e4f97c8d0bb0bf"
   integrity sha512-OlwyyyoY81P8f7FU0zILUPxqQQ3/W+CwbqI6dWvOxaH8w948fAl1+hOG9C9ZgJcwzG+aloJcsastY4c4p91R1Q==
 
-"@types/node@*", "@types/node@^14.14.32":
+"@types/node@*", "@types/node@^14.14.32", "@types/node@^14.14.35":
   version "14.14.35"
   resolved "https://registry.npmjs.org/@types/node/-/node-14.14.35.tgz#42c953a4e2b18ab931f72477e7012172f4ffa313"
   integrity sha512-Lt+wj8NVPx0zUmUwumiVXapmaLUcAk3yPuHCFVXras9k5VT9TdhJqKqGVUQCD60OTMCl0qxJ57OiTL0Mic3Iag==
@@ -2091,10 +2091,10 @@
   dependencies:
     vue-demi latest
 
-"@windicss/plugin-utils@0.9.7":
-  version "0.9.7"
-  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.9.7.tgz#ffc70d9a0eb130a3fc691291becdcdab6ae55b36"
-  integrity sha512-tyKcMTXENd7AYV1Z3DbZUq/x8/UM3bGeg327lHKrsklds6F4MKZRVwtG2ya5h5taeKmcLHK+qvIvknwhwKNxrA==
+"@windicss/plugin-utils@0.9.11":
+  version "0.9.11"
+  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.9.11.tgz#9b8951ff1495e1deb8a094098a343eb8babb9b3b"
+  integrity sha512-gGLe3/Ud63fcpj1FTq+0/feP/UM34j9W+iSyBtpPnmfLx8mi2a9g9vhZrojqL9X9IYY+ZhHczZ8Fn9qcHdzWVw==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"
@@ -11295,10 +11295,10 @@ vite-plugin-pwa@^0.5.6:
     pretty-bytes "^5.6.0"
     workbox-build "^6.1.1"
 
-vite-plugin-style-import@^0.8.1:
-  version "0.8.1"
-  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-0.8.1.tgz#e098c633cba3abef9b5a156aaf47f001567ebbb9"
-  integrity sha512-qZg73SA2+tbuEk7b0VjubjceUKVzHB6NwDYd3R9Hd6At4+sJ/85UIlTkzxSWHNgkTQh4sIOMQi1olXjkSF7tjg==
+vite-plugin-style-import@^0.8.3:
+  version "0.8.3"
+  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-0.8.3.tgz#6c9120f76cba103497c4631fd942ac1d6baa2694"
+  integrity sha512-CAb/c6ZKYBCT9+oMv2GpbcDKDv4gq7lL0q8deRW0aIQaRbx5L/MdZCIKtbJiifVzTUzPb5qwrWTcnBc12uMioQ==
   dependencies:
     "@rollup/pluginutils" "^4.1.0"
     change-case "^4.1.2"
@@ -11348,12 +11348,12 @@ vite-plugin-theme@^0.5.0:
     tinycolor2 "^1.4.2"
     ts-jest "^26.5.3"
 
-vite-plugin-windicss@0.9.7:
-  version "0.9.7"
-  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.9.7.tgz#27840f480c786f920f0130b3058604c97c2d8a69"
-  integrity sha512-chk7vlV2VyofE5FlxEIhsHajPDInnW44QljY+vHvnd/r90pBEJF6dS9+fpJoS5+jrCVWTCX6t1BL4rZOkIv69A==
+vite-plugin-windicss@0.9.11:
+  version "0.9.11"
+  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.9.11.tgz#46809a7d30d5531f9f3568949cd00646a3178f5b"
+  integrity sha512-wcF2VmglWqvtsi8Zq4kTVVU9jPiiAfdyy91TnlgaJYlgRaBZcwb7QSJ9p5SeOWIyl6RpzjlK2JFWa0djrVmG8w==
   dependencies:
-    "@windicss/plugin-utils" "0.9.7"
+    "@windicss/plugin-utils" "0.9.11"
     debug "^4.3.2"
     windicss "^2.5.4"
 
