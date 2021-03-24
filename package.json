@@ -27,7 +27,7 @@
     "test:br": "http-server dist --cors --brotli -c-1",
     "reinstall": "rimraf yarn.lock && rimraf package.lock.json && rimraf node_modules && npm run bootstrap",
     "install:husky": "is-ci || husky install",
-    "gen:icon": "esno ./build/gen/generateIconJson.ts",
+    "gen:icon": "esno ./build/generate/icon/index.ts",
     "postinstall": "npm run install:husky"
   },
   "dependencies": {
@@ -57,7 +57,7 @@
   "devDependencies": {
     "@commitlint/cli": "^12.0.1",
     "@commitlint/config-conventional": "^12.0.1",
-    "@iconify/json": "^1.1.320",
+    "@iconify/json": "^1.1.321",
     "@purge-icons/generated": "^0.7.0",
     "@types/crypto-js": "^4.0.1",
     "@types/fs-extra": "^9.0.8",
@@ -65,6 +65,7 @@
     "@types/inquirer": "^7.3.1",
     "@types/lodash-es": "^4.17.4",
     "@types/mockjs": "^1.0.3",
+    "@types/node": "^14.14.35",
     "@types/nprogress": "^0.2.0",
     "@types/qrcode": "^1.4.0",
     "@types/qs": "^6.9.6",
@@ -114,10 +115,10 @@
     "vite-plugin-mock": "^2.3.0",
     "vite-plugin-purge-icons": "^0.7.0",
     "vite-plugin-pwa": "^0.5.6",
-    "vite-plugin-style-import": "^0.8.1",
+    "vite-plugin-style-import": "^0.8.3",
     "vite-plugin-svg-icons": "^0.4.0",
     "vite-plugin-theme": "^0.5.0",
-    "vite-plugin-windicss": "0.9.7",
+    "vite-plugin-windicss": "0.9.11",
     "vue-eslint-parser": "^7.6.0",
     "yargs": "^16.2.0"
   },
