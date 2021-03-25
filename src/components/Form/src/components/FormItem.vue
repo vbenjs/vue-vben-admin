@@ -156,9 +156,9 @@
           if (!isShow) {
             rule.required = false;
           }
-          if (rule.required && component) {
+          if (component) {
             if (!Reflect.has(rule, 'type')) {
-              rule.type = 'string';
+              rule.type = component === 'InputNumber' ? 'number' : 'string';
             }
             const joinLabel = Reflect.has(props.schema, 'rulesMessageJoinLabel')
               ? rulesMessageJoinLabel

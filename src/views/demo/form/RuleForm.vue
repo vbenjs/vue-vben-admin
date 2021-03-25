@@ -39,6 +39,14 @@
       required: true,
     },
     {
+      field: 'id',
+      label: 'id',
+      required: true,
+      defaultValue: 0,
+      component: 'InputNumber',
+      show: false,
+    },
+    {
       field: 'field3',
       component: 'DatePicker',
       label: '字段3',
