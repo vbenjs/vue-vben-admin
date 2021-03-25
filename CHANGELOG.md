@@ -1,3 +1,31 @@
+## [2.1.1](https://github.com/anncwb/vue-vben-admin/compare/v2.1.0...v2.1.1) (2021-03-25)
+
+### Bug Fixes
+
+- **form:** ensure that the hidden fields of the form are verified properly, fix [#413](https://github.com/anncwb/vue-vben-admin/issues/413) ([237f41d](https://github.com/anncwb/vue-vben-admin/commit/237f41da68592ede236b722157c91f9d7b45db1b))
+- **icon:** ensure the menu icon style is correct, fix [#425](https://github.com/anncwb/vue-vben-admin/issues/425) ([5c57a1d](https://github.com/anncwb/vue-vben-admin/commit/5c57a1dda13975c13e65511a39e7483e4a5d3999))
+- add route base close [#404](https://github.com/anncwb/vue-vben-admin/issues/404) ([8ad127c](https://github.com/anncwb/vue-vben-admin/commit/8ad127c293872aa10db03044bbc68715dc1b804a))
+- ensure permissionMode exists close [#409](https://github.com/anncwb/vue-vben-admin/issues/409) ([8fb0396](https://github.com/anncwb/vue-vben-admin/commit/8fb03961f50051695983f8cb415d6009b9d6b643))
+- refresh error ([5bf90ee](https://github.com/anncwb/vue-vben-admin/commit/5bf90eea627638517e3ced024289696a6ece8e74))
+- **input-count:** make sure the reset function works close [#381](https://github.com/anncwb/vue-vben-admin/issues/381) ([3c4de9b](https://github.com/anncwb/vue-vben-admin/commit/3c4de9b0be06350f0d9ad97bfb5f7f773c38be38))
+- **menu:** ensure the menu has meta attributes close [#397](https://github.com/anncwb/vue-vben-admin/issues/397) ([b2a1951](https://github.com/anncwb/vue-vben-admin/commit/b2a1951fd00433cb5e1c9dce982c53a9c9edd874))
+- **menu:** fix the menu disappeared in background mode ([50915c9](https://github.com/anncwb/vue-vben-admin/commit/50915c9754473ba9096b3b1cceedf0d7e7212ad9))
+- **menu:** make sure the menu is displayed properly on the small screen close [#336](https://github.com/anncwb/vue-vben-admin/issues/336) ([82c3186](https://github.com/anncwb/vue-vben-admin/commit/82c3186309971517183fc44bfcac159612e48a7b))
+- **progress:** fix progress sometimes cannot done ([#388](https://github.com/anncwb/vue-vben-admin/issues/388)) ([8360b1d](https://github.com/anncwb/vue-vben-admin/commit/8360b1d6886b5639cf43da5ab866156d140a0f01))
+- **route:** ensure that the first level menu can be hidden ([e2cc5af](https://github.com/anncwb/vue-vben-admin/commit/e2cc5af9375f59d2891be769010ef5d3ccfe9755))
+- **table:** ensure that the height calculation is correct close [#395](https://github.com/anncwb/vue-vben-admin/issues/395) ([1d7608e](https://github.com/anncwb/vue-vben-admin/commit/1d7608ee40c27ce81e031947ed6c679cc8b04c77))
+- **table:** fix table check column configuration failure close [#391](https://github.com/anncwb/vue-vben-admin/issues/391) ([c3096e2](https://github.com/anncwb/vue-vben-admin/commit/c3096e26ff24c8afd9555e676c898030664846d7))
+- **tree:** ensure that the check event is emitted close [#400](https://github.com/anncwb/vue-vben-admin/issues/400) ([16ef134](https://github.com/anncwb/vue-vben-admin/commit/16ef13477c8f06c13ff3611b9e67e430fac433e7))
+- ensure the breadcrumb level is correct ([e49072c](https://github.com/anncwb/vue-vben-admin/commit/e49072c31339ba58473ffa883308cc3c2c4c43e9))
+- LayoutMap cannot get correctly ([#398](https://github.com/anncwb/vue-vben-admin/issues/398)) ([7c16c2f](https://github.com/anncwb/vue-vben-admin/commit/7c16c2fa9e6cb2e87894666d6687eed3fc744b64))
+- welcome page not cached in back-end mode ([#389](https://github.com/anncwb/vue-vben-admin/issues/389)) ([f0b93b5](https://github.com/anncwb/vue-vben-admin/commit/f0b93b50e7b6b9c444f8422f91be73085be8c5fe))
+- **v-auth:** ensure the background mode is correct close [#330](https://github.com/anncwb/vue-vben-admin/issues/330) ([67962f1](https://github.com/anncwb/vue-vben-admin/commit/67962f1deea31d695d20ae0ea7fc39b39c1eea47))
+
+### Features
+
+- **route:** add hideChildrenInMenu option close [#346](https://github.com/anncwb/vue-vben-admin/issues/346) ([b67cf22](https://github.com/anncwb/vue-vben-admin/commit/b67cf22dfc8d27428b045f47fcd9e2797b81a81d))
+- **table:** add expandAll/collapseAll function close [#333](https://github.com/anncwb/vue-vben-admin/issues/333) ([391da9e](https://github.com/anncwb/vue-vben-admin/commit/391da9ec2884885f9dfe86ddb869ccc0d193491e))
+
 # [2.1.0](https://github.com/anncwb/vue-vben-admin/compare/v2.0.3...v2.1.0) (2021-03-15)
 
 ### Bug Fixes
