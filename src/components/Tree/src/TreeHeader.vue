@@ -88,7 +88,7 @@
               },
               ...defaultToolbarList,
               { label: t('component.tree.checkStrictly'), value: ToolbarEnum.CHECK_STRICTLY },
-              { label: t('component.tree.checkUnStrictly'), value: ToolbarEnum.CHE },
+              { label: t('component.tree.checkUnStrictly'), value: ToolbarEnum.CHECK_UN_STRICTLY },
             ]
           : defaultToolbarList;
       });

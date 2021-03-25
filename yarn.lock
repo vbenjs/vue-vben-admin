@@ -1121,10 +1121,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.321":
-  version "1.1.321"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.321.tgz#266c93b9192004b5c6ebd26094aaf6a64aa3dadb"
-  integrity sha512-Z72vJVwgtQ9FrM3dQ2EWkVlRgsg0eSugLhBUpXjj6Mt45gS358HmLT45kg9x2tNwFOJ4fzcVol2fO/J5ryYP0w==
+"@iconify/json@^1.1.322":
+  version "1.1.322"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.322.tgz#5559ba4efc658a423ce39e7af7ab5f5e8ee7bf7a"
+  integrity sha512-D4o3P8Mrrvd/Gz2qBFVNZYeEn+A/OQkdfT9eh6hz3mz49ob/nk8Q3IRUC0xvVdE4PLawqcKAiKjUyYC8tk8+lA==
 
 "@intlify/core-base@9.0.0":
   version "9.0.0"
@@ -2076,18 +2076,18 @@
   resolved "https://registry.npmjs.org/@vue/shared/-/shared-3.0.7.tgz#96d52988efc07444c108c7c6803ba7cc93e40045"
   integrity sha512-dn5FyfSc4ky424jH4FntiHno7Ss5yLkqKNmM/NXwANRnlkmqu74pnGetexDFVG5phMk9/FhwovUZCWGxsotVKg==
 
-"@vueuse/core@^4.4.1":
-  version "4.4.1"
-  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.4.1.tgz#1c1a83ac29306840c96329b1005c4d7608cee92f"
-  integrity sha512-L9TWFwI+pEqgEmfv+uWz2kQ9bXejtpaQdoS67UUyii22rSesjP1aTTU7z7XX5i7aIgsHKnKYv68cDCtEZbjsPA==
+"@vueuse/core@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.5.0.tgz#7e19d0df721550ab27486dadf5b8f760370196da"
+  integrity sha512-2em6NKrjJv2j2jjo73bm7pLKK7JQ8dTNrJ3Rh350xbHFqBXAECd+mbidm0gic20USDfpRMB7SwPY91qCSQDi2Q==
   dependencies:
-    "@vueuse/shared" "4.4.1"
+    "@vueuse/shared" "4.5.0"
     vue-demi latest
 
-"@vueuse/shared@4.4.1":
-  version "4.4.1"
-  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.4.1.tgz#8963740d1b8a036933ae5c02b461b430430e2433"
-  integrity sha512-pY7bXgYaA9g25XNREE3zeuIWfOwbyiKeQ0IppE4nIRuro4gVGuLoV/BIU6D0VOTv7hYefv5eqE+WS03v61y8xA==
+"@vueuse/shared@4.5.0":
+  version "4.5.0"
+  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.5.0.tgz#f679d6c962feb37a1c5057d70984ec45b67358fb"
+  integrity sha512-D8cxNlGQ0tJXRirPwRJ2h8qacZiVMzagkrB4+vLAwJQXWaZh7j14Mr+I/BRyqj1aFilDGU75vclTkslnbOEy0g==
   dependencies:
     vue-demi latest
 
@@ -4452,15 +4452,15 @@ esbuild-register@^2.2.0:
     esbuild "^0.9.2"
     jsonc-parser "^3.0.0"
 
-esbuild@^0.8.52:
-  version "0.8.57"
-  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.8.57.tgz#a42d02bc2b57c70bcd0ef897fe244766bb6dd926"
-  integrity sha512-j02SFrUwFTRUqiY0Kjplwjm1psuzO1d6AjaXKuOR9hrY0HuPsT6sV42B6myW34h1q4CRy+Y3g4RU/cGJeI/nNA==
-
-esbuild@^0.9.2, esbuild@^0.9.3:
+esbuild@^0.9.2:
   version "0.9.4"
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.9.4.tgz#4480ffc4c1e5d5bb25958f889b5de0279bfb2d6f"
   integrity sha512-bF6laCiYE5+iAfZsX+v6Lwvi5QbvKN3tThxDIR2WLyLYzTzNn0ijdpqkvTVsafmRZjic2Nq1nkSf5RSWySDTjA==
+
+esbuild@^0.9.3, esbuild@^0.9.7:
+  version "0.9.7"
+  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.9.7.tgz#ea0d639cbe4b88ec25fbed4d6ff00c8d788ef70b"
+  integrity sha512-VtUf6aQ89VTmMLKrWHYG50uByMF4JQlVysb8dmg6cOgW8JnFCipmz7p+HNBl+RR3LLCuBxFGVauAe2wfnF9bLg==
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -9548,10 +9548,10 @@ rollup@^2.25.0, rollup@^2.38.5:
   optionalDependencies:
     fsevents "~2.3.1"
 
-rollup@^2.41.5:
-  version "2.42.0"
-  resolved "https://registry.npmjs.org/rollup/-/rollup-2.42.0.tgz#444ce20a45614099decdd786f2a6fcd6c2240b08"
-  integrity sha512-P9bJnaZ2P0hawoJo+Jto8YZZqil9URogNVE4KJeyj6wrUSDIbdMvmj7CsyEFwdXu/I5SiWEzB1hfmLeMldH6ww==
+rollup@^2.42.4:
+  version "2.42.4"
+  resolved "https://registry.npmjs.org/rollup/-/rollup-2.42.4.tgz#97c910a48bd0db6aaa4271dd48745870cbbbf970"
+  integrity sha512-Zqv3EvNfcllBHyyEUM754npqsZw82VIjK34cDQMwrQ1d6aqxzeYu5yFb7smGkPU4C1Bj7HupIMeT6WU7uIdnMw==
   optionalDependencies:
     fsevents "~2.3.1"
 
@@ -11259,10 +11259,10 @@ vite-plugin-imagemin@^0.2.9:
     imagemin-svgo "^8.0.0"
     imagemin-webp "^6.0.0"
 
-vite-plugin-mock@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.3.0.tgz#c616e75d2724015e9450d637794a39713af93b5a"
-  integrity sha512-ucmLIUv8gAMxc+5TGxIEKQ6PhhRAxZvQ2ChUzvc1hF/XzKNI/DRYrwjcGsDwISVyoYED2odTTt1q395d18LK6w==
+vite-plugin-mock@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.4.0.tgz#41a71e40c4557d1052e94b9d16bdb6c5efa779a7"
+  integrity sha512-tt38JCkxYQty2GXMB46KupCSL6qsWyvyT8hRUWSMwz5ak9jQ6Wkktcti/cPYnHkI1IVIUNIpxaqvpHUht3pN/A==
   dependencies:
     "@rollup/plugin-node-resolve" "^11.2.0"
     "@types/mockjs" "^1.0.3"
@@ -11270,10 +11270,10 @@ vite-plugin-mock@^2.3.0:
     chokidar "^3.5.1"
     connect "^3.7.0"
     debug "^4.3.2"
-    esbuild "^0.9.3"
+    esbuild "^0.9.7"
     fast-glob "^3.2.5"
     path-to-regexp "^6.2.0"
-    rollup "^2.41.5"
+    rollup "^2.42.4"
     rollup-plugin-esbuild "^3.0.2"
 
 vite-plugin-purge-icons@^0.7.0:
@@ -11285,15 +11285,16 @@ vite-plugin-purge-icons@^0.7.0:
     "@purge-icons/generated" "^0.7.0"
     rollup-plugin-purge-icons "^0.7.0"
 
-vite-plugin-pwa@^0.5.6:
-  version "0.5.6"
-  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.5.6.tgz#483267e83ff3a6f5a0adc97a7e06f841a353cf30"
-  integrity sha512-CQjfKdSm0YMRRdMkfdI1RqJyrCjOFUl61+puGfMNAUMM5tex9rjF9gHxqDV5pN/2jFMQoTKkLLQ7HOYM0VbF2w==
+vite-plugin-pwa@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.6.2.tgz#da014b7c8860390dc481c2ef235457c7ffe286e1"
+  integrity sha512-HkKSSjzgm/8YPp8qH7UxWKlxR3ZKLL7X3lwOSvT+M4GpkmcZmq6xtVIOmlO526e9wh4/31xPwyr1o0MfCzL6Xw==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"
     pretty-bytes "^5.6.0"
     workbox-build "^6.1.1"
+    workbox-window "^6.1.1"
 
 vite-plugin-style-import@^0.8.3:
   version "0.8.3"
@@ -11357,12 +11358,12 @@ vite-plugin-windicss@0.9.11:
     debug "^4.3.2"
     windicss "^2.5.4"
 
-vite@2.0.5:
-  version "2.0.5"
-  resolved "https://registry.npmjs.org/vite/-/vite-2.0.5.tgz#ac46857a3fa8686d077921e61bd48a986931df1d"
-  integrity sha512-QTgEDbq1WsTtr6j+++ewjhBFEk6c8v0xz4fb/OWJQKNYU8ZZtphOshwOqAlnarSstPBtWCBR0tsugXx6ajfoUg==
+vite@2.1.3:
+  version "2.1.3"
+  resolved "https://registry.npmjs.org/vite/-/vite-2.1.3.tgz#a31a844d26d3846b5a78f06970d1ea1f8a442955"
+  integrity sha512-bUzArZIUwADVJS/3ywCr4KKFn3a7izs4M87ZDlAlY2V34E4g1kH6p3sVNAh8/IXCn/56fwgMh3rRavPUW7qEQQ==
   dependencies:
-    esbuild "^0.8.52"
+    esbuild "^0.9.3"
     postcss "^8.2.1"
     resolve "^1.19.0"
     rollup "^2.38.5"
@@ -11714,7 +11715,7 @@ workbox-sw@^6.1.2:
   resolved "https://registry.npmjs.org/workbox-sw/-/workbox-sw-6.1.2.tgz#0db44f0625ffb53c0e6e9a056a61dda57f066f45"
   integrity sha512-daxYjELQlNmGLeQolz29vkiVKMcAzZrSv5MLPAghvid6sajpq9x+FfMGriWaZcpyGZVKStAf6XzUbvvm0sJ/HA==
 
-workbox-window@^6.1.2:
+workbox-window@^6.1.1, workbox-window@^6.1.2:
   version "6.1.2"
   resolved "https://registry.npmjs.org/workbox-window/-/workbox-window-6.1.2.tgz#6db9a3b1eebf6470513d916852bfd1b1c918fe05"
   integrity sha512-SXOAv56PWHzLhJcyQGPio1OXGzSza814lc2D42+go8CmeNIJDb03nzUi1FGMF4Tt1F7h5q8IYzq5bPQLTZ7IKQ==
