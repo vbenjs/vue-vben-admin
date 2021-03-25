@@ -31,7 +31,7 @@ export interface LoginResultModel {
  * @description: Get user information return value
  */
 export interface GetUserInfoByUserIdModel {
-  role: RoleInfo;
+  roles: RoleInfo[];
   // 用户id
   userId: string | number;
   // 用户名

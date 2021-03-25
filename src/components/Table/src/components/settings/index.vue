@@ -1,26 +1,31 @@
 <template>
   <div class="table-settings">
-    <RedoSetting v-if="getSetting.size" />
-    <SizeSetting v-if="getSetting.redo" />
-
+    <RedoSetting v-if="getSetting.redo" />
+    <SizeSetting v-if="getSetting.size" />
     <ColumnSetting v-if="getSetting.setting" />
-
     <FullScreenSetting v-if="getSetting.fullScreen" />
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, computed } from 'vue';
+  import type { PropType } from 'vue';
   import type { TableSetting } from '../../types/table';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+
+  import { defineComponent, computed } from 'vue';
+
   import ColumnSetting from './ColumnSetting.vue';
+  import SizeSetting from './SizeSetting.vue';
+  import RedoSetting from './RedoSetting.vue';
+  import FullScreenSetting from './FullScreenSetting.vue';
+
+  import { useI18n } from '/@/hooks/web/useI18n';
+
   export default defineComponent({
     name: 'TableSetting',
     components: {
       ColumnSetting,
-      SizeSetting: createAsyncComponent(() => import('./SizeSetting.vue')),
-      RedoSetting: createAsyncComponent(() => import('./RedoSetting.vue')),
-      FullScreenSetting: createAsyncComponent(() => import('./FullScreenSetting.vue')),
+      SizeSetting,
+      RedoSetting,
+      FullScreenSetting,
     },
     props: {
       setting: {
@@ -37,7 +42,7 @@
             redo: true,
             size: true,
             setting: true,
-            fullScreen: true,
+            fullScreen: false,
             ...props.setting,
           };
         }

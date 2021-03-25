@@ -4,7 +4,7 @@ import {
   inject,
   reactive,
   readonly as defineReadonly,
-  defineComponent,
+  // defineComponent,
   UnwrapRef,
 } from 'vue';
 
@@ -29,18 +29,21 @@ export function createContext<T>(
   const provideData = readonly ? defineReadonly(state) : state;
   !createProvider && provide(key, native ? context : provideData);
 
-  const Provider = createProvider
-    ? defineComponent({
-        name: 'Provider',
-        inheritAttrs: false,
-        setup(_, { slots }) {
-          provide(key, provideData);
-          return () => slots.default?.();
-        },
-      })
-    : null;
+  // const Provider = createProvider
+  //   ? defineComponent({
+  //       name: 'Provider',
+  //       inheritAttrs: false,
+  //       setup(_, { slots }) {
+  //         provide(key, provideData);
+  //         return () => slots.default?.();
+  //       },
+  //     })
+  //   : null;
 
-  return { Provider, state };
+  return {
+    // Provider,
+    state,
+  };
 }
 
 export function useContext<T>(key: InjectionKey<T>, native?: boolean): T;

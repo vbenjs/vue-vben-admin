@@ -1,12 +1,16 @@
 ---
 name: 🚀 Feature request
 about: Suggest an idea for this project
-labels: 🔍 status/open, 🦋 type/enhancement
+title: ''
+labels: ''
+assignees: ''
 ---
 
 <!--
-Thank you for suggesting an idea to make this project better!
+感谢您提出使这个项目更好的想法！
+请尽可能填写以下模板。
 
+Thank you for suggesting an idea to make this project better!
 Please fill in as much of the template below as you’re able.
 
 -->

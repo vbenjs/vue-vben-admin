@@ -1,25 +1,15 @@
 
 *.sh
 node_modules
-lib
 *.md
-*.scss
 *.woff
 *.ttf
 .vscode
 .idea
-/dist/
-/mock/
+dist
 /public
 /docs
-.vscode
+.husky
 .local
 /bin
-/build
-/config
 Dockerfile
-vue.config.js
-commit-lint.js
-postcss.config.js
-stylelint.config.js
-commitlint.config.js

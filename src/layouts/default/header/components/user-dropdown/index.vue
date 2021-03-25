@@ -1,9 +1,11 @@
 <template>
   <Dropdown placement="bottomLeft" :overlayClassName="`${prefixCls}-dropdown-overlay`">
-    <span :class="[prefixCls, `${prefixCls}--${theme}`]">
+    <span :class="[prefixCls, `${prefixCls}--${theme}`]" class="flex">
       <img :class="`${prefixCls}__header`" :src="headerImg" />
-      <span :class="`${prefixCls}__info`">
-        <span :class="`${prefixCls}__name anticon`">{{ getUserInfo.realName }}</span>
+      <span :class="`${prefixCls}__info hidden md:block`">
+        <span :class="`${prefixCls}__name  `" class="truncate">
+          {{ getUserInfo.realName }}
+        </span>
       </span>
     </span>
 
@@ -12,18 +14,24 @@
         <MenuItem
           key="doc"
           :text="t('layout.header.dropdownItemDoc')"
-          icon="gg:loadbar-doc"
+          icon="ion:document-text-outline"
           v-if="getShowDoc"
         />
-        <MenuDivider />
+        <MenuDivider v-if="getShowDoc" />
         <MenuItem
-          key="loginOut"
+          key="lock"
+          :text="t('layout.header.tooltipLock')"
+          icon="ion:lock-closed-outline"
+        />
+        <MenuItem
+          key="logout"
           :text="t('layout.header.dropdownItemLoginOut')"
-          icon="carbon:power"
+          icon="ion:power-outline"
         />
       </Menu>
     </template>
   </Dropdown>
+  <LockAction @register="register" />
 </template>
 <script lang="ts">
   // components
@@ -31,25 +39,21 @@
 
   import { defineComponent, computed } from 'vue';
 
-  // res
-
-  import Icon from '/@/components/Icon/index';
-
-  import { userStore } from '/@/store/modules/user';
-
   import { DOC_URL } from '/@/settings/siteSetting';
 
-  import { openWindow } from '/@/utils';
-
+  import { userStore } from '/@/store/modules/user';
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
   import { useI18n } from '/@/hooks/web/useI18n';
-
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
-  import { propTypes } from '/@/utils/propTypes';
-  import headerImg from '/@/assets/images/header.jpg';
+  import { useModal } from '/@/components/Modal';
 
-  type MenuEvent = 'loginOut' | 'doc';
+  import headerImg from '/@/assets/images/header.jpg';
+  import { propTypes } from '/@/utils/propTypes';
+  import { openWindow } from '/@/utils';
+
+  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+
+  type MenuEvent = 'logout' | 'doc' | 'lock';
 
   export default defineComponent({
     name: 'UserDropdown',
@@ -58,7 +62,7 @@
       Menu,
       MenuItem: createAsyncComponent(() => import('./DropMenuItem.vue')),
       MenuDivider: Menu.Divider,
-      Icon,
+      LockAction: createAsyncComponent(() => import('../lock/LockModal.vue')),
     },
     props: {
       theme: propTypes.oneOf(['dark', 'light']),
@@ -73,6 +77,12 @@
         return { realName, desc };
       });
 
+      const [register, { openModal }] = useModal();
+
+      function handleLock() {
+        openModal(true);
+      }
+
       //  login out
       function handleLoginOut() {
         userStore.confirmLoginOut();
@@ -85,11 +95,14 @@
 
       function handleMenuClick(e: { key: MenuEvent }) {
         switch (e.key) {
-          case 'loginOut':
+          case 'logout':
             handleLoginOut();
             break;
           case 'doc':
             openDoc();
+            break;
+          case 'lock':
+            handleLock();
             break;
         }
       }
@@ -101,6 +114,7 @@
         handleMenuClick,
         getShowDoc,
         headerImg,
+        register,
       };
     },
   });
@@ -109,9 +123,7 @@
   @prefix-cls: ~'@{namespace}-header-user-dropdown';
 
   .@{prefix-cls} {
-    display: flex;
     height: @header-height;
-    min-width: 100px;
     padding: 0 0 0 10px;
     padding-right: 10px;
     overflow: hidden;

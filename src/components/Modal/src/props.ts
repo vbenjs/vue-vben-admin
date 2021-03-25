@@ -8,6 +8,7 @@ const { t } = useI18n();
 
 export const modalProps = {
   visible: propTypes.bool,
+  scrollTop: propTypes.bool.def(true),
   height: propTypes.number,
   minHeight: propTypes.number,
   // open drag

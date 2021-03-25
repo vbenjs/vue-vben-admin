@@ -3,23 +3,22 @@
     <template #action>
       <a-button size="small" type="link"> 新建 </a-button>
     </template>
-    <Row>
+    <a-row>
       <template v-for="item in shortCuts" :key="item.img">
-        <Col :span="8" class="shortcuts__item p-3">
-          <img :src="item.img" class="shortcuts__item-img mb-2" />
-          <br />
+        <a-col :span="8" class="p-3 shortcuts__item">
+          <img :src="item.img" class="mb-2 shortcuts__item-img" />
           <span>{{ item.name }}</span>
-        </Col>
+        </a-col>
       </template>
 
-      <Col :span="8" class="shortcuts__item p-3">
-        <span class="shortcuts__item-all mb-2">
+      <a-col :span="8" class="p-3 shortcuts__item">
+        <span class="mb-2 shortcuts__item-all">
           <RightOutlined />
         </span>
         <br />
         <span>查看全部</span>
-      </Col>
-    </Row>
+      </a-col>
+    </a-row>
   </CollapseContainer>
 </template>
 <script lang="ts">
@@ -71,7 +70,7 @@
     },
   ];
   export default defineComponent({
-    components: { Row, Col, CollapseContainer, RightOutlined },
+    components: { [Row.name]: Row, [Col.name]: Col, CollapseContainer, RightOutlined },
     setup() {
       return { shortCuts };
     },
@@ -84,6 +83,8 @@
 
       &-img {
         width: 36px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       &-all {

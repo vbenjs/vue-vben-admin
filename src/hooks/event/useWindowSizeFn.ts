@@ -1,5 +1,4 @@
-import { tryOnMounted, tryOnUnmounted } from '/@/utils/helper/vueHelper';
-
+import { tryOnMounted, tryOnUnmounted } from '@vueuse/core';
 import { useDebounce } from '/@/hooks/core/useDebounce';
 
 interface WindowSizeOptions {

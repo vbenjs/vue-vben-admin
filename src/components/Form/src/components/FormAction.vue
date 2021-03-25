@@ -1,7 +1,7 @@
 <template>
   <a-col v-bind="actionColOpt" :style="{ textAlign: 'right' }" v-if="showActionButtonGroup">
     <FormItem>
-      <slot name="resetBefore" />
+      <slot name="resetBefore"></slot>
       <Button
         type="default"
         class="mr-2"
@@ -11,7 +11,7 @@
       >
         {{ getResetBtnOptions.text }}
       </Button>
-      <slot name="submitBefore" />
+      <slot name="submitBefore"></slot>
 
       <Button
         type="primary"
@@ -23,7 +23,7 @@
         {{ getSubmitBtnOptions.text }}
       </Button>
 
-      <slot name="advanceBefore" />
+      <slot name="advanceBefore"></slot>
       <Button
         type="link"
         size="small"
@@ -33,7 +33,7 @@
         {{ isAdvanced ? t('component.form.putAway') : t('component.form.unfold') }}
         <BasicArrow class="ml-1" :expand="!isAdvanced" top />
       </Button>
-      <slot name="advanceAfter" />
+      <slot name="advanceAfter"></slot>
     </FormItem>
   </a-col>
 </template>
@@ -81,6 +81,7 @@
       isAdvanced: propTypes.bool,
       hideAdvanceBtn: propTypes.bool,
     },
+    emits: ['toggle-advanced'],
     setup(props, { emit }) {
       const { t } = useI18n();
 

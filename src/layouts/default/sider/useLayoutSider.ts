@@ -11,31 +11,19 @@ import { useDebounce } from '/@/hooks/core/useDebounce';
  * Handle related operations of menu events
  */
 export function useSiderEvent() {
-  const initRef = ref(false);
   const brokenRef = ref(false);
-  const collapseRef = ref(true);
 
-  const { setMenuSetting, getCollapsed, getMiniWidthNumber } = useMenuSetting();
+  const { getMiniWidthNumber } = useMenuSetting();
 
   const getCollapsedWidth = computed(() => {
     return unref(brokenRef) ? 0 : unref(getMiniWidthNumber);
   });
 
-  function onCollapseChange(val: boolean) {
-    if (initRef.value) {
-      collapseRef.value = val;
-      setMenuSetting({ collapsed: val });
-    } else {
-      !unref(getCollapsed) && setMenuSetting({ collapsed: val });
-    }
-    initRef.value = true;
-  }
-
   function onBreakpointChange(broken: boolean) {
     brokenRef.value = broken;
   }
 
-  return { getCollapsedWidth, onCollapseChange, onBreakpointChange };
+  return { getCollapsedWidth, onBreakpointChange };
 }
 
 /**

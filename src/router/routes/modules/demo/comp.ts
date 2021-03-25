@@ -9,7 +9,7 @@ const comp: AppRouteModule = {
   component: LAYOUT,
   redirect: '/comp/basic',
   meta: {
-    icon: 'ic:outline-settings-input-component',
+    icon: 'ion:layers-outline',
     title: t('routes.demo.comp.comp'),
   },
 
@@ -230,6 +230,14 @@ const comp: AppRouteModule = {
       component: () => import('/@/views/demo/comp/transition/index.vue'),
       meta: {
         title: t('routes.demo.comp.transition'),
+      },
+    },
+    {
+      path: 'timestamp',
+      name: 'TimeDemo',
+      component: () => import('/@/views/demo/comp/time/index.vue'),
+      meta: {
+        title: t('routes.demo.comp.time'),
       },
     },
     {

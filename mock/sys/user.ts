@@ -10,10 +10,12 @@ function createFakeUserList() {
       desc: 'manager',
       password: '123456',
       token: 'fakeToken1',
-      role: {
-        roleName: 'Super Admin',
-        value: 'super',
-      },
+      roles: [
+        {
+          roleName: 'Super Admin',
+          value: 'super',
+        },
+      ],
     },
     {
       userId: '2',
@@ -22,10 +24,12 @@ function createFakeUserList() {
       realName: 'test user',
       desc: 'tester',
       token: 'fakeToken2',
-      role: {
-        roleName: 'Tester',
-        value: 'test',
-      },
+      roles: [
+        {
+          roleName: 'Tester',
+          value: 'test',
+        },
+      ],
     },
   ];
 }
@@ -38,7 +42,7 @@ const fakeCodeList: any = {
 export default [
   // mock user login
   {
-    url: '/api/login',
+    url: '/basic-api/login',
     timeout: 200,
     method: 'post',
     response: ({ body }) => {
@@ -49,9 +53,9 @@ export default [
       if (!checkUser) {
         return resultError('Incorrect account or password！');
       }
-      const { userId, username: _username, token, realName, desc, role } = checkUser;
+      const { userId, username: _username, token, realName, desc, roles } = checkUser;
       return resultSuccess({
-        role,
+        roles,
         userId,
         username: _username,
         token,
@@ -61,7 +65,7 @@ export default [
     },
   },
   {
-    url: '/api/getUserInfoById',
+    url: '/basic-api/getUserInfoById',
     method: 'get',
     response: ({ query }) => {
       const { userId } = query;
@@ -73,7 +77,7 @@ export default [
     },
   },
   {
-    url: '/api/getPermCodeByUserId',
+    url: '/basic-api/getPermCodeByUserId',
     timeout: 200,
     method: 'get',
     response: ({ query }) => {

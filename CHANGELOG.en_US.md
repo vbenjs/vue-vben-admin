@@ -1,3 +1,166 @@
+## 2.1.0 (2021-03-15)
+
+### ✨ Features
+
+- Added svg mode to icon selector
+- Added time component
+- Added AutoNavi/Baidu/Google Map example
+
+### ✨ Refactor
+
+- Refactor the project to solve the hot update problem caused by circular dependencies
+- Remove vueHelper/useClickoutside, use @vueuse/core instead
+
+### 🐛 Bug Fixes
+
+- Ensure that the value of `table action` is updated correctly
+- Fix the animation of page switching cannot be closed
+- Fix `PageWrapper`title not showing
+- Fix the known issues of the table
+- Fix the problem that the BasicTree component can't customize the title
+- Fix the button style problem after theme switching
+
+## 2.0.3 (2021-03-07)
+
+### ✨ Features
+
+- `BasicTree` added `clickRowToExpand`, used to click tree node to expand
+- Added SvgIcon plugin and examples
+- Add the department tree on the left side of the account management interface·
+
+### ⚡ Performance Improvements
+
+- Pagination parameters are no longer carried when the table is closed
+- The login page monitors the carriage return event to log in
+- When the adaptive size of the table is set, the height is filled according to the screen.
+- Tree scroll bar optimization
+- Optimize the loading speed of local development
+
+### 🐛 Bug Fixes
+
+- Fix known issues with `Description`
+- Fix known issues with `BasicForm`
+- Fix the logic problem of show attribute of ActionItem under `BasicTree`
+- Fix the style error of the tree component demo example
+- Repair account management to add new but not cleared old data
+- The form component should allow the setFieldsValue method to be null or undefined
+- Ensure that the single-level breadcrumbs jump correctly
+- Ensure that the Form component does not verify hidden form items
+
+## 2.0.2 (2021-03-04)
+
+### ✨ Refactor
+
+- Refactored multi-language modules to support lazy loading and remote loading
+
+### ✨ Features
+
+- axios supports form-data format request
+- Added icon selector component (support local and online methods)
+- Added WebSocket examples and service scripts
+- Added the `renderIcon` property to the Tree component to control the display of level icons
+- Tree->actionItem added show attribute, used to dynamically control button display
+- New toolbar/title/search function for Tree
+- Added department management/password modification/account management/role management/menu management sample interface
+
+### ⚡ Performance Improvements
+
+- Optimized login interface animation
+- Fix the problem of excessively large github warehouse.
+- Hide table full screen button by default
+- `crypto-es` is changed to `crypto-js` to reduce the package size
+- `types` directory moved to the root directory, compatible with other directory global types
+
+### 🐛 Bug Fixes
+
+- Fix the warning problem of verification code component
+- Fix the table cannot get the selected row correctly
+- Fixed modal height calculation error in full screen state
+- Fix some table style issues
+- Fix the invalidation of the tree form `indentSize` setting
+
+## 2.0.1 (2021-02-21)
+
+### ✨ Refactor
+
+- Refactored login page, new registration page/reset password page/mobile phone login/QR code login
+
+### ✨ Features
+
+- Added the `settingButtonPosition` configuration item for configuring the position of the `settings` button
+- `modal` can switch the full screen by double-clicking the head
+- Added `CountDownInput` component
+
+### ⚡ Performance Improvements
+
+- Optimize the editable center style and the width of the drop-down box is too short
+- The `edit-change` event listener when the table is added and edited
+
+### 🐛 Bug Fixes
+
+- Fix image preview style error
+- Fix icon style problem
+- Fix the drop-down echo problem of editable table
+
+## 2.0.0 (2021-02-18)
+
+## Breaking changes
+
+- `echarts` is upgraded to 5.0 and introduced on demand (just use `useECharts`).
+
+### ✨ Refactor
+
+- Removed `global.less`, `mixin.less`, `design/helper`, replaced by `windicss`, and need to modify the corresponding styles if they are useful
+
+### ✨ Features
+
+- useModal adds the return value function `redoModalHeight`, which is used to refresh the modal height when the modal is dynamic content
+- Upgrade husky to 5.0
+- Added `brotli`|`gzip` compression and related test commands
+- Re-introduction of `windicss` (same as `tailwind`). Faster in speed
+
+### ⚡ Performance Improvements
+
+- Adjust the return value of the interface to obtain user information in array format
+- Fix the error-log list as the system route
+
+### 🐛 Bug Fixes
+
+- Fix the issue of upload component maxNumber invalid
+- Fix package sourcemap error report
+- Fix code debugger location display error
+- Fix the issue of mock plugin post request error
+- Fix some themes color value error
+- Fix the table in editable row status and press Enter to confirm
+
+### 🎫 Chores
+
+- Documentation update
+- Upgrade ant-design-vue to `2.0.0`
+- Upgrade vite to `2.0.0`
+
+## 2.0.0-rc.18 (2021-02-05)
+
+### ✨ Features
+
+- `ApiSelect` adds `numberToString` property, which is used to convert all the value of `number` into `string`
+- Added theme color switch
+- Packed image compression
+
+### ⚡ Performance Improvements
+
+When mock is not used, move `mock.js` out of the package file
+
+### 🐛 Bug Fixes
+
+- Fix modal height calculation error
+- Fix the pop-up menu when the menu is clicked on the tab when the menu is collapsed
+- Fix the problem that the initial value of form is 0
+- Fix table wrapping problem
+- Fix the menu outside link does not jump
+- Fix the display problem at the top of the menu
+- Fix the issue of `modifyVars` configuration failure
+
 ## 2.0.0-rc.17 (2020-01-18)
 
 ### ✨ Refactor

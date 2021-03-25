@@ -2,7 +2,7 @@
   <PageWrapper title="导出示例" content="可以选择导出格式">
     <BasicTable title="基础表格" :columns="columns" :dataSource="data">
       <template #toolbar>
-        <a-button @click="openModal">导出</a-button>
+        <a-button @click="openModal"> 导出 </a-button>
       </template>
     </BasicTable>
     <ExpExcelModel @register="register" @success="defaultHeader" />

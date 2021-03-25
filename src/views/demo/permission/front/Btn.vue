@@ -25,15 +25,15 @@
     </div>
     <Divider>组件方式判断权限(有需要可以自行全局注册)</Divider>
     <Authority :value="RoleEnum.SUPER">
-      <a-button type="primary" class="mx-4">拥有super角色权限可见</a-button>
+      <a-button type="primary" class="mx-4"> 拥有super角色权限可见 </a-button>
     </Authority>
 
     <Authority :value="RoleEnum.TEST">
-      <a-button color="success" class="mx-4">拥有test角色权限可见</a-button>
+      <a-button color="success" class="mx-4"> 拥有test角色权限可见 </a-button>
     </Authority>
 
     <Authority :value="[RoleEnum.TEST, RoleEnum.SUPER]">
-      <a-button color="error" class="mx-4">拥有[test,super]角色权限可见</a-button>
+      <a-button color="error" class="mx-4"> 拥有[test,super]角色权限可见 </a-button>
     </Authority>
 
     <Divider>函数方式方式判断权限(适用于函数内部过滤)</Divider>

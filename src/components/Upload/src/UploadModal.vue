@@ -33,14 +33,16 @@
         :before-upload="beforeUpload"
         class="upload-modal-toolbar__btn"
       >
-        <a-button type="primary"> {{ t('component.upload.choose') }} </a-button>
+        <a-button type="primary">
+          {{ t('component.upload.choose') }}
+        </a-button>
       </Upload>
     </div>
     <FileList :dataSource="fileListRef" :columns="columns" :actionColumn="actionColumn" />
   </BasicModal>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, ref, toRefs, unref, computed } from 'vue';
+  import { defineComponent, reactive, ref, toRefs, unref, computed, PropType } from 'vue';
   import { Upload, Alert } from 'ant-design-vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   //   import { BasicTable, useTable } from '/@/components/Table';
@@ -61,7 +63,14 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   export default defineComponent({
     components: { BasicModal, Upload, Alert, FileList },
-    props: basicProps,
+    props: {
+      ...basicProps,
+      previewFileList: {
+        type: Array as PropType<string[]>,
+        default: () => [],
+      },
+    },
+    emits: ['change', 'register'],
     setup(props, { emit }) {
       const { t } = useI18n();
 
@@ -203,7 +212,7 @@
       // 点击开始上传
       async function handleStartUpload() {
         const { maxNumber } = props;
-        if (fileListRef.value.length > maxNumber) {
+        if ((fileListRef.value.length + props.previewFileList?.length ?? 0) > maxNumber) {
           return createMessage.warning(t('component.upload.maxNumber', [maxNumber]));
         }
         try {

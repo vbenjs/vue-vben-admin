@@ -16,6 +16,8 @@ export default {
   tab1: 'Tab带参1',
   tab2: 'Tab带参2',
 
+  ws: 'websocket测试',
+
   breadcrumb: '面包屑导航',
   breadcrumbFlat: '平级模式',
   breadcrumbFlatDetail: '平级详情',

@@ -1,170 +1,113 @@
-<p align="center">
-  <a href="https://github.com/anncwb/vue-vben-admin" target="_blank">
-    <img alt="VbenAdmin Logo" width="200" src="./.github/res/imgs/logo.png">
-  </a>
-</p>
-<h2 align="center">VUE VBEN ADMIN2.0</h2>
+<div align="center"> <a href="https://github.com/anncwb/vue-vben-admin"> <img alt="VbenAdmin Logo" width="200" height="200" src="https://anncwb.github.io/anncwb/images/logo.png"> </a> <br> <br>
+
+[![license](https://img.shields.io/github/license/anncwb/vue-vben-admin.svg)](LICENSE)
+
+<h1>Vue vben admin</h1>
+</div>
 
 **中文** | [English](./README.md)
 
-[更新日志](CHANGELOG.zh_CN.md)
+## 简介
 
-- [介绍](#介绍)
-- [gitHub 地址](#github-地址)
-  - [精简版地址](#精简版地址)
-- [预览地址](#预览地址)
-- [文档](#文档)
-- [预安装](#预安装)
-  - [环境要求](#环境要求)
-  - [UI 框架](#ui-框架)
-  - [图标](#图标)
-  - [插件](#插件)
-  - [建议开发环境](#建议开发环境)
-- [安装](#安装)
-- [使用](#使用)
-  - [开发环境](#开发环境)
-  - [打包](#打包)
-  - [格式化](#格式化)
-  - [其他](#其他)
-- [Git 提交规范](#git-提交规范)
-- [代码贡献](#代码贡献)
-- [已完成功能](#已完成功能)
-- [正在开发的功能](#正在开发的功能)
-- [浏览器支持](#浏览器支持)
-- [插件](#插件-1)
-- [加入我们](#加入我们)
+Vue Vben Admin 是一个免费开源的中后台模版。使用了最新的`vue3`,`vite2`,`TypeScript`等主流技术开发，开箱即用的中后台前端解决方案，也可用于学习参考。
 
-## 介绍
+## 特性
 
-项目基于`ant-design-vue`,`typescript`,`vue3.0`,`vite`,`tsx`实现的 vue3 风格的后台管理系统，
+- **最新技术栈**：使用 Vue3/vite2 等前端前沿技术开发
+- **TypeScript**: 应用程序级 JavaScript 的语言
+- **主题**：可配置的主题
+- **国际化**：内置完善的国际化方案
+- **Mock 数据** 内置 Mock 数据方案
+- **权限** 内置完善的动态路由权限生成方案
+- **组件** 二次封装了多个常用的组件
 
-## gitHub 地址
+## 预览
 
-[vue-vben-admin2.0](https://github.com/anncwb/vue-vben-admin) - `main` 分支
-
-### 精简版地址
-
-[vue-vben-admin-thin-next](https://github.com/anncwb/vben-admin-thin-next)
-
-## 预览地址
-
-- [2.0 在线预览](https://vvbin.cn/next/)
-
-- [2.0 精简版 在线预览](https://vvbin.cn/thin/next/)
+- [vue-vben-admin](https://vvbin.cn/next/) - 完整版中文站点
+- [vue-vben-admin-gh-pages](https://anncwb.github.io/vue-vben-admin/) - 完整版 github 站点
+- [vben-admin-thin-next](https://vvbin.cn/thin/next/) - 简化版中文站点
+- [vben-admin-thin-gh-pages](https://anncwb.github.io/vben-admin-thin-next/) - 简化版 github 站点
 
 测试账号: vben/123456
 
 <p align="center">
-    <img alt="VbenAdmin Logo" width="100%" src="./.github/res/imgs/preview1.png">
-    <img alt="VbenAdmin Logo" width="100%" src="./.github/res/imgs/preview2.png">
-    <img alt="VbenAdmin Logo" width="100%" src="./.github/res/imgs/preview3.png">
+    <img alt="VbenAdmin Logo" width="100%" src="https://anncwb.github.io/anncwb/images/preview1.png">
+    <img alt="VbenAdmin Logo" width="100%" src="https://anncwb.github.io/anncwb/images/preview2.png">
+    <img alt="VbenAdmin Logo" width="100%" src="https://anncwb.github.io/anncwb/images/preview3.png">
 </p>
+
+### 使用 Gitpod
+
+在 Gitpod（适用于 GitHub 的免费在线开发环境）中打开项目，并立即开始编码.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/anncwb/vue-vben-admin)
 
 ## 文档
 
-[文档地址,持续更新中。。，](https://vvbin.cn/doc-next/)
+[文档地址](https://vvbin.cn/doc-next/)
 
-## 预安装
+## 准备
 
-### 环境要求
+- [node](http://nodejs.org/) 和 [git](https://git-scm.com/) -项目开发环境
+- [Vite](https://vitejs.dev/) - 熟悉 vite 特性
+- [Vue3](https://v3.vuejs.org/) - 熟悉 Vue 基础语法
+- [TypeScript](https://www.typescriptlang.org/) - 熟悉`TypeScript`基本语法
+- [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
+- [Vue-Router-Next](https://next.router.vuejs.org/) - 熟悉 vue-router 基本使用
+- [Ant-Design-Vue](https://2x.antdv.com/docs/vue/introduce-cn/) - ui 基本使用
+- [Mock.js](https://github.com/nuysoft/Mock) - mockjs 基本语法
 
-- `Node.js`: - 版本最好大于 `12.0.0`
-- `yarn` : - 包管理工具.
+## 安装使用
 
-### UI 框架
+- 获取项目代码
 
-- [Tailwind CSS](https://tailwindcss.com/) - 2.0.0-beta.5 已删除
-- [Ant Design Vue 2.0](https://2x.antdv.com/docs/vue/introduce-cn/)
+```bash
+git clone https://github.com/anncwb/vue-vben-admin.git
+```
 
-### 图标
+- 安装依赖
 
-- [Ant Design Vue Icon Component](https://2x.antdv.com/components/icon-cn/) - 按需引入所需图标.
-- [Iconify](https://iconify.design) - 使用任何图标集中的图标 [Icônes](https://icones.netlify.app/)
-- [PurgeIcons](https://github.com/antfu/purge-icons) - 仅打包所使用到的图标.
+```bash
+cd vue-vben-admin
 
-### 插件
-
-- [Vue Router Next](https://github.com/vuejs/vue-router-next)
-- [Vuex Next](https://github.com/vuejs/vuex)
-- [vuex-module-decorators](https://github.com/championswimmer/vuex-module-decorators) - vuex 模块化
-- [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock) - 基于 vite 的 mock 插件.
-- [vue-i18n](https://github.com/intlify/vue-i18n-next) - 国际化
-- [lodash-es](https://github.com/lodash/lodash) - JavaScript 实用程序库
-- [axios](https://github.com/axios/axios) - Http 数据交互
-- [TypeScript](https://www.typescriptlang.org/)
-
-### 建议开发环境
-
-- `Git`: - 版本管理工具
-- `Visual Studio Code` - (VSCode): 最新版本
-  - [VS Code Extensions](./.vscode/extensions.json)
-    - [Iconify IntelliSense](https://marketplace.visualstudio.com/items?itemName=antfu.iconify)
-    - [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) - Tailwind Css 样式联想
-    - [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) - vue 开发必备
-    - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - 脚本代码检查
-    - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - 代码格式化
-    - [Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint) - css 格式化
-
-## 安装
-
-```js
-//  使git对文件名大小写敏感
-git config core.ignorecase false
-
-// 拉取项目代码
-
-git clone https://github.com/anncwb/vue-vben-admin.git vue-vben-admin-2.0
-
-cd vue-vben-admin-2.0
-
-// 如果使用别的包管理工具，可以自行安装
-// 如果未安装yarn，请运行：npm install -g yarn
 yarn install
 
 ```
 
-## 使用
-
-### 开发环境
+- 运行
 
 ```bash
 yarn serve
 ```
 
-### 打包
+- 打包
 
 ```bash
-
-yarn build # 打包
-
-yarn build:no-cache # 打包，执行之前会先删除缓存
-
-yarn report # 生成构建包报表预览
+yarn build
 ```
 
-### 格式化
+## 更新日志
 
-```bash
-yarn lint:stylelint # 样式格式化
+[CHANGELOG](./CHANGELOG.zh_CN.md)
 
-yarn lint:prettier # js/ts代码格式化
-```
+## 项目地址
 
-### 其他
+- [vue-vben-admin](https://github.com/anncwb/vue-vben-admin) - 完整版
+- [vue-vben-admin-thin-next](https://github.com/anncwb/vben-admin-thin-next) - 简化版
 
-```bash
-yarn reinstall # 删除依赖重新装，兼容window
+## 如何贡献
 
-yarn preview # 本地进行打包预览
+非常欢迎你的加入！[提一个 Issue](https://github.com/anncwb/vue-vben-admin/issues/new/choose) 或者提交一个 Pull Request。
 
-yarn log # 生成CHANGELOG
+**Pull Request:**
 
-yarn clean:cache # 删除缓存
+1. Fork 代码!
+2. 创建自己的分支: `git checkout -b feat/xxxx`
+3. 提交你的修改: `git commit -am 'feat(function): add xxxxx'`
+4. 推送您的分支: `git push origin feat/xxxx`
+5. 提交`pull request`
 
-yarn clean:lib # 删除node_modules，兼容window系统
-```
-
-## Git 提交规范
+## Git 贡献提交规范
 
 - 参考 [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) 规范 ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
 
@@ -182,87 +125,46 @@ yarn clean:lib # 删除node_modules，兼容window系统
   - `types` 类型定义文件更改
   - `wip` 开发中
 
-## 代码贡献
+## 相关仓库
 
-1. Fork 代码!
-2. 创建自己的分支: `git checkout -b feat/xxxx`
-3. 提交你的修改: `git commit -am 'feat(function): add xxxxx'`
-4. 推送您的分支: `git push origin feat/xxxx`
-5. 提交`pull request`
+如果这些插件对你有帮助，可以给一个 star 支持下
 
-## 已完成功能
-
-- [x] 项目搭建（基于 vite）
-- [x] 登录和注销
-- [x] 菜单（可以搜索及拖拽以及菜单布局）
-- [x] 多标签页/面包屑
-- [x] 基于角色的权限管理
-- [x] 基于后台的权限管理
-- [x] 分离的路由和菜单设置
-- [x] 可折叠侧边栏
-- [x] 可拖拽侧边栏
-- [x] 多标签页模式/全局控制
-- [x] 菜单搜索
-- [x] 页面加载 loading
-- [x] 滚动条组件
-- [x] 弹窗扩展（可拖拽,全屏,自适应高度）
-- [x] 模拟数据
-- [x] hook 封装
-- [x] 表单组件
-- [x] 右键菜单
-- [x] 水印插件
-- [x] 动画组件
-- [x] 二维码插件
-- [x] 国际化插件
-- [x] 详情组件
-- [x] 验证组件
-- [x] 树组件
-- [x] 图片预览组件
-- [x] 表格组件
-- [x] 图表库
-- [x] 数字动画
-- [x] 首屏加载等待动画
-- [x] 抽取生产环境配置文件
-- [x] 打包 Gzip
-- [x] 数据导入导出
-- [x] 系统性能优化
-- [x] 全局错误处理
-- [x] 富文本组件
-- [x] 上传组件
-- [x] 多语言支持
-
-## 正在开发的功能
-
-- [ ] 主题配置
-- [ ] 黑暗主题
-- [ ] 打包 CDN
-
-更多组件/功能/建议/bug/欢迎提交 pr 或者 issue
+- [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock) - 用于本地及开发环境数据 mock
+- [vite-plugin-html](https://github.com/anncwb/vite-plugin-html) - 用于 html 模版转换及压缩
+- [vite-plugin-style-import](https://github.com/anncwb/vite-plugin-style-import) - 用于组件库样式按需引入
+- [vite-plugin-theme](https://github.com/anncwb/vite-plugin-theme) - 用于在线切换主题色等颜色相关配置
+- [vite-plugin-imagemin](https://github.com/anncwb/vite-plugin-imagemin) - 用于打包压缩图片资源
+- [vite-plugin-compression](https://github.com/anncwb/vite-plugin-compression) - 用于打包输入.gz|.brotil 文件
+- [vite-plugin-svg-icons](https://github.com/anncwb/vite-plugin-svg-icons) - 用于快速生成 svg 雪碧图
 
 ## 浏览器支持
 
-本地开发推荐使用`Chrome`浏览器,在火狐浏览器进行开发相对卡顿。
+本地开发推荐使用`Chrome 80+` 浏览器
 
-支持现代浏览器, IE 暂不支持，后续考虑支持 ie11
+支持现代浏览器, 不支持 IE
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
 | :-: | :-: | :-: | :-: | :-: |
 | not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
-更多浏览器可以查看 [Can I Use Es Module](https://caniuse.com/?search=ES%20Module)
+## 维护者
 
-## 插件
+[@Vben](https://github.com/anncwb)
 
-如果这些插件对你有帮助，可以给一个 star 支持下
+## 捐赠
 
-- [vite-plugin-mock](https://github.com/vbenjs/vite-plugin-mock)
-- [vite-plugin-html](https://github.com/vbenjs/vite-plugin-html)
-- [vite-plugin-style-import](https://github.com/vbenjs/vite-plugin-style-import)
+如果你觉得这个项目对你有帮助，你可以帮作者买一杯咖啡表示支持!
 
-## 加入我们
+![donate](https://anncwb.github.io/anncwb/images/sponsor.png)
 
-`Vue-Vben-Aadmin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供 QQ 交流群(项目刚起步，人数较少，有兴趣的可以加群一起讨论)，使用问题欢迎在群内提问。
+<a style="display: block;width: 100px;height: 50px;line-height: 50px; color: #fff;text-align: center; background: #408aed;border-radius: 4px;" href="https://www.paypal.com/paypalme/cvvben">Paypal Me</a>
+
+## 交流
+
+`Vue-vben-Admin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供 QQ 交流群使用问题欢迎在群内提问。
 
 - QQ 群 `569291866`
 
- <img alt="VbenAdmin Logo" width="100" src="./.github/res/imgs/qq.jpeg">
+## License
+
+[MIT © Vben-2020](./LICENSE)

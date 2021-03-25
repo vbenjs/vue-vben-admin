@@ -1,28 +1,35 @@
 <template>
-  <div :class="`${prefixCls}__header`">
-    <BasicTitle :helpMessage="$attrs.helpMessage">
-      <template v-if="$attrs.title">
-        {{ $attrs.title }}
+  <div :class="[`${prefixCls}__header`, $attrs.class]">
+    <BasicTitle :helpMessage="helpMessage">
+      <template v-if="title">
+        {{ title }}
       </template>
       <template v-else>
-        <slot name="title" />
+        <slot name="title"></slot>
       </template>
     </BasicTitle>
 
     <div :class="`${prefixCls}__action`">
-      <slot name="action" />
-      <BasicArrow v-if="$attrs.canExpan" top :expand="$attrs.show" @click="$emit('expand')" />
+      <slot name="action"></slot>
+      <BasicArrow v-if="canExpan" top :expand="show" @click="$emit('expand')" />
     </div>
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicArrow, BasicTitle } from '/@/components/Basic';
+  import { propTypes } from '/@/utils/propTypes';
+
   export default defineComponent({
-    inheritAttrs: false,
     components: { BasicArrow, BasicTitle },
+    inheritAttrs: false,
     props: {
-      prefixCls: String,
+      prefixCls: propTypes.string,
+      helpMessage: propTypes.string,
+      title: propTypes.string,
+      show: propTypes.bool,
+      canExpan: propTypes.bool,
     },
+    emits: ['expand'],
   });
 </script>

@@ -1,10 +1,11 @@
 <template>
   <PageWrapper title="表单校验示例">
     <div class="mb-4">
-      <a-button @click="validateForm" class="mr-2">手动校验表单</a-button>
-      <a-button @click="resetValidate" class="mr-2">清空校验信息</a-button>
-      <a-button @click="getFormValues" class="mr-2">获取表单值</a-button>
-      <a-button @click="setFormValues" class="mr-2">设置表单值</a-button>
+      <a-button @click="validateForm" class="mr-2"> 手动校验表单 </a-button>
+      <a-button @click="resetValidate" class="mr-2"> 清空校验信息 </a-button>
+      <a-button @click="getFormValues" class="mr-2"> 获取表单值 </a-button>
+      <a-button @click="setFormValues" class="mr-2"> 设置表单值 </a-button>
+      <a-button @click="resetFields" class="mr-2"> 重置 </a-button>
     </div>
     <CollapseContainer title="表单校验">
       <BasicForm @register="register" @submit="handleSubmit" />
@@ -47,6 +48,15 @@
       required: true,
     },
     {
+      field: 'field44',
+      component: 'InputCountDown',
+      label: '验证码',
+      colProps: {
+        span: 8,
+      },
+      required: true,
+    },
+    {
       field: 'field4',
       component: 'Select',
       label: '字段4',
@@ -54,6 +64,7 @@
         span: 8,
       },
       componentProps: {
+        mode: 'multiple',
         options: [
           {
             label: '选项1',
@@ -71,6 +82,7 @@
         {
           required: true,
           message: '请输入aa',
+          type: 'array',
         },
       ],
     },
@@ -87,9 +99,11 @@
           // @ts-ignore
           validator: async (rule, value) => {
             if (!value) {
+              /* eslint-disable-next-line */
               return Promise.reject('值不能为空');
             }
             if (value === '1') {
+              /* eslint-disable-next-line */
               return Promise.reject('值不能为1');
             }
             return Promise.resolve();
@@ -146,15 +160,16 @@
     components: { BasicForm, CollapseContainer, PageWrapper },
     setup() {
       const { createMessage } = useMessage();
-      const [register, { validateFields, clearValidate, getFieldsValue, setFieldsValue }] = useForm(
-        {
-          labelWidth: 120,
-          schemas,
-          actionColOptions: {
-            span: 24,
-          },
-        }
-      );
+      const [
+        register,
+        { validateFields, clearValidate, getFieldsValue, resetFields, setFieldsValue },
+      ] = useForm({
+        labelWidth: 120,
+        schemas,
+        actionColOptions: {
+          span: 24,
+        },
+      });
       async function validateForm() {
         try {
           const res = await validateFields();
@@ -187,6 +202,7 @@
         setFormValues,
         validateForm,
         resetValidate,
+        resetFields,
       };
     },
   });

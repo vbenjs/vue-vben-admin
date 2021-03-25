@@ -1,4 +1,4 @@
-import { Directive } from 'vue';
+import type { Directive } from 'vue';
 import './index.less';
 export interface RippleOptions {
   event: string;
@@ -72,9 +72,9 @@ function rippler({
   const rippleContainer = document.createElement('div');
 
   // Styles for ripple
+  ripple.className = 'ripple';
 
   Object.assign(ripple.style ?? {}, {
-    className: 'ripple',
     marginTop: '0px',
     marginLeft: '0px',
     width: '1px',
@@ -88,8 +88,8 @@ function rippler({
   });
 
   // Styles for rippleContainer
+  rippleContainer.className = 'ripple-container';
   Object.assign(rippleContainer.style ?? {}, {
-    className: 'ripple-container',
     position: 'absolute',
     left: `${0 - border}px`,
     top: `${0 - border}px`,

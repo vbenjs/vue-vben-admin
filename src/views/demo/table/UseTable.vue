@@ -1,19 +1,19 @@
 <template>
   <div class="p-4">
     <div class="mb-4">
-      <a-button class="mr-2" @click="reloadTable">还原</a-button>
-      <a-button class="mr-2" @click="changeLoading">开启loading</a-button>
-      <a-button class="mr-2" @click="changeColumns">更改Columns</a-button>
-      <a-button class="mr-2" @click="getColumn">获取Columns</a-button>
-      <a-button class="mr-2" @click="getTableData">获取表格数据</a-button>
-      <a-button class="mr-2" @click="setPaginationInfo">跳转到第2页</a-button>
+      <a-button class="mr-2" @click="reloadTable"> 还原 </a-button>
+      <a-button class="mr-2" @click="changeLoading"> 开启loading </a-button>
+      <a-button class="mr-2" @click="changeColumns"> 更改Columns </a-button>
+      <a-button class="mr-2" @click="getColumn"> 获取Columns </a-button>
+      <a-button class="mr-2" @click="getTableData"> 获取表格数据 </a-button>
+      <a-button class="mr-2" @click="setPaginationInfo"> 跳转到第2页 </a-button>
     </div>
     <div class="mb-4">
-      <a-button class="mr-2" @click="getSelectRowList">获取选中行</a-button>
-      <a-button class="mr-2" @click="getSelectRowKeyList">获取选中行Key</a-button>
-      <a-button class="mr-2" @click="setSelectedRowKeyList">设置选中行</a-button>
-      <a-button class="mr-2" @click="clearSelect">清空选中行</a-button>
-      <a-button class="mr-2" @click="getPagination">获取分页信息</a-button>
+      <a-button class="mr-2" @click="getSelectRowList"> 获取选中行 </a-button>
+      <a-button class="mr-2" @click="getSelectRowKeyList"> 获取选中行Key </a-button>
+      <a-button class="mr-2" @click="setSelectedRowKeyList"> 设置选中行 </a-button>
+      <a-button class="mr-2" @click="clearSelect"> 清空选中行 </a-button>
+      <a-button class="mr-2" @click="getPagination"> 获取分页信息 </a-button>
     </div>
     <BasicTable @register="registerTable" />
   </div>

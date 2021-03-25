@@ -1,44 +1,38 @@
 import { AppRouteModule } from '/@/router/types';
 import type { MenuModule, Menu, AppRouteRecordRaw } from '/@/router/types';
 
-import { findPath, forEach, treeMap } from '/@/utils/helper/treeHelper';
+import { findPath, treeMap } from '/@/utils/helper/treeHelper';
 import { cloneDeep } from 'lodash-es';
 import { isUrl } from '/@/utils/is';
 
-export function getAllParentPath(treeData: any[], path: string) {
+export function getAllParentPath<T = Recordable>(treeData: T[], path: string) {
   const menuList = findPath(treeData, (n) => n.path === path) as Menu[];
   return (menuList || []).map((item) => item.path);
 }
 
-// 拼接父级路径
-function joinParentPath(list: any, node: any) {
-  let allPaths = getAllParentPath(list, node.path);
-
-  allPaths = allPaths.slice(0, allPaths.length - 1);
-  let parentPath = '';
-  if (Array.isArray(allPaths) && allPaths.length >= 2) {
-    parentPath = allPaths[allPaths.length - 1];
-  } else {
-    allPaths.forEach((p) => {
-      parentPath += /^\//.test(p) ? p : `/${p}`;
-    });
+function joinParentPath(menus: Menu[], parentPath = '') {
+  for (let index = 0; index < menus.length; index++) {
+    const menu = menus[index];
+    // https://next.router.vuejs.org/guide/essentials/nested-routes.html
+    // Note that nested paths that start with / will be treated as a root path.
+    // This allows you to leverage the component nesting without having to use a nested URL.
+    if (!(menu.path.startsWith('/') || isUrl(menu.path))) {
+      // path doesn't start with /, nor is it a url, join parent path
+      menu.path = `${parentPath}/${menu.path}`;
+    }
+    if (menu?.children?.length) {
+      joinParentPath(menu.children, menu.path);
+    }
   }
-  node.path = `${/^\//.test(node.path) ? node.path : `${parentPath}/${node.path}`}`.replace(
-    /\/\//g,
-    '/'
-  );
-  return node;
 }
 
-// 解析菜单模块
+// Parsing the menu module
 export function transformMenuModule(menuModule: MenuModule): Menu {
   const { menu } = menuModule;
 
   const menuList = [menu];
-  forEach(menuList, (m) => {
-    !isUrl(m.path) && joinParentPath(menuList, m);
-  });
 
+  joinParentPath(menuList);
   return menuList[0];
 }
 
@@ -46,12 +40,6 @@ export function transformRouteToMenu(routeModList: AppRouteModule[]) {
   const cloneRouteModList = cloneDeep(routeModList);
   const routeList: AppRouteRecordRaw[] = [];
 
-  // cloneRouteModList = filter(cloneRouteModList, (node) => {
-  //   if (Reflect.has(node?.meta ?? {}, 'hideMenu')) {
-  //     return !node?.meta.hideMenu;
-  //   }
-  //   return true;
-  // });
   cloneRouteModList.forEach((item) => {
     if (item.meta?.single) {
       const realItem = item?.children?.[0];
@@ -60,17 +48,19 @@ export function transformRouteToMenu(routeModList: AppRouteModule[]) {
       routeList.push(item);
     }
   });
-  return treeMap(routeList, {
+  const list = treeMap(routeList, {
     conversion: (node: AppRouteRecordRaw) => {
-      const { meta: { title, icon, hideMenu = false } = {} } = node;
+      const { meta: { title, hideMenu = false } = {} } = node;
 
-      !isUrl(node.path) && joinParentPath(routeList, node);
       return {
+        ...(node.meta || {}),
+        meta: node.meta,
         name: title,
-        icon,
-        path: node.path,
         hideMenu,
+        path: node.path,
       };
     },
   });
+  joinParentPath(list);
+  return cloneDeep(list);
 }

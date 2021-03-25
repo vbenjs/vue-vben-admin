@@ -14,6 +14,16 @@ const menu: MenuModule = {
       {
         path: 'icon',
         name: t('routes.demo.feat.icon'),
+        tag: {
+          content: 'new',
+        },
+      },
+      {
+        path: 'ws',
+        name: t('routes.demo.feat.ws'),
+        tag: {
+          content: 'new',
+        },
       },
       {
         path: 'tabs',
@@ -51,9 +61,6 @@ const menu: MenuModule = {
       {
         path: 'ripple',
         name: t('routes.demo.feat.ripple'),
-        tag: {
-          content: 'new',
-        },
       },
       {
         path: 'full-screen',
@@ -89,9 +96,7 @@ const menu: MenuModule = {
       {
         name: t('routes.demo.feat.breadcrumb'),
         path: 'breadcrumb',
-        tag: {
-          content: 'new',
-        },
+
         children: [
           {
             path: 'flat',

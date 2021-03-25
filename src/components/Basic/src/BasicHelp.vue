@@ -1,6 +1,6 @@
-<script lang="ts">
+<script lang="tsx">
   import type { CSSProperties, PropType } from 'vue';
-  import { defineComponent, computed, unref, h } from 'vue';
+  import { defineComponent, computed, unref } from 'vue';
 
   import { Tooltip } from 'ant-design-vue';
   import { InfoCircleOutlined } from '@ant-design/icons-vue';
@@ -9,7 +9,9 @@
   import { isString, isArray } from '/@/utils/is';
   import { getSlot } from '/@/utils/helper/tsxHelper';
   import { propTypes } from '/@/utils/propTypes';
+
   import { useDesign } from '/@/hooks/web/useDesign';
+
   export default defineComponent({
     name: 'BasicHelp',
     components: { Tooltip },
@@ -40,7 +42,7 @@
     setup(props, { slots }) {
       const { prefixCls } = useDesign('basic-help');
 
-      const getOverlayStyleRef = computed(
+      const getOverlayStyle = computed(
         (): CSSProperties => {
           return {
             maxWidth: props.maxWidth,
@@ -48,7 +50,7 @@
         }
       );
 
-      const getWrapStyleRef = computed(
+      const getWrapStyle = computed(
         (): CSSProperties => {
           return {
             color: props.color,
@@ -65,12 +67,19 @@
         const list = props.text;
 
         if (isString(list)) {
-          return h('p', list);
+          return <p>{list}</p>;
         }
 
         if (isArray(list)) {
           return list.map((item, index) => {
-            return h('p', { key: item }, [props.showIndex ? `${index + 1}. ` : '', item]);
+            return (
+              <p key={item}>
+                <>
+                  {props.showIndex ? `${index + 1}. ` : ''}
+                  {item}
+                </>
+              </p>
+            );
           });
         }
 
@@ -78,34 +87,19 @@
       };
 
       return () => {
-        return h(
-          // @ts-ignores
-          Tooltip,
-          {
-            title: h(
-              'div',
-              {
-                style: unref(getWrapStyleRef),
-              },
-              [renderTitle()]
-            ),
-            overlayClassName: `${prefixCls}__wrap`,
-            autoAdjustOverflow: true,
-            overlayStyle: unref(getOverlayStyleRef),
-            placement: props.placement,
-            getPopupContainer: () => getPopupContainer(),
-          },
-          {
-            default: () =>
-              h(
-                'span',
-                {
-                  class: prefixCls,
-                  style: unref(getMainStyleRef),
-                },
-                getSlot(slots) || h(InfoCircleOutlined)
-              ),
-          }
+        return (
+          <Tooltip
+            title={<div style={unref(getWrapStyle)}>{renderTitle()}</div>}
+            overlayClassName={`${prefixCls}__wrap`}
+            autoAdjustOverflow={true}
+            overlayStyle={unref(getOverlayStyle)}
+            placement={props.placement as 'left'}
+            getPopupContainer={() => getPopupContainer()}
+          >
+            <span class={prefixCls} style={unref(getMainStyleRef)}>
+              {getSlot(slots) || <InfoCircleOutlined />}
+            </span>
+          </Tooltip>
         );
       };
     },

@@ -10,7 +10,9 @@
               </template>
               <template #description>
                 <div class="news-list__item-desc">
-                  <div class="news-list__item-time mb-1"> {{ item.sendTime }}</div>
+                  <div class="news-list__item-time mb-1">
+                    {{ item.sendTime }}
+                  </div>
                   <div class="news-list__item-title mb-1">
                     <span class="news-list__item-light">{{ item.sender }}&nbsp;</span>申请迭代
                     <span class="news-list__item-light">&nbsp;{{ item.title }}&nbsp;</span>发布

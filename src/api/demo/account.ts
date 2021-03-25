@@ -6,9 +6,5 @@ enum Api {
 }
 
 // Get personal center-basic settings
-export function accountInfoApi() {
-  return defHttp.request<GetAccountInfoModel>({
-    url: Api.ACCOUNT_INFO,
-    method: 'GET',
-  });
-}
+
+export const accountInfoApi = () => defHttp.get<GetAccountInfoModel>({ url: Api.ACCOUNT_INFO });

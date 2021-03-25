@@ -6,6 +6,7 @@ import type { CSSProperties, VNodeChild, ComputedRef } from 'vue';
 export interface ModalMethods {
   setModalProps: (props: Partial<ModalProps>) => void;
   emitVisible?: (visible: boolean, uid: number) => void;
+  redoModalHeight?: () => void;
 }
 
 export type RegisterFn = (modalMethods: ModalMethods, uuid?: string) => void;
@@ -32,6 +33,7 @@ export interface ModalProps {
   // 启用wrapper后 底部可以适当增加高度
   wrapperFooterOffset?: number;
   draggable?: boolean;
+  scrollTop?: boolean;
 
   // 是否可以进行全屏
   canFullscreen?: boolean;

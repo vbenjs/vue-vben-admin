@@ -32,7 +32,9 @@
                 </div>
               </template>
               <template #description>
-                <div class="description">{{ item.description }}</div>
+                <div class="description">
+                  {{ item.description }}
+                </div>
                 <div class="info">
                   <div><span>Owner</span>{{ item.author }}</div>
                   <div><span>开始时间</span>{{ item.datetime }}</div>

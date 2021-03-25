@@ -11,12 +11,22 @@ import {
 } from 'vue';
 import { useEventListener } from '/@/hooks/event/useEventListener';
 
-import { convertToUnit } from '/@/components/util';
 import { props as basicProps } from './props';
 import { getSlot } from '/@/utils/helper/tsxHelper';
 import './index.less';
 
 const prefixCls = 'virtual-scroll';
+
+function convertToUnit(str: string | number | null | undefined, unit = 'px'): string | undefined {
+  if (str == null || str === '') {
+    return undefined;
+  } else if (isNaN(+str!)) {
+    return String(str);
+  } else {
+    return `${Number(str)}${unit}`;
+  }
+}
+
 export default defineComponent({
   name: 'VirtualScroll',
   props: basicProps,

@@ -26,12 +26,13 @@
   import plugins from './plugins';
   import { getTinymce } from './getTinymce';
   import { useScript } from '/@/hooks/web/useScript';
-  import { snowUuid } from '/@/utils/uuid';
+  import { buildShortUUID } from '/@/utils/uuid';
   import { bindHandlers } from './helper';
   import lineHeight from './lineHeight';
   import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
   import ImgUpload from './ImgUpload.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { isNumber } from '/@/utils/is';
 
   const CDN_URL = 'https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1';
 
@@ -39,13 +40,13 @@
 
   export default defineComponent({
     name: 'Tinymce',
+    components: { ImgUpload },
     inheritAttrs: false,
     props: basicProps,
-    components: { ImgUpload },
     emits: ['change', 'update:modelValue'],
     setup(props, { emit, attrs }) {
       const editorRef = ref<any>(null);
-      const tinymceId = ref<string>(snowUuid('tiny-vue'));
+      const tinymceId = ref<string>(buildShortUUID('tiny-vue'));
       const elRef = ref<Nullable<HTMLElement>>(null);
 
       const { prefixCls } = useDesign('tinymce-container');
@@ -56,7 +57,7 @@
 
       const containerWidth = computed(() => {
         const width = props.width;
-        if (/^[\d]+(\.[\d]+)?$/.test(width.toString())) {
+        if (isNumber(width)) {
           return `${width}px`;
         }
         return width;
@@ -104,7 +105,7 @@
         }
       );
       onMountedOrActivated(() => {
-        tinymceId.value = snowUuid('tiny-vue');
+        tinymceId.value = buildShortUUID('tiny-vue');
         nextTick(() => {
           init();
         });

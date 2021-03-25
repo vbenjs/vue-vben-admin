@@ -1,4 +1,4 @@
-@import '../color.less';
+@import (reference) '../color.less';
 @import 'easing';
 @import 'breakpoint';
 
@@ -32,10 +32,7 @@
 
 @page-footer-z-index: 99;
 
-// left-menu
-@app-menu-item-height: 42px;
-
-.bem(@n;@content) {
+.bem(@n; @content) {
   @{namespace}-@{n} {
     @content();
   }

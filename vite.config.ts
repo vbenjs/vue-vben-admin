@@ -1,70 +1,61 @@
 import type { UserConfig, ConfigEnv } from 'vite';
-import { resolve } from 'path';
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
-import legacy from '@vitejs/plugin-legacy';
 
 import { loadEnv } from 'vite';
+import { resolve } from 'path';
 
-import { modifyVars } from './build/config/lessModifyVars';
+import { generateModifyVars } from './build/config/themeConfig';
 import { createProxy } from './build/vite/proxy';
-
+import { createAlias } from './build/vite/alias';
 import { wrapperEnv } from './build/utils';
-
 import { createVitePlugins } from './build/vite/plugin';
-
-const pkg = require('./package.json');
-
-function pathResolve(dir: string) {
-  return resolve(__dirname, '.', dir);
-}
-
-const root: string = process.cwd();
+import { OUTPUT_DIR } from './build/constant';
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
+  const root = process.cwd();
+
   const env = loadEnv(mode, root);
+
+  // The boolean type read by loadEnv is a string. This function can be converted to boolean type
   const viteEnv = wrapperEnv(env);
-  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE, VITE_LEGACY } = viteEnv;
+
+  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE } = viteEnv;
 
   const isBuild = command === 'build';
 
   return {
+    base: VITE_PUBLIC_PATH,
     root,
-    alias: {
-      '/@/': `${pathResolve('src')}/`,
+    resolve: {
+      alias: createAlias([
+        // /@/xxxx => src/xxxx
+        ['/@/', 'src'],
+        // /#/xxxx => types/xxxx
+        ['/#/', 'types'],
+      ]),
     },
     server: {
       port: VITE_PORT,
+      // Load proxy configuration from .env
       proxy: createProxy(VITE_PROXY),
       hmr: {
         overlay: true,
       },
     },
+
     build: {
-      base: VITE_PUBLIC_PATH,
+      outDir: OUTPUT_DIR,
       terserOptions: {
         compress: {
           keep_infinity: true,
+          // Used to delete console in production environment
           drop_console: VITE_DROP_CONSOLE,
         },
       },
-      // minify: 'esbuild',
-      rollupOptions: {
-        output: {
-          compact: true,
-        },
-      },
-      commonjsOptions: {
-        ignore: [
-          // xlsx
-          'fs',
-          'crypto',
-          'stream',
-        ],
-      },
+      // Turning off brotliSize display can slightly reduce packaging time
+      brotliSize: false,
+      chunkSizeWarningLimit: 1200,
     },
     define: {
-      __VERSION__: pkg.version,
       // setting vue-i18-next
       // Suppress warning
       __VUE_I18N_LEGACY_API__: false,
@@ -75,31 +66,29 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       preprocessorOptions: {
         less: {
           modifyVars: {
+            // Used for global import to avoid the need to import each style file separately
             // reference:  Avoid repeated references
             hack: `true; @import (reference) "${resolve('src/design/config.less')}";`,
-            ...modifyVars,
+            ...generateModifyVars(),
           },
           javascriptEnabled: true,
         },
       },
     },
 
-    plugins: [
-      vue(),
-      vueJsx(),
-      ...(VITE_LEGACY && isBuild ? [legacy()] : []),
-      ...createVitePlugins(viteEnv, isBuild, mode),
-    ],
+    // The vite plugin used by the project. The quantity is large, so it is separately extracted and managed
+    plugins: createVitePlugins(viteEnv, isBuild),
 
     optimizeDeps: {
+      // @iconify/iconify: The dependency is dynamically and virtually loaded by @purge-icons/generated, so it needs to be specified explicitly
       include: [
-        'moment',
-        '@ant-design/icons-vue',
-        'echarts/map/js/china',
+        '@iconify/iconify',
         'ant-design-vue/es/locale/zh_CN',
-        'moment/locale/zh-cn',
+        'moment/dist/locale/zh-cn',
         'ant-design-vue/es/locale/en_US',
+        'moment/dist/locale/eu',
       ],
+      exclude: ['vue-demi'],
     },
   };
 };

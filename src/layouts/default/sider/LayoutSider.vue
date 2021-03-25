@@ -2,18 +2,18 @@
   <div
     v-if="getMenuFixed && !getIsMobile"
     :style="getHiddenDomStyle"
-    :class="{ hidden: !showClassSideBarRef }"
-  />
+    v-show="showClassSideBarRef"
+  ></div>
   <Sider
+    v-show="showClassSideBarRef"
     ref="sideRef"
     breakpoint="lg"
     collapsible
     :class="getSiderClass"
     :width="getMenuWidth"
-    :collapsed="getIsMobile ? false : getCollapsed"
+    :collapsed="getCollapsed"
     :collapsedWidth="getCollapsedWidth"
     :theme="getMenuTheme"
-    @collapse="onCollapseChange"
     @breakpoint="onBreakpointChange"
     v-bind="getTriggerAttr"
   >
@@ -28,7 +28,7 @@
   import { computed, defineComponent, ref, unref, CSSProperties } from 'vue';
 
   import { Layout } from 'ant-design-vue';
-  import LayoutMenu from '../menu';
+  import LayoutMenu from '../menu/index.vue';
   import LayoutTrigger from '/@/layouts/default/trigger/index.vue';
 
   import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
@@ -65,7 +65,7 @@
 
       useDragLine(sideRef, dragBarRef);
 
-      const { getCollapsedWidth, onBreakpointChange, onCollapseChange } = useSiderEvent();
+      const { getCollapsedWidth, onBreakpointChange } = useSiderEvent();
 
       const getMode = computed(() => {
         return unref(getSplit) ? MenuModeEnum.INLINE : null;
@@ -84,7 +84,6 @@
           prefixCls,
           {
             [`${prefixCls}--fixed`]: unref(getMenuFixed),
-            hidden: !unref(showClassSideBarRef),
             [`${prefixCls}--mix`]: unref(getIsMixMode) && !unref(getIsMobile),
           },
         ];
@@ -121,7 +120,6 @@
         onBreakpointChange,
         getMode,
         getSplitType,
-        onCollapseChange,
         getShowTrigger,
       };
     },

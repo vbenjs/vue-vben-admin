@@ -7,7 +7,9 @@
       accept=".xlsx, .xls"
       @change="handleInputClick"
     />
-    <div @click="handleUpload"><slot /></div>
+    <div @click="handleUpload">
+      <slot></slot>
+    </div>
   </div>
 </template>
 <script lang="ts">

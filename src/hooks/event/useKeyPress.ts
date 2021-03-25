@@ -160,13 +160,5 @@ export function getTargetElement(
   if (!target) {
     return defaultElement;
   }
-
-  let targetElement: TargetElement | undefined | null;
-
-  if (isFunction(target)) {
-    targetElement = target();
-  } else {
-    targetElement = unref(target);
-  }
-  return targetElement;
+  return isFunction(target) ? target() : unref(target);
 }

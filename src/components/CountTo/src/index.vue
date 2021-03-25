@@ -7,7 +7,6 @@
   import { defineComponent, reactive, computed, watch, onMounted, unref, toRef } from 'vue';
   import { countToProps } from './props';
   import { isNumber } from '/@/utils/is';
-  import { requestAnimationFrame, cancelAnimationFrame } from '/@/utils/animation';
   export default defineComponent({
     name: 'CountTo',
     props: countToProps,

@@ -12,43 +12,32 @@ import type { FormProps } from '/@/components/Form';
 import { DEFAULT_FILTER_FN, DEFAULT_SORT_FN, FETCH_SETTING } from './const';
 import { propTypes } from '/@/utils/propTypes';
 
-// 注释看 types/table
 export const basicProps = {
   clickToRowSelect: propTypes.bool.def(true),
-
   isTreeTable: propTypes.bool.def(false),
-
-  tableSetting: {
-    type: Object as PropType<TableSetting>,
-  },
-
+  tableSetting: propTypes.shape<TableSetting>({}),
   inset: propTypes.bool,
-
   sortFn: {
     type: Function as PropType<(sortInfo: SorterResult) => any>,
     default: DEFAULT_SORT_FN,
   },
-
   filterFn: {
     type: Function as PropType<(data: Partial<Recordable<string[]>>) => any>,
     default: DEFAULT_FILTER_FN,
   },
-
   showTableSetting: propTypes.bool,
   autoCreateKey: propTypes.bool.def(true),
   striped: propTypes.bool.def(true),
   showSummary: propTypes.bool,
-
   summaryFunc: {
     type: [Function, Array] as PropType<(...arg: any[]) => any[]>,
     default: null,
   },
-
   summaryData: {
     type: Array as PropType<Recordable[]>,
     default: null,
   },
-
+  indentSize: propTypes.number.def(24),
   canColDrag: propTypes.bool.def(true),
   api: {
     type: Function as PropType<(...arg: any[]) => Promise<any>>,
@@ -74,7 +63,6 @@ export const basicProps = {
   },
   // 立即请求接口
   immediate: propTypes.bool.def(true),
-
   emptyDataIsShowTable: propTypes.bool.def(true),
   // 额外的请求参数
   searchInfo: {
@@ -130,12 +118,10 @@ export const basicProps = {
     type: [Object, Boolean] as PropType<PaginationProps | boolean>,
     default: null,
   },
-
   loading: propTypes.bool,
   rowClassName: {
     type: Function as PropType<(record: TableCustomRecord<any>, index: number) => string>,
   },
-
   scroll: {
     type: Object as PropType<{ x: number | true; y: number }>,
     default: null,

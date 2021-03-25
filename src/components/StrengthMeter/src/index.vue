@@ -1,5 +1,5 @@
 <template>
-  <div :class="prefixCls">
+  <div :class="prefixCls" class="relative">
     <InputPassword
       v-if="showInput"
       v-bind="$attrs"
@@ -9,7 +9,7 @@
       :disabled="disabled"
     >
       <template #[item]="data" v-for="item in Object.keys($slots)">
-        <slot :name="item" v-bind="data" />
+        <slot :name="item" v-bind="data"></slot>
       </template>
     </InputPassword>
     <div :class="`${prefixCls}-bar`">
@@ -19,27 +19,20 @@
 </template>
 
 <script lang="ts">
-  import { PropType } from 'vue';
-
   import { defineComponent, computed, ref, watch, unref, watchEffect } from 'vue';
 
   import { Input } from 'ant-design-vue';
 
-  import zxcvbn from 'zxcvbn';
-  import { propTypes } from '/@/utils/propTypes';
+  // @ts-ignore
+  import { zxcvbn } from '@zxcvbn-ts/core';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { propTypes } from '/@/utils/propTypes';
 
   export default defineComponent({
     name: 'StrengthMeter',
     components: { InputPassword: Input.Password },
     props: {
       value: propTypes.string,
-
-      userInputs: {
-        type: Array as PropType<string[]>,
-        default: () => [],
-      },
-
       showInput: propTypes.bool.def(true),
       disabled: propTypes.bool,
     },
@@ -49,12 +42,10 @@
       const { prefixCls } = useDesign('strength-meter');
 
       const getPasswordStrength = computed(() => {
-        const { userInputs, disabled } = props;
-        if (disabled) return null;
+        const { disabled } = props;
+        if (disabled) return -1;
         const innerValue = unref(innerValueRef);
-        const score = innerValue
-          ? zxcvbn(unref(innerValueRef), (userInputs as string[]) || null).score
-          : null;
+        const score = innerValue ? zxcvbn(unref(innerValueRef)).score : -1;
         emit('score-change', score);
         return score;
       });
@@ -66,6 +57,7 @@
       watchEffect(() => {
         innerValueRef.value = props.value || '';
       });
+
       watch(
         () => unref(innerValueRef),
         (val) => {
@@ -86,14 +78,12 @@
   @prefix-cls: ~'@{namespace}-strength-meter';
 
   .@{prefix-cls} {
-    position: relative;
-
     &-bar {
       position: relative;
-      height: 4px;
+      height: 6px;
       margin: 10px auto 6px;
       background: @disabled-color;
-      border-radius: 3px;
+      border-radius: 6px;
 
       &::before,
       &::after {

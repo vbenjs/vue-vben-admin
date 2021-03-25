@@ -1,25 +1,35 @@
 <template>
   <div :class="getClass">
-    <PageHeader :ghost="ghost" v-bind="$attrs" ref="headerRef">
+    <PageHeader
+      :ghost="ghost"
+      :title="title"
+      v-bind="$attrs"
+      ref="headerRef"
+      v-if="content || $slots.headerContent || title || getHeaderSlots.length"
+    >
       <template #default>
         <template v-if="content">
           {{ content }}
         </template>
-        <slot name="headerContent" v-else />
+        <slot name="headerContent" v-else></slot>
       </template>
       <template #[item]="data" v-for="item in getHeaderSlots">
-        <slot :name="item" v-bind="data" />
+        <slot :name="item" v-bind="data"></slot>
       </template>
     </PageHeader>
-    <div :class="[`${prefixCls}-content`, $attrs.contentClass]" :style="getContentStyle">
-      <slot />
+    <div
+      class="overflow-hidden"
+      :class="[`${prefixCls}-content`, contentClass]"
+      :style="getContentStyle"
+    >
+      <slot></slot>
     </div>
     <PageFooter v-if="getShowFooter" ref="footerRef">
       <template #left>
-        <slot name="leftFooter" />
+        <slot name="leftFooter"></slot>
       </template>
       <template #right>
-        <slot name="rightFooter" />
+        <slot name="rightFooter"></slot>
       </template>
     </PageFooter>
   </div>
@@ -35,10 +45,13 @@
   import { propTypes } from '/@/utils/propTypes';
   import { omit } from 'lodash-es';
   import { PageHeader } from 'ant-design-vue';
+  import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
   export default defineComponent({
     name: 'PageWrapper',
     components: { PageFooter, PageHeader },
+    inheritAttrs: false,
     props: {
+      title: propTypes.string,
       dense: propTypes.bool,
       ghost: propTypes.bool,
       content: propTypes.string,
@@ -47,12 +60,14 @@
       },
       contentBackground: propTypes.bool,
       contentFullHeight: propTypes.bool,
+      contentClass: propTypes.string,
+      fixedHeight: propTypes.bool,
     },
     setup(props, { slots }) {
       const headerRef = ref<ComponentRef>(null);
       const footerRef = ref<ComponentRef>(null);
       const footerHeight = ref(0);
-      const { prefixCls } = useDesign('page-wrapper');
+      const { prefixCls, prefixVar } = useDesign('page-wrapper');
       const { contentHeight, setPageHeight, pageHeight } = usePageContext();
 
       const getClass = computed(() => {
@@ -72,15 +87,17 @@
 
       const getContentStyle = computed(
         (): CSSProperties => {
-          const { contentBackground, contentFullHeight, contentStyle } = props;
+          const { contentBackground, contentFullHeight, contentStyle, fixedHeight } = props;
           const bg = contentBackground ? { backgroundColor: '#fff' } : {};
           if (!contentFullHeight) {
             return { ...bg, ...contentStyle };
           }
+          const height = `${unref(pageHeight)}px`;
           return {
             ...bg,
             ...contentStyle,
-            minHeight: `${unref(pageHeight)}px`,
+            minHeight: height,
+            ...(fixedHeight ? { height } : {}),
             paddingBottom: `${unref(footerHeight)}px`,
           };
         }
@@ -89,31 +106,59 @@
       watch(
         () => [contentHeight?.value, getShowFooter.value],
         () => {
-          if (!props.contentFullHeight) {
-            return;
-          }
-          nextTick(() => {
-            const footer = unref(footerRef);
-            const header = unref(headerRef);
-            footerHeight.value = 0;
-            const footerEl = footer?.$el;
-
-            if (footerEl) {
-              footerHeight.value += footerEl?.offsetHeight ?? 0;
-            }
-            let headerHeight = 0;
-            const headerEl = header?.$el;
-            if (headerEl) {
-              headerHeight += headerEl?.offsetHeight ?? 0;
-            }
-
-            setPageHeight?.(unref(contentHeight) - unref(footerHeight) - headerHeight);
-          });
+          calcContentHeight();
         },
         {
+          flush: 'post',
           immediate: true,
         }
       );
+
+      onMountedOrActivated(() => {
+        nextTick(() => {
+          calcContentHeight();
+        });
+      });
+
+      function calcContentHeight() {
+        if (!props.contentFullHeight) {
+          return;
+        }
+        //fix:in contentHeight mode: delay getting footer and header dom element to get the correct height
+        const footer = unref(footerRef);
+        const header = unref(headerRef);
+        footerHeight.value = 0;
+        const footerEl = footer?.$el;
+
+        if (footerEl) {
+          footerHeight.value += footerEl?.offsetHeight ?? 0;
+        }
+        let headerHeight = 0;
+        const headerEl = header?.$el;
+        if (headerEl) {
+          headerHeight += headerEl?.offsetHeight ?? 0;
+        }
+        // fix:subtract content's marginTop and marginBottom value
+        let subtractHeight = 0;
+        let marginBottom = '0px';
+        let marginTop = '0px';
+        const classElments = document.querySelectorAll(`.${prefixVar}-page-wrapper-content`);
+        if (classElments && classElments.length > 0) {
+          const contentEl = classElments[0];
+          const cssStyle = getComputedStyle(contentEl);
+          marginBottom = cssStyle?.marginBottom;
+          marginTop = cssStyle?.marginTop;
+        }
+        if (marginBottom) {
+          const contentMarginBottom = Number(marginBottom.replace(/[^\d]/g, ''));
+          subtractHeight += contentMarginBottom;
+        }
+        if (marginTop) {
+          const contentMarginTop = Number(marginTop.replace(/[^\d]/g, ''));
+          subtractHeight += contentMarginTop;
+        }
+        setPageHeight?.(unref(contentHeight) - unref(footerHeight) - headerHeight - subtractHeight);
+      }
 
       return {
         getContentStyle,
@@ -135,17 +180,14 @@
   .@{prefix-cls} {
     position: relative;
 
-    .ant-page-header {
-      // padding: 12px 16px;
+    .@{prefix-cls}-content {
+      margin: 16px 16px 0 16px;
+    }
 
+    .ant-page-header {
       &:empty {
         padding: 0;
       }
-    }
-
-    &-content {
-      // padding: 12px;
-      margin: 16px;
     }
 
     &--dense {

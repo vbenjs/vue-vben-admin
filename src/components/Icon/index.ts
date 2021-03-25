@@ -1,7 +1,7 @@
-import { withInstall } from '../util';
 import Icon from './src/index.vue';
+import SvgIcon from './src/SvgIcon.vue';
+import IconPicker from './src/IconPicker.vue';
 
-withInstall(Icon);
+export { Icon, IconPicker, SvgIcon };
 
-export { Icon };
 export default Icon;

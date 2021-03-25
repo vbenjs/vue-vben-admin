@@ -1,6 +1,5 @@
 @header-trigger-prefix-cls: ~'@{namespace}-layout-header-trigger';
 @header-prefix-cls: ~'@{namespace}-layout-header';
-@locale-prefix-cls: ~'@{namespace}-app-locale-picker';
 @breadcrumb-prefix-cls: ~'@{namespace}-layout-breadcrumb';
 @logo-prefix-cls: ~'@{namespace}-app-logo';
 
@@ -68,7 +67,7 @@
     .@{header-trigger-prefix-cls} {
       display: flex;
       height: 100%;
-      padding: 1px 10px 0 16px;
+      padding: 1px 10px 0 10px;
       cursor: pointer;
       align-items: center;
 
@@ -104,7 +103,7 @@
   &-action {
     display: flex;
     min-width: 180px;
-    padding-right: 12px;
+    // padding-right: 12px;
     align-items: center;
 
     &__item {
@@ -146,13 +145,15 @@
 
     .@{header-prefix-cls}-action {
       &__item {
-        &:hover {
-          background: @header-light-bg-hover-color;
+        color: @text-color-base;
+
+        .app-iconify {
+          padding: 0 10px;
+          font-size: 16px !important;
         }
 
-        .@{locale-prefix-cls} {
-          padding: 0 6px;
-          color: rgba(0, 0, 0, 0.65);
+        &:hover {
+          background: @header-light-bg-hover-color;
         }
       }
 
@@ -174,6 +175,11 @@
 
     .@{header-prefix-cls}-action {
       &__item {
+        .app-iconify {
+          padding: 0 10px;
+          font-size: 16px !important;
+        }
+
         &:hover {
           background: @header-dark-bg-hover-color;
         }

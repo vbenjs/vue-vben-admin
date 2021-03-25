@@ -2,14 +2,18 @@
   <div class="grow-card">
     <div class="grow-card-header">
       <div class="grow-card__info">
-        <p class="grow-card__title">{{ info.title }}</p>
+        <p class="grow-card__title">
+          {{ info.title }}
+        </p>
         <CountTo prefix="$" :startVal="1" :endVal="info.price" />
       </div>
       <img :src="info.icon" />
     </div>
     <div class="grow-card-footer" :class="{ 'is-up': info.up }">
       <Statistic :value="info.percent">
-        <template #prefix> <img :src="info.up ? riseSvg : downSvg" /> </template>
+        <template #prefix>
+          <img :src="info.up ? riseSvg : downSvg" />
+        </template>
       </Statistic>
       <span class="grow-card__mom">{{ info.mom }}</span>
     </div>

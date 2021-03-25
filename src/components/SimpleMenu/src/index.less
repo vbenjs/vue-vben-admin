@@ -18,20 +18,24 @@
   }
 
   .collapse-title {
+    overflow: hidden;
     font-size: 12px;
-    .text-truncate();
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
 .@{simple-prefix-cls} {
   &-sub-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     transition: all 0.3s;
-    .text-truncate();
   }
 
   &-tag {
     position: absolute;
-    top: calc(50% - 10px);
+    top: calc(50% - 8px);
     right: 30px;
     display: inline-block;
     padding: 2px 3px;
@@ -47,7 +51,7 @@
     }
 
     &--dot {
-      top: calc(50% - 4px);
+      top: calc(50% - 2px);
       width: 6px;
       height: 6px;
       padding: 0;

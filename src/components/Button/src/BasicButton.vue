@@ -1,8 +1,8 @@
 <template>
-  <Button v-bind="getBindValue" :class="[getColor, $attrs.class]">
+  <Button v-bind="getBindValue" :class="[getColor, $attrs.class]" @click="onClick">
     <template #default="data">
       <Icon :icon="preIcon" v-if="preIcon" :size="14" />
-      <slot v-bind="data" />
+      <slot v-bind="data"></slot>
       <Icon :icon="postIcon" v-if="postIcon" :size="14" />
     </template>
   </Button>
@@ -12,12 +12,13 @@
 
   import { Button } from 'ant-design-vue';
   import Icon from '/@/components/Icon';
+
   import { propTypes } from '/@/utils/propTypes';
 
   export default defineComponent({
     name: 'AButton',
-    inheritAttrs: false,
     components: { Button, Icon },
+    inheritAttrs: false,
     props: {
       type: propTypes.oneOf(['primary', 'default', 'danger', 'dashed', 'link']).def('default'),
       color: propTypes.oneOf(['error', 'warning', 'success', '']),
@@ -25,6 +26,7 @@
       disabled: propTypes.bool,
       preIcon: propTypes.string,
       postIcon: propTypes.string,
+      onClick: propTypes.func,
     },
     setup(props, { attrs }) {
       const getColor = computed(() => {

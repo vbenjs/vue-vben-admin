@@ -36,6 +36,7 @@ export default {
   splitMenu: '分割菜单',
   closeMixSidebarOnChange: '切换页面关闭菜单',
 
+  sysTheme: '系统主题',
   headerTheme: '顶栏主题',
   sidebarTheme: '菜单主题',
 

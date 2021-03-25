@@ -25,11 +25,11 @@ function itemRender({ page, type, originalElement }: ItemRender) {
 }
 
 export function usePagination(refProps: ComputedRef<BasicTableProps>) {
-  const configRef = ref<PaginationProps>({});
+  const { t } = useI18n();
 
+  const configRef = ref<PaginationProps>({});
   const show = ref(true);
 
-  const { t } = useI18n();
   const getPaginationInfo = computed((): PaginationProps | boolean => {
     const { pagination } = unref(refProps);
 

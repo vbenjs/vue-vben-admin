@@ -14,10 +14,11 @@ const demoList = (() => {
 
 export default [
   {
-    url: '/api/select/getDemoOptions',
-    timeout: 4000,
+    url: '/basic-api/select/getDemoOptions',
+    timeout: 2000,
     method: 'get',
     response: ({ query }) => {
+      console.log(query);
       return resultSuccess(demoList);
     },
   },

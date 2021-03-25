@@ -1,6 +1,6 @@
 <template>
   <BasicDrawer v-bind="$attrs" title="Modal Title" width="50%" showFooter @ok="handleOk">
-    <p class="h-20" v-for="index in 40" :key="index">根据屏幕高度自适应</p>
+    <p class="h-20" v-for="index in 40" :key="index"> 根据屏幕高度自适应 </p>
     <template #insertFooter>
       <a-button> btn</a-button>
     </template>

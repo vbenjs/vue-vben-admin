@@ -1,34 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { networkInterfaces } from 'os';
 import dotenv from 'dotenv';
-import chalk from 'chalk';
-// import execa from 'execa';
-
-export const isFunction = (arg: unknown): arg is (...args: any[]) => any =>
-  typeof arg === 'function';
-
-export const isRegExp = (arg: unknown): arg is RegExp =>
-  Object.prototype.toString.call(arg) === '[object RegExp]';
-
-/**
- * get client ip address
- */
-export function getIPAddress() {
-  let interfaces = networkInterfaces();
-  for (let devName in interfaces) {
-    let iFace = interfaces[devName];
-    if (!iFace) return;
-    for (let i = 0; i < iFace.length; i++) {
-      let alias = iFace[i];
-      if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
-        return alias.address;
-      }
-    }
-  }
-
-  return '';
-}
 
 export function isDevFn(mode: string): boolean {
   return mode === 'development';
@@ -45,35 +17,14 @@ export function isReportMode(): boolean {
   return process.env.REPORT === 'true';
 }
 
-/**
- * Whether to generate gzip for packaging
- */
-export function isBuildGzip(): boolean {
-  return process.env.VITE_BUILD_GZIP === 'true';
-}
-
-export interface ViteEnv {
-  VITE_PORT: number;
-  VITE_USE_MOCK: boolean;
-  VITE_USE_PWA: boolean;
-  VITE_PUBLIC_PATH: string;
-  VITE_PROXY: [string, string][];
-  VITE_GLOB_APP_TITLE: string;
-  VITE_GLOB_APP_SHORT_NAME: string;
-  VITE_USE_CDN: boolean;
-  VITE_DROP_CONSOLE: boolean;
-  VITE_BUILD_GZIP: boolean;
-  VITE_DYNAMIC_IMPORT: boolean;
-  VITE_LEGACY: boolean;
-}
-
 // Read all environment variable configuration files to process.env
-export function wrapperEnv(envConf: any): ViteEnv {
+export function wrapperEnv(envConf: Recordable): ViteEnv {
   const ret: any = {};
 
   for (const envName of Object.keys(envConf)) {
     let realName = envConf[envName].replace(/\\n/g, '\n');
     realName = realName === 'true' ? true : realName === 'false' ? false : realName;
+
     if (envName === 'VITE_PORT') {
       realName = Number(realName);
     }
@@ -98,10 +49,10 @@ export function getEnvConfig(match = 'VITE_GLOB_', confFiles = ['.env', '.env.pr
   confFiles.forEach((item) => {
     try {
       const env = dotenv.parse(fs.readFileSync(path.resolve(process.cwd(), item)));
-
       envConfig = { ...envConfig, ...env };
     } catch (error) {}
   });
+
   Object.keys(envConfig).forEach((key) => {
     const reg = new RegExp(`^(${match})`);
     if (!reg.test(key)) {
@@ -111,42 +62,10 @@ export function getEnvConfig(match = 'VITE_GLOB_', confFiles = ['.env', '.env.pr
   return envConfig;
 }
 
-function consoleFn(color: string, message: any) {
-  console.log(
-    chalk.blue.bold('****************  ') +
-      (chalk as any)[color].bold(message) +
-      chalk.blue.bold('  ****************')
-  );
-}
-
-/**
- * warnConsole
- * @param message
- */
-export function successConsole(message: any) {
-  consoleFn('green', '✨ ' + message);
-}
-
-/**
- * warnConsole
- * @param message
- */
-export function errorConsole(message: any) {
-  consoleFn('red', '✨ ' + message);
-}
-
-/**
- * warnConsole
- * @param message message
- */
-export function warnConsole(message: any) {
-  consoleFn('yellow', '✨ ' + message);
-}
-
 /**
  * Get user root directory
  * @param dir file path
  */
-export function getCwdPath(...dir: string[]) {
+export function getRootPath(...dir: string[]) {
   return path.resolve(process.cwd(), ...dir);
 }

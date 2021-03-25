@@ -4,7 +4,6 @@
       <span>{{ t('component.table.settingColumn') }}</span>
     </template>
     <Popover
-      :getPopupContainer="getPopupContainer"
       placement="bottomLeft"
       trigger="click"
       @visibleChange="handleVisibleChange"
@@ -44,10 +43,14 @@
             <template v-for="item in plainOptions" :key="item.value">
               <div :class="`${prefixCls}__check-item`">
                 <DragOutlined class="table-coulmn-drag-icon" />
-                <Checkbox :value="item.value"> {{ item.label }} </Checkbox>
+                <Checkbox :value="item.value">
+                  {{ item.label }}
+                </Checkbox>
 
                 <Tooltip placement="bottomLeft" :mouseLeaveDelay="0.4">
-                  <template #title> {{ t('component.table.settingFixedLeft') }}</template>
+                  <template #title>
+                    {{ t('component.table.settingFixedLeft') }}
+                  </template>
                   <Icon
                     icon="line-md:arrow-align-left"
                     :class="[
@@ -62,7 +65,9 @@
                 </Tooltip>
                 <Divider type="vertical" />
                 <Tooltip placement="bottomLeft" :mouseLeaveDelay="0.4">
-                  <template #title> {{ t('component.table.settingFixedRight') }}</template>
+                  <template #title>
+                    {{ t('component.table.settingFixedRight') }}
+                  </template>
                   <Icon
                     icon="line-md:arrow-align-left"
                     :class="[
@@ -107,6 +112,7 @@
 
   import { isNullAndUnDef } from '/@/utils/is';
   import { getPopupContainer } from '/@/utils';
+  import { omit } from 'lodash-es';
 
   import type { BasicColumn } from '../../types/table';
 
@@ -141,7 +147,7 @@
       const { t } = useI18n();
       const table = useTableContext();
 
-      const defaultRowSelection = table.getRowSelection();
+      const defaultRowSelection = omit(table.getRowSelection(), 'selectedRowKeys');
       let inited = false;
 
       const cachePlainOptions = ref<Options[]>([]);

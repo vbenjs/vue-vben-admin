@@ -1,6 +1,6 @@
 // Interface data format used to return a unified format
 
-export function resultSuccess<T = any>(result: T, { message = 'ok' } = {}) {
+export function resultSuccess<T = Recordable>(result: T, { message = 'ok' } = {}) {
   return {
     code: 0,
     result,
@@ -18,13 +18,11 @@ export function resultPageSuccess<T = any>(
   const pageData = pagination(page, pageSize, list);
 
   return {
-    code: 0,
-    result: {
+    ...resultSuccess({
       items: pageData,
       total: list.length,
-    },
+    }),
     message,
-    type: 'success',
   };
 }
 
@@ -38,7 +36,7 @@ export function resultError(message = 'Request failed', { code = -1, result = nu
 }
 
 export function pagination<T = any>(pageNo: number, pageSize: number, array: T[]): T[] {
-  let offset = (pageNo - 1) * Number(pageSize);
+  const offset = (pageNo - 1) * Number(pageSize);
   const ret =
     offset + Number(pageSize) >= array.length
       ? array.slice(offset, array.length)

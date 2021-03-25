@@ -53,7 +53,6 @@ export function getColumns(): BasicColumn[] {
     {
       dataIndex: 'stack',
       title: t('sys.errorLog.tableColumnStackMsg'),
-      width: 300,
     },
   ];
 }

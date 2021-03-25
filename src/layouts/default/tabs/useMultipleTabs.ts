@@ -1,11 +1,11 @@
 import { toRaw, ref, nextTick } from 'vue';
 import { RouteLocationNormalized } from 'vue-router';
-import { useProjectSetting } from '/@/hooks/setting';
 import { useDesign } from '/@/hooks/web/useDesign';
 import { useSortable } from '/@/hooks/web/useSortable';
 import router from '/@/router';
 import { tabStore } from '/@/store/modules/tab';
 import { isNullAndUnDef } from '/@/utils/is';
+import projectSetting from '/@/settings/projectSetting';
 
 export function initAffixTabs(): string[] {
   const affixList = ref<RouteLocationNormalized[]>([]);
@@ -43,11 +43,11 @@ export function initAffixTabs(): string[] {
     addAffixTabs();
     isAddAffix = true;
   }
-  return affixList.value.map((item) => item.meta?.title).filter(Boolean);
+  return affixList.value.map((item) => item.meta?.title).filter(Boolean) as string[];
 }
 
 export function useTabsDrag(affixTextList: string[]) {
-  const { multiTabsSetting } = useProjectSetting();
+  const { multiTabsSetting } = projectSetting;
 
   const { prefixCls } = useDesign('multiple-tabs');
   nextTick(() => {

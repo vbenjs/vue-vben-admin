@@ -52,9 +52,7 @@ const menu: MenuModule = {
       {
         path: 'table',
         name: t('routes.demo.table.table'),
-        tag: {
-          dot: true,
-        },
+
         children: [
           {
             path: 'basic',
@@ -111,22 +109,23 @@ const menu: MenuModule = {
           {
             path: 'editCellTable',
             name: t('routes.demo.table.editCellTable'),
-            tag: {
-              dot: true,
-            },
           },
           {
             path: 'editRowTable',
             name: t('routes.demo.table.editRowTable'),
-            tag: {
-              dot: true,
-            },
           },
         ],
       },
       {
         path: 'countTo',
         name: t('routes.demo.comp.countTo'),
+      },
+      {
+        path: 'timestamp',
+        name: t('routes.demo.comp.time'),
+        tag: {
+          content: 'new',
+        },
       },
       {
         path: 'transition',
@@ -164,6 +163,10 @@ const menu: MenuModule = {
       {
         path: 'tree',
         name: t('routes.demo.comp.tree'),
+        tag: {
+          dot: true,
+          type: 'warn',
+        },
         children: [
           {
             path: 'basic',
@@ -172,6 +175,10 @@ const menu: MenuModule = {
           {
             path: 'editTree',
             name: t('routes.demo.comp.editTree'),
+            tag: {
+              dot: true,
+              type: 'warn',
+            },
           },
           {
             path: 'actionTree',
@@ -182,9 +189,6 @@ const menu: MenuModule = {
       {
         name: t('routes.demo.editor.editor'),
         path: 'editor',
-        tag: {
-          content: 'new',
-        },
         children: [
           {
             path: 'markdown',

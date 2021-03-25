@@ -24,9 +24,6 @@
       });
       function handleReloadCurrent() {
         reload();
-        // reload({
-        //   searchInfo: 'xxx',
-        // });
       }
 
       function handleReload() {

@@ -4,7 +4,7 @@ import { MockMethod } from 'vite-plugin-mock';
 // single
 const dashboardRoute = {
   path: '/home',
-  name: 'Home',
+  name: 'Welcome',
   component: '/dashboard/welcome/index',
   meta: {
     title: 'routes.dashboard.welcome',
@@ -161,7 +161,7 @@ const levelRoute = {
 };
 export default [
   {
-    url: '/api/getMenuListById',
+    url: '/basic-api/getMenuListById',
     timeout: 1000,
     method: 'get',
     response: ({ query }) => {

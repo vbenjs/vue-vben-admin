@@ -43,8 +43,8 @@
           :class="`${prefixCls}-submenu-title-icon`"
         />
       </div>
-      <template #content v-show="opened">
-        <div v-bind="getEvents(true)">
+      <template #content>
+        <div v-bind="getEvents(true)" v-show="opened">
           <ul :class="[prefixCls, `${prefixCls}-${getTheme}`, `${prefixCls}-popup`]">
             <slot></slot>
           </ul>
@@ -287,7 +287,9 @@
         );
 
         rootMenuEmitter.on('on-update-active-name:submenu', (data: number[]) => {
-          state.active = data.includes(instance?.uid!);
+          if (instance?.uid) {
+            state.active = data.includes(instance?.uid);
+          }
         });
       });
 

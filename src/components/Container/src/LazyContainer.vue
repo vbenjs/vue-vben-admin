@@ -8,10 +8,10 @@
     mode="out-in"
   >
     <div key="component" v-if="isInit">
-      <slot :loading="loading" />
+      <slot :loading="loading"></slot>
     </div>
-    <div key="skeleton" v-else name="lazy-skeleton">
-      <slot name="skeleton" v-if="$slots.skeleton" />
+    <div key="skeleton" v-else>
+      <slot name="skeleton" v-if="$slots.skeleton"></slot>
       <Skeleton v-else />
     </div>
   </transition-group>
@@ -35,8 +35,8 @@
 
   export default defineComponent({
     name: 'LazyContainer',
-    inheritAttrs: false,
     components: { Skeleton },
+    inheritAttrs: false,
     props: {
       // Waiting time, if the time is specified, whether visible or not, it will be automatically loaded after the specified time
       timeout: propTypes.number,
@@ -102,7 +102,7 @@
         const { timeout, direction, threshold } = props;
         if (timeout) return;
         // According to the scrolling direction to construct the viewport margin, used to load in advance
-        let rootMargin: string = '0px';
+        let rootMargin = '0px';
         switch (direction) {
           case 'vertical':
             rootMargin = `${threshold} 0px`;

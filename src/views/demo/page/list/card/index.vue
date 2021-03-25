@@ -5,7 +5,7 @@
       <div :class="`${prefixCls}__link`">
         <a><Icon icon="bx:bx-paper-plane" color="#1890ff" /><span>开始</span></a>
         <a><Icon icon="carbon:warning" color="#1890ff" /><span>简介</span></a>
-        <a><Icon icon="gg:loadbar-doc" color="#1890ff" /><span>文档</span></a>
+        <a><Icon icon="ion:document-text-outline" color="#1890ff" /><span>文档</span></a>
       </div>
     </template>
 

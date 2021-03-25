@@ -13,15 +13,12 @@ export function createNow(join: boolean, restful = false): string | object {
   if (restful) {
     return `?_t=${now}`;
   }
-
-  return {
-    _t: now,
-  };
+  return { _t: now };
 }
 
 const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm';
 /**
- * @description: 格式化请求参数时间
+ * @description: Format request parameter time
  */
 export function formatRequestDate(params: any) {
   for (const key in params) {

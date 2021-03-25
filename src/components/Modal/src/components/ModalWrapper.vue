@@ -1,7 +1,7 @@
 <template>
   <ScrollContainer ref="wrapperRef">
     <div ref="spinRef" :style="spinStyle" v-loading="loading" :loading-tip="loadingTip">
-      <slot />
+      <slot></slot>
     </div>
   </ScrollContainer>
 </template>
@@ -20,7 +20,6 @@
     nextTick,
     onUnmounted,
   } from 'vue';
-  import { Spin } from 'ant-design-vue';
 
   import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
   import { ScrollContainer } from '/@/components/Container';
@@ -31,8 +30,8 @@
 
   export default defineComponent({
     name: 'ModalWrapper',
+    components: { ScrollContainer },
     inheritAttrs: false,
-    components: { Spin, ScrollContainer },
     props: {
       loading: propTypes.bool,
       useWrapper: propTypes.bool.def(true),
@@ -56,7 +55,7 @@
 
       let stopElResizeFn: Fn = () => {};
 
-      useWindowSizeFn(setModalHeight);
+      useWindowSizeFn(setModalHeight.bind(null, false));
 
       createModalContext({
         redoModalHeight: setModalHeight,
@@ -98,12 +97,21 @@
         stopElResizeFn && stopElResizeFn();
       });
 
+      async function scrollTop() {
+        nextTick(() => {
+          const wrapperRefDom = unref(wrapperRef);
+          if (!wrapperRefDom) return;
+          (wrapperRefDom as any)?.scrollTo?.(0);
+        });
+      }
+
       async function setModalHeight() {
         // 解决在弹窗关闭的时候监听还存在,导致再次打开弹窗没有高度
         // 加上这个,就必须在使用的时候传递父级的visible
         if (!props.visible) return;
         const wrapperRefDom = unref(wrapperRef);
         if (!wrapperRefDom) return;
+
         const bodyDom = wrapperRefDom.$el.parentElement;
         if (!bodyDom) return;
         bodyDom.style.padding = '0';
@@ -151,7 +159,7 @@
         }
       }
 
-      return { wrapperRef, spinRef, spinStyle };
+      return { wrapperRef, spinRef, spinStyle, scrollTop, setModalHeight };
     },
   });
 </script>

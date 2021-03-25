@@ -13,12 +13,14 @@
       </a-tabs>
     </template>
 
-    <div class="m-4 pt-4 desc-wrap">
+    <div class="pt-4 m-4 desc-wrap">
       <a-descriptions size="small" :column="2">
         <a-descriptions-item label="创建人"> 曲丽丽 </a-descriptions-item>
         <a-descriptions-item label="订购产品"> XX 服务 </a-descriptions-item>
         <a-descriptions-item label="创建时间"> 2017-01-10 </a-descriptions-item>
-        <a-descriptions-item label="关联单据"> <a>12421</a> </a-descriptions-item>
+        <a-descriptions-item label="关联单据">
+          <a>12421</a>
+        </a-descriptions-item>
         <a-descriptions-item label="生效日期"> 2017-07-07 ~ 2017-08-08 </a-descriptions-item>
         <a-descriptions-item label="备注"> 请于两个工作日内确认 </a-descriptions-item>
       </a-descriptions>
@@ -28,7 +30,9 @@
             <template #description> <div>Vben</div> <p>2016-12-12 12:32</p> </template>
           </a-step>
           <a-step title="部门初审">
-            <template #description> <p>Chad</p> </template>
+            <template #description>
+              <p>Chad</p>
+            </template>
           </a-step>
           <a-step title="财务复核" />
           <a-step title="完成" />
@@ -87,7 +91,6 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { Description } from '/@/components/Description/index';
   import { BasicTable, useTable } from '/@/components/Table';
   import { PageWrapper } from '/@/components/Page';
   import { Divider, Card, Empty, Descriptions, Steps, Tabs } from 'ant-design-vue';
@@ -95,7 +98,6 @@
   import { refundTimeTableSchema, refundTimeTableData } from './data';
   export default defineComponent({
     components: {
-      Description,
       BasicTable,
       PageWrapper,
       [Divider.name]: Divider,

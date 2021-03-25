@@ -1,7 +1,7 @@
 <template>
   <PageWrapper title="excel数据导入示例">
     <ImpExcel @success="loadDataSuccess">
-      <a-button class="m-3">导入Excel</a-button>
+      <a-button class="m-3"> 导入Excel </a-button>
     </ImpExcel>
     <BasicTable
       v-for="(table, index) in tableListRef"
@@ -9,7 +9,7 @@
       :title="table.title"
       :columns="table.columns"
       :dataSource="table.dataSource"
-    ></BasicTable>
+    />
   </PageWrapper>
 </template>
 <script lang="ts">

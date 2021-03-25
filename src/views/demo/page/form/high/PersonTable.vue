@@ -1,11 +1,11 @@
 <template>
   <div>
-    <BasicTable @register="registerTable">
+    <BasicTable @register="registerTable" @edit-change="handleEditChange">
       <template #action="{ record, column }">
         <TableAction :actions="createActions(record, column)" />
       </template>
     </BasicTable>
-    <a-button block class="mt-5" type="dashed" @click="handleAdd">新增成员</a-button>
+    <a-button block class="mt-5" type="dashed" @click="handleAdd"> 新增成员 </a-button>
   </div>
 </template>
 <script lang="ts">
@@ -16,7 +16,6 @@
     TableAction,
     BasicColumn,
     ActionItem,
-    EditTableHeaderIcon,
     EditRecordRow,
   } from '/@/components/Table';
 
@@ -30,14 +29,11 @@
       title: '工号',
       dataIndex: 'no',
       editRow: true,
-      // customRender: renderEditableRow({ dataIndex: 'no', placeholder: '请输入工号' }),
     },
     {
       title: '所属部门',
       dataIndex: 'dept',
       editRow: true,
-
-      // customRender: renderEditableRow({ dataIndex: 'dept', placeholder: '请输入所属部门' }),
     },
   ];
 
@@ -59,7 +55,7 @@
     },
   ];
   export default defineComponent({
-    components: { BasicTable, EditTableHeaderIcon, TableAction },
+    components: { BasicTable, TableAction },
     setup() {
       const [registerTable, { getDataSource }] = useTable({
         columns: columns,
@@ -91,6 +87,10 @@
         record.onEdit?.(false, true);
       }
 
+      function handleEditChange(data: Recordable) {
+        console.log(data);
+      }
+
       function handleAdd() {
         const data = getDataSource();
         const addRow: EditRecordRow = {
@@ -99,6 +99,7 @@
           dept: '',
           editable: true,
           isNew: true,
+          key: `${Date.now()}`,
         };
         data.push(addRow);
       }
@@ -136,6 +137,7 @@
         createActions,
         handleAdd,
         getDataSource,
+        handleEditChange,
       };
     },
   });

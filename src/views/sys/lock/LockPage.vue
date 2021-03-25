@@ -1,33 +1,51 @@
 <template>
-  <div :class="prefixCls">
-    <div :class="`${prefixCls}__unlock`" @click="handleShowForm(false)" v-show="showDate">
+  <div
+    :class="prefixCls"
+    class="fixed inset-0 flex h-screen w-screen bg-black items-center justify-center"
+  >
+    <div
+      :class="`${prefixCls}__unlock`"
+      class="absolute top-0 left-1/2 flex pt-5 h-16 items-center justify-center sm:text-md xl:text-xl text-white flex-col cursor-pointer transform translate-x-1/2"
+      @click="handleShowForm(false)"
+      v-show="showDate"
+    >
       <LockOutlined />
       <span>{{ t('sys.lock.unlock') }}</span>
     </div>
 
-    <div :class="`${prefixCls}__date`">
-      <div :class="`${prefixCls}__hour`">
-        {{ hour }}
-        <span class="meridiem" v-show="showDate">{{ meridiem }}</span>
+    <div class="flex w-screen h-screen justify-center items-center">
+      <div :class="`${prefixCls}__hour`" class="relative mr-5 md:mr-20 w-2/5 h-2/5 md:h-4/5">
+        <span>{{ hour }}</span>
+        <span class="meridiem absolute left-5 top-5 text-md xl:text-xl" v-show="showDate">
+          {{ meridiem }}
+        </span>
       </div>
-      <div :class="`${prefixCls}__minute`">{{ minute }} </div>
+      <div :class="`${prefixCls}__minute w-2/5 h-2/5 md:h-4/5 `">
+        <span> {{ minute }}</span>
+      </div>
     </div>
     <transition name="fade-slide">
       <div :class="`${prefixCls}-entry`" v-show="!showDate">
         <div :class="`${prefixCls}-entry-content`">
-          <div :class="`${prefixCls}-entry__header`">
+          <div :class="`${prefixCls}-entry__header enter-x`">
             <img :src="headerImg" :class="`${prefixCls}-entry__header-img`" />
-            <p :class="`${prefixCls}-entry__header-name`">{{ realName }}</p>
+            <p :class="`${prefixCls}-entry__header-name`">
+              {{ realName }}
+            </p>
           </div>
-          <InputPassword :placeholder="t('sys.lock.placeholder')" v-model:value="password" />
-          <span :class="`${prefixCls}-entry__err-msg`" v-if="errMsgRef">
+          <InputPassword
+            :placeholder="t('sys.lock.placeholder')"
+            class="enter-x"
+            v-model:value="password"
+          />
+          <span :class="`${prefixCls}-entry__err-msg enter-x`" v-if="errMsgRef">
             {{ t('sys.lock.alert') }}
           </span>
-          <div :class="`${prefixCls}-entry__footer`">
+          <div :class="`${prefixCls}-entry__footer enter-x`">
             <a-button
               type="link"
               size="small"
-              class="mt-2 mr-2"
+              class="mt-2 mr-2 enter-x"
               :disabled="loadingRef"
               @click="handleShowForm(true)"
             >
@@ -36,7 +54,7 @@
             <a-button
               type="link"
               size="small"
-              class="mt-2 mr-2"
+              class="mt-2 mr-2 enter-x"
               :disabled="loadingRef"
               @click="goLogin"
             >
@@ -50,17 +68,17 @@
       </div>
     </transition>
 
-    <div :class="`${prefixCls}__footer-date`">
-      <div class="time" v-show="!showDate">
-        {{ hour }}:{{ minute }} <span class="meridiem">{{ meridiem }}</span>
+    <div class="absolute bottom-5 w-full text-gray-300 xl:text-xl 2xl:text-3xl text-center enter-y">
+      <div class="text-5xl mb-4 enter-x" v-show="!showDate">
+        {{ hour }}:{{ minute }} <span class="text-3xl">{{ meridiem }}</span>
       </div>
-      <div class="date"> {{ year }}/{{ month }}/{{ day }} {{ week }} </div>
+      <div class="text-2xl"> {{ year }}/{{ month }}/{{ day }} {{ week }} </div>
     </div>
   </div>
 </template>
 <script lang="ts">
   import { defineComponent, ref, computed } from 'vue';
-  import { Alert, Input } from 'ant-design-vue';
+  import { Input } from 'ant-design-vue';
 
   import { userStore } from '/@/store/modules/user';
   import { lockStore } from '/@/store/modules/lock';
@@ -74,7 +92,7 @@
 
   export default defineComponent({
     name: 'LockPage',
-    components: { Alert, LockOutlined, InputPassword: Input.Password },
+    components: { LockOutlined, InputPassword: Input.Password },
 
     setup() {
       const passwordRef = ref('');
@@ -84,7 +102,7 @@
 
       const { prefixCls } = useDesign('lock-page');
 
-      const { start, stop, ...state } = useNow(true);
+      const { ...state } = useNow(true);
 
       const { t } = useI18n();
 
@@ -111,7 +129,7 @@
       }
 
       function goLogin() {
-        userStore.loginOut(true);
+        userStore.logout(true);
         lockStore.resetLockInfo();
       }
 
@@ -140,128 +158,54 @@
   @prefix-cls: ~'@{namespace}-lock-page';
 
   .@{prefix-cls} {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
     z-index: @lock-page-z-index;
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    // background: rgba(23, 27, 41);
-    background: #000;
-    align-items: center;
-    justify-content: center;
 
     &__unlock {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      display: flex;
-      height: 50px;
-      padding-top: 20px;
-      font-size: 18px;
-      color: #fff;
-      cursor: pointer;
       transform: translate(-50%, 0);
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      transition: all 0.3s;
-    }
-
-    &__date {
-      display: flex;
-      width: 100vw;
-      height: 100vh;
-      align-items: center;
-      justify-content: center;
-    }
-
-    &__hour {
-      position: relative;
-      margin-right: 80px;
-
-      .meridiem {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        font-size: 26px;
-      }
-      @media (max-width: @screen-xs) {
-        margin-right: 20px;
-      }
     }
 
     &__hour,
     &__minute {
       display: flex;
-      width: 40%;
-      height: 74%;
-      // font-size: 50em;
       font-weight: 700;
       color: #bababa;
       background: #141313;
       border-radius: 30px;
       justify-content: center;
       align-items: center;
-      // .respond-to(large-only, { font-size: 25em;});
-      // .respond-to(large-only, { font-size: 30em;});
-      @media (min-width: @screen-xxxl-min) {
-        font-size: 46em;
-      }
-      @media (min-width: @screen-xl-max) and (max-width: @screen-xxl-max) {
-        font-size: 38em;
-      }
 
-      @media (min-width: @screen-lg-max) and (max-width: @screen-xl-max) {
-        font-size: 30em;
-      }
-      @media (min-width: @screen-md-max) and (max-width: @screen-lg-max) {
-        font-size: 23em;
-      }
-      @media (min-width: @screen-sm-max) and (max-width: @screen-md-max) {
-        height: 50%;
-        font-size: 12em;
-        border-radius: 10px;
-
-        .meridiem {
-          font-size: 20px;
-        }
-      }
-      @media (min-width: @screen-xs-max) and (max-width: @screen-sm-max) {
-        font-size: 13em;
-      }
-      @media (max-width: @screen-xs) {
-        height: 30%;
-        font-size: 5em;
-        border-radius: 10px;
-
-        .meridiem {
-          font-size: 14px;
-        }
-      }
-    }
-
-    &__footer-date {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
-      font-family: helvetica;
-      color: #bababa;
-      text-align: center;
-
-      .time {
-        font-size: 50px;
-
-        .meridiem {
-          font-size: 32px;
+      @media screen and (max-width: @screen-md) {
+        span:not(.meridiem) {
+          font-size: 160px;
         }
       }
 
-      .date {
-        font-size: 26px;
+      @media screen and (min-width: @screen-md) {
+        span:not(.meridiem) {
+          font-size: 160px;
+        }
+      }
+
+      @media screen and (max-width: @screen-sm) {
+        span:not(.meridiem) {
+          font-size: 90px;
+        }
+      }
+      @media screen and (min-width: @screen-lg) {
+        span:not(.meridiem) {
+          font-size: 220px;
+        }
+      }
+
+      @media screen and (min-width: @screen-xl) {
+        span:not(.meridiem) {
+          font-size: 260px;
+        }
+      }
+      @media screen and (min-width: @screen-2xl) {
+        span:not(.meridiem) {
+          font-size: 320px;
+        }
       }
     }
 
@@ -286,6 +230,7 @@
 
         &-img {
           width: 70px;
+          margin: 0 auto;
           border-radius: 50%;
         }
 

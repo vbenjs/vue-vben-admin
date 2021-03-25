@@ -1,6 +1,6 @@
 <template>
   <Scrollbar ref="scrollbarRef" class="scroll-container" v-bind="$attrs">
-    <slot />
+    <slot></slot>
   </Scrollbar>
 </template>
 

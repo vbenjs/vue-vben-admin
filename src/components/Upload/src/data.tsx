@@ -40,7 +40,7 @@ export function createTableColumns(): BasicColumn[] {
         }
         return (
           <span>
-            <p class="ellipsis mb-1" title={text}>
+            <p class="truncate mb-1" title={text}>
               {text}
             </p>
             <Progress percent={percent} size="small" status={status} />
@@ -156,7 +156,7 @@ export function createPreviewActionColumn({
       //     onClick: handlePreview.bind(null, record),
       //   });
       // }
-      return <TableAction actions={actions} />;
+      return <TableAction actions={actions} outside={true} />;
     },
   };
 }

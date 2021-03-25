@@ -308,17 +308,6 @@ export function getTreeTableData() {
             address: 'New York No. 1 Lake ParkNew York No. 1 Lake Park',
             beginTime: new Date().toLocaleString(),
             endTime: new Date().toLocaleString(),
-            children: [
-              {
-                id: `l3-${index}`,
-                name: 'John Brown',
-                age: `1${index}`,
-                no: `${index + 10}`,
-                address: 'New York No. 1 Lake ParkNew York No. 1 Lake Park',
-                beginTime: new Date().toLocaleString(),
-                endTime: new Date().toLocaleString(),
-              },
-            ],
           },
         ],
       });

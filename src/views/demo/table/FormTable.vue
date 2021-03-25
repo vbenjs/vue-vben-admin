@@ -1,6 +1,6 @@
 <template>
   <BasicTable @register="registerTable">
-    <template #form-custom> custom-slot</template>
+    <template #form-custom> custom-slot </template>
   </BasicTable>
 </template>
 <script lang="ts">

@@ -5,9 +5,7 @@
 </template>
 <script lang="ts">
   import { defineComponent, unref, computed } from 'vue';
-  import { RedoOutlined } from '@ant-design/icons-vue';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { Tooltip } from 'ant-design-vue';
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 
@@ -15,7 +13,7 @@
 
   export default defineComponent({
     name: 'FoldButton',
-    components: { RedoOutlined, Tooltip, Icon },
+    components: { Icon },
 
     setup() {
       const { prefixCls } = useDesign('multiple-tabs-content');

@@ -1,5 +1,5 @@
 <template>
-  <div ref="chartRef" :style="{ height, width }" />
+  <div ref="chartRef" :style="{ height, width }"></div>
 </template>
 <script lang="ts">
   import { defineComponent, onMounted, ref, Ref } from 'vue';
@@ -35,9 +35,8 @@
                 color: 'black',
               },
               textAlign: 'center',
-              // @ts-ignore
-              x: '34.5%',
-              y: '40%',
+              left: '34.5%',
+              top: '40%',
             },
           ],
           tooltip: {

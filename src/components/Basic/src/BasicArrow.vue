@@ -4,20 +4,22 @@
 -->
 <template>
   <span :class="getClass">
-    <RightOutlined />
+    <Icon icon="ion:chevron-forward" :style="$attrs.iconStyle" />
   </span>
 </template>
 <script lang="ts">
   import { defineComponent, computed } from 'vue';
-  import { RightOutlined } from '@ant-design/icons-vue';
-  import { propTypes } from '/@/utils/propTypes';
+
   import { useDesign } from '/@/hooks/web/useDesign';
+
+  import { propTypes } from '/@/utils/propTypes';
+
+  import { Icon } from '/@/components/Icon';
 
   export default defineComponent({
     name: 'BasicArrow',
-    components: { RightOutlined },
+    components: { Icon },
     props: {
-      // Expand contract, expand by default
       expand: propTypes.bool,
       top: propTypes.bool,
       bottom: propTypes.bool,

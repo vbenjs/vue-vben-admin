@@ -36,11 +36,11 @@
   import { useOpenKeys } from './useOpenKeys';
   export default defineComponent({
     name: 'SimpleMenu',
-    inheritAttrs: false,
     components: {
       Menu,
       SimpleSubMenu,
     },
+    inheritAttrs: false,
     props: {
       items: {
         type: Array as PropType<MenuType[]>,
@@ -55,6 +55,7 @@
         type: Function as PropType<(key: string) => Promise<boolean>>,
       },
     },
+    emits: ['menuClick'],
     setup(props, { attrs, emit }) {
       const currentActiveMenu = ref('');
       const isClickGo = ref(false);
@@ -93,7 +94,7 @@
       listenerLastChangeTab((route) => {
         if (route.name === REDIRECT_NAME) return;
 
-        currentActiveMenu.value = route.meta?.currentActiveMenu;
+        currentActiveMenu.value = route.meta?.currentActiveMenu as string;
         handleMenuChange(route);
 
         if (unref(currentActiveMenu)) {

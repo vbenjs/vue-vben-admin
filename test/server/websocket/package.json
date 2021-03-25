@@ -1,0 +1,15 @@
+{
+  "name": "websocket-server",
+  "version": "1.0.0",
+  "main": "app.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "fs-extra": "^9.1.0",
+    "koa": "^2.13.1",
+    "koa-route": "^3.2.0",
+    "koa-websocket": "^6.0.0"
+  }
+}

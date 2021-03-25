@@ -19,7 +19,8 @@ import {
 import { isProdMode } from '/@/utils/env';
 import { isFunction } from '/@/utils/is';
 import { isEqual } from 'lodash-es';
-import { tryOnUnmounted, isInSetup } from '/@/utils/helper/vueHelper';
+import { tryOnUnmounted } from '@vueuse/core';
+
 import { error } from '/@/utils/log';
 import { computed } from 'vue';
 const dataTransferRef = reactive<any>({});
@@ -30,7 +31,6 @@ const visibleData = reactive<{ [key: number]: boolean }>({});
  * @description: Applicable to independent modal and call outside
  */
 export function useModal(): UseModalReturnType {
-  isInSetup();
   const modalRef = ref<Nullable<ModalMethods>>(null);
   const loadedRef = ref<Nullable<boolean>>(false);
   const uidRef = ref<string>('');
@@ -64,9 +64,14 @@ export function useModal(): UseModalReturnType {
     setModalProps: (props: Partial<ModalProps>): void => {
       getInstance()?.setModalProps(props);
     },
+
     getVisible: computed((): boolean => {
       return visibleData[~~unref(uidRef)];
     }),
+
+    redoModalHeight: () => {
+      getInstance()?.redoModalHeight?.();
+    },
 
     openModal: <T = any>(visible = true, data?: T, openOnSet = true): void => {
       getInstance()?.setModalProps({
@@ -77,12 +82,12 @@ export function useModal(): UseModalReturnType {
 
       if (openOnSet) {
         dataTransferRef[unref(uidRef)] = null;
-        dataTransferRef[unref(uidRef)] = data;
+        dataTransferRef[unref(uidRef)] = toRaw(data);
         return;
       }
-      const equal = isEqual(toRaw(dataTransferRef[unref(uidRef)]), data);
+      const equal = isEqual(toRaw(dataTransferRef[unref(uidRef)]), toRaw(data));
       if (!equal) {
-        dataTransferRef[unref(uidRef)] = data;
+        dataTransferRef[unref(uidRef)] = toRaw(data);
       }
     },
   };

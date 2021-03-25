@@ -86,21 +86,7 @@ export function isElement(val: unknown): val is Element {
 
 export const isServer = typeof window === 'undefined';
 
-export const isClient = typeof window !== 'undefined';
-
-export function isImageDom(o: Element) {
-  return o && ['IMAGE', 'IMG'].includes(o.tagName);
-}
-
-export function isTextarea(element: Element | null): element is HTMLTextAreaElement {
-  return element !== null && element.tagName.toLowerCase() === 'textarea';
-}
-
-export function isMobile(): boolean {
-  return !!navigator.userAgent.match(
-    /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
-  );
-}
+export const isClient = !isServer;
 
 export function isUrl(path: string): boolean {
   const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/;

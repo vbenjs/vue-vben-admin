@@ -5,10 +5,10 @@ import type { NamePath } from 'ant-design-vue/lib/form/interface';
 import { unref, toRaw } from 'vue';
 
 import { isArray, isFunction, isObject, isString } from '/@/utils/is';
-import { deepMerge, unique } from '/@/utils';
+import { deepMerge } from '/@/utils';
 import { dateItemType, handleInputNumberValue } from '../helper';
 import { dateUtil } from '/@/utils/dateUtil';
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep, uniqBy } from 'lodash-es';
 import { error } from '/@/utils/log';
 
 interface UseFormActionContext {
@@ -59,9 +59,11 @@ export function useFormEvents({
       const schema = unref(getSchema).find((item) => item.field === key);
       let value = values[key];
 
+      const hasKey = Reflect.has(values, key);
+
       value = handleInputNumberValue(schema?.component, value);
       // 0| '' is allow
-      if (value !== undefined && value !== null && fields.includes(key)) {
+      if (hasKey && fields.includes(key)) {
         // time type
         if (itemIsDateType(key)) {
           if (Array.isArray(value)) {
@@ -160,7 +162,7 @@ export function useFormEvents({
         }
       });
     });
-    schemaRef.value = unique(schema, 'field');
+    schemaRef.value = uniqBy(schema, 'field');
   }
 
   function getFieldsValue(): Recordable {
@@ -181,6 +183,7 @@ export function useFormEvents({
   async function validateFields(nameList?: NamePath[] | undefined) {
     return unref(formElRef)?.validateFields(nameList);
   }
+
   async function validate(nameList?: NamePath[] | undefined) {
     return await unref(formElRef)?.validate(nameList);
   }

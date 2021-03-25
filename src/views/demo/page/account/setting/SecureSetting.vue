@@ -6,7 +6,9 @@
           <ListItemMeta>
             <template #title>
               {{ item.title }}
-              <div class="extra" v-if="item.extra"> {{ item.extra }} </div>
+              <div class="extra" v-if="item.extra">
+                {{ item.extra }}
+              </div>
             </template>
             <template #description>
               <div>{{ item.description }} </div>

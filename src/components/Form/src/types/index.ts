@@ -91,7 +91,6 @@ export type ComponentType =
   | 'Select'
   | 'ApiSelect'
   | 'SelectOptGroup'
-  | 'SelectOption'
   | 'TreeSelect'
   | 'Transfer'
   | 'RadioButtonGroup'
@@ -105,8 +104,8 @@ export type ComponentType =
   | 'RangePicker'
   | 'WeekPicker'
   | 'TimePicker'
-  | 'ImageUpload'
   | 'Switch'
   | 'StrengthMeter'
   | 'Upload'
+  | 'IconPicker'
   | 'Render';

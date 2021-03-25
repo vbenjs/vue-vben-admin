@@ -1,20 +1,22 @@
 {
   "typescript.tsdk": "./node_modules/typescript/lib",
+  "volar.tsPlugin": true,
+  "volar.tsPluginStatus": false,
   //===========================================
   //============= Editor ======================
   //===========================================
   "explorer.openEditors.visible": 0,
+  "editor.tabSize": 2,
+  "editor.renderControlCharacters": true,
   "editor.minimap.renderCharacters": false,
   "editor.minimap.maxColumn": 300,
   "editor.minimap.showSlider": "always",
-  "editor.smoothScrolling": true,
   "editor.cursorBlinking": "phase",
   "editor.cursorSmoothCaretAnimation": true,
   "editor.detectIndentation": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "diffEditor.ignoreTrimWhitespace": false,
   "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
-  "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
   "editor.suggestSelection": "first",
   "editor.trimAutoWhitespace": true,
   "editor.quickSuggestions": {
@@ -36,7 +38,6 @@
   "emmet.syntaxProfiles": {
     "vue-html": "html",
     "vue": "html",
-    "javascript": "javascriptreact",
     "xml": {
       "attr_quotes": "single"
     }
@@ -77,7 +78,6 @@
   "files.exclude": {
     "**/bower_components": true,
     "**/.idea": true,
-    "**/yarn.lock": true,
     "**/tmp": true,
     "**/.git": true,
     "**/.svn": true,
@@ -86,7 +86,6 @@
     "**/.DS_Store": true
   },
   "files.watcherExclude": {
-    // 文件监视排除
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
     "**/.vscode/**": true,
@@ -96,23 +95,14 @@
     "**/dist/**": true,
     "**/yarn.lock": true
   },
-  "files.associations": {
-    "*.vue": "vue",
-    "*.wxss": "css"
-  },
   "stylelint.enable": true,
   "stylelint.packageManager": "yarn",
-  "css.validate": true,
-  "less.validate": true,
-  "scss.validate": true,
   // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
   // ===========================================
   // ================ Eslint ===================
   // ===========================================
-  // "eslint.enable": true,
   "eslint.alwaysShowStatus": true,
   "eslint.options": {
-    // 配置
     "plugins": ["html", "vue", "javascript", "jsx", "typescript"],
     "extensions": [".js", ".jsx", ".ts", ".tsx", ".vue"]
   },
@@ -124,7 +114,6 @@
     "html",
     "vue"
   ],
-  // "eslint.autoFixOnSave": true,
   // ===========================================
   // ================ Vetur ====================
   // ===========================================
@@ -186,12 +175,17 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
+  "[vue]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": false
+    }
+  },
   "i18n-ally.localesPaths": ["src/locales/lang"],
   "i18n-ally.keystyle": "nested",
   "i18n-ally.sortKeys": true,
   "i18n-ally.namespace": true,
   "i18n-ally.pathMatcher": "{locale}/{namespaces}.{ext}",
   "i18n-ally.enabledParsers": ["ts"],
-  "i18n-ally.sourceLanguage": "zh",
+  "i18n-ally.sourceLanguage": "en",
   "i18n-ally.enabledFrameworks": ["vue", "react"]
 }
