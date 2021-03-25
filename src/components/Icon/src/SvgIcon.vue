@@ -47,6 +47,7 @@
   @prefix-cls: ~'@{namespace}-svg-icon';
 
   .@{prefix-cls} {
+    display: inline-block;
     overflow: hidden;
     vertical-align: -0.15em;
     fill: currentColor;
