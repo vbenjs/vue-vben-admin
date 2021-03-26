@@ -1,3 +1,9 @@
+## Wip
+
+### ✨ Refactor
+
+- 移除 useFullScreen 函数
+
 ## 2.1.1 (2021-03-26)
 
 ### ✨ Features

@@ -1,6 +1,6 @@
 <template>
   <Tooltip :title="getTitle" placement="bottom" :mouseEnterDelay="0.5">
-    <span @click="toggleFullscreen">
+    <span @click="toggle">
       <FullscreenOutlined v-if="!isFullscreen" />
       <FullscreenExitOutlined v-else />
     </span>
@@ -10,7 +10,8 @@
   import { defineComponent, computed, unref } from 'vue';
   import { Tooltip } from 'ant-design-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { useFullscreen } from '/@/hooks/web/useFullScreen';
+  import { useFullscreen } from '@vueuse/core';
+
   import { FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons-vue';
   export default defineComponent({
     name: 'FullScreen',
@@ -18,18 +19,18 @@
 
     setup() {
       const { t } = useI18n();
-      const { toggleFullscreen, isFullscreenRef } = useFullscreen();
+      const { toggle, isFullscreen } = useFullscreen();
 
       const getTitle = computed(() => {
-        return unref(isFullscreenRef)
+        return unref(isFullscreen)
           ? t('layout.header.tooltipExitFull')
           : t('layout.header.tooltipEntryFull');
       });
 
       return {
         getTitle,
-        isFullscreen: isFullscreenRef,
-        toggleFullscreen,
+        isFullscreen,
+        toggle,
       };
     },
   });
