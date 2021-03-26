@@ -1,10 +1,5 @@
 <template>
-  <Select
-    @dropdownVisibleChange="handleFetch"
-    v-bind="attrs"
-    :options="getOptions"
-    v-model:value="state"
-  >
+  <Select v-bind="attrs" :options="getOptions" v-model:value="state" @focus="handleFetch">
     <template #[item]="data" v-for="item in Object.keys($slots)">
       <slot :name="item" v-bind="data"></slot>
     </template>
@@ -85,7 +80,11 @@
       });
 
       watchEffect(() => {
-        props.immediate && fetch();
+        if (isFirstLoad.value) {
+          props.immediate && fetch();
+        } else {
+          fetch();
+        }
       });
 
       async function fetch() {
@@ -112,10 +111,10 @@
       }
 
       async function handleFetch() {
-        if (!props.immediate && unref(isFirstLoad)) {
+        if (!props.immediate) {
           await fetch();
-          isFirstLoad.value = false;
         }
+        isFirstLoad.value = false;
       }
 
       function emitChange() {
