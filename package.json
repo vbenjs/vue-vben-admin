@@ -10,7 +10,7 @@
     "bootstrap": "yarn install",
     "serve": "npx --max_old_space_size=4096 vite",
     "dev": "npx --max_old_space_size=4096 vite",
-    "build": "esno ./build/script/postBuild.ts",
+    "build": "vite build && esno ./build/script/postBuild.ts",
     "build:no-cache": "yarn clean:cache && npm run build",
     "report": "cross-env REPORT=true npm run build ",
     "preview": "npm run build && vite preview",
