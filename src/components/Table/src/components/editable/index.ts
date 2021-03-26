@@ -41,7 +41,7 @@ export function renderEditCell(column: BasicColumn) {
   };
 }
 
-export type EditRecordRow<T = Hash<any>> = Partial<
+export type EditRecordRow<T = Recordable> = Partial<
   {
     onEdit: (editable: boolean, submit?: boolean) => Promise<boolean>;
     editable: boolean;

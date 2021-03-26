@@ -402,7 +402,7 @@ export interface BasicColumn extends ColumnProps {
   flag?: 'INDEX' | 'DEFAULT' | 'CHECKBOX' | 'RADIO' | 'ACTION';
   customTitle?: VueNode;
 
-  slots?: Indexable;
+  slots?: Recordable;
 
   // Whether to hide the column by default, it can be displayed in the column configuration
   defaultHidden?: boolean;
