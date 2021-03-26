@@ -4326,10 +4326,10 @@ eslint-config-prettier@^8.1.0:
   resolved "https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-8.1.0.tgz#4ef1eaf97afe5176e6a75ddfb57c335121abc5a6"
   integrity sha512-oKMhGv3ihGbCIimCAjqkdzx2Q+jthoqnXSP+d86M9tptwugycmTFdVR4IpLgq2c4SHifbwO90z2fQ8/Aio73yw==
 
-eslint-define-config@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/eslint-define-config/-/eslint-define-config-1.0.3.tgz#26efbf9124d3855c8ff49233e6d3e3e3be939f60"
-  integrity sha512-GlfTqk2lysLHRx4YH3xuliY06t/p4WMZc3GABLqZ84RcxJxwRVMp0qF9cQSL42gf0pO7IY+dyUsxMrv2b6rZTQ==
+eslint-define-config@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/eslint-define-config/-/eslint-define-config-1.0.4.tgz#e3b3a177600155f1ffe9e38f90332da956f7959c"
+  integrity sha512-vGnX8CfockGwXP4NuORbnHd7PWy8gr41ARLH4HuWJoHk4U4ni5KjDG6Kg1/GNIE0B9BwXfyDgW7I3mSx2zuT0A==
 
 eslint-plugin-jest@^24.1.5:
   version "24.3.2"
