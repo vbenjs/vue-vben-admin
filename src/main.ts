@@ -25,8 +25,6 @@ import '/@/router/guard';
 // Register icon Sprite
 import 'vite-plugin-svg-icons/register';
 
-import { isDevMode } from '/@/utils/env';
-
 (async () => {
   const app = createApp(App);
   // Register global components
@@ -52,10 +50,4 @@ import { isDevMode } from '/@/utils/env';
   await router.isReady();
 
   app.mount('#app', true);
-
-  // The development environment takes effect
-  if (isDevMode()) {
-    // app.config.performance = true;
-    window.__APP__ = app;
-  }
 })();

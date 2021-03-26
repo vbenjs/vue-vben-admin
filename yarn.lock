@@ -2062,31 +2062,31 @@
   resolved "https://registry.npmjs.org/@vue/shared/-/shared-3.0.7.tgz#96d52988efc07444c108c7c6803ba7cc93e40045"
   integrity sha512-dn5FyfSc4ky424jH4FntiHno7Ss5yLkqKNmM/NXwANRnlkmqu74pnGetexDFVG5phMk9/FhwovUZCWGxsotVKg==
 
-"@vueuse/core@^4.6.0":
-  version "4.6.0"
-  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.6.0.tgz#4bb7cbcc01ac27943d0a278e1bf4e714970d2a6d"
-  integrity sha512-SC9UK6eNESVSBkEzklNfmqxmIwAuohuW9FQvf7tvsz++XirbKblRPaXkohClS0ZmrtW+ylI5q3aOdBhADbbfEQ==
+"@vueuse/core@^4.6.1":
+  version "4.6.1"
+  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.6.1.tgz#a4c736d19456e2f8ff00e6d7fe6746ba30f5a302"
+  integrity sha512-PGRBcX8w5immyGHlvI9Cvdwx+8TlPzMWT08Q4uVSFNVbKTiBt3sDxswNsMKyatqJn7QxYGt3sFfifadH7TMsGw==
   dependencies:
-    "@vueuse/shared" "4.6.0"
+    "@vueuse/shared" "4.6.1"
     vue-demi latest
 
-"@vueuse/shared@4.6.0":
-  version "4.6.0"
-  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.6.0.tgz#4fb644ae0699d754506ad94c721845df00b0d6d0"
-  integrity sha512-330uwtbWoIy53O0YwllckYDiK/f353aVrqeB7Z6/Sg5uFckNiKqX68g2wlDdvUnW/SIOC6cyxIZutZe/xxEFAw==
+"@vueuse/shared@4.6.1":
+  version "4.6.1"
+  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.6.1.tgz#e4e0345ad80264aa0a621419413bd306fb78b970"
+  integrity sha512-TXKw6nR0BPN4U3WGI6jE+ipNkFWZ+vVYQmtIDGkRbHT3wjA6OIAG70Ii6hI3PdhJOkPErAPHjDEUEqTllhvq6Q==
   dependencies:
     vue-demi latest
 
-"@windicss/plugin-utils@0.9.11":
-  version "0.9.11"
-  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.9.11.tgz#9b8951ff1495e1deb8a094098a343eb8babb9b3b"
-  integrity sha512-gGLe3/Ud63fcpj1FTq+0/feP/UM34j9W+iSyBtpPnmfLx8mi2a9g9vhZrojqL9X9IYY+ZhHczZ8Fn9qcHdzWVw==
+"@windicss/plugin-utils@0.10.2":
+  version "0.10.2"
+  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.10.2.tgz#d4a79c41f02c1704b54510a2bd2deaa43c905a7d"
+  integrity sha512-IeKaZEZ1Ww3KO5C3AxWLotMX3aGxhrj0MsTmiyMS1H5KXm6HOgfk+zsRiB0ysxGKrGZ4pMLe2H3Riku8o7YfuQ==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"
     micromatch "^4.0.2"
     sucrase "^3.17.1"
-    windicss "^2.5.4"
+    windicss "^2.5.5"
 
 "@zxcvbn-ts/core@^0.3.0":
   version "0.3.0"
@@ -4326,10 +4326,10 @@ eslint-config-prettier@^8.1.0:
   resolved "https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-8.1.0.tgz#4ef1eaf97afe5176e6a75ddfb57c335121abc5a6"
   integrity sha512-oKMhGv3ihGbCIimCAjqkdzx2Q+jthoqnXSP+d86M9tptwugycmTFdVR4IpLgq2c4SHifbwO90z2fQ8/Aio73yw==
 
-eslint-define-config@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/eslint-define-config/-/eslint-define-config-1.0.2.tgz#42775cfd2eedf0ed1b57d15a3f5ade45419fbb46"
-  integrity sha512-TiSz3uwXdgvoO4kGcC+xqazY4bvHD95BK+zsu7+xTSpn4fnfTBcs14CoxE7VmlCqiodeuU5uNtGO00Aks5sEjQ==
+eslint-define-config@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/eslint-define-config/-/eslint-define-config-1.0.3.tgz#26efbf9124d3855c8ff49233e6d3e3e3be939f60"
+  integrity sha512-GlfTqk2lysLHRx4YH3xuliY06t/p4WMZc3GABLqZ84RcxJxwRVMp0qF9cQSL42gf0pO7IY+dyUsxMrv2b6rZTQ==
 
 eslint-plugin-jest@^24.1.5:
   version "24.3.2"
@@ -10950,14 +10950,15 @@ vite-plugin-theme@^0.5.0:
     tinycolor2 "^1.4.2"
     ts-jest "^26.5.3"
 
-vite-plugin-windicss@0.9.11:
-  version "0.9.11"
-  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.9.11.tgz#46809a7d30d5531f9f3568949cd00646a3178f5b"
-  integrity sha512-wcF2VmglWqvtsi8Zq4kTVVU9jPiiAfdyy91TnlgaJYlgRaBZcwb7QSJ9p5SeOWIyl6RpzjlK2JFWa0djrVmG8w==
+vite-plugin-windicss@0.10.2:
+  version "0.10.2"
+  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.10.2.tgz#126edae552f2bec22273f5f533806e2b5d61c8ff"
+  integrity sha512-+kgzjwW6VNFlMlQvN4C5iCIqCAhSmTLteVz9IA7LjnpyM6X4tpZmWiTiNlLzAeiJt1eUpu9lFcA7GfuZR+OQDA==
   dependencies:
-    "@windicss/plugin-utils" "0.9.11"
+    "@windicss/plugin-utils" "0.10.2"
+    chalk "^4.1.0"
     debug "^4.3.2"
-    windicss "^2.5.4"
+    windicss "^2.5.5"
 
 vite@2.1.3:
   version "2.1.3"
@@ -11131,7 +11132,7 @@ which@^2.0.1, which@^2.0.2:
   dependencies:
     isexe "^2.0.0"
 
-windicss@^2.5.4:
+windicss@^2.5.5:
   version "2.5.5"
   resolved "https://registry.npmjs.org/windicss/-/windicss-2.5.5.tgz#691cc08e13dc9ee41293cd20cfdb6fed101e1d6a"
   integrity sha512-tKLYY9qQoFKoxitG2B8toa9QUPAjsBOKjmFrxhDi2i0eaVOFQh+YEPElBCa7N5ma03YVIW9HPVbgVU0Z4JxZ5g==

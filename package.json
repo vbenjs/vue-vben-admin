@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.6",
-    "@vueuse/core": "^4.6.0",
+    "@vueuse/core": "^4.6.1",
     "@zxcvbn-ts/core": "^0.3.0",
     "ant-design-vue": "2.1.0",
     "apexcharts": "^3.26.0",
@@ -83,7 +83,7 @@
     "dotenv": "^8.2.0",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
-    "eslint-define-config": "^1.0.2",
+    "eslint-define-config": "^1.0.3",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.8.0",
     "esno": "^0.5.0",
@@ -115,7 +115,7 @@
     "vite-plugin-style-import": "^0.9.0",
     "vite-plugin-svg-icons": "^0.4.0",
     "vite-plugin-theme": "^0.5.0",
-    "vite-plugin-windicss": "0.9.11",
+    "vite-plugin-windicss": "0.10.2",
     "vue-eslint-parser": "^7.6.0"
   },
   "resolutions": {

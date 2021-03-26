@@ -1,15 +1,14 @@
 import type {
-  App,
   ComponentRenderProxy,
   VNode,
   ComponentPublicInstance,
   FunctionalComponent,
 } from 'vue';
 declare global {
-  declare interface Window {
-    // Global vue app instance
-    __APP__: App<Element>;
-  }
+  // declare interface Window {
+  // Global vue app instance
+  //   __APP__: App<Element>;
+  // }
 
   export type Writable<T> = {
     -readonly [P in keyof T]: T[P];
