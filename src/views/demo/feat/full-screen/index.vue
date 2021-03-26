@@ -1,18 +1,12 @@
 <template>
   <PageWrapper title="全屏示例">
     <CollapseContainer class="w-full h-32 bg-white rounded-md" title="Window Full Screen">
-      <a-button type="primary" @click="enterFullscreen" class="mr-2">
-        Enter Window Full Screen
-      </a-button>
-      <a-button color="success" @click="toggleFullscreen" class="mr-2">
-        Toggle Window Full Screen
-      </a-button>
+      <a-button type="primary" @click="enter" class="mr-2"> Enter Window Full Screen </a-button>
+      <a-button color="success" @click="toggle" class="mr-2"> Toggle Window Full Screen </a-button>
 
-      <a-button color="error" @click="exitFullscreen" class="mr-2">
-        Exit Window Full Screen
-      </a-button>
+      <a-button color="error" @click="exit" class="mr-2"> Exit Window Full Screen </a-button>
 
-      Current State: {{ isFullscreenRef }}
+      Current State: {{ isFullscreen }}
     </CollapseContainer>
 
     <CollapseContainer class="w-full mt-5 bg-white rounded-md" title="Dom Full Screen">
@@ -30,27 +24,23 @@
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
   import { CollapseContainer } from '/@/components/Container/index';
-  import { useFullscreen } from '/@/hooks/web/useFullScreen';
+  import { useFullscreen } from '@vueuse/core';
+
   import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
     components: { CollapseContainer, PageWrapper },
     setup() {
       const domRef = ref<Nullable<HTMLElement>>(null);
-      const {
-        enterFullscreen,
-        toggleFullscreen,
-        isFullscreenRef,
-        exitFullscreen,
-      } = useFullscreen();
+      const { enter, toggle, exit, isFullscreen } = useFullscreen();
 
-      const { toggleFullscreen: toggleDom } = useFullscreen(domRef);
+      const { toggle: toggleDom } = useFullscreen(domRef);
       return {
-        enterFullscreen,
+        enter,
         toggleDom,
-        toggleFullscreen,
-        isFullscreenRef,
-        exitFullscreen,
+        toggle,
+        isFullscreen,
+        exit,
         domRef,
       };
     },
