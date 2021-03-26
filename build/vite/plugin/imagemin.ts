@@ -12,9 +12,6 @@ export function configImageminPlugin() {
     optipng: {
       optimizationLevel: 7,
     },
-    webp: {
-      quality: 75,
-    },
     mozjpeg: {
       quality: 8,
     },

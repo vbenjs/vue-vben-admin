@@ -136,7 +136,6 @@
       "singleQuote": true
     }
   },
-  "javascript.updateImportsOnFileMove.enabled": "never",
   "liveServer.settings.donotShowInfoMsg": true,
   "terminal.integrated.rendererType": "dom",
   "telemetry.enableCrashReporter": false,

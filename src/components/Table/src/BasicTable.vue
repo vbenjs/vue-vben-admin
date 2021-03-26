@@ -35,7 +35,7 @@
 <script lang="ts">
   import type { BasicTableProps, TableActionType, SizeType } from './types/table';
 
-  import { defineComponent, ref, computed, unref } from 'vue';
+  import { defineComponent, ref, computed, unref, toRaw } from 'vue';
   import { Table } from 'ant-design-vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import expandIcon from './components/ExpandIcon';
@@ -197,9 +197,9 @@
           tableLayout: 'fixed',
           rowSelection: unref(getRowSelectionRef),
           rowKey: unref(getRowKey),
-          columns: unref(getViewColumns),
-          pagination: unref(getPaginationInfo),
-          dataSource: unref(getDataSourceRef),
+          columns: toRaw(unref(getViewColumns)),
+          pagination: toRaw(unref(getPaginationInfo)),
+          dataSource: toRaw(unref(getDataSourceRef)),
           footer: unref(getFooterProps),
           ...unref(getExpandOption),
         };

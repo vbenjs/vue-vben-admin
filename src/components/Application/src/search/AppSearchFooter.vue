@@ -14,6 +14,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
+
   import AppSearchKeyItem from './AppSearchKeyItem.vue';
 
   import { useDesign } from '/@/hooks/web/useDesign';
