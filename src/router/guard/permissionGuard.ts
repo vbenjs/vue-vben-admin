@@ -38,7 +38,7 @@ export function createPermissionGuard(router: Router) {
         return;
       }
       // redirect login page
-      const redirectData: { path: string; replace: boolean; query?: Indexable<string> } = {
+      const redirectData: { path: string; replace: boolean; query?: Recordable<string> } = {
         path: LOGIN_PATH,
         replace: true,
       };
