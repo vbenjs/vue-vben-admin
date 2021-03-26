@@ -9,11 +9,13 @@ import {
   PolarComponent,
   AriaComponent,
   ParallelComponent,
+  LegendComponent,
 } from 'echarts/components';
 
 import { SVGRenderer } from 'echarts/renderers';
 
 echarts.use([
+  LegendComponent,
   TitleComponent,
   TooltipComponent,
   GridComponent,
