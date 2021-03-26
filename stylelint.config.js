@@ -30,6 +30,24 @@ module.exports = {
       },
     ],
     'unit-no-unknown': [true, { ignoreUnits: ['rpx'] }],
+    'order/order': [
+      [
+        'dollar-variables',
+        'custom-properties',
+        'at-rules',
+        'declarations',
+        {
+          type: 'at-rule',
+          name: 'supports',
+        },
+        {
+          type: 'at-rule',
+          name: 'media',
+        },
+        'rules',
+      ],
+      { severity: 'warning' },
+    ],
     // Specify the alphabetical order of the attributes in the declaration block
     'order/properties-order': [
       'position',

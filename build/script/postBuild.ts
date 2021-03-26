@@ -1,6 +1,5 @@
 // #!/usr/bin/env node
 
-import { argv } from 'yargs';
 import { runBuildConfig } from './buildConf';
 import chalk from 'chalk';
 
@@ -8,10 +7,10 @@ import pkg from '../../package.json';
 
 export const runBuild = async () => {
   try {
-    const argvList = argv._;
+    const argvList = process.argv.splice(2);
 
     // Generate configuration file
-    if (!argvList.includes('no-conf')) {
+    if (!argvList.includes('disabled-config')) {
       await runBuildConfig();
     }
 

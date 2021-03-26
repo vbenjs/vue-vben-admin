@@ -69,8 +69,8 @@
   });
 </script>
 
-<style lang="less" scoped>
-  :global(.app-locale-picker-overlay) {
+<style lang="less">
+  .app-locale-picker-overlay {
     .ant-dropdown-menu-item {
       min-width: 160px;
     }
