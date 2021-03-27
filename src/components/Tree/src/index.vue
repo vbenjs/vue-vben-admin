@@ -321,7 +321,7 @@
       }
       return () => {
         const { title, helpMessage, toolbar, search, checkable } = props;
-        const showTitle = title || toolbar || search;
+        const showTitle = title || toolbar || search || slots.headerTitle;
         const scrollStyle: CSSProperties = { height: 'calc(100% - 38px)' };
         return (
           <div class={[prefixCls, 'h-full bg-white', attrs.class]}>
@@ -336,7 +336,9 @@
                 helpMessage={helpMessage}
                 onStrictlyChange={onStrictlyChange}
                 onSearch={handleSearch}
-              />
+              >
+                {extendSlots(slots)}
+              </TreeHeader>
             )}
             <ScrollContainer style={scrollStyle} v-show={!unref(getNotFound)}>
               <Tree {...unref(getBindValues)} showIcon={false}>

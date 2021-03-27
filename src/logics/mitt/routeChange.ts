@@ -12,13 +12,13 @@ const key = Symbol();
 
 let lastChangeTab: RouteLocationNormalized;
 
-export function setLastChangeTab(lastChangeRoute: RouteLocationNormalized) {
+export function setRouteChange(lastChangeRoute: RouteLocationNormalized) {
   const r = getRawRoute(lastChangeRoute);
   mitt.emit(key, r);
   lastChangeTab = r;
 }
 
-export function listenerLastChangeTab(
+export function listenerRouteChange(
   callback: (route: RouteLocationNormalized) => void,
   immediate = true
 ) {

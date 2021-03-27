@@ -25,7 +25,7 @@ export function createPageLoadingGuard(router: Router) {
     if (unref(getOpenPageLoading)) {
       setTimeout(() => {
         appStore.commitPageLoadingState(false);
-      }, 300);
+      }, 220);
     }
     return true;
   });
