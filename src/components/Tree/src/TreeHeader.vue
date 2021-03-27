@@ -1,6 +1,9 @@
 <template>
   <div class="flex px-2 py-1.5 items-center border-b-1">
-    <BasicTitle :helpMessage="helpMessage" v-if="title">{{ title }}</BasicTitle>
+    <slot name="headerTitle" v-if="$slots.headerTitle"></slot>
+    <BasicTitle :helpMessage="helpMessage" v-if="!$slots.headerTitle && title">{{
+      title
+    }}</BasicTitle>
 
     <div class="flex flex-1 justify-end items-center cursor-pointer" v-if="search || toolbar">
       <div class="mr-1 w-2/3" v-if="search">

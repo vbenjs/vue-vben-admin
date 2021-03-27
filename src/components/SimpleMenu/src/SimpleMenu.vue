@@ -27,7 +27,7 @@
 
   import Menu from './components/Menu.vue';
   import SimpleSubMenu from './SimpleSubMenu.vue';
-  import { listenerLastChangeTab } from '/@/logics/mitt/tabChange';
+  import { listenerRouteChange } from '/@/logics/mitt/routeChange';
   import { propTypes } from '/@/utils/propTypes';
   import { REDIRECT_NAME } from '/@/router/constant';
   import { RouteLocationNormalizedLoaded, useRouter } from 'vue-router';
@@ -91,7 +91,7 @@
         { immediate: true }
       );
 
-      listenerLastChangeTab((route) => {
+      listenerRouteChange((route) => {
         if (route.name === REDIRECT_NAME) return;
 
         currentActiveMenu.value = route.meta?.currentActiveMenu as string;

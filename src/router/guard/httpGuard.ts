@@ -14,7 +14,7 @@ export function createHttpGuard(router: Router) {
   }
   router.beforeEach(async () => {
     // Switching the route will delete the previous request
-    removeAllHttpPending && axiosCanceler?.removeAllPending();
+    axiosCanceler?.removeAllPending();
     return true;
   });
 }

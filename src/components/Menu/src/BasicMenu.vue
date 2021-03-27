@@ -38,7 +38,7 @@
 
   import { getCurrentParentPath } from '/@/router/menus';
 
-  import { listenerLastChangeTab } from '/@/logics/mitt/tabChange';
+  import { listenerRouteChange } from '/@/logics/mitt/routeChange';
   import { getAllParentPath } from '/@/router/helper/menuHelper';
 
   export default defineComponent({
@@ -105,7 +105,7 @@
         return inlineCollapseOptions;
       });
 
-      listenerLastChangeTab((route) => {
+      listenerRouteChange((route) => {
         if (route.name === REDIRECT_NAME) return;
         handleMenuChange(route);
         currentActiveMenu.value = route.meta?.currentActiveMenu as string;

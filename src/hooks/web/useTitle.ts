@@ -3,7 +3,7 @@ import { useTitle as usePageTitle } from '@vueuse/core';
 import { useGlobSetting } from '/@/hooks/setting';
 
 import { REDIRECT_NAME } from '/@/router/constant';
-import { listenerLastChangeTab } from '/@/logics/mitt/tabChange';
+import { listenerRouteChange } from '/@/logics/mitt/routeChange';
 
 export function useTitle() {
   const { title } = useGlobSetting();
@@ -11,7 +11,7 @@ export function useTitle() {
 
   const pageTitle = usePageTitle();
 
-  listenerLastChangeTab((route) => {
+  listenerRouteChange((route) => {
     if (route.name === REDIRECT_NAME) {
       return;
     }

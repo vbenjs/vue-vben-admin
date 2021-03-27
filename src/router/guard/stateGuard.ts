@@ -4,7 +4,7 @@ import { tabStore } from '/@/store/modules/tab';
 import { userStore } from '/@/store/modules/user';
 import { permissionStore } from '/@/store/modules/permission';
 import { PageEnum } from '/@/enums/pageEnum';
-import { removeTabChangeListener } from '/@/logics/mitt/tabChange';
+import { removeTabChangeListener } from '/@/logics/mitt/routeChange';
 
 export function createStateGuard(router: Router) {
   router.afterEach((to) => {

@@ -1,5 +1,9 @@
 ## Wip
 
+### ✨ Features
+
+- 新增`headerTitle` slot
+
 ### ✨ Refactor
 
 - 移除 useFullScreen 函数
