@@ -2,7 +2,7 @@
   <div :class="[prefixCls, `${prefixCls}--${theme}`]">
     <a-breadcrumb :routes="routes">
       <template #itemRender="{ route, routes, paths }">
-        <Icon :icon="route.meta.icon" v-if="getShowBreadCrumbIcon && route.meta.icon" />
+        <Icon :icon="getIcon(route)" v-if="getShowBreadCrumbIcon && getIcon(route)" />
         <span v-if="!hasRedirect(routes, route)">
           {{ t(route.name || route.meta.title) }}
         </span>
@@ -146,7 +146,11 @@
         return true;
       }
 
-      return { routes, t, prefixCls, getShowBreadCrumbIcon, handleClick, hasRedirect };
+      function getIcon(route) {
+        return route.icon || route.meta?.icon;
+      }
+
+      return { routes, t, prefixCls, getIcon, getShowBreadCrumbIcon, handleClick, hasRedirect };
     },
   });
 </script>
