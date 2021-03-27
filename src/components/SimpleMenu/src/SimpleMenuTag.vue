@@ -3,7 +3,6 @@
 </template>
 <script lang="ts">
   import type { Menu } from '/@/router/types';
-  import type { PropType } from 'vue';
 
   import { defineComponent, computed } from 'vue';
 

@@ -3,12 +3,17 @@ import type {
   VNode,
   ComponentPublicInstance,
   FunctionalComponent,
+  PropType as VuePropType,
 } from 'vue';
+
 declare global {
   // declare interface Window {
   // Global vue app instance
   //   __APP__: App<Element>;
   // }
+
+  // vue
+  declare type PropType<T> = VuePropType<T>;
 
   export type Writable<T> = {
     -readonly [P in keyof T]: T[P];
