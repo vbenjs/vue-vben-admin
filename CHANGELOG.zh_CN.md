@@ -3,6 +3,7 @@
 ### ✨ Features
 
 - 新增`headerTitle` slot
+- 新增打印示例
 
 ### ✨ Refactor
 

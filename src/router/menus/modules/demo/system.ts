@@ -6,9 +6,6 @@ const menu: MenuModule = {
   menu: {
     name: t('routes.demo.system.moduleName'),
     path: '/system',
-    tag: {
-      content: 'new',
-    },
     children: [
       {
         path: 'account',
