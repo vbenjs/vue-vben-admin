@@ -78,7 +78,7 @@
   import { isBoolean, isObject } from '/@/utils/is';
   import Mitt from '/@/utils/mitt';
 
-  const DELAY = 200;
+  const DELAY = 250;
   export default defineComponent({
     name: 'SubMenu',
     components: {

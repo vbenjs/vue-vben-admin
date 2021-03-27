@@ -12,7 +12,7 @@
     setup() {
       return {
         on: {
-          beforeEnter(el: any) {
+          beforeEnter(el) {
             addClass(el, 'collapse-transition');
             if (!el.dataset) el.dataset = {};
 
@@ -24,7 +24,7 @@
             el.style.paddingBottom = 0;
           },
 
-          enter(el: any) {
+          enter(el) {
             el.dataset.oldOverflow = el.style.overflow;
             if (el.scrollHeight !== 0) {
               el.style.height = el.scrollHeight + 'px';
@@ -39,13 +39,13 @@
             el.style.overflow = 'hidden';
           },
 
-          afterEnter(el: any) {
+          afterEnter(el) {
             removeClass(el, 'collapse-transition');
             el.style.height = '';
             el.style.overflow = el.dataset.oldOverflow;
           },
 
-          beforeLeave(el: any) {
+          beforeLeave(el) {
             if (!el.dataset) el.dataset = {};
             el.dataset.oldPaddingTop = el.style.paddingTop;
             el.dataset.oldPaddingBottom = el.style.paddingBottom;
@@ -55,7 +55,7 @@
             el.style.overflow = 'hidden';
           },
 
-          leave(el: any) {
+          leave(el) {
             if (el.scrollHeight !== 0) {
               addClass(el, 'collapse-transition');
               el.style.height = 0;
@@ -64,7 +64,7 @@
             }
           },
 
-          afterLeave(el: any) {
+          afterLeave(el) {
             removeClass(el, 'collapse-transition');
             el.style.height = '';
             el.style.overflow = el.dataset.oldOverflow;

@@ -8,6 +8,7 @@ import { uniq } from 'lodash-es';
 import { getAllParentPath } from '/@/router/helper/menuHelper';
 
 import { useTimeoutFn } from '/@/hooks/core/useTimeout';
+import { useDebounce } from '../../../hooks/core/useDebounce';
 
 export function useOpenKeys(
   menuState: MenuState,
@@ -15,22 +16,20 @@ export function useOpenKeys(
   accordion: Ref<boolean>,
   mixSider: Ref<boolean>,
   collapse: Ref<boolean>
-  // mode: Ref<MenuModeEnum>,
 ) {
+  const [debounceSetOpenKeys] = useDebounce(setOpenKeys, 50);
   async function setOpenKeys(path: string) {
-    // if (mode.value === MenuModeEnum.HORIZONTAL) {
-    //   return;
-    // }
     const native = !mixSider.value;
+    const menuList = toRaw(menus.value);
     useTimeoutFn(
       () => {
-        const menuList = toRaw(menus.value);
         if (menuList?.length === 0) {
           menuState.activeSubMenuNames = [];
           menuState.openNames = [];
           return;
         }
         const keys = getAllParentPath(menuList, path);
+
         if (!unref(accordion)) {
           menuState.openNames = uniq([...menuState.openNames, ...keys]);
         } else {
@@ -38,7 +37,7 @@ export function useOpenKeys(
         }
         menuState.activeSubMenuNames = menuState.openNames;
       },
-      16,
+      30,
       native
     );
   }
@@ -47,5 +46,5 @@ export function useOpenKeys(
     return unref(collapse) ? [] : menuState.openNames;
   });
 
-  return { setOpenKeys, getOpenKeys };
+  return { setOpenKeys: debounceSetOpenKeys, getOpenKeys };
 }

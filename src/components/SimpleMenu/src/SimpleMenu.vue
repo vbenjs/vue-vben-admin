@@ -18,7 +18,6 @@
   </Menu>
 </template>
 <script lang="ts">
-  import type { PropType } from 'vue';
   import type { MenuState } from './types';
   import type { Menu as MenuType } from '/@/router/types';
 
@@ -69,6 +68,7 @@
       const { currentRoute } = useRouter();
       const { prefixCls } = useDesign('simple-menu');
       const { items, accordion, mixSider, collapse } = toRefs(props);
+
       const { setOpenKeys, getOpenKeys } = useOpenKeys(
         menuState,
         items,
@@ -89,6 +89,14 @@
           }
         },
         { immediate: true }
+      );
+
+      watch(
+        () => props.items,
+        () => {
+          setOpenKeys(currentRoute.value.path);
+        },
+        { flush: 'post' }
       );
 
       listenerRouteChange((route) => {
@@ -112,7 +120,6 @@
         menuState.activeName = path;
 
         setOpenKeys(path);
-        // if (unref(currentActiveMenu)) return;
       }
 
       async function handleSelect(key: string) {

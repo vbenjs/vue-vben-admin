@@ -65,10 +65,13 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
   );
 
   // split Menu changes
-  watch([() => getSplit.value], () => {
-    if (unref(splitNotLeft)) return;
-    genMenus();
-  });
+  watch(
+    () => getSplit.value,
+    () => {
+      if (unref(splitNotLeft)) return;
+      genMenus();
+    }
+  );
 
   // Handle left menu split
   async function handleSplitLeftMenu(parentPath: string) {
