@@ -15,7 +15,6 @@ module.exports = defineConfig({
     jsxPragma: 'React',
     ecmaFeatures: {
       jsx: true,
-      tsx: true,
     },
   },
   extends: [
