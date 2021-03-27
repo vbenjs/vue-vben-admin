@@ -2,6 +2,7 @@ export default {
   feat: '功能',
   icon: '图标',
   tabs: '标签页操作',
+  print: '打印',
   contextMenu: '右键菜单',
   download: '文件下载',
   clickOutSide: 'ClickOutSide组件',

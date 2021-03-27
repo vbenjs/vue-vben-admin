@@ -6,9 +6,7 @@ const menu: MenuModule = {
   menu: {
     name: t('routes.demo.comp.comp'),
     path: '/comp',
-    tag: {
-      dot: true,
-    },
+
     children: [
       {
         path: 'basic',
@@ -123,9 +121,6 @@ const menu: MenuModule = {
       {
         path: 'timestamp',
         name: t('routes.demo.comp.time'),
-        tag: {
-          content: 'new',
-        },
       },
       {
         path: 'transition',
@@ -163,10 +158,7 @@ const menu: MenuModule = {
       {
         path: 'tree',
         name: t('routes.demo.comp.tree'),
-        tag: {
-          dot: true,
-          type: 'warn',
-        },
+
         children: [
           {
             path: 'basic',
@@ -175,10 +167,6 @@ const menu: MenuModule = {
           {
             path: 'editTree',
             name: t('routes.demo.comp.editTree'),
-            tag: {
-              dot: true,
-              type: 'warn',
-            },
           },
           {
             path: 'actionTree',

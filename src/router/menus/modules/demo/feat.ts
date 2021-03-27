@@ -14,16 +14,10 @@ const menu: MenuModule = {
       {
         path: 'icon',
         name: t('routes.demo.feat.icon'),
-        tag: {
-          content: 'new',
-        },
       },
       {
         path: 'ws',
         name: t('routes.demo.feat.ws'),
-        tag: {
-          content: 'new',
-        },
       },
       {
         path: 'tabs',
@@ -37,6 +31,13 @@ const menu: MenuModule = {
       {
         path: 'download',
         name: t('routes.demo.feat.download'),
+      },
+      {
+        path: 'print',
+        name: t('routes.demo.feat.print'),
+        tag: {
+          content: 'new',
+        },
       },
       {
         path: 'click-out-side',
@@ -98,14 +99,14 @@ const menu: MenuModule = {
         path: 'breadcrumb',
 
         children: [
-          {
-            path: 'flat',
-            name: t('routes.demo.feat.breadcrumbFlat'),
-          },
-          {
-            path: 'flatDetail',
-            name: t('routes.demo.feat.breadcrumbFlatDetail'),
-          },
+          // {
+          //   path: 'flat',
+          //   name: t('routes.demo.feat.breadcrumbFlat'),
+          // },
+          // {
+          //   path: 'flatDetail',
+          //   name: t('routes.demo.feat.breadcrumbFlatDetail'),
+          // },
           {
             path: 'children',
             name: t('routes.demo.feat.breadcrumbChildrenDetail'),

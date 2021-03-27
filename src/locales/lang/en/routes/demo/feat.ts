@@ -2,6 +2,7 @@ export default {
   feat: 'Page Function',
   icon: 'Icon',
   tabs: 'Tabs',
+  print: 'Print',
   contextMenu: 'Context Menu',
   download: 'Download',
   clickOutSide: 'ClickOutSide',
