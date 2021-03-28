@@ -111,9 +111,9 @@
       onBeforeUnmount(() => {
         if (props.native) return;
         if (!props.noresize) {
-          removeResizeListener(unref(resize), update);
-          removeResizeListener(unref(wrap), update);
-          removeEventListener('resize', update);
+          //  removeResizeListener(unref(resize), update);
+          //  removeResizeListener(unref(wrap), update);
+          //  removeEventListener('resize', update);
         }
       });
 

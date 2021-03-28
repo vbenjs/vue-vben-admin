@@ -2,6 +2,8 @@ import { generate } from '@ant-design/colors';
 
 export const primaryColor = '#0960bd';
 
+export const borderColorBase = '#d9d9d9';
+
 export const themeMode = 'light';
 
 export type ThemeMode = 'dark' | 'light';
@@ -97,7 +99,7 @@ export function generateModifyVars() {
     'text-color-secondary': 'rgba(0, 0, 0, 0.45)', // Subtext color
     'font-size-base': '14px', //  Main font size
     'box-shadow-base': '0 2px 8px rgba(0, 0, 0, 0.15)', //  Floating shadow
-    'border-color-base': '#d9d9d9', //  Border color,
+    'border-color-base': borderColorBase, //  Border color,
     'border-radius-base': '2px', //  Component/float fillet
     'link-color': primary, //   Link color
   };

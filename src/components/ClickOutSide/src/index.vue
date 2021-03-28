@@ -5,7 +5,6 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref, onMounted } from 'vue';
-
   import { onClickOutside } from '@vueuse/core';
   export default defineComponent({
     name: 'ClickOutSide',

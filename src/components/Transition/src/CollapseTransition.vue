@@ -1,17 +1,18 @@
 <template>
-  <transition v-on="on">
+  <transition mode="out-in" v-on="on">
     <slot></slot>
   </transition>
 </template>
 <script lang="ts">
-  import { addClass, removeClass } from '/@/utils/domUtils';
   import { defineComponent } from 'vue';
+  import { addClass, removeClass } from '/@/utils/domUtils';
+
   export default defineComponent({
     name: 'CollapseTransition',
     setup() {
       return {
         on: {
-          beforeEnter(el: any) {
+          beforeEnter(el) {
             addClass(el, 'collapse-transition');
             if (!el.dataset) el.dataset = {};
 
@@ -23,7 +24,7 @@
             el.style.paddingBottom = 0;
           },
 
-          enter(el: any) {
+          enter(el) {
             el.dataset.oldOverflow = el.style.overflow;
             if (el.scrollHeight !== 0) {
               el.style.height = el.scrollHeight + 'px';
@@ -38,14 +39,13 @@
             el.style.overflow = 'hidden';
           },
 
-          afterEnter(el: any) {
-            // for safari: remove class then reset height is necessary
+          afterEnter(el) {
             removeClass(el, 'collapse-transition');
             el.style.height = '';
             el.style.overflow = el.dataset.oldOverflow;
           },
 
-          beforeLeave(el: any) {
+          beforeLeave(el) {
             if (!el.dataset) el.dataset = {};
             el.dataset.oldPaddingTop = el.style.paddingTop;
             el.dataset.oldPaddingBottom = el.style.paddingBottom;
@@ -55,19 +55,16 @@
             el.style.overflow = 'hidden';
           },
 
-          leave(el: any) {
+          leave(el) {
             if (el.scrollHeight !== 0) {
-              // for safari: add class after set height, or it will jump to zero height suddenly, weired
               addClass(el, 'collapse-transition');
-              // in vue3.0.4, transitionProperty is set 'none' to avoid 'v-leave-from' issue
-              el.style.transitionProperty = 'height';
               el.style.height = 0;
               el.style.paddingTop = 0;
               el.style.paddingBottom = 0;
             }
           },
 
-          afterLeave(el: any) {
+          afterLeave(el) {
             removeClass(el, 'collapse-transition');
             el.style.height = '';
             el.style.overflow = el.dataset.oldOverflow;
@@ -79,9 +76,3 @@
     },
   });
 </script>
-<style lang="less" scoped>
-  .collapse-transition {
-    transition: 0.2s height ease-in-out, 0.2s padding-top ease-in-out,
-      0.2s padding-bottom ease-in-out;
-  }
-</style>
