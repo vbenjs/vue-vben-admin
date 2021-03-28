@@ -185,8 +185,10 @@
       } = useTableForm(getProps, slots, fetch);
 
       const getBindValues = computed(() => {
+        const dataSource = toRaw(unref(getDataSourceRef));
         let propsData: Recordable = {
           size: 'middle',
+          // ...(dataSource.length === 0 ? { getPopupContainer: () => document.body } : {}),
           ...attrs,
           customRow,
           expandIcon: expandIcon(),
@@ -199,7 +201,7 @@
           rowKey: unref(getRowKey),
           columns: toRaw(unref(getViewColumns)),
           pagination: toRaw(unref(getPaginationInfo)),
-          dataSource: toRaw(unref(getDataSourceRef)),
+          dataSource,
           footer: unref(getFooterProps),
           ...unref(getExpandOption),
         };
@@ -208,7 +210,6 @@
         }
 
         propsData = omit(propsData, 'class');
-
         return propsData;
       });
 
