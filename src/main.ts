@@ -50,4 +50,8 @@ import 'vite-plugin-svg-icons/register';
   await router.isReady();
 
   app.mount('#app', true);
+
+  if (import.meta.env.DEV) {
+    window.__APP__ = app;
+  }
 })();

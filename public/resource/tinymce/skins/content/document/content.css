@@ -1,0 +1,60 @@
+/**
+ * Copyright (c) Tiny Technologies, Inc. All rights reserved.
+ * Licensed under the LGPL or a commercial license.
+ * For LGPL see License.txt in the project root for license information.
+ * For commercial licenses see https://www.tiny.cloud/
+ */
+@media screen {
+  html {
+    background: #f4f4f4;
+  }
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+@media screen {
+  body {
+    max-width: 820px;
+    min-height: calc(100vh - 1rem);
+    padding: 4rem 6rem 6rem 6rem;
+    margin: 1rem auto 0;
+    background-color: #fff;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+  }
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+}
+
+figure figcaption {
+  margin-top: 0.25rem;
+  color: #999;
+  text-align: center;
+}
+
+hr {
+  border-color: #ccc;
+  border-style: solid;
+  border-width: 1px 0 0 0;
+}
+
+.mce-content-body:not([dir=rtl]) blockquote {
+  padding-left: 1rem;
+  margin-left: 1.5rem;
+  border-left: 2px solid #ccc;
+}
+
+.mce-content-body[dir=rtl] blockquote {
+  padding-right: 1rem;
+  margin-right: 1.5rem;
+  border-right: 2px solid #ccc;
+}
