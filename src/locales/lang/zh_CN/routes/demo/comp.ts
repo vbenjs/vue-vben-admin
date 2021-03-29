@@ -32,5 +32,6 @@ export default {
 
   loading: 'Loading',
 
-  time: '时间组件',
+  time: '相对时间',
+  cropperImage: '图片裁剪',
 };

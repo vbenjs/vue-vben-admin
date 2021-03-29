@@ -33,5 +33,6 @@ export default {
 
   loading: 'Loading',
 
-  time: 'Time',
+  time: 'Relative Time',
+  cropperImage: 'Cropper Image',
 };

@@ -10,7 +10,12 @@
         v-if="divider && index < getActions.length - (dropDownActions ? 0 : 1)"
       />
     </template>
-    <Dropdown :trigger="['hover']" :dropMenuList="getDropList" v-if="dropDownActions">
+    <Dropdown
+      :trigger="['hover']"
+      :dropMenuList="getDropdownList"
+      popconfirm
+      v-if="dropDownActions"
+    >
       <slot name="more"></slot>
       <a-button type="link" size="small" v-if="!$slots.more">
         <MoreOutlined class="icon-more" />
@@ -71,11 +76,12 @@
         });
       });
 
-      const getDropList = computed(() => {
+      const getDropdownList = computed(() => {
         return (toRaw(props.dropDownActions) || []).map((action, index) => {
-          const { label } = action;
+          const { label, popConfirm } = action;
           return {
             ...action,
+            ...popConfirm,
             text: label,
             divider: index < props.dropDownActions.length - 1 ? props.divider : false,
           };
@@ -88,7 +94,7 @@
         return actionColumn?.align ?? 'left';
       });
 
-      return { prefixCls, getActions, getDropList, getAlign };
+      return { prefixCls, getActions, getDropdownList, getAlign };
     },
   });
 </script>
