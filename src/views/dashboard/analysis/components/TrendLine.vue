@@ -18,7 +18,6 @@
           tooltip: {
             trigger: 'axis',
             padding: 3,
-            backgroundColor: 'rgba(0, 0, 0, .6)',
             borderColor: '#777',
             borderWidth: 1,
           },
