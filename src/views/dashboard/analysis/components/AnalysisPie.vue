@@ -41,10 +41,8 @@
           ],
           tooltip: {
             trigger: 'item',
-            backgroundColor: 'rgba(0, 0, 0, .6)',
           },
           legend: {
-            icon: 'circle',
             itemHeight: 10,
             type: 'scroll',
             orient: 'vertical',
