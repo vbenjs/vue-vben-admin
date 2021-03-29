@@ -37,6 +37,7 @@
     "ant-design-vue": "^2.1.2",
     "apexcharts": "^3.26.0",
     "axios": "^0.21.1",
+    "cropperjs": "^1.5.11",
     "crypto-js": "^4.0.0",
     "echarts": "^5.0.2",
     "lodash-es": "^4.17.21",
@@ -91,7 +92,7 @@
     "esno": "^0.5.0",
     "fs-extra": "^9.1.0",
     "http-server": "^0.12.3",
-    "husky": "^5.2.0",
+    "husky": "^6.0.0",
     "inquirer": "^8.0.0",
     "is-ci": "^3.0.0",
     "less": "^4.1.1",
@@ -117,7 +118,7 @@
     "vite-plugin-style-import": "^0.9.1",
     "vite-plugin-svg-icons": "^0.4.0",
     "vite-plugin-theme": "^0.5.0",
-    "vite-plugin-windicss": "0.10.4",
+    "vite-plugin-windicss": "0.11.0",
     "vue-eslint-parser": "^7.6.0"
   },
   "resolutions": {
