@@ -4328,10 +4328,10 @@ eslint-config-prettier@^8.1.0:
   resolved "https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-8.1.0.tgz#4ef1eaf97afe5176e6a75ddfb57c335121abc5a6"
   integrity sha512-oKMhGv3ihGbCIimCAjqkdzx2Q+jthoqnXSP+d86M9tptwugycmTFdVR4IpLgq2c4SHifbwO90z2fQ8/Aio73yw==
 
-eslint-define-config@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/eslint-define-config/-/eslint-define-config-1.0.4.tgz#e3b3a177600155f1ffe9e38f90332da956f7959c"
-  integrity sha512-vGnX8CfockGwXP4NuORbnHd7PWy8gr41ARLH4HuWJoHk4U4ni5KjDG6Kg1/GNIE0B9BwXfyDgW7I3mSx2zuT0A==
+eslint-define-config@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/eslint-define-config/-/eslint-define-config-1.0.5.tgz#e4799d27a75f51ab1ce151f00b6802f03948b1fc"
+  integrity sha512-kwBMdZ7UKpzTkymYnBZrTSOGbawoCnPOKVUjSbOype9dj7YRczT1nDKk0tPRawtcm7y7zfoGf5nBUrcYO60Avg==
 
 eslint-plugin-jest@^24.1.5:
   version "24.3.2"
@@ -10330,6 +10330,11 @@ tinycolor2@^1.4.2:
   version "1.4.2"
   resolved "https://registry.npmjs.org/tinycolor2/-/tinycolor2-1.4.2.tgz#3f6a4d1071ad07676d7fa472e1fac40a719d8803"
   integrity sha512-vJhccZPs965sV/L2sU4oRQVAos0pQXwsvTLkWYdqJ+a8Q5kPFzJTuOFwy7UniPli44NKQGAglksjvOcpo95aZA==
+
+tinymce@^5.7.1:
+  version "5.7.1"
+  resolved "https://registry.npmjs.org/tinymce/-/tinymce-5.7.1.tgz#658a6fb4c7d53a8496cc00f8da33f4b8290da06d"
+  integrity sha512-1gY8RClc734srSlkYwY0MQzmkS1j73PuPC+nYtNtrrQVPY9VNcZ4bOiRwzTbdjPPD8GOtv6BAk8Ww/H2RiqKpA==
 
 tmp@^0.0.33:
   version "0.0.33"

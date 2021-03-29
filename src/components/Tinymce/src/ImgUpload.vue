@@ -1,5 +1,5 @@
 <template>
-  <div :class="prefixCls">
+  <div :class="[prefixCls, { fullscreen }]">
     <Upload
       name="file"
       multiple
@@ -25,6 +25,11 @@
   export default defineComponent({
     name: 'TinymceImageUpload',
     components: { Upload },
+    props: {
+      fullscreen: {
+        type: Boolean,
+      },
+    },
     emits: ['uploading', 'done', 'error'],
     setup(_, { emit }) {
       let uploading = false;
@@ -69,5 +74,10 @@
     top: 4px;
     right: 10px;
     z-index: 20;
+
+    &.fullscreen {
+      position: fixed;
+      z-index: 10000;
+    }
   }
 </style>

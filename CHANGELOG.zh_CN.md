@@ -8,10 +8,12 @@
 ### ✨ Refactor
 
 - 移除 useFullScreen 函数
+- tinymce 由 Cdn 改为 npm(打包体积偏大)
 
 ### 🐛 Bug Fixes
 
 - 确保面包屑正确的显示图标
+- 修复 tinymce 上传按钮全屏模式下消失问题
 
 ## 2.1.1 (2021-03-26)
 
