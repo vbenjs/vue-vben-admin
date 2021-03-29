@@ -12,6 +12,9 @@
         </template>
       </DrawerHeader>
     </template>
+    <template v-else #title>
+      <slot name="title"></slot>
+    </template>
 
     <ScrollContainer
       :style="getScrollContentStyle"
