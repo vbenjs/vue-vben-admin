@@ -12,6 +12,7 @@ export default defineConfig({
       colors: {
         ...colors,
         primary: primaryColor,
+        secondary: 'rgba(0, 0, 0, 0.45)',
       },
       screens: {
         sm: '576px',

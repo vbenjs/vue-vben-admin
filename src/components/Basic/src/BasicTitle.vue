@@ -53,7 +53,7 @@
 
     &-normal {
       font-size: 14px;
-      font-weight: normal;
+      font-weight: 500;
     }
 
     &-show-span::before {

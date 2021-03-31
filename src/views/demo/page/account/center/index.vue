@@ -6,7 +6,7 @@
           <a-col :span="8">
             <div :class="`${prefixCls}-top__avatar`">
               <img width="70" :src="headerImg" />
-              <span>Serati Ma</span>
+              <span>Vben</span>
               <div>海纳百川，有容乃大</div>
             </div>
           </a-col>
