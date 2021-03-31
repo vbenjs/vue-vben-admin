@@ -17,7 +17,12 @@ type UseTableMethod = TableActionType & {
 
 export function useTable(
   tableProps?: Props
-): [(instance: TableActionType, formInstance: UseTableMethod) => void, TableActionType] {
+): [
+  (instance: TableActionType, formInstance: UseTableMethod) => void,
+  TableActionType & {
+    getForm: () => FormActionType;
+  }
+] {
   const tableRef = ref<Nullable<TableActionType>>(null);
   const loadedRef = ref<Nullable<boolean>>(false);
   const formRef = ref<Nullable<UseTableMethod>>(null);

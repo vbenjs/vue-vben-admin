@@ -185,7 +185,7 @@
       } = useTableForm(getProps, slots, fetch);
 
       const getBindValues = computed(() => {
-        const dataSource = toRaw(unref(getDataSourceRef));
+        const dataSource = unref(getDataSourceRef);
         let propsData: Recordable = {
           size: 'middle',
           // ...(dataSource.length === 0 ? { getPopupContainer: () => document.body } : {}),
