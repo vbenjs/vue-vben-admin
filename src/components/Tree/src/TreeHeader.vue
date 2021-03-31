@@ -1,13 +1,18 @@
 <template>
   <div class="flex px-2 py-1.5 items-center border-b-1">
     <slot name="headerTitle" v-if="$slots.headerTitle"></slot>
-    <BasicTitle :helpMessage="helpMessage" v-if="!$slots.headerTitle && title">{{
-      title
-    }}</BasicTitle>
+    <BasicTitle :helpMessage="helpMessage" v-if="!$slots.headerTitle && title">
+      {{ title }}
+    </BasicTitle>
 
     <div class="flex flex-1 justify-end items-center cursor-pointer" v-if="search || toolbar">
       <div class="mr-1 w-2/3" v-if="search">
-        <InputSearch :placeholder="t('common.searchText')" size="small" @change="handleSearch" />
+        <InputSearch
+          :placeholder="t('common.searchText')"
+          size="small"
+          allowClear
+          @change="handleSearch"
+        />
       </div>
       <Dropdown @click.prevent v-if="toolbar">
         <Icon icon="ion:ellipsis-vertical" />

@@ -2,7 +2,7 @@ import { resolve } from 'path';
 import type { Alias } from 'vite';
 
 function pathResolve(dir: string) {
-  return resolve(__dirname, '.', dir);
+  return resolve(process.cwd(), '.', dir);
 }
 
 export function createAlias(alias: [string, string][]): Alias[] {

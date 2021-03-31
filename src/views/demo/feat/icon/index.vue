@@ -24,6 +24,9 @@
     <CollapseContainer title="svg 雪碧图" class="my-5">
       <div class="flex justify-around flex-wrap">
         <SvgIcon name="test" size="32" />
+        <template v-for="item in 6" :key="item">
+          <SvgIcon :name="`dynamic-avatar-${item}`" size="32" />
+        </template>
       </div>
     </CollapseContainer>
 

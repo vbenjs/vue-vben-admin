@@ -1,74 +1,39 @@
 <template>
-  <div class="p-4 analysis">
-    <a-row class="pl-2">
-      <template v-for="item in growCardList" :key="item.title">
-        <a-col :sm="24" :md="12" :lg="6">
-          <GrowCard :info="item" />
-        </a-col>
-      </template>
-    </a-row>
+  <div class="p-4">
+    <GrowCard :loading="loading" class="enter-y" />
+    <SiteAnalysis class="!my-4 enter-y" :loading="loading" />
 
-    <a-row>
-      <a-col :md="24" :lg="17" class="my-3">
-        <CollapseContainer class="mr-3" title="产品成交额" :canExpan="false">
-          <AnalysisLine />
-        </CollapseContainer>
-        <a-row class="mt-3">
-          <a-col :md="24" :lg="12" class="product-total">
-            <CollapseContainer class="mr-3" title="产品成交额" :canExpan="false">
-              <AnalysisPie />
-            </CollapseContainer>
-          </a-col>
-          <a-col :md="24" :lg="12">
-            <CollapseContainer class="mr-3" title="用户来源" :canExpan="false">
-              <AnalysisBar />
-            </CollapseContainer>
-          </a-col>
-        </a-row>
-      </a-col>
-      <a-col :md="24" :lg="7">
-        <CollapseContainer class="mt-3" title="项目进度" :canExpan="false">
-          <template v-for="item in taskList" :key="item.title">
-            <TaskCard :info="item" />
-          </template>
-        </CollapseContainer>
-      </a-col>
-    </a-row>
-    <a-row>
-      <FlowAnalysis />
-    </a-row>
+    <div class="md:flex enter-y">
+      <VisitRadar class="md:w-1/3 w-full" :loading="loading" />
+
+      <VisitSource class="md:w-1/3 !md:mx-4 !md:my-0 !my-4 w-full" :loading="loading" />
+      <SalesProductPie class="md:w-1/3 w-full" :loading="loading" />
+    </div>
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, ref } from 'vue';
   import GrowCard from './components/GrowCard.vue';
-  import AnalysisLine from './components/AnalysisLine.vue';
-  import AnalysisPie from './components/AnalysisPie.vue';
-  import AnalysisBar from './components/AnalysisBar.vue';
-  import TaskCard from './components/TaskCard.vue';
-  import FlowAnalysis from './components/FlowAnalysis';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { Row, Col } from 'ant-design-vue';
-  import { growCardList, taskList } from './data';
+  import SiteAnalysis from './components/SiteAnalysis.vue';
+  import VisitSource from './components/VisitSource.vue';
+  import VisitRadar from './components/VisitRadar.vue';
+  import SalesProductPie from './components/SalesProductPie.vue';
+
   export default defineComponent({
     components: {
       GrowCard,
-      CollapseContainer,
-      AnalysisLine,
-      AnalysisPie,
-      AnalysisBar,
-      TaskCard,
-      FlowAnalysis,
-      [Row.name]: Row,
-      [Col.name]: Col,
+      SiteAnalysis,
+      VisitRadar,
+      VisitSource,
+      SalesProductPie,
     },
     setup() {
-      return { growCardList, taskList };
+      const loading = ref(true);
+
+      setTimeout(() => {
+        loading.value = false;
+      }, 1500);
+      return { loading };
     },
   });
 </script>
-<style lang="less" scoped>
-  .analysis {
-    width: 100%;
-  }
-</style>

@@ -12,6 +12,9 @@
     <div class="demo-box">
       <Mixed />
     </div>
+    <div class="demo-box">
+      <SaleRadar />
+    </div>
   </div>
 </template>
 <script>
@@ -21,8 +24,9 @@
   import Bar from './Bar.vue';
   import Area from './Area.vue';
   import Mixed from './Mixed.vue';
+  import SaleRadar from './SaleRadar.vue';
   export default defineComponent({
-    components: { Line, Bar, Area, Mixed },
+    components: { Line, Bar, Area, Mixed, SaleRadar },
     setup() {},
   });
 </script>

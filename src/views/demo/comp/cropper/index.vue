@@ -1,6 +1,6 @@
 <template>
   <PageWrapper title="图片裁剪示例" contentBackground>
-    <CropperImage src="https://fengyuanchen.github.io/cropperjs/images/picture.jpg"></CropperImage>
+    <CropperImage src="https://fengyuanchen.github.io/cropperjs/images/picture.jpg" />
   </PageWrapper>
 </template>
 <script lang="ts">

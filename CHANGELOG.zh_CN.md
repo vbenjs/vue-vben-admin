@@ -9,6 +9,7 @@
 
 - 移除 useFullScreen 函数
 - tinymce 由 Cdn 改为 npm(打包体积偏大)
+- Dashboard 重构
 
 ### 🐛 Bug Fixes
 

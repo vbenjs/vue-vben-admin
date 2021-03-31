@@ -136,8 +136,8 @@
     }
 
     img {
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
       margin-right: 12px;
     }
 
