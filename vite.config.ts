@@ -13,7 +13,7 @@ import pkg from './package.json';
 import moment from 'moment';
 
 const { dependencies, devDependencies, name, version } = pkg;
-const APP_INFO = {
+const __APP_INFO__ = {
   pkg: { dependencies, devDependencies, name, version },
   lastBuildTime: moment().format('YYYY-MM-DD HH:mm:ss'),
 };
@@ -67,7 +67,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       __VUE_I18N_FULL_INSTALL__: false,
       __INTLIFY_PROD_DEVTOOLS__: false,
 
-      __APP_INFO__: JSON.stringify(APP_INFO),
+      __APP_INFO__: JSON.stringify(__APP_INFO__),
     },
     css: {
       preprocessorOptions: {
