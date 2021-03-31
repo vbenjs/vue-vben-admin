@@ -9,6 +9,13 @@ import { createAlias } from './build/vite/alias';
 import { wrapperEnv } from './build/utils';
 import { createVitePlugins } from './build/vite/plugin';
 import { OUTPUT_DIR } from './build/constant';
+import pkg from './package.json';
+import moment from 'moment';
+
+const APP_INFO = {
+  pkg,
+  lastBuildTime: moment().format('YYYY-MM-DD HH:mm:ss'),
+};
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
   const root = process.cwd();
@@ -58,6 +65,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       __VUE_I18N_LEGACY_API__: false,
       __VUE_I18N_FULL_INSTALL__: false,
       __INTLIFY_PROD_DEVTOOLS__: false,
+
+      __APP_INFO__: JSON.stringify(APP_INFO),
     },
     css: {
       preprocessorOptions: {
