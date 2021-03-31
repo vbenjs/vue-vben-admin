@@ -12,8 +12,9 @@ import { OUTPUT_DIR } from './build/constant';
 import pkg from './package.json';
 import moment from 'moment';
 
+const { dependencies, devDependencies, name, version } = pkg;
 const APP_INFO = {
-  pkg,
+  pkg: { dependencies, devDependencies, name, version },
   lastBuildTime: moment().format('YYYY-MM-DD HH:mm:ss'),
 };
 
