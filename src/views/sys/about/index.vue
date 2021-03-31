@@ -26,7 +26,7 @@
     name: 'AboutPage',
     components: { Description, PageWrapper },
     setup() {
-      const { pkg, lastBuildTime } = window.__APP_INFO__;
+      const { pkg, lastBuildTime } = __APP_INFO__;
 
       const { dependencies, devDependencies, name, version } = pkg;
 
