@@ -9,9 +9,9 @@
         </span>
       </div>
     </template>
-    <Description @register="infoRegister" />
-    <Description @register="register" class="my-4" />
-    <Description @register="registerDev" />
+    <Description @register="infoRegister" class="enter-y" />
+    <Description @register="register" class="my-4 enter-y" />
+    <Description @register="registerDev" class="enter-y" />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -32,8 +32,10 @@
 
       const schema: DescItem[] = [];
       const devSchema: DescItem[] = [];
+
       const commonTagRender = (color: string) => (curVal) => h(Tag, { color }, () => curVal);
       const commonLinkRender = (text: string) => (href) => h('a', { href, target: '_blank' }, text);
+
       const infoSchema: DescItem[] = [
         {
           label: '版本',
@@ -77,18 +79,21 @@
       Object.keys(devDependencies).forEach((key) => {
         devSchema.push({ field: key, label: key });
       });
+
       const [register] = useDescription({
         title: '生产环境依赖',
         data: dependencies,
         schema: schema,
         column: 3,
       });
+
       const [registerDev] = useDescription({
         title: '开发环境依赖',
         data: devDependencies,
         schema: devSchema,
         column: 3,
       });
+
       const [infoRegister] = useDescription({
         title: '项目信息',
         data: infoData,

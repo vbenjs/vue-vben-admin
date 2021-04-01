@@ -9,9 +9,7 @@ export function configVisualizerConfig() {
     return visualizer({
       filename: './node_modules/.cache/visualizer/stats.html',
       open: true,
-      // @ts-ignore
       gzipSize: true,
-      // @ts-ignore
       brotliSize: true,
     }) as Plugin;
   }
