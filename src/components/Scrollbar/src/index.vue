@@ -69,8 +69,8 @@
       const sizeHeight = ref('0');
       const moveX = ref(0);
       const moveY = ref(0);
-      const wrap = ref<any>(null);
-      const resize = ref<any>(null);
+      const wrap = ref();
+      const resize = ref();
 
       provide('scroll-bar-wrap', wrap);
 

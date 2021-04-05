@@ -37,6 +37,7 @@
       const { uploadUrl } = useGlobSetting();
       const { t } = useI18n();
       const { prefixCls } = useDesign('tinymce-img-upload');
+
       function handleChange(info: Recordable) {
         const file = info.file;
         const status = file?.status;

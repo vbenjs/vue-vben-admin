@@ -64,7 +64,7 @@
     },
     emits: ['init'],
     setup(props, { emit }) {
-      const elRef = ref<any>(null);
+      const elRef = ref();
       const state = reactive<State>({
         isInit: false,
         loading: false,

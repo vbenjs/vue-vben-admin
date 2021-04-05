@@ -1,6 +1,13 @@
 <template>
-  <div :class="$attrs.class" :style="$attrs.style">
-    <img ref="imgElRef" :src="src" :alt="alt" :crossorigin="crossorigin" :style="getImageStyle" />
+  <div :class="$attrs.class" :style="getWrapperStyle">
+    <img
+      v-show="isReady"
+      ref="imgElRef"
+      :src="src"
+      :alt="alt"
+      :crossorigin="crossorigin"
+      :style="getImageStyle"
+    />
   </div>
 </template>
 <script lang="ts">
@@ -46,8 +53,8 @@
         type: String,
       },
       height: {
-        type: String,
-        default: '500px',
+        type: [String, Number],
+        default: '360px',
       },
       crossorigin: {
         type: String,
@@ -78,6 +85,13 @@
         }
       );
 
+      const getWrapperStyle = computed(
+        (): CSSProperties => {
+          const { height } = props;
+          return { height: `${height}`.replace(/px/, '') + 'px' };
+        }
+      );
+
       async function init() {
         const imgEl = unref(imgElRef);
         if (!imgEl) {
@@ -94,7 +108,7 @@
 
       onMounted(init);
 
-      return { imgElRef, getImageStyle, isReady };
+      return { imgElRef, getWrapperStyle, getImageStyle, isReady };
     },
   });
 </script>

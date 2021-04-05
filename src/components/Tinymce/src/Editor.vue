@@ -23,55 +23,15 @@
     onDeactivated,
   } from 'vue';
 
-  import tinymce from 'tinymce/tinymce';
-  import 'tinymce/skins/ui/oxide/skin.min.css';
-  import 'tinymce/themes/silver';
+  import ImgUpload from './ImgUpload.vue';
 
-  import toolbar from './toolbar';
-  import plugins from './plugins';
+  import { tinymce, toolbar, plugins } from './tinymce';
 
   import { buildShortUUID } from '/@/utils/uuid';
   import { bindHandlers } from './helper';
   import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
-  import ImgUpload from './ImgUpload.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { isNumber } from '/@/utils/is';
-
-  import 'tinymce/icons/default/icons';
-  import 'tinymce/themes/mobile';
-  import 'tinymce/plugins/emoticons';
-  import 'tinymce/plugins/emoticons/js/emojis';
-  import 'tinymce/plugins/advlist';
-  import 'tinymce/plugins/anchor';
-  import 'tinymce/plugins/autolink';
-  import 'tinymce/plugins/autosave';
-  import 'tinymce/plugins/code';
-  import 'tinymce/plugins/codesample';
-  import 'tinymce/plugins/directionality';
-  import 'tinymce/plugins/fullscreen';
-  import 'tinymce/plugins/hr';
-  import 'tinymce/plugins/image';
-  import 'tinymce/plugins/imagetools';
-  import 'tinymce/plugins/insertdatetime';
-  import 'tinymce/plugins/link';
-  import 'tinymce/plugins/lists';
-  import 'tinymce/plugins/media';
-  import 'tinymce/plugins/nonbreaking';
-  import 'tinymce/plugins/noneditable';
-  import 'tinymce/plugins/pagebreak';
-  import 'tinymce/plugins/paste';
-  import 'tinymce/plugins/preview';
-  import 'tinymce/plugins/print';
-  import 'tinymce/plugins/save';
-  import 'tinymce/plugins/searchreplace';
-  import 'tinymce/plugins/spellchecker';
-  import 'tinymce/plugins/tabfocus';
-  import 'tinymce/plugins/table';
-  import 'tinymce/plugins/template';
-  import 'tinymce/plugins/textpattern';
-  import 'tinymce/plugins/visualblocks';
-  import 'tinymce/plugins/visualchars';
-  import 'tinymce/plugins/wordcount';
 
   const tinymceProps = {
     options: {
@@ -117,16 +77,14 @@
     props: tinymceProps,
     emits: ['change', 'update:modelValue'],
     setup(props, { emit, attrs }) {
-      const editorRef = ref<any>(null);
+      const editorRef = ref();
       const fullscreen = ref(false);
       const tinymceId = ref<string>(buildShortUUID('tiny-vue'));
       const elRef = ref<Nullable<HTMLElement>>(null);
 
       const { prefixCls } = useDesign('tinymce-container');
 
-      const tinymceContent = computed(() => {
-        return props.modelValue;
-      });
+      const tinymceContent = computed(() => props.modelValue);
 
       const containerWidth = computed(() => {
         const width = props.width;
@@ -167,7 +125,9 @@
         () => attrs.disabled,
         () => {
           const editor = unref(editorRef);
-          if (!editor) return;
+          if (!editor) {
+            return;
+          }
           editor.setMode(attrs.disabled ? 'readonly' : 'design');
         }
       );
@@ -205,7 +165,9 @@
 
       function initSetup(e: Event) {
         const editor = unref(editorRef);
-        if (!editor) return;
+        if (!editor) {
+          return;
+        }
         const value = props.modelValue || '';
 
         editor.setContent(value);
@@ -258,21 +220,24 @@
 
       function handleImageUploading(name: string) {
         const editor = unref(editorRef);
-        if (!editor) return;
+        if (!editor) {
+          return;
+        }
         const content = editor?.getContent() ?? '';
-        setValue(editor, `${content}\n${getImgName(name)}`);
+        setValue(editor, `${content}\n${getUploadingImgName(name)}`);
       }
 
       function handleDone(name: string, url: string) {
         const editor = unref(editorRef);
-        if (!editor) return;
-
+        if (!editor) {
+          return;
+        }
         const content = editor?.getContent() ?? '';
-        const val = content?.replace(getImgName(name), `<img src="${url}"/>`) ?? '';
+        const val = content?.replace(getUploadingImgName(name), `<img src="${url}"/>`) ?? '';
         setValue(editor, val);
       }
 
-      function getImgName(name: string) {
+      function getUploadingImgName(name: string) {
         return `[uploading:${name}]`;
       }
 

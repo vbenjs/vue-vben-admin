@@ -36,9 +36,11 @@
         );
         return popValues;
       });
+
       return () => {
         const values = omit(unref(getBindValues), 'icon');
         const Button = h(BasicButton, values, extendSlots(slots));
+
         if (!props.enable) {
           return Button;
         }

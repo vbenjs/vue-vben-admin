@@ -118,7 +118,7 @@
       const { setLoginState, getLoginState } = useLoginState();
       const { getFormRules } = useFormRules();
 
-      const formRef = ref<any>(null);
+      const formRef = ref();
       const loading = ref(false);
       const rememberMe = ref(false);
 
