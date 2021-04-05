@@ -23,13 +23,13 @@ export default defineComponent({
 
   setup(props) {
     const instance = getCurrentInstance();
-    const thumb = ref<any>(null);
+    const thumb = ref();
     const wrap = inject('scroll-bar-wrap', {} as Ref<Nullable<HTMLElement>>) as any;
     const bar = computed(() => {
       return BAR_MAP[props.vertical ? 'vertical' : 'horizontal'];
     });
     const barStore = ref<Recordable>({});
-    const cursorDown = ref<any>(null);
+    const cursorDown = ref();
     const clickThumbHandler = (e: any) => {
       // prevent click event of right button
       if (e.ctrlKey || e.button === 2) {
