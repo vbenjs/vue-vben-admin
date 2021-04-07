@@ -83,7 +83,7 @@ export function useTable(
       getTableInstance().setLoading(loading);
     },
     getDataSource: () => {
-      return toRaw(getTableInstance().getDataSource());
+      return getTableInstance().getDataSource();
     },
     getColumns: ({ ignoreIndex = false }: { ignoreIndex?: boolean } = {}) => {
       const columns = getTableInstance().getColumns({ ignoreIndex }) || [];
