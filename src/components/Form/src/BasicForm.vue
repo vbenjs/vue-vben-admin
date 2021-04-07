@@ -285,9 +285,16 @@
           display: flex;
         }
 
+        .ant-form-item-control {
+          margin-top: 4px;
+        }
+
         .suffix {
-          display: inline-block;
+          display: inline-flex;
           padding-left: 6px;
+          margin-top: 1px;
+          line-height: 1;
+          align-items: center;
         }
       }
     }

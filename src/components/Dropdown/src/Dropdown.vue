@@ -11,7 +11,7 @@
             @click="handleClickMenu(item)"
             :disabled="item.disabled"
           >
-            <Popconfirm v-if="popconfirm" v-bind="item">
+            <Popconfirm v-if="popconfirm && item.popConfirm" v-bind="item">
               <Icon :icon="item.icon" v-if="item.icon" />
               <span class="ml-1">{{ item.text }}</span>
             </Popconfirm>
@@ -59,7 +59,7 @@
         },
       },
       dropMenuList: {
-        type: Array as PropType<DropMenu[]>,
+        type: Array as PropType<(DropMenu & Recordable)[]>,
         default: () => [],
       },
       selectedKeys: {
