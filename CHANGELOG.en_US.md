@@ -1,3 +1,26 @@
+## 2.2.0 (2021-04-06)
+
+### ✨ Features
+
+- Added `headerTitle` slot
+- New printing example
+- Added about interface
+
+### ✨ Refactor
+
+- Remove useFullScreen function
+- tinymce changed from Cdn to npm (the package size is too large)
+- Dashboard refactoring
+- Remove ApexCharts and examples
+
+### 🐛 Bug Fixes
+
+- Make sure the breadcrumbs are displayed correctly
+- Fixed the issue of tinymce upload button disappearing in full screen mode
+- Make sure that the title changes normally after logging in again
+- Ensure that the background mode login is normal
+- Fix TableAction click event issue
+
 ## 2.1.1 (2021-03-26)
 
 ### ✨ Features
