@@ -107,12 +107,10 @@
           branding: false,
           default_link_target: '_blank',
           link_title: false,
-          advlist_bullet_styles: 'square',
-          advlist_number_styles: 'default',
           object_resizing: false,
           skin: 'oxide',
           skin_url: 'resource/tinymce/skins/ui/oxide',
-          content_css: 'resource/tinymce/skins/content/default/content.css',
+          content_css: 'resource/tinymce/skins/ui/oxide/content.min.css',
           ...options,
           setup: (editor: any) => {
             editorRef.value = editor;
