@@ -207,6 +207,11 @@ export function useColumns(
             ...item,
             defaultHidden: false,
           });
+        } else {
+          newColumns.push({
+            ...item,
+            defaultHidden: true,
+          });
         }
       });
 
@@ -214,8 +219,8 @@ export function useColumns(
       if (!isEqual(cacheKeys, columns)) {
         newColumns.sort((prev, next) => {
           return (
-            columnKeys.indexOf(prev.dataIndex as string) -
-            columnKeys.indexOf(next.dataIndex as string)
+            cacheKeys.indexOf(prev.dataIndex as string) -
+            cacheKeys.indexOf(next.dataIndex as string)
           );
         });
       }
