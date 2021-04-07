@@ -32,7 +32,6 @@
             return;
           }
           setOptions({
-            backgroundColor: '#fff',
             legend: {
               bottom: 0,
               data: ['访问', '购买'],

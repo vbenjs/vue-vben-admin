@@ -3,11 +3,12 @@ import type { UserConfig, ConfigEnv } from 'vite';
 import { loadEnv } from 'vite';
 import { resolve } from 'path';
 
-import { generateModifyVars } from './build/config/themeConfig';
+import { generateModifyVars } from './build/generate/generateModifyVars';
 import { createProxy } from './build/vite/proxy';
 import { wrapperEnv } from './build/utils';
 import { createVitePlugins } from './build/vite/plugin';
 import { OUTPUT_DIR } from './build/constant';
+
 import pkg from './package.json';
 import moment from 'moment';
 
@@ -82,12 +83,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     css: {
       preprocessorOptions: {
         less: {
-          modifyVars: {
-            // Used for global import to avoid the need to import each style file separately
-            // reference:  Avoid repeated references
-            hack: `true; @import (reference) "${resolve('src/design/config.less')}";`,
-            ...generateModifyVars(),
-          },
+          modifyVars: generateModifyVars(),
           javascriptEnabled: true,
         },
       },

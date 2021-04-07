@@ -131,10 +131,6 @@
     cursor: pointer;
     align-items: center;
 
-    &:hover {
-      background: @header-light-bg-hover-color;
-    }
-
     img {
       width: 24px;
       height: 24px;

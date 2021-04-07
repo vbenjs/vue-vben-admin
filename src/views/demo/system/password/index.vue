@@ -4,7 +4,7 @@
       <BasicForm @register="register" />
       <div class="flex justify-center">
         <a-button @click="resetFields"> 重置 </a-button>
-        <a-button class="ml-4" type="primary" @click="handleSubmit"> 确认 </a-button>
+        <a-button class="!ml-4" type="primary" @click="handleSubmit"> 确认 </a-button>
       </div>
     </div>
   </PageWrapper>

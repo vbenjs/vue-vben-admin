@@ -1,9 +1,9 @@
-import { getThemeColors, ThemeMode, generateColors } from '../../../build/config/themeConfig';
+import { getThemeColors, generateColors } from '../../../build/config/themeConfig';
 
 import { replaceStyleVariables } from 'vite-plugin-theme/es/client';
 import { mixLighten, mixDarken, tinycolor } from 'vite-plugin-theme/es/colorUtils';
 
-export async function changeTheme(color: string, theme?: ThemeMode) {
+export async function changeTheme(color: string) {
   const colors = generateColors({
     mixDarken,
     mixLighten,
@@ -12,6 +12,6 @@ export async function changeTheme(color: string, theme?: ThemeMode) {
   });
 
   return await replaceStyleVariables({
-    colorVariables: [...getThemeColors(color, theme), ...colors],
+    colorVariables: [...getThemeColors(color), ...colors],
   });
 }

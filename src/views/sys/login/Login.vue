@@ -4,6 +4,7 @@
       class="absolute top-4 right-4 enter-x text-white xl:text-gray-600"
       :showText="false"
     />
+    <AppDarkModeToggle class="absolute top-3 right-7 enter-x" />
 
     <span class="-enter-x xl:hidden">
       <AppLogo :alwaysShowTitle="true" />
@@ -29,7 +30,7 @@
         </div>
         <div class="h-full xl:h-auto flex py-5 xl:py-0 xl:my-0 w-full xl:w-6/12">
           <div
-            class="my-auto mx-auto xl:ml-20 bg-white xl:bg-transparent px-5 py-8 sm:px-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto enter-x relative"
+            class="my-auto mx-auto xl:ml-20 xl:bg-transparent px-5 py-8 sm:px-8 xl:p-4 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto enter-x relative"
           >
             <LoginForm />
             <ForgetPasswordForm />
@@ -46,7 +47,7 @@
   import { defineComponent, computed } from 'vue';
 
   import { AppLogo } from '/@/components/Application';
-  import { AppLocalePicker } from '/@/components/Application';
+  import { AppLocalePicker, AppDarkModeToggle } from '/@/components/Application';
   import LoginForm from './LoginForm.vue';
   import ForgetPasswordForm from './ForgetPasswordForm.vue';
   import RegisterForm from './RegisterForm.vue';
@@ -68,6 +69,7 @@
       MobileForm,
       QrCodeForm,
       AppLocalePicker,
+      AppDarkModeToggle,
     },
     setup() {
       const globSetting = useGlobSetting();
@@ -87,6 +89,25 @@
   @prefix-cls: ~'@{namespace}-login';
   @logo-prefix-cls: ~'@{namespace}-app-logo';
   @countdown-prefix-cls: ~'@{namespace}-countdown-input';
+
+  html[data-theme='dark'] {
+    .@{prefix-cls} {
+      background: #293146;
+
+      &::before {
+        background-image: url(/@/assets/svg/login-bg-dark.svg);
+      }
+
+      .ant-input,
+      .ant-input-password {
+        background-color: #232a3b;
+      }
+
+      .ant-btn:not(.ant-btn-link):not(.ant-btn-primary) {
+        border: 1px solid #4a5569;
+      }
+    }
+  }
 
   .@{prefix-cls} {
     @media (max-width: @screen-xl) {

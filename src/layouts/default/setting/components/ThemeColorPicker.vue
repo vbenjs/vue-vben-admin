@@ -26,7 +26,7 @@
   import { HandlerEnum } from '../enum';
 
   export default defineComponent({
-    name: 'ThemePicker',
+    name: 'ThemeColorPicker',
     components: { CheckOutlined },
     props: {
       colorList: {

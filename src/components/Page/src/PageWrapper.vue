@@ -17,11 +17,7 @@
         <slot :name="item" v-bind="data"></slot>
       </template>
     </PageHeader>
-    <div
-      class="overflow-hidden"
-      :class="[`${prefixCls}-content`, contentClass]"
-      :style="getContentStyle"
-    >
+    <div class="overflow-hidden" :class="getContentClass" :style="getContentStyle">
       <slot></slot>
     </div>
     <PageFooter v-if="getShowFooter" ref="footerRef">
@@ -87,14 +83,12 @@
 
       const getContentStyle = computed(
         (): CSSProperties => {
-          const { contentBackground, contentFullHeight, contentStyle, fixedHeight } = props;
-          const bg = contentBackground ? { backgroundColor: '#fff' } : {};
+          const { contentFullHeight, contentStyle, fixedHeight } = props;
           if (!contentFullHeight) {
-            return { ...bg, ...contentStyle };
+            return { ...contentStyle };
           }
           const height = `${unref(pageHeight)}px`;
           return {
-            ...bg,
             ...contentStyle,
             minHeight: height,
             ...(fixedHeight ? { height } : {}),
@@ -102,6 +96,17 @@
           };
         }
       );
+
+      const getContentClass = computed(() => {
+        const { contentBackground, contentClass } = props;
+        return [
+          `${prefixCls}-content`,
+          contentClass,
+          {
+            [`${prefixCls}-content-bg`]: contentBackground,
+          },
+        ];
+      });
 
       watch(
         () => [contentHeight?.value, getShowFooter.value],
@@ -170,6 +175,7 @@
         getShowFooter,
         pageHeight,
         omit,
+        getContentClass,
       };
     },
   });
@@ -188,6 +194,10 @@
       &:empty {
         padding: 0;
       }
+    }
+
+    &-content-bg {
+      background: @component-background;
     }
 
     &--dense {

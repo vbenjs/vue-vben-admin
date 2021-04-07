@@ -84,7 +84,7 @@
         margin-bottom: 5px;
         font-size: 16px;
         font-weight: 500;
-        color: rgba(0, 0, 0, 0.85);
+        color: @text-color;
 
         .icon {
           margin-top: -5px;
@@ -97,7 +97,7 @@
         padding-top: 10px;
         padding-left: 30px;
         font-size: 14px;
-        color: rgba(0, 0, 0, 0.5);
+        color: @text-color-secondary;
       }
     }
   }

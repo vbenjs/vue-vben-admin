@@ -26,6 +26,6 @@
   .scroll-wrap {
     width: 50%;
     height: 300px;
-    background: #fff;
+    background: @component-background;
   }
 </style>

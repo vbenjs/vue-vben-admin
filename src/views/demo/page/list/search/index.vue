@@ -91,7 +91,7 @@
 
     &__container {
       padding: 12px;
-      background: #fff;
+      background: @component-background;
     }
 
     &__title {
@@ -100,7 +100,7 @@
     }
 
     &__content {
-      color: rgba(0, 0, 0, 0.65);
+      color: @text-color-secondary;
     }
 
     &__action {
@@ -109,7 +109,7 @@
       &-item {
         display: inline-block;
         padding: 0 16px;
-        color: rgba(0, 0, 0, 0.45);
+        color: @text-color-secondary;
 
         &:nth-child(1) {
           padding-left: 0;
@@ -117,7 +117,7 @@
 
         &:nth-child(1),
         &:nth-child(2) {
-          border-right: 1px solid rgba(206, 206, 206, 0.4);
+          border-right: 1px solid @border-color-base;
         }
       }
 

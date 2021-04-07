@@ -62,7 +62,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   vitePlugins.push(configVisualizerConfig());
 
   //vite-plugin-theme
-  vitePlugins.push(configThemePlugin());
+  vitePlugins.push(configThemePlugin(isBuild));
 
   // The following plugins only work in the production environment
   if (isBuild) {

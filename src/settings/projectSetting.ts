@@ -9,12 +9,15 @@ import {
   SettingButtonPositionEnum,
 } from '/@/enums/appEnum';
 import { SIDE_BAR_BG_COLOR_LIST, HEADER_PRESET_BG_COLOR_LIST } from './designSetting';
-import { primaryColor, themeMode } from '../../build/config/themeConfig';
+import { primaryColor } from '../../build/config/themeConfig';
 
 // ! You need to clear the browser cache after the change
 const setting: ProjectConfig = {
   // Whether to show the configuration button
   showSettingButton: true,
+
+  // Whether to show the theme switch button
+  showDarkModeToggle: true,
 
   // `Settings` button position
   settingButtonPosition: SettingButtonPositionEnum.AUTO,
@@ -27,9 +30,6 @@ const setting: ProjectConfig = {
 
   // color
   themeColor: primaryColor,
-
-  // TODO dark theme
-  themeMode: themeMode,
 
   // Website gray mode, open for possible mourning dates
   grayMode: false,

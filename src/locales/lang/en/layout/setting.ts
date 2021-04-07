@@ -30,6 +30,7 @@ export default {
 
   drawerTitle: 'Configuration',
 
+  darkMode: 'Dark mode',
   navMode: 'Navigation mode',
   interfaceFunction: 'Interface function',
   interfaceDisplay: 'Interface display',

@@ -64,7 +64,6 @@
         margin-bottom: 5px;
         font-size: 16px;
         font-weight: 500;
-        color: rgba(0, 0, 0, 0.85);
 
         .icon {
           margin-top: -5px;
@@ -75,19 +74,18 @@
       &-num {
         margin-left: 24px;
         line-height: 36px;
-        color: #7d7a7a;
+        color: @text-color-secondary;
 
         span {
           margin-left: 5px;
           font-size: 18px;
-          color: #000;
         }
       }
 
       &-download {
         float: right;
         font-size: 20px !important;
-        color: #1890ff;
+        color: @primary-color;
       }
     }
   }

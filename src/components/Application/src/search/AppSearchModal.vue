@@ -190,12 +190,10 @@
     &-content {
       position: relative;
       width: 632px;
-      // padding: 14px;
       margin: 0 auto auto auto;
-      background: #f5f6f7;
+      background: @component-background;
       border-radius: 16px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      // box-shadow: inset 1px 1px 0 0 hsla(0, 0%, 100%, 0.5), 0 3px 8px 0 #555a64;
       flex-direction: column;
     }
 
@@ -253,8 +251,7 @@
         font-size: 14px;
         color: @text-color-base;
         cursor: pointer;
-        // background: @primary-color;
-        background: #fff;
+        background: @component-background;
         border-radius: 4px;
         box-shadow: 0 1px 3px 0 #d4d9e1;
         align-items: center;

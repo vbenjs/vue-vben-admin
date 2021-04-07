@@ -93,6 +93,6 @@
 <style lang="less" scoped>
   .desc-wrap {
     padding: 16px;
-    background: #fff;
+    background: @component-background;
   }
 </style>

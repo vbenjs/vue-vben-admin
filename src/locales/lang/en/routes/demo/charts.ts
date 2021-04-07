@@ -6,5 +6,4 @@ export default {
   map: 'Map',
   line: 'Line',
   pie: 'Pie',
-  apexChart: 'ApexChart',
 };

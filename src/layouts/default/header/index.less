@@ -131,7 +131,7 @@
   }
 
   &--light {
-    background: @white;
+    background: @white !important;
     border-bottom: 1px solid @header-light-bottom-border-color;
     border-left: 1px solid @header-light-bottom-border-color;
 
@@ -165,8 +165,9 @@
   }
 
   &--dark {
-    background: @header-dark-bg-color;
-
+    background: @header-dark-bg-color !important;
+    border-bottom: 1px solid @border-color-base;
+    border-left: 1px solid @border-color-base;
     .@{header-prefix-cls}-logo {
       &:hover {
         background: @header-dark-bg-hover-color;

@@ -2,10 +2,11 @@
   <div class="p-5">
     多层级缓存-页面1-1-1
     <br />
-    <input />
+    <Input />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  export default defineComponent({ name: 'Menu111Demo' });
+  import { Input } from 'ant-design-vue';
+  export default defineComponent({ name: 'Menu111Demo', components: { Input } });
 </script>

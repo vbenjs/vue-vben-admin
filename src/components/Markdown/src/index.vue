@@ -10,7 +10,7 @@
     onUnmounted,
     nextTick,
     computed,
-    watchEffect,
+    watch,
   } from 'vue';
   import Vditor from 'vditor';
   import 'vditor/dist/index.css';
@@ -18,6 +18,7 @@
   import { propTypes } from '/@/utils/propTypes';
   import { useLocale } from '/@/locales/useLocale';
   import { useModalContext } from '../../Modal';
+  import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 
   type Lang = 'zh_CN' | 'en_US' | 'ja_JP' | 'ko_KR' | undefined;
   export default defineComponent({
@@ -35,8 +36,24 @@
       const modalFn = useModalContext();
 
       const { getLocale } = useLocale();
+      const { getDarkMode } = useRootSetting();
 
-      watchEffect(() => {});
+      watch(
+        [() => getDarkMode.value, () => initedRef.value],
+        ([val]) => {
+          const vditor = unref(vditorRef);
+
+          if (!vditor) {
+            return;
+          }
+          const theme = val === 'dark' ? 'dark' : undefined;
+          vditor.setTheme(theme as 'dark');
+        },
+        {
+          immediate: true,
+          flush: 'post',
+        }
+      );
 
       const getCurrentLang = computed((): 'zh_CN' | 'en_US' | 'ja_JP' | 'ko_KR' => {
         let lang: Lang;
@@ -60,6 +77,7 @@
         if (!wrapEl) return;
         const bindValue = { ...attrs, ...props };
         vditorRef.value = new Vditor(wrapEl, {
+          theme: 'classic',
           lang: unref(getCurrentLang),
           mode: 'sv',
           preview: {
