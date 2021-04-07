@@ -5,14 +5,12 @@ const loadingDirective: Directive = {
   mounted(el, binding) {
     const tip = el.getAttribute('loading-tip');
     const background = el.getAttribute('loading-background');
-    const theme = el.getAttribute('loading-theme');
     const size = el.getAttribute('loading-size');
     const fullscreen = !!binding.modifiers.fullscreen;
     const instance = createLoading(
       {
         tip,
         background,
-        theme,
         size: size || 'large',
         loading: !!binding.value,
         absolute: !fullscreen,

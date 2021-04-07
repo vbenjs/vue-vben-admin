@@ -1,16 +1,15 @@
 <template>
-  <section class="full-loading" :class="{ absolute }" v-show="loading" :style="getStyle">
+  <section class="full-loading" :class="{ absolute }" v-show="loading">
     <Spin v-bind="$attrs" :tip="tip" :size="size" :spinning="loading" />
   </section>
 </template>
 <script lang="ts">
-  import { computed, CSSProperties, PropType } from 'vue';
+  import { PropType } from 'vue';
 
   import { defineComponent } from 'vue';
   import { Spin } from 'ant-design-vue';
 
   import { SizeEnum } from '/@/enums/sizeEnum';
-  import { ThemeEnum } from '/@/enums/appEnum';
 
   export default defineComponent({
     name: 'Loading',
@@ -38,25 +37,6 @@
       background: {
         type: String as PropType<string>,
       },
-      theme: {
-        type: String as PropType<'dark' | 'light'>,
-        default: 'light',
-      },
-    },
-    setup(props) {
-      const getStyle = computed(
-        (): CSSProperties => {
-          const { background, theme } = props;
-          const bgColor = background
-            ? background
-            : theme === ThemeEnum.DARK
-            ? 'rgba(0, 0, 0, 0.2)'
-            : 'rgba(240, 242, 245, 0.4)';
-          return { background: bgColor };
-        }
-      );
-
-      return { getStyle };
     },
   });
 </script>
@@ -71,12 +51,19 @@
     height: 100%;
     justify-content: center;
     align-items: center;
+    background: rgba(240, 242, 245, 0.4);
 
     &.absolute {
       position: absolute;
       top: 0;
       left: 0;
       z-index: 300;
+    }
+  }
+
+  html[data-theme='dark'] {
+    .full-loading {
+      background: @modal-mask-bg;
     }
   }
 </style>

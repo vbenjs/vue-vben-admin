@@ -78,18 +78,18 @@
       margin: 0 0 12px;
       font-size: 16px;
       line-height: 32px;
-      color: rgba(0, 0, 0, 0.45);
+      color: @text-color;
     }
 
     h4 {
       margin: 0 0 4px;
       font-size: 14px;
       line-height: 22px;
-      color: rgba(0, 0, 0, 0.45);
+      color: @text-color;
     }
 
     p {
-      color: rgba(0, 0, 0, 0.45);
+      color: @text-color;
     }
   }
 

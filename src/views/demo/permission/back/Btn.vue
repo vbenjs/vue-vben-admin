@@ -83,6 +83,6 @@
 </script>
 <style lang="less" scoped>
   .demo {
-    background: #fff;
+    background: @component-background;
   }
 </style>

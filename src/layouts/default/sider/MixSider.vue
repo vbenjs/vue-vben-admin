@@ -403,7 +403,7 @@
         }
       }
     }
-    @border-color: @sider-dark-lighten-1-bg-color;
+    @border-color: @sider-dark-lighten-bg-color;
 
     &.dark {
       &.open {

@@ -4,13 +4,16 @@ import type { BeforeMiniState } from '../types';
 import { VuexModule, getModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import store from '/@/store';
 
-import { PROJ_CFG_KEY } from '/@/enums/cacheEnum';
+import { PROJ_CFG_KEY, APP_DARK_MODE_KEY_ } from '/@/enums/cacheEnum';
 
 import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
 import { Persistent } from '/@/utils/cache/persistent';
 import { deepMerge } from '/@/utils';
 
 import { resetRouter } from '/@/router';
+import { ThemeEnum } from '../../enums/appEnum';
+
+import { darkMode } from '/@/settings/designSetting';
 
 export interface LockInfo {
   pwd: string | undefined;
@@ -22,6 +25,8 @@ const NAME = 'app';
 hotModuleUnregisterModule(NAME);
 @Module({ dynamic: true, namespaced: true, store, name: NAME })
 export default class App extends VuexModule {
+  private darkMode;
+
   // Page loading status
   private pageLoadingState = false;
 
@@ -36,6 +41,10 @@ export default class App extends VuexModule {
 
   get getPageLoading() {
     return this.pageLoadingState;
+  }
+
+  get getDarkMode() {
+    return this.darkMode || localStorage.getItem(APP_DARK_MODE_KEY_) || darkMode;
   }
 
   get getBeforeMiniState() {
@@ -53,6 +62,12 @@ export default class App extends VuexModule {
   @Mutation
   commitPageLoadingState(loading: boolean): void {
     this.pageLoadingState = loading;
+  }
+
+  @Mutation
+  commitDarkMode(mode: ThemeEnum): void {
+    this.darkMode = mode;
+    localStorage.setItem(APP_DARK_MODE_KEY_, mode);
   }
 
   @Mutation

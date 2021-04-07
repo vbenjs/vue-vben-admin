@@ -14,6 +14,7 @@ const { t } = useI18n();
 export enum HandlerEnum {
   CHANGE_LAYOUT,
   CHANGE_THEME_COLOR,
+  CHANGE_THEME,
   // menu
   MENU_HAS_DRAG,
   MENU_ACCORDION,

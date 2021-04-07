@@ -91,7 +91,6 @@
       position: relative;
       height: 240px;
       padding: 130px 30px 60px 30px;
-      background: #fff;
       border-radius: 10px;
     }
 

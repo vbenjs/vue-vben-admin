@@ -86,25 +86,25 @@
     &__top {
       padding: 24px;
       text-align: center;
-      background: #fff;
+      background: @component-background;
 
       &-col {
         &:not(:last-child) {
-          border-right: 1px dashed rgba(206, 206, 206, 0.4);
+          border-right: 1px dashed @border-color-base;
         }
 
         div {
           margin-bottom: 12px;
           font-size: 14px;
           line-height: 22px;
-          color: rgba(0, 0, 0, 0.45);
+          color: @text-color;
         }
 
         p {
           margin: 0;
           font-size: 24px;
           line-height: 32px;
-          color: rgba(0, 0, 0, 0.85);
+          color: @text-color;
         }
       }
     }
@@ -112,7 +112,7 @@
     &__content {
       padding: 24px;
       margin-top: 12px;
-      background: #fff;
+      background: @component-background;
 
       .list {
         position: relative;
@@ -127,7 +127,7 @@
         top: 20px;
         right: 15px;
         font-weight: normal;
-        color: #1890ff;
+        color: @primary-color;
         cursor: pointer;
       }
 

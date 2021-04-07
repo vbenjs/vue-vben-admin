@@ -1,4 +1,4 @@
-:root {
+html {
   // header
   --header-bg-color: #394664;
   --header-bg-hover-color: #273352;
@@ -7,16 +7,13 @@
   // sider
   --sider-dark-bg-color: #273352;
   --sider-dark-darken-bg-color: #273352;
-  --sider-dark-lighten-1-bg-color: #273352;
-  --sider-dark-lighten-2-bg-color: #273352;
+  --sider-dark-lighten-bg-color: #273352;
 }
 
 @white: #fff;
 
 @content-bg: #f4f7f9;
-// @content-bg: #f0f2f5;
 
-@basic-mask-color: fade(@white, 30%);
 // :export {
 //   name: "less";
 //   mainColor: @mainColor;
@@ -35,10 +32,7 @@
 @border-color-shallow-dark: #cececd;
 
 // Light-dark
-@border-color-light: #ebeef5;
-
-// Light-light
-@border-color-shallow-light: #f2f6fc;
+@border-color-light: @border-color-base;
 
 // =================================
 // ==============message==============
@@ -52,17 +46,6 @@
 @warning-background-color: #fdf6ed;
 // danger-bg-color
 @danger-background-color: #fef0f0;
-
-// =================================
-// ==============bg color============
-// =================================
-
-// dark
-@background-color-dark: #f4f7f9;
-// light
-@background-color-light: #f5f7fa;
-// layout content background
-@layout-content-bg-color: #f1f1f6;
 
 // =================================
 // ==============Header=============
@@ -83,14 +66,11 @@
 // let -menu
 @sider-dark-bg-color: var(--sider-dark-bg-color);
 @sider-dark-darken-bg-color: var(--sider-dark-darken-bg-color);
-@sider-dark-lighten-1-bg-color: var(--sider-dark-lighten-1-bg-color);
-@sider-dark-lighten-2-bg-color: var(--sider-dark-lighten-2-bg-color);
+@sider-dark-lighten-bg-color: var(--sider-dark-lighten-bg-color);
 
 // trigger
 @trigger-dark-hover-bg-color: rgba(255, 255, 255, 0.2);
 @trigger-dark-bg-color: rgba(255, 255, 255, 0.1);
-@trigger-light-bg-color: @white;
-@trigger-light-hover-bg-color: rgba(255, 255, 255, 0.7);
 
 // =================================
 // ==============tree============
@@ -118,9 +98,6 @@
 
 // Auxiliary information color-dark
 @text-color-help-dark: #909399;
-
-// Auxiliary information color-light color
-@text-color-help-light: #c0c4cc;
 
 // =================================
 // ==============breadcrumb=========

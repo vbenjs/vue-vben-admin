@@ -22,11 +22,6 @@ const menu: MenuModule = {
         name: t('routes.demo.charts.googleMap'),
       },
       {
-        path: 'apexChart',
-        name: t('routes.demo.charts.apexChart'),
-      },
-
-      {
         path: 'echarts',
         name: 'Echarts',
         children: [

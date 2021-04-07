@@ -324,7 +324,7 @@
         const showTitle = title || toolbar || search || slots.headerTitle;
         const scrollStyle: CSSProperties = { height: 'calc(100% - 38px)' };
         return (
-          <div class={[prefixCls, 'h-full bg-white', attrs.class]}>
+          <div class={[prefixCls, 'h-full', attrs.class]}>
             {showTitle && (
               <TreeHeader
                 checkable={checkable}
@@ -361,6 +361,8 @@
   @prefix-cls: ~'@{namespace}-basic-tree';
 
   .@{prefix-cls} {
+    background: @component-background;
+
     .ant-tree-node-content-wrapper {
       position: relative;
 

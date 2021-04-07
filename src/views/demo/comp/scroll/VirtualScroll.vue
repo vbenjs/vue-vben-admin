@@ -50,7 +50,7 @@
     &-wrap {
       display: flex;
       margin: 0 30%;
-      background: #fff;
+      background: @component-background;
       justify-content: center;
     }
 
@@ -58,7 +58,7 @@
       height: 40px;
       padding: 0 20px;
       line-height: 40px;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid @border-color-base;
     }
   }
 </style>

@@ -4,6 +4,7 @@ import { computed, unref } from 'vue';
 
 import { appStore } from '/@/store/modules/app';
 import { ContentEnum } from '/@/enums/appEnum';
+import { ThemeEnum } from '../../enums/appEnum';
 
 type RootSetting = Omit<
   ProjectConfig,
@@ -48,12 +49,20 @@ const getGrayMode = computed(() => unref(getRootSetting).grayMode);
 
 const getLockTime = computed(() => unref(getRootSetting).lockTime);
 
+const getShowDarkModeToggle = computed(() => unref(getRootSetting).showDarkModeToggle);
+
+const getDarkMode = computed(() => appStore.getDarkMode);
+
 const getLayoutContentMode = computed(() =>
   unref(getRootSetting).contentMode === ContentEnum.FULL ? ContentEnum.FULL : ContentEnum.FIXED
 );
 
 function setRootSetting(setting: Partial<RootSetting>) {
   appStore.commitProjectConfigState(setting);
+}
+
+function setDarkMode(mode: ThemeEnum) {
+  appStore.commitDarkMode(mode);
 }
 
 export function useRootSetting() {
@@ -80,5 +89,8 @@ export function useRootSetting() {
     getContentMode,
     getLockTime,
     getThemeColor,
+    getDarkMode,
+    setDarkMode,
+    getShowDarkModeToggle,
   };
 }

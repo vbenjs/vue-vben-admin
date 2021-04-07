@@ -1,0 +1,31 @@
+.bg-white {
+  background: @component-background !important;
+}
+
+html[data-theme='light'] {
+  .text-secondary {
+    color: rgba(0, 0, 0, 0.45);
+  }
+}
+
+html[data-theme='dark'] {
+  .text-secondary {
+    color: #8b949e;
+  }
+
+  .ant-card-grid-hoverable:hover {
+    box-shadow: 0 3px 6px -4px rgb(0 0 0 / 48%), 0 6px 16px 0 rgb(0 0 0 / 32%),
+      0 9px 28px 8px rgb(0 0 0 / 20%);
+  }
+
+  .ant-alert-message,
+  .ant-alert-with-description .ant-alert-message,
+  .ant-alert-description {
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  .ant-checkbox-checked .ant-checkbox-inner::after {
+    border-top: 0;
+    border-left: 0;
+  }
+}

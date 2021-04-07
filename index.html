@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -13,8 +13,24 @@
     <link rel="icon" href="/favicon.ico" />
   </head>
   <body>
+    <script>
+      (() => {
+        var htmlRoot = document.getElementById('htmlRoot');
+        const theme = window.localStorage.getItem('__APP__DARK__MODE__');
+        if (!htmlRoot || !theme) return;
+        htmlRoot.setAttribute('data-theme', theme);
+      })();
+    </script>
     <div id="app">
       <style>
+        html[data-theme='dark'] .app-loading {
+          background: #2c344a;
+        }
+
+        html[data-theme='dark'] .app-loading .app-loading-title {
+          color: rgba(255, 255, 255, 0.85);
+        }
+
         .app-loading {
           display: flex;
           width: 100%;

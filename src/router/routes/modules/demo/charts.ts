@@ -39,14 +39,6 @@ const charts: AppRouteModule = {
     },
 
     {
-      path: 'apexChart',
-      name: 'ApexChart',
-      meta: {
-        title: t('routes.demo.charts.apexChart'),
-      },
-      component: () => import('/@/views/demo/charts/apex/index.vue'),
-    },
-    {
       path: 'echarts',
       name: 'Echarts',
       component: getParentLayout('Echarts'),

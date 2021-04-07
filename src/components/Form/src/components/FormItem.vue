@@ -258,7 +258,7 @@
         const { label, helpMessage, helpComponentProps, subLabel } = props.schema;
         const renderLabel = subLabel ? (
           <span>
-            {label} <span style="color:#00000073">{subLabel}</span>
+            {label} <span class="text-secondary">{subLabel}</span>
           </span>
         ) : (
           label

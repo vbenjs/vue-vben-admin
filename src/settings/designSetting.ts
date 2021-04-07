@@ -1,6 +1,9 @@
+import { ThemeEnum } from '../enums/appEnum';
 export default {
   prefixCls: 'vben',
 };
+
+export const darkMode = ThemeEnum.LIGHT;
 
 // app theme preset color
 export const APP_PRESET_COLOR_LIST: string[] = [
@@ -18,6 +21,7 @@ export const APP_PRESET_COLOR_LIST: string[] = [
 // header preset color
 export const HEADER_PRESET_BG_COLOR_LIST: string[] = [
   '#ffffff',
+  '#151515',
   '#009688',
   '#5172DC',
   '#018ffb',
@@ -32,6 +36,7 @@ export const HEADER_PRESET_BG_COLOR_LIST: string[] = [
 // sider preset color
 export const SIDE_BAR_BG_COLOR_LIST: string[] = [
   '#001529',
+  '#212121',
   '#273352',
   '#ffffff',
   '#191b24',
