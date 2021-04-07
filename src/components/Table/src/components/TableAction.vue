@@ -82,6 +82,8 @@
           return {
             ...action,
             ...popConfirm,
+            onConfirm: popConfirm?.confirm,
+            onCancel: popConfirm?.cancel,
             text: label,
             divider: index < props.dropDownActions.length - 1 ? props.divider : false,
           };
