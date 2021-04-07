@@ -3,11 +3,11 @@ import { MockMethod } from 'vite-plugin-mock';
 
 // single
 const dashboardRoute = {
-  path: '/home',
+  path: '/dashboard',
   name: 'Welcome',
-  component: '/dashboard/welcome/index',
+  component: '/dashboard/analysis/index',
   meta: {
-    title: 'routes.dashboard.welcome',
+    title: 'routes.dashboard.analysis',
     affix: true,
     icon: 'bx:bx-home',
   },
