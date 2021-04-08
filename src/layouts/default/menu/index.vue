@@ -49,6 +49,7 @@
         getAccordion,
         getIsHorizontal,
         getIsSidebarType,
+        getSplit,
       } = useMenuSetting();
       const { getShowLogo } = useRootSetting();
 
@@ -144,7 +145,7 @@
         // console.log(menus);
         if (!menus || !menus.length) return null;
         return !props.isHorizontal ? (
-          <SimpleMenu {...menuProps} items={menus} />
+          <SimpleMenu {...menuProps} isSplitMenu={unref(getSplit)} items={menus} />
         ) : (
           <BasicMenu
             {...menuProps}

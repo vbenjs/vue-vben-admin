@@ -8,7 +8,7 @@ import { uniq } from 'lodash-es';
 import { getAllParentPath } from '/@/router/helper/menuHelper';
 
 import { useTimeoutFn } from '/@/hooks/core/useTimeout';
-import { useDebounce } from '../../../hooks/core/useDebounce';
+import { useDebounce } from '/@/hooks/core/useDebounce';
 
 export function useOpenKeys(
   menuState: MenuState,

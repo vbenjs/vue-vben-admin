@@ -112,6 +112,10 @@
       &-form {
         background: transparent !important;
       }
+
+      .app-iconify {
+        color: #fff;
+      }
     }
   }
 
