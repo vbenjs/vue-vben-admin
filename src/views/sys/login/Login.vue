@@ -110,6 +110,7 @@
   }
 
   .@{prefix-cls} {
+    overflow: hidden;
     @media (max-width: @screen-xl) {
       background: linear-gradient(180deg, #1c3faa, #1c3faa);
     }
