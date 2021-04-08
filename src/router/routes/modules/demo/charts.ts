@@ -7,7 +7,7 @@ const charts: AppRouteModule = {
   path: '/charts',
   name: 'Charts',
   component: LAYOUT,
-  redirect: '/charts/apexChart',
+  redirect: '/charts/echarts/map',
   meta: {
     icon: 'ion:bar-chart-outline',
     title: t('routes.demo.charts.charts'),

@@ -138,6 +138,15 @@
           });
           emit('select', name);
         });
+
+        rootMenuEmitter.on('open-name-change', ({ name, opened }) => {
+          if (opened && !openedNames.value.includes(name)) {
+            openedNames.value.push(name);
+          } else if (!opened) {
+            const index = openedNames.value.findIndex((item) => item === name);
+            index !== -1 && openedNames.value.splice(index, 1);
+          }
+        });
       });
 
       return { getClass, openedNames };
