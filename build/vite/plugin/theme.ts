@@ -3,6 +3,7 @@
  * https://github.com/anncwb/vite-plugin-theme
  */
 import type { Plugin } from 'vite';
+import path from 'path';
 import {
   viteThemePlugin,
   antdDarkThemePlugin,
@@ -25,6 +26,10 @@ export function configThemePlugin(isBuild: boolean): Plugin[] {
       colorVariables: [...getThemeColors(), ...colors],
     }),
     antdDarkThemePlugin({
+      preloadFiles: [
+        path.resolve(process.cwd(), 'node_modules/ant-design-vue/dist/antd.less'),
+        path.resolve(process.cwd(), 'src/design/index.less'),
+      ],
       filter: (id) => (isBuild ? !id.endsWith('antd.less') : true),
       // extractCss: false,
       darkModifyVars: {

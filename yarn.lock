@@ -9173,10 +9173,10 @@ vite-plugin-svg-icons@^0.4.1:
     svg-baker "1.7.0"
     svgo "^2.3.0"
 
-vite-plugin-theme@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.npmjs.org/vite-plugin-theme/-/vite-plugin-theme-0.6.1.tgz#8fd87e1d57ae83f49531aeb65bfc8f6adcf2b71f"
-  integrity sha512-r+v+AxeatliReg6fBkCbKQ/PHpv0J9EG22QLoAyXNPdZxei+xydxdHVWrN2nUh231im0v9fZzWKzOOxw5VW0fA==
+vite-plugin-theme@^0.6.3:
+  version "0.6.3"
+  resolved "https://registry.npmjs.org/vite-plugin-theme/-/vite-plugin-theme-0.6.3.tgz#77be00b039eb53452c9adfce7fd90e39a39a81ee"
+  integrity sha512-ffhnqCtCG/0Y7egfiF9upJRo5ZEKS6lQOQsSztqu8gA2/SGsNTm3lsmEWvARMeUAj/8aF5PYzAv5EikfhcPENQ==
   dependencies:
     "@types/node" "^14.14.37"
     "@types/tinycolor2" "^1.4.2"
