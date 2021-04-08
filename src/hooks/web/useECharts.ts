@@ -28,7 +28,7 @@ export function useECharts(
         return cacheOptions.value;
       }
       return {
-        backgroundColor: '#151515',
+        backgroundColor: 'transparent',
         ...cacheOptions.value,
       };
     }
