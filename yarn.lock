@@ -1136,10 +1136,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.325":
-  version "1.1.325"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.325.tgz#99127b4b467e04a9817d066a9237fea47fdb8925"
-  integrity sha512-lqLTB9p6qQxL9vH794xnY+MIty08vkrUflxLXM2uykH7Pt/LU8Pk5DDd3XgJS/L4lnkBgOuXM27uvejSSGupMw==
+"@iconify/json@^1.1.327":
+  version "1.1.327"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.327.tgz#78d021a7f730c01863e56ee5b4c0eaf4ca69db43"
+  integrity sha512-S4Zw/5yqQaGpkYe8ubB+0PRXQl5UZOdsYhvShzI2FSqOjwjhpPG4X6DUTH6WD8oGkCpRa/B7tK9asYefjCax7w==
 
 "@intlify/core-base@9.0.0":
   version "9.0.0"
@@ -1762,18 +1762,18 @@
   resolved "https://registry.npmjs.org/@vue/shared/-/shared-3.0.11.tgz#20d22dd0da7d358bb21c17f9bde8628152642c77"
   integrity sha512-b+zB8A2so8eCE0JsxjL24J7vdGl8rzPQ09hZNhystm+KqSbKcAej1A+Hbva1rCMmTTqA+hFnUSDc5kouEo0JzA==
 
-"@vueuse/core@^4.7.0":
-  version "4.7.0"
-  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.7.0.tgz#733f4b86832346a014dfdf818e3773ebfcbaebc4"
-  integrity sha512-0Kmo+Gqn47aCg6HHFUvXabD/T5haWyC5pk2PEzaGay9dGE7D+sc05Y1h2MylzcFzRX/2G4anOxSuDqmvQ/GunQ==
+"@vueuse/core@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.8.0.tgz#d86e36956521c0f9b6571cb58b27f0e2535259b3"
+  integrity sha512-nUH4Hn1DN4kkuF1r5ZcfGnjoAKDD0Kw9oFnt/TUo1aueNijq4KujagtoQN8OC4Pei10TeTDdqhmZAWnaCE1NbA==
   dependencies:
-    "@vueuse/shared" "4.7.0"
+    "@vueuse/shared" "4.8.0"
     vue-demi latest
 
-"@vueuse/shared@4.7.0":
-  version "4.7.0"
-  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.7.0.tgz#b18de574f4b42382441765fb510f26421c3a72ca"
-  integrity sha512-a9wmH6g+dh6ALeOejIL53s1HkASyOldbHunwEUEtRdgQyUCnU+RRiYTZlNLEyt1r79kPtnBjp5fHq0X36H96MA==
+"@vueuse/shared@4.8.0":
+  version "4.8.0"
+  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.8.0.tgz#abf3da96ca81b4be82e885928193fef2c676cdbc"
+  integrity sha512-g1lSbHD4ptiS74qBUvffJ98QjRsoCH7ILjxVzJF488EPAmp5z3taLnoggt6NXfonnYve7fEPuqsJqd2BLOxT1A==
   dependencies:
     vue-demi latest
 
@@ -8811,10 +8811,10 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@4.2.3:
-  version "4.2.3"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-4.2.3.tgz#39062d8019912d43726298f09493d598048c1ce3"
-  integrity sha512-qOcYwxaByStAWrBf4x0fibwZvMRG+r4cQoTjbPtUlrWjBHbmCAww1i448U0GJ+3cNNEtebDteo/cHOR3xJ4wEw==
+typescript@4.2.4:
+  version "4.2.4"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-4.2.4.tgz#8610b59747de028fda898a8aef0e103f156d0961"
+  integrity sha512-V+evlYHZnQkaz8TRBuxTA92yZBPotr5H+WhQ7bD3hZUndx5tGOa1fuCgeSjxAzM1RiN5IzvadIXTVefuuwZCRg==
 
 uglify-js@^3.1.4:
   version "3.13.1"
@@ -9138,14 +9138,15 @@ vite-plugin-purge-icons@^0.7.0:
     "@purge-icons/generated" "^0.7.0"
     rollup-plugin-purge-icons "^0.7.0"
 
-vite-plugin-pwa@^0.6.5:
-  version "0.6.5"
-  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.6.5.tgz#04bb01c7363260bfb6ee8d6b976ef954e23b8adc"
-  integrity sha512-OBp1hIuVVwA0gEVCF3RsfaRrZWlIUOS4yYttLpznCH69BoGvgPH8M9qVGMj7/KbMI4+2YbTo7YzwSl+LWHX49A==
+vite-plugin-pwa@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.7.0.tgz#cde774b2a65dbd84dc8831c964898563f7e2c22c"
+  integrity sha512-Mf7O5Ecubv25nSSdkfpeackVKX9+SOpH7U2I6IFPb/NupG7wn3KzBOke3ksu+bA8GzN5923vD/kw1GWOsLZL4w==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"
     pretty-bytes "^5.6.0"
+    rollup "^2.44.0"
     workbox-build "^6.1.2"
     workbox-window "^6.1.2"
 
@@ -9172,10 +9173,10 @@ vite-plugin-svg-icons@^0.4.1:
     svg-baker "1.7.0"
     svgo "^2.3.0"
 
-vite-plugin-theme@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.npmjs.org/vite-plugin-theme/-/vite-plugin-theme-0.6.0.tgz#7abba80f0f615c245dd7385fdea00b008b89d769"
-  integrity sha512-ZG6QLET0QbwGTTXxRQOjXNMKY8iEzUMu0mls4vBIhKc30Rq3NHl6Kxg0Zgd+BvOyQva8joP2fVsxr+1CV4383Q==
+vite-plugin-theme@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.npmjs.org/vite-plugin-theme/-/vite-plugin-theme-0.6.1.tgz#8fd87e1d57ae83f49531aeb65bfc8f6adcf2b71f"
+  integrity sha512-r+v+AxeatliReg6fBkCbKQ/PHpv0J9EG22QLoAyXNPdZxei+xydxdHVWrN2nUh231im0v9fZzWKzOOxw5VW0fA==
   dependencies:
     "@types/node" "^14.14.37"
     "@types/tinycolor2" "^1.4.2"
@@ -9225,7 +9226,7 @@ vue-eslint-parser@^7.6.0:
     esquery "^1.4.0"
     lodash "^4.17.15"
 
-vue-i18n@^9.0.0:
+vue-i18n@9.0.0:
   version "9.0.0"
   resolved "https://registry.npmjs.org/vue-i18n/-/vue-i18n-9.0.0.tgz#a04c41d5ed3d5a068e923517bfaa0abcbc84e174"
   integrity sha512-iks0eJDv/4cK/7tl/ooMUroNVVIGOK4kKS1PIHmPQk7QjT/sDfFM84vjPKgpARbw0GjJsOiADL43jufNfs9e9A==

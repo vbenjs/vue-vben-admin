@@ -24,6 +24,8 @@
   import Iconify from '@purge-icons/generated';
   import { isString } from '/@/utils/is';
   import { propTypes } from '/@/utils/propTypes';
+  import { useRootSetting } from '/@/hooks/setting/useRootSetting';
+  import { ThemeEnum } from '/@/enums/appEnum';
 
   const SVG_END_WITH_FLAG = '|svg';
   export default defineComponent({
@@ -43,6 +45,8 @@
     },
     setup(props) {
       const elRef = ref<ElRef>(null);
+
+      const { getDarkMode } = useRootSetting();
 
       const isSvgIcon = computed(() => props.icon?.endsWith(SVG_END_WITH_FLAG));
       const getSvgIcon = computed(() => props.icon.replace(SVG_END_WITH_FLAG, ''));
@@ -78,9 +82,10 @@
           if (isString(size)) {
             fs = parseInt(size, 10);
           }
+
           return {
             fontSize: `${fs}px`,
-            color,
+            color: color || (unref(getDarkMode) === ThemeEnum.DARK ? '#fff' : '#303133'),
             display: 'inline-flex',
           };
         }

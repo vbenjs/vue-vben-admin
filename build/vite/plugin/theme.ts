@@ -25,12 +25,7 @@ export function configThemePlugin(isBuild: boolean): Plugin[] {
       colorVariables: [...getThemeColors(), ...colors],
     }),
     antdDarkThemePlugin({
-      filter: (id) => {
-        if (isBuild) {
-          return !id.endsWith('antd.less');
-        }
-        return true;
-      },
+      filter: (id) => (isBuild ? !id.endsWith('antd.less') : true),
       // extractCss: false,
       darkModifyVars: {
         ...generateModifyVars(true),
