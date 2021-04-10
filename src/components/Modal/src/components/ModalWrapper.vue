@@ -24,7 +24,6 @@
   import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
   import { ScrollContainer } from '/@/components/Container';
 
-  // import { useElResize } from '/@/hooks/event/useElResize';
   import { propTypes } from '/@/utils/propTypes';
   import { createModalContext } from '../hooks/useModalContext';
 

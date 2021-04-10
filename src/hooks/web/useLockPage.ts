@@ -1,5 +1,5 @@
 import { computed, onUnmounted, unref, watchEffect } from 'vue';
-import { useThrottle } from '/@/hooks/core/useThrottle';
+import { useThrottleFn } from '@vueuse/core';
 
 import { useAppStore } from '/@/store/modules/app';
 import { useLockStore } from '/@/store/modules/lock';
@@ -59,7 +59,7 @@ export function useLockPage() {
     clear();
   });
 
-  const [keyupFn] = useThrottle(resetCalcLockTimeout, 2000);
+  const keyupFn = useThrottleFn(resetCalcLockTimeout, 2000);
 
   return computed(() => {
     if (unref(getLockTime)) {

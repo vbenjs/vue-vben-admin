@@ -29,19 +29,7 @@ export function createContext<T>(
   const provideData = readonly ? defineReadonly(state) : state;
   !createProvider && provide(key, native ? context : provideData);
 
-  // const Provider = createProvider
-  //   ? defineComponent({
-  //       name: 'Provider',
-  //       inheritAttrs: false,
-  //       setup(_, { slots }) {
-  //         provide(key, provideData);
-  //         return () => slots.default?.();
-  //       },
-  //     })
-  //   : null;
-
   return {
-    // Provider,
     state,
   };
 }

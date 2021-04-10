@@ -76,7 +76,7 @@
   import iconsData from '../data/icons.data';
   import { propTypes } from '/@/utils/propTypes';
   import { usePagination } from '/@/hooks/web/usePagination';
-  import { useDebounce } from '/@/hooks/core/useDebounce';
+  import { useDebounceFn } from '@vueuse/core';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard';
   import { useMessage } from '/@/hooks/web/useMessage';
@@ -123,7 +123,7 @@
       const { t } = useI18n();
       const { prefixCls } = useDesign('icon-picker');
 
-      const [debounceHandleSearchChange] = useDebounce(handleSearchChange, 100);
+      const debounceHandleSearchChange = useDebounceFn(handleSearchChange, 100);
       const { clipboardRef, isSuccessRef } = useCopyToClipboard(props.value);
       const { createMessage } = useMessage();
 

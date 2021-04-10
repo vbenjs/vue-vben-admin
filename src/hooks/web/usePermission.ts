@@ -94,6 +94,7 @@ export function usePermission() {
         'Please switch PermissionModeEnum to ROLE mode in the configuration to operate!'
       );
     }
+
     if (!isArray(roles)) {
       roles = [roles];
     }

@@ -5,7 +5,7 @@ import { computed, unref, onMounted, nextTick, ref } from 'vue';
 import { TriggerEnum } from '/@/enums/menuEnum';
 
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
-import { useDebounce } from '/@/hooks/core/useDebounce';
+import { useDebounceFn } from '@vueuse/core';
 
 /**
  * Handle related operations of menu events
@@ -64,7 +64,7 @@ export function useDragLine(siderRef: Ref<any>, dragBarRef: Ref<any>, mix = fals
 
   onMounted(() => {
     nextTick(() => {
-      const [exec] = useDebounce(changeWrapWidth, 80);
+      const exec = useDebounceFn(changeWrapWidth, 80);
       exec();
     });
   });
