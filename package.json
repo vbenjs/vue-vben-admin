@@ -1,6 +1,6 @@
 {
   "name": "vben-admin",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "author": {
     "name": "vben",
     "email": "anncwb@126.com",
@@ -113,7 +113,7 @@
     "vite-plugin-pwa": "^0.7.0",
     "vite-plugin-style-import": "^0.9.2",
     "vite-plugin-svg-icons": "^0.4.1",
-    "vite-plugin-theme": "^0.6.4",
+    "vite-plugin-theme": "^0.6.5",
     "vite-plugin-windicss": "0.13.2",
     "vue-eslint-parser": "^7.6.0"
   },
