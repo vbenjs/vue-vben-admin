@@ -33,6 +33,7 @@ export interface MenuSetting {
 }
 
 export interface MultiTabsSetting {
+  cache: boolean;
   show: boolean;
   showQuick: boolean;
   canDrag: boolean;

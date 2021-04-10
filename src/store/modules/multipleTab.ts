@@ -5,10 +5,14 @@ import { defineStore } from 'pinia';
 import { store } from '/@/store';
 
 import { useGo, useRedo } from '/@/hooks/web/usePage';
+import { Persistent } from '/@/utils/cache/persistent';
 
 import { PageEnum } from '/@/enums/pageEnum';
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/routes/basic';
 import { getRawRoute } from '/@/utils';
+import { MULTIPLE_TABS_KEY } from '/@/enums/cacheEnum';
+
+import projectSetting from '/@/settings/projectSetting';
 
 export interface MultipleTabState {
   cacheTabList: Set<string>;
@@ -21,13 +25,15 @@ function handleGotoPage(router: Router) {
   go(unref(router.currentRoute).path, true);
 }
 
+const cacheTab = projectSetting.multiTabsSetting.cache;
+
 export const useMultipleTabStore = defineStore({
   id: 'app-multiple-tab',
   state: (): MultipleTabState => ({
     // Tabs that need to be cached
     cacheTabList: new Set(),
     // multiple tab list
-    tabList: [],
+    tabList: cacheTab ? Persistent.getLocal(MULTIPLE_TABS_KEY) || [] : [],
     // Index of the last moved tab
     lastDragEndIndex: 0,
   }),
@@ -135,6 +141,7 @@ export const useMultipleTabStore = defineStore({
       // Add tab
       this.tabList.push(route);
       this.updateCacheTab();
+      cacheTab && Persistent.setLocal(MULTIPLE_TABS_KEY, this.tabList);
     },
 
     async closeTab(tab: RouteLocationNormalized, router: Router) {

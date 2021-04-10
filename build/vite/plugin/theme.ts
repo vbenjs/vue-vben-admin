@@ -40,7 +40,7 @@ export function configThemePlugin(isBuild: boolean): Plugin[] {
         // black: '#0e1117',
         // #8b949e
         'text-color-secondary': '#8b949e',
-        // 'border-color-base': '#30363d',
+        'border-color-base': '#303030',
         // 'border-color-split': '#30363d',
         'item-active-bg': '#111b26',
       },

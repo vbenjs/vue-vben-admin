@@ -13,6 +13,10 @@
 - 移除 `useDebounceFn` 使用`vueuse`-`useDebounceFn`代替
 - 移除 `useThrottle` 使用`vueuse`-`useThrottleFn`代替
 
+### ✨ Features
+
+- 标签页支持持久化保存
+
 ### ✨ Refactor
 
 - 移除 `useElResize`
