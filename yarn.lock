@@ -9112,10 +9112,10 @@ vite-plugin-svg-icons@^0.4.1:
     svg-baker "1.7.0"
     svgo "^2.3.0"
 
-vite-plugin-theme@^0.6.3:
-  version "0.6.3"
-  resolved "https://registry.npmjs.org/vite-plugin-theme/-/vite-plugin-theme-0.6.3.tgz#77be00b039eb53452c9adfce7fd90e39a39a81ee"
-  integrity sha512-ffhnqCtCG/0Y7egfiF9upJRo5ZEKS6lQOQsSztqu8gA2/SGsNTm3lsmEWvARMeUAj/8aF5PYzAv5EikfhcPENQ==
+vite-plugin-theme@^0.6.4:
+  version "0.6.4"
+  resolved "https://registry.npmjs.org/vite-plugin-theme/-/vite-plugin-theme-0.6.4.tgz#51376c328d708aa30ce56031ff4d7dd02cca613f"
+  integrity sha512-GoXSDHjmDNU2R6bmuyr67VqI5dekGSejNMzlGTivMOmNl516464ATmV5NtoCDNiPJ1QYYnMRjZSQNfZ/Fxl7Qg==
   dependencies:
     "@types/node" "^14.14.37"
     "@types/tinycolor2" "^1.4.2"
