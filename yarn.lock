@@ -1696,10 +1696,10 @@
   dependencies:
     vue-demi latest
 
-"@windicss/plugin-utils@0.13.1":
-  version "0.13.1"
-  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.13.1.tgz#e0e172855ebcf0b8a5f0f358befdcaf44bae5cf1"
-  integrity sha512-Vr7f7yWxmB5AWwe+iDPV3JbhTlZHbDvM89IfJ0hyP6PqYmZNTtUfMXMbHXZJHVAbQ54dWBMG23WmeC9X327ETA==
+"@windicss/plugin-utils@0.13.2":
+  version "0.13.2"
+  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.13.2.tgz#8df77495f38002edb9a92503a7a9dab99c773c1b"
+  integrity sha512-ZnHIPhyHSCYmkc3dcytSkTq3fchzCIvNsiptzP5twtK1Q7aWRNrOpPDywer64goWOBYHJIgCp8GFgzFSden3jw==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"
@@ -3596,10 +3596,10 @@ esbuild-register@^2.2.0:
     esbuild "^0.11.5"
     jsonc-parser "^3.0.0"
 
-esbuild@^0.11.4, esbuild@^0.11.5, esbuild@^0.11.6, esbuild@^0.9.2, esbuild@^0.9.3:
-  version "0.11.6"
-  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.11.6.tgz#20961309c4cfed00b71027e18806150358d0cbb0"
-  integrity sha512-L+nKW9ftVS/N2CVJMR9YmXHbkm+vHzlNYuo09rzipQhF7dYNvRLfWoEPSDRTl10and4owFBV9rJ2CTFNtLIOiw==
+esbuild@^0.11.4, esbuild@^0.11.5, esbuild@^0.11.6, esbuild@^0.11.7, esbuild@^0.9.2, esbuild@^0.9.3:
+  version "0.11.7"
+  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.11.7.tgz#c32ee844d3b0db489e62ea0ad028e109f6f205c7"
+  integrity sha512-rY+jA0TiCFVLcvxUbbp+yQ9EEBXDsfIU4rsY7RKJEsx/fjjRFjyGnamRCBwUZQspK37G9We6xAkX7IibGA24AA==
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -9126,12 +9126,12 @@ vite-plugin-theme@^0.6.3:
     esbuild-plugin-alias "^0.1.2"
     tinycolor2 "^1.4.2"
 
-vite-plugin-windicss@0.13.1:
-  version "0.13.1"
-  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.13.1.tgz#82a488f3395be710ae2166b83b0612a5eaec7738"
-  integrity sha512-WmFfTLTMSY5gRC3MWX9o72Yni2HRdrtJ2im+cCyZ2W/p4WE6T702zFCScO8Tnz/E08GDx4OH6oFCZWeZYwgxzg==
+vite-plugin-windicss@0.13.2:
+  version "0.13.2"
+  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.13.2.tgz#c6390e42c4ceef2bd407fcbad8cab467ba695d87"
+  integrity sha512-yy9jncbjMl79hEnJC8F8UQhM3b+r9g+JDFtn1ximK0BZvMpS4UKBuayWjmmk9tb8/5I9W+H1osnrfhhlneLW1Q==
   dependencies:
-    "@windicss/plugin-utils" "0.13.1"
+    "@windicss/plugin-utils" "0.13.2"
     chalk "^4.1.0"
     debug "^4.3.2"
     windicss "^2.5.12"
