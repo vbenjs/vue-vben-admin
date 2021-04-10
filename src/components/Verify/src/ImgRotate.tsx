@@ -152,7 +152,7 @@ export default defineComponent({
               </span>
             )}
             {!state.showTip && !state.draged && (
-              <span class={[`ir-dv-img__tip`, 'normal']}>t('redoTip')</span>
+              <span class={[`ir-dv-img__tip`, 'normal']}>{t('component.verify.redoTip')}</span>
             )}
           </div>
           <BasicDragVerify
