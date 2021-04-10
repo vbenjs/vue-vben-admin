@@ -42,13 +42,9 @@
     },
     setup() {
       const { prefixCls } = useDesign('default-layout');
-
       const { getIsMobile } = useAppInject();
-
       const { getShowFullHeaderRef } = useHeaderSetting();
-
       const { getShowSidebar, getIsMixSidebar } = useMenuSetting();
-
       const layoutClass = computed(() => ({ 'ant-layout-has-sider': unref(getIsMixSidebar) }));
 
       return {

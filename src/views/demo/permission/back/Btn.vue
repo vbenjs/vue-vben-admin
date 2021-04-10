@@ -5,7 +5,7 @@
     <CurrentPermissionMode />
 
     <p>
-      当前拥有的code列表: <a> {{ permissionStore.getPermCodeListState }} </a>
+      当前拥有的code列表: <a> {{ permissionStore.getPermCodeList }} </a>
     </p>
     <Divider />
     <Alert class="mt-4" type="info" message="点击后请查看按钮变化" show-icon />
@@ -59,7 +59,7 @@
   import CurrentPermissionMode from '../CurrentPermissionMode.vue';
   import { usePermission } from '/@/hooks/web/usePermission';
   import { Authority } from '/@/components/Authority';
-  import { permissionStore } from '/@/store/modules/permission';
+  import { usePermissionStore } from '/@/store/modules/permission';
   import { PermissionModeEnum } from '/@/enums/appEnum';
   import { PageWrapper } from '/@/components/Page';
 
@@ -67,6 +67,7 @@
     components: { Alert, PageWrapper, CurrentPermissionMode, Divider, Authority },
     setup() {
       const { hasPermission } = usePermission();
+      const permissionStore = usePermissionStore();
 
       function changePermissionCode(userId: string) {
         permissionStore.changePermissionCode(userId);

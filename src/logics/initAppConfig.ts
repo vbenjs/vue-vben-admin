@@ -12,18 +12,20 @@ import { updateGrayMode } from '/@/logics/theme/updateGrayMode';
 import { updateDarkTheme } from '/@/logics/theme/dark';
 import { changeTheme } from '/@/logics/theme';
 
-import { appStore } from '/@/store/modules/app';
-import { localeStore } from '/@/store/modules/locale';
+import { useAppStore } from '/@/store/modules/app';
+import { useLocaleStore } from '/@/store/modules/locale';
 
 import { getCommonStoragePrefix, getStorageShortName } from '/@/utils/env';
 
 import { primaryColor } from '../../build/config/themeConfig';
 import { Persistent } from '/@/utils/cache/persistent';
 import { deepMerge } from '/@/utils';
-import { ThemeEnum } from '../enums/appEnum';
+import { ThemeEnum } from '/@/enums/appEnum';
 
 // Initial project configuration
 export function initAppConfigStore() {
+  const localeStore = useLocaleStore();
+  const appStore = useAppStore();
   let projCfg: ProjectConfig = Persistent.getLocal(PROJ_CFG_KEY) as ProjectConfig;
   projCfg = deepMerge(projectSetting, projCfg || {});
   const darkMode = appStore.getDarkMode;
@@ -45,7 +47,7 @@ export function initAppConfigStore() {
   } catch (error) {
     console.log(error);
   }
-  appStore.commitProjectConfigState(projCfg);
+  appStore.setProjectConfig(projCfg);
 
   // init dark mode
   updateDarkTheme(darkMode);

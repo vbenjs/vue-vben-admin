@@ -10,7 +10,7 @@
 </template>
 <script lang="ts">
   import { defineComponent, computed } from 'vue';
-  import { appStore } from '/@/store/modules/app';
+  import { useAppStore } from '/@/store/modules/app';
   import { PermissionModeEnum } from '/@/enums/appEnum';
   import { Divider } from 'ant-design-vue';
   import { usePermission } from '/@/hooks/web/usePermission';
@@ -18,9 +18,8 @@
     name: 'CurrentPermissionMode',
     components: { Divider },
     setup() {
-      const permissionMode = computed(() => {
-        return appStore.getProjectConfig.permissionMode;
-      });
+      const appStore = useAppStore();
+      const permissionMode = computed(() => appStore.getProjectConfig.permissionMode);
       const { togglePermissionMode } = usePermission();
 
       return {

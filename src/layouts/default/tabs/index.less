@@ -8,13 +8,20 @@ html[data-theme='dark'] {
   }
 }
 
+html[data-theme='light'] {
+  .@{prefix-cls} {
+    .ant-tabs-tab:not(.ant-tabs-tab-active) {
+      border: 1px solid #d9d9d9 !important;
+    }
+  }
+}
+
 .@{prefix-cls} {
   z-index: 10;
   height: @multiple-height + 2;
   line-height: @multiple-height + 2;
   background: @component-background;
   border-bottom: 1px solid @border-color-base;
-  box-shadow: 0 1px 2px 0 rgba(29, 35, 41, 0.05);
 
   .ant-tabs-small {
     height: @multiple-height;

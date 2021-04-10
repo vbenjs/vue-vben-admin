@@ -5,7 +5,7 @@
     :mouseEnterDelay="0.5"
     @click="handleToErrorList"
   >
-    <Badge :count="getCount" :offset="[0, 10]" dot :overflowCount="99">
+    <Badge :count="getCount" :offset="[0, 10]" :overflowCount="99">
       <Icon icon="ion:bug-outline" />
     </Badge>
   </Tooltip>
@@ -16,7 +16,7 @@
   import Icon from '/@/components/Icon';
 
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { errorStore } from '/@/store/modules/error';
+  import { useErrorLogStore } from '/@/store/modules/errorLog';
   import { PageEnum } from '/@/enums/pageEnum';
 
   import { useRouter } from 'vue-router';
@@ -28,14 +28,13 @@
     setup() {
       const { t } = useI18n();
       const { push } = useRouter();
+      const errorLogStore = useErrorLogStore();
 
-      const getCount = computed(() => {
-        return errorStore.getErrorListCountState;
-      });
+      const getCount = computed(() => errorLogStore.getErrorLogListCount);
 
       function handleToErrorList() {
         push(PageEnum.ERROR_LOG_PAGE).then(() => {
-          errorStore.commitErrorListCountState(0);
+          errorLogStore.setErrorLogListCount(0);
         });
       }
 

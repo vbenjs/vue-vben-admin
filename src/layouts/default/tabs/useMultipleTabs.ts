@@ -1,14 +1,17 @@
 import { toRaw, ref, nextTick } from 'vue';
-import { RouteLocationNormalized } from 'vue-router';
+import type { RouteLocationNormalized } from 'vue-router';
 import { useDesign } from '/@/hooks/web/useDesign';
 import { useSortable } from '/@/hooks/web/useSortable';
-import router from '/@/router';
-import { tabStore } from '/@/store/modules/tab';
+import { useMultipleTabStore } from '/@/store/modules/multipleTab';
 import { isNullAndUnDef } from '/@/utils/is';
 import projectSetting from '/@/settings/projectSetting';
+import { useRouter } from 'vue-router';
 
 export function initAffixTabs(): string[] {
   const affixList = ref<RouteLocationNormalized[]>([]);
+
+  const tabStore = useMultipleTabStore();
+  const router = useRouter();
   /**
    * @description: Filter all fixed routes
    */
@@ -30,7 +33,7 @@ export function initAffixTabs(): string[] {
     const affixTabs = filterAffixTabs((router.getRoutes() as unknown) as RouteLocationNormalized[]);
     affixList.value = affixTabs;
     for (const tab of affixTabs) {
-      tabStore.addTabAction(({
+      tabStore.addTab(({
         meta: tab.meta,
         name: tab.name,
         path: tab.path,
@@ -39,6 +42,7 @@ export function initAffixTabs(): string[] {
   }
 
   let isAddAffix = false;
+
   if (!isAddAffix) {
     addAffixTabs();
     isAddAffix = true;
@@ -47,8 +51,8 @@ export function initAffixTabs(): string[] {
 }
 
 export function useTabsDrag(affixTextList: string[]) {
+  const tabStore = useMultipleTabStore();
   const { multiTabsSetting } = projectSetting;
-
   const { prefixCls } = useDesign('multiple-tabs');
   nextTick(() => {
     if (!multiTabsSetting.canDrag) return;
@@ -66,7 +70,7 @@ export function useTabsDrag(affixTextList: string[]) {
           return;
         }
 
-        tabStore.commitSortTabs({ oldIndex, newIndex });
+        tabStore.sortTabs(oldIndex, newIndex);
       },
     });
     initSortable();

@@ -1,8 +1,8 @@
 import type { Menu, MenuModule } from '/@/router/types';
 import type { RouteRecordNormalized } from 'vue-router';
 
-import { appStore } from '/@/store/modules/app';
-import { permissionStore } from '/@/store/modules/permission';
+import { useAppStoreWidthOut } from '/@/store/modules/app';
+import { usePermissionStore } from '/@/store/modules/permission';
 import { transformMenuModule, getAllParentPath } from '/@/router/helper/menuHelper';
 import { filter } from '/@/utils/helper/treeHelper';
 import { isUrl } from '/@/utils/is';
@@ -24,6 +24,7 @@ Object.keys(modules).forEach((key) => {
 // ==========Helper===========
 // ===========================
 const isBackMode = () => {
+  const appStore = useAppStoreWidthOut();
   return appStore.getProjectConfig.permissionMode === PermissionModeEnum.BACK;
 };
 
@@ -39,7 +40,8 @@ const staticMenus: Menu[] = [];
 })();
 
 async function getAsyncMenus() {
-  return !isBackMode() ? staticMenus : permissionStore.getBackMenuListState;
+  const permissionStore = usePermissionStore();
+  return !isBackMode() ? staticMenus : permissionStore.getBackMenuList;
 }
 
 export const getMenus = async (): Promise<Menu[]> => {

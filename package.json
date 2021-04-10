@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.0-rc.6",
-    "@vueuse/core": "^4.8.0",
+    "@vueuse/core": "^4.8.1",
     "@zxcvbn-ts/core": "^0.3.0",
     "ant-design-vue": "^2.1.2",
     "axios": "^0.21.1",
@@ -43,6 +43,7 @@
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.0",
+    "pinia": "^2.0.0-alpha.12",
     "print-js": "^1.6.0",
     "qrcode": "^1.4.4",
     "sortablejs": "^1.13.0",
@@ -52,8 +53,6 @@
     "vue-i18n": "9.0.0",
     "vue-router": "^4.0.6",
     "vue-types": "^3.0.2",
-    "vuex": "^4.0.0",
-    "vuex-module-decorators": "^1.0.1",
     "xlsx": "^0.16.9"
   },
   "devDependencies": {
@@ -81,7 +80,7 @@
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
-    "eslint": "^7.23.0",
+    "eslint": "^7.24.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-define-config": "^1.0.7",
     "eslint-plugin-prettier": "^3.3.1",
@@ -115,13 +114,14 @@
     "vite-plugin-style-import": "^0.9.2",
     "vite-plugin-svg-icons": "^0.4.1",
     "vite-plugin-theme": "^0.6.3",
-    "vite-plugin-windicss": "0.12.5",
+    "vite-plugin-windicss": "0.13.1",
     "vue-eslint-parser": "^7.6.0"
   },
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China.If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
-    "rollup": "^2.44.0"
+    "rollup": "^2.45.1",
+    "esbuild": "^0.11.6"
   },
   "repository": {
     "type": "git",

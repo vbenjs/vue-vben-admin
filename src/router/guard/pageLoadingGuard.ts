@@ -1,13 +1,15 @@
 import type { Router } from 'vue-router';
-import { appStore } from '/@/store/modules/app';
-import { userStore } from '/@/store/modules/user';
+import { useAppStoreWidthOut } from '/@/store/modules/app';
+import { useUserStoreWidthOut } from '/@/store/modules/user';
 import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
 import { unref } from 'vue';
 
-const { getOpenPageLoading } = useTransitionSetting();
 export function createPageLoadingGuard(router: Router) {
+  const userStore = useUserStoreWidthOut();
+  const appStore = useAppStoreWidthOut();
+  const { getOpenPageLoading } = useTransitionSetting();
   router.beforeEach(async (to) => {
-    if (!userStore.getTokenState) {
+    if (!userStore.getToken) {
       return true;
     }
     if (to.meta.loaded) {
@@ -24,7 +26,7 @@ export function createPageLoadingGuard(router: Router) {
   router.afterEach(async () => {
     if (unref(getOpenPageLoading)) {
       setTimeout(() => {
-        appStore.commitPageLoadingState(false);
+        appStore.setPageLoading(false);
       }, 220);
     }
     return true;

@@ -2,7 +2,10 @@
  * Used to configure the global error handling function, which can monitor vue errors, script errors, static resource errors and Promise errors
  */
 
-import { errorStore, ErrorInfo } from '/@/store/modules/error';
+import type { ErrorLogInfo } from '/#/store';
+
+import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog';
+
 import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
 import { App } from 'vue';
 import projectSetting from '/@/settings/projectSetting';
@@ -61,8 +64,9 @@ function formatComponentName(vm: any) {
  */
 
 function vueErrorHandler(err: Error, vm: any, info: string) {
+  const errorLogStore = useErrorLogStoreWithOut();
   const { name, path } = formatComponentName(vm);
-  errorStore.commitErrorInfoState({
+  errorLogStore.addErrorLogInfo({
     type: ErrorTypeEnum.VUE,
     name,
     file: path,
@@ -86,7 +90,7 @@ export function scriptErrorHandler(
   if (event === 'Script error.' && !source) {
     return false;
   }
-  const errorInfo: Partial<ErrorInfo> = {};
+  const errorInfo: Partial<ErrorLogInfo> = {};
   colno = colno || (window.event && (window.event as any).errorCharacter) || 0;
   errorInfo.message = event as string;
   if (error?.stack) {
@@ -95,13 +99,14 @@ export function scriptErrorHandler(
     errorInfo.stack = '';
   }
   const name = source ? source.substr(source.lastIndexOf('/') + 1) : 'script';
-  errorStore.commitErrorInfoState({
+  const errorLogStore = useErrorLogStoreWithOut();
+  errorLogStore.addErrorLogInfo({
     type: ErrorTypeEnum.SCRIPT,
     name: name,
     file: source as string,
     detail: 'lineno' + lineno,
     url: window.location.href,
-    ...(errorInfo as Pick<ErrorInfo, 'message' | 'stack'>),
+    ...(errorInfo as Pick<ErrorLogInfo, 'message' | 'stack'>),
   });
   return true;
 }
@@ -112,8 +117,9 @@ export function scriptErrorHandler(
 function registerPromiseErrorHandler() {
   window.addEventListener(
     'unhandledrejection',
-    function (event: any) {
-      errorStore.commitErrorInfoState({
+    function (event) {
+      const errorLogStore = useErrorLogStoreWithOut();
+      errorLogStore.addErrorLogInfo({
         type: ErrorTypeEnum.PROMISE,
         name: 'Promise Error!',
         file: 'none',
@@ -136,10 +142,10 @@ function registerResourceErrorHandler() {
     'error',
     function (e: Event) {
       const target = e.target ? e.target : (e.srcElement as any);
-
-      errorStore.commitErrorInfoState({
+      const errorLogStore = useErrorLogStoreWithOut();
+      errorLogStore.addErrorLogInfo({
         type: ErrorTypeEnum.RESOURCE,
-        name: 'Resouce Error!',
+        name: 'Resource Error!',
         file: (e.target || ({} as any)).currentSrc,
         detail: JSON.stringify({
           tagName: target.localName,
@@ -147,7 +153,7 @@ function registerResourceErrorHandler() {
           type: e.type,
         }),
         url: window.location.href,
-        stack: 'resouce is not found',
+        stack: 'resource is not found',
         message: (e.target || ({} as any)).localName + ' is load error',
       });
     },
@@ -161,7 +167,9 @@ function registerResourceErrorHandler() {
  */
 export function setupErrorHandle(app: App) {
   const { useErrorHandle } = projectSetting;
-  if (!useErrorHandle) return;
+  if (!useErrorHandle) {
+    return;
+  }
   // Vue exception monitoring;
   app.config.errorHandler = vueErrorHandler;
 

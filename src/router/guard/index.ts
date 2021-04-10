@@ -9,11 +9,13 @@ import { createHttpGuard } from './httpGuard';
 import { createPageGuard } from './pageGuard';
 import { createStateGuard } from './stateGuard';
 
-createPageGuard(router);
-createPageLoadingGuard(router);
-createHttpGuard(router);
-createScrollGuard(router);
-createMessageGuard(router);
-createProgressGuard(router);
-createPermissionGuard(router);
-createStateGuard(router);
+export function setupRouterGuard() {
+  createPageGuard(router);
+  createPageLoadingGuard(router);
+  createHttpGuard(router);
+  createScrollGuard(router);
+  createMessageGuard(router);
+  createProgressGuard(router);
+  createPermissionGuard(router);
+  createStateGuard(router);
+}
