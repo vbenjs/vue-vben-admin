@@ -1,5 +1,5 @@
 import { colorIsDark, lighten, darken } from '/@/utils/color';
-import { appStore } from '/@/store/modules/app';
+import { useAppStore } from '/@/store/modules/app';
 import { ThemeEnum } from '/@/enums/appEnum';
 import { setCssVar } from './util';
 
@@ -16,12 +16,13 @@ const SIDER_LIGHTEN_BG_COLOR = '--sider-dark-lighten-bg-color';
  * @param color
  */
 export function updateHeaderBgColor(color?: string) {
+  const appStore = useAppStore();
   const darkMode = appStore.getDarkMode === ThemeEnum.DARK;
   if (!color) {
     if (darkMode) {
       color = '#151515';
     } else {
-      color = appStore.getProjectConfig.headerSetting.bgColor;
+      color = appStore.getHeaderSetting.bgColor;
     }
   }
   // bg color
@@ -35,7 +36,7 @@ export function updateHeaderBgColor(color?: string) {
   // Determine the depth of the color value and automatically switch the theme
   const isDark = colorIsDark(color!);
 
-  appStore.commitProjectConfigState({
+  appStore.setProjectConfig({
     headerSetting: {
       theme: isDark || darkMode ? ThemeEnum.DARK : ThemeEnum.LIGHT,
     },
@@ -47,13 +48,15 @@ export function updateHeaderBgColor(color?: string) {
  * @param color  bg color
  */
 export function updateSidebarBgColor(color?: string) {
+  const appStore = useAppStore();
+
   // if (!isHexColor(color)) return;
   const darkMode = appStore.getDarkMode === ThemeEnum.DARK;
   if (!color) {
     if (darkMode) {
       color = '#212121';
     } else {
-      color = appStore.getProjectConfig.menuSetting.bgColor;
+      color = appStore.getMenuSetting.bgColor;
     }
   }
   setCssVar(SIDER_DARK_BG_COLOR, color);
@@ -64,7 +67,7 @@ export function updateSidebarBgColor(color?: string) {
   // Only when the background color is #fff, the theme of the menu will be changed to light
   const isLight = ['#fff', '#ffffff'].includes(color!.toLowerCase());
 
-  appStore.commitProjectConfigState({
+  appStore.setProjectConfig({
     menuSetting: {
       theme: isLight && !darkMode ? ThemeEnum.LIGHT : ThemeEnum.DARK,
     },

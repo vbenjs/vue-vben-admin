@@ -6,7 +6,6 @@
     :class="prefixCls"
     :activeSubMenuNames="activeSubMenuNames"
     @select="handleSelect"
-    @open-change="handleOpenChange"
   >
     <template v-for="item in items" :key="item.path">
       <SimpleSubMenu
@@ -140,17 +139,11 @@
         menuState.activeName = key;
       }
 
-      function handleOpenChange(v) {
-        console.log('======================');
-        console.log(v);
-        console.log('======================');
-      }
       return {
         prefixCls,
         getBindValues,
         handleSelect,
         getOpenKeys,
-        handleOpenChange,
         ...toRefs(menuState),
       };
     },

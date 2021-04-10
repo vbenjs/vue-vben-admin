@@ -28,6 +28,8 @@
 </template>
 
 <script lang="ts">
+  import type { ErrorLogInfo } from '/#/store';
+
   import { defineComponent, watch, ref, nextTick } from 'vue';
 
   import DetailModal from './DetailModal.vue';
@@ -37,7 +39,7 @@
   import { useMessage } from '/@/hooks/web/useMessage';
   import { useI18n } from '/@/hooks/web/useI18n';
 
-  import { errorStore, ErrorInfo } from '/@/store/modules/error';
+  import { useErrorLogStore } from '/@/store/modules/errorLog';
 
   import { fireErrorApi } from '/@/api/demo/error';
 
@@ -49,11 +51,11 @@
     name: 'ErrorHandler',
     components: { DetailModal, BasicTable, TableAction },
     setup() {
-      const rowInfo = ref<ErrorInfo>();
+      const rowInfo = ref<ErrorLogInfo>();
       const imgList = ref<string[]>([]);
 
       const { t } = useI18n();
-
+      const errorLogStore = useErrorLogStore();
       const [register, { setTableData }] = useTable({
         title: t('sys.errorLog.tableTitle'),
         columns: getColumns(),
@@ -67,7 +69,7 @@
       const [registerModal, { openModal }] = useModal();
 
       watch(
-        () => errorStore.getErrorInfoState,
+        () => errorLogStore.getErrorLogInfoList,
         (list) => {
           nextTick(() => {
             setTableData(cloneDeep(list));
@@ -82,7 +84,7 @@
         createMessage.info(t('sys.errorLog.enableMessage'));
       }
       // 查看详情
-      function handleDetail(row: ErrorInfo) {
+      function handleDetail(row: ErrorLogInfo) {
         rowInfo.value = row;
         openModal(true);
       }

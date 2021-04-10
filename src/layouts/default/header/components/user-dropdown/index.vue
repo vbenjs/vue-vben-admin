@@ -41,7 +41,7 @@
 
   import { DOC_URL } from '/@/settings/siteSetting';
 
-  import { userStore } from '/@/store/modules/user';
+  import { useUserStore } from '/@/store/modules/user';
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useDesign } from '/@/hooks/web/useDesign';
@@ -71,9 +71,10 @@
       const { prefixCls } = useDesign('header-user-dropdown');
       const { t } = useI18n();
       const { getShowDoc } = useHeaderSetting();
+      const userStore = useUserStore();
 
       const getUserInfo = computed(() => {
-        const { realName = '', desc } = userStore.getUserInfoState || {};
+        const { realName = '', desc } = userStore.getUserInfo || {};
         return { realName, desc };
       });
 

@@ -1,109 +1,102 @@
 import type { ProjectConfig } from '/#/config';
-import type { BeforeMiniState } from '../types';
+import type { BeforeMiniState } from '/#/store';
 
-import { VuexModule, getModule, Module, Mutation, Action } from 'vuex-module-decorators';
-import store from '/@/store';
+import { defineStore } from 'pinia';
+import { store } from '/@/store';
 
-import { PROJ_CFG_KEY, APP_DARK_MODE_KEY_ } from '/@/enums/cacheEnum';
-
-import { hotModuleUnregisterModule } from '/@/utils/helper/vuexHelper';
+import { ThemeEnum } from '/@/enums/appEnum';
+import { APP_DARK_MODE_KEY_, PROJ_CFG_KEY } from '/@/enums/cacheEnum';
 import { Persistent } from '/@/utils/cache/persistent';
+import { darkMode } from '/@/settings/designSetting';
+import { resetRouter } from '/@/router';
 import { deepMerge } from '/@/utils';
 
-import { resetRouter } from '/@/router';
-import { ThemeEnum } from '../../enums/appEnum';
-
-import { darkMode } from '/@/settings/designSetting';
-
-export interface LockInfo {
-  pwd: string | undefined;
-  isLock: boolean;
-}
-
-let timeId: TimeoutHandle;
-const NAME = 'app';
-hotModuleUnregisterModule(NAME);
-@Module({ dynamic: true, namespaced: true, store, name: NAME })
-export default class App extends VuexModule {
-  private darkMode;
-
+interface AppState {
+  darkMode: ThemeEnum;
   // Page loading status
-  private pageLoadingState = false;
-
+  pageLoading: boolean;
   // project config
-  private projectConfigState: ProjectConfig | null = Persistent.getLocal(PROJ_CFG_KEY);
-
-  // set main overflow hidden
-  private lockMainScrollState = false;
-
+  projectConfig: ProjectConfig | null;
   // When the window shrinks, remember some states, and restore these states when the window is restored
-  private beforeMiniState: BeforeMiniState = {};
-
-  get getPageLoading() {
-    return this.pageLoadingState;
-  }
-
-  get getDarkMode() {
-    return this.darkMode || localStorage.getItem(APP_DARK_MODE_KEY_) || darkMode;
-  }
-
-  get getBeforeMiniState() {
-    return this.beforeMiniState;
-  }
-
-  get getLockMainScrollState() {
-    return this.lockMainScrollState;
-  }
-
-  get getProjectConfig(): ProjectConfig {
-    return this.projectConfigState || ({} as ProjectConfig);
-  }
-
-  @Mutation
-  commitPageLoadingState(loading: boolean): void {
-    this.pageLoadingState = loading;
-  }
-
-  @Mutation
-  commitDarkMode(mode: ThemeEnum): void {
-    this.darkMode = mode;
-    localStorage.setItem(APP_DARK_MODE_KEY_, mode);
-  }
-
-  @Mutation
-  commitBeforeMiniState(state: BeforeMiniState): void {
-    this.beforeMiniState = state;
-  }
-
-  @Mutation
-  commitLockMainScrollState(lock: boolean): void {
-    this.lockMainScrollState = lock;
-  }
-
-  @Mutation
-  commitProjectConfigState(proCfg: DeepPartial<ProjectConfig>): void {
-    this.projectConfigState = deepMerge(this.projectConfigState || {}, proCfg);
-    Persistent.setLocal(PROJ_CFG_KEY, this.projectConfigState);
-  }
-
-  @Action
-  async resumeAllState() {
-    resetRouter();
-    Persistent.clearAll();
-  }
-
-  @Action
-  public async setPageLoadingAction(loading: boolean): Promise<void> {
-    if (loading) {
-      clearTimeout(timeId);
-      // Prevent flicker
-      timeId = setTimeout(() => {
-        this.commitPageLoadingState(loading);
-      }, 50);
-    } else {
-      this.commitPageLoadingState(loading);
-      clearTimeout(timeId);
-    }
-  }
+  beforeMiniInfo: BeforeMiniState;
 }
-export const appStore = getModule<App>(App);
+let timeId: TimeoutHandle;
+export const useAppStore = defineStore({
+  id: 'app',
+  state: (): AppState => ({
+    darkMode: ThemeEnum.LIGHT,
+    pageLoading: false,
+    projectConfig: Persistent.getLocal(PROJ_CFG_KEY),
+    beforeMiniInfo: {},
+  }),
+  getters: {
+    getPageLoading() {
+      return this.pageLoading;
+    },
+    getDarkMode() {
+      return this.darkMode || localStorage.getItem(APP_DARK_MODE_KEY_) || darkMode;
+    },
+
+    getBeforeMiniInfo() {
+      return this.beforeMiniInfo;
+    },
+
+    getProjectConfig(): ProjectConfig {
+      return this.projectConfig || ({} as ProjectConfig);
+    },
+
+    getHeaderSetting() {
+      return this.getProjectConfig.headerSetting;
+    },
+    getMenuSetting() {
+      return this.getProjectConfig.menuSetting;
+    },
+    getTransitionSetting() {
+      return this.getProjectConfig.transitionSetting;
+    },
+    getMultiTabsSetting() {
+      return this.getProjectConfig.multiTabsSetting;
+    },
+  },
+  actions: {
+    setPageLoading(loading: boolean): void {
+      this.pageLoading = loading;
+    },
+
+    setDarkMode(mode: ThemeEnum): void {
+      this.darkMode = mode;
+      localStorage.setItem(APP_DARK_MODE_KEY_, mode);
+    },
+
+    setBeforeMiniInfo(state: BeforeMiniState): void {
+      this.beforeMiniInfo = state;
+    },
+
+    setProjectConfig(config: DeepPartial<ProjectConfig>): void {
+      this.projectConfig = deepMerge(this.projectConfig || {}, config);
+      Persistent.setLocal(PROJ_CFG_KEY, this.projectConfig);
+    },
+
+    async resetAllState() {
+      resetRouter();
+      Persistent.clearAll();
+    },
+    async setPageLoadingAction(loading: boolean): Promise<void> {
+      if (loading) {
+        clearTimeout(timeId);
+        // Prevent flicker
+        timeId = setTimeout(() => {
+          this.setPageLoading(loading);
+        }, 50);
+      } else {
+        this.setPageLoading(loading);
+        clearTimeout(timeId);
+      }
+    },
+  },
+});
+
+// Need to be used outside the setup
+export function useAppStoreWidthOut() {
+  return useAppStore(store);
+}

@@ -3,21 +3,23 @@
 
   import { createAppProviderContext } from './useAppContext';
 
-  import designSetting from '/@/settings/designSetting';
+  import { prefixCls } from '/@/settings/designSetting';
   import { createBreakpointListen } from '/@/hooks/event/useBreakpoint';
   import { propTypes } from '/@/utils/propTypes';
-  import { appStore } from '/@/store/modules/app';
+  import { useAppStore } from '/@/store/modules/app';
   import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
 
   export default defineComponent({
     name: 'AppProvider',
     inheritAttrs: false,
     props: {
-      prefixCls: propTypes.string.def(designSetting.prefixCls),
+      prefixCls: propTypes.string.def(prefixCls),
     },
     setup(props, { slots }) {
       const isMobile = ref(false);
       const isSetState = ref(false);
+
+      const appStore = useAppStore();
 
       createBreakpointListen(({ screenMap, sizeEnum, width }) => {
         const lgWidth = screenMap.get(sizeEnum.LG);
@@ -42,20 +44,20 @@
                 split: menuSplit,
               },
             } = appStore.getProjectConfig;
-            appStore.commitProjectConfigState({
+            appStore.setProjectConfig({
               menuSetting: {
                 type: MenuTypeEnum.SIDEBAR,
                 mode: MenuModeEnum.INLINE,
                 split: false,
               },
             });
-            appStore.commitBeforeMiniState({ menuMode, menuCollapsed, menuType, menuSplit });
+            appStore.setBeforeMiniInfo({ menuMode, menuCollapsed, menuType, menuSplit });
           }
         } else {
           if (unref(isSetState)) {
             isSetState.value = false;
-            const { menuMode, menuCollapsed, menuType, menuSplit } = appStore.getBeforeMiniState;
-            appStore.commitProjectConfigState({
+            const { menuMode, menuCollapsed, menuType, menuSplit } = appStore.getBeforeMiniInfo;
+            appStore.setProjectConfig({
               menuSetting: {
                 type: menuType,
                 mode: menuMode,

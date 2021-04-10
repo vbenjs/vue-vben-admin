@@ -8,7 +8,7 @@
     <CurrentPermissionMode />
 
     <p>
-      当前角色: <a> {{ userStore.getRoleListState }} </a>
+      当前角色: <a> {{ userStore.getRoleList }} </a>
     </p>
     <Alert class="mt-4" type="info" message="点击后请查看按钮变化" show-icon />
 
@@ -63,7 +63,7 @@
   import { computed, defineComponent } from 'vue';
   import { Alert, Divider } from 'ant-design-vue';
   import CurrentPermissionMode from '../CurrentPermissionMode.vue';
-  import { userStore } from '/@/store/modules/user';
+  import { useUserStore } from '/@/store/modules/user';
   import { RoleEnum } from '/@/enums/roleEnum';
   import { usePermission } from '/@/hooks/web/usePermission';
   import { Authority } from '/@/components/Authority';
@@ -73,11 +73,13 @@
     components: { Alert, PageWrapper, CurrentPermissionMode, Divider, Authority },
     setup() {
       const { changeRole, hasPermission } = usePermission();
+      const userStore = useUserStore();
+
       return {
         userStore,
         RoleEnum,
-        isSuper: computed(() => userStore.getRoleListState.includes(RoleEnum.SUPER)),
-        isTest: computed(() => userStore.getRoleListState.includes(RoleEnum.TEST)),
+        isSuper: computed(() => userStore.getRoleList.includes(RoleEnum.SUPER)),
+        isTest: computed(() => userStore.getRoleList.includes(RoleEnum.TEST)),
         changeRole,
         hasPermission,
       };

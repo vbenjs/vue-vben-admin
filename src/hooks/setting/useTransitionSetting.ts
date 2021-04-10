@@ -1,30 +1,28 @@
 import type { TransitionSetting } from '/#/config';
 
-import { computed, unref } from 'vue';
+import { computed } from 'vue';
 
-import { appStore } from '/@/store/modules/app';
-
-const getTransitionSetting = computed(() => appStore.getProjectConfig.transitionSetting);
-
-const getEnableTransition = computed(() => unref(getTransitionSetting)?.enable);
-
-const getOpenNProgress = computed(() => unref(getTransitionSetting)?.openNProgress);
-
-const getOpenPageLoading = computed((): boolean => {
-  return !!unref(getTransitionSetting)?.openPageLoading;
-});
-
-const getBasicTransition = computed(() => unref(getTransitionSetting)?.basicTransition);
-
-function setTransitionSetting(transitionSetting: Partial<TransitionSetting>) {
-  appStore.commitProjectConfigState({ transitionSetting });
-}
+import { useAppStore } from '/@/store/modules/app';
 
 export function useTransitionSetting() {
+  const appStore = useAppStore();
+
+  const getEnableTransition = computed(() => appStore.getTransitionSetting?.enable);
+
+  const getOpenNProgress = computed(() => appStore.getTransitionSetting?.openNProgress);
+
+  const getOpenPageLoading = computed((): boolean => {
+    return !!appStore.getTransitionSetting?.openPageLoading;
+  });
+
+  const getBasicTransition = computed(() => appStore.getTransitionSetting?.basicTransition);
+
+  function setTransitionSetting(transitionSetting: Partial<TransitionSetting>) {
+    appStore.setProjectConfig({ transitionSetting });
+  }
   return {
     setTransitionSetting,
 
-    getTransitionSetting,
     getEnableTransition,
     getOpenNProgress,
     getOpenPageLoading,

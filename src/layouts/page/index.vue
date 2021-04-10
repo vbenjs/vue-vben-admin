@@ -35,13 +35,14 @@
   import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
   import { getTransitionName } from './transition';
 
-  import { useStore } from 'vuex';
+  import { useMultipleTabStore } from '/@/store/modules/multipleTab';
 
   export default defineComponent({
     name: 'PageLayout',
     components: { FrameLayout },
     setup() {
       const { getShowMultipleTab } = useMultipleTabSetting();
+      const tabStore = useMultipleTabStore();
 
       const { getOpenKeepAlive, getCanEmbedIFramePage } = useRootSetting();
 
@@ -49,15 +50,11 @@
 
       const openCache = computed(() => unref(getOpenKeepAlive) && unref(getShowMultipleTab));
 
-      const { getters } = useStore();
-
       const getCaches = computed((): string[] => {
         if (!unref(getOpenKeepAlive)) {
           return [];
         }
-        // TODO The useStore is used here mainly to solve the problem of circular dependency hot update
-        const cacheTabs = getters['app-tab/getCachedTabsState'];
-        return cacheTabs;
+        return tabStore.getCachedTabList;
       });
 
       return {

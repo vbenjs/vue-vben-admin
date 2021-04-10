@@ -1,28 +1,85 @@
-import { tabStore } from '/@/store/modules/tab';
-import { appStore } from '/@/store/modules/app';
-import type { RouteLocationNormalized } from 'vue-router';
+import type { RouteLocationNormalized, Router } from 'vue-router';
 
-export function useTabs() {
-  function canIUseFn(): boolean {
-    const { multiTabsSetting: { show } = {} } = appStore.getProjectConfig;
+import { useRouter } from 'vue-router';
+import { unref } from 'vue';
+
+import { useMultipleTabStore } from '/@/store/modules/multipleTab';
+import { useAppStore } from '/@/store/modules/app';
+
+enum TableActionEnum {
+  REFRESH,
+  CLOSE_ALL,
+  CLOSE_LEFT,
+  CLOSE_RIGHT,
+  CLOSE_OTHER,
+  CLOSE_CURRENT,
+  CLOSE,
+}
+
+export function useTabs(_router: Router) {
+  const appStore = useAppStore();
+
+  function canIUseTabs(): boolean {
+    const { show } = appStore.getMultiTabsSetting;
     if (!show) {
       throw new Error('The multi-tab page is currently not open, please open it in the settings！');
     }
     return !!show;
   }
 
+  const tabStore = useMultipleTabStore();
+  const router = _router || useRouter();
+
+  const { currentRoute } = router;
+
+  function getCurrentTab() {
+    const route = unref(currentRoute);
+    return tabStore.getTabList.find((item) => item.path === route.path)!;
+  }
+
+  async function handleTabAction(action: TableActionEnum, tab?: RouteLocationNormalized) {
+    const canIUse = canIUseTabs;
+    if (!canIUse) {
+      return;
+    }
+    const currentTab = getCurrentTab();
+    switch (action) {
+      case TableActionEnum.REFRESH:
+        await tabStore.refreshPage(router);
+        break;
+
+      case TableActionEnum.CLOSE_ALL:
+        await tabStore.closeAllTab(router);
+        break;
+
+      case TableActionEnum.CLOSE_LEFT:
+        await tabStore.closeLeftTabs(currentTab, router);
+        break;
+
+      case TableActionEnum.CLOSE_RIGHT:
+        await tabStore.closeRightTabs(currentTab, router);
+        break;
+
+      case TableActionEnum.CLOSE_OTHER:
+        await tabStore.closeOtherTabs(currentTab, router);
+        break;
+
+      case TableActionEnum.CLOSE_CURRENT:
+      case TableActionEnum.CLOSE:
+        await tabStore.closeTab(tab || currentTab, router);
+        break;
+    }
+  }
+
   return {
-    refreshPage: async () => {
-      if (canIUseFn()) {
-        await tabStore.commitRedoPage();
-      }
+    refreshPage: () => handleTabAction(TableActionEnum.REFRESH),
+    closeAll: () => handleTabAction(TableActionEnum.CLOSE_ALL),
+    closeLeft: () => handleTabAction(TableActionEnum.CLOSE_LEFT),
+    closeRight: () => handleTabAction(TableActionEnum.CLOSE_RIGHT),
+    closeOther: () => handleTabAction(TableActionEnum.CLOSE_OTHER),
+    closeCurrent: () => handleTabAction(TableActionEnum.CLOSE_CURRENT),
+    close: (tab?: RouteLocationNormalized) => {
+      handleTabAction(TableActionEnum.CLOSE, tab);
     },
-    closeAll: () => canIUseFn() && tabStore.closeAllTabAction(),
-    closeLeft: () => canIUseFn() && tabStore.closeLeftTabAction(tabStore.getCurrentTab),
-    closeRight: () => canIUseFn() && tabStore.closeRightTabAction(tabStore.getCurrentTab),
-    closeOther: () => canIUseFn() && tabStore.closeOtherTabAction(tabStore.getCurrentTab),
-    closeCurrent: () => canIUseFn() && tabStore.closeTabAction(tabStore.getCurrentTab),
-    close: (tab?: RouteLocationNormalized) =>
-      canIUseFn() && tabStore.closeTabAction(tab || tabStore.getCurrentTab),
   };
 }

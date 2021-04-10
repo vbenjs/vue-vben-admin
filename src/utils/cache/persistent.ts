@@ -1,6 +1,5 @@
-import type { LockInfo, UserInfo } from '/@/store/types';
-
-import { ProjectConfig } from '/#/config';
+import type { LockInfo, UserInfo } from '/#/store';
+import type { ProjectConfig } from '/#/config';
 
 import { createLocalStorage, createSessionStorage } from '/@/utils/cache';
 import { Memory } from './memory';

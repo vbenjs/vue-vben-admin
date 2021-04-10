@@ -1,71 +1,71 @@
 import type { ProjectConfig } from '/#/config';
 
-import { computed, unref } from 'vue';
+import { computed } from 'vue';
 
-import { appStore } from '/@/store/modules/app';
-import { ContentEnum } from '/@/enums/appEnum';
-import { ThemeEnum } from '../../enums/appEnum';
+import { useAppStore } from '/@/store/modules/app';
+import { ContentEnum, ThemeEnum } from '/@/enums/appEnum';
 
 type RootSetting = Omit<
   ProjectConfig,
   'locale' | 'headerSetting' | 'menuSetting' | 'multiTabsSetting'
 >;
 
-const getRootSetting = computed((): RootSetting => appStore.getProjectConfig);
-
-const getPageLoading = computed(() => appStore.getPageLoading);
-
-const getOpenKeepAlive = computed(() => unref(getRootSetting).openKeepAlive);
-
-const getSettingButtonPosition = computed(() => unref(getRootSetting).settingButtonPosition);
-
-const getCanEmbedIFramePage = computed(() => unref(getRootSetting).canEmbedIFramePage);
-
-const getPermissionMode = computed(() => unref(getRootSetting).permissionMode);
-
-const getShowLogo = computed(() => unref(getRootSetting).showLogo);
-
-const getContentMode = computed(() => unref(getRootSetting).contentMode);
-
-const getUseOpenBackTop = computed(() => unref(getRootSetting).useOpenBackTop);
-
-const getShowSettingButton = computed(() => unref(getRootSetting).showSettingButton);
-
-const getUseErrorHandle = computed(() => unref(getRootSetting).useErrorHandle);
-
-const getShowFooter = computed(() => unref(getRootSetting).showFooter);
-
-const getShowBreadCrumb = computed(() => unref(getRootSetting).showBreadCrumb);
-
-const getThemeColor = computed(() => unref(getRootSetting).themeColor);
-
-const getShowBreadCrumbIcon = computed(() => unref(getRootSetting).showBreadCrumbIcon);
-
-const getFullContent = computed(() => unref(getRootSetting).fullContent);
-
-const getColorWeak = computed(() => unref(getRootSetting).colorWeak);
-
-const getGrayMode = computed(() => unref(getRootSetting).grayMode);
-
-const getLockTime = computed(() => unref(getRootSetting).lockTime);
-
-const getShowDarkModeToggle = computed(() => unref(getRootSetting).showDarkModeToggle);
-
-const getDarkMode = computed(() => appStore.getDarkMode);
-
-const getLayoutContentMode = computed(() =>
-  unref(getRootSetting).contentMode === ContentEnum.FULL ? ContentEnum.FULL : ContentEnum.FIXED
-);
-
-function setRootSetting(setting: Partial<RootSetting>) {
-  appStore.commitProjectConfigState(setting);
-}
-
-function setDarkMode(mode: ThemeEnum) {
-  appStore.commitDarkMode(mode);
-}
-
 export function useRootSetting() {
+  const appStore = useAppStore();
+
+  const getPageLoading = computed(() => appStore.getPageLoading);
+
+  const getOpenKeepAlive = computed(() => appStore.getProjectConfig.openKeepAlive);
+
+  const getSettingButtonPosition = computed(() => appStore.getProjectConfig.settingButtonPosition);
+
+  const getCanEmbedIFramePage = computed(() => appStore.getProjectConfig.canEmbedIFramePage);
+
+  const getPermissionMode = computed(() => appStore.getProjectConfig.permissionMode);
+
+  const getShowLogo = computed(() => appStore.getProjectConfig.showLogo);
+
+  const getContentMode = computed(() => appStore.getProjectConfig.contentMode);
+
+  const getUseOpenBackTop = computed(() => appStore.getProjectConfig.useOpenBackTop);
+
+  const getShowSettingButton = computed(() => appStore.getProjectConfig.showSettingButton);
+
+  const getUseErrorHandle = computed(() => appStore.getProjectConfig.useErrorHandle);
+
+  const getShowFooter = computed(() => appStore.getProjectConfig.showFooter);
+
+  const getShowBreadCrumb = computed(() => appStore.getProjectConfig.showBreadCrumb);
+
+  const getThemeColor = computed(() => appStore.getProjectConfig.themeColor);
+
+  const getShowBreadCrumbIcon = computed(() => appStore.getProjectConfig.showBreadCrumbIcon);
+
+  const getFullContent = computed(() => appStore.getProjectConfig.fullContent);
+
+  const getColorWeak = computed(() => appStore.getProjectConfig.colorWeak);
+
+  const getGrayMode = computed(() => appStore.getProjectConfig.grayMode);
+
+  const getLockTime = computed(() => appStore.getProjectConfig.lockTime);
+
+  const getShowDarkModeToggle = computed(() => appStore.getProjectConfig.showDarkModeToggle);
+
+  const getDarkMode = computed(() => appStore.getDarkMode);
+
+  const getLayoutContentMode = computed(() =>
+    appStore.getProjectConfig.contentMode === ContentEnum.FULL
+      ? ContentEnum.FULL
+      : ContentEnum.FIXED
+  );
+
+  function setRootSetting(setting: Partial<RootSetting>) {
+    appStore.setProjectConfig(setting);
+  }
+
+  function setDarkMode(mode: ThemeEnum) {
+    appStore.setDarkMode(mode);
+  }
   return {
     setRootSetting,
 
@@ -73,7 +73,6 @@ export function useRootSetting() {
     getFullContent,
     getColorWeak,
     getGrayMode,
-    getRootSetting,
     getLayoutContentMode,
     getPageLoading,
     getOpenKeepAlive,
