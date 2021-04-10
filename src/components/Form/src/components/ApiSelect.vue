@@ -41,7 +41,12 @@
     },
     inheritAttrs: false,
     props: {
-      value: propTypes.string,
+      value: propTypes.oneOfType([
+        propTypes.object,
+        propTypes.number,
+        propTypes.string,
+        propTypes.array,
+      ]),
       numberToString: propTypes.bool,
       api: {
         type: Function as PropType<(arg?: Recordable) => Promise<OptionsItem[]>>,
