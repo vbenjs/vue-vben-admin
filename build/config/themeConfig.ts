@@ -49,6 +49,8 @@ export function generateColors({
       .toRgbString();
   });
 
+  const shortAlphaColors = alphaColors.map((item) => item.replace(/\s/g, '').replace(/0\./g, '.'));
+
   const tinycolorLightens = arr
     .map((_t, i) => {
       return tinycolor(color)
@@ -64,5 +66,12 @@ export function generateColors({
         .toHexString();
     })
     .filter((item) => item !== '#000000');
-  return [...lightens, ...darkens, ...alphaColors, ...tinycolorDarkens, ...tinycolorLightens];
+  return [
+    ...lightens,
+    ...darkens,
+    ...alphaColors,
+    ...shortAlphaColors,
+    ...tinycolorDarkens,
+    ...tinycolorLightens,
+  ].filter((item) => !item.includes('-'));
 }
