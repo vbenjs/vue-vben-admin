@@ -8,7 +8,7 @@ import { uniq } from 'lodash-es';
 import { getAllParentPath } from '/@/router/helper/menuHelper';
 
 import { useTimeoutFn } from '/@/hooks/core/useTimeout';
-import { useDebounce } from '/@/hooks/core/useDebounce';
+import { useDebounceFn } from '@vueuse/core';
 
 export function useOpenKeys(
   menuState: MenuState,
@@ -17,7 +17,7 @@ export function useOpenKeys(
   mixSider: Ref<boolean>,
   collapse: Ref<boolean>
 ) {
-  const [debounceSetOpenKeys] = useDebounce(setOpenKeys, 50);
+  const debounceSetOpenKeys = useDebounceFn(setOpenKeys, 50);
   async function setOpenKeys(path: string) {
     const native = !mixSider.value;
     const menuList = toRaw(menus.value);

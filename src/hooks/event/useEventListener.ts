@@ -1,8 +1,7 @@
 import type { Ref } from 'vue';
 
 import { ref, watch, unref } from 'vue';
-import { useDebounce } from '/@/hooks/core/useDebounce';
-import { useThrottle } from '/@/hooks/core/useThrottle';
+import { useThrottleFn, useDebounceFn } from '@vueuse/core';
 
 export type RemoveEventFn = () => void;
 
@@ -31,7 +30,7 @@ export function useEventListener({
   if (el) {
     const element: Ref<Element> = ref(el as Element);
 
-    const [handler] = isDebounce ? useDebounce(listener, wait) : useThrottle(listener, wait);
+    const handler = isDebounce ? useDebounceFn(listener, wait) : useThrottleFn(listener, wait);
     const realHandler = wait ? handler : listener;
     const removeEventListener = (e: Element) => {
       isAddRef.value = true;

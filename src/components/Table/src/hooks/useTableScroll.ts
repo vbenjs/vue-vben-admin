@@ -1,5 +1,6 @@
-import type { BasicTableProps, TableRowSelection } from '../types/table';
+import type { BasicTableProps, TableRowSelection, BasicColumn } from '../types/table';
 import type { Ref, ComputedRef } from 'vue';
+
 import { computed, unref, ref, nextTick, watch } from 'vue';
 
 import { getViewportOffset } from '/@/utils/domUtils';
@@ -7,9 +8,8 @@ import { isBoolean } from '/@/utils/is';
 
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
 import { useModalContext } from '/@/components/Modal';
-import { useDebounce } from '/@/hooks/core/useDebounce';
-import type { BasicColumn } from '/@/components/Table';
 import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
+import { useDebounceFn } from '@vueuse/core';
 
 export function useTableScroll(
   propsRef: ComputedRef<BasicTableProps>,
@@ -23,7 +23,7 @@ export function useTableScroll(
   const modalFn = useModalContext();
 
   // Greater than animation time 280
-  const [debounceRedoHeight] = useDebounce(redoHeight, 100);
+  const debounceRedoHeight = useDebounceFn(redoHeight, 100);
 
   const getCanResize = computed(() => {
     const { canResize, scroll } = unref(propsRef);

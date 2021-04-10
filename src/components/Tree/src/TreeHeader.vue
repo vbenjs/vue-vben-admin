@@ -41,7 +41,7 @@
   import { propTypes } from '/@/utils/propTypes';
 
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { useDebounce } from '/@/hooks/core/useDebounce';
+  import { useDebounceFn } from '@vueuse/core';
 
   import { ToolbarEnum } from './enum';
 
@@ -128,7 +128,7 @@
       function emitChange(value?: string): void {
         emit('search', value);
       }
-      const [debounceEmitChange] = useDebounce(emitChange, 200);
+      const debounceEmitChange = useDebounceFn(emitChange, 200);
 
       function handleSearch(e: ChangeEvent): void {
         debounceEmitChange(e.target.value);

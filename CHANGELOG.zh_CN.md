@@ -1,5 +1,22 @@
 ## Wip
 
+## (破坏性更新) Breaking changes
+
+- 使用 `pinia` 替换 `vuex`,`vuex-module-decorators`。
+
+  - 影响，之前如果有自己使用 vuex-module-decorators，需要改造为 pinia。
+  - 原因：
+    - pinia 于 vuex5api 基本类似，且简单易懂。
+    - 后续切换 vuex5 成本非常低，也可以当作第三方状态管理库使用
+
+- 移除 `useKeyPress` 使用`vueuse`-`onKeyStroke`代替
+- 移除 `useDebounceFn` 使用`vueuse`-`useDebounceFn`代替
+- 移除 `useThrottle` 使用`vueuse`-`useThrottleFn`代替
+
+### ✨ Refactor
+
+- 移除 `useElResize`
+
 ### 🐛 Bug Fixes
 
 - 登录页样式修复

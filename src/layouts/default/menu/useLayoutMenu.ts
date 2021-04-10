@@ -5,7 +5,7 @@ import { watch, unref, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { MenuSplitTyeEnum } from '/@/enums/menuEnum';
-import { useThrottle } from '/@/hooks/core/useThrottle';
+import { useThrottleFn } from '@vueuse/core';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 
 import { getChildrenMenus, getCurrentParentPath, getMenus, getShallowMenus } from '/@/router/menus';
@@ -20,7 +20,7 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
   const permissionStore = usePermissionStore();
   const { setMenuSetting, getIsHorizontal, getSplit } = useMenuSetting();
 
-  const [throttleHandleSplitLeftMenu] = useThrottle(handleSplitLeftMenu, 50);
+  const throttleHandleSplitLeftMenu = useThrottleFn(handleSplitLeftMenu, 50);
 
   const splitNotLeft = computed(
     () => unref(splitType) !== MenuSplitTyeEnum.LEFT && !unref(getIsHorizontal)
