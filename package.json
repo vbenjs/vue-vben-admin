@@ -114,14 +114,14 @@
     "vite-plugin-style-import": "^0.9.2",
     "vite-plugin-svg-icons": "^0.4.1",
     "vite-plugin-theme": "^0.6.3",
-    "vite-plugin-windicss": "0.13.1",
+    "vite-plugin-windicss": "0.13.2",
     "vue-eslint-parser": "^7.6.0"
   },
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China.If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
     "rollup": "^2.45.1",
-    "esbuild": "^0.11.6"
+    "esbuild": "^0.11.7"
   },
   "repository": {
     "type": "git",
