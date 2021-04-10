@@ -4,7 +4,7 @@
 <script lang="ts">
   import { defineComponent, PropType, ref, Ref, onMounted } from 'vue';
 
-  import { useECharts } from '/@/hooks/web/useECharts/index';
+  import { useECharts } from '/@/hooks/web/useECharts';
   import { getLineData } from './data';
 
   export default defineComponent({
