@@ -10,7 +10,7 @@ const page: AppRouteModule = {
   path: '/page-demo',
   name: 'PageDemo',
   component: LAYOUT,
-  redirect: '/page-demo/exception',
+  redirect: '/page-demo/form/basic',
   meta: {
     icon: 'ion:aperture-outline',
     title: t('routes.demo.page.page'),

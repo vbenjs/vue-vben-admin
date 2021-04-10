@@ -1,5 +1,6 @@
 import type { LockInfo, UserInfo } from '/#/store';
 import type { ProjectConfig } from '/#/config';
+import type { RouteLocationNormalized } from 'vue-router';
 
 import { createLocalStorage, createSessionStorage } from '/@/utils/cache';
 import { Memory } from './memory';
@@ -11,6 +12,7 @@ import {
   PROJ_CFG_KEY,
   APP_LOCAL_CACHE_KEY,
   APP_SESSION_CACHE_KEY,
+  MULTIPLE_TABS_KEY,
 } from '/@/enums/cacheEnum';
 import { DEFAULT_CACHE_TIME } from '/@/settings/encryptionSetting';
 import { toRaw } from 'vue';
@@ -21,6 +23,7 @@ interface BasicStore {
   [ROLES_KEY]: string[];
   [LOCK_INFO_KEY]: LockInfo;
   [PROJ_CFG_KEY]: ProjectConfig;
+  [MULTIPLE_TABS_KEY]: RouteLocationNormalized[];
 }
 
 type LocalStore = BasicStore;

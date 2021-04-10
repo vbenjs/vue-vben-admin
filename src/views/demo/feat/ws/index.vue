@@ -37,7 +37,7 @@
 
         <div class="max-h-80 overflow-auto">
           <ul>
-            <li v-for="item in getList" class="border-b-1 mt-2" :key="item.time">
+            <li v-for="item in getList" class="mt-2" :key="item.time">
               <div class="flex items-center">
                 <span class="mr-2 text-primary font-medium">收到消息:</span>
                 <span>{{ formatToDateTime(item.time) }}</span>
