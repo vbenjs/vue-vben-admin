@@ -1,3 +1,31 @@
+## 2.3.0 (2021-04-10)
+
+## (Breaking changes) Breaking changes
+
+- Use `pinia` to replace `vuex`, `vuex-module-decorators`.
+
+  -Impact, if you used vuex-module-decorators yourself before, you need to transform it to pinia.
+
+  - the reason: -pinia is basically similar to vuex5api and is easy to understand. -Subsequent switching to vuex5 has a very low cost and can also be used as a third-party state management library
+
+- Remove `useKeyPress` and use `vueuse`-`onKeyStroke` instead
+- Remove `useDebounceFn` and use `vueuse`-`useDebounceFn` instead
+- Remove `useThrottle` and use `vueuse`-`useThrottleFn` instead
+
+### ✨ Features
+
+- Tabs support persistent storage
+
+### ✨ Refactor
+
+- Remove `useElResize`
+
+### 🐛 Bug Fixes
+
+- Login page style fix
+- Fix the known problems of the menu
+- Fix the problem of theme style switching
+
 ## 2.2.0 (2021-04-06)
 
 ### ✨ Features

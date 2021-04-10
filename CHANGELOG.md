@@ -1,3 +1,19 @@
+# [2.3.0](https://github.com/anncwb/vue-vben-admin/compare/v2.2.0...v2.3.0) (2021-04-10)
+
+### Bug Fixes
+
+- **api-select:** make sure the type is correct, fix [#468](https://github.com/anncwb/vue-vben-admin/issues/468) ([37c5741](https://github.com/anncwb/vue-vben-admin/commit/37c5741601951349f622801a48a7bf9e45d723a4))
+- **menu:** improve menu logic, fix [#461](https://github.com/anncwb/vue-vben-admin/issues/461) ([ee1c349](https://github.com/anncwb/vue-vben-admin/commit/ee1c3498587951a6a4cc0b49edb9dacf3f2af5c3))
+- **theme:** make sure the menu style is correct, fix [#382](https://github.com/anncwb/vue-vben-admin/issues/382) ([c77f7e6](https://github.com/anncwb/vue-vben-admin/commit/c77f7e62aba51072325dffdb01d3c0cc87c578b0))
+- **theme:** make sure the steps style is correct, fix [#414](https://github.com/anncwb/vue-vben-admin/issues/414) ([640a2c1](https://github.com/anncwb/vue-vben-admin/commit/640a2c17986e2b59be57125e91051ec879f31eeb))
+- improve login page style ([780a8a6](https://github.com/anncwb/vue-vben-admin/commit/780a8a67b874ca1c8d05c2561f88081cc4ec4b28))
+- Improve the picture cropping component ([#463](https://github.com/anncwb/vue-vben-admin/issues/463)) ([700306b](https://github.com/anncwb/vue-vben-admin/commit/700306bb45d5f2b975c20bd2581fb87a210e589c))
+- login page overflow show problem ([#455](https://github.com/anncwb/vue-vben-admin/issues/455)) ([af6d58e](https://github.com/anncwb/vue-vben-admin/commit/af6d58eb26875f02afb419d9d4d5ee2454292863))
+
+### Features
+
+- persistent save tab, fix [#359](https://github.com/anncwb/vue-vben-admin/issues/359) ([967b28c](https://github.com/anncwb/vue-vben-admin/commit/967b28c4c06cf92e9ab90cff51f59a0d6ced5d7b))
+
 # [2.2.0](https://github.com/anncwb/vue-vben-admin/compare/v2.1.1...v2.2.0) (2021-04-07)
 
 ### Bug Fixes
