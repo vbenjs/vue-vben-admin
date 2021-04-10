@@ -7,7 +7,7 @@
   import { defineComponent, Ref, ref, watch } from 'vue';
 
   import { Card } from 'ant-design-vue';
-  import { useECharts } from '/@/hooks/web/useECharts';
+  import { useECharts } from '/@/hooks/web/useECharts/index';
 
   export default defineComponent({
     components: { Card },
