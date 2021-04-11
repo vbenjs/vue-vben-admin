@@ -4,7 +4,9 @@ import { PageEnum } from '/@/enums/pageEnum';
 import { isString } from '/@/utils/is';
 import { unref } from 'vue';
 
-import { useRouter } from 'vue-router';
+// import { useRouter } from 'vue-router'; Must be called inside of setup()
+
+import router from '/@/router';
 
 export type RouteLocationRawEx = Omit<RouteLocationRaw, 'path'> & { path: PageEnum };
 
@@ -14,10 +16,6 @@ function handleError(e: Error) {
 
 // page switch
 export function useGo(_router?: Router) {
-  let router;
-  if (!_router) {
-    router = useRouter();
-  }
   const { push, replace } = _router || router;
   function go(opt: PageEnum | RouteLocationRawEx | string = PageEnum.BASE_HOME, isReplace = false) {
     if (!opt) {
@@ -37,10 +35,6 @@ export function useGo(_router?: Router) {
  * @description: redo current page
  */
 export const useRedo = (_router?: Router) => {
-  let router;
-  if (!_router) {
-    router = useRouter();
-  }
   const { push, currentRoute } = _router || router;
   const { query, params } = currentRoute.value;
   function redo(): Promise<boolean> {

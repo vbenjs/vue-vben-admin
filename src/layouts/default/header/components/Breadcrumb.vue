@@ -112,17 +112,18 @@
 
       function handleClick(route: RouteLocationMatched, paths: string[], e: Event) {
         e?.preventDefault();
+        const go = useGo();
         const { children, redirect, meta } = route;
 
         if (children?.length && !redirect) {
           e?.stopPropagation();
+          go(children[0].path); //If there is children, take the first children
           return;
         }
         if (meta?.carryParam) {
           return;
         }
 
-        const go = useGo();
         if (redirect && isString(redirect)) {
           go(redirect);
         } else {
