@@ -21,7 +21,7 @@
     name: 'CountButton',
     components: { Button },
     props: {
-      value: propTypes.string,
+      value: propTypes.any,
       count: propTypes.number.def(60),
       beforeStartFunc: {
         type: Function as PropType<() => boolean>,

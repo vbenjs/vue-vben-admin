@@ -64,7 +64,7 @@
     props: {
       item: {
         type: Object as PropType<Menu>,
-        default: {},
+        default: () => {},
       },
       parent: propTypes.bool,
       collapsedShowTitle: propTypes.bool,

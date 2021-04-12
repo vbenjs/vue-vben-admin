@@ -41,7 +41,7 @@
       },
       options: {
         type: Array as PropType<LabelValueOptions>,
-        default: [],
+        default: () => [],
       },
     },
     setup(props) {
