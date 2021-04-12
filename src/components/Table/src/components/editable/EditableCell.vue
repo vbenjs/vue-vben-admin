@@ -60,7 +60,7 @@
       },
       column: {
         type: Object as PropType<BasicColumn>,
-        default: {},
+        default: () => {},
       },
       index: propTypes.number,
     },

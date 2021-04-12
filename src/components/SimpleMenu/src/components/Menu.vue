@@ -30,7 +30,7 @@
       activeName: propTypes.oneOfType([propTypes.string, propTypes.number]),
       openNames: {
         type: Array as PropType<string[]>,
-        default: [],
+        default: () => [],
       },
       accordion: propTypes.bool.def(true),
       width: propTypes.string.def('100%'),
@@ -39,7 +39,7 @@
       collapse: propTypes.bool.def(true),
       activeSubMenuNames: {
         type: Array as PropType<(string | number)[]>,
-        default: [],
+        default: () => [],
       },
     },
     emits: ['select', 'open-change'],

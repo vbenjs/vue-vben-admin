@@ -30,7 +30,7 @@
     props: {
       setting: {
         type: Object as PropType<TableSetting>,
-        default: {},
+        default: () => {},
       },
     },
     setup(props) {

@@ -1,7 +1,12 @@
 <template>
   <PageWrapper title="图片裁剪示例" contentBackground>
     <div class="cropper-container">
-      <CropperImage ref="refCropper" src="https://fengyuanchen.github.io/cropperjs/images/picture.jpg" @cropperedInfo="cropperedInfo" style="width:40%" />
+      <CropperImage
+        ref="refCropper"
+        src="https://fengyuanchen.github.io/cropperjs/images/picture.jpg"
+        @cropperedInfo="cropperedInfo"
+        style="width: 40%"
+      />
       <a-button type="primary" @click="onCropper"> 裁剪 </a-button>
       <img :src="cropperImg" class="croppered" v-if="cropperImg" />
     </div>
@@ -20,41 +25,42 @@
     },
     setup() {
       let vm: any;
-      let info = ref("");
-      let cropperImg = ref("");
+      let info = ref('');
+      let cropperImg = ref('');
 
       const onCropper = (): void => {
         vm.refs.refCropper.croppered();
-      }
+      };
 
-      onBeforeMount(()=>{
+      onBeforeMount(() => {
         vm = getCurrentInstance();
-      })
+      });
 
-     function cropperedInfo({ imgBase64, imgInfo }) {
-       info.value = imgInfo
-       cropperImg.value = imgBase64
-     }
+      function cropperedInfo({ imgBase64, imgInfo }) {
+        info.value = imgInfo;
+        cropperImg.value = imgBase64;
+      }
 
       return {
         img,
         info,
         cropperImg,
         onCropper,
-        cropperedInfo
+        cropperedInfo,
       };
     },
   });
 </script>
 
 <style scoped>
-.cropper-container {
-  display:flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.croppered {
-  width: 50%;
-  height: 100%;
-}
+  .cropper-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .croppered {
+    width: 50%;
+    height: 100%;
+  }
 </style>
