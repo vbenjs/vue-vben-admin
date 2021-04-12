@@ -1,9 +1,9 @@
 import '/@/design/index.less';
-import '@virtual/windi.css';
+import 'virtual:windi.css';
 
 import { createApp } from 'vue';
 import App from './App.vue';
-
+import { initAppConfigStore } from '/@/logics/initAppConfig';
 import router, { setupRouter } from '/@/router';
 import { setupRouterGuard } from '/@/router/guard';
 import { setupStore } from '/@/store';
@@ -28,6 +28,9 @@ if (import.meta.env.DEV) {
 
   // Configure vuex store
   setupStore(app);
+
+  // Initialize vuex internal system configuration
+  initAppConfigStore();
 
   // Register global components
   registerGlobComp(app);

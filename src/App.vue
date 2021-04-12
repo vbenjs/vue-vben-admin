@@ -11,8 +11,6 @@
   import { ConfigProvider } from 'ant-design-vue';
   import { AppProvider } from '/@/components/Application';
 
-  import { initAppConfigStore } from '/@/logics/initAppConfig';
-
   import { useLockPage } from '/@/hooks/web/useLockPage';
   import { useTitle } from '/@/hooks/web/useTitle';
   import { useLocale } from '/@/locales/useLocale';
@@ -21,9 +19,6 @@
     name: 'App',
     components: { ConfigProvider, AppProvider },
     setup() {
-      // Initialize vuex internal system configuration
-      initAppConfigStore();
-
       useTitle();
 
       // support Multi-language
