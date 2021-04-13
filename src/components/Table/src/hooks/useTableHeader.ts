@@ -27,7 +27,7 @@ export function useTableHeader(propsRef: ComputedRef<BasicTableProps>, slots: Sl
                   titleHelpMessage,
                   showTableSetting,
                   tableSetting,
-                },
+                } as Recordable,
                 {
                   ...(slots.toolbar
                     ? {

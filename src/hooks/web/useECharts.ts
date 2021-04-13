@@ -67,7 +67,7 @@ export function useECharts(
     nextTick(() => {
       useTimeoutFn(() => {
         if (!chartInstance) {
-          initCharts(getDarkMode.value);
+          initCharts(getDarkMode.value as 'default');
 
           if (!chartInstance) return;
         }
@@ -87,7 +87,7 @@ export function useECharts(
     (theme) => {
       if (chartInstance) {
         chartInstance.dispose();
-        initCharts(theme);
+        initCharts(theme as 'default');
         setOptions(cacheOptions.value);
       }
     }

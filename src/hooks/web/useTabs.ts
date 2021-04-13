@@ -16,7 +16,7 @@ enum TableActionEnum {
   CLOSE,
 }
 
-export function useTabs(_router: Router) {
+export function useTabs(_router?: Router) {
   const appStore = useAppStore();
 
   function canIUseTabs(): boolean {
