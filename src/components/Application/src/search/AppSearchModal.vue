@@ -4,7 +4,7 @@
       <div :class="getClass" @click.stop v-if="visible">
         <div :class="`${prefixCls}-content`" v-click-outside="handleClose">
           <div :class="`${prefixCls}-input__wrapper`">
-            <a-input
+            <Input
               :class="`${prefixCls}-input`"
               :placeholder="t('common.searchText')"
               allow-clear
@@ -14,7 +14,7 @@
                 <!-- <Icon icon="ion:search"/> -->
                 <SearchOutlined />
               </template>
-            </a-input>
+            </Input>
             <span :class="`${prefixCls}-cancel`" @click="handleClose">
               {{ t('common.cancelText') }}
             </span>
@@ -76,7 +76,7 @@
 
   export default defineComponent({
     name: 'AppSearchModal',
-    components: { Icon, SearchOutlined, AppSearchFooter, [Input.name]: Input },
+    components: { Icon, SearchOutlined, AppSearchFooter, Input },
     directives: {
       clickOutside,
     },

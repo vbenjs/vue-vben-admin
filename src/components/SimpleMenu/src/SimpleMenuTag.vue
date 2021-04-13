@@ -14,7 +14,7 @@
     props: {
       item: {
         type: Object as PropType<Menu>,
-        default: {},
+        default: () => {},
       },
       dot: propTypes.bool,
       collapseParent: propTypes.bool,
