@@ -42,7 +42,7 @@ export function setComponentRuleType(rule: ValidationRule, component: ComponentT
   }
 }
 
-export function handleInputNumberValue(component?: ComponentType, val: any) {
+export function handleInputNumberValue(component?: ComponentType, val?: any) {
   if (!component) return val;
   if (['Input', 'InputPassword', 'InputSearch', 'InputTextArea'].includes(component)) {
     return val && isNumber(val) ? `${val}` : val;

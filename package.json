@@ -12,7 +12,8 @@
     "dev": "cross-env  --max_old_space_size=4096  vite",
     "build": "vite build && esno ./build/script/postBuild.ts",
     "build:no-cache": "yarn clean:cache && npm run build",
-    "report": "cross-env REPORT=true npm run build ",
+    "report": "cross-env REPORT=true npm run build",
+    "type:check": "vue-tsc --noEmit --skipLibCheck",
     "preview": "npm run build && vite preview",
     "preview:dist": "vite preview",
     "log": "conventional-changelog -p angular -i CHANGELOG.md -s",
@@ -115,7 +116,8 @@
     "vite-plugin-svg-icons": "^0.4.1",
     "vite-plugin-theme": "^0.7.1",
     "vite-plugin-windicss": "0.14.0",
-    "vue-eslint-parser": "^7.6.0"
+    "vue-eslint-parser": "^7.6.0",
+    "vue-tsc": "^0.0.23"
   },
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China.If it is abroad, you can delete it",

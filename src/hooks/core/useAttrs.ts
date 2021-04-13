@@ -30,7 +30,7 @@ export function useAttrs(params: Params = {}): Ref<Recordable> | {} {
       }
 
       return acm;
-    }, {} as Hash<any>);
+    }, {} as Recordable);
 
     attrs.value = res;
   });

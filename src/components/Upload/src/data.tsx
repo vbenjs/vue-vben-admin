@@ -128,7 +128,6 @@ export function createPreviewActionColumn({
   handleDownload,
 }: {
   handleRemove: Fn;
-  handlePreview: Fn;
   handleDownload: Fn;
 }): BasicColumn {
   return {
@@ -137,8 +136,6 @@ export function createPreviewActionColumn({
     dataIndex: 'action',
     fixed: false,
     customRender: ({ record }) => {
-      // const { url } = (record || {}) as PreviewFileItem;
-
       const actions: ActionItem[] = [
         {
           label: t('component.upload.del'),
@@ -150,12 +147,7 @@ export function createPreviewActionColumn({
           onClick: handleDownload.bind(null, record),
         },
       ];
-      // if (isImgTypeByName(url)) {
-      //   actions.unshift({
-      //     label: t('component.upload.preview'),
-      //     onClick: handlePreview.bind(null, record),
-      //   });
-      // }
+
       return <TableAction actions={actions} outside={true} />;
     },
   };
