@@ -91,6 +91,6 @@
     width: 150px;
     height: 150px;
     margin-top: 20px;
-    background: rgb(126, 170, 236);
+    background-color: rgb(126, 170, 236);
   }
 </style>

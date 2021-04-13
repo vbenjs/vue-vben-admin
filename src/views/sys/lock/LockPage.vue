@@ -171,7 +171,7 @@
       display: flex;
       font-weight: 700;
       color: #bababa;
-      background: #141313;
+      background-color: #141313;
       border-radius: 30px;
       justify-content: center;
       align-items: center;
@@ -218,7 +218,7 @@
       display: flex;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(8px);
       justify-content: center;
       align-items: center;

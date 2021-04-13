@@ -38,6 +38,6 @@
 </script>
 <style lang="less" scoped>
   .demo {
-    background: @component-background;
+    background-color: @component-background;
   }
 </style>

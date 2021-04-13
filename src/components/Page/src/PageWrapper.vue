@@ -197,7 +197,7 @@
     }
 
     &-content-bg {
-      background: @component-background;
+      background-color: @component-background;
     }
 
     &--dense {

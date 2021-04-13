@@ -91,7 +91,7 @@
 
     &__container {
       padding: 12px;
-      background: @component-background;
+      background-color: @component-background;
     }
 
     &__title {

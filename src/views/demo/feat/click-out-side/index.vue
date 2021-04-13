@@ -35,7 +35,7 @@
     height: 300px;
     font-size: 24px;
     color: #fff;
-    background: #408ede;
+    background-color: #408ede;
     border-radius: 10px;
     justify-content: center;
     align-items: center;

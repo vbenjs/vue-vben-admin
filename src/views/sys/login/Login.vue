@@ -95,7 +95,7 @@
 
   html[data-theme='dark'] {
     .@{prefix-cls} {
-      background: @dark-bg;
+      background-color: @dark-bg;
 
       &::before {
         background-image: url(/@/assets/svg/login-bg-dark.svg);
@@ -123,10 +123,10 @@
   .@{prefix-cls} {
     overflow: hidden;
     @media (max-width: @screen-xl) {
-      background: #293146;
+      background-color: #293146;
 
       .@{prefix-cls}-form {
-        background: #fff;
+        background-color: #fff;
       }
     }
 

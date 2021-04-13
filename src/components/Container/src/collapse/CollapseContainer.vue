@@ -101,7 +101,7 @@
   @prefix-cls: ~'@{namespace}-collapse-container';
 
   .@{prefix-cls} {
-    background: @component-background;
+    background-color: @component-background;
     border-radius: 2px;
     transition: all 0.3s ease-in-out;
 

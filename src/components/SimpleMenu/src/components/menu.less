@@ -13,7 +13,7 @@
     bottom: 0;
     display: block;
     width: 2px;
-    background: @primary-color;
+    background-color: @primary-color;
     content: '';
   }
 }
@@ -62,7 +62,7 @@
 
         &-selected {
           color: #fff;
-          background: @primary-color !important;
+          background-color: @primary-color !important;
         }
       }
     }
@@ -79,7 +79,7 @@
         &-selected {
           z-index: 2;
           color: @primary-color;
-          background: fade(@primary-color, 10);
+          background-color: fade(@primary-color, 10);
 
           .light-border();
         }
@@ -107,7 +107,7 @@
     // }
 
     &-light {
-      background: #fff;
+      background-color: #fff;
 
       .@{menu-prefix-cls}-submenu-active {
         color: @primary-color !important;
@@ -219,7 +219,7 @@
       &-active:not(.@{menu-prefix-cls}-submenu) {
         z-index: 2;
         color: @primary-color;
-        background: fade(@primary-color, 10);
+        background-color: fade(@primary-color, 10);
 
         .light-border();
       }
@@ -232,7 +232,7 @@
       > li.@{menu-prefix-cls}-item-active,
       .@{menu-prefix-cls}-submenu-active {
         position: relative;
-        background: fade(@primary-color, 5);
+        background-color: fade(@primary-color, 5);
 
         &::after {
           display: none;
@@ -244,7 +244,7 @@
           left: 0;
           width: 3px;
           height: 100%;
-          background: @primary-color;
+          background-color: @primary-color;
           content: '';
         }
       }
@@ -255,7 +255,7 @@
       color: @menu-dark-subsidiary-color;
       &-active:not(.@{menu-prefix-cls}-submenu) {
         color: #fff !important;
-        background: @primary-color !important;
+        background-color: @primary-color !important;
       }
 
       &:hover {
@@ -276,7 +276,7 @@
           left: 0;
           width: 3px;
           height: 100%;
-          background: @primary-color;
+          background-color: @primary-color;
           content: '';
         }
 
@@ -301,7 +301,7 @@
     &-dark&-vertical &-opened {
       .@{menu-prefix-cls}-submenu-has-parent-submenu {
         .@{menu-prefix-cls}-submenu-title {
-          background: transparent;
+          background-color: transparent;
         }
       }
     }

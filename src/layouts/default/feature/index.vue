@@ -67,7 +67,7 @@
     padding: 10px;
     color: @white;
     cursor: pointer;
-    background: @primary-color;
+    background-color: @primary-color;
     border-radius: 6px 0 0 6px;
     justify-content: center;
     align-items: center;

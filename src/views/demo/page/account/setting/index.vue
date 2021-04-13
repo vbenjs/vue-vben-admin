@@ -48,7 +48,7 @@
 <style lang="less">
   .account-setting {
     margin: 12px;
-    background: @component-background;
+    background-color: @component-background;
 
     .base-title {
       padding-left: 0;

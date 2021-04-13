@@ -42,7 +42,7 @@
     padding: 0 16px;
     font-size: 12px;
     color: #666;
-    background: @component-background;
+    background-color: @component-background;
     border-top: 1px solid @border-color-base;
     border-radius: 0 0 16px 16px;
     align-items: center;
@@ -54,7 +54,7 @@
       height: 18px;
       padding-bottom: 2px;
       margin-right: 0.4em;
-      background: linear-gradient(-225deg, #d5dbe4, #f8f8f8);
+      background-color: linear-gradient(-225deg, #d5dbe4, #f8f8f8);
       border-radius: 2px;
       box-shadow: inset 0 -2px 0 0 #cdcde6, inset 0 0 1px 1px #fff,
         0 1px 2px 1px rgba(30, 35, 90, 0.4);

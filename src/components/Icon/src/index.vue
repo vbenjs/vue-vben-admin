@@ -112,7 +112,7 @@
     display: block;
     min-width: 1em;
     min-height: 1em;
-    background: @iconify-bg-color;
+    background-color: @iconify-bg-color;
     border-radius: 100%;
   }
 </style>

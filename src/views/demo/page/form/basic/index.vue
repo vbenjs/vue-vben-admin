@@ -62,6 +62,6 @@
 <style lang="less" scoped>
   .form-wrap {
     padding: 24px;
-    background: @component-background;
+    background-color: @component-background;
   }
 </style>
