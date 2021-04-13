@@ -144,15 +144,15 @@
     }
 
     &.ant-layout-sider-dark {
-      background: @sider-dark-bg-color;
+      background-color: @sider-dark-bg-color;
 
       .ant-layout-sider-trigger {
         color: darken(@white, 25%);
-        background: @trigger-dark-bg-color;
+        background-color: @trigger-dark-bg-color;
 
         &:hover {
           color: @white;
-          background: @trigger-dark-hover-bg-color;
+          background-color: @trigger-dark-hover-bg-color;
         }
       }
     }

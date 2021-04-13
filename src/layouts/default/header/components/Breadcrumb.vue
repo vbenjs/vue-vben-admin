@@ -47,6 +47,7 @@
       const { currentRoute } = useRouter();
       const { prefixCls } = useDesign('layout-breadcrumb');
       const { getShowBreadCrumbIcon } = useRootSetting();
+      const go = useGo();
 
       const { t } = useI18n();
       watchEffect(async () => {
@@ -122,7 +123,6 @@
           return;
         }
 
-        const go = useGo();
         if (redirect && isString(redirect)) {
           go(redirect);
         } else {

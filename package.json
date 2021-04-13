@@ -59,7 +59,7 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
-    "@iconify/json": "^1.1.328",
+    "@iconify/json": "^1.1.329",
     "@purge-icons/generated": "^0.7.0",
     "@types/crypto-js": "^4.0.1",
     "@types/fs-extra": "^9.0.11",
@@ -122,7 +122,7 @@
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China.If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
-    "rollup": "^2.45.1",
+    "rollup": "^2.45.2",
     "esbuild": "^0.11.9"
   },
   "repository": {

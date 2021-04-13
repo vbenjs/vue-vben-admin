@@ -51,7 +51,7 @@
     height: 100%;
     justify-content: center;
     align-items: center;
-    background: rgba(240, 242, 245, 0.4);
+    background-color: rgba(240, 242, 245, 0.4);
 
     &.absolute {
       position: absolute;
@@ -63,7 +63,7 @@
 
   html[data-theme='dark'] {
     .full-loading {
-      background: @modal-mask-bg;
+      background-color: @modal-mask-bg;
     }
   }
 </style>

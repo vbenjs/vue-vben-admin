@@ -63,7 +63,7 @@
       width: 3px;
       height: 16px;
       margin-right: 4px;
-      background: @primary-color;
+      background-color: @primary-color;
       content: '';
     }
 

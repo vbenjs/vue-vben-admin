@@ -148,7 +148,7 @@
 
     &--dark {
       &:hover {
-        background: @header-dark-bg-hover-color;
+        background-color: @header-dark-bg-hover-color;
       }
     }
 

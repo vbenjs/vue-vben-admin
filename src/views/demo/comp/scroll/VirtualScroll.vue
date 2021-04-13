@@ -50,7 +50,7 @@
     &-wrap {
       display: flex;
       margin: 0 30%;
-      background: @component-background;
+      background-color: @component-background;
       justify-content: center;
     }
 

@@ -86,7 +86,7 @@
     &__top {
       padding: 24px;
       text-align: center;
-      background: @component-background;
+      background-color: @component-background;
 
       &-col {
         &:not(:last-child) {
@@ -112,7 +112,7 @@
     &__content {
       padding: 24px;
       margin-top: 12px;
-      background: @component-background;
+      background-color: @component-background;
 
       .list {
         position: relative;

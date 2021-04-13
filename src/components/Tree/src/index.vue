@@ -361,7 +361,7 @@
   @prefix-cls: ~'@{namespace}-basic-tree';
 
   .@{prefix-cls} {
-    background: @component-background;
+    background-color: @component-background;
 
     .ant-tree-node-content-wrapper {
       position: relative;

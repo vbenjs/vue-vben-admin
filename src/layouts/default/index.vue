@@ -65,7 +65,7 @@
     display: flex;
     width: 100%;
     min-height: 100%;
-    background: @content-bg;
+    background-color: @content-bg;
     flex-direction: column;
 
     > .ant-layout {

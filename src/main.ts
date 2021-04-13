@@ -29,7 +29,7 @@ if (import.meta.env.DEV) {
   // Configure vuex store
   setupStore(app);
 
-  // Initialize vuex internal system configuration
+  // Initialize internal system configuration
   initAppConfigStore();
 
   // Register global components

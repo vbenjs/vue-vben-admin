@@ -102,7 +102,7 @@
     &-top {
       padding: 10px;
       margin: 16px 16px 12px 16px;
-      background: @component-background;
+      background-color: @component-background;
       border-radius: 3px;
 
       &__avatar {
@@ -144,7 +144,7 @@
     &-bottom {
       padding: 10px;
       margin: 0 16px 16px 16px;
-      background: @component-background;
+      background-color: @component-background;
       border-radius: 3px;
     }
   }
