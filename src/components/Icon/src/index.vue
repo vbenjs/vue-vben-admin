@@ -1,9 +1,9 @@
 <template>
-  <SvgIcon :size="size" :name="getSvgIcon" v-if="isSvgIcon" :class="[$attrs.class]" />
+  <SvgIcon :size="size" :name="getSvgIcon" v-if="isSvgIcon" :class="[$attrs.class]" :spin="spin" />
   <span
     v-else
     ref="elRef"
-    :class="[$attrs.class, 'app-iconify anticon']"
+    :class="[$attrs.class, 'app-iconify anticon', spin && 'app-iconify-spin']"
     :style="getWrapStyle"
   ></span>
 </template>
@@ -39,6 +39,7 @@
         type: [String, Number] as PropType<string | number>,
         default: 16,
       },
+      spin: propTypes.bool.def(false),
       prefix: propTypes.string.def(''),
     },
     setup(props) {
@@ -99,6 +100,12 @@
   .app-iconify {
     display: inline-block;
     vertical-align: middle;
+
+    &-spin {
+      svg {
+        animation: loadingCircle 1s infinite linear;
+      }
+    }
   }
 
   span.iconify {

@@ -1,5 +1,9 @@
 <template>
-  <svg :class="[prefixCls, $attrs.class]" :style="getStyle" aria-hidden="true">
+  <svg
+    :class="[prefixCls, $attrs.class, spin && 'svg-icon-spin']"
+    :style="getStyle"
+    aria-hidden="true"
+  >
     <use :xlink:href="symbolId" />
   </svg>
 </template>
@@ -22,6 +26,10 @@
       size: {
         type: [Number, String],
         default: 16,
+      },
+      spin: {
+        type: Boolean,
+        default: false,
       },
     },
     setup(props) {
@@ -51,5 +59,9 @@
     overflow: hidden;
     vertical-align: -0.15em;
     fill: currentColor;
+  }
+
+  .svg-icon-spin {
+    animation: loadingCircle 1s infinite linear;
   }
 </style>
