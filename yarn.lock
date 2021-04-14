@@ -3638,10 +3638,10 @@ esbuild-register@^2.2.0:
     esbuild "^0.11.5"
     jsonc-parser "^3.0.0"
 
-esbuild@^0.11.4, esbuild@^0.11.5, esbuild@^0.11.6, esbuild@^0.11.9, esbuild@^0.9.2, esbuild@^0.9.3:
-  version "0.11.9"
-  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.11.9.tgz#408bf4fb5ae9abc2f27d56b62e19aab697687975"
-  integrity sha512-qP7w/oWjJBIh9x+H37DbpkMtmSnLm63VDyA06+vkJJEHlVR7QSDiPAaka7mtMQZHoBn87irUx5rDxbXMKaf8xw==
+esbuild@^0.11.10, esbuild@^0.11.4, esbuild@^0.11.5, esbuild@^0.11.6, esbuild@^0.9.2, esbuild@^0.9.3:
+  version "0.11.10"
+  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.11.10.tgz#f5d39e4d9cc130b78d751664fef1b663240f5545"
+  integrity sha512-XvGbf+UreVFA24Tlk6sNOqNcvF2z49XAZt4E7A4H80+yqn944QOLTTxaU0lkdYNtZKFiITNea+VxmtrfjvnLPA==
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -3658,10 +3658,10 @@ escape-string-regexp@1.0.5, escape-string-regexp@^1.0.2, escape-string-regexp@^1
   resolved "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-eslint-config-prettier@^8.1.0:
-  version "8.1.0"
-  resolved "https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-8.1.0.tgz#4ef1eaf97afe5176e6a75ddfb57c335121abc5a6"
-  integrity sha512-oKMhGv3ihGbCIimCAjqkdzx2Q+jthoqnXSP+d86M9tptwugycmTFdVR4IpLgq2c4SHifbwO90z2fQ8/Aio73yw==
+eslint-config-prettier@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-8.2.0.tgz#78de77d63bca8e9e59dae75a614b5299925bb7b3"
+  integrity sha512-dWV9EVeSo2qodOPi1iBYU/x6F6diHv8uujxbxr77xExs3zTAlNXvVZKiyLsQGNz7yPV2K49JY5WjPzNIuDc2Bw==
 
 eslint-define-config@^1.0.7:
   version "1.0.7"
@@ -9182,10 +9182,10 @@ vite-plugin-purge-icons@^0.7.0:
     "@purge-icons/generated" "^0.7.0"
     rollup-plugin-purge-icons "^0.7.0"
 
-vite-plugin-pwa@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.7.0.tgz#cde774b2a65dbd84dc8831c964898563f7e2c22c"
-  integrity sha512-Mf7O5Ecubv25nSSdkfpeackVKX9+SOpH7U2I6IFPb/NupG7wn3KzBOke3ksu+bA8GzN5923vD/kw1GWOsLZL4w==
+vite-plugin-pwa@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.7.1.tgz#fb217335687d217cc2a0973781ec2fe66523167b"
+  integrity sha512-cweBld0QnNYvV93UdHdyu7YieJW6vOQPNNutmvuZ0jgWscoX2v9qwXM76tw5w0aZu4ShUFYVAvboxZ2Avmbt6Q==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"
@@ -9284,10 +9284,10 @@ vue-router@^4.0.6:
   resolved "https://registry.npmjs.org/vue-router/-/vue-router-4.0.6.tgz#91750db507d26642f225b0ec6064568e5fe448d6"
   integrity sha512-Y04llmK2PyaESj+N33VxLjGCUDuv9t4q2OpItEGU7POZiuQZaugV6cJpE6Qm1sVFtxufodLKN2y2dQl9nk0Reg==
 
-vue-tsc@^0.0.23:
-  version "0.0.23"
-  resolved "https://registry.npmjs.org/vue-tsc/-/vue-tsc-0.0.23.tgz#e0e53a09ff29ac497f3bafab5a5c9ad63b1422f3"
-  integrity sha512-zQACemcjLMmMo4pJsQyo3g+2oP5lfZB2r1K1dS25gT9r4fpDoq226logIw/QzYYf+SI91QE4hwpdAjij3n6N9w==
+vue-tsc@^0.0.24:
+  version "0.0.24"
+  resolved "https://registry.npmjs.org/vue-tsc/-/vue-tsc-0.0.24.tgz#0cd90db679f53ea1694254b8663fdb3d624a0872"
+  integrity sha512-Qx0V7jkWMtvddtaWa1SA8YKkBCRmjq9zZUB2UIMZiso6JSH538oHD2VumSzkoDnAfFbY3t0/j1mB2abpA0bGWA==
   dependencies:
     unzipper "0.10.11"
 
