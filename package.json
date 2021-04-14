@@ -82,7 +82,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "eslint": "^7.24.0",
-    "eslint-config-prettier": "^8.1.0",
+    "eslint-config-prettier": "^8.2.0",
     "eslint-define-config": "^1.0.7",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.9.0",
@@ -111,19 +111,19 @@
     "vite-plugin-imagemin": "^0.3.0",
     "vite-plugin-mock": "^2.5.0",
     "vite-plugin-purge-icons": "^0.7.0",
-    "vite-plugin-pwa": "^0.7.0",
+    "vite-plugin-pwa": "^0.7.1",
     "vite-plugin-style-import": "^0.9.2",
     "vite-plugin-svg-icons": "^0.4.1",
     "vite-plugin-theme": "^0.7.1",
     "vite-plugin-windicss": "0.14.0",
     "vue-eslint-parser": "^7.6.0",
-    "vue-tsc": "^0.0.23"
+    "vue-tsc": "^0.0.24"
   },
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China.If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
     "rollup": "^2.45.2",
-    "esbuild": "^0.11.9"
+    "esbuild": "^0.11.10"
   },
   "repository": {
     "type": "git",
