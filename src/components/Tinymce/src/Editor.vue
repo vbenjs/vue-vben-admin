@@ -96,21 +96,22 @@
 
       const initOptions = computed(() => {
         const { height, options, toolbar, plugins } = props;
+        const publicPath = import.meta.env.VITE_PUBLIC_PATH || '/';
         return {
           selector: `#${unref(tinymceId)}`,
           height,
           toolbar,
           menubar: 'file edit insert view format table',
           plugins,
-          language_url: '/resource/tinymce/langs/zh_CN.js',
+          language_url: publicPath + 'resource/tinymce/langs/zh_CN.js',
           language: 'zh_CN',
           branding: false,
           default_link_target: '_blank',
           link_title: false,
           object_resizing: false,
           skin: 'oxide',
-          skin_url: 'resource/tinymce/skins/ui/oxide',
-          content_css: 'resource/tinymce/skins/ui/oxide/content.min.css',
+          skin_url: publicPath + 'resource/tinymce/skins/ui/oxide',
+          content_css: publicPath + 'resource/tinymce/skins/ui/oxide/content.min.css',
           ...options,
           setup: (editor: any) => {
             editorRef.value = editor;
