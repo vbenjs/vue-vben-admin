@@ -35,4 +35,5 @@ export default {
 
   time: 'Relative Time',
   cropperImage: 'Cropper Image',
+  flowChart: 'Flow Chart',
 };
