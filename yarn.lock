@@ -1151,6 +1151,19 @@
   resolved "https://registry.npmjs.org/@intlify/shared/-/shared-9.0.0.tgz#d85b3b5f9033f377c5cf2202cf2459aa49948f36"
   integrity sha512-0r4v7dnY8g/Jfx2swUWy2GyfH/WvIpWvkU4OIupvxDTWiE8RhcpbOCVvqpVh/xGi0proHQ/r2Dhc0QSItUsfDQ==
 
+"@logicflow/core@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@logicflow/core/-/core-0.3.0.tgz#910ca7865487fbe6c45a450d13627875c6965bf4"
+  integrity sha512-FPRTuj0y6Yny+YDZ+faTzA8pZyouEWX1Vr6rH91wJR0J3NOHgb7pV/TJoHSosavFuyyw87nLw9UsyUUgHKVV+A==
+
+"@logicflow/extension@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@logicflow/extension/-/extension-0.3.0.tgz#cea4470de3a8e4b7da69b17d7507b2d8edd76b50"
+  integrity sha512-vMmYT8H53oFhOpNftCYQMbNYbTiXqQUxOOKlPcrKkZb0FsXSiEZ/MUKBF3mAarvFlzdMaB5xJjakMfy07/bdvw==
+  dependencies:
+    "@logicflow/core" "^0.3.0"
+    ids "^1.0.0"
+
 "@nodelib/fs.scandir@2.1.4":
   version "2.1.4"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.4.tgz#d4b3549a5db5de2683e0c1071ab4f140904bbf69"
@@ -4894,6 +4907,11 @@ icss-utils@^5.0.0:
   version "5.1.0"
   resolved "https://registry.npmjs.org/icss-utils/-/icss-utils-5.1.0.tgz#c6be6858abd013d768e98366ae47e25d5887b1ae"
   integrity sha512-soFhflCVWLfRNOPU3iv5Z9VUdT44xFRbzjLsEzSr5AQmgqPMTHdU3PMT1Cf1ssx8fLNJDA1juftYl+PUcv3MqA==
+
+ids@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ids/-/ids-1.0.0.tgz#df67f2d37b81d7c2effc87e03d17ebff95a58c05"
+  integrity sha512-Zvtq1xUto4LttpstyOlFum8lKx+i1OmRfg+6A9drFS9iSZsDPMHG4Sof/qwNR4kCU7jBeWFPrY2ocHxiz7cCRw==
 
 ieee754@^1.1.13:
   version "1.2.1"
@@ -9283,6 +9301,11 @@ vue-i18n@9.0.0:
     "@intlify/core-base" "9.0.0"
     "@intlify/shared" "9.0.0"
     "@vue/devtools-api" "^6.0.0-beta.5"
+
+vue-json-pretty@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/vue-json-pretty/-/vue-json-pretty-2.0.2.tgz#cb8f559af15ea3a2ee53b2742672c7791826d6a3"
+  integrity sha512-Vn7SX3XR9cfvGRNoTDNID89GmvVUMb7/fLUX3C3n0Qptga0N7hp7Zwspui1I1XN5pE+PeoVghCSYty+bi8KnjA==
 
 vue-router@^4.0.6:
   version "4.0.6"

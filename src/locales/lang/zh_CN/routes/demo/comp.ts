@@ -34,4 +34,5 @@ export default {
 
   time: '相对时间',
   cropperImage: '图片裁剪',
+  flowChart: '流程图',
 };
