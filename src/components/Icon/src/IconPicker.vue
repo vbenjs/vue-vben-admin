@@ -80,7 +80,7 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard';
   import { useMessage } from '/@/hooks/web/useMessage';
-  import svgIcons from 'vite-plugin-svg-icons/client';
+  import svgIcons from 'virtual:svg-icons-names';
 
   function getIcons() {
     const data = iconsData as any;
