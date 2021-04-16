@@ -124,6 +124,13 @@ const menu: MenuModule = {
         },
       },
       {
+        path: 'flowChart',
+        name: t('routes.demo.comp.flowChart'),
+        tag: {
+          content: 'new',
+        },
+      },
+      {
         path: 'countTo',
         name: t('routes.demo.comp.countTo'),
       },
