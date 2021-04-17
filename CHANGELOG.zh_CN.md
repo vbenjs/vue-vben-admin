@@ -1,5 +1,13 @@
 ## Wip
 
+### ✨ Features
+
+- 新增图形编辑器示例
+
+### ⚡ Performance Improvements
+
+- 合并部分语言文件，减少文件数量
+
 ### 🐛 Bug Fixes
 
 - 修复黑暗主题刷新闪烁的白屏

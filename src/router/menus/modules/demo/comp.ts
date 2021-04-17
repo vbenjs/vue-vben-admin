@@ -6,9 +6,7 @@ const menu: MenuModule = {
   menu: {
     name: t('routes.demo.comp.comp'),
     path: '/comp',
-    tag: {
-      dot: true,
-    },
+
     children: [
       {
         path: 'basic',
@@ -119,9 +117,6 @@ const menu: MenuModule = {
       {
         path: 'cropper',
         name: t('routes.demo.comp.cropperImage'),
-        tag: {
-          content: 'new',
-        },
       },
       {
         path: 'countTo',

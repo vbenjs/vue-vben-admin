@@ -6,9 +6,6 @@ const menu: MenuModule = {
   menu: {
     name: t('routes.demo.feat.feat'),
     path: '/feat',
-    tag: {
-      dot: true,
-    },
 
     children: [
       {
@@ -35,9 +32,6 @@ const menu: MenuModule = {
       {
         path: 'print',
         name: t('routes.demo.feat.print'),
-        tag: {
-          content: 'new',
-        },
       },
       {
         path: 'click-out-side',
