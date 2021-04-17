@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-04-17 13:05:31
+ * @LastEditTime: 2021-04-17 13:21:50
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /evan-admin/test/server/api/app.js
+ */
 const Koa = require('koa');
 const router = require('koa-router')();
 const cors = require('koa2-cors');
@@ -19,8 +27,8 @@ router.post('/login', (ctx) => {
     success: true,
     result: {
       userId: '1',
-      username: 'vben',
-      realName: 'Vben Admin',
+      username: 'evan',
+      realName: 'Evan Admin',
       desc: 'manager',
       password: '123456',
       token: 'fakeToken1',
@@ -40,8 +48,8 @@ router.get('/getUserInfoById', (ctx) => {
     success: true,
     result: {
       userId: '1',
-      username: 'vben',
-      realName: 'Vben Admin',
+      username: 'evan',
+      realName: 'Evan Admin',
       desc: 'manager',
       password: '123456',
       token: 'fakeToken1',
