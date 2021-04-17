@@ -81,12 +81,13 @@
         }
       );
 
-      watch(
-        () => appStore.getDarkMode,
-        () => {
-          init();
-        }
-      );
+      // TODO
+      // watch(
+      //   () => appStore.getDarkMode,
+      //   () => {
+      //     init();
+      //   }
+      // );
 
       watch(
         () => unref(getFlowOptions),
@@ -95,7 +96,6 @@
         }
       );
 
-      let isInit = false;
       // init logicFlow
       async function init() {
         await nextTick();
@@ -104,16 +104,14 @@
         if (!lfEl) {
           return;
         }
-        if (!isInit) {
-          // Canvas configuration
-          LogicFlow.use(Snapshot);
-          // Use the bpmn plug-in to introduce bpmn elements, which can be used after conversion in turbo
-          LogicFlow.use(BpmnElement);
-          // Start the right-click menu
-          LogicFlow.use(Menu);
-          LogicFlow.use(DndPanel);
-          isInit = true;
-        }
+
+        // Canvas configuration
+        LogicFlow.use(Snapshot);
+        // Use the bpmn plug-in to introduce bpmn elements, which can be used after conversion in turbo
+        LogicFlow.use(BpmnElement);
+        // Start the right-click menu
+        LogicFlow.use(Menu);
+        LogicFlow.use(DndPanel);
 
         lfInstance.value = new LogicFlow({
           ...unref(getFlowOptions),
