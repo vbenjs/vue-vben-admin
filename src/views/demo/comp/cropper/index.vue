@@ -1,12 +1,14 @@
 <template>
   <PageWrapper title="图片裁剪示例" contentBackground>
-    <div class="cropper-container">
-      <CropperImage
-        ref="refCropper"
-        src="https://fengyuanchen.github.io/cropperjs/images/picture.jpg"
-        @cropperedInfo="cropperedInfo"
-        style="width: 40%"
-      />
+    <div class="container">
+      <div class="cropper-container">
+        <CropperImage
+          ref="refCropper"
+          src="https://fengyuanchen.github.io/cropperjs/images/picture.jpg"
+          @cropperedInfo="cropperedInfo"
+          style="width: 40vw"
+        />
+      </div>
       <a-button type="primary" @click="onCropper"> 裁剪 </a-button>
       <img :src="cropperImg" class="croppered" v-if="cropperImg" />
     </div>
@@ -14,27 +16,25 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, onBeforeMount, getCurrentInstance } from 'vue';
+  import { defineComponent, ref, unref } from 'vue';
   import { PageWrapper } from '/@/components/Page';
   import { CropperImage } from '/@/components/Cropper';
   import img from '/@/assets/images/header.jpg';
+  import { templateRef } from '@vueuse/core';
+
   export default defineComponent({
     components: {
       PageWrapper,
       CropperImage,
     },
     setup() {
-      let vm: any;
       let info = ref('');
       let cropperImg = ref('');
+      const refCropper = templateRef<HTMLElement | null>('refCropper', null);
 
       const onCropper = (): void => {
-        vm.refs.refCropper.croppered();
+        unref(refCropper).croppered();
       };
-
-      onBeforeMount(() => {
-        vm = getCurrentInstance();
-      });
 
       function cropperedInfo({ imgBase64, imgInfo }) {
         info.value = imgInfo;
@@ -53,14 +53,21 @@
 </script>
 
 <style scoped>
-  .cropper-container {
+  .container {
     display: flex;
-    justify-content: space-around;
+    width: 100vw;
     align-items: center;
   }
 
+  .cropper-container {
+    width: 40vw;
+  }
+
   .croppered {
-    width: 50%;
-    height: 100%;
+    height: 360px;
+  }
+
+  p {
+    margin: 10px;
   }
 </style>
