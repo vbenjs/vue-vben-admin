@@ -6,11 +6,17 @@ const menu: MenuModule = {
   menu: {
     name: t('routes.demo.flow.name'),
     path: '/flow',
+    tag: {
+      dot: true,
+    },
 
     children: [
       {
         path: 'flowChart',
         name: t('routes.demo.flow.flowChart'),
+        tag: {
+          content: 'new',
+        },
       },
     ],
   },

@@ -6,26 +6,15 @@ const menu: MenuModule = {
   menu: {
     name: t('routes.dashboard.dashboard'),
     path: '/dashboard',
-    tag: {
-      dot: true,
-      type: 'warn',
-    },
+
     children: [
       {
         path: 'analysis',
         name: t('routes.dashboard.analysis'),
-        tag: {
-          dot: true,
-          type: 'warn',
-        },
       },
       {
         path: 'workbench',
         name: t('routes.dashboard.workbench'),
-        tag: {
-          dot: true,
-          type: 'warn',
-        },
       },
     ],
   },
