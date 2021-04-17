@@ -1,4 +1,4 @@
-import { App } from 'vue';
+import type { App } from 'vue';
 import dataDialog from './src/DataDialog.vue';
 import flowChart from './src/index.vue';
 
