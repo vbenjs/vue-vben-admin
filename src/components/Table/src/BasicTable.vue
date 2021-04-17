@@ -298,27 +298,13 @@
 
   @prefix-cls: ~'@{namespace}-basic-table';
 
-  html[data-theme='light'] {
-    .@{prefix-cls} {
-      &-row__striped {
-        td {
-          background-color: #fafafa;
-        }
-      }
-    }
-  }
-
-  html[data-theme='dark'] {
-    .@{prefix-cls} {
-      &-row__striped {
-        td {
-          background-color: rgb(255 255 255 / 4%);
-        }
-      }
-    }
-  }
-
   .@{prefix-cls} {
+    &-row__striped {
+      td {
+        background-color: content-background;
+      }
+    }
+
     &-form-container {
       padding: 16px;
 

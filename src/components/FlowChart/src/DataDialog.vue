@@ -1,5 +1,5 @@
 <template>
-  <vue-json-pretty :path="'res'" :deep="3" :showLength="true" :data="graphData" />
+  <vue-json-pretty :path="'res'" :deep="3" :showLength="true" :data="data" />
 </template>
 
 <script lang="ts">
@@ -12,7 +12,7 @@
       VueJsonPretty,
     },
     props: {
-      graphData: Object,
+      data: Object,
     },
   });
 </script>
