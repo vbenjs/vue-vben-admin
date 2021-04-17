@@ -1713,25 +1713,25 @@
   resolved "https://registry.npmjs.org/@vue/shared/-/shared-3.0.11.tgz#20d22dd0da7d358bb21c17f9bde8628152642c77"
   integrity sha512-b+zB8A2so8eCE0JsxjL24J7vdGl8rzPQ09hZNhystm+KqSbKcAej1A+Hbva1rCMmTTqA+hFnUSDc5kouEo0JzA==
 
-"@vueuse/core@^4.8.1":
-  version "4.8.1"
-  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.8.1.tgz#d7a7fb2e72610d1962ecb9244bd93dacb96d921c"
-  integrity sha512-oXFEDaKNU69Rj20/Hd7ZlmTpEtA2M19cRkZaL4A0Nl0w5Wb5In/8aK+0vtdi1VyMUXXbq6h1OGKCJcIhg5cziA==
+"@vueuse/core@^4.8.2":
+  version "4.8.2"
+  resolved "https://registry.npmjs.org/@vueuse/core/-/core-4.8.2.tgz#b14e43ae640c38f59591db146d6e15c551368414"
+  integrity sha512-d6SX9YSWC8svdCEZvlKH3zmstPqNS1h1RHgZUbkxAC/zoNIYP88Ivl1pF3SYm0Iksl6D4Zu/oImKXWCBW21r6g==
   dependencies:
-    "@vueuse/shared" "4.8.1"
+    "@vueuse/shared" "4.8.2"
     vue-demi latest
 
-"@vueuse/shared@4.8.1":
-  version "4.8.1"
-  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.8.1.tgz#45fd5f64bf4e8944db42a5b72fa2705cfc74608a"
-  integrity sha512-ONKJoIvZPrGCA8loK7dX+ZcjgZLikI+vPiz1lWlXs6+jZiQiZSLkmvg1NjV6Cfb6OqbDCfEScTWLbZHB7EwrRw==
+"@vueuse/shared@4.8.2":
+  version "4.8.2"
+  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-4.8.2.tgz#7c9a738ddba9b60b3eb2e6702d657c2b4c94651c"
+  integrity sha512-Bjy15IHyqUpRbg9cRE9afFwD0gLtGI0tJW7fITWGCwYmSWpBoD+EnGBBGvnoP9pOtxkri9Wte/uKwcVnDos7QA==
   dependencies:
     vue-demi latest
 
-"@windicss/plugin-utils@0.14.5":
-  version "0.14.5"
-  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.14.5.tgz#f41889c866ca9163981276ab9f2903b8bea091e8"
-  integrity sha512-5BFPFGFskNBm9JudAlWJSgk0Pq5H9fmbhY2O2WZzvy0eZCJ9fY3f9lJrUxZElLSP9Tp72r08kV+9x/39X63bsQ==
+"@windicss/plugin-utils@0.14.6":
+  version "0.14.6"
+  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.14.6.tgz#25d3fdda3a8b0a560f3daed6588abd0a4fbef195"
+  integrity sha512-jF+dJ6D4/UqVHSbH5kCdSoPnklLTZDf+seck4unICI0qyzmyPsrO15nmSS/gIvnmCedUfBrQj1MfYOX0tccFjQ==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"
@@ -9278,12 +9278,12 @@ vite-plugin-theme@^0.7.1:
     esbuild-plugin-alias "^0.1.2"
     tinycolor2 "^1.4.2"
 
-vite-plugin-windicss@0.14.5:
-  version "0.14.5"
-  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.14.5.tgz#399cbe8964595f02ba9d6d66dc3503f4cf983de0"
-  integrity sha512-TOYb4Bz5FpWfJavzAtvjuhGew6tJnjx1ZxRmEBOG7RUFFdclWG0CRcHXSVvwpigYHl2TaNwkpHmpM8dyhN6Scw==
+vite-plugin-windicss@0.14.6:
+  version "0.14.6"
+  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.14.6.tgz#c17b66b5f35a3b1ffdfc3e969ce28a528305716e"
+  integrity sha512-bFyKfvnsa3nAab9LgrFInzdQhsIJyeNdCczgjrYMxjO8WlgiQuIFyJ1RTYQnYmQRlbvU9jpOL5XDxsFUMKRLUg==
   dependencies:
-    "@windicss/plugin-utils" "0.14.5"
+    "@windicss/plugin-utils" "0.14.6"
     chalk "^4.1.0"
     debug "^4.3.2"
     windicss "^2.5.14"

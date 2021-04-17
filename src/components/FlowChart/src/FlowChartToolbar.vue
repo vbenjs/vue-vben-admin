@@ -30,6 +30,7 @@
     props: {
       prefixCls: String,
     },
+    emits: ['view-data'],
     setup(_, { emit }) {
       const toolbarItemList = ref<ToolbarConfig[]>([
         {
@@ -112,7 +113,7 @@
             lf.getSnapshot();
             break;
           case ToolbarTypeEnum.VIEW_DATA:
-            emit('catData');
+            emit('view-data');
             break;
         }
       };
@@ -131,12 +132,17 @@
     },
   });
 </script>
-<style lang="less" scoped>
+<style lang="less">
   @prefix-cls: ~'@{namespace}-flow-chart-toolbar';
 
+  html[data-theme='dark'] {
+    .lf-dnd {
+      background: #080808;
+    }
+  }
   .@{prefix-cls} {
     height: 36px;
-    background: @content-background;
+    background-color: @app-content-background;
     border-bottom: 1px solid @border-color-base;
 
     .disabeld {

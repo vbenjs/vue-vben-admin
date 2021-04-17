@@ -7,7 +7,7 @@
   import 'vue-json-pretty/lib/styles.css';
   import { defineComponent } from 'vue';
   export default defineComponent({
-    name: 'DataDialog',
+    name: 'JsonPreview',
     components: {
       VueJsonPretty,
     },
