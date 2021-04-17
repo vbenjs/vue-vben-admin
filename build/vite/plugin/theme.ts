@@ -53,7 +53,7 @@ export function configThemePlugin(isBuild: boolean): Plugin[] {
         'border-color-base': '#303030',
         // 'border-color-split': '#30363d',
         'item-active-bg': '#111b26',
-        'content-background': '#ffffff0a', //   Link color
+        'app-content-background': 'rgb(255 255 255 / 4%)',
       },
     }),
   ];

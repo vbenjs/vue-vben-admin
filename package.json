@@ -35,7 +35,7 @@
     "@iconify/iconify": "^2.0.0-rc.6",
     "@logicflow/core": "^0.3.0",
     "@logicflow/extension": "^0.3.0",
-    "@vueuse/core": "^4.8.1",
+    "@vueuse/core": "^4.8.2",
     "@zxcvbn-ts/core": "^0.3.0",
     "ant-design-vue": "^2.1.2",
     "axios": "^0.21.1",
@@ -120,7 +120,7 @@
     "vite-plugin-style-import": "^0.9.2",
     "vite-plugin-svg-icons": "^0.4.3",
     "vite-plugin-theme": "^0.7.1",
-    "vite-plugin-windicss": "0.14.5",
+    "vite-plugin-windicss": "0.14.6",
     "vue-eslint-parser": "^7.6.0",
     "vue-tsc": "^0.0.24"
   },

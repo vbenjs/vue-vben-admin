@@ -33,7 +33,7 @@ export const useAppStore = defineStore({
     getPageLoading() {
       return this.pageLoading;
     },
-    getDarkMode() {
+    getDarkMode(): 'light' | 'dark' | string {
       return this.darkMode || localStorage.getItem(APP_DARK_MODE_KEY_) || darkMode;
     },
 
