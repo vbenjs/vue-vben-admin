@@ -240,14 +240,7 @@ const comp: AppRouteModule = {
         title: t('routes.demo.comp.cropperImage'),
       },
     },
-    {
-      path: 'flowChart',
-      name: 'flowChartDemo',
-      component: () => import('/@/views/demo/comp/flow-chart/index.vue'),
-      meta: {
-        title: t('routes.demo.comp.flowChart'),
-      },
-    },
+
     {
       path: 'timestamp',
       name: 'TimeDemo',
