@@ -3,6 +3,7 @@
 ### ✨ Features
 
 - 新增图形编辑器示例
+- 新增代码编辑器(包含 Json 编辑器)
 
 ### ⚡ Performance Improvements
 

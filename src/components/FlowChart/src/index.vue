@@ -19,7 +19,7 @@
   import { toLogicFlowData } from './adpterForTurbo';
 
   import '@logicflow/core/dist/style/index.css';
-  import '@logicflow/extension/lib/style/index.css';
+  import './index.css';
   export default defineComponent({
     name: 'FlowChart',
     components: { FlowChartToolbar },

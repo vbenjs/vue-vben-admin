@@ -304,6 +304,14 @@ const comp: AppRouteModule = {
       },
       children: [
         {
+          path: 'json',
+          component: () => import('/@/views/demo/editor/json/index.vue'),
+          name: 'JsonEditorDemo',
+          meta: {
+            title: t('routes.demo.editor.jsonEditor'),
+          },
+        },
+        {
           path: 'markdown',
           component: getParentLayout('MarkdownDemo'),
           name: 'MarkdownDemo',
