@@ -155,7 +155,7 @@ export class VAxios {
 
   // support form-data
   supportFormData(config: AxiosRequestConfig) {
-    const headers = this.options?.headers;
+    const headers = config.headers;
     const contentType = headers?.['Content-Type'] || headers?.['content-type'];
 
     if (
@@ -168,7 +168,7 @@ export class VAxios {
 
     return {
       ...config,
-      data: qs.stringify(config.data),
+      data: qs.stringify(config.data, { arrayFormat: 'brackets' }),
     };
   }
 
