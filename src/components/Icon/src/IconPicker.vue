@@ -33,6 +33,7 @@
                   :class="currentSelect === icon ? 'border border-primary' : ''"
                   class="p-2 w-1/8 cursor-pointer mr-1 mt-1 flex justify-center items-center border border-solid hover:border-primary"
                   @click="handleClick(icon)"
+                  :title="icon"
                 >
                   <!-- <Icon :icon="icon" :prefix="prefix" /> -->
                   <SvgIcon v-if="isSvgMode" :name="icon" />
