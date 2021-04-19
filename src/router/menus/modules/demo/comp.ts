@@ -47,6 +47,10 @@ const menu: MenuModule = {
             path: 'customerForm',
             name: t('routes.demo.form.customerForm'),
           },
+          {
+            path: 'appendForm',
+            name: t('routes.demo.form.appendForm'),
+          },
         ],
       },
       {

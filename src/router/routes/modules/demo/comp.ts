@@ -89,6 +89,14 @@ const comp: AppRouteModule = {
             title: t('routes.demo.form.customerForm'),
           },
         },
+        {
+          path: 'appendForm',
+          name: 'appendFormDemo',
+          component: () => import('/@/views/demo/form/AppendForm.vue'),
+          meta: {
+            title: t('routes.demo.form.appendForm'),
+          },
+        },
       ],
     },
     {

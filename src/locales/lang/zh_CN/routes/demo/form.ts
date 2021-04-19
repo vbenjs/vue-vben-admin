@@ -7,4 +7,5 @@ export default {
   ruleForm: '表单验证',
   dynamicForm: '动态表单',
   customerForm: '自定义组件',
+  appendForm: '表单增删示例',
 };
