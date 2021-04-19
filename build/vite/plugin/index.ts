@@ -16,7 +16,7 @@ import { configThemePlugin } from './theme';
 import { configImageminPlugin } from './imagemin';
 import { configWindiCssPlugin } from './windicss';
 import { configSvgIconsPlugin } from './svgSprite';
-// import { configHmrPlugin } from './hmr';
+import { configHmrPlugin } from './hmr';
 
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   const {
@@ -35,7 +35,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   ];
 
   // TODO
-  // !isBuild && vitePlugins.push(configHmrPlugin());
+  !isBuild && vitePlugins.push(configHmrPlugin());
 
   // @vitejs/plugin-legacy
   VITE_LEGACY && isBuild && vitePlugins.push(legacy());
