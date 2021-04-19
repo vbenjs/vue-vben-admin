@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span :style="{ color: color }">
     {{ displayValue }}
   </span>
 </template>
@@ -22,6 +22,7 @@
         timestamp: number | null;
         rAF: any;
         remaining: number | null;
+        color: any;
       }>({
         localStartVal: props.startVal,
         displayValue: formatNumber(props.startVal),
@@ -32,6 +33,7 @@
         timestamp: null,
         remaining: null,
         rAF: null,
+        color: null,
       });
 
       onMounted(() => {
@@ -52,10 +54,11 @@
       });
 
       function start() {
-        const { startVal, duration } = props;
+        const { startVal, duration, color } = props;
         state.localStartVal = startVal;
         state.startTime = null;
         state.localDuration = duration;
+        state.color = color;
         state.paused = false;
         state.rAF = requestAnimationFrame(count);
       }
