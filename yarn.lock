@@ -1151,17 +1151,17 @@
   resolved "https://registry.npmjs.org/@intlify/shared/-/shared-9.0.0.tgz#d85b3b5f9033f377c5cf2202cf2459aa49948f36"
   integrity sha512-0r4v7dnY8g/Jfx2swUWy2GyfH/WvIpWvkU4OIupvxDTWiE8RhcpbOCVvqpVh/xGi0proHQ/r2Dhc0QSItUsfDQ==
 
-"@logicflow/core@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@logicflow/core/-/core-0.3.0.tgz#910ca7865487fbe6c45a450d13627875c6965bf4"
-  integrity sha512-FPRTuj0y6Yny+YDZ+faTzA8pZyouEWX1Vr6rH91wJR0J3NOHgb7pV/TJoHSosavFuyyw87nLw9UsyUUgHKVV+A==
+"@logicflow/core@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.npmjs.org/@logicflow/core/-/core-0.3.1.tgz#183402506c3113f391fb5415d3b3de9093fa843b"
+  integrity sha512-PZwwaRGURwOWFf4JVDc6GGfDRZtawvVGY6/3Z4cjulNiEFzxtQnz4RH0Zqzd6qFRxpEctqKnZ+eckLPWX4YFug==
 
-"@logicflow/extension@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@logicflow/extension/-/extension-0.3.0.tgz#cea4470de3a8e4b7da69b17d7507b2d8edd76b50"
-  integrity sha512-vMmYT8H53oFhOpNftCYQMbNYbTiXqQUxOOKlPcrKkZb0FsXSiEZ/MUKBF3mAarvFlzdMaB5xJjakMfy07/bdvw==
+"@logicflow/extension@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.npmjs.org/@logicflow/extension/-/extension-0.3.1.tgz#984ced98df97a3460ee43ac9a513c20511ebe862"
+  integrity sha512-WSPVqwmTvI52e2Go6EQeUEoHs+l6o2h4u47iVuwC39A/cIFcc2skefQ9fTzGJHeWIXjPf7Nl/W5ylrmeVsIJ4Q==
   dependencies:
-    "@logicflow/core" "^0.3.0"
+    "@logicflow/core" "^0.3.1"
     ids "^1.0.0"
 
 "@nodelib/fs.scandir@2.1.4":

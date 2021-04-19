@@ -267,7 +267,7 @@ export const useMultipleTabStore = defineStore({
         if (path !== route.fullPath) {
           const closeItem = this.tabList.find((item) => item.path === path);
           if (!closeItem) {
-            return;
+            continue;
           }
           const affix = closeItem?.meta?.affix ?? false;
           if (!affix) {
