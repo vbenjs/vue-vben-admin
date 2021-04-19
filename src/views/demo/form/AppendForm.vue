@@ -3,8 +3,8 @@
     <CollapseContainer title="表单增删">
       <BasicForm @register="register" @submit="handleSubmit">
         <template #add="{ field }">
-          <Button v-if="field === 1" @click="add">+</Button>
-          <Button v-if="field > 1" @click="del(field)">-</Button>
+          <Button v-if="Number(field) === 0" @click="add">+</Button>
+          <Button v-if="field > 0" @click="del(field)">-</Button>
         </template>
       </BasicForm>
     </CollapseContainer>
@@ -24,25 +24,25 @@
       const [register, { appendSchemaByField, removeSchemaByFiled, validate }] = useForm({
         schemas: [
           {
-            field: 'field1a',
+            field: 'field0a',
             component: 'Input',
-            label: '字段1',
+            label: '字段0',
             colProps: {
               span: 8,
             },
             required: true,
           },
           {
-            field: 'field1b',
+            field: 'field0b',
             component: 'Input',
-            label: '字段1',
+            label: '字段0',
             colProps: {
               span: 8,
             },
             required: true,
           },
           {
-            field: '1',
+            field: '0',
             component: 'Input',
             label: ' ',
             colProps: {
@@ -64,14 +64,14 @@
         }
       }
 
-      const n = ref(2);
+      const n = ref(1);
 
       function add() {
         appendSchemaByField(
           {
-            field: 'field' + n.value + 'a',
+            field: `field${n.value}a`,
             component: 'Input',
-            label: '字段2',
+            label: '字段' + n.value,
             colProps: {
               span: 8,
             },
@@ -81,9 +81,9 @@
         );
         appendSchemaByField(
           {
-            field: 'field' + n.value + 'b',
+            field: `field${n.value}b`,
             component: 'Input',
-            label: '字段2',
+            label: '字段' + n.value,
             colProps: {
               span: 8,
             },
@@ -91,6 +91,7 @@
           },
           ''
         );
+
         appendSchemaByField(
           {
             field: `${n.value}`,
@@ -107,8 +108,8 @@
       }
 
       function del(field) {
-        console.log(field);
         removeSchemaByFiled([`field${field}a`, `field${field}b`, `${field}`]);
+        n.value--;
       }
 
       return { register, handleSubmit, add, del };
