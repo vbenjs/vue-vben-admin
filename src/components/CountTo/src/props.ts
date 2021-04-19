@@ -13,6 +13,10 @@ export const countToProps = {
       return value >= 0;
     },
   },
+  color: {
+    type: String as PropType<string>,
+    require: false,
+  },
   decimal: propTypes.string.def('.'),
   separator: propTypes.string.def(','),
   prefix: propTypes.string.def(''),
