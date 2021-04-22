@@ -67,13 +67,13 @@ export function useFormEvents({
         // time type
         if (itemIsDateType(key)) {
           if (Array.isArray(value)) {
-            const arr: moment.Moment[] = [];
+            const arr: any[] = [];
             for (const ele of value) {
-              arr.push(dateUtil(ele));
+              arr.push(ele ? dateUtil(ele) : null);
             }
             formModel[key] = arr;
           } else {
-            formModel[key] = dateUtil(value);
+            formModel[key] = value ? dateUtil(value) : null;
           }
         } else {
           formModel[key] = value;
