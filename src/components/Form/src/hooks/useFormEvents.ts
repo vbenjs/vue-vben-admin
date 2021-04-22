@@ -137,6 +137,26 @@ export function useFormEvents({
     schemaRef.value = schemaList;
   }
 
+  async function resetSchema(data: Partial<FormSchema> | Partial<FormSchema>[]) {
+    let updateData: Partial<FormSchema>[] = [];
+    if (isObject(data)) {
+      updateData.push(data as FormSchema);
+    }
+    if (isArray(data)) {
+      updateData = [...data];
+    }
+
+    const hasField = updateData.every((item) => Reflect.has(item, 'field') && item.field);
+
+    if (!hasField) {
+      error(
+        'All children of the form Schema array that need to be updated must contain the `field` field'
+      );
+      return;
+    }
+    schemaRef.value = updateData as FormSchema[];
+  }
+
   async function updateSchema(data: Partial<FormSchema> | Partial<FormSchema>[]) {
     let updateData: Partial<FormSchema>[] = [];
     if (isObject(data)) {
@@ -227,6 +247,7 @@ export function useFormEvents({
     validateFields,
     getFieldsValue,
     updateSchema,
+    resetSchema,
     appendSchemaByField,
     removeSchemaByFiled,
     resetFields,
