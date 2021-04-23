@@ -312,7 +312,7 @@
         padding: 12px 10px 6px 10px;
         margin-bottom: 16px;
         background-color: @component-background;
-        border-radius: 4px;
+        border-radius: 2px;
       }
     }
 
