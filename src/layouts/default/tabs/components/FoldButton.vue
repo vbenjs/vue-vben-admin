@@ -10,6 +10,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
+  import { triggerWindowResize } from '/@/utils/event';
 
   export default defineComponent({
     name: 'FoldButton',
@@ -32,6 +33,7 @@
           hidden: !isUnFold,
         });
         setHeaderSetting({ show: isUnFold });
+        triggerWindowResize();
       }
 
       return { prefixCls, getIcon, handleFold };
