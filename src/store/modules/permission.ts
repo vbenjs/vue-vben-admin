@@ -117,14 +117,17 @@ export const usePermissionStore = defineStore({
 
         // !Simulate to obtain permission codes from the background,
         // this function may only need to be executed once, and the actual project can be put at the right time by itself
+        let routeList: AppRouteRecordRaw[] = [];
         try {
           this.changePermissionCode('1');
-        } catch (error) {}
+          routeList = (await getMenuListById({ id: paramId })) as AppRouteRecordRaw[];
+        } catch (error) {
+          console.error(error);
+        }
 
         if (!paramId) {
           throw new Error('paramId is undefined!');
         }
-        let routeList = (await getMenuListById({ id: paramId })) as AppRouteRecordRaw[];
 
         // Dynamically introduce components
         routeList = transformObjToRoute(routeList);
