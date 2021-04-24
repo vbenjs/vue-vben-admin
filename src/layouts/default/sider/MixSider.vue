@@ -86,7 +86,7 @@
 
   import { ScrollContainer } from '/@/components/Container';
   import { SimpleMenuTag } from '/@/components/SimpleMenu';
-  import Icon from '/@/components/Icon';
+  import { Icon } from '/@/components/Icon';
   import { AppLogo } from '/@/components/Application';
   import Trigger from '../trigger/HeaderTrigger.vue';
 
