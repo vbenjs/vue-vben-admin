@@ -143,7 +143,9 @@
         defaultValueRef,
       });
 
-      const { transformDateFunc, fieldMapToTime, autoFocusFirstItem } = toRefs(props);
+      const { transformDateFunc, fieldMapToTime, autoFocusFirstItem } = toRefs(
+        unref(getProps)
+      ) as any;
 
       const { handleFormValues, initDefault } = useFormValues({
         transformDateFuncRef: transformDateFunc,
