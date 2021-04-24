@@ -170,8 +170,8 @@
             if (component.includes('Input') || component.includes('Textarea')) {
               rule.whitespace = true;
             }
-
-            setComponentRuleType(rule, component);
+            const valueFormat = unref(getComponentsProps)?.valueFormat;
+            setComponentRuleType(rule, component, valueFormat);
           }
         }
 
@@ -203,9 +203,7 @@
             if (propsData[eventKey]) {
               propsData[eventKey](e);
             }
-
             const target = e ? e.target : null;
-
             const value = target ? (isCheck ? target.checked : target.value) : e;
             props.setFormModel(field, value);
           },

@@ -1,7 +1,8 @@
 import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
 import type { ComponentType } from './types/index';
 import { useI18n } from '/@/hooks/web/useI18n';
-import { isNumber } from '/@/utils/is';
+import { dateUtil } from '/@/utils/dateUtil';
+import { isNumber, isObject } from '/@/utils/is';
 
 const { t } = useI18n();
 
@@ -28,17 +29,32 @@ export function createPlaceholderMessage(component: ComponentType) {
   return '';
 }
 
+const DATE_TYPE = ['DatePicker', 'MonthPicker', 'WeekPicker', 'TimePicker'];
+
 function genType() {
-  return ['DatePicker', 'MonthPicker', 'RangePicker', 'WeekPicker', 'TimePicker'];
+  return [...DATE_TYPE, 'RangePicker'];
 }
 
-export function setComponentRuleType(rule: ValidationRule, component: ComponentType) {
+export function setComponentRuleType(
+  rule: ValidationRule,
+  component: ComponentType,
+  valueFormat: string
+) {
   if (['DatePicker', 'MonthPicker', 'WeekPicker', 'TimePicker'].includes(component)) {
-    rule.type = 'object';
+    rule.type = valueFormat ? 'string' : 'object';
   } else if (['RangePicker', 'Upload', 'CheckboxGroup', 'TimePicker'].includes(component)) {
     rule.type = 'array';
   } else if (['InputNumber'].includes(component)) {
     rule.type = 'number';
+  }
+}
+
+export function processDateValue(attr: Recordable, component: string) {
+  const { valueFormat, value } = attr;
+  if (valueFormat) {
+    attr.value = isObject(value) ? dateUtil(value).format(valueFormat) : value;
+  } else if (DATE_TYPE.includes(component) && value) {
+    attr.value = dateUtil(attr.value);
   }
 }
 
