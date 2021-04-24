@@ -73,7 +73,12 @@ export function useFormEvents({
             }
             formModel[key] = arr;
           } else {
-            formModel[key] = value ? dateUtil(value) : null;
+            const { componentProps } = schema || {};
+            let _props = componentProps as any;
+            if (typeof componentProps === 'function') {
+              _props = _props();
+            }
+            formModel[key] = value ? (_props?.valueFormat ? value : dateUtil(value)) : null;
           }
         } else {
           formModel[key] = value;

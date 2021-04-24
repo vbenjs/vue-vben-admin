@@ -56,6 +56,18 @@
       required: true,
     },
     {
+      field: 'field33',
+      component: 'DatePicker',
+      label: '字段33',
+      colProps: {
+        span: 8,
+      },
+      componentProps: {
+        valueFormat: 'YYYY-MM-DD',
+      },
+      rules: [{ required: true, type: 'string' }],
+    },
+    {
       field: 'field44',
       component: 'InputCountDown',
       label: '验证码',
@@ -95,7 +107,7 @@
       ],
     },
     {
-      field: 'field44',
+      field: 'field441',
       component: 'Input',
       label: '自定义校验',
       colProps: {
@@ -198,6 +210,8 @@
           field1: 1111,
           field5: ['1'],
           field7: '1',
+          field33: '2020-12-12',
+          field3: '2020-12-12',
         });
       }
       return {
