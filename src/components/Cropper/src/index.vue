@@ -62,11 +62,11 @@
       },
       imageStyle: {
         type: Object as PropType<CSSProperties>,
-        default: () => {},
+        default: () => ({}),
       },
       options: {
         type: Object as PropType<Options>,
-        default: () => {},
+        default: () => ({}),
       },
     },
     emits: ['cropperedInfo'],

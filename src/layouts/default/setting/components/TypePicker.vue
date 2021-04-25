@@ -35,7 +35,7 @@
       },
       handler: {
         type: Function as PropType<Fn>,
-        default: () => {},
+        default: () => ({}),
       },
       def: {
         type: String,

@@ -23,7 +23,6 @@
     props: {
       event: {
         type: Number as PropType<HandlerEnum>,
-        default: () => {},
       },
       title: {
         type: String,

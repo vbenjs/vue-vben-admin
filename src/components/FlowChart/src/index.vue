@@ -32,12 +32,12 @@
     props: {
       flowOptions: {
         type: Object as PropType<Definition>,
-        default: () => {},
+        default: () => ({}),
       },
 
       data: {
         type: Object as PropType<any>,
-        default: () => {},
+        default: () => ({}),
       },
 
       toolbar: {

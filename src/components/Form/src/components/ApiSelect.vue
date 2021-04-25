@@ -55,7 +55,7 @@
       // api params
       params: {
         type: Object as PropType<Recordable>,
-        default: () => {},
+        default: () => ({}),
       },
       // support xxx.xxx.xx
       resultField: propTypes.string.def(''),
