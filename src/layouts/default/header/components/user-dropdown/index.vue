@@ -156,7 +156,7 @@
       &:hover {
         background-color: @header-light-bg-hover-color;
       }
-      
+
       .@{prefix-cls}__name {
         color: @text-color-base;
       }

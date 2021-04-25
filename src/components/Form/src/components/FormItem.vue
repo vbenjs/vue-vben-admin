@@ -24,19 +24,19 @@
     props: {
       schema: {
         type: Object as PropType<FormSchema>,
-        default: () => {},
+        default: () => ({}),
       },
       formProps: {
         type: Object as PropType<FormProps>,
-        default: () => {},
+        default: () => ({}),
       },
       allDefaultValues: {
         type: Object as PropType<Recordable>,
-        default: () => {},
+        default: () => ({}),
       },
       formModel: {
         type: Object as PropType<Recordable>,
-        default: () => {},
+        default: () => ({}),
       },
       setFormModel: {
         type: Function as PropType<(key: string, value: any) => void>,

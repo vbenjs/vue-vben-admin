@@ -67,15 +67,15 @@
       showAdvancedButton: propTypes.bool.def(true),
       resetButtonOptions: {
         type: Object as PropType<ButtonOptions>,
-        default: () => {},
+        default: () => ({}),
       },
       submitButtonOptions: {
         type: Object as PropType<ButtonOptions>,
-        default: () => {},
+        default: () => ({}),
       },
       actionColOptions: {
         type: Object as PropType<Partial<ColEx>>,
-        default: () => {},
+        default: () => ({}),
       },
       actionSpan: propTypes.number.def(6),
       isAdvanced: propTypes.bool,
