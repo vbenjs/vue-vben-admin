@@ -5,6 +5,8 @@
 - 新增图形编辑器示例
 - 新增代码编辑器(包含 Json 编辑器)
 - 新增 `JsonPreview`Json 数据查看组件
+- 表格的数据列(column)和操作列(actionColumn)的字段可以根据权限和业务来控制是否显示
+- 新增权限控制表格示例(AuthColumn.vue)
 
 ### ⚡ Performance Improvements
 
