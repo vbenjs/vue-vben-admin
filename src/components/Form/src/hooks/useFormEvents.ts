@@ -76,7 +76,7 @@ export function useFormEvents({
             const { componentProps } = schema || {};
             let _props = componentProps as any;
             if (typeof componentProps === 'function') {
-              _props = _props();
+              _props = _props({ formModel });
             }
             formModel[key] = value ? (_props?.valueFormat ? value : dateUtil(value)) : null;
           }
