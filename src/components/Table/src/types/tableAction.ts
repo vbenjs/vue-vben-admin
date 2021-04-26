@@ -1,4 +1,5 @@
 import { ButtonProps } from 'ant-design-vue/es/button/buttonTypes';
+import { RoleEnum } from '/@/enums/roleEnum';
 export interface ActionItem extends ButtonProps {
   onClick?: Fn;
   label: string;
@@ -7,6 +8,8 @@ export interface ActionItem extends ButtonProps {
   popConfirm?: PopConfirm;
   disabled?: boolean;
   divider?: boolean;
+  // Permission code
+  auth?: RoleEnum | RoleEnum[] | string | string[];
 }
 
 export interface PopConfirm {
