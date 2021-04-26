@@ -8,8 +8,10 @@ export interface ActionItem extends ButtonProps {
   popConfirm?: PopConfirm;
   disabled?: boolean;
   divider?: boolean;
-  // Permission code
+  // 权限编码控制是否显示
   auth?: RoleEnum | RoleEnum[] | string | string[];
+  // 业务控制是否显示
+  ifShow?: boolean | ((action: ActionItem) => boolean);
 }
 
 export interface PopConfirm {
