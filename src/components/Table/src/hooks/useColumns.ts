@@ -6,6 +6,7 @@ import { unref, Ref, computed, watch, ref, toRaw } from 'vue';
 
 import { renderEditCell } from '../components/editable';
 
+import { usePermission } from '/@/hooks/web/usePermission';
 import { useI18n } from '/@/hooks/web/useI18n';
 
 import { isBoolean, isArray, isString, isObject, isFunction } from '/@/utils/is';
@@ -133,31 +134,50 @@ export function useColumns(
     return cloneColumns;
   });
 
+  function isIfShow(column: BasicColumn): boolean {
+    const ifShow = column.ifShow;
+
+    let isIfShow = true;
+
+    if (isBoolean(ifShow)) {
+      isIfShow = ifShow;
+    }
+    if (isFunction(ifShow)) {
+      isIfShow = ifShow(column);
+    }
+    return isIfShow;
+  }
+  const { hasPermission } = usePermission();
+
   const getViewColumns = computed(() => {
     const viewColumns = sortFixedColumn(unref(getColumnsRef));
 
     const columns = cloneDeep(viewColumns);
-    columns.forEach((column) => {
-      const { slots, dataIndex, customRender, format, edit, editRow, flag } = column;
+    return columns
+      .filter((column) => {
+        return hasPermission(column.auth) && isIfShow(column);
+      })
+      .map((column) => {
+        const { slots, dataIndex, customRender, format, edit, editRow, flag } = column;
 
-      if (!slots || !slots?.title) {
-        column.slots = { title: `header-${dataIndex}`, ...(slots || {}) };
-        column.customTitle = column.title;
-        Reflect.deleteProperty(column, 'title');
-      }
-      const isDefaultAction = [INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG].includes(flag!);
-      if (!customRender && format && !edit && !isDefaultAction) {
-        column.customRender = ({ text, record, index }) => {
-          return formatCell(text, format, record, index);
-        };
-      }
+        if (!slots || !slots?.title) {
+          column.slots = { title: `header-${dataIndex}`, ...(slots || {}) };
+          column.customTitle = column.title;
+          Reflect.deleteProperty(column, 'title');
+        }
+        const isDefaultAction = [INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG].includes(flag!);
+        if (!customRender && format && !edit && !isDefaultAction) {
+          column.customRender = ({ text, record, index }) => {
+            return formatCell(text, format, record, index);
+          };
+        }
 
-      // edit table
-      if ((edit || editRow) && !isDefaultAction) {
-        column.customRender = renderEditCell(column);
-      }
-    });
-    return columns;
+        // edit table
+        if ((edit || editRow) && !isDefaultAction) {
+          column.customRender = renderEditCell(column);
+        }
+        return column;
+      });
   });
 
   watch(
