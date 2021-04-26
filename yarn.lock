@@ -1108,10 +1108,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.331":
-  version "1.1.331"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.331.tgz#5bd10c8764e24a973474992a35b56ea7e32a2115"
-  integrity sha512-6YK6fJccOZYa01o6SV3WHNFWtfdP7+q9urn7s4OIFx0a6FTqole0BHGJ87ZsLp03N96TcGEY2nQGpv3MdezYKg==
+"@iconify/json@^1.1.333":
+  version "1.1.333"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.333.tgz#d58b3d26c97963a1387b089f0c5accae1719fbea"
+  integrity sha512-JcYRNdt9UUBGsH3U5P/Idw9jzZoDCokVyTUGfweHNRuH4r2xR4oVJgH/CyijdUd0BGZ4ztiO2iVBC1sysk67Yg==
 
 "@intlify/core-base@9.0.0":
   version "9.0.0"
@@ -9336,10 +9336,10 @@ vite-plugin-windicss@0.14.6:
     debug "^4.3.2"
     windicss "^2.5.14"
 
-vite@2.1.5:
-  version "2.1.5"
-  resolved "https://registry.npmjs.org/vite/-/vite-2.1.5.tgz#4857da441c62f7982c83cbd5f42a00330f20c9c1"
-  integrity sha512-tYU5iaYeUgQYvK/CNNz3tiJ8vYqPWfCE9IQ7K0iuzYovWw7lzty7KRYGWwV3CQPh0NKxWjOczAqiJsCL0Xb+Og==
+vite@2.2.3:
+  version "2.2.3"
+  resolved "https://registry.npmjs.org/vite/-/vite-2.2.3.tgz#1acbdfa56ac00e00e7ccb6988f63f130c2f99dbb"
+  integrity sha512-PtjyBL4GtACM+uT5q5hi2+AlMBbb6YI2b2bam6QI8ZdZt4FezseF0yZHQx0G+b3po9jIJ/GS5N9gc5Yq9Rue7g==
   dependencies:
     esbuild "^0.9.3"
     postcss "^8.2.1"

@@ -63,7 +63,7 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
-    "@iconify/json": "^1.1.331",
+    "@iconify/json": "^1.1.333",
     "@purge-icons/generated": "^0.7.0",
     "@types/codemirror": "^0.0.109",
     "@types/crypto-js": "^4.0.1",
@@ -110,7 +110,7 @@
     "stylelint-order": "^4.1.0",
     "ts-node": "^9.1.1",
     "typescript": "4.2.4",
-    "vite": "2.1.5",
+    "vite": "2.2.3",
     "vite-plugin-compression": "^0.2.4",
     "vite-plugin-html": "^2.0.7",
     "vite-plugin-imagemin": "^0.3.0",
