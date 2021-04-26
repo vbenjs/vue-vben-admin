@@ -16,4 +16,5 @@ export default {
   footerTable: '表尾行合计',
   editCellTable: '可编辑单元格',
   editRowTable: '可编辑行',
+  authColumn: '权限列',
 };

@@ -118,6 +118,10 @@ const menu: MenuModule = {
             path: 'editRowTable',
             name: t('routes.demo.table.editRowTable'),
           },
+          {
+            path: 'authColumn',
+            name: t('routes.demo.table.authColumn'),
+          },
         ],
       },
       {
