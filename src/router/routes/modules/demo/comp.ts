@@ -230,6 +230,14 @@ const comp: AppRouteModule = {
             title: t('routes.demo.table.editRowTable'),
           },
         },
+        {
+          path: 'authColumn',
+          name: 'AuthColumnDemo',
+          component: () => import('/@/views/demo/table/AuthColumn.vue'),
+          meta: {
+            title: t('routes.demo.table.authColumn'),
+          },
+        },
       ],
     },
     {

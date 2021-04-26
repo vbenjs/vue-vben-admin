@@ -16,4 +16,5 @@ export default {
   footerTable: 'Footer',
   editCellTable: 'Editable cell',
   editRowTable: 'Editable row',
+  authColumn: 'Auth column',
 };
