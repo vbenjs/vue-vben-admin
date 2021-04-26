@@ -1,22 +1,22 @@
 import type { ComputedRef, Ref } from 'vue';
-import type { FormSchema, FormActionType } from '../types/form';
+import type { FormSchema, FormActionType, FormProps } from '../types/form';
 
 import { unref, nextTick, watchEffect } from 'vue';
 
 interface UseAutoFocusContext {
   getSchema: ComputedRef<FormSchema[]>;
-  autoFocusFirstItem: Ref<boolean>;
+  getProps: ComputedRef<FormProps>;
   isInitedDefault: Ref<boolean>;
   formElRef: Ref<FormActionType>;
 }
 export async function useAutoFocus({
   getSchema,
-  autoFocusFirstItem,
+  getProps,
   formElRef,
   isInitedDefault,
 }: UseAutoFocusContext) {
   watchEffect(async () => {
-    if (unref(isInitedDefault) || !unref(autoFocusFirstItem)) return;
+    if (unref(isInitedDefault) || !unref(getProps).autoFocusFirstItem) return;
     await nextTick();
     const schemas = unref(getSchema);
     const formEl = unref(formElRef);
