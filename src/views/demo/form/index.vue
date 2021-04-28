@@ -333,6 +333,23 @@
         placeholder: '省份与城市联动',
       },
     },
+    {
+      field: 'field21',
+      component: 'Slider',
+      label: '字段21',
+      componentProps: {
+        min: 0,
+        max: 100,
+        range: true,
+        marks: {
+          20: '20°C',
+          60: '60°C',
+        },
+      },
+      colProps: {
+        span: 8,
+      },
+    },
   ];
 
   export default defineComponent({
