@@ -337,14 +337,13 @@
       field: 'field21',
       component: 'Slider',
       label: '字段21',
-      required: true,
       componentProps: {
         min: 0,
         max: 100,
         range: true,
-        marks:{
-          20:'20°C',
-          60:'60°C'
+        marks: {
+          20: '20°C',
+          60: '60°C',
         },
       },
       colProps: {
