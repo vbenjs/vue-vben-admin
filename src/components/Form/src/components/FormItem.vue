@@ -291,7 +291,7 @@
 
         return (
           <Form.Item
-            name={field}
+            name={field && field === 'parentNode' ? '' : field}
             colon={colon}
             class={{ 'suffix-item': showSuffix }}
             {...(itemProps as Recordable)}
