@@ -36,37 +36,40 @@ export function useCustomRow(
   const customRow = (record: Recordable, index: number) => {
     return {
       onClick: (e: Event) => {
-        emit('row-click', record, index, e);
         e?.stopPropagation();
-        const { rowSelection, rowKey, clickToRowSelect } = unref(propsRef);
-        if (!rowSelection || !clickToRowSelect) return;
-        const keys = getSelectRowKeys();
-        const key = getKey(record, rowKey, unref(getAutoCreateKey));
-        if (!key) return;
+        function handleClick() {
+          const { rowSelection, rowKey, clickToRowSelect } = unref(propsRef);
+          if (!rowSelection || !clickToRowSelect) return;
+          const keys = getSelectRowKeys();
+          const key = getKey(record, rowKey, unref(getAutoCreateKey));
+          if (!key) return;
 
-        const isCheckbox = rowSelection.type === 'checkbox';
-        if (isCheckbox) {
-          if (!keys.includes(key)) {
-            setSelectedRowKeys([...keys, key]);
-            return;
-          }
-          const keyIndex = keys.findIndex((item) => item === key);
-          keys.splice(keyIndex, 1);
-          setSelectedRowKeys(keys);
-          return;
-        }
-
-        const isRadio = rowSelection.type === 'radio';
-        if (isRadio) {
-          if (!keys.includes(key)) {
-            if (keys.length) {
-              clearSelectedRowKeys();
+          const isCheckbox = rowSelection.type === 'checkbox';
+          if (isCheckbox) {
+            if (!keys.includes(key)) {
+              setSelectedRowKeys([...keys, key]);
+              return;
             }
-            setSelectedRowKeys([key]);
+            const keyIndex = keys.findIndex((item) => item === key);
+            keys.splice(keyIndex, 1);
+            setSelectedRowKeys(keys);
             return;
           }
-          clearSelectedRowKeys();
+
+          const isRadio = rowSelection.type === 'radio';
+          if (isRadio) {
+            if (!keys.includes(key)) {
+              if (keys.length) {
+                clearSelectedRowKeys();
+              }
+              setSelectedRowKeys([key]);
+              return;
+            }
+            clearSelectedRowKeys();
+          }
         }
+        handleClick();
+        emit('row-click', record, index, e);
       },
       onDblclick: (event: Event) => {
         emit('row-dbClick', record, index, event);
