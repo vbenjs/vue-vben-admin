@@ -185,9 +185,13 @@
         searchState.startSearch = true;
         const { title: titleField } = unref(getReplaceFields);
 
-        searchState.searchData = filter(unref(treeDataRef), (node) => {
-          return node[titleField]?.includes(searchValue) ?? false;
-        });
+        searchState.searchData = filter(
+          unref(treeDataRef),
+          (node) => {
+            return node[titleField]?.includes(searchValue) ?? false;
+          },
+          unref(getReplaceFields)
+        );
       }
 
       function handleClickNode(key: string, children: TreeItem[]) {
