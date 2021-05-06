@@ -309,7 +309,11 @@
                     ) : (
                       <>
                         {icon && <TreeIcon icon={icon} />}
-                        <span class={`${prefixCls}__content`}>{get(item, titleField)}</span>
+                        <span
+                          class={unref(getBindValues)?.blockNode ? `${prefixCls}__content` : ''}
+                        >
+                          {get(item, titleField)}
+                        </span>
                         <span class={`${prefixCls}__actions`}>
                           {renderAction({ ...item, level })}
                         </span>
