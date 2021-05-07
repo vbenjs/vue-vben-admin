@@ -1,6 +1,6 @@
 <template>
   <div class="h-full">
-    <CodeMirrorEditor :value="getValue" @change="handleValueChange" :mode="mode" />
+    <CodeMirrorEditor :value="getValue" @change="handleValueChange" :mode="mode" :readonly="readonly" />
   </div>
 </template>
 <script lang="ts">
@@ -23,6 +23,10 @@
       mode: {
         type: String,
         default: MODE.JSON,
+      },
+      readonly: {
+        type: Boolean,
+        default: false,
       },
     },
     emits: ['change'],
