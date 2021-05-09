@@ -1863,17 +1863,6 @@
     estree-walker "^2.0.1"
     source-map "^0.6.1"
 
-"@vue/compiler-core@3.1.0-beta.2":
-  version "3.1.0-beta.2"
-  resolved "https://registry.npmjs.org/@vue/compiler-core/-/compiler-core-3.1.0-beta.2.tgz#fa66626d621801676d11fd28e05ca43f88c67b2f"
-  integrity sha512-HLd5kCiZojcbcu4+PqD22XKkmqvo3XuM7xRAst3y0KXMlmCnkHIK7Z5mmogPjf/xBBZllWl2CIy9+bR7wrdDSA==
-  dependencies:
-    "@babel/parser" "^7.12.0"
-    "@babel/types" "^7.12.0"
-    "@vue/shared" "3.1.0-beta.2"
-    estree-walker "^2.0.1"
-    source-map "^0.6.1"
-
 "@vue/compiler-dom@3.0.11", "@vue/compiler-dom@^3.0.11":
   version "3.0.11"
   resolved "https://registry.npmjs.org/@vue/compiler-dom/-/compiler-dom-3.0.11.tgz#b15fc1c909371fd671746020ba55b5dab4a730ee"
@@ -1881,14 +1870,6 @@
   dependencies:
     "@vue/compiler-core" "3.0.11"
     "@vue/shared" "3.0.11"
-
-"@vue/compiler-dom@3.1.0-beta.2":
-  version "3.1.0-beta.2"
-  resolved "https://registry.npmjs.org/@vue/compiler-dom/-/compiler-dom-3.1.0-beta.2.tgz#4c415102e20b3f54f733dd47d299f396bd0026ca"
-  integrity sha512-FgGCZyaJZ81eCydc6IY0u79DVt09vURYKj95bgQJo07doHW0tHptz9N3zRudfhA0VjoXuRMeDoKHMHuxI1rVHA==
-  dependencies:
-    "@vue/compiler-core" "3.1.0-beta.2"
-    "@vue/shared" "3.1.0-beta.2"
 
 "@vue/compiler-sfc@3.0.11", "@vue/compiler-sfc@^3.0.11":
   version "3.0.11"
@@ -1932,13 +1913,6 @@
   dependencies:
     "@vue/shared" "3.0.11"
 
-"@vue/reactivity@3.1.0-beta.2":
-  version "3.1.0-beta.2"
-  resolved "https://registry.npmjs.org/@vue/reactivity/-/reactivity-3.1.0-beta.2.tgz#fd4acc6b65e7ed1aa28dc85a78a67389c396c616"
-  integrity sha512-vyP7sZZguSSDXdJ+rK/4+JNBHbmoPkmfQAPmIq1IGEfoA0SHuG4Rd8Ehtrm2LDtMSh2a1gPNjRQrmMffFddhsQ==
-  dependencies:
-    "@vue/shared" "3.1.0-beta.2"
-
 "@vue/runtime-core@3.0.11":
   version "3.0.11"
   resolved "https://registry.npmjs.org/@vue/runtime-core/-/runtime-core-3.0.11.tgz#c52dfc6acf3215493623552c1c2919080c562e44"
@@ -1946,14 +1920,6 @@
   dependencies:
     "@vue/reactivity" "3.0.11"
     "@vue/shared" "3.0.11"
-
-"@vue/runtime-core@3.1.0-beta.2":
-  version "3.1.0-beta.2"
-  resolved "https://registry.npmjs.org/@vue/runtime-core/-/runtime-core-3.1.0-beta.2.tgz#abb1c0e606002fc6ac08cc1af8eaf17ebd9caa2b"
-  integrity sha512-adcboyG3NJEMgf3TBKYWAwTkN4UyMHJI1TRbUkh60t9m0QOH7cuNIDKtrEoy4XTCtH0mVfJ0P7Vob+axOMKB/A==
-  dependencies:
-    "@vue/reactivity" "3.1.0-beta.2"
-    "@vue/shared" "3.1.0-beta.2"
 
 "@vue/runtime-dom@3.0.11":
   version "3.0.11"
@@ -1964,24 +1930,10 @@
     "@vue/shared" "3.0.11"
     csstype "^2.6.8"
 
-"@vue/runtime-dom@3.1.0-beta.2":
-  version "3.1.0-beta.2"
-  resolved "https://registry.npmjs.org/@vue/runtime-dom/-/runtime-dom-3.1.0-beta.2.tgz#ddace09673677db312b09aa099a876b1d76bd9e9"
-  integrity sha512-LIJEJ/tR5l0bJwyPrbo7c/VFk9lVYkm0X7NowfWHL12aJfdigLNlu1t+jzUvZSt3noQdz8yKYP/zWrjOoLHvqg==
-  dependencies:
-    "@vue/runtime-core" "3.1.0-beta.2"
-    "@vue/shared" "3.1.0-beta.2"
-    csstype "^2.6.8"
-
 "@vue/shared@3.0.11", "@vue/shared@^3.0.11":
   version "3.0.11"
   resolved "https://registry.npmjs.org/@vue/shared/-/shared-3.0.11.tgz#20d22dd0da7d358bb21c17f9bde8628152642c77"
   integrity sha512-b+zB8A2so8eCE0JsxjL24J7vdGl8rzPQ09hZNhystm+KqSbKcAej1A+Hbva1rCMmTTqA+hFnUSDc5kouEo0JzA==
-
-"@vue/shared@3.1.0-beta.2":
-  version "3.1.0-beta.2"
-  resolved "https://registry.npmjs.org/@vue/shared/-/shared-3.1.0-beta.2.tgz#1189078bbf081c3f19e98709c27cbbafbfcdc6f7"
-  integrity sha512-PZNk03DalUOn3f5Egf/pcaINPLwpcwshjo4PuMXV/76PBfHvKxvkVhCL+aYDfY/9ZeKH+H0hQ00otuAFRLjlKw==
 
 "@vueuse/core@^4.9.2":
   version "4.9.2"
@@ -10725,16 +10677,7 @@ vue-types@^3.0.0, vue-types@^3.0.2:
   dependencies:
     is-plain-object "3.0.1"
 
-vue@3.1.0-beta.2:
-  version "3.1.0-beta.2"
-  resolved "https://registry.npmjs.org/vue/-/vue-3.1.0-beta.2.tgz#5d9a67c41e75d45cc1facea096d1a2f8483d024c"
-  integrity sha512-kjvIWSiB4TVujOho/dQEwcOuZNtdw+pk/qF9qGpzJ9EoSq2TlF5FvUCCX8ZGslM1iQperlYftRWmiNrPUJCDYA==
-  dependencies:
-    "@vue/compiler-dom" "3.1.0-beta.2"
-    "@vue/runtime-dom" "3.1.0-beta.2"
-    "@vue/shared" "3.1.0-beta.2"
-
-vue@^3.0.0:
+vue@3.0.11, vue@^3.0.0:
   version "3.0.11"
   resolved "https://registry.npmjs.org/vue/-/vue-3.0.11.tgz#c82f9594cbf4dcc869241d4c8dd3e08d9a8f4b5f"
   integrity sha512-3/eUi4InQz8MPzruHYSTQPxtM3LdZ1/S/BvaU021zBnZi0laRUyH6pfuE4wtUeLvI8wmUNwj5wrZFvbHUXL9dw==
