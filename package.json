@@ -53,7 +53,7 @@
     "sortablejs": "^1.13.0",
     "tinymce": "^5.8.0",
     "vditor": "^3.8.4",
-    "vue": "3.1.0-beta.2",
+    "vue": "3.0.11",
     "vue-i18n": "9.0.0",
     "vue-json-pretty": "^2.0.2",
     "vue-router": "^4.0.6",
