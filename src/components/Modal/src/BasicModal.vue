@@ -122,12 +122,14 @@
         wrapClassName: toRef(getMergeProps.value, 'wrapClassName'),
       });
 
-      // modal component does not need title
+      // modal component does not need title and origin buttons
       const getProps = computed(
         (): ModalProps => {
           const opt = {
             ...unref(getMergeProps),
             visible: unref(visibleRef),
+            okButtonProps: undefined,
+            cancelButtonProps: undefined,
             title: undefined,
           };
           return {
