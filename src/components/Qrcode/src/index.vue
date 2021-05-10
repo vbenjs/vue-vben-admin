@@ -8,6 +8,7 @@
   import { toCanvas, QRCodeRenderersOptions, LogoType } from './qrcodePlus';
   import { toDataURL } from 'qrcode';
   import { downloadByUrl } from '/@/utils/file/download';
+  import { QrcodeDoneEventParams } from './types';
 
   export default defineComponent({
     name: 'QrCode',
@@ -38,10 +39,9 @@
         validator: (v: string) => ['canvas', 'img'].includes(v),
       },
     },
-    emits: { done: (url: string) => !!url, error: (error: any) => !!error },
+    emits: { done: (data: QrcodeDoneEventParams) => !!data, error: (error: any) => !!error },
     setup(props, { emit }) {
       const wrapRef = ref<HTMLCanvasElement | HTMLImageElement | null>(null);
-      const urlRef = ref<string>('');
       async function createQrcode() {
         try {
           const { tag, value, options = {}, width, logo } = props;
@@ -58,8 +58,7 @@
               content: renderValue,
               options: options || {},
             });
-            urlRef.value = url;
-            emit('done', url);
+            emit('done', { url, ctx: (wrapEl as HTMLCanvasElement).getContext('2d') });
             return;
           }
 
@@ -70,8 +69,7 @@
               ...options,
             });
             (unref(wrapRef) as HTMLImageElement).src = url;
-            urlRef.value = url;
-            emit('done', url);
+            emit('done', { url });
           }
         } catch (error) {
           emit('error', error);
@@ -81,7 +79,13 @@
        * file download
        */
       function download(fileName?: string) {
-        const url = unref(urlRef);
+        let url = '';
+        const wrapEl = unref(wrapRef);
+        if (wrapEl instanceof HTMLCanvasElement) {
+          url = wrapEl.toDataURL();
+        } else if (wrapEl instanceof HTMLImageElement) {
+          url = wrapEl.src;
+        }
         if (!url) return;
         downloadByUrl({
           url,
