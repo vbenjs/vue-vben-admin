@@ -17,6 +17,10 @@ interface LangModule {
 
 const loadLocalePool: LocaleType[] = [];
 
+export function setLoadLocalePool(cb: (loadLocalePool: LocaleType[]) => void) {
+  cb(loadLocalePool);
+}
+
 function setI18nLanguage(locale: LocaleType) {
   const localeStore = useLocaleStoreWithOut();
 
