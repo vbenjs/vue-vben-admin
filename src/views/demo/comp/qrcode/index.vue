@@ -63,7 +63,6 @@
         <QrCode
           :value="qrCodeUrl"
           :width="200"
-          :options="{ margin: 5 }"
           ref="qrDiyRef"
           :logo="LogoImg"
           @done="onQrcodeDone"
@@ -99,7 +98,7 @@
       }
 
       function onQrcodeDone({ ctx }) {
-        if (ctx) {
+        if (ctx instanceof CanvasRenderingContext2D) {
           // 额外绘制
           ctx.fillStyle = 'black';
           ctx.font = '16px "微软雅黑"';
