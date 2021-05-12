@@ -5,6 +5,8 @@ import { unref } from 'vue';
 import type { Ref, ComputedRef } from 'vue';
 import type { FormProps, FormSchema } from '../types/form';
 
+import { set } from 'lodash-es';
+
 interface UseFormValuesContext {
   defaultValueRef: Ref<any>;
   getSchema: ComputedRef<FormSchema[]>;
@@ -40,22 +42,7 @@ export function useFormValues({
       if (isString(value)) {
         value = value.trim();
       }
-      if (key.indexOf('.') > 0) {
-        let keys = key.split('.')
-        let temp = res
-        for (let i = 0; i < keys.length; i++) {
-          if (i == keys.length - 1) {
-              temp[keys[i]] = value
-              break
-          }
-          if (!temp.hasOwnProperty(keys[i])) {
-              temp[keys[i]] = {}
-          }
-          temp = temp[keys[i]]
-        }
-      } else {
-          res[key] = value
-      }
+      set(res, key, value);
     }
     return handleRangeTimeValue(res);
   }
