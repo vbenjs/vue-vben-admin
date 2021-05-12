@@ -69,7 +69,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       },
       // Turning off brotliSize display can slightly reduce packaging time
       brotliSize: false,
-      chunkSizeWarningLimit: 1500,
+      chunkSizeWarningLimit: 2000,
     },
     define: {
       // setting vue-i18-next
