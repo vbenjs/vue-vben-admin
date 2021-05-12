@@ -40,7 +40,22 @@ export function useFormValues({
       if (isString(value)) {
         value = value.trim();
       }
-      res[key] = value;
+      if (key.indexOf('.') > 0) {
+        let keys = key.split('.')
+        let temp = res
+        for (let i = 0; i < keys.length; i++) {
+          if (i == keys.length - 1) {
+              temp[keys[i]] = value
+              break
+          }
+          if (!temp.hasOwnProperty(keys[i])) {
+              temp[keys[i]] = {}
+          }
+          temp = temp[keys[i]]
+        }
+      } else {
+          res[key] = value
+      }
     }
     return handleRangeTimeValue(res);
   }
