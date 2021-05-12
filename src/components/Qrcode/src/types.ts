@@ -31,3 +31,8 @@ export type ToCanvasFn = (options: RenderQrCodeParams) => Promise<unknown>;
 export interface QrCodeActionType {
   download: (fileName?: string) => void;
 }
+
+export interface QrcodeDoneEventParams {
+  url: string;
+  ctx?: CanvasRenderingContext2D | null;
+}

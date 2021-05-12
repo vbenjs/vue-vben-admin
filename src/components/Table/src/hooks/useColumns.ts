@@ -113,7 +113,7 @@ export function useColumns(
   let cacheColumns = unref(propsRef).columns;
 
   const getColumnsRef = computed(() => {
-    const columns = unref(columnsRef);
+    const columns = cloneDeep(unref(columnsRef));
 
     handleIndexColumn(propsRef, getPaginationRef, columns);
     handleActionColumn(propsRef, columns);
@@ -122,8 +122,7 @@ export function useColumns(
     }
     const { ellipsis } = unref(propsRef);
 
-    const cloneColumns = cloneDeep(columns);
-    cloneColumns.forEach((item) => {
+    columns.forEach((item) => {
       const { customRender, slots } = item;
 
       handleItem(
@@ -131,7 +130,7 @@ export function useColumns(
         Reflect.has(item, 'ellipsis') ? !!item.ellipsis : !!ellipsis && !customRender && !slots
       );
     });
-    return cloneColumns;
+    return columns;
   });
 
   function isIfShow(column: BasicColumn): boolean {
