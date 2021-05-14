@@ -136,7 +136,6 @@ export const useMultipleTabStore = defineStore({
         curTab.query = query || curTab.query;
         curTab.fullPath = fullPath || curTab.fullPath;
         this.tabList.splice(updateIndex, 1, curTab);
-        return;
       }
       // Add tab
       this.tabList.push(route);
