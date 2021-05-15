@@ -136,10 +136,10 @@ export const useMultipleTabStore = defineStore({
         curTab.query = query || curTab.query;
         curTab.fullPath = fullPath || curTab.fullPath;
         this.tabList.splice(updateIndex, 1, curTab);
-        return;
+      } else {
+        // Add tab
+        this.tabList.push(route);
       }
-      // Add tab
-      this.tabList.push(route);
       this.updateCacheTab();
       cacheTab && Persistent.setLocal(MULTIPLE_TABS_KEY, this.tabList);
     },
