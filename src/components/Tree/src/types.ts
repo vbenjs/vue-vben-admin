@@ -1,4 +1,5 @@
 import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree';
+import { ContextMenuItem } from '/@/hooks/web/useContextMenu';
 export interface ActionItem {
   render: (record: Recordable) => any;
   show?: boolean | ((record: Recordable) => boolean);
@@ -39,4 +40,10 @@ export interface InsertNodeParams {
   node: TreeDataItem;
   list?: TreeDataItem[];
   push?: 'push' | 'unshift';
+}
+
+export interface ContextMenuOptions {
+  icon?: string;
+  styles?: any;
+  items?: ContextMenuItem[];
 }
