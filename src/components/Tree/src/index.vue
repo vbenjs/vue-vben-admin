@@ -59,17 +59,15 @@
       const [createContextMenu] = useContextMenu();
       const { prefixCls } = useDesign('basic-tree');
 
-      const getReplaceFields = computed(
-        (): Required<ReplaceFields> => {
-          const { replaceFields } = props;
-          return {
-            children: 'children',
-            title: 'title',
-            key: 'key',
-            ...replaceFields,
-          };
-        }
-      );
+      const getReplaceFields = computed((): Required<ReplaceFields> => {
+        const { replaceFields } = props;
+        return {
+          children: 'children',
+          title: 'title',
+          key: 'key',
+          ...replaceFields,
+        };
+      });
 
       const getBindValues = computed(() => {
         let propsData = {
@@ -92,9 +90,8 @@
           onCheck: (v: CheckKeys) => {
             state.checkedKeys = v;
             const rawVal = toRaw(v);
-            emit('change', rawVal);
-            emit('check', rawVal);
             emit('update:value', rawVal);
+            emit('check', rawVal);
           },
           onRightClick: handleRightClick,
         };
@@ -110,13 +107,8 @@
         return searchState.startSearch && searchState.searchData?.length === 0;
       });
 
-      const {
-        deleteNodeByKey,
-        insertNodeByKey,
-        filterByLevel,
-        updateNodeByKey,
-        getAllKeys,
-      } = useTree(treeDataRef, getReplaceFields);
+      const { deleteNodeByKey, insertNodeByKey, filterByLevel, updateNodeByKey, getAllKeys } =
+        useTree(treeDataRef, getReplaceFields);
 
       function getIcon(params: Recordable, icon?: string) {
         if (!icon) {
@@ -234,6 +226,15 @@
         }
       );
 
+      watch(
+        () => state.checkedKeys,
+        () => {
+          const v = toRaw(state.checkedKeys);
+          emit('update:value', v);
+          emit('change', v);
+        }
+      );
+
       // watchEffect(() => {
       //   console.log('======================');
       //   console.log(props.value);
@@ -292,9 +293,11 @@
           return null;
         }
         return data.map((item) => {
-          const { title: titleField, key: keyField, children: childrenField } = unref(
-            getReplaceFields
-          );
+          const {
+            title: titleField,
+            key: keyField,
+            children: childrenField,
+          } = unref(getReplaceFields);
 
           const propsData = omit(item, 'title');
           const icon = getIcon({ ...item, level }, item.icon);
