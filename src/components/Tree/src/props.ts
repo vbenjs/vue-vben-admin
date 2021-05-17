@@ -6,7 +6,7 @@ import { propTypes } from '/@/utils/propTypes';
 
 export const basicProps = {
   value: {
-    type: Array as PropType<Keys>,
+    type: [Object, Array] as PropType<Keys | CheckKeys>,
   },
   renderIcon: {
     type: Function as PropType<(params: Recordable) => string>,
