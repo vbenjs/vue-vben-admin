@@ -23,11 +23,12 @@
   import { filter } from '/@/utils/helper/treeHelper';
 
   import { useTree } from './useTree';
-  import { useContextMenu, ContextMenuItem } from '/@/hooks/web/useContextMenu';
+  import { useContextMenu } from '/@/hooks/web/useContextMenu';
   import { useExpose } from '/@/hooks/core/useExpose';
   import { useDesign } from '/@/hooks/web/useDesign';
 
   import { basicProps } from './props';
+  import { CreateContextOptions } from '/@/components/ContextMenu';
 
   interface State {
     expandedKeys: Keys;
@@ -128,18 +129,20 @@
 
       async function handleRightClick({ event, node }: Recordable) {
         const { rightMenuList: menuList = [], beforeRightClick } = props;
-        let rightMenuList: ContextMenuItem[] = [];
+        let contextMenuOptions: CreateContextOptions = { event, items: [] };
 
         if (beforeRightClick && isFunction(beforeRightClick)) {
-          rightMenuList = await beforeRightClick(node);
+          let result = await beforeRightClick(node, event);
+          if (Array.isArray(result)) {
+            contextMenuOptions.items = result;
+          } else {
+            Object.assign(contextMenuOptions, result);
+          }
         } else {
-          rightMenuList = menuList;
+          contextMenuOptions.items = menuList;
         }
-        if (!rightMenuList.length) return;
-        createContextMenu({
-          event,
-          items: rightMenuList,
-        });
+        if (!contextMenuOptions.items?.length) return;
+        createContextMenu(contextMenuOptions);
       }
 
       function setExpandedKeys(keys: Keys) {
