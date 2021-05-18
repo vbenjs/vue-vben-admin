@@ -261,13 +261,14 @@
         ) : (
           label
         );
-        if (!helpMessage || (Array.isArray(helpMessage) && helpMessage.length === 0)) {
+        const getHelpMessage = isFunction(helpMessage) ? helpMessage(unref(getValues)) : helpMessage;
+        if (!getHelpMessage || (Array.isArray(getHelpMessage) && getHelpMessage.length === 0)) {
           return renderLabel;
         }
         return (
           <span>
             {renderLabel}
-            <BasicHelp placement="top" class="mx-1" text={helpMessage} {...helpComponentProps} />
+            <BasicHelp placement="top" class="mx-1" text={getHelpMessage} {...helpComponentProps} />
           </span>
         );
       }
