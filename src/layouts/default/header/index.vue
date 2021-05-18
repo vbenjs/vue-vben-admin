@@ -112,15 +112,11 @@
         getMenuWidth,
         getIsMixSidebar,
       } = useMenuSetting();
-      const {
-        getUseErrorHandle,
-        getShowSettingButton,
-        getSettingButtonPosition,
-      } = useRootSetting();
+      const { getUseErrorHandle, getShowSettingButton, getSettingButtonPosition } =
+        useRootSetting();
 
       const {
         getHeaderTheme,
-        getUseLockPage,
         getShowFullScreen,
         getShowNotice,
         getShowContent,
@@ -189,7 +185,6 @@
         getShowLocalePicker,
         getShowFullScreen,
         getShowNotice,
-        getUseLockPage,
         getUseErrorHandle,
         getLogoWidth,
         getIsMixSidebar,
