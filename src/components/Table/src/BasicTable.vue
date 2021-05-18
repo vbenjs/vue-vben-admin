@@ -176,12 +176,8 @@
         getDataSourceRef
       );
 
-      const {
-        getFormProps,
-        replaceFormSlotKey,
-        getFormSlotKeys,
-        handleSearchInfoChange,
-      } = useTableForm(getProps, slots, fetch, getLoading);
+      const { getFormProps, replaceFormSlotKey, getFormSlotKeys, handleSearchInfoChange } =
+        useTableForm(getProps, slots, fetch, getLoading);
 
       const getBindValues = computed(() => {
         const dataSource = unref(getDataSourceRef);
@@ -300,7 +296,7 @@
   .@{prefix-cls} {
     &-row__striped {
       td {
-        background-color: content-background;
+        background-color: @app-content-background;
       }
     }
 
