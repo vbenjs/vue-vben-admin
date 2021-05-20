@@ -426,4 +426,6 @@ export interface BasicColumn extends ColumnProps {
   auth?: RoleEnum | RoleEnum[] | string | string[];
   // 业务控制是否显示
   ifShow?: boolean | ((column: BasicColumn) => boolean);
+  // 是否在表格列设置中禁用
+  disabledInSettings?: boolean;
 }

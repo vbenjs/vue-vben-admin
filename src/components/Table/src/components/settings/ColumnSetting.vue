@@ -43,7 +43,7 @@
             <template v-for="item in plainOptions" :key="item.value">
               <div :class="`${prefixCls}__check-item`">
                 <DragOutlined class="table-coulmn-drag-icon" />
-                <Checkbox :value="item.value">
+                <Checkbox :value="item.value" :disabled="item.disabled">
                   {{ item.label }}
                 </Checkbox>
 
@@ -57,7 +57,7 @@
                       `${prefixCls}__fixed-left`,
                       {
                         active: item.fixed === 'left',
-                        disabled: !checkedList.includes(item.value),
+                        disabled: item.disabled || !checkedList.includes(item.value),
                       },
                     ]"
                     @click="handleColumnFixed(item, 'left')"
@@ -74,7 +74,7 @@
                       `${prefixCls}__fixed-right`,
                       {
                         active: item.fixed === 'right',
-                        disabled: !checkedList.includes(item.value),
+                        disabled: item.disabled || !checkedList.includes(item.value),
                       },
                     ]"
                     @click="handleColumnFixed(item, 'right')"
@@ -127,6 +127,7 @@
     label: string;
     value: string;
     fixed?: boolean | 'left' | 'right';
+    disabled?: boolean;
   }
 
   export default defineComponent({
@@ -192,6 +193,7 @@
           ret.push({
             label: (item.title as string) || (item.customTitle as string),
             value: (item.dataIndex || item.title) as string,
+            disabled: item.disabledInSettings,
             ...item,
           });
         });
@@ -319,7 +321,8 @@
       }
 
       function handleColumnFixed(item: BasicColumn, fixed?: 'left' | 'right') {
-        if (!state.checkedList.includes(item.dataIndex as string)) return;
+        if (item.disabledInSettings || !state.checkedList.includes(item.dataIndex as string))
+          return;
 
         const columns = getColumns() as BasicColumn[];
         const isFixed = item.fixed === fixed ? false : fixed;
