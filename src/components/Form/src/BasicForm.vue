@@ -1,5 +1,11 @@
 <template>
-  <Form v-bind="{ ...$attrs, ...$props }" :class="getFormClass" ref="formElRef" :model="formModel">
+  <Form
+    v-bind="{ ...$attrs, ...$props }"
+    :class="getFormClass"
+    ref="formElRef"
+    :model="formModel"
+    @keypress.enter="handleEnterPress"
+  >
     <Row :style="getRowWrapStyle">
       <slot name="formHeader"></slot>
       <template v-for="schema in getSchema" :key="schema.field">
@@ -81,11 +87,9 @@
       const { prefixCls } = useDesign('basic-form');
 
       // Get the basic configuration of the form
-      const getProps = computed(
-        (): FormProps => {
-          return { ...props, ...unref(propsRef) } as FormProps;
-        }
-      );
+      const getProps = computed((): FormProps => {
+        return { ...props, ...unref(propsRef) } as FormProps;
+      });
 
       const getFormClass = computed(() => {
         return [
@@ -97,12 +101,10 @@
       });
 
       // Get uniform row style
-      const getRowWrapStyle = computed(
-        (): CSSProperties => {
-          const { baseRowStyle = {} } = unref(getProps);
-          return baseRowStyle;
-        }
-      );
+      const getRowWrapStyle = computed((): CSSProperties => {
+        const { baseRowStyle = {} } = unref(getProps);
+        return baseRowStyle;
+      });
 
       const getSchema = computed((): FormSchema[] => {
         const schemas: FormSchema[] = unref(schemaRef) || (unref(getProps).schemas as any);
@@ -213,6 +215,17 @@
         formModel[key] = value;
       }
 
+      function handleEnterPress(e: KeyboardEvent) {
+        const { autoSubmitOnEnter } = unref(getProps);
+        if (!autoSubmitOnEnter) return;
+        if (e.key === 'Enter' && e.target && e.target instanceof HTMLElement) {
+          const target: HTMLElement = e.target as HTMLElement;
+          if (target && target.tagName && target.tagName.toUpperCase() == 'INPUT') {
+            handleSubmit();
+          }
+        }
+      }
+
       const formActionType: Partial<FormActionType> = {
         getFieldsValue,
         setFieldsValue,
@@ -236,6 +249,7 @@
 
       return {
         handleToggleAdvanced,
+        handleEnterPress,
         formModel,
         defaultValueRef,
         advanceState,
