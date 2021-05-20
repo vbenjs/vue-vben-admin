@@ -1,6 +1,13 @@
 <template>
   <LoginFormTitle v-show="getShow" class="enter-x" />
-  <Form class="p-4 enter-x" :model="formData" :rules="getFormRules" ref="formRef" v-show="getShow">
+  <Form
+    class="p-4 enter-x"
+    :model="formData"
+    :rules="getFormRules"
+    ref="formRef"
+    v-show="getShow"
+    @keypress.enter="handleLogin"
+  >
     <FormItem name="account" class="enter-x">
       <Input size="large" v-model:value="formData.account" :placeholder="t('sys.login.userName')" />
     </FormItem>
@@ -88,7 +95,7 @@
   import { useUserStore } from '/@/store/modules/user';
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { onKeyStroke } from '@vueuse/core';
+  //import { onKeyStroke } from '@vueuse/core';
 
   export default defineComponent({
     name: 'LoginForm',
@@ -129,7 +136,7 @@
 
       const { validForm } = useFormValid(formRef);
 
-      onKeyStroke('Enter', handleLogin);
+      //onKeyStroke('Enter', handleLogin);
 
       const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
 
