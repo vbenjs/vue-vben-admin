@@ -83,6 +83,8 @@ export interface FormProps {
   fieldMapToTime?: FieldMapToTime;
   // Placeholder is set automatically
   autoSetPlaceHolder?: boolean;
+  // Auto submit on press enter on input
+  autoSubmitOnEnter?: boolean;
   // Check whether the information is added to the label
   rulesMessageJoinLabel?: boolean;
   // Whether to show collapse and expand buttons
@@ -125,7 +127,10 @@ export interface FormSchema {
   // Auxiliary text
   subLabel?: string;
   // Help text on the right side of the text
-  helpMessage?: string | string[] | ((renderCallbackParams: RenderCallbackParams) => string | string[]);
+  helpMessage?:
+    | string
+    | string[]
+    | ((renderCallbackParams: RenderCallbackParams) => string | string[]);
   // BaseHelp component props
   helpComponentProps?: Partial<HelpComponentProps>;
   // Label width, if it is passed, the labelCol and WrapperCol configured by itemProps will be invalid
