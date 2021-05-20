@@ -27,10 +27,13 @@ export function configThemePlugin(isBuild: boolean): Plugin[] {
         switch (s) {
           case '.ant-steps-item-process .ant-steps-item-icon > .ant-steps-icon':
             return '.ant-steps-item-icon > .ant-steps-icon';
+          case '.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)':
+          case '.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover':
+          case '.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):active':
+            return s;
           case '.ant-steps-item-icon > .ant-steps-icon':
             return s;
         }
-
         return `[data-theme] ${s}`;
       },
       colorVariables: [...getThemeColors(), ...colors],
@@ -58,5 +61,5 @@ export function configThemePlugin(isBuild: boolean): Plugin[] {
     }),
   ];
 
-  return (plugin as unknown) as Plugin[];
+  return plugin as unknown as Plugin[];
 }
