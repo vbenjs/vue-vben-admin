@@ -248,13 +248,11 @@
         };
 
         const isCreatePlaceholder = !propsData.disabled && autoSetPlaceHolder;
-        let placeholder;
         // RangePicker place is an array
         if (isCreatePlaceholder && component !== 'RangePicker' && component) {
-          placeholder =
+          propsData.placeholder =
             unref(getComponentsProps)?.placeholder || createPlaceholderMessage(component);
         }
-        propsData.placeholder = placeholder;
         propsData.codeField = field;
         propsData.formValues = unref(getValues);
 
@@ -289,7 +287,9 @@
         ) : (
           label
         );
-        const getHelpMessage = isFunction(helpMessage) ? helpMessage(unref(getValues)) : helpMessage;
+        const getHelpMessage = isFunction(helpMessage)
+          ? helpMessage(unref(getValues))
+          : helpMessage;
         if (!getHelpMessage || (Array.isArray(getHelpMessage) && getHelpMessage.length === 0)) {
           return renderLabel;
         }
