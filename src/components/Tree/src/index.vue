@@ -30,6 +30,8 @@
   import { basicProps } from './props';
   import { CreateContextOptions } from '/@/components/ContextMenu';
 
+  import { CheckEvent } from './types';
+
   interface State {
     expandedKeys: Keys;
     selectedKeys: Keys;
@@ -87,11 +89,11 @@
             state.selectedKeys = v;
             emit('update:selectedKeys', v);
           },
-          onCheck: (v: CheckKeys) => {
+          onCheck: (v: CheckKeys, e: CheckEvent) => {
             state.checkedKeys = v;
             const rawVal = toRaw(v);
             emit('update:value', rawVal);
-            emit('check', rawVal);
+            emit('check', rawVal, e);
           },
           onRightClick: handleRightClick,
         };
