@@ -36,17 +36,15 @@
     setup(props) {
       const { t } = useI18n();
 
-      const getSetting = computed(
-        (): TableSetting => {
-          return {
-            redo: true,
-            size: true,
-            setting: true,
-            fullScreen: false,
-            ...props.setting,
-          };
-        }
-      );
+      const getSetting = computed((): TableSetting => {
+        return {
+          redo: true,
+          size: true,
+          setting: true,
+          fullScreen: false,
+          ...props.setting,
+        };
+      });
 
       return { getSetting, t };
     },

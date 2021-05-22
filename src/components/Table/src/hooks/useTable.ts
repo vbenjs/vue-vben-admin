@@ -15,9 +15,7 @@ type UseTableMethod = TableActionType & {
   getForm: () => FormActionType;
 };
 
-export function useTable(
-  tableProps?: Props
-): [
+export function useTable(tableProps?: Props): [
   (instance: TableActionType, formInstance: UseTableMethod) => void,
   TableActionType & {
     getForm: () => FormActionType;
@@ -129,7 +127,7 @@ export function useTable(
       return toRaw(getTableInstance().getCacheColumns());
     },
     getForm: () => {
-      return (unref(formRef) as unknown) as FormActionType;
+      return unref(formRef) as unknown as FormActionType;
     },
     setShowPagination: async (show: boolean) => {
       getTableInstance().setShowPagination(show);

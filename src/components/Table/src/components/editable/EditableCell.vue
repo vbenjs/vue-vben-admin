@@ -131,16 +131,14 @@
         return option?.label ?? value;
       });
 
-      const getWrapperStyle = computed(
-        (): CSSProperties => {
-          if (unref(getIsCheckComp) || unref(getRowEditable)) {
-            return {};
-          }
-          return {
-            width: 'calc(100% - 48px)',
-          };
+      const getWrapperStyle = computed((): CSSProperties => {
+        if (unref(getIsCheckComp) || unref(getRowEditable)) {
+          return {};
         }
-      );
+        return {
+          width: 'calc(100% - 48px)',
+        };
+      });
 
       const getRowEditable = computed(() => {
         const { editable } = props.record || {};

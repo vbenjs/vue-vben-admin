@@ -9,18 +9,16 @@ export function useTableForm(
   fetch: (opt?: FetchParams | undefined) => Promise<void>,
   getLoading: ComputedRef<boolean | undefined>
 ) {
-  const getFormProps = computed(
-    (): Partial<FormProps> => {
-      const { formConfig } = unref(propsRef);
-      const { submitButtonOptions } = formConfig || {};
-      return {
-        showAdvancedButton: true,
-        ...formConfig,
-        submitButtonOptions: { loading: unref(getLoading), ...submitButtonOptions },
-        compact: true,
-      };
-    }
-  );
+  const getFormProps = computed((): Partial<FormProps> => {
+    const { formConfig } = unref(propsRef);
+    const { submitButtonOptions } = formConfig || {};
+    return {
+      showAdvancedButton: true,
+      ...formConfig,
+      submitButtonOptions: { loading: unref(getLoading), ...submitButtonOptions },
+      compact: true,
+    };
+  });
 
   const getFormSlotKeys = computed(() => {
     const keys = Object.keys(slots);
