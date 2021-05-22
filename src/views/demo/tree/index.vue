@@ -3,7 +3,13 @@
     <div class="flex">
       <BasicTree :treeData="treeData" title="基础示例" class="w-1/3" />
 
-      <BasicTree :treeData="treeData" title="可勾选" :checkable="true" class="w-1/3 mx-4" />
+      <BasicTree
+        :treeData="treeData"
+        title="可勾选"
+        :checkable="true"
+        class="w-1/3 mx-4"
+        @check="handleCheck"
+      />
 
       <BasicTree
         title="默认展开/勾选示例"
@@ -25,7 +31,10 @@
   export default defineComponent({
     components: { BasicTree, PageWrapper },
     setup() {
-      return { treeData };
+      function handleCheck(checkedKeys, e) {
+        console.log('onChecked', checkedKeys, e);
+      }
+      return { treeData, handleCheck };
     },
   });
 </script>

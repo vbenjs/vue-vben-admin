@@ -1,4 +1,4 @@
-import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree';
+import type { TreeDataItem, CheckEvent as CheckEventOrigin } from 'ant-design-vue/es/tree/Tree';
 import { ContextMenuItem } from '/@/hooks/web/useContextMenu';
 export interface ActionItem {
   render: (record: Recordable) => any;
@@ -47,3 +47,5 @@ export interface ContextMenuOptions {
   styles?: any;
   items?: ContextMenuItem[];
 }
+
+export type CheckEvent = CheckEventOrigin;
