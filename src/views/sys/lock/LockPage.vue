@@ -5,7 +5,23 @@
   >
     <div
       :class="`${prefixCls}__unlock`"
-      class="absolute top-0 left-1/2 flex pt-5 h-16 items-center justify-center sm:text-md xl:text-xl text-white flex-col cursor-pointer transform translate-x-1/2"
+      class="
+        absolute
+        top-0
+        left-1/2
+        flex
+        pt-5
+        h-16
+        items-center
+        justify-center
+        sm:text-md
+        xl:text-xl
+        text-white
+        flex-col
+        cursor-pointer
+        transform
+        translate-x-1/2
+      "
       @click="handleShowForm(false)"
       v-show="showDate"
     >
@@ -28,9 +44,9 @@
       <div :class="`${prefixCls}-entry`" v-show="!showDate">
         <div :class="`${prefixCls}-entry-content`">
           <div :class="`${prefixCls}-entry__header enter-x`">
-            <img :src="headerImg" :class="`${prefixCls}-entry__header-img`" />
+            <img :src="userinfo.avatar || headerImg" :class="`${prefixCls}-entry__header-img`" />
             <p :class="`${prefixCls}-entry__header-name`">
-              {{ realName }}
+              {{ userinfo.realName }}
             </p>
           </div>
           <InputPassword
@@ -108,9 +124,8 @@
 
       const { t } = useI18n();
 
-      const realName = computed(() => {
-        const { realName } = userStore.getUserInfo || {};
-        return realName;
+      const userinfo = computed(() => {
+        return userStore.getUserInfo || {};
       });
 
       /**
@@ -141,7 +156,7 @@
 
       return {
         goLogin,
-        realName,
+        userinfo,
         unLock,
         errMsg,
         loading,

@@ -5,7 +5,7 @@
         <a-row>
           <a-col :span="8">
             <div :class="`${prefixCls}-top__avatar`">
-              <img width="70" :src="headerImg" />
+              <img width="70" :src="avatar" />
               <span>Vben</span>
               <div>海纳百川，有容乃大</div>
             </div>
@@ -54,7 +54,7 @@
 
 <script lang="ts">
   import { Tag, Tabs, Row, Col } from 'ant-design-vue';
-  import { defineComponent } from 'vue';
+  import { defineComponent, computed } from 'vue';
   import { CollapseContainer } from '/@/components/Container/index';
   import Icon from '/@/components/Icon/index';
   import Article from './Article.vue';
@@ -63,6 +63,7 @@
 
   import headerImg from '/@/assets/images/header.jpg';
   import { tags, teams, details, achieveList } from './data';
+  import { useUserStore } from '/@/store/modules/user';
 
   export default defineComponent({
     components: {
@@ -78,9 +79,11 @@
       [Col.name]: Col,
     },
     setup() {
+      const userStore = useUserStore();
+      const avatar = computed(() => userStore.getUserInfo.avatar || headerImg);
       return {
         prefixCls: 'account-center',
-        headerImg,
+        avatar,
         tags,
         teams,
         details,
