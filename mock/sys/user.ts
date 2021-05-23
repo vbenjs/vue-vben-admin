@@ -7,6 +7,7 @@ function createFakeUserList() {
       userId: '1',
       username: 'vben',
       realName: 'Vben Admin',
+      avatar: 'http://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
       desc: 'manager',
       password: '123456',
       token: 'fakeToken1',
@@ -22,6 +23,7 @@ function createFakeUserList() {
       username: 'test',
       password: '123456',
       realName: 'test user',
+      avatar: 'http://q1.qlogo.cn/g?b=qq&nk=339449197&s=640',
       desc: 'tester',
       token: 'fakeToken2',
       roles: [
