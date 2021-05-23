@@ -47,7 +47,7 @@
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.0",
-    "pinia": "2.0.0-alpha.13",
+    "pinia": "2.0.0-alpha.19",
     "print-js": "^1.6.0",
     "qrcode": "^1.4.4",
     "sortablejs": "^1.13.0",
@@ -85,7 +85,7 @@
     "commitizen": "^4.2.4",
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.3",
-    "dotenv": "^9.0.2",
+    "dotenv": "^10.0.0",
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-define-config": "^1.0.8",
@@ -127,7 +127,7 @@
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China. If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
-    "rollup": "^2.48.0"
+    "rollup": "^2.49.0"
   },
   "repository": {
     "type": "git",
