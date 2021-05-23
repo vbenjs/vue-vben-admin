@@ -21,10 +21,10 @@ export const useLocaleStore = defineStore({
     localInfo: lsLocaleSetting,
   }),
   getters: {
-    getShowPicker() {
+    getShowPicker(_) {
       return !!this.localInfo?.showPicker;
     },
-    getLocale(): LocaleType {
+    getLocale(_): LocaleType {
       return this.localInfo?.locale ?? 'zh_CN';
     },
   },

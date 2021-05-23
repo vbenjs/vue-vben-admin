@@ -38,13 +38,13 @@ export const useUserStore = defineStore({
     roleList: [],
   }),
   getters: {
-    getUserInfo(): UserInfo {
+    getUserInfo(_): UserInfo {
       return this.userInfo || getAuthCache<UserInfo>(USER_INFO_KEY) || {};
     },
-    getToken(): string {
+    getToken(_): string {
       return this.token || getAuthCache<string>(TOKEN_KEY);
     },
-    getRoleList(): RoleEnum[] {
+    getRoleList(_): RoleEnum[] {
       return this.roleList.length > 0 ? this.roleList : getAuthCache<RoleEnum[]>(ROLES_KEY);
     },
   },
