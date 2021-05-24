@@ -174,8 +174,12 @@
           return Promise.resolve();
         }
 
-        if ((!rules || rules.length === 0) && required) {
-          rules = [{ required, validator }];
+        const getRequired = isFunction(required)
+          ? required(unref(getValues))
+          : required;
+
+        if ((!rules || rules.length === 0) && getRequired) {
+          rules = [{ required: getRequired, validator }];
         }
 
         const requiredRuleIndex: number = rules.findIndex(
