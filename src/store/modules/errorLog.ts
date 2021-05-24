@@ -20,10 +20,10 @@ export const useErrorLogStore = defineStore({
     errorLogListCount: 0,
   }),
   getters: {
-    getErrorLogInfoList(_) {
+    getErrorLogInfoList() {
       return this.errorLogInfoList || [];
     },
-    getErrorLogListCount(_) {
+    getErrorLogListCount() {
       return this.errorLogListCount;
     },
   },

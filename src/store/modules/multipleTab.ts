@@ -38,13 +38,13 @@ export const useMultipleTabStore = defineStore({
     lastDragEndIndex: 0,
   }),
   getters: {
-    getTabList(_) {
+    getTabList() {
       return this.tabList;
     },
-    getCachedTabList(_): string[] {
+    getCachedTabList(): string[] {
       return Array.from(this.cacheTabList);
     },
-    getLastDragEndIndex(_): number {
+    getLastDragEndIndex(): number {
       return this.lastDragEndIndex;
     },
   },
