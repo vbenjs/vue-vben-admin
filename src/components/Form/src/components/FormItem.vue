@@ -179,7 +179,7 @@
           : required;
 
         if ((!rules || rules.length === 0) && getRequired) {
-          rules = [{ getRequired, validator }];
+          rules = [{ required: getRequired, validator }];
         }
 
         const requiredRuleIndex: number = rules.findIndex(
