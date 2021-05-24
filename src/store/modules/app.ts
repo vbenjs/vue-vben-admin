@@ -30,31 +30,31 @@ export const useAppStore = defineStore({
     beforeMiniInfo: {},
   }),
   getters: {
-    getPageLoading(_) {
+    getPageLoading() {
       return this.pageLoading;
     },
-    getDarkMode(_): 'light' | 'dark' | string {
+    getDarkMode(): 'light' | 'dark' | string {
       return this.darkMode || localStorage.getItem(APP_DARK_MODE_KEY_) || darkMode;
     },
 
-    getBeforeMiniInfo(_) {
+    getBeforeMiniInfo() {
       return this.beforeMiniInfo;
     },
 
-    getProjectConfig(_): ProjectConfig {
+    getProjectConfig(): ProjectConfig {
       return this.projectConfig || ({} as ProjectConfig);
     },
 
-    getHeaderSetting(_) {
+    getHeaderSetting() {
       return this.getProjectConfig.headerSetting;
     },
-    getMenuSetting(_) {
+    getMenuSetting() {
       return this.getProjectConfig.menuSetting;
     },
-    getTransitionSetting(_) {
+    getTransitionSetting() {
       return this.getProjectConfig.transitionSetting;
     },
-    getMultiTabsSetting(_) {
+    getMultiTabsSetting() {
       return this.getProjectConfig.multiTabsSetting;
     },
   },
