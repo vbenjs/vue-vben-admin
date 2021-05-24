@@ -149,7 +149,7 @@ export interface FormSchema {
       }) => Recordable)
     | object;
   // Required
-  required?: boolean;
+  required?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
   suffix?: string | number | ((values: RenderCallbackParams) => string | number);
 
