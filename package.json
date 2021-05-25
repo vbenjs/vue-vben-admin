@@ -33,11 +33,11 @@
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.1",
-    "@logicflow/core": "^0.4.7",
-    "@logicflow/extension": "^0.4.7",
+    "@logicflow/core": "^0.4.8",
+    "@logicflow/extension": "^0.4.8",
     "@vueuse/core": "^4.11.1",
     "@zxcvbn-ts/core": "^0.3.0",
-    "ant-design-vue": "^2.1.6",
+    "ant-design-vue": "2.1.2",
     "axios": "^0.21.1",
     "codemirror": "^5.61.1",
     "cropperjs": "^1.5.11",
@@ -110,15 +110,15 @@
     "stylelint-order": "^4.1.0",
     "ts-node": "^10.0.0",
     "typescript": "4.2.4",
-    "vite": "2.3.3",
+    "vite": "2.3.4",
     "vite-plugin-compression": "^0.2.5",
     "vite-plugin-html": "^2.0.7",
     "vite-plugin-imagemin": "^0.3.2",
-    "vite-plugin-mock": "2.5.0",
+    "vite-plugin-mock": "^2.5.4",
     "vite-plugin-purge-icons": "^0.7.0",
     "vite-plugin-pwa": "^0.7.3",
-    "vite-plugin-style-import": "^0.10.0",
-    "vite-plugin-svg-icons": "^0.6.0",
+    "vite-plugin-style-import": "^0.10.1",
+    "vite-plugin-svg-icons": "^0.6.1",
     "vite-plugin-theme": "^0.7.1",
     "vite-plugin-windicss": "0.16.0",
     "vue-eslint-parser": "^7.6.0",
@@ -127,7 +127,7 @@
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China. If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
-    "rollup": "^2.49.0"
+    "rollup": "^2.50.0"
   },
   "repository": {
     "type": "git",
