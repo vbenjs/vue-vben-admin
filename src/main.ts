@@ -13,7 +13,7 @@ import { setupI18n } from '/@/locales/setupI18n';
 import { registerGlobComp } from '/@/components/registerGlobComp';
 
 // Register icon Sprite
-import 'vite-plugin-svg-icons/register';
+import 'virtual:svg-icons-register';
 
 // Do not introduce` on-demand in local development?
 // In the local development for on-demand introduction, the number of browser requests will increase by about 20%.
