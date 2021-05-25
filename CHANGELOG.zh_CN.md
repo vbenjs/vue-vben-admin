@@ -7,6 +7,7 @@
 - 新增 `JsonPreview`Json 数据查看组件
 - 表格的数据列(column)和操作列(actionColumn)的字段可以根据权限和业务来控制是否显示
 - 新增权限控制表格示例(AuthColumn.vue)
+- 新增用户登录过期示例
 
 ### ⚡ Performance Improvements
 

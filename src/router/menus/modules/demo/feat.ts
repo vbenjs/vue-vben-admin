@@ -6,7 +6,9 @@ const menu: MenuModule = {
   menu: {
     name: t('routes.demo.feat.feat'),
     path: '/feat',
-
+    tag: {
+      dot: true,
+    },
     children: [
       {
         path: 'icon',
@@ -15,6 +17,13 @@ const menu: MenuModule = {
       {
         path: 'ws',
         name: t('routes.demo.feat.ws'),
+      },
+      {
+        name: t('routes.demo.feat.sessionTimeout'),
+        path: 'session-timeout',
+        tag: {
+          content: 'new',
+        },
       },
       {
         path: 'tabs',
