@@ -350,6 +350,19 @@
         span: 8,
       },
     },
+    {
+      field: 'field22',
+      component: 'Rate',
+      label: '字段22',
+      defaultValue: 3,
+      colProps: {
+        span: 8,
+      },
+      componentProps: {
+        disabled: false,
+        allowHalf: true,
+      },
+    },
   ];
 
   export default defineComponent({
