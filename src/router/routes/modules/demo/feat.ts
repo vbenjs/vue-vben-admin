@@ -12,6 +12,7 @@ const feat: AppRouteModule = {
     icon: 'ion:git-compare-outline',
     title: t('routes.demo.feat.feat'),
   },
+
   children: [
     {
       path: 'icon',
@@ -27,6 +28,14 @@ const feat: AppRouteModule = {
       component: () => import('/@/views/demo/feat/ws/index.vue'),
       meta: {
         title: t('routes.demo.feat.ws'),
+      },
+    },
+    {
+      path: 'session-timeout',
+      name: 'SessionTimeout',
+      component: () => import('/@/views/demo/feat/session-timeout/index.vue'),
+      meta: {
+        title: t('routes.demo.feat.sessionTimeout'),
       },
     },
     {

@@ -6,9 +6,6 @@ const menu: MenuModule = {
   menu: {
     name: t('routes.demo.comp.comp'),
     path: '/comp',
-    tag: {
-      dot: true,
-    },
     children: [
       {
         path: 'basic',
@@ -191,9 +188,6 @@ const menu: MenuModule = {
       {
         name: t('routes.demo.editor.editor'),
         path: 'editor',
-        tag: {
-          dot: true,
-        },
         children: [
           {
             path: 'json',
