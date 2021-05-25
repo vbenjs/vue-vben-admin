@@ -9,6 +9,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { PageWrapper } from '/@/components/Page';
+  import { useUserStore } from '/@/store/modules/user';
 
   import { sessionTimeoutApi } from '/@/api/demo/account';
 
@@ -16,8 +17,16 @@
     name: 'TestSessionTimeout',
     components: { PageWrapper },
     setup() {
+      const userStore = useUserStore();
       async function test() {
-        await sessionTimeoutApi();
+        // 示例网站生产环境用得是mock数据，所以不能返回401，
+        // 所以在生产环境直接改变状态来达到测试效果
+        if (import.meta.env.PROD) {
+          userStore.setToken(undefined);
+          userStore.setSessionTimeout(true);
+        } else {
+          await sessionTimeoutApi();
+        }
       }
       return { test };
     },
