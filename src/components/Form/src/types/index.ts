@@ -109,4 +109,5 @@ export type ComponentType =
   | 'Upload'
   | 'IconPicker'
   | 'Render'
-  | 'Slider';
+  | 'Slider'
+  | 'Rate';
