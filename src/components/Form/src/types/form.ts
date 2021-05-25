@@ -6,6 +6,7 @@ import type { FormItem } from './formItem';
 import type { ColEx, ComponentType } from './index';
 import type { TableActionType } from '/@/components/Table/src/types/table';
 import type { CSSProperties } from 'vue';
+import type { RowProps } from 'ant-design-vue/lib/grid/Row';
 
 export type FieldMapToTime = [string, [string, string], string?][];
 
@@ -49,11 +50,15 @@ export type RegisterFn = (formInstance: FormActionType) => void;
 export type UseFormReturnType = [RegisterFn, FormActionType];
 
 export interface FormProps {
-  // layout?: 'vertical' | 'inline' | 'horizontal';
+  layout?: 'vertical' | 'inline' | 'horizontal';
   // Form value
   model?: Recordable;
   // The width of all items in the entire form
   labelWidth?: number | string;
+  //alignment
+  labelAlign?: 'left' | 'right';
+  //Row configuration for the entire form
+  rowProps?: RowProps;
   // Submit form on reset
   submitOnReset?: boolean;
   // Col configuration for the entire form
