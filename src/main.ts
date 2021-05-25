@@ -26,7 +26,7 @@ if (import.meta.env.DEV) {
 (async () => {
   const app = createApp(App);
 
-  // Configure vuex store
+  // Configure store
   setupStore(app);
 
   // Initialize internal system configuration
@@ -55,8 +55,4 @@ if (import.meta.env.DEV) {
   await router.isReady();
 
   app.mount('#app', true);
-
-  if (import.meta.env.DEV) {
-    window.__APP__ = app;
-  }
 })();
