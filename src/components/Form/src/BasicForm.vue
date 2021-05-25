@@ -1,12 +1,12 @@
 <template>
   <Form
-    v-bind="{ ...$attrs, ...$props }"
+    v-bind="{ ...$attrs, ...$props, ...getProps }"
     :class="getFormClass"
     ref="formElRef"
     :model="formModel"
     @keypress.enter="handleEnterPress"
   >
-    <Row :style="getRowWrapStyle">
+    <Row v-bind="{ ...getRow }">
       <slot name="formHeader"></slot>
       <template v-for="schema in getSchema" :key="schema.field">
         <FormItem
@@ -62,6 +62,8 @@
   import { basicProps } from './props';
   import { useDesign } from '/@/hooks/web/useDesign';
 
+  import type { RowProps } from 'ant-design-vue/lib/grid/Row';
+
   export default defineComponent({
     name: 'BasicForm',
     components: { FormItem, Form, Row, FormAction },
@@ -100,10 +102,13 @@
         ];
       });
 
-      // Get uniform row style
-      const getRowWrapStyle = computed((): CSSProperties => {
-        const { baseRowStyle = {} } = unref(getProps);
-        return baseRowStyle;
+      // Get uniform row style and Row configuration for the entire form
+      const getRow = computed((): CSSProperties | RowProps => {
+        const { baseRowStyle = {}, rowProps } = unref(getProps);
+        return {
+          style: baseRowStyle,
+          ...rowProps,
+        };
       });
 
       const getSchema = computed((): FormSchema[] => {
@@ -253,7 +258,7 @@
         formModel,
         defaultValueRef,
         advanceState,
-        getRowWrapStyle,
+        getRow,
         getProps,
         formElRef,
         getSchema,
