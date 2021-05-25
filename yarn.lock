@@ -1311,18 +1311,6 @@
     is-module "^1.0.0"
     resolve "^1.19.0"
 
-"@rollup/plugin-node-resolve@^13.0.0":
-  version "13.0.0"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-node-resolve/-/plugin-node-resolve-13.0.0.tgz#352f07e430ff377809ec8ec8a6fd636547162dc4"
-  integrity sha512-41X411HJ3oikIDivT5OKe9EZ6ud6DXudtfNrGbC4nniaxx2esiWjkLOzgnZsWq1IM8YIeL2rzRGLZLBjlhnZtQ==
-  dependencies:
-    "@rollup/pluginutils" "^3.1.0"
-    "@types/resolve" "1.17.1"
-    builtin-modules "^3.1.0"
-    deepmerge "^4.2.2"
-    is-module "^1.0.0"
-    resolve "^1.19.0"
-
 "@rollup/plugin-replace@^2.4.1":
   version "2.4.2"
   resolved "https://registry.npmjs.org/@rollup/plugin-replace/-/plugin-replace-2.4.2.tgz#a2d539314fbc77c244858faa523012825068510a"
@@ -4187,7 +4175,7 @@ esbuild@^0.11.20:
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.11.20.tgz#7cefa1aee8b372c184e42457885f7ce5d3e62a1e"
   integrity sha512-QOZrVpN/Yz74xfat0H6euSgn3RnwLevY1mJTEXneukz1ln9qB+ieaerRMzSeETpz/UJWsBMzRVR/andBht5WKw==
 
-esbuild@^0.11.23:
+esbuild@^0.11.23, esbuild@^0.11.4:
   version "0.11.23"
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.11.23.tgz#c42534f632e165120671d64db67883634333b4b8"
   integrity sha512-iaiZZ9vUF5wJV8ob1tl+5aJTrwDczlvGP0JoMmnpC2B0ppiMCu8n8gmy5ZTGl5bcG081XBVn+U+jP+mPFm5T5Q==
@@ -4196,11 +4184,6 @@ esbuild@^0.11.5, esbuild@^0.11.6:
   version "0.11.10"
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.11.10.tgz#f5d39e4d9cc130b78d751664fef1b663240f5545"
   integrity sha512-XvGbf+UreVFA24Tlk6sNOqNcvF2z49XAZt4E7A4H80+yqn944QOLTTxaU0lkdYNtZKFiITNea+VxmtrfjvnLPA==
-
-esbuild@^0.12.1:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.1.tgz#f652d5b3b9432dbb42fc2c034ddd62360296e03d"
-  integrity sha512-WfQ00MKm/Y4ysz1u9PCUAsV66k5lbrcEvS6aG9jhBIavpB94FBdaWeBkaZXxCZB4w+oqh+j4ozJFWnnFprOXbg==
 
 esbuild@^0.9.2:
   version "0.9.7"
@@ -10514,18 +10497,18 @@ vite-plugin-imagemin@^0.3.2:
     imagemin-svgo "^8.0.0"
     imagemin-webp "^6.0.0"
 
-vite-plugin-mock@^2.5.2:
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/vite-plugin-mock/-/vite-plugin-mock-2.5.2.tgz#427fffc20d4c2fcabeb388ed62cad4fc8d6f3577"
-  integrity sha512-fQmQYvH+B8zowPevK2tWo8W/H0m7ZtuOsY+BA6/koImNE3FOfJPe4IsK/hnUJqXY/GGvBaPvB6F1Jpg5yQEAHQ==
+vite-plugin-mock@2.5.0:
+  version "2.5.0"
+  resolved "https://registry.nlark.com/vite-plugin-mock/download/vite-plugin-mock-2.5.0.tgz#1c185f89ba33492d25d5c414c1d405fce60ef379"
+  integrity sha1-HBhfibozSS0l1cQUwdQF/OYO83k=
   dependencies:
-    "@rollup/plugin-node-resolve" "^13.0.0"
+    "@rollup/plugin-node-resolve" "^11.2.1"
     "@types/mockjs" "^1.0.3"
-    chalk "^4.1.1"
+    chalk "^4.1.0"
     chokidar "^3.5.1"
     connect "^3.7.0"
     debug "^4.3.2"
-    esbuild "^0.12.1"
+    esbuild "^0.11.4"
     fast-glob "^3.2.5"
     path-to-regexp "^6.2.0"
 
