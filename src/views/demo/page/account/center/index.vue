@@ -112,6 +112,7 @@
         text-align: center;
 
         img {
+          margin: auto;
           border-radius: 50%;
         }
 
