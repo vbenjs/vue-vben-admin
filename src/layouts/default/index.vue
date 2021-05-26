@@ -45,14 +45,14 @@
       const { prefixCls } = useDesign('default-layout');
       const { getIsMobile } = useAppInject();
       const { getShowFullHeaderRef } = useHeaderSetting();
-      const { getShowSidebar, getIsMixSidebar, getIsSidebarType } = useMenuSetting();
+      const { getShowSidebar, getIsMixSidebar, getShowMenu } = useMenuSetting();
 
       // Create a lock screen monitor
       const lockEvents = useLockPage();
 
       const layoutClass = computed(() => {
         let cls: string[] = ['ant-layout'];
-        if (unref(getIsMixSidebar) || unref(getIsSidebarType)) {
+        if (unref(getIsMixSidebar) || unref(getShowMenu)) {
           cls.push('ant-layout-has-sider');
         }
         return cls;
