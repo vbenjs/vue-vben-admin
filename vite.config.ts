@@ -39,6 +39,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     root,
     resolve: {
       alias: [
+        {
+          find: 'vue-i18n',
+          replacement: 'vue-i18n/dist/vue-i18n.cjs.js',
+        },
         // /@/xxxx => src/xxxx
         {
           find: /\/@\//,
@@ -72,12 +76,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       chunkSizeWarningLimit: 2000,
     },
     define: {
-      // setting vue-i18-next
-      // Suppress warning
-      __VUE_I18N_LEGACY_API__: false,
-      __VUE_I18N_FULL_INSTALL__: false,
-      __INTLIFY_PROD_DEVTOOLS__: false,
-
       __APP_INFO__: JSON.stringify(__APP_INFO__),
     },
     css: {
