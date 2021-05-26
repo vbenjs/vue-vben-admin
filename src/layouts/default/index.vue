@@ -1,5 +1,5 @@
 <template>
-  <Layout :class="prefixCls">
+  <Layout :class="prefixCls" v-bind="lockEvents">
     <LayoutFeatures />
     <LayoutHeader fixed v-if="getShowFullHeaderRef" />
     <Layout :class="layoutClass">
@@ -26,6 +26,7 @@
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { useLockPage } from '/@/hooks/web/useLockPage';
 
   import { useAppInject } from '/@/hooks/web/useAppInject';
 
@@ -45,6 +46,10 @@
       const { getIsMobile } = useAppInject();
       const { getShowFullHeaderRef } = useHeaderSetting();
       const { getShowSidebar, getIsMixSidebar } = useMenuSetting();
+
+      // Create a lock screen monitor
+      const lockEvents = useLockPage();
+
       const layoutClass = computed(() => ({ 'ant-layout-has-sider': unref(getIsMixSidebar) }));
 
       return {
@@ -54,6 +59,7 @@
         getIsMobile,
         getIsMixSidebar,
         layoutClass,
+        lockEvents,
       };
     },
   });

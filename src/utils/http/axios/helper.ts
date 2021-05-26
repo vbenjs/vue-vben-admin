@@ -1,5 +1,7 @@
 import { isObject, isString } from '/@/utils/is';
 
+const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm';
+
 export function createNow<T extends boolean>(
   join: boolean,
   restful: T
@@ -16,7 +18,6 @@ export function createNow(join: boolean, restful = false): string | object {
   return { _t: now };
 }
 
-const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm';
 /**
  * @description: Format request parameter time
  */
