@@ -18,6 +18,8 @@ const demoList = (() => {
       name6: '@cname()',
       name7: '@cname()',
       name8: '@cname()',
+      date: `@date('yyyy-MM-dd')`,
+      time: `@time('HH:mm')`,
       'no|100000-10000000': 100000,
       'status|1': ['normal', 'enable', 'disable'],
     });

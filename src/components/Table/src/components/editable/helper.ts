@@ -18,7 +18,9 @@ export function createPlaceholderMessage(component: ComponentType) {
     component.includes('Select') ||
     component.includes('Checkbox') ||
     component.includes('Radio') ||
-    component.includes('Switch')
+    component.includes('Switch') ||
+    component.includes('DatePicker') ||
+    component.includes('TimePicker')
   ) {
     return t('common.chooseText');
   }
