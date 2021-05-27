@@ -88,6 +88,28 @@
       width: 200,
     },
     {
+      title: '日期选择',
+      dataIndex: 'date',
+      edit: true,
+      editComponent: 'DatePicker',
+      editComponentProps: {
+        valueFormat: 'YYYY-MM-DD',
+        format: 'YYYY-MM-DD',
+      },
+      width: 200,
+    },
+    {
+      title: '时间选择',
+      dataIndex: 'time',
+      edit: true,
+      editComponent: 'TimePicker',
+      editComponentProps: {
+        valueFormat: 'HH:mm',
+        format: 'HH:mm',
+      },
+      width: 200,
+    },
+    {
       title: '勾选框',
       dataIndex: 'name5',
       edit: true,

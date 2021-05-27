@@ -37,7 +37,7 @@
     "@logicflow/extension": "^0.4.8",
     "@vueuse/core": "^4.11.1",
     "@zxcvbn-ts/core": "^0.3.0",
-    "ant-design-vue": "2.1.2",
+    "ant-design-vue": "2.1.6",
     "axios": "^0.21.1",
     "codemirror": "^5.61.1",
     "cropperjs": "^1.5.11",
@@ -53,8 +53,8 @@
     "sortablejs": "^1.13.0",
     "tinymce": "^5.8.1",
     "vditor": "^3.8.5",
-    "vue": "3.0.11",
-    "vue-i18n": "9.0.0",
+    "vue": "3.1.0-beta.4",
+    "vue-i18n": "9.1.6",
     "vue-json-pretty": "^2.0.2",
     "vue-router": "^4.0.8",
     "vue-types": "^3.0.2",
@@ -63,7 +63,7 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
-    "@iconify/json": "^1.1.348",
+    "@iconify/json": "^1.1.349",
     "@purge-icons/generated": "^0.7.0",
     "@types/codemirror": "^5.60.0",
     "@types/crypto-js": "^4.0.1",
@@ -80,8 +80,8 @@
     "@vitejs/plugin-legacy": "^1.4.0",
     "@vitejs/plugin-vue": "^1.2.2",
     "@vitejs/plugin-vue-jsx": "^1.1.4",
-    "@vue/compiler-sfc": "3.0.11",
-    "autoprefixer": "^10.2.5",
+    "@vue/compiler-sfc": "3.1.0-beta.4",
+    "autoprefixer": "^10.2.6",
     "commitizen": "^4.2.4",
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.3",
@@ -110,7 +110,7 @@
     "stylelint-order": "^4.1.0",
     "ts-node": "^10.0.0",
     "typescript": "4.2.4",
-    "vite": "2.3.4",
+    "vite": "2.3.3",
     "vite-plugin-compression": "^0.2.5",
     "vite-plugin-html": "^2.0.7",
     "vite-plugin-imagemin": "^0.3.2",
@@ -119,7 +119,7 @@
     "vite-plugin-pwa": "^0.7.3",
     "vite-plugin-style-import": "^0.10.1",
     "vite-plugin-svg-icons": "^0.6.1",
-    "vite-plugin-theme": "^0.7.1",
+    "vite-plugin-theme": "^0.8.0",
     "vite-plugin-windicss": "0.16.0",
     "vue-eslint-parser": "^7.6.0",
     "vue-tsc": "^0.1.6"
@@ -127,7 +127,7 @@
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China. If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
-    "rollup": "^2.50.0"
+    "rollup": "^2.50.1"
   },
   "repository": {
     "type": "git",
