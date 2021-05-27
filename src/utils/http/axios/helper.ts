@@ -21,7 +21,11 @@ export function createNow(join: boolean, restful = false): string | object {
 /**
  * @description: Format request parameter time
  */
-export function formatRequestDate(params: any) {
+export function formatRequestDate(params: Recordable) {
+  if (Object.prototype.toString.call(params) !== '[object Object]') {
+    return;
+  }
+
   for (const key in params) {
     if (params[key] && params[key]._isAMomentObject) {
       params[key] = params[key].format(DATE_TIME_FORMAT);
