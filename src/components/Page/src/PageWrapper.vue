@@ -17,9 +17,11 @@
         <slot :name="item" v-bind="data"></slot>
       </template>
     </PageHeader>
+
     <div class="overflow-hidden" :class="getContentClass" :style="getContentStyle">
       <slot></slot>
     </div>
+
     <PageFooter v-if="getShowFooter" ref="footerRef">
       <template #left>
         <slot name="leftFooter"></slot>
@@ -81,21 +83,19 @@
         return Object.keys(omit(slots, 'default', 'leftFooter', 'rightFooter', 'headerContent'));
       });
 
-      const getContentStyle = computed(
-        (): CSSProperties => {
-          const { contentFullHeight, contentStyle, fixedHeight } = props;
-          if (!contentFullHeight) {
-            return { ...contentStyle };
-          }
-          const height = `${unref(pageHeight)}px`;
-          return {
-            ...contentStyle,
-            minHeight: height,
-            ...(fixedHeight ? { height } : {}),
-            paddingBottom: `${unref(footerHeight)}px`,
-          };
+      const getContentStyle = computed((): CSSProperties => {
+        const { contentFullHeight, contentStyle, fixedHeight } = props;
+        if (!contentFullHeight) {
+          return { ...contentStyle };
         }
-      );
+        const height = `${unref(pageHeight)}px`;
+        return {
+          ...contentStyle,
+          minHeight: height,
+          ...(fixedHeight ? { height } : {}),
+          paddingBottom: `${unref(footerHeight)}px`,
+        };
+      });
 
       const getContentClass = computed(() => {
         const { contentBackground, contentClass } = props;
@@ -145,14 +145,15 @@
         }
         // fix:subtract content's marginTop and marginBottom value
         let subtractHeight = 0;
-        let marginBottom = '0px';
-        let marginTop = '0px';
+        const ZERO_PX = '0px';
+        let marginBottom = ZERO_PX;
+        let marginTop = ZERO_PX;
         const classElments = document.querySelectorAll(`.${prefixVar}-page-wrapper-content`);
         if (classElments && classElments.length > 0) {
           const contentEl = classElments[0];
           const cssStyle = getComputedStyle(contentEl);
-          marginBottom = cssStyle?.marginBottom;
-          marginTop = cssStyle?.marginTop;
+          marginBottom = cssStyle?.marginBottom ?? ZERO_PX;
+          marginTop = cssStyle?.marginTop ?? ZERO_PX;
         }
         if (marginBottom) {
           const contentMarginBottom = Number(marginBottom.replace(/[^\d]/g, ''));

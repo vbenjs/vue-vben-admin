@@ -338,6 +338,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 
 .CodeMirror-sizer {
   position: relative;
+  margin-bottom: 20px !important;
   border-right: 30px solid transparent;
 }
 
