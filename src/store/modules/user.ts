@@ -100,7 +100,7 @@ export const useUserStore = defineStore({
         !sessionTimeout && goHome && (await router.replace(PageEnum.BASE_HOME));
         return userInfo;
       } catch (error) {
-        return null;
+        return Promise.reject(error);
       }
     },
     async getUserInfoAction({ userId }: GetUserInfoByUserIdParams) {
