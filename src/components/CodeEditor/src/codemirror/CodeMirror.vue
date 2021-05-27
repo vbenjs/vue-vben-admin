@@ -53,7 +53,9 @@
         async (v) => {
           await nextTick();
           const oldValue = editor?.getValue();
-          v && v !== oldValue && editor?.setValue(v);
+          if (v !== oldValue) {
+            editor?.setValue(v ? v : '');
+          }
         },
         { flush: 'post' }
       );
