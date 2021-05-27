@@ -37,7 +37,7 @@
     "@logicflow/extension": "^0.4.8",
     "@vueuse/core": "^4.11.1",
     "@zxcvbn-ts/core": "^0.3.0",
-    "ant-design-vue": "2.1.6",
+    "ant-design-vue": "2.1.2",
     "axios": "^0.21.1",
     "codemirror": "^5.61.1",
     "cropperjs": "^1.5.11",
@@ -53,7 +53,7 @@
     "sortablejs": "^1.13.0",
     "tinymce": "^5.8.1",
     "vditor": "^3.8.5",
-    "vue": "3.1.0-beta.5",
+    "vue": "3.0.11",
     "vue-i18n": "9.1.6",
     "vue-json-pretty": "^2.0.2",
     "vue-router": "^4.0.8",
@@ -80,7 +80,7 @@
     "@vitejs/plugin-legacy": "^1.4.0",
     "@vitejs/plugin-vue": "^1.2.2",
     "@vitejs/plugin-vue-jsx": "^1.1.4",
-    "@vue/compiler-sfc": "3.1.0-beta.5",
+    "@vue/compiler-sfc": "3.0.11",
     "autoprefixer": "^10.2.6",
     "commitizen": "^4.2.4",
     "conventional-changelog-cli": "^2.1.1",
@@ -120,14 +120,14 @@
     "vite-plugin-style-import": "^0.10.1",
     "vite-plugin-svg-icons": "^0.6.1",
     "vite-plugin-theme": "^0.8.0",
-    "vite-plugin-windicss": "0.16.0",
+    "vite-plugin-windicss": "^0.16.5",
     "vue-eslint-parser": "^7.6.0",
     "vue-tsc": "^0.1.6"
   },
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China. If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
-    "rollup": "^2.50.1"
+    "rollup": "^2.50.2"
   },
   "repository": {
     "type": "git",
