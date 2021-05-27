@@ -1,3 +1,3 @@
-import Authority from './src/index.vue';
+import Authority from './src/Authority.vue';
 
 export { Authority };

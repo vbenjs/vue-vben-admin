@@ -1,4 +1,4 @@
-import contextMenuVue from './index';
+import contextMenuVue from './ContextMenu';
 import { isClient } from '/@/utils/is';
 import { CreateContextOptions, ContextMenuProps } from './types';
 import { createVNode, render } from 'vue';

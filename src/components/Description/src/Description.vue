@@ -51,15 +51,13 @@
       /**
        * @description: Get configuration Collapse
        */
-      const getCollapseOptions = computed(
-        (): CollapseContainerOptions => {
-          return {
-            // Cannot be expanded by default
-            canExpand: false,
-            ...unref(getProps).collapseOptions,
-          };
-        }
-      );
+      const getCollapseOptions = computed((): CollapseContainerOptions => {
+        return {
+          // Cannot be expanded by default
+          canExpand: false,
+          ...unref(getProps).collapseOptions,
+        };
+      });
 
       const getDescriptionsProps = computed(() => {
         return { ...unref(attrs), ...unref(getProps) } as DescriptionsProps;
