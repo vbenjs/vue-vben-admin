@@ -66,6 +66,8 @@
   import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { isNumber } from '/@/utils/is';
+  import { useLocale } from '/@/locales/useLocale';
+  import { useAppStore } from '/@/store/modules/app';
 
   const tinymceProps = {
     options: {
@@ -118,6 +120,8 @@
 
       const { prefixCls } = useDesign('tinymce-container');
 
+      const appStore = useAppStore();
+
       const tinymceContent = computed(() => props.modelValue);
 
       const containerWidth = computed(() => {
@@ -126,6 +130,15 @@
           return `${width}px`;
         }
         return width;
+      });
+
+      const skinName = computed(() => {
+        return appStore.getDarkMode === 'light' ? 'oxide' : 'oxide-dark';
+      });
+
+      const langName = computed(() => {
+        const lang = useLocale().getLocale.value;
+        return ['zh_CN', 'en'].includes(lang) ? lang : 'zh_CN';
       });
 
       const initOptions = computed(() => {
@@ -137,15 +150,16 @@
           toolbar,
           menubar: 'file edit insert view format table',
           plugins,
-          language_url: publicPath + 'resource/tinymce/langs/zh_CN.js',
-          language: 'zh_CN',
+          language_url: publicPath + 'resource/tinymce/langs/' + langName.value + '.js',
+          language: langName.value,
           branding: false,
           default_link_target: '_blank',
           link_title: false,
           object_resizing: false,
-          skin: 'oxide',
-          skin_url: publicPath + 'resource/tinymce/skins/ui/oxide',
-          content_css: publicPath + 'resource/tinymce/skins/ui/oxide/content.min.css',
+          skin: skinName.value,
+          skin_url: publicPath + 'resource/tinymce/skins/ui/' + skinName.value,
+          content_css:
+            publicPath + 'resource/tinymce/skins/ui/' + skinName.value + '/content.min.css',
           ...options,
           setup: (editor: any) => {
             editorRef.value = editor;
