@@ -1,4 +1,4 @@
-import Description from './src/index.vue';
+import Description from './src/Description.vue';
 
 export { Description };
 export * from './src/types';

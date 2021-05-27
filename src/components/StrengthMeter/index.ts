@@ -1,1 +1,1 @@
-export { default as StrengthMeter } from './src/index.vue';
+export { default as StrengthMeter } from './src/StrengthMeter.vue';

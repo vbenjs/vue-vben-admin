@@ -1,3 +1,3 @@
-import ClickOutSide from './src/index.vue';
+import ClickOutSide from './src/ClickOutSide.vue';
 
 export { ClickOutSide };

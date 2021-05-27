@@ -1,4 +1,4 @@
-import Loading from './src/index.vue';
+import Loading from './src/Loading.vue';
 
 export { Loading };
 export { useLoading } from './src/useLoading';

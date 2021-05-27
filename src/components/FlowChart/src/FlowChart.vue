@@ -55,7 +55,7 @@
       const appStore = useAppStore();
       const [register, { openModal }] = useModal();
       createFlowChartContext({
-        logicFlow: (lfInstance as unknown) as LogicFlow,
+        logicFlow: lfInstance as unknown as LogicFlow,
       });
 
       const getFlowOptions = computed(() => {
