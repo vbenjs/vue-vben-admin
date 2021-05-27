@@ -168,9 +168,7 @@
       onMountedOrActivated(() => {
         tinymceId.value = buildShortUUID('tiny-vue');
         nextTick(() => {
-          setTimeout(() => {
-            initEditor();
-          }, 30);
+          initEditor();
         });
       });
 
