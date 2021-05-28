@@ -7,6 +7,7 @@
             <Input
               :class="`${prefixCls}-input`"
               :placeholder="t('common.searchText')"
+              ref="inputRef"
               allow-clear
               @change="handleSearch"
             >
@@ -57,7 +58,7 @@
   </Teleport>
 </template>
 <script lang="ts">
-  import { defineComponent, computed, unref, ref } from 'vue';
+  import { defineComponent, computed, unref, ref, watch, nextTick } from 'vue';
 
   import { SearchOutlined } from '@ant-design/icons-vue';
   import { Input } from 'ant-design-vue';
@@ -90,15 +91,10 @@
       const { t } = useI18n();
       const [refs, setRefs] = useRefs();
       const { getIsMobile } = useAppInject();
+      const inputRef = ref<Nullable<HTMLElement>>(null);
 
-      const {
-        handleSearch,
-        searchResult,
-        keyword,
-        activeIndex,
-        handleEnter,
-        handleMouseenter,
-      } = useMenuSearch(refs, scrollWrap, emit);
+      const { handleSearch, searchResult, keyword, activeIndex, handleEnter, handleMouseenter } =
+        useMenuSearch(refs, scrollWrap, emit);
 
       const getIsNotData = computed(() => {
         return !keyword || unref(searchResult).length === 0;
@@ -118,6 +114,16 @@
         emit('close');
       }
 
+      watch(
+        () => _.visible,
+        (v: boolean) => {
+          v &&
+            nextTick(() => {
+              unref(inputRef)?.focus();
+            });
+        }
+      );
+
       return {
         t,
         prefixCls,
@@ -131,6 +137,7 @@
         scrollWrap,
         handleMouseenter,
         handleClose,
+        inputRef,
       };
     },
   });
