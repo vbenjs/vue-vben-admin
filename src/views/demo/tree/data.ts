@@ -10,7 +10,7 @@ export const treeData: TreeItem[] = [
         title: 'leaf',
         key: '0-0-1',
         children: [
-          { title: 'leaf', key: '0-0-0-0' },
+          { title: 'leaf', key: '0-0-0-0', children: [{ title: 'leaf', key: '0-0-0-0-1' }] },
           { title: 'leaf', key: '0-0-0-1' },
         ],
       },

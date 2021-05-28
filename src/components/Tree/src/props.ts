@@ -23,6 +23,10 @@ export const basicProps = {
   checkStrictly: propTypes.bool,
   clickRowToExpand: propTypes.bool.def(true),
   checkable: propTypes.bool.def(false),
+  defaultExpandLevel: {
+    type: [String, Number] as PropType<string | number>,
+    default: '',
+  },
 
   replaceFields: {
     type: Object as PropType<ReplaceFields>,
