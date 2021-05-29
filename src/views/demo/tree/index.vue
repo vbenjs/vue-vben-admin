@@ -13,7 +13,7 @@
         title="可勾选，默认全部展开"
         :checkable="true"
         class="w-1/3 mx-4"
-        defaultExpandLevel="-1"
+        defaultExpandAll
         @check="handleCheck"
       />
 
