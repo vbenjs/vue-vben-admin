@@ -1,5 +1,6 @@
-import { resultSuccess } from '../_util';
+import { resultSuccess, resultError, getRequestToken, requestParams } from '../_util';
 import { MockMethod } from 'vite-plugin-mock';
+import { createFakeUserList } from './user';
 
 // single
 const dashboardRoute = {
@@ -13,47 +14,6 @@ const dashboardRoute = {
   },
 };
 
-const frontRoute = {
-  path: 'front',
-  name: 'PermissionFrontDemo',
-  meta: {
-    title: 'routes.demo.permission.front',
-  },
-  children: [
-    {
-      path: 'page',
-      name: 'FrontPageAuth',
-      component: '/demo/permission/front/index',
-      meta: {
-        title: 'routes.demo.permission.frontPage',
-      },
-    },
-    {
-      path: 'btn',
-      name: 'FrontBtnAuth',
-      component: '/demo/permission/front/Btn',
-      meta: {
-        title: 'routes.demo.permission.frontBtn',
-      },
-    },
-    {
-      path: 'auth-pageA',
-      name: 'FrontAuthPageA',
-      component: '/demo/permission/front/AuthPageA',
-      meta: {
-        title: 'routes.demo.permission.frontTestA',
-      },
-    },
-    {
-      path: 'auth-pageB',
-      name: 'FrontAuthPageB',
-      component: '/demo/permission/front/AuthPageB',
-      meta: {
-        title: 'routes.demo.permission.frontTestB',
-      },
-    },
-  ],
-};
 const backRoute = {
   path: 'back',
   name: 'PermissionBackDemo',
@@ -80,19 +40,8 @@ const backRoute = {
     },
   ],
 };
-const authRoute = {
-  path: '/permission',
-  name: 'Permission',
-  component: 'LAYOUT',
-  redirect: '/permission/front/page',
-  meta: {
-    icon: 'carbon:user-role',
-    title: 'routes.demo.permission.permission',
-  },
-  children: [frontRoute, backRoute],
-};
 
-const authRoute1 = {
+const authRoute = {
   path: '/permission',
   name: 'Permission',
   component: 'LAYOUT',
@@ -159,18 +108,86 @@ const levelRoute = {
     },
   ],
 };
+
+const sysRoute = {
+  path: '/system',
+  name: 'System',
+  component: 'LAYOUT',
+  redirect: '/system/account',
+  meta: {
+    icon: 'ion:settings-outline',
+    title: 'routes.demo.system.moduleName',
+  },
+  children: [
+    {
+      path: 'account',
+      name: 'AccountManagement',
+      meta: {
+        title: 'routes.demo.system.account',
+        ignoreKeepAlive: true,
+      },
+      component: '/demo/system/account/index',
+    },
+    {
+      path: 'role',
+      name: 'RoleManagement',
+      meta: {
+        title: 'routes.demo.system.role',
+        ignoreKeepAlive: true,
+      },
+      component: '/demo/system/role/index',
+    },
+
+    {
+      path: 'menu',
+      name: 'MenuManagement',
+      meta: {
+        title: 'routes.demo.system.menu',
+        ignoreKeepAlive: true,
+      },
+      component: '/demo/system/menu/index',
+    },
+    {
+      path: 'dept',
+      name: 'DeptManagement',
+      meta: {
+        title: 'routes.demo.system.dept',
+        ignoreKeepAlive: true,
+      },
+      component: '/demo/system/dept/index',
+    },
+    {
+      path: 'changePassword',
+      name: 'ChangePassword',
+      meta: {
+        title: 'routes.demo.system.password',
+        ignoreKeepAlive: true,
+      },
+      component: '/demo/system/password/index',
+    },
+  ],
+};
+
 export default [
   {
-    url: '/basic-api/getMenuListById',
+    url: '/basic-api/getMenuList',
     timeout: 1000,
     method: 'get',
-    response: ({ query }) => {
-      const { id } = query;
+    response: (request: requestParams) => {
+      const token = getRequestToken(request);
+      if (!token) {
+        return resultError('Invalid token!');
+      }
+      const checkUser = createFakeUserList().find((item) => item.token === token);
+      if (!checkUser) {
+        return resultError('Invalid user token!');
+      }
+      const id = checkUser.userId;
       if (!id || id === '1') {
-        return resultSuccess([dashboardRoute, authRoute, levelRoute]);
+        return resultSuccess([dashboardRoute, authRoute, levelRoute, sysRoute]);
       }
       if (id === '2') {
-        return resultSuccess([dashboardRoute, authRoute1, levelRoute]);
+        return resultSuccess([dashboardRoute, authRoute, levelRoute]);
       }
     },
   },

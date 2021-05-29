@@ -6,13 +6,6 @@ export interface LoginParams {
   password: string;
 }
 
-/**
- * @description: Get user information
- */
-export interface GetUserInfoByUserIdParams {
-  userId: string | number;
-}
-
 export interface RoleInfo {
   roleName: string;
   value: string;
@@ -30,7 +23,7 @@ export interface LoginResultModel {
 /**
  * @description: Get user information return value
  */
-export interface GetUserInfoByUserIdModel {
+export interface GetUserInfoModel {
   roles: RoleInfo[];
   // 用户id
   userId: string | number;
