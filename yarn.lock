@@ -10553,10 +10553,10 @@ vite-plugin-imagemin@^0.3.2:
     imagemin-svgo "^8.0.0"
     imagemin-webp "^6.0.0"
 
-vite-plugin-mock@^2.6.2:
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/vite-plugin-mock/-/vite-plugin-mock-2.6.2.tgz#d8ecf5cd6c25794f9e9460e8dd7f8abfaaab4760"
-  integrity sha512-JkKByTuG+tdD4lI0Ouk81oE8klZRbL/qsbpij4emfU74fXMomGbEmyUcOfXq+GCdBxlJ/5mVNZRrTf08jUKRoQ==
+vite-plugin-mock@^2.6.3:
+  version "2.6.3"
+  resolved "https://registry.yarnpkg.com/vite-plugin-mock/-/vite-plugin-mock-2.6.3.tgz#bef1b39727e8a52e20238f5df845419aa941efec"
+  integrity sha512-W7jMW2RuAb7l9SWJOeoxrC8Td4gTHzHsHlozgHkPhVyJEDQZZxhOOliMNyHvsHoem4cw8PDBk7dtlPUEIiDarQ==
   dependencies:
     "@rollup/plugin-node-resolve" "^11.2.1"
     "@types/mockjs" "^1.0.3"
@@ -10613,10 +10613,10 @@ vite-plugin-svg-icons@^0.6.2:
     svg-baker "1.7.0"
     svgo "^2.3.0"
 
-vite-plugin-theme@^0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/vite-plugin-theme/-/vite-plugin-theme-0.8.0.tgz#dc829cf8c285dca212c62f8e11eb4cba46711dfe"
-  integrity sha512-WLlaVPg34Vxj3trzMlOAE6nuvwkojWfHFIrC6cBit9RL/UeOnQkvslJac3W0hTgPJ7g38hBwdnNgVFlOhE2INg==
+vite-plugin-theme@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/vite-plugin-theme/-/vite-plugin-theme-0.8.1.tgz#9008256a58a57dca81004ffa1de63ce9f60bf9eb"
+  integrity sha512-kyfcMW9YOBuNWHvORWJoq2tJ53Eaq3O7rFntENHtqp6hbblqdGhGlCzxXDbepVthFCxlyIel8S6EFIsCT6CVfg==
   dependencies:
     "@types/node" "^14.17.1"
     "@types/tinycolor2" "^1.4.2"
