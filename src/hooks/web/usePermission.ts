@@ -41,13 +41,13 @@ export function usePermission() {
    * Reset and regain authority resource information
    * @param id
    */
-  async function resume(id?: string | number) {
+  async function resume() {
     const tabStore = useMultipleTabStore();
     tabStore.clearCacheTabs();
     resetRouter();
-    const routes = await permissionStore.buildRoutesAction(id);
+    const routes = await permissionStore.buildRoutesAction();
     routes.forEach((route) => {
-      router.addRoute((route as unknown) as RouteRecordRaw);
+      router.addRoute(route as unknown as RouteRecordRaw);
     });
     permissionStore.setLastBuildMenuTime();
     closeAll();
@@ -103,12 +103,11 @@ export function usePermission() {
   }
 
   /**
-   * Change menu
+   * refresh menu data
    */
-  async function changeMenu(id?: string | number) {
-    // TODO The id passed in here is for testing. Actually, you don’t need to pass it. The id of the login person will be automatically obtained.
-    resume(id);
+  async function refreshMenu() {
+    resume();
   }
 
-  return { changeRole, hasPermission, togglePermissionMode, changeMenu };
+  return { changeRole, hasPermission, togglePermissionMode, refreshMenu };
 }
