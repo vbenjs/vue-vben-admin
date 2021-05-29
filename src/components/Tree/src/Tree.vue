@@ -211,12 +211,11 @@
       });
 
       onMounted(() => {
-        if (props.defaultExpandLevel === '') return;
         const level = parseInt(props.defaultExpandLevel);
-        if (level === -1) {
-          expandAll(true);
-        } else if (level > 0) {
+        if (level > 0) {
           state.expandedKeys = filterByLevel(level);
+        } else if (props.defaultExpandAll) {
+          expandAll(true);
         }
       });
 
