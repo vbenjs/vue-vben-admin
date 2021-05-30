@@ -15,7 +15,7 @@
       <a-button class="mr-2" @click="clearSelect"> 清空选中行 </a-button>
       <a-button class="mr-2" @click="getPagination"> 获取分页信息 </a-button>
     </div>
-    <BasicTable @register="registerTable" />
+    <BasicTable @register="registerTable" @change="onChange" />
   </div>
 </template>
 <script lang="ts">
@@ -28,6 +28,9 @@
     components: { BasicTable },
     setup() {
       const { createMessage } = useMessage();
+      function onChange() {
+        console.log('onChange', arguments);
+      }
       const [
         registerTable,
         {
@@ -121,6 +124,7 @@
         getSelectRowKeyList,
         setSelectedRowKeyList,
         clearSelect,
+        onChange,
       };
     },
   });
