@@ -35,7 +35,7 @@
     "@iconify/iconify": "^2.0.1",
     "@logicflow/core": "^0.4.10",
     "@logicflow/extension": "^0.4.10",
-    "@vueuse/core": "^4.11.1",
+    "@vueuse/core": "^4.11.2",
     "@zxcvbn-ts/core": "^0.3.0",
     "ant-design-vue": "2.1.2",
     "axios": "^0.21.1",
@@ -63,7 +63,7 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
-    "@iconify/json": "^1.1.349",
+    "@iconify/json": "^1.1.350",
     "@purge-icons/generated": "^0.7.0",
     "@types/codemirror": "^5.60.0",
     "@types/crypto-js": "^4.0.1",
@@ -127,7 +127,7 @@
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China. If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
-    "rollup": "^2.50.4"
+    "rollup": "^2.50.5"
   },
   "repository": {
     "type": "git",

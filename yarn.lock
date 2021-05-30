@@ -1191,10 +1191,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.349":
-  version "1.1.349"
-  resolved "https://registry.yarnpkg.com/@iconify/json/-/json-1.1.349.tgz#c3784ea0fb63e348c3f251cfd7f376808c2c15f8"
-  integrity sha512-eYUjmqyQ2ytNHc6t039ooCXyiIPOkiYKcNITG0g2nECrtuY0jPmd686Q0Y8tMNEaS6uniznT6SKOvIEAFr4U9A==
+"@iconify/json@^1.1.350":
+  version "1.1.350"
+  resolved "https://registry.yarnpkg.com/@iconify/json/-/json-1.1.350.tgz#abd66f4ef1250306f7ce088dac637ea0d781e694"
+  integrity sha512-pNHlRLZCbNsk7WXZfFGPa1no3oOi5KcWFyo1Pk3cQJzPhHEqqpV7zImAGW4WJrxhlRkv/6wzZVcBF5xhkp4Avw==
 
 "@intlify/core-base@9.1.6":
   version "9.1.6"
@@ -2028,18 +2028,18 @@
   resolved "https://registry.npmjs.org/@vue/shared/-/shared-3.0.11.tgz#20d22dd0da7d358bb21c17f9bde8628152642c77"
   integrity sha512-b+zB8A2so8eCE0JsxjL24J7vdGl8rzPQ09hZNhystm+KqSbKcAej1A+Hbva1rCMmTTqA+hFnUSDc5kouEo0JzA==
 
-"@vueuse/core@^4.11.1":
-  version "4.11.1"
-  resolved "https://registry.npmjs.com/@vueuse/core/-/core-4.11.1.tgz#1ab79284dffe8934420a1a40491333cd0591ecd2"
-  integrity sha512-69PdXDVLqZgmjFLbhqN+3Yp/29BRjKtk83UoeVv6csPIPB0DG7SFfsmZbnuSouEetgHXyFSKzty7+4S8GwEyWA==
+"@vueuse/core@^4.11.2":
+  version "4.11.2"
+  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-4.11.2.tgz#d4f54bd38e7c289c6f6357992c02423774cb26d9"
+  integrity sha512-4A17XvKXpMR6829EVWvrdSKEeAjTWaiC3+xh51KEtlyCwvWQwZ0xwKDrbMj+e15ANxjHrTw/0bJVaWDfPQt/Pw==
   dependencies:
-    "@vueuse/shared" "4.11.1"
+    "@vueuse/shared" "4.11.2"
     vue-demi "*"
 
-"@vueuse/shared@4.11.1":
-  version "4.11.1"
-  resolved "https://registry.npmjs.com/@vueuse/shared/-/shared-4.11.1.tgz#c8f5735839659bf0a03655bdf70ab337b8f0d452"
-  integrity sha512-9ye1Y6AwjAsbbPSVoWvOVFbObPcEe5ZFV2eU560+Ii+LGhvP8NhH+lyReuuhTzjVL8kEYR6mWRCRqK3rQc7dag==
+"@vueuse/shared@4.11.2":
+  version "4.11.2"
+  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-4.11.2.tgz#1d56e08937600e3e65abf76f27cb4a1bc182adfd"
+  integrity sha512-vTbTi6ou7ljH3CkKVoaIaCAoWB5T1ewSogpL6VnO1duMPNuiv7x8K/LunMbnTg4tVyt6QwaiCuEq/kyS6AUBRg==
   dependencies:
     vue-demi "*"
 
@@ -8851,10 +8851,10 @@ rollup-plugin-visualizer@5.5.0:
     source-map "^0.7.3"
     yargs "^16.2.0"
 
-rollup@^2.38.5, rollup@^2.43.1, rollup@^2.45.2, rollup@^2.50.4:
-  version "2.50.4"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.50.4.tgz#5a53e4294296dfee2a83b0ec0d0536984b98de71"
-  integrity sha512-mBQa9O6bdqur7a6R+TXcbdYgfO2arXlDG+rSrWfwAvsiumpJjD4OS23R9QuhItuz8ysWb8mZ91CFFDQUhJY+8Q==
+rollup@^2.38.5, rollup@^2.43.1, rollup@^2.45.2, rollup@^2.50.5:
+  version "2.50.5"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.50.5.tgz#bbee9d6411af3f5fa5c6e7e2c69f7a65b753e568"
+  integrity sha512-Ztz4NurU2LbS3Jn5rlhnYv35z6pkjBUmYKr94fOBIKINKRO6kug9NTFHArT7jqwMP2kqEZ39jJuEtkk91NBltQ==
   optionalDependencies:
     fsevents "~2.3.1"
 
