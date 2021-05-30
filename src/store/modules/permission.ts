@@ -65,6 +65,7 @@ export const usePermissionStore = defineStore({
 
     setBackMenuList(list: Menu[]) {
       this.backMenuList = list;
+      list?.length > 0 && this.setLastBuildMenuTime();
     },
 
     setLastBuildMenuTime() {
