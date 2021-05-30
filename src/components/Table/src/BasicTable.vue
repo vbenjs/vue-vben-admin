@@ -81,6 +81,7 @@
       'edit-row-end',
       'edit-change',
       'expanded-rows-change',
+      'change',
     ],
     setup(props, { attrs, emit, slots }) {
       const tableElRef = ref<ComponentRef>(null);
@@ -116,7 +117,7 @@
       } = useRowSelection(getProps, tableData, emit);
 
       const {
-        handleTableChange,
+        handleTableChange: onTableChange,
         getDataSourceRef,
         getDataSource,
         setTableData,
@@ -137,6 +138,11 @@
         },
         emit
       );
+
+      function handleTableChange(...args) {
+        onTableChange.call(undefined, ...args);
+        emit('change', ...args);
+      }
 
       const {
         getViewColumns,
@@ -204,7 +210,7 @@
           propsData = omit(propsData, 'scroll');
         }
 
-        propsData = omit(propsData, 'class');
+        propsData = omit(propsData, ['class', 'onChange']);
         return propsData;
       });
 
