@@ -15,7 +15,7 @@
       <a-button class="mr-2" @click="clearSelect"> 清空选中行 </a-button>
       <a-button class="mr-2" @click="getPagination"> 获取分页信息 </a-button>
     </div>
-    <BasicTable @register="registerTable" @change="onChange" />
+    <BasicTable @register="registerTable" />
   </div>
 </template>
 <script lang="ts">
@@ -54,6 +54,7 @@
         columns: getBasicColumns(),
         rowKey: 'id',
         showTableSetting: true,
+        onChange,
         rowSelection: {
           type: 'checkbox',
         },

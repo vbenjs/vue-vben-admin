@@ -58,6 +58,7 @@
 
   import { omit } from 'lodash-es';
   import { basicProps } from './props';
+  import { isFunction } from '/@/utils/is';
 
   export default defineComponent({
     components: {
@@ -142,6 +143,9 @@
       function handleTableChange(...args) {
         onTableChange.call(undefined, ...args);
         emit('change', ...args);
+        // 解决通过useTable注册onChange时不起作用的问题
+        const { onChange } = unref(getProps);
+        onChange && isFunction(onChange) && onChange.call(undefined, ...args);
       }
 
       const {
