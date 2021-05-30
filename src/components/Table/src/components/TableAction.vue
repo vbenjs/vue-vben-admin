@@ -7,6 +7,7 @@
       </PopConfirmButton>
       <Divider
         type="vertical"
+        class="action-divider"
         v-if="divider && index < getActions.length - (dropDownActions ? 0 : 1)"
       />
     </template>
@@ -131,6 +132,10 @@
   .@{prefix-cls} {
     display: flex;
     align-items: center;
+
+    .action-divider {
+      display: table;
+    }
 
     &.left {
       justify-content: flex-start;
