@@ -1,3 +1,42 @@
+## [2.4.1](https://github.com/anncwb/vue-vben-admin/compare/v2.4.0...v2.4.1) (2021-06-01)
+
+### Bug Fixes
+
+- **table:** make sure the table width is correct, fix [#593](https://github.com/anncwb/vue-vben-admin/issues/593) ([d73d43e](https://github.com/anncwb/vue-vben-admin/commit/d73d43ed91f30957cfd202c51552ca40a19cef08))
+- Fix the problem that the `lang` attribute of `HTML` will not be set when it is first loaded ([#682](https://github.com/anncwb/vue-vben-admin/issues/682)) ([eca8907](https://github.com/anncwb/vue-vben-admin/commit/eca8907a11c28d816c3da5a0667f45a38a499012))
+- **avatar:** mock data and Account center style ([2066f66](https://github.com/anncwb/vue-vben-admin/commit/2066f669715491f3e91ac6d0e905cd2b3e80b58d))
+- **axios:** make sure that the parameter is an object before processing, fix [#660](https://github.com/anncwb/vue-vben-admin/issues/660) ([834fa7e](https://github.com/anncwb/vue-vben-admin/commit/834fa7eb9c8aff252e083d38fdab4f6f53b4d43a))
+- **code-editor:** fix CodeEditor style problem, fix [#655](https://github.com/anncwb/vue-vben-admin/issues/655) ([5662804](https://github.com/anncwb/vue-vben-admin/commit/566280422de0537c4e31496eaaa95a9d51fe9458))
+- **codeMirror:** fix the JsonEditor embedded in the bullet frame causing the style to be disordered ([#668](https://github.com/anncwb/vue-vben-admin/issues/668)) ([e1123a2](https://github.com/anncwb/vue-vben-admin/commit/e1123a2ccb5d5450a5072c19e5508a5dc0f14423))
+- **form:** radioButtonGroup value support number ([bbddf30](https://github.com/anncwb/vue-vben-admin/commit/bbddf30e96feb1ab048323d93d3b8c1b18857acd))
+- ensure that roleList is not empty ([aebad61](https://github.com/anncwb/vue-vben-admin/commit/aebad61b3d3e11aaf720b37e762e53e2e6999d3c))
+- fix node12 version data mock error ([644dbe3](https://github.com/anncwb/vue-vben-admin/commit/644dbe315bb03ea1641a682359873237208a5303))
+- **codeeditor:** empty value set failed.fixed:[#659](https://github.com/anncwb/vue-vben-admin/issues/659) ([ba2bebb](https://github.com/anncwb/vue-vben-admin/commit/ba2bebb4069085817a90d065ed5877fdb50a8039))
+- **layout:** fix style compatibility issues ([905e5b7](https://github.com/anncwb/vue-vben-admin/commit/905e5b714b582548f32feca723012124343686a6))
+- **login:** login page modal style fixed: [#662](https://github.com/anncwb/vue-vben-admin/issues/662) ([#666](https://github.com/anncwb/vue-vben-admin/issues/666)) ([b218f10](https://github.com/anncwb/vue-vben-admin/commit/b218f10e25a9364c399a5fe42eedb549f57c01ea))
+- **table:** support change event ([9f4d171](https://github.com/anncwb/vue-vben-admin/commit/9f4d1719caa76de94e6362c16e4df3ac28df253c)), closes [#677](https://github.com/anncwb/vue-vben-admin/issues/677)
+- **table:** useTable support onChange ([9f5085c](https://github.com/anncwb/vue-vben-admin/commit/9f5085c9f9f46b09391156b17091c1771bc13026))
+- **table-action:** fix the split line style is missing,fix [#674](https://github.com/anncwb/vue-vben-admin/issues/674) ([b1cb863](https://github.com/anncwb/vue-vben-admin/commit/b1cb86350253dc5be095466966d9469775f4395d))
+- login failed ([035f55a](https://github.com/anncwb/vue-vben-admin/commit/035f55af9778819d72adc1700d9de56a6569b58f))
+- session timeout login logic error ([#678](https://github.com/anncwb/vue-vben-admin/issues/678)) ([132c7fb](https://github.com/anncwb/vue-vben-admin/commit/132c7fb944df255c4d76a25d6d924439f91f9c54)), closes [#673](https://github.com/anncwb/vue-vben-admin/issues/673)
+- **layout:** fix class loss ([d018363](https://github.com/anncwb/vue-vben-admin/commit/d018363ddcd68189a18829a2b2560f3b98da58a6))
+- **log:** fix Wrong version number ([#653](https://github.com/anncwb/vue-vben-admin/issues/653)) ([4f0d45f](https://github.com/anncwb/vue-vben-admin/commit/4f0d45f1df48755eadc0b09fa19762ee68f9abd1))
+- **tree:** support defaultExpandAll prop ([3ed2339](https://github.com/anncwb/vue-vben-admin/commit/3ed2339a6d75abbd6ccf723b6eaa762f9921409e))
+- theme switching fails ([7e2ca79](https://github.com/anncwb/vue-vben-admin/commit/7e2ca79ece2f5209cb7ce4b0f5ee15012f9f51de))
+
+### Features
+
+- **app-search:** auto focus on show ([1ae6362](https://github.com/anncwb/vue-vben-admin/commit/1ae636296df2cf99e8a777f053c539c50e6ad49a))
+- **table:** add editable DatePicker & TimePicker ([#654](https://github.com/anncwb/vue-vben-admin/issues/654)) ([93006c7](https://github.com/anncwb/vue-vben-admin/commit/93006c7dc7b5243b26637f444c8057c95935e622))
+- **table:** editable component text align ([8eaf575](https://github.com/anncwb/vue-vben-admin/commit/8eaf57562610a833c8083ae9957f458319d1cc93))
+- **tabs:** add setTabTitle method ([#680](https://github.com/anncwb/vue-vben-admin/issues/680)) ([5ddccf6](https://github.com/anncwb/vue-vben-admin/commit/5ddccf6ba28453b9a35355d53d0db65f1a8876bc))
+- **tinymce:** support dark theme and I18n ([83c9cd7](https://github.com/anncwb/vue-vben-admin/commit/83c9cd77421e9c0888a41e2d8dcbca816da67488))
+- **tree:** add defaultExpandLevel prop ([6edca1c](https://github.com/anncwb/vue-vben-admin/commit/6edca1c19c3b0772f9ab82a7b09251a74fff2173)), closes [#672](https://github.com/anncwb/vue-vben-admin/issues/672)
+
+### Performance Improvements
+
+- **i18n:** improve warning prompt ([6ef62ba](https://github.com/anncwb/vue-vben-admin/commit/6ef62ba6ea7f5613a1fec982b30fe6b0f478bf59))
+
 # [2.4.0](https://github.com/anncwb/vue-vben-admin/compare/v2.2.0...v2.4.0) (2021-05-25)
 
 ### Bug Fixes

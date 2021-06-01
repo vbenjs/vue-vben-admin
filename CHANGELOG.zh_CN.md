@@ -1,8 +1,24 @@
-## Wip
+## 2.4.1(2021-06-01)
+
+### ✨ Features
+
+- 可编辑表格新增`DatePicker`和`TimePicker`组件
+- `Tree` 组件新增`defaultExpandLevel`配置
+
+### ⚡ Performance Improvements
+
+- 菜单搜索默认聚焦
 
 ### 🐛 Bug Fixes
 
-- 修复`CodeEditor`样式问题
+- 修复`CodeEditor`已知问题
+- 修复`i18n`控制台警告问题
+- 修复可编辑表格`align`配置不生效问题
+- 确保`axios`只对`Object`参数进行处理
+- 修复`Tree`组件 `defaultExpandAll` 配置失效
+- 修复`TableAction` 分割线丢失问题
+- 修复表格已知问题
+- 修复首次加载或改变语言导致重载时，不会设置 HTML 的 lang 属性
 
 ## 2.4.0 (2021-05-25)
 
