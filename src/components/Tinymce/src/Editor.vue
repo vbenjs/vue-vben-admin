@@ -12,6 +12,7 @@
 </template>
 
 <script lang="ts">
+  import type { RawEditorSettings } from 'tinymce';
   import tinymce from 'tinymce/tinymce';
   import 'tinymce/themes/silver';
 
@@ -71,7 +72,7 @@
 
   const tinymceProps = {
     options: {
-      type: Object as PropType<any>,
+      type: Object as PropType<Partial<RawEditorSettings>>,
       default: {},
     },
     value: {
@@ -141,7 +142,7 @@
         return ['zh_CN', 'en'].includes(lang) ? lang : 'zh_CN';
       });
 
-      const initOptions = computed(() => {
+      const initOptions = computed((): RawEditorSettings => {
         const { height, options, toolbar, plugins } = props;
         const publicPath = import.meta.env.VITE_PUBLIC_PATH || '/';
         return {
@@ -156,14 +157,15 @@
           default_link_target: '_blank',
           link_title: false,
           object_resizing: false,
+          auto_focus: true,
           skin: skinName.value,
           skin_url: publicPath + 'resource/tinymce/skins/ui/' + skinName.value,
           content_css:
             publicPath + 'resource/tinymce/skins/ui/' + skinName.value + '/content.min.css',
           ...options,
-          setup: (editor: any) => {
+          setup: (editor) => {
             editorRef.value = editor;
-            editor.on('init', (e: Event) => initSetup(e));
+            editor.on('init', (e) => initSetup(e));
           },
         };
       });
@@ -210,7 +212,7 @@
         tinymce.init(unref(initOptions));
       }
 
-      function initSetup(e: Event) {
+      function initSetup(e) {
         const editor = unref(editorRef);
         if (!editor) {
           return;

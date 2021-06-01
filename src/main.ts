@@ -1,19 +1,20 @@
 import '/@/design/index.less';
+
+// Register windi
 import 'virtual:windi.css';
+// Register icon sprite
+import 'virtual:svg-icons-register';
 
 import { createApp } from 'vue';
 import App from './App.vue';
 import { initAppConfigStore } from '/@/logics/initAppConfig';
+import { setupErrorHandle } from '/@/logics/error-handle';
 import router, { setupRouter } from '/@/router';
 import { setupRouterGuard } from '/@/router/guard';
 import { setupStore } from '/@/store';
-import { setupErrorHandle } from '/@/logics/error-handle';
 import { setupGlobDirectives } from '/@/directives';
 import { setupI18n } from '/@/locales/setupI18n';
 import { registerGlobComp } from '/@/components/registerGlobComp';
-
-// Register icon Sprite
-import 'virtual:svg-icons-register';
 
 // Do not introduce on-demand in local development?
 // In the local development for introduce on-demand, the number of browser requests will increase by about 20%.
