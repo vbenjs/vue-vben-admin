@@ -17,6 +17,10 @@ interface LangModule {
 
 const loadLocalePool: LocaleType[] = [];
 
+export function setHtmlPageLang(locale: LocaleType) {
+  document.querySelector('html')?.setAttribute('lang', locale);
+}
+
 export function setLoadLocalePool(cb: (loadLocalePool: LocaleType[]) => void) {
   cb(loadLocalePool);
 }
@@ -30,7 +34,7 @@ function setI18nLanguage(locale: LocaleType) {
     (i18n.global.locale as any).value = locale;
   }
   localeStore.setLocaleInfo({ locale });
-  document.querySelector('html')?.setAttribute('lang', locale);
+  setHtmlPageLang(locale)
 }
 
 export function useLocale() {
