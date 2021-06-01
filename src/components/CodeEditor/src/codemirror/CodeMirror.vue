@@ -114,7 +114,6 @@
         await nextTick();
         init();
         window.addEventListener('resize', debounceRefresh);
-        setTimeout(refresh, 50);
       });
 
       onUnmounted(() => {
