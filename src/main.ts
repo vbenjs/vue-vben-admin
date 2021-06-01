@@ -23,7 +23,7 @@ if (import.meta.env.DEV) {
   import('ant-design-vue/dist/antd.less');
 }
 
-(async () => {
+async function bootstrap() {
   const app = createApp(App);
 
   // Configure store
@@ -55,4 +55,6 @@ if (import.meta.env.DEV) {
   await router.isReady();
 
   app.mount('#app', true);
-})();
+}
+
+void bootstrap();
