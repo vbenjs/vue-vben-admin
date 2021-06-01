@@ -17,7 +17,7 @@
   import { isString } from '/@/utils/is';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { useAttrs } from '/@/hooks/core/useAttrs';
-  type OptionsItem = { label: string; value: string; disabled?: boolean };
+  type OptionsItem = { label: string; value: string | number; disabled?: boolean };
   type RadioItem = string | OptionsItem;
 
   export default defineComponent({
@@ -28,7 +28,7 @@
     },
     props: {
       value: {
-        type: String as PropType<string>,
+        type: [String, Number] as PropType<string | number>,
       },
       options: {
         type: Array as PropType<RadioItem[]>,
