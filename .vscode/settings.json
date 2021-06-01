@@ -102,10 +102,6 @@
   // ================ Eslint ===================
   // ===========================================
   "eslint.alwaysShowStatus": true,
-  "eslint.options": {
-    "plugins": ["html", "vue", "javascript", "jsx", "typescript"],
-    "extensions": [".js", ".jsx", ".ts", ".tsx", ".vue"]
-  },
   "eslint.validate": [
     "javascript",
     "typescript",
@@ -119,7 +115,7 @@
   // ===========================================
   "vetur.experimental.templateInterpolationService": true,
   "vetur.format.options.tabSize": 2,
-  "vetur.format.defaultFormatter.html": "js-beautify-html",
+  "vetur.format.defaultFormatter.html": "prettier",
   "vetur.format.defaultFormatter.scss": "prettier",
   "vetur.format.defaultFormatter.css": "prettier",
   "vetur.format.defaultFormatter.ts": "prettier-tslint",
@@ -128,18 +124,10 @@
   "vetur.format.defaultFormatterOptions": {
     "js-beautify-html": {
       "wrap_attributes": "force-expand-multiline"
-    },
-    "prettier": {
-      "eslintIntegration": true,
-      "arrowParens": "always",
-      "semi": false,
-      "singleQuote": true
     }
   },
   "liveServer.settings.donotShowInfoMsg": true,
-  "terminal.integrated.rendererType": "dom",
   "telemetry.enableCrashReporter": false,
-  "telemetry.enableTelemetry": false,
   "workbench.settings.enableNaturalLanguageSearch": false,
   "path-intellisense.mappings": {
     "/@/": "${workspaceRoot}/src"
