@@ -1,3 +1,25 @@
+## 2.4.1(2021-06-01)
+
+### ✨ Features
+
+- Add `DatePicker` and `TimePicker` components to editable tables
+- Added `defaultExpandLevel` configuration to `Tree` component
+
+### ⚡ Performance Improvements
+
+-Menu search default focus
+
+### 🐛 Bug Fixes
+
+- Fix known issues of `CodeEditor`
+- Fix the issue of `i18n` console warning
+- Fix the problem that the editable table `align` configuration does not take effect
+- Ensure that `axios` only processes `Object` parameters
+- Fix the failure of the `defaultExpandAll` configuration of the `Tree` component
+- Fix the problem of missing dividing line in `TableAction`
+- Fix the known issues of the table
+- Fix that the lang attribute of HTML will not be set when reloading due to the first loading or changing the language
+
 ## 2.4.0 (2021-05-25)
 
 ### ✨ Features
