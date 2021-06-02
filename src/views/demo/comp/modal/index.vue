@@ -2,11 +2,11 @@
   <PageWrapper title="modal组件使用示例">
     <Alert
       message="使用 useModal 进行弹窗操作，默认可以拖动，可以通过 draggable
-    参数进行控制是否可以拖动/全屏"
+    参数进行控制是否可以拖动/全屏，并演示了在Modal内动态加载内容并自动调整高度"
       show-icon
     />
     <a-button type="primary" class="my-4" @click="openModalLoading">
-      打开弹窗 默认可以拖动/全屏
+      打开弹窗,加载动态数据并自动调整高度(默认可以拖动/全屏)
     </a-button>
 
     <Alert message="内外同时同时显示隐藏" show-icon />
@@ -20,7 +20,7 @@
     />
     <a-button type="primary" class="my-4" @click="send"> 打开弹窗并传递数据 </a-button>
 
-    <Modal1 @register="register1" />
+    <Modal1 @register="register1" :minHeight="100" />
     <Modal2 @register="register2" />
     <Modal3 @register="register3" />
     <Modal4 @register="register4" />
@@ -39,7 +39,7 @@
   export default defineComponent({
     components: { Alert, Modal1, Modal2, Modal3, Modal4, PageWrapper },
     setup() {
-      const [register1, { openModal: openModal1, setModalProps }] = useModal();
+      const [register1, { openModal: openModal1 }] = useModal();
       const [register2, { openModal: openModal2 }] = useModal();
       const [register3, { openModal: openModal3 }] = useModal();
       const [register4, { openModal: openModal4 }] = useModal();
@@ -50,11 +50,11 @@
         });
       }
       function openModalLoading() {
-        openModal1();
-        setModalProps({ loading: true });
-        setTimeout(() => {
-          setModalProps({ loading: false });
-        }, 2000);
+        openModal1(true);
+        // setModalProps({ loading: true });
+        // setTimeout(() => {
+        //   setModalProps({ loading: false });
+        // }, 2000);
       }
       return {
         register1,

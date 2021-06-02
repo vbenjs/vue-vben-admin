@@ -23,6 +23,7 @@ export interface ReturnInnerMethods extends ModalMethods {
   changeLoading: (loading: boolean) => void;
   changeOkLoading: (loading: boolean) => void;
   getVisible?: ComputedRef<boolean>;
+  redoModalHeight: () => void;
 }
 
 export type UseModalInnerReturnType = [RegisterFn, ReturnInnerMethods];
