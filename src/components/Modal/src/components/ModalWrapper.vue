@@ -60,15 +60,13 @@
         redoModalHeight: setModalHeight,
       });
 
-      const spinStyle = computed(
-        (): CSSProperties => {
-          return {
-            minHeight: `${props.minHeight}px`,
-            // padding 28
-            height: `${unref(realHeightRef)}px`,
-          };
-        }
-      );
+      const spinStyle = computed((): CSSProperties => {
+        return {
+          minHeight: `${props.minHeight}px`,
+          // padding 28
+          maxHeight: `${unref(realHeightRef)}px`,
+        };
+      });
 
       watchEffect(() => {
         props.useWrapper && setModalHeight();
@@ -141,7 +139,7 @@
           // if (!realHeight) {
           realHeight = spinEl.scrollHeight;
           // }
-
+          console.log({ spinEl, realHeight, maxHeight, height: props.height });
           if (props.fullScreen) {
             realHeightRef.value =
               window.innerHeight - props.modalFooterHeight - props.modalHeaderHeight - 28;
