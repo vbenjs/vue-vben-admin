@@ -150,6 +150,11 @@ export const useModalInner = (callbackFn?: Fn): UseModalInnerReturnType => {
       setModalProps: (props: Partial<ModalProps>) => {
         getInstance()?.setModalProps(props);
       },
+
+      redoModalHeight: () => {
+        const callRedo = getInstance()?.redoModalHeight;
+        callRedo && callRedo();
+      },
     },
   ];
 };
