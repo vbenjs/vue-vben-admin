@@ -1688,10 +1688,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.17.1.tgz#5e07e0cb2ff793aa7a1b41deae76221e6166049f"
   integrity sha512-/tpUyFD7meeooTRwl3sYlihx2BrJE7q9XF71EguPFIySj9B7qgnRtHsHTho+0AUm4m1SvWGm6uSncrR94q6Vtw==
 
-"@types/node@^15.6.1":
-  version "15.6.1"
-  resolved "https://registry.npmjs.org/@types/node/-/node-15.6.1.tgz#32d43390d5c62c5b6ec486a9bc9c59544de39a08"
-  integrity sha512-7EIraBEyRHEe7CH+Fm1XvgqU6uwZN8Q7jppJGcqjROMT29qhAuuOxYB1uEY5UMYQKEmA5D+5tBnhdaPXSsLONA==
+"@types/node@^15.12.0":
+  version "15.12.0"
+  resolved "https://registry.npmjs.org/@types/node/-/node-15.12.0.tgz#6a459d261450a300e6865faeddb5af01c3389bb3"
+  integrity sha512-+aHJvoCsVhO2ZCuT4o5JtcPrCPyDE3+1nvbDprYes+pPkEsbjH7AGUCNtjMOXS0fqH14t+B7yLzaqSz92FPWyw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -2048,15 +2048,15 @@
   dependencies:
     vue-demi "*"
 
-"@windicss/plugin-utils@0.16.7":
-  version "0.16.7"
-  resolved "https://registry.yarnpkg.com/@windicss/plugin-utils/-/plugin-utils-0.16.7.tgz#54cd31841515e849f116a6d89e625da368f7de23"
-  integrity sha512-mxgTj/MkemN8JlyfaS20OAJ0BqTUoUlDT9wD/m5U+nUa5SN/r0kPlg1IW9SbmRTrYjNXWEENf9F0Fjb/X4zn6g==
+"@windicss/plugin-utils@0.17.0":
+  version "0.17.0"
+  resolved "https://registry.npmjs.org/@windicss/plugin-utils/-/plugin-utils-0.17.0.tgz#c12123d6025b0aa439932aeef01467b58c4cc6a1"
+  integrity sha512-abRdBdA0hZKuixWq8a7bdi5KNvLEGtcQSGcE6mV83Xbjs8XWYY/S8g7Icy4g/0/SQLW2cda+jj14hkYTMlk5fw==
   dependencies:
     "@antfu/utils" "^0.1.6"
     debug "^4.3.2"
     fast-glob "^3.2.5"
-    jiti "^1.9.2"
+    jiti "^1.10.1"
     magic-string "^0.25.7"
     micromatch "^4.0.4"
     windicss "^3.0.12"
@@ -6317,10 +6317,10 @@ jest-worker@^26.2.1:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-jiti@^1.9.2:
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/jiti/-/jiti-1.9.2.tgz#2ee44830883dbb1b2e222adc053c3052d0bf3b61"
-  integrity sha512-wymUBR/YGGVNVRAxX52yvFoZdUAYKEGjk0sYrz6gXLCvMblnRvJAmDUnMvQiH4tUHDBtbKHnZ4GT3R+m3Hc39A==
+jiti@^1.10.1:
+  version "1.10.1"
+  resolved "https://registry.npmjs.org/jiti/-/jiti-1.10.1.tgz#bc2a175b9435274dc8659d3d9a121a91c6b3a1af"
+  integrity sha512-qux9juDtAC8HlZxAk/fku73ak4TWNLigRFTNzFShE/kw4bXVFsVu538vLXAxvNyPszXgpX4YxkXfwTYEi+zf5A==
 
 js-base64@^2.1.9:
   version "2.6.4"
@@ -8863,10 +8863,10 @@ rollup-plugin-visualizer@5.5.0:
     source-map "^0.7.3"
     yargs "^16.2.0"
 
-rollup@^2.38.5, rollup@^2.43.1, rollup@^2.45.2, rollup@^2.50.5:
-  version "2.50.5"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.50.5.tgz#bbee9d6411af3f5fa5c6e7e2c69f7a65b753e568"
-  integrity sha512-Ztz4NurU2LbS3Jn5rlhnYv35z6pkjBUmYKr94fOBIKINKRO6kug9NTFHArT7jqwMP2kqEZ39jJuEtkk91NBltQ==
+rollup@^2.38.5, rollup@^2.43.1, rollup@^2.45.2, rollup@^2.50.6:
+  version "2.50.6"
+  resolved "https://registry.npmjs.org/rollup/-/rollup-2.50.6.tgz#24e2211caf9031081656e98a5e5e94d3b5e786e2"
+  integrity sha512-6c5CJPLVgo0iNaZWWliNu1Kl43tjP9LZcp6D/tkf2eLH2a9/WeHxg9vfTFl8QV/2SOyaJX37CEm9XuGM0rviUg==
   optionalDependencies:
     fsevents "~2.3.1"
 
@@ -10639,22 +10639,22 @@ vite-plugin-theme@^0.8.1:
     esbuild-plugin-alias "^0.1.2"
     tinycolor2 "^1.4.2"
 
-vite-plugin-windicss@^0.16.7:
-  version "0.16.7"
-  resolved "https://registry.yarnpkg.com/vite-plugin-windicss/-/vite-plugin-windicss-0.16.7.tgz#5e6b849a607139ce769f7a757cc3b56b9d5349df"
-  integrity sha512-fNBLO2EBdQsJNU3IyehSmqPdrHc6Ve+hPYDaf5SrW8nGd9Wbd8ZVh6cX/1blRcjMw0qOjgcx7GM8pRWBjhzt3Q==
+vite-plugin-windicss@^0.17.0:
+  version "0.17.0"
+  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-0.17.0.tgz#721a82e1b9be165364fbed319ce2fc5059b43866"
+  integrity sha512-zbx4J209cqxPpJECWr8nwqDMloUvMmni+GJFvrVBboU0bb/0+mXFQj9VMVsbe7Ac00/vC0i7D0ml65x1PiXf4w==
   dependencies:
-    "@windicss/plugin-utils" "0.16.7"
+    "@windicss/plugin-utils" "0.17.0"
     chalk "^4.1.1"
     debug "^4.3.2"
     windicss "^3.0.12"
 
-vite@2.3.3:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-2.3.3.tgz#7e88a71abd03985c647789938d784cce0ee3b0fd"
-  integrity sha512-eO1iwRbn3/BfkNVMNJDeANAFCZ5NobYOFPu7IqfY7DcI7I9nFGjJIZid0EViTmLDGwwSUPmRAq3cRBbO3+DsMA==
+vite@2.3.6:
+  version "2.3.6"
+  resolved "https://registry.npmjs.org/vite/-/vite-2.3.6.tgz#1f7cfde88a51a802d69000c7bac85d481c2e871c"
+  integrity sha512-fsEpNKDHgh3Sn66JH06ZnUBnIgUVUtw6ucDhlOj1CEqxIkymU25yv1/kWDPlIjyYHnalr0cN6V+zzUJ+fmWHYw==
   dependencies:
-    esbuild "^0.11.23"
+    esbuild "^0.12.5"
     postcss "^8.2.10"
     resolve "^1.19.0"
     rollup "^2.38.5"
