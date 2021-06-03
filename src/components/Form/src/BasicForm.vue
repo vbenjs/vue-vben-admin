@@ -196,6 +196,13 @@
       );
 
       watch(
+        () => unref(getProps).schemas,
+        (schemas) => {
+          resetSchema(schemas ?? []);
+        }
+      );
+
+      watch(
         () => getSchema.value,
         (schema) => {
           nextTick(() => {
