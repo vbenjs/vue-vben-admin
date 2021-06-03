@@ -60,7 +60,7 @@ export const useMultipleTabStore = defineStore({
         // Ignore the cache
         const needCache = !item.meta?.ignoreKeepAlive;
         if (!needCache) {
-          return;
+          continue;
         }
         const name = item.name as string;
         cacheMap.add(name);
