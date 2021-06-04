@@ -15,6 +15,7 @@ import { defHttp } from '/@/utils/http/axios';
 enum Api {
   AccountList = '/system/getAccountList',
   DeptList = '/system/getDeptList',
+  setRoleStatus = '/system/setRoleStatus',
   MenuList = '/system/getMenuList',
   RolePageList = '/system/getRoleListByPage',
   GetAllRoleList = '/system/getAllRoleList',
@@ -34,3 +35,6 @@ export const getRoleListByPage = (params?: RolePageParams) =>
 
 export const getAllRoleList = (params?: RoleParams) =>
   defHttp.get<RoleListGetResultModel>({ url: Api.GetAllRoleList, params });
+
+export const setRoleStatus = (id: number, status: string) =>
+  defHttp.post({ url: Api.setRoleStatus, params: { id, status } });
