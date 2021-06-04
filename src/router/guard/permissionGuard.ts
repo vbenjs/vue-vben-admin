@@ -55,10 +55,7 @@ export function createPermissionGuard(router: Router) {
     }
     // 无论是哪种权限，刷新页面时都重新获取用户信息
     if (userStore.getLastUpdateTime === 0) {
-      console.log('LoadUserInfo');
       await userStore.getUserInfoAction();
-    } else {
-      console.log(userStore.getLastUpdateTime);
     }
     if (permissionStore.getIsDynamicAddedRoute) {
       next();
