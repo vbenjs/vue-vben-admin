@@ -58,47 +58,32 @@ const transform: AxiosTransform = {
 
     // 这里逻辑可以根据项目进行修改
     const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
-    if (!hasSuccess) {
-      if (message) {
-        // errorMessageMode=‘modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
-        if (options.errorMessageMode === 'modal') {
-          createErrorModal({ title: t('sys.api.errorTip'), content: message });
-        } else if (options.errorMessageMode === 'message') {
-          createMessage.error(message);
-        }
-      }
-      throw new Error(message);
-      //return errorResult;
-    }
-
-    // 接口请求成功，直接返回结果
-    if (code === ResultEnum.SUCCESS) {
+    if (hasSuccess) {
       return result;
     }
-    // 接口请求错误，统一提示错误信息
-    if (code === ResultEnum.ERROR) {
-      if (message) {
-        createMessage.error(data.message);
-        throw new Error(message);
-      } else {
-        const msg = t('sys.api.errorMessage');
-        createMessage.error(msg);
-        throw new Error(msg);
-      }
-      //return errorResult;
+
+    // 在此处根据自己项目的实际情况对不同的code执行不同的操作
+    // 如果不希望中断当前请求，请return数据，否则直接抛出异常即可
+    switch (code) {
+      case ResultEnum.TIMEOUT:
+        const timeoutMsg = t('sys.api.timeoutMessage');
+        createErrorModal({
+          title: t('sys.api.operationFailed'),
+          content: timeoutMsg,
+        });
+        throw new Error(timeoutMsg);
+      default:
+        if (message) {
+          // errorMessageMode=‘modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
+          // errorMessageMode='none' 一般是调用时明确表示不希望自动弹出错误提示
+          if (options.errorMessageMode === 'modal') {
+            createErrorModal({ title: t('sys.api.errorTip'), content: message });
+          } else if (options.errorMessageMode === 'message') {
+            createMessage.error(message);
+          }
+        }
     }
-    // 登录超时
-    if (code === ResultEnum.TIMEOUT) {
-      const timeoutMsg = t('sys.api.timeoutMessage');
-      createErrorModal({
-        title: t('sys.api.operationFailed'),
-        content: timeoutMsg,
-      });
-      throw new Error(timeoutMsg);
-      //return errorResult;
-    }
-    throw new Error(t('sys.api.apiRequestFailed'));
-    //return errorResult;
+    throw new Error(message || t('sys.api.apiRequestFailed'));
   },
 
   // 请求之前处理config
