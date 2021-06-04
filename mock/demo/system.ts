@@ -153,6 +153,15 @@ export default [
     },
   },
   {
+    url: '/basic-api/system/setRoleStatus',
+    timeout: 500,
+    method: 'post',
+    response: ({ query }) => {
+      const { id, status } = query;
+      return resultSuccess({ id, status });
+    },
+  },
+  {
     url: '/basic-api/system/getAllRoleList',
     timeout: 100,
     method: 'get',
