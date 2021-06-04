@@ -53,6 +53,13 @@ export function createPermissionGuard(router: Router) {
       next(redirectData);
       return;
     }
+    // 无论是哪种权限，刷新页面时都重新获取用户信息
+    if (userStore.getLastUpdateTime === 0) {
+      console.log('LoadUserInfo');
+      await userStore.getUserInfoAction();
+    } else {
+      console.log(userStore.getLastUpdateTime);
+    }
     if (permissionStore.getIsDynamicAddedRoute) {
       next();
       return;
@@ -60,7 +67,7 @@ export function createPermissionGuard(router: Router) {
     const routes = await permissionStore.buildRoutesAction();
 
     routes.forEach((route) => {
-      router.addRoute((route as unknown) as RouteRecordRaw);
+      router.addRoute(route as unknown as RouteRecordRaw);
     });
 
     const redirectPath = (from.query.redirect || to.path) as string;
