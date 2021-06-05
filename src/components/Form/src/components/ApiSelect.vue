@@ -20,7 +20,7 @@
   </Select>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, ref, watchEffect, computed, unref } from 'vue';
+  import { defineComponent, PropType, ref, watchEffect, computed, unref, watch } from 'vue';
   import { Select } from 'ant-design-vue';
   import { isFunction } from '/@/utils/is';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
@@ -92,6 +92,14 @@
       watchEffect(() => {
         props.immediate && fetch();
       });
+
+      watch(
+        () => props.params,
+        () => {
+          !unref(isFirstLoad) && fetch();
+        },
+        { deep: true }
+      );
 
       async function fetch() {
         const api = props.api;
