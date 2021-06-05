@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <BasicTable @register="registerTable">
+    <BasicTable @register="registerTable" @edit-change="onEditChange">
       <template #action="{ record, column }">
         <TableAction :actions="createActions(record, column)" />
       </template>
@@ -145,6 +145,9 @@
 
       const [registerTable] = useTable({
         title: '可编辑行示例',
+        titleHelpMessage: [
+          '本例中修改[数字输入框]这一列时，同一行的[远程下拉]列的当前编辑数据也会同步发生改变',
+        ],
         api: demoListApi,
         columns: columns,
         showIndexColumn: false,
@@ -198,10 +201,19 @@
         ];
       }
 
+      function onEditChange({ column, value, record }) {
+        // 本例
+        if (column.dataIndex === 'id') {
+          record.editValueRefs.name4.value = `${value}`;
+        }
+        console.log(column, value, record);
+      }
+
       return {
         registerTable,
         handleEdit,
         createActions,
+        onEditChange,
       };
     },
   });
