@@ -282,6 +282,10 @@
         initCbs('validCbs', handleSubmiRule);
         initCbs('cancelCbs', handleCancel);
 
+        if (props.column.dataIndex) {
+          if (!props.record.editValueRefs) props.record.editValueRefs = {};
+          props.record.editValueRefs[props.column.dataIndex] = currentValueRef;
+        }
         /* eslint-disable  */
         props.record.onCancelEdit = () => {
           isArray(props.record?.cancelCbs) && props.record?.cancelCbs.forEach((fn) => fn());
