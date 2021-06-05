@@ -1,5 +1,5 @@
 <template>
-  <div :class="[prefixCls, getAlign]">
+  <div :class="[prefixCls, getAlign]" @click="onCellClick">
     <template v-for="(action, index) in getActions" :key="`${index}-${action.label}`">
       <PopConfirmButton v-bind="action">
         <Icon :icon="action.icon" class="mr-1" v-if="action.icon" />
@@ -56,6 +56,7 @@
       },
       divider: propTypes.bool.def(true),
       outside: propTypes.bool,
+      stopButtonPropagation: propTypes.bool.def(false),
     },
     setup(props) {
       const { prefixCls } = useDesign('basic-table-action');
@@ -122,7 +123,15 @@
         return actionColumn?.align ?? 'left';
       });
 
-      return { prefixCls, getActions, getDropdownList, getAlign };
+      function onCellClick(e: MouseEvent) {
+        if (!props.stopButtonPropagation) return;
+        const target = e.target as HTMLElement;
+        if (target.tagName === 'BUTTON') {
+          e.stopPropagation();
+        }
+      }
+
+      return { prefixCls, getActions, getDropdownList, getAlign, onCellClick };
     },
   });
 </script>
