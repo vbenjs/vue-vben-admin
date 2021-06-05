@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper title="表单基础示例">
+  <PageWrapper title="表单基础示例" contentFullHeight>
     <CollapseContainer title="基础示例">
       <BasicForm
         autoFocusFirstItem
