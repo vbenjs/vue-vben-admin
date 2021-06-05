@@ -1,4 +1,5 @@
 {
+  "cSpell.words": ["vben", "windi"],
   "typescript.tsdk": "./node_modules/typescript/lib",
   "volar.tsPlugin": true,
   "volar.tsPluginStatus": false,
@@ -26,6 +27,7 @@
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
+  "files.eol": "\n",
   "search.exclude": {
     "**/node_modules": true,
     "**/*.log": true,

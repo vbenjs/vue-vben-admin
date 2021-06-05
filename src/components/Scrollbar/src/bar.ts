@@ -35,6 +35,7 @@ export default defineComponent({
       if (e.ctrlKey || e.button === 2) {
         return;
       }
+      window.getSelection()?.removeAllRanges();
       startDrag(e);
       barStore.value[bar.value.axis] =
         e.currentTarget[bar.value.offset] -
