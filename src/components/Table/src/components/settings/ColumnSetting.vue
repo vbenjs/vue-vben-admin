@@ -117,7 +117,6 @@
   import type { BasicColumn } from '../../types/table';
 
   interface State {
-    indeterminate: boolean;
     checkAll: boolean;
     checkedList: string[];
     defaultCheckList: string[];
@@ -158,7 +157,6 @@
       const columnListRef = ref<ComponentRef>(null);
 
       const state = reactive<State>({
-        indeterminate: false,
         checkAll: true,
         checkedList: [],
         defaultCheckList: [],
@@ -233,7 +231,6 @@
 
       // checkAll change
       function onCheckAllChange(e: ChangeEvent) {
-        state.indeterminate = false;
         const checkList = plainOptions.value.map((item) => item.value);
         if (e.target.checked) {
           state.checkedList = checkList;
@@ -244,10 +241,18 @@
         }
       }
 
+      const indeterminate = computed(() => {
+        const len = plainOptions.value.length;
+        let checkdedLen = state.checkedList.length;
+        if (unref(checkIndex)) {
+          checkdedLen--;
+        }
+        return checkdedLen > 0 && checkdedLen < len;
+      });
+
       // Trigger when check/uncheck a column
       function onChange(checkedList: string[]) {
         const len = plainOptions.value.length;
-        state.indeterminate = !!checkedList.length && checkedList.length < len;
         state.checkAll = checkedList.length === len;
 
         const sortList = unref(plainSortOptions).map((item) => item.value);
@@ -261,7 +266,6 @@
       function reset() {
         state.checkedList = [...state.defaultCheckList];
         state.checkAll = true;
-        state.indeterminate = false;
         plainOptions.value = unref(cachePlainOptions);
         plainSortOptions.value = unref(cachePlainOptions);
         table.setColumns(table.getCacheColumns());
@@ -339,6 +343,7 @@
       return {
         t,
         ...toRefs(state),
+        indeterminate,
         onCheckAllChange,
         onChange,
         plainOptions,
