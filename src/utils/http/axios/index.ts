@@ -18,12 +18,11 @@ import { getToken } from '/@/utils/auth';
 import { setObjToUrlParams, deepMerge } from '/@/utils';
 import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog';
 
-//import { errorResult } from './const';
 import { useI18n } from '/@/hooks/web/useI18n';
-import { createNow, formatRequestDate } from './helper';
+import { joinTimestamp, formatRequestDate } from './helper';
 
 const globSetting = useGlobSetting();
-const prefix = globSetting.urlPrefix;
+const urlPrefix = globSetting.urlPrefix;
 const { createMessage, createErrorModal } = useMessage();
 
 /**
@@ -51,7 +50,6 @@ const transform: AxiosTransform = {
     if (!data) {
       // return '[HTTP] Request has no return value';
       throw new Error(t('sys.api.apiRequestFailed'));
-      //return errorResult;
     }
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
     const { code, result, message } = data;
@@ -91,7 +89,7 @@ const transform: AxiosTransform = {
     const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true } = options;
 
     if (joinPrefix) {
-      config.url = `${prefix}${config.url}`;
+      config.url = `${urlPrefix}${config.url}`;
     }
 
     if (apiUrl && isString(apiUrl)) {
@@ -101,10 +99,10 @@ const transform: AxiosTransform = {
     if (config.method?.toUpperCase() === RequestEnum.GET) {
       if (!isString(params)) {
         // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
-        config.params = Object.assign(params || {}, createNow(joinTime, false));
+        config.params = Object.assign(params || {}, joinTimestamp(joinTime, false));
       } else {
         // 兼容restful风格
-        config.url = config.url + params + `${createNow(joinTime, true)}`;
+        config.url = config.url + params + `${joinTimestamp(joinTime, true)}`;
         config.params = undefined;
       }
     } else {
@@ -173,7 +171,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
         // 基础接口地址
         // baseURL: globSetting.apiUrl,
         // 接口可能会有通用的地址部分，可以统一抽取出来
-        prefixUrl: prefix,
+        urlPrefix: urlPrefix,
         headers: { 'Content-Type': ContentTypeEnum.JSON },
         // 如果是form-data格式
         // headers: { 'Content-Type': ContentTypeEnum.FORM_URLENCODED },
