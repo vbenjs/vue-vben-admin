@@ -1,6 +1,6 @@
 import type { BasicColumn } from '/@/components/Table/src/types/table';
 
-import { h } from 'vue';
+import { h, Ref } from 'vue';
 
 import EditableCell from './EditableCell.vue';
 
@@ -50,5 +50,6 @@ export type EditRecordRow<T = Recordable> = Partial<
     submitCbs: Fn[];
     cancelCbs: Fn[];
     validCbs: Fn[];
+    editValueRefs: Recordable<Ref>;
   } & T
 >;

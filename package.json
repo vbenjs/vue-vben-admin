@@ -121,7 +121,7 @@
     "vite-plugin-style-import": "^0.10.1",
     "vite-plugin-svg-icons": "^0.7.0",
     "vite-plugin-theme": "^0.8.1",
-    "vite-plugin-windicss": "^0.17.0",
+    "vite-plugin-windicss": "^1.0.1",
     "vue-eslint-parser": "^7.6.0",
     "vue-tsc": "^0.1.7"
   },

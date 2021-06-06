@@ -11,7 +11,7 @@
   </BasicModal>
 </template>
 <script lang="ts">
-  import { defineComponent, watch, ref, unref } from 'vue';
+  import { defineComponent, watch, ref } from 'vue';
 
   //   import { BasicTable, useTable } from '/@/components/Table';
   import FileList from './FileList';
@@ -36,17 +36,15 @@
       watch(
         () => props.value,
         (value) => {
-          fileListRef.value = [];
-          value.forEach((item) => {
-            fileListRef.value = [
-              ...unref(fileListRef),
-              {
+          fileListRef.value = value
+            .filter((item) => !!item)
+            .map((item) => {
+              return {
                 url: item,
                 type: item.split('.').pop() || '',
                 name: item.split('/').pop() || '',
-              },
-            ];
-          });
+              };
+            });
         },
         { immediate: true }
       );
