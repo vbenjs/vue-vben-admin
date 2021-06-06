@@ -8,32 +8,12 @@
         </Tag>
       </template>
       <template #avatar="{ record }">
-        <Avatar
-          :size="60"
-          :src="'http://api.btstu.cn/sjtx/api.php?lx=c1&format=images&id=' + record.id"
-        />
+        <Avatar :size="60" :src="record.avatar" />
       </template>
-      <template #img>
-        <TableImg
-          :size="60"
-          :simpleShow="true"
-          :imgList="[
-            'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?1622962250222',
-            'https://picsum.photos/id/66/346/216',
-            'https://picsum.photos/id/67/346/216',
-          ]"
-        />
+      <template #img="{ text }">
+        <TableImg :size="60" :simpleShow="true" :imgList="text" />
       </template>
-      <template #imgs>
-        <TableImg
-          :size="60"
-          :imgList="[
-            'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?1622962250222',
-            'https://picsum.photos/id/66/346/216',
-            'https://picsum.photos/id/67/346/216',
-          ]"
-        />
-      </template>
+      <template #imgs="{ text }"> <TableImg :size="60" :imgList="text" /> </template>
 
       <template #category="{ record }">
         <Tag color="green">
@@ -75,7 +55,7 @@
     },
     {
       title: '图片列表1',
-      dataIndex: 'img',
+      dataIndex: 'imgArr',
       helpMessage: ['这是简单模式的图片列表', '只会显示一张在表格中', '但点击可预览多张图片'],
       width: 140,
       slots: { customRender: 'img' },
@@ -109,6 +89,7 @@
     setup() {
       const [registerTable] = useTable({
         title: '自定义列内容',
+        titleHelpMessage: '表格中所有头像、图片均为mock生成，仅用于演示图片占位',
         api: demoListApi,
         columns: columns,
         bordered: true,
