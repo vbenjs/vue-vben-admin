@@ -2,21 +2,17 @@
   <div :class="`${prefixCls}`">
     <AppSearchKeyItem :class="`${prefixCls}__item`" icon="ant-design:enter-outlined" />
     <span>{{ t('component.app.toSearch') }}</span>
-
     <AppSearchKeyItem :class="`${prefixCls}__item`" icon="ion:arrow-up-outline" />
     <AppSearchKeyItem :class="`${prefixCls}__item`" icon="ion:arrow-down-outline" />
     <span>{{ t('component.app.toNavigate') }}</span>
     <AppSearchKeyItem :class="`${prefixCls}__item`" icon="mdi:keyboard-esc" />
-
     <span>{{ t('common.closeText') }}</span>
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-
   import AppSearchKeyItem from './AppSearchKeyItem.vue';
-
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useI18n } from '/@/hooks/web/useI18n';
   export default defineComponent({

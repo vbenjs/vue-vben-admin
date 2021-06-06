@@ -85,7 +85,7 @@
       visible: propTypes.bool,
     },
     emits: ['close'],
-    setup(_, { emit }) {
+    setup(props, { emit }) {
       const scrollWrap = ref<ElRef>(null);
       const { prefixCls } = useDesign('app-search-modal');
       const { t } = useI18n();
@@ -96,9 +96,7 @@
       const { handleSearch, searchResult, keyword, activeIndex, handleEnter, handleMouseenter } =
         useMenuSearch(refs, scrollWrap, emit);
 
-      const getIsNotData = computed(() => {
-        return !keyword || unref(searchResult).length === 0;
-      });
+      const getIsNotData = computed(() => !keyword || unref(searchResult).length === 0);
 
       const getClass = computed(() => {
         return [
@@ -109,13 +107,8 @@
         ];
       });
 
-      function handleClose() {
-        searchResult.value = [];
-        emit('close');
-      }
-
       watch(
-        () => _.visible,
+        () => props.visible,
         (v: boolean) => {
           v &&
             nextTick(() => {
@@ -123,6 +116,11 @@
             });
         }
       );
+
+      function handleClose() {
+        searchResult.value = [];
+        emit('close');
+      }
 
       return {
         t,

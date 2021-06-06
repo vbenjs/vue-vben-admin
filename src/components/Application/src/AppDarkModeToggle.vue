@@ -29,17 +29,12 @@
   export default defineComponent({
     name: 'DarkModeToggle',
     components: { SvgIcon },
-    // props: {
-    //   size: {
-    //     type: String,
-    //     default: 'default',
-    //     validate: (val) => ['default', 'large'].includes(val),
-    //   },
-    // },
     setup() {
       const { prefixCls } = useDesign('dark-mode-toggle');
       const { getDarkMode, setDarkMode, getShowDarkModeToggle } = useRootSetting();
+
       const isDark = computed(() => getDarkMode.value === ThemeEnum.DARK);
+
       function toggleDarkMode() {
         const darkMode = getDarkMode.value === ThemeEnum.DARK ? ThemeEnum.LIGHT : ThemeEnum.DARK;
         setDarkMode(darkMode);
@@ -95,16 +90,5 @@
         transform: translateX(calc(100% + 2px));
       }
     }
-
-    // &--large {
-    //   width: 70px;
-    //   height: 34px;
-    //   padding: 0 10px;
-
-    //   .@{prefix-cls}-inner {
-    //     width: 26px;
-    //     height: 26px;
-    //   }
-    // }
   }
 </style>

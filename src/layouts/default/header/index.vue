@@ -33,7 +33,7 @@
 
     <!-- action  -->
     <div :class="`${prefixCls}-action`">
-      <AppSearch :class="`${prefixCls}-action__item `" />
+      <AppSearch :class="`${prefixCls}-action__item `" v-if="getShowSearch" />
 
       <ErrorAction v-if="getUseErrorHandle" :class="`${prefixCls}-action__item error-action`" />
 
@@ -123,6 +123,7 @@
         getShowBread,
         getShowHeaderLogo,
         getShowHeader,
+        getShowSearch,
       } = useHeaderSetting();
 
       const { getShowLocalePicker } = useLocale();
@@ -190,6 +191,7 @@
         getIsMixSidebar,
         getShowSettingButton,
         getShowSetting,
+        getShowSearch,
       };
     },
   });
