@@ -8,7 +8,6 @@ import { AxiosCanceler } from './axiosCancel';
 import { isFunction } from '/@/utils/is';
 import { cloneDeep } from 'lodash-es';
 
-//import { errorResult } from './const';
 import { ContentTypeEnum } from '/@/enums/httpEnum';
 import { RequestEnum } from '../../../enums/httpEnum';
 
