@@ -200,7 +200,7 @@
         const columns = getColumns();
 
         const checkList = table
-          .getColumns()
+          .getColumns({ ignoreAction: true })
           .map((item) => {
             if (item.defaultHidden) {
               return '';
@@ -244,9 +244,7 @@
       const indeterminate = computed(() => {
         const len = plainOptions.value.length;
         let checkdedLen = state.checkedList.length;
-        if (unref(checkIndex)) {
-          checkdedLen--;
-        }
+        unref(checkIndex) && checkdedLen--;
         return checkdedLen > 0 && checkdedLen < len;
       });
 
