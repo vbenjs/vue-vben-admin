@@ -2,10 +2,16 @@ import type { BasicTableProps, TableActionType, FetchParams, BasicColumn } from 
 import type { PaginationProps } from '../types/pagination';
 import type { DynamicProps } from '/#/utils';
 import type { FormActionType } from '/@/components/Form';
-import type { WatchStopHandle } from 'vue';
+// import type { WatchStopHandle } from 'vue';
 
 import { getDynamicProps } from '/@/utils';
-import { ref, onUnmounted, unref, watch, toRaw } from 'vue';
+import {
+  ref,
+  onUnmounted,
+  unref,
+  // watch,
+  toRaw,
+} from 'vue';
 import { isProdMode } from '/@/utils/env';
 import { error } from '/@/utils/log';
 
@@ -25,7 +31,7 @@ export function useTable(tableProps?: Props): [
   const loadedRef = ref<Nullable<boolean>>(false);
   const formRef = ref<Nullable<UseTableMethod>>(null);
 
-  let stopWatch: WatchStopHandle;
+  // let stopWatch: WatchStopHandle;
 
   function register(instance: TableActionType, formInstance: UseTableMethod) {
     isProdMode() &&
@@ -41,18 +47,18 @@ export function useTable(tableProps?: Props): [
     tableProps && instance.setProps(getDynamicProps(tableProps));
     loadedRef.value = true;
 
-    stopWatch?.();
+    // stopWatch?.();
 
-    stopWatch = watch(
-      () => tableProps,
-      () => {
-        tableProps && instance.setProps(getDynamicProps(tableProps));
-      },
-      {
-        immediate: true,
-        deep: true,
-      }
-    );
+    // stopWatch = watch(
+    //   () => tableProps,
+    //   () => {
+    //     tableProps && instance.setProps(getDynamicProps(tableProps));
+    //   },
+    //   {
+    //     immediate: true,
+    //     deep: true,
+    //   }
+    // );
   }
 
   function getTableInstance(): TableActionType {
