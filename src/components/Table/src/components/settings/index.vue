@@ -2,13 +2,13 @@
   <div class="table-settings">
     <RedoSetting v-if="getSetting.redo" />
     <SizeSetting v-if="getSetting.size" />
-    <ColumnSetting v-if="getSetting.setting" />
+    <ColumnSetting v-if="getSetting.setting" @columns-change="handleColumnChange" />
     <FullScreenSetting v-if="getSetting.fullScreen" />
   </div>
 </template>
 <script lang="ts">
   import type { PropType } from 'vue';
-  import type { TableSetting } from '../../types/table';
+  import type { TableSetting, ColumnChangeParam } from '../../types/table';
 
   import { defineComponent, computed } from 'vue';
 
@@ -33,7 +33,8 @@
         default: () => ({}),
       },
     },
-    setup(props) {
+    emits: ['columns-change'],
+    setup(props, { emit }) {
       const { t } = useI18n();
 
       const getSetting = computed((): TableSetting => {
@@ -46,7 +47,11 @@
         };
       });
 
-      return { getSetting, t };
+      function handleColumnChange(data: ColumnChangeParam[]) {
+        emit('columns-change', data);
+      }
+
+      return { getSetting, t, handleColumnChange };
     },
   });
 </script>

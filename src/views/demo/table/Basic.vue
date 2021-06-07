@@ -11,6 +11,7 @@
       :bordered="border"
       showTableSetting
       :pagination="pagination"
+      @columns-change="handleColumnChange"
     >
       <template #toolbar>
         <a-button type="primary" @click="toggleCanResize">
@@ -29,7 +30,7 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
-  import { BasicTable } from '/@/components/Table';
+  import { BasicTable, ColumnChangeParam } from '/@/components/Table';
   import { getBasicColumns, getBasicData } from './tableData';
 
   export default defineComponent({
@@ -56,6 +57,11 @@
       function toggleBorder() {
         border.value = !border.value;
       }
+
+      function handleColumnChange(data: ColumnChangeParam[]) {
+        console.log('ColumnChanged', data);
+      }
+
       return {
         columns: getBasicColumns(),
         data: getBasicData(),
@@ -68,6 +74,7 @@
         toggleLoading,
         toggleBorder,
         pagination,
+        handleColumnChange,
       };
     },
   });
