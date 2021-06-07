@@ -32,13 +32,19 @@
   </div>
 </template>
 <script lang="ts">
-  import type { BasicTableProps, TableActionType, SizeType } from './types/table';
+  import type {
+    BasicTableProps,
+    TableActionType,
+    SizeType,
+    ColumnChangeParam,
+  } from './types/table';
 
   import { defineComponent, ref, computed, unref, toRaw } from 'vue';
   import { Table } from 'ant-design-vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import expandIcon from './components/ExpandIcon';
   import HeaderCell from './components/HeaderCell.vue';
+  import { InnerHandlers } from './types/table';
 
   import { usePagination } from './hooks/usePagination';
   import { useColumns } from './hooks/useColumns';
@@ -83,6 +89,7 @@
       'edit-change',
       'expanded-rows-change',
       'change',
+      'columns-change',
     ],
     setup(props, { attrs, emit, slots }) {
       const tableElRef = ref<ComponentRef>(null);
@@ -177,7 +184,15 @@
 
       const { getExpandOption, expandAll, collapseAll } = useTableExpand(getProps, tableData, emit);
 
-      const { getHeaderProps } = useTableHeader(getProps, slots);
+      const handlers: InnerHandlers = {
+        onColumnsChange: (data: ColumnChangeParam[]) => {
+          emit('columns-change', data);
+          // support useTable
+          unref(getProps).onColumnsChange?.(data);
+        },
+      };
+
+      const { getHeaderProps } = useTableHeader(getProps, slots, handlers);
 
       const { getFooterProps } = useTableFooter(
         getProps,

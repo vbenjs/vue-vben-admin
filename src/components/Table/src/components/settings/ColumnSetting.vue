@@ -114,7 +114,7 @@
   import { getPopupContainer } from '/@/utils';
   import { omit } from 'lodash-es';
 
-  import type { BasicColumn } from '../../types/table';
+  import type { BasicColumn, ColumnChangeParam } from '../../types/table';
 
   interface State {
     checkAll: boolean;
@@ -141,8 +141,9 @@
       Divider,
       Icon,
     },
+    emits: ['columns-change'],
 
-    setup() {
+    setup(_, { emit }) {
       const { t } = useI18n();
       const table = useTableContext();
 
@@ -234,10 +235,10 @@
         const checkList = plainOptions.value.map((item) => item.value);
         if (e.target.checked) {
           state.checkedList = checkList;
-          table.setColumns(checkList);
+          setColumns(checkList);
         } else {
           state.checkedList = [];
-          table.setColumns([]);
+          setColumns([]);
         }
       }
 
@@ -257,7 +258,7 @@
         checkedList.sort((prev, next) => {
           return sortList.indexOf(prev) - sortList.indexOf(next);
         });
-        table.setColumns(checkedList);
+        setColumns(checkedList);
       }
 
       // reset columns
@@ -266,7 +267,7 @@
         state.checkAll = true;
         plainOptions.value = unref(cachePlainOptions);
         plainSortOptions.value = unref(cachePlainOptions);
-        table.setColumns(table.getCacheColumns());
+        setColumns(table.getCacheColumns());
       }
 
       // Open the pop-up window for drag and drop initialization
@@ -298,7 +299,7 @@
 
               plainSortOptions.value = columns;
               plainOptions.value = columns;
-              table.setColumns(columns);
+              setColumns(columns);
             },
           });
           initSortable();
@@ -335,7 +336,21 @@
           item.width = 100;
         }
         table.setCacheColumnsByField?.(item.dataIndex, { fixed: isFixed });
+        setColumns(columns);
+      }
+
+      function setColumns(columns: BasicColumn[] | string[]) {
         table.setColumns(columns);
+        const data: ColumnChangeParam[] = unref(plainOptions).map((col) => {
+          const visible =
+            columns.findIndex(
+              (c: BasicColumn | string) =>
+                c === col.value || (typeof c !== 'string' && c.dataIndex === col.value)
+            ) !== -1;
+          return { dataIndex: col.value, fixed: col.fixed, visible };
+        });
+
+        emit('columns-change', data);
       }
 
       return {
