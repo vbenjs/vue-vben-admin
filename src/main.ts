@@ -5,11 +5,11 @@ import 'virtual:windi.css';
 // Register icon sprite
 import 'virtual:svg-icons-register';
 
-import { createApp } from 'vue';
 import App from './App.vue';
+import { createApp } from 'vue';
 import { initAppConfigStore } from '/@/logics/initAppConfig';
 import { setupErrorHandle } from '/@/logics/error-handle';
-import router, { setupRouter } from '/@/router';
+import { router, setupRouter } from '/@/router';
 import { setupRouterGuard } from '/@/router/guard';
 import { setupStore } from '/@/store';
 import { setupGlobDirectives } from '/@/directives';

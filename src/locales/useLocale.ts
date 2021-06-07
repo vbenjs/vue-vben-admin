@@ -3,7 +3,7 @@
  */
 import type { LocaleType } from '/#/config';
 
-import moment from 'moment';
+import { updateLocale } from 'moment';
 
 import { i18n } from './setupI18n';
 import { useLocaleStoreWithOut } from '/@/store/modules/locale';
@@ -56,7 +56,7 @@ export function useLocale() {
     const { message, momentLocale, momentLocaleName } = langModule;
 
     globalI18n.setLocaleMessage(locale, message);
-    moment.updateLocale(momentLocaleName, momentLocale);
+    updateLocale(momentLocaleName, momentLocale);
     loadLocalePool.push(locale);
 
     setI18nLanguage(locale);
