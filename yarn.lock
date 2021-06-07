@@ -10662,12 +10662,12 @@ vite-plugin-windicss@^1.0.1:
     debug "^4.3.2"
     windicss "^3.1.0"
 
-vite@2.3.6:
-  version "2.3.6"
-  resolved "https://registry.npmjs.org/vite/-/vite-2.3.6.tgz#1f7cfde88a51a802d69000c7bac85d481c2e871c"
-  integrity sha512-fsEpNKDHgh3Sn66JH06ZnUBnIgUVUtw6ucDhlOj1CEqxIkymU25yv1/kWDPlIjyYHnalr0cN6V+zzUJ+fmWHYw==
+vite@2.3.3:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-2.3.3.tgz#7e88a71abd03985c647789938d784cce0ee3b0fd"
+  integrity sha512-eO1iwRbn3/BfkNVMNJDeANAFCZ5NobYOFPu7IqfY7DcI7I9nFGjJIZid0EViTmLDGwwSUPmRAq3cRBbO3+DsMA==
   dependencies:
-    esbuild "^0.12.5"
+    esbuild "^0.11.23"
     postcss "^8.2.10"
     resolve "^1.19.0"
     rollup "^2.38.5"
