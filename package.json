@@ -6,6 +6,7 @@
     "email": "anncwb@126.com",
     "url": "https://github.com/anncwb"
   },
+  "main": "dist/main/build.js",
   "build": {
     "appId": "xxx@gmail.com",
     "electronDownload": {
@@ -46,17 +47,14 @@
       "deleteAppDataOnUninstall": false
     }
   },
-  "main": "dist/main/build.js",
   "scripts": {
-    "dev": "vite",
-    "app": "esno ./build/script/runApp.ts",
-    "app:build": "npm run build && node script/build && electron-builder ",
-    "app:vue": "vite --force",
-    "app:ele": "node script/build --env=development --watch",
     "bootstrap": "yarn install",
+    "dev": "vite",
     "serve": "npm run dev",
     "build": "vite build && esno ./build/script/postBuild.ts",
     "build:no-cache": "yarn clean:cache && npm run build",
+    "dev:app": "esno ./build/script/startElectron.ts --env=development --watch",
+    "build:app": "npm run build && esno ./build/script/startElectron.ts && electron-builder ",
     "report": "cross-env REPORT=true npm run build",
     "type:check": "vue-tsc --noEmit --skipLibCheck",
     "preview": "npm run build && vite preview",
@@ -77,8 +75,6 @@
     "postinstall": "npm run install:husky"
   },
   "dependencies": {
-    "electron-is-dev": "^1.2.0",
-    "electron-store": "^6.0.0",
     "@iconify/iconify": "^2.0.1",
     "@logicflow/core": "^0.4.11",
     "@logicflow/extension": "^0.4.12",
@@ -90,6 +86,7 @@
     "cropperjs": "^1.5.11",
     "crypto-js": "^4.0.0",
     "echarts": "^5.1.1",
+    "electron-is-dev": "^1.2.0",
     "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
@@ -108,22 +105,14 @@
     "xlsx": "^0.17.0"
   },
   "devDependencies": {
-    "rollup-plugin-esbuild": "^3.0.2",
-    "@rollup/plugin-alias": "^3.1.1",
-    "@rollup/plugin-commonjs": "^15.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^9.0.0",
-    "wait-on": "^5.2.1",
-    "electron-contextmenu-middleware": "^1.0.3",
-    "electron-input-menu": "^2.1.0",
-    "electron": "^11.0.0",
-    "electron-builder": "^22.8.0",
-    "electron-connect": "^0.6.3",
-    "concurrently": "^5.3.0",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "@iconify/json": "^1.1.353",
     "@purge-icons/generated": "^0.7.0",
+    "@rollup/plugin-alias": "^3.1.1",
+    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
     "@types/codemirror": "^5.60.0",
     "@types/crypto-js": "^4.0.1",
     "@types/fs-extra": "^9.0.11",
@@ -146,6 +135,11 @@
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
+    "electron": "^11.0.0",
+    "electron-builder": "^22.8.0",
+    "electron-connect": "^0.6.3",
+    "electron-contextmenu-middleware": "^1.0.3",
+    "electron-input-menu": "^2.1.0",
     "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-define-config": "^1.0.8",
@@ -163,6 +157,7 @@
     "prettier": "^2.3.1",
     "pretty-quick": "^3.1.0",
     "rimraf": "^3.0.2",
+    "rollup-plugin-esbuild": "^3.0.2",
     "rollup-plugin-visualizer": "5.5.0",
     "stylelint": "^13.13.1",
     "stylelint-config-prettier": "^8.0.2",
@@ -182,7 +177,8 @@
     "vite-plugin-theme": "^0.8.1",
     "vite-plugin-windicss": "^1.0.1",
     "vue-eslint-parser": "^7.6.0",
-    "vue-tsc": "^0.1.7"
+    "vue-tsc": "^0.1.7",
+    "wait-on": "^5.2.1"
   },
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China. If it is abroad, you can delete it",

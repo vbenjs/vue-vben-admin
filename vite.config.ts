@@ -64,6 +64,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       proxy: createProxy(VITE_PROXY),
     },
     build: {
+      minify: 'esbuild',
       target: 'es2015',
       outDir: OUTPUT_DIR,
       terserOptions: {
