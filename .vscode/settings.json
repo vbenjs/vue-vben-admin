@@ -25,8 +25,8 @@
   //============= files =======================
   //===========================================
   "files.trimTrailingWhitespace": true,
-  "files.insertFinalNewline": true,
-  "files.trimFinalNewlines": true,
+  // "files.insertFinalNewline": true,
+  // "files.trimFinalNewlines": true,
   "files.eol": "\n",
   "search.exclude": {
     "**/node_modules": true,
@@ -76,14 +76,14 @@
   // ===========================================
   // ================ Vetur ====================
   // ===========================================
-  "vetur.experimental.templateInterpolationService": true,
-  "vetur.format.options.tabSize": 2,
-  "vetur.languageFeatures.codeActions": false,
-  "vetur.format.defaultFormatterOptions": {
-    "js-beautify-html": {
-      "wrap_attributes": "force-expand-multiline"
-    }
-  },
+  // "vetur.experimental.templateInterpolationService": true,
+  // "vetur.format.options.tabSize": 2,
+  // "vetur.languageFeatures.codeActions": false,
+  // "vetur.format.defaultFormatterOptions": {
+  //   "js-beautify-html": {
+  //     "wrap_attributes": "force-expand-multiline"
+  //   }
+  // },
   "liveServer.settings.donotShowInfoMsg": true,
   "telemetry.enableCrashReporter": false,
   "workbench.settings.enableNaturalLanguageSearch": false,
