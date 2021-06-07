@@ -174,6 +174,10 @@
       const disabled = computed(() => {
         const { options } = props;
         const getdDisabled = options && Reflect.get(options, 'readonly');
+        const editor = unref(editorRef);
+        if (editor) {
+          editor.setMode(getdDisabled ? 'readonly' : 'design');
+        }
         return getdDisabled ?? false;
       });
 
