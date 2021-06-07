@@ -381,6 +381,8 @@ export interface BasicTableProps<T = any> {
    * @param expandedRows
    */
   onExpandedRowsChange?: (expandedRows: string[] | number[]) => void;
+
+  onColumnsChange?: (data: ColumnChangeParam[]) => void;
 }
 
 export type CellFormat =
@@ -426,4 +428,14 @@ export interface BasicColumn extends ColumnProps {
   auth?: RoleEnum | RoleEnum[] | string | string[];
   // 业务控制是否显示
   ifShow?: boolean | ((column: BasicColumn) => boolean);
+}
+
+export type ColumnChangeParam = {
+  dataIndex: string;
+  fixed: boolean | 'left' | 'right' | undefined;
+  visible: boolean;
+};
+
+export interface InnerHandlers {
+  onColumnsChange: (data: ColumnChangeParam[]) => void;
 }

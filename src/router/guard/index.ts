@@ -1,4 +1,4 @@
-import router from '/@/router';
+import { router } from '/@/router';
 
 import { createProgressGuard } from './progressGuard';
 import { createPermissionGuard } from './permissionGuard';

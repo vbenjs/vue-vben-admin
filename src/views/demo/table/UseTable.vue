@@ -20,7 +20,7 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { BasicTable, useTable } from '/@/components/Table';
+  import { BasicTable, ColumnChangeParam, useTable } from '/@/components/Table';
   import { getBasicColumns, getBasicShortColumns } from './tableData';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { demoListApi } from '/@/api/demo/table';
@@ -57,6 +57,9 @@
         onChange,
         rowSelection: {
           type: 'checkbox',
+        },
+        onColumnsChange: (data: ColumnChangeParam[]) => {
+          console.log('ColumnsChanged', data);
         },
       });
 

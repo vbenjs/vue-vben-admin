@@ -30,11 +30,5 @@ propTypes.extend([
     getter: true,
     type: undefined,
   },
-  // {
-  //   name: 'trueBool',
-  //   getter: true,
-  //   type: Boolean,
-  //   default: true,
-  // },
 ]);
 export { propTypes };
