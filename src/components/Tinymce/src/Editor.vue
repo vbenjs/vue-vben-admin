@@ -6,6 +6,7 @@
       @done="handleDone"
       v-if="showImageUpload"
       v-show="editorRef"
+      :disabled="disabled"
     />
     <textarea :id="tinymceId" ref="elRef" :style="{ visibility: 'hidden' }"></textarea>
   </div>
@@ -170,6 +171,12 @@
         };
       });
 
+      const disabled = computed(() => {
+        const { options } = props;
+        const getdDisabled = options && Reflect.get(options, 'readonly');
+        return getdDisabled ?? false;
+      });
+
       watch(
         () => attrs.disabled,
         () => {
@@ -301,6 +308,7 @@
         handleDone,
         editorRef,
         fullscreen,
+        disabled,
       };
     },
   });
