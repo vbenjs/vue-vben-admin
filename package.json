@@ -13,13 +13,19 @@
     },
     "files": [
       "!node_modules",
-      "dist/main/**",
-      "dist/render/**"
+      "dist/**"
     ],
+    "asar": false,
     "mac": {
       "artifactName": "${productName}_setup_${version}.${ext}",
       "target": [
         "dmg"
+      ]
+    },
+    "linux": {
+      "icon": "build/icons/512x512.png",
+      "target": [
+        "deb"
       ]
     },
     "win": {
@@ -45,6 +51,7 @@
     "dev": "vite",
     "app": "npm run app:all",
     "app:all": "concurrently -n=vue,ele -c=green,blue \"npm run app:vue\" \"npm run app:ele\"",
+    "appdist": "npm run build && node script/build && electron-builder ",
     "app:vue": "vite",
     "app:ele": "node script/build --env=development --watch",
     "bootstrap": "yarn install",
@@ -103,6 +110,7 @@
     "xlsx": "^0.17.0"
   },
   "devDependencies": {
+    "pngquant": "^4.0.0",
     "rollup-plugin-esbuild": "^3.0.2",
     "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-commonjs": "^15.0.0",
