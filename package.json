@@ -54,7 +54,7 @@
     "build": "vite build && esno ./build/script/postBuild.ts",
     "build:no-cache": "yarn clean:cache && npm run build",
     "dev:app": "esno ./build/script/startElectron.ts --env=development --watch",
-    "build:app": "npm run build && esno ./build/script/startElectron.ts && electron-builder ",
+    "build:app": "npm run build && esno ./build/script/startElectron.ts --env=production && electron-builder ",
     "report": "cross-env REPORT=true npm run build",
     "type:check": "vue-tsc --noEmit --skipLibCheck",
     "preview": "npm run build && vite preview",
