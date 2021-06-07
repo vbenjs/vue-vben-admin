@@ -6,10 +6,49 @@
     "email": "anncwb@126.com",
     "url": "https://github.com/anncwb"
   },
+  "build": {
+    "appId": "xxx@gmail.com",
+    "electronDownload": {
+      "mirror": "https://npm.taobao.org/mirrors/electron/"
+    },
+    "files": [
+      "!node_modules",
+      "dist/main/**",
+      "dist/render/**"
+    ],
+    "mac": {
+      "artifactName": "${productName}_setup_${version}.${ext}",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}_setup_${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false
+    }
+  },
+  "main": "dist/main/build.js",
   "scripts": {
+    "dev": "vite",
+    "app": "npm run app:all",
+    "app:all": "concurrently -n=vue,ele -c=green,blue \"npm run app:vue\" \"npm run app:ele\"",
+    "app:vue": "vite",
+    "app:ele": "node script/build --env=development --watch",
     "bootstrap": "yarn install",
     "serve": "npm run dev",
-    "dev": "vite",
     "build": "vite build && esno ./build/script/postBuild.ts",
     "build:no-cache": "yarn clean:cache && npm run build",
     "report": "cross-env REPORT=true npm run build",
@@ -32,6 +71,9 @@
     "postinstall": "npm run install:husky"
   },
   "dependencies": {
+    "debug-menu": "^0.6.1",
+    "electron-is-dev": "^1.2.0",
+    "electron-store": "^6.0.0",
     "@iconify/iconify": "^2.0.1",
     "@logicflow/core": "^0.4.11",
     "@logicflow/extension": "^0.4.12",
@@ -61,6 +103,19 @@
     "xlsx": "^0.17.0"
   },
   "devDependencies": {
+    "rollup-plugin-esbuild": "^3.0.2",
+    "@rollup/plugin-alias": "^3.1.1",
+    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "wait-on": "^5.2.1",
+    "debug-menu": "^0.6.1",
+    "electron-contextmenu-middleware": "^1.0.3",
+    "electron-input-menu": "^2.1.0",
+    "electron": "^11.0.0",
+    "electron-builder": "^22.8.0",
+    "electron-connect": "^0.6.3",
+    "concurrently": "^5.3.0",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "@iconify/json": "^1.1.350",
