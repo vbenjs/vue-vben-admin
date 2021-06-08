@@ -35,8 +35,7 @@
             class="
               my-auto
               mx-auto
-              xl:ml-20
-              xl:bg-transparent
+              xl:ml-20 xl:bg-transparent
               px-5
               py-8
               sm:px-8

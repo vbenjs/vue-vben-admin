@@ -1,11 +1,11 @@
 <template>
   <div :class="`${prefixCls}`">
-    <AppSearchKeyItem :class="`${prefixCls}__item`" icon="ant-design:enter-outlined" />
+    <AppSearchKeyItem :class="`${prefixCls}-item`" icon="ant-design:enter-outlined" />
     <span>{{ t('component.app.toSearch') }}</span>
-    <AppSearchKeyItem :class="`${prefixCls}__item`" icon="ion:arrow-up-outline" />
-    <AppSearchKeyItem :class="`${prefixCls}__item`" icon="ion:arrow-down-outline" />
+    <AppSearchKeyItem :class="`${prefixCls}-item`" icon="ion:arrow-up-outline" />
+    <AppSearchKeyItem :class="`${prefixCls}-item`" icon="ion:arrow-down-outline" />
     <span>{{ t('component.app.toNavigate') }}</span>
-    <AppSearchKeyItem :class="`${prefixCls}__item`" icon="mdi:keyboard-esc" />
+    <AppSearchKeyItem :class="`${prefixCls}-item`" icon="mdi:keyboard-esc" />
     <span>{{ t('common.closeText') }}</span>
   </div>
 </template>
@@ -21,10 +21,7 @@
     setup() {
       const { prefixCls } = useDesign('app-search-footer');
       const { t } = useI18n();
-      return {
-        prefixCls,
-        t,
-      };
+      return { prefixCls, t };
     },
   });
 </script>
@@ -44,7 +41,7 @@
     align-items: center;
     flex-shrink: 0;
 
-    &__item {
+    &-item {
       display: flex;
       width: 20px;
       height: 18px;

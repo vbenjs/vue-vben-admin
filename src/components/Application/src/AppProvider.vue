@@ -1,26 +1,29 @@
 <script lang="ts">
   import { defineComponent, toRefs, ref, unref } from 'vue';
-
   import { createAppProviderContext } from './useAppContext';
-
-  import { prefixCls } from '/@/settings/designSetting';
   import { createBreakpointListen } from '/@/hooks/event/useBreakpoint';
-  import { propTypes } from '/@/utils/propTypes';
+  import { prefixCls } from '/@/settings/designSetting';
   import { useAppStore } from '/@/store/modules/app';
   import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
+
+  const props = {
+    /**
+     * class style prefix
+     */
+    prefixCls: { type: String, default: prefixCls },
+  };
 
   export default defineComponent({
     name: 'AppProvider',
     inheritAttrs: false,
-    props: {
-      prefixCls: propTypes.string.def(prefixCls),
-    },
+    props,
     setup(props, { slots }) {
       const isMobile = ref(false);
       const isSetState = ref(false);
 
       const appStore = useAppStore();
 
+      // Monitor screen breakpoint information changes
       createBreakpointListen(({ screenMap, sizeEnum, width }) => {
         const lgWidth = screenMap.get(sizeEnum.LG);
         if (lgWidth) {
@@ -30,8 +33,13 @@
       });
 
       const { prefixCls } = toRefs(props);
+
+      // Inject variables into the global
       createAppProviderContext({ prefixCls, isMobile });
 
+      /**
+       * Used to maintain the state before the window changes
+       */
       function handleRestoreState() {
         if (unref(isMobile)) {
           if (!unref(isSetState)) {

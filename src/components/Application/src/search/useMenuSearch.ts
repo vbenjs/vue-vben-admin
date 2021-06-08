@@ -1,12 +1,8 @@
 import type { Menu } from '/@/router/types';
-
 import { ref, onBeforeMount, unref, Ref, nextTick } from 'vue';
-
 import { getMenus } from '/@/router/menus';
-
 import { cloneDeep } from 'lodash-es';
 import { filter, forEach } from '/@/utils/helper/treeHelper';
-
 import { useGo } from '/@/hooks/web/usePage';
 import { useScrollTo } from '/@/hooks/event/useScrollTo';
 import { onKeyStroke, useDebounceFn } from '@vueuse/core';
@@ -67,7 +63,6 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
 
   function handlerSearchResult(filterMenu: Menu[], reg: RegExp, parent?: Menu) {
     const ret: SearchResult[] = [];
-
     filterMenu.forEach((item) => {
       const { name, path, icon, children } = item;
       if (reg.test(name) && !children?.length) {
@@ -84,11 +79,13 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
     return ret;
   }
 
+  // Activate when the mouse moves to a certain line
   function handleMouseenter(e: any) {
     const index = e.target.dataset.index;
     activeIndex.value = Number(index);
   }
 
+  // Arrow key up
   function handleUp() {
     if (!searchResult.value.length) return;
     activeIndex.value--;
@@ -98,6 +95,7 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
     handleScroll();
   }
 
+  // Arrow key down
   function handleDown() {
     if (!searchResult.value.length) return;
     activeIndex.value++;
@@ -107,15 +105,23 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
     handleScroll();
   }
 
+  // When the keyboard up and down keys move to an invisible place
+  // the scroll bar needs to scroll automatically
   function handleScroll() {
     const refList = unref(refs);
-    if (!refList || !Array.isArray(refList) || refList.length === 0 || !unref(scrollWrap)) return;
+    if (!refList || !Array.isArray(refList) || refList.length === 0 || !unref(scrollWrap)) {
+      return;
+    }
 
     const index = unref(activeIndex);
     const currentRef = refList[index];
-    if (!currentRef) return;
+    if (!currentRef) {
+      return;
+    }
     const wrapEl = unref(scrollWrap);
-    if (!wrapEl) return;
+    if (!wrapEl) {
+      return;
+    }
     const scrollHeight = currentRef.offsetTop + currentRef.offsetHeight;
     const wrapHeight = wrapEl.offsetHeight;
     const { start } = useScrollTo({
@@ -126,8 +132,11 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
     start();
   }
 
+  // enter keyboard event
   async function handleEnter() {
-    if (!searchResult.value.length) return;
+    if (!searchResult.value.length) {
+      return;
+    }
     const result = unref(searchResult);
     const index = unref(activeIndex);
     if (result.length === 0 || index < 0) {
@@ -139,14 +148,18 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
     go(to.path);
   }
 
+  // close search modal
   function handleClose() {
     searchResult.value = [];
     emit('close');
   }
 
+  // enter search
   onKeyStroke('Enter', handleEnter);
+  // Monitor keyboard arrow keys
   onKeyStroke('ArrowUp', handleUp);
   onKeyStroke('ArrowDown', handleDown);
+  // esc close
   onKeyStroke('Escape', handleClose);
 
   return { handleSearch, searchResult, keyword, activeIndex, handleMouseenter, handleEnter };

@@ -1,4 +1,4 @@
-import { install } from '/@/utils/install';
+import { withInstall } from '/@/utils';
 import flowChart from './src/FlowChart.vue';
 
-export const FlowChart = install(flowChart);
+export const FlowChart = withInstall(flowChart);
