@@ -8,8 +8,6 @@
   import { Icon } from '/@/components/Icon';
   export default defineComponent({
     components: { Icon },
-    props: {
-      icon: String,
-    },
+    props: { icon: String },
   });
 </script>

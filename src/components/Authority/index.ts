@@ -1,3 +1,4 @@
-import Authority from './src/Authority.vue';
+import { withInstall } from '/@/utils';
+import authority from './src/Authority.vue';
 
-export { Authority };
+export const Authority = withInstall(authority);

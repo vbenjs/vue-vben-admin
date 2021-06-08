@@ -15,31 +15,25 @@
   } from 'vue';
   import { useDebounceFn } from '@vueuse/core';
   import { useAppStore } from '/@/store/modules/app';
-
+  import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
   import CodeMirror from 'codemirror';
+  // css
   import './codemirror.css';
   import 'codemirror/theme/idea.css';
   import 'codemirror/theme/material-palenight.css';
-
   // modes
   import 'codemirror/mode/javascript/javascript';
   import 'codemirror/mode/css/css';
   import 'codemirror/mode/htmlmixed/htmlmixed';
+
+  const props = {
+    mode: { type: String, default: 'application/json' },
+    value: { type: String, default: '' },
+    readonly: { type: Boolean, default: false },
+  };
+
   export default defineComponent({
-    props: {
-      mode: {
-        type: String,
-        default: 'application/json',
-      },
-      value: {
-        type: String,
-        default: '',
-      },
-      readonly: {
-        type: Boolean,
-        default: false,
-      },
-    },
+    props,
     emits: ['change'],
     setup(props, { emit }) {
       const el = ref();
@@ -50,11 +44,11 @@
 
       watch(
         () => props.value,
-        async (v) => {
+        async (value) => {
           await nextTick();
           const oldValue = editor?.getValue();
-          if (v !== oldValue) {
-            editor?.setValue(v ? v : '');
+          if (value !== oldValue) {
+            editor?.setValue(value ? value : '');
           }
         },
         { flush: 'post' }
@@ -113,13 +107,13 @@
       onMounted(async () => {
         await nextTick();
         init();
-        window.addEventListener('resize', debounceRefresh);
+        useWindowSizeFn(debounceRefresh);
       });
 
       onUnmounted(() => {
-        window.removeEventListener('resize', debounceRefresh);
         editor = null;
       });
+
       return { el };
     },
   });

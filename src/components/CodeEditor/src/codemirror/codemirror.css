@@ -12,20 +12,21 @@
   --qualifier: #ff6032;
   --important: var(--string);
 
+  position: relative;
   height: auto;
   height: 100%;
+  overflow: hidden;
   font-family: var(--font-code);
+  background: white;
   direction: ltr;
 }
 
 /* PADDING */
 
 .CodeMirror-lines {
+  min-height: 1px; /* prevents collapsing before first draw */
   padding: 4px 0; /* Vertical padding around content */
-}
-
-.CodeMirror pre {
-  padding: 0 4px; /* Horizontal padding of content */
+  cursor: text;
 }
 
 .CodeMirror-scrollbar-filler,
@@ -36,6 +37,11 @@
 /* GUTTER */
 
 .CodeMirror-gutters {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  min-height: 100%;
   white-space: nowrap;
   background-color: transparent;
   border-right: 1px solid #ddd;
@@ -96,7 +102,9 @@
 /* CURSOR */
 
 .CodeMirror-cursor {
+  position: absolute;
   width: 0;
+  pointer-events: none;
   border-right: none;
   border-left: 1px solid black;
 }
@@ -132,36 +140,18 @@
   animation: blink 1.06s steps(1) infinite;
 }
 @-moz-keyframes blink {
-  0% {
-  }
-
   50% {
     background-color: transparent;
-  }
-
-  100% {
   }
 }
 @-webkit-keyframes blink {
-  0% {
-  }
-
   50% {
     background-color: transparent;
-  }
-
-  100% {
   }
 }
 @keyframes blink {
-  0% {
-  }
-
   50% {
     background-color: transparent;
-  }
-
-  100% {
   }
 }
 
@@ -316,12 +306,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 /* The rest of this file contains styles related to the mechanics of
    the editor. You probably shouldn't touch them. */
 
-.CodeMirror {
-  position: relative;
-  overflow: hidden;
-  background: white;
-}
-
 .CodeMirror-scroll {
   position: relative;
   height: 100%;
@@ -378,14 +362,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   left: 0;
 }
 
-.CodeMirror-gutters {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  min-height: 100%;
-}
-
 .CodeMirror-gutter {
   display: inline-block;
   height: 100%;
@@ -422,14 +398,10 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   background-color: transparent;
 }
 
-.CodeMirror-lines {
-  min-height: 1px; /* prevents collapsing before first draw */
-  cursor: text;
-}
-
 .CodeMirror pre {
   position: relative;
   z-index: 2;
+  padding: 0 4px; /* Horizontal padding of content */
   margin: 0;
   overflow: visible;
   font-family: inherit;
@@ -495,11 +467,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   height: 0;
   overflow: hidden;
   visibility: hidden;
-}
-
-.CodeMirror-cursor {
-  position: absolute;
-  pointer-events: none;
 }
 
 .CodeMirror-measure pre {

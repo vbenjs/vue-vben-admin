@@ -1,14 +1,5 @@
 <template>
-  <div
-    v-if="getShowDarkModeToggle"
-    :class="[
-      prefixCls,
-      {
-        [`${prefixCls}--dark`]: isDark,
-      },
-    ]"
-    @click="toggleDarkMode"
-  >
+  <div v-if="getShowDarkModeToggle" :class="getClass" @click="toggleDarkMode">
     <div :class="`${prefixCls}-inner`"> </div>
     <SvgIcon size="14" name="sun" />
     <SvgIcon size="14" name="moon" />
@@ -16,24 +7,28 @@
 </template>
 <script lang="ts">
   import { defineComponent, computed } from 'vue';
-
-  import { useDesign } from '/@/hooks/web/useDesign';
-
   import { SvgIcon } from '/@/components/Icon';
+  import { useDesign } from '/@/hooks/web/useDesign';
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
   import { updateHeaderBgColor, updateSidebarBgColor } from '/@/logics/theme/updateBackground';
   import { updateDarkTheme } from '/@/logics/theme/dark';
-
   import { ThemeEnum } from '/@/enums/appEnum';
 
   export default defineComponent({
     name: 'DarkModeToggle',
     components: { SvgIcon },
     setup() {
-      const { prefixCls } = useDesign('dark-mode-toggle');
+      const { prefixCls } = useDesign('dark-switch');
       const { getDarkMode, setDarkMode, getShowDarkModeToggle } = useRootSetting();
 
       const isDark = computed(() => getDarkMode.value === ThemeEnum.DARK);
+
+      const getClass = computed(() => [
+        prefixCls,
+        {
+          [`${prefixCls}--dark`]: isDark,
+        },
+      ]);
 
       function toggleDarkMode() {
         const darkMode = getDarkMode.value === ThemeEnum.DARK ? ThemeEnum.LIGHT : ThemeEnum.DARK;
@@ -44,6 +39,7 @@
       }
 
       return {
+        getClass,
         isDark,
         prefixCls,
         toggleDarkMode,
@@ -53,7 +49,7 @@
   });
 </script>
 <style lang="less" scoped>
-  @prefix-cls: ~'@{namespace}-dark-mode-toggle';
+  @prefix-cls: ~'@{namespace}-dark-switch';
 
   html[data-theme='dark'] {
     .@{prefix-cls} {

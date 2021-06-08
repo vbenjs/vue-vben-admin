@@ -8,11 +8,7 @@
   import { defineComponent } from 'vue';
   export default defineComponent({
     name: 'JsonPreview',
-    components: {
-      VueJsonPretty,
-    },
-    props: {
-      data: Object,
-    },
+    components: { VueJsonPretty },
+    props: { data: Object },
   });
 </script>
