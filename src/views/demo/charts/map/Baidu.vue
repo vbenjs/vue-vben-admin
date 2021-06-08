@@ -7,7 +7,7 @@
   import { useScript } from '/@/hooks/web/useScript';
 
   const BAI_DU_MAP_URL =
-    'https://api.map.baidu.com/getscript?v=3.0&ak=OaBvYmKX3pjF7YFUFeeBCeGdy9Zp7xB2&services=&t=20210201100830';
+    'https://api.map.baidu.com/getscript?v=3.0&ak=OaBvYmKX3pjF7YFUFeeBCeGdy9Zp7xB2&services=&t=20210201100830&s=1';
   export default defineComponent({
     name: 'BaiduMap',
     props: {
