@@ -72,5 +72,6 @@ module.exports = defineConfig({
         math: 'always',
       },
     ],
+    'linebreak-style': 'off',
   },
 });
