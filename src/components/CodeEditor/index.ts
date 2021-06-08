@@ -1,15 +1,6 @@
-import type { App } from 'vue';
+import { install } from '/@/utils/install';
 import codeEditor from './src/CodeEditor.vue';
 import jsonPreview from './src/json-preview/JsonPreview.vue';
 
-export const CodeEditor = Object.assign(codeEditor, {
-  install(app: App) {
-    app.component(codeEditor.name, codeEditor);
-  },
-});
-
-export const JsonPreview = Object.assign(jsonPreview, {
-  install(app: App) {
-    app.component(jsonPreview.name, jsonPreview);
-  },
-});
+export const CodeEditor = install(codeEditor);
+export const JsonPreview = install(jsonPreview);
