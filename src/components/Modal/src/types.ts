@@ -13,6 +13,7 @@ export type RegisterFn = (modalMethods: ModalMethods, uuid?: string) => void;
 
 export interface ReturnMethods extends ModalMethods {
   openModal: <T = any>(props?: boolean, data?: T, openOnSet?: boolean) => void;
+  closeModal: () => void;
   getVisible?: ComputedRef<boolean>;
 }
 

@@ -90,6 +90,10 @@ export function useModal(): UseModalReturnType {
         dataTransferRef[unref(uidRef)] = toRaw(data);
       }
     },
+
+    closeModal: () => {
+      getInstance()?.setModalProps({ visible: false });
+    },
   };
   return [register, methods];
 }
