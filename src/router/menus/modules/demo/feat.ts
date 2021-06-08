@@ -112,7 +112,7 @@ const menu: MenuModule = {
           // },
           {
             path: 'children',
-            name: t('routes.demo.feat.breadcrumbChildrenDetail'),
+            name: t('routes.demo.feat.breadcrumbChildren'),
           },
         ],
       },
