@@ -155,12 +155,16 @@ export function useDataSource(
   ): Recordable | undefined {
     if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
     const rowKeyName = unref(getRowKey);
-    if (typeof rowKeyName !== 'string') {
+    if (!rowKeyName) {
       return;
     }
-    const row = dataSourceRef.value.find(
-      (r) => Reflect.has(r, rowKeyName as string) && r[rowKeyName as string] === rowKey
-    );
+    const row = dataSourceRef.value.find((r) => {
+      if (typeof rowKeyName === 'function') {
+        return (rowKeyName(r) as string) === rowKey;
+      } else {
+        return Reflect.has(r, rowKeyName) && r[rowKeyName] === rowKey;
+      }
+    });
     if (row) {
       for (const field in row) {
         if (Reflect.has(record, field)) row[field] = record[field];
