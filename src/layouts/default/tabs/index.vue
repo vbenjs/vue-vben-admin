@@ -106,8 +106,7 @@
             .getRoutes()
             .find((item) => item.path === currentActiveMenu);
 
-          findParentRoute &&
-            tabStore.addTab((findParentRoute as unknown) as RouteLocationNormalized);
+          findParentRoute && tabStore.addTab(findParentRoute as unknown as RouteLocationNormalized);
         } else {
           tabStore.addTab(unref(route));
         }

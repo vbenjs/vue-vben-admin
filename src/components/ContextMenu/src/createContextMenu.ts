@@ -1,6 +1,6 @@
-import contextMenuVue from './ContextMenu';
+import contextMenuVue from './ContextMenu.vue';
 import { isClient } from '/@/utils/is';
-import { CreateContextOptions, ContextMenuProps } from './types';
+import { CreateContextOptions, ContextMenuProps } from './typing';
 import { createVNode, render } from 'vue';
 
 const menuManager: {
@@ -16,7 +16,9 @@ export const createContextMenu = function (options: CreateContextOptions) {
 
   event && event?.preventDefault();
 
-  if (!isClient) return;
+  if (!isClient) {
+    return;
+  }
   return new Promise((resolve) => {
     const body = document.body;
 
@@ -54,9 +56,9 @@ export const createContextMenu = function (options: CreateContextOptions) {
       body.removeEventListener('scroll', handleClick);
     };
 
-    menuManager.resolve = function (...arg: any) {
+    menuManager.resolve = function (arg) {
       remove();
-      resolve(arg[0]);
+      resolve(arg);
     };
     remove();
     body.appendChild(container);

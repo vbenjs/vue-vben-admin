@@ -80,7 +80,7 @@ export class Memory<T = any, V = any> {
 
   resetCache(cache: { [K in keyof T]: Cache }) {
     Object.keys(cache).forEach((key) => {
-      const k = (key as any) as keyof T;
+      const k = key as any as keyof T;
       const item = cache[k];
       if (item && item.time) {
         const now = new Date().getTime();

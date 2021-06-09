@@ -109,9 +109,8 @@
         isChild: false,
       });
 
-      const { getParentSubMenu, getItemStyle, getParentMenu, getParentList } = useMenuItem(
-        instance
-      );
+      const { getParentSubMenu, getItemStyle, getParentMenu, getParentList } =
+        useMenuItem(instance);
 
       const { prefixCls } = useDesign('menu');
 
@@ -148,13 +147,11 @@
       const getCollapse = computed(() => rootProps.collapse);
       const getTheme = computed(() => rootProps.theme);
 
-      const getOverlayStyle = computed(
-        (): CSSProperties => {
-          return {
-            minWidth: '200px',
-          };
-        }
-      );
+      const getOverlayStyle = computed((): CSSProperties => {
+        return {
+          minWidth: '200px',
+        };
+      });
 
       const getIsOpend = computed(() => {
         const name = props.name;

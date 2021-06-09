@@ -26,7 +26,7 @@
       const treeData = ref<TreeItem[]>([]);
 
       async function fetch() {
-        treeData.value = ((await getDeptList()) as unknown) as TreeItem[];
+        treeData.value = (await getDeptList()) as unknown as TreeItem[];
       }
 
       function handleSelect(keys: string, e) {

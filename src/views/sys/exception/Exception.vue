@@ -64,11 +64,9 @@
         return Number(routeStatus) || status;
       });
 
-      const getMapValue = computed(
-        (): MapValue => {
-          return unref(statusMapRef).get(unref(getStatus)) as MapValue;
-        }
-      );
+      const getMapValue = computed((): MapValue => {
+        return unref(statusMapRef).get(unref(getStatus)) as MapValue;
+      });
 
       const backLoginI18n = t('sys.exception.backLogin');
       const backHomeI18n = t('sys.exception.backHome');
