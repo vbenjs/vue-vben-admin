@@ -31,12 +31,14 @@ function createDocumentHandler(el: HTMLElement, binding: DirectiveBinding): Docu
     excludes = binding.arg;
   } else {
     // due to current implementation on binding type is wrong the type casting is necessary here
-    excludes.push((binding.arg as unknown) as HTMLElement);
+    excludes.push(binding.arg as unknown as HTMLElement);
   }
   return function (mouseup, mousedown) {
-    const popperRef = (binding.instance as ComponentPublicInstance<{
-      popperRef: Nullable<HTMLElement>;
-    }>).popperRef;
+    const popperRef = (
+      binding.instance as ComponentPublicInstance<{
+        popperRef: Nullable<HTMLElement>;
+      }>
+    ).popperRef;
     const mouseUpTarget = mouseup.target as Node;
     const mouseDownTarget = mousedown.target as Node;
     const isBound = !binding || !binding.instance;

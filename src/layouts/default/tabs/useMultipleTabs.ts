@@ -30,14 +30,14 @@ export function initAffixTabs(): string[] {
    * @description: Set fixed tabs
    */
   function addAffixTabs(): void {
-    const affixTabs = filterAffixTabs((router.getRoutes() as unknown) as RouteLocationNormalized[]);
+    const affixTabs = filterAffixTabs(router.getRoutes() as unknown as RouteLocationNormalized[]);
     affixList.value = affixTabs;
     for (const tab of affixTabs) {
-      tabStore.addTab(({
+      tabStore.addTab({
         meta: tab.meta,
         name: tab.name,
         path: tab.path,
-      } as unknown) as RouteLocationNormalized);
+      } as unknown as RouteLocationNormalized);
     }
   }
 

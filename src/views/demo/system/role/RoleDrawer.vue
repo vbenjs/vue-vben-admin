@@ -54,7 +54,7 @@
             ...data.record,
           });
         }
-        treeData.value = ((await getMenuList()) as any) as TreeItem[];
+        treeData.value = (await getMenuList()) as any as TreeItem[];
       });
 
       const getTitle = computed(() => (!unref(isUpdate) ? '新增角色' : '编辑角色'));
