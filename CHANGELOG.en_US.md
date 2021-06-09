@@ -1,3 +1,37 @@
+## 2.4.2(2021-06-10)
+
+### ✨ Refactor
+
+- `CountTo` component refactoring
+
+### ✨ Features
+
+- `radioButtonGroup` supports `boolean` value
+- `useModalInner` added `redoModalHeight` to reset the height of `Modal` inside Modal
+- `useECharts` added `getInstance` to obtain instances of `echart`
+- `TableAction` added `stopButtonPropagation` to prevent the action button click event from bubbling
+- `BasicTable` in the row edit mode, you can get or set the value of other editing components in the column
+- The `ApiSelect` component will automatically re-fetch the data after the `params` is changed
+- `TableImg` component improvement
+- `BasicTable` added `columns-change` event to monitor the user to change the sorting, display, and fixed status of columns
+- `Tinymce` supports dynamic modification readonly
+- `BasicTable` added `updateTableDataRecord` method to update the specified row data
+- `useModal` added `closeModal` method to close `Modal`
+
+### 🐛 Bug Fixes
+
+- Fix the problem that `redoModalHeight` cannot reduce the height
+- Fix the problem that the schema data of `BasicForm` does not take effect
+- Fix the problem that multiple tags may cause `KeepAlive` to fail
+- Fix the problem that the default `axios` interceptor cannot handle custom code
+- Fix the height issue of the lock screen pop-up window
+- Fixed the problem that the half-selected state of the `Column Display` checkbox of `BaiscTable` was incorrectly displayed
+- Fixed the problem that the preview list of the `BasicUpload` component could not be displayed in some cases
+- Fix the problem that the `options` setting of ` RadioButtonGroup``disabled ` does not take effect
+- Fix the problem that the button for uploading pictures in the read-only mode of the `Tinymce` component is still available
+- Fix the stuttering problem of `BasicForm` under certain circumstances
+- Fix the problem that "directory" routing does not work
+
 ## 2.4.1(2021-06-01)
 
 ### ✨ Features
