@@ -1,50 +1,56 @@
 <template>
-  <span :style="{ color: color }">
-    {{ displayValue }}
+  <span :style="{ color }">
+    {{ value }}
   </span>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, computed, watch, onMounted, unref, toRef } from 'vue';
-  import { countToProps } from './props';
+  import { defineComponent, ref, computed, watchEffect, unref, onMounted, watch } from 'vue';
+  import { useTransition, TransitionPresets } from '@vueuse/core';
   import { isNumber } from '/@/utils/is';
+
+  const props = {
+    startVal: { type: Number, default: 0 },
+    endVal: { type: Number, default: 2021 },
+    duration: { type: Number, default: 1500 },
+    autoplay: { type: Boolean, default: true },
+    decimals: {
+      type: Number,
+      default: 0,
+      validator(value: number) {
+        return value >= 0;
+      },
+    },
+    prefix: { type: String, default: '' },
+    suffix: { type: String, default: '' },
+    separator: { type: String, default: ',' },
+    decimal: { type: String, default: '.' },
+    /**
+     * font color
+     */
+    color: { type: String },
+    /**
+     * Turn on digital animation
+     */
+    useEasing: { type: Boolean, default: true },
+    /**
+     * Digital animation
+     */
+    transition: { type: String, default: 'linear' },
+  };
+
   export default defineComponent({
     name: 'CountTo',
-    props: countToProps,
-    emits: ['mounted', 'callback'],
+    props,
+    emits: ['onStarted', 'onFinished'],
     setup(props, { emit }) {
-      const state = reactive<{
-        localStartVal: number;
-        printVal: number | null;
-        displayValue: string;
-        paused: boolean;
-        localDuration: number | null;
-        startTime: number | null;
-        timestamp: number | null;
-        rAF: any;
-        remaining: number | null;
-        color: any;
-      }>({
-        localStartVal: props.startVal,
-        displayValue: formatNumber(props.startVal),
-        printVal: null,
-        paused: false,
-        localDuration: props.duration,
-        startTime: null,
-        timestamp: null,
-        remaining: null,
-        rAF: null,
-        color: null,
-      });
+      const source = ref(props.startVal);
+      const disabled = ref(false);
+      let outputValue = useTransition(source);
 
-      onMounted(() => {
-        if (props.autoplay) {
-          start();
-        }
-        emit('mounted');
-      });
+      const value = computed(() => formatNumber(unref(outputValue)));
 
-      const getCountDown = computed(() => {
-        return props.startVal > props.endVal;
+      watchEffect(() => {
+        source.value = props.startVal;
       });
 
       watch([() => props.startVal, () => props.endVal], () => {
@@ -53,93 +59,42 @@
         }
       });
 
+      onMounted(() => {
+        props.autoplay && start();
+      });
+
       function start() {
-        const { startVal, duration, color } = props;
-        state.localStartVal = startVal;
-        state.startTime = null;
-        state.localDuration = duration;
-        state.color = color;
-        state.paused = false;
-        state.rAF = requestAnimationFrame(count);
-      }
-
-      function pauseResume() {
-        if (state.paused) {
-          resume();
-          state.paused = false;
-        } else {
-          pause();
-          state.paused = true;
-        }
-      }
-
-      function pause() {
-        cancelAnimationFrame(state.rAF);
-      }
-
-      function resume() {
-        state.startTime = null;
-        state.localDuration = +(state.remaining as number);
-        state.localStartVal = +(state.printVal as number);
-        requestAnimationFrame(count);
+        run();
+        source.value = props.endVal;
       }
 
       function reset() {
-        state.startTime = null;
-        cancelAnimationFrame(state.rAF);
-        state.displayValue = formatNumber(props.startVal);
+        source.value = props.startVal;
+        run();
       }
 
-      function count(timestamp: number) {
-        const { useEasing, easingFn, endVal } = props;
-        if (!state.startTime) state.startTime = timestamp;
-        state.timestamp = timestamp;
-        const progress = timestamp - state.startTime;
-        state.remaining = (state.localDuration as number) - progress;
-        if (useEasing) {
-          if (unref(getCountDown)) {
-            state.printVal =
-              state.localStartVal -
-              easingFn(progress, 0, state.localStartVal - endVal, state.localDuration as number);
-          } else {
-            state.printVal = easingFn(
-              progress,
-              state.localStartVal,
-              endVal - state.localStartVal,
-              state.localDuration as number
-            );
-          }
-        } else {
-          if (unref(getCountDown)) {
-            state.printVal =
-              state.localStartVal -
-              (state.localStartVal - endVal) * (progress / (state.localDuration as number));
-          } else {
-            state.printVal =
-              state.localStartVal +
-              (endVal - state.localStartVal) * (progress / (state.localDuration as number));
-          }
-        }
-        if (unref(getCountDown)) {
-          state.printVal = state.printVal < endVal ? endVal : state.printVal;
-        } else {
-          state.printVal = state.printVal > endVal ? endVal : state.printVal;
-        }
-        state.displayValue = formatNumber(state.printVal);
-        if (progress < (state.localDuration as number)) {
-          state.rAF = requestAnimationFrame(count);
-        } else {
-          emit('callback');
-        }
+      function run() {
+        outputValue = useTransition(source, {
+          disabled,
+          duration: props.duration,
+          onFinished: () => emit('onFinished'),
+          onStarted: () => emit('onStarted'),
+          ...(props.useEasing ? { transition: TransitionPresets[props.transition] } : {}),
+        });
       }
 
       function formatNumber(num: number | string) {
+        if (!num) {
+          return '';
+        }
         const { decimals, decimal, separator, suffix, prefix } = props;
         num = Number(num).toFixed(decimals);
         num += '';
+
         const x = num.split('.');
         let x1 = x[0];
         const x2 = x.length > 1 ? decimal + x[1] : '';
+
         const rgx = /(\d+)(\d{3})/;
         if (separator && !isNumber(separator)) {
           while (rgx.test(x1)) {
@@ -149,14 +104,7 @@
         return prefix + x1 + x2 + suffix;
       }
 
-      return {
-        count,
-        reset,
-        resume,
-        start,
-        pauseResume,
-        displayValue: toRef(state, 'displayValue'),
-      };
+      return { value, start, reset };
     },
   });
 </script>

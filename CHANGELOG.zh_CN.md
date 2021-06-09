@@ -1,5 +1,11 @@
 ## Wip
 
+### ✨ Refactor
+
+- `CountTo`组件重构
+
+### ✨ Features
+
 - `radioButtonGroup` 支持`boolean`值
 - `useModalInner` 新增 `redoModalHeight`用于在 Modal 内部重设`Modal`高度
 - `useECharts` 新增`getInstance`用于获取`echart`实例
@@ -12,7 +18,7 @@
 - `BasicTable`新增`updateTableDataRecord`方法用于更新指定行数据
 - `useModal`新增`closeModal`方法用于关闭`Modal`
 
-## Bug Fixes
+### 🐛 Bug Fixes
 
 - 修复`redoModalHeight`不能减小高度的问题
 - 修复 `BasicForm`设置 schemas 数据不生效的问题
