@@ -20,7 +20,7 @@
 
   type Options = Cropper.Options;
 
-  const defaultOptions: Cropper.Options = {
+  const defaultOptions: Options = {
     aspectRatio: 16 / 9,
     zoomable: true,
     zoomOnTouch: true,
@@ -42,6 +42,7 @@
     movable: true,
     rotatable: true,
   };
+
   export default defineComponent({
     name: 'CropperImage',
     props: {
@@ -108,9 +109,9 @@
         let imgInfo = cropper.value.getData();
         cropper.value.getCroppedCanvas().toBlob((blob) => {
           let fileReader: FileReader = new FileReader();
-          fileReader.onloadend = (e: any) => {
+          fileReader.onloadend = (e) => {
             ctx.emit('cropperedInfo', {
-              imgBase64: e.target.result,
+              imgBase64: e.target?.result ?? '',
               imgInfo,
             });
           };

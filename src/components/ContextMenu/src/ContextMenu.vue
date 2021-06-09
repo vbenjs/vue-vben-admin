@@ -71,7 +71,8 @@
       });
 
       onUnmounted(() => {
-        unref(wrapRef) && document.body.removeChild(el);
+        const el = unref(wrapRef);
+        el && document.body.removeChild(el);
       });
 
       function handleAction(item: ContextMenuItem, e: MouseEvent) {
@@ -118,8 +119,10 @@
         });
       }
       return () => {
+        if (!unref(showRef)) {
+          return null;
+        }
         const { items } = props;
-        if (!unref(showRef)) return null;
         return (
           <Menu
             inlineIndent={12}
