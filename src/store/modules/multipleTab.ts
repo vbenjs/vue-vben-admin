@@ -60,7 +60,7 @@ export const useMultipleTabStore = defineStore({
         // Ignore the cache
         const needCache = !item.meta?.ignoreKeepAlive;
         if (!needCache) {
-          return;
+          continue;
         }
         const name = item.name as string;
         cacheMap.add(name);
@@ -285,6 +285,17 @@ export const useMultipleTabStore = defineStore({
      */
     async bulkCloseTabs(pathList: string[]) {
       this.tabList = this.tabList.filter((item) => !pathList.includes(item.fullPath));
+    },
+
+    /**
+     * Set tab's title
+     */
+    async setTabTitle(title: string, route: RouteLocationNormalized) {
+      const findTab = this.getTabList.find((item) => item === route);
+      if (findTab) {
+        findTab.meta.title = title;
+        await this.updateCacheTab();
+      }
     },
   },
 });

@@ -58,12 +58,8 @@ export default defineComponent({
       getThemeColor,
     } = useRootSetting();
 
-    const {
-      getOpenPageLoading,
-      getBasicTransition,
-      getEnableTransition,
-      getOpenNProgress,
-    } = useTransitionSetting();
+    const { getOpenPageLoading, getBasicTransition, getEnableTransition, getOpenNProgress } =
+      useTransitionSetting();
 
     const {
       getIsHorizontal,

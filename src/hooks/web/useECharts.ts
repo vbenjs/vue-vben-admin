@@ -23,17 +23,15 @@ export function useECharts(
 
   resizeFn = useDebounceFn(resize, 200);
 
-  const getOptions = computed(
-    (): EChartsOption => {
-      if (getDarkMode.value !== 'dark') {
-        return cacheOptions.value;
-      }
-      return {
-        backgroundColor: 'transparent',
-        ...cacheOptions.value,
-      };
+  const getOptions = computed((): EChartsOption => {
+    if (getDarkMode.value !== 'dark') {
+      return cacheOptions.value;
     }
-  );
+    return {
+      backgroundColor: 'transparent',
+      ...cacheOptions.value,
+    };
+  });
 
   function initCharts(t = theme) {
     const el = unref(elRef);
@@ -100,9 +98,17 @@ export function useECharts(
     chartInstance = null;
   });
 
+  function getInstance(): echarts.ECharts | null {
+    if (!chartInstance) {
+      initCharts(getDarkMode.value as 'default');
+    }
+    return chartInstance;
+  }
+
   return {
     setOptions,
     resize,
     echarts,
+    getInstance,
   };
 }

@@ -90,6 +90,10 @@ export function useModal(): UseModalReturnType {
         dataTransferRef[unref(uidRef)] = toRaw(data);
       }
     },
+
+    closeModal: () => {
+      getInstance()?.setModalProps({ visible: false });
+    },
   };
   return [register, methods];
 }
@@ -149,6 +153,11 @@ export const useModalInner = (callbackFn?: Fn): UseModalInnerReturnType => {
 
       setModalProps: (props: Partial<ModalProps>) => {
         getInstance()?.setModalProps(props);
+      },
+
+      redoModalHeight: () => {
+        const callRedo = getInstance()?.redoModalHeight;
+        callRedo && callRedo();
       },
     },
   ];

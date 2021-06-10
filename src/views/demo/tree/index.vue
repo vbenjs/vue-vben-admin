@@ -1,18 +1,24 @@
 <template>
   <PageWrapper title="Tree基础示例">
     <div class="flex">
-      <BasicTree :treeData="treeData" title="基础示例" class="w-1/3" />
+      <BasicTree
+        :treeData="treeData"
+        title="基础示例，默认展开第一层"
+        defaultExpandLevel="1"
+        class="w-1/3"
+      />
 
       <BasicTree
         :treeData="treeData"
-        title="可勾选"
+        title="可勾选，默认全部展开"
         :checkable="true"
         class="w-1/3 mx-4"
+        defaultExpandAll
         @check="handleCheck"
       />
 
       <BasicTree
-        title="默认展开/勾选示例"
+        title="指定默认展开/勾选示例"
         :treeData="treeData"
         :checkable="true"
         :expandedKeys="['0-0']"

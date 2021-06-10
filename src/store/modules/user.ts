@@ -9,22 +9,19 @@ import { PageEnum } from '/@/enums/pageEnum';
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 
 import { getAuthCache, setAuthCache } from '/@/utils/auth';
-import {
-  GetUserInfoByUserIdModel,
-  GetUserInfoByUserIdParams,
-  LoginParams,
-} from '/@/api/sys/model/userModel';
+import { GetUserInfoModel, LoginParams } from '/@/api/sys/model/userModel';
 
-import { getUserInfoById, loginApi } from '/@/api/sys/user';
+import { getUserInfo, loginApi } from '/@/api/sys/user';
 
 import { useI18n } from '/@/hooks/web/useI18n';
 import { useMessage } from '/@/hooks/web/useMessage';
-import router from '/@/router';
+import { router } from '/@/router';
 
 interface UserState {
   userInfo: Nullable<UserInfo>;
   token?: string;
   roleList: RoleEnum[];
+  sessionTimeout?: boolean;
 }
 
 export const useUserStore = defineStore({
@@ -36,6 +33,8 @@ export const useUserStore = defineStore({
     token: undefined,
     // roleList
     roleList: [],
+    // Whether the login expired
+    sessionTimeout: false,
   }),
   getters: {
     getUserInfo(): UserInfo {
@@ -47,9 +46,12 @@ export const useUserStore = defineStore({
     getRoleList(): RoleEnum[] {
       return this.roleList.length > 0 ? this.roleList : getAuthCache<RoleEnum[]>(ROLES_KEY);
     },
+    getSessionTimeout(): boolean {
+      return !!this.sessionTimeout;
+    },
   },
   actions: {
-    setToken(info: string) {
+    setToken(info: string | undefined) {
       this.token = info;
       setAuthCache(TOKEN_KEY, info);
     },
@@ -61,10 +63,14 @@ export const useUserStore = defineStore({
       this.userInfo = info;
       setAuthCache(USER_INFO_KEY, info);
     },
+    setSessionTimeout(flag: boolean) {
+      this.sessionTimeout = flag;
+    },
     resetState() {
       this.userInfo = null;
       this.token = '';
       this.roleList = [];
+      this.sessionTimeout = false;
     },
     /**
      * @description: login
@@ -74,25 +80,27 @@ export const useUserStore = defineStore({
         goHome?: boolean;
         mode?: ErrorMessageMode;
       }
-    ): Promise<GetUserInfoByUserIdModel | null> {
+    ): Promise<GetUserInfoModel | null> {
       try {
         const { goHome = true, mode, ...loginParams } = params;
         const data = await loginApi(loginParams, mode);
-        const { token, userId } = data;
+        const { token } = data;
 
         // save token
         this.setToken(token);
         // get user info
-        const userInfo = await this.getUserInfoAction({ userId });
+        const userInfo = await this.getUserInfoAction();
 
-        goHome && (await router.replace(PageEnum.BASE_HOME));
+        const sessionTimeout = this.sessionTimeout;
+        sessionTimeout && this.setSessionTimeout(false);
+        !sessionTimeout && goHome && (await router.replace(PageEnum.BASE_HOME));
         return userInfo;
       } catch (error) {
-        return null;
+        return Promise.reject(error);
       }
     },
-    async getUserInfoAction({ userId }: GetUserInfoByUserIdParams) {
-      const userInfo = await getUserInfoById({ userId });
+    async getUserInfoAction() {
+      const userInfo = await getUserInfo();
       const { roles } = userInfo;
       const roleList = roles.map((item) => item.value) as RoleEnum[];
       this.setUserInfo(userInfo);

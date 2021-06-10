@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <BasicTable @register="registerTable">
+    <BasicTable @register="registerTable" @edit-change="onEditChange">
       <template #action="{ record, column }">
         <TableAction :actions="createActions(record, column)" />
       </template>
@@ -28,33 +28,34 @@
       editComponentProps: {
         prefix: '$',
       },
-      width: 200,
+      width: 150,
     },
     {
       title: '默认输入状态',
       dataIndex: 'name7',
       editRow: true,
-      width: 200,
+      width: 150,
     },
     {
       title: '输入框校验',
       dataIndex: 'name1',
       editRow: true,
+      align: 'left',
       // 默认必填校验
       editRule: true,
-      width: 200,
+      width: 150,
     },
     {
       title: '输入框函数校验',
       dataIndex: 'name2',
       editRow: true,
+      align: 'right',
       editRule: async (text) => {
         if (text === '2') {
           return '不能输入该值';
         }
         return '';
       },
-      width: 200,
     },
     {
       title: '数字输入框',
@@ -62,7 +63,7 @@
       editRow: true,
       editRule: true,
       editComponent: 'InputNumber',
-      width: 200,
+      width: 150,
     },
     {
       title: '下拉框',
@@ -94,6 +95,28 @@
       width: 200,
     },
     {
+      title: '日期选择',
+      dataIndex: 'date',
+      editRow: true,
+      editComponent: 'DatePicker',
+      editComponentProps: {
+        valueFormat: 'YYYY-MM-DD',
+        format: 'YYYY-MM-DD',
+      },
+      width: 150,
+    },
+    {
+      title: '时间选择',
+      dataIndex: 'time',
+      editRow: true,
+      editComponent: 'TimePicker',
+      editComponentProps: {
+        valueFormat: 'HH:mm',
+        format: 'HH:mm',
+      },
+      width: 100,
+    },
+    {
       title: '勾选框',
       dataIndex: 'name5',
       editRow: true,
@@ -102,7 +125,7 @@
       editValueMap: (value) => {
         return value ? '是' : '否';
       },
-      width: 200,
+      width: 100,
     },
     {
       title: '开关',
@@ -112,7 +135,7 @@
       editValueMap: (value) => {
         return value ? '开' : '关';
       },
-      width: 200,
+      width: 100,
     },
   ];
   export default defineComponent({
@@ -122,6 +145,9 @@
 
       const [registerTable] = useTable({
         title: '可编辑行示例',
+        titleHelpMessage: [
+          '本例中修改[数字输入框]这一列时，同一行的[远程下拉]列的当前编辑数据也会同步发生改变',
+        ],
         api: demoListApi,
         columns: columns,
         showIndexColumn: false,
@@ -175,10 +201,19 @@
         ];
       }
 
+      function onEditChange({ column, value, record }) {
+        // 本例
+        if (column.dataIndex === 'id') {
+          record.editValueRefs.name4.value = `${value}`;
+        }
+        console.log(column, value, record);
+      }
+
       return {
         registerTable,
         handleEdit,
         createActions,
+        onEditChange,
       };
     },
   });

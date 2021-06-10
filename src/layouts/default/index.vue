@@ -1,8 +1,8 @@
 <template>
-  <Layout :class="prefixCls">
+  <Layout :class="prefixCls" v-bind="lockEvents">
     <LayoutFeatures />
     <LayoutHeader fixed v-if="getShowFullHeaderRef" />
-    <Layout :class="layoutClass">
+    <Layout :class="[layoutClass]">
       <LayoutSideBar v-if="getShowSidebar || getIsMobile" />
       <Layout :class="`${prefixCls}-main`">
         <LayoutMultipleHeader />
@@ -26,6 +26,7 @@
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { useLockPage } from '/@/hooks/web/useLockPage';
 
   import { useAppInject } from '/@/hooks/web/useAppInject';
 
@@ -44,8 +45,18 @@
       const { prefixCls } = useDesign('default-layout');
       const { getIsMobile } = useAppInject();
       const { getShowFullHeaderRef } = useHeaderSetting();
-      const { getShowSidebar, getIsMixSidebar } = useMenuSetting();
-      const layoutClass = computed(() => ({ 'ant-layout-has-sider': unref(getIsMixSidebar) }));
+      const { getShowSidebar, getIsMixSidebar, getShowMenu } = useMenuSetting();
+
+      // Create a lock screen monitor
+      const lockEvents = useLockPage();
+
+      const layoutClass = computed(() => {
+        let cls: string[] = ['ant-layout'];
+        if (unref(getIsMixSidebar) || unref(getShowMenu)) {
+          cls.push('ant-layout-has-sider');
+        }
+        return cls;
+      });
 
       return {
         getShowFullHeaderRef,
@@ -54,6 +65,7 @@
         getIsMobile,
         getIsMixSidebar,
         layoutClass,
+        lockEvents,
       };
     },
   });
@@ -73,6 +85,7 @@
     }
 
     &-main {
+      width: 100%;
       margin-left: 1px;
     }
   }

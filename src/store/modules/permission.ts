@@ -18,8 +18,8 @@ import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
 
 import { filter } from '/@/utils/helper/treeHelper';
 
-import { getMenuListById } from '/@/api/sys/menu';
-import { getPermCodeByUserId } from '/@/api/sys/user';
+import { getMenuList } from '/@/api/sys/menu';
+import { getPermCode } from '/@/api/sys/user';
 
 import { useMessage } from '/@/hooks/web/useMessage';
 
@@ -65,6 +65,7 @@ export const usePermissionStore = defineStore({
 
     setBackMenuList(list: Menu[]) {
       this.backMenuList = list;
+      list?.length > 0 && this.setLastBuildMenuTime();
     },
 
     setLastBuildMenuTime() {
@@ -80,17 +81,17 @@ export const usePermissionStore = defineStore({
       this.backMenuList = [];
       this.lastBuildMenuTime = 0;
     },
-    async changePermissionCode(userId: string) {
-      const codeList = await getPermCodeByUserId({ userId });
+    async changePermissionCode() {
+      const codeList = await getPermCode();
       this.setPermCodeList(codeList);
     },
-    async buildRoutesAction(id?: number | string): Promise<AppRouteRecordRaw[]> {
+    async buildRoutesAction(): Promise<AppRouteRecordRaw[]> {
       const { t } = useI18n();
       const userStore = useUserStore();
       const appStore = useAppStoreWidthOut();
 
       let routes: AppRouteRecordRaw[] = [];
-      const roleList = toRaw(userStore.getRoleList);
+      const roleList = toRaw(userStore.getRoleList) || [];
       const { permissionMode = projectSetting.permissionMode } = appStore.getProjectConfig;
       // role permissions
       if (permissionMode === PermissionModeEnum.ROLE) {
@@ -112,21 +113,15 @@ export const usePermissionStore = defineStore({
           content: t('sys.app.menuLoading'),
           duration: 1,
         });
-        // Here to get the background routing menu logic to modify by yourself
-        const paramId = id || userStore.getUserInfo?.userId;
 
         // !Simulate to obtain permission codes from the background,
         // this function may only need to be executed once, and the actual project can be put at the right time by itself
         let routeList: AppRouteRecordRaw[] = [];
         try {
-          this.changePermissionCode('1');
-          routeList = (await getMenuListById({ id: paramId })) as AppRouteRecordRaw[];
+          this.changePermissionCode();
+          routeList = (await getMenuList()) as AppRouteRecordRaw[];
         } catch (error) {
           console.error(error);
-        }
-
-        if (!paramId) {
-          throw new Error('paramId is undefined!');
         }
 
         // Dynamically introduce components

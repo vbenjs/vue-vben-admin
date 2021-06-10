@@ -1,1 +1,1 @@
-export { default as ImagePreview } from './src/index.vue';
+export { default as ImagePreview } from './src/Preview.vue';

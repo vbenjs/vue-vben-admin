@@ -11,6 +11,7 @@
     toRaw,
     watch,
     CSSProperties,
+    onMounted,
   } from 'vue';
   import { Tree, Empty } from 'ant-design-vue';
   import { TreeIcon } from './TreeIcon';
@@ -207,6 +208,15 @@
 
       watchEffect(() => {
         treeDataRef.value = props.treeData as TreeItem[];
+      });
+
+      onMounted(() => {
+        const level = parseInt(props.defaultExpandLevel);
+        if (level > 0) {
+          state.expandedKeys = filterByLevel(level);
+        } else if (props.defaultExpandAll) {
+          expandAll(true);
+        }
       });
 
       watchEffect(() => {

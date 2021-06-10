@@ -1,4 +1,60 @@
-## Wip
+## 2.4.2(2021-06-10)
+
+### ✨ Refactor
+
+- `CountTo`组件重构
+
+### ✨ Features
+
+- `radioButtonGroup` 支持`boolean`值
+- `useModalInner` 新增 `redoModalHeight`用于在 Modal 内部重设`Modal`高度
+- `useECharts` 新增`getInstance`用于获取`echart`实例
+- `TableAction` 新增 `stopButtonPropagation` 阻止操作按钮点击事件冒泡
+- `BasicTable` 在行编辑模式下，可以获取或设置其它处于列的编辑组件的值
+- `ApiSelect` 组件在`params`改变后会自动重新`fetch`数据
+- `TableImg` 组件改进
+- `BasicTable` 新增 `columns-change` 事件用于监听用户改变列排序、展示、固定状态
+- `Tinymce`支持动态修改 readonly
+- `BasicTable`新增`updateTableDataRecord`方法用于更新指定行数据
+- `useModal`新增`closeModal`方法用于关闭`Modal`
+
+### 🐛 Bug Fixes
+
+- 修复`redoModalHeight`不能减小高度的问题
+- 修复 `BasicForm`设置 schemas 数据不生效的问题
+- 修复多标签可能导致`KeepAlive`失效的问题
+- 修复默认的`axios`拦截器不能处理自定义 code 的问题
+- 修复锁屏弹窗的高度问题
+- 修复`BaiscTable`的`列展示`复选框的半选状态显示不正确的问题
+- 修复`BasicUpload`组件的预览列表某些情况下不能显示的问题
+- 修复`RadioButtonGroup`的`options`设置`disabled`不生效的问题
+- 修复`Tinymce`组件在只读模式下上传图片的按钮仍然可用的问题
+- 修复`BasicForm`特定情况下的卡顿问题
+- 修复"目录"路由不起作用的问题
+
+## 2.4.1(2021-06-01)
+
+### ✨ Features
+
+- 可编辑表格新增`DatePicker`和`TimePicker`组件
+- `Tree` 组件新增`defaultExpandLevel`配置
+
+### ⚡ Performance Improvements
+
+- 菜单搜索默认聚焦
+
+### 🐛 Bug Fixes
+
+- 修复`CodeEditor`已知问题
+- 修复`i18n`控制台警告问题
+- 修复可编辑表格`align`配置不生效问题
+- 确保`axios`只对`Object`参数进行处理
+- 修复`Tree`组件 `defaultExpandAll` 配置失效
+- 修复`TableAction` 分割线丢失问题
+- 修复表格已知问题
+- 修复首次加载或改变语言导致重载时，不会设置 HTML 的 lang 属性
+
+## 2.4.0 (2021-05-25)
 
 ### ✨ Features
 
@@ -7,6 +63,7 @@
 - 新增 `JsonPreview`Json 数据查看组件
 - 表格的数据列(column)和操作列(actionColumn)的字段可以根据权限和业务来控制是否显示
 - 新增权限控制表格示例(AuthColumn.vue)
+- 新增用户登录过期示例
 
 ### ⚡ Performance Improvements
 
@@ -17,6 +74,7 @@
 - 修复黑暗主题刷新闪烁的白屏
 - 修复标签页关闭其他功能失效问题
 - 修复表单已知问题
+- 修复自动锁屏失效
 
 ## 2.3.0 (2021-04-10)
 

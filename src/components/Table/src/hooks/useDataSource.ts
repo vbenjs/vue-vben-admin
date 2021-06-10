@@ -149,6 +149,30 @@ export function useDataSource(
     return dataSourceRef.value[index];
   }
 
+  function updateTableDataRecord(
+    rowKey: string | number,
+    record: Recordable
+  ): Recordable | undefined {
+    if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
+    const rowKeyName = unref(getRowKey);
+    if (!rowKeyName) {
+      return;
+    }
+    const row = dataSourceRef.value.find((r) => {
+      if (typeof rowKeyName === 'function') {
+        return (rowKeyName(r) as string) === rowKey;
+      } else {
+        return Reflect.has(r, rowKeyName) && r[rowKeyName] === rowKey;
+      }
+    });
+    if (row) {
+      for (const field in row) {
+        if (Reflect.has(record, field)) row[field] = record[field];
+      }
+      return row;
+    }
+  }
+
   async function fetch(opt?: FetchParams) {
     const { api, searchInfo, fetchSetting, beforeFetch, afterFetch, useSearchForm, pagination } =
       unref(propsRef);
@@ -255,6 +279,7 @@ export function useDataSource(
     fetch,
     reload,
     updateTableData,
+    updateTableDataRecord,
     handleTableChange,
   };
 }

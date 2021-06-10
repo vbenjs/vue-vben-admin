@@ -1,42 +1,44 @@
 <template>
   <Button v-bind="$attrs" :disabled="isStart" @click="handleStart" :loading="loading">
-    {{
-      !isStart
-        ? t('component.countdown.normalText')
-        : t('component.countdown.sendText', [currentCount])
-    }}
+    {{ getButtonText }}
   </Button>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, PropType, watchEffect } from 'vue';
-
+  import { defineComponent, ref, watchEffect, computed, unref } from 'vue';
   import { Button } from 'ant-design-vue';
-
   import { useCountdown } from './useCountdown';
   import { isFunction } from '/@/utils/is';
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { propTypes } from '/@/utils/propTypes';
+
+  const props = {
+    value: { type: [Object, Number, String, Array] },
+    count: { type: Number, default: 60 },
+    beforeStartFunc: {
+      type: Function as PropType<() => Promise<boolean>>,
+      default: null,
+    },
+  };
 
   export default defineComponent({
     name: 'CountButton',
     components: { Button },
-    props: {
-      value: propTypes.any,
-      count: propTypes.number.def(60),
-      beforeStartFunc: {
-        type: Function as PropType<() => boolean>,
-        default: null,
-      },
-    },
+    props,
     setup(props) {
       const loading = ref(false);
 
       const { currentCount, isStart, start, reset } = useCountdown(props.count);
       const { t } = useI18n();
 
+      const getButtonText = computed(() => {
+        return !unref(isStart)
+          ? t('component.countdown.normalText')
+          : t('component.countdown.sendText', [unref(currentCount)]);
+      });
+
       watchEffect(() => {
         props.value === undefined && reset();
       });
+
       /**
        * @description: Judge whether there is an external function before execution, and decide whether to start after execution
        */
@@ -54,7 +56,7 @@
           start();
         }
       }
-      return { handleStart, isStart, currentCount, loading, t };
+      return { handleStart, currentCount, loading, getButtonText, isStart };
     },
   });
 </script>

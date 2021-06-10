@@ -13,6 +13,7 @@ export type RegisterFn = (modalMethods: ModalMethods, uuid?: string) => void;
 
 export interface ReturnMethods extends ModalMethods {
   openModal: <T = any>(props?: boolean, data?: T, openOnSet?: boolean) => void;
+  closeModal: () => void;
   getVisible?: ComputedRef<boolean>;
 }
 
@@ -23,6 +24,7 @@ export interface ReturnInnerMethods extends ModalMethods {
   changeLoading: (loading: boolean) => void;
   changeOkLoading: (loading: boolean) => void;
   getVisible?: ComputedRef<boolean>;
+  redoModalHeight: () => void;
 }
 
 export type UseModalInnerReturnType = [RegisterFn, ReturnInnerMethods];

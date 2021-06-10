@@ -5,7 +5,7 @@
 <template>
   <RadioGroup v-bind="attrs" v-model:value="state" button-style="solid">
     <template v-for="item in getOptions" :key="`${item.value}`">
-      <RadioButton :value="item.value">
+      <RadioButton :value="item.value" :disabled="item.disabled">
         {{ item.label }}
       </RadioButton>
     </template>
@@ -17,7 +17,7 @@
   import { isString } from '/@/utils/is';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { useAttrs } from '/@/hooks/core/useAttrs';
-  type OptionsItem = { label: string; value: string; disabled?: boolean };
+  type OptionsItem = { label: string; value: string | number | boolean; disabled?: boolean };
   type RadioItem = string | OptionsItem;
 
   export default defineComponent({
@@ -28,7 +28,7 @@
     },
     props: {
       value: {
-        type: String as PropType<string>,
+        type: [String, Number, Boolean] as PropType<string | number | boolean>,
       },
       options: {
         type: Array as PropType<RadioItem[]>,

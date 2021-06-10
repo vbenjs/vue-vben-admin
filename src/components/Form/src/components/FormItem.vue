@@ -174,9 +174,7 @@
           return Promise.resolve();
         }
 
-        const getRequired = isFunction(required)
-          ? required(unref(getValues))
-          : required;
+        const getRequired = isFunction(required) ? required(unref(getValues)) : required;
 
         if ((!rules || rules.length === 0) && getRequired) {
           rules = [{ required: getRequired, validator }];

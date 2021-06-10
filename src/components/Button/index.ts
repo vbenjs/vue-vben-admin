@@ -1,4 +1,6 @@
-import Button from './src/BasicButton.vue';
-import PopConfirmButton from './src/PopConfirmButton.vue';
+import { withInstall } from '/@/utils';
+import button from './src/BasicButton.vue';
+import popConfirmButton from './src/PopConfirmButton.vue';
 
-export { Button, PopConfirmButton };
+export const Button = withInstall(button);
+export const PopConfirmButton = withInstall(popConfirmButton);

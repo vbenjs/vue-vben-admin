@@ -1,47 +1,59 @@
 <template>
-  <Button v-bind="getBindValue" :class="[getColor, $attrs.class]" @click="onClick">
+  <Button v-bind="getBindValue" :class="getButtonClass" @click="onClick">
     <template #default="data">
-      <Icon :icon="preIcon" v-if="preIcon" :size="14" />
+      <Icon :icon="preIcon" v-if="preIcon" :size="iconSize" />
       <slot v-bind="data"></slot>
-      <Icon :icon="postIcon" v-if="postIcon" :size="14" />
+      <Icon :icon="postIcon" v-if="postIcon" :size="iconSize" />
     </template>
   </Button>
 </template>
 <script lang="ts">
   import { defineComponent, computed } from 'vue';
-
   import { Button } from 'ant-design-vue';
-  import Icon from '/@/components/Icon';
+  import { Icon } from '/@/components/Icon';
 
-  import { propTypes } from '/@/utils/propTypes';
+  const props = {
+    color: { type: String, validator: (v) => ['error', 'warning', 'success', ''].includes(v) },
+    loading: { type: Boolean },
+    disabled: { type: Boolean },
+    /**
+     * Text before icon.
+     */
+    preIcon: { type: String },
+    /**
+     * Text after icon.
+     */
+    postIcon: { type: String },
+    /**
+     * preIcon and postIcon icon size.
+     * @default: 14
+     */
+    iconSize: { type: Number, default: 14 },
+    onClick: { type: Function as PropType<(...args) => any>, default: null },
+  };
 
   export default defineComponent({
     name: 'AButton',
     components: { Button, Icon },
     inheritAttrs: false,
-    props: {
-      type: propTypes.oneOf(['primary', 'default', 'danger', 'dashed', 'link']).def('default'),
-      color: propTypes.oneOf(['error', 'warning', 'success', '']),
-      loading: propTypes.bool,
-      disabled: propTypes.bool,
-      preIcon: propTypes.string,
-      postIcon: propTypes.string,
-      onClick: propTypes.func,
-    },
+    props,
     setup(props, { attrs }) {
-      const getColor = computed(() => {
+      // get component class
+      const getButtonClass = computed(() => {
         const { color, disabled } = props;
-        return {
-          [`ant-btn-${color}`]: !!color,
-          [`is-disabled`]: disabled,
-        };
+        return [
+          {
+            [`ant-btn-${color}`]: !!color,
+            [`is-disabled`]: disabled,
+          },
+          attrs.class,
+        ];
       });
 
-      const getBindValue = computed((): any => {
-        return { ...attrs, ...props };
-      });
+      // get inherit binding value
+      const getBindValue = computed(() => ({ ...attrs, ...props }));
 
-      return { getBindValue, getColor };
+      return { getBindValue, getButtonClass };
     },
   });
 </script>

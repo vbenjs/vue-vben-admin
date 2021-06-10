@@ -4,4 +4,6 @@ export type ComponentType =
   | 'Select'
   | 'ApiSelect'
   | 'Checkbox'
-  | 'Switch';
+  | 'Switch'
+  | 'DatePicker'
+  | 'TimePicker';

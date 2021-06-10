@@ -20,7 +20,7 @@
 
   type Options = Cropper.Options;
 
-  const defaultOptions: Cropper.Options = {
+  const defaultOptions: Options = {
     aspectRatio: 16 / 9,
     zoomable: true,
     zoomOnTouch: true,
@@ -42,6 +42,7 @@
     movable: true,
     rotatable: true,
   };
+
   export default defineComponent({
     name: 'CropperImage',
     props: {
@@ -76,22 +77,18 @@
 
       const isReady = ref(false);
 
-      const getImageStyle = computed(
-        (): CSSProperties => {
-          return {
-            height: props.height,
-            maxWidth: '100%',
-            ...props.imageStyle,
-          };
-        }
-      );
+      const getImageStyle = computed((): CSSProperties => {
+        return {
+          height: props.height,
+          maxWidth: '100%',
+          ...props.imageStyle,
+        };
+      });
 
-      const getWrapperStyle = computed(
-        (): CSSProperties => {
-          const { height } = props;
-          return { height: `${height}`.replace(/px/, '') + 'px' };
-        }
-      );
+      const getWrapperStyle = computed((): CSSProperties => {
+        const { height } = props;
+        return { height: `${height}`.replace(/px/, '') + 'px' };
+      });
 
       async function init() {
         const imgEl = unref(imgElRef);
@@ -112,9 +109,9 @@
         let imgInfo = cropper.value.getData();
         cropper.value.getCroppedCanvas().toBlob((blob) => {
           let fileReader: FileReader = new FileReader();
-          fileReader.onloadend = (e: any) => {
+          fileReader.onloadend = (e) => {
             ctx.emit('cropperedInfo', {
-              imgBase64: e.target.result,
+              imgBase64: e.target?.result ?? '',
               imgInfo,
             });
           };

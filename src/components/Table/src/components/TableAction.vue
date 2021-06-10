@@ -1,5 +1,5 @@
 <template>
-  <div :class="[prefixCls, getAlign]">
+  <div :class="[prefixCls, getAlign]" @click="onCellClick">
     <template v-for="(action, index) in getActions" :key="`${index}-${action.label}`">
       <PopConfirmButton v-bind="action">
         <Icon :icon="action.icon" class="mr-1" v-if="action.icon" />
@@ -7,6 +7,7 @@
       </PopConfirmButton>
       <Divider
         type="vertical"
+        class="action-divider"
         v-if="divider && index < getActions.length - (dropDownActions ? 0 : 1)"
       />
     </template>
@@ -55,6 +56,7 @@
       },
       divider: propTypes.bool.def(true),
       outside: propTypes.bool,
+      stopButtonPropagation: propTypes.bool.def(false),
     },
     setup(props) {
       const { prefixCls } = useDesign('basic-table-action');
@@ -121,7 +123,15 @@
         return actionColumn?.align ?? 'left';
       });
 
-      return { prefixCls, getActions, getDropdownList, getAlign };
+      function onCellClick(e: MouseEvent) {
+        if (!props.stopButtonPropagation) return;
+        const target = e.target as HTMLElement;
+        if (target.tagName === 'BUTTON') {
+          e.stopPropagation();
+        }
+      }
+
+      return { prefixCls, getActions, getDropdownList, getAlign, onCellClick };
     },
   });
 </script>
@@ -131,6 +141,10 @@
   .@{prefix-cls} {
     display: flex;
     align-items: center;
+
+    .action-divider {
+      display: table;
+    }
 
     &.left {
       justify-content: flex-start;

@@ -12,6 +12,7 @@ const feat: AppRouteModule = {
     icon: 'ion:git-compare-outline',
     title: t('routes.demo.feat.feat'),
   },
+
   children: [
     {
       path: 'icon',
@@ -27,6 +28,14 @@ const feat: AppRouteModule = {
       component: () => import('/@/views/demo/feat/ws/index.vue'),
       meta: {
         title: t('routes.demo.feat.ws'),
+      },
+    },
+    {
+      path: 'session-timeout',
+      name: 'SessionTimeout',
+      component: () => import('/@/views/demo/feat/session-timeout/index.vue'),
+      meta: {
+        title: t('routes.demo.feat.sessionTimeout'),
       },
     },
     {
@@ -77,21 +86,11 @@ const feat: AppRouteModule = {
         {
           path: 'children',
           name: 'BreadcrumbChildrenDemo',
-          component: getParentLayout('BreadcrumbChildrenDemo'),
-          redirect: '/feat/breadcrumb/children',
+          component: () => import('/@/views/demo/feat/breadcrumb/ChildrenList.vue'),
           meta: {
-            title: t('routes.demo.feat.breadcrumbFlat'),
+            title: t('routes.demo.feat.breadcrumbChildren'),
           },
           children: [
-            {
-              path: '',
-              name: 'BreadcrumbChildren',
-              component: () => import('/@/views/demo/feat/breadcrumb/ChildrenList.vue'),
-              meta: {
-                title: t('routes.demo.feat.breadcrumbChildren'),
-                // hideBreadcrumb: true,
-              },
-            },
             {
               path: 'childrenDetail',
               name: 'BreadcrumbChildrenDetailDemo',
@@ -99,7 +98,7 @@ const feat: AppRouteModule = {
               meta: {
                 currentActiveMenu: '/feat/breadcrumb/children',
                 title: t('routes.demo.feat.breadcrumbChildrenDetail'),
-                hideTab: true,
+                //hideTab: true,
                 // hideMenu: true,
               },
             },

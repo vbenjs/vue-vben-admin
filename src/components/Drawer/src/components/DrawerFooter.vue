@@ -43,15 +43,13 @@
     setup(props, { emit }) {
       const { prefixCls } = useDesign('basic-drawer-footer');
 
-      const getStyle = computed(
-        (): CSSProperties => {
-          const heightStr = `${props.height}`;
-          return {
-            height: heightStr,
-            lineHeight: heightStr,
-          };
-        }
-      );
+      const getStyle = computed((): CSSProperties => {
+        const heightStr = `${props.height}`;
+        return {
+          height: heightStr,
+          lineHeight: heightStr,
+        };
+      });
 
       function handleOk() {
         emit('ok');

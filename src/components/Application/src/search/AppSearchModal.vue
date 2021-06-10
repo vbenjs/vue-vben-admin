@@ -7,11 +7,11 @@
             <Input
               :class="`${prefixCls}-input`"
               :placeholder="t('common.searchText')"
+              ref="inputRef"
               allow-clear
               @change="handleSearch"
             >
               <template #prefix>
-                <!-- <Icon icon="ion:search"/> -->
                 <SearchOutlined />
               </template>
             </Input>
@@ -57,22 +57,21 @@
   </Teleport>
 </template>
 <script lang="ts">
-  import { defineComponent, computed, unref, ref } from 'vue';
-
+  import { defineComponent, computed, unref, ref, watch, nextTick } from 'vue';
   import { SearchOutlined } from '@ant-design/icons-vue';
   import { Input } from 'ant-design-vue';
   import AppSearchFooter from './AppSearchFooter.vue';
   import Icon from '/@/components/Icon';
-
   import clickOutside from '/@/directives/clickOutside';
-
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useRefs } from '/@/hooks/core/useRefs';
   import { useMenuSearch } from './useMenuSearch';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useAppInject } from '/@/hooks/web/useAppInject';
 
-  import { propTypes } from '/@/utils/propTypes';
+  const props = {
+    visible: { type: Boolean },
+  };
 
   export default defineComponent({
     name: 'AppSearchModal',
@@ -80,29 +79,21 @@
     directives: {
       clickOutside,
     },
-    props: {
-      visible: propTypes.bool,
-    },
+    props,
     emits: ['close'],
-    setup(_, { emit }) {
+    setup(props, { emit }) {
       const scrollWrap = ref<ElRef>(null);
-      const { prefixCls } = useDesign('app-search-modal');
+      const inputRef = ref<Nullable<HTMLElement>>(null);
+
       const { t } = useI18n();
+      const { prefixCls } = useDesign('app-search-modal');
       const [refs, setRefs] = useRefs();
       const { getIsMobile } = useAppInject();
 
-      const {
-        handleSearch,
-        searchResult,
-        keyword,
-        activeIndex,
-        handleEnter,
-        handleMouseenter,
-      } = useMenuSearch(refs, scrollWrap, emit);
+      const { handleSearch, searchResult, keyword, activeIndex, handleEnter, handleMouseenter } =
+        useMenuSearch(refs, scrollWrap, emit);
 
-      const getIsNotData = computed(() => {
-        return !keyword || unref(searchResult).length === 0;
-      });
+      const getIsNotData = computed(() => !keyword || unref(searchResult).length === 0);
 
       const getClass = computed(() => {
         return [
@@ -112,6 +103,16 @@
           },
         ];
       });
+
+      watch(
+        () => props.visible,
+        (visible: boolean) => {
+          visible &&
+            nextTick(() => {
+              unref(inputRef)?.focus();
+            });
+        }
+      );
 
       function handleClose() {
         searchResult.value = [];
@@ -131,6 +132,7 @@
         scrollWrap,
         handleMouseenter,
         handleClose,
+        inputRef,
       };
     },
   });

@@ -1,13 +1,13 @@
 import { MockMethod } from 'vite-plugin-mock';
-import { resultError, resultSuccess } from '../_util';
+import { resultError, resultSuccess, getRequestToken, requestParams } from '../_util';
 
-function createFakeUserList() {
+export function createFakeUserList() {
   return [
     {
       userId: '1',
       username: 'vben',
       realName: 'Vben Admin',
-      avatar: 'http://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
+      avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
       desc: 'manager',
       password: '123456',
       token: 'fakeToken1',
@@ -23,7 +23,7 @@ function createFakeUserList() {
       username: 'test',
       password: '123456',
       realName: 'test user',
-      avatar: 'http://q1.qlogo.cn/g?b=qq&nk=339449197&s=640',
+      avatar: 'https://q1.qlogo.cn/g?b=qq&nk=339449197&s=640',
       desc: 'tester',
       token: 'fakeToken2',
       roles: [
@@ -67,11 +67,12 @@ export default [
     },
   },
   {
-    url: '/basic-api/getUserInfoById',
+    url: '/basic-api/getUserInfo',
     method: 'get',
-    response: ({ query }) => {
-      const { userId } = query;
-      const checkUser = createFakeUserList().find((item) => item.userId === userId);
+    response: (request: requestParams) => {
+      const token = getRequestToken(request);
+      if (!token) return resultError('Invalid token');
+      const checkUser = createFakeUserList().find((item) => item.token === token);
       if (!checkUser) {
         return resultError('The corresponding user information was not obtained!');
       }
@@ -79,15 +80,17 @@ export default [
     },
   },
   {
-    url: '/basic-api/getPermCodeByUserId',
+    url: '/basic-api/getPermCode',
     timeout: 200,
     method: 'get',
-    response: ({ query }) => {
-      const { userId } = query;
-      if (!userId) {
-        return resultError('userId is not null!');
+    response: (request: requestParams) => {
+      const token = getRequestToken(request);
+      if (!token) return resultError('Invalid token');
+      const checkUser = createFakeUserList().find((item) => item.token === token);
+      if (!checkUser) {
+        return resultError('Invalid token!');
       }
-      const codeList = fakeCodeList[userId];
+      const codeList = fakeCodeList[checkUser.userId];
 
       return resultSuccess(codeList);
     },

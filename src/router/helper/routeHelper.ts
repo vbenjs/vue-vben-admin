@@ -2,7 +2,7 @@ import type { AppRouteModule, AppRouteRecordRaw } from '/@/router/types';
 import type { Router, RouteRecordNormalized } from 'vue-router';
 
 import { getParentLayout, LAYOUT } from '/@/router/constant';
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep, omit } from 'lodash-es';
 import { warn } from '/@/utils/log';
 import { createRouter, createWebHashHistory } from 'vue-router';
 
@@ -73,7 +73,7 @@ export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModul
     }
     route.children && asyncImportRoute(route.children);
   });
-  return (routeList as unknown) as T[];
+  return routeList as unknown as T[];
 }
 
 /**
@@ -95,7 +95,7 @@ export function flatMultiLevelRoutes(routeModules: AppRouteModule[]) {
 function promoteRouteLevel(routeModule: AppRouteModule) {
   // Use vue-router to splice menus
   let router: Router | null = createRouter({
-    routes: [(routeModule as unknown) as RouteRecordNormalized],
+    routes: [routeModule as unknown as RouteRecordNormalized],
     history: createWebHashHistory(),
   });
 
@@ -103,7 +103,7 @@ function promoteRouteLevel(routeModule: AppRouteModule) {
   addToChildren(routes, routeModule.children || [], routeModule);
   router = null;
 
-  routeModule.children = routeModule.children?.filter((item) => !item.children?.length);
+  routeModule.children = routeModule.children?.map((item) => omit(item, 'children'));
 }
 
 // Add all sub-routes to the secondary route
@@ -120,7 +120,7 @@ function addToChildren(
     }
     routeModule.children = routeModule.children || [];
     if (!routeModule.children.find((item) => item.name === route.name)) {
-      routeModule.children?.push((route as unknown) as AppRouteModule);
+      routeModule.children?.push(route as unknown as AppRouteModule);
     }
     if (child.children?.length) {
       addToChildren(routes, child.children, routeModule);
