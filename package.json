@@ -37,7 +37,7 @@
     "@logicflow/extension": "^0.4.13",
     "@vueuse/core": "^5.0.2",
     "@zxcvbn-ts/core": "^0.3.0",
-    "ant-design-vue": "2.1.2",
+    "ant-design-vue": "2.1.6",
     "axios": "^0.21.1",
     "codemirror": "^5.61.1",
     "cropperjs": "^1.5.11",
