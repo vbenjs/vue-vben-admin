@@ -11,7 +11,6 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
   import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
-  import { useContentViewHeight } from './useContentViewHeight';
 
   export default defineComponent({
     name: 'LayoutContent',
@@ -21,7 +20,6 @@
       const { getOpenPageLoading } = useTransitionSetting();
       const { getLayoutContentMode, getPageLoading } = useRootSetting();
 
-      useContentViewHeight();
       return {
         prefixCls,
         getOpenPageLoading,

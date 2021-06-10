@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, unref } from 'vue';
+  import { computed, defineComponent, unref, ref } from 'vue';
   import { Layout } from 'ant-design-vue';
 
   import { GithubFilled } from '@ant-design/icons-vue';
@@ -24,6 +24,7 @@
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
   import { useRouter } from 'vue-router';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { footerHeightRef, useContentViewHeight } from '../content/useContentViewHeight';
 
   export default defineComponent({
     name: 'LayoutFooter',
@@ -33,11 +34,29 @@
       const { getShowFooter } = useRootSetting();
       const { currentRoute } = useRouter();
       const { prefixCls } = useDesign('layout-footer');
+      const footerRef = ref<ComponentRef>(null);
 
       const getShowLayoutFooter = computed(() => {
+        if (unref(getShowFooter)) {
+          const footerEl = unref(footerRef)?.$el;
+          footerHeightRef.value = footerEl?.offsetHeight || 0;
+        } else {
+          footerHeightRef.value = 0;
+        }
         return unref(getShowFooter) && !unref(currentRoute).meta?.hiddenFooter;
       });
-      return { getShowLayoutFooter, prefixCls, t, DOC_URL, GITHUB_URL, SITE_URL, openWindow };
+
+      useContentViewHeight();
+      return {
+        getShowLayoutFooter,
+        prefixCls,
+        t,
+        DOC_URL,
+        GITHUB_URL,
+        SITE_URL,
+        openWindow,
+        footerRef,
+      };
     },
   });
 </script>
