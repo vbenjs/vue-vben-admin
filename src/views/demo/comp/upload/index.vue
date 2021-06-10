@@ -21,7 +21,6 @@
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
   import { PageWrapper } from '/@/components/Page';
   import { Alert } from 'ant-design-vue';
-
   import { uploadApi } from '/@/api/sys/upload';
 
   const schemas: FormSchema[] = [

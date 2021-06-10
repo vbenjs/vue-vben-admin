@@ -1,4 +1,7 @@
-import type Cropper from 'cropperjs';
+import { withInstall } from '/@/utils';
+import cropperImage from './src/Cropper.vue';
+import avatarCropper from './src/CropperAvatar.vue';
 
-export type { Cropper };
-export { default as CropperImage } from './src/Cropper.vue';
+export * from './src/typing';
+export const CropperImage = withInstall(cropperImage);
+export const CropperAvatar = withInstall(avatarCropper);

@@ -8,6 +8,12 @@ export default {
     normalText: 'Get SMS code',
     sendText: 'Reacquire in {0}s',
   },
+  cropper: {
+    selectImage: 'Select Image',
+    uploadSuccess: 'Uploaded success!',
+    modalTitle: 'Avatar upload',
+    okText: 'Confirm and upload',
+  },
   drawer: {
     loadingText: 'Loading...',
     cancelText: 'Close',

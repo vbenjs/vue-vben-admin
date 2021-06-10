@@ -8,6 +8,12 @@ export default {
     normalText: '获取验证码',
     sendText: '{0}秒后重新获取',
   },
+  cropper: {
+    selectImage: '选择图片',
+    uploadSuccess: '上传成功',
+    modalTitle: '头像上传',
+    okText: '确认并上传',
+  },
   drawer: {
     loadingText: '加载中...',
     cancelText: '关闭',

@@ -1,13 +1,12 @@
 <template>
-  <AInput v-bind="$attrs" :class="prefixCls" :size="size" :value="state">
+  <a-input v-bind="$attrs" :class="prefixCls" :size="size" :value="state">
     <template #addonAfter>
       <CountButton :size="size" :count="count" :value="state" :beforeStartFunc="sendCodeApi" />
     </template>
-  </AInput>
+  </a-input>
 </template>
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
-  import { Input } from 'ant-design-vue';
   import CountButton from './CountButton.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
@@ -24,7 +23,7 @@
 
   export default defineComponent({
     name: 'CountDownInput',
-    components: { [Input.name]: Input, CountButton },
+    components: { CountButton },
     inheritAttrs: false,
     props,
     setup(props) {
