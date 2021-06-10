@@ -8,4 +8,4 @@ export interface DemoOptionsItem {
 /**
  * @description: Request list return value
  */
-export type DemoOptionsGetResultModel = BasicFetchResult<DemoOptionsItem[]>;
+export type DemoOptionsGetResultModel = BasicFetchResult<DemoOptionsItem>;
