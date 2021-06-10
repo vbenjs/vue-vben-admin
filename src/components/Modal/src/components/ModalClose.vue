@@ -35,8 +35,8 @@
         ];
       });
 
-      function handleCancel() {
-        emit('cancel');
+      function handleCancel(e: Event) {
+        emit('cancel', e);
       }
       function handleFullScreen(e: Event) {
         e?.stopPropagation();
