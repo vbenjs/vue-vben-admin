@@ -39,19 +39,9 @@
       const [register1, { openDrawer: openDrawer1, setDrawerProps }] = useDrawer();
       const [register2, { openDrawer: openDrawer2 }] = useDrawer();
       const [register3, { openDrawer: openDrawer3 }] = useDrawer();
-      const [
-        register4,
-        {
-          openDrawer: openDrawer4,
-          // ransferDrawerData
-        },
-      ] = useDrawer();
+      const [register4, { openDrawer: openDrawer4 }] = useDrawer();
       const [register5, { openDrawer: openDrawer5 }] = useDrawer();
       function send() {
-        // transferDrawerData({
-        //   data: 'content',
-        //   info: 'Info',
-        // });
         openDrawer4(true, {
           data: 'content',
           info: 'Info',

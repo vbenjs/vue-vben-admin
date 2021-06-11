@@ -35,15 +35,10 @@ export const basicProps = {
   getContainer: {
     type: [Object, String] as PropType<any>,
   },
-  scrollOptions: {
-    type: Object as PropType<any>,
-    default: null,
-  },
   closeFunc: {
     type: [Function, Object] as PropType<any>,
     default: null,
   },
-  triggerWindowResize: { type: Boolean },
   destroyOnClose: { type: Boolean },
   ...footerProps,
 };

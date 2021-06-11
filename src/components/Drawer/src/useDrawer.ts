@@ -92,6 +92,9 @@ export function useDrawer(): UseDrawerReturnType {
         dataTransferRef[unref(uid)] = toRaw(data);
       }
     },
+    closeDrawer: () => {
+      getInstance()?.setDrawerProps({ visible: false });
+    },
   };
 
   return [register, methods];
