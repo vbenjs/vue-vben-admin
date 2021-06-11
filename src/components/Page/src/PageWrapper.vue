@@ -44,6 +44,8 @@
   import { omit } from 'lodash-es';
   import { PageHeader } from 'ant-design-vue';
   import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
+  import { useLayoutHeight } from '/@/layouts/default/content/useContentViewHeight';
+
   export default defineComponent({
     name: 'PageWrapper',
     components: { PageFooter, PageHeader },
@@ -67,6 +69,7 @@
       const footerHeight = ref(0);
       const { prefixCls, prefixVar } = useDesign('page-wrapper');
       const { contentHeight, setPageHeight, pageHeight } = usePageContext();
+      const { footerHeightRef } = useLayoutHeight();
 
       const getClass = computed(() => {
         return [
@@ -109,7 +112,7 @@
       });
 
       watch(
-        () => [contentHeight?.value, getShowFooter.value],
+        () => [contentHeight?.value, getShowFooter.value, footerHeightRef.value],
         () => {
           calcContentHeight();
         },
