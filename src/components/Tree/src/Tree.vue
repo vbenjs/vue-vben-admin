@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import type { ReplaceFields, Keys, CheckKeys, TreeActionType, TreeItem } from './types';
+  import type { ReplaceFields, Keys, CheckKeys, TreeActionType, TreeItem } from './typing';
 
   import {
     defineComponent,
@@ -30,7 +30,7 @@
   import { basicProps } from './props';
   import { CreateContextOptions } from '/@/components/ContextMenu';
 
-  import { CheckEvent } from './types';
+  import { CheckEvent } from './typing';
 
   interface State {
     expandedKeys: Keys;

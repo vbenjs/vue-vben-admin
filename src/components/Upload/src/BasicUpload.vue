@@ -7,14 +7,14 @@
       <Tooltip placement="bottom" v-if="showPreview">
         <template #title>
           {{ t('component.upload.uploaded') }}
-          <template v-if="fileListRef.length">
-            {{ fileListRef.length }}
+          <template v-if="fileList.length">
+            {{ fileList.length }}
           </template>
         </template>
         <a-button @click="openPreviewModal">
           <Icon icon="bi:eye" />
-          <template v-if="fileListRef.length && showPreviewNumber">
-            {{ fileListRef.length }}
+          <template v-if="fileList.length && showPreviewNumber">
+            {{ fileList.length }}
           </template>
         </a-button>
       </Tooltip>
@@ -22,13 +22,14 @@
 
     <UploadModal
       v-bind="bindValue"
-      :previewFileList="fileListRef"
+      :previewFileList="fileList"
       @register="registerUploadModal"
       @change="handleChange"
+      @delete="handleDelete"
     />
 
     <UploadPreviewModal
-      :value="fileListRef"
+      :value="fileList"
       @register="registerPreviewModal"
       @list-change="handlePreviewChange"
     />
@@ -36,14 +37,11 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref, watch, unref, computed } from 'vue';
-
   import UploadModal from './UploadModal.vue';
   import UploadPreviewModal from './UploadPreviewModal.vue';
-  import Icon from '/@/components/Icon';
+  import { Icon } from '/@/components/Icon';
   import { Tooltip } from 'ant-design-vue';
-
   import { useModal } from '/@/components/Modal';
-
   import { uploadContainerProps } from './props';
   import { omit } from 'lodash-es';
   import { useI18n } from '/@/hooks/web/useI18n';
@@ -52,7 +50,7 @@
     name: 'BasicUpload',
     components: { UploadModal, UploadPreviewModal, Icon, Tooltip },
     props: uploadContainerProps,
-    emits: ['change'],
+    emits: ['change', 'delete'],
 
     setup(props, { emit, attrs }) {
       const { t } = useI18n();
@@ -62,12 +60,12 @@
       //   预览modal
       const [registerPreviewModal, { openModal: openPreviewModal }] = useModal();
 
-      const fileListRef = ref<string[]>([]);
+      const fileList = ref<string[]>([]);
 
       const showPreview = computed(() => {
         const { emptyHidePreview } = props;
         if (!emptyHidePreview) return true;
-        return emptyHidePreview ? fileListRef.value.length > 0 : true;
+        return emptyHidePreview ? fileList.value.length > 0 : true;
       });
 
       const bindValue = computed(() => {
@@ -78,21 +76,25 @@
       watch(
         () => props.value,
         (value = []) => {
-          fileListRef.value = value;
+          fileList.value = value;
         },
         { immediate: true }
       );
 
       // 上传modal保存操作
       function handleChange(urls: string[]) {
-        fileListRef.value = [...unref(fileListRef), ...(urls || [])];
-        emit('change', fileListRef.value);
+        fileList.value = [...unref(fileList), ...(urls || [])];
+        emit('change', fileList.value);
       }
 
       // 预览modal保存操作
       function handlePreviewChange(urls: string[]) {
-        fileListRef.value = [...(urls || [])];
-        emit('change', fileListRef.value);
+        fileList.value = [...(urls || [])];
+        emit('change', fileList.value);
+      }
+
+      function handleDelete(record: Recordable) {
+        emit('delete', record);
       }
 
       return {
@@ -102,9 +104,10 @@
         handlePreviewChange,
         registerPreviewModal,
         openPreviewModal,
-        fileListRef,
+        fileList,
         showPreview,
         bindValue,
+        handleDelete,
         t,
       };
     },
