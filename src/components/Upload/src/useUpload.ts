@@ -3,20 +3,17 @@ import { useI18n } from '/@/hooks/web/useI18n';
 const { t } = useI18n();
 export function useUploadType({
   acceptRef,
-  //   uploadTypeRef,
   helpTextRef,
   maxNumberRef,
   maxSizeRef,
 }: {
   acceptRef: Ref<string[]>;
-  //   uploadTypeRef: Ref<UploadTypeEnum>;
   helpTextRef: Ref<string>;
   maxNumberRef: Ref<number>;
   maxSizeRef: Ref<number>;
 }) {
   // 文件类型限制
   const getAccept = computed(() => {
-    // const uploadType = unref(uploadTypeRef);
     const accept = unref(acceptRef);
     if (accept && accept.length > 0) {
       return accept;
@@ -28,6 +25,7 @@ export function useUploadType({
       .map((item) => `.${item}`)
       .join(',');
   });
+
   // 支持jpg、jpeg、png格式，不超过2M，最多可选择10张图片，。
   const getHelpText = computed(() => {
     const helpText = unref(helpTextRef);
