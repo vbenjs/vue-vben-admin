@@ -25,7 +25,6 @@
 
   import { useTree } from './useTree';
   import { useContextMenu } from '/@/hooks/web/useContextMenu';
-  import { useExpose } from '/@/hooks/core/useExpose';
   import { useDesign } from '/@/hooks/web/useDesign';
 
   import { basicProps } from './props';
@@ -44,7 +43,7 @@
     inheritAttrs: false,
     props: basicProps,
     emits: ['update:expandedKeys', 'update:selectedKeys', 'update:value', 'change', 'check'],
-    setup(props, { attrs, slots, emit }) {
+    setup(props, { attrs, slots, emit, expose }) {
       const state = reactive<State>({
         checkStrictly: props.checkStrictly,
         expandedKeys: props.expandedKeys || [],
@@ -277,7 +276,7 @@
         },
       };
 
-      useExpose<TreeActionType>(instance);
+      expose(instance);
 
       function renderAction(node: TreeItem) {
         const { actionList } = props;
