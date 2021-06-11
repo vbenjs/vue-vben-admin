@@ -1,7 +1,7 @@
 <template>
   <PageWrapper title="图片预览示例">
-    <p @click="openImg">打开图片</p>
     <ImagePreview :imageList="imgList" />
+    <a-button @click="openImg" type="primary">无预览图</a-button>
   </PageWrapper>
 </template>
 <script lang="ts">
