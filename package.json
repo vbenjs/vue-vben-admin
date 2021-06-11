@@ -63,7 +63,7 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
-    "@iconify/json": "^1.1.354",
+    "@iconify/json": "^1.1.355",
     "@purge-icons/generated": "^0.7.0",
     "@types/codemirror": "^5.60.0",
     "@types/crypto-js": "^4.0.1",
@@ -91,7 +91,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-define-config": "^1.0.8",
     "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-vue": "^7.10.0",
+    "eslint-plugin-vue": "^7.11.0",
     "esno": "^0.7.1",
     "fs-extra": "^10.0.0",
     "http-server": "^0.12.3",
@@ -100,7 +100,7 @@
     "is-ci": "^3.0.0",
     "less": "^4.1.1",
     "lint-staged": "^11.0.0",
-    "postcss": "^8.3.1",
+    "postcss": "^8.3.2",
     "prettier": "^2.3.1",
     "pretty-quick": "^3.1.0",
     "rimraf": "^3.0.2",
@@ -128,7 +128,7 @@
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China. If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
-    "rollup": "^2.51.1"
+    "rollup": "^2.51.2"
   },
   "repository": {
     "type": "git",

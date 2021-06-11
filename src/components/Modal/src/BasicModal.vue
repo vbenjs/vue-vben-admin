@@ -186,7 +186,7 @@
        */
       function setModalProps(props: Partial<ModalProps>): void {
         // Keep the last setModalProps
-        propsRef.value = deepMerge(unref(propsRef), props);
+        propsRef.value = deepMerge(unref(propsRef) || ({} as any), props);
         if (!Reflect.has(props, 'visible')) return;
         visibleRef.value = !!props.visible;
       }
