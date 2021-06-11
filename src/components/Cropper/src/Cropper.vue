@@ -16,7 +16,7 @@
   import Cropper from 'cropperjs';
   import 'cropperjs/dist/cropper.css';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { useThrottleFn } from '@vueuse/shared';
+  import { useDebounceFn } from '@vueuse/shared';
 
   type Options = Cropper.Options;
 
@@ -47,7 +47,6 @@
     src: { type: String, required: true },
     alt: { type: String },
     circled: { type: Boolean, default: false },
-
     realTimePreview: { type: Boolean, default: true },
     height: { type: [String, Number], default: '360px' },
     crossorigin: {
@@ -68,7 +67,7 @@
       const isReady = ref(false);
 
       const { prefixCls } = useDesign('cropper-image');
-      const throttleRealTimeCroppered = useThrottleFn(realTimeCroppered, 80);
+      const debounceRealTimeCroppered = useDebounceFn(realTimeCroppered, 80);
 
       const getImageStyle = computed((): CSSProperties => {
         return {
@@ -107,13 +106,13 @@
             emit('ready', cropper.value);
           },
           crop() {
-            throttleRealTimeCroppered();
+            debounceRealTimeCroppered();
           },
           zoom() {
-            throttleRealTimeCroppered();
+            debounceRealTimeCroppered();
           },
           cropmove() {
-            throttleRealTimeCroppered();
+            debounceRealTimeCroppered();
           },
           ...props.options,
         });
