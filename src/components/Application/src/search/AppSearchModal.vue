@@ -4,7 +4,7 @@
       <div :class="getClass" @click.stop v-if="visible">
         <div :class="`${prefixCls}-content`" v-click-outside="handleClose">
           <div :class="`${prefixCls}-input__wrapper`">
-            <Input
+            <a-input
               :class="`${prefixCls}-input`"
               :placeholder="t('common.searchText')"
               ref="inputRef"
@@ -14,7 +14,7 @@
               <template #prefix>
                 <SearchOutlined />
               </template>
-            </Input>
+            </a-input>
             <span :class="`${prefixCls}-cancel`" @click="handleClose">
               {{ t('common.cancelText') }}
             </span>
@@ -59,7 +59,6 @@
 <script lang="ts">
   import { defineComponent, computed, unref, ref, watch, nextTick } from 'vue';
   import { SearchOutlined } from '@ant-design/icons-vue';
-  import { Input } from 'ant-design-vue';
   import AppSearchFooter from './AppSearchFooter.vue';
   import Icon from '/@/components/Icon';
   import clickOutside from '/@/directives/clickOutside';
@@ -75,7 +74,7 @@
 
   export default defineComponent({
     name: 'AppSearchModal',
-    components: { Icon, SearchOutlined, AppSearchFooter, Input },
+    components: { Icon, SearchOutlined, AppSearchFooter },
     directives: {
       clickOutside,
     },

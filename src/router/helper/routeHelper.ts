@@ -7,8 +7,12 @@ import { warn } from '/@/utils/log';
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 export type LayoutMapKey = 'LAYOUT';
+const IFRAME = () => import('/@/views/sys/iframe/FrameBlank.vue');
 
-const LayoutMap = new Map<LayoutMapKey, () => Promise<typeof import('*.vue')>>();
+const LayoutMap = new Map<String, () => Promise<typeof import('*.vue')>>();
+
+LayoutMap.set('LAYOUT', LAYOUT);
+LayoutMap.set('IFRAME', IFRAME);
 
 let dynamicViewsModules: Record<string, () => Promise<Recordable>>;
 
@@ -17,10 +21,18 @@ function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
   dynamicViewsModules = dynamicViewsModules || import.meta.glob('../../views/**/*.{vue,tsx}');
   if (!routes) return;
   routes.forEach((item) => {
+    if (!item.component && item.meta?.frameSrc) {
+      item.component = 'IFRAME';
+    }
     const { component, name } = item;
     const { children } = item;
     if (component) {
-      item.component = dynamicImport(dynamicViewsModules, component as string);
+      const layoutFound = LayoutMap.get(component);
+      if (layoutFound) {
+        item.component = layoutFound;
+      } else {
+        item.component = dynamicImport(dynamicViewsModules, component as string);
+      }
     } else if (name) {
       item.component = getParentLayout();
     }
@@ -53,8 +65,6 @@ function dynamicImport(
 
 // Turn background objects into routing objects
 export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModule[]): T[] {
-  LayoutMap.set('LAYOUT', LAYOUT);
-
   routeList.forEach((route) => {
     if (route.component) {
       if ((route.component as string).toUpperCase() === 'LAYOUT') {

@@ -81,7 +81,7 @@
     components: { Modal, ModalWrapper, ModalClose, ModalFooter, ModalHeader },
     inheritAttrs: false,
     props: basicProps,
-    emits: ['visible-change', 'height-change', 'cancel', 'ok', 'register'],
+    emits: ['visible-change', 'height-change', 'cancel', 'ok', 'register', 'update:visible'],
     setup(props, { emit, attrs }) {
       const visibleRef = ref(false);
       const propsRef = ref<Partial<ModalProps> | null>(null);
@@ -157,6 +157,7 @@
         () => unref(visibleRef),
         (v) => {
           emit('visible-change', v);
+          emit('update:visible', v);
           instance && modalMethods.emitVisible?.(v, instance.uid);
           nextTick(() => {
             if (props.scrollTop && v && unref(modalWrapperRef)) {
@@ -180,7 +181,7 @@
         }
 
         visibleRef.value = false;
-        emit('cancel');
+        emit('cancel', e);
       }
 
       /**
@@ -193,8 +194,8 @@
         visibleRef.value = !!props.visible;
       }
 
-      function handleOk() {
-        emit('ok');
+      function handleOk(e: Event) {
+        emit('ok', e);
       }
 
       function handleHeightChange(height: string) {

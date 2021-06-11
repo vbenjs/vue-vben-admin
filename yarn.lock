@@ -2188,10 +2188,10 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-ant-design-vue@2.1.2:
-  version "2.1.2"
-  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.1.2.tgz#2065d7e63199c0c584919458af57b6a0b597f677"
-  integrity sha512-gDG0wauGVt4LE63behrJaIcq4BB+dgs+dpj9jz17IgKr2MPYSEeKetU/x9Kk8d58cGonz4Ulncg7fBZJ7EljsQ==
+ant-design-vue@2.1.6:
+  version "2.1.6"
+  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.1.6.tgz#c51cdc858e1b1b8b569f5435eb487f53a3f1745e"
+  integrity sha512-qICxb6Y4f7QuSuh/jbLhZA9SkUBnP9xYfy/E6yD7+1fg04aAzmRK8oLv8ETuGTrROVdSVeic9v/NS2BXEuuARg==
   dependencies:
     "@ant-design-vue/use" "^0.0.1-0"
     "@ant-design/icons-vue" "^6.0.0"
@@ -2201,7 +2201,7 @@ ant-design-vue@2.1.2:
     async-validator "^3.3.0"
     dom-align "^1.10.4"
     dom-scroll-into-view "^2.0.0"
-    is-mobile "^2.2.1"
+    lodash "^4.17.21"
     lodash-es "^4.17.15"
     moment "^2.27.0"
     omit.js "^2.0.0"
@@ -4237,6 +4237,11 @@ esbuild@^0.11.5:
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.11.10.tgz#f5d39e4d9cc130b78d751664fef1b663240f5545"
   integrity sha512-XvGbf+UreVFA24Tlk6sNOqNcvF2z49XAZt4E7A4H80+yqn944QOLTTxaU0lkdYNtZKFiITNea+VxmtrfjvnLPA==
 
+esbuild@^0.12.5:
+  version "0.12.8"
+  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.12.8.tgz#ac90da77cb3bfbf49ab815200bcef7ffe1a3348f"
+  integrity sha512-sx/LwlP/SWTGsd9G4RlOPrXnIihAJ2xwBUmzoqe2nWwbXORMQWtAGNJNYLBJJqa3e9PWvVzxdrtyFZJcr7D87g==
+
 esbuild@^0.12.6:
   version "0.12.6"
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.12.6.tgz#85bc755c7cf3005d4f34b4f10f98049ce0ee67ce"
@@ -6078,11 +6083,6 @@ is-jpg@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/is-jpg/-/is-jpg-2.0.0.tgz#2e1997fa6e9166eaac0242daae443403e4ef1d97"
   integrity sha1-LhmX+m6RZuqsAkLarkQ0A+TvHZc=
-
-is-mobile@^2.2.1:
-  version "2.2.2"
-  resolved "https://registry.npmjs.org/is-mobile/-/is-mobile-2.2.2.tgz#f6c9c5d50ee01254ce05e739bdd835f1ed4e9954"
-  integrity sha512-wW/SXnYJkTjs++tVK5b6kVITZpAZPtUrt9SF80vvxGiF/Oywal+COk1jlRkiVq15RFNEQKQY31TkV24/1T5cVg==
 
 is-module@^1.0.0:
   version "1.0.0"
@@ -8127,19 +8127,19 @@ postcss@^8.1.10:
     nanoid "^3.1.22"
     source-map "^0.6.1"
 
-postcss@^8.2.10:
-  version "8.2.15"
-  resolved "https://registry.npmjs.org/postcss/-/postcss-8.2.15.tgz#9e66ccf07292817d226fc315cbbf9bc148fbca65"
-  integrity sha512-2zO3b26eJD/8rb106Qu2o7Qgg52ND5HPjcyQiK2B98O388h43A448LCslC0dI2P97wCAQRJsFvwTRcXxTKds+Q==
-  dependencies:
-    colorette "^1.2.2"
-    nanoid "^3.1.23"
-    source-map "^0.6.1"
-
 postcss@^8.3.0:
   version "8.3.0"
   resolved "https://registry.npmjs.org/postcss/-/postcss-8.3.0.tgz#b1a713f6172ca427e3f05ef1303de8b65683325f"
   integrity sha512-+ogXpdAjWGa+fdYY5BQ96V/6tAo+TdSSIMP5huJBIygdWwKtVoB5JWZ7yUd4xZ8r+8Kvvx4nyg/PQ071H4UtcQ==
+  dependencies:
+    colorette "^1.2.2"
+    nanoid "^3.1.23"
+    source-map-js "^0.6.2"
+
+postcss@^8.3.1:
+  version "8.3.1"
+  resolved "https://registry.npmjs.org/postcss/-/postcss-8.3.1.tgz#71f380151c227f83b898294a46481f689f86b70a"
+  integrity sha512-9qH0MGjsSm+fjxOi3GnwViL1otfi7qkj+l/WX5gcRGmZNGsIcqc+A5fBkE6PUobEQK4APqYVaES+B3Uti98TCw==
   dependencies:
     colorette "^1.2.2"
     nanoid "^3.1.23"
@@ -10573,10 +10573,10 @@ vite-plugin-imagemin@^0.3.2:
     imagemin-svgo "^8.0.0"
     imagemin-webp "^6.0.0"
 
-vite-plugin-mock@^2.7.1:
-  version "2.7.1"
-  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.7.1.tgz#c7d25277f7b88158cd3927c1abee7c7721ed92d3"
-  integrity sha512-UnYcb4UZrpe5fHBNFNEJQetnR32+XxrduTYhyDQTtXmaJ9Yy+JuBfIT6Mueyf7MGPe8T6hNgIEYaMLSUD5+nWA==
+vite-plugin-mock@^2.7.2:
+  version "2.7.2"
+  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.7.2.tgz#710fcbbf447d603d33de022d34f45b6a86de3613"
+  integrity sha512-VCzJ0iHaAH04NxbBf18B5L2xCM4EE0AuYvzmLVc0ALdyz7J84uihx/L80qyaPbreDydZ2w0w3TsYbhL9D2fbHA==
   dependencies:
     "@rollup/plugin-node-resolve" "^11.2.1"
     "@types/mockjs" "^1.0.3"
@@ -10657,13 +10657,13 @@ vite-plugin-windicss@^1.0.3:
     debug "^4.3.2"
     windicss "^3.1.3"
 
-vite@2.3.3:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-2.3.3.tgz#7e88a71abd03985c647789938d784cce0ee3b0fd"
-  integrity sha512-eO1iwRbn3/BfkNVMNJDeANAFCZ5NobYOFPu7IqfY7DcI7I9nFGjJIZid0EViTmLDGwwSUPmRAq3cRBbO3+DsMA==
+vite@2.3.7:
+  version "2.3.7"
+  resolved "https://registry.npmjs.org/vite/-/vite-2.3.7.tgz#3023892419367465e1af1739578f8663d04243b2"
+  integrity sha512-Y0xRz11MPYu/EAvzN94+FsOZHbSvO6FUvHv127CyG7mV6oDoay2bw+g5y9wW3Blf8OY3chaz3nc/DcRe1IQ3Nw==
   dependencies:
-    esbuild "^0.11.23"
-    postcss "^8.2.10"
+    esbuild "^0.12.5"
+    postcss "^8.3.0"
     resolve "^1.19.0"
     rollup "^2.38.5"
   optionalDependencies:
