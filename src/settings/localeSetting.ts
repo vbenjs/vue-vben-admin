@@ -1,4 +1,4 @@
-import type { DropMenu } from '/@/components/Dropdown/src/types';
+import type { DropMenu } from '../components/Dropdown';
 import type { LocaleSetting, LocaleType } from '/#/config';
 
 export const LOCALE: { [key: string]: LocaleType } = {

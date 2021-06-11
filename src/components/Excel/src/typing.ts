@@ -6,10 +6,6 @@ export interface ExcelData<T = any> {
   meta: { sheetName: string };
 }
 
-// export interface ImportProps {
-//   beforeUpload: (file: File) => boolean;
-// }
-
 export interface JsonToSheet<T = any> {
   data: T[];
   header?: T;

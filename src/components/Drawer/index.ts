@@ -1,5 +1,6 @@
-import BasicDrawer from './src/BasicDrawer.vue';
+import { withInstall } from '/@/utils';
+import basicDrawer from './src/BasicDrawer.vue';
 
-export { BasicDrawer };
-export * from './src/types';
+export const BasicDrawer = withInstall(basicDrawer);
+export * from './src/typing';
 export { useDrawer, useDrawerInner } from './src/useDrawer';
