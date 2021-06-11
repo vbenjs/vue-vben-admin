@@ -1,7 +1,7 @@
 <template>
   <PageWrapper title="图片裁剪示例" content="需要开启测试接口服务才能进行上传测试！">
     <CollapseContainer title="头像裁剪">
-      <CropperAvatar :src="cropperImg" :uploadApi="uploadApi" />
+      <CropperAvatar :uploadApi="uploadApi" />
     </CollapseContainer>
 
     <CollapseContainer title="矩形裁剪" class="my-4">
