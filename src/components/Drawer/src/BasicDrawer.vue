@@ -163,7 +163,7 @@
 
       function setDrawerProps(props: Partial<DrawerProps>): void {
         // Keep the last setDrawerProps
-        propsRef.value = deepMerge(unref(propsRef), props);
+        propsRef.value = deepMerge(unref(propsRef) || ({} as any), props);
 
         if (Reflect.has(props, 'visible')) {
           visibleRef.value = !!props.visible;
