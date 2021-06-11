@@ -14,18 +14,17 @@
   } from 'vue';
   import Vditor from 'vditor';
   import 'vditor/dist/index.css';
-
-  import { propTypes } from '/@/utils/propTypes';
   import { useLocale } from '/@/locales/useLocale';
   import { useModalContext } from '../../Modal';
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 
   type Lang = 'zh_CN' | 'en_US' | 'ja_JP' | 'ko_KR' | undefined;
+
   export default defineComponent({
     inheritAttrs: false,
     props: {
-      height: propTypes.number.def(360),
-      value: propTypes.string.def(''),
+      height: { type: Number, default: 360 },
+      value: { type: String, default: '' },
     },
     emits: ['change', 'get'],
     setup(props, { attrs, emit }) {

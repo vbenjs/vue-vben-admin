@@ -11,7 +11,7 @@ import { App } from 'vue';
 const compList = [Icon, AntButton.Group];
 
 export function registerGlobComp(app: App) {
-  compList.forEach((comp: any) => {
+  compList.forEach((comp) => {
     app.component(comp.name || comp.displayName, comp);
   });
 
