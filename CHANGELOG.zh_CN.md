@@ -1,5 +1,9 @@
 ## Wip
 
+### ✨ Refactor
+
+- 移除`useExpose`,使用组件自身提供的`expose`代替
+
 ### ✨ Features
 
 - **CropperImage** `Cropper` 头像裁剪新增圆形裁剪功能

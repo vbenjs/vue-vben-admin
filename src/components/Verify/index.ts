@@ -1,6 +1,7 @@
-import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+import { withInstall } from '/@/utils/index';
+import basicDragVerify from './src/DragVerify.vue';
+import rotateDragVerify from './src/ImgRotate.vue';
 
-export const BasicDragVerify = createAsyncComponent(() => import('./src/DragVerify'));
-export const RotateDragVerify = createAsyncComponent(() => import('./src/ImgRotate'));
-
-export * from './src/types';
+export const BasicDragVerify = withInstall(basicDragVerify);
+export const RotateDragVerify = withInstall(rotateDragVerify);
+export * from './src/typing';
