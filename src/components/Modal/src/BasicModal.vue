@@ -49,7 +49,7 @@
   </Modal>
 </template>
 <script lang="ts">
-  import type { ModalProps, ModalMethods } from './types';
+  import type { ModalProps, ModalMethods } from './typing';
 
   import {
     defineComponent,
@@ -62,20 +62,17 @@
     getCurrentInstance,
     nextTick,
   } from 'vue';
-
   import Modal from './components/Modal';
   import ModalWrapper from './components/ModalWrapper.vue';
   import ModalClose from './components/ModalClose.vue';
   import ModalFooter from './components/ModalFooter.vue';
   import ModalHeader from './components/ModalHeader.vue';
-
   import { isFunction } from '/@/utils/is';
   import { deepMerge } from '/@/utils';
-
   import { basicProps } from './props';
   import { useFullScreen } from './hooks/useModalFullScreen';
-
   import { omit } from 'lodash-es';
+
   export default defineComponent({
     name: 'BasicModal',
     components: { Modal, ModalWrapper, ModalClose, ModalFooter, ModalHeader },
@@ -189,7 +186,7 @@
        */
       function setModalProps(props: Partial<ModalProps>): void {
         // Keep the last setModalProps
-        propsRef.value = deepMerge(unref(propsRef) || {}, props);
+        propsRef.value = deepMerge(unref(propsRef), props);
         if (!Reflect.has(props, 'visible')) return;
         visibleRef.value = !!props.visible;
       }
