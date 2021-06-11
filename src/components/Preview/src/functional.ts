@@ -1,11 +1,9 @@
-import ImgPreview from './index';
+import type { Options, Props } from './typing';
+import ImgPreview from './Functional.vue';
 import { isClient } from '/@/utils/is';
-
-import type { Options, Props } from './types';
-
 import { createVNode, render } from 'vue';
 
-let instance: any = null;
+let instance: ReturnType<typeof createVNode> | null = null;
 export function createImgPreview(options: Options) {
   if (!isClient) return;
   const { imageList, show = true, index = 0 } = options;
