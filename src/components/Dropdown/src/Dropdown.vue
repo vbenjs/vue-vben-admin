@@ -1,12 +1,12 @@
 <template>
-  <a-dropdown :trigger="trigger" v-bind="$attrs">
+  <Dropdown :trigger="trigger" v-bind="$attrs">
     <span>
       <slot></slot>
     </span>
     <template #overlay>
-      <a-menu :selectedKeys="selectedKeys">
+      <Menu :selectedKeys="selectedKeys">
         <template v-for="item in dropMenuList" :key="`${item.event}`">
-          <a-menu-item
+          <MenuItem
             v-bind="getAttr(item.event)"
             @click="handleClickMenu(item)"
             :disabled="item.disabled"
@@ -19,17 +19,17 @@
               <Icon :icon="item.icon" v-if="item.icon" />
               <span class="ml-1">{{ item.text }}</span>
             </template>
-          </a-menu-item>
-          <a-menu-divider v-if="item.divider" :key="`d-${item.event}`" />
+          </MenuItem>
+          <MenuDivider v-if="item.divider" :key="`d-${item.event}`" />
         </template>
-      </a-menu>
+      </Menu>
     </template>
-  </a-dropdown>
+  </Dropdown>
 </template>
 
 <script lang="ts">
   import type { PropType } from 'vue';
-  import type { DropMenu } from './types';
+  import type { DropMenu } from './typing';
 
   import { defineComponent } from 'vue';
   import { Dropdown, Menu, Popconfirm } from 'ant-design-vue';
@@ -38,10 +38,10 @@
   export default defineComponent({
     name: 'BasicDropdown',
     components: {
-      [Dropdown.name]: Dropdown,
-      [Menu.name]: Menu,
-      [Menu.Item.name]: Menu.Item,
-      [Menu.Divider.name]: Menu.Divider,
+      Dropdown,
+      Menu,
+      MenuItem: Menu.Item,
+      MenuDivider: Menu.Divider,
       Icon,
       Popconfirm,
     },
@@ -75,6 +75,7 @@
         emit('menuEvent', menu);
         item.onClick?.();
       }
+
       return {
         handleClickMenu,
         getAttr: (key: string | number) => ({ key }),

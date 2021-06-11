@@ -14,7 +14,7 @@
   </BasicModal>
 </template>
 <script lang="ts">
-  import type { ExportModalResult } from './types';
+  import type { ExportModalResult } from './typing';
   import { defineComponent } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';

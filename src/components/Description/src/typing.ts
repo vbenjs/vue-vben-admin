@@ -4,11 +4,8 @@ import type { DescriptionsProps } from 'ant-design-vue/es/descriptions/index';
 
 export interface DescItem {
   labelMinWidth?: number;
-
   contentMinWidth?: number;
-
   labelStyle?: CSSProperties;
-
   field: string;
   label: string | VNode | JSX.Element;
   // Merge column
@@ -21,7 +18,7 @@ export interface DescItem {
   ) => VNode | undefined | JSX.Element | Element | string | number;
 }
 
-export interface DescOptions extends DescriptionsProps {
+export interface DescriptionProps extends DescriptionsProps {
   // Whether to include the collapse component
   useCollapse?: boolean;
   /**
@@ -42,7 +39,7 @@ export interface DescOptions extends DescriptionsProps {
 }
 
 export interface DescInstance {
-  setDescProps(descProps: Partial<DescOptions>): void;
+  setDescProps(descProps: Partial<DescriptionProps>): void;
 }
 
 export type Register = (descInstance: DescInstance) => void;
