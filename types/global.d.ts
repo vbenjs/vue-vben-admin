@@ -1,6 +1,7 @@
 import type {
   ComponentRenderProxy,
   VNode,
+  VNodeChild,
   ComponentPublicInstance,
   FunctionalComponent,
   PropType as VuePropType,
@@ -23,6 +24,7 @@ declare global {
 
   // vue
   declare type PropType<T> = VuePropType<T>;
+  declare type VueNode = VNodeChild | JSX.Element;
 
   export type Writable<T> = {
     -readonly [P in keyof T]: T[P];

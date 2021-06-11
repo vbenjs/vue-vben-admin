@@ -1,12 +1,11 @@
 import { isString } from '/@/utils/is';
-import { RenderQrCodeParams, LogoType } from './types';
+import { RenderQrCodeParams, LogoType } from './typing';
 export const drawLogo = ({ canvas, logo }: RenderQrCodeParams) => {
   if (!logo) {
     return new Promise((resolve) => {
       resolve((canvas as HTMLCanvasElement).toDataURL());
     });
   }
-
   const canvasWidth = (canvas as HTMLCanvasElement).width;
   const {
     logoSize = 0.15,

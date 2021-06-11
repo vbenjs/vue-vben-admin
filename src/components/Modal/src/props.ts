@@ -1,45 +1,44 @@
 import type { PropType, CSSProperties } from 'vue';
+import type { ModalWrapperProps } from './typing';
 import { ButtonProps } from 'ant-design-vue/es/button/buttonTypes';
-
 import { useI18n } from '/@/hooks/web/useI18n';
-import { propTypes, VueNode } from '/@/utils/propTypes';
-import type { ModalWrapperProps } from './types';
+
 const { t } = useI18n();
 
 export const modalProps = {
-  visible: propTypes.bool,
-  scrollTop: propTypes.bool.def(true),
-  height: propTypes.number,
-  minHeight: propTypes.number,
+  visible: { type: Boolean },
+  scrollTop: { type: Boolean, default: true },
+  height: { type: Number },
+  minHeight: { type: Number },
   // open drag
-  draggable: propTypes.bool.def(true),
-  centered: propTypes.bool,
-  cancelText: propTypes.string.def(t('common.cancelText')),
-  okText: propTypes.string.def(t('common.okText')),
+  draggable: { type: Boolean, default: true },
+  centered: { type: Boolean },
+  cancelText: { type: String, default: t('common.cancelText') },
+  okText: { type: String, default: t('common.okText') },
 
   closeFunc: Function as PropType<() => Promise<boolean>>,
 };
 
 export const basicProps = Object.assign({}, modalProps, {
-  defaultFullscreen: propTypes.bool,
+  defaultFullscreen: { type: Boolean },
   // Can it be full screen
-  canFullscreen: propTypes.bool.def(true),
+  canFullscreen: { type: Boolean, default: true },
   // After enabling the wrapper, the bottom can be increased in height
-  wrapperFooterOffset: propTypes.number.def(0),
+  wrapperFooterOffset: { type: Number, default: 0 },
   // Warm reminder message
   helpMessage: [String, Array] as PropType<string | string[]>,
   // Whether to setting wrapper
-  useWrapper: propTypes.bool.def(true),
-  loading: propTypes.bool,
-  loadingTip: propTypes.string,
+  useWrapper: { type: Boolean, default: true },
+  loading: { type: Boolean },
+  loadingTip: { type: String },
   /**
    * @description: Show close button
    */
-  showCancelBtn: propTypes.bool.def(true),
+  showCancelBtn: { type: Boolean, default: true },
   /**
    * @description: Show confirmation button
    */
-  showOkBtn: propTypes.bool.def(true),
+  showOkBtn: { type: Boolean, default: true },
 
   wrapperProps: Object as PropType<Partial<ModalWrapperProps>>,
 
@@ -47,38 +46,38 @@ export const basicProps = Object.assign({}, modalProps, {
 
   bodyStyle: Object as PropType<CSSProperties>,
 
-  closable: propTypes.bool.def(true),
+  closable: { type: Boolean, default: true },
 
   closeIcon: Object as PropType<VueNode>,
 
-  confirmLoading: propTypes.bool,
+  confirmLoading: { type: Boolean },
 
-  destroyOnClose: propTypes.bool,
+  destroyOnClose: { type: Boolean },
 
   footer: Object as PropType<VueNode>,
 
   getContainer: Function as PropType<() => any>,
 
-  mask: propTypes.bool.def(true),
+  mask: { type: Boolean, default: true },
 
-  maskClosable: propTypes.bool.def(true),
-  keyboard: propTypes.bool.def(true),
+  maskClosable: { type: Boolean, default: true },
+  keyboard: { type: Boolean, default: true },
 
   maskStyle: Object as PropType<CSSProperties>,
 
-  okType: propTypes.string.def('primary'),
+  okType: { type: String, default: 'primary' },
 
   okButtonProps: Object as PropType<ButtonProps>,
 
   cancelButtonProps: Object as PropType<ButtonProps>,
 
-  title: propTypes.string,
+  title: { type: String },
 
-  visible: propTypes.bool,
+  visible: { type: Boolean },
 
   width: [String, Number] as PropType<string | number>,
 
-  wrapClassName: propTypes.string,
+  wrapClassName: { type: String },
 
-  zIndex: propTypes.number,
+  zIndex: { type: Number },
 });

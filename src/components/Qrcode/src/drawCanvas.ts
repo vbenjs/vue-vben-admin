@@ -1,6 +1,6 @@
 import { toCanvas } from 'qrcode';
 import type { QRCodeRenderersOptions } from 'qrcode';
-import { RenderQrCodeParams, ContentType } from './types';
+import { RenderQrCodeParams, ContentType } from './typing';
 export const renderQrCode = ({ canvas, content, width = 0, options = {} }: RenderQrCodeParams) => {
   // 容错率，默认对内容少的二维码采用高容错率，内容多的二维码采用低容错率
   options.errorCorrectionLevel = options.errorCorrectionLevel || getErrorCorrectionLevel(content);

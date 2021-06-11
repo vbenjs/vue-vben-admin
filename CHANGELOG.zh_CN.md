@@ -2,9 +2,15 @@
 
 ### ✨ Features
 
-- `Cropper` 头像裁剪新增圆形裁剪功能
-- 新增头像上传组件
-- `useDrawer`新增`closeDrawer`函数
+- **CropperImage** `Cropper` 头像裁剪新增圆形裁剪功能
+- **CropperAvatar** 新增头像上传组件
+- **Drawer** `useDrawer`新增`closeDrawer`函数
+
+### 🐛 Bug Fixes
+
+- **Modal** 修复全屏高度计算错误
+- **PageWrapper** 修复高度计算问题
+- 修复后台模式下，Iframe 路由错误
 
 ## 2.4.2(2021-06-10)
 

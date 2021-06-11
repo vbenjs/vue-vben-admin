@@ -8,10 +8,7 @@
     <Alert message="自适应高度/显示footer" show-icon />
     <a-button type="primary" class="my-4" @click="openDrawer3(true)"> 打开Drawer </a-button>
 
-    <Alert
-      message="内外数据交互,外部通过 transferModalData 发送，内部通过 receiveDrawerDataRef 接收。该数据具有响应式"
-      show-icon
-    />
+    <Alert message="内外数据交互" show-icon />
     <a-button type="primary" class="my-4" @click="send"> 打开Drawer并传递数据 </a-button>
     <Alert message="详情页模式" show-icon />
     <a-button type="primary" class="my-4" @click="openDrawer5(true)"> 打开详情Drawer </a-button>
