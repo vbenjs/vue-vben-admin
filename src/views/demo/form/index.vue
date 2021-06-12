@@ -287,7 +287,7 @@
         //   ]
         // }
         resultField: 'list',
-        // use name as value
+        // use name as label
         labelField: 'name',
         // use id as value
         valueField: 'id',
