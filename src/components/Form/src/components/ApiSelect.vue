@@ -108,6 +108,7 @@
         try {
           loading.value = true;
           const res = await api(props.params);
+          console.log('fetch', res);
           if (Array.isArray(res)) {
             options.value = res;
             emitChange();
