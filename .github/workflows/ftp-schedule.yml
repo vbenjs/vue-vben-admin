@@ -18,12 +18,13 @@ jobs:
         run: |
           sed -i  's#VITE_PUBLIC_PATH\s*=.*#VITE_PUBLIC_PATH = /next/#g' ./.env.production
           sed -i  "s#VITE_BUILD_COMPRESS\s*=.*#VITE_BUILD_COMPRESS = 'gzip'#g" ./.env.production
+          sed -i  "s#VITE_DROP_CONSOLE\s*=.*#VITE_DROP_CONSOLE = true#g" ./.env.production
           cat ./.env.production
 
-      - name: use Node.js 14
+      - name: use Node.js 15
         uses: actions/setup-node@v2.1.2
         with:
-          node-version: '14.x'
+          node-version: '15.x'
 
       - name: Get yarn cache
         id: yarn-cache

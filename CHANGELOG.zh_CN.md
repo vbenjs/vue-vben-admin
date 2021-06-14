@@ -14,6 +14,7 @@
 ### 🐛 Bug Fixes
 
 - **Modal** 修复全屏高度计算错误
+- **Modal** 修复关闭事件触发多次问题
 - **PageWrapper** 修复高度计算问题
 - **FlowChart** 修复拖放菜单丢失
 - 修复后台模式下，Iframe 路由错误
