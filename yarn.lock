@@ -2033,18 +2033,18 @@
   resolved "https://registry.npmjs.org/@vue/shared/-/shared-3.0.11.tgz#20d22dd0da7d358bb21c17f9bde8628152642c77"
   integrity sha512-b+zB8A2so8eCE0JsxjL24J7vdGl8rzPQ09hZNhystm+KqSbKcAej1A+Hbva1rCMmTTqA+hFnUSDc5kouEo0JzA==
 
-"@vueuse/core@^5.0.2":
-  version "5.0.2"
-  resolved "https://registry.npmjs.org/@vueuse/core/-/core-5.0.2.tgz#302389f620c0d4b51fdf157012d9b5b522b605e7"
-  integrity sha512-Sp9+7AL4Cg3Tx6I55WoH7zICGRlp6ZUF9NW3EU8SZTkryHm0afAjFfASMwlfV030JFeh45BdqafDOrenVmM9Cw==
+"@vueuse/core@^5.0.3":
+  version "5.0.3"
+  resolved "https://registry.npmjs.org/@vueuse/core/-/core-5.0.3.tgz#8f3170e2a51ae62fb1725c84d4cc02a7552aad0b"
+  integrity sha512-TMCL11EVMaj2Y5qdYosvuwA+i1aKrerFXs7fhNZiQiLCWxF8XsrNdxzoiaI2n12UcmSOXvd1xdyWs7Nss+p/Hg==
   dependencies:
-    "@vueuse/shared" "5.0.2"
+    "@vueuse/shared" "5.0.3"
     vue-demi "*"
 
-"@vueuse/shared@5.0.2":
-  version "5.0.2"
-  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-5.0.2.tgz#274c2bf163d25eb7fd2fc51f23088a2b7f060594"
-  integrity sha512-S1hRRmEdipjTD4DbXgPdw4ZZYebU/nDi75vNP3Ibpa1irW3NUNUKOT/TWnwRHLQvXquUtdvalhI8D9Db+czZJg==
+"@vueuse/shared@5.0.3":
+  version "5.0.3"
+  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-5.0.3.tgz#31613951d5036459650ad8d47a9185e8950ea3c9"
+  integrity sha512-aY93WPygr8H/4RB8YuOmAD83Y+faq7zwW10Kd9i0kD9zf5ysVP+32j09rF/mZVtGCa0CSM8ambPZMsEhCkRbwQ==
   dependencies:
     vue-demi "*"
 
@@ -3525,10 +3525,10 @@ create-require@^1.1.0:
   resolved "https://registry.npmjs.org/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
   integrity sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==
 
-cropperjs@^1.5.11:
-  version "1.5.11"
-  resolved "https://registry.npmjs.org/cropperjs/-/cropperjs-1.5.11.tgz#502ae6d8ca098b124de6813601cca70015879fc0"
-  integrity sha512-SJUeBBhtNBnnn+UrLKluhFRIXLJn7XFPv8QN1j49X5t+BIMwkgvDev541f96bmu8Xe0TgCx3gON22KmY/VddaA==
+cropperjs@^1.5.12:
+  version "1.5.12"
+  resolved "https://registry.npmjs.org/cropperjs/-/cropperjs-1.5.12.tgz#d9c0db2bfb8c0d769d51739e8f916bbc44e10f50"
+  integrity sha512-re7UdjE5UnwdrovyhNzZ6gathI4Rs3KGCBSc8HCIjUo5hO42CtzyblmWLj6QWVw7huHyDMfpKxhiO2II77nhDw==
 
 cross-env@^7.0.3:
   version "7.0.3"
@@ -4209,12 +4209,12 @@ esbuild-plugin-alias@^0.1.2:
   resolved "https://registry.yarnpkg.com/esbuild-plugin-alias/-/esbuild-plugin-alias-0.1.2.tgz#1232fbde807c0c8ad44c44ec859819eb492e12a8"
   integrity sha512-WsX0OJy8IGOsGZV+4oHEU5B6XQUpxOsZN1iSoYf9COTDbY7WXcOwd1oCLYNWUIWCExyGXSghIGq2k7sXBldxwQ==
 
-esbuild-register@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/esbuild-register/-/esbuild-register-2.5.0.tgz#b855d8cfa963835a16866146e310691bd8afa4f5"
-  integrity sha512-5a8W3rH7IQbIPR9pPXJFkC3+CRMtm/OSpBz3hkWUUU63oPZ3NU6dVDGfaIjKnRizCTIRoGjNE6KEDt5p1sLwEw==
+esbuild-register@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.npmjs.org/esbuild-register/-/esbuild-register-2.6.0.tgz#9f19a54c82be751dd87673d6a66d7b9e1cdd8498"
+  integrity sha512-2u4AtnCXP5nivtIxZryiZOUcEQkOzFS7UhAqibUEmaTAThJ48gDLYTBF/Fsz+5r0hbV1jrFE6PQvPDUrKZNt/Q==
   dependencies:
-    esbuild "^0.11.5"
+    esbuild "^0.12.8"
     jsonc-parser "^3.0.0"
 
 esbuild@0.11.3:
@@ -4232,12 +4232,7 @@ esbuild@^0.11.23:
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.11.23.tgz#c42534f632e165120671d64db67883634333b4b8"
   integrity sha512-iaiZZ9vUF5wJV8ob1tl+5aJTrwDczlvGP0JoMmnpC2B0ppiMCu8n8gmy5ZTGl5bcG081XBVn+U+jP+mPFm5T5Q==
 
-esbuild@^0.11.5:
-  version "0.11.10"
-  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.11.10.tgz#f5d39e4d9cc130b78d751664fef1b663240f5545"
-  integrity sha512-XvGbf+UreVFA24Tlk6sNOqNcvF2z49XAZt4E7A4H80+yqn944QOLTTxaU0lkdYNtZKFiITNea+VxmtrfjvnLPA==
-
-esbuild@^0.12.5:
+esbuild@^0.12.5, esbuild@^0.12.8:
   version "0.12.8"
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.12.8.tgz#ac90da77cb3bfbf49ab815200bcef7ffe1a3348f"
   integrity sha512-sx/LwlP/SWTGsd9G4RlOPrXnIihAJ2xwBUmzoqe2nWwbXORMQWtAGNJNYLBJJqa3e9PWvVzxdrtyFZJcr7D87g==
@@ -4371,15 +4366,15 @@ eslint@^7.28.0:
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
 
-esno@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.npmjs.org/esno/-/esno-0.7.1.tgz#ccd08436e0ca6e452fac1a994a7f08c61d07b7f1"
-  integrity sha512-LzI42UXMSWtt9Z7iLfytY1jqO5Mz0980NI/y8txwpBCQmXLOpkA+KFzhD3IAY+QjBOOtvFmGh2j0VR8EHY57Ww==
+esno@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.npmjs.org/esno/-/esno-0.7.2.tgz#64f557e5263ed729f572cabcdfac9bc7cda10fa4"
+  integrity sha512-qNb3hiDZqp84msR0+yrksCu7MIA8aDMkglKvfrOww7DkG9ah1acGJcP5yxUH7EmM5WpwZ0cLPQUw17nvTMY4mA==
   dependencies:
     cross-spawn "^7.0.3"
-    esbuild "^0.12.6"
+    esbuild "^0.12.8"
     esbuild-node-loader "^0.0.0"
-    esbuild-register "^2.5.0"
+    esbuild-register "^2.6.0"
 
 espree@^6.2.1:
   version "6.2.1"
@@ -8136,10 +8131,10 @@ postcss@^8.3.0:
     nanoid "^3.1.23"
     source-map-js "^0.6.2"
 
-postcss@^8.3.2:
-  version "8.3.2"
-  resolved "https://registry.npmjs.org/postcss/-/postcss-8.3.2.tgz#ed3ec489f5428af5740cd6effcc216b4d455ee64"
-  integrity sha512-y1FK/AWdZlBF5lusS5j5l4/vF67+vQZt1SXPVJ32y1kRGDQyrs1zk32hG1cInRTu14P0V+orPz+ifwW/7rR4bg==
+postcss@^8.3.4:
+  version "8.3.4"
+  resolved "https://registry.npmjs.org/postcss/-/postcss-8.3.4.tgz#41ece1c43f2f7c74dc7d90144047ce052757b822"
+  integrity sha512-/tZY0PXExXXnNhKv3TOvZAOUYRyuqcCbBm2c17YMDK0PlVII3K7/LKdt3ScHL+hhouddjUWi+1sKDf9xXW+8YA==
   dependencies:
     colorette "^1.2.2"
     nanoid "^3.1.23"
@@ -8871,7 +8866,7 @@ rollup-plugin-visualizer@5.5.0:
     source-map "^0.7.3"
     yargs "^16.2.0"
 
-rollup@^2.38.5, rollup@^2.43.1, rollup@^2.45.2, rollup@^2.51.2:
+rollup@^2.38.5, rollup@^2.43.1, rollup@^2.51.2:
   version "2.51.2"
   resolved "https://registry.npmjs.org/rollup/-/rollup-2.51.2.tgz#6de71e28c833089a0bd745a09671a3e2b92af6b7"
   integrity sha512-ReV2eGEadA7hmXSzjxdDKs10neqH2QURf2RxJ6ayAlq93ugy6qIvXMmbc5cWMGCDh1h5T4thuWO1e2VNbMq8FA==
@@ -10597,15 +10592,15 @@ vite-plugin-purge-icons@^0.7.0:
     "@purge-icons/generated" "^0.7.0"
     rollup-plugin-purge-icons "^0.7.0"
 
-vite-plugin-pwa@^0.7.3:
-  version "0.7.3"
-  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.7.3.tgz#ce3fdd64ac68033ea840bfea41add1af4d13f93a"
-  integrity sha512-RgGJW02OxRxziNKYTUtWXr9hF+Px6jcdyMN7IkuOOV9WcFaJQCKb3Pxqizb8GMjIBLtjEebwa0XbKXWDFhZWjw==
+vite-plugin-pwa@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.npmjs.org/vite-plugin-pwa/-/vite-plugin-pwa-0.8.1.tgz#8b6fc6c26fcc6fab9d39a087256ba6280173b6eb"
+  integrity sha512-Hrfz+NpZ6yroVm5yiCWQ1N9HX9o6H/CCyg7ZHiaP3ZZC29a0Z9lqnnicEAhZMLkVPJqHM60wowL0EJkyOVyxBg==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"
     pretty-bytes "^5.6.0"
-    rollup "^2.45.2"
+    rollup "^2.51.2"
     workbox-build "^6.1.5"
     workbox-window "^6.1.5"
 
