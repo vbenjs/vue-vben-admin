@@ -62,26 +62,25 @@ const transform: AxiosTransform = {
 
     // 在此处根据自己项目的实际情况对不同的code执行不同的操作
     // 如果不希望中断当前请求，请return数据，否则直接抛出异常即可
+    let timeoutMsg = '';
     switch (code) {
       case ResultEnum.TIMEOUT:
-        const timeoutMsg = t('sys.api.timeoutMessage');
-        createErrorModal({
-          title: t('sys.api.operationFailed'),
-          content: timeoutMsg,
-        });
-        throw new Error(timeoutMsg);
+        timeoutMsg = t('sys.api.timeoutMessage');
       default:
         if (message) {
-          // errorMessageMode=‘modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
-          // errorMessageMode='none' 一般是调用时明确表示不希望自动弹出错误提示
-          if (options.errorMessageMode === 'modal') {
-            createErrorModal({ title: t('sys.api.errorTip'), content: message });
-          } else if (options.errorMessageMode === 'message') {
-            createMessage.error(message);
-          }
+          timeoutMsg = message;
         }
     }
-    throw new Error(message || t('sys.api.apiRequestFailed'));
+
+    // errorMessageMode=‘modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
+    // errorMessageMode='none' 一般是调用时明确表示不希望自动弹出错误提示
+    if (options.errorMessageMode === 'modal') {
+      createErrorModal({ title: t('sys.api.errorTip'), content: timeoutMsg });
+    } else if (options.errorMessageMode === 'message') {
+      createMessage.error(timeoutMsg);
+    }
+
+    throw new Error(timeoutMsg || t('sys.api.apiRequestFailed'));
   },
 
   // 请求之前处理config
@@ -136,29 +135,46 @@ const transform: AxiosTransform = {
   },
 
   /**
+   * @description: 响应拦截器处理
+   */
+  responseInterceptors: (res: AxiosResponse<any>) => {
+    return res;
+  },
+
+  /**
    * @description: 响应错误处理
    */
   responseInterceptorsCatch: (error: any) => {
     const { t } = useI18n();
     const errorLogStore = useErrorLogStoreWithOut();
     errorLogStore.addAjaxErrorInfo(error);
-    const { response, code, message } = error || {};
+    const { response, code, message, config } = error || {};
+    const errorMessageMode = config?.requestOptions?.errorMessageMode || 'none';
     const msg: string = response?.data?.error?.message ?? '';
     const err: string = error?.toString?.() ?? '';
+    let errMessage = '';
+
     try {
       if (code === 'ECONNABORTED' && message.indexOf('timeout') !== -1) {
-        createMessage.error(t('sys.api.apiTimeoutMessage'));
+        errMessage = t('sys.api.apiTimeoutMessage');
       }
       if (err?.includes('Network Error')) {
-        createErrorModal({
-          title: t('sys.api.networkException'),
-          content: t('sys.api.networkExceptionMsg'),
-        });
+        errMessage = t('sys.api.networkExceptionMsg');
+      }
+
+      if (errMessage) {
+        if (errorMessageMode === 'modal') {
+          createErrorModal({ title: t('sys.api.errorTip'), content: errMessage });
+        } else if (errorMessageMode === 'message') {
+          createMessage.error(errMessage);
+        }
+        return Promise.reject(error);
       }
     } catch (error) {
       throw new Error(error);
     }
-    checkStatus(error?.response?.status, msg);
+
+    checkStatus(error?.response?.status, msg, errorMessageMode);
     return Promise.reject(error);
   },
 };

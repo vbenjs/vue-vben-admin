@@ -188,7 +188,7 @@ export class VAxios {
   }
 
   request<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
-    let conf: AxiosRequestConfig = cloneDeep(config);
+    let conf: CreateAxiosOptions = cloneDeep(config);
     const transform = this.getTransform();
 
     const { requestOptions } = this.options;
@@ -199,6 +199,7 @@ export class VAxios {
     if (beforeRequestHook && isFunction(beforeRequestHook)) {
       conf = beforeRequestHook(conf, opt);
     }
+    conf.requestOptions = opt;
 
     conf = this.supportFormData(conf);
 
@@ -219,7 +220,7 @@ export class VAxios {
         })
         .catch((e: Error) => {
           if (requestCatchHook && isFunction(requestCatchHook)) {
-            reject(requestCatchHook(e));
+            reject(requestCatchHook(e, opt));
             return;
           }
           reject(e);

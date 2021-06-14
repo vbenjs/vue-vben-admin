@@ -25,7 +25,7 @@ export abstract class AxiosTransform {
   /**
    * @description: 请求失败处理
    */
-  requestCatchHook?: (e: Error) => Promise<any>;
+  requestCatchHook?: (e: Error, options: RequestOptions) => Promise<any>;
 
   /**
    * @description: 请求之前的拦截器
