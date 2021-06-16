@@ -18,6 +18,7 @@
 - **PageWrapper** 修复高度计算问题
 - **FlowChart** 修复拖放菜单丢失
 - 修复后台模式下，Iframe 路由错误
+- **PageWrapper** 修复 footer 与全局页脚同时开启时的高度计算问题
 
 ## 2.4.2(2021-06-10)
 

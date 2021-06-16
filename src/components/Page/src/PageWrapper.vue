@@ -96,7 +96,6 @@
           ...contentStyle,
           minHeight: height,
           ...(fixedHeight ? { height } : {}),
-          paddingBottom: `${unref(footerHeight)}px`,
         };
       });
 
@@ -166,7 +165,36 @@
           const contentMarginTop = Number(marginTop.replace(/[^\d]/g, ''));
           subtractHeight += contentMarginTop;
         }
-        setPageHeight?.(unref(contentHeight) - unref(footerHeight) - headerHeight - subtractHeight);
+
+        // fix: wrapper marginTop and marginBottom value
+        let wrapperSubtractHeight = 0;
+        let wrapperMarginBottom = ZERO_PX;
+        let wrapperMarginTop = ZERO_PX;
+        const wrapperClassElments = document.querySelectorAll(`.${prefixVar}-page-wrapper`);
+        if (wrapperClassElments && wrapperClassElments.length > 0) {
+          const contentEl = wrapperClassElments[0];
+          const cssStyle = getComputedStyle(contentEl);
+          wrapperMarginBottom = cssStyle?.marginBottom ?? ZERO_PX;
+          wrapperMarginTop = cssStyle?.marginTop ?? ZERO_PX;
+        }
+        if (wrapperMarginBottom) {
+          const contentMarginBottom = Number(wrapperMarginBottom.replace(/[^\d]/g, ''));
+          wrapperSubtractHeight += contentMarginBottom;
+        }
+        if (wrapperMarginTop) {
+          const contentMarginTop = Number(wrapperMarginTop.replace(/[^\d]/g, ''));
+          wrapperSubtractHeight += contentMarginTop;
+        }
+        let height =
+          unref(contentHeight) -
+          unref(footerHeight) -
+          headerHeight -
+          subtractHeight -
+          wrapperSubtractHeight;
+        if (unref(getShowFooter)) {
+          height -= unref(footerHeightRef);
+        }
+        setPageHeight?.(height);
       }
 
       return {
