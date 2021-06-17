@@ -1252,21 +1252,21 @@
     "@intlify/runtime" "9.1.6"
     "@intlify/shared" "9.1.6"
 
-"@logicflow/core@^0.4.14":
-  version "0.4.14"
-  resolved "https://registry.npmjs.org/@logicflow/core/-/core-0.4.14.tgz#870ea68a5f241171802ed31b93803bddc24838bd"
-  integrity sha512-gu/q9QzZAzT8meJXDlnAfIrJ4M0i3GIrR0W36t6CFFnrHsjB96ApqGgSblyKLJ1lyTqBx8QeeTJ5WUQdcqat2A==
+"@logicflow/core@^0.4.15":
+  version "0.4.15"
+  resolved "https://registry.npmjs.org/@logicflow/core/-/core-0.4.15.tgz#0e13d51b64403416eed6a3229b2d232869ca8dd5"
+  integrity sha512-JtgRL/ZM+FjjibrOkswkuKzeX3XMnozmq/h0YC/HBRpv0ZHynrlCQGqI1SQsD3tDIkaN4wBnHM9DIqIIwf7ZBQ==
   dependencies:
     "@types/mousetrap" "^1.6.4"
     mousetrap "^1.6.5"
     preact "^10.4.8"
 
-"@logicflow/extension@^0.4.14":
-  version "0.4.14"
-  resolved "https://registry.npmjs.org/@logicflow/extension/-/extension-0.4.14.tgz#6c54659304fa41a12d1bdfccd0691803a2bd9fe9"
-  integrity sha512-3GTQBvbR/DcOszxy0iqUb4SDAYU0VfAP33ewXMkBkLBLnngf88+4jHMPgDh50H//6oBxXPsNbiMxiGdzjJkTjw==
+"@logicflow/extension@^0.4.15":
+  version "0.4.15"
+  resolved "https://registry.npmjs.org/@logicflow/extension/-/extension-0.4.15.tgz#d68e8824aca89b8966d71ec1a68ce95bebe3169a"
+  integrity sha512-J6BRp5ZpOY/kyQmT8eCiLM+y+OWKClNDpWmiVSYdp0Rr8fGH1U4A8ITYvcte45nXorHLcg659PdHZaYqZtzJog==
   dependencies:
-    "@logicflow/core" "^0.4.14"
+    "@logicflow/core" "^0.4.15"
     ids "^1.0.0"
     preact "^10.4.8"
 

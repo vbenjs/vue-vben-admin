@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper title="引导页" content="用于给用于指引操作">
+  <PageWrapper title="引导页" content="用于给用户的指引操作">
     <a-button type="primary" @click="handleStart">开始</a-button>
   </PageWrapper>
 </template>
