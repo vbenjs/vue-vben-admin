@@ -15,6 +15,7 @@
 - **Drawer** `useDrawer`新增`closeDrawer`函数
 - **Preview** 新增`createImgPreview`图片预览函数
 - **Setup** 新增引导页示例
+- **Tests** 添加 jest 测试套件，暂不支持 Vue 组件单测
 
 ### 🐛 Bug Fixes
 
