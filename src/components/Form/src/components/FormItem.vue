@@ -225,9 +225,10 @@
         const eventKey = `on${upperFirst(changeEvent)}`;
 
         const on = {
-          [eventKey]: (e: Nullable<Recordable>) => {
+          [eventKey]: (...args: Nullable<Recordable>[]) => {
+            const [e] = args;
             if (propsData[eventKey]) {
-              propsData[eventKey](e);
+              propsData[eventKey](...args);
             }
             const target = e ? e.target : null;
             const value = target ? (isCheck ? target.checked : target.value) : e;
