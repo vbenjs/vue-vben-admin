@@ -273,8 +273,7 @@
               state.opened = data;
               return;
             }
-
-            if (isObject(data)) {
+            if (isObject(data) && rootProps.accordion) {
               const { opend, parent, uidList } = data as Recordable;
               if (parent === instance?.parent) {
                 state.opened = opend;

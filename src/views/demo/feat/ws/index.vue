@@ -55,12 +55,10 @@
 <script lang="ts">
   import { defineComponent, reactive, watchEffect, computed, toRefs } from 'vue';
   import { Tag, Input } from 'ant-design-vue';
-
   import { PageWrapper } from '/@/components/Page';
-
   import { useWebSocket } from '@vueuse/core';
-
   import { formatToDateTime } from '/@/utils/dateUtil';
+
   export default defineComponent({
     components: {
       PageWrapper,
@@ -76,7 +74,7 @@
       });
 
       const { status, data, send, close, open } = useWebSocket(state.server, {
-        autoReconnect: true,
+        autoReconnect: false,
         heartbeat: true,
       });
 
