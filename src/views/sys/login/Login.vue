@@ -3,7 +3,7 @@
     <AppLocalePicker
       class="absolute top-4 right-4 enter-x text-white xl:text-gray-600"
       :showText="false"
-      v-if="!sessionTimeout"
+      v-if="!sessionTimeout && showLocale"
     />
     <AppDarkModeToggle class="absolute top-3 right-7 enter-x" v-if="!sessionTimeout" />
 
