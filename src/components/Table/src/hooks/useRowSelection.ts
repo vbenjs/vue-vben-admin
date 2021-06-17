@@ -1,5 +1,4 @@
 import type { BasicTableProps, TableRowSelection } from '../types/table';
-
 import { computed, ref, unref, ComputedRef, Ref, toRaw } from 'vue';
 import { ROW_KEY } from '../const';
 
