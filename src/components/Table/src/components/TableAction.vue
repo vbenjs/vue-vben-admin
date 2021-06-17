@@ -8,14 +8,18 @@
       <Divider
         type="vertical"
         class="action-divider"
-        v-if="divider && index < getActions.length - (dropDownActions ? 0 : 1)"
+        v-if="
+          divider &&
+          index < getActions.length - (dropDownActions ? 0 : 1) &&
+          getDropdownList.length > 0
+        "
       />
     </template>
     <Dropdown
       :trigger="['hover']"
       :dropMenuList="getDropdownList"
       popconfirm
-      v-if="dropDownActions"
+      v-if="dropDownActions && getDropdownList.length > 0"
     >
       <slot name="more"></slot>
       <a-button type="link" size="small" v-if="!$slots.more">
