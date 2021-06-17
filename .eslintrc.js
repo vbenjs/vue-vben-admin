@@ -22,6 +22,7 @@ module.exports = defineConfig({
     'plugin:@typescript-eslint/recommended',
     'prettier',
     'plugin:prettier/recommended',
+    'plugin:jest/recommended',
   ],
   rules: {
     '@typescript-eslint/ban-ts-ignore': 'off',
