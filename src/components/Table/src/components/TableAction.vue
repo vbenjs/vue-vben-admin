@@ -15,7 +15,7 @@
       :trigger="['hover']"
       :dropMenuList="getDropdownList"
       popconfirm
-      v-if="dropDownActions"
+      v-if="dropDownActions && getDropdownList.length > 0"
     >
       <slot name="more"></slot>
       <a-button type="link" size="small" v-if="!$slots.more">
