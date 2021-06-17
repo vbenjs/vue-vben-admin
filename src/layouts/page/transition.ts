@@ -17,17 +17,17 @@ export function getTransitionName({
   openCache: boolean;
   def: string;
   cacheTabs: string[];
-}) {
+}): string | undefined {
   if (!enableTransition) {
-    return null;
+    return undefined;
   }
 
   const isInCache = cacheTabs.includes(route.name as string);
   const transitionName = 'fade-slide';
-  let name: string | null = transitionName;
+  let name: string | undefined = transitionName;
 
   if (openCache) {
-    name = isInCache && route.meta.loaded ? transitionName : null;
+    name = isInCache && route.meta.loaded ? transitionName : undefined;
   }
-  return name || route.meta.transitionName || def;
+  return name || (route.meta.transitionName as string) || def;
 }
