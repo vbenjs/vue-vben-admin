@@ -32,16 +32,13 @@
   import { defineComponent, PropType, computed, toRaw } from 'vue';
   import { MoreOutlined } from '@ant-design/icons-vue';
   import { Divider } from 'ant-design-vue';
-
   import Icon from '/@/components/Icon/index';
   import { ActionItem, TableActionType } from '/@/components/Table';
   import { PopConfirmButton } from '/@/components/Button';
   import { Dropdown } from '/@/components/Dropdown';
-
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useTableContext } from '../hooks/useTableContext';
   import { usePermission } from '/@/hooks/web/usePermission';
-
   import { isBoolean, isFunction } from '/@/utils/is';
   import { propTypes } from '/@/utils/propTypes';
   import { ACTION_COLUMN_FLAG } from '../const';

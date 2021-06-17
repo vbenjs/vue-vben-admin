@@ -90,6 +90,7 @@
   </Tooltip>
 </template>
 <script lang="ts">
+  import type { BasicColumn, ColumnChangeParam } from '../../types/table';
   import {
     defineComponent,
     ref,
@@ -104,17 +105,13 @@
   import { SettingOutlined, DragOutlined } from '@ant-design/icons-vue';
   import { Icon } from '/@/components/Icon';
   import { ScrollContainer } from '/@/components/Container';
-
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useTableContext } from '../../hooks/useTableContext';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useSortable } from '/@/hooks/web/useSortable';
-
   import { isNullAndUnDef } from '/@/utils/is';
   import { getPopupContainer } from '/@/utils';
   import { omit } from 'lodash-es';
-
-  import type { BasicColumn, ColumnChangeParam } from '../../types/table';
 
   interface State {
     checkAll: boolean;

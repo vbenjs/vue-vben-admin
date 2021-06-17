@@ -9,14 +9,11 @@
 <script lang="ts">
   import type { PropType } from 'vue';
   import type { TableSetting, ColumnChangeParam } from '../../types/table';
-
   import { defineComponent, computed } from 'vue';
-
   import ColumnSetting from './ColumnSetting.vue';
   import SizeSetting from './SizeSetting.vue';
   import RedoSetting from './RedoSetting.vue';
   import FullScreenSetting from './FullScreenSetting.vue';
-
   import { useI18n } from '/@/hooks/web/useI18n';
 
   export default defineComponent({
