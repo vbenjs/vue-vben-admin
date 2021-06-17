@@ -32,7 +32,7 @@
     "postinstall": "npm run install:husky"
   },
   "dependencies": {
-    "@iconify/iconify": "^2.0.1",
+    "@iconify/iconify": "^2.0.2",
     "@logicflow/core": "^0.4.14",
     "@logicflow/extension": "^0.4.14",
     "@vueuse/core": "^5.0.3",
@@ -43,6 +43,7 @@
     "cropperjs": "^1.5.12",
     "crypto-js": "^4.0.0",
     "echarts": "^5.1.2",
+    "intro.js": "^4.0.0",
     "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
@@ -56,19 +57,20 @@
     "vue": "3.0.11",
     "vue-i18n": "9.1.6",
     "vue-json-pretty": "^2.0.2",
-    "vue-router": "^4.0.8",
+    "vue-router": "^4.0.9",
     "vue-types": "^3.0.2",
     "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
-    "@iconify/json": "^1.1.356",
+    "@iconify/json": "^1.1.357",
     "@purge-icons/generated": "^0.7.0",
     "@types/codemirror": "^5.60.0",
     "@types/crypto-js": "^4.0.1",
     "@types/fs-extra": "^9.0.11",
     "@types/inquirer": "^7.3.1",
+    "@types/intro.js": "^3.0.1",
     "@types/lodash-es": "^4.17.4",
     "@types/mockjs": "^1.0.3",
     "@types/node": "^15.12.2",
@@ -100,7 +102,7 @@
     "is-ci": "^3.0.0",
     "less": "^4.1.1",
     "lint-staged": "^11.0.0",
-    "postcss": "^8.3.4",
+    "postcss": "^8.3.5",
     "prettier": "^2.3.1",
     "pretty-quick": "^3.1.0",
     "rimraf": "^3.0.2",
@@ -110,7 +112,7 @@
     "stylelint-config-standard": "^22.0.0",
     "stylelint-order": "^4.1.0",
     "ts-node": "^10.0.0",
-    "typescript": "4.3.2",
+    "typescript": "4.3.3",
     "vite": "2.3.7",
     "vite-plugin-compression": "^0.2.5",
     "vite-plugin-html": "^2.0.7",
@@ -128,7 +130,7 @@
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China. If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
-    "rollup": "^2.52.0"
+    "rollup": "^2.52.1"
   },
   "repository": {
     "type": "git",
