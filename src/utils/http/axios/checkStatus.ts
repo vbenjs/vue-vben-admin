@@ -1,5 +1,4 @@
-import type { ErrorMessageMode } from './types';
-
+import type { ErrorMessageMode } from '/#/axios';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { useI18n } from '/@/hooks/web/useI18n';
 // import router from '/@/router';
@@ -9,6 +8,7 @@ import { useUserStoreWidthOut } from '/@/store/modules/user';
 const { createMessage, createErrorModal } = useMessage();
 
 const error = createMessage.error!;
+
 export function checkStatus(
   status: number,
   msg: string,

@@ -1,15 +1,13 @@
 import type { AxiosRequestConfig, AxiosInstance, AxiosResponse } from 'axios';
-import type { RequestOptions, Result, UploadFileParams } from './types';
+import type { RequestOptions, Result, UploadFileParams } from '../../../../types/axios';
 import type { CreateAxiosOptions } from './axiosTransform';
-
 import axios from 'axios';
 import qs from 'qs';
 import { AxiosCanceler } from './axiosCancel';
 import { isFunction } from '/@/utils/is';
 import { cloneDeep } from 'lodash-es';
-
 import { ContentTypeEnum } from '/@/enums/httpEnum';
-import { RequestEnum } from '../../../enums/httpEnum';
+import { RequestEnum } from '/@/enums/httpEnum';
 
 export * from './axiosTransform';
 
@@ -93,7 +91,7 @@ export class VAxios {
 
       !ignoreCancel && axiosCanceler.addPending(config);
       if (requestInterceptors && isFunction(requestInterceptors)) {
-        config = requestInterceptors(config);
+        config = requestInterceptors(config, this.options);
       }
       return config;
     }, undefined);

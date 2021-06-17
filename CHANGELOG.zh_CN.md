@@ -16,6 +16,7 @@
 - **Preview** 新增`createImgPreview`图片预览函数
 - **Setup** 新增引导页示例
 - **Tests** 添加 jest 测试套件，暂不支持 Vue 组件单测
+- **Axios** 新增`authenticationScheme`配置，用于指定认证方案
 
 ### 🐛 Bug Fixes
 
