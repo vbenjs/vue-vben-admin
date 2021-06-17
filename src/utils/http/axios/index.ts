@@ -2,22 +2,17 @@
 // The axios configuration can be changed according to the project, just change the file, other files can be left unchanged
 
 import type { AxiosResponse } from 'axios';
-import type { RequestOptions, Result } from './types';
+import type { RequestOptions, Result } from '/#/axios';
 import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
-
 import { VAxios } from './Axios';
 import { checkStatus } from './checkStatus';
-
 import { useGlobSetting } from '/@/hooks/setting';
 import { useMessage } from '/@/hooks/web/useMessage';
-
 import { RequestEnum, ResultEnum, ContentTypeEnum } from '/@/enums/httpEnum';
-
 import { isString } from '/@/utils/is';
 import { getToken } from '/@/utils/auth';
 import { setObjToUrlParams, deepMerge } from '/@/utils';
 import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog';
-
 import { useI18n } from '/@/hooks/web/useI18n';
 import { joinTimestamp, formatRequestDate } from './helper';
 
@@ -34,14 +29,14 @@ const transform: AxiosTransform = {
    */
   transformRequestHook: (res: AxiosResponse<Result>, options: RequestOptions) => {
     const { t } = useI18n();
-    const { isTransformRequestResult, isReturnNativeResponse } = options;
+    const { isTransformResponse, isReturnNativeResponse } = options;
     // 是否返回原生响应头 比如：需要获取响应头时使用该属性
     if (isReturnNativeResponse) {
       return res;
     }
     // 不进行任何处理，直接返回
     // 用于页面代码可能需要直接获取code，data，message这些信息时开启
-    if (!isTransformRequestResult) {
+    if (!isTransformResponse) {
       return res.data;
     }
     // 错误的时候返回
@@ -124,12 +119,14 @@ const transform: AxiosTransform = {
   /**
    * @description: 请求拦截器处理
    */
-  requestInterceptors: (config) => {
+  requestInterceptors: (config, options) => {
     // 请求之前处理config
     const token = getToken();
     if (token) {
       // jwt token
-      config.headers.Authorization = token;
+      config.headers.Authorization = options.authenticationScheme
+        ? `${options.authenticationScheme} ${token}`
+        : token;
     }
     return config;
   },
@@ -183,6 +180,10 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
   return new VAxios(
     deepMerge(
       {
+        // See https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#authentication_schemes
+        // authentication schemes，e.g: Bearer
+        // authenticationScheme: 'Bearer',
+        authenticationScheme: '',
         timeout: 10 * 1000,
         // 基础接口地址
         // baseURL: globSetting.apiUrl,
@@ -200,7 +201,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           // 是否返回原生响应头 比如：需要获取响应头时使用该属性
           isReturnNativeResponse: false,
           // 需要对返回数据进行处理
-          isTransformRequestResult: true,
+          isTransformResponse: true,
           // post请求的时候添加参数到url
           joinParamsToUrl: false,
           // 格式化提交参数时间
