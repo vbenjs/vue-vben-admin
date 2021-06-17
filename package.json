@@ -33,8 +33,8 @@
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.1",
-    "@logicflow/core": "^0.4.13",
-    "@logicflow/extension": "^0.4.13",
+    "@logicflow/core": "^0.4.14",
+    "@logicflow/extension": "^0.4.14",
     "@vueuse/core": "^5.0.3",
     "@zxcvbn-ts/core": "^0.3.0",
     "ant-design-vue": "2.1.6",
@@ -115,11 +115,11 @@
     "vite-plugin-compression": "^0.2.5",
     "vite-plugin-html": "^2.0.7",
     "vite-plugin-imagemin": "^0.3.2",
-    "vite-plugin-mock": "^2.7.2",
+    "vite-plugin-mock": "^2.8.0",
     "vite-plugin-purge-icons": "^0.7.0",
     "vite-plugin-pwa": "^0.8.1",
-    "vite-plugin-style-import": "^0.10.1",
-    "vite-plugin-svg-icons": "^0.7.0",
+    "vite-plugin-style-import": "^1.0.0",
+    "vite-plugin-svg-icons": "^0.7.1",
     "vite-plugin-theme": "^0.8.1",
     "vite-plugin-windicss": "^1.0.4",
     "vue-eslint-parser": "^7.6.0",
@@ -128,7 +128,7 @@
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China. If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
-    "rollup": "^2.51.2"
+    "rollup": "^2.52.0"
   },
   "repository": {
     "type": "git",

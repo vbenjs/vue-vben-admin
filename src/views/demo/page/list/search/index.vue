@@ -38,7 +38,7 @@
                   {{ item.title }}
                 </p>
                 <div>
-                  <template v-for="(tag, index) in item.description" :key="`${index}`">
+                  <template v-for="tag in item.description" :key="tag">
                     <Tag class="mb-2">
                       {{ tag }}
                     </Tag>

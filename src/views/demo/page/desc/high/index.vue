@@ -83,7 +83,7 @@
         </a-card>
       </a-card>
       <a-card title="用户近半年来电记录" class="my-5">
-        <a-empty />
+        <Empty />
       </a-card>
       <BasicTable @register="registerTimeTable" />
     </div>
@@ -102,7 +102,7 @@
       PageWrapper,
       [Divider.name]: Divider,
       [Card.name]: Card,
-      AEmpty: Empty,
+      Empty,
       [Descriptions.name]: Descriptions,
       [Descriptions.Item.name]: Descriptions.Item,
       [Steps.name]: Steps,

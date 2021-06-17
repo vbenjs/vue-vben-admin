@@ -265,7 +265,7 @@
       }
 
       // 点击关闭：则所有操作不保存，包括上传的
-      function handleCloseFunc() {
+      async function handleCloseFunc() {
         if (!isUploadingRef.value) {
           fileListRef.value = [];
           return true;

@@ -53,7 +53,7 @@
        * @type string[]
        */
       trigger: {
-        type: [Array] as PropType<string[]>,
+        type: [Array] as PropType<('contextmenu' | 'click' | 'hover')[]>,
         default: () => {
           return ['contextmenu'];
         },

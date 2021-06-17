@@ -1252,21 +1252,21 @@
     "@intlify/runtime" "9.1.6"
     "@intlify/shared" "9.1.6"
 
-"@logicflow/core@^0.4.13":
-  version "0.4.13"
-  resolved "https://registry.npmjs.org/@logicflow/core/-/core-0.4.13.tgz#69d1e7a30b5e545ada3a2e980059f3e6f6923f15"
-  integrity sha512-xOLz8RO6ldAT5H9Q2Ewt9d7z146B54TUom5EXzJ/jx/s1Phy24vP8tAGu6LuoTEitgNHTRQq7WxvH9NqnpxCpg==
+"@logicflow/core@^0.4.14":
+  version "0.4.14"
+  resolved "https://registry.npmjs.org/@logicflow/core/-/core-0.4.14.tgz#870ea68a5f241171802ed31b93803bddc24838bd"
+  integrity sha512-gu/q9QzZAzT8meJXDlnAfIrJ4M0i3GIrR0W36t6CFFnrHsjB96ApqGgSblyKLJ1lyTqBx8QeeTJ5WUQdcqat2A==
   dependencies:
     "@types/mousetrap" "^1.6.4"
     mousetrap "^1.6.5"
     preact "^10.4.8"
 
-"@logicflow/extension@^0.4.13":
-  version "0.4.13"
-  resolved "https://registry.npmjs.org/@logicflow/extension/-/extension-0.4.13.tgz#b1c87b5458345414cc6c5fb813511e62db4acfa7"
-  integrity sha512-DAfgO9A5VrJ4oXruTYGgmDGvZAIaT2kLAlTE+luyg4eld6YsgwWXqXazJWCd9ObdAJkLYCf7lU27hZsDNqqbrg==
+"@logicflow/extension@^0.4.14":
+  version "0.4.14"
+  resolved "https://registry.npmjs.org/@logicflow/extension/-/extension-0.4.14.tgz#6c54659304fa41a12d1bdfccd0691803a2bd9fe9"
+  integrity sha512-3GTQBvbR/DcOszxy0iqUb4SDAYU0VfAP33ewXMkBkLBLnngf88+4jHMPgDh50H//6oBxXPsNbiMxiGdzjJkTjw==
   dependencies:
-    "@logicflow/core" "^0.4.13"
+    "@logicflow/core" "^0.4.14"
     ids "^1.0.0"
     preact "^10.4.8"
 
@@ -1321,6 +1321,18 @@
   version "11.2.1"
   resolved "https://registry.npmjs.org/@rollup/plugin-node-resolve/-/plugin-node-resolve-11.2.1.tgz#82aa59397a29cd4e13248b106e6a4a1880362a60"
   integrity sha512-yc2n43jcqVyGE2sqV5/YCmocy9ArjVAP/BeXyTtADTBBX6V0e5UMqwO8CdQ0kzjb6zu5P1qMzsScCMRvE9OlVg==
+  dependencies:
+    "@rollup/pluginutils" "^3.1.0"
+    "@types/resolve" "1.17.1"
+    builtin-modules "^3.1.0"
+    deepmerge "^4.2.2"
+    is-module "^1.0.0"
+    resolve "^1.19.0"
+
+"@rollup/plugin-node-resolve@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.npmjs.org/@rollup/plugin-node-resolve/-/plugin-node-resolve-13.0.0.tgz#352f07e430ff377809ec8ec8a6fd636547162dc4"
+  integrity sha512-41X411HJ3oikIDivT5OKe9EZ6ud6DXudtfNrGbC4nniaxx2esiWjkLOzgnZsWq1IM8YIeL2rzRGLZLBjlhnZtQ==
   dependencies:
     "@rollup/pluginutils" "^3.1.0"
     "@types/resolve" "1.17.1"
@@ -2211,7 +2223,7 @@ ant-design-vue@2.1.6:
     vue-types "^3.0.0"
     warning "^4.0.0"
 
-anymatch@~3.1.1:
+anymatch@~3.1.2:
   version "3.1.2"
   resolved "https://registry.npmjs.org/anymatch/-/anymatch-3.1.2.tgz#c0557c096af32f106198f4f4e2a383537e378716"
   integrity sha512-P43ePfOAIupkguHUycrc4qJ9kz8ZiuOUijaETwX7THt0Y/GNK7v0aa8rY816xWjZ7rJdA5XdMcpVFTKMq+RvWg==
@@ -2907,20 +2919,20 @@ chardet@^0.7.0:
   resolved "https://registry.npmjs.org/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
-chokidar@^3.5.1:
-  version "3.5.1"
-  resolved "https://registry.npmjs.org/chokidar/-/chokidar-3.5.1.tgz#ee9ce7bbebd2b79f49f304799d5468e31e14e68a"
-  integrity sha512-9+s+Od+W0VJJzawDma/gvBNQqkTiqYTWLuZoyAsivsI4AaWTCzHG06/TMjsf1cYe9Cb97UCEhjz7HvnPk2p/tw==
+chokidar@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.npmjs.org/chokidar/-/chokidar-3.5.2.tgz#dba3976fcadb016f66fd365021d91600d01c1e75"
+  integrity sha512-ekGhOnNVPgT77r4K/U3GDhu+FQ2S8TnK/s2KbIGXi0SZWuwkZ2QNyfWdZW+TVfn84DpEP7rLeCt2UI6bJ8GwbQ==
   dependencies:
-    anymatch "~3.1.1"
+    anymatch "~3.1.2"
     braces "~3.0.2"
-    glob-parent "~5.1.0"
+    glob-parent "~5.1.2"
     is-binary-path "~2.1.0"
     is-glob "~4.0.1"
     normalize-path "~3.0.0"
-    readdirp "~3.5.0"
+    readdirp "~3.6.0"
   optionalDependencies:
-    fsevents "~2.3.1"
+    fsevents "~2.3.2"
 
 ci-info@^2.0.0:
   version "2.0.0"
@@ -4183,10 +4195,10 @@ es-abstract@^1.17.2, es-abstract@^1.18.0-next.2:
     string.prototype.trimstart "^1.0.4"
     unbox-primitive "^1.0.0"
 
-es-module-lexer@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-0.4.1.tgz#dda8c6a14d8f340a24e34331e0fab0cb50438e0e"
-  integrity sha512-ooYciCUtfw6/d2w56UVeqHPcoCFAiJdz5XOkYpv/Txl1HMUozpXjz/2RIQgqwKdXNDPSF1W7mJCFse3G+HDyAA==
+es-module-lexer@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-0.6.0.tgz#e72ab05b7412e62b9be37c37a09bdb6000d706f0"
+  integrity sha512-f8kcHX1ArhllUtb/wVSyvygoKCznIjnxhLxy7TCvIiMdT7fL4ZDTIKaadMe6eLvOXg6Wk02UeoFgUoZ2EKZZUA==
 
 es-to-primitive@^1.2.1:
   version "1.2.1"
@@ -4977,7 +4989,7 @@ fs.realpath@^1.0.0:
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
 
-fsevents@~2.3.1:
+fsevents@~2.3.1, fsevents@~2.3.2:
   version "2.3.2"
   resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
   integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
@@ -5132,7 +5144,7 @@ gitconfiglocal@^1.0.0:
   dependencies:
     ini "^1.3.2"
 
-glob-parent@^5.1.0, glob-parent@^5.1.2, glob-parent@~5.1.0:
+glob-parent@^5.1.0, glob-parent@^5.1.2, glob-parent@~5.1.2:
   version "5.1.2"
   resolved "https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.2.tgz#869832c58034fe68a4093c17dc15e8340d8401c4"
   integrity sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==
@@ -8551,10 +8563,10 @@ readable-stream@^2.0.0, readable-stream@^2.2.2, readable-stream@^2.3.0, readable
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
-readdirp@~3.5.0:
-  version "3.5.0"
-  resolved "https://registry.npmjs.org/readdirp/-/readdirp-3.5.0.tgz#9ba74c019b15d365278d2e91bb8c48d7b4d42c9e"
-  integrity sha512-cMhu7c/8rdhkHXWsY+osBhfSy0JikwpHK/5+imo+LpeasTF8ouErHrlYkwT0++njiyuDvc7OFY5T3ukvZ8qmFQ==
+readdirp@~3.6.0:
+  version "3.6.0"
+  resolved "https://registry.npmjs.org/readdirp/-/readdirp-3.6.0.tgz#74a370bd857116e245b29cc97340cd431a02a6c7"
+  integrity sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==
   dependencies:
     picomatch "^2.2.1"
 
@@ -8866,12 +8878,12 @@ rollup-plugin-visualizer@5.5.0:
     source-map "^0.7.3"
     yargs "^16.2.0"
 
-rollup@^2.38.5, rollup@^2.43.1, rollup@^2.51.2:
-  version "2.51.2"
-  resolved "https://registry.npmjs.org/rollup/-/rollup-2.51.2.tgz#6de71e28c833089a0bd745a09671a3e2b92af6b7"
-  integrity sha512-ReV2eGEadA7hmXSzjxdDKs10neqH2QURf2RxJ6ayAlq93ugy6qIvXMmbc5cWMGCDh1h5T4thuWO1e2VNbMq8FA==
+rollup@^2.38.5, rollup@^2.43.1, rollup@^2.51.2, rollup@^2.52.0:
+  version "2.52.0"
+  resolved "https://registry.npmjs.org/rollup/-/rollup-2.52.0.tgz#9df3de6028fae79569a985942b81110205a5a411"
+  integrity sha512-lSkBDGsVoXjqaBf7dsHwxBJz+p+hJEP72P+LOitA0yVs+Nzxj76FidkZE2thrmhjwGqLYiJo39opi7mAfaQ/Vg==
   optionalDependencies:
-    fsevents "~2.3.1"
+    fsevents "~2.3.2"
 
 run-async@^2.2.0, run-async@^2.4.0:
   version "2.4.1"
@@ -10568,15 +10580,15 @@ vite-plugin-imagemin@^0.3.2:
     imagemin-svgo "^8.0.0"
     imagemin-webp "^6.0.0"
 
-vite-plugin-mock@^2.7.2:
-  version "2.7.2"
-  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.7.2.tgz#710fcbbf447d603d33de022d34f45b6a86de3613"
-  integrity sha512-VCzJ0iHaAH04NxbBf18B5L2xCM4EE0AuYvzmLVc0ALdyz7J84uihx/L80qyaPbreDydZ2w0w3TsYbhL9D2fbHA==
+vite-plugin-mock@^2.8.0:
+  version "2.8.0"
+  resolved "https://registry.npmjs.org/vite-plugin-mock/-/vite-plugin-mock-2.8.0.tgz#497ab0018a73b8fd0e9165d3800566d6a4f240cc"
+  integrity sha512-AxARl9SIBUV/zHnPpLvyroQpNmIRUP1JmBoADf4xBNMcsIdwSC7Dh8xq7fJnOkUd6srJJVQIYhDOuWmbDx4svw==
   dependencies:
-    "@rollup/plugin-node-resolve" "^11.2.1"
+    "@rollup/plugin-node-resolve" "^13.0.0"
     "@types/mockjs" "^1.0.3"
-    chalk "^4.1.0"
-    chokidar "^3.5.1"
+    chalk "^4.1.1"
+    chokidar "^3.5.2"
     connect "^3.7.0"
     debug "^4.3.2"
     esbuild "0.11.3"
@@ -10604,21 +10616,21 @@ vite-plugin-pwa@^0.8.1:
     workbox-build "^6.1.5"
     workbox-window "^6.1.5"
 
-vite-plugin-style-import@^0.10.1:
-  version "0.10.1"
-  resolved "https://registry.npmjs.com/vite-plugin-style-import/-/vite-plugin-style-import-0.10.1.tgz#8732d2c04c92b7e13a7afddcb8e4a34f289fc17c"
-  integrity sha512-3P7Jyf5+b1p26t6mOd6yn8ATNPTDGDRkE19aHicFpo3K7Of7ouJabiPfWE4QaicO6grtCfWGQ0SGMAPqxUSdRA==
+vite-plugin-style-import@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-1.0.0.tgz#344b7f14bcb5aefeb730d3192012c19a0604bb5e"
+  integrity sha512-5KCFN+WePRHsjZBtSPsN3Ii/Uas3Ld7d4B2s/I0NB4Iv7SuXuFudMz5IjoFaBqsbitXP7WEJ4XnZFan1fW1hAg==
   dependencies:
     "@rollup/pluginutils" "^4.1.0"
     change-case "^4.1.2"
     debug "^4.3.2"
-    es-module-lexer "^0.4.1"
+    es-module-lexer "^0.6.0"
     magic-string "^0.25.7"
 
-vite-plugin-svg-icons@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/vite-plugin-svg-icons/-/vite-plugin-svg-icons-0.7.0.tgz#08271f115affec9cc3cf203a2e23c37e59658fba"
-  integrity sha512-6Rgyi4luwbVzAYW7bn0X8V6w8pnVuXMkkWljaV7NWXIRoDiEfvXrBbzV61zmpAHaIYVSdhgQltxZDdCDkDT2nA==
+vite-plugin-svg-icons@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.npmjs.org/vite-plugin-svg-icons/-/vite-plugin-svg-icons-0.7.1.tgz#35d4f2818c13a34a4a68884db537f0b8c2e1f174"
+  integrity sha512-yUUxIrXnsJLtYiaw3/ad7D1r/A9ULYirlE7lphcBUWWTKAy5nJ3JJO2XLcr9PuymApkt1oohkHHq5MVMu4+aeg==
   dependencies:
     "@types/svgo" "^2.3.0"
     cors "^2.8.5"
