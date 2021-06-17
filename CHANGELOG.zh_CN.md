@@ -10,6 +10,7 @@
 - **CropperAvatar** 新增头像上传组件
 - **Drawer** `useDrawer`新增`closeDrawer`函数
 - **Preview** 新增`createImgPreview`图片预览函数
+- **Setup** 新增引导页示例
 
 ### 🐛 Bug Fixes
 
