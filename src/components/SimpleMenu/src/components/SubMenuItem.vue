@@ -77,7 +77,7 @@
   import Icon from '/@/components/Icon';
   import { Popover } from 'ant-design-vue';
   import { isBoolean, isObject } from '/@/utils/is';
-  import Mitt from '/@/utils/mitt';
+  import mitt from '/@/utils/mitt';
 
   const DELAY = 200;
   export default defineComponent({
@@ -114,7 +114,7 @@
 
       const { prefixCls } = useDesign('menu');
 
-      const subMenuEmitter = new Mitt();
+      const subMenuEmitter = mitt();
 
       const { rootMenuEmitter } = useSimpleRootMenuContext();
 

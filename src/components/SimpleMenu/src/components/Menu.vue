@@ -22,7 +22,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   import { propTypes } from '/@/utils/propTypes';
   import { createSimpleRootMenuContext } from './useSimpleMenuContext';
-  import Mitt from '/@/utils/mitt';
+  import mitt from '/@/utils/mitt';
   export default defineComponent({
     name: 'Menu',
     props: {
@@ -44,7 +44,7 @@
     },
     emits: ['select', 'open-change'],
     setup(props, { emit }) {
-      const rootMenuEmitter = new Mitt();
+      const rootMenuEmitter = mitt();
       const instance = getCurrentInstance();
 
       const currentActiveName = ref<string | number>('');
