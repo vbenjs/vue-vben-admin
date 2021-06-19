@@ -7,6 +7,8 @@
 ### ⚡ Performance Improvements
 
 - **Locale** 合并多语言文件，减少文件数量
+- **Utils** Mitt 默认导出由 `Class` 改为 `Function`
+- **Axios** `isTransformRequestResult`更名为`isTransformResponse`
 
 ### ✨ Features
 
