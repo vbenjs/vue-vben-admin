@@ -38,7 +38,7 @@ export const useMultipleTabStore = defineStore({
     lastDragEndIndex: 0,
   }),
   getters: {
-    getTabList() {
+    getTabList(): RouteLocationNormalized[] {
       return this.tabList;
     },
     getCachedTabList(): string[] {
