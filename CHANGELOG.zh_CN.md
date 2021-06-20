@@ -1,4 +1,11 @@
-## Wip
+## 2.5.0(2021-06-20)
+
+## (破坏性更新) Breaking changes
+
+- 将项目`windicss`改为`tailwindcss`，解决内存溢出问题
+  - 目前项目不兼容地方有
+    - `!xl:m-4` 之类的写法需要改为`xl:!m-4`,注意只有`!`这个不兼容，没用到则不用改
+    - `windicss`自身新增的特性需要调整，比如`Attribute`模式不兼容
 
 ### ✨ Refactor
 

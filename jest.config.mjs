@@ -17,7 +17,6 @@ export default {
   ],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
-    '^.+\\.(vue)$': 'vue-jest',
   },
   transformIgnorePatterns: ['<rootDir>/tests/__mocks__/', '/node_modules/'],
   // A map from regular expressions to module names that allow to stub out resources with a single module
