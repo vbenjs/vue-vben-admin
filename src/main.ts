@@ -1,7 +1,6 @@
 import '/@/design/index.less';
+import '/@/design/tailwind.css';
 
-// Register windi
-import 'virtual:windi.css';
 // Register icon sprite
 import 'virtual:svg-icons-register';
 

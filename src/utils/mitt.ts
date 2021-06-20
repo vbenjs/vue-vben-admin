@@ -27,6 +27,7 @@ export interface Emitter {
 
   emit<T = any>(type: EventType, event?: T): void;
   emit(type: '*', event?: any): void;
+  clear(): void;
 }
 
 /**
@@ -87,6 +88,13 @@ export default function mitt(all?: EventHandlerMap): Emitter {
       ((all?.get('*') || []) as WildCardEventHandlerList).slice().map((handler) => {
         handler(type, evt);
       });
+    },
+
+    /**
+     * Clear all
+     */
+    clear() {
+      this.all.clear();
     },
   };
 }

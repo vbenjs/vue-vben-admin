@@ -1,35 +1,41 @@
-import lineClamp from 'windicss/plugin/line-clamp';
-import colors from 'windicss/colors';
+const colors = require('tailwindcss/colors');
 
-import { defineConfig } from 'vite-plugin-windicss';
-import { primaryColor } from './build/config/themeConfig';
-
-export default defineConfig({
-  darkMode: 'class',
-  plugins: [lineClamp, createEnterPlugin()],
+module.exports = {
+  mode: 'jit',
+  // darkMode: 'class',
+  plugins: [createEnterPlugin()],
+  purge: {
+    enabled: false,
+    content: ['./index.html', './src/**/*.{vue,ts,tsx}'],
+  },
   theme: {
     extend: {
-      colors: {
-        ...colors,
-        primary: primaryColor,
-      },
-      screens: {
-        sm: '576px',
-        md: '768px',
-        lg: '992px',
-        xl: '1200px',
-        '2xl': '1600px',
+      zIndex: {
+        '-1': '-1',
       },
     },
+    colors: {
+      ...colors,
+      primary: {
+        DEFAULT: '#0960bd',
+        // dark: primaryColorDark,
+      },
+    },
+    screens: {
+      sm: '576px',
+      md: '768px',
+      lg: '992px',
+      xl: '1200px',
+      '2xl': '1600px',
+    },
   },
-});
-
+};
 /**
  * Used for animation when the element is displayed
  * @param maxOutput The larger the maxOutput output, the larger the generated css volume
  */
-function createEnterPlugin(maxOutput = 10) {
-  const createCss = (index: number, d = 'x') => {
+function createEnterPlugin(maxOutput = 6) {
+  const createCss = (index, d = 'x') => {
     const upd = d.toUpperCase();
     return {
       [`*> .enter-${d}:nth-child(${index})`]: {

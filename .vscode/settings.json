@@ -122,11 +122,13 @@
     "vben",
     "windi",
     "browserslist",
+    "tailwindcss",
     "esnext",
     "antv",
     "tinymce",
     "qrcode",
     "sider",
-    "pinia"
+    "pinia",
+    "sider"
   ]
 }
