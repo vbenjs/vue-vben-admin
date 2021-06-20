@@ -1,6 +1,6 @@
 <template>
   <List item-layout="vertical" :class="prefixCls">
-    <template v-for="(item, index) in list" :key="index">
+    <template v-for="item in list" :key="item.title">
       <ListItem>
         <ListItemMeta>
           <template #description>
@@ -13,7 +13,7 @@
               {{ item.title }}
             </p>
             <div>
-              <template v-for="(tag, ti) in item.description" :key="ti">
+              <template v-for="tag in item.description" :key="tag">
                 <Tag class="mb-2">
                   {{ tag }}
                 </Tag>
@@ -22,7 +22,7 @@
           </template>
         </ListItemMeta>
         <div>
-          <template v-for="(action, ai) in actions" :key="ai">
+          <template v-for="action in actions" :key="action.text">
             <div :class="`${prefixCls}__action`">
               <Icon
                 v-if="action.icon"

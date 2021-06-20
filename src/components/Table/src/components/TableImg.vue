@@ -35,7 +35,6 @@
   import type { CSSProperties } from 'vue';
   import { defineComponent, computed } from 'vue';
   import { useDesign } from '/@/hooks/web/useDesign';
-
   import { Image, Badge } from 'ant-design-vue';
   import { propTypes } from '/@/utils/propTypes';
 

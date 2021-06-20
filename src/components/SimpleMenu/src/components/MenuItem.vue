@@ -39,9 +39,8 @@
 
       const active = ref(false);
 
-      const { getItemStyle, getParentList, getParentMenu, getParentRootMenu } = useMenuItem(
-        instance
-      );
+      const { getItemStyle, getParentList, getParentMenu, getParentRootMenu } =
+        useMenuItem(instance);
 
       const { prefixCls } = useDesign('menu');
 

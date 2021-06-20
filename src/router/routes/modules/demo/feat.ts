@@ -86,21 +86,11 @@ const feat: AppRouteModule = {
         {
           path: 'children',
           name: 'BreadcrumbChildrenDemo',
-          component: getParentLayout('BreadcrumbChildrenDemo'),
-          redirect: '/feat/breadcrumb/children',
+          component: () => import('/@/views/demo/feat/breadcrumb/ChildrenList.vue'),
           meta: {
-            title: t('routes.demo.feat.breadcrumbFlat'),
+            title: t('routes.demo.feat.breadcrumbChildren'),
           },
           children: [
-            {
-              path: '',
-              name: 'BreadcrumbChildren',
-              component: () => import('/@/views/demo/feat/breadcrumb/ChildrenList.vue'),
-              meta: {
-                title: t('routes.demo.feat.breadcrumbChildren'),
-                // hideBreadcrumb: true,
-              },
-            },
             {
               path: 'childrenDetail',
               name: 'BreadcrumbChildrenDetailDemo',
@@ -108,7 +98,7 @@ const feat: AppRouteModule = {
               meta: {
                 currentActiveMenu: '/feat/breadcrumb/children',
                 title: t('routes.demo.feat.breadcrumbChildrenDetail'),
-                hideTab: true,
+                //hideTab: true,
                 // hideMenu: true,
               },
             },

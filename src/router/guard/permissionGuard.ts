@@ -60,7 +60,7 @@ export function createPermissionGuard(router: Router) {
     const routes = await permissionStore.buildRoutesAction();
 
     routes.forEach((route) => {
-      router.addRoute((route as unknown) as RouteRecordRaw);
+      router.addRoute(route as unknown as RouteRecordRaw);
     });
 
     const redirectPath = (from.query.redirect || to.path) as string;

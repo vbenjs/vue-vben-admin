@@ -13,7 +13,6 @@
 </template>
 <script lang="ts">
   import type { PropType } from 'vue';
-
   import { defineComponent, unref, computed, toRaw } from 'vue';
   import { Table } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';

@@ -1,4 +1,4 @@
-// Transform vue-count-to to support vue3 version
+import { withInstall } from '/@/utils';
+import countTo from './src/CountTo.vue';
 
-import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
-export const CountTo = createAsyncComponent(() => import('./src/CountTo.vue'));
+export const CountTo = withInstall(countTo);

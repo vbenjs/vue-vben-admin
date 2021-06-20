@@ -1,6 +1,6 @@
 import { renderQrCode } from './drawCanvas';
 import { drawLogo } from './drawLogo';
-import { RenderQrCodeParams } from './types';
+import { RenderQrCodeParams } from './typing';
 export const toCanvas = (options: RenderQrCodeParams) => {
   return renderQrCode(options)
     .then(() => {

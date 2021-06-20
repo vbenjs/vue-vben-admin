@@ -1,37 +1,35 @@
 <template>
-  <AInput v-bind="$attrs" :class="prefixCls" :size="size" :value="state">
+  <a-input v-bind="$attrs" :class="prefixCls" :size="size" :value="state">
     <template #addonAfter>
       <CountButton :size="size" :count="count" :value="state" :beforeStartFunc="sendCodeApi" />
     </template>
-  </AInput>
+  </a-input>
 </template>
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
-
-  import { Input } from 'ant-design-vue';
   import CountButton from './CountButton.vue';
-
-  import { propTypes } from '/@/utils/propTypes';
   import { useDesign } from '/@/hooks/web/useDesign';
-
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
+
+  const props = {
+    value: { type: String },
+    size: { type: String, validator: (v) => ['default', 'large', 'small'].includes(v) },
+    count: { type: Number, default: 60 },
+    sendCodeApi: {
+      type: Function as PropType<() => Promise<boolean>>,
+      default: null,
+    },
+  };
 
   export default defineComponent({
     name: 'CountDownInput',
-    components: { [Input.name]: Input, CountButton },
+    components: { CountButton },
     inheritAttrs: false,
-    props: {
-      value: propTypes.string,
-      size: propTypes.oneOf(['default', 'large', 'small']),
-      count: propTypes.number.def(60),
-      sendCodeApi: {
-        type: Function as PropType<() => boolean>,
-        default: null,
-      },
-    },
+    props,
     setup(props) {
       const { prefixCls } = useDesign('countdown-input');
       const [state] = useRuleFormItem(props);
+
       return { prefixCls, state };
     },
   });

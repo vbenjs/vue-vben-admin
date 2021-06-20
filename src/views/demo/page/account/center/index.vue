@@ -12,7 +12,7 @@
           </a-col>
           <a-col :span="16">
             <div :class="`${prefixCls}-top__detail`">
-              <template v-for="(detail, index) in details" :key="index">
+              <template v-for="detail in details" :key="detail.title">
                 <p>
                   <Icon :icon="detail.icon" />
                   {{ detail.title }}
@@ -24,7 +24,7 @@
       </a-col>
       <a-col :span="7" :class="`${prefixCls}-col`">
         <CollapseContainer title="标签" :canExpan="false">
-          <template v-for="(tag, index) in tags" :key="index">
+          <template v-for="tag in tags" :key="tag">
             <Tag class="mb-2">
               {{ tag }}
             </Tag>

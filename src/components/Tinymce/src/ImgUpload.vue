@@ -52,9 +52,9 @@
       function handleChange(info: Recordable) {
         const file = info.file;
         const status = file?.status;
-
         const url = file?.response?.url;
         const name = file?.name;
+
         if (status === 'uploading') {
           if (!uploading) {
             emit('uploading', name);

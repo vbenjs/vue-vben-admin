@@ -25,8 +25,7 @@
   import { isFunction } from '/@/utils/is';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { useAttrs } from '/@/hooks/core/useAttrs';
-  import { get } from 'lodash-es';
-
+  import { get, omit } from 'lodash-es';
   import { LoadingOutlined } from '@ant-design/icons-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { propTypes } from '/@/utils/propTypes';
@@ -83,6 +82,7 @@
             prev.push({
               label: next[labelField],
               value: numberToString ? `${value}` : value,
+              ...omit(next, [labelField, valueField]),
             });
           }
           return prev;

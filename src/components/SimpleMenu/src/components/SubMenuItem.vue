@@ -77,7 +77,7 @@
   import Icon from '/@/components/Icon';
   import { Popover } from 'ant-design-vue';
   import { isBoolean, isObject } from '/@/utils/is';
-  import Mitt from '/@/utils/mitt';
+  import mitt from '/@/utils/mitt';
 
   const DELAY = 200;
   export default defineComponent({
@@ -109,13 +109,12 @@
         isChild: false,
       });
 
-      const { getParentSubMenu, getItemStyle, getParentMenu, getParentList } = useMenuItem(
-        instance
-      );
+      const { getParentSubMenu, getItemStyle, getParentMenu, getParentList } =
+        useMenuItem(instance);
 
       const { prefixCls } = useDesign('menu');
 
-      const subMenuEmitter = new Mitt();
+      const subMenuEmitter = mitt();
 
       const { rootMenuEmitter } = useSimpleRootMenuContext();
 
@@ -148,13 +147,11 @@
       const getCollapse = computed(() => rootProps.collapse);
       const getTheme = computed(() => rootProps.theme);
 
-      const getOverlayStyle = computed(
-        (): CSSProperties => {
-          return {
-            minWidth: '200px',
-          };
-        }
-      );
+      const getOverlayStyle = computed((): CSSProperties => {
+        return {
+          minWidth: '200px',
+        };
+      });
 
       const getIsOpend = computed(() => {
         const name = props.name;
@@ -276,8 +273,7 @@
               state.opened = data;
               return;
             }
-
-            if (isObject(data)) {
+            if (isObject(data) && rootProps.accordion) {
               const { opend, parent, uidList } = data as Recordable;
               if (parent === instance?.parent) {
                 state.opened = opend;

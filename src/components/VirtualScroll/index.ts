@@ -1,3 +1,4 @@
-import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+import { withInstall } from '/@/utils/index';
+import vScroll from './src/VirtualScroll.vue';
 
-export const VScroll = createAsyncComponent(() => import('./src/VirtualScroll'));
+export const VScroll = withInstall(vScroll);

@@ -2,22 +2,17 @@
 // The axios configuration can be changed according to the project, just change the file, other files can be left unchanged
 
 import type { AxiosResponse } from 'axios';
-import type { RequestOptions, Result } from './types';
+import type { RequestOptions, Result } from '/#/axios';
 import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
-
 import { VAxios } from './Axios';
 import { checkStatus } from './checkStatus';
-
 import { useGlobSetting } from '/@/hooks/setting';
 import { useMessage } from '/@/hooks/web/useMessage';
-
 import { RequestEnum, ResultEnum, ContentTypeEnum } from '/@/enums/httpEnum';
-
 import { isString } from '/@/utils/is';
 import { getToken } from '/@/utils/auth';
 import { setObjToUrlParams, deepMerge } from '/@/utils';
 import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog';
-
 import { useI18n } from '/@/hooks/web/useI18n';
 import { joinTimestamp, formatRequestDate } from './helper';
 
@@ -34,14 +29,14 @@ const transform: AxiosTransform = {
    */
   transformRequestHook: (res: AxiosResponse<Result>, options: RequestOptions) => {
     const { t } = useI18n();
-    const { isTransformRequestResult, isReturnNativeResponse } = options;
+    const { isTransformResponse, isReturnNativeResponse } = options;
     // 是否返回原生响应头 比如：需要获取响应头时使用该属性
     if (isReturnNativeResponse) {
       return res;
     }
     // 不进行任何处理，直接返回
     // 用于页面代码可能需要直接获取code，data，message这些信息时开启
-    if (!isTransformRequestResult) {
+    if (!isTransformResponse) {
       return res.data;
     }
     // 错误的时候返回
@@ -62,26 +57,25 @@ const transform: AxiosTransform = {
 
     // 在此处根据自己项目的实际情况对不同的code执行不同的操作
     // 如果不希望中断当前请求，请return数据，否则直接抛出异常即可
+    let timeoutMsg = '';
     switch (code) {
       case ResultEnum.TIMEOUT:
-        const timeoutMsg = t('sys.api.timeoutMessage');
-        createErrorModal({
-          title: t('sys.api.operationFailed'),
-          content: timeoutMsg,
-        });
-        throw new Error(timeoutMsg);
+        timeoutMsg = t('sys.api.timeoutMessage');
       default:
         if (message) {
-          // errorMessageMode=‘modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
-          // errorMessageMode='none' 一般是调用时明确表示不希望自动弹出错误提示
-          if (options.errorMessageMode === 'modal') {
-            createErrorModal({ title: t('sys.api.errorTip'), content: message });
-          } else if (options.errorMessageMode === 'message') {
-            createMessage.error(message);
-          }
+          timeoutMsg = message;
         }
     }
-    throw new Error(message || t('sys.api.apiRequestFailed'));
+
+    // errorMessageMode=‘modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
+    // errorMessageMode='none' 一般是调用时明确表示不希望自动弹出错误提示
+    if (options.errorMessageMode === 'modal') {
+      createErrorModal({ title: t('sys.api.errorTip'), content: timeoutMsg });
+    } else if (options.errorMessageMode === 'message') {
+      createMessage.error(timeoutMsg);
+    }
+
+    throw new Error(timeoutMsg || t('sys.api.apiRequestFailed'));
   },
 
   // 请求之前处理config
@@ -125,14 +119,23 @@ const transform: AxiosTransform = {
   /**
    * @description: 请求拦截器处理
    */
-  requestInterceptors: (config) => {
+  requestInterceptors: (config, options) => {
     // 请求之前处理config
     const token = getToken();
     if (token) {
       // jwt token
-      config.headers.Authorization = token;
+      config.headers.Authorization = options.authenticationScheme
+        ? `${options.authenticationScheme} ${token}`
+        : token;
     }
     return config;
+  },
+
+  /**
+   * @description: 响应拦截器处理
+   */
+  responseInterceptors: (res: AxiosResponse<any>) => {
+    return res;
   },
 
   /**
@@ -142,23 +145,33 @@ const transform: AxiosTransform = {
     const { t } = useI18n();
     const errorLogStore = useErrorLogStoreWithOut();
     errorLogStore.addAjaxErrorInfo(error);
-    const { response, code, message } = error || {};
+    const { response, code, message, config } = error || {};
+    const errorMessageMode = config?.requestOptions?.errorMessageMode || 'none';
     const msg: string = response?.data?.error?.message ?? '';
     const err: string = error?.toString?.() ?? '';
+    let errMessage = '';
+
     try {
       if (code === 'ECONNABORTED' && message.indexOf('timeout') !== -1) {
-        createMessage.error(t('sys.api.apiTimeoutMessage'));
+        errMessage = t('sys.api.apiTimeoutMessage');
       }
       if (err?.includes('Network Error')) {
-        createErrorModal({
-          title: t('sys.api.networkException'),
-          content: t('sys.api.networkExceptionMsg'),
-        });
+        errMessage = t('sys.api.networkExceptionMsg');
+      }
+
+      if (errMessage) {
+        if (errorMessageMode === 'modal') {
+          createErrorModal({ title: t('sys.api.errorTip'), content: errMessage });
+        } else if (errorMessageMode === 'message') {
+          createMessage.error(errMessage);
+        }
+        return Promise.reject(error);
       }
     } catch (error) {
       throw new Error(error);
     }
-    checkStatus(error?.response?.status, msg);
+
+    checkStatus(error?.response?.status, msg, errorMessageMode);
     return Promise.reject(error);
   },
 };
@@ -167,6 +180,10 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
   return new VAxios(
     deepMerge(
       {
+        // See https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#authentication_schemes
+        // authentication schemes，e.g: Bearer
+        // authenticationScheme: 'Bearer',
+        authenticationScheme: '',
         timeout: 10 * 1000,
         // 基础接口地址
         // baseURL: globSetting.apiUrl,
@@ -184,7 +201,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           // 是否返回原生响应头 比如：需要获取响应头时使用该属性
           isReturnNativeResponse: false,
           // 需要对返回数据进行处理
-          isTransformRequestResult: true,
+          isTransformResponse: true,
           // post请求的时候添加参数到url
           joinParamsToUrl: false,
           // 格式化提交参数时间

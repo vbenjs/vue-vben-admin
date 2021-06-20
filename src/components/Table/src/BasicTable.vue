@@ -59,7 +59,6 @@
   import { createTableContext } from './hooks/useTableContext';
   import { useTableFooter } from './hooks/useTableFooter';
   import { useTableForm } from './hooks/useTableForm';
-  import { useExpose } from '/@/hooks/core/useExpose';
   import { useDesign } from '/@/hooks/web/useDesign';
 
   import { omit } from 'lodash-es';
@@ -91,7 +90,7 @@
       'change',
       'columns-change',
     ],
-    setup(props, { attrs, emit, slots }) {
+    setup(props, { attrs, emit, slots, expose }) {
       const tableElRef = ref<ComponentRef>(null);
       const tableData = ref<Recordable[]>([]);
 
@@ -129,6 +128,7 @@
         getDataSourceRef,
         getDataSource,
         setTableData,
+        updateTableDataRecord,
         fetch,
         getRowKey,
         reload,
@@ -265,6 +265,7 @@
         deleteSelectRowByKey,
         setPagination,
         setTableData,
+        updateTableDataRecord,
         redoHeight,
         setSelectedRowKeys,
         setColumns,
@@ -288,7 +289,7 @@
       };
       createTableContext({ ...tableAction, wrapRef, getBindValues });
 
-      useExpose<TableActionType>(tableAction);
+      expose(tableAction);
 
       emit('register', tableAction, formActions);
 

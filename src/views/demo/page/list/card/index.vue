@@ -12,7 +12,7 @@
     <div :class="`${prefixCls}__content`">
       <a-list>
         <a-row :gutter="16">
-          <template v-for="(item, index) in list" :key="index">
+          <template v-for="item in list" :key="item.title">
             <a-col :span="6">
               <a-list-item>
                 <a-card :hoverable="true" :class="`${prefixCls}__card`">

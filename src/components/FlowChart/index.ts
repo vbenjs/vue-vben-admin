@@ -1,8 +1,4 @@
-import type { App } from 'vue';
+import { withInstall } from '/@/utils';
 import flowChart from './src/FlowChart.vue';
 
-export const FlowChart = Object.assign(flowChart, {
-  install(app: App) {
-    app.component(flowChart.name, flowChart);
-  },
-});
+export const FlowChart = withInstall(flowChart);

@@ -2,7 +2,6 @@
   <div :class="getClass">
     <template v-if="canFullscreen">
       <FullscreenExitOutlined role="full" @click="handleFullScreen" v-if="fullScreen" />
-
       <FullscreenOutlined role="close" @click="handleFullScreen" v-else />
     </template>
     <CloseOutlined @click="handleCancel" />
@@ -12,14 +11,13 @@
   import { defineComponent, computed } from 'vue';
   import { FullscreenExitOutlined, FullscreenOutlined, CloseOutlined } from '@ant-design/icons-vue';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { propTypes } from '/@/utils/propTypes';
 
   export default defineComponent({
     name: 'ModalClose',
     components: { FullscreenExitOutlined, FullscreenOutlined, CloseOutlined },
     props: {
-      canFullscreen: propTypes.bool.def(true),
-      fullScreen: propTypes.bool,
+      canFullscreen: { type: Boolean, default: true },
+      fullScreen: { type: Boolean },
     },
     emits: ['cancel', 'fullscreen'],
     setup(props, { emit }) {
@@ -35,9 +33,10 @@
         ];
       });
 
-      function handleCancel() {
-        emit('cancel');
+      function handleCancel(e: Event) {
+        emit('cancel', e);
       }
+
       function handleFullScreen(e: Event) {
         e?.stopPropagation();
         e?.preventDefault();

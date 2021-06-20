@@ -71,10 +71,10 @@
         const breadcrumbList = filterItem(matched);
 
         if (currentRoute.value.meta?.currentActiveMenu) {
-          breadcrumbList.push(({
+          breadcrumbList.push({
             ...currentRoute.value,
             name: currentRoute.value.meta?.title || currentRoute.value.name,
-          } as unknown) as RouteLocationMatched);
+          } as unknown as RouteLocationMatched);
         }
         routes.value = breadcrumbList;
       });

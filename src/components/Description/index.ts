@@ -1,5 +1,6 @@
-import Description from './src/Description.vue';
+import { withInstall } from '/@/utils';
+import description from './src/Description.vue';
 
-export { Description };
-export * from './src/types';
+export * from './src/typing';
 export { useDescription } from './src/useDescription';
+export const Description = withInstall(description);

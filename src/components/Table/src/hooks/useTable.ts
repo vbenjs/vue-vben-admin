@@ -3,7 +3,6 @@ import type { PaginationProps } from '../types/pagination';
 import type { DynamicProps } from '/#/utils';
 import type { FormActionType } from '/@/components/Form';
 import type { WatchStopHandle } from 'vue';
-
 import { getDynamicProps } from '/@/utils';
 import { ref, onUnmounted, unref, watch, toRaw } from 'vue';
 import { isProdMode } from '/@/utils/env';
@@ -119,6 +118,9 @@ export function useTable(tableProps?: Props): [
     },
     updateTableData: (index: number, key: string, value: any) => {
       return getTableInstance().updateTableData(index, key, value);
+    },
+    updateTableDataRecord: (rowKey: string | number, record: Recordable) => {
+      return getTableInstance().updateTableDataRecord(rowKey, record);
     },
     getRowSelection: () => {
       return toRaw(getTableInstance().getRowSelection());

@@ -31,7 +31,7 @@
         v-if="showAdvancedButton && !hideAdvanceBtn"
       >
         {{ isAdvanced ? t('component.form.putAway') : t('component.form.unfold') }}
-        <BasicArrow class="ml-1" :expand="!isAdvanced" top />
+        <BasicArrow class="ml-1" :expand="!isAdvanced" up />
       </Button>
       <slot name="advanceAfter"></slot>
     </FormItem>
@@ -40,13 +40,11 @@
 <script lang="ts">
   import type { ColEx } from '../types/index';
   import type { ButtonProps } from 'ant-design-vue/es/button/buttonTypes';
-
   import { defineComponent, computed, PropType } from 'vue';
   import { Form, Col } from 'ant-design-vue';
   import { Button } from '/@/components/Button';
   import { BasicArrow } from '/@/components/Basic/index';
   import { useFormContext } from '../hooks/useFormContext';
-
   import { useI18n } from '/@/hooks/web/useI18n';
   import { propTypes } from '/@/utils/propTypes';
 
@@ -99,16 +97,14 @@
         return actionColOpt;
       });
 
-      const getResetBtnOptions = computed(
-        (): ButtonOptions => {
-          return Object.assign(
-            {
-              text: t('common.resetText'),
-            },
-            props.resetButtonOptions
-          );
-        }
-      );
+      const getResetBtnOptions = computed((): ButtonOptions => {
+        return Object.assign(
+          {
+            text: t('common.resetText'),
+          },
+          props.resetButtonOptions
+        );
+      });
 
       const getSubmitBtnOptions = computed(() => {
         return Object.assign(

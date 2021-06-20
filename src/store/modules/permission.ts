@@ -25,7 +25,7 @@ import { useMessage } from '/@/hooks/web/useMessage';
 
 interface PermissionState {
   // Permission code list
-  permCodeList: string[];
+  permCodeList: string[] | number[];
   // Whether the route has been dynamically added
   isDynamicAddedRoute: boolean;
   // To trigger a menu update
@@ -45,16 +45,16 @@ export const usePermissionStore = defineStore({
     backMenuList: [],
   }),
   getters: {
-    getPermCodeList() {
+    getPermCodeList(): string[] | number[] {
       return this.permCodeList;
     },
-    getBackMenuList() {
+    getBackMenuList(): Menu[] {
       return this.backMenuList;
     },
-    getLastBuildMenuTime() {
+    getLastBuildMenuTime(): number {
       return this.lastBuildMenuTime;
     },
-    getIsDynamicAddedRoute() {
+    getIsDynamicAddedRoute(): boolean {
       return this.isDynamicAddedRoute;
     },
   },

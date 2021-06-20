@@ -5,7 +5,11 @@ export interface DemoOptionsItem {
   value: string;
 }
 
+export interface selectParams {
+  id: number | string;
+}
+
 /**
  * @description: Request list return value
  */
-export type DemoOptionsGetResultModel = BasicFetchResult<DemoOptionsItem[]>;
+export type DemoOptionsGetResultModel = BasicFetchResult<DemoOptionsItem>;

@@ -6,9 +6,6 @@ const menu: MenuModule = {
   menu: {
     name: t('routes.demo.feat.feat'),
     path: '/feat',
-    tag: {
-      dot: true,
-    },
     children: [
       {
         path: 'icon',
@@ -21,9 +18,6 @@ const menu: MenuModule = {
       {
         name: t('routes.demo.feat.sessionTimeout'),
         path: 'session-timeout',
-        tag: {
-          content: 'new',
-        },
       },
       {
         path: 'tabs',
@@ -112,7 +106,7 @@ const menu: MenuModule = {
           // },
           {
             path: 'children',
-            name: t('routes.demo.feat.breadcrumbChildrenDetail'),
+            name: t('routes.demo.feat.breadcrumbChildren'),
           },
         ],
       },

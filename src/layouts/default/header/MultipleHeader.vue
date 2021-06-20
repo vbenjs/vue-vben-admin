@@ -17,7 +17,7 @@
   import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
   import { useAppInject } from '/@/hooks/web/useAppInject';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { headerHeightRef } from '../content/useContentViewHeight';
+  import { useLayoutHeight } from '../content/useContentViewHeight';
 
   const HEADER_HEIGHT = 48;
 
@@ -26,6 +26,7 @@
     name: 'LayoutMultipleHeader',
     components: { LayoutHeader, MultipleTabs },
     setup() {
+      const { setHeaderHeight } = useLayoutHeight();
       const { prefixCls } = useDesign('layout-multiple-header');
 
       const { getCalcContentWidth, getSplit } = useMenuSetting();
@@ -77,7 +78,7 @@
         if (unref(getShowMultipleTab) && !unref(getFullContent)) {
           height += TABS_HEIGHT;
         }
-        headerHeightRef.value = height;
+        setHeaderHeight(height);
         return {
           height: `${height}px`,
         };

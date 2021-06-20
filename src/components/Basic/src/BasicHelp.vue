@@ -1,104 +1,90 @@
 <script lang="tsx">
   import type { CSSProperties, PropType } from 'vue';
   import { defineComponent, computed, unref } from 'vue';
-
   import { Tooltip } from 'ant-design-vue';
   import { InfoCircleOutlined } from '@ant-design/icons-vue';
-
   import { getPopupContainer } from '/@/utils';
   import { isString, isArray } from '/@/utils/is';
   import { getSlot } from '/@/utils/helper/tsxHelper';
-  import { propTypes } from '/@/utils/propTypes';
-
   import { useDesign } from '/@/hooks/web/useDesign';
+
+  const props = {
+    /**
+     * Help text max-width
+     * @default: 600px
+     */
+    maxWidth: { type: String, default: '600px' },
+    /**
+     * Whether to display the serial number
+     * @default: false
+     */
+    showIndex: { type: Boolean },
+    /**
+     * Help text font color
+     * @default: #ffffff
+     */
+    color: { type: String, default: '#ffffff' },
+    /**
+     * Help text font size
+     * @default: 14px
+     */
+    fontSize: { type: String, default: '14px' },
+    /**
+     * Help text list
+     */
+    placement: { type: String, default: 'right' },
+    /**
+     * Help text list
+     */
+    text: { type: [Array, String] as PropType<string[] | string> },
+  };
 
   export default defineComponent({
     name: 'BasicHelp',
     components: { Tooltip },
-    props: {
-      // max-width
-      maxWidth: propTypes.string.def('600px'),
-      // Whether to display the serial number
-      showIndex: propTypes.bool,
-      // color
-      color: propTypes.string.def('#ffffff'),
-      fontSize: propTypes.string.def('14px'),
-      placement: propTypes.string.def('right'),
-      absolute: propTypes.bool,
-      // Text list
-      text: {
-        type: [Array, String] as PropType<string[] | string>,
-      },
-      // 定位
-      position: {
-        type: [Object] as PropType<any>,
-        default: () => ({
-          position: 'absolute',
-          left: 0,
-          bottom: 0,
-        }),
-      },
-    },
+    props,
     setup(props, { slots }) {
       const { prefixCls } = useDesign('basic-help');
 
-      const getOverlayStyle = computed(
-        (): CSSProperties => {
-          return {
-            maxWidth: props.maxWidth,
-          };
-        }
+      const getTooltipStyle = computed(
+        (): CSSProperties => ({ color: props.color, fontSize: props.fontSize })
       );
 
-      const getWrapStyle = computed(
-        (): CSSProperties => {
-          return {
-            color: props.color,
-            fontSize: props.fontSize,
-          };
-        }
-      );
+      const getOverlayStyle = computed((): CSSProperties => ({ maxWidth: props.maxWidth }));
 
-      const getMainStyleRef = computed(() => {
-        return props.absolute ? props.position : {};
-      });
+      function renderTitle() {
+        const textList = props.text;
 
-      const renderTitle = () => {
-        const list = props.text;
-
-        if (isString(list)) {
-          return <p>{list}</p>;
+        if (isString(textList)) {
+          return <p>{textList}</p>;
         }
 
-        if (isArray(list)) {
-          return list.map((item, index) => {
+        if (isArray(textList)) {
+          return textList.map((text, index) => {
             return (
-              <p key={item}>
+              <p key={text}>
                 <>
                   {props.showIndex ? `${index + 1}. ` : ''}
-                  {item}
+                  {text}
                 </>
               </p>
             );
           });
         }
-
         return null;
-      };
+      }
 
       return () => {
         return (
           <Tooltip
-            title={<div style={unref(getWrapStyle)}>{renderTitle()}</div>}
             overlayClassName={`${prefixCls}__wrap`}
+            title={<div style={unref(getTooltipStyle)}>{renderTitle()}</div>}
             autoAdjustOverflow={true}
             overlayStyle={unref(getOverlayStyle)}
-            placement={props.placement as 'left'}
+            placement={props.placement as 'right'}
             getPopupContainer={() => getPopupContainer()}
           >
-            <span class={prefixCls} style={unref(getMainStyleRef)}>
-              {getSlot(slots) || <InfoCircleOutlined />}
-            </span>
+            <span class={prefixCls}>{getSlot(slots) || <InfoCircleOutlined />}</span>
           </Tooltip>
         );
       };
