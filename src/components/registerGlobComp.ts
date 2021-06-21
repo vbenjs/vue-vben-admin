@@ -1,3 +1,4 @@
+import type { App } from 'vue';
 import { Icon } from './Icon';
 import { Button } from './Button';
 import {
@@ -6,12 +7,10 @@ import {
   Input,
 } from 'ant-design-vue';
 
-import { App } from 'vue';
-
 const compList = [Icon, AntButton.Group];
 
 export function registerGlobComp(app: App) {
-  compList.forEach((comp: any) => {
+  compList.forEach((comp) => {
     app.component(comp.name || comp.displayName, comp);
   });
 

@@ -1,7 +1,7 @@
 <template>
   <List :class="prefixCls">
     <a-row :gutter="16">
-      <template v-for="(item, index) in list" :key="index">
+      <template v-for="item in list" :key="item.title">
         <a-col :span="6">
           <ListItem>
             <Card :hoverable="true" :class="`${prefixCls}__card`">

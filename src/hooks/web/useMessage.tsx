@@ -5,6 +5,7 @@ import { InfoCircleFilled, CheckCircleFilled, CloseCircleFilled } from '@ant-des
 
 import { ArgsProps, ConfigProps } from 'ant-design-vue/lib/notification';
 import { useI18n } from './useI18n';
+import { isString } from '/@/utils/is';
 
 export interface NotifyApi {
   info(config: ArgsProps): void;
@@ -46,7 +47,11 @@ function getIcon(iconType: string) {
 }
 
 function renderContent({ content }: Pick<ModalOptionsEx, 'content'>) {
-  return <div innerHTML={`<div>${content as string}</div>`}></div>;
+  if (isString(content)) {
+    return <div innerHTML={`<div>${content as string}</div>`}></div>;
+  } else {
+    return content;
+  }
 }
 
 /**
@@ -59,6 +64,7 @@ function createConfirm(options: ModalOptionsEx): ConfirmOptions {
     centered: true,
     icon: getIcon(iconType),
     ...options,
+    content: renderContent(options),
   };
   return Modal.confirm(opt) as unknown as ConfirmOptions;
 }

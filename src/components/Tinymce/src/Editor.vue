@@ -16,7 +16,6 @@
   import type { RawEditorSettings } from 'tinymce';
   import tinymce from 'tinymce/tinymce';
   import 'tinymce/themes/silver';
-
   import 'tinymce/icons/default/icons';
   import 'tinymce/plugins/advlist';
   import 'tinymce/plugins/anchor';
@@ -58,11 +57,8 @@
     onUnmounted,
     onDeactivated,
   } from 'vue';
-
   import ImgUpload from './ImgUpload.vue';
-
   import { toolbar, plugins } from './tinymce';
-
   import { buildShortUUID } from '/@/utils/uuid';
   import { bindHandlers } from './helper';
   import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
@@ -96,7 +92,6 @@
       required: false,
       default: 400,
     },
-
     width: {
       type: [Number, String] as PropType<string | number>,
       required: false,

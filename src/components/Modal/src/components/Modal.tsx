@@ -20,7 +20,6 @@ export default defineComponent({
 
     return () => {
       const propsData = { ...unref(attrs), ...props } as Recordable;
-
       return <Modal {...propsData}>{extendSlots(slots)}</Modal>;
     };
   },

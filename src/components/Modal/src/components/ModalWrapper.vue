@@ -6,9 +6,7 @@
   </ScrollContainer>
 </template>
 <script lang="ts">
-  import type { ModalWrapperProps } from '../types';
   import type { CSSProperties } from 'vue';
-
   import {
     defineComponent,
     computed,
@@ -20,31 +18,31 @@
     nextTick,
     onUnmounted,
   } from 'vue';
-
   import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
   import { ScrollContainer } from '/@/components/Container';
-
-  import { propTypes } from '/@/utils/propTypes';
   import { createModalContext } from '../hooks/useModalContext';
+  import { useMutationObserver } from '@vueuse/core';
+
+  const props = {
+    loading: { type: Boolean },
+    useWrapper: { type: Boolean, default: true },
+    modalHeaderHeight: { type: Number, default: 57 },
+    modalFooterHeight: { type: Number, default: 74 },
+    minHeight: { type: Number, default: 200 },
+    height: { type: Number },
+    footerOffset: { type: Number, default: 0 },
+    visible: { type: Boolean },
+    fullScreen: { type: Boolean },
+    loadingTip: { type: String },
+  };
 
   export default defineComponent({
     name: 'ModalWrapper',
     components: { ScrollContainer },
     inheritAttrs: false,
-    props: {
-      loading: propTypes.bool,
-      useWrapper: propTypes.bool.def(true),
-      modalHeaderHeight: propTypes.number.def(57),
-      modalFooterHeight: propTypes.number.def(74),
-      minHeight: propTypes.number.def(200),
-      height: propTypes.number,
-      footerOffset: propTypes.number.def(0),
-      visible: propTypes.bool,
-      fullScreen: propTypes.bool,
-      loadingTip: propTypes.string,
-    },
+    props,
     emits: ['height-change', 'ext-height'],
-    setup(props: ModalWrapperProps, { emit }) {
+    setup(props, { emit }) {
       const wrapperRef = ref<ComponentRef>(null);
       const spinRef = ref<ElRef>(null);
       const realHeightRef = ref(0);
@@ -56,6 +54,17 @@
 
       useWindowSizeFn(setModalHeight.bind(null, false));
 
+      useMutationObserver(
+        spinRef,
+        () => {
+          setModalHeight();
+        },
+        {
+          attributes: true,
+          subtree: true,
+        }
+      );
+
       createModalContext({
         redoModalHeight: setModalHeight,
       });
@@ -63,8 +72,7 @@
       const spinStyle = computed((): CSSProperties => {
         return {
           minHeight: `${props.minHeight}px`,
-          // padding 28
-          maxHeight: `${unref(realHeightRef)}px`,
+          [props.fullScreen ? 'height' : 'maxHeight']: `${unref(realHeightRef)}px`,
         };
       });
 
@@ -87,7 +95,6 @@
       onMounted(() => {
         const { modalHeaderHeight, modalFooterHeight } = props;
         emit('ext-height', modalHeaderHeight + modalFooterHeight);
-        // listenElResize();
       });
 
       onUnmounted(() => {

@@ -1,9 +1,43 @@
-## Wip
+## 2.5.0(2021-06-20)
+
+## (破坏性更新) Breaking changes
+
+- 将项目`windicss`改为`tailwindcss`，解决内存溢出问题
+  - 目前项目不兼容地方有
+    - `!xl:m-4` 之类的写法需要改为`xl:!m-4`,注意只有`!`这个不兼容，没用到则不用改
+    - `windicss`自身新增的特性需要调整，比如`Attribute`模式不兼容
+
+### ✨ Refactor
+
+- 移除`useExpose`,使用组件自身提供的`expose`代替
+
+### ⚡ Performance Improvements
+
+- **Locale** 合并多语言文件，减少文件数量
+- **Utils** Mitt 默认导出由 `Class` 改为 `Function`
+- **Axios** `isTransformRequestResult`更名为`isTransformResponse`
 
 ### ✨ Features
 
-- `Cropper` 头像裁剪新增圆形裁剪功能
-- 新增头像上传组件
+- **CropperImage** `Cropper` 头像裁剪新增圆形裁剪功能
+- **CropperAvatar** 新增头像上传组件
+- **Drawer** `useDrawer`新增`closeDrawer`函数
+- **Preview** 新增`createImgPreview`图片预览函数
+- **Setup** 新增引导页示例
+- **Tests** 添加 jest 测试套件，暂不支持 Vue 组件单测
+- **Axios** 新增`authenticationScheme`配置，用于指定认证方案
+- **Setting** 新增 `sessionTimeoutProcessing` 项目配置项，用于配置会话超时如何处理
+
+### 🐛 Bug Fixes
+
+- **Modal** 修复全屏高度计算错误
+- **Modal** 修复关闭事件触发多次问题
+- **PageWrapper** 修复高度计算问题
+- **FlowChart** 修复拖放菜单丢失
+- 修复后台模式下，Iframe 路由错误
+- **PageWrapper** 修复 footer 与全局页脚同时开启时的高度计算问题
+- **Menu** 修复菜单折叠动画抖动问题
+- **Store**修复 pinia 版本升级之后类型错误
 
 ## 2.4.2(2021-06-10)
 

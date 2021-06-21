@@ -25,7 +25,7 @@ export function useRuleFormItem<T extends Recordable>(
     innerState.value = props[key];
   });
 
-  const state = computed({
+  const state: any = computed({
     get() {
       return innerState.value;
     },

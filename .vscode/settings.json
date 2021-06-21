@@ -1,6 +1,6 @@
 {
-  "cSpell.words": ["vben", "windi"],
   "typescript.tsdk": "./node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
   "volar.tsPlugin": true,
   "volar.tsPluginStatus": false,
   //===========================================
@@ -10,23 +10,14 @@
   "editor.tabSize": 2,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "diffEditor.ignoreTrimWhitespace": false,
-  "editor.trimAutoWhitespace": true,
   //===========================================
   //============= Other =======================
   //===========================================
   "breadcrumbs.enabled": true,
   "open-in-browser.default": "chrome",
   //===========================================
-  //============= emmet =======================
-  //===========================================
-  "emmet.triggerExpansionOnTab": true,
-  "emmet.showAbbreviationSuggestions": true,
-  //===========================================
   //============= files =======================
   //===========================================
-  "files.trimTrailingWhitespace": true,
-  // "files.insertFinalNewline": true,
-  // "files.trimFinalNewlines": true,
   "files.eol": "\n",
   "search.exclude": {
     "**/node_modules": true,
@@ -49,9 +40,14 @@
     "CHANGELOG.md": true,
     "examples": true,
     "res": true,
-    "screenshots": true
+    "screenshots": true,
+    "yarn-error.log": true,
+    "**/.yarn": true
   },
   "files.exclude": {
+    "**/.cache": true,
+    "**/.editorconfig": true,
+    "**/.eslintcache": true,
     "**/bower_components": true,
     "**/.idea": true,
     "**/tmp": true,
@@ -73,17 +69,6 @@
   },
   "stylelint.enable": true,
   "stylelint.packageManager": "yarn",
-  // ===========================================
-  // ================ Vetur ====================
-  // ===========================================
-  // "vetur.experimental.templateInterpolationService": true,
-  // "vetur.format.options.tabSize": 2,
-  // "vetur.languageFeatures.codeActions": false,
-  // "vetur.format.defaultFormatterOptions": {
-  //   "js-beautify-html": {
-  //     "wrap_attributes": "force-expand-multiline"
-  //   }
-  // },
   "liveServer.settings.donotShowInfoMsg": true,
   "telemetry.enableCrashReporter": false,
   "workbench.settings.enableNaturalLanguageSearch": false,
@@ -132,5 +117,18 @@
   "i18n-ally.pathMatcher": "{locale}/{namespaces}.{ext}",
   "i18n-ally.enabledParsers": ["ts"],
   "i18n-ally.sourceLanguage": "en",
-  "i18n-ally.enabledFrameworks": ["vue", "react"]
+  "i18n-ally.enabledFrameworks": ["vue", "react"],
+  "cSpell.words": [
+    "vben",
+    "windi",
+    "browserslist",
+    "tailwindcss",
+    "esnext",
+    "antv",
+    "tinymce",
+    "qrcode",
+    "sider",
+    "pinia",
+    "sider"
+  ]
 }

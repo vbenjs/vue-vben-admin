@@ -1,12 +1,12 @@
 <template>
   <Form
-    v-bind="{ ...$attrs, ...$props, ...getProps }"
+    v-bind="getBindValue"
     :class="getFormClass"
     ref="formElRef"
     :model="formModel"
     @keypress.enter="handleEnterPress"
   >
-    <Row v-bind="{ ...getRow }">
+    <Row v-bind="getRow">
       <slot name="formHeader"></slot>
       <template v-for="schema in getSchema" :key="schema.field">
         <FormItem
@@ -39,7 +39,7 @@
 <script lang="ts">
   import type { FormActionType, FormProps, FormSchema } from './types/form';
   import type { AdvanceState } from './types/hooks';
-  import type { CSSProperties, Ref } from 'vue';
+  import type { Ref } from 'vue';
 
   import { defineComponent, reactive, ref, computed, unref, onMounted, watch, nextTick } from 'vue';
   import { Form, Row } from 'ant-design-vue';
@@ -69,7 +69,7 @@
     components: { FormItem, Form, Row, FormAction },
     props: basicProps,
     emits: ['advanced-change', 'reset', 'submit', 'register'],
-    setup(props, { emit }) {
+    setup(props, { emit, attrs }) {
       const formModel = reactive<Recordable>({});
       const modalFn = useModalContext();
 
@@ -103,13 +103,17 @@
       });
 
       // Get uniform row style and Row configuration for the entire form
-      const getRow = computed((): CSSProperties | RowProps => {
+      const getRow = computed((): RowProps => {
         const { baseRowStyle = {}, rowProps } = unref(getProps);
         return {
           style: baseRowStyle,
           ...rowProps,
         };
       });
+
+      const getBindValue = computed(
+        () => ({ ...attrs, ...props, ...unref(getProps) } as Recordable)
+      );
 
       const getSchema = computed((): FormSchema[] => {
         const schemas: FormSchema[] = unref(schemaRef) || (unref(getProps).schemas as any);
@@ -260,6 +264,7 @@
       });
 
       return {
+        getBindValue,
         handleToggleAdvanced,
         handleEnterPress,
         formModel,

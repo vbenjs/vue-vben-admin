@@ -7,6 +7,7 @@ import {
   ThemeEnum,
   RouterTransitionEnum,
   SettingButtonPositionEnum,
+  SessionTimeoutProcessingEnum,
 } from '/@/enums/appEnum';
 import { SIDE_BAR_BG_COLOR_LIST, HEADER_PRESET_BG_COLOR_LIST } from './designSetting';
 import { primaryColor } from '../../build/config/themeConfig';
@@ -27,6 +28,9 @@ const setting: ProjectConfig = {
 
   // Permission-related cache is stored in sessionStorage or localStorage
   permissionCacheType: CacheTypeEnum.LOCAL,
+
+  // Session timeout processing
+  sessionTimeoutProcessing: SessionTimeoutProcessingEnum.ROUTE_JUMP,
 
   // color
   themeColor: primaryColor,

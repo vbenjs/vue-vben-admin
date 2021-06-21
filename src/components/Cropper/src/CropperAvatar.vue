@@ -18,9 +18,8 @@
   import { useI18n } from '/@/hooks/web/useI18n';
 
   const props = {
-    src: { type: String, required: true },
     width: { type: [String, Number], default: '200px' },
-    uploadApi: { type: Function as PropType<({ file: Blob, name: stirng }) => Promise<void>> },
+    uploadApi: { type: Function as PropType<({ file: Blob, name: string }) => Promise<void>> },
   };
 
   export default defineComponent({

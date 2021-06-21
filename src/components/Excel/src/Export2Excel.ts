@@ -1,10 +1,11 @@
 import xlsx from 'xlsx';
 import type { WorkBook } from 'xlsx';
-import type { JsonToSheet, AoAToSheet } from './types';
+import type { JsonToSheet, AoAToSheet } from './typing';
 
 const { utils, writeFile } = xlsx;
 
 const DEF_FILE_NAME = 'excel-list.xlsx';
+
 export function jsonToSheetXlsx<T = any>({
   data,
   header,

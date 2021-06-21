@@ -16,7 +16,7 @@
   import { defineComponent, ref, unref } from 'vue';
   import XLSX from 'xlsx';
 
-  import type { ExcelData } from './types';
+  import type { ExcelData } from './typing';
   export default defineComponent({
     name: 'ImportExcel',
     emits: ['success', 'error'],

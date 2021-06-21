@@ -4,17 +4,14 @@
   import type { FormSchema } from '../types/form';
   import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
   import type { TableActionType } from '/@/components/Table';
-
   import { defineComponent, computed, unref, toRefs } from 'vue';
   import { Form, Col } from 'ant-design-vue';
   import { componentMap } from '../componentMap';
   import { BasicHelp } from '/@/components/Basic';
-
   import { isBoolean, isFunction, isNull } from '/@/utils/is';
   import { getSlot } from '/@/utils/helper/tsxHelper';
   import { createPlaceholderMessage, setComponentRuleType } from '../helper';
   import { upperFirst, cloneDeep } from 'lodash-es';
-
   import { useItemLabelWidth } from '../hooks/useLabelWidth';
   import { useI18n } from '/@/hooks/web/useI18n';
 
@@ -91,7 +88,6 @@
         if (isBoolean(dynamicDisabled)) {
           disabled = dynamicDisabled;
         }
-
         if (isFunction(dynamicDisabled)) {
           disabled = dynamicDisabled(unref(getValues));
         }
@@ -229,9 +225,10 @@
         const eventKey = `on${upperFirst(changeEvent)}`;
 
         const on = {
-          [eventKey]: (e: Nullable<Recordable>) => {
+          [eventKey]: (...args: Nullable<Recordable>[]) => {
+            const [e] = args;
             if (propsData[eventKey]) {
-              propsData[eventKey](e);
+              propsData[eventKey](...args);
             }
             const target = e ? e.target : null;
             const value = target ? (isCheck ? target.checked : target.value) : e;
@@ -276,7 +273,6 @@
           : {
               default: () => renderComponentContent,
             };
-
         return <Comp {...compAttr}>{compSlot}</Comp>;
       }
 
@@ -317,7 +313,6 @@
         };
 
         const showSuffix = !!suffix;
-
         const getSuffix = isFunction(suffix) ? suffix(unref(getValues)) : suffix;
 
         return (
@@ -338,16 +333,18 @@
           </Form.Item>
         );
       }
+
       return () => {
         const { colProps = {}, colSlot, renderColContent, component } = props.schema;
-        if (!componentMap.has(component)) return null;
+        if (!componentMap.has(component)) {
+          return null;
+        }
 
         const { baseColProps = {} } = props.formProps;
-
         const realColProps = { ...baseColProps, ...colProps };
         const { isIfShow, isShow } = getShow();
-
         const values = unref(getValues);
+
         const getContent = () => {
           return colSlot
             ? getSlot(slots, colSlot, values)

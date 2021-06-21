@@ -1,11 +1,8 @@
 import type { BasicTableProps, TableRowSelection, BasicColumn } from '../types/table';
 import type { Ref, ComputedRef } from 'vue';
-
 import { computed, unref, ref, nextTick, watch } from 'vue';
-
 import { getViewportOffset } from '/@/utils/domUtils';
 import { isBoolean } from '/@/utils/is';
-
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
 import { useModalContext } from '/@/components/Modal';
 import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';

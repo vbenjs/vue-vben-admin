@@ -3,10 +3,8 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref, watch } from 'vue';
-
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useIntervalFn } from '@vueuse/core';
-
   import { formatToDateTime, formatToDate, dateUtil } from '/@/utils/dateUtil';
   import { isNumber, isObject, isString } from '/@/utils/is';
   import { propTypes } from '/@/utils/propTypes';
@@ -15,6 +13,7 @@
   const ONE_MINUTES = ONE_SECONDS * 60;
   const ONE_HOUR = ONE_MINUTES * 60;
   const ONE_DAY = ONE_HOUR * 24;
+
   export default defineComponent({
     name: 'Time',
     props: {

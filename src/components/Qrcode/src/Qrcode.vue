@@ -8,7 +8,7 @@
   import { toCanvas, QRCodeRenderersOptions, LogoType } from './qrcodePlus';
   import { toDataURL } from 'qrcode';
   import { downloadByUrl } from '/@/utils/file/download';
-  import { QrcodeDoneEventParams } from './types';
+  import { QrcodeDoneEventParams } from './typing';
 
   export default defineComponent({
     name: 'QrCode',

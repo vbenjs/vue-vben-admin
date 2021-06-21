@@ -1,5 +1,4 @@
 import type { Component } from 'vue';
-
 import {
   Input,
   Select,
@@ -9,7 +8,6 @@ import {
   DatePicker,
   TimePicker,
 } from 'ant-design-vue';
-
 import type { ComponentType } from './types/componentType';
 import { ApiSelect } from '/@/components/Form';
 
@@ -17,7 +15,6 @@ const componentMap = new Map<ComponentType, Component>();
 
 componentMap.set('Input', Input);
 componentMap.set('InputNumber', InputNumber);
-
 componentMap.set('Select', Select);
 componentMap.set('ApiSelect', ApiSelect);
 componentMap.set('Switch', Switch);

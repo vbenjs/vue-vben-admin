@@ -10,7 +10,11 @@
         <QuickNav :loading="loading" class="enter-y" />
 
         <Card class="!my-4 enter-y" :loading="loading">
-          <img class="xl:h-50 h-30 mx-auto" src="../../../assets/svg/illustration.svg" />
+          <img
+            style="height: 216px"
+            class="h-20 mx-auto"
+            src="../../../assets/svg/illustration.svg"
+          />
         </Card>
 
         <SaleRadar :loading="loading" class="enter-y" />

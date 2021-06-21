@@ -8,7 +8,6 @@
   import { defineComponent } from 'vue';
   import { BasicTitle } from '/@/components/Basic';
 
-  import { propTypes } from '/@/utils/propTypes';
   export default defineComponent({
     name: 'BasicModalHeader',
     components: { BasicTitle },
@@ -16,7 +15,7 @@
       helpMessage: {
         type: [String, Array] as PropType<string | string[]>,
       },
-      title: propTypes.string,
+      title: { type: String },
     },
   });
 </script>
