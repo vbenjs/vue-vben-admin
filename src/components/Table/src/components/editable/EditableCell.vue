@@ -249,7 +249,14 @@
       function handleCancel() {
         isEdit.value = false;
         currentValueRef.value = defaultValueRef.value;
-        table.emit?.('edit-cancel', unref(currentValueRef));
+        const { column, index, record } = props;
+        const { key, dataIndex } = column;
+        table.emit?.('edit-cancel', {
+          record,
+          index,
+          key: dataIndex || key,
+          value: unref(currentValueRef),
+        });
       }
 
       function onClickOutside() {
