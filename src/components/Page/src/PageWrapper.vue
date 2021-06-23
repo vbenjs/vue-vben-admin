@@ -1,5 +1,5 @@
 <template>
-  <div :class="getClass">
+  <div :class="getClass" ref="wrapperRef">
     <PageHeader
       :ghost="ghost"
       :title="title"
@@ -18,7 +18,7 @@
       </template>
     </PageHeader>
 
-    <div class="overflow-hidden" :class="getContentClass" :style="getContentStyle">
+    <div class="overflow-hidden" :class="getContentClass" :style="getContentStyle" ref="contentRef">
       <slot></slot>
     </div>
 
@@ -35,16 +35,16 @@
 <script lang="ts">
   import type { CSSProperties, PropType } from 'vue';
 
-  import { defineComponent, computed, watch, nextTick, ref, unref } from 'vue';
+  import { defineComponent, computed, watch, ref, unref } from 'vue';
   import PageFooter from './PageFooter.vue';
-  import { usePageContext } from '/@/hooks/component/usePageContext';
 
   import { useDesign } from '/@/hooks/web/useDesign';
   import { propTypes } from '/@/utils/propTypes';
   import { omit } from 'lodash-es';
   import { PageHeader } from 'ant-design-vue';
-  import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
   import { useLayoutHeight } from '/@/layouts/default/content/useContentViewHeight';
+  import { useContentHeight } from './useContentHeight';
+  import { WrapperProps } from './types';
 
   export default defineComponent({
     name: 'PageWrapper',
@@ -64,12 +64,25 @@
       fixedHeight: propTypes.bool,
     },
     setup(props, { slots }) {
+      const wrapperRef = ref<ElRef>(null);
       const headerRef = ref<ComponentRef>(null);
+      const contentRef = ref<ElRef>(null);
       const footerRef = ref<ComponentRef>(null);
-      const footerHeight = ref(0);
-      const { prefixCls, prefixVar } = useDesign('page-wrapper');
-      const { contentHeight, setPageHeight, pageHeight } = usePageContext();
+      const { prefixCls } = useDesign('page-wrapper');
       const { footerHeightRef } = useLayoutHeight();
+
+      const getProps = computed(() => {
+        return props as WrapperProps;
+      });
+
+      const { redoHeight, contentHeight } = useContentHeight(
+        getProps,
+        wrapperRef,
+        headerRef,
+        contentRef,
+        footerRef,
+        footerHeightRef
+      );
 
       const getClass = computed(() => {
         return [
@@ -91,7 +104,8 @@
         if (!contentFullHeight) {
           return { ...contentStyle };
         }
-        const height = `${unref(pageHeight)}px`;
+
+        const height = `${unref(contentHeight)}px`;
         return {
           ...contentStyle,
           minHeight: height,
@@ -111,9 +125,9 @@
       });
 
       watch(
-        () => [contentHeight?.value, getShowFooter.value, footerHeightRef.value],
+        () => [getShowFooter.value, footerHeightRef.value],
         () => {
-          calcContentHeight();
+          redoHeight();
         },
         {
           flush: 'post',
@@ -121,91 +135,16 @@
         }
       );
 
-      onMountedOrActivated(() => {
-        nextTick(() => {
-          calcContentHeight();
-        });
-      });
-
-      function calcContentHeight() {
-        if (!props.contentFullHeight) {
-          return;
-        }
-        //fix:in contentHeight mode: delay getting footer and header dom element to get the correct height
-        const footer = unref(footerRef);
-        const header = unref(headerRef);
-        footerHeight.value = 0;
-        const footerEl = footer?.$el;
-
-        if (footerEl) {
-          footerHeight.value += footerEl?.offsetHeight ?? 0;
-        }
-        let headerHeight = 0;
-        const headerEl = header?.$el;
-        if (headerEl) {
-          headerHeight += headerEl?.offsetHeight ?? 0;
-        }
-        // fix:subtract content's marginTop and marginBottom value
-        let subtractHeight = 0;
-        const ZERO_PX = '0px';
-        let marginBottom = ZERO_PX;
-        let marginTop = ZERO_PX;
-        const classElments = document.querySelectorAll(`.${prefixVar}-page-wrapper-content`);
-        if (classElments && classElments.length > 0) {
-          const contentEl = classElments[0];
-          const cssStyle = getComputedStyle(contentEl);
-          marginBottom = cssStyle?.marginBottom ?? ZERO_PX;
-          marginTop = cssStyle?.marginTop ?? ZERO_PX;
-        }
-        if (marginBottom) {
-          const contentMarginBottom = Number(marginBottom.replace(/[^\d]/g, ''));
-          subtractHeight += contentMarginBottom;
-        }
-        if (marginTop) {
-          const contentMarginTop = Number(marginTop.replace(/[^\d]/g, ''));
-          subtractHeight += contentMarginTop;
-        }
-
-        // fix: wrapper marginTop and marginBottom value
-        let wrapperSubtractHeight = 0;
-        let wrapperMarginBottom = ZERO_PX;
-        let wrapperMarginTop = ZERO_PX;
-        const wrapperClassElments = document.querySelectorAll(`.${prefixVar}-page-wrapper`);
-        if (wrapperClassElments && wrapperClassElments.length > 0) {
-          const contentEl = wrapperClassElments[0];
-          const cssStyle = getComputedStyle(contentEl);
-          wrapperMarginBottom = cssStyle?.marginBottom ?? ZERO_PX;
-          wrapperMarginTop = cssStyle?.marginTop ?? ZERO_PX;
-        }
-        if (wrapperMarginBottom) {
-          const contentMarginBottom = Number(wrapperMarginBottom.replace(/[^\d]/g, ''));
-          wrapperSubtractHeight += contentMarginBottom;
-        }
-        if (wrapperMarginTop) {
-          const contentMarginTop = Number(wrapperMarginTop.replace(/[^\d]/g, ''));
-          wrapperSubtractHeight += contentMarginTop;
-        }
-        let height =
-          unref(contentHeight) -
-          unref(footerHeight) -
-          headerHeight -
-          subtractHeight -
-          wrapperSubtractHeight;
-        if (unref(getShowFooter)) {
-          height -= unref(footerHeightRef);
-        }
-        setPageHeight?.(height);
-      }
-
       return {
         getContentStyle,
-        footerRef,
+        wrapperRef,
         headerRef,
+        contentRef,
+        footerRef,
         getClass,
         getHeaderSlots,
         prefixCls,
         getShowFooter,
-        pageHeight,
         omit,
         getContentClass,
       };
