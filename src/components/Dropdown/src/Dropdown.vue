@@ -11,9 +11,14 @@
             @click="handleClickMenu(item)"
             :disabled="item.disabled"
           >
-            <Popconfirm v-if="popconfirm && item.popConfirm" v-bind="item">
-              <Icon :icon="item.icon" v-if="item.icon" />
-              <span class="ml-1">{{ item.text }}</span>
+            <Popconfirm v-if="popconfirm && item.popConfirm" v-bind="omit(item.popConfirm, 'icon')">
+              <template #icon v-if="item.popConfirm.icon">
+                <Icon :icon="item.popConfirm.icon" />
+              </template>
+              <div>
+                <Icon :icon="item.icon" v-if="item.icon" />
+                <span class="ml-1">{{ item.text }}</span>
+              </div>
             </Popconfirm>
             <template v-else>
               <Icon :icon="item.icon" v-if="item.icon" />
@@ -34,6 +39,7 @@
   import { defineComponent } from 'vue';
   import { Dropdown, Menu, Popconfirm } from 'ant-design-vue';
   import { Icon } from '/@/components/Icon';
+  import { omit } from 'lodash-es';
 
   export default defineComponent({
     name: 'BasicDropdown',
@@ -78,6 +84,7 @@
 
       return {
         handleClickMenu,
+        omit,
         getAttr: (key: string | number) => ({ key }),
       };
     },
