@@ -26,10 +26,13 @@
         class="w-1/3"
       />
     </div>
+    <div class="flex">
+      <BasicTree title="异步树" :treeData="tree" class="w-1/3" :load-data="onLoadData" />
+    </div>
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, ref } from 'vue';
   import { BasicTree } from '/@/components/Tree/index';
   import { treeData } from './data';
   import { PageWrapper } from '/@/components/Page';
@@ -40,7 +43,34 @@
       function handleCheck(checkedKeys, e) {
         console.log('onChecked', checkedKeys, e);
       }
-      return { treeData, handleCheck };
+      const tree = ref([
+        {
+          title: 'parent ',
+          key: '0-0',
+        },
+      ]);
+
+      function onLoadData(treeNode) {
+        return new Promise((resolve: (value?: unknown) => void) => {
+          if (!treeNode.children) {
+            resolve();
+            return;
+          }
+          setTimeout(() => {
+            tree.value.forEach((v) => {
+              if (v.key === treeNode.eventKey) {
+                v.children = [
+                  { title: 'Child Node', key: `${treeNode.eventKey}-0` },
+                  { title: 'Child Node', key: `${treeNode.eventKey}-1` },
+                ];
+              }
+            });
+            resolve();
+            return;
+          }, 1000);
+        });
+      }
+      return { treeData, handleCheck, tree, onLoadData };
     },
   });
 </script>
