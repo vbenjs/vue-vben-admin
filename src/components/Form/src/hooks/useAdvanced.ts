@@ -51,7 +51,12 @@ export default function ({
   const debounceUpdateAdvanced = useDebounceFn(updateAdvanced, 30);
 
   watch(
-    [() => unref(getSchema), () => advanceState.isAdvanced, () => unref(realWidthRef)],
+    [
+      // TODO
+      // () => unref(getSchema),
+      () => advanceState.isAdvanced,
+      () => unref(realWidthRef),
+    ],
     () => {
       const { showAdvancedButton } = unref(getProps);
       if (showAdvancedButton) {

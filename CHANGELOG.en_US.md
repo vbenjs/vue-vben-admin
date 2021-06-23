@@ -1,3 +1,44 @@
+## 2.5.0(2021-06-20)
+
+## (Breaking changes) Breaking changes
+
+- Change the project `windicss` to `tailwindcss` to solve the memory overflow problem
+  - There are currently incompatible areas of the project
+    - The wording of `!xl:m-4` needs to be changed to `xl:!m-4`, note that only `!` is incompatible. If you don’t use it, you don’t need to change it.
+    - The new features of `windicss` itself need to be adjusted, for example, `Attribute` mode is not compatible
+
+### ✨ Refactor
+
+- Remove `useExpose` and use `expose` provided by the component itself instead
+
+### ⚡ Performance Improvements
+
+- **Locale** merge multi-language files to reduce the number of files
+- **Utils** Mitt default export is changed from `Class` to `Function`
+- **Axios** `isTransformRequestResult` is renamed to `isTransformResponse`
+
+### ✨ Features
+
+- **CropperImage** `Cropper` Avatar cropping adds circular cropping function
+- **CropperAvatar** Added avatar upload component
+- **Drawer** `useDrawer` added `closeDrawer` function
+- **Preview** Added `createImgPreview` picture preview function
+- **Setup** New guide page example
+- **Tests** Add jest test suite, Vue component single test is not currently supported
+- **Axios** Added `authenticationScheme` configuration to specify the authentication scheme
+- **Setting** Added `sessionTimeoutProcessing` project configuration item, used to configure how to deal with session timeout
+
+### 🐛 Bug Fixes
+
+- **Modal** fix full screen height calculation error
+- **Modal** Fix the problem that the shutdown event is triggered multiple times
+- **PageWrapper** fix the height calculation problem
+- **FlowChart** Repair drag and drop menu missing
+- Fixed Iframe routing error in background mode
+- **PageWrapper** Fix the height calculation problem when footer and global footer are opened at the same time
+- **Menu** Fix the jitter problem of menu folding animation
+- **Store** fixed type error after pinia version upgrade
+
 ## 2.4.2(2021-06-10)
 
 ### ✨ Refactor
