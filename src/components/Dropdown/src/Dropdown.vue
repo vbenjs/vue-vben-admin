@@ -11,7 +11,10 @@
             @click="handleClickMenu(item)"
             :disabled="item.disabled"
           >
-            <Popconfirm v-if="popconfirm && item.popConfirm" v-bind="omit(item.popConfirm, 'icon')">
+            <Popconfirm
+              v-if="popconfirm && item.popConfirm"
+              v-bind="getPopConfirmAttrs(item.popConfirm)"
+            >
               <template #icon v-if="item.popConfirm.icon">
                 <Icon :icon="item.popConfirm.icon" />
               </template>
@@ -33,13 +36,14 @@
 </template>
 
 <script lang="ts">
-  import type { PropType } from 'vue';
+  import { computed, PropType } from 'vue';
   import type { DropMenu } from './typing';
 
   import { defineComponent } from 'vue';
   import { Dropdown, Menu, Popconfirm } from 'ant-design-vue';
   import { Icon } from '/@/components/Icon';
   import { omit } from 'lodash-es';
+  import { isFunction } from '/@/utils/is';
 
   export default defineComponent({
     name: 'BasicDropdown',
@@ -82,9 +86,20 @@
         item.onClick?.();
       }
 
+      const getPopConfirmAttrs = computed(() => {
+        return (attrs) => {
+          const originAttrs = omit(attrs, ['confirm', 'cancel', 'icon']);
+          if (!attrs.onConfirm && attrs.confirm && isFunction(attrs.confirm))
+            originAttrs['onConfirm'] = attrs.confirm;
+          if (!attrs.onCancel && attrs.cancel && isFunction(attrs.cancel))
+            originAttrs['onCancel'] = attrs.cancel;
+          return originAttrs;
+        };
+      });
+
       return {
         handleClickMenu,
-        omit,
+        getPopConfirmAttrs,
         getAttr: (key: string | number) => ({ key }),
       };
     },
