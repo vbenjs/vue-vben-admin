@@ -97,6 +97,14 @@
       },
     },
     {
+      field: 'fieldTime',
+      component: 'RangePicker',
+      label: '时间字段',
+      colProps: {
+        span: 8,
+      },
+    },
+    {
       field: 'field4',
       component: 'Select',
       label: '字段4',
@@ -171,6 +179,7 @@
         actionColOptions: {
           span: 24,
         },
+        fieldMapToTime: [['fieldTime', ['startTime', 'endTime'], 'YYYY-MM']],
       });
       return {
         register,
