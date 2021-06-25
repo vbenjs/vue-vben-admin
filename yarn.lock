@@ -4988,10 +4988,10 @@ eslint-plugin-prettier@^3.4.0:
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
-eslint-plugin-vue@^7.11.1:
-  version "7.11.1"
-  resolved "https://registry.npmjs.org/eslint-plugin-vue/-/eslint-plugin-vue-7.11.1.tgz#77eb4b44032d5cca79f9af21d06991d8694a314a"
-  integrity sha512-lbw3vkEAGqYjqd1HpPFWHXtYaS8mILTJ5KOpJfRxO3Fo7o0wCf1zD7vSOasbm6nTA9xIgvZQ4VcyGIzQXxznHw==
+eslint-plugin-vue@^7.12.1:
+  version "7.12.1"
+  resolved "https://registry.npmjs.org/eslint-plugin-vue/-/eslint-plugin-vue-7.12.1.tgz#ef6499ce4fe0566659c8e12c71713f5308630a76"
+  integrity sha512-xHf/wCt88qmzqQerjaSteUFGASj7fPreglKD4ijnvoKRkoSJ3/H3kuJE8QFFtc+2wjw6hRDs834HH7vpuTJQzg==
   dependencies:
     eslint-utils "^2.1.0"
     natural-compare "^1.4.0"
@@ -10338,10 +10338,10 @@ rollup-plugin-visualizer@5.5.0:
     source-map "^0.7.3"
     yargs "^16.2.0"
 
-rollup@^2.38.5, rollup@^2.43.1, rollup@^2.51.2, rollup@^2.52.2:
-  version "2.52.2"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.52.2.tgz#a7e90d10ddae3e8472c2857bd9f44b09ef34a47a"
-  integrity sha512-4RlFC3k2BIHlUsJ9mGd8OO+9Lm2eDF5P7+6DNQOp5sx+7N/1tFM01kELfbxlMX3MxT6owvLB1ln4S3QvvQlbUA==
+rollup@^2.38.5, rollup@^2.43.1, rollup@^2.51.2, rollup@^2.52.3:
+  version "2.52.3"
+  resolved "https://registry.npmjs.org/rollup/-/rollup-2.52.3.tgz#062fc3c85f67736d6758749310cfee64836c4e2a"
+  integrity sha512-QF3Sju8Kl2z0osI4unyOLyUudyhOMK6G0AeqJWgfiyigqLAlnNrfBcDWDx+f1cqn+JU2iIYVkDrgQ6/KtwEfrg==
   optionalDependencies:
     fsevents "~2.3.2"
 
@@ -12251,10 +12251,10 @@ vite-plugin-pwa@^0.8.1:
     workbox-build "^6.1.5"
     workbox-window "^6.1.5"
 
-vite-plugin-style-import@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-1.0.0.tgz#344b7f14bcb5aefeb730d3192012c19a0604bb5e"
-  integrity sha512-5KCFN+WePRHsjZBtSPsN3Ii/Uas3Ld7d4B2s/I0NB4Iv7SuXuFudMz5IjoFaBqsbitXP7WEJ4XnZFan1fW1hAg==
+vite-plugin-style-import@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-1.0.1.tgz#bf61337dd11e4ebc0f355f271e06d374b1ca5c79"
+  integrity sha512-qinzdBxqkmX4fEyLZJVIBQTrgKivbROgcKJfBRz66knbghYAoe9cQeRptWKh35hE7obiidItWSCrHWkeu+JMVw==
   dependencies:
     "@rollup/pluginutils" "^4.1.0"
     change-case "^4.1.2"
@@ -12262,10 +12262,10 @@ vite-plugin-style-import@^1.0.0:
     es-module-lexer "^0.6.0"
     magic-string "^0.25.7"
 
-vite-plugin-svg-icons@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.npmjs.org/vite-plugin-svg-icons/-/vite-plugin-svg-icons-0.7.1.tgz#35d4f2818c13a34a4a68884db537f0b8c2e1f174"
-  integrity sha512-yUUxIrXnsJLtYiaw3/ad7D1r/A9ULYirlE7lphcBUWWTKAy5nJ3JJO2XLcr9PuymApkt1oohkHHq5MVMu4+aeg==
+vite-plugin-svg-icons@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/vite-plugin-svg-icons/-/vite-plugin-svg-icons-1.0.0.tgz#f2bd610a604972570dff322b2844eaecfc6c1678"
+  integrity sha512-8cE1f7diQoU2VyHiXgeS52y5EOVPgvI0nJNUjfg/60IL0xIuZy2BCv4Pb2PCMRvY6JWa9DBkhn1qfJGMNBDLOw==
   dependencies:
     "@types/svgo" "^2.3.0"
     cors "^2.8.5"
