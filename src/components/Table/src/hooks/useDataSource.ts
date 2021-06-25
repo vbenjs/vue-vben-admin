@@ -113,7 +113,7 @@ export function useDataSource(
   const getDataSourceRef = computed(() => {
     const dataSource = unref(dataSourceRef);
     if (!dataSource || dataSource.length === 0) {
-      return [];
+      return unref(dataSourceRef);
     }
     if (unref(getAutoCreateKey)) {
       const firstItem = dataSource[0];
