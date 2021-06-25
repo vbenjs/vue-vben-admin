@@ -44,6 +44,7 @@
   import { propTypes } from '/@/utils/propTypes';
   import { isString, isBoolean, isFunction, isNumber, isArray } from '/@/utils/is';
   import { createPlaceholderMessage } from './helper';
+  import { set } from 'lodash-es';
 
   export default defineComponent({
     name: 'EditableCell',
@@ -227,14 +228,16 @@
           if (!isPass) return false;
         }
 
-        const { column, index } = props;
+        const { column, index, record } = props;
+        if (!record) return false;
         const { key, dataIndex } = column;
         const value = unref(currentValueRef);
         if (!key || !dataIndex) return;
 
         const dataKey = (dataIndex || key) as string;
 
-        const record = await table.updateTableData(index, dataKey, value);
+        set(record, dataKey, value);
+        //const record = await table.updateTableData(index, dataKey, value);
         needEmit && table.emit?.('edit-end', { record, index, key, value });
         isEdit.value = false;
       }
