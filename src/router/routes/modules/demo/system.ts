@@ -18,9 +18,20 @@ const system: AppRouteModule = {
       name: 'AccountManagement',
       meta: {
         title: t('routes.demo.system.account'),
-        ignoreKeepAlive: true,
+        ignoreKeepAlive: false,
       },
       component: () => import('/@/views/demo/system/account/index.vue'),
+    },
+    {
+      path: 'account_detail/:id',
+      name: 'AccountDetail',
+      meta: {
+        title: t('routes.demo.system.account_detail'),
+        ignoreKeepAlive: true,
+        showMenu: false,
+        currentActiveMenu: '/system/account',
+      },
+      component: () => import('/@/views/demo/system/account/AccountDetail.vue'),
     },
     {
       path: 'role',
