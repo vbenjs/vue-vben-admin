@@ -9,12 +9,19 @@
         <TableAction
           :actions="[
             {
+              icon: 'clarity:eye-show-solid',
+              title: '查看用户详情',
+              onClick: handleView.bind(null, record),
+            },
+            {
               icon: 'clarity:note-edit-line',
+              title: '编辑用户资料',
               onClick: handleEdit.bind(null, record),
             },
             {
               icon: 'ant-design:delete-outlined',
               color: 'error',
+              title: '删除此账号',
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
@@ -39,11 +46,13 @@
   import AccountModal from './AccountModal.vue';
 
   import { columns, searchFormSchema } from './account.data';
+  import { useGo } from '/@/hooks/web/usePage';
 
   export default defineComponent({
     name: 'AccountManagement',
     components: { BasicTable, PageWrapper, DeptTree, AccountModal, TableAction },
     setup() {
+      const go = useGo();
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: '账号列表',
@@ -58,7 +67,7 @@
         showTableSetting: true,
         bordered: true,
         actionColumn: {
-          width: 80,
+          width: 120,
           title: '操作',
           dataIndex: 'action',
           slots: { customRender: 'action' },
@@ -98,6 +107,10 @@
         reload({ searchInfo: { deptId } });
       }
 
+      function handleView(record: Recordable) {
+        go('/system/account_detail/' + record.id);
+      }
+
       return {
         registerTable,
         registerModal,
@@ -106,6 +119,7 @@
         handleDelete,
         handleSuccess,
         handleSelect,
+        handleView,
       };
     },
   });
