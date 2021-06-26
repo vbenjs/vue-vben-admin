@@ -1,8 +1,9 @@
-## Wip
+## 2.5.1(2021-06-26)
 
 ### ⚡ Performance Improvements
 
 - 升级`vue`与`ant-design-vue`版本，解决兼容问题
+- **Tree** 性能优化
 
 ### 🐛 Bug Fixes
 

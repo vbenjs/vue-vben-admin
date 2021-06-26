@@ -1,3 +1,18 @@
+## 2.5.1(2021-06-26)
+
+### ⚡ Performance Improvements
+
+- Upgrade `vue` and `ant-design-vue` versions to solve compatibility issues
+- **Tree** Performance optimization
+
+### 🐛 Bug Fixes
+
+- **Table** Fix page jitter problem
+- **Upload** Make sure to carry custom parameters
+- **Dropdown** Fix the icon display problem of popConfirm
+- **Table** Fix the problem that the editing event of the tree table is abnormal
+- **Table** Fix the problem that when the table data is empty, the value returned by getDataSource is not the data source used by the table
+
 ## 2.5.0(2021-06-20)
 
 ## (Breaking changes) Breaking changes
