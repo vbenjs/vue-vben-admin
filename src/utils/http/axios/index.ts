@@ -80,7 +80,6 @@ const transform: AxiosTransform = {
 
   // 请求之前处理config
   beforeRequestHook: (config, options) => {
-    const { baseURL } = config;
     const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true } = options;
 
     if (joinPrefix) {
@@ -89,9 +88,6 @@ const transform: AxiosTransform = {
 
     if (apiUrl && isString(apiUrl)) {
       config.url = `${apiUrl}${config.url}`;
-    }
-    if (baseURL && isString(baseURL)) {
-      config.url = `${baseURL}${config.url}`;
     }
     const params = config.params || {};
     if (config.method?.toUpperCase() === RequestEnum.GET) {
@@ -190,7 +186,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
         authenticationScheme: '',
         timeout: 10 * 1000,
         // 基础接口地址
-        baseURL: globSetting.apiUrl,
+        // baseURL: globSetting.apiUrl,
         // 接口可能会有通用的地址部分，可以统一抽取出来
         urlPrefix: urlPrefix,
         headers: { 'Content-Type': ContentTypeEnum.JSON },
