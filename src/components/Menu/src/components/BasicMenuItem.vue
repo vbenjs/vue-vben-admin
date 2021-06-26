@@ -1,5 +1,5 @@
 <template>
-  <MenuItem>
+  <MenuItem :key="item.path">
     <!-- <MenuItem :class="getLevelClass"> -->
     <MenuItemContent v-bind="$props" :item="item" />
   </MenuItem>

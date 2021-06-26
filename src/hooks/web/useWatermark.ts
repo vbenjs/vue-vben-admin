@@ -2,7 +2,9 @@ import { getCurrentInstance, onBeforeUnmount, ref, Ref, unref } from 'vue';
 
 const domSymbol = Symbol('watermark-dom');
 
-export function useWatermark(appendEl: Ref<HTMLElement | null> = ref(document.body)) {
+export function useWatermark(
+  appendEl: Ref<HTMLElement | null> = ref(document.body) as Ref<HTMLElement>
+) {
   let func: Fn = () => {};
   const id = domSymbol.toString();
   const clear = () => {

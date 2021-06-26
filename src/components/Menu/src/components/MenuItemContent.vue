@@ -1,6 +1,6 @@
 <template>
   <span :class="`${prefixCls}- flex items-center `">
-    <Icon v-if="getIcon" :icon="getIcon" :size="18" :class="`${prefixCls}-wrapper__icon`" />
+    <Icon v-if="getIcon" :icon="getIcon" :size="18" :class="`${prefixCls}-wrapper__icon mr-2`" />
     {{ getI18nName }}
   </span>
 </template>

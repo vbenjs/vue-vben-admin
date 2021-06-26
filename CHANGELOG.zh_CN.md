@@ -1,5 +1,9 @@
 ## Wip
 
+### ⚡ Performance Improvements
+
+- 升级`vue`与`ant-design-vue`版本，解决兼容问题
+
 ### 🐛 Bug Fixes
 
 - **Table** 修复分页抖动问题

@@ -75,9 +75,9 @@ export function usePermission() {
       if (!value) {
         return def;
       }
-      const allCodeList = permissionStore.getPermCodeList;
+      const allCodeList = permissionStore.getPermCodeList as string[];
       if (!isArray(value)) {
-        return allCodeList.includes(value as string);
+        return allCodeList.includes(value);
       }
       return (intersection(value, allCodeList) as string[]).length > 0;
     }
