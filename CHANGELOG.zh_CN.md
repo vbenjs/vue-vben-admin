@@ -1,3 +1,7 @@
+## Wip
+
+- **Icon** 移除 Icon 组件全局注册，防止特定情况下热更新问题
+
 ## 2.5.1(2021-06-26)
 
 ### ⚡ Performance Improvements
