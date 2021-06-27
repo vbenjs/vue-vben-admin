@@ -9278,7 +9278,7 @@ pify@^4.0.1:
   resolved "https://registry.npmjs.org/pify/-/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
   integrity sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==
 
-pinia@2.0.0-beta.3:
+pinia@^2.0.0-beta.3:
   version "2.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.0-beta.3.tgz#c6f0d07da54dc5aa237f4cc9281898e927b33d16"
   integrity sha512-4ygKhe9FrYD69tJ7nSdgHm9Ldb0aM/Nzyb8Qz/RZuzOyOr85jWHNmCAhCytWy0l9C4/ypGJYCEJ3vuZfyWjcZA==
