@@ -65,6 +65,8 @@ function dynamicImport(
 
 // Turn background objects into routing objects
 export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModule[]): T[] {
+  console.log(routeList);
+
   routeList.forEach((route) => {
     const component = route.component as string;
     if (component) {

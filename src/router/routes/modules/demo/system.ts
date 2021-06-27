@@ -9,6 +9,7 @@ const system: AppRouteModule = {
   component: LAYOUT,
   redirect: '/system/account',
   meta: {
+    orderNo: 2000,
     icon: 'ion:settings-outline',
     title: t('routes.demo.system.moduleName'),
   },
@@ -26,6 +27,7 @@ const system: AppRouteModule = {
       path: 'account_detail/:id',
       name: 'AccountDetail',
       meta: {
+        hideMenu: true,
         title: t('routes.demo.system.account_detail'),
         ignoreKeepAlive: true,
         showMenu: false,

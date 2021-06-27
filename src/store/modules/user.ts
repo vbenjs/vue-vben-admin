@@ -128,6 +128,6 @@ export const useUserStore = defineStore({
 });
 
 // Need to be used outside the setup
-export function useUserStoreWidthOut() {
+export function useUserStoreWithOut() {
   return useUserStore(store);
 }

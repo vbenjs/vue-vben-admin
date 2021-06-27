@@ -33,6 +33,8 @@ export enum PermissionModeEnum {
   ROLE = 'ROLE',
   // black
   BACK = 'BACK',
+  // route mapping
+  ROUTE_MAPPING = 'ROUTE_MAPPING',
 }
 
 //  Route switching animation

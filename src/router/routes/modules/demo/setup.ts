@@ -9,6 +9,8 @@ const setup: AppRouteModule = {
   component: LAYOUT,
   redirect: '/setup/index',
   meta: {
+    orderNo: 90000,
+    hideChildrenInMenu: true,
     icon: 'simple-icons:about-dot-me',
     title: t('routes.demo.setup.page'),
   },

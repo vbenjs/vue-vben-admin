@@ -1,7 +1,7 @@
 import type { Menu, MenuModule } from '/@/router/types';
 import type { RouteRecordNormalized } from 'vue-router';
 
-import { useAppStoreWidthOut } from '/@/store/modules/app';
+import { useAppStoreWithOut } from '/@/store/modules/app';
 import { usePermissionStore } from '/@/store/modules/permission';
 import { transformMenuModule, getAllParentPath } from '/@/router/helper/menuHelper';
 import { filter } from '/@/utils/helper/treeHelper';
@@ -23,9 +23,21 @@ Object.keys(modules).forEach((key) => {
 // ===========================
 // ==========Helper===========
 // ===========================
+
+const getPermissionMode = () => {
+  const appStore = useAppStoreWithOut();
+  return appStore.getProjectConfig.permissionMode;
+};
 const isBackMode = () => {
-  const appStore = useAppStoreWidthOut();
-  return appStore.getProjectConfig.permissionMode === PermissionModeEnum.BACK;
+  return getPermissionMode() === PermissionModeEnum.BACK;
+};
+
+const isRouteMappingMode = () => {
+  return getPermissionMode() === PermissionModeEnum.ROUTE_MAPPING;
+};
+
+const isRoleMode = () => {
+  return getPermissionMode() === PermissionModeEnum.ROLE;
 };
 
 const staticMenus: Menu[] = [];
@@ -41,40 +53,53 @@ const staticMenus: Menu[] = [];
 
 async function getAsyncMenus() {
   const permissionStore = usePermissionStore();
-  return !isBackMode() ? staticMenus : permissionStore.getBackMenuList;
+  if (isBackMode()) {
+    return permissionStore.getBackMenuList;
+  }
+  if (isRouteMappingMode()) {
+    return permissionStore.getFrontMenuList.filter((item) => !item.hideMenu);
+  }
+  return staticMenus;
 }
 
 export const getMenus = async (): Promise<Menu[]> => {
   const menus = await getAsyncMenus();
-  const routes = router.getRoutes();
-
-  return !isBackMode() ? filter(menus, basicFilter(routes)) : menus;
+  if (isRoleMode()) {
+    const routes = router.getRoutes();
+    return filter(menus, basicFilter(routes));
+  }
+  return menus;
 };
 
 export async function getCurrentParentPath(currentPath: string) {
   const menus = await getAsyncMenus();
-
   const allParentPath = await getAllParentPath(menus, currentPath);
-
   return allParentPath?.[0];
 }
 
 // Get the level 1 menu, delete children
 export async function getShallowMenus(): Promise<Menu[]> {
   const menus = await getAsyncMenus();
-  const routes = router.getRoutes();
   const shallowMenuList = menus.map((item) => ({ ...item, children: undefined }));
-  return !isBackMode() ? shallowMenuList.filter(basicFilter(routes)) : shallowMenuList;
+  if (isRoleMode()) {
+    const routes = router.getRoutes();
+    return shallowMenuList.filter(basicFilter(routes));
+  }
+  return shallowMenuList;
 }
 
 // Get the children of the menu
 export async function getChildrenMenus(parentPath: string) {
   const menus = await getMenus();
   const parent = menus.find((item) => item.path === parentPath);
-  if (!parent || !parent.children || !!parent?.meta?.hideChildrenInMenu) return [] as Menu[];
-  const routes = router.getRoutes();
-
-  return !isBackMode() ? filter(parent.children, basicFilter(routes)) : parent.children;
+  if (!parent || !parent.children || !!parent?.meta?.hideChildrenInMenu) {
+    return [] as Menu[];
+  }
+  if (isRoleMode()) {
+    const routes = router.getRoutes();
+    return filter(parent.children, basicFilter(routes));
+  }
+  return parent.children;
 }
 
 function basicFilter(routes: RouteRecordNormalized[]) {
