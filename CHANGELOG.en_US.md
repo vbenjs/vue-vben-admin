@@ -1,3 +1,15 @@
+## 2.5.2(2021-06-27)
+
+### ⚡ Performance Improvements
+
+- **Icon** Remove the global registration of Icon components to prevent hot update issues under certain circumstances
+
+### ✨ Features
+
+- **Menu** Added `permissionMode=PermissionModeEnum.ROUTE_MAPPING` mode
+  - The project is changed to this mode by default, and the original menu file is deleted
+  - If you have written the menu before, you can change to `PermissionModeEnum.ROLE` mode
+
 ## 2.5.1(2021-06-26)
 
 ### ⚡ Performance Improvements
