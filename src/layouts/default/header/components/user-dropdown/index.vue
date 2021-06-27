@@ -10,11 +10,10 @@
     </span>
 
     <template #overlay>
-      <Menu>
+      <Menu @click="handleMenuClick">
         <MenuItem
           key="doc"
           :text="t('layout.header.dropdownItemDoc')"
-          @click="openDoc"
           icon="ion:document-text-outline"
           v-if="getShowDoc"
         />
@@ -22,13 +21,11 @@
         <MenuItem
           v-if="getUseLockPage"
           key="lock"
-          @click="handleLock"
           :text="t('layout.header.tooltipLock')"
           icon="ion:lock-closed-outline"
         />
         <MenuItem
           key="logout"
-          @click="handleLoginOut"
           :text="t('layout.header.dropdownItemLoginOut')"
           icon="ion:power-outline"
         />
@@ -57,7 +54,7 @@
 
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
-  //type MenuEvent = 'logout' | 'doc' | 'lock';
+  type MenuEvent = 'logout' | 'doc' | 'lock';
 
   export default defineComponent({
     name: 'UserDropdown',
@@ -98,31 +95,28 @@
         openWindow(DOC_URL);
       }
 
-      // function handleMenuClick(e: { key: MenuEvent }) {
-      //   switch (e.key) {
-      //     case 'logout':
-      //       handleLoginOut();
-      //       break;
-      //     case 'doc':
-      //       openDoc();
-      //       break;
-      //     case 'lock':
-      //       handleLock();
-      //       break;
-      //   }
-      // }
+      function handleMenuClick(e: { key: MenuEvent }) {
+        switch (e.key) {
+          case 'logout':
+            handleLoginOut();
+            break;
+          case 'doc':
+            openDoc();
+            break;
+          case 'lock':
+            handleLock();
+            break;
+        }
+      }
 
       return {
         prefixCls,
         t,
         getUserInfo,
-        // handleMenuClick,
+        handleMenuClick,
         getShowDoc,
         register,
         getUseLockPage,
-        handleLoginOut,
-        openDoc,
-        handleLock,
       };
     },
   });
