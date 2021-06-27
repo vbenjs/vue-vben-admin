@@ -1,4 +1,4 @@
-## Wip
+## 2.5.2(2021-06-27)
 
 ### ⚡ Performance Improvements
 
@@ -9,6 +9,10 @@
 - **Menu** 新增 `permissionMode=PermissionModeEnum.ROUTE_MAPPING`模式
   - 项目默认改为该模式，删除原有菜单文件
   - 如果之前已经写好了菜单，可以更改为`PermissionModeEnum.ROLE`模式即可
+
+### 🐛 Bug Fixes
+
+- **Drawer** 修复`visible`状态异常
 
 ## 2.5.1(2021-06-26)
 

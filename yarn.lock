@@ -1189,10 +1189,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.360":
-  version "1.1.360"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.360.tgz#e4ab624d914e7047d03adb7d17a3dac18302906f"
-  integrity sha512-kgKZ1nhznoD9w/tRq9mVpKO1d2/ymlTLHhJ/AGspMnSWDkjLYFPSatl4RXf0o0e1H+YWLvJcMd/sTCHTl7TucA==
+"@iconify/json@^1.1.361":
+  version "1.1.361"
+  resolved "https://registry.yarnpkg.com/@iconify/json/-/json-1.1.361.tgz#6222e7971467cc4a793c7e0bf2877b484827ae36"
+  integrity sha512-p7RMNFNI1YLFCJ0Ads6LOtJyLsheYM+XBSrhcTYxjuCmr2dv2j4DFp0Bh3HLwybtdPo3cA7Xo8Wqk8djvoVm/g==
 
 "@intlify/core-base@9.1.6":
   version "9.1.6"
@@ -1985,10 +1985,10 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-14.17.3.tgz#6d327abaa4be34a74e421ed6409a0ae2f47f4c3d"
   integrity sha512-e6ZowgGJmTuXa3GyaPbTGxX17tnThl2aSSizrFthQ7m9uLGZBXiGhgE55cjRZTF5kjZvYn9EOPOMljdjwbflxw==
 
-"@types/node@^15.12.4":
-  version "15.12.4"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-15.12.4.tgz#e1cf817d70a1e118e81922c4ff6683ce9d422e26"
-  integrity sha512-zrNj1+yqYF4WskCMOHwN+w9iuD12+dGm0rQ35HLl9/Ouuq52cEtd0CH9qMgrdNmi5ejC1/V7vKEXYubB+65DkA==
+"@types/node@^15.12.5":
+  version "15.12.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-15.12.5.tgz#9a78318a45d75c9523d2396131bd3cca54b2d185"
+  integrity sha512-se3yX7UHv5Bscf8f1ERKvQOD6sTyycH3hdaoozvaLxgUiY5lIGEeH37AD0G0Qi9kPqihPn0HOfd2yaIEN9VwEg==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -2498,10 +2498,10 @@
   dependencies:
     vue-demi "*"
 
-"@zxcvbn-ts/core@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.npmjs.org/@zxcvbn-ts/core/-/core-0.3.0.tgz#1a021afef29b97a5f8f72458de005fa149628e32"
-  integrity sha512-H1SOAoC7MbccN/CU9ENZHXwvwTwh6aRt88SOkGROAN9nT88o/qDPJ5B5bElRSbjKLfmmO1LqK2K4u2lUxjbQKQ==
+"@zxcvbn-ts/core@^1.0.0-beta.0":
+  version "1.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/core/-/core-1.0.0-beta.0.tgz#a616beacb83dbfe9174408ebabee746f3468b0ec"
+  integrity sha512-E2rHy2jrCDzJ62xqY5KteOHR+y7uPqL6FLUPVCDZmeYrAZRgB+CpO0QIQKLVrxwssx0YhApmE23eHmouce+OUA==
 
 JSONStream@^1.0.4:
   version "1.3.5"
@@ -6947,6 +6947,11 @@ is-plain-object@3.0.1:
   resolved "https://registry.npmjs.org/is-plain-object/-/is-plain-object-3.0.1.tgz#662d92d24c0aa4302407b0d45d21f2251c85f85b"
   integrity sha512-Xnpx182SBMrr/aBik8y+GuR4U1L9FqMSojwDQwPMmxyC6bvEqly9UBCxhauBF5vNh2gwWJNX6oDV7O+OM4z34g==
 
+is-plain-object@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/is-plain-object/-/is-plain-object-5.0.0.tgz#4427f50ab3429e9025ea7d52e9043a9ef4159344"
+  integrity sha512-VRSzKkbMm5jMDoKLbltAkFQ5Qr7VDiTFGXxYFXXowVj387GeGNOCsOH6Msy00SGZ3Fp84b1Naa1psqgcCIEP5Q==
+
 is-plain-object@^2.0.3, is-plain-object@^2.0.4:
   version "2.0.4"
   resolved "https://registry.npmjs.org/is-plain-object/-/is-plain-object-2.0.4.tgz#2c163b3fafb1b606d9d17928f05c2a1c38e07677"
@@ -9600,10 +9605,10 @@ prettier@^1.16.4, prettier@^1.18.2:
   resolved "https://registry.npmjs.org/prettier/-/prettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
   integrity sha512-s7PoyDv/II1ObgQunCbB9PdLmUcBZcnWOcxDh7O0N/UwDEsHyqkW+Qh28jW+mVuCdx7gLB0BotYI1Y6uI9iyew==
 
-prettier@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.npmjs.org/prettier/-/prettier-2.3.1.tgz#76903c3f8c4449bc9ac597acefa24dc5ad4cbea6"
-  integrity sha512-p+vNbgpLjif/+D+DwAZAbndtRrR0md0MwfmOVN9N+2RgyACMT+7tfaRnT+WDPkqnuVwleyuBIG2XBxKDme3hPA==
+prettier@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.3.2.tgz#ef280a05ec253712e486233db5c6f23441e7342d"
+  integrity sha512-lnJzDfJ66zkMy58OL5/NY5zp70S7Nz6KqcKkXYzn2tMVrNxvbqaBpg7H3qHaLxCJ5lNMsGuM8+ohS7cZrthdLQ==
 
 pretty-bytes@^5.3.0, pretty-bytes@^5.6.0:
   version "5.6.0"
@@ -12504,12 +12509,19 @@ vue-tsc@^0.2.0:
   dependencies:
     vscode-vue-languageservice "^0.25.22"
 
-vue-types@^3.0.0, vue-types@^3.0.2:
+vue-types@^3.0.0:
   version "3.0.2"
   resolved "https://registry.npmjs.org/vue-types/-/vue-types-3.0.2.tgz#ec16e05d412c038262fc1efa4ceb9647e7fb601d"
   integrity sha512-IwUC0Aq2zwaXqy74h4WCvFCUtoV0iSWr0snWnE9TnU18S66GAQyqQbRf2qfJtUuiFsBf6qp0MEwdonlwznlcrw==
   dependencies:
     is-plain-object "3.0.1"
+
+vue-types@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/vue-types/-/vue-types-4.0.0.tgz#da13ccca0f979d3cfd076ce3a2b7050a9627ed5a"
+  integrity sha512-CGJ6br+FhK2OFgPzagVQxf6icQ63OVrOFjw+ekmb4bnTgn/FuKkjdlOqybOdq5aot7BF01yPoTczGD+fEMpKRw==
+  dependencies:
+    is-plain-object "5.0.0"
 
 vue@3.1.2:
   version "3.1.2"
