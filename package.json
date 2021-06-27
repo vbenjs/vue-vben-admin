@@ -50,7 +50,7 @@
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.0",
-    "pinia": "2.0.0-beta.3",
+    "pinia": "^2.0.0-beta.3",
     "print-js": "^1.6.0",
     "qrcode": "^1.4.4",
     "sortablejs": "^1.13.0",

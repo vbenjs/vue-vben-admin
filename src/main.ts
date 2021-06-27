@@ -1,9 +1,7 @@
 import '/@/design/index.less';
 import '/@/design/tailwind.css';
-
 // Register icon sprite
 import 'virtual:svg-icons-register';
-
 import App from './App.vue';
 import { createApp } from 'vue';
 import { initAppConfigStore } from '/@/logics/initAppConfig';
@@ -42,7 +40,7 @@ async function bootstrap() {
   setupRouter(app);
 
   // router-guard
-  setupRouterGuard();
+  setupRouterGuard(router);
 
   // Register global directive
   setupGlobDirectives(app);

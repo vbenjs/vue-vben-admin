@@ -9,7 +9,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 export type LayoutMapKey = 'LAYOUT';
 const IFRAME = () => import('/@/views/sys/iframe/FrameBlank.vue');
 
-const LayoutMap = new Map<String, () => Promise<typeof import('*.vue')>>();
+const LayoutMap = new Map<string, () => Promise<typeof import('*.vue')>>();
 
 LayoutMap.set('LAYOUT', LAYOUT);
 LayoutMap.set('IFRAME', IFRAME);
@@ -27,7 +27,7 @@ function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
     const { component, name } = item;
     const { children } = item;
     if (component) {
-      const layoutFound = LayoutMap.get(component);
+      const layoutFound = LayoutMap.get(component as string);
       if (layoutFound) {
         item.component = layoutFound;
       } else {
@@ -66,10 +66,10 @@ function dynamicImport(
 // Turn background objects into routing objects
 export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModule[]): T[] {
   routeList.forEach((route) => {
-    if (route.component) {
-      if ((route.component as string).toUpperCase() === 'LAYOUT') {
-        //route.component = LayoutMap.get(route.component as LayoutMapKey);
-        route.component = LayoutMap.get((route.component as string).toUpperCase() as LayoutMapKey);
+    const component = route.component as string;
+    if (component) {
+      if (component.toUpperCase() === 'LAYOUT') {
+        route.component = LayoutMap.get(component.toUpperCase());
       } else {
         route.children = [cloneDeep(route)];
         route.component = LAYOUT;

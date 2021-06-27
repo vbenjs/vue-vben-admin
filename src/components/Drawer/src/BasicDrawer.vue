@@ -137,7 +137,7 @@
       watch(
         () => props.visible,
         (newVal, oldVal) => {
-          if (newVal != oldVal) visibleRef.value = newVal;
+          if (newVal !== oldVal) visibleRef.value = newVal;
         },
         { deep: true }
       );
