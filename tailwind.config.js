@@ -1,4 +1,4 @@
-const colors = require('tailwindcss/colors');
+const { sky: color_sky } = require('tailwindcss/colors');
 
 module.exports = {
   mode: 'jit',
@@ -15,7 +15,8 @@ module.exports = {
       },
     },
     colors: {
-      ...colors,
+      //...colors,
+      lightBlue: color_sky,
       primary: {
         DEFAULT: '#0960bd',
         // dark: primaryColorDark,
