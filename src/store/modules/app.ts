@@ -103,6 +103,6 @@ export const useAppStore = defineStore({
 });
 
 // Need to be used outside the setup
-export function useAppStoreWidthOut() {
+export function useAppStoreWithOut() {
   return useAppStore(store);
 }

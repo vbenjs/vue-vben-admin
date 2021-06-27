@@ -1,6 +1,14 @@
 ## Wip
 
+### ⚡ Performance Improvements
+
 - **Icon** 移除 Icon 组件全局注册，防止特定情况下热更新问题
+
+### ✨ Features
+
+- **Menu** 新增 `permissionMode=PermissionModeEnum.ROUTE_MAPPING`模式
+  - 项目默认改为该模式，删除原有菜单文件
+  - 如果之前已经写好了菜单，可以更改为`PermissionModeEnum.ROLE`模式即可
 
 ## 2.5.1(2021-06-26)
 

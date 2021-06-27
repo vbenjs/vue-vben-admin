@@ -1,6 +1,6 @@
 import type { Router, RouteLocationNormalized } from 'vue-router';
-import { useAppStoreWidthOut } from '/@/store/modules/app';
-import { useUserStoreWidthOut } from '/@/store/modules/user';
+import { useAppStoreWithOut } from '/@/store/modules/app';
+import { useUserStoreWithOut } from '/@/store/modules/user';
 import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
 import { AxiosCanceler } from '/@/utils/http/axios/axiosCancel';
 import { Modal, notification } from 'ant-design-vue';
@@ -46,8 +46,8 @@ function createPageGuard(router: Router) {
 
 // Used to handle page loading status
 function createPageLoadingGuard(router: Router) {
-  const userStore = useUserStoreWidthOut();
-  const appStore = useAppStoreWidthOut();
+  const userStore = useUserStoreWithOut();
+  const appStore = useAppStoreWithOut();
   const { getOpenPageLoading } = useTransitionSetting();
   router.beforeEach(async (to) => {
     if (!userStore.getToken) {

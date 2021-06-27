@@ -3,7 +3,7 @@ import { useMessage } from '/@/hooks/web/useMessage';
 import { useI18n } from '/@/hooks/web/useI18n';
 // import router from '/@/router';
 // import { PageEnum } from '/@/enums/pageEnum';
-import { useUserStoreWidthOut } from '/@/store/modules/user';
+import { useUserStoreWithOut } from '/@/store/modules/user';
 import projectSetting from '/@/settings/projectSetting';
 import { SessionTimeoutProcessingEnum } from '/@/enums/appEnum';
 
@@ -17,7 +17,7 @@ export function checkStatus(
   errorMessageMode: ErrorMessageMode = 'message'
 ): void {
   const { t } = useI18n();
-  const userStore = useUserStoreWidthOut();
+  const userStore = useUserStoreWithOut();
   let errMessage = '';
 
   switch (status) {
