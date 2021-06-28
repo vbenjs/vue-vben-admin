@@ -15,6 +15,7 @@
     :collapsedWidth="getCollapsedWidth"
     :theme="getMenuTheme"
     @breakpoint="onBreakpointChange"
+    @collapse="toggleCollapsed"
     v-bind="getTriggerAttr"
   >
     <template #trigger v-if="getShowTrigger">
@@ -55,6 +56,7 @@
         getMenuHidden,
         getMenuFixed,
         getIsMixMode,
+        toggleCollapsed,
       } = useMenuSetting();
 
       const { prefixCls } = useDesign('layout-sideBar');
@@ -119,6 +121,7 @@
         getMode,
         getSplitType,
         getShowTrigger,
+        toggleCollapsed,
       };
     },
   });
