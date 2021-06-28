@@ -1,3 +1,10 @@
+### 🐛 Bug Fixes
+
+- **Modal** 修复点击遮罩不能关闭
+- **Table** 修复 `editComponentProps` 不支持 `onChange`
+- **Modal** 修复 `setModalProps` 不支持设置 `defaultFullscreen`
+- **Sider** 修复侧边菜单底部的折叠按钮点击无效
+
 ## 2.5.2(2021-06-27)
 
 ### ⚡ Performance Improvements
