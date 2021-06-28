@@ -178,7 +178,6 @@
         }
 
         visibleRef.value = false;
-        console.log(visibleRef.value);
         emit('cancel', e);
       }
 
