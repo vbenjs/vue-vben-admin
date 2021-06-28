@@ -53,7 +53,7 @@
   resolved "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.14.5.tgz#8ef4c18e58e801c5c95d3c1c0f2874a2680fadea"
   integrity sha512-kixrYn4JwfAVPa0f2yfzc2AWti6WRRyO3XjWW5PJAvtE11qhSayrrcrEnee05KAtNaPC+EwehE8Qt1UedEVB8w==
 
-"@babel/core@>=7.9.0", "@babel/core@^7.1.0", "@babel/core@^7.11.1", "@babel/core@^7.12.10", "@babel/core@^7.7.2", "@babel/core@^7.7.5":
+"@babel/core@>=7.9.0", "@babel/core@^7.1.0", "@babel/core@^7.11.1", "@babel/core@^7.14.6", "@babel/core@^7.7.2", "@babel/core@^7.7.5":
   version "7.14.6"
   resolved "https://registry.npmjs.org/@babel/core/-/core-7.14.6.tgz#e0814ec1a950032ff16c13a2721de39a8416fcab"
   integrity sha512-gJnOEWSqTk96qG5BoIrl5bVtc23DCycmIePPYnamY9RboYdI4nFy5vAQMSl81O5K/W0sLDWfGysnOECC+KUUCA==
@@ -791,7 +791,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.14.5"
 
-"@babel/plugin-transform-typescript@^7.12.1":
+"@babel/plugin-transform-typescript@^7.14.6":
   version "7.14.6"
   resolved "https://registry.npmjs.org/@babel/plugin-transform-typescript/-/plugin-transform-typescript-7.14.6.tgz#6e9c2d98da2507ebe0a883b100cde3c7279df36c"
   integrity sha512-XlTdBq7Awr4FYIzqhmYY80WN0V0azF74DMPyFqVHBvf81ZUgc4X7ZOpx6O8eLDK6iM5cCQzeyJw0ynTaefixRA==
@@ -912,9 +912,9 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/standalone@^7.14.6":
+"@babel/standalone@^7.14.7":
   version "7.14.7"
-  resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.14.7.tgz#68635da005d6a34a0259599e0720d2e73133ecc3"
+  resolved "https://registry.npmjs.org/@babel/standalone/-/standalone-7.14.7.tgz#68635da005d6a34a0259599e0720d2e73133ecc3"
   integrity sha512-7RlfMPR4604SbYpj5zvs2ZK587hVhixgU9Pd9Vs8lB8KYtT3U0apXSf0vZXhy8XRh549eUmJOHXhWKTO3ObzOQ==
 
 "@babel/template@^7.0.0", "@babel/template@^7.14.5", "@babel/template@^7.3.3":
@@ -1189,10 +1189,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.361":
-  version "1.1.361"
-  resolved "https://registry.yarnpkg.com/@iconify/json/-/json-1.1.361.tgz#6222e7971467cc4a793c7e0bf2877b484827ae36"
-  integrity sha512-p7RMNFNI1YLFCJ0Ads6LOtJyLsheYM+XBSrhcTYxjuCmr2dv2j4DFp0Bh3HLwybtdPo3cA7Xo8Wqk8djvoVm/g==
+"@iconify/json@^1.1.362":
+  version "1.1.362"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.362.tgz#e104610f6341db0b5104794bb57959d41e5cea1b"
+  integrity sha512-oKU1KvmcLX/049RXi7FJsNgiodei7LhNetls3cv+oIkTUTIa5mi88oFfRj03B6c1Vja80ZLH+mSDLeTk1fMD5A==
 
 "@intlify/core-base@9.1.6":
   version "9.1.6"
@@ -2228,33 +2228,33 @@
     "@typescript-eslint/types" "4.28.0"
     eslint-visitor-keys "^2.0.0"
 
-"@vitejs/plugin-legacy@^1.4.2":
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/@vitejs/plugin-legacy/-/plugin-legacy-1.4.2.tgz#219e7b86a9febe62b85a66b68127a89954ed93e5"
-  integrity sha512-D2ADBSpImP0QT8w9Eo+8KKOLg3I8OQhFwuBXGM8WQCRrEs55E3bCf9PTkL8S+tgliyLbJM+gjemxpRuoTTwphA==
+"@vitejs/plugin-legacy@^1.4.3":
+  version "1.4.3"
+  resolved "https://registry.npmjs.org/@vitejs/plugin-legacy/-/plugin-legacy-1.4.3.tgz#d022275d08e6f1f777891fb405816a9dd41a9f1f"
+  integrity sha512-lxZUJaMWYMQuqvZM1wPzDP6KABQgA/drVL5fnaygEPcz9adc2OHhfFNN/SvvHQ1V0rP8gybIc7uA+iI1gAdkVQ==
   dependencies:
-    "@babel/standalone" "^7.14.6"
-    core-js "^3.14.0"
+    "@babel/standalone" "^7.14.7"
+    core-js "^3.15.1"
     magic-string "^0.25.7"
     regenerator-runtime "^0.13.7"
     systemjs "^6.10.1"
 
-"@vitejs/plugin-vue-jsx@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.npmjs.org/@vitejs/plugin-vue-jsx/-/plugin-vue-jsx-1.1.5.tgz#e856ef42f59048e59c85f8714dc8397e15f81738"
-  integrity sha512-YujG7IgbZR8zWGY/hZFxYKrAUdO+9OV4t3pqqQrvbtP/ESwvTY8vb0Zpw1VMO8zLWNGqf8jSbjBaCjN49diplw==
+"@vitejs/plugin-vue-jsx@^1.1.6":
+  version "1.1.6"
+  resolved "https://registry.npmjs.org/@vitejs/plugin-vue-jsx/-/plugin-vue-jsx-1.1.6.tgz#c9e7b63d1ebf537a24a0b4b3b31f4beb8055cef6"
+  integrity sha512-1vKGALnBFt7hUIOgkC4ZAhTRgENpSgGBsdltJn3fPNcqrbrvR/HaRS5VThjCCoN69d0d+VlDXOTlWcfUpE3pfQ==
   dependencies:
-    "@babel/core" "^7.12.10"
+    "@babel/core" "^7.14.6"
     "@babel/plugin-syntax-import-meta" "^7.10.4"
-    "@babel/plugin-transform-typescript" "^7.12.1"
+    "@babel/plugin-transform-typescript" "^7.14.6"
     "@rollup/pluginutils" "^4.1.0"
-    "@vue/babel-plugin-jsx" "^1.0.3"
+    "@vue/babel-plugin-jsx" "^1.0.6"
     hash-sum "^2.0.0"
 
-"@vitejs/plugin-vue@^1.2.3":
-  version "1.2.3"
-  resolved "https://registry.npmjs.org/@vitejs/plugin-vue/-/plugin-vue-1.2.3.tgz#2e8e008b1cc3a6ad1dfbec75743c7ffd9b4872a6"
-  integrity sha512-LlnLpObkGKZ+b7dcpL4T24l13nPSHLjo+6Oc7MbZiKz5PMAUzADfNJ3EKfYIQ0l0969nxf2jp/9vsfnuJ7h6fw==
+"@vitejs/plugin-vue@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.npmjs.org/@vitejs/plugin-vue/-/plugin-vue-1.2.4.tgz#a7aa6e6a31c556a8b781de730316deeecf7f56f2"
+  integrity sha512-D/3H9plevPQGgQGwmV6eecvOnooLTecPR63HPffVVWPEhbfvmtYLWgznzs456NBb2DItiRTCIa1yWxvGqC+I8A==
 
 "@volar/code-gen@^0.25.22":
   version "0.25.22"
@@ -2301,7 +2301,7 @@
   resolved "https://registry.npmjs.org/@vue/babel-helper-vue-transform-on/-/babel-helper-vue-transform-on-1.0.2.tgz#9b9c691cd06fc855221a2475c3cc831d774bc7dc"
   integrity sha512-hz4R8tS5jMn8lDq6iD+yWL6XNB699pGIVLk7WSJnn1dbpjaazsjZQkieJoRX6gW5zpYSCFqQ7jUquPNY65tQYA==
 
-"@vue/babel-plugin-jsx@^1.0.3":
+"@vue/babel-plugin-jsx@^1.0.6":
   version "1.0.6"
   resolved "https://registry.npmjs.org/@vue/babel-plugin-jsx/-/babel-plugin-jsx-1.0.6.tgz#184bf3541ab6efdbe5079ab8b20c19e2af100bfb"
   integrity sha512-RzYsvBhzKUmY2YG6LoV+W5PnlnkInq0thh1AzCmewwctAgGN6e9UFon6ZrQQV1CO5G5PeME7MqpB+/vvGg0h4g==
@@ -4074,10 +4074,10 @@ core-js@^3.12.1:
   resolved "https://registry.npmjs.org/core-js/-/core-js-3.14.0.tgz#62322b98c71cc2018b027971a69419e2425c2a6c"
   integrity sha512-3s+ed8er9ahK+zJpp9ZtuVcDoFzHNiZsPbNAAE4KXgrRHbjSqqNN6xGSXq6bq7TZIbKj4NLrLb6bJ5i+vSVjHA==
 
-core-js@^3.14.0:
-  version "3.15.0"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.15.0.tgz#db9554ebce0b6fd90dc9b1f2465c841d2d055044"
-  integrity sha512-GUbtPllXMYRzIgHNZ4dTYTcUemls2cni83Q4Q/TrFONHfhcg9oEGOtaGHfb0cpzec60P96UKPvMkjX1jET8rUw==
+core-js@^3.15.1:
+  version "3.15.1"
+  resolved "https://registry.npmjs.org/core-js/-/core-js-3.15.1.tgz#6c08ab88abdf56545045ccf5fd81f47f407e7f1a"
+  integrity sha512-h8VbZYnc9pDzueiS2610IULDkpFFPunHwIpl8yRwFahAEEdSpHlTy3h3z3rKq5h11CaUdBEeRViu9AYvbxiMeg==
 
 core-util-is@~1.0.0:
   version "1.0.2"
