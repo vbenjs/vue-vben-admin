@@ -29,7 +29,6 @@
     nextTick,
     provide,
     computed,
-    watch,
     unref,
   } from 'vue';
   import Bar from './bar';
@@ -65,7 +64,7 @@
         default: 'div',
       },
     },
-    setup(props, { slots }) {
+    setup(props) {
       const sizeWidth = ref('0');
       const sizeHeight = ref('0');
       const moveX = ref(0);
@@ -81,13 +80,6 @@
         }
         return props.wrapStyle;
       });
-
-      watch(
-        () => slots.default?.(),
-        () => {
-          nextTick(update);
-        }
-      );
 
       const handleScroll = () => {
         if (!props.native) {
