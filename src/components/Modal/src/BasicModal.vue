@@ -187,8 +187,12 @@
       function setModalProps(props: Partial<ModalProps>): void {
         // Keep the last setModalProps
         propsRef.value = deepMerge(unref(propsRef) || ({} as any), props);
-        if (!Reflect.has(props, 'visible')) return;
-        visibleRef.value = !!props.visible;
+        if (Reflect.has(props, 'visible')) {
+          visibleRef.value = !!props.visible;
+        }
+        if (Reflect.has(props, 'defaultFullscreen')) {
+          fullScreenRef.value = !!props.defaultFullscreen;
+        }
       }
 
       function handleOk(e: Event) {
