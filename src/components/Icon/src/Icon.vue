@@ -1,5 +1,11 @@
 <template>
-  <SvgIcon :size="size" :name="getSvgIcon" v-if="isSvgIcon" :class="[$attrs.class]" :spin="spin" />
+  <SvgIcon
+    :size="size"
+    :name="getSvgIcon"
+    v-if="isSvgIcon"
+    :class="[$attrs.class, 'anticon']"
+    :spin="spin"
+  />
   <span
     v-else
     ref="elRef"
