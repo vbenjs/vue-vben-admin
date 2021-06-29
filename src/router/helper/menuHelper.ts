@@ -1,6 +1,5 @@
 import { AppRouteModule } from '/@/router/types';
 import type { MenuModule, Menu, AppRouteRecordRaw } from '/@/router/types';
-
 import { findPath, treeMap } from '/@/utils/helper/treeHelper';
 import { cloneDeep } from 'lodash-es';
 import { isUrl } from '/@/utils/is';
@@ -36,11 +35,14 @@ export function transformMenuModule(menuModule: MenuModule): Menu {
   return menuList[0];
 }
 
-export function transformRouteToMenu(routeModList: AppRouteModule[]) {
+export function transformRouteToMenu(routeModList: AppRouteModule[], routerMapping = false) {
   const cloneRouteModList = cloneDeep(routeModList);
   const routeList: AppRouteRecordRaw[] = [];
 
   cloneRouteModList.forEach((item) => {
+    if (routerMapping && item.meta.hideChildrenInMenu && typeof item.redirect === 'string') {
+      item.path = item.redirect;
+    }
     if (item.meta?.single) {
       const realItem = item?.children?.[0];
       realItem && routeList.push(realItem);
