@@ -1,6 +1,8 @@
+import { isFunction } from '/@/utils/is';
 import type { BasicTableProps, TableRowSelection } from '../types/table';
-import { computed, ref, unref, ComputedRef, Ref, toRaw } from 'vue';
+import { computed, ref, unref, ComputedRef, Ref, toRaw, watch } from 'vue';
 import { ROW_KEY } from '../const';
+import { omit } from 'lodash-es';
 
 export function useRowSelection(
   propsRef: ComputedRef<BasicTableProps>,
@@ -22,14 +24,23 @@ export function useRowSelection(
       onChange: (selectedRowKeys: string[], selectedRows: Recordable[]) => {
         selectedRowKeysRef.value = selectedRowKeys;
         selectedRowRef.value = selectedRows;
+        const { onChange } = rowSelection;
+        if (onChange && isFunction(onChange)) onChange(selectedRowKeys, selectedRows);
         emit('selection-change', {
           keys: selectedRowKeys,
           rows: selectedRows,
         });
       },
-      ...(rowSelection === undefined ? {} : rowSelection),
+      ...omit(rowSelection === undefined ? {} : rowSelection, ['onChange']),
     };
   });
+
+  watch(
+    () => unref(propsRef).rowSelection?.selectedRowKeys,
+    (v: string[]) => {
+      selectedRowKeysRef.value = v;
+    }
+  );
 
   const getAutoCreateKey = computed(() => {
     return unref(propsRef).autoCreateKey && !unref(propsRef).rowKey;
