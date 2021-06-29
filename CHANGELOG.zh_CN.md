@@ -4,6 +4,7 @@
 - **Table** 修复 `editComponentProps` 不支持 `onChange`
 - **Modal** 修复 `setModalProps` 不支持设置 `defaultFullscreen`
 - **Sider** 修复侧边菜单底部的折叠按钮点击无效
+- **SvgIcon** 修复图标样式问题
 
 ## 2.5.2(2021-06-27)
 
