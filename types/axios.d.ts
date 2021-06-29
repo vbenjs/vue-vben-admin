@@ -19,6 +19,8 @@ export interface RequestOptions {
   // Whether to add a timestamp
   joinTime?: boolean;
   ignoreCancelToken?: boolean;
+  // Whether to send token in header
+  withToken?: boolean;
 }
 
 export interface Result<T = any> {
