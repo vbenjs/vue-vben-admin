@@ -11,6 +11,7 @@
 - **SvgIcon** 修复图标样式问题
 - **Table** 修复为 table 提供 rowSelection.onChange 时，无法手动变更 table 的选中项的问题
 - **Icon** 修复 SvgIcon 缺少部分样式的问题
+- **LockScreen** 修复锁屏功能可以通过刷新页面或复制 URL 打开新的浏览器标签来跳过锁定状态的问题
 
 ## 2.5.2(2021-06-27)
 
