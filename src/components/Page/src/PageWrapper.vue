@@ -42,9 +42,7 @@
   import { propTypes } from '/@/utils/propTypes';
   import { omit } from 'lodash-es';
   import { PageHeader } from 'ant-design-vue';
-  import { useLayoutHeight } from '/@/layouts/default/content/useContentViewHeight';
-  import { useContentHeight } from './useContentHeight';
-  import { WrapperProps } from './types';
+  import { useContentHeight } from '/@/hooks/web/useContentHeight';
 
   export default defineComponent({
     name: 'PageWrapper',
@@ -64,25 +62,23 @@
       fixedHeight: propTypes.bool,
     },
     setup(props, { slots }) {
-      const wrapperRef = ref<ElRef>(null);
-      const headerRef = ref<ComponentRef>(null);
-      const contentRef = ref<ElRef>(null);
-      const footerRef = ref<ComponentRef>(null);
+      const wrapperRef = ref(null);
+      const headerRef = ref(null);
+      const contentRef = ref(null);
+      const footerRef = ref(null);
       const { prefixCls } = useDesign('page-wrapper');
-      const { footerHeightRef } = useLayoutHeight();
 
-      const getProps = computed(() => {
-        return props as WrapperProps;
+      const getIsContentFullHeight = computed(() => {
+        return props.contentFullHeight;
       });
 
-      const { redoHeight, contentHeight } = useContentHeight(
-        getProps,
+      const { redoHeight, setCompensation, contentHeight } = useContentHeight(
+        getIsContentFullHeight,
         wrapperRef,
-        headerRef,
-        contentRef,
-        footerRef,
-        footerHeightRef
+        [headerRef, footerRef],
+        [contentRef]
       );
+      setCompensation({ useLayoutFooter: true, elements: [footerRef] });
 
       const getClass = computed(() => {
         return [
@@ -125,7 +121,7 @@
       });
 
       watch(
-        () => [getShowFooter.value, footerHeightRef.value],
+        () => [getShowFooter.value],
         () => {
           redoHeight();
         },
