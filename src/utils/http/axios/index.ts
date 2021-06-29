@@ -122,7 +122,7 @@ const transform: AxiosTransform = {
   requestInterceptors: (config, options) => {
     // 请求之前处理config
     const token = getToken();
-    if (token) {
+    if (token && options?.requestOptions?.withToken !== false) {
       // jwt token
       config.headers.Authorization = options.authenticationScheme
         ? `${options.authenticationScheme} ${token}`
@@ -214,6 +214,8 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           joinTime: true,
           // 忽略重复请求
           ignoreCancelToken: true,
+          // 是否携带token
+          withToken: true,
         },
       },
       opt || {}

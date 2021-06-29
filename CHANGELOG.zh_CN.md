@@ -1,3 +1,7 @@
+### ✨ Features
+
+- **Axios** 新增`withToken`配置，用于控制请求是否携带 token
+
 ### 🐛 Bug Fixes
 
 - **Modal** 修复点击遮罩不能关闭
@@ -5,6 +9,8 @@
 - **Modal** 修复 `setModalProps` 不支持设置 `defaultFullscreen`
 - **Sider** 修复侧边菜单底部的折叠按钮点击无效
 - **SvgIcon** 修复图标样式问题
+- **Table** 修复为 table 提供 rowSelection.onChange 时，无法手动变更 table 的选中项的问题
+- **Icon** 修复 SvgIcon 缺少部分样式的问题
 
 ## 2.5.2(2021-06-27)
 
