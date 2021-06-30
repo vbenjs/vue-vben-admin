@@ -1,6 +1,6 @@
 import { isFunction } from '/@/utils/is';
 import type { BasicTableProps, TableRowSelection } from '../types/table';
-import { computed, ref, unref, ComputedRef, Ref, toRaw, watch } from 'vue';
+import { computed, ref, unref, ComputedRef, Ref, toRaw, watch, nextTick } from 'vue';
 import { ROW_KEY } from '../const';
 import { omit } from 'lodash-es';
 
@@ -24,12 +24,6 @@ export function useRowSelection(
       onChange: (selectedRowKeys: string[], selectedRows: Recordable[]) => {
         selectedRowKeysRef.value = selectedRowKeys;
         selectedRowRef.value = selectedRows;
-        const { onChange } = rowSelection;
-        if (onChange && isFunction(onChange)) onChange(selectedRowKeys, selectedRows);
-        emit('selection-change', {
-          keys: selectedRowKeys,
-          rows: selectedRows,
-        });
       },
       ...omit(rowSelection === undefined ? {} : rowSelection, ['onChange']),
     };
@@ -38,7 +32,24 @@ export function useRowSelection(
   watch(
     () => unref(propsRef).rowSelection?.selectedRowKeys,
     (v: string[]) => {
-      selectedRowKeysRef.value = v;
+      setSelectedRowKeys(v);
+    }
+  );
+
+  watch(
+    () => unref(selectedRowKeysRef),
+    () => {
+      nextTick(() => {
+        const { rowSelection } = unref(propsRef);
+        if (rowSelection) {
+          const { onChange } = rowSelection;
+          if (onChange && isFunction(onChange)) onChange(getSelectRowKeys(), getSelectRows());
+        }
+        emit('selection-change', {
+          keys: getSelectRowKeys(),
+          rows: getSelectRows(),
+        });
+      });
     }
   );
 
