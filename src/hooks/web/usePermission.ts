@@ -57,13 +57,14 @@ export function usePermission() {
    * Determine whether there is permission
    */
   function hasPermission(value?: RoleEnum | RoleEnum[] | string | string[], def = true): boolean {
+    // Visible by default
+    if (!value) {
+      return def;
+    }
+
     const permMode = projectSetting.permissionMode;
 
-    if (PermissionModeEnum.ROUTE_MAPPING === permMode) {
-      // Visible by default
-      if (!value) {
-        return def;
-      }
+    if ([PermissionModeEnum.ROUTE_MAPPING, PermissionModeEnum.ROLE].includes(permMode)) {
       if (!isArray(value)) {
         return userStore.getRoleList?.includes(value as RoleEnum);
       }
@@ -71,10 +72,6 @@ export function usePermission() {
     }
 
     if (PermissionModeEnum.BACK === permMode) {
-      // Visible by default
-      if (!value) {
-        return def;
-      }
       const allCodeList = permissionStore.getPermCodeList as string[];
       if (!isArray(value)) {
         return allCodeList.includes(value);
