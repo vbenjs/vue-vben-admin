@@ -176,6 +176,7 @@ export function useDataSource(
     try {
       setLoading(true);
       const { pageField, sizeField, listField, totalField } = Object.assign(
+        {},
         FETCH_SETTING,
         fetchSetting
       );
