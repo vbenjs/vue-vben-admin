@@ -122,7 +122,7 @@ export const usePermissionStore = defineStore({
         case PermissionModeEnum.ROUTE_MAPPING:
           routes = filter(asyncRoutes, routeFilter);
           routes = routes.filter(routeFilter);
-          const menuList = transformRouteToMenu(asyncRoutes, true);
+          const menuList = transformRouteToMenu(routes, true);
           menuList.sort((a, b) => {
             return (a.meta?.orderNo || 0) - (b.meta?.orderNo || 0);
           });
