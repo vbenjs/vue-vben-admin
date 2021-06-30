@@ -2,6 +2,7 @@
 
 - **Axios** 新增`withToken`配置，用于控制请求是否携带 token
 - **BasicUpload** 新增在预览 `Modal` 中删除文件时触发`preview-delete` 事件
+- **BasicUpload** `value` 支持 `v-model` 用法
 
 ### 🐛 Bug Fixes
 

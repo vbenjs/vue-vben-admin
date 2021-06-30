@@ -51,7 +51,7 @@
     name: 'BasicUpload',
     components: { UploadModal, UploadPreviewModal, Icon, Tooltip },
     props: uploadContainerProps,
-    emits: ['change', 'delete', 'preview-delete'],
+    emits: ['change', 'delete', 'preview-delete', 'update:value'],
 
     setup(props, { emit, attrs }) {
       const { t } = useI18n();
@@ -85,12 +85,14 @@
       // 上传modal保存操作
       function handleChange(urls: string[]) {
         fileList.value = [...unref(fileList), ...(urls || [])];
+        emit('update:value', fileList.value);
         emit('change', fileList.value);
       }
 
       // 预览modal保存操作
       function handlePreviewChange(urls: string[]) {
         fileList.value = [...(urls || [])];
+        emit('update:value', fileList.value);
         emit('change', fileList.value);
       }
 
