@@ -9,7 +9,7 @@
         <TableAction
           :actions="[
             {
-              icon: 'clarity:eye-show-solid',
+              icon: 'clarity:info-standard-line',
               title: '查看用户详情',
               onClick: handleView.bind(null, record),
             },
