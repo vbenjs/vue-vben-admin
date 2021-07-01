@@ -18,6 +18,7 @@
 - 修复`ROLE`权限模式下`hasPermission`不工作的问题
 - **Table** 修复启用`clickToRowSelect`时，点击行不会触发`selection-change`事件的问题
 - **Table** 修复全局配置`fetchSetting`可能会被局部配置意外修改的问题
+- **Form** 修复`submitButtonOptions`和`resetButtonOptions`的类型定义
 
 ## 2.5.2(2021-06-27)
 
