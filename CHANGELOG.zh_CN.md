@@ -18,6 +18,7 @@
 - 修复`ROLE`权限模式下`hasPermission`不工作的问题
 - **Table** 修复启用`clickToRowSelect`时，点击行不会触发`selection-change`事件的问题
 - **Table** 修复全局配置`fetchSetting`可能会被局部配置意外修改的问题
+- **PopComfirmButton** 修复会将 title（确认框描述）传递到内部 Button 组件上的问题
 
 ## 2.5.2(2021-06-27)
 

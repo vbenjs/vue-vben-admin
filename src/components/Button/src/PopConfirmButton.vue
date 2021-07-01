@@ -41,7 +41,7 @@
 
       return () => {
         const bindValues = omit(unref(getBindValues), 'icon');
-        const Button = h(BasicButton, bindValues, extendSlots(slots));
+        const Button = h(BasicButton, omit(bindValues, 'title'), extendSlots(slots));
 
         // If it is not enabled, it is a normal button
         if (!props.enable) {
