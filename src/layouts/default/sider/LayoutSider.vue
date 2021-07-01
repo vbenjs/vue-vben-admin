@@ -15,8 +15,8 @@
     :collapsedWidth="getCollapsedWidth"
     :theme="getMenuTheme"
     @breakpoint="onBreakpointChange"
-    @collapse="toggleCollapsed"
     v-bind="getTriggerAttr"
+    :trigger="getTrigger"
   >
     <template #trigger v-if="getShowTrigger">
       <LayoutTrigger />
@@ -26,7 +26,7 @@
   </Sider>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, ref, unref, CSSProperties } from 'vue';
+  import { computed, defineComponent, ref, unref, CSSProperties, h } from 'vue';
 
   import { Layout } from 'ant-design-vue';
   import LayoutMenu from '../menu/index.vue';
@@ -102,6 +102,8 @@
           transition: 'all 0.2s',
         };
       });
+      // 此处不能使用计算量，否则可能会导致侧栏菜单异常
+      const getTrigger = h(LayoutTrigger);
 
       return {
         prefixCls,
@@ -110,6 +112,7 @@
         getIsMobile,
         getHiddenDomStyle,
         getSiderClass,
+        getTrigger,
         getTriggerAttr,
         getCollapsedWidth,
         getMenuFixed,
