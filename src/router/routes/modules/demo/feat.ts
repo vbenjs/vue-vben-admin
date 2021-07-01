@@ -240,6 +240,7 @@ const feat: AppRouteModule = {
       meta: {
         title: t('routes.demo.feat.tab'),
         carryParam: true,
+        hidePathForChildren: true,
       },
       children: [
         {

@@ -9,10 +9,6 @@ export function getAllParentPath<T = Recordable>(treeData: T[], path: string) {
   return (menuList || []).map((item) => item.path);
 }
 
-function isPlainPath(path: string) {
-  return path.indexOf(':') === -1;
-}
-
 function joinParentPath(menus: Menu[], parentPath = '') {
   for (let index = 0; index < menus.length; index++) {
     const menu = menus[index];
@@ -24,7 +20,7 @@ function joinParentPath(menus: Menu[], parentPath = '') {
       menu.path = `${parentPath}/${menu.path}`;
     }
     if (menu?.children?.length) {
-      joinParentPath(menu.children, isPlainPath(menu.path) ? menu.path : parentPath);
+      joinParentPath(menu.children, menu.meta?.hidePathForChildren ? parentPath : menu.path);
     }
   }
 }
