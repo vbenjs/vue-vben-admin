@@ -27,19 +27,26 @@
       />
     </div>
     <div class="flex">
-      <BasicTree title="异步树" :treeData="tree" class="w-1/3" :load-data="onLoadData" />
+      <BasicTree
+        title="异步树"
+        ref="asyncTreeRef"
+        :treeData="tree"
+        class="w-1/3"
+        :load-data="onLoadData"
+      />
     </div>
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { BasicTree } from '/@/components/Tree/index';
+  import { defineComponent, ref, unref } from 'vue';
+  import { BasicTree, TreeActionType } from '/@/components/Tree/index';
   import { treeData } from './data';
   import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
     components: { BasicTree, PageWrapper },
     setup() {
+      const asyncTreeRef = ref<Nullable<TreeActionType>>(null);
       function handleCheck(checkedKeys, e) {
         console.log('onChecked', checkedKeys, e);
       }
@@ -57,20 +64,25 @@
             return;
           }
           setTimeout(() => {
-            tree.value.forEach((v) => {
-              if (v.key === treeNode.eventKey) {
-                v.children = [
-                  { title: 'Child Node', key: `${treeNode.eventKey}-0` },
-                  { title: 'Child Node', key: `${treeNode.eventKey}-1` },
-                ];
-              }
-            });
+            const asyncTreeAction: TreeActionType | null = unref(asyncTreeRef);
+            if (asyncTreeAction) {
+              const nodeChildren = [
+                { title: `Child Node ${treeNode.eventKey}-0`, key: `${treeNode.eventKey}-0` },
+                { title: `Child Node ${treeNode.eventKey}-1`, key: `${treeNode.eventKey}-1` },
+              ];
+              asyncTreeAction.updateNodeByKey(treeNode.eventKey, { children: nodeChildren });
+              asyncTreeAction.setExpandedKeys([
+                treeNode.eventKey,
+                ...asyncTreeAction.getExpandedKeys(),
+              ]);
+            }
+
             resolve();
             return;
           }, 1000);
         });
       }
-      return { treeData, handleCheck, tree, onLoadData };
+      return { treeData, handleCheck, tree, onLoadData, asyncTreeRef };
     },
   });
 </script>
