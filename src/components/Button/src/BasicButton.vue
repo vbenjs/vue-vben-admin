@@ -11,32 +11,13 @@
   import { defineComponent, computed } from 'vue';
   import { Button } from 'ant-design-vue';
   import { Icon } from '/@/components/Icon';
-
-  const props = {
-    color: { type: String, validator: (v) => ['error', 'warning', 'success', ''].includes(v) },
-    loading: { type: Boolean },
-    disabled: { type: Boolean },
-    /**
-     * Text before icon.
-     */
-    preIcon: { type: String },
-    /**
-     * Text after icon.
-     */
-    postIcon: { type: String },
-    /**
-     * preIcon and postIcon icon size.
-     * @default: 14
-     */
-    iconSize: { type: Number, default: 14 },
-    onClick: { type: Function as PropType<(...args) => any>, default: null },
-  };
+  import { buttonProps } from './props';
 
   export default defineComponent({
     name: 'AButton',
     components: { Button, Icon },
     inheritAttrs: false,
-    props,
+    props: buttonProps,
     setup(props, { attrs }) {
       // get component class
       const getButtonClass = computed(() => {
