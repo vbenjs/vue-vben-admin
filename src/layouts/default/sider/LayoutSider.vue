@@ -15,8 +15,9 @@
     :collapsedWidth="getCollapsedWidth"
     :theme="getMenuTheme"
     @breakpoint="onBreakpointChange"
-    v-bind="getTriggerAttr"
+    @collapse="toggleCollapsed"
     :trigger="getTrigger"
+    v-bind="getTriggerAttr"
   >
     <template #trigger v-if="getShowTrigger">
       <LayoutTrigger />
@@ -102,7 +103,9 @@
           transition: 'all 0.2s',
         };
       });
-      // 此处不能使用计算量，否则可能会导致侧栏菜单异常
+
+      // 在此处使用计算量可能会导致sider异常
+      // andv 更新后，如果trigger插槽可用，则此处代码可废弃
       const getTrigger = h(LayoutTrigger);
 
       return {
