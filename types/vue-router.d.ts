@@ -33,5 +33,6 @@ declare module 'vue-router' {
     // Never show in menu
     hideMenu?: boolean;
     isLink?: boolean;
+    ignoreRoute?: boolean;
   }
 }
