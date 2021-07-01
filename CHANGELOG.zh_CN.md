@@ -1,18 +1,23 @@
 ### ✨ Features
 
 - **Axios** 新增`withToken`配置，用于控制请求是否携带 token
+- **BasicUpload** 新增在预览 `Modal` 中删除文件时触发`preview-delete` 事件
+- **BasicUpload** `value` 支持 `v-model` 用法
 
 ### 🐛 Bug Fixes
 
 - **Modal** 修复点击遮罩不能关闭
 - **Table** 修复 `editComponentProps` 不支持 `onChange`
 - **Modal** 修复 `setModalProps` 不支持设置 `defaultFullscreen`
-- **Sider** 修复侧边菜单底部的折叠按钮点击无效
-- **SvgIcon** 修复图标样式问题
+- **Sider** 修复侧边菜单底部的自定义折叠按钮失效的问题
 - **Table** 修复为 table 提供 rowSelection.onChange 时，无法手动变更 table 的选中项的问题
 - **Icon** 修复 SvgIcon 缺少部分样式的问题
 - **LockScreen** 修复锁屏功能可以通过刷新页面或复制 URL 打开新的浏览器标签来跳过锁定状态的问题
 - 修复多个窗口同时打开页面时，`Token` 不会同步的问题
+- **Menu** 修复路由映射模式下，单级菜单刷新不会激活
+- 修复`ROLE`权限模式下`hasPermission`不工作的问题
+- **Table** 修复启用`clickToRowSelect`时，点击行不会触发`selection-change`事件的问题
+- **Table** 修复全局配置`fetchSetting`可能会被局部配置意外修改的问题
 
 ## 2.5.2(2021-06-27)
 

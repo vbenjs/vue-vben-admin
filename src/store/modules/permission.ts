@@ -122,10 +122,11 @@ export const usePermissionStore = defineStore({
         case PermissionModeEnum.ROUTE_MAPPING:
           routes = filter(asyncRoutes, routeFilter);
           routes = routes.filter(routeFilter);
-          const menuList = transformRouteToMenu(asyncRoutes);
+          const menuList = transformRouteToMenu(routes, true);
           menuList.sort((a, b) => {
             return (a.meta?.orderNo || 0) - (b.meta?.orderNo || 0);
           });
+
           this.setFrontMenuList(menuList);
           // Convert multi-level routing to level 2 routing
           routes = flatMultiLevelRoutes(routes);
