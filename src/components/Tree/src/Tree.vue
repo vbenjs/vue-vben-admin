@@ -97,8 +97,7 @@
           },
           onRightClick: handleRightClick,
         };
-        propsData = omit(propsData, 'treeData', 'class');
-        return propsData;
+        return omit(propsData, 'treeData', 'class');
       });
 
       const getTreeData = computed((): TreeItem[] =>
@@ -109,8 +108,14 @@
         return searchState.startSearch && searchState.searchData?.length === 0;
       });
 
-      const { deleteNodeByKey, insertNodeByKey, filterByLevel, updateNodeByKey, getAllKeys } =
-        useTree(treeDataRef, getReplaceFields);
+      const {
+        deleteNodeByKey,
+        insertNodeByKey,
+        insertNodesByKey,
+        filterByLevel,
+        updateNodeByKey,
+        getAllKeys,
+      } = useTree(treeDataRef, getReplaceFields);
 
       function getIcon(params: Recordable, icon?: string) {
         if (!icon) {
@@ -267,6 +272,7 @@
         setCheckedKeys,
         getCheckedKeys,
         insertNodeByKey,
+        insertNodesByKey,
         deleteNodeByKey,
         updateNodeByKey,
         checkAll,
