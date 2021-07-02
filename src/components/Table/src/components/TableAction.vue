@@ -3,10 +3,8 @@
     <template v-for="(action, index) in getActions" :key="`${index}-${action.label}`">
       <Tooltip v-bind="getTooltip(action.tooltip)">
         <PopConfirmButton v-bind="action">
-          <Tooltip v-bind="getTooltip(action.tooltip)">
-            <Icon :icon="action.icon" class="mr-1" v-if="action.icon" />
-            {{ action.label }}
-          </Tooltip>
+          <Icon :icon="action.icon" class="mr-1" v-if="action.icon" />
+          {{ action.label }}
         </PopConfirmButton>
       </Tooltip>
       <Divider
@@ -35,7 +33,7 @@
 <script lang="ts">
   import { defineComponent, PropType, computed, toRaw } from 'vue';
   import { MoreOutlined } from '@ant-design/icons-vue';
-  import { Divider, Tooltip } from 'ant-design-vue';
+  import { Divider, Tooltip, TooltipProps } from 'ant-design-vue';
   import Icon from '/@/components/Icon/index';
   import { ActionItem, TableActionType } from '/@/components/Table';
   import { PopConfirmButton } from '/@/components/Button';
@@ -129,11 +127,11 @@
       });
 
       const getTooltip = computed(() => {
-        return (data) => {
+        return (data: string | TooltipProps): TooltipProps => {
           if (isString(data)) {
-            return { title: data };
+            return { title: data, placement: 'bottom' };
           } else {
-            return data;
+            return Object.assign({ placement: 'bottom' }, data);
           }
         };
       });
