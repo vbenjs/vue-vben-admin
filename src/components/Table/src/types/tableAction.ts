@@ -1,4 +1,5 @@
 import { ButtonProps } from 'ant-design-vue/es/button/buttonTypes';
+import { TooltipProps } from 'ant-design-vue/es/tooltip/Tooltip';
 import { RoleEnum } from '/@/enums/roleEnum';
 export interface ActionItem extends ButtonProps {
   onClick?: Fn;
@@ -12,6 +13,7 @@ export interface ActionItem extends ButtonProps {
   auth?: RoleEnum | RoleEnum[] | string | string[];
   // 业务控制是否显示
   ifShow?: boolean | ((action: ActionItem) => boolean);
+  tooltip?: string | TooltipProps;
 }
 
 export interface PopConfirm {
