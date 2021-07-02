@@ -3,6 +3,10 @@
 - **Axios** 新增`withToken`配置，用于控制请求是否携带 token
 - **BasicUpload** 新增在预览 `Modal` 中删除文件时触发`preview-delete` 事件
 - **BasicUpload** `value` 支持 `v-model` 用法
+- **Route 配置**
+  - 增加`ignoreRoute`用于在`ROUTE_MAPPING`或`BACK`权限模式下仅生成菜单
+  - 增加`hidePathForChildren`配置，标识为子项目生成菜单时忽略本级`path`
+- **TableAction** 新增`tooltip`配置，可以为按钮增加 tooltip 提示
 
 ### 🐛 Bug Fixes
 
