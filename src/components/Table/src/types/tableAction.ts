@@ -3,7 +3,7 @@ import { TooltipProps } from 'ant-design-vue/es/tooltip/Tooltip';
 import { RoleEnum } from '/@/enums/roleEnum';
 export interface ActionItem extends ButtonProps {
   onClick?: Fn;
-  label: string;
+  label?: string;
   color?: 'success' | 'error' | 'warning';
   icon?: string;
   popConfirm?: PopConfirm;
