@@ -48,6 +48,9 @@ export default {
   modal: {
     cancelText: 'Close',
     okText: 'Confirm',
+    close: 'Close',
+    maximize: 'Maximize',
+    restore: 'Restore',
   },
   table: {
     settingDens: 'Density',

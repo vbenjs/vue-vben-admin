@@ -50,6 +50,9 @@ export default {
   modal: {
     cancelText: '关闭',
     okText: '确认',
+    close: '关闭',
+    maximize: '最大化',
+    restore: '还原',
   },
   table: {
     settingDens: '密度',
