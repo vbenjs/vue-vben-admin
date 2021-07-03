@@ -3,6 +3,8 @@ import type { MenuModule, Menu, AppRouteRecordRaw } from '/@/router/types';
 import { findPath, treeMap } from '/@/utils/helper/treeHelper';
 import { cloneDeep } from 'lodash-es';
 import { isUrl } from '/@/utils/is';
+import { RouteParams } from 'vue-router';
+import { toRaw } from 'vue';
 
 export function getAllParentPath<T = Recordable>(treeData: T[], path: string) {
   const menuList = findPath(treeData, (n) => n.path === path) as Menu[];
@@ -65,4 +67,26 @@ export function transformRouteToMenu(routeModList: AppRouteModule[], routerMappi
   });
   joinParentPath(list);
   return cloneDeep(list);
+}
+
+/**
+ * config menu with given params
+ */
+const menuParamRegex = /(?<=:)([\s\S]+?)((?=\/)|$)/g;
+export function configureDynamicParamsMenu(menu: Menu, params: RouteParams) {
+  const { path, paramPath } = toRaw(menu);
+  let realPath = paramPath ? paramPath : path;
+  const matchArr = realPath.match(menuParamRegex);
+  matchArr?.forEach((it) => {
+    if (params[it]) {
+      realPath = realPath.replace(`:${it}`, params[it] as string);
+    }
+  });
+  // save original param path.
+  if (!paramPath && matchArr && matchArr.length > 0) {
+    menu.paramPath = path;
+  }
+  menu.path = realPath;
+  // children
+  menu.children?.forEach((item) => configureDynamicParamsMenu(item, params));
 }
