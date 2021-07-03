@@ -26,6 +26,7 @@
   - 修复全局配置`fetchSetting`可能会被局部配置意外修改的问题
   - 修复`handleSearchInfoFn`的参数包含多余空白键的问题
   - 修复为 table 提供 rowSelection.onChange 时，无法手动变更 table 的选中项的问题
+  - 修复滚动条在无需显示的时候仍然持续显示的问题
 - **Icon** 修复 SvgIcon 缺少部分样式的问题
 - **Menu**
   - 修复路由映射模式下，单级菜单刷新不会激活
