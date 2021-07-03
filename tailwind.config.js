@@ -1,11 +1,9 @@
-const { sky: color_sky, ...colors } = require('tailwindcss/colors');
-
 module.exports = {
   mode: 'jit',
   // darkMode: 'class',
   plugins: [createEnterPlugin()],
   purge: {
-    enabled: false,
+    enable: process.env.NODE_ENV === 'production',
     content: ['./index.html', './src/**/*.{vue,ts,tsx}'],
   },
   theme: {
@@ -13,21 +11,19 @@ module.exports = {
       zIndex: {
         '-1': '-1',
       },
-    },
-    colors: {
-      ...colors,
-      sky: color_sky,
-      primary: {
-        DEFAULT: '#0960bd',
-        // dark: primaryColorDark,
+      colors: {
+        primary: {
+          DEFAULT: '#0960bd',
+          // dark: primaryColorDark,
+        },
       },
-    },
-    screens: {
-      sm: '576px',
-      md: '768px',
-      lg: '992px',
-      xl: '1200px',
-      '2xl': '1600px',
+      screens: {
+        sm: '576px',
+        md: '768px',
+        lg: '992px',
+        xl: '1200px',
+        '2xl': '1600px',
+      },
     },
   },
 };
