@@ -10,9 +10,9 @@
 
 ### 🐛 Bug Fixes
 
-- **Modal** 修复点击遮罩不能关闭
-- **Table** 修复 `editComponentProps` 不支持 `onChange`
-- **Modal** 修复 `setModalProps` 不支持设置 `defaultFullscreen`
+- **Modal** 修复点击遮罩不能关闭的问题
+- **Table** 修复 `editComponentProps` 不支持 `onChange`的问题
+- **Modal** 修复 `setModalProps` 不支持设置 `defaultFullscreen` 的问题
 - **Sider** 修复侧边菜单底部的折叠自定义失效的问题
 - **Table** 修复为 table 提供 rowSelection.onChange 时，无法手动变更 table 的选中项的问题
 - **Icon** 修复 SvgIcon 缺少部分样式的问题
@@ -24,6 +24,8 @@
 - **Table** 修复全局配置`fetchSetting`可能会被局部配置意外修改的问题
 - **Form** 修复`submitButtonOptions`和`resetButtonOptions`的类型定义
 - **PopconfirmButton** 移除`Button`上多余的`title`
+- **Axios** 修复非`GET`请求时，无法同时提交`params`和`data`数据的问题
+- **Table** 修复`handleSearchInfoFn`的参数包含多余空白键的问题
 
 ## 2.5.2(2021-06-27)
 
