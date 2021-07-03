@@ -1165,6 +1165,20 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@humanwhocodes/config-array@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.5.0.tgz#1407967d4c6eecd7388f83acf1eaf4d0c6e58ef9"
+  integrity sha512-FagtKFz74XrTl7y6HCzQpwDfXP0yhxe9lHLD1UZxjvZIcbyRz8zTFF/yYNfSfzU414eDwZ1SrO0Qvtyf+wFMQg==
+  dependencies:
+    "@humanwhocodes/object-schema" "^1.2.0"
+    debug "^4.1.1"
+    minimatch "^3.0.4"
+
+"@humanwhocodes/object-schema@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.0.tgz#87de7af9c231826fdd68ac7258f77c429e0e5fcf"
+  integrity sha512-wdppn25U8z/2yiaT6YGquE6X8sSv7hNMWSXYSSU1jGv/yd6XqjXgTDJ8KP4NgjTXfJ3GbRjeeb8RTV7a/VpM+w==
+
 "@iconify/iconify@2.0.0-rc.6":
   version "2.0.0-rc.6"
   resolved "https://registry.npmjs.org/@iconify/iconify/-/iconify-2.0.0-rc.6.tgz#e3f5376b63b441dcb3696317784b98e2e678cf46"
@@ -4959,10 +4973,10 @@ eslint-config-prettier@^8.3.0:
   resolved "https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-8.3.0.tgz#f7471b20b6fe8a9a9254cc684454202886a2dd7a"
   integrity sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==
 
-eslint-define-config@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.npmjs.org/eslint-define-config/-/eslint-define-config-1.0.8.tgz#56cb61f1bcba8ec7a29beec58a85d2ce9299297a"
-  integrity sha512-Vfjv/3l112BQ0s+Ua+WGNxtEyxj++IaFCiBkhjT1wlBWtbHpuZcI0t8eCnJZnJrdv0b9n2GK0mcmQsPRRjVCXg==
+eslint-define-config@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/eslint-define-config/-/eslint-define-config-1.0.9.tgz#72e5e2410c576667a6ba1b5bff9801eeda476256"
+  integrity sha512-LRzNlRo9sv43BAXY+nhZIUCZLRisTMEXXSqlGc2uZ8emAGyJv3FDSew2MIVRMwThexEjVxjNmeqduaexJ/GT3Q==
 
 eslint-plugin-jest@^24.3.6:
   version "24.3.6"
@@ -5020,13 +5034,14 @@ eslint-visitor-keys@^2.0.0:
   resolved "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-2.1.0.tgz#f65328259305927392c938ed44eb0a5c9b2bd303"
   integrity sha512-0rSmRBzXgDzIsD6mGdJgevzgezI534Cer5L/vyMX0kHzT/jiB43jRhd9YUlMGYLQy2zprNmoT8qasCGtY+QaKw==
 
-eslint@^7.29.0:
-  version "7.29.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.29.0.tgz#ee2a7648f2e729485e4d0bd6383ec1deabc8b3c0"
-  integrity sha512-82G/JToB9qIy/ArBzIWG9xvvwL3R86AlCjtGw+A29OMZDqhTybz/MByORSukGxeI+YPCR4coYyITKk8BFH9nDA==
+eslint@^7.30.0:
+  version "7.30.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.30.0.tgz#6d34ab51aaa56112fd97166226c9a97f505474f8"
+  integrity sha512-VLqz80i3as3NdloY44BQSJpFw534L9Oh+6zJOUaViV4JPd+DaHwutqP7tcpkW3YiXbK6s05RZl7yl7cQn+lijg==
   dependencies:
     "@babel/code-frame" "7.12.11"
     "@eslint/eslintrc" "^0.4.2"
+    "@humanwhocodes/config-array" "^0.5.0"
     ajv "^6.10.0"
     chalk "^4.0.0"
     cross-spawn "^7.0.2"
@@ -12296,10 +12311,10 @@ vite-plugin-theme@^0.8.1:
     esbuild-plugin-alias "^0.1.2"
     tinycolor2 "^1.4.2"
 
-vite@2.4.0-beta.3:
-  version "2.4.0-beta.3"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-2.4.0-beta.3.tgz#81da5e6cbfb4cb710610e5757567cbe58b667c44"
-  integrity sha512-sSUbH0mPMbqqOVZ1/LD/Wiu347yvn4BXjS/94mn5Q7E/zd50hxEnKU1NC4x59TBKq5OeboPhyXwibyCEpyAQKQ==
+vite@2.4.0-beta.2:
+  version "2.4.0-beta.2"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-2.4.0-beta.2.tgz#ac1e0fcf5bb3a16f0a9ca9ee9ac18e209eee1880"
+  integrity sha512-PpK8Zl8sBaO6FbDc/Lb+lfADwBpiBurZyT4g16etqTLmhK2YYIf/jTGyq7qNlU0TqfFcGhmtvlhfnAPr9GqDsQ==
   dependencies:
     esbuild "^0.12.8"
     postcss "^8.3.5"

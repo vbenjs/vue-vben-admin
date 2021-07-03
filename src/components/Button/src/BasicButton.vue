@@ -10,7 +10,7 @@
 <script lang="ts">
   import { defineComponent, computed } from 'vue';
   import { Button } from 'ant-design-vue';
-  import { Icon } from '/@/components/Icon';
+  import Icon from '/@/components/Icon/src/Icon.vue';
   import { buttonProps } from './props';
 
   export default defineComponent({
