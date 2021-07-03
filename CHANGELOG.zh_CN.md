@@ -7,6 +7,11 @@
   - 增加`ignoreRoute`用于在`ROUTE_MAPPING`或`BACK`权限模式下仅生成菜单
   - 增加`hidePathForChildren`配置，标识为子项目生成菜单时忽略本级`path`
 - **TableAction** 新增`tooltip`配置，可以为按钮增加 tooltip 提示
+- **CropperAvatar**
+  - 新增`value`用于设置当前头像
+  - 新增`onChange`用于接受头像剪裁并上传成功事件
+  - 新增`btnText`、`btnProps` 用于自定义上传按钮文案和属性
+  - 为剪裁`Modal`内的操作按钮添加工具提示
 
 ### 🐛 Bug Fixes
 
