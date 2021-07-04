@@ -68,6 +68,23 @@ export function useTableScroll(
       bodyEl = tableEl.querySelector('.ant-table-body');
     }
 
+    const hasScrollBarY = bodyEl.scrollHeight > bodyEl.clientHeight;
+    const hasScrollBarX = bodyEl.scrollWidth > bodyEl.clientWidth;
+
+    if (hasScrollBarY) {
+      tableEl.classList.contains('hide-scrollbar-y') &&
+        tableEl.classList.remove('hide-scrollbar-y');
+    } else {
+      !tableEl.classList.contains('hide-scrollbar-y') && tableEl.classList.add('hide-scrollbar-y');
+    }
+
+    if (hasScrollBarX) {
+      tableEl.classList.contains('hide-scrollbar-x') &&
+        tableEl.classList.remove('hide-scrollbar-x');
+    } else {
+      !tableEl.classList.contains('hide-scrollbar-x') && tableEl.classList.add('hide-scrollbar-x');
+    }
+
     bodyEl!.style.height = 'unset';
 
     if (!unref(getCanResize) || tableData.length === 0) return;

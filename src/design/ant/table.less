@@ -2,7 +2,7 @@
 
 // fix table unnecessary scrollbar
 .@{prefix-cls} {
-  .ant-table-wrapper {
+  .hide-scrollbar-y {
     .ant-spin-nested-loading {
       .ant-spin-container {
         .ant-table {
@@ -13,7 +13,7 @@
               }
 
               .ant-table-body {
-                overflow: auto !important;
+                overflow-y: auto !important;
               }
             }
 
@@ -21,6 +21,50 @@
               .ant-table-body-outer {
                 .ant-table-body-inner {
                   overflow-y: auto !important;
+                }
+              }
+            }
+
+            .ant-table-fixed-left {
+              .ant-table-body-outer {
+                .ant-table-body-inner {
+                  overflow-y: auto !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .hide-scrollbar-x {
+    .ant-spin-nested-loading {
+      .ant-spin-container {
+        .ant-table {
+          .ant-table-content {
+            .ant-table-scroll {
+              .ant-table-hide-scrollbar {
+                //overflow-x: auto !important;
+              }
+
+              .ant-table-body {
+                overflow: auto !important;
+              }
+            }
+
+            .ant-table-fixed-right {
+              .ant-table-body-outer {
+                .ant-table-body-inner {
+                  overflow-x: auto !important;
+                }
+              }
+            }
+
+            .ant-table-fixed-left {
+              .ant-table-body-outer {
+                .ant-table-body-inner {
+                  overflow-x: auto !important;
                 }
               }
             }
