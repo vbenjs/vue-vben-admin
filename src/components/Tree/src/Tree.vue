@@ -105,7 +105,7 @@
       );
 
       const getNotFound = computed((): boolean => {
-        return searchState.startSearch && searchState.searchData?.length === 0;
+        return !getTreeData.value || getTreeData.value.length === 0;
       });
 
       const {
@@ -381,7 +381,7 @@
               </Tree>
             </ScrollContainer>
 
-            <Empty v-show={unref(getNotFound)} class="!mt-4" />
+            <Empty v-show={unref(getNotFound)} image={Empty.PRESENTED_IMAGE_SIMPLE} class="!mt-4" />
           </div>
         );
       };
