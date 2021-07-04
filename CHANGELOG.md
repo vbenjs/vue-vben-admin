@@ -1,3 +1,53 @@
+# [2.6.0](https://github.com/anncwb/vue-vben-admin/compare/v2.5.2...v2.6.0) (2021-07-04)
+
+### Bug Fixes
+
+- **axios:** option `withToken` not work ([d509e89](https://github.com/anncwb/vue-vben-admin/commit/d509e897be5753c852e912112e70dac6247ba467))
+- **demo:** account list fetch loss param ([424b171](https://github.com/anncwb/vue-vben-admin/commit/424b171e0db727f5e0157cbcfd5460f15f8ea609)), closes [#830](https://github.com/anncwb/vue-vben-admin/issues/830)
+- **demo:** fix async tree demo, fixed: [#823](https://github.com/anncwb/vue-vben-admin/issues/823) ([5637588](https://github.com/anncwb/vue-vben-admin/commit/5637588fce880b01137191cc82c73e0fce621e8c))
+- **form:** fix some prop declaration ([b5046f0](https://github.com/anncwb/vue-vben-admin/commit/b5046f07a27e8ca7fc8b961b74fa5e1b0d715149))
+- **lock-screen:** ensure lock info is saved ([d38ff66](https://github.com/anncwb/vue-vben-admin/commit/d38ff6670a37478b31447f8058e786c4b044e218))
+- **lock-screen:** fix lock-screen can skip on new window ([d7b84c7](https://github.com/anncwb/vue-vben-admin/commit/d7b84c78744f7d0077a779b232e1358040b50383))
+- **menu:** make sure the menu is activated correctly ([cdb10cc](https://github.com/anncwb/vue-vben-admin/commit/cdb10cc4ac5e5e8f9cce3ff18d8fbd29ef10c86f))
+- **modal:** `setModalProps` support `defaultFullscreen` ([c7de65e](https://github.com/anncwb/vue-vben-admin/commit/c7de65ebba53941771153f18b184d3d4d31c0dbf))
+- **modal:** maskClosable not work ([f750ff4](https://github.com/anncwb/vue-vben-admin/commit/f750ff435fee06acee78d6b9633e6e18d91685f8))
+- **modal:** remove console log ([3dbbde2](https://github.com/anncwb/vue-vben-admin/commit/3dbbde2662352780377a9b216598d9348522f6ba))
+- **popconfirm-button:** remove button excess `title` ([73654b7](https://github.com/anncwb/vue-vben-admin/commit/73654b7862c59d623d6d5dc7dcf6ff2704564d9a))
+- **sider:** bottom trigger not work ([1bde404](https://github.com/anncwb/vue-vben-admin/commit/1bde4041211229d5d9d01ce0ca806fa99356b6de)), closes [#820](https://github.com/anncwb/vue-vben-admin/issues/820)
+- **sider:** custom trigger does not take effect ([5005e6e](https://github.com/anncwb/vue-vben-admin/commit/5005e6e56b1cc7763a1cc23e1162dfb49452013b))
+- **svg-icon:** fix SvgIcon style ([99829c7](https://github.com/anncwb/vue-vben-admin/commit/99829c79ab41a2319f40c5595a7d82d9e406ba18))
+- **table:** auto hide unnecessary scrollbar ([735028c](https://github.com/anncwb/vue-vben-admin/commit/735028c43055e8e80ebc7344af0cd0f51c744f98))
+- **table:** global configuration accidentally modified ([b4a3f93](https://github.com/anncwb/vue-vben-admin/commit/b4a3f936cd19bf1fff3a331bacad60e79d2d6c22))
+- **table:** param of `handleSearchInfoFn` ([791b323](https://github.com/anncwb/vue-vben-admin/commit/791b323dbd30acd7fabfe9c3fb6e528916311ffd))
+- **tailwindcss:** remove console warnings ([acacb32](https://github.com/anncwb/vue-vben-admin/commit/acacb32bb592345cd0a90b4bbeb60a9b6ab1ac3c))
+- `hasPermission` not work in `ROLE` Mode ([76a5f87](https://github.com/anncwb/vue-vben-admin/commit/76a5f87c0ce871cca48b9e4c32331353a796e7d2))
+- routes filter can't effective when permission mode set to ROUTE_MAPPING ([#836](https://github.com/anncwb/vue-vben-admin/issues/836)) ([3871204](https://github.com/anncwb/vue-vben-admin/commit/3871204d08d481b8984440cd60bbf2bacb58d063))
+- **table:** selection-change not triggered on row click ([6f845b5](https://github.com/anncwb/vue-vben-admin/commit/6f845b53bdc4c33fbca3e65f10f64c63166bed0e))
+- multi windows token sharing ([e5f3788](https://github.com/anncwb/vue-vben-admin/commit/e5f37885ffb32d04d244f0ef39ac660dda6b71e1)), closes [#761](https://github.com/anncwb/vue-vben-admin/issues/761)
+- support various vite modes of build, not just production ([#832](https://github.com/anncwb/vue-vben-admin/issues/832)) ([95c16a5](https://github.com/anncwb/vue-vben-admin/commit/95c16a5d26f9fd9a1d11894afe1146ca495eee93))
+- **table:** editComponentProps support onChange ([829b366](https://github.com/anncwb/vue-vben-admin/commit/829b366cb2abf27e69d9665e5be022b3d3f15655))
+- **table:** fix rowSelection.onChange not work ([df0f000](https://github.com/anncwb/vue-vben-admin/commit/df0f00085c1113eddd7a15954818ccece3538068)), closes [#825](https://github.com/anncwb/vue-vben-admin/issues/825)
+
+### Features
+
+- **avatar-cropper:** add action tooltip ([6cbac4b](https://github.com/anncwb/vue-vben-admin/commit/6cbac4b7ece60a1a7c1fda931cfffce42dfe3e51))
+- **avatar-cropper:** more props added ([b96ea07](https://github.com/anncwb/vue-vben-admin/commit/b96ea0753bfd769693a368cf1e3d8316688c0dcb))
+- **axios:** add `withToken` option ([c99cf5e](https://github.com/anncwb/vue-vben-admin/commit/c99cf5e53f057cdc332ab6c0635adf9c2d27de29))
+- **axios:** use `defHttp` like `axios` ([49f39de](https://github.com/anncwb/vue-vben-admin/commit/49f39de7b40e3ec8343bdeaf3eb00fd79d395746)), closes [#850](https://github.com/anncwb/vue-vben-admin/issues/850)
+- **basic-upload:** `value` support v-model ([16c5d32](https://github.com/anncwb/vue-vben-admin/commit/16c5d327f1209f7c7437acde2ab0fa031da6a641))
+- **basic-upload:** add preview-delete event ([49e72a8](https://github.com/anncwb/vue-vben-admin/commit/49e72a8e76b78fe54e19de9e23d7c72a19427f01)), closes [#835](https://github.com/anncwb/vue-vben-admin/issues/835)
+- **modal:** add `tooltip` for action buttons ([c3b9076](https://github.com/anncwb/vue-vben-admin/commit/c3b907656a5fad7a9b241562179f7a0f6fe0e6f0))
+- **param-menu:** feature: menu with params ([#845](https://github.com/anncwb/vue-vben-admin/issues/845)) ([48fcd76](https://github.com/anncwb/vue-vben-admin/commit/48fcd7684cabff66e8648b71527c6cb4ce7d03be))
+- **route:** add `hidePathForChildren` in `meta` ([d52b0de](https://github.com/anncwb/vue-vben-admin/commit/d52b0de83e69f7505c28e6f59ec84bbe526ecd0d))
+- **table:** support asynchrony in beforeFetch and afterFetch ([#827](https://github.com/anncwb/vue-vben-admin/issues/827)) ([749ba5c](https://github.com/anncwb/vue-vben-admin/commit/749ba5c1daf459625518937c239787b756c0a780))
+- **table-action:** support `tooltip` option ([5fab267](https://github.com/anncwb/vue-vben-admin/commit/5fab267a69600fdf5d7a7f9e4d9fff859d09dede)), closes [#848](https://github.com/anncwb/vue-vben-admin/issues/848)
+- **tree:** add `insertNodesByKey` method ([5a20df4](https://github.com/anncwb/vue-vben-admin/commit/5a20df45ad36b523d48bf7fe11bdb10a6d03df64))
+- routers support `ignoreRoute` option ([72ac240](https://github.com/anncwb/vue-vben-admin/commit/72ac240f2858cd74cb62b7647ca89d63bb71d247))
+
+### Performance Improvements
+
+- **scrollbar:** scrollbar update when slot changed ([e9e51b2](https://github.com/anncwb/vue-vben-admin/commit/e9e51b2fdc879a66d8df08504a0955c9c21e3e27))
+
 ## [2.5.1](https://github.com/anncwb/vue-vben-admin/compare/v2.4.0...v2.5.1) (2021-06-26)
 
 ### Bug Fixes
