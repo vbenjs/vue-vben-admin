@@ -29,7 +29,16 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, computed, CSSProperties, unref, ref, watchEffect, watch } from 'vue';
+  import {
+    defineComponent,
+    computed,
+    CSSProperties,
+    unref,
+    ref,
+    watchEffect,
+    watch,
+    PropType,
+  } from 'vue';
   import CopperModal from './CopperModal.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useModal } from '/@/components/Modal';
@@ -42,7 +51,7 @@
     width: { type: [String, Number], default: '200px' },
     value: { type: String },
     showBtn: { type: Boolean, default: true },
-    btnProps: { type: Object as ButtonProps },
+    btnProps: { type: Object as PropType<ButtonProps> },
     btnText: { type: String, default: '' },
     uploadApi: { type: Function as PropType<({ file: Blob, name: string }) => Promise<void>> },
   };
@@ -52,10 +61,10 @@
     components: { CopperModal, Icon },
     props,
     emits: ['update:value', 'change'],
-    setup(props, { emit }) {
+    setup(props, { emit, expose }) {
       const sourceValue = ref(props.value || '');
       const { prefixCls } = useDesign('cropper-avatar');
-      const [register, { openModal }] = useModal();
+      const [register, { openModal, closeModal }] = useModal();
       const { createMessage } = useMessage();
       const { t } = useI18n();
 
@@ -72,7 +81,7 @@
       );
 
       watchEffect(() => {
-        sourceValue.value = props.value;
+        sourceValue.value = props.value || '';
       });
 
       watch(
@@ -87,6 +96,8 @@
         emit('change', source);
         createMessage.success(t('component.cropper.uploadSuccess'));
       }
+
+      expose({ openModal: openModal.bind(null, true), closeModal });
 
       return {
         t,
