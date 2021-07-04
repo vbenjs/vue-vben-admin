@@ -1,3 +1,5 @@
+## 2.6.0(2021-07-04)
+
 ### ✨ Features
 
 - **Axios** 新增`withToken`配置，用于控制请求是否携带 token

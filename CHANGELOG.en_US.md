@@ -1,3 +1,48 @@
+## 2.6.0(2021-07-04)
+
+### ✨ Features
+
+- **Axios** New `withToken` configuration to control whether the request carries a token or not
+- **BasicUpload**
+  - New `preview-delete` event triggered when deleting a file in preview `Modal`.
+  - `value` supports `v-model` usage
+- **Route configuration**
+  - Add `ignoreRoute` to generate menu only in `ROUTE_MAPPING` or `BACK` permission mode
+  - Add `hidePathForChildren` configuration to ignore this level `path` when generating menus for child items
+- **TableAction** Add `tooltip` configuration to add tooltip hint for button
+- **CropperAvatar**
+  - Added `value` to set the current avatar
+  - Added `onChange` to accept avatar cropping and upload success event
+  - New `btnText`, `btnProps` for customizing the text and properties of the upload button
+  - Add tooltips to the action buttons in `Modal` for cropping
+- **Modal** Add tooltip for action button in top right corner
+
+### 🐛 Bug Fixes
+
+- **Modal**
+  - Fix the problem that the mask cannot be closed by clicking on it.
+  - Fix `setModalProps` does not support setting `defaultFullscreen`.
+- **Table**
+  - Fix the problem that `editComponentProps` doesn't support `onChange`.
+  - Fix the problem that `selection-change` event is not triggered when `clickToRowSelect` is enabled.
+  - Fix the problem that global configuration `fetchSetting` may be accidentally modified by local configuration.
+  - Fix the problem that the parameter of `handleSearchInfoFn` contains redundant blank keys.
+  - Repair the problem that when rowSelection.onChange is provided for table, the selected items of table cannot be changed manually.
+  - Fix the problem that the scrollbar continues to be displayed even when it is not needed to be displayed.
+- **Icon** Repair the problem that SvgIcon is missing some styles.
+- **Menu**
+  - Repair the problem that single-level menu refreshing will not be activated in route mapping mode.
+  - Repair the problem that the collapse customization at the bottom of the side menu is invalid.
+- **Form** Repair the type definition of `submitButtonOptions` and `resetButtonOptions`.
+- **PopConfirmButton** Remove the redundant `title` on `Button`.
+- **Axios** Fix the problem that `params` and `data` data cannot be submitted at the same time when non-`GET` requests are made
+- **Other**
+  - Repair the problem that the lock screen function can skip the lock state by refreshing the page or copying the URL to open a new browser tab
+  - Repair the problem that `Token` won't be synchronized when multiple windows open pages at the same time.
+  - Repair the problem that `hasPermission` does not work in `ROLE` permission mode.
+- **Table** Repair the problem that the parameter of `handleSearchInfoFn` contains extra blank keys.
+- **Tailwindcss** Remove console warning
+
 ## 2.5.2(2021-06-27)
 
 ### ⚡ Performance Improvements
