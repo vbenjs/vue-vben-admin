@@ -13,7 +13,7 @@ export function configImageminPlugin() {
       optimizationLevel: 7,
     },
     mozjpeg: {
-      quality: 8,
+      quality: 20,
     },
     pngquant: {
       quality: [0.8, 0.9],
@@ -22,10 +22,11 @@ export function configImageminPlugin() {
     svgo: {
       plugins: [
         {
-          removeViewBox: false,
+          name: 'removeViewBox',
         },
         {
-          removeEmptyAttrs: false,
+          name: 'removeEmptyAttrs',
+          active: false,
         },
       ],
     },
