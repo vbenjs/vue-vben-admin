@@ -64,15 +64,15 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
   function handlerSearchResult(filterMenu: Menu[], reg: RegExp, parent?: Menu) {
     const ret: SearchResult[] = [];
     filterMenu.forEach((item) => {
-      const { name, path, icon, children, hideMenu } = item;
-      if (!hideMenu && reg.test(name) && !children?.length) {
+      const { name, path, icon, children, hideMenu, meta } = item;
+      if (!hideMenu && reg.test(name) && (!children?.length || meta?.hideChildrenInMenu)) {
         ret.push({
           name: parent?.name ? `${parent.name} > ${name}` : name,
           path,
           icon,
         });
       }
-      if (Array.isArray(children) && children.length) {
+      if (!meta?.hideChildrenInMenu && Array.isArray(children) && children.length) {
         ret.push(...handlerSearchResult(children, reg, item));
       }
     });
