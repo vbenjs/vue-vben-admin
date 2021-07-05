@@ -129,6 +129,18 @@ const sysRoute = {
       component: '/demo/system/account/index',
     },
     {
+      path: 'account_detail/:id',
+      name: 'AccountDetail',
+      meta: {
+        hideMenu: true,
+        title: 'routes.demo.system.account_detail',
+        ignoreKeepAlive: true,
+        showMenu: false,
+        currentActiveMenu: '/system/account',
+      },
+      component: '/demo/system/account/AccountDetail',
+    },
+    {
       path: 'role',
       name: 'RoleManagement',
       meta: {

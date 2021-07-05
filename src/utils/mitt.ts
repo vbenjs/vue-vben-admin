@@ -1,5 +1,6 @@
 /**
- * https://github.com/developit/mitt
+ * copy to https://github.com/developit/mitt
+ * Expand clear method
  */
 
 export type EventType = string | symbol;

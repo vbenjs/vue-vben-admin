@@ -31,7 +31,7 @@ export function usePermission() {
     appStore.setProjectConfig({
       permissionMode:
         projectSetting.permissionMode === PermissionModeEnum.BACK
-          ? PermissionModeEnum.ROLE
+          ? PermissionModeEnum.ROUTE_MAPPING
           : PermissionModeEnum.BACK,
     });
     location.reload();
@@ -57,13 +57,14 @@ export function usePermission() {
    * Determine whether there is permission
    */
   function hasPermission(value?: RoleEnum | RoleEnum[] | string | string[], def = true): boolean {
+    // Visible by default
+    if (!value) {
+      return def;
+    }
+
     const permMode = projectSetting.permissionMode;
 
-    if (PermissionModeEnum.ROLE === permMode) {
-      // Visible by default
-      if (!value) {
-        return def;
-      }
+    if ([PermissionModeEnum.ROUTE_MAPPING, PermissionModeEnum.ROLE].includes(permMode)) {
       if (!isArray(value)) {
         return userStore.getRoleList?.includes(value as RoleEnum);
       }
@@ -71,13 +72,9 @@ export function usePermission() {
     }
 
     if (PermissionModeEnum.BACK === permMode) {
-      // Visible by default
-      if (!value) {
-        return def;
-      }
-      const allCodeList = permissionStore.getPermCodeList;
+      const allCodeList = permissionStore.getPermCodeList as string[];
       if (!isArray(value)) {
-        return allCodeList.includes(value as string);
+        return allCodeList.includes(value);
       }
       return (intersection(value, allCodeList) as string[]).length > 0;
     }
@@ -89,9 +86,9 @@ export function usePermission() {
    * @param roles
    */
   async function changeRole(roles: RoleEnum | RoleEnum[]): Promise<void> {
-    if (projectSetting.permissionMode !== PermissionModeEnum.ROLE) {
+    if (projectSetting.permissionMode !== PermissionModeEnum.ROUTE_MAPPING) {
       throw new Error(
-        'Please switch PermissionModeEnum to ROLE mode in the configuration to operate!'
+        'Please switch PermissionModeEnum to ROUTE_MAPPING mode in the configuration to operate!'
       );
     }
 

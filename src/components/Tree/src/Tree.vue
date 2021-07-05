@@ -97,8 +97,7 @@
           },
           onRightClick: handleRightClick,
         };
-        propsData = omit(propsData, 'treeData', 'class');
-        return propsData;
+        return omit(propsData, 'treeData', 'class');
       });
 
       const getTreeData = computed((): TreeItem[] =>
@@ -106,11 +105,17 @@
       );
 
       const getNotFound = computed((): boolean => {
-        return searchState.startSearch && searchState.searchData?.length === 0;
+        return !getTreeData.value || getTreeData.value.length === 0;
       });
 
-      const { deleteNodeByKey, insertNodeByKey, filterByLevel, updateNodeByKey, getAllKeys } =
-        useTree(treeDataRef, getReplaceFields);
+      const {
+        deleteNodeByKey,
+        insertNodeByKey,
+        insertNodesByKey,
+        filterByLevel,
+        updateNodeByKey,
+        getAllKeys,
+      } = useTree(treeDataRef, getReplaceFields);
 
       function getIcon(params: Recordable, icon?: string) {
         if (!icon) {
@@ -267,6 +272,7 @@
         setCheckedKeys,
         getCheckedKeys,
         insertNodeByKey,
+        insertNodesByKey,
         deleteNodeByKey,
         updateNodeByKey,
         checkAll,
@@ -375,7 +381,7 @@
               </Tree>
             </ScrollContainer>
 
-            <Empty v-show={unref(getNotFound)} class="!mt-4" />
+            <Empty v-show={unref(getNotFound)} image={Empty.PRESENTED_IMAGE_SIMPLE} class="!mt-4" />
           </div>
         );
       };

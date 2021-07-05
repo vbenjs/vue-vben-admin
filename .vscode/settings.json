@@ -129,6 +129,7 @@
     "qrcode",
     "sider",
     "pinia",
-    "sider"
+    "sider",
+    "nprogress"
   ]
 }

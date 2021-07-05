@@ -147,7 +147,10 @@ export function forEach<T = any>(
   const list: any[] = [...tree];
   const { children } = config;
   for (let i = 0; i < list.length; i++) {
-    func(list[i]);
+    //func 返回true就终止遍历，避免大量节点场景下无意义循环，引起浏览器卡顿
+    if (func(list[i])) {
+      return;
+    }
     children && list[i][children] && list.splice(i + 1, 0, ...list[i][children]);
   }
 }

@@ -24,7 +24,7 @@
   export default defineComponent({
     components: { BasicModal, FileList },
     props: previewProps,
-    emits: ['list-change', 'register'],
+    emits: ['list-change', 'register', 'delete'],
     setup(props, { emit }) {
       const [register, { closeModal }] = useModalInner();
       const { t } = useI18n();
@@ -50,7 +50,8 @@
       function handleRemove(record: PreviewFileItem) {
         const index = fileListRef.value.findIndex((item) => item.url === record.url);
         if (index !== -1) {
-          fileListRef.value.splice(index, 1);
+          const removed = fileListRef.value.splice(index, 1);
+          emit('delete', removed[0].url);
           emit(
             'list-change',
             fileListRef.value.map((item) => item.url)

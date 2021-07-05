@@ -37,7 +37,6 @@
     defineComponent,
     ref,
     computed,
-    watchEffect,
     watch,
     unref,
     nextTick,
@@ -135,9 +134,13 @@
         return !!unref(getProps)?.loading;
       });
 
-      watchEffect(() => {
-        visibleRef.value = props.visible;
-      });
+      watch(
+        () => props.visible,
+        (newVal, oldVal) => {
+          if (newVal !== oldVal) visibleRef.value = newVal;
+        },
+        { deep: true }
+      );
 
       watch(
         () => visibleRef.value,

@@ -1,20 +1,28 @@
 <template>
   <div :class="getClass">
     <template v-if="canFullscreen">
-      <FullscreenExitOutlined role="full" @click="handleFullScreen" v-if="fullScreen" />
-      <FullscreenOutlined role="close" @click="handleFullScreen" v-else />
+      <Tooltip :title="t('component.modal.restore')" placement="bottom" v-if="fullScreen">
+        <FullscreenExitOutlined role="full" @click="handleFullScreen" />
+      </Tooltip>
+      <Tooltip :title="t('component.modal.maximize')" placement="bottom" v-else>
+        <FullscreenOutlined role="close" @click="handleFullScreen" />
+      </Tooltip>
     </template>
-    <CloseOutlined @click="handleCancel" />
+    <Tooltip :title="t('component.modal.close')" placement="bottom">
+      <CloseOutlined @click="handleCancel" />
+    </Tooltip>
   </div>
 </template>
 <script lang="ts">
   import { defineComponent, computed } from 'vue';
   import { FullscreenExitOutlined, FullscreenOutlined, CloseOutlined } from '@ant-design/icons-vue';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { Tooltip } from 'ant-design-vue';
+  import { useI18n } from '/@/hooks/web/useI18n';
 
   export default defineComponent({
     name: 'ModalClose',
-    components: { FullscreenExitOutlined, FullscreenOutlined, CloseOutlined },
+    components: { Tooltip, FullscreenExitOutlined, FullscreenOutlined, CloseOutlined },
     props: {
       canFullscreen: { type: Boolean, default: true },
       fullScreen: { type: Boolean },
@@ -22,6 +30,7 @@
     emits: ['cancel', 'fullscreen'],
     setup(props, { emit }) {
       const { prefixCls } = useDesign('basic-modal-close');
+      const { t } = useI18n();
 
       const getClass = computed(() => {
         return [
@@ -44,6 +53,7 @@
       }
 
       return {
+        t,
         getClass,
         prefixCls,
         handleCancel,

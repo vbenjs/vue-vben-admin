@@ -1,8 +1,84 @@
-## Wip
+### 🐛 Bug Fixes
+
+- **Table** 修复滚动条样式问题
+- **AppSearch** 修复可能会搜索隐藏菜单的问题
+- **其它** 修复菜单默认折叠的配置不起作用的问题
+
+## 2.6.0(2021-07-04)
+
+### ✨ Features
+
+- **Axios** 新增`withToken`配置，用于控制请求是否携带 token
+- **BasicUpload**
+  - 新增在预览 `Modal` 中删除文件时触发`preview-delete` 事件
+  - `value` 支持 `v-model` 用法
+- **Route 配置**
+  - 增加`ignoreRoute`用于在`ROUTE_MAPPING`或`BACK`权限模式下仅生成菜单
+  - 增加`hidePathForChildren`配置，标识为子项目生成菜单时忽略本级`path`
+- **TableAction** 新增`tooltip`配置，可以为按钮增加 tooltip 提示
+- **CropperAvatar**
+  - 新增`value`用于设置当前头像
+  - 新增`onChange`用于接受头像剪裁并上传成功事件
+  - 新增`btnText`、`btnProps` 用于自定义上传按钮文案和属性
+  - 为剪裁`Modal`内的操作按钮添加工具提示
+- **Modal** 为右上角的操作按钮添加工具提示
+
+### 🐛 Bug Fixes
+
+- **Modal**
+  - 修复点击遮罩不能关闭的问题
+  - 修复 `setModalProps` 不支持设置 `defaultFullscreen` 的问题
+- **Table**
+  - 修复 `editComponentProps` 不支持 `onChange`的问题
+  - 修复启用`clickToRowSelect`时，点击行不会触发`selection-change`事件的问题
+  - 修复全局配置`fetchSetting`可能会被局部配置意外修改的问题
+  - 修复`handleSearchInfoFn`的参数包含多余空白键的问题
+  - 修复为 table 提供 rowSelection.onChange 时，无法手动变更 table 的选中项的问题
+  - 修复滚动条在无需显示的时候仍然持续显示的问题
+- **Icon** 修复 SvgIcon 缺少部分样式的问题
+- **Menu**
+  - 修复路由映射模式下，单级菜单刷新不会激活
+  - 修复侧边菜单底部的折叠自定义失效的问题
+- **Form** 修复`submitButtonOptions`和`resetButtonOptions`的类型定义
+- **PopConfirmButton** 移除`Button`上多余的`title`
+- **Axios** 修复非`GET`请求时，无法同时提交`params`和`data`数据的问题
+- **其它**
+  - 修复锁屏功能可以通过刷新页面或复制 URL 打开新的浏览器标签来跳过锁定状态的问题
+  - 修复多个窗口同时打开页面时，`Token` 不会同步的问题
+  - 修复`ROLE`权限模式下`hasPermission`不工作的问题
+- **Table** 修复`handleSearchInfoFn`的参数包含多余空白键的问题
+- **Tailwindcss** 移除控制台警告
+
+## 2.5.2(2021-06-27)
+
+### ⚡ Performance Improvements
+
+- **Icon** 移除 Icon 组件全局注册，防止特定情况下热更新问题
+
+### ✨ Features
+
+- **Menu** 新增 `permissionMode=PermissionModeEnum.ROUTE_MAPPING`模式
+  - 项目默认改为该模式，删除原有菜单文件
+  - 如果之前已经写好了菜单，可以更改为`PermissionModeEnum.ROLE`模式即可
+
+### 🐛 Bug Fixes
+
+- **Drawer** 修复`visible`状态异常
+
+## 2.5.1(2021-06-26)
+
+### ⚡ Performance Improvements
+
+- 升级`vue`与`ant-design-vue`版本，解决兼容问题
+- **Tree** 性能优化
 
 ### 🐛 Bug Fixes
 
 - **Table** 修复分页抖动问题
+- **Upload** 确保携带自定义参数
+- **Dropdown** 修复 popConfirm 的图标显示问题
+- **Table** 修复树形表格的编辑事件不正常的问题
+- **Table** 修复当表格数据为空时，getDataSource 返回的值不是表格所使用的数据源的问题
 
 ## 2.5.0(2021-06-20)
 

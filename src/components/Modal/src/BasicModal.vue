@@ -1,5 +1,5 @@
 <template>
-  <Modal v-bind="getBindValue">
+  <Modal v-bind="getBindValue" @cancel="handleCancel">
     <template #closeIcon v-if="!$slots.closeIcon">
       <ModalClose
         :canFullscreen="getProps.canFullscreen"
@@ -187,8 +187,12 @@
       function setModalProps(props: Partial<ModalProps>): void {
         // Keep the last setModalProps
         propsRef.value = deepMerge(unref(propsRef) || ({} as any), props);
-        if (!Reflect.has(props, 'visible')) return;
-        visibleRef.value = !!props.visible;
+        if (Reflect.has(props, 'visible')) {
+          visibleRef.value = !!props.visible;
+        }
+        if (Reflect.has(props, 'defaultFullscreen')) {
+          fullScreenRef.value = !!props.defaultFullscreen;
+        }
       }
 
       function handleOk(e: Event) {

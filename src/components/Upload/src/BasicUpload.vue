@@ -32,6 +32,7 @@
       :value="fileList"
       @register="registerPreviewModal"
       @list-change="handlePreviewChange"
+      @delete="handlePreviewDelete"
     />
   </div>
 </template>
@@ -50,7 +51,7 @@
     name: 'BasicUpload',
     components: { UploadModal, UploadPreviewModal, Icon, Tooltip },
     props: uploadContainerProps,
-    emits: ['change', 'delete'],
+    emits: ['change', 'delete', 'preview-delete', 'update:value'],
 
     setup(props, { emit, attrs }) {
       const { t } = useI18n();
@@ -84,17 +85,23 @@
       // 上传modal保存操作
       function handleChange(urls: string[]) {
         fileList.value = [...unref(fileList), ...(urls || [])];
+        emit('update:value', fileList.value);
         emit('change', fileList.value);
       }
 
       // 预览modal保存操作
       function handlePreviewChange(urls: string[]) {
         fileList.value = [...(urls || [])];
+        emit('update:value', fileList.value);
         emit('change', fileList.value);
       }
 
       function handleDelete(record: Recordable) {
         emit('delete', record);
+      }
+
+      function handlePreviewDelete(url: string) {
+        emit('preview-delete', url);
       }
 
       return {
@@ -108,6 +115,7 @@
         showPreview,
         bindValue,
         handleDelete,
+        handlePreviewDelete,
         t,
       };
     },
