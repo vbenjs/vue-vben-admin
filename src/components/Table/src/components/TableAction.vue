@@ -1,12 +1,16 @@
 <template>
   <div :class="[prefixCls, getAlign]" @click="onCellClick">
     <template v-for="(action, index) in getActions" :key="`${index}-${action.label}`">
-      <Tooltip v-bind="getTooltip(action.tooltip)">
+      <Tooltip v-if="action.tooltip" v-bind="getTooltip(action.tooltip)">
         <PopConfirmButton v-bind="action">
           <Icon :icon="action.icon" class="mr-1" v-if="action.icon" />
           {{ action.label }}
         </PopConfirmButton>
       </Tooltip>
+      <PopConfirmButton v-else v-bind="action">
+        <Icon :icon="action.icon" class="mr-1" v-if="action.icon" />
+        {{ action.label }}
+      </PopConfirmButton>
       <Divider
         type="vertical"
         class="action-divider"
@@ -126,15 +130,13 @@
         return actionColumn?.align ?? 'left';
       });
 
-      const getTooltip = computed(() => {
-        return (data: string | TooltipProps): TooltipProps => {
-          if (isString(data)) {
-            return { title: data, placement: 'bottom' };
-          } else {
-            return Object.assign({ placement: 'bottom' }, data);
-          }
-        };
-      });
+      function getTooltip(data: string | TooltipProps): TooltipProps {
+        if (isString(data)) {
+          return { title: data, placement: 'bottom' };
+        } else {
+          return Object.assign({ placement: 'bottom' }, data);
+        }
+      }
 
       function onCellClick(e: MouseEvent) {
         if (!props.stopButtonPropagation) return;
