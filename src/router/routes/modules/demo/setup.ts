@@ -22,6 +22,7 @@ const setup: AppRouteModule = {
       meta: {
         title: t('routes.demo.setup.page'),
         icon: 'whh:paintroll',
+        hideMenu: true,
       },
     },
   ],
