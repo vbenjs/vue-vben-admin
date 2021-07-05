@@ -19,6 +19,7 @@
         v-bind="getSubmitBtnOptions"
         @click="submitAction"
         v-if="showSubmitButton"
+        html-type="submit"
       >
         {{ getSubmitBtnOptions.text }}
       </Button>
