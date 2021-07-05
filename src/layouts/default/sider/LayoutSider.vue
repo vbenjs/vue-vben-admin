@@ -15,7 +15,6 @@
     :collapsedWidth="getCollapsedWidth"
     :theme="getMenuTheme"
     @breakpoint="onBreakpointChange"
-    @collapse="toggleCollapsed"
     :trigger="getTrigger"
     v-bind="getTriggerAttr"
   >
