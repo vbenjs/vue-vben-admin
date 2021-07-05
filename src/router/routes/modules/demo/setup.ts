@@ -11,7 +11,7 @@ const setup: AppRouteModule = {
   meta: {
     orderNo: 90000,
     hideChildrenInMenu: true,
-    icon: 'simple-icons:about-dot-me',
+    icon: 'whh:paintroll',
     title: t('routes.demo.setup.page'),
   },
   children: [
@@ -22,6 +22,7 @@ const setup: AppRouteModule = {
       meta: {
         title: t('routes.demo.setup.page'),
         icon: 'whh:paintroll',
+        hideMenu: true,
       },
     },
   ],

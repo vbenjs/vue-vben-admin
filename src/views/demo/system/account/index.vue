@@ -9,19 +9,19 @@
         <TableAction
           :actions="[
             {
-              icon: 'clarity:eye-show-solid',
-              title: '查看用户详情',
+              icon: 'clarity:info-standard-line',
+              tooltip: '查看用户详情',
               onClick: handleView.bind(null, record),
             },
             {
               icon: 'clarity:note-edit-line',
-              title: '编辑用户资料',
+              tooltip: '编辑用户资料',
               onClick: handleEdit.bind(null, record),
             },
             {
               icon: 'ant-design:delete-outlined',
               color: 'error',
-              title: '删除此账号',
+              tooltip: '删除此账号',
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
@@ -63,10 +63,15 @@
         formConfig: {
           labelWidth: 120,
           schemas: searchFormSchema,
+          autoSubmitOnEnter: true,
         },
         useSearchForm: true,
         showTableSetting: true,
         bordered: true,
+        handleSearchInfoFn(info) {
+          console.log('handleSearchInfoFn', info);
+          return info;
+        },
         actionColumn: {
           width: 120,
           title: '操作',

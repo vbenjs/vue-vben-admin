@@ -33,5 +33,9 @@ declare module 'vue-router' {
     // Never show in menu
     hideMenu?: boolean;
     isLink?: boolean;
+    // only build for Menu
+    ignoreRoute?: boolean;
+    // Hide path for children
+    hidePathForChildren?: boolean;
   }
 }
