@@ -3,7 +3,6 @@
 - **Table** 修复滚动条样式问题
 - **AppSearch** 修复可能会搜索隐藏菜单的问题
 - **其它** 修复菜单默认折叠的配置不起作用的问题
-- **PopComfirmButton** 修复会将 title（确认框描述）传递到内部 Button 组件上的问题
 - **TableAction** 仅在 action.tooltip 存在的情况下 才使用 Tooltip 组件
 
 ## 2.6.0(2021-07-04)
