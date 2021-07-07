@@ -16,6 +16,7 @@
   import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
+    name: 'FormBasicPage',
     components: { BasicForm, PageWrapper },
     setup() {
       const { createMessage } = useMessage();
