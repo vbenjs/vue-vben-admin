@@ -15,7 +15,7 @@
   >
     <AppLogo :showTitle="false" :class="`${prefixCls}-logo`" />
 
-    <Trigger :class="`${prefixCls}-trigger`" />
+    <LayoutTrigger :class="`${prefixCls}-trigger`" />
 
     <ScrollContainer>
       <ul :class="`${prefixCls}-module`">
@@ -86,7 +86,6 @@
   import { SimpleMenu, SimpleMenuTag } from '/@/components/SimpleMenu';
   import { Icon } from '/@/components/Icon';
   import { AppLogo } from '/@/components/Application';
-  import Trigger from '../trigger/HeaderTrigger.vue';
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { useDragLine } from './useLayoutSider';
   import { useGlobSetting } from '/@/hooks/setting';
@@ -97,6 +96,7 @@
   import clickOutside from '/@/directives/clickOutside';
   import { getChildrenMenus, getCurrentParentPath, getShallowMenus } from '/@/router/menus';
   import { listenerRouteChange } from '/@/logics/mitt/routeChange';
+  import LayoutTrigger from '../trigger/index.vue';
 
   export default defineComponent({
     name: 'LayoutMixSider',
@@ -105,7 +105,7 @@
       AppLogo,
       SimpleMenu,
       Icon,
-      Trigger,
+      LayoutTrigger,
       SimpleMenuTag,
     },
     directives: {
@@ -486,17 +486,19 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      padding: 6px;
-      padding-left: 12px;
-      font-size: 18px;
+      font-size: 14px;
       color: rgba(255, 255, 255, 0.65);
+      text-align: center;
       cursor: pointer;
-      background-color: @sider-dark-bg-color;
+      background-color: @trigger-dark-bg-color;
+      height: 36px;
+      line-height: 36px;
     }
 
     &.light &-trigger {
       color: rgba(0, 0, 0, 0.65);
       background-color: #fff;
+      border-top: 1px solid #eee;
     }
 
     &-menu-list {
