@@ -28,6 +28,7 @@
   import { Card } from 'ant-design-vue';
 
   export default defineComponent({
+    name: 'FormHightPage',
     components: { BasicForm, PersonTable, PageWrapper, [Card.name]: Card },
     setup() {
       const tableRef = ref<{ getDataSource: () => any } | null>(null);
