@@ -46,6 +46,7 @@
   import { uploadContainerProps } from './props';
   import { omit } from 'lodash-es';
   import { useI18n } from '/@/hooks/web/useI18n';
+  import { isArray } from '/@/utils/is';
 
   export default defineComponent({
     name: 'BasicUpload',
@@ -77,7 +78,7 @@
       watch(
         () => props.value,
         (value = []) => {
-          fileList.value = value;
+          fileList.value = isArray(value) ? value : [];
         },
         { immediate: true }
       );
