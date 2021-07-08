@@ -41,6 +41,11 @@ export function useTableHeader(
                       tableTitle: () => getSlot(slots, 'tableTitle'),
                     }
                   : {}),
+                ...(slots.headerTop
+                  ? {
+                      headerTop: () => getSlot(slots, 'headerTop'),
+                    }
+                  : {}),
               }
             ),
     };
