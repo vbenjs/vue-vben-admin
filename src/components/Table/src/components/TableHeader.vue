@@ -1,16 +1,25 @@
 <template>
-  <slot name="tableTitle" v-if="$slots.tableTitle"></slot>
-
-  <TableTitle :helpMessage="titleHelpMessage" :title="title" v-if="!$slots.tableTitle && title" />
-
-  <div :class="`${prefixCls}__toolbar`">
-    <slot name="toolbar"></slot>
-    <Divider type="vertical" v-if="$slots.toolbar && showTableSetting" />
-    <TableSetting
-      :setting="tableSetting"
-      v-if="showTableSetting"
-      @columns-change="handleColumnChange"
-    />
+  <div style="width: 100%">
+    <div v-if="$slots.headerTop" style="margin: 5px">
+      <slot name="headerTop"></slot>
+    </div>
+    <div style="width: 100%; display: flex">
+      <slot name="tableTitle" v-if="$slots.tableTitle"></slot>
+      <TableTitle
+        :helpMessage="titleHelpMessage"
+        :title="title"
+        v-if="!$slots.tableTitle && title"
+      />
+      <div :class="`${prefixCls}__toolbar`">
+        <slot name="toolbar"></slot>
+        <Divider type="vertical" v-if="$slots.toolbar && showTableSetting" />
+        <TableSetting
+          :setting="tableSetting"
+          v-if="showTableSetting"
+          @columns-change="handleColumnChange"
+        />
+      </div>
+    </div>
   </div>
 </template>
 <script lang="ts">
