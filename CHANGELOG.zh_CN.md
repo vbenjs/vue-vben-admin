@@ -5,9 +5,11 @@
   - 修复树形表格的带有展开图标的单元格的内容对齐问题
   - 新增`headerTop`插槽
 - **AppSearch** 修复可能会搜索隐藏菜单的问题
+- **TableAction** 仅在 action.tooltip 存在的情况下 才包裹 Tooltip 组件
 - **其它**
   - 修复菜单默认折叠的配置不起作用的问题
   - 修复`safari`浏览器报错导致网站打不开
+  - 修复在 window 上，拉取代码后 eslint 因 endOfLine 而保错问题
 
 ### 🎫 Chores
 
