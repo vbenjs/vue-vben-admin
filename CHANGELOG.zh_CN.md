@@ -7,11 +7,13 @@
 - **AppSearch** 修复可能会搜索隐藏菜单的问题
 - **TableAction** 仅在 action.tooltip 存在的情况下 才包裹 Tooltip 组件
 - **BasicUpload** 修复处理非`array`值时报错的问题
+- **Form** 修复`FormItem`的`suffix`插槽样式问题
 - **其它**
   - 修复菜单默认折叠的配置不起作用的问题
   - 修复`safari`浏览器报错导致网站打不开
   - 修复在 window 上，拉取代码后 eslint 因 endOfLine 而保错问题
   - 修复左侧混合菜单的悬停触发逻辑
+  - 修复顶栏菜单在显示包含需要隐藏的菜单项目时出错的问题
 
 ### 🎫 Chores
 
