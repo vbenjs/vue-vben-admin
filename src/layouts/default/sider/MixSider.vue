@@ -63,7 +63,7 @@
       </div>
       <ScrollContainer :class="`${prefixCls}-menu-list__content`">
         <SimpleMenu
-          :items="chilrenMenus"
+          :items="childrenMenus"
           :theme="getMenuTheme"
           mixSider
           @menuClick="handleMenuClick"
@@ -114,7 +114,7 @@
     setup() {
       let menuModules = ref<Menu[]>([]);
       const activePath = ref('');
-      const chilrenMenus = ref<Menu[]>([]);
+      const childrenMenus = ref<Menu[]>([]);
       const openMenu = ref(false);
       const dragBarRef = ref<ElRef>(null);
       const sideRef = ref<ElRef>(null);
@@ -150,7 +150,7 @@
 
       const getIsFixed = computed(() => {
         /* eslint-disable-next-line */
-        mixSideHasChildren.value = unref(chilrenMenus).length > 0;
+        mixSideHasChildren.value = unref(childrenMenus).length > 0;
         const isFixed = unref(getMixSideFixed) && unref(mixSideHasChildren);
         if (isFixed) {
           /* eslint-disable-next-line */
@@ -209,9 +209,8 @@
       }
 
       // Process module menu click
-      async function hanldeModuleClick(path: string, hover = false) {
+      async function handleModuleClick(path: string, hover = false) {
         const children = await getChildrenMenus(path);
-
         if (unref(activePath) === path) {
           if (!hover) {
             if (!unref(openMenu)) {
@@ -233,12 +232,12 @@
         }
 
         if (!children || children.length === 0) {
-          go(path);
-          chilrenMenus.value = [];
+          if (!hover) go(path);
+          childrenMenus.value = [];
           closeMenu();
           return;
         }
-        chilrenMenus.value = children;
+        childrenMenus.value = children;
       }
 
       // Set the currently active menu and submenu
@@ -253,14 +252,14 @@
           if (p) {
             const children = await getChildrenMenus(p);
             if (setChildren) {
-              chilrenMenus.value = children;
+              childrenMenus.value = children;
 
               if (unref(getMixSideFixed)) {
                 openMenu.value = children.length > 0;
               }
             }
             if (children.length === 0) {
-              chilrenMenus.value = [];
+              childrenMenus.value = [];
             }
           }
         }
@@ -278,11 +277,15 @@
       function getItemEvents(item: Menu) {
         if (unref(getMixSideTrigger) === 'hover') {
           return {
-            onMouseenter: () => hanldeModuleClick(item.path, true),
+            onMouseenter: () => handleModuleClick(item.path, true),
+            onClick: async () => {
+              const children = await getChildrenMenus(item.path);
+              if (item.path && (!children || children.length === 0)) go(item.path);
+            },
           };
         }
         return {
-          onClick: () => hanldeModuleClick(item.path),
+          onClick: () => handleModuleClick(item.path),
         };
       }
 
@@ -303,9 +306,9 @@
         t,
         prefixCls,
         menuModules,
-        hanldeModuleClick,
+        handleModuleClick: handleModuleClick,
         activePath,
-        chilrenMenus,
+        childrenMenus: childrenMenus,
         getShowDragBar,
         handleMenuClick,
         getMenuStyle,
