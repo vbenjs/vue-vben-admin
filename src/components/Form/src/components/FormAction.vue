@@ -1,40 +1,42 @@
 <template>
   <a-col v-bind="actionColOpt" :style="{ textAlign: 'right' }" v-if="showActionButtonGroup">
-    <FormItem>
-      <slot name="resetBefore"></slot>
-      <Button
-        type="default"
-        class="mr-2"
-        v-bind="getResetBtnOptions"
-        @click="resetAction"
-        v-if="showResetButton"
-      >
-        {{ getResetBtnOptions.text }}
-      </Button>
-      <slot name="submitBefore"></slot>
+    <div style="width: 100%; text-align: right">
+      <FormItem>
+        <slot name="resetBefore"></slot>
+        <Button
+          type="default"
+          class="mr-2"
+          v-bind="getResetBtnOptions"
+          @click="resetAction"
+          v-if="showResetButton"
+        >
+          {{ getResetBtnOptions.text }}
+        </Button>
+        <slot name="submitBefore"></slot>
 
-      <Button
-        type="primary"
-        class="mr-2"
-        v-bind="getSubmitBtnOptions"
-        @click="submitAction"
-        v-if="showSubmitButton"
-      >
-        {{ getSubmitBtnOptions.text }}
-      </Button>
+        <Button
+          type="primary"
+          class="mr-2"
+          v-bind="getSubmitBtnOptions"
+          @click="submitAction"
+          v-if="showSubmitButton"
+        >
+          {{ getSubmitBtnOptions.text }}
+        </Button>
 
-      <slot name="advanceBefore"></slot>
-      <Button
-        type="link"
-        size="small"
-        @click="toggleAdvanced"
-        v-if="showAdvancedButton && !hideAdvanceBtn"
-      >
-        {{ isAdvanced ? t('component.form.putAway') : t('component.form.unfold') }}
-        <BasicArrow class="ml-1" :expand="!isAdvanced" up />
-      </Button>
-      <slot name="advanceAfter"></slot>
-    </FormItem>
+        <slot name="advanceBefore"></slot>
+        <Button
+          type="link"
+          size="small"
+          @click="toggleAdvanced"
+          v-if="showAdvancedButton && !hideAdvanceBtn"
+        >
+          {{ isAdvanced ? t('component.form.putAway') : t('component.form.unfold') }}
+          <BasicArrow class="ml-1" :expand="!isAdvanced" up />
+        </Button>
+        <slot name="advanceAfter"></slot>
+      </FormItem>
+    </div>
   </a-col>
 </template>
 <script lang="ts">
@@ -43,7 +45,7 @@
   import { defineComponent, computed, PropType } from 'vue';
   import { Form, Col } from 'ant-design-vue';
   import { Button, ButtonProps } from '/@/components/Button';
-  import { BasicArrow } from '/@/components/Basic/index';
+  import { BasicArrow } from '/@/components/Basic';
   import { useFormContext } from '../hooks/useFormContext';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { propTypes } from '/@/utils/propTypes';
