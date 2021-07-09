@@ -80,10 +80,10 @@
 <script lang="ts">
   import type { Menu } from '/@/router/types';
   import type { CSSProperties } from 'vue';
+  import { computed, defineComponent, onMounted, ref, unref } from 'vue';
   import type { RouteLocationNormalized } from 'vue-router';
-  import { defineComponent, onMounted, ref, computed, unref } from 'vue';
   import { ScrollContainer } from '/@/components/Container';
-  import { SimpleMenuTag } from '/@/components/SimpleMenu';
+  import { SimpleMenu, SimpleMenuTag } from '/@/components/SimpleMenu';
   import { Icon } from '/@/components/Icon';
   import { AppLogo } from '/@/components/Application';
   import Trigger from '../trigger/HeaderTrigger.vue';
@@ -93,11 +93,10 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useGo } from '/@/hooks/web/usePage';
-  import { SIDE_BAR_SHOW_TIT_MINI_WIDTH, SIDE_BAR_MINI_WIDTH } from '/@/enums/appEnum';
+  import { SIDE_BAR_MINI_WIDTH, SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '/@/enums/appEnum';
   import clickOutside from '/@/directives/clickOutside';
-  import { getShallowMenus, getChildrenMenus, getCurrentParentPath } from '/@/router/menus';
+  import { getChildrenMenus, getCurrentParentPath, getShallowMenus } from '/@/router/menus';
   import { listenerRouteChange } from '/@/logics/mitt/routeChange';
-  import { SimpleMenu } from '/@/components/SimpleMenu';
 
   export default defineComponent({
     name: 'LayoutMixSider',
@@ -179,6 +178,7 @@
         return !unref(getMixSideFixed)
           ? {
               onMouseleave: () => {
+                setActive(true);
                 closeMenu();
               },
             }
@@ -219,6 +219,10 @@
             } else {
               closeMenu();
             }
+          } else {
+            if (!unref(openMenu)) {
+              openMenu.value = true;
+            }
           }
           if (!unref(openMenu)) {
             setActive();
@@ -241,8 +245,7 @@
       async function setActive(setChildren = false) {
         const path = currentRoute.value?.path;
         if (!path) return;
-        const parentPath = await getCurrentParentPath(path);
-        activePath.value = parentPath;
+        activePath.value = await getCurrentParentPath(path);
         // hanldeModuleClick(parentPath);
         if (unref(getIsMixSidebar)) {
           const activeMenu = unref(menuModules).find((item) => item.path === unref(activePath));
@@ -496,7 +499,6 @@
     &-menu-list {
       position: fixed;
       top: 0;
-      width: 0;
       width: 200px;
       height: calc(100%);
       background-color: #fff;
