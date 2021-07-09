@@ -3,7 +3,11 @@ import { BasicArrow } from '/@/components/Basic';
 export default () => {
   return (props: Recordable) => {
     if (!props.expandable) {
-      return <span class="ant-table-row-expand-icon ant-table-row-spaced" />;
+      if (props.expanded) {
+        return <span class="ant-table-row-expand-icon ant-table-row-spaced" />;
+      } else {
+        return <span />;
+      }
     }
     return (
       <BasicArrow
