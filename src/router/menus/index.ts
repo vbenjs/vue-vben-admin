@@ -54,7 +54,7 @@ const staticMenus: Menu[] = [];
 async function getAsyncMenus() {
   const permissionStore = usePermissionStore();
   if (isBackMode()) {
-    return permissionStore.getBackMenuList;
+    return permissionStore.getBackMenuList.filter((item) => !item.meta?.hideMenu && !item.hideMenu);
   }
   if (isRouteMappingMode()) {
     return permissionStore.getFrontMenuList.filter((item) => !item.hideMenu);
