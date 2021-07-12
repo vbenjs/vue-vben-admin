@@ -4,6 +4,7 @@
   - 修复滚动条样式问题
   - 修复树形表格的带有展开图标的单元格的内容对齐问题
   - 新增`headerTop`插槽
+  - 修复操作列的按钮在 disabled 状态下的颜色显示
 - **AppSearch** 修复可能会搜索隐藏菜单的问题
 - **TableAction** 仅在 action.tooltip 存在的情况下 才包裹 Tooltip 组件
 - **BasicUpload** 修复处理非`array`值时报错的问题
