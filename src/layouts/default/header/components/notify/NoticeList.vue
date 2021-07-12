@@ -1,5 +1,5 @@
 <template>
-  <a-list :class="prefixCls" bordered :pagination="getPagination" size="small">
+  <a-list :class="prefixCls" bordered :pagination="getPagination">
     <template v-for="item in getData" :key="item.id">
       <a-list-item class="list-item">
         <a-list-item-meta>
@@ -115,6 +115,7 @@
           return {
             total: list.length,
             pageSize,
+            //size: 'small',
             current: unref(current),
             onChange(page) {
               current.value = page;
@@ -140,6 +141,10 @@
   .@{prefix-cls} {
     &::-webkit-scrollbar {
       display: none;
+    }
+
+    ::v-deep(.ant-pagination-disabled) {
+      display: inline-block !important;
     }
 
     &-item {
