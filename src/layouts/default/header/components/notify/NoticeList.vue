@@ -7,7 +7,7 @@
             <div class="title">
               <a-typography-paragraph
                 @click="handleTitleClick(item)"
-                style="width: 100%"
+                style="width: 100%; margin-bottom: 0 !important"
                 :style="{ cursor: isTitleClickable ? 'pointer' : '' }"
                 :delete="!!item.titleDelete"
                 :ellipsis="
@@ -32,7 +32,7 @@
             <div>
               <div class="description" v-if="item.description">
                 <a-typography-paragraph
-                  style="width: 100%"
+                  style="width: 100%; margin-bottom: 0 !important"
                   :ellipsis="
                     $props.descRows > 0
                       ? { rows: $props.descRows, tooltip: item.description }
