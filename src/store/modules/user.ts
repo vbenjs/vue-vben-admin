@@ -88,13 +88,15 @@ export const useUserStore = defineStore({
 
         const sessionTimeout = this.sessionTimeout;
         sessionTimeout && this.setSessionTimeout(false);
-        !sessionTimeout && goHome && (await router.replace(PageEnum.BASE_HOME));
+        !sessionTimeout &&
+          goHome &&
+          (await router.replace(userInfo.homePath || PageEnum.BASE_HOME));
         return userInfo;
       } catch (error) {
         return Promise.reject(error);
       }
     },
-    async getUserInfoAction() {
+    async getUserInfoAction(): Promise<UserInfo> {
       const userInfo = await getUserInfo();
       const { roles } = userInfo;
       const roleList = roles.map((item) => item.value) as RoleEnum[];

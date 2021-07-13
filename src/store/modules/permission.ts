@@ -22,6 +22,7 @@ import { getMenuList } from '/@/api/sys/menu';
 import { getPermCode } from '/@/api/sys/user';
 
 import { useMessage } from '/@/hooks/web/useMessage';
+import { PageEnum } from '/@/enums/pageEnum';
 
 interface PermissionState {
   // Permission code list
@@ -117,6 +118,32 @@ export const usePermissionStore = defineStore({
         return !ignoreRoute;
       };
 
+      /**
+       * @description 根据设置的首页path，修正routes中的affix标记（固定首页）
+       * */
+      const patchHomeAffix = (routes: AppRouteRecordRaw[]) => {
+        if (!routes || routes.length === 0) return;
+        const homePath = userStore.getUserInfo.homePath || PageEnum.BASE_HOME;
+        function patcher(routes: AppRouteRecordRaw[], parentPath = '') {
+          if (parentPath) parentPath = parentPath + '/';
+          routes.forEach((route: AppRouteRecordRaw) => {
+            const { path, children } = route;
+            const currentPath = path.startsWith('/') ? path : parentPath + path;
+            if (currentPath === homePath) {
+              route.meta = Object.assign({}, route.meta, { affix: true });
+              throw new Error('end');
+            }
+            children && children.length > 0 && patcher(children, currentPath);
+          });
+        }
+        try {
+          patcher(routes);
+        } catch (e) {
+          // 已处理完毕跳出循环
+        }
+        return;
+      };
+
       switch (permissionMode) {
         case PermissionModeEnum.ROLE:
           routes = filter(asyncRoutes, routeFilter);
@@ -176,6 +203,7 @@ export const usePermissionStore = defineStore({
       }
 
       routes.push(ERROR_LOG_ROUTE);
+      patchHomeAffix(routes);
       return routes;
     },
   },

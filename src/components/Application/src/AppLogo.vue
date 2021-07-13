@@ -17,6 +17,7 @@
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { PageEnum } from '/@/enums/pageEnum';
+  import { useUserStore } from '/@/store/modules/user';
 
   const props = {
     /**
@@ -39,6 +40,7 @@
     setup(props) {
       const { prefixCls } = useDesign('app-logo');
       const { getCollapsedShowTitle } = useMenuSetting();
+      const userStore = useUserStore();
       const { title } = useGlobSetting();
       const go = useGo();
 
@@ -56,7 +58,7 @@
       ]);
 
       function goHome() {
-        go(PageEnum.BASE_HOME);
+        go(userStore.getUserInfo.homePath || PageEnum.BASE_HOME);
       }
 
       return {

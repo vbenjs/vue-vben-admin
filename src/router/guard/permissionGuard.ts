@@ -7,7 +7,11 @@ import { useUserStoreWithOut } from '/@/store/modules/user';
 
 import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
 
+import { RootRoute } from '/@/router/routes';
+
 const LOGIN_PATH = PageEnum.BASE_LOGIN;
+
+const ROOT_PATH = RootRoute.path;
 
 const whitePathList: PageEnum[] = [LOGIN_PATH];
 
@@ -17,7 +21,17 @@ export function createPermissionGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
     // Jump to the 404 page after processing the login
     if (from.path === LOGIN_PATH && to.name === PAGE_NOT_FOUND_ROUTE.name) {
-      next(PageEnum.BASE_HOME);
+      next(userStore.getUserInfo.homePath || PageEnum.BASE_HOME);
+      return;
+    }
+
+    if (
+      from.path === ROOT_PATH &&
+      to.path === PageEnum.BASE_HOME &&
+      userStore.getUserInfo.homePath &&
+      userStore.getUserInfo.homePath !== PageEnum.BASE_HOME
+    ) {
+      next(userStore.getUserInfo.homePath);
       return;
     }
 
