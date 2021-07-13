@@ -59,8 +59,8 @@
         (v) => {
           if (v !== valueRef.value) {
             instance.getVditor()?.setValue(v);
-            valueRef.value = v;
           }
+          valueRef.value = v;
         }
       );
 
@@ -85,7 +85,7 @@
         const wrapEl = unref(wrapRef) as HTMLElement;
         if (!wrapEl) return;
         const bindValue = { ...attrs, ...props };
-        vditorRef.value = new Vditor(wrapEl, {
+        const insEditor = new Vditor(wrapEl, {
           theme: getDarkMode.value === 'dark' ? 'dark' : 'classic',
           lang: unref(getCurrentLang),
           mode: 'sv',
@@ -100,7 +100,10 @@
           after: () => {
             nextTick(() => {
               modalFn?.redoModalHeight?.();
+              insEditor.setValue(valueRef.value);
+              vditorRef.value = insEditor;
               initedRef.value = true;
+              emit('get', instance);
             });
           },
           blur: () => {
@@ -124,14 +127,10 @@
           vditorInstance?.destroy?.();
         } catch (error) {}
         vditorRef.value = null;
+        initedRef.value = false;
       }
 
-      onMountedOrActivated(() => {
-        nextTick(() => {
-          init();
-        });
-        emit('get', instance);
-      });
+      onMountedOrActivated(init);
 
       onBeforeUnmount(destroy);
       onDeactivated(destroy);
