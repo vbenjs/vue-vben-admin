@@ -11,6 +11,7 @@ export function createFakeUserList() {
       desc: 'manager',
       password: '123456',
       token: 'fakeToken1',
+      homePath: '/dashboard/analysis',
       roles: [
         {
           roleName: 'Super Admin',
@@ -26,6 +27,7 @@ export function createFakeUserList() {
       avatar: 'https://q1.qlogo.cn/g?b=qq&nk=339449197&s=640',
       desc: 'tester',
       token: 'fakeToken2',
+      homePath: '/dashboard/workbench',
       roles: [
         {
           roleName: 'Tester',

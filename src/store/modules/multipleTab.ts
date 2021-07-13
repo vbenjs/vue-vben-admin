@@ -13,6 +13,7 @@ import { getRawRoute } from '/@/utils';
 import { MULTIPLE_TABS_KEY } from '/@/enums/cacheEnum';
 
 import projectSetting from '/@/settings/projectSetting';
+import { useUserStore } from '/@/store/modules/user';
 
 export interface MultipleTabState {
   cacheTabList: Set<string>;
@@ -181,7 +182,8 @@ export const useMultipleTabStore = defineStore({
       if (index === 0) {
         // There is only one tab, then jump to the homepage, otherwise jump to the right tab
         if (this.tabList.length === 1) {
-          toTarget = PageEnum.BASE_HOME;
+          const userStore = useUserStore();
+          toTarget = userStore.getUserInfo.homePath || PageEnum.BASE_HOME;
         } else {
           //  Jump to the right tab
           const page = this.tabList[index + 1];
