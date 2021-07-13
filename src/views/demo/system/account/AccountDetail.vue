@@ -6,7 +6,7 @@
     @back="goBack"
   >
     <template #extra>
-      <a-button type="danger"> 禁用账号 </a-button>
+      <a-button type="primary" danger> 禁用账号 </a-button>
       <a-button type="primary"> 修改密码 </a-button>
     </template>
     <template #footer>
