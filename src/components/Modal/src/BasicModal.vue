@@ -18,7 +18,7 @@
     </template>
 
     <template #footer v-if="!$slots.footer">
-      <ModalFooter v-bind="getProps" @ok="handleOk" @cancel="handleCancel">
+      <ModalFooter v-bind="getBindValue" @ok="handleOk" @cancel="handleCancel">
         <template #[item]="data" v-for="item in Object.keys($slots)">
           <slot :name="item" v-bind="data"></slot>
         </template>
@@ -82,7 +82,7 @@
     setup(props, { emit, attrs }) {
       const visibleRef = ref(false);
       const propsRef = ref<Partial<ModalProps> | null>(null);
-      const modalWrapperRef = ref<ComponentRef>(null);
+      const modalWrapperRef = ref<any>(null);
 
       // modal   Bottom and top height
       const extHeightRef = ref(0);
@@ -133,7 +133,7 @@
       });
 
       const getBindValue = computed((): Recordable => {
-        const attr = { ...attrs, ...unref(getProps) };
+        const attr = { ...attrs, ...unref(getMergeProps), visible: unref(visibleRef) };
         if (unref(fullScreenRef)) {
           return omit(attr, 'height');
         }

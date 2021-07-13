@@ -26,6 +26,7 @@
   - 修复菜单默认折叠的配置不起作用的问题
   - 修复`safari`浏览器报错导致网站打不开
   - 修复在 window 上，拉取代码后 eslint 因 endOfLine 而保错问题
+- **Modal** 确保 props 正确被传递
 
 ### 🎫 Chores
 
