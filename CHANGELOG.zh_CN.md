@@ -22,11 +22,12 @@
   - 修复悬停触发模式下左侧混合菜单会在没有子菜单且被激活时直接跳转路由
 - **Breadcrumb** 修复带有重定向的菜单点击无法跳转的问题
 - **Markdown** 修复初始化异常以及不能正确地动态设置 value 的问题
+- **Modal** 确保 props 正确被传递
 - **其它**
   - 修复菜单默认折叠的配置不起作用的问题
   - 修复`safari`浏览器报错导致网站打不开
   - 修复在 window 上，拉取代码后 eslint 因 endOfLine 而保错问题
-- **Modal** 确保 props 正确被传递
+  - 修复因动态路由而产生的 `Vue Router warn`
 
 ### 🎫 Chores
 
