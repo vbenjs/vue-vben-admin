@@ -19,12 +19,6 @@ export function createPermissionGuard(router: Router) {
   const userStore = useUserStoreWithOut();
   const permissionStore = usePermissionStoreWithOut();
   router.beforeEach(async (to, from, next) => {
-    // Jump to the 404 page after processing the login
-    if (from.path === LOGIN_PATH && to.name === PAGE_NOT_FOUND_ROUTE.name) {
-      next(userStore.getUserInfo.homePath || PageEnum.BASE_HOME);
-      return;
-    }
-
     if (
       from.path === ROOT_PATH &&
       to.path === PageEnum.BASE_HOME &&
@@ -63,6 +57,17 @@ export function createPermissionGuard(router: Router) {
         };
       }
       next(redirectData);
+      return;
+    }
+
+    // Jump to the 404 page after processing the login
+    if (
+      from.path === LOGIN_PATH &&
+      to.name === PAGE_NOT_FOUND_ROUTE.name &&
+      to.fullPath !== (userStore.getUserInfo.homePath || PageEnum.BASE_HOME)
+    ) {
+      next(userStore.getUserInfo.homePath || PageEnum.BASE_HOME);
+      console.log({ from, to });
       return;
     }
 
