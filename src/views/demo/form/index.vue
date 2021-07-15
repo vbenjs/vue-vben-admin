@@ -46,6 +46,7 @@
 
   import { optionsListApi } from '/@/api/demo/select';
   import { useDebounceFn } from '@vueuse/core';
+  import { treeOptionsListApi } from '/@/api/demo/tree';
 
   const provincesOptions = [
     {
@@ -346,6 +347,20 @@
         span: 8,
       },
       defaultValue: '0',
+    },
+    {
+      field: 'field33',
+      component: 'ApiTreeSelect',
+      label: '远程下拉树',
+      helpMessage: ['ApiTreeSelect组件', '使用接口提供的数据生成选项'],
+      required: true,
+      componentProps: {
+        api: treeOptionsListApi,
+        resultField: 'list',
+      },
+      colProps: {
+        span: 8,
+      },
     },
     {
       field: 'field20',
