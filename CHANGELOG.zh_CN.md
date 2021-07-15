@@ -13,7 +13,9 @@
   - 新增`headerTop`插槽
   - 修复操作列的按钮在 disabled 状态下的颜色显示
 - **AppSearch** 修复可能会搜索隐藏菜单的问题
-- **TableAction** 仅在 action.tooltip 存在的情况下 才包裹 Tooltip 组件
+- **TableAction**
+  - 仅在 action.tooltip 存在的情况下 才包裹 Tooltip 组件
+  - 修复组件内的圆形按钮内容没有居中的问题
 - **BasicUpload** 修复处理非`array`值时报错的问题
 - **Form** 修复`FormItem`的`suffix`插槽样式问题
 - **Menu**

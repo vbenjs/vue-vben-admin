@@ -3,22 +3,12 @@
     <template v-for="(action, index) in getActions" :key="`${index}-${action.label}`">
       <Tooltip v-if="action.tooltip" v-bind="getTooltip(action.tooltip)">
         <PopConfirmButton v-bind="action">
-          <Icon
-            :icon="action.icon"
-            :class="{ 'mr-1': action.label }"
-            :style="{ margin: action.label ? '' : 'auto !important' }"
-            v-if="action.icon"
-          />
+          <Icon :icon="action.icon" :class="{ 'mr-1': !!action.label }" v-if="action.icon" />
           <template v-if="action.label">{{ action.label }}</template>
         </PopConfirmButton>
       </Tooltip>
       <PopConfirmButton v-else v-bind="action">
-        <Icon
-          :icon="action.icon"
-          :class="{ 'mr-1': action.label }"
-          :style="{ margin: action.label ? '' : 'auto !important' }"
-          v-if="action.icon"
-        />
+        <Icon :icon="action.icon" :class="{ 'mr-1': !!action.label }" v-if="action.icon" />
         <template v-if="action.label">{{ action.label }}</template>
       </PopConfirmButton>
       <Divider
@@ -189,6 +179,12 @@
 
       span {
         margin-left: 0 !important;
+      }
+    }
+
+    button.ant-btn-circle {
+      span {
+        margin: auto !important;
       }
     }
 
