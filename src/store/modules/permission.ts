@@ -123,15 +123,19 @@ export const usePermissionStore = defineStore({
        * */
       const patchHomeAffix = (routes: AppRouteRecordRaw[]) => {
         if (!routes || routes.length === 0) return;
-        const homePath = userStore.getUserInfo.homePath || PageEnum.BASE_HOME;
+        let homePath: string = userStore.getUserInfo.homePath || PageEnum.BASE_HOME;
         function patcher(routes: AppRouteRecordRaw[], parentPath = '') {
           if (parentPath) parentPath = parentPath + '/';
           routes.forEach((route: AppRouteRecordRaw) => {
-            const { path, children } = route;
+            const { path, children, redirect } = route;
             const currentPath = path.startsWith('/') ? path : parentPath + path;
             if (currentPath === homePath) {
-              route.meta = Object.assign({}, route.meta, { affix: true });
-              throw new Error('end');
+              if (redirect) {
+                homePath = route.redirect! as string;
+              } else {
+                route.meta = Object.assign({}, route.meta, { affix: true });
+                throw new Error('end');
+              }
             }
             children && children.length > 0 && patcher(children, currentPath);
           });
