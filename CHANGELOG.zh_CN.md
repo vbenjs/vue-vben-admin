@@ -2,6 +2,7 @@
 
 - **NoticeList** 添加分页、超长自动省略、标题点击事件、标题删除线等功能
 - **MixSider** 优化 Mix 菜单布局时 底部折叠按钮 的样式，与其它菜单布局时的风格保持一致
+- **ApiTreeSelect** 扩展`antdv`的`TreeSelect`组件，支持远程数据源，用法类似`ApiSelect`
 - 可以为不同的用户指定不同的后台首页：
   - 在`getUserInfo`接口返回的用户信息中增加`homePath`字段(可选)即可为当前用户定制首页路径
 

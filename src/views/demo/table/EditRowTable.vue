@@ -80,6 +80,10 @@
             label: 'Option2',
             value: '2',
           },
+          {
+            label: 'Option3',
+            value: '3',
+          },
         ],
       },
       width: 200,
@@ -91,6 +95,9 @@
       editComponent: 'ApiSelect',
       editComponentProps: {
         api: optionsListApi,
+        resultField: 'list',
+        labelField: 'name',
+        valueField: 'id',
       },
       width: 200,
     },

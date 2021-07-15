@@ -84,6 +84,9 @@
       editComponent: 'ApiSelect',
       editComponentProps: {
         api: optionsListApi,
+        resultField: 'list',
+        labelField: 'name',
+        valueField: 'id',
       },
       width: 200,
     },
