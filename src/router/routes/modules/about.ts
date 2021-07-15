@@ -22,7 +22,7 @@ const dashboard: AppRouteModule = {
       meta: {
         title: t('routes.dashboard.about'),
         icon: 'simple-icons:about-dot-me',
-        // hideMenu: true,
+        hideMenu: true,
       },
     },
   ],
