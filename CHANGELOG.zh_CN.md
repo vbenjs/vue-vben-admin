@@ -8,15 +8,15 @@
 
 ### 🐛 Bug Fixes
 
-- **Table**
-  - 修复滚动条样式问题
+- **BasicTable**
+  - 修复滚动条样式问题(移除了滚动样式补丁)
   - 修复树形表格的带有展开图标的单元格的内容对齐问题
   - 新增`headerTop`插槽
   - 修复操作列的按钮在 disabled 状态下的颜色显示
-- **AppSearch** 修复可能会搜索隐藏菜单的问题
 - **TableAction**
-  - 仅在 action.tooltip 存在的情况下 才包裹 Tooltip 组件
+  - 仅在 `action.tooltip`存在的情况下 才创建 Tooltip 组件
   - 修复组件内的圆形按钮内容没有居中的问题
+- **AppSearch** 修复可能会搜索隐藏菜单的问题
 - **BasicUpload** 修复处理非`array`值时报错的问题
 - **Form** 修复`FormItem`的`suffix`插槽样式问题
 - **Menu**
@@ -27,6 +27,7 @@
 - **Markdown** 修复初始化异常以及不能正确地动态设置 value 的问题
 - **Modal** 确保 props 正确被传递
 - **MultipleTab** 修复可能会意外创建登录路由标签的问题
+- **BasicTree** 修复搜索功能可能导致`checkedKeys`丢失的问题
 - **其它**
   - 修复菜单默认折叠的配置不起作用的问题
   - 修复`safari`浏览器报错导致网站打不开
