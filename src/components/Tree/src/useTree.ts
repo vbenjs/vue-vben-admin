@@ -27,6 +27,28 @@ export function useTree(
     return keys as Keys;
   }
 
+  function getChildrenKeys(nodeKey: string | number, list?: TreeDataItem[]): Keys {
+    const keys: Keys = [];
+    const treeData = list || unref(treeDataRef);
+    const { key: keyField, children: childrenField } = unref(getReplaceFields);
+    if (!childrenField || !keyField) return keys;
+    for (let index = 0; index < treeData.length; index++) {
+      const node = treeData[index];
+      const children = node[childrenField];
+      if (nodeKey === node[keyField]) {
+        keys.push(node[keyField]!);
+        if (children && children.length) {
+          keys.push(...(getAllKeys(children) as string[]));
+        }
+      } else {
+        if (children && children.length) {
+          keys.push(...getChildrenKeys(nodeKey, children));
+        }
+      }
+    }
+    return keys as Keys;
+  }
+
   // Update node
   function updateNodeByKey(key: string, node: TreeDataItem, list?: TreeDataItem[]) {
     if (!key) return;
@@ -146,5 +168,6 @@ export function useTree(
     filterByLevel,
     updateNodeByKey,
     getAllKeys,
+    getChildrenKeys,
   };
 }

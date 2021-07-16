@@ -18,8 +18,8 @@
   import TreeHeader from './TreeHeader.vue';
   import { ScrollContainer } from '/@/components/Container';
 
-  import { omit, get, cloneDeep, concat, uniq } from 'lodash-es';
-  import { isBoolean, isFunction } from '/@/utils/is';
+  import { omit, get, difference } from 'lodash-es';
+  import { isArray, isBoolean, isFunction } from '/@/utils/is';
   import { extendSlots, getSlot } from '/@/utils/helper/tsxHelper';
   import { filter } from '/@/utils/helper/treeHelper';
 
@@ -56,25 +56,6 @@
         searchData: [] as TreeItem[],
       });
 
-      const copyState = {
-        checkedKeys: [],
-      };
-
-      watch(
-        () => searchState.startSearch,
-        (newVal, oldVal) => {
-          if (newVal && !oldVal) {
-            // before search, save current checkedKeys
-            copyState.checkedKeys = cloneDeep(state.checkedKeys);
-          } else if (!newVal && oldVal) {
-            // after search,  restore checkedKeys
-            state.checkedKeys = uniq(concat(state.checkedKeys, copyState.checkedKeys));
-            copyState.checkedKeys = [];
-          }
-        },
-        { immediate: true }
-      );
-
       const treeDataRef = ref<TreeItem[]>([]);
 
       const [createContextMenu] = useContextMenu();
@@ -109,8 +90,19 @@
             emit('update:selectedKeys', v);
           },
           onCheck: (v: CheckKeys, e: CheckEvent) => {
-            state.checkedKeys = v;
-            const rawVal = toRaw(v);
+            let currentValue = toRaw(state.checkedKeys) as Keys;
+            if (isArray(currentValue) && searchState.startSearch) {
+              const { key } = unref(getReplaceFields);
+              currentValue = difference(currentValue, getChildrenKeys(e.node.$attrs.node[key]));
+              if (e.checked) {
+                currentValue.push(e.node.$attrs.node[key]);
+              }
+              state.checkedKeys = currentValue;
+            } else {
+              state.checkedKeys = v;
+            }
+
+            const rawVal = toRaw(state.checkedKeys);
             emit('update:value', rawVal);
             emit('check', rawVal, e);
           },
@@ -134,6 +126,7 @@
         filterByLevel,
         updateNodeByKey,
         getAllKeys,
+        getChildrenKeys,
       } = useTree(treeDataRef, getReplaceFields);
 
       function getIcon(params: Recordable, icon?: string) {
