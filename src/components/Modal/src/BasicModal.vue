@@ -133,7 +133,12 @@
       });
 
       const getBindValue = computed((): Recordable => {
-        const attr = { ...attrs, ...unref(getMergeProps), visible: unref(visibleRef) };
+        const attr = {
+          ...attrs,
+          ...unref(getMergeProps),
+          visible: unref(visibleRef),
+          wrapClassName: unref(getWrapClassName),
+        };
         if (unref(fullScreenRef)) {
           return omit(attr, 'height');
         }
