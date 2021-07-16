@@ -154,6 +154,7 @@
 
       watchEffect(() => {
         defaultValueRef.value = props.value;
+        currentValueRef.value = props.value;
       });
 
       watchEffect(() => {
