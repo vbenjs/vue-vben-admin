@@ -3,7 +3,7 @@ import { resultSuccess } from '../_util';
 
 const demoList = (keyword) => {
   const result = {
-    list: [],
+    list: [] as any[],
   };
   for (let index = 0; index < 20; index++) {
     result.list.push({
