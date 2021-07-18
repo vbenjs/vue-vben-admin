@@ -8,11 +8,12 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, ref } from 'vue';
   import { BasicTable, useTable, BasicColumn } from '/@/components/Table';
   import { optionsListApi } from '/@/api/demo/select';
 
   import { demoListApi } from '/@/api/demo/table';
+  const optionsData = ref([]);
   const columns: BasicColumn[] = [
     {
       title: '输入框',
@@ -87,6 +88,17 @@
         resultField: 'list',
         labelField: 'name',
         valueField: 'id',
+        onOptionsChange(options) {
+          optionsData.value = options;
+        },
+      },
+      editValueMap(value: any) {
+        const found = optionsData.value.find((option) => option.id === value);
+        if (found) {
+          return found.name;
+        } else {
+          return value;
+        }
       },
       width: 200,
     },
