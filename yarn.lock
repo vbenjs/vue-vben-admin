@@ -1468,21 +1468,21 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@logicflow/core@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@logicflow/core/-/core-0.6.0.tgz#2950dc8abbc16f8923f3b2f94118313e2247f267"
-  integrity sha512-B3kZOTmt4G8fwrB7uV9h35rSxd0yJz98x3NH51IsTX0V1XlSU7FJi8MHKGjwAx87K9fZmPcRfDxbHXZVyV6aKQ==
+"@logicflow/core@^0.6.1":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@logicflow/core/-/core-0.6.1.tgz#a3c7f713a187919320c9b1e661c227b4f1ee832e"
+  integrity sha512-pJWkoB2fWFo6qVNdwQcnCyADR+wAFuQshOYaEX8ddLjXHrhUA0XVCNUoyCKajbLUqbhE+X9ho149tWoc0CCQaw==
   dependencies:
     "@types/mousetrap" "^1.6.4"
     mousetrap "^1.6.5"
     preact "^10.4.8"
 
-"@logicflow/extension@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@logicflow/extension/-/extension-0.6.0.tgz#8f6a49cff240c2cdb354ba372b0ffe3fe51b569f"
-  integrity sha512-NPRF24Xtn/77rO3CWBPDt+V2DLwrOVf8D7zkUH9mFI1WbsWjzlzu76c1UvXbEe/oycqhQh7ft1uV8edj7DU8tA==
+"@logicflow/extension@^0.6.1":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@logicflow/extension/-/extension-0.6.1.tgz#c91a5e9103684c78b387ac2bab6a6e3c0485f997"
+  integrity sha512-mC/xka9PCOkCbef20BK6CJooa8pBC4/6sUqc1WFPLAy6LlNoVdLoBwDSHglRzvb/lqre7mtDqoFvnSNvT18txg==
   dependencies:
-    "@logicflow/core" "^0.6.0"
+    "@logicflow/core" "^0.6.1"
     ids "^1.0.0"
     preact "^10.4.8"
 
@@ -2356,18 +2356,18 @@
   resolved "https://registry.npmjs.org/@vue/test-utils/-/test-utils-2.0.0-rc.10.tgz#9ed689cd7d5a1c9ef6693806010e464d2ecc13b2"
   integrity sha512-Z8jY+askU08svsI37NcJSLmWrfkZ/1ATA1DENWezRUX2uv3QyEj7idwx+rfeNSOrlNNBh4NTzypBKOUOklxBRA==
 
-"@vueuse/core@^5.1.3":
-  version "5.1.3"
-  resolved "https://registry.npmjs.org/@vueuse/core/-/core-5.1.3.tgz#a9edda9202513423a27fbac896dd7bc918d1ac6c"
-  integrity sha512-5CmF/epSo9L1Obz3A37UJOpDdno0BDw46zyXq0DHgvzEwL6gPb9GgJZcy4Hm5YSjQYIeQPo35uO8qsZyIjEZog==
+"@vueuse/core@^5.1.4":
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-5.1.4.tgz#c590bd1ff5cdd3d2caa033b65ed8cb42fc12a534"
+  integrity sha512-iuRhSaScI1GJS4N3CFPc1GajOr6F6J1Nng1I6ocNOjLx+evss6egImx9wnuX45fxqQstnh7Vfqe3FF7+0NgoWg==
   dependencies:
-    "@vueuse/shared" "5.1.3"
+    "@vueuse/shared" "5.1.4"
     vue-demi "*"
 
-"@vueuse/shared@5.1.3":
-  version "5.1.3"
-  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-5.1.3.tgz#11faa3a1a2b4d3dc41eac7a825900a8894efe95e"
-  integrity sha512-p8n/69QMtSsLN5rri9c3sN5QJJXWA7cm9chgo3DowTBRYLBni1I9kGY2nz299Tur6XEFuf+63E5TvMTJVJeHHw==
+"@vueuse/shared@5.1.4":
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-5.1.4.tgz#35e3aa8ce7e52b447191915ee8b4afa481838c43"
+  integrity sha512-C0xiMv8+sFI3WhXdlrcLKI4d4dFnouHe4Te51cxWgcmpW7S8eUiM8fXPaQVxUQZ4E9PCx3zEZpNpCLzQa+6Lag==
   dependencies:
     vue-demi "*"
 
@@ -2535,10 +2535,10 @@ ansi-styles@^5.0.0:
   resolved "https://registry.npmjs.org/ansi-styles/-/ansi-styles-5.2.0.tgz#07449690ad45777d1924ac2abb2fc8895dba836b"
   integrity sha512-Cxwpt2SfTzTtXcfOlzGEee8O+c+MmUgGrNiBcXnuWxuFJHe6a5Hz7qwhwe5OgaSYI0IJvkLqWX1ASG+cJOkEiA==
 
-ant-design-vue@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-2.2.1.tgz#263716745a8a92673b4b3ba2d382919e38129212"
-  integrity sha512-pxcvVhxQ39JkWl8uLq+W51FIho4kJQve3BhnnlSTz8rcg6yctz6kH+ieOA20AWhkau+/Gk0X2rug2bjBpiA0hw==
+ant-design-vue@2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/ant-design-vue/-/ant-design-vue-2.2.2.tgz#197388583c4e0b8ccd9c50ed19831ede27c2b919"
+  integrity sha512-Gmed9dVw4oqYmuO3ubkXbRBadldE82XSt6Gqq3F2grvORKXYoJF/3CaMwfyRN81UaoRhWVTHmLeGLzuVpwJepw==
   dependencies:
     "@ant-design/icons-vue" "^6.0.0"
     "@babel/runtime" "^7.10.5"
@@ -4609,6 +4609,11 @@ esbuild@^0.11.23:
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.11.23.tgz#c42534f632e165120671d64db67883634333b4b8"
   integrity sha512-iaiZZ9vUF5wJV8ob1tl+5aJTrwDczlvGP0JoMmnpC2B0ppiMCu8n8gmy5ZTGl5bcG081XBVn+U+jP+mPFm5T5Q==
 
+esbuild@^0.12.5:
+  version "0.12.15"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.15.tgz#9d99cf39aeb2188265c5983e983e236829f08af0"
+  integrity sha512-72V4JNd2+48eOVCXx49xoSWHgC3/cCy96e7mbXKY+WOWghN00cCmlGnwVLRhRHorvv0dgCyuMYBZlM2xDM5OQw==
+
 esbuild@^0.12.6, esbuild@^0.12.8:
   version "0.12.9"
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.12.9.tgz#bed4e7087c286cd81d975631f77d47feb1660070"
@@ -5383,7 +5388,7 @@ fs.realpath@^1.0.0:
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
 
-fsevents@^2.3.2, fsevents@~2.3.2:
+fsevents@^2.3.2, fsevents@~2.3.1, fsevents@~2.3.2:
   version "2.3.2"
   resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
   integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
@@ -11367,17 +11372,17 @@ vite-plugin-theme@^0.8.1:
     esbuild-plugin-alias "^0.1.2"
     tinycolor2 "^1.4.2"
 
-vite@2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-2.4.2.tgz#07d00615775c808530bc9f65641062b349b67929"
-  integrity sha512-2MifxD2I9fjyDmmEzbULOo3kOUoqX90A58cT6mECxoVQlMYFuijZsPQBuA14mqSwvV3ydUsqnq+BRWXyO9Qa+w==
+vite@2.3.6:
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-2.3.6.tgz#1f7cfde88a51a802d69000c7bac85d481c2e871c"
+  integrity sha512-fsEpNKDHgh3Sn66JH06ZnUBnIgUVUtw6ucDhlOj1CEqxIkymU25yv1/kWDPlIjyYHnalr0cN6V+zzUJ+fmWHYw==
   dependencies:
-    esbuild "^0.12.8"
-    postcss "^8.3.5"
-    resolve "^1.20.0"
+    esbuild "^0.12.5"
+    postcss "^8.2.10"
+    resolve "^1.19.0"
     rollup "^2.38.5"
   optionalDependencies:
-    fsevents "~2.3.2"
+    fsevents "~2.3.1"
 
 void-elements@^3.1.0:
   version "3.1.0"
