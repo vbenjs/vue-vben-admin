@@ -45,6 +45,7 @@
   import { isString, isBoolean, isFunction, isNumber, isArray } from '/@/utils/is';
   import { createPlaceholderMessage } from './helper';
   import { set, omit } from 'lodash-es';
+  import { treeToList } from '/@/utils/helper/treeHelper';
 
   export default defineComponent({
     name: 'EditableCell',
@@ -276,9 +277,23 @@
         }
       }
 
-      // only ApiSelect
+      // only ApiSelect or TreeSelect
       function handleOptionsChange(options: LabelValueOptions) {
-        optionsRef.value = options;
+        const { replaceFields } = props.column?.editComponentProps ?? {};
+        const component = unref(getComponent);
+        if (component === 'ApiTreeSelect') {
+          const { title = 'title', value = 'value', children = 'children' } = replaceFields || {};
+          let listOptions: Recordable[] = treeToList(options, { children });
+          listOptions = listOptions.map((item) => {
+            return {
+              label: item[title],
+              value: item[value],
+            };
+          });
+          optionsRef.value = listOptions as LabelValueOptions;
+        } else {
+          optionsRef.value = options;
+        }
       }
 
       function initCbs(cbs: 'submitCbs' | 'validCbs' | 'cancelCbs', handle: Fn) {
