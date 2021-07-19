@@ -30,6 +30,7 @@
 - **MultipleTab** 修复可能会意外创建登录路由标签的问题
 - **BasicTree** 修复搜索功能可能导致`checkedKeys`丢失的问题
 - **CodeEditor** 修复 value 不支持 v-model 用法的问题
+- **CountdownInput** 修复不支持`input`插槽的问题
 - **其它**
   - 修复菜单默认折叠的配置不起作用的问题
   - 修复`safari`浏览器报错导致网站打不开
