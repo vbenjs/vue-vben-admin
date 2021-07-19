@@ -8,12 +8,12 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
+  import { defineComponent } from 'vue';
   import { BasicTable, useTable, BasicColumn } from '/@/components/Table';
   import { optionsListApi } from '/@/api/demo/select';
 
   import { demoListApi } from '/@/api/demo/table';
-  const optionsData = ref([]);
+  import { treeOptionsListApi } from '/@/api/demo/tree';
   const columns: BasicColumn[] = [
     {
       title: '输入框',
@@ -88,17 +88,18 @@
         resultField: 'list',
         labelField: 'name',
         valueField: 'id',
-        onOptionsChange(options) {
-          optionsData.value = options;
-        },
       },
-      editValueMap(value: any) {
-        const found = optionsData.value.find((option) => option.id === value);
-        if (found) {
-          return found.name;
-        } else {
-          return value;
-        }
+      width: 200,
+    },
+    {
+      title: '远程下拉树',
+      dataIndex: 'name7',
+      edit: true,
+      editComponent: 'ApiTreeSelect',
+      editRule: false,
+      editComponentProps: {
+        api: treeOptionsListApi,
+        resultField: 'list',
       },
       width: 200,
     },

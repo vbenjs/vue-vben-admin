@@ -3,6 +3,7 @@
 - **NoticeList** 添加分页、超长自动省略、标题点击事件、标题删除线等功能
 - **MixSider** 优化 Mix 菜单布局时 底部折叠按钮 的样式，与其它菜单布局时的风格保持一致
 - **ApiTreeSelect** 扩展`antdv`的`TreeSelect`组件，支持远程数据源，用法类似`ApiSelect`
+- **BasicTable** 新增`ApiTreeSelect`编辑组件
 - 可以为不同的用户指定不同的后台首页：
   - 在`getUserInfo`接口返回的用户信息中增加`homePath`字段(可选)即可为当前用户定制首页路径
 
@@ -14,6 +15,8 @@
   - 新增`headerTop`插槽
   - 修复操作列的按钮在 disabled 状态下的颜色显示
   - 修复可编辑单元格的值不能直接通过修改`dataSource`来更新显示的问题
+  - 修复使用`ApiSelect`编辑组件时的数据回显问题
+  - 修复在部分场景下编辑组件可能会报`onXXX`类型错误的问题
 - **TableAction**
   - 仅在 `action.tooltip`存在的情况下 才创建 Tooltip 组件
   - 修复组件内的圆形按钮内容没有居中的问题
