@@ -1,3 +1,68 @@
+## [2.6.1](https://github.com/anncwb/vue-vben-admin/compare/v2.6.0...v2.6.1) (2021-07-19)
+
+### Bug Fixes
+
+- **api-select:** fix `options-change` event data ([897bed9](https://github.com/anncwb/vue-vben-admin/commit/897bed97295a0b9101d33102340749689a4368de))
+- **api-tree-select:** auto load data if necessary ([1b3058f](https://github.com/anncwb/vue-vben-admin/commit/1b3058f8253effe974feaf08a12250a111ab58c0))
+- **api-tree-select:** fix `event` checked in form ([d9d0071](https://github.com/anncwb/vue-vben-admin/commit/d9d00714011fa7914c61f990ce1159351ee21a1a))
+- **app-search:** exclude hidden items ([faf5c9f](https://github.com/anncwb/vue-vben-admin/commit/faf5c9fd7ea40c407419a5a5c473f9b0c32c2a53))
+- **app-search:** exclude items by `hideChildrenInMenu` ([02d3dca](https://github.com/anncwb/vue-vben-admin/commit/02d3dca57efedc1322ae38e3f432cf1f6c2cf839))
+- **basic-tree:** `checkedKeys` not worked with `search` ([b06a7ab](https://github.com/anncwb/vue-vben-admin/commit/b06a7ab77b99abee63dd55770ffd55b594ee42f9)), closes [#915](https://github.com/anncwb/vue-vben-admin/issues/915)
+- **breadcrumb:** `redirect` not worked ([f5e31fe](https://github.com/anncwb/vue-vben-admin/commit/f5e31febbd18372a34166cac390b1d9b914fe80e))
+- **code-editor:** `value` not support use as `v-model` ([8832a07](https://github.com/anncwb/vue-vben-admin/commit/8832a074dceb44f057c87289d3a99feef58c08fd)), closes [#933](https://github.com/anncwb/vue-vben-admin/issues/933)
+- **countdown-input:** add `slots` support ([a764a95](https://github.com/anncwb/vue-vben-admin/commit/a764a95ae9a6cff831f75aa97b00724cadc48e92))
+- **CountTo:** Fix displaying empty string when the value is 0 ([#864](https://github.com/anncwb/vue-vben-admin/issues/864)) ([82eb72b](https://github.com/anncwb/vue-vben-admin/commit/82eb72bbced931ba7f50069211f9511035ad09f4))
+- **demo:** `setup` page route config ([d5d5c4b](https://github.com/anncwb/vue-vben-admin/commit/d5d5c4b4bfb3e3a5e54f9993966adc46a09a8b90))
+- **demo:** add mock data `account detail` route ([993e19d](https://github.com/anncwb/vue-vben-admin/commit/993e19dcc319e2b4c68df2ab76174b7b4d7b0428)), closes [#858](https://github.com/anncwb/vue-vben-admin/issues/858)
+- **demo:** fix display problem of editable table with `apiSelect` ([535bddd](https://github.com/anncwb/vue-vben-admin/commit/535bdddf91785e20295c18cf80c8a22cc2172681))
+- **demo:** form pages support `keepAlive` ([9228282](https://github.com/anncwb/vue-vben-admin/commit/9228282ae27daaa246f42e441e27b1b05eb30464))
+- **demo:** resolve `key not exist` warnings ([45a94e4](https://github.com/anncwb/vue-vben-admin/commit/45a94e41c1397b84d08373f84f766204d2488714))
+- **form:** fix `suffix` slot style ([a9bbed1](https://github.com/anncwb/vue-vben-admin/commit/a9bbed19739376ab2bf67a14b04e872f14ca84cc))
+- **formItem:** Fix labelcol type mismatch ([#903](https://github.com/anncwb/vue-vben-admin/issues/903)) ([03b17a8](https://github.com/anncwb/vue-vben-admin/commit/03b17a8f8bdb50322aa10e3b614bcc40b9e9dcc8))
+- **markdown:** resolving markdown exceptions ([d95815b](https://github.com/anncwb/vue-vben-admin/commit/d95815b5031984e224140eb1b1d46e2dbf80abc1))
+- **markdown:** set `value` error ([35e1347](https://github.com/anncwb/vue-vben-admin/commit/35e1347029e29a83a9648b6b398e6863cc40fca9))
+- **menu:** display error when contains hidden items ([5ceeefd](https://github.com/anncwb/vue-vben-admin/commit/5ceeefd17d9ddc0e8844b900069b100f24d9c00e))
+- **menu:** fix mix-menu incorrect jumping in `hover` mode ([cad021c](https://github.com/anncwb/vue-vben-admin/commit/cad021c34b71fa109640af75a0c2b72179e9e257))
+- **mix-sider:** fix mix-sider hover logic ([0595a72](https://github.com/anncwb/vue-vben-admin/commit/0595a72da9c666af81a0916663e8e6a014e6fa69))
+- **modal:** ensure that props are passed correctly,fix [#897](https://github.com/anncwb/vue-vben-admin/issues/897) ([ae7821e](https://github.com/anncwb/vue-vben-admin/commit/ae7821e29690bea8934ea724bfd0ae4e2cf30c77))
+- **modal:** fixed `fullscreen` not worked ([5baaa58](https://github.com/anncwb/vue-vben-admin/commit/5baaa58581f22a915cda9fa39e4cb9f094254d3b)), closes [#918](https://github.com/anncwb/vue-vben-admin/issues/918)
+- **model:** auto validate on value change ([f844017](https://github.com/anncwb/vue-vben-admin/commit/f8440175f35076073c9f53483cf6c0164d427ff4)), closes [#920](https://github.com/anncwb/vue-vben-admin/issues/920)
+- **table:** fix index column style ([c7c0a7e](https://github.com/anncwb/vue-vben-admin/commit/c7c0a7e4c88a895000b1621981e4d4b2020c64b1))
+- **table:** `value` show problem in editable cell ([61ce25b](https://github.com/anncwb/vue-vben-admin/commit/61ce25be1b40d7a0e26205ca6a6757c6c43fc21e)), closes [#922](https://github.com/anncwb/vue-vben-admin/issues/922)
+- **table-action:** fixed icon `margin` without label ([dc51e6a](https://github.com/anncwb/vue-vben-admin/commit/dc51e6a8d4e4f2c97b387b37959944c9bb49d779))
+- **tree:** fixed `checkedKeys` with `search` mode ([f707541](https://github.com/anncwb/vue-vben-admin/commit/f707541dda78146bda89814ddccbb259d9f5d8a2))
+- fix homePage affix error ([c117802](https://github.com/anncwb/vue-vben-admin/commit/c1178027f0fab2791d02efcd7c52beff5fc7dc25))
+- **table-action:** fix `circle` button style ([db7254a](https://github.com/anncwb/vue-vben-admin/commit/db7254a5e0ac6d10a7ea37334ad523b150facb19))
+- `menuSetting` can not set collapsed to false as default ([808291b](https://github.com/anncwb/vue-vben-admin/commit/808291b503d59e3026f5f0b5e7a38b9c69bcc451))
+- ensure PAGE_NOT_FOUND_ROUTE exist ([87583c8](https://github.com/anncwb/vue-vben-admin/commit/87583c8b54d335ddf1c416859ef62bbde189c809))
+- ensure that safari is running properly, fix [#875](https://github.com/anncwb/vue-vben-admin/issues/875) ([dafcdd8](https://github.com/anncwb/vue-vben-admin/commit/dafcdd898caae57104f1155b0ec660ea333e7b19))
+- infinite redirect in `BACK` mode ([4b46a84](https://github.com/anncwb/vue-vben-admin/commit/4b46a84c2b85e8da799426c54b3381ae93183db4))
+- **multiple-tab:** ignore login page ([1e63379](https://github.com/anncwb/vue-vben-admin/commit/1e63379088e1d7c823f29f607ab49d62ca22cb25))
+- resolving `Vue Router warn` ([237e65e](https://github.com/anncwb/vue-vben-admin/commit/237e65eac909368c4b4857da6c8deb1dc18e7684))
+- **table:** fix tree node align ([1e61da6](https://github.com/anncwb/vue-vben-admin/commit/1e61da644f65a79ce10fde98ee017aba7d36be10)), closes [#829](https://github.com/anncwb/vue-vben-admin/issues/829)
+- **table:** scrollbar style ([d8c3820](https://github.com/anncwb/vue-vben-admin/commit/d8c38207c08510d805a8dc66ffbba210e0cf4215))
+- **table-action:** incorrect button color of `disabled` state ([0f28e80](https://github.com/anncwb/vue-vben-admin/commit/0f28e803d0b65537216cd9f40ad5cad63c20db9b)), closes [#891](https://github.com/anncwb/vue-vben-admin/issues/891)
+- **upload:** ensure the value type is correct ([05329ce](https://github.com/anncwb/vue-vben-admin/commit/05329ce9501eb899a0bbb45320e5807c83372317))
+- **useWatermark:** fix `func` call `createWatermark` call `clear` to resizeEvent removed ([#901](https://github.com/anncwb/vue-vben-admin/issues/901)) ([a1d956d](https://github.com/anncwb/vue-vben-admin/commit/a1d956d3697cd07e0ba8910768f2a73e55f18491))
+
+### Features
+
+- **api-tree-select:** add `api` options to tree-select ([d81db89](https://github.com/anncwb/vue-vben-admin/commit/d81db890dfeb533d60f378ddb86f8ac50a31252b))
+- **basic-table:** add `ApiTreeSelect` edit component ([52af1dd](https://github.com/anncwb/vue-vben-admin/commit/52af1dd0d494e66c0af20f886dcc2b983cbb096f))
+- **demo:** multi-modal in one page usage ([7a7dab0](https://github.com/anncwb/vue-vben-admin/commit/7a7dab0c4b3602b7bd3e9381408e4168d7494c52))
+- customized user home page ([0a3683a](https://github.com/anncwb/vue-vben-admin/commit/0a3683a186ab55d34a12a5a3c6d794dfa1094ad4))
+- **api-select:** clear options before fetch ([9cf070d](https://github.com/anncwb/vue-vben-admin/commit/9cf070dd6305bb69a67ab6be85ef00bddc86fda0))
+- **demo:** add basicTree with async data expand all ([5421211](https://github.com/anncwb/vue-vben-admin/commit/542121129eb5bf65f61e7b484835591756c80f04))
+- **demo:** add search demo for apiSelect ([41e6d94](https://github.com/anncwb/vue-vben-admin/commit/41e6d94b3b64dc0d40b7ec57ecfaa4d966f202ae))
+- **demo:** demo default expanded tree table ([5f1a6cd](https://github.com/anncwb/vue-vben-admin/commit/5f1a6cdc599d5840df2dfebdaad029aac093cd81))
+- **notice-list:** add `pagination` support ([c16be2c](https://github.com/anncwb/vue-vben-admin/commit/c16be2c499d90126dfa35d699da9294c21a4ab48)), closes [#894](https://github.com/anncwb/vue-vben-admin/issues/894)
+- **table:** add `headerTop` slot ([540423e](https://github.com/anncwb/vue-vben-admin/commit/540423ecf741a815d28d7a6baa1541ac884efe95)), closes [#881](https://github.com/anncwb/vue-vben-admin/issues/881)
+
+### Performance Improvements
+
+- **menu:** Optimize the style of the bottom collapse button in the Mix menu layout ([#896](https://github.com/anncwb/vue-vben-admin/issues/896)) ([6f83070](https://github.com/anncwb/vue-vben-admin/commit/6f830703a2607c33e5d25d6d17d0e453fc2fac2e))
+- image compression configuration optimization ([cf840e3](https://github.com/anncwb/vue-vben-admin/commit/cf840e3e73b9572de0ba7bf7b32d83f6a353a8ad))
+
 # [2.6.0](https://github.com/anncwb/vue-vben-admin/compare/v2.5.2...v2.6.0) (2021-07-04)
 
 ### Bug Fixes

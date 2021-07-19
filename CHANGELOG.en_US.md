@@ -1,3 +1,52 @@
+## 2.6.1(2021-07-19)
+
+### ✨ Features
+
+- **NoticeList** Add pagination, auto omit for overlength, title click event, title strikethrough, etc.
+- **MixSider** Optimize the style of the bottom collapse button in the Mix menu layout to be consistent with the style of other menu layouts
+- **ApiTreeSelect** Extend `TreeSelect` component of `antdv` to support remote data source, similar to `ApiSelect`.
+- **BasicTable** New `ApiTreeSelect` editing component
+- Different backend home pages can be specified for different users.
+  - Add `homePath` field (optional) to the user information returned by the `getUserInfo` interface to customize the home page path for the current user
+
+### 🐛 Bug Fixes
+
+- **BasicTable**
+  - Fix scrollbar style issue (removed scroll style patch)
+  - Fix the alignment problem of cells with expanded icons in tree tables
+  - Add `headerTop` slot.
+  - Fix the color display of the operation column button in disabled state.
+  - Repair the problem that the values of editable cells cannot be updated by modifying `dataSource` directly.
+  - Repair the problem of data replay when using `ApiSelect` to edit components.
+  - Repair the problem that editing components may report `onXXX` type error in some scenarios.
+- **TableAction**
+  - Create Tooltip component only if `action.tooltip` exists.
+  - Fix the problem that the content of the round button inside the component is not centered
+- **AppSearch** Fix the problem that the hidden menu may be searched.
+- **BasicUpload** Repair the problem of error when handling non-`array` values.
+- **Form** Repair the `suffix` slot style problem of `FormItem`.
+- **Menu**
+  - Repair the hovering trigger logic of the left mixed menu
+  - Repair the problem that the top bar menu is wrong when displaying menu items that need to be hidden.
+  - Fix the left mixed menu in hover trigger mode will jump to route directly when there is no submenu and it is activated
+- **Breadcrumb** Repair the problem that the menu with redirection cannot be jumped when clicked
+- **Markdown** fixes an initialization exception and an issue where value was not set dynamically correctly
+- **Modal** Make sure props are passed correctly
+- **MultipleTab** fixes an issue that could accidentally create login route tabs
+- **BasicTree** Fix the problem that the search function may cause `checkedKeys` to be lost
+- **CodeEditor** Fix the problem that value does not support v-model usage.
+- **CountdownInput** Fix the problem that `input` slot is not supported.
+- **ApiSelect** Fix the problem that the `options-change` event parameter is not the standard `options` data used by `select
+- **Other**
+  - Fix the problem that the configuration of default menu collapse does not work
+  - Repair the problem that `safari` browser reports an error and the website cannot be opened.
+  - Repair the problem that eslint keeps error due to endOfLine after pulling the code on window.
+  - Fix `Vue Router warn` caused by dynamic routing
+
+### 🎫 Chores
+
+- Add test environment test command
+
 ## 2.6.0(2021-07-04)
 
 ### ✨ Features
