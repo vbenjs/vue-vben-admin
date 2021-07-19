@@ -31,6 +31,7 @@
 - **BasicTree** 修复搜索功能可能导致`checkedKeys`丢失的问题
 - **CodeEditor** 修复 value 不支持 v-model 用法的问题
 - **CountdownInput** 修复不支持`input`插槽的问题
+- **ApiSelect** 修复`options-change`事件参数不是`select`所使用的标准`options`数据的问题
 - **其它**
   - 修复菜单默认折叠的配置不起作用的问题
   - 修复`safari`浏览器报错导致网站打不开

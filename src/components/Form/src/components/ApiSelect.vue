@@ -134,7 +134,7 @@
       }
 
       function emitChange() {
-        emit('options-change', unref(options));
+        emit('options-change', unref(getOptions));
       }
 
       function handleChange(_, ...args) {
