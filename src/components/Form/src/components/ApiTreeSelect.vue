@@ -45,7 +45,8 @@
         () => props.params,
         () => {
           isFirstLoaded.value && fetch();
-        }
+        },
+        { deep: true }
       );
 
       watch(
