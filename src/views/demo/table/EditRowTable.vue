@@ -105,7 +105,7 @@
     },
     {
       title: '远程下拉树',
-      dataIndex: 'name7',
+      dataIndex: 'name8',
       editRow: true,
       editComponent: 'ApiTreeSelect',
       editRule: false,

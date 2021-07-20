@@ -1,7 +1,13 @@
 <template>
   <div :class="prefixCls">
-    <div v-show="!isEdit" :class="`${prefixCls}__normal`" @click="handleEdit">
-      {{ getValues || '&nbsp;' }}
+    <div
+      v-show="!isEdit"
+      :class="{ [`${prefixCls}__normal`]: true, 'ellipsis-cell': column.ellipsis }"
+      @click="handleEdit"
+    >
+      <div class="cell-content" :title="column.ellipsis ? getValues || '' : ''">{{
+        getValues || '&nbsp;'
+      }}</div>
       <FormOutlined :class="`${prefixCls}__normal-icon`" v-if="!column.editRow" />
     </div>
 
@@ -417,6 +423,16 @@
         svg {
           color: @primary-color;
         }
+      }
+    }
+
+    .ellipsis-cell {
+      .cell-content {
+        overflow-wrap: break-word;
+        word-break: break-word;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
 

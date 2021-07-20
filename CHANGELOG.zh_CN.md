@@ -1,6 +1,7 @@
 ### 🐛 Bug Fixes
 
 - **ApiTreeSelect** 修复未能正确监听`params`变化的问题
+- **BasicTable** 修复可编辑单元格不支持 ellipsis 配置的问题
 
 ## 2.6.1(2021-07-19)
 
@@ -9,8 +10,10 @@
 - **NoticeList** 添加分页、超长自动省略、标题点击事件、标题删除线等功能
 - **MixSider** 优化 Mix 菜单布局时 底部折叠按钮 的样式，与其它菜单布局时的风格保持一致
 - **ApiTreeSelect** 扩展`antdv`的`TreeSelect`组件，支持远程数据源，用法类似`ApiSelect`
-- **BasicTable** 新增`ApiTreeSelect`编辑组件
-- 可以为不同的用户指定不同的后台首页：
+- **BasicTable**
+  - 新增`ApiTreeSelect`编辑组件
+  - 新增`headerTop`插槽
+- **其它** 可以为不同的用户指定不同的后台首页：
   - 在`getUserInfo`接口返回的用户信息中增加`homePath`字段(可选)即可为当前用户定制首页路径
 
 ### 🐛 Bug Fixes
@@ -18,7 +21,6 @@
 - **BasicTable**
   - 修复滚动条样式问题(移除了滚动样式补丁)
   - 修复树形表格的带有展开图标的单元格的内容对齐问题
-  - 新增`headerTop`插槽
   - 修复操作列的按钮在 disabled 状态下的颜色显示
   - 修复可编辑单元格的值不能直接通过修改`dataSource`来更新显示的问题
   - 修复使用`ApiSelect`编辑组件时的数据回显问题
@@ -44,7 +46,7 @@
 - **其它**
   - 修复菜单默认折叠的配置不起作用的问题
   - 修复`safari`浏览器报错导致网站打不开
-  - 修复在 window 上，拉取代码后 eslint 因 endOfLine 而保错问题
+  - 修复在 window 上，拉取代码后 eslint 因 endOfLine 而报错问题
   - 修复因动态路由而产生的 `Vue Router warn`
 
 ### 🎫 Chores
