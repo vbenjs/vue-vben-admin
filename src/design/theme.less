@@ -23,10 +23,12 @@ html[data-theme='dark'] {
       0 1px 0 0 #434343 inset;
   }
 
-  .ant-alert-message,
-  .ant-alert-with-description .ant-alert-message,
-  .ant-alert-description {
-    color: rgba(0, 0, 0, 0.85);
+  html[data-theme='light'] {
+    .ant-alert-message,
+    .ant-alert-with-description .ant-alert-message,
+    .ant-alert-description {
+      color: rgba(0, 0, 0, 0.85);
+    }
   }
 
   .ant-checkbox-checked .ant-checkbox-inner::after {
