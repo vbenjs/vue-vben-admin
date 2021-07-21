@@ -57,6 +57,7 @@ export function configThemePlugin(isBuild: boolean): Plugin[] {
         // 'border-color-split': '#30363d',
         'item-active-bg': '#111b26',
         'app-content-background': 'rgb(255 255 255 / 4%)',
+        'tree-node-selected-bg': '#11263c',
       },
     }),
   ];
