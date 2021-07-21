@@ -1,5 +1,5 @@
 import { MockMethod } from 'vite-plugin-mock';
-import { resultPageSuccess, resultSuccess } from '../_util';
+import { resultError, resultPageSuccess, resultSuccess } from '../_util';
 
 const accountList = (() => {
   const result: any[] = [];
@@ -183,6 +183,19 @@ export default [
     method: 'get',
     response: () => {
       return resultSuccess(menuList);
+    },
+  },
+  {
+    url: '/basic-api/system/accountExist',
+    timeout: 500,
+    method: 'post',
+    response: ({ body }) => {
+      const { account } = body || {};
+      if (account && account.indexOf('admin') !== -1) {
+        return resultError('该字段不能包含admin');
+      } else {
+        return resultSuccess(`${account} can use`);
+      }
     },
   },
 ] as MockMethod[];
