@@ -33,11 +33,6 @@ export function configThemePlugin(isBuild: boolean): Plugin[] {
             return s;
           case '.ant-steps-item-icon > .ant-steps-icon':
             return s;
-          default:
-            if (s.indexOf('.ant-alert-message') >= 0) {
-              console.log(s);
-            }
-            return s;
         }
         return `[data-theme] ${s}`;
       },
@@ -78,19 +73,6 @@ export function configThemePlugin(isBuild: boolean): Plugin[] {
         'alert-error-border-color': '#58181c',
         'alert-error-bg-color': '#2a1215',
         'alert-error-icon-color': '#a61d24',
-
-        //         @alert-success-border-color: @green-3;
-        // @alert-success-bg-color: @green-1;
-        // @alert-success-icon-color: @success-color;
-        // @alert-info-border-color: @primary-3;
-        // @alert-info-bg-color: @primary-1;
-        // @alert-info-icon-color: @info-color;
-        // @alert-warning-border-color: @gold-3;
-        // @alert-warning-bg-color: @gold-1;
-        // @alert-warning-icon-color: @warning-color;
-        // @alert-error-border-color: @red-3;
-        // @alert-error-bg-color: @red-1;
-        // @alert-error-icon-color: @error-color;
       },
     }),
   ];
