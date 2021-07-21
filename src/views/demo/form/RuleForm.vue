@@ -15,9 +15,10 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container/index';
+  import { CollapseContainer } from '/@/components/Container';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PageWrapper } from '/@/components/Page';
+  import { isAccountExist } from '/@/api/demo/system';
 
   const schemas: FormSchema[] = [
     {
@@ -120,11 +121,11 @@
           validator: async (rule, value) => {
             if (!value) {
               /* eslint-disable-next-line */
-              return Promise.reject('值不能为空');
+              return Promise.reject('值不能为空');
             }
             if (value === '1') {
               /* eslint-disable-next-line */
-              return Promise.reject('值不能为1');
+              return Promise.reject('值不能为1');
             }
             return Promise.resolve();
           },
@@ -173,6 +174,32 @@
         ],
       },
       rules: [{ required: true, message: '覆盖默认生成的校验信息' }],
+    },
+    {
+      field: 'field8',
+      component: 'Input',
+      label: '后端异步验证',
+      colProps: {
+        span: 8,
+      },
+      helpMessage: ['本字段演示异步验证', '本地规则：必须填写', '后端规则：不能包含admin'],
+      rules: [
+        {
+          required: true,
+          message: '请输入数据',
+        },
+        {
+          validator(_, value) {
+            return new Promise((resolve, reject) => {
+              isAccountExist(value)
+                .then(() => resolve())
+                .catch((err) => {
+                  reject(err.message || '验证失败');
+                });
+            });
+          },
+        },
+      ],
     },
   ];
 
