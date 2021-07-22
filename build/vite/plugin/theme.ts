@@ -33,8 +33,10 @@ export function configThemePlugin(isBuild: boolean): Plugin[] {
             return s;
           case '.ant-steps-item-icon > .ant-steps-icon':
             return s;
+          case '.ant-select-item-option-selected:not(.ant-select-item-option-disabled)':
+            return s;
         }
-        return `[data-theme] ${s}`;
+        return s.startsWith('[data-theme') ? s : `[data-theme] ${s}`;
       },
       colorVariables: [...getThemeColors(), ...colors],
     }),
@@ -49,6 +51,7 @@ export function configThemePlugin(isBuild: boolean): Plugin[] {
       darkModifyVars: {
         ...generateModifyVars(true),
         'text-color': '#c9d1d9',
+        'primary-1': 'rgb(255 255 255 / 8%)',
         'text-color-base': '#c9d1d9',
         'component-background': '#151515',
         'heading-color': 'rgb(255 255 255 / 65%)',
