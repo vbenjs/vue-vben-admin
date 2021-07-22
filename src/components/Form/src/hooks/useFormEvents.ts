@@ -84,7 +84,7 @@ export function useFormEvents({
         validKeys.push(key);
       }
     });
-    validateFields(validKeys);
+    validateFields(validKeys).catch((_) => {});
   }
   /**
    * @description: Delete based on field name
