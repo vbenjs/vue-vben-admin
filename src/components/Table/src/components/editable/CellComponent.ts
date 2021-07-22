@@ -19,7 +19,7 @@ export const CellComponent: FunctionalComponent = (
   const Comp = componentMap.get(component) as typeof defineComponent;
 
   const DefaultComp = h(Comp, attrs);
-  if (!rule || !popoverVisible) {
+  if (!rule) {
     return DefaultComp;
   }
   return h(
