@@ -124,7 +124,7 @@ export const formSchema: FormSchema[] = [
     label: '图标',
     component: 'IconPicker',
     required: true,
-    show: ({ values }) => !isButton(values.type),
+    ifShow: ({ values }) => !isButton(values.type),
   },
 
   {
@@ -132,19 +132,19 @@ export const formSchema: FormSchema[] = [
     label: '路由地址',
     component: 'Input',
     required: true,
-    show: ({ values }) => !isButton(values.type),
+    ifShow: ({ values }) => !isButton(values.type),
   },
   {
     field: 'component',
     label: '组件路径',
     component: 'Input',
-    show: ({ values }) => isMenu(values.type),
+    ifShow: ({ values }) => isMenu(values.type),
   },
   {
     field: 'permission',
     label: '权限标识',
     component: 'Input',
-    show: ({ values }) => !isDir(values.type),
+    ifShow: ({ values }) => !isDir(values.type),
   },
   {
     field: 'status',
@@ -169,7 +169,7 @@ export const formSchema: FormSchema[] = [
         { label: '是', value: '1' },
       ],
     },
-    show: ({ values }) => !isButton(values.type),
+    ifShow: ({ values }) => !isButton(values.type),
   },
 
   {
@@ -183,7 +183,7 @@ export const formSchema: FormSchema[] = [
         { label: '是', value: '1' },
       ],
     },
-    show: ({ values }) => isMenu(values.type),
+    ifShow: ({ values }) => isMenu(values.type),
   },
 
   {
@@ -197,6 +197,6 @@ export const formSchema: FormSchema[] = [
         { label: '否', value: '1' },
       ],
     },
-    show: ({ values }) => !isButton(values.type),
+    ifShow: ({ values }) => !isButton(values.type),
   },
 ];
