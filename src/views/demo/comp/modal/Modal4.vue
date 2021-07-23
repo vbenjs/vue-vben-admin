@@ -1,10 +1,15 @@
 <template>
-  <BasicModal v-bind="$attrs" @register="register" title="Modal Title">
+  <BasicModal
+    v-bind="$attrs"
+    @register="register"
+    title="Modal Title"
+    @visible-change="handleVisibleChange"
+  >
     <BasicForm @register="registerForm" :model="model" />
   </BasicModal>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
+  import { defineComponent, ref, nextTick } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
   const schemas: FormSchema[] = [
@@ -13,7 +18,7 @@
       component: 'Input',
       label: '字段1',
       colProps: {
-        span: 12,
+        span: 24,
       },
       defaultValue: '111',
     },
@@ -22,13 +27,16 @@
       component: 'Input',
       label: '字段2',
       colProps: {
-        span: 12,
+        span: 24,
       },
     },
   ];
   export default defineComponent({
     components: { BasicModal, BasicForm },
-    setup() {
+    props: {
+      userData: { type: Object },
+    },
+    setup(props) {
       const modelRef = ref({});
       const [
         registerForm,
@@ -46,20 +54,30 @@
       });
 
       const [register] = useModalInner((data) => {
-        // 方式1
+        data && onDataReceive(data);
+      });
+
+      function onDataReceive(data) {
+        console.log('Data Received', data);
+        // 方式1;
         // setFieldsValue({
         //   field2: data.data,
         //   field1: data.info,
         // });
 
-        // 方式2
+        // // 方式2
         modelRef.value = { field2: data.data, field1: data.info };
 
         // setProps({
         //   model:{ field2: data.data, field1: data.info }
         // })
-      });
-      return { register, schemas, registerForm, model: modelRef };
+      }
+
+      function handleVisibleChange(v) {
+        v && props.userData && nextTick(() => onDataReceive(props.userData));
+      }
+
+      return { register, schemas, registerForm, model: modelRef, handleVisibleChange };
     },
   });
 </script>
