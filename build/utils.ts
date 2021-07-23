@@ -34,7 +34,11 @@ export function wrapperEnv(envConf: Recordable): ViteEnv {
       } catch (error) {}
     }
     ret[envName] = realName;
-    process.env[envName] = realName;
+    if (typeof realName === 'string') {
+      process.env[envName] = realName;
+    } else if (typeof realName === 'object') {
+      process.env[envName] = JSON.stringify(realName);
+    }
   }
   return ret;
 }
