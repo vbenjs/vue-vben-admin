@@ -140,10 +140,11 @@
 
       function onCellClick(e: MouseEvent) {
         if (!props.stopButtonPropagation) return;
-        const target = e.target as HTMLElement;
-        if (target.tagName === 'BUTTON') {
-          e.stopPropagation();
-        }
+        const path = e.composedPath() as HTMLElement[];
+        const isInButton = path.find((ele) => {
+          return ele.tagName?.toUpperCase() === 'BUTTON';
+        });
+        isInButton && e.stopPropagation();
       }
 
       return { prefixCls, getActions, getDropdownList, getAlign, onCellClick, getTooltip };
