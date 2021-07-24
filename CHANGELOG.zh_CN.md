@@ -4,6 +4,7 @@
 - **BasicTable** 修复可编辑单元格不支持`ellipsis`配置的问题
 - **ImgRotateDragVerify** 修复组件`resume`方法无法调用的问题
 - **TableAction** 修复 stopButtonPropagation 属性某些情况下不起作用的问题
+- **BasicTable** 修复全屏模式下看不到子组件弹出层（popconfirm 以及 select、treeSelect 等编辑组件）的问题
 - **Dark Theme** 黑暗主题下的配色问题修正
   - 修复`Tree`组件被选中节点的背景颜色
   - 修复`Alert`组件的颜色配置
