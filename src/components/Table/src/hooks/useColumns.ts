@@ -1,18 +1,13 @@
 import type { BasicColumn, BasicTableProps, CellFormat, GetColumnsParams } from '../types/table';
 import type { PaginationProps } from '../types/pagination';
 import type { ComputedRef } from 'vue';
-
 import { unref, Ref, computed, watch, ref, toRaw } from 'vue';
-
 import { renderEditCell } from '../components/editable';
-
 import { usePermission } from '/@/hooks/web/usePermission';
 import { useI18n } from '/@/hooks/web/useI18n';
-
 import { isBoolean, isArray, isString, isObject, isFunction } from '/@/utils/is';
 import { isEqual, cloneDeep } from 'lodash-es';
 import { formatToDate } from '/@/utils/dateUtil';
-
 import { DEFAULT_ALIGN, PAGE_SIZE, INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG } from '../const';
 
 function handleItem(item: BasicColumn, ellipsis: boolean) {
@@ -109,7 +104,7 @@ export function useColumns(
   propsRef: ComputedRef<BasicTableProps>,
   getPaginationRef: ComputedRef<boolean | PaginationProps>
 ) {
-  const columnsRef = (ref(unref(propsRef).columns) as unknown) as Ref<BasicColumn[]>;
+  const columnsRef = ref(unref(propsRef).columns) as unknown as Ref<BasicColumn[]>;
   let cacheColumns = unref(propsRef).columns;
 
   const getColumnsRef = computed(() => {

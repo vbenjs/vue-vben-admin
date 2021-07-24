@@ -8,6 +8,7 @@
       trigger="click"
       @visibleChange="handleVisibleChange"
       :overlayClassName="`${prefixCls}__cloumn-list`"
+      :getPopupContainer="getPopupContainer"
     >
       <template #title>
         <div :class="`${prefixCls}__popover-title`">
@@ -47,7 +48,11 @@
                   {{ item.label }}
                 </Checkbox>
 
-                <Tooltip placement="bottomLeft" :mouseLeaveDelay="0.4">
+                <Tooltip
+                  placement="bottomLeft"
+                  :mouseLeaveDelay="0.4"
+                  :getPopupContainer="getPopupContainer"
+                >
                   <template #title>
                     {{ t('component.table.settingFixedLeft') }}
                   </template>
@@ -64,7 +69,11 @@
                   />
                 </Tooltip>
                 <Divider type="vertical" />
-                <Tooltip placement="bottomLeft" :mouseLeaveDelay="0.4">
+                <Tooltip
+                  placement="bottomLeft"
+                  :mouseLeaveDelay="0.4"
+                  :getPopupContainer="getPopupContainer"
+                >
                   <template #title>
                     {{ t('component.table.settingFixedRight') }}
                   </template>
@@ -90,6 +99,7 @@
   </Tooltip>
 </template>
 <script lang="ts">
+  import type { BasicColumn, ColumnChangeParam } from '../../types/table';
   import {
     defineComponent,
     ref,
@@ -104,20 +114,15 @@
   import { SettingOutlined, DragOutlined } from '@ant-design/icons-vue';
   import { Icon } from '/@/components/Icon';
   import { ScrollContainer } from '/@/components/Container';
-
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useTableContext } from '../../hooks/useTableContext';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useSortable } from '/@/hooks/web/useSortable';
-
-  import { isNullAndUnDef } from '/@/utils/is';
-  import { getPopupContainer } from '/@/utils';
+  import { isFunction, isNullAndUnDef } from '/@/utils/is';
+  import { getPopupContainer as getParentContainer } from '/@/utils';
   import { omit } from 'lodash-es';
 
-  import type { BasicColumn } from '../../types/table';
-
   interface State {
-    indeterminate: boolean;
     checkAll: boolean;
     checkedList: string[];
     defaultCheckList: string[];
@@ -142,8 +147,9 @@
       Divider,
       Icon,
     },
+    emits: ['columns-change'],
 
-    setup() {
+    setup(_, { emit, attrs }) {
       const { t } = useI18n();
       const table = useTableContext();
 
@@ -158,7 +164,6 @@
       const columnListRef = ref<ComponentRef>(null);
 
       const state = reactive<State>({
-        indeterminate: false,
         checkAll: true,
         checkedList: [],
         defaultCheckList: [],
@@ -202,7 +207,7 @@
         const columns = getColumns();
 
         const checkList = table
-          .getColumns()
+          .getColumns({ ignoreAction: true })
           .map((item) => {
             if (item.defaultHidden) {
               return '';
@@ -233,38 +238,42 @@
 
       // checkAll change
       function onCheckAllChange(e: ChangeEvent) {
-        state.indeterminate = false;
         const checkList = plainOptions.value.map((item) => item.value);
         if (e.target.checked) {
           state.checkedList = checkList;
-          table.setColumns(checkList);
+          setColumns(checkList);
         } else {
           state.checkedList = [];
-          table.setColumns([]);
+          setColumns([]);
         }
       }
+
+      const indeterminate = computed(() => {
+        const len = plainOptions.value.length;
+        let checkdedLen = state.checkedList.length;
+        unref(checkIndex) && checkdedLen--;
+        return checkdedLen > 0 && checkdedLen < len;
+      });
 
       // Trigger when check/uncheck a column
       function onChange(checkedList: string[]) {
         const len = plainOptions.value.length;
-        state.indeterminate = !!checkedList.length && checkedList.length < len;
         state.checkAll = checkedList.length === len;
 
         const sortList = unref(plainSortOptions).map((item) => item.value);
         checkedList.sort((prev, next) => {
           return sortList.indexOf(prev) - sortList.indexOf(next);
         });
-        table.setColumns(checkedList);
+        setColumns(checkedList);
       }
 
       // reset columns
       function reset() {
         state.checkedList = [...state.defaultCheckList];
         state.checkAll = true;
-        state.indeterminate = false;
         plainOptions.value = unref(cachePlainOptions);
         plainSortOptions.value = unref(cachePlainOptions);
-        table.setColumns(table.getCacheColumns());
+        setColumns(table.getCacheColumns());
       }
 
       // Open the pop-up window for drag and drop initialization
@@ -296,7 +305,7 @@
 
               plainSortOptions.value = columns;
               plainOptions.value = columns;
-              table.setColumns(columns);
+              setColumns(columns);
             },
           });
           initSortable();
@@ -333,12 +342,33 @@
           item.width = 100;
         }
         table.setCacheColumnsByField?.(item.dataIndex, { fixed: isFixed });
+        setColumns(columns);
+      }
+
+      function setColumns(columns: BasicColumn[] | string[]) {
         table.setColumns(columns);
+        const data: ColumnChangeParam[] = unref(plainOptions).map((col) => {
+          const visible =
+            columns.findIndex(
+              (c: BasicColumn | string) =>
+                c === col.value || (typeof c !== 'string' && c.dataIndex === col.value)
+            ) !== -1;
+          return { dataIndex: col.value, fixed: col.fixed, visible };
+        });
+
+        emit('columns-change', data);
+      }
+
+      function getPopupContainer() {
+        return isFunction(attrs.getPopupContainer)
+          ? attrs.getPopupContainer()
+          : getParentContainer();
       }
 
       return {
         t,
         ...toRefs(state),
+        indeterminate,
         onCheckAllChange,
         onChange,
         plainOptions,

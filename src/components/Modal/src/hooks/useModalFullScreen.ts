@@ -12,7 +12,6 @@ export function useFullScreen(context: UseFullScreenContext) {
 
   const getWrapClassName = computed(() => {
     const clsName = unref(context.wrapClassName) || '';
-
     return unref(fullScreenRef) ? `fullscreen-modal ${clsName} ` : unref(clsName);
   });
 

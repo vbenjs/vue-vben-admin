@@ -1,3 +1,4 @@
-import ClickOutSide from './src/index.vue';
+import { withInstall } from '/@/utils';
+import clickOutSide from './src/ClickOutSide.vue';
 
-export { ClickOutSide };
+export const ClickOutSide = withInstall(clickOutSide);

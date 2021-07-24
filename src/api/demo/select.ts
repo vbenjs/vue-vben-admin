@@ -1,6 +1,5 @@
 import { defHttp } from '/@/utils/http/axios';
-import { DemoOptionsGetResultModel } from './model/optionsModel';
-
+import { DemoOptionsItem, selectParams } from './model/optionsModel';
 enum Api {
   OPTIONS_LIST = '/select/getDemoOptions',
 }
@@ -8,5 +7,5 @@ enum Api {
 /**
  * @description: Get sample options value
  */
-export const optionsListApi = () =>
-  defHttp.get<DemoOptionsGetResultModel>({ url: Api.OPTIONS_LIST });
+export const optionsListApi = (params?: selectParams) =>
+  defHttp.get<DemoOptionsItem[]>({ url: Api.OPTIONS_LIST, params });

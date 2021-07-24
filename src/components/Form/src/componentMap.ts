@@ -16,11 +16,13 @@ import {
   Switch,
   TimePicker,
   TreeSelect,
-  Slider
+  Slider,
+  Rate,
 } from 'ant-design-vue';
 
 import RadioButtonGroup from './components/RadioButtonGroup.vue';
 import ApiSelect from './components/ApiSelect.vue';
+import ApiTreeSelect from './components/ApiTreeSelect.vue';
 import { BasicUpload } from '/@/components/Upload';
 import { StrengthMeter } from '/@/components/StrengthMeter';
 import { IconPicker } from '/@/components/Icon';
@@ -39,6 +41,7 @@ componentMap.set('AutoComplete', AutoComplete);
 componentMap.set('Select', Select);
 componentMap.set('ApiSelect', ApiSelect);
 componentMap.set('TreeSelect', TreeSelect);
+componentMap.set('ApiTreeSelect', ApiTreeSelect);
 componentMap.set('Switch', Switch);
 componentMap.set('RadioButtonGroup', RadioButtonGroup);
 componentMap.set('RadioGroup', Radio.Group);
@@ -46,6 +49,7 @@ componentMap.set('Checkbox', Checkbox);
 componentMap.set('CheckboxGroup', Checkbox.Group);
 componentMap.set('Cascader', Cascader);
 componentMap.set('Slider', Slider);
+componentMap.set('Rate', Rate);
 
 componentMap.set('DatePicker', DatePicker);
 componentMap.set('MonthPicker', DatePicker.MonthPicker);

@@ -1,6 +1,7 @@
 import type {
   ComponentRenderProxy,
   VNode,
+  VNodeChild,
   ComponentPublicInstance,
   FunctionalComponent,
   PropType as VuePropType,
@@ -16,13 +17,14 @@ declare global {
     };
     lastBuildTime: string;
   };
-  declare interface Window {
-    // Global vue app instance
-    __APP__: App<Element>;
-  }
+  // declare interface Window {
+  //   // Global vue app instance
+  //   __APP__: App<Element>;
+  // }
 
   // vue
   declare type PropType<T> = VuePropType<T>;
+  declare type VueNode = VNodeChild | JSX.Element;
 
   export type Writable<T> = {
     -readonly [P in keyof T]: T[P];

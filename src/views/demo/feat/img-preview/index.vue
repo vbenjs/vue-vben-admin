@@ -1,11 +1,12 @@
 <template>
   <PageWrapper title="图片预览示例">
     <ImagePreview :imageList="imgList" />
+    <a-button @click="openImg" type="primary">无预览图</a-button>
   </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { ImagePreview } from '/@/components/Preview/index';
+  import { createImgPreview, ImagePreview } from '/@/components/Preview/index';
   import { PageWrapper } from '/@/components/Page';
 
   const imgList: string[] = [
@@ -16,7 +17,10 @@
   export default defineComponent({
     components: { PageWrapper, ImagePreview },
     setup() {
-      return { imgList };
+      function openImg() {
+        createImgPreview({ imageList: imgList });
+      }
+      return { imgList, openImg };
     },
   });
 </script>

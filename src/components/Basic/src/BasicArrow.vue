@@ -9,41 +9,50 @@
 </template>
 <script lang="ts">
   import { defineComponent, computed } from 'vue';
-
+  import { Icon } from '/@/components/Icon';
   import { useDesign } from '/@/hooks/web/useDesign';
 
-  import { propTypes } from '/@/utils/propTypes';
-
-  import { Icon } from '/@/components/Icon';
+  const props = {
+    /**
+     * Arrow expand state
+     */
+    expand: { type: Boolean },
+    /**
+     * Arrow up by default
+     */
+    up: { type: Boolean },
+    /**
+     * Arrow down by default
+     */
+    down: { type: Boolean },
+    /**
+     * Cancel padding/margin for inline
+     */
+    inset: { type: Boolean },
+  };
 
   export default defineComponent({
     name: 'BasicArrow',
     components: { Icon },
-    props: {
-      expand: propTypes.bool,
-      top: propTypes.bool,
-      bottom: propTypes.bool,
-      inset: propTypes.bool,
-    },
+    props,
     setup(props) {
       const { prefixCls } = useDesign('basic-arrow');
 
+      // get component class
       const getClass = computed(() => {
-        const { expand, top, bottom, inset } = props;
+        const { expand, up, down, inset } = props;
         return [
           prefixCls,
           {
             [`${prefixCls}--active`]: expand,
-            top,
+            up,
             inset,
-            bottom,
+            down,
           },
         ];
       });
 
-      return {
-        getClass,
-      };
+      return { getClass };
     },
   });
 </script>
@@ -65,19 +74,19 @@
       line-height: 0px;
     }
 
-    &.top {
+    &.up {
       transform: rotate(-90deg);
     }
 
-    &.bottom {
+    &.down {
       transform: rotate(90deg);
     }
 
-    &.top.@{prefix-cls}--active {
+    &.up.@{prefix-cls}--active {
       transform: rotate(90deg);
     }
 
-    &.bottom.@{prefix-cls}--active {
+    &.down.@{prefix-cls}--active {
       transform: rotate(-90deg);
     }
   }

@@ -3,7 +3,7 @@ import type { CSSProperties, PropType } from 'vue';
 import type { ColEx } from './types';
 import type { TableActionType } from '/@/components/Table';
 import type { ButtonProps } from 'ant-design-vue/es/button/buttonTypes';
-
+import type { RowProps } from 'ant-design-vue/lib/grid/Row';
 import { propTypes } from '/@/utils/propTypes';
 
 export const basicProps = {
@@ -37,6 +37,8 @@ export const basicProps = {
     type: Object as PropType<Partial<ColEx>>,
   },
   autoSetPlaceHolder: propTypes.bool.def(true),
+  // 在INPUT组件上单击回车时，是否自动提交
+  autoSubmitOnEnter: propTypes.bool.def(false),
   submitOnReset: propTypes.bool,
   size: propTypes.oneOf(['default', 'small', 'large']).def('default'),
   // 禁用表单
@@ -93,4 +95,6 @@ export const basicProps = {
   colon: propTypes.bool,
 
   labelAlign: propTypes.string,
+
+  rowProps: Object as PropType<RowProps>,
 };

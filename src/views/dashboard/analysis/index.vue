@@ -6,7 +6,7 @@
     <div class="md:flex enter-y">
       <VisitRadar class="md:w-1/3 w-full" :loading="loading" />
 
-      <VisitSource class="md:w-1/3 !md:mx-4 !md:my-0 !my-4 w-full" :loading="loading" />
+      <VisitSource class="md:w-1/3 md:!mx-4 md:!my-0 !my-4 w-full" :loading="loading" />
       <SalesProductPie class="md:w-1/3 w-full" :loading="loading" />
     </div>
   </div>

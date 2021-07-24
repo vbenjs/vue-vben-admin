@@ -47,6 +47,10 @@
       const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
         resetFields();
         setDrawerProps({ confirmLoading: false });
+        // 需要在setFieldsValue之前先填充treeData，否则Tree组件可能会报key not exist警告
+        if (unref(treeData).length === 0) {
+          treeData.value = (await getMenuList()) as any as TreeItem[];
+        }
         isUpdate.value = !!data?.isUpdate;
 
         if (unref(isUpdate)) {
@@ -54,7 +58,6 @@
             ...data.record,
           });
         }
-        treeData.value = ((await getMenuList()) as any) as TreeItem[];
       });
 
       const getTitle = computed(() => (!unref(isUpdate) ? '新增角色' : '编辑角色'));

@@ -16,8 +16,7 @@ export function useFrameKeepAlive() {
   const { getShowMultipleTab } = useMultipleTabSetting();
   const tabStore = useMultipleTabStore();
   const getFramePages = computed(() => {
-    const ret =
-      getAllFramePages((toRaw(router.getRoutes()) as unknown) as AppRouteRecordRaw[]) || [];
+    const ret = getAllFramePages(toRaw(router.getRoutes()) as unknown as AppRouteRecordRaw[]) || [];
     return ret;
   });
 

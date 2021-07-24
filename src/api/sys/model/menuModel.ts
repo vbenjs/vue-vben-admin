@@ -1,4 +1,4 @@
-import { RouteMeta } from '/@/router/types';
+import type { RouteMeta } from 'vue-router';
 export interface RouteItem {
   path: string;
   component: any;
@@ -11,13 +11,6 @@ export interface RouteItem {
 }
 
 /**
- * @description: Get menu interface
- */
-export interface getMenuListByIdParams {
-  id: number | string;
-}
-
-/**
  * @description: Get menu return value
  */
-export type getMenuListByIdParamsResultModel = RouteItem[];
+export type getMenuListResultModel = RouteItem[];

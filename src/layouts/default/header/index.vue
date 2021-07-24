@@ -33,7 +33,7 @@
 
     <!-- action  -->
     <div :class="`${prefixCls}-action`">
-      <AppSearch :class="`${prefixCls}-action__item `" />
+      <AppSearch :class="`${prefixCls}-action__item `" v-if="getShowSearch" />
 
       <ErrorAction v-if="getUseErrorHandle" :class="`${prefixCls}-action__item error-action`" />
 
@@ -112,21 +112,18 @@
         getMenuWidth,
         getIsMixSidebar,
       } = useMenuSetting();
-      const {
-        getUseErrorHandle,
-        getShowSettingButton,
-        getSettingButtonPosition,
-      } = useRootSetting();
+      const { getUseErrorHandle, getShowSettingButton, getSettingButtonPosition } =
+        useRootSetting();
 
       const {
         getHeaderTheme,
-        getUseLockPage,
         getShowFullScreen,
         getShowNotice,
         getShowContent,
         getShowBread,
         getShowHeaderLogo,
         getShowHeader,
+        getShowSearch,
       } = useHeaderSetting();
 
       const { getShowLocalePicker } = useLocale();
@@ -189,12 +186,12 @@
         getShowLocalePicker,
         getShowFullScreen,
         getShowNotice,
-        getUseLockPage,
         getUseErrorHandle,
         getLogoWidth,
         getIsMixSidebar,
         getShowSettingButton,
         getShowSetting,
+        getShowSearch,
       };
     },
   });

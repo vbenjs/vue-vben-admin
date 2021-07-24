@@ -20,6 +20,11 @@ export enum SettingButtonPositionEnum {
   FIXED = 'fixed',
 }
 
+export enum SessionTimeoutProcessingEnum {
+  ROUTE_JUMP,
+  PAGE_COVERAGE,
+}
+
 /**
  * 权限模式
  */
@@ -28,6 +33,8 @@ export enum PermissionModeEnum {
   ROLE = 'ROLE',
   // black
   BACK = 'BACK',
+  // route mapping
+  ROUTE_MAPPING = 'ROUTE_MAPPING',
 }
 
 //  Route switching animation

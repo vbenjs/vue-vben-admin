@@ -6,6 +6,8 @@ export const darkMode = 'light';
 
 type Fn = (...arg: any) => any;
 
+type GenerateTheme = 'default' | 'dark';
+
 export interface GenerateColorsParams {
   mixLighten: Fn;
   mixDarken: Fn;
@@ -13,19 +15,19 @@ export interface GenerateColorsParams {
   color?: string;
 }
 
-export function generateAntColors(color: string) {
+export function generateAntColors(color: string, theme: GenerateTheme = 'default') {
   return generate(color, {
-    theme: 'default',
+    theme,
   });
 }
 
 export function getThemeColors(color?: string) {
   const tc = color || primaryColor;
-  const colors = generateAntColors(tc);
-  const primary = colors[5];
-  const modeColors = generateAntColors(primary);
+  const lightColors = generateAntColors(tc);
+  const primary = lightColors[5];
+  const modeColors = generateAntColors(primary, 'dark');
 
-  return [...colors, ...modeColors];
+  return [...lightColors, ...modeColors];
 }
 
 export function generateColors({

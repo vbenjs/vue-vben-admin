@@ -15,6 +15,7 @@
     :collapsedWidth="getCollapsedWidth"
     :theme="getMenuTheme"
     @breakpoint="onBreakpointChange"
+    :trigger="getTrigger"
     v-bind="getTriggerAttr"
   >
     <template #trigger v-if="getShowTrigger">
@@ -25,7 +26,7 @@
   </Sider>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, ref, unref, CSSProperties } from 'vue';
+  import { computed, defineComponent, ref, unref, CSSProperties, h } from 'vue';
 
   import { Layout } from 'ant-design-vue';
   import LayoutMenu from '../menu/index.vue';
@@ -55,6 +56,7 @@
         getMenuHidden,
         getMenuFixed,
         getIsMixMode,
+        toggleCollapsed,
       } = useMenuSetting();
 
       const { prefixCls } = useDesign('layout-sideBar');
@@ -89,19 +91,21 @@
         ];
       });
 
-      const getHiddenDomStyle = computed(
-        (): CSSProperties => {
-          const width = `${unref(getRealWidth)}px`;
-          return {
-            width: width,
-            overflow: 'hidden',
-            flex: `0 0 ${width}`,
-            maxWidth: width,
-            minWidth: width,
-            transition: 'all 0.2s',
-          };
-        }
-      );
+      const getHiddenDomStyle = computed((): CSSProperties => {
+        const width = `${unref(getRealWidth)}px`;
+        return {
+          width: width,
+          overflow: 'hidden',
+          flex: `0 0 ${width}`,
+          maxWidth: width,
+          minWidth: width,
+          transition: 'all 0.2s',
+        };
+      });
+
+      // 在此处使用计算量可能会导致sider异常
+      // andv 更新后，如果trigger插槽可用，则此处代码可废弃
+      const getTrigger = h(LayoutTrigger);
 
       return {
         prefixCls,
@@ -110,6 +114,7 @@
         getIsMobile,
         getHiddenDomStyle,
         getSiderClass,
+        getTrigger,
         getTriggerAttr,
         getCollapsedWidth,
         getMenuFixed,
@@ -121,6 +126,7 @@
         getMode,
         getSplitType,
         getShowTrigger,
+        toggleCollapsed,
       };
     },
   });

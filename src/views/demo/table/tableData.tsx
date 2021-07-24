@@ -31,13 +31,13 @@ export function getBasicColumns(): BasicColumn[] {
     },
     {
       title: '开始时间',
-      width: 120,
+      width: 150,
       sorter: true,
       dataIndex: 'beginTime',
     },
     {
       title: '结束时间',
-      width: 120,
+      width: 150,
       sorter: true,
       dataIndex: 'endTime',
     },

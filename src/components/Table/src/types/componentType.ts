@@ -3,5 +3,8 @@ export type ComponentType =
   | 'InputNumber'
   | 'Select'
   | 'ApiSelect'
+  | 'ApiTreeSelect'
   | 'Checkbox'
-  | 'Switch';
+  | 'Switch'
+  | 'DatePicker'
+  | 'TimePicker';

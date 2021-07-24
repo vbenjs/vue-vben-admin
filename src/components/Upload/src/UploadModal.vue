@@ -50,7 +50,7 @@
   import { useUploadType } from './useUpload';
   import { useMessage } from '/@/hooks/web/useMessage';
   //   types
-  import { FileItem, UploadResultStatus } from './types';
+  import { FileItem, UploadResultStatus } from './typing';
   import { basicProps } from './props';
   import { createTableColumns, createActionColumn } from './data';
   // utils
@@ -58,9 +58,9 @@
   import { buildUUID } from '/@/utils/uuid';
   import { isFunction } from '/@/utils/is';
   import { warn } from '/@/utils/log';
-  import FileList from './FileList';
-
+  import FileList from './FileList.vue';
   import { useI18n } from '/@/hooks/web/useI18n';
+
   export default defineComponent({
     components: { BasicModal, Upload, Alert, FileList },
     props: {
@@ -70,20 +70,20 @@
         default: () => [],
       },
     },
-    emits: ['change', 'register'],
+    emits: ['change', 'register', 'delete'],
     setup(props, { emit }) {
-      const { t } = useI18n();
-
-      //   是否正在上传
-      const isUploadingRef = ref(false);
-      const fileListRef = ref<FileItem[]>([]);
       const state = reactive<{ fileList: FileItem[] }>({
         fileList: [],
       });
 
+      //   是否正在上传
+      const isUploadingRef = ref(false);
+      const fileListRef = ref<FileItem[]>([]);
+      const { accept, helpText, maxNumber, maxSize } = toRefs(props);
+
+      const { t } = useI18n();
       const [register, { closeModal }] = useModalInner();
 
-      const { accept, helpText, maxNumber, maxSize } = toRefs(props);
       const { getAccept, getStringAccept, getHelpText } = useUploadType({
         acceptRef: accept,
         helpTextRef: helpText,
@@ -162,10 +162,12 @@
         }
         return false;
       }
+
       // 删除
       function handleRemove(record: FileItem) {
         const index = fileListRef.value.findIndex((item) => item.uuid === record.uuid);
         index !== -1 && fileListRef.value.splice(index, 1);
+        emit('delete', record);
       }
 
       // 预览
@@ -263,7 +265,7 @@
       }
 
       // 点击关闭：则所有操作不保存，包括上传的
-      function handleCloseFunc() {
+      async function handleCloseFunc() {
         if (!isUploadingRef.value) {
           fileListRef.value = [];
           return true;

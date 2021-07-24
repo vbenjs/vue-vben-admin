@@ -1,6 +1,7 @@
 @import './pagination.less';
 @import './input.less';
 @import './btn.less';
+// @import './table.less';
 
 // TODO beta.11 fix
 .ant-col {
@@ -55,4 +56,10 @@ span.anticon:not(.app-iconify) {
 
 .modal-icon-info {
   color: @primary-color !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner::after,
+.ant-tree-checkbox-checked .ant-tree-checkbox-inner::after {
+  border-top: 0 !important;
+  border-left: 0 !important;
 }

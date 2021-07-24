@@ -20,7 +20,7 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { BasicTable, useTable } from '/@/components/Table';
+  import { BasicTable, ColumnChangeParam, useTable } from '/@/components/Table';
   import { getBasicColumns, getBasicShortColumns } from './tableData';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { demoListApi } from '/@/api/demo/table';
@@ -28,6 +28,9 @@
     components: { BasicTable },
     setup() {
       const { createMessage } = useMessage();
+      function onChange() {
+        console.log('onChange', arguments);
+      }
       const [
         registerTable,
         {
@@ -51,8 +54,12 @@
         columns: getBasicColumns(),
         rowKey: 'id',
         showTableSetting: true,
+        onChange,
         rowSelection: {
           type: 'checkbox',
+        },
+        onColumnsChange: (data: ColumnChangeParam[]) => {
+          console.log('ColumnsChanged', data);
         },
       });
 
@@ -121,6 +128,7 @@
         getSelectRowKeyList,
         setSelectedRowKeyList,
         clearSelect,
+        onChange,
       };
     },
   });

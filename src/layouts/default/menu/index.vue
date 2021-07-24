@@ -76,13 +76,11 @@
         );
       });
 
-      const getWrapperStyle = computed(
-        (): CSSProperties => {
-          return {
-            height: `calc(100% - ${unref(getIsShowLogo) ? '48px' : '0px'})`,
-          };
-        }
-      );
+      const getWrapperStyle = computed((): CSSProperties => {
+        return {
+          height: `calc(100% - ${unref(getIsShowLogo) ? '48px' : '0px'})`,
+        };
+      });
 
       const getLogoClass = computed(() => {
         return [

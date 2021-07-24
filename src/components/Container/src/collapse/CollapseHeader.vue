@@ -8,28 +8,31 @@
         <slot name="title"></slot>
       </template>
     </BasicTitle>
-
     <div :class="`${prefixCls}__action`">
       <slot name="action"></slot>
-      <BasicArrow v-if="canExpan" top :expand="show" @click="$emit('expand')" />
+      <BasicArrow v-if="canExpan" up :expand="show" @click="$emit('expand')" />
     </div>
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicArrow, BasicTitle } from '/@/components/Basic';
-  import { propTypes } from '/@/utils/propTypes';
+
+  const props = {
+    prefixCls: { type: String },
+    helpMessage: {
+      type: [Array, String] as PropType<string[] | string>,
+      default: '',
+    },
+    title: { type: String },
+    show: { type: Boolean },
+    canExpan: { type: Boolean },
+  };
 
   export default defineComponent({
     components: { BasicArrow, BasicTitle },
     inheritAttrs: false,
-    props: {
-      prefixCls: propTypes.string,
-      helpMessage: propTypes.string,
-      title: propTypes.string,
-      show: propTypes.bool,
-      canExpan: propTypes.bool,
-    },
+    props,
     emits: ['expand'],
   });
 </script>

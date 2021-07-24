@@ -9,9 +9,11 @@ const feat: AppRouteModule = {
   component: LAYOUT,
   redirect: '/feat/icon',
   meta: {
+    orderNo: 19,
     icon: 'ion:git-compare-outline',
     title: t('routes.demo.feat.feat'),
   },
+
   children: [
     {
       path: 'icon',
@@ -27,6 +29,14 @@ const feat: AppRouteModule = {
       component: () => import('/@/views/demo/feat/ws/index.vue'),
       meta: {
         title: t('routes.demo.feat.ws'),
+      },
+    },
+    {
+      path: 'session-timeout',
+      name: 'SessionTimeout',
+      component: () => import('/@/views/demo/feat/session-timeout/index.vue'),
+      meta: {
+        title: t('routes.demo.feat.sessionTimeout'),
       },
     },
     {
@@ -77,21 +87,11 @@ const feat: AppRouteModule = {
         {
           path: 'children',
           name: 'BreadcrumbChildrenDemo',
-          component: getParentLayout('BreadcrumbChildrenDemo'),
-          redirect: '/feat/breadcrumb/children',
+          component: () => import('/@/views/demo/feat/breadcrumb/ChildrenList.vue'),
           meta: {
-            title: t('routes.demo.feat.breadcrumbFlat'),
+            title: t('routes.demo.feat.breadcrumbChildren'),
           },
           children: [
-            {
-              path: '',
-              name: 'BreadcrumbChildren',
-              component: () => import('/@/views/demo/feat/breadcrumb/ChildrenList.vue'),
-              meta: {
-                title: t('routes.demo.feat.breadcrumbChildren'),
-                // hideBreadcrumb: true,
-              },
-            },
             {
               path: 'childrenDetail',
               name: 'BreadcrumbChildrenDetailDemo',
@@ -99,7 +99,7 @@ const feat: AppRouteModule = {
               meta: {
                 currentActiveMenu: '/feat/breadcrumb/children',
                 title: t('routes.demo.feat.breadcrumbChildrenDetail'),
-                hideTab: true,
+                //hideTab: true,
                 // hideMenu: true,
               },
             },
@@ -181,7 +181,7 @@ const feat: AppRouteModule = {
       },
     },
     {
-      path: 'error-log',
+      path: '/error-log',
       name: 'ErrorLog',
       component: () => import('/@/views/sys/error-log/index.vue'),
       meta: {
@@ -240,7 +240,59 @@ const feat: AppRouteModule = {
       meta: {
         title: t('routes.demo.feat.tab'),
         carryParam: true,
+        hidePathForChildren: true,
       },
+      children: [
+        {
+          path: 'testTab/id1',
+          name: 'TestTab1',
+          component: () => import('/@/views/demo/feat/tab-params/index.vue'),
+          meta: {
+            title: t('routes.demo.feat.tab1'),
+            carryParam: true,
+            ignoreRoute: true,
+          },
+        },
+        {
+          path: 'testTab/id2',
+          name: 'TestTab2',
+          component: () => import('/@/views/demo/feat/tab-params/index.vue'),
+          meta: {
+            title: t('routes.demo.feat.tab2'),
+            carryParam: true,
+            ignoreRoute: true,
+          },
+        },
+      ],
+    },
+    {
+      path: 'testParam/:id',
+      name: 'TestParam',
+      component: getParentLayout('TestParam'),
+      meta: {
+        title: t('routes.demo.feat.menu'),
+        ignoreKeepAlive: true,
+      },
+      children: [
+        {
+          path: 'sub1',
+          name: 'TestParam_1',
+          component: () => import('/@/views/demo/feat/menu-params/index.vue'),
+          meta: {
+            title: t('routes.demo.feat.menu1'),
+            ignoreKeepAlive: true,
+          },
+        },
+        {
+          path: 'sub2',
+          name: 'TestParam_2',
+          component: () => import('/@/views/demo/feat/menu-params/index.vue'),
+          meta: {
+            title: t('routes.demo.feat.menu2'),
+            ignoreKeepAlive: true,
+          },
+        },
+      ],
     },
   ],
 };

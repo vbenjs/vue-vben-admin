@@ -36,17 +36,15 @@
       const { prefixCls } = useDesign('svg-icon');
       const symbolId = computed(() => `#${props.prefix}-${props.name}`);
 
-      const getStyle = computed(
-        (): CSSProperties => {
-          const { size } = props;
-          let s = `${size}`;
-          s = `${s.replace('px', '')}px`;
-          return {
-            width: s,
-            height: s,
-          };
-        }
-      );
+      const getStyle = computed((): CSSProperties => {
+        const { size } = props;
+        let s = `${size}`;
+        s = `${s.replace('px', '')}px`;
+        return {
+          width: s,
+          height: s,
+        };
+      });
       return { symbolId, prefixCls, getStyle };
     },
   });

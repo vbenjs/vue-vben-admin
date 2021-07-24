@@ -1,25 +1,28 @@
 import { MockMethod } from 'vite-plugin-mock';
 import { resultSuccess } from '../_util';
 
-const demoList = (() => {
-  const result: any[] = [];
+const demoList = (keyword) => {
+  const result = {
+    list: [] as any[],
+  };
   for (let index = 0; index < 20; index++) {
-    result.push({
-      label: `选项${index}`,
-      value: `${index}`,
+    result.list.push({
+      name: `${keyword ?? ''}选项${index}`,
+      id: `${index}`,
     });
   }
   return result;
-})();
+};
 
 export default [
   {
     url: '/basic-api/select/getDemoOptions',
-    timeout: 2000,
+    timeout: 1000,
     method: 'get',
     response: ({ query }) => {
-      console.log(query);
-      return resultSuccess(demoList);
+      const { keyword } = query;
+      console.log(keyword);
+      return resultSuccess(demoList(keyword));
     },
   },
 ] as MockMethod[];

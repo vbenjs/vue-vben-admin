@@ -1,47 +1,57 @@
 <template>
-  <a-dropdown :trigger="trigger" v-bind="$attrs">
+  <Dropdown :trigger="trigger" v-bind="$attrs">
     <span>
       <slot></slot>
     </span>
     <template #overlay>
-      <a-menu :selectedKeys="selectedKeys">
+      <Menu :selectedKeys="selectedKeys">
         <template v-for="item in dropMenuList" :key="`${item.event}`">
-          <a-menu-item
+          <MenuItem
             v-bind="getAttr(item.event)"
             @click="handleClickMenu(item)"
             :disabled="item.disabled"
           >
-            <Popconfirm v-if="popconfirm && item.popConfirm" v-bind="item">
-              <Icon :icon="item.icon" v-if="item.icon" />
-              <span class="ml-1">{{ item.text }}</span>
+            <Popconfirm
+              v-if="popconfirm && item.popConfirm"
+              v-bind="getPopConfirmAttrs(item.popConfirm)"
+            >
+              <template #icon v-if="item.popConfirm.icon">
+                <Icon :icon="item.popConfirm.icon" />
+              </template>
+              <div>
+                <Icon :icon="item.icon" v-if="item.icon" />
+                <span class="ml-1">{{ item.text }}</span>
+              </div>
             </Popconfirm>
             <template v-else>
               <Icon :icon="item.icon" v-if="item.icon" />
               <span class="ml-1">{{ item.text }}</span>
             </template>
-          </a-menu-item>
-          <a-menu-divider v-if="item.divider" :key="`d-${item.event}`" />
+          </MenuItem>
+          <MenuDivider v-if="item.divider" :key="`d-${item.event}`" />
         </template>
-      </a-menu>
+      </Menu>
     </template>
-  </a-dropdown>
+  </Dropdown>
 </template>
 
 <script lang="ts">
-  import type { PropType } from 'vue';
-  import type { DropMenu } from './types';
+  import { computed, PropType } from 'vue';
+  import type { DropMenu } from './typing';
 
   import { defineComponent } from 'vue';
   import { Dropdown, Menu, Popconfirm } from 'ant-design-vue';
   import { Icon } from '/@/components/Icon';
+  import { omit } from 'lodash-es';
+  import { isFunction } from '/@/utils/is';
 
   export default defineComponent({
     name: 'BasicDropdown',
     components: {
-      [Dropdown.name]: Dropdown,
-      [Menu.name]: Menu,
-      [Menu.Item.name]: Menu.Item,
-      [Menu.Divider.name]: Menu.Divider,
+      Dropdown,
+      Menu,
+      MenuItem: Menu.Item,
+      MenuDivider: Menu.Divider,
       Icon,
       Popconfirm,
     },
@@ -53,7 +63,7 @@
        * @type string[]
        */
       trigger: {
-        type: [Array] as PropType<string[]>,
+        type: [Array] as PropType<('contextmenu' | 'click' | 'hover')[]>,
         default: () => {
           return ['contextmenu'];
         },
@@ -75,8 +85,21 @@
         emit('menuEvent', menu);
         item.onClick?.();
       }
+
+      const getPopConfirmAttrs = computed(() => {
+        return (attrs) => {
+          const originAttrs = omit(attrs, ['confirm', 'cancel', 'icon']);
+          if (!attrs.onConfirm && attrs.confirm && isFunction(attrs.confirm))
+            originAttrs['onConfirm'] = attrs.confirm;
+          if (!attrs.onCancel && attrs.cancel && isFunction(attrs.cancel))
+            originAttrs['onCancel'] = attrs.cancel;
+          return originAttrs;
+        };
+      });
+
       return {
         handleClickMenu,
+        getPopConfirmAttrs,
         getAttr: (key: string | number) => ({ key }),
       };
     },

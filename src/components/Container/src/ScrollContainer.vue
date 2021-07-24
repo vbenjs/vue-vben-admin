@@ -7,7 +7,6 @@
 <script lang="ts">
   import { defineComponent, ref, unref, nextTick } from 'vue';
   import { Scrollbar, ScrollbarType } from '/@/components/Scrollbar';
-
   import { useScrollTo } from '/@/hooks/event/useScrollTo';
 
   export default defineComponent({
@@ -16,12 +15,14 @@
     setup() {
       const scrollbarRef = ref<Nullable<ScrollbarType>>(null);
 
+      /**
+       * Scroll to the specified position
+       */
       function scrollTo(to: number, duration = 500) {
         const scrollbar = unref(scrollbarRef);
         if (!scrollbar) {
           return;
         }
-
         nextTick(() => {
           const wrap = unref(scrollbar.wrap);
           if (!wrap) {
@@ -44,12 +45,14 @@
         return scrollbar.wrap;
       }
 
+      /**
+       * Scroll to the bottom
+       */
       function scrollBottom() {
         const scrollbar = unref(scrollbarRef);
         if (!scrollbar) {
           return;
         }
-
         nextTick(() => {
           const wrap = unref(scrollbar.wrap);
           if (!wrap) {

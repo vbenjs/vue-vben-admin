@@ -11,9 +11,7 @@
   import { defineComponent } from 'vue';
   import { Tooltip } from 'ant-design-vue';
   import { FullscreenOutlined, FullscreenExitOutlined } from '@ant-design/icons-vue';
-
   import { useFullscreen } from '@vueuse/core';
-
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useTableContext } from '../../hooks/useTableContext';
 

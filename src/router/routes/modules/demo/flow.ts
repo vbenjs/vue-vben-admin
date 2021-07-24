@@ -9,6 +9,7 @@ const charts: AppRouteModule = {
   component: LAYOUT,
   redirect: '/flow/flowChart',
   meta: {
+    orderNo: 5000,
     icon: 'tabler:chart-dots',
     title: t('routes.demo.flow.name'),
   },

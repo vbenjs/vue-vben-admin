@@ -1,25 +1,26 @@
+import type { DescriptionProps, DescInstance, UseDescReturnType } from './typing';
 import { ref, getCurrentInstance, unref } from 'vue';
 import { isProdMode } from '/@/utils/env';
 
-import type { DescOptions, DescInstance, UseDescReturnType } from './types';
-
-export function useDescription(props?: Partial<DescOptions>): UseDescReturnType {
+export function useDescription(props?: Partial<DescriptionProps>): UseDescReturnType {
   if (!getCurrentInstance()) {
-    throw new Error('Please put useDescription function in the setup function!');
+    throw new Error('useDescription() can only be used inside setup() or functional components!');
   }
-  const descRef = ref<Nullable<DescInstance>>(null);
-  const loadedRef = ref(false);
+  const desc = ref<Nullable<DescInstance>>(null);
+  const loaded = ref(false);
 
   function register(instance: DescInstance) {
-    if (unref(loadedRef) && isProdMode()) return;
-    descRef.value = instance;
+    if (unref(loaded) && isProdMode()) {
+      return;
+    }
+    desc.value = instance;
     props && instance.setDescProps(props);
-    loadedRef.value = true;
+    loaded.value = true;
   }
 
   const methods: DescInstance = {
-    setDescProps: (descProps: Partial<DescOptions>): void => {
-      unref(descRef)?.setDescProps(descProps);
+    setDescProps: (descProps: Partial<DescriptionProps>): void => {
+      unref(desc)?.setDescProps(descProps);
     },
   };
 

@@ -1,73 +1,101 @@
 /**
- * Mitt: Tiny functional event emitter / pubsub
- *
- * @name mitt
- * @param {Array} [all] Optional array of event names to registered handler functions
- * @returns {Function} The function's instance
+ * copy to https://github.com/developit/mitt
+ * Expand clear method
  */
-export default class Mitt {
-  private cache: Map<string | Symbol, Array<(...data: any) => void>>;
-  constructor(all = []) {
-    // A Map of event names to registered handler functions.
-    this.cache = new Map(all);
-  }
 
-  once(type: string | Symbol, handler: Fn) {
-    const decor = (...args: any[]) => {
-      handler && handler.apply(this, args);
-      this.off(type, decor);
-    };
-    this.on(type, decor);
-    return this;
-  }
+export type EventType = string | symbol;
 
-  /**
-   * Register an event handler for the given type.
-   *
-   * @param {string|symbol} type Type of event to listen for, or `"*"` for all events
-   * @param {Function} handler Function to call in response to given event
-   */
-  on(type: string | Symbol, handler: Fn) {
-    const handlers = this.cache?.get(type);
-    const added = handlers && handlers.push(handler);
-    if (!added) {
-      this.cache.set(type, [handler]);
-    }
-  }
+// An event handler can take an optional event argument
+// and should not return a value
+export type Handler<T = any> = (event?: T) => void;
+export type WildcardHandler = (type: EventType, event?: any) => void;
 
-  /**
-   * Remove an event handler for the given type.
-   *
-   * @param {string|symbol} type Type of event to unregister `handler` from, or `"*"`
-   * @param {Function} handler Handler function to remove
-   */
-  off(type: string | Symbol, handler: Fn) {
-    const handlers = this.cache.get(type);
-    if (handlers) {
-      handlers.splice(handlers.indexOf(handler) >>> 0, 1);
-    }
-  }
+// An array of all currently registered event handlers for a type
+export type EventHandlerList = Array<Handler>;
+export type WildCardEventHandlerList = Array<WildcardHandler>;
 
-  /**
-   * Invoke all handlers for the given type.
-   * If present, `"*"` handlers are invoked after type-matched handlers.
-   *
-   * Note: Manually firing "*" handlers is not supported.
-   *
-   * @param {string|symbol} type The event type to invoke
-   * @param {*} [evt] Any value (object is recommended and powerful), passed to each handler
-   */
-  emit(type: string | Symbol, evt?: any) {
-    for (const handler of (this.cache.get(type) || []).slice()) handler(evt);
-    for (const handler of (this.cache.get('*') || []).slice()) handler(type, evt);
-  }
+// A map of event types and their corresponding event handlers.
+export type EventHandlerMap = Map<EventType, EventHandlerList | WildCardEventHandlerList>;
 
-  /**
-   * Remove all event handlers.
-   *
-   * Note: This will also remove event handlers passed via `mitt(all: EventHandlerMap)`.
-   */
-  clear() {
-    this.cache.clear();
-  }
+export interface Emitter {
+  all: EventHandlerMap;
+
+  on<T = any>(type: EventType, handler: Handler<T>): void;
+  on(type: '*', handler: WildcardHandler): void;
+
+  off<T = any>(type: EventType, handler: Handler<T>): void;
+  off(type: '*', handler: WildcardHandler): void;
+
+  emit<T = any>(type: EventType, event?: T): void;
+  emit(type: '*', event?: any): void;
+  clear(): void;
+}
+
+/**
+ * Mitt: Tiny (~200b) functional event emitter / pubsub.
+ * @name mitt
+ * @returns {Mitt}
+ */
+export default function mitt(all?: EventHandlerMap): Emitter {
+  all = all || new Map();
+
+  return {
+    /**
+     * A Map of event names to registered handler functions.
+     */
+    all,
+
+    /**
+     * Register an event handler for the given type.
+     * @param {string|symbol} type Type of event to listen for, or `"*"` for all events
+     * @param {Function} handler Function to call in response to given event
+     * @memberOf mitt
+     */
+    on<T = any>(type: EventType, handler: Handler<T>) {
+      const handlers = all?.get(type);
+      const added = handlers && handlers.push(handler);
+      if (!added) {
+        all?.set(type, [handler]);
+      }
+    },
+
+    /**
+     * Remove an event handler for the given type.
+     * @param {string|symbol} type Type of event to unregister `handler` from, or `"*"`
+     * @param {Function} handler Handler function to remove
+     * @memberOf mitt
+     */
+    off<T = any>(type: EventType, handler: Handler<T>) {
+      const handlers = all?.get(type);
+      if (handlers) {
+        handlers.splice(handlers.indexOf(handler) >>> 0, 1);
+      }
+    },
+
+    /**
+     * Invoke all handlers for the given type.
+     * If present, `"*"` handlers are invoked after type-matched handlers.
+     *
+     * Note: Manually firing "*" handlers is not supported.
+     *
+     * @param {string|symbol} type The event type to invoke
+     * @param {Any} [evt] Any value (object is recommended and powerful), passed to each handler
+     * @memberOf mitt
+     */
+    emit<T = any>(type: EventType, evt: T) {
+      ((all?.get(type) || []) as EventHandlerList).slice().map((handler) => {
+        handler(evt);
+      });
+      ((all?.get('*') || []) as WildCardEventHandlerList).slice().map((handler) => {
+        handler(type, evt);
+      });
+    },
+
+    /**
+     * Clear all
+     */
+    clear() {
+      this.all.clear();
+    },
+  };
 }

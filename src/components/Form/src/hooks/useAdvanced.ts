@@ -2,11 +2,10 @@ import type { ColEx } from '../types';
 import type { AdvanceState } from '../types/hooks';
 import type { ComputedRef, Ref } from 'vue';
 import type { FormProps, FormSchema } from '../types/form';
-
 import { computed, unref, watch } from 'vue';
 import { isBoolean, isFunction, isNumber, isObject } from '/@/utils/is';
-
 import { useBreakpoint } from '/@/hooks/event/useBreakpoint';
+import { useDebounceFn } from '@vueuse/core';
 
 const BASIC_COL_LEN = 24;
 
@@ -49,12 +48,14 @@ export default function ({
     return 0;
   });
 
+  const debounceUpdateAdvanced = useDebounceFn(updateAdvanced, 30);
+
   watch(
     [() => unref(getSchema), () => advanceState.isAdvanced, () => unref(realWidthRef)],
     () => {
       const { showAdvancedButton } = unref(getProps);
       if (showAdvancedButton) {
-        updateAdvanced();
+        debounceUpdateAdvanced();
       }
     },
     { immediate: true }

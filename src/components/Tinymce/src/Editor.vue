@@ -6,15 +6,16 @@
       @done="handleDone"
       v-if="showImageUpload"
       v-show="editorRef"
+      :disabled="disabled"
     />
     <textarea :id="tinymceId" ref="elRef" :style="{ visibility: 'hidden' }"></textarea>
   </div>
 </template>
 
 <script lang="ts">
+  import type { RawEditorSettings } from 'tinymce';
   import tinymce from 'tinymce/tinymce';
   import 'tinymce/themes/silver';
-
   import 'tinymce/icons/default/icons';
   import 'tinymce/plugins/advlist';
   import 'tinymce/plugins/anchor';
@@ -56,20 +57,19 @@
     onUnmounted,
     onDeactivated,
   } from 'vue';
-
   import ImgUpload from './ImgUpload.vue';
-
   import { toolbar, plugins } from './tinymce';
-
   import { buildShortUUID } from '/@/utils/uuid';
   import { bindHandlers } from './helper';
   import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { isNumber } from '/@/utils/is';
+  import { useLocale } from '/@/locales/useLocale';
+  import { useAppStore } from '/@/store/modules/app';
 
   const tinymceProps = {
     options: {
-      type: Object as PropType<any>,
+      type: Object as PropType<Partial<RawEditorSettings>>,
       default: {},
     },
     value: {
@@ -92,7 +92,6 @@
       required: false,
       default: 400,
     },
-
     width: {
       type: [Number, String] as PropType<string | number>,
       required: false,
@@ -118,6 +117,8 @@
 
       const { prefixCls } = useDesign('tinymce-container');
 
+      const appStore = useAppStore();
+
       const tinymceContent = computed(() => props.modelValue);
 
       const containerWidth = computed(() => {
@@ -128,7 +129,16 @@
         return width;
       });
 
-      const initOptions = computed(() => {
+      const skinName = computed(() => {
+        return appStore.getDarkMode === 'light' ? 'oxide' : 'oxide-dark';
+      });
+
+      const langName = computed(() => {
+        const lang = useLocale().getLocale.value;
+        return ['zh_CN', 'en'].includes(lang) ? lang : 'zh_CN';
+      });
+
+      const initOptions = computed((): RawEditorSettings => {
         const { height, options, toolbar, plugins } = props;
         const publicPath = import.meta.env.VITE_PUBLIC_PATH || '/';
         return {
@@ -137,21 +147,33 @@
           toolbar,
           menubar: 'file edit insert view format table',
           plugins,
-          language_url: publicPath + 'resource/tinymce/langs/zh_CN.js',
-          language: 'zh_CN',
+          language_url: publicPath + 'resource/tinymce/langs/' + langName.value + '.js',
+          language: langName.value,
           branding: false,
           default_link_target: '_blank',
           link_title: false,
           object_resizing: false,
-          skin: 'oxide',
-          skin_url: publicPath + 'resource/tinymce/skins/ui/oxide',
-          content_css: publicPath + 'resource/tinymce/skins/ui/oxide/content.min.css',
+          auto_focus: true,
+          skin: skinName.value,
+          skin_url: publicPath + 'resource/tinymce/skins/ui/' + skinName.value,
+          content_css:
+            publicPath + 'resource/tinymce/skins/ui/' + skinName.value + '/content.min.css',
           ...options,
-          setup: (editor: any) => {
+          setup: (editor) => {
             editorRef.value = editor;
-            editor.on('init', (e: Event) => initSetup(e));
+            editor.on('init', (e) => initSetup(e));
           },
         };
+      });
+
+      const disabled = computed(() => {
+        const { options } = props;
+        const getdDisabled = options && Reflect.get(options, 'readonly');
+        const editor = unref(editorRef);
+        if (editor) {
+          editor.setMode(getdDisabled ? 'readonly' : 'design');
+        }
+        return getdDisabled ?? false;
       });
 
       watch(
@@ -196,7 +218,7 @@
         tinymce.init(unref(initOptions));
       }
 
-      function initSetup(e: Event) {
+      function initSetup(e) {
         const editor = unref(editorRef);
         if (!editor) {
           return;
@@ -285,6 +307,7 @@
         handleDone,
         editorRef,
         fullscreen,
+        disabled,
       };
     },
   });

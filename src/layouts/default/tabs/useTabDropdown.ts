@@ -20,11 +20,9 @@ export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: Comp
   const { currentRoute } = useRouter();
   const { refreshPage, closeAll, close, closeLeft, closeOther, closeRight } = useTabs();
 
-  const getTargetTab = computed(
-    (): RouteLocationNormalized => {
-      return unref(getIsTabs) ? tabContentProps.tabItem : unref(currentRoute);
-    }
-  );
+  const getTargetTab = computed((): RouteLocationNormalized => {
+    return unref(getIsTabs) ? tabContentProps.tabItem : unref(currentRoute);
+  });
 
   /**
    * @description: drop-down list

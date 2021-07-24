@@ -1,8 +1,20 @@
 <template>
   <LoginFormTitle v-show="getShow" class="enter-x" />
-  <Form class="p-4 enter-x" :model="formData" :rules="getFormRules" ref="formRef" v-show="getShow">
+  <Form
+    class="p-4 enter-x"
+    :model="formData"
+    :rules="getFormRules"
+    ref="formRef"
+    v-show="getShow"
+    @keypress.enter="handleLogin"
+  >
     <FormItem name="account" class="enter-x">
-      <Input size="large" v-model:value="formData.account" :placeholder="t('sys.login.userName')" />
+      <Input
+        size="large"
+        v-model:value="formData.account"
+        :placeholder="t('sys.login.userName')"
+        class="fix-auto-fill"
+      />
     </FormItem>
     <FormItem name="password" class="enter-x">
       <InputPassword
@@ -46,7 +58,7 @@
           {{ t('sys.login.mobileSignInFormTitle') }}
         </Button>
       </ACol>
-      <ACol :md="8" :xs="24" class="!my-2 !md:my-0 xs:mx-0 md:mx-2">
+      <ACol :md="8" :xs="24" class="!my-2 md:!my-0 xs:mx-0 md:mx-2">
         <Button block @click="setLoginState(LoginStateEnum.QR_CODE)">
           {{ t('sys.login.qrSignInFormTitle') }}
         </Button>
@@ -88,7 +100,7 @@
   import { useUserStore } from '/@/store/modules/user';
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { onKeyStroke } from '@vueuse/core';
+  //import { onKeyStroke } from '@vueuse/core';
 
   export default defineComponent({
     name: 'LoginForm',
@@ -111,7 +123,7 @@
     },
     setup() {
       const { t } = useI18n();
-      const { notification } = useMessage();
+      const { notification, createErrorModal } = useMessage();
       const { prefixCls } = useDesign('login');
       const userStore = useUserStore();
 
@@ -129,7 +141,7 @@
 
       const { validForm } = useFormValid(formRef);
 
-      onKeyStroke('Enter', handleLogin);
+      //onKeyStroke('Enter', handleLogin);
 
       const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
 
@@ -142,6 +154,7 @@
             toRaw({
               password: data.password,
               username: data.account,
+              mode: 'none', //不要默认的错误提示
             })
           );
           if (userInfo) {
@@ -151,6 +164,12 @@
               duration: 3,
             });
           }
+        } catch (error) {
+          createErrorModal({
+            title: t('sys.api.errorTip'),
+            content: error.message || t('sys.api.networkExceptionMsg'),
+            getContainer: () => document.body.querySelector(`.${prefixCls}`) || document.body,
+          });
         } finally {
           loading.value = false;
         }

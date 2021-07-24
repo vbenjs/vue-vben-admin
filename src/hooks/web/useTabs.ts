@@ -37,6 +37,15 @@ export function useTabs(_router?: Router) {
     return tabStore.getTabList.find((item) => item.path === route.path)!;
   }
 
+  async function updateTabTitle(title: string, tab?: RouteLocationNormalized) {
+    const canIUse = canIUseTabs;
+    if (!canIUse) {
+      return;
+    }
+    const targetTab = tab || getCurrentTab();
+    await tabStore.setTabTitle(title, targetTab);
+  }
+
   async function handleTabAction(action: TableActionEnum, tab?: RouteLocationNormalized) {
     const canIUse = canIUseTabs;
     if (!canIUse) {
@@ -81,5 +90,6 @@ export function useTabs(_router?: Router) {
     close: (tab?: RouteLocationNormalized) => {
       handleTabAction(TableActionEnum.CLOSE, tab);
     },
+    setTitle: (title: string, tab?: RouteLocationNormalized) => updateTabTitle(title, tab),
   };
 }

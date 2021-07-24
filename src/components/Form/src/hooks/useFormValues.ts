@@ -1,9 +1,9 @@
 import { isArray, isFunction, isObject, isString, isNullOrUnDef } from '/@/utils/is';
 import { dateUtil } from '/@/utils/dateUtil';
-
 import { unref } from 'vue';
 import type { Ref, ComputedRef } from 'vue';
 import type { FormProps, FormSchema } from '../types/form';
+import { set } from 'lodash-es';
 
 interface UseFormValuesContext {
   defaultValueRef: Ref<any>;
@@ -26,7 +26,7 @@ export function useFormValues({
     for (const item of Object.entries(values)) {
       let [, value] = item;
       const [key] = item;
-      if ((isArray(value) && value.length === 0) || isFunction(value)) {
+      if (!key || (isArray(value) && value.length === 0) || isFunction(value)) {
         continue;
       }
       const transformDateFunc = unref(getProps).transformDateFunc;
@@ -40,7 +40,7 @@ export function useFormValues({
       if (isString(value)) {
         value = value.trim();
       }
-      res[key] = value;
+      set(res, key, value);
     }
     return handleRangeTimeValue(res);
   }

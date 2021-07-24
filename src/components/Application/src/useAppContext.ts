@@ -3,7 +3,6 @@ import { createContext, useContext } from '/@/hooks/core/useContext';
 
 export interface AppProviderContextProps {
   prefixCls: Ref<string>;
-
   isMobile: Ref<boolean>;
 }
 

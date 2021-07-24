@@ -5,6 +5,7 @@ import {
   ThemeEnum,
   RouterTransitionEnum,
   SettingButtonPositionEnum,
+  SessionTimeoutProcessingEnum,
 } from '/@/enums/appEnum';
 
 import { CacheTypeEnum } from '/@/enums/cacheEnum';
@@ -89,6 +90,8 @@ export interface ProjectConfig {
   settingButtonPosition: SettingButtonPositionEnum;
   // Permission mode
   permissionMode: PermissionModeEnum;
+  // Session timeout processing
+  sessionTimeoutProcessing: SessionTimeoutProcessingEnum;
   // Website gray mode, open for possible mourning dates
   grayMode: boolean;
   // Whether to turn on the color weak mode

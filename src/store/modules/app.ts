@@ -1,4 +1,10 @@
-import type { ProjectConfig } from '/#/config';
+import type {
+  ProjectConfig,
+  HeaderSetting,
+  MenuSetting,
+  TransitionSetting,
+  MultiTabsSetting,
+} from '/#/config';
 import type { BeforeMiniState } from '/#/store';
 
 import { defineStore } from 'pinia';
@@ -30,14 +36,14 @@ export const useAppStore = defineStore({
     beforeMiniInfo: {},
   }),
   getters: {
-    getPageLoading() {
+    getPageLoading(): boolean {
       return this.pageLoading;
     },
     getDarkMode(): 'light' | 'dark' | string {
       return this.darkMode || localStorage.getItem(APP_DARK_MODE_KEY_) || darkMode;
     },
 
-    getBeforeMiniInfo() {
+    getBeforeMiniInfo(): BeforeMiniState {
       return this.beforeMiniInfo;
     },
 
@@ -45,16 +51,16 @@ export const useAppStore = defineStore({
       return this.projectConfig || ({} as ProjectConfig);
     },
 
-    getHeaderSetting() {
+    getHeaderSetting(): HeaderSetting {
       return this.getProjectConfig.headerSetting;
     },
-    getMenuSetting() {
+    getMenuSetting(): MenuSetting {
       return this.getProjectConfig.menuSetting;
     },
-    getTransitionSetting() {
+    getTransitionSetting(): TransitionSetting {
       return this.getProjectConfig.transitionSetting;
     },
-    getMultiTabsSetting() {
+    getMultiTabsSetting(): MultiTabsSetting {
       return this.getProjectConfig.multiTabsSetting;
     },
   },
@@ -97,6 +103,6 @@ export const useAppStore = defineStore({
 });
 
 // Need to be used outside the setup
-export function useAppStoreWidthOut() {
+export function useAppStoreWithOut() {
   return useAppStore(store);
 }

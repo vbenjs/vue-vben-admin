@@ -18,13 +18,10 @@
 </template>
 <script lang="ts">
   import type { PropType } from 'vue';
-
   import { defineComponent, reactive, onMounted, ref, toRef, toRefs } from 'vue';
-
   import { Skeleton } from 'ant-design-vue';
   import { useTimeoutFn } from '/@/hooks/core/useTimeout';
   import { useIntersectionObserver } from '/@/hooks/event/useIntersectionObserver';
-  import { propTypes } from '/@/utils/propTypes';
 
   interface State {
     isInit: boolean;
@@ -32,36 +29,47 @@
     intersectionObserverInstance: IntersectionObserver | null;
   }
 
+  const props = {
+    /**
+     * Waiting time, if the time is specified, whether visible or not, it will be automatically loaded after the specified time
+     */
+    timeout: { type: Number },
+    /**
+     * The viewport where the component is located.
+     * If the component is scrolling in the page container, the viewport is the container
+     */
+    viewport: {
+      type: (typeof window !== 'undefined' ? window.HTMLElement : Object) as PropType<HTMLElement>,
+      default: () => null,
+    },
+    /**
+     * Preload threshold, css unit
+     */
+    threshold: { type: String, default: '0px' },
+    /**
+     * The scroll direction of the viewport, vertical represents the vertical direction, horizontal represents the horizontal direction
+     */
+    direction: {
+      type: String,
+      default: 'vertical',
+      validator: (v) => ['vertical', 'horizontal'].includes(v),
+    },
+    /**
+     * The label name of the outer container that wraps the component
+     */
+    tag: { type: String, default: 'div' },
+    maxWaitingTime: { type: Number, default: 80 },
+    /**
+     * transition name
+     */
+    transitionName: { type: String, default: 'lazy-container' },
+  };
+
   export default defineComponent({
     name: 'LazyContainer',
     components: { Skeleton },
     inheritAttrs: false,
-    props: {
-      // Waiting time, if the time is specified, whether visible or not, it will be automatically loaded after the specified time
-      timeout: propTypes.number,
-
-      // The viewport where the component is located. If the component is scrolling in the page container, the viewport is the container
-      viewport: {
-        type: (typeof window !== 'undefined'
-          ? window.HTMLElement
-          : Object) as PropType<HTMLElement>,
-        default: () => null,
-      },
-
-      // Preload threshold, css unit
-      threshold: propTypes.string.def('0px'),
-
-      // The scroll direction of the viewport, vertical represents the vertical direction, horizontal represents the horizontal direction
-      direction: propTypes.oneOf(['vertical', 'horizontal']).def('vertical'),
-
-      // The label name of the outer container that wraps the component
-      tag: propTypes.string.def('div'),
-
-      maxWaitingTime: propTypes.number.def(80),
-
-      // transition name
-      transitionName: propTypes.string.def('lazy-container'),
-    },
+    props,
     emits: ['init'],
     setup(props, { emit }) {
       const elRef = ref();

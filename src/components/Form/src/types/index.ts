@@ -90,9 +90,8 @@ export type ComponentType =
   | 'InputCountDown'
   | 'Select'
   | 'ApiSelect'
-  | 'SelectOptGroup'
   | 'TreeSelect'
-  | 'Transfer'
+  | 'ApiTreeSelect'
   | 'RadioButtonGroup'
   | 'RadioGroup'
   | 'Checkbox'
@@ -109,4 +108,5 @@ export type ComponentType =
   | 'Upload'
   | 'IconPicker'
   | 'Render'
-  | 'Slider';
+  | 'Slider'
+  | 'Rate';

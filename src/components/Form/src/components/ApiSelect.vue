@@ -2,6 +2,7 @@
   <Select
     @dropdownVisibleChange="handleFetch"
     v-bind="attrs"
+    @change="handleChange"
     :options="getOptions"
     v-model:value="state"
   >
@@ -20,13 +21,12 @@
   </Select>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, ref, watchEffect, computed, unref } from 'vue';
+  import { defineComponent, PropType, ref, watchEffect, computed, unref, watch } from 'vue';
   import { Select } from 'ant-design-vue';
   import { isFunction } from '/@/utils/is';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { useAttrs } from '/@/hooks/core/useAttrs';
-  import { get } from 'lodash-es';
-
+  import { get, omit } from 'lodash-es';
   import { LoadingOutlined } from '@ant-design/icons-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { propTypes } from '/@/utils/propTypes';
@@ -68,11 +68,12 @@
       const options = ref<OptionsItem[]>([]);
       const loading = ref(false);
       const isFirstLoad = ref(true);
+      const emitData = ref<any[]>([]);
       const attrs = useAttrs();
       const { t } = useI18n();
 
       // Embedded in the form, just use the hook binding to perform form verification
-      const [state] = useRuleFormItem(props);
+      const [state] = useRuleFormItem(props, 'value', 'change', emitData);
 
       const getOptions = computed(() => {
         const { labelField, valueField, numberToString } = props;
@@ -83,6 +84,7 @@
             prev.push({
               label: next[labelField],
               value: numberToString ? `${value}` : value,
+              ...omit(next, [labelField, valueField]),
             });
           }
           return prev;
@@ -93,10 +95,18 @@
         props.immediate && fetch();
       });
 
+      watch(
+        () => props.params,
+        () => {
+          !unref(isFirstLoad) && fetch();
+        },
+        { deep: true }
+      );
+
       async function fetch() {
         const api = props.api;
         if (!api || !isFunction(api)) return;
-
+        options.value = [];
         try {
           loading.value = true;
           const res = await api(props.params);
@@ -124,10 +134,14 @@
       }
 
       function emitChange() {
-        emit('options-change', unref(options));
+        emit('options-change', unref(getOptions));
       }
 
-      return { state, attrs, getOptions, loading, t, handleFetch };
+      function handleChange(_, ...args) {
+        emitData.value = args;
+      }
+
+      return { state, attrs, getOptions, loading, t, handleFetch, handleChange };
     },
   });
 </script>

@@ -1,24 +1,52 @@
 <template>
-  <PageWrapper title="表单基础示例">
+  <PageWrapper title="表单基础示例" contentFullHeight>
     <CollapseContainer title="基础示例">
       <BasicForm
         autoFocusFirstItem
-        :labelWidth="100"
+        :labelWidth="200"
         :schemas="schemas"
         :actionColOptions="{ span: 24 }"
         @submit="handleSubmit"
-      />
+        @reset="handleReset"
+      >
+        <template #localSearch="{ model, field }">
+          <ApiSelect
+            :api="optionsListApi"
+            showSearch
+            v-model:value="model[field]"
+            optionFilterProp="label"
+            resultField="list"
+            labelField="name"
+            valueField="id"
+          />
+        </template>
+        <template #remoteSearch="{ model, field }">
+          <ApiSelect
+            :api="optionsListApi"
+            showSearch
+            v-model:value="model[field]"
+            :filterOption="false"
+            resultField="list"
+            labelField="name"
+            valueField="id"
+            :params="searchParams"
+            @search="onSearch"
+          />
+        </template>
+      </BasicForm>
     </CollapseContainer>
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { BasicForm, FormSchema } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container/index';
+  import { computed, defineComponent, unref, ref } from 'vue';
+  import { BasicForm, FormSchema, ApiSelect } from '/@/components/Form/index';
+  import { CollapseContainer } from '/@/components/Container';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PageWrapper } from '/@/components/Page';
 
   import { optionsListApi } from '/@/api/demo/select';
+  import { useDebounceFn } from '@vueuse/core';
+  import { treeOptionsListApi } from '/@/api/demo/tree';
 
   const provincesOptions = [
     {
@@ -265,19 +293,74 @@
         ],
       },
     },
-
     {
       field: 'field30',
       component: 'ApiSelect',
-      label: '远程下拉',
+      label: '懒加载远程下拉',
       required: true,
       componentProps: {
+        // more details see /src/components/Form/src/components/ApiSelect.vue
         api: optionsListApi,
+        params: {
+          id: 1,
+        },
+        resultField: 'list',
+        // use name as label
+        labelField: 'name',
+        // use id as value
+        valueField: 'id',
+        // not request untill to select
+        immediate: false,
+        onChange: (e) => {
+          console.log('selected:', e);
+        },
+        // atfer request callback
+        onOptionsChange: (options) => {
+          console.log('get options', options.length, options);
+        },
       },
       colProps: {
         span: 8,
       },
       defaultValue: '0',
+    },
+    {
+      field: 'field31',
+      component: 'Input',
+      label: '下拉本地搜索',
+      helpMessage: ['ApiSelect组件', '远程数据源本地搜索', '只发起一次请求获取所有选项'],
+      required: true,
+      slot: 'localSearch',
+      colProps: {
+        span: 8,
+      },
+      defaultValue: '0',
+    },
+    {
+      field: 'field32',
+      component: 'Input',
+      label: '下拉远程搜索',
+      helpMessage: ['ApiSelect组件', '将关键词发送到接口进行远程搜索'],
+      required: true,
+      slot: 'remoteSearch',
+      colProps: {
+        span: 8,
+      },
+      defaultValue: '0',
+    },
+    {
+      field: 'field33',
+      component: 'ApiTreeSelect',
+      label: '远程下拉树',
+      helpMessage: ['ApiTreeSelect组件', '使用接口提供的数据生成选项'],
+      required: true,
+      componentProps: {
+        api: treeOptionsListApi,
+        resultField: 'list',
+      },
+      colProps: {
+        span: 8,
+      },
     },
     {
       field: 'field20',
@@ -350,15 +433,42 @@
         span: 8,
       },
     },
+    {
+      field: 'field22',
+      component: 'Rate',
+      label: '字段22',
+      defaultValue: 3,
+      colProps: {
+        span: 8,
+      },
+      componentProps: {
+        disabled: false,
+        allowHalf: true,
+      },
+    },
   ];
 
   export default defineComponent({
-    components: { BasicForm, CollapseContainer, PageWrapper },
+    components: { BasicForm, CollapseContainer, PageWrapper, ApiSelect },
     setup() {
       const check = ref(null);
       const { createMessage } = useMessage();
+      const keyword = ref<string>('');
+      const searchParams = computed<Recordable>(() => {
+        return { keyword: unref(keyword) };
+      });
+
+      function onSearch(value: string) {
+        keyword.value = value;
+      }
       return {
         schemas,
+        optionsListApi,
+        onSearch: useDebounceFn(onSearch, 300),
+        searchParams,
+        handleReset: () => {
+          keyword.value = '';
+        },
         handleSubmit: (values: any) => {
           createMessage.success('click search,values:' + JSON.stringify(values));
         },

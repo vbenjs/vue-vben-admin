@@ -1,30 +1,40 @@
 <template>
   <span :class="getClass">
     <slot></slot>
-    <BasicHelp :class="`${prefixCls}__help`" v-if="helpMessage" :text="helpMessage" />
+    <BasicHelp :class="`${prefixCls}-help`" v-if="helpMessage" :text="helpMessage" />
   </span>
 </template>
 <script lang="ts">
   import type { PropType } from 'vue';
-
   import { defineComponent, computed } from 'vue';
   import BasicHelp from './BasicHelp.vue';
-
   import { useDesign } from '/@/hooks/web/useDesign';
 
-  import { propTypes } from '/@/utils/propTypes';
+  const props = {
+    /**
+     * Help text list or string
+     * @default: ''
+     */
+    helpMessage: {
+      type: [String, Array] as PropType<string | string[]>,
+      default: '',
+    },
+    /**
+     * Whether the color block on the left side of the title
+     * @default: false
+     */
+    span: { type: Boolean },
+    /**
+     * Whether to default the text, that is, not bold
+     * @default: false
+     */
+    normal: { type: Boolean },
+  };
 
   export default defineComponent({
     name: 'BasicTitle',
     components: { BasicHelp },
-    props: {
-      helpMessage: {
-        type: [String, Array] as PropType<string | string[]>,
-        default: '',
-      },
-      span: propTypes.bool,
-      normal: propTypes.bool.def(false),
-    },
+    props,
     setup(props, { slots }) {
       const { prefixCls } = useDesign('basic-title');
 
@@ -33,6 +43,7 @@
         { [`${prefixCls}-show-span`]: props.span && slots.default },
         { [`${prefixCls}-normal`]: props.normal },
       ]);
+
       return { prefixCls, getClass };
     },
   });
@@ -67,7 +78,7 @@
       content: '';
     }
 
-    &__help {
+    &-help {
       margin-left: 10px;
     }
   }

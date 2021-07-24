@@ -5,14 +5,14 @@
         <a-row>
           <a-col :span="8">
             <div :class="`${prefixCls}-top__avatar`">
-              <img width="70" :src="headerImg" />
+              <img width="70" :src="avatar" />
               <span>Vben</span>
               <div>海纳百川，有容乃大</div>
             </div>
           </a-col>
           <a-col :span="16">
             <div :class="`${prefixCls}-top__detail`">
-              <template v-for="(detail, index) in details" :key="index">
+              <template v-for="detail in details" :key="detail.title">
                 <p>
                   <Icon :icon="detail.icon" />
                   {{ detail.title }}
@@ -24,7 +24,7 @@
       </a-col>
       <a-col :span="7" :class="`${prefixCls}-col`">
         <CollapseContainer title="标签" :canExpan="false">
-          <template v-for="(tag, index) in tags" :key="index">
+          <template v-for="tag in tags" :key="tag">
             <Tag class="mb-2">
               {{ tag }}
             </Tag>
@@ -54,7 +54,7 @@
 
 <script lang="ts">
   import { Tag, Tabs, Row, Col } from 'ant-design-vue';
-  import { defineComponent } from 'vue';
+  import { defineComponent, computed } from 'vue';
   import { CollapseContainer } from '/@/components/Container/index';
   import Icon from '/@/components/Icon/index';
   import Article from './Article.vue';
@@ -63,6 +63,7 @@
 
   import headerImg from '/@/assets/images/header.jpg';
   import { tags, teams, details, achieveList } from './data';
+  import { useUserStore } from '/@/store/modules/user';
 
   export default defineComponent({
     components: {
@@ -78,9 +79,11 @@
       [Col.name]: Col,
     },
     setup() {
+      const userStore = useUserStore();
+      const avatar = computed(() => userStore.getUserInfo.avatar || headerImg);
       return {
         prefixCls: 'account-center',
-        headerImg,
+        avatar,
         tags,
         teams,
         details,
@@ -109,6 +112,7 @@
         text-align: center;
 
         img {
+          margin: auto;
           border-radius: 50%;
         }
 

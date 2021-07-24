@@ -1,5 +1,6 @@
 {
   "typescript.tsdk": "./node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
   "volar.tsPlugin": true,
   "volar.tsPluginStatus": false,
   //===========================================
@@ -7,50 +8,16 @@
   //===========================================
   "explorer.openEditors.visible": 0,
   "editor.tabSize": 2,
-  "editor.renderControlCharacters": true,
-  "editor.minimap.renderCharacters": false,
-  "editor.minimap.maxColumn": 300,
-  "editor.minimap.showSlider": "always",
-  "editor.cursorBlinking": "phase",
-  "editor.cursorSmoothCaretAnimation": true,
-  "editor.detectIndentation": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "diffEditor.ignoreTrimWhitespace": false,
-  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
-  "editor.suggestSelection": "first",
-  "editor.trimAutoWhitespace": true,
-  "editor.quickSuggestions": {
-    "other": true,
-    "comments": true,
-    "strings": true
-  },
   //===========================================
   //============= Other =======================
   //===========================================
   "breadcrumbs.enabled": true,
   "open-in-browser.default": "chrome",
   //===========================================
-  //============= emmet =======================
-  //===========================================
-  "emmet.triggerExpansionOnTab": true,
-  "emmet.showAbbreviationSuggestions": true,
-  "emmet.showExpandedAbbreviation": "always",
-  "emmet.syntaxProfiles": {
-    "vue-html": "html",
-    "vue": "html",
-    "xml": {
-      "attr_quotes": "single"
-    }
-  },
-  "emmet.includeLanguages": {
-    "jsx-sublime-babel-tags": "javascriptreact"
-  },
-  //===========================================
   //============= files =======================
   //===========================================
-  "files.trimTrailingWhitespace": true,
-  "files.insertFinalNewline": true,
-  "files.trimFinalNewlines": true,
   "files.eol": "\n",
   "search.exclude": {
     "**/node_modules": true,
@@ -73,9 +40,14 @@
     "CHANGELOG.md": true,
     "examples": true,
     "res": true,
-    "screenshots": true
+    "screenshots": true,
+    "yarn-error.log": true,
+    "**/.yarn": true
   },
   "files.exclude": {
+    "**/.cache": true,
+    "**/.editorconfig": true,
+    "**/.eslintcache": true,
     "**/bower_components": true,
     "**/.idea": true,
     "**/tmp": true,
@@ -97,49 +69,8 @@
   },
   "stylelint.enable": true,
   "stylelint.packageManager": "yarn",
-  // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-  // ===========================================
-  // ================ Eslint ===================
-  // ===========================================
-  "eslint.alwaysShowStatus": true,
-  "eslint.options": {
-    "plugins": ["html", "vue", "javascript", "jsx", "typescript"],
-    "extensions": [".js", ".jsx", ".ts", ".tsx", ".vue"]
-  },
-  "eslint.validate": [
-    "javascript",
-    "typescript",
-    "reacttypescript",
-    "reactjavascript",
-    "html",
-    "vue"
-  ],
-  // ===========================================
-  // ================ Vetur ====================
-  // ===========================================
-  "vetur.experimental.templateInterpolationService": true,
-  "vetur.format.options.tabSize": 2,
-  "vetur.format.defaultFormatter.html": "js-beautify-html",
-  "vetur.format.defaultFormatter.scss": "prettier",
-  "vetur.format.defaultFormatter.css": "prettier",
-  "vetur.format.defaultFormatter.ts": "prettier-tslint",
-  "vetur.format.defaultFormatter.js": "prettier",
-  "vetur.languageFeatures.codeActions": false,
-  "vetur.format.defaultFormatterOptions": {
-    "js-beautify-html": {
-      "wrap_attributes": "force-expand-multiline"
-    },
-    "prettier": {
-      "eslintIntegration": true,
-      "arrowParens": "always",
-      "semi": false,
-      "singleQuote": true
-    }
-  },
   "liveServer.settings.donotShowInfoMsg": true,
-  "terminal.integrated.rendererType": "dom",
   "telemetry.enableCrashReporter": false,
-  "telemetry.enableTelemetry": false,
   "workbench.settings.enableNaturalLanguageSearch": false,
   "path-intellisense.mappings": {
     "/@/": "${workspaceRoot}/src"
@@ -186,5 +117,36 @@
   "i18n-ally.pathMatcher": "{locale}/{namespaces}.{ext}",
   "i18n-ally.enabledParsers": ["ts"],
   "i18n-ally.sourceLanguage": "en",
-  "i18n-ally.enabledFrameworks": ["vue", "react"]
+  "i18n-ally.enabledFrameworks": ["vue", "react"],
+  "cSpell.words": [
+    "vben",
+    "windi",
+    "browserslist",
+    "tailwindcss",
+    "esnext",
+    "antv",
+    "tinymce",
+    "qrcode",
+    "sider",
+    "pinia",
+    "sider",
+    "nprogress",
+    "INTLIFY",
+    "stylelint",
+    "esno",
+    "vitejs",
+    "sortablejs",
+    "mockjs",
+    "codemirror",
+    "iconify",
+    "commitlint",
+    "vditor",
+    "echarts",
+    "cropperjs",
+    "logicflow",
+    "vueuse",
+    "zxcvbn",
+    "lintstagedrc",
+    "brotli"
+  ]
 }

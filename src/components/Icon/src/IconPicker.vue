@@ -31,7 +31,18 @@
                   v-for="icon in getPaginationList"
                   :key="icon"
                   :class="currentSelect === icon ? 'border border-primary' : ''"
-                  class="p-2 w-1/8 cursor-pointer mr-1 mt-1 flex justify-center items-center border border-solid hover:border-primary"
+                  class="
+                    p-2
+                    w-1/8
+                    cursor-pointer
+                    mr-1
+                    mt-1
+                    flex
+                    justify-center
+                    items-center
+                    border border-solid
+                    hover:border-primary
+                  "
                   @click="handleClick(icon)"
                   :title="icon"
                 >
@@ -71,7 +82,7 @@
   import { ScrollContainer } from '/@/components/Container';
 
   import { Input, Popover, Pagination, Empty } from 'ant-design-vue';
-  import Icon from './index.vue';
+  import Icon from './Icon.vue';
   import SvgIcon from './SvgIcon.vue';
 
   import iconsData from '../data/icons.data';
@@ -108,9 +119,7 @@
       width: propTypes.string.def('100%'),
       pageSize: propTypes.number.def(140),
       copy: propTypes.bool.def(false),
-      mode: propTypes
-        .oneOf<('svg' | 'iconify')[]>(['svg', 'iconify'])
-        .def('iconify'),
+      mode: propTypes.oneOf<('svg' | 'iconify')[]>(['svg', 'iconify']).def('iconify'),
     },
     emits: ['change'],
     setup(props, { emit }) {

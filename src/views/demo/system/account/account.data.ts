@@ -1,4 +1,4 @@
-import { getAllRoleList } from '/@/api/demo/system';
+import { getAllRoleList, isAccountExist } from '/@/api/demo/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
@@ -54,14 +54,31 @@ export const accountFormSchema: FormSchema[] = [
     field: 'account',
     label: '用户名',
     component: 'Input',
-    required: true,
+    helpMessage: ['本字段演示异步验证', '不能输入带有admin的用户名'],
+    rules: [
+      {
+        required: true,
+        message: '请输入用户名',
+      },
+      {
+        validator(_, value) {
+          return new Promise((resolve, reject) => {
+            isAccountExist(value)
+              .then(() => resolve())
+              .catch((err) => {
+                reject(err.message || '验证失败');
+              });
+          });
+        },
+      },
+    ],
   },
   {
     field: 'pwd',
     label: '密码',
     component: 'InputPassword',
     required: true,
-    show: false,
+    ifShow: false,
   },
   {
     label: '角色',

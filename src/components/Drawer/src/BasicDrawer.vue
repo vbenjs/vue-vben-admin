@@ -31,14 +31,12 @@
   </Drawer>
 </template>
 <script lang="ts">
-  import type { DrawerInstance, DrawerProps } from './types';
+  import type { DrawerInstance, DrawerProps } from './typing';
   import type { CSSProperties } from 'vue';
-
   import {
     defineComponent,
     ref,
     computed,
-    watchEffect,
     watch,
     unref,
     nextTick,
@@ -46,15 +44,12 @@
     getCurrentInstance,
   } from 'vue';
   import { Drawer } from 'ant-design-vue';
-
   import { useI18n } from '/@/hooks/web/useI18n';
-
   import { isFunction, isNumber } from '/@/utils/is';
   import { deepMerge } from '/@/utils';
   import DrawerFooter from './components/DrawerFooter.vue';
   import DrawerHeader from './components/DrawerHeader.vue';
   import { ScrollContainer } from '/@/components/Container';
-
   import { basicProps } from './props';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useAttrs } from '/@/hooks/core/useAttrs';
@@ -81,46 +76,40 @@
 
       instance && emit('register', drawerInstance, instance.uid);
 
-      const getMergeProps = computed(
-        (): DrawerProps => {
-          return deepMerge(toRaw(props), unref(propsRef));
-        }
-      );
+      const getMergeProps = computed((): DrawerProps => {
+        return deepMerge(toRaw(props), unref(propsRef));
+      });
 
-      const getProps = computed(
-        (): DrawerProps => {
-          const opt = {
-            placement: 'right',
-            ...unref(attrs),
-            ...unref(getMergeProps),
-            visible: unref(visibleRef),
-          };
-          opt.title = undefined;
-          const { isDetail, width, wrapClassName, getContainer } = opt;
-          if (isDetail) {
-            if (!width) {
-              opt.width = '100%';
-            }
-            const detailCls = `${prefixCls}__detail`;
-            opt.wrapClassName = wrapClassName ? `${wrapClassName} ${detailCls}` : detailCls;
-
-            if (!getContainer) {
-              // TODO type error?
-              opt.getContainer = `.${prefixVar}-layout-content` as any;
-            }
+      const getProps = computed((): DrawerProps => {
+        const opt = {
+          placement: 'right',
+          ...unref(attrs),
+          ...unref(getMergeProps),
+          visible: unref(visibleRef),
+        };
+        opt.title = undefined;
+        const { isDetail, width, wrapClassName, getContainer } = opt;
+        if (isDetail) {
+          if (!width) {
+            opt.width = '100%';
           }
-          return opt as DrawerProps;
-        }
-      );
+          const detailCls = `${prefixCls}__detail`;
+          opt.wrapClassName = wrapClassName ? `${wrapClassName} ${detailCls}` : detailCls;
 
-      const getBindValues = computed(
-        (): DrawerProps => {
-          return {
-            ...attrs,
-            ...unref(getProps),
-          };
+          if (!getContainer) {
+            // TODO type error?
+            opt.getContainer = `.${prefixVar}-layout-content` as any;
+          }
         }
-      );
+        return opt as DrawerProps;
+      });
+
+      const getBindValues = computed((): DrawerProps => {
+        return {
+          ...attrs,
+          ...unref(getProps),
+        };
+      });
 
       // Custom implementation of the bottom button,
       const getFooterHeight = computed(() => {
@@ -133,23 +122,25 @@
         return `0px`;
       });
 
-      const getScrollContentStyle = computed(
-        (): CSSProperties => {
-          const footerHeight = unref(getFooterHeight);
-          return {
-            position: 'relative',
-            height: `calc(100% - ${footerHeight})`,
-          };
-        }
-      );
+      const getScrollContentStyle = computed((): CSSProperties => {
+        const footerHeight = unref(getFooterHeight);
+        return {
+          position: 'relative',
+          height: `calc(100% - ${footerHeight})`,
+        };
+      });
 
       const getLoading = computed(() => {
         return !!unref(getProps)?.loading;
       });
 
-      watchEffect(() => {
-        visibleRef.value = props.visible;
-      });
+      watch(
+        () => props.visible,
+        (newVal, oldVal) => {
+          if (newVal !== oldVal) visibleRef.value = newVal;
+        },
+        { deep: true }
+      );
 
       watch(
         () => visibleRef.value,
@@ -175,7 +166,7 @@
 
       function setDrawerProps(props: Partial<DrawerProps>): void {
         // Keep the last setDrawerProps
-        propsRef.value = deepMerge(unref(propsRef) || {}, props);
+        propsRef.value = deepMerge(unref(propsRef) || ({} as any), props);
 
         if (Reflect.has(props, 'visible')) {
           visibleRef.value = !!props.visible;

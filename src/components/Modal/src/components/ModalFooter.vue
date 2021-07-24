@@ -26,13 +26,14 @@
     props: basicProps,
     emits: ['ok', 'cancel'],
     setup(_, { emit }) {
-      function handleOk() {
-        emit('ok');
+      function handleOk(e: Event) {
+        emit('ok', e);
       }
 
-      function handleCancel() {
-        emit('cancel');
+      function handleCancel(e: Event) {
+        emit('cancel', e);
       }
+
       return { handleOk, handleCancel };
     },
   });
