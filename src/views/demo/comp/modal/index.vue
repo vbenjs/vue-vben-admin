@@ -25,7 +25,7 @@
       <a-button type="primary" class="my-4" @click="openTargetModal(4)"> 打开弹窗4 </a-button>
     </a-space>
 
-    <component :is="currentModal" @register="register" />
+    <component :is="currentModal" v-model:visible="modalVisible" :userData="userData" />
 
     <Modal1 @register="register1" :minHeight="100" />
     <Modal2 @register="register2" />
@@ -34,7 +34,7 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, nextTick, shallowRef, ComponentOptions } from 'vue';
+  import { defineComponent, shallowRef, ComponentOptions, ref, nextTick } from 'vue';
   import { Alert, Space } from 'ant-design-vue';
   import { useModal } from '/@/components/Modal';
   import Modal1 from './Modal1.vue';
@@ -51,7 +51,9 @@
       const [register2, { openModal: openModal2 }] = useModal();
       const [register3, { openModal: openModal3 }] = useModal();
       const [register4, { openModal: openModal4 }] = useModal();
-      const [register, { openModal }] = useModal();
+      const modalVisible = ref<Boolean>(false);
+      const userData = ref<any>(null);
+
       function send() {
         openModal4(true, {
           data: 'content',
@@ -82,7 +84,11 @@
             break;
         }
         nextTick(() => {
-          openModal(true, { data: 'content', info: 'Info' });
+          // `useModal` not working with dynamic component
+          // passing data through `userData` prop
+          userData.value = { data: Math.random(), info: 'Info222' };
+          // open the target modal
+          modalVisible.value = true;
         });
       }
 
@@ -95,7 +101,8 @@
         openModal3,
         register4,
         openModal4,
-        register,
+        modalVisible,
+        userData,
         openTargetModal,
         send,
         currentModal,

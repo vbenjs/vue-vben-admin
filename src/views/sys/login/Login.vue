@@ -140,6 +140,12 @@
         color: #fff;
       }
     }
+
+    input.fix-auto-fill,
+    .fix-auto-fill input {
+      -webkit-text-fill-color: #c9d1d9 !important;
+      box-shadow: inherit !important;
+    }
   }
 
   .@{prefix-cls} {

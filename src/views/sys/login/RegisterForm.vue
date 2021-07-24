@@ -4,17 +4,24 @@
     <Form class="p-4 enter-x" :model="formData" :rules="getFormRules" ref="formRef">
       <FormItem name="account" class="enter-x">
         <Input
+          class="fix-auto-fill"
           size="large"
           v-model:value="formData.account"
           :placeholder="t('sys.login.userName')"
         />
       </FormItem>
       <FormItem name="mobile" class="enter-x">
-        <Input size="large" v-model:value="formData.mobile" :placeholder="t('sys.login.mobile')" />
+        <Input
+          size="large"
+          v-model:value="formData.mobile"
+          :placeholder="t('sys.login.mobile')"
+          class="fix-auto-fill"
+        />
       </FormItem>
       <FormItem name="sms" class="enter-x">
         <CountdownInput
           size="large"
+          class="fix-auto-fill"
           v-model:value="formData.sms"
           :placeholder="t('sys.login.smsCode')"
         />
@@ -52,7 +59,7 @@
       >
         {{ t('sys.login.registerButton') }}
       </Button>
-      <Button size="large" block class="enter-x mt-4" @click="handleBackLogin">
+      <Button size="large" block class="mt-4 enter-x" @click="handleBackLogin">
         {{ t('sys.login.backSignIn') }}
       </Button>
     </Form>
