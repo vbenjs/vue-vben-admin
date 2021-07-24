@@ -35,7 +35,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, computed, toRaw } from 'vue';
+  import { defineComponent, PropType, computed, toRaw, unref } from 'vue';
   import { MoreOutlined } from '@ant-design/icons-vue';
   import { Divider, Tooltip, TooltipProps } from 'ant-design-vue';
   import Icon from '/@/components/Icon/index';
@@ -95,6 +95,7 @@
           .map((action) => {
             const { popConfirm } = action;
             return {
+              getPopupContainer: () => unref(table?.wrapRef.value) ?? document.body,
               type: 'link',
               size: 'small',
               ...action,
@@ -131,11 +132,11 @@
       });
 
       function getTooltip(data: string | TooltipProps): TooltipProps {
-        if (isString(data)) {
-          return { title: data, placement: 'bottom' };
-        } else {
-          return Object.assign({ placement: 'bottom' }, data);
-        }
+        return {
+          getPopupContainer: () => unref(table?.wrapRef.value) ?? document.body,
+          placement: 'bottom',
+          ...(isString(data) ? { title: data } : data),
+        };
       }
 
       function onCellClick(e: MouseEvent) {

@@ -113,6 +113,7 @@
         const value = isCheckValue ? (isNumber(val) && isBoolean(val) ? val : !!val) : val;
 
         return {
+          getPopupContainer: () => unref(table?.wrapRef.value) ?? document.body,
           placeholder: createPlaceholderMessage(unref(getComponent)),
           ...apiSelectProps,
           ...omit(compProps, 'onChange'),
