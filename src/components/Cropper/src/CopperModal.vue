@@ -130,7 +130,7 @@
   };
 
   export default defineComponent({
-    name: 'CropperAvatar',
+    name: 'CropperModal',
     components: { BasicModal, Space, CropperImage, Upload, Avatar, Tooltip },
     props,
     emits: ['uploadSuccess', 'register'],
