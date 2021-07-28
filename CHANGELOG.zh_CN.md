@@ -1,6 +1,7 @@
 ### ✨ Features
 
 - **Preview** 添加新的属性及事件
+- **Dark Theme** 新增对 tailwindcss 夜间模式的支持
 
 ### 🐛 Bug Fixes
 

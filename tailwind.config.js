@@ -1,6 +1,6 @@
 module.exports = {
   mode: 'jit',
-  // darkMode: 'class',
+  darkMode: 'class',
   plugins: [createEnterPlugin()],
   purge: {
     enable: process.env.NODE_ENV === 'production',
