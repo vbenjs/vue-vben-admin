@@ -5,10 +5,10 @@
 ### 🐛 Bug Fixes
 
 - **ApiTreeSelect** 修复未能正确监听`params`变化的问题
-- **BasicTable** 修复可编辑单元格不支持`ellipsis`配置的问题
 - **ImgRotateDragVerify** 修复组件`resume`方法无法调用的问题
 - **TableAction** 修复 stopButtonPropagation 属性某些情况下不起作用的问题
 - **BasicTable**
+  - 修复可编辑单元格不支持`ellipsis`配置的问题
   - 修复全屏模式下看不到子组件弹出层（popconfirm 以及 select、treeSelect 等编辑组件）的问题
   - 修复启用`expandRowByClick`时，点击不可展开的行可能会导致样式错误的问题
   - 修复`pagination`属性动态改变不生效的问题
@@ -17,6 +17,7 @@
   - 修复`Alert`组件的颜色配置
   - 修复禁用状态下的`link`类型的按钮颜色问题
   - 修复`Tree`已勾选的复选框的样式问题
+- **其它** 修复 useScript 未能自动移除 script 节点的问题
 
 ## 2.6.1(2021-07-19)
 
