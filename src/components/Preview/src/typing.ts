@@ -2,6 +2,12 @@ export interface Options {
   show?: boolean;
   imageList: string[];
   index?: number;
+  scaleStep?: number;
+  defaultWidth?: number;
+  maskClosable?: boolean;
+  rememberState?: boolean;
+  onImgLoad?: ({ index: number, url: string, dom: HTMLImageElement }) => void;
+  onImgError?: ({ index: number, url: string, dom: HTMLImageElement }) => void;
 }
 
 export interface Props {
@@ -9,6 +15,19 @@ export interface Props {
   instance: Props;
   imageList: string[];
   index: number;
+  scaleStep: number;
+  defaultWidth: number;
+  maskClosable: boolean;
+  rememberState: boolean;
+}
+
+export interface PreviewActions {
+  resume: () => void;
+  close: () => void;
+  prev: () => void;
+  next: () => void;
+  setScale: (scale: number) => void;
+  setRotate: (rotate: number) => void;
 }
 
 export interface ImageProps {
