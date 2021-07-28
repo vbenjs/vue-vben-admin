@@ -1,6 +1,6 @@
 <template>
-  <a-col v-bind="actionColOpt" :style="{ textAlign: 'right' }" v-if="showActionButtonGroup">
-    <div style="width: 100%; text-align: right">
+  <a-col v-bind="actionColOpt" v-if="showActionButtonGroup">
+    <div style="width: 100%" :style="{ textAlign: actionColOpt.style.textAlign }">
       <FormItem>
         <slot name="resetBefore"></slot>
         <Button
@@ -92,6 +92,7 @@
           ? { span: actionSpan < 6 ? 24 : actionSpan }
           : {};
         const actionColOpt: Partial<ColEx> = {
+          style: { textAlign: 'right' },
           span: showAdvancedButton ? 6 : 4,
           ...advancedSpanObj,
           ...actionColOptions,
