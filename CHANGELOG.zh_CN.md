@@ -13,6 +13,7 @@
   - 修复全屏模式下看不到子组件弹出层（popconfirm 以及 select、treeSelect 等编辑组件）的问题
   - 修复启用`expandRowByClick`时，点击不可展开的行可能会导致样式错误的问题
   - 修复`pagination`属性动态改变不生效的问题
+  - 修复`getSelectRows`不支持树形表格子级数据的问题
 - **Dark Theme** 黑暗主题下的配色问题修正
   - 修复`Tree`组件被选中节点的背景颜色
   - 修复`Alert`组件的颜色配置
