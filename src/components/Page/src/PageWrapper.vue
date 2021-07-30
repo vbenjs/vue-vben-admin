@@ -3,7 +3,7 @@
     <PageHeader
       :ghost="ghost"
       :title="title"
-      v-bind="$attrs"
+      v-bind="omit($attrs, 'class')"
       ref="headerRef"
       v-if="content || $slots.headerContent || title || getHeaderSlots.length"
     >
@@ -61,7 +61,7 @@
       contentClass: propTypes.string,
       fixedHeight: propTypes.bool,
     },
-    setup(props, { slots }) {
+    setup(props, { slots, attrs }) {
       const wrapperRef = ref(null);
       const headerRef = ref(null);
       const contentRef = ref(null);
@@ -86,6 +86,7 @@
           {
             [`${prefixCls}--dense`]: props.dense,
           },
+          attrs.class ?? {},
         ];
       });
 

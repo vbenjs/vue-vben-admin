@@ -37,7 +37,21 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   !isBuild && vitePlugins.push(configHmrPlugin());
 
   // @vitejs/plugin-legacy
-  VITE_LEGACY && isBuild && vitePlugins.push(legacy());
+  VITE_LEGACY &&
+    isBuild &&
+    vitePlugins.push(
+      legacy({
+        targets: [
+          'Android > 39',
+          'Chrome >= 60',
+          'Safari >= 10.1',
+          'iOS >= 10.3',
+          'Firefox >= 54',
+          'Edge >= 15',
+        ],
+        additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+      })
+    );
 
   // vite-plugin-html
   vitePlugins.push(configHtmlPlugin(viteEnv, isBuild));

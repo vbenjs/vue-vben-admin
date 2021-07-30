@@ -127,6 +127,7 @@
         updateNodeByKey,
         getAllKeys,
         getChildrenKeys,
+        getEnabledKeys,
       } = useTree(treeDataRef, getReplaceFields);
 
       function getIcon(params: Recordable, icon?: string) {
@@ -180,7 +181,7 @@
       }
 
       function checkAll(checkAll: boolean) {
-        state.checkedKeys = checkAll ? getAllKeys() : ([] as Keys);
+        state.checkedKeys = checkAll ? getEnabledKeys() : ([] as Keys);
       }
 
       function expandAll(expandAll: boolean) {
