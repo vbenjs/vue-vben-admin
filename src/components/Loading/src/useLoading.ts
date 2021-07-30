@@ -12,10 +12,12 @@ interface Fn {
   (): void;
 }
 
-export function useLoading(props: Partial<LoadingProps>): [Fn, Fn];
-export function useLoading(opt: Partial<UseLoadingOptions>): [Fn, Fn];
+export function useLoading(props: Partial<LoadingProps>): [Fn, Fn, (string) => void];
+export function useLoading(opt: Partial<UseLoadingOptions>): [Fn, Fn, (string) => void];
 
-export function useLoading(opt: Partial<LoadingProps> | Partial<UseLoadingOptions>): [Fn, Fn] {
+export function useLoading(
+  opt: Partial<LoadingProps> | Partial<UseLoadingOptions>
+): [Fn, Fn, (string) => void] {
   let props: Partial<LoadingProps>;
   let target: HTMLElement | Ref<ElRef> = document.body;
 
@@ -39,5 +41,9 @@ export function useLoading(opt: Partial<LoadingProps> | Partial<UseLoadingOption
     instance.close();
   };
 
-  return [open, close];
+  const setTip = (tip: string) => {
+    instance.setTip(tip);
+  };
+
+  return [open, close, setTip];
 }
