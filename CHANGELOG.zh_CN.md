@@ -2,6 +2,7 @@
 
 - **Preview** 添加新的属性及事件
 - **Dark Theme** 新增对 tailwindcss 夜间模式的支持
+- **其它** 为 useLoading 添加 setTip 方法
 
 ### 🐛 Bug Fixes
 
