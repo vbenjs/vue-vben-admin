@@ -8,18 +8,20 @@
   </Button>
 </template>
 <script lang="ts">
-  import { defineComponent, computed } from 'vue';
+  import { defineComponent, computed, unref } from 'vue';
   import { Button } from 'ant-design-vue';
   import Icon from '/@/components/Icon/src/Icon.vue';
   import { buttonProps } from './props';
+  import { useAttrs } from '/@/hooks/core/useAttrs';
 
   export default defineComponent({
     name: 'AButton',
     components: { Button, Icon },
     inheritAttrs: false,
     props: buttonProps,
-    setup(props, { attrs }) {
+    setup(props) {
       // get component class
+      const attrs = useAttrs({ excludeDefaultKeys: false });
       const getButtonClass = computed(() => {
         const { color, disabled } = props;
         return [
@@ -27,12 +29,11 @@
             [`ant-btn-${color}`]: !!color,
             [`is-disabled`]: disabled,
           },
-          attrs.class,
         ];
       });
 
       // get inherit binding value
-      const getBindValue = computed(() => ({ ...attrs, ...props }));
+      const getBindValue = computed(() => ({ ...unref(attrs), ...props }));
 
       return { getBindValue, getButtonClass };
     },
