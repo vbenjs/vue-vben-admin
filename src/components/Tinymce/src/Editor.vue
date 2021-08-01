@@ -278,8 +278,9 @@
         if (!editor) {
           return;
         }
+        editor.execCommand('mceInsertContent', false, getUploadingImgName(name));
         const content = editor?.getContent() ?? '';
-        setValue(editor, `${content}\n${getUploadingImgName(name)}`);
+        setValue(editor, content);
       }
 
       function handleDone(name: string, url: string) {
