@@ -1,3 +1,36 @@
+## 2.7.0(2021-08-03)
+
+## (Breaking changes) Breaking changes
+
+- Restore the project `tailwindcss` back to `windicss`, tried `tailwindcss`, there may be a lot of problems, first switch back to `windicss` to improve development efficiency and lower switching costs.
+  - There are currently incompatible areas of the project
+    - The wording of `xl:!m-4` needs to be changed to `!xl:m-4`, note that only `!` is incompatible. If you don’t use it, you don’t need to change it.
+    - The memory overflow problem may still exist (low frequency, just restart, restart vite faster)
+
+### ✨ Features
+
+- **Preview** Add new properties and events
+- **Dark Theme** added support for tailwindcss night mode
+- **Others** add setTip method for useLoading
+
+### 🐛 Bug Fixes
+
+- **ApiTreeSelect** Fixed the problem of failing to monitor `params` changes correctly
+- **ImgRotateDragVerify** Fix the problem that the component `resume` method cannot be called
+- **TableAction** Fix the problem that the stopButtonPropagation property does not work in some cases
+- **PageWrapper** Fix the problem of invalid `class` attribute
+- **BasicTree** Fix the problem that the `checkAll` method will affect the `disabled` state node
+- **BasicTable**
+  - Fix the issue that editable cells do not support `ellipsis` configuration
+  - Fixed the problem that the pop-up layer of sub-components (popconfirm and edit components such as select and treeSelect) cannot be seen in full-screen mode
+  - Fixed an issue where when `expandRowByClick` is enabled, clicking non-expandable rows may cause style errors
+  - Fix the problem that the dynamic change of `pagination` property does not take effect
+  - Fix the problem that `getSelectRows` does not support the child data of the tree table -**Dark Theme** Fix the color matching problem under the dark theme
+  - Fix the background color of the selected node of the `Tree` component
+  - Fix the color configuration of the `Alert` component
+  - Fix the problem of the button color of `link` type in the disabled state
+  - Fix the style problem of checked checkboxes in `Tree` -**Others** Fix the problem that useScript failed to automatically remove the script node
+
 ## 2.6.1(2021-07-19)
 
 ### ✨ Features
