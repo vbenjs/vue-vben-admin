@@ -147,6 +147,8 @@
     "vueuse",
     "zxcvbn",
     "lintstagedrc",
-    "brotli"
+    "brotli",
+    "tailwindcss",
+    "sider"
   ]
 }
