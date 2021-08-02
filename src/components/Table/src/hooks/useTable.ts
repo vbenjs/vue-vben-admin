@@ -122,6 +122,9 @@ export function useTable(tableProps?: Props): [
     updateTableDataRecord: (rowKey: string | number, record: Recordable) => {
       return getTableInstance().updateTableDataRecord(rowKey, record);
     },
+    findTableDataRecord: (rowKey: string | number) => {
+      return getTableInstance().findTableDataRecord(rowKey);
+    },
     getRowSelection: () => {
       return toRaw(getTableInstance().getRowSelection());
     },

@@ -149,24 +149,51 @@ export function useDataSource(
     rowKey: string | number,
     record: Recordable
   ): Recordable | undefined {
-    if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
-    const rowKeyName = unref(getRowKey);
-    if (!rowKeyName) {
-      return;
-    }
-    const row = dataSourceRef.value.find((r) => {
-      if (typeof rowKeyName === 'function') {
-        return (rowKeyName(r) as string) === rowKey;
-      } else {
-        return Reflect.has(r, rowKeyName) && r[rowKeyName] === rowKey;
-      }
-    });
+    const row = findTableDataRecord(rowKey);
+
     if (row) {
       for (const field in row) {
         if (Reflect.has(record, field)) row[field] = record[field];
       }
       return row;
     }
+  }
+
+  function findTableDataRecord(rowKey: string | number) {
+    if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
+
+    const rowKeyName = unref(getRowKey);
+    if (!rowKeyName) return;
+
+    const { childrenColumnName = 'children' } = unref(propsRef);
+
+    const findRow = (array: any[]) => {
+      let ret;
+      array.some(function iter(r) {
+        if (typeof rowKeyName === 'function') {
+          if ((rowKeyName(r) as string) === rowKey) {
+            ret = r;
+            return true;
+          }
+        } else {
+          if (Reflect.has(r, rowKeyName) && r[rowKeyName] === rowKey) {
+            ret = r;
+            return true;
+          }
+        }
+        return r[childrenColumnName] && r[childrenColumnName].some(iter);
+      });
+      return ret;
+    };
+
+    // const row = dataSourceRef.value.find(r => {
+    //   if (typeof rowKeyName === 'function') {
+    //     return (rowKeyName(r) as string) === rowKey
+    //   } else {
+    //     return Reflect.has(r, rowKeyName) && r[rowKeyName] === rowKey
+    //   }
+    // })
+    return findRow(dataSourceRef.value);
   }
 
   async function fetch(opt?: FetchParams) {
@@ -280,6 +307,7 @@ export function useDataSource(
     reload,
     updateTableData,
     updateTableDataRecord,
+    findTableDataRecord,
     handleTableChange,
   };
 }
