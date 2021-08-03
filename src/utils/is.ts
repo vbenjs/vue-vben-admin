@@ -84,6 +84,10 @@ export function isElement(val: unknown): val is Element {
   return isObject(val) && !!val.tagName;
 }
 
+export function isMap(val: unknown): val is Map {
+  return is(val, 'Map');
+}
+
 export const isServer = typeof window === 'undefined';
 
 export const isClient = !isServer;
