@@ -1,3 +1,9 @@
+### 🐛 Bug Fixes
+
+- **Cropper** 修复未能及时销毁的问题
+- **BasicTable** 修复`CellFormat`无法使用`Map`类型数据的问题
+- **Qrcode** 修复二维码组件在创建时未能及时绘制的问题
+
 ## 2.7.0(2021-08-03)
 
 ## (破坏性更新) Breaking changes
