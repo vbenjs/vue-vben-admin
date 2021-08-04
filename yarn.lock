@@ -979,10 +979,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/standalone@^7.14.8":
-  version "7.14.8"
-  resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.14.8.tgz#4fbb0be8161dbdb30e68d903595fb6479ecf9209"
-  integrity sha512-5Aa1Bhis4oZD23iLJE5CDYHEs1zSC3ejppHE5aim0OWjGCWTa9Oq1PwopK4u1++ao6B6POW/PqNZjOCZNTSx0Q==
+"@babel/standalone@^7.14.9":
+  version "7.14.9"
+  resolved "https://registry.npmjs.org/@babel/standalone/-/standalone-7.14.9.tgz#b9a6fa913271a153ca232fdd0f2aa5e3c951d9d5"
+  integrity sha512-EEAwahkk3VW8WOlEAd3xtKN4tVDcgbSiDCc50qD4IgjyMowI2mvLnIZbRpZU5G/yZBGZsEPg7FssT/+yLFBlQQ==
 
 "@babel/template@^7.0.0", "@babel/template@^7.14.5", "@babel/template@^7.3.3":
   version "7.14.5"
@@ -1329,10 +1329,10 @@
   dependencies:
     cross-fetch "^3.0.6"
 
-"@iconify/json@^1.1.382":
-  version "1.1.382"
-  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.382.tgz#781bd272c52aedaa09d9ef13022660290d6ead12"
-  integrity sha512-AIx1BQ+Cr4P2wlUaPurv/DuFGSzhoh/ildJXluWuA0mGm/7fgeYfGX42ldWtOf0b+E4ZFLAAkUpgqTVqlfJ2/g==
+"@iconify/json@^1.1.383":
+  version "1.1.383"
+  resolved "https://registry.npmjs.org/@iconify/json/-/json-1.1.383.tgz#d18488369bb8b5316b50eb172fde1ebfba75a4f7"
+  integrity sha512-gMlPa0DpPisjPm/EOcIgJnAgm3VOZfrae9K+/532tI199Trgqmppz2AUKIErABT65Ix32fzkxbIZMY56sG03Tw==
 
 "@intlify/core-base@9.1.7":
   version "9.1.7"
@@ -1606,19 +1606,19 @@
     mousetrap "^1.6.5"
     preact "^10.4.8"
 
-"@logicflow/core@^0.6.6":
-  version "0.6.6"
-  resolved "https://registry.npmjs.org/@logicflow/core/-/core-0.6.6.tgz#8dfdfc0a30e24e2477e8e2cc5b49abe0a890be85"
-  integrity sha512-LZEpdxxETWIVqWgdRcJ/8Jk+2R+2+oQdCw4r669nGe3E9YvF0X61SRk2WnG01azXPeIr0QgIezYIeymsjwmSTw==
+"@logicflow/core@^0.6.7":
+  version "0.6.7"
+  resolved "https://registry.npmjs.org/@logicflow/core/-/core-0.6.7.tgz#61532e0cc4425e3e21c81402fd3cc0e44ee152a3"
+  integrity sha512-+3T9q4uG55MsdtbmBiM0En3b0TZYwdR8mA19tX1IxlBc2tE839RP1S6CTiBpunHSJIvvtrSvbztJNQ4YKRzXbQ==
   dependencies:
     "@types/mousetrap" "^1.6.4"
     mousetrap "^1.6.5"
     preact "^10.4.8"
 
-"@logicflow/extension@^0.6.6":
-  version "0.6.6"
-  resolved "https://registry.npmjs.org/@logicflow/extension/-/extension-0.6.6.tgz#a49bc5cffee986900f3fd9a0b1bf12bb770b3805"
-  integrity sha512-SNhzfPClwOaIMqfOmREtkn5iEM00KWTCWb+eR8q7wKl07geP59QzcSgXmBiUKTk1QejW45xvs9jzZWsh2zgakA==
+"@logicflow/extension@^0.6.7":
+  version "0.6.7"
+  resolved "https://registry.npmjs.org/@logicflow/extension/-/extension-0.6.7.tgz#d9ca070f78bbc8cbe20286246fc0d22b95b0d515"
+  integrity sha512-pGk3XMp6ZigyOGiRQRSP6c/tJySkF8dlPt45RpS5HjqXbrUysewT6FIxUNm8u8qRjf+ATq7Pn5Qhejma9UPK/g==
   dependencies:
     "@logicflow/core" "^0.6.5"
     ids "^1.0.0"
@@ -2028,10 +2028,10 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-14.17.3.tgz#6d327abaa4be34a74e421ed6409a0ae2f47f4c3d"
   integrity sha512-e6ZowgGJmTuXa3GyaPbTGxX17tnThl2aSSizrFthQ7m9uLGZBXiGhgE55cjRZTF5kjZvYn9EOPOMljdjwbflxw==
 
-"@types/node@^16.4.10":
-  version "16.4.10"
-  resolved "https://registry.npmjs.org/@types/node/-/node-16.4.10.tgz#e57e2a54fc6da58da94b3571b1cb456d39f88597"
-  integrity sha512-TmVHsm43br64js9BqHWqiDZA+xMtbUpI1MBIA0EyiBmoV9pcEYFOSdj5fr6enZNfh4fChh+AGOLIzGwJnkshyQ==
+"@types/node@^16.4.11":
+  version "16.4.11"
+  resolved "https://registry.npmjs.org/@types/node/-/node-16.4.11.tgz#245030af802c776c31f00eb0cdde40ee615db462"
+  integrity sha512-nWSFUbuNiPKJEe1IViuodSI+9cM+vpM8SWF/O6dJK7wmGRNq55U7XavJHrlRrPkSMuUZUFzg1xaZ1B+ZZCrRWw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -2255,13 +2255,13 @@
     "@typescript-eslint/types" "4.29.0"
     eslint-visitor-keys "^2.0.0"
 
-"@vitejs/plugin-legacy@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@vitejs/plugin-legacy/-/plugin-legacy-1.5.0.tgz#92893847fe1b20ebd83ff2371dfd8bc9658e6faa"
-  integrity sha512-q3F6/AEn6LNvK0ERkn0t8gzXTwPdexW4FtsIeIsCxopj02EQLtKi3XfWukU9+kjU599QouyRihvr+C2qO+0Xeg==
+"@vitejs/plugin-legacy@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.npmjs.org/@vitejs/plugin-legacy/-/plugin-legacy-1.5.1.tgz#fef2a11c05d83f5ab13d2d04e52d75bac13c6e6c"
+  integrity sha512-g+0iy0X3NJRUSKZK+OCeSxNWnCuuE/6lsmr2WLWPOEt1vp6LdfHuNCYRooCm6s0ccTZ/SiumVk8vt9DWSYs+8A==
   dependencies:
-    "@babel/standalone" "^7.14.8"
-    core-js "^3.15.2"
+    "@babel/standalone" "^7.14.9"
+    core-js "^3.16.0"
     magic-string "^0.25.7"
     regenerator-runtime "^0.13.9"
     systemjs "^6.10.2"
@@ -3958,10 +3958,10 @@ core-js@^3.12.1:
   resolved "https://registry.npmjs.org/core-js/-/core-js-3.14.0.tgz#62322b98c71cc2018b027971a69419e2425c2a6c"
   integrity sha512-3s+ed8er9ahK+zJpp9ZtuVcDoFzHNiZsPbNAAE4KXgrRHbjSqqNN6xGSXq6bq7TZIbKj4NLrLb6bJ5i+vSVjHA==
 
-core-js@^3.15.2:
-  version "3.15.2"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.15.2.tgz#740660d2ff55ef34ce664d7e2455119c5bdd3d61"
-  integrity sha512-tKs41J7NJVuaya8DxIOCnl8QuPHx5/ZVbFo1oKgVl1qHFBBrDctzQGtuLjPpRdNTWmKPH6oEvgN/MUID+l485Q==
+core-js@^3.16.0:
+  version "3.16.0"
+  resolved "https://registry.npmjs.org/core-js/-/core-js-3.16.0.tgz#1d46fb33720bc1fa7f90d20431f36a5540858986"
+  integrity sha512-5+5VxRFmSf97nM8Jr2wzOwLqRo6zphH2aX+7KsAUONObyzakDNq2G/bgbhinxB4PoV9L3aXQYhiDKyIKWd2c8g==
 
 core-util-is@~1.0.0:
   version "1.0.2"
@@ -4774,10 +4774,10 @@ eslint-plugin-prettier@^3.4.0:
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
-eslint-plugin-vue@^7.15.0:
-  version "7.15.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-7.15.0.tgz#272318b4aac789ea92e6cd28ef14698e9715ceab"
-  integrity sha512-br58VTAT8JB4Qe7XJVN7fNBqQgclE+hcsievoyQyGtCZsYprFMQYu+c9yHX9XkP55cMnSVZpW5fRgy3n/wZskA==
+eslint-plugin-vue@^7.15.1:
+  version "7.15.1"
+  resolved "https://registry.npmjs.org/eslint-plugin-vue/-/eslint-plugin-vue-7.15.1.tgz#699c1f3ce2032ea8843b8d5d1adb863b7979965c"
+  integrity sha512-4/r+n/i+ovyeW2gVRRH92kpy4lkpFbyPR4BMxGBTLtGnwqOKKzjSo6EMSaT0RhWPvEjK9uifcY8e7z5n8BIEgw==
   dependencies:
     eslint-utils "^2.1.0"
     natural-compare "^1.4.0"
@@ -11276,10 +11276,10 @@ vite-plugin-pwa@^0.9.3:
     workbox-build "^6.1.5"
     workbox-window "^6.1.5"
 
-vite-plugin-style-import@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-1.1.0.tgz#9405fe6a8662833218d64182cfa1973ffc04e6fa"
-  integrity sha512-fcTa9mrmwgN84XtWb9f0401puExhHL2qK93fnvXxXMW4SPDWJ6ZRk93Tu8V6kY/HEA/CODA4vucfAUGYwFZNHA==
+vite-plugin-style-import@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-1.1.1.tgz#7ccebb042bce94eeb2f695c7339354a2dac48c25"
+  integrity sha512-29NnvfAwCqS5zSg+bComXSmCgx3MmKJ/dPxWC/wa/yjG1gm7i/BDKrshiaGRXpIbMSyQco5KGRKhrUIW3Tr+nw==
   dependencies:
     "@rollup/pluginutils" "^4.1.1"
     change-case "^4.1.2"
@@ -11287,10 +11287,10 @@ vite-plugin-style-import@^1.1.0:
     es-module-lexer "^0.7.1"
     magic-string "^0.25.7"
 
-vite-plugin-svg-icons@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/vite-plugin-svg-icons/-/vite-plugin-svg-icons-1.0.3.tgz#5812ee61458e8e9fc0e0fe8a6a3abbc20e875b0a"
-  integrity sha512-3YLjemTDWabzrBtSJJyhA9ZIy+EeRS+cri44omS03BkrVG2xepbwbAv8WiDc7YugKqUkh0MGEEYajFixl905Wg==
+vite-plugin-svg-icons@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/vite-plugin-svg-icons/-/vite-plugin-svg-icons-1.0.4.tgz#9f20feff4b3bfbdcf5401d3efa75d4813f27dc22"
+  integrity sha512-sRneOwVRA6F2zfNKtmwTQl4WwtrdzFq8REO5elX9rd9vC5gNxJ5v4TNlm8cHWGCwvLuxCu5lrnhEU2rcg8izgg==
   dependencies:
     "@types/svgo" "^2.3.1"
     cors "^2.8.5"
