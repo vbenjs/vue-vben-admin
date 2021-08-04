@@ -47,6 +47,7 @@ export function useDataSource(
     filterInfo: {},
   });
   const dataSourceRef = ref<Recordable[]>([]);
+  const rawDataSourceRef = ref<Recordable>({});
 
   watchEffect(() => {
     tableData.value = unref(dataSourceRef);
@@ -235,6 +236,7 @@ export function useDataSource(
       }
 
       const res = await api(params);
+      rawDataSourceRef.value = res;
 
       const isArrayResult = Array.isArray(res);
 
@@ -287,6 +289,10 @@ export function useDataSource(
     return getDataSourceRef.value as T[];
   }
 
+  function getRawDataSource<T = Recordable>() {
+    return rawDataSourceRef.value as T;
+  }
+
   async function reload(opt?: FetchParams) {
     await fetch(opt);
   }
@@ -300,6 +306,7 @@ export function useDataSource(
   return {
     getDataSourceRef,
     getDataSource,
+    getRawDataSource,
     getRowKey,
     setTableData,
     getAutoCreateKey,

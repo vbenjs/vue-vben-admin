@@ -82,6 +82,9 @@ export function useTable(tableProps?: Props): [
     getDataSource: () => {
       return getTableInstance().getDataSource();
     },
+    getRawDataSource: () => {
+      return getTableInstance().getRawDataSource();
+    },
     getColumns: ({ ignoreIndex = false }: { ignoreIndex?: boolean } = {}) => {
       const columns = getTableInstance().getColumns({ ignoreIndex }) || [];
       return toRaw(columns);
