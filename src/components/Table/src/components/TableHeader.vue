@@ -3,7 +3,7 @@
     <div v-if="$slots.headerTop" style="margin: 5px">
       <slot name="headerTop"></slot>
     </div>
-    <div style="width: 100%; display: flex">
+    <div class="flex items-center">
       <slot name="tableTitle" v-if="$slots.tableTitle"></slot>
       <TableTitle
         :helpMessage="titleHelpMessage"

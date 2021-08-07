@@ -1,14 +1,14 @@
 import type { BasicColumn, BasicTableProps, CellFormat, GetColumnsParams } from '../types/table';
 import type { PaginationProps } from '../types/pagination';
 import type { ComputedRef } from 'vue';
-import { unref, Ref, computed, watch, ref, toRaw } from 'vue';
+import { computed, Ref, ref, toRaw, unref, watch } from 'vue';
 import { renderEditCell } from '../components/editable';
 import { usePermission } from '/@/hooks/web/usePermission';
 import { useI18n } from '/@/hooks/web/useI18n';
-import { isBoolean, isArray, isString, isObject, isFunction } from '/@/utils/is';
-import { isEqual, cloneDeep } from 'lodash-es';
+import { isArray, isBoolean, isFunction, isMap, isString } from '/@/utils/is';
+import { cloneDeep, isEqual } from 'lodash-es';
 import { formatToDate } from '/@/utils/dateUtil';
-import { DEFAULT_ALIGN, PAGE_SIZE, INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG } from '../const';
+import { ACTION_COLUMN_FLAG, DEFAULT_ALIGN, INDEX_COLUMN_FLAG, PAGE_SIZE } from '../const';
 
 function handleItem(item: BasicColumn, ellipsis: boolean) {
   const { key, dataIndex, children } = item;
@@ -287,11 +287,9 @@ function sortFixedColumn(columns: BasicColumn[]) {
     }
     defColumns.push(column);
   }
-  const resultColumns = [...fixedLeftColumns, ...defColumns, ...fixedRightColumns].filter(
+  return [...fixedLeftColumns, ...defColumns, ...fixedRightColumns].filter(
     (item) => !item.defaultHidden
   );
-
-  return resultColumns;
 }
 
 // format cell
@@ -317,8 +315,8 @@ export function formatCell(text: string, format: CellFormat, record: Recordable,
       return formatToDate(text, dateFormat);
     }
 
-    // enum
-    if (isObject(format) && Reflect.has(format, 'size')) {
+    // Map
+    if (isMap(format)) {
       return format.get(text);
     }
   } catch (error) {

@@ -6,6 +6,7 @@
       <a-button class="mr-2" @click="changeColumns"> 更改Columns </a-button>
       <a-button class="mr-2" @click="getColumn"> 获取Columns </a-button>
       <a-button class="mr-2" @click="getTableData"> 获取表格数据 </a-button>
+      <a-button class="mr-2" @click="getTableRawData"> 获取接口原始数据 </a-button>
       <a-button class="mr-2" @click="setPaginationInfo"> 跳转到第2页 </a-button>
     </div>
     <div class="mb-4">
@@ -71,6 +72,10 @@
         createMessage.info('请在控制台查看！');
         console.log(getTableAction().getDataSource());
       }
+      function getTableRawData() {
+        createMessage.info('请在控制台查看！');
+        console.log(getTableAction().getRawDataSource());
+      }
 
       function getPagination() {
         createMessage.info('请在控制台查看！');
@@ -107,6 +112,7 @@
         reloadTable,
         getColumn,
         getTableData,
+        getTableRawData,
         getPagination,
         setPaginationInfo,
         getSelectRowList,
