@@ -5,7 +5,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import { basicRoutes, LoginRoute } from './routes';
 import { REDIRECT_NAME } from './constant';
 
-const WHITE_NAME_LIST = [LoginRoute.name, REDIRECT_NAME];
+const WHITE_NAME_LIST = [LoginRoute.name, REDIRECT_NAME, ...basicRoutes.map((route) => route.name)];
 
 // app router
 export const router = createRouter({
