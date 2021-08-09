@@ -5,8 +5,8 @@
       :class="{ [`${prefixCls}__normal`]: true, 'ellipsis-cell': column.ellipsis }"
       @click="handleEdit"
     >
-      <div class="cell-content" :title="column.ellipsis ? getValues || '' : ''">{{
-        getValues || '&nbsp;'
+      <div class="cell-content" :title="column.ellipsis ? getValues ?? '' : ''">{{
+        getValues ?? '&nbsp;'
       }}</div>
       <FormOutlined :class="`${prefixCls}__normal-icon`" v-if="!column.editRow" />
     </div>
@@ -35,11 +35,10 @@
 </template>
 <script lang="ts">
   import type { CSSProperties, PropType } from 'vue';
+  import { computed, defineComponent, nextTick, ref, toRaw, unref, watchEffect } from 'vue';
   import type { BasicColumn } from '../../types/table';
   import type { EditRecordRow } from './index';
-
-  import { defineComponent, ref, unref, nextTick, computed, watchEffect, toRaw } from 'vue';
-  import { FormOutlined, CloseOutlined, CheckOutlined } from '@ant-design/icons-vue';
+  import { CheckOutlined, CloseOutlined, FormOutlined } from '@ant-design/icons-vue';
   import { CellComponent } from './CellComponent';
 
   import { useDesign } from '/@/hooks/web/useDesign';
@@ -48,9 +47,9 @@
   import clickOutside from '/@/directives/clickOutside';
 
   import { propTypes } from '/@/utils/propTypes';
-  import { isString, isBoolean, isFunction, isNumber, isArray } from '/@/utils/is';
+  import { isArray, isBoolean, isFunction, isNumber, isString } from '/@/utils/is';
   import { createPlaceholderMessage } from './helper';
-  import { set, omit } from 'lodash-es';
+  import { omit, set } from 'lodash-es';
   import { treeToList } from '/@/utils/helper/treeHelper';
 
   export default defineComponent({
@@ -214,8 +213,7 @@
           if (isBoolean(editRule) && !currentValue && !isNumber(currentValue)) {
             ruleVisible.value = true;
             const component = unref(getComponent);
-            const message = createPlaceholderMessage(component);
-            ruleMessage.value = message;
+            ruleMessage.value = createPlaceholderMessage(component);
             return false;
           }
           if (isFunction(editRule)) {
