@@ -52,7 +52,8 @@ export function useRowSelection(
           rows: getSelectRows(),
         });
       });
-    }
+    },
+    { deep: true }
   );
 
   const getAutoCreateKey = computed(() => {
