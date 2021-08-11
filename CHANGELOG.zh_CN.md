@@ -1,3 +1,7 @@
+### ✨ Features
+
+- **BasicTree** 添加搜索功能相关属性和方法
+
 ### 🐛 Bug Fixes
 
 - **Cropper** 修复未能及时销毁的问题
