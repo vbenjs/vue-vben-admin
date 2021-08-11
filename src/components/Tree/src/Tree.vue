@@ -42,7 +42,14 @@
     name: 'BasicTree',
     inheritAttrs: false,
     props: basicProps,
-    emits: ['update:expandedKeys', 'update:selectedKeys', 'update:value', 'change', 'check'],
+    emits: [
+      'update:expandedKeys',
+      'update:selectedKeys',
+      'update:value',
+      'change',
+      'check',
+      'update:searchValue',
+    ],
     setup(props, { attrs, slots, emit, expose }) {
       const state = reactive<State>({
         checkStrictly: props.checkStrictly,
@@ -192,7 +199,14 @@
         state.checkStrictly = strictly;
       }
 
+      const searchText = ref('');
+      watchEffect(() => {
+        if (props.searchValue !== searchText.value) searchText.value = props.searchValue;
+      });
+
       function handleSearch(searchValue: string) {
+        if (searchValue !== searchText.value) searchText.value = searchValue;
+        emit('update:searchValue', searchValue);
         if (!searchValue) {
           searchState.startSearch = false;
           return;
@@ -293,6 +307,12 @@
         filterByLevel: (level: number) => {
           state.expandedKeys = filterByLevel(level);
         },
+        setSearchValue: (value: string) => {
+          handleSearch(value);
+        },
+        getSearchValue: () => {
+          return searchText.value;
+        },
       };
 
       expose(instance);
@@ -380,6 +400,7 @@
                 helpMessage={helpMessage}
                 onStrictlyChange={onStrictlyChange}
                 onSearch={handleSearch}
+                searchText={unref(searchText)}
               >
                 {extendSlots(slots)}
               </TreeHeader>

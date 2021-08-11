@@ -1,8 +1,17 @@
+### ✨ Features
+
+- **BasicTree** 添加搜索功能相关属性和方法
+
 ### 🐛 Bug Fixes
 
 - **Cropper** 修复未能及时销毁的问题
-- **BasicTable** 修复`CellFormat`无法使用`Map`类型数据的问题
+- **BasicTable**
+  - 修复`CellFormat`无法使用`Map`类型数据的问题
+  - 修复可编辑单元格未能正确显示`0`值的问题
+  - 修复 selection-change 事件在取消勾选时未能正确触发的问题
+  - 修复浅色主题下的全屏状态背景颜色不正确的问题
 - **Qrcode** 修复二维码组件在创建时未能及时绘制的问题
+- **BasicModal** 修复`helpMessage`属性不起作用的问题
 
 ## 2.7.0(2021-08-03)
 
