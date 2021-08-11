@@ -20,6 +20,7 @@ export const basicProps = {
   title: propTypes.string,
   toolbar: propTypes.bool,
   search: propTypes.bool,
+  searchValue: propTypes.string,
   checkStrictly: propTypes.bool,
   clickRowToExpand: propTypes.bool.def(true),
   checkable: propTypes.bool.def(false),

@@ -34,6 +34,8 @@ export interface TreeActionType {
   insertNodesByKey: (opt: InsertNodeParams) => void;
   deleteNodeByKey: (key: string) => void;
   updateNodeByKey: (key: string, node: Omit<TreeDataItem, 'key'>) => void;
+  setSearchValue: (value: string) => void;
+  getSearchValue: () => string;
 }
 
 export interface InsertNodeParams {
