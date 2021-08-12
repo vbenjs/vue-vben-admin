@@ -1,3 +1,5 @@
+- 升级 vue 3.2,如果运行失败，删除 node_modules 后重装即可
+
 ### ✨ Features
 
 - **BasicTree** 添加搜索功能相关属性和方法
