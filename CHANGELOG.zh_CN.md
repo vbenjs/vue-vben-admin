@@ -1,3 +1,29 @@
+- 升级 vue 3.2,如果运行失败，删除 node_modules 后重装即可
+
+### ✨ Features
+
+- **BasicTree** 添加搜索功能相关属性和方法
+
+### 🐛 Bug Fixes
+
+- **Cropper** 修复未能及时销毁的问题
+- **BasicTable**
+  - 修复`CellFormat`无法使用`Map`类型数据的问题
+  - 修复可编辑单元格未能正确显示`0`值的问题
+  - 修复 selection-change 事件在取消勾选时未能正确触发的问题
+  - 修复浅色主题下的全屏状态背景颜色不正确的问题
+- **Qrcode** 修复二维码组件在创建时未能及时绘制的问题
+- **BasicModal** 修复`helpMessage`属性不起作用的问题
+
+## 2.7.0(2021-08-03)
+
+## (破坏性更新) Breaking changes
+
+- 将项目`tailwindcss`还原回`windicss`，尝试了`tailwindcss`，问题可能还挺多，先切换回`windicss`提高开发效率，切换成本较低。
+  - 目前项目不兼容地方有
+    - `xl:!m-4` 之类的写法需要改为`!xl:m-4`,注意只有`!`这个不兼容，没用到则不用改
+    - 内存溢出问题可能还在（频率低，重启下即可，重启 vite 较快）
+
 ### ✨ Features
 
 - **Preview** 添加新的属性及事件

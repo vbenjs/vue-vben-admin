@@ -3,17 +3,17 @@ import type { ModalFunc, ModalFuncProps } from 'ant-design-vue/lib/modal/Modal';
 import { Modal, message as Message, notification } from 'ant-design-vue';
 import { InfoCircleFilled, CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons-vue';
 
-import { ArgsProps, ConfigProps } from 'ant-design-vue/lib/notification';
+import { NotificationArgsProps, ConfigProps } from 'ant-design-vue/lib/notification';
 import { useI18n } from './useI18n';
 import { isString } from '/@/utils/is';
 
 export interface NotifyApi {
-  info(config: ArgsProps): void;
-  success(config: ArgsProps): void;
-  error(config: ArgsProps): void;
-  warn(config: ArgsProps): void;
-  warning(config: ArgsProps): void;
-  open(args: ArgsProps): void;
+  info(config: NotificationArgsProps): void;
+  success(config: NotificationArgsProps): void;
+  error(config: NotificationArgsProps): void;
+  warn(config: NotificationArgsProps): void;
+  warning(config: NotificationArgsProps): void;
+  open(args: NotificationArgsProps): void;
   close(key: String): void;
   config(options: ConfigProps): void;
   destroy(): void;

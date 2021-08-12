@@ -11,7 +11,7 @@
           :placeholder="t('common.searchText')"
           size="small"
           allowClear
-          @change="handleSearch"
+          v-model:value="searchValue"
         />
       </div>
       <Dropdown @click.prevent v-if="toolbar">
@@ -32,7 +32,7 @@
 </template>
 <script lang="ts">
   import type { PropType } from 'vue';
-  import { defineComponent, computed } from 'vue';
+  import { defineComponent, computed, ref, watch } from 'vue';
 
   import { Dropdown, Menu, Input } from 'ant-design-vue';
   import { Icon } from '/@/components/Icon';
@@ -77,10 +77,12 @@
       search: propTypes.bool,
       checkAll: propTypes.func,
       expandAll: propTypes.func,
+      searchText: propTypes.string,
     },
     emits: ['strictly-change', 'search'],
     setup(props, { emit }) {
       const { t } = useI18n();
+      const searchValue = ref('');
 
       const toolbarList = computed(() => {
         const { checkable } = props;
@@ -137,11 +139,25 @@
       }
       const debounceEmitChange = useDebounceFn(emitChange, 200);
 
-      function handleSearch(e: ChangeEvent): void {
-        debounceEmitChange(e.target.value);
-      }
+      watch(
+        () => searchValue.value,
+        (v) => {
+          debounceEmitChange(v);
+        }
+      );
+      watch(
+        () => props.searchText,
+        (v) => {
+          if (v !== searchValue.value) {
+            searchValue.value = v;
+          }
+        }
+      );
+      // function handleSearch(e: ChangeEvent): void {
+      //   debounceEmitChange(e.target.value);
+      // }
 
-      return { t, toolbarList, handleMenuClick, handleSearch };
+      return { t, toolbarList, handleMenuClick, searchValue };
     },
   });
 </script>
