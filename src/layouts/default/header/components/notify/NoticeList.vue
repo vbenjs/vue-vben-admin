@@ -97,7 +97,6 @@
       const current = ref(props.currentPage || 1);
       const getData = computed(() => {
         const { pageSize, list } = props;
-        console.log('refreshData', list);
         if (pageSize === false) return [];
         let size = isNumber(pageSize) ? pageSize : 5;
         return list.slice(size * (unref(current) - 1), size * unref(current));
