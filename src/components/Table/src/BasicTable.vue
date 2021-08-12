@@ -91,10 +91,10 @@
       'columns-change',
     ],
     setup(props, { attrs, emit, slots, expose }) {
-      const tableElRef = ref<ComponentRef>(null);
+      const tableElRef = ref(null);
       const tableData = ref<Recordable[]>([]);
 
-      const wrapRef = ref<Nullable<HTMLDivElement>>(null);
+      const wrapRef = ref(null);
       const innerPropsRef = ref<Partial<BasicTableProps>>();
 
       const { prefixCls } = useDesign('basic-table');
