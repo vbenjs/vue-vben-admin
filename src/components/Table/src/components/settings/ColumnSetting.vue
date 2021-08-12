@@ -282,7 +282,7 @@
         nextTick(() => {
           const columnListEl = unref(columnListRef);
           if (!columnListEl) return;
-          const el = columnListEl.$el;
+          const el = columnListEl.$el as any;
           if (!el) return;
           // Drag and drop sort
           const { initSortable } = useSortable(el, {
