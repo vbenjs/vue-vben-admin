@@ -30,59 +30,34 @@
     </Form>
   </template>
 </template>
-<script lang="ts">
-  import { defineComponent, reactive, ref, computed, unref } from 'vue';
-
+<script lang="ts" setup>
+  import { reactive, ref, computed, unref } from 'vue';
   import { Form, Input, Button } from 'ant-design-vue';
   import { CountdownInput } from '/@/components/CountDown';
   import LoginFormTitle from './LoginFormTitle.vue';
-
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useLoginState, useFormRules, useFormValid, LoginStateEnum } from './useLogin';
 
-  export default defineComponent({
-    name: 'MobileForm',
-    components: {
-      Button,
-      Form,
-      FormItem: Form.Item,
-      Input,
-      CountdownInput,
-      LoginFormTitle,
-    },
-    setup() {
-      const { t } = useI18n();
-      const { handleBackLogin, getLoginState } = useLoginState();
-      const { getFormRules } = useFormRules();
+  const FormItem = Form.Item;
+  const { t } = useI18n();
+  const { handleBackLogin, getLoginState } = useLoginState();
+  const { getFormRules } = useFormRules();
 
-      const formRef = ref();
-      const loading = ref(false);
+  const formRef = ref();
+  const loading = ref(false);
 
-      const formData = reactive({
-        mobile: '',
-        sms: '',
-      });
-
-      const { validForm } = useFormValid(formRef);
-
-      const getShow = computed(() => unref(getLoginState) === LoginStateEnum.MOBILE);
-
-      async function handleLogin() {
-        const data = await validForm();
-        if (!data) return;
-        console.log(data);
-      }
-
-      return {
-        t,
-        formRef,
-        formData,
-        getFormRules,
-        handleLogin,
-        loading,
-        handleBackLogin,
-        getShow,
-      };
-    },
+  const formData = reactive({
+    mobile: '',
+    sms: '',
   });
+
+  const { validForm } = useFormValid(formRef);
+
+  const getShow = computed(() => unref(getLoginState) === LoginStateEnum.MOBILE);
+
+  async function handleLogin() {
+    const data = await validForm();
+    if (!data) return;
+    console.log(data);
+  }
 </script>
