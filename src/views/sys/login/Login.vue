@@ -62,7 +62,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { computed, defineProps } from 'vue';
+  import { computed } from 'vue';
   import { AppLogo } from '/@/components/Application';
   import { AppLocalePicker, AppDarkModeToggle } from '/@/components/Application';
   import LoginForm from './LoginForm.vue';
