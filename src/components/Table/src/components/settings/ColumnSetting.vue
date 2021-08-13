@@ -8,6 +8,7 @@
       trigger="click"
       @visibleChange="handleVisibleChange"
       :overlayClassName="`${prefixCls}__cloumn-list`"
+      :getPopupContainer="getPopupContainer"
     >
       <template #title>
         <div :class="`${prefixCls}__popover-title`">
@@ -47,7 +48,11 @@
                   {{ item.label }}
                 </Checkbox>
 
-                <Tooltip placement="bottomLeft" :mouseLeaveDelay="0.4">
+                <Tooltip
+                  placement="bottomLeft"
+                  :mouseLeaveDelay="0.4"
+                  :getPopupContainer="getPopupContainer"
+                >
                   <template #title>
                     {{ t('component.table.settingFixedLeft') }}
                   </template>
@@ -64,7 +69,11 @@
                   />
                 </Tooltip>
                 <Divider type="vertical" />
-                <Tooltip placement="bottomLeft" :mouseLeaveDelay="0.4">
+                <Tooltip
+                  placement="bottomLeft"
+                  :mouseLeaveDelay="0.4"
+                  :getPopupContainer="getPopupContainer"
+                >
                   <template #title>
                     {{ t('component.table.settingFixedRight') }}
                   </template>
@@ -109,8 +118,8 @@
   import { useTableContext } from '../../hooks/useTableContext';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useSortable } from '/@/hooks/web/useSortable';
-  import { isNullAndUnDef } from '/@/utils/is';
-  import { getPopupContainer } from '/@/utils';
+  import { isFunction, isNullAndUnDef } from '/@/utils/is';
+  import { getPopupContainer as getParentContainer } from '/@/utils';
   import { omit } from 'lodash-es';
 
   interface State {
@@ -140,7 +149,7 @@
     },
     emits: ['columns-change'],
 
-    setup(_, { emit }) {
+    setup(_, { emit, attrs }) {
       const { t } = useI18n();
       const table = useTableContext();
 
@@ -273,7 +282,7 @@
         nextTick(() => {
           const columnListEl = unref(columnListRef);
           if (!columnListEl) return;
-          const el = columnListEl.$el;
+          const el = columnListEl.$el as any;
           if (!el) return;
           // Drag and drop sort
           const { initSortable } = useSortable(el, {
@@ -348,6 +357,12 @@
         });
 
         emit('columns-change', data);
+      }
+
+      function getPopupContainer() {
+        return isFunction(attrs.getPopupContainer)
+          ? attrs.getPopupContainer()
+          : getParentContainer();
       }
 
       return {

@@ -80,6 +80,9 @@ export default {
     tab: 'Tab带参',
     tab1: 'Tab带参1',
     tab2: 'Tab带参2',
+    menu: 'Menu带参',
+    menu1: 'Menu带参1',
+    menu2: 'Menu带参2',
     ws: 'websocket测试',
     breadcrumb: '面包屑导航',
     breadcrumbFlat: '平级模式',
@@ -157,6 +160,7 @@ export default {
   system: {
     moduleName: '系统管理',
     account: '账号管理',
+    account_detail: '账号详情',
     password: '修改密码',
     dept: '部门管理',
     menu: '菜单管理',

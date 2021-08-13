@@ -7,10 +7,13 @@ import { PageEnum } from '/@/enums/pageEnum';
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 import { getAuthCache, setAuthCache } from '/@/utils/auth';
 import { GetUserInfoModel, LoginParams } from '/@/api/sys/model/userModel';
-import { getUserInfo, loginApi } from '/@/api/sys/user';
+import { doLogout, getUserInfo, loginApi } from '/@/api/sys/user';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { router } from '/@/router';
+import { usePermissionStore } from '/@/store/modules/permission';
+import { RouteRecordRaw } from 'vue-router';
+import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
 
 interface UserState {
   userInfo: Nullable<UserInfo>;
@@ -87,14 +90,26 @@ export const useUserStore = defineStore({
         const userInfo = await this.getUserInfoAction();
 
         const sessionTimeout = this.sessionTimeout;
-        sessionTimeout && this.setSessionTimeout(false);
-        !sessionTimeout && goHome && (await router.replace(PageEnum.BASE_HOME));
+        if (sessionTimeout) {
+          this.setSessionTimeout(false);
+        } else if (goHome) {
+          const permissionStore = usePermissionStore();
+          if (!permissionStore.isDynamicAddedRoute) {
+            const routes = await permissionStore.buildRoutesAction();
+            routes.forEach((route) => {
+              router.addRoute(route as unknown as RouteRecordRaw);
+            });
+            router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
+            permissionStore.setDynamicAddedRoute(true);
+          }
+          await router.replace(userInfo.homePath || PageEnum.BASE_HOME);
+        }
         return userInfo;
       } catch (error) {
         return Promise.reject(error);
       }
     },
-    async getUserInfoAction() {
+    async getUserInfoAction(): Promise<UserInfo> {
       const userInfo = await getUserInfo();
       const { roles } = userInfo;
       const roleList = roles.map((item) => item.value) as RoleEnum[];
@@ -105,7 +120,14 @@ export const useUserStore = defineStore({
     /**
      * @description: logout
      */
-    logout(goLogin = false) {
+    async logout(goLogin = false) {
+      try {
+        await doLogout();
+      } catch {
+        console.log('注销Token失败');
+      }
+      this.setToken(undefined);
+      this.setSessionTimeout(false);
       goLogin && router.push(PageEnum.BASE_LOGIN);
     },
 
@@ -128,6 +150,6 @@ export const useUserStore = defineStore({
 });
 
 // Need to be used outside the setup
-export function useUserStoreWidthOut() {
+export function useUserStoreWithOut() {
   return useUserStore(store);
 }

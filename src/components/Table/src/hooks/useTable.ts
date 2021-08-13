@@ -82,6 +82,9 @@ export function useTable(tableProps?: Props): [
     getDataSource: () => {
       return getTableInstance().getDataSource();
     },
+    getRawDataSource: () => {
+      return getTableInstance().getRawDataSource();
+    },
     getColumns: ({ ignoreIndex = false }: { ignoreIndex?: boolean } = {}) => {
       const columns = getTableInstance().getColumns({ ignoreIndex }) || [];
       return toRaw(columns);
@@ -121,6 +124,9 @@ export function useTable(tableProps?: Props): [
     },
     updateTableDataRecord: (rowKey: string | number, record: Recordable) => {
       return getTableInstance().updateTableDataRecord(rowKey, record);
+    },
+    findTableDataRecord: (rowKey: string | number) => {
+      return getTableInstance().findTableDataRecord(rowKey);
     },
     getRowSelection: () => {
       return toRaw(getTableInstance().getRowSelection());

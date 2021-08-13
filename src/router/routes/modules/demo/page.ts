@@ -12,6 +12,7 @@ const page: AppRouteModule = {
   component: LAYOUT,
   redirect: '/page-demo/form/basic',
   meta: {
+    orderNo: 20,
     icon: 'ion:aperture-outline',
     title: t('routes.demo.page.page'),
   },

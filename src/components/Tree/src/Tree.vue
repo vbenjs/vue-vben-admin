@@ -18,8 +18,8 @@
   import TreeHeader from './TreeHeader.vue';
   import { ScrollContainer } from '/@/components/Container';
 
-  import { omit, get } from 'lodash-es';
-  import { isBoolean, isFunction } from '/@/utils/is';
+  import { omit, get, difference } from 'lodash-es';
+  import { isArray, isBoolean, isFunction } from '/@/utils/is';
   import { extendSlots, getSlot } from '/@/utils/helper/tsxHelper';
   import { filter } from '/@/utils/helper/treeHelper';
 
@@ -42,7 +42,14 @@
     name: 'BasicTree',
     inheritAttrs: false,
     props: basicProps,
-    emits: ['update:expandedKeys', 'update:selectedKeys', 'update:value', 'change', 'check'],
+    emits: [
+      'update:expandedKeys',
+      'update:selectedKeys',
+      'update:value',
+      'change',
+      'check',
+      'update:searchValue',
+    ],
     setup(props, { attrs, slots, emit, expose }) {
       const state = reactive<State>({
         checkStrictly: props.checkStrictly,
@@ -90,15 +97,25 @@
             emit('update:selectedKeys', v);
           },
           onCheck: (v: CheckKeys, e: CheckEvent) => {
-            state.checkedKeys = v;
-            const rawVal = toRaw(v);
+            let currentValue = toRaw(state.checkedKeys) as Keys;
+            if (isArray(currentValue) && searchState.startSearch) {
+              const { key } = unref(getReplaceFields);
+              currentValue = difference(currentValue, getChildrenKeys(e.node.$attrs.node[key]));
+              if (e.checked) {
+                currentValue.push(e.node.$attrs.node[key]);
+              }
+              state.checkedKeys = currentValue;
+            } else {
+              state.checkedKeys = v;
+            }
+
+            const rawVal = toRaw(state.checkedKeys);
             emit('update:value', rawVal);
             emit('check', rawVal, e);
           },
           onRightClick: handleRightClick,
         };
-        propsData = omit(propsData, 'treeData', 'class');
-        return propsData;
+        return omit(propsData, 'treeData', 'class');
       });
 
       const getTreeData = computed((): TreeItem[] =>
@@ -106,11 +123,19 @@
       );
 
       const getNotFound = computed((): boolean => {
-        return searchState.startSearch && searchState.searchData?.length === 0;
+        return !getTreeData.value || getTreeData.value.length === 0;
       });
 
-      const { deleteNodeByKey, insertNodeByKey, filterByLevel, updateNodeByKey, getAllKeys } =
-        useTree(treeDataRef, getReplaceFields);
+      const {
+        deleteNodeByKey,
+        insertNodeByKey,
+        insertNodesByKey,
+        filterByLevel,
+        updateNodeByKey,
+        getAllKeys,
+        getChildrenKeys,
+        getEnabledKeys,
+      } = useTree(treeDataRef, getReplaceFields);
 
       function getIcon(params: Recordable, icon?: string) {
         if (!icon) {
@@ -163,7 +188,7 @@
       }
 
       function checkAll(checkAll: boolean) {
-        state.checkedKeys = checkAll ? getAllKeys() : ([] as Keys);
+        state.checkedKeys = checkAll ? getEnabledKeys() : ([] as Keys);
       }
 
       function expandAll(expandAll: boolean) {
@@ -174,7 +199,14 @@
         state.checkStrictly = strictly;
       }
 
+      const searchText = ref('');
+      watchEffect(() => {
+        if (props.searchValue !== searchText.value) searchText.value = props.searchValue;
+      });
+
       function handleSearch(searchValue: string) {
+        if (searchValue !== searchText.value) searchText.value = searchValue;
+        emit('update:searchValue', searchValue);
         if (!searchValue) {
           searchState.startSearch = false;
           return;
@@ -267,12 +299,19 @@
         setCheckedKeys,
         getCheckedKeys,
         insertNodeByKey,
+        insertNodesByKey,
         deleteNodeByKey,
         updateNodeByKey,
         checkAll,
         expandAll,
         filterByLevel: (level: number) => {
           state.expandedKeys = filterByLevel(level);
+        },
+        setSearchValue: (value: string) => {
+          handleSearch(value);
+        },
+        getSearchValue: () => {
+          return searchText.value;
         },
       };
 
@@ -361,6 +400,7 @@
                 helpMessage={helpMessage}
                 onStrictlyChange={onStrictlyChange}
                 onSearch={handleSearch}
+                searchText={unref(searchText)}
               >
                 {extendSlots(slots)}
               </TreeHeader>
@@ -375,7 +415,7 @@
               </Tree>
             </ScrollContainer>
 
-            <Empty v-show={unref(getNotFound)} class="!mt-4" />
+            <Empty v-show={unref(getNotFound)} image={Empty.PRESENTED_IMAGE_SIMPLE} class="!mt-4" />
           </div>
         );
       };

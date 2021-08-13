@@ -20,6 +20,8 @@
   import { optionsListApi } from '/@/api/demo/select';
 
   import { demoListApi } from '/@/api/demo/table';
+  import { treeOptionsListApi } from '/@/api/demo/tree';
+
   const columns: BasicColumn[] = [
     {
       title: '输入框',
@@ -80,6 +82,10 @@
             label: 'Option2',
             value: '2',
           },
+          {
+            label: 'Option3',
+            value: '3',
+          },
         ],
       },
       width: 200,
@@ -91,6 +97,21 @@
       editComponent: 'ApiSelect',
       editComponentProps: {
         api: optionsListApi,
+        resultField: 'list',
+        labelField: 'name',
+        valueField: 'id',
+      },
+      width: 200,
+    },
+    {
+      title: '远程下拉树',
+      dataIndex: 'name8',
+      editRow: true,
+      editComponent: 'ApiTreeSelect',
+      editRule: false,
+      editComponentProps: {
+        api: treeOptionsListApi,
+        resultField: 'list',
       },
       width: 200,
     },
@@ -142,7 +163,6 @@
     components: { BasicTable, TableAction },
     setup() {
       const currentEditKeyRef = ref('');
-
       const [registerTable] = useTable({
         title: '可编辑行示例',
         titleHelpMessage: [
@@ -151,6 +171,8 @@
         api: demoListApi,
         columns: columns,
         showIndexColumn: false,
+        showTableSetting: true,
+        tableSetting: { fullScreen: true },
         actionColumn: {
           width: 160,
           title: 'Action',

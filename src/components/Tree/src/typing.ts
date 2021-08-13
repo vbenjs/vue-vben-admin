@@ -31,8 +31,11 @@ export interface TreeActionType {
   getCheckedKeys: () => CheckKeys;
   filterByLevel: (level: number) => void;
   insertNodeByKey: (opt: InsertNodeParams) => void;
+  insertNodesByKey: (opt: InsertNodeParams) => void;
   deleteNodeByKey: (key: string) => void;
   updateNodeByKey: (key: string, node: Omit<TreeDataItem, 'key'>) => void;
+  setSearchValue: (value: string) => void;
+  getSearchValue: () => string;
 }
 
 export interface InsertNodeParams {

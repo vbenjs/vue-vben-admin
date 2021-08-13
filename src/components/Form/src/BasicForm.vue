@@ -229,6 +229,10 @@
 
       function setFormModel(key: string, value: any) {
         formModel[key] = value;
+        const { validateTrigger } = unref(getBindValue);
+        if (!validateTrigger || validateTrigger === 'change') {
+          validateFields([key]).catch((_) => {});
+        }
       }
 
       function handleEnterPress(e: KeyboardEvent) {

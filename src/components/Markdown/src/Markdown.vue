@@ -5,18 +5,19 @@
   import {
     defineComponent,
     ref,
-    onMounted,
     unref,
-    onUnmounted,
     nextTick,
     computed,
     watch,
+    onBeforeUnmount,
+    onDeactivated,
   } from 'vue';
   import Vditor from 'vditor';
   import 'vditor/dist/index.css';
   import { useLocale } from '/@/locales/useLocale';
   import { useModalContext } from '../../Modal';
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
+  import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
 
   type Lang = 'zh_CN' | 'en_US' | 'ja_JP' | 'ko_KR' | undefined;
 
@@ -26,7 +27,7 @@
       height: { type: Number, default: 360 },
       value: { type: String, default: '' },
     },
-    emits: ['change', 'get'],
+    emits: ['change', 'get', 'update:value'],
     setup(props, { attrs, emit }) {
       const wrapRef = ref<ElRef>(null);
       const vditorRef = ref<Nullable<Vditor>>(null);
@@ -36,21 +37,30 @@
 
       const { getLocale } = useLocale();
       const { getDarkMode } = useRootSetting();
+      const valueRef = ref('');
 
       watch(
         [() => getDarkMode.value, () => initedRef.value],
-        ([val]) => {
-          const vditor = unref(vditorRef);
-
-          if (!vditor) {
+        ([val, inited]) => {
+          if (!inited) {
             return;
           }
-          const theme = val === 'dark' ? 'dark' : undefined;
-          vditor.setTheme(theme as 'dark');
+          const theme = val === 'dark' ? 'dark' : 'classic';
+          instance.getVditor()?.setTheme(theme);
         },
         {
           immediate: true,
           flush: 'post',
+        }
+      );
+
+      watch(
+        () => props.value,
+        (v) => {
+          if (v !== valueRef.value) {
+            instance.getVditor()?.setValue(v);
+          }
+          valueRef.value = v;
         }
       );
 
@@ -72,54 +82,58 @@
         return lang;
       });
       function init() {
-        const wrapEl = unref(wrapRef);
+        const wrapEl = unref(wrapRef) as HTMLElement;
         if (!wrapEl) return;
         const bindValue = { ...attrs, ...props };
-        vditorRef.value = new Vditor(wrapEl, {
-          theme: 'classic',
+        const insEditor = new Vditor(wrapEl, {
+          theme: getDarkMode.value === 'dark' ? 'dark' : 'classic',
           lang: unref(getCurrentLang),
           mode: 'sv',
           preview: {
             actions: [],
           },
           input: (v) => {
-            // emit('update:value', v);
+            valueRef.value = v;
+            emit('update:value', v);
             emit('change', v);
           },
+          after: () => {
+            nextTick(() => {
+              modalFn?.redoModalHeight?.();
+              insEditor.setValue(valueRef.value);
+              vditorRef.value = insEditor;
+              initedRef.value = true;
+              emit('get', instance);
+            });
+          },
           blur: () => {
-            unref(vditorRef)?.setValue(props.value);
+            //unref(vditorRef)?.setValue(props.value);
           },
           ...bindValue,
           cache: {
             enable: false,
           },
         });
-        initedRef.value = true;
       }
 
       const instance = {
         getVditor: (): Vditor => vditorRef.value!,
       };
 
-      onMounted(() => {
-        nextTick(() => {
-          init();
-          setTimeout(() => {
-            modalFn?.redoModalHeight?.();
-          }, 200);
-        });
-
-        emit('get', instance);
-      });
-
-      onUnmounted(() => {
+      function destroy() {
         const vditorInstance = unref(vditorRef);
         if (!vditorInstance) return;
         try {
           vditorInstance?.destroy?.();
         } catch (error) {}
-      });
+        vditorRef.value = null;
+        initedRef.value = false;
+      }
 
+      onMountedOrActivated(init);
+
+      onBeforeUnmount(destroy);
+      onDeactivated(destroy);
       return {
         wrapRef,
         ...instance,

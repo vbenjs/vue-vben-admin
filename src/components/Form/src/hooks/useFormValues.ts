@@ -26,7 +26,7 @@ export function useFormValues({
     for (const item of Object.entries(values)) {
       let [, value] = item;
       const [key] = item;
-      if ((isArray(value) && value.length === 0) || isFunction(value)) {
+      if (!key || (isArray(value) && value.length === 0) || isFunction(value)) {
         continue;
       }
       const transformDateFunc = unref(getProps).transformDateFunc;

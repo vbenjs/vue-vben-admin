@@ -3,11 +3,9 @@
     <Icon :icon="icon" />
   </span>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import { Icon } from '/@/components/Icon';
-  export default defineComponent({
-    components: { Icon },
-    props: { icon: String },
+  defineProps({
+    icon: String,
   });
 </script>

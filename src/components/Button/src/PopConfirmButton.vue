@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { defineComponent, h, unref, computed } from 'vue';
+  import { computed, defineComponent, h, unref } from 'vue';
   import BasicButton from './BasicButton.vue';
   import { Popconfirm } from 'ant-design-vue';
   import { extendSlots } from '/@/utils/helper/tsxHelper';
@@ -29,19 +29,20 @@
 
       // get inherit binding value
       const getBindValues = computed(() => {
-        const popValues = Object.assign(
+        return Object.assign(
           {
             okText: t('common.okText'),
             cancelText: t('common.cancelText'),
           },
           { ...props, ...unref(attrs) }
         );
-        return popValues;
       });
 
       return () => {
         const bindValues = omit(unref(getBindValues), 'icon');
-        const Button = h(BasicButton, bindValues, extendSlots(slots));
+        const btnBind = omit(bindValues, 'title');
+        if (btnBind.disabled) btnBind.color = '';
+        const Button = h(BasicButton, btnBind, extendSlots(slots));
 
         // If it is not enabled, it is a normal button
         if (!props.enable) {

@@ -12,7 +12,7 @@
 </template>
 <script lang="ts">
   import type { CSSProperties } from 'vue';
-  import { defineComponent, onMounted, ref, unref, computed } from 'vue';
+  import { defineComponent, onMounted, ref, unref, computed, onUnmounted } from 'vue';
   import Cropper from 'cropperjs';
   import 'cropperjs/dist/cropper.css';
   import { useDesign } from '/@/hooks/web/useDesign';
@@ -92,6 +92,10 @@
       });
 
       onMounted(init);
+
+      onUnmounted(() => {
+        cropper.value?.destroy();
+      });
 
       async function init() {
         const imgEl = unref(imgElRef);

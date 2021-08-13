@@ -26,6 +26,45 @@ export function useTree(
     }
     return keys as Keys;
   }
+  // get keys that can be checked and selected
+  function getEnabledKeys(list?: TreeDataItem[]) {
+    const keys: string[] = [];
+    const treeData = list || unref(treeDataRef);
+    const { key: keyField, children: childrenField } = unref(getReplaceFields);
+    if (!childrenField || !keyField) return keys;
+
+    for (let index = 0; index < treeData.length; index++) {
+      const node = treeData[index];
+      node.disabled !== true && node.selectable !== false && keys.push(node[keyField]!);
+      const children = node[childrenField];
+      if (children && children.length) {
+        keys.push(...(getEnabledKeys(children) as string[]));
+      }
+    }
+    return keys as Keys;
+  }
+
+  function getChildrenKeys(nodeKey: string | number, list?: TreeDataItem[]): Keys {
+    const keys: Keys = [];
+    const treeData = list || unref(treeDataRef);
+    const { key: keyField, children: childrenField } = unref(getReplaceFields);
+    if (!childrenField || !keyField) return keys;
+    for (let index = 0; index < treeData.length; index++) {
+      const node = treeData[index];
+      const children = node[childrenField];
+      if (nodeKey === node[keyField]) {
+        keys.push(node[keyField]!);
+        if (children && children.length) {
+          keys.push(...(getAllKeys(children) as string[]));
+        }
+      } else {
+        if (children && children.length) {
+          keys.push(...getChildrenKeys(nodeKey, children));
+        }
+      }
+    }
+    return keys as Keys;
+  }
 
   // Update node
   function updateNodeByKey(key: string, node: TreeDataItem, list?: TreeDataItem[]) {
@@ -87,11 +126,39 @@ export function useTree(
       if (treeItem[keyField] === parentKey) {
         treeItem[childrenField] = treeItem[childrenField] || [];
         treeItem[childrenField][push](node);
+        return true;
       }
     });
     treeDataRef.value = treeData;
   }
+  /**
+   * 批量添加节点
+   */
+  function insertNodesByKey({ parentKey = null, list, push = 'push' }: InsertNodeParams) {
+    const treeData: any = cloneDeep(unref(treeDataRef));
+    if (!list || list.length < 1) {
+      return;
+    }
+    if (!parentKey) {
+      for (let i = 0; i < list.length; i++) {
+        treeData[push](list[i]);
+      }
+    } else {
+      const { key: keyField, children: childrenField } = unref(getReplaceFields);
+      if (!childrenField || !keyField) return;
 
+      forEach(treeData, (treeItem) => {
+        if (treeItem[keyField] === parentKey) {
+          treeItem[childrenField] = treeItem[childrenField] || [];
+          for (let i = 0; i < list.length; i++) {
+            treeItem[childrenField][push](list[i]);
+          }
+          treeDataRef.value = treeData;
+          return true;
+        }
+      });
+    }
+  }
   // Delete node
   function deleteNodeByKey(key: string, list?: TreeDataItem[]) {
     if (!key) return;
@@ -111,5 +178,14 @@ export function useTree(
       }
     }
   }
-  return { deleteNodeByKey, insertNodeByKey, filterByLevel, updateNodeByKey, getAllKeys };
+  return {
+    deleteNodeByKey,
+    insertNodeByKey,
+    insertNodesByKey,
+    filterByLevel,
+    updateNodeByKey,
+    getAllKeys,
+    getChildrenKeys,
+    getEnabledKeys,
+  };
 }

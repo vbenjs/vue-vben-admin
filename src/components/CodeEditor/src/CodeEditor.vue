@@ -29,7 +29,7 @@
     name: 'CodeEditor',
     components: { CodeMirrorEditor },
     props,
-    emits: ['change'],
+    emits: ['change', 'update:value'],
     setup(props, { emit }) {
       const getValue = computed(() => {
         const { value, mode } = props;
@@ -42,6 +42,7 @@
       });
 
       function handleValueChange(v) {
+        emit('update:value', v);
         emit('change', v);
       }
 

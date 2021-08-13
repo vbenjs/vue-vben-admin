@@ -1,3 +1,198 @@
+## 2.7.0(2021-08-03)
+
+## (Breaking changes) Breaking changes
+
+- Restore the project `tailwindcss` back to `windicss`, tried `tailwindcss`, there may be a lot of problems, first switch back to `windicss` to improve development efficiency and lower switching costs.
+  - There are currently incompatible areas of the project
+    - The wording of `xl:!m-4` needs to be changed to `!xl:m-4`, note that only `!` is incompatible. If you don’t use it, you don’t need to change it.
+    - The memory overflow problem may still exist (low frequency, just restart, restart vite faster)
+
+### ✨ Features
+
+- **Preview** Add new properties and events
+- **Dark Theme** added support for tailwindcss night mode
+- **Others** add setTip method for useLoading
+
+### 🐛 Bug Fixes
+
+- **ApiTreeSelect** Fixed the problem of failing to monitor `params` changes correctly
+- **ImgRotateDragVerify** Fix the problem that the component `resume` method cannot be called
+- **TableAction** Fix the problem that the stopButtonPropagation property does not work in some cases
+- **PageWrapper** Fix the problem of invalid `class` attribute
+- **BasicTree** Fix the problem that the `checkAll` method will affect the `disabled` state node
+- **BasicTable**
+  - Fix the issue that editable cells do not support `ellipsis` configuration
+  - Fixed the problem that the pop-up layer of sub-components (popconfirm and edit components such as select and treeSelect) cannot be seen in full-screen mode
+  - Fixed an issue where when `expandRowByClick` is enabled, clicking non-expandable rows may cause style errors
+  - Fix the problem that the dynamic change of `pagination` property does not take effect
+  - Fix the problem that `getSelectRows` does not support the child data of the tree table -**Dark Theme** Fix the color matching problem under the dark theme
+  - Fix the background color of the selected node of the `Tree` component
+  - Fix the color configuration of the `Alert` component
+  - Fix the problem of the button color of `link` type in the disabled state
+  - Fix the style problem of checked checkboxes in `Tree` -**Others** Fix the problem that useScript failed to automatically remove the script node
+
+## 2.6.1(2021-07-19)
+
+### ✨ Features
+
+- **NoticeList** Add pagination, auto omit for overlength, title click event, title strikethrough, etc.
+- **MixSider** Optimize the style of the bottom collapse button in the Mix menu layout to be consistent with the style of other menu layouts
+- **ApiTreeSelect** Extend `TreeSelect` component of `antdv` to support remote data source, similar to `ApiSelect`.
+- **BasicTable** New `ApiTreeSelect` editing component
+- Different backend home pages can be specified for different users.
+  - Add `homePath` field (optional) to the user information returned by the `getUserInfo` interface to customize the home page path for the current user
+
+### 🐛 Bug Fixes
+
+- **BasicTable**
+  - Fix scrollbar style issue (removed scroll style patch)
+  - Fix the alignment problem of cells with expanded icons in tree tables
+  - Add `headerTop` slot.
+  - Fix the color display of the operation column button in disabled state.
+  - Repair the problem that the values of editable cells cannot be updated by modifying `dataSource` directly.
+  - Repair the problem of data replay when using `ApiSelect` to edit components.
+  - Repair the problem that editing components may report `onXXX` type error in some scenarios.
+- **TableAction**
+  - Create Tooltip component only if `action.tooltip` exists.
+  - Fix the problem that the content of the round button inside the component is not centered
+- **AppSearch** Fix the problem that the hidden menu may be searched.
+- **BasicUpload** Repair the problem of error when handling non-`array` values.
+- **Form** Repair the `suffix` slot style problem of `FormItem`.
+- **Menu**
+  - Repair the hovering trigger logic of the left mixed menu
+  - Repair the problem that the top bar menu is wrong when displaying menu items that need to be hidden.
+  - Fix the left mixed menu in hover trigger mode will jump to route directly when there is no submenu and it is activated
+- **Breadcrumb** Repair the problem that the menu with redirection cannot be jumped when clicked
+- **Markdown** fixes an initialization exception and an issue where value was not set dynamically correctly
+- **Modal** Make sure props are passed correctly
+- **MultipleTab** fixes an issue that could accidentally create login route tabs
+- **BasicTree** Fix the problem that the search function may cause `checkedKeys` to be lost
+- **CodeEditor** Fix the problem that value does not support v-model usage.
+- **CountdownInput** Fix the problem that `input` slot is not supported.
+- **ApiSelect** Fix the problem that the `options-change` event parameter is not the standard `options` data used by `select
+- **Other**
+  - Fix the problem that the configuration of default menu collapse does not work
+  - Repair the problem that `safari` browser reports an error and the website cannot be opened.
+  - Repair the problem that eslint keeps error due to endOfLine after pulling the code on window.
+  - Fix `Vue Router warn` caused by dynamic routing
+
+### 🎫 Chores
+
+- Add test environment test command
+
+## 2.6.0(2021-07-04)
+
+### ✨ Features
+
+- **Axios** New `withToken` configuration to control whether the request carries a token or not
+- **BasicUpload**
+  - New `preview-delete` event triggered when deleting a file in preview `Modal`.
+  - `value` supports `v-model` usage
+- **Route configuration**
+  - Add `ignoreRoute` to generate menu only in `ROUTE_MAPPING` or `BACK` permission mode
+  - Add `hidePathForChildren` configuration to ignore this level `path` when generating menus for child items
+- **TableAction** Add `tooltip` configuration to add tooltip hint for button
+- **CropperAvatar**
+  - Added `value` to set the current avatar
+  - Added `onChange` to accept avatar cropping and upload success event
+  - New `btnText`, `btnProps` for customizing the text and properties of the upload button
+  - Add tooltips to the action buttons in `Modal` for cropping
+- **Modal** Add tooltip for action button in top right corner
+
+### 🐛 Bug Fixes
+
+- **Modal**
+  - Fix the problem that the mask cannot be closed by clicking on it.
+  - Fix `setModalProps` does not support setting `defaultFullscreen`.
+- **Table**
+  - Fix the problem that `editComponentProps` doesn't support `onChange`.
+  - Fix the problem that `selection-change` event is not triggered when `clickToRowSelect` is enabled.
+  - Fix the problem that global configuration `fetchSetting` may be accidentally modified by local configuration.
+  - Fix the problem that the parameter of `handleSearchInfoFn` contains redundant blank keys.
+  - Repair the problem that when rowSelection.onChange is provided for table, the selected items of table cannot be changed manually.
+  - Fix the problem that the scrollbar continues to be displayed even when it is not needed to be displayed.
+- **Icon** Repair the problem that SvgIcon is missing some styles.
+- **Menu**
+  - Repair the problem that single-level menu refreshing will not be activated in route mapping mode.
+  - Repair the problem that the collapse customization at the bottom of the side menu is invalid.
+- **Form** Repair the type definition of `submitButtonOptions` and `resetButtonOptions`.
+- **PopConfirmButton** Remove the redundant `title` on `Button`.
+- **Axios** Fix the problem that `params` and `data` data cannot be submitted at the same time when non-`GET` requests are made
+- **Other**
+  - Repair the problem that the lock screen function can skip the lock state by refreshing the page or copying the URL to open a new browser tab
+  - Repair the problem that `Token` won't be synchronized when multiple windows open pages at the same time.
+  - Repair the problem that `hasPermission` does not work in `ROLE` permission mode.
+- **Table** Repair the problem that the parameter of `handleSearchInfoFn` contains extra blank keys.
+- **Tailwindcss** Remove console warning
+
+## 2.5.2(2021-06-27)
+
+### ⚡ Performance Improvements
+
+- **Icon** Remove the global registration of Icon components to prevent hot update issues under certain circumstances
+
+### ✨ Features
+
+- **Menu** Added `permissionMode=PermissionModeEnum.ROUTE_MAPPING` mode
+  - The project is changed to this mode by default, and the original menu file is deleted
+  - If you have written the menu before, you can change to `PermissionModeEnum.ROLE` mode
+
+## 2.5.1(2021-06-26)
+
+### ⚡ Performance Improvements
+
+- Upgrade `vue` and `ant-design-vue` versions to solve compatibility issues
+- **Tree** Performance optimization
+
+### 🐛 Bug Fixes
+
+- **Table** Fix page jitter problem
+- **Upload** Make sure to carry custom parameters
+- **Dropdown** Fix the icon display problem of popConfirm
+- **Table** Fix the problem that the editing event of the tree table is abnormal
+- **Table** Fix the problem that when the table data is empty, the value returned by getDataSource is not the data source used by the table
+
+## 2.5.0(2021-06-20)
+
+## (Breaking changes) Breaking changes
+
+- Change the project `windicss` to `tailwindcss` to solve the memory overflow problem
+  - There are currently incompatible areas of the project
+    - The wording of `!xl:m-4` needs to be changed to `xl:!m-4`, note that only `!` is incompatible. If you don’t use it, you don’t need to change it.
+    - The new features of `windicss` itself need to be adjusted, for example, `Attribute` mode is not compatible
+
+### ✨ Refactor
+
+- Remove `useExpose` and use `expose` provided by the component itself instead
+
+### ⚡ Performance Improvements
+
+- **Locale** merge multi-language files to reduce the number of files
+- **Utils** Mitt default export is changed from `Class` to `Function`
+- **Axios** `isTransformRequestResult` is renamed to `isTransformResponse`
+
+### ✨ Features
+
+- **CropperImage** `Cropper` Avatar cropping adds circular cropping function
+- **CropperAvatar** Added avatar upload component
+- **Drawer** `useDrawer` added `closeDrawer` function
+- **Preview** Added `createImgPreview` picture preview function
+- **Setup** New guide page example
+- **Tests** Add jest test suite, Vue component single test is not currently supported
+- **Axios** Added `authenticationScheme` configuration to specify the authentication scheme
+- **Setting** Added `sessionTimeoutProcessing` project configuration item, used to configure how to deal with session timeout
+
+### 🐛 Bug Fixes
+
+- **Modal** fix full screen height calculation error
+- **Modal** Fix the problem that the shutdown event is triggered multiple times
+- **PageWrapper** fix the height calculation problem
+- **FlowChart** Repair drag and drop menu missing
+- Fixed Iframe routing error in background mode
+- **PageWrapper** Fix the height calculation problem when footer and global footer are opened at the same time
+- **Menu** Fix the jitter problem of menu folding animation
+- **Store** fixed type error after pinia version upgrade
+
 ## 2.4.2(2021-06-10)
 
 ### ✨ Refactor

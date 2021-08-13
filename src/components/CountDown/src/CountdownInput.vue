@@ -3,6 +3,9 @@
     <template #addonAfter>
       <CountButton :size="size" :count="count" :value="state" :beforeStartFunc="sendCodeApi" />
     </template>
+    <template #[item]="data" v-for="item in Object.keys($slots).filter((k) => k !== 'addonAfter')">
+      <slot :name="item" v-bind="data"></slot>
+    </template>
   </a-input>
 </template>
 <script lang="ts">

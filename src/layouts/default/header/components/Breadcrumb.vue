@@ -1,9 +1,9 @@
 <template>
   <div :class="[prefixCls, `${prefixCls}--${theme}`]">
     <a-breadcrumb :routes="routes">
-      <template #itemRender="{ route, routes, paths }">
+      <template #itemRender="{ route, routes: routesMatched, paths }">
         <Icon :icon="getIcon(route)" v-if="getShowBreadCrumbIcon && getIcon(route)" />
-        <span v-if="!hasRedirect(routes, route)">
+        <span v-if="!hasRedirect(routesMatched, route)">
           {{ t(route.name || route.meta.title) }}
         </span>
         <router-link v-else to="" @click="handleClick(route, paths, $event)">
@@ -15,6 +15,7 @@
 </template>
 <script lang="ts">
   import type { RouteLocationMatched } from 'vue-router';
+  import { useRouter } from 'vue-router';
   import type { Menu } from '/@/router/types';
 
   import { defineComponent, ref, watchEffect } from 'vue';
@@ -26,7 +27,6 @@
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
   import { useGo } from '/@/hooks/web/usePage';
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { useRouter } from 'vue-router';
 
   import { propTypes } from '/@/utils/propTypes';
   import { isString } from '/@/utils/is';
@@ -96,7 +96,7 @@
       }
 
       function filterItem(list: RouteLocationMatched[]) {
-        let resultList = filter(list, (item) => {
+        return filter(list, (item) => {
           const { meta, name } = item;
           if (!meta) {
             return !!name;
@@ -107,8 +107,6 @@
           }
           return true;
         }).filter((item) => !item.meta?.hideBreadcrumb || !item.meta?.hideMenu);
-
-        return resultList;
       }
 
       function handleClick(route: RouteLocationMatched, paths: string[], e: Event) {
@@ -140,10 +138,7 @@
       }
 
       function hasRedirect(routes: RouteLocationMatched[], route: RouteLocationMatched) {
-        if (routes.indexOf(route) === routes.length - 1) {
-          return false;
-        }
-        return true;
+        return routes.indexOf(route) !== routes.length - 1;
       }
 
       function getIcon(route) {

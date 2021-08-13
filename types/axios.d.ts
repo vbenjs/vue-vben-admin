@@ -5,9 +5,10 @@ export interface RequestOptions {
   joinParamsToUrl?: boolean;
   // Format request parameter time
   formatDate?: boolean;
-  //  Whether to process the request result
+  // Whether to process the request result
   isTransformResponse?: boolean;
-  // 是否返回原生响应头 比如：需要获取响应头时使用该属性
+  // Whether to return native response headers
+  // For example: use this attribute when you need to get the response headers
   isReturnNativeResponse?: boolean;
   // Whether to join url
   joinPrefix?: boolean;
@@ -18,6 +19,8 @@ export interface RequestOptions {
   // Whether to add a timestamp
   joinTime?: boolean;
   ignoreCancelToken?: boolean;
+  // Whether to send token in header
+  withToken?: boolean;
 }
 
 export interface Result<T = any> {

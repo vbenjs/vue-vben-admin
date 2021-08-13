@@ -1,31 +1,6 @@
 module.exports = {
   ignores: [(commit) => commit.includes('init')],
   extends: ['@commitlint/config-conventional'],
-  parserPreset: {
-    parserOpts: {
-      headerPattern: /^(\w*|[\u4e00-\u9fa5]*)(?:[\(\（](.*)[\)\）])?[\:\：] (.*)/,
-      headerCorrespondence: ['type', 'scope', 'subject'],
-      referenceActions: [
-        'close',
-        'closes',
-        'closed',
-        'fix',
-        'fixes',
-        'fixed',
-        'resolve',
-        'resolves',
-        'resolved',
-      ],
-      issuePrefixes: ['#'],
-      noteKeywords: ['BREAKING CHANGE'],
-      fieldPattern: /^-(.*?)-$/,
-      revertPattern: /^Revert\s"([\s\S]*)"\s*This reverts commit (\w*)\./,
-      revertCorrespondence: ['header', 'hash'],
-      warn() {},
-      mergePattern: null,
-      mergeCorrespondence: null,
-    },
-  },
   rules: {
     'body-leading-blank': [2, 'always'],
     'footer-leading-blank': [1, 'always'],

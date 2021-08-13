@@ -13,6 +13,7 @@
   import { optionsListApi } from '/@/api/demo/select';
 
   import { demoListApi } from '/@/api/demo/table';
+  import { treeOptionsListApi } from '/@/api/demo/tree';
   const columns: BasicColumn[] = [
     {
       title: '输入框',
@@ -84,6 +85,21 @@
       editComponent: 'ApiSelect',
       editComponentProps: {
         api: optionsListApi,
+        resultField: 'list',
+        labelField: 'name',
+        valueField: 'id',
+      },
+      width: 200,
+    },
+    {
+      title: '远程下拉树',
+      dataIndex: 'name7',
+      edit: true,
+      editComponent: 'ApiTreeSelect',
+      editRule: false,
+      editComponentProps: {
+        api: treeOptionsListApi,
+        resultField: 'list',
       },
       width: 200,
     },

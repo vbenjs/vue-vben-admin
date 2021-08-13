@@ -1,6 +1,5 @@
 <script lang="tsx">
   import { defineComponent, ref, unref, computed, reactive, watchEffect } from 'vue';
-  import { Props } from './typing';
   import { CloseOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons-vue';
   import resumeSvg from '/@/assets/svg/preview/resume.svg';
   import rotateSvg from '/@/assets/svg/preview/p-rotate.svg';
@@ -38,13 +37,33 @@
       type: Number as PropType<number>,
       default: 0,
     },
+    scaleStep: {
+      type: Number as PropType<number>,
+    },
+    defaultWidth: {
+      type: Number as PropType<number>,
+    },
+    maskClosable: {
+      type: Boolean as PropType<boolean>,
+    },
+    rememberState: {
+      type: Boolean as PropType<boolean>,
+    },
   };
 
   const prefixCls = 'img-preview';
   export default defineComponent({
     name: 'ImagePreview',
     props,
-    setup(props: Props) {
+    emits: ['img-load', 'img-error'],
+    setup(props, { expose, emit }) {
+      interface stateInfo {
+        scale: number;
+        rotate: number;
+        top: number;
+        left: number;
+      }
+      const stateMap = new Map<string, stateInfo>();
       const imgState = reactive<ImgState>({
         currentUrl: '',
         imgScale: 1,
@@ -96,6 +115,15 @@
         };
       }
 
+      const getScaleStep = computed(() => {
+        const scaleStep = props?.scaleStep ?? 0;
+        if (scaleStep ?? (0 > 0 && scaleStep < 100)) {
+          return scaleStep / 100;
+        } else {
+          return imgState.imgScale / 10;
+        }
+      });
+
       // 监听鼠标滚轮
       function scrollFunc(e: any) {
         e = e || window.event;
@@ -104,11 +132,11 @@
         e.preventDefault();
         if (e.delta > 0) {
           // 滑轮向上滚动
-          scaleFunc(0.015);
+          scaleFunc(getScaleStep.value);
         }
         if (e.delta < 0) {
           // 滑轮向下滚动
-          scaleFunc(-0.015);
+          scaleFunc(-getScaleStep.value);
         }
       }
       // 缩放函数
@@ -134,11 +162,54 @@
         imgState.status = StatueEnum.LOADING;
         const img = new Image();
         img.src = url;
-        img.onload = () => {
+        img.onload = (e: Event) => {
+          if (imgState.currentUrl !== url) {
+            const ele: any[] = e.composedPath();
+            if (props.rememberState) {
+              // 保存当前图片的缩放信息
+              stateMap.set(imgState.currentUrl, {
+                scale: imgState.imgScale,
+                top: imgState.imgTop,
+                left: imgState.imgLeft,
+                rotate: imgState.imgRotate,
+              });
+              // 如果之前已存储缩放信息，就应用
+              const stateInfo = stateMap.get(url);
+              if (stateInfo) {
+                imgState.imgScale = stateInfo.scale;
+                imgState.imgTop = stateInfo.top;
+                imgState.imgRotate = stateInfo.rotate;
+                imgState.imgLeft = stateInfo.left;
+              } else {
+                initState();
+                if (props.defaultWidth) {
+                  imgState.imgScale = props.defaultWidth / ele[0].naturalWidth;
+                }
+              }
+            } else {
+              if (props.defaultWidth) {
+                imgState.imgScale = props.defaultWidth / ele[0].naturalWidth;
+              }
+            }
+
+            ele &&
+              emit('img-load', {
+                index: imgState.currentIndex,
+                dom: ele[0] as HTMLImageElement,
+                url,
+              });
+          }
           imgState.currentUrl = url;
           imgState.status = StatueEnum.DONE;
         };
-        img.onerror = () => {
+        img.onerror = (e: Event) => {
+          const ele: EventTarget[] = e.composedPath();
+          ele &&
+            emit('img-error', {
+              index: imgState.currentIndex,
+              dom: ele[0] as HTMLImageElement,
+              url,
+            });
           imgState.status = StatueEnum.FAIL;
         };
       }
@@ -146,6 +217,10 @@
       // 关闭
       function handleClose(e: MouseEvent) {
         e && e.stopPropagation();
+        close();
+      }
+
+      function close() {
         imgState.show = false;
         // 移除火狐浏览器下的鼠标滚动事件
         document.body.removeEventListener('DOMMouseScroll', scrollFunc);
@@ -157,6 +232,19 @@
       function resume() {
         initState();
       }
+
+      expose({
+        resume,
+        close,
+        prev: handleChange.bind(null, 'left'),
+        next: handleChange.bind(null, 'right'),
+        setScale: (scale: number) => {
+          if (scale > 0 && scale <= 10) imgState.imgScale = scale;
+        },
+        setRotate: (rotate: number) => {
+          imgState.imgRotate = rotate;
+        },
+      });
 
       // 上一页下一页
       function handleChange(direction: 'left' | 'right') {
@@ -205,6 +293,7 @@
           transform: `scale(${imgScale}) rotate(${imgRotate}deg)`,
           marginTop: `${imgTop}px`,
           marginLeft: `${imgLeft}px`,
+          maxWidth: props.defaultWidth ? 'unset' : '100%',
         };
       });
 
@@ -221,6 +310,16 @@
           initState();
         }
       });
+
+      const handleMaskClick = (e: MouseEvent) => {
+        if (
+          props.maskClosable &&
+          e.target &&
+          (e.target as HTMLDivElement).classList.contains(`${prefixCls}-content`)
+        ) {
+          handleClose(e);
+        }
+      };
 
       const renderClose = () => {
         return (
@@ -246,10 +345,16 @@
       const renderController = () => {
         return (
           <div class={`${prefixCls}__controller`}>
-            <div class={`${prefixCls}__controller-item`} onClick={() => scaleFunc(-0.15)}>
+            <div
+              class={`${prefixCls}__controller-item`}
+              onClick={() => scaleFunc(-getScaleStep.value)}
+            >
               <img src={unScaleSvg} />
             </div>
-            <div class={`${prefixCls}__controller-item`} onClick={() => scaleFunc(0.15)}>
+            <div
+              class={`${prefixCls}__controller-item`}
+              onClick={() => scaleFunc(getScaleStep.value)}
+            >
               <img src={scaleSvg} />
             </div>
             <div class={`${prefixCls}__controller-item`} onClick={resume}>
@@ -279,7 +384,12 @@
       return () => {
         return (
           imgState.show && (
-            <div class={prefixCls} ref={wrapElRef} onMouseup={handleMouseUp}>
+            <div
+              class={prefixCls}
+              ref={wrapElRef}
+              onMouseup={handleMouseUp}
+              onClick={handleMaskClick}
+            >
               <div class={`${prefixCls}-content`}>
                 {/*<Spin*/}
                 {/*  indicator={<LoadingOutlined style="font-size: 24px" spin />}*/}

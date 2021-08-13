@@ -25,6 +25,7 @@ module.exports = defineConfig({
     'plugin:jest/recommended',
   ],
   rules: {
+    'vue/script-setup-uses-vars': 'error',
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',

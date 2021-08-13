@@ -9,7 +9,9 @@ const setup: AppRouteModule = {
   component: LAYOUT,
   redirect: '/setup/index',
   meta: {
-    icon: 'simple-icons:about-dot-me',
+    orderNo: 90000,
+    hideChildrenInMenu: true,
+    icon: 'whh:paintroll',
     title: t('routes.demo.setup.page'),
   },
   children: [
@@ -20,6 +22,7 @@ const setup: AppRouteModule = {
       meta: {
         title: t('routes.demo.setup.page'),
         icon: 'whh:paintroll',
+        hideMenu: true,
       },
     },
   ],

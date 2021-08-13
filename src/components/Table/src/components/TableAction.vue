@@ -1,9 +1,15 @@
 <template>
   <div :class="[prefixCls, getAlign]" @click="onCellClick">
     <template v-for="(action, index) in getActions" :key="`${index}-${action.label}`">
-      <PopConfirmButton v-bind="action">
-        <Icon :icon="action.icon" class="mr-1" v-if="action.icon" />
-        {{ action.label }}
+      <Tooltip v-if="action.tooltip" v-bind="getTooltip(action.tooltip)">
+        <PopConfirmButton v-bind="action">
+          <Icon :icon="action.icon" :class="{ 'mr-1': !!action.label }" v-if="action.icon" />
+          <template v-if="action.label">{{ action.label }}</template>
+        </PopConfirmButton>
+      </Tooltip>
+      <PopConfirmButton v-else v-bind="action">
+        <Icon :icon="action.icon" :class="{ 'mr-1': !!action.label }" v-if="action.icon" />
+        <template v-if="action.label">{{ action.label }}</template>
       </PopConfirmButton>
       <Divider
         type="vertical"
@@ -29,9 +35,9 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, computed, toRaw } from 'vue';
+  import { defineComponent, PropType, computed, toRaw, unref } from 'vue';
   import { MoreOutlined } from '@ant-design/icons-vue';
-  import { Divider } from 'ant-design-vue';
+  import { Divider, Tooltip, TooltipProps } from 'ant-design-vue';
   import Icon from '/@/components/Icon/index';
   import { ActionItem, TableActionType } from '/@/components/Table';
   import { PopConfirmButton } from '/@/components/Button';
@@ -39,13 +45,13 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useTableContext } from '../hooks/useTableContext';
   import { usePermission } from '/@/hooks/web/usePermission';
-  import { isBoolean, isFunction } from '/@/utils/is';
+  import { isBoolean, isFunction, isString } from '/@/utils/is';
   import { propTypes } from '/@/utils/propTypes';
   import { ACTION_COLUMN_FLAG } from '../const';
 
   export default defineComponent({
     name: 'TableAction',
-    components: { Icon, PopConfirmButton, Divider, Dropdown, MoreOutlined },
+    components: { Icon, PopConfirmButton, Divider, Dropdown, MoreOutlined, Tooltip },
     props: {
       actions: {
         type: Array as PropType<ActionItem[]>,
@@ -89,6 +95,7 @@
           .map((action) => {
             const { popConfirm } = action;
             return {
+              getPopupContainer: () => unref(table?.wrapRef.value) ?? document.body,
               type: 'link',
               size: 'small',
               ...action,
@@ -124,15 +131,24 @@
         return actionColumn?.align ?? 'left';
       });
 
-      function onCellClick(e: MouseEvent) {
-        if (!props.stopButtonPropagation) return;
-        const target = e.target as HTMLElement;
-        if (target.tagName === 'BUTTON') {
-          e.stopPropagation();
-        }
+      function getTooltip(data: string | TooltipProps): TooltipProps {
+        return {
+          getPopupContainer: () => unref(table?.wrapRef.value) ?? document.body,
+          placement: 'bottom',
+          ...(isString(data) ? { title: data } : data),
+        };
       }
 
-      return { prefixCls, getActions, getDropdownList, getAlign, onCellClick };
+      function onCellClick(e: MouseEvent) {
+        if (!props.stopButtonPropagation) return;
+        const path = e.composedPath() as HTMLElement[];
+        const isInButton = path.find((ele) => {
+          return ele.tagName?.toUpperCase() === 'BUTTON';
+        });
+        isInButton && e.stopPropagation();
+      }
+
+      return { prefixCls, getActions, getDropdownList, getAlign, onCellClick, getTooltip };
     },
   });
 </script>
@@ -165,6 +181,12 @@
 
       span {
         margin-left: 0 !important;
+      }
+    }
+
+    button.ant-btn-circle {
+      span {
+        margin: auto !important;
       }
     }
 
