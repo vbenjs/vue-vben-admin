@@ -3,6 +3,7 @@ import { defineConfig } from 'vite-plugin-windicss';
 import { primaryColor } from './build/config/themeConfig';
 
 export default defineConfig({
+  important: true,
   darkMode: 'class',
   plugins: [createEnterPlugin()],
   theme: {
