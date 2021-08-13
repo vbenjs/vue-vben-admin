@@ -300,6 +300,17 @@ export const useMultipleTabStore = defineStore({
         await this.updateCacheTab();
       }
     },
+    /**
+     * replace tab's path
+     * **/
+    async updateTabPath(fullPath: string, route: RouteLocationNormalized) {
+      const findTab = this.getTabList.find((item) => item === route);
+      if (findTab) {
+        findTab.fullPath = fullPath;
+        findTab.path = fullPath;
+        await this.updateCacheTab();
+      }
+    },
   },
 });
 
