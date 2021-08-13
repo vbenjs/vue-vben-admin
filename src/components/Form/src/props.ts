@@ -59,6 +59,8 @@ export const basicProps = {
   rulesMessageJoinLabel: propTypes.bool.def(true),
   // 超过3行自动折叠
   autoAdvancedLine: propTypes.number.def(3),
+  // 不受折叠影响的行数
+  alwaysShowLines: propTypes.number.def(1),
 
   // 是否显示操作按钮
   showActionButtonGroup: propTypes.bool.def(true),

@@ -3,6 +3,7 @@
 ### ✨ Features
 
 - **BasicTree** 添加搜索功能相关属性和方法
+- **BasicForm** 新增`alwaysShowLines`用于设置折叠时保留显示的行数
 
 ### 🐛 Bug Fixes
 
