@@ -67,13 +67,19 @@ export function useRowSelection(
 
   function setSelectedRowKeys(rowKeys: string[]) {
     selectedRowKeysRef.value = rowKeys;
-    selectedRowRef.value = findNodeAll(
-      toRaw(unref(tableData)),
+    const allSelectedRows = findNodeAll(
+      toRaw(unref(tableData)).concat(toRaw(unref(selectedRowRef))),
       (item) => rowKeys.includes(item[unref(getRowKey) as string]),
       {
         children: propsRef.value.childrenColumnName ?? 'children',
       }
     );
+    const trueSelectedRows: any[] = [];
+    rowKeys.forEach((key: string) => {
+      const found = allSelectedRows.find((item) => item[unref(getRowKey) as string] === key);
+      found && trueSelectedRows.push(found);
+    });
+    selectedRowRef.value = trueSelectedRows;
   }
 
   function setSelectedRows(rows: Recordable[]) {
