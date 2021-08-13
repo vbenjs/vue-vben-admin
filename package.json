@@ -1,6 +1,7 @@
 {
   "name": "vben-admin",
   "version": "2.7.0",
+  "description": "Vue Vben Admin is a free and open source middle and back-end template.",
   "author": {
     "name": "vben",
     "email": "anncwb@126.com",
@@ -16,20 +17,22 @@
       "!node_modules",
       "dist/**"
     ],
-    "asar": false,
+    "asar": true,
     "mac": {
+      "icon": "./build/icons/logo.icns",
       "artifactName": "${productName}_setup_${version}.${ext}",
       "target": [
         "dmg"
       ]
     },
     "linux": {
-      "icon": "build/icons/512x512.png",
+      "icon": "./build/icons/logo.png",
       "target": [
         "deb"
       ]
     },
     "win": {
+      "icon": "./build/icons/logo.ico",
       "target": [
         {
           "target": "nsis",
