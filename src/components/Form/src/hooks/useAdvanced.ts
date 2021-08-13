@@ -103,7 +103,7 @@ export default function ({
       }
       return { isAdvanced: advanceState.isAdvanced, itemColSum };
     }
-    if (itemColSum > BASIC_COL_LEN) {
+    if (itemColSum > BASIC_COL_LEN * (unref(getProps).alwaysShowLines || 1)) {
       return { isAdvanced: advanceState.isAdvanced, itemColSum };
     } else {
       // The first line is always displayed
