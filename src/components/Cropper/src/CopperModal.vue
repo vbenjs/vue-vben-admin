@@ -122,10 +122,12 @@
   import { isFunction } from '/@/utils/is';
   import { useI18n } from '/@/hooks/web/useI18n';
 
+  type apiFunParams = { file: Blob; name: string; filename: string };
+
   const props = {
     circled: { type: Boolean, default: true },
     uploadApi: {
-      type: Function as PropType<({ file: Blob, name: string, filename: string }) => Promise<any>>,
+      type: Function as PropType<(params: apiFunParams) => Promise<any>>,
     },
   };
 

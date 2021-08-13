@@ -23,7 +23,7 @@
     /**
      * The theme of the current parent component
      */
-    theme: { type: String, validator: (v) => ['light', 'dark'].includes(v) },
+    theme: { type: String, validator: (v: string) => ['light', 'dark'].includes(v) },
     /**
      * Whether to show title
      */

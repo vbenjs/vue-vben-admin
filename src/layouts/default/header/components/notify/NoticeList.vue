@@ -11,7 +11,9 @@
                 :style="{ cursor: isTitleClickable ? 'pointer' : '' }"
                 :delete="!!item.titleDelete"
                 :ellipsis="
-                  $props.titleRows > 0 ? { rows: $props.titleRows, tooltip: item.title } : false
+                  $props.titleRows && $props.titleRows > 0
+                    ? { rows: $props.titleRows, tooltip: !!item.title }
+                    : false
                 "
                 :content="item.title"
               />
@@ -34,8 +36,8 @@
                 <a-typography-paragraph
                   style="width: 100%; margin-bottom: 0 !important"
                   :ellipsis="
-                    $props.descRows > 0
-                      ? { rows: $props.descRows, tooltip: item.description }
+                    $props.descRows && $props.descRows > 0
+                      ? { rows: $props.descRows, tooltip: !!item.description }
                       : false
                   "
                   :content="item.description"
