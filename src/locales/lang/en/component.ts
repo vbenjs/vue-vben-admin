@@ -20,6 +20,7 @@ export default {
     btn_scale_y: 'Flip vertical',
     btn_zoom_in: 'Zoom in',
     btn_zoom_out: 'Zoom out',
+    preview: 'Preivew',
   },
   drawer: {
     loadingText: 'Loading...',

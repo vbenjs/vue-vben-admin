@@ -10,66 +10,50 @@
     </Spin>
   </div>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
   import type { CSSProperties } from 'vue';
-  import { defineComponent, ref, unref, computed } from 'vue';
+  import { ref, unref, computed } from 'vue';
   import { Spin } from 'ant-design-vue';
-
   import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
-
   import { propTypes } from '/@/utils/propTypes';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useLayoutHeight } from '/@/layouts/default/content/useContentViewHeight';
 
-  export default defineComponent({
-    name: 'IFrame',
-    components: { Spin },
-    props: {
-      frameSrc: propTypes.string.def(''),
-    },
-    setup() {
-      const loading = ref(true);
-      const topRef = ref(50);
-      const heightRef = ref(window.innerHeight);
-      const frameRef = ref<HTMLFrameElement>();
-      const { headerHeightRef } = useLayoutHeight();
-
-      const { prefixCls } = useDesign('iframe-page');
-      useWindowSizeFn(calcHeight, 150, { immediate: true });
-
-      const getWrapStyle = computed((): CSSProperties => {
-        return {
-          height: `${unref(heightRef)}px`,
-        };
-      });
-
-      function calcHeight() {
-        const iframe = unref(frameRef);
-        if (!iframe) {
-          return;
-        }
-        const top = headerHeightRef.value;
-        topRef.value = top;
-        heightRef.value = window.innerHeight - top;
-        const clientHeight = document.documentElement.clientHeight - top;
-        iframe.style.height = `${clientHeight}px`;
-      }
-
-      function hideLoading() {
-        loading.value = false;
-        calcHeight();
-      }
-
-      return {
-        getWrapStyle,
-        loading,
-        frameRef,
-        prefixCls,
-
-        hideLoading,
-      };
-    },
+  defineProps({
+    frameSrc: propTypes.string.def(''),
   });
+
+  const loading = ref(true);
+  const topRef = ref(50);
+  const heightRef = ref(window.innerHeight);
+  const frameRef = ref<HTMLFrameElement>();
+  const { headerHeightRef } = useLayoutHeight();
+
+  const { prefixCls } = useDesign('iframe-page');
+  useWindowSizeFn(calcHeight, 150, { immediate: true });
+
+  const getWrapStyle = computed((): CSSProperties => {
+    return {
+      height: `${unref(heightRef)}px`,
+    };
+  });
+
+  function calcHeight() {
+    const iframe = unref(frameRef);
+    if (!iframe) {
+      return;
+    }
+    const top = headerHeightRef.value;
+    topRef.value = top;
+    heightRef.value = window.innerHeight - top;
+    const clientHeight = document.documentElement.clientHeight - top;
+    iframe.style.height = `${clientHeight}px`;
+  }
+
+  function hideLoading() {
+    loading.value = false;
+    calcHeight();
+  }
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-iframe-page';

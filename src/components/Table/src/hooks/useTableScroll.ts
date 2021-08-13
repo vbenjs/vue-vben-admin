@@ -66,6 +66,7 @@ export function useTableScroll(
 
     if (!bodyEl) {
       bodyEl = tableEl.querySelector('.ant-table-body');
+      if (!bodyEl) return;
     }
 
     const hasScrollBarY = bodyEl.scrollHeight > bodyEl.clientHeight;

@@ -1,6 +1,5 @@
 <script lang="tsx">
   import { defineComponent, ref, unref, computed, reactive, watchEffect } from 'vue';
-  import { Props } from './typing';
   import { CloseOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons-vue';
   import resumeSvg from '/@/assets/svg/preview/resume.svg';
   import rotateSvg from '/@/assets/svg/preview/p-rotate.svg';
@@ -57,7 +56,7 @@
     name: 'ImagePreview',
     props,
     emits: ['img-load', 'img-error'],
-    setup(props: Props, { expose, emit }) {
+    setup(props, { expose, emit }) {
       interface stateInfo {
         scale: number;
         rotate: number;
@@ -117,8 +116,9 @@
       }
 
       const getScaleStep = computed(() => {
-        if (props.scaleStep > 0 && props.scaleStep < 100) {
-          return props.scaleStep / 100;
+        const scaleStep = props?.scaleStep ?? 0;
+        if (scaleStep ?? (0 > 0 && scaleStep < 100)) {
+          return scaleStep / 100;
         } else {
           return imgState.imgScale / 10;
         }
@@ -164,7 +164,7 @@
         img.src = url;
         img.onload = (e: Event) => {
           if (imgState.currentUrl !== url) {
-            const ele: HTMLElement[] = e.composedPath();
+            const ele: any[] = e.composedPath();
             if (props.rememberState) {
               // 保存当前图片的缩放信息
               stateMap.set(imgState.currentUrl, {
@@ -244,7 +244,7 @@
         setRotate: (rotate: number) => {
           imgState.imgRotate = rotate;
         },
-      } as PreviewActions);
+      });
 
       // 上一页下一页
       function handleChange(direction: 'left' | 'right') {

@@ -1,8 +1,8 @@
 <template>
   <Button v-bind="getBindValue" :class="getButtonClass" @click="onClick">
-    <template #default="data">
+    <template #default>
       <Icon :icon="preIcon" v-if="preIcon" :size="iconSize" />
-      <slot v-bind="data"></slot>
+      <slot></slot>
       <Icon :icon="postIcon" v-if="postIcon" :size="iconSize" />
     </template>
   </Button>

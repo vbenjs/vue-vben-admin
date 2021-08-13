@@ -1,13 +1,11 @@
 import type { EChartsOption } from 'echarts';
 import type { Ref } from 'vue';
-
 import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 import { tryOnUnmounted } from '@vueuse/core';
 import { unref, nextTick, watch, computed, ref } from 'vue';
 import { useDebounceFn } from '@vueuse/core';
 import { useEventListener } from '/@/hooks/event/useEventListener';
 import { useBreakpoint } from '/@/hooks/event/useBreakpoint';
-
 import echarts from '/@/utils/lib/echarts';
 import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 
@@ -18,19 +16,19 @@ export function useECharts(
   const { getDarkMode } = useRootSetting();
   let chartInstance: echarts.ECharts | null = null;
   let resizeFn: Fn = resize;
-  const cacheOptions = ref<EChartsOption>({});
+  const cacheOptions = ref({}) as Ref<EChartsOption>;
   let removeResizeFn: Fn = () => {};
 
   resizeFn = useDebounceFn(resize, 200);
 
-  const getOptions = computed((): EChartsOption => {
+  const getOptions = computed(() => {
     if (getDarkMode.value !== 'dark') {
-      return cacheOptions.value;
+      return cacheOptions.value as EChartsOption;
     }
     return {
       backgroundColor: 'transparent',
       ...cacheOptions.value,
-    };
+    } as EChartsOption;
   });
 
   function initCharts(t = theme) {
