@@ -381,7 +381,7 @@
       }
 
       .ant-table-tbody > tr.ant-table-row-selected td {
-        background-color: fade(@primary-color, 8%) !important;
+        //background-color: fade(@primary-color, 8%) !important;
       }
     }
 
