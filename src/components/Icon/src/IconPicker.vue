@@ -121,7 +121,7 @@
       copy: propTypes.bool.def(false),
       mode: propTypes.oneOf<('svg' | 'iconify')[]>(['svg', 'iconify']).def('iconify'),
     },
-    emits: ['change'],
+    emits: ['change', 'update:value'],
     setup(props, { emit }) {
       const isSvgMode = props.mode === 'svg';
       const icons = isSvgMode ? getSvgIcons() : getIcons();
@@ -148,7 +148,10 @@
 
       watch(
         () => currentSelect.value,
-        (v) => emit('change', v)
+        (v) => {
+          emit('update:value', v);
+          return emit('change', v);
+        }
       );
 
       function handlePageChange(page: number) {
