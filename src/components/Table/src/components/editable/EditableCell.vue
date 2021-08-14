@@ -20,14 +20,13 @@
         :rule="getRule"
         :ruleMessage="ruleMessage"
         :class="getWrapperClass"
-        size="small"
         ref="elRef"
         @change="handleChange"
         @options-change="handleOptionsChange"
         @pressEnter="handleEnter"
       />
       <div :class="`${prefixCls}__action`" v-if="!getRowEditable">
-        <CheckOutlined :class="[`${prefixCls}__icon`, 'mx-2']" @click="handleSubmit" />
+        <CheckOutlined :class="[`${prefixCls}__icon`, 'mx-2']" @click="handleSubmitClick" />
         <CloseOutlined :class="`${prefixCls}__icon `" @click="handleCancel" />
       </div>
     </div>
@@ -112,6 +111,7 @@
         const value = isCheckValue ? (isNumber(val) && isBoolean(val) ? val : !!val) : val;
 
         return {
+          size: 'small',
           getPopupContainer: () => unref(table?.wrapRef.value) ?? document.body,
           getCalendarContainer: () => unref(table?.wrapRef.value) ?? document.body,
           placeholder: createPlaceholderMessage(unref(getComponent)),
@@ -259,6 +259,10 @@
         handleSubmit();
       }
 
+      function handleSubmitClick() {
+        handleSubmit();
+      }
+
       function handleCancel() {
         isEdit.value = false;
         currentValueRef.value = defaultValueRef.value;
@@ -363,7 +367,7 @@
         getRowEditable,
         getValues,
         handleEnter,
-        // getSize,
+        handleSubmitClick,
       };
     },
   });
