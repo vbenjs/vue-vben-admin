@@ -17,6 +17,7 @@
   - 修复在`editComponentProps`中为编辑组件提供的`size`属性无效的问题
 - **Qrcode** 修复二维码组件在创建时未能及时绘制的问题
 - **BasicModal** 修复`helpMessage`属性不起作用的问题
+- **BasicButton** 修复按钮样式表现与 antd 官方不一致的问题
 - **其它** 修复`useRedo`(重新加载当前路由)会丢失路由`params`数据的问题
 
 ## 2.7.0(2021-08-03)
