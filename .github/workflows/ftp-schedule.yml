@@ -21,10 +21,10 @@ jobs:
           sed -i  "s#VITE_DROP_CONSOLE\s*=.*#VITE_DROP_CONSOLE = true#g" ./.env.production
           cat ./.env.production
 
-      - name: use Node.js 15
+      - name: use Node.js 16
         uses: actions/setup-node@v2.1.2
         with:
-          node-version: '15.x'
+          node-version: '16.x'
 
       - name: Get yarn cache
         id: yarn-cache
