@@ -20,23 +20,23 @@
     border-color: transparent !important;
   }
 
-  &-primary {
-    color: @white;
-    background-color: @button-primary-color;
-    border-width: 0;
-
-    &:hover,
-    &:focus {
-      color: @white !important;
-      background-color: @button-primary-hover-color;
-    }
-
-    &[disabled],
-    &[disabled]:hover {
-      color: @white;
-      background-color: fade(@button-primary-color, 40%);
-    }
-  }
+  //&-primary {
+  //  color: @white;
+  //  background-color: @button-primary-color;
+  //  border-width: 0;
+  //
+  //  &:hover,
+  //  &:focus {
+  //    color: @white !important;
+  //    background-color: @button-primary-hover-color;
+  //  }
+  //
+  //  &[disabled],
+  //  &[disabled]:hover {
+  //    color: @white;
+  //    background-color: fade(@button-primary-color, 40%);
+  //  }
+  //}
 
   &-default {
     color: @button-cancel-color;
@@ -86,6 +86,10 @@
       color: @button-success-hover-color;
       border-color: transparent;
     }
+
+    &:active {
+      color: @button-success-active-color;
+    }
   }
 
   &-success.ant-btn-link.ant-btn-loading,
@@ -111,6 +115,11 @@
       border-color: @button-success-hover-color;
     }
 
+    &:active {
+      background-color: @button-success-active-color;
+      border-color: @button-success-active-color;
+    }
+
     &[disabled],
     &[disabled]:hover {
       color: @white;
@@ -128,6 +137,10 @@
       color: @button-warn-hover-color;
       border-color: transparent;
     }
+
+    &:active {
+      color: @button-warn-active-color;
+    }
   }
 
   &-warning:not(.ant-btn-link) {
@@ -141,6 +154,11 @@
       color: @white;
       background-color: @button-warn-hover-color;
       border-color: @button-warn-hover-color;
+    }
+
+    &:active {
+      background-color: @button-warn-active-color;
+      border-color: @button-warn-active-color;
     }
 
     &[disabled],
@@ -162,6 +180,10 @@
       color: @button-error-hover-color;
       border-color: transparent;
     }
+
+    &:active {
+      color: @button-error-active-color;
+    }
   }
 
   &-error:not(.ant-btn-link) {
@@ -177,6 +199,11 @@
       border-color: @button-error-hover-color;
     }
 
+    &:active {
+      background-color: @button-error-active-color;
+      border-color: @button-error-active-color;
+    }
+
     &[disabled],
     &[disabled]:hover {
       color: @white;
@@ -187,7 +214,7 @@
 
   &-background-ghost.ant-btn-link,
   &.ant-btn-dashed:not([disabled='disabled']) {
-    color: @text-color-call-out;
+    // color: @text-color-call-out;
 
     &:hover {
       color: @button-primary-color;
@@ -209,9 +236,63 @@
 
     &[disabled],
     &[disabled]:hover {
-      color: @button-ghost-color;
+      color: fade(@white, 40%) !important;
       background-color: fade(@white, 40%);
-      border-color: fade(@button-ghost-color, 40%);
+      border-color: fade(@white, 40%) !important;
+    }
+  }
+
+  &-background-ghost&-success:not(.ant-btn-link) {
+    color: @button-success-color;
+    background-color: transparent;
+    border-color: @button-success-color;
+    border-width: 1px;
+
+    &:hover,
+    &:focus {
+      color: @button-success-hover-color !important;
+      border-color: @button-success-hover-color;
+    }
+
+    &:active {
+      color: @button-success-active-color;
+      border-color: @button-success-active-color;
+    }
+  }
+
+  &-background-ghost&-warn:not(.ant-btn-link) {
+    color: @button-warn-color;
+    background-color: transparent;
+    border-color: @button-warn-color;
+    border-width: 1px;
+
+    &:hover,
+    &:focus {
+      color: @button-warn-hover-color !important;
+      border-color: @button-warn-hover-color;
+    }
+
+    &:active {
+      color: @button-warn-active-color;
+      border-color: @button-warn-active-color;
+    }
+  }
+
+  &-background-ghost&-error:not(.ant-btn-link) {
+    color: @button-error-color;
+    background-color: transparent;
+    border-color: @button-error-color;
+    border-width: 1px;
+
+    &:hover,
+    &:focus {
+      color: @button-error-hover-color !important;
+      border-color: @button-error-hover-color;
+    }
+
+    &:active {
+      color: @button-error-active-color;
+      border-color: @button-error-active-color;
     }
   }
 
