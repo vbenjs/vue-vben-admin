@@ -67,8 +67,12 @@ export function createPermissionGuard(router: Router) {
       to.fullPath !== (userStore.getUserInfo.homePath || PageEnum.BASE_HOME)
     ) {
       next(userStore.getUserInfo.homePath || PageEnum.BASE_HOME);
-      console.log({ from, to });
       return;
+    }
+
+    // get userinfo while last fetch time is empty
+    if (userStore.getLastUpdateTime === 0) {
+      await userStore.getUserInfoAction();
     }
 
     if (permissionStore.getIsDynamicAddedRoute) {
@@ -88,7 +92,6 @@ export function createPermissionGuard(router: Router) {
 
     if (to.name === PAGE_NOT_FOUND_ROUTE.name) {
       // 动态添加路由后，此处应当重定向到fullPath，否则会加载404页面内容
-      // fix: 添加query以免丢失
       next({ path: to.fullPath, replace: true, query: to.query });
     } else {
       const redirectPath = (from.query.redirect || to.path) as string;
