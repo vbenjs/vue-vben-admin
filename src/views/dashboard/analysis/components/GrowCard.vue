@@ -26,18 +26,9 @@
     </template>
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
-
+<script lang="ts" setup>
   import { CountTo } from '/@/components/CountTo/index';
   import { Icon } from '/@/components/Icon';
   import { Tag, Card } from 'ant-design-vue';
-
   import { growCardList } from '../data';
-  export default defineComponent({
-    components: { CountTo, Tag, Card, Icon },
-    setup() {
-      return { growCardList };
-    },
-  });
 </script>

@@ -74,10 +74,10 @@
     "@types/fs-extra": "^9.0.12",
     "@types/inquirer": "^7.3.3",
     "@types/intro.js": "^3.0.2",
-    "@types/jest": "^27.0.0",
+    "@types/jest": "^27.0.1",
     "@types/lodash-es": "^4.17.4",
     "@types/mockjs": "^1.0.4",
-    "@types/node": "^16.6.0",
+    "@types/node": "^16.6.1",
     "@types/nprogress": "^0.2.0",
     "@types/qrcode": "^1.4.1",
     "@types/qs": "^6.9.7",
@@ -134,7 +134,7 @@
     "vite-plugin-theme": "^0.8.1",
     "vite-plugin-windicss": "^1.2.7",
     "vue-eslint-parser": "^7.10.0",
-    "vue-tsc": "^0.2.2"
+    "vue-tsc": "^0.2.3"
   },
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China. If it is abroad, you can delete it",
