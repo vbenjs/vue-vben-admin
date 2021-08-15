@@ -106,11 +106,13 @@
         return { ...props, ...unref(innerPropsRef) } as BasicTableProps;
       });
 
-      const isFixedHeightPage = inject(PageWrapperFixedHeightKey);
+      const isFixedHeightPage = inject(PageWrapperFixedHeightKey, false);
       watchEffect(() => {
         unref(isFixedHeightPage) &&
           props.canResize &&
-          warn("[BasicTable] 'canResize' may not worked in PageWrapper with 'fixedHeight'");
+          warn(
+            "'canResize' of BasicTable may not work in PageWrapper with 'fixedHeight' (especially in hot updates)"
+          );
       });
 
       const { getLoading, setLoading } = useLoading(getProps);
