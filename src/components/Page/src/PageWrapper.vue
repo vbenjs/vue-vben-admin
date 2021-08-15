@@ -33,7 +33,7 @@
   </div>
 </template>
 <script lang="ts">
-  import type { CSSProperties, PropType } from 'vue';
+  import { CSSProperties, PropType, provide } from 'vue';
 
   import { defineComponent, computed, watch, ref, unref } from 'vue';
   import PageFooter from './PageFooter.vue';
@@ -43,6 +43,7 @@
   import { omit } from 'lodash-es';
   import { PageHeader } from 'ant-design-vue';
   import { useContentHeight } from '/@/hooks/web/useContentHeight';
+  import { PageWrapperFixedHeightKey } from '..';
 
   export default defineComponent({
     name: 'PageWrapper',
@@ -67,6 +68,11 @@
       const contentRef = ref(null);
       const footerRef = ref(null);
       const { prefixCls } = useDesign('page-wrapper');
+
+      provide(
+        PageWrapperFixedHeightKey,
+        computed(() => props.fixedHeight)
+      );
 
       const getIsContentFullHeight = computed(() => {
         return props.contentFullHeight;
