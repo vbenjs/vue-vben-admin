@@ -43,8 +43,8 @@
       <a-button ghost color="success" class="ml-2"> 幽灵成功 </a-button>
       <a-button ghost color="warn" class="ml-2"> 幽灵警告 </a-button>
       <a-button ghost color="error" class="ml-2"> 幽灵错误 </a-button>
-
-      <a-button ghost type="dashed" color="warn" class="ml-2"> 幽灵warn-dashed </a-button>
+      <a-button ghost type="dashed" color="warn" class="ml-2"> 幽灵警告dashed </a-button>
+      <a-button ghost type="danger" class="ml-2"> 幽灵危险 </a-button>
       <div class="bg-gray-400 p-2 m-2">
         <h3 class="text-white">常规幽灵按钮通常用于有色背景下</h3>
         <a-button ghost type="primary" class="ml-2"> 幽灵主要 </a-button>
@@ -52,8 +52,8 @@
         <a-button ghost type="primary" class="ml-2" disabled> 禁用 </a-button>
         <a-button ghost type="primary" class="ml-2" loading> loading </a-button>
         <a-button ghost type="default" class="ml-2"> 幽灵默认 </a-button>
-        <a-button ghost type="danger" class="ml-2"> 幽灵危险 </a-button>
       </div>
+      <!-- antd 按钮不能同时使用ghost和link -->
       <!--      <a-button ghost type="link" class="ml-2"> link </a-button>-->
       <!--      <a-button ghost type="link" class="ml-2" loading> loading link </a-button>-->
       <!--      <a-button ghost type="link" class="ml-2" disabled> disabled link </a-button>-->
