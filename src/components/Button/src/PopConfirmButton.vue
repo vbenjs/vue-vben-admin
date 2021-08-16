@@ -20,7 +20,6 @@
 
   export default defineComponent({
     name: 'PopButton',
-    components: { Popconfirm, BasicButton },
     inheritAttrs: false,
     props,
     setup(props, { slots }) {
@@ -40,7 +39,7 @@
 
       return () => {
         const bindValues = omit(unref(getBindValues), 'icon');
-        const btnBind = omit(bindValues, 'title');
+        const btnBind = omit(bindValues, 'title') as Recordable;
         if (btnBind.disabled) btnBind.color = '';
         const Button = h(BasicButton, btnBind, extendSlots(slots));
 
