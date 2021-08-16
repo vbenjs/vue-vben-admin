@@ -108,20 +108,25 @@ html {
 // =================================
 
 @button-primary-color: @primary-color;
-@button-primary-hover-color: darken(@primary-color, 5%);
+@button-primary-hover-color: lighten(@primary-color, 5%);
+@button-primary-active-color: darken(@primary-color, 5%);
 
-@button-ghost-color: @primary-color;
-@button-ghost-hover-color: lighten(@primary-color, 10%);
+@button-ghost-color: @white;
+@button-ghost-hover-color: lighten(@white, 10%);
 @button-ghost-hover-bg-color: #e1ebf6;
+@button-ghost-active-color: darken(@white, 10%);
 
 @button-success-color: @success-color;
-@button-success-hover-color: darken(@success-color, 10%);
+@button-success-hover-color: lighten(@success-color, 10%);
+@button-success-active-color: darken(@success-color, 10%);
 
 @button-warn-color: @warning-color;
-@button-warn-hover-color: darken(@warning-color, 10%);
+@button-warn-hover-color: lighten(@warning-color, 10%);
+@button-warn-active-color: darken(@warning-color, 10%);
 
 @button-error-color: @error-color;
-@button-error-hover-color: darken(@error-color, 10%);
+@button-error-hover-color: lighten(@error-color, 10%);
+@button-error-active-color: darken(@error-color, 10%);
 
 @button-cancel-color: @text-color-call-out;
 @button-cancel-bg-color: @white;

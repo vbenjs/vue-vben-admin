@@ -39,9 +39,10 @@
     ColumnChangeParam,
   } from './types/table';
 
-  import { defineComponent, ref, computed, unref, toRaw } from 'vue';
+  import { defineComponent, ref, computed, unref, toRaw, inject, watchEffect } from 'vue';
   import { Table } from 'ant-design-vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
+  import { PageWrapperFixedHeightKey } from '/@/components/Page';
   import expandIcon from './components/ExpandIcon';
   import HeaderCell from './components/HeaderCell.vue';
   import { InnerHandlers } from './types/table';
@@ -64,6 +65,7 @@
   import { omit } from 'lodash-es';
   import { basicProps } from './props';
   import { isFunction } from '/@/utils/is';
+  import { warn } from '/@/utils/log';
 
   export default defineComponent({
     components: {
@@ -102,6 +104,15 @@
 
       const getProps = computed(() => {
         return { ...props, ...unref(innerPropsRef) } as BasicTableProps;
+      });
+
+      const isFixedHeightPage = inject(PageWrapperFixedHeightKey, false);
+      watchEffect(() => {
+        unref(isFixedHeightPage) &&
+          props.canResize &&
+          warn(
+            "'canResize' of BasicTable may not work in PageWrapper with 'fixedHeight' (especially in hot updates)"
+          );
       });
 
       const { getLoading, setLoading } = useLoading(getProps);
@@ -380,9 +391,9 @@
         align-items: center;
       }
 
-      .ant-table-tbody > tr.ant-table-row-selected td {
-        background-color: fade(@primary-color, 8%) !important;
-      }
+      //.ant-table-tbody > tr.ant-table-row-selected td {
+      //background-color: fade(@primary-color, 8%) !important;
+      //}
     }
 
     .ant-pagination {
