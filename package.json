@@ -59,7 +59,7 @@
     "vditor": "^3.8.6",
     "vue": "3.2.2",
     "vue-i18n": "9.1.7",
-    "vue-json-pretty": "^2.0.3",
+    "vue-json-pretty": "^1.8.1",
     "vue-router": "^4.0.11",
     "vue-types": "^4.0.3",
     "xlsx": "^0.17.0"
