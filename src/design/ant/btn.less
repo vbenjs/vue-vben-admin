@@ -20,23 +20,26 @@
     border-color: transparent !important;
   }
 
-  //&-primary {
-  //  color: @white;
-  //  background-color: @button-primary-color;
-  //  border-width: 0;
-  //
-  //  &:hover,
-  //  &:focus {
-  //    color: @white !important;
-  //    background-color: @button-primary-hover-color;
-  //  }
-  //
-  //  &[disabled],
-  //  &[disabled]:hover {
-  //    color: @white;
-  //    background-color: fade(@button-primary-color, 40%);
-  //  }
-  //}
+  &-primary {
+    color: @white;
+    background-color: @button-primary-color;
+
+    &:hover,
+    &:focus {
+      color: @white;
+      background-color: @button-primary-hover-color;
+    }
+
+    &[disabled],
+    &[disabled]:hover {
+      color: fade(@button-cancel-color, 40%);
+      background-color: fade(@button-cancel-bg-color, 40%);
+    }
+  }
+
+  &-primary:not(&-background-ghost) {
+    border-width: 0;
+  }
 
   &-default {
     color: @button-cancel-color;
@@ -50,12 +53,12 @@
       border-color: @button-cancel-hover-border-color;
     }
 
-    //&[disabled],
-    //&[disabled]:hover {
-    //  color: fade(@button-cancel-color, 40%);
-    //  background: fade(@button-cancel-bg-color, 40%);
-    //  border-color: fade(@button-cancel-border-color, 40%);
-    //}
+    &[disabled],
+    &[disabled]:hover {
+      color: fade(@button-cancel-color, 40%);
+      background: fade(@button-cancel-bg-color, 40%);
+      border-color: fade(@button-cancel-border-color, 40%);
+    }
   }
 
   [data-theme='light'] &.ant-btn-link.is-disabled {
@@ -212,33 +215,31 @@
     }
   }
 
-  &-background-ghost.ant-btn-link,
-  &.ant-btn-dashed:not([disabled='disabled']) {
-    // color: @text-color-call-out;
-
-    &:hover {
-      color: @button-primary-color;
-    }
+  &-background-ghost {
+    border-width: 1px;
   }
 
-  &-background-ghost {
+  &-dashed&-background-ghost,
+  &-default&-background-ghost {
     color: @button-ghost-color;
     background-color: transparent;
     border-color: @button-ghost-color;
-    border-width: 1px;
 
     &:hover,
     &:focus {
-      color: @button-ghost-hover-color !important;
-      background-color: @button-ghost-hover-bg-color;
+      color: @button-ghost-hover-color;
       border-color: @button-ghost-hover-color;
+    }
+
+    &:active {
+      color: @button-ghost-active-color;
+      border-color: @button-ghost-active-color;
     }
 
     &[disabled],
     &[disabled]:hover {
-      color: fade(@white, 40%) !important;
-      background-color: fade(@white, 40%);
-      border-color: fade(@white, 40%) !important;
+      color: fade(@white, 40%);
+      border-color: fade(@white, 40%);
     }
   }
 
