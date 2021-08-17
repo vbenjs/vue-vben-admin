@@ -10,7 +10,7 @@
       @advanced-change="redoHeight"
     >
       <template #[replaceFormSlotKey(item)]="data" v-for="item in getFormSlotKeys">
-        <slot :name="item" v-bind="data"></slot>
+        <slot :name="item" v-bind="data || {}"></slot>
       </template>
     </BasicForm>
 
