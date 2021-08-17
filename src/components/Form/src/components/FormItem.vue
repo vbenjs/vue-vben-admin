@@ -306,14 +306,14 @@
       }
 
       function renderItem() {
-        const { itemProps, slot, render, field, suffix, component, label } = props.schema;
+        const { itemProps, slot, render, field, suffix, component } = props.schema;
         const { labelCol, wrapperCol } = unref(itemLabelWidthProp);
         const { colon } = props.formProps;
 
         if (component === 'Divider') {
           return (
             <Col span={24}>
-              <Divider {...unref(getComponentsProps)}>{label}</Divider>
+              <Divider {...unref(getComponentsProps)}>{renderLabelHelpMessage()}</Divider>
             </Col>
           );
         } else {

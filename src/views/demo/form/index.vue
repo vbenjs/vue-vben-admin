@@ -9,6 +9,24 @@
         @submit="handleSubmit"
         @reset="handleReset"
       >
+        <template #selectA="{ model, field }">
+          <a-select
+            :options="optionsA"
+            mode="multiple"
+            v-model:value="model[field]"
+            @change="valueSelectA = model[field]"
+            allowClear
+          />
+        </template>
+        <template #selectB="{ model, field }">
+          <a-select
+            :options="optionsB"
+            mode="multiple"
+            v-model:value="model[field]"
+            @change="valueSelectB = model[field]"
+            allowClear
+          />
+        </template>
         <template #localSearch="{ model, field }">
           <ApiSelect
             :api="optionsListApi"
@@ -47,6 +65,26 @@
   import { optionsListApi } from '/@/api/demo/select';
   import { useDebounceFn } from '@vueuse/core';
   import { treeOptionsListApi } from '/@/api/demo/tree';
+  import { Select } from 'ant-design-vue';
+  import { cloneDeep } from 'lodash-es';
+
+  const valueSelectA = ref<string[]>([]);
+  const valueSelectB = ref<string[]>([]);
+  const options = ref<Recordable[]>([]);
+  for (let i = 1; i < 10; i++) options.value.push({ label: '选项' + i, value: `${i}` });
+
+  const optionsA = computed(() => {
+    return cloneDeep(unref(options)).map((op) => {
+      op.disabled = unref(valueSelectB).indexOf(op.value) !== -1;
+      return op;
+    });
+  });
+  const optionsB = computed(() => {
+    return cloneDeep(unref(options)).map((op) => {
+      op.disabled = unref(valueSelectA).indexOf(op.value) !== -1;
+      return op;
+    });
+  });
 
   const provincesOptions = [
     {
@@ -101,7 +139,7 @@
 
   const schemas: FormSchema[] = [
     {
-      field: '',
+      field: 'divider-basic',
       component: 'Divider',
       label: '基础字段',
     },
@@ -299,7 +337,7 @@
       },
     },
     {
-      field: '',
+      field: 'divider-api-select',
       component: 'Divider',
       label: '远程下拉演示',
     },
@@ -373,18 +411,9 @@
       },
     },
     {
-      field: '',
+      field: 'divider-linked',
       component: 'Divider',
-      label: '其它',
-    },
-    {
-      field: 'field20',
-      component: 'InputNumber',
-      label: '字段20',
-      required: true,
-      colProps: {
-        span: 8,
-      },
+      label: '字段联动',
     },
     {
       field: 'province',
@@ -432,6 +461,46 @@
       },
     },
     {
+      field: 'divider-selects',
+      component: 'Divider',
+      label: '互斥多选',
+      helpMessage: ['两个Select共用数据源', '但不可选择对方已选中的项目'],
+    },
+    {
+      field: 'selectA',
+      component: 'Select',
+      label: '互斥SelectA',
+      slot: 'selectA',
+      defaultValue: [],
+      colProps: {
+        span: 8,
+      },
+    },
+    {
+      field: 'selectB',
+      component: 'Select',
+      label: '互斥SelectB',
+      slot: 'selectB',
+      defaultValue: [],
+      colProps: {
+        span: 8,
+      },
+    },
+    {
+      field: 'divider-others',
+      component: 'Divider',
+      label: '其它',
+    },
+    {
+      field: 'field20',
+      component: 'InputNumber',
+      label: '字段20',
+      required: true,
+      colProps: {
+        span: 8,
+      },
+    },
+    {
       field: 'field21',
       component: 'Slider',
       label: '字段21',
@@ -464,7 +533,7 @@
   ];
 
   export default defineComponent({
-    components: { BasicForm, CollapseContainer, PageWrapper, ApiSelect },
+    components: { BasicForm, CollapseContainer, PageWrapper, ApiSelect, ASelect: Select },
     setup() {
       const check = ref(null);
       const { createMessage } = useMessage();
@@ -479,6 +548,10 @@
       return {
         schemas,
         optionsListApi,
+        optionsA,
+        optionsB,
+        valueSelectA,
+        valueSelectB,
         onSearch: useDebounceFn(onSearch, 300),
         searchParams,
         handleReset: () => {
