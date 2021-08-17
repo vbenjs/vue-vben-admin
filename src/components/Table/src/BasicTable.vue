@@ -320,7 +320,7 @@
         wrapRef,
         tableAction,
         redoHeight,
-        getFormProps,
+        getFormProps: getFormProps as any,
         replaceFormSlotKey,
         getFormSlotKeys,
         getWrapperClass,

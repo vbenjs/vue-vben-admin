@@ -83,7 +83,7 @@
             plain: true,
           });
         }
-        return componentProps;
+        return componentProps as Recordable;
       });
 
       const getDisable = computed(() => {

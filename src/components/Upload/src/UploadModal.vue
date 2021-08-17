@@ -276,8 +276,8 @@
       }
 
       return {
-        columns: createTableColumns(),
-        actionColumn: createActionColumn(handleRemove),
+        columns: createTableColumns() as any[],
+        actionColumn: createActionColumn(handleRemove) as any,
         register,
         closeModal,
         getHelpText,

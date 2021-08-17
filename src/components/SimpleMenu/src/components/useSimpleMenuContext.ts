@@ -1,9 +1,9 @@
 import type { InjectionKey, Ref } from 'vue';
+import type { Emitter } from '/@/utils/mitt';
 import { createContext, useContext } from '/@/hooks/core/useContext';
-import mitt from '/@/utils/mitt';
 
 export interface SimpleRootMenuContextProps {
-  rootMenuEmitter: typeof mitt;
+  rootMenuEmitter: Emitter;
   activeName: Ref<string | number>;
 }
 

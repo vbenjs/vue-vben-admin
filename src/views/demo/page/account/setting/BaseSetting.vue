@@ -74,7 +74,7 @@
       return {
         avatar,
         register,
-        uploadApi,
+        uploadApi: uploadApi as any,
         updateAvatar,
         handleSubmit: () => {
           createMessage.success('更新成功！');
