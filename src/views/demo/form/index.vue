@@ -101,6 +101,11 @@
 
   const schemas: FormSchema[] = [
     {
+      field: '',
+      component: 'Divider',
+      label: '基础字段',
+    },
+    {
       field: 'field1',
       component: 'Input',
       label: '字段1',
@@ -294,6 +299,11 @@
       },
     },
     {
+      field: '',
+      component: 'Divider',
+      label: '远程下拉演示',
+    },
+    {
       field: 'field30',
       component: 'ApiSelect',
       label: '懒加载远程下拉',
@@ -361,6 +371,11 @@
       colProps: {
         span: 8,
       },
+    },
+    {
+      field: '',
+      component: 'Divider',
+      label: '其它',
     },
     {
       field: 'field20',

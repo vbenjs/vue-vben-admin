@@ -18,6 +18,7 @@ import {
   TreeSelect,
   Slider,
   Rate,
+  Divider,
 } from 'ant-design-vue';
 
 import RadioButtonGroup from './components/RadioButtonGroup.vue';
@@ -61,6 +62,7 @@ componentMap.set('IconPicker', IconPicker);
 componentMap.set('InputCountDown', CountdownInput);
 
 componentMap.set('Upload', BasicUpload);
+componentMap.set('Divider', Divider);
 
 export function add(compName: ComponentType, component: Component) {
   componentMap.set(compName, component);

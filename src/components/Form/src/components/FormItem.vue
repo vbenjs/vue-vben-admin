@@ -5,7 +5,7 @@
   import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
   import type { TableActionType } from '/@/components/Table';
   import { defineComponent, computed, unref, toRefs } from 'vue';
-  import { Form, Col } from 'ant-design-vue';
+  import { Form, Col, Divider } from 'ant-design-vue';
   import { componentMap } from '../componentMap';
   import { BasicHelp } from '/@/components/Basic';
   import { isBoolean, isFunction, isNull } from '/@/utils/is';
@@ -73,11 +73,17 @@
 
       const getComponentsProps = computed(() => {
         const { schema, tableAction, formModel, formActionType } = props;
-        const { componentProps = {} } = schema;
-        if (!isFunction(componentProps)) {
-          return componentProps;
+        let { componentProps = {} } = schema;
+        if (isFunction(componentProps)) {
+          componentProps = componentProps({ schema, tableAction, formModel, formActionType }) ?? {};
         }
-        return componentProps({ schema, tableAction, formModel, formActionType }) ?? {};
+        if (schema.component === 'Divider') {
+          componentProps = Object.assign({ type: 'horizontal' }, componentProps, {
+            orientation: 'left',
+            plain: true,
+          });
+        }
+        return componentProps;
       });
 
       const getDisable = computed(() => {
@@ -300,38 +306,46 @@
       }
 
       function renderItem() {
-        const { itemProps, slot, render, field, suffix } = props.schema;
+        const { itemProps, slot, render, field, suffix, component, label } = props.schema;
         const { labelCol, wrapperCol } = unref(itemLabelWidthProp);
         const { colon } = props.formProps;
 
-        const getContent = () => {
-          return slot
-            ? getSlot(slots, slot, unref(getValues))
-            : render
-            ? render(unref(getValues))
-            : renderComponent();
-        };
+        if (component === 'Divider') {
+          return (
+            <Col span={24}>
+              <Divider {...unref(getComponentsProps)}>{label}</Divider>
+            </Col>
+          );
+        } else {
+          const getContent = () => {
+            return slot
+              ? getSlot(slots, slot, unref(getValues))
+              : render
+              ? render(unref(getValues))
+              : renderComponent();
+          };
 
-        const showSuffix = !!suffix;
-        const getSuffix = isFunction(suffix) ? suffix(unref(getValues)) : suffix;
+          const showSuffix = !!suffix;
+          const getSuffix = isFunction(suffix) ? suffix(unref(getValues)) : suffix;
 
-        return (
-          <Form.Item
-            name={field}
-            colon={colon}
-            class={{ 'suffix-item': showSuffix }}
-            {...(itemProps as Recordable)}
-            label={renderLabelHelpMessage()}
-            rules={handleRules()}
-            labelCol={labelCol}
-            wrapperCol={wrapperCol}
-          >
-            <div style="display:flex">
-              <div style="flex:1">{getContent()}</div>
-              {showSuffix && <span class="suffix">{getSuffix}</span>}
-            </div>
-          </Form.Item>
-        );
+          return (
+            <Form.Item
+              name={field}
+              colon={colon}
+              class={{ 'suffix-item': showSuffix }}
+              {...(itemProps as Recordable)}
+              label={renderLabelHelpMessage()}
+              rules={handleRules()}
+              labelCol={labelCol}
+              wrapperCol={wrapperCol}
+            >
+              <div style="display:flex">
+                <div style="flex:1">{getContent()}</div>
+                {showSuffix && <span class="suffix">{getSuffix}</span>}
+              </div>
+            </Form.Item>
+          );
+        }
       }
 
       return () => {

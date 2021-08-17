@@ -109,4 +109,5 @@ export type ComponentType =
   | 'IconPicker'
   | 'Render'
   | 'Slider'
-  | 'Rate';
+  | 'Rate'
+  | 'Divider';

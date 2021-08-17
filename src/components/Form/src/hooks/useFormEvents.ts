@@ -149,7 +149,9 @@ export function useFormEvents({
       updateData = [...data];
     }
 
-    const hasField = updateData.every((item) => Reflect.has(item, 'field') && item.field);
+    const hasField = updateData.every(
+      (item) => item.component === 'Divider' || (Reflect.has(item, 'field') && item.field)
+    );
 
     if (!hasField) {
       error(
@@ -169,7 +171,9 @@ export function useFormEvents({
       updateData = [...data];
     }
 
-    const hasField = updateData.every((item) => Reflect.has(item, 'field') && item.field);
+    const hasField = updateData.every(
+      (item) => item.component === 'Divider' || (Reflect.has(item, 'field') && item.field)
+    );
 
     if (!hasField) {
       error(
