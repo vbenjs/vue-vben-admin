@@ -29,7 +29,7 @@
           #[item]="data"
           v-for="item in ['resetBefore', 'submitBefore', 'advanceBefore', 'advanceAfter']"
         >
-          <slot :name="item" v-bind="data"></slot>
+          <slot :name="item" v-bind="data || {}"></slot>
         </template>
       </FormAction>
       <slot name="formFooter"></slot>
@@ -132,7 +132,11 @@
             }
           }
         }
-        return schemas as FormSchema[];
+        if (unref(getProps).showAdvancedButton) {
+          return schemas.filter((schema) => schema.component !== 'Divider') as FormSchema[];
+        } else {
+          return schemas as FormSchema[];
+        }
       });
 
       const { handleToggleAdvanced } = useAdvanced({
