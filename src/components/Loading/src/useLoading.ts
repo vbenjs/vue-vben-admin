@@ -4,7 +4,7 @@ import type { LoadingProps } from './typing';
 import type { Ref } from 'vue';
 
 export interface UseLoadingOptions {
-  target?: HTMLElement | Ref<ElRef>;
+  target?: any;
   props?: Partial<LoadingProps>;
 }
 

@@ -80,8 +80,8 @@
         register,
         closeModal,
         fileListRef,
-        columns: createPreviewColumns(),
-        actionColumn: createPreviewActionColumn({ handleRemove, handleDownload }),
+        columns: createPreviewColumns() as any[],
+        actionColumn: createPreviewActionColumn({ handleRemove, handleDownload }) as any,
       };
     },
   });

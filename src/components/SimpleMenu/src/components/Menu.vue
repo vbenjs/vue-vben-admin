@@ -124,7 +124,7 @@
         isRemoveAllPopup,
         sliceIndex,
         level: 0,
-        props,
+        props: props as any,
       });
 
       onMounted(() => {

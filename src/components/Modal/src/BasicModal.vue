@@ -104,7 +104,7 @@
       }
 
       // Custom title component: get title
-      const getMergeProps = computed((): ModalProps => {
+      const getMergeProps = computed((): Recordable => {
         return {
           ...props,
           ...(unref(propsRef) as any),
@@ -118,7 +118,7 @@
       });
 
       // modal component does not need title and origin buttons
-      const getProps = computed((): ModalProps => {
+      const getProps = computed((): Recordable => {
         const opt = {
           ...unref(getMergeProps),
           visible: unref(visibleRef),
@@ -212,7 +212,7 @@
         extHeightRef.value = height;
       }
 
-      function handleTitleDbClick(e: ChangeEvent) {
+      function handleTitleDbClick(e) {
         if (!props.canFullscreen) return;
         e.stopPropagation();
         handleFullScreen(e);

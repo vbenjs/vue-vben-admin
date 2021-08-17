@@ -146,11 +146,11 @@
           <SimpleMenu {...menuProps} isSplitMenu={unref(getSplit)} items={menus} />
         ) : (
           <BasicMenu
-            {...menuProps}
+            {...(menuProps as any)}
             isHorizontal={props.isHorizontal}
             type={unref(getMenuType)}
             showLogo={unref(getIsShowLogo)}
-            mode={unref(getComputedMenuMode)}
+            mode={unref(getComputedMenuMode as any)}
             items={menus}
           />
         );

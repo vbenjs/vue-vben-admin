@@ -103,7 +103,7 @@
         t,
         prefixCls,
         register,
-        openModal,
+        openModal: openModal as any,
         getIconWidth,
         sourceValue,
         getClass,

@@ -24,7 +24,7 @@
         </FormItem>
       </template>
 
-      <FormAction v-bind="{ ...getProps, ...advanceState }" @toggle-advanced="handleToggleAdvanced">
+      <FormAction v-bind="getFormActionBindProps" @toggle-advanced="handleToggleAdvanced">
         <template
           #[item]="data"
           v-for="item in ['resetBefore', 'submitBefore', 'advanceBefore', 'advanceAfter']"
@@ -61,8 +61,6 @@
 
   import { basicProps } from './props';
   import { useDesign } from '/@/hooks/web/useDesign';
-
-  import type { RowProps } from 'ant-design-vue/lib/grid/Row';
 
   export default defineComponent({
     name: 'BasicForm',
@@ -103,7 +101,7 @@
       });
 
       // Get uniform row style and Row configuration for the entire form
-      const getRow = computed((): RowProps => {
+      const getRow = computed((): Recordable => {
         const { baseRowStyle = {}, rowProps } = unref(getProps);
         return {
           style: baseRowStyle,
@@ -282,10 +280,12 @@
         getProps,
         formElRef,
         getSchema,
-        formActionType,
+        formActionType: formActionType as any,
         setFormModel,
-        prefixCls,
         getFormClass,
+        getFormActionBindProps: computed(
+          (): Recordable => ({ ...getProps.value, ...advanceState })
+        ),
         ...formActionType,
       };
     },

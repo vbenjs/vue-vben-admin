@@ -24,7 +24,7 @@
       <template v-for="(img, index) in imgList" :key="img">
         <Image
           :width="size"
-          :style="{ 'margin-left': index === 0 ? 0 : margin }"
+          :style="{ marginLeft: index === 0 ? 0 : margin }"
           :src="srcPrefix + img"
         />
       </template>

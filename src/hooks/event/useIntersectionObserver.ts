@@ -2,7 +2,7 @@ import { Ref, watchEffect, ref } from 'vue';
 
 interface IntersectionObserverProps {
   target: Ref<Element | null | undefined>;
-  root?: Ref<Element | null | undefined>;
+  root?: Ref<any>;
   onIntersect: IntersectionObserverCallback;
   rootMargin?: string;
   threshold?: number;

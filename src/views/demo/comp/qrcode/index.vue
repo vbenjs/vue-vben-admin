@@ -98,7 +98,7 @@
         qrEl.download('Qrcode');
       }
 
-      function onQrcodeDone({ ctx }) {
+      function onQrcodeDone({ ctx }: any) {
         if (ctx instanceof CanvasRenderingContext2D) {
           // 额外绘制
           ctx.fillStyle = 'black';

@@ -56,14 +56,14 @@
       const { prefixCls } = useDesign('basic-menu');
       const { items, mode, accordion } = toRefs(props);
 
-      const { getCollapsed, getIsHorizontal, getTopMenuAlign, getSplit } = useMenuSetting();
+      const { getCollapsed, getTopMenuAlign, getSplit } = useMenuSetting();
 
       const { currentRoute } = useRouter();
 
       const { handleOpenChange, setOpenKeys, getOpenKeys } = useOpenKeys(
         menuState,
         items,
-        mode,
+        mode as any,
         accordion
       );
 
@@ -150,8 +150,6 @@
       }
 
       return {
-        prefixCls,
-        getIsHorizontal,
         handleMenuClick,
         getInlineCollapseOptions,
         getMenuClass,
