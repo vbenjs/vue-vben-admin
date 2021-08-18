@@ -5,6 +5,7 @@
 ### 🐛 Bug Fixes
 
 - **CodeEditor** 修复 JSON 编辑器在格式化无效 JSON 文本时会抛出异常的问题
+- **Tinymce** 修复 inline 模式在一些场景下会出现异常的问题
 - **其它**
   - 修复部分封装组件在使用插槽时报错的问题
   - 修复`useECharts`的`theme`参数不起作用的问题
