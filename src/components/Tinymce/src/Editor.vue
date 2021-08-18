@@ -8,7 +8,13 @@
       v-show="editorRef"
       :disabled="disabled"
     />
-    <textarea :id="tinymceId" ref="elRef" :style="{ visibility: 'hidden' }"></textarea>
+    <textarea
+      :id="tinymceId"
+      ref="elRef"
+      :style="{ visibility: 'hidden' }"
+      v-if="!initOptions.inline"
+    ></textarea>
+    <slot v-else></slot>
   </div>
 </template>
 
@@ -188,7 +194,11 @@
       );
 
       onMountedOrActivated(() => {
-        tinymceId.value = buildShortUUID('tiny-vue');
+        if (initOptions.value.inline) {
+          tinymceId.value = unref(initOptions).selector!;
+        } else {
+          tinymceId.value = buildShortUUID('tiny-vue');
+        }
         nextTick(() => {
           setTimeout(() => {
             initEditor();
@@ -206,7 +216,7 @@
 
       function destory() {
         if (tinymce !== null) {
-          tinymce?.remove?.(unref(editorRef));
+          tinymce?.remove?.(tinymceId.value as string);
         }
       }
 
