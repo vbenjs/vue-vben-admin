@@ -25,18 +25,26 @@
     value: { type: [Object, String] as PropType<Record<string, any> | string> },
     mode: { type: String, default: MODE.JSON },
     readonly: { type: Boolean },
+    autoFormat: { type: Boolean, default: true },
   });
 
-  const emit = defineEmits(['change', 'update:value']);
+  const emit = defineEmits(['change', 'update:value', 'format-error']);
 
   const getValue = computed(() => {
-    const { value, mode } = props;
-    if (mode !== MODE.JSON) {
+    const { value, mode, autoFormat } = props;
+    if (!autoFormat || mode !== MODE.JSON) {
       return value as string;
     }
-    return isString(value)
-      ? JSON.stringify(JSON.parse(value), null, 2)
-      : JSON.stringify(value, null, 2);
+    let result = value;
+    if (isString(value)) {
+      try {
+        result = JSON.parse(value);
+      } catch (e) {
+        emit('format-error', value);
+        return value as string;
+      }
+    }
+    return JSON.stringify(result, null, 2);
   });
 
   function handleValueChange(v) {
