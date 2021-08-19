@@ -363,6 +363,18 @@ export interface BasicTableProps<T = any> {
   transformCellText?: Function;
 
   /**
+   * Callback executed before editable cell submit value, not for row-editor
+   *
+   * The cell will not submit data while callback return false
+   */
+  beforeEditSubmit?: (data: {
+    record: Recordable;
+    index: number;
+    key: string | number;
+    value: any;
+  }) => Promise<any>;
+
+  /**
    * Callback executed when pagination, filters or sorter is changed
    * @param pagination
    * @param filters
