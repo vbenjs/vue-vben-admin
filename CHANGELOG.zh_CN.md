@@ -1,6 +1,7 @@
 ### ✨ Features
 
 - **BasicForm** 表单组件新增`Divider`，用于较长表单的区域分割
+- **BasicTable** 单元格编辑新增提交回调，将根据回调函数返回的结果来决定是否将数据提交到表格
 
 ### 🐛 Bug Fixes
 
