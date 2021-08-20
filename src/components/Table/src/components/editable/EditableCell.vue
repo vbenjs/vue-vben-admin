@@ -6,7 +6,7 @@
       @click="handleEdit"
     >
       <div class="cell-content" :title="column.ellipsis ? getValues ?? '' : ''">{{
-        getValues ?? '&nbsp;'
+        getValues ? getValues : '&nbsp;'
       }}</div>
       <FormOutlined :class="`${prefixCls}__normal-icon`" v-if="!column.editRow" />
     </div>
