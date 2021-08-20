@@ -22,7 +22,7 @@ export function configHtmlPlugin(env: ViteEnv, isBuild: boolean) {
     minify: isBuild,
     inject: {
       // Inject data into ejs template
-      injectData: {
+      data: {
         title: VITE_GLOB_APP_TITLE,
       },
       // Embed the generated app.config.js file

@@ -124,7 +124,7 @@
     "typescript": "4.3.5",
     "vite": "2.5.0",
     "vite-plugin-compression": "^0.3.3",
-    "vite-plugin-html": "^2.0.7",
+    "vite-plugin-html": "^2.1.0",
     "vite-plugin-imagemin": "^0.4.3",
     "vite-plugin-mock": "^2.9.4",
     "vite-plugin-purge-icons": "^0.7.0",
