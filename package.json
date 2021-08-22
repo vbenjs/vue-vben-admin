@@ -67,7 +67,7 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
-    "@iconify/json": "^1.1.390",
+    "@iconify/json": "^1.1.391",
     "@purge-icons/generated": "^0.7.0",
     "@types/codemirror": "^5.60.2",
     "@types/crypto-js": "^4.0.2",
@@ -77,7 +77,7 @@
     "@types/jest": "^27.0.1",
     "@types/lodash-es": "^4.17.4",
     "@types/mockjs": "^1.0.4",
-    "@types/node": "^16.6.2",
+    "@types/node": "^16.7.1",
     "@types/nprogress": "^0.2.0",
     "@types/qrcode": "^1.4.1",
     "@types/qs": "^6.9.7",
@@ -89,7 +89,7 @@
     "@vitejs/plugin-vue-jsx": "^1.1.7",
     "@vue/compiler-sfc": "3.2.4",
     "@vue/test-utils": "^2.0.0-rc.12",
-    "autoprefixer": "^10.3.1",
+    "autoprefixer": "^10.3.2",
     "commitizen": "^4.2.4",
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.3",
@@ -98,11 +98,11 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-define-config": "^1.0.9",
     "eslint-plugin-jest": "^24.4.0",
-    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-vue": "^7.16.0",
     "esno": "^0.9.1",
     "fs-extra": "^10.0.0",
-    "http-server": "^13.0.0",
+    "http-server": "^13.0.1",
     "husky": "^7.0.1",
     "inquirer": "^8.1.2",
     "is-ci": "^3.0.0",
@@ -126,7 +126,7 @@
     "vite-plugin-compression": "^0.3.3",
     "vite-plugin-html": "^2.1.0",
     "vite-plugin-imagemin": "^0.4.3",
-    "vite-plugin-mock": "^2.9.4",
+    "vite-plugin-mock": "^2.9.5",
     "vite-plugin-purge-icons": "^0.7.0",
     "vite-plugin-pwa": "^0.11.0",
     "vite-plugin-style-import": "^1.1.1",
@@ -134,12 +134,13 @@
     "vite-plugin-theme": "^0.8.1",
     "vite-plugin-windicss": "^1.2.7",
     "vue-eslint-parser": "^7.10.0",
-    "vue-tsc": "^0.2.3"
+    "vue-tsc": "^0.3.0"
   },
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China. If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
-    "rollup": "^2.56.2"
+    "rollup": "^2.56.2",
+    "vue-json-pretty": "1.8.1"
   },
   "repository": {
     "type": "git",
