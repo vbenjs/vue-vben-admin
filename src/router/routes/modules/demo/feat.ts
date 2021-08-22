@@ -234,6 +234,14 @@ const feat: AppRouteModule = {
       ],
     },
     {
+      path: 'pdf',
+      name: 'PdfDemo',
+      component: () => import('/@/views/demo/pdf/index.vue'),
+      meta: {
+        title: t('routes.demo.pdf.pdf'),
+      },
+    },
+    {
       path: 'testTab/:id',
       name: 'TestTab',
       component: () => import('/@/views/demo/feat/tab-params/index.vue'),

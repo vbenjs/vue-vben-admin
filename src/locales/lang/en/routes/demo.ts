@@ -146,6 +146,9 @@ export default {
     listBasic: 'Basic list',
     listSearch: 'Search list',
   },
+  pdf: {
+    pdf: 'Pdf',
+  },
   permission: {
     permission: 'Permission',
 

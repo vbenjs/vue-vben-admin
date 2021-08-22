@@ -141,6 +141,9 @@ export default {
     listBasic: '标准列表',
     listSearch: '搜索列表',
   },
+  pdf: {
+    pdf: 'Pdf',
+  },
   permission: {
     permission: '权限管理',
 
