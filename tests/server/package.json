@@ -15,7 +15,7 @@
     "koa-body": "^4.2.0",
     "koa-bodyparser": "^4.3.0",
     "koa-route": "^3.2.0",
-    "koa-router": "^10.0.0",
+    "koa-router": "^10.1.1",
     "koa-static": "^5.0.0",
     "koa-websocket": "^6.0.0",
     "koa2-cors": "^2.0.6"
@@ -24,7 +24,7 @@
     "@types/koa": "^2.13.4",
     "@types/koa-bodyparser": "^5.0.2",
     "@types/koa-router": "^7.4.4",
-    "@types/node": "^16.6.2",
+    "@types/node": "^16.7.1",
     "nodemon": "^2.0.12",
     "pm2": "^5.1.1",
     "rimraf": "^3.0.2",
