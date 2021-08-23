@@ -1,7 +1,11 @@
 import '/@/design/index.less';
 
 // Register windi
-import 'virtual:windi.css';
+// import 'virtual:windi.css';
+import 'virtual:windi-base.css';
+import 'virtual:windi-components.css';
+import 'virtual:windi-utilities.css';
+import 'virtual:windi-devtools';
 // Register icon sprite
 import 'virtual:svg-icons-register';
 import App from './App.vue';
