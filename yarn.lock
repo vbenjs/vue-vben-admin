@@ -2055,6 +2055,11 @@
   resolved "https://registry.npmjs.org/@types/svgo/-/svgo-2.3.1.tgz#85442587bc72bbfb92f3721020e28d678b8744ec"
   integrity sha512-L7gdQLO8cfGKksOVtlpS0jwh04SL3W7xe+efuWbNnfSwl3cKSdgX0gLl5VnHDtSAX//xfCbEgB+RSN64tfShqQ==
 
+"@types/svgo@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@types/svgo/-/svgo-2.4.0.tgz#d0421e0f563cd4726fa8261066f16d399e665b2e"
+  integrity sha512-tkdgLUK9/7MYXOCjjDjhD09zRYpplCe0M1hhmYubBRrsD0EUdhOPtjzr/ObvNfXpd6vLqsrqzdODoI2v5RB2yA==
+
 "@types/tern@*":
   version "0.23.3"
   resolved "https://registry.npmjs.org/@types/tern/-/tern-0.23.3.tgz#4b54538f04a88c9ff79de1f6f94f575a7f339460"
@@ -4714,6 +4719,11 @@ esbuild@^0.12.20:
   version "0.12.20"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.20.tgz#4d3c9d83c99a4031e027b42a4c398c23b6827cb0"
   integrity sha512-u7+0qTo9Z64MD9PhooEngCmzyEYJ6ovFhPp8PLNh3UasR5Ihjv6HWVXqm8uHmasdQlpsAf0IsY4U0YVUfCpt4Q==
+
+esbuild@^0.12.22:
+  version "0.12.22"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.22.tgz#6031a1257b8d0307d306bed673b79c3668607f51"
+  integrity sha512-yWCr9RoFehpqoe/+MwZXJpYOEIt7KOEvNnjIeMZpMSyQt+KCBASM3y7yViiN5dJRphf1wGdUz1+M4rTtWd/ulA==
 
 esbuild@^0.12.6:
   version "0.12.9"
@@ -11195,10 +11205,10 @@ vfile@^4.0.0:
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
 
-vite-plugin-compression@^0.3.3:
-  version "0.3.3"
-  resolved "https://registry.npmjs.org/vite-plugin-compression/-/vite-plugin-compression-0.3.3.tgz#0ce6a0a793b79cfbf3a17b4390973c7ab6e41ace"
-  integrity sha512-BuI4jKk/D7snlRYNz/RhKXLWXseT5cB1aK7zhNRcXm/Tjf2P6wwll1JzPsUWuCvzvI6msAQ2wMRPdGb3QWGXSw==
+vite-plugin-compression@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/vite-plugin-compression/-/vite-plugin-compression-0.3.5.tgz#1e5338eb43e60128de6d6f22b2aabf0e3dc0c17f"
+  integrity sha512-W+zKccNTDRYPsM6MzbVGTX2hvnsVrxKfmGD2Z23VgqinFKhtmwGzNNFsnbslXbeTGHXclaE7MO5nm7O1cNY3ZA==
   dependencies:
     chalk "^4.1.2"
     debug "^4.3.2"
@@ -11216,10 +11226,10 @@ vite-plugin-html@^2.1.0:
     fs-extra "^10.0.0"
     html-minifier-terser "^5.1.1"
 
-vite-plugin-imagemin@^0.4.3:
-  version "0.4.3"
-  resolved "https://registry.npmjs.org/vite-plugin-imagemin/-/vite-plugin-imagemin-0.4.3.tgz#9eab0b50137b10f105ab803be8a19eca4208f212"
-  integrity sha512-NIMFOiRT1t8Hc4o8KnilJSloUsPDQz77jITUU/eF9qEFjm3JvEes4NSW4egO54IOgKcj9jyXQsX5C2cKTbIE0A==
+vite-plugin-imagemin@^0.4.5:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/vite-plugin-imagemin/-/vite-plugin-imagemin-0.4.5.tgz#34d19340932905f6c9527f07969fbd4c8d38859a"
+  integrity sha512-hJF9JI3HvKy5zM0XTqOX8zwUQrTpGBRpG7xTDhBp2p5DE490BqRu/Pee2DpEBur8rw9ILm4OVqdrYKxkaBk2CQ==
   dependencies:
     "@types/imagemin" "^7.0.1"
     "@types/imagemin-gifsicle" "^7.0.1"
@@ -11228,10 +11238,10 @@ vite-plugin-imagemin@^0.4.3:
     "@types/imagemin-optipng" "^5.2.1"
     "@types/imagemin-svgo" "^9.0.1"
     "@types/imagemin-webp" "^5.1.2"
-    "@types/svgo" "^2.3.1"
+    "@types/svgo" "^2.4.0"
     chalk "^4.1.2"
     debug "^4.3.2"
-    esbuild "^0.11.23"
+    esbuild "^0.12.22"
     fs-extra "^10.0.0"
     imagemin "^7.0.1"
     imagemin-gifsicle "^7.0.0"
@@ -11242,10 +11252,10 @@ vite-plugin-imagemin@^0.4.3:
     imagemin-svgo "^9.0.0"
     imagemin-webp "^6.0.0"
 
-vite-plugin-mock@^2.9.5:
-  version "2.9.5"
-  resolved "https://registry.yarnpkg.com/vite-plugin-mock/-/vite-plugin-mock-2.9.5.tgz#7c9b20d4f4197d78b0c05c30049e7e1bacb973ef"
-  integrity sha512-sgohgTyrvdtVRNUncN8Qx3xD/GKK9RQ+QqDQ9W9JHy5v3lo/UuEbRkgwMwojQ5tw8k0PRuNn79hBqmiz7eJwHA==
+vite-plugin-mock@^2.9.6:
+  version "2.9.6"
+  resolved "https://registry.yarnpkg.com/vite-plugin-mock/-/vite-plugin-mock-2.9.6.tgz#04dd23de6baa052faa5b9ad317514c90d6205e25"
+  integrity sha512-/Rm59oPppe/ncbkSrUuAxIQihlI2YcBmnbR4ST1RA2VzM1C0tEQc1KlbQvnUGhXECAGTaQN2JyasiwXP6EtKgg==
   dependencies:
     "@rollup/plugin-node-resolve" "^13.0.4"
     "@types/mockjs" "^1.0.4"
@@ -11278,10 +11288,10 @@ vite-plugin-pwa@^0.11.0:
     workbox-build "^6.2.2"
     workbox-window "^6.2.2"
 
-vite-plugin-style-import@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/vite-plugin-style-import/-/vite-plugin-style-import-1.1.1.tgz#7ccebb042bce94eeb2f695c7339354a2dac48c25"
-  integrity sha512-29NnvfAwCqS5zSg+bComXSmCgx3MmKJ/dPxWC/wa/yjG1gm7i/BDKrshiaGRXpIbMSyQco5KGRKhrUIW3Tr+nw==
+vite-plugin-style-import@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/vite-plugin-style-import/-/vite-plugin-style-import-1.2.1.tgz#730c7b0e1f61ed685974fe09d2d5094858491be6"
+  integrity sha512-N3qH4K/FE9GPs40k1bREEdBqKkAhjQUeLBNDWzDVFpKJ204unjUpJkGjRv6FA0c+uaZZCHwEQRUMKULtZW3kCw==
   dependencies:
     "@rollup/pluginutils" "^4.1.1"
     change-case "^4.1.2"
