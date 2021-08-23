@@ -413,7 +413,7 @@
 
       .ant-table-body {
         overflow-x: hidden !important;
-        overflow-y: scroll !important;
+        //  overflow-y: scroll !important;
       }
 
       td {
