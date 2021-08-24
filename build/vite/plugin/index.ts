@@ -6,6 +6,7 @@ import legacy from '@vitejs/plugin-legacy';
 
 import purgeIcons from 'vite-plugin-purge-icons';
 import windiCSS from 'vite-plugin-windicss';
+import ViteComponents, { AntDesignVueResolver } from 'vite-plugin-components';
 import { configHtmlPlugin } from './html';
 import { configPwaConfig } from './pwa';
 import { configMockPlugin } from './mock';
@@ -31,6 +32,10 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
     vue(),
     // have to
     vueJsx(),
+    // Use modularized antd
+    ViteComponents({
+      customComponentResolvers: [AntDesignVueResolver()],
+    }),
   ];
 
   // vite-plugin-windicss
