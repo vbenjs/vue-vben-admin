@@ -3,7 +3,6 @@
  * https://github.com/anncwb/vite-plugin-compression
  */
 import type { Plugin } from 'vite';
-
 import compressPlugin from 'vite-plugin-compression';
 
 export function configCompressPlugin(
@@ -22,6 +21,7 @@ export function configCompressPlugin(
       })
     );
   }
+
   if (compressList.includes('brotli')) {
     plugins.push(
       compressPlugin({
