@@ -35,8 +35,8 @@
   },
   "dependencies": {
     "@iconify/iconify": "^2.0.4",
-    "@logicflow/core": "^0.6.13",
-    "@logicflow/extension": "^0.6.13",
+    "@logicflow/core": "^0.6.15",
+    "@logicflow/extension": "^0.6.15",
     "@vueuse/core": "^6.0.0",
     "@zxcvbn-ts/core": "^1.0.0-beta.0",
     "ant-design-vue": "2.2.6",
@@ -59,15 +59,15 @@
     "vditor": "^3.8.6",
     "vue": "3.2.4",
     "vue-i18n": "9.1.7",
-    "vue-json-pretty": "1.8.1",
     "vue-router": "^4.0.11",
     "vue-types": "^4.0.3",
-    "xlsx": "^0.17.1"
+    "xlsx": "^0.17.1",
+    "vue-json-pretty": "1.8.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
-    "@iconify/json": "^1.1.391",
+    "@iconify/json": "^1.1.392",
     "@purge-icons/generated": "^0.7.0",
     "@types/codemirror": "^5.60.2",
     "@types/crypto-js": "^4.0.2",
@@ -82,8 +82,8 @@
     "@types/qrcode": "^1.4.1",
     "@types/qs": "^6.9.7",
     "@types/sortablejs": "^1.10.7",
-    "@typescript-eslint/eslint-plugin": "^4.29.2",
-    "@typescript-eslint/parser": "^4.29.2",
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "@typescript-eslint/parser": "^4.29.3",
     "@vitejs/plugin-legacy": "^1.5.1",
     "@vitejs/plugin-vue": "^1.4.0",
     "@vitejs/plugin-vue-jsx": "^1.1.7",
@@ -132,15 +132,14 @@
     "vite-plugin-style-import": "^1.2.1",
     "vite-plugin-svg-icons": "^1.0.4",
     "vite-plugin-theme": "^0.8.1",
-    "vite-plugin-windicss": "^1.2.7",
+    "vite-plugin-windicss": "^1.2.8",
     "vue-eslint-parser": "^7.10.0",
     "vue-tsc": "^0.3.0"
   },
   "resolutions": {
     "//": "Used to install imagemin dependencies, because imagemin may not be installed in China. If it is abroad, you can delete it",
     "bin-wrapper": "npm:bin-wrapper-china",
-    "rollup": "^2.56.2",
-    "vue-json-pretty": "1.8.1"
+    "rollup": "^2.56.3"
   },
   "repository": {
     "type": "git",
