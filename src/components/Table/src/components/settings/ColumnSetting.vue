@@ -351,7 +351,7 @@
           const visible =
             columns.findIndex(
               (c: BasicColumn | string) =>
-                c === col.value || (typeof c !== 'string' && c.dataIndex === col.value)
+                c === col.value || (typeof c !== 'string' && c.dataIndex === col.value),
             ) !== -1;
           return { dataIndex: col.value, fixed: col.fixed, visible };
         });

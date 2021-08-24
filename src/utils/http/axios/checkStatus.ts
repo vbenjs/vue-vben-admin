@@ -14,7 +14,7 @@ const stp = projectSetting.sessionTimeoutProcessing;
 export function checkStatus(
   status: number,
   msg: string,
-  errorMessageMode: ErrorMessageMode = 'message'
+  errorMessageMode: ErrorMessageMode = 'message',
 ): void {
   const { t } = useI18n();
   const userStore = useUserStoreWithOut();

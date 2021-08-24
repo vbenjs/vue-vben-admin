@@ -87,7 +87,7 @@
           nextTick(() => {
             updateOpened();
           });
-        }
+        },
       );
 
       function updateOpened() {

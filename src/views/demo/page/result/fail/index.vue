@@ -6,7 +6,7 @@
       </template>
     </Result>
     <div class="result-error__content">
-      <div class="result-error__content-title"> 您提交的内容有如下错误： </div>
+      <div class="result-error__content-title">您提交的内容有如下错误：</div>
       <div class="mb-4">
         <CloseCircleOutlined class="mr-2 result-error__content-icon" />
         您的账户已被冻结

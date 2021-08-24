@@ -11,7 +11,7 @@ import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 
 export function useECharts(
   elRef: Ref<HTMLDivElement>,
-  theme: 'light' | 'dark' | 'default' = 'default'
+  theme: 'light' | 'dark' | 'default' = 'default',
 ) {
   const { getDarkMode: getSysDarkMode } = useRootSetting();
 
@@ -90,7 +90,7 @@ export function useECharts(
         initCharts(theme as 'default');
         setOptions(cacheOptions.value);
       }
-    }
+    },
   );
 
   tryOnUnmounted(() => {

@@ -190,7 +190,7 @@
             return;
           }
           editor.setMode(attrs.disabled ? 'readonly' : 'design');
-        }
+        },
       );
 
       onMountedOrActivated(() => {
@@ -264,7 +264,7 @@
           () => props.modelValue,
           (val: string, prevVal: string) => {
             setValue(editor, val, prevVal);
-          }
+          },
         );
 
         watch(
@@ -274,7 +274,7 @@
           },
           {
             immediate: true,
-          }
+          },
         );
 
         editor.on(normalizedEvents ? normalizedEvents : 'change keyup undo redo', () => {

@@ -33,7 +33,7 @@ export abstract class AxiosTransform {
    */
   requestInterceptors?: (
     config: AxiosRequestConfig,
-    options: CreateAxiosOptions
+    options: CreateAxiosOptions,
   ) => AxiosRequestConfig;
 
   /**

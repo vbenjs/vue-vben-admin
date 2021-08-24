@@ -16,7 +16,7 @@ export function useLoading(props: Partial<LoadingProps>): [Fn, Fn, (string) => v
 export function useLoading(opt: Partial<UseLoadingOptions>): [Fn, Fn, (string) => void];
 
 export function useLoading(
-  opt: Partial<LoadingProps> | Partial<UseLoadingOptions>
+  opt: Partial<LoadingProps> | Partial<UseLoadingOptions>,
 ): [Fn, Fn, (string) => void] {
   let props: Partial<LoadingProps>;
   let target: HTMLElement | Ref<ElRef> = document.body;

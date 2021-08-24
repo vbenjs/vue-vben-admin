@@ -21,7 +21,7 @@ export const CellComponent: FunctionalComponent = (
     popoverVisible,
     getPopupContainer,
   }: ComponentProps,
-  { attrs }
+  { attrs },
 ) => {
   const Comp = componentMap.get(component) as typeof defineComponent;
 
@@ -39,6 +39,6 @@ export const CellComponent: FunctionalComponent = (
     {
       default: () => DefaultComp,
       content: () => ruleMessage,
-    }
+    },
   );
 };

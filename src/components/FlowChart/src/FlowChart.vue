@@ -79,7 +79,7 @@
         () => props.data,
         () => {
           onRender();
-        }
+        },
       );
 
       // TODO
@@ -94,7 +94,7 @@
         () => unref(getFlowOptions),
         (options) => {
           unref(lfInstance)?.updateEditConfig(options);
-        }
+        },
       );
 
       // init logicFlow

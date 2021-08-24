@@ -15,7 +15,7 @@
           nextTick(() => {
             modalFn?.redoModalHeight?.();
           });
-        }
+        },
       );
       return () => {
         const { columns, actionColumn, dataSource } = props;

@@ -143,7 +143,7 @@
         () => searchValue.value,
         (v) => {
           debounceEmitChange(v);
-        }
+        },
       );
       watch(
         () => props.searchText,
@@ -151,7 +151,7 @@
           if (v !== searchValue.value) {
             searchValue.value = v;
           }
-        }
+        },
       );
       // function handleSearch(e: ChangeEvent): void {
       //   debounceEmitChange(e.target.value);

@@ -27,7 +27,7 @@ export function useContentHeight(
   anchorRef: Ref,
   subtractHeightRefs: Ref[],
   substractSpaceRefs: Ref[],
-  offsetHeightRef: Ref<number> = ref(0)
+  offsetHeightRef: Ref<number> = ref(0),
 ) {
   const contentHeight: Ref<Nullable<number>> = ref(null);
   const { footerHeightRef: layoutFooterHeightRef } = useLayoutHeight();
@@ -130,7 +130,7 @@ export function useContentHeight(
       calcContentHeight();
     },
     50,
-    { immediate: true }
+    { immediate: true },
   );
   watch(
     () => [layoutFooterHeightRef.value],
@@ -140,7 +140,7 @@ export function useContentHeight(
     {
       flush: 'post',
       immediate: true,
-    }
+    },
   );
 
   return { redoHeight, setCompensation, contentHeight };

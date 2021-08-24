@@ -103,7 +103,7 @@
         },
         {
           deep: true,
-        }
+        },
       );
 
       return { wrapRef, download };
