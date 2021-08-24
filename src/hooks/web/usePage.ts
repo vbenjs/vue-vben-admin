@@ -42,6 +42,10 @@ export const useRedo = (_router?: Router) => {
   const { query, params = {}, name, fullPath } = unref(currentRoute.value);
   function redo(): Promise<boolean> {
     return new Promise((resolve) => {
+      if (name === REDIRECT_NAME) {
+        resolve(false);
+        return;
+      }
       if (name && Object.keys(params).length > 0) {
         params['_redirect_type'] = 'name';
         params['path'] = String(name);
