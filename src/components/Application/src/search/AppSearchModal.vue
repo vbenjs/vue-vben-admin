@@ -105,7 +105,7 @@
         nextTick(() => {
           unref(inputRef)?.focus();
         });
-    }
+    },
   );
 
   function handleClose() {

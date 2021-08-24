@@ -92,7 +92,7 @@
             emit('update:value', isPassing);
             emit('change', isPassing);
           }
-        }
+        },
       );
 
       watchEffect(() => {

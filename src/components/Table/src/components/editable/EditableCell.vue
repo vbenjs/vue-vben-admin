@@ -5,9 +5,9 @@
       :class="{ [`${prefixCls}__normal`]: true, 'ellipsis-cell': column.ellipsis }"
       @click="handleEdit"
     >
-      <div class="cell-content" :title="column.ellipsis ? getValues ?? '' : ''">{{
-        getValues ? getValues : '&nbsp;'
-      }}</div>
+      <div class="cell-content" :title="column.ellipsis ? getValues ?? '' : ''">
+        {{ getValues ? getValues : '&nbsp;' }}
+      </div>
       <FormOutlined :class="`${prefixCls}__normal-icon`" v-if="!column.editRow" />
     </div>
 

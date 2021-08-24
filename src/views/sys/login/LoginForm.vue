@@ -139,7 +139,7 @@
           password: data.password,
           username: data.account,
           mode: 'none', //不要默认的错误提示
-        })
+        }),
       );
       if (userInfo) {
         notification.success({

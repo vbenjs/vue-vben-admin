@@ -18,10 +18,10 @@ export const ScaleRotateTransition = createSimpleTransition('scale-rotate-transi
 
 export const ExpandXTransition = createJavascriptTransition(
   'expand-x-transition',
-  ExpandTransitionGenerator('', true)
+  ExpandTransitionGenerator('', true),
 );
 
 export const ExpandTransition = createJavascriptTransition(
   'expand-transition',
-  ExpandTransitionGenerator('')
+  ExpandTransitionGenerator(''),
 );

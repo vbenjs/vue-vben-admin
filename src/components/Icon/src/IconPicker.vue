@@ -63,7 +63,7 @@
             </div>
           </div>
           <template v-else
-            ><div class="p-5"> <Empty /></div>
+            ><div class="p-5"><Empty /></div>
           </template>
         </template>
 
@@ -139,7 +139,7 @@
 
       const { getPaginationList, getTotal, setCurrentPage } = usePagination(
         currentList,
-        props.pageSize
+        props.pageSize,
       );
 
       watchEffect(() => {
@@ -151,7 +151,7 @@
         (v) => {
           emit('update:value', v);
           return emit('change', v);
-        }
+        },
       );
 
       function handlePageChange(page: number) {

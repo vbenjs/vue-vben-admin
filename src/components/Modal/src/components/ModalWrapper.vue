@@ -62,7 +62,7 @@
         {
           attributes: true,
           subtree: true,
-        }
+        },
       );
 
       createModalContext({
@@ -89,7 +89,7 @@
           } else {
             minRealHeightRef.value = realHeightRef.value;
           }
-        }
+        },
       );
 
       onMounted(() => {

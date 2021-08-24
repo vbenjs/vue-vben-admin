@@ -15,7 +15,7 @@ function createConfig(
     configName,
     config,
     configFileName = GLOB_CONFIG_FILE_NAME,
-  }: { configName: string; config: any; configFileName?: string } = { configName: '', config: {} }
+  }: { configName: string; config: any; configFileName?: string } = { configName: '', config: {} },
 ) {
   try {
     const windowConf = `window.${configName}`;

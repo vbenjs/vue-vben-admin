@@ -105,7 +105,7 @@
           {
             text: t('common.resetText'),
           },
-          props.resetButtonOptions
+          props.resetButtonOptions,
         );
       });
 
@@ -114,7 +114,7 @@
           {
             text: t('common.queryText'),
           },
-          props.submitButtonOptions
+          props.submitButtonOptions,
         );
       });
 
