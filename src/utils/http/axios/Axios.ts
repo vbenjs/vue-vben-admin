@@ -137,7 +137,7 @@ export class VAxios {
       });
     }
     formData.append(params.name || 'file', params.file, params.filename);
-    const customParams = omit(params, 'file', 'filename', 'file');
+    const customParams = omit(params, 'file', 'name', 'data');
 
     Object.keys(customParams).forEach((key) => {
       formData.append(key, customParams[key]);
