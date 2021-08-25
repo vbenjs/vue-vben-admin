@@ -126,9 +126,6 @@
         emit('menuClick', key);
 
         isClickGo.value = true;
-        // const parentPath = await getCurrentParentPath(key);
-
-        // menuState.openKeys = [parentPath];
         menuState.selectedKeys = [key];
       }
 
