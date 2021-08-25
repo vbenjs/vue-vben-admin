@@ -119,7 +119,7 @@
       });
 
       const getTreeData = computed((): TreeItem[] =>
-        searchState.startSearch ? searchState.searchData : unref(treeDataRef)
+        searchState.startSearch ? searchState.searchData : unref(treeDataRef),
       );
 
       const getNotFound = computed((): boolean => {
@@ -219,7 +219,7 @@
           (node) => {
             return node[titleField]?.includes(searchValue) ?? false;
           },
-          unref(getReplaceFields)
+          unref(getReplaceFields),
         );
       }
 
@@ -266,7 +266,7 @@
         () => props.value,
         () => {
           state.checkedKeys = toRaw(props.value || []);
-        }
+        },
       );
 
       watch(
@@ -275,7 +275,7 @@
           const v = toRaw(state.checkedKeys);
           emit('update:value', v);
           emit('change', v);
-        }
+        },
       );
 
       // watchEffect(() => {

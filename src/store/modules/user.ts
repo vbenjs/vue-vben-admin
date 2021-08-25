@@ -84,7 +84,7 @@ export const useUserStore = defineStore({
       params: LoginParams & {
         goHome?: boolean;
         mode?: ErrorMessageMode;
-      }
+      },
     ): Promise<GetUserInfoModel | null> {
       try {
         const { goHome = true, mode, ...loginParams } = params;
@@ -128,10 +128,12 @@ export const useUserStore = defineStore({
      * @description: logout
      */
     async logout(goLogin = false) {
-      try {
-        await doLogout();
-      } catch {
-        console.log('注销Token失败');
+      if (this.token) {
+        try {
+          await doLogout();
+        } catch {
+          console.log('注销Token失败');
+        }
       }
       this.setToken(undefined);
       this.setSessionTimeout(false);

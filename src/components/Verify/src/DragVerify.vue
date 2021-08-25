@@ -1,4 +1,5 @@
 <script lang="tsx">
+  import type { Ref } from 'vue';
   import { defineComponent, ref, computed, unref, reactive, watch, watchEffect } from 'vue';
   import { useTimeoutFn } from '/@/hooks/core/useTimeout';
   import { useEventListener } from '/@/hooks/event/useEventListener';
@@ -23,7 +24,7 @@
       const wrapElRef = ref<HTMLDivElement | null>(null);
       const barElRef = ref<HTMLDivElement | null>(null);
       const contentElRef = ref<HTMLDivElement | null>(null);
-      const actionElRef = ref<HTMLDivElement | null>(null);
+      const actionElRef = ref(null) as Ref<HTMLDivElement | null>;
 
       useEventListener({
         el: document,
@@ -91,7 +92,7 @@
             emit('update:value', isPassing);
             emit('change', isPassing);
           }
-        }
+        },
       );
 
       watchEffect(() => {
@@ -324,13 +325,8 @@
         color-stop(1, #333)
       );
       animation: slidetounlock 3s infinite;
-      -webkit-background-clip: text;
-      -moz-user-select: none;
-      -webkit-user-select: none;
-      -o-user-select: none;
-      -ms-user-select: none;
+      background-clip: text;
       user-select: none;
-      -webkit-text-fill-color: transparent;
 
       &.success {
         -webkit-text-fill-color: @white;
@@ -363,7 +359,7 @@
     }
   }
 
-  @-webkit-keyframes slidetounlock {
+  @keyframes slidetounlock {
     0% {
       background-position: -120px 0;
     }

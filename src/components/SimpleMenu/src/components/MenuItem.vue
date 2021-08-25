@@ -98,7 +98,7 @@
             active.value = false;
           }
         },
-        { immediate: true }
+        { immediate: true },
       );
 
       return { getClass, prefixCls, getItemStyle, getCollapse, handleClickItem, showTooptip };

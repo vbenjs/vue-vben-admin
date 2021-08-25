@@ -73,7 +73,7 @@
         handleCropend,
         handleCircleCropend,
         avatar,
-        uploadApi,
+        uploadApi: uploadApi as any,
       };
     },
   });

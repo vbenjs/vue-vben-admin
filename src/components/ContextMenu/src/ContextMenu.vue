@@ -46,7 +46,7 @@
     name: 'ContextMenu',
     props,
     setup(props) {
-      const wrapRef = ref<ElRef>(null);
+      const wrapRef = ref(null);
       const showRef = ref(false);
 
       const getStyle = computed((): CSSProperties => {

@@ -10,7 +10,7 @@ export function useScroll(
     wait?: number;
     leading?: boolean;
     trailing?: boolean;
-  }
+  },
 ) {
   const refX = ref(0);
   const refY = ref(0);
@@ -49,7 +49,7 @@ export function useScroll(
           el && el.removeEventListener('scroll', handler);
         });
       },
-      { immediate: true }
+      { immediate: true },
     );
   });
 

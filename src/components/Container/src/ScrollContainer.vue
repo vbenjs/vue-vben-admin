@@ -54,7 +54,7 @@
           return;
         }
         nextTick(() => {
-          const wrap = unref(scrollbar.wrap);
+          const wrap = unref(scrollbar.wrap) as any;
           if (!wrap) {
             return;
           }

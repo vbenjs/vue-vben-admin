@@ -34,7 +34,7 @@
         () => {
           setTime();
         },
-        { immediate: true }
+        { immediate: true },
       );
 
       function getTime() {

@@ -139,7 +139,7 @@
         (newVal, oldVal) => {
           if (newVal !== oldVal) visibleRef.value = newVal;
         },
-        { deep: true }
+        { deep: true },
       );
 
       watch(
@@ -149,7 +149,7 @@
             emit('visible-change', visible);
             instance && drawerInstance.emitVisible?.(visible, instance.uid);
           });
-        }
+        },
       );
 
       // Cancel event
@@ -181,9 +181,9 @@
         onClose,
         t,
         prefixCls,
-        getMergeProps,
+        getMergeProps: getMergeProps as any,
         getScrollContentStyle,
-        getProps,
+        getProps: getProps as any,
         getLoading,
         getBindValues,
         getFooterHeight,

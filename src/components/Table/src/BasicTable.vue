@@ -10,7 +10,7 @@
       @advanced-change="redoHeight"
     >
       <template #[replaceFormSlotKey(item)]="data" v-for="item in getFormSlotKeys">
-        <slot :name="item" v-bind="data"></slot>
+        <slot :name="item" v-bind="data || {}"></slot>
       </template>
     </BasicForm>
 
@@ -111,7 +111,7 @@
         unref(isFixedHeightPage) &&
           props.canResize &&
           warn(
-            "'canResize' of BasicTable may not work in PageWrapper with 'fixedHeight' (especially in hot updates)"
+            "'canResize' of BasicTable may not work in PageWrapper with 'fixedHeight' (especially in hot updates)",
           );
       });
 
@@ -157,7 +157,7 @@
           getFieldsValue: formActions.getFieldsValue,
           clearSelectedRowKeys,
         },
-        emit
+        emit,
       );
 
       function handleTableChange(...args) {
@@ -182,7 +182,7 @@
         tableElRef,
         getColumnsRef,
         getRowSelectionRef,
-        getDataSourceRef
+        getDataSourceRef,
       );
 
       const { customRow } = useCustomRow(getProps, {
@@ -211,7 +211,7 @@
         getProps,
         getScrollRef,
         tableElRef,
-        getDataSourceRef
+        getDataSourceRef,
       );
 
       const { getFormProps, replaceFormSlotKey, getFormSlotKeys, handleSearchInfoChange } =
@@ -320,7 +320,7 @@
         wrapRef,
         tableAction,
         redoHeight,
-        getFormProps,
+        getFormProps: getFormProps as any,
         replaceFormSlotKey,
         getFormSlotKeys,
         getWrapperClass,
@@ -413,7 +413,7 @@
 
       .ant-table-body {
         overflow-x: hidden !important;
-        overflow-y: scroll !important;
+        //  overflow-y: scroll !important;
       }
 
       td {

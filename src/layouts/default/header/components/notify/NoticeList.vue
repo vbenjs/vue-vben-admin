@@ -107,7 +107,7 @@
         () => props.currentPage,
         (v) => {
           current.value = v;
-        }
+        },
       );
       const isTitleClickable = computed(() => !!props.onTitleClick);
       const getPagination = computed(() => {

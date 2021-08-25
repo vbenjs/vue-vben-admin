@@ -34,7 +34,7 @@ app.ws.use(
       }
       console.log(message);
     });
-  })
+  }),
 );
 
 const router = new Router();
@@ -52,7 +52,7 @@ app.use(
       keepExtensions: true,
       maxFieldsSize: 20 * 1024 * 1024,
     },
-  })
+  }),
 );
 app.use(router.routes());
 app.use(router.allowedMethods());

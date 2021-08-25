@@ -6,7 +6,7 @@
       </a-col>
       <a-col :span="10">
         <div class="change-avatar">
-          <div class="mb-2"> 头像 </div>
+          <div class="mb-2">头像</div>
           <CropperAvatar
             :uploadApi="uploadApi"
             :value="avatar"
@@ -74,7 +74,7 @@
       return {
         avatar,
         register,
-        uploadApi,
+        uploadApi: uploadApi as any,
         updateAvatar,
         handleSubmit: () => {
           createMessage.success('更新成功！');

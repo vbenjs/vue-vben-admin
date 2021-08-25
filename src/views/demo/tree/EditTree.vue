@@ -88,6 +88,7 @@
         if (level === 3) {
           return 'ion:airplane';
         }
+        return '';
       }
       return { treeData, actionList, getRightMenuList, createIcon };
     },

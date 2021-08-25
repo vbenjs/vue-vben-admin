@@ -1,9 +1,7 @@
 import type { Plugin } from 'vite';
-
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import legacy from '@vitejs/plugin-legacy';
-
 import purgeIcons from 'vite-plugin-purge-icons';
 import windiCSS from 'vite-plugin-windicss';
 import { configHtmlPlugin } from './html';
@@ -70,7 +68,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
 
     // rollup-plugin-gzip
     vitePlugins.push(
-      configCompressPlugin(VITE_BUILD_COMPRESS, VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE)
+      configCompressPlugin(VITE_BUILD_COMPRESS, VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE),
     );
 
     // vite-plugin-pwa

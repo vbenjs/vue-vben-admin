@@ -59,7 +59,7 @@
         () => unref(innerValueRef),
         (val) => {
           emit('change', val);
-        }
+        },
       );
 
       return {

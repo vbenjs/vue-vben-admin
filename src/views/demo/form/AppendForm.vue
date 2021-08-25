@@ -77,7 +77,7 @@
             },
             required: true,
           },
-          ''
+          '',
         );
         appendSchemaByField(
           {
@@ -89,7 +89,7 @@
             },
             required: true,
           },
-          ''
+          '',
         );
 
         appendSchemaByField(
@@ -102,7 +102,7 @@
             },
             slot: 'add',
           },
-          ''
+          '',
         );
         n.value++;
       }
