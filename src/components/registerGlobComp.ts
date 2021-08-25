@@ -1,5 +1,4 @@
 import type { App } from 'vue';
-// import { Icon } from './Icon';
 import { Button } from './Button';
 import {
   // Need
