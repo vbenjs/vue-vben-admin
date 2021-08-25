@@ -90,6 +90,9 @@
           theme: getDarkMode.value === 'dark' ? 'dark' : 'classic',
           lang: unref(getCurrentLang),
           mode: 'sv',
+          fullscreen: {
+            index: 520,
+          },
           preview: {
             actions: [],
           },
