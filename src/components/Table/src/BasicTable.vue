@@ -334,6 +334,13 @@
 
   @prefix-cls: ~'@{namespace}-basic-table';
 
+  [data-theme='dark'] {
+    .ant-table-tbody > tr:hover.ant-table-row-selected > td,
+    .ant-table-tbody > tr.ant-table-row-selected td {
+      background-color: #262626;
+    }
+  }
+
   .@{prefix-cls} {
     max-width: 100%;
 
