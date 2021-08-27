@@ -94,28 +94,32 @@ export const useUserStore = defineStore({
 
         // save token
         this.setToken(token);
-        // get user info
-        const userInfo = await this.getUserInfoAction();
-
-        const sessionTimeout = this.sessionTimeout;
-        if (sessionTimeout) {
-          this.setSessionTimeout(false);
-        } else if (goHome) {
-          const permissionStore = usePermissionStore();
-          if (!permissionStore.isDynamicAddedRoute) {
-            const routes = await permissionStore.buildRoutesAction();
-            routes.forEach((route) => {
-              router.addRoute(route as unknown as RouteRecordRaw);
-            });
-            router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
-            permissionStore.setDynamicAddedRoute(true);
-          }
-          await router.replace(userInfo.homePath || PageEnum.BASE_HOME);
-        }
-        return userInfo;
+        return this.afterLoginAction(goHome);
       } catch (error) {
         return Promise.reject(error);
       }
+    },
+    async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
+      if (!this.getToken) return null;
+      // get user info
+      const userInfo = await this.getUserInfoAction();
+
+      const sessionTimeout = this.sessionTimeout;
+      if (sessionTimeout) {
+        this.setSessionTimeout(false);
+      } else {
+        const permissionStore = usePermissionStore();
+        if (!permissionStore.isDynamicAddedRoute) {
+          const routes = await permissionStore.buildRoutesAction();
+          routes.forEach((route) => {
+            router.addRoute(route as unknown as RouteRecordRaw);
+          });
+          router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
+          permissionStore.setDynamicAddedRoute(true);
+        }
+        goHome && (await router.replace(userInfo.homePath || PageEnum.BASE_HOME));
+      }
+      return userInfo;
     },
     async getUserInfoAction(): Promise<UserInfo> {
       const userInfo = await getUserInfo();
