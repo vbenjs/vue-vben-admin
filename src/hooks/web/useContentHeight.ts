@@ -23,7 +23,7 @@ type Upward = number | string | null | undefined;
  * @param subtractHeightRefs 待减去高度的组件列表 Ref<ElRef | ComponentRef>
  * @param substractSpaceRefs 待减去空闲空间(margins/paddings)的组件列表 Ref<ElRef | ComponentRef>
  * @param offsetHeightRef 计算偏移的响应式高度，计算高度时将直接减去此值
- * @param upwardSpace 向上递归减去空闲空间的 层级 或 直到指定class为止
+ * @param upwardSpace 向上递归减去空闲空间的 层级 或 直到指定class为止 数值为2代表向上递归两次|数值为ant-layout表示向上递归直到碰见.ant-layout为止
  * @returns 响应式高度
  */
 export function useContentHeight(
