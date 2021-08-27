@@ -364,13 +364,7 @@
         /* eslint-disable */
         props.record.onSubmitEdit = async () => {
           if (isArray(props.record?.submitCbs)) {
-            const validFns = (props.record?.validCbs || []).map((fn) => fn());
-
-            const res = await Promise.all(validFns);
-
-            const pass = res.every((item) => !!item);
-
-            if (!pass) return;
+            if (!props.record?.onValid?.()) return;
             const submitFns = props.record?.submitCbs || [];
             submitFns.forEach((fn) => fn(false, false));
             table.emit?.('edit-row-end');
