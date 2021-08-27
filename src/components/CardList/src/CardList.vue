@@ -4,8 +4,8 @@
       <BasicForm @register="registerForm" />
     </div>
     {{ sliderProp.width }}
-    <div class="bg-white p-2"
-      ><List
+    <div class="bg-white p-2">
+      <List
         :grid="{ gutter: 5, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: grid }"
         :data-source="data"
         :pagination="paginationProp"
@@ -72,8 +72,8 @@
             </Card>
           </ListItem>
         </template>
-      </List></div
-    >
+      </List>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
@@ -84,23 +84,16 @@
     RedoOutlined,
     TableOutlined,
   } from '@ant-design/icons-vue';
-  import {
-    List,
-    ListItem,
-    Card,
-    CardMeta,
-    Image,
-    TypographyText,
-    Tooltip,
-    Slider,
-    Avatar,
-  } from 'ant-design-vue';
+  import { List, Card, Image, Typography, Tooltip, Slider, Avatar } from 'ant-design-vue';
   import { Dropdown } from '/@/components/Dropdown';
   import { BasicForm, useForm } from '/@/components/Form';
   import { propTypes } from '/@/utils/propTypes';
   import { Button } from '/@/components/Button';
   import { isFunction } from '/@/utils/is';
   import { useSlider, grid } from './data';
+  const ListItem = List.Item;
+  const CardMeta = Card.Meta;
+  const TypographyText = Typography.Text;
   // 获取slider属性
   const sliderProp = computed(() => useSlider(4));
   // 组件接收参数
