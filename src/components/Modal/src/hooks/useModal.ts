@@ -48,6 +48,7 @@ export function useModal(): UseModalReturnType {
     if (unref(loaded) && isProdMode() && modalMethod === unref(modal)) return;
 
     modal.value = modalMethod;
+    loaded.value = true;
     modalMethod.emitVisible = (visible: boolean, uid: number) => {
       visibleData[uid] = visible;
     };
