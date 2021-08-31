@@ -122,6 +122,12 @@ export function useTable(tableProps?: Props): [
     updateTableData: (index: number, key: string, value: any) => {
       return getTableInstance().updateTableData(index, key, value);
     },
+    deleteTableDataRecord: (record: Recordable | Recordable[]) => {
+      return getTableInstance().deleteTableDataRecord(record);
+    },
+    insertTableDataRecord: (record: Recordable | Recordable[], index?: number) => {
+      return getTableInstance().insertTableDataRecord(record, index);
+    },
     updateTableDataRecord: (rowKey: string | number, record: Recordable) => {
       return getTableInstance().updateTableDataRecord(rowKey, record);
     },
