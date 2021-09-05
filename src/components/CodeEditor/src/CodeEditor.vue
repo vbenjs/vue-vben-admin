@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-  const MODE = {
+  export const MODE = {
     JSON: 'application/json',
     html: 'htmlmixed',
     js: 'javascript',
