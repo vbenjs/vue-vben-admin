@@ -5,8 +5,11 @@
       {{ title }}
     </BasicTitle>
 
-    <div class="flex flex-1 justify-end items-center cursor-pointer" v-if="search || toolbar">
-      <div class="mr-1 w-2/3" v-if="search">
+    <div
+      class="flex flex-1 justify-self-stretch items-center cursor-pointer"
+      v-if="search || toolbar"
+    >
+      <div :class="getInputSearchCls" v-if="search">
         <InputSearch
           :placeholder="t('common.searchText')"
           size="small"
@@ -31,7 +34,7 @@
   </div>
 </template>
 <script lang="ts">
-  import type { PropType } from 'vue';
+  import { PropType } from 'vue';
   import { defineComponent, computed, ref, watch } from 'vue';
 
   import { Dropdown, Menu, Input } from 'ant-design-vue';
@@ -80,9 +83,21 @@
       searchText: propTypes.string,
     },
     emits: ['strictly-change', 'search'],
-    setup(props, { emit }) {
+    setup(props, { emit, slots }) {
       const { t } = useI18n();
       const searchValue = ref('');
+
+      const getInputSearchCls = computed(() => {
+        const titleExists = slots.headerTitle || props.title;
+        return [
+          'mr-1',
+          'w-full',
+          // titleExists ? 'w-2/3' : 'w-full',
+          {
+            ['ml-5']: titleExists,
+          },
+        ];
+      });
 
       const toolbarList = computed(() => {
         const { checkable } = props;
@@ -157,7 +172,7 @@
       //   debounceEmitChange(e.target.value);
       // }
 
-      return { t, toolbarList, handleMenuClick, searchValue };
+      return { t, toolbarList, handleMenuClick, searchValue, getInputSearchCls };
     },
   });
 </script>
