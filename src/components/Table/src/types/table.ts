@@ -25,7 +25,7 @@ export interface TableRowSelection<T = any> extends ITableRowSelection {
 
   /**
    * Callback executed when select/deselect one row
-   * @type FunctionT
+   * @type Function
    */
   onSelect?: (record: T, selected: boolean, selectedRows: Object[], nativeEvent: Event) => any;
 
@@ -291,7 +291,7 @@ export interface BasicTableProps<T = any> {
    * Row's className
    * @type Function
    */
-  rowClassName?: (record: TableCustomRecord<T>) => string;
+  rowClassName?: (record: TableCustomRecord<T>, index: number) => string;
 
   /**
    * Row selection config
