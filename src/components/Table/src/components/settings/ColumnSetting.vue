@@ -42,7 +42,7 @@
         <ScrollContainer>
           <CheckboxGroup v-model:value="checkedList" @change="onChange" ref="columnListRef">
             <template v-for="item in plainOptions" :key="item.value">
-              <div :class="`${prefixCls}__check-item`">
+              <div :class="`${prefixCls}__check-item`" v-if="!('ifShow' in item && !item.ifShow)">
                 <DragOutlined class="table-coulmn-drag-icon" />
                 <Checkbox :value="item.value">
                   {{ item.label }}
