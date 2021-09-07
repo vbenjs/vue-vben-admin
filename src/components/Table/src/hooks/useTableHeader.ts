@@ -8,7 +8,7 @@ import { getSlot } from '/@/utils/helper/tsxHelper';
 export function useTableHeader(
   propsRef: ComputedRef<BasicTableProps>,
   slots: Slots,
-  handlers: InnerHandlers
+  handlers: InnerHandlers,
 ) {
   const getHeaderProps = computed((): Recordable => {
     const { title, showTableSetting, titleHelpMessage, tableSetting } = unref(propsRef);
@@ -46,7 +46,7 @@ export function useTableHeader(
                       headerTop: () => getSlot(slots, 'headerTop'),
                     }
                   : {}),
-              }
+              },
             ),
     };
   });

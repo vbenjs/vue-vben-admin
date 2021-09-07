@@ -56,7 +56,7 @@
     setup(props) {
       const { prefixCls } = useDesign('image-preview');
 
-      const getImageList = computed(() => {
+      const getImageList = computed((): any[] => {
         const { imageList } = props;
         if (!imageList) {
           return [];

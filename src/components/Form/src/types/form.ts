@@ -37,7 +37,7 @@ export interface FormActionType {
   appendSchemaByField: (
     schema: FormSchema,
     prefixField: string | undefined,
-    first?: boolean | undefined
+    first?: boolean | undefined,
   ) => Promise<void>;
   validateFields: (nameList?: NamePath[]) => Promise<any>;
   validate: (nameList?: NamePath[]) => Promise<any>;
@@ -97,6 +97,8 @@ export interface FormProps {
   autoFocusFirstItem?: boolean;
   // Automatically collapse over the specified number of rows
   autoAdvancedLine?: number;
+  // Always show lines
+  alwaysShowLines?: number;
   // Whether to show the operation button
   showActionButtonGroup?: boolean;
 

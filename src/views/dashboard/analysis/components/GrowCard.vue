@@ -3,7 +3,7 @@
     <template v-for="(item, index) in growCardList" :key="item.title">
       <Card
         size="small"
-        :loading="$attrs.loading"
+        :loading="loading"
         :title="item.title"
         class="md:w-1/4 w-full !md:mt-0 !mt-4"
         :class="[index + 1 < 4 && '!md:mr-4']"
@@ -26,18 +26,15 @@
     </template>
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
-
+<script lang="ts" setup>
   import { CountTo } from '/@/components/CountTo/index';
   import { Icon } from '/@/components/Icon';
   import { Tag, Card } from 'ant-design-vue';
-
   import { growCardList } from '../data';
-  export default defineComponent({
-    components: { CountTo, Tag, Card, Icon },
-    setup() {
-      return { growCardList };
+
+  defineProps({
+    loading: {
+      type: Boolean,
     },
   });
 </script>

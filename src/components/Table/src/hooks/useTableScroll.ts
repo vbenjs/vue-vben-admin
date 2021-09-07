@@ -13,7 +13,7 @@ export function useTableScroll(
   tableElRef: Ref<ComponentRef>,
   columnsRef: ComputedRef<BasicColumn[]>,
   rowSelectionRef: ComputedRef<TableRowSelection<any> | null>,
-  getDataSourceRef: ComputedRef<Recordable[]>
+  getDataSourceRef: ComputedRef<Recordable[]>,
 ) {
   const tableHeightRef: Ref<Nullable<number>> = ref(null);
 
@@ -34,7 +34,7 @@ export function useTableScroll(
     },
     {
       flush: 'post',
-    }
+    },
   );
 
   function redoHeight() {
@@ -66,6 +66,7 @@ export function useTableScroll(
 
     if (!bodyEl) {
       bodyEl = tableEl.querySelector('.ant-table-body');
+      if (!bodyEl) return;
     }
 
     const hasScrollBarY = bodyEl.scrollHeight > bodyEl.clientHeight;

@@ -17,7 +17,7 @@ export function useCopyToClipboard(initial?: string) {
         isSuccessRef.value = copyTextToClipboard(str);
       }
     },
-    { immediate: !!initial, flush: 'sync' }
+    { immediate: !!initial, flush: 'sync' },
   );
 
   return { clipboardRef, isSuccessRef, copiedRef };

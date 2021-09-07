@@ -52,7 +52,7 @@ export default [
     response: ({ body }) => {
       const { username, password } = body;
       const checkUser = createFakeUserList().find(
-        (item) => item.username === username && password === item.password
+        (item) => item.username === username && password === item.password,
       );
       if (!checkUser) {
         return resultError('Incorrect account or password！');

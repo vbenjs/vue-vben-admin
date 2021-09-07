@@ -102,7 +102,7 @@
 
       const getOkButtonProps = computed(() => {
         const someSuccess = fileListRef.value.some(
-          (item) => item.status === UploadResultStatus.SUCCESS
+          (item) => item.status === UploadResultStatus.SUCCESS,
         );
         return {
           disabled: isUploadingRef.value || fileListRef.value.length === 0 || !someSuccess,
@@ -111,7 +111,7 @@
 
       const getUploadBtnText = computed(() => {
         const someError = fileListRef.value.some(
-          (item) => item.status === UploadResultStatus.ERROR
+          (item) => item.status === UploadResultStatus.ERROR,
         );
         return isUploadingRef.value
           ? t('component.upload.uploading')
@@ -193,7 +193,7 @@
             function onUploadProgress(progressEvent: ProgressEvent) {
               const complete = ((progressEvent.loaded / progressEvent.total) * 100) | 0;
               item.percent = complete;
-            }
+            },
           );
           item.status = UploadResultStatus.SUCCESS;
           item.responseData = data;
@@ -225,7 +225,7 @@
           const data = await Promise.all(
             uploadFileList.map((item) => {
               return uploadApiByItem(item);
-            })
+            }),
           );
           isUploadingRef.value = false;
           // 生产环境:抛出错误
@@ -276,8 +276,8 @@
       }
 
       return {
-        columns: createTableColumns(),
-        actionColumn: createActionColumn(handleRemove),
+        columns: createTableColumns() as any[],
+        actionColumn: createActionColumn(handleRemove) as any,
         register,
         closeModal,
         getHelpText,

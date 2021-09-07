@@ -60,7 +60,7 @@
       const { getIsMobile } = useAppInject();
 
       const getComputedMenuMode = computed(() =>
-        unref(getIsMobile) ? MenuModeEnum.INLINE : props.menuMode || unref(getMenuMode)
+        unref(getIsMobile) ? MenuModeEnum.INLINE : props.menuMode || unref(getMenuMode),
       );
 
       const getComputedMenuTheme = computed(() => props.theme || unref(getMenuTheme));
@@ -146,11 +146,11 @@
           <SimpleMenu {...menuProps} isSplitMenu={unref(getSplit)} items={menus} />
         ) : (
           <BasicMenu
-            {...menuProps}
+            {...(menuProps as any)}
             isHorizontal={props.isHorizontal}
             type={unref(getMenuType)}
             showLogo={unref(getIsShowLogo)}
-            mode={unref(getComputedMenuMode)}
+            mode={unref(getComputedMenuMode as any)}
             items={menus}
           />
         );

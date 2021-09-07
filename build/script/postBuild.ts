@@ -11,7 +11,7 @@ export const runBuild = async () => {
 
     // Generate configuration file
     if (!argvList.includes('disabled-config')) {
-      await runBuildConfig();
+      runBuildConfig();
     }
 
     console.log(`✨ ${chalk.cyan(`[${pkg.name}]`)}` + ' - build successfully!');

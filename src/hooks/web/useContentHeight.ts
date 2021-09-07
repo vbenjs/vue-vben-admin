@@ -1,8 +1,9 @@
-import { ComputedRef, nextTick, Ref, ref, unref, watch } from 'vue';
+import { ComputedRef, isRef, nextTick, Ref, ref, unref, watch } from 'vue';
 import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
 import { useLayoutHeight } from '/@/layouts/default/content/useContentViewHeight';
 import { getViewportOffset } from '/@/utils/domUtils';
+import { isNumber, isString } from '/@/utils/is';
 
 export interface CompensationHeight {
   // 使用 layout Footer 高度作为判断补偿高度的条件
@@ -10,6 +11,8 @@ export interface CompensationHeight {
   // refs HTMLElement
   elements?: Ref[];
 }
+
+type Upward = number | string | null | undefined;
 
 /**
  * 动态计算内容高度，根据锚点dom最下坐标到屏幕最下坐标，根据传入dom的高度、padding、margin等值进行动态计算
@@ -20,6 +23,7 @@ export interface CompensationHeight {
  * @param subtractHeightRefs 待减去高度的组件列表 Ref<ElRef | ComponentRef>
  * @param substractSpaceRefs 待减去空闲空间(margins/paddings)的组件列表 Ref<ElRef | ComponentRef>
  * @param offsetHeightRef 计算偏移的响应式高度，计算高度时将直接减去此值
+ * @param upwardSpace 向上递归减去空闲空间的 层级 或 直到指定class为止 数值为2代表向上递归两次|数值为ant-layout表示向上递归直到碰见.ant-layout为止
  * @returns 响应式高度
  */
 export function useContentHeight(
@@ -27,7 +31,8 @@ export function useContentHeight(
   anchorRef: Ref,
   subtractHeightRefs: Ref[],
   substractSpaceRefs: Ref[],
-  offsetHeightRef: Ref<number> = ref(0)
+  upwardSpace: Ref<Upward> | ComputedRef<Upward> | Upward = 0,
+  offsetHeightRef: Ref<number> = ref(0),
 ) {
   const contentHeight: Ref<Nullable<number>> = ref(null);
   const { footerHeightRef: layoutFooterHeightRef } = useLayoutHeight();
@@ -45,23 +50,33 @@ export function useContentHeight(
     });
   }
 
-  function calcSubtractSpace(element: HTMLDivElement | null | undefined): number {
+  function calcSubtractSpace(
+    element: Element | null | undefined,
+    direction: 'all' | 'top' | 'bottom' = 'all',
+  ): number {
+    function numberPx(px: string) {
+      return Number(px.replace(/[^\d]/g, ''));
+    }
     let subtractHeight = 0;
     const ZERO_PX = '0px';
-    let marginBottom = ZERO_PX;
-    let marginTop = ZERO_PX;
     if (element) {
       const cssStyle = getComputedStyle(element);
-      marginBottom = cssStyle?.marginBottom ?? ZERO_PX;
-      marginTop = cssStyle?.marginTop ?? ZERO_PX;
-    }
-    if (marginBottom) {
-      const contentMarginBottom = Number(marginBottom.replace(/[^\d]/g, ''));
-      subtractHeight += contentMarginBottom;
-    }
-    if (marginTop) {
-      const contentMarginTop = Number(marginTop.replace(/[^\d]/g, ''));
-      subtractHeight += contentMarginTop;
+      const marginTop = numberPx(cssStyle?.marginTop ?? ZERO_PX);
+      const marginBottom = numberPx(cssStyle?.marginBottom ?? ZERO_PX);
+      const paddingTop = numberPx(cssStyle?.paddingTop ?? ZERO_PX);
+      const paddingBottom = numberPx(cssStyle?.paddingBottom ?? ZERO_PX);
+      if (direction === 'all') {
+        subtractHeight += marginTop;
+        subtractHeight += marginBottom;
+        subtractHeight += paddingTop;
+        subtractHeight += paddingBottom;
+      } else if (direction === 'top') {
+        subtractHeight += marginTop;
+        subtractHeight += paddingTop;
+      } else {
+        subtractHeight += marginBottom;
+        subtractHeight += paddingBottom;
+      }
     }
     return subtractHeight;
   }
@@ -80,11 +95,11 @@ export function useContentHeight(
     // Add a delay to get the correct height
     await nextTick();
 
-    const wrapperEl = getEl(unref(anchorRef));
-    if (!wrapperEl) {
+    const anchorEl = getEl(unref(anchorRef));
+    if (!anchorEl) {
       return;
     }
-    const { bottomIncludeBody } = getViewportOffset(wrapperEl);
+    const { bottomIncludeBody } = getViewportOffset(anchorEl);
 
     // substract elements height
     let substractHeight = 0;
@@ -93,17 +108,46 @@ export function useContentHeight(
     });
 
     // subtract margins / paddings
-    let substractSpaceHeight = 0;
+    let substractSpaceHeight = calcSubtractSpace(anchorEl) ?? 0;
     substractSpaceRefs.forEach((item) => {
       substractSpaceHeight += calcSubtractSpace(getEl(unref(item)));
     });
+
+    // upwardSpace
+    let upwardSpaceHeight = 0;
+    function upward(element: Element | null, upwardLvlOrClass: number | string | null | undefined) {
+      if (element && upwardLvlOrClass) {
+        const parent = element.parentElement;
+        if (parent) {
+          if (isString(upwardLvlOrClass)) {
+            if (!parent.classList.contains(upwardLvlOrClass)) {
+              upwardSpaceHeight += calcSubtractSpace(parent, 'bottom');
+              upward(parent, upwardLvlOrClass);
+            } else {
+              upwardSpaceHeight += calcSubtractSpace(parent, 'bottom');
+            }
+          } else if (isNumber(upwardLvlOrClass)) {
+            if (upwardLvlOrClass > 0) {
+              upwardSpaceHeight += calcSubtractSpace(parent, 'bottom');
+              upward(parent, --upwardLvlOrClass);
+            }
+          }
+        }
+      }
+    }
+    if (isRef(upwardSpace)) {
+      upward(anchorEl, unref(upwardSpace));
+    } else {
+      upward(anchorEl, upwardSpace);
+    }
 
     let height =
       bottomIncludeBody -
       unref(layoutFooterHeightRef) -
       unref(offsetHeightRef) -
       substractHeight -
-      substractSpaceHeight;
+      substractSpaceHeight -
+      upwardSpaceHeight;
 
     // compensation height
     const calcCompensationHeight = () => {
@@ -130,7 +174,7 @@ export function useContentHeight(
       calcContentHeight();
     },
     50,
-    { immediate: true }
+    { immediate: true },
   );
   watch(
     () => [layoutFooterHeightRef.value],
@@ -140,7 +184,7 @@ export function useContentHeight(
     {
       flush: 'post',
       immediate: true,
-    }
+    },
   );
 
   return { redoHeight, setCompensation, contentHeight };

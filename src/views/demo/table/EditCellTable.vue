@@ -4,6 +4,7 @@
       @register="registerTable"
       @edit-end="handleEditEnd"
       @edit-cancel="handleEditCancel"
+      :beforeEditSubmit="beforeEditSubmit"
     />
   </div>
 </template>
@@ -14,6 +15,7 @@
 
   import { demoListApi } from '/@/api/demo/table';
   import { treeOptionsListApi } from '/@/api/demo/tree';
+  import { useMessage } from '/@/hooks/web/useMessage';
   const columns: BasicColumn[] = [
     {
       title: '输入框',
@@ -93,7 +95,7 @@
     },
     {
       title: '远程下拉树',
-      dataIndex: 'name7',
+      dataIndex: 'name71',
       edit: true,
       editComponent: 'ApiTreeSelect',
       editRule: false,
@@ -157,8 +159,44 @@
         bordered: true,
       });
 
+      const { createMessage } = useMessage();
+
       function handleEditEnd({ record, index, key, value }: Recordable) {
         console.log(record, index, key, value);
+        return false;
+      }
+
+      // 模拟将指定数据保存
+      function feakSave({ value, key, id }) {
+        createMessage.loading({
+          content: `正在模拟保存${key}`,
+          key: '_save_fake_data',
+          duration: 0,
+        });
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            if (value === '') {
+              createMessage.error({
+                content: '保存失败：不能为空',
+                key: '_save_fake_data',
+                duration: 2,
+              });
+              resolve(false);
+            } else {
+              createMessage.success({
+                content: `记录${id}的${key}已保存`,
+                key: '_save_fake_data',
+                duration: 2,
+              });
+              resolve(true);
+            }
+          }, 2000);
+        });
+      }
+
+      async function beforeEditSubmit({ record, index, key, value }) {
+        console.log('单元格数据正在准备提交', { record, index, key, value });
+        return await feakSave({ id: record.id, key, value });
       }
 
       function handleEditCancel() {
@@ -169,6 +207,7 @@
         registerTable,
         handleEditEnd,
         handleEditCancel,
+        beforeEditSubmit,
       };
     },
   });

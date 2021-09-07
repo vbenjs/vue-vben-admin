@@ -1,3 +1,27 @@
+## 2.7.1(2021-08-16)
+
+- Upgrade vue 3.2, if the operation fails, delete node_modules and reinstall it
+
+### ✨ Features
+
+- **BasicTree** Add search function related properties and methods
+- **BasicForm** added `alwaysShowLines` to set the number of lines kept displayed when folding
+
+### 🐛 Bug Fixes
+
+- **Cropper** Fix the problem of failure to destroy in time
+- **BasicTable**
+  - Fix the problem that `CellFormat` cannot use `Map` type data
+  - Fixed an issue where the editable cell failed to display the `0` value correctly
+  - Fixed the issue that selection-change event failed to trigger correctly when unchecked
+  - Fix the problem that the background color of the full screen state under the light theme is incorrect
+  - Fix the problem of obtaining complete data when `getSelectRows` does not support remote data cross-page selection
+  - Fix the issue that the `size` property provided for editing components in `editComponentProps` is invalid
+- **Qrcode** Fixed the problem that the QR code component could not be drawn in time when it was created
+- **BasicModal** Fix the problem that the `helpMessage` property does not work
+- **BasicButton** Fix the problem that the button style performance is inconsistent with the official antd
+- **Others** Fix the problem that `useRedo` (reload the current route) will lose route `params` data
+
 ## 2.7.0(2021-08-03)
 
 ## (Breaking changes) Breaking changes

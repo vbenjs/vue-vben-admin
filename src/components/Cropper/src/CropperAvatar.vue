@@ -77,7 +77,7 @@
       const getStyle = computed((): CSSProperties => ({ width: unref(getWidth) }));
 
       const getImageWrapperStyle = computed(
-        (): CSSProperties => ({ width: unref(getWidth), height: unref(getWidth) })
+        (): CSSProperties => ({ width: unref(getWidth), height: unref(getWidth) }),
       );
 
       watchEffect(() => {
@@ -88,7 +88,7 @@
         () => sourceValue.value,
         (v: string) => {
           emit('update:value', v);
-        }
+        },
       );
 
       function handleUploadSuccess({ source }) {
@@ -103,7 +103,7 @@
         t,
         prefixCls,
         register,
-        openModal,
+        openModal: openModal as any,
         getIconWidth,
         sourceValue,
         getClass,

@@ -18,7 +18,7 @@ export function useTable(tableProps?: Props): [
   (instance: TableActionType, formInstance: UseTableMethod) => void,
   TableActionType & {
     getForm: () => FormActionType;
-  }
+  },
 ] {
   const tableRef = ref<Nullable<TableActionType>>(null);
   const loadedRef = ref<Nullable<boolean>>(false);
@@ -50,7 +50,7 @@ export function useTable(tableProps?: Props): [
       {
         immediate: true,
         deep: true,
-      }
+      },
     );
   }
 
@@ -58,7 +58,7 @@ export function useTable(tableProps?: Props): [
     const table = unref(tableRef);
     if (!table) {
       error(
-        'The table instance has not been obtained yet, please make sure the table is presented when performing the table operation!'
+        'The table instance has not been obtained yet, please make sure the table is presented when performing the table operation!',
       );
     }
     return table as TableActionType;
@@ -121,6 +121,12 @@ export function useTable(tableProps?: Props): [
     },
     updateTableData: (index: number, key: string, value: any) => {
       return getTableInstance().updateTableData(index, key, value);
+    },
+    deleteTableDataRecord: (record: Recordable | Recordable[]) => {
+      return getTableInstance().deleteTableDataRecord(record);
+    },
+    insertTableDataRecord: (record: Recordable | Recordable[], index?: number) => {
+      return getTableInstance().insertTableDataRecord(record, index);
     },
     updateTableDataRecord: (rowKey: string | number, record: Recordable) => {
       return getTableInstance().updateTableDataRecord(rowKey, record);

@@ -29,9 +29,8 @@
         treeData.value = (await getDeptList()) as unknown as TreeItem[];
       }
 
-      function handleSelect(keys: string, e) {
+      function handleSelect(keys) {
         emit('select', keys[0]);
-        console.log(keys, e);
       }
 
       onMounted(() => {

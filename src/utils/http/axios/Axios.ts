@@ -1,4 +1,4 @@
-import type { AxiosRequestConfig, AxiosInstance, AxiosResponse } from 'axios';
+import type { AxiosRequestConfig, AxiosInstance, AxiosResponse, AxiosError } from 'axios';
 import type { RequestOptions, Result, UploadFileParams } from '../../../../types/axios';
 import type { CreateAxiosOptions } from './axiosTransform';
 import axios from 'axios';
@@ -220,10 +220,13 @@ export class VAxios {
           }
           resolve(res as unknown as Promise<T>);
         })
-        .catch((e: Error) => {
+        .catch((e: Error | AxiosError) => {
           if (requestCatchHook && isFunction(requestCatchHook)) {
             reject(requestCatchHook(e, opt));
             return;
+          }
+          if (axios.isAxiosError(e)) {
+            // rewrite error message from axios in here
           }
           reject(e);
         });

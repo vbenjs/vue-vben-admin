@@ -14,7 +14,7 @@
         <slot name="headerContent" v-else></slot>
       </template>
       <template #[item]="data" v-for="item in getHeaderSlots">
-        <slot :name="item" v-bind="data"></slot>
+        <slot :name="item" v-bind="data || {}"></slot>
       </template>
     </PageHeader>
 
@@ -33,7 +33,7 @@
   </div>
 </template>
 <script lang="ts">
-  import type { CSSProperties, PropType } from 'vue';
+  import { CSSProperties, PropType, provide } from 'vue';
 
   import { defineComponent, computed, watch, ref, unref } from 'vue';
   import PageFooter from './PageFooter.vue';
@@ -43,6 +43,7 @@
   import { omit } from 'lodash-es';
   import { PageHeader } from 'ant-design-vue';
   import { useContentHeight } from '/@/hooks/web/useContentHeight';
+  import { PageWrapperFixedHeightKey } from '..';
 
   export default defineComponent({
     name: 'PageWrapper',
@@ -60,6 +61,7 @@
       contentFullHeight: propTypes.bool,
       contentClass: propTypes.string,
       fixedHeight: propTypes.bool,
+      upwardSpace: propTypes.oneOfType([propTypes.number, propTypes.string]).def(0),
     },
     setup(props, { slots, attrs }) {
       const wrapperRef = ref(null);
@@ -68,15 +70,22 @@
       const footerRef = ref(null);
       const { prefixCls } = useDesign('page-wrapper');
 
+      provide(
+        PageWrapperFixedHeightKey,
+        computed(() => props.fixedHeight),
+      );
+
       const getIsContentFullHeight = computed(() => {
         return props.contentFullHeight;
       });
 
+      const getUpwardSpace = computed(() => props.upwardSpace);
       const { redoHeight, setCompensation, contentHeight } = useContentHeight(
         getIsContentFullHeight,
         wrapperRef,
         [headerRef, footerRef],
-        [contentRef]
+        [contentRef],
+        getUpwardSpace,
       );
       setCompensation({ useLayoutFooter: true, elements: [footerRef] });
 
@@ -129,7 +138,7 @@
         {
           flush: 'post',
           immediate: true,
-        }
+        },
       );
 
       return {

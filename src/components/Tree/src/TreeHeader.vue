@@ -5,13 +5,16 @@
       {{ title }}
     </BasicTitle>
 
-    <div class="flex flex-1 justify-end items-center cursor-pointer" v-if="search || toolbar">
-      <div class="mr-1 w-2/3" v-if="search">
+    <div
+      class="flex flex-1 justify-self-stretch items-center cursor-pointer"
+      v-if="search || toolbar"
+    >
+      <div :class="getInputSearchCls" v-if="search">
         <InputSearch
           :placeholder="t('common.searchText')"
           size="small"
           allowClear
-          @change="handleSearch"
+          v-model:value="searchValue"
         />
       </div>
       <Dropdown @click.prevent v-if="toolbar">
@@ -31,8 +34,8 @@
   </div>
 </template>
 <script lang="ts">
-  import type { PropType } from 'vue';
-  import { defineComponent, computed } from 'vue';
+  import { PropType } from 'vue';
+  import { defineComponent, computed, ref, watch } from 'vue';
 
   import { Dropdown, Menu, Input } from 'ant-design-vue';
   import { Icon } from '/@/components/Icon';
@@ -77,10 +80,24 @@
       search: propTypes.bool,
       checkAll: propTypes.func,
       expandAll: propTypes.func,
+      searchText: propTypes.string,
     },
     emits: ['strictly-change', 'search'],
-    setup(props, { emit }) {
+    setup(props, { emit, slots }) {
       const { t } = useI18n();
+      const searchValue = ref('');
+
+      const getInputSearchCls = computed(() => {
+        const titleExists = slots.headerTitle || props.title;
+        return [
+          'mr-1',
+          'w-full',
+          // titleExists ? 'w-2/3' : 'w-full',
+          {
+            ['ml-5']: titleExists,
+          },
+        ];
+      });
 
       const toolbarList = computed(() => {
         const { checkable } = props;
@@ -137,11 +154,25 @@
       }
       const debounceEmitChange = useDebounceFn(emitChange, 200);
 
-      function handleSearch(e: ChangeEvent): void {
-        debounceEmitChange(e.target.value);
-      }
+      watch(
+        () => searchValue.value,
+        (v) => {
+          debounceEmitChange(v);
+        },
+      );
+      watch(
+        () => props.searchText,
+        (v) => {
+          if (v !== searchValue.value) {
+            searchValue.value = v;
+          }
+        },
+      );
+      // function handleSearch(e: ChangeEvent): void {
+      //   debounceEmitChange(e.target.value);
+      // }
 
-      return { t, toolbarList, handleMenuClick, handleSearch };
+      return { t, toolbarList, handleMenuClick, searchValue, getInputSearchCls };
     },
   });
 </script>

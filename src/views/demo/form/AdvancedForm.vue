@@ -4,7 +4,7 @@
       <BasicForm @register="register" />
     </CollapseContainer>
 
-    <CollapseContainer title="超过3行自动收起" class="mt-4">
+    <CollapseContainer title="超过3行自动收起，折叠时保留2行" class="mt-4">
       <BasicForm @register="register1" />
     </CollapseContainer>
   </PageWrapper>
@@ -12,7 +12,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container/index';
+  import { CollapseContainer } from '/@/components/Container';
   import { PageWrapper } from '/@/components/Page';
 
   const getSchamas = (): FormSchema[] => {
@@ -160,14 +160,31 @@
         compact: true,
         showAdvancedButton: true,
       });
+      const extraSchemas: FormSchema[] = [];
+      for (let i = 14; i < 30; i++) {
+        extraSchemas.push({
+          field: 'field' + i,
+          component: 'Input',
+          label: '字段' + i,
+          colProps: {
+            span: 8,
+          },
+        });
+      }
       const [register1] = useForm({
         labelWidth: 120,
-        schemas: [...getSchamas(), ...getAppendSchemas()],
+        schemas: [
+          ...getSchamas(),
+          ...getAppendSchemas(),
+          { field: '', component: 'Divider', label: '更多字段' },
+          ...extraSchemas,
+        ],
         actionColOptions: {
           span: 24,
         },
         compact: true,
         showAdvancedButton: true,
+        alwaysShowLines: 2,
       });
       return {
         register,

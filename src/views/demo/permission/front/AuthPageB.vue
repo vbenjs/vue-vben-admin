@@ -1,5 +1,5 @@
 <template>
-  <div class="m-10 auth-page"> Test 角色可见 </div>
+  <div class="m-10 auth-page">Test 角色可见</div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';

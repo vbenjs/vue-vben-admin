@@ -534,6 +534,14 @@ const comp: AppRouteModule = {
         title: t('routes.demo.comp.loading'),
       },
     },
+    {
+      path: 'cardList',
+      name: 'CardListDemo',
+      component: () => import('/@/views/demo/comp/card-list/index.vue'),
+      meta: {
+        title: t('routes.demo.comp.cardList'),
+      },
+    },
   ],
 };
 

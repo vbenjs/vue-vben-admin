@@ -20,6 +20,7 @@ export default {
     btn_scale_y: '垂直翻转',
     btn_zoom_in: '放大',
     btn_zoom_out: '缩小',
+    preview: '预览',
   },
   drawer: {
     loadingText: '加载中...',
