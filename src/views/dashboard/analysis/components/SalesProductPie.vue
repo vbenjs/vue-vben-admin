@@ -58,6 +58,6 @@
         ],
       });
     },
-    { immediate: true }
+    { immediate: true },
   );
 </script>

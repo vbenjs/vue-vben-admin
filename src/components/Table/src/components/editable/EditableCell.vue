@@ -5,31 +5,33 @@
       :class="{ [`${prefixCls}__normal`]: true, 'ellipsis-cell': column.ellipsis }"
       @click="handleEdit"
     >
-      <div class="cell-content" :title="column.ellipsis ? getValues ?? '' : ''">{{
-        getValues ?? '&nbsp;'
-      }}</div>
+      <div class="cell-content" :title="column.ellipsis ? getValues ?? '' : ''">
+        {{ getValues ? getValues : '&nbsp;' }}
+      </div>
       <FormOutlined :class="`${prefixCls}__normal-icon`" v-if="!column.editRow" />
     </div>
 
-    <div v-if="isEdit" :class="`${prefixCls}__wrapper`" v-click-outside="onClickOutside">
-      <CellComponent
-        v-bind="getComponentProps"
-        :component="getComponent"
-        :style="getWrapperStyle"
-        :popoverVisible="getRuleVisible"
-        :rule="getRule"
-        :ruleMessage="ruleMessage"
-        :class="getWrapperClass"
-        ref="elRef"
-        @change="handleChange"
-        @options-change="handleOptionsChange"
-        @pressEnter="handleEnter"
-      />
-      <div :class="`${prefixCls}__action`" v-if="!getRowEditable">
-        <CheckOutlined :class="[`${prefixCls}__icon`, 'mx-2']" @click="handleSubmitClick" />
-        <CloseOutlined :class="`${prefixCls}__icon `" @click="handleCancel" />
+    <a-spin v-if="isEdit" :spinning="spinning">
+      <div :class="`${prefixCls}__wrapper`" v-click-outside="onClickOutside">
+        <CellComponent
+          v-bind="getComponentProps"
+          :component="getComponent"
+          :style="getWrapperStyle"
+          :popoverVisible="getRuleVisible"
+          :rule="getRule"
+          :ruleMessage="ruleMessage"
+          :class="getWrapperClass"
+          ref="elRef"
+          @change="handleChange"
+          @options-change="handleOptionsChange"
+          @pressEnter="handleEnter"
+        />
+        <div :class="`${prefixCls}__action`" v-if="!getRowEditable">
+          <CheckOutlined :class="[`${prefixCls}__icon`, 'mx-2']" @click="handleSubmitClick" />
+          <CloseOutlined :class="`${prefixCls}__icon `" @click="handleCancel" />
+        </div>
       </div>
-    </div>
+    </a-spin>
   </div>
 </template>
 <script lang="ts">
@@ -48,12 +50,13 @@
   import { propTypes } from '/@/utils/propTypes';
   import { isArray, isBoolean, isFunction, isNumber, isString } from '/@/utils/is';
   import { createPlaceholderMessage } from './helper';
-  import { omit, set } from 'lodash-es';
+  import { omit, pick, set } from 'lodash-es';
   import { treeToList } from '/@/utils/helper/treeHelper';
+  import { Spin } from 'ant-design-vue';
 
   export default defineComponent({
     name: 'EditableCell',
-    components: { FormOutlined, CloseOutlined, CheckOutlined, CellComponent },
+    components: { FormOutlined, CloseOutlined, CheckOutlined, CellComponent, ASpin: Spin },
     directives: {
       clickOutside,
     },
@@ -80,6 +83,7 @@
       const optionsRef = ref<LabelValueOptions>([]);
       const currentValueRef = ref<any>(props.value);
       const defaultValueRef = ref<any>(props.value);
+      const spinning = ref<boolean>(false);
 
       const { prefixCls } = useDesign('editable-cell');
 
@@ -246,6 +250,35 @@
 
         const dataKey = (dataIndex || key) as string;
 
+        if (!record.editable) {
+          const { getBindValues } = table;
+
+          const { beforeEditSubmit, columns } = unref(getBindValues);
+
+          if (beforeEditSubmit && isFunction(beforeEditSubmit)) {
+            spinning.value = true;
+            const keys: string[] = columns
+              .map((_column) => _column.dataIndex)
+              .filter((field) => !!field) as string[];
+            let result: any = true;
+            try {
+              result = await beforeEditSubmit({
+                record: pick(record, keys),
+                index,
+                key,
+                value,
+              });
+            } catch (e) {
+              result = false;
+            } finally {
+              spinning.value = false;
+            }
+            if (result === false) {
+              return;
+            }
+          }
+        }
+
         set(record, dataKey, value);
         //const record = await table.updateTableData(index, dataKey, value);
         needEmit && table.emit?.('edit-end', { record, index, key, value });
@@ -331,13 +364,7 @@
         /* eslint-disable */
         props.record.onSubmitEdit = async () => {
           if (isArray(props.record?.submitCbs)) {
-            const validFns = (props.record?.validCbs || []).map((fn) => fn());
-
-            const res = await Promise.all(validFns);
-
-            const pass = res.every((item) => !!item);
-
-            if (!pass) return;
+            if (!props.record?.onValid?.()) return;
             const submitFns = props.record?.submitCbs || [];
             submitFns.forEach((fn) => fn(false, false));
             table.emit?.('edit-row-end');
@@ -368,6 +395,7 @@
         getValues,
         handleEnter,
         handleSubmitClick,
+        spinning,
       };
     },
   });

@@ -25,7 +25,7 @@ export interface TableRowSelection<T = any> extends ITableRowSelection {
 
   /**
    * Callback executed when select/deselect one row
-   * @type FunctionT
+   * @type Function
    */
   onSelect?: (record: T, selected: boolean, selectedRows: Object[], nativeEvent: Event) => any;
 
@@ -95,6 +95,8 @@ export interface TableActionType {
   setPagination: (info: Partial<PaginationProps>) => void;
   setTableData: <T = Recordable>(values: T[]) => void;
   updateTableDataRecord: (rowKey: string | number, record: Recordable) => Recordable | void;
+  deleteTableDataRecord: (record: Recordable | Recordable[]) => Recordable | void;
+  insertTableDataRecord: (record: Recordable, index?: number) => Recordable | void;
   findTableDataRecord: (rowKey: string | number) => Recordable | void;
   getColumns: (opt?: GetColumnsParams) => BasicColumn[];
   setColumns: (columns: BasicColumn[] | string[]) => void;
@@ -289,7 +291,7 @@ export interface BasicTableProps<T = any> {
    * Row's className
    * @type Function
    */
-  rowClassName?: (record: TableCustomRecord<T>) => string;
+  rowClassName?: (record: TableCustomRecord<T>, index: number) => string;
 
   /**
    * Row selection config
@@ -361,6 +363,18 @@ export interface BasicTableProps<T = any> {
    * @version 1.5.4
    */
   transformCellText?: Function;
+
+  /**
+   * Callback executed before editable cell submit value, not for row-editor
+   *
+   * The cell will not submit data while callback return false
+   */
+  beforeEditSubmit?: (data: {
+    record: Recordable;
+    index: number;
+    key: string | number;
+    value: any;
+  }) => Promise<any>;
 
   /**
    * Callback executed when pagination, filters or sorter is changed

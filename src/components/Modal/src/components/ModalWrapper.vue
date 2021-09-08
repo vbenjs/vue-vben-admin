@@ -62,7 +62,7 @@
         {
           attributes: true,
           subtree: true,
-        }
+        },
       );
 
       createModalContext({
@@ -89,7 +89,7 @@
           } else {
             minRealHeightRef.value = realHeightRef.value;
           }
-        }
+        },
       );
 
       onMounted(() => {
@@ -125,7 +125,7 @@
           const modalDom = bodyDom.parentElement && bodyDom.parentElement.parentElement;
           if (!modalDom) return;
 
-          const modalRect = getComputedStyle(modalDom).top;
+          const modalRect = getComputedStyle(modalDom as Element).top;
           const modalTop = Number.parseInt(modalRect);
           let maxHeight =
             window.innerHeight -

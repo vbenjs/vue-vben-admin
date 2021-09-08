@@ -29,13 +29,23 @@ export function createPermissionGuard(router: Router) {
       return;
     }
 
+    const token = userStore.getToken;
+
     // Whitelist can be directly entered
     if (whitePathList.includes(to.path as PageEnum)) {
+      if (to.path === LOGIN_PATH && token) {
+        const isSessionTimeout = userStore.getSessionTimeout;
+        try {
+          await userStore.afterLoginAction();
+          if (!isSessionTimeout) {
+            next((to.query?.redirect as string) || '/');
+            return;
+          }
+        } catch {}
+      }
       next();
       return;
     }
-
-    const token = userStore.getToken;
 
     // token does not exist
     if (!token) {
@@ -72,7 +82,12 @@ export function createPermissionGuard(router: Router) {
 
     // get userinfo while last fetch time is empty
     if (userStore.getLastUpdateTime === 0) {
-      await userStore.getUserInfoAction();
+      try {
+        await userStore.getUserInfoAction();
+      } catch (err) {
+        next();
+        return;
+      }
     }
 
     if (permissionStore.getIsDynamicAddedRoute) {

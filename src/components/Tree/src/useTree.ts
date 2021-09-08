@@ -8,7 +8,7 @@ import { forEach } from '/@/utils/helper/treeHelper';
 
 export function useTree(
   treeDataRef: Ref<TreeDataItem[]>,
-  getReplaceFields: ComputedRef<ReplaceFields>
+  getReplaceFields: ComputedRef<ReplaceFields>,
 ) {
   function getAllKeys(list?: TreeDataItem[]) {
     const keys: string[] = [];

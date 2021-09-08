@@ -8,7 +8,7 @@ export function useLoading(props: ComputedRef<BasicTableProps>) {
     () => unref(props).loading,
     (loading) => {
       loadingRef.value = loading;
-    }
+    },
   );
 
   const getLoading = computed(() => unref(loadingRef));

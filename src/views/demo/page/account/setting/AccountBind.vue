@@ -14,7 +14,7 @@
               </a-button>
             </template>
             <template #description>
-              <div>{{ item.description }} </div>
+              <div>{{ item.description }}</div>
             </template>
           </ListItemMeta>
         </ListItem>

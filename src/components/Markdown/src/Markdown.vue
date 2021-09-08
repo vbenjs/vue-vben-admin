@@ -2,6 +2,7 @@
   <div ref="wrapRef"></div>
 </template>
 <script lang="ts">
+  import type { Ref } from 'vue';
   import {
     defineComponent,
     ref,
@@ -30,7 +31,7 @@
     emits: ['change', 'get', 'update:value'],
     setup(props, { attrs, emit }) {
       const wrapRef = ref<ElRef>(null);
-      const vditorRef = ref<Nullable<Vditor>>(null);
+      const vditorRef = ref(null) as Ref<Nullable<Vditor>>;
       const initedRef = ref(false);
 
       const modalFn = useModalContext();
@@ -51,7 +52,7 @@
         {
           immediate: true,
           flush: 'post',
-        }
+        },
       );
 
       watch(
@@ -61,7 +62,7 @@
             instance.getVditor()?.setValue(v);
           }
           valueRef.value = v;
-        }
+        },
       );
 
       const getCurrentLang = computed((): 'zh_CN' | 'en_US' | 'ja_JP' | 'ko_KR' => {
@@ -89,6 +90,9 @@
           theme: getDarkMode.value === 'dark' ? 'dark' : 'classic',
           lang: unref(getCurrentLang),
           mode: 'sv',
+          fullscreen: {
+            index: 520,
+          },
           preview: {
             actions: [],
           },

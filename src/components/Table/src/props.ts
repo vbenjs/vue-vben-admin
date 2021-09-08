@@ -126,4 +126,14 @@ export const basicProps = {
     type: Object as PropType<{ x: number | true; y: number }>,
     default: null,
   },
+  beforeEditSubmit: {
+    type: Function as PropType<
+      (data: {
+        record: Recordable;
+        index: number;
+        key: string | number;
+        value: any;
+      }) => Promise<any>
+    >,
+  },
 };

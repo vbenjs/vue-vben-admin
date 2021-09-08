@@ -31,7 +31,7 @@
     setup(props) {
       const { prefixCls } = useDesign('setting-input-number-item');
 
-      function handleChange(e: ChangeEvent) {
+      function handleChange(e) {
         props.event && baseHandler(props.event, e);
       }
       return {

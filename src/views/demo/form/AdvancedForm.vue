@@ -12,7 +12,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container/index';
+  import { CollapseContainer } from '/@/components/Container';
   import { PageWrapper } from '/@/components/Page';
 
   const getSchamas = (): FormSchema[] => {
@@ -173,7 +173,12 @@
       }
       const [register1] = useForm({
         labelWidth: 120,
-        schemas: [...getSchamas(), ...getAppendSchemas(), ...extraSchemas],
+        schemas: [
+          ...getSchamas(),
+          ...getAppendSchemas(),
+          { field: '', component: 'Divider', label: '更多字段' },
+          ...extraSchemas,
+        ],
         actionColOptions: {
           span: 24,
         },

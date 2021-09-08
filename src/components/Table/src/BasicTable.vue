@@ -10,7 +10,7 @@
       @advanced-change="redoHeight"
     >
       <template #[replaceFormSlotKey(item)]="data" v-for="item in getFormSlotKeys">
-        <slot :name="item" v-bind="data"></slot>
+        <slot :name="item" v-bind="data || {}"></slot>
       </template>
     </BasicForm>
 
@@ -111,7 +111,7 @@
         unref(isFixedHeightPage) &&
           props.canResize &&
           warn(
-            "'canResize' of BasicTable may not work in PageWrapper with 'fixedHeight' (especially in hot updates)"
+            "'canResize' of BasicTable may not work in PageWrapper with 'fixedHeight' (especially in hot updates)",
           );
       });
 
@@ -141,6 +141,8 @@
         getRawDataSource,
         setTableData,
         updateTableDataRecord,
+        deleteTableDataRecord,
+        insertTableDataRecord,
         findTableDataRecord,
         fetch,
         getRowKey,
@@ -157,7 +159,7 @@
           getFieldsValue: formActions.getFieldsValue,
           clearSelectedRowKeys,
         },
-        emit
+        emit,
       );
 
       function handleTableChange(...args) {
@@ -182,7 +184,7 @@
         tableElRef,
         getColumnsRef,
         getRowSelectionRef,
-        getDataSourceRef
+        getDataSourceRef,
       );
 
       const { customRow } = useCustomRow(getProps, {
@@ -211,7 +213,7 @@
         getProps,
         getScrollRef,
         tableElRef,
-        getDataSourceRef
+        getDataSourceRef,
       );
 
       const { getFormProps, replaceFormSlotKey, getFormSlotKeys, handleSearchInfoChange } =
@@ -279,6 +281,8 @@
         setPagination,
         setTableData,
         updateTableDataRecord,
+        deleteTableDataRecord,
+        insertTableDataRecord,
         findTableDataRecord,
         redoHeight,
         setSelectedRowKeys,
@@ -320,7 +324,7 @@
         wrapRef,
         tableAction,
         redoHeight,
-        getFormProps,
+        getFormProps: getFormProps as any,
         replaceFormSlotKey,
         getFormSlotKeys,
         getWrapperClass,
@@ -333,6 +337,13 @@
   @border-color: #cecece4d;
 
   @prefix-cls: ~'@{namespace}-basic-table';
+
+  [data-theme='dark'] {
+    .ant-table-tbody > tr:hover.ant-table-row-selected > td,
+    .ant-table-tbody > tr.ant-table-row-selected td {
+      background-color: #262626;
+    }
+  }
 
   .@{prefix-cls} {
     max-width: 100%;
@@ -413,7 +424,7 @@
 
       .ant-table-body {
         overflow-x: hidden !important;
-        overflow-y: scroll !important;
+        //  overflow-y: scroll !important;
       }
 
       td {

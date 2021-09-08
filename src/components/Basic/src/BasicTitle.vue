@@ -4,13 +4,13 @@
     <BasicHelp :class="`${prefixCls}-help`" v-if="helpMessage" :text="helpMessage" />
   </span>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
   import type { PropType } from 'vue';
-  import { defineComponent, computed } from 'vue';
+  import { useSlots, computed } from 'vue';
   import BasicHelp from './BasicHelp.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
 
-  const props = {
+  const props = defineProps({
     /**
      * Help text list or string
      * @default: ''
@@ -29,24 +29,15 @@
      * @default: false
      */
     normal: { type: Boolean },
-  };
-
-  export default defineComponent({
-    name: 'BasicTitle',
-    components: { BasicHelp },
-    props,
-    setup(props, { slots }) {
-      const { prefixCls } = useDesign('basic-title');
-
-      const getClass = computed(() => [
-        prefixCls,
-        { [`${prefixCls}-show-span`]: props.span && slots.default },
-        { [`${prefixCls}-normal`]: props.normal },
-      ]);
-
-      return { prefixCls, getClass };
-    },
   });
+
+  const { prefixCls } = useDesign('basic-title');
+  const slots = useSlots();
+  const getClass = computed(() => [
+    prefixCls,
+    { [`${prefixCls}-show-span`]: props.span && slots.default },
+    { [`${prefixCls}-normal`]: props.normal },
+  ]);
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-basic-title';

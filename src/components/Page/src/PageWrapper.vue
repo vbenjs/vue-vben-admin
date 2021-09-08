@@ -61,6 +61,7 @@
       contentFullHeight: propTypes.bool,
       contentClass: propTypes.string,
       fixedHeight: propTypes.bool,
+      upwardSpace: propTypes.oneOfType([propTypes.number, propTypes.string]).def(0),
     },
     setup(props, { slots, attrs }) {
       const wrapperRef = ref(null);
@@ -71,18 +72,20 @@
 
       provide(
         PageWrapperFixedHeightKey,
-        computed(() => props.fixedHeight)
+        computed(() => props.fixedHeight),
       );
 
       const getIsContentFullHeight = computed(() => {
         return props.contentFullHeight;
       });
 
+      const getUpwardSpace = computed(() => props.upwardSpace);
       const { redoHeight, setCompensation, contentHeight } = useContentHeight(
         getIsContentFullHeight,
         wrapperRef,
         [headerRef, footerRef],
-        [contentRef]
+        [contentRef],
+        getUpwardSpace,
       );
       setCompensation({ useLayoutFooter: true, elements: [footerRef] });
 
@@ -135,7 +138,7 @@
         {
           flush: 'post',
           immediate: true,
-        }
+        },
       );
 
       return {

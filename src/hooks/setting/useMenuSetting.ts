@@ -54,7 +54,7 @@ export function useMenuSetting() {
   const getTopMenuAlign = computed(() => appStore.getMenuSetting.topMenuAlign);
 
   const getCloseMixSidebarOnChange = computed(
-    () => appStore.getMenuSetting.closeMixSidebarOnChange
+    () => appStore.getMenuSetting.closeMixSidebarOnChange,
   );
 
   const getIsSidebarType = computed(() => unref(getMenuType) === MenuTypeEnum.SIDEBAR);

@@ -225,7 +225,7 @@
               span: 8,
             },
           },
-          'field3'
+          'field3',
         );
       }
       function deleteField() {

@@ -75,7 +75,7 @@
         items,
         accordion,
         mixSider,
-        collapse
+        collapse,
       );
 
       const getBindValues = computed(() => ({ ...attrs, ...props }));
@@ -89,7 +89,7 @@
             setOpenKeys(currentRoute.value.path);
           }
         },
-        { immediate: true }
+        { immediate: true },
       );
 
       watch(
@@ -100,7 +100,7 @@
           }
           setOpenKeys(currentRoute.value.path);
         },
-        { flush: 'post' }
+        { flush: 'post' },
       );
 
       listenerRouteChange((route) => {

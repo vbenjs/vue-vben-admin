@@ -45,7 +45,7 @@
               };
             });
         },
-        { immediate: true }
+        { immediate: true },
       );
 
       // 删除
@@ -56,7 +56,7 @@
           emit('delete', removed[0].url);
           emit(
             'list-change',
-            fileListRef.value.map((item) => item.url)
+            fileListRef.value.map((item) => item.url),
           );
         }
       }
@@ -80,8 +80,8 @@
         register,
         closeModal,
         fileListRef,
-        columns: createPreviewColumns(),
-        actionColumn: createPreviewActionColumn({ handleRemove, handleDownload }),
+        columns: createPreviewColumns() as any[],
+        actionColumn: createPreviewActionColumn({ handleRemove, handleDownload }) as any,
       };
     },
   });

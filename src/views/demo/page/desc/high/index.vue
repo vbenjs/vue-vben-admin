@@ -27,7 +27,10 @@
       <a-card title="流程进度" :bordered="false">
         <a-steps :current="1" progress-dot size="small">
           <a-step title="创建项目">
-            <template #description> <div>Vben</div> <p>2016-12-12 12:32</p> </template>
+            <template #description>
+              <div>Vben</div>
+              <p>2016-12-12 12:32</p>
+            </template>
           </a-step>
           <a-step title="部门初审">
             <template #description>

@@ -56,15 +56,15 @@
       const { prefixCls } = useDesign('basic-menu');
       const { items, mode, accordion } = toRefs(props);
 
-      const { getCollapsed, getIsHorizontal, getTopMenuAlign, getSplit } = useMenuSetting();
+      const { getCollapsed, getTopMenuAlign, getSplit } = useMenuSetting();
 
       const { currentRoute } = useRouter();
 
       const { handleOpenChange, setOpenKeys, getOpenKeys } = useOpenKeys(
         menuState,
         items,
-        mode,
-        accordion
+        mode as any,
+        accordion,
       );
 
       const getIsTopMenu = computed(() => {
@@ -114,7 +114,7 @@
           () => props.items,
           () => {
             handleMenuChange();
-          }
+          },
         );
 
       async function handleMenuClick({ key }: { key: string; keyPath: string[] }) {
@@ -126,9 +126,6 @@
         emit('menuClick', key);
 
         isClickGo.value = true;
-        // const parentPath = await getCurrentParentPath(key);
-
-        // menuState.openKeys = [parentPath];
         menuState.selectedKeys = [key];
       }
 
@@ -150,8 +147,6 @@
       }
 
       return {
-        prefixCls,
-        getIsHorizontal,
         handleMenuClick,
         getInlineCollapseOptions,
         getMenuClass,
