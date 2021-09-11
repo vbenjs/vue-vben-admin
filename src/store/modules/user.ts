@@ -15,6 +15,7 @@ import { usePermissionStore } from '/@/store/modules/permission';
 import { RouteRecordRaw } from 'vue-router';
 import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
 import { isArray } from '/@/utils/is';
+import { h } from 'vue';
 
 interface UserState {
   userInfo: Nullable<UserInfo>;
@@ -64,7 +65,7 @@ export const useUserStore = defineStore({
       this.roleList = roleList;
       setAuthCache(ROLES_KEY, roleList);
     },
-    setUserInfo(info: UserInfo) {
+    setUserInfo(info: UserInfo | null) {
       this.userInfo = info;
       this.lastUpdateTime = new Date().getTime();
       setAuthCache(USER_INFO_KEY, info);
@@ -117,11 +118,12 @@ export const useUserStore = defineStore({
           router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
           permissionStore.setDynamicAddedRoute(true);
         }
-        goHome && (await router.replace(userInfo.homePath || PageEnum.BASE_HOME));
+        goHome && (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
       }
       return userInfo;
     },
-    async getUserInfoAction(): Promise<UserInfo> {
+    async getUserInfoAction(): Promise<UserInfo | null> {
+      if (!this.getToken) return null;
       const userInfo = await getUserInfo();
       const { roles = [] } = userInfo;
       if (isArray(roles)) {
@@ -138,7 +140,7 @@ export const useUserStore = defineStore({
      * @description: logout
      */
     async logout(goLogin = false) {
-      if (this.token) {
+      if (this.getToken) {
         try {
           await doLogout();
         } catch {
@@ -147,6 +149,7 @@ export const useUserStore = defineStore({
       }
       this.setToken(undefined);
       this.setSessionTimeout(false);
+      this.setUserInfo(null);
       goLogin && router.push(PageEnum.BASE_LOGIN);
     },
 
@@ -158,8 +161,8 @@ export const useUserStore = defineStore({
       const { t } = useI18n();
       createConfirm({
         iconType: 'warning',
-        title: t('sys.app.logoutTip'),
-        content: t('sys.app.logoutMessage'),
+        title: () => h('span', t('sys.app.logoutTip')),
+        content: () => h('span', t('sys.app.logoutMessage')),
         onOk: async () => {
           await this.logout(true);
         },
