@@ -20,6 +20,10 @@
   import { optionsListApi } from '/@/api/demo/select';
 
   import { demoListApi } from '/@/api/demo/table';
+  import { treeOptionsListApi } from '/@/api/demo/tree';
+  import { cloneDeep } from 'lodash-es';
+  import { useMessage } from '/@/hooks/web/useMessage';
+
   const columns: BasicColumn[] = [
     {
       title: '输入框',
@@ -80,6 +84,10 @@
             label: 'Option2',
             value: '2',
           },
+          {
+            label: 'Option3',
+            value: '3',
+          },
         ],
       },
       width: 200,
@@ -91,6 +99,21 @@
       editComponent: 'ApiSelect',
       editComponentProps: {
         api: optionsListApi,
+        resultField: 'list',
+        labelField: 'name',
+        valueField: 'id',
+      },
+      width: 200,
+    },
+    {
+      title: '远程下拉树',
+      dataIndex: 'name8',
+      editRow: true,
+      editComponent: 'ApiTreeSelect',
+      editRule: false,
+      editComponentProps: {
+        api: treeOptionsListApi,
+        resultField: 'list',
       },
       width: 200,
     },
@@ -141,8 +164,8 @@
   export default defineComponent({
     components: { BasicTable, TableAction },
     setup() {
+      const { createMessage: msg } = useMessage();
       const currentEditKeyRef = ref('');
-
       const [registerTable] = useTable({
         title: '可编辑行示例',
         titleHelpMessage: [
@@ -151,6 +174,8 @@
         api: demoListApi,
         columns: columns,
         showIndexColumn: false,
+        showTableSetting: true,
+        tableSetting: { fullScreen: true },
         actionColumn: {
           width: 160,
           title: 'Action',
@@ -170,9 +195,26 @@
       }
 
       async function handleSave(record: EditRecordRow) {
-        const pass = await record.onEdit?.(false, true);
-        if (pass) {
-          currentEditKeyRef.value = '';
+        // 校验
+        msg.loading({ content: '正在保存...', duration: 0, key: 'saving' });
+        const valid = await record.onValid?.();
+        if (valid) {
+          try {
+            const data = cloneDeep(record.editValueRefs);
+            console.log(data);
+            //TODO 此处将数据提交给服务器保存
+            // ...
+            // 保存之后提交编辑状态
+            const pass = await record.onEdit?.(false, true);
+            if (pass) {
+              currentEditKeyRef.value = '';
+            }
+            msg.success({ content: '数据已保存', key: 'saving' });
+          } catch (error) {
+            msg.error({ content: '保存失败', key: 'saving' });
+          }
+        } else {
+          msg.error({ content: '请填写正确的数据', key: 'saving' });
         }
       }
 

@@ -1,3 +1,216 @@
+## 2.7.2(2021-09-14)
+
+### ✨ Features
+
+- **BasicForm** 表单组件新增`Divider`，用于较长表单的区域分割
+- **BasicTable**
+  - 单元格编辑新增提交回调，将根据回调函数返回的结果来决定是否将数据提交到表格
+  - 行编辑添加校验方法，允许只校验而不提交值，以便异步保存数据成功后才提交倒表格
+  - 修复`rowClassName`属性无法和`striped`同时使用的问题
+- 新增组件 **MarkdownViewer** 用于显示 Markdown 格式的富文本
+
+### 🐛 Bug Fixes
+
+- **CodeEditor** 修复 JSON 编辑器在格式化无效 JSON 文本时会抛出异常的问题
+- **Tinymce** 修复 inline 模式在一些场景下会出现异常的问题
+- **BasicTable**
+  - 修复可编辑单元格的内容为空时，不会显示编辑图标的问题
+  - 修复表尾合计行与表格主体部分的列有时候未能对齐的问题
+- **MarkDown** 修复初始 value 属性的值不起作用的问题
+- **BasicUpload** 修复`accept`属性不支持`MIME`及点开头的后缀名的问题
+- **ApiSelect** 修复`value`属性的类型定义问题
+- **其它**
+  - 修复部分封装组件在使用插槽时报错的问题
+  - 修复`useECharts`的`theme`参数不起作用的问题
+  - 修复`Token`失效时，按 F5 刷新页面可能会出现页面加载异常的问题
+  - 修复`useRedo`的不当调用可能会导致重定向`path`异常的问题
+  - 修复`vite`自定义模式名称不支持下划线的问题
+
+## 2.7.1(2021-08-16)
+
+- 升级 vue 3.2,如果运行失败，删除 node_modules 后重装即可
+
+### ✨ Features
+
+- **BasicTree** 添加搜索功能相关属性和方法
+- **BasicForm** 新增`alwaysShowLines`用于设置折叠时保留显示的行数
+
+### 🐛 Bug Fixes
+
+- **Cropper** 修复未能及时销毁的问题
+- **BasicTable**
+  - 修复`CellFormat`无法使用`Map`类型数据的问题
+  - 修复可编辑单元格未能正确显示`0`值的问题
+  - 修复 selection-change 事件在取消勾选时未能正确触发的问题
+  - 修复浅色主题下的全屏状态背景颜色不正确的问题
+  - 修复`getSelectRows`不支持远程数据跨页选择时获取完整数据的问题
+  - 修复在`editComponentProps`中为编辑组件提供的`size`属性无效的问题
+- **Qrcode** 修复二维码组件在创建时未能及时绘制的问题
+- **BasicModal** 修复`helpMessage`属性不起作用的问题
+- **BasicButton** 修复按钮样式表现与 antd 官方不一致的问题
+- **其它** 修复`useRedo`(重新加载当前路由)会丢失路由`params`数据的问题
+
+## 2.7.0(2021-08-03)
+
+## (破坏性更新) Breaking changes
+
+- 将项目`tailwindcss`还原回`windicss`，尝试了`tailwindcss`，问题可能还挺多，先切换回`windicss`提高开发效率，切换成本较低。
+  - 目前项目不兼容地方有
+    - `xl:!m-4` 之类的写法需要改为`!xl:m-4`,注意只有`!`这个不兼容，没用到则不用改
+    - 内存溢出问题可能还在（频率低，重启下即可，重启 vite 较快）
+
+### ✨ Features
+
+- **Preview** 添加新的属性及事件
+- **Dark Theme** 新增对 tailwindcss 夜间模式的支持
+- **其它** 为 useLoading 添加 setTip 方法
+
+### 🐛 Bug Fixes
+
+- **ApiTreeSelect** 修复未能正确监听`params`变化的问题
+- **ImgRotateDragVerify** 修复组件`resume`方法无法调用的问题
+- **TableAction** 修复 stopButtonPropagation 属性某些情况下不起作用的问题
+- **PageWrapper** 修复`class`属性无效的问题
+- **BasicTree** 修复`checkAll`方法会影响到`disabled`状态节点的问题
+- **BasicTable**
+  - 修复可编辑单元格不支持`ellipsis`配置的问题
+  - 修复全屏模式下看不到子组件弹出层（popconfirm 以及 select、treeSelect 等编辑组件）的问题
+  - 修复启用`expandRowByClick`时，点击不可展开的行可能会导致样式错误的问题
+  - 修复`pagination`属性动态改变不生效的问题
+  - 修复`getSelectRows`不支持树形表格子级数据的问题
+- **Dark Theme** 黑暗主题下的配色问题修正
+  - 修复`Tree`组件被选中节点的背景颜色
+  - 修复`Alert`组件的颜色配置
+  - 修复禁用状态下的`link`类型的按钮颜色问题
+  - 修复`Tree`已勾选的复选框的样式问题
+- **其它** 修复 useScript 未能自动移除 script 节点的问题
+
+## 2.6.1(2021-07-19)
+
+### ✨ Features
+
+- **NoticeList** 添加分页、超长自动省略、标题点击事件、标题删除线等功能
+- **MixSider** 优化 Mix 菜单布局时 底部折叠按钮 的样式，与其它菜单布局时的风格保持一致
+- **ApiTreeSelect** 扩展`antdv`的`TreeSelect`组件，支持远程数据源，用法类似`ApiSelect`
+- **BasicTable**
+  - 新增`ApiTreeSelect`编辑组件
+  - 新增`headerTop`插槽
+- **其它** 可以为不同的用户指定不同的后台首页：
+  - 在`getUserInfo`接口返回的用户信息中增加`homePath`字段(可选)即可为当前用户定制首页路径
+
+### 🐛 Bug Fixes
+
+- **BasicTable**
+  - 修复滚动条样式问题(移除了滚动样式补丁)
+  - 修复树形表格的带有展开图标的单元格的内容对齐问题
+  - 修复操作列的按钮在 disabled 状态下的颜色显示
+  - 修复可编辑单元格的值不能直接通过修改`dataSource`来更新显示的问题
+  - 修复使用`ApiSelect`编辑组件时的数据回显问题
+  - 修复在部分场景下编辑组件可能会报`onXXX`类型错误的问题
+- **TableAction**
+  - 仅在 `action.tooltip`存在的情况下 才创建 Tooltip 组件
+  - 修复组件内的圆形按钮内容没有居中的问题
+- **AppSearch** 修复可能会搜索隐藏菜单的问题
+- **BasicUpload** 修复处理非`array`值时报错的问题
+- **Form** 修复`FormItem`的`suffix`插槽样式问题
+- **Menu**
+  - 修复左侧混合菜单的悬停触发逻辑
+  - 修复顶栏菜单在显示包含需要隐藏的菜单项目时出错的问题
+  - 修复悬停触发模式下左侧混合菜单会在没有子菜单且被激活时直接跳转路由
+- **Breadcrumb** 修复带有重定向的菜单点击无法跳转的问题
+- **Markdown** 修复初始化异常以及不能正确地动态设置 value 的问题
+- **Modal** 确保 props 正确被传递
+- **MultipleTab** 修复可能会意外创建登录路由标签的问题
+- **BasicTree** 修复搜索功能可能导致`checkedKeys`丢失的问题
+- **CodeEditor** 修复 value 不支持 v-model 用法的问题
+- **CountdownInput** 修复不支持`input`插槽的问题
+- **ApiSelect** 修复`options-change`事件参数不是`select`所使用的标准`options`数据的问题
+- **其它**
+  - 修复菜单默认折叠的配置不起作用的问题
+  - 修复`safari`浏览器报错导致网站打不开
+  - 修复在 window 上，拉取代码后 eslint 因 endOfLine 而报错问题
+  - 修复因动态路由而产生的 `Vue Router warn`
+
+### 🎫 Chores
+
+- 添加 test 环境测试命令
+
+## 2.6.0(2021-07-04)
+
+### ✨ Features
+
+- **Axios** 新增`withToken`配置，用于控制请求是否携带 token
+- **BasicUpload**
+  - 新增在预览 `Modal` 中删除文件时触发`preview-delete` 事件
+  - `value` 支持 `v-model` 用法
+- **Route 配置**
+  - 增加`ignoreRoute`用于在`ROUTE_MAPPING`或`BACK`权限模式下仅生成菜单
+  - 增加`hidePathForChildren`配置，标识为子项目生成菜单时忽略本级`path`
+- **TableAction** 新增`tooltip`配置，可以为按钮增加 tooltip 提示
+- **CropperAvatar**
+  - 新增`value`用于设置当前头像
+  - 新增`onChange`用于接受头像剪裁并上传成功事件
+  - 新增`btnText`、`btnProps` 用于自定义上传按钮文案和属性
+  - 为剪裁`Modal`内的操作按钮添加工具提示
+- **Modal** 为右上角的操作按钮添加工具提示
+
+### 🐛 Bug Fixes
+
+- **Modal**
+  - 修复点击遮罩不能关闭的问题
+  - 修复 `setModalProps` 不支持设置 `defaultFullscreen` 的问题
+- **Table**
+  - 修复 `editComponentProps` 不支持 `onChange`的问题
+  - 修复启用`clickToRowSelect`时，点击行不会触发`selection-change`事件的问题
+  - 修复全局配置`fetchSetting`可能会被局部配置意外修改的问题
+  - 修复`handleSearchInfoFn`的参数包含多余空白键的问题
+  - 修复为 table 提供 rowSelection.onChange 时，无法手动变更 table 的选中项的问题
+  - 修复滚动条在无需显示的时候仍然持续显示的问题
+- **Icon** 修复 SvgIcon 缺少部分样式的问题
+- **Menu**
+  - 修复路由映射模式下，单级菜单刷新不会激活
+  - 修复侧边菜单底部的折叠自定义失效的问题
+- **Form** 修复`submitButtonOptions`和`resetButtonOptions`的类型定义
+- **PopConfirmButton** 移除`Button`上多余的`title`
+- **Axios** 修复非`GET`请求时，无法同时提交`params`和`data`数据的问题
+- **其它**
+  - 修复锁屏功能可以通过刷新页面或复制 URL 打开新的浏览器标签来跳过锁定状态的问题
+  - 修复多个窗口同时打开页面时，`Token` 不会同步的问题
+  - 修复`ROLE`权限模式下`hasPermission`不工作的问题
+- **Table** 修复`handleSearchInfoFn`的参数包含多余空白键的问题
+- **Tailwindcss** 移除控制台警告
+
+## 2.5.2(2021-06-27)
+
+### ⚡ Performance Improvements
+
+- **Icon** 移除 Icon 组件全局注册，防止特定情况下热更新问题
+
+### ✨ Features
+
+- **Menu** 新增 `permissionMode=PermissionModeEnum.ROUTE_MAPPING`模式
+  - 项目默认改为该模式，删除原有菜单文件
+  - 如果之前已经写好了菜单，可以更改为`PermissionModeEnum.ROLE`模式即可
+
+### 🐛 Bug Fixes
+
+- **Drawer** 修复`visible`状态异常
+
+## 2.5.1(2021-06-26)
+
+### ⚡ Performance Improvements
+
+- 升级`vue`与`ant-design-vue`版本，解决兼容问题
+- **Tree** 性能优化
+
+### 🐛 Bug Fixes
+
+- **Table** 修复分页抖动问题
+- **Upload** 确保携带自定义参数
+- **Dropdown** 修复 popConfirm 的图标显示问题
+- **Table** 修复树形表格的编辑事件不正常的问题
+- **Table** 修复当表格数据为空时，getDataSource 返回的值不是表格所使用的数据源的问题
+
 ## 2.5.0(2021-06-20)
 
 ## (破坏性更新) Breaking changes

@@ -25,7 +25,7 @@
     </ScrollContainer>
     <DrawerFooter v-bind="getProps" @close="onClose" @ok="handleOk" :height="getFooterHeight">
       <template #[item]="data" v-for="item in Object.keys($slots)">
-        <slot :name="item" v-bind="data"></slot>
+        <slot :name="item" v-bind="data || {}"></slot>
       </template>
     </DrawerFooter>
   </Drawer>
@@ -37,7 +37,6 @@
     defineComponent,
     ref,
     computed,
-    watchEffect,
     watch,
     unref,
     nextTick,
@@ -135,9 +134,13 @@
         return !!unref(getProps)?.loading;
       });
 
-      watchEffect(() => {
-        visibleRef.value = props.visible;
-      });
+      watch(
+        () => props.visible,
+        (newVal, oldVal) => {
+          if (newVal !== oldVal) visibleRef.value = newVal;
+        },
+        { deep: true },
+      );
 
       watch(
         () => visibleRef.value,
@@ -146,7 +149,7 @@
             emit('visible-change', visible);
             instance && drawerInstance.emitVisible?.(visible, instance.uid);
           });
-        }
+        },
       );
 
       // Cancel event
@@ -178,9 +181,9 @@
         onClose,
         t,
         prefixCls,
-        getMergeProps,
+        getMergeProps: getMergeProps as any,
         getScrollContentStyle,
-        getProps,
+        getProps: getProps as any,
         getLoading,
         getBindValues,
         getFooterHeight,

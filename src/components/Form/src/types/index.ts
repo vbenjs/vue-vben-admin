@@ -91,6 +91,7 @@ export type ComponentType =
   | 'Select'
   | 'ApiSelect'
   | 'TreeSelect'
+  | 'ApiTreeSelect'
   | 'RadioButtonGroup'
   | 'RadioGroup'
   | 'Checkbox'
@@ -108,4 +109,5 @@ export type ComponentType =
   | 'IconPicker'
   | 'Render'
   | 'Slider'
-  | 'Rate';
+  | 'Rate'
+  | 'Divider';

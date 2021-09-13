@@ -2,6 +2,7 @@ export {};
 
 declare module 'vue-router' {
   interface RouteMeta extends Record<string | number | symbol, unknown> {
+    orderNo?: number;
     // title
     title: string;
     // Whether to ignore permissions
@@ -32,5 +33,9 @@ declare module 'vue-router' {
     // Never show in menu
     hideMenu?: boolean;
     isLink?: boolean;
+    // only build for Menu
+    ignoreRoute?: boolean;
+    // Hide path for children
+    hidePathForChildren?: boolean;
   }
 }

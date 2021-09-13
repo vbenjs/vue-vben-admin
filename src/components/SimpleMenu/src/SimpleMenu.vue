@@ -21,10 +21,8 @@
   import type { MenuState } from './types';
   import type { Menu as MenuType } from '/@/router/types';
   import type { RouteLocationNormalizedLoaded } from 'vue-router';
-
   import { defineComponent, computed, ref, unref, reactive, toRefs, watch } from 'vue';
   import { useDesign } from '/@/hooks/web/useDesign';
-
   import Menu from './components/Menu.vue';
   import SimpleSubMenu from './SimpleSubMenu.vue';
   import { listenerRouteChange } from '/@/logics/mitt/routeChange';
@@ -77,7 +75,7 @@
         items,
         accordion,
         mixSider,
-        collapse
+        collapse,
       );
 
       const getBindValues = computed(() => ({ ...attrs, ...props }));
@@ -91,7 +89,7 @@
             setOpenKeys(currentRoute.value.path);
           }
         },
-        { immediate: true }
+        { immediate: true },
       );
 
       watch(
@@ -102,7 +100,7 @@
           }
           setOpenKeys(currentRoute.value.path);
         },
-        { flush: 'post' }
+        { flush: 'post' },
       );
 
       listenerRouteChange((route) => {
@@ -123,6 +121,7 @@
           return;
         }
         const path = (route || unref(currentRoute)).path;
+
         menuState.activeName = path;
 
         setOpenKeys(path);

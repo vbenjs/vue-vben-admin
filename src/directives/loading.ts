@@ -15,7 +15,7 @@ const loadingDirective: Directive = {
         loading: !!binding.value,
         absolute: !fullscreen,
       },
-      fullscreen ? document.body : el
+      fullscreen ? document.body : el,
     );
     el.instance = instance;
   },

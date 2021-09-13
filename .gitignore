@@ -4,7 +4,8 @@ dist
 .npmrc
 .cache
 
-test/server/static
+tests/server/static
+tests/server/static/upload
 
 .local
 # local env files

@@ -1,41 +1,36 @@
-const colors = require('tailwindcss/colors');
+import colors from 'windicss/colors';
+import { defineConfig } from 'vite-plugin-windicss';
+import { primaryColor } from './build/config/themeConfig';
 
-module.exports = {
-  mode: 'jit',
-  // darkMode: 'class',
+export default defineConfig({
+  darkMode: 'class',
   plugins: [createEnterPlugin()],
-  purge: {
-    enabled: false,
-    content: ['./index.html', './src/**/*.{vue,ts,tsx}'],
-  },
   theme: {
     extend: {
       zIndex: {
         '-1': '-1',
       },
-    },
-    colors: {
-      ...colors,
-      primary: {
-        DEFAULT: '#0960bd',
-        // dark: primaryColorDark,
+      colors: {
+        ...colors,
+        primary: primaryColor,
+      },
+      screens: {
+        sm: '576px',
+        md: '768px',
+        lg: '992px',
+        xl: '1200px',
+        '2xl': '1600px',
       },
     },
-    screens: {
-      sm: '576px',
-      md: '768px',
-      lg: '992px',
-      xl: '1200px',
-      '2xl': '1600px',
-    },
   },
-};
+});
+
 /**
  * Used for animation when the element is displayed
  * @param maxOutput The larger the maxOutput output, the larger the generated css volume
  */
-function createEnterPlugin(maxOutput = 6) {
-  const createCss = (index, d = 'x') => {
+function createEnterPlugin(maxOutput = 8) {
+  const createCss = (index: number, d = 'x') => {
     const upd = d.toUpperCase();
     return {
       [`*> .enter-${d}:nth-child(${index})`]: {

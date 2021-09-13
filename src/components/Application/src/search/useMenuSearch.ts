@@ -55,7 +55,7 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
     }
     const reg = createSearchReg(unref(keyword));
     const filterMenu = filter(menuList, (item) => {
-      return reg.test(item.name);
+      return reg.test(item.name) && !item.hideMenu;
     });
     searchResult.value = handlerSearchResult(filterMenu, reg);
     activeIndex.value = 0;
@@ -64,15 +64,15 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, 
   function handlerSearchResult(filterMenu: Menu[], reg: RegExp, parent?: Menu) {
     const ret: SearchResult[] = [];
     filterMenu.forEach((item) => {
-      const { name, path, icon, children } = item;
-      if (reg.test(name) && !children?.length) {
+      const { name, path, icon, children, hideMenu, meta } = item;
+      if (!hideMenu && reg.test(name) && (!children?.length || meta?.hideChildrenInMenu)) {
         ret.push({
           name: parent?.name ? `${parent.name} > ${name}` : name,
           path,
           icon,
         });
       }
-      if (Array.isArray(children) && children.length) {
+      if (!meta?.hideChildrenInMenu && Array.isArray(children) && children.length) {
         ret.push(...handlerSearchResult(children, reg, item));
       }
     });

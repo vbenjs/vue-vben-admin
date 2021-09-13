@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="6395" height="1079" viewBox="0 0 6395 1079">
   <defs>
     <clipPath id="clip-path">
-      <rect id="Rectangle_73" data-name="Rectangle 73" width="6395" height="1079" transform="translate(-5391)" fill="#fff"/>
+      <rect  width="6395" height="1079" transform="translate(-5391)" fill="#fff"/>
     </clipPath>
     <linearGradient id="linear-gradient" x1="0.747" y1="0.222" x2="0.973" y2="0.807" gradientUnits="objectBoundingBox">
       <stop offset="0" stop-color="#2c41b4"/>

@@ -9,6 +9,7 @@ const comp: AppRouteModule = {
   component: LAYOUT,
   redirect: '/comp/basic',
   meta: {
+    orderNo: 30,
     icon: 'ion:layers-outline',
     title: t('routes.demo.comp.comp'),
   },
@@ -531,6 +532,14 @@ const comp: AppRouteModule = {
       component: () => import('/@/views/demo/comp/loading/index.vue'),
       meta: {
         title: t('routes.demo.comp.loading'),
+      },
+    },
+    {
+      path: 'cardList',
+      name: 'CardListDemo',
+      component: () => import('/@/views/demo/comp/card-list/index.vue'),
+      meta: {
+        title: t('routes.demo.comp.cardList'),
       },
     },
   ],

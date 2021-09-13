@@ -1,6 +1,6 @@
 <script lang="tsx">
   import type { MoveData, DragVerifyActionType } from './typing';
-  import { defineComponent, computed, unref, reactive, watch, ref, getCurrentInstance } from 'vue';
+  import { defineComponent, computed, unref, reactive, watch, ref } from 'vue';
   import { useTimeoutFn } from '/@/hooks/core/useTimeout';
   import BasicDragVerify from './DragVerify.vue';
   import { hackCss } from '/@/utils/domUtils';
@@ -8,11 +8,11 @@
   import { useI18n } from '/@/hooks/web/useI18n';
 
   export default defineComponent({
-    name: 'ImgRotateDargVerify',
+    name: 'ImgRotateDragVerify',
     inheritAttrs: false,
     props: rotateProps,
     emits: ['success', 'change', 'update:value'],
-    setup(props, { emit, attrs }) {
+    setup(props, { emit, attrs, expose }) {
       const basicRef = ref<Nullable<DragVerifyActionType>>(null);
       const state = reactive({
         showTip: false,
@@ -37,7 +37,7 @@
             emit('change', isPassing);
             emit('update:value', isPassing);
           }
-        }
+        },
       );
 
       const getImgWrapStyleRef = computed(() => {
@@ -65,7 +65,7 @@
         const { imgWidth, height, maxDegree } = props;
         const { moveX } = data;
         const currentRotate = Math.ceil(
-          (moveX / (imgWidth! - parseInt(height as string))) * maxDegree! * unref(getFactorRef)
+          (moveX / (imgWidth! - parseInt(height as string))) * maxDegree! * unref(getFactorRef),
         );
         state.currentRotate = currentRotate;
         state.imgStyle = hackCss('transform', `rotateZ(${state.randomRotate - currentRotate}deg)`);
@@ -112,10 +112,8 @@
         handleImgOnLoad();
       }
 
-      const instance = getCurrentInstance() as any;
-      if (instance) {
-        instance.resume = resume;
-      }
+      expose({ resume });
+
       // handleImgOnLoad();
       return () => {
         const { src } = props;
@@ -138,6 +136,7 @@
                 onClick={() => {
                   resume();
                 }}
+                alt="verify"
               />
               {state.showTip && (
                 <span class={[`ir-dv-img__tip`, state.isPassing ? 'success' : 'error']}>

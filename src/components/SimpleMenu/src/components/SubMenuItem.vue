@@ -286,7 +286,7 @@
             if (props.name && Array.isArray(data)) {
               state.opened = (data as (string | number)[]).includes(props.name);
             }
-          }
+          },
         );
 
         rootMenuEmitter.on('on-update-active-name:submenu', (data: number[]) => {

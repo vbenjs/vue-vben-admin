@@ -63,7 +63,7 @@ export class Memory<T = any, V = any> {
       () => {
         this.remove(key);
       },
-      expires > now ? expires - now : expires
+      expires > now ? expires - now : expires,
     );
 
     return value;

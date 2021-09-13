@@ -17,6 +17,16 @@
     <Alert message="内外数据交互" show-icon />
     <a-button type="primary" class="my-4" @click="send"> 打开弹窗并传递数据 </a-button>
 
+    <Alert message="使用动态组件的方式在页面内使用多个弹窗" show-icon />
+    <a-space>
+      <a-button type="primary" class="my-4" @click="openTargetModal(1)"> 打开弹窗1 </a-button>
+      <a-button type="primary" class="my-4" @click="openTargetModal(2)"> 打开弹窗2 </a-button>
+      <a-button type="primary" class="my-4" @click="openTargetModal(3)"> 打开弹窗3 </a-button>
+      <a-button type="primary" class="my-4" @click="openTargetModal(4)"> 打开弹窗4 </a-button>
+    </a-space>
+
+    <component :is="currentModal" v-model:visible="modalVisible" :userData="userData" />
+
     <Modal1 @register="register1" :minHeight="100" />
     <Modal2 @register="register2" />
     <Modal3 @register="register3" />
@@ -24,8 +34,8 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { Alert } from 'ant-design-vue';
+  import { defineComponent, shallowRef, ComponentOptions, ref, nextTick } from 'vue';
+  import { Alert, Space } from 'ant-design-vue';
   import { useModal } from '/@/components/Modal';
   import Modal1 from './Modal1.vue';
   import Modal2 from './Modal2.vue';
@@ -34,12 +44,16 @@
   import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
-    components: { Alert, Modal1, Modal2, Modal3, Modal4, PageWrapper },
+    components: { Alert, Modal1, Modal2, Modal3, Modal4, PageWrapper, ASpace: Space },
     setup() {
+      const currentModal = shallowRef<Nullable<ComponentOptions>>(null);
       const [register1, { openModal: openModal1 }] = useModal();
       const [register2, { openModal: openModal2 }] = useModal();
       const [register3, { openModal: openModal3 }] = useModal();
       const [register4, { openModal: openModal4 }] = useModal();
+      const modalVisible = ref<Boolean>(false);
+      const userData = ref<any>(null);
+
       function send() {
         openModal4(true, {
           data: 'content',
@@ -53,6 +67,31 @@
         //   setModalProps({ loading: false });
         // }, 2000);
       }
+
+      function openTargetModal(index) {
+        switch (index) {
+          case 1:
+            currentModal.value = Modal1;
+            break;
+          case 2:
+            currentModal.value = Modal2;
+            break;
+          case 3:
+            currentModal.value = Modal3;
+            break;
+          default:
+            currentModal.value = Modal4;
+            break;
+        }
+        nextTick(() => {
+          // `useModal` not working with dynamic component
+          // passing data through `userData` prop
+          userData.value = { data: Math.random(), info: 'Info222' };
+          // open the target modal
+          modalVisible.value = true;
+        });
+      }
+
       return {
         register1,
         openModal1,
@@ -62,7 +101,11 @@
         openModal3,
         register4,
         openModal4,
+        modalVisible,
+        userData,
+        openTargetModal,
         send,
+        currentModal,
         openModalLoading,
       };
     },

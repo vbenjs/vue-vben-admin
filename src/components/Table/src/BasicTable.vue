@@ -10,7 +10,7 @@
       @advanced-change="redoHeight"
     >
       <template #[replaceFormSlotKey(item)]="data" v-for="item in getFormSlotKeys">
-        <slot :name="item" v-bind="data"></slot>
+        <slot :name="item" v-bind="data || {}"></slot>
       </template>
     </BasicForm>
 
@@ -22,7 +22,7 @@
       @change="handleTableChange"
     >
       <template #[item]="data" v-for="item in Object.keys($slots)" :key="item">
-        <slot :name="item" v-bind="data"></slot>
+        <slot :name="item" v-bind="data || {}"></slot>
       </template>
 
       <template #[`header-${column.dataIndex}`] v-for="column in columns" :key="column.dataIndex">
@@ -39,9 +39,10 @@
     ColumnChangeParam,
   } from './types/table';
 
-  import { defineComponent, ref, computed, unref, toRaw } from 'vue';
+  import { defineComponent, ref, computed, unref, toRaw, inject, watchEffect } from 'vue';
   import { Table } from 'ant-design-vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
+  import { PageWrapperFixedHeightKey } from '/@/components/Page';
   import expandIcon from './components/ExpandIcon';
   import HeaderCell from './components/HeaderCell.vue';
   import { InnerHandlers } from './types/table';
@@ -64,6 +65,7 @@
   import { omit } from 'lodash-es';
   import { basicProps } from './props';
   import { isFunction } from '/@/utils/is';
+  import { warn } from '/@/utils/log';
 
   export default defineComponent({
     components: {
@@ -91,10 +93,10 @@
       'columns-change',
     ],
     setup(props, { attrs, emit, slots, expose }) {
-      const tableElRef = ref<ComponentRef>(null);
+      const tableElRef = ref(null);
       const tableData = ref<Recordable[]>([]);
 
-      const wrapRef = ref<Nullable<HTMLDivElement>>(null);
+      const wrapRef = ref(null);
       const innerPropsRef = ref<Partial<BasicTableProps>>();
 
       const { prefixCls } = useDesign('basic-table');
@@ -102,6 +104,15 @@
 
       const getProps = computed(() => {
         return { ...props, ...unref(innerPropsRef) } as BasicTableProps;
+      });
+
+      const isFixedHeightPage = inject(PageWrapperFixedHeightKey, false);
+      watchEffect(() => {
+        unref(isFixedHeightPage) &&
+          props.canResize &&
+          warn(
+            "'canResize' of BasicTable may not work in PageWrapper with 'fixedHeight' (especially in hot updates)",
+          );
       });
 
       const { getLoading, setLoading } = useLoading(getProps);
@@ -127,8 +138,12 @@
         handleTableChange: onTableChange,
         getDataSourceRef,
         getDataSource,
+        getRawDataSource,
         setTableData,
         updateTableDataRecord,
+        deleteTableDataRecord,
+        insertTableDataRecord,
+        findTableDataRecord,
         fetch,
         getRowKey,
         reload,
@@ -144,7 +159,7 @@
           getFieldsValue: formActions.getFieldsValue,
           clearSelectedRowKeys,
         },
-        emit
+        emit,
       );
 
       function handleTableChange(...args) {
@@ -169,7 +184,7 @@
         tableElRef,
         getColumnsRef,
         getRowSelectionRef,
-        getDataSourceRef
+        getDataSourceRef,
       );
 
       const { customRow } = useCustomRow(getProps, {
@@ -198,7 +213,7 @@
         getProps,
         getScrollRef,
         tableElRef,
-        getDataSourceRef
+        getDataSourceRef,
       );
 
       const { getFormProps, replaceFormSlotKey, getFormSlotKeys, handleSearchInfoChange } =
@@ -211,7 +226,7 @@
           // ...(dataSource.length === 0 ? { getPopupContainer: () => document.body } : {}),
           ...attrs,
           customRow,
-          expandIcon: expandIcon(),
+          expandIcon: slots.expandIcon ? null : expandIcon(),
           ...unref(getProps),
           ...unref(getHeaderProps),
           scroll: unref(getScrollRef),
@@ -266,11 +281,15 @@
         setPagination,
         setTableData,
         updateTableDataRecord,
+        deleteTableDataRecord,
+        insertTableDataRecord,
+        findTableDataRecord,
         redoHeight,
         setSelectedRowKeys,
         setColumns,
         setLoading,
         getDataSource,
+        getRawDataSource,
         setProps,
         getRowSelection,
         getPaginationRef: getPagination,
@@ -305,7 +324,7 @@
         wrapRef,
         tableAction,
         redoHeight,
-        getFormProps,
+        getFormProps: getFormProps as any,
         replaceFormSlotKey,
         getFormSlotKeys,
         getWrapperClass,
@@ -318,6 +337,13 @@
   @border-color: #cecece4d;
 
   @prefix-cls: ~'@{namespace}-basic-table';
+
+  [data-theme='dark'] {
+    .ant-table-tbody > tr:hover.ant-table-row-selected > td,
+    .ant-table-tbody > tr.ant-table-row-selected td {
+      background-color: #262626;
+    }
+  }
 
   .@{prefix-cls} {
     max-width: 100%;
@@ -376,9 +402,9 @@
         align-items: center;
       }
 
-      .ant-table-tbody > tr.ant-table-row-selected td {
-        background-color: fade(@primary-color, 8%) !important;
-      }
+      //.ant-table-tbody > tr.ant-table-row-selected td {
+      //background-color: fade(@primary-color, 8%) !important;
+      //}
     }
 
     .ant-pagination {
@@ -398,7 +424,7 @@
 
       .ant-table-body {
         overflow-x: hidden !important;
-        overflow-y: scroll !important;
+        //  overflow-y: scroll !important;
       }
 
       td {

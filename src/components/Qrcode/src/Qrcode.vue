@@ -4,7 +4,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, watchEffect, PropType, ref, unref } from 'vue';
+  import { defineComponent, watch, PropType, ref, unref, onMounted } from 'vue';
   import { toCanvas, QRCodeRenderersOptions, LogoType } from './qrcodePlus';
   import { toDataURL } from 'qrcode';
   import { downloadByUrl } from '/@/utils/file/download';
@@ -93,11 +93,18 @@
         });
       }
 
-      watchEffect(() => {
-        setTimeout(() => {
+      onMounted(createQrcode);
+
+      // 监听参数变化重新生成二维码
+      watch(
+        props,
+        () => {
           createQrcode();
-        }, 30);
-      });
+        },
+        {
+          deep: true,
+        },
+      );
 
       return { wrapRef, download };
     },

@@ -8,10 +8,10 @@
     @visible-change="handleShow"
   >
     <template #insertFooter>
-      <a-button type="danger" @click="setLines" :disabled="loading">点我更新内容</a-button>
+      <a-button type="primary" danger @click="setLines" :disabled="loading">点我更新内容</a-button>
     </template>
     <template v-if="loading">
-      <div class="empty-tips"> 加载中，稍等3秒…… </div>
+      <div class="empty-tips">加载中，稍等3秒……</div>
     </template>
     <template v-if="!loading">
       <ul>
@@ -34,7 +34,7 @@
         () => lines.value,
         () => {
           redoModalHeight();
-        }
+        },
       );
 
       function handleShow(visible: boolean) {

@@ -2,7 +2,7 @@ import { isFunction, isUnDef } from '/@/utils/is';
 import { ref, unref } from 'vue';
 
 export interface ScrollToParams {
-  el: HTMLElement;
+  el: any;
   to: number;
   duration?: number;
   callback?: () => any;

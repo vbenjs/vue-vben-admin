@@ -40,13 +40,14 @@ export function useDataSource(
     clearSelectedRowKeys,
     tableData,
   }: ActionType,
-  emit: EmitType
+  emit: EmitType,
 ) {
   const searchState = reactive<SearchState>({
     sortInfo: {},
     filterInfo: {},
   });
   const dataSourceRef = ref<Recordable[]>([]);
+  const rawDataSourceRef = ref<Recordable>({});
 
   watchEffect(() => {
     tableData.value = unref(dataSourceRef);
@@ -60,13 +61,13 @@ export function useDataSource(
     },
     {
       immediate: true,
-    }
+    },
   );
 
   function handleTableChange(
     pagination: PaginationProps,
     filters: Partial<Recordable<string[]>>,
-    sorter: SorterResult
+    sorter: SorterResult,
   ) {
     const { clearSelectOnPageChange, sortFn, filterFn } = unref(propsRef);
     if (clearSelectOnPageChange) {
@@ -113,7 +114,7 @@ export function useDataSource(
   const getDataSourceRef = computed(() => {
     const dataSource = unref(dataSourceRef);
     if (!dataSource || dataSource.length === 0) {
-      return [];
+      return unref(dataSourceRef);
     }
     if (unref(getAutoCreateKey)) {
       const firstItem = dataSource[0];
@@ -147,26 +148,78 @@ export function useDataSource(
 
   function updateTableDataRecord(
     rowKey: string | number,
-    record: Recordable
+    record: Recordable,
   ): Recordable | undefined {
-    if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
-    const rowKeyName = unref(getRowKey);
-    if (!rowKeyName) {
-      return;
-    }
-    const row = dataSourceRef.value.find((r) => {
-      if (typeof rowKeyName === 'function') {
-        return (rowKeyName(r) as string) === rowKey;
-      } else {
-        return Reflect.has(r, rowKeyName) && r[rowKeyName] === rowKey;
-      }
-    });
+    const row = findTableDataRecord(rowKey);
+
     if (row) {
       for (const field in row) {
         if (Reflect.has(record, field)) row[field] = record[field];
       }
       return row;
     }
+  }
+
+  function deleteTableDataRecord(record: Recordable | Recordable[]): Recordable | undefined {
+    if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
+    const records = !Array.isArray(record) ? [record] : record;
+    const recordIndex = records
+      .map((item) => dataSourceRef.value.findIndex((s) => s.key === item.key)) // 取序号
+      .filter((item) => item !== undefined)
+      .sort((a, b) => b - a); // 从大到小排序
+    for (const index of recordIndex) {
+      unref(dataSourceRef).splice(index, 1);
+      unref(propsRef).dataSource?.splice(index, 1);
+    }
+    setPagination({
+      total: unref(propsRef).dataSource?.length,
+    });
+    return unref(propsRef).dataSource;
+  }
+
+  function insertTableDataRecord(record: Recordable, index: number): Recordable | undefined {
+    if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
+    index = index ?? dataSourceRef.value?.length;
+    unref(dataSourceRef).splice(index, 0, record);
+    unref(propsRef).dataSource?.splice(index, 0, record);
+    return unref(propsRef).dataSource;
+  }
+
+  function findTableDataRecord(rowKey: string | number) {
+    if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
+
+    const rowKeyName = unref(getRowKey);
+    if (!rowKeyName) return;
+
+    const { childrenColumnName = 'children' } = unref(propsRef);
+
+    const findRow = (array: any[]) => {
+      let ret;
+      array.some(function iter(r) {
+        if (typeof rowKeyName === 'function') {
+          if ((rowKeyName(r) as string) === rowKey) {
+            ret = r;
+            return true;
+          }
+        } else {
+          if (Reflect.has(r, rowKeyName) && r[rowKeyName] === rowKey) {
+            ret = r;
+            return true;
+          }
+        }
+        return r[childrenColumnName] && r[childrenColumnName].some(iter);
+      });
+      return ret;
+    };
+
+    // const row = dataSourceRef.value.find(r => {
+    //   if (typeof rowKeyName === 'function') {
+    //     return (rowKeyName(r) as string) === rowKey
+    //   } else {
+    //     return Reflect.has(r, rowKeyName) && r[rowKeyName] === rowKey
+    //   }
+    // })
+    return findRow(dataSourceRef.value);
   }
 
   async function fetch(opt?: FetchParams) {
@@ -176,8 +229,9 @@ export function useDataSource(
     try {
       setLoading(true);
       const { pageField, sizeField, listField, totalField } = Object.assign(
+        {},
         FETCH_SETTING,
-        fetchSetting
+        fetchSetting,
       );
       let pageParams: Recordable = {};
 
@@ -203,10 +257,11 @@ export function useDataSource(
         ...(opt?.filterInfo ?? {}),
       };
       if (beforeFetch && isFunction(beforeFetch)) {
-        params = beforeFetch(params) || params;
+        params = (await beforeFetch(params)) || params;
       }
 
       const res = await api(params);
+      rawDataSourceRef.value = res;
 
       const isArrayResult = Array.isArray(res);
 
@@ -225,7 +280,7 @@ export function useDataSource(
       }
 
       if (afterFetch && isFunction(afterFetch)) {
-        resultItems = afterFetch(resultItems) || resultItems;
+        resultItems = (await afterFetch(resultItems)) || resultItems;
       }
       dataSourceRef.value = resultItems;
       setPagination({
@@ -259,6 +314,10 @@ export function useDataSource(
     return getDataSourceRef.value as T[];
   }
 
+  function getRawDataSource<T = Recordable>() {
+    return rawDataSourceRef.value as T;
+  }
+
   async function reload(opt?: FetchParams) {
     await fetch(opt);
   }
@@ -272,6 +331,7 @@ export function useDataSource(
   return {
     getDataSourceRef,
     getDataSource,
+    getRawDataSource,
     getRowKey,
     setTableData,
     getAutoCreateKey,
@@ -279,6 +339,9 @@ export function useDataSource(
     reload,
     updateTableData,
     updateTableDataRecord,
+    deleteTableDataRecord,
+    insertTableDataRecord,
+    findTableDataRecord,
     handleTableChange,
   };
 }

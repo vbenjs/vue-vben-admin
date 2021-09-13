@@ -8,6 +8,6 @@
       "url": "http://localhost:3100",
       "webRoot": "${workspaceFolder}/src",
       "sourceMaps": true
-    },
+    }
   ]
 }

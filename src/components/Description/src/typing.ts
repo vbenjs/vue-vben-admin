@@ -14,7 +14,7 @@ export interface DescItem {
   // render
   render?: (
     val: any,
-    data: Recordable
+    data: Recordable,
   ) => VNode | undefined | JSX.Element | Element | string | number;
 }
 

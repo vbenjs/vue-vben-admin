@@ -8,6 +8,7 @@
       trigger="click"
       @visibleChange="handleVisibleChange"
       :overlayClassName="`${prefixCls}__cloumn-list`"
+      :getPopupContainer="getPopupContainer"
     >
       <template #title>
         <div :class="`${prefixCls}__popover-title`">
@@ -41,13 +42,17 @@
         <ScrollContainer>
           <CheckboxGroup v-model:value="checkedList" @change="onChange" ref="columnListRef">
             <template v-for="item in plainOptions" :key="item.value">
-              <div :class="`${prefixCls}__check-item`">
+              <div :class="`${prefixCls}__check-item`" v-if="!('ifShow' in item && !item.ifShow)">
                 <DragOutlined class="table-coulmn-drag-icon" />
                 <Checkbox :value="item.value">
                   {{ item.label }}
                 </Checkbox>
 
-                <Tooltip placement="bottomLeft" :mouseLeaveDelay="0.4">
+                <Tooltip
+                  placement="bottomLeft"
+                  :mouseLeaveDelay="0.4"
+                  :getPopupContainer="getPopupContainer"
+                >
                   <template #title>
                     {{ t('component.table.settingFixedLeft') }}
                   </template>
@@ -64,7 +69,11 @@
                   />
                 </Tooltip>
                 <Divider type="vertical" />
-                <Tooltip placement="bottomLeft" :mouseLeaveDelay="0.4">
+                <Tooltip
+                  placement="bottomLeft"
+                  :mouseLeaveDelay="0.4"
+                  :getPopupContainer="getPopupContainer"
+                >
                   <template #title>
                     {{ t('component.table.settingFixedRight') }}
                   </template>
@@ -109,8 +118,8 @@
   import { useTableContext } from '../../hooks/useTableContext';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useSortable } from '/@/hooks/web/useSortable';
-  import { isNullAndUnDef } from '/@/utils/is';
-  import { getPopupContainer } from '/@/utils';
+  import { isFunction, isNullAndUnDef } from '/@/utils/is';
+  import { getPopupContainer as getParentContainer } from '/@/utils';
   import { omit } from 'lodash-es';
 
   interface State {
@@ -140,7 +149,7 @@
     },
     emits: ['columns-change'],
 
-    setup(_, { emit }) {
+    setup(_, { emit, attrs }) {
       const { t } = useI18n();
       const table = useTableContext();
 
@@ -273,7 +282,7 @@
         nextTick(() => {
           const columnListEl = unref(columnListRef);
           if (!columnListEl) return;
-          const el = columnListEl.$el;
+          const el = columnListEl.$el as any;
           if (!el) return;
           // Drag and drop sort
           const { initSortable } = useSortable(el, {
@@ -342,12 +351,18 @@
           const visible =
             columns.findIndex(
               (c: BasicColumn | string) =>
-                c === col.value || (typeof c !== 'string' && c.dataIndex === col.value)
+                c === col.value || (typeof c !== 'string' && c.dataIndex === col.value),
             ) !== -1;
           return { dataIndex: col.value, fixed: col.fixed, visible };
         });
 
         emit('columns-change', data);
+      }
+
+      function getPopupContainer() {
+        return isFunction(attrs.getPopupContainer)
+          ? attrs.getPopupContainer()
+          : getParentContainer();
       }
 
       return {

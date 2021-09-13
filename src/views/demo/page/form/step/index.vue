@@ -33,6 +33,7 @@
   import { Steps } from 'ant-design-vue';
 
   export default defineComponent({
+    name: 'FormStepPage',
     components: {
       Step1,
       Step2,

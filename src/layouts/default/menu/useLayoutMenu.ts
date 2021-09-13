@@ -1,13 +1,10 @@
 import type { Menu } from '/@/router/types';
 import type { Ref } from 'vue';
-
 import { watch, unref, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-
 import { MenuSplitTyeEnum } from '/@/enums/menuEnum';
 import { useThrottleFn } from '@vueuse/core';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
-
 import { getChildrenMenus, getCurrentParentPath, getMenus, getShallowMenus } from '/@/router/menus';
 import { usePermissionStore } from '/@/store/modules/permission';
 import { useAppInject } from '/@/hooks/web/useAppInject';
@@ -23,11 +20,11 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
   const throttleHandleSplitLeftMenu = useThrottleFn(handleSplitLeftMenu, 50);
 
   const splitNotLeft = computed(
-    () => unref(splitType) !== MenuSplitTyeEnum.LEFT && !unref(getIsHorizontal)
+    () => unref(splitType) !== MenuSplitTyeEnum.LEFT && !unref(getIsHorizontal),
   );
 
   const getSplitLeft = computed(
-    () => !unref(getSplit) || unref(splitType) !== MenuSplitTyeEnum.LEFT
+    () => !unref(getSplit) || unref(splitType) !== MenuSplitTyeEnum.LEFT,
   );
 
   const getSpiltTop = computed(() => unref(splitType) === MenuSplitTyeEnum.TOP);
@@ -51,7 +48,7 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
     },
     {
       immediate: true,
-    }
+    },
   );
 
   // Menu changes
@@ -62,7 +59,7 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
     },
     {
       immediate: true,
-    }
+    },
   );
 
   // split Menu changes
@@ -71,7 +68,7 @@ export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {
     () => {
       if (unref(splitNotLeft)) return;
       genMenus();
-    }
+    },
   );
 
   // Handle left menu split

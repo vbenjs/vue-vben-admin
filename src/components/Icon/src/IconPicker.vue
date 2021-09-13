@@ -63,7 +63,7 @@
             </div>
           </div>
           <template v-else
-            ><div class="p-5"> <Empty /></div>
+            ><div class="p-5"><Empty /></div>
           </template>
         </template>
 
@@ -121,7 +121,7 @@
       copy: propTypes.bool.def(false),
       mode: propTypes.oneOf<('svg' | 'iconify')[]>(['svg', 'iconify']).def('iconify'),
     },
-    emits: ['change'],
+    emits: ['change', 'update:value'],
     setup(props, { emit }) {
       const isSvgMode = props.mode === 'svg';
       const icons = isSvgMode ? getSvgIcons() : getIcons();
@@ -139,7 +139,7 @@
 
       const { getPaginationList, getTotal, setCurrentPage } = usePagination(
         currentList,
-        props.pageSize
+        props.pageSize,
       );
 
       watchEffect(() => {
@@ -148,7 +148,10 @@
 
       watch(
         () => currentSelect.value,
-        (v) => emit('change', v)
+        (v) => {
+          emit('update:value', v);
+          return emit('change', v);
+        },
       );
 
       function handlePageChange(page: number) {

@@ -19,7 +19,7 @@ export function useContentViewHeight() {
   const contentHeight = ref(window.innerHeight);
   const pageHeight = ref(window.innerHeight);
   const getViewHeight = computed(() => {
-    return unref(contentHeight) - unref(headerHeightRef) || 0;
+    return unref(contentHeight) - unref(headerHeightRef) - unref(footerHeightRef) || 0;
   });
 
   useWindowSizeFn(
@@ -27,7 +27,7 @@ export function useContentViewHeight() {
       contentHeight.value = window.innerHeight;
     },
     100,
-    { immediate: true }
+    { immediate: true },
   );
 
   async function setPageHeight(height: number) {

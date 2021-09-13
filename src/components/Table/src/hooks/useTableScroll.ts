@@ -13,7 +13,7 @@ export function useTableScroll(
   tableElRef: Ref<ComponentRef>,
   columnsRef: ComputedRef<BasicColumn[]>,
   rowSelectionRef: ComputedRef<TableRowSelection<any> | null>,
-  getDataSourceRef: ComputedRef<Recordable[]>
+  getDataSourceRef: ComputedRef<Recordable[]>,
 ) {
   const tableHeightRef: Ref<Nullable<number>> = ref(null);
 
@@ -34,7 +34,7 @@ export function useTableScroll(
     },
     {
       flush: 'post',
-    }
+    },
   );
 
   function redoHeight() {
@@ -66,6 +66,24 @@ export function useTableScroll(
 
     if (!bodyEl) {
       bodyEl = tableEl.querySelector('.ant-table-body');
+      if (!bodyEl) return;
+    }
+
+    const hasScrollBarY = bodyEl.scrollHeight > bodyEl.clientHeight;
+    const hasScrollBarX = bodyEl.scrollWidth > bodyEl.clientWidth;
+
+    if (hasScrollBarY) {
+      tableEl.classList.contains('hide-scrollbar-y') &&
+        tableEl.classList.remove('hide-scrollbar-y');
+    } else {
+      !tableEl.classList.contains('hide-scrollbar-y') && tableEl.classList.add('hide-scrollbar-y');
+    }
+
+    if (hasScrollBarX) {
+      tableEl.classList.contains('hide-scrollbar-x') &&
+        tableEl.classList.remove('hide-scrollbar-x');
+    } else {
+      !tableEl.classList.contains('hide-scrollbar-x') && tableEl.classList.add('hide-scrollbar-x');
     }
 
     bodyEl!.style.height = 'unset';
