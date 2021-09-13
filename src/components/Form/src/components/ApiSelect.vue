@@ -5,6 +5,7 @@
     @change="handleChange"
     :options="getOptions"
     v-model:value="state"
+    :mode="mode"
   >
     <template #[item]="data" v-for="item in Object.keys($slots)">
       <slot :name="item" v-bind="data || {}"></slot>
@@ -21,7 +22,16 @@
   </Select>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, ref, watchEffect, computed, unref, watch } from 'vue';
+  import {
+    defineComponent,
+    PropType,
+    ref,
+    watchEffect,
+    computed,
+    unref,
+    watch,
+    reactive,
+  } from 'vue';
   import { Select } from 'ant-design-vue';
   import { isFunction } from '/@/utils/is';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
@@ -57,6 +67,7 @@
       labelField: propTypes.string.def('label'),
       valueField: propTypes.string.def('value'),
       immediate: propTypes.bool.def(true),
+      modeValue: propTypes.string.def(''),
     },
     emits: ['options-change', 'change'],
     setup(props, { emit }) {
@@ -66,6 +77,7 @@
       const emitData = ref<any[]>([]);
       const attrs = useAttrs();
       const { t } = useI18n();
+      const mode = reactive({ value: props.modeValue }).value;
 
       // Embedded in the form, just use the hook binding to perform form verification
       const [state] = useRuleFormItem(props, 'value', 'change', emitData);
@@ -136,7 +148,7 @@
         emitData.value = args;
       }
 
-      return { state, attrs, getOptions, loading, t, handleFetch, handleChange };
+      return { mode, state, attrs, getOptions, loading, t, handleFetch, handleChange };
     },
   });
 </script>
