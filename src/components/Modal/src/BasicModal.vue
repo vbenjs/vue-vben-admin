@@ -1,5 +1,5 @@
 <template>
-  <Modal v-bind="getBindValue">
+  <Modal v-bind="getBindValue" @cancel="handleCancel">
     <template #closeIcon v-if="!$slots.closeIcon">
       <ModalClose
         :canFullscreen="getProps.canFullscreen"
@@ -72,6 +72,7 @@
   import { basicProps } from './props';
   import { useFullScreen } from './hooks/useModalFullScreen';
   import { omit } from 'lodash-es';
+  import { useDesign } from '/@/hooks/web/useDesign';
 
   export default defineComponent({
     name: 'BasicModal',
@@ -83,6 +84,7 @@
       const visibleRef = ref(false);
       const propsRef = ref<Partial<ModalProps> | null>(null);
       const modalWrapperRef = ref<any>(null);
+      const { prefixCls } = useDesign('basic-modal');
 
       // modal   Bottom and top height
       const extHeightRef = ref(0);
@@ -175,7 +177,8 @@
       // 取消事件
       async function handleCancel(e: Event) {
         e?.stopPropagation();
-
+        // 过滤自定义关闭按钮的空白区域
+        if ((e.target as HTMLElement)?.classList?.contains(prefixCls + '-close--custom')) return;
         if (props.closeFunc && isFunction(props.closeFunc)) {
           const isClose: boolean = await props.closeFunc();
           visibleRef.value = !isClose;
