@@ -422,8 +422,8 @@
                     class={`${prefixCls}-title pl-2`}
                     onClick={handleClickNode.bind(null, item[keyField], item[childrenField])}
                   >
-                    {slots?.title ? (
-                      getSlot(slots, 'title', item)
+                    {item.slots?.title ? (
+                      getSlot(slots, item.slots?.title, item)
                     ) : (
                       <>
                         {icon && <TreeIcon icon={icon} />}
