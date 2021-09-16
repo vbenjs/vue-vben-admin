@@ -37,6 +37,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     resolve: {
       alias: [
         {
+          find: 'moment',
+          replacement: 'dayjs',
+        },
+        {
           find: 'vue-i18n',
           replacement: 'vue-i18n/dist/vue-i18n.cjs.js',
         },
