@@ -68,7 +68,7 @@ export function useTable(tableProps?: Props): [
     getForm: () => FormActionType;
   } = {
     reload: async (opt?: FetchParams) => {
-      getTableInstance().reload(opt);
+      return await getTableInstance().reload(opt);
     },
     setProps: (props: Partial<BasicTableProps>) => {
       getTableInstance().setProps(props);
