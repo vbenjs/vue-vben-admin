@@ -1,6 +1,6 @@
 import { genMessage } from '../helper';
 import antdLocale from 'ant-design-vue/es/locale/zh_CN';
-import momentLocale from 'moment/dist/locale/zh-cn';
+// import momentLocale from 'moment/dist/locale/zh-cn';
 
 const modules = import.meta.globEager('./zh-CN/**/*.ts');
 export default {
@@ -8,6 +8,6 @@ export default {
     ...genMessage(modules, 'zh-CN'),
     antdLocale,
   },
-  momentLocale,
+//   momentLocale,
   momentLocaleName: 'zh-cn',
 };
