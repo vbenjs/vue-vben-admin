@@ -1,3 +1,7 @@
+### ✨ Features
+
+- **其它** `.env`文件中的`VITE_PROXY`配置支持单引号
+
 ### 🐛 Bug Fixes
 
 - **BasicTable**
