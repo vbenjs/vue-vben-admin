@@ -28,9 +28,9 @@ export function wrapperEnv(envConf: Recordable): ViteEnv {
     if (envName === 'VITE_PORT') {
       realName = Number(realName);
     }
-    if (envName === 'VITE_PROXY') {
+    if (envName === 'VITE_PROXY' && realName) {
       try {
-        realName = JSON.parse(realName);
+        realName = JSON.parse(realName.replace(/'/g, '"'));
       } catch (error) {
         realName = '';
       }
