@@ -7,7 +7,7 @@
     v-model:value="currentSelect"
   >
     <template #addonAfter>
-      <Popover
+      <a-popover
         placement="bottomLeft"
         trigger="click"
         v-model="visible"
@@ -17,7 +17,7 @@
           <div class="flex justify-between">
             <a-input
               :placeholder="t('component.icon.search')"
-              @change="handleSearchChange"
+              @change="debounceHandleSearchChange"
               allowClear
             />
           </div>
@@ -53,7 +53,7 @@
               </ul>
             </ScrollContainer>
             <div class="flex py-2 items-center justify-center" v-if="getTotal >= pageSize">
-              <Pagination
+              <a-pagination
                 showLessItems
                 size="small"
                 :pageSize="pageSize"
@@ -63,7 +63,7 @@
             </div>
           </div>
           <template v-else
-            ><div class="p-5"><Empty /></div>
+            ><div class="p-5"><a-empty /></div>
           </template>
         </template>
 
@@ -71,16 +71,14 @@
           <SvgIcon :name="currentSelect" />
         </span>
         <Icon :icon="currentSelect || 'ion:apps-outline'" class="cursor-pointer px-2 py-1" v-else />
-      </Popover>
+      </a-popover>
     </template>
   </a-input>
 </template>
-<script lang="ts">
-  import { defineComponent, ref, watchEffect, watch, unref } from 'vue';
-
+<script lang="ts" setup>
+  import { ref, watchEffect, watch, unref } from 'vue';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { ScrollContainer } from '/@/components/Container';
-
   import { Input, Popover, Pagination, Empty } from 'ant-design-vue';
   import Icon from './Icon.vue';
   import SvgIcon from './SvgIcon.vue';
@@ -93,6 +91,12 @@
   import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard';
   import { useMessage } from '/@/hooks/web/useMessage';
   import svgIcons from 'virtual:svg-icons-names';
+
+  // 没有使用别名引入，是因为WebStorm当前版本还不能正确识别，会报unused警告
+  const AInput = Input;
+  const APopover = Popover;
+  const APagination = Pagination;
+  const AEmpty = Empty;
 
   function getIcons() {
     const data = iconsData as any;
@@ -110,88 +114,70 @@
     return svgIcons.map((icon) => icon.replace('icon-', ''));
   }
 
-  export default defineComponent({
-    name: 'IconPicker',
-    components: { [Input.name]: Input, Icon, Popover, ScrollContainer, Pagination, Empty, SvgIcon },
-    inheritAttrs: false,
-    props: {
-      value: propTypes.string,
-      width: propTypes.string.def('100%'),
-      pageSize: propTypes.number.def(140),
-      copy: propTypes.bool.def(false),
-      mode: propTypes.oneOf<('svg' | 'iconify')[]>(['svg', 'iconify']).def('iconify'),
-    },
-    emits: ['change', 'update:value'],
-    setup(props, { emit }) {
-      const isSvgMode = props.mode === 'svg';
-      const icons = isSvgMode ? getSvgIcons() : getIcons();
-
-      const currentSelect = ref('');
-      const visible = ref(false);
-      const currentList = ref(icons);
-
-      const { t } = useI18n();
-      const { prefixCls } = useDesign('icon-picker');
-
-      const debounceHandleSearchChange = useDebounceFn(handleSearchChange, 100);
-      const { clipboardRef, isSuccessRef } = useCopyToClipboard(props.value);
-      const { createMessage } = useMessage();
-
-      const { getPaginationList, getTotal, setCurrentPage } = usePagination(
-        currentList,
-        props.pageSize,
-      );
-
-      watchEffect(() => {
-        currentSelect.value = props.value;
-      });
-
-      watch(
-        () => currentSelect.value,
-        (v) => {
-          emit('update:value', v);
-          return emit('change', v);
-        },
-      );
-
-      function handlePageChange(page: number) {
-        setCurrentPage(page);
-      }
-
-      function handleClick(icon: string) {
-        currentSelect.value = icon;
-        if (props.copy) {
-          clipboardRef.value = icon;
-          if (unref(isSuccessRef)) {
-            createMessage.success(t('component.icon.copy'));
-          }
-        }
-      }
-
-      function handleSearchChange(e: ChangeEvent) {
-        const value = e.target.value;
-        if (!value) {
-          setCurrentPage(1);
-          currentList.value = icons;
-          return;
-        }
-        currentList.value = icons.filter((item) => item.includes(value));
-      }
-
-      return {
-        t,
-        prefixCls,
-        visible,
-        isSvgMode,
-        getTotal,
-        getPaginationList,
-        handlePageChange,
-        handleClick,
-        currentSelect,
-        handleSearchChange: debounceHandleSearchChange,
-      };
-    },
+  const props = defineProps({
+    value: propTypes.string,
+    width: propTypes.string.def('100%'),
+    pageSize: propTypes.number.def(140),
+    copy: propTypes.bool.def(false),
+    mode: propTypes.oneOf<('svg' | 'iconify')[]>(['svg', 'iconify']).def('iconify'),
   });
+
+  const emit = defineEmits(['change', 'update:value']);
+
+  const isSvgMode = props.mode === 'svg';
+  const icons = isSvgMode ? getSvgIcons() : getIcons();
+
+  const currentSelect = ref('');
+  const visible = ref(false);
+  const currentList = ref(icons);
+
+  const { t } = useI18n();
+  const { prefixCls } = useDesign('icon-picker');
+
+  const debounceHandleSearchChange = useDebounceFn(handleSearchChange, 100);
+  const { clipboardRef, isSuccessRef } = useCopyToClipboard(props.value);
+  const { createMessage } = useMessage();
+
+  const { getPaginationList, getTotal, setCurrentPage } = usePagination(
+    currentList,
+    props.pageSize,
+  );
+
+  watchEffect(() => {
+    currentSelect.value = props.value;
+  });
+
+  watch(
+    () => currentSelect.value,
+    (v) => {
+      emit('update:value', v);
+      return emit('change', v);
+    },
+  );
+
+  function handlePageChange(page: number) {
+    setCurrentPage(page);
+  }
+
+  function handleClick(icon: string) {
+    currentSelect.value = icon;
+    if (props.copy) {
+      clipboardRef.value = icon;
+      if (unref(isSuccessRef)) {
+        createMessage.success(t('component.icon.copy'));
+      }
+    }
+  }
+
+  function handleSearchChange(e: ChangeEvent) {
+    const value = e.target.value;
+    if (!value) {
+      setCurrentPage(1);
+      currentList.value = icons;
+      return;
+    }
+    currentList.value = icons.filter((item) => item.includes(value));
+  }
 </script>
 <style lang="less">
   @prefix-cls: ~'@{namespace}-icon-picker';
