@@ -8,18 +8,11 @@
     />
   </div>
 </template>
-
-<script lang="ts">
-  export const MODE = {
-    JSON: 'application/json',
-    html: 'htmlmixed',
-    js: 'javascript',
-  };
-</script>
 <script lang="ts" setup>
   import { computed } from 'vue';
   import CodeMirrorEditor from './codemirror/CodeMirror.vue';
   import { isString } from '/@/utils/is';
+  import type { MODE } from './typing';
 
   const props = defineProps({
     value: { type: [Object, String] as PropType<Record<string, any> | string> },
