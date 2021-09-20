@@ -91,4 +91,6 @@
       return originAttrs;
     };
   });
+
+  const getAttr = (key: string | number) => ({ key });
 </script>
