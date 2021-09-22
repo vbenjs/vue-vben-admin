@@ -8,7 +8,7 @@
   import { PageWrapper } from '/@/components/Page';
   import { useDesign } from '/@/hooks/web/useDesign';
   import intro from 'intro.js';
-  import 'intro.js/introjs.css';
+  import 'intro.js/minified/introjs.min.css';
 
   export default defineComponent({
     components: { PageWrapper },

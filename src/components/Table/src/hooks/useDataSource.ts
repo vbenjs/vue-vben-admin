@@ -275,7 +275,7 @@ export function useDataSource(
           setPagination({
             current: currentTotalPage,
           });
-          fetch(opt);
+          return await fetch(opt);
         }
       }
 
@@ -295,6 +295,7 @@ export function useDataSource(
         items: unref(resultItems),
         total: resultTotal,
       });
+      return resultItems;
     } catch (error) {
       emit('fetch-error', error);
       dataSourceRef.value = [];
@@ -319,7 +320,7 @@ export function useDataSource(
   }
 
   async function reload(opt?: FetchParams) {
-    await fetch(opt);
+    return await fetch(opt);
   }
 
   onMounted(() => {

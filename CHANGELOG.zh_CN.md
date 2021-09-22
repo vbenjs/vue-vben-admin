@@ -1,5 +1,31 @@
 ### ✨ Features
 
+- **其它**
+  - `.env`文件中的`VITE_PROXY`配置支持单引号
+  - 移除 build 过程中的警告
+
+### 🐛 Bug Fixes
+
+- **BasicTable**
+  - 修复可编辑单元格某些情况下无法提交的问题
+  - 修复`inset`属性不起作用的问题
+  - 修复`useTable`与`BasicTable`实例的`reload`方法`await`表现不一致的问题
+  - 修复`clickToRowSelect`会无视行选择框 disabled 状态的问题
+- **BasicModal**
+  - 修复点击遮罩、按下`Esc`键都不能关闭`Modal`的问题
+  - 修复点击关闭按钮、最大化按钮旁边的空白区域也会导致`Modal`关闭的问题
+- **BasicTree** 修复节点插槽不起作用的问题
+- **CodeEditor** 修复可能会造成的`Build`失败的问题
+- **BasicForm** 修复自定义 FormItem 组件的内容宽度可能超出范围的问题
+- **其它**
+  - 修复多标签在某些情况下关闭页签不会跳转路由的问题
+  - 修复部分组件可能会造成热更新异常的问题
+  - 修复直接`import`部分`antdv`子组件时会在 build 过程中报错的问题，如：TabPane、RadioGroup
+
+## 2.7.2(2021-09-14)
+
+### ✨ Features
+
 - **BasicForm** 表单组件新增`Divider`，用于较长表单的区域分割
 - **BasicTable**
   - 单元格编辑新增提交回调，将根据回调函数返回的结果来决定是否将数据提交到表格
