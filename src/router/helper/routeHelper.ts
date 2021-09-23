@@ -46,10 +46,12 @@ function dynamicImport(
 ) {
   const keys = Object.keys(dynamicViewsModules);
   const matchKeys = keys.filter((key) => {
-    let k = key.replace('../../views', '');
-    const lastIndex = k.lastIndexOf('.');
-    k = k.substring(0, lastIndex);
-    return k === component;
+    const k = key.replace('../../views', '');
+    const startFlag = component.startsWith('/');
+    const endFlag = component.endsWith('.vue') || component.endsWith('.tsx');
+    const startIndex = startFlag ? 0 : 1;
+    const lastIndex = endFlag ? k.length : k.lastIndexOf('.');
+    return k.substring(startIndex, lastIndex) === component;
   });
   if (matchKeys?.length === 1) {
     const matchKey = matchKeys[0];
@@ -60,7 +62,7 @@ function dynamicImport(
     );
     return;
   } else {
-    warn('在src/views/下找不到`' + component + '.vue` 或 `' + component + '.TSX`, 请自行创建!');
+    warn('在src/views/下找不到`' + component + '.vue` 或 `' + component + '.tsx`, 请自行创建!');
     return EXCEPTION_COMPONENT;
   }
 }
@@ -82,6 +84,8 @@ export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModul
         meta.affix = false;
         route.meta = meta;
       }
+    } else {
+      warn('请正确配置路由：' + route?.name + '的component属性');
     }
     route.children && asyncImportRoute(route.children);
   });
