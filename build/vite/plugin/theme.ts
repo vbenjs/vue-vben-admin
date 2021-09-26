@@ -66,7 +66,7 @@ export function configThemePlugin(isBuild: boolean): Plugin[] {
         'border-color-base': '#303030',
         // 'border-color-split': '#30363d',
         'item-active-bg': '#111b26',
-        'app-content-background': 'rgb(255 255 255 / 4%)',
+        'app-content-background': '#1e1e1e',
         'tree-node-selected-bg': '#11263c',
 
         'alert-success-border-color': '#274916',

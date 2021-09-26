@@ -21,6 +21,8 @@
 
   import { demoListApi } from '/@/api/demo/table';
   import { treeOptionsListApi } from '/@/api/demo/tree';
+  import { cloneDeep } from 'lodash-es';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   const columns: BasicColumn[] = [
     {
@@ -162,6 +164,7 @@
   export default defineComponent({
     components: { BasicTable, TableAction },
     setup() {
+      const { createMessage: msg } = useMessage();
       const currentEditKeyRef = ref('');
       const [registerTable] = useTable({
         title: '可编辑行示例',
@@ -192,9 +195,26 @@
       }
 
       async function handleSave(record: EditRecordRow) {
-        const pass = await record.onEdit?.(false, true);
-        if (pass) {
-          currentEditKeyRef.value = '';
+        // 校验
+        msg.loading({ content: '正在保存...', duration: 0, key: 'saving' });
+        const valid = await record.onValid?.();
+        if (valid) {
+          try {
+            const data = cloneDeep(record.editValueRefs);
+            console.log(data);
+            //TODO 此处将数据提交给服务器保存
+            // ...
+            // 保存之后提交编辑状态
+            const pass = await record.onEdit?.(false, true);
+            if (pass) {
+              currentEditKeyRef.value = '';
+            }
+            msg.success({ content: '数据已保存', key: 'saving' });
+          } catch (error) {
+            msg.error({ content: '保存失败', key: 'saving' });
+          }
+        } else {
+          msg.error({ content: '请填写正确的数据', key: 'saving' });
         }
       }
 

@@ -38,7 +38,7 @@
 
       const { getLocale } = useLocale();
       const { getDarkMode } = useRootSetting();
-      const valueRef = ref('');
+      const valueRef = ref(props.value || '');
 
       watch(
         [() => getDarkMode.value, () => initedRef.value],
@@ -90,6 +90,9 @@
           theme: getDarkMode.value === 'dark' ? 'dark' : 'classic',
           lang: unref(getCurrentLang),
           mode: 'sv',
+          fullscreen: {
+            index: 520,
+          },
           preview: {
             actions: [],
           },

@@ -8,22 +8,22 @@
     />
   </div>
 </template>
-
-<script lang="ts">
-  const MODE = {
-    JSON: 'application/json',
-    html: 'htmlmixed',
-    js: 'javascript',
-  };
-</script>
 <script lang="ts" setup>
   import { computed } from 'vue';
   import CodeMirrorEditor from './codemirror/CodeMirror.vue';
   import { isString } from '/@/utils/is';
+  import { MODE } from './typing';
 
   const props = defineProps({
     value: { type: [Object, String] as PropType<Record<string, any> | string> },
-    mode: { type: String, default: MODE.JSON },
+    mode: {
+      type: String as PropType<MODE>,
+      default: MODE.JSON,
+      validator(value: any) {
+        // 这个值必须匹配下列字符串中的一个
+        return Object.values(MODE).includes(value);
+      },
+    },
     readonly: { type: Boolean },
     autoFormat: { type: Boolean, default: true },
   });

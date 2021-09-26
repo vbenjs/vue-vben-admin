@@ -7,6 +7,7 @@
       @change="handleChange"
       :api="uploadApi"
       class="my-5"
+      :accept="['image/*']"
     />
 
     <a-alert message="嵌入表单,加入表单校验" />

@@ -1,3 +1,57 @@
+## [2.7.2](https://github.com/anncwb/vue-vben-admin/compare/v2.7.1...v2.7.2) (2021-09-13)
+
+### Bug Fixes
+
+- fixed token clear error ([9640484](https://github.com/anncwb/vue-vben-admin/commit/96404848955f84d57b88dd240ab3a57b7017103c))
+- improve type introduction, fix [#1196](https://github.com/anncwb/vue-vben-admin/issues/1196) ([2820d5a](https://github.com/anncwb/vue-vben-admin/commit/2820d5a627260bb8eddfcd25df1cd7d1196932e8))
+- **api-select:** fixed `value` prop define ([f87b0f2](https://github.com/anncwb/vue-vben-admin/commit/f87b0f2f5efe4e9977c4cc0742dbcaefbad2ca02)), closes [#1175](https://github.com/anncwb/vue-vben-admin/issues/1175)
+- **card-list:** fixed build error ([628e820](https://github.com/anncwb/vue-vben-admin/commit/628e820684ce5d81f130548505efe83e8d516131))
+- **code-editor:** fixed formatting error ([e7c9636](https://github.com/anncwb/vue-vben-admin/commit/e7c96363a1963b7733a9ee498403eb6a062160e6))
+- **echarts:** theme setting supported ([93812f7](https://github.com/anncwb/vue-vben-admin/commit/93812f734ec85529aa27fc3100a2eaef8c7a6df5)), closes [#1095](https://github.com/anncwb/vue-vben-admin/issues/1095)
+- **markdown:** the hierarchy of markDown components after full screen ([c8017b1](https://github.com/anncwb/vue-vben-admin/commit/c8017b1365ea49f95a26148a539f8c30d8a8631f))
+- **markdown:** `value` not worked on init ([0bb9c03](https://github.com/anncwb/vue-vben-admin/commit/0bb9c035f77588c58d36b3fd45d89b9730cd70d7))
+- **modal:** avoid style pollution to the whole world ([#1128](https://github.com/anncwb/vue-vben-admin/issues/1128)) ([6e7f6f8](https://github.com/anncwb/vue-vben-admin/commit/6e7f6f82ed2819e02e2b3114884e665d0762d7e9))
+- **table:** `rowClassName` not worked with `striped` ([044e2e4](https://github.com/anncwb/vue-vben-admin/commit/044e2e4e866dd5b120daab03c47aba1ca1f9140a)), closes [#1167](https://github.com/anncwb/vue-vben-admin/issues/1167)
+- **table:** 修复表格背景颜色再深色模式下会被穿透问题 ([#1133](https://github.com/anncwb/vue-vben-admin/issues/1133)) ([30fa4cf](https://github.com/anncwb/vue-vben-admin/commit/30fa4cfa2ab6229efc67224fd082e32da0a95d49))
+- **table:** editable icon not show with empty cell ([edc3096](https://github.com/anncwb/vue-vben-admin/commit/edc30965653831b4572c5d5e067f556f4757ce75)), closes [#1103](https://github.com/anncwb/vue-vben-admin/issues/1103)
+- **table:** fix table footer style ([a426b90](https://github.com/anncwb/vue-vben-admin/commit/a426b9027ef524f9033d510d0c74cd17b2ad5bcf)), closes [#1112](https://github.com/anncwb/vue-vben-admin/issues/1112)
+- **table:** Solve the bug of setting ifshow to false in table column ([#1166](https://github.com/anncwb/vue-vben-admin/issues/1166)) ([5fa730c](https://github.com/anncwb/vue-vben-admin/commit/5fa730c49ae46fa448d49d597dc7b2b6a019b268))
+- **table-action:** `divider` not work as expected ([7593ef6](https://github.com/anncwb/vue-vben-admin/commit/7593ef6a4f081ed800658b70316ab2f1e3ee631d))
+- **tinymce:** fixed `inline` mode ([8e01377](https://github.com/anncwb/vue-vben-admin/commit/8e01377481a34cda221de6bbb01fc7d5b2824c82)), closes [#1092](https://github.com/anncwb/vue-vben-admin/issues/1092)
+- **upload:** `accept` not work as expected ([656ee4e](https://github.com/anncwb/vue-vben-admin/commit/656ee4e5c9b363b6ab59aa071915414e5ee95de4))
+- `getUserinfo` is compatible with empty roles data ([1ddfc31](https://github.com/anncwb/vue-vben-admin/commit/1ddfc31c3c4c792c5f741f6d0f0754ffc9a6613c))
+- `slots` worked in `basicTable` and `basicModal` ([5138e44](https://github.com/anncwb/vue-vben-admin/commit/5138e447e74ef01309457d22f44129c8b1b2f815))
+- `useRedo` called duplicate may cause exception ([1235978](https://github.com/anncwb/vue-vben-admin/commit/1235978ab23740dfb11e3de7ac26a7d10a4899dc)), closes [#1121](https://github.com/anncwb/vue-vben-admin/issues/1121)
+- 修复 `apiSelect` 绑定值 `attrs` 的问题 ([#1172](https://github.com/anncwb/vue-vben-admin/issues/1172)) ([c753d94](https://github.com/anncwb/vue-vben-admin/commit/c753d945e08f72cab5bc8a585601cab6a0523fca))
+- 修复弹窗全屏按钮异常关闭的问题([#1177](https://github.com/anncwb/vue-vben-admin/issues/1177)) ([#1182](https://github.com/anncwb/vue-vben-admin/issues/1182)) ([9e9ea3f](https://github.com/anncwb/vue-vben-admin/commit/9e9ea3f43d8c4b88649c1998bf89186b5f7ee6a2))
+- 修改 axios 中 urlPrefix 字段不生效问题 ([#1170](https://github.com/anncwb/vue-vben-admin/issues/1170)) ([7df9b51](https://github.com/anncwb/vue-vben-admin/commit/7df9b513447d8deab2fd8e86fa23c807adb6d440))
+- add loss action for userStore ([a36825a](https://github.com/anncwb/vue-vben-admin/commit/a36825a6d423aae9aaf1936ce55947ba8c2104b0))
+- fix all types of errors, compatible with volar plugin ([e15b4f1](https://github.com/anncwb/vue-vben-admin/commit/e15b4f14db51812effd55670b3d2da7b082e00a7))
+- fixed build warning for style of `intro.js` ([d27633f](https://github.com/anncwb/vue-vben-admin/commit/d27633fb31824e92cbeb24f8d626d8e33ce7179e)), closes [#1130](https://github.com/anncwb/vue-vben-admin/issues/1130)
+- Improve content height calculation ([#1136](https://github.com/anncwb/vue-vben-admin/issues/1136)) ([6717fe6](https://github.com/anncwb/vue-vben-admin/commit/6717fe654e88e6a939a16c523832870388ec1886))
+- name of vite `mode` support more characters ([9f68229](https://github.com/anncwb/vue-vben-admin/commit/9f6822991c4b2da78e0a5d0c7d6e0288f0d9d1cb)), closes [#1115](https://github.com/anncwb/vue-vben-admin/issues/1115)
+- refresh failed while token invalid ([3a5d1a5](https://github.com/anncwb/vue-vben-admin/commit/3a5d1a5757c0a2be17e6dd370cbb023ddbb30d5e)), closes [#1101](https://github.com/anncwb/vue-vben-admin/issues/1101)
+- warning in logout action ([b3307fe](https://github.com/anncwb/vue-vben-admin/commit/b3307fe2836fb6f9806d602d5bdb7e540c49f1b0))
+- **tinymce:** fixed `tinymce` destory method ([fb43fad](https://github.com/anncwb/vue-vben-admin/commit/fb43fad555b093af23194bdb3670bc1347c0010f))
+
+### Features
+
+- **demo:** add `JsonPreview` demo ([83c1683](https://github.com/anncwb/vue-vben-admin/commit/83c1683bfdcf4ea33de771895b46e41f276969e8)), closes [#1146](https://github.com/anncwb/vue-vben-admin/issues/1146)
+- **form:** add `Divider` for schema component type ([47a448b](https://github.com/anncwb/vue-vben-admin/commit/47a448b8aea572e54dac97dc4f9fb6c1c005685a))
+- **form:** component `Divider` support `helpMessage` ([a5ff592](https://github.com/anncwb/vue-vben-admin/commit/a5ff59237f2eb6ea4c1770acc594c75bf1f6e95f))
+- **markdown-viewer:** add new component ([73dc492](https://github.com/anncwb/vue-vben-admin/commit/73dc492b2a49793d945ccdae7f5c429c874f298c)), closes [#1181](https://github.com/anncwb/vue-vben-admin/issues/1181)
+- **table:** 添加和支持动态删除和插入数据 ([#1152](https://github.com/anncwb/vue-vben-admin/issues/1152)) ([59a9087](https://github.com/anncwb/vue-vben-admin/commit/59a90877287a289f746eec97d12c2d3a1d5476b0))
+- **table:** add `beforeEditSubmit` for editable cell ([2c867b3](https://github.com/anncwb/vue-vben-admin/commit/2c867b3d636d57cdc526a4ca600af7d747b7d833))
+- **table:** add `onValid` for editRow ([ee7c31d](https://github.com/anncwb/vue-vben-admin/commit/ee7c31db44fd8f99f0d26da368e1d82b5630f309))
+- **tree:** 1. 添加自定义数据过滤判断方法 2. 添加搜索完成自动展开结果选项 3. 添加搜索完成自动选中结果选项 4. 树节点数据变化时强制搜索(同步 searchData 避免展示错误) ([#1132](https://github.com/anncwb/vue-vben-admin/issues/1132)) ([e00578c](https://github.com/anncwb/vue-vben-admin/commit/e00578c40a585a4a35f235c0228aebaf62cea1ba))
+- add CardList component ([0f5ddbf](https://github.com/anncwb/vue-vben-admin/commit/0f5ddbf1ec777fc238a94bd037d37ea787316757))
+
+### Performance Improvements
+
+- **tree:** 优化 Tree 搜索功能，添加搜索高亮功能，优化样式表现 ([#1153](https://github.com/anncwb/vue-vben-admin/issues/1153)) ([3b6b4f7](https://github.com/anncwb/vue-vben-admin/commit/3b6b4f73033e8757fd3a032f0910dfcc30dee151))
+- not waiting for router.isReady ([2884e86](https://github.com/anncwb/vue-vben-admin/commit/2884e863ce826cd92cd782f40cdee31588bc6d32))
+- optimize css volume ([466d4ed](https://github.com/anncwb/vue-vben-admin/commit/466d4edcd02fc91e2b4cdbbc3c501bfd2fde7a3d))
+
 ## [2.7.1](https://github.com/anncwb/vue-vben-admin/compare/v2.6.1...v2.7.1) (2021-08-16)
 
 ### Bug Fixes

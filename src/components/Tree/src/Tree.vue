@@ -19,9 +19,9 @@
   import { ScrollContainer } from '/@/components/Container';
 
   import { omit, get, difference } from 'lodash-es';
-  import { isArray, isBoolean, isFunction } from '/@/utils/is';
+  import { isArray, isBoolean, isEmpty, isFunction } from '/@/utils/is';
   import { extendSlots, getSlot } from '/@/utils/helper/tsxHelper';
-  import { filter } from '/@/utils/helper/treeHelper';
+  import { filter, treeToList } from '/@/utils/helper/treeHelper';
 
   import { useTree } from './useTree';
   import { useContextMenu } from '/@/hooks/web/useContextMenu';
@@ -60,6 +60,7 @@
 
       const searchState = reactive({
         startSearch: false,
+        searchText: '',
         searchData: [] as TreeItem[],
       });
 
@@ -199,28 +200,70 @@
         state.checkStrictly = strictly;
       }
 
-      const searchText = ref('');
-      watchEffect(() => {
-        if (props.searchValue !== searchText.value) searchText.value = props.searchValue;
-      });
+      watch(
+        () => props.searchValue,
+        (val) => {
+          if (val !== searchState.searchText) {
+            searchState.searchText = val;
+          }
+        },
+        {
+          immediate: true,
+        },
+      );
+
+      watch(
+        () => props.treeData,
+        (val) => {
+          if (val) {
+            handleSearch(searchState.searchText);
+          }
+        },
+      );
 
       function handleSearch(searchValue: string) {
-        if (searchValue !== searchText.value) searchText.value = searchValue;
+        if (searchValue !== searchState.searchText) searchState.searchText = searchValue;
         emit('update:searchValue', searchValue);
         if (!searchValue) {
           searchState.startSearch = false;
           return;
         }
+        const { filterFn, checkable, expandOnSearch, checkOnSearch, selectedOnSearch } =
+          unref(props);
         searchState.startSearch = true;
-        const { title: titleField } = unref(getReplaceFields);
+        const { title: titleField, key: keyField } = unref(getReplaceFields);
 
+        const matchedKeys: string[] = [];
         searchState.searchData = filter(
           unref(treeDataRef),
           (node) => {
-            return node[titleField]?.includes(searchValue) ?? false;
+            const result = filterFn
+              ? filterFn(searchValue, node, unref(getReplaceFields))
+              : node[titleField]?.includes(searchValue) ?? false;
+            if (result) {
+              matchedKeys.push(node[keyField]);
+            }
+            return result;
           },
           unref(getReplaceFields),
         );
+
+        if (expandOnSearch) {
+          const expandKeys = treeToList(searchState.searchData).map((val) => {
+            return val[keyField];
+          });
+          if (expandKeys && expandKeys.length) {
+            setExpandedKeys(expandKeys);
+          }
+        }
+
+        if (checkOnSearch && checkable && matchedKeys.length) {
+          setCheckedKeys(matchedKeys);
+        }
+
+        if (selectedOnSearch && matchedKeys.length) {
+          setSelectedKeys(matchedKeys);
+        }
       }
 
       function handleClickNode(key: string, children: TreeItem[]) {
@@ -311,7 +354,7 @@
           handleSearch(value);
         },
         getSearchValue: () => {
-          return searchText.value;
+          return searchState.searchText;
         },
       };
 
@@ -342,6 +385,8 @@
         if (!data) {
           return null;
         }
+        const searchText = searchState.searchText;
+        const { highlight } = unref(props);
         return data.map((item) => {
           const {
             title: titleField,
@@ -352,6 +397,23 @@
           const propsData = omit(item, 'title');
           const icon = getIcon({ ...item, level }, item.icon);
           const children = get(item, childrenField) || [];
+          const title = get(item, titleField);
+
+          const searchIdx = title.indexOf(searchText);
+          const isHighlight =
+            searchState.startSearch && !isEmpty(searchText) && highlight && searchIdx !== -1;
+          const highlightStyle = `color: ${isBoolean(highlight) ? '#f50' : highlight}`;
+
+          const titleDom = isHighlight ? (
+            <span class={unref(getBindValues)?.blockNode ? `${prefixCls}__content` : ''}>
+              <span>{title.substr(0, searchIdx)}</span>
+              <span style={highlightStyle}>{searchText}</span>
+              <span>{title.substr(searchIdx + searchText.length)}</span>
+            </span>
+          ) : (
+            title
+          );
+
           return (
             <Tree.TreeNode {...propsData} node={toRaw(item)} key={get(item, keyField)}>
               {{
@@ -360,16 +422,13 @@
                     class={`${prefixCls}-title pl-2`}
                     onClick={handleClickNode.bind(null, item[keyField], item[childrenField])}
                   >
-                    {slots?.title ? (
-                      getSlot(slots, 'title', item)
+                    {item.slots?.title ? (
+                      getSlot(slots, item.slots?.title, item)
                     ) : (
                       <>
                         {icon && <TreeIcon icon={icon} />}
-                        <span
-                          class={unref(getBindValues)?.blockNode ? `${prefixCls}__content` : ''}
-                        >
-                          {get(item, titleField)}
-                        </span>
+                        {titleDom}
+                        {/*{get(item, titleField)}*/}
                         <span class={`${prefixCls}__actions`}>
                           {renderAction({ ...item, level })}
                         </span>
@@ -400,7 +459,7 @@
                 helpMessage={helpMessage}
                 onStrictlyChange={onStrictlyChange}
                 onSearch={handleSearch}
-                searchText={unref(searchText)}
+                searchText={searchState.searchText}
               >
                 {extendSlots(slots)}
               </TreeHeader>

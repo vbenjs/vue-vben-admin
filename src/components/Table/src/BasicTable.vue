@@ -141,6 +141,8 @@
         getRawDataSource,
         setTableData,
         updateTableDataRecord,
+        deleteTableDataRecord,
+        insertTableDataRecord,
         findTableDataRecord,
         fetch,
         getRowKey,
@@ -279,6 +281,8 @@
         setPagination,
         setTableData,
         updateTableDataRecord,
+        deleteTableDataRecord,
+        insertTableDataRecord,
         findTableDataRecord,
         redoHeight,
         setSelectedRowKeys,
@@ -334,6 +338,13 @@
 
   @prefix-cls: ~'@{namespace}-basic-table';
 
+  [data-theme='dark'] {
+    .ant-table-tbody > tr:hover.ant-table-row-selected > td,
+    .ant-table-tbody > tr.ant-table-row-selected td {
+      background-color: #262626;
+    }
+  }
+
   .@{prefix-cls} {
     max-width: 100%;
 
@@ -351,12 +362,6 @@
         margin-bottom: 16px;
         background-color: @component-background;
         border-radius: 2px;
-      }
-    }
-
-    &--inset {
-      .ant-table-wrapper {
-        padding: 0;
       }
     }
 
@@ -418,6 +423,12 @@
 
       td {
         padding: 12px 8px;
+      }
+    }
+
+    &--inset {
+      .ant-table-wrapper {
+        padding: 0;
       }
     }
   }
