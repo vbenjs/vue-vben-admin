@@ -38,7 +38,7 @@
 
       const { getLocale } = useLocale();
       const { getDarkMode } = useRootSetting();
-      const valueRef = ref('');
+      const valueRef = ref(props.value || '');
 
       watch(
         [() => getDarkMode.value, () => initedRef.value],

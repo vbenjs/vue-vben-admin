@@ -22,7 +22,13 @@ export function useUploadType({
   });
   const getStringAccept = computed(() => {
     return unref(getAccept)
-      .map((item) => `.${item}`)
+      .map((item) => {
+        if (item.indexOf('/') > 0 || item.startsWith('.')) {
+          return item;
+        } else {
+          return `.${item}`;
+        }
+      })
       .join(',');
   });
 

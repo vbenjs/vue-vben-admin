@@ -160,6 +160,31 @@ export function useDataSource(
     }
   }
 
+  function deleteTableDataRecord(record: Recordable | Recordable[]): Recordable | undefined {
+    if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
+    const records = !Array.isArray(record) ? [record] : record;
+    const recordIndex = records
+      .map((item) => dataSourceRef.value.findIndex((s) => s.key === item.key)) // 取序号
+      .filter((item) => item !== undefined)
+      .sort((a, b) => b - a); // 从大到小排序
+    for (const index of recordIndex) {
+      unref(dataSourceRef).splice(index, 1);
+      unref(propsRef).dataSource?.splice(index, 1);
+    }
+    setPagination({
+      total: unref(propsRef).dataSource?.length,
+    });
+    return unref(propsRef).dataSource;
+  }
+
+  function insertTableDataRecord(record: Recordable, index: number): Recordable | undefined {
+    if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
+    index = index ?? dataSourceRef.value?.length;
+    unref(dataSourceRef).splice(index, 0, record);
+    unref(propsRef).dataSource?.splice(index, 0, record);
+    return unref(propsRef).dataSource;
+  }
+
   function findTableDataRecord(rowKey: string | number) {
     if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
 
@@ -250,7 +275,7 @@ export function useDataSource(
           setPagination({
             current: currentTotalPage,
           });
-          fetch(opt);
+          return await fetch(opt);
         }
       }
 
@@ -270,6 +295,7 @@ export function useDataSource(
         items: unref(resultItems),
         total: resultTotal,
       });
+      return resultItems;
     } catch (error) {
       emit('fetch-error', error);
       dataSourceRef.value = [];
@@ -294,7 +320,7 @@ export function useDataSource(
   }
 
   async function reload(opt?: FetchParams) {
-    await fetch(opt);
+    return await fetch(opt);
   }
 
   onMounted(() => {
@@ -314,6 +340,8 @@ export function useDataSource(
     reload,
     updateTableData,
     updateTableDataRecord,
+    deleteTableDataRecord,
+    insertTableDataRecord,
     findTableDataRecord,
     handleTableChange,
   };
