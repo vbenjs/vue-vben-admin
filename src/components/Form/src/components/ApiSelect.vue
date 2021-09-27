@@ -77,9 +77,9 @@
           if (next) {
             const value = next[valueField];
             prev.push({
+              ...omit(next, [labelField, valueField]),
               label: next[labelField],
               value: numberToString ? `${value}` : value,
-              ...omit(next, [labelField, valueField]),
             });
           }
           return prev;
