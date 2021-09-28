@@ -9,6 +9,7 @@ export default defineComponent({
   name: 'Modal',
   inheritAttrs: false,
   props: basicProps,
+  emits: ['cancel'],
   setup(props, { slots }) {
     const { visible, draggable, destroyOnClose } = toRefs(props);
     const attrs = useAttrs();
