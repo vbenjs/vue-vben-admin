@@ -7,7 +7,7 @@ export function useUploadType({
   maxNumberRef,
   maxSizeRef,
 }: {
-  acceptRef: Ref<string[]>;
+  acceptRef: Ref<string>;
   helpTextRef: Ref<string>;
   maxNumberRef: Ref<number>;
   maxSizeRef: Ref<number>;
@@ -18,12 +18,7 @@ export function useUploadType({
     if (accept && accept.length > 0) {
       return accept;
     }
-    return [];
-  });
-  const getStringAccept = computed(() => {
-    return unref(getAccept)
-      .map((item) => `.${item}`)
-      .join(',');
+    return '';
   });
 
   // 支持jpg、jpeg、png格式，不超过2M，最多可选择10张图片，。
@@ -33,11 +28,6 @@ export function useUploadType({
       return helpText;
     }
     const helpTexts: string[] = [];
-
-    const accept = unref(acceptRef);
-    if (accept.length > 0) {
-      helpTexts.push(t('component.upload.accept', [accept.join(',')]));
-    }
 
     const maxSize = unref(maxSizeRef);
     if (maxSize) {
@@ -50,5 +40,5 @@ export function useUploadType({
     }
     return helpTexts.join('，');
   });
-  return { getAccept, getStringAccept, getHelpText };
+  return { getAccept, getHelpText };
 }

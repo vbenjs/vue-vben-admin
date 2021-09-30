@@ -18,8 +18,8 @@ export const basicProps = {
   },
   // 根据后缀，或者其他
   accept: {
-    type: Array as PropType<string[]>,
-    default: () => [],
+    type: String as PropType<string>,
+    default: '',
   },
   multiple: {
     type: Boolean as PropType<boolean>,
