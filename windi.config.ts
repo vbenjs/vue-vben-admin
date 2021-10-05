@@ -1,4 +1,3 @@
-import colors from 'windicss/colors';
 import { defineConfig } from 'vite-plugin-windicss';
 import { primaryColor } from './build/config/themeConfig';
 
@@ -11,7 +10,6 @@ export default defineConfig({
         '-1': '-1',
       },
       colors: {
-        ...colors,
         primary: primaryColor,
       },
       screens: {
