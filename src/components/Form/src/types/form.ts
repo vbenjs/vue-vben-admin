@@ -129,7 +129,7 @@ export interface FormSchema {
   // Variable name bound to v-model Default value
   valueField?: string;
   // Label name
-  label: string;
+  label: string | VNode;
   // Auxiliary text
   subLabel?: string;
   // Help text on the right side of the text
