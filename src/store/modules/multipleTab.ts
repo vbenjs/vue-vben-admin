@@ -119,7 +119,7 @@ export const useMultipleTabStore = defineStore({
     },
 
     async addTab(route: RouteLocationNormalized) {
-      const { path, name, fullPath, params, query } = getRawRoute(route);
+      const { path, name, fullPath, params, query, meta } = getRawRoute(route);
       // 404  The page does not need to add a tab
       if (
         path === PageEnum.ERROR_PAGE ||
@@ -149,6 +149,21 @@ export const useMultipleTabStore = defineStore({
         this.tabList.splice(updateIndex, 1, curTab);
       } else {
         // Add tab
+        // 获取动态路由层级
+        const dynamicLevel = meta?.dynamicLevel ?? -1;
+        if (dynamicLevel > 0) {
+          // 如果动态路由层级大于 0 了，那么就要限制该路由的打开数限制了
+          // 首先获取到真实的路由，使用配置方式减少计算开销.
+          // const realName: string = path.match(/(\S*)\//)![1];
+          const realPath = meta?.realPath ?? '';
+          // 获取到已经打开的动态路由数, 判断是否大于某一个值
+          // 这里先固定为 每个动态路由最大能打开【5】个Tab
+          if (this.tabList.filter((e) => e.meta?.realPath ?? '' === realPath).length >= 5) {
+            // 关闭第一个
+            const index = this.tabList.findIndex((item) => item.meta.realPath === realPath);
+            index !== -1 && this.tabList.splice(index, 1);
+          }
+        }
         this.tabList.push(route);
       }
       this.updateCacheTab();
