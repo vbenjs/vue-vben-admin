@@ -187,8 +187,12 @@
           item.status = UploadResultStatus.UPLOADING;
           const { data } = await props.api?.(
             {
-              ...(props.uploadParams || {}),
+              data: {
+                ...(props.uploadParams || {}),
+              },
               file: item.file,
+              name: props.name,
+              filename: props.filename,
             },
             function onUploadProgress(progressEvent: ProgressEvent) {
               const complete = ((progressEvent.loaded / progressEvent.total) * 100) | 0;
