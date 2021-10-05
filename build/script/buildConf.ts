@@ -5,17 +5,23 @@ import { GLOB_CONFIG_FILE_NAME, OUTPUT_DIR } from '../constant';
 import fs, { writeFileSync } from 'fs-extra';
 import chalk from 'chalk';
 
-import { getRootPath, getEnvConfig } from '../utils';
+import { getEnvConfig, getRootPath } from '../utils';
 import { getConfigFileName } from '../getConfigFileName';
 
 import pkg from '../../package.json';
 
+interface CreateConfigParams {
+  configName: string;
+  config: any;
+  configFileName?: string;
+}
+
 function createConfig(
-  {
-    configName,
-    config,
-    configFileName = GLOB_CONFIG_FILE_NAME,
-  }: { configName: string; config: any; configFileName?: string } = { configName: '', config: {} },
+  { configName, config, configFileName }: CreateConfigParams = {
+    configName: '',
+    config: {},
+    configFileName: GLOB_CONFIG_FILE_NAME,
+  },
 ) {
   try {
     const windowConf = `window.${configName}`;
