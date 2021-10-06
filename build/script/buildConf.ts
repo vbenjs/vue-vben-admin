@@ -16,13 +16,8 @@ interface CreateConfigParams {
   configFileName?: string;
 }
 
-function createConfig(
-  { configName, config, configFileName }: CreateConfigParams = {
-    configName: '',
-    config: {},
-    configFileName: GLOB_CONFIG_FILE_NAME,
-  },
-) {
+function createConfig(params: CreateConfigParams) {
+  const { configName, config, configFileName } = params;
   try {
     const windowConf = `window.${configName}`;
     // Ensure that the variable will not be modified
@@ -46,5 +41,5 @@ function createConfig(
 export function runBuildConfig() {
   const config = getEnvConfig();
   const configFileName = getConfigFileName(config);
-  createConfig({ config, configName: configFileName });
+  createConfig({ config, configName: configFileName, configFileName: GLOB_CONFIG_FILE_NAME });
 }
