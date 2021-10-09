@@ -22,6 +22,7 @@
         title: '远程加载示例',
         api: demoListApi,
         columns: getBasicColumns(),
+        pagination: { pageSize: 10 },
       });
       function handleReloadCurrent() {
         reload();
