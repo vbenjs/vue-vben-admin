@@ -1,5 +1,10 @@
 <template>
-  <section class="full-loading" :class="{ absolute }" v-show="loading">
+  <section
+    class="full-loading"
+    :class="{ absolute, [theme]: !!theme }"
+    :style="[background ? `background-color: ${background}` : '']"
+    v-show="loading"
+  >
     <Spin v-bind="$attrs" :tip="tip" :size="size" :spinning="loading" />
   </section>
 </template>
@@ -35,6 +40,9 @@
       background: {
         type: String as PropType<string>,
       },
+      theme: {
+        type: String as PropType<'dark' | 'light'>,
+      },
     },
   });
 </script>
@@ -60,8 +68,12 @@
   }
 
   html[data-theme='dark'] {
-    .full-loading {
+    .full-loading:not(.light) {
       background-color: @modal-mask-bg;
     }
+  }
+
+  .full-loading.dark {
+    background-color: @modal-mask-bg;
   }
 </style>
