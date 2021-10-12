@@ -53,7 +53,22 @@ const feat: AppRouteModule = {
       component: () => import('/@/views/demo/feat/tabs/index.vue'),
       meta: {
         title: t('routes.demo.feat.tabs'),
+        hideChildrenInMenu: true,
       },
+      children: [
+        {
+          path: 'detail/:id',
+          name: 'TabDetail',
+          component: () => import('/@/views/demo/feat/tabs/TabDetail.vue'),
+          meta: {
+            currentActiveMenu: '/feat/tabs',
+            title: t('routes.demo.feat.tabDetail'),
+            hideMenu: true,
+            dynamicLevel: 3,
+            realPath: '/feat/tabs/detail',
+          },
+        },
+      ],
     },
     {
       path: 'breadcrumb',
