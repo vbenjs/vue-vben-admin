@@ -149,7 +149,7 @@ export const useMultipleTabStore = defineStore({
         this.tabList.splice(updateIndex, 1, curTab);
       } else {
         // Add tab
-        // 获取动态路由层级
+        // 获取动态路由打开数，超过 0 即代表需要控制打开数
         const dynamicLevel = meta?.dynamicLevel ?? -1;
         if (dynamicLevel > 0) {
           // 如果动态路由层级大于 0 了，那么就要限制该路由的打开数限制了
@@ -157,8 +157,9 @@ export const useMultipleTabStore = defineStore({
           // const realName: string = path.match(/(\S*)\//)![1];
           const realPath = meta?.realPath ?? '';
           // 获取到已经打开的动态路由数, 判断是否大于某一个值
-          // 这里先固定为 每个动态路由最大能打开【5】个Tab
-          if (this.tabList.filter((e) => e.meta?.realPath ?? '' === realPath).length >= 5) {
+          if (
+            this.tabList.filter((e) => e.meta?.realPath ?? '' === realPath).length >= dynamicLevel
+          ) {
             // 关闭第一个
             const index = this.tabList.findIndex((item) => item.meta.realPath === realPath);
             index !== -1 && this.tabList.splice(index, 1);
