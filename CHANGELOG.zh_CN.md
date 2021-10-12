@@ -11,6 +11,7 @@
   - 修复`inset`属性不起作用的问题
   - 修复`useTable`与`BasicTable`实例的`reload`方法`await`表现不一致的问题
   - 修复`clickToRowSelect`会无视行选择框 disabled 状态的问题
+  - 修复`BasicTable`在某些情况下，分页会被重置的问题
 - **BasicModal**
   - 修复点击遮罩、按下`Esc`键都不能关闭`Modal`的问题
   - 修复点击关闭按钮、最大化按钮旁边的空白区域也会导致`Modal`关闭的问题
