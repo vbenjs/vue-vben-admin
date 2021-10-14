@@ -95,7 +95,7 @@ export interface TableActionType {
   setPagination: (info: Partial<PaginationProps>) => void;
   setTableData: <T = Recordable>(values: T[]) => void;
   updateTableDataRecord: (rowKey: string | number, record: Recordable) => Recordable | void;
-  deleteTableDataRecord: (record: Recordable | Recordable[]) => Recordable | void;
+  deleteTableDataRecord: (rowKey: string | number | string[] | number[]) => void;
   insertTableDataRecord: (record: Recordable, index?: number) => Recordable | void;
   findTableDataRecord: (rowKey: string | number) => Recordable | void;
   getColumns: (opt?: GetColumnsParams) => BasicColumn[];
