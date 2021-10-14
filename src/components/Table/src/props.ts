@@ -69,6 +69,11 @@ export const basicProps = {
     type: Object as PropType<Recordable>,
     default: null,
   },
+  // 默认的排序参数
+  defSort: {
+    type: Object as PropType<Recordable>,
+    default: null,
+  },
   // 使用搜索表单
   useSearchForm: propTypes.bool,
   // 表单配置

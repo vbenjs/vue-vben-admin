@@ -176,6 +176,8 @@ export interface BasicTableProps<T = any> {
   emptyDataIsShowTable?: boolean;
   // 额外的请求参数
   searchInfo?: Recordable;
+  // 默认的排序参数
+  defSort?: Recordable;
   // 使用搜索表单
   useSearchForm?: boolean;
   // 表单配置
