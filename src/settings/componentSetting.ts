@@ -24,12 +24,16 @@ export default {
     // Custom general sort function
     defaultSortFn: (sortInfo: SorterResult) => {
       const { field, order } = sortInfo;
-      return {
-        // The sort field passed to the backend you
-        field,
-        // Sorting method passed to the background asc/desc
-        order,
-      };
+      if (field && order) {
+        return {
+          // The sort field passed to the backend you
+          field,
+          // Sorting method passed to the background asc/desc
+          order,
+        };
+      } else {
+        return {};
+      }
     },
     // Custom general filter function
     defaultFilterFn: (data: Partial<Recordable<string[]>>) => {
