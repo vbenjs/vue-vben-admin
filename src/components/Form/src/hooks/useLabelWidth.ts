@@ -33,7 +33,7 @@ export function useItemLabelWidth(schemaItemRef: Ref<FormSchema>, propsRef: Ref<
 
     return {
       labelCol: { style: { width }, ...col },
-      wrapperCol: { style: { width: `calc(100% - ${width})` }, ...wrapCol },
+      wrapperCol: { style: { width: `calc(100% - ${width})`, overflow: 'hidden' }, ...wrapCol },
     };
   });
 }
