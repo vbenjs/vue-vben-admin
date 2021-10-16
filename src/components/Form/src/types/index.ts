@@ -92,6 +92,7 @@ export type ComponentType =
   | 'ApiSelect'
   | 'TreeSelect'
   | 'ApiTreeSelect'
+  | 'ApiRadioGroup'
   | 'RadioButtonGroup'
   | 'RadioGroup'
   | 'Checkbox'

@@ -21,6 +21,7 @@ import {
   Divider,
 } from 'ant-design-vue';
 
+import ApiRadioGroup from './components/ApiRadioGroup.vue';
 import RadioButtonGroup from './components/RadioButtonGroup.vue';
 import ApiSelect from './components/ApiSelect.vue';
 import ApiTreeSelect from './components/ApiTreeSelect.vue';
@@ -43,6 +44,7 @@ componentMap.set('Select', Select);
 componentMap.set('ApiSelect', ApiSelect);
 componentMap.set('TreeSelect', TreeSelect);
 componentMap.set('ApiTreeSelect', ApiTreeSelect);
+componentMap.set('ApiRadioGroup', ApiRadioGroup);
 componentMap.set('Switch', Switch);
 componentMap.set('RadioButtonGroup', RadioButtonGroup);
 componentMap.set('RadioGroup', Radio.Group);

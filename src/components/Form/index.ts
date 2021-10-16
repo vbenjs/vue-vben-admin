@@ -9,5 +9,6 @@ export { useForm } from './src/hooks/useForm';
 export { default as ApiSelect } from './src/components/ApiSelect.vue';
 export { default as RadioButtonGroup } from './src/components/RadioButtonGroup.vue';
 export { default as ApiTreeSelect } from './src/components/ApiTreeSelect.vue';
+export { default as ApiRadioGroup } from './src/components/ApiRadioGroup.vue';
 
 export { BasicForm };
