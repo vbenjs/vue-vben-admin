@@ -411,6 +411,50 @@
       },
     },
     {
+      field: 'field34',
+      component: 'ApiRadioGroup',
+      label: '远程Radio',
+      helpMessage: ['ApiRadioGroup组件', '使用接口提供的数据生成选项'],
+      required: true,
+      componentProps: {
+        api: optionsListApi,
+        params: {
+          count: 2,
+        },
+        resultField: 'list',
+        // use name as label
+        labelField: 'name',
+        // use id as value
+        valueField: 'id',
+      },
+      defaultValue: '1',
+      colProps: {
+        span: 8,
+      },
+    },
+    {
+      field: 'field35',
+      component: 'ApiRadioGroup',
+      label: '远程Radio',
+      helpMessage: ['ApiRadioGroup组件', '使用接口提供的数据生成选项'],
+      required: true,
+      componentProps: {
+        api: optionsListApi,
+        params: {
+          count: 2,
+        },
+        resultField: 'list',
+        // use name as label
+        labelField: 'name',
+        // use id as value
+        valueField: 'id',
+        isBtn: true,
+      },
+      colProps: {
+        span: 8,
+      },
+    },
+    {
       field: 'divider-linked',
       component: 'Divider',
       label: '字段联动',
