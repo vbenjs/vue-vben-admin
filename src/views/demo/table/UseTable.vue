@@ -54,6 +54,10 @@
         titleHelpMessage: '使用useTable调用表格内方法',
         api: demoListApi,
         columns: getBasicColumns(),
+        defSort: {
+          field: 'name',
+          order: 'ascend',
+        },
         rowKey: 'id',
         showTableSetting: true,
         onChange,

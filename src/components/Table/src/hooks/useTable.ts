@@ -122,8 +122,8 @@ export function useTable(tableProps?: Props): [
     updateTableData: (index: number, key: string, value: any) => {
       return getTableInstance().updateTableData(index, key, value);
     },
-    deleteTableDataRecord: (record: Recordable | Recordable[]) => {
-      return getTableInstance().deleteTableDataRecord(record);
+    deleteTableDataRecord: (rowKey: string | number | string[] | number[]) => {
+      return getTableInstance().deleteTableDataRecord(rowKey);
     },
     insertTableDataRecord: (record: Recordable | Recordable[], index?: number) => {
       return getTableInstance().insertTableDataRecord(record, index);
