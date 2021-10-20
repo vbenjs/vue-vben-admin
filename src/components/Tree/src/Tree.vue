@@ -399,7 +399,7 @@
           const children = get(item, childrenField) || [];
           const title = get(item, titleField);
 
-          const searchIdx = title.indexOf(searchText);
+          const searchIdx = searchText ? title.indexOf(searchText) : -1;
           const isHighlight =
             searchState.startSearch && !isEmpty(searchText) && highlight && searchIdx !== -1;
           const highlightStyle = `color: ${isBoolean(highlight) ? '#f50' : highlight}`;
