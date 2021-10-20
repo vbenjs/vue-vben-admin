@@ -7,9 +7,10 @@ import type {
   SorterResult,
   TableCustomRecord,
   TableRowSelection,
+  SizeType,
 } from './types/table';
 import type { FormProps } from '/@/components/Form';
-import { DEFAULT_FILTER_FN, DEFAULT_SORT_FN, FETCH_SETTING } from './const';
+import { DEFAULT_FILTER_FN, DEFAULT_SORT_FN, FETCH_SETTING, DEFAULT_SIZE } from './const';
 import { propTypes } from '/@/utils/propTypes';
 
 export const basicProps = {
@@ -140,5 +141,9 @@ export const basicProps = {
         value: any;
       }) => Promise<any>
     >,
+  },
+  size: {
+    type: String as PropType<SizeType>,
+    default: DEFAULT_SIZE,
   },
 };
