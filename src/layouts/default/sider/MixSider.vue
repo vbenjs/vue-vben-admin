@@ -362,19 +362,19 @@
 
     &.light {
       .@{prefix-cls}-logo {
-        border-bottom: 1px solid rgb(238, 238, 238);
+        border-bottom: 1px solid rgb(238 238 238);
       }
 
       &.open {
         > .scrollbar {
-          border-right: 1px solid rgb(238, 238, 238);
+          border-right: 1px solid rgb(238 238 238);
         }
       }
 
       .@{prefix-cls}-module {
         &__item {
           font-weight: normal;
-          color: rgba(0, 0, 0, 0.65);
+          color: rgb(0 0 0 / 65%);
 
           &--active {
             color: @primary-color;
@@ -384,15 +384,15 @@
       }
       .@{prefix-cls}-menu-list {
         &__content {
-          box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 4px 0 rgb(0 0 0 / 10%);
         }
 
         &__title {
           .pushpin {
-            color: rgba(0, 0, 0, 0.35);
+            color: rgb(0 0 0 / 35%);
 
             &:hover {
-              color: rgba(0, 0, 0, 0.85);
+              color: rgb(0 0 0 / 85%);
             }
           }
         }
@@ -442,7 +442,7 @@
       &__item {
         position: relative;
         padding: 12px 0;
-        color: rgba(255, 255, 255, 0.65);
+        color: rgb(255 255 255 / 65%);
         text-align: center;
         cursor: pointer;
         transition: all 0.3s ease;
@@ -487,7 +487,7 @@
       left: 0;
       width: 100%;
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.65);
+      color: rgb(255 255 255 / 65%);
       text-align: center;
       cursor: pointer;
       background-color: @trigger-dark-bg-color;
@@ -496,7 +496,7 @@
     }
 
     &.light &-trigger {
-      color: rgba(0, 0, 0, 0.65);
+      color: rgb(0 0 0 / 65%);
       background-color: #fff;
       border-top: 1px solid #eee;
     }
@@ -515,21 +515,21 @@
         // margin-left: -6px;
         font-size: 18px;
         color: @primary-color;
-        border-bottom: 1px solid rgb(238, 238, 238);
-        opacity: 0;
+        border-bottom: 1px solid rgb(238 238 238);
+        opacity: 0%;
         transition: unset;
         align-items: center;
         justify-content: space-between;
 
         &.show {
           min-width: 130px;
-          opacity: 1;
+          opacity: 100%;
           transition: all 0.5s ease;
         }
 
         .pushpin {
           margin-right: 6px;
-          color: rgba(255, 255, 255, 0.65);
+          color: rgb(255 255 255 / 65%);
           cursor: pointer;
 
           &:hover {
@@ -572,7 +572,7 @@
       background-color: #f8f8f9;
       border-top: none;
       border-bottom: none;
-      box-shadow: 0 0 4px 0 rgba(28, 36, 56, 0.15);
+      box-shadow: 0 0 4px 0 rgb(28 36 56 / 15%);
     }
   }
 </style>

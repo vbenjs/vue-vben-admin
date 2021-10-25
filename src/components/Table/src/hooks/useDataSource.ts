@@ -241,8 +241,16 @@ export function useDataSource(
   }
 
   async function fetch(opt?: FetchParams) {
-    const { api, searchInfo, defSort, fetchSetting, beforeFetch, afterFetch, useSearchForm, pagination } =
-      unref(propsRef);
+    const {
+      api,
+      searchInfo,
+      defSort,
+      fetchSetting,
+      beforeFetch,
+      afterFetch,
+      useSearchForm,
+      pagination,
+    } = unref(propsRef);
     if (!api || !isFunction(api)) return;
     try {
       setLoading(true);

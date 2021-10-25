@@ -88,7 +88,7 @@
     }
 
     .ant-image-preview-operations {
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgb(0 0 0 / 40%);
     }
   }
 </style>

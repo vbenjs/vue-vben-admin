@@ -292,7 +292,7 @@
     position: relative;
     overflow: hidden;
     text-align: center;
-    background-color: rgb(238, 238, 238);
+    background-color: rgb(238 238 238);
     border: 1px solid #ddd;
     border-radius: @radius;
 
@@ -313,7 +313,7 @@
       position: absolute;
       top: 0;
       font-size: 12px;
-      -webkit-text-size-adjust: none;
+      text-size-adjust: none;
       background-color: -webkit-gradient(
         linear,
         left top,

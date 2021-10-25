@@ -98,13 +98,13 @@
       padding: 0 10px;
 
       &:not(:last-child) {
-        border-right: 1px dashed rgb(206, 206, 206, 0.5);
+        border-right: 1px dashed rgb(206 206 206 / 50%);
       }
     }
 
     &-top {
       padding: 10px;
-      margin: 16px 16px 12px 16px;
+      margin: 16px 16px 12px;
       background-color: @component-background;
       border-radius: 3px;
 
@@ -147,7 +147,7 @@
 
     &-bottom {
       padding: 10px;
-      margin: 0 16px 16px 16px;
+      margin: 0 16px 16px;
       background-color: @component-background;
       border-radius: 3px;
     }

@@ -420,7 +420,7 @@
 
     &__fixed-left,
     &__fixed-right {
-      color: rgba(0, 0, 0, 0.45);
+      color: rgb(0 0 0 / 45%);
       cursor: pointer;
 
       &.active,

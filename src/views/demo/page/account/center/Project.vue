@@ -48,7 +48,7 @@
       width: 100%;
 
       .ant-card-body {
-        padding: 0 0 24px 0;
+        padding: 0 0 24px;
       }
 
       img {
@@ -60,7 +60,7 @@
         margin: 5px 10px;
         font-size: 16px;
         font-weight: 500;
-        color: rgba(0, 0, 0, 0.85);
+        color: rgb(0 0 0 / 85%);
       }
 
       &-content {
