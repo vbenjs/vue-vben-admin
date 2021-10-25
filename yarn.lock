@@ -1853,7 +1853,7 @@
   resolved "https://registry.nlark.com/@types/lodash/download/@types/lodash-4.14.173.tgz#9d3b674c67a26cf673756f6aca7b429f237f91ed"
   integrity sha1-nTtnTGeibPZzdW9qyntCnyN/ke0=
 
-"@types/minimatch@*", "@types/minimatch@^3.0.3":
+"@types/minimatch@*":
   version "3.0.5"
   resolved "https://registry.nlark.com/@types/minimatch/download/@types/minimatch-3.0.5.tgz?cache=0&sync_timestamp=1629708301760&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fminimatch%2Fdownload%2F%40types%2Fminimatch-3.0.5.tgz#1001cc5e6a3704b83c236027e77f2f58ea010f40"
   integrity sha1-EAHMXmo3BLg8I2An538vWOoBD0A=
@@ -2663,11 +2663,6 @@ arr-union@^3.1.0:
   resolved "https://registry.nlark.com/arr-union/download/arr-union-3.1.0.tgz#e39b09aea9def866a8f206e288af63919bae39c4"
   integrity sha1-45sJrqne+Gao8gbiiK9jkZuuOcQ=
 
-array-differ@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.nlark.com/array-differ/download/array-differ-3.0.0.tgz#3cbb3d0f316810eafcc47624734237d6aee4ae6b"
-  integrity sha1-PLs9DzFoEOr8xHYkc0I31q7krms=
-
 array-find-index@^1.0.1:
   version "1.0.2"
   resolved "https://registry.nlark.com/array-find-index/download/array-find-index-1.0.2.tgz#df010aa1287e164bbda6f9723b0a96a1ec4187a1"
@@ -2697,11 +2692,6 @@ arrify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.nlark.com/arrify/download/arrify-1.0.1.tgz?cache=0&sync_timestamp=1619599497996&other_urls=https%3A%2F%2Fregistry.nlark.com%2Farrify%2Fdownload%2Farrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
   integrity sha1-iYUI2iIm84DfkEcoRWhJwVAaSw0=
-
-arrify@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.nlark.com/arrify/download/arrify-2.0.1.tgz?cache=0&sync_timestamp=1619599497996&other_urls=https%3A%2F%2Fregistry.nlark.com%2Farrify%2Fdownload%2Farrify-2.0.1.tgz#c9655e9331e0abcd588d2a7cad7e9956f66701fa"
-  integrity sha1-yWVekzHgq81YjSp8rX6ZVvZnAfo=
 
 asap@~2.0.3:
   version "2.0.6"
@@ -3262,14 +3252,6 @@ chalk@^2.0.0, chalk@^2.4.1, chalk@^2.4.2:
     ansi-styles "^3.2.1"
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
-
-chalk@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.nlark.com/chalk/download/chalk-3.0.0.tgz?cache=0&sync_timestamp=1627646697260&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fchalk%2Fdownload%2Fchalk-3.0.0.tgz#3f73c2bf526591f574cc492c51e2456349f844e4"
-  integrity sha1-P3PCv1JlkfV0zEksUeJFY0n4ROQ=
-  dependencies:
-    ansi-styles "^4.1.0"
-    supports-color "^7.1.0"
 
 chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.1, chalk@^4.1.2:
   version "4.1.2"
@@ -8126,11 +8108,6 @@ mozjpeg@^7.0.0:
     bin-wrapper "^4.0.0"
     logalot "^2.1.0"
 
-mri@^1.1.5:
-  version "1.2.0"
-  resolved "https://registry.nlark.com/mri/download/mri-1.2.0.tgz#6721480fec2a11a4889861115a48b6cbe7cc8f0b"
-  integrity sha1-ZyFID+wqEaSImGERWki2y+fMjws=
-
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.nlark.com/ms/download/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -8145,17 +8122,6 @@ ms@^2.1.1:
   version "2.1.3"
   resolved "https://registry.nlark.com/ms/download/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha1-V0yBOM4dK1hh8LRFedut1gxmFbI=
-
-multimatch@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npm.taobao.org/multimatch/download/multimatch-4.0.0.tgz#8c3c0f6e3e8449ada0af3dd29efb491a375191b3"
-  integrity sha1-jDwPbj6ESa2grz3SnvtJGjdRkbM=
-  dependencies:
-    "@types/minimatch" "^3.0.3"
-    array-differ "^3.0.0"
-    array-union "^2.1.0"
-    arrify "^2.0.1"
-    minimatch "^3.0.4"
 
 mute-stream@0.0.7:
   version "0.0.7"
@@ -9142,18 +9108,6 @@ pretty-format@^27.3.1:
     ansi-regex "^5.0.1"
     ansi-styles "^5.0.0"
     react-is "^17.0.1"
-
-pretty-quick@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.nlark.com/pretty-quick/download/pretty-quick-3.1.1.tgz#93ca4e2dd38cc4e970e3f54a0ead317a25454688"
-  integrity sha1-k8pOLdOMxOlw4/VKDq0xeiVFRog=
-  dependencies:
-    chalk "^3.0.0"
-    execa "^4.0.0"
-    find-up "^4.1.0"
-    ignore "^5.1.4"
-    mri "^1.1.5"
-    multimatch "^4.0.0"
 
 print-js@^1.6.0:
   version "1.6.0"
