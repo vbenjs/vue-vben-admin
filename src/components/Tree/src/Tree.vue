@@ -408,7 +408,7 @@
             <span class={unref(getBindValues)?.blockNode ? `${prefixCls}__content` : ''}>
               <span>{title.substr(0, searchIdx)}</span>
               <span style={highlightStyle}>{searchText}</span>
-              <span>{title.substr(searchIdx + searchText.length)}</span>
+              <span>{title.substr(searchIdx + (searchText as string).length)}</span>
             </span>
           ) : (
             title
