@@ -66,7 +66,7 @@
       cursor: pointer;
       background-color: #f0f2f5;
       border-radius: 4px;
-      box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.18);
+      box-shadow: 0 1px 2.5px 0 rgb(0 0 0 / 18%);
 
       &::before,
       &::after {

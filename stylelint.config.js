@@ -1,8 +1,10 @@
 module.exports = {
   root: true,
   plugins: ['stylelint-order'],
+  customSyntax: 'postcss-less',
   extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
   rules: {
+    'selector-class-pattern': null,
     'selector-pseudo-class-no-unknown': [
       true,
       {

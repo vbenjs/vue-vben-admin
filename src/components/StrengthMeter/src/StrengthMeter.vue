@@ -92,7 +92,7 @@
         background-color: transparent;
         border-color: @white;
         border-style: solid;
-        border-width: 0 5px 0 5px;
+        border-width: 0 5px;
         content: '';
       }
 

@@ -129,7 +129,7 @@
     &__time {
       position: absolute;
       right: 20px;
-      color: rgba(0, 0, 0, 0.45);
+      color: rgb(0 0 0 / 45%);
     }
   }
 </style>
