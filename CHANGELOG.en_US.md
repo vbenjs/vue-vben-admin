@@ -1,3 +1,37 @@
+## 2.8.0(2021-11.03)
+
+### Upgrade Instructions
+
+- Package manager changed from `yarn` to `pnpm`
+- Delete `node_modules` and `yarn.lock`, install `pnpm` globally
+- Execute `pnpm install`
+
+### ✨ Features
+
+- **Others**
+  - The `VITE_PROXY` configuration in the `.env` file supports single quotes
+  - Remove warnings during build
+
+### 🐛 Bug Fixes
+
+- **BasicTable**
+  - Fix the issue that editable cells cannot be submitted in some cases
+  - Fix the problem that the `inset` attribute does not work
+  - Fix the problem that the performance of `useTable` and `reload` method `await` of `BasicTable` instance are inconsistent
+  - Fix the issue that `clickToRowSelect` would ignore the disabled state of the row selection box
+  - Fix the problem that the page of `BasicTable` will be reset in some cases
+  - Modify the `deleteTableDataRecord` method
+- **BasicModal**
+  - Fixed the problem that `Modal` could not be closed even when clicking on the mask and pressing the `Esc` key
+  - Fixed the issue that clicking the close button and the blank area next to the maximize button would also cause `Modal` to close
+- **BasicTree** Fix the problem that the node slot does not work
+- **CodeEditor** Fix the problem that may cause `Build` failure
+- **BasicForm** Fix the problem that the content width of the custom FormItem component may be out of range
+- **ApiTreeSelect** Fix the problem that the change of `params` failed to trigger the re-request of api data
+- **Others** -Fixed an issue where multiple tabs would not jump to routing when closing tabs in some cases
+  - Fix the issue that some components may cause abnormal hot update
+  - Fix the problem that some sub-components of `antdv` will be reported in the build process when directly `import` part of the `antdv`, such as: TabPane, RadioGroup
+
 ## 2.7.2(2021-09-14)
 
 ### ✨ Features

@@ -1,3 +1,11 @@
+## 2.8.0(2021-11.03)
+
+### 升级说明
+
+- 包管理器由`yarn`改为 `pnpm`
+- 删除`node_modules`和`yarn.lock`，全局安装`pnpm`
+- 执行`pnpm install`
+
 ### ✨ Features
 
 - **其它**
