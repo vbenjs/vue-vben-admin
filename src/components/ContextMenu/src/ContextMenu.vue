@@ -178,22 +178,22 @@
     margin: 0;
     list-style: none;
     background-color: @component-background;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid rgb(0 0 0 / 8%);
     border-radius: 0.25rem;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.1),
-      0 1px 5px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 10%),
+      0 1px 5px 0 rgb(0 0 0 / 6%);
     background-clip: padding-box;
     user-select: none;
 
     .item-style();
 
     .ant-divider {
-      margin: 0 0;
+      margin: 0;
     }
 
     &__popup {
       .ant-divider {
-        margin: 0 0;
+        margin: 0;
       }
 
       .item-style();

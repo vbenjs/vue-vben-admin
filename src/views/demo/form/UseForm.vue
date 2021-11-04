@@ -52,6 +52,7 @@
       >
         修改查询按钮
       </a-button>
+      <a-button @click="handleLoad" class="mr-2"> 联动回显 </a-button>
     </div>
     <CollapseContainer title="useForm示例">
       <BasicForm @register="register" @submit="handleSubmit" />
@@ -64,6 +65,7 @@
   import { CollapseContainer } from '/@/components/Container/index';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PageWrapper } from '/@/components/Page';
+  import { areaRecord } from '/@/api/demo/cascader';
 
   const schemas: FormSchema[] = [
     {
@@ -166,6 +168,48 @@
         ],
       },
     },
+    {
+      field: 'field8',
+      component: 'ApiCascader',
+      label: '联动',
+      colProps: {
+        span: 8,
+      },
+      componentProps: {
+        api: areaRecord,
+        apiParamKey: 'parentCode',
+        dataField: 'data',
+        labelField: 'name',
+        valueField: 'code',
+        initFetchParams: {
+          parentCode: '',
+        },
+        isLeaf: (record) => {
+          return !(record.levelType < 3);
+        },
+      },
+    },
+    {
+      field: 'field9',
+      component: 'ApiCascader',
+      label: '联动回显',
+      colProps: {
+        span: 8,
+      },
+      componentProps: {
+        api: areaRecord,
+        apiParamKey: 'parentCode',
+        dataField: 'data',
+        labelField: 'name',
+        valueField: 'code',
+        initFetchParams: {
+          parentCode: '',
+        },
+        isLeaf: (record) => {
+          return !(record.levelType < 3);
+        },
+      },
+    },
   ];
 
   export default defineComponent({
@@ -173,7 +217,7 @@
     setup() {
       const { createMessage } = useMessage();
 
-      const [register, { setProps }] = useForm({
+      const [register, { setProps, setFieldsValue, updateSchema }] = useForm({
         labelWidth: 120,
         schemas,
         actionColOptions: {
@@ -181,6 +225,35 @@
         },
         fieldMapToTime: [['fieldTime', ['startTime', 'endTime'], 'YYYY-MM']],
       });
+
+      async function handleLoad() {
+        const promiseFn = function () {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve({
+                field9: ['430000', '430100', '430102'],
+                province: '湖南省',
+                city: '长沙市',
+                district: '岳麓区',
+              });
+            }, 1000);
+          });
+        };
+
+        const item = await promiseFn();
+
+        const { field9, province, city, district } = item as any;
+        await updateSchema({
+          field: 'field9',
+          componentProps: {
+            displayRenderArray: [province, city, district],
+          },
+        });
+        await setFieldsValue({
+          field9,
+        });
+      }
+
       return {
         register,
         schemas,
@@ -188,6 +261,7 @@
           createMessage.success('click search,values:' + JSON.stringify(values));
         },
         setProps,
+        handleLoad,
       };
     },
   });

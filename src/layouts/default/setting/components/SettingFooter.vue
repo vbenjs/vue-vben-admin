@@ -65,7 +65,7 @@
           updateColorWeak(colorWeak);
           updateGrayMode(grayMode);
           createMessage.success(t('layout.setting.resetSuccess'));
-        } catch (error) {
+        } catch (error: any) {
           createMessage.error(error);
         }
       }

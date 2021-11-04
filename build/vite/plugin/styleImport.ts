@@ -14,29 +14,15 @@ export function configStyleImportPlugin(isBuild: boolean) {
         libraryName: 'ant-design-vue',
         esModule: true,
         resolveStyle: (name) => {
-          // 这里是“子组件”列表，无需额外引入样式文件
+          // 这里是无需额外引入样式文件的“子组件”列表
           const ignoreList = [
-            'typography-text',
-            'typography-title',
-            'typography-paragraph',
-            'typography-link',
             'anchor-link',
             'sub-menu',
             'menu-item',
             'menu-item-group',
-            'dropdown-button',
             'breadcrumb-item',
             'breadcrumb-separator',
-            'input-password',
-            'input-search',
-            'input-group',
             'form-item',
-            'radio-group',
-            'checkbox-group',
-            'layout-sider',
-            'layout-content',
-            'layout-footer',
-            'layout-header',
             'step',
             'select-option',
             'select-opt-group',
@@ -59,7 +45,31 @@ export function configStyleImportPlugin(isBuild: boolean) {
             'skeleton-image',
             'skeleton-button',
           ];
-          return ignoreList.includes(name) ? '' : `ant-design-vue/es/${name}/style/index`;
+          // 这里是需要额外引入样式的子组件列表
+          // 单独引入子组件时需引入组件样式，否则会在打包后导致子组件样式丢失
+          const replaceList = {
+            'typography-text': 'typography',
+            'typography-title': 'typography',
+            'typography-paragraph': 'typography',
+            'typography-link': 'typography',
+            'dropdown-button': 'dropdown',
+            'input-password': 'input',
+            'input-search': 'input',
+            'input-group': 'input',
+            'radio-group': 'radio',
+            'checkbox-group': 'checkbox',
+            'layout-sider': 'layout',
+            'layout-content': 'layout',
+            'layout-footer': 'layout',
+            'layout-header': 'layout',
+            'month-picker': 'date-picker',
+          };
+
+          return ignoreList.includes(name)
+            ? ''
+            : replaceList.hasOwnProperty(name)
+            ? `ant-design-vue/es/${replaceList[name]}/style/index`
+            : `ant-design-vue/es/${name}/style/index`;
         },
       },
     ],

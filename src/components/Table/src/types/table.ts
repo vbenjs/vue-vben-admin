@@ -95,7 +95,7 @@ export interface TableActionType {
   setPagination: (info: Partial<PaginationProps>) => void;
   setTableData: <T = Recordable>(values: T[]) => void;
   updateTableDataRecord: (rowKey: string | number, record: Recordable) => Recordable | void;
-  deleteTableDataRecord: (record: Recordable | Recordable[]) => Recordable | void;
+  deleteTableDataRecord: (rowKey: string | number | string[] | number[]) => void;
   insertTableDataRecord: (record: Recordable, index?: number) => Recordable | void;
   findTableDataRecord: (rowKey: string | number) => Recordable | void;
   getColumns: (opt?: GetColumnsParams) => BasicColumn[];
@@ -176,6 +176,8 @@ export interface BasicTableProps<T = any> {
   emptyDataIsShowTable?: boolean;
   // 额外的请求参数
   searchInfo?: Recordable;
+  // 默认的排序参数
+  defSort?: Recordable;
   // 使用搜索表单
   useSearchForm?: boolean;
   // 表单配置

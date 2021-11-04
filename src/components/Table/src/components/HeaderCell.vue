@@ -42,7 +42,7 @@
   .@{prefix-cls} {
     &__help {
       margin-left: 8px;
-      color: rgba(0, 0, 0, 0.65) !important;
+      color: rgb(0 0 0 / 65%) !important;
     }
   }
 </style>
