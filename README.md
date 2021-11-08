@@ -70,20 +70,20 @@ git clone https://github.com/anncwb/vue-vben-admin.git
 ```bash
 cd vue-vben-admin
 
-yarn install
+pnpm install
 
 ```
 
 - run
 
 ```bash
-yarn serve
+pnpm serve
 ```
 
 - build
 
 ```bash
-yarn build
+pnpm build
 ```
 
 ## Change Log
