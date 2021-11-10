@@ -1,5 +1,6 @@
 <script lang="tsx">
   import type { ReplaceFields, Keys, CheckKeys, TreeActionType, TreeItem } from './typing';
+  import type { CheckEvent } from './typing';
 
   import {
     defineComponent,
@@ -15,22 +16,17 @@
   } from 'vue';
   import { Tree, Empty } from 'ant-design-vue';
   import { TreeIcon } from './TreeIcon';
-  import TreeHeader from './TreeHeader.vue';
   import { ScrollContainer } from '/@/components/Container';
-
   import { omit, get, difference } from 'lodash-es';
   import { isArray, isBoolean, isEmpty, isFunction } from '/@/utils/is';
   import { extendSlots, getSlot } from '/@/utils/helper/tsxHelper';
   import { filter, treeToList } from '/@/utils/helper/treeHelper';
-
   import { useTree } from './useTree';
   import { useContextMenu } from '/@/hooks/web/useContextMenu';
   import { useDesign } from '/@/hooks/web/useDesign';
-
   import { basicProps } from './props';
   import { CreateContextOptions } from '/@/components/ContextMenu';
-
-  import { CheckEvent } from './typing';
+  import TreeHeader from './TreeHeader.vue';
 
   interface State {
     expandedKeys: Keys;

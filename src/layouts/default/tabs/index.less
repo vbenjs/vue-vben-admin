@@ -28,7 +28,8 @@ html[data-theme='light'] {
   }
 
   .ant-tabs.ant-tabs-card {
-    .ant-tabs-card-bar {
+    .ant-tabs-nav {
+      padding-top: 2px;
       height: @multiple-height;
       margin: 0;
       background-color: @component-background;
@@ -49,18 +50,20 @@ html[data-theme='light'] {
         transition: none;
 
         &:hover {
-          .ant-tabs-close-x {
-            opacity: 100%;
+          .ant-tabs-tab-remove {
+            opacity: 1;
           }
         }
 
-        .ant-tabs-close-x {
+        .ant-tabs-tab-remove {
           width: 8px;
-          height: 12px;
+          height: 28px;
           font-size: 12px;
           color: inherit;
-          opacity: 0%;
+          opacity: 0;
           transition: none;
+          margin-left: 2px;
+          margin-right: -4px;
 
           &:hover {
             svg {
@@ -69,11 +72,11 @@ html[data-theme='light'] {
           }
         }
 
-        > div {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
+        // > div {
+        //   display: flex;
+        //   justify-content: center;
+        //   align-items: center;
+        // }
 
         svg {
           fill: @text-color-base;
@@ -89,13 +92,16 @@ html[data-theme='light'] {
       .ant-tabs-tab-active {
         position: relative;
         padding-left: 18px;
-        color: @white !important;
         background: @primary-color;
         border: 0;
         transition: none;
 
-        .ant-tabs-close-x {
-          opacity: 100%;
+        span {
+          color: @white !important;
+        }
+
+        .ant-tabs-tab-remove {
+          opacity: 1;
         }
 
         svg {
@@ -124,18 +130,13 @@ html[data-theme='light'] {
     }
   }
 
-  .ant-tabs-extra-content {
-    margin-top: 2px;
-    line-height: @multiple-height !important;
-  }
-
   .ant-dropdown-trigger {
     display: inline-flex;
   }
 
   &--hide-close {
-    .ant-tabs-close-x {
-      opacity: 0% !important;
+    .ant-tabs-tab-remove {
+      opacity: 0 !important;
     }
   }
 
