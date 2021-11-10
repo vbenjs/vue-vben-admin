@@ -8,8 +8,8 @@ It is used to start the test interface service, which can test the upload, webso
 
 cd ./test/server
 
-yarn
+pnpm install
 
-yarn start
+pnpm run start
 
 ```
