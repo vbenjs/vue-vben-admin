@@ -8,7 +8,7 @@ import type {
   TreeItem,
 } from './typing';
 import type { ContextMenuItem } from '/@/hooks/web/useContextMenu';
-import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree';
+import type { TreeDataItem } from 'ant-design-vue/es/tree';
 import { propTypes } from '/@/utils/propTypes';
 
 export const basicProps = {

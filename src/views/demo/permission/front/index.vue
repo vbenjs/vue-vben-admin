@@ -14,28 +14,28 @@
 
     <div class="mt-4">
       权限切换(请先切换权限模式为前端角色权限模式):
-      <a-button-group>
+      <Space>
         <a-button @click="changeRole(RoleEnum.SUPER)" :type="isSuper ? 'primary' : 'default'">
           {{ RoleEnum.SUPER }}
         </a-button>
         <a-button @click="changeRole(RoleEnum.TEST)" :type="isTest ? 'primary' : 'default'">
           {{ RoleEnum.TEST }}
         </a-button>
-      </a-button-group>
+      </Space>
     </div>
   </PageWrapper>
 </template>
 <script lang="ts">
   import { computed, defineComponent } from 'vue';
-  import { Alert } from 'ant-design-vue';
-  import CurrentPermissionMode from '../CurrentPermissionMode.vue';
+  import { Alert, Space } from 'ant-design-vue';
   import { useUserStore } from '/@/store/modules/user';
   import { RoleEnum } from '/@/enums/roleEnum';
   import { usePermission } from '/@/hooks/web/usePermission';
   import { PageWrapper } from '/@/components/Page';
+  import CurrentPermissionMode from '../CurrentPermissionMode.vue';
 
   export default defineComponent({
-    components: { Alert, CurrentPermissionMode, PageWrapper },
+    components: { Space, Alert, CurrentPermissionMode, PageWrapper },
     setup() {
       const { changeRole } = usePermission();
       const userStore = useUserStore();
