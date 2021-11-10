@@ -39,7 +39,7 @@ specifiers:
   '@vueuse/core': ^6.8.0
   '@vueuse/shared': ^6.8.0
   '@zxcvbn-ts/core': ^1.0.0
-  ant-design-vue: 2.2.8
+  ant-design-vue: 3.0.0-alpha.11
   autoprefixer: ^10.4.0
   axios: ^0.24.0
   codemirror: ^5.63.3
@@ -48,6 +48,7 @@ specifiers:
   cropperjs: ^1.5.12
   cross-env: ^7.0.3
   crypto-js: ^4.1.1
+  dayjs: ^1.10.7
   dotenv: ^10.0.0
   echarts: ^5.2.2
   eslint: ^8.2.0
@@ -66,7 +67,6 @@ specifiers:
   lint-staged: 11.2.6
   lodash-es: ^4.17.21
   mockjs: ^1.1.0
-  moment: ^2.29.1
   npm-run-all: ^4.1.5
   nprogress: ^0.2.0
   path-to-regexp: ^6.2.0
@@ -123,16 +123,16 @@ dependencies:
   '@vueuse/core': 6.8.0_vue@3.2.21
   '@vueuse/shared': 6.8.0_vue@3.2.21
   '@zxcvbn-ts/core': 1.0.0
-  ant-design-vue: 2.2.8_076477a87ad5f7673ec470dd8ffa7935
+  ant-design-vue: 3.0.0-alpha.11_076477a87ad5f7673ec470dd8ffa7935
   axios: 0.24.0
   codemirror: 5.63.3
   cropperjs: 1.5.12
   crypto-js: 4.1.1
+  dayjs: 1.10.7
   echarts: 5.2.2
   intro.js: 4.3.0
   lodash-es: 4.17.21
   mockjs: 1.1.0
-  moment: 2.29.1
   nprogress: 0.2.0
   path-to-regexp: 6.2.0
   pinia: 2.0.2_typescript@4.4.4+vue@3.2.21
@@ -2963,24 +2963,24 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /ant-design-vue/2.2.8_076477a87ad5f7673ec470dd8ffa7935:
-    resolution: {integrity: sha512-3graq9/gCfJQs6hznrHV6sa9oDmk/D1H3Oo0vLdVpPS/I61fZPk8NEyNKCHpNA6fT2cx6xx9U3QS63uuyikg/Q==}
+  /ant-design-vue/3.0.0-alpha.11_076477a87ad5f7673ec470dd8ffa7935:
+    resolution: {integrity: sha512-cEbWtdoXYU6h5yUXBTbUzi3Zyh4JQDqRZI3n8Hkj0DeWYAM1SvWvQ7JhEY2Xnw1/3fjJw+j4GTP7lcob1e16wg==}
     peerDependencies:
       '@vue/compiler-sfc': '>=3.1.0'
       vue: '>=3.1.0'
     dependencies:
+      '@ant-design/colors': 6.0.0
       '@ant-design/icons-vue': 6.0.1_vue@3.2.21
       '@babel/runtime': 7.16.0
       '@simonwep/pickr': 1.8.2
       '@vue/compiler-sfc': 3.2.21
       array-tree-filter: 2.1.0
-      async-validator: 3.5.2
+      async-validator: 4.0.7
+      dayjs: 1.10.7
       dom-align: 1.12.2
       dom-scroll-into-view: 2.0.1
       lodash: 4.17.21
       lodash-es: 4.17.21
-      moment: 2.29.1
-      omit.js: 2.0.2
       resize-observer-polyfill: 1.5.1
       scroll-into-view-if-needed: 2.2.28
       shallow-equal: 1.2.1
@@ -3083,8 +3083,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /async-validator/3.5.2:
-    resolution: {integrity: sha512-8eLCg00W9pIRZSB781UUX/H6Oskmm8xloZfr09lz5bikRpBVDlJ3hRVuxxP1SxcwsEYfJ4IU8Q19Y8/893r3rQ==}
+  /async-validator/4.0.7:
+    resolution: {integrity: sha512-Pj2IR7u8hmUEDOwB++su6baaRi+QvsgajuFB9j95foM1N2gy5HM4z60hfusIO0fBPG5uLAEl6yCJr1jNSVugEQ==}
     dev: false
 
   /async/0.9.2:
@@ -4318,6 +4318,10 @@ packages:
   /dateformat/3.0.3:
     resolution: {integrity: sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==}
     dev: true
+
+  /dayjs/1.10.7:
+    resolution: {integrity: sha512-P6twpd70BcPK34K26uJ1KT3wlhpuOAPoMwJzpsIWUxHZ7wpmbdZL/hQqBDfz7hGurYSa5PhzdhDHtt319hL3ig==}
+    dev: false
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -8250,10 +8254,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /moment/2.29.1:
-    resolution: {integrity: sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==}
-    dev: false
-
   /mousetrap/1.6.5:
     resolution: {integrity: sha512-QNo4kEepaIBwiT8CDhP98umTetp+JNfQYBWvC1pc6/OAibuXtRcxZ58Qz8skvEHYvURne/7R8T5VoOI7rDsEUA==}
     dev: false
@@ -8502,10 +8502,6 @@ packages:
     dependencies:
       isobject: 3.0.1
     dev: true
-
-  /omit.js/2.0.2:
-    resolution: {integrity: sha512-hJmu9D+bNB40YpL9jYebQl4lsTW6yEHRTroJzNLqQJYHm7c+NQnJGfZmIWh8S3q3KoaxV1aLhV6B3+0N0/kyJg==}
-    dev: false
 
   /on-finished/2.3.0:
     resolution: {integrity: sha1-IPEzZIGwg811M3mSoWlxqi2QaUc=}
