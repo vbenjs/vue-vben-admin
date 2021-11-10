@@ -14,7 +14,7 @@ import {
 import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 import { buildUUID } from '/@/utils/uuid';
 import { isFunction, isBoolean } from '/@/utils/is';
-import { get, cloneDeep } from 'lodash-es';
+import { get, cloneDeep, merge } from 'lodash-es';
 import { FETCH_SETTING, ROW_KEY, PAGE_SIZE } from '../const';
 
 interface ActionType {
@@ -272,17 +272,17 @@ export function useDataSource(
 
       const { sortInfo = {}, filterInfo } = searchState;
 
-      let params: Recordable = {
-        ...pageParams,
-        ...(useSearchForm ? getFieldsValue() : {}),
-        ...searchInfo,
-        ...(opt?.searchInfo ?? {}),
-        ...defSort,
-        ...sortInfo,
-        ...filterInfo,
-        ...(opt?.sortInfo ?? {}),
-        ...(opt?.filterInfo ?? {}),
-      };
+      let params: Recordable = merge(
+        pageParams,
+        useSearchForm ? getFieldsValue() : {},
+        searchInfo,
+        opt?.searchInfo ?? {},
+        defSort,
+        sortInfo,
+        filterInfo,
+        opt?.sortInfo ?? {},
+        opt?.filterInfo ?? {},
+      );
       if (beforeFetch && isFunction(beforeFetch)) {
         params = (await beforeFetch(params)) || params;
       }
