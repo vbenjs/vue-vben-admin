@@ -70,17 +70,17 @@
     }
 
     &__content {
-      color: rgba(0, 0, 0, 0.65);
+      color: rgb(0 0 0 / 65%);
     }
 
     &__action {
       display: inline-block;
       padding: 0 16px;
-      color: rgba(0, 0, 0, 0.45);
+      color: rgb(0 0 0 / 45%);
 
       &:nth-child(1),
       &:nth-child(2) {
-        border-right: 1px solid rgba(206, 206, 206, 0.4);
+        border-right: 1px solid rgb(206 206 206 / 40%);
       }
 
       &-icon {
@@ -91,7 +91,7 @@
     &__time {
       position: absolute;
       right: 20px;
-      color: rgba(0, 0, 0, 0.45);
+      color: rgb(0 0 0 / 45%);
     }
   }
 </style>

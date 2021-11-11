@@ -1,58 +1,53 @@
+<!--
+ * @Description:It is troublesome to implement radio button group in the form. So it is extracted independently as a separate component
+-->
 <template>
-  <Select
-    @dropdownVisibleChange="handleFetch"
-    v-bind="$attrs"
-    @change="handleChange"
-    :options="getOptions"
-    v-model:value="state"
-  >
-    <template #[item]="data" v-for="item in Object.keys($slots)">
-      <slot :name="item" v-bind="data || {}"></slot>
+  <RadioGroup v-bind="attrs" v-model:value="state" button-style="solid" @change="handleChange">
+    <template v-for="item in getOptions" :key="`${item.value}`">
+      <RadioButton v-if="props.isBtn" :value="item.value" :disabled="item.disabled">
+        {{ item.label }}
+      </RadioButton>
+      <Radio v-else :value="item.value" :disabled="item.disabled">
+        {{ item.label }}
+      </Radio>
     </template>
-    <template #suffixIcon v-if="loading">
-      <LoadingOutlined spin />
-    </template>
-    <template #notFoundContent v-if="loading">
-      <span>
-        <LoadingOutlined spin class="mr-1" />
-        {{ t('component.form.apiSelectNotFound') }}
-      </span>
-    </template>
-  </Select>
+  </RadioGroup>
 </template>
 <script lang="ts">
   import { defineComponent, PropType, ref, watchEffect, computed, unref, watch } from 'vue';
-  import { Select } from 'ant-design-vue';
+  import { Radio } from 'ant-design-vue';
   import { isFunction } from '/@/utils/is';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { useAttrs } from '/@/hooks/core/useAttrs';
-  import { get, omit } from 'lodash-es';
-  import { LoadingOutlined } from '@ant-design/icons-vue';
-  import { useI18n } from '/@/hooks/web/useI18n';
   import { propTypes } from '/@/utils/propTypes';
-
-  type OptionsItem = { label: string; value: string; disabled?: boolean };
+  import { get, omit } from 'lodash-es';
+  import { useI18n } from '/@/hooks/web/useI18n';
+  type OptionsItem = { label: string; value: string | number | boolean; disabled?: boolean };
 
   export default defineComponent({
-    name: 'ApiSelect',
+    name: 'ApiRadioGroup',
     components: {
-      Select,
-      LoadingOutlined,
+      RadioGroup: Radio.Group,
+      RadioButton: Radio.Button,
+      Radio,
     },
-    inheritAttrs: false,
     props: {
-      value: [Array, Object, String, Number],
-      numberToString: propTypes.bool,
       api: {
-        type: Function as PropType<(arg?: Recordable) => Promise<OptionsItem[]>>,
+        type: Function as PropType<(arg?: Recordable | string) => Promise<OptionsItem[]>>,
         default: null,
       },
-      // api params
       params: {
-        type: Object as PropType<Recordable>,
+        type: [Object, String] as PropType<Recordable | string>,
         default: () => ({}),
       },
-      // support xxx.xxx.xx
+      value: {
+        type: [String, Number, Boolean] as PropType<string | number | boolean>,
+      },
+      isBtn: {
+        type: [Boolean] as PropType<boolean>,
+        default: false,
+      },
+      numberToString: propTypes.bool,
       resultField: propTypes.string.def(''),
       labelField: propTypes.string.def('label'),
       valueField: propTypes.string.def('value'),
@@ -66,10 +61,10 @@
       const emitData = ref<any[]>([]);
       const attrs = useAttrs();
       const { t } = useI18n();
-
       // Embedded in the form, just use the hook binding to perform form verification
-      const [state] = useRuleFormItem(props, 'value', 'change', emitData);
+      const [state] = useRuleFormItem(props);
 
+      // Processing options value
       const getOptions = computed(() => {
         const { labelField, valueField, numberToString } = props;
 
@@ -77,9 +72,9 @@
           if (next) {
             const value = next[valueField];
             prev.push({
-              ...omit(next, [labelField, valueField]),
               label: next[labelField],
               value: numberToString ? `${value}` : value,
+              ...omit(next, [labelField, valueField]),
             });
           }
           return prev;
@@ -121,13 +116,6 @@
         }
       }
 
-      async function handleFetch() {
-        if (!props.immediate && unref(isFirstLoad)) {
-          await fetch();
-          isFirstLoad.value = false;
-        }
-      }
-
       function emitChange() {
         emit('options-change', unref(getOptions));
       }
@@ -136,7 +124,7 @@
         emitData.value = args;
       }
 
-      return { state, attrs, getOptions, loading, t, handleFetch, handleChange };
+      return { state, getOptions, attrs, loading, t, handleChange, props };
     },
   });
 </script>

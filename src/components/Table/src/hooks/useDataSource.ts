@@ -14,7 +14,7 @@ import {
 import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 import { buildUUID } from '/@/utils/uuid';
 import { isFunction, isBoolean } from '/@/utils/is';
-import { get, cloneDeep } from 'lodash-es';
+import { get, cloneDeep, merge } from 'lodash-es';
 import { FETCH_SETTING, ROW_KEY, PAGE_SIZE } from '../const';
 
 interface ActionType {
@@ -160,21 +160,39 @@ export function useDataSource(
     }
   }
 
-  function deleteTableDataRecord(record: Recordable | Recordable[]): Recordable | undefined {
+  function deleteTableDataRecord(rowKey: string | number | string[] | number[]) {
     if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
-    const records = !Array.isArray(record) ? [record] : record;
-    const recordIndex = records
-      .map((item) => dataSourceRef.value.findIndex((s) => s.key === item.key)) // 取序号
-      .filter((item) => item !== undefined)
-      .sort((a, b) => b - a); // 从大到小排序
-    for (const index of recordIndex) {
-      unref(dataSourceRef).splice(index, 1);
-      unref(propsRef).dataSource?.splice(index, 1);
+    const rowKeyName = unref(getRowKey);
+    if (!rowKeyName) return;
+    const rowKeys = !Array.isArray(rowKey) ? [rowKey] : rowKey;
+    for (const key of rowKeys) {
+      let index: number | undefined = dataSourceRef.value.findIndex((row) => {
+        let targetKeyName: string;
+        if (typeof rowKeyName === 'function') {
+          targetKeyName = rowKeyName(row);
+        } else {
+          targetKeyName = rowKeyName as string;
+        }
+        return row[targetKeyName] === key;
+      });
+      if (index >= 0) {
+        dataSourceRef.value.splice(index, 1);
+      }
+      index = unref(propsRef).dataSource?.findIndex((row) => {
+        let targetKeyName: string;
+        if (typeof rowKeyName === 'function') {
+          targetKeyName = rowKeyName(row);
+        } else {
+          targetKeyName = rowKeyName as string;
+        }
+        return row[targetKeyName] === key;
+      });
+      if (typeof index !== 'undefined' && index !== -1)
+        unref(propsRef).dataSource?.splice(index, 1);
     }
     setPagination({
       total: unref(propsRef).dataSource?.length,
     });
-    return unref(propsRef).dataSource;
   }
 
   function insertTableDataRecord(record: Recordable, index: number): Recordable | undefined {
@@ -223,8 +241,16 @@ export function useDataSource(
   }
 
   async function fetch(opt?: FetchParams) {
-    const { api, searchInfo, fetchSetting, beforeFetch, afterFetch, useSearchForm, pagination } =
-      unref(propsRef);
+    const {
+      api,
+      searchInfo,
+      defSort,
+      fetchSetting,
+      beforeFetch,
+      afterFetch,
+      useSearchForm,
+      pagination,
+    } = unref(propsRef);
     if (!api || !isFunction(api)) return;
     try {
       setLoading(true);
@@ -246,16 +272,17 @@ export function useDataSource(
 
       const { sortInfo = {}, filterInfo } = searchState;
 
-      let params: Recordable = {
-        ...pageParams,
-        ...(useSearchForm ? getFieldsValue() : {}),
-        ...searchInfo,
-        ...(opt?.searchInfo ?? {}),
-        ...sortInfo,
-        ...filterInfo,
-        ...(opt?.sortInfo ?? {}),
-        ...(opt?.filterInfo ?? {}),
-      };
+      let params: Recordable = merge(
+        pageParams,
+        useSearchForm ? getFieldsValue() : {},
+        searchInfo,
+        opt?.searchInfo ?? {},
+        defSort,
+        sortInfo,
+        filterInfo,
+        opt?.sortInfo ?? {},
+        opt?.filterInfo ?? {},
+      );
       if (beforeFetch && isFunction(beforeFetch)) {
         params = (await beforeFetch(params)) || params;
       }

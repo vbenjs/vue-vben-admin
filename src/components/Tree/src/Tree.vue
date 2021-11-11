@@ -399,7 +399,7 @@
           const children = get(item, childrenField) || [];
           const title = get(item, titleField);
 
-          const searchIdx = title.indexOf(searchText);
+          const searchIdx = searchText ? title.indexOf(searchText) : -1;
           const isHighlight =
             searchState.startSearch && !isEmpty(searchText) && highlight && searchIdx !== -1;
           const highlightStyle = `color: ${isBoolean(highlight) ? '#f50' : highlight}`;
@@ -408,7 +408,7 @@
             <span class={unref(getBindValues)?.blockNode ? `${prefixCls}__content` : ''}>
               <span>{title.substr(0, searchIdx)}</span>
               <span style={highlightStyle}>{searchText}</span>
-              <span>{title.substr(searchIdx + searchText.length)}</span>
+              <span>{title.substr(searchIdx + (searchText as string).length)}</span>
             </span>
           ) : (
             title
