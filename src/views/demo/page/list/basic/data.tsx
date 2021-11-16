@@ -1,5 +1,5 @@
 export const cardList = (() => {
-  const result: any[] = [];
+  const result: any[] = []
   for (let i = 0; i < 6; i++) {
     result.push({
       id: i,
@@ -10,8 +10,8 @@ export const cardList = (() => {
       icon: 'logos:vue',
       color: '#1890ff',
       author: 'Vben',
-      percent: 20 * (i + 1),
-    });
+      percent: 20 * (i + 1)
+    })
   }
-  return result;
-})();
+  return result
+})()

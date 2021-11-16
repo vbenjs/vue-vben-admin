@@ -28,17 +28,17 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, h } from 'vue';
-  import { BasicTree, ActionItem, ContextMenuItem } from '/@/components/Tree/index';
-  import { treeData } from './data';
-  import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue';
-  import { PageWrapper } from '/@/components/Page';
+  import { defineComponent, h } from 'vue'
+  import { BasicTree, ActionItem, ContextMenuItem } from '/@/components/Tree/index'
+  import { treeData } from './data'
+  import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue'
+  import { PageWrapper } from '/@/components/Page'
 
   export default defineComponent({
     components: { BasicTree, PageWrapper },
     setup() {
       function handlePlus(node: any) {
-        console.log(node);
+        console.log(node)
       }
 
       function getRightMenuList(node: any): ContextMenuItem[] {
@@ -46,51 +46,51 @@
           {
             label: '新增',
             handler: () => {
-              console.log('点击了新增', node);
+              console.log('点击了新增', node)
             },
-            icon: 'bi:plus',
+            icon: 'bi:plus'
           },
           {
             label: '删除',
             handler: () => {
-              console.log('点击了删除', node);
+              console.log('点击了删除', node)
             },
-            icon: 'bx:bxs-folder-open',
-          },
-        ];
+            icon: 'bx:bxs-folder-open'
+          }
+        ]
       }
       const actionList: ActionItem[] = [
         {
           // show:()=>boolean;
-          render: (node) => {
+          render: node => {
             return h(PlusOutlined, {
               class: 'ml-2',
               onClick: () => {
-                handlePlus(node);
-              },
-            });
-          },
+                handlePlus(node)
+              }
+            })
+          }
         },
         {
           render: () => {
-            return h(DeleteOutlined);
-          },
-        },
-      ];
+            return h(DeleteOutlined)
+          }
+        }
+      ]
 
       function createIcon({ level }) {
         if (level === 1) {
-          return 'ion:git-compare-outline';
+          return 'ion:git-compare-outline'
         }
         if (level === 2) {
-          return 'ion:home';
+          return 'ion:home'
         }
         if (level === 3) {
-          return 'ion:airplane';
+          return 'ion:airplane'
         }
-        return '';
+        return ''
       }
-      return { treeData, actionList, getRightMenuList, createIcon };
-    },
-  });
+      return { treeData, actionList, getRightMenuList, createIcon }
+    }
+  })
 </script>

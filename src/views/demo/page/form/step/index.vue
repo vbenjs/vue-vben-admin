@@ -25,12 +25,12 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, reactive, toRefs } from 'vue';
-  import Step1 from './Step1.vue';
-  import Step2 from './Step2.vue';
-  import Step3 from './Step3.vue';
-  import { PageWrapper } from '/@/components/Page';
-  import { Steps } from 'ant-design-vue';
+  import { defineComponent, ref, reactive, toRefs } from 'vue'
+  import Step1 from './Step1.vue'
+  import Step2 from './Step2.vue'
+  import Step3 from './Step3.vue'
+  import { PageWrapper } from '/@/components/Page'
+  import { Steps } from 'ant-design-vue'
 
   export default defineComponent({
     name: 'FormStepPage',
@@ -40,36 +40,36 @@
       Step3,
       PageWrapper,
       [Steps.name]: Steps,
-      [Steps.Step.name]: Steps.Step,
+      [Steps.Step.name]: Steps.Step
     },
     setup() {
-      const current = ref(0);
+      const current = ref(0)
 
       const state = reactive({
         initSetp2: false,
-        initSetp3: false,
-      });
+        initSetp3: false
+      })
 
       function handleStep1Next(step1Values: any) {
-        current.value++;
-        state.initSetp2 = true;
-        console.log(step1Values);
+        current.value++
+        state.initSetp2 = true
+        console.log(step1Values)
       }
 
       function handleStepPrev() {
-        current.value--;
+        current.value--
       }
 
       function handleStep2Next(step2Values: any) {
-        current.value++;
-        state.initSetp3 = true;
-        console.log(step2Values);
+        current.value++
+        state.initSetp3 = true
+        console.log(step2Values)
       }
 
       function handleRedo() {
-        current.value = 0;
-        state.initSetp2 = false;
-        state.initSetp3 = false;
+        current.value = 0
+        state.initSetp2 = false
+        state.initSetp3 = false
       }
 
       return {
@@ -78,10 +78,10 @@
         handleStep2Next,
         handleRedo,
         handleStepPrev,
-        ...toRefs(state),
-      };
-    },
-  });
+        ...toRefs(state)
+      }
+    }
+  })
 </script>
 <style lang="less" scoped>
   .step-form-content {

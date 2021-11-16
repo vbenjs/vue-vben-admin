@@ -31,8 +31,8 @@
           setProps({
             resetButtonOptions: {
               disabled: true,
-              text: '重置New',
-            },
+              text: '重置New'
+            }
           })
         "
         class="mr-2"
@@ -44,8 +44,8 @@
           setProps({
             submitButtonOptions: {
               disabled: true,
-              loading: true,
-            },
+              loading: true
+            }
           })
         "
         class="mr-2"
@@ -60,12 +60,12 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { PageWrapper } from '/@/components/Page';
-  import { areaRecord } from '/@/api/demo/cascader';
+  import { defineComponent } from 'vue'
+  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index'
+  import { CollapseContainer } from '/@/components/Container/index'
+  import { useMessage } from '/@/hooks/web/useMessage'
+  import { PageWrapper } from '/@/components/Page'
+  import { areaRecord } from '/@/api/demo/cascader'
 
   const schemas: FormSchema[] = [
     {
@@ -73,107 +73,107 @@
       component: 'Input',
       label: '字段1',
       colProps: {
-        span: 8,
+        span: 8
       },
       componentProps: {
         placeholder: '自定义placeholder',
         onChange: (e: any) => {
-          console.log(e);
-        },
-      },
+          console.log(e)
+        }
+      }
     },
     {
       field: 'field2',
       component: 'Input',
       label: '字段2',
       colProps: {
-        span: 8,
-      },
+        span: 8
+      }
     },
     {
       field: 'field3',
       component: 'DatePicker',
       label: '字段3',
       colProps: {
-        span: 8,
-      },
+        span: 8
+      }
     },
     {
       field: 'fieldTime',
       component: 'RangePicker',
       label: '时间字段',
       colProps: {
-        span: 8,
-      },
+        span: 8
+      }
     },
     {
       field: 'field4',
       component: 'Select',
       label: '字段4',
       colProps: {
-        span: 8,
+        span: 8
       },
       componentProps: {
         options: [
           {
             label: '选项1',
             value: '1',
-            key: '1',
+            key: '1'
           },
           {
             label: '选项2',
             value: '2',
-            key: '2',
-          },
-        ],
-      },
+            key: '2'
+          }
+        ]
+      }
     },
     {
       field: 'field5',
       component: 'CheckboxGroup',
       label: '字段5',
       colProps: {
-        span: 8,
+        span: 8
       },
       componentProps: {
         options: [
           {
             label: '选项1',
-            value: '1',
+            value: '1'
           },
           {
             label: '选项2',
-            value: '2',
-          },
-        ],
-      },
+            value: '2'
+          }
+        ]
+      }
     },
     {
       field: 'field7',
       component: 'RadioGroup',
       label: '字段7',
       colProps: {
-        span: 8,
+        span: 8
       },
       componentProps: {
         options: [
           {
             label: '选项1',
-            value: '1',
+            value: '1'
           },
           {
             label: '选项2',
-            value: '2',
-          },
-        ],
-      },
+            value: '2'
+          }
+        ]
+      }
     },
     {
       field: 'field8',
       component: 'ApiCascader',
       label: '联动',
       colProps: {
-        span: 8,
+        span: 8
       },
       componentProps: {
         api: areaRecord,
@@ -182,19 +182,19 @@
         labelField: 'name',
         valueField: 'code',
         initFetchParams: {
-          parentCode: '',
+          parentCode: ''
         },
-        isLeaf: (record) => {
-          return !(record.levelType < 3);
-        },
-      },
+        isLeaf: record => {
+          return !(record.levelType < 3)
+        }
+      }
     },
     {
       field: 'field9',
       component: 'ApiCascader',
       label: '联动回显',
       colProps: {
-        span: 8,
+        span: 8
       },
       componentProps: {
         api: areaRecord,
@@ -203,66 +203,66 @@
         labelField: 'name',
         valueField: 'code',
         initFetchParams: {
-          parentCode: '',
+          parentCode: ''
         },
-        isLeaf: (record) => {
-          return !(record.levelType < 3);
-        },
-      },
-    },
-  ];
+        isLeaf: record => {
+          return !(record.levelType < 3)
+        }
+      }
+    }
+  ]
 
   export default defineComponent({
     components: { BasicForm, CollapseContainer, PageWrapper },
     setup() {
-      const { createMessage } = useMessage();
+      const { createMessage } = useMessage()
 
       const [register, { setProps, setFieldsValue, updateSchema }] = useForm({
         labelWidth: 120,
         schemas,
         actionColOptions: {
-          span: 24,
+          span: 24
         },
-        fieldMapToTime: [['fieldTime', ['startTime', 'endTime'], 'YYYY-MM']],
-      });
+        fieldMapToTime: [['fieldTime', ['startTime', 'endTime'], 'YYYY-MM']]
+      })
 
       async function handleLoad() {
         const promiseFn = function () {
-          return new Promise((resolve) => {
+          return new Promise(resolve => {
             setTimeout(() => {
               resolve({
                 field9: ['430000', '430100', '430102'],
                 province: '湖南省',
                 city: '长沙市',
-                district: '岳麓区',
-              });
-            }, 1000);
-          });
-        };
+                district: '岳麓区'
+              })
+            }, 1000)
+          })
+        }
 
-        const item = await promiseFn();
+        const item = await promiseFn()
 
-        const { field9, province, city, district } = item as any;
+        const { field9, province, city, district } = item as any
         await updateSchema({
           field: 'field9',
           componentProps: {
-            displayRenderArray: [province, city, district],
-          },
-        });
+            displayRenderArray: [province, city, district]
+          }
+        })
         await setFieldsValue({
-          field9,
-        });
+          field9
+        })
       }
 
       return {
         register,
         schemas,
         handleSubmit: (values: Recordable) => {
-          createMessage.success('click search,values:' + JSON.stringify(values));
+          createMessage.success('click search,values:' + JSON.stringify(values))
         },
         setProps,
-        handleLoad,
-      };
-    },
-  });
+        handleLoad
+      }
+    }
+  })
 </script>

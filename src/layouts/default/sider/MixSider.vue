@@ -8,8 +8,8 @@
       getMenuTheme,
       {
         open: openMenu,
-        mini: getCollapsed,
-      },
+        mini: getCollapsed
+      }
     ]"
     v-bind="getMenuEvents"
   >
@@ -23,8 +23,8 @@
           :class="[
             `${prefixCls}-module__item `,
             {
-              [`${prefixCls}-module__item--active`]: item.path === activePath,
-            },
+              [`${prefixCls}-module__item--active`]: item.path === activePath
+            }
           ]"
           v-bind="getItemEvents(item)"
           v-for="item in menuModules"
@@ -49,8 +49,8 @@
         :class="[
           `${prefixCls}-menu-list__title`,
           {
-            show: openMenu,
-          },
+            show: openMenu
+          }
         ]"
       >
         <span class="text"> {{ title }}</span>
@@ -78,26 +78,26 @@
   </div>
 </template>
 <script lang="ts">
-  import type { Menu } from '/@/router/types';
-  import type { CSSProperties } from 'vue';
-  import { computed, defineComponent, onMounted, ref, unref, watch } from 'vue';
-  import type { RouteLocationNormalized } from 'vue-router';
-  import { ScrollContainer } from '/@/components/Container';
-  import { SimpleMenu, SimpleMenuTag } from '/@/components/SimpleMenu';
-  import { Icon } from '/@/components/Icon';
-  import { AppLogo } from '/@/components/Application';
-  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
-  import { usePermissionStore } from '/@/store/modules/permission';
-  import { useDragLine } from './useLayoutSider';
-  import { useGlobSetting } from '/@/hooks/setting';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useGo } from '/@/hooks/web/usePage';
-  import { SIDE_BAR_MINI_WIDTH, SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '/@/enums/appEnum';
-  import clickOutside from '/@/directives/clickOutside';
-  import { getChildrenMenus, getCurrentParentPath, getShallowMenus } from '/@/router/menus';
-  import { listenerRouteChange } from '/@/logics/mitt/routeChange';
-  import LayoutTrigger from '../trigger/index.vue';
+  import type { Menu } from '/@/router/types'
+  import type { CSSProperties } from 'vue'
+  import { computed, defineComponent, onMounted, ref, unref, watch } from 'vue'
+  import type { RouteLocationNormalized } from 'vue-router'
+  import { ScrollContainer } from '/@/components/Container'
+  import { SimpleMenu, SimpleMenuTag } from '/@/components/SimpleMenu'
+  import { Icon } from '/@/components/Icon'
+  import { AppLogo } from '/@/components/Application'
+  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
+  import { usePermissionStore } from '/@/store/modules/permission'
+  import { useDragLine } from './useLayoutSider'
+  import { useGlobSetting } from '/@/hooks/setting'
+  import { useDesign } from '/@/hooks/web/useDesign'
+  import { useI18n } from '/@/hooks/web/useI18n'
+  import { useGo } from '/@/hooks/web/usePage'
+  import { SIDE_BAR_MINI_WIDTH, SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '/@/enums/appEnum'
+  import clickOutside from '/@/directives/clickOutside'
+  import { getChildrenMenus, getCurrentParentPath, getShallowMenus } from '/@/router/menus'
+  import { listenerRouteChange } from '/@/logics/mitt/routeChange'
+  import LayoutTrigger from '../trigger/index.vue'
 
   export default defineComponent({
     name: 'LayoutMixSider',
@@ -107,23 +107,23 @@
       SimpleMenu,
       Icon,
       LayoutTrigger,
-      SimpleMenuTag,
+      SimpleMenuTag
     },
     directives: {
-      clickOutside,
+      clickOutside
     },
     setup() {
-      let menuModules = ref<Menu[]>([]);
-      const activePath = ref('');
-      const childrenMenus = ref<Menu[]>([]);
-      const openMenu = ref(false);
-      const dragBarRef = ref<ElRef>(null);
-      const sideRef = ref<ElRef>(null);
-      const currentRoute = ref<Nullable<RouteLocationNormalized>>(null);
+      let menuModules = ref<Menu[]>([])
+      const activePath = ref('')
+      const childrenMenus = ref<Menu[]>([])
+      const openMenu = ref(false)
+      const dragBarRef = ref<ElRef>(null)
+      const sideRef = ref<ElRef>(null)
+      const currentRoute = ref<Nullable<RouteLocationNormalized>>(null)
 
-      const { prefixCls } = useDesign('layout-mix-sider');
-      const go = useGo();
-      const { t } = useI18n();
+      const { prefixCls } = useDesign('layout-mix-sider')
+      const go = useGo()
+      const { t } = useI18n()
       const {
         getMenuWidth,
         getCanDrag,
@@ -135,156 +135,156 @@
         mixSideHasChildren,
         setMenuSetting,
         getIsMixSidebar,
-        getCollapsed,
-      } = useMenuSetting();
+        getCollapsed
+      } = useMenuSetting()
 
-      const { title } = useGlobSetting();
-      const permissionStore = usePermissionStore();
+      const { title } = useGlobSetting()
+      const permissionStore = usePermissionStore()
 
-      useDragLine(sideRef, dragBarRef, true);
+      useDragLine(sideRef, dragBarRef, true)
 
       const getMenuStyle = computed((): CSSProperties => {
         return {
           width: unref(openMenu) ? `${unref(getMenuWidth)}px` : 0,
-          left: `${unref(getMixSideWidth)}px`,
-        };
-      });
+          left: `${unref(getMixSideWidth)}px`
+        }
+      })
 
       const getIsFixed = computed(() => {
         /* eslint-disable-next-line */
-        mixSideHasChildren.value = unref(childrenMenus).length > 0;
-        const isFixed = unref(getMixSideFixed) && unref(mixSideHasChildren);
+        mixSideHasChildren.value = unref(childrenMenus).length > 0
+        const isFixed = unref(getMixSideFixed) && unref(mixSideHasChildren)
         if (isFixed) {
           /* eslint-disable-next-line */
-          openMenu.value = true;
+          openMenu.value = true
         }
-        return isFixed;
-      });
+        return isFixed
+      })
 
       const getMixSideWidth = computed(() => {
-        return unref(getCollapsed) ? SIDE_BAR_MINI_WIDTH : SIDE_BAR_SHOW_TIT_MINI_WIDTH;
-      });
+        return unref(getCollapsed) ? SIDE_BAR_MINI_WIDTH : SIDE_BAR_SHOW_TIT_MINI_WIDTH
+      })
 
       const getDomStyle = computed((): CSSProperties => {
-        const fixedWidth = unref(getIsFixed) ? unref(getRealWidth) : 0;
-        const width = `${unref(getMixSideWidth) + fixedWidth}px`;
-        return getWrapCommonStyle(width);
-      });
+        const fixedWidth = unref(getIsFixed) ? unref(getRealWidth) : 0
+        const width = `${unref(getMixSideWidth) + fixedWidth}px`
+        return getWrapCommonStyle(width)
+      })
 
       const getWrapStyle = computed((): CSSProperties => {
-        const width = `${unref(getMixSideWidth)}px`;
-        return getWrapCommonStyle(width);
-      });
+        const width = `${unref(getMixSideWidth)}px`
+        return getWrapCommonStyle(width)
+      })
 
       const getMenuEvents = computed(() => {
         return !unref(getMixSideFixed)
           ? {
               onMouseleave: () => {
-                setActive(true);
-                closeMenu();
-              },
+                setActive(true)
+                closeMenu()
+              }
             }
-          : {};
-      });
+          : {}
+      })
 
-      const getShowDragBar = computed(() => unref(getCanDrag));
+      const getShowDragBar = computed(() => unref(getCanDrag))
 
       onMounted(async () => {
-        menuModules.value = await getShallowMenus();
-      });
+        menuModules.value = await getShallowMenus()
+      })
 
       // Menu changes
       watch(
         [() => permissionStore.getLastBuildMenuTime, () => permissionStore.getBackMenuList],
         async () => {
-          menuModules.value = await getShallowMenus();
+          menuModules.value = await getShallowMenus()
         },
         {
-          immediate: true,
-        },
-      );
-
-      listenerRouteChange((route) => {
-        currentRoute.value = route;
-        setActive(true);
-        if (unref(getCloseMixSidebarOnChange)) {
-          closeMenu();
+          immediate: true
         }
-      });
+      )
+
+      listenerRouteChange(route => {
+        currentRoute.value = route
+        setActive(true)
+        if (unref(getCloseMixSidebarOnChange)) {
+          closeMenu()
+        }
+      })
 
       function getWrapCommonStyle(width: string): CSSProperties {
         return {
           width,
           maxWidth: width,
           minWidth: width,
-          flex: `0 0 ${width}`,
-        };
+          flex: `0 0 ${width}`
+        }
       }
 
       // Process module menu click
       async function handleModuleClick(path: string, hover = false) {
-        const children = await getChildrenMenus(path);
+        const children = await getChildrenMenus(path)
         if (unref(activePath) === path) {
           if (!hover) {
             if (!unref(openMenu)) {
-              openMenu.value = true;
+              openMenu.value = true
             } else {
-              closeMenu();
+              closeMenu()
             }
           } else {
             if (!unref(openMenu)) {
-              openMenu.value = true;
+              openMenu.value = true
             }
           }
           if (!unref(openMenu)) {
-            setActive();
+            setActive()
           }
         } else {
-          openMenu.value = true;
-          activePath.value = path;
+          openMenu.value = true
+          activePath.value = path
         }
 
         if (!children || children.length === 0) {
-          if (!hover) go(path);
-          childrenMenus.value = [];
-          closeMenu();
-          return;
+          if (!hover) go(path)
+          childrenMenus.value = []
+          closeMenu()
+          return
         }
-        childrenMenus.value = children;
+        childrenMenus.value = children
       }
 
       // Set the currently active menu and submenu
       async function setActive(setChildren = false) {
-        const path = currentRoute.value?.path;
-        if (!path) return;
-        activePath.value = await getCurrentParentPath(path);
+        const path = currentRoute.value?.path
+        if (!path) return
+        activePath.value = await getCurrentParentPath(path)
         // hanldeModuleClick(parentPath);
         if (unref(getIsMixSidebar)) {
-          const activeMenu = unref(menuModules).find((item) => item.path === unref(activePath));
-          const p = activeMenu?.path;
+          const activeMenu = unref(menuModules).find(item => item.path === unref(activePath))
+          const p = activeMenu?.path
           if (p) {
-            const children = await getChildrenMenus(p);
+            const children = await getChildrenMenus(p)
             if (setChildren) {
-              childrenMenus.value = children;
+              childrenMenus.value = children
 
               if (unref(getMixSideFixed)) {
-                openMenu.value = children.length > 0;
+                openMenu.value = children.length > 0
               }
             }
             if (children.length === 0) {
-              childrenMenus.value = [];
+              childrenMenus.value = []
             }
           }
         }
       }
 
       function handleMenuClick(path: string) {
-        go(path);
+        go(path)
       }
 
       function handleClickOutside() {
-        setActive(true);
-        closeMenu();
+        setActive(true)
+        closeMenu()
       }
 
       function getItemEvents(item: Menu) {
@@ -292,26 +292,26 @@
           return {
             onMouseenter: () => handleModuleClick(item.path, true),
             onClick: async () => {
-              const children = await getChildrenMenus(item.path);
-              if (item.path && (!children || children.length === 0)) go(item.path);
-            },
-          };
+              const children = await getChildrenMenus(item.path)
+              if (item.path && (!children || children.length === 0)) go(item.path)
+            }
+          }
         }
         return {
-          onClick: () => handleModuleClick(item.path),
-        };
+          onClick: () => handleModuleClick(item.path)
+        }
       }
 
       function handleFixedMenu() {
         setMenuSetting({
-          mixSideFixed: !unref(getIsFixed),
-        });
+          mixSideFixed: !unref(getIsFixed)
+        })
       }
 
       // Close menu
       function closeMenu() {
         if (!unref(getIsFixed)) {
-          openMenu.value = false;
+          openMenu.value = false
         }
       }
 
@@ -337,10 +337,10 @@
         handleFixedMenu,
         getMixSideFixed,
         getWrapStyle,
-        getCollapsed,
-      };
-    },
-  });
+        getCollapsed
+      }
+    }
+  })
 </script>
 <style lang="less">
   @prefix-cls: ~'@{namespace}-layout-mix-sider';

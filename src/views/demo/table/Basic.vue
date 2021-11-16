@@ -11,7 +11,7 @@
       :bordered="border"
       showTableSetting
       :pagination="pagination"
-      @columns-change="handleColumnChange"
+      @columnsChange="handleColumnChange"
     >
       <template #toolbar>
         <a-button type="primary" @click="toggleCanResize">
@@ -29,37 +29,37 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { BasicTable, ColumnChangeParam } from '/@/components/Table';
-  import { getBasicColumns, getBasicData } from './tableData';
+  import { defineComponent, ref } from 'vue'
+  import { BasicTable, ColumnChangeParam } from '/@/components/Table'
+  import { getBasicColumns, getBasicData } from './tableData'
 
   export default defineComponent({
     components: { BasicTable },
     setup() {
-      const canResize = ref(false);
-      const loading = ref(false);
-      const striped = ref(true);
-      const border = ref(true);
-      const pagination = ref<any>(false);
+      const canResize = ref(false)
+      const loading = ref(false)
+      const striped = ref(true)
+      const border = ref(true)
+      const pagination = ref<any>(false)
       function toggleCanResize() {
-        canResize.value = !canResize.value;
+        canResize.value = !canResize.value
       }
       function toggleStriped() {
-        striped.value = !striped.value;
+        striped.value = !striped.value
       }
       function toggleLoading() {
-        loading.value = true;
+        loading.value = true
         setTimeout(() => {
-          loading.value = false;
-          pagination.value = { pageSize: 20 };
-        }, 3000);
+          loading.value = false
+          pagination.value = { pageSize: 20 }
+        }, 3000)
       }
       function toggleBorder() {
-        border.value = !border.value;
+        border.value = !border.value
       }
 
       function handleColumnChange(data: ColumnChangeParam[]) {
-        console.log('ColumnChanged', data);
+        console.log('ColumnChanged', data)
       }
 
       return {
@@ -74,8 +74,8 @@
         toggleLoading,
         toggleBorder,
         pagination,
-        handleColumnChange,
-      };
-    },
-  });
+        handleColumnChange
+      }
+    }
+  })
 </script>

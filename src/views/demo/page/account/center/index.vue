@@ -53,17 +53,17 @@
 </template>
 
 <script lang="ts">
-  import { Tag, Tabs, Row, Col } from 'ant-design-vue';
-  import { defineComponent, computed } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import Icon from '/@/components/Icon/index';
-  import Article from './Article.vue';
-  import Application from './Application.vue';
-  import Project from './Project.vue';
+  import { Tag, Tabs, Row, Col } from 'ant-design-vue'
+  import { defineComponent, computed } from 'vue'
+  import { CollapseContainer } from '/@/components/Container/index'
+  import Icon from '/@/components/Icon/index'
+  import Article from './Article.vue'
+  import Application from './Application.vue'
+  import Project from './Project.vue'
 
-  import headerImg from '/@/assets/images/header.jpg';
-  import { tags, teams, details, achieveList } from './data';
-  import { useUserStore } from '/@/store/modules/user';
+  import headerImg from '/@/assets/images/header.jpg'
+  import { tags, teams, details, achieveList } from './data'
+  import { useUserStore } from '/@/store/modules/user'
 
   export default defineComponent({
     components: {
@@ -76,21 +76,21 @@
       Application,
       Project,
       [Row.name]: Row,
-      [Col.name]: Col,
+      [Col.name]: Col
     },
     setup() {
-      const userStore = useUserStore();
-      const avatar = computed(() => userStore.getUserInfo.avatar || headerImg);
+      const userStore = useUserStore()
+      const avatar = computed(() => userStore.getUserInfo.avatar || headerImg)
       return {
         prefixCls: 'account-center',
         avatar,
         tags,
         teams,
         details,
-        achieveList,
-      };
-    },
-  });
+        achieveList
+      }
+    }
+  })
 </script>
 <style lang="less" scoped>
   .account-center {

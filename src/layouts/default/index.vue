@@ -14,21 +14,21 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, unref } from 'vue';
-  import { Layout } from 'ant-design-vue';
-  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+  import { defineComponent, computed, unref } from 'vue'
+  import { Layout } from 'ant-design-vue'
+  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent'
 
-  import LayoutHeader from './header/index.vue';
-  import LayoutContent from './content/index.vue';
-  import LayoutSideBar from './sider/index.vue';
-  import LayoutMultipleHeader from './header/MultipleHeader.vue';
+  import LayoutHeader from './header/index.vue'
+  import LayoutContent from './content/index.vue'
+  import LayoutSideBar from './sider/index.vue'
+  import LayoutMultipleHeader from './header/MultipleHeader.vue'
 
-  import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
-  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useLockPage } from '/@/hooks/web/useLockPage';
+  import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
+  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
+  import { useDesign } from '/@/hooks/web/useDesign'
+  import { useLockPage } from '/@/hooks/web/useLockPage'
 
-  import { useAppInject } from '/@/hooks/web/useAppInject';
+  import { useAppInject } from '/@/hooks/web/useAppInject'
 
   export default defineComponent({
     name: 'DefaultLayout',
@@ -39,24 +39,24 @@
       LayoutContent,
       LayoutSideBar,
       LayoutMultipleHeader,
-      Layout,
+      Layout
     },
     setup() {
-      const { prefixCls } = useDesign('default-layout');
-      const { getIsMobile } = useAppInject();
-      const { getShowFullHeaderRef } = useHeaderSetting();
-      const { getShowSidebar, getIsMixSidebar, getShowMenu } = useMenuSetting();
+      const { prefixCls } = useDesign('default-layout')
+      const { getIsMobile } = useAppInject()
+      const { getShowFullHeaderRef } = useHeaderSetting()
+      const { getShowSidebar, getIsMixSidebar, getShowMenu } = useMenuSetting()
 
       // Create a lock screen monitor
-      const lockEvents = useLockPage();
+      const lockEvents = useLockPage()
 
       const layoutClass = computed(() => {
-        let cls: string[] = ['ant-layout'];
+        let cls: string[] = ['ant-layout']
         if (unref(getIsMixSidebar) || unref(getShowMenu)) {
-          cls.push('ant-layout-has-sider');
+          cls.push('ant-layout-has-sider')
         }
-        return cls;
-      });
+        return cls
+      })
 
       return {
         getShowFullHeaderRef,
@@ -65,10 +65,10 @@
         getIsMobile,
         getIsMixSidebar,
         layoutClass,
-        lockEvents,
-      };
-    },
-  });
+        lockEvents
+      }
+    }
+  })
 </script>
 <style lang="less">
   @prefix-cls: ~'@{namespace}-default-layout';

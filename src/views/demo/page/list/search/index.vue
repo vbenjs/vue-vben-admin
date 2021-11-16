@@ -53,13 +53,13 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { Tag } from 'ant-design-vue';
-  import { defineComponent } from 'vue';
-  import Icon from '/@/components/Icon/index';
-  import { BasicForm } from '/@/components/Form/index';
-  import { actions, searchList, schemas } from './data';
-  import { PageWrapper } from '/@/components/Page';
-  import { List } from 'ant-design-vue';
+  import { Tag } from 'ant-design-vue'
+  import { defineComponent } from 'vue'
+  import Icon from '/@/components/Icon/index'
+  import { BasicForm } from '/@/components/Form/index'
+  import { actions, searchList, schemas } from './data'
+  import { PageWrapper } from '/@/components/Page'
+  import { List } from 'ant-design-vue'
 
   export default defineComponent({
     components: {
@@ -69,17 +69,17 @@
       PageWrapper,
       [List.name]: List,
       [List.Item.name]: List.Item,
-      AListItemMeta: List.Item.Meta,
+      AListItemMeta: List.Item.Meta
     },
     setup() {
       return {
         prefixCls: 'list-search',
         list: searchList,
         actions,
-        schemas,
-      };
-    },
-  });
+        schemas
+      }
+    }
+  })
 </script>
 <style lang="less" scoped>
   .list-search {

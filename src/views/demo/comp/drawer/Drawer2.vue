@@ -5,13 +5,13 @@
   </BasicDrawer>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
+  import { defineComponent } from 'vue'
+  import { BasicDrawer, useDrawerInner } from '/@/components/Drawer'
   export default defineComponent({
     components: { BasicDrawer },
     setup() {
-      const [register, { closeDrawer }] = useDrawerInner();
-      return { register, closeDrawer };
-    },
-  });
+      const [register, { closeDrawer }] = useDrawerInner()
+      return { register, closeDrawer }
+    }
+  })
 </script>

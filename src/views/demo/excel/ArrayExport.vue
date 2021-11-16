@@ -9,11 +9,11 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicTable } from '/@/components/Table';
-  import { aoaToSheetXlsx } from '/@/components/Excel';
-  import { arrHeader, arrData, columns, data } from './data';
-  import { PageWrapper } from '/@/components/Page';
+  import { defineComponent } from 'vue'
+  import { BasicTable } from '/@/components/Table'
+  import { aoaToSheetXlsx } from '/@/components/Excel'
+  import { arrHeader, arrData, columns, data } from './data'
+  import { PageWrapper } from '/@/components/Page'
 
   export default defineComponent({
     components: { BasicTable, PageWrapper },
@@ -23,15 +23,15 @@
         aoaToSheetXlsx({
           data: arrData,
           header: arrHeader,
-          filename: '二维数组方式导出excel.xlsx',
-        });
+          filename: '二维数组方式导出excel.xlsx'
+        })
       }
 
       return {
         aoaToExcel,
         columns,
-        data,
-      };
-    },
-  });
+        data
+      }
+    }
+  })
 </script>

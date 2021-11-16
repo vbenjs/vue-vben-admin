@@ -11,12 +11,12 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, h } from 'vue';
-  import { BasicForm, FormSchema } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { MarkDown } from '/@/components/Markdown';
-  import { PageWrapper } from '/@/components/Page';
+  import { defineComponent, h } from 'vue'
+  import { BasicForm, FormSchema } from '/@/components/Form/index'
+  import { CollapseContainer } from '/@/components/Container/index'
+  import { useMessage } from '/@/hooks/web/useMessage'
+  import { MarkDown } from '/@/components/Markdown'
+  import { PageWrapper } from '/@/components/Page'
 
   const schemas: FormSchema[] = [
     {
@@ -24,7 +24,7 @@
       component: 'Input',
       label: 'title',
       defaultValue: '标题',
-      rules: [{ required: true }],
+      rules: [{ required: true }]
     },
     {
       field: 'markdown',
@@ -36,23 +36,23 @@
         return h(MarkDown, {
           value: model[field],
           onChange: (value: string) => {
-            model[field] = value;
-          },
-        });
-      },
-    },
-  ];
+            model[field] = value
+          }
+        })
+      }
+    }
+  ]
   export default defineComponent({
     components: { BasicForm, CollapseContainer, PageWrapper },
     setup() {
-      const { createMessage } = useMessage();
+      const { createMessage } = useMessage()
 
       return {
         schemas,
         handleSubmit: (values: any) => {
-          createMessage.success('click search,values:' + JSON.stringify(values));
-        },
-      };
-    },
-  });
+          createMessage.success('click search,values:' + JSON.stringify(values))
+        }
+      }
+    }
+  })
 </script>

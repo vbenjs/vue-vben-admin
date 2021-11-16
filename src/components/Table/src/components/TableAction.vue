@@ -31,19 +31,19 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, computed, toRaw, unref } from 'vue';
-  import { MoreOutlined } from '@ant-design/icons-vue';
-  import { Divider, Tooltip, TooltipProps } from 'ant-design-vue';
-  import Icon from '/@/components/Icon/index';
-  import { ActionItem, TableActionType } from '/@/components/Table';
-  import { PopConfirmButton } from '/@/components/Button';
-  import { Dropdown } from '/@/components/Dropdown';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useTableContext } from '../hooks/useTableContext';
-  import { usePermission } from '/@/hooks/web/usePermission';
-  import { isBoolean, isFunction, isString } from '/@/utils/is';
-  import { propTypes } from '/@/utils/propTypes';
-  import { ACTION_COLUMN_FLAG } from '../const';
+  import { defineComponent, PropType, computed, toRaw, unref } from 'vue'
+  import { MoreOutlined } from '@ant-design/icons-vue'
+  import { Divider, Tooltip, TooltipProps } from 'ant-design-vue'
+  import Icon from '/@/components/Icon/index'
+  import { ActionItem, TableActionType } from '/@/components/Table'
+  import { PopConfirmButton } from '/@/components/Button'
+  import { Dropdown } from '/@/components/Dropdown'
+  import { useDesign } from '/@/hooks/web/useDesign'
+  import { useTableContext } from '../hooks/useTableContext'
+  import { usePermission } from '/@/hooks/web/usePermission'
+  import { isBoolean, isFunction, isString } from '/@/utils/is'
+  import { propTypes } from '/@/utils/propTypes'
+  import { ACTION_COLUMN_FLAG } from '../const'
 
   export default defineComponent({
     name: 'TableAction',
@@ -51,45 +51,45 @@
     props: {
       actions: {
         type: Array as PropType<ActionItem[]>,
-        default: null,
+        default: null
       },
       dropDownActions: {
         type: Array as PropType<ActionItem[]>,
-        default: null,
+        default: null
       },
       divider: propTypes.bool.def(true),
       outside: propTypes.bool,
-      stopButtonPropagation: propTypes.bool.def(false),
+      stopButtonPropagation: propTypes.bool.def(false)
     },
     setup(props) {
-      const { prefixCls } = useDesign('basic-table-action');
-      let table: Partial<TableActionType> = {};
+      const { prefixCls } = useDesign('basic-table-action')
+      let table: Partial<TableActionType> = {}
       if (!props.outside) {
-        table = useTableContext();
+        table = useTableContext()
       }
 
-      const { hasPermission } = usePermission();
+      const { hasPermission } = usePermission()
       function isIfShow(action: ActionItem): boolean {
-        const ifShow = action.ifShow;
+        const ifShow = action.ifShow
 
-        let isIfShow = true;
+        let isIfShow = true
 
         if (isBoolean(ifShow)) {
-          isIfShow = ifShow;
+          isIfShow = ifShow
         }
         if (isFunction(ifShow)) {
-          isIfShow = ifShow(action);
+          isIfShow = ifShow(action)
         }
-        return isIfShow;
+        return isIfShow
       }
 
       const getActions = computed(() => {
         return (toRaw(props.actions) || [])
-          .filter((action) => {
-            return hasPermission(action.auth) && isIfShow(action);
+          .filter(action => {
+            return hasPermission(action.auth) && isIfShow(action)
           })
-          .map((action) => {
-            const { popConfirm } = action;
+          .map(action => {
+            const { popConfirm } = action
             return {
               getPopupContainer: () => unref((table as any)?.wrapRef.value) ?? document.body,
               type: 'link',
@@ -98,55 +98,55 @@
               ...(popConfirm || {}),
               onConfirm: popConfirm?.confirm,
               onCancel: popConfirm?.cancel,
-              enable: !!popConfirm,
-            };
-          });
-      });
+              enable: !!popConfirm
+            }
+          })
+      })
 
       const getDropdownList = computed((): any[] => {
         return (toRaw(props.dropDownActions) || [])
-          .filter((action) => {
-            return hasPermission(action.auth) && isIfShow(action);
+          .filter(action => {
+            return hasPermission(action.auth) && isIfShow(action)
           })
           .map((action, index) => {
-            const { label, popConfirm } = action;
+            const { label, popConfirm } = action
             return {
               ...action,
               ...popConfirm,
               onConfirm: popConfirm?.confirm,
               onCancel: popConfirm?.cancel,
               text: label,
-              divider: index < props.dropDownActions.length - 1 ? props.divider : false,
-            };
-          });
-      });
+              divider: index < props.dropDownActions.length - 1 ? props.divider : false
+            }
+          })
+      })
 
       const getAlign = computed(() => {
-        const columns = (table as TableActionType)?.getColumns?.() || [];
-        const actionColumn = columns.find((item) => item.flag === ACTION_COLUMN_FLAG);
-        return actionColumn?.align ?? 'left';
-      });
+        const columns = (table as TableActionType)?.getColumns?.() || []
+        const actionColumn = columns.find(item => item.flag === ACTION_COLUMN_FLAG)
+        return actionColumn?.align ?? 'left'
+      })
 
       function getTooltip(data: string | TooltipProps): TooltipProps {
         return {
           getPopupContainer: () => unref((table as any)?.wrapRef.value) ?? document.body,
           placement: 'bottom',
-          ...(isString(data) ? { title: data } : data),
-        };
+          ...(isString(data) ? { title: data } : data)
+        }
       }
 
       function onCellClick(e: MouseEvent) {
-        if (!props.stopButtonPropagation) return;
-        const path = e.composedPath() as HTMLElement[];
-        const isInButton = path.find((ele) => {
-          return ele.tagName?.toUpperCase() === 'BUTTON';
-        });
-        isInButton && e.stopPropagation();
+        if (!props.stopButtonPropagation) return
+        const path = e.composedPath() as HTMLElement[]
+        const isInButton = path.find(ele => {
+          return ele.tagName?.toUpperCase() === 'BUTTON'
+        })
+        isInButton && e.stopPropagation()
       }
 
-      return { prefixCls, getActions, getDropdownList, getAlign, onCellClick, getTooltip };
-    },
-  });
+      return { prefixCls, getActions, getDropdownList, getAlign, onCellClick, getTooltip }
+    }
+  })
 </script>
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-table-action';

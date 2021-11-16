@@ -15,15 +15,15 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { Skeleton } from 'ant-design-vue';
-  import TargetContent from './TargetContent.vue';
-  import { LazyContainer } from '/@/components/Container/index';
-  import { PageWrapper } from '/@/components/Page';
+  import { defineComponent } from 'vue'
+  import { Skeleton } from 'ant-design-vue'
+  import TargetContent from './TargetContent.vue'
+  import { LazyContainer } from '/@/components/Container/index'
+  import { PageWrapper } from '/@/components/Page'
 
   export default defineComponent({
-    components: { LazyContainer, PageWrapper, TargetContent, Skeleton },
-  });
+    components: { LazyContainer, PageWrapper, TargetContent, Skeleton }
+  })
 </script>
 <style lang="less">
   .lazy-base-demo {

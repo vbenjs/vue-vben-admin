@@ -9,32 +9,32 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, unref, ref } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { PageWrapper } from '/@/components/Page';
+  import { defineComponent, unref, ref } from 'vue'
+  import { CollapseContainer } from '/@/components/Container/index'
+  import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard'
+  import { useMessage } from '/@/hooks/web/useMessage'
+  import { PageWrapper } from '/@/components/Page'
 
   export default defineComponent({
     name: 'Copy',
     components: { CollapseContainer, PageWrapper },
     setup() {
-      const valueRef = ref('');
-      const { createMessage } = useMessage();
-      const { clipboardRef, copiedRef } = useCopyToClipboard();
+      const valueRef = ref('')
+      const { createMessage } = useMessage()
+      const { clipboardRef, copiedRef } = useCopyToClipboard()
 
       function handleCopy() {
-        const value = unref(valueRef);
+        const value = unref(valueRef)
         if (!value) {
-          createMessage.warning('请输入要拷贝的内容！');
-          return;
+          createMessage.warning('请输入要拷贝的内容！')
+          return
         }
-        clipboardRef.value = value;
+        clipboardRef.value = value
         if (unref(copiedRef)) {
-          createMessage.warning('copy success！');
+          createMessage.warning('copy success！')
         }
       }
-      return { handleCopy, value: valueRef };
-    },
-  });
+      return { handleCopy, value: valueRef }
+    }
+  })
 </script>

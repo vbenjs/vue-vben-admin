@@ -93,59 +93,59 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref, computed } from 'vue';
-  import { Input } from 'ant-design-vue';
-  import { useUserStore } from '/@/store/modules/user';
-  import { useLockStore } from '/@/store/modules/lock';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useNow } from './useNow';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { LockOutlined } from '@ant-design/icons-vue';
-  import headerImg from '/@/assets/images/header.jpg';
+  import { ref, computed } from 'vue'
+  import { Input } from 'ant-design-vue'
+  import { useUserStore } from '/@/store/modules/user'
+  import { useLockStore } from '/@/store/modules/lock'
+  import { useI18n } from '/@/hooks/web/useI18n'
+  import { useNow } from './useNow'
+  import { useDesign } from '/@/hooks/web/useDesign'
+  import { LockOutlined } from '@ant-design/icons-vue'
+  import headerImg from '/@/assets/images/header.jpg'
 
-  const InputPassword = Input.Password;
+  const InputPassword = Input.Password
 
-  const password = ref('');
-  const loading = ref(false);
-  const errMsg = ref(false);
-  const showDate = ref(true);
+  const password = ref('')
+  const loading = ref(false)
+  const errMsg = ref(false)
+  const showDate = ref(true)
 
-  const { prefixCls } = useDesign('lock-page');
-  const lockStore = useLockStore();
-  const userStore = useUserStore();
+  const { prefixCls } = useDesign('lock-page')
+  const lockStore = useLockStore()
+  const userStore = useUserStore()
 
-  const { hour, month, minute, meridiem, year, day, week } = useNow(true);
+  const { hour, month, minute, meridiem, year, day, week } = useNow(true)
 
-  const { t } = useI18n();
+  const { t } = useI18n()
 
   const userinfo = computed(() => {
-    return userStore.getUserInfo || {};
-  });
+    return userStore.getUserInfo || {}
+  })
 
   /**
    * @description: unLock
    */
   async function unLock() {
     if (!password.value) {
-      return;
+      return
     }
-    let pwd = password.value;
+    let pwd = password.value
     try {
-      loading.value = true;
-      const res = await lockStore.unLock(pwd);
-      errMsg.value = !res;
+      loading.value = true
+      const res = await lockStore.unLock(pwd)
+      errMsg.value = !res
     } finally {
-      loading.value = false;
+      loading.value = false
     }
   }
 
   function goLogin() {
-    userStore.logout(true);
-    lockStore.resetLockInfo();
+    userStore.logout(true)
+    lockStore.resetLockInfo()
   }
 
   function handleShowForm(show = false) {
-    showDate.value = show;
+    showDate.value = show
   }
 </script>
 <style lang="less" scoped>

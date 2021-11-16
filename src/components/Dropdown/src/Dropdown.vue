@@ -36,18 +36,18 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, PropType } from 'vue';
-  import type { DropMenu } from './typing';
-  import { Dropdown, Menu, Popconfirm } from 'ant-design-vue';
-  import { Icon } from '/@/components/Icon';
-  import { omit } from 'lodash-es';
-  import { isFunction } from '/@/utils/is';
+  import { computed, PropType } from 'vue'
+  import type { DropMenu } from './typing'
+  import { Dropdown, Menu, Popconfirm } from 'ant-design-vue'
+  import { Icon } from '/@/components/Icon'
+  import { omit } from 'lodash-es'
+  import { isFunction } from '/@/utils/is'
 
-  const ADropdown = Dropdown;
-  const AMenu = Menu;
-  const AMenuItem = Menu.Item;
-  const AMenuDivider = Menu.Divider;
-  const APopconfirm = Popconfirm;
+  const ADropdown = Dropdown
+  const AMenu = Menu
+  const AMenuItem = Menu.Item
+  const AMenuDivider = Menu.Divider
+  const APopconfirm = Popconfirm
 
   const props = defineProps({
     popconfirm: Boolean,
@@ -59,38 +59,38 @@
     trigger: {
       type: [Array] as PropType<('contextmenu' | 'click' | 'hover')[]>,
       default: () => {
-        return ['contextmenu'];
-      },
+        return ['contextmenu']
+      }
     },
     dropMenuList: {
       type: Array as PropType<(DropMenu & Recordable)[]>,
-      default: () => [],
+      default: () => []
     },
     selectedKeys: {
       type: Array as PropType<string[]>,
-      default: () => [],
-    },
-  });
+      default: () => []
+    }
+  })
 
-  const emit = defineEmits(['menuEvent']);
+  const emit = defineEmits(['menuEvent'])
 
   function handleClickMenu(item: DropMenu) {
-    const { event } = item;
-    const menu = props.dropMenuList.find((item) => `${item.event}` === `${event}`);
-    emit('menuEvent', menu);
-    item.onClick?.();
+    const { event } = item
+    const menu = props.dropMenuList.find(item => `${item.event}` === `${event}`)
+    emit('menuEvent', menu)
+    item.onClick?.()
   }
 
   const getPopConfirmAttrs = computed(() => {
-    return (attrs) => {
-      const originAttrs = omit(attrs, ['confirm', 'cancel', 'icon']);
+    return attrs => {
+      const originAttrs = omit(attrs, ['confirm', 'cancel', 'icon'])
       if (!attrs.onConfirm && attrs.confirm && isFunction(attrs.confirm))
-        originAttrs['onConfirm'] = attrs.confirm;
+        originAttrs['onConfirm'] = attrs.confirm
       if (!attrs.onCancel && attrs.cancel && isFunction(attrs.cancel))
-        originAttrs['onCancel'] = attrs.cancel;
-      return originAttrs;
-    };
-  });
+        originAttrs['onCancel'] = attrs.cancel
+      return originAttrs
+    }
+  })
 
-  const getAttr = (key: string | number) => ({ key });
+  const getAttr = (key: string | number) => ({ key })
 </script>

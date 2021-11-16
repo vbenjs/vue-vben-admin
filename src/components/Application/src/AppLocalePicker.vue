@@ -1,7 +1,3 @@
-<!--
- * @Author: Vben
- * @Description: Multi-language switching component
--->
 <template>
   <Dropdown
     placement="bottomCenter"
@@ -18,13 +14,13 @@
   </Dropdown>
 </template>
 <script lang="ts" setup>
-  import type { LocaleType } from '/#/config';
-  import type { DropMenu } from '/@/components/Dropdown';
-  import { ref, watchEffect, unref, computed } from 'vue';
-  import { Dropdown } from '/@/components/Dropdown';
-  import { Icon } from '/@/components/Icon';
-  import { useLocale } from '/@/locales/useLocale';
-  import { localeList } from '/@/settings/localeSetting';
+  import type { LocaleType } from '/#/config'
+  import type { DropMenu } from '/@/components/Dropdown'
+  import { ref, watchEffect, unref, computed } from 'vue'
+  import { Dropdown } from '/@/components/Dropdown'
+  import { Icon } from '/@/components/Icon'
+  import { useLocale } from '/@/locales/useLocale'
+  import { localeList } from '/@/settings/localeSetting'
 
   const props = defineProps({
     /**
@@ -34,36 +30,36 @@
     /**
      * Whether to refresh the interface when changing
      */
-    reload: { type: Boolean },
-  });
+    reload: { type: Boolean }
+  })
 
-  const selectedKeys = ref<string[]>([]);
+  const selectedKeys = ref<string[]>([])
 
-  const { changeLocale, getLocale } = useLocale();
+  const { changeLocale, getLocale } = useLocale()
 
   const getLocaleText = computed(() => {
-    const key = selectedKeys.value[0];
+    const key = selectedKeys.value[0]
     if (!key) {
-      return '';
+      return ''
     }
-    return localeList.find((item) => item.event === key)?.text;
-  });
+    return localeList.find(item => item.event === key)?.text
+  })
 
   watchEffect(() => {
-    selectedKeys.value = [unref(getLocale)];
-  });
+    selectedKeys.value = [unref(getLocale)]
+  })
 
   async function toggleLocale(lang: LocaleType | string) {
-    await changeLocale(lang as LocaleType);
-    selectedKeys.value = [lang as string];
-    props.reload && location.reload();
+    await changeLocale(lang as LocaleType)
+    selectedKeys.value = [lang as string]
+    props.reload && location.reload()
   }
 
   function handleMenuEvent(menu: DropMenu) {
     if (unref(getLocale) === menu.event) {
-      return;
+      return
     }
-    toggleLocale(menu.event as string);
+    toggleLocale(menu.event as string)
   }
 </script>
 

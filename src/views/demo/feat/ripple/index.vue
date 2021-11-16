@@ -4,16 +4,16 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import RippleDirective from '/@/directives/ripple';
-  import { PageWrapper } from '/@/components/Page';
+  import { defineComponent } from 'vue'
+  import RippleDirective from '/@/directives/ripple'
+  import { PageWrapper } from '/@/components/Page'
 
   export default defineComponent({
     components: { PageWrapper },
     directives: {
-      Ripple: RippleDirective,
-    },
-  });
+      Ripple: RippleDirective
+    }
+  })
 </script>
 
 <style lang="less" scoped>

@@ -1,9 +1,9 @@
-import { Tag } from 'ant-design-vue';
-import { BasicColumn } from '/@/components/Table/index';
-import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
-import { useI18n } from '/@/hooks/web/useI18n';
+import { Tag } from 'ant-design-vue'
+import { BasicColumn } from '/@/components/Table/index'
+import { ErrorTypeEnum } from '/@/enums/exceptionEnum'
+import { useI18n } from '/@/hooks/web/useI18n'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
 export function getColumns(): BasicColumn[] {
   return [
@@ -21,47 +21,47 @@ export function getColumns(): BasicColumn[] {
             ? 'blue'
             : ErrorTypeEnum.AJAX
             ? 'red'
-            : 'purple';
-        return <Tag color={color}>{() => text}</Tag>;
-      },
+            : 'purple'
+        return <Tag color={color}>{() => text}</Tag>
+      }
     },
     {
       dataIndex: 'url',
       title: 'URL',
-      width: 200,
+      width: 200
     },
     {
       dataIndex: 'time',
       title: t('sys.errorLog.tableColumnDate'),
-      width: 160,
+      width: 160
     },
     {
       dataIndex: 'file',
       title: t('sys.errorLog.tableColumnFile'),
-      width: 200,
+      width: 200
     },
     {
       dataIndex: 'name',
       title: 'Name',
-      width: 200,
+      width: 200
     },
     {
       dataIndex: 'message',
       title: t('sys.errorLog.tableColumnMsg'),
-      width: 300,
+      width: 300
     },
     {
       dataIndex: 'stack',
-      title: t('sys.errorLog.tableColumnStackMsg'),
-    },
-  ];
+      title: t('sys.errorLog.tableColumnStackMsg')
+    }
+  ]
 }
 
 export function getDescSchema(): any {
-  return getColumns().map((column) => {
+  return getColumns().map(column => {
     return {
       field: column.dataIndex!,
-      label: column.title,
-    };
-  });
+      label: column.title
+    }
+  })
 }

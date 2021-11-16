@@ -33,32 +33,32 @@
   </template>
 </template>
 <script lang="ts" setup>
-  import { reactive, ref, computed, unref } from 'vue';
-  import LoginFormTitle from './LoginFormTitle.vue';
-  import { Form, Input, Button } from 'ant-design-vue';
-  import { CountdownInput } from '/@/components/CountDown';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useLoginState, useFormRules, LoginStateEnum } from './useLogin';
+  import { reactive, ref, computed, unref } from 'vue'
+  import LoginFormTitle from './LoginFormTitle.vue'
+  import { Form, Input, Button } from 'ant-design-vue'
+  import { CountdownInput } from '/@/components/CountDown'
+  import { useI18n } from '/@/hooks/web/useI18n'
+  import { useLoginState, useFormRules, LoginStateEnum } from './useLogin'
 
-  const FormItem = Form.Item;
-  const { t } = useI18n();
-  const { handleBackLogin, getLoginState } = useLoginState();
-  const { getFormRules } = useFormRules();
+  const FormItem = Form.Item
+  const { t } = useI18n()
+  const { handleBackLogin, getLoginState } = useLoginState()
+  const { getFormRules } = useFormRules()
 
-  const formRef = ref();
-  const loading = ref(false);
+  const formRef = ref()
+  const loading = ref(false)
 
   const formData = reactive({
     account: '',
     mobile: '',
-    sms: '',
-  });
+    sms: ''
+  })
 
-  const getShow = computed(() => unref(getLoginState) === LoginStateEnum.RESET_PASSWORD);
+  const getShow = computed(() => unref(getLoginState) === LoginStateEnum.RESET_PASSWORD)
 
   async function handleReset() {
-    const form = unref(formRef);
-    if (!form) return;
-    await form.resetFields();
+    const form = unref(formRef)
+    if (!form) return
+    await form.resetFields()
   }
 </script>

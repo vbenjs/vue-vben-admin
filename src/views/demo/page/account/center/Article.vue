@@ -40,10 +40,10 @@
   </List>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { List, Tag } from 'ant-design-vue';
-  import Icon from '/@/components/Icon/index';
-  import { actions, articleList } from './data';
+  import { defineComponent } from 'vue'
+  import { List, Tag } from 'ant-design-vue'
+  import Icon from '/@/components/Icon/index'
+  import { actions, articleList } from './data'
 
   export default defineComponent({
     components: {
@@ -51,16 +51,16 @@
       ListItem: List.Item,
       ListItemMeta: List.Item.Meta,
       Tag,
-      Icon,
+      Icon
     },
     setup() {
       return {
         prefixCls: 'account-center-article',
         list: articleList,
-        actions,
-      };
-    },
-  });
+        actions
+      }
+    }
+  })
 </script>
 <style lang="less" scoped>
   .account-center-article {

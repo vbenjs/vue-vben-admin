@@ -1,5 +1,5 @@
 export const cardList = (() => {
-  const result: any[] = [];
+  const result: any[] = []
   for (let i = 0; i < 12; i++) {
     result.push({
       title: 'Vben Admin',
@@ -7,8 +7,8 @@ export const cardList = (() => {
       color: '#1890ff',
       active: '100',
       new: '1,799',
-      download: 'bx:bx-download',
-    });
+      download: 'bx:bx-download'
+    })
   }
-  return result;
-})();
+  return result
+})()

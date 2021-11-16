@@ -2,25 +2,25 @@
   <div ref="chartRef" :style="{ height, width }"></div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, ref, Ref, onMounted } from 'vue';
+  import { defineComponent, PropType, ref, Ref, onMounted } from 'vue'
 
-  import { useECharts } from '/@/hooks/web/useECharts';
+  import { useECharts } from '/@/hooks/web/useECharts'
 
   export default defineComponent({
     props: {
       width: {
         type: String as PropType<string>,
-        default: '100%',
+        default: '100%'
       },
       height: {
         type: String as PropType<string>,
-        default: 'calc(100vh - 78px)',
-      },
+        default: 'calc(100vh - 78px)'
+      }
     },
     setup() {
-      const chartRef = ref<HTMLDivElement | null>(null);
-      const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
-      const dataAll = [389, 259, 262, 324, 232, 176, 196, 214, 133, 370];
+      const chartRef = ref<HTMLDivElement | null>(null)
+      const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>)
+      const dataAll = [389, 259, 262, 324, 232, 176, 196, 214, 133, 370]
       const yAxisData = [
         '原因1',
         '原因2',
@@ -31,8 +31,8 @@
         '原因7',
         '原因8',
         '原因9',
-        '原因10',
-      ];
+        '原因10'
+      ]
       onMounted(() => {
         setOptions({
           backgroundColor: '#0f375f',
@@ -43,8 +43,8 @@
               top: '1%',
               textStyle: {
                 color: '#fff',
-                fontSize: 14,
-              },
+                fontSize: 14
+              }
             },
             {
               text: '投诉原因TOP10',
@@ -52,8 +52,8 @@
               top: '1%',
               textStyle: {
                 color: '#fff',
-                fontSize: 14,
-              },
+                fontSize: 14
+              }
             },
             {
               text: '各级别投诉占比',
@@ -61,13 +61,13 @@
               top: '50%',
               textStyle: {
                 color: '#fff',
-                fontSize: 14,
-              },
-            },
+                fontSize: 14
+              }
+            }
           ],
           grid: [{ left: '50%', top: '7%', width: '45%', height: '90%' }],
           tooltip: {
-            formatter: '{b} ({c})',
+            formatter: '{b} ({c})'
           },
           xAxis: [
             {
@@ -75,8 +75,8 @@
               axisTick: { show: false },
               axisLabel: { show: false },
               splitLine: { show: false },
-              axisLine: { show: false },
-            },
+              axisLine: { show: false }
+            }
           ],
           yAxis: [
             {
@@ -86,8 +86,8 @@
               axisTick: { show: false },
               axisLabel: { show: true },
               splitLine: { show: false },
-              axisLine: { show: true, lineStyle: { color: '#6173a3' } },
-            },
+              axisLine: { show: true, lineStyle: { color: '#6173a3' } }
+            }
           ],
           series: [
             {
@@ -100,14 +100,14 @@
                 { value: 310, name: '奥迪官网' },
                 { value: 234, name: '媒体曝光' },
                 { value: 135, name: '质检总局' },
-                { value: 105, name: '其他' },
+                { value: 105, name: '其他' }
               ],
               labelLine: { show: false },
               label: {
                 show: true,
                 formatter: '{b} \n ({d}%)',
-                color: '#B1B9D3',
-              },
+                color: '#B1B9D3'
+              }
             },
             {
               name: '各级别投诉占比',
@@ -119,13 +119,13 @@
                 { value: 335, name: 'A级' },
                 { value: 310, name: 'B级' },
                 { value: 234, name: 'C级' },
-                { value: 135, name: 'D级' },
+                { value: 135, name: 'D级' }
               ],
               label: {
                 show: true,
                 formatter: '{b} \n ({d}%)',
-                color: '#B1B9D3',
-              },
+                color: '#B1B9D3'
+              }
             },
             {
               name: '投诉原因TOP10',
@@ -135,12 +135,12 @@
               barWidth: '45%',
               itemStyle: { color: '#86c9f4' },
               label: { show: true, position: 'right', color: '#9EA7C4' },
-              data: dataAll.sort(),
-            },
-          ],
-        });
-      });
-      return { chartRef };
-    },
-  });
+              data: dataAll.sort()
+            }
+          ]
+        })
+      })
+      return { chartRef }
+    }
+  })
 </script>

@@ -7,47 +7,47 @@
             {
               label: '编辑',
               onClick: handleEdit.bind(null, record),
-              auth: 'other', // 根据权限控制是否显示: 无权限，不显示
+              auth: 'other' // 根据权限控制是否显示: 无权限，不显示
             },
             {
               label: '删除',
               icon: 'ic:outline-delete-outline',
               onClick: handleDelete.bind(null, record),
-              auth: 'super', // 根据权限控制是否显示: 有权限，会显示
-            },
+              auth: 'super' // 根据权限控制是否显示: 有权限，会显示
+            }
           ]"
           :dropDownActions="[
             {
               label: '启用',
               popConfirm: {
                 title: '是否启用？',
-                confirm: handleOpen.bind(null, record),
+                confirm: handleOpen.bind(null, record)
               },
-              ifShow: (_action) => {
-                return record.status !== 'enable'; // 根据业务控制是否显示: 非enable状态的不显示启用按钮
-              },
+              ifShow: _action => {
+                return record.status !== 'enable' // 根据业务控制是否显示: 非enable状态的不显示启用按钮
+              }
             },
             {
               label: '禁用',
               popConfirm: {
                 title: '是否禁用？',
-                confirm: handleOpen.bind(null, record),
+                confirm: handleOpen.bind(null, record)
               },
               ifShow: () => {
-                return record.status === 'enable'; // 根据业务控制是否显示: enable状态的显示禁用按钮
-              },
+                return record.status === 'enable' // 根据业务控制是否显示: enable状态的显示禁用按钮
+              }
             },
             {
               label: '同时控制',
               popConfirm: {
                 title: '是否动态显示？',
-                confirm: handleOpen.bind(null, record),
+                confirm: handleOpen.bind(null, record)
               },
               auth: 'super', // 同时根据权限和业务控制是否显示
               ifShow: () => {
-                return true;
-              },
-            },
+                return true
+              }
+            }
           ]"
         />
       </template>
@@ -55,43 +55,43 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table';
+  import { defineComponent } from 'vue'
+  import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table'
 
-  import { demoListApi } from '/@/api/demo/table';
+  import { demoListApi } from '/@/api/demo/table'
   const columns: BasicColumn[] = [
     {
       title: '编号',
       dataIndex: 'no',
-      width: 100,
+      width: 100
     },
     {
       title: '姓名',
       dataIndex: 'name',
-      auth: 'test', // 根据权限控制是否显示: 无权限，不显示
+      auth: 'test' // 根据权限控制是否显示: 无权限，不显示
     },
     {
       title: '状态',
-      dataIndex: 'status',
+      dataIndex: 'status'
     },
     {
       title: '地址',
       dataIndex: 'address',
       auth: 'super', // 同时根据权限和业务控制是否显示
-      ifShow: (_column) => {
-        return true;
-      },
+      ifShow: _column => {
+        return true
+      }
     },
     {
       title: '开始时间',
-      dataIndex: 'beginTime',
+      dataIndex: 'beginTime'
     },
     {
       title: '结束时间',
       dataIndex: 'endTime',
-      width: 200,
-    },
-  ];
+      width: 200
+    }
+  ]
   export default defineComponent({
     components: { BasicTable, TableAction },
     setup() {
@@ -104,24 +104,24 @@
           width: 250,
           title: 'Action',
           dataIndex: 'action',
-          slots: { customRender: 'action' },
-        },
-      });
+          slots: { customRender: 'action' }
+        }
+      })
       function handleEdit(record: Recordable) {
-        console.log('点击了编辑', record);
+        console.log('点击了编辑', record)
       }
       function handleDelete(record: Recordable) {
-        console.log('点击了删除', record);
+        console.log('点击了删除', record)
       }
       function handleOpen(record: Recordable) {
-        console.log('点击了启用', record);
+        console.log('点击了启用', record)
       }
       return {
         registerTable,
         handleEdit,
         handleDelete,
-        handleOpen,
-      };
-    },
-  });
+        handleOpen
+      }
+    }
+  })
 </script>

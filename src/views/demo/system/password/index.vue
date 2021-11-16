@@ -10,11 +10,11 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { PageWrapper } from '/@/components/Page';
-  import { BasicForm, useForm } from '/@/components/Form';
+  import { defineComponent } from 'vue'
+  import { PageWrapper } from '/@/components/Page'
+  import { BasicForm, useForm } from '/@/components/Form'
 
-  import { formSchema } from './pwd.data';
+  import { formSchema } from './pwd.data'
   export default defineComponent({
     name: 'ChangePassword',
     components: { BasicForm, PageWrapper },
@@ -23,22 +23,22 @@
         size: 'large',
         labelWidth: 100,
         showActionButtonGroup: false,
-        schemas: formSchema,
-      });
+        schemas: formSchema
+      })
 
       async function handleSubmit() {
         try {
-          const values = await validate();
-          const { passwordOld, passwordNew } = values;
+          const values = await validate()
+          const { passwordOld, passwordNew } = values
 
           // TODO custom api
-          console.log(passwordOld, passwordNew);
+          console.log(passwordOld, passwordNew)
           // const { router } = useRouter();
           // router.push(pageEnum.BASE_LOGIN);
         } catch (error) {}
       }
 
-      return { register, resetFields, handleSubmit };
-    },
-  });
+      return { register, resetFields, handleSubmit }
+    }
+  })
 </script>

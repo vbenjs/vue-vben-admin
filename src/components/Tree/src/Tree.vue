@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import type { ReplaceFields, Keys, CheckKeys, TreeActionType, TreeItem } from './typing';
+  import type { ReplaceFields, Keys, CheckKeys, TreeActionType, TreeItem } from './typing'
 
   import {
     defineComponent,
@@ -11,32 +11,32 @@
     toRaw,
     watch,
     CSSProperties,
-    onMounted,
-  } from 'vue';
-  import { Tree, Empty } from 'ant-design-vue';
-  import { TreeIcon } from './TreeIcon';
-  import TreeHeader from './TreeHeader.vue';
-  import { ScrollContainer } from '/@/components/Container';
+    onMounted
+  } from 'vue'
+  import { Tree, Empty } from 'ant-design-vue'
+  import { TreeIcon } from './TreeIcon'
+  import TreeHeader from './TreeHeader.vue'
+  import { ScrollContainer } from '/@/components/Container'
 
-  import { omit, get, difference } from 'lodash-es';
-  import { isArray, isBoolean, isEmpty, isFunction } from '/@/utils/is';
-  import { extendSlots, getSlot } from '/@/utils/helper/tsxHelper';
-  import { filter, treeToList } from '/@/utils/helper/treeHelper';
+  import { omit, get, difference } from 'lodash-es'
+  import { isArray, isBoolean, isEmpty, isFunction } from '/@/utils/is'
+  import { extendSlots, getSlot } from '/@/utils/helper/tsxHelper'
+  import { filter, treeToList } from '/@/utils/helper/treeHelper'
 
-  import { useTree } from './useTree';
-  import { useContextMenu } from '/@/hooks/web/useContextMenu';
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import { useTree } from './useTree'
+  import { useContextMenu } from '/@/hooks/web/useContextMenu'
+  import { useDesign } from '/@/hooks/web/useDesign'
 
-  import { basicProps } from './props';
-  import { CreateContextOptions } from '/@/components/ContextMenu';
+  import { basicProps } from './props'
+  import { CreateContextOptions } from '/@/components/ContextMenu'
 
-  import { CheckEvent } from './typing';
+  import { CheckEvent } from './typing'
 
   interface State {
-    expandedKeys: Keys;
-    selectedKeys: Keys;
-    checkedKeys: CheckKeys;
-    checkStrictly: boolean;
+    expandedKeys: Keys
+    selectedKeys: Keys
+    checkedKeys: CheckKeys
+    checkStrictly: boolean
   }
   export default defineComponent({
     name: 'BasicTree',
@@ -48,36 +48,36 @@
       'update:value',
       'change',
       'check',
-      'update:searchValue',
+      'update:searchValue'
     ],
     setup(props, { attrs, slots, emit, expose }) {
       const state = reactive<State>({
         checkStrictly: props.checkStrictly,
         expandedKeys: props.expandedKeys || [],
         selectedKeys: props.selectedKeys || [],
-        checkedKeys: props.checkedKeys || [],
-      });
+        checkedKeys: props.checkedKeys || []
+      })
 
       const searchState = reactive({
         startSearch: false,
         searchText: '',
-        searchData: [] as TreeItem[],
-      });
+        searchData: [] as TreeItem[]
+      })
 
-      const treeDataRef = ref<TreeItem[]>([]);
+      const treeDataRef = ref<TreeItem[]>([])
 
-      const [createContextMenu] = useContextMenu();
-      const { prefixCls } = useDesign('basic-tree');
+      const [createContextMenu] = useContextMenu()
+      const { prefixCls } = useDesign('basic-tree')
 
       const getReplaceFields = computed((): Required<ReplaceFields> => {
-        const { replaceFields } = props;
+        const { replaceFields } = props
         return {
           children: 'children',
           title: 'title',
           key: 'key',
-          ...replaceFields,
-        };
-      });
+          ...replaceFields
+        }
+      })
 
       const getBindValues = computed(() => {
         let propsData = {
@@ -90,42 +90,42 @@
           checkStrictly: state.checkStrictly,
           replaceFields: unref(getReplaceFields),
           'onUpdate:expandedKeys': (v: Keys) => {
-            state.expandedKeys = v;
-            emit('update:expandedKeys', v);
+            state.expandedKeys = v
+            emit('update:expandedKeys', v)
           },
           'onUpdate:selectedKeys': (v: Keys) => {
-            state.selectedKeys = v;
-            emit('update:selectedKeys', v);
+            state.selectedKeys = v
+            emit('update:selectedKeys', v)
           },
           onCheck: (v: CheckKeys, e: CheckEvent) => {
-            let currentValue = toRaw(state.checkedKeys) as Keys;
+            let currentValue = toRaw(state.checkedKeys) as Keys
             if (isArray(currentValue) && searchState.startSearch) {
-              const { key } = unref(getReplaceFields);
-              currentValue = difference(currentValue, getChildrenKeys(e.node.$attrs.node[key]));
+              const { key } = unref(getReplaceFields)
+              currentValue = difference(currentValue, getChildrenKeys(e.node.$attrs.node[key]))
               if (e.checked) {
-                currentValue.push(e.node.$attrs.node[key]);
+                currentValue.push(e.node.$attrs.node[key])
               }
-              state.checkedKeys = currentValue;
+              state.checkedKeys = currentValue
             } else {
-              state.checkedKeys = v;
+              state.checkedKeys = v
             }
 
-            const rawVal = toRaw(state.checkedKeys);
-            emit('update:value', rawVal);
-            emit('check', rawVal, e);
+            const rawVal = toRaw(state.checkedKeys)
+            emit('update:value', rawVal)
+            emit('check', rawVal, e)
           },
-          onRightClick: handleRightClick,
-        };
-        return omit(propsData, 'treeData', 'class');
-      });
+          onRightClick: handleRightClick
+        }
+        return omit(propsData, 'treeData', 'class')
+      })
 
       const getTreeData = computed((): TreeItem[] =>
-        searchState.startSearch ? searchState.searchData : unref(treeDataRef),
-      );
+        searchState.startSearch ? searchState.searchData : unref(treeDataRef)
+      )
 
       const getNotFound = computed((): boolean => {
-        return !getTreeData.value || getTreeData.value.length === 0;
-      });
+        return !getTreeData.value || getTreeData.value.length === 0
+      })
 
       const {
         deleteNodeByKey,
@@ -135,191 +135,191 @@
         updateNodeByKey,
         getAllKeys,
         getChildrenKeys,
-        getEnabledKeys,
-      } = useTree(treeDataRef, getReplaceFields);
+        getEnabledKeys
+      } = useTree(treeDataRef, getReplaceFields)
 
       function getIcon(params: Recordable, icon?: string) {
         if (!icon) {
           if (props.renderIcon && isFunction(props.renderIcon)) {
-            return props.renderIcon(params);
+            return props.renderIcon(params)
           }
         }
-        return icon;
+        return icon
       }
 
       async function handleRightClick({ event, node }: Recordable) {
-        const { rightMenuList: menuList = [], beforeRightClick } = props;
-        let contextMenuOptions: CreateContextOptions = { event, items: [] };
+        const { rightMenuList: menuList = [], beforeRightClick } = props
+        let contextMenuOptions: CreateContextOptions = { event, items: [] }
 
         if (beforeRightClick && isFunction(beforeRightClick)) {
-          let result = await beforeRightClick(node, event);
+          let result = await beforeRightClick(node, event)
           if (Array.isArray(result)) {
-            contextMenuOptions.items = result;
+            contextMenuOptions.items = result
           } else {
-            Object.assign(contextMenuOptions, result);
+            Object.assign(contextMenuOptions, result)
           }
         } else {
-          contextMenuOptions.items = menuList;
+          contextMenuOptions.items = menuList
         }
-        if (!contextMenuOptions.items?.length) return;
-        createContextMenu(contextMenuOptions);
+        if (!contextMenuOptions.items?.length) return
+        createContextMenu(contextMenuOptions)
       }
 
       function setExpandedKeys(keys: Keys) {
-        state.expandedKeys = keys;
+        state.expandedKeys = keys
       }
 
       function getExpandedKeys() {
-        return state.expandedKeys;
+        return state.expandedKeys
       }
       function setSelectedKeys(keys: Keys) {
-        state.selectedKeys = keys;
+        state.selectedKeys = keys
       }
 
       function getSelectedKeys() {
-        return state.selectedKeys;
+        return state.selectedKeys
       }
 
       function setCheckedKeys(keys: CheckKeys) {
-        state.checkedKeys = keys;
+        state.checkedKeys = keys
       }
 
       function getCheckedKeys() {
-        return state.checkedKeys;
+        return state.checkedKeys
       }
 
       function checkAll(checkAll: boolean) {
-        state.checkedKeys = checkAll ? getEnabledKeys() : ([] as Keys);
+        state.checkedKeys = checkAll ? getEnabledKeys() : ([] as Keys)
       }
 
       function expandAll(expandAll: boolean) {
-        state.expandedKeys = expandAll ? getAllKeys() : ([] as Keys);
+        state.expandedKeys = expandAll ? getAllKeys() : ([] as Keys)
       }
 
       function onStrictlyChange(strictly: boolean) {
-        state.checkStrictly = strictly;
+        state.checkStrictly = strictly
       }
 
       watch(
         () => props.searchValue,
-        (val) => {
+        val => {
           if (val !== searchState.searchText) {
-            searchState.searchText = val;
+            searchState.searchText = val
           }
         },
         {
-          immediate: true,
-        },
-      );
+          immediate: true
+        }
+      )
 
       watch(
         () => props.treeData,
-        (val) => {
+        val => {
           if (val) {
-            handleSearch(searchState.searchText);
+            handleSearch(searchState.searchText)
           }
-        },
-      );
+        }
+      )
 
       function handleSearch(searchValue: string) {
-        if (searchValue !== searchState.searchText) searchState.searchText = searchValue;
-        emit('update:searchValue', searchValue);
+        if (searchValue !== searchState.searchText) searchState.searchText = searchValue
+        emit('update:searchValue', searchValue)
         if (!searchValue) {
-          searchState.startSearch = false;
-          return;
+          searchState.startSearch = false
+          return
         }
         const { filterFn, checkable, expandOnSearch, checkOnSearch, selectedOnSearch } =
-          unref(props);
-        searchState.startSearch = true;
-        const { title: titleField, key: keyField } = unref(getReplaceFields);
+          unref(props)
+        searchState.startSearch = true
+        const { title: titleField, key: keyField } = unref(getReplaceFields)
 
-        const matchedKeys: string[] = [];
+        const matchedKeys: string[] = []
         searchState.searchData = filter(
           unref(treeDataRef),
-          (node) => {
+          node => {
             const result = filterFn
               ? filterFn(searchValue, node, unref(getReplaceFields))
-              : node[titleField]?.includes(searchValue) ?? false;
+              : node[titleField]?.includes(searchValue) ?? false
             if (result) {
-              matchedKeys.push(node[keyField]);
+              matchedKeys.push(node[keyField])
             }
-            return result;
+            return result
           },
-          unref(getReplaceFields),
-        );
+          unref(getReplaceFields)
+        )
 
         if (expandOnSearch) {
-          const expandKeys = treeToList(searchState.searchData).map((val) => {
-            return val[keyField];
-          });
+          const expandKeys = treeToList(searchState.searchData).map(val => {
+            return val[keyField]
+          })
           if (expandKeys && expandKeys.length) {
-            setExpandedKeys(expandKeys);
+            setExpandedKeys(expandKeys)
           }
         }
 
         if (checkOnSearch && checkable && matchedKeys.length) {
-          setCheckedKeys(matchedKeys);
+          setCheckedKeys(matchedKeys)
         }
 
         if (selectedOnSearch && matchedKeys.length) {
-          setSelectedKeys(matchedKeys);
+          setSelectedKeys(matchedKeys)
         }
       }
 
       function handleClickNode(key: string, children: TreeItem[]) {
-        if (!props.clickRowToExpand || !children || children.length === 0) return;
+        if (!props.clickRowToExpand || !children || children.length === 0) return
         if (!state.expandedKeys.includes(key)) {
-          setExpandedKeys([...state.expandedKeys, key]);
+          setExpandedKeys([...state.expandedKeys, key])
         } else {
-          const keys = [...state.expandedKeys];
-          const index = keys.findIndex((item) => item === key);
+          const keys = [...state.expandedKeys]
+          const index = keys.findIndex(item => item === key)
           if (index !== -1) {
-            keys.splice(index, 1);
+            keys.splice(index, 1)
           }
-          setExpandedKeys(keys);
+          setExpandedKeys(keys)
         }
       }
 
       watchEffect(() => {
-        treeDataRef.value = props.treeData as TreeItem[];
-      });
+        treeDataRef.value = props.treeData as TreeItem[]
+      })
 
       onMounted(() => {
-        const level = parseInt(props.defaultExpandLevel);
+        const level = parseInt(props.defaultExpandLevel)
         if (level > 0) {
-          state.expandedKeys = filterByLevel(level);
+          state.expandedKeys = filterByLevel(level)
         } else if (props.defaultExpandAll) {
-          expandAll(true);
+          expandAll(true)
         }
-      });
+      })
 
       watchEffect(() => {
-        state.expandedKeys = props.expandedKeys;
-      });
+        state.expandedKeys = props.expandedKeys
+      })
 
       watchEffect(() => {
-        state.selectedKeys = props.selectedKeys;
-      });
+        state.selectedKeys = props.selectedKeys
+      })
 
       watchEffect(() => {
-        state.checkedKeys = props.checkedKeys;
-      });
+        state.checkedKeys = props.checkedKeys
+      })
 
       watch(
         () => props.value,
         () => {
-          state.checkedKeys = toRaw(props.value || []);
-        },
-      );
+          state.checkedKeys = toRaw(props.value || [])
+        }
+      )
 
       watch(
         () => state.checkedKeys,
         () => {
-          const v = toRaw(state.checkedKeys);
-          emit('update:value', v);
-          emit('change', v);
-        },
-      );
+          const v = toRaw(state.checkedKeys)
+          emit('update:value', v)
+          emit('change', v)
+        }
+      )
 
       // watchEffect(() => {
       //   console.log('======================');
@@ -331,8 +331,8 @@
       // });
 
       watchEffect(() => {
-        state.checkStrictly = props.checkStrictly;
-      });
+        state.checkStrictly = props.checkStrictly
+      })
 
       const instance: TreeActionType = {
         setExpandedKeys,
@@ -348,61 +348,61 @@
         checkAll,
         expandAll,
         filterByLevel: (level: number) => {
-          state.expandedKeys = filterByLevel(level);
+          state.expandedKeys = filterByLevel(level)
         },
         setSearchValue: (value: string) => {
-          handleSearch(value);
+          handleSearch(value)
         },
         getSearchValue: () => {
-          return searchState.searchText;
-        },
-      };
+          return searchState.searchText
+        }
+      }
 
-      expose(instance);
+      expose(instance)
 
       function renderAction(node: TreeItem) {
-        const { actionList } = props;
-        if (!actionList || actionList.length === 0) return;
+        const { actionList } = props
+        if (!actionList || actionList.length === 0) return
         return actionList.map((item, index) => {
-          let nodeShow = true;
+          let nodeShow = true
           if (isFunction(item.show)) {
-            nodeShow = item.show?.(node);
+            nodeShow = item.show?.(node)
           } else if (isBoolean(item.show)) {
-            nodeShow = item.show;
+            nodeShow = item.show
           }
 
-          if (!nodeShow) return null;
+          if (!nodeShow) return null
 
           return (
             <span key={index} class={`${prefixCls}__action`}>
               {item.render(node)}
             </span>
-          );
-        });
+          )
+        })
       }
 
       function renderTreeNode({ data, level }: { data: TreeItem[] | undefined; level: number }) {
         if (!data) {
-          return null;
+          return null
         }
-        const searchText = searchState.searchText;
-        const { highlight } = unref(props);
-        return data.map((item) => {
+        const searchText = searchState.searchText
+        const { highlight } = unref(props)
+        return data.map(item => {
           const {
             title: titleField,
             key: keyField,
-            children: childrenField,
-          } = unref(getReplaceFields);
+            children: childrenField
+          } = unref(getReplaceFields)
 
-          const propsData = omit(item, 'title');
-          const icon = getIcon({ ...item, level }, item.icon);
-          const children = get(item, childrenField) || [];
-          const title = get(item, titleField);
+          const propsData = omit(item, 'title')
+          const icon = getIcon({ ...item, level }, item.icon)
+          const children = get(item, childrenField) || []
+          const title = get(item, titleField)
 
-          const searchIdx = searchText ? title.indexOf(searchText) : -1;
+          const searchIdx = searchText ? title.indexOf(searchText) : -1
           const isHighlight =
-            searchState.startSearch && !isEmpty(searchText) && highlight && searchIdx !== -1;
-          const highlightStyle = `color: ${isBoolean(highlight) ? '#f50' : highlight}`;
+            searchState.startSearch && !isEmpty(searchText) && highlight && searchIdx !== -1
+          const highlightStyle = `color: ${isBoolean(highlight) ? '#f50' : highlight}`
 
           const titleDom = isHighlight ? (
             <span class={unref(getBindValues)?.blockNode ? `${prefixCls}__content` : ''}>
@@ -412,7 +412,7 @@
             </span>
           ) : (
             title
-          );
+          )
 
           return (
             <Tree.TreeNode {...propsData} node={toRaw(item)} key={get(item, keyField)}>
@@ -436,16 +436,16 @@
                     )}
                   </span>
                 ),
-                default: () => renderTreeNode({ data: children, level: level + 1 }),
+                default: () => renderTreeNode({ data: children, level: level + 1 })
               }}
             </Tree.TreeNode>
-          );
-        });
+          )
+        })
       }
       return () => {
-        const { title, helpMessage, toolbar, search, checkable } = props;
-        const showTitle = title || toolbar || search || slots.headerTitle;
-        const scrollStyle: CSSProperties = { height: 'calc(100% - 38px)' };
+        const { title, helpMessage, toolbar, search, checkable } = props
+        const showTitle = title || toolbar || search || slots.headerTitle
+        const scrollStyle: CSSProperties = { height: 'calc(100% - 38px)' }
         return (
           <div class={[prefixCls, 'h-full', attrs.class]}>
             {showTitle && (
@@ -469,17 +469,17 @@
                 {{
                   // switcherIcon: () => <DownOutlined />,
                   default: () => renderTreeNode({ data: unref(getTreeData), level: 1 }),
-                  ...extendSlots(slots),
+                  ...extendSlots(slots)
                 }}
               </Tree>
             </ScrollContainer>
 
             <Empty v-show={unref(getNotFound)} image={Empty.PRESENTED_IMAGE_SIMPLE} class="!mt-4" />
           </div>
-        );
-      };
-    },
-  });
+        )
+      }
+    }
+  })
 </script>
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-tree';

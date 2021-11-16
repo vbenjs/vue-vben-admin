@@ -33,11 +33,11 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import Icon from '/@/components/Icon/index';
-  import { cardList } from './data';
-  import { PageWrapper } from '/@/components/Page';
-  import { Card, Row, Col, List } from 'ant-design-vue';
+  import { defineComponent } from 'vue'
+  import Icon from '/@/components/Icon/index'
+  import { cardList } from './data'
+  import { PageWrapper } from '/@/components/Page'
+  import { Card, Row, Col, List } from 'ant-design-vue'
 
   export default defineComponent({
     components: {
@@ -47,15 +47,15 @@
       [List.name]: List,
       [List.Item.name]: List.Item,
       [Row.name]: Row,
-      [Col.name]: Col,
+      [Col.name]: Col
     },
     setup() {
       return {
         prefixCls: 'list-card',
-        list: cardList,
-      };
-    },
-  });
+        list: cardList
+      }
+    }
+  })
 </script>
 <style lang="less" scoped>
   .list-card {

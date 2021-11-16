@@ -27,11 +27,11 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicForm, useForm } from '/@/components/Form';
-  import { step1Schemas } from './data';
+  import { defineComponent } from 'vue'
+  import { BasicForm, useForm } from '/@/components/Form'
+  import { step1Schemas } from './data'
 
-  import { Select, Input, Divider } from 'ant-design-vue';
+  import { Select, Input, Divider } from 'ant-design-vue'
   export default defineComponent({
     components: {
       BasicForm,
@@ -39,7 +39,7 @@
       ASelectOption: Select.Option,
       [Input.name]: Input,
       [Input.Group.name]: Input.Group,
-      [Divider.name]: Divider,
+      [Divider.name]: Divider
     },
     emits: ['next'],
     setup(_, { emit }) {
@@ -47,25 +47,25 @@
         labelWidth: 100,
         schemas: step1Schemas,
         actionColOptions: {
-          span: 14,
+          span: 14
         },
         showResetButton: false,
         submitButtonOptions: {
-          text: '下一步',
+          text: '下一步'
         },
-        submitFunc: customSubmitFunc,
-      });
+        submitFunc: customSubmitFunc
+      })
 
       async function customSubmitFunc() {
         try {
-          const values = await validate();
-          emit('next', values);
+          const values = await validate()
+          emit('next', values)
         } catch (error) {}
       }
 
-      return { register };
-    },
-  });
+      return { register }
+    }
+  })
 </script>
 <style lang="less" scoped>
   .step1 {

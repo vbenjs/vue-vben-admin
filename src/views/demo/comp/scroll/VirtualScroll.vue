@@ -24,26 +24,26 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { VScroll } from '/@/components/VirtualScroll/index';
+  import { defineComponent } from 'vue'
+  import { VScroll } from '/@/components/VirtualScroll/index'
 
-  import { Divider } from 'ant-design-vue';
-  import { PageWrapper } from '/@/components/Page';
+  import { Divider } from 'ant-design-vue'
+  import { PageWrapper } from '/@/components/Page'
   const data: Recordable[] = (() => {
-    const arr: Recordable[] = [];
+    const arr: Recordable[] = []
     for (let index = 1; index < 20000; index++) {
       arr.push({
-        title: '列表项' + index,
-      });
+        title: '列表项' + index
+      })
     }
-    return arr;
-  })();
+    return arr
+  })()
   export default defineComponent({
     components: { VScroll: VScroll, Divider, PageWrapper },
     setup() {
-      return { data: data };
-    },
-  });
+      return { data: data }
+    }
+  })
 </script>
 <style lang="less" scoped>
   .virtual-scroll-demo {

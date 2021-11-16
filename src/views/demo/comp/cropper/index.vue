@@ -32,36 +32,36 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { PageWrapper } from '/@/components/Page';
-  import { CollapseContainer } from '/@/components/Container';
-  import { CropperImage, CropperAvatar } from '/@/components/Cropper';
-  import { uploadApi } from '/@/api/sys/upload';
-  import img from '/@/assets/images/header.jpg';
-  import { useUserStore } from '/@/store/modules/user';
+  import { defineComponent, ref } from 'vue'
+  import { PageWrapper } from '/@/components/Page'
+  import { CollapseContainer } from '/@/components/Container'
+  import { CropperImage, CropperAvatar } from '/@/components/Cropper'
+  import { uploadApi } from '/@/api/sys/upload'
+  import img from '/@/assets/images/header.jpg'
+  import { useUserStore } from '/@/store/modules/user'
 
   export default defineComponent({
     components: {
       PageWrapper,
       CropperImage,
       CollapseContainer,
-      CropperAvatar,
+      CropperAvatar
     },
     setup() {
-      const info = ref('');
-      const cropperImg = ref('');
-      const circleInfo = ref('');
-      const circleImg = ref('');
-      const userStore = useUserStore();
-      const avatar = ref(userStore.getUserInfo?.avatar || '');
+      const info = ref('')
+      const cropperImg = ref('')
+      const circleInfo = ref('')
+      const circleImg = ref('')
+      const userStore = useUserStore()
+      const avatar = ref(userStore.getUserInfo?.avatar || '')
       function handleCropend({ imgBase64, imgInfo }) {
-        info.value = imgInfo;
-        cropperImg.value = imgBase64;
+        info.value = imgInfo
+        cropperImg.value = imgBase64
       }
 
       function handleCircleCropend({ imgBase64, imgInfo }) {
-        circleInfo.value = imgInfo;
-        circleImg.value = imgBase64;
+        circleInfo.value = imgInfo
+        circleImg.value = imgBase64
       }
 
       return {
@@ -73,10 +73,10 @@
         handleCropend,
         handleCircleCropend,
         avatar,
-        uploadApi: uploadApi as any,
-      };
-    },
-  });
+        uploadApi: uploadApi as any
+      }
+    }
+  })
 </script>
 
 <style scoped>

@@ -14,42 +14,42 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, computed } from 'vue';
-  import { FullscreenExitOutlined, FullscreenOutlined, CloseOutlined } from '@ant-design/icons-vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { Tooltip } from 'ant-design-vue';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import { defineComponent, computed } from 'vue'
+  import { FullscreenExitOutlined, FullscreenOutlined, CloseOutlined } from '@ant-design/icons-vue'
+  import { useDesign } from '/@/hooks/web/useDesign'
+  import { Tooltip } from 'ant-design-vue'
+  import { useI18n } from '/@/hooks/web/useI18n'
 
   export default defineComponent({
     name: 'ModalClose',
     components: { Tooltip, FullscreenExitOutlined, FullscreenOutlined, CloseOutlined },
     props: {
       canFullscreen: { type: Boolean, default: true },
-      fullScreen: { type: Boolean },
+      fullScreen: { type: Boolean }
     },
     emits: ['cancel', 'fullscreen'],
     setup(props, { emit }) {
-      const { prefixCls } = useDesign('basic-modal-close');
-      const { t } = useI18n();
+      const { prefixCls } = useDesign('basic-modal-close')
+      const { t } = useI18n()
 
       const getClass = computed(() => {
         return [
           prefixCls,
           `${prefixCls}--custom`,
           {
-            [`${prefixCls}--can-full`]: props.canFullscreen,
-          },
-        ];
-      });
+            [`${prefixCls}--can-full`]: props.canFullscreen
+          }
+        ]
+      })
 
       function handleCancel(e: Event) {
-        emit('cancel', e);
+        emit('cancel', e)
       }
 
       function handleFullScreen(e: Event) {
-        e?.stopPropagation();
-        e?.preventDefault();
-        emit('fullscreen');
+        e?.stopPropagation()
+        e?.preventDefault()
+        emit('fullscreen')
       }
 
       return {
@@ -57,10 +57,10 @@
         getClass,
         prefixCls,
         handleCancel,
-        handleFullScreen,
-      };
-    },
-  });
+        handleFullScreen
+      }
+    }
+  })
 </script>
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-modal-close';

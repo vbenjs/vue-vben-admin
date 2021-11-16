@@ -20,35 +20,35 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, unref } from 'vue';
-  import { ScrollContainer, ScrollActionType } from '/@/components/Container/index';
-  import { PageWrapper } from '/@/components/Page';
+  import { defineComponent, ref, unref } from 'vue'
+  import { ScrollContainer, ScrollActionType } from '/@/components/Container/index'
+  import { PageWrapper } from '/@/components/Page'
 
   export default defineComponent({
     components: { ScrollContainer, PageWrapper },
     setup() {
-      const scrollRef = ref<Nullable<ScrollActionType>>(null);
+      const scrollRef = ref<Nullable<ScrollActionType>>(null)
       const getScroll = () => {
-        const scroll = unref(scrollRef);
+        const scroll = unref(scrollRef)
         if (!scroll) {
-          throw new Error('scroll is Null');
+          throw new Error('scroll is Null')
         }
-        return scroll;
-      };
+        return scroll
+      }
 
       function scrollTo(top: number) {
-        getScroll().scrollTo(top);
+        getScroll().scrollTo(top)
       }
       function scrollBottom() {
-        getScroll().scrollBottom();
+        getScroll().scrollBottom()
       }
       return {
         scrollTo,
         scrollRef,
-        scrollBottom,
-      };
-    },
-  });
+        scrollBottom
+      }
+    }
+  })
 </script>
 <style lang="less" scoped>
   .scroll-wrap {

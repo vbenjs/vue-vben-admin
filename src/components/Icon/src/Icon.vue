@@ -14,7 +14,7 @@
   ></span>
 </template>
 <script lang="ts">
-  import type { PropType } from 'vue';
+  import type { PropType } from 'vue'
   import {
     defineComponent,
     ref,
@@ -23,14 +23,14 @@
     nextTick,
     unref,
     computed,
-    CSSProperties,
-  } from 'vue';
-  import SvgIcon from './SvgIcon.vue';
-  import Iconify from '@purge-icons/generated';
-  import { isString } from '/@/utils/is';
-  import { propTypes } from '/@/utils/propTypes';
+    CSSProperties
+  } from 'vue'
+  import SvgIcon from './SvgIcon.vue'
+  import Iconify from '@purge-icons/generated'
+  import { isString } from '/@/utils/is'
+  import { propTypes } from '/@/utils/propTypes'
 
-  const SVG_END_WITH_FLAG = '|svg';
+  const SVG_END_WITH_FLAG = '|svg'
   export default defineComponent({
     name: 'Icon',
     components: { SvgIcon },
@@ -42,62 +42,62 @@
       // icon size
       size: {
         type: [String, Number] as PropType<string | number>,
-        default: 16,
+        default: 16
       },
       spin: propTypes.bool.def(false),
-      prefix: propTypes.string.def(''),
+      prefix: propTypes.string.def('')
     },
     setup(props) {
-      const elRef = ref<ElRef>(null);
+      const elRef = ref<ElRef>(null)
 
-      const isSvgIcon = computed(() => props.icon?.endsWith(SVG_END_WITH_FLAG));
-      const getSvgIcon = computed(() => props.icon.replace(SVG_END_WITH_FLAG, ''));
-      const getIconRef = computed(() => `${props.prefix ? props.prefix + ':' : ''}${props.icon}`);
+      const isSvgIcon = computed(() => props.icon?.endsWith(SVG_END_WITH_FLAG))
+      const getSvgIcon = computed(() => props.icon.replace(SVG_END_WITH_FLAG, ''))
+      const getIconRef = computed(() => `${props.prefix ? props.prefix + ':' : ''}${props.icon}`)
 
       const update = async () => {
-        if (unref(isSvgIcon)) return;
+        if (unref(isSvgIcon)) return
 
-        const el = unref(elRef);
-        if (!el) return;
+        const el = unref(elRef)
+        if (!el) return
 
-        await nextTick();
-        const icon = unref(getIconRef);
-        if (!icon) return;
+        await nextTick()
+        const icon = unref(getIconRef)
+        if (!icon) return
 
-        const svg = Iconify.renderSVG(icon, {});
+        const svg = Iconify.renderSVG(icon, {})
         if (svg) {
-          el.textContent = '';
-          el.appendChild(svg);
+          el.textContent = ''
+          el.appendChild(svg)
         } else {
-          const span = document.createElement('span');
-          span.className = 'iconify';
-          span.dataset.icon = icon;
-          el.textContent = '';
-          el.appendChild(span);
+          const span = document.createElement('span')
+          span.className = 'iconify'
+          span.dataset.icon = icon
+          el.textContent = ''
+          el.appendChild(span)
         }
-      };
+      }
 
       const getWrapStyle = computed((): CSSProperties => {
-        const { size, color } = props;
-        let fs = size;
+        const { size, color } = props
+        let fs = size
         if (isString(size)) {
-          fs = parseInt(size, 10);
+          fs = parseInt(size, 10)
         }
 
         return {
           fontSize: `${fs}px`,
           color: color,
-          display: 'inline-flex',
-        };
-      });
+          display: 'inline-flex'
+        }
+      })
 
-      watch(() => props.icon, update, { flush: 'post' });
+      watch(() => props.icon, update, { flush: 'post' })
 
-      onMounted(update);
+      onMounted(update)
 
-      return { elRef, getWrapStyle, isSvgIcon, getSvgIcon };
-    },
-  });
+      return { elRef, getWrapStyle, isSvgIcon, getSvgIcon }
+    }
+  })
 </script>
 <style lang="less">
   .app-iconify {

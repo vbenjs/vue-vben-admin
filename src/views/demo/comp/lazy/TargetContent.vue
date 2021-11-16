@@ -7,13 +7,13 @@
   </Card>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { Card } from 'ant-design-vue';
+  import { defineComponent } from 'vue'
+  import { Card } from 'ant-design-vue'
 
   export default defineComponent({
     components: { CardMeta: Card.Meta, Card },
     setup() {
-      return {};
-    },
-  });
+      return {}
+    }
+  })
 </script>

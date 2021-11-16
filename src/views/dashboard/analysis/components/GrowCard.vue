@@ -27,14 +27,14 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { CountTo } from '/@/components/CountTo/index';
-  import { Icon } from '/@/components/Icon';
-  import { Tag, Card } from 'ant-design-vue';
-  import { growCardList } from '../data';
+  import { CountTo } from '/@/components/CountTo/index'
+  import { Icon } from '/@/components/Icon'
+  import { Tag, Card } from 'ant-design-vue'
+  import { growCardList } from '../data'
 
   defineProps({
     loading: {
-      type: Boolean,
-    },
-  });
+      type: Boolean
+    }
+  })
 </script>

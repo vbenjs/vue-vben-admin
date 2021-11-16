@@ -1,11 +1,11 @@
 // @ts-check
-const { defineConfig } = require('eslint-define-config');
+const { defineConfig } = require('eslint-define-config')
 module.exports = defineConfig({
   root: true,
   env: {
     browser: true,
     node: true,
-    es6: true,
+    es6: true
   },
   parser: 'vue-eslint-parser',
   parserOptions: {
@@ -14,15 +14,15 @@ module.exports = defineConfig({
     sourceType: 'module',
     jsxPragma: 'React',
     ecmaFeatures: {
-      jsx: true,
-    },
+      jsx: true
+    }
   },
   extends: [
     'plugin:vue/vue3-recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',
     'plugin:prettier/recommended',
-    'plugin:jest/recommended',
+    'plugin:jest/recommended'
   ],
   rules: {
     'vue/script-setup-uses-vars': 'error',
@@ -42,19 +42,20 @@ module.exports = defineConfig({
       'error',
       {
         argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-      },
+        varsIgnorePattern: '^_'
+      }
     ],
     'no-unused-vars': [
       'error',
       {
         argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-      },
+        varsIgnorePattern: '^_'
+      }
     ],
+    'vue/no-reserved-props': 'off',
     'space-before-function-paren': 'off',
-
     'vue/attributes-order': 'off',
+    'vue/valid-define-props': 'off',
     'vue/one-component-per-file': 'off',
     'vue/html-closing-bracket-newline': 'off',
     'vue/max-attributes-per-line': 'off',
@@ -68,12 +69,20 @@ module.exports = defineConfig({
         html: {
           void: 'always',
           normal: 'never',
-          component: 'always',
+          component: 'always'
         },
         svg: 'always',
-        math: 'always',
-      },
+        math: 'always'
+      }
     ],
-		'vue/multi-word-component-names': 'off'
-  },
-});
+    'vue/v-on-event-hyphenation': [
+      'error',
+      'never',
+      {
+        autofix: true,
+        ignore: []
+      }
+    ],
+    'vue/multi-word-component-names': 'off'
+  }
+})

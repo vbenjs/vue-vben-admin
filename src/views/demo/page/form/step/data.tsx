@@ -1,4 +1,4 @@
-import { FormSchema } from '/@/components/Form';
+import { FormSchema } from '/@/components/Form'
 
 export const step1Schemas: FormSchema[] = [
   {
@@ -11,10 +11,10 @@ export const step1Schemas: FormSchema[] = [
       options: [
         {
           label: 'anncwb@126.com',
-          value: '1',
-        },
-      ],
-    },
+          value: '1'
+        }
+      ]
+    }
   },
   {
     field: 'fac',
@@ -22,21 +22,21 @@ export const step1Schemas: FormSchema[] = [
     label: '收款账户',
     required: true,
     defaultValue: 'test@example.com',
-    slot: 'fac',
+    slot: 'fac'
   },
   {
     field: 'pay',
     component: 'Input',
     label: '',
     defaultValue: 'zfb',
-    show: false,
+    show: false
   },
   {
     field: 'payeeName',
     component: 'Input',
     label: '收款人姓名',
     defaultValue: 'Vben',
-    required: true,
+    required: true
   },
   {
     field: 'money',
@@ -46,11 +46,11 @@ export const step1Schemas: FormSchema[] = [
     required: true,
     renderComponentContent: () => {
       return {
-        prefix: () => '￥',
-      };
-    },
-  },
-];
+        prefix: () => '￥'
+      }
+    }
+  }
+]
 
 export const step2Schemas: FormSchema[] = [
   {
@@ -58,6 +58,6 @@ export const step2Schemas: FormSchema[] = [
     component: 'InputPassword',
     label: '支付密码',
     required: true,
-    defaultValue: '123456',
-  },
-];
+    defaultValue: '123456'
+  }
+]

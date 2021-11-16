@@ -23,12 +23,12 @@
   </CollapseContainer>
 </template>
 <script lang="ts">
-  import { List } from 'ant-design-vue';
-  import { defineComponent } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import Icon from '/@/components/Icon/index';
+  import { List } from 'ant-design-vue'
+  import { defineComponent } from 'vue'
+  import { CollapseContainer } from '/@/components/Container/index'
+  import Icon from '/@/components/Icon/index'
 
-  import { accountBindList } from './data';
+  import { accountBindList } from './data'
 
   export default defineComponent({
     components: {
@@ -36,14 +36,14 @@
       List,
       ListItem: List.Item,
       ListItemMeta: List.Item.Meta,
-      Icon,
+      Icon
     },
     setup() {
       return {
-        list: accountBindList,
-      };
-    },
-  });
+        list: accountBindList
+      }
+    }
+  })
 </script>
 <style lang="less" scoped>
   .avatar {

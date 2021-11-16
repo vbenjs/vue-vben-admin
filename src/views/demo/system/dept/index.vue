@@ -9,16 +9,16 @@
           :actions="[
             {
               icon: 'clarity:note-edit-line',
-              onClick: handleEdit.bind(null, record),
+              onClick: handleEdit.bind(null, record)
             },
             {
               icon: 'ant-design:delete-outlined',
               color: 'error',
               popConfirm: {
                 title: '是否确认删除',
-                confirm: handleDelete.bind(null, record),
-              },
-            },
+                confirm: handleDelete.bind(null, record)
+              }
+            }
           ]"
         />
       </template>
@@ -27,28 +27,28 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent } from 'vue'
 
-  import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getDeptList } from '/@/api/demo/system';
+  import { BasicTable, useTable, TableAction } from '/@/components/Table'
+  import { getDeptList } from '/@/api/demo/system'
 
-  import { useModal } from '/@/components/Modal';
-  import DeptModal from './DeptModal.vue';
+  import { useModal } from '/@/components/Modal'
+  import DeptModal from './DeptModal.vue'
 
-  import { columns, searchFormSchema } from './dept.data';
+  import { columns, searchFormSchema } from './dept.data'
 
   export default defineComponent({
     name: 'DeptManagement',
     components: { BasicTable, DeptModal, TableAction },
     setup() {
-      const [registerModal, { openModal }] = useModal();
+      const [registerModal, { openModal }] = useModal()
       const [registerTable, { reload }] = useTable({
         title: '部门列表',
         api: getDeptList,
         columns,
         formConfig: {
           labelWidth: 120,
-          schemas: searchFormSchema,
+          schemas: searchFormSchema
         },
         pagination: false,
         striped: false,
@@ -62,29 +62,29 @@
           title: '操作',
           dataIndex: 'action',
           slots: { customRender: 'action' },
-          fixed: undefined,
-        },
-      });
+          fixed: undefined
+        }
+      })
 
       function handleCreate() {
         openModal(true, {
-          isUpdate: false,
-        });
+          isUpdate: false
+        })
       }
 
       function handleEdit(record: Recordable) {
         openModal(true, {
           record,
-          isUpdate: true,
-        });
+          isUpdate: true
+        })
       }
 
       function handleDelete(record: Recordable) {
-        console.log(record);
+        console.log(record)
       }
 
       function handleSuccess() {
-        reload();
+        reload()
       }
 
       return {
@@ -93,8 +93,8 @@
         handleCreate,
         handleEdit,
         handleDelete,
-        handleSuccess,
-      };
-    },
-  });
+        handleSuccess
+      }
+    }
+  })
 </script>

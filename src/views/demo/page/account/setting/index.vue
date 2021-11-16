@@ -13,16 +13,16 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { Tabs } from 'ant-design-vue';
+  import { defineComponent } from 'vue'
+  import { Tabs } from 'ant-design-vue'
 
-  import { ScrollContainer } from '/@/components/Container/index';
-  import { settingList } from './data';
+  import { ScrollContainer } from '/@/components/Container/index'
+  import { settingList } from './data'
 
-  import BaseSetting from './BaseSetting.vue';
-  import SecureSetting from './SecureSetting.vue';
-  import AccountBind from './AccountBind.vue';
-  import MsgNotify from './MsgNotify.vue';
+  import BaseSetting from './BaseSetting.vue'
+  import SecureSetting from './SecureSetting.vue'
+  import AccountBind from './AccountBind.vue'
+  import MsgNotify from './MsgNotify.vue'
 
   export default defineComponent({
     components: {
@@ -32,18 +32,18 @@
       BaseSetting,
       SecureSetting,
       AccountBind,
-      MsgNotify,
+      MsgNotify
     },
     setup() {
       return {
         prefixCls: 'account-setting',
         settingList,
         tabBarStyle: {
-          width: '220px',
-        },
-      };
-    },
-  });
+          width: '220px'
+        }
+      }
+    }
+  })
 </script>
 <style lang="less">
   .account-setting {

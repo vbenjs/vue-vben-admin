@@ -25,33 +25,33 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { CollapseContainer } from '/@/components/Container';
-  import { useTabs } from '/@/hooks/web/useTabs';
-  import { PageWrapper } from '/@/components/Page';
-  import { Input, Alert } from 'ant-design-vue';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { useGo } from '/@/hooks/web/usePage';
+  import { defineComponent, ref } from 'vue'
+  import { CollapseContainer } from '/@/components/Container'
+  import { useTabs } from '/@/hooks/web/useTabs'
+  import { PageWrapper } from '/@/components/Page'
+  import { Input, Alert } from 'ant-design-vue'
+  import { useMessage } from '/@/hooks/web/useMessage'
+  import { useGo } from '/@/hooks/web/usePage'
 
   export default defineComponent({
     name: 'TabsDemo',
     components: { CollapseContainer, PageWrapper, [Input.name]: Input, [Alert.name]: Alert },
     setup() {
-      const go = useGo();
-      const title = ref<string>('');
+      const go = useGo()
+      const title = ref<string>('')
       const { closeAll, closeLeft, closeRight, closeOther, closeCurrent, refreshPage, setTitle } =
-        useTabs();
-      const { createMessage } = useMessage();
+        useTabs()
+      const { createMessage } = useMessage()
       function setTabTitle() {
         if (title.value) {
-          setTitle(title.value);
+          setTitle(title.value)
         } else {
-          createMessage.error('请输入要设置的Tab标题！');
+          createMessage.error('请输入要设置的Tab标题！')
         }
       }
 
       function toDetail(index: number) {
-        go(`/feat/tabs/detail/${index}`);
+        go(`/feat/tabs/detail/${index}`)
       }
       return {
         closeAll,
@@ -62,8 +62,8 @@
         toDetail,
         refreshPage,
         setTabTitle,
-        title,
-      };
-    },
-  });
+        title
+      }
+    }
+  })
 </script>

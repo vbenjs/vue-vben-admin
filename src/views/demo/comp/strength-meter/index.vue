@@ -12,16 +12,16 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { StrengthMeter } from '/@/components/StrengthMeter';
-  import { PageWrapper } from '/@/components/Page';
+  import { defineComponent } from 'vue'
+  import { StrengthMeter } from '/@/components/StrengthMeter'
+  import { PageWrapper } from '/@/components/Page'
 
   export default defineComponent({
     components: {
       StrengthMeter,
-      PageWrapper,
-    },
-  });
+      PageWrapper
+    }
+  })
 </script>
 <style lang="less" scoped>
   .demo-wrap {

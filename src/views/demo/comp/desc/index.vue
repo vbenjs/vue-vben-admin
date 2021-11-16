@@ -23,9 +23,9 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { Description, DescItem, useDescription } from '/@/components/Description/index';
-  import { PageWrapper } from '/@/components/Page';
+  import { defineComponent } from 'vue'
+  import { Description, DescItem, useDescription } from '/@/components/Description/index'
+  import { PageWrapper } from '/@/components/Page'
 
   const mockData: Recordable = {
     username: 'test',
@@ -36,50 +36,50 @@
     addr: '厦门市思明区',
     sex: '男',
     certy: '3504256199xxxxxxxxx',
-    tag: 'orange',
-  };
+    tag: 'orange'
+  }
   const schema: DescItem[] = [
     {
       field: 'username',
-      label: '用户名',
+      label: '用户名'
     },
     {
       field: 'nickName',
       label: '昵称',
       render: (curVal, data) => {
-        return `${data.username}-${curVal}`;
-      },
+        return `${data.username}-${curVal}`
+      }
     },
     {
       field: 'phone',
-      label: '联系电话',
+      label: '联系电话'
     },
     {
       field: 'email',
-      label: '邮箱',
+      label: '邮箱'
     },
     {
       field: 'addr',
-      label: '地址',
-    },
-  ];
+      label: '地址'
+    }
+  ]
   export default defineComponent({
     components: { Description, PageWrapper },
     setup() {
       const [register] = useDescription({
         title: 'useDescription',
         data: mockData,
-        schema: schema,
-      });
+        schema: schema
+      })
 
       const [register1] = useDescription({
         title: '无边框',
         bordered: false,
         data: mockData,
-        schema: schema,
-      });
+        schema: schema
+      })
 
-      return { mockData, schema, register, register1 };
-    },
-  });
+      return { mockData, schema, register, register1 }
+    }
+  })
 </script>

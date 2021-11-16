@@ -12,53 +12,53 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, computed } from 'vue';
+  import { defineComponent, PropType, computed } from 'vue'
 
-  import { Select } from 'ant-design-vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { baseHandler } from '../handler';
-  import { HandlerEnum } from '../enum';
+  import { Select } from 'ant-design-vue'
+  import { useDesign } from '/@/hooks/web/useDesign'
+  import { baseHandler } from '../handler'
+  import { HandlerEnum } from '../enum'
 
   export default defineComponent({
     name: 'SelectItem',
     components: { Select },
     props: {
       event: {
-        type: Number as PropType<HandlerEnum>,
+        type: Number as PropType<HandlerEnum>
       },
       disabled: {
-        type: Boolean,
+        type: Boolean
       },
       title: {
-        type: String,
+        type: String
       },
       def: {
-        type: [String, Number] as PropType<string | number>,
+        type: [String, Number] as PropType<string | number>
       },
       initValue: {
-        type: [String, Number] as PropType<string | number>,
+        type: [String, Number] as PropType<string | number>
       },
       options: {
         type: Array as PropType<LabelValueOptions>,
-        default: () => [],
-      },
+        default: () => []
+      }
     },
     setup(props) {
-      const { prefixCls } = useDesign('setting-select-item');
+      const { prefixCls } = useDesign('setting-select-item')
       const getBindValue = computed(() => {
-        return props.def ? { value: props.def, defaultValue: props.initValue || props.def } : {};
-      });
+        return props.def ? { value: props.def, defaultValue: props.initValue || props.def } : {}
+      })
 
       function handleChange(e: ChangeEvent) {
-        props.event && baseHandler(props.event, e);
+        props.event && baseHandler(props.event, e)
       }
       return {
         prefixCls,
         handleChange,
-        getBindValue,
-      };
-    },
-  });
+        getBindValue
+      }
+    }
+  })
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-setting-select-item';

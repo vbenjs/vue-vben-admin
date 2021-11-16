@@ -26,29 +26,29 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { computed, defineComponent } from 'vue';
-  import { Alert } from 'ant-design-vue';
-  import CurrentPermissionMode from '../CurrentPermissionMode.vue';
-  import { useUserStore } from '/@/store/modules/user';
-  import { RoleEnum } from '/@/enums/roleEnum';
-  import { usePermission } from '/@/hooks/web/usePermission';
-  import { PageWrapper } from '/@/components/Page';
+  import { computed, defineComponent } from 'vue'
+  import { Alert } from 'ant-design-vue'
+  import CurrentPermissionMode from '../CurrentPermissionMode.vue'
+  import { useUserStore } from '/@/store/modules/user'
+  import { RoleEnum } from '/@/enums/roleEnum'
+  import { usePermission } from '/@/hooks/web/usePermission'
+  import { PageWrapper } from '/@/components/Page'
 
   export default defineComponent({
     components: { Alert, CurrentPermissionMode, PageWrapper },
     setup() {
-      const { changeRole } = usePermission();
-      const userStore = useUserStore();
+      const { changeRole } = usePermission()
+      const userStore = useUserStore()
 
       return {
         userStore,
         RoleEnum,
         isSuper: computed(() => userStore.getRoleList.includes(RoleEnum.SUPER)),
         isTest: computed(() => userStore.getRoleList.includes(RoleEnum.TEST)),
-        changeRole,
-      };
-    },
-  });
+        changeRole
+      }
+    }
+  })
 </script>
 <style lang="less" scoped>
   .demo {

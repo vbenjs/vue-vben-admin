@@ -111,25 +111,25 @@
   </BasicModal>
 </template>
 <script lang="ts">
-  import type { CropendResult, Cropper } from './typing';
+  import type { CropendResult, Cropper } from './typing'
 
-  import { defineComponent, ref } from 'vue';
-  import CropperImage from './Cropper.vue';
-  import { Space, Upload, Avatar, Tooltip } from 'ant-design-vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { BasicModal, useModalInner } from '/@/components/Modal';
-  import { dataURLtoBlob } from '/@/utils/file/base64Conver';
-  import { isFunction } from '/@/utils/is';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import { defineComponent, ref } from 'vue'
+  import CropperImage from './Cropper.vue'
+  import { Space, Upload, Avatar, Tooltip } from 'ant-design-vue'
+  import { useDesign } from '/@/hooks/web/useDesign'
+  import { BasicModal, useModalInner } from '/@/components/Modal'
+  import { dataURLtoBlob } from '/@/utils/file/base64Conver'
+  import { isFunction } from '/@/utils/is'
+  import { useI18n } from '/@/hooks/web/useI18n'
 
-  type apiFunParams = { file: Blob; name: string; filename: string };
+  type apiFunParams = { file: Blob; name: string; filename: string }
 
   const props = {
     circled: { type: Boolean, default: true },
     uploadApi: {
-      type: Function as PropType<(params: apiFunParams) => Promise<any>>,
-    },
-  };
+      type: Function as PropType<(params: apiFunParams) => Promise<any>>
+    }
+  }
 
   export default defineComponent({
     name: 'CropperModal',
@@ -137,59 +137,59 @@
     props,
     emits: ['uploadSuccess', 'register'],
     setup(props, { emit }) {
-      let filename = '';
-      const src = ref('');
-      const previewSource = ref('');
-      const cropper = ref<Cropper>();
-      let scaleX = 1;
-      let scaleY = 1;
+      let filename = ''
+      const src = ref('')
+      const previewSource = ref('')
+      const cropper = ref<Cropper>()
+      let scaleX = 1
+      let scaleY = 1
 
-      const { prefixCls } = useDesign('cropper-am');
-      const [register, { closeModal, setModalProps }] = useModalInner();
-      const { t } = useI18n();
+      const { prefixCls } = useDesign('cropper-am')
+      const [register, { closeModal, setModalProps }] = useModalInner()
+      const { t } = useI18n()
 
       // Block upload
       function handleBeforeUpload(file: File) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        src.value = '';
-        previewSource.value = '';
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        src.value = ''
+        previewSource.value = ''
         reader.onload = function (e) {
-          src.value = (e.target?.result as string) ?? '';
-          filename = file.name;
-        };
-        return false;
+          src.value = (e.target?.result as string) ?? ''
+          filename = file.name
+        }
+        return false
       }
 
       function handleCropend({ imgBase64 }: CropendResult) {
-        previewSource.value = imgBase64;
+        previewSource.value = imgBase64
       }
 
       function handleReady(cropperInstance: Cropper) {
-        cropper.value = cropperInstance;
+        cropper.value = cropperInstance
       }
 
       function handlerToolbar(event: string, arg?: number) {
         if (event === 'scaleX') {
-          scaleX = arg = scaleX === -1 ? 1 : -1;
+          scaleX = arg = scaleX === -1 ? 1 : -1
         }
         if (event === 'scaleY') {
-          scaleY = arg = scaleY === -1 ? 1 : -1;
+          scaleY = arg = scaleY === -1 ? 1 : -1
         }
-        cropper?.value?.[event]?.(arg);
+        cropper?.value?.[event]?.(arg)
       }
 
       async function handleOk() {
-        const uploadApi = props.uploadApi;
+        const uploadApi = props.uploadApi
         if (uploadApi && isFunction(uploadApi)) {
-          const blob = dataURLtoBlob(previewSource.value);
+          const blob = dataURLtoBlob(previewSource.value)
           try {
-            setModalProps({ confirmLoading: true });
-            const result = await uploadApi({ name: 'file', file: blob, filename });
-            emit('uploadSuccess', { source: previewSource.value, data: result.data });
-            closeModal();
+            setModalProps({ confirmLoading: true })
+            const result = await uploadApi({ name: 'file', file: blob, filename })
+            emit('uploadSuccess', { source: previewSource.value, data: result.data })
+            closeModal()
           } finally {
-            setModalProps({ confirmLoading: false });
+            setModalProps({ confirmLoading: false })
           }
         }
       }
@@ -204,10 +204,10 @@
         handleCropend,
         handleReady,
         handlerToolbar,
-        handleOk,
-      };
-    },
-  });
+        handleOk
+      }
+    }
+  })
 </script>
 
 <style lang="less">

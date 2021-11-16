@@ -22,23 +22,23 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, toRefs } from 'vue';
-  import { PageWrapper } from '/@/components/Page';
-  import { Time } from '/@/components/Time';
-  import { CollapseContainer } from '/@/components/Container/index';
+  import { defineComponent, reactive, toRefs } from 'vue'
+  import { PageWrapper } from '/@/components/Page'
+  import { Time } from '/@/components/Time'
+  import { CollapseContainer } from '/@/components/Container/index'
 
   export default defineComponent({
     components: { PageWrapper, Time, CollapseContainer },
     setup() {
-      const now = new Date().getTime();
+      const now = new Date().getTime()
       const state = reactive({
         time1: now - 60 * 3 * 1000,
-        time2: now - 86400 * 3 * 1000,
-      });
+        time2: now - 86400 * 3 * 1000
+      })
       return {
         ...toRefs(state),
-        now,
-      };
-    },
-  });
+        now
+      }
+    }
+  })
 </script>

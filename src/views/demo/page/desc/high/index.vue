@@ -93,12 +93,12 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicTable, useTable } from '/@/components/Table';
-  import { PageWrapper } from '/@/components/Page';
-  import { Divider, Card, Empty, Descriptions, Steps, Tabs } from 'ant-design-vue';
+  import { defineComponent } from 'vue'
+  import { BasicTable, useTable } from '/@/components/Table'
+  import { PageWrapper } from '/@/components/Page'
+  import { Divider, Card, Empty, Descriptions, Steps, Tabs } from 'ant-design-vue'
 
-  import { refundTimeTableSchema, refundTimeTableData } from './data';
+  import { refundTimeTableSchema, refundTimeTableData } from './data'
   export default defineComponent({
     components: {
       BasicTable,
@@ -111,7 +111,7 @@
       [Steps.name]: Steps,
       [Steps.Step.name]: Steps.Step,
       [Tabs.name]: Tabs,
-      [Tabs.TabPane.name]: Tabs.TabPane,
+      [Tabs.TabPane.name]: Tabs.TabPane
     },
     setup() {
       const [registerTimeTable] = useTable({
@@ -120,12 +120,12 @@
         pagination: false,
         dataSource: refundTimeTableData,
         showIndexColumn: false,
-        scroll: { y: 300 },
-      });
+        scroll: { y: 300 }
+      })
 
       return {
-        registerTimeTable,
-      };
-    },
-  });
+        registerTimeTable
+      }
+    }
+  })
 </script>

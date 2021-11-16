@@ -20,17 +20,17 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicTable, ColumnChangeParam, useTable } from '/@/components/Table';
-  import { getBasicColumns, getBasicShortColumns } from './tableData';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { demoListApi } from '/@/api/demo/table';
+  import { defineComponent } from 'vue'
+  import { BasicTable, ColumnChangeParam, useTable } from '/@/components/Table'
+  import { getBasicColumns, getBasicShortColumns } from './tableData'
+  import { useMessage } from '/@/hooks/web/useMessage'
+  import { demoListApi } from '/@/api/demo/table'
   export default defineComponent({
     components: { BasicTable },
     setup() {
-      const { createMessage } = useMessage();
+      const { createMessage } = useMessage()
       function onChange() {
-        console.log('onChange', arguments);
+        console.log('onChange', arguments)
       }
       const [
         registerTable,
@@ -46,8 +46,8 @@
           getSelectRows,
           getSelectRowKeys,
           setSelectedRowKeys,
-          clearSelectedRowKeys,
-        },
+          clearSelectedRowKeys
+        }
       ] = useTable({
         canResize: true,
         title: 'useTable示例',
@@ -56,74 +56,74 @@
         columns: getBasicColumns(),
         defSort: {
           field: 'name',
-          order: 'ascend',
+          order: 'ascend'
         },
         rowKey: 'id',
         showTableSetting: true,
         onChange,
         rowSelection: {
-          type: 'checkbox',
+          type: 'checkbox'
         },
         onColumnsChange: (data: ColumnChangeParam[]) => {
-          console.log('ColumnsChanged', data);
-        },
-      });
+          console.log('ColumnsChanged', data)
+        }
+      })
 
       function changeLoading() {
-        setLoading(true);
+        setLoading(true)
         setTimeout(() => {
-          setLoading(false);
-        }, 1000);
+          setLoading(false)
+        }, 1000)
       }
       function changeColumns() {
-        setColumns(getBasicShortColumns());
+        setColumns(getBasicShortColumns())
       }
       function reloadTable() {
-        setColumns(getBasicColumns());
+        setColumns(getBasicColumns())
 
         reload({
-          page: 1,
-        });
+          page: 1
+        })
       }
       function getColumn() {
-        createMessage.info('请在控制台查看！');
-        console.log(getColumns());
+        createMessage.info('请在控制台查看！')
+        console.log(getColumns())
       }
 
       function getTableData() {
-        createMessage.info('请在控制台查看！');
-        console.log(getDataSource());
+        createMessage.info('请在控制台查看！')
+        console.log(getDataSource())
       }
 
       function getTableRawData() {
-        createMessage.info('请在控制台查看！');
-        console.log(getRawDataSource());
+        createMessage.info('请在控制台查看！')
+        console.log(getRawDataSource())
       }
 
       function getPagination() {
-        createMessage.info('请在控制台查看！');
-        console.log(getPaginationRef());
+        createMessage.info('请在控制台查看！')
+        console.log(getPaginationRef())
       }
 
       function setPaginationInfo() {
         setPagination({
-          current: 2,
-        });
-        reload();
+          current: 2
+        })
+        reload()
       }
       function getSelectRowList() {
-        createMessage.info('请在控制台查看！');
-        console.log(getSelectRows());
+        createMessage.info('请在控制台查看！')
+        console.log(getSelectRows())
       }
       function getSelectRowKeyList() {
-        createMessage.info('请在控制台查看！');
-        console.log(getSelectRowKeys());
+        createMessage.info('请在控制台查看！')
+        console.log(getSelectRowKeys())
       }
       function setSelectedRowKeyList() {
-        setSelectedRowKeys(['0', '1', '2']);
+        setSelectedRowKeys(['0', '1', '2'])
       }
       function clearSelect() {
-        clearSelectedRowKeys();
+        clearSelectedRowKeys()
       }
 
       return {
@@ -140,8 +140,8 @@
         getSelectRowKeyList,
         setSelectedRowKeyList,
         clearSelect,
-        onChange,
-      };
-    },
-  });
+        onChange
+      }
+    }
+  })
 </script>

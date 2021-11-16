@@ -14,29 +14,29 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { Input } from 'ant-design-vue';
-  import { computed, defineComponent, ref, unref } from 'vue';
-  import { useRouter } from 'vue-router';
-  import { PageWrapper } from '/@/components/Page';
+  import { Input } from 'ant-design-vue'
+  import { computed, defineComponent, ref, unref } from 'vue'
+  import { useRouter } from 'vue-router'
+  import { PageWrapper } from '/@/components/Page'
 
   export default defineComponent({
     name: 'TestMenu',
     components: { PageWrapper, Input },
     setup() {
-      const { currentRoute, replace } = useRouter();
-      const value = ref<string>('');
+      const { currentRoute, replace } = useRouter()
+      const value = ref<string>('')
 
       const handleClickGo = () => {
-        const { name } = unref(currentRoute);
-        replace({ name: name!, params: { id: unref(value) } });
-      };
+        const { name } = unref(currentRoute)
+        replace({ name: name!, params: { id: unref(value) } })
+      }
       return {
         value,
         handleClickGo,
         params: computed(() => {
-          return unref(currentRoute).params;
-        }),
-      };
-    },
-  });
+          return unref(currentRoute).params
+        })
+      }
+    }
+  })
 </script>

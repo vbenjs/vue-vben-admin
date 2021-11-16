@@ -8,8 +8,8 @@
             `${prefixCls}__item`,
             `${prefixCls}__item--${item.type}`,
             {
-              [`${prefixCls}__item--active`]: def === item.type,
-            },
+              [`${prefixCls}__item--active`]: def === item.type
+            }
           ]"
         >
           <div class="mix-sidebar"></div>
@@ -19,37 +19,37 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
+  import { defineComponent, PropType } from 'vue'
 
-  import { Tooltip } from 'ant-design-vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import { Tooltip } from 'ant-design-vue'
+  import { useDesign } from '/@/hooks/web/useDesign'
 
-  import { menuTypeList } from '../enum';
+  import { menuTypeList } from '../enum'
   export default defineComponent({
     name: 'MenuTypePicker',
     components: { Tooltip },
     props: {
       menuTypeList: {
         type: Array as PropType<typeof menuTypeList>,
-        defualt: () => [],
+        defualt: () => []
       },
       handler: {
         type: Function as PropType<Fn>,
-        default: () => ({}),
+        default: () => ({})
       },
       def: {
         type: String,
-        default: '',
-      },
+        default: ''
+      }
     },
     setup() {
-      const { prefixCls } = useDesign('setting-menu-type-picker');
+      const { prefixCls } = useDesign('setting-menu-type-picker')
 
       return {
-        prefixCls,
-      };
-    },
-  });
+        prefixCls
+      }
+    }
+  })
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-setting-menu-type-picker';

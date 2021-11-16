@@ -17,34 +17,34 @@
 </template>
 
 <script lang="ts">
-  import { PropType } from 'vue';
-  import { defineComponent, ref, computed, unref, getCurrentInstance, watch } from 'vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { propTypes } from '/@/utils/propTypes';
-  import { useMenuItem } from './useMenu';
-  import { Tooltip } from 'ant-design-vue';
-  import { useSimpleRootMenuContext } from './useSimpleMenuContext';
+  import { PropType } from 'vue'
+  import { defineComponent, ref, computed, unref, getCurrentInstance, watch } from 'vue'
+  import { useDesign } from '/@/hooks/web/useDesign'
+  import { propTypes } from '/@/utils/propTypes'
+  import { useMenuItem } from './useMenu'
+  import { Tooltip } from 'ant-design-vue'
+  import { useSimpleRootMenuContext } from './useSimpleMenuContext'
   export default defineComponent({
     name: 'MenuItem',
     components: { Tooltip },
     props: {
       name: {
         type: [String, Number] as PropType<string | number>,
-        required: true,
+        required: true
       },
-      disabled: propTypes.bool,
+      disabled: propTypes.bool
     },
     setup(props, { slots }) {
-      const instance = getCurrentInstance();
+      const instance = getCurrentInstance()
 
-      const active = ref(false);
+      const active = ref(false)
 
       const { getItemStyle, getParentList, getParentMenu, getParentRootMenu } =
-        useMenuItem(instance);
+        useMenuItem(instance)
 
-      const { prefixCls } = useDesign('menu');
+      const { prefixCls } = useDesign('menu')
 
-      const { rootMenuEmitter, activeName } = useSimpleRootMenuContext();
+      const { rootMenuEmitter, activeName } = useSimpleRootMenuContext()
 
       const getClass = computed(() => {
         return [
@@ -52,56 +52,56 @@
           {
             [`${prefixCls}-item-active`]: unref(active),
             [`${prefixCls}-item-selected`]: unref(active),
-            [`${prefixCls}-item-disabled`]: !!props.disabled,
-          },
-        ];
-      });
+            [`${prefixCls}-item-disabled`]: !!props.disabled
+          }
+        ]
+      })
 
-      const getCollapse = computed(() => unref(getParentRootMenu)?.props.collapse);
+      const getCollapse = computed(() => unref(getParentRootMenu)?.props.collapse)
 
       const showTooptip = computed(() => {
-        return unref(getParentMenu)?.type.name === 'Menu' && unref(getCollapse) && slots.title;
-      });
+        return unref(getParentMenu)?.type.name === 'Menu' && unref(getCollapse) && slots.title
+      })
 
       function handleClickItem() {
-        const { disabled } = props;
+        const { disabled } = props
         if (disabled) {
-          return;
+          return
         }
 
-        rootMenuEmitter.emit('on-menu-item-select', props.name);
+        rootMenuEmitter.emit('on-menu-item-select', props.name)
         if (unref(getCollapse)) {
-          return;
+          return
         }
-        const { uidList } = getParentList();
+        const { uidList } = getParentList()
 
         rootMenuEmitter.emit('on-update-opened', {
           opend: false,
           parent: instance?.parent,
-          uidList: uidList,
-        });
+          uidList: uidList
+        })
       }
       watch(
         () => activeName.value,
         (name: string) => {
           if (name === props.name) {
-            const { list, uidList } = getParentList();
-            active.value = true;
-            list.forEach((item) => {
+            const { list, uidList } = getParentList()
+            active.value = true
+            list.forEach(item => {
               if (item.proxy) {
-                (item.proxy as any).active = true;
+                ;(item.proxy as any).active = true
               }
-            });
+            })
 
-            rootMenuEmitter.emit('on-update-active-name:submenu', uidList);
+            rootMenuEmitter.emit('on-update-active-name:submenu', uidList)
           } else {
-            active.value = false;
+            active.value = false
           }
         },
-        { immediate: true },
-      );
+        { immediate: true }
+      )
 
-      return { getClass, prefixCls, getItemStyle, getCollapse, handleClickItem, showTooptip };
-    },
-  });
+      return { getClass, prefixCls, getItemStyle, getCollapse, handleClickItem, showTooptip }
+    }
+  })
 </script>

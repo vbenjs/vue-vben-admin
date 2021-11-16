@@ -35,10 +35,10 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { PageWrapper } from '/@/components/Page';
+  import { defineComponent } from 'vue'
+  import { CollapseContainer } from '/@/components/Container/index'
+  import { useMessage } from '/@/hooks/web/useMessage'
+  import { PageWrapper } from '/@/components/Page'
 
   export default defineComponent({
     components: { CollapseContainer, PageWrapper },
@@ -50,37 +50,37 @@
         createInfoModal,
         createErrorModal,
         createWarningModal,
-        notification,
-      } = useMessage();
-      const { info, success, warning, error } = createMessage;
+        notification
+      } = useMessage()
+      const { info, success, warning, error } = createMessage
 
       function handleLoading() {
-        createMessage.loading('Loading...');
+        createMessage.loading('Loading...')
       }
       function handleConfirm(type: 'warning' | 'error' | 'success' | 'info') {
         createConfirm({
           iconType: type,
           title: 'Tip',
-          content: 'content message...',
-        });
+          content: 'content message...'
+        })
       }
       function handleSuccessModal() {
-        createSuccessModal({ title: 'Tip', content: 'content message...' });
+        createSuccessModal({ title: 'Tip', content: 'content message...' })
       }
       function handleErrorModal() {
-        createErrorModal({ title: 'Tip', content: 'content message...' });
+        createErrorModal({ title: 'Tip', content: 'content message...' })
       }
       function handleWarningModal() {
-        createWarningModal({ title: 'Tip', content: 'content message...' });
+        createWarningModal({ title: 'Tip', content: 'content message...' })
       }
       function handleInfoModal() {
-        createInfoModal({ title: 'Tip', content: 'content message...' });
+        createInfoModal({ title: 'Tip', content: 'content message...' })
       }
       function handleNotify() {
         notification.success({
           message: 'Tip',
-          description: 'content message...',
-        });
+          description: 'content message...'
+        })
       }
       return {
         infoMsg: info,
@@ -93,8 +93,8 @@
         handleErrorModal,
         handleWarningModal,
         handleInfoModal,
-        handleNotify,
-      };
-    },
-  });
+        handleNotify
+      }
+    }
+  })
 </script>

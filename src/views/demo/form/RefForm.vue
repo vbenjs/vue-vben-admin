@@ -31,8 +31,8 @@
           setProps({
             resetButtonOptions: {
               disabled: true,
-              text: '重置New',
-            },
+              text: '重置New'
+            }
           })
         "
         class="mr-2"
@@ -44,8 +44,8 @@
           setProps({
             submitButtonOptions: {
               disabled: true,
-              loading: true,
-            },
+              loading: true
+            }
           })
         "
         class="mr-2"
@@ -65,11 +65,11 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { BasicForm, FormSchema, FormActionType, FormProps } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { PageWrapper } from '/@/components/Page';
+  import { defineComponent, ref } from 'vue'
+  import { BasicForm, FormSchema, FormActionType, FormProps } from '/@/components/Form/index'
+  import { CollapseContainer } from '/@/components/Container/index'
+  import { useMessage } from '/@/hooks/web/useMessage'
+  import { PageWrapper } from '/@/components/Page'
 
   const schemas: FormSchema[] = [
     {
@@ -77,112 +77,112 @@
       component: 'Input',
       label: '字段1',
       colProps: {
-        span: 8,
+        span: 8
       },
       componentProps: {
         placeholder: '自定义placeholder',
         onChange: (e: any) => {
-          console.log(e);
-        },
-      },
+          console.log(e)
+        }
+      }
     },
     {
       field: 'field2',
       component: 'Input',
       label: '字段2',
       colProps: {
-        span: 8,
-      },
+        span: 8
+      }
     },
     {
       field: 'field3',
       component: 'DatePicker',
       label: '字段3',
       colProps: {
-        span: 8,
-      },
+        span: 8
+      }
     },
     {
       field: 'field4',
       component: 'Select',
       label: '字段4',
       colProps: {
-        span: 8,
+        span: 8
       },
       componentProps: {
         options: [
           {
             label: '选项1',
             value: '1',
-            key: '1',
+            key: '1'
           },
           {
             label: '选项2',
             value: '2',
-            key: '2',
-          },
-        ],
-      },
+            key: '2'
+          }
+        ]
+      }
     },
     {
       field: 'field5',
       component: 'CheckboxGroup',
       label: '字段5',
       colProps: {
-        span: 8,
+        span: 8
       },
       componentProps: {
         options: [
           {
             label: '选项1',
-            value: '1',
+            value: '1'
           },
           {
             label: '选项2',
-            value: '2',
-          },
-        ],
-      },
+            value: '2'
+          }
+        ]
+      }
     },
     {
       field: 'field7',
       component: 'RadioGroup',
       label: '字段7',
       colProps: {
-        span: 8,
+        span: 8
       },
       componentProps: {
         options: [
           {
             label: '选项1',
-            value: '1',
+            value: '1'
           },
           {
             label: '选项2',
-            value: '2',
-          },
-        ],
-      },
-    },
-  ];
+            value: '2'
+          }
+        ]
+      }
+    }
+  ]
 
   export default defineComponent({
     components: { BasicForm, CollapseContainer, PageWrapper },
     setup() {
-      const formElRef = ref<Nullable<FormActionType>>(null);
-      const { createMessage } = useMessage();
+      const formElRef = ref<Nullable<FormActionType>>(null)
+      const { createMessage } = useMessage()
       return {
         formElRef,
         schemas,
         handleSubmit: (values: any) => {
-          createMessage.success('click search,values:' + JSON.stringify(values));
+          createMessage.success('click search,values:' + JSON.stringify(values))
         },
         setProps(props: FormProps) {
-          const formEl = formElRef.value;
-          if (!formEl) return;
-          formEl.setProps(props);
-        },
-      };
-    },
-  });
+          const formEl = formElRef.value
+          if (!formEl) return
+          formEl.setProps(props)
+        }
+      }
+    }
+  })
 </script>
