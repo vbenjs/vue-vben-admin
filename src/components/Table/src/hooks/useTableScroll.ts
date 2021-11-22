@@ -12,7 +12,7 @@ export function useTableScroll(
   propsRef: ComputedRef<BasicTableProps>,
   tableElRef: Ref<ComponentRef>,
   columnsRef: ComputedRef<BasicColumn[]>,
-  rowSelectionRef: ComputedRef<TableRowSelection<any> | null>,
+  rowSelectionRef: ComputedRef<TableRowSelection | null>,
   getDataSourceRef: ComputedRef<Recordable[]>,
 ) {
   const tableHeightRef: Ref<Nullable<number>> = ref(null);
@@ -43,8 +43,8 @@ export function useTableScroll(
     });
   }
 
-  function setHeight(heigh: number) {
-    tableHeightRef.value = heigh;
+  function setHeight(height: number) {
+    tableHeightRef.value = height;
     //  Solve the problem of modal adaptive height calculation when the form is placed in the modal
     modalFn?.redoModalHeight?.();
   }
