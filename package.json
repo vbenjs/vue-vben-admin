@@ -123,6 +123,7 @@
     "stylelint": "^14.0.1",
     "stylelint-config-html": "^1.0.0",
     "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-recommended": "^6.0.0",
     "stylelint-config-standard": "^23.0.0",
     "stylelint-order": "^5.0.0",
     "ts-jest": "^27.0.7",

@@ -86,6 +86,7 @@ specifiers:
   stylelint: ^14.0.1
   stylelint-config-html: ^1.0.0
   stylelint-config-prettier: ^9.0.3
+  stylelint-config-recommended: ^6.0.0
   stylelint-config-standard: ^23.0.0
   stylelint-order: ^5.0.0
   tinymce: ^5.10.1
@@ -205,6 +206,7 @@ devDependencies:
   stylelint: 14.0.1
   stylelint-config-html: 1.0.0_a00c61ac027be5fe35af9f500c0c4be2
   stylelint-config-prettier: 9.0.3_stylelint@14.0.1
+  stylelint-config-recommended: 6.0.0_stylelint@14.0.1
   stylelint-config-standard: 23.0.0_stylelint@14.0.1
   stylelint-order: 5.0.0_stylelint@14.0.1
   ts-jest: 27.0.7_2c4ca6574207836d1023f54689cc81ac
