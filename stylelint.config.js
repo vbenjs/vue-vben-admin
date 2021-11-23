@@ -71,9 +71,10 @@ module.exports = {
   ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts'],
   overrides: [
     {
-      files: ['*.vue', '**/*.vue'],
+      files: ['*.vue', '**/*.vue', '*.html', '**/*.html'],
       extends: ['stylelint-config-recommended', 'stylelint-config-html'],
       rules: {
+        'keyframes-name-pattern': null,
         'selector-pseudo-class-no-unknown': [
           true,
           {
