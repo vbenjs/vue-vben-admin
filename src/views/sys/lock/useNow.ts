@@ -1,11 +1,8 @@
 import { dateUtil } from '/@/utils/dateUtil';
 import { reactive, toRefs } from 'vue';
-import { useLocaleStore } from '/@/store/modules/locale';
 import { tryOnMounted, tryOnUnmounted } from '@vueuse/core';
 
 export function useNow(immediate = true) {
-  const localeStore = useLocaleStore();
-  const localData = dateUtil.localeData(localeStore.getLocale);
   let timer: IntervalHandle;
 
   const state = reactive({
@@ -28,13 +25,13 @@ export function useNow(immediate = true) {
 
     state.year = now.get('y');
     state.month = now.get('M') + 1;
-    state.week = localData.weekdays()[now.day()];
-    state.day = now.get('D');
+    state.week = '星期' + ['一', '二', '三', '四', '五', '六', '日'][now.day() - 1];
+    state.day = now.get('d');
     state.hour = h;
     state.minute = m;
     state.second = s;
 
-    state.meridiem = localData.meridiem(Number(h), Number(h), true);
+    state.meridiem = now.format('A');
   };
 
   function start() {
