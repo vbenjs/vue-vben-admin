@@ -30,8 +30,7 @@
     "test:br": "npx http-server dist --cors --brotli -c-1",
     "reinstall": "rimraf pnpm-lock.yaml && rimraf package.lock.json && rimraf node_modules && npm run bootstrap",
     "prepare": "husky install",
-    "gen:icon": "esno ./build/generate/icon/index.ts",
-    "preinstall": "npx only-allow pnpm -y"
+    "gen:icon": "esno ./build/generate/icon/index.ts"
   },
   "dependencies": {
     "@ant-design/colors": "^6.0.0",
