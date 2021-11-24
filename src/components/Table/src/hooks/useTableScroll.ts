@@ -91,7 +91,7 @@ export function useTableScroll(
     if (!unref(getCanResize) || tableData.length === 0) return;
 
     await nextTick();
-    //Add a delay to get the correct bottomIncludeBody paginationHeight footerHeight headerHeight
+    // Add a delay to get the correct bottomIncludeBody paginationHeight footerHeight headerHeight
 
     const headEl = tableEl.querySelector('.ant-table-thead ');
 
