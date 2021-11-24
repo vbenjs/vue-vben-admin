@@ -1,3 +1,4 @@
+// 全局less变量和公共主题样式修改
 import { generateAntColors, primaryColor } from '../config/themeConfig';
 import { getThemeVariables } from 'ant-design-vue/dist/theme';
 import { resolve } from 'path';

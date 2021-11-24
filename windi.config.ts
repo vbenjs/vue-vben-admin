@@ -1,3 +1,4 @@
+// 使用windicss，构建原子化css
 import { defineConfig } from 'vite-plugin-windicss';
 import { primaryColor } from './build/config/themeConfig';
 

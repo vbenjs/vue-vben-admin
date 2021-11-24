@@ -1,31 +1,34 @@
+// tsconfig.json文件中指定了用来编译这个项目的根文件和编译选项
 {
+  // 编译的配置
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
-    "strictFunctionTypes": false,
-    "jsx": "preserve",
-    "baseUrl": ".",
-    "allowJs": true,
-    "sourceMap": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "experimentalDecorators": true,
-    "lib": ["dom", "esnext"],
-    "types": ["vite/client", "jest"],
-    "typeRoots": ["./node_modules/@types/", "./types"],
-    "noImplicitAny": false,
-    "skipLibCheck": true,
-    "paths": {
+    "target": "esnext", // tsc生成的版本为建议的版本
+    "module": "esnext", // 类似上一个
+    "moduleResolution": "node", // 决定用什么规范处理模块，包含AMD、Es6这类
+    "strict": true, // 开启严格模式
+    "forceConsistentCasingInFileNames": true, // 禁止对同一个文件的不一致的引用
+    "allowSyntheticDefaultImports": true, // 允许从没有设置默认导出的模块中默认导入
+    "strictFunctionTypes": false, // 禁用函数参数双向协变检查
+    "jsx": "preserve", // 在 .tsx文件里支持JSX
+    "baseUrl": ".", // 解析非相对模块名的基准目录
+    "allowJs": true, // 允许编译javascript文件。
+    "sourceMap": true, // 生成相应的 .map文件。
+    "esModuleInterop": true, // 允许从没有设置默认导出的模块中默认导入
+    "resolveJsonModule": true, // 解析json模块
+    "noUnusedLocals": true, // 若有未使用的局部变量则抛错
+    "noUnusedParameters": true, // 若有未使用的参数则抛错
+    "experimentalDecorators": true, // 启用实验性的ES装饰器。
+    "lib": ["dom", "esnext"], // 编译过程中需要引入的库文件的列表。
+    "types": ["vite/client", "jest"], // 要包含的类型声明文件名列表
+    "typeRoots": ["./node_modules/@types/", "./types"], // 要包含的类型声明文件路径列表
+    "noImplicitAny": false, // 在表达式和声明上有隐含的 any类型时报错。
+    "skipLibCheck": true, // 忽略所有的声明文件（ *.d.ts）的类型检查。
+    "paths": { // 模块名到基于 baseUrl的路径映射的列表
       "/@/*": ["src/*"],
       "/#/*": ["types/*"]
     }
   },
+  // ts编译包含的文件
   "include": [
     "tests/**/*.ts",
     "src/**/*.ts",
@@ -39,5 +42,6 @@
     "mock/**/*.ts",
     "vite.config.ts"
   ],
+  // ts编译排除的文件
   "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"]
 }

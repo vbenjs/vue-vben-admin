@@ -1,3 +1,4 @@
+// 单元测试相关
 export default {
   preset: 'ts-jest',
   roots: ['<rootDir>/tests/'],

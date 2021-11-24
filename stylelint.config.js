@@ -1,8 +1,12 @@
+// css lint校验
 module.exports = {
   root: true,
+  // 插件
   plugins: ['stylelint-order'],
   customSyntax: 'postcss-less',
+  // 官方推荐
   extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
+  // 自定义规则，大于extends
   rules: {
     'selector-class-pattern': null,
     'selector-pseudo-class-no-unknown': [
@@ -68,7 +72,9 @@ module.exports = {
       { severity: 'warning' },
     ],
   },
+  // 忽略文件
   ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts'],
+  // 覆盖文件
   overrides: [
     {
       files: ['*.vue', '**/*.vue', '*.html', '**/*.html'],
