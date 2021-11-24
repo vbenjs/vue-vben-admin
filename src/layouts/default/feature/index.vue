@@ -1,3 +1,10 @@
+<template>
+  <LayoutLockPage />
+  <BackTop v-if="getUseOpenBackTop" :target="getTarget" />
+  <SettingDrawer v-if="getIsFixedSettingDrawer" :class="prefixCls" />
+  <SessionTimeoutLogin v-if="getIsSessionTimeout" />
+</template>
+
 <script lang="ts">
   import { defineComponent, computed, unref } from 'vue';
   import { BackTop } from 'ant-design-vue';
@@ -50,13 +57,6 @@
     },
   });
 </script>
-
-<template>
-  <LayoutLockPage />
-  <BackTop v-if="getUseOpenBackTop" :target="getTarget" />
-  <SettingDrawer v-if="getIsFixedSettingDrawer" :class="prefixCls" />
-  <SessionTimeoutLogin v-if="getIsSessionTimeout" />
-</template>
 
 <style lang="less">
   @prefix-cls: ~'@{namespace}-setting-drawer-fearure';
