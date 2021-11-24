@@ -9,7 +9,7 @@
     :closeFunc="handleCloseFunc"
     :maskClosable="false"
     :keyboard="false"
-    wrapClassName="upload-modal"
+    class="upload-modal"
     :okButtonProps="getOkButtonProps"
     :cancelButtonProps="{ disabled: isUploadingRef }"
   >

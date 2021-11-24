@@ -53,7 +53,7 @@ export const basicProps = {
   transformDateFunc: {
     type: Function as PropType<Fn>,
     default: (date: any) => {
-      return date._isAMomentObject ? date?.format('YYYY-MM-DD HH:mm:ss') : date;
+      return date?.format?.('YYYY-MM-DD HH:mm:ss') ?? date;
     },
   },
   rulesMessageJoinLabel: propTypes.bool.def(true),
