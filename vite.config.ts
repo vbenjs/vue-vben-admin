@@ -99,7 +99,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         'ant-design-vue/es/locale/zh_CN',
         'ant-design-vue/es/locale/en_US',
       ],
-      exclude: ['vue-demi'],
     },
   };
 };
