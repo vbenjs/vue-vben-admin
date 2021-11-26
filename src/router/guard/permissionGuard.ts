@@ -95,8 +95,8 @@ export function createPermissionGuard(router: Router) {
       return;
     }
 
+    // 拿到权限之前手动像router中添加路由
     const routes = await permissionStore.buildRoutesAction();
-
     routes.forEach((route) => {
       router.addRoute(route as unknown as RouteRecordRaw);
     });

@@ -8,6 +8,7 @@ import App from './App.vue';
 import { createApp } from 'vue';
 import { initAppConfigStore } from '/@/logics/initAppConfig';
 import { setupErrorHandle } from '/@/logics/error-handle';
+// 路由配置
 import { router, setupRouter } from '/@/router';
 import { setupRouterGuard } from '/@/router/guard';
 import { setupStore } from '/@/store';
@@ -38,9 +39,11 @@ async function bootstrap() {
   // Asynchronous case: language files may be obtained from the server side
   await setupI18n(app);
 
+  // 使用vue.use使用了一下router组件
   // Configure routing
   setupRouter(app);
 
+  // 路由拦截器
   // router-guard
   setupRouterGuard(router);
 

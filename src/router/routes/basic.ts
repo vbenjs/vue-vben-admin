@@ -7,6 +7,7 @@ import {
   PAGE_NOT_FOUND_NAME,
 } from '/@/router/constant';
 
+// 404页
 // 404 on a page
 export const PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {
   path: '/:path(.*)*',
@@ -31,6 +32,7 @@ export const PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {
   ],
 };
 
+// 重定向页
 export const REDIRECT_ROUTE: AppRouteRecordRaw = {
   path: '/redirect',
   component: LAYOUT,
@@ -53,6 +55,7 @@ export const REDIRECT_ROUTE: AppRouteRecordRaw = {
   ],
 };
 
+// 错误页
 export const ERROR_LOG_ROUTE: AppRouteRecordRaw = {
   path: '/error-log',
   name: 'ErrorLog',

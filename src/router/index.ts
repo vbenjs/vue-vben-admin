@@ -13,11 +13,12 @@ const getRouteNames = (array: any[]) =>
   });
 getRouteNames(basicRoutes);
 
+// 创建路由
 // app router
 export const router = createRouter({
-  history: createWebHashHistory(import.meta.env.VITE_PUBLIC_PATH),
-  routes: basicRoutes as unknown as RouteRecordRaw[],
-  strict: true,
+  history: createWebHashHistory(import.meta.env.VITE_PUBLIC_PATH), // history模式
+  routes: basicRoutes as unknown as RouteRecordRaw[], // 路由配置项
+  strict: true, // 严格模式
   scrollBehavior: () => ({ left: 0, top: 0 }),
 });
 
@@ -31,6 +32,7 @@ export function resetRouter() {
   });
 }
 
+// 路由使用
 // config router
 export function setupRouter(app: App<Element>) {
   app.use(router);
