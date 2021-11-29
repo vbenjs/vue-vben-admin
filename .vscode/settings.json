@@ -132,6 +132,7 @@
     "brotli",
     "tailwindcss",
     "sider",
-    "pnpm"
+    "pnpm",
+    "antd"
   ]
 }
