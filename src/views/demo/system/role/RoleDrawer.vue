@@ -12,7 +12,7 @@
         <BasicTree
           v-model:value="model[field]"
           :treeData="treeData"
-          :replaceFields="{ title: 'menuName', key: 'id' }"
+          :fieldNames="{ label: 'menuName', key: 'id' }"
           checkable
           toolbar
           title="菜单分配"
