@@ -5,7 +5,7 @@
       {{ title }}
     </BasicTitle>
     <div
-      class="flex flex-1 justify-self-stretch items-center cursor-pointer"
+      class="flex items-center flex-1 cursor-pointer justify-self-stretch"
       v-if="search || toolbar"
     >
       <div :class="getInputSearchCls" v-if="search">
@@ -46,7 +46,6 @@
 
   const [bem] = createBEM('tree-header');
 
-  // eslint-disable vue/valid-define-emits
   const props = defineProps({
     helpMessage: {
       type: [String, Array] as PropType<string | string[]>,
