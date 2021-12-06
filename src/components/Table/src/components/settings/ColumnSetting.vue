@@ -302,6 +302,7 @@
                 columns.splice(oldIndex, 1);
               }
 
+              plainOptions.value = columns;
               plainSortOptions.value = columns;
               setColumns(columns);
             },
