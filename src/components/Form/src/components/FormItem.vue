@@ -1,17 +1,16 @@
 <script lang="tsx">
   import type { PropType, Ref } from 'vue';
-  import type { FormActionType, FormProps } from '../types/form';
-  import type { FormSchema } from '../types/form';
+  import { computed, defineComponent, toRefs, unref } from 'vue';
+  import type { FormActionType, FormProps, FormSchema } from '../types/form';
   import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
   import type { TableActionType } from '/@/components/Table';
-  import { defineComponent, computed, unref, toRefs } from 'vue';
-  import { Form, Col, Divider } from 'ant-design-vue';
+  import { Col, Divider, Form } from 'ant-design-vue';
   import { componentMap } from '../componentMap';
   import { BasicHelp } from '/@/components/Basic';
-  import { isBoolean, isFunction, isNull } from '/@/utils/is';
+  import { isArray, isBoolean, isFunction, isNull } from '/@/utils/is';
   import { getSlot } from '/@/utils/helper/tsxHelper';
   import { createPlaceholderMessage, setComponentRuleType } from '../helper';
-  import { upperFirst, cloneDeep } from 'lodash-es';
+  import { cloneDeep, get, upperFirst } from 'lodash-es';
   import { useItemLabelWidth } from '../hooks/useLabelWidth';
   import { useI18n } from '/@/hooks/web/useI18n';
 
@@ -36,7 +35,7 @@
         default: () => ({}),
       },
       setFormModel: {
-        type: Function as PropType<(key: string, value: any) => void>,
+        type: Function as PropType<(key: string | string[], value: any) => void>,
         default: null,
       },
       tableAction: {
@@ -260,9 +259,10 @@
         }
         propsData.codeField = field;
         propsData.formValues = unref(getValues);
-
         const bindValue: Recordable = {
-          [valueField || (isCheck ? 'checked' : 'value')]: props.formModel[field],
+          [valueField || (isCheck ? 'checked' : 'value')]: isArray(field)
+            ? get(props.formModel, field)
+            : props.formModel[field],
         };
 
         const compAttr: Recordable = {
@@ -270,7 +270,6 @@
           ...on,
           ...bindValue,
         };
-
         if (!renderComponentContent) {
           return <Comp {...compAttr} />;
         }

@@ -106,6 +106,7 @@ export default {
     dynamicForm: '动态表单',
     customerForm: '自定义组件',
     appendForm: '表单增删示例',
+    nestedForm: 'JSON嵌套表单示例',
   },
   iframe: {
     frame: '外部页面',

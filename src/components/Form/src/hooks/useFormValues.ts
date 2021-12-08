@@ -1,7 +1,7 @@
-import { isArray, isFunction, isObject, isString, isNullOrUnDef } from '/@/utils/is';
+import { isArray, isFunction, isNullOrUnDef, isObject, isString } from '/@/utils/is';
 import { dateUtil } from '/@/utils/dateUtil';
+import type { ComputedRef, Ref } from 'vue';
 import { unref } from 'vue';
-import type { Ref, ComputedRef } from 'vue';
 import type { FormProps, FormSchema } from '../types/form';
 import { set } from 'lodash-es';
 
@@ -11,6 +11,7 @@ interface UseFormValuesContext {
   getProps: ComputedRef<FormProps>;
   formModel: Recordable;
 }
+
 export function useFormValues({
   defaultValueRef,
   getSchema,
@@ -77,8 +78,13 @@ export function useFormValues({
     schemas.forEach((item) => {
       const { defaultValue } = item;
       if (!isNullOrUnDef(defaultValue)) {
-        obj[item.field] = defaultValue;
-        formModel[item.field] = defaultValue;
+        if (isArray(item.field)) {
+          set(obj, item.field, defaultValue);
+          set(formModel, item.field, defaultValue);
+        } else {
+          obj[item.field] = defaultValue;
+          formModel[item.field] = defaultValue;
+        }
       }
     });
     defaultValueRef.value = obj;
