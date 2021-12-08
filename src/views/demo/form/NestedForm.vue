@@ -1,10 +1,12 @@
 <template>
   <PageWrapper title="JSON嵌套表单示例">
+    <div class="mb-4">
+      <a-button @click="handleAppendSchema" class="mr-2">追加Schema</a-button>
+      <a-button @click="handleRemoveSchema" class="mr-2">删除Schema</a-button>
+      <a-button @click="handleUpdateSchema" class="mr-2">更新Schema</a-button>
+    </div>
     <CollapseContainer title="嵌套表单">
       <BasicForm @register="register" @submit="handleSubmit" ref="formElRef" />
-      <a-button @click="handleAppendSchema">appendSchema</a-button>
-      <a-button @click="handleRemoveSchema">removeSchema</a-button>
-      <a-button @click="handleUpdateSchema">updateSchema</a-button>
     </CollapseContainer>
   </PageWrapper>
 </template>
@@ -48,10 +50,30 @@
                 span: 12,
               },
               required: true,
-              defaultValue: 2,
+              defaultValue: 3,
+            },
+            {
+              field: 'nestedArrayField.0.field'.split('.'),
+              component: 'Input',
+              label: '嵌套数组字段1',
+              colProps: {
+                span: 12,
+              },
+              required: true,
+              defaultValue: 4,
+            },
+            {
+              field: 'nestedArrayField.1.nestField.field1'.split('.'),
+              component: 'Input',
+              label: '嵌套数组嵌套字段1',
+              colProps: {
+                span: 12,
+              },
+              required: true,
+              defaultValue: 5,
             },
           ],
-          labelWidth: 100,
+          labelWidth: 200,
           actionColOptions: { span: 24 },
         });
 
@@ -69,12 +91,12 @@
           {
             field: 'appendField',
             component: 'Input',
-            label: 'appendField',
+            label: '追加字段',
             colProps: {
               span: 12,
             },
             required: true,
-            defaultValue: 2,
+            defaultValue: 6,
           },
           'nestedField.field'.split('.'),
         );
@@ -92,7 +114,7 @@
             span: 12,
           },
           required: true,
-          defaultValue: 1,
+          defaultValue: 11,
         });
         updateSchema([
           {
@@ -103,7 +125,7 @@
               span: 12,
             },
             required: true,
-            defaultValue: 2,
+            defaultValue: 22,
           },
           {
             field: 'nestedField.field'.split('.'),
@@ -113,7 +135,17 @@
               span: 12,
             },
             required: true,
-            defaultValue: 2,
+            defaultValue: 33,
+          },
+          {
+            field: 'nestedArrayField.0.field'.split('.'),
+            component: 'Input',
+            label: '更新嵌套数组字段1',
+            colProps: {
+              span: 12,
+            },
+            required: true,
+            defaultValue: 44,
           },
         ]);
       }
