@@ -98,6 +98,14 @@ const comp: AppRouteModule = {
             title: t('routes.demo.form.appendForm'),
           },
         },
+        {
+          path: 'nestedForm',
+          name: 'nestedFormDemo',
+          component: () => import('/@/views/demo/form/NestedForm.vue'),
+          meta: {
+            title: t('routes.demo.form.nestedForm'),
+          },
+        },
       ],
     },
     {

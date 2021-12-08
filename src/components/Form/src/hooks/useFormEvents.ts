@@ -6,7 +6,7 @@ import { isArray, isFunction, isObject, isString } from '/@/utils/is';
 import { deepMerge } from '/@/utils';
 import { dateItemType, handleInputNumberValue } from '../helper';
 import { dateUtil } from '/@/utils/dateUtil';
-import { cloneDeep, uniqBy } from 'lodash-es';
+import { cloneDeep, isEqual, uniqBy, unset } from 'lodash-es';
 import { error } from '/@/utils/log';
 
 interface UseFormActionContext {
@@ -89,30 +89,23 @@ export function useFormEvents({
   /**
    * @description: Delete based on field name
    */
-  async function removeSchemaByFiled(fields: string | string[]): Promise<void> {
+  async function removeSchemaByFiled(field: string | string[]): Promise<void> {
     const schemaList: FormSchema[] = cloneDeep(unref(getSchema));
-    if (!fields) {
+    if (!field) {
       return;
     }
-
-    let fieldList: string[] = isString(fields) ? [fields] : fields;
-    if (isString(fields)) {
-      fieldList = [fields];
-    }
-    for (const field of fieldList) {
-      _removeSchemaByFiled(field, schemaList);
-    }
+    _removeSchemaByFiled(field, schemaList);
     schemaRef.value = schemaList;
   }
 
   /**
    * @description: Delete based on field name
    */
-  function _removeSchemaByFiled(field: string, schemaList: FormSchema[]): void {
-    if (isString(field)) {
-      const index = schemaList.findIndex((schema) => schema.field === field);
+  function _removeSchemaByFiled(field: string | string[], schemaList: FormSchema[]): void {
+    if (isString(field) || isArray(field)) {
+      const index = schemaList.findIndex((schema) => isEqual(schema.field, field));
       if (index !== -1) {
-        delete formModel[field];
+        isString(field) ? delete formModel[field] : unset(formModel, field);
         schemaList.splice(index, 1);
       }
     }
@@ -121,10 +114,14 @@ export function useFormEvents({
   /**
    * @description: Insert after a certain field, if not insert the last
    */
-  async function appendSchemaByField(schema: FormSchema, prefixField?: string, first = false) {
+  async function appendSchemaByField(
+    schema: FormSchema,
+    prefixField?: string | string[],
+    first = false,
+  ) {
     const schemaList: FormSchema[] = cloneDeep(unref(getSchema));
 
-    const index = schemaList.findIndex((schema) => schema.field === prefixField);
+    const index = schemaList.findIndex((schema) => isEqual(schema.field, prefixField));
 
     if (!prefixField || index === -1 || first) {
       first ? schemaList.unshift(schema) : schemaList.push(schema);
@@ -181,7 +178,7 @@ export function useFormEvents({
     const schema: FormSchema[] = [];
     updateData.forEach((item) => {
       unref(getSchema).forEach((val) => {
-        if (val.field === item.field) {
+        if (isEqual(val.field, item.field)) {
           const newSchema = deepMerge(val, item);
           schema.push(newSchema as FormSchema);
         } else {
