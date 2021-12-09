@@ -4,7 +4,7 @@
 import dayjs from 'dayjs';
 
 const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss';
-const DATE_FORMAT = 'YYYY-MM-DD ';
+const DATE_FORMAT = 'YYYY-MM-DD';
 
 export function formatToDateTime(
   date: dayjs.Dayjs | undefined = undefined,

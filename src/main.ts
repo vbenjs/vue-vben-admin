@@ -1,6 +1,6 @@
-import '/@/design/index.less';
 import 'virtual:windi-base.css';
 import 'virtual:windi-components.css';
+import '/@/design/index.less';
 import 'virtual:windi-utilities.css';
 // Register icon sprite
 import 'virtual:svg-icons-register';
@@ -14,13 +14,6 @@ import { setupStore } from '/@/store';
 import { setupGlobDirectives } from '/@/directives';
 import { setupI18n } from '/@/locales/setupI18n';
 import { registerGlobComp } from '/@/components/registerGlobComp';
-
-// Importing on demand in local development will increase the number of browser requests by around 20%.
-// This may slow down the browser refresh speed.
-// Therefore, only enable on-demand importing in production environments .
-if (import.meta.env.DEV) {
-  import('ant-design-vue/dist/antd.less');
-}
 
 async function bootstrap() {
   const app = createApp(App);

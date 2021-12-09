@@ -5,15 +5,14 @@
         size="small"
         :loading="loading"
         :title="item.title"
-        class="md:w-1/4 w-full !md:mt-0 !mt-4"
-        :class="[index + 1 < 4 && '!md:mr-4']"
-        :canExpan="false"
+        class="md:w-1/4 w-full !md:mt-0"
+        :class="{ '!md:mr-4': index + 1 < 4, '!mt-4': index > 0 }"
       >
         <template #extra>
           <Tag :color="item.color">{{ item.action }}</Tag>
         </template>
 
-        <div class="py-4 px-4 flex justify-between">
+        <div class="py-4 px-4 flex justify-between items-center">
           <CountTo prefix="$" :startVal="1" :endVal="item.value" class="text-2xl" />
           <Icon :icon="item.icon" :size="40" />
         </div>

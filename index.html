@@ -8,7 +8,6 @@
       name="viewport"
       content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0"
     />
-
     <title><%= title %></title>
     <link rel="icon" href="/favicon.ico" />
   </head>
@@ -30,7 +29,7 @@
         }
 
         html[data-theme='dark'] .app-loading .app-loading-title {
-          color: rgba(255, 255, 255, 0.85);
+          color: rgb(255 255 255 / 85%);
         }
 
         .app-loading {
@@ -48,7 +47,6 @@
           top: 50%;
           left: 50%;
           display: flex;
-          -webkit-transform: translate3d(-50%, -50%, 0);
           transform: translate3d(-50%, -50%, 0);
           justify-content: center;
           align-items: center;
@@ -66,7 +64,7 @@
           display: flex;
           margin-top: 30px;
           font-size: 30px;
-          color: rgba(0, 0, 0, 0.85);
+          color: rgb(0 0 0 / 85%);
           justify-content: center;
           align-items: center;
         }
@@ -97,7 +95,7 @@
           height: 20px;
           background-color: #0065cc;
           border-radius: 100%;
-          opacity: 0.3;
+          opacity: 30%;
           transform: scale(0.75);
           animation: antSpinMove 1s infinite linear alternate;
           transform-origin: 50% 50%;
@@ -111,43 +109,38 @@
         .dot i:nth-child(2) {
           top: 0;
           right: 0;
-          -webkit-animation-delay: 0.4s;
           animation-delay: 0.4s;
         }
 
         .dot i:nth-child(3) {
           right: 0;
           bottom: 0;
-          -webkit-animation-delay: 0.8s;
           animation-delay: 0.8s;
         }
 
         .dot i:nth-child(4) {
           bottom: 0;
           left: 0;
-          -webkit-animation-delay: 1.2s;
           animation-delay: 1.2s;
         }
         @keyframes antRotate {
           to {
-            -webkit-transform: rotate(405deg);
             transform: rotate(405deg);
           }
         }
-        @-webkit-keyframes antRotate {
+        @keyframes antRotate {
           to {
-            -webkit-transform: rotate(405deg);
             transform: rotate(405deg);
           }
         }
         @keyframes antSpinMove {
           to {
-            opacity: 1;
+            opacity: 100%;
           }
         }
-        @-webkit-keyframes antSpinMove {
+        @keyframes antSpinMove {
           to {
-            opacity: 1;
+            opacity: 100%;
           }
         }
       </style>
