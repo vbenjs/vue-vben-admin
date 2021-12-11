@@ -115,7 +115,7 @@ export const treeProps = buildProps({
   // 自定义数据过滤判断方法(注: 不是整个过滤方法，而是内置过滤的判断方法，用于增强原本仅能通过title进行过滤的方式)
   filterFn: {
     type: Function as PropType<
-      (searchValue: any, node: TreeItem, replaceFields: FieldNames) => boolean
+      (searchValue: any, node: TreeItem, fieldNames: FieldNames) => boolean
     >,
     default: undefined,
   },

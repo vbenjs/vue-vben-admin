@@ -187,3 +187,18 @@ export function treeMapEach(
     };
   }
 }
+
+/**
+ * 递归遍历树结构
+ * @param treeDatas 树
+ * @param callBack 回调
+ * @param parentNode 父节点
+ */
+export function eachTree(treeDatas: any[], callBack: Fn, parentNode = {}) {
+  treeDatas.forEach((element) => {
+    const newNode = callBack(element, parentNode) || element;
+    if (element.children) {
+      eachTree(element.children, callBack, newNode);
+    }
+  });
+}
