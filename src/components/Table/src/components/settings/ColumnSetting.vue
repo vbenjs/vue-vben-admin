@@ -124,6 +124,7 @@
 
   interface State {
     checkAll: boolean;
+    isInit: boolean;
     checkedList: string[];
     defaultCheckList: string[];
   }
@@ -180,7 +181,7 @@
 
       watchEffect(() => {
         const columns = table.getColumns();
-        if (columns.length) {
+        if (columns.length && !state.isInit) {
           init();
         }
       });
@@ -233,6 +234,7 @@
             }
           });
         }
+        state.isInit = true;
         state.checkedList = checkList;
       }
 
