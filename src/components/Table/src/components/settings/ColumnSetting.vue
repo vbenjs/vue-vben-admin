@@ -267,7 +267,9 @@
         });
         setColumns(checkedList);
       }
-
+      
+      let sortable = null;
+      let sortableOrder = [];
       // reset columns
       function reset() {
         state.checkedList = [...state.defaultCheckList];
@@ -275,6 +277,7 @@
         plainOptions.value = unref(cachePlainOptions);
         plainSortOptions.value = unref(cachePlainOptions);
         setColumns(table.getCacheColumns());
+        sortable.sort(sortableOrder);
       }
 
       // Open the pop-up window for drag and drop initialization
@@ -286,8 +289,11 @@
           const el = columnListEl.$el as any;
           if (!el) return;
           // Drag and drop sort
-          const { initSortable } = useSortable(el, {
-            handle: '.table-column-drag-icon',
+          sortable = Sortable.create(unref(el), {
+            animation: 500,
+            delay: 400,
+            delayOnTouchOnly: true,
+            handle: '.table-column-drag-icon ',
             onEnd: (evt) => {
               const { oldIndex, newIndex } = evt;
               if (isNullAndUnDef(oldIndex) || isNullAndUnDef(newIndex) || oldIndex === newIndex) {
@@ -308,7 +314,8 @@
               setColumns(columns);
             },
           });
-          initSortable();
+          // 记录原始order 序列
+          sortableOrder = sortable.toArray();
           inited = true;
         });
       }
