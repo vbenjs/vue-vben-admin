@@ -6,7 +6,7 @@ import type { ColEx, ComponentType } from './index';
 import type { TableActionType } from '/@/components/Table/src/types/table';
 import type { RowProps } from 'ant-design-vue/lib/grid/Row';
 
-export type FieldMapToTime = [string, [string, string], string?][];
+export type FieldMapToTime = [NamePath, [NamePath, NamePath], string?][];
 
 export type Rule = RuleObject & {
   trigger?: 'blur' | 'change' | ['change', 'blur'];
@@ -16,7 +16,7 @@ export interface RenderCallbackParams {
   schema: FormSchema;
   values: Recordable;
   model: Recordable;
-  field: string | string[];
+  field: NamePath;
 }
 
 export interface ButtonProps extends AntdButtonProps {
@@ -28,14 +28,14 @@ export interface FormActionType {
   setFieldsValue: <T>(values: T) => Promise<void>;
   resetFields: () => Promise<void>;
   getFieldsValue: () => Recordable;
-  clearValidate: (name?: string | string[]) => Promise<void>;
+  clearValidate: (name?: NamePath) => Promise<void>;
   updateSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void>;
   resetSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void>;
   setProps: (formProps: Partial<FormProps>) => Promise<void>;
-  removeSchemaByFiled: (field: string | string[]) => Promise<void>;
+  removeSchemaByFiled: (field: NamePath) => Promise<void>;
   appendSchemaByField: (
     schema: FormSchema,
-    prefixField: string | string[] | undefined,
+    prefixField: NamePath,
     first?: boolean | undefined,
   ) => Promise<void>;
   validateFields: (nameList?: NamePath[]) => Promise<any>;
@@ -123,7 +123,7 @@ export interface FormProps {
 
 export interface FormSchema {
   // Field name
-  field: string | string[];
+  field: NamePath;
   // Event name triggered by internal value change, default change
   changeEvent?: string;
   // Variable name bound to v-model Default value

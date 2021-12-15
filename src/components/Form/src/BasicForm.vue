@@ -45,7 +45,7 @@
   import FormItem from './components/FormItem.vue';
   import FormAction from './components/FormAction.vue';
 
-  import { dateItemType } from './helper';
+  import { dateItemType, setProperty } from './helper';
   import { dateUtil } from '/@/utils/dateUtil';
 
   // import { cloneDeep } from 'lodash-es';
@@ -60,8 +60,7 @@
 
   import { basicProps } from './props';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { set } from 'lodash-es';
-  import { isArray } from '/@/utils/is';
+  import { NamePath } from 'ant-design-vue/lib/form/interface';
 
   export default defineComponent({
     name: 'BasicForm',
@@ -230,8 +229,8 @@
         propsRef.value = deepMerge(unref(propsRef) || {}, formProps);
       }
 
-      function setFormModel(key: string | string[], value: any) {
-        isArray(key) ? set(formModel, key, value) : (formModel[key] = value);
+      function setFormModel(key: NamePath, value: any) {
+        setProperty(formModel, key, value);
         const { validateTrigger } = unref(getBindValue);
         if (!validateTrigger || validateTrigger === 'change') {
           validateFields([key]).catch((_) => {});

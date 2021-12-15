@@ -13,6 +13,7 @@
   import { cloneDeep, get, upperFirst } from 'lodash-es';
   import { useItemLabelWidth } from '../hooks/useLabelWidth';
   import { useI18n } from '/@/hooks/web/useI18n';
+  import { NamePath } from 'ant-design-vue/lib/form/interface';
 
   export default defineComponent({
     name: 'BasicFormItem',
@@ -35,7 +36,7 @@
         default: () => ({}),
       },
       setFormModel: {
-        type: Function as PropType<(key: string | string[], value: any) => void>,
+        type: Function as PropType<(key: NamePath, value: any) => void>,
         default: null,
       },
       tableAction: {

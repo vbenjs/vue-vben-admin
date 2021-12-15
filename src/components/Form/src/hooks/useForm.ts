@@ -68,7 +68,7 @@ export function useForm(props?: Props): UseFormReturnType {
       form.resetSchema(data);
     },
 
-    clearValidate: async (name?: string | string[]) => {
+    clearValidate: async (name?: NamePath) => {
       const form = await getForm();
       form.clearValidate(name);
     },
@@ -79,7 +79,7 @@ export function useForm(props?: Props): UseFormReturnType {
       });
     },
 
-    removeSchemaByFiled: async (field: string | string[]) => {
+    removeSchemaByFiled: async (field: NamePath) => {
       unref(formRef)?.removeSchemaByFiled(field);
     },
 
@@ -93,11 +93,7 @@ export function useForm(props?: Props): UseFormReturnType {
       form.setFieldsValue<T>(values);
     },
 
-    appendSchemaByField: async (
-      schema: FormSchema,
-      prefixField: string | string[] | undefined,
-      first: boolean,
-    ) => {
+    appendSchemaByField: async (schema: FormSchema, prefixField: NamePath, first: boolean) => {
       const form = await getForm();
       form.appendSchemaByField(schema, prefixField, first);
     },
