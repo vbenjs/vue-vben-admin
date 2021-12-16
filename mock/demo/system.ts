@@ -199,4 +199,12 @@ export default [
       }
     },
   },
+  {
+    url: '/basic-api/system/exportExcel',
+    timeout: 100,
+    method: 'post',
+    response: () => {
+      return resultSuccess(roleList);
+    },
+  },
 ] as MockMethod[];

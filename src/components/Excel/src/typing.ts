@@ -25,3 +25,14 @@ export interface ExportModalResult {
   filename: string;
   bookType: BookType;
 }
+
+export interface ExportExcel {
+  api: (...arg: any) => Promise<any>;
+  params: any;
+  fileName?: string;
+  beginDownloadFn?: () => any;
+  downloadSuccessFn?: () => void;
+  downloadErrorFn?: (er: Error) => void;
+  downLoadComplete?: (er: Error) => void;
+  isLoading?: boolean;
+}

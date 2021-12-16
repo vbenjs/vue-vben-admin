@@ -51,4 +51,14 @@ export default class UserService {
     fs.ensureDir(filePath);
     returnFunc(isMultiple);
   }
+  async exportExcel() {
+    return new Promise((resolve) => {
+      const excelPath = path.join(__dirname, '../../test.xlsx');
+      console.log(`excelPath is ${excelPath}`);
+      const fileReader = fs.createReadStream(excelPath);
+      fileReader.on('data', (data) => {
+        resolve(data);
+      });
+    });
+  }
 }

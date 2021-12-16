@@ -20,6 +20,7 @@ enum Api {
   MenuList = '/system/getMenuList',
   RolePageList = '/system/getRoleListByPage',
   GetAllRoleList = '/system/getAllRoleList',
+  ExportExcel = '/exportExcel',
 }
 
 export const getAccountList = (params: AccountParams) =>
@@ -42,3 +43,15 @@ export const setRoleStatus = (id: number, status: string) =>
 
 export const isAccountExist = (account: string) =>
   defHttp.post({ url: Api.IsAccountExist, params: { account } }, { errorMessageMode: 'none' });
+
+export const exportExcel = (params: any) =>
+  defHttp.post<Blob>(
+    {
+      data: params,
+      method: 'POST',
+      baseURL: 'http://localhost:3300/exportExcel',
+      url: '',
+      responseType: 'blob',
+    },
+    { errorMessageMode: 'none', apiUrl: '', isTransformResponse: false },
+  );

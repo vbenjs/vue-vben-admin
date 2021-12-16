@@ -20,4 +20,10 @@ export default [
     method: 'post',
     action: FileController.upload,
   },
+
+  {
+    path: '/exportExcel',
+    method: 'post',
+    action: FileController.exportExcel,
+  },
 ];

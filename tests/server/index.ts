@@ -45,7 +45,7 @@ AppRoutes.forEach((route) => router[route.method](route.path, route.action));
 app.use(cors());
 app.use(
   body({
-    encoding: 'gzip',
+    //encoding: 'gzip',
     multipart: true,
     formidable: {
       // uploadDir: path.join(__dirname, '/upload/'), // 设置文件上传目录
