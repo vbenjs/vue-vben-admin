@@ -20,7 +20,7 @@
   import { omit, get, difference, cloneDeep } from 'lodash-es';
   import { isArray, isBoolean, isEmpty, isFunction } from '/@/utils/is';
   import { extendSlots, getSlot } from '/@/utils/helper/tsxHelper';
-  import { filter, treeToList } from '/@/utils/helper/treeHelper';
+  import { filter, treeToList, eachTree } from '/@/utils/helper/treeHelper';
   import { useTree } from './useTree';
   import { useContextMenu } from '/@/hooks/web/useContextMenu';
   import { CreateContextOptions } from '/@/components/ContextMenu';
@@ -355,7 +355,7 @@
 
       const treeData = computed(() => {
         const data = cloneDeep(getTreeData.value);
-        data.forEach((item) => {
+        eachTree(data, (item, _parent) => {
           const searchText = searchState.searchText;
           const { highlight } = unref(props);
           const {
@@ -386,8 +386,8 @@
               class={`${bem('title')} pl-2`}
               onClick={handleClickNode.bind(null, item[keyField], item[childrenField])}
             >
-              {item.slots?.title ? (
-                getSlot(slots, item.slots?.title, item)
+              {slots?.title ? (
+                getSlot(slots, 'title', item)
               ) : (
                 <>
                   {icon && <TreeIcon icon={icon} />}
@@ -397,6 +397,7 @@
               )}
             </span>
           );
+          return item;
         });
         return data;
       });
@@ -426,9 +427,7 @@
               </TreeHeader>
             )}
             <ScrollContainer style={scrollStyle} v-show={!unref(getNotFound)}>
-              <Tree {...unref(getBindValues)} showIcon={false} treeData={treeData.value}>
-                {extendSlots(slots)}
-              </Tree>
+              <Tree {...unref(getBindValues)} showIcon={false} treeData={treeData.value} />
             </ScrollContainer>
             <Empty v-show={unref(getNotFound)} image={Empty.PRESENTED_IMAGE_SIMPLE} class="!mt-4" />
           </div>
