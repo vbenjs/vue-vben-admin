@@ -43,7 +43,7 @@
           <CheckboxGroup v-model:value="checkedList" @change="onChange" ref="columnListRef">
             <template v-for="item in plainOptions" :key="item.value">
               <div :class="`${prefixCls}__check-item`" v-if="!('ifShow' in item && !item.ifShow)">
-                <DragOutlined class="table-coulmn-drag-icon" />
+                <DragOutlined class="table-column-drag-icon" />
                 <Checkbox :value="item.value">
                   {{ item.label }}
                 </Checkbox>
@@ -120,10 +120,11 @@
   import { useSortable } from '/@/hooks/web/useSortable';
   import { isFunction, isNullAndUnDef } from '/@/utils/is';
   import { getPopupContainer as getParentContainer } from '/@/utils';
-  import { omit } from 'lodash-es';
+  import { cloneDeep, omit } from 'lodash-es';
 
   interface State {
     checkAll: boolean;
+    isInit: boolean;
     checkedList: string[];
     defaultCheckList: string[];
   }
@@ -180,7 +181,7 @@
 
       watchEffect(() => {
         const columns = table.getColumns();
-        if (columns.length) {
+        if (columns.length && !state.isInit) {
           init();
         }
       });
@@ -233,6 +234,7 @@
             }
           });
         }
+        state.isInit = true;
         state.checkedList = checkList;
       }
 
@@ -250,23 +252,24 @@
 
       const indeterminate = computed(() => {
         const len = plainOptions.value.length;
-        let checkdedLen = state.checkedList.length;
-        unref(checkIndex) && checkdedLen--;
-        return checkdedLen > 0 && checkdedLen < len;
+        let checkedLen = state.checkedList.length;
+        unref(checkIndex) && checkedLen--;
+        return checkedLen > 0 && checkedLen < len;
       });
 
       // Trigger when check/uncheck a column
       function onChange(checkedList: string[]) {
-        const len = plainOptions.value.length;
+        const len = plainSortOptions.value.length;
         state.checkAll = checkedList.length === len;
-
         const sortList = unref(plainSortOptions).map((item) => item.value);
         checkedList.sort((prev, next) => {
           return sortList.indexOf(prev) - sortList.indexOf(next);
         });
         setColumns(checkedList);
       }
-
+      
+      let sortable = null;
+      let sortableOrder = [];
       // reset columns
       function reset() {
         state.checkedList = [...state.defaultCheckList];
@@ -274,6 +277,7 @@
         plainOptions.value = unref(cachePlainOptions);
         plainSortOptions.value = unref(cachePlainOptions);
         setColumns(table.getCacheColumns());
+        sortable.sort(sortableOrder);
       }
 
       // Open the pop-up window for drag and drop initialization
@@ -285,15 +289,18 @@
           const el = columnListEl.$el as any;
           if (!el) return;
           // Drag and drop sort
-          const { initSortable } = useSortable(el, {
-            handle: '.table-coulmn-drag-icon ',
+          sortable = Sortable.create(unref(el), {
+            animation: 500,
+            delay: 400,
+            delayOnTouchOnly: true,
+            handle: '.table-column-drag-icon ',
             onEnd: (evt) => {
               const { oldIndex, newIndex } = evt;
               if (isNullAndUnDef(oldIndex) || isNullAndUnDef(newIndex) || oldIndex === newIndex) {
                 return;
               }
               // Sort column
-              const columns = getColumns();
+              const columns = cloneDeep(plainSortOptions.value);
 
               if (oldIndex > newIndex) {
                 columns.splice(newIndex, 0, columns[oldIndex]);
@@ -304,11 +311,11 @@
               }
 
               plainSortOptions.value = columns;
-              plainOptions.value = columns;
               setColumns(columns);
             },
           });
-          initSortable();
+          // 记录原始order 序列
+          sortableOrder = sortable.toArray();
           inited = true;
         });
       }
@@ -347,7 +354,7 @@
 
       function setColumns(columns: BasicColumn[] | string[]) {
         table.setColumns(columns);
-        const data: ColumnChangeParam[] = unref(plainOptions).map((col) => {
+        const data: ColumnChangeParam[] = unref(plainSortOptions).map((col) => {
           const visible =
             columns.findIndex(
               (c: BasicColumn | string) =>
@@ -390,7 +397,7 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-column-setting';
 
-  .table-coulmn-drag-icon {
+  .table-column-drag-icon {
     margin: 0 5px;
     cursor: move;
   }

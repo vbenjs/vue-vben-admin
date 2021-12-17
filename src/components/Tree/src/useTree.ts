@@ -1,4 +1,4 @@
-import type { InsertNodeParams, Keys, ReplaceFields } from './typing';
+import type { InsertNodeParams, KeyType, FieldNames } from './tree';
 import type { Ref, ComputedRef } from 'vue';
 import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree';
 
@@ -6,14 +6,11 @@ import { cloneDeep } from 'lodash-es';
 import { unref } from 'vue';
 import { forEach } from '/@/utils/helper/treeHelper';
 
-export function useTree(
-  treeDataRef: Ref<TreeDataItem[]>,
-  getReplaceFields: ComputedRef<ReplaceFields>,
-) {
+export function useTree(treeDataRef: Ref<TreeDataItem[]>, getFieldNames: ComputedRef<FieldNames>) {
   function getAllKeys(list?: TreeDataItem[]) {
     const keys: string[] = [];
     const treeData = list || unref(treeDataRef);
-    const { key: keyField, children: childrenField } = unref(getReplaceFields);
+    const { key: keyField, children: childrenField } = unref(getFieldNames);
     if (!childrenField || !keyField) return keys;
 
     for (let index = 0; index < treeData.length; index++) {
@@ -24,13 +21,14 @@ export function useTree(
         keys.push(...(getAllKeys(children) as string[]));
       }
     }
-    return keys as Keys;
+    return keys as KeyType[];
   }
+
   // get keys that can be checked and selected
   function getEnabledKeys(list?: TreeDataItem[]) {
     const keys: string[] = [];
     const treeData = list || unref(treeDataRef);
-    const { key: keyField, children: childrenField } = unref(getReplaceFields);
+    const { key: keyField, children: childrenField } = unref(getFieldNames);
     if (!childrenField || !keyField) return keys;
 
     for (let index = 0; index < treeData.length; index++) {
@@ -41,13 +39,13 @@ export function useTree(
         keys.push(...(getEnabledKeys(children) as string[]));
       }
     }
-    return keys as Keys;
+    return keys as KeyType[];
   }
 
-  function getChildrenKeys(nodeKey: string | number, list?: TreeDataItem[]): Keys {
-    const keys: Keys = [];
+  function getChildrenKeys(nodeKey: string | number, list?: TreeDataItem[]) {
+    const keys: KeyType[] = [];
     const treeData = list || unref(treeDataRef);
-    const { key: keyField, children: childrenField } = unref(getReplaceFields);
+    const { key: keyField, children: childrenField } = unref(getFieldNames);
     if (!childrenField || !keyField) return keys;
     for (let index = 0; index < treeData.length; index++) {
       const node = treeData[index];
@@ -63,14 +61,14 @@ export function useTree(
         }
       }
     }
-    return keys as Keys;
+    return keys as KeyType[];
   }
 
   // Update node
   function updateNodeByKey(key: string, node: TreeDataItem, list?: TreeDataItem[]) {
     if (!key) return;
     const treeData = list || unref(treeDataRef);
-    const { key: keyField, children: childrenField } = unref(getReplaceFields);
+    const { key: keyField, children: childrenField } = unref(getFieldNames);
 
     if (!childrenField || !keyField) return;
 
@@ -97,7 +95,7 @@ export function useTree(
     for (let index = 0; index < data.length; index++) {
       const item = data[index];
 
-      const { key: keyField, children: childrenField } = unref(getReplaceFields);
+      const { key: keyField, children: childrenField } = unref(getFieldNames);
       const key = keyField ? item[keyField] : '';
       const children = childrenField ? item[childrenField] : [];
       res.push(key);
@@ -119,7 +117,7 @@ export function useTree(
       treeDataRef.value = treeData;
       return;
     }
-    const { key: keyField, children: childrenField } = unref(getReplaceFields);
+    const { key: keyField, children: childrenField } = unref(getFieldNames);
     if (!childrenField || !keyField) return;
 
     forEach(treeData, (treeItem) => {
@@ -144,7 +142,7 @@ export function useTree(
         treeData[push](list[i]);
       }
     } else {
-      const { key: keyField, children: childrenField } = unref(getReplaceFields);
+      const { key: keyField, children: childrenField } = unref(getFieldNames);
       if (!childrenField || !keyField) return;
 
       forEach(treeData, (treeItem) => {
@@ -163,7 +161,7 @@ export function useTree(
   function deleteNodeByKey(key: string, list?: TreeDataItem[]) {
     if (!key) return;
     const treeData = list || unref(treeDataRef);
-    const { key: keyField, children: childrenField } = unref(getReplaceFields);
+    const { key: keyField, children: childrenField } = unref(getFieldNames);
     if (!childrenField || !keyField) return;
 
     for (let index = 0; index < treeData.length; index++) {
