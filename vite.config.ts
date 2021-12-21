@@ -61,6 +61,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
     build: {
       target: 'es2015',
+      cssTarget: 'chrome86',
       outDir: OUTPUT_DIR,
       terserOptions: {
         compress: {

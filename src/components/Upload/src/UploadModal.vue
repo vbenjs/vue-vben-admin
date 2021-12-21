@@ -31,6 +31,7 @@
         :accept="getStringAccept"
         :multiple="multiple"
         :before-upload="beforeUpload"
+        :show-upload-list="false"
         class="upload-modal-toolbar__btn"
       >
         <a-button type="primary">

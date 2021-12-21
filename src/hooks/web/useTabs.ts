@@ -34,7 +34,7 @@ export function useTabs(_router?: Router) {
 
   function getCurrentTab() {
     const route = unref(currentRoute);
-    return tabStore.getTabList.find((item) => item.path === route.path)!;
+    return tabStore.getTabList.find((item) => item.fullPath === route.fullPath)!;
   }
 
   async function updateTabTitle(title: string, tab?: RouteLocationNormalized) {
