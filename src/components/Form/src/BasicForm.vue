@@ -58,6 +58,7 @@
   import { createFormContext } from './hooks/useFormContext';
   import { useAutoFocus } from './hooks/useAutoFocus';
   import { useModalContext } from '/@/components/Modal';
+  import { useDebounceFn } from '@vueuse/core';
 
   import { basicProps } from './props';
   import { useDesign } from '/@/hooks/web/useDesign';
@@ -223,6 +224,14 @@
             isInitedDefaultRef.value = true;
           }
         },
+      );
+
+      watch(
+        () => formModel,
+        useDebounceFn(() => {
+          unref(getProps).submitOnChange && handleSubmit();
+        }, 300),
+        { deep: true },
       );
 
       async function setProps(formProps: Partial<FormProps>): Promise<void> {

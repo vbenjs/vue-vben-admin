@@ -134,7 +134,7 @@ const setting: ProjectConfig = {
   // Transition Setting
   transitionSetting: {
     //  Whether to open the page switching animation
-    // The disabled state will also disable pageLoadinng
+    // The disabled state will also disable pageLoading
     enable: true,
 
     // Route basic switching animation
