@@ -117,13 +117,16 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useTableContext } from '../../hooks/useTableContext';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { useSortable } from '/@/hooks/web/useSortable';
+  // import { useSortable } from '/@/hooks/web/useSortable';
   import { isFunction, isNullAndUnDef } from '/@/utils/is';
   import { getPopupContainer as getParentContainer } from '/@/utils';
   import { cloneDeep, omit } from 'lodash-es';
+  import Sortablejs from 'sortablejs';
+  import type Sortable from 'sortablejs';
 
   interface State {
     checkAll: boolean;
+    isInit?: boolean;
     checkedList: string[];
     defaultCheckList: string[];
   }
@@ -157,7 +160,7 @@
       let inited = false;
 
       const cachePlainOptions = ref<Options[]>([]);
-      const plainOptions = ref<Options[]>([]);
+      const plainOptions = ref<Options[] | any>([]);
 
       const plainSortOptions = ref<Options[]>([]);
 
@@ -180,7 +183,7 @@
 
       watchEffect(() => {
         const columns = table.getColumns();
-        if (columns.length) {
+        if (columns.length && !state.isInit) {
           init();
         }
       });
@@ -233,6 +236,7 @@
             }
           });
         }
+        state.isInit = true;
         state.checkedList = checkList;
       }
 
@@ -266,6 +270,8 @@
         setColumns(checkedList);
       }
 
+      let sortable: Sortable;
+      let sortableOrder: string[] = [];
       // reset columns
       function reset() {
         state.checkedList = [...state.defaultCheckList];
@@ -273,6 +279,7 @@
         plainOptions.value = unref(cachePlainOptions);
         plainSortOptions.value = unref(cachePlainOptions);
         setColumns(table.getCacheColumns());
+        sortable.sort(sortableOrder);
       }
 
       // Open the pop-up window for drag and drop initialization
@@ -284,8 +291,11 @@
           const el = columnListEl.$el as any;
           if (!el) return;
           // Drag and drop sort
-          const { initSortable } = useSortable(el, {
-            handle: '.table-column-drag-icon',
+          sortable = Sortablejs.create(unref(el), {
+            animation: 500,
+            delay: 400,
+            delayOnTouchOnly: true,
+            handle: '.table-column-drag-icon ',
             onEnd: (evt) => {
               const { oldIndex, newIndex } = evt;
               if (isNullAndUnDef(oldIndex) || isNullAndUnDef(newIndex) || oldIndex === newIndex) {
@@ -306,7 +316,8 @@
               setColumns(columns);
             },
           });
-          initSortable();
+          // 记录原始order 序列
+          sortableOrder = sortable.toArray();
           inited = true;
         });
       }
@@ -339,7 +350,7 @@
         if (isFixed && !item.width) {
           item.width = 100;
         }
-        table.setCacheColumnsByField?.(item.dataIndex, { fixed: isFixed });
+        table.setCacheColumnsByField?.(item.dataIndex as string, { fixed: isFixed });
         setColumns(columns);
       }
 

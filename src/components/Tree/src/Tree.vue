@@ -386,8 +386,8 @@
               class={`${bem('title')} pl-2`}
               onClick={handleClickNode.bind(null, item[keyField], item[childrenField])}
             >
-              {item.slots?.title ? (
-                getSlot(slots, item.slots?.title, item)
+              {slots?.title ? (
+                getSlot(slots, 'title', item)
               ) : (
                 <>
                   {icon && <TreeIcon icon={icon} />}

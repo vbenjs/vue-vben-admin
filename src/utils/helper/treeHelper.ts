@@ -24,7 +24,7 @@ export function listToTree<T = any>(list: any[], config: Partial<TreeHelperConfi
   }
   for (const node of list) {
     const parent = nodeMap.get(node[pid]);
-    (parent ? parent.children : result).push(node);
+    (parent ? parent[children] : result).push(node);
   }
   return result;
 }
