@@ -38,6 +38,7 @@ export function useTableExpand(
   }
 
   function expandRows(keys: string[]) {
+    // use row ID expands the specified table row
     const { isTreeTable } = unref(propsRef);
     if (!isTreeTable) return;
     expandedRowKeys.value = [...expandedRowKeys.value, ...keys];
