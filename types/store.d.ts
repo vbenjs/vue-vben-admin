@@ -46,3 +46,15 @@ export interface BeforeMiniState {
   menuMode?: MenuModeEnum;
   menuType?: MenuTypeEnum;
 }
+
+// Error-log information
+export interface DemoInfo {
+  // Error file
+  file: string;
+  // Error name
+  name?: string;
+  // Error url
+  url: string;
+  // Error time
+  time?: string;
+}

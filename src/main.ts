@@ -18,29 +18,29 @@ import { registerGlobComp } from '/@/components/registerGlobComp';
 async function bootstrap() {
   const app = createApp(App);
 
-  // Configure store
+  // Configure store 数据store配置
   setupStore(app);
 
-  // Initialize internal system configuration
+  // Initialize internal system configuration  初始化系统内部配置
   initAppConfigStore();
 
-  // Register global components
+  // Register global components  全局注册组件
   registerGlobComp(app);
 
-  // Multilingual configuration
+  // Multilingual configuration  国际语言
   // Asynchronous case: language files may be obtained from the server side
   await setupI18n(app);
 
-  // Configure routing
+  // Configure routing 挂载路由
   setupRouter(app);
 
   // router-guard
-  setupRouterGuard(router);
+  setupRouterGuard(router); // 路由守卫
 
-  // Register global directive
+  // Register global directive  自定义指令全局注册？？
   setupGlobDirectives(app);
 
-  // Configure global error handling
+  // Configure global error handling  全局异常处理
   setupErrorHandle(app);
 
   // https://next.router.vuejs.org/api/#isready
