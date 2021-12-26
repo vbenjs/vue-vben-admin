@@ -155,6 +155,9 @@ export function useTable(tableProps?: Props): [
     collapseAll: () => {
       getTableInstance().collapseAll();
     },
+    scrollTo: (pos: string) => {
+      getTableInstance().scrollTo(pos);
+    },
   };
 
   return [register, methods];

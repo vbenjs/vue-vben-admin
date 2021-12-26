@@ -52,6 +52,7 @@
   import { useLoading } from './hooks/useLoading';
   import { useRowSelection } from './hooks/useRowSelection';
   import { useTableScroll } from './hooks/useTableScroll';
+  import { useTableScrollTo } from './hooks/useTableScrollTo';
   import { useCustomRow } from './hooks/useCustomRow';
   import { useTableStyle } from './hooks/useTableStyle';
   import { useTableHeader } from './hooks/useTableHeader';
@@ -186,6 +187,8 @@
         getDataSourceRef,
       );
 
+      const { scrollTo } = useTableScrollTo(tableElRef, getDataSourceRef);
+
       const { customRow } = useCustomRow(getProps, {
         setSelectedRowKeys,
         getSelectRowKeys,
@@ -298,6 +301,7 @@
         setCacheColumnsByField,
         expandAll,
         collapseAll,
+        scrollTo,
         getSize: () => {
           return unref(getBindValues).size as SizeType;
         },
