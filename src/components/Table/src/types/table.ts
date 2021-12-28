@@ -88,6 +88,7 @@ export interface TableActionType {
   clearSelectedRowKeys: () => void;
   expandAll: () => void;
   collapseAll: () => void;
+  scrollTo: (pos: string) => void; // pos: id | "top" | "bottom"
   getSelectRowKeys: () => string[];
   deleteSelectRowByKey: (key: string) => void;
   setPagination: (info: Partial<PaginationProps>) => void;
