@@ -53,7 +53,7 @@
   import { useLoading } from './hooks/useLoading';
   import { useRowSelection } from './hooks/useRowSelection';
   import { useTableScroll } from './hooks/useTableScroll';
-  import { useTableScrollTo } from './hooks/useTableScrollTo';
+  import { useTableScrollTo } from './hooks/useScrollTo';
   import { useCustomRow } from './hooks/useCustomRow';
   import { useTableStyle } from './hooks/useTableStyle';
   import { useTableHeader } from './hooks/useTableHeader';
