@@ -199,7 +199,11 @@
 
       const { getRowClassName } = useTableStyle(getProps, prefixCls);
 
-      const { getExpandOption, expandAll, collapseAll } = useTableExpand(getProps, tableData, emit);
+      const { getExpandOption, expandAll, expandRows, collapseAll } = useTableExpand(
+        getProps,
+        tableData,
+        emit,
+      );
 
       const handlers: InnerHandlers = {
         onColumnsChange: (data: ColumnChangeParam[]) => {
@@ -300,6 +304,7 @@
         getShowPagination,
         setCacheColumnsByField,
         expandAll,
+        expandRows,
         collapseAll,
         scrollTo,
         getSize: () => {
