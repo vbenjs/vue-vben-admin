@@ -40,6 +40,7 @@ export const basicProps = {
   // 在INPUT组件上单击回车时，是否自动提交
   autoSubmitOnEnter: propTypes.bool.def(false),
   submitOnReset: propTypes.bool,
+  submitOnChange: propTypes.bool,
   size: propTypes.oneOf(['default', 'small', 'large']).def('default'),
   // 禁用表单
   disabled: propTypes.bool,
