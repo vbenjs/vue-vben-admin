@@ -239,6 +239,14 @@ const comp: AppRouteModule = {
             title: t('routes.demo.table.authColumn'),
           },
         },
+        {
+          path: 'resizeParentHeightTable',
+          name: 'ResizeParentHeightTable',
+          component: () => import('/@/views/demo/table/ResizeParentHeightTable.vue'),
+          meta: {
+            title: t('routes.demo.table.resizeParentHeightTable'),
+          },
+        },
       ],
     },
     {
