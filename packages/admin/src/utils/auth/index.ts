@@ -1,5 +1,5 @@
-import { Persistent, BasicKeys } from '/@/utils/cache/persistent'
 import { CacheTypeEnum, TOKEN_KEY } from '@vben-admin/tokens'
+import { Persistent, BasicKeys } from '/@/utils/cache/persistent'
 import projectSetting from '/@/settings/projectSetting'
 
 const { permissionCacheType } = projectSetting

@@ -8,9 +8,14 @@ import { defineComponent, computed, unref, toRefs } from 'vue'
 import { Form, Col, Divider } from 'ant-design-vue'
 import { componentMap } from '../componentMap'
 import { BasicHelp } from '/@/components/Basic'
-import { upperFirst, cloneDeep } from 'lodash-es'
-import { isBoolean, isFunction, isNull } from '@vben-admin/utils'
-import { getSlot } from '/@/utils/helper/tsxHelper'
+import {
+  upperFirst,
+  isBoolean,
+  isFunction,
+  isNull,
+  cloneDeep,
+  getSlot,
+} from '@vben-admin/utils'
 import { createPlaceholderMessage, setComponentRuleType } from '../helper'
 import { useItemLabelWidth } from '../hooks/useLabelWidth'
 import { useI18n } from '/@/hooks/web/useI18n'

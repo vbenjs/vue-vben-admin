@@ -3,6 +3,7 @@ interface TreeHelperConfig {
   children: string
   pid: string
 }
+
 const DEFAULT_CONFIG: TreeHelperConfig = {
   id: 'id',
   children: 'children',
@@ -47,7 +48,7 @@ export function treeToList<T = any>(
   return result
 }
 
-export function findNode<T = any>(
+export function findTreeNode<T = any>(
   tree: any,
   func: Fn,
   config: Partial<TreeHelperConfig> = {},
@@ -62,9 +63,9 @@ export function findNode<T = any>(
   return null
 }
 
-export function findNodeAll<T = any>(
+export function findAllTreeNode<T = any>(
   tree: any,
-  func: Fn,
+  func: AnyFunction<any>,
   config: Partial<TreeHelperConfig> = {},
 ): T[] {
   config = getConfig(config)
@@ -78,9 +79,9 @@ export function findNodeAll<T = any>(
   return result
 }
 
-export function findPath<T = any>(
+export function findTreeParentPath<T = any>(
   tree: any,
-  func: Fn,
+  func: AnyFunction<any>,
   config: Partial<TreeHelperConfig> = {},
 ): T | T[] | null {
   config = getConfig(config)
@@ -105,9 +106,9 @@ export function findPath<T = any>(
   return null
 }
 
-export function findPathAll(
+export function findAllTreeParentPath(
   tree: any,
-  func: Fn,
+  func: AnyFunction<any>,
   config: Partial<TreeHelperConfig> = {},
 ) {
   config = getConfig(config)
@@ -131,7 +132,7 @@ export function findPathAll(
   return result
 }
 
-export function filter<T = any>(
+export function filterTree<T = any>(
   tree: T[],
   func: (n: T) => boolean,
   config: Partial<TreeHelperConfig> = {},
@@ -149,7 +150,7 @@ export function filter<T = any>(
   return listFilter(tree)
 }
 
-export function forEach<T = any>(
+export function forEachTree<T = any>(
   tree: T[],
   func: (n: T) => any,
   config: Partial<TreeHelperConfig> = {},
@@ -171,17 +172,36 @@ export function forEach<T = any>(
  */
 export function treeMap<T = any>(
   treeData: T[],
-  opt: { children?: string; conversion: Fn },
+  opt: { children?: string; conversion: AnyFunction<any> },
 ): T[] {
   return treeData.map((item) => treeMapEach(item, opt))
 }
 
 /**
+ * Recursively traverse the tree structure
+ */
+export function treeTraverse(
+  data: any[],
+  callBack: AnyFunction<any>,
+  parentNode = {},
+) {
+  data.forEach((element) => {
+    const newNode = callBack(element, parentNode) || element
+    if (element.children) {
+      treeTraverse(element.children, callBack, newNode)
+    }
+  })
+}
+
+/**
  * @description: Extract tree specified structure
  */
-export function treeMapEach(
+function treeMapEach(
   data: any,
-  { children = 'children', conversion }: { children?: string; conversion: Fn },
+  {
+    children = 'children',
+    conversion,
+  }: { children?: string; conversion: AnyFunction<any> },
 ) {
   const haveChildren =
     Array.isArray(data[children]) && data[children].length > 0
@@ -201,19 +221,4 @@ export function treeMapEach(
       ...conversionData,
     }
   }
-}
-
-/**
- * 递归遍历树结构
- * @param treeDatas 树
- * @param callBack 回调
- * @param parentNode 父节点
- */
-export function eachTree(treeDatas: any[], callBack: Fn, parentNode = {}) {
-  treeDatas.forEach((element) => {
-    const newNode = callBack(element, parentNode) || element
-    if (element.children) {
-      eachTree(element.children, callBack, newNode)
-    }
-  })
 }

@@ -1,6 +1,6 @@
 import type { LocaleType } from '@vben-admin/types'
 
-import { set } from 'lodash-es'
+import { set } from '@vben-admin/utils'
 
 export const loadLocalePool: LocaleType[] = []
 

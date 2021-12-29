@@ -5,7 +5,7 @@ import type {
   GetUserInfoModel,
 } from '@vben-admin/types/model'
 
-import { defHttp } from '/@/utils/http/axios'
+import { defHttp } from '/@/plugins/axios'
 
 enum Api {
   Login = '/login',

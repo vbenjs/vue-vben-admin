@@ -1,9 +1,11 @@
 const hexList: string[] = []
+let unique = 0
+
 for (let i = 0; i <= 15; i++) {
   hexList[i] = i.toString(16)
 }
 
-export function buildUUID(): string {
+export const buildUUID = (): string => {
   let uuid = ''
   for (let i = 1; i <= 36; i++) {
     if (i === 9 || i === 14 || i === 19 || i === 24) {
@@ -19,8 +21,7 @@ export function buildUUID(): string {
   return uuid.replace(/-/g, '')
 }
 
-let unique = 0
-export function buildShortUUID(prefix = ''): string {
+export const buildShortUUID = (prefix = ''): string => {
   const time = Date.now()
   const random = Math.floor(Math.random() * 1000000000)
   unique++

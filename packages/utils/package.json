@@ -7,9 +7,20 @@
   "unpkg": "index.js",
   "jsdelivr": "index.js",
   "license": "MIT",
+  "peerDependencies": {
+    "vue": ">=3"
+  },
   "dependencies": {
     "@vue/runtime-core": "^3.2.26",
     "@vue/shared": "^3.2.26",
+    "@vueuse/core": "^7.4.1",
+    "@vueuse/shared": "^7.4.1",
+    "crypto-js": "^4.1.1",
+    "dayjs": "^1.10.7",
     "lodash-es": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.1.0",
+    "@types/lodash-es": "^4.17.5"
   }
 }

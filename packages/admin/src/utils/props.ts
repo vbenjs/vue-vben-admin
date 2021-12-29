@@ -1,13 +1,12 @@
 // copy from element-plus
 
-import { warn } from 'vue'
-import { isObject } from '@vben-admin/utils'
-import { fromPairs } from 'lodash-es'
+import { isObject, fromPairs, warn } from '@vben-admin/utils'
 import type { ExtractPropTypes, PropType } from '@vue/runtime-core'
-import type { Mutable } from './types'
 
 const wrapperKey = Symbol()
 export type PropWrapper<T> = { [wrapperKey]: T }
+
+export type Mutable<T> = { -readonly [P in keyof T]: T[P] }
 
 export const propKey = Symbol()
 

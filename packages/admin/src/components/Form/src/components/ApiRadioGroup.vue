@@ -33,11 +33,10 @@ import {
   watch,
 } from 'vue'
 import { Radio } from 'ant-design-vue'
-import { isFunction } from '@vben-admin/utils'
+import { isFunction, get, omit } from '@vben-admin/utils'
 import { useRuleFormItem } from '/@/hooks/component/useFormItem'
 import { useAttrs } from '/@/hooks/core/useAttrs'
 import { propTypes } from '/@/utils/propTypes'
-import { get, omit } from 'lodash-es'
 import { useI18n } from '/@/hooks/web/useI18n'
 type OptionsItem = {
   label: string

@@ -25,7 +25,7 @@ import { Layout } from 'ant-design-vue'
 import { GithubFilled } from '@ant-design/icons-vue'
 
 import { DOC_URL, GITHUB_URL, SITE_URL } from '/@/settings/siteSetting'
-import { openWindow } from '/@/utils'
+import { openWindow } from '@vben-admin/utils'
 
 import { useI18n } from '/@/hooks/web/useI18n'
 import { useRootSetting } from '/@/hooks/setting/useRootSetting'

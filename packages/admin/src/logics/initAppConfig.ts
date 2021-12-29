@@ -22,7 +22,7 @@ import { getCommonStoragePrefix, getStorageShortName } from '/@/utils/env'
 
 import { primaryColor } from '../../config/theme'
 import { Persistent } from '/@/utils/cache/persistent'
-import { deepMerge } from '/@/utils'
+import { deepMerge } from '@vben-admin/utils'
 import { ThemeEnum } from '@vben-admin/tokens'
 
 // Initial project configuration

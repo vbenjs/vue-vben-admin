@@ -1,8 +1,7 @@
 import type { Menu } from '/@/router/types'
 import { ref, onBeforeMount, unref, Ref, nextTick } from 'vue'
 import { getMenus } from '/@/router/menus'
-import { cloneDeep } from 'lodash-es'
-import { filter, forEach } from '/@/utils/helper/treeHelper'
+import { cloneDeep, filterTree, forEachTree } from '@vben-admin/utils'
 import { useGo } from '/@/hooks/web/usePage'
 import { useScrollTo } from '/@/hooks/event/useScrollTo'
 import { onKeyStroke, useDebounceFn } from '@vueuse/core'
@@ -59,7 +58,7 @@ export function useMenuSearch(
   onBeforeMount(async () => {
     const list = await getMenus()
     menuList = cloneDeep(list)
-    forEach(menuList, (item) => {
+    forEachTree(menuList, (item) => {
       item.name = t(item.name)
     })
   })
@@ -73,7 +72,7 @@ export function useMenuSearch(
       return
     }
     const reg = createSearchReg(unref(keyword))
-    const filterMenu = filter(menuList, (item) => {
+    const filterMenu = filterTree(menuList, (item) => {
       return reg.test(item.name) && !item.hideMenu
     })
     searchResult.value = handlerSearchResult(filterMenu, reg)

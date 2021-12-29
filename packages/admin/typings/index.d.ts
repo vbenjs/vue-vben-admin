@@ -13,6 +13,8 @@ declare interface Fn<T = any, R = T> {
   (...arg: T[]): R
 }
 
+declare type AnyFunction<T> = (...args: any[]) => T
+
 declare type LabelValueOptions = {
   label: string
   value: any
@@ -29,3 +31,10 @@ declare type ComponentRef<T extends HTMLElement = HTMLDivElement> =
   ComponentElRef<T> | null
 
 declare type ElRef<T extends HTMLElement = HTMLDivElement> = Nullable<T>
+
+declare type CustomizedHTMLElement<T> = HTMLElement & T
+
+declare type PartialReturnType<T extends (...args: unknown[]) => unknown> =
+  Partial<ReturnType<T>>
+
+declare type SFCWithInstall<T> = T & Plugin

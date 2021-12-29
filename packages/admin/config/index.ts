@@ -12,16 +12,6 @@ export const PKG_NAME = name
 // project version
 export const PKG_VERSION = version
 
-/**
- * Get the configuration file variable name
- * @param env
- */
-export const getAppConfigFileName = (env: Record<string, any>) => {
-  return `__PRODUCTION__${env.VITE_GLOB_APP_SHORT_NAME || '__APP'}__CONF__`
-    .toUpperCase()
-    .replace(/\s/g, '')
-}
-
 // Read all environment variable configuration files to process.env
 export function wrapperEnv(envConf: Recordable): ViteEnv {
   const ret: any = {}

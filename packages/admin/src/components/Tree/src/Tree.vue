@@ -24,10 +24,19 @@ import TreeHeader from './TreeHeader.vue'
 import { Tree, Empty } from 'ant-design-vue'
 import { TreeIcon } from './TreeIcon'
 import { ScrollContainer } from '/@/components/Container'
-import { omit, get, difference, cloneDeep } from 'lodash-es'
-import { isArray, isFunction, isBoolean, isEmpty } from '@vben-admin/utils'
-import { extendSlots, getSlot } from '/@/utils/helper/tsxHelper'
-import { filter, treeToList, eachTree } from '/@/utils/helper/treeHelper'
+import { omit, get, difference } from '@vben-admin/utils'
+import {
+  isArray,
+  isFunction,
+  isBoolean,
+  isEmpty,
+  cloneDeep,
+  filterTree,
+  treeToList,
+  treeTraverse,
+  extendSlots,
+  getSlot,
+} from '@vben-admin/utils'
 import { useTree } from './useTree'
 import { useContextMenu } from '/@/hooks/web/useContextMenu'
 import { CreateContextOptions } from '/@/components/ContextMenu'
@@ -233,7 +242,7 @@ export default defineComponent({
       const { title: titleField, key: keyField } = unref(getFieldNames)
 
       const matchedKeys: string[] = []
-      searchState.searchData = filter(
+      searchState.searchData = filterTree(
         unref(treeDataRef),
         (node) => {
           const result = filterFn
@@ -371,7 +380,7 @@ export default defineComponent({
 
     const treeData = computed(() => {
       const data = cloneDeep(getTreeData.value)
-      eachTree(data, (item, _parent) => {
+      treeTraverse(data, (item, _parent) => {
         const searchText = searchState.searchText
         const { highlight } = unref(props)
         const {

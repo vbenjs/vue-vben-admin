@@ -1,5 +1,5 @@
-import { Slots } from 'vue'
-import { isFunction } from '@vben-admin/utils'
+import type { Slots } from 'vue'
+import { isFunction } from '../is'
 
 /**
  * @description:  Get slot to prevent empty error

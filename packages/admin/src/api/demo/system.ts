@@ -10,7 +10,7 @@ import type {
   RolePageListGetResultModel,
   RoleListGetResultModel,
 } from '@vben-admin/types/model'
-import { defHttp } from '/@/utils/http/axios'
+import { defHttp } from '/@/plugins/axios'
 
 enum Api {
   AccountList = '/system/getAccountList',

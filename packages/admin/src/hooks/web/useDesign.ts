@@ -1,6 +1,4 @@
 import { useAppProviderContext } from '/@/components/Application'
-// import { computed } from 'vue';
-// import { lowerFirst } from 'lodash-es';
 export function useDesign(scope: string) {
   const values = useAppProviderContext()
   // const $style = cssModule ? useCssModule() : {};

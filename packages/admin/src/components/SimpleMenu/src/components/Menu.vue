@@ -22,7 +22,7 @@ import {
 import { useDesign } from '/@/hooks/web/useDesign'
 import { propTypes } from '/@/utils/propTypes'
 import { createSimpleRootMenuContext } from './useSimpleMenuContext'
-import mitt from '/@/utils/mitt'
+import { mitt } from '@vben-admin/utils'
 export default defineComponent({
   name: 'Menu',
   props: {

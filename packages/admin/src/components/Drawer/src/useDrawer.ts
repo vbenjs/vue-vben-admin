@@ -15,10 +15,8 @@ import {
   toRaw,
   computed,
 } from 'vue'
-import { isProdMode } from '/@/utils/env'
-import { isFunction, isEqual } from '@vben-admin/utils'
+import { isFunction, isEqual, error } from '@vben-admin/utils'
 import { tryOnUnmounted } from '@vueuse/core'
-import { error } from '/@/utils/log'
 
 const dataTransferRef = reactive<any>({})
 
@@ -38,14 +36,18 @@ export function useDrawer(): UseDrawerReturnType {
   const uid = ref<string>('')
 
   function register(drawerInstance: DrawerInstance, uuid: string) {
-    isProdMode() &&
+    import.meta.env.PROD &&
       tryOnUnmounted(() => {
         drawer.value = null
         loaded.value = null
         dataTransferRef[unref(uid)] = null
       })
 
-    if (unref(loaded) && isProdMode() && drawerInstance === unref(drawer)) {
+    if (
+      unref(loaded) &&
+      import.meta.env.PROD &&
+      drawerInstance === unref(drawer)
+    ) {
       return
     }
     uid.value = uuid
@@ -119,7 +121,7 @@ export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
   }
 
   const register = (modalInstance: DrawerInstance, uuid: string) => {
-    isProdMode() &&
+    import.meta.env.PROD &&
       tryOnUnmounted(() => {
         drawerInstanceRef.value = null
       })

@@ -84,16 +84,14 @@ importers:
       '@ant-design/colors': ^6.0.0
       '@ant-design/icons-vue': ^6.0.1
       '@iconify/iconify': ^2.1.0
-      '@iconify/json': ^2.0.16
+      '@iconify/json': ^2.0.17
       '@logicflow/core': ^0.7.16
       '@logicflow/extension': ^0.7.16
       '@purge-icons/generated': ^0.7.0
       '@types/codemirror': ^5.60.5
-      '@types/crypto-js': ^4.1.0
       '@types/inquirer': ^8.1.3
       '@types/intro.js': ^3.0.2
       '@types/jest': ^27.0.3
-      '@types/lodash-es': ^4.17.5
       '@types/mockjs': ^1.0.4
       '@types/nprogress': ^0.2.0
       '@types/qrcode': ^1.4.2
@@ -108,24 +106,19 @@ importers:
       '@vitejs/plugin-vue-jsx': ^1.3.3
       '@vue/compiler-sfc': 3.2.26
       '@vue/test-utils': ^2.0.0-rc.18
-      '@vueuse/core': ^7.4.1
-      '@vueuse/shared': ^7.4.1
       '@zxcvbn-ts/core': ^1.2.0
       ant-design-vue: 3.0.0-beta.4
-      autoprefixer: ^10.4.0
+      autoprefixer: ^10.4.1
       axios: ^0.24.0
       codemirror: ^5.65.0
       cropperjs: ^1.5.12
       cross-env: ^7.0.3
-      crypto-js: ^4.1.1
-      dayjs: ^1.10.7
       dotenv: ^10.0.0
       echarts: ^5.2.2
       esno: ^0.13.0
       intro.js: ^4.3.0
       jest: ^27.4.5
       less: ^4.1.2
-      lodash-es: ^4.17.21
       mockjs: ^1.1.0
       nprogress: ^0.2.0
       path-to-regexp: ^6.2.0
@@ -151,7 +144,7 @@ importers:
       vite-plugin-theme: ^0.8.1
       vite-plugin-vue-setup-extend: ^0.3.0
       vite-plugin-windicss: ^1.6.1
-      vitest: ^0.0.118
+      vitest: ^0.0.122
       vue: ^3.2.26
       vue-i18n: ^9.1.9
       vue-json-pretty: ^1.8.2
@@ -167,18 +160,13 @@ importers:
       '@logicflow/extension': 0.7.16
       '@vben-admin/tokens': link:../tokens
       '@vben-admin/utils': link:../utils
-      '@vueuse/core': 7.4.1_vue@3.2.26
-      '@vueuse/shared': 7.4.1_vue@3.2.26
       '@zxcvbn-ts/core': 1.2.0
       ant-design-vue: 3.0.0-beta.4_ae87cbba5ec93a01f3fe1197df446ca3
       axios: 0.24.0
       codemirror: 5.65.0
       cropperjs: 1.5.12
-      crypto-js: 4.1.1
-      dayjs: 1.10.7
       echarts: 5.2.2
       intro.js: 4.3.0
-      lodash-es: 4.17.21
       mockjs: 1.1.0
       nprogress: 0.2.0
       path-to-regexp: 6.2.0
@@ -200,11 +188,9 @@ importers:
       '@iconify/json': 2.0.17
       '@purge-icons/generated': 0.7.0
       '@types/codemirror': 5.60.5
-      '@types/crypto-js': 4.1.0
       '@types/inquirer': 8.1.3
       '@types/intro.js': 3.0.2
       '@types/jest': 27.0.3
-      '@types/lodash-es': 4.17.5
       '@types/mockjs': 1.0.4
       '@types/nprogress': 0.2.0
       '@types/qrcode': 1.4.2
@@ -224,7 +210,7 @@ importers:
       jest: 27.4.5_ts-node@10.4.0
       less: 4.1.2
       rollup-plugin-visualizer: 5.5.2
-      unplugin-auto-import: 0.5.5_@vueuse+core@7.4.1+vite@2.7.9
+      unplugin-auto-import: 0.5.5_vite@2.7.9
       vite: 2.7.9_less@4.1.2
       vite-plugin-compression: 0.4.0_vite@2.7.9
       vite-plugin-html: 2.1.2_vite@2.7.9
@@ -237,7 +223,7 @@ importers:
       vite-plugin-theme: 0.8.1_vite@2.7.9
       vite-plugin-vue-setup-extend: 0.3.0_vite@2.7.9
       vite-plugin-windicss: 1.6.1_vite@2.7.9
-      vitest: 0.0.118_vite@2.7.9
+      vitest: 0.0.122_vite@2.7.9
       vue-tsc: 0.30.1_typescript@4.5.4
 
   packages/tokens:
@@ -251,13 +237,26 @@ importers:
 
   packages/utils:
     specifiers:
+      '@types/crypto-js': ^4.1.0
+      '@types/lodash-es': ^4.17.5
       '@vue/runtime-core': ^3.2.26
       '@vue/shared': ^3.2.26
+      '@vueuse/core': ^7.4.1
+      '@vueuse/shared': ^7.4.1
+      crypto-js: ^4.1.1
+      dayjs: ^1.10.7
       lodash-es: ^4.17.21
     dependencies:
       '@vue/runtime-core': 3.2.26
       '@vue/shared': 3.2.26
+      '@vueuse/core': 7.4.1
+      '@vueuse/shared': 7.4.1
+      crypto-js: 4.1.1
+      dayjs: 1.10.7
       lodash-es: 4.17.21
+    devDependencies:
+      '@types/crypto-js': 4.1.0
+      '@types/lodash-es': 4.17.5
 
 packages:
   /@ant-design/colors/5.1.1:
@@ -3619,7 +3618,7 @@ packages:
       vue: 3.2.26
     dev: true
 
-  /@vueuse/core/7.4.1_vue@3.2.26:
+  /@vueuse/core/7.4.1:
     resolution:
       {
         integrity: sha512-8UeLPCAieeQLXFHF1/28SIEK6ILLPb/4hp03hR+xkXF00gB/YUp0CEVcRAL9uQ8HTZa3S2T/jTISMc1ZjilM0A==,
@@ -3633,12 +3632,11 @@ packages:
       vue:
         optional: true
     dependencies:
-      '@vueuse/shared': 7.4.1_vue@3.2.26
-      vue: 3.2.26
-      vue-demi: 0.12.1_vue@3.2.26
+      '@vueuse/shared': 7.4.1
+      vue-demi: 0.12.1
     dev: false
 
-  /@vueuse/shared/7.4.1_vue@3.2.26:
+  /@vueuse/shared/7.4.1:
     resolution:
       {
         integrity: sha512-Pzb7XoHIcgPwwBJ5Ow9lZb0HTDyaLDV3pgxKauPGTMN9qvEylG06kUG+VTjJXkPsRtiGu46di8XyFeMw2dongA==,
@@ -3652,8 +3650,7 @@ packages:
       vue:
         optional: true
     dependencies:
-      vue: 3.2.26
-      vue-demi: 0.12.1_vue@3.2.26
+      vue-demi: 0.12.1
     dev: false
 
   /@windicss/config/1.6.1:
@@ -14835,7 +14832,7 @@ packages:
     engines: { node: '>= 0.8' }
     dev: true
 
-  /unplugin-auto-import/0.5.5_@vueuse+core@7.4.1+vite@2.7.9:
+  /unplugin-auto-import/0.5.5_vite@2.7.9:
     resolution:
       {
         integrity: sha512-PAP/6WdqWtGhlQBvlVZ7qmhHbLcTYSsARtFSbY/jaUx/SaQkRT7SvronHIKEvx4bPmS+l4erQ9gQKSBBPzvUnQ==,
@@ -14849,7 +14846,6 @@ packages:
     dependencies:
       '@antfu/utils': 0.3.0
       '@rollup/pluginutils': 4.1.2
-      '@vueuse/core': 7.4.1_vue@3.2.26
       local-pkg: 0.4.0
       magic-string: 0.25.7
       resolve: 1.20.0
@@ -15276,10 +15272,10 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitest/0.0.118_vite@2.7.9:
+  /vitest/0.0.122_vite@2.7.9:
     resolution:
       {
-        integrity: sha512-2zBpowIaVAMPFB+/DkHFpt63QNXMz737dKTpLtC2t4RNUfLS4n+KKg14nFexj5VlhMf4ntSkrvDHnrE+6gFTmg==,
+        integrity: sha512-ayAY8Ue444rutcU6gXO2fTASmVSEEYGBtrGSRgnVBrBo+RlOkv0i67yUJFLyH3krtKdLbbKGk+lQ5B7kBvhX7w==,
       }
     engines: { node: '>=14.14.0' }
     hasBin: true
@@ -15470,6 +15466,22 @@ packages:
       vscode-pug-languageservice: 0.30.1
       vscode-typescript-languageservice: 0.30.1
     dev: true
+
+  /vue-demi/0.12.1:
+    resolution:
+      {
+        integrity: sha512-QL3ny+wX8c6Xm1/EZylbgzdoDolye+VpCXRhI2hug9dJTP3OUJ3lmiKN3CsVV3mOJKwFi0nsstbgob0vG7aoIw==,
+      }
+    engines: { node: '>=12' }
+    hasBin: true
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dev: false
 
   /vue-demi/0.12.1_vue@3.2.26:
     resolution:

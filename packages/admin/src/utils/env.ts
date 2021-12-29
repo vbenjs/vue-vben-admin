@@ -1,12 +1,11 @@
 import type { GlobEnvConfig } from '@vben-admin/types'
 
-import { warn } from '/@/utils/log'
+import { getAppConfigFileName, warn } from '@vben-admin/utils'
 import pkg from '../../package.json'
-import { getAppConfigFileName } from '../../config'
 
 export function getCommonStoragePrefix() {
   const { VITE_GLOB_APP_SHORT_NAME } = getAppEnvConfig()
-  return `${VITE_GLOB_APP_SHORT_NAME}__${getEnv()}`.toUpperCase()
+  return `${VITE_GLOB_APP_SHORT_NAME}__${import.meta.env.MODE}`.toUpperCase()
 }
 
 // Generate cache key according to version
@@ -43,41 +42,4 @@ export function getAppEnvConfig() {
     VITE_GLOB_API_URL_PREFIX,
     VITE_GLOB_UPLOAD_URL,
   }
-}
-
-/**
- * @description: Development mode
- */
-export const devMode = 'development'
-
-/**
- * @description: Production mode
- */
-export const prodMode = 'production'
-
-/**
- * @description: Get environment variables
- * @returns:
- * @example:
- */
-export function getEnv(): string {
-  return import.meta.env.MODE
-}
-
-/**
- * @description: Is it a development mode
- * @returns:
- * @example:
- */
-export function isDevMode(): boolean {
-  return import.meta.env.DEV
-}
-
-/**
- * @description: Is it a production mode
- * @returns:
- * @example:
- */
-export function isProdMode(): boolean {
-  return import.meta.env.PROD
 }

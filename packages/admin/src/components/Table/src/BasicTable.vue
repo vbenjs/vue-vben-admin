@@ -78,10 +78,8 @@ import { useTableFooter } from './hooks/useTableFooter'
 import { useTableForm } from './hooks/useTableForm'
 import { useDesign } from '/@/hooks/web/useDesign'
 
-import { omit } from 'lodash-es'
 import { basicProps } from './props'
-import { isFunction } from '@vben-admin/utils'
-import { warn } from '/@/utils/log'
+import { isFunction, warn, omit } from '@vben-admin/utils'
 
 export default defineComponent({
   components: {

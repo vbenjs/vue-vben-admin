@@ -1,4 +1,4 @@
-import { defHttp } from '/@/utils/http/axios'
+import { defHttp } from '/@/plugins/axios'
 import type { GetMenuListResultModel } from '@vben-admin/types/model'
 
 enum Api {

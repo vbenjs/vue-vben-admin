@@ -16,9 +16,10 @@ import {
   isFunction,
   isMap,
   isString,
+  isEqual,
+  cloneDeep,
+  formatToDate,
 } from '@vben-admin/utils'
-import { cloneDeep, isEqual } from 'lodash-es'
-import { formatToDate } from '/@/utils/dateUtil'
 import {
   ACTION_COLUMN_FLAG,
   DEFAULT_ALIGN,

@@ -1,5 +1,4 @@
-import { on } from '/@/utils/domUtils'
-import { isServer } from '@vben-admin/utils'
+import { on, isClient } from '@vben-admin/utils'
 import type {
   ComponentPublicInstance,
   DirectiveBinding,
@@ -20,7 +19,7 @@ const nodeList: FlushList = new Map()
 
 let startClick: MouseEvent
 
-if (!isServer) {
+if (isClient) {
   on(document, 'mousedown', (e: MouseEvent) => (startClick = e))
   on(document, 'mouseup', (e: MouseEvent) => {
     for (const { documentHandler } of nodeList.values()) {

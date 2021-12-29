@@ -1,4 +1,4 @@
-import { dateUtil } from '/@/utils/dateUtil'
+import { dateUtil } from '@vben-admin/utils'
 import { reactive, toRefs } from 'vue'
 import { tryOnMounted, tryOnUnmounted } from '@vueuse/core'
 

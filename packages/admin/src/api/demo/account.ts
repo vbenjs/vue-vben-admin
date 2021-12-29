@@ -1,4 +1,4 @@
-import { defHttp } from '/@/utils/http/axios'
+import { defHttp } from '/@/plugins/axios'
 import type { GetAccountInfoModel } from '@vben-admin/types/model'
 
 enum Api {

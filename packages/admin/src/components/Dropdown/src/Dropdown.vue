@@ -40,8 +40,7 @@ import { computed, PropType } from 'vue'
 import type { DropMenu } from './typing'
 import { Dropdown, Menu, Popconfirm } from 'ant-design-vue'
 import { Icon } from '/@/components/Icon'
-import { omit } from 'lodash-es'
-import { isFunction } from '@vben-admin/utils'
+import { isFunction, omit } from '@vben-admin/utils'
 
 const ADropdown = Dropdown
 const AMenu = Menu

@@ -6,7 +6,7 @@ import type { PropType } from 'vue'
 import { defineComponent } from 'vue'
 import { RoleEnum } from '@vben-admin/tokens'
 import { usePermission } from '/@/hooks/web/usePermission'
-import { getSlot } from '/@/utils/helper/tsxHelper'
+import { getSlot } from '@vben-admin/utils'
 
 export default defineComponent({
   name: 'Authority',

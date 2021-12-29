@@ -1,7 +1,7 @@
 import type { RequestUploadFileOptions } from '@vben-admin/types'
 import type { UploadApiResult } from '@vben-admin/types/model'
 
-import { defHttp } from '/@/utils/http/axios'
+import { defHttp } from '/@/plugins/axios'
 import { useGlobSetting } from '/@/hooks/setting'
 
 const { uploadUrl = '' } = useGlobSetting()

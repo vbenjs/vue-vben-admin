@@ -5,8 +5,14 @@
 import { defineComponent, ref, watch } from 'vue'
 import { useI18n } from '/@/hooks/web/useI18n'
 import { useIntervalFn } from '@vueuse/core'
-import { formatToDateTime, formatToDate, dateUtil } from '/@/utils/dateUtil'
-import { isNumber, isObject, isString } from '@vben-admin/utils'
+import {
+  formatToDateTime,
+  formatToDate,
+  dateUtil,
+  isNumber,
+  isObject,
+  isString,
+} from '@vben-admin/utils'
 import { propTypes } from '/@/utils/propTypes'
 
 const ONE_SECONDS = 1000

@@ -24,7 +24,8 @@ module.exports = {
         'revert',
         'workflow',
         'types',
+        'wip',
       ],
     ],
   },
-};
+}

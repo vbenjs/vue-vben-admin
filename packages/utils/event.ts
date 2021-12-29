@@ -1,6 +1,4 @@
-import { isClient } from '@vueuse/core'
-
-type CustomizedHTMLElement<T> = HTMLElement & T
+import { isClient } from './is'
 
 export type ResizableElement = CustomizedHTMLElement<{
   __resizeListeners__?: Array<(...args: unknown[]) => unknown>

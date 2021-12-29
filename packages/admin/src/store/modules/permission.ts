@@ -15,7 +15,7 @@ import projectSetting from '/@/settings/projectSetting'
 import { PermissionModeEnum, PageEnum } from '@vben-admin/tokens'
 import { asyncRoutes } from '/@/router/routes'
 import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic'
-import { filter } from '/@/utils/helper/treeHelper'
+import { filterTree } from '@vben-admin/utils'
 import { getMenuList } from '/@/api/sys/menu'
 import { getPermCode } from '/@/api/sys/user'
 import { useMessage } from '/@/hooks/web/useMessage'
@@ -148,17 +148,17 @@ export const usePermissionStore = defineStore({
 
       switch (permissionMode) {
         case PermissionModeEnum.ROLE:
-          routes = filter(asyncRoutes, routeFilter)
+          routes = filterTree(asyncRoutes, routeFilter)
           routes = routes.filter(routeFilter)
           // Convert multi-level routing to level 2 routing
           routes = flatMultiLevelRoutes(routes)
           break
 
         case PermissionModeEnum.ROUTE_MAPPING:
-          routes = filter(asyncRoutes, routeFilter)
+          routes = filterTree(asyncRoutes, routeFilter)
           routes = routes.filter(routeFilter)
           const menuList = transformRouteToMenu(routes, true)
-          routes = filter(routes, routeRemoveIgnoreFilter)
+          routes = filterTree(routes, routeRemoveIgnoreFilter)
           routes = routes.filter(routeRemoveIgnoreFilter)
           menuList.sort((a, b) => {
             return (a.meta?.orderNo || 0) - (b.meta?.orderNo || 0)
@@ -196,7 +196,7 @@ export const usePermissionStore = defineStore({
           this.setBackMenuList(backMenuList)
 
           // remove meta.ignoreRoute item
-          routeList = filter(routeList, routeRemoveIgnoreFilter)
+          routeList = filterTree(routeList, routeRemoveIgnoreFilter)
           routeList = routeList.filter(routeRemoveIgnoreFilter)
 
           routeList = flatMultiLevelRoutes(routeList)

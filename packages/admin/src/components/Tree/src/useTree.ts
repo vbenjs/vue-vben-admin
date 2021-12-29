@@ -2,9 +2,8 @@ import type { InsertNodeParams, KeyType, FieldNames } from './tree'
 import type { Ref, ComputedRef } from 'vue'
 import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree'
 
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep, forEachTree } from '@vben-admin/utils'
 import { unref } from 'vue'
-import { forEach } from '/@/utils/helper/treeHelper'
 
 export function useTree(
   treeDataRef: Ref<TreeDataItem[]>,
@@ -133,7 +132,7 @@ export function useTree(
     const { key: keyField, children: childrenField } = unref(getFieldNames)
     if (!childrenField || !keyField) return
 
-    forEach(treeData, (treeItem) => {
+    forEachTree(treeData, (treeItem) => {
       if (treeItem[keyField] === parentKey) {
         treeItem[childrenField] = treeItem[childrenField] || []
         treeItem[childrenField][push](node)
@@ -162,7 +161,7 @@ export function useTree(
       const { key: keyField, children: childrenField } = unref(getFieldNames)
       if (!childrenField || !keyField) return
 
-      forEach(treeData, (treeItem) => {
+      forEachTree(treeData, (treeItem) => {
         if (treeItem[keyField] === parentKey) {
           treeItem[childrenField] = treeItem[childrenField] || []
           for (let i = 0; i < list.length; i++) {

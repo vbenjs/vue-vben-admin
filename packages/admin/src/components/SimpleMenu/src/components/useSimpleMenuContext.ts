@@ -1,5 +1,5 @@
 import type { InjectionKey, Ref } from 'vue'
-import type { Emitter } from '/@/utils/mitt'
+import type { Emitter } from '@vben-admin/utils'
 import { createContext, useContext } from '/@/hooks/core/useContext'
 
 export interface SimpleRootMenuContextProps {

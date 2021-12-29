@@ -4,7 +4,6 @@ import type {
   UseDescReturnType,
 } from './typing'
 import { ref, getCurrentInstance, unref } from 'vue'
-import { isProdMode } from '/@/utils/env'
 
 export function useDescription(
   props?: Partial<DescriptionProps>,
@@ -18,7 +17,7 @@ export function useDescription(
   const loaded = ref(false)
 
   function register(instance: DescInstance) {
-    if (unref(loaded) && isProdMode()) {
+    if (unref(loaded) && import.meta.env.PROD) {
       return
     }
     desc.value = instance

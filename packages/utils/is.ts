@@ -1,6 +1,8 @@
 import { isUndefined, isNull } from 'lodash-es'
 export * from '@vue/shared'
 
+export { isClient, isWindow } from '@vueuse/core'
+
 export {
   isNull,
   isEmpty,
@@ -8,18 +10,11 @@ export {
   isBoolean,
   isEqual,
   isUndefined,
+  upperFirst,
 } from 'lodash-es'
-
-export const isServer = typeof window === 'undefined'
-
-export const isClient = !isServer
 
 export const is = (val: unknown, type: string) => {
   return toString.call(val) === `[object ${type}]`
-}
-
-export const isWindow = (val: any): val is Window => {
-  return typeof window !== 'undefined' && is(val, 'Window')
 }
 
 export const isUrl = (path: string): boolean => {

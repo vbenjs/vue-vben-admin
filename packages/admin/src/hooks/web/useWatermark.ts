@@ -6,9 +6,12 @@ import {
   shallowRef,
   unref,
 } from 'vue'
-import { useRafThrottle } from '/@/utils/domUtils'
-import { addResizeListener, removeResizeListener } from '/@/utils/event'
-import { isDefined } from '@vben-admin/utils'
+import {
+  isDefined,
+  addResizeListener,
+  removeResizeListener,
+  useRafThrottle,
+} from '@vben-admin/utils'
 
 const domSymbol = Symbol('watermark-dom')
 

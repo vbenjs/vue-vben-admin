@@ -64,9 +64,7 @@ import FormItem from './components/FormItem.vue'
 import FormAction from './components/FormAction.vue'
 
 import { dateItemType } from './helper'
-import { dateUtil } from '/@/utils/dateUtil'
-
-import { deepMerge } from '/@/utils'
+import { dateUtil, deepMerge } from '@vben-admin/utils'
 
 import { useFormValues } from './hooks/useFormValues'
 import useAdvanced from './hooks/useAdvanced'

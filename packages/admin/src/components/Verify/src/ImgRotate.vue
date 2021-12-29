@@ -3,7 +3,7 @@ import type { MoveData, DragVerifyActionType } from './typing'
 import { defineComponent, computed, unref, reactive, watch, ref } from 'vue'
 import { useTimeoutFn } from '/@/hooks/core/useTimeout'
 import BasicDragVerify from './DragVerify.vue'
-import { hackCss } from '/@/utils/domUtils'
+import { hackCss } from '@vben-admin/utils'
 import { rotateProps } from './props'
 import { useI18n } from '/@/hooks/web/useI18n'
 

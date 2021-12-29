@@ -1,7 +1,7 @@
+import type { EncryptionParams } from '@vben-admin/utils'
+
 import { cacheCipher } from '/@/settings/encryptionSetting'
-import type { EncryptionParams } from '/@/utils/cipher'
-import { AesEncryption } from '/@/utils/cipher'
-import { isNullOrUndefined } from '@vben-admin/utils'
+import { isNullOrUndefined, AesEncryption } from '@vben-admin/utils'
 
 export interface CreateStorageParams extends EncryptionParams {
   prefixKey: string

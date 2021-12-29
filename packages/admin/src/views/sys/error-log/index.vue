@@ -41,7 +41,7 @@ import { useI18n } from '/@/hooks/web/useI18n'
 import { useErrorLogStore } from '/@/store/modules/errorLog'
 import { fireErrorApi } from '/@/api/demo/error'
 import { getColumns } from './data'
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep } from '@vben-admin/utils'
 
 const rowInfo = ref<ErrorLogInfo>()
 const imgList = ref<string[]>([])

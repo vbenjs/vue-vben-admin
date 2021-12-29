@@ -12,9 +12,14 @@ import {
   watchEffect,
 } from 'vue'
 import { useTimeoutFn } from '/@/hooks/core/useTimeout'
-import { buildUUID } from '/@/utils/uuid'
-import { isFunction, isBoolean } from '@vben-admin/utils'
-import { get, cloneDeep, merge } from 'lodash-es'
+import {
+  isFunction,
+  isBoolean,
+  buildUUID,
+  cloneDeep,
+  get,
+  merge,
+} from '@vben-admin/utils'
 import { FETCH_SETTING, ROW_KEY, PAGE_SIZE } from '../const'
 
 interface ActionType {

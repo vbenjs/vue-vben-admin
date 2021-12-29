@@ -8,10 +8,8 @@ import type { PaginationProps } from '../types/pagination'
 import type { DynamicProps } from '@vben-admin/types'
 import type { FormActionType } from '/@/components/Form'
 import type { WatchStopHandle } from 'vue'
-import { getDynamicProps } from '/@/utils'
 import { ref, onUnmounted, unref, watch, toRaw } from 'vue'
-import { isProdMode } from '/@/utils/env'
-import { error } from '/@/utils/log'
+import { error, getDynamicProps } from '@vben-admin/utils'
 
 type Props = Partial<DynamicProps<BasicTableProps>>
 
@@ -32,13 +30,18 @@ export function useTable(tableProps?: Props): [
   let stopWatch: WatchStopHandle
 
   function register(instance: TableActionType, formInstance: UseTableMethod) {
-    isProdMode() &&
+    import.meta.env.PROD &&
       onUnmounted(() => {
         tableRef.value = null
         loadedRef.value = null
       })
 
-    if (unref(loadedRef) && isProdMode() && instance === unref(tableRef)) return
+    if (
+      unref(loadedRef) &&
+      import.meta.env.PROD &&
+      instance === unref(tableRef)
+    )
+      return
 
     tableRef.value = instance
     formRef.value = formInstance

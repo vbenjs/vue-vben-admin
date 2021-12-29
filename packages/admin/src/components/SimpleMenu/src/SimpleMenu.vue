@@ -37,10 +37,9 @@ import { listenerRouteChange } from '/@/logics/mitt/routeChange'
 import { propTypes } from '/@/utils/propTypes'
 import { REDIRECT_NAME } from '/@/router/constant'
 import { useRouter } from 'vue-router'
-import { isFunction, isUrl } from '@vben-admin/utils'
-import { openWindow } from '/@/utils'
-
+import { isFunction, isUrl, openWindow } from '@vben-admin/utils'
 import { useOpenKeys } from './useOpenKeys'
+
 export default defineComponent({
   name: 'SimpleMenu',
   components: {

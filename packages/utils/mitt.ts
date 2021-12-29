@@ -39,7 +39,7 @@ export interface Emitter {
  * @name mitt
  * @returns {Mitt}
  */
-export default function mitt(all?: EventHandlerMap): Emitter {
+export const mitt = (all?: EventHandlerMap): Emitter => {
   all = all || new Map()
 
   return {

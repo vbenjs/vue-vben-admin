@@ -11,8 +11,7 @@ import {
   watch,
 } from 'vue'
 import { ROW_KEY } from '../const'
-import { omit } from 'lodash-es'
-import { findNodeAll } from '/@/utils/helper/treeHelper'
+import { omit, findAllTreeNode } from '@vben-admin/utils'
 
 export function useRowSelection(
   propsRef: ComputedRef<BasicTableProps>,
@@ -74,7 +73,7 @@ export function useRowSelection(
 
   function setSelectedRowKeys(rowKeys: string[]) {
     selectedRowKeysRef.value = rowKeys
-    const allSelectedRows = findNodeAll(
+    const allSelectedRows = findAllTreeNode(
       toRaw(unref(tableData)).concat(toRaw(unref(selectedRowRef))),
       (item) => rowKeys.includes(item[unref(getRowKey) as string]),
       {

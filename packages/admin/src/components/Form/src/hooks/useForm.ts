@@ -7,9 +7,7 @@ import type {
 import type { NamePath } from 'ant-design-vue/lib/form/interface'
 import type { DynamicProps } from '@vben-admin/types'
 import { ref, onUnmounted, unref, nextTick, watch } from 'vue'
-import { isProdMode } from '/@/utils/env'
-import { error } from '/@/utils/log'
-import { getDynamicProps } from '/@/utils'
+import { error, getDynamicProps } from '@vben-admin/utils'
 
 export declare type ValidateFields = (
   nameList?: NamePath[],
@@ -33,12 +31,13 @@ export function useForm(props?: Props): UseFormReturnType {
   }
 
   function register(instance: FormActionType) {
-    isProdMode() &&
+    import.meta.env.PROD &&
       onUnmounted(() => {
         formRef.value = null
         loadedRef.value = null
       })
-    if (unref(loadedRef) && isProdMode() && instance === unref(formRef)) return
+    if (unref(loadedRef) && import.meta.env.PROD && instance === unref(formRef))
+      return
 
     formRef.value = instance
     loadedRef.value = true

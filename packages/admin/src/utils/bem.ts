@@ -32,7 +32,7 @@ function genBem(name: string, mods?: Mods): string {
  * b('text', { disabled }) // 'button__text button__text--disabled'
  * b(['disabled', 'primary']) // 'button button--disabled button--primary'
  */
-export function buildBEM(name: string) {
+function buildBEM(name: string) {
   return (el?: Mods, mods?: Mods): Mods => {
     if (el && typeof el !== 'string') {
       mods = el

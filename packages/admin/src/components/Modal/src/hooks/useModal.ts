@@ -15,10 +15,8 @@ import {
   nextTick,
   toRaw,
 } from 'vue'
-import { isProdMode } from '/@/utils/env'
-import { isEqual, isFunction } from '@vben-admin/utils'
+import { isEqual, isFunction, error } from '@vben-admin/utils'
 import { tryOnUnmounted } from '@vueuse/core'
-import { error } from '/@/utils/log'
 import { computed } from 'vue'
 
 const dataTransfer = reactive<any>({})
@@ -40,13 +38,14 @@ export function useModal(): UseModalReturnType {
       )
     }
     uid.value = uuid
-    isProdMode() &&
+    import.meta.env.PROD &&
       onUnmounted(() => {
         modal.value = null
         loaded.value = false
         dataTransfer[unref(uid)] = null
       })
-    if (unref(loaded) && isProdMode() && modalMethod === unref(modal)) return
+    if (unref(loaded) && import.meta.env.PROD && modalMethod === unref(modal))
+      return
 
     modal.value = modalMethod
     loaded.value = true
@@ -115,7 +114,7 @@ export const useModalInner = (callbackFn?: Fn): UseModalInnerReturnType => {
   }
 
   const register = (modalInstance: ModalMethods, uuid: string) => {
-    isProdMode() &&
+    import.meta.env.PROD &&
       tryOnUnmounted(() => {
         modalInstanceRef.value = null
       })

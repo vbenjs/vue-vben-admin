@@ -16,7 +16,7 @@ import {
 } from '@vben-admin/tokens'
 import { DEFAULT_CACHE_TIME } from '/@/settings/encryptionSetting'
 import { toRaw } from 'vue'
-import { pick, omit } from 'lodash-es'
+import { pick, omit } from '@vben-admin/utils'
 
 interface BasicStore {
   [TOKEN_KEY]: string | number | null | undefined

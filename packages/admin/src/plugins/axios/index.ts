@@ -5,15 +5,18 @@ import type { AxiosResponse } from 'axios'
 import type { RequestOptions, RequestResult } from '@vben-admin/types'
 import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform'
 
-import { clone } from 'lodash-es'
 import { VAxios } from './Axios'
 import { checkStatus } from './checkStatus'
 import { useGlobSetting } from '/@/hooks/setting'
 import { useMessage } from '/@/hooks/web/useMessage'
 import { RequestEnum, ResultEnum, ContentTypeEnum } from '@vben-admin/tokens'
-import { isString } from '@vben-admin/utils'
+import {
+  isString,
+  clone,
+  deepMerge,
+  setObjToUrlParams,
+} from '@vben-admin/utils'
 import { getToken } from '/@/utils/auth'
-import { setObjToUrlParams, deepMerge } from '/@/utils'
 import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog'
 import { useI18n } from '/@/hooks/web/useI18n'
 import { joinTimestamp, formatRequestDate } from './helper'

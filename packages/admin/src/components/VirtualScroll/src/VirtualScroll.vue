@@ -11,7 +11,7 @@ import {
   CSSProperties,
 } from 'vue'
 import { useEventListener } from '/@/hooks/event/useEventListener'
-import { getSlot } from '/@/utils/helper/tsxHelper'
+import { getSlot } from '@vben-admin/utils'
 
 type NumberOrNumberString = PropType<string | number | undefined>
 
@@ -116,7 +116,8 @@ export default defineComponent({
       if (!wrapEl) {
         return 0
       }
-      const height = parseInt(props.height || 0, 10) || wrapEl.clientHeight
+      const height =
+        parseInt(`${props.height}` || '0', 10) || wrapEl.clientHeight
 
       return first + Math.ceil(height / unref(getItemHeightRef))
     }

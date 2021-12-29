@@ -13,11 +13,10 @@
 </template>
 <script lang="ts">
 import type { PropType } from 'vue'
+import type { BasicColumn } from '../types/table'
 import { defineComponent, unref, computed, toRaw } from 'vue'
 import { Table } from 'ant-design-vue'
-import { cloneDeep } from 'lodash-es'
-import { isFunction } from '@vben-admin/utils'
-import type { BasicColumn } from '../types/table'
+import { isFunction, cloneDeep } from '@vben-admin/utils'
 import { INDEX_COLUMN_FLAG } from '../const'
 import { propTypes } from '/@/utils/propTypes'
 import { useTableContext } from '../hooks/useTableContext'

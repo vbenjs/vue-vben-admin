@@ -32,8 +32,7 @@ import { useGo } from '/@/hooks/web/usePage'
 import { useI18n } from '/@/hooks/web/useI18n'
 
 import { propTypes } from '/@/utils/propTypes'
-import { isString } from '@vben-admin/utils'
-import { filter } from '/@/utils/helper/treeHelper'
+import { isString, filterTree } from '@vben-admin/utils'
 import { getMenus } from '/@/router/menus'
 
 import { REDIRECT_NAME } from '/@/router/constant'
@@ -99,7 +98,7 @@ export default defineComponent({
     }
 
     function filterItem(list: RouteLocationMatched[]) {
-      return filter(list, (item) => {
+      return filterTree(list, (item) => {
         const { meta, name } = item
         if (!meta) {
           return !!name

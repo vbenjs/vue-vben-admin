@@ -73,10 +73,12 @@ import {
   isString,
   isBoolean,
   isNumber,
+  omit,
+  pick,
+  set,
 } from '@vben-admin/utils'
 import { createPlaceholderMessage } from './helper'
-import { omit, pick, set } from 'lodash-es'
-import { treeToList } from '/@/utils/helper/treeHelper'
+import { treeToList } from '@vben-admin/utils'
 import { Spin } from 'ant-design-vue'
 
 export default defineComponent({

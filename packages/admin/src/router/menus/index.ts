@@ -7,8 +7,7 @@ import {
   transformMenuModule,
   getAllParentPath,
 } from '/@/router/helper/menuHelper'
-import { filter } from '/@/utils/helper/treeHelper'
-import { isUrl } from '@vben-admin/utils'
+import { isUrl, filterTree } from '@vben-admin/utils'
 import { router } from '/@/router'
 import { PermissionModeEnum } from '@vben-admin/tokens'
 import { pathToRegexp } from 'path-to-regexp'
@@ -71,7 +70,7 @@ export const getMenus = async (): Promise<Menu[]> => {
   const menus = await getAsyncMenus()
   if (isRoleMode()) {
     const routes = router.getRoutes()
-    return filter(menus, basicFilter(routes))
+    return filterTree(menus, basicFilter(routes))
   }
   return menus
 }
@@ -105,7 +104,7 @@ export async function getChildrenMenus(parentPath: string) {
   }
   if (isRoleMode()) {
     const routes = router.getRoutes()
-    return filter(parent.children, basicFilter(routes))
+    return filterTree(parent.children, basicFilter(routes))
   }
   return parent.children
 }

@@ -6,8 +6,7 @@ import {
   LAYOUT,
   EXCEPTION_COMPONENT,
 } from '/@/router/constant'
-import { cloneDeep, omit } from 'lodash-es'
-import { warn } from '/@/utils/log'
+import { omit, warn, cloneDeep } from '@vben-admin/utils'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 export type LayoutMapKey = 'LAYOUT'
