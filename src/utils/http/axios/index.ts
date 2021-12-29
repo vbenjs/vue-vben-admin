@@ -2,6 +2,7 @@
 // The axios configuration can be changed according to the project, just change the file, other files can be left unchanged
 
 import type { AxiosResponse } from 'axios';
+import { clone } from 'lodash-es';
 import type { RequestOptions, Result } from '/#/axios';
 import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
 import { VAxios } from './Axios';
@@ -208,7 +209,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
         // 如果是form-data格式
         // headers: { 'Content-Type': ContentTypeEnum.FORM_URLENCODED },
         // 数据处理方式
-        transform,
+        transform: clone(transform),
         // 配置项，下面的选项都可以在独立的接口请求中覆盖
         requestOptions: {
           // 默认将prefix 添加到url

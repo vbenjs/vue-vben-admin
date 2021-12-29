@@ -186,5 +186,6 @@ export default {
     editCellTable: '可编辑单元格',
     editRowTable: '可编辑行',
     authColumn: '权限列',
+    resizeParentHeightTable: '继承父元素高度',
   },
 };

@@ -60,7 +60,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       proxy: createProxy(VITE_PROXY),
     },
     build: {
-      target: 'es2015',
+      minify: false,
+      // target: 'es2015',
+      // cssTarget: 'chrome86',
       outDir: OUTPUT_DIR,
       terserOptions: {
         compress: {

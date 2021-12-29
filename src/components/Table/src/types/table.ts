@@ -89,7 +89,9 @@ export interface TableActionType {
   getSelectRows: <T = Recordable>() => T[];
   clearSelectedRowKeys: () => void;
   expandAll: () => void;
+  expandRows: (keys: string[]) => void;
   collapseAll: () => void;
+  scrollTo: (pos: string) => void; // pos: id | "top" | "bottom"
   getSelectRowKeys: () => string[];
   deleteSelectRowByKey: (key: string) => void;
   setPagination: (info: Partial<PaginationProps>) => void;
@@ -191,6 +193,8 @@ export interface BasicTableProps<T = any> {
   actionColumn?: BasicColumn;
   // 文本超过宽度是否显示。。。
   ellipsis?: boolean;
+  // 是否继承父级高度（父级高度-表单高度-padding高度）
+  isCanResizeParent?: boolean;
   // 是否可以自适应高度
   canResize?: boolean;
   // 自适应高度偏移， 计算结果-偏移量

@@ -1,10 +1,10 @@
 import type { ComputedRef, Ref } from 'vue';
 import type { FormProps, FormSchema, FormActionType } from '../types/form';
 import type { NamePath } from 'ant-design-vue/lib/form/interface';
-import { unref, toRaw } from 'vue';
+import { unref, toRaw, nextTick } from 'vue';
 import { isArray, isFunction, isObject, isString } from '/@/utils/is';
 import { deepMerge } from '/@/utils';
-import { dateItemType, handleInputNumberValue } from '../helper';
+import { dateItemType, handleInputNumberValue, defaultValueComponents } from '../helper';
 import { dateUtil } from '/@/utils/dateUtil';
 import { cloneDeep, uniqBy } from 'lodash-es';
 import { error } from '/@/utils/log';
@@ -37,9 +37,12 @@ export function useFormEvents({
     if (!formEl) return;
 
     Object.keys(formModel).forEach((key) => {
-      formModel[key] = defaultValueRef.value[key];
+      const schema = unref(getSchema).find((item) => item.field === key);
+      const isInput = schema?.component && defaultValueComponents.includes(schema.component);
+      formModel[key] = isInput ? defaultValueRef.value[key] || '' : defaultValueRef.value[key];
     });
-    clearValidate();
+    nextTick(() => clearValidate());
+
     emit('reset', toRaw(formModel));
     submitOnReset && handleSubmit();
   }
