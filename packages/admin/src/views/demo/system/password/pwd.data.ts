@@ -1,4 +1,4 @@
-import { FormSchema } from '/@/components/Form';
+import { FormSchema } from '/@/components/Form'
 
 export const formSchema: FormSchema[] = [
   {
@@ -32,15 +32,15 @@ export const formSchema: FormSchema[] = [
           required: true,
           validator: (_, value) => {
             if (!value) {
-              return Promise.reject('不能为空');
+              return Promise.reject('不能为空')
             }
             if (value !== values.passwordNew) {
-              return Promise.reject('两次输入的密码不一致!');
+              return Promise.reject('两次输入的密码不一致!')
             }
-            return Promise.resolve();
+            return Promise.resolve()
           },
         },
-      ];
+      ]
     },
   },
-];
+]

@@ -1,7 +1,7 @@
-import type { AppRouteModule } from '/@/router/types';
+import type { AppRouteModule } from '/@/router/types'
 
-import { LAYOUT } from '/@/router/constant';
-import { t } from '/@/hooks/web/useI18n';
+import { LAYOUT } from '/@/router/constant'
+import { t } from '/@/hooks/web/useI18n'
 
 const system: AppRouteModule = {
   path: '/system',
@@ -73,6 +73,6 @@ const system: AppRouteModule = {
       component: () => import('/@/views/demo/system/password/index.vue'),
     },
   ],
-};
+}
 
-export default system;
+export default system

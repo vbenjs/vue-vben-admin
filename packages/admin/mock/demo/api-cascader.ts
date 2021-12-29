@@ -1,5 +1,5 @@
-import { MockMethod } from 'vite-plugin-mock';
-import { resultSuccess } from '../_util';
+import { MockMethod } from 'vite-plugin-mock'
+import { resultSuccess } from '../_util'
 
 const areaList: any[] = [
   {
@@ -308,18 +308,20 @@ const areaList: any[] = [
     customized: false,
     usable: true,
   },
-];
+]
 export default [
   {
     url: '/basic-api/cascader/getAreaRecord',
     timeout: 1000,
     method: 'post',
     response: ({ body }) => {
-      const { parentCode } = body || {};
+      const { parentCode } = body || {}
       if (!parentCode) {
-        return resultSuccess(areaList.filter((it) => it.code === '430000'));
+        return resultSuccess(areaList.filter((it) => it.code === '430000'))
       }
-      return resultSuccess(areaList.filter((it) => it.parentCode === parentCode));
+      return resultSuccess(
+        areaList.filter((it) => it.parentCode === parentCode),
+      )
     },
   },
-] as MockMethod[];
+] as MockMethod[]

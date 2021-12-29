@@ -1,4 +1,4 @@
-import { FormSchema } from '/@/components/Form';
+import { FormSchema } from '/@/components/Form'
 
 export const schemas: FormSchema[] = [
   {
@@ -95,7 +95,7 @@ export const schemas: FormSchema[] = [
     component: 'Select',
     label: ' ',
     show: ({ model }) => {
-      return model.disclosure === '2';
+      return model.disclosure === '2'
     },
     componentProps: {
       placeholder: '公开给',
@@ -116,4 +116,4 @@ export const schemas: FormSchema[] = [
       ],
     },
   },
-];
+]

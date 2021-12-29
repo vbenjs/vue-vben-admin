@@ -1,7 +1,7 @@
-import type { AppRouteModule } from '/@/router/types';
+import type { AppRouteModule } from '/@/router/types'
 
-import { getParentLayout, LAYOUT } from '/@/router/constant';
-import { t } from '/@/hooks/web/useI18n';
+import { getParentLayout, LAYOUT } from '/@/router/constant'
+import { t } from '/@/hooks/web/useI18n'
 
 const comp: AppRouteModule = {
   path: '/comp',
@@ -242,7 +242,8 @@ const comp: AppRouteModule = {
         {
           path: 'resizeParentHeightTable',
           name: 'ResizeParentHeightTable',
-          component: () => import('/@/views/demo/table/ResizeParentHeightTable.vue'),
+          component: () =>
+            import('/@/views/demo/table/ResizeParentHeightTable.vue'),
           meta: {
             title: t('routes.demo.table.resizeParentHeightTable'),
           },
@@ -348,7 +349,8 @@ const comp: AppRouteModule = {
             {
               path: 'index',
               name: 'MarkDownBasicDemo',
-              component: () => import('/@/views/demo/editor/markdown/index.vue'),
+              component: () =>
+                import('/@/views/demo/editor/markdown/index.vue'),
               meta: {
                 title: t('routes.demo.editor.tinymceBasic'),
               },
@@ -356,7 +358,8 @@ const comp: AppRouteModule = {
             {
               path: 'editor',
               name: 'MarkDownFormDemo',
-              component: () => import('/@/views/demo/editor/markdown/Editor.vue'),
+              component: () =>
+                import('/@/views/demo/editor/markdown/Editor.vue'),
               meta: {
                 title: t('routes.demo.editor.tinymceForm'),
               },
@@ -384,7 +387,8 @@ const comp: AppRouteModule = {
             {
               path: 'editor',
               name: 'TinymceFormDemo',
-              component: () => import('/@/views/demo/editor/tinymce/Editor.vue'),
+              component: () =>
+                import('/@/views/demo/editor/tinymce/Editor.vue'),
               meta: {
                 title: t('routes.demo.editor.tinymceForm'),
               },
@@ -421,7 +425,8 @@ const comp: AppRouteModule = {
         {
           path: 'virtualScroll',
           name: 'VirtualScrollDemo',
-          component: () => import('/@/views/demo/comp/scroll/VirtualScroll.vue'),
+          component: () =>
+            import('/@/views/demo/comp/scroll/VirtualScroll.vue'),
           meta: {
             title: t('routes.demo.comp.virtualScroll'),
           },
@@ -551,6 +556,6 @@ const comp: AppRouteModule = {
       },
     },
   ],
-};
+}
 
-export default comp;
+export default comp

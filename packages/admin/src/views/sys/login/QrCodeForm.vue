@@ -15,17 +15,17 @@
   </template>
 </template>
 <script lang="ts" setup>
-  import { computed, unref } from 'vue';
-  import LoginFormTitle from './LoginFormTitle.vue';
-  import { Button, Divider } from 'ant-design-vue';
-  import { QrCode } from '/@/components/Qrcode/index';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useLoginState, LoginStateEnum } from './useLogin';
+import { computed, unref } from 'vue'
+import LoginFormTitle from './LoginFormTitle.vue'
+import { Button, Divider } from 'ant-design-vue'
+import { QrCode } from '/@/components/Qrcode/index'
+import { useI18n } from '/@/hooks/web/useI18n'
+import { useLoginState, LoginStateEnum } from './useLogin'
 
-  const qrCodeUrl = 'https://vvbin.cn/next/login';
+const qrCodeUrl = 'https://vvbin.cn/next/login'
 
-  const { t } = useI18n();
-  const { handleBackLogin, getLoginState } = useLoginState();
+const { t } = useI18n()
+const { handleBackLogin, getLoginState } = useLoginState()
 
-  const getShow = computed(() => unref(getLoginState) === LoginStateEnum.QR_CODE);
+const getShow = computed(() => unref(getLoginState) === LoginStateEnum.QR_CODE)
 </script>

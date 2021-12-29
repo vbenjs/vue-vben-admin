@@ -20,52 +20,55 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { BasicForm, useForm } from '/@/components/Form';
-  import { defineComponent, ref } from 'vue';
-  import PersonTable from './PersonTable.vue';
-  import { PageWrapper } from '/@/components/Page';
-  import { schemas, taskSchemas } from './data';
-  import { Card } from 'ant-design-vue';
+import { BasicForm, useForm } from '/@/components/Form'
+import { defineComponent, ref } from 'vue'
+import PersonTable from './PersonTable.vue'
+import { PageWrapper } from '/@/components/Page'
+import { schemas, taskSchemas } from './data'
+import { Card } from 'ant-design-vue'
 
-  export default defineComponent({
-    name: 'FormHightPage',
-    components: { BasicForm, PersonTable, PageWrapper, [Card.name]: Card },
-    setup() {
-      const tableRef = ref<{ getDataSource: () => any } | null>(null);
+export default defineComponent({
+  name: 'FormHightPage',
+  components: { BasicForm, PersonTable, PageWrapper, [Card.name]: Card },
+  setup() {
+    const tableRef = ref<{ getDataSource: () => any } | null>(null)
 
-      const [register, { validate }] = useForm({
-        baseColProps: {
-          span: 6,
-        },
-        schemas: schemas,
-        showActionButtonGroup: false,
-      });
+    const [register, { validate }] = useForm({
+      baseColProps: {
+        span: 6,
+      },
+      schemas: schemas,
+      showActionButtonGroup: false,
+    })
 
-      const [registerTask, { validate: validateTaskForm }] = useForm({
-        baseColProps: {
-          span: 6,
-        },
-        schemas: taskSchemas,
-        showActionButtonGroup: false,
-      });
+    const [registerTask, { validate: validateTaskForm }] = useForm({
+      baseColProps: {
+        span: 6,
+      },
+      schemas: taskSchemas,
+      showActionButtonGroup: false,
+    })
 
-      async function submitAll() {
-        try {
-          if (tableRef.value) {
-            console.log('table data:', tableRef.value.getDataSource());
-          }
+    async function submitAll() {
+      try {
+        if (tableRef.value) {
+          console.log('table data:', tableRef.value.getDataSource())
+        }
 
-          const [values, taskValues] = await Promise.all([validate(), validateTaskForm()]);
-          console.log('form data:', values, taskValues);
-        } catch (error) {}
-      }
+        const [values, taskValues] = await Promise.all([
+          validate(),
+          validateTaskForm(),
+        ])
+        console.log('form data:', values, taskValues)
+      } catch (error) {}
+    }
 
-      return { register, registerTask, submitAll, tableRef };
-    },
-  });
+    return { register, registerTask, submitAll, tableRef }
+  },
+})
 </script>
 <style lang="less" scoped>
-  .high-form {
-    padding-bottom: 48px;
-  }
+.high-form {
+  padding-bottom: 48px;
+}
 </style>

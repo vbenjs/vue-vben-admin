@@ -8,8 +8,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "cross-env NODE_ENV=production vite build && esno ./scripts/postBuild.ts",
-    "build:test": "cross-env vite build --mode test && esno ./scripts/postBuild.ts",
+    "build": "cross-env NODE_ENV=production vite build && esno ./scripts/postbuild.ts",
+    "build:test": "cross-env vite build --mode test && esno ./scripts/postbuild.ts",
     "build:no-cache": "pnpm clean:cache && npm run build",
     "report": "cross-env REPORT=true npm run build",
     "type:check": "vue-tsc --noEmit --skipLibCheck",

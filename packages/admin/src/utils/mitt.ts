@@ -3,32 +3,35 @@
  * Expand clear method
  */
 
-export type EventType = string | symbol;
+export type EventType = string | symbol
 
 // An event handler can take an optional event argument
 // and should not return a value
-export type Handler<T = any> = (event?: T) => void;
-export type WildcardHandler = (type: EventType, event?: any) => void;
+export type Handler<T = any> = (event?: T) => void
+export type WildcardHandler = (type: EventType, event?: any) => void
 
 // An array of all currently registered event handlers for a type
-export type EventHandlerList = Array<Handler>;
-export type WildCardEventHandlerList = Array<WildcardHandler>;
+export type EventHandlerList = Array<Handler>
+export type WildCardEventHandlerList = Array<WildcardHandler>
 
 // A map of event types and their corresponding event handlers.
-export type EventHandlerMap = Map<EventType, EventHandlerList | WildCardEventHandlerList>;
+export type EventHandlerMap = Map<
+  EventType,
+  EventHandlerList | WildCardEventHandlerList
+>
 
 export interface Emitter {
-  all: EventHandlerMap;
+  all: EventHandlerMap
 
-  on<T = any>(type: EventType, handler: Handler<T>): void;
-  on(type: '*', handler: WildcardHandler): void;
+  on<T = any>(type: EventType, handler: Handler<T>): void
+  on(type: '*', handler: WildcardHandler): void
 
-  off<T = any>(type: EventType, handler: Handler<T>): void;
-  off(type: '*', handler: WildcardHandler): void;
+  off<T = any>(type: EventType, handler: Handler<T>): void
+  off(type: '*', handler: WildcardHandler): void
 
-  emit<T = any>(type: EventType, event?: T): void;
-  emit(type: '*', event?: any): void;
-  clear(): void;
+  emit<T = any>(type: EventType, event?: T): void
+  emit(type: '*', event?: any): void
+  clear(): void
 }
 
 /**
@@ -37,7 +40,7 @@ export interface Emitter {
  * @returns {Mitt}
  */
 export default function mitt(all?: EventHandlerMap): Emitter {
-  all = all || new Map();
+  all = all || new Map()
 
   return {
     /**
@@ -52,10 +55,10 @@ export default function mitt(all?: EventHandlerMap): Emitter {
      * @memberOf mitt
      */
     on<T = any>(type: EventType, handler: Handler<T>) {
-      const handlers = all?.get(type);
-      const added = handlers && handlers.push(handler);
+      const handlers = all?.get(type)
+      const added = handlers && handlers.push(handler)
       if (!added) {
-        all?.set(type, [handler]);
+        all?.set(type, [handler])
       }
     },
 
@@ -66,9 +69,9 @@ export default function mitt(all?: EventHandlerMap): Emitter {
      * @memberOf mitt
      */
     off<T = any>(type: EventType, handler: Handler<T>) {
-      const handlers = all?.get(type);
+      const handlers = all?.get(type)
       if (handlers) {
-        handlers.splice(handlers.indexOf(handler) >>> 0, 1);
+        handlers.splice(handlers.indexOf(handler) >>> 0, 1)
       }
     },
 
@@ -83,19 +86,21 @@ export default function mitt(all?: EventHandlerMap): Emitter {
      * @memberOf mitt
      */
     emit<T = any>(type: EventType, evt: T) {
-      ((all?.get(type) || []) as EventHandlerList).slice().map((handler) => {
-        handler(evt);
-      });
-      ((all?.get('*') || []) as WildCardEventHandlerList).slice().map((handler) => {
-        handler(type, evt);
-      });
+      ;((all?.get(type) || []) as EventHandlerList).slice().map((handler) => {
+        handler(evt)
+      })
+      ;((all?.get('*') || []) as WildCardEventHandlerList)
+        .slice()
+        .map((handler) => {
+          handler(type, evt)
+        })
     },
 
     /**
      * Clear all
      */
     clear() {
-      this.all.clear();
+      this.all.clear()
     },
-  };
+  }
 }

@@ -1,9 +1,9 @@
-import { Tag } from 'ant-design-vue';
-import { BasicColumn } from '/@/components/Table/index';
-import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
-import { useI18n } from '/@/hooks/web/useI18n';
+import { Tag } from 'ant-design-vue'
+import { BasicColumn } from '/@/components/Table/index'
+import { ErrorTypeEnum } from '/@/enums/exceptionEnum'
+import { useI18n } from '/@/hooks/web/useI18n'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
 export function getColumns(): BasicColumn[] {
   return [
@@ -21,8 +21,8 @@ export function getColumns(): BasicColumn[] {
             ? 'blue'
             : ErrorTypeEnum.AJAX
             ? 'red'
-            : 'purple';
-        return <Tag color={color}>{() => text}</Tag>;
+            : 'purple'
+        return <Tag color={color}>{() => text}</Tag>
       },
     },
     {
@@ -54,7 +54,7 @@ export function getColumns(): BasicColumn[] {
       dataIndex: 'stack',
       title: t('sys.errorLog.tableColumnStackMsg'),
     },
-  ];
+  ]
 }
 
 export function getDescSchema(): any {
@@ -62,6 +62,6 @@ export function getDescSchema(): any {
     return {
       field: column.dataIndex!,
       label: column.title,
-    };
-  });
+    }
+  })
 }

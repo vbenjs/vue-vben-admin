@@ -1,15 +1,15 @@
-import { DescItem } from '/@/components/Description/index';
-import { BasicColumn } from '/@/components/Table/src/types/table';
-import { Button } from '/@/components/Button';
+import { DescItem } from '/@/components/Description/index'
+import { BasicColumn } from '/@/components/Table/src/types/table'
+import { Button } from '/@/components/Button'
 
-import { Badge } from 'ant-design-vue';
+import { Badge } from 'ant-design-vue'
 
 export const refundData = {
   a1: '1000000000',
   a2: '已取货',
   a3: '1234123421',
   a4: '3214321432',
-};
+}
 
 export const personData = {
   b1: '付小小',
@@ -17,7 +17,7 @@ export const personData = {
   b3: '菜鸟仓储',
   b4: '浙江省杭州市西湖区万塘路18号',
   b5: '无',
-};
+}
 export const refundSchema: DescItem[] = [
   {
     field: 'a1',
@@ -35,7 +35,7 @@ export const refundSchema: DescItem[] = [
     field: 'a4',
     label: '子订单',
   },
-];
+]
 export const personSchema: DescItem[] = [
   {
     field: 'b1',
@@ -57,7 +57,7 @@ export const personSchema: DescItem[] = [
     field: 'b5',
     label: '备注',
   },
-];
+]
 
 export const refundTableSchema: BasicColumn[] = [
   {
@@ -69,7 +69,7 @@ export const refundTableSchema: BasicColumn[] = [
         <Button type="link" size="small">
           {() => record.t1}
         </Button>
-      );
+      )
     },
   },
   {
@@ -97,7 +97,7 @@ export const refundTableSchema: BasicColumn[] = [
     width: 150,
     dataIndex: 't6',
   },
-];
+]
 export const refundTimeTableSchema: BasicColumn[] = [
   {
     title: '时间',
@@ -114,7 +114,7 @@ export const refundTimeTableSchema: BasicColumn[] = [
     width: 150,
     dataIndex: 't3',
     customRender: ({ record }) => {
-      return <Badge status="success" text={record.t3} />;
+      return <Badge status="success" text={record.t3} />
     },
   },
   {
@@ -127,7 +127,7 @@ export const refundTimeTableSchema: BasicColumn[] = [
     width: 150,
     dataIndex: 't5',
   },
-];
+]
 
 export const refundTableData: any[] = [
   {
@@ -162,7 +162,7 @@ export const refundTableData: any[] = [
     t5: 2,
     t6: 2.0,
   },
-];
+]
 
 export const refundTimeTableData: any[] = [
   {
@@ -193,4 +193,4 @@ export const refundTimeTableData: any[] = [
     t4: '用户',
     t5: '1h',
   },
-];
+]

@@ -1,7 +1,7 @@
-import type { PropType } from 'vue';
-import { useI18n } from '/@/hooks/web/useI18n';
+import type { PropType } from 'vue'
+import { useI18n } from '/@/hooks/web/useI18n'
 
-const { t } = useI18n();
+const { t } = useI18n()
 export const basicProps = {
   value: {
     type: Boolean as PropType<boolean>,
@@ -52,7 +52,7 @@ export const basicProps = {
     type: Object as PropType<any>,
     default: {},
   },
-};
+}
 
 export const rotateProps = {
   ...basicProps,
@@ -84,4 +84,4 @@ export const rotateProps = {
     type: Number as PropType<number>,
     default: 20,
   },
-};
+}

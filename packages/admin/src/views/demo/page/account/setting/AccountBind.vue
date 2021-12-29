@@ -5,11 +5,21 @@
         <ListItem>
           <ListItemMeta>
             <template #avatar>
-              <Icon v-if="item.avatar" class="avatar" :icon="item.avatar" :color="item.color" />
+              <Icon
+                v-if="item.avatar"
+                class="avatar"
+                :icon="item.avatar"
+                :color="item.color"
+              />
             </template>
             <template #title>
               {{ item.title }}
-              <a-button type="link" size="small" v-if="item.extra" class="extra">
+              <a-button
+                type="link"
+                size="small"
+                v-if="item.extra"
+                class="extra"
+              >
                 {{ item.extra }}
               </a-button>
             </template>
@@ -23,37 +33,37 @@
   </CollapseContainer>
 </template>
 <script lang="ts">
-  import { List } from 'ant-design-vue';
-  import { defineComponent } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import Icon from '/@/components/Icon/index';
+import { List } from 'ant-design-vue'
+import { defineComponent } from 'vue'
+import { CollapseContainer } from '/@/components/Container/index'
+import Icon from '/@/components/Icon/index'
 
-  import { accountBindList } from './data';
+import { accountBindList } from './data'
 
-  export default defineComponent({
-    components: {
-      CollapseContainer,
-      List,
-      ListItem: List.Item,
-      ListItemMeta: List.Item.Meta,
-      Icon,
-    },
-    setup() {
-      return {
-        list: accountBindList,
-      };
-    },
-  });
+export default defineComponent({
+  components: {
+    CollapseContainer,
+    List,
+    ListItem: List.Item,
+    ListItemMeta: List.Item.Meta,
+    Icon,
+  },
+  setup() {
+    return {
+      list: accountBindList,
+    }
+  },
+})
 </script>
 <style lang="less" scoped>
-  .avatar {
-    font-size: 40px !important;
-  }
+.avatar {
+  font-size: 40px !important;
+}
 
-  .extra {
-    float: right;
-    margin-top: 10px;
-    margin-right: 30px;
-    cursor: pointer;
-  }
+.extra {
+  float: right;
+  margin-top: 10px;
+  margin-right: 30px;
+  cursor: pointer;
+}
 </style>

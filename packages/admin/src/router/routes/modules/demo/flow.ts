@@ -1,7 +1,7 @@
-import type { AppRouteModule } from '/@/router/types';
+import type { AppRouteModule } from '/@/router/types'
 
-import { LAYOUT } from '/@/router/constant';
-import { t } from '/@/hooks/web/useI18n';
+import { LAYOUT } from '/@/router/constant'
+import { t } from '/@/hooks/web/useI18n'
 
 const charts: AppRouteModule = {
   path: '/flow',
@@ -23,6 +23,6 @@ const charts: AppRouteModule = {
       },
     },
   ],
-};
+}
 
-export default charts;
+export default charts

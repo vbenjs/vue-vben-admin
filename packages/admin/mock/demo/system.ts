@@ -1,8 +1,8 @@
-import { MockMethod } from 'vite-plugin-mock';
-import { resultError, resultPageSuccess, resultSuccess } from '../_util';
+import { MockMethod } from 'vite-plugin-mock'
+import { resultError, resultPageSuccess, resultSuccess } from '../_util'
 
 const accountList = (() => {
-  const result: any[] = [];
+  const result: any[] = []
   for (let index = 0; index < 20; index++) {
     result.push({
       id: `${index}`,
@@ -13,13 +13,13 @@ const accountList = (() => {
       createTime: '@datetime',
       remark: '@cword(10,20)',
       'status|1': ['0', '1'],
-    });
+    })
   }
-  return result;
-})();
+  return result
+})()
 
 const roleList = (() => {
-  const result: any[] = [];
+  const result: any[] = []
   for (let index = 0; index < 4; index++) {
     result.push({
       id: index + 1,
@@ -30,13 +30,13 @@ const roleList = (() => {
       remark: '@cword(10,20)',
       menu: [['0', '1', '2'], ['0', '1'], ['0', '2'], ['2']][index],
       'status|1': ['0', '1'],
-    });
+    })
   }
-  return result;
-})();
+  return result
+})()
 
 const deptList = (() => {
-  const result: any[] = [];
+  const result: any[] = []
   for (let index = 0; index < 3; index++) {
     result.push({
       id: `${index}`,
@@ -46,7 +46,7 @@ const deptList = (() => {
       remark: '@cword(10,20)',
       'status|1': ['0', '0', '1'],
       children: (() => {
-        const children: any[] = [];
+        const children: any[] = []
         for (let j = 0; j < 4; j++) {
           children.push({
             id: `${index}-${j}`,
@@ -57,21 +57,23 @@ const deptList = (() => {
             'status|1': ['0', '1'],
             parentDept: `${index}`,
             children: undefined,
-          });
+          })
         }
-        return children;
+        return children
       })(),
-    });
+    })
   }
-  return result;
-})();
+  return result
+})()
 
 const menuList = (() => {
-  const result: any[] = [];
+  const result: any[] = []
   for (let index = 0; index < 3; index++) {
     result.push({
       id: `${index}`,
-      icon: ['ion:layers-outline', 'ion:git-compare-outline', 'ion:tv-outline'][index],
+      icon: ['ion:layers-outline', 'ion:git-compare-outline', 'ion:tv-outline'][
+        index
+      ],
       component: 'LAYOUT',
       type: '0',
       menuName: ['Dashboard', '权限管理', '功能'][index],
@@ -80,14 +82,19 @@ const menuList = (() => {
       createTime: '@datetime',
       'status|1': ['0', '0', '1'],
       children: (() => {
-        const children: any[] = [];
+        const children: any[] = []
         for (let j = 0; j < 4; j++) {
           children.push({
             id: `${index}-${j}`,
             type: '1',
             menuName: ['菜单1', '菜单2', '菜单3', '菜单4'][j],
             icon: 'ion:document',
-            permission: ['menu1:view', 'menu2:add', 'menu3:update', 'menu4:del'][index],
+            permission: [
+              'menu1:view',
+              'menu2:add',
+              'menu3:update',
+              'menu4:del',
+            ][index],
             component: [
               '/dashboard/welcome/index',
               '/dashboard/analysis/index',
@@ -99,7 +106,7 @@ const menuList = (() => {
             'status|1': ['0', '1'],
             parentMenu: `${index}`,
             children: (() => {
-              const children: any[] = [];
+              const children: any[] = []
               for (let k = 0; k < 4; k++) {
                 children.push({
                   id: `${index}-${j}-${k}`,
@@ -107,7 +114,9 @@ const menuList = (() => {
                   menuName: '按钮' + (j + 1) + '-' + (k + 1),
                   icon: '',
                   permission:
-                    ['menu1:view', 'menu2:add', 'menu3:update', 'menu4:del'][index] +
+                    ['menu1:view', 'menu2:add', 'menu3:update', 'menu4:del'][
+                      index
+                    ] +
                     ':btn' +
                     (k + 1),
                   component: [
@@ -121,18 +130,18 @@ const menuList = (() => {
                   'status|1': ['0', '1'],
                   parentMenu: `${index}-${j}`,
                   children: undefined,
-                });
+                })
               }
-              return children;
+              return children
             })(),
-          });
+          })
         }
-        return children;
+        return children
       })(),
-    });
+    })
   }
-  return result;
-})();
+  return result
+})()
 
 export default [
   {
@@ -140,8 +149,8 @@ export default [
     timeout: 100,
     method: 'get',
     response: ({ query }) => {
-      const { page = 1, pageSize = 20 } = query;
-      return resultPageSuccess(page, pageSize, accountList);
+      const { page = 1, pageSize = 20 } = query
+      return resultPageSuccess(page, pageSize, accountList)
     },
   },
   {
@@ -149,8 +158,8 @@ export default [
     timeout: 100,
     method: 'get',
     response: ({ query }) => {
-      const { page = 1, pageSize = 20 } = query;
-      return resultPageSuccess(page, pageSize, roleList);
+      const { page = 1, pageSize = 20 } = query
+      return resultPageSuccess(page, pageSize, roleList)
     },
   },
   {
@@ -158,8 +167,8 @@ export default [
     timeout: 500,
     method: 'post',
     response: ({ query }) => {
-      const { id, status } = query;
-      return resultSuccess({ id, status });
+      const { id, status } = query
+      return resultSuccess({ id, status })
     },
   },
   {
@@ -167,7 +176,7 @@ export default [
     timeout: 100,
     method: 'get',
     response: () => {
-      return resultSuccess(roleList);
+      return resultSuccess(roleList)
     },
   },
   {
@@ -175,7 +184,7 @@ export default [
     timeout: 100,
     method: 'get',
     response: () => {
-      return resultSuccess(deptList);
+      return resultSuccess(deptList)
     },
   },
   {
@@ -183,7 +192,7 @@ export default [
     timeout: 100,
     method: 'get',
     response: () => {
-      return resultSuccess(menuList);
+      return resultSuccess(menuList)
     },
   },
   {
@@ -191,12 +200,12 @@ export default [
     timeout: 500,
     method: 'post',
     response: ({ body }) => {
-      const { account } = body || {};
+      const { account } = body || {}
       if (account && account.indexOf('admin') !== -1) {
-        return resultError('该字段不能包含admin');
+        return resultError('该字段不能包含admin')
       } else {
-        return resultSuccess(`${account} can use`);
+        return resultSuccess(`${account} can use`)
       }
     },
   },
-] as MockMethod[];
+] as MockMethod[]

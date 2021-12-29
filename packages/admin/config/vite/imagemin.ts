@@ -2,7 +2,7 @@
  * Image resource files used to compress the output of the production environment
  * @see https://github.com/anncwb/vite-plugin-imagemin
  */
-import viteImagemin from 'vite-plugin-imagemin';
+import viteImagemin from 'vite-plugin-imagemin'
 
 export function configImageminPlugin() {
   const plugin = viteImagemin({
@@ -31,6 +31,6 @@ export function configImageminPlugin() {
         },
       ],
     },
-  });
-  return plugin;
+  })
+  return plugin
 }

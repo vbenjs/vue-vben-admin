@@ -1,16 +1,16 @@
 /**
  * Used to parse the .env.development proxy configuration
  */
-import type { ProxyOptions } from 'vite';
+import type { ProxyOptions } from 'vite'
 
 /**
  * Configure according to the proxy list
  * @param proxyList
  */
 export function configProxy(proxyList: [string, string][] = []) {
-  const proxy: Record<string, ProxyOptions> = {};
+  const proxy: Record<string, ProxyOptions> = {}
   for (const [prefix, target] of proxyList) {
-    const isHttps = /^https:\/\//.test(target);
+    const isHttps = /^https:\/\//.test(target)
     // https://github.com/http-party/node-http-proxy#options
     proxy[prefix] = {
       target: target,
@@ -19,7 +19,7 @@ export function configProxy(proxyList: [string, string][] = []) {
       rewrite: (path) => path.replace(new RegExp(`^${prefix}`), ''),
       // https is require secure=false
       ...(isHttps ? { secure: false } : {}),
-    };
+    }
   }
-  return proxy;
+  return proxy
 }

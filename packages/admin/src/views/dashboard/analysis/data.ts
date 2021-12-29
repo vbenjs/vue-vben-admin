@@ -1,10 +1,10 @@
 export interface GrowCardItem {
-  icon: string;
-  title: string;
-  value: number;
-  total: number;
-  color: string;
-  action: string;
+  icon: string
+  title: string
+  value: number
+  total: number
+  color: string
+  action: string
 }
 
 export const growCardList: GrowCardItem[] = [
@@ -40,4 +40,4 @@ export const growCardList: GrowCardItem[] = [
     color: 'purple',
     action: '年',
   },
-];
+]

@@ -26,7 +26,13 @@
           allowClear
         />
 
-        <a-button type="primary" block class="mt-4" :disabled="!getIsOpen" @click="handlerSend">
+        <a-button
+          type="primary"
+          block
+          class="mt-4"
+          :disabled="!getIsOpen"
+          @click="handlerSend"
+        >
           发送
         </a-button>
       </div>
@@ -53,75 +59,75 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, watchEffect, computed, toRefs } from 'vue';
-  import { Tag, Input } from 'ant-design-vue';
-  import { PageWrapper } from '/@/components/Page';
-  import { useWebSocket } from '@vueuse/core';
-  import { formatToDateTime } from '/@/utils/dateUtil';
+import { defineComponent, reactive, watchEffect, computed, toRefs } from 'vue'
+import { Tag, Input } from 'ant-design-vue'
+import { PageWrapper } from '/@/components/Page'
+import { useWebSocket } from '@vueuse/core'
+import { formatToDateTime } from '/@/utils/dateUtil'
 
-  export default defineComponent({
-    components: {
-      PageWrapper,
-      [Input.name]: Input,
-      InputTextArea: Input.TextArea,
-      Tag,
-    },
-    setup() {
-      const state = reactive({
-        server: 'ws://localhost:3300/test',
-        sendValue: '',
-        recordList: [] as { id: number; time: number; res: string }[],
-      });
+export default defineComponent({
+  components: {
+    PageWrapper,
+    [Input.name]: Input,
+    InputTextArea: Input.TextArea,
+    Tag,
+  },
+  setup() {
+    const state = reactive({
+      server: 'ws://localhost:3300/test',
+      sendValue: '',
+      recordList: [] as { id: number; time: number; res: string }[],
+    })
 
-      const { status, data, send, close, open } = useWebSocket(state.server, {
-        autoReconnect: false,
-        heartbeat: true,
-      });
+    const { status, data, send, close, open } = useWebSocket(state.server, {
+      autoReconnect: false,
+      heartbeat: true,
+    })
 
-      watchEffect(() => {
-        if (data.value) {
-          try {
-            const res = JSON.parse(data.value);
-            state.recordList.push(res);
-          } catch (error) {
-            state.recordList.push({
-              res: data.value,
-              id: Math.ceil(Math.random() * 1000),
-              time: new Date().getTime(),
-            });
-          }
-        }
-      });
-
-      const getIsOpen = computed(() => status.value === 'OPEN');
-      const getTagColor = computed(() => (getIsOpen.value ? 'success' : 'red'));
-
-      const getList = computed(() => {
-        return [...state.recordList].reverse();
-      });
-
-      function handlerSend() {
-        send(state.sendValue);
-        state.sendValue = '';
-      }
-
-      function toggle() {
-        if (getIsOpen.value) {
-          close();
-        } else {
-          open();
+    watchEffect(() => {
+      if (data.value) {
+        try {
+          const res = JSON.parse(data.value)
+          state.recordList.push(res)
+        } catch (error) {
+          state.recordList.push({
+            res: data.value,
+            id: Math.ceil(Math.random() * 1000),
+            time: new Date().getTime(),
+          })
         }
       }
-      return {
-        status,
-        formatToDateTime,
-        ...toRefs(state),
-        handlerSend,
-        getList,
-        toggle,
-        getIsOpen,
-        getTagColor,
-      };
-    },
-  });
+    })
+
+    const getIsOpen = computed(() => status.value === 'OPEN')
+    const getTagColor = computed(() => (getIsOpen.value ? 'success' : 'red'))
+
+    const getList = computed(() => {
+      return [...state.recordList].reverse()
+    })
+
+    function handlerSend() {
+      send(state.sendValue)
+      state.sendValue = ''
+    }
+
+    function toggle() {
+      if (getIsOpen.value) {
+        close()
+      } else {
+        open()
+      }
+    }
+    return {
+      status,
+      formatToDateTime,
+      ...toRefs(state),
+      handlerSend,
+      getList,
+      toggle,
+      getIsOpen,
+      getTagColor,
+    }
+  },
+})
 </script>

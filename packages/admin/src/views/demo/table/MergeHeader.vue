@@ -4,24 +4,24 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicTable, useTable } from '/@/components/Table';
-  import { getMergeHeaderColumns } from './tableData';
+import { defineComponent } from 'vue'
+import { BasicTable, useTable } from '/@/components/Table'
+import { getMergeHeaderColumns } from './tableData'
 
-  import { demoListApi } from '/@/api/demo/table';
+import { demoListApi } from '/@/api/demo/table'
 
-  export default defineComponent({
-    components: { BasicTable },
-    setup() {
-      const [registerTable] = useTable({
-        title: '多级表头示例',
-        api: demoListApi,
-        columns: getMergeHeaderColumns(),
-      });
+export default defineComponent({
+  components: { BasicTable },
+  setup() {
+    const [registerTable] = useTable({
+      title: '多级表头示例',
+      api: demoListApi,
+      columns: getMergeHeaderColumns(),
+    })
 
-      return {
-        registerTable,
-      };
-    },
-  });
+    return {
+      registerTable,
+    }
+  },
+})
 </script>

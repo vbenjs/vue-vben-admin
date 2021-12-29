@@ -4,10 +4,10 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { PageWrapper } from '/@/components/Page';
+import { defineComponent } from 'vue'
+import { PageWrapper } from '/@/components/Page'
 
-  export default defineComponent({
-    components: { PageWrapper },
-  });
+export default defineComponent({
+  components: { PageWrapper },
+})
 </script>

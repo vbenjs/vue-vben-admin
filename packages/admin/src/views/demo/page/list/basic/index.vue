@@ -23,7 +23,12 @@
           <a-list-item class="list">
             <a-list-item-meta>
               <template #avatar>
-                <Icon class="icon" v-if="item.icon" :icon="item.icon" :color="item.color" />
+                <Icon
+                  class="icon"
+                  v-if="item.icon"
+                  :icon="item.icon"
+                  :color="item.color"
+                />
               </template>
               <template #title>
                 <span>{{ item.title }}</span>
@@ -51,111 +56,111 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { Progress, Row, Col } from 'ant-design-vue';
-  import { defineComponent } from 'vue';
-  import Icon from '/@/components/Icon/index';
-  import { cardList } from './data';
-  import { PageWrapper } from '/@/components/Page';
-  import { List } from 'ant-design-vue';
+import { Progress, Row, Col } from 'ant-design-vue'
+import { defineComponent } from 'vue'
+import Icon from '/@/components/Icon/index'
+import { cardList } from './data'
+import { PageWrapper } from '/@/components/Page'
+import { List } from 'ant-design-vue'
 
-  export default defineComponent({
-    components: {
-      Icon,
-      Progress,
-      PageWrapper,
-      [List.name]: List,
-      [List.Item.name]: List.Item,
-      AListItemMeta: List.Item.Meta,
-      [Row.name]: Row,
-      [Col.name]: Col,
-    },
-    setup() {
-      return {
-        prefixCls: 'list-basic',
-        list: cardList,
-        pagination: {
-          show: true,
-          pageSize: 3,
-        },
-      };
-    },
-  });
+export default defineComponent({
+  components: {
+    Icon,
+    Progress,
+    PageWrapper,
+    [List.name]: List,
+    [List.Item.name]: List.Item,
+    AListItemMeta: List.Item.Meta,
+    [Row.name]: Row,
+    [Col.name]: Col,
+  },
+  setup() {
+    return {
+      prefixCls: 'list-basic',
+      list: cardList,
+      pagination: {
+        show: true,
+        pageSize: 3,
+      },
+    }
+  },
+})
 </script>
 <style lang="less" scoped>
-  .list-basic {
-    &__top {
-      padding: 24px;
-      text-align: center;
-      background-color: @component-background;
+.list-basic {
+  &__top {
+    padding: 24px;
+    text-align: center;
+    background-color: @component-background;
 
-      &-col {
-        &:not(:last-child) {
-          border-right: 1px dashed @border-color-base;
-        }
-
-        div {
-          margin-bottom: 12px;
-          font-size: 14px;
-          line-height: 22px;
-          color: @text-color;
-        }
-
-        p {
-          margin: 0;
-          font-size: 24px;
-          line-height: 32px;
-          color: @text-color;
-        }
-      }
-    }
-
-    &__content {
-      padding: 24px;
-      margin-top: 12px;
-      background-color: @component-background;
-
-      .list {
-        position: relative;
+    &-col {
+      &:not(:last-child) {
+        border-right: 1px dashed @border-color-base;
       }
 
-      .icon {
-        font-size: 40px !important;
+      div {
+        margin-bottom: 12px;
+        font-size: 14px;
+        line-height: 22px;
+        color: @text-color;
       }
 
-      .extra {
-        position: absolute;
-        top: 20px;
-        right: 15px;
-        font-weight: normal;
-        color: @primary-color;
-        cursor: pointer;
-      }
-
-      .description {
-        display: inline-block;
-        width: 40%;
-      }
-
-      .info {
-        display: inline-block;
-        width: 30%;
-        text-align: center;
-
-        div {
-          display: inline-block;
-          padding: 0 20px;
-
-          span {
-            display: block;
-          }
-        }
-      }
-
-      .progress {
-        display: inline-block;
-        width: 15%;
-        vertical-align: top;
+      p {
+        margin: 0;
+        font-size: 24px;
+        line-height: 32px;
+        color: @text-color;
       }
     }
   }
+
+  &__content {
+    padding: 24px;
+    margin-top: 12px;
+    background-color: @component-background;
+
+    .list {
+      position: relative;
+    }
+
+    .icon {
+      font-size: 40px !important;
+    }
+
+    .extra {
+      position: absolute;
+      top: 20px;
+      right: 15px;
+      font-weight: normal;
+      color: @primary-color;
+      cursor: pointer;
+    }
+
+    .description {
+      display: inline-block;
+      width: 40%;
+    }
+
+    .info {
+      display: inline-block;
+      width: 30%;
+      text-align: center;
+
+      div {
+        display: inline-block;
+        padding: 0 20px;
+
+        span {
+          display: block;
+        }
+      }
+    }
+
+    .progress {
+      display: inline-block;
+      width: 15%;
+      vertical-align: top;
+    }
+  }
+}
 </style>

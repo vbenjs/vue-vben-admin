@@ -15,7 +15,9 @@
       <Descriptions title="项目名称">
         <DescriptionItem label="项目 ID"> 111222 </DescriptionItem>
         <DescriptionItem label="负责人"> Vben </DescriptionItem>
-        <DescriptionItem label="生效时间"> 2016-12-12 ~ 2017-12-12 </DescriptionItem>
+        <DescriptionItem label="生效时间">
+          2016-12-12 ~ 2017-12-12
+        </DescriptionItem>
       </Descriptions>
       <Steps :current="1" progress-dot size="small">
         <Step title="创建项目">
@@ -36,26 +38,26 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { Result, Steps, Descriptions } from 'ant-design-vue';
-  export default defineComponent({
-    components: {
-      Result,
-      Steps,
-      Step: Steps.Step,
-      Descriptions,
-      DescriptionItem: Descriptions.Item,
-    },
-  });
+import { defineComponent } from 'vue'
+import { Result, Steps, Descriptions } from 'ant-design-vue'
+export default defineComponent({
+  components: {
+    Result,
+    Steps,
+    Step: Steps.Step,
+    Descriptions,
+    DescriptionItem: Descriptions.Item,
+  },
+})
 </script>
 <style lang="less" scoped>
-  .result-success {
-    padding: 48px 32px;
-    background-color: @component-background;
+.result-success {
+  padding: 48px 32px;
+  background-color: @component-background;
 
-    &__content {
-      padding: 24px 40px;
-      background-color: @background-color-light;
-    }
+  &__content {
+    padding: 24px 40px;
+    background-color: @background-color-light;
   }
+}
 </style>

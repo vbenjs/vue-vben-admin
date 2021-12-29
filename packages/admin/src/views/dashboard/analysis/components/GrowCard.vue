@@ -13,7 +13,12 @@
         </template>
 
         <div class="py-4 px-4 flex justify-between items-center">
-          <CountTo prefix="$" :startVal="1" :endVal="item.value" class="text-2xl" />
+          <CountTo
+            prefix="$"
+            :startVal="1"
+            :endVal="item.value"
+            class="text-2xl"
+          />
           <Icon :icon="item.icon" :size="40" />
         </div>
 
@@ -26,14 +31,14 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { CountTo } from '/@/components/CountTo/index';
-  import { Icon } from '/@/components/Icon';
-  import { Tag, Card } from 'ant-design-vue';
-  import { growCardList } from '../data';
+import { CountTo } from '/@/components/CountTo/index'
+import { Icon } from '/@/components/Icon'
+import { Tag, Card } from 'ant-design-vue'
+import { growCardList } from '../data'
 
-  defineProps({
-    loading: {
-      type: Boolean,
-    },
-  });
+defineProps({
+  loading: {
+    type: Boolean,
+  },
+})
 </script>

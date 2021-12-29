@@ -1,6 +1,6 @@
-import { getAllRoleList, isAccountExist } from '/@/api/demo/system';
-import { BasicColumn } from '/@/components/Table';
-import { FormSchema } from '/@/components/Table';
+import { getAllRoleList, isAccountExist } from '/@/api/demo/system'
+import { BasicColumn } from '/@/components/Table'
+import { FormSchema } from '/@/components/Table'
 
 export const columns: BasicColumn[] = [
   {
@@ -32,7 +32,7 @@ export const columns: BasicColumn[] = [
     title: '备注',
     dataIndex: 'remark',
   },
-];
+]
 
 export const searchFormSchema: FormSchema[] = [
   {
@@ -47,7 +47,7 @@ export const searchFormSchema: FormSchema[] = [
     component: 'Input',
     colProps: { span: 8 },
   },
-];
+]
 
 export const accountFormSchema: FormSchema[] = [
   {
@@ -66,9 +66,9 @@ export const accountFormSchema: FormSchema[] = [
             isAccountExist(value)
               .then(() => resolve())
               .catch((err) => {
-                reject(err.message || '验证失败');
-              });
-          });
+                reject(err.message || '验证失败')
+              })
+          })
         },
       },
     ],
@@ -124,4 +124,4 @@ export const accountFormSchema: FormSchema[] = [
     field: 'remark',
     component: 'InputTextArea',
   },
-];
+]

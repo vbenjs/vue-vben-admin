@@ -7,7 +7,12 @@
   >
     <CurrentPermissionMode />
 
-    <Alert class="mt-4" type="info" message="点击后请查看左侧菜单变化" show-icon />
+    <Alert
+      class="mt-4"
+      type="info"
+      message="点击后请查看左侧菜单变化"
+      show-icon
+    />
 
     <div class="mt-4">
       权限切换(请先切换权限模式为后台权限模式):
@@ -23,48 +28,49 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, computed } from 'vue';
-  import { RoleEnum } from '/@/enums/roleEnum';
-  import { usePermission } from '/@/hooks/web/usePermission';
-  import { useUserStore } from '/@/store/modules/user';
-  import { PageWrapper } from '/@/components/Page';
-  import { PermissionModeEnum } from '/@/enums/appEnum';
-  import { useAppStore } from '/@/store/modules/app';
-  import { Alert, Space } from 'ant-design-vue';
-  import CurrentPermissionMode from '../CurrentPermissionMode.vue';
+import { defineComponent, computed } from 'vue'
+import { RoleEnum } from '/@/enums/roleEnum'
+import { usePermission } from '/@/hooks/web/usePermission'
+import { useUserStore } from '/@/store/modules/user'
+import { PageWrapper } from '/@/components/Page'
+import { PermissionModeEnum } from '/@/enums/appEnum'
+import { useAppStore } from '/@/store/modules/app'
+import { Alert, Space } from 'ant-design-vue'
+import CurrentPermissionMode from '../CurrentPermissionMode.vue'
 
-  export default defineComponent({
-    components: { Space, Alert, CurrentPermissionMode, PageWrapper },
-    setup() {
-      const { refreshMenu } = usePermission();
-      const userStore = useUserStore();
-      const appStore = useAppStore();
+export default defineComponent({
+  components: { Space, Alert, CurrentPermissionMode, PageWrapper },
+  setup() {
+    const { refreshMenu } = usePermission()
+    const userStore = useUserStore()
+    const appStore = useAppStore()
 
-      const isBackPremissionMode = computed(
-        () => appStore.getProjectConfig.permissionMode === PermissionModeEnum.BACK,
-      );
+    const isBackPremissionMode = computed(
+      () =>
+        appStore.getProjectConfig.permissionMode === PermissionModeEnum.BACK,
+    )
 
-      async function switchToken(userId: number) {
-        // 本函数切换用户登录Token的部分仅用于演示，实际生产时切换身份应当重新登录
-        const token = 'fakeToken' + userId;
-        userStore.setToken(token);
+    async function switchToken(userId: number) {
+      // 本函数切换用户登录Token的部分仅用于演示，实际生产时切换身份应当重新登录
+      const token = 'fakeToken' + userId
+      userStore.setToken(token)
 
-        // 重新获取用户信息和菜单
-        userStore.getUserInfoAction();
-        refreshMenu();
-      }
+      // 重新获取用户信息和菜单
+      userStore.getUserInfoAction()
+      refreshMenu()
+    }
 
-      return {
-        RoleEnum,
-        refreshMenu,
-        switchToken,
-        isBackPremissionMode,
-      };
-    },
-  });
+    return {
+      RoleEnum,
+      refreshMenu,
+      switchToken,
+      isBackPremissionMode,
+    }
+  },
+})
 </script>
 <style lang="less" scoped>
-  .demo {
-    background-color: @component-background;
-  }
+.demo {
+  background-color: @component-background;
+}
 </style>

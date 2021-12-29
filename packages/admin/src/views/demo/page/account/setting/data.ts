@@ -1,12 +1,12 @@
-import { FormSchema } from '/@/components/Form/index';
+import { FormSchema } from '/@/components/Form/index'
 
 export interface ListItem {
-  key: string;
-  title: string;
-  description: string;
-  extra?: string;
-  avatar?: string;
-  color?: string;
+  key: string
+  title: string
+  description: string
+  extra?: string
+  avatar?: string
+  color?: string
 }
 
 // tab的list
@@ -31,7 +31,7 @@ export const settingList = [
     name: '新消息通知',
     component: 'MsgNotify',
   },
-];
+]
 
 // 基础设置 form
 export const baseSetschemas: FormSchema[] = [
@@ -65,7 +65,7 @@ export const baseSetschemas: FormSchema[] = [
     label: '所在地区',
     colProps: { span: 18 },
   },
-];
+]
 
 // 安全设置 list
 export const secureSettingList: ListItem[] = [
@@ -99,7 +99,7 @@ export const secureSettingList: ListItem[] = [
     description: '未绑定 MFA 设备，绑定后，可以进行二次确认',
     extra: '修改',
   },
-];
+]
 
 // 账号绑定 list
 export const accountBindList: ListItem[] = [
@@ -127,7 +127,7 @@ export const accountBindList: ListItem[] = [
     avatar: 'ri:dingding-fill',
     color: '#2eabff',
   },
-];
+]
 
 // 新消息通知 list
 export const msgNotifyList: ListItem[] = [
@@ -146,4 +146,4 @@ export const msgNotifyList: ListItem[] = [
     title: '待办任务',
     description: '待办任务将以站内信的形式通知',
   },
-];
+]

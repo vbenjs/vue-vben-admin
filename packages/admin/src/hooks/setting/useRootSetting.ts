@@ -1,70 +1,90 @@
-import type { ProjectConfig } from '/#/config';
+import type { ProjectConfig } from '/#/config'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { useAppStore } from '/@/store/modules/app';
-import { ContentEnum, ThemeEnum } from '/@/enums/appEnum';
+import { useAppStore } from '/@/store/modules/app'
+import { ContentEnum, ThemeEnum } from '/@/enums/appEnum'
 
 type RootSetting = Omit<
   ProjectConfig,
   'locale' | 'headerSetting' | 'menuSetting' | 'multiTabsSetting'
->;
+>
 
 export function useRootSetting() {
-  const appStore = useAppStore();
+  const appStore = useAppStore()
 
-  const getPageLoading = computed(() => appStore.getPageLoading);
+  const getPageLoading = computed(() => appStore.getPageLoading)
 
-  const getOpenKeepAlive = computed(() => appStore.getProjectConfig.openKeepAlive);
+  const getOpenKeepAlive = computed(
+    () => appStore.getProjectConfig.openKeepAlive,
+  )
 
-  const getSettingButtonPosition = computed(() => appStore.getProjectConfig.settingButtonPosition);
+  const getSettingButtonPosition = computed(
+    () => appStore.getProjectConfig.settingButtonPosition,
+  )
 
-  const getCanEmbedIFramePage = computed(() => appStore.getProjectConfig.canEmbedIFramePage);
+  const getCanEmbedIFramePage = computed(
+    () => appStore.getProjectConfig.canEmbedIFramePage,
+  )
 
-  const getPermissionMode = computed(() => appStore.getProjectConfig.permissionMode);
+  const getPermissionMode = computed(
+    () => appStore.getProjectConfig.permissionMode,
+  )
 
-  const getShowLogo = computed(() => appStore.getProjectConfig.showLogo);
+  const getShowLogo = computed(() => appStore.getProjectConfig.showLogo)
 
-  const getContentMode = computed(() => appStore.getProjectConfig.contentMode);
+  const getContentMode = computed(() => appStore.getProjectConfig.contentMode)
 
-  const getUseOpenBackTop = computed(() => appStore.getProjectConfig.useOpenBackTop);
+  const getUseOpenBackTop = computed(
+    () => appStore.getProjectConfig.useOpenBackTop,
+  )
 
-  const getShowSettingButton = computed(() => appStore.getProjectConfig.showSettingButton);
+  const getShowSettingButton = computed(
+    () => appStore.getProjectConfig.showSettingButton,
+  )
 
-  const getUseErrorHandle = computed(() => appStore.getProjectConfig.useErrorHandle);
+  const getUseErrorHandle = computed(
+    () => appStore.getProjectConfig.useErrorHandle,
+  )
 
-  const getShowFooter = computed(() => appStore.getProjectConfig.showFooter);
+  const getShowFooter = computed(() => appStore.getProjectConfig.showFooter)
 
-  const getShowBreadCrumb = computed(() => appStore.getProjectConfig.showBreadCrumb);
+  const getShowBreadCrumb = computed(
+    () => appStore.getProjectConfig.showBreadCrumb,
+  )
 
-  const getThemeColor = computed(() => appStore.getProjectConfig.themeColor);
+  const getThemeColor = computed(() => appStore.getProjectConfig.themeColor)
 
-  const getShowBreadCrumbIcon = computed(() => appStore.getProjectConfig.showBreadCrumbIcon);
+  const getShowBreadCrumbIcon = computed(
+    () => appStore.getProjectConfig.showBreadCrumbIcon,
+  )
 
-  const getFullContent = computed(() => appStore.getProjectConfig.fullContent);
+  const getFullContent = computed(() => appStore.getProjectConfig.fullContent)
 
-  const getColorWeak = computed(() => appStore.getProjectConfig.colorWeak);
+  const getColorWeak = computed(() => appStore.getProjectConfig.colorWeak)
 
-  const getGrayMode = computed(() => appStore.getProjectConfig.grayMode);
+  const getGrayMode = computed(() => appStore.getProjectConfig.grayMode)
 
-  const getLockTime = computed(() => appStore.getProjectConfig.lockTime);
+  const getLockTime = computed(() => appStore.getProjectConfig.lockTime)
 
-  const getShowDarkModeToggle = computed(() => appStore.getProjectConfig.showDarkModeToggle);
+  const getShowDarkModeToggle = computed(
+    () => appStore.getProjectConfig.showDarkModeToggle,
+  )
 
-  const getDarkMode = computed(() => appStore.getDarkMode);
+  const getDarkMode = computed(() => appStore.getDarkMode)
 
   const getLayoutContentMode = computed(() =>
     appStore.getProjectConfig.contentMode === ContentEnum.FULL
       ? ContentEnum.FULL
       : ContentEnum.FIXED,
-  );
+  )
 
   function setRootSetting(setting: Partial<RootSetting>) {
-    appStore.setProjectConfig(setting);
+    appStore.setProjectConfig(setting)
   }
 
   function setDarkMode(mode: ThemeEnum) {
-    appStore.setDarkMode(mode);
+    appStore.setDarkMode(mode)
   }
   return {
     setRootSetting,
@@ -91,5 +111,5 @@ export function useRootSetting() {
     getDarkMode,
     setDarkMode,
     getShowDarkModeToggle,
-  };
+  }
 }

@@ -18,15 +18,15 @@
   </Card>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { Card } from 'ant-design-vue';
-  import { Icon } from '/@/components/Icon';
-  import { groupItems } from './data';
+import { defineComponent } from 'vue'
+import { Card } from 'ant-design-vue'
+import { Icon } from '/@/components/Icon'
+import { groupItems } from './data'
 
-  export default defineComponent({
-    components: { Card, CardGrid: Card.Grid, Icon },
-    setup() {
-      return { items: groupItems };
-    },
-  });
+export default defineComponent({
+  components: { Card, CardGrid: Card.Grid, Icon },
+  setup() {
+    return { items: groupItems }
+  },
+})
 </script>

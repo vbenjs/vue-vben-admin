@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite-plugin-windicss';
+import { defineConfig } from 'vite-plugin-windicss'
 
 export default defineConfig({
   darkMode: 'class',
@@ -14,7 +14,7 @@ export default defineConfig({
       },
     },
   },
-});
+})
 
 /**
  * Used for animation when the element is displayed.
@@ -22,7 +22,7 @@ export default defineConfig({
  */
 function createEnterPlugin(maxOutput = 5) {
   const createCss = (index: number, d = 'x') => {
-    const upd = d.toUpperCase();
+    const upd = d.toUpperCase()
     return {
       [`*> .enter-${d}:nth-child(${index})`]: {
         transform: `translate${upd}(50px)`,
@@ -30,22 +30,23 @@ function createEnterPlugin(maxOutput = 5) {
       [`*> .-enter-${d}:nth-child(${index})`]: {
         transform: `translate${upd}(-50px)`,
       },
-      [`* > .enter-${d}:nth-child(${index}),* > .-enter-${d}:nth-child(${index})`]: {
-        'z-index': `${10 - index}`,
-        opacity: '0',
-        animation: `enter-${d}-animation 0.4s ease-in-out 0.3s`,
-        'animation-fill-mode': 'forwards',
-        'animation-delay': `${(index * 1) / 10}s`,
-      },
-    };
-  };
+      [`* > .enter-${d}:nth-child(${index}),* > .-enter-${d}:nth-child(${index})`]:
+        {
+          'z-index': `${10 - index}`,
+          opacity: '0',
+          animation: `enter-${d}-animation 0.4s ease-in-out 0.3s`,
+          'animation-fill-mode': 'forwards',
+          'animation-delay': `${(index * 1) / 10}s`,
+        },
+    }
+  }
   const handler = ({ addBase }) => {
-    const addRawCss = {};
+    const addRawCss = {}
     for (let index = 1; index < maxOutput; index++) {
       Object.assign(addRawCss, {
         ...createCss(index, 'x'),
         ...createCss(index, 'y'),
-      });
+      })
     }
     addBase({
       ...addRawCss,
@@ -61,7 +62,7 @@ function createEnterPlugin(maxOutput = 5) {
           transform: 'translateY(0)',
         },
       },
-    });
-  };
-  return { handler };
+    })
+  }
+  return { handler }
 }

@@ -2,7 +2,7 @@
  * Package file volume analysis
  * @see https://github.com/btd/rollup-plugin-visualizer
  */
-import visualizer from 'rollup-plugin-visualizer';
+import visualizer from 'rollup-plugin-visualizer'
 
 export function configVisualizerConfig() {
   if (process.env.REPORT === 'true') {
@@ -11,7 +11,7 @@ export function configVisualizerConfig() {
       open: true,
       gzipSize: true,
       brotliSize: true,
-    });
+    })
   }
-  return [];
+  return []
 }

@@ -13,14 +13,14 @@
   </head>
   <body>
     <script>
-      (() => {
-        var htmlRoot = document.getElementById('htmlRoot');
-        var theme = window.localStorage.getItem('__APP__DARK__MODE__');
+      ;(() => {
+        var htmlRoot = document.getElementById('htmlRoot')
+        var theme = window.localStorage.getItem('__APP__DARK__MODE__')
         if (htmlRoot && theme) {
-          htmlRoot.setAttribute('data-theme', theme);
-          theme = htmlRoot = null;
+          htmlRoot.setAttribute('data-theme', theme)
+          theme = htmlRoot = null
         }
-      })();
+      })()
     </script>
     <div id="app">
       <style>
@@ -150,7 +150,11 @@
       </style>
       <div class="app-loading">
         <div class="app-loading-wrap">
-          <img src="/resources/img/logo.png" class="app-loading-logo" alt="Logo" />
+          <img
+            src="/resources/img/logo.png"
+            class="app-loading-logo"
+            alt="Logo"
+          />
           <div class="app-loading-dots">
             <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
           </div>

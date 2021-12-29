@@ -1,5 +1,5 @@
-import type { PropType } from 'vue';
-import { FileBasicColumn } from './typing';
+import type { PropType } from 'vue'
+import { FileBasicColumn } from './typing'
 
 export const basicProps = {
   helpText: {
@@ -42,7 +42,7 @@ export const basicProps = {
     type: String as PropType<string>,
     default: null,
   },
-};
+}
 
 export const uploadContainerProps = {
   value: {
@@ -58,14 +58,14 @@ export const uploadContainerProps = {
     type: Boolean as PropType<boolean>,
     default: false,
   },
-};
+}
 
 export const previewProps = {
   value: {
     type: Array as PropType<string[]>,
     default: () => [],
   },
-};
+}
 
 export const fileListProps = {
   columns: {
@@ -80,4 +80,4 @@ export const fileListProps = {
     type: Array as PropType<any[]>,
     default: null,
   },
-};
+}

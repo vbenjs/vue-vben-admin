@@ -11,7 +11,11 @@
         />
       </Col>
       <Col :span="8">
-        <BasicTree title="右键菜单" :treeData="treeData" :beforeRightClick="getRightMenuList" />
+        <BasicTree
+          title="右键菜单"
+          :treeData="treeData"
+          :beforeRightClick="getRightMenuList"
+        />
       </Col>
       <Col :span="8">
         <BasicTree
@@ -24,7 +28,11 @@
         />
       </Col>
       <Col :span="8">
-        <BasicTree title="没有fieldNames，插槽有效" helpMessage="正确的示例" :treeData="treeData3">
+        <BasicTree
+          title="没有fieldNames，插槽有效"
+          helpMessage="正确的示例"
+          :treeData="treeData3"
+        >
           <template #title="item"> 插槽：{{ item.name }} </template>
         </BasicTree>
       </Col>
@@ -51,70 +59,81 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, h } from 'vue';
-  import { Row, Col } from 'ant-design-vue';
-  import { BasicTree, TreeActionItem, ContextMenuItem } from '/@/components/Tree/index';
-  import { treeData, treeData2, treeData3 } from './data';
-  import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue';
-  import { PageWrapper } from '/@/components/Page';
+import { defineComponent, h } from 'vue'
+import { Row, Col } from 'ant-design-vue'
+import {
+  BasicTree,
+  TreeActionItem,
+  ContextMenuItem,
+} from '/@/components/Tree/index'
+import { treeData, treeData2, treeData3 } from './data'
+import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue'
+import { PageWrapper } from '/@/components/Page'
 
-  export default defineComponent({
-    components: { BasicTree, PageWrapper, Row, Col },
-    setup() {
-      function handlePlus(node: any) {
-        console.log(node);
-      }
+export default defineComponent({
+  components: { BasicTree, PageWrapper, Row, Col },
+  setup() {
+    function handlePlus(node: any) {
+      console.log(node)
+    }
 
-      function getRightMenuList(node: any): ContextMenuItem[] {
-        return [
-          {
-            label: '新增',
-            handler: () => {
-              console.log('点击了新增', node);
-            },
-            icon: 'bi:plus',
-          },
-          {
-            label: '删除',
-            handler: () => {
-              console.log('点击了删除', node);
-            },
-            icon: 'bx:bxs-folder-open',
-          },
-        ];
-      }
-      const actionList: TreeActionItem[] = [
+    function getRightMenuList(node: any): ContextMenuItem[] {
+      return [
         {
-          // show:()=>boolean;
-          render: (node) => {
-            return h(PlusOutlined, {
-              class: 'ml-2',
-              onClick: () => {
-                handlePlus(node);
-              },
-            });
+          label: '新增',
+          handler: () => {
+            console.log('点击了新增', node)
           },
+          icon: 'bi:plus',
         },
         {
-          render: () => {
-            return h(DeleteOutlined);
+          label: '删除',
+          handler: () => {
+            console.log('点击了删除', node)
           },
+          icon: 'bx:bxs-folder-open',
         },
-      ];
+      ]
+    }
+    const actionList: TreeActionItem[] = [
+      {
+        // show:()=>boolean;
+        render: (node) => {
+          return h(PlusOutlined, {
+            class: 'ml-2',
+            onClick: () => {
+              handlePlus(node)
+            },
+          })
+        },
+      },
+      {
+        render: () => {
+          return h(DeleteOutlined)
+        },
+      },
+    ]
 
-      function createIcon({ level }) {
-        if (level === 1) {
-          return 'ion:git-compare-outline';
-        }
-        if (level === 2) {
-          return 'ion:home';
-        }
-        if (level === 3) {
-          return 'ion:airplane';
-        }
-        return '';
+    function createIcon({ level }) {
+      if (level === 1) {
+        return 'ion:git-compare-outline'
       }
-      return { treeData, treeData2, treeData3, actionList, getRightMenuList, createIcon };
-    },
-  });
+      if (level === 2) {
+        return 'ion:home'
+      }
+      if (level === 3) {
+        return 'ion:airplane'
+      }
+      return ''
+    }
+    return {
+      treeData,
+      treeData2,
+      treeData3,
+      actionList,
+      getRightMenuList,
+      createIcon,
+    }
+  },
+})
 </script>

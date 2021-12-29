@@ -1,8 +1,8 @@
-import type { AppRouteModule } from '/@/router/types';
+import type { AppRouteModule } from '/@/router/types'
 
-import { getParentLayout, LAYOUT } from '/@/router/constant';
-import { RoleEnum } from '/@/enums/roleEnum';
-import { t } from '/@/hooks/web/useI18n';
+import { getParentLayout, LAYOUT } from '/@/router/constant'
+import { RoleEnum } from '/@/enums/roleEnum'
+import { t } from '/@/hooks/web/useI18n'
 
 const permission: AppRouteModule = {
   path: '/permission',
@@ -43,7 +43,8 @@ const permission: AppRouteModule = {
         {
           path: 'auth-pageA',
           name: 'FrontAuthPageA',
-          component: () => import('/@/views/demo/permission/front/AuthPageA.vue'),
+          component: () =>
+            import('/@/views/demo/permission/front/AuthPageA.vue'),
           meta: {
             title: t('routes.demo.permission.frontTestA'),
             roles: [RoleEnum.SUPER],
@@ -52,7 +53,8 @@ const permission: AppRouteModule = {
         {
           path: 'auth-pageB',
           name: 'FrontAuthPageB',
-          component: () => import('/@/views/demo/permission/front/AuthPageB.vue'),
+          component: () =>
+            import('/@/views/demo/permission/front/AuthPageB.vue'),
           meta: {
             title: t('routes.demo.permission.frontTestB'),
             roles: [RoleEnum.TEST],
@@ -87,6 +89,6 @@ const permission: AppRouteModule = {
       ],
     },
   ],
-};
+}
 
-export default permission;
+export default permission

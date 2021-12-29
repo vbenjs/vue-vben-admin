@@ -1,31 +1,31 @@
-import type { PaginationProps } from '../types/pagination';
-import type { BasicTableProps } from '../types/table';
-import { computed, unref, ref, ComputedRef, watch } from 'vue';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue';
-import { isBoolean } from '/@/utils/is';
-import { PAGE_SIZE, PAGE_SIZE_OPTIONS } from '../const';
-import { useI18n } from '/@/hooks/web/useI18n';
+import type { PaginationProps } from '../types/pagination'
+import type { BasicTableProps } from '../types/table'
+import { computed, unref, ref, ComputedRef, watch } from 'vue'
+import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue'
+import { isBoolean } from '/@/utils/is'
+import { PAGE_SIZE, PAGE_SIZE_OPTIONS } from '../const'
+import { useI18n } from '/@/hooks/web/useI18n'
 
 interface ItemRender {
-  page: number;
-  type: 'page' | 'prev' | 'next';
-  originalElement: any;
+  page: number
+  type: 'page' | 'prev' | 'next'
+  originalElement: any
 }
 
 function itemRender({ page, type, originalElement }: ItemRender) {
   if (type === 'prev') {
-    return page === 0 ? null : <LeftOutlined />;
+    return page === 0 ? null : <LeftOutlined />
   } else if (type === 'next') {
-    return page === 1 ? null : <RightOutlined />;
+    return page === 1 ? null : <RightOutlined />
   }
-  return originalElement;
+  return originalElement
 }
 
 export function usePagination(refProps: ComputedRef<BasicTableProps>) {
-  const { t } = useI18n();
+  const { t } = useI18n()
 
-  const configRef = ref<PaginationProps>({});
-  const show = ref(true);
+  const configRef = ref<PaginationProps>({})
+  const show = ref(true)
 
   watch(
     () => unref(refProps).pagination,
@@ -34,16 +34,16 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
         configRef.value = {
           ...unref(configRef),
           ...(pagination ?? {}),
-        };
+        }
       }
     },
-  );
+  )
 
   const getPaginationInfo = computed((): PaginationProps | boolean => {
-    const { pagination } = unref(refProps);
+    const { pagination } = unref(refProps)
 
     if (!unref(show) || (isBoolean(pagination) && !pagination)) {
-      return false;
+      return false
     }
 
     return {
@@ -58,28 +58,34 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
       showQuickJumper: true,
       ...(isBoolean(pagination) ? {} : pagination),
       ...unref(configRef),
-    };
-  });
+    }
+  })
 
   function setPagination(info: Partial<PaginationProps>) {
-    const paginationInfo = unref(getPaginationInfo);
+    const paginationInfo = unref(getPaginationInfo)
     configRef.value = {
       ...(!isBoolean(paginationInfo) ? paginationInfo : {}),
       ...info,
-    };
+    }
   }
 
   function getPagination() {
-    return unref(getPaginationInfo);
+    return unref(getPaginationInfo)
   }
 
   function getShowPagination() {
-    return unref(show);
+    return unref(show)
   }
 
   async function setShowPagination(flag: boolean) {
-    show.value = flag;
+    show.value = flag
   }
 
-  return { getPagination, getPaginationInfo, setShowPagination, getShowPagination, setPagination };
+  return {
+    getPagination,
+    getPaginationInfo,
+    setShowPagination,
+    getShowPagination,
+    setPagination,
+  }
 }

@@ -1,6 +1,6 @@
-import { BasicColumn } from '/@/components/Table/src/types/table';
+import { BasicColumn } from '/@/components/Table/src/types/table'
 
-import { Badge } from 'ant-design-vue';
+import { Badge } from 'ant-design-vue'
 
 export const refundTimeTableSchema: BasicColumn[] = [
   {
@@ -18,7 +18,7 @@ export const refundTimeTableSchema: BasicColumn[] = [
     width: 150,
     dataIndex: 't3',
     customRender: ({ record }) => {
-      return <Badge status="success" text={record.t3} />;
+      return <Badge status="success" text={record.t3} />
     },
   },
   {
@@ -31,7 +31,7 @@ export const refundTimeTableSchema: BasicColumn[] = [
     width: 150,
     dataIndex: 't5',
   },
-];
+]
 
 export const refundTimeTableData: any[] = [
   {
@@ -62,4 +62,4 @@ export const refundTimeTableData: any[] = [
     t4: '用户',
     t5: '1h',
   },
-];
+]

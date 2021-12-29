@@ -18,57 +18,57 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicTitle } from '/@/components/Basic';
-  import { ArrowLeftOutlined } from '@ant-design/icons-vue';
+import { defineComponent } from 'vue'
+import { BasicTitle } from '/@/components/Basic'
+import { ArrowLeftOutlined } from '@ant-design/icons-vue'
 
-  import { useDesign } from '/@/hooks/web/useDesign';
+import { useDesign } from '/@/hooks/web/useDesign'
 
-  import { propTypes } from '/@/utils/propTypes';
-  export default defineComponent({
-    name: 'BasicDrawerHeader',
-    components: { BasicTitle, ArrowLeftOutlined },
-    props: {
-      isDetail: propTypes.bool,
-      showDetailBack: propTypes.bool,
-      title: propTypes.string,
-    },
-    emits: ['close'],
-    setup(_, { emit }) {
-      const { prefixCls } = useDesign('basic-drawer-header');
+import { propTypes } from '/@/utils/propTypes'
+export default defineComponent({
+  name: 'BasicDrawerHeader',
+  components: { BasicTitle, ArrowLeftOutlined },
+  props: {
+    isDetail: propTypes.bool,
+    showDetailBack: propTypes.bool,
+    title: propTypes.string,
+  },
+  emits: ['close'],
+  setup(_, { emit }) {
+    const { prefixCls } = useDesign('basic-drawer-header')
 
-      function handleClose() {
-        emit('close');
-      }
+    function handleClose() {
+      emit('close')
+    }
 
-      return { prefixCls, handleClose };
-    },
-  });
+    return { prefixCls, handleClose }
+  },
+})
 </script>
 
 <style lang="less">
-  @prefix-cls: ~'@{namespace}-basic-drawer-header';
-  @footer-height: 60px;
-  .@{prefix-cls} {
-    display: flex;
-    height: 100%;
-    align-items: center;
+@prefix-cls: ~'@{namespace}-basic-drawer-header';
+@footer-height: 60px;
+.@{prefix-cls} {
+  display: flex;
+  height: 100%;
+  align-items: center;
 
-    &__back {
-      padding: 0 12px;
-      cursor: pointer;
+  &__back {
+    padding: 0 12px;
+    cursor: pointer;
 
-      &:hover {
-        color: @primary-color;
-      }
-    }
-
-    &__twrap {
-      flex: 1;
-    }
-
-    &__toolbar {
-      padding-right: 50px;
+    &:hover {
+      color: @primary-color;
     }
   }
+
+  &__twrap {
+    flex: 1;
+  }
+
+  &__toolbar {
+    padding-right: 50px;
+  }
+}
 </style>

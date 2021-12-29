@@ -1,10 +1,10 @@
-import type { AppRouteModule } from '/@/router/types';
+import type { AppRouteModule } from '/@/router/types'
 
-import { getParentLayout, LAYOUT } from '/@/router/constant';
-import { ExceptionEnum } from '/@/enums/exceptionEnum';
-import { t } from '/@/hooks/web/useI18n';
+import { getParentLayout, LAYOUT } from '/@/router/constant'
+import { ExceptionEnum } from '/@/enums/exceptionEnum'
+import { t } from '/@/hooks/web/useI18n'
 
-const ExceptionPage = () => import('/@/views/sys/exception/Exception.vue');
+const ExceptionPage = () => import('/@/views/sys/exception/Exception.vue')
 
 const page: AppRouteModule = {
   path: '/page-demo',
@@ -98,7 +98,8 @@ const page: AppRouteModule = {
         {
           path: 'success',
           name: 'ResultSuccessPage',
-          component: () => import('/@/views/demo/page/result/success/index.vue'),
+          component: () =>
+            import('/@/views/demo/page/result/success/index.vue'),
           meta: {
             title: t('routes.demo.page.resultSuccess'),
           },
@@ -128,7 +129,8 @@ const page: AppRouteModule = {
         {
           path: 'center',
           name: 'AccountCenterPage',
-          component: () => import('/@/views/demo/page/account/center/index.vue'),
+          component: () =>
+            import('/@/views/demo/page/account/center/index.vue'),
           meta: {
             title: t('routes.demo.page.accountCenter'),
           },
@@ -136,7 +138,8 @@ const page: AppRouteModule = {
         {
           path: 'setting',
           name: 'AccountSettingPage',
-          component: () => import('/@/views/demo/page/account/setting/index.vue'),
+          component: () =>
+            import('/@/views/demo/page/account/setting/index.vue'),
           meta: {
             title: t('routes.demo.page.accountSetting'),
           },
@@ -250,6 +253,6 @@ const page: AppRouteModule = {
     },
     // =============================list end=============================
   ],
-};
+}
 
-export default page;
+export default page

@@ -1,10 +1,10 @@
-import { renderQrCode } from './drawCanvas';
-import { drawLogo } from './drawLogo';
-import { RenderQrCodeParams } from './typing';
+import { renderQrCode } from './drawCanvas'
+import { drawLogo } from './drawLogo'
+import { RenderQrCodeParams } from './typing'
 export const toCanvas = (options: RenderQrCodeParams) => {
   return renderQrCode(options)
     .then(() => {
-      return options;
+      return options
     })
-    .then(drawLogo) as Promise<string>;
-};
+    .then(drawLogo) as Promise<string>
+}

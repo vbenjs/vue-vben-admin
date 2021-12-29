@@ -4,29 +4,14 @@
  * For LGPL see License.txt in the project root for license information.
  * For commercial licenses see https://www.tiny.cloud/
  */
-.tinymce-mobile-unfocused-selections .tinymce-mobile-unfocused-selection {
-  position: absolute;
-  display: inline-block;
-  background-color: green;
-  opacity: 0.5;
-}
+.tinymce-mobile-unfocused-selections .tinymce-mobile-unfocused-selection{position: absolute;display: inline-block;background-color: green;opacity: .5;}
 
-body {
-  -webkit-text-size-adjust: none;
-}
+body{-webkit-text-size-adjust: none;}
 
-body img {
-  max-width: 96vw;
-}
+body img{max-width: 96vw;}
 
-body table img {
-  max-width: 95%;
-}
+body table img{max-width: 95%;}
 
-body {
-  font-family: sans-serif;
-}
+body{font-family: sans-serif;}
 
-table {
-  border-collapse: collapse;
-}
+table{border-collapse: collapse;}

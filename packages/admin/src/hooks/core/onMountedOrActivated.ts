@@ -1,18 +1,18 @@
-import { nextTick, onMounted, onActivated } from 'vue';
+import { nextTick, onMounted, onActivated } from 'vue'
 
 export function onMountedOrActivated(hook: Fn) {
-  let mounted: boolean;
+  let mounted: boolean
 
   onMounted(() => {
-    hook();
+    hook()
     nextTick(() => {
-      mounted = true;
-    });
-  });
+      mounted = true
+    })
+  })
 
   onActivated(() => {
     if (mounted) {
-      hook();
+      hook()
     }
-  });
+  })
 }

@@ -7,8 +7,8 @@ node_modules
 .vscode
 .idea
 dist
-/public
-/docs
+public
+docs
 .husky
 .local
 /bin

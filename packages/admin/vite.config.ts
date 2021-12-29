@@ -1,22 +1,22 @@
-import type { UserConfig, ConfigEnv } from 'vite';
+import type { UserConfig, ConfigEnv } from 'vite'
 
-import pkg from './package.json';
-import dayjs from 'dayjs';
-import { loadEnv } from 'vite';
-import { resolve } from 'path';
-import { OUTPUT_DIR, wrapperEnv } from './config';
-import { configProxy, configVitePlugins } from './config/vite';
-import { generateModifyVars } from './config/modifyVars';
+import pkg from './package.json'
+import dayjs from 'dayjs'
+import { loadEnv } from 'vite'
+import { resolve } from 'path'
+import { OUTPUT_DIR, wrapperEnv } from './config'
+import { configProxy, configVitePlugins } from './config/vite'
+import { generateModifyVars } from './config/modifyVars'
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
-  const { dependencies, devDependencies, name, version } = pkg;
-  const root = process.cwd();
-  const env = loadEnv(mode, root);
+  const { dependencies, devDependencies, name, version } = pkg
+  const root = process.cwd()
+  const env = loadEnv(mode, root)
 
   // The boolean type read by loadEnv is a string. This function can be converted to boolean type
-  const viteEnv = wrapperEnv(env);
+  const viteEnv = wrapperEnv(env)
 
-  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE } = viteEnv;
+  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE } = viteEnv
 
   return {
     root,
@@ -63,7 +63,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
             ],
             antdv: ['ant-design-vue', '@ant-design/icons-vue'],
             echarts: ['echarts'],
-            logicflow: ['@logicflow/core', '@logicflow/extension'],
           },
         },
       },
@@ -105,5 +104,5 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         inline: ['@vue', '@vueuse', 'vue-demi'],
       },
     },
-  };
-};
+  }
+}

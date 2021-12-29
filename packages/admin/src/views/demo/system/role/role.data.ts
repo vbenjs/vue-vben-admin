@@ -1,9 +1,9 @@
-import { BasicColumn } from '/@/components/Table';
-import { FormSchema } from '/@/components/Table';
-import { h } from 'vue';
-import { Switch } from 'ant-design-vue';
-import { setRoleStatus } from '/@/api/demo/system';
-import { useMessage } from '/@/hooks/web/useMessage';
+import { BasicColumn } from '/@/components/Table'
+import { FormSchema } from '/@/components/Table'
+import { h } from 'vue'
+import { Switch } from 'ant-design-vue'
+import { setRoleStatus } from '/@/api/demo/system'
+import { useMessage } from '/@/hooks/web/useMessage'
 
 export const columns: BasicColumn[] = [
   {
@@ -27,7 +27,7 @@ export const columns: BasicColumn[] = [
     width: 120,
     customRender: ({ record }) => {
       if (!Reflect.has(record, 'pendingStatus')) {
-        record.pendingStatus = false;
+        record.pendingStatus = false
       }
       return h(Switch, {
         checked: record.status === '1',
@@ -35,22 +35,22 @@ export const columns: BasicColumn[] = [
         unCheckedChildren: '已禁用',
         loading: record.pendingStatus,
         onChange(checked: boolean) {
-          record.pendingStatus = true;
-          const newStatus = checked ? '1' : '0';
-          const { createMessage } = useMessage();
+          record.pendingStatus = true
+          const newStatus = checked ? '1' : '0'
+          const { createMessage } = useMessage()
           setRoleStatus(record.id, newStatus)
             .then(() => {
-              record.status = newStatus;
-              createMessage.success(`已成功修改角色状态`);
+              record.status = newStatus
+              createMessage.success(`已成功修改角色状态`)
             })
             .catch(() => {
-              createMessage.error('修改角色状态失败');
+              createMessage.error('修改角色状态失败')
             })
             .finally(() => {
-              record.pendingStatus = false;
-            });
+              record.pendingStatus = false
+            })
         },
-      });
+      })
     },
   },
   {
@@ -62,7 +62,7 @@ export const columns: BasicColumn[] = [
     title: '备注',
     dataIndex: 'remark',
   },
-];
+]
 
 export const searchFormSchema: FormSchema[] = [
   {
@@ -83,7 +83,7 @@ export const searchFormSchema: FormSchema[] = [
     },
     colProps: { span: 8 },
   },
-];
+]
 
 export const formSchema: FormSchema[] = [
   {
@@ -121,4 +121,4 @@ export const formSchema: FormSchema[] = [
     slot: 'menu',
     component: 'Input',
   },
-];
+]

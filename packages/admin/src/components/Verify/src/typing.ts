@@ -1,14 +1,14 @@
 export interface DragVerifyActionType {
-  resume: () => void;
+  resume: () => void
 }
 
 export interface PassingData {
-  isPassing: boolean;
-  time: number;
+  isPassing: boolean
+  time: number
 }
 
 export interface MoveData {
-  event: MouseEvent | TouchEvent;
-  moveDistance: number;
-  moveX: number;
+  event: MouseEvent | TouchEvent
+  moveDistance: number
+  moveX: number
 }

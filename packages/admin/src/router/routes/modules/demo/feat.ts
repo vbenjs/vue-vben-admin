@@ -1,7 +1,7 @@
-import type { AppRouteModule } from '/@/router/types';
+import type { AppRouteModule } from '/@/router/types'
 
-import { getParentLayout, LAYOUT } from '/@/router/constant';
-import { t } from '/@/hooks/web/useI18n';
+import { getParentLayout, LAYOUT } from '/@/router/constant'
+import { t } from '/@/hooks/web/useI18n'
 
 const feat: AppRouteModule = {
   path: '/feat',
@@ -91,7 +91,8 @@ const feat: AppRouteModule = {
         {
           path: 'flatDetail',
           name: 'BreadcrumbFlatDetailDemo',
-          component: () => import('/@/views/demo/feat/breadcrumb/FlatListDetail.vue'),
+          component: () =>
+            import('/@/views/demo/feat/breadcrumb/FlatListDetail.vue'),
           meta: {
             title: t('routes.demo.feat.breadcrumbFlatDetail'),
             hideMenu: true,
@@ -102,7 +103,8 @@ const feat: AppRouteModule = {
         {
           path: 'children',
           name: 'BreadcrumbChildrenDemo',
-          component: () => import('/@/views/demo/feat/breadcrumb/ChildrenList.vue'),
+          component: () =>
+            import('/@/views/demo/feat/breadcrumb/ChildrenList.vue'),
           meta: {
             title: t('routes.demo.feat.breadcrumbChildren'),
           },
@@ -110,7 +112,8 @@ const feat: AppRouteModule = {
             {
               path: 'childrenDetail',
               name: 'BreadcrumbChildrenDetailDemo',
-              component: () => import('/@/views/demo/feat/breadcrumb/ChildrenListDetail.vue'),
+              component: () =>
+                import('/@/views/demo/feat/breadcrumb/ChildrenListDetail.vue'),
               meta: {
                 currentActiveMenu: '/feat/breadcrumb/children',
                 title: t('routes.demo.feat.breadcrumbChildrenDetail'),
@@ -310,6 +313,6 @@ const feat: AppRouteModule = {
       ],
     },
   ],
-};
+}
 
-export default feat;
+export default feat

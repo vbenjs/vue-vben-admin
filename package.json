@@ -17,7 +17,7 @@
     "clean:dist": "rimraf dist",
     "clean:lib": "rimraf node_modules",
     "lint:eslint": "eslint --cache --max-warnings 0  \"packages/**/*.{vue,ts,tsx}\" --fix",
-    "lint:prettier": "prettier --write  \"packages/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
+    "lint:prettier": "prettier --write  \"packages/**/*.{js,json,ts,tsx,css,less,scss,vue,html,md}\"",
     "lint:stylelint": "stylelint --fix \"**/*.{vue,less,postcss,css,scss}\"",
     "reinstall": "rimraf pnpm-lock.yaml && rimraf package.lock.json && rimraf yarn.lock && npm run clean:all && npm run bootstrap",
     "prepare": "husky install"

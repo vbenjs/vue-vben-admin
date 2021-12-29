@@ -188,4 +188,4 @@ export default {
     authColumn: '权限列',
     resizeParentHeightTable: '继承父元素高度',
   },
-};
+}

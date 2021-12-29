@@ -1,65 +1,69 @@
-import { VNode, defineComponent } from 'vue';
-import type { LoadingProps } from './typing';
+import { VNode, defineComponent } from 'vue'
+import type { LoadingProps } from './typing'
 
-import { createVNode, render, reactive, h } from 'vue';
-import Loading from './Loading.vue';
+import { createVNode, render, reactive, h } from 'vue'
+import Loading from './Loading.vue'
 
-export function createLoading(props?: Partial<LoadingProps>, target?: HTMLElement, wait = false) {
-  let vm: Nullable<VNode> = null;
+export function createLoading(
+  props?: Partial<LoadingProps>,
+  target?: HTMLElement,
+  wait = false,
+) {
+  let vm: Nullable<VNode> = null
   const data = reactive({
     tip: '',
     loading: true,
     ...props,
-  });
+  })
 
   const LoadingWrap = defineComponent({
     render() {
-      return h(Loading, { ...data });
+      return h(Loading, { ...data })
     },
-  });
+  })
 
-  vm = createVNode(LoadingWrap);
+  vm = createVNode(LoadingWrap)
 
   if (wait) {
     // TODO fix https://github.com/anncwb/vue-vben-admin/issues/438
     setTimeout(() => {
-      render(vm, document.createElement('div'));
-    }, 0);
+      render(vm, document.createElement('div'))
+    }, 0)
   } else {
-    render(vm, document.createElement('div'));
+    render(vm, document.createElement('div'))
   }
 
   function close() {
     if (vm?.el && vm.el.parentNode) {
-      vm.el.parentNode.removeChild(vm.el);
+      vm.el.parentNode.removeChild(vm.el)
     }
   }
 
   function open(target: HTMLElement = document.body) {
     if (!vm || !vm.el) {
-      return;
+      return
     }
-    target.appendChild(vm.el as HTMLElement);
+    target.appendChild(vm.el as HTMLElement)
   }
 
   if (target) {
-    open(target);
+    open(target)
   }
   return {
     vm,
     close,
     open,
     setTip: (tip: string) => {
-      data.tip = tip;
+      data.tip = tip
     },
     setLoading: (loading: boolean) => {
-      data.loading = loading;
+      data.loading = loading
     },
     get loading() {
-      return data.loading;
+      return data.loading
     },
     get $el() {
-      return vm?.el as HTMLElement;
+      return vm?.el as HTMLElement
     },
-  };
+  }
 }

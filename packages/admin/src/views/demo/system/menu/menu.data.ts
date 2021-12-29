@@ -1,8 +1,8 @@
-import { BasicColumn } from '/@/components/Table';
-import { FormSchema } from '/@/components/Table';
-import { h } from 'vue';
-import { Tag } from 'ant-design-vue';
-import { Icon } from '/@/components/Icon';
+import { BasicColumn } from '/@/components/Table'
+import { FormSchema } from '/@/components/Table'
+import { h } from 'vue'
+import { Tag } from 'ant-design-vue'
+import { Icon } from '/@/components/Icon'
 
 export const columns: BasicColumn[] = [
   {
@@ -16,7 +16,7 @@ export const columns: BasicColumn[] = [
     dataIndex: 'icon',
     width: 50,
     customRender: ({ record }) => {
-      return h(Icon, { icon: record.icon });
+      return h(Icon, { icon: record.icon })
     },
   },
   {
@@ -38,11 +38,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'status',
     width: 80,
     customRender: ({ record }) => {
-      const status = record.status;
-      const enable = ~~status === 0;
-      const color = enable ? 'green' : 'red';
-      const text = enable ? '启用' : '停用';
-      return h(Tag, { color: color }, () => text);
+      const status = record.status
+      const enable = ~~status === 0
+      const color = enable ? 'green' : 'red'
+      const text = enable ? '启用' : '停用'
+      return h(Tag, { color: color }, () => text)
     },
   },
   {
@@ -50,11 +50,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'createTime',
     width: 180,
   },
-];
+]
 
-const isDir = (type: string) => type === '0';
-const isMenu = (type: string) => type === '1';
-const isButton = (type: string) => type === '2';
+const isDir = (type: string) => type === '0'
+const isMenu = (type: string) => type === '1'
+const isButton = (type: string) => type === '2'
 
 export const searchFormSchema: FormSchema[] = [
   {
@@ -75,7 +75,7 @@ export const searchFormSchema: FormSchema[] = [
     },
     colProps: { span: 8 },
   },
-];
+]
 
 export const formSchema: FormSchema[] = [
   {
@@ -199,4 +199,4 @@ export const formSchema: FormSchema[] = [
     },
     ifShow: ({ values }) => !isButton(values.type),
   },
-];
+]

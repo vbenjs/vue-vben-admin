@@ -54,7 +54,11 @@
             "@@oºƋÄdeVDJj£J|ÅdzÂFt~KŨ¸IÆv|¢r}èonb}`RÎÄn°ÒdÞ²^®lnÐèĄlðÓ×]ªÆ}LiĂ±Ö`^°Ç¶p®đDcŋ`ZÔ¶êqvFÆN®ĆTH®¦O¾IbÐã´BĐɢŴÆíȦpĐÞXR·nndO¤OÀĈƒ­QgµFo|gȒęSWb©osx|hYhgŃfmÖĩnºTÌSp¢dYĤ¶UĈjlǐpäìë|³kÛfw²Xjz~ÂqbTÑěŨ@|oMzv¢ZrÃVw¬ŧĖ¸f°ÐTªqs{S¯r æÝlNd®²Ğ ǆiGĘJ¼lr}~K¨ŸƐÌWöÆzR¤lêmĞLÎ@¡|q]SvKÑcwpÏÏĿćènĪWlĄkT}J¤~ÈTdpddʾĬBVtEÀ¢ôPĎƗè@~kü\\rÊĔÖæW_§¼F´©òDòjYÈrbĞāøŀG{ƀ|¦ðrb|ÀH`pʞkvGpuARhÞÆǶgĘTǼƹS£¨¡ù³ŘÍ]¿ÂyôEP xX¶¹ÜO¡gÚ¡IwÃé¦ÅBÏ|Ç°N«úmH¯âDùyŜŲIÄuĐ¨D¸dɂFOhđ©OiÃ`ww^ÌkÑH«ƇǤŗĺtFu{Z}Ö@U´ʚLg®¯Oı°Ãw ^VbÉsmAê]]w§RRl£ȭµu¯b{ÍDěïÿȧuT£ġěŗƃĝQ¨fVƋƅn­a@³@ďyÃ½IĹÊKŭfċŰóxV@tƯJ]eR¾fe|rHA|h~Ėƍl§ÏlTíb ØoÅbbx³^zÃĶ¶Sj®AyÂhðk`«PËµEFÛ¬Y¨Ļrõqi¼Wi°§Ð±´°^[À|ĠO@ÆxO\\ta\\tĕtû{ġȧXýĪÓjùÎRb^ÎfK[ÝděYfíÙTyuUSyŌŏů@Oi½éŅ­aVcř§ax¹XŻácWU£ôãºQ¨÷Ñws¥qEHÙ|šYQoŕÇyáĂ£MÃ°oťÊP¡mWO¡v{ôvîēÜISpÌhp¨ jdeŔQÖjX³àĈ[n`Yp@UcM`RKhEbpŞlNut®EtqnsÁgAiúoHqCXhfgu~ÏWP½¢G^}¯ÅīGCÑ^ãziMáļMTÃƘrMc|O_¯Ŏ´|morDkO\\mĆJfl@cĢ¬¢aĦtRıÒ¾ùƀ^juųœK­UFyƝīÛ÷ąV×qƥV¿aȉd³BqPBmaËđŻģmÅ®V¹d^KKonYg¯XhqaLdu¥Ípǅ¡KąÅkĝęěhq}HyÃ]¹ǧ£Í÷¿qáµ§g¤o^á¾ZE¤i`ĳ{nOl»WÝĔįhgF[¿¡ßkOüš_ūiǱàUtėGyl}ÓM}jpEC~¡FtoQiHkk{Ãmï"
           ]
         ],
-        "encodeOffsets": [[[119712, 40641]], [[121616, 39981]], [[116462, 37237]]]
+        "encodeOffsets": [
+          [[119712, 40641]],
+          [[121616, 39981]],
+          [[116462, 37237]]
+        ]
       }
     },
     {
@@ -147,7 +151,12 @@
     {
       "type": "Feature",
       "id": "220000",
-      "properties": { "id": "220000", "cp": [125.3245, 43.886841], "name": "吉林", "childNum": 1 },
+      "properties": {
+        "id": "220000",
+        "cp": [125.3245, 43.886841],
+        "name": "吉林",
+        "childNum": 1
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -304,7 +313,12 @@
     {
       "type": "Feature",
       "id": "340000",
-      "properties": { "id": "340000", "cp": [117.283042, 31.26119], "name": "安徽", "childNum": 3 },
+      "properties": {
+        "id": "340000",
+        "cp": [117.283042, 31.26119],
+        "name": "安徽",
+        "childNum": 3
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -314,7 +328,11 @@
             "@@°ZÆëĎµmkǀwÌÕæhºgBĝâqÙĊzÖgņtÀÁĂÆáhEz|WzqD¹°Eŧl{ævÜcA`¤C`|´qxĲkq^³³GšµbíZ¹qpa±ď OH¦Ħx¢gPícOl_iCveaOjChß¸iÝbÛªCC¿mRV§¢A|t^iĠGÀtÚsd]ĮÐDE¶zAb àiödK¡~H¸íæAǿYj{ď¿À½W®£ChÃsikkly]_teu[bFaTign{]GqªoĈMYá|·¥f¥őaSÕėNµñĞ«Im_m¿Âa]uĜp Z_§{Cäg¤°r[_YjÆOdý[I[á·¥Q_nùgL¾mvˊBÜÆ¶ĊJhpc¹O]iŠ]¥ jtsggJÇ§w×jÉ©±EFË­KiÛÃÕYvsm¬njĻª§emná}k«ŕgđ²ÙDÇ¤í¡ªOy×Où±@DñSęćăÕIÕ¿IµĥOjNÕËT¡¿tNæŇàåyķrĕq§ÄĩsWÆßF¶X®¿mwRIÞfßoG³¾©uyHį{Ɓħ¯AFnuPÍÔzVdàôº^Ðæd´oG¤{S¬ćxã}ŧ×Kǥĩ«ÕOEÐ·ÖdÖsƘÑ¨[Û^Xr¢¼§xvÄÆµ`K§ tÒ´Cvlo¸fzŨð¾NY´ı~ÉĔēßúLÃÃ_ÈÏ|]ÂÏFlg`ben¾¢pUh~ƴĖ¶_r sĄ~cƈ]|r c~`¼{À{ȒiJjz`îÀT¥Û³]u}fïQl{skloNdjäËzDvčoQďHI¦rbtHĔ~BmlRV_ħTLnñH±DL¼Lªl§Ťa¸ĚlK²\\RòvDcÎJbt[¤D@®hh~kt°ǾzÖ@¾ªdbYhüóZ ň¶vHrľ\\ÊJuxAT|dmÀO[ÃÔG·ĚąĐlŪÚpSJ¨ĸLvÞcPæķŨ®mÐálwKhïgA¢ųÆ©Þ¤OÈm°K´"
           ]
         ],
-        "encodeOffsets": [[[121722, 32278]], [[119475, 30423]], [[119168, 35472]]]
+        "encodeOffsets": [
+          [[121722, 32278]],
+          [[119475, 30423]],
+          [[119168, 35472]]
+        ]
       }
     },
     {
@@ -469,23 +487,38 @@
             "@@¾«}{ra®pîÃ\\{øCËyyB±b\\òÝjKL ]ĎĽÌJyÚCƈćÎT´Å´pb©ÈdFin~BCo°BĎÃømv®E^vǾ½Ĝ²RobÜeN^ĺ£R¬lĶ÷YoĖ¥Ě¾|sOr°jY`~I¾®I{GqpCgyl{£ÍÍyPLÂ¡¡¸kWxYlÙæŁĢz¾V´W¶ùŸo¾ZHxjwfxGNÁ³Xéæl¶EièIH ujÌQ~v|sv¶Ôi|ú¢FhQsğ¦SiŠBgÐE^ÁÐ{čnOÂÈUÎóĔÊēĲ}Z³½Mŧïeyp·uk³DsÑ¨L¶_ÅuÃ¨w»¡WqÜ]\\Ò§tƗcÕ¸ÕFÏǝĉăxŻČƟOKÉġÿ×wg÷IÅzCg]m«ªGeçÃTC«[t§{loWeC@ps_Bp­rf_``Z|ei¡oċMqow¹DƝÓDYpûsYkıǃ}s¥ç³[§cY§HK«Qy]¢wwö¸ïx¼ņ¾Xv®ÇÀµRĠÐHM±cÏdƒǍũȅȷ±DSyúĝ£ŤĀàtÖÿï[îb\\}pĭÉI±Ñy¿³x¯No|¹HÏÛmjúË~TuęjCöAwě¬Rđl¯ Ñb­ŇTĿ_[IčĄʿnM¦ğ\\É[T·k¹©oĕ@A¾wya¥Y\\¥Âaz¯ãÁ¡k¥ne£ÛwE©Êō¶˓uoj_U¡cF¹­[WvP©whuÕyBF`RqJUw\\i¡{jEPïÿ½fćQÑÀQ{°fLÔ~wXgītêÝ¾ĺHd³fJd]HJ²EoU¥HhwQsƐ»Xmg±çve]DmÍPoCc¾_hhøYrŊU¶eD°Č_N~øĹĚ·`z]Äþp¼äÌQv\\rCé¾TnkžŐÚÜa¼ÝƆĢ¶ÛodĔňÐ¢JqPb ¾|J¾fXƐîĨ_Z¯À}úƲN_ĒÄ^ĈaŐyp»CÇÄKñL³ġM²wrIÒŭxjb[n«øæà ^²­h¯ÚŐªÞ¸Y²ĒVø}Ā^İ´LÚm¥ÀJÞ{JVųÞŃx×sxxƈē ģMřÚðòIfĊŒ\\Ʈ±ŒdÊ§ĘDvČ_Àæ~Dċ´A®µ¨ØLV¦êHÒ¤"
           ]
         ],
-        "encodeOffsets": [[[113712, 34000]], [[115612, 30507]], [[113649, 34054]]]
+        "encodeOffsets": [
+          [[113712, 34000]],
+          [[115612, 30507]],
+          [[113649, 34054]]
+        ]
       }
     },
     {
       "type": "Feature",
       "id": "430000",
-      "properties": { "id": "430000", "cp": [111.782279, 28.09409], "name": "湖南", "childNum": 3 },
+      "properties": {
+        "id": "430000",
+        "cp": [111.782279, 28.09409],
+        "name": "湖南",
+        "childNum": 3
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
           ["@@nFTs"],
-          ["@@ßÅÆá½ÔXrCOËRïÿĩ­TooQyÓ[ŅBE¬ÎÓXaį§Ã¸G °ITxpúxÚĳ¥ÏĢ¾edÄ©ĸGàGhM¤Â_U}Ċ}¢pczfþg¤ÇòAVM"],
+          [
+            "@@ßÅÆá½ÔXrCOËRïÿĩ­TooQyÓ[ŅBE¬ÎÓXaį§Ã¸G °ITxpúxÚĳ¥ÏĢ¾edÄ©ĸGàGhM¤Â_U}Ċ}¢pczfþg¤ÇòAVM"
+          ],
           [
             "@@©KA·³CQ±Á«³BUƑ¹AtćOwD]JiØSm¯b£ylXHËÑ±H«C^õľAÅ§¤É¥ïyuǙuA¢^{ÌC´­¦ŷJ£^[ª¿ĕ~ƇN skóā¹¿ï]ă~÷O§­@Vm¡Qđ¦¢Ĥ{ºjÔª¥nf´~Õo×ÛąMąıuZmZcÒ ĲĪ²SÊǄŶ¨ƚCÖŎªQØ¼rŭ­«}NÏürÊ¬mjr@ĘrTW ­SsdHzƓ^ÇÂyUi¯DÅYlŹu{hT}mĉ¹¥ěDÿë©ıÓ[Oº£¥ótł¹MÕƪ`PDiÛU¾ÅâìUñBÈ£ýhedy¡oċ`pfmjP~kZaZsÐd°wj§@Ĵ®w~^kÀÅKvNmX\\¨aŃqvíó¿F¤¡@ũÑVw}S@j}¾«pĂrªg àÀ²NJ¶¶DôK|^ª°LX¾ŴäPĪ±£EXd^¶ĲÞÜ~u¸ǔMRhsRe`ÄofIÔ\\Ø  ićymnú¨cj ¢»GČìƊÿÐ¨XeĈĀ¾Oð Fi ¢|[jVxrIQ_EzAN¦zLU`cªxOTu RLÄ¢dVi`p˔vŎµªÉF~Ød¢ºgİàw¸Áb[¦Zb¦z½xBĖ@ªpºlS¸Ö\\Ĕ[N¥ˀmĎăJ\\ŀ`ňSÚĖÁĐiOĜ«BxDõĚivSÌ}iùÜnÐºG{p°M´wÀÒzJ²ò¨ oTçüöoÛÿñőĞ¤ùTz²CȆȸǎŪƑÐc°dPÎğË¶[È½u¯½WM¡­ÉB·rínZÒ `¨GA¾\\pēXhÃRC­üWGġuTé§ŎÑ©ò³I±³}_EÃħg®ęisÁPDmÅ{b[RÅs·kPŽƥóRoOV~]{g\\êYƪ¦kÝbiċƵGZ»Ěõó·³vŝ£ø@pyö_ëIkÑµbcÑ§y×dYØªiþ¨[]f]Ņ©C}ÁN»hĻħƏĩ"
           ]
         ],
-        "encodeOffsets": [[[115640, 30489]], [[112543, 27312]], [[116690, 26230]]]
+        "encodeOffsets": [
+          [[115640, 30489]],
+          [[112543, 27312]],
+          [[116690, 26230]]
+        ]
       }
     },
     {
@@ -558,7 +591,12 @@
     {
       "type": "Feature",
       "id": "450000",
-      "properties": { "id": "450000", "cp": [108.320004, 22.82402], "name": "广西", "childNum": 2 },
+      "properties": {
+        "id": "450000",
+        "cp": [108.320004, 22.82402],
+        "name": "广西",
+        "childNum": 2
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -573,7 +611,12 @@
     {
       "type": "Feature",
       "id": "460000",
-      "properties": { "id": "460000", "cp": [109.83119, 19.031971], "name": "海南", "childNum": 1 },
+      "properties": {
+        "id": "460000",
+        "cp": [109.83119, 19.031971],
+        "name": "海南",
+        "childNum": 1
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -620,7 +663,11 @@
             "@@hÑ£IsNgßHHªķÃh_¹¡ĝÄ§ń¦uÙùgS¯JH|sÝÅtÁïyMDč»eÕtA¤{b\\}G®u\\åPFqwÅaDK°ºâ_£ùbµmÁÛĹM[q|hlaªāI}Ñµ@swtwm^oµDéĽŠyVky°ÉûÛR³e¥]RÕěħ[ƅåÛDpJiVÂF²I»mN·£LbÒYbWsÀbpkiTZĄă¶Hq`ĥ_J¯ae«KpÝx]aĕÛPÇȟ[ÁåŵÏő÷Pw}TÙ@Õs«ĿÛq©½m¤ÙH·yǥĘĉBµĨÕnđ]K©œáGçş§ÕßgǗĦTèƤƺ{¶ÉHÎd¾ŚÊ·OÐjXWrãLyzÉAL¾ę¢bĶėy_qMĔąro¼hĊw¶øV¤w²Ĉ]ÊKx|`ź¦ÂÈdrcÈbe¸`I¼čTF´¼Óýȃr¹ÍJ©k_șl³´_pĐ`oÒh¶pa^ÓĔ}D»^Xy`d[KvJPhèhCrĂĚÂ^Êƌ wZL­Ġ£ÁbrzOIlMMĪŐžËr×ÎeŦtw|¢mKjSǘňĂStÎŦEtqFT¾Eì¬¬ôxÌO¢ K³ŀºäYPVgŎ¦ŊmŞ¼VZwVlz¤£Tl®ctĽÚó{G­AÇge~Îd¿æaSba¥KKûj®_Ä^\\Ø¾bP®¦x^sxjĶI_Ä Xâ¼Hu¨Qh¡À@Ëô}±GNìĎlT¸`V~R°tbÕĊ`¸úÛtÏFDu[MfqGH·¥yAztMFe|R_GkChZeÚ°tov`xbDnÐ{E}ZèxNEÞREn[Pv@{~rĆAB§EO¿|UZ~ìUf¨J²ĂÝÆsªB`s¶fvö¦Õ~dÔq¨¸º»uù[[§´sb¤¢zþF¢ÆÀhÂW\\ıËIÝo±ĭŠ£þÊs}¡R]ěDg´VG¢j±®èºÃmpU[Áëº°rÜbNu¸}º¼`niºÔXĄ¤¼ÔdaµÁ_ÃftQQgR·Ǔv}Ý×ĵ]µWc¤F²OĩųãW½¯K©]{LóµCIµ±Mß¿h©āq¬o½~@i~TUxŪÒ¢@£ÀEîôruńb[§nWuMÆLl¿]x}ĳ­½"
           ]
         ],
-        "encodeOffsets": [[[112158, 27383]], [[112105, 27474]], [[112095, 27476]]]
+        "encodeOffsets": [
+          [[112158, 27383]],
+          [[112105, 27474]],
+          [[112095, 27476]]
+        ]
       }
     },
     {
@@ -643,7 +690,12 @@
     {
       "type": "Feature",
       "id": "540000",
-      "properties": { "id": "540000", "cp": [89.132212, 30.860361], "name": "西藏", "childNum": 1 },
+      "properties": {
+        "id": "540000",
+        "cp": [89.132212, 30.860361],
+        "name": "西藏",
+        "childNum": 1
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -692,7 +744,12 @@
     {
       "type": "Feature",
       "id": "630000",
-      "properties": { "id": "630000", "cp": [96.778916, 35.623178], "name": "青海", "childNum": 2 },
+      "properties": {
+        "id": "630000",
+        "cp": [96.778916, 35.623178],
+        "name": "青海",
+        "childNum": 2
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -707,7 +764,12 @@
     {
       "type": "Feature",
       "id": "640000",
-      "properties": { "id": "640000", "cp": [106.278179, 37.26637], "name": "宁夏", "childNum": 2 },
+      "properties": {
+        "id": "640000",
+        "cp": [106.278179, 37.26637],
+        "name": "宁夏",
+        "childNum": 2
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -722,7 +784,12 @@
     {
       "type": "Feature",
       "id": "650000",
-      "properties": { "id": "650000", "cp": [85.617733, 40.792818], "name": "新疆", "childNum": 1 },
+      "properties": {
+        "id": "650000",
+        "cp": [85.617733, 40.792818],
+        "name": "新疆",
+        "childNum": 1
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -829,7 +896,9 @@
           ["@@AlBk"],
           ["@@mn"],
           ["@@EpFo"],
-          ["@@ea¢pl¸Eõ¹hj[]ÔCÎ@lj¡uBX´AI¹[yDU]W`çwZkmcMpÅv}IoJlcafŃK°ä¬XJmÐ đhI®æÔtSHnEÒrÈc"],
+          [
+            "@@ea¢pl¸Eõ¹hj[]ÔCÎ@lj¡uBX´AI¹[yDU]W`çwZkmcMpÅv}IoJlcafŃK°ä¬XJmÐ đhI®æÔtSHnEÒrÈc"
+          ],
           ["@@rMUwAS®e"]
         ],
         "encodeOffsets": [
@@ -844,7 +913,12 @@
     {
       "type": "Feature",
       "id": "820000",
-      "properties": { "id": "820000", "cp": [113.54909, 22.198951], "name": "澳门", "childNum": 1 },
+      "properties": {
+        "id": "820000",
+        "cp": [113.54909, 22.198951],
+        "name": "澳门",
+        "childNum": 1
+      },
       "geometry": {
         "type": "Polygon",
         "coordinates": ["@@kÊd°å§s"],

@@ -1,4 +1,4 @@
-import { BasicColumn } from '/@/components/Table';
+import { BasicColumn } from '/@/components/Table'
 
 export const columns: BasicColumn[] = [
   {
@@ -33,10 +33,10 @@ export const columns: BasicColumn[] = [
     title: '结束时间',
     dataIndex: 'endTime',
   },
-];
+]
 
 export const data: any[] = (() => {
-  const arr: any[] = [];
+  const arr: any[] = []
   for (let index = 0; index < 40; index++) {
     arr.push({
       id: `${index}`,
@@ -46,14 +46,14 @@ export const data: any[] = (() => {
       address: 'New York No. 1 Lake ParkNew York No. 1 Lake Park',
       beginTime: new Date().toLocaleString(),
       endTime: new Date().toLocaleString(),
-    });
+    })
   }
-  return arr;
-})();
+  return arr
+})()
 
 // ["ID", "姓名", "年龄", "编号", "地址", "开始时间", "结束时间"]
-export const arrHeader = columns.map((column) => column.title);
+export const arrHeader = columns.map((column) => column.title)
 // [["ID", "姓名", "年龄", "编号", "地址", "开始时间", "结束时间"],["0", "0 John Brown", "10", "098678"]]
 export const arrData = data.map((item) => {
-  return Object.keys(item).map((key) => item[key]);
-});
+  return Object.keys(item).map((key) => item[key])
+})

@@ -1,15 +1,21 @@
-import { isArray, isFunction, isObject, isString, isNullOrUnDef } from '/@/utils/is';
-import { dateUtil } from '/@/utils/dateUtil';
-import { unref } from 'vue';
-import type { Ref, ComputedRef } from 'vue';
-import type { FormProps, FormSchema } from '../types/form';
-import { set } from 'lodash-es';
+import {
+  isArray,
+  isFunction,
+  isObject,
+  isString,
+  isNullOrUnDef,
+} from '/@/utils/is'
+import { dateUtil } from '/@/utils/dateUtil'
+import { unref } from 'vue'
+import type { Ref, ComputedRef } from 'vue'
+import type { FormProps, FormSchema } from '../types/form'
+import { set } from 'lodash-es'
 
 interface UseFormValuesContext {
-  defaultValueRef: Ref<any>;
-  getSchema: ComputedRef<FormSchema[]>;
-  getProps: ComputedRef<FormProps>;
-  formModel: Recordable;
+  defaultValueRef: Ref<any>
+  getSchema: ComputedRef<FormSchema[]>
+  getProps: ComputedRef<FormProps>
+  formModel: Recordable
 }
 export function useFormValues({
   defaultValueRef,
@@ -20,69 +26,73 @@ export function useFormValues({
   // Processing form values
   function handleFormValues(values: Recordable) {
     if (!isObject(values)) {
-      return {};
+      return {}
     }
-    const res: Recordable = {};
+    const res: Recordable = {}
     for (const item of Object.entries(values)) {
-      let [, value] = item;
-      const [key] = item;
+      let [, value] = item
+      const [key] = item
       if (!key || (isArray(value) && value.length === 0) || isFunction(value)) {
-        continue;
+        continue
       }
-      const transformDateFunc = unref(getProps).transformDateFunc;
+      const transformDateFunc = unref(getProps).transformDateFunc
       if (isObject(value)) {
-        value = transformDateFunc?.(value);
+        value = transformDateFunc?.(value)
       }
 
       if (isArray(value) && value[0]?.format && value[1]?.format) {
-        value = value.map((item) => transformDateFunc?.(item));
+        value = value.map((item) => transformDateFunc?.(item))
       }
       // Remove spaces
       if (isString(value)) {
-        value = value.trim();
+        value = value.trim()
       }
-      set(res, key, value);
+      set(res, key, value)
     }
-    return handleRangeTimeValue(res);
+    return handleRangeTimeValue(res)
   }
 
   /**
    * @description: Processing time interval parameters
    */
   function handleRangeTimeValue(values: Recordable) {
-    const fieldMapToTime = unref(getProps).fieldMapToTime;
+    const fieldMapToTime = unref(getProps).fieldMapToTime
 
     if (!fieldMapToTime || !Array.isArray(fieldMapToTime)) {
-      return values;
+      return values
     }
 
-    for (const [field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD'] of fieldMapToTime) {
+    for (const [
+      field,
+      [startTimeKey, endTimeKey],
+      format = 'YYYY-MM-DD',
+    ] of fieldMapToTime) {
       if (!field || !startTimeKey || !endTimeKey || !values[field]) {
-        continue;
+        continue
       }
 
-      const [startTime, endTime]: string[] = values[field];
+      const [startTime, endTime]: string[] = values[field]
 
-      values[startTimeKey] = dateUtil(startTime).format(format);
-      values[endTimeKey] = dateUtil(endTime).format(format);
-      Reflect.deleteProperty(values, field);
+      values[startTimeKey] = dateUtil(startTime).format(format)
+      values[endTimeKey] = dateUtil(endTime).format(format)
+      Reflect.deleteProperty(values, field)
     }
 
-    return values;
+    return values
   }
 
   function initDefault() {
-    const schemas = unref(getSchema);
-    const obj: Recordable = {};
+    const schemas = unref(getSchema)
+    const obj: Recordable = {}
     schemas.forEach((item) => {
-      const { defaultValue } = item;
+      const { defaultValue } = item
       if (!isNullOrUnDef(defaultValue)) {
-        obj[item.field] = defaultValue;
-        formModel[item.field] = defaultValue;
+        obj[item.field] = defaultValue
+        formModel[item.field] = defaultValue
       }
-    });
-    defaultValueRef.value = obj;
+    })
+    defaultValueRef.value = obj
   }
 
-  return { handleFormValues, initDefault };
+  return { handleFormValues, initDefault }
 }

@@ -1,7 +1,7 @@
-import type { ExtractPropTypes } from 'vue';
-import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree';
+import type { ExtractPropTypes } from 'vue'
+import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree'
 
-import { buildProps } from '/@/utils/props';
+import { buildProps } from '/@/utils/props'
 
 export enum ToolbarEnum {
   SELECT_ALL,
@@ -19,26 +19,26 @@ export const treeEmits = [
   'change',
   'check',
   'update:searchValue',
-];
+]
 
 export interface TreeState {
-  expandedKeys: KeyType[];
-  selectedKeys: KeyType[];
-  checkedKeys: CheckKeys;
-  checkStrictly: boolean;
+  expandedKeys: KeyType[]
+  selectedKeys: KeyType[]
+  checkedKeys: CheckKeys
+  checkStrictly: boolean
 }
 
 export interface FieldNames {
-  children?: string;
-  title?: string;
-  key?: string;
+  children?: string
+  title?: string
+  key?: string
 }
 
-export type KeyType = string | number;
+export type KeyType = string | number
 
 export type CheckKeys =
   | KeyType[]
-  | { checked: string[] | number[]; halfChecked: string[] | number[] };
+  | { checked: string[] | number[]; halfChecked: string[] | number[] }
 
 export const treeProps = buildProps({
   value: {
@@ -105,7 +105,9 @@ export const treeProps = buildProps({
   },
 
   beforeRightClick: {
-    type: Function as PropType<(...arg: any) => ContextMenuItem[] | ContextMenuOptions>,
+    type: Function as PropType<
+      (...arg: any) => ContextMenuItem[] | ContextMenuOptions
+    >,
     default: undefined,
   },
 
@@ -130,55 +132,55 @@ export const treeProps = buildProps({
   checkOnSearch: Boolean,
   // 搜索完成自动select所有结果
   selectedOnSearch: Boolean,
-});
+})
 
-export type TreeProps = ExtractPropTypes<typeof treeProps>;
+export type TreeProps = ExtractPropTypes<typeof treeProps>
 
 export interface ContextMenuItem {
-  label: string;
-  icon?: string;
-  disabled?: boolean;
-  handler?: Fn;
-  divider?: boolean;
-  children?: ContextMenuItem[];
+  label: string
+  icon?: string
+  disabled?: boolean
+  handler?: Fn
+  divider?: boolean
+  children?: ContextMenuItem[]
 }
 
 export interface ContextMenuOptions {
-  icon?: string;
-  styles?: any;
-  items?: ContextMenuItem[];
+  icon?: string
+  styles?: any
+  items?: ContextMenuItem[]
 }
 
 export interface TreeItem extends TreeDataItem {
-  icon?: any;
+  icon?: any
 }
 
 export interface TreeActionItem {
-  render: (record: Recordable) => any;
-  show?: boolean | ((record: Recordable) => boolean);
+  render: (record: Recordable) => any
+  show?: boolean | ((record: Recordable) => boolean)
 }
 
 export interface InsertNodeParams {
-  parentKey: string | null;
-  node: TreeDataItem;
-  list?: TreeDataItem[];
-  push?: 'push' | 'unshift';
+  parentKey: string | null
+  node: TreeDataItem
+  list?: TreeDataItem[]
+  push?: 'push' | 'unshift'
 }
 
 export interface TreeActionType {
-  checkAll: (checkAll: boolean) => void;
-  expandAll: (expandAll: boolean) => void;
-  setExpandedKeys: (keys: KeyType[]) => void;
-  getExpandedKeys: () => KeyType[];
-  setSelectedKeys: (keys: KeyType[]) => void;
-  getSelectedKeys: () => KeyType[];
-  setCheckedKeys: (keys: CheckKeys) => void;
-  getCheckedKeys: () => CheckKeys;
-  filterByLevel: (level: number) => void;
-  insertNodeByKey: (opt: InsertNodeParams) => void;
-  insertNodesByKey: (opt: InsertNodeParams) => void;
-  deleteNodeByKey: (key: string) => void;
-  updateNodeByKey: (key: string, node: Omit<TreeDataItem, 'key'>) => void;
-  setSearchValue: (value: string) => void;
-  getSearchValue: () => string;
+  checkAll: (checkAll: boolean) => void
+  expandAll: (expandAll: boolean) => void
+  setExpandedKeys: (keys: KeyType[]) => void
+  getExpandedKeys: () => KeyType[]
+  setSelectedKeys: (keys: KeyType[]) => void
+  getSelectedKeys: () => KeyType[]
+  setCheckedKeys: (keys: CheckKeys) => void
+  getCheckedKeys: () => CheckKeys
+  filterByLevel: (level: number) => void
+  insertNodeByKey: (opt: InsertNodeParams) => void
+  insertNodesByKey: (opt: InsertNodeParams) => void
+  deleteNodeByKey: (key: string) => void
+  updateNodeByKey: (key: string, node: Omit<TreeDataItem, 'key'>) => void
+  setSearchValue: (value: string) => void
+  getSearchValue: () => string
 }

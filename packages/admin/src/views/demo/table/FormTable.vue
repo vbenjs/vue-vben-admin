@@ -1,7 +1,11 @@
 <template>
   <BasicTable
     @register="registerTable"
-    :rowSelection="{ type: 'checkbox', selectedRowKeys: checkedKeys, onChange: onSelectChange }"
+    :rowSelection="{
+      type: 'checkbox',
+      selectedRowKeys: checkedKeys,
+      onChange: onSelectChange,
+    }"
   >
     <template #form-custom> custom-slot </template>
     <template #headerTop>
@@ -9,7 +13,9 @@
         <template #message>
           <template v-if="checkedKeys.length > 0">
             <span>已选中{{ checkedKeys.length }}条记录(可跨页)</span>
-            <a-button type="link" @click="checkedKeys = []" size="small">清空</a-button>
+            <a-button type="link" @click="checkedKeys = []" size="small"
+              >清空</a-button
+            >
           </template>
           <template v-else>
             <span>未选中任何项目</span>
@@ -23,44 +29,44 @@
   </BasicTable>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { BasicTable, useTable } from '/@/components/Table';
-  import { getBasicColumns, getFormConfig } from './tableData';
-  import { Alert } from 'ant-design-vue';
+import { defineComponent, ref } from 'vue'
+import { BasicTable, useTable } from '/@/components/Table'
+import { getBasicColumns, getFormConfig } from './tableData'
+import { Alert } from 'ant-design-vue'
 
-  import { demoListApi } from '/@/api/demo/table';
+import { demoListApi } from '/@/api/demo/table'
 
-  export default defineComponent({
-    components: { BasicTable, AAlert: Alert },
-    setup() {
-      const checkedKeys = ref<Array<string | number>>([]);
-      const [registerTable, { getForm }] = useTable({
-        title: '开启搜索区域',
-        api: demoListApi,
-        columns: getBasicColumns(),
-        useSearchForm: true,
-        formConfig: getFormConfig(),
-        showTableSetting: true,
-        tableSetting: { fullScreen: true },
-        showIndexColumn: false,
-        rowKey: 'id',
-      });
+export default defineComponent({
+  components: { BasicTable, AAlert: Alert },
+  setup() {
+    const checkedKeys = ref<Array<string | number>>([])
+    const [registerTable, { getForm }] = useTable({
+      title: '开启搜索区域',
+      api: demoListApi,
+      columns: getBasicColumns(),
+      useSearchForm: true,
+      formConfig: getFormConfig(),
+      showTableSetting: true,
+      tableSetting: { fullScreen: true },
+      showIndexColumn: false,
+      rowKey: 'id',
+    })
 
-      function getFormValues() {
-        console.log(getForm().getFieldsValue());
-      }
+    function getFormValues() {
+      console.log(getForm().getFieldsValue())
+    }
 
-      function onSelectChange(selectedRowKeys: (string | number)[]) {
-        console.log(selectedRowKeys);
-        checkedKeys.value = selectedRowKeys;
-      }
+    function onSelectChange(selectedRowKeys: (string | number)[]) {
+      console.log(selectedRowKeys)
+      checkedKeys.value = selectedRowKeys
+    }
 
-      return {
-        registerTable,
-        getFormValues,
-        checkedKeys,
-        onSelectChange,
-      };
-    },
-  });
+    return {
+      registerTable,
+      getFormValues,
+      checkedKeys,
+      onSelectChange,
+    }
+  },
+})
 </script>

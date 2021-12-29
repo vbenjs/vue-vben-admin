@@ -1,7 +1,7 @@
-import type { AppRouteModule } from '/@/router/types';
+import type { AppRouteModule } from '/@/router/types'
 
-import { getParentLayout, LAYOUT } from '/@/router/constant';
-import { t } from '/@/hooks/web/useI18n';
+import { getParentLayout, LAYOUT } from '/@/router/constant'
+import { t } from '/@/hooks/web/useI18n'
 
 const charts: AppRouteModule = {
   path: '/charts',
@@ -75,6 +75,6 @@ const charts: AppRouteModule = {
       ],
     },
   ],
-};
+}
 
-export default charts;
+export default charts

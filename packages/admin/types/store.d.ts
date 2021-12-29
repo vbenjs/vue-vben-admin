@@ -1,48 +1,48 @@
-import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
-import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
-import { RoleInfo } from '/@/api/sys/model/userModel';
+import { ErrorTypeEnum } from '/@/enums/exceptionEnum'
+import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum'
+import { RoleInfo } from '/@/api/sys/model/userModel'
 
 // Lock screen information
 export interface LockInfo {
   // Password required
-  pwd?: string | undefined;
+  pwd?: string | undefined
   // Is it locked?
-  isLock?: boolean;
+  isLock?: boolean
 }
 
 // Error-log information
 export interface ErrorLogInfo {
   // Type of error
-  type: ErrorTypeEnum;
+  type: ErrorTypeEnum
   // Error file
-  file: string;
+  file: string
   // Error name
-  name?: string;
+  name?: string
   // Error message
-  message: string;
+  message: string
   // Error stack
-  stack?: string;
+  stack?: string
   // Error detail
-  detail: string;
+  detail: string
   // Error url
-  url: string;
+  url: string
   // Error time
-  time?: string;
+  time?: string
 }
 
 export interface UserInfo {
-  userId: string | number;
-  username: string;
-  realName: string;
-  avatar: string;
-  desc?: string;
-  homePath?: string;
-  roles: RoleInfo[];
+  userId: string | number
+  username: string
+  realName: string
+  avatar: string
+  desc?: string
+  homePath?: string
+  roles: RoleInfo[]
 }
 
 export interface BeforeMiniState {
-  menuCollapsed?: boolean;
-  menuSplit?: boolean;
-  menuMode?: MenuModeEnum;
-  menuType?: MenuTypeEnum;
+  menuCollapsed?: boolean
+  menuSplit?: boolean
+  menuMode?: MenuModeEnum
+  menuType?: MenuTypeEnum
 }

@@ -790,4 +790,4 @@ export default {
     'zoom-in-outlined',
     'zoom-out-outlined',
   ],
-};
+}

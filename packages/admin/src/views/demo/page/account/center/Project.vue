@@ -20,52 +20,52 @@
   </List>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { List, Card, Row, Col } from 'ant-design-vue';
-  import demoImg from '/@/assets/images/demo.png';
-  import { projectList } from './data';
+import { defineComponent } from 'vue'
+import { List, Card, Row, Col } from 'ant-design-vue'
+import demoImg from '/@/assets/images/demo.png'
+import { projectList } from './data'
 
-  export default defineComponent({
-    components: {
-      List,
-      ListItem: List.Item,
-      Card,
-      [Row.name]: Row,
-      [Col.name]: Col,
-    },
-    setup() {
-      return {
-        prefixCls: 'account-center-project',
-        list: projectList,
-        demoImg,
-      };
-    },
-  });
+export default defineComponent({
+  components: {
+    List,
+    ListItem: List.Item,
+    Card,
+    [Row.name]: Row,
+    [Col.name]: Col,
+  },
+  setup() {
+    return {
+      prefixCls: 'account-center-project',
+      list: projectList,
+      demoImg,
+    }
+  },
+})
 </script>
 <style lang="less">
-  .account-center-project {
-    &__card {
+.account-center-project {
+  &__card {
+    width: 100%;
+
+    .ant-card-body {
+      padding: 0 0 24px;
+    }
+
+    img {
       width: 100%;
+      height: 130px;
+    }
 
-      .ant-card-body {
-        padding: 0 0 24px;
-      }
+    &-title {
+      margin: 5px 10px;
+      font-size: 16px;
+      font-weight: 500;
+      color: rgb(0 0 0 / 85%);
+    }
 
-      img {
-        width: 100%;
-        height: 130px;
-      }
-
-      &-title {
-        margin: 5px 10px;
-        font-size: 16px;
-        font-weight: 500;
-        color: rgb(0 0 0 / 85%);
-      }
-
-      &-content {
-        margin: 5px 10px;
-      }
+    &-content {
+      margin: 5px 10px;
     }
   }
+}
 </style>

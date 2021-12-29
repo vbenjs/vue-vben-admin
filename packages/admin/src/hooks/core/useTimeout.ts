@@ -1,45 +1,45 @@
-import { ref, watch } from 'vue';
-import { tryOnUnmounted } from '@vueuse/core';
-import { isFunction } from '/@/utils/is';
+import { ref, watch } from 'vue'
+import { tryOnUnmounted } from '@vueuse/core'
+import { isFunction } from '/@/utils/is'
 
 export function useTimeoutFn(handle: Fn<any>, wait: number, native = false) {
   if (!isFunction(handle)) {
-    throw new Error('handle is not Function!');
+    throw new Error('handle is not Function!')
   }
 
-  const { readyRef, stop, start } = useTimeoutRef(wait);
+  const { readyRef, stop, start } = useTimeoutRef(wait)
   if (native) {
-    handle();
+    handle()
   } else {
     watch(
       readyRef,
       (maturity) => {
-        maturity && handle();
+        maturity && handle()
       },
       { immediate: false },
-    );
+    )
   }
-  return { readyRef, stop, start };
+  return { readyRef, stop, start }
 }
 
 export function useTimeoutRef(wait: number) {
-  const readyRef = ref(false);
+  const readyRef = ref(false)
 
-  let timer: TimeoutHandle;
+  let timer: TimeoutHandle
   function stop(): void {
-    readyRef.value = false;
-    timer && window.clearTimeout(timer);
+    readyRef.value = false
+    timer && window.clearTimeout(timer)
   }
   function start(): void {
-    stop();
+    stop()
     timer = setTimeout(() => {
-      readyRef.value = true;
-    }, wait);
+      readyRef.value = true
+    }, wait)
   }
 
-  start();
+  start()
 
-  tryOnUnmounted(stop);
+  tryOnUnmounted(stop)
 
-  return { readyRef, stop, start };
+  return { readyRef, stop, start }
 }

@@ -1,6 +1,11 @@
-import { resultSuccess, resultError, getRequestToken, requestParams } from '../_util';
-import { MockMethod } from 'vite-plugin-mock';
-import { createFakeUserList } from './user';
+import {
+  resultSuccess,
+  resultError,
+  getRequestToken,
+  requestParams,
+} from '../_util'
+import { MockMethod } from 'vite-plugin-mock'
+import { createFakeUserList } from './user'
 
 // single
 const dashboardRoute = {
@@ -39,7 +44,7 @@ const dashboardRoute = {
       },
     },
   ],
-};
+}
 
 const backRoute = {
   path: 'back',
@@ -66,7 +71,7 @@ const backRoute = {
       },
     },
   ],
-};
+}
 
 const authRoute = {
   path: '/permission',
@@ -78,7 +83,7 @@ const authRoute = {
     title: 'routes.demo.permission.permission',
   },
   children: [backRoute],
-};
+}
 
 const levelRoute = {
   path: '/level',
@@ -134,7 +139,7 @@ const levelRoute = {
       },
     },
   ],
-};
+}
 
 const sysRoute = {
   path: '/system',
@@ -205,7 +210,7 @@ const sysRoute = {
       component: '/demo/system/password/index',
     },
   ],
-};
+}
 
 const linkRoute = {
   path: '/link',
@@ -233,7 +238,7 @@ const linkRoute = {
       },
     },
   ],
-};
+}
 
 export default [
   {
@@ -241,30 +246,34 @@ export default [
     timeout: 1000,
     method: 'get',
     response: (request: requestParams) => {
-      const token = getRequestToken(request);
+      const token = getRequestToken(request)
       if (!token) {
-        return resultError('Invalid token!');
+        return resultError('Invalid token!')
       }
-      const checkUser = createFakeUserList().find((item) => item.token === token);
+      const checkUser = createFakeUserList().find(
+        (item) => item.token === token,
+      )
       if (!checkUser) {
-        return resultError('Invalid user token!');
+        return resultError('Invalid user token!')
       }
-      const id = checkUser.userId;
-      let menu: Object[];
+      const id = checkUser.userId
+      let menu: Object[]
       switch (id) {
         case '1':
-          dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[0].path;
-          menu = [dashboardRoute, authRoute, levelRoute, sysRoute, linkRoute];
-          break;
+          dashboardRoute.redirect =
+            dashboardRoute.path + '/' + dashboardRoute.children[0].path
+          menu = [dashboardRoute, authRoute, levelRoute, sysRoute, linkRoute]
+          break
         case '2':
-          dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[1].path;
-          menu = [dashboardRoute, authRoute, levelRoute, linkRoute];
-          break;
+          dashboardRoute.redirect =
+            dashboardRoute.path + '/' + dashboardRoute.children[1].path
+          menu = [dashboardRoute, authRoute, levelRoute, linkRoute]
+          break
         default:
-          menu = [];
+          menu = []
       }
 
-      return resultSuccess(menu);
+      return resultSuccess(menu)
     },
   },
-] as MockMethod[];
+] as MockMethod[]

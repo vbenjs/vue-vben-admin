@@ -101,12 +101,14 @@
     "logicflow",
     "vueuse",
     "zxcvbn",
-    "lintstagedrc",
+    "postbuild",
     "brotli",
     "tailwindcss",
     "sider",
     "pnpm",
     "antd",
+    "antdv",
+    "demi",
     "styl",
     "unplugin"
   ]

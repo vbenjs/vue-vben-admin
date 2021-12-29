@@ -21,7 +21,11 @@ export default {
     errMsg504: '网络超时!',
     errMsg505: 'http版本不支持该请求!',
   },
-  app: { logoutTip: '温馨提醒', logoutMessage: '是否确认退出系统?', menuLoading: '菜单加载中...' },
+  app: {
+    logoutTip: '温馨提醒',
+    logoutMessage: '是否确认退出系统?',
+    menuLoading: '菜单加载中...',
+  },
   errorLog: {
     tableTitle: '错误日志列表',
     tableColumnType: '类型',
@@ -38,7 +42,8 @@ export default {
     fireResourceError: '点击触发资源加载错误',
     fireAjaxError: '点击触发ajax错误',
 
-    enableMessage: '只在`/src/settings/projectSetting.ts` 内的useErrorHandle=true时生效.',
+    enableMessage:
+      '只在`/src/settings/projectSetting.ts` 内的useErrorHandle=true时生效.',
   },
   exception: {
     backLogin: '返回登录',
@@ -95,4 +100,4 @@ export default {
     smsCode: '短信验证码',
     mobile: '手机号码',
   },
-};
+}

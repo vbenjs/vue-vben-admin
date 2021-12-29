@@ -1,24 +1,25 @@
-import { FormSchema } from '/@/components/Form/index';
+import { FormSchema } from '/@/components/Form/index'
 
 export const searchList = (() => {
-  const result: any[] = [];
+  const result: any[] = []
   for (let i = 0; i < 6; i++) {
     result.push({
       id: i,
       title: 'Vben Admin',
       description: ['Vben', '设计语言', 'Typescript'],
-      content: '基于Vue Next, TypeScript, Ant Design实现的一套完整的企业级后台管理系统。',
+      content:
+        '基于Vue Next, TypeScript, Ant Design实现的一套完整的企业级后台管理系统。',
       time: '2020-11-14 11:20',
-    });
+    })
   }
-  return result;
-})();
+  return result
+})()
 
 export const actions: any[] = [
   { icon: 'clarity:star-line', text: '156', color: '#018ffb' },
   { icon: 'bx:bxs-like', text: '156', color: '#459ae8' },
   { icon: 'bx:bxs-message-dots', text: '2', color: '#42d27d' },
-];
+]
 
 export const schemas: FormSchema[] = [
   {
@@ -30,8 +31,8 @@ export const schemas: FormSchema[] = [
     },
     componentProps: {
       onChange: (e: any) => {
-        console.log(e);
+        console.log(e)
       },
     },
   },
-];
+]
