@@ -89,8 +89,11 @@ import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
 import { useRootSetting } from '/@/hooks/setting/useRootSetting'
 
-import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum'
-import { SettingButtonPositionEnum } from '/@/enums/appEnum'
+import {
+  MenuModeEnum,
+  MenuSplitTyeEnum,
+  SettingButtonPositionEnum,
+} from '@vben-admin/tokens'
 import { AppLocalePicker } from '/@/components/Application'
 
 import {

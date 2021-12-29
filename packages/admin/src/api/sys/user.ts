@@ -1,11 +1,11 @@
-import { defHttp } from '/@/utils/http/axios'
-import {
+import type { ErrorMessageMode } from '@vben-admin/types'
+import type {
   LoginParams,
   LoginResultModel,
   GetUserInfoModel,
-} from './model/userModel'
+} from '@vben-admin/types/model'
 
-import { ErrorMessageMode } from '/#/axios'
+import { defHttp } from '/@/utils/http/axios'
 
 enum Api {
   Login = '/login',

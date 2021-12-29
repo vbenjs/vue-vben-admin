@@ -1,4 +1,4 @@
-import { ThemeEnum } from '../enums/appEnum'
+import { ThemeEnum } from '@vben-admin/tokens'
 
 export const prefixCls = 'vben'
 

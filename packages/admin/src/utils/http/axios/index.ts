@@ -2,14 +2,15 @@
 // The axios configuration can be changed according to the project, just change the file, other files can be left unchanged
 
 import type { AxiosResponse } from 'axios'
-import { clone } from 'lodash-es'
-import type { RequestOptions, Result } from '/#/axios'
+import type { RequestOptions, RequestResult } from '@vben-admin/types'
 import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform'
+
+import { clone } from 'lodash-es'
 import { VAxios } from './Axios'
 import { checkStatus } from './checkStatus'
 import { useGlobSetting } from '/@/hooks/setting'
 import { useMessage } from '/@/hooks/web/useMessage'
-import { RequestEnum, ResultEnum, ContentTypeEnum } from '/@/enums/httpEnum'
+import { RequestEnum, ResultEnum, ContentTypeEnum } from '@vben-admin/tokens'
 import { isString } from '/@/utils/is'
 import { getToken } from '/@/utils/auth'
 import { setObjToUrlParams, deepMerge } from '/@/utils'
@@ -30,7 +31,7 @@ const transform: AxiosTransform = {
    * @description: 处理请求数据。如果数据不是预期格式，可直接抛出错误
    */
   transformRequestHook: (
-    res: AxiosResponse<Result>,
+    res: AxiosResponse<RequestResult>,
     options: RequestOptions,
   ) => {
     const { t } = useI18n()

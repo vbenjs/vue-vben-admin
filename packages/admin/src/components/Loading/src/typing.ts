@@ -1,8 +1,8 @@
-import { SizeEnum } from '/@/enums/sizeEnum'
+import { ComponentSizeEnum } from '@vben-admin/tokens'
 
 export interface LoadingProps {
   tip: string
-  size: SizeEnum
+  size: ComponentSizeEnum
   absolute: boolean
   loading: boolean
   background: string

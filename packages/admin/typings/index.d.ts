@@ -1,12 +1,17 @@
+declare module '*.vue' {
+  import { DefineComponent } from 'vue'
+  const Component: DefineComponent<{}, {}, any>
+  export default Component
+}
+
+declare module 'virtual:*' {
+  const result: any
+  export default result
+}
+
 declare interface Fn<T = any, R = T> {
   (...arg: T[]): R
 }
-
-declare interface PromiseFn<T = any, R = T> {
-  (...arg: T[]): Promise<R>
-}
-
-declare type RefType<T> = T | null
 
 declare type LabelValueOptions = {
   label: string
@@ -15,8 +20,6 @@ declare type LabelValueOptions = {
 }[]
 
 declare type EmitType = (event: string, ...args: any[]) => void
-
-declare type TargetContext = '_self' | '_blank'
 
 declare interface ComponentElRef<T extends HTMLElement = HTMLDivElement> {
   $el: T

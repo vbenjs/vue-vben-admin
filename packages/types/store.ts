@@ -1,6 +1,5 @@
-import { ErrorTypeEnum } from '/@/enums/exceptionEnum'
-import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum'
-import { RoleInfo } from '/@/api/sys/model/userModel'
+import { ErrorTypeEnum, MenuModeEnum, MenuTypeEnum } from '@vben-admin/tokens'
+import { RoleInfo } from './model'
 
 // Lock screen information
 export interface LockInfo {

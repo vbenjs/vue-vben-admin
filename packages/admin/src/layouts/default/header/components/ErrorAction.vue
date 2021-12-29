@@ -17,7 +17,7 @@ import Icon from '/@/components/Icon'
 
 import { useI18n } from '/@/hooks/web/useI18n'
 import { useErrorLogStore } from '/@/store/modules/errorLog'
-import { PageEnum } from '/@/enums/pageEnum'
+import { PageEnum } from '@vben-admin/tokens'
 
 import { useRouter } from 'vue-router'
 

@@ -20,7 +20,7 @@ import { useGlobSetting } from '/@/hooks/setting'
 import { useGo } from '/@/hooks/web/usePage'
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
 import { useDesign } from '/@/hooks/web/useDesign'
-import { PageEnum } from '/@/enums/pageEnum'
+import { PageEnum } from '@vben-admin/tokens'
 import { useUserStore } from '/@/store/modules/user'
 
 const props = defineProps({

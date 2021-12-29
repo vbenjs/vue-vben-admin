@@ -1,11 +1,12 @@
-import { ContentEnum, RouterTransitionEnum } from '/@/enums/appEnum'
 import {
+  ContentLayoutEnum,
+  RouterTransitionEnum,
   MenuModeEnum,
   MenuTypeEnum,
   TopMenuAlignEnum,
   TriggerEnum,
   MixSidebarTriggerEnum,
-} from '/@/enums/menuEnum'
+} from '@vben-admin/tokens'
 
 import { useI18n } from '/@/hooks/web/useI18n'
 
@@ -61,11 +62,11 @@ export enum HandlerEnum {
 
 export const contentModeOptions = [
   {
-    value: ContentEnum.FULL,
+    value: ContentLayoutEnum.FULL,
     label: t('layout.setting.contentModeFull'),
   },
   {
-    value: ContentEnum.FIXED,
+    value: ContentLayoutEnum.FIXED,
     label: t('layout.setting.contentModeFixed'),
   },
 ]

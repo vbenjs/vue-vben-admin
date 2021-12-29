@@ -76,7 +76,7 @@ export function downloadByUrl({
   fileName,
 }: {
   url: string
-  target?: TargetContext
+  target?: '_self' | '_blank'
   fileName?: string
 }): boolean {
   const isChrome =

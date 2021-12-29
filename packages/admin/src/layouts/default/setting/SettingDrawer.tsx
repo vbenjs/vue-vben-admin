@@ -12,7 +12,7 @@ import {
 
 import { AppDarkModeToggle } from '/@/components/Application'
 
-import { MenuTypeEnum, TriggerEnum } from '/@/enums/menuEnum'
+import { MenuTypeEnum, TriggerEnum } from '@vben-admin/tokens'
 
 import { useRootSetting } from '/@/hooks/setting/useRootSetting'
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'

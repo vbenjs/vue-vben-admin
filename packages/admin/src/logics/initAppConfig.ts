@@ -1,9 +1,9 @@
 /**
  * Application configuration
  */
-import type { ProjectConfig } from '/#/config'
+import type { ProjectConfig } from '@vben-admin/types'
 
-import { PROJ_CFG_KEY } from '/@/enums/cacheEnum'
+import { PROJ_CFG_KEY } from '@vben-admin/tokens'
 import projectSetting from '/@/settings/projectSetting'
 
 import {
@@ -23,7 +23,7 @@ import { getCommonStoragePrefix, getStorageShortName } from '/@/utils/env'
 import { primaryColor } from '../../config/theme'
 import { Persistent } from '/@/utils/cache/persistent'
 import { deepMerge } from '/@/utils'
-import { ThemeEnum } from '/@/enums/appEnum'
+import { ThemeEnum } from '@vben-admin/tokens'
 
 // Initial project configuration
 export function initAppConfigStore() {

@@ -1,4 +1,4 @@
-import {
+import type {
   AccountParams,
   DeptListItem,
   MenuParams,
@@ -9,7 +9,7 @@ import {
   AccountListGetResultModel,
   RolePageListGetResultModel,
   RoleListGetResultModel,
-} from './model/systemModel'
+} from '@vben-admin/types/model'
 import { defHttp } from '/@/utils/http/axios'
 
 enum Api {

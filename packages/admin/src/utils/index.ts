@@ -47,7 +47,7 @@ export function deepMerge<T = any>(src: any = {}, target: any = {}): T {
 export function openWindow(
   url: string,
   opt?: {
-    target?: TargetContext | string
+    target?: '_self' | '_blank' | string
     noopener?: boolean
     noreferrer?: boolean
   },

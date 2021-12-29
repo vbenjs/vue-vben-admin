@@ -96,7 +96,7 @@ import { useGo } from '/@/hooks/web/usePage'
 import {
   SIDE_BAR_MINI_WIDTH,
   SIDE_BAR_SHOW_TIT_MINI_WIDTH,
-} from '/@/enums/appEnum'
+} from '@vben-admin/tokens'
 import clickOutside from '/@/directives/clickOutside'
 import {
   getChildrenMenus,

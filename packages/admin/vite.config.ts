@@ -1,14 +1,22 @@
-import type { UserConfig, ConfigEnv } from 'vite'
-
 import pkg from './package.json'
 import dayjs from 'dayjs'
-import { loadEnv } from 'vite'
+import glob from 'fast-glob'
+import { loadEnv, defineConfig } from 'vite'
 import { resolve } from 'path'
 import { OUTPUT_DIR, wrapperEnv } from './config'
 import { configProxy, configVitePlugins } from './config/vite'
 import { generateModifyVars } from './config/modifyVars'
 
-export default ({ command, mode }: ConfigEnv): UserConfig => {
+export default defineConfig(async ({ command, mode }) => {
+  const optimizeDeps = (
+    await glob(
+      ['ant-design-vue/es/locale/*.js', 'dayjs/(locale|plugin)/*.js'],
+      {
+        cwd: resolve(process.cwd(), 'node_modules'),
+      },
+    )
+  ).map((dep) => dep.replace(/\.js$/, ''))
+
   const { dependencies, devDependencies, name, version } = pkg
   const root = process.cwd()
   const env = loadEnv(mode, root)
@@ -24,7 +32,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     resolve: {
       alias: {
         '/@/': `${resolve(__dirname, 'src')}/`,
-        '/#/': `${resolve(__dirname, 'types')}/`,
         'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
         vue: 'vue/dist/vue.esm-bundler.js',
       },
@@ -89,9 +96,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         '@vue/runtime-core',
         '@vue/shared',
         '@iconify/iconify',
-        'ant-design-vue/es/locale/zh_CN',
-        'ant-design-vue/es/locale/en_US',
         '@ant-design/icons-vue',
+        ...optimizeDeps,
       ],
       exclude: ['vue-demi'],
     },
@@ -105,4 +111,4 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       },
     },
   }
-}
+})

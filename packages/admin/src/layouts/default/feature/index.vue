@@ -7,7 +7,7 @@ import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
 import { useDesign } from '/@/hooks/web/useDesign'
 import { useUserStoreWithOut } from '/@/store/modules/user'
 
-import { SettingButtonPositionEnum } from '/@/enums/appEnum'
+import { SettingButtonPositionEnum } from '@vben-admin/tokens'
 import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent'
 
 import SessionTimeoutLogin from '/@/views/sys/login/SessionTimeoutLogin.vue'

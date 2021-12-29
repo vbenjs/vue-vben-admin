@@ -1,10 +1,15 @@
-import type { UserInfo } from '/#/store'
-import type { ErrorMessageMode } from '/#/axios'
+import type { UserInfo } from '@vben-admin/types'
+import type { ErrorMessageMode } from '@vben-admin/types'
+
 import { defineStore } from 'pinia'
 import { store } from '/@/store'
-import { RoleEnum } from '/@/enums/roleEnum'
-import { PageEnum } from '/@/enums/pageEnum'
-import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum'
+import {
+  RoleEnum,
+  PageEnum,
+  ROLES_KEY,
+  TOKEN_KEY,
+  USER_INFO_KEY,
+} from '@vben-admin/tokens'
 import { getAuthCache, setAuthCache } from '/@/utils/auth'
 import { GetUserInfoModel, LoginParams } from '/@/api/sys/model/userModel'
 import { doLogout, getUserInfo, loginApi } from '/@/api/sys/user'

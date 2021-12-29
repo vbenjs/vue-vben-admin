@@ -40,12 +40,6 @@ export type RefElement = Nullable<HTMLElement>
 
 export type CustomizedHTMLElement<T> = HTMLElement & T
 
-export type Indexable<T> = {
-  [key: string]: T
-}
-
-export type Hash<T> = Indexable<T>
-
 export type TimeoutHandle = ReturnType<typeof global.setTimeout>
 
 export type ComponentSize = 'large' | 'medium' | 'small' | 'mini'

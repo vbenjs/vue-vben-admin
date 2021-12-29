@@ -1,5 +1,5 @@
 import { defHttp } from '/@/utils/http/axios'
-import { DemoOptionsItem, selectParams } from './model/optionsModel'
+import type { DemoOptionsItem, selectParams } from '@vben-admin/types/model'
 enum Api {
   OPTIONS_LIST = '/select/getDemoOptions',
 }

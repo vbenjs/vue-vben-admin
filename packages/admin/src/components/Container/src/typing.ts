@@ -10,7 +10,7 @@ export interface ScrollContainerOptions {
   type?: ScrollType
 }
 
-export type ScrollActionType = RefType<{
+export type ScrollActionType = Nullable<{
   scrollBottom: () => void
   getScrollWrap: () => Nullable<HTMLElement>
   scrollTo: (top: number) => void

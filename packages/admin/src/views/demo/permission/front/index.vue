@@ -40,7 +40,7 @@
 import { computed, defineComponent } from 'vue'
 import { Alert, Space } from 'ant-design-vue'
 import { useUserStore } from '/@/store/modules/user'
-import { RoleEnum } from '/@/enums/roleEnum'
+import { RoleEnum } from '@vben-admin/tokens'
 import { usePermission } from '/@/hooks/web/usePermission'
 import { PageWrapper } from '/@/components/Page'
 import CurrentPermissionMode from '../CurrentPermissionMode.vue'

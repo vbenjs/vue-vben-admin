@@ -6,7 +6,7 @@ import type { ColumnProps } from 'ant-design-vue/lib/table'
 
 import { ComponentType } from './componentType'
 import { VueNode } from '/@/utils/propTypes'
-import { RoleEnum } from '/@/enums/roleEnum'
+import { RoleEnum } from '@vben-admin/tokens'
 
 export declare type SortOrder = 'ascend' | 'descend'
 

@@ -1,7 +1,7 @@
 /**
  * Multi-language related operations
  */
-import type { LocaleType } from '/#/config'
+import type { LocaleType } from '@vben-admin/types'
 
 import { i18n } from './setupI18n'
 import { useLocaleStoreWithOut } from '/@/store/modules/locale'

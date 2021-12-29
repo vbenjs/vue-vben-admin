@@ -10,7 +10,7 @@ import {
 import { filter } from '/@/utils/helper/treeHelper'
 import { isUrl } from '/@/utils/is'
 import { router } from '/@/router'
-import { PermissionModeEnum } from '/@/enums/appEnum'
+import { PermissionModeEnum } from '@vben-admin/tokens'
 import { pathToRegexp } from 'path-to-regexp'
 
 const modules = import.meta.globEager('./modules/**/*.ts')

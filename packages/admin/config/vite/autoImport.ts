@@ -16,7 +16,7 @@ export function configAutoImport(): Plugin | Plugin[] {
         '@vueuse/core',
         'vitest',
       ],
-      dts: 'types/auto-imports.d.ts',
+      dts: 'typings/auto-imports.d.ts',
     }),
   ]
 

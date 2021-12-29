@@ -1,5 +1,5 @@
 import { defHttp } from '/@/utils/http/axios'
-import { GetAccountInfoModel } from './model/accountModel'
+import type { GetAccountInfoModel } from '@vben-admin/types/model'
 
 enum Api {
   ACCOUNT_INFO = '/account/getAccountInfo',

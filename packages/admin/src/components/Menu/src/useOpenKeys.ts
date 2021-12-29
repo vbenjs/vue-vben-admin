@@ -1,4 +1,4 @@
-import { MenuModeEnum } from '/@/enums/menuEnum'
+import { MenuModeEnum } from '@vben-admin/tokens'
 import type { Menu as MenuType } from '/@/router/types'
 import type { MenuState } from './types'
 

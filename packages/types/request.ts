@@ -14,7 +14,7 @@ export interface RequestOptions {
   joinPrefix?: boolean
   // Interface address, use the default apiUrl if you leave it blank
   apiUrl?: string
-  // 请求拼接路径
+  // Request splicing path
   urlPrefix?: string
   // Error message prompt type
   errorMessageMode?: ErrorMessageMode
@@ -25,7 +25,7 @@ export interface RequestOptions {
   withToken?: boolean
 }
 
-export interface Result<T = any> {
+export interface RequestResult<T = any> {
   code: number
   type: 'success' | 'error' | 'warning'
   message: string
@@ -33,7 +33,7 @@ export interface Result<T = any> {
 }
 
 // multipart/form-data: upload file
-export interface UploadFileParams {
+export interface RequestUploadFileOptions {
   // Other parameters
   data?: Recordable
   // File parameter interface field name

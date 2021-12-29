@@ -1,19 +1,17 @@
-import type { ProjectConfig } from '/#/config'
+import type { ProjectConfig } from '@vben-admin/types'
 import {
+  CacheTypeEnum,
   MenuTypeEnum,
   MenuModeEnum,
   TriggerEnum,
   MixSidebarTriggerEnum,
-} from '/@/enums/menuEnum'
-import { CacheTypeEnum } from '/@/enums/cacheEnum'
-import {
-  ContentEnum,
+  ContentLayoutEnum,
   PermissionModeEnum,
   ThemeEnum,
   RouterTransitionEnum,
   SettingButtonPositionEnum,
   SessionTimeoutProcessingEnum,
-} from '/@/enums/appEnum'
+} from '@vben-admin/tokens'
 import {
   SIDE_BAR_BG_COLOR_LIST,
   HEADER_PRESET_BG_COLOR_LIST,
@@ -53,7 +51,7 @@ const setting: ProjectConfig = {
   fullContent: false,
 
   // content mode
-  contentMode: ContentEnum.FULL,
+  contentMode: ContentLayoutEnum.FULL,
 
   // Whether to display the logo
   showLogo: true,

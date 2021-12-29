@@ -1,6 +1,6 @@
 {
-  "name": "@vben/admin",
-  "version": "3.0.0-beta.1",
+  "name": "@vben-admin/web",
+  "version": "3.0.0-alpha.1",
   "author": {
     "name": "vben",
     "email": "anncwb@126.com",
@@ -25,6 +25,7 @@
     "gen:icon": "esno ./scripts/generateIcon.ts"
   },
   "dependencies": {
+    "@vben-admin/tokens": "workspace:*",
     "@ant-design/colors": "^6.0.0",
     "@ant-design/icons-vue": "^6.0.1",
     "@iconify/iconify": "^2.1.0",
@@ -63,6 +64,7 @@
     "xlsx": "^0.17.4"
   },
   "devDependencies": {
+    "@vben-admin/types": "workspace:*",
     "@iconify/json": "^2.0.16",
     "@purge-icons/generated": "^0.7.0",
     "@types/codemirror": "^5.60.5",
@@ -86,6 +88,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "esno": "^0.13.0",
+    "fast-glob": "^3.2.7",
     "jest": "^27.4.5",
     "less": "^4.1.2",
     "rollup-plugin-visualizer": "^5.5.2",

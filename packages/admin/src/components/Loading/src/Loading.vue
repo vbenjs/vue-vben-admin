@@ -12,7 +12,7 @@
 import { PropType } from 'vue'
 import { defineComponent } from 'vue'
 import { Spin } from 'ant-design-vue'
-import { SizeEnum } from '/@/enums/sizeEnum'
+import { ComponentSizeEnum } from '@vben-admin/tokens'
 
 export default defineComponent({
   name: 'Loading',
@@ -23,10 +23,14 @@ export default defineComponent({
       default: '',
     },
     size: {
-      type: String as PropType<SizeEnum>,
-      default: SizeEnum.LARGE,
-      validator: (v: SizeEnum): boolean => {
-        return [SizeEnum.DEFAULT, SizeEnum.SMALL, SizeEnum.LARGE].includes(v)
+      type: String as PropType<ComponentSizeEnum>,
+      default: ComponentSizeEnum.LARGE,
+      validator: (v: ComponentSizeEnum): boolean => {
+        return [
+          ComponentSizeEnum.DEFAULT,
+          ComponentSizeEnum.SMALL,
+          ComponentSizeEnum.LARGE,
+        ].includes(v)
       },
     },
     absolute: {

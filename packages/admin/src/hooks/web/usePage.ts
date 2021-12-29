@@ -1,6 +1,6 @@
 import type { RouteLocationRaw, Router } from 'vue-router'
 
-import { PageEnum } from '/@/enums/pageEnum'
+import { PageEnum } from '@vben-admin/tokens'
 import { isString } from '/@/utils/is'
 import { unref } from 'vue'
 

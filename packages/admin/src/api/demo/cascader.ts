@@ -1,5 +1,5 @@
 import { defHttp } from '/@/utils/http/axios'
-import { AreaModel, AreaParams } from '/@/api/demo/model/areaModel'
+import type { AreaModel, AreaParams } from '@vben-admin/types/model'
 
 enum Api {
   AREA_RECORD = '/cascader/getAreaRecord',

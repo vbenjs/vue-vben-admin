@@ -6,7 +6,7 @@ import { BasicMenu } from '/@/components/Menu'
 import { SimpleMenu } from '/@/components/SimpleMenu'
 import { AppLogo } from '/@/components/Application'
 
-import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum'
+import { MenuModeEnum, MenuSplitTyeEnum } from '@vben-admin/tokens'
 
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
 import { ScrollContainer } from '/@/components/Container'

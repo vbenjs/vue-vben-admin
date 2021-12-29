@@ -1,4 +1,5 @@
-import { BasicPageParams, BasicFetchResult } from '/@/api/model/baseModel'
+import { BasicPageParams, BasicFetchResult } from '../model'
+
 /**
  * @description: Request list interface parameters
  */

@@ -2,7 +2,7 @@
  * Data processing class, can be configured according to the project
  */
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
-import type { RequestOptions, Result } from '/#/axios'
+import type { RequestOptions, RequestResult } from '@vben-admin/types'
 
 export interface CreateAxiosOptions extends AxiosRequestConfig {
   authenticationScheme?: string
@@ -24,7 +24,7 @@ export abstract class AxiosTransform {
    * @description: Request successfully processed
    */
   transformRequestHook?: (
-    res: AxiosResponse<Result>,
+    res: AxiosResponse<RequestResult>,
     options: RequestOptions,
   ) => any
 

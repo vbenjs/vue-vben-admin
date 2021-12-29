@@ -1,5 +1,5 @@
 import { defHttp } from '/@/utils/http/axios'
-import { getMenuListResultModel } from './model/menuModel'
+import type { GetMenuListResultModel } from '@vben-admin/types/model'
 
 enum Api {
   GetMenuList = '/getMenuList',
@@ -10,5 +10,5 @@ enum Api {
  */
 
 export const getMenuList = () => {
-  return defHttp.get<getMenuListResultModel>({ url: Api.GetMenuList })
+  return defHttp.get<GetMenuListResultModel>({ url: Api.GetMenuList })
 }

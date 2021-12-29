@@ -2,11 +2,11 @@
  * Used to configure the global error handling function, which can monitor vue errors, script errors, static resource errors and Promise errors
  */
 
-import type { ErrorLogInfo } from '/#/store'
+import type { ErrorLogInfo } from '@vben-admin/types'
 
 import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog'
 
-import { ErrorTypeEnum } from '/@/enums/exceptionEnum'
+import { ErrorTypeEnum } from '@vben-admin/tokens'
 import { App } from 'vue'
 import projectSetting from '/@/settings/projectSetting'
 

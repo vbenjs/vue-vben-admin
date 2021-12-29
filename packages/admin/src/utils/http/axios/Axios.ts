@@ -4,15 +4,19 @@ import type {
   AxiosResponse,
   AxiosError,
 } from 'axios'
-import type { RequestOptions, Result, UploadFileParams } from '/#/axios'
+import type {
+  RequestOptions,
+  RequestResult,
+  RequestUploadFileOptions,
+} from '@vben-admin/types'
 import type { CreateAxiosOptions } from './axiosTransform'
+
 import axios from 'axios'
 import qs from 'qs'
 import { AxiosCanceler } from './axiosCancel'
 import { isFunction } from '/@/utils/is'
 import { cloneDeep } from 'lodash-es'
-import { ContentTypeEnum } from '/@/enums/httpEnum'
-import { RequestEnum } from '/@/enums/httpEnum'
+import { ContentTypeEnum, RequestEnum } from '@vben-admin/tokens'
 
 export * from './axiosTransform'
 
@@ -131,7 +135,10 @@ export class VAxios {
   /**
    * @description:  File Upload
    */
-  uploadFile<T = any>(config: AxiosRequestConfig, params: UploadFileParams) {
+  uploadFile<T = any>(
+    config: AxiosRequestConfig,
+    params: RequestUploadFileOptions,
+  ) {
     const formData = new window.FormData()
     const customFilename = params.name || 'file'
 
@@ -236,8 +243,8 @@ export class VAxios {
 
     return new Promise((resolve, reject) => {
       this.axiosInstance
-        .request<any, AxiosResponse<Result>>(conf)
-        .then((res: AxiosResponse<Result>) => {
+        .request<any, AxiosResponse<RequestResult>>(conf)
+        .then((res: AxiosResponse<RequestResult>) => {
           if (transformRequestHook && isFunction(transformRequestHook)) {
             try {
               const ret = transformRequestHook(res, opt)

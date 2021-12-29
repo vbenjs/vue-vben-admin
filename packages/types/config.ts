@@ -3,17 +3,14 @@ import {
   MenuModeEnum,
   TriggerEnum,
   MixSidebarTriggerEnum,
-} from '/@/enums/menuEnum'
-import {
-  ContentEnum,
+  ContentLayoutEnum,
   PermissionModeEnum,
   ThemeEnum,
   RouterTransitionEnum,
   SettingButtonPositionEnum,
   SessionTimeoutProcessingEnum,
-} from '/@/enums/appEnum'
-
-import { CacheTypeEnum } from '/@/enums/cacheEnum'
+  CacheTypeEnum,
+} from '@vben-admin/tokens'
 
 export type LocaleType = 'zh_CN' | 'en' | 'ru' | 'ja' | 'ko'
 
@@ -107,7 +104,7 @@ export interface ProjectConfig {
   // The main interface is displayed in full screen, the menu is not displayed, and the top
   fullContent: boolean
   // content width
-  contentMode: ContentEnum
+  contentMode: ContentLayoutEnum
   // Whether to display the logo
   showLogo: boolean
   // Whether to show the global footer
@@ -152,6 +149,7 @@ export interface GlobConfig {
   // Project abbreviation
   shortName: string
 }
+
 export interface GlobEnvConfig {
   // Site title
   VITE_GLOB_APP_TITLE: string

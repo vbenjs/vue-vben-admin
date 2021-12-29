@@ -1,9 +1,9 @@
-import type { LocaleSetting, LocaleType } from '/#/config'
+import type { LocaleSetting, LocaleType } from '@vben-admin/types'
 
 import { defineStore } from 'pinia'
 import { store } from '/@/store'
 
-import { LOCALE_KEY } from '/@/enums/cacheEnum'
+import { LOCALE_KEY } from '@vben-admin/tokens'
 import { createLocalStorage } from '/@/utils/cache'
 import { localeSetting } from '/@/settings/localeSetting'
 

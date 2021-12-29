@@ -1,8 +1,8 @@
-import type { LockInfo } from '/#/store'
+import type { LockInfo } from '@vben-admin/types'
 
 import { defineStore } from 'pinia'
 
-import { LOCK_INFO_KEY } from '/@/enums/cacheEnum'
+import { LOCK_INFO_KEY } from '@vben-admin/tokens'
 import { Persistent } from '/@/utils/cache/persistent'
 import { useUserStore } from './user'
 

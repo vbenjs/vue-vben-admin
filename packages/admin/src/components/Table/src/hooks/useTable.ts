@@ -5,7 +5,7 @@ import type {
   BasicColumn,
 } from '../types/table'
 import type { PaginationProps } from '../types/pagination'
-import type { DynamicProps } from '/#/utils'
+import type { DynamicProps } from '@vben-admin/types'
 import type { FormActionType } from '/@/components/Form'
 import type { WatchStopHandle } from 'vue'
 import { getDynamicProps } from '/@/utils'

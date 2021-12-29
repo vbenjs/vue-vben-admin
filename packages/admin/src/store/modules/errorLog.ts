@@ -1,4 +1,4 @@
-import type { ErrorLogInfo } from '/#/store'
+import type { ErrorLogInfo } from '@vben-admin/types'
 
 import { defineStore } from 'pinia'
 import { store } from '/@/store'
@@ -6,7 +6,7 @@ import { store } from '/@/store'
 import { formatToDateTime } from '/@/utils/dateUtil'
 import projectSetting from '/@/settings/projectSetting'
 
-import { ErrorTypeEnum } from '/@/enums/exceptionEnum'
+import { ErrorTypeEnum } from '@vben-admin/tokens'
 
 export interface ErrorLogState {
   errorLogInfoList: Nullable<ErrorLogInfo[]>

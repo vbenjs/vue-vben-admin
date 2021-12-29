@@ -1,5 +1,8 @@
 import { defHttp } from '/@/utils/http/axios'
-import { DemoParams, DemoListGetResultModel } from './model/tableModel'
+import type {
+  DemoParams,
+  DemoListGetResultModel,
+} from '@vben-admin/types/model'
 
 enum Api {
   DEMO_LIST = '/table/getDemoList',

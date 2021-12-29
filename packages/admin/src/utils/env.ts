@@ -1,4 +1,4 @@
-import type { GlobEnvConfig } from '/#/config'
+import type { GlobEnvConfig } from '@vben-admin/types'
 
 import { warn } from '/@/utils/log'
 import pkg from '../../package.json'

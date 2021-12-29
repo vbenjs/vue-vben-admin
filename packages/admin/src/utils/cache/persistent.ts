@@ -1,5 +1,5 @@
-import type { LockInfo, UserInfo } from '/#/store'
-import type { ProjectConfig } from '/#/config'
+import type { LockInfo, UserInfo } from '@vben-admin/types'
+import type { ProjectConfig } from '@vben-admin/types'
 import type { RouteLocationNormalized } from 'vue-router'
 
 import { createLocalStorage, createSessionStorage } from '/@/utils/cache'
@@ -13,7 +13,7 @@ import {
   APP_LOCAL_CACHE_KEY,
   APP_SESSION_CACHE_KEY,
   MULTIPLE_TABS_KEY,
-} from '/@/enums/cacheEnum'
+} from '@vben-admin/tokens'
 import { DEFAULT_CACHE_TIME } from '/@/settings/encryptionSetting'
 import { toRaw } from 'vue'
 import { pick, omit } from 'lodash-es'

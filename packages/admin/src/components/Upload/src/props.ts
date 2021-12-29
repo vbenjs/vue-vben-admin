@@ -30,7 +30,7 @@ export const basicProps = {
     default: {},
   },
   api: {
-    type: Function as PropType<PromiseFn>,
+    type: Function as PropType<Fn>,
     default: null,
     required: true,
   },

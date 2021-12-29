@@ -10,8 +10,7 @@ import { router, resetRouter } from '/@/router'
 // import { RootRoute } from '/@/router/routes';
 
 import projectSetting from '/@/settings/projectSetting'
-import { PermissionModeEnum } from '/@/enums/appEnum'
-import { RoleEnum } from '/@/enums/roleEnum'
+import { PermissionModeEnum, RoleEnum } from '@vben-admin/tokens'
 
 import { intersection } from 'lodash-es'
 import { isArray } from '/@/utils/is'

@@ -1,0 +1,13 @@
+{
+  "name": "@vben-admin/types",
+  "version": "3.0.0-alpha.1",
+  "main": "index.ts",
+  "module": "index.ts",
+  "types": "index.d.js",
+  "unpkg": "index.js",
+  "jsdelivr": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@vben-admin/tokens": "workspace:*"
+  }
+}

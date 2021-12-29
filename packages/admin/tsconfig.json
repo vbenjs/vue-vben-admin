@@ -23,19 +23,17 @@
     "types": ["vite/client"],
     "removeComments": true,
     "paths": {
-      "/@/*": ["src/*"],
-      "/#/*": ["types/*"]
+      "/@/*": ["src/*"]
     }
   },
   "include": [
     "tests/**/*.ts",
     "src/**/*.ts",
-    "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "types/**/*.ts",
-    "build/**/*.ts",
-    "config/**/*.ts",
+    "typings",
+    "build",
+    "config",
     "mock/**/*.ts",
     "vite.config.ts"
   ],

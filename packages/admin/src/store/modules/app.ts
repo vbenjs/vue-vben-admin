@@ -4,14 +4,13 @@ import type {
   MenuSetting,
   TransitionSetting,
   MultiTabsSetting,
-} from '/#/config'
-import type { BeforeMiniState } from '/#/store'
+} from '@vben-admin/types'
+import type { BeforeMiniState } from '@vben-admin/types'
 
 import { defineStore } from 'pinia'
 import { store } from '/@/store'
 
-import { ThemeEnum } from '/@/enums/appEnum'
-import { APP_DARK_MODE_KEY_, PROJ_CFG_KEY } from '/@/enums/cacheEnum'
+import { ThemeEnum, APP_DARK_MODE_KEY_, PROJ_CFG_KEY } from '@vben-admin/tokens'
 import { Persistent } from '/@/utils/cache/persistent'
 import { darkMode } from '/@/settings/designSetting'
 import { resetRouter } from '/@/router'

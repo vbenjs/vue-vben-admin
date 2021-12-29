@@ -1,11 +1,10 @@
-import type { ErrorMessageMode } from '/#/axios'
+import type { ErrorMessageMode } from '@vben-admin/types'
+
 import { useMessage } from '/@/hooks/web/useMessage'
 import { useI18n } from '/@/hooks/web/useI18n'
-// import router from '/@/router';
-// import { PageEnum } from '/@/enums/pageEnum';
 import { useUserStoreWithOut } from '/@/store/modules/user'
 import projectSetting from '/@/settings/projectSetting'
-import { SessionTimeoutProcessingEnum } from '/@/enums/appEnum'
+import { SessionTimeoutProcessingEnum } from '@vben-admin/tokens'
 
 const { createMessage, createErrorModal } = useMessage()
 const error = createMessage.error!

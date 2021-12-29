@@ -29,11 +29,10 @@
 </template>
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { RoleEnum } from '/@/enums/roleEnum'
+import { RoleEnum, PermissionModeEnum } from '@vben-admin/tokens'
 import { usePermission } from '/@/hooks/web/usePermission'
 import { useUserStore } from '/@/store/modules/user'
 import { PageWrapper } from '/@/components/Page'
-import { PermissionModeEnum } from '/@/enums/appEnum'
 import { useAppStore } from '/@/store/modules/app'
 import { Alert, Space } from 'ant-design-vue'
 import CurrentPermissionMode from '../CurrentPermissionMode.vue'
