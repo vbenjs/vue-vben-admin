@@ -3,25 +3,16 @@
  */
 import type { ProxyOptions } from 'vite';
 
-type ProxyItem = [string, string];
-
-type ProxyList = ProxyItem[];
-
-type ProxyTargetList = Record<string, ProxyOptions>;
-
-const httpsRE = /^https:\/\//;
-
 /**
- * Generate proxy
- * @param list
+ * Configure according to the proxy list
+ * @param proxyList
  */
-export function createProxy(list: ProxyList = []) {
-  const ret: ProxyTargetList = {};
-  for (const [prefix, target] of list) {
-    const isHttps = httpsRE.test(target);
-
+export function configProxy(proxyList: [string, string][] = []) {
+  const proxy: Record<string, ProxyOptions> = {};
+  for (const [prefix, target] of proxyList) {
+    const isHttps = /^https:\/\//.test(target);
     // https://github.com/http-party/node-http-proxy#options
-    ret[prefix] = {
+    proxy[prefix] = {
       target: target,
       changeOrigin: true,
       ws: true,
@@ -30,5 +21,5 @@ export function createProxy(list: ProxyList = []) {
       ...(isHttps ? { secure: false } : {}),
     };
   }
-  return ret;
+  return proxy;
 }

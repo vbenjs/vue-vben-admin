@@ -1,4 +1,5 @@
 import type { Plugin } from 'vite';
+
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import legacy from '@vitejs/plugin-legacy';
@@ -14,8 +15,10 @@ import { configVisualizerConfig } from './visualizer';
 import { configThemePlugin } from './theme';
 import { configImageminPlugin } from './imagemin';
 import { configSvgIconsPlugin } from './svgSprite';
+import { configAutoImport } from './autoImport';
+import { configProxy } from './proxy';
 
-export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
+export function configVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   const {
     VITE_USE_IMAGEMIN,
     VITE_USE_MOCK,
@@ -41,6 +44,9 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
 
   // vite-plugin-html
   vitePlugins.push(configHtmlPlugin(viteEnv, isBuild));
+
+  // unplugin-auto-import
+  vitePlugins.push(configAutoImport());
 
   // vite-plugin-svg-icons
   vitePlugins.push(configSvgIconsPlugin(isBuild));
@@ -76,3 +82,5 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
 
   return vitePlugins;
 }
+
+export { configProxy };

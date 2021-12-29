@@ -1,13 +1,10 @@
 /**
- *  Introduces component library styles on demand.
- * https://github.com/anncwb/vite-plugin-style-import
+ * Introduces component library styles on demand.
+ * @see https://github.com/anncwb/vite-plugin-style-import
  */
 import styleImport from 'vite-plugin-style-import';
 
 export function configStyleImportPlugin(_isBuild: boolean) {
-  // if (!isBuild) {
-  //   return [];
-  // }
   const styleImportPlugin = styleImport({
     libs: [
       {

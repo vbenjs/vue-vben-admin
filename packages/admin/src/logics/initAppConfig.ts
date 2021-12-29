@@ -17,7 +17,7 @@ import { useLocaleStore } from '/@/store/modules/locale';
 
 import { getCommonStoragePrefix, getStorageShortName } from '/@/utils/env';
 
-import { primaryColor } from '../../build/config/themeConfig';
+import { primaryColor } from '../../config/theme';
 import { Persistent } from '/@/utils/cache/persistent';
 import { deepMerge } from '/@/utils';
 import { ThemeEnum } from '/@/enums/appEnum';

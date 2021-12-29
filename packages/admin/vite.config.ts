@@ -1,27 +1,16 @@
 import type { UserConfig, ConfigEnv } from 'vite';
+
 import pkg from './package.json';
 import dayjs from 'dayjs';
 import { loadEnv } from 'vite';
 import { resolve } from 'path';
-import { generateModifyVars } from './build/generate/generateModifyVars';
-import { createProxy } from './build/vite/proxy';
-import { wrapperEnv } from './build/utils';
-import { createVitePlugins } from './build/vite/plugin';
-import { OUTPUT_DIR } from './build/constant';
-
-function pathResolve(dir: string) {
-  return resolve(process.cwd(), '.', dir);
-}
-
-const { dependencies, devDependencies, name, version } = pkg;
-const __APP_INFO__ = {
-  pkg: { dependencies, devDependencies, name, version },
-  lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-};
+import { OUTPUT_DIR, wrapperEnv } from './config';
+import { configProxy, configVitePlugins } from './config/vite';
+import { generateModifyVars } from './config/modifyVars';
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
+  const { dependencies, devDependencies, name, version } = pkg;
   const root = process.cwd();
-
   const env = loadEnv(mode, root);
 
   // The boolean type read by loadEnv is a string. This function can be converted to boolean type
@@ -29,67 +18,63 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 
   const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE } = viteEnv;
 
-  const isBuild = command === 'build';
-
   return {
-    base: VITE_PUBLIC_PATH,
     root,
+    base: VITE_PUBLIC_PATH,
     resolve: {
-      alias: [
-        {
-          find: 'vue-i18n',
-          replacement: 'vue-i18n/dist/vue-i18n.cjs.js',
-        },
-        // /@/xxxx => src/xxxx
-        {
-          find: /\/@\//,
-          replacement: pathResolve('src') + '/',
-        },
-        // /#/xxxx => types/xxxx
-        {
-          find: /\/#\//,
-          replacement: pathResolve('types') + '/',
-        },
-      ],
+      alias: {
+        '/@/': `${resolve(__dirname, 'src')}/`,
+        '/#/': `${resolve(__dirname, 'types')}/`,
+        'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
+        vue: 'vue/dist/vue.esm-bundler.js',
+      },
     },
     server: {
-      // Listening on all local IPs
       host: true,
-      port: VITE_PORT,
-      // Load proxy configuration from .env
-      proxy: createProxy(VITE_PROXY),
       fs: {
         strict: true,
-        allow: [__dirname],
       },
+      port: VITE_PORT,
+      proxy: configProxy(VITE_PROXY),
     },
     build: {
       target: 'es2015',
-      cssTarget: 'chrome86',
+      cssTarget: 'chrome85',
       outDir: OUTPUT_DIR,
       terserOptions: {
         compress: {
           keep_infinity: true,
-          // Used to delete console in production environment
           drop_console: VITE_DROP_CONSOLE,
         },
       },
-      // rollupOptions: {
-      //   output: {
-      //     manualChunks: {
-      //       windicss: ['windicss'],
-      //     },
-      //   },
-      // },
-      // Turning off brotliSize display can slightly reduce packaging time
       brotliSize: false,
-      chunkSizeWarningLimit: 2000,
+      chunkSizeWarningLimit: 2048,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vue: [
+              'vue',
+              'pinia',
+              'vue-router',
+              '@vue/shared',
+              '@vueuse/core',
+              '@vueuse/shared',
+              '@vue/runtime-core',
+            ],
+            antdv: ['ant-design-vue', '@ant-design/icons-vue'],
+            echarts: ['echarts'],
+            logicflow: ['@logicflow/core', '@logicflow/extension'],
+          },
+        },
+      },
     },
     define: {
-      // setting vue-i18-next
-      // Suppress warning
+      // Suppress vue-i18-next warning
       __INTLIFY_PROD_DEVTOOLS__: false,
-      __APP_INFO__: JSON.stringify(__APP_INFO__),
+      __APP_INFO__: JSON.stringify({
+        pkg: { dependencies, devDependencies, name, version },
+        lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+      }),
     },
 
     css: {
@@ -100,19 +85,25 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         },
       },
     },
-
-    // The vite plugin used by the project. The quantity is large, so it is separately extracted and managed
-    plugins: createVitePlugins(viteEnv, isBuild),
-
     optimizeDeps: {
-      // @iconify/iconify: The dependency is dynamically and virtually loaded by @purge-icons/generated, so it needs to be specified explicitly
       include: [
         '@vue/runtime-core',
         '@vue/shared',
         '@iconify/iconify',
         'ant-design-vue/es/locale/zh_CN',
         'ant-design-vue/es/locale/en_US',
+        '@ant-design/icons-vue',
       ],
+      exclude: ['vue-demi'],
+    },
+    plugins: configVitePlugins(viteEnv, command === 'build'),
+    // https://github.com/vitest-dev/vitest
+    test: {
+      include: ['tests/**/*.test.ts'],
+      environment: 'jsdom',
+      deps: {
+        inline: ['@vue', '@vueuse', 'vue-demi'],
+      },
     },
   };
 };

@@ -1,6 +1,6 @@
 /**
  * Zero-config PWA for Vite
- * https://github.com/antfu/vite-plugin-pwa
+ * @see https://github.com/antfu/vite-plugin-pwa
  */
 import { VitePWA } from 'vite-plugin-pwa';
 

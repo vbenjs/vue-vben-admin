@@ -1,9 +1,9 @@
 /**
  * Vite plugin for website theme color switching
- * https://github.com/anncwb/vite-plugin-theme
+ * @see https://github.com/anncwb/vite-plugin-theme
  */
 import type { Plugin } from 'vite';
-import path from 'path';
+import { resolve } from 'path';
 import {
   viteThemePlugin,
   antdDarkThemePlugin,
@@ -11,8 +11,8 @@ import {
   mixDarken,
   tinycolor,
 } from 'vite-plugin-theme';
-import { getThemeColors, generateColors } from '../../config/themeConfig';
-import { generateModifyVars } from '../../generate/generateModifyVars';
+import { getThemeColors, generateColors } from '../theme';
+import { generateModifyVars } from '../modifyVars';
 
 export function configThemePlugin(isBuild: boolean): Plugin[] {
   const colors = generateColors({
@@ -47,12 +47,10 @@ export function configThemePlugin(isBuild: boolean): Plugin[] {
     }),
     antdDarkThemePlugin({
       preloadFiles: [
-        path.resolve(process.cwd(), 'node_modules/ant-design-vue/dist/antd.less'),
-        //path.resolve(process.cwd(), 'node_modules/ant-design-vue/dist/antd.dark.less'),
-        path.resolve(process.cwd(), 'src/design/index.less'),
+        resolve(process.cwd(), 'node_modules/ant-design-vue/dist/antd.less'),
+        resolve(process.cwd(), 'src/design/index.less'),
       ],
       filter: (id) => (isBuild ? !id.endsWith('antd.less') : true),
-      // extractCss: false,
       darkModifyVars: {
         ...generateModifyVars(true),
         'text-color': '#c9d1d9',

@@ -1,17 +1,10 @@
 import { defineConfig } from 'vite-plugin-windicss';
-import { primaryColor } from './build/config/themeConfig';
 
 export default defineConfig({
   darkMode: 'class',
   plugins: [createEnterPlugin()],
   theme: {
     extend: {
-      zIndex: {
-        '-1': '-1',
-      },
-      colors: {
-        primary: primaryColor,
-      },
       screens: {
         sm: '576px',
         md: '768px',

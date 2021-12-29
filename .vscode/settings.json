@@ -107,6 +107,7 @@
     "sider",
     "pnpm",
     "antd",
-    "styl"
+    "styl",
+    "unplugin"
   ]
 }

@@ -120,6 +120,7 @@ importers:
       dayjs: ^1.10.7
       dotenv: ^10.0.0
       echarts: ^5.2.2
+      esno: ^0.13.0
       intro.js: ^4.3.0
       jest: ^27.4.5
       less: ^4.1.2
@@ -131,11 +132,11 @@ importers:
       print-js: ^1.6.0
       qrcode: ^1.5.0
       qs: ^6.10.2
-      resize-observer-polyfill: ^1.5.1
       rollup-plugin-visualizer: ^5.5.2
       showdown: ^1.9.1
       sortablejs: ^1.14.0
       tinymce: ^5.10.2
+      unplugin-auto-import: ^0.5.5
       vditor: ^3.8.10
       vite: ^2.7.9
       vite-plugin-compression: ^0.4.0
@@ -184,7 +185,6 @@ importers:
       print-js: 1.6.0
       qrcode: 1.5.0
       qs: 6.10.2
-      resize-observer-polyfill: 1.5.1
       showdown: 1.9.1
       sortablejs: 1.14.0
       tinymce: 5.10.2
@@ -218,9 +218,11 @@ importers:
       autoprefixer: 10.4.0_postcss@8.4.5
       cross-env: 7.0.3
       dotenv: 10.0.0
+      esno: 0.13.0_typescript@4.5.4
       jest: 27.4.5_ts-node@10.4.0
       less: 4.1.2
       rollup-plugin-visualizer: 5.5.2
+      unplugin-auto-import: 0.5.5_@vueuse+core@7.4.1+vite@2.7.9
       vite: 2.7.9_less@4.1.2
       vite-plugin-compression: 0.4.0_vite@2.7.9
       vite-plugin-html: 2.1.2_vite@2.7.9
@@ -14812,6 +14814,52 @@ packages:
     engines: { node: '>= 0.8' }
     dev: true
 
+  /unplugin-auto-import/0.5.5_@vueuse+core@7.4.1+vite@2.7.9:
+    resolution:
+      {
+        integrity: sha512-PAP/6WdqWtGhlQBvlVZ7qmhHbLcTYSsARtFSbY/jaUx/SaQkRT7SvronHIKEvx4bPmS+l4erQ9gQKSBBPzvUnQ==,
+      }
+    engines: { node: '>=14' }
+    peerDependencies:
+      '@vueuse/core': '*'
+    peerDependenciesMeta:
+      '@vueuse/core':
+        optional: true
+    dependencies:
+      '@antfu/utils': 0.3.0
+      '@rollup/pluginutils': 4.1.2
+      '@vueuse/core': 7.4.1_vue@3.2.26
+      local-pkg: 0.4.0
+      magic-string: 0.25.7
+      resolve: 1.20.0
+      unplugin: 0.2.21_vite@2.7.9
+    transitivePeerDependencies:
+      - rollup
+      - vite
+      - webpack
+    dev: true
+
+  /unplugin/0.2.21_vite@2.7.9:
+    resolution:
+      {
+        integrity: sha512-IJ15/L5XbhnV7J09Zjk0FT5HEkBjkXucWAXQWRsmEtUxmmxwh23yavrmDbCF6ZPxWiVB28+wnKIHePTRRpQPbQ==,
+      }
+    peerDependencies:
+      rollup: ^2.50.0
+      vite: ^2.3.0
+      webpack: 4 || 5
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+      vite:
+        optional: true
+      webpack:
+        optional: true
+    dependencies:
+      vite: 2.7.9_less@4.1.2
+      webpack-virtual-modules: 0.4.3
+    dev: true
+
   /unset-value/1.0.0:
     resolution: { integrity: sha1-g3aHP30jNRef+x5vw6jtDfyKtVk= }
     engines: { node: '>=0.10.0' }
@@ -15594,6 +15642,13 @@ packages:
         integrity: sha512-qBIvFLGiBpLjfwmYAaHPXsn+ho5xZnGvyGvsarywGNc8VyQJUMHJ8OBKGGrPER0okBeMDaan4mNBlgBROxuI8w==,
       }
     engines: { node: '>=10.4' }
+    dev: true
+
+  /webpack-virtual-modules/0.4.3:
+    resolution:
+      {
+        integrity: sha512-5NUqC2JquIL2pBAAo/VfBP6KuGkHIZQXW/lNKupLPfhViwh8wNsu0BObtl09yuKZszeEUfbXz8xhrHvSG16Nqw==,
+      }
     dev: true
 
   /whatwg-encoding/1.0.5:

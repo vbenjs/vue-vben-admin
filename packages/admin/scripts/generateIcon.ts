@@ -1,13 +1,13 @@
-import path from 'path';
-import fs from 'fs-extra';
+import { resolve, join } from 'path';
+import { ensureDir, readJSON, writeFileSync, emptyDir } from 'fs-extra';
+import { cyan } from 'chalk';
+import { PKG_NAME } from '../config';
 import inquirer from 'inquirer';
-import chalk from 'chalk';
-import pkg from '../../../package.json';
 
 async function generateIcon() {
-  const dir = path.resolve(process.cwd(), 'node_modules/@iconify/json');
+  const dir = resolve(process.cwd(), 'node_modules/@iconify/json');
 
-  const raw = await fs.readJSON(path.join(dir, 'collections.json'));
+  const raw = await readJSON(join(dir, 'collections.json'));
 
   const collections = Object.entries(raw).map(([id, v]) => ({
     ...(v as any),
@@ -42,12 +42,12 @@ async function generateIcon() {
     ])
     .then(async (answers) => {
       const { iconSet, output, useType } = answers;
-      const outputDir = path.resolve(process.cwd(), output);
-      fs.ensureDir(outputDir);
+      const outputDir = resolve(process.cwd(), output);
+      ensureDir(outputDir);
       const genCollections = collections.filter((item) => [iconSet].includes(item.id));
       const prefixSet: string[] = [];
       for (const info of genCollections) {
-        const data = await fs.readJSON(path.join(dir, 'json', `${info.id}.json`));
+        const data = await readJSON(join(dir, 'json', `${info.id}.json`));
         if (data) {
           const { prefix } = data;
           const isLocal = useType === 'local';
@@ -55,16 +55,16 @@ async function generateIcon() {
             (item) => `${isLocal ? prefix + ':' : ''}${item}`,
           );
 
-          await fs.writeFileSync(
-            path.join(output, `icons.data.ts`),
+          await writeFileSync(
+            join(output, `icons.data.ts`),
             `export default ${isLocal ? JSON.stringify(icons) : JSON.stringify({ prefix, icons })}`,
           );
           prefixSet.push(prefix);
         }
       }
-      fs.emptyDir(path.join(process.cwd(), 'node_modules/.vite'));
+      emptyDir(join(process.cwd(), 'node_modules/.vite'));
       console.log(
-        `✨ ${chalk.cyan(`[${pkg.name}]`)}` + ' - Icon generated successfully:' + `[${prefixSet}]`,
+        `✨ ${cyan(`[${PKG_NAME}]`)}` + ' - Icon generated successfully:' + `[${prefixSet}]`,
       );
     });
 }
