@@ -101,6 +101,7 @@
     "vite-plugin-theme": "^0.8.1",
     "vite-plugin-vue-setup-extend": "^0.3.0",
     "vite-plugin-windicss": "^1.6.1",
+    "vitest": "^0.0.118",
     "vue-tsc": "^0.30.1"
   },
   "repository": {

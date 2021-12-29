@@ -153,7 +153,7 @@
           toolbar,
           menubar: 'file edit insert view format table',
           plugins,
-          language_url: publicPath + 'resource/tinymce/langs/' + langName.value + '.js',
+          language_url: publicPath + 'resources/tinymce/langs/' + langName.value + '.js',
           language: langName.value,
           branding: false,
           default_link_target: '_blank',
@@ -161,9 +161,9 @@
           object_resizing: false,
           auto_focus: true,
           skin: skinName.value,
-          skin_url: publicPath + 'resource/tinymce/skins/ui/' + skinName.value,
+          skin_url: publicPath + 'resources/tinymce/skins/ui/' + skinName.value,
           content_css:
-            publicPath + 'resource/tinymce/skins/ui/' + skinName.value + '/content.min.css',
+            publicPath + 'resources/tinymce/skins/ui/' + skinName.value + '/content.min.css',
           ...options,
           setup: (editor: Editor) => {
             editorRef.value = editor;
