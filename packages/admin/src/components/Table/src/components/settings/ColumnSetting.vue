@@ -127,8 +127,8 @@ import { ScrollContainer } from '/@/components/Container'
 import { useI18n } from '/@/hooks/web/useI18n'
 import { useTableContext } from '../../hooks/useTableContext'
 import { useDesign } from '/@/hooks/web/useDesign'
-// import { useSortable } from '/@/hooks/web/useSortable';
-import { isFunction, isNullAndUnDef } from '/@/utils/is'
+import { isNullOrUndefined } from '@vben-admin/utils'
+import { isFunction } from '@vben-admin/utils'
 import { getPopupContainer as getParentContainer } from '/@/utils'
 import { cloneDeep, omit } from 'lodash-es'
 import Sortablejs from 'sortablejs'
@@ -313,8 +313,8 @@ export default defineComponent({
           onEnd: (evt) => {
             const { oldIndex, newIndex } = evt
             if (
-              isNullAndUnDef(oldIndex) ||
-              isNullAndUnDef(newIndex) ||
+              isNullOrUndefined(oldIndex) ||
+              isNullOrUndefined(newIndex) ||
               oldIndex === newIndex
             ) {
               return

@@ -37,7 +37,7 @@ import { listenerRouteChange } from '/@/logics/mitt/routeChange'
 import { propTypes } from '/@/utils/propTypes'
 import { REDIRECT_NAME } from '/@/router/constant'
 import { useRouter } from 'vue-router'
-import { isFunction, isUrl } from '/@/utils/is'
+import { isFunction, isUrl } from '@vben-admin/utils'
 import { openWindow } from '/@/utils'
 
 import { useOpenKeys } from './useOpenKeys'

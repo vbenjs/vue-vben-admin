@@ -11,7 +11,7 @@ import {
   USER_INFO_KEY,
 } from '@vben-admin/tokens'
 import { getAuthCache, setAuthCache } from '/@/utils/auth'
-import { GetUserInfoModel, LoginParams } from '/@/api/sys/model/userModel'
+import { GetUserInfoModel, LoginParams } from '@vben-admin/types/model'
 import { doLogout, getUserInfo, loginApi } from '/@/api/sys/user'
 import { useI18n } from '/@/hooks/web/useI18n'
 import { useMessage } from '/@/hooks/web/useMessage'
@@ -19,7 +19,7 @@ import { router } from '/@/router'
 import { usePermissionStore } from '/@/store/modules/permission'
 import { RouteRecordRaw } from 'vue-router'
 import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic'
-import { isArray } from '/@/utils/is'
+import { isArray } from '@vben-admin/utils'
 import { h } from 'vue'
 
 interface UserState {

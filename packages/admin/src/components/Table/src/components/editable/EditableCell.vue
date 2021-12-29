@@ -65,11 +65,15 @@ import { CellComponent } from './CellComponent'
 
 import { useDesign } from '/@/hooks/web/useDesign'
 import { useTableContext } from '../../hooks/useTableContext'
-
 import clickOutside from '/@/directives/clickOutside'
-
 import { propTypes } from '/@/utils/propTypes'
-import { isArray, isBoolean, isFunction, isNumber, isString } from '/@/utils/is'
+import {
+  isArray,
+  isFunction,
+  isString,
+  isBoolean,
+  isNumber,
+} from '@vben-admin/utils'
 import { createPlaceholderMessage } from './helper'
 import { omit, pick, set } from 'lodash-es'
 import { treeToList } from '/@/utils/helper/treeHelper'

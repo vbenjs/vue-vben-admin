@@ -32,7 +32,7 @@ import { useGo } from '/@/hooks/web/usePage'
 import { useI18n } from '/@/hooks/web/useI18n'
 
 import { propTypes } from '/@/utils/propTypes'
-import { isString } from '/@/utils/is'
+import { isString } from '@vben-admin/utils'
 import { filter } from '/@/utils/helper/treeHelper'
 import { getMenus } from '/@/router/menus'
 

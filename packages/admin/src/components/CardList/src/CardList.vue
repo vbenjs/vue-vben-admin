@@ -100,7 +100,7 @@ import { Dropdown } from '/@/components/Dropdown'
 import { BasicForm, useForm } from '/@/components/Form'
 import { propTypes } from '/@/utils/propTypes'
 import { Button } from '/@/components/Button'
-import { isFunction } from '/@/utils/is'
+import { isFunction } from '@vben-admin/utils'
 import { useSlider, grid } from './data'
 const ListItem = List.Item
 const CardMeta = Card.Meta

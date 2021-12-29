@@ -16,9 +16,8 @@ import {
   computed,
 } from 'vue'
 import { isProdMode } from '/@/utils/env'
-import { isFunction } from '/@/utils/is'
+import { isFunction, isEqual } from '@vben-admin/utils'
 import { tryOnUnmounted } from '@vueuse/core'
-import { isEqual } from 'lodash-es'
 import { error } from '/@/utils/log'
 
 const dataTransferRef = reactive<any>({})

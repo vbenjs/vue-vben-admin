@@ -8,7 +8,7 @@ import { get } from 'lodash-es'
 import { Descriptions } from 'ant-design-vue'
 import { CollapseContainer } from '/@/components/Container/index'
 import { useDesign } from '/@/hooks/web/useDesign'
-import { isFunction } from '/@/utils/is'
+import { isFunction } from '@vben-admin/utils'
 import { getSlot } from '/@/utils/helper/tsxHelper'
 import { useAttrs } from '/@/hooks/core/useAttrs'
 

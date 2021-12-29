@@ -8,7 +8,7 @@ import {
 } from 'vue'
 import { useRafThrottle } from '/@/utils/domUtils'
 import { addResizeListener, removeResizeListener } from '/@/utils/event'
-import { isDef } from '/@/utils/is'
+import { isDefined } from '@vben-admin/utils'
 
 const domSymbol = Symbol('watermark-dom')
 
@@ -60,13 +60,13 @@ export function useWatermark(
   ) {
     const el = unref(watermarkEl)
     if (!el) return
-    if (isDef(options.width)) {
+    if (isDefined(options.width)) {
       el.style.width = `${options.width}px`
     }
-    if (isDef(options.height)) {
+    if (isDefined(options.height)) {
       el.style.height = `${options.height}px`
     }
-    if (isDef(options.str)) {
+    if (isDefined(options.str)) {
       el.style.background = `url(${createBase64(options.str)}) left top repeat`
     }
   }

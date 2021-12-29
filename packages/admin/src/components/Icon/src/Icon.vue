@@ -27,7 +27,7 @@ import {
 } from 'vue'
 import SvgIcon from './SvgIcon.vue'
 import Iconify from '@purge-icons/generated'
-import { isString } from '/@/utils/is'
+import { isString } from '@vben-admin/utils'
 import { propTypes } from '/@/utils/propTypes'
 
 const SVG_END_WITH_FLAG = '|svg'

@@ -6,7 +6,7 @@ import type {
 import { Ref, ComputedRef, ref } from 'vue'
 import { computed, unref, nextTick, watch } from 'vue'
 import { getViewportOffset } from '/@/utils/domUtils'
-import { isBoolean } from '/@/utils/is'
+import { isBoolean } from '@vben-admin/utils'
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn'
 import { useModalContext } from '/@/components/Modal'
 import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated'

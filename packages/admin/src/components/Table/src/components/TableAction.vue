@@ -52,7 +52,7 @@ import { Dropdown } from '/@/components/Dropdown'
 import { useDesign } from '/@/hooks/web/useDesign'
 import { useTableContext } from '../hooks/useTableContext'
 import { usePermission } from '/@/hooks/web/usePermission'
-import { isBoolean, isFunction, isString } from '/@/utils/is'
+import { isBoolean, isFunction, isString } from '@vben-admin/utils'
 import { propTypes } from '/@/utils/propTypes'
 import { ACTION_COLUMN_FLAG } from '../const'
 

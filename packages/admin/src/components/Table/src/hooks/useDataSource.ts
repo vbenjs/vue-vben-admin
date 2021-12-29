@@ -13,7 +13,7 @@ import {
 } from 'vue'
 import { useTimeoutFn } from '/@/hooks/core/useTimeout'
 import { buildUUID } from '/@/utils/uuid'
-import { isFunction, isBoolean } from '/@/utils/is'
+import { isFunction, isBoolean } from '@vben-admin/utils'
 import { get, cloneDeep, merge } from 'lodash-es'
 import { FETCH_SETTING, ROW_KEY, PAGE_SIZE } from '../const'
 

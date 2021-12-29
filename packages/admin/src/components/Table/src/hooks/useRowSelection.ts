@@ -1,4 +1,4 @@
-import { isFunction } from '/@/utils/is'
+import { isFunction } from '@vben-admin/utils'
 import type { BasicTableProps, TableRowSelection } from '../types/table'
 import {
   computed,

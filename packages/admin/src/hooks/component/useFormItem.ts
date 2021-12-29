@@ -10,7 +10,7 @@ import {
   toRaw,
 } from 'vue'
 
-import { isEqual } from 'lodash-es'
+import { isEqual } from '@vben-admin/utils'
 
 export function useRuleFormItem<
   T extends Recordable,

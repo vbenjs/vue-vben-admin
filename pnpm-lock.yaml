@@ -102,12 +102,11 @@ importers:
       '@types/sortablejs': ^1.10.7
       '@vben-admin/tokens': workspace:*
       '@vben-admin/types': workspace:*
+      '@vben-admin/utils': workspace:*
       '@vitejs/plugin-legacy': ^1.6.4
       '@vitejs/plugin-vue': ^2.0.1
       '@vitejs/plugin-vue-jsx': ^1.3.3
       '@vue/compiler-sfc': 3.2.26
-      '@vue/runtime-core': ^3.2.26
-      '@vue/shared': ^3.2.26
       '@vue/test-utils': ^2.0.0-rc.18
       '@vueuse/core': ^7.4.1
       '@vueuse/shared': ^7.4.1
@@ -123,7 +122,6 @@ importers:
       dotenv: ^10.0.0
       echarts: ^5.2.2
       esno: ^0.13.0
-      fast-glob: ^3.2.7
       intro.js: ^4.3.0
       jest: ^27.4.5
       less: ^4.1.2
@@ -168,8 +166,7 @@ importers:
       '@logicflow/core': 0.7.16
       '@logicflow/extension': 0.7.16
       '@vben-admin/tokens': link:../tokens
-      '@vue/runtime-core': 3.2.26
-      '@vue/shared': 3.2.26
+      '@vben-admin/utils': link:../utils
       '@vueuse/core': 7.4.1_vue@3.2.26
       '@vueuse/shared': 7.4.1_vue@3.2.26
       '@zxcvbn-ts/core': 1.2.0
@@ -200,7 +197,7 @@ importers:
       vue-types: 4.1.1_vue@3.2.26
       xlsx: 0.17.4
     devDependencies:
-      '@iconify/json': 2.0.16
+      '@iconify/json': 2.0.17
       '@purge-icons/generated': 0.7.0
       '@types/codemirror': 5.60.5
       '@types/crypto-js': 4.1.0
@@ -220,11 +217,10 @@ importers:
       '@vitejs/plugin-vue-jsx': 1.3.3
       '@vue/compiler-sfc': 3.2.26
       '@vue/test-utils': 2.0.0-rc.18_vue@3.2.26
-      autoprefixer: 10.4.0_postcss@8.4.5
+      autoprefixer: 10.4.1_postcss@8.4.5
       cross-env: 7.0.3
       dotenv: 10.0.0
       esno: 0.13.0_typescript@4.5.4
-      fast-glob: 3.2.7
       jest: 27.4.5_ts-node@10.4.0
       less: 4.1.2
       rollup-plugin-visualizer: 5.5.2
@@ -252,6 +248,16 @@ importers:
       '@vben-admin/tokens': workspace:*
     dependencies:
       '@vben-admin/tokens': link:../tokens
+
+  packages/utils:
+    specifiers:
+      '@vue/runtime-core': ^3.2.26
+      '@vue/shared': ^3.2.26
+      lodash-es: ^4.17.21
+    dependencies:
+      '@vue/runtime-core': 3.2.26
+      '@vue/shared': 3.2.26
+      lodash-es: 4.17.21
 
 packages:
   /@ant-design/colors/5.1.1:
@@ -2150,10 +2156,10 @@ packages:
     dependencies:
       cross-fetch: 3.1.4
 
-  /@iconify/json/2.0.16:
+  /@iconify/json/2.0.17:
     resolution:
       {
-        integrity: sha512-XaXaATGRLBWZhhTniECn8p/fHOsZTDTWVSZ2zoLWZEDVoErJ/vVEY2TsXiN0DVdI14aqiAZZNXwTXf1ru88fGw==,
+        integrity: sha512-UZXwf0pQpUOuku9sHCGKmnwz+Svh0w4jKXmm2v3zrK4AKyJlA0ZQNCjbnuAvj1723D7JiFx+XZh7hti3PV8FKg==,
       }
     dependencies:
       '@iconify/types': 1.0.12
@@ -3658,7 +3664,7 @@ packages:
     dependencies:
       debug: 4.3.3
       jiti: 1.12.9
-      windicss: 3.4.1
+      windicss: 3.4.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3675,7 +3681,7 @@ packages:
       fast-glob: 3.2.7
       magic-string: 0.25.7
       micromatch: 4.0.4
-      windicss: 3.4.1
+      windicss: 3.4.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4135,10 +4141,10 @@ packages:
     hasBin: true
     dev: true
 
-  /autoprefixer/10.4.0_postcss@8.4.5:
+  /autoprefixer/10.4.1_postcss@8.4.5:
     resolution:
       {
-        integrity: sha512-7FdJ1ONtwzV1G43GDD0kpVMn/qbiNqyOPMFTX5nRffI+7vgWoFEc6DcXOxHJxrWNDXrZh18eDsZjvZGUljSRGA==,
+        integrity: sha512-B3ZEG7wtzXDRCEFsan7HmR2AeNsxdJB0+sEC0Hc5/c2NbhJqPwuZm+tn233GBVw82L+6CtD6IPSfVruwKjfV3A==,
       }
     engines: { node: ^10 || ^12 || >=14 }
     hasBin: true
@@ -15237,7 +15243,7 @@ packages:
       debug: 4.3.3
       kolorist: 1.5.1
       vite: 2.7.9_less@4.1.2
-      windicss: 3.4.1
+      windicss: 3.4.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -15743,10 +15749,10 @@ packages:
       isexe: 2.0.0
     dev: true
 
-  /windicss/3.4.1:
+  /windicss/3.4.2:
     resolution:
       {
-        integrity: sha512-g6mX0q8divtPT+TSWqvI35lc77pOhGwMrwCdcX48dFA16wUlSDn1kOv5z1msZy3SlWLx3Bjbe7FA6uNTvdVH8A==,
+        integrity: sha512-YieqWaXiwPu0JJoB7z03RXdjZjQQJtMZAeXUXu/j3JXSMhIgV/2rUXu4Q7QrworRlbaASZlFhxjnL/78aAty+Q==,
       }
     engines: { node: '>= 12' }
     hasBin: true

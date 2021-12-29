@@ -4,7 +4,7 @@ import { defineComponent, computed, unref } from 'vue'
 import { Tooltip } from 'ant-design-vue'
 import { InfoCircleOutlined } from '@ant-design/icons-vue'
 import { getPopupContainer } from '/@/utils'
-import { isString, isArray } from '/@/utils/is'
+import { isString, isArray } from '@vben-admin/utils'
 import { getSlot } from '/@/utils/helper/tsxHelper'
 import { useDesign } from '/@/hooks/web/useDesign'
 

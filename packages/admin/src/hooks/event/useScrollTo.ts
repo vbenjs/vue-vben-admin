@@ -1,4 +1,4 @@
-import { isFunction, isUnDef } from '/@/utils/is'
+import { isFunction, isUndefined } from '@vben-admin/utils'
 import { ref, unref } from 'vue'
 
 export interface ScrollToParams {
@@ -23,6 +23,7 @@ const move = (el: HTMLElement, amount: number) => {
 const position = (el: HTMLElement) => {
   return el.scrollTop
 }
+
 export function useScrollTo({
   el,
   to,
@@ -34,7 +35,7 @@ export function useScrollTo({
   const change = to - start
   const increment = 20
   let currentTime = 0
-  duration = isUnDef(duration) ? 500 : duration
+  duration = isUndefined(duration) ? 500 : duration
 
   const animateScroll = function () {
     if (!unref(isActiveRef)) {

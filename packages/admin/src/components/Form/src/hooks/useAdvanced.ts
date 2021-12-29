@@ -3,7 +3,7 @@ import type { AdvanceState } from '../types/hooks'
 import type { ComputedRef, Ref } from 'vue'
 import type { FormProps, FormSchema } from '../types/form'
 import { computed, unref, watch } from 'vue'
-import { isBoolean, isFunction, isNumber, isObject } from '/@/utils/is'
+import { isBoolean, isNumber, isFunction, isObject } from '@vben-admin/utils'
 import { useBreakpoint } from '/@/hooks/event/useBreakpoint'
 import { useDebounceFn } from '@vueuse/core'
 

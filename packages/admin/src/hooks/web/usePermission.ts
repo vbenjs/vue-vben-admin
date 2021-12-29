@@ -13,7 +13,7 @@ import projectSetting from '/@/settings/projectSetting'
 import { PermissionModeEnum, RoleEnum } from '@vben-admin/tokens'
 
 import { intersection } from 'lodash-es'
-import { isArray } from '/@/utils/is'
+import { isArray } from '@vben-admin/utils'
 import { useMultipleTabStore } from '/@/store/modules/multipleTab'
 
 // User permissions related operations

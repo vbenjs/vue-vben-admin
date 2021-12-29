@@ -1,6 +1,6 @@
 import { ref, watch } from 'vue'
 
-import { isDef } from '/@/utils/is'
+import { isDefined } from '@vben-admin/utils'
 interface Options {
   target?: HTMLElement
 }
@@ -12,7 +12,7 @@ export function useCopyToClipboard(initial?: string) {
   watch(
     clipboardRef,
     (str?: string) => {
-      if (isDef(str)) {
+      if (isDefined(str)) {
         copiedRef.value = true
         isSuccessRef.value = copyTextToClipboard(str)
       }

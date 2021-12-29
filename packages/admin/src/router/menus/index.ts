@@ -8,7 +8,7 @@ import {
   getAllParentPath,
 } from '/@/router/helper/menuHelper'
 import { filter } from '/@/utils/helper/treeHelper'
-import { isUrl } from '/@/utils/is'
+import { isUrl } from '@vben-admin/utils'
 import { router } from '/@/router'
 import { PermissionModeEnum } from '@vben-admin/tokens'
 import { pathToRegexp } from 'path-to-regexp'

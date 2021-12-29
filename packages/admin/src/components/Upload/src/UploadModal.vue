@@ -74,7 +74,7 @@ import { createTableColumns, createActionColumn } from './data'
 // utils
 import { checkImgType, getBase64WithFile } from './helper'
 import { buildUUID } from '/@/utils/uuid'
-import { isFunction } from '/@/utils/is'
+import { isFunction } from '@vben-admin/utils'
 import { warn } from '/@/utils/log'
 import FileList from './FileList.vue'
 import { useI18n } from '/@/hooks/web/useI18n'

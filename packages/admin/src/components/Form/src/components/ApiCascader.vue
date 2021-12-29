@@ -22,7 +22,7 @@
 import { defineComponent, PropType, ref, unref, watch, watchEffect } from 'vue'
 import { Cascader } from 'ant-design-vue'
 import { propTypes } from '/@/utils/propTypes'
-import { isFunction } from '/@/utils/is'
+import { isFunction } from '@vben-admin/utils'
 import { get, omit } from 'lodash-es'
 import { useRuleFormItem } from '/@/hooks/component/useFormItem'
 import { LoadingOutlined } from '@ant-design/icons-vue'

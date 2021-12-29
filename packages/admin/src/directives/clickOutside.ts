@@ -1,5 +1,5 @@
 import { on } from '/@/utils/domUtils'
-import { isServer } from '/@/utils/is'
+import { isServer } from '@vben-admin/utils'
 import type {
   ComponentPublicInstance,
   DirectiveBinding,

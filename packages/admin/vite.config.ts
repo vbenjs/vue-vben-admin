@@ -1,6 +1,5 @@
 import pkg from './package.json'
 import dayjs from 'dayjs'
-import glob from 'fast-glob'
 import { loadEnv, defineConfig } from 'vite'
 import { resolve } from 'path'
 import { OUTPUT_DIR, wrapperEnv } from './config'
@@ -8,15 +7,6 @@ import { configProxy, configVitePlugins } from './config/vite'
 import { generateModifyVars } from './config/modifyVars'
 
 export default defineConfig(async ({ command, mode }) => {
-  const optimizeDeps = (
-    await glob(
-      ['ant-design-vue/es/locale/*.js', 'dayjs/(locale|plugin)/*.js'],
-      {
-        cwd: resolve(process.cwd(), 'node_modules'),
-      },
-    )
-  ).map((dep) => dep.replace(/\.js$/, ''))
-
   const { dependencies, devDependencies, name, version } = pkg
   const root = process.cwd()
   const env = loadEnv(mode, root)
@@ -97,7 +87,10 @@ export default defineConfig(async ({ command, mode }) => {
         '@vue/shared',
         '@iconify/iconify',
         '@ant-design/icons-vue',
-        ...optimizeDeps,
+        'ant-design-vue/es/locale/zh_CN',
+        'ant-design-vue/es/locale/en_US',
+        'dayjs/locale/en',
+        'dayjs/locale/zh-cn',
       ],
       exclude: ['vue-demi'],
     },

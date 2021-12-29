@@ -3,8 +3,8 @@ import {
   isFunction,
   isObject,
   isString,
-  isNullOrUnDef,
-} from '/@/utils/is'
+  isNullOrUndefined,
+} from '@vben-admin/utils'
 import { dateUtil } from '/@/utils/dateUtil'
 import { unref } from 'vue'
 import type { Ref, ComputedRef } from 'vue'
@@ -86,7 +86,7 @@ export function useFormValues({
     const obj: Recordable = {}
     schemas.forEach((item) => {
       const { defaultValue } = item
-      if (!isNullOrUnDef(defaultValue)) {
+      if (!isNullOrUndefined(defaultValue)) {
         obj[item.field] = defaultValue
         formModel[item.field] = defaultValue
       }

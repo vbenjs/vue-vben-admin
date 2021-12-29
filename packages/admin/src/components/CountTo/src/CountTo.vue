@@ -14,7 +14,7 @@ import {
   watch,
 } from 'vue'
 import { useTransition, TransitionPresets } from '@vueuse/core'
-import { isNumber } from '/@/utils/is'
+import { isNumber } from '@vben-admin/utils'
 
 const props = {
   startVal: { type: Number, default: 0 },
