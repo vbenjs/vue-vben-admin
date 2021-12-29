@@ -5,4 +5,5 @@
 [ -n "$CI" ] && exit 0
 
 # Format and submit code according to lintstagedrc.js configuration
-npm run lint:lint-staged
+pnpm exec lint-staged
+pnpm exec pretty-quick --staged

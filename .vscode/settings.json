@@ -1,7 +1,5 @@
 {
   "typescript.tsdk": "./node_modules/typescript/lib",
-  "volar.tsPlugin": true,
-  "volar.tsPluginStatus": false,
   "npm.packageManager": "pnpm",
   "editor.tabSize": 2,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -20,6 +18,7 @@
     "**/.idea": true,
     "**/.vscode": false,
     "**/yarn.lock": true,
+    "**/pnpm-lock.yaml": true,
     "**/tmp": true,
     "out": true,
     "dist": true,
@@ -52,37 +51,11 @@
     "**/tmp/**": true,
     "**/bower_components/**": true,
     "**/dist/**": true,
-    "**/yarn.lock": true
+    "**/yarn.lock": true,
+    "**/pnpm-lock.yaml": true
   },
   "stylelint.enable": true,
-  "stylelint.packageManager": "yarn",
-  "path-intellisense.mappings": {
-    "/@/": "${workspaceRoot}/src"
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[less]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[scss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+  "stylelint.packageManager": "pnpm",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
@@ -133,6 +106,7 @@
     "tailwindcss",
     "sider",
     "pnpm",
-    "antd"
+    "antd",
+    "styl"
   ]
 }
