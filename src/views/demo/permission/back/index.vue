@@ -11,29 +11,30 @@
 
     <div class="mt-4">
       权限切换(请先切换权限模式为后台权限模式):
-      <a-button-group>
+      <Space>
         <a-button @click="switchToken(1)" :disabled="!isBackPremissionMode">
           获取用户id为1的菜单
         </a-button>
         <a-button @click="switchToken(2)" :disabled="!isBackPremissionMode">
           获取用户id为2的菜单
         </a-button>
-      </a-button-group>
+      </Space>
     </div>
   </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent, computed } from 'vue';
-  import CurrentPermissionMode from '../CurrentPermissionMode.vue';
   import { RoleEnum } from '/@/enums/roleEnum';
   import { usePermission } from '/@/hooks/web/usePermission';
   import { useUserStore } from '/@/store/modules/user';
   import { PageWrapper } from '/@/components/Page';
   import { PermissionModeEnum } from '/@/enums/appEnum';
   import { useAppStore } from '/@/store/modules/app';
-  import { Alert } from 'ant-design-vue';
+  import { Alert, Space } from 'ant-design-vue';
+  import CurrentPermissionMode from '../CurrentPermissionMode.vue';
+
   export default defineComponent({
-    components: { Alert, CurrentPermissionMode, PageWrapper },
+    components: { Space, Alert, CurrentPermissionMode, PageWrapper },
     setup() {
       const { refreshMenu } = usePermission();
       const userStore = useUserStore();
