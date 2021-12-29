@@ -17,6 +17,7 @@ import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { joinTimestamp, formatRequestDate } from './helper';
 import { useUserStoreWithOut } from '/@/store/modules/user';
+import { AxiosRetry } from '/@/utils/http/axios/axiosRetry';
 
 const globSetting = useGlobSetting();
 const urlPrefix = globSetting.urlPrefix;
@@ -158,7 +159,7 @@ const transform: AxiosTransform = {
   /**
    * @description: 响应错误处理
    */
-  responseInterceptorsCatch: (error: any) => {
+  responseInterceptorsCatch: (axiosInstance: AxiosResponse, error: any) => {
     const { t } = useI18n();
     const errorLogStore = useErrorLogStoreWithOut();
     errorLogStore.addAjaxErrorInfo(error);
@@ -189,6 +190,14 @@ const transform: AxiosTransform = {
     }
 
     checkStatus(error?.response?.status, msg, errorMessageMode);
+
+    // 添加自动重试机制 保险起见 只针对GET请求
+    const retryRequest = new AxiosRetry();
+    const { isOpenRetry } = config.requestOptions.retryRequest;
+    config.method?.toUpperCase() === RequestEnum.GET &&
+      isOpenRetry &&
+      // @ts-ignore
+      retryRequest.retry(axiosInstance, error);
     return Promise.reject(error);
   },
 };
@@ -234,6 +243,11 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           ignoreCancelToken: true,
           // 是否携带token
           withToken: true,
+          retryRequest: {
+            isOpenRetry: true,
+            count: 5,
+            waitTime: 100,
+          },
         },
       },
       opt || {},
