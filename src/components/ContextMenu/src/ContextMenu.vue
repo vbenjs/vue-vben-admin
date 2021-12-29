@@ -64,6 +64,7 @@
           width: `${width}px`,
           left: `${left + 1}px`,
           top: `${top + 1}px`,
+          zIndex: 9999,
         };
       });
 
