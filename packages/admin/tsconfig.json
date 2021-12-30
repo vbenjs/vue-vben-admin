@@ -23,7 +23,8 @@
     "types": ["vite/client"],
     "removeComments": true,
     "paths": {
-      "/@/*": ["src/*"]
+      "/@/*": ["src/*"],
+      "@service/*": ["../service/modules/*"]
     }
   },
   "include": [

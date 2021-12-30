@@ -37,7 +37,7 @@ import { BasicTable, useTable, TableAction } from '/@/components/Table'
 import { PageWrapper } from '/@/components/Page'
 import { getBasicColumns } from './tableData'
 
-import { demoListApi } from '/@/api/demo/table'
+import { demoListApi } from '@service/demo/table'
 
 export default defineComponent({
   components: { BasicTable, TableAction, PageWrapper },

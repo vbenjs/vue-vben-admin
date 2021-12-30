@@ -6,6 +6,7 @@ import 'virtual:windi-utilities.css'
 // Register icon sprite
 import 'virtual:svg-icons-register'
 import App from './App.vue'
+import { initAdminModules } from './initAdminModules'
 import { createApp } from 'vue'
 import { initAppConfigStore } from '/@/logics/initAppConfig'
 import { setupErrorHandle } from '/@/logics/error-handle'
@@ -17,6 +18,8 @@ import { setupI18n } from '@vben-admin/locale'
 import { registerGlobComp } from '/@/components/registerGlobComp'
 
 async function bootstrap() {
+  await initAdminModules()
+
   const app = createApp(App)
 
   // Configure store

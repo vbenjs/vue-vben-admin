@@ -24,7 +24,7 @@ import { BasicTable, useTable } from '/@/components/Table'
 import { getBasicColumns } from './tableData'
 import { PageWrapper } from '/@/components/Page'
 
-import { demoListApi } from '/@/api/demo/table'
+import { demoListApi } from '@service/demo/table'
 export default defineComponent({
   components: { BasicTable, PageWrapper },
   setup() {

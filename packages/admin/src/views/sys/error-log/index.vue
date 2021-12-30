@@ -39,7 +39,7 @@ import { useModal } from '/@/components/Modal'
 import { useMessage } from '/@/hooks/web/useMessage'
 import { useI18n } from '@vben-admin/locale'
 import { useErrorLogStore } from '/@/store/modules/errorLog'
-import { fireErrorApi } from '/@/api/demo/error'
+import { fireErrorApi } from '@service/demo/error'
 import { getColumns } from './data'
 import { cloneDeep } from '@vben-admin/utils'
 

@@ -63,7 +63,7 @@ import {
   TableAction,
 } from '/@/components/Table'
 
-import { demoListApi } from '/@/api/demo/table'
+import { demoListApi } from '@service/demo/table'
 const columns: BasicColumn[] = [
   {
     title: '编号',

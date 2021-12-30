@@ -1,4 +1,4 @@
-export { setupI18n } from './core/setupI18n'
-export { useI18n, t } from './core/useI18n'
-export { useLocale } from './core/useLocale'
-export { showLocalePicker } from './core/store'
+export { setupI18n } from './src/setupI18n'
+export { useI18n, t } from './src/useI18n'
+export { useLocale } from './src/useLocale'
+export { showLocalePicker } from './src/store'

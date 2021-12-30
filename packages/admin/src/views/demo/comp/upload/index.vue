@@ -22,7 +22,7 @@ import { useMessage } from '/@/hooks/web/useMessage'
 import { BasicForm, FormSchema, useForm } from '/@/components/Form/index'
 import { PageWrapper } from '/@/components/Page'
 import { Alert } from 'ant-design-vue'
-import { uploadApi } from '/@/api/sys/upload'
+import { uploadApi } from '@service/sys/upload'
 
 const schemas: FormSchema[] = [
   {

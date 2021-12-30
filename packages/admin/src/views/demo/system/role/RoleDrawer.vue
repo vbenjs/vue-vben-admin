@@ -28,7 +28,7 @@ import { formSchema } from './role.data'
 import { BasicDrawer, useDrawerInner } from '/@/components/Drawer'
 import { BasicTree, TreeItem } from '/@/components/Tree'
 
-import { getMenuList } from '/@/api/demo/system'
+import { getMenuList } from '@service/demo/system'
 
 export default defineComponent({
   name: 'RoleDrawer',

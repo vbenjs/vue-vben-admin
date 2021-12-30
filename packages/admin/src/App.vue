@@ -6,16 +6,16 @@ import { useLocale } from '@vben-admin/locale'
 import 'dayjs/locale/zh-cn'
 
 // support Multi-language
-const { getAntdLocale } = useLocale()
+const { antdLocale } = useLocale()
 
 // Listening to page changes and dynamically changing site titles
 useTitle()
 </script>
 
 <template>
-  <config-provider :locale="getAntdLocale">
-    <app-provider>
-      <router-view />
-    </app-provider>
-  </config-provider>
+  <ConfigProvider :locale="antdLocale">
+    <AppProvider>
+      <RouterView />
+    </AppProvider>
+  </ConfigProvider>
 </template>

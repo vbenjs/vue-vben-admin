@@ -16,8 +16,8 @@ import { PermissionModeEnum, PageEnum } from '@vben-admin/tokens'
 import { asyncRoutes } from '/@/router/routes'
 import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic'
 import { filterTree } from '@vben-admin/utils'
-import { getMenuList } from '/@/api/sys/menu'
-import { getPermCode } from '/@/api/sys/user'
+import { getMenuList } from '@service/sys/menu'
+import { getPermCode } from '@service/sys/user'
 import { useMessage } from '/@/hooks/web/useMessage'
 
 interface PermissionState {

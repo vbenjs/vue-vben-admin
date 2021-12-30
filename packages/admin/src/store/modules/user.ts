@@ -10,8 +10,8 @@ import {
   USER_INFO_KEY,
 } from '@vben-admin/tokens'
 import { getAuthCache, setAuthCache } from '/@/utils/auth'
-import { GetUserInfoModel, LoginParams } from '@vben-admin/types/model'
-import { doLogout, getUserInfo, loginApi } from '/@/api/sys/user'
+import { GetUserInfoModel, LoginParams } from '@vben-admin/service/model'
+import { doLogout, getUserInfo, loginApi } from '@service/sys/user'
 import { useI18n } from '@vben-admin/locale'
 import { useMessage } from '/@/hooks/web/useMessage'
 import { router } from '/@/router'

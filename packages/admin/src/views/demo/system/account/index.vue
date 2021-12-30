@@ -42,7 +42,7 @@
 import { defineComponent, reactive } from 'vue'
 
 import { BasicTable, useTable, TableAction } from '/@/components/Table'
-import { getAccountList } from '/@/api/demo/system'
+import { getAccountList } from '@service/demo/system'
 import { PageWrapper } from '/@/components/Page'
 import DeptTree from './DeptTree.vue'
 

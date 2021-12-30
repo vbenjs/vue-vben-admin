@@ -84,9 +84,9 @@ importers:
       '@ant-design/colors': ^6.0.0
       '@ant-design/icons-vue': ^6.0.1
       '@iconify/iconify': ^2.1.0
-      '@iconify/json': ^2.0.17
-      '@logicflow/core': ^0.7.16
-      '@logicflow/extension': ^0.7.16
+      '@iconify/json': ^2.0.18
+      '@logicflow/core': ^1.0.0
+      '@logicflow/extension': ^1.0.0
       '@purge-icons/generated': ^0.7.0
       '@types/codemirror': ^5.60.5
       '@types/inquirer': ^8.1.3
@@ -99,6 +99,7 @@ importers:
       '@types/sortablejs': ^1.10.7
       '@vben-admin/hooks': workspace:*
       '@vben-admin/locale': workspace:*
+      '@vben-admin/service': workspace:*
       '@vben-admin/setting': workspace:*
       '@vben-admin/tokens': workspace:*
       '@vben-admin/types': workspace:*
@@ -111,7 +112,6 @@ importers:
       '@zxcvbn-ts/core': ^1.2.0
       ant-design-vue: 3.0.0-beta.4
       autoprefixer: ^10.4.1
-      axios: ^0.24.0
       codemirror: ^5.65.0
       cropperjs: ^1.5.12
       cross-env: ^7.0.3
@@ -127,7 +127,6 @@ importers:
       pinia-plugin-persistedstate: ^1.0.3
       print-js: ^1.6.0
       qrcode: ^1.5.0
-      qs: ^6.10.2
       rollup-plugin-visualizer: ^5.5.2
       showdown: ^1.9.1
       sortablejs: ^1.14.0
@@ -142,7 +141,7 @@ importers:
       vite-plugin-purge-icons: ^0.7.0
       vite-plugin-pwa: ^0.11.12
       vite-plugin-style-import: ^1.4.1
-      vite-plugin-svg-icons: ^1.0.5
+      vite-plugin-svg-icons: ^1.1.0
       vite-plugin-theme: ^0.8.1
       vite-plugin-vue-setup-extend: ^0.3.0
       vite-plugin-windicss: ^1.6.1
@@ -156,16 +155,16 @@ importers:
       '@ant-design/colors': 6.0.0
       '@ant-design/icons-vue': 6.0.1_vue@3.2.26
       '@iconify/iconify': 2.1.0
-      '@logicflow/core': 0.7.16
-      '@logicflow/extension': 0.7.16
+      '@logicflow/core': 1.0.0
+      '@logicflow/extension': 1.0.0
       '@vben-admin/hooks': link:../hooks
       '@vben-admin/locale': link:../locale
+      '@vben-admin/service': link:../service
       '@vben-admin/setting': link:../setting
       '@vben-admin/tokens': link:../tokens
       '@vben-admin/utils': link:../utils
       '@zxcvbn-ts/core': 1.2.0
       ant-design-vue: 3.0.0-beta.4_ae87cbba5ec93a01f3fe1197df446ca3
-      axios: 0.24.0
       codemirror: 5.65.0
       cropperjs: 1.5.12
       echarts: 5.2.2
@@ -177,7 +176,6 @@ importers:
       pinia-plugin-persistedstate: 1.0.3_pinia@2.0.9
       print-js: 1.6.0
       qrcode: 1.5.0
-      qs: 6.10.2
       showdown: 1.9.1
       sortablejs: 1.14.0
       tinymce: 5.10.2
@@ -187,7 +185,7 @@ importers:
       vue-router: 4.0.12_vue@3.2.26
       xlsx: 0.17.4
     devDependencies:
-      '@iconify/json': 2.0.17
+      '@iconify/json': 2.0.18
       '@purge-icons/generated': 0.7.0
       '@types/codemirror': 5.60.5
       '@types/inquirer': 8.1.3
@@ -219,7 +217,7 @@ importers:
       vite-plugin-purge-icons: 0.7.0_vite@2.7.10
       vite-plugin-pwa: 0.11.12_vite@2.7.10
       vite-plugin-style-import: 1.4.1_vite@2.7.10
-      vite-plugin-svg-icons: 1.0.5_vite@2.7.10
+      vite-plugin-svg-icons: 1.1.0_vite@2.7.10
       vite-plugin-theme: 0.8.1_vite@2.7.10
       vite-plugin-vue-setup-extend: 0.3.0_vite@2.7.10
       vite-plugin-windicss: 1.6.1_vite@2.7.10
@@ -229,26 +227,40 @@ importers:
   packages/hooks:
     specifiers:
       '@vben-admin/utils': workspace:*
-      '@vueuse/core': ^7.4.3
+      '@vueuse/core': ^7.5.1
     dependencies:
       '@vben-admin/utils': link:../utils
-      '@vueuse/core': 7.4.3
+      '@vueuse/core': 7.5.1
 
   packages/locale:
     specifiers:
-      '@vben-admin/hooks': workspace:*
       '@vben-admin/setting': workspace:*
       '@vben-admin/tokens': workspace:*
       '@vben-admin/types': workspace:*
       '@vben-admin/utils': workspace:*
+      '@vueuse/core': ^7.5.1
       vue-i18n: ^9.1.9
     dependencies:
-      '@vben-admin/hooks': link:../hooks
       '@vben-admin/setting': link:../setting
       '@vben-admin/tokens': link:../tokens
       '@vben-admin/types': link:../types
       '@vben-admin/utils': link:../utils
+      '@vueuse/core': 7.5.1
       vue-i18n: 9.1.9
+
+  packages/service:
+    specifiers:
+      '@vben-admin/locale': workspace:*
+      '@vben-admin/tokens': workspace:*
+      '@vben-admin/utils': workspace:*
+      axios: ^0.24.0
+      qs: ^6.10.2
+    dependencies:
+      '@vben-admin/locale': link:../locale
+      '@vben-admin/tokens': link:../tokens
+      '@vben-admin/utils': link:../utils
+      axios: 0.24.0
+      qs: 6.10.2
 
   packages/setting:
     specifiers:
@@ -269,25 +281,21 @@ importers:
 
   packages/utils:
     specifiers:
-      '@types/crypto-js': ^4.1.0
       '@types/lodash-es': ^4.17.5
-      '@vben-admin/setting': workspace:*
       '@vue/runtime-core': ^3.2.26
       '@vue/shared': ^3.2.26
-      '@vueuse/core': ^7.4.3
-      '@vueuse/shared': ^7.4.3
+      '@vueuse/core': ^7.5.1
+      '@vueuse/shared': ^7.5.1
       dayjs: ^1.10.7
       lodash-es: ^4.17.21
     dependencies:
-      '@vben-admin/setting': link:../setting
       '@vue/runtime-core': 3.2.26
       '@vue/shared': 3.2.26
-      '@vueuse/core': 7.4.3
-      '@vueuse/shared': 7.4.3
+      '@vueuse/core': 7.5.1
+      '@vueuse/shared': 7.5.1
       dayjs: 1.10.7
       lodash-es: 4.17.21
     devDependencies:
-      '@types/crypto-js': 4.1.0
       '@types/lodash-es': 4.17.5
 
 packages:
@@ -2168,10 +2176,10 @@ packages:
     dependencies:
       cross-fetch: 3.1.4
 
-  /@iconify/json/2.0.17:
+  /@iconify/json/2.0.18:
     resolution:
       {
-        integrity: sha512-UZXwf0pQpUOuku9sHCGKmnwz+Svh0w4jKXmm2v3zrK4AKyJlA0ZQNCjbnuAvj1723D7JiFx+XZh7hti3PV8FKg==,
+        integrity: sha512-v2O72qNaMSuwt65no5eCaC2wZnN6JyLD8bpsd9BDiQIFRjRhS5WhpHFii6FgP8qATPQ+M6qGmo8uvCspIFArWQ==,
       }
     dependencies:
       '@iconify/types': 1.0.12
@@ -2262,10 +2270,10 @@ packages:
       '@intlify/shared': 9.1.9
     dev: false
 
-  /@logicflow/core/0.7.16:
+  /@logicflow/core/1.0.0:
     resolution:
       {
-        integrity: sha512-ExOnCENfJqoOWjwIZE5hFdpPYqMsnE7oLalSUrFm+FkEIEQIgxVZHPt31EZEYc5Q+8IrL1tDpTAq0A4S6iJmtQ==,
+        integrity: sha512-pc3H0/lXTibvty21DfDECfDF29AeGXwjJhIzTU2mItp/doHdX5OHTDsNrVVcnKWPOAaUyh7oUqnxjc7aWDqf9A==,
       }
     dependencies:
       '@types/mousetrap': 1.6.9
@@ -2273,13 +2281,13 @@ packages:
       preact: 10.6.4
     dev: false
 
-  /@logicflow/extension/0.7.16:
+  /@logicflow/extension/1.0.0:
     resolution:
       {
-        integrity: sha512-3PxfHf5P6utty/ZECsAR9nmjgaOF5K3XOUBR10YTcTo1qSIici8rS72I+YIRc9R6fTT097gOprbmmNjQEwdw1Q==,
+        integrity: sha512-pytytlSdIen1L8NTG8kvhdsLZg5dyncogQXNB/X/PbTmXionvsvloyEI3EP1fbAxz0MHsNKApC2C4LrvHvFtJw==,
       }
     dependencies:
-      '@logicflow/core': 0.7.16
+      '@logicflow/core': 1.0.0
       ids: 1.0.0
       preact: 10.6.4
     dev: false
@@ -2535,13 +2543,6 @@ packages:
       }
     dependencies:
       '@types/tern': 0.23.4
-    dev: true
-
-  /@types/crypto-js/4.1.0:
-    resolution:
-      {
-        integrity: sha512-DCFfy/vh2lG6qHSGezQ+Sn2Ulf/1Mx51dqOdmOKyW5nMK3maLlxeS3onC7r212OnBM2pBR95HkAmAjjF08YkxQ==,
-      }
     dev: true
 
   /@types/estree/0.0.39:
@@ -3244,10 +3245,10 @@ packages:
       vue: 3.2.26
     dev: true
 
-  /@vueuse/core/7.4.3:
+  /@vueuse/core/7.5.1:
     resolution:
       {
-        integrity: sha512-OflPLlQ7eqaDJgKYw9DpRCbtfpkFkg1EqHFq7CFrbIEElB39wIfB9ccNypCar8e5KRDrAbOJLIOOvDZO6aC2Gg==,
+        integrity: sha512-GczfdTWqH483zkUHdDYiLm0Tn51OtsQXYc+eBKKIeolh0mgn682KbSYmkrjNytaF7qGc74YxMDAYjkPBW6V2Pg==,
       }
     peerDependencies:
       '@vue/composition-api': ^1.1.0
@@ -3258,14 +3259,14 @@ packages:
       vue:
         optional: true
     dependencies:
-      '@vueuse/shared': 7.4.3
+      '@vueuse/shared': 7.5.1
       vue-demi: 0.12.1
     dev: false
 
-  /@vueuse/shared/7.4.3:
+  /@vueuse/shared/7.5.1:
     resolution:
       {
-        integrity: sha512-tNOCbpD3uZyzxNuw2GX5LTVkMB//IZ7GS452F7TwlY07aIoGjPgixi2Yfk/xSR4CcC9iU56zprZW33aEGj1O1Q==,
+        integrity: sha512-zMQEuYJyTmr5Hj2rYgSbb4H/cSI8mdaa9dUuw20j6rPV+xLV11y7vCyIkxo31uODDr0p77FMlProKzNDiK9rAA==,
       }
     peerDependencies:
       '@vue/composition-api': ^1.1.0
@@ -3731,7 +3732,7 @@ packages:
         integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==,
       }
     dependencies:
-      follow-redirects: 1.14.6
+      follow-redirects: 1.14.6_debug@4.3.3
     transitivePeerDependencies:
       - debug
     dev: true
@@ -3742,7 +3743,7 @@ packages:
         integrity: sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==,
       }
     dependencies:
-      follow-redirects: 1.14.6
+      follow-redirects: 1.14.6_debug@4.3.3
     transitivePeerDependencies:
       - debug
     dev: false
@@ -7128,7 +7129,7 @@ packages:
       }
     dev: true
 
-  /follow-redirects/1.14.6:
+  /follow-redirects/1.14.6_debug@4.3.3:
     resolution:
       {
         integrity: sha512-fhUl5EwSJbbl8AR+uYL2KQDxLkdSjZGR36xy46AO7cOMTrCMON6Sa28FmAnC2tRTDbd/Uuzz3aJBv7EBN7JH8A==,
@@ -7139,6 +7140,8 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
+    dependencies:
+      debug: 4.3.3
 
   /for-in/1.0.2:
     resolution: { integrity: sha1-gQaNKVqBQuwKxybG4iAMMPttXoA= }
@@ -13384,10 +13387,10 @@ packages:
       - supports-color
     dev: true
 
-  /vite-plugin-svg-icons/1.0.5_vite@2.7.10:
+  /vite-plugin-svg-icons/1.1.0_vite@2.7.10:
     resolution:
       {
-        integrity: sha512-dzPwIwaxhVzVTQ/NlQgQ/vcZ8jtHFx8xhpVt4iXqM/2G+8HUz6lpew4V8yOprCy2OUAq7gToYhIxT042gKXLMw==,
+        integrity: sha512-dmpr7Wq8vQN6ajBrVTrBxy8wJjQfcP30i73q+40uAZc8p7EwphBNZ+bVTI0enFaCrsITI8y0Ruo/mN/SaJQ6Hw==,
       }
     peerDependencies:
       vite: '>=2.0.0'

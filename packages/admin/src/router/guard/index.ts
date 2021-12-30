@@ -2,7 +2,7 @@ import type { Router, RouteLocationNormalized } from 'vue-router'
 import { useAppStoreWithOut } from '/@/store/modules/app'
 import { useUserStoreWithOut } from '/@/store/modules/user'
 import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting'
-import { AxiosCanceler } from '/@/plugins/request/axiosCancel'
+import { RequestCanceler } from '@vben-admin/service'
 import { Modal, notification } from 'ant-design-vue'
 import { warn } from '@vben-admin/utils'
 import { unref } from 'vue'
@@ -84,13 +84,13 @@ function createPageLoadingGuard(router: Router) {
  */
 function createHttpGuard(router: Router) {
   const { removeAllHttpPending } = projectSetting
-  let axiosCanceler: Nullable<AxiosCanceler>
+  let requestCanceler: Nullable<RequestCanceler>
   if (removeAllHttpPending) {
-    axiosCanceler = new AxiosCanceler()
+    requestCanceler = new RequestCanceler()
   }
   router.beforeEach(async () => {
     // Switching the route will delete the previous request
-    axiosCanceler?.removeAllPending()
+    requestCanceler?.removeAllPending()
     return true
   })
 }

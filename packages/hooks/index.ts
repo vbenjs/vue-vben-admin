@@ -1,9 +1,9 @@
-export * from './web/useAttrs'
-export * from './web/useContext'
-export * from './web/useRefs'
-export * from './web/usePagination'
-export * from './web/useScript'
-export * from './web/useWatermark'
+export * from './src/web/useAttrs'
+export * from './src/web/useContext'
+export * from './src/web/useRefs'
+export * from './src/web/usePagination'
+export * from './src/web/useScript'
+export * from './src/web/useWatermark'
 
 export {
   useTimeoutFn,

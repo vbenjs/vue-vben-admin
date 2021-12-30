@@ -1,0 +1,17 @@
+{
+  "name": "@vben-admin/service",
+  "version": "3.0.0-alpha.1",
+  "main": "index.ts",
+  "module": "index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@vben-admin/utils": "workspace:*",
+    "@vben-admin/locale": "workspace:*",
+    "@vben-admin/tokens": "workspace:*",
+    "axios": "^0.24.0",
+    "qs": "^6.10.2"
+  },
+  "peerDependencies": {
+    "vue": ">=3.0.0"
+  }
+}

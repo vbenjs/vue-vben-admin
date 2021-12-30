@@ -1,4 +1,4 @@
-import { getAllRoleList, isAccountExist } from '/@/api/demo/system'
+import { getAllRoleList, isAccountExist } from '@service/demo/system'
 import { BasicColumn } from '/@/components/Table'
 import { FormSchema } from '/@/components/Table'
 

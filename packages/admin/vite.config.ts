@@ -22,6 +22,7 @@ export default defineConfig(async ({ command, mode }) => {
     resolve: {
       alias: {
         '/@/': `${resolve(__dirname, 'src')}/`,
+        '@service': `@vben-admin/service/modules`,
         'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
         vue: 'vue/dist/vue.esm-bundler.js',
       },
@@ -49,17 +50,11 @@ export default defineConfig(async ({ command, mode }) => {
       rollupOptions: {
         output: {
           manualChunks: {
-            vue: [
-              'vue',
-              'pinia',
-              'vue-router',
-              '@vue/shared',
-              '@vueuse/core',
-              '@vueuse/shared',
-              '@vue/runtime-core',
-            ],
-            antdv: ['ant-design-vue', '@ant-design/icons-vue'],
+            vue: ['vue', 'pinia', 'vue-router', '@vue/shared'],
+            // antdv: ['ant-design-vue','@ant-design/icons-vue'],
+            // icons: ['@ant-design/icons-vue'],
             echarts: ['echarts'],
+            mockjs: ['mockjs'],
           },
         },
       },
@@ -83,7 +78,6 @@ export default defineConfig(async ({ command, mode }) => {
     },
     optimizeDeps: {
       include: [
-        '@vue/runtime-core',
         '@vue/shared',
         '@iconify/iconify',
         '@ant-design/icons-vue',

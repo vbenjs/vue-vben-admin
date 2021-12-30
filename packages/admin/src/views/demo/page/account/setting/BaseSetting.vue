@@ -31,10 +31,10 @@ import { CropperAvatar } from '/@/components/Cropper'
 import { useMessage } from '/@/hooks/web/useMessage'
 
 import headerImg from '/@/assets/images/header.jpg'
-import { accountInfoApi } from '/@/api/demo/account'
+import { accountInfoApi } from '@service/demo/account'
 import { baseSetschemas } from './data'
 import { useUserStore } from '/@/store/modules/user'
-import { uploadApi } from '/@/api/sys/upload'
+import { uploadApi } from '@service/sys/upload'
 
 export default defineComponent({
   components: {

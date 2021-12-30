@@ -1,4 +1,4 @@
-import { UploadApiResult } from '/@/api/sys/model/uploadModel'
+import { UploadApiResult } from '@vben-admin/service/model'
 
 export enum UploadResultStatus {
   SUCCESS = 'success',
