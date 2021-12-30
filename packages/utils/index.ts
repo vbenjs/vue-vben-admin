@@ -1,5 +1,4 @@
 export * from './is'
-export * from './crypto'
 export * from './mitt'
 export * from './uuid'
 export * from './config'
@@ -13,6 +12,7 @@ export * from './event'
 export * from './dom'
 export * from './lifecycle'
 export * from './color'
+export * from './bem'
 
 export {
   cloneDeep,

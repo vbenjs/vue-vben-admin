@@ -266,7 +266,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
     ),
   )
 }
-export const defHttp = createAxios()
+export const defaultRequest = createAxios()
 
 // other api url
 // export const otherHttp = createAxios({

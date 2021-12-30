@@ -23,7 +23,7 @@ import {
   DescItem,
   useDescription,
 } from '/@/components/Description/index'
-import { GITHUB_URL, SITE_URL, DOC_URL } from '/@/settings/siteSetting'
+import { GITHUB_URL, SITE_URL, DOC_URL } from '@vben-admin/setting'
 
 const { pkg, lastBuildTime } = __APP_INFO__
 

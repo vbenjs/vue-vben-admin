@@ -7,7 +7,7 @@ import type { App } from 'vue'
 
 import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog'
 import { ErrorTypeEnum } from '@vben-admin/tokens'
-import projectSetting from '/@/settings/projectSetting'
+import { projectSetting } from '@vben-admin/setting'
 
 /**
  * Handling error stack information

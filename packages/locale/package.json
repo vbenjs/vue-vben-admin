@@ -9,6 +9,7 @@
     "@vben-admin/types": "workspace:*",
     "@vben-admin/tokens": "workspace:*",
     "@vben-admin/hooks": "workspace:*",
+    "@vben-admin/setting": "workspace:*",
     "vue-i18n": "^9.1.9"
   },
   "peerDependencies": {

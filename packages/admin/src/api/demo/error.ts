@@ -1,4 +1,4 @@
-import { defHttp } from '/@/plugins/axios'
+import { defaultRequest } from '/@/plugins/request'
 
 enum Api {
   // The address does not exist
@@ -9,4 +9,4 @@ enum Api {
  * @description: Trigger ajax error
  */
 
-export const fireErrorApi = () => defHttp.get({ url: Api.Error })
+export const fireErrorApi = () => defaultRequest.get({ url: Api.Error })

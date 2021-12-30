@@ -99,6 +99,7 @@ importers:
       '@types/sortablejs': ^1.10.7
       '@vben-admin/hooks': workspace:*
       '@vben-admin/locale': workspace:*
+      '@vben-admin/setting': workspace:*
       '@vben-admin/tokens': workspace:*
       '@vben-admin/types': workspace:*
       '@vben-admin/utils': workspace:*
@@ -123,6 +124,7 @@ importers:
       nprogress: ^0.2.0
       path-to-regexp: ^6.2.0
       pinia: 2.0.9
+      pinia-plugin-persistedstate: ^1.0.3
       print-js: ^1.6.0
       qrcode: ^1.5.0
       qs: ^6.10.2
@@ -158,6 +160,7 @@ importers:
       '@logicflow/extension': 0.7.16
       '@vben-admin/hooks': link:../hooks
       '@vben-admin/locale': link:../locale
+      '@vben-admin/setting': link:../setting
       '@vben-admin/tokens': link:../tokens
       '@vben-admin/utils': link:../utils
       '@zxcvbn-ts/core': 1.2.0
@@ -171,6 +174,7 @@ importers:
       nprogress: 0.2.0
       path-to-regexp: 6.2.0
       pinia: 2.0.9_typescript@4.5.4+vue@3.2.26
+      pinia-plugin-persistedstate: 1.0.3_pinia@2.0.9
       print-js: 1.6.0
       qrcode: 1.5.0
       qs: 6.10.2
@@ -233,16 +237,26 @@ importers:
   packages/locale:
     specifiers:
       '@vben-admin/hooks': workspace:*
+      '@vben-admin/setting': workspace:*
       '@vben-admin/tokens': workspace:*
       '@vben-admin/types': workspace:*
       '@vben-admin/utils': workspace:*
       vue-i18n: ^9.1.9
     dependencies:
       '@vben-admin/hooks': link:../hooks
+      '@vben-admin/setting': link:../setting
       '@vben-admin/tokens': link:../tokens
       '@vben-admin/types': link:../types
       '@vben-admin/utils': link:../utils
       vue-i18n: 9.1.9
+
+  packages/setting:
+    specifiers:
+      '@vben-admin/tokens': workspace:*
+      '@vben-admin/types': workspace:*
+    dependencies:
+      '@vben-admin/tokens': link:../tokens
+      '@vben-admin/types': link:../types
 
   packages/tokens:
     specifiers: {}
@@ -257,19 +271,19 @@ importers:
     specifiers:
       '@types/crypto-js': ^4.1.0
       '@types/lodash-es': ^4.17.5
+      '@vben-admin/setting': workspace:*
       '@vue/runtime-core': ^3.2.26
       '@vue/shared': ^3.2.26
       '@vueuse/core': ^7.4.3
       '@vueuse/shared': ^7.4.3
-      crypto-js: ^4.1.1
       dayjs: ^1.10.7
       lodash-es: ^4.17.21
     dependencies:
+      '@vben-admin/setting': link:../setting
       '@vue/runtime-core': 3.2.26
       '@vue/shared': 3.2.26
       '@vueuse/core': 7.4.3
       '@vueuse/shared': 7.4.3
-      crypto-js: 4.1.1
       dayjs: 1.10.7
       lodash-es: 4.17.21
     devDependencies:
@@ -5070,13 +5084,6 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
     dev: true
-
-  /crypto-js/4.1.1:
-    resolution:
-      {
-        integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==,
-      }
-    dev: false
 
   /crypto-random-string/2.0.0:
     resolution:
@@ -10460,6 +10467,18 @@ packages:
     engines: { node: '>=6' }
     dev: true
 
+  /pinia-plugin-persistedstate/1.0.3_pinia@2.0.9:
+    resolution:
+      {
+        integrity: sha512-f+mE3VpnrKcYUZ6zNTpICsZ+tPo/wxXS6i6ECJKV9fx2Ei5hEMrC6dxUrAWK9hKR4Y/MTt3XAWAHiM3lJtP3Jw==,
+      }
+    peerDependencies:
+      pinia: ^2.0.0
+    dependencies:
+      pinia: 2.0.9_typescript@4.5.4+vue@3.2.26
+      shvl: 2.0.3
+    dev: false
+
   /pinia/2.0.9_typescript@4.5.4+vue@3.2.26:
     resolution:
       {
@@ -11699,6 +11718,13 @@ packages:
     hasBin: true
     dependencies:
       yargs: 14.2.3
+    dev: false
+
+  /shvl/2.0.3:
+    resolution:
+      {
+        integrity: sha512-V7C6S9Hlol6SzOJPnQ7qzOVEWUQImt3BNmmzh40wObhla3XOYMe4gGiYzLrJd5TFa+cI2f9LKIRJTTKZSTbWgw==,
+      }
     dev: false
 
   /side-channel/1.0.4:

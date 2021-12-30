@@ -2,6 +2,8 @@ import { ThemeEnum } from '@vben-admin/tokens'
 
 export const prefixCls = 'vben'
 
+export const primaryColor = '#0960bd'
+
 export const darkMode = ThemeEnum.LIGHT
 
 // app theme preset color

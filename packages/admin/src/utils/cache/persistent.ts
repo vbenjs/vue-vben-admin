@@ -14,7 +14,6 @@ import {
   APP_SESSION_CACHE_KEY,
   MULTIPLE_TABS_KEY,
 } from '@vben-admin/tokens'
-import { DEFAULT_CACHE_TIME } from '/@/settings/encryptionSetting'
 import { toRaw } from 'vue'
 import { pick, omit } from '@vben-admin/utils'
 
@@ -38,8 +37,8 @@ type SessionKeys = keyof SessionStore
 const ls = createLocalStorage()
 const ss = createSessionStorage()
 
-const localMemory = new Memory(DEFAULT_CACHE_TIME)
-const sessionMemory = new Memory(DEFAULT_CACHE_TIME)
+const localMemory = new Memory()
+const sessionMemory = new Memory()
 
 function initPersistentMemory() {
   const localCache = ls.get(APP_LOCAL_CACHE_KEY)

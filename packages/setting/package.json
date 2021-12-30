@@ -1,0 +1,11 @@
+{
+  "name": "@vben-admin/setting",
+  "version": "3.0.0-alpha.1",
+  "main": "index.ts",
+  "module": "index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@vben-admin/types": "workspace:*",
+    "@vben-admin/tokens": "workspace:*"
+  }
+}

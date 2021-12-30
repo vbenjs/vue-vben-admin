@@ -8,7 +8,7 @@ import { router, resetRouter } from '/@/router'
 import { PermissionModeEnum, RoleEnum } from '@vben-admin/tokens'
 import { isArray, intersection } from '@vben-admin/utils'
 import { useMultipleTabStore } from '/@/store/modules/multipleTab'
-import projectSetting from '/@/settings/projectSetting'
+import { projectSetting } from '@vben-admin/setting'
 
 // User permissions related operations
 export function usePermission() {

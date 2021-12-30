@@ -4,7 +4,7 @@ import { useDesign } from '/@/hooks/web/useDesign'
 import { useSortable } from '/@/hooks/web/useSortable'
 import { useMultipleTabStore } from '/@/store/modules/multipleTab'
 import { isNullOrUndefined } from '@vben-admin/utils'
-import projectSetting from '/@/settings/projectSetting'
+import { projectSetting } from '@vben-admin/setting'
 import { useRouter } from 'vue-router'
 
 export function initAffixTabs(): string[] {

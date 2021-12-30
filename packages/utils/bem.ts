@@ -1,4 +1,4 @@
-import { prefixCls } from '/@/settings/designSetting'
+import { prefixCls } from '@vben-admin/setting'
 
 type Mod = string | { [key: string]: any }
 type Mods = Mod | Mod[]

@@ -1,4 +1,4 @@
-import { defHttp } from '/@/plugins/axios'
+import { defaultRequest } from '/@/plugins/request'
 import type {
   DemoParams,
   DemoListGetResultModel,
@@ -13,7 +13,7 @@ enum Api {
  */
 
 export const demoListApi = (params: DemoParams) =>
-  defHttp.get<DemoListGetResultModel>({
+  defaultRequest.get<DemoListGetResultModel>({
     url: Api.DEMO_LIST,
     params,
     headers: {

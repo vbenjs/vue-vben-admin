@@ -3,7 +3,7 @@ import type { ErrorMessageMode } from '@vben-admin/types'
 import { useMessage } from '/@/hooks/web/useMessage'
 import { useI18n } from '@vben-admin/locale'
 import { useUserStoreWithOut } from '/@/store/modules/user'
-import projectSetting from '/@/settings/projectSetting'
+import { projectSetting } from '@vben-admin/setting'
 import { SessionTimeoutProcessingEnum } from '@vben-admin/tokens'
 
 const { createMessage, createErrorModal } = useMessage()

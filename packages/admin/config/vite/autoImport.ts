@@ -8,14 +8,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 export function configAutoImport(): Plugin | Plugin[] {
   const plugins: Plugin[] = [
     AutoImport({
-      imports: [
-        'vue',
-        'vue-router',
-        'vue-i18n',
-        '@vueuse/head',
-        '@vueuse/core',
-        // 'vitest',
-      ],
+      imports: ['vue', 'vue-router'],
       dts: 'typings/auto-imports.d.ts',
     }),
   ]

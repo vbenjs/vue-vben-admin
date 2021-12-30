@@ -2,8 +2,6 @@ import { generate } from '@ant-design/colors'
 
 export const primaryColor = '#0960bd'
 
-export const darkMode = 'light'
-
 type Fn = (...arg: any) => any
 
 type GenerateTheme = 'default' | 'dark'

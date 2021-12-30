@@ -11,11 +11,11 @@
     "vue": ">=3.0.0"
   },
   "dependencies": {
+    "@vben-admin/setting": "workspace:*",
     "@vue/runtime-core": "^3.2.26",
     "@vue/shared": "^3.2.26",
     "@vueuse/core": "^7.4.3",
     "@vueuse/shared": "^7.4.3",
-    "crypto-js": "^4.1.1",
     "dayjs": "^1.10.7",
     "lodash-es": "^4.17.21"
   },

@@ -41,7 +41,7 @@
 // components
 import { Dropdown, Menu } from 'ant-design-vue'
 import { defineComponent, computed } from 'vue'
-import { DOC_URL } from '/@/settings/siteSetting'
+import { DOC_URL } from '@vben-admin/setting'
 import { useUserStore } from '/@/store/modules/user'
 import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
 import { useI18n } from '@vben-admin/locale'

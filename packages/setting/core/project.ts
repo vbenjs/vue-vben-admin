@@ -12,14 +12,15 @@ import {
   SettingButtonPositionEnum,
   SessionTimeoutProcessingEnum,
 } from '@vben-admin/tokens'
+
 import {
   SIDE_BAR_BG_COLOR_LIST,
   HEADER_PRESET_BG_COLOR_LIST,
-} from './designSetting'
-import { primaryColor } from '../../config/theme'
+  primaryColor,
+} from './design'
 
 // ! You need to clear the browser cache after the change
-const setting: ProjectConfig = {
+export const projectSetting: ProjectConfig = {
   // Whether to show the configuration button
   showSettingButton: true,
 
@@ -182,5 +183,3 @@ const setting: ProjectConfig = {
   // If it is enabled, I want to overwrite a single interface. Can be set in a separate interface
   removeAllHttpPending: false,
 }
-
-export default setting

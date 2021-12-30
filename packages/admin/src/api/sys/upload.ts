@@ -1,7 +1,7 @@
 import type { RequestUploadFileOptions } from '@vben-admin/types'
 import type { UploadApiResult } from '@vben-admin/types/model'
 
-import { defHttp } from '/@/plugins/axios'
+import { defaultRequest } from '/@/plugins/request'
 import { useGlobSetting } from '/@/hooks/setting'
 
 const { uploadUrl = '' } = useGlobSetting()
@@ -13,7 +13,7 @@ export function uploadApi(
   params: RequestUploadFileOptions,
   onUploadProgress: (progressEvent: ProgressEvent) => void,
 ) {
-  return defHttp.uploadFile<UploadApiResult>(
+  return defaultRequest.uploadFile<UploadApiResult>(
     {
       url: uploadUrl,
       onUploadProgress,

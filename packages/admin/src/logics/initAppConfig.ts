@@ -4,7 +4,7 @@
 import type { ProjectConfig } from '@vben-admin/types'
 
 import { PROJ_CFG_KEY } from '@vben-admin/tokens'
-import projectSetting from '/@/settings/projectSetting'
+import { projectSetting, primaryColor } from '@vben-admin/setting'
 
 import {
   updateHeaderBgColor,
@@ -16,7 +16,6 @@ import { updateDarkTheme } from '/@/logics/theme/dark'
 import { changeTheme } from '/@/logics/theme'
 import { useAppStore } from '/@/store/modules/app'
 import { getCommonStoragePrefix, getStorageShortName } from '/@/utils/env'
-import { primaryColor } from '../../config/theme'
 import { Persistent } from '/@/utils/cache/persistent'
 import { deepMerge } from '@vben-admin/utils'
 import { ThemeEnum } from '@vben-admin/tokens'

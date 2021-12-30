@@ -33,7 +33,7 @@ import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard'
 
 import { updateColorWeak } from '/@/logics/theme/updateColorWeak'
 import { updateGrayMode } from '/@/logics/theme/updateGrayMode'
-import defaultSetting from '/@/settings/projectSetting'
+import { projectSetting } from '@vben-admin/setting'
 
 export default defineComponent({
   name: 'SettingFooter',
@@ -59,8 +59,8 @@ export default defineComponent({
     }
     function handleResetSetting() {
       try {
-        appStore.setProjectConfig(defaultSetting)
-        const { colorWeak, grayMode } = defaultSetting
+        appStore.setProjectConfig(projectSetting)
+        const { colorWeak, grayMode } = projectSetting
         // updateTheme(themeColor);
         updateColorWeak(colorWeak)
         updateGrayMode(grayMode)

@@ -1,8 +1,34 @@
+<script lang="ts" setup>
+import { computed } from 'vue'
+import { AppLogo } from '/@/components/Application'
+import { AppLocalePicker, AppDarkModeToggle } from '/@/components/Application'
+import { useGlobSetting } from '/@/hooks/setting'
+import { useI18n, showLocalePicker } from '@vben-admin/locale'
+import { useDesign } from '/@/hooks/web/useDesign'
+import LoginForm from './LoginForm.vue'
+import ForgetPasswordForm from './ForgetPasswordForm.vue'
+import RegisterForm from './RegisterForm.vue'
+import MobileForm from './MobileForm.vue'
+import QrCodeForm from './QrCodeForm.vue'
+
+defineProps({
+  sessionTimeout: {
+    type: Boolean,
+  },
+})
+
+const globSetting = useGlobSetting()
+const { prefixCls } = useDesign('login')
+const { t } = useI18n()
+
+const title = computed(() => globSetting?.title ?? '')
+</script>
+
 <template>
   <div :class="prefixCls" class="relative w-full h-full px-4">
     <AppLocalePicker
       class="absolute text-white top-4 right-4 enter-x xl:text-gray-600"
-      :showText="false"
+      :show-text="false"
       v-if="!sessionTimeout && showLocalePicker"
     />
     <AppDarkModeToggle
@@ -11,7 +37,7 @@
     />
 
     <span class="-enter-x xl:hidden">
-      <AppLogo :alwaysShowTitle="true" />
+      <AppLogo :always-show-title="true" />
     </span>
 
     <div class="container relative h-full py-2 mx-auto sm:px-10">
@@ -21,7 +47,7 @@
           <div class="my-auto">
             <img
               :alt="title"
-              src="../../../assets/svg/login-box-bg.svg"
+              src="/@/assets/svg/login-box-bg.svg"
               class="w-1/2 -mt-16 -enter-x"
             />
             <div class="mt-10 font-medium text-white -enter-x">
@@ -54,31 +80,7 @@
     </div>
   </div>
 </template>
-<script lang="ts" setup>
-import { computed } from 'vue'
-import { AppLogo } from '/@/components/Application'
-import { AppLocalePicker, AppDarkModeToggle } from '/@/components/Application'
-import LoginForm from './LoginForm.vue'
-import ForgetPasswordForm from './ForgetPasswordForm.vue'
-import RegisterForm from './RegisterForm.vue'
-import MobileForm from './MobileForm.vue'
-import QrCodeForm from './QrCodeForm.vue'
-import { useGlobSetting } from '/@/hooks/setting'
-import { useI18n, showLocalePicker } from '@vben-admin/locale'
-import { useDesign } from '/@/hooks/web/useDesign'
 
-defineProps({
-  sessionTimeout: {
-    type: Boolean,
-  },
-})
-
-const globSetting = useGlobSetting()
-const { prefixCls } = useDesign('login')
-const { t } = useI18n()
-
-const title = computed(() => globSetting?.title ?? '')
-</script>
 <style lang="less">
 @prefix-cls: ~'@{namespace}-login';
 @logo-prefix-cls: ~'@{namespace}-app-logo';

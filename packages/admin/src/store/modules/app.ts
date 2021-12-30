@@ -12,7 +12,7 @@ import { deepMerge } from '@vben-admin/utils'
 import { defineStore } from 'pinia'
 import { store } from '/@/store'
 import { Persistent } from '/@/utils/cache/persistent'
-import { darkMode } from '/@/settings/designSetting'
+import { darkMode } from '@vben-admin/setting'
 import { resetRouter } from '/@/router'
 
 interface AppState {

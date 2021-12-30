@@ -1,4 +1,4 @@
-import { defHttp } from '/@/plugins/axios'
+import { defaultRequest } from '/@/plugins/request'
 import type { AreaModel, AreaParams } from '@vben-admin/types/model'
 
 enum Api {
@@ -6,4 +6,4 @@ enum Api {
 }
 
 export const areaRecord = (data: AreaParams) =>
-  defHttp.post<AreaModel>({ url: Api.AREA_RECORD, data })
+  defaultRequest.post<AreaModel>({ url: Api.AREA_RECORD, data })

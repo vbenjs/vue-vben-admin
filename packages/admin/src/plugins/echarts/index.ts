@@ -1,5 +1,5 @@
 import * as echarts from 'echarts/core'
-
+import { SVGRenderer } from 'echarts/renderers'
 import {
   BarChart,
   LineChart,
@@ -8,7 +8,6 @@ import {
   PictorialBarChart,
   RadarChart,
 } from 'echarts/charts'
-
 import {
   TitleComponent,
   TooltipComponent,
@@ -25,8 +24,6 @@ import {
   CalendarComponent,
   GraphicComponent,
 } from 'echarts/components'
-
-import { SVGRenderer } from 'echarts/renderers'
 
 echarts.use([
   LegendComponent,

@@ -1,8 +1,6 @@
 // Used to configure the general configuration of some components without modifying the components
 
-import type { SorterResult } from '../components/Table'
-
-export default {
+export const componentSetting = {
   // basic-table setting
   table: {
     // Form interface request general configuration
@@ -24,7 +22,7 @@ export default {
     // Default Size
     defaultSize: 'middle',
     // Custom general sort function
-    defaultSortFn: (sortInfo: SorterResult) => {
+    defaultSortFn: (sortInfo) => {
       const { field, order } = sortInfo
       if (field && order) {
         return {

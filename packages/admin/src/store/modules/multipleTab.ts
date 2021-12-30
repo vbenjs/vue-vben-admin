@@ -13,7 +13,7 @@ import { PageEnum, MULTIPLE_TABS_KEY } from '@vben-admin/tokens'
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/routes/basic'
 import { getRawRoute } from '/@/utils'
 import { useUserStore } from '/@/store/modules/user'
-import projectSetting from '/@/settings/projectSetting'
+import { projectSetting } from '@vben-admin/setting'
 
 export interface MultipleTabState {
   cacheTabList: Set<string>

@@ -3,7 +3,7 @@ import type { ErrorLogInfo } from '@vben-admin/types'
 import { defineStore } from 'pinia'
 import { store } from '/@/store'
 import { formatToDateTime } from '@vben-admin/utils'
-import projectSetting from '/@/settings/projectSetting'
+import { projectSetting } from '@vben-admin/setting'
 import { ErrorTypeEnum } from '@vben-admin/tokens'
 
 export interface ErrorLogState {

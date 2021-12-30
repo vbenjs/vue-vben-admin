@@ -1,6 +1,6 @@
 import { CacheTypeEnum, TOKEN_KEY } from '@vben-admin/tokens'
 import { Persistent, BasicKeys } from '/@/utils/cache/persistent'
-import projectSetting from '/@/settings/projectSetting'
+import { projectSetting } from '@vben-admin/setting'
 
 const { permissionCacheType } = projectSetting
 const isLocal = permissionCacheType === CacheTypeEnum.LOCAL

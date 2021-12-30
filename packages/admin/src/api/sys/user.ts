@@ -4,8 +4,7 @@ import type {
   LoginResultModel,
   GetUserInfoModel,
 } from '@vben-admin/types/model'
-
-import { defHttp } from '/@/plugins/axios'
+import { defaultRequest } from '/@/plugins/request'
 
 enum Api {
   Login = '/login',
@@ -21,7 +20,7 @@ export function loginApi(
   params: LoginParams,
   mode: ErrorMessageMode = 'modal',
 ) {
-  return defHttp.post<LoginResultModel>(
+  return defaultRequest.post<LoginResultModel>(
     {
       url: Api.Login,
       params,
@@ -36,16 +35,16 @@ export function loginApi(
  * @description: getUserInfo
  */
 export function getUserInfo() {
-  return defHttp.get<GetUserInfoModel>(
+  return defaultRequest.get<GetUserInfoModel>(
     { url: Api.GetUserInfo },
     { errorMessageMode: 'none' },
   )
 }
 
 export function getPermCode() {
-  return defHttp.get<string[]>({ url: Api.GetPermCode })
+  return defaultRequest.get<string[]>({ url: Api.GetPermCode })
 }
 
 export function doLogout() {
-  return defHttp.get({ url: Api.Logout })
+  return defaultRequest.get({ url: Api.Logout })
 }

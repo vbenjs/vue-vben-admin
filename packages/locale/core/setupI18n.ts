@@ -1,9 +1,9 @@
 import type { App } from 'vue'
 import type { I18n, I18nOptions } from 'vue-i18n'
 
+import { localeSetting } from '@vben-admin/setting'
 import { createI18n } from 'vue-i18n'
 import { setHtmlPageLang, setLoadLocalePool } from './helper'
-import { localeSetting } from '../config'
 import { getLocale } from './store'
 
 const { fallback, availableLocales } = localeSetting
