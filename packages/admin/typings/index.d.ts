@@ -36,5 +36,3 @@ declare type CustomizedHTMLElement<T> = HTMLElement & T
 
 declare type PartialReturnType<T extends (...args: unknown[]) => unknown> =
   Partial<ReturnType<T>>
-
-declare type SFCWithInstall<T> = T & Plugin

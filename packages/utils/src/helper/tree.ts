@@ -14,10 +14,10 @@ const getConfig = (config: Partial<TreeHelperConfig>) =>
   Object.assign({}, DEFAULT_CONFIG, config)
 
 // tree from list
-export function listToTree<T = any>(
+export const listToTree = <T = any>(
   list: any[],
   config: Partial<TreeHelperConfig> = {},
-): T[] {
+): T[] => {
   const conf = getConfig(config) as TreeHelperConfig
   const nodeMap = new Map()
   const result: T[] = []
@@ -34,10 +34,10 @@ export function listToTree<T = any>(
   return result
 }
 
-export function treeToList<T = any>(
+export const treeToList = <T = any>(
   tree: any,
   config: Partial<TreeHelperConfig> = {},
-): T {
+): T => {
   config = getConfig(config)
   const { children } = config
   const result: any = [...tree]
@@ -48,11 +48,11 @@ export function treeToList<T = any>(
   return result
 }
 
-export function findTreeNode<T = any>(
+export const findTreeNode = <T = any>(
   tree: any,
   func: Fn,
   config: Partial<TreeHelperConfig> = {},
-): T | null {
+): T | null => {
   config = getConfig(config)
   const { children } = config
   const list = [...tree]
@@ -63,11 +63,11 @@ export function findTreeNode<T = any>(
   return null
 }
 
-export function findAllTreeNode<T = any>(
+export const findAllTreeNode = <T = any>(
   tree: any,
   func: AnyFunction<any>,
   config: Partial<TreeHelperConfig> = {},
-): T[] {
+): T[] => {
   config = getConfig(config)
   const { children } = config
   const list = [...tree]
@@ -79,11 +79,11 @@ export function findAllTreeNode<T = any>(
   return result
 }
 
-export function findTreeParentPath<T = any>(
+export const findTreeParentPath = <T = any>(
   tree: any,
   func: AnyFunction<any>,
   config: Partial<TreeHelperConfig> = {},
-): T | T[] | null {
+): T | T[] | null => {
   config = getConfig(config)
   const path: T[] = []
   const list = [...tree]
@@ -106,11 +106,11 @@ export function findTreeParentPath<T = any>(
   return null
 }
 
-export function findAllTreeParentPath(
+export const findAllTreeParentPath = (
   tree: any,
   func: AnyFunction<any>,
   config: Partial<TreeHelperConfig> = {},
-) {
+) => {
   config = getConfig(config)
   const path: any[] = []
   const list = [...tree]
@@ -132,11 +132,11 @@ export function findAllTreeParentPath(
   return result
 }
 
-export function filterTree<T = any>(
+export const filterTree = <T = any>(
   tree: T[],
   func: (n: T) => boolean,
   config: Partial<TreeHelperConfig> = {},
-): T[] {
+): T[] => {
   config = getConfig(config)
   const children = config.children as string
   function listFilter(list: T[]) {
@@ -150,11 +150,11 @@ export function filterTree<T = any>(
   return listFilter(tree)
 }
 
-export function forEachTree<T = any>(
+export const forEachTree = <T = any>(
   tree: T[],
   func: (n: T) => any,
   config: Partial<TreeHelperConfig> = {},
-): void {
+) => {
   config = getConfig(config)
   const list: any[] = [...tree]
   const { children } = config
@@ -170,21 +170,21 @@ export function forEachTree<T = any>(
 /**
  * @description: Extract tree specified structure
  */
-export function treeMap<T = any>(
+export const treeMap = <T = any>(
   treeData: T[],
   opt: { children?: string; conversion: AnyFunction<any> },
-): T[] {
+): T[] => {
   return treeData.map((item) => treeMapEach(item, opt))
 }
 
 /**
  * Recursively traverse the tree structure
  */
-export function treeTraverse(
+export const treeTraverse = (
   data: any[],
   callBack: AnyFunction<any>,
   parentNode = {},
-) {
+) => {
   data.forEach((element) => {
     const newNode = callBack(element, parentNode) || element
     if (element.children) {
@@ -196,13 +196,13 @@ export function treeTraverse(
 /**
  * @description: Extract tree specified structure
  */
-function treeMapEach(
+const treeMapEach = (
   data: any,
   {
     children = 'children',
     conversion,
   }: { children?: string; conversion: AnyFunction<any> },
-) {
+) => {
   const haveChildren =
     Array.isArray(data[children]) && data[children].length > 0
   const conversionData = conversion(data) || {}

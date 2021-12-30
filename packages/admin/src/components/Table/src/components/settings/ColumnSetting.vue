@@ -129,7 +129,7 @@ import { useTableContext } from '../../hooks/useTableContext'
 import { useDesign } from '/@/hooks/web/useDesign'
 import { isNullOrUndefined } from '@vben-admin/utils'
 import { isFunction, cloneDeep, omit } from '@vben-admin/utils'
-import { getPopupContainer as getParentContainer } from '/@/utils'
+import { getPopupContainer as getParentContainer } from '@vben-admin/utils'
 import Sortablejs from 'sortablejs'
 import type Sortable from 'sortablejs'
 

@@ -15,9 +15,9 @@ import {
 
 const domSymbol = Symbol('watermark-dom')
 
-export function useWatermark(
+export const useWatermark = (
   appendEl: Ref<HTMLElement | null> = ref(document.body) as Ref<HTMLElement>,
-) {
+) => {
   const func = useRafThrottle(function () {
     const el = unref(appendEl)
     if (!el) return
@@ -36,7 +36,7 @@ export function useWatermark(
     removeResizeListener(el, func)
   }
 
-  function createBase64(str: string) {
+  const createBase64 = (str: string) => {
     const can = document.createElement('canvas')
     const width = 300
     const height = 240
@@ -54,13 +54,13 @@ export function useWatermark(
     return can.toDataURL('image/png')
   }
 
-  function updateWatermark(
+  const updateWatermark = (
     options: {
       width?: number
       height?: number
       str?: string
     } = {},
-  ) {
+  ) => {
     const el = unref(watermarkEl)
     if (!el) return
     if (isDefined(options.width)) {
@@ -95,7 +95,7 @@ export function useWatermark(
     return id
   }
 
-  function setWatermark(str: string) {
+  const setWatermark = (str: string) => {
     createWatermark(str)
     addResizeListener(document.documentElement, func)
     const instance = getCurrentInstance()

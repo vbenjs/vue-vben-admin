@@ -65,7 +65,7 @@ import { CellComponent } from './CellComponent'
 
 import { useDesign } from '/@/hooks/web/useDesign'
 import { useTableContext } from '../../hooks/useTableContext'
-import clickOutside from '/@/directives/clickOutside'
+import { clickOutside } from '@vben-admin/directives'
 import {
   isArray,
   isFunction,

@@ -1,4 +1,4 @@
-import { withInstall } from '/@/utils'
+import { withInstall } from '@vben-admin/utils'
 import './src/index.less'
 import basicModal from './src/BasicModal.vue'
 

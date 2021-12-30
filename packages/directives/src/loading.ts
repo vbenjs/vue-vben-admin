@@ -1,13 +1,14 @@
-import { createLoading } from '/@/components/Loading'
-import type { Directive, App } from 'vue'
+import type { Directive } from 'vue'
 
-const loadingDirective: Directive = {
+import { context } from '../_bridge'
+
+const loading: Directive = {
   mounted(el, binding) {
     const tip = el.getAttribute('loading-tip')
     const background = el.getAttribute('loading-background')
     const size = el.getAttribute('loading-size')
     const fullscreen = !!binding.modifiers.fullscreen
-    const instance = createLoading(
+    const instance = context.createLoading(
       {
         tip,
         background,
@@ -32,8 +33,4 @@ const loadingDirective: Directive = {
   },
 }
 
-export function setupLoadingDirective(app: App) {
-  app.directive('loading', loadingDirective)
-}
-
-export default loadingDirective
+export { loading }

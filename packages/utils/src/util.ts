@@ -47,3 +47,10 @@ export const setObjToUrlParams = (baseUrl: string, obj: any): string => {
     ? baseUrl + parameters
     : baseUrl.replace(/\/?$/, '?') + parameters
 }
+
+/**
+ * @description:  Set ui mount node
+ */
+export const getPopupContainer = (node?: HTMLElement): HTMLElement => {
+  return (node?.parentNode as HTMLElement) ?? document.body
+}

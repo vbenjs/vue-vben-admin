@@ -97,7 +97,7 @@ import {
   SIDE_BAR_MINI_WIDTH,
   SIDE_BAR_SHOW_TIT_MINI_WIDTH,
 } from '@vben-admin/tokens'
-import clickOutside from '/@/directives/clickOutside'
+import { clickOutside } from '@vben-admin/directives'
 import {
   getChildrenMenus,
   getCurrentParentPath,

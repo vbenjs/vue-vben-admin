@@ -14,10 +14,10 @@ export const setLoadLocalePool = (
   cb(loadLocalePool)
 }
 
-export function genMessage(
+export const genMessage = (
   langs: Record<string, Record<string, any>>,
   prefix = 'lang',
-) {
+) => {
   const obj: Recordable = {}
 
   Object.keys(langs).forEach((key) => {

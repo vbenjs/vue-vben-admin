@@ -13,17 +13,19 @@ import { setupErrorHandle } from '/@/logics/error-handle'
 import { router, setupRouter } from '/@/router'
 import { setupRouterGuard } from '/@/router/guard'
 import { setupStore } from '/@/store'
-import { setupGlobDirectives } from '/@/directives'
 import { setupI18n } from '@vben-admin/locale'
+import { registerGlobalDirective } from '@vben-admin/directives'
 import { registerGlobComp } from '/@/components/registerGlobComp'
 
-async function bootstrap() {
-  await initAdminModules()
-
+const bootstrap = async () => {
   const app = createApp(App)
 
   // Configure store
   setupStore(app)
+
+  // ! Need to pay attention to the timing of execution
+  // ! 需要注意调用时机
+  await initAdminModules()
 
   // Initialize internal system configuration
   initAppConfigStore()
@@ -33,6 +35,8 @@ async function bootstrap() {
 
   // Multilingual configuration
   // Asynchronous case: language files may be obtained from the server side
+  // 多语言配置
+  // 异步情况：可以从服务端获取语言文件
   await setupI18n(app)
 
   // Configure routing
@@ -42,13 +46,10 @@ async function bootstrap() {
   setupRouterGuard(router)
 
   // Register global directive
-  setupGlobDirectives(app)
+  registerGlobalDirective(app)
 
   // Configure global error handling
   setupErrorHandle(app)
-
-  // https://next.router.vuejs.org/api/#isready
-  // await router.isReady();
 
   app.mount('#app')
 }

@@ -21,7 +21,7 @@ export function joinTimestamp(join: boolean, restful = false): string | object {
 /**
  * @description: Format request parameter time
  */
-export function formatRequestDate(params: Recordable) {
+export const formatRequestDate = (params: Recordable) => {
   if (!isObject(params)) {
     return
   }

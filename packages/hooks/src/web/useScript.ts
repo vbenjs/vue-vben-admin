@@ -4,7 +4,7 @@ interface ScriptOptions {
   src: string
 }
 
-export function useScript(opts: ScriptOptions) {
+export const useScript = (opts: ScriptOptions) => {
   const isLoading = ref(false)
   const error = ref(false)
   const success = ref(false)

@@ -1,6 +1,6 @@
 import type { ErrorMessageMode } from './typing'
 
-export interface ContentOptions {
+export interface ContextOptions {
   errorFunction: AnyFunction<any>
   errorModalFunction: AnyFunction<any>
   getTokenFunction: () => unknown
@@ -13,7 +13,7 @@ export interface ContentOptions {
   uploadUrl?: string
 }
 
-export let context: ContentOptions = {
+export let context: ContextOptions = {
   getTokenFunction: () => undefined,
   unauthorizedFunction: () => {},
   errorFunction: () => {},
@@ -25,6 +25,6 @@ export let context: ContentOptions = {
   apiUrl: '',
 }
 
-export const initServiceModule = async (_context: ContentOptions) => {
+export const initServiceModule = async (_context: ContextOptions) => {
   context = _context
 }

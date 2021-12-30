@@ -20,14 +20,14 @@ function setI18nLanguage(locale: LocaleType) {
   setHtmlPageLang(locale)
 }
 
-export function useLocale() {
+export const useLocale = () => {
   const antdLocale = computed((): any => {
     return i18n.global.getLocaleMessage(unref(getLocale))?.antdLocale ?? {}
   })
 
   // Switching the language will change the locale of useI18n
   // And submit to configuration modification
-  async function changeLocale(locale: LocaleType) {
+  const changeLocale = async (locale: LocaleType) => {
     const globalI18n = i18n.global
     const currentLocale = unref(globalI18n.locale)
 

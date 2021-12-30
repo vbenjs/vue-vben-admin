@@ -4,7 +4,7 @@ import { isFunction } from '../is'
 /**
  * @description:  Get slot to prevent empty error
  */
-export function getSlot(slots: Slots, slot = 'default', data?: any) {
+export const getSlot = (slots: Slots, slot = 'default', data?: any) => {
   if (!slots || !Reflect.has(slots, slot)) {
     return null
   }
@@ -22,7 +22,7 @@ export function getSlot(slots: Slots, slot = 'default', data?: any) {
  * @param slots
  * @param excludeKeys
  */
-export function extendSlots(slots: Slots, excludeKeys: string[] = []) {
+export const extendSlots = (slots: Slots, excludeKeys: string[] = []) => {
   const slotKeys = Object.keys(slots)
   const ret: any = {}
   slotKeys.map((key) => {

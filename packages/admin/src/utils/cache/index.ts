@@ -1,4 +1,4 @@
-import { getStorageShortName } from '/@/utils/env'
+import { getStorageShortName } from '/@/internal/env'
 import { createStorage as create, CreateStorageParams } from './storageCache'
 
 export type Options = Partial<CreateStorageParams>

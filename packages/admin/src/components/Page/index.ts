@@ -1,4 +1,4 @@
-import { withInstall } from '/@/utils'
+import { withInstall } from '@vben-admin/utils'
 
 import pageFooter from './src/PageFooter.vue'
 import pageWrapper from './src/PageWrapper.vue'

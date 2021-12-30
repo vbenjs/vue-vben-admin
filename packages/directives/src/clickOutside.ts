@@ -1,9 +1,10 @@
-import { on, isClient } from '@vben-admin/utils'
 import type {
   ComponentPublicInstance,
   DirectiveBinding,
   ObjectDirective,
 } from 'vue'
+
+import { on, isClient } from '@vben-admin/utils'
 
 type DocumentHandler = <T extends MouseEvent>(mouseup: T, mousedown: T) => void
 
@@ -28,10 +29,10 @@ if (isClient) {
   })
 }
 
-function createDocumentHandler(
+const createDocumentHandler = (
   el: HTMLElement,
   binding: DirectiveBinding,
-): DocumentHandler {
+): DocumentHandler => {
   let excludes: HTMLElement[] = []
   if (Array.isArray(binding.arg)) {
     excludes = binding.arg
@@ -39,7 +40,7 @@ function createDocumentHandler(
     // due to current implementation on binding type is wrong the type casting is necessary here
     excludes.push(binding.arg as unknown as HTMLElement)
   }
-  return function (mouseup, mousedown) {
+  return (mouseup, mousedown) => {
     const popperRef = (
       binding.instance as ComponentPublicInstance<{
         popperRef: Nullable<HTMLElement>
@@ -74,7 +75,7 @@ function createDocumentHandler(
   }
 }
 
-const ClickOutside: ObjectDirective = {
+const clickOutside: ObjectDirective = {
   beforeMount(el, binding) {
     nodeList.set(el, {
       documentHandler: createDocumentHandler(el, binding),
@@ -92,4 +93,4 @@ const ClickOutside: ObjectDirective = {
   },
 }
 
-export default ClickOutside
+export { clickOutside }

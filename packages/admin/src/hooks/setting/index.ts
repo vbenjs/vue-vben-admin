@@ -1,6 +1,6 @@
 import type { GlobConfig } from '@vben-admin/types'
 
-import { getAppEnvConfig } from '/@/utils/env'
+import { getAppEnvConfig } from '/@/internal/env'
 
 export const useGlobSetting = (): Readonly<GlobConfig> => {
   const {

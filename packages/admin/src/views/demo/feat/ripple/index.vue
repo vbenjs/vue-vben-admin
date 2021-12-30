@@ -5,13 +5,13 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import RippleDirective from '/@/directives/ripple'
+import { ripple } from '@vben-admin/directives'
 import { PageWrapper } from '/@/components/Page'
 
 export default defineComponent({
   components: { PageWrapper },
   directives: {
-    Ripple: RippleDirective,
+    ripple: ripple,
   },
 })
 </script>

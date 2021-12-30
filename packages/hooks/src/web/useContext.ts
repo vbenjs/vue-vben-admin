@@ -17,11 +17,11 @@ type ShallowUnwrap<T> = {
   [P in keyof T]: UnwrapRef<T[P]>
 }
 
-export function createContext<T>(
+export const createContext = <T>(
   context: any,
   key: InjectionKey<T> = Symbol(),
   options: CreateContextOptions = {},
-) {
+) => {
   const { readonly = true, createProvider = false, native = false } = options
 
   const state = reactive(context)

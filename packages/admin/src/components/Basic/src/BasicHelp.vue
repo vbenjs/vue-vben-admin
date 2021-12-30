@@ -3,8 +3,12 @@ import type { CSSProperties, PropType } from 'vue'
 import { defineComponent, computed, unref } from 'vue'
 import { Tooltip } from 'ant-design-vue'
 import { InfoCircleOutlined } from '@ant-design/icons-vue'
-import { getPopupContainer } from '/@/utils'
-import { isString, isArray, getSlot } from '@vben-admin/utils'
+import {
+  isString,
+  isArray,
+  getSlot,
+  getPopupContainer,
+} from '@vben-admin/utils'
 import { useDesign } from '/@/hooks/web/useDesign'
 
 const props = {

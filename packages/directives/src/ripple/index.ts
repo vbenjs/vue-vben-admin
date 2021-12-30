@@ -1,5 +1,7 @@
 import type { Directive } from 'vue'
-import './index.less'
+
+import './index.css'
+
 export interface RippleOptions {
   event: string
   transition: number
@@ -17,15 +19,15 @@ const options: RippleOptions = {
   transition: 400,
 }
 
-const RippleDirective: Directive & RippleProto = {
+const ripple: Directive & RippleProto = {
   beforeMount: (el: HTMLElement, binding) => {
     if (binding.value === false) return
 
     const bg = el.getAttribute('ripple-background')
     setProps(Object.keys(binding.modifiers), options)
 
-    const background = bg || RippleDirective.background
-    const zIndex = RippleDirective.zIndex
+    const background = bg || ripple.background
+    const zIndex = ripple.zIndex
 
     el.addEventListener(options.event, (event: EventType) => {
       rippler({
@@ -46,12 +48,12 @@ const RippleDirective: Directive & RippleProto = {
   },
 }
 
-function rippler({
+const rippler = ({
   event,
   el,
   zIndex,
   background,
-}: { event: EventType; el: HTMLElement } & RippleProto) {
+}: { event: EventType; el: HTMLElement } & RippleProto) => {
   const targetBorder = parseInt(
     getComputedStyle(el).borderWidth.replace('px', ''),
   )
@@ -186,11 +188,11 @@ function rippler({
   }
 }
 
-function setProps(modifiers: Recordable, props: Recordable) {
+const setProps = (modifiers: Recordable, props: Recordable) => {
   modifiers.forEach((item: Recordable) => {
     if (isNaN(Number(item))) props.event = item
     else props.transition = item
   })
 }
 
-export default RippleDirective
+export { ripple }

@@ -37,7 +37,7 @@ import { Tooltip, Dropdown, Menu } from 'ant-design-vue'
 import { ColumnHeightOutlined } from '@ant-design/icons-vue'
 import { useI18n } from '@vben-admin/locale'
 import { useTableContext } from '../../hooks/useTableContext'
-import { getPopupContainer } from '/@/utils'
+import { getPopupContainer } from '@vben-admin/utils'
 
 export default defineComponent({
   name: 'SizeSetting',

@@ -220,7 +220,7 @@ const transform: AxiosTransform = {
   },
 }
 
-function createAxios(opt?: Partial<CreateAxiosOptions>) {
+const createAxios = (opt?: Partial<CreateAxiosOptions>) => {
   return new VAxios(
     deepMerge(
       {

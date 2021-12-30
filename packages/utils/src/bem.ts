@@ -5,7 +5,7 @@ type Mods = Mod | Mod[]
 
 export type BEM = ReturnType<typeof createBEM>
 
-function genBem(name: string, mods?: Mods): string {
+const genBem = (name: string, mods?: Mods): string => {
   if (!mods) {
     return ''
   }
@@ -32,7 +32,7 @@ function genBem(name: string, mods?: Mods): string {
  * b('text', { disabled }) // 'button__text button__text--disabled'
  * b(['disabled', 'primary']) // 'button button--disabled button--primary'
  */
-function buildBEM(name: string) {
+const buildBEM = (name: string) => {
   return (el?: Mods, mods?: Mods): Mods => {
     if (el && typeof el !== 'string') {
       mods = el
@@ -45,11 +45,11 @@ function buildBEM(name: string) {
   }
 }
 
-export function createBEM(name: string) {
+export const createBEM = (name: string) => {
   return [buildBEM(`${prefixCls}-${name}`)]
 }
 
-export function createNamespace(name: string) {
+export const createNamespace = (name: string) => {
   const prefixedName = `${prefixCls}-${name}`
   return [prefixedName, buildBEM(prefixedName)] as const
 }

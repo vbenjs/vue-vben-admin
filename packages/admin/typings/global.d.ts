@@ -1,4 +1,4 @@
-import type { VNodeChild, PropType as VuePropType } from 'vue'
+import type { VNodeChild, PropType as VuePropType, Plugin } from 'vue'
 
 declare global {
   const __APP_INFO__: {
@@ -24,6 +24,8 @@ declare global {
 
   declare type TimeoutHandle = ReturnType<typeof setTimeout>
   declare type IntervalHandle = ReturnType<typeof setInterval>
+
+  declare type SFCWithInstall<T> = T & Plugin
 
   declare interface ChangeEvent extends Event {
     target: HTMLInputElement

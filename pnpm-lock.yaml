@@ -97,6 +97,7 @@ importers:
       '@types/qs': ^6.9.7
       '@types/showdown': ^1.9.4
       '@types/sortablejs': ^1.10.7
+      '@vben-admin/directives': workspace:*
       '@vben-admin/hooks': workspace:*
       '@vben-admin/locale': workspace:*
       '@vben-admin/service': workspace:*
@@ -157,6 +158,7 @@ importers:
       '@iconify/iconify': 2.1.0
       '@logicflow/core': 1.0.0
       '@logicflow/extension': 1.0.0
+      '@vben-admin/directives': link:../directives
       '@vben-admin/hooks': link:../hooks
       '@vben-admin/locale': link:../locale
       '@vben-admin/service': link:../service
@@ -223,6 +225,14 @@ importers:
       vite-plugin-windicss: 1.6.1_vite@2.7.10
       vitest: 0.0.124_less@4.1.2
       vue-tsc: 0.30.1_typescript@4.5.4
+
+  packages/directives:
+    specifiers:
+      '@vben-admin/tokens': workspace:*
+      '@vben-admin/utils': workspace:*
+    dependencies:
+      '@vben-admin/tokens': link:../tokens
+      '@vben-admin/utils': link:../utils
 
   packages/hooks:
     specifiers:

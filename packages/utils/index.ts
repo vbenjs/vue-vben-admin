@@ -13,6 +13,7 @@ export * from './src/dom'
 export * from './src/lifecycle'
 export * from './src/color'
 export * from './src/bem'
+export * from './src/withInstall'
 
 export {
   cloneDeep,
