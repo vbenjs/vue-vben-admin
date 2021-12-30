@@ -155,7 +155,7 @@ import { Space, Upload, Avatar, Tooltip } from 'ant-design-vue'
 import { useDesign } from '/@/hooks/web/useDesign'
 import { BasicModal, useModalInner } from '/@/components/Modal'
 import { isFunction, dataURLtoBlob } from '@vben-admin/utils'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 
 type apiFunParams = { file: Blob; name: string; filename: string }
 

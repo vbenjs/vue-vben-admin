@@ -107,7 +107,7 @@ import { useAppInject } from '/@/hooks/web/useAppInject'
 import { useDesign } from '/@/hooks/web/useDesign'
 
 import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent'
-import { useLocale } from '/@/locales/useLocale'
+import { useLocale } from '@vben-admin/locale'
 
 export default defineComponent({
   name: 'LayoutHeader',

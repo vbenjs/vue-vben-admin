@@ -52,7 +52,7 @@ import { reactive, ref, computed, unref } from 'vue'
 import LoginFormTitle from './LoginFormTitle.vue'
 import { Form, Input, Button } from 'ant-design-vue'
 import { CountdownInput } from '/@/components/CountDown'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 import { useLoginState, useFormRules, LoginStateEnum } from './useLogin'
 
 const FormItem = Form.Item

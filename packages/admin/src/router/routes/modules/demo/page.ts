@@ -2,7 +2,7 @@ import type { AppRouteModule } from '/@/router/types'
 
 import { getParentLayout, LAYOUT } from '/@/router/constant'
 import { ExceptionEnum } from '@vben-admin/tokens'
-import { t } from '/@/hooks/web/useI18n'
+import { t } from '@vben-admin/locale'
 
 const ExceptionPage = () => import('/@/views/sys/exception/Exception.vue')
 

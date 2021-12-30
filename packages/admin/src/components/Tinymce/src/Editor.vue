@@ -44,7 +44,6 @@ import 'tinymce/plugins/preview'
 import 'tinymce/plugins/print'
 import 'tinymce/plugins/save'
 import 'tinymce/plugins/searchreplace'
-import 'tinymce/plugins/spellchecker'
 import 'tinymce/plugins/tabfocus'
 // import 'tinymce/plugins/table';
 import 'tinymce/plugins/template'
@@ -66,10 +65,13 @@ import {
 import ImgUpload from './ImgUpload.vue'
 import { toolbar, plugins } from './tinymce'
 import { bindHandlers } from './helper'
-import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated'
 import { useDesign } from '/@/hooks/web/useDesign'
-import { isNumber, buildShortUUID } from '@vben-admin/utils'
-import { useLocale } from '/@/locales/useLocale'
+import {
+  isNumber,
+  buildShortUUID,
+  onMountedOrActivated,
+} from '@vben-admin/utils'
+import { useLocale } from '@vben-admin/locale'
 import { useAppStore } from '/@/store/modules/app'
 
 const tinymceProps = {

@@ -12,7 +12,7 @@ import {
   unref,
   nextTick,
 } from 'vue'
-import { useDebounceFn } from '@vueuse/core'
+import { useDebounceFn } from '@vben-admin/hooks'
 import { useAppStore } from '/@/store/modules/app'
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn'
 import CodeMirror from 'codemirror'

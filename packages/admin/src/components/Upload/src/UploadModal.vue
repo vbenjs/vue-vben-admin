@@ -75,7 +75,7 @@ import { createTableColumns, createActionColumn } from './data'
 import { checkImgType, getBase64WithFile } from './helper'
 import { isFunction, buildUUID, warn } from '@vben-admin/utils'
 import FileList from './FileList.vue'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 
 export default defineComponent({
   components: { BasicModal, Upload, Alert, FileList },

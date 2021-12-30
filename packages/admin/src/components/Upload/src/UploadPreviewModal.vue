@@ -22,7 +22,7 @@ import { BasicModal, useModalInner } from '/@/components/Modal'
 import { previewProps } from './props'
 import { PreviewFileItem } from './typing'
 import { createPreviewColumns, createPreviewActionColumn } from './data'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 import { isArray, downloadByUrl } from '@vben-admin/utils'
 
 export default defineComponent({

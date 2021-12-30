@@ -58,19 +58,18 @@ import type { Menu } from '/@/router/types'
 import { defineComponent, computed } from 'vue'
 import { useDesign } from '/@/hooks/web/useDesign'
 import Icon from '/@/components/Icon/index'
-
+import SimpleMenuTag from './SimpleMenuTag.vue'
 import MenuItem from './components/MenuItem.vue'
 import SubMenu from './components/SubMenuItem.vue'
 import { propTypes } from '/@/utils/propTypes'
-import { useI18n } from '/@/hooks/web/useI18n'
-import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent'
+import { useI18n } from '@vben-admin/locale'
 
 export default defineComponent({
   name: 'SimpleSubMenu',
   components: {
     SubMenu,
     MenuItem,
-    SimpleMenuTag: createAsyncComponent(() => import('./SimpleMenuTag.vue')),
+    SimpleMenuTag,
     Icon,
   },
   props: {

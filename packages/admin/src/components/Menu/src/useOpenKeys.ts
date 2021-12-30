@@ -8,7 +8,7 @@ import { unref } from 'vue'
 import { uniq } from '@vben-admin/utils'
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
 import { getAllParentPath } from '/@/router/helper/menuHelper'
-import { useTimeoutFn } from '/@/hooks/core/useTimeout'
+import { useTimeoutFn } from '@vben-admin/hooks'
 
 export function useOpenKeys(
   menuState: MenuState,
@@ -23,25 +23,27 @@ export function useOpenKeys(
       return
     }
     const native = unref(getIsMixSidebar)
-    useTimeoutFn(
-      () => {
-        const menuList = toRaw(menus.value)
-        if (menuList?.length === 0) {
-          menuState.openKeys = []
-          return
-        }
-        if (!unref(accordion)) {
-          menuState.openKeys = uniq([
-            ...menuState.openKeys,
-            ...getAllParentPath(menuList, path),
-          ])
-        } else {
-          menuState.openKeys = getAllParentPath(menuList, path)
-        }
-      },
-      16,
-      !native,
-    )
+
+    const func = () => {
+      const menuList = toRaw(menus.value)
+      if (menuList?.length === 0) {
+        menuState.openKeys = []
+        return
+      }
+      if (!unref(accordion)) {
+        menuState.openKeys = uniq([
+          ...menuState.openKeys,
+          ...getAllParentPath(menuList, path),
+        ])
+      } else {
+        menuState.openKeys = getAllParentPath(menuList, path)
+      }
+    }
+    if (!native) {
+      func()
+    } else {
+      useTimeoutFn(func, 16)
+    }
   }
 
   const getOpenKeys = computed(() => {

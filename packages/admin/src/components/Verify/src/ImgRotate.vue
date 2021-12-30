@@ -1,11 +1,11 @@
 <script lang="tsx">
 import type { MoveData, DragVerifyActionType } from './typing'
 import { defineComponent, computed, unref, reactive, watch, ref } from 'vue'
-import { useTimeoutFn } from '/@/hooks/core/useTimeout'
+import { useTimeoutFn } from '@vben-admin/hooks'
 import BasicDragVerify from './DragVerify.vue'
 import { hackCss } from '@vben-admin/utils'
 import { rotateProps } from './props'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 
 export default defineComponent({
   name: 'ImgRotateDragVerify',

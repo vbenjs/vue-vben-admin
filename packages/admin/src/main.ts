@@ -13,7 +13,7 @@ import { router, setupRouter } from '/@/router'
 import { setupRouterGuard } from '/@/router/guard'
 import { setupStore } from '/@/store'
 import { setupGlobDirectives } from '/@/directives'
-import { setupI18n } from '/@/locales/setupI18n'
+import { setupI18n } from '@vben-admin/locale'
 import { registerGlobComp } from '/@/components/registerGlobComp'
 
 async function bootstrap() {

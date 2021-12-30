@@ -27,7 +27,7 @@ import ColumnSetting from './ColumnSetting.vue'
 import SizeSetting from './SizeSetting.vue'
 import RedoSetting from './RedoSetting.vue'
 import FullScreenSetting from './FullScreenSetting.vue'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 import { useTableContext } from '../../hooks/useTableContext'
 
 export default defineComponent({

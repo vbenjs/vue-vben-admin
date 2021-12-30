@@ -47,7 +47,7 @@ import CopperModal from './CopperModal.vue'
 import { useDesign } from '/@/hooks/web/useDesign'
 import { useModal } from '/@/components/Modal'
 import { useMessage } from '/@/hooks/web/useMessage'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 import type { ButtonProps } from '/@/components/Button'
 import Icon from '/@/components/Icon'
 

@@ -1,5 +1,5 @@
 import type { AppRouteRecordRaw } from '/@/router/types'
-import { t } from '/@/hooks/web/useI18n'
+import { t } from '@vben-admin/locale'
 import {
   REDIRECT_NAME,
   LAYOUT,

@@ -22,12 +22,10 @@ import LayoutHeader from './header/index.vue'
 import LayoutContent from './content/index.vue'
 import LayoutSideBar from './sider/index.vue'
 import LayoutMultipleHeader from './header/MultipleHeader.vue'
-
 import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
 import { useDesign } from '/@/hooks/web/useDesign'
 import { useLockPage } from '/@/hooks/web/useLockPage'
-
 import { useAppInject } from '/@/hooks/web/useAppInject'
 
 export default defineComponent({

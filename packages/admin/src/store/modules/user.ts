@@ -13,7 +13,7 @@ import {
 import { getAuthCache, setAuthCache } from '/@/utils/auth'
 import { GetUserInfoModel, LoginParams } from '@vben-admin/types/model'
 import { doLogout, getUserInfo, loginApi } from '/@/api/sys/user'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 import { useMessage } from '/@/hooks/web/useMessage'
 import { router } from '/@/router'
 import { usePermissionStore } from '/@/store/modules/permission'

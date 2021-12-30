@@ -13,7 +13,7 @@ import { defineComponent, ref, watchEffect, computed, unref } from 'vue'
 import { Button } from 'ant-design-vue'
 import { useCountdown } from './useCountdown'
 import { isFunction } from '@vben-admin/utils'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 
 const props = {
   value: { type: [Object, Number, String, Array] },

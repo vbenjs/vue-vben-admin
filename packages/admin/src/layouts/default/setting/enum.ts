@@ -8,7 +8,7 @@ import {
   MixSidebarTriggerEnum,
 } from '@vben-admin/tokens'
 
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 
 const { t } = useI18n()
 

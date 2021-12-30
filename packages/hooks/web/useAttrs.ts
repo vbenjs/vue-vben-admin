@@ -1,5 +1,6 @@
-import { getCurrentInstance, reactive, shallowRef, watchEffect } from 'vue'
 import type { Ref } from 'vue'
+
+import { getCurrentInstance, reactive, shallowRef, watchEffect } from 'vue'
 interface Params {
   excludeListeners?: boolean
   excludeKeys?: string[]

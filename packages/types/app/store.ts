@@ -1,5 +1,5 @@
 import { ErrorTypeEnum, MenuModeEnum, MenuTypeEnum } from '@vben-admin/tokens'
-import { RoleInfo } from './model'
+import { RoleInfo } from '../model'
 
 // Lock screen information
 export interface LockInfo {

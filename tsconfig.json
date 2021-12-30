@@ -17,6 +17,7 @@
     "noUnusedParameters": true,
     "experimentalDecorators": true,
     "lib": ["dom", "esnext"],
+    "types": ["vite/client"],
     "noImplicitAny": false,
     "skipLibCheck": true,
     "removeComments": true

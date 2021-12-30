@@ -23,8 +23,7 @@ import type { DropMenu } from '/@/components/Dropdown'
 import { ref, watchEffect, unref, computed } from 'vue'
 import { Dropdown } from '/@/components/Dropdown'
 import { Icon } from '/@/components/Icon'
-import { useLocale } from '/@/locales/useLocale'
-import { localeList } from '/@/settings/localeSetting'
+import { useLocale, localeList } from '@vben-admin/locale'
 
 const props = defineProps({
   /**

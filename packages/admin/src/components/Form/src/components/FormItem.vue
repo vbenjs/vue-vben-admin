@@ -18,7 +18,7 @@ import {
 } from '@vben-admin/utils'
 import { createPlaceholderMessage, setComponentRuleType } from '../helper'
 import { useItemLabelWidth } from '../hooks/useLabelWidth'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 
 export default defineComponent({
   name: 'BasicFormItem',

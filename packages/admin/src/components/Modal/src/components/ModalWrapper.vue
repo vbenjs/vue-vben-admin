@@ -26,7 +26,7 @@ import {
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn'
 import { ScrollContainer } from '/@/components/Container'
 import { createModalContext } from '../hooks/useModalContext'
-import { useMutationObserver } from '@vueuse/core'
+import { useMutationObserver } from '@vben-admin/hooks'
 
 const props = {
   loading: { type: Boolean },

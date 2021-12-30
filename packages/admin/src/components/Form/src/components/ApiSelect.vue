@@ -33,9 +33,9 @@ import {
 import { Select } from 'ant-design-vue'
 import { isFunction, get, omit } from '@vben-admin/utils'
 import { useRuleFormItem } from '/@/hooks/component/useFormItem'
-import { useAttrs } from '/@/hooks/core/useAttrs'
 import { LoadingOutlined } from '@ant-design/icons-vue'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
+import { useAttrs } from '@vben-admin/hooks'
 import { propTypes } from '/@/utils/propTypes'
 
 type OptionsItem = { label: string; value: string; disabled?: boolean }

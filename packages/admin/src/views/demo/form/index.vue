@@ -61,12 +61,11 @@ import { BasicForm, FormSchema, ApiSelect } from '/@/components/Form/index'
 import { CollapseContainer } from '/@/components/Container'
 import { useMessage } from '/@/hooks/web/useMessage'
 import { PageWrapper } from '/@/components/Page'
-
 import { optionsListApi } from '/@/api/demo/select'
-import { useDebounceFn } from '@vueuse/core'
 import { treeOptionsListApi } from '/@/api/demo/tree'
 import { Select } from 'ant-design-vue'
 import { cloneDeep } from '@vben-admin/utils'
+import { useDebounceFn } from '@vben-admin/hooks'
 
 const valueSelectA = ref<string[]>([])
 const valueSelectB = ref<string[]>([])

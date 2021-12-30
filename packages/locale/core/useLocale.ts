@@ -3,10 +3,10 @@
  */
 import type { LocaleType } from '@vben-admin/types'
 
-import { i18n } from './setupI18n'
-import { useLocaleStoreWithOut } from '/@/store/modules/locale'
 import { unref, computed } from 'vue'
+import { i18n } from './setupI18n'
 import { loadLocalePool, setHtmlPageLang } from './helper'
+import { getLocale, setLocale, showLocalePicker } from './store'
 
 interface LangModule {
   message: Recordable
@@ -15,22 +15,12 @@ interface LangModule {
 }
 
 function setI18nLanguage(locale: LocaleType) {
-  const localeStore = useLocaleStoreWithOut()
-
-  if (i18n.mode === 'legacy') {
-    i18n.global.locale = locale
-  } else {
-    ;(i18n.global.locale as any).value = locale
-  }
-  localeStore.setLocaleInfo({ locale })
+  ;(i18n.global.locale as any).value = locale
+  setLocale(locale)
   setHtmlPageLang(locale)
 }
 
 export function useLocale() {
-  const localeStore = useLocaleStoreWithOut()
-  const getLocale = computed(() => localeStore.getLocale)
-  const getShowLocalePicker = computed(() => localeStore.getShowPicker)
-
   const getAntdLocale = computed((): any => {
     return i18n.global.getLocaleMessage(unref(getLocale))?.antdLocale ?? {}
   })
@@ -40,6 +30,7 @@ export function useLocale() {
   async function changeLocale(locale: LocaleType) {
     const globalI18n = i18n.global
     const currentLocale = unref(globalI18n.locale)
+
     if (currentLocale === locale) {
       return locale
     }
@@ -48,9 +39,13 @@ export function useLocale() {
       setI18nLanguage(locale)
       return locale
     }
+
     const langModule = ((await import(`./lang/${locale}.ts`)) as any)
       .default as LangModule
-    if (!langModule) return
+
+    if (!langModule) {
+      return
+    }
 
     const { message } = langModule
 
@@ -63,7 +58,7 @@ export function useLocale() {
 
   return {
     getLocale,
-    getShowLocalePicker,
+    showLocalePicker,
     changeLocale,
     getAntdLocale,
   }

@@ -4,7 +4,6 @@ import {
   inject,
   reactive,
   readonly as defineReadonly,
-  // defineComponent,
   UnwrapRef,
 } from 'vue'
 
@@ -29,9 +28,7 @@ export function createContext<T>(
   const provideData = readonly ? defineReadonly(state) : state
   !createProvider && provide(key, native ? context : provideData)
 
-  return {
-    state,
-  }
+  return { state }
 }
 
 export function useContext<T>(key: InjectionKey<T>, native?: boolean): T

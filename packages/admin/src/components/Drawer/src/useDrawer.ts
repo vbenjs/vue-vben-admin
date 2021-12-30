@@ -15,8 +15,7 @@ import {
   toRaw,
   computed,
 } from 'vue'
-import { isFunction, isEqual, error } from '@vben-admin/utils'
-import { tryOnUnmounted } from '@vueuse/core'
+import { isFunction, isEqual, error, tryOnUnmounted } from '@vben-admin/utils'
 
 const dataTransferRef = reactive<any>({})
 

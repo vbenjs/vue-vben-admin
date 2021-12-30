@@ -18,7 +18,7 @@ import {
 } from '@vben-admin/utils'
 import { getToken } from '/@/utils/auth'
 import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 import { joinTimestamp, formatRequestDate } from './helper'
 import { useUserStoreWithOut } from '/@/store/modules/user'
 

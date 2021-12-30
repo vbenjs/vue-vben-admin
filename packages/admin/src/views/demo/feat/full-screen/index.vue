@@ -40,8 +40,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { CollapseContainer } from '/@/components/Container/index'
-import { useFullscreen } from '@vueuse/core'
-
+import { useFullscreen } from '@vben-admin/hooks'
 import { PageWrapper } from '/@/components/Page'
 
 export default defineComponent({

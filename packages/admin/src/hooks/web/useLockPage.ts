@@ -1,9 +1,7 @@
 import { computed, onUnmounted, unref, watchEffect } from 'vue'
-import { useThrottleFn } from '@vueuse/core'
-
+import { useThrottleFn } from '@vben-admin/hooks'
 import { useAppStore } from '/@/store/modules/app'
 import { useLockStore } from '/@/store/modules/lock'
-
 import { useUserStore } from '/@/store/modules/user'
 import { useRootSetting } from '../setting/useRootSetting'
 

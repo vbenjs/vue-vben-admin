@@ -7,7 +7,7 @@ import notDataSvg from '/@/assets/svg/no-data.svg'
 import netWorkSvg from '/@/assets/svg/net-error.svg'
 import { useRoute } from 'vue-router'
 import { useDesign } from '/@/hooks/web/useDesign'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 import { useGo, useRedo } from '/@/hooks/web/usePage'
 
 interface MapValue {

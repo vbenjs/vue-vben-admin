@@ -4,8 +4,8 @@ import { getMenus } from '/@/router/menus'
 import { cloneDeep, filterTree, forEachTree } from '@vben-admin/utils'
 import { useGo } from '/@/hooks/web/usePage'
 import { useScrollTo } from '/@/hooks/event/useScrollTo'
-import { onKeyStroke, useDebounceFn } from '@vueuse/core'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { onKeyStroke, useDebounceFn } from '@vben-admin/hooks'
+import { useI18n } from '@vben-admin/locale'
 
 export interface SearchResult {
   name: string

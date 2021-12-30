@@ -27,7 +27,7 @@ import { useMultipleTabStore } from '/@/store/modules/multipleTab'
 import { useUserStore } from '/@/store/modules/user'
 
 import { useDesign } from '/@/hooks/web/useDesign'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 import { useMessage } from '/@/hooks/web/useMessage'
 import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard'
 

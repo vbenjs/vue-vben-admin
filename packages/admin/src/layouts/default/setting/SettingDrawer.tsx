@@ -19,7 +19,7 @@ import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
 import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
 import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting'
 import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 
 import { baseHandler } from './handler'
 

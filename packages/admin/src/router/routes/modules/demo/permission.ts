@@ -2,7 +2,7 @@ import type { AppRouteModule } from '/@/router/types'
 
 import { getParentLayout, LAYOUT } from '/@/router/constant'
 import { RoleEnum } from '@vben-admin/tokens'
-import { t } from '/@/hooks/web/useI18n'
+import { t } from '@vben-admin/locale'
 
 const permission: AppRouteModule = {
   path: '/permission',

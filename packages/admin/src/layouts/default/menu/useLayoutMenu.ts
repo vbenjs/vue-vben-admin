@@ -3,7 +3,7 @@ import type { Ref } from 'vue'
 import { watch, unref, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { MenuSplitTyeEnum } from '@vben-admin/tokens'
-import { useThrottleFn } from '@vueuse/core'
+import { useThrottleFn } from '@vben-admin/hooks'
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
 import {
   getChildrenMenus,

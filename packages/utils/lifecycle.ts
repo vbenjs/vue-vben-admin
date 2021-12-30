@@ -1,6 +1,6 @@
 import { nextTick, onMounted, onActivated } from 'vue'
 
-export function onMountedOrActivated(hook: Fn) {
+export const onMountedOrActivated = (hook: AnyFunction<any>) => {
   let mounted: boolean
 
   onMounted(() => {
@@ -16,3 +16,5 @@ export function onMountedOrActivated(hook: Fn) {
     }
   })
 }
+
+export { tryOnUnmounted, tryOnMounted } from '@vueuse/core'

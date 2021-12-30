@@ -5,11 +5,14 @@ import type {
 } from '../types/table'
 import { Ref, ComputedRef, ref } from 'vue'
 import { computed, unref, nextTick, watch } from 'vue'
-import { isBoolean, getViewportOffset } from '@vben-admin/utils'
+import {
+  isBoolean,
+  getViewportOffset,
+  onMountedOrActivated,
+} from '@vben-admin/utils'
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn'
 import { useModalContext } from '/@/components/Modal'
-import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated'
-import { useDebounceFn } from '@vueuse/core'
+import { useDebounceFn } from '@vben-admin/hooks'
 
 export function useTableScroll(
   propsRef: ComputedRef<BasicTableProps>,

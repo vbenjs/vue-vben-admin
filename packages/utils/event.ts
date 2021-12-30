@@ -5,7 +5,7 @@ export type ResizableElement = CustomizedHTMLElement<{
   __ro__?: ResizeObserver
 }>
 
-const resizeHandler = function (entries: ResizeObserverEntry[]) {
+const resizeHandler = (entries: ResizeObserverEntry[]) => {
   for (const entry of entries) {
     const listeners =
       (entry.target as ResizableElement).__resizeListeners__ || []
@@ -17,10 +17,10 @@ const resizeHandler = function (entries: ResizeObserverEntry[]) {
   }
 }
 
-export const addResizeListener = function (
+export const addResizeListener = (
   element: ResizableElement,
   fn: (...args: unknown[]) => unknown,
-): void {
+) => {
   if (!isClient || !element) return
   if (!element.__resizeListeners__) {
     element.__resizeListeners__ = []
@@ -30,10 +30,10 @@ export const addResizeListener = function (
   element.__resizeListeners__.push(fn)
 }
 
-export const removeResizeListener = function (
+export const removeResizeListener = (
   element: ResizableElement,
   fn: (...args: unknown[]) => unknown,
-): void {
+) => {
   if (!element || !element.__resizeListeners__) return
   element.__resizeListeners__.splice(element.__resizeListeners__.indexOf(fn), 1)
   if (!element.__resizeListeners__.length) {
@@ -41,7 +41,7 @@ export const removeResizeListener = function (
   }
 }
 
-export function triggerWindowResize() {
+export const triggerWindowResize = () => {
   const event = document.createEvent('HTMLEvents')
   event.initEvent('resize', true, true)
   ;(event as any).eventType = 'message'

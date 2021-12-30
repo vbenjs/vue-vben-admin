@@ -43,8 +43,8 @@ import {
 } from 'ant-design-vue'
 import { Icon } from '/@/components/Icon'
 import { BasicTitle } from '/@/components/Basic'
-import { useI18n } from '/@/hooks/web/useI18n'
-import { useDebounceFn } from '@vueuse/core'
+import { useI18n } from '@vben-admin/locale'
+import { useDebounceFn } from '@vben-admin/hooks'
 import { createBEM } from '/@/utils/bem'
 import { ToolbarEnum } from './tree'
 

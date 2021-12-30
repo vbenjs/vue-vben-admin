@@ -9,8 +9,8 @@
 <script lang="ts">
 import { defineComponent, computed, unref } from 'vue'
 import { Tooltip } from 'ant-design-vue'
-import { useI18n } from '/@/hooks/web/useI18n'
-import { useFullscreen } from '@vueuse/core'
+import { useI18n } from '@vben-admin/locale'
+import { useFullscreen } from '@vben-admin/hooks'
 
 import {
   FullscreenExitOutlined,

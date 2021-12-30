@@ -3,8 +3,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
-import { useI18n } from '/@/hooks/web/useI18n'
-import { useIntervalFn } from '@vueuse/core'
+import { useI18n } from '@vben-admin/locale'
+import { useIntervalFn } from '@vben-admin/hooks'
 import {
   formatToDateTime,
   formatToDate,

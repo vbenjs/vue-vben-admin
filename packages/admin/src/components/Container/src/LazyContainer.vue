@@ -20,7 +20,7 @@
 import type { PropType } from 'vue'
 import { defineComponent, reactive, onMounted, ref, toRef, toRefs } from 'vue'
 import { Skeleton } from 'ant-design-vue'
-import { useTimeoutFn } from '/@/hooks/core/useTimeout'
+import { useTimeoutFn } from '@vben-admin/hooks'
 import { useIntersectionObserver } from '/@/hooks/event/useIntersectionObserver'
 
 interface State {

@@ -2,7 +2,7 @@ import type { AppRouteRecordRaw, Menu } from '/@/router/types'
 
 import { defineStore } from 'pinia'
 import { store } from '/@/store'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 import { useUserStore } from './user'
 import { useAppStoreWithOut } from './app'
 import { toRaw } from 'vue'

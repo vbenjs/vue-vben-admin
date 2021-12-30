@@ -1,7 +1,7 @@
 import type { AppRouteModule } from '/@/router/types'
 
 import { getParentLayout, LAYOUT } from '/@/router/constant'
-import { t } from '/@/hooks/web/useI18n'
+import { t } from '@vben-admin/locale'
 
 const feat: AppRouteModule = {
   path: '/feat',

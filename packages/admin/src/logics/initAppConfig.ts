@@ -14,12 +14,8 @@ import { updateColorWeak } from '/@/logics/theme/updateColorWeak'
 import { updateGrayMode } from '/@/logics/theme/updateGrayMode'
 import { updateDarkTheme } from '/@/logics/theme/dark'
 import { changeTheme } from '/@/logics/theme'
-
 import { useAppStore } from '/@/store/modules/app'
-import { useLocaleStore } from '/@/store/modules/locale'
-
 import { getCommonStoragePrefix, getStorageShortName } from '/@/utils/env'
-
 import { primaryColor } from '../../config/theme'
 import { Persistent } from '/@/utils/cache/persistent'
 import { deepMerge } from '@vben-admin/utils'
@@ -27,7 +23,6 @@ import { ThemeEnum } from '@vben-admin/tokens'
 
 // Initial project configuration
 export function initAppConfigStore() {
-  const localeStore = useLocaleStore()
   const appStore = useAppStore()
   let projCfg: ProjectConfig = Persistent.getLocal(
     PROJ_CFG_KEY,
@@ -63,8 +58,6 @@ export function initAppConfigStore() {
     headerBgColor && updateHeaderBgColor(headerBgColor)
     bgColor && updateSidebarBgColor(bgColor)
   }
-  // init store
-  localeStore.initLocale()
 
   setTimeout(() => {
     clearObsoleteStorage()

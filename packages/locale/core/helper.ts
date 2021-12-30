@@ -4,11 +4,13 @@ import { set } from '@vben-admin/utils'
 
 export const loadLocalePool: LocaleType[] = []
 
-export function setHtmlPageLang(locale: LocaleType) {
+export const setHtmlPageLang = (locale: LocaleType) => {
   document.querySelector('html')?.setAttribute('lang', locale)
 }
 
-export function setLoadLocalePool(cb: (loadLocalePool: LocaleType[]) => void) {
+export const setLoadLocalePool = (
+  cb: (loadLocalePool: LocaleType[]) => void,
+) => {
   cb(loadLocalePool)
 }
 

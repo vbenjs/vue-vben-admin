@@ -11,7 +11,7 @@ import {
   NotificationArgsProps,
   ConfigProps,
 } from 'ant-design-vue/lib/notification'
-import { useI18n } from './useI18n'
+import { useI18n } from '@vben-admin/locale'
 import { isString } from '@vben-admin/utils'
 
 export interface NotifyApi {

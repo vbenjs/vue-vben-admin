@@ -3,7 +3,7 @@
     <AppLocalePicker
       class="absolute text-white top-4 right-4 enter-x xl:text-gray-600"
       :showText="false"
-      v-if="!sessionTimeout && showLocale"
+      v-if="!sessionTimeout && showLocalePicker"
     />
     <AppDarkModeToggle
       class="absolute top-3 right-7 enter-x"
@@ -64,9 +64,8 @@ import RegisterForm from './RegisterForm.vue'
 import MobileForm from './MobileForm.vue'
 import QrCodeForm from './QrCodeForm.vue'
 import { useGlobSetting } from '/@/hooks/setting'
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n, showLocalePicker } from '@vben-admin/locale'
 import { useDesign } from '/@/hooks/web/useDesign'
-import { useLocaleStore } from '/@/store/modules/locale'
 
 defineProps({
   sessionTimeout: {
@@ -77,8 +76,7 @@ defineProps({
 const globSetting = useGlobSetting()
 const { prefixCls } = useDesign('login')
 const { t } = useI18n()
-const localeStore = useLocaleStore()
-const showLocale = localeStore.getShowPicker
+
 const title = computed(() => globSetting?.title ?? '')
 </script>
 <style lang="less">

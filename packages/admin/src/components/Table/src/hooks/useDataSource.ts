@@ -11,7 +11,7 @@ import {
   Ref,
   watchEffect,
 } from 'vue'
-import { useTimeoutFn } from '/@/hooks/core/useTimeout'
+import { useTimeoutFn } from '@vben-admin/hooks'
 import {
   isFunction,
   isBoolean,

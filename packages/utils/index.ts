@@ -11,6 +11,7 @@ export * from './file'
 export * from './helper'
 export * from './event'
 export * from './dom'
+export * from './lifecycle'
 
 export {
   cloneDeep,

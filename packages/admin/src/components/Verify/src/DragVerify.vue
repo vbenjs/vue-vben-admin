@@ -9,10 +9,10 @@ import {
   watch,
   watchEffect,
 } from 'vue'
-import { useTimeoutFn } from '/@/hooks/core/useTimeout'
 import { useEventListener } from '/@/hooks/event/useEventListener'
 import { basicProps } from './props'
 import { getSlot } from '@vben-admin/utils'
+import { useTimeoutFn } from '@vben-admin/hooks'
 import { CheckOutlined, DoubleRightOutlined } from '@ant-design/icons-vue'
 
 export default defineComponent({

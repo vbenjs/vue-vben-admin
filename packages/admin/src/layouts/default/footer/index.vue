@@ -27,7 +27,7 @@ import { GithubFilled } from '@ant-design/icons-vue'
 import { DOC_URL, GITHUB_URL, SITE_URL } from '/@/settings/siteSetting'
 import { openWindow } from '@vben-admin/utils'
 
-import { useI18n } from '/@/hooks/web/useI18n'
+import { useI18n } from '@vben-admin/locale'
 import { useRootSetting } from '/@/hooks/setting/useRootSetting'
 import { useRouter } from 'vue-router'
 import { useDesign } from '/@/hooks/web/useDesign'
