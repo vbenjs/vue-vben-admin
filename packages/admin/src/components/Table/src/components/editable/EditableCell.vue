@@ -66,7 +66,6 @@ import { CellComponent } from './CellComponent'
 import { useDesign } from '/@/hooks/web/useDesign'
 import { useTableContext } from '../../hooks/useTableContext'
 import clickOutside from '/@/directives/clickOutside'
-import { propTypes } from '/@/utils/propTypes'
 import {
   isArray,
   isFunction,
@@ -107,7 +106,7 @@ export default defineComponent({
       type: Object as PropType<BasicColumn>,
       default: () => ({}),
     },
-    index: propTypes.number,
+    index: { type: Number },
   },
   setup(props) {
     const table = useTableContext()

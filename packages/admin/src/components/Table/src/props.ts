@@ -17,12 +17,11 @@ import {
   FETCH_SETTING,
   DEFAULT_SIZE,
 } from './const'
-import { propTypes } from '/@/utils/propTypes'
 
 export const basicProps = {
   clickToRowSelect: { type: Boolean, default: true },
   isTreeTable: Boolean,
-  tableSetting: propTypes.shape<TableSetting>({}),
+  tableSetting: { type: Object as PropType<TableSetting> },
   inset: Boolean,
   sortFn: {
     type: Function as PropType<(sortInfo: SorterResult) => any>,
@@ -44,7 +43,7 @@ export const basicProps = {
     type: Array as PropType<Recordable[]>,
     default: null,
   },
-  indentSize: propTypes.number.def(24),
+  indentSize: { type: Number, default: 24 },
   canColDrag: { type: Boolean, default: true },
   api: {
     type: Function as PropType<(...arg: any[]) => Promise<any>>,
@@ -82,7 +81,7 @@ export const basicProps = {
     default: null,
   },
   // 使用搜索表单
-  useSearchForm: propTypes.bool,
+  useSearchForm: { type: Boolean },
   // 表单配置
   formConfig: {
     type: Object as PropType<Partial<FormProps>>,
@@ -104,8 +103,8 @@ export const basicProps = {
   ellipsis: { type: Boolean, default: true },
   isCanResizeParent: { type: Boolean, default: false },
   canResize: { type: Boolean, default: true },
-  clearSelectOnPageChange: propTypes.bool,
-  resizeHeightOffset: propTypes.number.def(0),
+  clearSelectOnPageChange: { type: Boolean },
+  resizeHeightOffset: { type: Number, default: 0 },
   rowSelection: {
     type: Object as PropType<TableRowSelection | null>,
     default: null,
@@ -119,7 +118,7 @@ export const basicProps = {
   titleHelpMessage: {
     type: [String, Array] as PropType<string | string[]>,
   },
-  maxHeight: propTypes.number,
+  maxHeight: { type: Number },
   dataSource: {
     type: Array as PropType<Recordable[]>,
     default: null,
@@ -130,12 +129,12 @@ export const basicProps = {
     >,
     default: '',
   },
-  bordered: propTypes.bool,
+  bordered: { type: Boolean },
   pagination: {
     type: [Object, Boolean] as PropType<PaginationProps | boolean>,
     default: null,
   },
-  loading: propTypes.bool,
+  loading: { type: Boolean },
   rowClassName: {
     type: Function as PropType<
       (record: TableCustomRecord<any>, index: number) => string

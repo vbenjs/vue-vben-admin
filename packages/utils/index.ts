@@ -12,6 +12,7 @@ export * from './helper'
 export * from './event'
 export * from './dom'
 export * from './lifecycle'
+export * from './color'
 
 export {
   cloneDeep,

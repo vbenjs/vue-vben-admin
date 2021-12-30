@@ -20,7 +20,6 @@ import { defineComponent, computed } from 'vue'
 
 import { Image } from 'ant-design-vue'
 import { useDesign } from '/@/hooks/web/useDesign'
-import { propTypes } from '/@/utils/propTypes'
 import { isString } from '@vben-admin/utils'
 
 interface ImageProps {
@@ -48,7 +47,7 @@ export default defineComponent({
     PreviewGroup: Image.PreviewGroup,
   },
   props: {
-    functional: propTypes.bool,
+    functional: { type: Boolean },
     imageList: {
       type: Array as PropType<ImageItem[]>,
     },

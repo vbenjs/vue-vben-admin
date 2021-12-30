@@ -55,7 +55,6 @@
     "vue": "^3.2.26",
     "vue-json-pretty": "^1.8.2",
     "vue-router": "^4.0.12",
-    "vue-types": "^4.1.1",
     "xlsx": "^0.17.4"
   },
   "devDependencies": {

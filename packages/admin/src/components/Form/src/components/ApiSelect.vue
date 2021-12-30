@@ -36,7 +36,6 @@ import { useRuleFormItem } from '/@/hooks/component/useFormItem'
 import { LoadingOutlined } from '@ant-design/icons-vue'
 import { useI18n } from '@vben-admin/locale'
 import { useAttrs } from '@vben-admin/hooks'
-import { propTypes } from '/@/utils/propTypes'
 
 type OptionsItem = { label: string; value: string; disabled?: boolean }
 
@@ -49,7 +48,7 @@ export default defineComponent({
   inheritAttrs: false,
   props: {
     value: [Array, Object, String, Number],
-    numberToString: propTypes.bool,
+    numberToString: { type: Boolean },
     api: {
       type: Function as PropType<(arg?: Recordable) => Promise<OptionsItem[]>>,
       default: null,
@@ -60,11 +59,11 @@ export default defineComponent({
       default: () => ({}),
     },
     // support xxx.xxx.xx
-    resultField: propTypes.string.def(''),
-    labelField: propTypes.string.def('label'),
-    valueField: propTypes.string.def('value'),
-    immediate: propTypes.bool.def(true),
-    alwaysLoad: propTypes.bool.def(false),
+    resultField: { type: String, default: '' },
+    labelField: { type: String, default: 'label' },
+    valueField: { type: String, default: 'value' },
+    immediate: { type: Boolean, default: true },
+    alwaysLoad: { type: Boolean, default: false },
   },
   emits: ['options-change', 'change'],
   setup(props, { emit }) {

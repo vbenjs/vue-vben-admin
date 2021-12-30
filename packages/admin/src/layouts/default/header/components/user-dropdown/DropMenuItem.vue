@@ -8,20 +8,17 @@
 </template>
 <script lang="ts">
 import { Menu } from 'ant-design-vue'
-
 import { computed, defineComponent, getCurrentInstance } from 'vue'
-
 import Icon from '/@/components/Icon/index'
-import { propTypes } from '/@/utils/propTypes'
 
 export default defineComponent({
   name: 'DropdownMenuItem',
   components: { MenuItem: Menu.Item, Icon },
   props: {
     // eslint-disable-next-line
-    key: propTypes.string,
-    text: propTypes.string,
-    icon: propTypes.string,
+    key: { type: String },
+    text: { type: String },
+    icon: { type: String },
   },
   setup(props) {
     const instance = getCurrentInstance()

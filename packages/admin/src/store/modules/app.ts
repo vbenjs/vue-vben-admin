@@ -6,15 +6,14 @@ import type {
   MultiTabsSetting,
   BeforeMiniState,
 } from '@vben-admin/types'
+import { ThemeEnum, APP_DARK_MODE_KEY_, PROJ_CFG_KEY } from '@vben-admin/tokens'
+import { deepMerge } from '@vben-admin/utils'
 
 import { defineStore } from 'pinia'
 import { store } from '/@/store'
-
-import { ThemeEnum, APP_DARK_MODE_KEY_, PROJ_CFG_KEY } from '@vben-admin/tokens'
 import { Persistent } from '/@/utils/cache/persistent'
 import { darkMode } from '/@/settings/designSetting'
 import { resetRouter } from '/@/router'
-import { deepMerge } from '@vben-admin/utils'
 
 interface AppState {
   darkMode?: ThemeEnum
@@ -88,6 +87,7 @@ export const useAppStore = defineStore({
       resetRouter()
       Persistent.clearAll()
     },
+
     async setPageLoadingAction(loading: boolean): Promise<void> {
       if (loading) {
         clearTimeout(timeId)

@@ -80,7 +80,6 @@ import {
   inject,
 } from 'vue'
 import { useDesign } from '/@/hooks/web/useDesign'
-import { propTypes } from '/@/utils/propTypes'
 import { useMenuItem } from './useMenu'
 import { useSimpleRootMenuContext } from './useSimpleMenuContext'
 import { CollapseTransition } from '/@/components/Transition'
@@ -102,8 +101,8 @@ export default defineComponent({
       type: [String, Number] as PropType<string | number>,
       required: true,
     },
-    disabled: propTypes.bool,
-    collapsedShowTitle: propTypes.bool,
+    disabled: { type: Boolean },
+    collapsedShowTitle: { type: Boolean },
   },
   setup(props) {
     const instance = getCurrentInstance()

@@ -5,9 +5,7 @@
 import type { Menu } from '/@/router/types'
 
 import { defineComponent, computed } from 'vue'
-
 import { useDesign } from '/@/hooks/web/useDesign'
-import { propTypes } from '/@/utils/propTypes'
 
 export default defineComponent({
   name: 'SimpleMenuTag',
@@ -16,8 +14,8 @@ export default defineComponent({
       type: Object as PropType<Menu>,
       default: () => ({}),
     },
-    dot: propTypes.bool,
-    collapseParent: propTypes.bool,
+    dot: { type: Boolean },
+    collapseParent: { type: Boolean },
   },
   setup(props) {
     const { prefixCls } = useDesign('simple-menu')

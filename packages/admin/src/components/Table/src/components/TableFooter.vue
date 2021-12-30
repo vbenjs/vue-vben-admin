@@ -18,7 +18,6 @@ import { defineComponent, unref, computed, toRaw } from 'vue'
 import { Table } from 'ant-design-vue'
 import { isFunction, cloneDeep } from '@vben-admin/utils'
 import { INDEX_COLUMN_FLAG } from '../const'
-import { propTypes } from '/@/utils/propTypes'
 import { useTableContext } from '../hooks/useTableContext'
 
 const SUMMARY_ROW_KEY = '_row'
@@ -36,7 +35,7 @@ export default defineComponent({
     scroll: {
       type: Object as PropType<Recordable>,
     },
-    rowKey: propTypes.string.def('key'),
+    rowKey: { type: String, default: 'key' },
   },
   setup(props) {
     const table = useTableContext()

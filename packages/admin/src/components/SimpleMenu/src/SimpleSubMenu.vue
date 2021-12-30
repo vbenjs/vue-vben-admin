@@ -61,7 +61,6 @@ import Icon from '/@/components/Icon/index'
 import SimpleMenuTag from './SimpleMenuTag.vue'
 import MenuItem from './components/MenuItem.vue'
 import SubMenu from './components/SubMenuItem.vue'
-import { propTypes } from '/@/utils/propTypes'
 import { useI18n } from '@vben-admin/locale'
 
 export default defineComponent({
@@ -77,10 +76,13 @@ export default defineComponent({
       type: Object as PropType<Menu>,
       default: () => ({}),
     },
-    parent: propTypes.bool,
-    collapsedShowTitle: propTypes.bool,
-    collapse: propTypes.bool,
-    theme: propTypes.oneOf(['dark', 'light']),
+    parent: { type: Boolean },
+    collapsedShowTitle: { type: Boolean },
+    collapse: { type: Boolean },
+    theme: {
+      type: String,
+      validator: (v: string) => ['dark', 'light'].includes(v),
+    },
   },
   setup(props) {
     const { t } = useI18n()

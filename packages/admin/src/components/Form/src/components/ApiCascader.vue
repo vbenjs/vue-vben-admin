@@ -21,8 +21,8 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, unref, watch, watchEffect } from 'vue'
 import { Cascader } from 'ant-design-vue'
-import { propTypes } from '/@/utils/propTypes'
 import { isFunction, get, omit } from '@vben-admin/utils'
+import { useI18n } from '@vben-admin/locale'
 import { useRuleFormItem } from '/@/hooks/component/useFormItem'
 import { LoadingOutlined } from '@ant-design/icons-vue'
 
@@ -47,13 +47,13 @@ export default defineComponent({
       type: Function as PropType<(arg?: Recordable) => Promise<Option[]>>,
       default: null,
     },
-    numberToString: propTypes.bool,
-    resultField: propTypes.string.def(''),
-    labelField: propTypes.string.def('label'),
-    valueField: propTypes.string.def('value'),
-    childrenField: propTypes.string.def('children'),
-    asyncFetchParamKey: propTypes.string.def('parentCode'),
-    immediate: propTypes.bool.def(true),
+    numberToString: { type: Boolean },
+    resultField: { type: String, default: '' },
+    labelField: { type: String, default: 'label' },
+    valueField: { type: String, default: 'value' },
+    childrenField: { type: String, default: 'children' },
+    asyncFetchParamKey: { type: String, default: 'parentCode' },
+    immediate: { type: Boolean, default: true },
     // init fetch params
     initFetchParams: {
       type: Object as PropType<Recordable>,
@@ -75,6 +75,8 @@ export default defineComponent({
     const loading = ref<boolean>(false)
     const emitData = ref<any[]>([])
     const isFirstLoad = ref(true)
+
+    const { t } = useI18n()
 
     // Embedded in the form, just use the hook binding to perform form verification
     const [state] = useRuleFormItem(props, 'value', 'change', emitData)
@@ -186,6 +188,7 @@ export default defineComponent({
     }
 
     return {
+      t,
       state,
       options,
       loading,

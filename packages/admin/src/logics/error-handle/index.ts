@@ -3,11 +3,10 @@
  */
 
 import type { ErrorLogInfo } from '@vben-admin/types'
+import type { App } from 'vue'
 
 import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog'
-
 import { ErrorTypeEnum } from '@vben-admin/tokens'
-import { App } from 'vue'
 import projectSetting from '/@/settings/projectSetting'
 
 /**

@@ -31,7 +31,6 @@ import {
   watch,
 } from 'vue'
 import { useDesign } from '/@/hooks/web/useDesign'
-import { propTypes } from '/@/utils/propTypes'
 import { useMenuItem } from './useMenu'
 import { Tooltip } from 'ant-design-vue'
 import { useSimpleRootMenuContext } from './useSimpleMenuContext'
@@ -43,7 +42,7 @@ export default defineComponent({
       type: [String, Number] as PropType<string | number>,
       required: true,
     },
-    disabled: propTypes.bool,
+    disabled: { type: Boolean },
   },
   setup(props, { slots }) {
     const instance = getCurrentInstance()

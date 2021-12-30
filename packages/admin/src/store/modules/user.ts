@@ -1,5 +1,4 @@
-import type { UserInfo } from '@vben-admin/types'
-import type { ErrorMessageMode } from '@vben-admin/types'
+import type { UserInfo, ErrorMessageMode } from '@vben-admin/types'
 
 import { defineStore } from 'pinia'
 import { store } from '/@/store'

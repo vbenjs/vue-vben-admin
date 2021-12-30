@@ -110,6 +110,8 @@
     "antdv",
     "demi",
     "styl",
-    "unplugin"
+    "unplugin",
+    "unref",
+    "vitest"
   ]
 }

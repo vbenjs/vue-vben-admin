@@ -53,7 +53,6 @@ import { useDesign } from '/@/hooks/web/useDesign'
 import { useTableContext } from '../hooks/useTableContext'
 import { usePermission } from '/@/hooks/web/usePermission'
 import { isBoolean, isFunction, isString } from '@vben-admin/utils'
-import { propTypes } from '/@/utils/propTypes'
 import { ACTION_COLUMN_FLAG } from '../const'
 
 export default defineComponent({
@@ -75,9 +74,9 @@ export default defineComponent({
       type: Array as PropType<ActionItem[]>,
       default: null,
     },
-    divider: propTypes.bool.def(true),
-    outside: propTypes.bool,
-    stopButtonPropagation: propTypes.bool.def(false),
+    divider: { type: Boolean, default: true },
+    outside: { type: Boolean },
+    stopButtonPropagation: { type: Boolean, default: true },
   },
   setup(props) {
     const { prefixCls } = useDesign('basic-table-action')

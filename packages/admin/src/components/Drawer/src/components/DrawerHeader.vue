@@ -21,17 +21,15 @@
 import { defineComponent } from 'vue'
 import { BasicTitle } from '/@/components/Basic'
 import { ArrowLeftOutlined } from '@ant-design/icons-vue'
-
 import { useDesign } from '/@/hooks/web/useDesign'
 
-import { propTypes } from '/@/utils/propTypes'
 export default defineComponent({
   name: 'BasicDrawerHeader',
   components: { BasicTitle, ArrowLeftOutlined },
   props: {
-    isDetail: propTypes.bool,
-    showDetailBack: propTypes.bool,
-    title: propTypes.string,
+    isDetail: { type: Boolean },
+    showDetailBack: { type: Boolean },
+    title: { type: String },
   },
   emits: ['close'],
   setup(_, { emit }) {

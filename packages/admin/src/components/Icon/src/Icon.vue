@@ -28,7 +28,6 @@ import {
 import SvgIcon from './SvgIcon.vue'
 import Iconify from '@purge-icons/generated'
 import { isString } from '@vben-admin/utils'
-import { propTypes } from '/@/utils/propTypes'
 
 const SVG_END_WITH_FLAG = '|svg'
 export default defineComponent({
@@ -36,16 +35,16 @@ export default defineComponent({
   components: { SvgIcon },
   props: {
     // icon name
-    icon: propTypes.string,
+    icon: { type: String },
     // icon color
-    color: propTypes.string,
+    color: { type: String },
     // icon size
     size: {
       type: [String, Number] as PropType<string | number>,
       default: 16,
     },
-    spin: propTypes.bool.def(false),
-    prefix: propTypes.string.def(''),
+    spin: { type: Boolean },
+    prefix: { type: String, default: '' },
   },
   setup(props) {
     const elRef = ref<ElRef>(null)

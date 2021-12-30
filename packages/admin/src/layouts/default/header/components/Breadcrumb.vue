@@ -31,7 +31,6 @@ import { useRootSetting } from '/@/hooks/setting/useRootSetting'
 import { useGo } from '/@/hooks/web/usePage'
 import { useI18n } from '@vben-admin/locale'
 
-import { propTypes } from '/@/utils/propTypes'
 import { isString, filterTree } from '@vben-admin/utils'
 import { getMenus } from '/@/router/menus'
 
@@ -42,7 +41,10 @@ export default defineComponent({
   name: 'LayoutBreadcrumb',
   components: { Icon, [Breadcrumb.name]: Breadcrumb },
   props: {
-    theme: propTypes.oneOf(['dark', 'light']),
+    theme: {
+      type: String,
+      validator: (v: string) => ['dark', 'light'].includes(v),
+    },
   },
   setup() {
     const routes = ref<RouteLocationMatched[]>([])

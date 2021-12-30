@@ -18,25 +18,27 @@ import {
   getCurrentInstance,
   provide,
 } from 'vue'
-
 import { useDesign } from '/@/hooks/web/useDesign'
-import { propTypes } from '/@/utils/propTypes'
 import { createSimpleRootMenuContext } from './useSimpleMenuContext'
 import { mitt } from '@vben-admin/utils'
 export default defineComponent({
   name: 'Menu',
   props: {
-    theme: propTypes.oneOf(['light', 'dark']).def('light'),
-    activeName: propTypes.oneOfType([propTypes.string, propTypes.number]),
+    theme: {
+      type: String,
+      default: 'light',
+      validator: (v: string) => ['light', 'dark'].includes(v),
+    },
+    activeName: { type: [Number, String] },
     openNames: {
       type: Array as PropType<string[]>,
       default: () => [],
     },
-    accordion: propTypes.bool.def(true),
-    width: propTypes.string.def('100%'),
-    collapsedWidth: propTypes.string.def('48px'),
-    indentSize: propTypes.number.def(16),
-    collapse: propTypes.bool.def(true),
+    accordion: { type: Boolean, default: true },
+    width: { type: String, default: '100%' },
+    collapsedWidth: { type: String, default: '48px' },
+    indentSize: { type: Number, default: 16 },
+    collapse: { type: Boolean, default: true },
     activeSubMenuNames: {
       type: Array as PropType<(string | number)[]>,
       default: () => [],

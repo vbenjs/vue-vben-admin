@@ -15,7 +15,7 @@ import { configVisualizerConfig } from './visualizer'
 import { configThemePlugin } from './theme'
 import { configImageminPlugin } from './imagemin'
 import { configSvgIconsPlugin } from './svgSprite'
-// import { configAutoImport } from './autoImport'
+import { configAutoImport } from './autoImport'
 import { configProxy } from './proxy'
 
 export function configVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
@@ -46,7 +46,7 @@ export function configVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   vitePlugins.push(configHtmlPlugin(viteEnv, isBuild))
 
   // TODO unplugin-auto-import
-  // vitePlugins.push(configAutoImport())
+  vitePlugins.push(configAutoImport())
 
   // vite-plugin-svg-icons
   vitePlugins.push(configSvgIconsPlugin(isBuild))

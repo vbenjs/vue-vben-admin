@@ -8,13 +8,15 @@ import { defineComponent } from 'vue'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
 import { useDesign } from '/@/hooks/web/useDesign'
-import { propTypes } from '/@/utils/propTypes'
 
 export default defineComponent({
   name: 'HeaderTrigger',
   components: { MenuUnfoldOutlined, MenuFoldOutlined },
   props: {
-    theme: propTypes.oneOf(['light', 'dark']),
+    theme: {
+      type: String,
+      validator: (v: string) => ['dark', 'light'].includes(v),
+    },
   },
   setup() {
     const { getCollapsed, toggleCollapsed } = useMenuSetting()

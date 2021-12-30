@@ -55,7 +55,6 @@ import { Button, ButtonProps } from '/@/components/Button'
 import { BasicArrow } from '/@/components/Basic'
 import { useFormContext } from '../hooks/useFormContext'
 import { useI18n } from '@vben-admin/locale'
-import { propTypes } from '/@/utils/propTypes'
 
 type ButtonOptions = Partial<ButtonProps> & { text: string }
 
@@ -68,10 +67,10 @@ export default defineComponent({
     [Col.name]: Col,
   },
   props: {
-    showActionButtonGroup: propTypes.bool.def(true),
-    showResetButton: propTypes.bool.def(true),
-    showSubmitButton: propTypes.bool.def(true),
-    showAdvancedButton: propTypes.bool.def(true),
+    showActionButtonGroup: { type: Boolean, default: true },
+    showResetButton: { type: Boolean, default: true },
+    showSubmitButton: { type: Boolean, default: true },
+    showAdvancedButton: { type: Boolean, default: true },
     resetButtonOptions: {
       type: Object as PropType<ButtonOptions>,
       default: () => ({}),
@@ -84,9 +83,9 @@ export default defineComponent({
       type: Object as PropType<Partial<ColEx>>,
       default: () => ({}),
     },
-    actionSpan: propTypes.number.def(6),
-    isAdvanced: propTypes.bool,
-    hideAdvanceBtn: propTypes.bool,
+    actionSpan: { type: Number, default: 6 },
+    isAdvanced: { type: Boolean },
+    hideAdvanceBtn: { type: Boolean },
   },
   emits: ['toggle-advanced'],
   setup(props, { emit }) {

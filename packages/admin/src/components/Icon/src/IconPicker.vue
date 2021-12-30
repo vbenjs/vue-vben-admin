@@ -81,9 +81,7 @@ import { ScrollContainer } from '/@/components/Container'
 import { Input, Popover, Pagination, Empty } from 'ant-design-vue'
 import Icon from './Icon.vue'
 import SvgIcon from './SvgIcon.vue'
-
 import iconsData from '../data/icons.data'
-import { propTypes } from '/@/utils/propTypes'
 import { usePagination, useDebounceFn } from '@vben-admin/hooks'
 import { useI18n } from '@vben-admin/locale'
 import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard'
@@ -113,13 +111,15 @@ function getSvgIcons() {
 }
 
 const props = defineProps({
-  value: propTypes.string,
-  width: propTypes.string.def('100%'),
-  pageSize: propTypes.number.def(140),
-  copy: propTypes.bool.def(false),
-  mode: propTypes
-    .oneOf<('svg' | 'iconify')[]>(['svg', 'iconify'])
-    .def('iconify'),
+  value: { type: String },
+  width: { type: String, default: '100%' },
+  pageSize: { type: Number, default: 140 },
+  copy: { type: Boolean },
+  mode: {
+    type: String,
+    default: 'iconify',
+    validator: (v: string) => ['svg', 'iconify'].includes(v),
+  },
 })
 
 const emit = defineEmits(['change', 'update:value'])

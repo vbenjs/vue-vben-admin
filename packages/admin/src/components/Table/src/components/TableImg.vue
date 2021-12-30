@@ -39,22 +39,21 @@ import type { CSSProperties } from 'vue'
 import { defineComponent, computed } from 'vue'
 import { useDesign } from '/@/hooks/web/useDesign'
 import { Image, Badge } from 'ant-design-vue'
-import { propTypes } from '/@/utils/propTypes'
 
 export default defineComponent({
   name: 'TableImage',
   components: { Image, PreviewGroup: Image.PreviewGroup, Badge },
   props: {
-    imgList: propTypes.arrayOf(propTypes.string),
-    size: propTypes.number.def(40),
+    imgList: { type: Array as PropType<string[]> },
+    size: { type: Number, default: 40 },
     // 是否简单显示（只显示第一张图片）
-    simpleShow: propTypes.bool,
+    simpleShow: { type: Boolean },
     // 简单模式下是否显示图片数量的badge
-    showBadge: propTypes.bool.def(true),
+    showBadge: { type: Boolean, default: true },
     // 图片间距
-    margin: propTypes.number.def(4),
+    margin: { type: Number, default: 4 },
     // src前缀，将会附加在imgList中每一项之前
-    srcPrefix: propTypes.string.def(''),
+    srcPrefix: { type: String, default: '' },
   },
   setup(props) {
     const getWrapStyle = computed((): CSSProperties => {

@@ -149,7 +149,6 @@ importers:
       vue-json-pretty: ^1.8.2
       vue-router: ^4.0.12
       vue-tsc: ^0.30.1
-      vue-types: ^4.1.1
       xlsx: ^0.17.4
     dependencies:
       '@ant-design/colors': 6.0.0
@@ -182,7 +181,6 @@ importers:
       vue: 3.2.26
       vue-json-pretty: 1.8.2
       vue-router: 4.0.12_vue@3.2.26
-      vue-types: 4.1.1_vue@3.2.26
       xlsx: 0.17.4
     devDependencies:
       '@iconify/json': 2.0.17
@@ -8519,6 +8517,7 @@ packages:
         integrity: sha512-VRSzKkbMm5jMDoKLbltAkFQ5Qr7VDiTFGXxYFXXowVj387GeGNOCsOH6Msy00SGZ3Fp84b1Naa1psqgcCIEP5Q==,
       }
     engines: { node: '>=0.10.0' }
+    dev: true
 
   /is-png/2.0.0:
     resolution:
@@ -13773,19 +13772,6 @@ packages:
       vue: ^3.0.0
     dependencies:
       is-plain-object: 3.0.1
-      vue: 3.2.26
-    dev: false
-
-  /vue-types/4.1.1_vue@3.2.26:
-    resolution:
-      {
-        integrity: sha512-Jq2GZ/w6rExJbLA/h7nHBFLciu+YNekgox0DB64wN1snZ4IIJMq+qnqp1/vE4fc7vEjZcP5KGhLzkkSjIHLRzw==,
-      }
-    engines: { node: '>=12.16.0' }
-    peerDependencies:
-      vue: ^2.0.0 || ^3.0.0
-    dependencies:
-      is-plain-object: 5.0.0
       vue: 3.2.26
     dev: false
 

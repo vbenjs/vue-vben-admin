@@ -13,7 +13,6 @@ import {
   isObject,
   isString,
 } from '@vben-admin/utils'
-import { propTypes } from '/@/utils/propTypes'
 
 const ONE_SECONDS = 1000
 const ONE_MINUTES = ONE_SECONDS * 60
@@ -23,13 +22,13 @@ const ONE_DAY = ONE_HOUR * 24
 export default defineComponent({
   name: 'Time',
   props: {
-    value: propTypes.oneOfType([
-      propTypes.number,
-      propTypes.instanceOf(Date),
-      propTypes.string,
-    ]).isRequired,
-    step: propTypes.number.def(60),
-    mode: propTypes.oneOf(['date', 'datetime', 'relative']).def('relative'),
+    value: { type: [Number, String] },
+    step: { type: Number, default: 60 },
+    mode: {
+      type: String,
+      default: 'relative',
+      validator: (v: string) => ['date', 'datetime', 'relative'].includes(v),
+    },
   },
   setup(props) {
     const date = ref('')

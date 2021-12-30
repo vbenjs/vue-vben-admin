@@ -34,7 +34,6 @@ import { useDesign } from '/@/hooks/web/useDesign'
 import Menu from './components/Menu.vue'
 import SimpleSubMenu from './SimpleSubMenu.vue'
 import { listenerRouteChange } from '/@/logics/mitt/routeChange'
-import { propTypes } from '/@/utils/propTypes'
 import { REDIRECT_NAME } from '/@/router/constant'
 import { useRouter } from 'vue-router'
 import { isFunction, isUrl, openWindow } from '@vben-admin/utils'
@@ -52,15 +51,15 @@ export default defineComponent({
       type: Array as PropType<MenuType[]>,
       default: () => [],
     },
-    collapse: propTypes.bool,
-    mixSider: propTypes.bool,
-    theme: propTypes.string,
-    accordion: propTypes.bool.def(true),
-    collapsedShowTitle: propTypes.bool,
+    collapse: { type: Boolean },
+    mixSider: { type: Boolean },
+    theme: { type: String },
+    accordion: { type: Boolean, default: true },
+    collapsedShowTitle: { type: Boolean },
     beforeClickFn: {
       type: Function as PropType<(key: string) => Promise<boolean>>,
     },
-    isSplitMenu: propTypes.bool,
+    isSplitMenu: { type: Boolean },
   },
   emits: ['menuClick'],
   setup(props, { attrs, emit }) {

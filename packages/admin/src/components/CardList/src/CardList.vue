@@ -98,7 +98,6 @@ import {
 } from 'ant-design-vue'
 import { Dropdown } from '/@/components/Dropdown'
 import { BasicForm, useForm } from '/@/components/Form'
-import { propTypes } from '/@/utils/propTypes'
 import { Button } from '/@/components/Button'
 import { isFunction } from '@vben-admin/utils'
 import { useSlider, grid } from './data'
@@ -110,9 +109,9 @@ const sliderProp = computed(() => useSlider(4))
 // 组件接收参数
 const props = defineProps({
   // 请求API的参数
-  params: propTypes.object.def({}),
+  params: { type: Object, default: () => ({}) },
   //api
-  api: propTypes.func,
+  api: { type: Function },
 })
 //暴露内部方法
 const emit = defineEmits(['getMethod', 'delete'])

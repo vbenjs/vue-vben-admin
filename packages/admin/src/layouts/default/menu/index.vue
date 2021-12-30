@@ -10,7 +10,6 @@ import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
 import { ScrollContainer } from '/@/components/Container'
 import { useGo } from '/@/hooks/web/usePage'
 import { useSplitMenu } from './useLayoutMenu'
-import { propTypes } from '/@/utils/propTypes'
 import { isUrl, openWindow } from '@vben-admin/utils'
 import { useRootSetting } from '/@/hooks/setting/useRootSetting'
 import { useAppInject } from '/@/hooks/web/useAppInject'
@@ -19,14 +18,17 @@ import { useDesign } from '/@/hooks/web/useDesign'
 export default defineComponent({
   name: 'LayoutMenu',
   props: {
-    theme: propTypes.oneOf(['light', 'dark']),
+    theme: {
+      type: String,
+      validator: (v: string) => ['dark', 'light'].includes(v),
+    },
 
     splitType: {
       type: Number as PropType<MenuSplitTyeEnum>,
       default: MenuSplitTyeEnum.NONE,
     },
 
-    isHorizontal: propTypes.bool,
+    isHorizontal: { type: Boolean },
     // menu Mode
     menuMode: {
       type: [String] as PropType<Nullable<MenuModeEnum>>,

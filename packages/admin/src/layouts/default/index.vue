@@ -65,7 +65,6 @@ export default defineComponent({
       getShowSidebar,
       prefixCls,
       getIsMobile,
-      getIsMixSidebar,
       layoutClass,
       lockEvents,
     }

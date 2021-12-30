@@ -7,16 +7,13 @@ import type {
 import { toRaw, unref } from 'vue'
 import { defineStore } from 'pinia'
 import { store } from '/@/store'
-
 import { useGo, useRedo } from '/@/hooks/web/usePage'
 import { Persistent } from '/@/utils/cache/persistent'
-
 import { PageEnum, MULTIPLE_TABS_KEY } from '@vben-admin/tokens'
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/routes/basic'
 import { getRawRoute } from '/@/utils'
-
-import projectSetting from '/@/settings/projectSetting'
 import { useUserStore } from '/@/store/modules/user'
+import projectSetting from '/@/settings/projectSetting'
 
 export interface MultipleTabState {
   cacheTabList: Set<string>

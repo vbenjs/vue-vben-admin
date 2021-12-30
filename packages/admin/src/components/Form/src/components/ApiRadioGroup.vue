@@ -36,7 +36,6 @@ import { Radio } from 'ant-design-vue'
 import { isFunction, get, omit } from '@vben-admin/utils'
 import { useRuleFormItem } from '/@/hooks/component/useFormItem'
 import { useAttrs } from '@vben-admin/hooks'
-import { propTypes } from '/@/utils/propTypes'
 import { useI18n } from '@vben-admin/locale'
 type OptionsItem = {
   label: string
@@ -69,11 +68,11 @@ export default defineComponent({
       type: [Boolean] as PropType<boolean>,
       default: false,
     },
-    numberToString: propTypes.bool,
-    resultField: propTypes.string.def(''),
-    labelField: propTypes.string.def('label'),
-    valueField: propTypes.string.def('value'),
-    immediate: propTypes.bool.def(true),
+    numberToString: { type: Boolean },
+    resultField: { type: String, default: '' },
+    labelField: { type: String, default: 'label' },
+    valueField: { type: String, default: 'value' },
+    immediate: { type: Boolean, default: true },
   },
   emits: ['options-change', 'change'],
   setup(props, { emit }) {

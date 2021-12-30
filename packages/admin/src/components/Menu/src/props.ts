@@ -4,16 +4,15 @@ import type { MenuTheme } from 'ant-design-vue'
 import type { MenuMode } from 'ant-design-vue/lib/menu/src/interface'
 
 import { MenuModeEnum, MenuTypeEnum, ThemeEnum } from '@vben-admin/tokens'
-import { propTypes } from '/@/utils/propTypes'
 
 export const basicProps = {
   items: {
     type: Array as PropType<Menu[]>,
     default: () => [],
   },
-  collapsedShowTitle: propTypes.bool,
+  collapsedShowTitle: { type: Boolean },
   // 最好是4 倍数
-  inlineIndent: propTypes.number.def(20),
+  inlineIndent: { type: Number, default: 20 },
   // 菜单组件的mode属性
   mode: {
     type: String as PropType<MenuMode>,
@@ -28,11 +27,11 @@ export const basicProps = {
     type: String as PropType<MenuTheme>,
     default: ThemeEnum.DARK,
   },
-  inlineCollapsed: propTypes.bool,
-  mixSider: propTypes.bool,
+  inlineCollapsed: { type: Boolean },
+  mixSider: { type: Boolean },
 
-  isHorizontal: propTypes.bool,
-  accordion: propTypes.bool.def(true),
+  isHorizontal: { type: Boolean },
+  accordion: { type: Boolean, default: true },
   beforeClickFn: {
     type: Function as PropType<(key: string) => Promise<boolean>>,
   },
@@ -43,10 +42,10 @@ export const itemProps = {
     type: Object as PropType<Menu>,
     default: {},
   },
-  level: propTypes.number,
-  theme: propTypes.oneOf(['dark', 'light']),
-  showTitle: propTypes.bool,
-  isHorizontal: propTypes.bool,
+  level: { type: Number, default: 20 },
+  theme: { type: String, validator: (v) => ['dark', 'light'].includes(v) },
+  showTitle: { type: Boolean },
+  isHorizontal: { type: Boolean },
 }
 
 export const contentProps = {
@@ -54,7 +53,7 @@ export const contentProps = {
     type: Object as PropType<Menu>,
     default: null,
   },
-  showTitle: propTypes.bool.def(true),
-  level: propTypes.number.def(0),
-  isHorizontal: propTypes.bool.def(true),
+  showTitle: { type: Boolean, default: true },
+  level: { type: Number, default: 0 },
+  isHorizontal: { type: Boolean, default: true },
 }

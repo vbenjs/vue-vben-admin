@@ -76,15 +76,11 @@
 <script lang="ts">
 import { defineComponent, unref, computed } from 'vue'
 
-import { propTypes } from '/@/utils/propTypes'
-
 import { Layout } from 'ant-design-vue'
 import { AppLogo } from '/@/components/Application'
 import LayoutMenu from '../menu/index.vue'
 import LayoutTrigger from '../trigger/index.vue'
-
 import { AppSearch } from '/@/components/Application'
-
 import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
 import { useRootSetting } from '/@/hooks/setting/useRootSetting'
@@ -131,7 +127,7 @@ export default defineComponent({
     ),
   },
   props: {
-    fixed: propTypes.bool,
+    fixed: { type: Boolean },
   },
   setup(props) {
     const { prefixCls } = useDesign('layout-header')

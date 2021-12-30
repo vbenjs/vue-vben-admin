@@ -42,9 +42,7 @@ import { CSSProperties, PropType, provide } from 'vue'
 
 import { defineComponent, computed, watch, ref, unref } from 'vue'
 import PageFooter from './PageFooter.vue'
-
 import { useDesign } from '/@/hooks/web/useDesign'
-import { propTypes } from '/@/utils/propTypes'
 import { omit } from '@vben-admin/utils'
 import { PageHeader } from 'ant-design-vue'
 import { useContentHeight } from '/@/hooks/web/useContentHeight'
@@ -55,20 +53,21 @@ export default defineComponent({
   components: { PageFooter, PageHeader },
   inheritAttrs: false,
   props: {
-    title: propTypes.string,
-    dense: propTypes.bool,
-    ghost: propTypes.bool,
-    content: propTypes.string,
+    title: { type: String },
+    dense: { type: Boolean },
+    ghost: { type: Boolean },
+    content: { type: String },
     contentStyle: {
       type: Object as PropType<CSSProperties>,
     },
-    contentBackground: propTypes.bool,
-    contentFullHeight: propTypes.bool,
-    contentClass: propTypes.string,
-    fixedHeight: propTypes.bool,
-    upwardSpace: propTypes
-      .oneOfType([propTypes.number, propTypes.string])
-      .def(0),
+    contentBackground: { type: Boolean },
+    contentFullHeight: { type: Boolean },
+    contentClass: { type: String },
+    fixedHeight: { type: Boolean },
+    upwardSpace: {
+      type: [String, Number],
+      default: 0,
+    },
   },
   setup(props, { slots, attrs }) {
     const wrapperRef = ref(null)

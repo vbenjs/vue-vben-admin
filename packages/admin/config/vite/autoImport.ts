@@ -14,7 +14,7 @@ export function configAutoImport(): Plugin | Plugin[] {
         'vue-i18n',
         '@vueuse/head',
         '@vueuse/core',
-        'vitest',
+        // 'vitest',
       ],
       dts: 'typings/auto-imports.d.ts',
     }),

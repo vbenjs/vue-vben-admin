@@ -48,7 +48,6 @@ import { useI18n } from '@vben-admin/locale'
 import { useDesign } from '/@/hooks/web/useDesign'
 import { useModal } from '/@/components/Modal'
 import headerImg from '/@/assets/images/header.jpg'
-import { propTypes } from '/@/utils/propTypes'
 import { openWindow } from '@vben-admin/utils'
 import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent'
 
@@ -64,7 +63,10 @@ export default defineComponent({
     LockAction: createAsyncComponent(() => import('../lock/LockModal.vue')),
   },
   props: {
-    theme: propTypes.oneOf(['dark', 'light']),
+    theme: {
+      type: String,
+      validator: (v: string) => ['dark', 'light'].includes(v),
+    },
   },
   setup() {
     const { prefixCls } = useDesign('header-user-dropdown')
