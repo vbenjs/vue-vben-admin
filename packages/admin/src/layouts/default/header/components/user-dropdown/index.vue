@@ -49,7 +49,8 @@ import { useDesign } from '/@/hooks/web/useDesign'
 import { useModal } from '/@/components/Modal'
 import headerImg from '/@/assets/images/header.jpg'
 import { openWindow } from '@vben-admin/utils'
-import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent'
+import MenuItem from './DropMenuItem.vue'
+import LockAction from '../lock/LockModal.vue'
 
 type MenuEvent = 'logout' | 'doc' | 'lock'
 
@@ -58,9 +59,9 @@ export default defineComponent({
   components: {
     Dropdown,
     Menu,
-    MenuItem: createAsyncComponent(() => import('./DropMenuItem.vue')),
+    MenuItem,
     MenuDivider: Menu.Divider,
-    LockAction: createAsyncComponent(() => import('../lock/LockModal.vue')),
+    LockAction,
   },
   props: {
     theme: {

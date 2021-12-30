@@ -1,4 +1,4 @@
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, h } from 'vue'
 import { Spin } from 'ant-design-vue'
 import { NOOP } from '@vben-admin/utils'
 
@@ -20,9 +20,7 @@ export function createAsyncComponent(loader: Fn, options: Options = {}) {
   } = options
   return defineAsyncComponent({
     loader,
-    loadingComponent: loading ? (
-      <Spin spinning={true} size={size} />
-    ) : undefined,
+    loadingComponent: loading ? h(Spin, { spinning: true, size }) : undefined,
     timeout,
     delay,
     /**

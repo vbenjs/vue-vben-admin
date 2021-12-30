@@ -58,7 +58,7 @@
       />
 
       <AppLocalePicker
-        v-if="getShowLocalePicker"
+        v-if="showLocalePicker"
         :reload="true"
         :showText="false"
         :class="`${prefixCls}-action__item`"
@@ -102,8 +102,8 @@ import {
 import { useAppInject } from '/@/hooks/web/useAppInject'
 import { useDesign } from '/@/hooks/web/useDesign'
 
-import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent'
 import { useLocale } from '@vben-admin/locale'
+import SettingDrawer from '/@/layouts/default/setting/index.vue'
 
 export default defineComponent({
   name: 'LayoutHeader',
@@ -119,12 +119,7 @@ export default defineComponent({
     Notify,
     AppSearch,
     ErrorAction,
-    SettingDrawer: createAsyncComponent(
-      () => import('/@/layouts/default/setting/index.vue'),
-      {
-        loading: true,
-      },
-    ),
+    SettingDrawer,
   },
   props: {
     fixed: { type: Boolean },
@@ -156,7 +151,7 @@ export default defineComponent({
       getShowSearch,
     } = useHeaderSetting()
 
-    const { getShowLocalePicker } = useLocale()
+    const { showLocalePicker } = useLocale()
 
     const { getIsMobile } = useAppInject()
 
@@ -213,7 +208,7 @@ export default defineComponent({
       getSplit,
       getMenuMode,
       getShowTopMenu,
-      getShowLocalePicker,
+      showLocalePicker,
       getShowFullScreen,
       getShowNotice,
       getUseErrorHandle,
