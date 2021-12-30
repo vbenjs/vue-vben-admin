@@ -8,7 +8,7 @@
         <slot name="title"></slot>
       </template>
     </BasicTitle>
-    <div :class="`${prefixCls}__action`" v-if="canExpan">
+    <div :class="`${prefixCls}__action`">
       <slot name="action"></slot>
       <BasicArrow v-if="canExpan" up :expand="show" @click="$emit('expand')" />
     </div>
