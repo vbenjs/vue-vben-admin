@@ -10,8 +10,8 @@
             <template #description>
               {{ item.date }}
             </template>
-            <!-- eslint-disable-next-line -->
             <template #title>
+              <!-- eslint-disable-next-line -->
               {{ item.name }} <span v-html="item.desc"> </span>
             </template>
             <template #avatar>

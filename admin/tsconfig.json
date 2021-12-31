@@ -24,7 +24,7 @@
     "removeComments": true,
     "paths": {
       "/@/*": ["src/*"],
-      "@service/*": ["../service/modules/*"]
+      "@service/*": ["../packages/service/modules/*"]
     }
   },
   "include": [

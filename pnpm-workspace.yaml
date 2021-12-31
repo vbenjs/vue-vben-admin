@@ -1,2 +1,4 @@
 packages:
   - 'packages/**'
+  - 'admin/**'
+  - 'server/**'
