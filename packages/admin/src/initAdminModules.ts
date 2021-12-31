@@ -12,7 +12,6 @@ import { useUserStoreWithOut } from '/@/store/modules/user'
 import { useI18n } from '@vben-admin/locale'
 import { SessionTimeoutProcessingEnum } from '@vben-admin/tokens'
 
-// darkCssIsReady
 import { createLoading } from '/@/components/Loading'
 import { usePermission } from '/@/hooks/web/usePermission'
 
