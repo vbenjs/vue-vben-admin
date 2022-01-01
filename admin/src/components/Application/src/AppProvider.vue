@@ -2,7 +2,7 @@
 import { defineComponent, toRefs, ref, unref } from 'vue'
 import { createAppProviderContext } from './useAppContext'
 import { createBreakpointListen } from '/@/hooks/event/useBreakpoint'
-import { useAppStore } from '/@/store/modules/app'
+import { useAppStore } from '/@/store/app'
 import { MenuModeEnum, MenuTypeEnum } from '@vben-admin/tokens'
 import { prefixCls } from '@vben-admin/setting'
 

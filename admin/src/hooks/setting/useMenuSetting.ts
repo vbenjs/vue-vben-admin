@@ -2,7 +2,7 @@ import type { MenuSetting } from '@vben-admin/types'
 
 import { computed, unref, ref } from 'vue'
 
-import { useAppStore } from '/@/store/modules/app'
+import { useAppStore } from '/@/store/app'
 
 import {
   SIDE_BAR_MINI_WIDTH,

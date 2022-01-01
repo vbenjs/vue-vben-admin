@@ -2,7 +2,7 @@ import type { HeaderSetting } from '@vben-admin/types'
 
 import { computed, unref } from 'vue'
 
-import { useAppStore } from '/@/store/modules/app'
+import { useAppStore } from '/@/store/app'
 
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
 import { useRootSetting } from '/@/hooks/setting/useRootSetting'

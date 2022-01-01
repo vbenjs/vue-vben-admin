@@ -16,7 +16,7 @@ import { Tooltip, Badge } from 'ant-design-vue'
 import Icon from '/@/components/Icon'
 
 import { useI18n } from '@vben-admin/locale'
-import { useErrorLogStore } from '/@/store/modules/errorLog'
+import { useErrorLogStore } from '/@/store/errorLog'
 import { PageEnum } from '@vben-admin/tokens'
 
 import { useRouter } from 'vue-router'

@@ -9,7 +9,7 @@ import type {
   RequestOptions,
   RequestResult,
   RequestUploadFileOptions,
-} from '../typing'
+} from '@vben-admin/types'
 
 import axios from 'axios'
 import qs from 'qs'

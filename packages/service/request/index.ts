@@ -2,7 +2,7 @@
 // The axios configuration can be changed according to the project, just change the file, other files can be left unchanged
 
 import type { AxiosResponse } from 'axios'
-import type { RequestOptions, RequestResult } from '../typing'
+import type { RequestOptions, RequestResult } from '@vben-admin/types'
 import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform'
 
 import { VAxios } from './Axios'

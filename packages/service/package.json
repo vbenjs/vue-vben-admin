@@ -8,10 +8,8 @@
     "@vben-admin/utils": "workspace:*",
     "@vben-admin/locale": "workspace:*",
     "@vben-admin/tokens": "workspace:*",
+    "@vben-admin/types": "workspace:*",
     "axios": "^0.24.0",
     "qs": "^6.10.2"
-  },
-  "peerDependencies": {
-    "vue": ">=3.0.0"
   }
 }

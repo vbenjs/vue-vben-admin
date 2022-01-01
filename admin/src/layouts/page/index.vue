@@ -35,7 +35,7 @@ import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting'
 import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting'
 import { getTransitionName } from './transition'
 
-import { useMultipleTabStore } from '/@/store/modules/multipleTab'
+import { useMultipleTabStore } from '/@/store/multipleTab'
 
 export default defineComponent({
   name: 'PageLayout',

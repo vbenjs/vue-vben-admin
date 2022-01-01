@@ -1,5 +1,4 @@
 import { ErrorTypeEnum, MenuModeEnum, MenuTypeEnum } from '@vben-admin/tokens'
-import { RoleInfo } from '../model'
 
 // Lock screen information
 export interface LockInfo {
@@ -27,6 +26,11 @@ export interface ErrorLogInfo {
   url: string
   // Error time
   time?: string
+}
+
+export interface RoleInfo {
+  roleName: string
+  value: string
 }
 
 export interface UserInfo {

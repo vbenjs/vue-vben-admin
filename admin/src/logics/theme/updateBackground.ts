@@ -1,5 +1,5 @@
 import { colorIsDark, lighten, darken } from '@vben-admin/utils'
-import { useAppStore } from '/@/store/modules/app'
+import { useAppStore } from '/@/store/app'
 import { ThemeEnum } from '@vben-admin/tokens'
 import { setCssVar } from './util'
 

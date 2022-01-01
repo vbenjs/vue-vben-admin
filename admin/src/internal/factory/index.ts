@@ -1,1 +1,1 @@
-export { createAsyncComponent as componentFactory } from './createAsyncComponent'
+export { createAsyncComponent } from './componentFactory'

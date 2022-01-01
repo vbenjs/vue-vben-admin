@@ -117,7 +117,7 @@ import LoginFormTitle from './LoginFormTitle.vue'
 
 import { useI18n } from '@vben-admin/locale'
 import { useMessage } from '/@/hooks/web/useMessage'
-import { useUserStore } from '/@/store/modules/user'
+import { useUserStore } from '/@/store/user'
 import {
   LoginStateEnum,
   useLoginState,

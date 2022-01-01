@@ -5,7 +5,7 @@
 import type { ErrorLogInfo } from '@vben-admin/types'
 import type { App } from 'vue'
 
-import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog'
+import { useErrorLogStoreWithOut } from '/@/store/errorLog'
 import { ErrorTypeEnum } from '@vben-admin/tokens'
 import { projectSetting } from '@vben-admin/setting'
 

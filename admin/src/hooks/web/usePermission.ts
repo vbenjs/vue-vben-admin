@@ -1,13 +1,13 @@
 import type { RouteRecordRaw } from 'vue-router'
 
-import { useAppStore } from '/@/store/modules/app'
-import { usePermissionStore } from '/@/store/modules/permission'
-import { useUserStore } from '/@/store/modules/user'
+import { useAppStore } from '/@/store/app'
+import { usePermissionStore } from '/@/store/permission'
+import { useUserStore } from '/@/store/user'
 import { useTabs } from './useTabs'
 import { router, resetRouter } from '/@/router'
 import { PermissionModeEnum, RoleEnum } from '@vben-admin/tokens'
 import { isArray, intersection } from '@vben-admin/utils'
-import { useMultipleTabStore } from '/@/store/modules/multipleTab'
+import { useMultipleTabStore } from '/@/store/multipleTab'
 import { projectSetting } from '@vben-admin/setting'
 
 // User permissions related operations

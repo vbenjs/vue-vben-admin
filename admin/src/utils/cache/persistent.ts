@@ -37,8 +37,8 @@ type SessionKeys = keyof SessionStore
 const ls = createLocalStorage()
 const ss = createSessionStorage()
 
-const localMemory = new Memory()
-const sessionMemory = new Memory()
+const localMemory = new Memory(Number.MAX_VALUE)
+const sessionMemory = new Memory(Number.MAX_VALUE)
 
 function initPersistentMemory() {
   const localCache = ls.get(APP_LOCAL_CACHE_KEY)

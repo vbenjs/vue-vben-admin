@@ -1,7 +1,7 @@
 import type { AppRouteRecordRaw } from '/@/router/types'
 
 import { computed, toRaw, unref } from 'vue'
-import { useMultipleTabStore } from '/@/store/modules/multipleTab'
+import { useMultipleTabStore } from '/@/store/multipleTab'
 import { uniqBy } from '@vben-admin/utils'
 import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting'
 import { useRouter } from 'vue-router'

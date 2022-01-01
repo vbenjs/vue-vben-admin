@@ -21,7 +21,7 @@ import { useGo } from '/@/hooks/web/usePage'
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
 import { useDesign } from '/@/hooks/web/useDesign'
 import { PageEnum } from '@vben-admin/tokens'
-import { useUserStore } from '/@/store/modules/user'
+import { useUserStore } from '/@/store/user'
 
 const props = defineProps({
   /**

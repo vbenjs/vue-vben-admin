@@ -31,8 +31,8 @@ import { useDesign } from '/@/hooks/web/useDesign'
 import { BasicModal, useModalInner } from '/@/components/Modal/index'
 import { BasicForm, useForm } from '/@/components/Form/index'
 
-import { useUserStore } from '/@/store/modules/user'
-import { useLockStore } from '/@/store/modules/lock'
+import { useUserStore } from '/@/store/user'
+import { useLockStore } from '/@/store/lock'
 import headerImg from '/@/assets/images/header.jpg'
 export default defineComponent({
   name: 'LockModal',

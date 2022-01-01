@@ -1,8 +1,8 @@
 import { computed, onUnmounted, unref, watchEffect } from 'vue'
 import { useThrottleFn } from '@vben-admin/hooks'
-import { useAppStore } from '/@/store/modules/app'
-import { useLockStore } from '/@/store/modules/lock'
-import { useUserStore } from '/@/store/modules/user'
+import { useAppStore } from '/@/store/app'
+import { useLockStore } from '/@/store/lock'
+import { useUserStore } from '/@/store/user'
 import { useRootSetting } from '../setting/useRootSetting'
 
 export function useLockPage() {

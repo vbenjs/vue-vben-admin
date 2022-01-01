@@ -1,14 +1,14 @@
-import { componentFactory } from '/@/internal/factory'
+import { createAsyncComponent } from '/@/internal/factory'
 
-export const TypePicker = componentFactory(() => import('./TypePicker.vue'))
-export const ThemeColorPicker = componentFactory(
+export const TypePicker = createAsyncComponent(() => import('./TypePicker.vue'))
+export const ThemeColorPicker = createAsyncComponent(
   () => import('./ThemeColorPicker.vue'),
 )
-export const SettingFooter = componentFactory(
+export const SettingFooter = createAsyncComponent(
   () => import('./SettingFooter.vue'),
 )
-export const SwitchItem = componentFactory(() => import('./SwitchItem.vue'))
-export const SelectItem = componentFactory(() => import('./SelectItem.vue'))
-export const InputNumberItem = componentFactory(
+export const SwitchItem = createAsyncComponent(() => import('./SwitchItem.vue'))
+export const SelectItem = createAsyncComponent(() => import('./SelectItem.vue'))
+export const InputNumberItem = createAsyncComponent(
   () => import('./InputNumberItem.vue'),
 )

@@ -10,7 +10,7 @@ import { ThemeEnum, APP_DARK_MODE_KEY_, PROJ_CFG_KEY } from '@vben-admin/tokens'
 import { deepMerge } from '@vben-admin/utils'
 
 import { defineStore } from 'pinia'
-import { store } from '/@/store'
+import { store } from '/@/internal/pinia'
 import { Persistent } from '/@/utils/cache/persistent'
 import { darkMode } from '@vben-admin/setting'
 import { resetRouter } from '/@/router'

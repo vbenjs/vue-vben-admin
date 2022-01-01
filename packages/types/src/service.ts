@@ -35,7 +35,7 @@ export interface RequestResult<T = any> {
 // multipart/form-data: upload file
 export interface RequestUploadFileOptions {
   // Other parameters
-  data?: Recordable
+  data?: Record<string, any>
   // File parameter interface field name
   name?: string
   // file name

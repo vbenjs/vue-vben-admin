@@ -33,7 +33,7 @@ import {
   SelectionSelect,
 } from '@logicflow/extension'
 import { useDesign } from '/@/hooks/web/useDesign'
-import { useAppStore } from '/@/store/modules/app'
+import { useAppStore } from '/@/store/app'
 import { createFlowChartContext } from './useFlowContext'
 import { toLogicFlowData } from './adpterForTurbo'
 import { useModal, BasicModal } from '/@/components/Modal'

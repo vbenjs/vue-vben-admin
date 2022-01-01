@@ -6,7 +6,7 @@ import {
 import { updateColorWeak } from '/@/logics/theme/updateColorWeak'
 import { updateGrayMode } from '/@/logics/theme/updateGrayMode'
 
-import { useAppStore } from '/@/store/modules/app'
+import { useAppStore } from '/@/store/app'
 import { ProjectConfig } from '@vben-admin/types'
 import { changeTheme } from '/@/logics/theme'
 import { updateDarkTheme } from '/@/logics/theme/dark'

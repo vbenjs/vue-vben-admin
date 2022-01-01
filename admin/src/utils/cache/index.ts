@@ -22,11 +22,17 @@ export const createStorage = (
 }
 
 export const createSessionStorage = (options: Options = {}) => {
-  return createStorage(sessionStorage, options)
+  return createStorage(sessionStorage, {
+    ...options,
+    timeout: Number.MAX_VALUE,
+  })
 }
 
 export const createLocalStorage = (options: Options = {}) => {
-  return createStorage(localStorage, options)
+  return createStorage(localStorage, {
+    ...options,
+    timeout: Number.MAX_VALUE,
+  })
 }
 
 export default WebStorage

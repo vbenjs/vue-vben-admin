@@ -1,7 +1,7 @@
 import type { UserInfo, ErrorMessageMode } from '@vben-admin/types'
 
 import { defineStore } from 'pinia'
-import { store } from '/@/store'
+import { store } from '/@/internal/pinia'
 import {
   RoleEnum,
   PageEnum,
@@ -15,7 +15,7 @@ import { doLogout, getUserInfo, loginApi } from '@service/sys/user'
 import { useI18n } from '@vben-admin/locale'
 import { useMessage } from '/@/hooks/web/useMessage'
 import { router } from '/@/router'
-import { usePermissionStore } from '/@/store/modules/permission'
+import { usePermissionStore } from '/@/store/permission'
 import { RouteRecordRaw } from 'vue-router'
 import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic'
 import { isArray } from '@vben-admin/utils'

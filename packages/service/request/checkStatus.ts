@@ -1,4 +1,4 @@
-import type { ErrorMessageMode } from '../typing'
+import type { ErrorMessageMode } from '@vben-admin/types'
 import { useI18n } from '@vben-admin/locale'
 
 import { context } from '../_bridge'

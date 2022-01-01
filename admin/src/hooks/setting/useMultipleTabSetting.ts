@@ -2,7 +2,7 @@ import type { MultiTabsSetting } from '@vben-admin/types'
 
 import { computed } from 'vue'
 
-import { useAppStore } from '/@/store/modules/app'
+import { useAppStore } from '/@/store/app'
 
 export function useMultipleTabSetting() {
   const appStore = useAppStore()

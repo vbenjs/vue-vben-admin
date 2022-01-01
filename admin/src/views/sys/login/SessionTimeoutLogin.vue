@@ -9,9 +9,9 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import Login from './Login.vue'
 import { useDesign } from '/@/hooks/web/useDesign'
-import { useUserStore } from '/@/store/modules/user'
-import { usePermissionStore } from '/@/store/modules/permission'
-import { useAppStore } from '/@/store/modules/app'
+import { useUserStore } from '/@/store/user'
+import { usePermissionStore } from '/@/store/permission'
+import { useAppStore } from '/@/store/app'
 import { PermissionModeEnum } from '@vben-admin/tokens'
 
 const { prefixCls } = useDesign('st-login')

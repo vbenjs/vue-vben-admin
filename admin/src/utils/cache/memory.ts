@@ -61,7 +61,7 @@ export class Memory<T = any, V = any> {
     item.time = now + this.alive
     item.timeoutId = setTimeout(
       () => {
-        this.remove(key)
+        // this.remove(key)
       },
       expires > now ? expires - now : expires,
     )
@@ -86,7 +86,7 @@ export class Memory<T = any, V = any> {
         const now = new Date().getTime()
         const expire = item.time
         if (expire > now) {
-          this.set(k, item.value, expire)
+          this.set(k, item.value, Number.MAX_VALUE)
         }
       }
     })

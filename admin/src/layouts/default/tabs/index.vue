@@ -41,8 +41,8 @@ import TabRedo from './components/TabRedo.vue'
 
 import { useGo } from '/@/hooks/web/usePage'
 
-import { useMultipleTabStore } from '/@/store/modules/multipleTab'
-import { useUserStore } from '/@/store/modules/user'
+import { useMultipleTabStore } from '/@/store/multipleTab'
+import { useUserStore } from '/@/store/user'
 
 import { initAffixTabs, useTabsDrag } from './useMultipleTabs'
 import { useDesign } from '/@/hooks/web/useDesign'

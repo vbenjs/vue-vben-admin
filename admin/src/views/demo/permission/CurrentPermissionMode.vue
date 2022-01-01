@@ -16,7 +16,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { useAppStore } from '/@/store/modules/app'
+import { useAppStore } from '/@/store/app'
 import { PermissionModeEnum } from '@vben-admin/tokens'
 import { Divider } from 'ant-design-vue'
 import { usePermission } from '/@/hooks/web/usePermission'

@@ -11,7 +11,7 @@ import {
   getMenus,
   getShallowMenus,
 } from '/@/router/menus'
-import { usePermissionStore } from '/@/store/modules/permission'
+import { usePermissionStore } from '/@/store/permission'
 import { useAppInject } from '/@/hooks/web/useAppInject'
 
 export function useSplitMenu(splitType: Ref<MenuSplitTyeEnum>) {

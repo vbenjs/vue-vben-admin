@@ -21,10 +21,10 @@ import { defineComponent, unref } from 'vue'
 
 import { CopyOutlined, RedoOutlined } from '@ant-design/icons-vue'
 
-import { useAppStore } from '/@/store/modules/app'
-import { usePermissionStore } from '/@/store/modules/permission'
-import { useMultipleTabStore } from '/@/store/modules/multipleTab'
-import { useUserStore } from '/@/store/modules/user'
+import { useAppStore } from '/@/store/app'
+import { usePermissionStore } from '/@/store/permission'
+import { useMultipleTabStore } from '/@/store/multipleTab'
+import { useUserStore } from '/@/store/user'
 
 import { useDesign } from '/@/hooks/web/useDesign'
 import { useI18n } from '@vben-admin/locale'

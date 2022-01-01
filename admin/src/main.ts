@@ -12,7 +12,7 @@ import { initAppConfigStore } from '/@/logics/initAppConfig'
 import { setupErrorHandle } from '/@/logics/error-handle'
 import { router, setupRouter } from '/@/router'
 import { setupRouterGuard } from '/@/router/guard'
-import { setupStore } from '/@/store'
+import { store } from '/@/internal/pinia'
 import { setupI18n } from '@vben-admin/locale'
 import { registerGlobalDirective } from '@vben-admin/directives'
 import { registerGlobComp } from '/@/components/registerGlobComp'
@@ -20,8 +20,7 @@ import { registerGlobComp } from '/@/components/registerGlobComp'
 const bootstrap = async () => {
   const app = createApp(App)
 
-  // Configure store
-  setupStore(app)
+  app.use(store)
 
   // ! Need to pay attention to the timing of execution
   // ! 需要注意调用时机

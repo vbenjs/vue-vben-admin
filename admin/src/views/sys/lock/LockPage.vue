@@ -96,8 +96,8 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
 import { Input } from 'ant-design-vue'
-import { useUserStore } from '/@/store/modules/user'
-import { useLockStore } from '/@/store/modules/lock'
+import { useUserStore } from '/@/store/user'
+import { useLockStore } from '/@/store/lock'
 import { useI18n } from '@vben-admin/locale'
 import { useNow } from './useNow'
 import { useDesign } from '/@/hooks/web/useDesign'

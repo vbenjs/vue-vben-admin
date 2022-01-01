@@ -7,9 +7,6 @@
   "unpkg": "index.js",
   "jsdelivr": "index.js",
   "license": "MIT",
-  "peerDependencies": {
-    "vue": ">=3.0.0"
-  },
   "dependencies": {
     "@vue/runtime-core": "^3.2.26",
     "@vue/shared": "^3.2.26",

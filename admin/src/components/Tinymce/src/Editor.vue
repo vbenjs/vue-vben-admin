@@ -72,7 +72,7 @@ import {
   onMountedOrActivated,
 } from '@vben-admin/utils'
 import { useLocale } from '@vben-admin/locale'
-import { useAppStore } from '/@/store/modules/app'
+import { useAppStore } from '/@/store/app'
 
 const tinymceProps = {
   options: {

@@ -31,9 +31,9 @@
 import { defineComponent, computed } from 'vue'
 import { RoleEnum, PermissionModeEnum } from '@vben-admin/tokens'
 import { usePermission } from '/@/hooks/web/usePermission'
-import { useUserStore } from '/@/store/modules/user'
+import { useUserStore } from '/@/store/user'
 import { PageWrapper } from '/@/components/Page'
-import { useAppStore } from '/@/store/modules/app'
+import { useAppStore } from '/@/store/app'
 import { Alert, Space } from 'ant-design-vue'
 import CurrentPermissionMode from '../CurrentPermissionMode.vue'
 

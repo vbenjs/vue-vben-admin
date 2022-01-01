@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 
 import { LOCK_INFO_KEY } from '@vben-admin/tokens'
 import { Persistent } from '/@/utils/cache/persistent'
-import { useUserStore } from './user'
+import { useUserStore } from '/@/store/user'
 
 interface LockState {
   lockInfo: Nullable<LockInfo>
