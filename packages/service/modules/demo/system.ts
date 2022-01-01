@@ -9,7 +9,7 @@ import type {
   AccountListGetResultModel,
   RolePageListGetResultModel,
   RoleListGetResultModel,
-} from '../../model'
+} from '../model'
 import { defaultRequest } from '../../request'
 
 enum Api {

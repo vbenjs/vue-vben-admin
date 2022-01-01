@@ -1,4 +1,4 @@
-import type { DemoParams, DemoListGetResultModel } from '../../model'
+import type { DemoParams, DemoListGetResultModel } from '../model'
 
 import { defaultRequest } from '../../request'
 

@@ -1,24 +1,17 @@
 import type { UserInfo, ErrorMessageMode } from '@vben-admin/types'
 
+import { RouteRecordRaw } from 'vue-router'
 import { defineStore } from 'pinia'
 import { store } from '/@/internal/pinia'
-import {
-  RoleEnum,
-  PageEnum,
-  ROLES_KEY,
-  TOKEN_KEY,
-  USER_INFO_KEY,
-} from '@vben-admin/tokens'
-import { getAuthCache, setAuthCache } from '/@/utils/auth'
-import { GetUserInfoModel, LoginParams } from '@vben-admin/service/model'
-import { doLogout, getUserInfo, loginApi } from '@service/sys/user'
+import { RoleEnum, PageEnum } from '@vben-admin/tokens'
+import { isArray } from '@vben-admin/utils'
 import { useI18n } from '@vben-admin/locale'
+import { doLogout, getUserInfo, loginApi } from '@service/sys/user'
+import { GetUserInfoModel, LoginParams } from '@service/model'
 import { useMessage } from '/@/hooks/web/useMessage'
 import { router } from '/@/router'
 import { usePermissionStore } from '/@/store/permission'
-import { RouteRecordRaw } from 'vue-router'
 import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic'
-import { isArray } from '@vben-admin/utils'
 import { h } from 'vue'
 
 interface UserState {
@@ -31,6 +24,13 @@ interface UserState {
 
 export const useUserStore = defineStore({
   id: 'app-user',
+  persist: {
+    strategies: [
+      {
+        paths: ['userInfo', 'token', 'roleList'],
+      },
+    ],
+  },
   state: (): UserState => ({
     // user info
     userInfo: null,
@@ -45,15 +45,13 @@ export const useUserStore = defineStore({
   }),
   getters: {
     getUserInfo(): UserInfo {
-      return this.userInfo || getAuthCache<UserInfo>(USER_INFO_KEY) || {}
+      return this.userInfo || ({} as UserInfo)
     },
     getToken(): string {
-      return this.token || getAuthCache<string>(TOKEN_KEY)
+      return this.token as string
     },
     getRoleList(): RoleEnum[] {
-      return this.roleList.length > 0
-        ? this.roleList
-        : getAuthCache<RoleEnum[]>(ROLES_KEY)
+      return this.roleList.length > 0 ? this.roleList : []
     },
     getSessionTimeout(): boolean {
       return !!this.sessionTimeout
@@ -65,16 +63,13 @@ export const useUserStore = defineStore({
   actions: {
     setToken(info: string | undefined) {
       this.token = info ? info : '' // for null or undefined value
-      setAuthCache(TOKEN_KEY, info)
     },
     setRoleList(roleList: RoleEnum[]) {
       this.roleList = roleList
-      setAuthCache(ROLES_KEY, roleList)
     },
     setUserInfo(info: UserInfo | null) {
       this.userInfo = info
       this.lastUpdateTime = new Date().getTime()
-      setAuthCache(USER_INFO_KEY, info)
     },
     setSessionTimeout(flag: boolean) {
       this.sessionTimeout = flag
@@ -96,6 +91,7 @@ export const useUserStore = defineStore({
     ): Promise<GetUserInfoModel | null> {
       try {
         const { goHome = true, mode, ...loginParams } = params
+
         const data = await loginApi(loginParams, mode)
         const { token } = data
 
@@ -107,7 +103,9 @@ export const useUserStore = defineStore({
       }
     },
     async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
-      if (!this.getToken) return null
+      if (!this.getToken) {
+        return null
+      }
       // get user info
       const userInfo = await this.getUserInfoAction()
 
@@ -129,8 +127,12 @@ export const useUserStore = defineStore({
       }
       return userInfo
     },
+
     async getUserInfoAction(): Promise<UserInfo | null> {
-      if (!this.getToken) return null
+      if (!this.getToken) {
+        return null
+      }
+
       const userInfo = await getUserInfo()
       const { roles = [] } = userInfo
       if (isArray(roles)) {
@@ -148,11 +150,9 @@ export const useUserStore = defineStore({
      */
     async logout(goLogin = false) {
       if (this.getToken) {
-        try {
-          await doLogout()
-        } catch {
+        await doLogout().catch(() => {
           console.log('注销Token失败')
-        }
+        })
       }
       this.setToken(undefined)
       this.setSessionTimeout(false)

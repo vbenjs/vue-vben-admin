@@ -1,40 +1,35 @@
 /**
  * Application configuration
  */
-import type { ProjectConfig } from '@vben-admin/types'
-
-import { PROJ_CFG_KEY } from '@vben-admin/tokens'
 import { projectSetting, primaryColor } from '@vben-admin/setting'
 
 import {
   updateHeaderBgColor,
   updateSidebarBgColor,
 } from '/@/logics/theme/updateBackground'
+
 import { updateColorWeak } from '/@/logics/theme/updateColorWeak'
 import { updateGrayMode } from '/@/logics/theme/updateGrayMode'
 import { updateDarkTheme } from '/@/logics/theme/dark'
 import { changeTheme } from '/@/logics/theme'
 import { useAppStore } from '/@/store/app'
 import { getCommonStoragePrefix, getStorageShortName } from '/@/internal/env'
-import { Persistent } from '/@/utils/cache/persistent'
 import { deepMerge } from '@vben-admin/utils'
 import { ThemeEnum } from '@vben-admin/tokens'
 
 // Initial project configuration
 export function initAppConfigStore() {
   const appStore = useAppStore()
-  let projCfg: ProjectConfig = Persistent.getLocal(
-    PROJ_CFG_KEY,
-  ) as ProjectConfig
-  projCfg = deepMerge(projectSetting, projCfg || {})
+  const projectConfig = appStore.getProjectConfig
+  const projCfg = deepMerge(projectSetting, projectConfig || {})
   const darkMode = appStore.getDarkMode
   const {
     colorWeak,
     grayMode,
     themeColor,
 
-    headerSetting: { bgColor: headerBgColor } = {},
-    menuSetting: { bgColor } = {},
+    headerSetting: { bgColor: headerBgColor = '' } = {},
+    menuSetting: { bgColor = '' } = {},
   } = projCfg
   try {
     if (themeColor && themeColor !== primaryColor) {

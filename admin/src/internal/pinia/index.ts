@@ -1,7 +1,7 @@
 import { createPinia } from 'pinia'
-import persistPlugin from './persist'
+import { createPersistPlugin } from './persist'
 
 const store = createPinia()
-store.use(persistPlugin)
+store.use(createPersistPlugin())
 
 export { store }

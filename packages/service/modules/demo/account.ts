@@ -1,4 +1,4 @@
-import type { GetAccountInfoModel } from '../../model'
+import type { GetAccountInfoModel } from '../model'
 
 import { defaultRequest } from '../../request'
 

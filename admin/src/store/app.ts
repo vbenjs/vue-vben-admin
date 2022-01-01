@@ -6,12 +6,10 @@ import type {
   MultiTabsSetting,
   BeforeMiniState,
 } from '@vben-admin/types'
-import { ThemeEnum, APP_DARK_MODE_KEY_, PROJ_CFG_KEY } from '@vben-admin/tokens'
+import { ThemeEnum } from '@vben-admin/tokens'
 import { deepMerge } from '@vben-admin/utils'
-
 import { defineStore } from 'pinia'
 import { store } from '/@/internal/pinia'
-import { Persistent } from '/@/utils/cache/persistent'
 import { darkMode } from '@vben-admin/setting'
 import { resetRouter } from '/@/router'
 
@@ -27,10 +25,17 @@ interface AppState {
 let timeId: TimeoutHandle
 export const useAppStore = defineStore({
   id: 'app',
+  persist: {
+    strategies: [
+      {
+        paths: ['darkMode', 'projectConfig'],
+      },
+    ],
+  },
   state: (): AppState => ({
     darkMode: undefined,
     pageLoading: false,
-    projectConfig: Persistent.getLocal(PROJ_CFG_KEY),
+    projectConfig: {} as any,
     beforeMiniInfo: {},
   }),
   getters: {
@@ -38,9 +43,7 @@ export const useAppStore = defineStore({
       return this.pageLoading
     },
     getDarkMode(): 'light' | 'dark' | string {
-      return (
-        this.darkMode || localStorage.getItem(APP_DARK_MODE_KEY_) || darkMode
-      )
+      return this.darkMode || darkMode
     },
 
     getBeforeMiniInfo(): BeforeMiniState {
@@ -71,7 +74,6 @@ export const useAppStore = defineStore({
 
     setDarkMode(mode: ThemeEnum): void {
       this.darkMode = mode
-      localStorage.setItem(APP_DARK_MODE_KEY_, mode)
     },
 
     setBeforeMiniInfo(state: BeforeMiniState): void {
@@ -80,12 +82,10 @@ export const useAppStore = defineStore({
 
     setProjectConfig(config: DeepPartial<ProjectConfig>): void {
       this.projectConfig = deepMerge(this.projectConfig || {}, config)
-      Persistent.setLocal(PROJ_CFG_KEY, this.projectConfig)
     },
 
     async resetAllState() {
       resetRouter()
-      Persistent.clearAll()
     },
 
     async setPageLoadingAction(loading: boolean): Promise<void> {

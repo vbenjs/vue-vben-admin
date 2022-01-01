@@ -1,9 +1,6 @@
 import type { LockInfo } from '@vben-admin/types'
 
 import { defineStore } from 'pinia'
-
-import { LOCK_INFO_KEY } from '@vben-admin/tokens'
-import { Persistent } from '/@/utils/cache/persistent'
 import { useUserStore } from '/@/store/user'
 
 interface LockState {
@@ -12,8 +9,15 @@ interface LockState {
 
 export const useLockStore = defineStore({
   id: 'app-lock',
+  persist: {
+    strategies: [
+      {
+        paths: ['lockInfo'],
+      },
+    ],
+  },
   state: (): LockState => ({
-    lockInfo: Persistent.getLocal(LOCK_INFO_KEY),
+    lockInfo: {},
   }),
   getters: {
     getLockInfo(): Nullable<LockInfo> {
@@ -23,10 +27,8 @@ export const useLockStore = defineStore({
   actions: {
     setLockInfo(info: LockInfo) {
       this.lockInfo = Object.assign({}, this.lockInfo, info)
-      Persistent.setLocal(LOCK_INFO_KEY, this.lockInfo, true)
     },
     resetLockInfo() {
-      Persistent.removeLocal(LOCK_INFO_KEY, true)
       this.lockInfo = null
     },
     // Unlock

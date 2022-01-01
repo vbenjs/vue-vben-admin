@@ -4,7 +4,6 @@ import { initServiceModule } from '@vben-admin/service/_bridge'
 import { initDirectiveModule } from '@vben-admin/directives/_bridge'
 
 // service
-import { getToken } from '/@/utils/auth'
 import { useGlobSetting } from '/@/hooks/setting'
 import { useMessage } from '/@/hooks/web/useMessage'
 import { useErrorLogStoreWithOut } from '/@/store/errorLog'
@@ -47,7 +46,10 @@ const initService = async () => {
     urlPrefix,
     apiUrl,
     uploadUrl,
-    getTokenFunction: getToken,
+    getTokenFunction: () => {
+      const userStore = useUserStoreWithOut()
+      return userStore.getToken
+    },
     errorFunction: createMessage.error,
     errorModalFunction: createErrorModal,
     errorLogFunction: (error) => {

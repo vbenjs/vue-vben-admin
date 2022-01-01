@@ -1,4 +1,4 @@
-import type { AreaModel, AreaParams } from '../../model'
+import type { AreaModel, AreaParams } from '../model'
 import { defaultRequest } from '../../request'
 
 enum Api {

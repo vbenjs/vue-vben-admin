@@ -1,4 +1,4 @@
-import type { GetMenuListResultModel } from '../../model'
+import type { GetMenuListResultModel } from '../model'
 import { defaultRequest } from '../../request'
 
 enum Api {

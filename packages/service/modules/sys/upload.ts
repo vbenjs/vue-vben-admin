@@ -1,5 +1,5 @@
-import type { RequestUploadFileOptions } from '../../typing'
-import type { UploadApiResult } from '../../model'
+import type { RequestUploadFileOptions } from '@vben-admin/types'
+import type { UploadApiResult } from '../model'
 
 import { defaultRequest } from '../../request'
 import { context } from '../../_bridge'

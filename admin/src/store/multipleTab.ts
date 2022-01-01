@@ -8,12 +8,11 @@ import { toRaw, unref } from 'vue'
 import { defineStore } from 'pinia'
 import { store } from '/@/internal/pinia'
 import { useGo, useRedo } from '/@/hooks/web/usePage'
-import { Persistent } from '/@/utils/cache/persistent'
-import { PageEnum, MULTIPLE_TABS_KEY } from '@vben-admin/tokens'
+import { PageEnum } from '@vben-admin/tokens'
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/routes/basic'
 import { getRawRoute } from '@vben-admin/utils'
 import { useUserStore } from '/@/store/user'
-import { projectSetting } from '@vben-admin/setting'
+// import { projectSetting } from '@vben-admin/setting'
 
 export interface MultipleTabState {
   cacheTabList: Set<string>
@@ -35,15 +34,22 @@ const getToTarget = (tabItem: RouteLocationNormalized) => {
   }
 }
 
-const cacheTab = projectSetting.multiTabsSetting.cache
+// const cacheTab = projectSetting.multiTabsSetting.cache
 
 export const useMultipleTabStore = defineStore({
   id: 'app-multiple-tab',
+  persist: {
+    strategies: [
+      {
+        paths: ['lockInfo'],
+      },
+    ],
+  },
   state: (): MultipleTabState => ({
     // Tabs that need to be cached
     cacheTabList: new Set(),
     // multiple tab list
-    tabList: cacheTab ? Persistent.getLocal(MULTIPLE_TABS_KEY) || [] : [],
+    tabList: [],
     // Index of the last moved tab
     lastDragEndIndex: 0,
   }),
@@ -173,7 +179,7 @@ export const useMultipleTabStore = defineStore({
         this.tabList.push(route)
       }
       this.updateCacheTab()
-      cacheTab && Persistent.setLocal(MULTIPLE_TABS_KEY, this.tabList)
+      // cacheTab && Persistent.setLocal(MULTIPLE_TABS_KEY, this.tabList)
     },
 
     async closeTab(tab: RouteLocationNormalized, router: Router) {

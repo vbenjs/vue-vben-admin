@@ -1,4 +1,4 @@
-import type { DemoOptionsItem, selectParams } from '../../model'
+import type { DemoOptionsItem, selectParams } from '../model'
 import { defaultRequest } from '../../request'
 
 enum Api {
