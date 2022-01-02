@@ -1,7 +1,7 @@
 import type { AppRouteRecordRaw } from '/@/router/types'
 import { t } from '@vben-admin/locale'
+import { REDIRECT_NAME } from '@vben-admin/tokens'
 import {
-  REDIRECT_NAME,
   LAYOUT,
   EXCEPTION_COMPONENT,
   PAGE_NOT_FOUND_NAME,

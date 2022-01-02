@@ -54,5 +54,4 @@ export interface MenuModule {
   menu: Menu
 }
 
-// export type AppRouteModule = RouteModule | AppRouteRecordRaw;
 export type AppRouteModule = AppRouteRecordRaw

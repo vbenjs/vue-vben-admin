@@ -23,10 +23,9 @@ import {
   nextTick,
   onUnmounted,
 } from 'vue'
-import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn'
 import { ScrollContainer } from '/@/components/Container'
 import { createModalContext } from '../hooks/useModalContext'
-import { useMutationObserver } from '@vben-admin/hooks'
+import { useMutationObserver, useWindowResize } from '@vben-admin/hooks'
 
 const props = {
   loading: { type: Boolean },
@@ -57,7 +56,7 @@ export default defineComponent({
 
     let stopElResizeFn: Fn = () => {}
 
-    useWindowSizeFn(setModalHeight.bind(null, false))
+    useWindowResize(setModalHeight.bind(null, false))
 
     useMutationObserver(
       spinRef,

@@ -9,6 +9,7 @@
   "license": "MIT",
   "dependencies": {
     "@vben-admin/utils": "workspace:*",
+    "@vben-admin/locale": "workspace:*",
     "@vueuse/core": "^7.5.1"
   }
 }

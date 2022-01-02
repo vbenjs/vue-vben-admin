@@ -1,9 +1,11 @@
 import { ref, watch } from 'vue'
 
 import { isDefined } from '@vben-admin/utils'
+
 interface Options {
   target?: HTMLElement
 }
+
 export function useCopyToClipboard(initial?: string) {
   const clipboardRef = ref(initial || '')
   const isSuccessRef = ref(false)

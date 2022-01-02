@@ -1,5 +1,5 @@
 import { ComputedRef, isRef, nextTick, Ref, ref, unref, watch } from 'vue'
-import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn'
+import { useWindowResize } from '@vben-admin/hooks'
 import { useLayoutHeight } from '/@/layouts/default/content/useContentViewHeight'
 import {
   isNumber,
@@ -180,7 +180,7 @@ export function useContentHeight(
       calcContentHeight()
     })
   })
-  useWindowSizeFn(
+  useWindowResize(
     () => {
       calcContentHeight()
     },

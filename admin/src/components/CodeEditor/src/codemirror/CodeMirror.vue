@@ -12,9 +12,8 @@ import {
   unref,
   nextTick,
 } from 'vue'
-import { useDebounceFn } from '@vben-admin/hooks'
+import { useDebounceFn, useWindowResize } from '@vben-admin/hooks'
 import { useAppStore } from '/@/store/app'
-import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn'
 import CodeMirror from 'codemirror'
 import { MODE } from './../typing'
 // css
@@ -112,7 +111,7 @@ async function init() {
 onMounted(async () => {
   await nextTick()
   init()
-  useWindowSizeFn(debounceRefresh)
+  useWindowResize(debounceRefresh)
 })
 
 onUnmounted(() => {

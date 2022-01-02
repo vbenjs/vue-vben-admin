@@ -12,9 +12,9 @@ const key = Symbol()
 let lastChangeTab: RouteLocationNormalized
 
 export function setRouteChange(lastChangeRoute: RouteLocationNormalized) {
-  const r = getRawRoute(lastChangeRoute)
-  emitter.emit(key, r)
-  lastChangeTab = r
+  const _router = getRawRoute(lastChangeRoute)
+  emitter.emit(key, _router)
+  lastChangeTab = _router
 }
 
 export function listenerRouteChange(

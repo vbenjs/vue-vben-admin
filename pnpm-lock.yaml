@@ -236,9 +236,11 @@ importers:
 
   packages/hooks:
     specifiers:
+      '@vben-admin/locale': workspace:*
       '@vben-admin/utils': workspace:*
       '@vueuse/core': ^7.5.1
     dependencies:
+      '@vben-admin/locale': link:../locale
       '@vben-admin/utils': link:../utils
       '@vueuse/core': 7.5.1
 

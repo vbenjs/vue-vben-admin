@@ -14,7 +14,7 @@
 import type { CSSProperties } from 'vue'
 import { ref, unref, computed } from 'vue'
 import { Spin } from 'ant-design-vue'
-import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn'
+import { useWindowResize } from '@vben-admin/hooks'
 import { useDesign } from '/@/hooks/web/useDesign'
 import { useLayoutHeight } from '/@/layouts/default/content/useContentViewHeight'
 
@@ -29,7 +29,7 @@ const frameRef = ref<HTMLFrameElement>()
 const { headerHeightRef } = useLayoutHeight()
 
 const { prefixCls } = useDesign('iframe-page')
-useWindowSizeFn(calcHeight, 150, { immediate: true })
+useWindowResize(calcHeight, 150, { immediate: true })
 
 const getWrapStyle = computed((): CSSProperties => {
   return {

@@ -1,6 +1,6 @@
 import { ref, computed, unref } from 'vue'
 import { createPageContext } from '/@/hooks/component/usePageContext'
-import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn'
+import { useWindowResize } from '@vben-admin/hooks'
 
 const headerHeightRef = ref(0)
 const footerHeightRef = ref(0)
@@ -25,7 +25,7 @@ export function useContentViewHeight() {
     )
   })
 
-  useWindowSizeFn(
+  useWindowResize(
     () => {
       contentHeight.value = window.innerHeight
     },

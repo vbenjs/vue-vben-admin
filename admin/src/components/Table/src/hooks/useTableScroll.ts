@@ -10,9 +10,8 @@ import {
   getViewportOffset,
   onMountedOrActivated,
 } from '@vben-admin/utils'
-import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn'
 import { useModalContext } from '/@/components/Modal'
-import { useDebounceFn } from '@vben-admin/hooks'
+import { useDebounceFn, useWindowResize } from '@vben-admin/hooks'
 
 export function useTableScroll(
   propsRef: ComputedRef<BasicTableProps>,
@@ -196,7 +195,7 @@ export function useTableScroll(
 
     bodyEl!.style.height = `${height}px`
   }
-  useWindowSizeFn(calcTableHeight, 280)
+  useWindowResize(calcTableHeight, 280)
   onMountedOrActivated(() => {
     calcTableHeight()
     nextTick(() => {

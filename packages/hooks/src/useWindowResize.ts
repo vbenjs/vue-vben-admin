@@ -1,5 +1,5 @@
 import { tryOnMounted, tryOnUnmounted } from '@vben-admin/utils'
-import { useDebounceFn } from '@vben-admin/hooks'
+import { useDebounceFn } from '@vueuse/core'
 
 interface WindowSizeOptions {
   once?: boolean
@@ -7,11 +7,11 @@ interface WindowSizeOptions {
   listenerOptions?: AddEventListenerOptions | boolean
 }
 
-export function useWindowSizeFn<T>(
+export const useWindowResize = <T>(
   fn: Fn<T>,
   wait = 150,
   options?: WindowSizeOptions,
-) {
+) => {
   let handler = () => {
     fn()
   }
