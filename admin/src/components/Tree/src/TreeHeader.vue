@@ -45,7 +45,7 @@ import { Icon } from '/@/components/Icon'
 import { BasicTitle } from '/@/components/Basic'
 import { useI18n } from '@vben-admin/locale'
 import { useDebounceFn } from '@vben-admin/hooks'
-import { createBEM } from '@vben-admin/utils'
+import { createBEM } from '/@/internal'
 import { ToolbarEnum } from './tree'
 
 const searchValue = ref('')

@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { AppLogo } from '/@/components/Application'
 import { AppLocalePicker, AppDarkModeToggle } from '/@/components/Application'
-import { useGlobSetting } from '/@/hooks/setting'
+import { getGlobalConfig } from '/@/internal'
 import { useI18n, showLocalePicker } from '@vben-admin/locale'
 import { useDesign } from '/@/hooks/web/useDesign'
 import LoginForm from './LoginForm.vue'
@@ -17,7 +17,7 @@ defineProps({
   },
 })
 
-const globSetting = useGlobSetting()
+const globSetting = getGlobalConfig()
 const { prefixCls } = useDesign('login')
 const { t } = useI18n()
 

@@ -1,5 +1,1 @@
-export * from './src/locale'
-export * from './src/design'
-export * from './src/component'
-export * from './src/site'
-export * from './src/project'
+export * from './src'

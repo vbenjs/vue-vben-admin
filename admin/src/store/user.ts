@@ -2,7 +2,7 @@ import type { UserInfo, ErrorMessageMode } from '@vben-admin/types'
 
 import { RouteRecordRaw } from 'vue-router'
 import { defineStore } from 'pinia'
-import { store } from '/@/internal/pinia'
+import { store } from '/@/internal'
 import { RoleEnum, PageEnum } from '@vben-admin/tokens'
 import { isArray } from '@vben-admin/utils'
 import { useI18n } from '@vben-admin/locale'

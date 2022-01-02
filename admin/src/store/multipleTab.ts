@@ -6,7 +6,7 @@ import type {
 
 import { toRaw, unref } from 'vue'
 import { defineStore } from 'pinia'
-import { store } from '/@/internal/pinia'
+import { store } from '/@/internal'
 import { useGo, useRedo } from '/@/hooks/web/usePage'
 import { PageEnum } from '@vben-admin/tokens'
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/routes/basic'

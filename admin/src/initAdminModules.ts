@@ -1,10 +1,9 @@
-import { prefixCls, projectSetting } from '@vben-admin/setting'
-import { initUtilsModule } from '@vben-admin/utils/_bridge'
+import { projectSetting } from '@vben-admin/setting'
 import { initServiceModule } from '@vben-admin/service/_bridge'
 import { initDirectiveModule } from '@vben-admin/directives/_bridge'
 
 // service
-import { useGlobSetting } from '/@/hooks/setting'
+import { getGlobalConfig } from '/@/internal'
 import { useMessage } from '/@/hooks/web/useMessage'
 import { useErrorLogStoreWithOut } from '/@/store/errorLog'
 import { useUserStoreWithOut } from '/@/store/user'
@@ -22,11 +21,7 @@ import { usePermission } from '/@/hooks/web/usePermission'
 // 如果模块相互依赖严重，则需要对外提供解耦方式，由调用方去进行参数传递
 // 各个模块需要提供 `_bridge` 文件作为解耦方式
 export const initAdminModules = async () => {
-  await Promise.all([
-    initUtilsModule(prefixCls),
-    initService(),
-    initDirective(),
-  ])
+  await Promise.all([initService(), initDirective()])
 }
 
 const initDirective = async () => {
@@ -40,7 +35,7 @@ const initDirective = async () => {
 
 const initService = async () => {
   const { createMessage, createErrorModal } = useMessage()
-  const { urlPrefix, apiUrl, uploadUrl } = useGlobSetting()
+  const { urlPrefix, apiUrl, uploadUrl } = getGlobalConfig()
   const { t } = useI18n()
   await initServiceModule({
     urlPrefix,

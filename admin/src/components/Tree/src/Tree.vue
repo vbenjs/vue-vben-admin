@@ -36,8 +36,9 @@ import {
   treeTraverse,
   extendSlots,
   getSlot,
-  createBEM,
 } from '@vben-admin/utils'
+import { createBEM } from '/@/internal'
+
 import { useTree } from './useTree'
 import { useContextMenu } from '/@/hooks/web/useContextMenu'
 import { CreateContextOptions } from '/@/components/ContextMenu'

@@ -19,7 +19,7 @@ import { defineComponent, computed } from 'vue'
 
 import { Upload } from 'ant-design-vue'
 import { useDesign } from '/@/hooks/web/useDesign'
-import { useGlobSetting } from '/@/hooks/setting'
+import { getGlobalConfig } from '/@/internal'
 import { useI18n } from '@vben-admin/locale'
 
 export default defineComponent({
@@ -38,7 +38,7 @@ export default defineComponent({
   setup(props, { emit }) {
     let uploading = false
 
-    const { uploadUrl } = useGlobSetting()
+    const { uploadUrl } = getGlobalConfig()
     const { t } = useI18n()
     const { prefixCls } = useDesign('tinymce-img-upload')
 

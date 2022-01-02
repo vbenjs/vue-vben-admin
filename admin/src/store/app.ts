@@ -9,7 +9,7 @@ import type {
 import { ThemeEnum } from '@vben-admin/tokens'
 import { deepMerge } from '@vben-admin/utils'
 import { defineStore } from 'pinia'
-import { store } from '/@/internal/pinia'
+import { store } from '/@/internal'
 import { darkMode } from '@vben-admin/setting'
 import { resetRouter } from '/@/router'
 

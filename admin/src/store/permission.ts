@@ -1,7 +1,7 @@
 import type { AppRouteRecordRaw, Menu } from '/@/router/types'
 
 import { defineStore } from 'pinia'
-import { store } from '/@/internal/pinia'
+import { store } from '/@/internal'
 import { useI18n } from '@vben-admin/locale'
 import { useUserStore } from '/@/store/user'
 import { useAppStoreWithOut } from '/@/store/app'

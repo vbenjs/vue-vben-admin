@@ -13,7 +13,7 @@ import { updateGrayMode } from '/@/logics/theme/updateGrayMode'
 import { updateDarkTheme } from '/@/logics/theme/dark'
 import { changeTheme } from '/@/logics/theme'
 import { useAppStore } from '/@/store/app'
-import { getCommonStoragePrefix, getStorageShortName } from '/@/internal/env'
+import { createStorageKeyPrefix, createStorageName } from '/@/internal'
 import { deepMerge } from '@vben-admin/utils'
 import { ThemeEnum } from '@vben-admin/tokens'
 
@@ -63,12 +63,15 @@ export function initAppConfigStore() {
  * This method is used to delete useless keys
  */
 export function clearObsoleteStorage() {
-  const commonPrefix = getCommonStoragePrefix()
-  const shortPrefix = getStorageShortName()
-
+  const storageKeyPrefix = createStorageKeyPrefix()
+  const shortNamePrefix = createStorageName()
   ;[localStorage, sessionStorage].forEach((item: Storage) => {
     Object.keys(item).forEach((key) => {
-      if (key && key.startsWith(commonPrefix) && !key.startsWith(shortPrefix)) {
+      if (
+        key &&
+        key.startsWith(storageKeyPrefix) &&
+        !key.startsWith(shortNamePrefix)
+      ) {
         item.removeItem(key)
       }
     })

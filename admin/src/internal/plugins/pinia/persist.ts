@@ -4,9 +4,9 @@ import { set, get } from '@vben-admin/utils'
 declare module 'pinia' {
   export interface DefineStoreOptions<
     // eslint-disable-next-line
-    Id extends string,
+    Id,
     // eslint-disable-next-line
-    S extends StateTree,
+    S,
     // eslint-disable-next-line
     G,
     // eslint-disable-next-line

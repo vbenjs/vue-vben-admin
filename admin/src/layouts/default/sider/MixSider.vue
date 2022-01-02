@@ -89,7 +89,7 @@ import { AppLogo } from '/@/components/Application'
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
 import { usePermissionStore } from '/@/store/permission'
 import { useDragLine } from './useLayoutSider'
-import { useGlobSetting } from '/@/hooks/setting'
+import { getGlobalConfig } from '/@/internal'
 import { useDesign } from '/@/hooks/web/useDesign'
 import { useI18n } from '@vben-admin/locale'
 import { useGo } from '/@/hooks/web/usePage'
@@ -145,7 +145,7 @@ export default defineComponent({
       getCollapsed,
     } = useMenuSetting()
 
-    const { title } = useGlobSetting()
+    const { title } = getGlobalConfig()
     const permissionStore = usePermissionStore()
 
     useDragLine(sideRef, dragBarRef, true)
