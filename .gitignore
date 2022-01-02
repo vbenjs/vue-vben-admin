@@ -3,8 +3,6 @@ node_modules
 dist
 .cache
 
-server/static
-server/static/upload
 
 .local
 # local env files

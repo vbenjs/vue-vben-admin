@@ -12,7 +12,11 @@
           <a-input v-model:value="server" disabled>
             <template #addonBefore> 服务地址 </template>
           </a-input>
-          <a-button :type="getIsOpen ? 'danger' : 'primary'" @click="toggle">
+          <a-button
+            :danger="getIsOpen"
+            :type="!getIsOpen ? 'primary' : undefined"
+            @click="toggle"
+          >
             {{ getIsOpen ? '关闭连接' : '开启连接' }}
           </a-button>
         </div>
@@ -30,7 +34,7 @@
           type="primary"
           block
           class="mt-4"
-          :disabled="!getIsOpen"
+          :disabled="!getIsOpen || !sendValue"
           @click="handlerSend"
         >
           发送
@@ -74,7 +78,7 @@ export default defineComponent({
   },
   setup() {
     const state = reactive({
-      server: 'ws://localhost:3300/test',
+      server: 'ws://localhost:3300',
       sendValue: '',
       recordList: [] as { id: number; time: number; res: string }[],
     })
@@ -107,7 +111,8 @@ export default defineComponent({
     })
 
     function handlerSend() {
-      send(state.sendValue)
+      const sendData = { event: 'test', data: state.sendValue }
+      send(new Blob([JSON.stringify(sendData, null, 2)]))
       state.sendValue = ''
     }
 

@@ -1,4 +1,4 @@
-import { Result } from '../utils';
+import { Injectable } from '@nestjs/common'
 
 const fakeUserInfo = {
   userId: '1',
@@ -13,13 +13,17 @@ const fakeUserInfo = {
       value: 'super',
     },
   ],
-};
-export default class UserService {
+}
+
+@Injectable()
+export class AuthService {
+  constructor() {}
+
   async login() {
-    return Result.success(fakeUserInfo);
+    return fakeUserInfo
   }
 
   async getUserInfoById() {
-    return Result.success(fakeUserInfo);
+    return fakeUserInfo
   }
 }

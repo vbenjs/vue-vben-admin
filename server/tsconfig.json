@@ -1,15 +1,33 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "declaration": false,
+    "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es6",
+    "allowSyntheticDefaultImports": true,
+    "target": "esnext",
     "sourceMap": false,
-    "esModuleInterop": true,
     "outDir": "./dist",
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "lib": ["ESNext", "DOM"],
+    "esModuleInterop": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "incremental": true,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types/", "./types"]
   },
-  "exclude": ["node_modules"]
+  "include": ["src", "types"],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "dist",
+    "tests",
+    "**/*spec.ts",
+    "**/fixtures/**",
+    "**/__snapshots__/**"
+  ]
 }
