@@ -5,7 +5,7 @@ import { resolve } from 'path'
 /**
  * less global variable
  */
-export function generateModifyVars(dark = false) {
+export const generateModifyVars = (dark = false) => {
   const palettes = generateAntColors(primaryColor)
   const primary = palettes[5]
 

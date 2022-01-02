@@ -2,10 +2,10 @@ import type { UserInfo, ErrorMessageMode } from '@vben-admin/types'
 
 import { RouteRecordRaw } from 'vue-router'
 import { defineStore } from 'pinia'
-import { store } from '/@/internal'
 import { RoleEnum, PageEnum } from '@vben-admin/tokens'
 import { isArray } from '@vben-admin/utils'
 import { useI18n } from '@vben-admin/locale'
+import { pinia } from '/@/internal'
 import { doLogout, getUserInfo, loginApi } from '@service/sys/user'
 import { GetUserInfoModel, LoginParams } from '@service/model'
 import { useMessage } from '/@/hooks/web/useMessage'
@@ -180,5 +180,5 @@ export const useUserStore = defineStore({
 
 // Need to be used outside the setup
 export function useUserStoreWithOut() {
-  return useUserStore(store)
+  return useUserStore(pinia)
 }

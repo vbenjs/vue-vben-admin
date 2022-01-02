@@ -1,6 +1,6 @@
 import { ThemeEnum } from '@vben-admin/tokens'
 
-export const prefixCls = 'vben'
+export const namespace = 'vben'
 
 export const primaryColor = '#0960bd'
 

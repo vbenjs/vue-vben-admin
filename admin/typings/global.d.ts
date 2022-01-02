@@ -10,6 +10,7 @@ declare global {
     }
     lastBuildTime: string
   }
+  const __VITE_USE_MOCK__: boolean
 
   // vue
   declare type PropType<T> = VuePropType<T>

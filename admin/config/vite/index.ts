@@ -18,7 +18,7 @@ import { configSvgIconsPlugin } from './svgSprite'
 // import { configAutoImport } from './autoImport'
 import { configProxy } from './proxy'
 
-export function configVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
+export const configVitePlugins = (viteEnv: ViteEnv, isBuild: boolean) => {
   const {
     VITE_USE_IMAGEMIN,
     VITE_USE_MOCK,

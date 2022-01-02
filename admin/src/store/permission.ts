@@ -1,7 +1,7 @@
 import type { AppRouteRecordRaw, Menu } from '/@/router/types'
 
 import { defineStore } from 'pinia'
-import { store } from '/@/internal'
+import { pinia } from '/@/internal'
 import { useI18n } from '@vben-admin/locale'
 import { useUserStore } from '/@/store/user'
 import { useAppStoreWithOut } from '/@/store/app'
@@ -173,10 +173,7 @@ export const usePermissionStore = defineStore({
         case PermissionModeEnum.BACK:
           const { createMessage } = useMessage()
 
-          createMessage.loading({
-            content: t('sys.app.menuLoading'),
-            duration: 1,
-          })
+          createMessage.loading(t('sys.app.menuLoading'))
 
           // !Simulate to obtain permission codes from the background,
           // this function may only need to be executed once, and the actual project can be put at the right time by itself
@@ -213,5 +210,5 @@ export const usePermissionStore = defineStore({
 
 // Need to be used outside the setup
 export function usePermissionStoreWithOut() {
-  return usePermissionStore(store)
+  return usePermissionStore(pinia)
 }

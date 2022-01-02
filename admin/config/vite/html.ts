@@ -6,7 +6,7 @@
 import { GLOB_CONFIG_FILE_NAME, PKG_VERSION } from '..'
 import html from 'vite-plugin-html'
 
-export function configHtmlPlugin(env: ViteEnv, isBuild: boolean) {
+export const configHtmlPlugin = (env: ViteEnv, isBuild: boolean) => {
   const { VITE_GLOB_APP_TITLE, VITE_PUBLIC_PATH } = env
 
   const path = VITE_PUBLIC_PATH.endsWith('/')

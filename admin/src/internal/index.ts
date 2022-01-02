@@ -1,3 +1,3 @@
 export * from './config'
-export * from './plugins'
+export * from './pinia'
 export * from './factory'

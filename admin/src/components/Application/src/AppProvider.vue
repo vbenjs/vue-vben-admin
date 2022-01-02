@@ -4,13 +4,13 @@ import { createAppProviderContext } from './useAppContext'
 import { createBreakpointListen } from '/@/hooks/event/useBreakpoint'
 import { useAppStore } from '/@/store/app'
 import { MenuModeEnum, MenuTypeEnum } from '@vben-admin/tokens'
-import { prefixCls } from '@vben-admin/setting'
+import { namespace } from '@vben-admin/setting'
 
 const props = {
   /**
    * class style prefix
    */
-  prefixCls: { type: String, default: prefixCls },
+  prefixCls: { type: String, default: namespace },
 }
 
 export default defineComponent({

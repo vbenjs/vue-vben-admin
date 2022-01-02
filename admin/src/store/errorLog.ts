@@ -1,10 +1,10 @@
 import type { ErrorLogInfo } from '@vben-admin/types'
 
 import { defineStore } from 'pinia'
-import { store } from '/@/internal'
 import { formatToDateTime } from '@vben-admin/utils'
 import { projectSetting } from '@vben-admin/setting'
 import { ErrorTypeEnum } from '@vben-admin/tokens'
+import { pinia } from '/@/internal'
 
 export interface ErrorLogState {
   errorLogInfoList: Nullable<ErrorLogInfo[]>
@@ -76,5 +76,5 @@ export const useErrorLogStore = defineStore({
 
 // Need to be used outside the setup
 export function useErrorLogStoreWithOut() {
-  return useErrorLogStore(store)
+  return useErrorLogStore(pinia)
 }

@@ -14,7 +14,13 @@ export default defineConfig(async ({ command, mode }) => {
   // The boolean type read by loadEnv is a string. This function can be converted to boolean type
   const viteEnv = wrapperEnv(env)
 
-  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE } = viteEnv
+  const {
+    VITE_PORT,
+    VITE_PUBLIC_PATH,
+    VITE_USE_MOCK,
+    VITE_PROXY,
+    VITE_DROP_CONSOLE,
+  } = viteEnv
 
   return {
     root,
@@ -60,6 +66,7 @@ export default defineConfig(async ({ command, mode }) => {
       },
     },
     define: {
+      __VITE_USE_MOCK__: VITE_USE_MOCK,
       // Suppress vue-i18-next warning
       __INTLIFY_PROD_DEVTOOLS__: false,
       __APP_INFO__: JSON.stringify({
@@ -85,6 +92,7 @@ export default defineConfig(async ({ command, mode }) => {
         'ant-design-vue/es/locale/en_US',
         'dayjs/locale/en',
         'dayjs/locale/zh-cn',
+        'lodash-es',
       ],
       exclude: ['vue-demi'],
     },

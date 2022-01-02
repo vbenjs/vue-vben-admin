@@ -1,23 +1,28 @@
 // Interface data format used to return a unified format
 
-export function resultSuccess<T = Recordable>(
-  result: T,
-  { message = 'ok' } = {},
-) {
-  return {
-    code: 0,
-    result,
-    message,
-    type: 'success',
-  }
+export interface requestParams {
+  method: string
+  body: any
+  headers?: { authorization?: string }
+  query: any
 }
 
-export function resultPageSuccess<T = any>(
+export const resultSuccess = <T = Recordable>(
+  result: T,
+  { message = 'ok' } = {},
+) => ({
+  code: 0,
+  result,
+  message,
+  type: 'success',
+})
+
+export const resultPageSuccess = <T = any>(
   page: number,
   pageSize: number,
   list: T[],
   { message = 'ok' } = {},
-) {
+) => {
   const pageData = pagination(page, pageSize, list)
 
   return {
@@ -29,23 +34,21 @@ export function resultPageSuccess<T = any>(
   }
 }
 
-export function resultError(
+export const resultError = (
   message = 'Request failed',
   { code = -1, result = null } = {},
-) {
-  return {
-    code,
-    result,
-    message,
-    type: 'error',
-  }
-}
+) => ({
+  code,
+  result,
+  message,
+  type: 'error',
+})
 
-export function pagination<T = any>(
+export const pagination = <T = any>(
   pageNo: number,
   pageSize: number,
   array: T[],
-): T[] {
+): T[] => {
   const offset = (pageNo - 1) * Number(pageSize)
   const ret =
     offset + Number(pageSize) >= array.length
@@ -54,19 +57,10 @@ export function pagination<T = any>(
   return ret
 }
 
-export interface requestParams {
-  method: string
-  body: any
-  headers?: { authorization?: string }
-  query: any
-}
-
 /**
  * @description 本函数用于从request数据中获取token，请根据项目的实际情况修改
  *
  */
-export function getRequestToken({
+export const getRequestToken = ({
   headers,
-}: requestParams): string | undefined {
-  return headers?.authorization
-}
+}: requestParams): string | undefined => headers?.authorization

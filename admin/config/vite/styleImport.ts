@@ -4,7 +4,7 @@
  */
 import styleImport from 'vite-plugin-style-import'
 
-export function configStyleImportPlugin(_isBuild: boolean) {
+export const configStyleImportPlugin = (_isBuild: boolean) => {
   const styleImportPlugin = styleImport({
     libs: [
       {

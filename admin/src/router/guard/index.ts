@@ -9,9 +9,9 @@ import { unref } from 'vue'
 import { setRouteChange } from '/@/logics/mitt/routeChange'
 import { createPermissionGuard } from './permissionGuard'
 import { createStateGuard } from './stateGuard'
-import nProgress from 'nprogress'
 import { projectSetting } from '@vben-admin/setting'
 import { createParamMenuGuard } from './paramMenuGuard'
+import nProgress from 'nprogress'
 
 // Don't change the order of creation
 export function setupRouterGuard(router: Router) {
@@ -63,7 +63,6 @@ function createPageLoadingGuard(router: Router) {
       appStore.setPageLoadingAction(true)
       return true
     }
-
     return true
   })
   router.afterEach(async () => {

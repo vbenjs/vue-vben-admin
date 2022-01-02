@@ -6,7 +6,7 @@
 import SvgIconsPlugin from 'vite-plugin-svg-icons'
 import { resolve } from 'path'
 
-export function configSvgIconsPlugin(isBuild: boolean) {
+export const configSvgIconsPlugin = (isBuild: boolean) => {
   const svgIconsPlugin = SvgIconsPlugin({
     iconDirs: [resolve(process.cwd(), 'src/assets/icons')],
     svgoOptions: isBuild,

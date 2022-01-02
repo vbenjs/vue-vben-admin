@@ -1,5 +1,6 @@
-import { prefixCls } from '@vben-admin/setting'
+import type { Plugin } from 'vue'
 
+let namespace = ''
 type Mod = string | { [key: string]: any }
 type Mods = Mod | Mod[]
 
@@ -46,10 +47,18 @@ const buildBEM = (name: string) => {
 }
 
 export const createBEM = (name: string) => {
-  return [buildBEM(`${prefixCls}-${name}`)]
+  return [buildBEM(`${namespace}-${name}`)]
 }
 
 export const createNamespace = (name: string) => {
-  const prefixedName = `${prefixCls}-${name}`
+  const prefixedName = `${namespace}-${name}`
   return [prefixedName, buildBEM(prefixedName)] as const
+}
+
+export const createBEMPlugin = (_namespace: string): Plugin => {
+  return {
+    install: () => {
+      namespace = _namespace
+    },
+  }
 }

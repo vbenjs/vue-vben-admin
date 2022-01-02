@@ -13,14 +13,13 @@ export interface GenerateColorsParams {
   color?: string
 }
 
-export function generateAntColors(
+export const generateAntColors = (
   color: string,
   theme: GenerateTheme = 'default',
-) {
-  return generate(color, {
+) =>
+  generate(color, {
     theme,
   })
-}
 
 export function getThemeColors(color?: string) {
   const tc = color || primaryColor

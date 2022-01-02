@@ -6,20 +6,16 @@ import type { Plugin } from 'vite'
 
 import compressPlugin from 'vite-plugin-compression'
 
-export function configCompressPlugin(
+export const configCompressPlugin = (
   compress: 'gzip' | 'brotli' | 'none',
   deleteOriginFile = false,
-): Plugin | Plugin[] {
+): Plugin | Plugin[] => {
   const compressList = compress.split(',')
 
   const plugins: Plugin[] = []
 
   if (compressList.includes('gzip')) {
-    plugins.push(
-      compressPlugin({
-        deleteOriginFile,
-      }),
-    )
+    plugins.push(compressPlugin({ deleteOriginFile }))
   }
 
   if (compressList.includes('brotli')) {

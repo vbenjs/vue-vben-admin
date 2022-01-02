@@ -8,9 +8,9 @@ import type {
 } from '@vben-admin/types'
 import { ThemeEnum } from '@vben-admin/tokens'
 import { deepMerge } from '@vben-admin/utils'
-import { defineStore } from 'pinia'
-import { store } from '/@/internal'
 import { darkMode } from '@vben-admin/setting'
+import { defineStore } from 'pinia'
+import { pinia } from '/@/internal'
 import { resetRouter } from '/@/router'
 
 interface AppState {
@@ -105,5 +105,5 @@ export const useAppStore = defineStore({
 
 // Need to be used outside the setup
 export function useAppStoreWithOut() {
-  return useAppStore(store)
+  return useAppStore(pinia)
 }
