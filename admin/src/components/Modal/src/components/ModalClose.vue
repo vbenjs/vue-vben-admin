@@ -24,7 +24,7 @@ import {
   FullscreenOutlined,
   CloseOutlined,
 } from '@ant-design/icons-vue'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 import { Tooltip } from 'ant-design-vue'
 import { useI18n } from '@vben-admin/locale'
 

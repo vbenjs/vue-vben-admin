@@ -33,12 +33,12 @@
 import { computed, defineComponent, ref, unref, CSSProperties, h } from 'vue'
 import { Layout } from 'ant-design-vue'
 import LayoutMenu from '../menu/index.vue'
-import LayoutTrigger from '/@/layouts/default/trigger/index.vue'
+import LayoutTrigger from '@/layouts/default/trigger/index.vue'
 import { MenuModeEnum, MenuSplitTyeEnum } from '@vben-admin/tokens'
-import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
+import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
 import { useTrigger, useDragLine, useSiderEvent } from './useLayoutSider'
-import { useAppInject } from '/@/hooks/web/useAppInject'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useAppInject } from '@/hooks/web/useAppInject'
+import { useDesign } from '@/hooks/web/useDesign'
 
 import DragBar from './DragBar.vue'
 export default defineComponent({

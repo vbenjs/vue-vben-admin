@@ -75,7 +75,7 @@ import ModalHeader from './components/ModalHeader.vue'
 import { isFunction, omit, deepMerge } from '@vben-admin/utils'
 import { basicProps } from './props'
 import { useFullScreen } from './hooks/useModalFullScreen'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 
 export default defineComponent({
   name: 'BasicModal',

@@ -16,7 +16,7 @@
 import { defineComponent } from 'vue'
 import { Tabs } from 'ant-design-vue'
 
-import { ScrollContainer } from '/@/components/Container/index'
+import { ScrollContainer } from '@/components/Container/index'
 import { settingList } from './data'
 
 import BaseSetting from './BaseSetting.vue'

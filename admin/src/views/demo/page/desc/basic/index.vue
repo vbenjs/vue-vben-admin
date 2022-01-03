@@ -26,9 +26,9 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { Description } from '/@/components/Description/index'
-import { BasicTable, useTable } from '/@/components/Table'
-import { PageWrapper } from '/@/components/Page'
+import { Description } from '@/components/Description/index'
+import { BasicTable, useTable } from '@/components/Table'
+import { PageWrapper } from '@/components/Page'
 import { Divider } from 'ant-design-vue'
 
 import {

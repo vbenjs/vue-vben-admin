@@ -1,8 +1,8 @@
-import { getParentLayout, LAYOUT } from '/@/router/constant'
+import { getParentLayout, LAYOUT } from '@/router/constant'
 import { ExceptionEnum } from '@vben-admin/tokens'
 import { t } from '@vben-admin/locale'
 
-const ExceptionPage = () => import('/@/views/sys/exception/Exception.vue')
+const ExceptionPage = () => import('@/views/sys/exception/Exception.vue')
 
 const page: RouteRecordItem = {
   path: '/page-demo',
@@ -28,7 +28,7 @@ const page: RouteRecordItem = {
         {
           path: 'basic',
           name: 'FormBasicPage',
-          component: () => import('/@/views/demo/page/form/basic/index.vue'),
+          component: () => import('@/views/demo/page/form/basic/index.vue'),
           meta: {
             title: t('routes.demo.page.formBasic'),
           },
@@ -36,7 +36,7 @@ const page: RouteRecordItem = {
         {
           path: 'step',
           name: 'FormStepPage',
-          component: () => import('/@/views/demo/page/form/step/index.vue'),
+          component: () => import('@/views/demo/page/form/step/index.vue'),
           meta: {
             title: t('routes.demo.page.formStep'),
           },
@@ -44,7 +44,7 @@ const page: RouteRecordItem = {
         {
           path: 'high',
           name: 'FormHightPage',
-          component: () => import('/@/views/demo/page/form/high/index.vue'),
+          component: () => import('@/views/demo/page/form/high/index.vue'),
           meta: {
             title: t('routes.demo.page.formHigh'),
           },
@@ -65,7 +65,7 @@ const page: RouteRecordItem = {
         {
           path: 'basic',
           name: 'DescBasicPage',
-          component: () => import('/@/views/demo/page/desc/basic/index.vue'),
+          component: () => import('@/views/demo/page/desc/basic/index.vue'),
           meta: {
             title: t('routes.demo.page.descBasic'),
           },
@@ -73,7 +73,7 @@ const page: RouteRecordItem = {
         {
           path: 'high',
           name: 'DescHighPage',
-          component: () => import('/@/views/demo/page/desc/high/index.vue'),
+          component: () => import('@/views/demo/page/desc/high/index.vue'),
           meta: {
             title: t('routes.demo.page.descHigh'),
           },
@@ -96,8 +96,7 @@ const page: RouteRecordItem = {
         {
           path: 'success',
           name: 'ResultSuccessPage',
-          component: () =>
-            import('/@/views/demo/page/result/success/index.vue'),
+          component: () => import('@/views/demo/page/result/success/index.vue'),
           meta: {
             title: t('routes.demo.page.resultSuccess'),
           },
@@ -105,7 +104,7 @@ const page: RouteRecordItem = {
         {
           path: 'fail',
           name: 'ResultFailPage',
-          component: () => import('/@/views/demo/page/result/fail/index.vue'),
+          component: () => import('@/views/demo/page/result/fail/index.vue'),
           meta: {
             title: t('routes.demo.page.resultFail'),
           },
@@ -127,8 +126,7 @@ const page: RouteRecordItem = {
         {
           path: 'center',
           name: 'AccountCenterPage',
-          component: () =>
-            import('/@/views/demo/page/account/center/index.vue'),
+          component: () => import('@/views/demo/page/account/center/index.vue'),
           meta: {
             title: t('routes.demo.page.accountCenter'),
           },
@@ -137,7 +135,7 @@ const page: RouteRecordItem = {
           path: 'setting',
           name: 'AccountSettingPage',
           component: () =>
-            import('/@/views/demo/page/account/setting/index.vue'),
+            import('@/views/demo/page/account/setting/index.vue'),
           meta: {
             title: t('routes.demo.page.accountSetting'),
           },
@@ -226,7 +224,7 @@ const page: RouteRecordItem = {
         {
           path: 'basic',
           name: 'ListBasicPage',
-          component: () => import('/@/views/demo/page/list/basic/index.vue'),
+          component: () => import('@/views/demo/page/list/basic/index.vue'),
           meta: {
             title: t('routes.demo.page.listBasic'),
           },
@@ -234,7 +232,7 @@ const page: RouteRecordItem = {
         {
           path: 'card',
           name: 'ListCardPage',
-          component: () => import('/@/views/demo/page/list/card/index.vue'),
+          component: () => import('@/views/demo/page/list/card/index.vue'),
           meta: {
             title: t('routes.demo.page.listCard'),
           },
@@ -242,7 +240,7 @@ const page: RouteRecordItem = {
         {
           path: 'search',
           name: 'ListSearchPage',
-          component: () => import('/@/views/demo/page/list/search/index.vue'),
+          component: () => import('@/views/demo/page/list/search/index.vue'),
           meta: {
             title: t('routes.demo.page.listSearch'),
           },

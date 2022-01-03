@@ -44,12 +44,12 @@ import {
   PropType,
 } from 'vue'
 import CopperModal from './CopperModal.vue'
-import { useDesign } from '/@/hooks/web/useDesign'
-import { useModal } from '/@/components/Modal'
-import { useMessage } from '/@/hooks/web/useMessage'
+import { useDesign } from '@/hooks/web/useDesign'
+import { useModal } from '@/components/Modal'
+import { useMessage } from '@/hooks/web/useMessage'
 import { useI18n } from '@vben-admin/locale'
-import type { ButtonProps } from '/@/components/Button'
-import Icon from '/@/components/Icon'
+import type { ButtonProps } from '@/components/Button'
+import Icon from '@/components/Icon'
 
 const props = {
   width: { type: [String, Number], default: '200px' },

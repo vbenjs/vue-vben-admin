@@ -39,10 +39,10 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { Alert, Space } from 'ant-design-vue'
-import { useUserStore } from '/@/store/user'
+import { useUserStore } from '@/store/user'
 import { RoleEnum } from '@vben-admin/tokens'
-import { usePermission } from '/@/hooks/web/usePermission'
-import { PageWrapper } from '/@/components/Page'
+import { usePermission } from '@/hooks/web/usePermission'
+import { PageWrapper } from '@/components/Page'
 import CurrentPermissionMode from '../CurrentPermissionMode.vue'
 
 export default defineComponent({

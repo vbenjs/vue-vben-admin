@@ -13,10 +13,10 @@
 </template>
 <script lang="ts">
 import { defineComponent, unref, ref } from 'vue'
-import { CollapseContainer } from '/@/components/Container/index'
-import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard'
-import { useMessage } from '/@/hooks/web/useMessage'
-import { PageWrapper } from '/@/components/Page'
+import { CollapseContainer } from '@/components/Container/index'
+import { useCopyToClipboard } from '@/hooks/web/useCopyToClipboard'
+import { useMessage } from '@/hooks/web/useMessage'
+import { PageWrapper } from '@/components/Page'
 
 export default defineComponent({
   name: 'Copy',

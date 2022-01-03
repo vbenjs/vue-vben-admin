@@ -6,14 +6,14 @@ import { projectSetting, primaryColor } from '@vben-admin/setting'
 import {
   updateHeaderBgColor,
   updateSidebarBgColor,
-} from '/@/logics/theme/updateBackground'
+} from '@/logics/theme/updateBackground'
 
-import { updateColorWeak } from '/@/logics/theme/updateColorWeak'
-import { updateGrayMode } from '/@/logics/theme/updateGrayMode'
-import { updateDarkTheme } from '/@/logics/theme/dark'
-import { changeTheme } from '/@/logics/theme'
-import { useAppStore } from '/@/store/app'
-import { createStorageKeyPrefix, createStorageName } from '/@/internal'
+import { updateColorWeak } from '@/logics/theme/updateColorWeak'
+import { updateGrayMode } from '@/logics/theme/updateGrayMode'
+import { updateDarkTheme } from '@/logics/theme/dark'
+import { changeTheme } from '@/logics/theme'
+import { useAppStore } from '@/store/app'
+import { createStorageKeyPrefix, createStorageName } from '@/internal'
 import { deepMerge } from '@vben-admin/utils'
 import { ThemeEnum } from '@vben-admin/tokens'
 

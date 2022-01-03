@@ -2,15 +2,15 @@ import { HandlerEnum } from './enum'
 import {
   updateHeaderBgColor,
   updateSidebarBgColor,
-} from '/@/logics/theme/updateBackground'
-import { updateColorWeak } from '/@/logics/theme/updateColorWeak'
-import { updateGrayMode } from '/@/logics/theme/updateGrayMode'
+} from '@/logics/theme/updateBackground'
+import { updateColorWeak } from '@/logics/theme/updateColorWeak'
+import { updateGrayMode } from '@/logics/theme/updateGrayMode'
 
-import { useAppStore } from '/@/store/app'
+import { useAppStore } from '@/store/app'
 import { ProjectConfig } from '@vben-admin/types'
-import { changeTheme } from '/@/logics/theme'
-import { updateDarkTheme } from '/@/logics/theme/dark'
-import { useRootSetting } from '/@/hooks/setting/useRootSetting'
+import { changeTheme } from '@/logics/theme'
+import { updateDarkTheme } from '@/logics/theme/dark'
+import { useRootSetting } from '@/hooks/setting/useRootSetting'
 
 export function baseHandler(event: HandlerEnum, value: any) {
   const appStore = useAppStore()

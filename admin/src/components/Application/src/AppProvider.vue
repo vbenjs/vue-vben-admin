@@ -1,8 +1,8 @@
 <script lang="ts">
 import { defineComponent, toRefs, ref, unref } from 'vue'
 import { createAppProviderContext } from './useAppContext'
-import { createBreakpointListen } from '/@/hooks/event/useBreakpoint'
-import { useAppStore } from '/@/store/app'
+import { createBreakpointListen } from '@/hooks/event/useBreakpoint'
+import { useAppStore } from '@/store/app'
 import { MenuModeEnum, MenuTypeEnum } from '@vben-admin/tokens'
 import { namespace } from '@vben-admin/setting'
 

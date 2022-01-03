@@ -15,9 +15,9 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 
-import { ImpExcel, ExcelData } from '/@/components/Excel'
-import { BasicTable, BasicColumn } from '/@/components/Table'
-import { PageWrapper } from '/@/components/Page'
+import { ImpExcel, ExcelData } from '@/components/Excel'
+import { BasicTable, BasicColumn } from '@/components/Table'
+import { PageWrapper } from '@/components/Page'
 
 export default defineComponent({
   components: { BasicTable, ImpExcel, PageWrapper },

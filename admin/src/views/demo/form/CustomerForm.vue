@@ -11,11 +11,11 @@
 </template>
 <script lang="ts">
 import { defineComponent, h } from 'vue'
-import { BasicForm, FormSchema, useForm } from '/@/components/Form/index'
-import { CollapseContainer } from '/@/components/Container/index'
-import { useMessage } from '/@/hooks/web/useMessage'
+import { BasicForm, FormSchema, useForm } from '@/components/Form/index'
+import { CollapseContainer } from '@/components/Container/index'
+import { useMessage } from '@/hooks/web/useMessage'
 import { Input } from 'ant-design-vue'
-import { PageWrapper } from '/@/components/Page'
+import { PageWrapper } from '@/components/Page'
 
 const schemas: FormSchema[] = [
   {

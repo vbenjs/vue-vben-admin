@@ -99,10 +99,10 @@ import {
   FormSchema,
   FormActionType,
   FormProps,
-} from '/@/components/Form/index'
-import { CollapseContainer } from '/@/components/Container/index'
-import { useMessage } from '/@/hooks/web/useMessage'
-import { PageWrapper } from '/@/components/Page'
+} from '@/components/Form/index'
+import { CollapseContainer } from '@/components/Container/index'
+import { useMessage } from '@/hooks/web/useMessage'
+import { PageWrapper } from '@/components/Page'
 
 const schemas: FormSchema[] = [
   {

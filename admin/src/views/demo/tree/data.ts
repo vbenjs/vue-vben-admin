@@ -1,4 +1,4 @@
-import { TreeItem } from '/@/components/Tree/index'
+import { TreeItem } from '@/components/Tree/index'
 
 export const treeData: TreeItem[] = [
   {

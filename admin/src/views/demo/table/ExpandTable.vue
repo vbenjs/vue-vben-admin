@@ -33,8 +33,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { BasicTable, useTable, TableAction } from '/@/components/Table'
-import { PageWrapper } from '/@/components/Page'
+import { BasicTable, useTable, TableAction } from '@/components/Table'
+import { PageWrapper } from '@/components/Page'
 import { getBasicColumns } from './tableData'
 
 import { demoListApi } from '@service/demo/table'

@@ -6,13 +6,13 @@ import type {
 
 import { toRaw, unref } from 'vue'
 import { defineStore } from 'pinia'
-import { pinia } from '/@/internal'
-import { useGo, useRedo } from '/@/hooks/web/usePage'
+import { pinia } from '@/internal'
+import { useGo, useRedo } from '@/hooks/web/usePage'
 import { PageEnum } from '@vben-admin/tokens'
 import { getRawRoute } from '@vben-admin/utils'
 
-import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/routes/basic'
-import { useUserStore } from '/@/store/user'
+import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '@/router/routes/basic'
+import { useUserStore } from '@/store/user'
 
 export interface MultipleTabState {
   cacheTabList: Set<string>

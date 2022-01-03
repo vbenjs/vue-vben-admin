@@ -2,7 +2,7 @@ import type { ProjectConfig } from '@vben-admin/types'
 
 import { computed } from 'vue'
 
-import { useAppStore } from '/@/store/app'
+import { useAppStore } from '@/store/app'
 import { ContentLayoutEnum, ThemeEnum } from '@vben-admin/tokens'
 
 type RootSetting = Omit<

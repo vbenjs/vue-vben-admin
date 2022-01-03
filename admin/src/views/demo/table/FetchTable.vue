@@ -20,9 +20,9 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { BasicTable, useTable } from '/@/components/Table'
+import { BasicTable, useTable } from '@/components/Table'
 import { getBasicColumns } from './tableData'
-import { PageWrapper } from '/@/components/Page'
+import { PageWrapper } from '@/components/Page'
 
 import { demoListApi } from '@service/demo/table'
 export default defineComponent({

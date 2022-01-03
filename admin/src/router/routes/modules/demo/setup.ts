@@ -1,4 +1,4 @@
-import { LAYOUT } from '/@/router/constant'
+import { LAYOUT } from '@/router/constant'
 import { t } from '@vben-admin/locale'
 
 const setup: RouteRecordItem = {
@@ -16,7 +16,7 @@ const setup: RouteRecordItem = {
     {
       path: 'index',
       name: 'SetupDemoPage',
-      component: () => import('/@/views/demo/setup/index.vue'),
+      component: () => import('@/views/demo/setup/index.vue'),
       meta: {
         title: t('routes.demo.setup.page'),
         icon: 'whh:paintroll',

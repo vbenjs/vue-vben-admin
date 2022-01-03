@@ -9,7 +9,7 @@ import {
   getSlot,
   getPopupContainer,
 } from '@vben-admin/utils'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 
 const props = {
   /**

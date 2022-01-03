@@ -10,12 +10,12 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { BasicTable, useTable, BasicColumn } from '/@/components/Table'
+import { BasicTable, useTable, BasicColumn } from '@/components/Table'
 import { optionsListApi } from '@service/demo/select'
 
 import { demoListApi } from '@service/demo/table'
 import { treeOptionsListApi } from '@service/demo/tree'
-import { useMessage } from '/@/hooks/web/useMessage'
+import { useMessage } from '@/hooks/web/useMessage'
 const columns: BasicColumn[] = [
   {
     title: '输入框',

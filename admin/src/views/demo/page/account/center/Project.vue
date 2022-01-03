@@ -22,7 +22,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { List, Card, Row, Col } from 'ant-design-vue'
-import demoImg from '/@/assets/images/demo.png'
+import demoImg from '@/assets/images/demo.png'
 import { projectList } from './data'
 
 export default defineComponent({

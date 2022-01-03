@@ -57,10 +57,10 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, unref, ref } from 'vue'
-import { BasicForm, FormSchema, ApiSelect } from '/@/components/Form/index'
-import { CollapseContainer } from '/@/components/Container'
-import { useMessage } from '/@/hooks/web/useMessage'
-import { PageWrapper } from '/@/components/Page'
+import { BasicForm, FormSchema, ApiSelect } from '@/components/Form/index'
+import { CollapseContainer } from '@/components/Container'
+import { useMessage } from '@/hooks/web/useMessage'
+import { PageWrapper } from '@/components/Page'
 import { optionsListApi } from '@service/demo/select'
 import { treeOptionsListApi } from '@service/demo/tree'
 import { Select } from 'ant-design-vue'

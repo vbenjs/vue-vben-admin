@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { AppLogo } from '/@/components/Application'
-import { AppLocalePicker, AppDarkModeToggle } from '/@/components/Application'
-import { getGlobalConfig } from '/@/internal'
+import { AppLogo } from '@/components/Application'
+import { AppLocalePicker, AppDarkModeToggle } from '@/components/Application'
+import { getGlobalConfig } from '@/internal'
 import { useI18n, showLocalePicker } from '@vben-admin/locale'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 import LoginForm from './LoginForm.vue'
 import ForgetPasswordForm from './ForgetPasswordForm.vue'
 import RegisterForm from './RegisterForm.vue'
@@ -47,7 +47,7 @@ const title = computed(() => globSetting?.title ?? '')
           <div class="my-auto">
             <img
               :alt="title"
-              src="/@/assets/svg/login-box-bg.svg"
+              src="@/assets/svg/login-box-bg.svg"
               class="w-1/2 -mt-16 -enter-x"
             />
             <div class="mt-10 font-medium text-white -enter-x">
@@ -92,7 +92,7 @@ html[data-theme='dark'] {
     background-color: @dark-bg;
 
     &::before {
-      background-image: url(/@/assets/svg/login-bg-dark.svg);
+      background-image: url(@/assets/svg/login-bg-dark.svg);
     }
 
     .ant-input,
@@ -138,7 +138,7 @@ html[data-theme='dark'] {
     width: 100%;
     height: 100%;
     margin-left: -48%;
-    background-image: url(/@/assets/svg/login-bg.svg);
+    background-image: url(@/assets/svg/login-bg.svg);
     background-position: 100%;
     background-repeat: no-repeat;
     background-size: auto 100%;

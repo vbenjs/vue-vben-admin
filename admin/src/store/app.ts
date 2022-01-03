@@ -10,8 +10,8 @@ import { ThemeEnum } from '@vben-admin/tokens'
 import { deepMerge } from '@vben-admin/utils'
 import { darkMode } from '@vben-admin/setting'
 import { defineStore } from 'pinia'
-import { pinia } from '/@/internal'
-import { resetRouter } from '/@/router'
+import { pinia } from '@/internal'
+import { resetRouter } from '@/router'
 
 interface AppState {
   darkMode?: ThemeEnum

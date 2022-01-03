@@ -27,13 +27,13 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useI18n } from '@vben-admin/locale'
-import { useDesign } from '/@/hooks/web/useDesign'
-import { BasicModal, useModalInner } from '/@/components/Modal/index'
-import { BasicForm, useForm } from '/@/components/Form/index'
+import { useDesign } from '@/hooks/web/useDesign'
+import { BasicModal, useModalInner } from '@/components/Modal/index'
+import { BasicForm, useForm } from '@/components/Form/index'
 
-import { useUserStore } from '/@/store/user'
-import { useLockStore } from '/@/store/lock'
-import headerImg from '/@/assets/images/header.jpg'
+import { useUserStore } from '@/store/user'
+import { useLockStore } from '@/store/lock'
+import headerImg from '@/assets/images/header.jpg'
 export default defineComponent({
   name: 'LockModal',
   components: { BasicModal, BasicForm },

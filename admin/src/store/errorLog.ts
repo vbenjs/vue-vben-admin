@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 import { formatToDateTime } from '@vben-admin/utils'
 import { projectSetting } from '@vben-admin/setting'
 import { ErrorTypeEnum } from '@vben-admin/tokens'
-import { pinia } from '/@/internal'
+import { pinia } from '@/internal'
 
 export interface ErrorLogState {
   errorLogInfoList: Nullable<ErrorLogInfo[]>

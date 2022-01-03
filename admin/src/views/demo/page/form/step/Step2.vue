@@ -20,7 +20,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { BasicForm, useForm } from '/@/components/Form'
+import { BasicForm, useForm } from '@/components/Form'
 import { step2Schemas } from './data'
 import { Alert, Divider, Descriptions } from 'ant-design-vue'
 

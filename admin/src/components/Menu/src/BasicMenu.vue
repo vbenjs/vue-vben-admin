@@ -40,11 +40,11 @@ import { RouteLocationNormalizedLoaded, useRouter } from 'vue-router'
 import { isFunction } from '@vben-admin/utils'
 import { REDIRECT_NAME } from '@vben-admin/tokens'
 import { basicProps } from './props'
-import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
-import { useDesign } from '/@/hooks/web/useDesign'
-import { getCurrentParentPath } from '/@/router/menus'
-import { listenerRouteChange } from '/@/logics/mitt/routeChange'
-import { getAllParentPath } from '/@/router/helper/menuHelper'
+import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
+import { useDesign } from '@/hooks/web/useDesign'
+import { getCurrentParentPath } from '@/router/menus'
+import { listenerRouteChange } from '@/logics/mitt/routeChange'
+import { getAllParentPath } from '@/router/helper/menuHelper'
 
 export default defineComponent({
   name: 'BasicMenu',

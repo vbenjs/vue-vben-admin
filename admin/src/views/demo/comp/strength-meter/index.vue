@@ -17,8 +17,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { StrengthMeter } from '/@/components/StrengthMeter'
-import { PageWrapper } from '/@/components/Page'
+import { StrengthMeter } from '@/components/StrengthMeter'
+import { PageWrapper } from '@/components/Page'
 
 export default defineComponent({
   components: {

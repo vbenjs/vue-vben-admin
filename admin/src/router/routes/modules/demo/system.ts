@@ -1,4 +1,4 @@
-import { LAYOUT } from '/@/router/constant'
+import { LAYOUT } from '@/router/constant'
 import { t } from '@vben-admin/locale'
 
 const system: RouteRecordItem = {
@@ -19,7 +19,7 @@ const system: RouteRecordItem = {
         title: t('routes.demo.system.account'),
         ignoreKeepAlive: false,
       },
-      component: () => import('/@/views/demo/system/account/index.vue'),
+      component: () => import('@/views/demo/system/account/index.vue'),
     },
     {
       path: 'account_detail/:id',
@@ -31,7 +31,7 @@ const system: RouteRecordItem = {
         showMenu: false,
         currentActiveMenu: '/system/account',
       },
-      component: () => import('/@/views/demo/system/account/AccountDetail.vue'),
+      component: () => import('@/views/demo/system/account/AccountDetail.vue'),
     },
     {
       path: 'role',
@@ -40,7 +40,7 @@ const system: RouteRecordItem = {
         title: t('routes.demo.system.role'),
         ignoreKeepAlive: true,
       },
-      component: () => import('/@/views/demo/system/role/index.vue'),
+      component: () => import('@/views/demo/system/role/index.vue'),
     },
 
     {
@@ -50,7 +50,7 @@ const system: RouteRecordItem = {
         title: t('routes.demo.system.menu'),
         ignoreKeepAlive: true,
       },
-      component: () => import('/@/views/demo/system/menu/index.vue'),
+      component: () => import('@/views/demo/system/menu/index.vue'),
     },
     {
       path: 'dept',
@@ -59,7 +59,7 @@ const system: RouteRecordItem = {
         title: t('routes.demo.system.dept'),
         ignoreKeepAlive: true,
       },
-      component: () => import('/@/views/demo/system/dept/index.vue'),
+      component: () => import('@/views/demo/system/dept/index.vue'),
     },
     {
       path: 'changePassword',
@@ -68,7 +68,7 @@ const system: RouteRecordItem = {
         title: t('routes.demo.system.password'),
         ignoreKeepAlive: true,
       },
-      component: () => import('/@/views/demo/system/password/index.vue'),
+      component: () => import('@/views/demo/system/password/index.vue'),
     },
   ],
 }

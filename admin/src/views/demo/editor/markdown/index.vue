@@ -27,8 +27,8 @@ import {
   MarkDown,
   MarkDownActionType,
   MarkdownViewer,
-} from '/@/components/Markdown'
-import { PageWrapper } from '/@/components/Page'
+} from '@/components/Markdown'
+import { PageWrapper } from '@/components/Page'
 import { Card } from 'ant-design-vue'
 
 export default defineComponent({

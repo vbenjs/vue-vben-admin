@@ -13,7 +13,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { BasicModal, useModalInner } from '/@/components/Modal'
+import { BasicModal, useModalInner } from '@/components/Modal'
 export default defineComponent({
   components: { BasicModal },
   setup() {

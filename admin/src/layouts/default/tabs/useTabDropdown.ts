@@ -1,12 +1,12 @@
 import type { TabContentProps } from './types'
-import type { DropMenu } from '/@/components/Dropdown'
+import type { DropMenu } from '@/components/Dropdown'
 import type { ComputedRef } from 'vue'
 
 import { computed, unref, reactive } from 'vue'
 import { MenuEventEnum } from './types'
-import { useMultipleTabStore } from '/@/store/multipleTab'
+import { useMultipleTabStore } from '@/store/multipleTab'
 import { RouteLocationNormalized, useRouter } from 'vue-router'
-import { useTabs } from '/@/hooks/web/useTabs'
+import { useTabs } from '@/hooks/web/useTabs'
 import { useI18n } from '@vben-admin/locale'
 
 export function useTabDropdown(

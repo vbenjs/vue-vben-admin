@@ -35,7 +35,7 @@ import {
   watchEffect,
 } from 'vue'
 import { Divider, Tooltip } from 'ant-design-vue'
-import { Icon } from '/@/components/Icon'
+import { Icon } from '@/components/Icon'
 
 import { useFlowChartContext } from './useFlowContext'
 import { ToolbarTypeEnum } from './enum'

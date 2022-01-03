@@ -1,9 +1,9 @@
 import { t } from '@vben-admin/locale'
 import { REDIRECT_NAME, PAGE_NOT_FOUND_NAME } from '@vben-admin/tokens'
-import { LAYOUT } from '/@/router/constant'
+import { LAYOUT } from '@/router/constant'
 
 export const EXCEPTION_COMPONENT = () =>
-  import('/@/views/sys/exception/Exception.vue')
+  import('@/views/sys/exception/Exception.vue')
 
 // 404 on a page
 export const PAGE_NOT_FOUND_ROUTE: RouteRecordItem = {
@@ -42,7 +42,7 @@ export const REDIRECT_ROUTE: RouteRecordItem = {
     {
       path: '/redirect/:path(.*)',
       name: REDIRECT_NAME,
-      component: () => import('/@/views/sys/redirect/index.vue'),
+      component: () => import('@/views/sys/redirect/index.vue'),
       meta: {
         title: REDIRECT_NAME,
         hideBreadcrumb: true,
@@ -65,7 +65,7 @@ export const ERROR_LOG_ROUTE: RouteRecordItem = {
     {
       path: 'list',
       name: 'ErrorLogList',
-      component: () => import('/@/views/sys/error-log/index.vue'),
+      component: () => import('@/views/sys/error-log/index.vue'),
       meta: {
         title: t('routes.basic.errorLogList'),
         hideBreadcrumb: true,

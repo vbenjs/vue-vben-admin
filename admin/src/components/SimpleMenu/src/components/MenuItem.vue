@@ -30,7 +30,7 @@ import {
   getCurrentInstance,
   watch,
 } from 'vue'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 import { useMenuItem } from './useMenu'
 import { Tooltip } from 'ant-design-vue'
 import { useSimpleRootMenuContext } from './useSimpleMenuContext'

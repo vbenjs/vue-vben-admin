@@ -16,8 +16,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { PageWrapper } from '/@/components/Page'
-import { BasicForm, useForm } from '/@/components/Form'
+import { PageWrapper } from '@/components/Page'
+import { BasicForm, useForm } from '@/components/Form'
 
 import { formSchema } from './pwd.data'
 export default defineComponent({

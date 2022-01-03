@@ -31,10 +31,10 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { VScroll } from '/@/components/VirtualScroll/index'
+import { VScroll } from '@/components/VirtualScroll/index'
 
 import { Divider } from 'ant-design-vue'
-import { PageWrapper } from '/@/components/Page'
+import { PageWrapper } from '@/components/Page'
 const data: Recordable[] = (() => {
   const arr: Recordable[] = []
   for (let index = 1; index < 20000; index++) {

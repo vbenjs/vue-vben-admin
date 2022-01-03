@@ -5,6 +5,9 @@ import { resolve } from 'path'
 import { OUTPUT_DIR, wrapperEnv } from './config'
 import { configProxy, configVitePlugins } from './config/vite'
 import { generateModifyVars } from './config/modifyVars'
+import { cyan } from 'chalk'
+
+console.log(cyan('当前处于开发测试阶段，请勿用于实际项目！\n'))
 
 export default defineConfig(async ({ command, mode }) => {
   const { dependencies, devDependencies, name, version } = pkg
@@ -27,7 +30,7 @@ export default defineConfig(async ({ command, mode }) => {
     base: VITE_PUBLIC_PATH,
     resolve: {
       alias: {
-        '/@/': `${resolve(__dirname, 'src')}/`,
+        '@/': `${resolve(__dirname, 'src')}/`,
         '@service': `@vben-admin/service/modules`,
         'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
         vue: 'vue/dist/vue.esm-bundler.js',

@@ -13,7 +13,7 @@ import {
   nextTick,
 } from 'vue'
 import { useDebounceFn, useWindowResize } from '@vben-admin/use'
-import { useAppStore } from '/@/store/app'
+import { useAppStore } from '@/store/app'
 import CodeMirror from 'codemirror'
 import { MODE } from './../typing'
 // css

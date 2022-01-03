@@ -1,14 +1,14 @@
 <script lang="ts">
 import { defineComponent, computed, unref } from 'vue'
 import { BackTop } from 'ant-design-vue'
-import { useRootSetting } from '/@/hooks/setting/useRootSetting'
-import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
-import { useDesign } from '/@/hooks/web/useDesign'
-import { useUserStoreWithOut } from '/@/store/user'
+import { useRootSetting } from '@/hooks/setting/useRootSetting'
+import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
+import { useDesign } from '@/hooks/web/useDesign'
+import { useUserStoreWithOut } from '@/store/user'
 import { SettingButtonPositionEnum } from '@vben-admin/tokens'
-import SessionTimeoutLogin from '/@/views/sys/login/SessionTimeoutLogin.vue'
-import LayoutLockPage from '/@/views/sys/lock/index.vue'
-import SettingDrawer from '/@/layouts/default/setting/index.vue'
+import SessionTimeoutLogin from '@/views/sys/login/SessionTimeoutLogin.vue'
+import LayoutLockPage from '@/views/sys/lock/index.vue'
+import SettingDrawer from '@/layouts/default/setting/index.vue'
 export default defineComponent({
   name: 'LayoutFeatures',
   components: {

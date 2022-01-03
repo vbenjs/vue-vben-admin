@@ -62,11 +62,11 @@ import {
   PropType,
 } from 'vue'
 import { Upload, Alert } from 'ant-design-vue'
-import { BasicModal, useModalInner } from '/@/components/Modal'
-//   import { BasicTable, useTable } from '/@/components/Table';
+import { BasicModal, useModalInner } from '@/components/Modal'
+//   import { BasicTable, useTable } from '@/components/Table';
 // hooks
 import { useUploadType } from './useUpload'
-import { useMessage } from '/@/hooks/web/useMessage'
+import { useMessage } from '@/hooks/web/useMessage'
 //   types
 import { FileItem, UploadResultStatus } from './typing'
 import { basicProps } from './props'

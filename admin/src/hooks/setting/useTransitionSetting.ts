@@ -2,7 +2,7 @@ import type { TransitionSetting } from '@vben-admin/types'
 
 import { computed } from 'vue'
 
-import { useAppStore } from '/@/store/app'
+import { useAppStore } from '@/store/app'
 
 export function useTransitionSetting() {
   const appStore = useAppStore()

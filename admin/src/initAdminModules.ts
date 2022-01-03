@@ -3,15 +3,15 @@ import { initServiceModule } from '@vben-admin/service/_bridge'
 import { initDirectiveModule } from '@vben-admin/directives/_bridge'
 
 // service
-import { getGlobalConfig } from '/@/internal'
-import { useMessage } from '/@/hooks/web/useMessage'
-import { useErrorLogStoreWithOut } from '/@/store/errorLog'
-import { useUserStoreWithOut } from '/@/store/user'
+import { getGlobalConfig } from '@/internal'
+import { useMessage } from '@/hooks/web/useMessage'
+import { useErrorLogStoreWithOut } from '@/store/errorLog'
+import { useUserStoreWithOut } from '@/store/user'
 import { useI18n } from '@vben-admin/locale'
 import { SessionTimeoutProcessingEnum } from '@vben-admin/tokens'
 
-import { createLoading } from '/@/components/Loading'
-import { usePermission } from '/@/hooks/web/usePermission'
+import { createLoading } from '@/components/Loading'
+import { usePermission } from '@/hooks/web/usePermission'
 
 // To decouple the modules below `packages/*`, they no longer depend on each other
 // If the modules are heavily dependent on each other, you need to provide a decoupling method, and the caller will pass the parameters

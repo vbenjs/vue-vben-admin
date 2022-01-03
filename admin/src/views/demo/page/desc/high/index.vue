@@ -112,8 +112,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { BasicTable, useTable } from '/@/components/Table'
-import { PageWrapper } from '/@/components/Page'
+import { BasicTable, useTable } from '@/components/Table'
+import { PageWrapper } from '@/components/Page'
 import { Divider, Card, Empty, Descriptions, Steps, Tabs } from 'ant-design-vue'
 
 import { refundTimeTableSchema, refundTimeTableData } from './data'

@@ -617,7 +617,7 @@ When mock is not used, move `mock.js` out of the package file
 
 ### ✨ Refactor
 
-- Independent component configuration to `/@/settings/componentsSetting`
+- Independent component configuration to `@/settings/componentsSetting`
 - `colorSetting` and `designSetting` are now merged into `designSetting`
 - `ant-design-vue` component registration moved to `components/registerComponent`
 - Remove the `setup` folder
@@ -782,9 +782,9 @@ When mock is not used, move `mock.js` out of the package file
 
 ## (破坏性更新) Breaking changes
 
-- The ClickOutSide component import method is changed from `import ClickOutSide from'/@/components/ClickOutSide/index.vue'` to `import {ClickOutSide} from'/@/components/ClickOutSide'`
-- Button component import method changed from `import Button from'/@/components/Button/index.vue'` to `import {Button} from'/@/components/Button'`
-- StrengthMeter component import method is changed from `import StrengthMeter from'/@/components/StrengthMeter'` to `import {StrengthMeter} from'/@/components/StrengthMeter'`
+- The ClickOutSide component import method is changed from `import ClickOutSide from'@/components/ClickOutSide/index.vue'` to `import {ClickOutSide} from'@/components/ClickOutSide'`
+- Button component import method changed from `import Button from'@/components/Button/index.vue'` to `import {Button} from'@/components/Button'`
+- StrengthMeter component import method is changed from `import StrengthMeter from'@/components/StrengthMeter'` to `import {StrengthMeter} from'@/components/StrengthMeter'`
 - In addition to the examples, the global internationalization function is added, supporting Chinese and English
 
 ### ✨ Refactor

@@ -1,4 +1,4 @@
-import { getParentLayout, LAYOUT } from '/@/router/constant'
+import { getParentLayout, LAYOUT } from '@/router/constant'
 import { RoleEnum } from '@vben-admin/tokens'
 import { t } from '@vben-admin/locale'
 
@@ -25,7 +25,7 @@ const permission: RouteRecordItem = {
         {
           path: 'page',
           name: 'FrontPageAuth',
-          component: () => import('/@/views/demo/permission/front/index.vue'),
+          component: () => import('@/views/demo/permission/front/index.vue'),
           meta: {
             title: t('routes.demo.permission.frontPage'),
           },
@@ -33,7 +33,7 @@ const permission: RouteRecordItem = {
         {
           path: 'btn',
           name: 'FrontBtnAuth',
-          component: () => import('/@/views/demo/permission/front/Btn.vue'),
+          component: () => import('@/views/demo/permission/front/Btn.vue'),
           meta: {
             title: t('routes.demo.permission.frontBtn'),
           },
@@ -42,7 +42,7 @@ const permission: RouteRecordItem = {
           path: 'auth-pageA',
           name: 'FrontAuthPageA',
           component: () =>
-            import('/@/views/demo/permission/front/AuthPageA.vue'),
+            import('@/views/demo/permission/front/AuthPageA.vue'),
           meta: {
             title: t('routes.demo.permission.frontTestA'),
             roles: [RoleEnum.SUPER],
@@ -52,7 +52,7 @@ const permission: RouteRecordItem = {
           path: 'auth-pageB',
           name: 'FrontAuthPageB',
           component: () =>
-            import('/@/views/demo/permission/front/AuthPageB.vue'),
+            import('@/views/demo/permission/front/AuthPageB.vue'),
           meta: {
             title: t('routes.demo.permission.frontTestB'),
             roles: [RoleEnum.TEST],
@@ -71,7 +71,7 @@ const permission: RouteRecordItem = {
         {
           path: 'page',
           name: 'BackAuthPage',
-          component: () => import('/@/views/demo/permission/back/index.vue'),
+          component: () => import('@/views/demo/permission/back/index.vue'),
           meta: {
             title: t('routes.demo.permission.backPage'),
           },
@@ -79,7 +79,7 @@ const permission: RouteRecordItem = {
         {
           path: 'btn',
           name: 'BackAuthBtn',
-          component: () => import('/@/views/demo/permission/back/Btn.vue'),
+          component: () => import('@/views/demo/permission/back/Btn.vue'),
           meta: {
             title: t('routes.demo.permission.backBtn'),
           },

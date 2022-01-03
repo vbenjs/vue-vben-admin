@@ -11,9 +11,9 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { BasicForm, FormSchema, useForm } from '/@/components/Form/index'
-import { CollapseContainer } from '/@/components/Container'
-import { PageWrapper } from '/@/components/Page'
+import { BasicForm, FormSchema, useForm } from '@/components/Form/index'
+import { CollapseContainer } from '@/components/Container'
+import { PageWrapper } from '@/components/Page'
 
 const getSchamas = (): FormSchema[] => {
   return [

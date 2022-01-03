@@ -1,6 +1,6 @@
 import { ComputedRef, isRef, nextTick, Ref, ref, unref, watch } from 'vue'
 import { useWindowResize } from '@vben-admin/use'
-import { useLayoutHeight } from '/@/layouts/default/content/useContentViewHeight'
+import { useLayoutHeight } from '@/layouts/default/content/useContentViewHeight'
 import {
   isNumber,
   isString,

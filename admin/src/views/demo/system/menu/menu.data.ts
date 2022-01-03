@@ -1,8 +1,8 @@
-import { BasicColumn } from '/@/components/Table'
-import { FormSchema } from '/@/components/Table'
+import { BasicColumn } from '@/components/Table'
+import { FormSchema } from '@/components/Table'
 import { h } from 'vue'
 import { Tag } from 'ant-design-vue'
-import { Icon } from '/@/components/Icon'
+import { Icon } from '@/components/Icon'
 
 export const columns: BasicColumn[] = [
   {

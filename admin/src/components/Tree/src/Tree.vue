@@ -23,7 +23,7 @@ import {
 import TreeHeader from './TreeHeader.vue'
 import { Tree, Empty } from 'ant-design-vue'
 import { TreeIcon } from './TreeIcon'
-import { ScrollContainer } from '/@/components/Container'
+import { ScrollContainer } from '@/components/Container'
 import { omit, get, difference } from '@vben-admin/utils'
 import {
   isArray,
@@ -40,8 +40,8 @@ import {
 } from '@vben-admin/utils'
 
 import { useTree } from './useTree'
-import { useContextMenu } from '/@/hooks/web/useContextMenu'
-import { CreateContextOptions } from '/@/components/ContextMenu'
+import { useContextMenu } from '@/hooks/web/useContextMenu'
+import { CreateContextOptions } from '@/components/ContextMenu'
 import { treeEmits, treeProps } from './tree'
 
 export default defineComponent({

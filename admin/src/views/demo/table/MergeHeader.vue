@@ -5,7 +5,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { BasicTable, useTable } from '/@/components/Table'
+import { BasicTable, useTable } from '@/components/Table'
 import { getMergeHeaderColumns } from './tableData'
 
 import { demoListApi } from '@service/demo/table'

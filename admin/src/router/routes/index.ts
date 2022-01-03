@@ -1,4 +1,4 @@
-import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/routes/basic'
+import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '@/router/routes/basic'
 
 import { mainOutRoutes } from './mainOut'
 import { PageEnum } from '@vben-admin/tokens'
@@ -28,7 +28,7 @@ export const RootRoute: RouteRecordItem = {
 export const LoginRoute: RouteRecordItem = {
   path: '/login',
   name: 'Login',
-  component: () => import('/@/views/sys/login/Login.vue'),
+  component: () => import('@/views/sys/login/Login.vue'),
   meta: {
     title: t('routes.basic.login'),
   },

@@ -1,14 +1,14 @@
-import type { Menu, MenuModule } from '/@/router/types'
+import type { Menu, MenuModule } from '@/router/types'
 import type { RouteRecordNormalized } from 'vue-router'
 
-import { useAppStoreWithOut } from '/@/store/app'
-import { usePermissionStore } from '/@/store/permission'
+import { useAppStoreWithOut } from '@/store/app'
+import { usePermissionStore } from '@/store/permission'
 import {
   transformMenuModule,
   getAllParentPath,
-} from '/@/router/helper/menuHelper'
+} from '@/router/helper/menuHelper'
 import { isUrl, filterTree } from '@vben-admin/utils'
-import { router } from '/@/router'
+import { router } from '@/router'
 import { PermissionModeEnum } from '@vben-admin/tokens'
 import { pathToRegexp } from 'path-to-regexp'
 

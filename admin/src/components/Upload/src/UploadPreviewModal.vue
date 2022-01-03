@@ -16,9 +16,9 @@
 </template>
 <script lang="ts">
 import { defineComponent, watch, ref } from 'vue'
-//   import { BasicTable, useTable } from '/@/components/Table';
+//   import { BasicTable, useTable } from '@/components/Table';
 import FileList from './FileList.vue'
-import { BasicModal, useModalInner } from '/@/components/Modal'
+import { BasicModal, useModalInner } from '@/components/Modal'
 import { previewProps } from './props'
 import { PreviewFileItem } from './typing'
 import { createPreviewColumns, createPreviewActionColumn } from './data'

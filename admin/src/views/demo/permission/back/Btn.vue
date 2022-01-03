@@ -84,13 +84,13 @@
 import { defineComponent, computed } from 'vue'
 import { Alert, Divider } from 'ant-design-vue'
 import CurrentPermissionMode from '../CurrentPermissionMode.vue'
-import { usePermission } from '/@/hooks/web/usePermission'
-import { Authority } from '/@/components/Authority'
-import { usePermissionStore } from '/@/store/permission'
+import { usePermission } from '@/hooks/web/usePermission'
+import { Authority } from '@/components/Authority'
+import { usePermissionStore } from '@/store/permission'
 import { PermissionModeEnum } from '@vben-admin/tokens'
-import { PageWrapper } from '/@/components/Page'
-import { useAppStore } from '/@/store/app'
-import { useUserStore } from '/@/store/user'
+import { PageWrapper } from '@/components/Page'
+import { useAppStore } from '@/store/app'
+import { useUserStore } from '@/store/user'
 
 export default defineComponent({
   components: {

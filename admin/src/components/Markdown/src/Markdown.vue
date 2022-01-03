@@ -18,7 +18,7 @@ import 'vditor/dist/index.css'
 import { useLocale } from '@vben-admin/locale'
 import { onMountedOrActivated } from '@vben-admin/utils'
 import { useModalContext } from '../../Modal'
-import { useRootSetting } from '/@/hooks/setting/useRootSetting'
+import { useRootSetting } from '@/hooks/setting/useRootSetting'
 
 type Lang = 'zh_CN' | 'en_US' | 'ja_JP' | 'ko_KR' | undefined
 

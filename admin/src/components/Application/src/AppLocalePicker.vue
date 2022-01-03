@@ -1,29 +1,10 @@
-<!--
- * @Author: Vben
- * @Description: Multi-language switching component
--->
-<template>
-  <Dropdown
-    placement="bottomCenter"
-    :trigger="['click']"
-    :dropMenuList="localeList"
-    :selectedKeys="selectedKeys"
-    @menuEvent="handleMenuEvent"
-    overlayClassName="app-locale-picker-overlay"
-  >
-    <span class="cursor-pointer flex items-center">
-      <Icon icon="ion:language" />
-      <span v-if="showText" class="ml-1">{{ getLocaleText }}</span>
-    </span>
-  </Dropdown>
-</template>
 <script lang="ts" setup>
 import type { LocaleType } from '@vben-admin/types'
-import type { DropMenu } from '/@/components/Dropdown'
+import type { DropMenu } from '@/components/Dropdown'
 
 import { ref, watchEffect, unref, computed } from 'vue'
-import { Dropdown } from '/@/components/Dropdown'
-import { Icon } from '/@/components/Icon'
+import { Dropdown } from '@/components/Dropdown'
+import { Icon } from '@/components/Icon'
 import { useLocale } from '@vben-admin/locale'
 import { localeList } from '@vben-admin/setting'
 
@@ -67,6 +48,22 @@ function handleMenuEvent(menu: DropMenu) {
   toggleLocale(menu.event as string)
 }
 </script>
+
+<template>
+  <Dropdown
+    placement="bottomCenter"
+    :trigger="['click']"
+    :dropMenuList="localeList"
+    :selectedKeys="selectedKeys"
+    @menuEvent="handleMenuEvent"
+    overlayClassName="app-locale-picker-overlay"
+  >
+    <span class="cursor-pointer flex items-center">
+      <Icon icon="ion:language" />
+      <span v-if="showText" class="ml-1">{{ getLocaleText }}</span>
+    </span>
+  </Dropdown>
+</template>
 
 <style lang="less">
 .app-locale-picker-overlay {

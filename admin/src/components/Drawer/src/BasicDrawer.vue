@@ -53,9 +53,9 @@ import { useI18n } from '@vben-admin/locale'
 import { isFunction, isNumber, deepMerge } from '@vben-admin/utils'
 import DrawerFooter from './components/DrawerFooter.vue'
 import DrawerHeader from './components/DrawerHeader.vue'
-import { ScrollContainer } from '/@/components/Container'
+import { ScrollContainer } from '@/components/Container'
 import { basicProps } from './props'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 import { useAttrs } from '@vben-admin/use'
 
 export default defineComponent({

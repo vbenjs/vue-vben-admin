@@ -37,7 +37,7 @@
 <script lang="ts">
 import type { CSSProperties } from 'vue'
 import { defineComponent, computed } from 'vue'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 import { Image, Badge } from 'ant-design-vue'
 
 export default defineComponent({

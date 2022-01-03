@@ -12,9 +12,9 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 
-import Icon from '/@/components/Icon/index'
+import Icon from '@/components/Icon/index'
 import { useI18n } from '@vben-admin/locale'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 import { contentProps } from '../props'
 const { t } = useI18n()
 

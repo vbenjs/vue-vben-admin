@@ -1,14 +1,14 @@
 import type { RouteMeta, Router, RouteRecordNormalized } from 'vue-router'
 
-import { getParentLayout, LAYOUT } from '/@/router/constant'
+import { getParentLayout, LAYOUT } from '@/router/constant'
 import { omit, warn, cloneDeep } from '@vben-admin/utils'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 export type LayoutMapKey = 'LAYOUT'
 
-const IFRAME = () => import('/@/views/sys/iframe/FrameBlank.vue')
+const IFRAME = () => import('@/views/sys/iframe/FrameBlank.vue')
 export const EXCEPTION_COMPONENT = () =>
-  import('/@/views/sys/exception/Exception.vue')
+  import('@/views/sys/exception/Exception.vue')
 
 const LayoutMap = new Map<string, () => Promise<typeof import('*.vue')>>()
 

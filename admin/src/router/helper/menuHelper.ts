@@ -1,4 +1,4 @@
-import type { MenuModule, Menu } from '/@/router/types'
+import type { MenuModule, Menu } from '@/router/types'
 
 import {
   isUrl,

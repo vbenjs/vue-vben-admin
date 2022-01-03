@@ -9,11 +9,11 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-import { BasicForm, useForm } from '/@/components/Form'
+import { BasicForm, useForm } from '@/components/Form'
 import { defineComponent } from 'vue'
 import { schemas } from './data'
-import { useMessage } from '/@/hooks/web/useMessage'
-import { PageWrapper } from '/@/components/Page'
+import { useMessage } from '@/hooks/web/useMessage'
+import { PageWrapper } from '@/components/Page'
 
 export default defineComponent({
   name: 'FormBasicPage',

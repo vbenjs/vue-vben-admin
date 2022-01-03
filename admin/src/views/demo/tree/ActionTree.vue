@@ -53,10 +53,10 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, unref } from 'vue'
-import { BasicTree, TreeActionType } from '/@/components/Tree/index'
+import { BasicTree, TreeActionType } from '@/components/Tree/index'
 import { treeData } from './data'
-import { useMessage } from '/@/hooks/web/useMessage'
-import { PageWrapper } from '/@/components/Page'
+import { useMessage } from '@/hooks/web/useMessage'
+import { PageWrapper } from '@/components/Page'
 
 export default defineComponent({
   components: { BasicTree, PageWrapper },

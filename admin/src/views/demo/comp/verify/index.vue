@@ -66,10 +66,10 @@ import {
   BasicDragVerify,
   DragVerifyActionType,
   PassingData,
-} from '/@/components/Verify/index'
-import { useMessage } from '/@/hooks/web/useMessage'
+} from '@/components/Verify/index'
+import { useMessage } from '@/hooks/web/useMessage'
 import { BugOutlined, RightOutlined } from '@ant-design/icons-vue'
-import { PageWrapper } from '/@/components/Page'
+import { PageWrapper } from '@/components/Page'
 
 export default defineComponent({
   components: { BasicDragVerify, BugOutlined, RightOutlined, PageWrapper },

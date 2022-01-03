@@ -23,9 +23,9 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
-import { PageWrapper } from '/@/components/Page'
-import { Time } from '/@/components/Time'
-import { CollapseContainer } from '/@/components/Container/index'
+import { PageWrapper } from '@/components/Page'
+import { Time } from '@/components/Time'
+import { CollapseContainer } from '@/components/Container/index'
 
 export default defineComponent({
   components: { PageWrapper, Time, CollapseContainer },

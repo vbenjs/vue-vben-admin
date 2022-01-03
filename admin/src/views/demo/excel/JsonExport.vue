@@ -11,10 +11,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { BasicTable } from '/@/components/Table'
-import { jsonToSheetXlsx } from '/@/components/Excel'
+import { BasicTable } from '@/components/Table'
+import { jsonToSheetXlsx } from '@/components/Excel'
 import { columns, data } from './data'
-import { PageWrapper } from '/@/components/Page'
+import { PageWrapper } from '@/components/Page'
 
 export default defineComponent({
   components: { BasicTable, PageWrapper },

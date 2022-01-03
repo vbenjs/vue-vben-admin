@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { ConfigProvider } from 'ant-design-vue'
-import { AppProvider } from '/@/components/Application'
+import { AppProvider } from '@/components/Application'
 import { useLocale } from '@vben-admin/locale'
 import { useTitle } from '@vben-admin/use'
 import { REDIRECT_NAME } from '@vben-admin/tokens'
-import { getGlobalConfig } from '/@/internal/config'
+import { getGlobalConfig } from '@/internal/config'
 import 'dayjs/locale/zh-cn'
 
 // support Multi-language

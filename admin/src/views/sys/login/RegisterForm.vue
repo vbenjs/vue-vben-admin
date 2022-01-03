@@ -2,8 +2,8 @@
 import { reactive, ref, unref, computed } from 'vue'
 import LoginFormTitle from './LoginFormTitle.vue'
 import { Form, Input, Button, Checkbox } from 'ant-design-vue'
-import { StrengthMeter } from '/@/components/StrengthMeter'
-import { CountdownInput } from '/@/components/CountDown'
+import { StrengthMeter } from '@/components/StrengthMeter'
+import { CountdownInput } from '@/components/CountDown'
 import { useI18n } from '@vben-admin/locale'
 import {
   useLoginState,

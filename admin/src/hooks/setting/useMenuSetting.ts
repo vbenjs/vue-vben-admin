@@ -2,7 +2,7 @@ import type { MenuSetting } from '@vben-admin/types'
 
 import { computed, unref, ref } from 'vue'
 
-import { useAppStore } from '/@/store/app'
+import { useAppStore } from '@/store/app'
 
 import {
   SIDE_BAR_MINI_WIDTH,
@@ -11,7 +11,7 @@ import {
   MenuTypeEnum,
   TriggerEnum,
 } from '@vben-admin/tokens'
-import { useFullContent } from '/@/hooks/web/useFullContent'
+import { useFullContent } from '@/hooks/web/useFullContent'
 
 const mixSideHasChildren = ref(false)
 

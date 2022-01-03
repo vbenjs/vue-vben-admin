@@ -21,12 +21,12 @@ import type { PropType } from 'vue'
 import type { RouteLocationNormalized } from 'vue-router'
 
 import { defineComponent, computed, unref } from 'vue'
-import { Dropdown } from '/@/components/Dropdown/index'
-import { Icon } from '/@/components/Icon'
+import { Dropdown } from '@/components/Dropdown/index'
+import { Icon } from '@/components/Icon'
 
 import { TabContentProps } from '../types'
 
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 import { useI18n } from '@vben-admin/locale'
 import { useTabDropdown } from '../useTabDropdown'
 

@@ -1,10 +1,10 @@
 import type { Router } from 'vue-router'
-import { useAppStore } from '/@/store/app'
-import { useMultipleTabStore } from '/@/store/multipleTab'
-import { useUserStore } from '/@/store/user'
-import { usePermissionStore } from '/@/store/permission'
+import { useAppStore } from '@/store/app'
+import { useMultipleTabStore } from '@/store/multipleTab'
+import { useUserStore } from '@/store/user'
+import { usePermissionStore } from '@/store/permission'
 import { PageEnum } from '@vben-admin/tokens'
-import { removeTabChangeListener } from '/@/logics/mitt/routeChange'
+import { removeTabChangeListener } from '@/logics/mitt/routeChange'
 
 export function createStateGuard(router: Router) {
   router.afterEach((to) => {

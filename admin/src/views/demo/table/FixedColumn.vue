@@ -31,7 +31,7 @@ import {
   useTable,
   BasicColumn,
   TableAction,
-} from '/@/components/Table'
+} from '@/components/Table'
 
 import { demoListApi } from '@service/demo/table'
 const columns: BasicColumn[] = [

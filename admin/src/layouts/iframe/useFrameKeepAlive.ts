@@ -1,7 +1,7 @@
 import { computed, toRaw, unref } from 'vue'
-import { useMultipleTabStore } from '/@/store/multipleTab'
+import { useMultipleTabStore } from '@/store/multipleTab'
 import { uniqBy } from '@vben-admin/utils'
-import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting'
+import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting'
 import { useRouter } from 'vue-router'
 
 export function useFrameKeepAlive() {

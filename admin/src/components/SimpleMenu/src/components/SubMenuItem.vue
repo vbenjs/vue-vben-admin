@@ -79,11 +79,11 @@ import {
   onBeforeMount,
   inject,
 } from 'vue'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 import { useMenuItem } from './useMenu'
 import { useSimpleRootMenuContext } from './useSimpleMenuContext'
-import { CollapseTransition } from '/@/components/Transition'
-import Icon from '/@/components/Icon'
+import { CollapseTransition } from '@/components/Transition'
+import Icon from '@/components/Icon'
 import { Popover } from 'ant-design-vue'
 import { isBoolean, isObject } from '@vben-admin/utils'
 import { mitt } from '@vben-admin/utils'

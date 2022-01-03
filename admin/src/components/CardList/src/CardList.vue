@@ -96,9 +96,9 @@ import {
   Slider,
   Avatar,
 } from 'ant-design-vue'
-import { Dropdown } from '/@/components/Dropdown'
-import { BasicForm, useForm } from '/@/components/Form'
-import { Button } from '/@/components/Button'
+import { Dropdown } from '@/components/Dropdown'
+import { BasicForm, useForm } from '@/components/Form'
+import { Button } from '@/components/Button'
 import { isFunction } from '@vben-admin/utils'
 import { useSlider, grid } from './data'
 const ListItem = List.Item

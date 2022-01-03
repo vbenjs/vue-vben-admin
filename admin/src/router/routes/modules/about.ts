@@ -1,4 +1,4 @@
-import { LAYOUT } from '/@/router/constant'
+import { LAYOUT } from '@/router/constant'
 import { t } from '@vben-admin/locale'
 
 const dashboard: RouteRecordItem = {
@@ -16,7 +16,7 @@ const dashboard: RouteRecordItem = {
     {
       path: 'index',
       name: 'AboutPage',
-      component: () => import('/@/views/sys/about/index.vue'),
+      component: () => import('@/views/sys/about/index.vue'),
       meta: {
         title: t('routes.dashboard.about'),
         icon: 'simple-icons:about-dot-me',

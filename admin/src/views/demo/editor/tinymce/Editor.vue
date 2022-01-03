@@ -12,11 +12,11 @@
 </template>
 <script lang="ts">
 import { defineComponent, h } from 'vue'
-import { BasicForm, FormSchema } from '/@/components/Form/index'
-import { CollapseContainer } from '/@/components/Container/index'
-import { useMessage } from '/@/hooks/web/useMessage'
-import { Tinymce } from '/@/components/Tinymce/index'
-import { PageWrapper } from '/@/components/Page'
+import { BasicForm, FormSchema } from '@/components/Form/index'
+import { CollapseContainer } from '@/components/Container/index'
+import { useMessage } from '@/hooks/web/useMessage'
+import { Tinymce } from '@/components/Tinymce/index'
+import { PageWrapper } from '@/components/Page'
 
 const schemas: FormSchema[] = [
   {

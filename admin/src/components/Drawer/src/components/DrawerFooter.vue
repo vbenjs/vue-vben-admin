@@ -32,7 +32,7 @@
 <script lang="ts">
 import type { CSSProperties } from 'vue'
 import { defineComponent, computed } from 'vue'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 
 import { footerProps } from '../props'
 export default defineComponent({

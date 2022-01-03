@@ -53,11 +53,11 @@
 </template>
 <script lang="ts">
 import type { PropType } from 'vue'
-import type { Menu } from '/@/router/types'
+import type { Menu } from '@/router/types'
 
 import { defineComponent, computed } from 'vue'
-import { useDesign } from '/@/hooks/web/useDesign'
-import Icon from '/@/components/Icon/index'
+import { useDesign } from '@/hooks/web/useDesign'
+import Icon from '@/components/Icon/index'
 import SimpleMenuTag from './SimpleMenuTag.vue'
 import MenuItem from './components/MenuItem.vue'
 import SubMenu from './components/SubMenuItem.vue'

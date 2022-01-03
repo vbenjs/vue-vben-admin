@@ -89,10 +89,10 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { BasicForm, FormSchema, useForm } from '/@/components/Form/index'
-import { CollapseContainer } from '/@/components/Container/index'
-import { useMessage } from '/@/hooks/web/useMessage'
-import { PageWrapper } from '/@/components/Page'
+import { BasicForm, FormSchema, useForm } from '@/components/Form/index'
+import { CollapseContainer } from '@/components/Container/index'
+import { useMessage } from '@/hooks/web/useMessage'
+import { PageWrapper } from '@/components/Page'
 import { areaRecord } from '@service/demo/cascader'
 
 const schemas: FormSchema[] = [

@@ -65,14 +65,14 @@ import {
 import ImgUpload from './ImgUpload.vue'
 import { toolbar, plugins } from './tinymce'
 import { bindHandlers } from './helper'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 import {
   isNumber,
   buildShortUUID,
   onMountedOrActivated,
 } from '@vben-admin/utils'
 import { useLocale } from '@vben-admin/locale'
-import { useAppStore } from '/@/store/app'
+import { useAppStore } from '@/store/app'
 
 const tinymceProps = {
   options: {

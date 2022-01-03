@@ -36,12 +36,12 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { CollapseContainer } from '/@/components/Container'
-import { useTabs } from '/@/hooks/web/useTabs'
-import { PageWrapper } from '/@/components/Page'
+import { CollapseContainer } from '@/components/Container'
+import { useTabs } from '@/hooks/web/useTabs'
+import { PageWrapper } from '@/components/Page'
 import { Input, Alert } from 'ant-design-vue'
-import { useMessage } from '/@/hooks/web/useMessage'
-import { useGo } from '/@/hooks/web/usePage'
+import { useMessage } from '@/hooks/web/useMessage'
+import { useGo } from '@/hooks/web/usePage'
 
 export default defineComponent({
   name: 'TabsDemo',

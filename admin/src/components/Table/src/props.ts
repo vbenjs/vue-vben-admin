@@ -9,7 +9,7 @@ import type {
   TableRowSelection,
   SizeType,
 } from './types/table'
-import type { FormProps } from '/@/components/Form'
+import type { FormProps } from '@/components/Form'
 
 import {
   DEFAULT_FILTER_FN,

@@ -4,7 +4,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, Ref, onMounted } from 'vue'
 
-import { useECharts } from '/@/hooks/web/useECharts'
+import { useECharts } from '@/hooks/web/useECharts'
 import { mapData } from './data'
 import { registerMap } from 'echarts'
 

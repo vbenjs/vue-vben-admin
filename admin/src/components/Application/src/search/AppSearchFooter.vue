@@ -1,3 +1,11 @@
+<script lang="ts" setup>
+import AppSearchKeyItem from './AppSearchKeyItem.vue'
+import { useDesign } from '@/hooks/web/useDesign'
+import { useI18n } from '@vben-admin/locale'
+const { prefixCls } = useDesign('app-search-footer')
+const { t } = useI18n()
+</script>
+
 <template>
   <div :class="`${prefixCls}`">
     <AppSearchKeyItem
@@ -18,14 +26,6 @@
     <span>{{ t('common.closeText') }}</span>
   </div>
 </template>
-
-<script lang="ts" setup>
-import AppSearchKeyItem from './AppSearchKeyItem.vue'
-import { useDesign } from '/@/hooks/web/useDesign'
-import { useI18n } from '@vben-admin/locale'
-const { prefixCls } = useDesign('app-search-footer')
-const { t } = useI18n()
-</script>
 <style lang="less" scoped>
 @prefix-cls: ~'@{namespace}-app-search-footer';
 

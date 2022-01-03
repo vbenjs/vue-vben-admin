@@ -77,20 +77,20 @@
 import { defineComponent, unref, computed } from 'vue'
 
 import { Layout } from 'ant-design-vue'
-import { AppLogo } from '/@/components/Application'
+import { AppLogo } from '@/components/Application'
 import LayoutMenu from '../menu/index.vue'
 import LayoutTrigger from '../trigger/index.vue'
-import { AppSearch } from '/@/components/Application'
-import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
-import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
-import { useRootSetting } from '/@/hooks/setting/useRootSetting'
+import { AppSearch } from '@/components/Application'
+import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
+import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
+import { useRootSetting } from '@/hooks/setting/useRootSetting'
 
 import {
   MenuModeEnum,
   MenuSplitTyeEnum,
   SettingButtonPositionEnum,
 } from '@vben-admin/tokens'
-import { AppLocalePicker } from '/@/components/Application'
+import { AppLocalePicker } from '@/components/Application'
 
 import {
   UserDropDown,
@@ -99,11 +99,11 @@ import {
   Notify,
   ErrorAction,
 } from './components'
-import { useAppInject } from '/@/hooks/web/useAppInject'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useAppInject } from '@/hooks/web/useAppInject'
+import { useDesign } from '@/hooks/web/useDesign'
 
 import { useLocale } from '@vben-admin/locale'
-import SettingDrawer from '/@/layouts/default/setting/index.vue'
+import SettingDrawer from '@/layouts/default/setting/index.vue'
 
 export default defineComponent({
   name: 'LayoutHeader',

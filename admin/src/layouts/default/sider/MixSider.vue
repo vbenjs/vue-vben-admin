@@ -78,21 +78,21 @@
   </div>
 </template>
 <script lang="ts">
-import type { Menu } from '/@/router/types'
+import type { Menu } from '@/router/types'
 import type { CSSProperties } from 'vue'
 import { computed, defineComponent, onMounted, ref, unref, watch } from 'vue'
 import type { RouteLocationNormalized } from 'vue-router'
-import { ScrollContainer } from '/@/components/Container'
-import { SimpleMenu, SimpleMenuTag } from '/@/components/SimpleMenu'
-import { Icon } from '/@/components/Icon'
-import { AppLogo } from '/@/components/Application'
-import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
-import { usePermissionStore } from '/@/store/permission'
+import { ScrollContainer } from '@/components/Container'
+import { SimpleMenu, SimpleMenuTag } from '@/components/SimpleMenu'
+import { Icon } from '@/components/Icon'
+import { AppLogo } from '@/components/Application'
+import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
+import { usePermissionStore } from '@/store/permission'
 import { useDragLine } from './useLayoutSider'
-import { getGlobalConfig } from '/@/internal'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { getGlobalConfig } from '@/internal'
+import { useDesign } from '@/hooks/web/useDesign'
 import { useI18n } from '@vben-admin/locale'
-import { useGo } from '/@/hooks/web/usePage'
+import { useGo } from '@/hooks/web/usePage'
 import {
   SIDE_BAR_MINI_WIDTH,
   SIDE_BAR_SHOW_TIT_MINI_WIDTH,
@@ -102,8 +102,8 @@ import {
   getChildrenMenus,
   getCurrentParentPath,
   getShallowMenus,
-} from '/@/router/menus'
-import { listenerRouteChange } from '/@/logics/mitt/routeChange'
+} from '@/router/menus'
+import { listenerRouteChange } from '@/logics/mitt/routeChange'
 import LayoutTrigger from '../trigger/index.vue'
 
 export default defineComponent({

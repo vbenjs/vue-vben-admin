@@ -41,9 +41,9 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch, unref, computed } from 'vue'
-import { Icon } from '/@/components/Icon'
+import { Icon } from '@/components/Icon'
 import { Tooltip, Space } from 'ant-design-vue'
-import { useModal } from '/@/components/Modal'
+import { useModal } from '@/components/Modal'
 import { uploadContainerProps } from './props'
 import { useI18n } from '@vben-admin/locale'
 import { isArray, omit } from '@vben-admin/utils'

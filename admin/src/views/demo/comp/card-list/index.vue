@@ -14,11 +14,11 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { CardList } from '/@/components/CardList'
-import { Button } from '/@/components/Button'
-import { PageWrapper } from '/@/components/Page'
+import { CardList } from '@/components/CardList'
+import { Button } from '@/components/Button'
+import { PageWrapper } from '@/components/Page'
 import { demoListApi } from '@service/demo/table'
-import { useMessage } from '/@/hooks/web/useMessage'
+import { useMessage } from '@/hooks/web/useMessage'
 const { notification } = useMessage()
 // 请求api时附带参数
 const params = {}

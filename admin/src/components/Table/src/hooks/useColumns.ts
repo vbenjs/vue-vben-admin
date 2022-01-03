@@ -8,7 +8,7 @@ import type { PaginationProps } from '../types/pagination'
 import type { ComputedRef } from 'vue'
 import { computed, Ref, ref, toRaw, unref, watch } from 'vue'
 import { renderEditCell } from '../components/editable'
-import { usePermission } from '/@/hooks/web/usePermission'
+import { usePermission } from '@/hooks/web/usePermission'
 import { useI18n } from '@vben-admin/locale'
 import {
   isBoolean,

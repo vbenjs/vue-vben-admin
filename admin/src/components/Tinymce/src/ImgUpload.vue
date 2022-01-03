@@ -18,8 +18,8 @@
 import { defineComponent, computed } from 'vue'
 
 import { Upload } from 'ant-design-vue'
-import { useDesign } from '/@/hooks/web/useDesign'
-import { getGlobalConfig } from '/@/internal'
+import { useDesign } from '@/hooks/web/useDesign'
+import { getGlobalConfig } from '@/internal'
 import { useI18n } from '@vben-admin/locale'
 
 export default defineComponent({

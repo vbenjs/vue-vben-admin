@@ -5,9 +5,9 @@ import echarts from './echarts'
 import { useTimeoutFn, useDebounceFn } from '@vben-admin/use'
 import { tryOnUnmounted } from '@vben-admin/utils'
 import { unref, nextTick, watch, computed, ref } from 'vue'
-import { useEventListener } from '/@/hooks/event/useEventListener'
-import { useBreakpoint } from '/@/hooks/event/useBreakpoint'
-import { useRootSetting } from '/@/hooks/setting/useRootSetting'
+import { useEventListener } from '@/hooks/event/useEventListener'
+import { useBreakpoint } from '@/hooks/event/useBreakpoint'
+import { useRootSetting } from '@/hooks/setting/useRootSetting'
 
 export function useECharts(
   elRef: Ref<HTMLDivElement>,

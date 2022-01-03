@@ -9,7 +9,7 @@
 <script lang="ts">
 import { Menu } from 'ant-design-vue'
 import { computed, defineComponent, getCurrentInstance } from 'vue'
-import Icon from '/@/components/Icon/index'
+import Icon from '@/components/Icon/index'
 
 export default defineComponent({
   name: 'DropdownMenuItem',

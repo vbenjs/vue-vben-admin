@@ -57,8 +57,8 @@ import {
   watchEffect,
 } from 'vue'
 import { Table } from 'ant-design-vue'
-import { BasicForm, useForm } from '/@/components/Form/index'
-import { PageWrapperFixedHeightKey } from '/@/components/Page'
+import { BasicForm, useForm } from '@/components/Form/index'
+import { PageWrapperFixedHeightKey } from '@/components/Page'
 import HeaderCell from './components/HeaderCell.vue'
 import { InnerHandlers } from './types/table'
 
@@ -76,7 +76,7 @@ import { useTableExpand } from './hooks/useTableExpand'
 import { createTableContext } from './hooks/useTableContext'
 import { useTableFooter } from './hooks/useTableFooter'
 import { useTableForm } from './hooks/useTableForm'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 
 import { basicProps } from './props'
 import { isFunction, warn, omit } from '@vben-admin/utils'

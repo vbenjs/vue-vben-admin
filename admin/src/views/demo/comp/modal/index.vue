@@ -60,12 +60,12 @@ import {
   nextTick,
 } from 'vue'
 import { Alert, Space } from 'ant-design-vue'
-import { useModal } from '/@/components/Modal'
+import { useModal } from '@/components/Modal'
 import Modal1 from './Modal1.vue'
 import Modal2 from './Modal2.vue'
 import Modal3 from './Modal3.vue'
 import Modal4 from './Modal4.vue'
-import { PageWrapper } from '/@/components/Page'
+import { PageWrapper } from '@/components/Page'
 
 export default defineComponent({
   components: {

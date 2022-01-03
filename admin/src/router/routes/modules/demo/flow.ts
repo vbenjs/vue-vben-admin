@@ -1,4 +1,4 @@
-import { LAYOUT } from '/@/router/constant'
+import { LAYOUT } from '@/router/constant'
 import { t } from '@vben-admin/locale'
 
 const charts: RouteRecordItem = {
@@ -15,7 +15,7 @@ const charts: RouteRecordItem = {
     {
       path: 'flowChart',
       name: 'flowChartDemo',
-      component: () => import('/@/views/demo/comp/flow-chart/index.vue'),
+      component: () => import('@/views/demo/comp/flow-chart/index.vue'),
       meta: {
         title: t('routes.demo.flow.flowChart'),
       },

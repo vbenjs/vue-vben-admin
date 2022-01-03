@@ -18,7 +18,7 @@ import {
   getCurrentInstance,
   provide,
 } from 'vue'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 import { createSimpleRootMenuContext } from './useSimpleMenuContext'
 import { mitt } from '@vben-admin/utils'
 export default defineComponent({

@@ -1,4 +1,4 @@
-import { createAsyncComponent } from '/@/internal'
+import { createAsyncComponent } from '@/internal'
 import FullScreen from './FullScreen.vue'
 import UserDropDown from './user-dropdown/index.vue'
 

@@ -1,4 +1,4 @@
-import { createAsyncComponent } from '/@/internal'
+import { createAsyncComponent } from '@/internal'
 
 export const TypePicker = createAsyncComponent(() => import('./TypePicker.vue'))
 export const ThemeColorPicker = createAsyncComponent(

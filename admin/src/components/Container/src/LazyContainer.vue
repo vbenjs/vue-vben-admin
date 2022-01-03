@@ -21,7 +21,7 @@ import type { PropType } from 'vue'
 import { defineComponent, reactive, onMounted, ref, toRef, toRefs } from 'vue'
 import { Skeleton } from 'ant-design-vue'
 import { useTimeoutFn } from '@vben-admin/use'
-import { useIntersectionObserver } from '/@/hooks/event/useIntersectionObserver'
+import { useIntersectionObserver } from '@/hooks/event/useIntersectionObserver'
 
 interface State {
   isInit: boolean

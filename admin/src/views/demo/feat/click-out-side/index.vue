@@ -12,8 +12,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { ClickOutSide } from '/@/components/ClickOutSide'
-import { PageWrapper } from '/@/components/Page'
+import { ClickOutSide } from '@/components/ClickOutSide'
+import { PageWrapper } from '@/components/Page'
 
 export default defineComponent({
   components: { ClickOutSide, PageWrapper },

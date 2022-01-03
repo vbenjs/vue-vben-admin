@@ -1,5 +1,5 @@
 import { ref, computed, ComputedRef, unref } from 'vue'
-import { useEventListener } from '/@/hooks/event/useEventListener'
+import { useEventListener } from '@/hooks/event/useEventListener'
 import { screenMap, ScreenSizeEnum, ScreenValueEnum } from '@vben-admin/tokens'
 
 let globalScreenRef: ComputedRef<ScreenSizeEnum | undefined>

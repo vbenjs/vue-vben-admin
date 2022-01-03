@@ -2,18 +2,18 @@
 import type { PropType, CSSProperties } from 'vue'
 
 import { computed, defineComponent, unref, toRef } from 'vue'
-import { BasicMenu } from '/@/components/Menu'
-import { SimpleMenu } from '/@/components/SimpleMenu'
-import { AppLogo } from '/@/components/Application'
+import { BasicMenu } from '@/components/Menu'
+import { SimpleMenu } from '@/components/SimpleMenu'
+import { AppLogo } from '@/components/Application'
 import { MenuModeEnum, MenuSplitTyeEnum } from '@vben-admin/tokens'
-import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
-import { ScrollContainer } from '/@/components/Container'
-import { useGo } from '/@/hooks/web/usePage'
+import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
+import { ScrollContainer } from '@/components/Container'
+import { useGo } from '@/hooks/web/usePage'
 import { useSplitMenu } from './useLayoutMenu'
 import { isUrl, openWindow } from '@vben-admin/utils'
-import { useRootSetting } from '/@/hooks/setting/useRootSetting'
-import { useAppInject } from '/@/hooks/web/useAppInject'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useRootSetting } from '@/hooks/setting/useRootSetting'
+import { useAppInject } from '@/hooks/web/useAppInject'
+import { useDesign } from '@/hooks/web/useDesign'
 
 export default defineComponent({
   name: 'LayoutMenu',

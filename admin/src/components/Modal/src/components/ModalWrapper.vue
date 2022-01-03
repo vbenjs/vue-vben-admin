@@ -23,7 +23,7 @@ import {
   nextTick,
   onUnmounted,
 } from 'vue'
-import { ScrollContainer } from '/@/components/Container'
+import { ScrollContainer } from '@/components/Container'
 import { createModalContext } from '../hooks/useModalContext'
 import { useMutationObserver, useWindowResize } from '@vben-admin/use'
 

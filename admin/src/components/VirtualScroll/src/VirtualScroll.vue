@@ -10,7 +10,7 @@ import {
   nextTick,
   CSSProperties,
 } from 'vue'
-import { useEventListener } from '/@/hooks/event/useEventListener'
+import { useEventListener } from '@/hooks/event/useEventListener'
 import { getSlot } from '@vben-admin/utils'
 
 type NumberOrNumberString = PropType<string | number | undefined>

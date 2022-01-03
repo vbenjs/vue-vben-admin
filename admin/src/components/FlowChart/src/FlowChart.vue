@@ -32,12 +32,12 @@ import {
   DndPanel,
   SelectionSelect,
 } from '@logicflow/extension'
-import { useDesign } from '/@/hooks/web/useDesign'
-import { useAppStore } from '/@/store/app'
+import { useDesign } from '@/hooks/web/useDesign'
+import { useAppStore } from '@/store/app'
 import { createFlowChartContext } from './useFlowContext'
 import { toLogicFlowData } from './adpterForTurbo'
-import { useModal, BasicModal } from '/@/components/Modal'
-import { JsonPreview } from '/@/components/CodeEditor'
+import { useModal, BasicModal } from '@/components/Modal'
+import { JsonPreview } from '@/components/CodeEditor'
 import { configDefaultDndPanel } from './config'
 import '@logicflow/core/dist/style/index.css'
 import '@logicflow/extension/lib/style/index.css'

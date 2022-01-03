@@ -6,9 +6,9 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { createImgPreview, ImagePreview } from '/@/components/Preview/index'
-import { PageWrapper } from '/@/components/Page'
-// import { PreviewActions } from '/@/components/Preview/src/typing';
+import { createImgPreview, ImagePreview } from '@/components/Preview/index'
+import { PageWrapper } from '@/components/Page'
+// import { PreviewActions } from '@/components/Preview/src/typing';
 
 const imgList: string[] = [
   'https://picsum.photos/id/66/346/216',

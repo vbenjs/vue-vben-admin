@@ -1,5 +1,5 @@
 import { defineComponent, computed, unref } from 'vue'
-import { BasicDrawer } from '/@/components/Drawer/index'
+import { BasicDrawer } from '@/components/Drawer/index'
 import { Divider } from 'ant-design-vue'
 import {
   TypePicker,
@@ -10,15 +10,15 @@ import {
   InputNumberItem,
 } from './components'
 
-import { AppDarkModeToggle } from '/@/components/Application'
+import { AppDarkModeToggle } from '@/components/Application'
 
 import { MenuTypeEnum, TriggerEnum } from '@vben-admin/tokens'
 
-import { useRootSetting } from '/@/hooks/setting/useRootSetting'
-import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
-import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting'
-import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting'
-import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting'
+import { useRootSetting } from '@/hooks/setting/useRootSetting'
+import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
+import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
+import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting'
+import { useTransitionSetting } from '@/hooks/setting/useTransitionSetting'
 import { useI18n } from '@vben-admin/locale'
 
 import { baseHandler } from './handler'

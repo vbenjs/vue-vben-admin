@@ -21,18 +21,18 @@ import { defineComponent, unref } from 'vue'
 
 import { CopyOutlined, RedoOutlined } from '@ant-design/icons-vue'
 
-import { useAppStore } from '/@/store/app'
-import { usePermissionStore } from '/@/store/permission'
-import { useMultipleTabStore } from '/@/store/multipleTab'
-import { useUserStore } from '/@/store/user'
+import { useAppStore } from '@/store/app'
+import { usePermissionStore } from '@/store/permission'
+import { useMultipleTabStore } from '@/store/multipleTab'
+import { useUserStore } from '@/store/user'
 
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 import { useI18n } from '@vben-admin/locale'
-import { useMessage } from '/@/hooks/web/useMessage'
-import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard'
+import { useMessage } from '@/hooks/web/useMessage'
+import { useCopyToClipboard } from '@/hooks/web/useCopyToClipboard'
 
-import { updateColorWeak } from '/@/logics/theme/updateColorWeak'
-import { updateGrayMode } from '/@/logics/theme/updateGrayMode'
+import { updateColorWeak } from '@/logics/theme/updateColorWeak'
+import { updateGrayMode } from '@/logics/theme/updateGrayMode'
 import { projectSetting } from '@vben-admin/setting'
 
 export default defineComponent({

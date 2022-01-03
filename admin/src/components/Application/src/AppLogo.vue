@@ -1,10 +1,6 @@
-<!--
- * @Author: Vben
- * @Description: logo component
--->
 <template>
   <div class="anticon" :class="getAppLogoClass" @click="goHome">
-    <img src="../../../assets/images/logo.png" />
+    <img src="@/assets/images/logo.png" />
     <div
       class="ml-2 truncate md:opacity-100"
       :class="getTitleClass"
@@ -16,12 +12,12 @@
 </template>
 <script lang="ts" setup>
 import { computed, unref } from 'vue'
-import { getGlobalConfig } from '/@/internal'
-import { useGo } from '/@/hooks/web/usePage'
-import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { getGlobalConfig } from '@/internal'
+import { useGo } from '@/hooks/web/usePage'
+import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
+import { useDesign } from '@/hooks/web/useDesign'
 import { PageEnum } from '@vben-admin/tokens'
-import { useUserStore } from '/@/store/user'
+import { useUserStore } from '@/store/user'
 
 const props = defineProps({
   /**

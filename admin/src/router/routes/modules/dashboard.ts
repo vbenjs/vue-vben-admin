@@ -1,4 +1,4 @@
-import { LAYOUT } from '/@/router/constant'
+import { LAYOUT } from '@/router/constant'
 import { t } from '@vben-admin/locale'
 
 const dashboard: RouteRecordItem = {
@@ -15,7 +15,7 @@ const dashboard: RouteRecordItem = {
     {
       path: 'analysis',
       name: 'Analysis',
-      component: () => import('/@/views/dashboard/analysis/index.vue'),
+      component: () => import('@/views/dashboard/analysis/index.vue'),
       meta: {
         // affix: true,
         title: t('routes.dashboard.analysis'),
@@ -24,7 +24,7 @@ const dashboard: RouteRecordItem = {
     {
       path: 'workbench',
       name: 'Workbench',
-      component: () => import('/@/views/dashboard/workbench/index.vue'),
+      component: () => import('@/views/dashboard/workbench/index.vue'),
       meta: {
         title: t('routes.dashboard.workbench'),
       },

@@ -21,8 +21,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { PageWrapper } from '/@/components/Page'
-import { useUserStore } from '/@/store/user'
+import { PageWrapper } from '@/components/Page'
+import { useUserStore } from '@/store/user'
 
 import { sessionTimeoutApi, tokenExpiredApi } from '@service/demo/account'
 import { Card } from 'ant-design-vue'

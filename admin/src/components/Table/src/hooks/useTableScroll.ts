@@ -10,7 +10,7 @@ import {
   getViewportOffset,
   onMountedOrActivated,
 } from '@vben-admin/utils'
-import { useModalContext } from '/@/components/Modal'
+import { useModalContext } from '@/components/Modal'
 import { useDebounceFn, useWindowResize } from '@vben-admin/use'
 
 export function useTableScroll(

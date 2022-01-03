@@ -38,8 +38,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref } from 'vue'
-import { Loading, useLoading } from '/@/components/Loading'
-import { PageWrapper } from '/@/components/Page'
+import { Loading, useLoading } from '@/components/Loading'
+import { PageWrapper } from '@/components/Page'
 import { Alert } from 'ant-design-vue'
 
 export default defineComponent({

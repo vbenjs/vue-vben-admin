@@ -9,7 +9,7 @@ import {
   watch,
   watchEffect,
 } from 'vue'
-import { useEventListener } from '/@/hooks/event/useEventListener'
+import { useEventListener } from '@/hooks/event/useEventListener'
 import { basicProps } from './props'
 import { getSlot } from '@vben-admin/utils'
 import { useTimeoutFn } from '@vben-admin/use'

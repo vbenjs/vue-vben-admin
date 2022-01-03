@@ -1,20 +1,13 @@
-<template>
-  <div v-if="getShowDarkModeToggle" :class="getClass" @click="toggleDarkMode">
-    <div :class="`${prefixCls}-inner`"></div>
-    <SvgIcon size="14" name="sun" />
-    <SvgIcon size="14" name="moon" />
-  </div>
-</template>
 <script lang="ts" setup>
 import { computed, unref } from 'vue'
-import { SvgIcon } from '/@/components/Icon'
-import { useDesign } from '/@/hooks/web/useDesign'
-import { useRootSetting } from '/@/hooks/setting/useRootSetting'
+import { SvgIcon } from '@/components/Icon'
+import { useDesign } from '@/hooks/web/useDesign'
+import { useRootSetting } from '@/hooks/setting/useRootSetting'
 import {
   updateHeaderBgColor,
   updateSidebarBgColor,
-} from '/@/logics/theme/updateBackground'
-import { updateDarkTheme } from '/@/logics/theme/dark'
+} from '@/logics/theme/updateBackground'
+import { updateDarkTheme } from '@/logics/theme/dark'
 import { ThemeEnum } from '@vben-admin/tokens'
 
 const { prefixCls } = useDesign('dark-switch')
@@ -38,6 +31,13 @@ function toggleDarkMode() {
   updateSidebarBgColor()
 }
 </script>
+<template>
+  <div v-if="getShowDarkModeToggle" :class="getClass" @click="toggleDarkMode">
+    <div :class="`${prefixCls}-inner`"></div>
+    <SvgIcon size="14" name="sun" />
+    <SvgIcon size="14" name="moon" />
+  </div>
+</template>
 <style lang="less" scoped>
 @prefix-cls: ~'@{namespace}-dark-switch';
 

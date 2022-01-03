@@ -28,8 +28,8 @@ import {
   Description,
   DescItem,
   useDescription,
-} from '/@/components/Description/index'
-import { PageWrapper } from '/@/components/Page'
+} from '@/components/Description/index'
+import { PageWrapper } from '@/components/Page'
 
 const mockData: Recordable = {
   username: 'test',

@@ -19,7 +19,7 @@
 </template>
 <script lang="ts">
 import type { MenuState } from './types'
-import type { Menu as MenuType } from '/@/router/types'
+import type { Menu as MenuType } from '@/router/types'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 import {
   defineComponent,
@@ -30,10 +30,10 @@ import {
   toRefs,
   watch,
 } from 'vue'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 import Menu from './components/Menu.vue'
 import SimpleSubMenu from './SimpleSubMenu.vue'
-import { listenerRouteChange } from '/@/logics/mitt/routeChange'
+import { listenerRouteChange } from '@/logics/mitt/routeChange'
 import { REDIRECT_NAME } from '@vben-admin/tokens'
 import { useRouter } from 'vue-router'
 import { isFunction, isUrl, openWindow } from '@vben-admin/utils'

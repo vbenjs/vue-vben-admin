@@ -1,24 +1,24 @@
-import type { Menu } from '/@/router/types'
+import type { Menu } from '@/router/types'
 
 import { defineStore } from 'pinia'
-import { pinia } from '/@/internal'
+import { pinia } from '@/internal'
 import { useI18n } from '@vben-admin/locale'
-import { useUserStore } from '/@/store/user'
-import { useAppStoreWithOut } from '/@/store/app'
+import { useUserStore } from '@/store/user'
+import { useAppStoreWithOut } from '@/store/app'
 import { toRaw } from 'vue'
 import {
   transformObjToRoute,
   flatMultiLevelRoutes,
-} from '/@/router/helper/routeHelper'
-import { transformRouteToMenu } from '/@/router/helper/menuHelper'
+} from '@/router/helper/routeHelper'
+import { transformRouteToMenu } from '@/router/helper/menuHelper'
 import { projectSetting } from '@vben-admin/setting'
 import { PermissionModeEnum, PageEnum } from '@vben-admin/tokens'
-import { asyncRoutes } from '/@/router/routes'
-import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic'
+import { asyncRoutes } from '@/router/routes'
+import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic'
 import { filterTree } from '@vben-admin/utils'
 import { getMenuList } from '@service/sys/menu'
 import { getPermCode } from '@service/sys/user'
-import { useMessage } from '/@/hooks/web/useMessage'
+import { useMessage } from '@/hooks/web/useMessage'
 
 interface PermissionState {
   // Permission code list

@@ -27,9 +27,9 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { BasicTable, ColumnChangeParam, useTable } from '/@/components/Table'
+import { BasicTable, ColumnChangeParam, useTable } from '@/components/Table'
 import { getBasicColumns, getBasicShortColumns } from './tableData'
-import { useMessage } from '/@/hooks/web/useMessage'
+import { useMessage } from '@/hooks/web/useMessage'
 import { demoListApi } from '@service/demo/table'
 export default defineComponent({
   components: { BasicTable },

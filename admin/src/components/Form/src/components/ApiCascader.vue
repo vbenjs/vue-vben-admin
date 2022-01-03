@@ -23,7 +23,7 @@ import { defineComponent, PropType, ref, unref, watch, watchEffect } from 'vue'
 import { Cascader } from 'ant-design-vue'
 import { isFunction, get, omit } from '@vben-admin/utils'
 import { useI18n } from '@vben-admin/locale'
-import { useRuleFormItem } from '/@/hooks/component/useFormItem'
+import { useRuleFormItem } from '@/hooks/component/useFormItem'
 import { LoadingOutlined } from '@ant-design/icons-vue'
 
 interface Option {

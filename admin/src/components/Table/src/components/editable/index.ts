@@ -1,4 +1,4 @@
-import type { BasicColumn } from '/@/components/Table/src/types/table'
+import type { BasicColumn } from '@/components/Table/src/types/table'
 
 import { h, Ref } from 'vue'
 

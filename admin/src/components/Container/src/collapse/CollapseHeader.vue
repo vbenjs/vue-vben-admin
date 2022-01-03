@@ -16,7 +16,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { BasicArrow, BasicTitle } from '/@/components/Basic'
+import { BasicArrow, BasicTitle } from '@/components/Basic'
 
 const props = {
   prefixCls: { type: String },

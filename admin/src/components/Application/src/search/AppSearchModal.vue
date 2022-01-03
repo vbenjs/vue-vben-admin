@@ -1,3 +1,67 @@
+<script lang="ts" setup>
+import { computed, unref, ref, watch, nextTick } from 'vue'
+import { SearchOutlined } from '@ant-design/icons-vue'
+import AppSearchFooter from './AppSearchFooter.vue'
+import Icon from '@/components/Icon'
+import { clickOutside as vClickOutside } from '@vben-admin/directives'
+import { useDesign } from '@/hooks/web/useDesign'
+import { useRefs } from '@vben-admin/use'
+import { useMenuSearch } from './useMenuSearch'
+import { useI18n } from '@vben-admin/locale'
+import { useAppInject } from '@/hooks/web/useAppInject'
+
+const props = defineProps({
+  visible: { type: Boolean },
+})
+
+const emit = defineEmits(['close'])
+
+const scrollWrap = ref(null)
+const inputRef = ref<Nullable<HTMLElement>>(null)
+
+const { t } = useI18n()
+const { prefixCls } = useDesign('app-search-modal')
+const [refs, setRefs] = useRefs()
+const { getIsMobile } = useAppInject()
+
+const {
+  handleSearch,
+  searchResult,
+  keyword,
+  activeIndex,
+  handleEnter,
+  handleMouseenter,
+} = useMenuSearch(refs, scrollWrap, emit)
+
+const getIsNotData = computed(
+  () => !keyword || unref(searchResult).length === 0,
+)
+
+const getClass = computed(() => {
+  return [
+    prefixCls,
+    {
+      [`${prefixCls}--mobile`]: unref(getIsMobile),
+    },
+  ]
+})
+
+watch(
+  () => props.visible,
+  (visible: boolean) => {
+    visible &&
+      nextTick(() => {
+        unref(inputRef)?.focus()
+      })
+  },
+)
+
+function handleClose() {
+  searchResult.value = []
+  emit('close')
+}
+</script>
+
 <template>
   <Teleport to="body">
     <transition name="zoom-fade" mode="out-in">
@@ -61,69 +125,6 @@
   </Teleport>
 </template>
 
-<script lang="ts" setup>
-import { computed, unref, ref, watch, nextTick } from 'vue'
-import { SearchOutlined } from '@ant-design/icons-vue'
-import AppSearchFooter from './AppSearchFooter.vue'
-import Icon from '/@/components/Icon'
-import { clickOutside as vClickOutside } from '@vben-admin/directives'
-import { useDesign } from '/@/hooks/web/useDesign'
-import { useRefs } from '@vben-admin/use'
-import { useMenuSearch } from './useMenuSearch'
-import { useI18n } from '@vben-admin/locale'
-import { useAppInject } from '/@/hooks/web/useAppInject'
-
-const props = defineProps({
-  visible: { type: Boolean },
-})
-
-const emit = defineEmits(['close'])
-
-const scrollWrap = ref(null)
-const inputRef = ref<Nullable<HTMLElement>>(null)
-
-const { t } = useI18n()
-const { prefixCls } = useDesign('app-search-modal')
-const [refs, setRefs] = useRefs()
-const { getIsMobile } = useAppInject()
-
-const {
-  handleSearch,
-  searchResult,
-  keyword,
-  activeIndex,
-  handleEnter,
-  handleMouseenter,
-} = useMenuSearch(refs, scrollWrap, emit)
-
-const getIsNotData = computed(
-  () => !keyword || unref(searchResult).length === 0,
-)
-
-const getClass = computed(() => {
-  return [
-    prefixCls,
-    {
-      [`${prefixCls}--mobile`]: unref(getIsMobile),
-    },
-  ]
-})
-
-watch(
-  () => props.visible,
-  (visible: boolean) => {
-    visible &&
-      nextTick(() => {
-        unref(inputRef)?.focus()
-      })
-  },
-)
-
-function handleClose() {
-  searchResult.value = []
-  emit('close')
-}
-</script>
 <style lang="less" scoped>
 @prefix-cls: ~'@{namespace}-app-search-modal';
 @footer-prefix-cls: ~'@{namespace}-app-search-footer';

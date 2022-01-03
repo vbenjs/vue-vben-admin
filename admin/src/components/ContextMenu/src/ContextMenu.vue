@@ -10,7 +10,7 @@ import {
   unref,
   onUnmounted,
 } from 'vue'
-import Icon from '/@/components/Icon'
+import Icon from '@/components/Icon'
 import { Menu, Divider } from 'ant-design-vue'
 
 const prefixCls = 'context-menu'

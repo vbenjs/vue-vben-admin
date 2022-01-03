@@ -17,12 +17,12 @@
 <script lang="ts" setup>
 import { h } from 'vue'
 import { Tag } from 'ant-design-vue'
-import { PageWrapper } from '/@/components/Page'
+import { PageWrapper } from '@/components/Page'
 import {
   Description,
   DescItem,
   useDescription,
-} from '/@/components/Description/index'
+} from '@/components/Description/index'
 import { GITHUB_URL, SITE_URL, DOC_URL } from '@vben-admin/setting'
 
 const { pkg, lastBuildTime } = __APP_INFO__

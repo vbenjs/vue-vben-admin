@@ -19,23 +19,23 @@
 <script lang="ts">
 import type { RouteLocationMatched } from 'vue-router'
 import { useRouter } from 'vue-router'
-import type { Menu } from '/@/router/types'
+import type { Menu } from '@/router/types'
 
 import { defineComponent, ref, watchEffect } from 'vue'
 
 import { Breadcrumb } from 'ant-design-vue'
-import Icon from '/@/components/Icon'
+import Icon from '@/components/Icon'
 
-import { useDesign } from '/@/hooks/web/useDesign'
-import { useRootSetting } from '/@/hooks/setting/useRootSetting'
-import { useGo } from '/@/hooks/web/usePage'
+import { useDesign } from '@/hooks/web/useDesign'
+import { useRootSetting } from '@/hooks/setting/useRootSetting'
+import { useGo } from '@/hooks/web/usePage'
 import { useI18n } from '@vben-admin/locale'
 import { REDIRECT_NAME } from '@vben-admin/tokens'
 
 import { isString, filterTree } from '@vben-admin/utils'
-import { getMenus } from '/@/router/menus'
+import { getMenus } from '@/router/menus'
 
-import { getAllParentPath } from '/@/router/helper/menuHelper'
+import { getAllParentPath } from '@/router/helper/menuHelper'
 
 export default defineComponent({
   name: 'LayoutBreadcrumb',

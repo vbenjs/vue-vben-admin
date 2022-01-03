@@ -39,9 +39,9 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { CollapseContainer } from '/@/components/Container/index'
+import { CollapseContainer } from '@/components/Container/index'
 import { useFullscreen } from '@vben-admin/use'
-import { PageWrapper } from '/@/components/Page'
+import { PageWrapper } from '@/components/Page'
 
 export default defineComponent({
   components: { CollapseContainer, PageWrapper },

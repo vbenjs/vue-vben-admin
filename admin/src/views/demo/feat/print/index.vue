@@ -11,8 +11,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { PageWrapper } from '/@/components/Page'
-import { CollapseContainer } from '/@/components/Container/index'
+import { PageWrapper } from '@/components/Page'
+import { CollapseContainer } from '@/components/Container/index'
 
 import printJS from 'print-js'
 

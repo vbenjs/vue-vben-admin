@@ -65,10 +65,10 @@ import {
   BasicTree,
   TreeActionItem,
   ContextMenuItem,
-} from '/@/components/Tree/index'
+} from '@/components/Tree/index'
 import { treeData, treeData2, treeData3 } from './data'
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue'
-import { PageWrapper } from '/@/components/Page'
+import { PageWrapper } from '@/components/Page'
 
 export default defineComponent({
   components: { BasicTree, PageWrapper, Row, Col },

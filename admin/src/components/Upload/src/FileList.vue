@@ -2,7 +2,7 @@
 import { defineComponent, CSSProperties, watch, nextTick } from 'vue'
 import { fileListProps } from './props'
 import { isFunction } from '@vben-admin/utils'
-import { useModalContext } from '/@/components/Modal/src/hooks/useModalContext'
+import { useModalContext } from '@/components/Modal/src/hooks/useModalContext'
 
 export default defineComponent({
   name: 'FileList',

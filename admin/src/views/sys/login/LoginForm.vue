@@ -20,15 +20,15 @@ import {
 import LoginFormTitle from './LoginFormTitle.vue'
 
 import { useI18n } from '@vben-admin/locale'
-import { useMessage } from '/@/hooks/web/useMessage'
-import { useUserStore } from '/@/store/user'
+import { useMessage } from '@/hooks/web/useMessage'
+import { useUserStore } from '@/store/user'
 import {
   LoginStateEnum,
   useLoginState,
   useFormRules,
   useFormValid,
 } from './useLogin'
-import { useDesign } from '/@/hooks/web/useDesign'
+import { useDesign } from '@/hooks/web/useDesign'
 
 const ACol = Col
 const ARow = Row

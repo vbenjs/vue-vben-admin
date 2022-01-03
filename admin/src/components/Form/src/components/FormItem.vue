@@ -3,11 +3,11 @@ import type { PropType, Ref } from 'vue'
 import type { FormActionType, FormProps } from '../types/form'
 import type { FormSchema } from '../types/form'
 import type { ValidationRule } from 'ant-design-vue/lib/form/Form'
-import type { TableActionType } from '/@/components/Table'
+import type { TableActionType } from '@/components/Table'
 import { defineComponent, computed, unref, toRefs } from 'vue'
 import { Form, Col, Divider } from 'ant-design-vue'
 import { componentMap } from '../componentMap'
-import { BasicHelp } from '/@/components/Basic'
+import { BasicHelp } from '@/components/Basic'
 import {
   upperFirst,
   isBoolean,

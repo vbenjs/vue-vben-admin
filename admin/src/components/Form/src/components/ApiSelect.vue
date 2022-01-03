@@ -32,7 +32,7 @@ import {
 } from 'vue'
 import { Select } from 'ant-design-vue'
 import { isFunction, get, omit } from '@vben-admin/utils'
-import { useRuleFormItem } from '/@/hooks/component/useFormItem'
+import { useRuleFormItem } from '@/hooks/component/useFormItem'
 import { LoadingOutlined } from '@ant-design/icons-vue'
 import { useI18n } from '@vben-admin/locale'
 import { useAttrs } from '@vben-admin/use'

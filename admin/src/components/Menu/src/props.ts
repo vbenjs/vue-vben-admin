@@ -1,4 +1,4 @@
-import type { Menu } from '/@/router/types'
+import type { Menu } from '@/router/types'
 import type { PropType } from 'vue'
 import type { MenuTheme } from 'ant-design-vue'
 import type { MenuMode } from 'ant-design-vue/lib/menu/src/interface'

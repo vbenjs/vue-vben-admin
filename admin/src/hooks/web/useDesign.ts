@@ -1,4 +1,4 @@
-import { useAppProviderContext } from '/@/components/Application'
+import { useAppProviderContext } from '@/components/Application'
 export function useDesign(scope: string) {
   const values = useAppProviderContext()
   // const $style = cssModule ? useCssModule() : {};

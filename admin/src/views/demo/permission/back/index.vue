@@ -30,10 +30,10 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { RoleEnum, PermissionModeEnum } from '@vben-admin/tokens'
-import { usePermission } from '/@/hooks/web/usePermission'
-import { useUserStore } from '/@/store/user'
-import { PageWrapper } from '/@/components/Page'
-import { useAppStore } from '/@/store/app'
+import { usePermission } from '@/hooks/web/usePermission'
+import { useUserStore } from '@/store/user'
+import { PageWrapper } from '@/components/Page'
+import { useAppStore } from '@/store/app'
 import { Alert, Space } from 'ant-design-vue'
 import CurrentPermissionMode from '../CurrentPermissionMode.vue'
 
