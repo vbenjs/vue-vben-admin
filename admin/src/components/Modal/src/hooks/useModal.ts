@@ -99,7 +99,9 @@ export function useModal(): UseModalReturnType {
   return [register, methods]
 }
 
-export const useModalInner = (callbackFn?: Fn): UseModalInnerReturnType => {
+export const useModalInner = (
+  callbackFn?: AnyFunction<any>,
+): UseModalInnerReturnType => {
   const modalInstanceRef = ref<Nullable<ModalMethods>>(null)
   const currentInstance = getCurrentInstance()
   const uidRef = ref<string>('')

@@ -7,7 +7,7 @@ export interface ContextMenuItem {
   label: string
   icon?: string
   disabled?: boolean
-  handler?: Fn
+  handler?: AnyFunction<any>
   divider?: boolean
   children?: ContextMenuItem[]
 }
@@ -31,5 +31,5 @@ export interface ContextMenuProps {
 export interface ItemContentProps {
   showIcon: boolean | undefined
   item: ContextMenuItem
-  handler: Fn
+  handler: AnyFunction<any>
 }

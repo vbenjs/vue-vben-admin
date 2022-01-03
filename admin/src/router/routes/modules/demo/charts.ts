@@ -1,9 +1,7 @@
-import type { AppRouteModule } from '/@/router/types'
-
 import { getParentLayout, LAYOUT } from '/@/router/constant'
 import { t } from '@vben-admin/locale'
 
-const charts: AppRouteModule = {
+const charts: RouteRecordItem = {
   path: '/charts',
   name: 'Charts',
   component: LAYOUT,
@@ -42,7 +40,7 @@ const charts: AppRouteModule = {
     {
       path: 'echarts',
       name: 'Echarts',
-      component: getParentLayout('Echarts'),
+      component: getParentLayout(),
       meta: {
         title: 'Echarts',
       },

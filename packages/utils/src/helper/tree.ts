@@ -50,7 +50,7 @@ export const treeToList = <T = any>(
 
 export const findTreeNode = <T = any>(
   tree: any,
-  func: Fn,
+  func: AnyFunction<any>,
   config: Partial<TreeHelperConfig> = {},
 ): T | null => {
   config = getConfig(config)

@@ -1,9 +1,7 @@
-import type { AppRouteModule } from '/@/router/types'
-
 import { getParentLayout, LAYOUT } from '/@/router/constant'
 import { t } from '@vben-admin/locale'
 
-const comp: AppRouteModule = {
+const comp: RouteRecordItem = {
   path: '/comp',
   name: 'Comp',
   component: LAYOUT,
@@ -28,7 +26,7 @@ const comp: AppRouteModule = {
       path: 'form',
       name: 'FormDemo',
       redirect: '/comp/form/basic',
-      component: getParentLayout('FormDemo'),
+      component: getParentLayout(),
       meta: {
         // icon: 'mdi:form-select',
         title: t('routes.demo.form.form'),
@@ -104,7 +102,7 @@ const comp: AppRouteModule = {
       path: 'table',
       name: 'TableDemo',
       redirect: '/comp/table/basic',
-      component: getParentLayout('TableDemo'),
+      component: getParentLayout(),
       meta: {
         // icon: 'carbon:table-split',
         title: t('routes.demo.table.table'),
@@ -287,7 +285,7 @@ const comp: AppRouteModule = {
       path: 'tree',
       name: 'TreeDemo',
       redirect: '/comp/tree/basic',
-      component: getParentLayout('TreeDemo'),
+      component: getParentLayout(),
       meta: {
         // icon: 'clarity:tree-view-line',
         title: t('routes.demo.comp.tree'),
@@ -323,7 +321,7 @@ const comp: AppRouteModule = {
       path: 'editor',
       name: 'EditorDemo',
       redirect: '/comp/editor/markdown',
-      component: getParentLayout('EditorDemo'),
+      component: getParentLayout(),
       meta: {
         // icon: 'carbon:table-split',
         title: t('routes.demo.editor.editor'),
@@ -339,7 +337,7 @@ const comp: AppRouteModule = {
         },
         {
           path: 'markdown',
-          component: getParentLayout('MarkdownDemo'),
+          component: getParentLayout(),
           name: 'MarkdownDemo',
           meta: {
             title: t('routes.demo.editor.markdown'),
@@ -369,7 +367,7 @@ const comp: AppRouteModule = {
 
         {
           path: 'tinymce',
-          component: getParentLayout('TinymceDemo'),
+          component: getParentLayout(),
           name: 'TinymceDemo',
           meta: {
             title: t('routes.demo.editor.tinymce'),
@@ -401,7 +399,7 @@ const comp: AppRouteModule = {
       path: 'scroll',
       name: 'ScrollDemo',
       redirect: '/comp/scroll/basic',
-      component: getParentLayout('ScrollDemo'),
+      component: getParentLayout(),
       meta: {
         title: t('routes.demo.comp.scroll'),
       },
@@ -462,7 +460,7 @@ const comp: AppRouteModule = {
     {
       path: 'lazy',
       name: 'LazyDemo',
-      component: getParentLayout('LazyDemo'),
+      component: getParentLayout(),
       redirect: '/comp/lazy/basic',
       meta: {
         title: t('routes.demo.comp.lazy'),
@@ -489,7 +487,7 @@ const comp: AppRouteModule = {
     {
       path: 'verify',
       name: 'VerifyDemo',
-      component: getParentLayout('VerifyDemo'),
+      component: getParentLayout(),
       redirect: '/comp/verify/drag',
       meta: {
         title: t('routes.demo.comp.verify'),

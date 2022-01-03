@@ -58,11 +58,11 @@ export type EditRecordRow<T = Recordable> = Partial<
     onEdit: (editable: boolean, submit?: boolean) => Promise<boolean>
     onValid: () => Promise<boolean>
     editable: boolean
-    onCancel: Fn
-    onSubmit: Fn
-    submitCbs: Fn[]
-    cancelCbs: Fn[]
-    validCbs: Fn[]
+    onCancel: AnyFunction<any>
+    onSubmit: AnyFunction<any>
+    submitCbs: AnyFunction<any>[]
+    cancelCbs: AnyFunction<any>[]
+    validCbs: AnyFunction<any>[]
     editValueRefs: Recordable<Ref>
   } & T
 >

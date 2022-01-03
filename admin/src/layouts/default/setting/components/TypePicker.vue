@@ -34,7 +34,7 @@ export default defineComponent({
       defualt: () => [],
     },
     handler: {
-      type: Function as PropType<Fn>,
+      type: Function as PropType<AnyFunction<any>>,
       default: () => ({}),
     },
     def: {

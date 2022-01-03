@@ -1,9 +1,7 @@
-import type { AppRouteModule } from '/@/router/types'
-
 import { LAYOUT } from '/@/router/constant'
 import { t } from '@vben-admin/locale'
 
-const setup: AppRouteModule = {
+const setup: RouteRecordItem = {
   path: '/setup',
   name: 'SetupDemo',
   component: LAYOUT,

@@ -5,7 +5,7 @@ import { createVNode, render } from 'vue'
 
 const menuManager: {
   domList: Element[]
-  resolve: Fn
+  resolve: AnyFunction<any>
 } = {
   domList: [],
   resolve: () => {},

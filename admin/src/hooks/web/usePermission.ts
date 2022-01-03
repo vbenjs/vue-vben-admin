@@ -1,5 +1,3 @@
-import type { RouteRecordRaw } from 'vue-router'
-
 import { useAppStore } from '/@/store/app'
 import { usePermissionStore } from '/@/store/permission'
 import { useUserStore } from '/@/store/user'
@@ -40,7 +38,7 @@ export function usePermission() {
     resetRouter()
     const routes = await permissionStore.buildRoutesAction()
     routes.forEach((route) => {
-      router.addRoute(route as unknown as RouteRecordRaw)
+      router.addRoute(route)
     })
     permissionStore.setLastBuildMenuTime()
     closeAll()

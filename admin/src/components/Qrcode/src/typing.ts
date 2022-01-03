@@ -23,7 +23,7 @@ export interface RenderQrCodeParams {
   logo?: LogoType | string
   image?: HTMLImageElement
   downloadName?: string
-  download?: boolean | Fn
+  download?: boolean | AnyFunction<any>
 }
 
 export type ToCanvasFn = (options: RenderQrCodeParams) => Promise<unknown>

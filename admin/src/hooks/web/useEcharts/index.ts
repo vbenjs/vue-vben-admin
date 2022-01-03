@@ -19,9 +19,9 @@ export function useECharts(
     return theme === 'default' ? getSysDarkMode.value : theme
   })
   let chartInstance: echarts.ECharts | null = null
-  let resizeFn: Fn = resize
+  let resizeFn: AnyFunction<any> = resize
   const cacheOptions = ref({}) as Ref<EChartsOption>
-  let removeResizeFn: Fn = () => {}
+  let removeResizeFn: AnyFunction<any> = () => {}
 
   resizeFn = useDebounceFn(resize, 200)
 

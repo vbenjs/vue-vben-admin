@@ -130,8 +130,8 @@ export function createPreviewActionColumn({
   handleRemove,
   handleDownload,
 }: {
-  handleRemove: Fn
-  handleDownload: Fn
+  handleRemove: AnyFunction<any>
+  handleDownload: AnyFunction<any>
 }): BasicColumn {
   return {
     width: 160,

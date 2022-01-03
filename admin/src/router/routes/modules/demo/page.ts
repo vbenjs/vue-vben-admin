@@ -1,12 +1,10 @@
-import type { AppRouteModule } from '/@/router/types'
-
 import { getParentLayout, LAYOUT } from '/@/router/constant'
 import { ExceptionEnum } from '@vben-admin/tokens'
 import { t } from '@vben-admin/locale'
 
 const ExceptionPage = () => import('/@/views/sys/exception/Exception.vue')
 
-const page: AppRouteModule = {
+const page: RouteRecordItem = {
   path: '/page-demo',
   name: 'PageDemo',
   component: LAYOUT,
@@ -22,7 +20,7 @@ const page: AppRouteModule = {
       path: 'form',
       name: 'FormPage',
       redirect: '/page-demo/form/basic',
-      component: getParentLayout('FormPage'),
+      component: getParentLayout(),
       meta: {
         title: t('routes.demo.page.form'),
       },
@@ -58,7 +56,7 @@ const page: AppRouteModule = {
     {
       path: 'desc',
       name: 'DescPage',
-      component: getParentLayout('DescPage'),
+      component: getParentLayout(),
       redirect: '/page-demo/desc/basic',
       meta: {
         title: t('routes.demo.page.desc'),
@@ -89,7 +87,7 @@ const page: AppRouteModule = {
       path: 'result',
       name: 'ResultPage',
       redirect: '/page-demo/result/success',
-      component: getParentLayout('ResultPage'),
+      component: getParentLayout(),
 
       meta: {
         title: t('routes.demo.page.result'),
@@ -120,7 +118,7 @@ const page: AppRouteModule = {
     {
       path: 'account',
       name: 'AccountPage',
-      component: getParentLayout('AccountPage'),
+      component: getParentLayout(),
       redirect: '/page-demo/account/setting',
       meta: {
         title: t('routes.demo.page.account'),
@@ -151,7 +149,7 @@ const page: AppRouteModule = {
     {
       path: 'exception',
       name: 'ExceptionPage',
-      component: getParentLayout('ExceptionPage'),
+      component: getParentLayout(),
       redirect: '/page-demo/exception/404',
       meta: {
         title: t('routes.demo.page.exception'),
@@ -219,7 +217,7 @@ const page: AppRouteModule = {
     {
       path: 'list',
       name: 'ListPage',
-      component: getParentLayout('ListPage'),
+      component: getParentLayout(),
       redirect: '/page-demo/list/card',
       meta: {
         title: t('routes.demo.page.list'),

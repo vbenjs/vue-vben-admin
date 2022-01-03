@@ -8,7 +8,7 @@ interface WindowSizeOptions {
 }
 
 export const useWindowResize = <T>(
-  fn: Fn<T>,
+  fn: AnyFunction<T>,
   wait = 150,
   options?: WindowSizeOptions,
 ) => {

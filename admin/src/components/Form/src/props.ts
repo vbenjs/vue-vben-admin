@@ -55,7 +55,7 @@ export const basicProps = {
   showAdvancedButton: { type: Boolean },
   // 转化时间
   transformDateFunc: {
-    type: Function as PropType<Fn>,
+    type: Function as PropType<AnyFunction<any>>,
     default: (date: any) => {
       return date?.format?.('YYYY-MM-DD HH:mm:ss') ?? date
     },

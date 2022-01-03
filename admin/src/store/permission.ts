@@ -1,4 +1,4 @@
-import type { AppRouteRecordRaw, Menu } from '/@/router/types'
+import type { Menu } from '/@/router/types'
 
 import { defineStore } from 'pinia'
 import { pinia } from '/@/internal'
@@ -92,24 +92,24 @@ export const usePermissionStore = defineStore({
       const codeList = await getPermCode()
       this.setPermCodeList(codeList)
     },
-    async buildRoutesAction(): Promise<AppRouteRecordRaw[]> {
+    async buildRoutesAction(): Promise<RouteRecordItem[]> {
       const { t } = useI18n()
       const userStore = useUserStore()
       const appStore = useAppStoreWithOut()
 
-      let routes: AppRouteRecordRaw[] = []
+      let routes: RouteRecordItem[] = []
       const roleList = toRaw(userStore.getRoleList) || []
       const { permissionMode = projectSetting.permissionMode } =
         appStore.getProjectConfig
 
-      const routeFilter = (route: AppRouteRecordRaw) => {
+      const routeFilter = (route: RouteRecordItem) => {
         const { meta } = route
         const { roles } = meta || {}
         if (!roles) return true
         return roleList.some((role) => roles.includes(role))
       }
 
-      const routeRemoveIgnoreFilter = (route: AppRouteRecordRaw) => {
+      const routeRemoveIgnoreFilter = (route: RouteRecordItem) => {
         const { meta } = route
         const { ignoreRoute } = meta || {}
         return !ignoreRoute
@@ -118,13 +118,13 @@ export const usePermissionStore = defineStore({
       /**
        * @description 根据设置的首页path，修正routes中的affix标记（固定首页）
        * */
-      const patchHomeAffix = (routes: AppRouteRecordRaw[]) => {
+      const patchHomeAffix = (routes: RouteRecordItem[]) => {
         if (!routes || routes.length === 0) return
         let homePath: string =
           userStore.getUserInfo.homePath || PageEnum.BASE_HOME
-        function patcher(routes: AppRouteRecordRaw[], parentPath = '') {
+        function patcher(routes: RouteRecordItem[], parentPath = '') {
           if (parentPath) parentPath = parentPath + '/'
-          routes.forEach((route: AppRouteRecordRaw) => {
+          routes.forEach((route: RouteRecordItem) => {
             const { path, children, redirect } = route
             const currentPath = path.startsWith('/') ? path : parentPath + path
             if (currentPath === homePath) {
@@ -164,7 +164,7 @@ export const usePermissionStore = defineStore({
             return (a.meta?.orderNo || 0) - (b.meta?.orderNo || 0)
           })
 
-          this.setFrontMenuList(menuList)
+          this.setFrontMenuList(menuList as Menu[])
           // Convert multi-level routing to level 2 routing
           routes = flatMultiLevelRoutes(routes)
           break
@@ -177,10 +177,10 @@ export const usePermissionStore = defineStore({
 
           // !Simulate to obtain permission codes from the background,
           // this function may only need to be executed once, and the actual project can be put at the right time by itself
-          let routeList: AppRouteRecordRaw[] = []
+          let routeList: RouteRecordItem[] = []
           try {
             this.changePermissionCode()
-            routeList = (await getMenuList()) as AppRouteRecordRaw[]
+            routeList = (await getMenuList()) as RouteRecordItem[]
           } catch (error) {
             console.error(error)
           }
@@ -190,7 +190,7 @@ export const usePermissionStore = defineStore({
 
           //  Background routing to menu structure
           const backMenuList = transformRouteToMenu(routeList)
-          this.setBackMenuList(backMenuList)
+          this.setBackMenuList(backMenuList as Menu[])
 
           // remove meta.ignoreRoute item
           routeList = filterTree(routeList, routeRemoveIgnoreFilter)

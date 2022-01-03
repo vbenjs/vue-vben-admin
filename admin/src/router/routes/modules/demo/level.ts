@@ -1,9 +1,7 @@
-import type { AppRouteModule } from '/@/router/types'
-
 import { getParentLayout, LAYOUT } from '/@/router/constant'
 import { t } from '@vben-admin/locale'
 
-const permission: AppRouteModule = {
+const permission: RouteRecordItem = {
   path: '/level',
   name: 'Level',
   component: LAYOUT,
@@ -18,7 +16,7 @@ const permission: AppRouteModule = {
     {
       path: 'menu1',
       name: 'Menu1Demo',
-      component: getParentLayout('Menu1Demo'),
+      component: getParentLayout(),
       meta: {
         title: 'Menu1',
       },
@@ -27,7 +25,7 @@ const permission: AppRouteModule = {
         {
           path: 'menu1-1',
           name: 'Menu11Demo',
-          component: getParentLayout('Menu11Demo'),
+          component: getParentLayout(),
           meta: {
             title: 'Menu1-1',
           },

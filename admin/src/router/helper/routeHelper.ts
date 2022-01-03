@@ -1,16 +1,14 @@
-import type { AppRouteModule, AppRouteRecordRaw } from '/@/router/types'
-import type { Router, RouteRecordNormalized } from 'vue-router'
+import type { RouteMeta, Router, RouteRecordNormalized } from 'vue-router'
 
-import {
-  getParentLayout,
-  LAYOUT,
-  EXCEPTION_COMPONENT,
-} from '/@/router/constant'
+import { getParentLayout, LAYOUT } from '/@/router/constant'
 import { omit, warn, cloneDeep } from '@vben-admin/utils'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 export type LayoutMapKey = 'LAYOUT'
+
 const IFRAME = () => import('/@/views/sys/iframe/FrameBlank.vue')
+export const EXCEPTION_COMPONENT = () =>
+  import('/@/views/sys/exception/Exception.vue')
 
 const LayoutMap = new Map<string, () => Promise<typeof import('*.vue')>>()
 
@@ -20,11 +18,11 @@ LayoutMap.set('IFRAME', IFRAME)
 let dynamicViewsModules: Record<string, () => Promise<Recordable>>
 
 // Dynamic introduction
-function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
+function asyncImportRoute(routes: RouteRecordItem[] | undefined) {
   dynamicViewsModules =
     dynamicViewsModules || import.meta.glob('../../views/**/*.{vue,tsx}')
   if (!routes) return
-  routes.forEach((item) => {
+  routes.forEach((item: any) => {
     if (!item.component && item.meta?.frameSrc) {
       item.component = 'IFRAME'
     }
@@ -78,26 +76,27 @@ function dynamicImport(
 }
 
 // Turn background objects into routing objects
-export function transformObjToRoute<T = AppRouteModule>(
-  routeList: AppRouteModule[],
+export function transformObjToRoute<T = RouteRecordItem>(
+  routeList: RouteRecordItem[],
 ): T[] {
   routeList.forEach((route) => {
-    const component = route.component as string
+    const _route: any = route
+    const component = _route.component as string
     if (component) {
       if (component.toUpperCase() === 'LAYOUT') {
         route.component = LayoutMap.get(component.toUpperCase())
       } else {
         route.children = [cloneDeep(route)]
         route.component = LAYOUT
-        route.name = `${route.name}Parent`
+        route.name = `${_route.name}Parent`
         route.path = ''
-        const meta = route.meta || {}
+        const meta = route.meta || ({} as RouteMeta)
         meta.single = true
         meta.affix = false
         route.meta = meta
       }
     } else {
-      warn('请正确配置路由：' + route?.name + '的component属性')
+      warn('请正确配置路由：' + _route?.name + '的component属性')
     }
     route.children && asyncImportRoute(route.children)
   })
@@ -107,8 +106,8 @@ export function transformObjToRoute<T = AppRouteModule>(
 /**
  * Convert multi-level routing to level 2 routing
  */
-export function flatMultiLevelRoutes(routeModules: AppRouteModule[]) {
-  const modules: AppRouteModule[] = cloneDeep(routeModules)
+export function flatMultiLevelRoutes(routeModules: RouteRecordItem[]) {
+  const modules: RouteRecordItem[] = cloneDeep(routeModules)
   for (let index = 0; index < modules.length; index++) {
     const routeModule = modules[index]
     if (!isMultipleRoute(routeModule)) {
@@ -120,7 +119,7 @@ export function flatMultiLevelRoutes(routeModules: AppRouteModule[]) {
 }
 
 // Routing level upgrade
-function promoteRouteLevel(routeModule: AppRouteModule) {
+function promoteRouteLevel(routeModule: RouteRecordItem) {
   // Use vue-router to splice menus
   let router: Router | null = createRouter({
     routes: [routeModule as unknown as RouteRecordNormalized],
@@ -130,8 +129,7 @@ function promoteRouteLevel(routeModule: AppRouteModule) {
   const routes = router.getRoutes()
   addToChildren(routes, routeModule.children || [], routeModule)
   router = null
-
-  routeModule.children = routeModule.children?.map((item) =>
+  routeModule.children = routeModule.children?.map((item): any =>
     omit(item, 'children'),
   )
 }
@@ -139,8 +137,8 @@ function promoteRouteLevel(routeModule: AppRouteModule) {
 // Add all sub-routes to the secondary route
 function addToChildren(
   routes: RouteRecordNormalized[],
-  children: AppRouteRecordRaw[],
-  routeModule: AppRouteModule,
+  children: RouteRecordItem[],
+  routeModule: RouteRecordItem,
 ) {
   for (let index = 0; index < children.length; index++) {
     const child = children[index]
@@ -150,7 +148,7 @@ function addToChildren(
     }
     routeModule.children = routeModule.children || []
     if (!routeModule.children.find((item) => item.name === route.name)) {
-      routeModule.children?.push(route as unknown as AppRouteModule)
+      routeModule.children?.push(route as unknown as RouteRecordItem)
     }
     if (child.children?.length) {
       addToChildren(routes, child.children, routeModule)
@@ -159,7 +157,7 @@ function addToChildren(
 }
 
 // Determine whether the level exceeds 2 levels
-function isMultipleRoute(routeModule: AppRouteModule) {
+function isMultipleRoute(routeModule: RouteRecordItem) {
   if (
     !routeModule ||
     !Reflect.has(routeModule, 'children') ||

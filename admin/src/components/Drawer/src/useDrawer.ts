@@ -99,7 +99,9 @@ export function useDrawer(): UseDrawerReturnType {
   return [register, methods]
 }
 
-export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
+export const useDrawerInner = (
+  callbackFn?: AnyFunction<any>,
+): UseDrawerInnerReturnType => {
   const drawerInstanceRef = ref<Nullable<DrawerInstance>>(null)
   const currentInstance = getCurrentInstance()
   const uidRef = ref<string>('')

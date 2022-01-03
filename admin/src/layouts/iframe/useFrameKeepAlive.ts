@@ -1,5 +1,3 @@
-import type { AppRouteRecordRaw } from '/@/router/types'
-
 import { computed, toRaw, unref } from 'vue'
 import { useMultipleTabStore } from '/@/store/multipleTab'
 import { uniqBy } from '@vben-admin/utils'
@@ -13,9 +11,7 @@ export function useFrameKeepAlive() {
   const tabStore = useMultipleTabStore()
   const getFramePages = computed(() => {
     const ret =
-      getAllFramePages(
-        toRaw(router.getRoutes()) as unknown as AppRouteRecordRaw[],
-      ) || []
+      getAllFramePages(toRaw(router.getRoutes()) as RouteRecordItem[]) || []
     return ret
   })
 
@@ -28,8 +24,8 @@ export function useFrameKeepAlive() {
     }, [])
   })
 
-  function getAllFramePages(routes: AppRouteRecordRaw[]): AppRouteRecordRaw[] {
-    let res: AppRouteRecordRaw[] = []
+  function getAllFramePages(routes: RouteRecordItem[]): RouteRecordItem[] {
+    let res: RouteRecordItem[] = []
     for (const route of routes) {
       const { meta: { frameSrc } = {}, children } = route
       if (frameSrc) {
@@ -43,7 +39,7 @@ export function useFrameKeepAlive() {
     return res
   }
 
-  function showIframe(item: AppRouteRecordRaw) {
+  function showIframe(item: RouteRecordItem) {
     return item.name === unref(currentRoute).name
   }
 

@@ -1,5 +1,5 @@
 export interface DropMenu {
-  onClick?: Fn
+  onClick?: AnyFunction<any>
   to?: string
   icon?: string
   event: string | number

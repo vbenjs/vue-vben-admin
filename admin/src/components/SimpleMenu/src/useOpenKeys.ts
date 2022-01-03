@@ -19,25 +19,28 @@ export function useOpenKeys(
   async function setOpenKeys(path: string) {
     const native = !mixSider.value
     const menuList = toRaw(menus.value)
-    useTimeoutFn(
-      () => {
-        if (menuList?.length === 0) {
-          menuState.activeSubMenuNames = []
-          menuState.openNames = []
-          return
-        }
-        const keys = getAllParentPath(menuList, path)
 
-        if (!unref(accordion)) {
-          menuState.openNames = uniq([...menuState.openNames, ...keys])
-        } else {
-          menuState.openNames = keys
-        }
-        menuState.activeSubMenuNames = menuState.openNames
-      },
-      30,
-      native,
-    )
+    const func = () => {
+      if (menuList?.length === 0) {
+        menuState.activeSubMenuNames = []
+        menuState.openNames = []
+        return
+      }
+      const keys = getAllParentPath(menuList, path)
+
+      if (!unref(accordion)) {
+        menuState.openNames = uniq([...menuState.openNames, ...keys])
+      } else {
+        menuState.openNames = keys
+      }
+      menuState.activeSubMenuNames = menuState.openNames
+    }
+
+    if (!native) {
+      func()
+    } else {
+      useTimeoutFn(func, 16)
+    }
   }
 
   const getOpenKeys = computed(() => {

@@ -50,15 +50,15 @@ export const basicProps = {
     default: null,
   },
   beforeFetch: {
-    type: Function as PropType<Fn>,
+    type: Function as PropType<AnyFunction<any>>,
     default: null,
   },
   afterFetch: {
-    type: Function as PropType<Fn>,
+    type: Function as PropType<AnyFunction<any>>,
     default: null,
   },
   handleSearchInfoFn: {
-    type: Function as PropType<Fn>,
+    type: Function as PropType<AnyFunction<any>>,
     default: null,
   },
   fetchSetting: {

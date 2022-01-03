@@ -8,20 +8,16 @@ export interface UseLoadingOptions {
   props?: Partial<LoadingProps>
 }
 
-interface Fn {
-  (): void
-}
-
 export function useLoading(
   props: Partial<LoadingProps>,
-): [Fn, Fn, (string) => void]
+): [AnyFunction<any>, AnyFunction<any>, (string) => void]
 export function useLoading(
   opt: Partial<UseLoadingOptions>,
-): [Fn, Fn, (string) => void]
+): [AnyFunction<any>, AnyFunction<any>, (string) => void]
 
 export function useLoading(
   opt: Partial<LoadingProps> | Partial<UseLoadingOptions>,
-): [Fn, Fn, (string) => void] {
+): [AnyFunction<any>, AnyFunction<any>, (string) => void] {
   let props: Partial<LoadingProps>
   let target: HTMLElement | Ref<ElRef> = document.body
 

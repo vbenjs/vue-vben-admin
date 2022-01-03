@@ -1,5 +1,3 @@
-import type { AppRouteRecordRaw, AppRouteModule } from '/@/router/types'
-
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/routes/basic'
 
 import { mainOutRoutes } from './mainOut'
@@ -8,7 +6,7 @@ import { t } from '@vben-admin/locale'
 
 const modules = import.meta.globEager('./modules/**/*.ts')
 
-const routeModuleList: AppRouteModule[] = []
+const routeModuleList: RouteRecordItem[] = []
 
 Object.keys(modules).forEach((key) => {
   const mod = modules[key].default || {}
@@ -18,7 +16,7 @@ Object.keys(modules).forEach((key) => {
 
 export const asyncRoutes = [PAGE_NOT_FOUND_ROUTE, ...routeModuleList]
 
-export const RootRoute: AppRouteRecordRaw = {
+export const RootRoute: RouteRecordItem = {
   path: '/',
   name: 'Root',
   redirect: PageEnum.BASE_HOME,
@@ -27,7 +25,7 @@ export const RootRoute: AppRouteRecordRaw = {
   },
 }
 
-export const LoginRoute: AppRouteRecordRaw = {
+export const LoginRoute: RouteRecordItem = {
   path: '/login',
   name: 'Login',
   component: () => import('/@/views/sys/login/Login.vue'),

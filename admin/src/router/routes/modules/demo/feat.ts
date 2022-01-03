@@ -1,9 +1,7 @@
-import type { AppRouteModule } from '/@/router/types'
-
 import { getParentLayout, LAYOUT } from '/@/router/constant'
 import { t } from '@vben-admin/locale'
 
-const feat: AppRouteModule = {
+const feat: RouteRecordItem = {
   path: '/feat',
   name: 'FeatDemo',
   component: LAYOUT,
@@ -74,7 +72,7 @@ const feat: AppRouteModule = {
       path: 'breadcrumb',
       name: 'BreadcrumbDemo',
       redirect: '/feat/breadcrumb/flat',
-      component: getParentLayout('BreadcrumbDemo'),
+      component: getParentLayout(),
       meta: {
         title: t('routes.demo.feat.breadcrumb'),
       },
@@ -210,7 +208,7 @@ const feat: AppRouteModule = {
       path: 'excel',
       name: 'Excel',
       redirect: '/feat/excel/customExport',
-      component: getParentLayout('Excel'),
+      component: getParentLayout(),
       meta: {
         // icon: 'mdi:microsoft-excel',
         title: t('routes.demo.excel.excel'),
@@ -286,7 +284,7 @@ const feat: AppRouteModule = {
     {
       path: 'testParam/:id',
       name: 'TestParam',
-      component: getParentLayout('TestParam'),
+      component: getParentLayout(),
       meta: {
         title: t('routes.demo.feat.menu'),
         ignoreKeepAlive: true,

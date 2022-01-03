@@ -1,10 +1,8 @@
-import type { AppRouteModule } from '/@/router/types'
-
 import { LAYOUT } from '/@/router/constant'
 const IFrame = () => import('/@/views/sys/iframe/FrameBlank.vue')
 import { t } from '@vben-admin/locale'
 
-const iframe: AppRouteModule = {
+const iframe: RouteRecordItem = {
   path: '/frame',
   name: 'Frame',
   component: LAYOUT,

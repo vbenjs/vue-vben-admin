@@ -19,7 +19,7 @@ export interface SubMenuProvider {
   sliceIndex: (index: number) => void
   isRemoveAllPopup: Ref<boolean>
   getOpenNames: () => (string | number)[]
-  handleMouseleave?: Fn
+  handleMouseleave?: AnyFunction<any>
   level: number
   props: Props
 }

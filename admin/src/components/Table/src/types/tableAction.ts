@@ -2,7 +2,7 @@ import { ButtonProps } from 'ant-design-vue/es/button/buttonTypes'
 import { TooltipProps } from 'ant-design-vue/es/tooltip/Tooltip'
 import { RoleEnum } from '@vben-admin/tokens'
 export interface ActionItem extends ButtonProps {
-  onClick?: Fn
+  onClick?: AnyFunction<any>
   label?: string
   color?: 'success' | 'error' | 'warning'
   icon?: string
@@ -20,8 +20,8 @@ export interface PopConfirm {
   title: string
   okText?: string
   cancelText?: string
-  confirm: Fn
-  cancel?: Fn
+  confirm: AnyFunction<any>
+  cancel?: AnyFunction<any>
   icon?: string
   placement?:
     | 'top'

@@ -149,7 +149,7 @@ export const on = (
 export const off = (
   element: Element | HTMLElement | Document | Window,
   event: string,
-  handler: Fn,
+  handler: AnyFunction<any>,
 ) => {
   if (element && event && handler) {
     element.removeEventListener(event, handler, false)

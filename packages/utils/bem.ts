@@ -55,10 +55,8 @@ export const createNamespace = (name: string) => {
   return [prefixedName, buildBEM(prefixedName)] as const
 }
 
-export const createBEMPlugin = (_namespace: string): Plugin => {
-  return {
-    install: () => {
-      namespace = _namespace
-    },
-  }
-}
+export const createBEMPlugin = (_namespace: string): Plugin => ({
+  install: () => {
+    namespace = _namespace
+  },
+})

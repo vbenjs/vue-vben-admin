@@ -1,14 +1,12 @@
-import type { AppRouteRecordRaw } from '/@/router/types'
 import { t } from '@vben-admin/locale'
-import { REDIRECT_NAME } from '@vben-admin/tokens'
-import {
-  LAYOUT,
-  EXCEPTION_COMPONENT,
-  PAGE_NOT_FOUND_NAME,
-} from '/@/router/constant'
+import { REDIRECT_NAME, PAGE_NOT_FOUND_NAME } from '@vben-admin/tokens'
+import { LAYOUT } from '/@/router/constant'
+
+export const EXCEPTION_COMPONENT = () =>
+  import('/@/views/sys/exception/Exception.vue')
 
 // 404 on a page
-export const PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {
+export const PAGE_NOT_FOUND_ROUTE: RouteRecordItem = {
   path: '/:path(.*)*',
   name: PAGE_NOT_FOUND_NAME,
   component: LAYOUT,
@@ -31,7 +29,7 @@ export const PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {
   ],
 }
 
-export const REDIRECT_ROUTE: AppRouteRecordRaw = {
+export const REDIRECT_ROUTE: RouteRecordItem = {
   path: '/redirect',
   component: LAYOUT,
   name: 'RedirectTo',
@@ -53,7 +51,7 @@ export const REDIRECT_ROUTE: AppRouteRecordRaw = {
   ],
 }
 
-export const ERROR_LOG_ROUTE: AppRouteRecordRaw = {
+export const ERROR_LOG_ROUTE: RouteRecordItem = {
   path: '/error-log',
   name: 'ErrorLog',
   component: LAYOUT,

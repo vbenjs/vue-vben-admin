@@ -1,9 +1,7 @@
-import type { AppRouteModule } from '/@/router/types'
-
 import { LAYOUT } from '/@/router/constant'
 import { t } from '@vben-admin/locale'
 
-const charts: AppRouteModule = {
+const charts: RouteRecordItem = {
   path: '/flow',
   name: 'FlowDemo',
   component: LAYOUT,

@@ -2,13 +2,13 @@ import { generate } from '@ant-design/colors'
 
 export const primaryColor = '#0960bd'
 
-type Fn = (...arg: any) => any
+type AnyFunction<T> = (...args: any[]) => T
 
 type GenerateTheme = 'default' | 'dark'
 
 export interface GenerateColorsParams {
-  mixLighten: Fn
-  mixDarken: Fn
+  mixLighten: AnyFunction<any>
+  mixDarken: AnyFunction<any>
   tinycolor: any
   color?: string
 }

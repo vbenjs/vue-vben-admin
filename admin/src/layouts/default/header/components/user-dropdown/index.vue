@@ -13,12 +13,13 @@
     </span>
 
     <template #overlay>
-      <Menu @click="handleMenuClick">
+      <Menu>
         <MenuItem
           key="doc"
           :text="t('layout.header.dropdownItemDoc')"
           icon="ion:document-text-outline"
           v-if="getShowDoc"
+          @click="handleMenuClick('doc')"
         />
         <MenuDivider v-if="getShowDoc" />
         <MenuItem
@@ -26,11 +27,13 @@
           key="lock"
           :text="t('layout.header.tooltipLock')"
           icon="ion:lock-closed-outline"
+          @click="handleMenuClick('lock')"
         />
         <MenuItem
           key="logout"
           :text="t('layout.header.dropdownItemLoginOut')"
           icon="ion:power-outline"
+          @click="handleMenuClick('logout')"
         />
       </Menu>
     </template>
@@ -38,7 +41,6 @@
   <LockAction @register="register" />
 </template>
 <script lang="ts">
-// components
 import { Dropdown, Menu } from 'ant-design-vue'
 import { defineComponent, computed } from 'vue'
 import { DOC_URL } from '@vben-admin/setting'
@@ -51,8 +53,6 @@ import headerImg from '/@/assets/images/header.jpg'
 import { openWindow } from '@vben-admin/utils'
 import MenuItem from './DropMenuItem.vue'
 import LockAction from '../lock/LockModal.vue'
-
-type MenuEvent = 'logout' | 'doc' | 'lock'
 
 export default defineComponent({
   name: 'UserDropdown',
@@ -96,8 +96,8 @@ export default defineComponent({
       openWindow(DOC_URL)
     }
 
-    function handleMenuClick(e: { key: MenuEvent }) {
-      switch (e.key) {
+    const handleMenuClick = (key: string) => {
+      switch (key) {
         case 'logout':
           handleLoginOut()
           break

@@ -27,7 +27,7 @@ interface UseFormActionContext {
   defaultValueRef: Ref<Recordable>
   formElRef: Ref<FormActionType>
   schemaRef: Ref<FormSchema[]>
-  handleFormValues: Fn
+  handleFormValues: AnyFunction<any>
 }
 export function useFormEvents({
   emit,

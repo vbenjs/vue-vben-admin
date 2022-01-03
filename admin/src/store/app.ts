@@ -42,6 +42,7 @@ export const useAppStore = defineStore({
     getPageLoading(): boolean {
       return this.pageLoading
     },
+
     getDarkMode(): 'light' | 'dark' | string {
       return this.darkMode || darkMode
     },
@@ -57,12 +58,15 @@ export const useAppStore = defineStore({
     getHeaderSetting(): HeaderSetting {
       return this.getProjectConfig.headerSetting
     },
+
     getMenuSetting(): MenuSetting {
       return this.getProjectConfig.menuSetting
     },
+
     getTransitionSetting(): TransitionSetting {
       return this.getProjectConfig.transitionSetting
     },
+
     getMultiTabsSetting(): MultiTabsSetting {
       return this.getProjectConfig.multiTabsSetting
     },

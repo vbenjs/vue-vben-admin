@@ -113,5 +113,6 @@
     "unplugin",
     "unref",
     "vitest"
-  ]
+  ],
+  "commentTranslate.multiLineMerge": true
 }

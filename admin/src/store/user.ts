@@ -1,6 +1,5 @@
 import type { UserInfo, ErrorMessageMode } from '@vben-admin/types'
 
-import { RouteRecordRaw } from 'vue-router'
 import { defineStore } from 'pinia'
 import { RoleEnum, PageEnum } from '@vben-admin/tokens'
 import { isArray } from '@vben-admin/utils'
@@ -117,9 +116,9 @@ export const useUserStore = defineStore({
         if (!permissionStore.isDynamicAddedRoute) {
           const routes = await permissionStore.buildRoutesAction()
           routes.forEach((route) => {
-            router.addRoute(route as unknown as RouteRecordRaw)
+            router.addRoute(route)
           })
-          router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw)
+          router.addRoute(PAGE_NOT_FOUND_ROUTE)
           permissionStore.setDynamicAddedRoute(true)
         }
         goHome &&

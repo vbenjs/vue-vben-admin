@@ -10,7 +10,7 @@ export interface ComponentProps {
   rule: boolean
   popoverVisible: boolean
   ruleMessage: string
-  getPopupContainer?: Fn
+  getPopupContainer?: AnyFunction<any>
 }
 
 export const CellComponent: FunctionalComponent = (

@@ -1,4 +1,4 @@
-import type { Router, RouteRecordRaw } from 'vue-router'
+import type { Router } from 'vue-router'
 
 import { usePermissionStoreWithOut } from '/@/store/permission'
 import { PageEnum } from '@vben-admin/tokens'
@@ -100,10 +100,10 @@ export function createPermissionGuard(router: Router) {
     const routes = await permissionStore.buildRoutesAction()
 
     routes.forEach((route) => {
-      router.addRoute(route as unknown as RouteRecordRaw)
+      router.addRoute(route)
     })
 
-    router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw)
+    router.addRoute(PAGE_NOT_FOUND_ROUTE)
 
     permissionStore.setDynamicAddedRoute(true)
 

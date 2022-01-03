@@ -176,11 +176,11 @@ export interface BasicTableProps<T = any> {
   // 接口请求对象
   api?: (...arg: any) => Promise<any>
   // 请求之前处理参数
-  beforeFetch?: Fn
+  beforeFetch?: AnyFunction<any>
   // 自定义处理接口返回参数
-  afterFetch?: Fn
+  afterFetch?: AnyFunction<any>
   // 查询条件请求之前处理
-  handleSearchInfoFn?: Fn
+  handleSearchInfoFn?: AnyFunction<any>
   // 请求接口配置
   fetchSetting?: Partial<FetchSetting>
   // 立即请求接口

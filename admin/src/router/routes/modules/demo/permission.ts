@@ -1,10 +1,8 @@
-import type { AppRouteModule } from '/@/router/types'
-
 import { getParentLayout, LAYOUT } from '/@/router/constant'
 import { RoleEnum } from '@vben-admin/tokens'
 import { t } from '@vben-admin/locale'
 
-const permission: AppRouteModule = {
+const permission: RouteRecordItem = {
   path: '/permission',
   name: 'Permission',
   component: LAYOUT,
@@ -19,7 +17,7 @@ const permission: AppRouteModule = {
     {
       path: 'front',
       name: 'PermissionFrontDemo',
-      component: getParentLayout('PermissionFrontDemo'),
+      component: getParentLayout(),
       meta: {
         title: t('routes.demo.permission.front'),
       },
@@ -65,7 +63,7 @@ const permission: AppRouteModule = {
     {
       path: 'back',
       name: 'PermissionBackDemo',
-      component: getParentLayout('PermissionBackDemo'),
+      component: getParentLayout(),
       meta: {
         title: t('routes.demo.permission.back'),
       },

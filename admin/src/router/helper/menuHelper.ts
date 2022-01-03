@@ -1,6 +1,5 @@
-import type { MenuModule, Menu, AppRouteRecordRaw } from '/@/router/types'
+import type { MenuModule, Menu } from '/@/router/types'
 
-import { AppRouteModule } from '/@/router/types'
 import {
   isUrl,
   cloneDeep,
@@ -18,7 +17,7 @@ export function getAllParentPath<T = Recordable>(treeData: T[], path: string) {
   return (menuList || []).map((item) => item.path)
 }
 
-function joinParentPath(menus: Menu[], parentPath = '') {
+function joinParentPath(menus: RouteRecordItem[], parentPath = '') {
   for (let index = 0; index < menus.length; index++) {
     const menu = menus[index]
     // https://next.router.vuejs.org/guide/essentials/nested-routes.html
@@ -48,16 +47,16 @@ export function transformMenuModule(menuModule: MenuModule): Menu {
 }
 
 export function transformRouteToMenu(
-  routeModList: AppRouteModule[],
+  routeModList: RouteRecordItem[],
   routerMapping = false,
 ) {
   const cloneRouteModList = cloneDeep(routeModList)
-  const routeList: AppRouteRecordRaw[] = []
+  const routeList: RouteRecordItem[] = []
 
   cloneRouteModList.forEach((item) => {
     if (
       routerMapping &&
-      item.meta.hideChildrenInMenu &&
+      item.meta?.hideChildrenInMenu &&
       typeof item.redirect === 'string'
     ) {
       item.path = item.redirect
@@ -70,7 +69,7 @@ export function transformRouteToMenu(
     }
   })
   const list = treeMap(routeList, {
-    conversion: (node: AppRouteRecordRaw) => {
+    conversion: (node: RouteRecordItem) => {
       const { meta: { title, hideMenu = false } = {} } = node
 
       return {

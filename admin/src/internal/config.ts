@@ -13,7 +13,7 @@ export const createStorageName = () => {
   return `${createStorageKeyPrefix()}${`_${version}`}_`.toUpperCase()
 }
 
-export function getAppConfig() {
+export const getAppConfig = () => {
   const ENV_NAME = getAppConfigFileName(import.meta.env)
 
   const ENV = (

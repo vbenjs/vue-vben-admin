@@ -1,4 +1,5 @@
 import type { Router, RouteLocationNormalized } from 'vue-router'
+
 import { useAppStoreWithOut } from '/@/store/app'
 import { useUserStoreWithOut } from '/@/store/user'
 import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting'

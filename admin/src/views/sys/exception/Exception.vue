@@ -15,7 +15,7 @@ interface MapValue {
   subTitle: string
   btnText?: string
   icon?: string
-  handler?: Fn
+  handler?: AnyFunction<any>
   status?: string
 }
 
