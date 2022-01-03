@@ -1,10 +1,3 @@
-<template>
-  <transition>
-    <div :class="prefixCls">
-      <Login sessionTimeout />
-    </div>
-  </transition>
-</template>
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import Login from './Login.vue'
@@ -40,6 +33,15 @@ onBeforeUnmount(() => {
   }
 })
 </script>
+
+<template>
+  <transition>
+    <div :class="prefixCls">
+      <Login sessionTimeout />
+    </div>
+  </transition>
+</template>
+
 <style lang="less" scoped>
 @prefix-cls: ~'@{namespace}-st-login';
 

@@ -1,3 +1,39 @@
+<script lang="ts" setup>
+import { reactive, ref, computed, unref } from 'vue'
+import { Form, Input, Button } from 'ant-design-vue'
+import { CountdownInput } from '/@/components/CountDown'
+import LoginFormTitle from './LoginFormTitle.vue'
+import { useI18n } from '@vben-admin/locale'
+import {
+  useLoginState,
+  useFormRules,
+  useFormValid,
+  LoginStateEnum,
+} from './useLogin'
+
+const FormItem = Form.Item
+const { t } = useI18n()
+const { handleBackLogin, getLoginState } = useLoginState()
+const { getFormRules } = useFormRules()
+
+const formRef = ref()
+const loading = ref(false)
+
+const formData = reactive({
+  mobile: '',
+  sms: '',
+})
+
+const { validForm } = useFormValid(formRef)
+
+const getShow = computed(() => unref(getLoginState) === LoginStateEnum.MOBILE)
+
+async function handleLogin() {
+  const data = await validForm()
+  if (!data) return
+  console.log(data)
+}
+</script>
 <template>
   <template v-if="getShow">
     <LoginFormTitle class="enter-x" />
@@ -41,39 +77,3 @@
     </Form>
   </template>
 </template>
-<script lang="ts" setup>
-import { reactive, ref, computed, unref } from 'vue'
-import { Form, Input, Button } from 'ant-design-vue'
-import { CountdownInput } from '/@/components/CountDown'
-import LoginFormTitle from './LoginFormTitle.vue'
-import { useI18n } from '@vben-admin/locale'
-import {
-  useLoginState,
-  useFormRules,
-  useFormValid,
-  LoginStateEnum,
-} from './useLogin'
-
-const FormItem = Form.Item
-const { t } = useI18n()
-const { handleBackLogin, getLoginState } = useLoginState()
-const { getFormRules } = useFormRules()
-
-const formRef = ref()
-const loading = ref(false)
-
-const formData = reactive({
-  mobile: '',
-  sms: '',
-})
-
-const { validForm } = useFormValid(formRef)
-
-const getShow = computed(() => unref(getLoginState) === LoginStateEnum.MOBILE)
-
-async function handleLogin() {
-  const data = await validForm()
-  if (!data) return
-  console.log(data)
-}
-</script>

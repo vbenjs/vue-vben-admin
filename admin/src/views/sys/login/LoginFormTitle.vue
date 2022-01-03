@@ -1,10 +1,3 @@
-<template>
-  <h2
-    class="mb-3 text-2xl font-bold text-center xl:text-3xl enter-x xl:text-left"
-  >
-    {{ getFormTitle }}
-  </h2>
-</template>
 <script lang="ts" setup>
 import { computed, unref } from 'vue'
 import { useI18n } from '@vben-admin/locale'
@@ -25,3 +18,10 @@ const getFormTitle = computed(() => {
   return titleObj[unref(getLoginState)]
 })
 </script>
+<template>
+  <h2
+    class="mb-3 text-2xl font-bold text-center xl:text-3xl enter-x xl:text-left"
+  >
+    {{ getFormTitle }}
+  </h2>
+</template>

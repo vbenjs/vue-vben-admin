@@ -1,3 +1,19 @@
+<script lang="ts" setup>
+import { computed, unref } from 'vue'
+import LoginFormTitle from './LoginFormTitle.vue'
+import { Button, Divider } from 'ant-design-vue'
+import { QrCode } from '/@/components/Qrcode/index'
+import { useI18n } from '@vben-admin/locale'
+import { useLoginState, LoginStateEnum } from './useLogin'
+
+const qrCodeUrl = 'https://vvbin.cn/next/login'
+
+const { t } = useI18n()
+const { handleBackLogin, getLoginState } = useLoginState()
+
+const getShow = computed(() => unref(getLoginState) === LoginStateEnum.QR_CODE)
+</script>
+
 <template>
   <template v-if="getShow">
     <LoginFormTitle class="enter-x" />
@@ -14,18 +30,3 @@
     </div>
   </template>
 </template>
-<script lang="ts" setup>
-import { computed, unref } from 'vue'
-import LoginFormTitle from './LoginFormTitle.vue'
-import { Button, Divider } from 'ant-design-vue'
-import { QrCode } from '/@/components/Qrcode/index'
-import { useI18n } from '@vben-admin/locale'
-import { useLoginState, LoginStateEnum } from './useLogin'
-
-const qrCodeUrl = 'https://vvbin.cn/next/login'
-
-const { t } = useI18n()
-const { handleBackLogin, getLoginState } = useLoginState()
-
-const getShow = computed(() => unref(getLoginState) === LoginStateEnum.QR_CODE)
-</script>

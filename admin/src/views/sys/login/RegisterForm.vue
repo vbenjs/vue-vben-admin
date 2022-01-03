@@ -1,3 +1,46 @@
+<script lang="ts" setup>
+import { reactive, ref, unref, computed } from 'vue'
+import LoginFormTitle from './LoginFormTitle.vue'
+import { Form, Input, Button, Checkbox } from 'ant-design-vue'
+import { StrengthMeter } from '/@/components/StrengthMeter'
+import { CountdownInput } from '/@/components/CountDown'
+import { useI18n } from '@vben-admin/locale'
+import {
+  useLoginState,
+  useFormRules,
+  useFormValid,
+  LoginStateEnum,
+} from './useLogin'
+
+const FormItem = Form.Item
+const InputPassword = Input.Password
+const { t } = useI18n()
+const { handleBackLogin, getLoginState } = useLoginState()
+
+const formRef = ref()
+const loading = ref(false)
+
+const formData = reactive({
+  account: '',
+  password: '',
+  confirmPassword: '',
+  mobile: '',
+  sms: '',
+  policy: false,
+})
+
+const { getFormRules } = useFormRules(formData)
+const { validForm } = useFormValid(formRef)
+
+const getShow = computed(() => unref(getLoginState) === LoginStateEnum.REGISTER)
+
+async function handleRegister() {
+  const data = await validForm()
+  if (!data) return
+  console.log(data)
+}
+</script>
+
 <template>
   <template v-if="getShow">
     <LoginFormTitle class="enter-x" />
@@ -70,45 +113,3 @@
     </Form>
   </template>
 </template>
-<script lang="ts" setup>
-import { reactive, ref, unref, computed } from 'vue'
-import LoginFormTitle from './LoginFormTitle.vue'
-import { Form, Input, Button, Checkbox } from 'ant-design-vue'
-import { StrengthMeter } from '/@/components/StrengthMeter'
-import { CountdownInput } from '/@/components/CountDown'
-import { useI18n } from '@vben-admin/locale'
-import {
-  useLoginState,
-  useFormRules,
-  useFormValid,
-  LoginStateEnum,
-} from './useLogin'
-
-const FormItem = Form.Item
-const InputPassword = Input.Password
-const { t } = useI18n()
-const { handleBackLogin, getLoginState } = useLoginState()
-
-const formRef = ref()
-const loading = ref(false)
-
-const formData = reactive({
-  account: '',
-  password: '',
-  confirmPassword: '',
-  mobile: '',
-  sms: '',
-  policy: false,
-})
-
-const { getFormRules } = useFormRules(formData)
-const { validForm } = useFormValid(formRef)
-
-const getShow = computed(() => unref(getLoginState) === LoginStateEnum.REGISTER)
-
-async function handleRegister() {
-  const data = await validForm()
-  if (!data) return
-  console.log(data)
-}
-</script>

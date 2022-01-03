@@ -48,7 +48,7 @@ export const configThemePlugin = (isBuild: boolean): Plugin[] => {
     antdDarkThemePlugin({
       preloadFiles: [
         resolve(process.cwd(), 'node_modules/ant-design-vue/dist/antd.less'),
-        resolve(process.cwd(), 'src/design/index.less'),
+        resolve(process.cwd(), 'src/styles/index.less'),
       ],
       filter: (id) => (isBuild ? !id.endsWith('antd.less') : true),
       darkModifyVars: {
