@@ -8,7 +8,7 @@ import { unref } from 'vue'
 import { uniq } from '@vben-admin/utils'
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
 import { getAllParentPath } from '/@/router/helper/menuHelper'
-import { useTimeoutFn } from '@vben-admin/hooks'
+import { useTimeoutFn } from '@vben-admin/use'
 
 export function useOpenKeys(
   menuState: MenuState,

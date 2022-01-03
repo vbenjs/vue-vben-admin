@@ -54,6 +54,8 @@ const bootstrap = async () => {
   // Configure global error handling
   setupErrorHandle(app)
 
+  await router.isReady()
+
   app.mount('#app')
 
   // When closing MOCK, Tree Shaking `mockjs` dep

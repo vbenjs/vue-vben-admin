@@ -6,7 +6,7 @@ import { computed, Ref, toRaw } from 'vue'
 import { unref } from 'vue'
 import { uniq } from '@vben-admin/utils'
 import { getAllParentPath } from '/@/router/helper/menuHelper'
-import { useTimeoutFn, useDebounceFn } from '@vben-admin/hooks'
+import { useTimeoutFn, useDebounceFn } from '@vben-admin/use'
 
 export function useOpenKeys(
   menuState: MenuState,

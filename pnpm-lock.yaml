@@ -100,12 +100,12 @@ importers:
       '@types/showdown': ^1.9.4
       '@types/sortablejs': ^1.10.7
       '@vben-admin/directives': workspace:*
-      '@vben-admin/hooks': workspace:*
       '@vben-admin/locale': workspace:*
       '@vben-admin/service': workspace:*
       '@vben-admin/setting': workspace:*
       '@vben-admin/tokens': workspace:*
       '@vben-admin/types': workspace:*
+      '@vben-admin/use': workspace:*
       '@vben-admin/utils': workspace:*
       '@vitejs/plugin-legacy': ^1.6.4
       '@vitejs/plugin-vue': ^2.0.1
@@ -133,7 +133,6 @@ importers:
       showdown: ^1.9.1
       sortablejs: ^1.14.0
       tinymce: ^5.10.2
-      unplugin-auto-import: ^0.5.5
       vditor: ^3.8.10
       vite: ^2.7.10
       vite-plugin-compression: ^0.4.0
@@ -160,11 +159,11 @@ importers:
       '@logicflow/core': 1.0.0
       '@logicflow/extension': 1.0.0
       '@vben-admin/directives': link:../packages/directives
-      '@vben-admin/hooks': link:../packages/hooks
       '@vben-admin/locale': link:../packages/locale
       '@vben-admin/service': link:../packages/service
       '@vben-admin/setting': link:../packages/setting
       '@vben-admin/tokens': link:../packages/tokens
+      '@vben-admin/use': link:../packages/use
       '@vben-admin/utils': link:../packages/utils
       '@zxcvbn-ts/core': 1.2.0
       ant-design-vue: 3.0.0-beta.5_ae87cbba5ec93a01f3fe1197df446ca3
@@ -210,7 +209,6 @@ importers:
       esno: 0.13.0_typescript@4.5.4
       less: 4.1.2
       rollup-plugin-visualizer: 5.5.2_rollup@2.62.0
-      unplugin-auto-import: 0.5.5_rollup@2.62.0+vite@2.7.10
       vite: 2.7.10_less@4.1.2
       vite-plugin-compression: 0.4.0_vite@2.7.10
       vite-plugin-html: 2.1.2_vite@2.7.10
@@ -233,16 +231,6 @@ importers:
     dependencies:
       '@vben-admin/tokens': link:../tokens
       '@vben-admin/utils': link:../utils
-
-  packages/hooks:
-    specifiers:
-      '@vben-admin/locale': workspace:*
-      '@vben-admin/utils': workspace:*
-      '@vueuse/core': ^7.5.1
-    dependencies:
-      '@vben-admin/locale': link:../locale
-      '@vben-admin/utils': link:../utils
-      '@vueuse/core': 7.5.1
 
   packages/locale:
     specifiers:
@@ -292,6 +280,16 @@ importers:
       '@vben-admin/tokens': workspace:*
     dependencies:
       '@vben-admin/tokens': link:../tokens
+
+  packages/use:
+    specifiers:
+      '@vben-admin/locale': workspace:*
+      '@vben-admin/utils': workspace:*
+      '@vueuse/core': ^7.5.1
+    dependencies:
+      '@vben-admin/locale': link:../locale
+      '@vben-admin/utils': link:../utils
+      '@vueuse/core': 7.5.1
 
   packages/utils:
     specifiers:
@@ -15615,52 +15613,6 @@ packages:
     resolution: { integrity: sha1-sr9O6FFKrmFltIF4KdIbLvSZBOw= }
     engines: { node: '>= 0.8' }
 
-  /unplugin-auto-import/0.5.5_rollup@2.62.0+vite@2.7.10:
-    resolution:
-      {
-        integrity: sha512-PAP/6WdqWtGhlQBvlVZ7qmhHbLcTYSsARtFSbY/jaUx/SaQkRT7SvronHIKEvx4bPmS+l4erQ9gQKSBBPzvUnQ==,
-      }
-    engines: { node: '>=14' }
-    peerDependencies:
-      '@vueuse/core': '*'
-    peerDependenciesMeta:
-      '@vueuse/core':
-        optional: true
-    dependencies:
-      '@antfu/utils': 0.3.0
-      '@rollup/pluginutils': 4.1.2
-      local-pkg: 0.4.0
-      magic-string: 0.25.7
-      resolve: 1.20.0
-      unplugin: 0.2.21_rollup@2.62.0+vite@2.7.10
-    transitivePeerDependencies:
-      - rollup
-      - vite
-      - webpack
-    dev: true
-
-  /unplugin/0.2.21_rollup@2.62.0+vite@2.7.10:
-    resolution:
-      {
-        integrity: sha512-IJ15/L5XbhnV7J09Zjk0FT5HEkBjkXucWAXQWRsmEtUxmmxwh23yavrmDbCF6ZPxWiVB28+wnKIHePTRRpQPbQ==,
-      }
-    peerDependencies:
-      rollup: ^2.50.0
-      vite: ^2.3.0
-      webpack: 4 || 5
-    peerDependenciesMeta:
-      rollup:
-        optional: true
-      vite:
-        optional: true
-      webpack:
-        optional: true
-    dependencies:
-      rollup: 2.62.0
-      vite: 2.7.10_less@4.1.2
-      webpack-virtual-modules: 0.4.3
-    dev: true
-
   /unset-value/1.0.0:
     resolution: { integrity: sha1-g3aHP30jNRef+x5vw6jtDfyKtVk= }
     engines: { node: '>=0.10.0' }
@@ -16430,13 +16382,6 @@ packages:
         integrity: sha512-cp5qdmHnu5T8wRg2G3vZZHoJPN14aqQ89SyQ11NpGH5zEMDCclt49rzo+MaRazk7/UeILhAI+/sEtcM+7Fr0nw==,
       }
     engines: { node: '>=10.13.0' }
-    dev: true
-
-  /webpack-virtual-modules/0.4.3:
-    resolution:
-      {
-        integrity: sha512-5NUqC2JquIL2pBAAo/VfBP6KuGkHIZQXW/lNKupLPfhViwh8wNsu0BObtl09yuKZszeEUfbXz8xhrHvSG16Nqw==,
-      }
     dev: true
 
   /webpack/5.65.0:

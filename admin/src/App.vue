@@ -2,7 +2,7 @@
 import { ConfigProvider } from 'ant-design-vue'
 import { AppProvider } from '/@/components/Application'
 import { useLocale } from '@vben-admin/locale'
-import { useTitle } from '@vben-admin/hooks'
+import { useTitle } from '@vben-admin/use'
 import { REDIRECT_NAME } from '@vben-admin/tokens'
 import { getGlobalConfig } from '/@/internal/config'
 import 'dayjs/locale/zh-cn'

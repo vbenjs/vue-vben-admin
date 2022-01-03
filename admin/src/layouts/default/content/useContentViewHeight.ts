@@ -1,6 +1,6 @@
 import { ref, computed, unref } from 'vue'
 import { createPageContext } from '/@/hooks/component/usePageContext'
-import { useWindowResize } from '@vben-admin/hooks'
+import { useWindowResize } from '@vben-admin/use'
 
 const headerHeightRef = ref(0)
 const footerHeightRef = ref(0)

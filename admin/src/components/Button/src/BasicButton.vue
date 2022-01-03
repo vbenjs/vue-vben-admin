@@ -20,7 +20,7 @@ import { computed, unref } from 'vue'
 import { Button } from 'ant-design-vue'
 import Icon from '/@/components/Icon/src/Icon.vue'
 import { buttonProps } from './props'
-import { useAttrs } from '@vben-admin/hooks'
+import { useAttrs } from '@vben-admin/use'
 
 const props = defineProps(buttonProps)
 // get component class

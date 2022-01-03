@@ -35,7 +35,7 @@ import {
 import { Radio } from 'ant-design-vue'
 import { isFunction, get, omit } from '@vben-admin/utils'
 import { useRuleFormItem } from '/@/hooks/component/useFormItem'
-import { useAttrs } from '@vben-admin/hooks'
+import { useAttrs } from '@vben-admin/use'
 import { useI18n } from '@vben-admin/locale'
 type OptionsItem = {
   label: string

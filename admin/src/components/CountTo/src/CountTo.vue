@@ -13,7 +13,7 @@ import {
   onMounted,
   watch,
 } from 'vue'
-import { useTransition, TransitionPresets } from '@vben-admin/hooks'
+import { useTransition, TransitionPresets } from '@vben-admin/use'
 import { isNumber } from '@vben-admin/utils'
 
 const props = {

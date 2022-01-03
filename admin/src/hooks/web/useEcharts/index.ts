@@ -2,7 +2,7 @@ import type { EChartsOption } from 'echarts'
 import type { Ref } from 'vue'
 
 import echarts from './echarts'
-import { useTimeoutFn, useDebounceFn } from '@vben-admin/hooks'
+import { useTimeoutFn, useDebounceFn } from '@vben-admin/use'
 import { tryOnUnmounted } from '@vben-admin/utils'
 import { unref, nextTick, watch, computed, ref } from 'vue'
 import { useEventListener } from '/@/hooks/event/useEventListener'

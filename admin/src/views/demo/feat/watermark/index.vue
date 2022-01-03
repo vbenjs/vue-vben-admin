@@ -25,7 +25,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { CollapseContainer } from '/@/components/Container/index'
-import { useWatermark } from '@vben-admin/hooks'
+import { useWatermark } from '@vben-admin/use'
 import { PageWrapper } from '/@/components/Page'
 
 export default defineComponent({

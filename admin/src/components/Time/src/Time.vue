@@ -4,7 +4,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
 import { useI18n } from '@vben-admin/locale'
-import { useIntervalFn } from '@vben-admin/hooks'
+import { useIntervalFn } from '@vben-admin/use'
 import {
   formatToDateTime,
   formatToDate,

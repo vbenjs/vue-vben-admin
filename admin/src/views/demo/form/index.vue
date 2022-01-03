@@ -65,7 +65,7 @@ import { optionsListApi } from '@service/demo/select'
 import { treeOptionsListApi } from '@service/demo/tree'
 import { Select } from 'ant-design-vue'
 import { cloneDeep } from '@vben-admin/utils'
-import { useDebounceFn } from '@vben-admin/hooks'
+import { useDebounceFn } from '@vben-admin/use'
 
 const valueSelectA = ref<string[]>([])
 const valueSelectB = ref<string[]>([])

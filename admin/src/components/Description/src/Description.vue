@@ -8,7 +8,7 @@ import { Descriptions } from 'ant-design-vue'
 import { CollapseContainer } from '/@/components/Container/index'
 import { useDesign } from '/@/hooks/web/useDesign'
 import { isFunction, get, getSlot } from '@vben-admin/utils'
-import { useAttrs } from '@vben-admin/hooks'
+import { useAttrs } from '@vben-admin/use'
 
 const props = {
   useCollapse: { type: Boolean, default: true },

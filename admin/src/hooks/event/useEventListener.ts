@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import { ref, watch, unref } from 'vue'
-import { useThrottleFn, useDebounceFn } from '@vben-admin/hooks'
+import { useThrottleFn, useDebounceFn } from '@vben-admin/use'
 
 export type RemoveEventFn = () => void
 export interface UseEventParams {

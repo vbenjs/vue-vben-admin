@@ -14,7 +14,7 @@ import {
   FullscreenOutlined,
   FullscreenExitOutlined,
 } from '@ant-design/icons-vue'
-import { useFullscreen } from '@vben-admin/hooks'
+import { useFullscreen } from '@vben-admin/use'
 import { useI18n } from '@vben-admin/locale'
 import { useTableContext } from '../../hooks/useTableContext'
 

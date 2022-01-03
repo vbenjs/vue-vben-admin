@@ -56,7 +56,7 @@ import DrawerHeader from './components/DrawerHeader.vue'
 import { ScrollContainer } from '/@/components/Container'
 import { basicProps } from './props'
 import { useDesign } from '/@/hooks/web/useDesign'
-import { useAttrs } from '@vben-admin/hooks'
+import { useAttrs } from '@vben-admin/use'
 
 export default defineComponent({
   components: { Drawer, ScrollContainer, DrawerFooter, DrawerHeader },

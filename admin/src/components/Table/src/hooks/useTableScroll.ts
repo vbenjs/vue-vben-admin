@@ -11,7 +11,7 @@ import {
   onMountedOrActivated,
 } from '@vben-admin/utils'
 import { useModalContext } from '/@/components/Modal'
-import { useDebounceFn, useWindowResize } from '@vben-admin/hooks'
+import { useDebounceFn, useWindowResize } from '@vben-admin/use'
 
 export function useTableScroll(
   propsRef: ComputedRef<BasicTableProps>,

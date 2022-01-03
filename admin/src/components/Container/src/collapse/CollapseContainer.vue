@@ -35,7 +35,7 @@ import { Skeleton } from 'ant-design-vue'
 import { CollapseTransition } from '/@/components/Transition'
 import CollapseHeader from './CollapseHeader.vue'
 import { triggerWindowResize } from '@vben-admin/utils'
-import { useTimeoutFn } from '@vben-admin/hooks'
+import { useTimeoutFn } from '@vben-admin/use'
 import { useDesign } from '/@/hooks/web/useDesign'
 
 const props = defineProps({

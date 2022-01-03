@@ -25,7 +25,7 @@ import {
 } from 'vue'
 import { ScrollContainer } from '/@/components/Container'
 import { createModalContext } from '../hooks/useModalContext'
-import { useMutationObserver, useWindowResize } from '@vben-admin/hooks'
+import { useMutationObserver, useWindowResize } from '@vben-admin/use'
 
 const props = {
   loading: { type: Boolean },

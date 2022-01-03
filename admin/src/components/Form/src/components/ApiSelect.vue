@@ -35,7 +35,7 @@ import { isFunction, get, omit } from '@vben-admin/utils'
 import { useRuleFormItem } from '/@/hooks/component/useFormItem'
 import { LoadingOutlined } from '@ant-design/icons-vue'
 import { useI18n } from '@vben-admin/locale'
-import { useAttrs } from '@vben-admin/hooks'
+import { useAttrs } from '@vben-admin/use'
 
 type OptionsItem = { label: string; value: string; disabled?: boolean }
 

@@ -31,7 +31,7 @@
     "@logicflow/core": "^1.0.0",
     "@logicflow/extension": "^1.0.0",
     "@vben-admin/directives": "workspace:*",
-    "@vben-admin/hooks": "workspace:*",
+    "@vben-admin/use": "workspace:*",
     "@vben-admin/locale": "workspace:*",
     "@vben-admin/service": "workspace:*",
     "@vben-admin/setting": "workspace:*",

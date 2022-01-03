@@ -1,5 +1,5 @@
 import { InjectionKey, Ref } from 'vue'
-import { createContext, useContext } from '@vben-admin/hooks'
+import { createContext, useContext } from '@vben-admin/use'
 
 export interface AppProviderContextProps {
   prefixCls: Ref<string>
