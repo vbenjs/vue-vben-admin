@@ -2,6 +2,7 @@ import 'virtual:windi-base.css'
 import 'virtual:windi-components.css'
 import '@/styles/index.less'
 import 'virtual:windi-utilities.css'
+import 'ant-design-vue/dist/antd.less'
 
 // Register icon sprite
 import 'virtual:svg-icons-register'
@@ -18,6 +19,7 @@ import { setupI18n } from '@vben-admin/locale'
 import { namespace } from '@vben-admin/setting'
 import { createBEMPlugin } from '@vben-admin/utils/bem'
 import { registerGlobalDirective } from '@vben-admin/directives'
+import Antdv from 'ant-design-vue'
 
 const bootstrap = async () => {
   const app = createApp(App)
@@ -29,6 +31,8 @@ const bootstrap = async () => {
   await initAdminModules()
 
   app.use(createBEMPlugin(namespace))
+
+  app.use(Antdv)
 
   // Initialize internal system configuration
   initAppConfigStore()

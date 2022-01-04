@@ -8,8 +8,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "cross-env NODE_ENV=production vite build && esno ./scripts/postbuild.ts",
-    "build:test": "cross-env vite build --mode test && esno ./scripts/postbuild.ts",
+    "build": "cross-env NODE_ENV=production vite build && esno ./scripts/post-build.ts",
+    "build:test": "cross-env vite build --mode test && esno ./scripts/post-build.ts",
     "build:no-cache": "pnpm clean:cache && npm run build",
     "report": "cross-env REPORT=true npm run build",
     "type:check": "vue-tsc --noEmit --skipLibCheck",
@@ -22,7 +22,7 @@
     "server:gzip": "npx http-server dist --cors --gzip -c-1",
     "server:br": "npx http-server dist --cors --brotli -c-1",
     "reinstall": "rimraf pnpm-lock.yaml && rimraf package.lock.json && rimraf node_modules && npm run bootstrap",
-    "gen:icon": "esno ./scripts/generateIcon.ts"
+    "gen:icon": "esno ./scripts/generate-icon.ts"
   },
   "dependencies": {
     "@ant-design/colors": "^6.0.0",
@@ -31,11 +31,11 @@
     "@logicflow/core": "^1.0.0",
     "@logicflow/extension": "^1.0.0",
     "@vben-admin/directives": "workspace:*",
-    "@vben-admin/use": "workspace:*",
     "@vben-admin/locale": "workspace:*",
     "@vben-admin/service": "workspace:*",
     "@vben-admin/setting": "workspace:*",
     "@vben-admin/tokens": "workspace:*",
+    "@vben-admin/use": "workspace:*",
     "@vben-admin/utils": "workspace:*",
     "@zxcvbn-ts/core": "^1.2.0",
     "ant-design-vue": "3.0.0-beta.5",
@@ -59,7 +59,7 @@
     "xlsx": "^0.17.4"
   },
   "devDependencies": {
-    "@iconify/json": "^2.0.19",
+    "@iconify/json": "^2.0.20",
     "@purge-icons/generated": "^0.7.0",
     "@types/codemirror": "^5.60.5",
     "@types/inquirer": "^8.1.3",
@@ -94,7 +94,7 @@
     "vite-plugin-theme": "^0.8.1",
     "vite-plugin-vue-setup-extend": "^0.3.0",
     "vite-plugin-windicss": "^1.6.1",
-    "vitest": "^0.0.131",
+    "vitest": "^0.0.132",
     "vue-tsc": "^0.30.2"
   },
   "repository": {

@@ -1,6 +1,6 @@
 // #!/usr/bin/env node
 
-import { runBuildConfig } from './buildConf'
+import { runBuildConfig } from './build-config'
 import { cyan, red } from 'chalk'
 import { PKG_NAME } from '../config'
 

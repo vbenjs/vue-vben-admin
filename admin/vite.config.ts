@@ -60,7 +60,7 @@ export default defineConfig(async ({ command, mode }) => {
         output: {
           manualChunks: {
             vue: ['vue', 'pinia', 'vue-router', '@vue/shared'],
-            // antdv: ['ant-design-vue'],
+            antdv: ['ant-design-vue'],
             // icons: ['@ant-design/icons-vue'],
             echarts: ['echarts'],
             mockjs: ['mockjs'],

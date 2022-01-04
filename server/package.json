@@ -53,7 +53,7 @@
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.178",
     "@types/markdown-it": "12.2.3",
-    "@types/node": "^17.0.7",
+    "@types/node": "^17.0.8",
     "@types/supertest": "^2.0.11",
     "cross-env": "7.0.3",
     "esno": "^0.13.0",
