@@ -13,8 +13,8 @@ import {
   onMounted,
   watch,
 } from 'vue'
-import { useTransition, TransitionPresets } from '@vben-admin/use'
-import { isNumber } from '@vben-admin/utils'
+import { useTransition, TransitionPresets } from '@admin/use'
+import { isNumber } from '@admin/utils'
 
 const props = {
   startVal: { type: Number, default: 0 },

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, unref } from 'vue'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 import { LoginStateEnum, useLoginState } from './useLogin'
 
 const { t } = useI18n()

@@ -1,7 +1,7 @@
 import { toCanvas } from 'qrcode'
 import type { QRCodeRenderersOptions } from 'qrcode'
 import { RenderQrCodeParams, ContentType } from './typing'
-import { cloneDeep } from '@vben-admin/utils'
+import { cloneDeep } from '@admin/utils'
 
 export const renderQrCode = ({
   canvas,

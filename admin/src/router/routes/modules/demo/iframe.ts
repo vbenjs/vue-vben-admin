@@ -1,6 +1,6 @@
 import { LAYOUT } from '@/router/constant'
 const IFrame = () => import('@/views/sys/iframe/FrameBlank.vue')
-import { t } from '@vben-admin/locale'
+import { t } from '@admin/locale'
 
 const iframe: RouteRecordItem = {
   path: '/frame',

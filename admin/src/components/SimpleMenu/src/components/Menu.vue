@@ -20,7 +20,7 @@ import {
 } from 'vue'
 import { useDesign } from '@/hooks/web/useDesign'
 import { createSimpleRootMenuContext } from './useSimpleMenuContext'
-import { mitt } from '@vben-admin/utils'
+import { mitt } from '@admin/utils'
 export default defineComponent({
   name: 'Menu',
   props: {

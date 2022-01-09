@@ -1,5 +1,5 @@
-import type { ErrorMessageMode } from '@vben-admin/types'
-import { useI18n } from '@vben-admin/locale'
+import type { ErrorMessageMode } from '@admin/types'
+import { useI18n } from '@admin/locale'
 
 import { context } from '../_bridge'
 

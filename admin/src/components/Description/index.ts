@@ -1,4 +1,4 @@
-import { withInstall } from '@vben-admin/utils'
+import { withInstall } from '@admin/utils'
 import description from './src/Description.vue'
 
 export * from './src/typing'

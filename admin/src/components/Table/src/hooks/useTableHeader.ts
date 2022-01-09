@@ -2,7 +2,7 @@ import type { ComputedRef, Slots } from 'vue'
 import type { BasicTableProps, InnerHandlers } from '../types/table'
 import { unref, computed, h } from 'vue'
 import TableHeader from '../components/TableHeader.vue'
-import { isString, getSlot } from '@vben-admin/utils'
+import { isString, getSlot } from '@admin/utils'
 
 export function useTableHeader(
   propsRef: ComputedRef<BasicTableProps>,

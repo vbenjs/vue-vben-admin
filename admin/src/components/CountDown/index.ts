@@ -1,4 +1,4 @@
-import { withInstall } from '@vben-admin/utils'
+import { withInstall } from '@admin/utils'
 import countButton from './src/CountButton.vue'
 import countdownInput from './src/CountdownInput.vue'
 

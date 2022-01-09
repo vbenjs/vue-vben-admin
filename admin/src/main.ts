@@ -1,11 +1,11 @@
+import 'ant-design-vue/dist/antd.less'
 import 'virtual:windi-base.css'
 import 'virtual:windi-components.css'
 import '@/styles/index.less'
 import 'virtual:windi-utilities.css'
-import 'ant-design-vue/dist/antd.less'
-
 // Register icon sprite
 import 'virtual:svg-icons-register'
+
 import App from './App.vue'
 import { initAdminModules } from './initAdminModules'
 import { createApp } from 'vue'
@@ -13,13 +13,11 @@ import { initAppConfigStore } from '@/logics/initAppConfig'
 import { setupErrorHandle } from '@/logics/error-handle'
 import { router, setupRouter } from '@/router'
 import { setupRouterGuard } from '@/router/guard'
-import { pinia } from '@/internal/pinia'
-import { registerGlobComp } from '@/components/registerGlobComp'
-import { setupI18n } from '@vben-admin/locale'
-import { namespace } from '@vben-admin/setting'
-import { createBEMPlugin } from '@vben-admin/utils/bem'
-import { registerGlobalDirective } from '@vben-admin/directives'
-import Antdv from 'ant-design-vue'
+import { pinia, registerGlobalComponents } from '@/internal'
+import { setupI18n } from '@admin/locale'
+import { namespace } from '@admin/setting'
+import { createBEMPlugin } from '@admin/utils/bem'
+import { registerGlobalDirective } from '@admin/directives'
 
 const bootstrap = async () => {
   const app = createApp(App)
@@ -32,13 +30,11 @@ const bootstrap = async () => {
 
   app.use(createBEMPlugin(namespace))
 
-  app.use(Antdv)
-
   // Initialize internal system configuration
   initAppConfigStore()
 
   // Register global components
-  registerGlobComp(app)
+  registerGlobalComponents(app)
 
   // Multilingual configuration
   // Asynchronous case: language files may be obtained from the server side

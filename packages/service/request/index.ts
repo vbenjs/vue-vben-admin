@@ -2,21 +2,21 @@
 // The axios configuration can be changed according to the project, just change the file, other files can be left unchanged
 
 import type { AxiosResponse } from 'axios'
-import type { RequestOptions, RequestResult } from '@vben-admin/types'
+import type { RequestOptions, RequestResult } from '@admin/types'
 import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform'
 
 import { VAxios } from './Axios'
 import { checkStatus } from './checkStatus'
 import { context } from '../_bridge'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 import {
   isString,
   isFunction,
   clone,
   deepMerge,
   setObjToUrlParams,
-} from '@vben-admin/utils'
-import { RequestEnum, ResultEnum, ContentTypeEnum } from '@vben-admin/tokens'
+} from '@admin/utils'
+import { RequestEnum, ResultEnum, ContentTypeEnum } from '@admin/tokens'
 import { joinTimestamp, formatRequestDate } from './helper'
 
 /**

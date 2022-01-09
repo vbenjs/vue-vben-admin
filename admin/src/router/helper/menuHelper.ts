@@ -1,11 +1,6 @@
 import type { MenuModule, Menu } from '@/router/types'
 
-import {
-  isUrl,
-  cloneDeep,
-  findTreeParentPath,
-  treeMap,
-} from '@vben-admin/utils'
+import { isUrl, cloneDeep, findTreeParentPath, treeMap } from '@admin/utils'
 import { RouteParams } from 'vue-router'
 import { toRaw } from 'vue'
 

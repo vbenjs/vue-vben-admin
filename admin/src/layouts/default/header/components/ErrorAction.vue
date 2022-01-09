@@ -15,9 +15,9 @@ import { defineComponent, computed } from 'vue'
 import { Tooltip, Badge } from 'ant-design-vue'
 import Icon from '@/components/Icon'
 
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 import { useErrorLogStore } from '@/store/errorLog'
-import { PageEnum } from '@vben-admin/tokens'
+import { PageEnum } from '@admin/tokens'
 
 import { useRouter } from 'vue-router'
 

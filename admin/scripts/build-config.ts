@@ -3,7 +3,7 @@
  */
 import { writeFileSync, mkdirp, readFileSync } from 'fs-extra'
 import { GLOB_CONFIG_FILE_NAME, OUTPUT_DIR, PKG_NAME } from '../config'
-import { getAppConfigFileName } from '@vben-admin/utils'
+import { getAppConfigFileName } from '@admin/utils'
 import { cyan, red, gray, green } from 'chalk'
 import { resolve } from 'path'
 import dotenv from 'dotenv'

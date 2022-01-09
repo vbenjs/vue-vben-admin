@@ -91,13 +91,13 @@ import { usePermissionStore } from '@/store/permission'
 import { useDragLine } from './useLayoutSider'
 import { getGlobalConfig } from '@/internal'
 import { useDesign } from '@/hooks/web/useDesign'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 import { useGo } from '@/hooks/web/usePage'
 import {
   SIDE_BAR_MINI_WIDTH,
   SIDE_BAR_SHOW_TIT_MINI_WIDTH,
-} from '@vben-admin/tokens'
-import { clickOutside } from '@vben-admin/directives'
+} from '@admin/tokens'
+import { clickOutside } from '@admin/directives'
 import {
   getChildrenMenus,
   getCurrentParentPath,

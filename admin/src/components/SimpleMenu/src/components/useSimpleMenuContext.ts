@@ -1,6 +1,6 @@
 import type { InjectionKey, Ref } from 'vue'
-import type { Emitter } from '@vben-admin/utils'
-import { createContext, useContext } from '@vben-admin/use'
+import type { Emitter } from '@admin/utils'
+import { createContext, useContext } from '@admin/use'
 
 export interface SimpleRootMenuContextProps {
   rootMenuEmitter: Emitter

@@ -1,4 +1,4 @@
-import { RoleEnum } from '@vben-admin/tokens'
+import { RoleEnum } from '@admin/tokens'
 declare module 'vue-router' {
   interface RouteMeta extends Record<string | number | symbol, unknown> {
     orderNo?: number

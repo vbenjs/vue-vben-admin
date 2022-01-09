@@ -2,9 +2,9 @@
 import { computed, defineComponent, h, unref } from 'vue'
 import BasicButton from './BasicButton.vue'
 import { Popconfirm } from 'ant-design-vue'
-import { omit, extendSlots } from '@vben-admin/utils'
-import { useAttrs } from '@vben-admin/use'
-import { useI18n } from '@vben-admin/locale'
+import { omit, extendSlots } from '@admin/utils'
+import { useAttrs } from '@admin/use'
+import { useI18n } from '@admin/locale'
 
 const props = {
   /**

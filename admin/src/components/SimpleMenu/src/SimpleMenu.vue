@@ -34,9 +34,9 @@ import { useDesign } from '@/hooks/web/useDesign'
 import Menu from './components/Menu.vue'
 import SimpleSubMenu from './SimpleSubMenu.vue'
 import { listenerRouteChange } from '@/logics/mitt/routeChange'
-import { REDIRECT_NAME } from '@vben-admin/tokens'
+import { REDIRECT_NAME } from '@admin/tokens'
 import { useRouter } from 'vue-router'
-import { isFunction, isUrl, openWindow } from '@vben-admin/utils'
+import { isFunction, isUrl, openWindow } from '@admin/utils'
 import { useOpenKeys } from './useOpenKeys'
 
 export default defineComponent({

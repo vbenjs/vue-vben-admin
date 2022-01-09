@@ -1,4 +1,4 @@
-import { withInstall } from '@vben-admin/utils'
+import { withInstall } from '@admin/utils'
 import type { ExtractPropTypes } from 'vue'
 import button from './src/BasicButton.vue'
 import popConfirmButton from './src/PopConfirmButton.vue'

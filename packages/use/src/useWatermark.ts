@@ -11,7 +11,7 @@ import {
   addResizeListener,
   removeResizeListener,
   useRafThrottle,
-} from '@vben-admin/utils'
+} from '@admin/utils'
 
 const domSymbol = Symbol('watermark-dom')
 

@@ -1,6 +1,6 @@
 import { getParentLayout, LAYOUT } from '@/router/constant'
-import { RoleEnum } from '@vben-admin/tokens'
-import { t } from '@vben-admin/locale'
+import { RoleEnum } from '@admin/tokens'
+import { t } from '@admin/locale'
 
 const permission: RouteRecordItem = {
   path: '/permission',

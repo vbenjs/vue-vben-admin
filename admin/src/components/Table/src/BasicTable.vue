@@ -79,7 +79,7 @@ import { useTableForm } from './hooks/useTableForm'
 import { useDesign } from '@/hooks/web/useDesign'
 
 import { basicProps } from './props'
-import { isFunction, warn, omit } from '@vben-admin/utils'
+import { isFunction, warn, omit } from '@admin/utils'
 
 export default defineComponent({
   components: {

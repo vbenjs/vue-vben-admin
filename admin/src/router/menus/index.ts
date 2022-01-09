@@ -7,9 +7,9 @@ import {
   transformMenuModule,
   getAllParentPath,
 } from '@/router/helper/menuHelper'
-import { isUrl, filterTree } from '@vben-admin/utils'
+import { isUrl, filterTree } from '@admin/utils'
 import { router } from '@/router'
-import { PermissionModeEnum } from '@vben-admin/tokens'
+import { PermissionModeEnum } from '@admin/tokens'
 import { pathToRegexp } from 'path-to-regexp'
 
 const modules = import.meta.globEager('./modules/**/*.ts')

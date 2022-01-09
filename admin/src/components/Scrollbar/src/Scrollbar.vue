@@ -26,8 +26,8 @@
   </div>
 </template>
 <script lang="ts">
-import { addResizeListener, removeResizeListener } from '@vben-admin/utils'
-import { componentSetting } from '@vben-admin/setting'
+import { addResizeListener, removeResizeListener } from '@admin/utils'
+import { componentSetting } from '@admin/setting'
 const { scrollbar } = componentSetting
 import { toObject } from './util'
 import {

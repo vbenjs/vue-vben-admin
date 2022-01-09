@@ -1,4 +1,4 @@
-import { withInstall } from '@vben-admin/utils'
+import { withInstall } from '@admin/utils'
 import basicArrow from './src/BasicArrow.vue'
 import basicTitle from './src/BasicTitle.vue'
 import basicHelp from './src/BasicHelp.vue'

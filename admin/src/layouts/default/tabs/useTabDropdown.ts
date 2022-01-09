@@ -7,7 +7,7 @@ import { MenuEventEnum } from './types'
 import { useMultipleTabStore } from '@/store/multipleTab'
 import { RouteLocationNormalized, useRouter } from 'vue-router'
 import { useTabs } from '@/hooks/web/useTabs'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 
 export function useTabDropdown(
   tabContentProps: TabContentProps,

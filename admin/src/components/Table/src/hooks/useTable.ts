@@ -5,11 +5,11 @@ import type {
   BasicColumn,
 } from '../types/table'
 import type { PaginationProps } from '../types/pagination'
-import type { DynamicProps } from '@vben-admin/types'
+import type { DynamicProps } from '@admin/types'
 import type { FormActionType } from '@/components/Form'
 import type { WatchStopHandle } from 'vue'
 import { ref, onUnmounted, unref, watch, toRaw } from 'vue'
-import { error, getDynamicProps } from '@vben-admin/utils'
+import { error, getDynamicProps } from '@admin/utils'
 
 type Props = Partial<DynamicProps<BasicTableProps>>
 

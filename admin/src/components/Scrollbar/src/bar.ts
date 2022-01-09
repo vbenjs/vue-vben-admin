@@ -8,7 +8,7 @@ import {
   inject,
   Ref,
 } from 'vue'
-import { on, off } from '@vben-admin/utils'
+import { on, off } from '@admin/utils'
 
 import { renderThumbStyle, BAR_MAP } from './util'
 

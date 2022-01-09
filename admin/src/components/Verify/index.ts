@@ -1,4 +1,4 @@
-import { withInstall } from '@vben-admin/utils'
+import { withInstall } from '@admin/utils'
 import basicDragVerify from './src/DragVerify.vue'
 import rotateDragVerify from './src/ImgRotate.vue'
 

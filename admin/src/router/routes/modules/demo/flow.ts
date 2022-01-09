@@ -1,5 +1,5 @@
 import { LAYOUT } from '@/router/constant'
-import { t } from '@vben-admin/locale'
+import { t } from '@admin/locale'
 
 const charts: RouteRecordItem = {
   path: '/flow',

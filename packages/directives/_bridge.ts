@@ -1,4 +1,4 @@
-import { RoleEnum } from '@vben-admin/tokens'
+import { RoleEnum } from '@admin/tokens'
 
 export interface ContextOptions {
   hasPermission: (

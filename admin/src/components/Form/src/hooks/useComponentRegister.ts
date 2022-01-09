@@ -1,5 +1,5 @@
 import type { ComponentType } from '../types/index'
-import { tryOnUnmounted } from '@vben-admin/utils'
+import { tryOnUnmounted } from '@admin/utils'
 import { add, del } from '../componentMap'
 import type { Component } from 'vue'
 

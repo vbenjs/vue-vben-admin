@@ -1,4 +1,4 @@
-import type { MenuSetting } from '@vben-admin/types'
+import type { MenuSetting } from '@admin/types'
 
 import { computed, unref, ref } from 'vue'
 
@@ -10,7 +10,7 @@ import {
   MenuModeEnum,
   MenuTypeEnum,
   TriggerEnum,
-} from '@vben-admin/tokens'
+} from '@admin/tokens'
 import { useFullContent } from '@/hooks/web/useFullContent'
 
 const mixSideHasChildren = ref(false)

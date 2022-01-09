@@ -61,7 +61,7 @@ import Icon from '@/components/Icon/index'
 import SimpleMenuTag from './SimpleMenuTag.vue'
 import MenuItem from './components/MenuItem.vue'
 import SubMenu from './components/SubMenuItem.vue'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 
 export default defineComponent({
   name: 'SimpleSubMenu',

@@ -1,4 +1,4 @@
-import type { LockInfo } from '@vben-admin/types'
+import type { LockInfo } from '@admin/types'
 
 import { defineStore } from 'pinia'
 import { useUserStore } from '@/store/user'

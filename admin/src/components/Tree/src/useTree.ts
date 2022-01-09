@@ -2,7 +2,7 @@ import type { InsertNodeParams, KeyType, FieldNames } from './tree'
 import type { Ref, ComputedRef } from 'vue'
 import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree'
 
-import { cloneDeep, forEachTree } from '@vben-admin/utils'
+import { cloneDeep, forEachTree } from '@admin/utils'
 import { unref } from 'vue'
 
 export function useTree(

@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import type { LocaleType } from '@vben-admin/types'
+import type { LocaleType } from '@admin/types'
 import type { DropMenu } from '@/components/Dropdown'
 
 import { ref, watchEffect, unref, computed } from 'vue'
 import { Dropdown } from '@/components/Dropdown'
 import { Icon } from '@/components/Icon'
-import { useLocale } from '@vben-admin/locale'
-import { localeList } from '@vben-admin/setting'
+import { useLocale } from '@admin/locale'
+import { localeList } from '@admin/setting'
 
 const props = defineProps({
   /**

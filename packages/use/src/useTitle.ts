@@ -3,7 +3,7 @@ import type { RouteLocationNormalizedLoaded } from 'vue-router'
 import { watch, unref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTitle as _useTitle } from '@vueuse/core'
-import { useI18n, useLocale } from '@vben-admin/locale'
+import { useI18n, useLocale } from '@admin/locale'
 
 /**
  * Listening to page changes and dynamically changing site titles

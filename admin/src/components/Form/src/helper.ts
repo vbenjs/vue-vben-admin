@@ -1,7 +1,7 @@
 import type { ValidationRule } from 'ant-design-vue/lib/form/Form'
 import type { ComponentType } from './types/index'
-import { useI18n } from '@vben-admin/locale'
-import { dateUtil, isNumber, isObject } from '@vben-admin/utils'
+import { useI18n } from '@admin/locale'
+import { dateUtil, isNumber, isObject } from '@admin/utils'
 
 const { t } = useI18n()
 

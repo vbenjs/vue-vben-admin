@@ -12,7 +12,7 @@
 import { PropType } from 'vue'
 import { defineComponent } from 'vue'
 import { Spin } from 'ant-design-vue'
-import { ComponentSizeEnum } from '@vben-admin/tokens'
+import { ComponentSizeEnum } from '@admin/tokens'
 
 export default defineComponent({
   name: 'Loading',

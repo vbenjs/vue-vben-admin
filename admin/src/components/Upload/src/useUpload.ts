@@ -1,5 +1,5 @@
 import { Ref, unref, computed } from 'vue'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 const { t } = useI18n()
 export function useUploadType({
   acceptRef,

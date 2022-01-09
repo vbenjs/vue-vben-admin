@@ -5,7 +5,7 @@ import type { TableRowSelection as ITableRowSelection } from 'ant-design-vue/lib
 import type { ColumnProps } from 'ant-design-vue/lib/table'
 
 import { ComponentType } from './componentType'
-import { RoleEnum } from '@vben-admin/tokens'
+import { RoleEnum } from '@admin/tokens'
 
 export declare type SortOrder = 'ascend' | 'descend'
 

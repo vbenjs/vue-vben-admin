@@ -114,5 +114,6 @@
     "unref",
     "vitest"
   ],
-  "commentTranslate.multiLineMerge": true
+  "commentTranslate.multiLineMerge": true,
+  "typescript.suggest.autoImports": false
 }

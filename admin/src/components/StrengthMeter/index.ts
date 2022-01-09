@@ -1,4 +1,4 @@
-import { withInstall } from '@vben-admin/utils'
+import { withInstall } from '@admin/utils'
 import strengthMeter from './src/StrengthMeter.vue'
 
 export const StrengthMeter = withInstall(strengthMeter)

@@ -1,4 +1,4 @@
-import { withInstall } from '@vben-admin/utils'
+import { withInstall } from '@admin/utils'
 import cropperImage from './src/Cropper.vue'
 import avatarCropper from './src/CropperAvatar.vue'
 

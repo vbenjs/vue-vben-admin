@@ -99,7 +99,7 @@ import {
 import { Dropdown } from '@/components/Dropdown'
 import { BasicForm, useForm } from '@/components/Form'
 import { Button } from '@/components/Button'
-import { isFunction } from '@vben-admin/utils'
+import { isFunction } from '@admin/utils'
 import { useSlider, grid } from './data'
 const ListItem = List.Item
 const CardMeta = Card.Meta

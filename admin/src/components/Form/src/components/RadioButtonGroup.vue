@@ -14,8 +14,8 @@
 import { defineComponent, PropType, computed } from 'vue'
 import { Radio } from 'ant-design-vue'
 import { useRuleFormItem } from '@/hooks/component/useFormItem'
-import { useAttrs } from '@vben-admin/use'
-import { isString } from '@vben-admin/utils'
+import { useAttrs } from '@admin/use'
+import { isString } from '@admin/utils'
 
 type OptionsItem = {
   label: string

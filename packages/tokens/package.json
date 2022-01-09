@@ -1,5 +1,5 @@
 {
-  "name": "@vben-admin/tokens",
+  "name": "@admin/tokens",
   "version": "3.0.0-alpha.2",
   "main": "index.ts",
   "module": "index.ts",

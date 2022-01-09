@@ -3,8 +3,8 @@ import type { RouteLocationNormalized } from 'vue-router'
 import { useDesign } from '@/hooks/web/useDesign'
 import { useSortable } from '@/hooks/web/useSortable'
 import { useMultipleTabStore } from '@/store/multipleTab'
-import { isNullOrUndefined } from '@vben-admin/utils'
-import { projectSetting } from '@vben-admin/setting'
+import { isNullOrUndefined } from '@admin/utils'
+import { projectSetting } from '@admin/setting'
 import { useRouter } from 'vue-router'
 
 export function initAffixTabs(): string[] {

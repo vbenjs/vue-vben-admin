@@ -33,10 +33,10 @@ import {
   watch,
 } from 'vue'
 import { Radio } from 'ant-design-vue'
-import { isFunction, get, omit } from '@vben-admin/utils'
+import { isFunction, get, omit } from '@admin/utils'
 import { useRuleFormItem } from '@/hooks/component/useFormItem'
-import { useAttrs } from '@vben-admin/use'
-import { useI18n } from '@vben-admin/locale'
+import { useAttrs } from '@admin/use'
+import { useI18n } from '@admin/locale'
 type OptionsItem = {
   label: string
   value: string | number | boolean

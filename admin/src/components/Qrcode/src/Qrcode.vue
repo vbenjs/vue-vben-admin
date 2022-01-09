@@ -7,7 +7,7 @@
 import { defineComponent, watch, PropType, ref, unref, onMounted } from 'vue'
 import { toCanvas, QRCodeRenderersOptions, LogoType } from './qrcodePlus'
 import { toDataURL } from 'qrcode'
-import { downloadByUrl } from '@vben-admin/utils'
+import { downloadByUrl } from '@admin/utils'
 import { QrcodeDoneEventParams } from './typing'
 
 export default defineComponent({

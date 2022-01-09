@@ -1,6 +1,6 @@
 import { defineAsyncComponent, h } from 'vue'
 import { Spin } from 'ant-design-vue'
-import { NOOP } from '@vben-admin/utils'
+import { NOOP } from '@admin/utils'
 
 interface Options {
   size?: 'default' | 'small' | 'large'

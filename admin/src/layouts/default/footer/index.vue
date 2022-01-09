@@ -24,10 +24,10 @@ import { Layout } from 'ant-design-vue'
 
 import { GithubFilled } from '@ant-design/icons-vue'
 
-import { DOC_URL, GITHUB_URL, SITE_URL } from '@vben-admin/setting'
-import { openWindow } from '@vben-admin/utils'
+import { DOC_URL, GITHUB_URL, SITE_URL } from '@admin/setting'
+import { openWindow } from '@admin/utils'
 
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 import { useRootSetting } from '@/hooks/setting/useRootSetting'
 import { useRouter } from 'vue-router'
 import { useDesign } from '@/hooks/web/useDesign'

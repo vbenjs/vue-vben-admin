@@ -1,5 +1,5 @@
 import { ComponentType } from '../../types/componentType'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 
 const { t } = useI18n()
 

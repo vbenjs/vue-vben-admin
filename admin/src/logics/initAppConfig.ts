@@ -1,7 +1,7 @@
 /**
  * Application configuration
  */
-import { projectSetting, primaryColor } from '@vben-admin/setting'
+import { projectSetting, primaryColor } from '@admin/setting'
 
 import {
   updateHeaderBgColor,
@@ -14,8 +14,8 @@ import { updateDarkTheme } from '@/logics/theme/dark'
 import { changeTheme } from '@/logics/theme'
 import { useAppStore } from '@/store/app'
 import { createStorageKeyPrefix, createStorageName } from '@/internal'
-import { deepMerge } from '@vben-admin/utils'
-import { ThemeEnum } from '@vben-admin/tokens'
+import { deepMerge } from '@admin/utils'
+import { ThemeEnum } from '@admin/tokens'
 
 // Initial project configuration
 export function initAppConfigStore() {

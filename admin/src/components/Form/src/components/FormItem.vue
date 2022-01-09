@@ -15,10 +15,10 @@ import {
   isNull,
   cloneDeep,
   getSlot,
-} from '@vben-admin/utils'
+} from '@admin/utils'
 import { createPlaceholderMessage, setComponentRuleType } from '../helper'
 import { useItemLabelWidth } from '../hooks/useLabelWidth'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 
 export default defineComponent({
   name: 'BasicFormItem',

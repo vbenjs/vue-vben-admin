@@ -10,7 +10,7 @@ import {
   toRaw,
 } from 'vue'
 
-import { isEqual } from '@vben-admin/utils'
+import { isEqual } from '@admin/utils'
 
 export function useRuleFormItem<
   T extends Recordable,

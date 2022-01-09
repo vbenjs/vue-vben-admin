@@ -1,7 +1,7 @@
 import type { Router } from 'vue-router'
 
 import { usePermissionStoreWithOut } from '@/store/permission'
-import { PageEnum } from '@vben-admin/tokens'
+import { PageEnum } from '@admin/tokens'
 import { useUserStoreWithOut } from '@/store/user'
 import { PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic'
 import { RootRoute } from '@/router/routes'

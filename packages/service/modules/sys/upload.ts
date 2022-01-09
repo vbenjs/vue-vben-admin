@@ -1,4 +1,4 @@
-import type { RequestUploadFileOptions } from '@vben-admin/types'
+import type { RequestUploadFileOptions } from '@admin/types'
 import type { UploadApiResult } from '../model'
 
 import { defaultRequest } from '../../request'

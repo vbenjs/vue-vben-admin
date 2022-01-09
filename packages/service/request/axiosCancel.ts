@@ -1,7 +1,7 @@
 import type { AxiosRequestConfig, Canceler } from 'axios'
 
 import axios from 'axios'
-import { isFunction } from '@vben-admin/utils'
+import { isFunction } from '@admin/utils'
 
 // Used to store the identification and cancellation function of each request
 let pendingMap = new Map<string, Canceler>()

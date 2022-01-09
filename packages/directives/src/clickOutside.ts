@@ -4,7 +4,7 @@ import type {
   ObjectDirective,
 } from 'vue'
 
-import { on, isClient } from '@vben-admin/utils'
+import { on, isClient } from '@admin/utils'
 
 type DocumentHandler = <T extends MouseEvent>(mouseup: T, mousedown: T) => void
 

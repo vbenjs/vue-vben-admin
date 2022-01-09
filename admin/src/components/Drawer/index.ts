@@ -1,4 +1,4 @@
-import { withInstall } from '@vben-admin/utils'
+import { withInstall } from '@admin/utils'
 import basicDrawer from './src/BasicDrawer.vue'
 
 export const BasicDrawer = withInstall(basicDrawer)

@@ -3,7 +3,7 @@ import type { PropType } from 'vue'
 import type { MenuTheme } from 'ant-design-vue'
 import type { MenuMode } from 'ant-design-vue/lib/menu/src/interface'
 
-import { MenuModeEnum, MenuTypeEnum, ThemeEnum } from '@vben-admin/tokens'
+import { MenuModeEnum, MenuTypeEnum, ThemeEnum } from '@admin/tokens'
 
 export const basicProps = {
   items: {

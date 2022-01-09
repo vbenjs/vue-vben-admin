@@ -1,7 +1,7 @@
 import type { PropType, CSSProperties } from 'vue'
 import type { ModalWrapperProps } from './typing'
 import { ButtonProps } from 'ant-design-vue/es/button/buttonTypes'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 
 const { t } = useI18n()
 

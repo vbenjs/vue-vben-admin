@@ -57,7 +57,7 @@ import { BasicTree, TreeActionType, TreeItem } from '@/components/Tree/index'
 import { treeData } from './data'
 import { PageWrapper } from '@/components/Page'
 import { Card, Row, Col, Spin } from 'ant-design-vue'
-import { cloneDeep } from '@vben-admin/utils'
+import { cloneDeep } from '@admin/utils'
 
 export default defineComponent({
   components: { BasicTree, PageWrapper, Card, Row, Col, Spin },

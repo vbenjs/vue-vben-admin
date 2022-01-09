@@ -5,7 +5,7 @@
 </template>
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import { onClickOutside } from '@vben-admin/use'
+import { onClickOutside } from '@admin/use'
 const emit = defineEmits(['mounted', 'clickOutside'])
 const wrap = ref<ElRef>(null)
 

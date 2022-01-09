@@ -24,7 +24,7 @@ import TreeHeader from './TreeHeader.vue'
 import { Tree, Empty } from 'ant-design-vue'
 import { TreeIcon } from './TreeIcon'
 import { ScrollContainer } from '@/components/Container'
-import { omit, get, difference } from '@vben-admin/utils'
+import { omit, get, difference } from '@admin/utils'
 import {
   isArray,
   isFunction,
@@ -37,7 +37,7 @@ import {
   extendSlots,
   getSlot,
   createBEM,
-} from '@vben-admin/utils'
+} from '@admin/utils'
 
 import { useTree } from './useTree'
 import { useContextMenu } from '@/hooks/web/useContextMenu'

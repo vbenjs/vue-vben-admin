@@ -1,6 +1,6 @@
-import type { GlobEnvConfig, GlobConfig } from '@vben-admin/types'
+import type { GlobEnvConfig, GlobConfig } from '@admin/types'
 
-import { warn, getAppConfigFileName } from '@vben-admin/utils'
+import { warn, getAppConfigFileName } from '@admin/utils'
 import { version } from '../../package.json'
 
 export const createStorageKeyPrefix = () => {

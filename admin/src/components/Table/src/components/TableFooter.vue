@@ -16,7 +16,7 @@ import type { PropType } from 'vue'
 import type { BasicColumn } from '../types/table'
 import { defineComponent, unref, computed, toRaw } from 'vue'
 import { Table } from 'ant-design-vue'
-import { isFunction, cloneDeep } from '@vben-admin/utils'
+import { isFunction, cloneDeep } from '@admin/utils'
 import { INDEX_COLUMN_FLAG } from '../const'
 import { useTableContext } from '../hooks/useTableContext'
 

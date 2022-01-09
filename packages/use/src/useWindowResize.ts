@@ -1,4 +1,4 @@
-import { tryOnMounted, tryOnUnmounted } from '@vben-admin/utils'
+import { tryOnMounted, tryOnUnmounted } from '@admin/utils'
 import { useDebounceFn } from '@vueuse/core'
 
 interface WindowSizeOptions {

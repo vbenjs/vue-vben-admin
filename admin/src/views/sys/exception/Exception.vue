@@ -2,12 +2,12 @@
 import type { PropType } from 'vue'
 import { Result, Button } from 'ant-design-vue'
 import { defineComponent, ref, computed, unref } from 'vue'
-import { ExceptionEnum, PageEnum } from '@vben-admin/tokens'
+import { ExceptionEnum, PageEnum } from '@admin/tokens'
 import notDataSvg from '@/assets/svg/no-data.svg'
 import netWorkSvg from '@/assets/svg/net-error.svg'
 import { useRoute } from 'vue-router'
 import { useDesign } from '@/hooks/web/useDesign'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 import { useGo, useRedo } from '@/hooks/web/usePage'
 
 interface MapValue {

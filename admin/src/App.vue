@@ -1,9 +1,8 @@
 <script lang="ts" setup>
-import { ConfigProvider } from 'ant-design-vue'
 import { AppProvider } from '@/components/Application'
-import { useLocale } from '@vben-admin/locale'
-import { useTitle } from '@vben-admin/use'
-import { REDIRECT_NAME } from '@vben-admin/tokens'
+import { useLocale } from '@admin/locale'
+import { useTitle } from '@admin/use'
+import { REDIRECT_NAME } from '@admin/tokens'
 import { getGlobalConfig } from '@/internal/config'
 import 'dayjs/locale/zh-cn'
 
@@ -16,9 +15,9 @@ useTitle(title, (route) => route.name !== REDIRECT_NAME)
 </script>
 
 <template>
-  <ConfigProvider :locale="antdLocale">
-    <AppProvider>
-      <RouterView />
-    </AppProvider>
-  </ConfigProvider>
+  <a-config-provider :locale="antdLocale">
+    <app-provider>
+      <router-view />
+    </app-provider>
+  </a-config-provider>
 </template>

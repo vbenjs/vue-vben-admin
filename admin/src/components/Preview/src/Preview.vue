@@ -20,7 +20,7 @@ import { defineComponent, computed } from 'vue'
 
 import { Image } from 'ant-design-vue'
 import { useDesign } from '@/hooks/web/useDesign'
-import { isString } from '@vben-admin/utils'
+import { isString } from '@admin/utils'
 
 interface ImageProps {
   alt?: string

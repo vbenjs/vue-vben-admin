@@ -5,7 +5,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { addClass, removeClass } from '@vben-admin/utils'
+import { addClass, removeClass } from '@admin/utils'
 
 export default defineComponent({
   name: 'MenuCollapseTransition',

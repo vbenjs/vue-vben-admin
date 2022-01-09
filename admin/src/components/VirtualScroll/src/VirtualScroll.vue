@@ -11,7 +11,7 @@ import {
   CSSProperties,
 } from 'vue'
 import { useEventListener } from '@/hooks/event/useEventListener'
-import { getSlot } from '@vben-admin/utils'
+import { getSlot } from '@admin/utils'
 
 type NumberOrNumberString = PropType<string | number | undefined>
 

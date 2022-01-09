@@ -1,5 +1,5 @@
 import type { InjectionKey } from 'vue'
-import { createContext, useContext } from '@vben-admin/use'
+import { createContext, useContext } from '@admin/use'
 
 export interface FormContextProps {
   resetAction: () => Promise<void>

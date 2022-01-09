@@ -1,4 +1,4 @@
-import type { ProjectConfig } from '@vben-admin/types'
+import type { ProjectConfig } from '@admin/types'
 import {
   CacheTypeEnum,
   MenuTypeEnum,
@@ -11,7 +11,7 @@ import {
   RouterTransitionEnum,
   SettingButtonPositionEnum,
   SessionTimeoutProcessingEnum,
-} from '@vben-admin/tokens'
+} from '@admin/tokens'
 
 import {
   SIDE_BAR_BG_COLOR_LIST,

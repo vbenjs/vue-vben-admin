@@ -43,7 +43,7 @@ import { useUserStore } from '@/store/user'
 import { initAffixTabs, useTabsDrag } from './useMultipleTabs'
 import { useDesign } from '@/hooks/web/useDesign'
 import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting'
-import { REDIRECT_NAME } from '@vben-admin/tokens'
+import { REDIRECT_NAME } from '@admin/tokens'
 import { listenerRouteChange } from '@/logics/mitt/routeChange'
 import { useRouter } from 'vue-router'
 

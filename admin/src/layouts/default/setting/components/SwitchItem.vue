@@ -15,7 +15,7 @@ import { defineComponent, PropType, computed } from 'vue'
 
 import { Switch } from 'ant-design-vue'
 import { useDesign } from '@/hooks/web/useDesign'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 import { baseHandler } from '../handler'
 import { HandlerEnum } from '../enum'
 

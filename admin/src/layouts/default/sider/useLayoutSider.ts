@@ -1,9 +1,9 @@
 import type { Ref } from 'vue'
 
 import { computed, unref, onMounted, nextTick, ref } from 'vue'
-import { TriggerEnum } from '@vben-admin/tokens'
+import { TriggerEnum } from '@admin/tokens'
 import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
-import { useDebounceFn } from '@vben-admin/use'
+import { useDebounceFn } from '@admin/use'
 
 /**
  * Handle related operations of menu events

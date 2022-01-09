@@ -29,10 +29,10 @@ import Icon from '@/components/Icon'
 import { useDesign } from '@/hooks/web/useDesign'
 import { useRootSetting } from '@/hooks/setting/useRootSetting'
 import { useGo } from '@/hooks/web/usePage'
-import { useI18n } from '@vben-admin/locale'
-import { REDIRECT_NAME } from '@vben-admin/tokens'
+import { useI18n } from '@admin/locale'
+import { REDIRECT_NAME } from '@admin/tokens'
 
-import { isString, filterTree } from '@vben-admin/utils'
+import { isString, filterTree } from '@admin/utils'
 import { getMenus } from '@/router/menus'
 
 import { getAllParentPath } from '@/router/helper/menuHelper'

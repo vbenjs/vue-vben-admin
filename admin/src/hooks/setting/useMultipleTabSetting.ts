@@ -1,4 +1,4 @@
-import type { MultiTabsSetting } from '@vben-admin/types'
+import type { MultiTabsSetting } from '@admin/types'
 
 import { computed } from 'vue'
 

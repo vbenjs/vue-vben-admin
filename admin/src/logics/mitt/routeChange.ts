@@ -3,7 +3,7 @@
  */
 import type { RouteLocationNormalized } from 'vue-router'
 
-import { mitt, getRawRoute } from '@vben-admin/utils'
+import { mitt, getRawRoute } from '@admin/utils'
 
 const emitter = mitt()
 

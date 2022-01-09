@@ -1,15 +1,14 @@
-import { projectSetting } from '@vben-admin/setting'
-import { initServiceModule } from '@vben-admin/service/_bridge'
-import { initDirectiveModule } from '@vben-admin/directives/_bridge'
-
+import { projectSetting } from '@admin/setting'
+import { initServiceModule } from '@admin/service/_bridge'
+import { initDirectiveModule } from '@admin/directives/_bridge'
 // service
 import { getGlobalConfig } from '@/internal'
 import { useMessage } from '@/hooks/web/useMessage'
 import { useErrorLogStoreWithOut } from '@/store/errorLog'
 import { useUserStoreWithOut } from '@/store/user'
-import { useI18n } from '@vben-admin/locale'
-import { SessionTimeoutProcessingEnum } from '@vben-admin/tokens'
-
+import { useI18n } from '@admin/locale'
+import { SessionTimeoutProcessingEnum } from '@admin/tokens'
+// directive
 import { createLoading } from '@/components/Loading'
 import { usePermission } from '@/hooks/web/usePermission'
 

@@ -1,7 +1,7 @@
 import type { RouteMeta, Router, RouteRecordNormalized } from 'vue-router'
 
 import { getParentLayout, LAYOUT } from '@/router/constant'
-import { omit, warn, cloneDeep } from '@vben-admin/utils'
+import { omit, warn, cloneDeep } from '@admin/utils'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 export type LayoutMapKey = 'LAYOUT'

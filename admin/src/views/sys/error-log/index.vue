@@ -31,17 +31,17 @@
 </template>
 
 <script lang="ts" setup>
-import type { ErrorLogInfo } from '@vben-admin/types'
+import type { ErrorLogInfo } from '@admin/types'
 import { watch, ref, nextTick } from 'vue'
 import DetailModal from './DetailModal.vue'
 import { BasicTable, useTable, TableAction } from '@/components/Table/index'
 import { useModal } from '@/components/Modal'
 import { useMessage } from '@/hooks/web/useMessage'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 import { useErrorLogStore } from '@/store/errorLog'
 import { fireErrorApi } from '@service/demo/error'
 import { getColumns } from './data'
-import { cloneDeep } from '@vben-admin/utils'
+import { cloneDeep } from '@admin/utils'
 
 const rowInfo = ref<ErrorLogInfo>()
 const imgList = ref<string[]>([])

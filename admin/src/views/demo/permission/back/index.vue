@@ -29,7 +29,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { RoleEnum, PermissionModeEnum } from '@vben-admin/tokens'
+import { RoleEnum, PermissionModeEnum } from '@admin/tokens'
 import { usePermission } from '@/hooks/web/usePermission'
 import { useUserStore } from '@/store/user'
 import { PageWrapper } from '@/components/Page'

@@ -5,10 +5,10 @@ import type {
   TransitionSetting,
   MultiTabsSetting,
   BeforeMiniState,
-} from '@vben-admin/types'
-import { ThemeEnum } from '@vben-admin/tokens'
-import { deepMerge } from '@vben-admin/utils'
-import { darkMode } from '@vben-admin/setting'
+} from '@admin/types'
+import { ThemeEnum } from '@admin/tokens'
+import { deepMerge } from '@admin/utils'
+import { darkMode } from '@admin/setting'
 import { defineStore } from 'pinia'
 import { pinia } from '@/internal'
 import { resetRouter } from '@/router'

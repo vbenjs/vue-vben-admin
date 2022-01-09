@@ -1,5 +1,5 @@
 import type { RouteMeta } from 'vue-router'
-import { RoleEnum } from '@vben-admin/tokens'
+import { RoleEnum } from '@admin/tokens'
 
 export interface MenuTag {
   type?: 'primary' | 'error' | 'warn' | 'success'

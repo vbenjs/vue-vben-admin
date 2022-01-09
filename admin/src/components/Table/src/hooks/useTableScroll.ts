@@ -9,9 +9,9 @@ import {
   isBoolean,
   getViewportOffset,
   onMountedOrActivated,
-} from '@vben-admin/utils'
+} from '@admin/utils'
 import { useModalContext } from '@/components/Modal'
-import { useDebounceFn, useWindowResize } from '@vben-admin/use'
+import { useDebounceFn, useWindowResize } from '@admin/use'
 
 export function useTableScroll(
   propsRef: ComputedRef<BasicTableProps>,

@@ -10,7 +10,7 @@ import { Icon } from '@/components/Icon'
 import { useDesign } from '@/hooks/web/useDesign'
 import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
 import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
-import { triggerWindowResize } from '@vben-admin/utils'
+import { triggerWindowResize } from '@admin/utils'
 
 export default defineComponent({
   name: 'FoldButton',

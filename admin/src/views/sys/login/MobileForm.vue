@@ -3,7 +3,7 @@ import { reactive, ref, computed, unref } from 'vue'
 import { Form, Input, Button } from 'ant-design-vue'
 import { CountdownInput } from '@/components/CountDown'
 import LoginFormTitle from './LoginFormTitle.vue'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 import {
   useLoginState,
   useFormRules,

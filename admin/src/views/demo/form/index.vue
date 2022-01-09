@@ -64,8 +64,8 @@ import { PageWrapper } from '@/components/Page'
 import { optionsListApi } from '@service/demo/select'
 import { treeOptionsListApi } from '@service/demo/tree'
 import { Select } from 'ant-design-vue'
-import { cloneDeep } from '@vben-admin/utils'
-import { useDebounceFn } from '@vben-admin/use'
+import { cloneDeep } from '@admin/utils'
+import { useDebounceFn } from '@admin/use'
 
 const valueSelectA = ref<string[]>([])
 const valueSelectB = ref<string[]>([])

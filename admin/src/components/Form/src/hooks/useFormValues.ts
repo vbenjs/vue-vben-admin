@@ -6,7 +6,7 @@ import {
   isNullOrUndefined,
   set,
   dateUtil,
-} from '@vben-admin/utils'
+} from '@admin/utils'
 import { unref } from 'vue'
 import type { Ref, ComputedRef } from 'vue'
 import type { FormProps, FormSchema } from '../types/form'

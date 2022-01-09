@@ -12,14 +12,14 @@ import {
 
 import { AppDarkModeToggle } from '@/components/Application'
 
-import { MenuTypeEnum, TriggerEnum } from '@vben-admin/tokens'
+import { MenuTypeEnum, TriggerEnum } from '@admin/tokens'
 
 import { useRootSetting } from '@/hooks/setting/useRootSetting'
 import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
 import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
 import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting'
 import { useTransitionSetting } from '@/hooks/setting/useTransitionSetting'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 
 import { baseHandler } from './handler'
 
@@ -37,7 +37,7 @@ import {
   HEADER_PRESET_BG_COLOR_LIST,
   SIDE_BAR_BG_COLOR_LIST,
   APP_PRESET_COLOR_LIST,
-} from '@vben-admin/setting'
+} from '@admin/setting'
 
 const { t } = useI18n()
 

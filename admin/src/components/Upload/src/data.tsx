@@ -7,7 +7,7 @@ import {
 import { Progress, Tag } from 'ant-design-vue'
 import TableAction from '@/components/Table/src/components/TableAction.vue'
 import ThumbUrl from './ThumbUrl.vue'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 
 const { t } = useI18n()
 

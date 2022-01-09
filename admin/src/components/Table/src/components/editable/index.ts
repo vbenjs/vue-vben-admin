@@ -3,7 +3,7 @@ import type { BasicColumn } from '@/components/Table/src/types/table'
 import { h, Ref } from 'vue'
 
 import EditableCell from './EditableCell.vue'
-import { isArray } from '@vben-admin/utils'
+import { isArray } from '@admin/utils'
 
 interface Params {
   text: string

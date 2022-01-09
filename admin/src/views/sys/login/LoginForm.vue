@@ -19,7 +19,7 @@ import {
 } from '@ant-design/icons-vue'
 import LoginFormTitle from './LoginFormTitle.vue'
 
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 import { useMessage } from '@/hooks/web/useMessage'
 import { useUserStore } from '@/store/user'
 import {

@@ -1,7 +1,7 @@
 import type { RouteLocationRaw, Router } from 'vue-router'
 
-import { PageEnum, REDIRECT_NAME } from '@vben-admin/tokens'
-import { isString } from '@vben-admin/utils'
+import { PageEnum, REDIRECT_NAME } from '@admin/tokens'
+import { isString } from '@admin/utils'
 import { unref } from 'vue'
 import { useRouter } from 'vue-router'
 

@@ -89,7 +89,7 @@ import {
   MenuModeEnum,
   MenuSplitTyeEnum,
   SettingButtonPositionEnum,
-} from '@vben-admin/tokens'
+} from '@admin/tokens'
 import { AppLocalePicker } from '@/components/Application'
 
 import {
@@ -102,7 +102,7 @@ import {
 import { useAppInject } from '@/hooks/web/useAppInject'
 import { useDesign } from '@/hooks/web/useDesign'
 
-import { useLocale } from '@vben-admin/locale'
+import { useLocale } from '@admin/locale'
 import SettingDrawer from '@/layouts/default/setting/index.vue'
 
 export default defineComponent({

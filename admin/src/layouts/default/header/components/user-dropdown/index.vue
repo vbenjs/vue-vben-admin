@@ -43,14 +43,14 @@
 <script lang="ts">
 import { Dropdown, Menu } from 'ant-design-vue'
 import { defineComponent, computed } from 'vue'
-import { DOC_URL } from '@vben-admin/setting'
+import { DOC_URL } from '@admin/setting'
 import { useUserStore } from '@/store/user'
 import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 import { useDesign } from '@/hooks/web/useDesign'
 import { useModal } from '@/components/Modal'
 import headerImg from '@/assets/images/header.jpg'
-import { openWindow } from '@vben-admin/utils'
+import { openWindow } from '@admin/utils'
 import MenuItem from './DropMenuItem.vue'
 import LockAction from '../lock/LockModal.vue'
 

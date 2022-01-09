@@ -19,7 +19,7 @@ import { defineComponent } from 'vue'
 import { BasicModal, useModalInner } from '@/components/Modal'
 import { BasicForm, FormSchema, useForm } from '@/components/Form/index'
 
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 
 const { t } = useI18n()
 

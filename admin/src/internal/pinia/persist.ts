@@ -1,7 +1,7 @@
 import type { PiniaPluginContext } from 'pinia'
-import type { PersistStrategy } from '@vben-admin/types'
+import type { PersistStrategy } from '@admin/types'
 
-import { set, get } from '@vben-admin/utils'
+import { set, get } from '@admin/utils'
 
 export interface CreateOptions {
   defaultStorage?: Storage

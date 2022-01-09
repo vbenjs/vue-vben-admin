@@ -89,11 +89,11 @@ jobs:
         env:
           DOCS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         run: |
-          mkdir -p ~/.ssh/
-          echo "$ACTIONS_DEPLOY_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com > ~/.ssh/known_hosts
-          chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
+          mkdir -p @/.ssh/
+          echo "$ACTIONS_DEPLOY_KEY" > @/.ssh/id_rsa
+          chmod 600 @/.ssh/id_rsa
+          ssh-keyscan github.com > @/.ssh/known_hosts
+          chmod 700 @/.ssh && chmod 600 @/.ssh/*
           git config --local user.email "vbenadmin@163.com"
           git config --local user.name "vbenAdmin"
 

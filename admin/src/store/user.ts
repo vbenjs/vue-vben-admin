@@ -1,9 +1,9 @@
-import type { UserInfo, ErrorMessageMode } from '@vben-admin/types'
+import type { UserInfo, ErrorMessageMode } from '@admin/types'
 
 import { defineStore } from 'pinia'
-import { RoleEnum, PageEnum } from '@vben-admin/tokens'
-import { isArray } from '@vben-admin/utils'
-import { useI18n } from '@vben-admin/locale'
+import { RoleEnum, PageEnum } from '@admin/tokens'
+import { isArray } from '@admin/utils'
+import { useI18n } from '@admin/locale'
 import { pinia } from '@/internal'
 import { doLogout, getUserInfo, loginApi } from '@service/sys/user'
 import { GetUserInfoModel, LoginParams } from '@service/model'

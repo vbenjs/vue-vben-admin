@@ -5,9 +5,9 @@ import type {
   FormSchema,
 } from '../types/form'
 import type { NamePath } from 'ant-design-vue/lib/form/interface'
-import type { DynamicProps } from '@vben-admin/types'
+import type { DynamicProps } from '@admin/types'
 import { ref, onUnmounted, unref, nextTick, watch } from 'vue'
-import { error, getDynamicProps } from '@vben-admin/utils'
+import { error, getDynamicProps } from '@admin/utils'
 
 export declare type ValidateFields = (
   nameList?: NamePath[],

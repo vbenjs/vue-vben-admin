@@ -5,7 +5,7 @@ import { useDesign } from '@/hooks/web/useDesign'
 import { useUserStore } from '@/store/user'
 import { usePermissionStore } from '@/store/permission'
 import { useAppStore } from '@/store/app'
-import { PermissionModeEnum } from '@vben-admin/tokens'
+import { PermissionModeEnum } from '@admin/tokens'
 
 const { prefixCls } = useDesign('st-login')
 const userStore = useUserStore()

@@ -1,4 +1,4 @@
-import type { ErrorMessageMode } from '@vben-admin/types'
+import type { ErrorMessageMode } from '@admin/types'
 
 export interface ContextOptions {
   errorFunction: AnyFunction<any>

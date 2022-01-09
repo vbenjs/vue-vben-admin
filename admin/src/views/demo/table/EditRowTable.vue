@@ -21,7 +21,7 @@ import { optionsListApi } from '@service/demo/select'
 
 import { demoListApi } from '@service/demo/table'
 import { treeOptionsListApi } from '@service/demo/tree'
-import { cloneDeep } from '@vben-admin/utils'
+import { cloneDeep } from '@admin/utils'
 import { useMessage } from '@/hooks/web/useMessage'
 
 const columns: BasicColumn[] = [

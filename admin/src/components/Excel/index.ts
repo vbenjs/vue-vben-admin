@@ -1,4 +1,4 @@
-import { withInstall } from '@vben-admin/utils'
+import { withInstall } from '@admin/utils'
 import impExcel from './src/ImportExcel.vue'
 import expExcelModal from './src/ExportExcelModal.vue'
 

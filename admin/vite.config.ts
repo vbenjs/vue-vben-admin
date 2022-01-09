@@ -31,7 +31,7 @@ export default defineConfig(async ({ command, mode }) => {
     resolve: {
       alias: {
         '@/': `${resolve(__dirname, 'src')}/`,
-        '@service': `@vben-admin/service/modules`,
+        '@service': `@admin/service/modules`,
         'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
         vue: 'vue/dist/vue.esm-bundler.js',
       },
@@ -45,8 +45,8 @@ export default defineConfig(async ({ command, mode }) => {
       proxy: configProxy(VITE_PROXY),
     },
     build: {
-      target: 'es2015',
-      cssTarget: 'chrome85',
+      target: 'chrome80',
+      cssTarget: 'chrome80',
       outDir: OUTPUT_DIR,
       terserOptions: {
         compress: {
@@ -60,7 +60,7 @@ export default defineConfig(async ({ command, mode }) => {
         output: {
           manualChunks: {
             vue: ['vue', 'pinia', 'vue-router', '@vue/shared'],
-            antdv: ['ant-design-vue'],
+            // antdv: ['ant-design-vue'],
             // icons: ['@ant-design/icons-vue'],
             echarts: ['echarts'],
             mockjs: ['mockjs'],

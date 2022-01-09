@@ -1,4 +1,4 @@
-import { componentSetting } from '@vben-admin/setting'
+import { componentSetting } from '@admin/setting'
 
 const { table } = componentSetting
 

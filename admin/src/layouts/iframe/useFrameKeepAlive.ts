@@ -1,6 +1,6 @@
 import { computed, toRaw, unref } from 'vue'
 import { useMultipleTabStore } from '@/store/multipleTab'
-import { uniqBy } from '@vben-admin/utils'
+import { uniqBy } from '@admin/utils'
 import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting'
 import { useRouter } from 'vue-router'
 

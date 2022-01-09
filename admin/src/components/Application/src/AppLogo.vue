@@ -16,7 +16,7 @@ import { getGlobalConfig } from '@/internal'
 import { useGo } from '@/hooks/web/usePage'
 import { useMenuSetting } from '@/hooks/setting/useMenuSetting'
 import { useDesign } from '@/hooks/web/useDesign'
-import { PageEnum } from '@vben-admin/tokens'
+import { PageEnum } from '@admin/tokens'
 import { useUserStore } from '@/store/user'
 
 const props = defineProps({

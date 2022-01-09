@@ -1,4 +1,4 @@
-import { isObject, isString } from '@vben-admin/utils'
+import { isObject, isString } from '@admin/utils'
 
 const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss'
 

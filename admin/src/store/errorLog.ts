@@ -1,9 +1,9 @@
-import type { ErrorLogInfo } from '@vben-admin/types'
+import type { ErrorLogInfo } from '@admin/types'
 
 import { defineStore } from 'pinia'
-import { formatToDateTime } from '@vben-admin/utils'
-import { projectSetting } from '@vben-admin/setting'
-import { ErrorTypeEnum } from '@vben-admin/tokens'
+import { formatToDateTime } from '@admin/utils'
+import { projectSetting } from '@admin/setting'
+import { ErrorTypeEnum } from '@admin/tokens'
 import { pinia } from '@/internal'
 
 export interface ErrorLogState {

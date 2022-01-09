@@ -1,4 +1,4 @@
-import { withInstall } from '@vben-admin/utils'
+import { withInstall } from '@admin/utils'
 
 import appLogo from './src/AppLogo.vue'
 import appProvider from './src/AppProvider.vue'

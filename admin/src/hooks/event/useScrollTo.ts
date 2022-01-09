@@ -1,4 +1,4 @@
-import { isFunction, isUndefined } from '@vben-admin/utils'
+import { isFunction, isUndefined } from '@admin/utils'
 import { ref, unref } from 'vue'
 
 export interface ScrollToParams {

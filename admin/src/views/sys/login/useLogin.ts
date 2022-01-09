@@ -1,7 +1,7 @@
 import type { ValidationRule } from 'ant-design-vue/lib/form/Form'
 import type { RuleObject } from 'ant-design-vue/lib/form/interface'
 import { ref, computed, unref, Ref } from 'vue'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 
 export enum LoginStateEnum {
   LOGIN,

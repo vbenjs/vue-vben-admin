@@ -1,4 +1,4 @@
-import { withInstall } from '@vben-admin/utils'
+import { withInstall } from '@admin/utils'
 import codeEditor from './src/CodeEditor.vue'
 import jsonPreview from './src/json-preview/JsonPreview.vue'
 

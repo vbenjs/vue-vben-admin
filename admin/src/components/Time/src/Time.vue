@@ -3,8 +3,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
-import { useI18n } from '@vben-admin/locale'
-import { useIntervalFn } from '@vben-admin/use'
+import { useI18n } from '@admin/locale'
+import { useIntervalFn } from '@admin/use'
 import {
   formatToDateTime,
   formatToDate,
@@ -12,7 +12,7 @@ import {
   isNumber,
   isObject,
   isString,
-} from '@vben-admin/utils'
+} from '@admin/utils'
 
 const ONE_SECONDS = 1000
 const ONE_MINUTES = ONE_SECONDS * 60

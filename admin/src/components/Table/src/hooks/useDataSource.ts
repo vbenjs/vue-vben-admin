@@ -11,7 +11,7 @@ import {
   Ref,
   watchEffect,
 } from 'vue'
-import { useTimeoutFn } from '@vben-admin/use'
+import { useTimeoutFn } from '@admin/use'
 import {
   isFunction,
   isBoolean,
@@ -19,7 +19,7 @@ import {
   cloneDeep,
   get,
   merge,
-} from '@vben-admin/utils'
+} from '@admin/utils'
 import { FETCH_SETTING, ROW_KEY, PAGE_SIZE } from '../const'
 
 interface ActionType {

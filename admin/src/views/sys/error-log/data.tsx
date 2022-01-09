@@ -1,7 +1,7 @@
 import { Tag } from 'ant-design-vue'
 import { BasicColumn } from '@/components/Table/index'
-import { ErrorTypeEnum } from '@vben-admin/tokens'
-import { useI18n } from '@vben-admin/locale'
+import { ErrorTypeEnum } from '@admin/tokens'
+import { useI18n } from '@admin/locale'
 
 const { t } = useI18n()
 

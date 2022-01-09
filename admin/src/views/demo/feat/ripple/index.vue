@@ -5,7 +5,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { ripple } from '@vben-admin/directives'
+import { ripple } from '@admin/directives'
 import { PageWrapper } from '@/components/Page'
 
 export default defineComponent({

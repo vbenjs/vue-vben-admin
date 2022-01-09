@@ -15,7 +15,7 @@ import {
   nextTick,
   toRaw,
 } from 'vue'
-import { isEqual, isFunction, error, tryOnUnmounted } from '@vben-admin/utils'
+import { isEqual, isFunction, error, tryOnUnmounted } from '@admin/utils'
 import { computed } from 'vue'
 
 const dataTransfer = reactive<any>({})

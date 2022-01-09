@@ -1,8 +1,8 @@
 import type { Ref } from 'vue'
 
 import { ref, onMounted, watch, onUnmounted } from 'vue'
-import { isWindow, isObject } from '@vben-admin/utils'
-import { useThrottleFn } from '@vben-admin/use'
+import { isWindow, isObject } from '@admin/utils'
+import { useThrottleFn } from '@admin/use'
 
 export function useScroll(
   refEl: Ref<Element | Window | null>,

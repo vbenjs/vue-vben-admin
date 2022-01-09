@@ -3,9 +3,9 @@ import type { AdvanceState } from '../types/hooks'
 import type { ComputedRef, Ref } from 'vue'
 import type { FormProps, FormSchema } from '../types/form'
 import { computed, unref, watch } from 'vue'
-import { isBoolean, isNumber, isFunction, isObject } from '@vben-admin/utils'
+import { isBoolean, isNumber, isFunction, isObject } from '@admin/utils'
 import { useBreakpoint } from '@/hooks/event/useBreakpoint'
-import { useDebounceFn } from '@vben-admin/use'
+import { useDebounceFn } from '@admin/use'
 
 const BASIC_COL_LEN = 24
 

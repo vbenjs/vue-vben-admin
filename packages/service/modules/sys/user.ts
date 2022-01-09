@@ -1,4 +1,4 @@
-import type { ErrorMessageMode } from '@vben-admin/types'
+import type { ErrorMessageMode } from '@admin/types'
 import type { LoginParams, LoginResultModel, GetUserInfoModel } from '../model'
 
 import { defaultRequest } from '../../request'

@@ -1,15 +1,15 @@
 {
-  "name": "@vben-admin/locale",
+  "name": "@admin/locale",
   "version": "3.0.0-alpha.2",
   "main": "index.ts",
   "module": "index.ts",
   "license": "MIT",
   "dependencies": {
-    "@vben-admin/setting": "workspace:*",
-    "@vben-admin/tokens": "workspace:*",
-    "@vben-admin/types": "workspace:*",
-    "@vben-admin/utils": "workspace:*",
-    "@vueuse/core": "^7.5.1",
+    "@admin/setting": "workspace:*",
+    "@admin/tokens": "workspace:*",
+    "@admin/types": "workspace:*",
+    "@admin/utils": "workspace:*",
+    "@vueuse/core": "^7.5.3",
     "vue-i18n": "^9.1.9"
   }
 }

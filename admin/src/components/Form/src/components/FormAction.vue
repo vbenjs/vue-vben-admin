@@ -54,7 +54,7 @@ import { Form, Col } from 'ant-design-vue'
 import { Button, ButtonProps } from '@/components/Button'
 import { BasicArrow } from '@/components/Basic'
 import { useFormContext } from '../hooks/useFormContext'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 
 type ButtonOptions = Partial<ButtonProps> & { text: string }
 

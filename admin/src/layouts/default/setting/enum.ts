@@ -6,9 +6,9 @@ import {
   TopMenuAlignEnum,
   TriggerEnum,
   MixSidebarTriggerEnum,
-} from '@vben-admin/tokens'
+} from '@admin/tokens'
 
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 
 const { t } = useI18n()
 

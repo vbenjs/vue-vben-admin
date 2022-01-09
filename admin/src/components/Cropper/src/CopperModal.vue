@@ -154,8 +154,8 @@ import CropperImage from './Cropper.vue'
 import { Space, Upload, Avatar, Tooltip } from 'ant-design-vue'
 import { useDesign } from '@/hooks/web/useDesign'
 import { BasicModal, useModalInner } from '@/components/Modal'
-import { isFunction, dataURLtoBlob } from '@vben-admin/utils'
-import { useI18n } from '@vben-admin/locale'
+import { isFunction, dataURLtoBlob } from '@admin/utils'
+import { useI18n } from '@admin/locale'
 
 type apiFunParams = { file: Blob; name: string; filename: string }
 

@@ -66,7 +66,7 @@ import {
 
 import { Icon, IconPicker, SvgIcon } from '@/components/Icon/index'
 
-import { openWindow } from '@vben-admin/utils'
+import { openWindow } from '@admin/utils'
 import { PageWrapper } from '@/components/Page'
 
 export default defineComponent({

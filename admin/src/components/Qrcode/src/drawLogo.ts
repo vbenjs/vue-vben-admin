@@ -1,4 +1,4 @@
-import { isString } from '@vben-admin/utils'
+import { isString } from '@admin/utils'
 import { RenderQrCodeParams, LogoType } from './typing'
 export const drawLogo = ({ canvas, logo }: RenderQrCodeParams) => {
   if (!logo) {

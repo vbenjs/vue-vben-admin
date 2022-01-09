@@ -9,13 +9,13 @@ import type {
   RequestOptions,
   RequestResult,
   RequestUploadFileOptions,
-} from '@vben-admin/types'
+} from '@admin/types'
 
 import axios from 'axios'
 import qs from 'qs'
-import { isFunction, cloneDeep } from '@vben-admin/utils'
+import { isFunction, cloneDeep } from '@admin/utils'
 import { AxiosCanceler } from './axiosCancel'
-import { ContentTypeEnum, RequestEnum } from '@vben-admin/tokens'
+import { ContentTypeEnum, RequestEnum } from '@admin/tokens'
 export * from './axiosTransform'
 
 /**

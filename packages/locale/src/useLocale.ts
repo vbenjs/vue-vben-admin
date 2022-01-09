@@ -1,7 +1,7 @@
 /**
  * Multi-language related operations
  */
-import type { LocaleType } from '@vben-admin/types'
+import type { LocaleType } from '@admin/types'
 
 import { unref, computed } from 'vue'
 import { i18n } from './setupI18n'

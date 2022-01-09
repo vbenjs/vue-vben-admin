@@ -27,7 +27,7 @@ import { Icon } from '@/components/Icon'
 import { TabContentProps } from '../types'
 
 import { useDesign } from '@/hooks/web/useDesign'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 import { useTabDropdown } from '../useTabDropdown'
 
 export default defineComponent({

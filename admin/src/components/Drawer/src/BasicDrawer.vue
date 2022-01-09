@@ -49,14 +49,14 @@ import {
   getCurrentInstance,
 } from 'vue'
 import { Drawer } from 'ant-design-vue'
-import { useI18n } from '@vben-admin/locale'
-import { isFunction, isNumber, deepMerge } from '@vben-admin/utils'
+import { useI18n } from '@admin/locale'
+import { isFunction, isNumber, deepMerge } from '@admin/utils'
 import DrawerFooter from './components/DrawerFooter.vue'
 import DrawerHeader from './components/DrawerHeader.vue'
 import { ScrollContainer } from '@/components/Container'
 import { basicProps } from './props'
 import { useDesign } from '@/hooks/web/useDesign'
-import { useAttrs } from '@vben-admin/use'
+import { useAttrs } from '@admin/use'
 
 export default defineComponent({
   components: { Drawer, ScrollContainer, DrawerFooter, DrawerHeader },

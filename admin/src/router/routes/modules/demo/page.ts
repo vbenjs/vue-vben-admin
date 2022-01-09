@@ -1,6 +1,6 @@
 import { getParentLayout, LAYOUT } from '@/router/constant'
-import { ExceptionEnum } from '@vben-admin/tokens'
-import { t } from '@vben-admin/locale'
+import { ExceptionEnum } from '@admin/tokens'
+import { t } from '@admin/locale'
 
 const ExceptionPage = () => import('@/views/sys/exception/Exception.vue')
 

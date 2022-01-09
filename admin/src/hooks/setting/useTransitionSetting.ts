@@ -1,4 +1,4 @@
-import type { TransitionSetting } from '@vben-admin/types'
+import type { TransitionSetting } from '@admin/types'
 
 import { computed } from 'vue'
 

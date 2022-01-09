@@ -1,5 +1,5 @@
 import contextMenuVue from './ContextMenu.vue'
-import { isClient } from '@vben-admin/utils'
+import { isClient } from '@admin/utils'
 import { CreateContextOptions, ContextMenuProps } from './typing'
 import { createVNode, render } from 'vue'
 

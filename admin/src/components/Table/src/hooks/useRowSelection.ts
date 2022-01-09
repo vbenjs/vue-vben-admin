@@ -1,4 +1,4 @@
-import { isFunction } from '@vben-admin/utils'
+import { isFunction } from '@admin/utils'
 import type { BasicTableProps, TableRowSelection } from '../types/table'
 import {
   computed,
@@ -11,7 +11,7 @@ import {
   watch,
 } from 'vue'
 import { ROW_KEY } from '../const'
-import { omit, findAllTreeNode } from '@vben-admin/utils'
+import { omit, findAllTreeNode } from '@admin/utils'
 
 export function useRowSelection(
   propsRef: ComputedRef<BasicTableProps>,

@@ -9,7 +9,7 @@ import type { ComputedRef } from 'vue'
 import { computed, Ref, ref, toRaw, unref, watch } from 'vue'
 import { renderEditCell } from '../components/editable'
 import { usePermission } from '@/hooks/web/usePermission'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 import {
   isBoolean,
   isArray,
@@ -19,7 +19,7 @@ import {
   isEqual,
   cloneDeep,
   formatToDate,
-} from '@vben-admin/utils'
+} from '@admin/utils'
 import {
   ACTION_COLUMN_FLAG,
   DEFAULT_ALIGN,

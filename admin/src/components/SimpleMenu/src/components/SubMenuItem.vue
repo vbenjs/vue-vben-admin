@@ -85,8 +85,8 @@ import { useSimpleRootMenuContext } from './useSimpleMenuContext'
 import { CollapseTransition } from '@/components/Transition'
 import Icon from '@/components/Icon'
 import { Popover } from 'ant-design-vue'
-import { isBoolean, isObject } from '@vben-admin/utils'
-import { mitt } from '@vben-admin/utils'
+import { isBoolean, isObject } from '@admin/utils'
+import { mitt } from '@admin/utils'
 
 const DELAY = 200
 export default defineComponent({

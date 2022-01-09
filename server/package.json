@@ -1,5 +1,5 @@
 {
-  "name": "@vben-admin/server",
+  "name": "@admin/server",
   "version": "0.1.0",
   "repository": {
     "type": "git",
@@ -31,7 +31,7 @@
     "dayjs": "1.10.7",
     "debug": "4.3.3",
     "dotenv": "10.0.0",
-    "express-rate-limit": "6.0.4",
+    "express-rate-limit": "6.0.5",
     "fs-extra": "10.0.0",
     "helmet": "5.0.1",
     "lodash": "4.17.21",

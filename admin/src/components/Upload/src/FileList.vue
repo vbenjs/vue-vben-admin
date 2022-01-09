@@ -1,7 +1,7 @@
 <script lang="tsx">
 import { defineComponent, CSSProperties, watch, nextTick } from 'vue'
 import { fileListProps } from './props'
-import { isFunction } from '@vben-admin/utils'
+import { isFunction } from '@admin/utils'
 import { useModalContext } from '@/components/Modal/src/hooks/useModalContext'
 
 export default defineComponent({

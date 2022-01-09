@@ -10,7 +10,7 @@ import {
   SettingButtonPositionEnum,
   SessionTimeoutProcessingEnum,
   CacheTypeEnum,
-} from '@vben-admin/tokens'
+} from '@admin/tokens'
 
 export type LocaleType = 'zh_CN' | 'en' | 'ru' | 'ja' | 'ko'
 

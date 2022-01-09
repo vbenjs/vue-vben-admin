@@ -2,8 +2,8 @@ import { Modal } from 'ant-design-vue'
 import { defineComponent, toRefs, unref } from 'vue'
 import { basicProps } from '../props'
 import { useModalDragMove } from '../hooks/useModalDrag'
-import { useAttrs } from '@vben-admin/use'
-import { extendSlots } from '@vben-admin/utils'
+import { useAttrs } from '@admin/use'
+import { extendSlots } from '@admin/utils'
 
 export default defineComponent({
   name: 'Modal',

@@ -1,6 +1,6 @@
 import { ref, watch } from 'vue'
 
-import { isDefined } from '@vben-admin/utils'
+import { isDefined } from '@admin/utils'
 
 interface Options {
   target?: HTMLElement

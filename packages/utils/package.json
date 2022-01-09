@@ -1,5 +1,5 @@
 {
-  "name": "@vben-admin/utils",
+  "name": "@admin/utils",
   "version": "3.0.0-alpha.2",
   "main": "index.ts",
   "module": "index.ts",
@@ -10,8 +10,8 @@
   "dependencies": {
     "@vue/runtime-core": "^3.2.26",
     "@vue/shared": "^3.2.26",
-    "@vueuse/core": "^7.5.1",
-    "@vueuse/shared": "^7.5.1",
+    "@vueuse/core": "^7.5.3",
+    "@vueuse/shared": "^7.5.3",
     "dayjs": "^1.10.7",
     "lodash-es": "^4.17.21"
   },

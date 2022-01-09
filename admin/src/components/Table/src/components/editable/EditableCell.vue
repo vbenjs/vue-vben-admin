@@ -65,7 +65,7 @@ import { CellComponent } from './CellComponent'
 
 import { useDesign } from '@/hooks/web/useDesign'
 import { useTableContext } from '../../hooks/useTableContext'
-import { clickOutside } from '@vben-admin/directives'
+import { clickOutside } from '@admin/directives'
 import {
   isArray,
   isFunction,
@@ -75,9 +75,9 @@ import {
   omit,
   pick,
   set,
-} from '@vben-admin/utils'
+} from '@admin/utils'
 import { createPlaceholderMessage } from './helper'
-import { treeToList } from '@vben-admin/utils'
+import { treeToList } from '@admin/utils'
 import { Spin } from 'ant-design-vue'
 
 export default defineComponent({

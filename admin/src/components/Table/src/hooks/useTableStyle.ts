@@ -1,7 +1,7 @@
 import type { ComputedRef } from 'vue'
 import type { BasicTableProps, TableCustomRecord } from '../types/table'
 import { unref } from 'vue'
-import { isFunction } from '@vben-admin/utils'
+import { isFunction } from '@admin/utils'
 
 export function useTableStyle(
   propsRef: ComputedRef<BasicTableProps>,

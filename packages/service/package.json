@@ -1,14 +1,14 @@
 {
-  "name": "@vben-admin/service",
+  "name": "@admin/service",
   "version": "3.0.0-alpha.2",
   "main": "index.ts",
   "module": "index.ts",
   "license": "MIT",
   "dependencies": {
-    "@vben-admin/utils": "workspace:*",
-    "@vben-admin/locale": "workspace:*",
-    "@vben-admin/tokens": "workspace:*",
-    "@vben-admin/types": "workspace:*",
+    "@admin/utils": "workspace:*",
+    "@admin/locale": "workspace:*",
+    "@admin/tokens": "workspace:*",
+    "@admin/types": "workspace:*",
     "axios": "^0.24.0",
     "qs": "^6.10.2"
   }

@@ -3,7 +3,7 @@ import { useAppStore } from '@/store/app'
 import { useMultipleTabStore } from '@/store/multipleTab'
 import { useUserStore } from '@/store/user'
 import { usePermissionStore } from '@/store/permission'
-import { PageEnum } from '@vben-admin/tokens'
+import { PageEnum } from '@admin/tokens'
 import { removeTabChangeListener } from '@/logics/mitt/routeChange'
 
 export function createStateGuard(router: Router) {

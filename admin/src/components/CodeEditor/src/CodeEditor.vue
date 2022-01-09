@@ -11,7 +11,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import CodeMirrorEditor from './codemirror/CodeMirror.vue'
-import { isString } from '@vben-admin/utils'
+import { isString } from '@admin/utils'
 import { MODE } from './typing'
 
 const props = defineProps({

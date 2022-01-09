@@ -1,6 +1,6 @@
-import { colorIsDark, lighten, darken } from '@vben-admin/utils'
+import { colorIsDark, lighten, darken } from '@admin/utils'
 import { useAppStore } from '@/store/app'
-import { ThemeEnum } from '@vben-admin/tokens'
+import { ThemeEnum } from '@admin/tokens'
 import { setCssVar } from './util'
 
 const HEADER_BG_COLOR_VAR = '--header-bg-color'

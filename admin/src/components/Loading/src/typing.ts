@@ -1,4 +1,4 @@
-import { ComponentSizeEnum } from '@vben-admin/tokens'
+import { ComponentSizeEnum } from '@admin/tokens'
 
 export interface LoadingProps {
   tip: string

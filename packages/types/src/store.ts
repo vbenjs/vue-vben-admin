@@ -1,4 +1,4 @@
-import { ErrorTypeEnum, MenuModeEnum, MenuTypeEnum } from '@vben-admin/tokens'
+import { ErrorTypeEnum, MenuModeEnum, MenuTypeEnum } from '@admin/tokens'
 
 // Lock screen information
 export interface LockInfo {

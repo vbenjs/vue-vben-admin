@@ -1,4 +1,4 @@
-import { withInstall } from '@vben-admin/utils'
+import { withInstall } from '@admin/utils'
 import markDown from './src/Markdown.vue'
 import markDownViewer from './src/MarkdownViewer.vue'
 

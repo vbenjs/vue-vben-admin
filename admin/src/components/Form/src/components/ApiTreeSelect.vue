@@ -12,7 +12,7 @@
 <script lang="ts">
 import { computed, defineComponent, watch, ref, onMounted, unref } from 'vue'
 import { TreeSelect } from 'ant-design-vue'
-import { isArray, isFunction, get } from '@vben-admin/utils'
+import { isArray, isFunction, get } from '@admin/utils'
 import { LoadingOutlined } from '@ant-design/icons-vue'
 export default defineComponent({
   name: 'ApiTreeSelect',

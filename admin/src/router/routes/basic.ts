@@ -1,5 +1,5 @@
-import { t } from '@vben-admin/locale'
-import { REDIRECT_NAME, PAGE_NOT_FOUND_NAME } from '@vben-admin/tokens'
+import { t } from '@admin/locale'
+import { REDIRECT_NAME, PAGE_NOT_FOUND_NAME } from '@admin/tokens'
 import { LAYOUT } from '@/router/constant'
 
 export const EXCEPTION_COMPONENT = () =>

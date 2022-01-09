@@ -12,7 +12,7 @@ import {
   uniqBy,
   dateUtil,
   deepMerge,
-} from '@vben-admin/utils'
+} from '@admin/utils'
 import {
   dateItemType,
   handleInputNumberValue,

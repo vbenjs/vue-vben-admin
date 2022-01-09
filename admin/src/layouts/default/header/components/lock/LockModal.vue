@@ -26,7 +26,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { useI18n } from '@vben-admin/locale'
+import { useI18n } from '@admin/locale'
 import { useDesign } from '@/hooks/web/useDesign'
 import { BasicModal, useModalInner } from '@/components/Modal/index'
 import { BasicForm, useForm } from '@/components/Form/index'
