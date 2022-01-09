@@ -1,6 +1,6 @@
 {
   "name": "@admin/locale",
-  "version": "3.0.0-alpha.2",
+  "version": "3.0.0-alpha.3",
   "main": "index.ts",
   "module": "index.ts",
   "license": "MIT",
