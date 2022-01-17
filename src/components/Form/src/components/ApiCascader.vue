@@ -1,6 +1,6 @@
 <template>
   <a-cascader
-    v-model:value="state"
+    v-bind="attrs"
     :options="options"
     :load-data="loadData"
     change-on-select
@@ -24,8 +24,9 @@
   import { propTypes } from '/@/utils/propTypes';
   import { isFunction } from '/@/utils/is';
   import { get, omit } from 'lodash-es';
-  import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { LoadingOutlined } from '@ant-design/icons-vue';
+  import { useAttrs } from '/@/hooks/core/useAttrs';
+  import { useI18n } from '/@/hooks/web/useI18n';
 
   interface Option {
     value: string;
@@ -41,9 +42,6 @@
       [Cascader.name]: Cascader,
     },
     props: {
-      value: {
-        type: Array,
-      },
       api: {
         type: Function as PropType<(arg?: Recordable) => Promise<Option[]>>,
         default: null,
@@ -77,8 +75,8 @@
       const emitData = ref<any[]>([]);
       const isFirstLoad = ref(true);
 
-      // Embedded in the form, just use the hook binding to perform form verification
-      const [state] = useRuleFormItem(props, 'value', 'change', emitData);
+      const attrs = useAttrs();
+      const { t } = useI18n();
 
       watch(
         apiData,
@@ -169,9 +167,10 @@
         { deep: true },
       );
 
-      function handleChange(keys, args) {
+      function handleChange(keys, ...args) {
         emitData.value = keys;
-        emit('defaultChange', keys, args);
+        emit('change', keys, ...args);
+        emit('defaultChange', keys, ...args);
       }
 
       function handleRenderDisplay({ labels, selectedOptions }) {
@@ -185,7 +184,8 @@
       }
 
       return {
-        state,
+        t,
+        attrs,
         options,
         loading,
         handleChange,

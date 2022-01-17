@@ -2,7 +2,7 @@
  * @Description:It is troublesome to implement radio button group in the form. So it is extracted independently as a separate component
 -->
 <template>
-  <RadioGroup v-bind="attrs" v-model:value="state" button-style="solid" @change="handleChange">
+  <RadioGroup v-bind="attrs" button-style="solid" @change="handleChange">
     <template v-for="item in getOptions" :key="`${item.value}`">
       <RadioButton v-if="props.isBtn" :value="item.value" :disabled="item.disabled">
         {{ item.label }}
@@ -17,7 +17,6 @@
   import { defineComponent, PropType, ref, watchEffect, computed, unref, watch } from 'vue';
   import { Radio } from 'ant-design-vue';
   import { isFunction } from '/@/utils/is';
-  import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { useAttrs } from '/@/hooks/core/useAttrs';
   import { propTypes } from '/@/utils/propTypes';
   import { get, omit } from 'lodash-es';
@@ -40,9 +39,6 @@
         type: [Object, String] as PropType<Recordable | string>,
         default: () => ({}),
       },
-      value: {
-        type: [String, Number, Boolean] as PropType<string | number | boolean>,
-      },
       isBtn: {
         type: [Boolean] as PropType<boolean>,
         default: false,
@@ -58,11 +54,8 @@
       const options = ref<OptionsItem[]>([]);
       const loading = ref(false);
       const isFirstLoad = ref(true);
-      const emitData = ref<any[]>([]);
       const attrs = useAttrs();
       const { t } = useI18n();
-      // Embedded in the form, just use the hook binding to perform form verification
-      const [state] = useRuleFormItem(props);
 
       // Processing options value
       const getOptions = computed(() => {
@@ -120,11 +113,11 @@
         emit('options-change', unref(getOptions));
       }
 
-      function handleChange(_, ...args) {
-        emitData.value = args;
+      function handleChange(e) {
+        emit('change', e?.target?.value);
       }
 
-      return { state, getOptions, attrs, loading, t, handleChange, props };
+      return { getOptions, attrs, loading, t, handleChange, props };
     },
   });
 </script>
