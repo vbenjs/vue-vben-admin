@@ -265,7 +265,7 @@
               result = await beforeEditSubmit({
                 record: pick(record, keys),
                 index,
-                key: key as string,
+                key: dataKey as string,
                 value,
               });
             } catch (e) {
@@ -281,7 +281,7 @@
 
         set(record, dataKey, value);
         //const record = await table.updateTableData(index, dataKey, value);
-        needEmit && table.emit?.('edit-end', { record, index, key, value });
+        needEmit && table.emit?.('edit-end', { record, index, key: dataKey, value });
         isEdit.value = false;
       }
 
