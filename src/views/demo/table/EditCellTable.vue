@@ -9,13 +9,14 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, h } from 'vue';
   import { BasicTable, useTable, BasicColumn } from '/@/components/Table';
   import { optionsListApi } from '/@/api/demo/select';
 
   import { demoListApi } from '/@/api/demo/table';
   import { treeOptionsListApi } from '/@/api/demo/tree';
   import { useMessage } from '/@/hooks/web/useMessage';
+  import { Progress } from 'ant-design-vue';
   const columns: BasicColumn[] = [
     {
       title: '输入框',
@@ -60,6 +61,15 @@
       editRule: true,
       editComponent: 'InputNumber',
       width: 200,
+      editComponentProps: () => {
+        return {
+          max: 100,
+          min: 0,
+        };
+      },
+      editRender: ({ text }) => {
+        return h(Progress, { percent: Number(text) });
+      },
     },
     {
       title: '下拉框',
