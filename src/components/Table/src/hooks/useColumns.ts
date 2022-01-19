@@ -141,6 +141,19 @@ export function useColumns(
     }
     return isIfShow;
   }
+
+  function isEdit(column: BasicColumn): boolean {
+    const edit = column.edit;
+    let isEdit = false;
+    if (isBoolean(edit)) {
+      isEdit = edit;
+    }
+    if (isFunction(edit)) {
+      isEdit = edit(column);
+    }
+    return isEdit;
+  }
+
   const { hasPermission } = usePermission();
 
   const getViewColumns = computed(() => {
@@ -152,7 +165,7 @@ export function useColumns(
         return hasPermission(column.auth) && isIfShow(column);
       })
       .map((column) => {
-        const { slots, dataIndex, customRender, format, edit, editRow, flag } = column;
+        const { slots, dataIndex, customRender, format, editRow, flag } = column;
 
         if (!slots || !slots?.title) {
           column.slots = { title: `header-${dataIndex}`, ...(slots || {}) };
@@ -160,14 +173,14 @@ export function useColumns(
           Reflect.deleteProperty(column, 'title');
         }
         const isDefaultAction = [INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG].includes(flag!);
-        if (!customRender && format && !edit && !isDefaultAction) {
+        if (!customRender && format && !isEdit(column) && !isDefaultAction) {
           column.customRender = ({ text, record, index }) => {
             return formatCell(text, format, record, index);
           };
         }
 
         // edit table
-        if ((edit || editRow) && !isDefaultAction) {
+        if ((isEdit(column) || editRow) && !isDefaultAction) {
           column.customRender = renderEditCell(column);
         }
         return column;

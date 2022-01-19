@@ -12,6 +12,7 @@
   import BasicHelp from '/@/components/Basic/src/BasicHelp.vue';
   import EditTableHeaderCell from './EditTableHeaderIcon.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { isBoolean, isFunction } from '/@/utils/is';
 
   export default defineComponent({
     name: 'TableHeaderCell',
@@ -28,9 +29,21 @@
     setup(props) {
       const { prefixCls } = useDesign('basic-table-header-cell');
 
-      const getIsEdit = computed(() => !!props.column?.edit);
+      const getIsEdit = computed(() => isEdit(props.column));
       const getTitle = computed(() => props.column?.customTitle);
       const getHelpMessage = computed(() => props.column?.helpMessage);
+
+      function isEdit(column: BasicColumn): boolean {
+        const edit = column.edit;
+        let isEdit = false;
+        if (isBoolean(edit)) {
+          isEdit = edit;
+        }
+        if (isFunction(edit)) {
+          isEdit = edit(column);
+        }
+        return isEdit;
+      }
 
       return { prefixCls, getIsEdit, getTitle, getHelpMessage };
     },

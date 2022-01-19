@@ -437,7 +437,7 @@ export interface BasicColumn extends ColumnProps {
   format?: CellFormat;
 
   // Editable
-  edit?: boolean;
+  edit?: boolean | ((column: BasicColumn) => boolean);
   editRow?: boolean;
   editable?: boolean;
   editComponent?: ComponentType;
