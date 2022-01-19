@@ -142,18 +142,6 @@ export function useColumns(
     return isIfShow;
   }
 
-  function isEdit(column: BasicColumn): boolean {
-    const edit = column.edit;
-    let isEdit = false;
-    if (isBoolean(edit)) {
-      isEdit = edit;
-    }
-    if (isFunction(edit)) {
-      isEdit = edit(column);
-    }
-    return isEdit;
-  }
-
   const { hasPermission } = usePermission();
 
   const getViewColumns = computed(() => {
@@ -327,4 +315,16 @@ export function formatCell(text: string, format: CellFormat, record: Recordable,
   } catch (error) {
     return text;
   }
+}
+
+export function isEdit(column: BasicColumn): boolean {
+  const edit = column.edit;
+  let isEdit = false;
+  if (isBoolean(edit)) {
+    isEdit = edit;
+  }
+  if (isFunction(edit)) {
+    isEdit = edit(column);
+  }
+  return isEdit;
 }
