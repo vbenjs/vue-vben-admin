@@ -62,6 +62,7 @@ module.exports = defineConfig({
     'vue/singleline-html-element-content-newline': 'off',
     'vue/attribute-hyphenation': 'off',
     'vue/require-default-prop': 'off',
+    'vue/require-explicit-emits': 'off',
     'vue/html-self-closing': [
       'error',
       {
@@ -74,6 +75,6 @@ module.exports = defineConfig({
         math: 'always',
       },
     ],
-		'vue/multi-word-component-names': 'off'
+    'vue/multi-word-component-names': 'off',
   },
 });

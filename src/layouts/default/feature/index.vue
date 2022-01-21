@@ -23,7 +23,7 @@
       const { getUseOpenBackTop, getShowSettingButton, getSettingButtonPosition, getFullContent } =
         useRootSetting();
       const userStore = useUserStoreWithOut();
-      const { prefixCls } = useDesign('setting-drawer-fearure');
+      const { prefixCls } = useDesign('setting-drawer-feature');
       const { getShowHeader } = useHeaderSetting();
 
       const getIsSessionTimeout = computed(() => userStore.getSessionTimeout);
@@ -59,7 +59,7 @@
 </template>
 
 <style lang="less">
-  @prefix-cls: ~'@{namespace}-setting-drawer-fearure';
+  @prefix-cls: ~'@{namespace}-setting-drawer-feature';
 
   .@{prefix-cls} {
     position: absolute;
