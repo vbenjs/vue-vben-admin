@@ -44,6 +44,7 @@ export default {
 
     time: '相对时间',
     cropperImage: '图片裁剪',
+    cardList: '卡片列表',
   },
   editor: {
     editor: '编辑器',
@@ -66,6 +67,7 @@ export default {
     icon: '图标',
     sessionTimeout: '登录过期',
     tabs: '标签页操作',
+    tabDetail: '标签详情页',
     print: '打印',
     contextMenu: '右键菜单',
     download: '文件下载',
@@ -184,5 +186,6 @@ export default {
     editCellTable: '可编辑单元格',
     editRowTable: '可编辑行',
     authColumn: '权限列',
+    resizeParentHeightTable: '继承父元素高度',
   },
 };

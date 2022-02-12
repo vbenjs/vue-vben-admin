@@ -14,6 +14,7 @@ export const demoListApi = (params: DemoParams) =>
     url: Api.DEMO_LIST,
     params,
     headers: {
+      // @ts-ignore
       ignoreCancelToken: true,
     },
   });

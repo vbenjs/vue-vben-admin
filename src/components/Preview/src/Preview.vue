@@ -56,7 +56,7 @@
     setup(props) {
       const { prefixCls } = useDesign('image-preview');
 
-      const getImageList = computed(() => {
+      const getImageList = computed((): any[] => {
         const { imageList } = props;
         if (!imageList) {
           return [];
@@ -88,7 +88,7 @@
     }
 
     .ant-image-preview-operations {
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgb(0 0 0 / 40%);
     }
   }
 </style>

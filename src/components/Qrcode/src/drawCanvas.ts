@@ -7,9 +7,9 @@ export const renderQrCode = ({
   canvas,
   content,
   width = 0,
-  options: params = {}
+  options: params = {},
 }: RenderQrCodeParams) => {
-  const options = cloneDeep(params)
+  const options = cloneDeep(params);
   // 容错率，默认对内容少的二维码采用高容错率，内容多的二维码采用低容错率
   options.errorCorrectionLevel = options.errorCorrectionLevel || getErrorCorrectionLevel(content);
 

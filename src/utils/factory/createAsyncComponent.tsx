@@ -3,7 +3,7 @@ import {
   // FunctionalComponent, CSSProperties
 } from 'vue';
 import { Spin } from 'ant-design-vue';
-import { noop } from '/@/utils/index';
+import { noop } from '/@/utils';
 
 // const Loading: FunctionalComponent<{ size: 'small' | 'default' | 'large' }> = (props) => {
 //   const style: CSSProperties = {

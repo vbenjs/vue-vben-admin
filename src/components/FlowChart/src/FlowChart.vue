@@ -8,6 +8,7 @@
   </div>
 </template>
 <script lang="ts">
+  import type { Ref } from 'vue';
   import type { Definition } from '@logicflow/core';
   import { defineComponent, ref, onMounted, unref, nextTick, computed, watch } from 'vue';
   import FlowChartToolbar from './FlowChartToolbar.vue';
@@ -46,10 +47,10 @@
       },
     },
     setup(props) {
-      const lfElRef = ref<ElRef>(null);
-      const graphData = ref<Recordable>({});
+      const lfElRef = ref(null);
+      const graphData = ref({});
 
-      const lfInstance = ref<Nullable<LogicFlow>>(null);
+      const lfInstance = ref(null) as Ref<LogicFlow | null>;
 
       const { prefixCls } = useDesign('flow-chart');
       const appStore = useAppStore();
@@ -78,7 +79,7 @@
         () => props.data,
         () => {
           onRender();
-        }
+        },
       );
 
       // TODO
@@ -93,7 +94,7 @@
         () => unref(getFlowOptions),
         (options) => {
           unref(lfInstance)?.updateEditConfig(options);
-        }
+        },
       );
 
       // init logicFlow

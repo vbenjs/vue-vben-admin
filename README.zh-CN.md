@@ -70,20 +70,20 @@ git clone https://github.com/anncwb/vue-vben-admin.git
 ```bash
 cd vue-vben-admin
 
-yarn install
+pnpm install
 
 ```
 
 - 运行
 
 ```bash
-yarn serve
+pnpm serve
 ```
 
 - 打包
 
 ```bash
-yarn build
+pnpm build
 ```
 
 ## 更新日志
@@ -150,6 +150,7 @@ yarn build
 ## 后台整合示例
 
 - [lamp-cloud](https://github.com/zuihou/lamp-cloud) - 基于 SpringCloud Alibaba 的微服务中后台快速开发平台
+- [matecloud](https://github.com/matevip/matecloud) - MateCloud 微服务脚手架，基于 Spring Cloud 2020.0.3、SpringBoot 2.5.3 的全开源平台
 
 ## 维护者
 

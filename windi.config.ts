@@ -1,21 +1,16 @@
-module.exports = {
-  mode: 'jit',
+import { defineConfig } from 'vite-plugin-windicss';
+import { primaryColor } from './build/config/themeConfig';
+
+export default defineConfig({
   darkMode: 'class',
   plugins: [createEnterPlugin()],
-  purge: {
-    enable: process.env.NODE_ENV === 'production',
-    content: ['./index.html', './src/**/*.{vue,ts,tsx}'],
-  },
   theme: {
     extend: {
       zIndex: {
         '-1': '-1',
       },
       colors: {
-        primary: {
-          DEFAULT: '#0960bd',
-          // dark: primaryColorDark,
-        },
+        primary: primaryColor,
       },
       screens: {
         sm: '576px',
@@ -26,13 +21,14 @@ module.exports = {
       },
     },
   },
-};
+});
+
 /**
- * Used for animation when the element is displayed
- * @param maxOutput The larger the maxOutput output, the larger the generated css volume
+ * Used for animation when the element is displayed.
+ * @param maxOutput The larger the maxOutput output, the larger the generated css volume.
  */
 function createEnterPlugin(maxOutput = 6) {
-  const createCss = (index, d = 'x') => {
+  const createCss = (index: number, d = 'x') => {
     const upd = d.toUpperCase();
     return {
       [`*> .enter-${d}:nth-child(${index})`]: {

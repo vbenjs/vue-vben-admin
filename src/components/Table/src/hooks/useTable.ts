@@ -18,7 +18,7 @@ export function useTable(tableProps?: Props): [
   (instance: TableActionType, formInstance: UseTableMethod) => void,
   TableActionType & {
     getForm: () => FormActionType;
-  }
+  },
 ] {
   const tableRef = ref<Nullable<TableActionType>>(null);
   const loadedRef = ref<Nullable<boolean>>(false);
@@ -50,7 +50,7 @@ export function useTable(tableProps?: Props): [
       {
         immediate: true,
         deep: true,
-      }
+      },
     );
   }
 
@@ -58,7 +58,7 @@ export function useTable(tableProps?: Props): [
     const table = unref(tableRef);
     if (!table) {
       error(
-        'The table instance has not been obtained yet, please make sure the table is presented when performing the table operation!'
+        'The table instance has not been obtained yet, please make sure the table is presented when performing the table operation!',
       );
     }
     return table as TableActionType;
@@ -68,7 +68,7 @@ export function useTable(tableProps?: Props): [
     getForm: () => FormActionType;
   } = {
     reload: async (opt?: FetchParams) => {
-      getTableInstance().reload(opt);
+      return await getTableInstance().reload(opt);
     },
     setProps: (props: Partial<BasicTableProps>) => {
       getTableInstance().setProps(props);
@@ -81,6 +81,9 @@ export function useTable(tableProps?: Props): [
     },
     getDataSource: () => {
       return getTableInstance().getDataSource();
+    },
+    getRawDataSource: () => {
+      return getTableInstance().getRawDataSource();
     },
     getColumns: ({ ignoreIndex = false }: { ignoreIndex?: boolean } = {}) => {
       const columns = getTableInstance().getColumns({ ignoreIndex }) || [];
@@ -119,8 +122,17 @@ export function useTable(tableProps?: Props): [
     updateTableData: (index: number, key: string, value: any) => {
       return getTableInstance().updateTableData(index, key, value);
     },
+    deleteTableDataRecord: (rowKey: string | number | string[] | number[]) => {
+      return getTableInstance().deleteTableDataRecord(rowKey);
+    },
+    insertTableDataRecord: (record: Recordable | Recordable[], index?: number) => {
+      return getTableInstance().insertTableDataRecord(record, index);
+    },
     updateTableDataRecord: (rowKey: string | number, record: Recordable) => {
       return getTableInstance().updateTableDataRecord(rowKey, record);
+    },
+    findTableDataRecord: (rowKey: string | number) => {
+      return getTableInstance().findTableDataRecord(rowKey);
     },
     getRowSelection: () => {
       return toRaw(getTableInstance().getRowSelection());
@@ -140,8 +152,14 @@ export function useTable(tableProps?: Props): [
     expandAll: () => {
       getTableInstance().expandAll();
     },
+    expandRows: (keys: string[]) => {
+      getTableInstance().expandRows(keys);
+    },
     collapseAll: () => {
       getTableInstance().collapseAll();
+    },
+    scrollTo: (pos: string) => {
+      getTableInstance().scrollTo(pos);
     },
   };
 

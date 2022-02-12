@@ -49,7 +49,7 @@
 
       function handleCopy() {
         const { isSuccessRef } = useCopyToClipboard(
-          JSON.stringify(unref(appStore.getProjectConfig), null, 2)
+          JSON.stringify(unref(appStore.getProjectConfig), null, 2),
         );
         unref(isSuccessRef) &&
           createSuccessModal({
@@ -65,7 +65,7 @@
           updateColorWeak(colorWeak);
           updateGrayMode(grayMode);
           createMessage.success(t('layout.setting.resetSuccess'));
-        } catch (error) {
+        } catch (error: any) {
           createMessage.error(error);
         }
       }

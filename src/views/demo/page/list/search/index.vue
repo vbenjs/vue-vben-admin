@@ -19,7 +19,7 @@
                   {{ item.content }}
                 </div>
                 <div :class="`${prefixCls}__action`">
-                  <template v-for="(action, index) in actions" :key="index">
+                  <template v-for="action in actions" :key="action.icon">
                     <div :class="`${prefixCls}__action-item`">
                       <Icon
                         v-if="action.icon"
@@ -129,7 +129,7 @@
     &__time {
       position: absolute;
       right: 20px;
-      color: rgba(0, 0, 0, 0.45);
+      color: rgb(0 0 0 / 45%);
     }
   }
 </style>

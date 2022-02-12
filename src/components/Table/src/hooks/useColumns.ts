@@ -1,14 +1,14 @@
 import type { BasicColumn, BasicTableProps, CellFormat, GetColumnsParams } from '../types/table';
 import type { PaginationProps } from '../types/pagination';
 import type { ComputedRef } from 'vue';
-import { unref, Ref, computed, watch, ref, toRaw } from 'vue';
+import { computed, Ref, ref, toRaw, unref, watch } from 'vue';
 import { renderEditCell } from '../components/editable';
 import { usePermission } from '/@/hooks/web/usePermission';
 import { useI18n } from '/@/hooks/web/useI18n';
-import { isBoolean, isArray, isString, isObject, isFunction } from '/@/utils/is';
-import { isEqual, cloneDeep } from 'lodash-es';
+import { isArray, isBoolean, isFunction, isMap, isString } from '/@/utils/is';
+import { cloneDeep, isEqual } from 'lodash-es';
 import { formatToDate } from '/@/utils/dateUtil';
-import { DEFAULT_ALIGN, PAGE_SIZE, INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG } from '../const';
+import { ACTION_COLUMN_FLAG, DEFAULT_ALIGN, INDEX_COLUMN_FLAG, PAGE_SIZE } from '../const';
 
 function handleItem(item: BasicColumn, ellipsis: boolean) {
   const { key, dataIndex, children } = item;
@@ -40,7 +40,7 @@ function handleChildren(children: BasicColumn[] | undefined, ellipsis: boolean) 
 function handleIndexColumn(
   propsRef: ComputedRef<BasicTableProps>,
   getPaginationRef: ComputedRef<boolean | PaginationProps>,
-  columns: BasicColumn[]
+  columns: BasicColumn[],
 ) {
   const { t } = useI18n();
 
@@ -102,7 +102,7 @@ function handleActionColumn(propsRef: ComputedRef<BasicTableProps>, columns: Bas
 
 export function useColumns(
   propsRef: ComputedRef<BasicTableProps>,
-  getPaginationRef: ComputedRef<boolean | PaginationProps>
+  getPaginationRef: ComputedRef<boolean | PaginationProps>,
 ) {
   const columnsRef = ref(unref(propsRef).columns) as unknown as Ref<BasicColumn[]>;
   let cacheColumns = unref(propsRef).columns;
@@ -122,7 +122,7 @@ export function useColumns(
 
       handleItem(
         item,
-        Reflect.has(item, 'ellipsis') ? !!item.ellipsis : !!ellipsis && !customRender && !slots
+        Reflect.has(item, 'ellipsis') ? !!item.ellipsis : !!ellipsis && !customRender && !slots,
       );
     });
     return columns;
@@ -179,7 +179,7 @@ export function useColumns(
     (columns) => {
       columnsRef.value = columns;
       cacheColumns = columns?.filter((item) => !item.flag) ?? [];
-    }
+    },
   );
 
   function setCacheColumnsByField(dataIndex: string | undefined, value: Partial<BasicColumn>) {
@@ -216,25 +216,17 @@ export function useColumns(
       const columnKeys = columns as string[];
       const newColumns: BasicColumn[] = [];
       cacheColumns.forEach((item) => {
-        if (columnKeys.includes(item.dataIndex! || (item.key as string))) {
-          newColumns.push({
-            ...item,
-            defaultHidden: false,
-          });
-        } else {
-          newColumns.push({
-            ...item,
-            defaultHidden: true,
-          });
-        }
+        newColumns.push({
+          ...item,
+          defaultHidden: !columnKeys.includes(item.dataIndex! || (item.key as string)),
+        });
       });
-
       // Sort according to another array
       if (!isEqual(cacheKeys, columns)) {
         newColumns.sort((prev, next) => {
           return (
-            cacheKeys.indexOf(prev.dataIndex as string) -
-            cacheKeys.indexOf(next.dataIndex as string)
+            columnKeys.indexOf(prev.dataIndex as string) -
+            columnKeys.indexOf(next.dataIndex as string)
           );
         });
       }
@@ -287,11 +279,9 @@ function sortFixedColumn(columns: BasicColumn[]) {
     }
     defColumns.push(column);
   }
-  const resultColumns = [...fixedLeftColumns, ...defColumns, ...fixedRightColumns].filter(
-    (item) => !item.defaultHidden
+  return [...fixedLeftColumns, ...defColumns, ...fixedRightColumns].filter(
+    (item) => !item.defaultHidden,
   );
-
-  return resultColumns;
 }
 
 // format cell
@@ -317,8 +307,8 @@ export function formatCell(text: string, format: CellFormat, record: Recordable,
       return formatToDate(text, dateFormat);
     }
 
-    // enum
-    if (isObject(format) && Reflect.has(format, 'size')) {
+    // Map
+    if (isMap(format)) {
       return format.get(text);
     }
   } catch (error) {

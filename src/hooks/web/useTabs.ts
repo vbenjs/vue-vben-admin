@@ -34,7 +34,7 @@ export function useTabs(_router?: Router) {
 
   function getCurrentTab() {
     const route = unref(currentRoute);
-    return tabStore.getTabList.find((item) => item.path === route.path)!;
+    return tabStore.getTabList.find((item) => item.fullPath === route.fullPath)!;
   }
 
   async function updateTabTitle(title: string, tab?: RouteLocationNormalized) {
@@ -44,6 +44,15 @@ export function useTabs(_router?: Router) {
     }
     const targetTab = tab || getCurrentTab();
     await tabStore.setTabTitle(title, targetTab);
+  }
+
+  async function updateTabPath(path: string, tab?: RouteLocationNormalized) {
+    const canIUse = canIUseTabs;
+    if (!canIUse) {
+      return;
+    }
+    const targetTab = tab || getCurrentTab();
+    await tabStore.updateTabPath(path, targetTab);
   }
 
   async function handleTabAction(action: TableActionEnum, tab?: RouteLocationNormalized) {
@@ -87,9 +96,8 @@ export function useTabs(_router?: Router) {
     closeRight: () => handleTabAction(TableActionEnum.CLOSE_RIGHT),
     closeOther: () => handleTabAction(TableActionEnum.CLOSE_OTHER),
     closeCurrent: () => handleTabAction(TableActionEnum.CLOSE_CURRENT),
-    close: (tab?: RouteLocationNormalized) => {
-      handleTabAction(TableActionEnum.CLOSE, tab);
-    },
+    close: (tab?: RouteLocationNormalized) => handleTabAction(TableActionEnum.CLOSE, tab),
     setTitle: (title: string, tab?: RouteLocationNormalized) => updateTabTitle(title, tab),
+    updatePath: (fullPath: string, tab?: RouteLocationNormalized) => updateTabPath(fullPath, tab),
   };
 }

@@ -17,7 +17,7 @@ export function useCopyToClipboard(initial?: string) {
         isSuccessRef.value = copyTextToClipboard(str);
       }
     },
-    { immediate: !!initial, flush: 'sync' }
+    { immediate: !!initial, flush: 'sync' },
   );
 
   return { clipboardRef, isSuccessRef, copiedRef };
@@ -51,7 +51,7 @@ export function copyTextToClipboard(input: string, { target = document.body }: O
   let isSuccess = false;
   try {
     isSuccess = document.execCommand('copy');
-  } catch (e) {
+  } catch (e: any) {
     throw new Error(e);
   }
 

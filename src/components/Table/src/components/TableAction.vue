@@ -14,11 +14,7 @@
       <Divider
         type="vertical"
         class="action-divider"
-        v-if="
-          divider &&
-          index < getActions.length - (dropDownActions ? 0 : 1) &&
-          getDropdownList.length > 0
-        "
+        v-if="divider && index < getActions.length - 1"
       />
     </template>
     <Dropdown
@@ -95,7 +91,7 @@
           .map((action) => {
             const { popConfirm } = action;
             return {
-              getPopupContainer: () => unref(table?.wrapRef.value) ?? document.body,
+              getPopupContainer: () => unref((table as any)?.wrapRef.value) ?? document.body,
               type: 'link',
               size: 'small',
               ...action,
@@ -107,22 +103,21 @@
           });
       });
 
-      const getDropdownList = computed(() => {
-        return (toRaw(props.dropDownActions) || [])
-          .filter((action) => {
-            return hasPermission(action.auth) && isIfShow(action);
-          })
-          .map((action, index) => {
-            const { label, popConfirm } = action;
-            return {
-              ...action,
-              ...popConfirm,
-              onConfirm: popConfirm?.confirm,
-              onCancel: popConfirm?.cancel,
-              text: label,
-              divider: index < props.dropDownActions.length - 1 ? props.divider : false,
-            };
-          });
+      const getDropdownList = computed((): any[] => {
+        const list = (toRaw(props.dropDownActions) || []).filter((action) => {
+          return hasPermission(action.auth) && isIfShow(action);
+        });
+        return list.map((action, index) => {
+          const { label, popConfirm } = action;
+          return {
+            ...action,
+            ...popConfirm,
+            onConfirm: popConfirm?.confirm,
+            onCancel: popConfirm?.cancel,
+            text: label,
+            divider: index < list.length - 1 ? props.divider : false,
+          };
+        });
       });
 
       const getAlign = computed(() => {
@@ -133,7 +128,7 @@
 
       function getTooltip(data: string | TooltipProps): TooltipProps {
         return {
-          getPopupContainer: () => unref(table?.wrapRef.value) ?? document.body,
+          getPopupContainer: () => unref((table as any)?.wrapRef.value) ?? document.body,
           placement: 'bottom',
           ...(isString(data) ? { title: data } : data),
         };

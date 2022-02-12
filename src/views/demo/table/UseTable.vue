@@ -6,6 +6,7 @@
       <a-button class="mr-2" @click="changeColumns"> 更改Columns </a-button>
       <a-button class="mr-2" @click="getColumn"> 获取Columns </a-button>
       <a-button class="mr-2" @click="getTableData"> 获取表格数据 </a-button>
+      <a-button class="mr-2" @click="getTableRawData"> 获取接口原始数据 </a-button>
       <a-button class="mr-2" @click="setPaginationInfo"> 跳转到第2页 </a-button>
     </div>
     <div class="mb-4">
@@ -38,6 +39,7 @@
           setColumns,
           getColumns,
           getDataSource,
+          getRawDataSource,
           reload,
           getPaginationRef,
           setPagination,
@@ -52,6 +54,10 @@
         titleHelpMessage: '使用useTable调用表格内方法',
         api: demoListApi,
         columns: getBasicColumns(),
+        defSort: {
+          field: 'name',
+          order: 'ascend',
+        },
         rowKey: 'id',
         showTableSetting: true,
         onChange,
@@ -89,6 +95,11 @@
         console.log(getDataSource());
       }
 
+      function getTableRawData() {
+        createMessage.info('请在控制台查看！');
+        console.log(getRawDataSource());
+      }
+
       function getPagination() {
         createMessage.info('请在控制台查看！');
         console.log(getPaginationRef());
@@ -122,6 +133,7 @@
         reloadTable,
         getColumn,
         getTableData,
+        getTableRawData,
         getPagination,
         setPaginationInfo,
         getSelectRowList,

@@ -33,8 +33,8 @@ export const PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {
 
 export const REDIRECT_ROUTE: AppRouteRecordRaw = {
   path: '/redirect',
-  name: REDIRECT_NAME,
   component: LAYOUT,
+  name: 'RedirectTo',
   meta: {
     title: REDIRECT_NAME,
     hideBreadcrumb: true,

@@ -38,7 +38,7 @@ function genType() {
 export function setComponentRuleType(
   rule: ValidationRule,
   component: ComponentType,
-  valueFormat: string
+  valueFormat: string,
 ) {
   if (['DatePicker', 'MonthPicker', 'WeekPicker', 'TimePicker'].includes(component)) {
     rule.type = valueFormat ? 'string' : 'object';
@@ -70,3 +70,5 @@ export function handleInputNumberValue(component?: ComponentType, val?: any) {
  * 时间字段
  */
 export const dateItemType = genType();
+
+export const defaultValueComponents = ['Input', 'InputPassword', 'InputSearch', 'InputTextArea'];

@@ -6,7 +6,7 @@ import { ROW_KEY } from '../const';
 export function useTableExpand(
   propsRef: ComputedRef<BasicTableProps>,
   tableData: Ref<Recordable[]>,
-  emit: EmitType
+  emit: EmitType,
 ) {
   const expandedRowKeys = ref<string[]>([]);
 
@@ -37,6 +37,13 @@ export function useTableExpand(
     expandedRowKeys.value = keys;
   }
 
+  function expandRows(keys: string[]) {
+    // use row ID expands the specified table row
+    const { isTreeTable } = unref(propsRef);
+    if (!isTreeTable) return;
+    expandedRowKeys.value = [...expandedRowKeys.value, ...keys];
+  }
+
   function getAllKeys(data?: Recordable[]) {
     const keys: string[] = [];
     const { childrenColumnName } = unref(propsRef);
@@ -54,5 +61,5 @@ export function useTableExpand(
     expandedRowKeys.value = [];
   }
 
-  return { getExpandOption, expandAll, collapseAll };
+  return { getExpandOption, expandAll, expandRows, collapseAll };
 }

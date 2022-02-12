@@ -122,10 +122,12 @@
   import { isFunction } from '/@/utils/is';
   import { useI18n } from '/@/hooks/web/useI18n';
 
+  type apiFunParams = { file: Blob; name: string; filename: string };
+
   const props = {
     circled: { type: Boolean, default: true },
     uploadApi: {
-      type: Function as PropType<({ file: Blob, name: string, filename: string }) => Promise<any>>,
+      type: Function as PropType<(params: apiFunParams) => Promise<any>>,
     },
   };
 
@@ -232,17 +234,17 @@
       background: #eee;
       background-image: linear-gradient(
           45deg,
-          rgba(0, 0, 0, 0.25) 25%,
+          rgb(0 0 0 / 25%) 25%,
           transparent 0,
           transparent 75%,
-          rgba(0, 0, 0, 0.25) 0
+          rgb(0 0 0 / 25%) 0
         ),
         linear-gradient(
           45deg,
-          rgba(0, 0, 0, 0.25) 25%,
+          rgb(0 0 0 / 25%) 25%,
           transparent 0,
           transparent 75%,
-          rgba(0, 0, 0, 0.25) 0
+          rgb(0 0 0 / 25%) 0
         );
       background-position: 0 0, 12px 12px;
       background-size: 24px 24px;

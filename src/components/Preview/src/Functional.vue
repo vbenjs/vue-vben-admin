@@ -1,6 +1,5 @@
 <script lang="tsx">
   import { defineComponent, ref, unref, computed, reactive, watchEffect } from 'vue';
-  import { Props } from './typing';
   import { CloseOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons-vue';
   import resumeSvg from '/@/assets/svg/preview/resume.svg';
   import rotateSvg from '/@/assets/svg/preview/p-rotate.svg';
@@ -57,7 +56,7 @@
     name: 'ImagePreview',
     props,
     emits: ['img-load', 'img-error'],
-    setup(props: Props, { expose, emit }) {
+    setup(props, { expose, emit }) {
       interface stateInfo {
         scale: number;
         rotate: number;
@@ -117,8 +116,9 @@
       }
 
       const getScaleStep = computed(() => {
-        if (props.scaleStep > 0 && props.scaleStep < 100) {
-          return props.scaleStep / 100;
+        const scaleStep = props?.scaleStep ?? 0;
+        if (scaleStep ?? (0 > 0 && scaleStep < 100)) {
+          return scaleStep / 100;
         } else {
           return imgState.imgScale / 10;
         }
@@ -164,7 +164,7 @@
         img.src = url;
         img.onload = (e: Event) => {
           if (imgState.currentUrl !== url) {
-            const ele: HTMLElement[] = e.composedPath();
+            const ele: any[] = e.composedPath();
             if (props.rememberState) {
               // 保存当前图片的缩放信息
               stateMap.set(imgState.currentUrl, {
@@ -244,7 +244,7 @@
         setRotate: (rotate: number) => {
           imgState.imgRotate = rotate;
         },
-      } as PreviewActions);
+      });
 
       // 上一页下一页
       function handleChange(direction: 'left' | 'right') {
@@ -432,7 +432,7 @@
     bottom: 0;
     left: 0;
     z-index: @preview-comp-z-index;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgb(0 0 0 / 50%);
     user-select: none;
 
     &-content {
@@ -458,7 +458,7 @@
       overflow: hidden;
       color: @white;
       cursor: pointer;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgb(0 0 0 / 50%);
       border-radius: 50%;
       transition: all 0.2s;
 
@@ -470,7 +470,7 @@
       }
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgb(0 0 0 / 80%);
       }
     }
 
@@ -480,7 +480,7 @@
       left: 50%;
       padding: 0 22px;
       font-size: 16px;
-      background: rgba(109, 109, 109, 0.6);
+      background: rgb(109 109 109 / 60%);
       border-radius: 15px;
       transform: translateX(-50%);
     }
@@ -494,7 +494,7 @@
       height: 44px;
       padding: 0 22px;
       margin-left: -139px;
-      background: rgba(109, 109, 109, 0.6);
+      background: rgb(109 109 109 / 60%);
       border-radius: 22px;
       justify-content: center;
 
@@ -526,12 +526,12 @@
       height: 50px;
       font-size: 28px;
       cursor: pointer;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgb(0 0 0 / 50%);
       border-radius: 50%;
       transition: all 0.2s;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgb(0 0 0 / 80%);
       }
 
       &.left {

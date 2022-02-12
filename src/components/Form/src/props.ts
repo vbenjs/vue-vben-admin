@@ -40,6 +40,7 @@ export const basicProps = {
   // 在INPUT组件上单击回车时，是否自动提交
   autoSubmitOnEnter: propTypes.bool.def(false),
   submitOnReset: propTypes.bool,
+  submitOnChange: propTypes.bool,
   size: propTypes.oneOf(['default', 'small', 'large']).def('default'),
   // 禁用表单
   disabled: propTypes.bool,
@@ -53,12 +54,14 @@ export const basicProps = {
   transformDateFunc: {
     type: Function as PropType<Fn>,
     default: (date: any) => {
-      return date._isAMomentObject ? date?.format('YYYY-MM-DD HH:mm:ss') : date;
+      return date?.format?.('YYYY-MM-DD HH:mm:ss') ?? date;
     },
   },
   rulesMessageJoinLabel: propTypes.bool.def(true),
   // 超过3行自动折叠
   autoAdvancedLine: propTypes.number.def(3),
+  // 不受折叠影响的行数
+  alwaysShowLines: propTypes.number.def(1),
 
   // 是否显示操作按钮
   showActionButtonGroup: propTypes.bool.def(true),

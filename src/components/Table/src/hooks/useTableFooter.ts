@@ -8,11 +8,11 @@ export function useTableFooter(
   propsRef: ComputedRef<BasicTableProps>,
   scrollRef: ComputedRef<{
     x: string | number | true;
-    y: Nullable<number>;
+    y: string | number | null;
     scrollToFirstRowOnChange: boolean;
   }>,
   tableElRef: Ref<ComponentRef>,
-  getDataSourceRef: ComputedRef<Recordable>
+  getDataSourceRef: ComputedRef<Recordable>,
 ) {
   const getIsEmptyData = computed(() => {
     return (unref(getDataSourceRef) || []).length === 0;
@@ -43,7 +43,7 @@ export function useTableFooter(
         name: 'scroll',
         listener: () => {
           const footerBodyDom = tableEl.$el.querySelector(
-            '.ant-table-footer .ant-table-body'
+            '.ant-table-footer .ant-table-body',
           ) as HTMLDivElement;
           if (!footerBodyDom || !bodyDom) return;
           footerBodyDom.scrollLeft = bodyDom.scrollLeft;

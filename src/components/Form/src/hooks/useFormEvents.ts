@@ -1,10 +1,10 @@
 import type { ComputedRef, Ref } from 'vue';
 import type { FormProps, FormSchema, FormActionType } from '../types/form';
 import type { NamePath } from 'ant-design-vue/lib/form/interface';
-import { unref, toRaw } from 'vue';
+import { unref, toRaw, nextTick } from 'vue';
 import { isArray, isFunction, isObject, isString } from '/@/utils/is';
 import { deepMerge } from '/@/utils';
-import { dateItemType, handleInputNumberValue } from '../helper';
+import { dateItemType, handleInputNumberValue, defaultValueComponents } from '../helper';
 import { dateUtil } from '/@/utils/dateUtil';
 import { cloneDeep, uniqBy } from 'lodash-es';
 import { error } from '/@/utils/log';
@@ -37,9 +37,12 @@ export function useFormEvents({
     if (!formEl) return;
 
     Object.keys(formModel).forEach((key) => {
-      formModel[key] = defaultValueRef.value[key];
+      const schema = unref(getSchema).find((item) => item.field === key);
+      const isInput = schema?.component && defaultValueComponents.includes(schema.component);
+      formModel[key] = isInput ? defaultValueRef.value[key] || '' : defaultValueRef.value[key];
     });
-    clearValidate();
+    nextTick(() => clearValidate());
+
     emit('reset', toRaw(formModel));
     submitOnReset && handleSubmit();
   }
@@ -125,9 +128,6 @@ export function useFormEvents({
     const schemaList: FormSchema[] = cloneDeep(unref(getSchema));
 
     const index = schemaList.findIndex((schema) => schema.field === prefixField);
-    const hasInList = schemaList.some((item) => item.field === prefixField || schema.field);
-
-    if (!hasInList) return;
 
     if (!prefixField || index === -1 || first) {
       first ? schemaList.unshift(schema) : schemaList.push(schema);
@@ -149,11 +149,13 @@ export function useFormEvents({
       updateData = [...data];
     }
 
-    const hasField = updateData.every((item) => Reflect.has(item, 'field') && item.field);
+    const hasField = updateData.every(
+      (item) => item.component === 'Divider' || (Reflect.has(item, 'field') && item.field),
+    );
 
     if (!hasField) {
       error(
-        'All children of the form Schema array that need to be updated must contain the `field` field'
+        'All children of the form Schema array that need to be updated must contain the `field` field',
       );
       return;
     }
@@ -169,11 +171,13 @@ export function useFormEvents({
       updateData = [...data];
     }
 
-    const hasField = updateData.every((item) => Reflect.has(item, 'field') && item.field);
+    const hasField = updateData.every(
+      (item) => item.component === 'Divider' || (Reflect.has(item, 'field') && item.field),
+    );
 
     if (!hasField) {
       error(
-        'All children of the form Schema array that need to be updated must contain the `field` field'
+        'All children of the form Schema array that need to be updated must contain the `field` field',
       );
       return;
     }
@@ -238,7 +242,7 @@ export function useFormEvents({
       const values = await validate();
       const res = handleFormValues(values);
       emit('submit', res);
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error);
     }
   }

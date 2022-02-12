@@ -1,8 +1,10 @@
 module.exports = {
   root: true,
   plugins: ['stylelint-order'],
+  customSyntax: 'postcss-html',
   extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
   rules: {
+    'selector-class-pattern': null,
     'selector-pseudo-class-no-unknown': [
       true,
       {
@@ -67,4 +69,25 @@ module.exports = {
     ],
   },
   ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts'],
+  overrides: [
+    {
+      files: ['*.vue', '**/*.vue', '*.html', '**/*.html'],
+      extends: ['stylelint-config-recommended', 'stylelint-config-html'],
+      rules: {
+        'keyframes-name-pattern': null,
+        'selector-pseudo-class-no-unknown': [
+          true,
+          {
+            ignorePseudoClasses: ['deep', 'global'],
+          },
+        ],
+        'selector-pseudo-element-no-unknown': [
+          true,
+          {
+            ignorePseudoElements: ['v-deep', 'v-global', 'v-slotted'],
+          },
+        ],
+      },
+    },
+  ],
 };

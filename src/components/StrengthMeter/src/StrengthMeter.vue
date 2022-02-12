@@ -9,7 +9,7 @@
       :disabled="disabled"
     >
       <template #[item]="data" v-for="item in Object.keys($slots)">
-        <slot :name="item" v-bind="data"></slot>
+        <slot :name="item" v-bind="data || {}"></slot>
       </template>
     </InputPassword>
     <div :class="`${prefixCls}-bar`">
@@ -59,7 +59,7 @@
         () => unref(innerValueRef),
         (val) => {
           emit('change', val);
-        }
+        },
       );
 
       return {
@@ -92,7 +92,7 @@
         background-color: transparent;
         border-color: @white;
         border-style: solid;
-        border-width: 0 5px 0 5px;
+        border-width: 0 5px;
         content: '';
       }
 

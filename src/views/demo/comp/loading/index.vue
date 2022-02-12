@@ -6,7 +6,13 @@
         全屏 Loading
       </a-button>
       <a-button class="my-4" type="primary" @click="openCompAbsolute"> 容器内 Loading </a-button>
-      <Loading :loading="loading" :absolute="absolute" :tip="tip" />
+      <Loading
+        :loading="loading"
+        :absolute="absolute"
+        :theme="theme"
+        :background="background"
+        :tip="tip"
+      />
 
       <a-alert message="函数方式" />
 
@@ -37,6 +43,8 @@
       const compState = reactive({
         absolute: false,
         loading: false,
+        theme: 'dark',
+        background: 'rgba(111,111,111,.7)',
         tip: '加载中...',
       });
       const [openFullLoading, closeFullLoading] = useLoading({

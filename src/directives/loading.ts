@@ -15,7 +15,7 @@ const loadingDirective: Directive = {
         loading: !!binding.value,
         absolute: !fullscreen,
       },
-      fullscreen ? document.body : el
+      fullscreen ? document.body : el,
     );
     el.instance = instance;
   },
@@ -24,9 +24,7 @@ const loadingDirective: Directive = {
     if (!instance) return;
     instance.setTip(el.getAttribute('loading-tip'));
     if (binding.oldValue !== binding.value) {
-      if (binding.oldValue !== binding.value) {
-        instance.setLoading?.(binding.value && !instance.loading);
-      }
+      instance.setLoading?.(binding.value && !instance.loading);
     }
   },
   unmounted(el) {

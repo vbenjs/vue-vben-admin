@@ -14,37 +14,18 @@
     </div>
   </template>
 </template>
-<script lang="ts">
-  import { defineComponent, computed, unref } from 'vue';
-
+<script lang="ts" setup>
+  import { computed, unref } from 'vue';
   import LoginFormTitle from './LoginFormTitle.vue';
   import { Button, Divider } from 'ant-design-vue';
   import { QrCode } from '/@/components/Qrcode/index';
-
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useLoginState, LoginStateEnum } from './useLogin';
 
   const qrCodeUrl = 'https://vvbin.cn/next/login';
-  export default defineComponent({
-    name: 'QrCodeForm',
-    components: {
-      Button,
-      QrCode,
-      Divider,
-      LoginFormTitle,
-    },
-    setup() {
-      const { t } = useI18n();
-      const { handleBackLogin, getLoginState } = useLoginState();
 
-      const getShow = computed(() => unref(getLoginState) === LoginStateEnum.QR_CODE);
+  const { t } = useI18n();
+  const { handleBackLogin, getLoginState } = useLoginState();
 
-      return {
-        t,
-        handleBackLogin,
-        qrCodeUrl,
-        getShow,
-      };
-    },
-  });
+  const getShow = computed(() => unref(getLoginState) === LoginStateEnum.QR_CODE);
 </script>

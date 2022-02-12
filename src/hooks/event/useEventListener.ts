@@ -1,10 +1,8 @@
 import type { Ref } from 'vue';
-
 import { ref, watch, unref } from 'vue';
 import { useThrottleFn, useDebounceFn } from '@vueuse/core';
 
 export type RemoveEventFn = () => void;
-
 export interface UseEventParams {
   el?: Element | Ref<Element | undefined> | Window | any;
   name: string;
@@ -28,7 +26,7 @@ export function useEventListener({
   const isAddRef = ref(false);
 
   if (el) {
-    const element: Ref<Element> = ref(el as Element);
+    const element = ref(el as Element) as Ref<Element>;
 
     const handler = isDebounce ? useDebounceFn(listener, wait) : useThrottleFn(listener, wait);
     const realHandler = wait ? handler : listener;
@@ -48,7 +46,7 @@ export function useEventListener({
           });
         }
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     remove = () => {

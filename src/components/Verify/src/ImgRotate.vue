@@ -37,7 +37,7 @@
             emit('change', isPassing);
             emit('update:value', isPassing);
           }
-        }
+        },
       );
 
       const getImgWrapStyleRef = computed(() => {
@@ -65,7 +65,7 @@
         const { imgWidth, height, maxDegree } = props;
         const { moveX } = data;
         const currentRotate = Math.ceil(
-          (moveX / (imgWidth! - parseInt(height as string))) * maxDegree! * unref(getFactorRef)
+          (moveX / (imgWidth! - parseInt(height as string))) * maxDegree! * unref(getFactorRef),
         );
         state.currentRotate = currentRotate;
         state.imgStyle = hackCss('transform', `rotateZ(${state.randomRotate - currentRotate}deg)`);
@@ -209,7 +209,7 @@
       }
 
       &.normal {
-        background-color: rgba(0, 0, 0, 0.3);
+        background-color: rgb(0 0 0 / 30%);
       }
     }
 

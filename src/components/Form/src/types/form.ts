@@ -37,7 +37,7 @@ export interface FormActionType {
   appendSchemaByField: (
     schema: FormSchema,
     prefixField: string | undefined,
-    first?: boolean | undefined
+    first?: boolean | undefined,
   ) => Promise<void>;
   validateFields: (nameList?: NamePath[]) => Promise<any>;
   validate: (nameList?: NamePath[]) => Promise<any>;
@@ -54,12 +54,14 @@ export interface FormProps {
   model?: Recordable;
   // The width of all items in the entire form
   labelWidth?: number | string;
-  //alignment
+  // alignment
   labelAlign?: 'left' | 'right';
-  //Row configuration for the entire form
+  // Row configuration for the entire form
   rowProps?: RowProps;
   // Submit form on reset
   submitOnReset?: boolean;
+  // Submit form on form changing
+  submitOnChange?: boolean;
   // Col configuration for the entire form
   labelCol?: Partial<ColEx>;
   // Col configuration for the entire form
@@ -97,6 +99,8 @@ export interface FormProps {
   autoFocusFirstItem?: boolean;
   // Automatically collapse over the specified number of rows
   autoAdvancedLine?: number;
+  // Always show lines
+  alwaysShowLines?: number;
   // Whether to show the operation button
   showActionButtonGroup?: boolean;
 
@@ -127,7 +131,7 @@ export interface FormSchema {
   // Variable name bound to v-model Default value
   valueField?: string;
   // Label name
-  label: string;
+  label: string | VNode;
   // Auxiliary text
   subLabel?: string;
   // Help text on the right side of the text
