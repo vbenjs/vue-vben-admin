@@ -1,8 +1,5 @@
 module.exports = {
   root: true,
-  plugins: ['stylelint-order'],
-  customSyntax: 'postcss-html',
-  extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
   rules: {
     'selector-class-pattern': null,
     'selector-pseudo-class-no-unknown': [
@@ -72,7 +69,13 @@ module.exports = {
   overrides: [
     {
       files: ['*.vue', '**/*.vue', '*.html', '**/*.html'],
-      extends: ['stylelint-config-recommended', 'stylelint-config-html'],
+      customSyntax: 'postcss-html',
+      extends: [
+        'stylelint-config-standard',
+        'stylelint-config-recommended-vue',
+        'stylelint-config-recess-order',
+        'stylelint-config-prettier',
+      ],
       rules: {
         'keyframes-name-pattern': null,
         'selector-pseudo-class-no-unknown': [
@@ -88,6 +91,15 @@ module.exports = {
           },
         ],
       },
+    },
+    {
+      files: ['*.less', '**/*.less'],
+      customSyntax: 'postcss-less',
+      extends: [
+        'stylelint-config-standard',
+        'stylelint-config-recommended-vue',
+        'stylelint-config-recess-order',
+      ],
     },
   ],
 };

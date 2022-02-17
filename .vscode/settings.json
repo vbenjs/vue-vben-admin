@@ -55,6 +55,14 @@
     "**/yarn.lock": true
   },
   "stylelint.enable": true,
+  "stylelint.validate": [
+    "css",
+    "less",
+    "postcss",
+    "scss",
+    "vue",
+    "sass"
+  ],
   "stylelint.packageManager": "yarn",
   "path-intellisense.mappings": {
     "/@/": "${workspaceRoot}/src"
@@ -84,7 +92,8 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
   },
   "[vue]": {
     "editor.codeActionsOnSave": {
