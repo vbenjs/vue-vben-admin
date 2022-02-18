@@ -531,6 +531,22 @@
       },
     },
     {
+      field: 'divider-deconstruct',
+      component: 'Divider',
+      label: '字段解构',
+      helpMessage: ['如果组件的值是 array 或者 object', '可以根据 ES6 的解构语法分别取值'],
+    },
+    {
+      field: '[startTime, endTime]',
+      label: '时间范围',
+      component: 'RangePicker',
+      componentProps: {
+        format: 'YYYY-MM-DD HH:mm:ss',
+        placeholder: ['开始时间', '结束时间'],
+        showTime: { format: 'HH:mm:ss' },
+      },
+    },
+    {
       field: 'divider-others',
       component: 'Divider',
       label: '其它',
@@ -602,6 +618,7 @@
           keyword.value = '';
         },
         handleSubmit: (values: any) => {
+          console.log('values', values);
           createMessage.success('click search,values:' + JSON.stringify(values));
         },
         check,
