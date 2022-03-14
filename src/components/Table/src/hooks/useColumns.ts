@@ -152,10 +152,10 @@ export function useColumns(
         return hasPermission(column.auth) && isIfShow(column);
       })
       .map((column) => {
-        const { slots, dataIndex, customRender, format, edit, editRow, flag } = column;
+        const { slots, customRender, format, edit, editRow, flag } = column;
 
         if (!slots || !slots?.title) {
-          column.slots = { title: `header-${dataIndex}`, ...(slots || {}) };
+          // column.slots = { title: `header-${dataIndex}`, ...(slots || {}) };
           column.customTitle = column.title;
           Reflect.deleteProperty(column, 'title');
         }
