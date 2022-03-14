@@ -26,7 +26,7 @@
         <slot :name="item" v-bind="data || {}"></slot>
       </template>
 
-      <template #[`header-${column.dataIndex}`] v-for="(column, index) in columns" :key="index">
+      <template #headerCell v-for="(column, index) in columns" :key="index">
         <HeaderCell :column="column" />
       </template>
     </Table>
