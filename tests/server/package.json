@@ -28,9 +28,9 @@
     "nodemon": "^2.0.15",
     "pm2": "^5.2.0",
     "rimraf": "^3.0.2",
-    "ts-node": "^10.5.0",
-    "tsconfig-paths": "^3.12.0",
-    "tsup": "^5.11.13",
-    "typescript": "^4.5.5"
+    "ts-node": "^10.7.0",
+    "tsconfig-paths": "^3.14.0",
+    "tsup": "^5.12.1",
+    "typescript": "^4.6.2"
   }
 }
