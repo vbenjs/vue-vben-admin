@@ -1,0 +1,21 @@
+{
+  "name": "@pkg/locale",
+  "version": "3.0.0-alpha.3",
+  "main": "index.ts",
+  "module": "index.ts",
+  "license": "MIT",
+  "scripts": {
+    "clean": "pnpm rimraf node_modules && pnpm rimraf dist && pnpm rimraf .turbo"
+  },
+  "optionalDependencies": {
+    "vue": "^3.2.31"
+  },
+  "dependencies": {
+    "@pkg/setting": "workspace:*",
+    "@pkg/tokens": "workspace:*",
+    "@pkg/types": "workspace:*",
+    "@pkg/utils": "workspace:*",
+    "@vueuse/core": "^8.1.2",
+    "vue-i18n": "^9.1.9"
+  }
+}

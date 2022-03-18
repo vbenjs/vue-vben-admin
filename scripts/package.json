@@ -1,0 +1,15 @@
+{
+  "name": "scripts",
+  "private": true,
+  "bin": {},
+  "scripts": {
+    "clean": "pnpm rimraf node_modules && pnpm rimraf dist && pnpm rimraf .turbo",
+    "dev": "pnpm esno ./src/dev.ts",
+    "build": "pnpm esno ./src/build.ts"
+  },
+  "devDependencies": {
+    "@types/prompts": "^2.4.0",
+    "execa": "^6.1.0",
+    "prompts": "^2.4.2"
+  }
+}

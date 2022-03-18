@@ -1,0 +1,25 @@
+{
+  "name": "@pkg/utils",
+  "version": "3.0.0-alpha.3",
+  "main": "index.ts",
+  "module": "index.ts",
+  "license": "MIT",
+  "scripts": {
+    "clean": "pnpm rimraf node_modules && pnpm rimraf dist && pnpm rimraf .turbo"
+  },
+  "dependencies": {
+    "@pkg/setting": "workspace:*",
+    "@vue/runtime-core": "^3.2.31",
+    "@vue/shared": "^3.2.31",
+    "@vueuse/core": "^8.1.2",
+    "@vueuse/shared": "^8.1.2",
+    "dayjs": "^1.11.0",
+    "lodash-es": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.6"
+  },
+  "optionalDependencies": {
+    "vue": "^3.2.31"
+  }
+}

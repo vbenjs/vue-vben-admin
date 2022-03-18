@@ -1,0 +1,17 @@
+{
+  "name": "@config/css-preprocess",
+  "version": "0.0.0",
+  "private": true,
+  "files": [
+    "postcss.js",
+    "tailwind.js"
+  ],
+  "scripts": {
+    "clean": "pnpm rimraf node_modules && pnpm rimraf dist && pnpm rimraf .turbo"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.4",
+    "postcss": "^8.4.12",
+    "tailwindcss": "^3.0.23"
+  }
+}

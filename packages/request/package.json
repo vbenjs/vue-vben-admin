@@ -1,0 +1,21 @@
+{
+  "name": "@pkg/request",
+  "version": "3.0.0-alpha.3",
+  "main": "index.ts",
+  "module": "index.ts",
+  "license": "MIT",
+  "scripts": {
+    "clean": "pnpm rimraf node_modules && pnpm rimraf dist && pnpm rimraf .turbo"
+  },
+  "dependencies": {
+    "@pkg/locale": "workspace:*",
+    "@pkg/tokens": "workspace:*",
+    "@pkg/types": "workspace:*",
+    "@pkg/utils": "workspace:*",
+    "axios": "^0.26.1",
+    "qs": "^6.10.3"
+  },
+  "devDependencies": {
+    "@types/qs": "^6.9.7"
+  }
+}
