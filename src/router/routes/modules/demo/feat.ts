@@ -32,6 +32,15 @@ const feat: AppRouteModule = {
       },
     },
     {
+      path: 'request',
+      name: 'RequestDemo',
+      // @ts-ignore
+      component: () => import('/@/views/demo/feat/request-demo/index.vue'),
+      meta: {
+        title: t('routes.demo.feat.requestDemo'),
+      },
+    },
+    {
       path: 'session-timeout',
       name: 'SessionTimeout',
       component: () => import('/@/views/demo/feat/session-timeout/index.vue'),
