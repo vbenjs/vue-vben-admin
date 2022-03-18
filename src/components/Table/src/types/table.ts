@@ -412,7 +412,7 @@ export type CellFormat =
   | Map<string | number, any>;
 
 // @ts-ignore
-export interface BasicColumn extends ColumnProps {
+export interface BasicColumn extends ColumnProps<Recordable> {
   children?: BasicColumn[];
   filters?: {
     text: string;
