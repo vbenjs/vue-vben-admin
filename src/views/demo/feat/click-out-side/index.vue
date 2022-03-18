@@ -1,6 +1,6 @@
 <template>
   <PageWrapper title="点内外部触发事件">
-    <ClickOutSide @clickOutside="handleClickOutside" class="flex justify-center">
+    <ClickOutSide @click-outside="handleClickOutside" class="flex justify-center">
       <div @click="innerClick" class="demo-box">
         {{ text }}
       </div>

@@ -22,7 +22,7 @@
 
     <CopperModal
       @register="register"
-      @uploadSuccess="handleUploadSuccess"
+      @upload-success="handleUploadSuccess"
       :uploadApi="uploadApi"
       :src="sourceValue"
     />

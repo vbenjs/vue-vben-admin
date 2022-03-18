@@ -1,8 +1,13 @@
 module.exports = {
   root: true,
   plugins: ['stylelint-order'],
-  customSyntax: 'postcss-html',
-  extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
+  processors: ['stylelint-processor-html'],
+  extends: [
+    'stylelint-config-standard',
+    'stylelint-config-prettier',
+    'stylelint-config-recommended-vue/less',
+  ],
+
   rules: {
     'selector-class-pattern': null,
     'selector-pseudo-class-no-unknown': [
