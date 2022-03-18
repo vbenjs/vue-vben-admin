@@ -1,6 +1,4 @@
-// @ts-check
-const { defineConfig } = require('eslint-define-config');
-module.exports = defineConfig({
+module.exports = {
   root: true,
   env: {
     browser: true,
@@ -20,9 +18,7 @@ module.exports = defineConfig({
   extends: [
     'plugin:vue/vue3-recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier',
     'plugin:prettier/recommended',
-    'plugin:jest/recommended',
   ],
   rules: {
     'vue/script-setup-uses-vars': 'error',
@@ -77,4 +73,4 @@ module.exports = defineConfig({
     ],
     'vue/multi-word-component-names': 'off',
   },
-});
+};
