@@ -84,13 +84,11 @@ specifiers:
   showdown: ^2.0.3
   sortablejs: ^1.14.0
   stylelint: ^14.6.0
-  stylelint-config-html: ^1.0.0
   stylelint-config-prettier: ^9.0.3
   stylelint-config-recommended: ^7.0.0
   stylelint-config-recommended-vue: ^1.3.0
   stylelint-config-standard: ^25.0.0
   stylelint-order: ^5.0.0
-  stylelint-processor-html: ^1.0.0
   tinymce: ^5.10.3
   ts-node: ^10.7.0
   typescript: ^4.6.2
@@ -206,13 +204,11 @@ devDependencies:
   rollup: 2.70.1
   rollup-plugin-visualizer: 5.6.0_rollup@2.70.1
   stylelint: 14.6.0
-  stylelint-config-html: 1.0.0_f552817e5b8b1b7dca381d844218922e
   stylelint-config-prettier: 9.0.3_stylelint@14.6.0
   stylelint-config-recommended: 7.0.0_stylelint@14.6.0
   stylelint-config-recommended-vue: 1.3.0_f552817e5b8b1b7dca381d844218922e
   stylelint-config-standard: 25.0.0_stylelint@14.6.0
   stylelint-order: 5.0.0_stylelint@14.6.0
-  stylelint-processor-html: 1.0.0
   ts-node: 10.7.0_e79e62fe450383fd2d418267dc75e645
   typescript: 4.6.2
   vite: 2.9.0-beta.3_less@4.1.2
@@ -9131,13 +9127,6 @@ packages:
       postcss: 8.4.12
       postcss-sorting: 7.0.1_postcss@8.4.12
       stylelint: 14.6.0
-    dev: true
-
-  /stylelint-processor-html/1.0.0:
-    resolution: {integrity: sha1-aJK2soVaRfApHNhFGR1pCBMKKRg=}
-    deprecated: 'Please use stylelint-processor-arbitrary-tags https://github.com/mapbox/stylelint-processor-arbitrary-tags '
-    dependencies:
-      htmlparser2: 3.10.1
     dev: true
 
   /stylelint/14.6.0:
