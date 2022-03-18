@@ -11,6 +11,43 @@ interface UseFormValuesContext {
   getProps: ComputedRef<FormProps>;
   formModel: Recordable;
 }
+
+/**
+ * @desription deconstruct array-link key. This method will mutate the target.
+ */
+function tryDeconstructArray(key: string, value: any, target: Recordable) {
+  const pattern = /^\[(.+)\]$/;
+  if (pattern.test(key)) {
+    const match = key.match(pattern);
+    if (match && match[1]) {
+      const keys = match[1].split(',');
+      value = Array.isArray(value) ? value : [value];
+      keys.forEach((k, index) => {
+        set(target, k.trim(), value[index]);
+      });
+      return true;
+    }
+  }
+}
+
+/**
+ * @desription deconstruct object-link key. This method will mutate the target.
+ */
+function tryDeconstructObject(key: string, value: any, target: Recordable) {
+  const pattern = /^\{(.+)\}$/;
+  if (pattern.test(key)) {
+    const match = key.match(pattern);
+    if (match && match[1]) {
+      const keys = match[1].split(',');
+      value = isObject(value) ? value : {};
+      keys.forEach((k) => {
+        set(target, k.trim(), value[k.trim()]);
+      });
+      return true;
+    }
+  }
+}
+
 export function useFormValues({
   defaultValueRef,
   getSchema,
@@ -41,7 +78,10 @@ export function useFormValues({
       if (isString(value)) {
         value = value.trim();
       }
-      set(res, key, value);
+      if (!tryDeconstructArray(key, value, res) && !tryDeconstructObject(key, value, res)) {
+        // 没有解构成功的，按原样赋值
+        set(res, key, value);
+      }
     }
     return handleRangeTimeValue(res);
   }
