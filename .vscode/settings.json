@@ -55,7 +55,7 @@
     "**/yarn.lock": true
   },
   "stylelint.enable": true,
-  "stylelint.packageManager": "yarn",
+  "stylelint.validate": ["css", "less", "postcss", "scss", "vue", "sass"],
   "path-intellisense.mappings": {
     "/@/": "${workspaceRoot}/src"
   },
@@ -88,7 +88,8 @@
   },
   "[vue]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": false
+      "source.fixAll.eslint": true,
+      "source.fixAll.stylelint": true
     }
   },
   "i18n-ally.localesPaths": ["src/locales/lang"],
