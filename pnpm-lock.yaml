@@ -27,7 +27,7 @@ importers:
       vitest: ^0.7.6
     devDependencies:
       '@changesets/cli': registry.npmjs.org/@changesets/cli/2.21.1
-      '@config/lint': link:configs/lint-config
+      '@config/lint': link:configs/lint
       '@types/fs-extra': registry.npmjs.org/@types/fs-extra/9.0.13
       '@types/inquirer': registry.npmjs.org/@types/inquirer/8.2.0
       '@types/node': registry.npmjs.org/@types/node/17.0.21
@@ -115,12 +115,12 @@ importers:
       path-to-regexp: registry.npmjs.org/path-to-regexp/6.2.0
       pinia: registry.npmjs.org/pinia/2.0.12_typescript@4.6.2+vue@3.2.31
       qrcode: registry.npmjs.org/qrcode/1.5.0
-      sortablejs: registry.npmjs.org/sortablejs/1.14.0
+      sortablejs: registry.npmjs.org/sortablejs/1.15.0
       vue: registry.npmjs.org/vue/3.2.31
       vue-router: registry.npmjs.org/vue-router/4.0.14_vue@3.2.31
     devDependencies:
-      '@config/css-preprocess': link:../../configs/css-preprocess-config
-      '@config/vite': link:../../configs/vite-config
+      '@config/css-preprocess': link:../../configs/css-preprocess
+      '@config/vite': link:../../configs/vite
       '@iconify/json': registry.npmjs.org/@iconify/json/2.1.17
       '@pkg/types': link:../../packages/types
       '@purge-icons/generated': registry.npmjs.org/@purge-icons/generated/0.8.1
@@ -226,7 +226,7 @@ importers:
       supertest: registry.npmjs.org/supertest/6.2.2
       tsup: registry.npmjs.org/tsup/5.12.1_ts-node@10.7.0+typescript@4.6.2
 
-  configs/css-preprocess-config:
+  configs/css-preprocess:
     specifiers:
       autoprefixer: ^10.4.4
       postcss: ^8.4.12
@@ -236,7 +236,7 @@ importers:
       postcss: registry.npmjs.org/postcss/8.4.12
       tailwindcss: registry.npmjs.org/tailwindcss/3.0.23_b89136460714832cdda11d1e9d57d1ff
 
-  configs/lint-config:
+  configs/lint:
     specifiers:
       '@commitlint/cli': ^16.2.3
       '@commitlint/config-conventional': ^16.2.1
@@ -289,7 +289,7 @@ importers:
   configs/tsconfig:
     specifiers: {}
 
-  configs/vite-config:
+  configs/vite:
     specifiers:
       '@ant-design/colors': ^6.0.0
       '@vitejs/plugin-legacy': ^1.7.1
@@ -18801,15 +18801,15 @@ packages:
       is-plain-obj: registry.npmjs.org/is-plain-obj/1.1.0
     dev: false
 
-  registry.npmjs.org/sortablejs/1.14.0:
+  registry.npmjs.org/sortablejs/1.15.0:
     resolution:
       {
-        integrity: sha512-pBXvQCs5/33fdN1/39pPL0NZF20LeRbLQ5jtnheIPN9JQAaufGjKdWduZn4U7wCtVuzKhmRkI0DFYHYRbB2H1w==,
+        integrity: sha512-bv9qgVMjUMf89wAvM6AxVvS/4MX3sPeN0+agqShejLU5z5GX4C75ow1O2e5k4L6XItUyAK3gH6AxSbXrOM5e8w==,
         registry: https://registry.yarnpkg.com/,
-        tarball: https://registry.npmjs.org/sortablejs/-/sortablejs-1.14.0.tgz,
+        tarball: https://registry.npmjs.org/sortablejs/-/sortablejs-1.15.0.tgz,
       }
     name: sortablejs
-    version: 1.14.0
+    version: 1.15.0
     dev: false
 
   registry.npmjs.org/source-map-js/1.0.2:
