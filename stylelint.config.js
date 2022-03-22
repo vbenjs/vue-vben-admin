@@ -4,7 +4,7 @@ module.exports = {
   extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
   customSyntax: 'postcss-html',
   rules: {
-    'selector-class-pattern': null,
+    'function-no-unknown': null,
     'selector-class-pattern': null,
     'selector-pseudo-class-no-unknown': [
       true,
