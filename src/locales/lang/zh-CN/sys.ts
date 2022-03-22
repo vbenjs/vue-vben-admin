@@ -67,7 +67,7 @@ export default {
 
     signInTitle: '开箱即用的中后台管理系统',
     signInDesc: '输入您的个人详细信息开始使用！',
-    policy: '我同意xxx隐私政策',
+    policy: '我同意隐私政策',
     scanSign: `扫码后点击"确认"，即可完成登录`,
 
     loginButton: '登录',
@@ -82,17 +82,23 @@ export default {
 
     // placeholder
     accountPlaceholder: '请输入账号',
+    usernamePlaceholder: '请输入账号',
     passwordPlaceholder: '请输入密码',
     smsPlaceholder: '请输入验证码',
     mobilePlaceholder: '请输入手机号码',
+    phonePlaceholder: '请输入手机号码',
     policyPlaceholder: '勾选后才能注册',
     diffPwd: '两次输入密码不一致',
 
     userName: '账号',
+    username: '账号',
+    nickname: '联系人',
     password: '密码',
     confirmPassword: '确认密码',
     email: '邮箱',
+    company: '单位名称',
     smsCode: '短信验证码',
     mobile: '手机号码',
+    phone: '联系电话',
   },
 };
