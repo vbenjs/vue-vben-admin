@@ -31,13 +31,17 @@ export interface ErrorLogInfo {
 }
 
 export interface UserInfo {
-  userId: string | number;
+  id: number;
+  uuid: string;
   username: string;
-  realName: string;
+  nickname: string;
   avatar: string;
-  desc?: string;
-  homePath?: string;
+  email: string;
+  phone: string;
+  sex: number;
+  status: number;
   roles: RoleInfo[];
+  permissions: PermissionInfo[];
 }
 
 export interface BeforeMiniState {
