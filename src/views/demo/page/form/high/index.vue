@@ -34,6 +34,7 @@
       const tableRef = ref<{ getDataSource: () => any } | null>(null);
 
       const [register, { validate }] = useForm({
+        layout: 'vertical',
         baseColProps: {
           span: 6,
         },
@@ -42,6 +43,7 @@
       });
 
       const [registerTask, { validate: validateTaskForm }] = useForm({
+        layout: 'vertical',
         baseColProps: {
           span: 6,
         },
