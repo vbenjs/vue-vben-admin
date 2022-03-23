@@ -55,7 +55,7 @@
 <script lang="ts">
 import { Tag } from 'ant-design-vue'
 import { defineComponent } from 'vue'
-import Icon from '@/components/icon/index'
+import { Icon } from '@components/common'
 import { BasicForm } from '@/components/form/index'
 import { actions, searchList, schemas } from './data'
 import { PageWrapper } from '@/components/page'

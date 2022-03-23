@@ -45,7 +45,7 @@
 import { defineComponent, PropType, computed, toRaw, unref } from 'vue'
 import { MoreOutlined } from '@ant-design/icons-vue'
 import { Divider, Tooltip, TooltipProps } from 'ant-design-vue'
-import Icon from '@/components/icon/index'
+import { Icon } from '@components/common'
 import { ActionItem, TableActionType } from '@/components/table'
 import { PopConfirmButton } from '@/components/button'
 import { Dropdown } from '@/components/dropdown'

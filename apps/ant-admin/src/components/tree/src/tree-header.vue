@@ -7,7 +7,7 @@ import {
   MenuDivider,
   InputSearch,
 } from 'ant-design-vue'
-import { Icon } from '@/components/icon'
+import { Icon } from '@components/common'
 import { BasicTitle } from '@/components/basic'
 import { useI18n } from '@pkg/locale'
 import { createBEM } from '@pkg/utils'

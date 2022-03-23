@@ -351,9 +351,11 @@ importers:
 
   packages/components/common:
     specifiers:
+      '@pkg/locale': workspace:*
       '@pkg/use': workspace:*
       '@pkg/utils': workspace:*
     dependencies:
+      '@pkg/locale': link:../../locale
       '@pkg/use': link:../../use
       '@pkg/utils': link:../../utils
 

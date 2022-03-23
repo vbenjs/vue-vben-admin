@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import SettingDrawer from './SettingDrawer'
-import Icon from '@/components/icon'
+import { Icon } from '@components/common'
 
 import { useDrawer } from '@/components/drawer'
 

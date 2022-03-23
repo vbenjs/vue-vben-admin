@@ -36,7 +36,7 @@
 import { List } from 'ant-design-vue'
 import { defineComponent } from 'vue'
 import { CollapseContainer } from '@/components/container/index'
-import Icon from '@/components/icon/index'
+import { Icon } from '@components/common'
 
 import { accountBindList } from './data'
 

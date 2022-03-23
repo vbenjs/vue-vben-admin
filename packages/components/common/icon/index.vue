@@ -1,100 +1,93 @@
-<script lang="ts">
-import type { PropType } from 'vue'
-import {
-  defineComponent,
-  ref,
-  watch,
-  onMounted,
-  nextTick,
-  unref,
-  computed,
-  CSSProperties,
-} from 'vue'
+<script setup lang="ts">
+import type { PropType, CSSProperties } from 'vue'
+import { ref, watch, onMounted, nextTick, unref, computed, useAttrs } from 'vue'
+import { createBEM, isString } from '@pkg/utils'
 import Iconify from '@purge-icons/generated'
-import { isString } from '@pkg/utils'
 
-export default defineComponent({
-  name: 'Icon',
-  props: {
-    // icon name
-    icon: { type: String },
-    // icon color
-    color: { type: String },
-    // icon size
-    size: {
-      type: [String, Number] as PropType<string | number>,
-      default: 16,
-    },
-    spin: { type: Boolean },
-    prefix: { type: String, default: '' },
+const props = defineProps({
+  // icon name
+  icon: { type: String },
+  // icon color
+  color: { type: String },
+  // icon size
+  size: {
+    type: [String, Number] as PropType<string | number>,
+    default: 16,
   },
-  setup(props) {
-    const elRef = ref<ElRef>(null)
-
-    const getIconRef = computed(
-      () => `${props.prefix ? props.prefix + ':' : ''}${props.icon}`,
-    )
-
-    const update = async () => {
-      const el = unref(elRef)
-      if (!el) return
-
-      await nextTick()
-      const icon = unref(getIconRef)
-      if (!icon) return
-
-      const svg = Iconify.renderSVG(icon, {})
-      if (svg) {
-        el.textContent = ''
-        el.appendChild(svg)
-      } else {
-        const span = document.createElement('span')
-        span.className = 'iconify'
-        span.dataset.icon = icon
-        el.textContent = ''
-        el.appendChild(span)
-      }
-    }
-
-    const getWrapStyle = computed((): CSSProperties => {
-      const { size, color } = props
-      let fs = size
-      if (isString(size)) {
-        fs = parseInt(size, 10)
-      }
-
-      return {
-        fontSize: `${fs}px`,
-        color: color,
-        display: 'inline-flex',
-      }
-    })
-
-    watch(() => props.icon, update, { flush: 'post' })
-
-    onMounted(update)
-
-    return { elRef, getWrapStyle }
-  },
+  spin: { type: Boolean },
+  prefix: { type: String, default: '' },
 })
+
+const [bem] = createBEM('iconify')
+
+const attrs = useAttrs()
+
+const elRef = ref(null)
+
+const getIcon = computed(
+  () => `${props.prefix ? props.prefix + ':' : ''}${props.icon}`,
+)
+
+const update = async () => {
+  const el = unref(elRef)
+  if (!el) return
+
+  await nextTick()
+  const icon = unref(getIcon)
+  if (!icon) return
+
+  const svg = Iconify.renderSVG(icon, {})
+  if (svg) {
+    el.textContent = ''
+    el.appendChild(svg)
+  } else {
+    const span = document.createElement('span')
+    span.className = 'iconify'
+    span.dataset.icon = icon
+    el.textContent = ''
+    el.appendChild(span)
+  }
+}
+
+const wrapStyle = computed((): CSSProperties => {
+  const { size, color } = props
+  let _size = size
+  if (isString(size)) {
+    _size = parseInt(size, 10)
+  }
+
+  return {
+    fontSize: `${_size}px`,
+    color: color,
+    display: 'inline-flex',
+  }
+})
+
+const classes = computed(() => {
+  const cls = [bem(), unref(attrs).class]
+  if (props.spin) {
+    cls.push(bem('spin'))
+  }
+  return cls
+})
+
+watch(() => props.icon, update, { flush: 'post' })
+
+onMounted(update)
 </script>
 
 <template>
-  <span
-    ref="elRef"
-    :class="[$attrs.class, 'app-iconify anticon', spin && 'app-iconify-spin']"
-    :style="getWrapStyle"
-  ></span>
+  <span ref="elRef" :class="classes" :style="wrapStyle"></span>
 </template>
 
 <style lang="less">
-.app-iconify {
+@prefix-cls: ~'@{namespace}-iconify';
+
+.@{prefix-cls} {
   display: inline-block;
 
-  &-spin {
-    svg {
-      animation: loadingCircle 1s infinite linear;
-    }
+  &__spin {
+    animation: loadingCircle 1s infinite linear;
   }
 }
 

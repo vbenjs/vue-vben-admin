@@ -1,7 +1,7 @@
 import type { VNode, FunctionalComponent } from 'vue'
 import { h } from 'vue'
 import { isString } from '@pkg/utils'
-import { Icon } from '@/components/icon'
+import { Icon } from '@components/common'
 
 export const TreeIcon: FunctionalComponent = ({
   icon,

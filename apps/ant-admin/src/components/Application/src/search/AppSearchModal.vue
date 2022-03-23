@@ -2,7 +2,7 @@
 import { computed, unref, ref, watch, nextTick } from 'vue'
 import { SearchOutlined } from '@ant-design/icons-vue'
 import AppSearchFooter from './AppSearchFooter.vue'
-import Icon from '@/components/icon'
+import { Icon } from '@components/common'
 import { clickOutside as vClickOutside } from '@pkg/directives'
 import { useDesign } from '@/hooks/web/useDesign'
 import { useRefs } from '@pkg/use'

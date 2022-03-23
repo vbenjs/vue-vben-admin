@@ -7,9 +7,9 @@
     <CardGrid v-for="item in items" :key="item" class="!md:w-1/3 !w-full">
       <span class="flex">
         <Icon :icon="item.icon" :color="item.color" size="30" />
-        <span class="text-lg ml-4">{{ item.title }}</span>
+        <span class="ml-4 text-lg">{{ item.title }}</span>
       </span>
-      <div class="flex mt-2 h-10 text-secondary">{{ item.desc }}</div>
+      <div class="flex h-10 mt-2 text-secondary">{{ item.desc }}</div>
       <div class="flex justify-between text-secondary">
         <span>{{ item.group }}</span>
         <span>{{ item.date }}</span>
@@ -20,7 +20,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { Card } from 'ant-design-vue'
-import { Icon } from '@/components/icon'
+import { Icon } from '@components/common'
 import { groupItems } from './data'
 
 export default defineComponent({

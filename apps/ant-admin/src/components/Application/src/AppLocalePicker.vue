@@ -4,7 +4,7 @@ import type { DropMenu } from '@/components/dropdown'
 
 import { ref, watchEffect, unref, computed } from 'vue'
 import { Dropdown } from '@/components/dropdown'
-import { Icon } from '@/components/icon'
+import { Icon } from '@components/common'
 import { useLocale } from '@pkg/locale'
 import { localeList } from '@pkg/setting'
 
@@ -58,7 +58,7 @@ function handleMenuEvent(menu: DropMenu) {
     @menuEvent="handleMenuEvent"
     overlayClassName="app-locale-picker-overlay"
   >
-    <span class="cursor-pointer flex items-center">
+    <span class="flex items-center cursor-pointer">
       <Icon icon="ion:language" />
       <span v-if="showText" class="ml-1">{{ getLocaleText }}</span>
     </span>

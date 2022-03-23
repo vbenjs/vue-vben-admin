@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Icon } from '@/components/icon'
+import { Icon } from '@components/common'
 defineProps({
   icon: String,
 })

@@ -19,13 +19,10 @@
 <script lang="ts">
 import type { PropType } from 'vue'
 import type { RouteLocationNormalized } from 'vue-router'
-
 import { defineComponent, computed, unref } from 'vue'
 import { Dropdown } from '@/components/dropdown/index'
-import { Icon } from '@/components/icon'
-
+import { Icon } from '@components/common'
 import { TabContentProps } from '../types'
-
 import { useDesign } from '@/hooks/web/useDesign'
 import { useI18n } from '@pkg/locale'
 import { useTabDropdown } from '../useTabDropdown'

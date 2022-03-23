@@ -39,7 +39,7 @@
 import { computed, PropType } from 'vue'
 import type { DropMenu } from './typing'
 import { Dropdown, Menu, Popconfirm } from 'ant-design-vue'
-import { Icon } from '@/components/icon'
+import { Icon } from '@components/common'
 import { isFunction, omit } from '@pkg/utils'
 
 const ADropdown = Dropdown

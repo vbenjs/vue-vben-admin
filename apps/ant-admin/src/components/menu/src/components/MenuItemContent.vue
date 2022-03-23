@@ -11,8 +11,7 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-
-import Icon from '@/components/icon/index'
+import { Icon } from '@components/common'
 import { useI18n } from '@pkg/locale'
 import { useDesign } from '@/hooks/web/useDesign'
 import { contentProps } from '../props'

@@ -64,8 +64,8 @@ import {
   CodepenCircleFilled,
 } from '@ant-design/icons-vue'
 import { SvgIcon } from '@components/common'
-
-import { Icon, IconPicker } from '@/components/icon/index'
+import { Icon } from '@components/common'
+import { IconPicker } from '@/components/icon/index'
 
 import { openWindow } from '@pkg/utils'
 import { PageWrapper } from '@/components/page'

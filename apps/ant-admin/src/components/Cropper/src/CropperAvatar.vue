@@ -49,7 +49,7 @@ import { useModal } from '@/components/modal'
 import { useMessage } from '@/hooks/web/useMessage'
 import { useI18n } from '@pkg/locale'
 import type { ButtonProps } from '@/components/button'
-import Icon from '@/components/icon'
+import { Icon } from '@components/common'
 
 const props = {
   width: { type: [String, Number], default: '200px' },

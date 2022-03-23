@@ -13,6 +13,7 @@ const { getLocale } = useLocale()
 const { title } = getGlobalConfig()
 useTitle(title, (route) => route.name !== REDIRECT_NAME)
 
+// Dynamic switch component library language
 const locale = computedAsync(async () => {
   const message = {
     zh_CN: () => {

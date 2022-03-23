@@ -35,7 +35,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { List, Card, Row, Col } from 'ant-design-vue'
-import Icon from '@/components/icon/index'
+import { Icon } from '@components/common'
 import { applicationList } from './data'
 
 export default defineComponent({

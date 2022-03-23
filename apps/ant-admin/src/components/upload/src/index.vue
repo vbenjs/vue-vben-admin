@@ -41,7 +41,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch, unref, computed } from 'vue'
-import { Icon } from '@/components/icon'
+import { Icon } from '@components/common'
 import { Tooltip, Space } from 'ant-design-vue'
 import { useModal } from '@/components/modal'
 import { uploadContainerProps } from './props'

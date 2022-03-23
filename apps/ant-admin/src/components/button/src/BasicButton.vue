@@ -18,7 +18,7 @@ export default defineComponent({
 <script lang="ts" setup>
 import { computed, unref } from 'vue'
 import { Button } from 'ant-design-vue'
-import Icon from '@/components/icon/src/Icon.vue'
+import { Icon } from '@components/common'
 import { buttonProps } from './props'
 import { useAttrs } from '@pkg/use'
 

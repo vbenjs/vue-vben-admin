@@ -57,7 +57,7 @@ import type { Menu } from '@/router/types'
 
 import { defineComponent, computed } from 'vue'
 import { useDesign } from '@/hooks/web/useDesign'
-import Icon from '@/components/icon/index'
+import { Icon } from '@components/common'
 import SimpleMenuTag from './SimpleMenuTag.vue'
 import MenuItem from './components/MenuItem.vue'
 import SubMenu from './components/SubMenuItem.vue'

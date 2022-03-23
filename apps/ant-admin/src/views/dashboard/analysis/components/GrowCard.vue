@@ -32,7 +32,7 @@
 </template>
 <script lang="ts" setup>
 import { CountTo } from '@components/common'
-import { Icon } from '@/components/icon'
+import { Icon } from '@components/common'
 import { Tag, Card } from 'ant-design-vue'
 import { growCardList } from '../data'
 

@@ -122,7 +122,7 @@ import {
 } from 'vue'
 import { Tooltip, Popover, Checkbox, Divider } from 'ant-design-vue'
 import { SettingOutlined, DragOutlined } from '@ant-design/icons-vue'
-import { Icon } from '@/components/icon'
+import { Icon } from '@components/common'
 import { ScrollContainer } from '@/components/container'
 import { useI18n } from '@pkg/locale'
 import { useTableContext } from '../../hooks/useTableContext'

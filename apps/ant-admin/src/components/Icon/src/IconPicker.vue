@@ -79,14 +79,13 @@ import { ref, watchEffect, watch, unref } from 'vue'
 import { useDesign } from '@/hooks/web/useDesign'
 import { ScrollContainer } from '@/components/container'
 import { Input, Popover, Pagination, Empty } from 'ant-design-vue'
-import Icon from './Icon.vue'
 import iconsData from '../data/icons.data'
 import { usePagination, useDebounceFn } from '@pkg/use'
 import { useI18n } from '@pkg/locale'
 import { useCopyToClipboard } from '@/hooks/web/useCopyToClipboard'
 import { useMessage } from '@/hooks/web/useMessage'
 import svgIcons from 'virtual:svg-icons-names'
-import { SvgIcon } from '@components/common'
+import { SvgIcon, Icon } from '@components/common'
 
 // 没有使用别名引入，是因为WebStorm当前版本还不能正确识别，会报unused警告
 const AInput = Input

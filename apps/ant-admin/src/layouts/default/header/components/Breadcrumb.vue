@@ -24,7 +24,7 @@ import type { Menu } from '@/router/types'
 import { defineComponent, ref, watchEffect } from 'vue'
 
 import { Breadcrumb } from 'ant-design-vue'
-import Icon from '@/components/icon'
+import { Icon } from '@components/common'
 
 import { useDesign } from '@/hooks/web/useDesign'
 import { useRootSetting } from '@/hooks/setting/useRootSetting'
