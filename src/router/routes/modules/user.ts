@@ -3,27 +3,24 @@ import type { AppRouteModule } from '/@/router/types';
 import { LAYOUT } from '/@/router/constant';
 import { t } from '/@/hooks/web/useI18n';
 
-const dashboard: AppRouteModule = {
-  path: '/dashboard',
-  name: 'Dashboard',
+const user: AppRouteModule = {
+  path: '/user',
+  name: 'User',
   component: LAYOUT,
-  redirect: '/dashboard/home',
+  redirect: '/user/center',
   meta: {
-    orderNo: 10,
-    icon: 'ion:grid-outline',
     title: t('routes.dashboard.dashboard'),
   },
   children: [
     {
-      path: 'home',
-      name: 'DashboardHome',
+      path: 'center',
+      name: 'UserCenter',
       component: () => import('/@/views/dashboard/home/index.vue'),
       meta: {
-        affix: true,
         title: t('routes.dashboard.home'),
       },
     },
   ],
 };
 
-export default dashboard;
+export default user;

@@ -123,7 +123,7 @@
     if (!data) return;
     loading.value = true;
     registerUsernameApi(data)
-      .then((res) => {
+      .then(() => {
         msg.success('注册成功，请登录');
         handleBackLogin();
       })

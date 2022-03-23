@@ -60,13 +60,13 @@ const setting: ProjectConfig = {
     // Fixed at the top
     fixed: true,
     // Whether to show top
-    show: false,
+    show: true,
     // theme
     theme: ThemeEnum.LIGHT,
     // Whether to enable the lock screen function
     useLockPage: false,
     // Whether to show the full screen button
-    showFullScreen: true,
+    showFullScreen: false,
     // Whether to show the document button
     showDoc: false,
     // Whether to show the notification button
@@ -97,9 +97,9 @@ const setting: ProjectConfig = {
     // Menu mode
     mode: MenuModeEnum.HORIZONTAL,
     // Menu type
-    type: MenuTypeEnum.TOP_MENU,
+    type: MenuTypeEnum.SIDEBAR,
     // Menu theme
-    theme: ThemeEnum.DARK,
+    theme: ThemeEnum.LIGHT,
     // Split menu
     split: false,
     // Top menu layout
@@ -120,7 +120,7 @@ const setting: ProjectConfig = {
   multiTabsSetting: {
     cache: false,
     // Turn on
-    show: true,
+    show: false,
     // Is it possible to drag and drop sorting tabs
     canDrag: true,
     // Turn on quick actions
