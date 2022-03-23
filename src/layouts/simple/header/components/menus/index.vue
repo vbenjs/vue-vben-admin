@@ -7,7 +7,7 @@
     </div>
     <ul class="menus-ul mt-8">
       <li
-        v-for="option in options"
+        v-for="option in sideOptions"
         :key="option.name"
         @click="handleClick(option.path)"
         :class="option.path === currentPath ? 'active' : undefined"
@@ -20,12 +20,12 @@
 </template>
 
 <script setup lang="ts">
-  import { PageEnum } from '/@/enums/pageEnum';
   import { useGo } from '/@/hooks/web/usePage';
   import { useUserStore } from '/@/store/modules/user';
   import { Avatar } from 'ant-design-vue';
   import { computed, defineProps } from 'vue';
   import { useRoute } from 'vue-router';
+  import sideOptions from '../../../configs/side-options';
 
   const props = defineProps<{
     onClose: () => void;
@@ -40,21 +40,6 @@
   const route = useRoute();
 
   const currentPath = computed(() => route.path);
-
-  const options = [
-    {
-      name: '首页',
-      path: PageEnum.BASE_HOME,
-    },
-    {
-      name: '个人资料',
-      path: PageEnum.USER_CENTER,
-    },
-    {
-      name: '会议列表',
-      path: PageEnum.MEETING,
-    },
-  ];
 
   function handleClick(path: string) {
     go(path);
