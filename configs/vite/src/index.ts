@@ -1,4 +1,4 @@
-import type { UserConfig } from 'vite'
+import type { UserConfig, UserConfigFn } from 'vite'
 import type { FrameworkType } from './presets'
 import { mergeConfig, loadEnv, defineConfig } from 'vite'
 import { cyan } from 'picocolors'
@@ -11,7 +11,10 @@ import { OUTPUT_DIR } from './constants'
 import dayjs from 'dayjs'
 export * from './constants'
 
-export async function createViteConfig(cwd: string, framework: FrameworkType) {
+export async function createViteConfig(
+  cwd: string,
+  framework: FrameworkType,
+): Promise<UserConfig | UserConfigFn> {
   console.log()
   console.log(
     cyan(

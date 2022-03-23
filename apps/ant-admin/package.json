@@ -27,9 +27,9 @@
   "dependencies": {
     "@ant-design/colors": "^6.0.0",
     "@ant-design/icons-vue": "^6.1.0",
-    "@iconify/iconify": "^2.2.0",
-    "@components/common": "workspace:*",
     "@components/antd": "workspace:*",
+    "@components/common": "workspace:*",
+    "@iconify/iconify": "^2.2.0",
     "@pkg/apis": "workspace:*",
     "@pkg/directives": "workspace:*",
     "@pkg/locale": "workspace:*",
@@ -47,14 +47,14 @@
     "path-to-regexp": "^6.2.0",
     "pinia": "2.0.12",
     "qrcode": "^1.5.0",
-    "sortablejs": "^1.14.0",
+    "sortablejs": "^1.15.0",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14"
   },
   "devDependencies": {
     "@config/css-preprocess": "workspace:*",
     "@config/vite": "workspace:*",
-    "@iconify/json": "^2.1.17",
+    "@iconify/json": "^2.1.19",
     "@pkg/types": "workspace:*",
     "@purge-icons/generated": "^0.8.1",
     "@types/codemirror": "^5.60.5",
@@ -68,8 +68,8 @@
     "@vue/test-utils": "^2.0.0-rc.18",
     "dotenv": "^16.0.0",
     "picocolors": "^1.0.0",
-    "vite": "^2.9.0-beta.4",
+    "vite": "2.9.0-beta.4",
     "vite-plugin-theme": "^0.8.6",
-    "vue-tsc": "^0.33.2"
+    "vue-tsc": "^0.33.7"
   }
 }
