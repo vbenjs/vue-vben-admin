@@ -58,7 +58,7 @@ export class Memory<T = any, V = any> {
       return value;
     }
     const now = new Date().getTime();
-    item.time = now + this.alive;
+    item.time = now + expires;
     item.timeoutId = setTimeout(
       () => {
         this.remove(key);
