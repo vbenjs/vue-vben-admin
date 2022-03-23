@@ -4,9 +4,9 @@
 <script lang="ts">
 import type { PropType } from 'vue'
 import { defineComponent } from 'vue'
-import { RoleEnum } from '@pkg/tokens'
 import { usePermission } from '@/hooks/web/usePermission'
 import { getSlot } from '@pkg/utils'
+import { RoleEnum } from '@pkg/tokens'
 
 export default defineComponent({
   name: 'Authority',

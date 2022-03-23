@@ -3,7 +3,7 @@
  */
 import type { LocaleType } from '@pkg/types'
 
-import { unref, computed } from 'vue'
+import { unref } from 'vue'
 import { i18n } from './setup-i18n'
 import { loadLocalePool, setHtmlPageLang } from './helper'
 import { getLocale, setLocale, showLocalePicker } from './store'
@@ -21,10 +21,6 @@ function setI18nLanguage(locale: LocaleType) {
 }
 
 export const useLocale = () => {
-  const uiFrameLocale = computed((): any => {
-    return i18n.global.getLocaleMessage(unref(getLocale))?.uiFrameLocale ?? {}
-  })
-
   // Switching the language will change the locale of useI18n
   // And submit to configuration modification
   const changeLocale = async (locale: LocaleType) => {
@@ -60,6 +56,5 @@ export const useLocale = () => {
     getLocale,
     showLocalePicker,
     changeLocale,
-    uiFrameLocale,
   }
 }

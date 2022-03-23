@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, unref } from 'vue'
-import { SvgIcon } from '@/components/icon'
+import { SvgIcon } from '@components/common'
 import { useDesign } from '@/hooks/web/useDesign'
 import { useRootSetting } from '@/hooks/setting/useRootSetting'
 import {

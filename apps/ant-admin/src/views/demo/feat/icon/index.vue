@@ -13,7 +13,7 @@
     </CollapseContainer>
 
     <CollapseContainer title="IconIfy 组件使用" class="my-5">
-      <div class="flex justify-around flex-wrap">
+      <div class="flex flex-wrap justify-around">
         <Icon icon="ion:layers-outline" :size="30" />
         <Icon icon="ion:bar-chart-outline" :size="30" />
         <Icon icon="ion:tv-outline" :size="30" />
@@ -22,7 +22,7 @@
     </CollapseContainer>
 
     <CollapseContainer title="svg 雪碧图" class="my-5">
-      <div class="flex justify-around flex-wrap">
+      <div class="flex flex-wrap justify-around">
         <SvgIcon name="test" size="32" />
         <template v-for="item in 6" :key="item">
           <SvgIcon :name="`dynamic-avatar-${item}`" size="32" />
@@ -31,13 +31,13 @@
     </CollapseContainer>
 
     <CollapseContainer title="图标选择器(Iconify)" class="my-5">
-      <div class="flex justify-around flex-wrap">
+      <div class="flex flex-wrap justify-around">
         <IconPicker />
       </div>
     </CollapseContainer>
 
     <CollapseContainer title="图标选择器(Svg)" class="my-5">
-      <div class="flex justify-around flex-wrap">
+      <div class="flex flex-wrap justify-around">
         <IconPicker mode="svg" />
       </div>
     </CollapseContainer>
@@ -63,8 +63,9 @@ import {
   TaobaoCircleFilled,
   CodepenCircleFilled,
 } from '@ant-design/icons-vue'
+import { SvgIcon } from '@components/common'
 
-import { Icon, IconPicker, SvgIcon } from '@/components/icon/index'
+import { Icon, IconPicker } from '@/components/icon/index'
 
 import { openWindow } from '@pkg/utils'
 import { PageWrapper } from '@/components/page'

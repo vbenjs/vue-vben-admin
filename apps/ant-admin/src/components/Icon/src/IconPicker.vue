@@ -25,13 +25,13 @@
 
         <template #content>
           <div v-if="getPaginationList.length">
-            <ScrollContainer class="border border-solid border-t-0">
+            <ScrollContainer class="border border-t-0 border-solid">
               <ul class="flex flex-wrap px-2">
                 <li
                   v-for="icon in getPaginationList"
                   :key="icon"
                   :class="currentSelect === icon ? 'border border-primary' : ''"
-                  class="p-2 w-1/8 cursor-pointer mr-1 mt-1 flex justify-center items-center border border-solid hover:border-primary"
+                  class="flex items-center justify-center p-2 mt-1 mr-1 border border-solid cursor-pointer w-1/8 hover:border-primary"
                   @click="handleClick(icon)"
                   :title="icon"
                 >
@@ -42,7 +42,7 @@
               </ul>
             </ScrollContainer>
             <div
-              class="flex py-2 items-center justify-center"
+              class="flex items-center justify-center py-2"
               v-if="getTotal >= pageSize"
             >
               <a-pagination
@@ -60,14 +60,14 @@
         </template>
 
         <span
-          class="cursor-pointer px-2 py-1 flex items-center"
+          class="flex items-center px-2 py-1 cursor-pointer"
           v-if="isSvgMode && currentSelect"
         >
           <SvgIcon :name="currentSelect" />
         </span>
         <Icon
           :icon="currentSelect || 'ion:apps-outline'"
-          class="cursor-pointer px-2 py-1"
+          class="px-2 py-1 cursor-pointer"
           v-else
         />
       </a-popover>
@@ -80,13 +80,13 @@ import { useDesign } from '@/hooks/web/useDesign'
 import { ScrollContainer } from '@/components/container'
 import { Input, Popover, Pagination, Empty } from 'ant-design-vue'
 import Icon from './Icon.vue'
-import SvgIcon from './SvgIcon.vue'
 import iconsData from '../data/icons.data'
 import { usePagination, useDebounceFn } from '@pkg/use'
 import { useI18n } from '@pkg/locale'
 import { useCopyToClipboard } from '@/hooks/web/useCopyToClipboard'
 import { useMessage } from '@/hooks/web/useMessage'
 import svgIcons from 'virtual:svg-icons-names'
+import { SvgIcon } from '@components/common'
 
 // 没有使用别名引入，是因为WebStorm当前版本还不能正确识别，会报unused警告
 const AInput = Input

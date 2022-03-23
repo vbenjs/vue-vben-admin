@@ -2,9 +2,9 @@
   <SvgIcon
     :size="size"
     :name="getSvgIcon"
-    v-if="isSvgIcon"
     :class="[$attrs.class, 'anticon']"
     :spin="spin"
+    v-if="isSvgIcon"
   />
   <span
     v-else
@@ -25,9 +25,9 @@ import {
   computed,
   CSSProperties,
 } from 'vue'
-import SvgIcon from './SvgIcon.vue'
 import Iconify from '@purge-icons/generated'
 import { isString } from '@pkg/utils'
+import { SvgIcon } from '@components/common'
 
 const SVG_END_WITH_FLAG = '|svg'
 export default defineComponent({
@@ -50,8 +50,8 @@ export default defineComponent({
     const elRef = ref<ElRef>(null)
 
     const isSvgIcon = computed(() => props.icon?.endsWith(SVG_END_WITH_FLAG))
-    const getSvgIcon = computed(() =>
-      props.icon?.replace(SVG_END_WITH_FLAG, ''),
+    const getSvgIcon = computed(
+      () => props.icon?.replace(SVG_END_WITH_FLAG, '') as string,
     )
     const getIconRef = computed(
       () => `${props.prefix ? props.prefix + ':' : ''}${props.icon}`,
