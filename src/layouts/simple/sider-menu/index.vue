@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="containerRef">
     <div class="menus">
       <div class="mb-8 pt-5 flex flex-col items-center">
         <Avatar
@@ -14,6 +14,9 @@
         <span @click="handleClick(PageEnum.USER_CENTER)" class="mt-2 cursor-pointer">
           {{ getUserInfo.nickname }}
         </span>
+        <div class="text-center">
+          {{ getUserInfo.company }}
+        </div>
       </div>
       <Menu v-model:selectedKeys="selectedKeys" mode="inline">
         <MenuItem
@@ -40,8 +43,8 @@
   const go = useGo();
   const userStore = useUserStore();
   const getUserInfo = computed(() => {
-    const { nickname = '', avatar } = userStore.getUserInfo || {};
-    return { nickname, avatar: avatar };
+    const { nickname = '', avatar, company } = userStore.getUserInfo || {};
+    return { nickname, avatar: avatar, company };
   });
   const route = useRoute();
   const selectedKeys = ref<string[]>([]);

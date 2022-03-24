@@ -7,18 +7,38 @@ const meeting: AppRouteModule = {
   path: '/meeting',
   name: 'Meeting',
   component: LAYOUT,
-  redirect: '/meeting/index',
+  redirect: '/meeting/manager',
   meta: {
-    title: t('routes.dashboard.dashboard'),
+    title: t('routes.meeting.MeetingManager'),
   },
   children: [
     {
-      path: 'index',
-      name: 'MeetingIndex',
-      component: () => import('/@/views/dashboard/home/index.vue'),
+      path: 'manager',
+      name: 'MeetingManager',
+      component: () => import('/@/views/meeting/index.vue'),
       meta: {
-        title: t('routes.dashboard.home'),
+        title: t('routes.meeting.MeetingManager'),
       },
+
+      children: [
+        {
+          path: 'add/:id',
+          name: 'MeetingManagerAdd',
+          component: () => import('/@/views/meeting/add/index.vue'),
+          meta: {
+            title: t('routes.meeting.MeetingManagerAdd'),
+          },
+        },
+
+        {
+          path: 'show/:id',
+          name: 'MeetingManagerShow',
+          component: () => import('/@/views/meeting/show/index.vue'),
+          meta: {
+            title: t('routes.meeting.MeetingManagerShow'),
+          },
+        },
+      ],
     },
   ],
 };

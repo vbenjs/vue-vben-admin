@@ -35,6 +35,7 @@ export interface UserInfo {
   uuid: string;
   username: string;
   nickname: string;
+  company: string;
   avatar: string;
   email: string;
   phone: string;
