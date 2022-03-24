@@ -1,4 +1,5 @@
 import { MeetingHotelItem } from './hotelModel';
+import { MeetingRegisterItem } from './registerModel';
 
 export interface MeetingManagerItem {
   id: number;
@@ -22,6 +23,7 @@ export interface MeetingManagerItem {
   register_start_time: string;
   register_end_time: string;
   register_status: 'future' | 'started' | 'end';
+  has_registered: MeetingRegisterItem;
 
   // for form
   register_time: {
