@@ -4,7 +4,7 @@
 -->
 <template>
   <Dropdown
-    placement="bottomCenter"
+    placement="bottom"
     :trigger="['click']"
     :dropMenuList="localeList"
     :selectedKeys="selectedKeys"
