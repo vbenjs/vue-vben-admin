@@ -12,8 +12,17 @@ export enum PageEnum {
   USER_CENTER = '/user/center',
   // 会议列表
   MEETING_MANAGER = '/meeting/manager',
-  // 报名会议
-  MEETING_MANAGER_ADD = '/meeting/manager/add/',
   // 会议详情
   MEETING_MANAGER_SHOW = '/meeting/manager/show/',
+
+  // 报名会议列表
+  MEETING_REGISTER = '/meeting/register',
+  // 报名会议 + 会议ID
+  MEETING_REGISTER_ADD = '/meeting/register/add/',
+  // 更新会议 + 报名ID
+  MEETING_REGISTER_EDIT = '/meeting/register/edit/',
+  // 支付会议报名费 + 报名ID
+  MEETING_REGISTER_PAY = '/meeting/register/pay/',
+  // 会议报名详情 + 报名ID
+  MEETING_REGISTER_SHOW = '/meeting/register/show/',
 }

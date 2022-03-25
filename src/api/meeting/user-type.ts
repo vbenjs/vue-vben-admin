@@ -3,7 +3,7 @@ import type { MeetingUserType } from './model/userTypeModel';
 import { defHttp } from '/@/utils/http/axios';
 
 enum Api {
-  UserType = '/admin/v1/meeting/user_types',
+  UserType = '/api/v1/meeting/user_types',
 }
 
 /**

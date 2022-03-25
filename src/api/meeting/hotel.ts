@@ -4,7 +4,7 @@ import type { MeetingHotelItem } from './model/hotelModel';
 import { defHttp } from '/@/utils/http/axios';
 
 enum Api {
-  Hotel = '/admin/v1/meeting/hotels',
+  Hotel = '/api/v1/meeting/hotels',
 }
 
 /**

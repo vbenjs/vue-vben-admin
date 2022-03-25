@@ -10,6 +10,10 @@ const sideOptions = [
     path: PageEnum.MEETING_MANAGER,
   },
   {
+    name: '我的会议',
+    path: PageEnum.MEETING_REGISTER,
+  },
+  {
     name: '个人资料',
     path: PageEnum.USER_CENTER,
   },

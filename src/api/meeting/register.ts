@@ -4,7 +4,7 @@ import type { MeetingRegisterItem } from './model/registerModel';
 import { defHttp } from '/@/utils/http/axios';
 
 enum Api {
-  Register = '/admin/v1/meeting/registers',
+  Register = '/api/v1/meeting/registers',
 }
 
 /**

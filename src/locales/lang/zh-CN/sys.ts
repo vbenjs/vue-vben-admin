@@ -21,7 +21,7 @@ export default {
     errMsg504: '网络超时!',
     errMsg505: 'http版本不支持该请求!',
   },
-  app: { logoutTip: '温馨提醒', logoutMessage: '是否确认退出系统?', menuLoading: '菜单加载中...' },
+  app: { logoutTip: '温馨提醒', logoutMessage: '是否确认退出?', menuLoading: '菜单加载中...' },
   errorLog: {
     tableTitle: '错误日志列表',
     tableColumnType: '类型',

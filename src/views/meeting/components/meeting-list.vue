@@ -23,20 +23,6 @@
               <RouterLink class="text-gray-700" :to="PageEnum.MEETING_MANAGER_SHOW + item.id">
                 {{ item.title }}
               </RouterLink>
-              <div>
-                <Tag
-                  color="processing"
-                  v-if="item?.has_registered && item.has_registered.status === 0"
-                >
-                  已报名，等待确认
-                </Tag>
-                <Tag
-                  color="#87d068"
-                  v-if="item?.has_registered && item.has_registered.status === 99"
-                >
-                  已报名
-                </Tag>
-              </div>
             </div>
             <p class="text-gray-500">{{ item.description }}</p>
             <Space>
@@ -66,7 +52,7 @@
 
 <script setup lang="ts">
   import { getMeetingManager } from '/@/api/meeting/manager';
-  import { List, ListItem, Button, Pagination, BackTop, Space, Tag } from 'ant-design-vue';
+  import { List, ListItem, Button, Pagination, BackTop, Space } from 'ant-design-vue';
   import { onMounted, reactive, ref } from 'vue';
   import type { MeetingManagerItem } from '/@/api/meeting/model/managerModel';
   import type { BasicFetchResult } from '/@/api/model/baseModel';
