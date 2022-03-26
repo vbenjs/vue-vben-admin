@@ -120,9 +120,6 @@ export default {
     backPage: '页面权限',
     backBtn: '按钮权限',
   },
-  setup: {
-    page: '引导页',
-  },
   system: {
     moduleName: '系统管理',
     account: '账号管理',

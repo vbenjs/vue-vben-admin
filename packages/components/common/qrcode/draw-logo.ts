@@ -1,5 +1,6 @@
+import type { RenderQrCodeParams, LogoType } from './typing'
 import { isString } from '@pkg/utils'
-import { RenderQrCodeParams, LogoType } from './typing'
+
 export const drawLogo = ({ canvas, logo }: RenderQrCodeParams) => {
   if (!logo) {
     return new Promise((resolve) => {

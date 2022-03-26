@@ -1,7 +1,7 @@
-import { toCanvas } from 'qrcode'
 import type { QRCodeRenderersOptions } from 'qrcode'
-import { RenderQrCodeParams, ContentType } from './typing'
+import type { RenderQrCodeParams, ContentType } from './typing'
 import { cloneDeep } from '@pkg/utils'
+import { toCanvas } from 'qrcode'
 
 export const renderQrCode = ({
   canvas,

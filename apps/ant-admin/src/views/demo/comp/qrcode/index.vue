@@ -4,21 +4,21 @@
       <CollapseContainer
         title="基础示例"
         :canExpan="true"
-        class="text-center mb-6 qrcode-demo-item"
+        class="mb-6 text-center qrcode-demo-item"
       >
         <QrCode :value="qrCodeUrl" />
       </CollapseContainer>
 
       <CollapseContainer
         title="渲染成img标签示例"
-        class="text-center mb-6 qrcode-demo-item"
+        class="mb-6 text-center qrcode-demo-item"
       >
         <QrCode :value="qrCodeUrl" tag="img" />
       </CollapseContainer>
 
       <CollapseContainer
         title="配置样式示例"
-        class="text-center mb-6 qrcode-demo-item"
+        class="mb-6 text-center qrcode-demo-item"
       >
         <QrCode
           :value="qrCodeUrl"
@@ -30,14 +30,14 @@
 
       <CollapseContainer
         title="本地logo示例"
-        class="text-center mb-6 qrcode-demo-item"
+        class="mb-6 text-center qrcode-demo-item"
       >
         <QrCode :value="qrCodeUrl" :logo="LogoImg" />
       </CollapseContainer>
 
       <CollapseContainer
         title="在线logo示例"
-        class="text-center mb-6 qrcode-demo-item"
+        class="mb-6 text-center qrcode-demo-item"
       >
         <QrCode
           :value="qrCodeUrl"
@@ -50,7 +50,7 @@
 
       <CollapseContainer
         title="logo配置示例"
-        class="text-center mb-6 qrcode-demo-item"
+        class="mb-6 text-center qrcode-demo-item"
       >
         <QrCode
           :value="qrCodeUrl"
@@ -103,7 +103,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, unref } from 'vue'
-import { QrCode, QrCodeActionType } from '@/components/qrcode'
+import { QrCode, QrCodeActionType } from '@components/common'
 import LogoImg from '@/assets/images/logo.png'
 import { CollapseContainer } from '@/components/container'
 import { PageWrapper } from '@/components/page'

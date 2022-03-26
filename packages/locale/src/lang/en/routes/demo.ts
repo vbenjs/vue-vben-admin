@@ -126,9 +126,6 @@ export default {
     backPage: 'Page',
     backBtn: 'Button',
   },
-  setup: {
-    page: 'Intro page',
-  },
   system: {
     moduleName: 'System management',
 

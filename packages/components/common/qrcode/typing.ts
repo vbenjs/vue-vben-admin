@@ -1,7 +1,6 @@
 import type { QRCodeSegment, QRCodeRenderersOptions } from 'qrcode'
 
 export type ContentType = string | QRCodeSegment[]
-
 export type { QRCodeRenderersOptions }
 
 export type LogoType = {

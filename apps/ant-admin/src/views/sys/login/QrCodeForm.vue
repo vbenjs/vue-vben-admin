@@ -2,7 +2,7 @@
 import { computed, unref } from 'vue'
 import LoginFormTitle from './LoginFormTitle.vue'
 import { Button, Divider } from 'ant-design-vue'
-import { QrCode } from '@/components/qrcode/index'
+import { QrCode } from '@components/common'
 import { useI18n } from '@pkg/locale'
 import { useLoginState, LoginStateEnum } from './useLogin'
 
@@ -20,7 +20,7 @@ const getShow = computed(() => unref(getLoginState) === LoginStateEnum.QR_CODE)
     <div class="enter-x min-w-64 min-h-64">
       <QrCode
         :value="qrCodeUrl"
-        class="enter-x flex justify-center xl:justify-start"
+        class="flex justify-center enter-x xl:justify-start"
         :width="280"
       />
       <Divider class="enter-x">{{ t('sys.login.scanSign') }}</Divider>
