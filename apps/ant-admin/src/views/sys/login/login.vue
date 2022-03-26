@@ -5,11 +5,11 @@ import { AppLocalePicker, AppDarkModeToggle } from '@/components/application'
 import { getGlobalConfig } from '@/internal'
 import { useI18n, showLocalePicker } from '@pkg/locale'
 import { useDesign } from '@/hooks/web/useDesign'
-import LoginForm from './LoginForm.vue'
-import ForgetPasswordForm from './ForgetPasswordForm.vue'
-import RegisterForm from './RegisterForm.vue'
-import MobileForm from './MobileForm.vue'
-import QrCodeForm from './QrCodeForm.vue'
+import LoginForm from './login-form.vue'
+import ForgetPasswordForm from './forget-password-form.vue'
+import RegisterForm from './register-form.vue'
+import MobileForm from './mobile-form.vue'
+import QrCodeForm from './qrcode-form.vue'
 
 defineProps({
   sessionTimeout: {

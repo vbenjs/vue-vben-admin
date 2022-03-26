@@ -17,7 +17,7 @@ import {
   GoogleCircleFilled,
   TwitterCircleFilled,
 } from '@ant-design/icons-vue'
-import LoginFormTitle from './LoginFormTitle.vue'
+import LoginFormTitle from './login-form-title.vue'
 
 import { useI18n } from '@pkg/locale'
 import { useMessage } from '@/hooks/web/useMessage'
@@ -27,7 +27,7 @@ import {
   useLoginState,
   useFormRules,
   useFormValid,
-} from './useLogin'
+} from './use-login'
 import { useDesign } from '@/hooks/web/useDesign'
 
 const ACol = Col

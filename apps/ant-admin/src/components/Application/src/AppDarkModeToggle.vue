@@ -34,8 +34,8 @@ function toggleDarkMode() {
 <template>
   <div v-if="getShowDarkModeToggle" :class="getClass" @click="toggleDarkMode">
     <div :class="`${prefixCls}-inner`"></div>
-    <SvgIcon size="14" name="sun" />
-    <SvgIcon size="14" name="moon" />
+    <svg-icon size="14" icon="sun" />
+    <svg-icon size="14" icon="moon" />
   </div>
 </template>
 <style lang="less" scoped>

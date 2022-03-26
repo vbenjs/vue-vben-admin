@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { computed, unref } from 'vue'
-import LoginFormTitle from './LoginFormTitle.vue'
+import LoginFormTitle from './login-form-title.vue'
 import { Button, Divider } from 'ant-design-vue'
 import { QrCode } from '@components/common'
 import { useI18n } from '@pkg/locale'
-import { useLoginState, LoginStateEnum } from './useLogin'
+import { useLoginState, LoginStateEnum } from './use-login'
 
 const qrCodeUrl = 'https://vvbin.cn/next/login'
 

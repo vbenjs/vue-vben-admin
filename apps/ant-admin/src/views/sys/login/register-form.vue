@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { reactive, ref, unref, computed } from 'vue'
-import LoginFormTitle from './LoginFormTitle.vue'
+import LoginFormTitle from './login-form-title.vue'
 import { Form, Input, Button, Checkbox } from 'ant-design-vue'
 import { CountdownInput } from '@/components/count-down'
 import { useI18n } from '@pkg/locale'
@@ -9,7 +9,7 @@ import {
   useFormRules,
   useFormValid,
   LoginStateEnum,
-} from './useLogin'
+} from './use-login'
 
 const FormItem = Form.Item
 const InputPassword = Input.Password

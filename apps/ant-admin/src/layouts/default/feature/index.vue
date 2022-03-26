@@ -6,7 +6,7 @@ import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting'
 import { useDesign } from '@/hooks/web/useDesign'
 import { useUserStoreWithOut } from '@/store/user'
 import { SettingButtonPositionEnum } from '@pkg/tokens'
-import SessionTimeoutLogin from '@/views/sys/login/SessionTimeoutLogin.vue'
+import SessionTimeoutLogin from '@/views/sys/login/session-timeout.vue'
 import LayoutLockPage from '@/views/sys/lock/index.vue'
 import SettingDrawer from '@/layouts/default/setting/index.vue'
 export default defineComponent({

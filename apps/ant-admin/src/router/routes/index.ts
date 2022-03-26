@@ -28,7 +28,7 @@ export const RootRoute: RouteRecordItem = {
 export const LoginRoute: RouteRecordItem = {
   path: '/login',
   name: 'Login',
-  component: () => import('@/views/sys/login/Login.vue'),
+  component: () => import('@/views/sys/login/login.vue'),
   meta: {
     title: t('routes.basic.login'),
   },

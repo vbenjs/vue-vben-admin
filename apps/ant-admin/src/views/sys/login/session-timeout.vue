@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import Login from './Login.vue'
+import Login from './login.vue'
 import { useDesign } from '@/hooks/web/useDesign'
 import { useUserStore } from '@/store/user'
 import { usePermissionStore } from '@/store/permission'

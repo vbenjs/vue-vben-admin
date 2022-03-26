@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, unref } from 'vue'
 import { useI18n } from '@pkg/locale'
-import { LoginStateEnum, useLoginState } from './useLogin'
+import { LoginStateEnum, useLoginState } from './use-login'
 
 const { t } = useI18n()
 
