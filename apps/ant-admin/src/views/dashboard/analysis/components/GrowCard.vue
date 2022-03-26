@@ -19,12 +19,12 @@
             :endVal="item.value"
             class="text-2xl"
           />
-          <Icon :icon="item.icon" :size="40" />
+          <svg-icon :icon="item.icon" :size="40" />
         </div>
 
         <div class="flex justify-between p-2 px-4">
           <span>总{{ item.title }}</span>
-          <CountTo prefix="$" :startVal="1" :endVal="item.total" />
+          <count-to prefix="$" :startVal="1" :endVal="item.total" />
         </div>
       </Card>
     </template>
@@ -32,13 +32,11 @@
 </template>
 <script lang="ts" setup>
 import { CountTo } from '@components/common'
-import { Icon } from '@components/common'
+import { SvgIcon } from '@components/common'
 import { Tag, Card } from 'ant-design-vue'
 import { growCardList } from '../data'
 
 defineProps({
-  loading: {
-    type: Boolean,
-  },
+  loading: { type: Boolean },
 })
 </script>

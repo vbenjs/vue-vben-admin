@@ -1,5 +1,4 @@
-import 'ant-design-vue/dist/antd.less'
-import '@/styles/index.less'
+import '@/styles'
 // Register icon sprite
 import 'virtual:svg-icons-register'
 import App from './app.vue'

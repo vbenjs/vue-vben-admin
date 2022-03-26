@@ -95,10 +95,10 @@ import {
   Tooltip,
   Slider,
   Avatar,
+  Button,
 } from 'ant-design-vue'
 import { Dropdown } from '@/components/dropdown'
 import { BasicForm, useForm } from '@/components/form'
-import { Button } from '@/components/button'
 import { isFunction } from '@pkg/utils'
 import { useSlider, grid } from './data'
 const ListItem = List.Item

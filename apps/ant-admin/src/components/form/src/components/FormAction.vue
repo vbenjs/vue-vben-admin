@@ -47,11 +47,11 @@
   </a-col>
 </template>
 <script lang="ts">
+import type { PropType } from 'vue'
 import type { ColEx } from '../types/index'
-//import type { ButtonProps } from 'ant-design-vue/es/button/buttonTypes';
-import { defineComponent, computed, PropType } from 'vue'
-import { Form, Col } from 'ant-design-vue'
-import { Button, ButtonProps } from '@/components/button'
+import type { ButtonProps } from 'ant-design-vue'
+import { defineComponent, computed } from 'vue'
+import { Form, Col, Button } from 'ant-design-vue'
 import { BasicArrow } from '@/components/basic'
 import { useFormContext } from '../hooks/useFormContext'
 import { useI18n } from '@pkg/locale'

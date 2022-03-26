@@ -9,7 +9,10 @@ import { configVitePlugins } from './plugins'
 import { createPreset } from './presets'
 import { OUTPUT_DIR } from './constants'
 import dayjs from 'dayjs'
+
 export * from './constants'
+
+export type ViteConfig = Promise<UserConfig | UserConfigFn>
 
 export async function createViteConfig(
   cwd: string,

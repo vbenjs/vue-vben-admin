@@ -10,7 +10,6 @@ export default {
   },
   comp: {
     comp: 'Component',
-    basic: 'Basic',
     countTo: 'Count To',
 
     scroll: 'Scroll',

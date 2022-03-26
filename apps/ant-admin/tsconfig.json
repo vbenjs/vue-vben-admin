@@ -10,6 +10,5 @@
     "lib": ["dom", "esnext"],
     "types": ["vite/client"]
   },
-  "include": ["src", "build", "mock", "vite.config.ts"],
-  "exclude": ["**/node_modules/**", "**/dist/**"]
+  "include": ["src", "mock", "vite.config.ts"]
 }

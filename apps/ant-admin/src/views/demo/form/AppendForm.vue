@@ -16,7 +16,7 @@ import { BasicForm, useForm } from '@/components/form/index'
 import { CollapseContainer } from '@/components/container/index'
 import { Input } from 'ant-design-vue'
 import { PageWrapper } from '@/components/page'
-import { Button } from '@/components/button'
+import { Button } from 'ant-design-vue'
 
 export default defineComponent({
   components: {

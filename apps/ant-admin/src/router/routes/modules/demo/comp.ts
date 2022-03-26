@@ -14,15 +14,6 @@ const comp: RouteRecordItem = {
 
   children: [
     {
-      path: 'basic',
-      name: 'BasicDemo',
-      component: () => import('@/views/demo/comp/button/index.vue'),
-      meta: {
-        title: t('routes.demo.comp.basic'),
-      },
-    },
-
-    {
       path: 'form',
       name: 'FormDemo',
       redirect: '/comp/form/basic',

@@ -61,9 +61,8 @@ import {
   Tree,
   // Typography,
   Upload,
+  Button,
 } from 'ant-design-vue'
-
-import { Button } from '@/components/button'
 
 export const registerGlobalComponents = (app: App) => {
   app

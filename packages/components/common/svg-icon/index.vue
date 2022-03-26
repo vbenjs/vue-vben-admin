@@ -10,7 +10,7 @@ const props = defineProps({
     type: String,
     default: 'icon',
   },
-  name: {
+  icon: {
     type: String,
     required: true,
   },
@@ -26,7 +26,7 @@ const props = defineProps({
 
 const [bem] = createBEM('svg-icon')
 
-const symbolId = computed(() => `#${props.prefix}-${props.name}`)
+const symbolId = computed(() => `#${props.prefix}-${props.icon}`)
 
 const classes = computed(() => {
   const cls = [bem(), unref(attrs).class]

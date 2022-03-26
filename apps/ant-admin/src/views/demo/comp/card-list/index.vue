@@ -14,8 +14,8 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
+import { Button } from 'ant-design-vue'
 import { CardList } from '@/components/card-list'
-import { Button } from '@/components/button'
 import { PageWrapper } from '@/components/page'
 import { demoListApi } from '@pkg/apis/demo'
 import { useMessage } from '@/hooks/web/useMessage'

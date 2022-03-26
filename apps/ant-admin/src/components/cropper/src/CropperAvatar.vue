@@ -48,8 +48,8 @@ import { useDesign } from '@/hooks/web/useDesign'
 import { useModal } from '@/components/modal'
 import { useMessage } from '@/hooks/web/useMessage'
 import { useI18n } from '@pkg/locale'
-import type { ButtonProps } from '@/components/button'
 import { Icon } from '@components/common'
+import type { ButtonProps } from 'ant-design-vue'
 
 const props = {
   width: { type: [String, Number], default: '200px' },
