@@ -190,10 +190,12 @@
         const component = unref(getComponent);
         if (!e) {
           currentValueRef.value = e;
-        } else if (e?.target && Reflect.has(e.target, 'value')) {
-          currentValueRef.value = (e as ChangeEvent).target.value;
         } else if (component === 'Checkbox') {
           currentValueRef.value = (e as ChangeEvent).target.checked;
+        } else if (component === 'Switch') {
+          currentValueRef.value = e;
+        } else if (e?.target && Reflect.has(e.target, 'value')) {
+          currentValueRef.value = (e as ChangeEvent).target.value;
         } else if (isString(e) || isBoolean(e) || isNumber(e)) {
           currentValueRef.value = e;
         }
