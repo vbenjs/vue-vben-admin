@@ -21,6 +21,7 @@
       :rowClassName="getRowClassName"
       v-show="getEmptyDataIsShowTable"
       @change="handleTableChange"
+      @resizeColumn="handleResizeColumn"
     >
       <template #[item]="data" v-for="item in Object.keys($slots)" :key="item">
         <slot :name="item" v-bind="data || {}"></slot>
@@ -42,7 +43,7 @@
     ColumnChangeParam,
   } from './types/table';
 
-  import { defineComponent, ref, computed, unref, toRaw, inject, watchEffect } from 'vue';
+  import { defineComponent, ref, computed, unref, toRaw, inject, reactive, watchEffect } from 'vue';
   import { Table } from 'ant-design-vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { PageWrapperFixedHeightKey } from '/@/components/Page';
@@ -183,6 +184,7 @@
         getCacheColumns,
       } = useColumns(getProps, getPaginationInfo);
 
+      console.log(getViewColumns);
       const { getScrollRef, redoHeight } = useTableScroll(
         getProps,
         tableElRef,
@@ -243,7 +245,7 @@
           tableLayout: 'fixed',
           rowSelection: unref(getRowSelectionRef),
           rowKey: unref(getRowKey),
-          columns: toRaw(unref(getViewColumns)),
+          columns: reactive(unref(getViewColumns)),
           pagination: toRaw(unref(getPaginationInfo)),
           dataSource,
           footer: unref(getFooterProps),
@@ -323,6 +325,10 @@
 
       emit('register', tableAction, formActions);
 
+      function handleResizeColumn(w, col) {
+        col.width = w;
+      }
+
       return {
         formRef,
         tableElRef,
@@ -332,6 +338,7 @@
         handleSearchInfoChange,
         getEmptyDataIsShowTable,
         handleTableChange,
+        handleResizeColumn,
         getRowClassName,
         wrapRef,
         tableAction,

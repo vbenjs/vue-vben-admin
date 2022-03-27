@@ -13,6 +13,7 @@ export function getBasicColumns(): BasicColumn[] {
       title: '姓名',
       dataIndex: 'name',
       width: 150,
+      resizable: true,
       filters: [
         { text: 'Male', value: 'male' },
         { text: 'Female', value: 'female' },
