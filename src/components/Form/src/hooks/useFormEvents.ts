@@ -2,7 +2,7 @@ import type { ComputedRef, Ref } from 'vue';
 import type { FormProps, FormSchema, FormActionType } from '../types/form';
 import type { NamePath } from 'ant-design-vue/lib/form/interface';
 import { unref, toRaw, nextTick } from 'vue';
-import { isArray, isFunction, isObject, isString } from '/@/utils/is';
+import { isArray, isFunction, isNullOrUnDef, isObject, isString } from '/@/utils/is';
 import { deepMerge } from '/@/utils';
 import { dateItemType, handleInputNumberValue, defaultValueComponents } from '../helper';
 import { dateUtil } from '/@/utils/dateUtil';
@@ -132,11 +132,14 @@ export function useFormEvents({
     if (!prefixField || index === -1 || first) {
       first ? schemaList.unshift(schema) : schemaList.push(schema);
       schemaRef.value = schemaList;
+      _setDefaultValue(schema);
       return;
     }
     if (index !== -1) {
       schemaList.splice(index + 1, 0, schema);
     }
+    _setDefaultValue(schema);
+
     schemaRef.value = schemaList;
   }
 
@@ -192,7 +195,32 @@ export function useFormEvents({
         }
       });
     });
+    _setDefaultValue(schema);
+
     schemaRef.value = uniqBy(schema, 'field');
+  }
+
+  function _setDefaultValue(data: FormSchema | FormSchema[]) {
+    let schemas: FormSchema[] = [];
+    if (isObject(data)) {
+      schemas.push(data as FormSchema);
+    }
+    if (isArray(data)) {
+      schemas = [...data];
+    }
+
+    const obj: Recordable = {};
+    schemas.forEach((item) => {
+      if (
+        item.component != 'Divider' &&
+        Reflect.has(item, 'field') &&
+        item.field &&
+        !isNullOrUnDef(item.defaultValue)
+      ) {
+        obj[item.field] = item.defaultValue;
+      }
+    });
+    setFieldsValue(obj);
   }
 
   function getFieldsValue(): Recordable {

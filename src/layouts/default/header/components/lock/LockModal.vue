@@ -53,6 +53,9 @@
           {
             field: 'password',
             label: t('layout.header.lockScreenPassword'),
+            colProps: {
+              span: 24,
+            },
             component: 'InputPassword',
             required: true,
           },

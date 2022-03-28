@@ -15,6 +15,9 @@ export const step1Schemas: FormSchema[] = [
         },
       ],
     },
+    colProps: {
+      span: 24,
+    },
   },
   {
     field: 'fac',
@@ -23,6 +26,9 @@ export const step1Schemas: FormSchema[] = [
     required: true,
     defaultValue: 'test@example.com',
     slot: 'fac',
+    colProps: {
+      span: 24,
+    },
   },
   {
     field: 'pay',
@@ -37,6 +43,9 @@ export const step1Schemas: FormSchema[] = [
     label: '收款人姓名',
     defaultValue: 'Vben',
     required: true,
+    colProps: {
+      span: 24,
+    },
   },
   {
     field: 'money',
@@ -49,6 +58,9 @@ export const step1Schemas: FormSchema[] = [
         prefix: () => '￥',
       };
     },
+    colProps: {
+      span: 24,
+    },
   },
 ];
 
@@ -59,5 +71,8 @@ export const step2Schemas: FormSchema[] = [
     label: '支付密码',
     required: true,
     defaultValue: '123456',
+    colProps: {
+      span: 24,
+    },
   },
 ];

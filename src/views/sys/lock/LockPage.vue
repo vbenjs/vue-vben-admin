@@ -5,23 +5,7 @@
   >
     <div
       :class="`${prefixCls}__unlock`"
-      class="
-        absolute
-        top-0
-        left-1/2
-        flex
-        pt-5
-        h-16
-        items-center
-        justify-center
-        sm:text-md
-        xl:text-xl
-        text-white
-        flex-col
-        cursor-pointer
-        transform
-        translate-x-1/2
-      "
+      class="absolute top-0 left-1/2 flex pt-5 h-16 items-center justify-center sm:text-md xl:text-xl text-white flex-col cursor-pointer transform translate-x-1/2"
       @click="handleShowForm(false)"
       v-show="showDate"
     >

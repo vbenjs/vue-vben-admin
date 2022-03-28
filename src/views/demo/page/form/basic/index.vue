@@ -25,12 +25,12 @@
           span: 8,
         },
         wrapperCol: {
-          span: 10,
+          span: 15,
         },
         schemas: schemas,
         actionColOptions: {
           offset: 8,
-          span: 12,
+          span: 23,
         },
         submitButtonOptions: {
           text: '提交',

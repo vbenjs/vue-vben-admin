@@ -66,7 +66,7 @@
           :items="childrenMenus"
           :theme="getMenuTheme"
           mixSider
-          @menuClick="handleMenuClick"
+          @menu-click="handleMenuClick"
         />
       </ScrollContainer>
       <div

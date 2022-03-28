@@ -142,6 +142,9 @@
       field: 'divider-basic',
       component: 'Divider',
       label: '基础字段',
+      colProps: {
+        span: 24,
+      },
     },
     {
       field: 'field1',
@@ -340,6 +343,9 @@
       field: 'divider-api-select',
       component: 'Divider',
       label: '远程下拉演示',
+      colProps: {
+        span: 24,
+      },
     },
     {
       field: 'field30',
@@ -458,6 +464,9 @@
       field: 'divider-linked',
       component: 'Divider',
       label: '字段联动',
+      colProps: {
+        span: 24,
+      },
     },
     {
       field: 'province',
@@ -509,6 +518,9 @@
       component: 'Divider',
       label: '互斥多选',
       helpMessage: ['两个Select共用数据源', '但不可选择对方已选中的项目'],
+      colProps: {
+        span: 24,
+      },
     },
     {
       field: 'selectA',
@@ -531,9 +543,31 @@
       },
     },
     {
+      field: 'divider-deconstruct',
+      component: 'Divider',
+      label: '字段解构',
+      helpMessage: ['如果组件的值是 array 或者 object', '可以根据 ES6 的解构语法分别取值'],
+      colProps: {
+        span: 24,
+      },
+    },
+    {
+      field: '[startTime, endTime]',
+      label: '时间范围',
+      component: 'RangePicker',
+      componentProps: {
+        format: 'YYYY-MM-DD HH:mm:ss',
+        placeholder: ['开始时间', '结束时间'],
+        showTime: { format: 'HH:mm:ss' },
+      },
+    },
+    {
       field: 'divider-others',
       component: 'Divider',
       label: '其它',
+      colProps: {
+        span: 24,
+      },
     },
     {
       field: 'field20',
@@ -602,6 +636,7 @@
           keyword.value = '';
         },
         handleSubmit: (values: any) => {
+          console.log('values', values);
           createMessage.success('click search,values:' + JSON.stringify(values));
         },
         check,
