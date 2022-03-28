@@ -1,4 +1,4 @@
-import xlsx from 'xlsx';
+import * as xlsx from 'xlsx';
 import type { WorkBook } from 'xlsx';
 import type { JsonToSheet, AoAToSheet } from './typing';
 

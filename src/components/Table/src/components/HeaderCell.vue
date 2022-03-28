@@ -29,7 +29,7 @@
       const { prefixCls } = useDesign('basic-table-header-cell');
 
       const getIsEdit = computed(() => !!props.column?.edit);
-      const getTitle = computed(() => props.column?.customTitle);
+      const getTitle = computed(() => props.column?.customTitle || props.column?.title);
       const getHelpMessage = computed(() => props.column?.helpMessage);
 
       return { prefixCls, getIsEdit, getTitle, getHelpMessage };

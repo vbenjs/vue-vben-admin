@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed,defineProps } from 'vue';
+  import { computed, defineProps } from 'vue';
   import showdown from 'showdown';
 
   const converter = new showdown.Converter();
