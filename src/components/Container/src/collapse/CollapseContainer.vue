@@ -24,7 +24,7 @@
 </template>
 <script lang="ts" setup>
   import type { PropType } from 'vue';
-  import { ref, defineExpose } from 'vue';
+  import { ref } from 'vue';
   import { isNil } from 'lodash-es';
   // component
   import { Skeleton } from 'ant-design-vue';
