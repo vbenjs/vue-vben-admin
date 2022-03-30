@@ -30,6 +30,7 @@
         <template #localSearch="{ model, field }">
           <ApiSelect
             :api="optionsListApi"
+            allowClear
             showSearch
             v-model:value="model[field]"
             optionFilterProp="label"
@@ -41,6 +42,7 @@
         <template #remoteSearch="{ model, field }">
           <ApiSelect
             :api="optionsListApi"
+            allowClear
             showSearch
             v-model:value="model[field]"
             :filterOption="false"
