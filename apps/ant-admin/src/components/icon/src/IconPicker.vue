@@ -36,7 +36,7 @@
                   :title="icon"
                 >
                   <!-- <Icon :icon="icon" :prefix="prefix" /> -->
-                  <SvgIcon v-if="isSvgMode" :name="icon" />
+                  <svg-icon v-if="isSvgMode" :icon="icon" />
                   <Icon :icon="icon" v-else />
                 </li>
               </ul>
@@ -63,7 +63,7 @@
           class="flex items-center px-2 py-1 cursor-pointer"
           v-if="isSvgMode && currentSelect"
         >
-          <SvgIcon :name="currentSelect" />
+          <svg-icon :icon="currentSelect" />
         </span>
         <Icon
           :icon="currentSelect || 'ion:apps-outline'"
