@@ -144,11 +144,11 @@ const comp: AppRouteModule = {
           },
         },
         {
-          path: 'customerCell',
-          name: 'CustomerCellDemo',
-          component: () => import('/@/views/demo/table/CustomerCell.vue'),
+          path: 'customCell',
+          name: 'CustomCellDemo',
+          component: () => import('/@/views/demo/table/CustomCell.vue'),
           meta: {
-            title: t('routes.demo.table.customerCell'),
+            title: t('routes.demo.table.customCell'),
           },
         },
         {

@@ -184,7 +184,7 @@ export default {
     treeTable: 'Tree',
     fetchTable: 'Remote loading',
     fixedColumn: 'Fixed column',
-    customerCell: 'Custom column',
+    customCell: 'Custom column',
     formTable: 'Open search',
     useTable: 'UseTable',
     refTable: 'RefTable',

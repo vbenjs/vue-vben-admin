@@ -175,7 +175,7 @@ export default {
     treeTable: '树形表格',
     fetchTable: '远程加载示例',
     fixedColumn: '固定列',
-    customerCell: '自定义列',
+    customCell: '自定义列',
     formTable: '开启搜索区域',
     useTable: 'UseTable',
     refTable: 'RefTable',
