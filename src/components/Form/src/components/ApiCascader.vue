@@ -6,6 +6,7 @@
     change-on-select
     @change="handleChange"
     :displayRender="handleRenderDisplay"
+    @dropdown-visible-change="handleFetch"
   >
     <template #suffixIcon v-if="loading">
       <LoadingOutlined spin />
@@ -169,6 +170,13 @@
         { deep: true },
       );
 
+      async function handleFetch(visible) {
+        if (visible && !props.immediate && unref(isFirstLoad)) {
+          await initialFetch();
+          isFirstLoad.value = false;
+        }
+      }
+
       function handleChange(keys, args) {
         emitData.value = keys;
         emit('defaultChange', keys, args);
@@ -189,6 +197,7 @@
         options,
         loading,
         t,
+        handleFetch,
         handleChange,
         loadData,
         handleRenderDisplay,
