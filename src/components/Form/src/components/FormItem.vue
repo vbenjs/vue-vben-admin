@@ -186,6 +186,10 @@
           (rule) => Reflect.has(rule, 'required') && !Reflect.has(rule, 'validator'),
         );
 
+        if (requiredRuleIndex === -1 && getRequired) {
+          rules.push({ required: getRequired, validator });
+        }
+
         if (requiredRuleIndex !== -1) {
           const rule = rules[requiredRuleIndex];
           const { isShow } = getShow();
