@@ -130,6 +130,10 @@ export const treeProps = buildProps({
   checkOnSearch: Boolean,
   // 搜索完成自动select所有结果
   selectedOnSearch: Boolean,
+  loading: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export type TreeProps = ExtractPropTypes<typeof treeProps>;

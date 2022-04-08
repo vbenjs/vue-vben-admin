@@ -14,7 +14,7 @@
     onMounted,
   } from 'vue';
   import TreeHeader from './TreeHeader.vue';
-  import { Tree, Empty } from 'ant-design-vue';
+  import { Tree, Spin, Empty } from 'ant-design-vue';
   import { TreeIcon } from './TreeIcon';
   import { ScrollContainer } from '/@/components/Container';
   import { omit, get, difference, cloneDeep } from 'lodash-es';
@@ -426,10 +426,16 @@
                 {extendSlots(slots)}
               </TreeHeader>
             )}
-            <ScrollContainer style={scrollStyle} v-show={!unref(getNotFound)}>
-              <Tree {...unref(getBindValues)} showIcon={false} treeData={treeData.value} />
-            </ScrollContainer>
-            <Empty v-show={unref(getNotFound)} image={Empty.PRESENTED_IMAGE_SIMPLE} class="!mt-4" />
+            <Spin spinning={unref(props.loading)} tip="加载中...">
+              <ScrollContainer style={scrollStyle} v-show={!unref(getNotFound)}>
+                <Tree {...unref(getBindValues)} showIcon={false} treeData={treeData.value} />
+              </ScrollContainer>
+              <Empty
+                v-show={unref(getNotFound)}
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                class="!mt-4"
+              />
+            </Spin>
           </div>
         );
       };

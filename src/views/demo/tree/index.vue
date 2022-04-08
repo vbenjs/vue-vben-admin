@@ -32,7 +32,7 @@
           :load-data="onLoadData"
         />
       </Col>
-      <Col :span="16">
+      <Col :span="8">
         <Card title="异步数据，默认展开">
           <template #extra>
             <a-button @click="loadTreeData" :loading="treeLoading">加载数据</a-button>
@@ -40,6 +40,14 @@
           <Spin :spinning="treeLoading">
             <BasicTree ref="asyncExpandTreeRef" :treeData="tree2" />
           </Spin>
+        </Card>
+      </Col>
+      <Col :span="8">
+        <Card title="BasicTree内置加载">
+          <template #extra>
+            <a-button @click="loadTreeData2" :loading="treeLoading">请求数据</a-button>
+          </template>
+          <BasicTree ref="loadTreeRef" :treeData="tree2" :loading="treeLoading" />
         </Card>
       </Col>
     </Row>
@@ -58,6 +66,7 @@
     setup() {
       const asyncTreeRef = ref<Nullable<TreeActionType>>(null);
       const asyncExpandTreeRef = ref<Nullable<TreeActionType>>(null);
+      const loadTreeRef = ref<Nullable<TreeActionType>>(null);
       const tree2 = ref<TreeItem[]>([]);
       const treeLoading = ref(false);
 
@@ -77,6 +86,15 @@
             console.log(unref(asyncExpandTreeRef));
             unref(asyncExpandTreeRef)?.expandAll(true);
           });
+        }, 2000);
+      }
+      function loadTreeData2() {
+        treeLoading.value = true;
+        // 以下是模拟异步获取数据
+        setTimeout(() => {
+          // 设置数据源
+          tree2.value = cloneDeep(treeData);
+          treeLoading.value = false;
         }, 2000);
       }
 
@@ -119,9 +137,11 @@
         onLoadData,
         asyncTreeRef,
         asyncExpandTreeRef,
+        loadTreeRef,
         tree2,
         loadTreeData,
         treeLoading,
+        loadTreeData2,
       };
     },
   });
