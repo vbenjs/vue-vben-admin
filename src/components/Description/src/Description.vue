@@ -122,7 +122,7 @@
               }
               const getField = get(_data, field);
               if (getField && !toRefs(_data).hasOwnProperty(field)) {
-                return '';
+                return isFunction(render) ? render('', _data) : '';
               }
               return isFunction(render) ? render(getField, _data) : getField ?? '';
             };
