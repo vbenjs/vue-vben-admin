@@ -11,10 +11,9 @@
     collapsible
     :class="getSiderClass"
     :width="getMenuWidth"
-    :collapsed="getCollapsed"
-    :collapsedWidth="getCollapsedWidth"
+    :collapsed="isCollapsed"
+    :collapsed-width="getMiniWidthNumber"
     :theme="getMenuTheme"
-    @breakpoint="onBreakpointChange"
     :trigger="getTrigger"
     v-bind="getTriggerAttr"
   >
@@ -35,7 +34,7 @@
   import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
 
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
-  import { useTrigger, useDragLine, useSiderEvent } from './useLayoutSider';
+  import { useTrigger, useDragLine } from './useLayoutSider';
   import { useAppInject } from '/@/hooks/web/useAppInject';
   import { useDesign } from '/@/hooks/web/useDesign';
 
@@ -57,7 +56,9 @@
         getMenuFixed,
         getIsMixMode,
         toggleCollapsed,
+        getMiniWidthNumber,
       } = useMenuSetting();
+      const isCollapsed = computed(() => (unref(getIsMobile) ? false : unref(getCollapsed)));
 
       const { prefixCls } = useDesign('layout-sideBar');
 
@@ -66,8 +67,6 @@
       const { getTriggerAttr, getShowTrigger } = useTrigger(getIsMobile);
 
       useDragLine(sideRef, dragBarRef);
-
-      const { getCollapsedWidth, onBreakpointChange } = useSiderEvent();
 
       const getMode = computed(() => {
         return unref(getSplit) ? MenuModeEnum.INLINE : null;
@@ -116,17 +115,17 @@
         getSiderClass,
         getTrigger,
         getTriggerAttr,
-        getCollapsedWidth,
         getMenuFixed,
         showClassSideBarRef,
         getMenuWidth,
         getCollapsed,
         getMenuTheme,
-        onBreakpointChange,
         getMode,
         getSplitType,
         getShowTrigger,
         toggleCollapsed,
+        isCollapsed,
+        getMiniWidthNumber,
       };
     },
   });
