@@ -381,7 +381,7 @@
           ) : (
             title
           );
-          item.title = (
+          item[titleField] = (
             <span
               class={`${bem('title')} pl-2`}
               onClick={handleClickNode.bind(null, item[keyField], item[childrenField])}
