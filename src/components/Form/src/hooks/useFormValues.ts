@@ -118,7 +118,10 @@ export function useFormValues({
       const { defaultValue } = item;
       if (!isNullOrUnDef(defaultValue)) {
         obj[item.field] = defaultValue;
-        formModel[item.field] = defaultValue;
+
+        if (formModel[item.field] === undefined) {
+          formModel[item.field] = defaultValue;
+        }
       }
     });
     defaultValueRef.value = obj;
