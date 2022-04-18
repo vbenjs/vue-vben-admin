@@ -24,6 +24,7 @@
       params: { type: Object },
       immediate: { type: Boolean, default: true },
       resultField: propTypes.string.def(''),
+      afterFetch: { type: Function as PropType<Fn> },
     },
     emits: ['options-change', 'change'],
     setup(props, { attrs, emit }) {
@@ -61,7 +62,7 @@
       });
 
       async function fetch() {
-        const { api } = props;
+        const { api, afterFetch } = props;
         if (!api || !isFunction(api)) return;
         loading.value = true;
         treeData.value = [];
@@ -70,6 +71,9 @@
           result = await api(props.params);
         } catch (e) {
           console.error(e);
+        }
+        if (afterFetch && isFunction(afterFetch)) {
+          result = afterFetch(result);
         }
         loading.value = false;
         if (!result) return;
