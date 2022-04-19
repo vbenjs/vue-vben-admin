@@ -144,7 +144,7 @@
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
-    "electron": "^11.0.0",
+    "electron": "^18.0.0",
     "electron-builder": "^22.8.0",
     "electron-connect": "^0.6.3",
     "electron-contextmenu-middleware": "^1.0.3",
