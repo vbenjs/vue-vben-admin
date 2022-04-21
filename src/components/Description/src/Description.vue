@@ -3,7 +3,7 @@
   import type { DescriptionsProps } from 'ant-design-vue/es/descriptions/index';
   import type { CSSProperties } from 'vue';
   import type { CollapseContainerOptions } from '/@/components/Container/index';
-  import { defineComponent, computed, ref, unref } from 'vue';
+  import { defineComponent, computed, ref, unref, toRefs } from 'vue';
   import { get } from 'lodash-es';
   import { Descriptions } from 'ant-design-vue';
   import { CollapseContainer } from '/@/components/Container/index';
@@ -121,6 +121,9 @@
                 return null;
               }
               const getField = get(_data, field);
+              if (getField && !toRefs(_data).hasOwnProperty(field)) {
+                return isFunction(render) ? render('', _data) : '';
+              }
               return isFunction(render) ? render(getField, _data) : getField ?? '';
             };
 

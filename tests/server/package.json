@@ -10,8 +10,8 @@
     "stop": "npx pm2 stop ecosystem.config.js"
   },
   "dependencies": {
-    "fs-extra": "^10.0.0",
-    "koa": "^2.13.1",
+    "fs-extra": "^10.0.1",
+    "koa": "^2.13.4",
     "koa-body": "^4.2.0",
     "koa-bodyparser": "^4.3.0",
     "koa-route": "^3.2.0",
@@ -24,13 +24,13 @@
     "@types/koa": "^2.13.4",
     "@types/koa-bodyparser": "^5.0.2",
     "@types/koa-router": "^7.4.4",
-    "@types/node": "^16.9.1",
-    "nodemon": "^2.0.12",
-    "pm2": "^5.1.1",
+    "@types/node": "^17.0.21",
+    "nodemon": "^2.0.15",
+    "pm2": "^5.2.0",
     "rimraf": "^3.0.2",
-    "ts-node": "^10.2.1",
-    "tsconfig-paths": "^3.11.0",
-    "tsup": "^4.14.0",
-    "typescript": "^4.4.3"
+    "ts-node": "^10.7.0",
+    "tsconfig-paths": "^3.14.0",
+    "tsup": "^5.12.1",
+    "typescript": "^4.6.2"
   }
 }

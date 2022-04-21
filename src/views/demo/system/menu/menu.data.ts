@@ -104,8 +104,8 @@ export const formSchema: FormSchema[] = [
     label: '上级菜单',
     component: 'TreeSelect',
     componentProps: {
-      replaceFields: {
-        title: 'menuName',
+      fieldNames: {
+        label: 'menuName',
         key: 'id',
         value: 'id',
       },

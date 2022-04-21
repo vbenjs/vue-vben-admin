@@ -32,6 +32,15 @@ const feat: AppRouteModule = {
       },
     },
     {
+      path: 'request',
+      name: 'RequestDemo',
+      // @ts-ignore
+      component: () => import('/@/views/demo/feat/request-demo/index.vue'),
+      meta: {
+        title: t('routes.demo.feat.requestDemo'),
+      },
+    },
+    {
       path: 'session-timeout',
       name: 'SessionTimeout',
       component: () => import('/@/views/demo/feat/session-timeout/index.vue'),
@@ -53,7 +62,22 @@ const feat: AppRouteModule = {
       component: () => import('/@/views/demo/feat/tabs/index.vue'),
       meta: {
         title: t('routes.demo.feat.tabs'),
+        hideChildrenInMenu: true,
       },
+      children: [
+        {
+          path: 'detail/:id',
+          name: 'TabDetail',
+          component: () => import('/@/views/demo/feat/tabs/TabDetail.vue'),
+          meta: {
+            currentActiveMenu: '/feat/tabs',
+            title: t('routes.demo.feat.tabDetail'),
+            hideMenu: true,
+            dynamicLevel: 3,
+            realPath: '/feat/tabs/detail',
+          },
+        },
+      ],
     },
     {
       path: 'breadcrumb',

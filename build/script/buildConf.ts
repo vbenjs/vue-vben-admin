@@ -3,20 +3,21 @@
  */
 import { GLOB_CONFIG_FILE_NAME, OUTPUT_DIR } from '../constant';
 import fs, { writeFileSync } from 'fs-extra';
-import chalk from 'chalk';
+import colors from 'picocolors';
 
-import { getRootPath, getEnvConfig } from '../utils';
+import { getEnvConfig, getRootPath } from '../utils';
 import { getConfigFileName } from '../getConfigFileName';
 
 import pkg from '../../package.json';
 
-function createConfig(
-  {
-    configName,
-    config,
-    configFileName = GLOB_CONFIG_FILE_NAME,
-  }: { configName: string; config: any; configFileName?: string } = { configName: '', config: {} },
-) {
+interface CreateConfigParams {
+  configName: string;
+  config: any;
+  configFileName?: string;
+}
+
+function createConfig(params: CreateConfigParams) {
+  const { configName, config, configFileName } = params;
   try {
     const windowConf = `window.${configName}`;
     // Ensure that the variable will not be modified
@@ -30,15 +31,15 @@ function createConfig(
     fs.mkdirp(getRootPath(OUTPUT_DIR));
     writeFileSync(getRootPath(`${OUTPUT_DIR}/${configFileName}`), configStr);
 
-    console.log(chalk.cyan(`✨ [${pkg.name}]`) + ` - configuration file is build successfully:`);
-    console.log(chalk.gray(OUTPUT_DIR + '/' + chalk.green(configFileName)) + '\n');
+    console.log(colors.cyan(`✨ [${pkg.name}]`) + ` - configuration file is build successfully:`);
+    console.log(colors.gray(OUTPUT_DIR + '/' + colors.green(configFileName)) + '\n');
   } catch (error) {
-    console.log(chalk.red('configuration file configuration file failed to package:\n' + error));
+    console.log(colors.red('configuration file configuration file failed to package:\n' + error));
   }
 }
 
 export function runBuildConfig() {
   const config = getEnvConfig();
   const configFileName = getConfigFileName(config);
-  createConfig({ config, configName: configFileName });
+  createConfig({ config, configName: configFileName, configFileName: GLOB_CONFIG_FILE_NAME });
 }

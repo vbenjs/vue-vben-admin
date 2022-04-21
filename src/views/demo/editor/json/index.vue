@@ -15,7 +15,7 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref, unref, h } from 'vue';
-  import { CodeEditor, JsonPreview } from '/@/components/CodeEditor';
+  import { CodeEditor, JsonPreview, MODE } from '/@/components/CodeEditor';
   import { PageWrapper } from '/@/components/Page';
   import { Radio, Space, Modal } from 'ant-design-vue';
 
@@ -62,20 +62,20 @@
       ASpace: Space,
     },
     setup() {
-      const modeValue = ref('application/json');
+      const modeValue = ref<MODE>(MODE.JSON);
       const value = ref(jsonData);
 
       function handleModeChange(e: ChangeEvent) {
         const mode = e.target.value;
-        if (mode === 'application/json') {
+        if (mode === MODE.JSON) {
           value.value = jsonData;
           return;
         }
-        if (mode === 'htmlmixed') {
+        if (mode === MODE.HTML) {
           value.value = htmlData;
           return;
         }
-        if (mode === 'javascript') {
+        if (mode === MODE.JS) {
           value.value = jsData;
           return;
         }

@@ -96,8 +96,8 @@ export const accountFormSchema: FormSchema[] = [
     label: '所属部门',
     component: 'TreeSelect',
     componentProps: {
-      replaceFields: {
-        title: 'deptName',
+      fieldNames: {
+        label: 'deptName',
         key: 'id',
         value: 'id',
       },

@@ -58,6 +58,7 @@
   import { createFormContext } from './hooks/useFormContext';
   import { useAutoFocus } from './hooks/useAutoFocus';
   import { useModalContext } from '/@/components/Modal';
+  import { useDebounceFn } from '@vueuse/core';
 
   import { basicProps } from './props';
   import { useDesign } from '/@/hooks/web/useDesign';
@@ -66,7 +67,7 @@
     name: 'BasicForm',
     components: { FormItem, Form, Row, FormAction },
     props: basicProps,
-    emits: ['advanced-change', 'reset', 'submit', 'register'],
+    emits: ['advanced-change', 'reset', 'submit', 'register', 'field-value-change'],
     setup(props, { emit, attrs }) {
       const formModel = reactive<Recordable>({});
       const modalFn = useModalContext();
@@ -122,7 +123,7 @@
             if (!Array.isArray(defaultValue)) {
               schema.defaultValue = dateUtil(defaultValue);
             } else {
-              const def: moment.Moment[] = [];
+              const def: any[] = [];
               defaultValue.forEach((item) => {
                 def.push(dateUtil(item));
               });
@@ -225,6 +226,14 @@
         },
       );
 
+      watch(
+        () => formModel,
+        useDebounceFn(() => {
+          unref(getProps).submitOnChange && handleSubmit();
+        }, 300),
+        { deep: true },
+      );
+
       async function setProps(formProps: Partial<FormProps>): Promise<void> {
         propsRef.value = deepMerge(unref(propsRef) || {}, formProps);
       }
@@ -235,6 +244,7 @@
         if (!validateTrigger || validateTrigger === 'change') {
           validateFields([key]).catch((_) => {});
         }
+        emit('field-value-change', key, value);
       }
 
       function handleEnterPress(e: KeyboardEvent) {

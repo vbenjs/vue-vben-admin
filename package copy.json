@@ -1,0 +1,250 @@
+{
+  "name": "vben-admin",
+  "version": "2.8.0",
+  "author": {
+    "name": "vben",
+    "email": "anncwb@126.com",
+    "url": "https://github.com/anncwb"
+  },
+  "main": "dist/main/build.js",
+  "build": {
+    "appId": "xxx@gmail.com",
+    "electronDownload": {
+      "mirror": "https://npm.taobao.org/mirrors/electron/"
+    },
+    "files": [
+      "!node_modules",
+      "dist/**"
+    ],
+    "asar": false,
+    "mac": {
+      "artifactName": "${productName}_setup_${version}.${ext}",
+      "target": [
+        "dmg"
+      ]
+    },
+    "linux": {
+      "icon": "build/icons/512x512.png",
+      "target": [
+        "deb"
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}_setup_${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false
+    }
+  },
+  "scripts": {
+    "bootstrap": "pnpm install",
+    "serve": "npm run dev",
+    "dev": "vite",
+    "build": "cross-env NODE_ENV=production vite build && esno ./build/script/postBuild.ts",
+    "build:test": "cross-env vite build --mode test && esno ./build/script/postBuild.ts",
+    "build:no-cache": "pnpm clean:cache && npm run build",
+    "dev:app": "esno ./build/script/startElectron.ts --env=development --watch",
+    "build:app": "npm run build && esno ./build/script/startElectron.ts --env=production && electron-builder ",
+    "report": "cross-env REPORT=true npm run build",
+    "type:check": "vue-tsc --noEmit --skipLibCheck",
+    "preview": "npm run build && vite preview",
+    "preview:dist": "vite preview",
+    "log": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "clean:cache": "rimraf node_modules/.cache/ && rimraf node_modules/.vite",
+    "clean:lib": "rimraf node_modules",
+    "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
+    "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
+    "lint:stylelint": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
+    "lint:lint-staged": "lint-staged",
+    "test:unit": "jest",
+    "test:gzip": "npx http-server dist --cors --gzip -c-1",
+    "test:br": "npx http-server dist --cors --brotli -c-1",
+    "reinstall": "rimraf pnpm-lock.yaml && rimraf package.lock.json && rimraf node_modules && npm run bootstrap",
+    "prepare": "husky install",
+    "gen:icon": "esno ./build/generate/icon/index.ts"
+  },
+  "dependencies": {
+    "@ant-design/colors": "^6.0.0",
+    "@ant-design/icons-vue": "^6.1.0",
+    "@antv/g6": "^4.6.4",
+    "@iconify/iconify": "^2.2.1",
+    "@logicflow/core": "^1.1.11",
+    "@logicflow/extension": "^1.1.11",
+    "@vue/runtime-core": "^3.2.31",
+    "@vue/shared": "^3.2.31",
+    "@vueuse/core": "^8.2.5",
+    "@vueuse/shared": "^8.2.5",
+    "@zxcvbn-ts/core": "^2.0.1",
+    "ant-design-vue": "3.1.1",
+    "axios": "^0.26.1",
+    "codemirror": "^5.65.2",
+    "cropperjs": "^1.5.12",
+    "electron-is-dev": "^1.2.0",
+    "crypto-js": "^4.1.1",
+    "dayjs": "^1.11.0",
+    "echarts": "^5.3.2",
+    "intro.js": "^5.1.0",
+    "lodash-es": "^4.17.21",
+    "mockjs": "^1.1.0",
+    "nprogress": "^0.2.0",
+    "path-to-regexp": "^6.2.0",
+    "pinia": "2.0.12",
+    "print-js": "^1.6.0",
+    "qrcode": "^1.5.0",
+    "qs": "^6.10.3",
+    "resize-observer-polyfill": "^1.5.1",
+    "showdown": "^2.0.3",
+    "sortablejs": "^1.15.0",
+    "tinymce": "^5.10.3",
+    "vditor": "^3.8.13",
+    "vue": "^3.2.31",
+    "vue-i18n": "^9.1.9",
+    "vue-json-pretty": "^2.0.6",
+    "vue-router": "^4.0.14",
+    "vue-types": "^4.1.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
+    "@iconify/json": "^2.1.25",
+    "@purge-icons/generated": "^0.8.1",
+    "@rollup/plugin-alias": "^3.1.1",
+    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "@types/codemirror": "^5.60.5",
+    "@types/crypto-js": "^4.1.1",
+    "@types/fs-extra": "^9.0.13",
+    "@types/inquirer": "^8.2.1",
+    "@types/intro.js": "^3.0.2",
+    "@types/jest": "^27.0.1",
+    "@types/lodash-es": "^4.17.6",
+    "@types/mockjs": "^1.0.6",
+    "@types/node": "^17.0.23",
+    "@types/nprogress": "^0.2.0",
+    "@types/qrcode": "^1.4.2",
+    "@types/qs": "^6.9.7",
+    "@types/showdown": "^1.9.4",
+    "@types/sortablejs": "^1.10.7",
+    "@typescript-eslint/eslint-plugin": "^5.18.0",
+    "@typescript-eslint/parser": "^5.18.0",
+    "@vitejs/plugin-legacy": "^1.8.0",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "@vitejs/plugin-vue-jsx": "^1.3.9",
+    "@vue/compiler-sfc": "3.2.31",
+    "@vue/test-utils": "^2.0.0-rc.19",
+    "autoprefixer": "^10.4.4",
+    "commitizen": "^4.2.4",
+    "conventional-changelog-cli": "^2.2.2",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.0",
+    "electron": "^18.0.0",
+    "electron-builder": "^22.8.0",
+    "electron-connect": "^0.6.3",
+    "electron-contextmenu-middleware": "^1.0.3",
+    "electron-input-menu": "^2.1.0",
+    "eslint": "^8.12.0",
+    "eslint-define-config": "^1.0.9",
+    "eslint-plugin-jest": "^24.4.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.6.0",
+    "esno": "^0.14.1",
+    "fs-extra": "^10.0.1",
+    "http-server": "^13.0.1",
+    "husky": "^7.0.4",
+    "inquirer": "^8.2.2",
+    "is-ci": "^3.0.0",
+    "jest": "^27.2.0",
+    "less": "^4.1.2",
+    "lint-staged": "12.3.7",
+    "npm-run-all": "^4.1.5",
+    "picocolors": "^1.0.0",
+    "postcss": "^8.4.12",
+    "postcss-html": "^1.3.0",
+    "postcss-less": "^6.0.0",
+    "prettier": "^2.6.2",
+    "pretty-quick": "^3.1.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.70.1",
+    "rollup-plugin-esbuild": "^4.9.0",
+    "rollup-plugin-visualizer": "^5.6.0",
+    "stylelint": "^14.6.1",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-recommended": "^7.0.0",
+    "stylelint-config-recommended-vue": "^1.4.0",
+    "stylelint-config-standard": "^25.0.0",
+    "stylelint-order": "^5.0.0",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3",
+    "vite": "^2.9.1",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-html": "^3.2.0",
+    "vite-plugin-imagemin": "^0.6.1",
+    "vite-plugin-mkcert": "^1.6.0",
+    "vite-plugin-mock": "^2.9.6",
+    "vite-plugin-purge-icons": "^0.8.1",
+    "vite-plugin-pwa": "^0.11.13",
+    "vite-plugin-style-import": "^2.0.0",
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vite-plugin-theme": "^0.8.6",
+    "wait-on": "^5.2.1",
+    "vite-plugin-vue-setup-extend": "^0.4.0",
+    "vite-plugin-windicss": "^1.8.3",
+    "vue-eslint-parser": "^8.3.0",
+    "vue-tsc": "^0.33.9"
+  },
+  "resolutions": {
+    "bin-wrapper": "npm:bin-wrapper-china",
+    "rollup": "^2.56.3",
+    "gifsicle": "5.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anncwb/vue-vben-admin.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anncwb/vue-vben-admin/issues"
+  },
+  "homepage": "https://github.com/anncwb/vue-vben-admin",
+  "engines": {
+    "node": "^12 || >=14"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "{!(package)*.json,*.code-snippets,.!(browserslist)*rc}": [
+      "prettier --write--parser json"
+    ],
+    "package.json": [
+      "prettier --write"
+    ],
+    "*.vue": [
+      "eslint --fix",
+      "prettier --write",
+      "stylelint --fix"
+    ],
+    "*.{scss,less,styl,html}": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
+  }
+}

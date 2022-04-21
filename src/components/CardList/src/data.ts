@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-//每行个数
+// 每行个数
 export const grid = ref(12);
 // slider属性
 export const useSlider = (min = 6, max = 12) => {

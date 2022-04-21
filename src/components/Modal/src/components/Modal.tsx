@@ -9,7 +9,8 @@ export default defineComponent({
   name: 'Modal',
   inheritAttrs: false,
   props: basicProps,
-  setup(props, { slots }) {
+  emits: ['cancel'],
+  setup(props, { slots, emit }) {
     const { visible, draggable, destroyOnClose } = toRefs(props);
     const attrs = useAttrs();
     useModalDragMove({
@@ -18,8 +19,12 @@ export default defineComponent({
       draggable,
     });
 
+    const onCancel = (e: Event) => {
+      emit('cancel', e);
+    };
+
     return () => {
-      const propsData = { ...unref(attrs), ...props } as Recordable;
+      const propsData = { ...unref(attrs), ...props, onCancel } as Recordable;
       return <Modal {...propsData}>{extendSlots(slots)}</Modal>;
     };
   },

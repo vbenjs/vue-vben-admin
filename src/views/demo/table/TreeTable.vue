@@ -19,7 +19,17 @@
       const [register, { expandAll, collapseAll }] = useTable({
         title: '树形表格',
         isTreeTable: true,
-        rowSelection: { type: 'checkbox' },
+        rowSelection: {
+          type: 'checkbox',
+          getCheckboxProps(record: Recordable) {
+            // Demo: 第一行（id为0）的选择框禁用
+            if (record.id === '0') {
+              return { disabled: true };
+            } else {
+              return { disabled: false };
+            }
+          },
+        },
         titleHelpMessage: '树形组件不能和序列号列同时存在',
         columns: getBasicColumns(),
         dataSource: getTreeTableData(),

@@ -6,7 +6,7 @@
     :openKeys="getOpenKeys"
     :inlineIndent="inlineIndent"
     :theme="theme"
-    @openChange="handleOpenChange"
+    @open-change="handleOpenChange"
     :class="getMenuClass"
     @click="handleMenuClick"
     :subMenuOpenDelay="0.2"
@@ -134,7 +134,9 @@
           isClickGo.value = false;
           return;
         }
-        const path = (route || unref(currentRoute)).path;
+        const path =
+          (route || unref(currentRoute)).meta?.currentActiveMenu ||
+          (route || unref(currentRoute)).path;
         setOpenKeys(path);
         if (unref(currentActiveMenu)) return;
         if (props.isHorizontal && unref(getSplit)) {

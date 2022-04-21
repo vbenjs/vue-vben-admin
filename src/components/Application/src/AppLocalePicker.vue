@@ -4,11 +4,11 @@
 -->
 <template>
   <Dropdown
-    placement="bottomCenter"
+    placement="bottom"
     :trigger="['click']"
     :dropMenuList="localeList"
     :selectedKeys="selectedKeys"
-    @menuEvent="handleMenuEvent"
+    @menu-event="handleMenuEvent"
     overlayClassName="app-locale-picker-overlay"
   >
     <span class="cursor-pointer flex items-center">
