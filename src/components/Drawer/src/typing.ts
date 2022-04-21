@@ -128,13 +128,12 @@ export interface DrawerProps extends DrawerFooterProps {
    * @type any (string | slot)
    */
   title?: VNodeChild | JSX.Element;
-
   /**
    * The class name of the container of the Drawer dialog.
    * @type string
    */
   wrapClassName?: string;
-
+  class?: string;
   /**
    * Style of wrapper element which **contains mask** compare to `drawerStyle`
    * @type object

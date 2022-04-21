@@ -14,7 +14,7 @@ const TAG = '[compiler-electron]';
 
 export function startCompilerElectron(port = 80) {
   // 因为 vite 不会重定向到 index.html，所以直接写 index.html 路由。
-  const ELECTRON_URL = `http://localhost:${port}/index.html`;
+  const ELECTRON_URL = `https://localhost:${port}/index.html`;
 
   const spinner = ora(`${TAG} Electron build...`);
   const electron = electronConnect.server.create({ stopOnClose: true });

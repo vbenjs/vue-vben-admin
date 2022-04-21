@@ -70,3 +70,5 @@ export function handleInputNumberValue(component?: ComponentType, val?: any) {
  * 时间字段
  */
 export const dateItemType = genType();
+
+export const defaultValueComponents = ['Input', 'InputPassword', 'InputSearch', 'InputTextArea'];

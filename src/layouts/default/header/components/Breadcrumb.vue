@@ -106,7 +106,7 @@
             return false;
           }
           return true;
-        }).filter((item) => !item.meta?.hideBreadcrumb || !item.meta?.hideMenu);
+        }).filter((item) => !item.meta?.hideBreadcrumb);
       }
 
       function handleClick(route: RouteLocationMatched, paths: string[], e: Event) {
@@ -169,7 +169,7 @@
         color: @breadcrumb-item-normal-color;
 
         a {
-          color: rgba(0, 0, 0, 0.65);
+          color: rgb(0 0 0 / 65%);
 
           &:hover {
             color: @primary-color;
@@ -184,10 +184,10 @@
 
     &--dark {
       .ant-breadcrumb-link {
-        color: rgba(255, 255, 255, 0.6);
+        color: rgb(255 255 255 / 60%);
 
         a {
-          color: rgba(255, 255, 255, 0.8);
+          color: rgb(255 255 255 / 80%);
 
           &:hover {
             color: @white;
@@ -197,7 +197,7 @@
 
       .ant-breadcrumb-separator,
       .anticon {
-        color: rgba(255, 255, 255, 0.8);
+        color: rgb(255 255 255 / 80%);
       }
     }
   }

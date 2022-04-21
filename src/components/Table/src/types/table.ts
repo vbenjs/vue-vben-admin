@@ -1,10 +1,8 @@
 import type { VNodeChild } from 'vue';
 import type { PaginationProps } from './pagination';
 import type { FormProps } from '/@/components/Form';
-import type {
-  ColumnProps,
-  TableRowSelection as ITableRowSelection,
-} from 'ant-design-vue/lib/table/interface';
+import type { TableRowSelection as ITableRowSelection } from 'ant-design-vue/lib/table/interface';
+import type { ColumnProps } from 'ant-design-vue/lib/table';
 
 import { ComponentType } from './componentType';
 import { VueNode } from '/@/utils/propTypes';
@@ -89,13 +87,15 @@ export interface TableActionType {
   getSelectRows: <T = Recordable>() => T[];
   clearSelectedRowKeys: () => void;
   expandAll: () => void;
+  expandRows: (keys: string[]) => void;
   collapseAll: () => void;
+  scrollTo: (pos: string) => void; // pos: id | "top" | "bottom"
   getSelectRowKeys: () => string[];
   deleteSelectRowByKey: (key: string) => void;
   setPagination: (info: Partial<PaginationProps>) => void;
   setTableData: <T = Recordable>(values: T[]) => void;
   updateTableDataRecord: (rowKey: string | number, record: Recordable) => Recordable | void;
-  deleteTableDataRecord: (record: Recordable | Recordable[]) => Recordable | void;
+  deleteTableDataRecord: (rowKey: string | number | string[] | number[]) => void;
   insertTableDataRecord: (record: Recordable, index?: number) => Recordable | void;
   findTableDataRecord: (rowKey: string | number) => Recordable | void;
   getColumns: (opt?: GetColumnsParams) => BasicColumn[];
@@ -176,6 +176,8 @@ export interface BasicTableProps<T = any> {
   emptyDataIsShowTable?: boolean;
   // 额外的请求参数
   searchInfo?: Recordable;
+  // 默认的排序参数
+  defSort?: Recordable;
   // 使用搜索表单
   useSearchForm?: boolean;
   // 表单配置
@@ -189,6 +191,8 @@ export interface BasicTableProps<T = any> {
   actionColumn?: BasicColumn;
   // 文本超过宽度是否显示。。。
   ellipsis?: boolean;
+  // 是否继承父级高度（父级高度-表单高度-padding高度）
+  isCanResizeParent?: boolean;
   // 是否可以自适应高度
   canResize?: boolean;
   // 自适应高度偏移， 计算结果-偏移量
@@ -408,7 +412,7 @@ export type CellFormat =
   | Map<string | number, any>;
 
 // @ts-ignore
-export interface BasicColumn extends ColumnProps {
+export interface BasicColumn extends ColumnProps<Recordable> {
   children?: BasicColumn[];
   filters?: {
     text: string;
@@ -437,7 +441,14 @@ export interface BasicColumn extends ColumnProps {
   editRow?: boolean;
   editable?: boolean;
   editComponent?: ComponentType;
-  editComponentProps?: Recordable;
+  editComponentProps?:
+    | ((opt: {
+        text: string | number | boolean | Recordable;
+        record: Recordable;
+        column: BasicColumn;
+        index: number;
+      }) => Recordable)
+    | Recordable;
   editRule?: boolean | ((text: string, record: Recordable) => Promise<string>);
   editValueMap?: (value: any) => string;
   onEditRow?: () => void;
@@ -445,6 +456,13 @@ export interface BasicColumn extends ColumnProps {
   auth?: RoleEnum | RoleEnum[] | string | string[];
   // 业务控制是否显示
   ifShow?: boolean | ((column: BasicColumn) => boolean);
+  // 自定义修改后显示的内容
+  editRender?: (opt: {
+    text: string | number | boolean | Recordable;
+    record: Recordable;
+    column: BasicColumn;
+    index: number;
+  }) => VNodeChild | JSX.Element;
 }
 
 export type ColumnChangeParam = {

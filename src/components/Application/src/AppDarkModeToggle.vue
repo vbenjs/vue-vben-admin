@@ -39,7 +39,7 @@
 
   html[data-theme='dark'] {
     .@{prefix-cls} {
-      border: 1px solid rgb(196, 188, 188);
+      border: 1px solid rgb(196 188 188);
     }
   }
 

@@ -29,7 +29,7 @@
       const { prefixCls } = useDesign('basic-table-header-cell');
 
       const getIsEdit = computed(() => !!props.column?.edit);
-      const getTitle = computed(() => props.column?.customTitle);
+      const getTitle = computed(() => props.column?.customTitle || props.column?.title);
       const getHelpMessage = computed(() => props.column?.helpMessage);
 
       return { prefixCls, getIsEdit, getTitle, getHelpMessage };
@@ -42,7 +42,7 @@
   .@{prefix-cls} {
     &__help {
       margin-left: 8px;
-      color: rgba(0, 0, 0, 0.65) !important;
+      color: rgb(0 0 0 / 65%) !important;
     }
   }
 </style>

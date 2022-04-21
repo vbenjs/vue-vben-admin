@@ -19,7 +19,7 @@ export enum RequestEnum {
 }
 
 /**
- * @description:  contentTyp
+ * @description:  contentType
  */
 export enum ContentTypeEnum {
   // json
