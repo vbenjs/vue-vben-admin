@@ -71,7 +71,7 @@
           selectedKeys: state.selectedKeys,
           checkedKeys: state.checkedKeys,
           checkStrictly: state.checkStrictly,
-          filedNames: unref(getFieldNames),
+          fieldNames: unref(getFieldNames),
           'onUpdate:expandedKeys': (v: KeyType[]) => {
             state.expandedKeys = v;
             emit('update:expandedKeys', v);
@@ -293,6 +293,7 @@
         () => {
           state.checkedKeys = toRaw(props.value || []);
         },
+        { immediate: true },
       );
 
       watch(
