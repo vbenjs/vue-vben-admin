@@ -12,10 +12,10 @@
     <div class="mt-4">
       权限切换(请先切换权限模式为后台权限模式):
       <Space>
-        <a-button @click="switchToken(1)" :disabled="!isBackPremissionMode">
+        <a-button @click="switchToken(1)" :disabled="!isBackPermissionMode">
           获取用户id为1的菜单
         </a-button>
-        <a-button @click="switchToken(2)" :disabled="!isBackPremissionMode">
+        <a-button @click="switchToken(2)" :disabled="!isBackPermissionMode">
           获取用户id为2的菜单
         </a-button>
       </Space>
@@ -40,7 +40,7 @@
       const userStore = useUserStore();
       const appStore = useAppStore();
 
-      const isBackPremissionMode = computed(
+      const isBackPermissionMode = computed(
         () => appStore.getProjectConfig.permissionMode === PermissionModeEnum.BACK,
       );
 
@@ -58,7 +58,7 @@
         RoleEnum,
         refreshMenu,
         switchToken,
-        isBackPremissionMode,
+        isBackPermissionMode,
       };
     },
   });
