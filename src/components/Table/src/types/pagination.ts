@@ -109,7 +109,7 @@ export interface PaginationProps {
   /**
    * specify the position of Pagination
    * @default ['bottomRight']
-   * @type string
+   * @type string[]
    */
   position?: PaginationPositon[];
 }
