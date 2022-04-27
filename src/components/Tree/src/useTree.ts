@@ -1,4 +1,4 @@
-import type { InsertNodeParams, KeyType, FieldNames } from './tree';
+import type { InsertNodeParams, KeyType, FieldNames, TreeItem } from './tree';
 import type { Ref, ComputedRef } from 'vue';
 import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree';
 
@@ -176,6 +176,23 @@ export function useTree(treeDataRef: Ref<TreeDataItem[]>, getFieldNames: Compute
       }
     }
   }
+
+  // Get selected node
+  function getSelectedNode(key: KeyType, list?: TreeItem[], selectedNode?: TreeItem | null) {
+    if (!key && key !== 0) return null;
+    const treeData = list || unref(treeDataRef);
+    treeData.forEach((item) => {
+      if (selectedNode?.key || selectedNode?.key === 0) return selectedNode;
+      if (item.key === key) {
+        selectedNode = item;
+        return;
+      }
+      if (item.children && item.children.length) {
+        selectedNode = getSelectedNode(key, item.children, selectedNode);
+      }
+    });
+    return selectedNode || null;
+  }
   return {
     deleteNodeByKey,
     insertNodeByKey,
@@ -185,5 +202,6 @@ export function useTree(treeDataRef: Ref<TreeDataItem[]>, getFieldNames: Compute
     getAllKeys,
     getChildrenKeys,
     getEnabledKeys,
+    getSelectedNode,
   };
 }
