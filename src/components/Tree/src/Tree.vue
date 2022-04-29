@@ -119,6 +119,7 @@
         getAllKeys,
         getChildrenKeys,
         getEnabledKeys,
+        getSelectedNode,
       } = useTree(treeDataRef, getFieldNames);
 
       function getIcon(params: Recordable, icon?: string) {
@@ -320,6 +321,7 @@
         insertNodesByKey,
         deleteNodeByKey,
         updateNodeByKey,
+        getSelectedNode,
         checkAll,
         expandAll,
         filterByLevel: (level: number) => {
