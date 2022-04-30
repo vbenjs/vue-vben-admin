@@ -25,10 +25,12 @@
       <template #[item]="data" v-for="item in Object.keys($slots)" :key="item">
         <slot :name="item" v-bind="data || {}"></slot>
       </template>
-
-      <template #[`header-${column.dataIndex}`] v-for="(column, index) in columns" :key="index">
+      <template #headerCell="{ column }">
         <HeaderCell :column="column" />
       </template>
+      <!--      <template #[`header-${column.dataIndex}`] v-for="(column, index) in columns" :key="index">-->
+      <!--        <HeaderCell :column="column" />-->
+      <!--      </template>-->
     </Table>
   </div>
 </template>

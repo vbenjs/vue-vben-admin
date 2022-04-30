@@ -12,14 +12,14 @@
       show-icon
     />
     <Divider />
-    <a-button type="primary" class="mr-2" @click="switchToken(2)" :disabled="!isBackPremissionMode">
+    <a-button type="primary" class="mr-2" @click="switchToken(2)" :disabled="!isBackPermissionMode">
       点击切换按钮权限(用户id为2)
     </a-button>
-    <a-button type="primary" @click="switchToken(1)" :disabled="!isBackPremissionMode">
+    <a-button type="primary" @click="switchToken(1)" :disabled="!isBackPermissionMode">
       点击切换按钮权限(用户id为1,默认)
     </a-button>
 
-    <template v-if="isBackPremissionMode">
+    <template v-if="isBackPermissionMode">
       <Divider>组件方式判断权限</Divider>
       <Authority :value="'1000'">
         <a-button type="primary" class="mx-4"> 拥有code ['1000']权限可见 </a-button>
@@ -77,7 +77,7 @@
       const appStore = useAppStore();
       const userStore = useUserStore();
 
-      const isBackPremissionMode = computed(
+      const isBackPermissionMode = computed(
         () => appStore.getProjectConfig.permissionMode === PermissionModeEnum.BACK,
       );
 
@@ -95,7 +95,7 @@
         hasPermission,
         permissionStore,
         switchToken,
-        isBackPremissionMode,
+        isBackPermissionMode,
       };
     },
   });

@@ -58,7 +58,12 @@ export class Memory<T = any, V = any> {
       return value;
     }
     const now = new Date().getTime();
-    item.time = now + this.alive;
+    /**
+     * Prevent overflow of the setTimeout Maximum delay value
+     * Maximum delay value 2,147,483,647 ms
+     * https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#maximum_delay_value
+     */
+    item.time = expires > now ? expires : now + expires;
     item.timeoutId = setTimeout(
       () => {
         this.remove(key);

@@ -6,7 +6,7 @@
     <Popover
       placement="bottomLeft"
       trigger="click"
-      @visibleChange="handleVisibleChange"
+      @visible-change="handleVisibleChange"
       :overlayClassName="`${prefixCls}__cloumn-list`"
       :getPopupContainer="getPopupContainer"
     >
