@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
+import { isString, isObject } from '/@/utils/is';
 
 export function isDevFn(mode: string): boolean {
   return mode === 'development';
@@ -18,31 +19,29 @@ export function isReportMode(): boolean {
 }
 
 // Read all environment variable configuration files to process.env
-export function wrapperEnv(envConf: Recordable): ViteEnv {
-  const ret: any = {};
-
-  for (const envName of Object.keys(envConf)) {
-    let realName = envConf[envName].replace(/\\n/g, '\n');
-    realName = realName === 'true' ? true : realName === 'false' ? false : realName;
-
+export function wrapperEnv(envConf: ViteEnv): ViteEnv {
+  Object.keys(envConf).forEach((envName) => {
+    let envValue = envConf[envName].replace(/\\n/g, '\n');
+    envValue === 'true' && (envValue = true);
+    envValue === 'false' && (envValue = false);
     if (envName === 'VITE_PORT') {
-      realName = Number(realName);
+      envValue = Number(envValue);
     }
-    if (envName === 'VITE_PROXY' && realName) {
+    if (envName === 'VITE_PROXY' && envValue) {
       try {
-        realName = JSON.parse(realName.replace(/'/g, '"'));
+        envValue = JSON.parse(envValue.replace(/'/g, '"'));
       } catch (error) {
-        realName = '';
+        envValue = [];
       }
     }
-    ret[envName] = realName;
-    if (typeof realName === 'string') {
-      process.env[envName] = realName;
-    } else if (typeof realName === 'object') {
-      process.env[envName] = JSON.stringify(realName);
+    envConf[envName] = envValue;
+    if (isString(envValue)) {
+      process.env[envName] = envValue;
+    } else if (isObject(envValue)) {
+      process.env[envName] = JSON.stringify(envValue);
     }
-  }
-  return ret;
+  });
+  return envConf;
 }
 
 /**

@@ -22,7 +22,7 @@ const __APP_INFO__ = {
 export default ({ command, mode }: ConfigEnv): UserConfig => {
   const root = process.cwd();
 
-  const env = loadEnv(mode, root);
+  const env = loadEnv(mode, root) as unknown as ViteEnv;
 
   // The boolean type read by loadEnv is a string. This function can be converted to boolean type
   const viteEnv = wrapperEnv(env);

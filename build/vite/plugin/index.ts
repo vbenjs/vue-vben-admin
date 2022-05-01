@@ -35,34 +35,27 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
     VitePluginCertificate({
       source: 'coding',
     }),
+    // vite-plugin-windicss
+    windiCSS(),
+    // vite-plugin-html
+    configHtmlPlugin(viteEnv, isBuild),
+    // vite-plugin-svg-icons
+    configSvgIconsPlugin(isBuild),
+    // vite-plugin-purge-icons
+    purgeIcons(),
+    // vite-plugin-style-import
+    configStyleImportPlugin(isBuild),
+    // rollup-plugin-visualizer
+    configVisualizerConfig(),
+    // vite-plugin-theme
+    configThemePlugin(isBuild),
   ];
-
-  // vite-plugin-windicss
-  vitePlugins.push(windiCSS());
 
   // @vitejs/plugin-legacy
   VITE_LEGACY && isBuild && vitePlugins.push(legacy());
 
-  // vite-plugin-html
-  vitePlugins.push(configHtmlPlugin(viteEnv, isBuild));
-
-  // vite-plugin-svg-icons
-  vitePlugins.push(configSvgIconsPlugin(isBuild));
-
   // vite-plugin-mock
   VITE_USE_MOCK && vitePlugins.push(configMockPlugin(isBuild));
-
-  // vite-plugin-purge-icons
-  vitePlugins.push(purgeIcons());
-
-  // vite-plugin-style-import
-  vitePlugins.push(configStyleImportPlugin(isBuild));
-
-  // rollup-plugin-visualizer
-  vitePlugins.push(configVisualizerConfig());
-
-  // vite-plugin-theme
-  vitePlugins.push(configThemePlugin(isBuild));
 
   // The following plugins only work in the production environment
   if (isBuild) {
