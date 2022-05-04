@@ -298,7 +298,7 @@ export function formatCell(text: string, format: CellFormat, record: Recordable,
   try {
     // date type
     const DATE_FORMAT_PREFIX = 'date|';
-    if (isString(format) && format.startsWith(DATE_FORMAT_PREFIX)) {
+    if (isString(format) && format.startsWith(DATE_FORMAT_PREFIX) && text) {
       const dateFormat = format.replace(DATE_FORMAT_PREFIX, '');
 
       if (!dateFormat) {
