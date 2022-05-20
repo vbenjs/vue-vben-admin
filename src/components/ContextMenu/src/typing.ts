@@ -6,6 +6,7 @@ export interface Axis {
 export interface ContextMenuItem {
   label: string;
   icon?: string;
+  hidden?: boolean;
   disabled?: boolean;
   handler?: Fn;
   divider?: boolean;
