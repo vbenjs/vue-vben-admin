@@ -111,6 +111,7 @@ export default {
     dynamicForm: 'Dynamic',
     customerForm: 'Custom',
     appendForm: 'Append',
+    tabsForm: 'TabsForm',
   },
   iframe: {
     frame: 'External',
