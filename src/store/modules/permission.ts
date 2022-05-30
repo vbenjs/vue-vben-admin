@@ -26,6 +26,7 @@ import { PageEnum } from '/@/enums/pageEnum';
 
 interface PermissionState {
   // Permission code list
+  // 权限代码列表
   permCodeList: string[] | number[];
   // Whether the route has been dynamically added
   isDynamicAddedRoute: boolean;
@@ -39,6 +40,7 @@ interface PermissionState {
 export const usePermissionStore = defineStore({
   id: 'app-permission',
   state: (): PermissionState => ({
+    // 权限代码列表
     permCodeList: [],
     // Whether the route has been dynamically added
     // 路由是否动态添加
@@ -112,7 +114,7 @@ export const usePermissionStore = defineStore({
       const roleList = toRaw(userStore.getRoleList) || [];
       const { permissionMode = projectSetting.permissionMode } = appStore.getProjectConfig;
 
-      // 路由过滤器
+      // 路由过滤器 在 函数filter 作为回调传入遍历使用
       const routeFilter = (route: AppRouteRecordRaw) => {
         const { meta } = route;
         // 抽出角色
