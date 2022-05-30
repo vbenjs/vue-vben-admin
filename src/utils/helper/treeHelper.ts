@@ -9,9 +9,11 @@ const DEFAULT_CONFIG: TreeHelperConfig = {
   pid: 'pid',
 };
 
+// 获取配置。  Object.assign 从一个或多个源对象复制到目标对象
 const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAULT_CONFIG, config);
 
 // tree from list
+// 列表中的树
 export function listToTree<T = any>(list: any[], config: Partial<TreeHelperConfig> = {}): T[] {
   const conf = getConfig(config) as TreeHelperConfig;
   const nodeMap = new Map();
@@ -123,8 +125,10 @@ export function findPathAll(tree: any, func: Fn, config: Partial<TreeHelperConfi
 export function filter<T = any>(
   tree: T[],
   func: (n: T) => boolean,
+  // Partial 将 T 中的所有属性设为可选
   config: Partial<TreeHelperConfig> = {},
 ): T[] {
+  // 获取配置
   config = getConfig(config);
   const children = config.children as string;
   function listFilter(list: T[]) {
