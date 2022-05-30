@@ -118,6 +118,7 @@ export const usePermissionStore = defineStore({
         // 抽出角色
         const { roles } = meta || {};
         if (!roles) return true;
+        // 进行角色权限判断
         return roleList.some((role) => roles.includes(role));
       };
 
@@ -202,7 +203,7 @@ export const usePermissionStore = defineStore({
           // 这个功能可能只需要执行一次，实际项目可以自己放在合适的时间
           let routeList: AppRouteRecordRaw[] = [];
           try {
-            this.changePermissionCode();
+            await this.changePermissionCode();
             routeList = (await getMenuList()) as AppRouteRecordRaw[];
           } catch (error) {
             console.error(error);
