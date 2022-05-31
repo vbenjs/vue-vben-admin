@@ -3,7 +3,7 @@ import { dateUtil } from '/@/utils/dateUtil';
 import { unref } from 'vue';
 import type { Ref, ComputedRef } from 'vue';
 import type { FormProps, FormSchema } from '../types/form';
-import { set } from 'lodash-es';
+import { cloneDeep, set } from 'lodash-es';
 
 interface UseFormValuesContext {
   defaultValueRef: Ref<any>;
@@ -124,7 +124,7 @@ export function useFormValues({
         }
       }
     });
-    defaultValueRef.value = obj;
+    defaultValueRef.value = cloneDeep(obj);
   }
 
   return { handleFormValues, initDefault };
