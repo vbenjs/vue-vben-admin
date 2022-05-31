@@ -71,7 +71,7 @@
           selectedKeys: state.selectedKeys,
           checkedKeys: state.checkedKeys,
           checkStrictly: state.checkStrictly,
-          filedNames: unref(getFieldNames),
+          fieldNames: unref(getFieldNames),
           'onUpdate:expandedKeys': (v: KeyType[]) => {
             state.expandedKeys = v;
             emit('update:expandedKeys', v);
@@ -119,6 +119,7 @@
         getAllKeys,
         getChildrenKeys,
         getEnabledKeys,
+        getSelectedNode,
       } = useTree(treeDataRef, getFieldNames);
 
       function getIcon(params: Recordable, icon?: string) {
@@ -145,6 +146,7 @@
           contextMenuOptions.items = menuList;
         }
         if (!contextMenuOptions.items?.length) return;
+        contextMenuOptions.items = contextMenuOptions.items.filter((item) => !item.hidden);
         createContextMenu(contextMenuOptions);
       }
 
@@ -293,6 +295,7 @@
         () => {
           state.checkedKeys = toRaw(props.value || []);
         },
+        { immediate: true },
       );
 
       watch(
@@ -319,6 +322,7 @@
         insertNodesByKey,
         deleteNodeByKey,
         updateNodeByKey,
+        getSelectedNode,
         checkAll,
         expandAll,
         filterByLevel: (level: number) => {

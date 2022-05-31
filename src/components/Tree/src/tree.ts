@@ -141,6 +141,7 @@ export type TreeProps = ExtractPropTypes<typeof treeProps>;
 export interface ContextMenuItem {
   label: string;
   icon?: string;
+  hidden?: boolean;
   disabled?: boolean;
   handler?: Fn;
   divider?: boolean;
@@ -185,4 +186,9 @@ export interface TreeActionType {
   updateNodeByKey: (key: string, node: Omit<TreeDataItem, 'key'>) => void;
   setSearchValue: (value: string) => void;
   getSearchValue: () => string;
+  getSelectedNode: (
+    key: KeyType,
+    treeList?: TreeItem[],
+    selectNode?: TreeItem | null,
+  ) => TreeItem | null;
 }
