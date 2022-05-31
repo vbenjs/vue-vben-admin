@@ -313,7 +313,12 @@
               }
 
               plainSortOptions.value = columns;
-              setColumns(columns);
+
+              setColumns(
+                columns
+                  .map((col: Options) => col.value)
+                  .filter((value: string) => state.checkedList.includes(value)),
+              );
             },
           });
           // 记录原始order 序列
