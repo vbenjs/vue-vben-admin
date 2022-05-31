@@ -104,16 +104,17 @@ export function flatMultiLevelRoutes(routeModules: AppRouteModule[]) {
     const routeModule = modules[index];
     // 判断级别是否 多级 路由
     if (!isMultipleRoute(routeModule)) {
-      // 声明终止当前循环， 即跳过此次循环
+      // 声明终止当前循环， 即跳过此次循环，进行下一轮
       continue;
     }
+    // 路由等级提升
     promoteRouteLevel(routeModule);
   }
   return modules;
 }
 
 // Routing level upgrade
-// 路由等级升级
+// 路由等级提升
 function promoteRouteLevel(routeModule: AppRouteModule) {
   // Use vue-router to splice menus
   // 使用vue-router拼接菜单
@@ -127,6 +128,7 @@ function promoteRouteLevel(routeModule: AppRouteModule) {
   addToChildren(routes, routeModule.children || [], routeModule);
   router = null;
 
+  // omit lodash的函数 对传入的item对象的children进行删除
   routeModule.children = routeModule.children?.map((item) => omit(item, 'children'));
 }
 
