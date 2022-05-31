@@ -3,6 +3,8 @@ interface TreeHelperConfig {
   children: string;
   pid: string;
 }
+
+// 默认配置
 const DEFAULT_CONFIG: TreeHelperConfig = {
   id: 'id',
   children: 'children',
@@ -131,6 +133,7 @@ export function filter<T = any>(
   // 获取配置
   config = getConfig(config);
   const children = config.children as string;
+
   function listFilter(list: T[]) {
     return list
       .map((node: any) => ({ ...node }))
@@ -141,6 +144,7 @@ export function filter<T = any>(
         return func(node) || (node[children] && node[children].length);
       });
   }
+
   return listFilter(tree);
 }
 
@@ -163,6 +167,7 @@ export function forEach<T = any>(
 
 /**
  * @description: Extract tree specified structure
+ * @description: 提取树指定结构
  */
 export function treeMap<T = any>(treeData: T[], opt: { children?: string; conversion: Fn }): T[] {
   return treeData.map((item) => treeMapEach(item, opt));
@@ -170,6 +175,7 @@ export function treeMap<T = any>(treeData: T[], opt: { children?: string; conver
 
 /**
  * @description: Extract tree specified structure
+ * @description: 提取树指定结构
  */
 export function treeMapEach(
   data: any,

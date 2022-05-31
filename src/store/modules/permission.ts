@@ -29,11 +29,15 @@ interface PermissionState {
   // 权限代码列表
   permCodeList: string[] | number[];
   // Whether the route has been dynamically added
+  // 路由是否动态添加
   isDynamicAddedRoute: boolean;
   // To trigger a menu update
+  // 触发菜单更新
   lastBuildMenuTime: number;
   // Backstage menu list
+  // 后台菜单列表
   backMenuList: Menu[];
+  // 菜单列表
   frontMenuList: Menu[];
 }
 
@@ -126,6 +130,7 @@ export const usePermissionStore = defineStore({
 
       const routeRemoveIgnoreFilter = (route: AppRouteRecordRaw) => {
         const { meta } = route;
+        // ignoreRoute 为true 则路由仅用于菜单生成，不会在实际的路由表中出现
         const { ignoreRoute } = meta || {};
         return !ignoreRoute;
       };
@@ -172,11 +177,15 @@ export const usePermissionStore = defineStore({
           routes = flatMultiLevelRoutes(routes);
           break;
 
-        // 路由映射， 默认进入该case， 左侧边栏显示全部导航
+        // 路由映射， 默认进入该case
         case PermissionModeEnum.ROUTE_MAPPING:
+          // 对非一级路由进行过滤
           routes = filter(asyncRoutes, routeFilter);
+          // 对一级路由再次根据角色权限过滤
           routes = routes.filter(routeFilter);
+          // 将路由转换成菜单
           const menuList = transformRouteToMenu(routes, true);
+          // 移除掉 ignoreRoute: true 的路由
           routes = filter(routes, routeRemoveIgnoreFilter);
           routes = routes.filter(routeRemoveIgnoreFilter);
           menuList.sort((a, b) => {
