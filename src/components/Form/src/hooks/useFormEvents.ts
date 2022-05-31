@@ -39,8 +39,7 @@ export function useFormEvents({
     Object.keys(formModel).forEach((key) => {
       const schema = unref(getSchema).find((item) => item.field === key);
       const isInput = schema?.component && defaultValueComponents.includes(schema.component);
-      const defaultValue = cloneDeep(defaultValueRef.value[key]);
-      formModel[key] = isInput ? defaultValue || '' : defaultValue;
+      formModel[key] = isInput ? defaultValueRef.value[key] || '' : defaultValueRef.value[key];
     });
     nextTick(() => clearValidate());
 
