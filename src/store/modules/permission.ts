@@ -132,6 +132,7 @@ export const usePermissionStore = defineStore({
         const { meta } = route;
         // ignoreRoute 为true 则路由仅用于菜单生成，不会在实际的路由表中出现
         const { ignoreRoute } = meta || {};
+        // arr.filter 返回 true 表示该元素通过测试
         return !ignoreRoute;
       };
 
@@ -185,14 +186,17 @@ export const usePermissionStore = defineStore({
           routes = routes.filter(routeFilter);
           // 将路由转换成菜单
           const menuList = transformRouteToMenu(routes, true);
-          // 移除掉 ignoreRoute: true 的路由
+          // 移除掉 ignoreRoute: true 的路由 非一级路由
           routes = filter(routes, routeRemoveIgnoreFilter);
+          // 移除掉 ignoreRoute: true 的路由 一级路由；
           routes = routes.filter(routeRemoveIgnoreFilter);
           menuList.sort((a, b) => {
             return (a.meta?.orderNo || 0) - (b.meta?.orderNo || 0);
           });
 
+          // 设置菜单列表
           this.setFrontMenuList(menuList);
+
           // Convert multi-level routing to level 2 routing
           // 将多级路由转换为 2 级路由
           routes = flatMultiLevelRoutes(routes);
