@@ -60,6 +60,7 @@
   import { PageWrapper } from '/@/components/Page';
   import { Card, Row, Col, Spin } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
+  import { isArray } from '/@/utils/is';
 
   export default defineComponent({
     components: { BasicTree, PageWrapper, Card, Row, Col, Spin },
@@ -107,7 +108,7 @@
 
       function onLoadData(treeNode) {
         return new Promise((resolve: (value?: unknown) => void) => {
-          if (!treeNode.children) {
+          if (isArray(treeNode.children) && treeNode.children.length > 0) {
             resolve();
             return;
           }

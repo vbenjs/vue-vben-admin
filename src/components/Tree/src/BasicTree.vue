@@ -1,6 +1,13 @@
 <script lang="tsx">
   import type { CSSProperties } from 'vue';
-  import type { FieldNames, TreeState, TreeItem, KeyType, CheckKeys, TreeActionType } from './tree';
+  import type {
+    FieldNames,
+    TreeState,
+    TreeItem,
+    KeyType,
+    CheckKeys,
+    TreeActionType,
+  } from './types/tree';
 
   import {
     defineComponent,
@@ -13,7 +20,7 @@
     watch,
     onMounted,
   } from 'vue';
-  import TreeHeader from './TreeHeader.vue';
+  import TreeHeader from './components/TreeHeader.vue';
   import { Tree, Spin, Empty } from 'ant-design-vue';
   import { TreeIcon } from './TreeIcon';
   import { ScrollContainer } from '/@/components/Container';
@@ -21,10 +28,10 @@
   import { isArray, isBoolean, isEmpty, isFunction } from '/@/utils/is';
   import { extendSlots, getSlot } from '/@/utils/helper/tsxHelper';
   import { filter, treeToList, eachTree } from '/@/utils/helper/treeHelper';
-  import { useTree } from './useTree';
+  import { useTree } from './hooks/useTree';
   import { useContextMenu } from '/@/hooks/web/useContextMenu';
   import { CreateContextOptions } from '/@/components/ContextMenu';
-  import { treeEmits, treeProps } from './tree';
+  import { treeEmits, treeProps } from './types/tree';
   import { createBEM } from '/@/utils/bem';
 
   export default defineComponent({

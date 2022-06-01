@@ -1,4 +1,4 @@
-import type { InsertNodeParams, KeyType, FieldNames, TreeItem } from './tree';
+import type { InsertNodeParams, KeyType, FieldNames, TreeItem } from '../types/tree';
 import type { Ref, ComputedRef } from 'vue';
 import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree';
 
