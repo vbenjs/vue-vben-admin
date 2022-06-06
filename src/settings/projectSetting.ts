@@ -83,6 +83,8 @@ const setting: ProjectConfig = {
     fixed: true,
     // Menu collapse
     collapsed: false,
+    // When sider hide because of the responsive layout
+    siderHidden: false,
     // Whether to display the menu name when folding the menu
     collapsedShowTitle: false,
     // Whether it can be dragged
