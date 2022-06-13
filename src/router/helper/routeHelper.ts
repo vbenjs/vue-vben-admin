@@ -123,6 +123,7 @@ function promoteRouteLevel(routeModule: AppRouteModule) {
     routes: [routeModule as unknown as RouteRecordNormalized],
     history: createWebHashHistory(),
   });
+  // getRoutes： 获取所有 路由记录的完整列表。
   const routes = router.getRoutes();
   // 将所有子路由添加到二级路由
   addToChildren(routes, routeModule.children || [], routeModule);

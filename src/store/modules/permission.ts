@@ -171,7 +171,9 @@ export const usePermissionStore = defineStore({
       switch (permissionMode) {
         // 角色权限
         case PermissionModeEnum.ROLE:
+          // 对非一级路由进行过滤
           routes = filter(asyncRoutes, routeFilter);
+          // 对一级路由根据角色权限过滤
           routes = routes.filter(routeFilter);
           // Convert multi-level routing to level 2 routing
           // 将多级路由转换为 2 级路由
@@ -190,6 +192,7 @@ export const usePermissionStore = defineStore({
           routes = filter(routes, routeRemoveIgnoreFilter);
           // 移除掉 ignoreRoute: true 的路由 一级路由；
           routes = routes.filter(routeRemoveIgnoreFilter);
+          // 对菜单进行排序
           menuList.sort((a, b) => {
             return (a.meta?.orderNo || 0) - (b.meta?.orderNo || 0);
           });
