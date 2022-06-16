@@ -32,6 +32,7 @@ export function setObjToUrlParams(baseUrl: string, obj: any): string {
   return /\?$/.test(baseUrl) ? baseUrl + parameters : baseUrl.replace(/\/?$/, '?') + parameters;
 }
 
+// 深度合并
 export function deepMerge<T = any>(src: any = {}, target: any = {}): T {
   let key: string;
   for (key in target) {

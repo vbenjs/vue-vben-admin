@@ -68,6 +68,7 @@ function dynamicImport(
 }
 
 // Turn background objects into routing objects
+// 将背景对象变成路由对象
 export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModule[]): T[] {
   routeList.forEach((route) => {
     const component = route.component as string;
@@ -94,35 +95,46 @@ export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModul
 
 /**
  * Convert multi-level routing to level 2 routing
+ * 将多级路由转换为 2 级路由
  */
 export function flatMultiLevelRoutes(routeModules: AppRouteModule[]) {
   const modules: AppRouteModule[] = cloneDeep(routeModules);
+
   for (let index = 0; index < modules.length; index++) {
     const routeModule = modules[index];
+    // 判断级别是否 多级 路由
     if (!isMultipleRoute(routeModule)) {
+      // 声明终止当前循环， 即跳过此次循环，进行下一轮
       continue;
     }
+    // 路由等级提升
     promoteRouteLevel(routeModule);
   }
   return modules;
 }
 
 // Routing level upgrade
+// 路由等级提升
 function promoteRouteLevel(routeModule: AppRouteModule) {
   // Use vue-router to splice menus
+  // 使用vue-router拼接菜单
+  // createRouter 创建一个可以被 Vue 应用程序使用的路由实例
   let router: Router | null = createRouter({
     routes: [routeModule as unknown as RouteRecordNormalized],
     history: createWebHashHistory(),
   });
-
+  // getRoutes： 获取所有 路由记录的完整列表。
   const routes = router.getRoutes();
+  // 将所有子路由添加到二级路由
   addToChildren(routes, routeModule.children || [], routeModule);
   router = null;
 
+  // omit lodash的函数 对传入的item对象的children进行删除
   routeModule.children = routeModule.children?.map((item) => omit(item, 'children'));
 }
 
 // Add all sub-routes to the secondary route
+// 将所有子路由添加到二级路由
 function addToChildren(
   routes: RouteRecordNormalized[],
   children: AppRouteRecordRaw[],
@@ -145,7 +157,9 @@ function addToChildren(
 }
 
 // Determine whether the level exceeds 2 levels
+// 判断级别是否超过2级
 function isMultipleRoute(routeModule: AppRouteModule) {
+  // Reflect.has 与 in 操作符 相同, 用于检查一个对象(包括它原型链上)是否拥有某个属性
   if (!routeModule || !Reflect.has(routeModule, 'children') || !routeModule.children?.length) {
     return false;
   }
