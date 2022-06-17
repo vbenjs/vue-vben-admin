@@ -107,6 +107,7 @@ export default {
     dynamicForm: '动态表单',
     customerForm: '自定义组件',
     appendForm: '表单增删示例',
+    tabsForm: '标签页+多级field',
   },
   iframe: {
     frame: '外部页面',

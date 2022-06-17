@@ -16,6 +16,7 @@ export interface MenuSetting {
   bgColor: string;
   fixed: boolean;
   collapsed: boolean;
+  siderHidden: boolean;
   canDrag: boolean;
   show: boolean;
   hidden: boolean;
