@@ -401,6 +401,10 @@
       width: 100%;
       overflow-x: hidden;
 
+      .ant-table-body {
+        overflow: auto !important;
+      }
+
       &-title {
         display: flex;
         padding: 8px 6px;
