@@ -7,7 +7,7 @@ import type { App, Directive, DirectiveBinding } from 'vue';
 
 import { usePermission } from '/@/hooks/web/usePermission';
 
-function isAuth(el: Element, binding: any) {
+function isAuth(el: Element, binding: DirectiveBinding<any>) {
   const { hasPermission } = usePermission();
 
   const value = binding.value;
