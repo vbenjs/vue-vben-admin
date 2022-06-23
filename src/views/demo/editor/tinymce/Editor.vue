@@ -41,6 +41,21 @@
         });
       },
     },
+    {
+      field: 'tinymce2',
+      component: 'Input',
+      label: 'tinymce2',
+      defaultValue: 'tinymce2',
+      rules: [{ required: true }],
+      render: ({ model, field }) => {
+        return h(Tinymce, {
+          value: model[field],
+          onChange: (value: string) => {
+            model[field] = value;
+          },
+        });
+      },
+    },
   ];
   export default defineComponent({
     components: { BasicForm, CollapseContainer, PageWrapper },
