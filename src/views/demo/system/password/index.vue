@@ -21,6 +21,7 @@
     setup() {
       const [register, { validate, resetFields }] = useForm({
         size: 'large',
+        baseColProps: { span: 24 },
         labelWidth: 100,
         showActionButtonGroup: false,
         schemas: formSchema,
