@@ -1,24 +1,26 @@
 <template>
   <div class="p-4">
     <BasicTable @register="registerTable">
-      <template #id="{ record }"> ID: {{ record.id }} </template>
-      <template #no="{ record }">
-        <Tag color="green">
-          {{ record.no }}
-        </Tag>
-      </template>
-      <template #avatar="{ record }">
-        <Avatar :size="60" :src="record.avatar" />
-      </template>
-      <template #img="{ text }">
-        <TableImg :size="60" :simpleShow="true" :imgList="text" />
-      </template>
-      <template #imgs="{ text }"> <TableImg :size="60" :imgList="text" /> </template>
+      <template #bodyCell="{ column, record, text }">
+        <template v-if="column.key === 'id'"> ID: {{ record.id }} </template>
+        <template v-if="column.key === 'no'">
+          <Tag color="green">
+            {{ record.no }}
+          </Tag>
+        </template>
+        <template v-if="column.key === 'avatar'">
+          <Avatar :size="60" :src="record.avatar" />
+        </template>
+        <template v-if="column.key === 'imgArr'">
+          <TableImg :size="60" :simpleShow="true" :imgList="text" />
+        </template>
+        <template v-if="column.key === 'imgs'"> <TableImg :size="60" :imgList="text" /> </template>
 
-      <template #category="{ record }">
-        <Tag color="green">
-          {{ record.no }}
-        </Tag>
+        <template v-if="column.key === 'category'">
+          <Tag color="green">
+            {{ record.no }}
+          </Tag>
+        </template>
       </template>
     </BasicTable>
   </div>
