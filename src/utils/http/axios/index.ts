@@ -111,14 +111,6 @@ const transform: AxiosTransform = {
     } else {
       if (!isString(params)) {
         formatDate && formatRequestDate(params);
-        if (Reflect.has(config, 'data') && config.data && Object.keys(config.data).length > 0) {
-          config.data = data;
-          config.params = params;
-        } else {
-          // 非GET请求如果没有提供data，则将params视为data
-          config.data = params;
-          config.params = undefined;
-        }
         if (joinParamsToUrl) {
           config.url = setObjToUrlParams(
             config.url as string,
