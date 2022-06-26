@@ -5,6 +5,7 @@
         :labelWidth="100"
         :schemas="schemas"
         :actionColOptions="{ span: 24 }"
+        :baseColProps="{ span: 24 }"
         @submit="handleSubmit"
       />
     </CollapseContainer>
@@ -31,21 +32,6 @@
       component: 'Input',
       label: 'tinymce',
       defaultValue: 'defaultValue',
-      rules: [{ required: true }],
-      render: ({ model, field }) => {
-        return h(Tinymce, {
-          value: model[field],
-          onChange: (value: string) => {
-            model[field] = value;
-          },
-        });
-      },
-    },
-    {
-      field: 'tinymce2',
-      component: 'Input',
-      label: 'tinymce2',
-      defaultValue: 'tinymce2',
       rules: [{ required: true }],
       render: ({ model, field }) => {
         return h(Tinymce, {
