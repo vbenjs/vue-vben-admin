@@ -47,7 +47,7 @@
         const heightStr = `${props.height}`;
         return {
           height: heightStr,
-          lineHeight: heightStr,
+          lineHeight: `calc(${heightStr} - 1px)`,
         };
       });
 
