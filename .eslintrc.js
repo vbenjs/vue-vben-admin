@@ -72,5 +72,6 @@ module.exports = {
       },
     ],
     'vue/multi-word-component-names': 'off',
+    'vue/valid-define-props': 'off',
   },
 };
