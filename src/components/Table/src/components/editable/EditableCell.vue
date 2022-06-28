@@ -82,7 +82,7 @@
         if (component === 'ApiSelect') {
           apiSelectProps.cache = true;
         }
-
+        upEditDynamicDisabled(record, column, value);
         return {
           size: 'small',
           getPopupContainer: () => unref(table?.wrapRef.value) ?? document.body,
@@ -90,9 +90,28 @@
           ...apiSelectProps,
           ...omit(compProps, 'onChange'),
           [valueField]: value,
+          disabled: unref(getDisable),
         } as any;
       });
-
+      function upEditDynamicDisabled(record, column, value) {
+        if (!record) return false;
+        const { key, dataIndex } = column;
+        if (!key && !dataIndex) return;
+        const dataKey = (dataIndex || key) as string;
+        set(record, dataKey, value);
+      }
+      const getDisable = computed(() => {
+        const { editDynamicDisabled } = props.column;
+        let disabled = false;
+        if (isBoolean(editDynamicDisabled)) {
+          disabled = editDynamicDisabled;
+        }
+        if (isFunction(editDynamicDisabled)) {
+          const { record } = props;
+          disabled = editDynamicDisabled({ record });
+        }
+        return disabled;
+      });
       const getValues = computed(() => {
         const { editValueMap } = props.column;
 

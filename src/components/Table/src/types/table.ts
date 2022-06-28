@@ -463,6 +463,8 @@ export interface BasicColumn extends ColumnProps<Recordable> {
     column: BasicColumn;
     index: number;
   }) => VNodeChild | JSX.Element;
+  // 动态 Disabled
+  editDynamicDisabled?: boolean | ((record: Recordable) => boolean);
 }
 
 export type ColumnChangeParam = {
