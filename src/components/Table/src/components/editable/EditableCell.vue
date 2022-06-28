@@ -88,7 +88,7 @@
           getPopupContainer: () => unref(table?.wrapRef.value) ?? document.body,
           placeholder: createPlaceholderMessage(unref(getComponent)),
           ...apiSelectProps,
-          ...omit(compProps, 'onChange'),
+          ...compProps,
           [valueField]: value,
           disabled: unref(getDisable),
         } as any;
