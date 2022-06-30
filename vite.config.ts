@@ -1,4 +1,5 @@
-import type { UserConfig, ConfigEnv } from 'vite';
+import type { ConfigEnv } from 'vite';
+import type { UserConfig } from 'vitest/config';
 import pkg from './package.json';
 import dayjs from 'dayjs';
 import { loadEnv } from 'vite';
@@ -53,7 +54,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       ],
     },
     server: {
-      https: true,
+      https: false,
       // Listening on all local IPs
       host: true,
       port: VITE_PORT,
@@ -99,7 +100,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
 
     // The vite plugin used by the project. The quantity is large, so it is separately extracted and managed
-    plugins: createVitePlugins(viteEnv, isBuild),
+    plugins: createVitePlugins(viteEnv, isBuild) as any,
 
     optimizeDeps: {
       // @iconify/iconify: The dependency is dynamically and virtually loaded by @purge-icons/generated, so it needs to be specified explicitly
@@ -109,6 +110,22 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         '@iconify/iconify',
         'ant-design-vue/es/locale/zh_CN',
         'ant-design-vue/es/locale/en_US',
+      ],
+    },
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: [resolve(__dirname, 'tests/setup.ts')],
+      coverage: {
+        reporter: ['text', 'json', 'html'],
+      },
+      include: ['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+      exclude: [
+        '**/node_modules/**',
+        '**/dist/**',
+        '**/cypress/**',
+        '**/.{idea,git,cache,output,temp}/**',
+        '**/history/**',
       ],
     },
   };
