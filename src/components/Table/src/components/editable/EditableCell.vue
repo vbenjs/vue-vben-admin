@@ -165,7 +165,7 @@
           currentValueRef.value = e;
         } else if (e?.target && Reflect.has(e.target, 'value')) {
           currentValueRef.value = (e as ChangeEvent).target.value;
-        } else if (isString(e) || isBoolean(e) || isNumber(e)) {
+        } else if (isString(e) || isBoolean(e) || isNumber(e) || isArray(e)) {
           currentValueRef.value = e;
         }
         const onChange = unref(getComponentProps)?.onChange;
