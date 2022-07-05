@@ -1,55 +1,57 @@
 <template>
   <div class="p-4">
     <BasicTable @register="registerTable">
-      <template #action="{ record }">
-        <TableAction
-          :actions="[
-            {
-              label: '编辑',
-              onClick: handleEdit.bind(null, record),
-              auth: 'other', // 根据权限控制是否显示: 无权限，不显示
-            },
-            {
-              label: '删除',
-              icon: 'ic:outline-delete-outline',
-              onClick: handleDelete.bind(null, record),
-              auth: 'super', // 根据权限控制是否显示: 有权限，会显示
-            },
-          ]"
-          :dropDownActions="[
-            {
-              label: '启用',
-              popConfirm: {
-                title: '是否启用？',
-                confirm: handleOpen.bind(null, record),
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'action'">
+          <TableAction
+            :actions="[
+              {
+                label: '编辑',
+                onClick: handleEdit.bind(null, record),
+                auth: 'other', // 根据权限控制是否显示: 无权限，不显示
               },
-              ifShow: (_action) => {
-                return record.status !== 'enable'; // 根据业务控制是否显示: 非enable状态的不显示启用按钮
+              {
+                label: '删除',
+                icon: 'ic:outline-delete-outline',
+                onClick: handleDelete.bind(null, record),
+                auth: 'super', // 根据权限控制是否显示: 有权限，会显示
               },
-            },
-            {
-              label: '禁用',
-              popConfirm: {
-                title: '是否禁用？',
-                confirm: handleOpen.bind(null, record),
+            ]"
+            :dropDownActions="[
+              {
+                label: '启用',
+                popConfirm: {
+                  title: '是否启用？',
+                  confirm: handleOpen.bind(null, record),
+                },
+                ifShow: (_action) => {
+                  return record.status !== 'enable'; // 根据业务控制是否显示: 非enable状态的不显示启用按钮
+                },
               },
-              ifShow: () => {
-                return record.status === 'enable'; // 根据业务控制是否显示: enable状态的显示禁用按钮
+              {
+                label: '禁用',
+                popConfirm: {
+                  title: '是否禁用？',
+                  confirm: handleOpen.bind(null, record),
+                },
+                ifShow: () => {
+                  return record.status === 'enable'; // 根据业务控制是否显示: enable状态的显示禁用按钮
+                },
               },
-            },
-            {
-              label: '同时控制',
-              popConfirm: {
-                title: '是否动态显示？',
-                confirm: handleOpen.bind(null, record),
+              {
+                label: '同时控制',
+                popConfirm: {
+                  title: '是否动态显示？',
+                  confirm: handleOpen.bind(null, record),
+                },
+                auth: 'super', // 同时根据权限和业务控制是否显示
+                ifShow: () => {
+                  return true;
+                },
               },
-              auth: 'super', // 同时根据权限和业务控制是否显示
-              ifShow: () => {
-                return true;
-              },
-            },
-          ]"
-        />
+            ]"
+          />
+        </template>
       </template>
     </BasicTable>
   </div>
@@ -104,7 +106,7 @@
           width: 250,
           title: 'Action',
           dataIndex: 'action',
-          slots: { customRender: 'action' },
+          // slots: { customRender: 'action' },
         },
       });
       function handleEdit(record: Recordable) {
