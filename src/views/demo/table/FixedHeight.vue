@@ -1,15 +1,20 @@
 <template>
   <div class="p-4">
     <BasicTable @register="registerTable">
-      <template #customTitle>
-        <span>
-          姓名
-          <BasicHelp class="ml-2" text="姓名" />
-        </span>
-      </template>
-      <template #customAddress>
-        地址
-        <FormOutlined class="ml-2" />
+      <template #headerCell="{ column }">
+        <template v-if="column.key === 'name'">
+          <span>
+            姓名
+            <BasicHelp class="ml-2" text="headerHelpMessage方式2" />
+          </span>
+        </template>
+        <template v-else-if="column.key === 'address'">
+          地址
+          <FormOutlined class="ml-2" />
+        </template>
+        <template v-else>
+          <HeaderCell :column="column" />
+        </template>
       </template>
     </BasicTable>
   </div>
@@ -21,9 +26,10 @@
   import { FormOutlined } from '@ant-design/icons-vue';
   import { demoListApi } from '/@/api/demo/table';
   import { BasicHelp } from '/@/components/Basic';
+  import HeaderCell from '/@/components/Table/src/components/HeaderCell.vue';
 
   export default defineComponent({
-    components: { BasicTable, FormOutlined, BasicHelp },
+    components: { BasicTable, FormOutlined, BasicHelp, HeaderCell },
     setup() {
       const [registerTable] = useTable({
         title: '定高/头部自定义',
