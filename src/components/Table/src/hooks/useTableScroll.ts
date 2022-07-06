@@ -90,7 +90,7 @@ export function useTableScroll(
 
     bodyEl!.style.height = 'unset';
 
-    if (!unref(getCanResize) || tableData.length === 0) return;
+    if (!unref(getCanResize) || !unref(tableData) || tableData.length === 0) return;
 
     await nextTick();
     // Add a delay to get the correct bottomIncludeBody paginationHeight footerHeight headerHeight

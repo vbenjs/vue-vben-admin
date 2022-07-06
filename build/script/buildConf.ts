@@ -21,13 +21,15 @@ function createConfig(params: CreateConfigParams) {
   try {
     const windowConf = `window.${configName}`;
     // Ensure that the variable will not be modified
-    const configStr = `${windowConf}=${JSON.stringify(config)};
+    let configStr = `${windowConf}=${JSON.stringify(config)};`;
+    configStr += `
       Object.freeze(${windowConf});
       Object.defineProperty(window, "${configName}", {
         configurable: false,
         writable: false,
       });
     `.replace(/\s/g, '');
+
     fs.mkdirp(getRootPath(OUTPUT_DIR));
     writeFileSync(getRootPath(`${OUTPUT_DIR}/${configFileName}`), configStr);
 

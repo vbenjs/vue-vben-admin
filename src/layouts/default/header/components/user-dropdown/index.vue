@@ -37,6 +37,7 @@
 <script lang="ts">
   // components
   import { Dropdown, Menu } from 'ant-design-vue';
+  import type { MenuInfo } from 'ant-design-vue/lib/menu/src/interface';
 
   import { defineComponent, computed } from 'vue';
 
@@ -95,8 +96,8 @@
         openWindow(DOC_URL);
       }
 
-      function handleMenuClick(e: { key: MenuEvent }) {
-        switch (e.key) {
+      function handleMenuClick(e: MenuInfo) {
+        switch (e.key as MenuEvent) {
           case 'logout':
             handleLoginOut();
             break;
