@@ -5,7 +5,7 @@
   >
     <BasicTable @register="registerTable">
       <template #expandedRowRender="{ record }">
-        <span>No:{{ record.no }}</span>
+        <span>No: {{ record.no }} </span>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
