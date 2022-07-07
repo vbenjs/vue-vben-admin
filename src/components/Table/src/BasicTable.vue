@@ -253,9 +253,9 @@
           footer: unref(getFooterProps),
           ...unref(getExpandOption),
         };
-        if (slots.expandedRowRender) {
-          propsData = omit(propsData, 'scroll');
-        }
+        // if (slots.expandedRowRender) {
+        //   propsData = omit(propsData, 'scroll');
+        // }
 
         propsData = omit(propsData, ['class', 'onChange']);
         return propsData;
