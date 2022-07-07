@@ -4,11 +4,11 @@
     content="不可与scroll共用。TableAction组件可配置stopButtonPropagation来阻止操作按钮的点击事件冒泡，以便配合Table组件的expandRowByClick"
   >
     <BasicTable @register="registerTable">
+      <template #expandedRowRender="{ record }">
+        <span>No: {{ record.no }} </span>
+      </template>
       <template #bodyCell="{ column, record }">
-        <template v-if="column.key === 'no'">
-          <span>No: {{ record.no }} </span>
-        </template>
-        <template v-else-if="column.key === 'action'">
+        <template v-if="column.key === 'action'">
           <TableAction
             stopButtonPropagation
             :actions="[
