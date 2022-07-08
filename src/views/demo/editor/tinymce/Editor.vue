@@ -5,6 +5,7 @@
         :labelWidth="100"
         :schemas="schemas"
         :actionColOptions="{ span: 24 }"
+        :baseColProps="{ span: 24 }"
         @submit="handleSubmit"
       />
     </CollapseContainer>

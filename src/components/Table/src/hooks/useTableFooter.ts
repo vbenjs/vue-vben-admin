@@ -36,14 +36,13 @@ export function useTableFooter(
     nextTick(() => {
       const tableEl = unref(tableElRef);
       if (!tableEl) return;
-      const bodyDomList = tableEl.$el.querySelectorAll('.ant-table-body');
-      const bodyDom = bodyDomList[0];
+      const bodyDom = tableEl.$el.querySelector('.ant-table-content');
       useEventListener({
         el: bodyDom,
         name: 'scroll',
         listener: () => {
           const footerBodyDom = tableEl.$el.querySelector(
-            '.ant-table-footer .ant-table-body',
+            '.ant-table-footer .ant-table-content',
           ) as HTMLDivElement;
           if (!footerBodyDom || !bodyDom) return;
           footerBodyDom.scrollLeft = bodyDom.scrollLeft;
