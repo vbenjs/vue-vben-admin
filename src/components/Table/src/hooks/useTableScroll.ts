@@ -191,7 +191,7 @@ export function useTableScroll(
 
     const columns = unref(columnsRef).filter((item) => !item.defaultHidden);
     columns.forEach((item) => {
-      width += Number.parseInt(item.width as string) || 0;
+      width += Number.parseFloat(item.width as string) || 0;
     });
     const unsetWidthColumns = columns.filter((item) => !Reflect.has(item, 'width'));
 
