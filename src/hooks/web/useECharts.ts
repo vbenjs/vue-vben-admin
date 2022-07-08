@@ -10,6 +10,7 @@ import { useBreakpoint } from '/@/hooks/event/useBreakpoint';
 
 import echarts from '/@/utils/lib/echarts';
 import { useRootSetting } from '/@/hooks/setting/useRootSetting';
+import { useAppStore } from '/@/store/modules/app';
 
 export function useECharts(
   elRef: Ref<HTMLDivElement>,
@@ -56,25 +57,28 @@ export function useECharts(
     }
   }
 
-  function setOptions(options: EChartsOption, clear = true) {
-    cacheOptions.value = options;
-    if (unref(elRef)?.offsetHeight === 0) {
-      useTimeoutFn(() => {
-        setOptions(unref(getOptions));
-      }, 30);
-      return;
-    }
-    nextTick(() => {
-      useTimeoutFn(() => {
-        if (!chartInstance) {
-          initCharts(getDarkMode.value as 'default');
-
-          if (!chartInstance) return;
-        }
-        clear && chartInstance?.clear();
-
-        chartInstance?.setOption(unref(getOptions));
-      }, 30);
+  function setOptions(options: EChartsOption, clear = true): Promise<echarts.ECharts | null> {
+    return new Promise((resolve) => {
+      cacheOptions.value = options;
+      if (unref(elRef)?.offsetHeight === 0) {
+        useTimeoutFn(() => {
+          setOptions(unref(getOptions));
+        }, 30);
+        return;
+      }
+      nextTick(() => {
+        useTimeoutFn(() => {
+          if (!chartInstance) {
+            initCharts(getDarkMode.value as 'default');
+  
+            if (!chartInstance) return;
+          }
+          clear && chartInstance?.clear();
+  
+          chartInstance?.setOption(unref(getOptions));
+          resolve(chartInstance);
+        }, 30);
+      });
     });
   }
 
@@ -82,6 +86,15 @@ export function useECharts(
     chartInstance?.resize();
   }
 
+  const getMenuSetting = computed(() => useAppStore().getMenuSetting);
+  watch(
+    () => getMenuSetting,
+    () => {
+      nextTick(() => resizeFn());
+    },
+    { deep: true },
+  );
+  
   watch(
     () => getDarkMode.value,
     (theme) => {
