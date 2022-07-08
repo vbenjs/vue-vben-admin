@@ -68,8 +68,8 @@ module.exports = {
     // English
     typesAppend: [
       { value: 'wip', name: 'wip:      work in process' },
-      { value: 'workflow', name: 'workflow: workflow changes' },
-      { value: 'types', name: 'types:    type change' },
+      { value: 'workflow', name: 'workflow: workflow improvements' },
+      { value: 'types', name: 'types:    type definition file changes' },
     ],
 
     // 中英文对照版
@@ -98,8 +98,8 @@ module.exports = {
     //   { value: 'revert', name: 'revert:   回滚 commit' },
     //   { value: 'chore', name: 'chore:    对构建过程或辅助工具和库的更改 (不影响源文件、测试用例)' },
     //   { value: 'wip', name: 'wip:      正在开发中' },
-    //   { value: 'workflow', name: 'workflow: 工作流程变更' },
-    //   { value: 'types', name: 'types:    类型更改' },
+    //   { value: 'workflow', name: 'workflow: 工作流程改进' },
+    //   { value: 'types', name: 'types:    类型定义文件修改' },
     // ],
     // emptyScopesAlias: 'empty:      不填写',
     // customScopesAlias: 'custom:     自定义',
