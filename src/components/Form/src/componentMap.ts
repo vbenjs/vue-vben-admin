@@ -27,6 +27,7 @@ import ApiSelect from './components/ApiSelect.vue';
 import ApiTree from './components/ApiTree.vue';
 import ApiTreeSelect from './components/ApiTreeSelect.vue';
 import ApiCascader from './components/ApiCascader.vue';
+import ApiTransfer from './components/ApiTransfer.vue';
 import { BasicUpload } from '/@/components/Upload';
 import { StrengthMeter } from '/@/components/StrengthMeter';
 import { IconPicker } from '/@/components/Icon';
@@ -57,6 +58,7 @@ componentMap.set('ApiCascader', ApiCascader);
 componentMap.set('Cascader', Cascader);
 componentMap.set('Slider', Slider);
 componentMap.set('Rate', Rate);
+componentMap.set('ApiTransfer', ApiTransfer);
 
 componentMap.set('DatePicker', DatePicker);
 componentMap.set('MonthPicker', DatePicker.MonthPicker);
