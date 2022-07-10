@@ -43,6 +43,8 @@
       value: {
         type: [String, Number, Boolean] as PropType<string | number | boolean>,
       },
+      // 设置默认选中项
+      setDefaultFn: { type: Function as PropType<Fn> },
       isBtn: {
         type: [Boolean] as PropType<boolean>,
         default: false,
@@ -102,12 +104,14 @@
           const res = await api(props.params);
           if (Array.isArray(res)) {
             options.value = res;
+            setDefaultValue(res);
             emitChange();
             return;
           }
           if (props.resultField) {
             options.value = get(res, props.resultField) || [];
           }
+          setDefaultValue(res);
           emitChange();
         } catch (error) {
           console.warn(error);
@@ -118,6 +122,12 @@
 
       function emitChange() {
         emit('options-change', unref(getOptions));
+      }
+
+      function setDefaultValue(res) {
+        if (props.setDefaultFn && isFunction(props.setDefaultFn)) {
+          state.value = props.setDefaultFn(res);
+        }
       }
 
       function handleChange(_, ...args) {
