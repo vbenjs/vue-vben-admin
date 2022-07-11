@@ -149,6 +149,10 @@
         const files = e && (e.target as HTMLInputElement).files;
         const rawFile = files && files[0]; // only setting files[0]
         if (!rawFile) return;
+        if (props.isReturnFile) {
+          emit('success', rawFile);
+          return;
+        }
         upload(rawFile);
       }
 
