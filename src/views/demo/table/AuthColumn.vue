@@ -70,11 +70,32 @@
     {
       title: '姓名',
       dataIndex: 'name',
+      width: 200,
       auth: 'test', // 根据权限控制是否显示: 无权限，不显示
     },
     {
       title: '状态',
       dataIndex: 'status',
+    },
+    {
+      title: '状态1',
+      dataIndex: 'status1',
+    },
+    {
+      title: '状态2',
+      dataIndex: 'status2',
+    },
+    {
+      title: '状态3',
+      dataIndex: 'status3',
+    },
+    {
+      title: '状态4',
+      dataIndex: 'status4',
+    },
+    {
+      title: '状态5',
+      dataIndex: 'status5',
     },
     {
       title: '地址',
