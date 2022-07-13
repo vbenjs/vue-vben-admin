@@ -123,6 +123,10 @@
         api: demoListApi,
         columns: columns,
         bordered: true,
+        rowKey: 'id',
+        rowSelection: {
+          type: 'checkbox',
+        },
         actionColumn: {
           width: 250,
           title: 'Action',
