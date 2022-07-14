@@ -40,7 +40,7 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useDebounceFn } from '@vueuse/core';
   import { createBEM } from '/@/utils/bem';
-  import { ToolbarEnum } from './tree';
+  import { ToolbarEnum } from '../types/tree';
 
   const searchValue = ref('');
 

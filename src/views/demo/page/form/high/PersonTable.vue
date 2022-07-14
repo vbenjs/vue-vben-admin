@@ -1,8 +1,10 @@
 <template>
   <div>
     <BasicTable @register="registerTable" @edit-change="handleEditChange">
-      <template #action="{ record, column }">
-        <TableAction :actions="createActions(record, column)" />
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'action'">
+          <TableAction :actions="createActions(record, column)" />
+        </template>
       </template>
     </BasicTable>
     <a-button block class="mt-5" type="dashed" @click="handleAdd"> 新增成员 </a-button>
@@ -65,7 +67,7 @@
           width: 160,
           title: '操作',
           dataIndex: 'action',
-          slots: { customRender: 'action' },
+          // slots: { customRender: 'action' },
         },
         pagination: false,
       });

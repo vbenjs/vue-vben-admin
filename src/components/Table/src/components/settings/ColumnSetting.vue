@@ -111,6 +111,7 @@
     computed,
   } from 'vue';
   import { Tooltip, Popover, Checkbox, Divider } from 'ant-design-vue';
+  import type { CheckboxChangeEvent } from 'ant-design-vue/lib/checkbox/interface';
   import { SettingOutlined, DragOutlined } from '@ant-design/icons-vue';
   import { Icon } from '/@/components/Icon';
   import { ScrollContainer } from '/@/components/Container';
@@ -182,10 +183,12 @@
       });
 
       watchEffect(() => {
-        const columns = table.getColumns();
-        if (columns.length && !state.isInit) {
-          init();
-        }
+        setTimeout(() => {
+          const columns = table.getColumns();
+          if (columns.length && !state.isInit) {
+            init();
+          }
+        }, 0);
       });
 
       watchEffect(() => {
@@ -241,7 +244,7 @@
       }
 
       // checkAll change
-      function onCheckAllChange(e: ChangeEvent) {
+      function onCheckAllChange(e: CheckboxChangeEvent) {
         const checkList = plainOptions.value.map((item) => item.value);
         if (e.target.checked) {
           state.checkedList = checkList;
@@ -313,7 +316,12 @@
               }
 
               plainSortOptions.value = columns;
-              setColumns(columns);
+
+              setColumns(
+                columns
+                  .map((col: Options) => col.value)
+                  .filter((value: string) => state.checkedList.includes(value)),
+              );
             },
           });
           // 记录原始order 序列
@@ -323,14 +331,14 @@
       }
 
       // Control whether the serial number column is displayed
-      function handleIndexCheckChange(e: ChangeEvent) {
+      function handleIndexCheckChange(e: CheckboxChangeEvent) {
         table.setProps({
           showIndexColumn: e.target.checked,
         });
       }
 
       // Control whether the check box is displayed
-      function handleSelectCheckChange(e: ChangeEvent) {
+      function handleSelectCheckChange(e: CheckboxChangeEvent) {
         table.setProps({
           rowSelection: e.target.checked ? defaultRowSelection : undefined,
         });

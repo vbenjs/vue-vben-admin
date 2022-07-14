@@ -19,7 +19,7 @@ export const tags: string[] = [
   '前端开发',
   'vue3',
 ];
-<span class="iconify" data-icon="jam:codepen-circle" data-inline="false"></span>;
+
 export const teams: ListItem[] = [
   {
     icon: 'ri:alipay-fill',
