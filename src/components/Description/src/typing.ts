@@ -1,6 +1,6 @@
 import type { VNode, CSSProperties } from 'vue';
-import type { CollapseContainerOptions } from '/@/components/Container/index';
-import type { DescriptionsProps } from 'ant-design-vue/es/descriptions/index';
+import type { CollapseContainerOptions } from '/@/components/Container';
+import type { DescriptionsProps } from 'ant-design-vue/es';
 
 export interface DescItem {
   labelMinWidth?: number;
@@ -39,7 +39,7 @@ export interface DescriptionProps extends DescriptionsProps {
 }
 
 export interface DescInstance {
-  setDescProps(descProps: Partial<DescriptionProps>): void;
+  setProps(descProps: Partial<DescriptionProps>): void;
 }
 
 export type Register = (descInstance: DescInstance) => void;
