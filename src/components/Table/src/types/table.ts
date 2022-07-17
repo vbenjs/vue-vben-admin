@@ -133,6 +133,7 @@ export interface TableSetting {
   size?: boolean;
   setting?: boolean;
   fullScreen?: boolean;
+  searchToggle?: boolean;
 }
 
 export interface BasicTableProps<T = any> {

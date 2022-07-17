@@ -8,6 +8,7 @@
       :getPopupContainer="getTableContainer"
     />
     <FullScreenSetting v-if="getSetting.fullScreen" :getPopupContainer="getTableContainer" />
+    <SearchSetting v-if="getSetting.searchToggle" :getPopupContainer="getTableContainer" />
   </div>
 </template>
 <script lang="ts">
@@ -18,6 +19,7 @@
   import SizeSetting from './SizeSetting.vue';
   import RedoSetting from './RedoSetting.vue';
   import FullScreenSetting from './FullScreenSetting.vue';
+  import SearchSetting from './SearchSetting.vue';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useTableContext } from '../../hooks/useTableContext';
 
@@ -28,6 +30,7 @@
       SizeSetting,
       RedoSetting,
       FullScreenSetting,
+      SearchSetting,
     },
     props: {
       setting: {
@@ -46,6 +49,7 @@
           size: true,
           setting: true,
           fullScreen: false,
+          searchToggle: false,
           ...props.setting,
         };
       });

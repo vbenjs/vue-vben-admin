@@ -41,7 +41,7 @@
         useSearchForm: true,
         formConfig: getFormConfig(),
         showTableSetting: true,
-        tableSetting: { fullScreen: true },
+        tableSetting: { fullScreen: true, searchToggle: true },
         showIndexColumn: false,
         rowKey: 'id',
       });
