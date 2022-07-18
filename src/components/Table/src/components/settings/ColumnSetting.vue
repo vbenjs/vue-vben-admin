@@ -119,7 +119,7 @@
   import { useTableContext } from '../../hooks/useTableContext';
   import { useDesign } from '/@/hooks/web/useDesign';
   // import { useSortable } from '/@/hooks/web/useSortable';
-  import { isFunction, isNullAndUnDef } from '/@/utils/is';
+  import { isFunction, isNullOrUnDef } from '/@/utils/is';
   import { getPopupContainer as getParentContainer } from '/@/utils';
   import { cloneDeep, omit } from 'lodash-es';
   import Sortablejs from 'sortablejs';
@@ -301,7 +301,7 @@
             handle: '.table-column-drag-icon ',
             onEnd: (evt) => {
               const { oldIndex, newIndex } = evt;
-              if (isNullAndUnDef(oldIndex) || isNullAndUnDef(newIndex) || oldIndex === newIndex) {
+              if (isNullOrUnDef(oldIndex) || isNullOrUnDef(newIndex) || oldIndex === newIndex) {
                 return;
               }
               // Sort column
