@@ -3,6 +3,7 @@ import type { App, Plugin } from 'vue';
 
 import { unref } from 'vue';
 import { isObject } from '/@/utils/is';
+import { BasicTableProps } from '/@/components/Table';
 
 export const noop = () => {};
 
@@ -56,11 +57,17 @@ export function openWindow(
 
 // dynamic use hook props
 export function getDynamicProps<T, U>(props: T): Partial<U> {
-  const ret: Recordable = {};
+  const ret: Partial<BasicTableProps> = {};
 
   Object.keys(props).map((key) => {
     ret[key] = unref((props as Recordable)[key]);
   });
+
+  // 将ifShow为false的行宽设置为0
+  ret.columns = ret.columns?.map((value) => ({
+    ...value,
+    width: value.ifShow ? value.width : 0,
+  }));
 
   return ret as Partial<U>;
 }
