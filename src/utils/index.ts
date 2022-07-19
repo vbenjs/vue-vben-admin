@@ -2,7 +2,7 @@ import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router'
 import type { App, Plugin } from 'vue';
 
 import { unref } from 'vue';
-import { isObject } from '/@/utils/is';
+import { isFunction, isObject } from '/@/utils/is';
 import { BasicTableProps } from '/@/components/Table';
 
 export const noop = () => {};
@@ -64,10 +64,17 @@ export function getDynamicProps<T, U>(props: T): Partial<U> {
   });
 
   // 将ifShow为false的行宽设置为0
-  ret.columns = ret.columns?.map((value) => ({
-    ...value,
-    width: value.ifShow === false ? 0 : value.width,
-  }));
+  // @ts-ignore
+  ret.columns = ret.columns?.map((value) => {
+    return {
+      ...value,
+      width: isFunction(value.ifShow)
+        ? value.ifShow(value)
+        : value.ifShow === false
+        ? 0
+        : value.width,
+    };
+  });
 
   return ret as Partial<U>;
 }
