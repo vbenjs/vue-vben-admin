@@ -65,11 +65,10 @@ export function getDynamicProps<T, U>(props: T): Partial<U> {
 
   // 将ifShow为false的行宽设置为0
   ret.columns = ret.columns?.map((value) => {
-    return {
-      ...value,
-      width:
-        (isFunction(value.ifShow) ? value.ifShow(value) : value.ifShow) === false ? 0 : value.width,
-    };
+    if ((isFunction(value.ifShow) ? value.ifShow(value) : value.ifShow) === false && value.width) {
+      value.width = 0;
+    }
+    return value;
   });
 
   return ret as Partial<U>;
