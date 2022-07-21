@@ -3,6 +3,13 @@ node_modules
 dist
 .npmrc
 .cache
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 
 tests/server/static
 tests/server/static/upload
