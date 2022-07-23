@@ -32,9 +32,7 @@ function joinParentPath(menus: Menu[], parentPath = '') {
 }
 
 // Parsing the menu module
-export function transformMenuModule(menuModule: MenuModule): Menu {
-  const { menu } = menuModule;
-
+export function transformMenuModule(menu: Menu): Menu {
   const menuList = [menu];
 
   joinParentPath(menuList);
