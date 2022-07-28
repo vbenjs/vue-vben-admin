@@ -1,8 +1,8 @@
 import type { ColEx } from '../types';
 import type { AdvanceState } from '../types/hooks';
-import { ComputedRef, getCurrentInstance, Ref } from 'vue';
+import type { ComputedRef, Ref } from 'vue';
 import type { FormProps, FormSchema } from '../types/form';
-import { computed, unref, watch } from 'vue';
+import { computed, toRaw, unref, watch } from 'vue';
 import { isBoolean, isFunction, isNumber, isObject } from '/@/utils/is';
 import { useBreakpoint } from '/@/hooks/event/useBreakpoint';
 import { useDebounceFn } from '@vueuse/core';
@@ -14,6 +14,7 @@ interface UseAdvancedContext {
   emit: EmitType;
   getProps: ComputedRef<FormProps>;
   getSchema: ComputedRef<FormSchema[]>;
+  resetSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void>;
   formModel: Recordable;
   defaultValueRef: Ref<Recordable>;
 }
@@ -23,11 +24,10 @@ export default function ({
   emit,
   getProps,
   getSchema,
+  resetSchema,
   formModel,
   defaultValueRef,
 }: UseAdvancedContext) {
-  const vm = getCurrentInstance();
-
   const { realWidthRef, screenEnum, screenRef } = useBreakpoint();
 
   const getEmptySpan = computed((): number => {
@@ -50,14 +50,63 @@ export default function ({
     return 0;
   });
 
+  const updateAdvanced = async () => {
+    let itemColSum = 0;
+    let realItemColSum = 0;
+    const { baseColProps = {} } = unref(getProps);
+
+    const schemas = toRaw(unref(getSchema));
+    for (const schema of schemas) {
+      const { show, colProps } = schema;
+      let isShow = true;
+
+      if (isBoolean(show)) {
+        isShow = show;
+      }
+
+      if (isFunction(show)) {
+        isShow = show({
+          schema: schema,
+          model: formModel,
+          field: schema.field,
+          values: {
+            ...unref(defaultValueRef),
+            ...formModel,
+          },
+        });
+      }
+
+      if (isShow && (colProps || baseColProps)) {
+        const { itemColSum: sum, isAdvanced } = getAdvanced(
+          { ...baseColProps, ...colProps },
+          itemColSum,
+        );
+
+        itemColSum = sum || 0;
+        if (isAdvanced) {
+          realItemColSum = itemColSum;
+        }
+        schema.isAdvanced = isAdvanced;
+      }
+    }
+
+    await resetSchema(schemas);
+
+    advanceState.actionSpan = (realItemColSum % BASIC_COL_LEN) + unref(getEmptySpan);
+
+    getAdvanced(unref(getProps).actionColOptions || { span: BASIC_COL_LEN }, itemColSum, true);
+
+    emit('advanced-change');
+  };
+
   const debounceUpdateAdvanced = useDebounceFn(updateAdvanced, 30);
 
   watch(
     [() => unref(getSchema), () => advanceState.isAdvanced, () => unref(realWidthRef)],
-    () => {
+    async () => {
       const { showAdvancedButton } = unref(getProps);
       if (showAdvancedButton) {
-        debounceUpdateAdvanced();
+        await debounceUpdateAdvanced();
       }
     },
     { immediate: true },
@@ -111,55 +160,6 @@ export default function ({
       // The first line is always displayed
       return { isAdvanced: true, itemColSum };
     }
-  }
-
-  function updateAdvanced() {
-    let itemColSum = 0;
-    let realItemColSum = 0;
-    const { baseColProps = {} } = unref(getProps);
-
-    for (const schema of unref(getSchema)) {
-      const { show, colProps } = schema;
-      let isShow = true;
-
-      if (isBoolean(show)) {
-        isShow = show;
-      }
-
-      if (isFunction(show)) {
-        isShow = show({
-          schema: schema,
-          model: formModel,
-          field: schema.field,
-          values: {
-            ...unref(defaultValueRef),
-            ...formModel,
-          },
-        });
-      }
-
-      if (isShow && (colProps || baseColProps)) {
-        const { itemColSum: sum, isAdvanced } = getAdvanced(
-          { ...baseColProps, ...colProps },
-          itemColSum,
-        );
-
-        itemColSum = sum || 0;
-        if (isAdvanced) {
-          realItemColSum = itemColSum;
-        }
-        schema.isAdvanced = isAdvanced;
-      }
-    }
-
-    // 确保页面发送更新
-    vm?.proxy?.$forceUpdate();
-
-    advanceState.actionSpan = (realItemColSum % BASIC_COL_LEN) + unref(getEmptySpan);
-
-    getAdvanced(unref(getProps).actionColOptions || { span: BASIC_COL_LEN }, itemColSum, true);
-
-    emit('advanced-change');
   }
 
   function handleToggleAdvanced() {
