@@ -175,7 +175,6 @@ export interface FormSchema {
 
   // 默认值
   defaultValue?: any;
-  isAdvanced?: boolean;
 
   // Matching details components
   span?: number;

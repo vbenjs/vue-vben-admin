@@ -10,6 +10,7 @@
       <slot name="formHeader"></slot>
       <template v-for="schema in getSchema" :key="schema.field">
         <FormItem
+          :isAdvanced="fieldsIsAdvancedMap[schema.field]"
           :tableAction="tableAction"
           :formActionType="formActionType"
           :schema="schema"
@@ -141,7 +142,7 @@
         }
       });
 
-      const { handleToggleAdvanced } = useAdvanced({
+      const { handleToggleAdvanced, fieldsIsAdvancedMap } = useAdvanced({
         advanceState,
         emit,
         getProps,
@@ -299,6 +300,7 @@
         getFormActionBindProps: computed(
           (): Recordable => ({ ...getProps.value, ...advanceState }),
         ),
+        fieldsIsAdvancedMap,
         ...formActionType,
       };
     },
