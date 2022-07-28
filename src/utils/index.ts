@@ -2,8 +2,7 @@ import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router'
 import type { App, Plugin } from 'vue';
 
 import { unref } from 'vue';
-import { isFunction, isObject } from '/@/utils/is';
-import { BasicTableProps } from '/@/components/Table';
+import { isObject } from '/@/utils/is';
 
 export const noop = () => {};
 
@@ -57,18 +56,10 @@ export function openWindow(
 
 // dynamic use hook props
 export function getDynamicProps<T, U>(props: T): Partial<U> {
-  const ret: Partial<BasicTableProps> = {};
+  const ret: Recordable = {};
 
   Object.keys(props).map((key) => {
     ret[key] = unref((props as Recordable)[key]);
-  });
-
-  // 将ifShow为false的行宽设置为0
-  ret.columns = ret.columns?.map((value) => {
-    if ((isFunction(value.ifShow) ? value.ifShow(value) : value.ifShow) === false && value.width) {
-      value.width = 0;
-    }
-    return value;
   });
 
   return ret as Partial<U>;
