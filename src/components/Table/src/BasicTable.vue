@@ -48,7 +48,7 @@
 
   import { defineComponent, ref, computed, unref, toRaw, inject, watchEffect } from 'vue';
   import { Table } from 'ant-design-vue';
-  import { BasicForm, useForm } from '/@/components/Form/index';
+  import { BasicForm, useForm } from '/@/components/Form';
   import { PageWrapperFixedHeightKey } from '/@/components/Page';
   import HeaderCell from './components/HeaderCell.vue';
   import { InnerHandlers } from './types/table';
@@ -282,6 +282,16 @@
       });
 
       function setProps(props: Partial<BasicTableProps>) {
+        // 将ifShow为false的行宽设置为0
+        props.columns = props.columns?.map((column) => {
+          if (
+            (isFunction(column.ifShow) ? column.ifShow(column) : column.ifShow) === false &&
+            column.width
+          ) {
+            column.width = 0;
+          }
+          return column;
+        });
         innerPropsRef.value = { ...unref(innerPropsRef), ...props };
       }
 
