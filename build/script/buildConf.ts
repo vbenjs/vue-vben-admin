@@ -42,6 +42,6 @@ function createConfig(params: CreateConfigParams) {
 
 export function runBuildConfig() {
   const config = getEnvConfig();
-  const configFileName = getConfigFileName(config);
+  const configFileName = getConfigFileName((config as ViteEnv).VITE_GLOB_APP_SHORT_NAME);
   createConfig({ config, configName: configFileName, configFileName: GLOB_CONFIG_FILE_NAME });
 }
