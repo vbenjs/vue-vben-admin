@@ -1,7 +1,6 @@
 import type { GlobEnvConfig } from '/#/config';
 
 import { warn } from '/@/utils/log';
-import pkg from '../../package.json';
 import { getConfigFileName } from '../../build/getConfigFileName';
 
 export function getCommonStoragePrefix() {
@@ -11,11 +10,11 @@ export function getCommonStoragePrefix() {
 
 // Generate cache key according to version
 export function getStorageShortName() {
-  return `${getCommonStoragePrefix()}${`__${pkg.version}`}__`.toUpperCase();
+  return `${getCommonStoragePrefix()}${`__${__APP_INFO__.pkg.version}`}__`.toUpperCase();
 }
 
 export function getAppEnvConfig() {
-  const ENV_NAME = getConfigFileName(import.meta.env);
+  const ENV_NAME = getConfigFileName(import.meta.env.VITE_GLOB_APP_SHORT_NAME);
 
   const ENV = (import.meta.env.DEV
     ? // Get the global configuration (the configuration will be extracted independently when packaging)
