@@ -1,23 +1,62 @@
 <template>
-  <!-- eslint-disable vue/no-v-html -->
-  <div v-html="getHtmlData" :class="$props.class" class="markdown-viewer"></div>
+  <div ref="viewerRef" id="markdownViewer" :class="$props.class"></div>
 </template>
 
 <script lang="ts" setup>
-  import { computed, defineProps } from 'vue';
-  import showdown from 'showdown';
-
-  const converter = new showdown.Converter();
-  converter.setOption('tables', true);
+  import { defineProps, onBeforeUnmount, onDeactivated, Ref, ref, unref, watch } from 'vue';
+  import VditorPreview from 'vditor/dist/method.min';
+  import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
+  import { useRootSetting } from '/@/hooks/setting/useRootSetting';
+  import { getTheme } from './getTheme';
   const props = defineProps({
     value: { type: String },
     class: { type: String },
   });
-  const getHtmlData = computed(() => converter.makeHtml(props.value || ''));
-</script>
+  const viewerRef = ref<ElRef>(null);
+  const vditorPreviewRef = ref(null) as Ref<Nullable<VditorPreview>>;
+  const { getDarkMode } = useRootSetting();
 
-<style scoped>
-  .markdown-viewer {
-    width: 100%;
+  function init() {
+    const viewerEl = unref(viewerRef) as HTMLElement;
+    vditorPreviewRef.value = VditorPreview.preview(viewerEl, props.value, {
+      mode: getTheme(getDarkMode.value, 'content'),
+      theme: {
+        // 设置内容主题
+        current: getTheme(getDarkMode.value, 'content'),
+      },
+      hljs: {
+        // 设置代码块主题
+        style: getTheme(getDarkMode.value, 'code'),
+      },
+    });
   }
-</style>
+  watch(
+    () => getDarkMode.value,
+    (val) => {
+      VditorPreview.setContentTheme(getTheme(val, 'content'));
+      VditorPreview.setCodeTheme(getTheme(val, 'code'));
+      init();
+    },
+  );
+
+  watch(
+    () => props.value,
+    (v, oldValue) => {
+      v !== oldValue && init();
+    },
+  );
+
+  function destroy() {
+    const vditorInstance = unref(vditorPreviewRef);
+    if (!vditorInstance) return;
+    try {
+      vditorInstance?.destroy?.();
+    } catch (error) {}
+    vditorPreviewRef.value = null;
+  }
+
+  onMountedOrActivated(init);
+
+  onBeforeUnmount(destroy);
+  onDeactivated(destroy);
+</script>

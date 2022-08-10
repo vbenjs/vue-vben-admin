@@ -1,8 +1,10 @@
 <template>
   <div class="p-4">
     <BasicTable @register="registerTable" @edit-change="onEditChange">
-      <template #action="{ record, column }">
-        <TableAction :actions="createActions(record, column)" />
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'action'">
+          <TableAction :actions="createActions(record, column)" />
+        </template>
       </template>
     </BasicTable>
   </div>
@@ -180,7 +182,7 @@
           width: 160,
           title: 'Action',
           dataIndex: 'action',
-          slots: { customRender: 'action' },
+          // slots: { customRender: 'action' },
         },
       });
 

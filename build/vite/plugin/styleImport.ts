@@ -64,6 +64,8 @@ export function configStyleImportPlugin(_isBuild: boolean) {
             'layout-footer': 'layout',
             'layout-header': 'layout',
             'month-picker': 'date-picker',
+            'range-picker': 'date-picker',
+            'image-preview-group': 'image',
           };
 
           return ignoreList.includes(name)
