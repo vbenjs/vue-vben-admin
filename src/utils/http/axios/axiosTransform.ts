@@ -18,9 +18,9 @@ export abstract class AxiosTransform {
   beforeRequestHook?: (config: AxiosRequestConfig, options: RequestOptions) => AxiosRequestConfig;
 
   /**
-   * @description: Request successfully processed
+   * @description: 处理响应数据
    */
-  transformRequestHook?: (res: AxiosResponse<Result>, options: RequestOptions) => any;
+  transformResponseHook?: (res: AxiosResponse<Result>, options: RequestOptions) => any;
 
   /**
    * @description: 请求失败处理

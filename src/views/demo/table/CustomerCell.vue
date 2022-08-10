@@ -3,20 +3,22 @@
     <BasicTable @register="registerTable">
       <template #bodyCell="{ column, record, text }">
         <template v-if="column.key === 'id'"> ID: {{ record.id }} </template>
-        <template v-if="column.key === 'no'">
+        <template v-else-if="column.key === 'no'">
           <Tag color="green">
             {{ record.no }}
           </Tag>
         </template>
-        <template v-if="column.key === 'avatar'">
+        <template v-else-if="column.key === 'avatar'">
           <Avatar :size="60" :src="record.avatar" />
         </template>
-        <template v-if="column.key === 'imgArr'">
+        <template v-else-if="column.key === 'imgArr'">
           <TableImg :size="60" :simpleShow="true" :imgList="text" />
         </template>
-        <template v-if="column.key === 'imgs'"> <TableImg :size="60" :imgList="text" /> </template>
+        <template v-else-if="column.key === 'imgs'">
+          <TableImg :size="60" :imgList="text" />
+        </template>
 
-        <template v-if="column.key === 'category'">
+        <template v-else-if="column.key === 'category'">
           <Tag color="green">
             {{ record.no }}
           </Tag>

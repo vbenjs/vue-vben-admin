@@ -90,7 +90,7 @@ export function useTableScroll(
 
     bodyEl!.style.height = 'unset';
 
-    if (!unref(getCanResize) || tableData.length === 0) return;
+    if (!unref(getCanResize) || !unref(tableData) || tableData.length === 0) return;
 
     await nextTick();
     // Add a delay to get the correct bottomIncludeBody paginationHeight footerHeight headerHeight
@@ -191,7 +191,7 @@ export function useTableScroll(
 
     const columns = unref(columnsRef).filter((item) => !item.defaultHidden);
     columns.forEach((item) => {
-      width += Number.parseInt(item.width as string) || 0;
+      width += Number.parseFloat(item.width as string) || 0;
     });
     const unsetWidthColumns = columns.filter((item) => !Reflect.has(item, 'width'));
 
