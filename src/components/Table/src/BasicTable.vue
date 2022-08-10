@@ -21,6 +21,7 @@
       :rowClassName="getRowClassName"
       v-show="getEmptyDataIsShowTable"
       @change="handleTableChange"
+      @resize-column="handleResizeColumn"
     >
       <template #[item]="data" v-for="item in Object.keys($slots)" :key="item">
         <slot :name="item" v-bind="data || {}"></slot>
@@ -285,6 +286,15 @@
         innerPropsRef.value = { ...unref(innerPropsRef), ...props };
       }
 
+      function handleResizeColumn(w, col) {
+        const columns = getColumns();
+        const index = columns.findIndex((item) => item.dataIndex === col.dataIndex);
+        if (index > -1) {
+          columns[index].width = w;
+          setColumns(columns);
+        }
+      }
+
       const tableAction: TableActionType = {
         reload,
         getSelectRows,
@@ -336,6 +346,7 @@
         handleSearchInfoChange,
         getEmptyDataIsShowTable,
         handleTableChange,
+        handleResizeColumn,
         getRowClassName,
         wrapRef,
         tableAction,
