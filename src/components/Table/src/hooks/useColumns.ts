@@ -170,6 +170,10 @@ export function useColumns(
         if ((edit || editRow) && !isDefaultAction) {
           column.customRender = renderEditCell(column);
         }
+
+        // init column.width
+        if (column.resizable) column.width = NaN;
+
         return reactive(column);
       });
   });
