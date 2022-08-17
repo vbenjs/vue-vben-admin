@@ -1,4 +1,4 @@
-import { getCurrentInstance, onBeforeUnmount, ref, Ref, shallowRef, unref } from 'vue';
+import { getCurrentInstance, onBeforeUnmount, onMounted, ref, Ref, shallowRef, unref } from 'vue';
 import { useRafThrottle } from '/@/utils/domUtils';
 import { addResizeListener, removeResizeListener } from '/@/utils/event';
 import { isDef } from '/@/utils/is';
@@ -16,6 +16,12 @@ export function useWatermark(
   });
   const id = domSymbol.toString();
   const watermarkEl = shallowRef<HTMLElement>();
+
+  onMounted(() => {
+    if (isDef(document.getElementById(id))) {
+      watermarkEl.value = document.getElementById(id)!;
+    }
+  });
 
   const clear = () => {
     const domId = unref(watermarkEl);
