@@ -1,7 +1,7 @@
-import { getCurrentInstance, onBeforeUnmount, ref, Ref, shallowRef, unref } from 'vue';
+import { getCurrentInstance, onBeforeUnmount, onMounted, ref, Ref, shallowRef, unref } from 'vue';
 import { useRafThrottle } from '/@/utils/domUtils';
 import { addResizeListener, removeResizeListener } from '/@/utils/event';
-import { isDef } from '/@/utils/is';
+import { isDef, isNull } from '/@/utils/is';
 
 const domSymbol = Symbol('watermark-dom');
 
@@ -16,6 +16,13 @@ export function useWatermark(
   });
   const id = domSymbol.toString();
   const watermarkEl = shallowRef<HTMLElement>();
+
+  onMounted(() => {
+    const watermarkMask = document.getElementById(id);
+    if (!isNull(watermarkMask)) {
+      watermarkEl.value = watermarkMask!;
+    }
+  });
 
   const clear = () => {
     const domId = unref(watermarkEl);
