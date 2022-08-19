@@ -24,7 +24,7 @@
     name: 'ApiTransfer',
     components: { Transfer },
     props: {
-      value: { type: Array as PropType<string[] },
+      value: { type: Array as PropType<string[]> },
       api: {
         type: Function as PropType<(arg?: Recordable) => Promise<TransferItem[]>>,
         default: null,
