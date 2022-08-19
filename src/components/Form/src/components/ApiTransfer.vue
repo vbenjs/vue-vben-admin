@@ -24,13 +24,13 @@
     name: 'ApiTransfer',
     components: { Transfer },
     props: {
-      value: { type: Array<string> },
+      value: { type: Array as PropType<string[] },
       api: {
         type: Function as PropType<(arg?: Recordable) => Promise<TransferItem[]>>,
         default: null,
       },
       params: { type: Object },
-      dataSource: { type: Array<TransferItem> },
+      dataSource: { type: Array as PropType<TransferItem[]> },
       immediate: propTypes.bool.def(true),
       alwaysLoad: propTypes.bool.def(false),
       afterFetch: { type: Function as PropType<Fn> },
@@ -42,9 +42,9 @@
       filterOption: {
         type: Function as PropType<(inputValue: string, item: TransferItem) => boolean>,
       },
-      selectedKeys: { type: Array<string> },
+      selectedKeys: { type: Array as PropType<string[]> },
       showSelectAll: { type: Boolean, default: false },
-      targetKeys: { type: Array<string> },
+      targetKeys: { type: Array as PropType<string[]> },
     },
     emits: ['options-change', 'change'],
     setup(props, { attrs, emit }) {
