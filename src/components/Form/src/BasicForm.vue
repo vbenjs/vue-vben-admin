@@ -121,12 +121,15 @@
           const { defaultValue, component } = schema;
           // handle date type
           if (defaultValue && dateItemType.includes(component)) {
+            const valueFormat = (schema.componentProps as any)?.valueFormat;
+            const handleDate = (value: any) =>
+              valueFormat ? dateUtil(value).format(valueFormat) : dateUtil(value);
             if (!Array.isArray(defaultValue)) {
-              schema.defaultValue = dateUtil(defaultValue);
+              schema.defaultValue = handleDate(defaultValue);
             } else {
               const def: any[] = [];
               defaultValue.forEach((item) => {
-                def.push(dateUtil(item));
+                def.push(handleDate(item));
               });
               schema.defaultValue = def;
             }
