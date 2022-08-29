@@ -15,6 +15,7 @@ function handleItem(item: BasicColumn, ellipsis: boolean) {
   item.align = item.align || DEFAULT_ALIGN;
   if (ellipsis) {
     if (!key) {
+      // @ts-ignore
       item.key = dataIndex;
     }
     if (!isBoolean(item.ellipsis)) {
@@ -51,7 +52,7 @@ function handleIndexColumn(
     return;
   }
   columns.forEach(() => {
-    const indIndex = columns.findIndex((column) => column.flag === INDEX_COLUMN_FLAG);
+    const indIndex = columns?.findIndex?.((column) => column.flag === INDEX_COLUMN_FLAG);
     if (showIndexColumn) {
       pushIndexColumns = indIndex === -1;
     } else if (!showIndexColumn && indIndex !== -1) {
@@ -89,7 +90,7 @@ function handleActionColumn(propsRef: ComputedRef<BasicTableProps>, columns: Bas
   const { actionColumn } = unref(propsRef);
   if (!actionColumn) return;
 
-  const hasIndex = columns.findIndex((column) => column.flag === ACTION_COLUMN_FLAG);
+  const hasIndex = columns?.findIndex?.((column) => column.flag === ACTION_COLUMN_FLAG);
   if (hasIndex === -1) {
     columns.push({
       ...columns[hasIndex],

@@ -284,10 +284,7 @@
       function setProps(props: Partial<BasicTableProps>) {
         // 将ifShow为false的行宽设置为0
         props.columns = props.columns?.map((column) => {
-          if (
-            (isFunction(column.ifShow) ? column.ifShow(column) : column.ifShow) === false &&
-            column.width
-          ) {
+          if ((isFunction(column.ifShow) ? column.ifShow(column) : column.ifShow) === false) {
             column.width = 0;
           }
           return column;
