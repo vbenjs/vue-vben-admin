@@ -77,7 +77,16 @@ pnpm install
 - run
 
 ```bash
+// default
+// http or https?
+// use config: {root_path}/vite.config.ts: server.https.{bool_value}
 pnpm serve
+
+// use https
+pnpm dev --https
+
+// use http
+pnpm dev --https false
 ```
 
 - build
