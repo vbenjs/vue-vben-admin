@@ -77,7 +77,16 @@ pnpm install
 - 运行
 
 ```bash
+// 默认运行
+// http 还是 https?
+// 将使用 {root_path}/vite.config.ts文件: server.https.{bool_value}配置项决定是否为 https,
 pnpm serve
+
+// https 模式运行
+pnpm dev --https
+
+// http 模式运行
+pnpm dev --https false
 ```
 
 - 打包
