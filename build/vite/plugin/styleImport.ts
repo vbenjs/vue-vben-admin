@@ -5,9 +5,9 @@
 import { createStyleImportPlugin } from 'vite-plugin-style-import';
 
 export function configStyleImportPlugin(_isBuild: boolean) {
-  // if (!isBuild) {
-  //   return [];
-  // }
+  if (!_isBuild) {
+    return [];
+  }
   const styleImportPlugin = createStyleImportPlugin({
     libs: [
       {
