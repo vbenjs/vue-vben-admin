@@ -134,6 +134,7 @@ export const treeProps = buildProps({
     type: Boolean,
     default: false,
   },
+  treeWrapperClassName: String
 });
 
 export type TreeProps = ExtractPropTypes<typeof treeProps>;
