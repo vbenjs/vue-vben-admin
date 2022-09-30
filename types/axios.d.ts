@@ -1,53 +1,53 @@
-export type ErrorMessageMode = 'none' | 'modal' | 'message' | undefined;
+export type ErrorMessageMode = 'none' | 'modal' | 'message' | undefined
 
 export interface RequestOptions {
   // Splicing request parameters to url
-  joinParamsToUrl?: boolean;
+  joinParamsToUrl?: boolean
   // Format request parameter time
-  formatDate?: boolean;
+  formatDate?: boolean
   // Whether to process the request result
-  isTransformResponse?: boolean;
+  isTransformResponse?: boolean
   // Whether to return native response headers
   // For example: use this attribute when you need to get the response headers
-  isReturnNativeResponse?: boolean;
+  isReturnNativeResponse?: boolean
   // Whether to join url
-  joinPrefix?: boolean;
+  joinPrefix?: boolean
   // Interface address, use the default apiUrl if you leave it blank
-  apiUrl?: string;
+  apiUrl?: string
   // 请求拼接路径
-  urlPrefix?: string;
+  urlPrefix?: string
   // Error message prompt type
-  errorMessageMode?: ErrorMessageMode;
+  errorMessageMode?: ErrorMessageMode
   // Whether to add a timestamp
-  joinTime?: boolean;
-  ignoreCancelToken?: boolean;
+  joinTime?: boolean
+  ignoreCancelToken?: boolean
   // Whether to send token in header
-  withToken?: boolean;
+  withToken?: boolean
   // 请求重试机制
-  retryRequest?: RetryRequest;
+  retryRequest?: RetryRequest
 }
 
 export interface RetryRequest {
-  isOpenRetry: boolean;
-  count: number;
-  waitTime: number;
+  isOpenRetry: boolean
+  count: number
+  waitTime: number
 }
 export interface Result<T = any> {
-  code: number;
-  type: 'success' | 'error' | 'warning';
-  message: string;
-  result: T;
+  code: number
+  type: 'success' | 'error' | 'warning'
+  message: string
+  result: T
 }
 
 // multipart/form-data: upload file
 export interface UploadFileParams {
   // Other parameters
-  data?: Recordable;
+  data?: Recordable
   // File parameter interface field name
-  name?: string;
+  name?: string
   // file name
-  file: File | Blob;
+  file: File | Blob
   // file name
-  filename?: string;
-  [key: string]: any;
+  filename?: string
+  [key: string]: any
 }
