@@ -12,7 +12,6 @@ export default {
     comp: 'Component',
     basic: 'Basic',
     transition: 'Animation',
-    countTo: 'Count To',
 
     scroll: 'Scroll',
     scrollBasic: 'Basic',
@@ -70,7 +69,6 @@ export default {
     sessionTimeout: 'Session Timeout',
     contextMenu: 'Context Menu',
     download: 'Download',
-    clickOutSide: 'ClickOutSide',
     imgPreview: 'Picture Preview',
     copy: 'Clipboard',
     msg: 'Message prompt',

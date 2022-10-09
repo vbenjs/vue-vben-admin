@@ -12,7 +12,6 @@ export default {
     comp: '组件',
     basic: '基础组件',
     transition: '动画组件',
-    countTo: '数字动画',
 
     scroll: '滚动组件',
     scrollBasic: '基础滚动',
@@ -69,7 +68,6 @@ export default {
     tabDetail: '标签详情页',
     contextMenu: '右键菜单',
     download: '文件下载',
-    clickOutSide: 'ClickOutSide组件',
     imgPreview: '图片预览',
     copy: '剪切板',
     msg: '消息提示',
