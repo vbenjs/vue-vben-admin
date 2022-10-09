@@ -7,7 +7,6 @@ import 'virtual:svg-icons-register'
 import App from './App.vue'
 import { createApp } from 'vue'
 import { initAppConfigStore } from '/@/logics/initAppConfig'
-import { setupErrorHandle } from '/@/logics/error-handle'
 import { router, setupRouter } from '/@/router'
 import { setupRouterGuard } from '/@/router/guard'
 import { setupStore } from '/@/store'
@@ -49,8 +48,6 @@ async function bootstrap() {
   setupGlobDirectives(app)
 
   // Configure global error handling
-  // 配置全局错误处理
-  setupErrorHandle(app)
 
   // https://next.router.vuejs.org/api/#isready
   // await router.isReady();
