@@ -45,7 +45,6 @@ export default {
 
     time: 'Relative Time',
     cropperImage: 'Cropper Image',
-    cardList: 'Card List',
   },
   editor: {
     editor: 'Editor',
