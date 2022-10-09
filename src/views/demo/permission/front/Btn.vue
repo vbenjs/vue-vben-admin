@@ -13,7 +13,7 @@
     <Alert class="mt-4" type="info" message="点击后请查看按钮变化" show-icon />
 
     <div class="mt-4">
-      权限切换(请先切换权限模式为前端角色权限模式):
+      权限切换1(请先切换权限模式为前端角色权限模式):
       <Space>
         <a-button @click="changeRole(RoleEnum.SUPER)" :type="isSuper ? 'primary' : 'default'">
           {{ RoleEnum.SUPER }}
@@ -60,20 +60,20 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { computed, defineComponent } from 'vue';
-  import { Alert, Divider, Space } from 'ant-design-vue';
-  import CurrentPermissionMode from '../CurrentPermissionMode.vue';
-  import { useUserStore } from '/@/store/modules/user';
-  import { RoleEnum } from '/@/enums/roleEnum';
-  import { usePermission } from '/@/hooks/web/usePermission';
-  import { Authority } from '/@/components/Authority';
-  import { PageWrapper } from '/@/components/Page';
+  import { computed, defineComponent } from 'vue'
+  import { Alert, Divider, Space } from 'ant-design-vue'
+  import CurrentPermissionMode from '../CurrentPermissionMode.vue'
+  import { useUserStore } from '/@/store/modules/user'
+  import { RoleEnum } from '/@/enums/roleEnum'
+  import { usePermission } from '/@/hooks/web/usePermission'
+  import { Authority } from '/@/components/Authority'
+  import { PageWrapper } from '/@/components/Page'
 
   export default defineComponent({
     components: { Alert, PageWrapper, Space, CurrentPermissionMode, Divider, Authority },
     setup() {
-      const { changeRole, hasPermission } = usePermission();
-      const userStore = useUserStore();
+      const { changeRole, hasPermission } = usePermission()
+      const userStore = useUserStore()
 
       return {
         userStore,
@@ -82,9 +82,9 @@
         isTest: computed(() => userStore.getRoleList.includes(RoleEnum.TEST)),
         changeRole,
         hasPermission,
-      };
+      }
     },
-  });
+  })
 </script>
 <style lang="less" scoped>
   .demo {
