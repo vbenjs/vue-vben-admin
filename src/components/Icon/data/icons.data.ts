@@ -563,7 +563,6 @@ export default {
     'qq-circle-filled',
     'qq-outlined',
     'qq-square-filled',
-    'qrcode-outlined',
     'question-circle-filled',
     'question-circle-outlined',
     'question-circle-twotone',
