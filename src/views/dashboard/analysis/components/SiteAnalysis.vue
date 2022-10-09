@@ -14,12 +14,12 @@
   </Card>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { Card } from 'ant-design-vue';
-  import VisitAnalysis from './VisitAnalysis.vue';
-  import VisitAnalysisBar from './VisitAnalysisBar.vue';
+  import { ref } from 'vue'
+  import { Card } from 'ant-design-vue'
+  import VisitAnalysis from './VisitAnalysis.vue'
+  import VisitAnalysisBar from './VisitAnalysisBar.vue'
 
-  const activeKey = ref('tab1');
+  const activeKey = ref('tab1')
 
   const tabListTitle = [
     {
@@ -30,9 +30,9 @@
       key: 'tab2',
       tab: '访问量',
     },
-  ];
+  ]
 
   function onTabChange(key) {
-    activeKey.value = key;
+    activeKey.value = key
   }
 </script>
