@@ -1,7 +1,7 @@
-import type { AppRouteModule } from '/@/router/types';
+import type { AppRouteModule } from '/@/router/types'
 
-import { getParentLayout, LAYOUT } from '/@/router/constant';
-import { t } from '/@/hooks/web/useI18n';
+import { getParentLayout, LAYOUT } from '/@/router/constant'
+import { t } from '/@/hooks/web/useI18n'
 
 const feat: AppRouteModule = {
   path: '/feat',
@@ -21,14 +21,6 @@ const feat: AppRouteModule = {
       component: () => import('/@/views/demo/feat/icon/index.vue'),
       meta: {
         title: t('routes.demo.feat.icon'),
-      },
-    },
-    {
-      path: 'ws',
-      name: 'WebSocket',
-      component: () => import('/@/views/demo/feat/ws/index.vue'),
-      meta: {
-        title: t('routes.demo.feat.ws'),
       },
     },
     {
@@ -319,6 +311,6 @@ const feat: AppRouteModule = {
       ],
     },
   ],
-};
+}
 
-export default feat;
+export default feat

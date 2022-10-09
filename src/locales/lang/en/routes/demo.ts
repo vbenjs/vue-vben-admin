@@ -87,8 +87,6 @@ export default {
     menu1: 'Menu with parameters 1',
     menu2: 'Menu with parameters 2',
 
-    ws: 'Websocket test',
-
     breadcrumb: 'Breadcrumbs',
     breadcrumbFlat: 'Flat Mode',
     breadcrumbFlatDetail: 'Flat mode details',
@@ -112,12 +110,6 @@ export default {
     customerForm: 'Custom',
     appendForm: 'Append',
     tabsForm: 'TabsForm',
-  },
-  iframe: {
-    frame: 'External',
-    antv: 'antVue doc (embedded)',
-    doc: 'Project doc (embedded)',
-    docExternal: 'Project doc (external)',
   },
   level: { level: 'MultiMenu' },
   page: {
@@ -199,4 +191,4 @@ export default {
     authColumn: 'Auth column',
     resizeParentHeightTable: 'resizeParentHeightTable',
   },
-};
+}

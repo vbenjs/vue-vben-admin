@@ -85,7 +85,6 @@ export default {
     menu: 'Menu带参',
     menu1: 'Menu带参1',
     menu2: 'Menu带参2',
-    ws: 'websocket测试',
     breadcrumb: '面包屑导航',
     breadcrumbFlat: '平级模式',
     requestDemo: '测试请求重试',
@@ -108,12 +107,6 @@ export default {
     customerForm: '自定义组件',
     appendForm: '表单增删示例',
     tabsForm: '标签页+多级field',
-  },
-  iframe: {
-    frame: '外部页面',
-    antv: 'antVue文档(内嵌)',
-    doc: '项目文档(内嵌)',
-    docExternal: '项目文档(外链)',
   },
   level: { level: '多级菜单' },
   page: {
@@ -190,4 +183,4 @@ export default {
     authColumn: '权限列',
     resizeParentHeightTable: '继承父元素高度',
   },
-};
+}
