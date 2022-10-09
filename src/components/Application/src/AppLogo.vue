@@ -11,13 +11,13 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { computed, unref } from 'vue';
-  import { useGlobSetting } from '/@/hooks/setting';
-  import { useGo } from '/@/hooks/web/usePage';
-  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { PageEnum } from '/@/enums/pageEnum';
-  import { useUserStore } from '/@/store/modules/user';
+  import { computed, unref } from 'vue'
+  import { useGlobSetting } from '/@/hooks/setting'
+  import { useGo } from '/@/hooks/web/usePage'
+  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting'
+  import { useDesign } from '/@/hooks/web/useDesign'
+  import { PageEnum } from '/@/enums/pageEnum'
+  import { useUserStore } from '/@/store/modules/user'
 
   const props = defineProps({
     /**
@@ -32,29 +32,29 @@
      * The title is also displayed when the menu is collapsed
      */
     alwaysShowTitle: { type: Boolean },
-  });
+  })
 
-  const { prefixCls } = useDesign('app-logo');
-  const { getCollapsedShowTitle } = useMenuSetting();
-  const userStore = useUserStore();
-  const { title } = useGlobSetting();
-  const go = useGo();
+  const { prefixCls } = useDesign('app-logo')
+  const { getCollapsedShowTitle } = useMenuSetting()
+  const userStore = useUserStore()
+  const { title } = useGlobSetting()
+  const go = useGo()
 
   const getAppLogoClass = computed(() => [
     prefixCls,
     props.theme,
     { 'collapsed-show-title': unref(getCollapsedShowTitle) },
-  ]);
+  ])
 
   const getTitleClass = computed(() => [
     `${prefixCls}__title`,
     {
       'xs:opacity-0': !props.alwaysShowTitle,
     },
-  ]);
+  ])
 
   function goHome() {
-    go(userStore.getUserInfo.homePath || PageEnum.BASE_HOME);
+    go(userStore.getUserInfo.homePath || PageEnum.BASE_HOME)
   }
 </script>
 <style lang="less" scoped>
