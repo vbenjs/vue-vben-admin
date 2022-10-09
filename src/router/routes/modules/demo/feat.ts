@@ -41,14 +41,6 @@ const feat: AppRouteModule = {
       },
     },
     {
-      path: 'print',
-      name: 'Print',
-      component: () => import('/@/views/demo/feat/print/index.vue'),
-      meta: {
-        title: t('routes.demo.feat.print'),
-      },
-    },
-    {
       path: 'tabs',
       name: 'TabsDemo',
       component: () => import('/@/views/demo/feat/tabs/index.vue'),
@@ -130,14 +122,6 @@ const feat: AppRouteModule = {
       component: () => import('/@/views/demo/feat/context-menu/index.vue'),
       meta: {
         title: t('routes.demo.feat.contextMenu'),
-      },
-    },
-    {
-      path: 'download',
-      name: 'DownLoadDemo',
-      component: () => import('/@/views/demo/feat/download/index.vue'),
-      meta: {
-        title: t('routes.demo.feat.download'),
       },
     },
     {

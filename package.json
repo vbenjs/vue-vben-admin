@@ -56,7 +56,6 @@
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.0",
     "pinia": "2.0.12",
-    "print-js": "^1.6.0",
     "qrcode": "^1.5.0",
     "qs": "^6.10.3",
     "resize-observer-polyfill": "^1.5.1",
