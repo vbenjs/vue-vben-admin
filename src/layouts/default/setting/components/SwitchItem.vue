@@ -11,13 +11,13 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, computed } from 'vue';
+  import { defineComponent, PropType, computed } from 'vue'
 
-  import { Switch } from 'ant-design-vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { baseHandler } from '../handler';
-  import { HandlerEnum } from '../enum';
+  import { Switch } from 'ant-design-vue'
+  import { useDesign } from '/@/hooks/web/useDesign'
+  import { useI18n } from '/@/hooks/web/useI18n'
+  import { baseHandler } from '../handler'
+  import { HandlerEnum } from '../enum'
 
   export default defineComponent({
     name: 'SwitchItem',
@@ -37,23 +37,23 @@
       },
     },
     setup(props) {
-      const { prefixCls } = useDesign('setting-switch-item');
-      const { t } = useI18n();
+      const { prefixCls } = useDesign('setting-switch-item')
+      const { t } = useI18n()
 
       const getBindValue = computed(() => {
-        return props.def ? { checked: props.def } : {};
-      });
+        return props.def ? { checked: props.def } : {}
+      })
       function handleChange(e: ChangeEvent) {
-        props.event && baseHandler(props.event, e);
+        props.event && baseHandler(props.event, e)
       }
       return {
         prefixCls,
         t,
         handleChange,
         getBindValue,
-      };
+      }
     },
-  });
+  })
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-setting-switch-item';
