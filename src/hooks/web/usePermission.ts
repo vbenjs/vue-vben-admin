@@ -1,28 +1,28 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
-import { useAppStore } from '/@/store/modules/app';
-import { usePermissionStore } from '/@/store/modules/permission';
-import { useUserStore } from '/@/store/modules/user';
+import { useAppStore } from '/@/store/modules/app'
+import { usePermissionStore } from '/@/store/modules/permission'
+import { useUserStore } from '/@/store/modules/user'
 
-import { useTabs } from './useTabs';
+import { useTabs } from './useTabs'
 
-import { router, resetRouter } from '/@/router';
+import { router, resetRouter } from '/@/router'
 // import { RootRoute } from '/@/router/routes';
 
-import projectSetting from '/@/settings/projectSetting';
-import { PermissionModeEnum } from '/@/enums/appEnum';
-import { RoleEnum } from '/@/enums/roleEnum';
+import projectSetting from '/@/settings/projectSetting'
+import { PermissionModeEnum } from '/@/enums/appEnum'
+import { RoleEnum } from '/@/enums/roleEnum'
 
-import { intersection } from 'lodash-es';
-import { isArray } from '/@/utils/is';
-import { useMultipleTabStore } from '/@/store/modules/multipleTab';
+import { intersection } from 'lodash-es'
+import { isArray } from '/@/utils/is'
+import { useMultipleTabStore } from '/@/store/modules/multipleTab'
 
 // User permissions related operations
 export function usePermission() {
-  const userStore = useUserStore();
-  const appStore = useAppStore();
-  const permissionStore = usePermissionStore();
-  const { closeAll } = useTabs(router);
+  const userStore = useUserStore()
+  const appStore = useAppStore()
+  const permissionStore = usePermissionStore()
+  const { closeAll } = useTabs(router)
 
   /**
    * Change permission mode
@@ -33,8 +33,8 @@ export function usePermission() {
         projectSetting.permissionMode === PermissionModeEnum.BACK
           ? PermissionModeEnum.ROUTE_MAPPING
           : PermissionModeEnum.BACK,
-    });
-    location.reload();
+    })
+    location.reload()
   }
 
   /**
@@ -43,15 +43,15 @@ export function usePermission() {
    * @param id
    */
   async function resume() {
-    const tabStore = useMultipleTabStore();
-    tabStore.clearCacheTabs();
-    resetRouter();
-    const routes = await permissionStore.buildRoutesAction();
+    const tabStore = useMultipleTabStore()
+    tabStore.clearCacheTabs()
+    resetRouter()
+    const routes = await permissionStore.buildRoutesAction()
     routes.forEach((route) => {
-      router.addRoute(route as unknown as RouteRecordRaw);
-    });
-    permissionStore.setLastBuildMenuTime();
-    closeAll();
+      router.addRoute(route as unknown as RouteRecordRaw)
+    })
+    permissionStore.setLastBuildMenuTime()
+    closeAll()
   }
 
   /**
@@ -60,26 +60,26 @@ export function usePermission() {
   function hasPermission(value?: RoleEnum | RoleEnum[] | string | string[], def = true): boolean {
     // Visible by default
     if (!value) {
-      return def;
+      return def
     }
 
-    const permMode = projectSetting.permissionMode;
+    const permMode = projectSetting.permissionMode
 
     if ([PermissionModeEnum.ROUTE_MAPPING, PermissionModeEnum.ROLE].includes(permMode)) {
       if (!isArray(value)) {
-        return userStore.getRoleList?.includes(value as RoleEnum);
+        return userStore.getRoleList?.includes(value as RoleEnum)
       }
-      return (intersection(value, userStore.getRoleList) as RoleEnum[]).length > 0;
+      return (intersection(value, userStore.getRoleList) as RoleEnum[]).length > 0
     }
 
     if (PermissionModeEnum.BACK === permMode) {
-      const allCodeList = permissionStore.getPermCodeList as string[];
+      const allCodeList = permissionStore.getPermCodeList as string[]
       if (!isArray(value)) {
-        return allCodeList.includes(value);
+        return allCodeList.includes(value)
       }
-      return (intersection(value, allCodeList) as string[]).length > 0;
+      return (intersection(value, allCodeList) as string[]).length > 0
     }
-    return true;
+    return true
   }
 
   /**
@@ -90,22 +90,22 @@ export function usePermission() {
     if (projectSetting.permissionMode !== PermissionModeEnum.ROUTE_MAPPING) {
       throw new Error(
         'Please switch PermissionModeEnum to ROUTE_MAPPING mode in the configuration to operate!',
-      );
+      )
     }
 
     if (!isArray(roles)) {
-      roles = [roles];
+      roles = [roles]
     }
-    userStore.setRoleList(roles);
-    await resume();
+    userStore.setRoleList(roles)
+    await resume()
   }
 
   /**
    * refresh menu data
    */
   async function refreshMenu() {
-    resume();
+    resume()
   }
 
-  return { changeRole, hasPermission, togglePermissionMode, refreshMenu };
+  return { changeRole, hasPermission, togglePermissionMode, refreshMenu }
 }

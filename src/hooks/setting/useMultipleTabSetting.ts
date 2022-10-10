@@ -1,22 +1,22 @@
-import type { MultiTabsSetting } from '/#/config';
+import type { MultiTabsSetting } from '/#/config'
 
-import { computed } from 'vue';
+import { computed } from 'vue'
 
-import { useAppStore } from '/@/store/modules/app';
+import { useAppStore } from '/@/store/modules/app'
 
 export function useMultipleTabSetting() {
-  const appStore = useAppStore();
+  const appStore = useAppStore()
 
-  const getShowMultipleTab = computed(() => appStore.getMultiTabsSetting.show);
+  const getShowMultipleTab = computed(() => appStore.getMultiTabsSetting.show)
 
-  const getShowQuick = computed(() => appStore.getMultiTabsSetting.showQuick);
+  const getShowQuick = computed(() => appStore.getMultiTabsSetting.showQuick)
 
-  const getShowRedo = computed(() => appStore.getMultiTabsSetting.showRedo);
+  const getShowRedo = computed(() => appStore.getMultiTabsSetting.showRedo)
 
-  const getShowFold = computed(() => appStore.getMultiTabsSetting.showFold);
+  const getShowFold = computed(() => appStore.getMultiTabsSetting.showFold)
 
   function setMultipleTabSetting(multiTabsSetting: Partial<MultiTabsSetting>) {
-    appStore.setProjectConfig({ multiTabsSetting });
+    appStore.setProjectConfig({ multiTabsSetting })
   }
   return {
     setMultipleTabSetting,
@@ -24,5 +24,5 @@ export function useMultipleTabSetting() {
     getShowQuick,
     getShowRedo,
     getShowFold,
-  };
+  }
 }
