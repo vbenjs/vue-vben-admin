@@ -9,10 +9,10 @@
   </a-input>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import CountButton from './CountButton.vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useRuleFormItem } from '/@/hooks/component/useFormItem';
+  import { defineComponent, PropType } from 'vue'
+  import CountButton from './CountButton.vue'
+  import { useDesign } from '/@/hooks/web/useDesign'
+  import { useRuleFormItem } from '/@/hooks/component/useFormItem'
 
   const props = {
     value: { type: String },
@@ -22,7 +22,7 @@
       type: Function as PropType<() => Promise<boolean>>,
       default: null,
     },
-  };
+  }
 
   export default defineComponent({
     name: 'CountDownInput',
@@ -30,12 +30,12 @@
     inheritAttrs: false,
     props,
     setup(props) {
-      const { prefixCls } = useDesign('countdown-input');
-      const [state] = useRuleFormItem(props);
+      const { prefixCls } = useDesign('countdown-input')
+      const [state] = useRuleFormItem(props)
 
-      return { prefixCls, state };
+      return { prefixCls, state }
     },
-  });
+  })
 </script>
 <style lang="less">
   @prefix-cls: ~'@{namespace}-countdown-input';

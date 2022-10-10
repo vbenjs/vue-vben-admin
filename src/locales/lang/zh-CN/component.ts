@@ -131,4 +131,4 @@ export default {
     dragText: '请按住滑块拖动',
     successText: '验证通过',
   },
-};
+}

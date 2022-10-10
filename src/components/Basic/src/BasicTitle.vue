@@ -5,10 +5,10 @@
   </span>
 </template>
 <script lang="ts" setup>
-  import type { PropType } from 'vue';
-  import { useSlots, computed } from 'vue';
-  import BasicHelp from './BasicHelp.vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import type { PropType } from 'vue'
+  import { useSlots, computed } from 'vue'
+  import BasicHelp from './BasicHelp.vue'
+  import { useDesign } from '/@/hooks/web/useDesign'
 
   const props = defineProps({
     /**
@@ -29,15 +29,15 @@
      * @default: false
      */
     normal: { type: Boolean },
-  });
+  })
 
-  const { prefixCls } = useDesign('basic-title');
-  const slots = useSlots();
+  const { prefixCls } = useDesign('basic-title')
+  const slots = useSlots()
   const getClass = computed(() => [
     prefixCls,
     { [`${prefixCls}-show-span`]: props.span && slots.default },
     { [`${prefixCls}-normal`]: props.normal },
-  ]);
+  ])
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-basic-title';

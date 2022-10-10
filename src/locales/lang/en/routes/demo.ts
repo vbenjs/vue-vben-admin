@@ -12,7 +12,6 @@ export default {
     comp: 'Component',
     basic: 'Basic',
     transition: 'Animation',
-    countTo: 'Count To',
 
     scroll: 'Scroll',
     scrollBasic: 'Basic',
@@ -37,7 +36,6 @@ export default {
     verifyDrag: 'Drag ',
     verifyRotate: 'Picture Restore',
 
-    qrcode: 'QR code',
     strength: 'Password strength',
     upload: 'Upload',
 
@@ -45,7 +43,6 @@ export default {
 
     time: 'Relative Time',
     cropperImage: 'Cropper Image',
-    cardList: 'Card List',
   },
   editor: {
     editor: 'Editor',
@@ -69,10 +66,8 @@ export default {
     tabs: 'Tabs',
     tabDetail: 'Tab Detail',
     sessionTimeout: 'Session Timeout',
-    print: 'Print',
     contextMenu: 'Context Menu',
     download: 'Download',
-    clickOutSide: 'ClickOutSide',
     imgPreview: 'Picture Preview',
     copy: 'Clipboard',
     msg: 'Message prompt',
@@ -86,8 +81,6 @@ export default {
     menu: 'Menu with parameters',
     menu1: 'Menu with parameters 1',
     menu2: 'Menu with parameters 2',
-
-    ws: 'Websocket test',
 
     breadcrumb: 'Breadcrumbs',
     breadcrumbFlat: 'Flat Mode',
@@ -112,12 +105,6 @@ export default {
     customerForm: 'Custom',
     appendForm: 'Append',
     tabsForm: 'TabsForm',
-  },
-  iframe: {
-    frame: 'External',
-    antv: 'antVue doc (embedded)',
-    doc: 'Project doc (embedded)',
-    docExternal: 'Project doc (external)',
   },
   level: { level: 'MultiMenu' },
   page: {
@@ -199,4 +186,4 @@ export default {
     authColumn: 'Auth column',
     resizeParentHeightTable: 'resizeParentHeightTable',
   },
-};
+}

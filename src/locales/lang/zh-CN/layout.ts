@@ -7,16 +7,10 @@ export default {
 
     // tooltip
     tooltipErrorLog: '错误日志',
-    tooltipLock: '锁定屏幕',
     tooltipNotify: '消息通知',
 
     tooltipEntryFull: '全屏',
     tooltipExitFull: '退出全屏',
-
-    // lock
-    lockScreenPassword: '锁屏密码',
-    lockScreen: '锁定屏幕',
-    lockScreenBtn: '锁定',
 
     home: '首页',
   },
@@ -100,9 +94,6 @@ export default {
     switchAnimation: '切换动画',
     animationType: '动画类型',
 
-    autoScreenLock: '自动锁屏',
-    notAutoScreenLock: '不自动锁屏',
-
     fixedHeader: '固定header',
     fixedSideBar: '固定Sidebar',
 
@@ -112,4 +103,4 @@ export default {
 
     mixSidebarFixed: '固定展开菜单',
   },
-};
+}

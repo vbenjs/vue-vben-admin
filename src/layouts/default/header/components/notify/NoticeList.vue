@@ -54,11 +54,11 @@
   </a-list>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, PropType, ref, watch, unref } from 'vue';
-  import { ListItem } from './data';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { List, Avatar, Tag, Typography } from 'ant-design-vue';
-  import { isNumber } from '/@/utils/is';
+  import { computed, defineComponent, PropType, ref, watch, unref } from 'vue'
+  import { ListItem } from './data'
+  import { useDesign } from '/@/hooks/web/useDesign'
+  import { List, Avatar, Tag, Typography } from 'ant-design-vue'
+  import { isNumber } from '/@/utils/is'
   export default defineComponent({
     components: {
       [Avatar.name]: Avatar,
@@ -95,23 +95,23 @@
     },
     emits: ['update:currentPage'],
     setup(props, { emit }) {
-      const { prefixCls } = useDesign('header-notify-list');
-      const current = ref(props.currentPage || 1);
+      const { prefixCls } = useDesign('header-notify-list')
+      const current = ref(props.currentPage || 1)
       const getData = computed(() => {
-        const { pageSize, list } = props;
-        if (pageSize === false) return [];
-        let size = isNumber(pageSize) ? pageSize : 5;
-        return list.slice(size * (unref(current) - 1), size * unref(current));
-      });
+        const { pageSize, list } = props
+        if (pageSize === false) return []
+        let size = isNumber(pageSize) ? pageSize : 5
+        return list.slice(size * (unref(current) - 1), size * unref(current))
+      })
       watch(
         () => props.currentPage,
         (v) => {
-          current.value = v;
+          current.value = v
         },
-      );
-      const isTitleClickable = computed(() => !!props.onTitleClick);
+      )
+      const isTitleClickable = computed(() => !!props.onTitleClick)
       const getPagination = computed(() => {
-        const { list, pageSize } = props;
+        const { list, pageSize } = props
         if (pageSize > 0 && list && list.length > pageSize) {
           return {
             total: list.length,
@@ -119,22 +119,22 @@
             //size: 'small',
             current: unref(current),
             onChange(page) {
-              current.value = page;
-              emit('update:currentPage', page);
+              current.value = page
+              emit('update:currentPage', page)
             },
-          };
+          }
         } else {
-          return false;
+          return false
         }
-      });
+      })
 
       function handleTitleClick(item: ListItem) {
-        props.onTitleClick && props.onTitleClick(item);
+        props.onTitleClick && props.onTitleClick(item)
       }
 
-      return { prefixCls, getPagination, getData, handleTitleClick, isTitleClickable };
+      return { prefixCls, getPagination, getData, handleTitleClick, isTitleClickable }
     },
-  });
+  })
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-header-notify-list';

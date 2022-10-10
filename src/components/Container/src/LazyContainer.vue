@@ -17,16 +17,16 @@
   </transition-group>
 </template>
 <script lang="ts">
-  import type { PropType } from 'vue';
-  import { defineComponent, reactive, onMounted, ref, toRef, toRefs } from 'vue';
-  import { Skeleton } from 'ant-design-vue';
-  import { useTimeoutFn } from '/@/hooks/core/useTimeout';
-  import { useIntersectionObserver } from '/@/hooks/event/useIntersectionObserver';
+  import type { PropType } from 'vue'
+  import { defineComponent, reactive, onMounted, ref, toRef, toRefs } from 'vue'
+  import { Skeleton } from 'ant-design-vue'
+  import { useTimeoutFn } from '/@/hooks/core/useTimeout'
+  import { useIntersectionObserver } from '/@/hooks/event/useIntersectionObserver'
 
   interface State {
-    isInit: boolean;
-    loading: boolean;
-    intersectionObserverInstance: IntersectionObserver | null;
+    isInit: boolean
+    loading: boolean
+    intersectionObserverInstance: IntersectionObserver | null
   }
 
   const props = {
@@ -63,7 +63,7 @@
      * transition name
      */
     transitionName: { type: String, default: 'lazy-container' },
-  };
+  }
 
   export default defineComponent({
     name: 'LazyContainer',
@@ -72,49 +72,49 @@
     props,
     emits: ['init'],
     setup(props, { emit }) {
-      const elRef = ref();
+      const elRef = ref()
       const state = reactive<State>({
         isInit: false,
         loading: false,
         intersectionObserverInstance: null,
-      });
+      })
 
       onMounted(() => {
-        immediateInit();
-        initIntersectionObserver();
-      });
+        immediateInit()
+        initIntersectionObserver()
+      })
 
       // If there is a set delay time, it will be executed immediately
       function immediateInit() {
-        const { timeout } = props;
+        const { timeout } = props
         timeout &&
           useTimeoutFn(() => {
-            init();
-          }, timeout);
+            init()
+          }, timeout)
       }
 
       function init() {
-        state.loading = true;
+        state.loading = true
 
         useTimeoutFn(() => {
-          if (state.isInit) return;
-          state.isInit = true;
-          emit('init');
-        }, props.maxWaitingTime || 80);
+          if (state.isInit) return
+          state.isInit = true
+          emit('init')
+        }, props.maxWaitingTime || 80)
       }
 
       function initIntersectionObserver() {
-        const { timeout, direction, threshold } = props;
-        if (timeout) return;
+        const { timeout, direction, threshold } = props
+        if (timeout) return
         // According to the scrolling direction to construct the viewport margin, used to load in advance
-        let rootMargin = '0px';
+        let rootMargin = '0px'
         switch (direction) {
           case 'vertical':
-            rootMargin = `${threshold} 0px`;
-            break;
+            rootMargin = `${threshold} 0px`
+            break
           case 'horizontal':
-            rootMargin = `0px ${threshold}`;
-            break;
+            rootMargin = `0px ${threshold}`
+            break
         }
 
         try {
@@ -122,24 +122,24 @@
             rootMargin,
             target: toRef(elRef.value, '$el'),
             onIntersect: (entries: any[]) => {
-              const isIntersecting = entries[0].isIntersecting || entries[0].intersectionRatio;
+              const isIntersecting = entries[0].isIntersecting || entries[0].intersectionRatio
               if (isIntersecting) {
-                init();
+                init()
                 if (observer) {
-                  stop();
+                  stop()
                 }
               }
             },
             root: toRef(props, 'viewport'),
-          });
+          })
         } catch (e) {
-          init();
+          init()
         }
       }
       return {
         elRef,
         ...toRefs(state),
-      };
+      }
     },
-  });
+  })
 </script>

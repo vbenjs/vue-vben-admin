@@ -22,10 +22,10 @@
   </Card>
 </template>
 <script lang="ts" setup>
-  import { Card, List } from 'ant-design-vue';
-  import { dynamicInfoItems } from './data';
-  import { Icon } from '/@/components/Icon';
+  import { Card, List } from 'ant-design-vue'
+  import { dynamicInfoItems } from './data'
+  import { Icon } from '/@/components/Icon'
 
-  const ListItem = List.Item;
-  const ListItemMeta = List.Item.Meta;
+  const ListItem = List.Item
+  const ListItemMeta = List.Item.Meta
 </script>

@@ -1,5 +1,5 @@
 export interface MenuState {
-  activeName: string;
-  openNames: string[];
-  activeSubMenuNames: string[];
+  activeName: string
+  openNames: string[]
+  activeSubMenuNames: string[]
 }

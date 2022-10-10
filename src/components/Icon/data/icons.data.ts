@@ -456,9 +456,6 @@ export default {
     'linkedin-outlined',
     'loading-3-quarters-outlined',
     'loading-outlined',
-    'lock-filled',
-    'lock-outlined',
-    'lock-twotone',
     'login-outlined',
     'logout-outlined',
     'mac-command-filled',
@@ -566,7 +563,6 @@ export default {
     'qq-circle-filled',
     'qq-outlined',
     'qq-square-filled',
-    'qrcode-outlined',
     'question-circle-filled',
     'question-circle-outlined',
     'question-circle-twotone',
@@ -729,9 +725,6 @@ export default {
     'underline-outlined',
     'undo-outlined',
     'ungroup-outlined',
-    'unlock-filled',
-    'unlock-outlined',
-    'unlock-twotone',
     'unordered-list-outlined',
     'up-circle-filled',
     'up-circle-outlined',
@@ -790,4 +783,4 @@ export default {
     'zoom-in-outlined',
     'zoom-out-outlined',
   ],
-};
+}

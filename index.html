@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" id="htmlRoot">
+<html lang="zh-cn" id="htmlRoot">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -13,14 +13,14 @@
   </head>
   <body>
     <script>
-      (() => {
-        var htmlRoot = document.getElementById('htmlRoot');
-        var theme = window.localStorage.getItem('__APP__DARK__MODE__');
+      ;(() => {
+        var htmlRoot = document.getElementById('htmlRoot')
+        var theme = window.localStorage.getItem('__APP__DARK__MODE__')
         if (htmlRoot && theme) {
-          htmlRoot.setAttribute('data-theme', theme);
-          theme = htmlRoot = null;
+          htmlRoot.setAttribute('data-theme', theme)
+          theme = htmlRoot = null
         }
-      })();
+      })()
     </script>
     <div id="app">
       <style>

@@ -4,29 +4,29 @@ import type {
   MenuSetting,
   TransitionSetting,
   MultiTabsSetting,
-} from '/#/config';
-import type { BeforeMiniState } from '/#/store';
+} from '/#/config'
+import type { BeforeMiniState } from '/#/store'
 
-import { defineStore } from 'pinia';
-import { store } from '/@/store';
+import { defineStore } from 'pinia'
+import { store } from '/@/store'
 
-import { ThemeEnum } from '/@/enums/appEnum';
-import { APP_DARK_MODE_KEY_, PROJ_CFG_KEY } from '/@/enums/cacheEnum';
-import { Persistent } from '/@/utils/cache/persistent';
-import { darkMode } from '/@/settings/designSetting';
-import { resetRouter } from '/@/router';
-import { deepMerge } from '/@/utils';
+import { ThemeEnum } from '/@/enums/appEnum'
+import { APP_DARK_MODE_KEY_, PROJ_CFG_KEY } from '/@/enums/cacheEnum'
+import { Persistent } from '/@/utils/cache/persistent'
+import { darkMode } from '/@/settings/designSetting'
+import { resetRouter } from '/@/router'
+import { deepMerge } from '/@/utils'
 
 interface AppState {
-  darkMode?: ThemeEnum;
+  darkMode?: ThemeEnum
   // Page loading status
-  pageLoading: boolean;
+  pageLoading: boolean
   // project config
-  projectConfig: ProjectConfig | null;
+  projectConfig: ProjectConfig | null
   // When the window shrinks, remember some states, and restore these states when the window is restored
-  beforeMiniInfo: BeforeMiniState;
+  beforeMiniInfo: BeforeMiniState
 }
-let timeId: TimeoutHandle;
+let timeId: TimeoutHandle
 export const useAppStore = defineStore({
   id: 'app',
   state: (): AppState => ({
@@ -37,72 +37,72 @@ export const useAppStore = defineStore({
   }),
   getters: {
     getPageLoading(): boolean {
-      return this.pageLoading;
+      return this.pageLoading
     },
     getDarkMode(): 'light' | 'dark' | string {
-      return this.darkMode || localStorage.getItem(APP_DARK_MODE_KEY_) || darkMode;
+      return this.darkMode || localStorage.getItem(APP_DARK_MODE_KEY_) || darkMode
     },
 
     getBeforeMiniInfo(): BeforeMiniState {
-      return this.beforeMiniInfo;
+      return this.beforeMiniInfo
     },
 
     getProjectConfig(): ProjectConfig {
-      return this.projectConfig || ({} as ProjectConfig);
+      return this.projectConfig || ({} as ProjectConfig)
     },
 
     getHeaderSetting(): HeaderSetting {
-      return this.getProjectConfig.headerSetting;
+      return this.getProjectConfig.headerSetting
     },
     getMenuSetting(): MenuSetting {
-      return this.getProjectConfig.menuSetting;
+      return this.getProjectConfig.menuSetting
     },
     getTransitionSetting(): TransitionSetting {
-      return this.getProjectConfig.transitionSetting;
+      return this.getProjectConfig.transitionSetting
     },
     getMultiTabsSetting(): MultiTabsSetting {
-      return this.getProjectConfig.multiTabsSetting;
+      return this.getProjectConfig.multiTabsSetting
     },
   },
   actions: {
     setPageLoading(loading: boolean): void {
-      this.pageLoading = loading;
+      this.pageLoading = loading
     },
 
     setDarkMode(mode: ThemeEnum): void {
-      this.darkMode = mode;
-      localStorage.setItem(APP_DARK_MODE_KEY_, mode);
+      this.darkMode = mode
+      localStorage.setItem(APP_DARK_MODE_KEY_, mode)
     },
 
     setBeforeMiniInfo(state: BeforeMiniState): void {
-      this.beforeMiniInfo = state;
+      this.beforeMiniInfo = state
     },
 
     setProjectConfig(config: DeepPartial<ProjectConfig>): void {
-      this.projectConfig = deepMerge(this.projectConfig || {}, config);
-      Persistent.setLocal(PROJ_CFG_KEY, this.projectConfig);
+      this.projectConfig = deepMerge(this.projectConfig || {}, config)
+      Persistent.setLocal(PROJ_CFG_KEY, this.projectConfig)
     },
 
     async resetAllState() {
-      resetRouter();
-      Persistent.clearAll();
+      resetRouter()
+      Persistent.clearAll()
     },
     async setPageLoadingAction(loading: boolean): Promise<void> {
       if (loading) {
-        clearTimeout(timeId);
+        clearTimeout(timeId)
         // Prevent flicker
         timeId = setTimeout(() => {
-          this.setPageLoading(loading);
-        }, 50);
+          this.setPageLoading(loading)
+        }, 50)
       } else {
-        this.setPageLoading(loading);
-        clearTimeout(timeId);
+        this.setPageLoading(loading)
+        clearTimeout(timeId)
       }
     },
   },
-});
+})
 
 // Need to be used outside the setup
 export function useAppStoreWithOut() {
-  return useAppStore(store);
+  return useAppStore(store)
 }

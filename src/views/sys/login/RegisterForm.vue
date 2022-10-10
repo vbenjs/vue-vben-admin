@@ -66,21 +66,21 @@
   </template>
 </template>
 <script lang="ts" setup>
-  import { reactive, ref, unref, computed } from 'vue';
-  import LoginFormTitle from './LoginFormTitle.vue';
-  import { Form, Input, Button, Checkbox } from 'ant-design-vue';
-  import { StrengthMeter } from '/@/components/StrengthMeter';
-  import { CountdownInput } from '/@/components/CountDown';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useLoginState, useFormRules, useFormValid, LoginStateEnum } from './useLogin';
+  import { reactive, ref, unref, computed } from 'vue'
+  import LoginFormTitle from './LoginFormTitle.vue'
+  import { Form, Input, Button, Checkbox } from 'ant-design-vue'
+  import { StrengthMeter } from '/@/components/StrengthMeter'
+  import { CountdownInput } from '/@/components/CountDown'
+  import { useI18n } from '/@/hooks/web/useI18n'
+  import { useLoginState, useFormRules, useFormValid, LoginStateEnum } from './useLogin'
 
-  const FormItem = Form.Item;
-  const InputPassword = Input.Password;
-  const { t } = useI18n();
-  const { handleBackLogin, getLoginState } = useLoginState();
+  const FormItem = Form.Item
+  const InputPassword = Input.Password
+  const { t } = useI18n()
+  const { handleBackLogin, getLoginState } = useLoginState()
 
-  const formRef = ref();
-  const loading = ref(false);
+  const formRef = ref()
+  const loading = ref(false)
 
   const formData = reactive({
     account: '',
@@ -89,16 +89,16 @@
     mobile: '',
     sms: '',
     policy: false,
-  });
+  })
 
-  const { getFormRules } = useFormRules(formData);
-  const { validForm } = useFormValid(formRef);
+  const { getFormRules } = useFormRules(formData)
+  const { validForm } = useFormValid(formRef)
 
-  const getShow = computed(() => unref(getLoginState) === LoginStateEnum.REGISTER);
+  const getShow = computed(() => unref(getLoginState) === LoginStateEnum.REGISTER)
 
   async function handleRegister() {
-    const data = await validForm();
-    if (!data) return;
-    console.log(data);
+    const data = await validForm()
+    if (!data) return
+    console.log(data)
   }
 </script>

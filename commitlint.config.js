@@ -1,11 +1,11 @@
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+const fs = require('fs')
+const path = require('path')
+const { execSync } = require('child_process')
 
 const scopes = fs
   .readdirSync(path.resolve(__dirname, 'src'), { withFileTypes: true })
   .filter((dirent) => dirent.isDirectory())
-  .map((dirent) => dirent.name.replace(/s$/, ''));
+  .map((dirent) => dirent.name.replace(/s$/, ''))
 
 // precomputed scope
 const scopeComplete = execSync('git status --porcelain || true')
@@ -15,7 +15,7 @@ const scopeComplete = execSync('git status --porcelain || true')
   .find((r) => ~r.indexOf('M  src'))
   ?.replace(/(\/)/g, '%%')
   ?.match(/src%%((\w|-)*)/)?.[1]
-  ?.replace(/s$/, '');
+  ?.replace(/s$/, '')
 
 /** @type {import('cz-git').UserConfig} */
 module.exports = {
@@ -104,4 +104,4 @@ module.exports = {
     // emptyScopesAlias: 'empty:      不填写',
     // customScopesAlias: 'custom:     自定义',
   },
-};
+}

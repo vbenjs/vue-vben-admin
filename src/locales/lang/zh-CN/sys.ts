@@ -21,7 +21,11 @@ export default {
     errMsg504: '网络超时!',
     errMsg505: 'http版本不支持该请求!',
   },
-  app: { logoutTip: '温馨提醒', logoutMessage: '是否确认退出系统?', menuLoading: '菜单加载中...' },
+  app: {
+    Tip: '温馨提醒',
+    logoutMessage: '是否确认退出系统?',
+    menuLoading: '菜单加载中...',
+  },
   errorLog: {
     tableTitle: '错误日志列表',
     tableColumnType: '类型',
@@ -50,18 +54,10 @@ export default {
     networkErrorTitle: '网络错误',
     networkErrorSubTitle: '抱歉，您的网络连接已断开，请检查您的网络！',
   },
-  lock: {
-    unlock: '点击解锁',
-    alert: '锁屏密码错误',
-    backToLogin: '返回登录',
-    entry: '进入系统',
-    placeholder: '请输入锁屏密码或者用户密码',
-  },
   login: {
     backSignIn: '返回',
     signInFormTitle: '登录',
     mobileSignInFormTitle: '手机登录',
-    qrSignInFormTitle: '二维码登录',
     signUpFormTitle: '注册',
     forgetFormTitle: '重置密码',
 
@@ -95,4 +91,4 @@ export default {
     smsCode: '短信验证码',
     mobile: '手机号码',
   },
-};
+}
