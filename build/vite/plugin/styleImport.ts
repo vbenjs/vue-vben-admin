@@ -2,12 +2,12 @@
  *  Introduces component library styles on demand.
  * https://github.com/anncwb/vite-plugin-style-import
  */
-import { createStyleImportPlugin } from 'vite-plugin-style-import';
+import { createStyleImportPlugin } from 'vite-plugin-style-import'
 
 export function configStyleImportPlugin(_isBuild: boolean) {
-  // if (!isBuild) {
-  //   return [];
-  // }
+  if (!_isBuild) {
+    return []
+  }
   const styleImportPlugin = createStyleImportPlugin({
     libs: [
       {
@@ -45,7 +45,7 @@ export function configStyleImportPlugin(_isBuild: boolean) {
             'skeleton-paragraph',
             'skeleton-image',
             'skeleton-button',
-          ];
+          ]
           // 这里是需要额外引入样式的子组件列表
           // 单独引入子组件时需引入组件样式，否则会在打包后导致子组件样式丢失
           const replaceList = {
@@ -66,16 +66,16 @@ export function configStyleImportPlugin(_isBuild: boolean) {
             'month-picker': 'date-picker',
             'range-picker': 'date-picker',
             'image-preview-group': 'image',
-          };
+          }
 
           return ignoreList.includes(name)
             ? ''
             : replaceList.hasOwnProperty(name)
             ? `ant-design-vue/es/${replaceList[name]}/style/index`
-            : `ant-design-vue/es/${name}/style/index`;
+            : `ant-design-vue/es/${name}/style/index`
         },
       },
     ],
-  });
-  return styleImportPlugin;
+  })
+  return styleImportPlugin
 }
