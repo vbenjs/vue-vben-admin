@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Sed Config Base
         shell: bash
@@ -22,7 +22,7 @@ jobs:
           cat ./.env.production
 
       - name: use Node.js 16
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
           node-version: '16.x'
 
@@ -31,7 +31,7 @@ jobs:
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
