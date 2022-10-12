@@ -44,7 +44,7 @@ jobs:
           yarn run build
 
       - name: Deploy
-        uses: SamKirkland/FTP-Deploy-Action@2.0.0
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
