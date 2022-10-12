@@ -45,6 +45,8 @@ jobs:
 
       - name: Deploy
         uses: SamKirkland/FTP-Deploy-Action@4.3.2
+        with:
+          node-version: '16.x'
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
