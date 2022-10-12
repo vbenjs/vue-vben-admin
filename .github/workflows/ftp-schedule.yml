@@ -24,7 +24,7 @@ jobs:
       - name: use Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: 16
 
       - name: Get yarn cache
         id: yarn-cache
@@ -45,8 +45,6 @@ jobs:
 
       - name: Deploy
         uses: SamKirkland/FTP-Deploy-Action@4.3.2
-        with:
-          node-version: '16.x'
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
