@@ -53,4 +53,5 @@ jobs:
           port: ${{ secrets.FTP_PORT }}
           local-dir: ./dist/
           server-dir: ./srv/www/vben-admin/
+          timeout: 60000
 #          ARGS: --delete --verbose --parallel=80
