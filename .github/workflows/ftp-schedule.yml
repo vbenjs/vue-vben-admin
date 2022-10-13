@@ -44,14 +44,13 @@ jobs:
           yarn run build
 
       - name: Deploy
-        uses: SamKirkland/FTP-Deploy-Action@4.3.2
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          port: ${{ secrets.FTP_PORT }}
-          local-dir: ./dist/
-          server-dir: ./srv/www/vben-admin/
-          timeout: 60000
-#          ARGS: --delete --verbose --parallel=80
+        uses: SamKirkland/FTP-Deploy-Action@2.0.0
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          METHOD: sftp
+          PORT: ${{ secrets.FTP_PORT }}
+          LOCAL_DIR: dist
+          REMOTE_DIR: /srv/www/vben-admin
+          ARGS: --delete --verbose --parallel=80
