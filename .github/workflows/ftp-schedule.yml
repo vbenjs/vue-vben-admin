@@ -51,6 +51,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           port: ${{ secrets.FTP_PORT }}
-          local-dir: dist
-          server-dir: /srv/www/vben-admin
+          local-dir: ./dist/
+          server-dir: ./srv/www/vben-admin/
 #          ARGS: --delete --verbose --parallel=80
