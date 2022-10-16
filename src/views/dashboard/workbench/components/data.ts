@@ -148,7 +148,7 @@ export const groupItems: GroupItem[] = [
   {
     title: 'Js',
     icon: 'ion:logo-javascript',
-    color: '#4daf1bc9',
+    color: '#EBD94E',
     desc: '路是走出来的，而不是空想出来的。',
     group: '架构组',
     date: '2021-04-01',
