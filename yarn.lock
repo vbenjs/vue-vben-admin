@@ -2021,7 +2021,7 @@
     "@vue/compiler-core" "3.2.37"
     "@vue/shared" "3.2.37"
 
-"@vue/compiler-sfc@3.2.37", "@vue/compiler-sfc@^3.2.27", "@vue/compiler-sfc@^3.2.29", "@vue/compiler-sfc@^3.2.33":
+"@vue/compiler-sfc@3.2.37", "@vue/compiler-sfc@^3.2.27", "@vue/compiler-sfc@^3.2.33":
   version "3.2.37"
   resolved "https://registry.npmmirror.com/@vue/compiler-sfc/-/compiler-sfc-3.2.37.tgz#3103af3da2f40286edcd85ea495dcb35bc7f5ff4"
   integrity sha512-+7i/2+9LYlpqDv+KTtWhOZH+pa8/HnX/905MdVmAcI/mPQOBwkHHIzrsEsucyOIZQYMkXUiTkmZq5am/NyXKkg==
@@ -9169,13 +9169,10 @@ vite-plugin-theme@^0.8.6:
     esbuild-plugin-alias "^0.1.2"
     tinycolor2 "^1.4.2"
 
-vite-plugin-vue-setup-extend@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.npmmirror.com/vite-plugin-vue-setup-extend/-/vite-plugin-vue-setup-extend-0.4.0.tgz#ebbbe265320039b8c6a3b9fcae3b8d152ecf4a13"
-  integrity sha512-WMbjPCui75fboFoUTHhdbXzu4Y/bJMv5N9QT9a7do3wNMNHHqrk+Tn2jrSJU0LS5fGl/EG+FEDBYVUeWIkDqXQ==
-  dependencies:
-    "@vue/compiler-sfc" "^3.2.29"
-    magic-string "^0.25.7"
+vite-plugin-vue-setup-extend-plus@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npmmirror.com/vite-plugin-vue-setup-extend-plus/-/vite-plugin-vue-setup-extend-plus-0.1.0.tgz#3a7c53208c88736734a39bbe17d7ee36e226ab74"
+  integrity sha512-pa27KIsHIBvBMv4xz9uB3UCfAuP2tr7PLlFhCS9vw+aXd326LEHsvhqd3hCQDOR5MjlQVyQH6vwuGr3u+KRiiw==
 
 vite-plugin-windicss@^1.8.4:
   version "1.8.6"
