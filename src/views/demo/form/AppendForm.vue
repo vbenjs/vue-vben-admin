@@ -21,7 +21,7 @@
   export default defineComponent({
     components: { BasicForm, CollapseContainer, PageWrapper, [Input.name]: Input, Button },
     setup() {
-      const [register, { appendSchemaByField, removeSchemaByFiled, validate }] = useForm({
+      const [register, { appendSchemaByField, removeSchemaByFeild, validate }] = useForm({
         schemas: [
           {
             field: 'field0a',
@@ -108,7 +108,7 @@
       }
 
       function del(field) {
-        removeSchemaByFiled([`field${field}a`, `field${field}b`, `${field}`]);
+        removeSchemaByFeild([`field${field}a`, `field${field}b`, `${field}`]);
         n.value--;
       }
 
