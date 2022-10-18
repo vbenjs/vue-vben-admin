@@ -112,7 +112,7 @@ export function useFormEvents({
   /**
    * @description: Delete based on field name
    */
-  async function removeSchemaByFeild(fields: string | string[]): Promise<void> {
+  async function removeSchemaByField(fields: string | string[]): Promise<void> {
     const schemaList: FormSchema[] = cloneDeep(unref(getSchema));
     if (!fields) {
       return;
@@ -306,7 +306,7 @@ export function useFormEvents({
     updateSchema,
     resetSchema,
     appendSchemaByField,
-    removeSchemaByFeild,
+    removeSchemaByField,
     resetFields,
     setFieldsValue,
     scrollToField,

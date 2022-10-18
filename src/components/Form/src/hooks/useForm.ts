@@ -79,8 +79,8 @@ export function useForm(props?: Props): UseFormReturnType {
       });
     },
 
-    removeSchemaByFeild: async (field: string | string[]) => {
-      unref(formRef)?.removeSchemaByFeild(field);
+    removeSchemaByField: async (field: string | string[]) => {
+      unref(formRef)?.removeSchemaByField(field);
     },
 
     // TODO promisify

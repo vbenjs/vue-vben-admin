@@ -181,7 +181,7 @@
   export default defineComponent({
     components: { BasicForm, CollapseContainer, PageWrapper },
     setup() {
-      const [register, { setProps, updateSchema, appendSchemaByField, removeSchemaByFeild }] =
+      const [register, { setProps, updateSchema, appendSchemaByField, removeSchemaByField }] =
         useForm({
           labelWidth: 120,
           schemas,
@@ -229,7 +229,7 @@
         );
       }
       function deleteField() {
-        removeSchemaByFeild('field11');
+        removeSchemaByField('field11');
       }
       return {
         register,
