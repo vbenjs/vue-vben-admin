@@ -112,7 +112,7 @@ export function useFormEvents({
   /**
    * @description: Delete based on field name
    */
-  async function removeSchemaByFeild(fields: string | string[]): Promise<void> {
+  async function removeSchemaByField(fields: string | string[]): Promise<void> {
     const schemaList: FormSchema[] = cloneDeep(unref(getSchema));
     if (!fields) {
       return;
@@ -123,7 +123,7 @@ export function useFormEvents({
       fieldList = [fields];
     }
     for (const field of fieldList) {
-      _removeSchemaByFeild(field, schemaList);
+      _removeSchemaByField(field, schemaList);
     }
     schemaRef.value = schemaList;
   }
@@ -131,7 +131,7 @@ export function useFormEvents({
   /**
    * @description: Delete based on field name
    */
-  function _removeSchemaByFeild(field: string, schemaList: FormSchema[]): void {
+  function _removeSchemaByField(field: string, schemaList: FormSchema[]): void {
     if (isString(field)) {
       const index = schemaList.findIndex((schema) => schema.field === field);
       if (index !== -1) {
@@ -306,7 +306,7 @@ export function useFormEvents({
     updateSchema,
     resetSchema,
     appendSchemaByField,
-    removeSchemaByFeild,
+    removeSchemaByField,
     resetFields,
     setFieldsValue,
     scrollToField,

@@ -174,7 +174,7 @@
         updateSchema,
         resetSchema,
         appendSchemaByField,
-        removeSchemaByFeild,
+        removeSchemaByField,
         resetFields,
         scrollToField,
       } = useFormEvents({
@@ -268,7 +268,7 @@
         updateSchema,
         resetSchema,
         setProps,
-        removeSchemaByFeild,
+        removeSchemaByField,
         appendSchemaByField,
         clearValidate,
         validateFields,
