@@ -14,7 +14,7 @@
   import { propTypes } from '/@/utils/propTypes';
   import { isArray, isBoolean, isFunction, isNumber, isString } from '/@/utils/is';
   import { createPlaceholderMessage } from './helper';
-  import { omit, pick, set } from 'lodash-es';
+  import { pick, set } from 'lodash-es';
   import { treeToList } from '/@/utils/helper/treeHelper';
   import { Spin } from 'ant-design-vue';
 
@@ -122,7 +122,7 @@
         }
 
         const component = unref(getComponent);
-        if (!component.includes('Select')) {
+        if (!component.includes('Select') && !component.includes('Radio')) {
           return value;
         }
 
