@@ -5,9 +5,9 @@
 import { createStyleImportPlugin } from 'vite-plugin-style-import';
 
 export function configStyleImportPlugin(_isBuild: boolean) {
-  // if (!isBuild) {
-  //   return [];
-  // }
+  if (!_isBuild) {
+    return [];
+  }
   const styleImportPlugin = createStyleImportPlugin({
     libs: [
       {
@@ -65,6 +65,7 @@ export function configStyleImportPlugin(_isBuild: boolean) {
             'layout-header': 'layout',
             'month-picker': 'date-picker',
             'range-picker': 'date-picker',
+            'image-preview-group': 'image',
           };
 
           return ignoreList.includes(name)
