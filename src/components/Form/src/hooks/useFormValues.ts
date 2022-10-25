@@ -108,8 +108,10 @@ export function useFormValues({
 
       const [startTime, endTime]: string[] = values[field];
 
-      values[startTimeKey] = dateUtil(startTime).format(format);
-      values[endTimeKey] = dateUtil(endTime).format(format);
+      const [startTimeFormat, endTimeFormat] = Array.isArray(format) ? format : [format, format];
+
+      values[startTimeKey] = dateUtil(startTime).format(startTimeFormat);
+      values[endTimeKey] = dateUtil(endTime).format(endTimeFormat);
       Reflect.deleteProperty(values, field);
     }
 
