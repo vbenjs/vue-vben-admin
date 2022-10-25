@@ -97,7 +97,12 @@ export function useFormValues({
     }
 
     for (const [field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD'] of fieldMapToTime) {
-      if (!field || !startTimeKey || !endTimeKey || !values[field]) {
+      if (!field || !startTimeKey || !endTimeKey) {
+        continue;
+      }
+      // If the value to be converted is empty, remove the field
+      if (!values[field]) {
+        Reflect.deleteProperty(values, field);
         continue;
       }
 
