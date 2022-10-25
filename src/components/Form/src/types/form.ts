@@ -7,7 +7,7 @@ import type { TableActionType } from '/@/components/Table/src/types/table';
 import type { CSSProperties } from 'vue';
 import type { RowProps } from 'ant-design-vue/lib/grid/Row';
 
-export type FieldMapToTime = [string, [string, string], string?][];
+export type FieldMapToTime = [string, [string, string], (string | [string, string])?][];
 
 export type Rule = RuleObject & {
   trigger?: 'blur' | 'change' | ['change', 'blur'];
@@ -175,6 +175,10 @@ export interface FormSchema {
 
   // 默认值
   defaultValue?: any;
+
+  // 是否自动处理与时间相关组件的默认值
+  isHandleDateDefaultValue?: boolean;
+
   isAdvanced?: boolean;
 
   // Matching details components
