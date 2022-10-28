@@ -153,7 +153,7 @@
       });
 
       watchEffect(() => {
-        defaultValueRef.value = props.value;
+        // defaultValueRef.value = props.value;
         currentValueRef.value = props.value;
       });
 
