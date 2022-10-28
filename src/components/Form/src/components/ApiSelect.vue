@@ -59,7 +59,7 @@
       immediate: propTypes.bool.def(true),
       alwaysLoad: propTypes.bool.def(false),
     },
-    emits: ['options-change', 'change'],
+    emits: ['options-change', 'change', 'update:value'],
     setup(props, { emit }) {
       const options = ref<OptionsItem[]>([]);
       const loading = ref(false);
@@ -90,6 +90,13 @@
       watchEffect(() => {
         props.immediate && !props.alwaysLoad && fetch();
       });
+
+      watch(
+        () => state.value,
+        (v) => {
+          emit('update:value', v);
+        },
+      );
 
       watch(
         () => props.params,
