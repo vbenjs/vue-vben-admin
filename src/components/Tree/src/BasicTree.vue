@@ -90,10 +90,10 @@
           onCheck: (v: CheckKeys, e) => {
             let currentValue = toRaw(state.checkedKeys) as KeyType[];
             if (isArray(currentValue) && searchState.startSearch) {
-              const { key } = unref(getFieldNames);
-              currentValue = difference(currentValue, getChildrenKeys(e.node.$attrs.node[key]));
+              const value = e.node.eventKey;
+              currentValue = difference(currentValue, getChildrenKeys(value));
               if (e.checked) {
-                currentValue.push(e.node.$attrs.node[key]);
+                currentValue.push(value);
               }
               state.checkedKeys = currentValue;
             } else {
@@ -437,7 +437,11 @@
                 {extendSlots(slots)}
               </TreeHeader>
             )}
-            <Spin wrapperClassName={unref(props.treeWrapperClassName)} spinning={unref(props.loading)} tip="加载中...">
+            <Spin
+              wrapperClassName={unref(props.treeWrapperClassName)}
+              spinning={unref(props.loading)}
+              tip="加载中..."
+            >
               <ScrollContainer style={scrollStyle} v-show={!unref(getNotFound)}>
                 <Tree {...unref(getBindValues)} showIcon={false} treeData={treeData.value} />
               </ScrollContainer>
