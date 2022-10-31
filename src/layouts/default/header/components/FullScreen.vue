@@ -20,6 +20,13 @@
     setup() {
       const { t } = useI18n();
       const { toggle, isFullscreen } = useFullscreen();
+      // 重新检查全屏状态
+      isFullscreen.value = !!(
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+      );
 
       const getTitle = computed(() => {
         return unref(isFullscreen)
