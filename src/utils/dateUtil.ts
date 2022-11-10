@@ -13,10 +13,8 @@ export function formatToDateTime(
   return dayjs(date).format(format);
 }
 
-export function formatToDate(
-  date: dayjs.Dayjs | undefined = undefined,
-  format = DATE_FORMAT,
-): string {
+export function formatToDate(date?: dayjs.ConfigType, format = DATE_FORMAT): string {
+  if (typeof date === 'number') date *= 1000;
   return dayjs(date).format(format);
 }
 
