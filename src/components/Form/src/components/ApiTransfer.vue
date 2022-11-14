@@ -1,7 +1,6 @@
 <template>
   <Transfer
     :data-source="getdataSource"
-    show-search
     :filter-option="filterOption"
     :render="(item) => item.title"
     :showSelectAll="showSelectAll"
@@ -24,30 +23,27 @@
     name: 'ApiTransfer',
     components: { Transfer },
     props: {
-      value: { type: Object as PropType<Array<string>> },
+      value: { type: Array as PropType<Array<string>> },
       api: {
         type: Function as PropType<(arg?: Recordable) => Promise<TransferItem[]>>,
         default: null,
       },
-      params: {
-        type: Object as PropType<Recordable>,
-        default: () => ({}),
-      },
-      dataSource: { type: Object as PropType<Array<TransferItem>> },
+      params: { type: Object },
+      dataSource: { type: Array as PropType<Array<TransferItem>> },
       immediate: propTypes.bool.def(true),
       alwaysLoad: propTypes.bool.def(false),
       afterFetch: { type: Function as PropType<Fn> },
       resultField: propTypes.string.def(''),
       labelField: propTypes.string.def('title'),
       valueField: propTypes.string.def('key'),
-      showSearch: propTypes.bool.def(false),
-      disabled: propTypes.bool.def(false),
+      showSearch: { type: Boolean, default: false },
+      disabled: { type: Boolean, default: false },
       filterOption: {
         type: Function as PropType<(inputValue: string, item: TransferItem) => boolean>,
       },
-      selectedKeys: { type: Object as PropType<Array<string>> },
-      showSelectAll: propTypes.bool.def(false),
-      targetKeys: { type: Object as PropType<Array<string>> },
+      selectedKeys: { type: Array as PropType<Array<string>> },
+      showSelectAll: { type: Boolean, default: false },
+      targetKeys: { type: Array as PropType<Array<string>> },
     },
     emits: ['options-change', 'change'],
     setup(props, { attrs, emit }) {

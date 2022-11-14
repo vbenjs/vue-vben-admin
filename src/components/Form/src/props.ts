@@ -9,7 +9,7 @@ import { propTypes } from '/@/utils/propTypes';
 export const basicProps = {
   model: {
     type: Object as PropType<Recordable>,
-    default: {},
+    default: () => ({}),
   },
   // 标签宽度  固定宽度
   labelWidth: {

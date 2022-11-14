@@ -162,6 +162,57 @@
       },
       width: 100,
     },
+    {
+      title: '单选框',
+      dataIndex: 'radio1',
+      editRow: true,
+      editComponent: 'RadioGroup',
+      editComponentProps: {
+        options: [
+          {
+            label: '选项1',
+            value: '1',
+          },
+          {
+            label: '选项2',
+            value: '2',
+          },
+        ],
+      },
+      width: 200,
+    },
+    {
+      title: '单选按钮框',
+      dataIndex: 'radio2',
+      editRow: true,
+      editComponent: 'RadioButtonGroup',
+      editComponentProps: {
+        options: [
+          {
+            label: '选项1',
+            value: '1',
+          },
+          {
+            label: '选项2',
+            value: '2',
+          },
+        ],
+      },
+      width: 200,
+    },
+    {
+      title: '远程单选框',
+      dataIndex: 'radio3',
+      editRow: true,
+      editComponent: 'ApiRadioGroup',
+      editComponentProps: {
+        api: optionsListApi,
+        resultField: 'list',
+        labelField: 'name',
+        valueField: 'id',
+      },
+      width: 200,
+    },
   ];
   export default defineComponent({
     components: { BasicTable, TableAction },

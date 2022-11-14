@@ -41,7 +41,7 @@ export const basicProps = {
 export const itemProps = {
   item: {
     type: Object as PropType<Menu>,
-    default: {},
+    default: () => ({}),
   },
   level: propTypes.number,
   theme: propTypes.oneOf(['dark', 'light']),

@@ -97,14 +97,21 @@ export function useFormValues({
     }
 
     for (const [field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD'] of fieldMapToTime) {
-      if (!field || !startTimeKey || !endTimeKey || !values[field]) {
+      if (!field || !startTimeKey || !endTimeKey) {
+        continue;
+      }
+      // If the value to be converted is empty, remove the field
+      if (!values[field]) {
+        Reflect.deleteProperty(values, field);
         continue;
       }
 
       const [startTime, endTime]: string[] = values[field];
 
-      values[startTimeKey] = dateUtil(startTime).format(format);
-      values[endTimeKey] = dateUtil(endTime).format(format);
+      const [startTimeFormat, endTimeFormat] = Array.isArray(format) ? format : [format, format];
+
+      values[startTimeKey] = dateUtil(startTime).format(startTimeFormat);
+      values[endTimeKey] = dateUtil(endTime).format(endTimeFormat);
       Reflect.deleteProperty(values, field);
     }
 

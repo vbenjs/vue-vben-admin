@@ -136,6 +136,7 @@
         getRowSelection,
         getRowSelectionRef,
         getSelectRows,
+        setSelectedRows,
         clearSelectedRowKeys,
         getSelectRowKeys,
         deleteSelectRowByKey,
@@ -288,6 +289,7 @@
       const tableAction: TableActionType = {
         reload,
         getSelectRows,
+        setSelectedRows,
         clearSelectedRowKeys,
         getSelectRowKeys,
         deleteSelectRowByKey,
@@ -375,6 +377,7 @@
       padding: 16px;
 
       .ant-form {
+        width: 100%;
         padding: 12px 10px 6px;
         margin-bottom: 16px;
         background-color: @component-background;
