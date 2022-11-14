@@ -15,7 +15,9 @@
         appear
       >
         <keep-alive v-if="openCache" :include="getCaches">
-          <component :is="Component" :key="route.fullPath" />
+          <div :key="route.name">
+            <component :is="Component" :key="route.fullPath" />
+          </div>
         </keep-alive>
         <div v-else :key="route.name">
           <component :is="Component" :key="route.fullPath" />
