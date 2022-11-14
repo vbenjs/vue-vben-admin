@@ -104,12 +104,13 @@ jobs:
           cp dist/index.html dist/404.html
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          ACTIONS_DEPLOY_KEY: ${{secrets.ACTIONS_DEPLOY_KEY}}
+        uses: peaceiris/actions-gh-pages@v2.5.0
+        env:
+          ACTIONS_DEPLOY_KEY: ${{secrets.DEPLOY_TOKEN}}
           PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./dist
-          allow_empty_commit: true
+          PUBLISH_DIR: ./.vitepress/dist
+        with:
+          forceOrphan: true
 
       - name: Delete gh-pages branch
         run: |
