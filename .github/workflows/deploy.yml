@@ -96,10 +96,6 @@ jobs:
           git config --local user.email "vbenadmin@163.com"
           git config --local user.name "vbenAdmin"
 
-      - name: Delete gh-pages branch
-        run: |
-          git push origin --delete gh-pages
-
       - name: Build
         run: |
           yarn install
@@ -113,3 +109,8 @@ jobs:
           ACTIONS_DEPLOY_KEY: ${{secrets.ACTIONS_DEPLOY_KEY}}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: ./dist
+          allow_empty_commit: true
+
+      - name: Delete gh-pages branch
+        run: |
+          git push origin --delete gh-pages
