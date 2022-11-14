@@ -108,7 +108,7 @@ jobs:
         env:
           ACTIONS_DEPLOY_KEY: ${{secrets.DEPLOY_TOKEN}}
           PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./.vitepress/dist
+          PUBLISH_DIR: ./dist
         with:
           forceOrphan: true
 
