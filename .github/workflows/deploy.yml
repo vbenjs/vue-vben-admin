@@ -103,6 +103,10 @@ jobs:
           touch dist/.nojekyll
           cp dist/index.html dist/404.html
 
+      - name: Delete gh-pages branch
+        run: |
+          git push origin --delete gh-pages
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v2.5.0
         env:
@@ -112,6 +116,5 @@ jobs:
         with:
           forceOrphan: true
 
-      - name: Delete gh-pages branch
-        run: |
-          git push origin --delete gh-pages
+
+
