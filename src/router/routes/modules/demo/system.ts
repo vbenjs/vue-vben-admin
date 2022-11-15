@@ -24,6 +24,15 @@ const system: AppRouteModule = {
       component: () => import('/@/views/demo/system/account/index.vue'),
     },
     {
+      path: 'country',
+      name: 'CountryManagement',
+      meta: {
+        title: t('routes.demo.system.country'),
+        ignoreKeepAlive: false,
+      },
+      component: () => import('/@/views/demo/system/country/index.vue'),
+    },
+    {
       path: 'account_detail/:id',
       name: 'AccountDetail',
       meta: {
