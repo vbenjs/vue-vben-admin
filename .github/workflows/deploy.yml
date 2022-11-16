@@ -110,7 +110,7 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         env:
-          ACTIONS_DEPLOY_KEY: ${{secrets.ACTIONS_DEPLOY_KEY}}
+          deploy_key: ${{secrets.ACTIONS_DEPLOY_KEY}}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: ./dist
           cname: vben.vvbin.cn
