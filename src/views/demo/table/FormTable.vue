@@ -1,8 +1,5 @@
 <template>
-  <BasicTable
-    @register="registerTable"
-    :rowSelection="{ type: 'checkbox', selectedRowKeys: checkedKeys, onChange: onSelectChange }"
-  >
+  <BasicTable @register="registerTable">
     <template #form-custom> custom-slot </template>
     <template #headerTop>
       <a-alert type="info" show-icon>
@@ -44,6 +41,11 @@
         tableSetting: { fullScreen: true },
         showIndexColumn: false,
         rowKey: 'id',
+        rowSelection: {
+          type: 'checkbox',
+          selectedRowKeys: checkedKeys,
+          onChange: onSelectChange,
+        },
       });
 
       function getFormValues() {
