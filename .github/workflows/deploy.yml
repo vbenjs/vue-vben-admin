@@ -109,13 +109,13 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3.9.0
-        env:
+        with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: ./dist
           CNAME: vben.vvbin.cn
-        with:
-          forceOrphan: true
+
+
 
 
 
