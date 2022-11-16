@@ -110,7 +110,7 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         env:
-          github_token: ${{secrets.OPER_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: ./dist
           CNAME: vben.vvbin.cn
