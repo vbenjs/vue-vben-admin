@@ -44,7 +44,7 @@ Vue Vben Admin 是一个免费开源的中后台模版。使用了最新的`vue3
 
 ## 文档
 
-[文档地址](https://vvbin.cn/doc-next/)
+[文档地址](https://doc.vvbin.cn/)
 
 ## 准备
 

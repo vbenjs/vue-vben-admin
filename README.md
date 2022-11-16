@@ -44,7 +44,7 @@ Open the project in Gitpod (free online dev environment for GitHub) and start co
 
 ## Documentation
 
-[Document](https://vvbin.cn/doc-next/)
+[Document](https://doc.vvbin.cn/)
 
 ## Preparation
 

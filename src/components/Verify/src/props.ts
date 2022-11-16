@@ -38,19 +38,19 @@ export const basicProps = {
 
   wrapStyle: {
     type: Object as PropType<any>,
-    default: {},
+    default: () => ({}),
   },
   contentStyle: {
     type: Object as PropType<any>,
-    default: {},
+    default: () => ({}),
   },
   barStyle: {
     type: Object as PropType<any>,
-    default: {},
+    default: () => ({}),
   },
   actionStyle: {
     type: Object as PropType<any>,
-    default: {},
+    default: () => ({}),
   },
 };
 
@@ -67,7 +67,7 @@ export const rotateProps = {
 
   imgWrapStyle: {
     type: Object as PropType<any>,
-    default: {},
+    default: () => ({}),
   },
 
   minDegree: {
