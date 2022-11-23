@@ -1,5 +1,6 @@
 export default {
   api: {
+    operationSuccess: 'Operation Success',
     operationFailed: 'Operation failed',
     errorTip: 'Error Tip',
     successTip: 'Success Tip',
