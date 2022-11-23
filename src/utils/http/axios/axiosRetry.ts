@@ -16,6 +16,8 @@ export class AxiosRetry {
       return Promise.reject(error);
     }
     config.__retryCount += 1;
+    //请求返回后config的header不正确造成重试请求失败,删除返回headers采用默认headers
+    delete config.headers;
     return this.delay(waitTime).then(() => AxiosInstance(config));
   }
 
