@@ -25,7 +25,7 @@
       <template v-for="(img, index) in imgList" :key="img">
         <AImage
           :width="size"
-          :style="{ marginLeft: index === 0 ? 0 : margin }"
+          :style="{ marginLeft: index === 0 ? 0 : margin + 'px' }"
           :src="srcPrefix + img"
           :fallback="fallback"
         />
