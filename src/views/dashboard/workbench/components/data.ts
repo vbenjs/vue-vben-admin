@@ -141,7 +141,7 @@ export const groupItems: GroupItem[] = [
     title: 'React',
     icon: 'bx:bxl-react',
     color: '#00d8ff',
-    desc: '健康的身体是实目标的基石。',
+    desc: '健康的身体是实现目标的基石。',
     group: '技术牛',
     date: '2021-04-01',
   },

@@ -49,6 +49,7 @@ export function configStyleImportPlugin(_isBuild: boolean) {
           // 这里是需要额外引入样式的子组件列表
           // 单独引入子组件时需引入组件样式，否则会在打包后导致子组件样式丢失
           const replaceList = {
+            textarea: 'input',
             'typography-text': 'typography',
             'typography-title': 'typography',
             'typography-paragraph': 'typography',

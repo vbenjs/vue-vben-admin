@@ -27,7 +27,7 @@ export const basicProps = {
   },
   uploadParams: {
     type: Object as PropType<any>,
-    default: {},
+    default: () => ({}),
   },
   api: {
     type: Function as PropType<PromiseFn>,

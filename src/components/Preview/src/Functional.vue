@@ -141,8 +141,16 @@
       }
       // 缩放函数
       function scaleFunc(num: number) {
+        // 最小缩放
+        const MIN_SCALE = 0.02;
+        // 放大缩小的颗粒度
+        const GRA = 0.1;
         if (imgState.imgScale <= 0.2 && num < 0) return;
-        imgState.imgScale += num;
+        imgState.imgScale += num * GRA;
+        // scale 不能 < 0，否则图片会倒置放大
+        if (imgState.imgScale < 0) {
+          imgState.imgScale = MIN_SCALE;
+        }
       }
 
       // 旋转图片

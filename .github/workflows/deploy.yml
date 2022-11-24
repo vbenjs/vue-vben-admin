@@ -55,7 +55,6 @@ jobs:
   #         ARGS: --delete --verbose --parallel=80
 
   push-to-gh-pages:
-    if: "contains(github.event.head_commit.message, '[release]')"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -64,8 +63,8 @@ jobs:
       - name: Sed Config Base
         shell: bash
         run: |
-          sed -i  's#VITE_PUBLIC_PATH\s*=.*#VITE_PUBLIC_PATH = /vue-vben-admin/#g' ./.env.production
           sed -i  "s#VITE_BUILD_COMPRESS\s*=.*#VITE_BUILD_COMPRESS = 'gzip'#g" ./.env.production
+          sed -i  "s#VITE_DROP_CONSOLE\s*=.*#VITE_DROP_CONSOLE = true#g" ./.env.production
           cat ./.env.production
 
       - name: use Node.js 16
@@ -94,12 +93,8 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com > ~/.ssh/known_hosts
           chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
-          git config --local user.email "vbenadmin@163.com"
-          git config --local user.name "vbenAdmin"
-
-      - name: Delete gh-pages branch
-        run: |
-          git push origin --delete gh-pages
+          git config --global user.email "vbenadmin@163.com"
+          git config --global user.name "vbenAdmin"
 
       - name: Build
         run: |
@@ -108,11 +103,19 @@ jobs:
           touch dist/.nojekyll
           cp dist/index.html dist/404.html
 
+      - name: Delete gh-pages branch
+        run: |
+          git push origin --delete gh-pages
+
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        env:
-          ACTIONS_DEPLOY_KEY: ${{secrets.ACTIONS_DEPLOY_KEY}}
+        uses: peaceiris/actions-gh-pages@v3.9.0
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: ./dist
-        with:
-          forceOrphan: true
+          CNAME: vben.vvbin.cn
+
+
+
+
+
