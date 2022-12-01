@@ -45,7 +45,7 @@ export const basicProps = {
   // 禁用表单
   disabled: propTypes.bool,
   emptySpan: {
-    type: [Number, Object] as PropType<number>,
+    type: [Number, Object] as PropType<number | Recordable>,
     default: 0,
   },
   // 是否显示收起展开按钮
