@@ -64,6 +64,7 @@
   import { basicProps } from './props';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { cloneDeep } from 'lodash-es';
+  import { isFunction, isArray } from '/@/utils/is';
 
   export default defineComponent({
     name: 'BasicForm',
@@ -242,9 +243,12 @@
         propsRef.value = deepMerge(unref(propsRef) || {}, formProps);
       }
 
-      function setFormModel(key: string, value: any) {
+      function setFormModel(key: string, value: any, schema: FormSchema) {
         formModel[key] = value;
         const { validateTrigger } = unref(getBindValue);
+        if (isFunction(schema.dynamicRules) || isArray(schema.rules)) {
+          return;
+        }
         if (!validateTrigger || validateTrigger === 'change') {
           validateFields([key]).catch((_) => {});
         }
