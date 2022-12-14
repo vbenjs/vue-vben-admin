@@ -143,7 +143,7 @@
     "vite-plugin-vue-setup-extend": "^0.4.0",
     "vite-plugin-windicss": "^1.8.4",
     "vue-eslint-parser": "^8.3.0",
-    "vue-tsc": "^0.33.9"
+    "vue-tsc": "^1.0.9"
   },
   "resolutions": {
     "bin-wrapper": "npm:bin-wrapper-china",

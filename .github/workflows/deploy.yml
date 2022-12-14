@@ -86,10 +86,10 @@ jobs:
 
       - name: Set SSH Environment
         env:
-          DOCS_DEPLOY_KEY: ${{ secrets.DEPLOY_TOKEN }}
+          DOCS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         run: |
           mkdir -p ~/.ssh/
-          echo "$DEPLOY_TOKEN" > ~/.ssh/id_rsa
+          echo "$ACTIONS_DEPLOY_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com > ~/.ssh/known_hosts
           chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
@@ -103,15 +103,19 @@ jobs:
           touch dist/.nojekyll
           cp dist/index.html dist/404.html
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v2.5.0
-        env:
-          ACTIONS_DEPLOY_KEY: ${{secrets.DEPLOY_TOKEN}}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./dist
-        with:
-          forceOrphan: true
-
       - name: Delete gh-pages branch
         run: |
           git push origin --delete gh-pages
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3.9.0
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: ./dist
+          CNAME: vben.vvbin.cn
+
+
+
+
+
