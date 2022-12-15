@@ -2,7 +2,15 @@ import type { ComputedRef, Ref } from 'vue';
 import type { FormProps, FormSchema, FormActionType } from '../types/form';
 import type { NamePath } from 'ant-design-vue/lib/form/interface';
 import { unref, toRaw, nextTick } from 'vue';
-import { isArray, isFunction, isObject, isString, isDef, isNullOrUnDef } from '/@/utils/is';
+import {
+  isArray,
+  isFunction,
+  isObject,
+  isString,
+  isDef,
+  isNullOrUnDef,
+  isEmpty,
+} from '/@/utils/is';
 import { deepMerge } from '/@/utils';
 import { dateItemType, handleInputNumberValue, defaultValueComponents } from '../helper';
 import { dateUtil } from '/@/utils/dateUtil';
@@ -93,7 +101,7 @@ export function useFormEvents({
       } else {
         nestKeyArray.forEach((nestKey: string) => {
           try {
-            const value = eval('values' + delimiter + nestKey);
+            const value = nestKey.split('.').reduce((out, item) => out[item], values);
             if (isDef(value)) {
               formModel[nestKey] = value;
               validKeys.push(nestKey);
@@ -237,7 +245,9 @@ export function useFormEvents({
         Reflect.has(item, 'field') &&
         item.field &&
         !isNullOrUnDef(item.defaultValue) &&
-        !(item.field in currentFieldsValue)
+        (!(item.field in currentFieldsValue) ||
+          isNullOrUnDef(currentFieldsValue[item.field]) ||
+          isEmpty(currentFieldsValue[item.field]))
       ) {
         obj[item.field] = item.defaultValue;
       }
