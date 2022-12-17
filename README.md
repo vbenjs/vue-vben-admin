@@ -49,7 +49,7 @@ git clone https://github.com/anncwb/vue-vben-admin.git
 
 ```bash
 cd vue-vben-admin
-
+git checkout thin
 pnpm install
 
 ```
