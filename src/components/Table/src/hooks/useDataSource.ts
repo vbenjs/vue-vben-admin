@@ -187,7 +187,6 @@ export function useDataSource(
             return { index: i, data };
           }
           if (row.children?.length > 0) {
-            console.log(row.children, i);
             const result = findRow(row.children, key);
             if (result != null) {
               return result;
