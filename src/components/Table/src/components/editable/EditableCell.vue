@@ -404,9 +404,8 @@
                     column: this.column,
                     index: this.index,
                   })
-                : this.getValues
-                ? this.getValues
-                : '\u00A0'}
+                : (this.getValues ?? "\u00A0")
+                }
             </div>
             {!this.column.editRow && <FormOutlined class={`${this.prefixCls}__normal-icon`} />}
           </div>

@@ -35,7 +35,7 @@
         default: () => ({}),
       },
       setFormModel: {
-        type: Function as PropType<(key: string, value: any) => void>,
+        type: Function as PropType<(key: string, value: any, schema: FormSchema) => void>,
         default: null,
       },
       tableAction: {
@@ -253,7 +253,7 @@
             }
             const target = e ? e.target : null;
             const value = target ? (isCheck ? target.checked : target.value) : e;
-            props.setFormModel(field, value);
+            props.setFormModel(field, value, props.schema);
           },
         };
         const Comp = componentMap.get(component) as ReturnType<typeof defineComponent>;

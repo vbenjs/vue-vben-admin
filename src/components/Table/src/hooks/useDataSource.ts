@@ -165,30 +165,41 @@ export function useDataSource(
     const rowKeyName = unref(getRowKey);
     if (!rowKeyName) return;
     const rowKeys = !Array.isArray(rowKey) ? [rowKey] : rowKey;
-    for (const key of rowKeys) {
-      let index: number | undefined = dataSourceRef.value.findIndex((row) => {
-        let targetKeyName: string;
-        if (typeof rowKeyName === 'function') {
-          targetKeyName = rowKeyName(row);
-        } else {
-          targetKeyName = rowKeyName as string;
-        }
-        return row[targetKeyName] === key;
-      });
-      if (index >= 0) {
-        dataSourceRef.value.splice(index, 1);
+
+    function deleteRow(data, key) {
+      const row: { index: number; data: [] } = findRow(data, key);
+      if (row === null || row.index === -1) {
+        return;
       }
-      index = unref(propsRef).dataSource?.findIndex((row) => {
-        let targetKeyName: string;
-        if (typeof rowKeyName === 'function') {
-          targetKeyName = rowKeyName(row);
-        } else {
-          targetKeyName = rowKeyName as string;
+      row.data.splice(row.index, 1);
+
+      function findRow(data, key) {
+        if (data === null || data === undefined) {
+          return null;
         }
-        return row[targetKeyName] === key;
-      });
-      if (typeof index !== 'undefined' && index !== -1)
-        unref(propsRef).dataSource?.splice(index, 1);
+        for (let i = 0; i < data.length; i++) {
+          const row = data[i];
+          let targetKeyName: string = rowKeyName as string;
+          if (isFunction(rowKeyName)) {
+            targetKeyName = rowKeyName(row);
+          }
+          if (row[targetKeyName] === key) {
+            return { index: i, data };
+          }
+          if (row.children?.length > 0) {
+            const result = findRow(row.children, key);
+            if (result != null) {
+              return result;
+            }
+          }
+        }
+        return null;
+      }
+    }
+
+    for (const key of rowKeys) {
+      deleteRow(dataSourceRef.value, key);
+      deleteRow(unref(propsRef).dataSource, key);
     }
     setPagination({
       total: unref(propsRef).dataSource?.length,
