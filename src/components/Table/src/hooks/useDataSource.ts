@@ -13,7 +13,7 @@ import {
 } from 'vue';
 import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 import { buildUUID } from '/@/utils/uuid';
-import { isFunction, isBoolean } from '/@/utils/is';
+import { isFunction, isBoolean, isObject } from '/@/utils/is';
 import { get, cloneDeep, merge } from 'lodash-es';
 import { FETCH_SETTING, ROW_KEY, PAGE_SIZE } from '../const';
 
@@ -206,10 +206,14 @@ export function useDataSource(
     });
   }
 
-  function insertTableDataRecord(record: Recordable, index: number): Recordable | undefined {
+  function insertTableDataRecord(
+    record: Recordable | Recordable[],
+    index: number,
+  ): Recordable | undefined {
     // if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
     index = index ?? dataSourceRef.value?.length;
-    unref(dataSourceRef).splice(index, 0, record);
+    const _record = isObject(record) ? [record as Recordable] : (record as Recordable[]);
+    unref(dataSourceRef).splice(index, 0, ..._record);
     return unref(dataSourceRef);
   }
 
