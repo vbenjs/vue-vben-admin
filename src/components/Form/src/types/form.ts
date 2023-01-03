@@ -35,7 +35,7 @@ export interface FormActionType {
   setProps: (formProps: Partial<FormProps>) => Promise<void>;
   removeSchemaByField: (field: string | string[]) => Promise<void>;
   appendSchemaByField: (
-    schema: FormSchema,
+    schema: FormSchema | FormSchema[],
     prefixField: string | undefined,
     first?: boolean | undefined,
   ) => Promise<void>;
