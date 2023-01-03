@@ -46,9 +46,8 @@ export function createPermissionGuard(router: Router) {
       next();
       return;
     }
-    const user = userStore.getUserInfo;
     // token or user does not exist
-    if (!token || !user) {
+    if (!token) {
       // You can access without permission. You need to set the routing meta.ignoreAuth to true
       if (to.meta.ignoreAuth) {
         next();

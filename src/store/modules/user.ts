@@ -41,7 +41,7 @@ export const useUserStore = defineStore({
   }),
   getters: {
     getUserInfo(): UserInfo {
-      return this.userInfo || getAuthCache<UserInfo>(USER_INFO_KEY);
+      return this.userInfo || getAuthCache<UserInfo>(USER_INFO_KEY) || {};
     },
     getToken(): string {
       return this.token || getAuthCache<string>(TOKEN_KEY);
