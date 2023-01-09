@@ -84,7 +84,7 @@ export const basicProps = {
     default: null,
   },
   columns: {
-    type: [Array] as PropType<BasicColumn[]>,
+    type: Array as PropType<BasicColumn[]>,
     default: () => [],
   },
   showIndexColumn: { type: Boolean, default: true },
