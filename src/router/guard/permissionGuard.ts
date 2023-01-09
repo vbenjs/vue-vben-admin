@@ -46,8 +46,7 @@ export function createPermissionGuard(router: Router) {
       next();
       return;
     }
-
-    // token does not exist
+    // token or user does not exist
     if (!token) {
       // You can access without permission. You need to set the routing meta.ignoreAuth to true
       if (to.meta.ignoreAuth) {

@@ -13,7 +13,7 @@ import {
 } from 'vue';
 import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 import { buildUUID } from '/@/utils/uuid';
-import { isFunction, isBoolean } from '/@/utils/is';
+import { isFunction, isBoolean, isObject } from '/@/utils/is';
 import { get, cloneDeep, merge } from 'lodash-es';
 import { FETCH_SETTING, ROW_KEY, PAGE_SIZE } from '../const';
 
@@ -206,10 +206,14 @@ export function useDataSource(
     });
   }
 
-  function insertTableDataRecord(record: Recordable, index: number): Recordable | undefined {
+  function insertTableDataRecord(
+    record: Recordable | Recordable[],
+    index: number,
+  ): Recordable | undefined {
     // if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
     index = index ?? dataSourceRef.value?.length;
-    unref(dataSourceRef).splice(index, 0, record);
+    const _record = isObject(record) ? [record as Recordable] : (record as Recordable[]);
+    unref(dataSourceRef).splice(index, 0, ..._record);
     return unref(dataSourceRef);
   }
 
@@ -306,7 +310,7 @@ export function useDataSource(
       const resultTotal: number = isArrayResult ? res.length : get(res, totalField);
 
       // 假如数据变少，导致总页数变少并小于当前选中页码，通过getPaginationRef获取到的页码是不正确的，需获取正确的页码再次执行
-      if (resultTotal) {
+      if (Number(resultTotal)) {
         const currentTotalPage = Math.ceil(resultTotal / pageSize);
         if (current > currentTotalPage) {
           setPagination({
