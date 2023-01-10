@@ -94,7 +94,7 @@ export function useForm(props?: Props): UseFormReturnType {
     },
 
     appendSchemaByField: async (
-      schema: FormSchema,
+      schema: FormSchema | FormSchema[],
       prefixField: string | undefined,
       first: boolean,
     ) => {
