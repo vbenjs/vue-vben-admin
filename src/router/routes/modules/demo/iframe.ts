@@ -21,7 +21,7 @@ const iframe: AppRouteModule = {
       name: 'Doc',
       component: IFrame,
       meta: {
-        frameSrc: 'https://vvbin.cn/doc-next/',
+        frameSrc: 'https://doc.vvbin.cn/',
         title: t('routes.demo.iframe.doc'),
       },
     },
@@ -30,12 +30,12 @@ const iframe: AppRouteModule = {
       name: 'Antv',
       component: IFrame,
       meta: {
-        frameSrc: 'https://2x.antdv.com/docs/vue/introduce-cn/',
+        frameSrc: 'https://www.antdv.com/docs/vue/introduce-cn/',
         title: t('routes.demo.iframe.antv'),
       },
     },
     {
-      path: 'https://vvbin.cn/doc-next/',
+      path: 'https://doc.vvbin.cn/',
       name: 'DocExternal',
       component: IFrame,
       meta: {
