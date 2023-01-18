@@ -129,6 +129,7 @@
     uploadApi: {
       type: Function as PropType<(params: apiFunParams) => Promise<any>>,
     },
+    src: { type: String },
   };
 
   export default defineComponent({
@@ -138,7 +139,7 @@
     emits: ['uploadSuccess', 'register'],
     setup(props, { emit }) {
       let filename = '';
-      const src = ref('');
+      const src = ref(props.src || '');
       const previewSource = ref('');
       const cropper = ref<Cropper>();
       let scaleX = 1;
