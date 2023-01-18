@@ -4,7 +4,9 @@
       <BasicForm @register="register" @submit="handleSubmit">
         <template #add="{ field }">
           <Button v-if="Number(field) === 0" @click="add">+</Button>
-          <Button class="ml-2" v-if="Number(field) === 0" @click="add">批量添加表单配置</Button>
+          <Button class="ml-2" v-if="Number(field) === 0" @click="batchAdd">
+            批量添加表单配置
+          </Button>
           <Button v-if="field > 0" @click="del(field)">-</Button>
         </template>
       </BasicForm>
