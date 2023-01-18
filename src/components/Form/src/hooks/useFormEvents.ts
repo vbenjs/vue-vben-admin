@@ -76,6 +76,11 @@ export function useFormEvents({
       const hasKey = Reflect.has(values, key);
 
       value = handleInputNumberValue(schema?.component, value);
+      const { componentProps } = schema || {};
+      let _props = componentProps as any;
+      if (typeof componentProps === 'function') {
+        _props = _props({ formModel: unref(formModel) });
+      }
       // 0| '' is allow
       if (hasKey && fields.includes(key)) {
         // time type
@@ -85,17 +90,15 @@ export function useFormEvents({
             for (const ele of value) {
               arr.push(ele ? dateUtil(ele) : null);
             }
-            formModel[key] = arr;
+            unref(formModel)[key] = arr;
           } else {
-            const { componentProps } = schema || {};
-            let _props = componentProps as any;
-            if (typeof componentProps === 'function') {
-              _props = _props({ formModel });
-            }
-            formModel[key] = value ? (_props?.valueFormat ? value : dateUtil(value)) : null;
+            unref(formModel)[key] = value ? (_props?.valueFormat ? value : dateUtil(value)) : null;
           }
         } else {
-          formModel[key] = value;
+          unref(formModel)[key] = value;
+        }
+        if (_props?.onChange) {
+          _props?.onChange(value);
         }
         validKeys.push(key);
       } else {
@@ -103,13 +106,13 @@ export function useFormEvents({
           try {
             const value = nestKey.split('.').reduce((out, item) => out[item], values);
             if (isDef(value)) {
-              formModel[nestKey] = value;
+              unref(formModel)[nestKey] = unref(value);
               validKeys.push(nestKey);
             }
           } catch (e) {
             // key not exist
             if (isDef(defaultValueRef.value[nestKey])) {
-              formModel[nestKey] = cloneDeep(defaultValueRef.value[nestKey]);
+              unref(formModel)[nestKey] = cloneDeep(unref(defaultValueRef.value[nestKey]));
             }
           }
         });
