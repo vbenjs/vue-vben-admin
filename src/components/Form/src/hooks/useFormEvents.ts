@@ -220,15 +220,19 @@ export function useFormEvents({
       return;
     }
     const schema: FormSchema[] = [];
-    updateData.forEach((item) => {
-      unref(getSchema).forEach((val) => {
+    unref(getSchema).forEach((val) => {
+      let _val;
+      updateData.forEach((item) => {
         if (val.field === item.field) {
-          const newSchema = deepMerge(val, item);
-          schema.push(newSchema as FormSchema);
-        } else {
-          schema.push(val);
+          _val = item;
         }
       });
+      if (_val !== undefined && val.field === _val.field) {
+        const newSchema = deepMerge(val, _val);
+        schema.push(newSchema as FormSchema);
+      } else {
+        schema.push(val);
+      }
     });
     _setDefaultValue(schema);
 
