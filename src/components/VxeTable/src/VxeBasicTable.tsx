@@ -1,7 +1,6 @@
 import { defineComponent } from 'vue';
 import { computed, ref } from 'vue';
 import { BasicTableProps } from './types';
-import { omit } from 'lodash';
 import { basicProps } from './props';
 import { ignorePropKeys } from './const';
 import { basicEmits } from './emits';
@@ -11,6 +10,7 @@ import { Grid as VxeGrid } from 'vxe-table';
 
 import { extendSlots } from '/@/utils/helper/tsxHelper';
 import { gridComponentMethodKeys } from './methods';
+import { omit } from 'lodash-es';
 
 export default defineComponent({
   name: 'VxeBasicTable',
