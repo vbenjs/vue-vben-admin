@@ -2,12 +2,17 @@
  * @Description:It is troublesome to implement radio button group in the form. So it is extracted independently as a separate component
 -->
 <template>
-  <RadioGroup v-bind="attrs" v-model:value="state" button-style="solid" @change="handleChange">
+  <RadioGroup v-bind="attrs" v-model:value="state" button-style="solid">
     <template v-for="item in getOptions" :key="`${item.value}`">
-      <RadioButton v-if="props.isBtn" :value="item.value" :disabled="item.disabled">
+      <RadioButton
+        v-if="props.isBtn"
+        :value="item.value"
+        :disabled="item.disabled"
+        @click="handleClick(item)"
+      >
         {{ item.label }}
       </RadioButton>
-      <Radio v-else :value="item.value" :disabled="item.disabled">
+      <Radio v-else :value="item.value" :disabled="item.disabled" @click="handleClick(item)">
         {{ item.label }}
       </Radio>
     </template>
@@ -62,7 +67,7 @@
       const attrs = useAttrs();
       const { t } = useI18n();
       // Embedded in the form, just use the hook binding to perform form verification
-      const [state] = useRuleFormItem(props);
+      const [state] = useRuleFormItem(props, 'value', 'change', emitData);
 
       // Processing options value
       const getOptions = computed(() => {
@@ -120,11 +125,11 @@
         emit('options-change', unref(getOptions));
       }
 
-      function handleChange(_, ...args) {
+      function handleClick(...args) {
         emitData.value = args;
       }
 
-      return { state, getOptions, attrs, loading, t, handleChange, props };
+      return { state, getOptions, attrs, loading, t, handleClick, props };
     },
   });
 </script>
