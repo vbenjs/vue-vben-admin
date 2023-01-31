@@ -67,6 +67,7 @@
   import { treeOptionsListApi } from '/@/api/demo/tree';
   import { Select } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
+  import { areaRecord } from '/@/api/demo/cascader';
 
   const valueSelectA = ref<string[]>([]);
   const valueSelectB = ref<string[]>([]);
@@ -293,6 +294,9 @@
             value: '2',
           },
         ],
+        onChange: (e, v) => {
+          console.log('RadioButtonGroup====>:', e, v);
+        },
       },
     },
     {
@@ -358,15 +362,16 @@
         params: {
           id: 1,
         },
+
         resultField: 'list',
         // use name as label
         labelField: 'name',
         // use id as value
         valueField: 'id',
         // not request untill to select
-        immediate: false,
-        onChange: (e) => {
-          console.log('selected:', e);
+        immediate: true,
+        onChange: (e, v) => {
+          console.log('ApiSelect====>:', e, v);
         },
         // atfer request callback
         onOptionsChange: (options) => {
@@ -377,6 +382,31 @@
         span: 8,
       },
       defaultValue: '0',
+    },
+    {
+      field: 'field8',
+      component: 'ApiCascader',
+      label: '联动ApiCascader',
+      required: true,
+      colProps: {
+        span: 8,
+      },
+      componentProps: {
+        api: areaRecord,
+        apiParamKey: 'parentCode',
+        dataField: 'data',
+        labelField: 'name',
+        valueField: 'code',
+        initFetchParams: {
+          parentCode: '',
+        },
+        isLeaf: (record) => {
+          return !(record.levelType < 3);
+        },
+        onChange: (e, ...v) => {
+          console.log('ApiCascader====>:', e, v);
+        },
+      },
     },
     {
       field: 'field31',
@@ -411,6 +441,9 @@
       componentProps: {
         api: treeOptionsListApi,
         resultField: 'list',
+        onChange: (e, v) => {
+          console.log('ApiTreeSelect====>:', e, v);
+        },
       },
       colProps: {
         span: 8,
@@ -455,6 +488,9 @@
         // use id as value
         valueField: 'id',
         isBtn: true,
+        onChange: (e, v) => {
+          console.log('ApiRadioGroup====>:', e, v);
+        },
       },
       colProps: {
         span: 8,

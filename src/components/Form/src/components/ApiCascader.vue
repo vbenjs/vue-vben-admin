@@ -170,7 +170,7 @@
       );
 
       function handleChange(keys, args) {
-        emitData.value = keys;
+        emitData.value = args;
         emit('defaultChange', keys, args);
       }
 
