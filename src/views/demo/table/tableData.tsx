@@ -157,29 +157,26 @@ export function getCustomHeaderColumns(): BasicColumn[] {
     },
   ];
 }
-const renderContent = ({ text, index }: { text: any; index: number }) => {
-  const obj: any = {
-    children: text,
-    attrs: {},
-  };
-  if (index === 9) {
-    obj.attrs.colSpan = 0;
-  }
-  return obj;
-};
+
+const cellContent = (_, index) => ({
+  colSpan: index === 9 ? 0 : 1,
+});
+
 export function getMergeHeaderColumns(): BasicColumn[] {
   return [
     {
       title: 'ID',
       dataIndex: 'id',
       width: 300,
-      customRender: renderContent,
+      customCell: (_, index) => ({
+        colSpan: index === 9 ? 6 : 1,
+      }),
     },
     {
       title: '姓名',
       dataIndex: 'name',
       width: 300,
-      customRender: renderContent,
+      customCell: cellContent,
     },
     {
       title: '地址',
@@ -187,19 +184,10 @@ export function getMergeHeaderColumns(): BasicColumn[] {
       colSpan: 2,
       width: 120,
       sorter: true,
-      customRender: ({ text, index }: { text: any; index: number }) => {
-        const obj: any = {
-          children: text,
-          attrs: {},
-        };
-        if (index === 2) {
-          obj.attrs.rowSpan = 2;
-        }
-        if (index === 3) {
-          obj.attrs.colSpan = 0;
-        }
-        return obj;
-      },
+      customCell: (_, index) => ({
+        rowSpan: index === 2 ? 2 : 1,
+        colSpan: index === 3 || index === 9 ? 0 : 1,
+      }),
     },
     {
       title: '编号',
@@ -209,19 +197,19 @@ export function getMergeHeaderColumns(): BasicColumn[] {
         { text: 'Male', value: 'male', children: [] },
         { text: 'Female', value: 'female', children: [] },
       ],
-      customRender: renderContent,
+      customCell: cellContent,
     },
     {
       title: '开始时间',
       dataIndex: 'beginTime',
       width: 200,
-      customRender: renderContent,
+      customCell: cellContent,
     },
     {
       title: '结束时间',
       dataIndex: 'endTime',
       width: 200,
-      customRender: renderContent,
+      customCell: cellContent,
     },
   ];
 }
