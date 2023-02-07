@@ -1,0 +1,522 @@
+.v-form-design-container {
+  // height: 100%;
+  width: 100%;
+  // overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  & > .v-form-design-header {
+    height: @header-height;
+    line-height: @header-height;
+    background: @primary-color;
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+  }
+
+  :deep(.icon) {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentcolor;
+    // overflow: hidden;
+  }
+
+  .content {
+    position: relative;
+    flex: 1;
+    // margin-top: 5px;
+    display: flex;
+    // flex-flow: row nowrap;
+    // height: 100%;
+    // overflow: hidden;
+    box-sizing: border-box;
+
+    .left,
+    .right {
+      width: @left-right-width;
+      box-shadow: 0 0 1px 1px #ccc;
+      // overflow: hidden;
+      // height: 100%;
+      // height: 600px;
+      //
+      border: 1px solid green;
+      // overflow-y: auto;
+      // :deep(.ant-tabs) {
+      //   height: 100%;
+      //   .ant-tabs-content-holder {
+      //     // display: flex;
+      //     // flex-flow: column;
+      //     height: 100%;
+      //     .ant-tabs-content {
+      //       // flex:1;
+      //       // height: 0;
+      //       // overflow-y: auto;
+      //       // overflow-x: hidden;
+      //       display: flex;
+      //       flex-flow: column;
+      //       height: 100%;
+      //     }
+      //   }
+      // }
+    }
+
+    :deep(.right) {
+      // & > div {
+      // height: 100%;
+      // }
+      // overflow: hidden;
+      // & > div {
+      //   height: 100%;
+      //   .ant-tabs-content-holder{
+      //     height: 100%;
+      //     .ant-tabs-content{
+      //       height: 100%;
+      //       .ant-tabs-tabpane{
+      //         height: 100%;
+      //       }
+      //     }
+      //   }
+      // }
+
+      .ant-tabs {
+        width: 280px;
+        height: 100%;
+        // overflow: hidden;
+
+        .ant-tabs-content-holder {
+          // display: flex;
+          // flex-flow: column;
+          // height: 100%;
+          // overflow: hidden;
+
+          .ant-tabs-content {
+            // flex:1;
+            // height: 0;
+            // overflow-y: auto;
+            // overflow-x: hidden;
+
+            height: 100%;
+            // overflow: hidden;
+            .ant-tabs-tabpane {
+              .properties-content {
+                // height: 100%;
+
+                // overflow: auto;
+                // overflow: hidden;
+
+                // background: #fff;
+                .properties-body {
+                  box-sizing: border-box;
+                  // height: 100%;
+
+                  // display: flex;
+                  // flex-flow: column;
+
+                  form {
+                    position: absolute;
+                    // height: 400px;
+                    height: calc(100% - 50px);
+                    // height: 100%;
+                    // flex: 1;
+                    // height: 0;
+                    margin-right: 10px;
+                    // overflow: auto;
+                    overflow-y: auto;
+                    overflow-x: hidden;
+                    // overflow: auto;
+                  }
+                  // overflow: auto;
+                  // height: 100%;
+                  // padding: 8px 16px;
+                  .hint-box {
+                    margin-top: 200px;
+                  }
+
+                  .ant-form-item,
+                  .ant-slider-with-marks {
+                    margin-left: 10px;
+                    margin-right: 20px;
+                    margin-bottom: 0;
+                  }
+
+                  .ant-form-item {
+                    // box-sizing: border-box;
+                    width: 100%;
+                    margin-bottom: 0;
+                    // padding: 2px 0;
+                    border-bottom: 1px solid @border-color;
+
+                    .ant-form-item-label {
+                      line-height: 2;
+                      vertical-align: text-top;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    :deep(.left) {
+      .ant-collapse {
+        border: 0;
+
+        .ant-collapse-header {
+          padding: 7px 0 7px 40px;
+        }
+
+        .ant-collapse-content-box {
+          padding: 0;
+        }
+      }
+
+      ul {
+        padding: 5px;
+        list-style: none;
+        display: flex;
+        margin-bottom: 0;
+        flex-wrap: wrap;
+        // background: #efefef;
+
+        li {
+          padding: 8px 12px;
+          transition: all 0.3s;
+          width: calc(50% - 6px);
+          margin: 2.7px;
+          height: 36px;
+          line-height: 20px;
+          cursor: move;
+          border: 1px solid @border-color;
+          border-radius: 3px;
+
+          &:hover {
+            color: @primary-color;
+            border: 1px solid @primary-color;
+            position: relative;
+            // z-index: 1;
+            box-shadow: 0 2px 6px @primary-color;
+          }
+        }
+      }
+    }
+
+    :deep(.node-panel) {
+      box-shadow: 0 0 1px 1px #ccc;
+      flex: 1;
+      margin: 0 8px;
+      overflow: hidden;
+
+      .draggable-box {
+        height: 100%;
+        overflow: auto;
+
+        .list-main {
+          overflow: hidden;
+          min-height: 100%;
+          padding: 5px;
+          position: relative;
+          background: #fafafa;
+          // border    : 1px #ccc dashed;
+
+          .moving {
+            // 拖放移动中
+            // outline-width: 0;
+            min-height: 35px;
+            box-sizing: border-box;
+            overflow: hidden;
+            padding: 0 !important;
+            // margin       : 3px 0;
+            position: relative;
+
+            &::before {
+              content: '';
+              height: 5px;
+              width: 100%;
+              background: @primary-color;
+              position: absolute;
+              top: 0;
+              right: 0;
+            }
+          }
+
+          .drag-move-box {
+            position: relative;
+            box-sizing: border-box;
+            padding: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+            min-height: 60px;
+
+            &:hover {
+              background: @primary-hover-bg-color;
+            }
+
+            // 选择时 start
+            &::before {
+              content: '';
+              height: 5px;
+              width: 100%;
+              background: @primary-color;
+              position: absolute;
+              top: 0;
+              right: -100%;
+              transition: all 0.3s;
+            }
+
+            &.active {
+              background: @primary-hover-bg-color;
+              outline-offset: 0;
+
+              &::before {
+                right: 0;
+              }
+            }
+
+            // 选择时 end
+            .form-item-box {
+              position: relative;
+              box-sizing: border-box;
+              word-wrap: break-word;
+
+              &::before {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                // z-index: 888;
+              }
+
+              .ant-form-item {
+                // 修改ant form-item的margin为padding
+                margin: 0;
+                padding-bottom: 6px;
+              }
+            }
+
+            .show-key-box {
+              // 显示key
+              position: absolute;
+              bottom: 2px;
+              right: 5px;
+              font-size: 14px;
+              // z-index: 999;
+              color: @primary-color;
+            }
+
+            .copy,
+            .delete {
+              position: absolute;
+              top: 0;
+              width: 30px;
+              height: 30px;
+              line-height: 30px;
+              text-align: center;
+              color: #fff;
+              // z-index: 989;
+              transition: all 0.3s;
+
+              &.unactivated {
+                opacity: 0 !important;
+                pointer-events: none;
+              }
+
+              &.active {
+                opacity: 1 !important;
+              }
+            }
+
+            .copy {
+              border-radius: 0 0 0 8px;
+              right: 30px;
+              background: @primary-color;
+            }
+
+            .delete {
+              right: 0;
+              background: @primary-color;
+            }
+          }
+
+          .grid-box {
+            position: relative;
+            box-sizing: border-box;
+            padding: 5px;
+            background: @layout-background-color;
+            width: 100%;
+            transition: all 0.3s;
+            overflow: hidden;
+
+            .form-item-box {
+              position: relative;
+              box-sizing: border-box;
+
+              .ant-form-item {
+                // 修改ant form-item的margin为padding
+                margin: 0;
+                padding-bottom: 15px;
+              }
+            }
+
+            .grid-row {
+              background: @layout-background-color;
+
+              .grid-col {
+                .draggable-box {
+                  min-height: 80px;
+                  min-width: 50px;
+                  border: 1px #ccc dashed;
+                  background: #fff;
+
+                  .list-main {
+                    min-height: 83px;
+                    position: relative;
+                    border: 1px #ccc dashed;
+                  }
+                }
+              }
+            }
+
+            // 选择时 start
+            &::before {
+              content: '';
+              height: 5px;
+              width: 100%;
+              background: transparent;
+              position: absolute;
+              top: 0;
+              right: -100%;
+              transition: all 0.3s;
+            }
+
+            &.active {
+              background: @layout-hover-bg-color;
+              outline-offset: 0;
+
+              &::before {
+                background: @layout-color;
+                right: 0;
+              }
+            }
+            // 选择时 end
+            > .copy-delete-box {
+              > .copy,
+              > .delete {
+                position: absolute;
+                top: 0;
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+                color: #fff;
+                // z-index: 989;
+                transition: all 0.3s;
+
+                &.unactivated {
+                  opacity: 0 !important;
+                  pointer-events: none;
+                }
+
+                &.active {
+                  opacity: 1 !important;
+                }
+              }
+
+              > .copy {
+                border-radius: 0 0 0 8px;
+                right: 30px;
+                background: @layout-color;
+              }
+
+              > .delete {
+                right: 0;
+                background: @layout-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  ::-webkit-scrollbar {
+    /* 滚动条整体样式 */
+    width: 6px;
+
+    /* 高宽分别对应横竖滚动条的尺寸 */
+    height: 6px;
+    scrollbar-arrow-color: red;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    /* 滚动条里面小方块 */
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgb(0 0 0 / 20%);
+    background: rgb(0 0 0 / 20%);
+    scrollbar-arrow-color: red;
+  }
+
+  ::-webkit-scrollbar-track {
+    /* 滚动条里面轨道 */
+    box-shadow: inset 0 0 5px rgb(0 0 0 / 20%);
+    border-radius: 0;
+    background: rgb(0 0 0 / 10%);
+  }
+}
+
+// code盒子样式
+.v-json-box {
+  height: 570px;
+  overflow: auto;
+
+  .vue-codemirror-wrap {
+    height: 100%;
+
+    .CodeMirror-wrap {
+      height: 100%;
+      background: #f6f6f6;
+
+      .CodeMirror-scroll {
+        height: 100%;
+        width: 100%;
+      }
+
+      pre.CodeMirror-line,
+      .CodeMirror-linenumber {
+        min-height: 21px;
+        line-height: 21px;
+      }
+    }
+  }
+}
+
+// code-modal盒子样式
+.v-code-modal {
+  .ant-modal-body {
+    padding: 12px;
+  }
+}
+
+.v-form-container {
+  // 内联布局样式
+  .ant-form-inline {
+    .list-main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-content: flex-start;
+
+      .layout-width {
+        width: 100%;
+      }
+    }
+
+    .ant-form-item-control-wrapper {
+      min-width: 175px !important;
+    }
+  }
+}
