@@ -11,6 +11,7 @@ import type {
   GridMethods,
   TableMethods,
   TableEditMethods,
+  TableValidatorMethods,
 } from 'vxe-table';
 import { Grid as VxeGrid } from 'vxe-table';
 
@@ -42,7 +43,8 @@ export default defineComponent({
 
     const gridExtendTableMethods = extendTableMethods(gridComponentMethodKeys) as GridMethods &
       TableMethods &
-      TableEditMethods;
+      TableEditMethods &
+      TableValidatorMethods;
 
     basicEmits.forEach((name) => {
       const type = XEUtils.camelCase(`on-${name}`) as keyof VxeGridEventProps;
