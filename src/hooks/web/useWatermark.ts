@@ -1,13 +1,11 @@
-import { getCurrentInstance, onBeforeUnmount, ref, Ref, shallowRef, unref } from 'vue';
+import { getCurrentInstance, onBeforeUnmount, shallowRef, unref, type UnwrapRef } from 'vue';
 import { useRafThrottle } from '/@/utils/domUtils';
 import { addResizeListener, removeResizeListener } from '/@/utils/event';
 import { isDef } from '/@/utils/is';
 
 const domSymbol = Symbol('watermark-dom');
 
-export function useWatermark(
-  appendEl: Ref<HTMLElement | null> = ref(document.body) as Ref<HTMLElement>,
-) {
+export function useWatermark(appendEl: UnwrapRef<HTMLElement> = document.body) {
   const func = useRafThrottle(function () {
     const el = unref(appendEl);
     if (!el) return;
