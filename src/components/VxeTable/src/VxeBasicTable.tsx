@@ -5,7 +5,14 @@ import { basicProps } from './props';
 import { ignorePropKeys } from './const';
 import { basicEmits } from './emits';
 import XEUtils from 'xe-utils';
-import type { VxeGridInstance, VxeGridEventProps, GridMethods, TableMethods } from 'vxe-table';
+import type {
+  VxeGridInstance,
+  VxeGridEventProps,
+  GridMethods,
+  TableMethods,
+  TableEditMethods,
+  TableValidatorMethods,
+} from 'vxe-table';
 import { Grid as VxeGrid } from 'vxe-table';
 
 import { extendSlots } from '/@/utils/helper/tsxHelper';
@@ -35,7 +42,9 @@ export default defineComponent({
     };
 
     const gridExtendTableMethods = extendTableMethods(gridComponentMethodKeys) as GridMethods &
-      TableMethods;
+      TableMethods &
+      TableEditMethods &
+      TableValidatorMethods;
 
     basicEmits.forEach((name) => {
       const type = XEUtils.camelCase(`on-${name}`) as keyof VxeGridEventProps;

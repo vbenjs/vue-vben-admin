@@ -14,11 +14,11 @@
 </template>
 <script lang="ts" setup>
   import { reactive, ref } from 'vue';
-  import { TableAction, ActionItem } from '/@/components/Table';
+  import { ActionItem, TableAction } from '/@/components/Table';
   import { PageWrapper } from '/@/components/Page';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { vxeTableColumns, vxeTableFormSchema } from './tableData';
-  import { VxeBasicTable, BasicTableProps, VxeGridInstance } from '/@/components/VxeTable';
+  import { BasicTableProps, VxeBasicTable, VxeGridInstance } from '/@/components/VxeTable';
   import { demoListApi } from '/@/api/demo/table';
 
   const { createMessage } = useMessage();
@@ -32,7 +32,7 @@
     toolbarConfig: {
       buttons: [
         {
-          content: '自定义按钮',
+          content: '在第一行新增',
           buttonRender: {
             name: 'AButton',
             props: {
@@ -40,7 +40,22 @@
             },
             events: {
               click: () => {
-                createMessage.success('点击了自定义按钮');
+                tableRef.value?.insert({ name: '新增的' });
+                createMessage.success('新增成功');
+              },
+            },
+          },
+        },
+        {
+          content: '在最后一行新增',
+          buttonRender: {
+            name: 'AButton',
+            props: {
+              type: 'warning',
+            },
+            events: {
+              click: () => {
+                tableRef.value?.insertAt({ name: '新增的' }, -1);
               },
             },
           },
@@ -62,8 +77,7 @@
           });
         },
         queryAll: async ({ form }) => {
-          const data = await demoListApi(form);
-          return data;
+          return await demoListApi(form);
         },
       },
     },
@@ -87,7 +101,9 @@
         color: 'error',
         popConfirm: {
           title: '是否确认删除',
-          confirm: () => {},
+          confirm: () => {
+            tableRef.value?.remove(record);
+          },
         },
       },
     ];
