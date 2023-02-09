@@ -73,7 +73,8 @@
     "vxe-table": "^4.3.9",
     "vxe-table-plugin-export-xlsx": "^3.0.4",
     "xe-utils": "^3.5.7",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
