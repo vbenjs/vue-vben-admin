@@ -1,15 +1,14 @@
 <template>
-  <!-- <div class="v-form-design-container"> -->
-  <!-- <header class="v-form-design-header">{{ title }}</header> -->
-
   <Layout>
     <LayoutSider
-      class="left"
-      theme="light"
+      class="left sider"
       collapsible
       collapsedWidth="0"
       width="270"
-      :zeroWidthTriggerStyle="{ 'margin-top': '-70px' }"
+      :zeroWidthTriggerStyle="{
+        'margin-top': '-70px',
+        'background-color': 'gray',
+      }"
       breakpoint="md"
     >
       <CollapseContainer title="基础控件">
@@ -53,16 +52,14 @@
       />
     </LayoutContent>
     <LayoutSider
-      class="right"
+      class="right sider"
       collapsible
       :reverseArrow="true"
-      theme="light"
       collapsedWidth="0"
       width="270"
-      :zeroWidthTriggerStyle="{ 'margin-top': '-70px' }"
+      :zeroWidthTriggerStyle="{ 'margin-top': '-70px', 'background-color': 'gray' }"
       breakpoint="lg"
     >
-      <!-- <div class="right" onselectstart="return false"> -->
       <PropsPanel ref="propsPanel" :activeKey="formConfig.activeKey">
         <template v-for="item of formConfig.schemas" #[`${item.component}Props`]="data">
           <slot
@@ -71,7 +68,6 @@
           ></slot>
         </template>
       </PropsPanel>
-      <!-- </div> -->
     </LayoutSider>
   </Layout>
 
@@ -80,7 +76,6 @@
   <ImportJsonModal ref="importJsonModal" />
   <VFormPreview ref="eFormPreview" :formConfig="formConfig" />
   <VFormPreview2 ref="eFormPreview2" :formConfig="formConfig" />
-  <!-- </div> -->
 </template>
 
 <script lang="ts" setup>
@@ -100,13 +95,11 @@
   import { ref, provide, Ref } from 'vue';
   import { Layout, LayoutContent, LayoutSider } from 'ant-design-vue';
 
-  // import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN';
   import { IVFormComponent, IFormConfig, PropsTabKey } from '../../typings/v-form-component';
   import { formItemsForEach, generateKey } from '../../utils';
   import { cloneDeep } from 'lodash-es';
   import { baseComponents, customComponents, layoutComponents } from '../../core/formItemConfig';
   import { useRefHistory, UseRefHistoryReturn } from '@vueuse/core';
-  // import { IAnyObject } from '../../typings/base-type';
   import { globalConfigState } from './config/formItemPropsConfig';
   import { IFormDesignMethods, IPropsPanel, IToolbarMethods } from '../../typings/form-type';
 
@@ -361,5 +354,8 @@
 </script>
 
 <style lang="less" scoped>
-  // @import url(./styles/variable.less);
+  .sider {
+    //需要设置背景色，让主题生效
+    background-color: @component-background;
+  }
 </style>
