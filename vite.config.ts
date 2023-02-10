@@ -61,7 +61,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       proxy: createProxy(VITE_PROXY),
     },
     esbuild: {
-      pure: VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : [],
+      drop: VITE_DROP_CONSOLE ? ['console', 'debugger'] : [],
     },
     build: {
       target: 'es2015',
