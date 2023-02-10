@@ -1,13 +1,10 @@
 <!--
- * @Author: ypt
- * @Date: 2021/11/29
  * @Description: 表单渲染器，根据json生成表单
 -->
 <template>
   <div class="v-form-container">
     <Form class="v-form-model" ref="eFormModel" :model="formModel" v-bind="formModelProps">
       <Row>
-        <!-- <component :is="wrapperComp"> -->
         <FormRender
           v-for="(schema, index) of noHiddenList"
           :key="index"
@@ -26,7 +23,6 @@
             ></slot>
           </template>
         </FormRender>
-        <!-- </component> -->
       </Row>
     </Form>
   </div>
@@ -104,7 +100,6 @@
         const { field } = unref(schema);
 
         linkOn[field!]?.forEach((formItem) => {
-          // console.log('handleChange', formItem, field, value);
           formItem.update?.(value, formItem, fApi.value as IVFormMethods);
         });
       };

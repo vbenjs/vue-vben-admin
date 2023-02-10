@@ -55,8 +55,6 @@ componentMap.set('RangePicker', DatePicker.RangePicker);
 componentMap.set('WeekPicker', DatePicker.WeekPicker);
 componentMap.set('TimePicker', TimePicker);
 
-componentMap.set('ColorPicker', TimePicker);
-
 componentMap.set('IconPicker', IconPicker);
 componentMap.set('Divider', Divider);
 
