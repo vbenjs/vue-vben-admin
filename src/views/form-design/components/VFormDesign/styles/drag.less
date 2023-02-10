@@ -4,27 +4,22 @@
 
   :deep(.list-main) {
     overflow: hidden;
-    min-height: 100%;
     padding: 5px;
     position: relative;
-    background: #fafafa;
-    // border    : 1px #ccc dashed;
 
     .moving {
-      // 拖放移动中
-      // outline-width: 0;
+      // 拖放移动中;
       min-height: 35px;
       box-sizing: border-box;
       overflow: hidden;
       padding: 0 !important;
-      // margin       : 3px 0;
       position: relative;
 
       &::before {
         content: '';
         height: 5px;
         width: 100%;
-        background: @primary-color;
+        background-color: @primary-color;
         position: absolute;
         top: 0;
         right: 0;
@@ -40,7 +35,7 @@
       min-height: 60px;
 
       &:hover {
-        background: @primary-hover-bg-color;
+        background-color: @primary-hover-bg-color;
       }
 
       // 选择时 start
@@ -48,7 +43,7 @@
         content: '';
         height: 5px;
         width: 100%;
-        background: @primary-color;
+        background-color: @primary-color;
         position: absolute;
         top: 0;
         right: -100%;
@@ -56,7 +51,7 @@
       }
 
       &.active {
-        background: @primary-hover-bg-color;
+        background-color: @primary-hover-bg-color;
         outline-offset: 0;
 
         &::before {
@@ -77,7 +72,6 @@
           height: 100%;
           top: 0;
           left: 0;
-          // z-index: 888;
         }
 
         .ant-form-item {
@@ -122,12 +116,12 @@
       .copy {
         border-radius: 0 0 0 8px;
         right: 30px;
-        background: @primary-color;
+        background-color: @primary-color;
       }
 
       .delete {
         right: 0;
-        background: @primary-color;
+        background-color: @primary-color;
       }
     }
 
@@ -135,7 +129,7 @@
       position: relative;
       box-sizing: border-box;
       padding: 5px;
-      background: @layout-background-color;
+      background-color: @layout-background-color;
       width: 100%;
       transition: all 0.3s;
       overflow: hidden;
@@ -152,14 +146,14 @@
       }
 
       .grid-row {
-        background: @layout-background-color;
+        background-color: @layout-background-color;
 
         .grid-col {
           .draggable-box {
             min-height: 80px;
             min-width: 50px;
             border: 1px #ccc dashed;
-            background: #fff;
+            // background: #fff;
 
             .list-main {
               min-height: 83px;
@@ -183,11 +177,11 @@
       }
 
       &.active {
-        background: @layout-hover-bg-color;
+        background-color: @layout-hover-bg-color;
         outline-offset: 0;
 
         &::before {
-          background: @layout-color;
+          background-color: @layout-color;
           right: 0;
         }
       }
@@ -218,12 +212,12 @@
         > .copy {
           border-radius: 0 0 0 8px;
           right: 30px;
-          background: @layout-color;
+          background-color: @layout-color;
         }
 
         > .delete {
           right: 0;
-          background: @layout-color;
+          background-color: @layout-color;
         }
       }
     }
