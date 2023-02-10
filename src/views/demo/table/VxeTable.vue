@@ -7,7 +7,7 @@
   >
     <VxeBasicTable ref="tableRef" v-bind="gridOptions">
       <template #action="{ row }">
-        <TableAction :actions="createActions(row)" />
+        <TableAction outside :actions="createActions(row)" />
       </template>
     </VxeBasicTable>
   </PageWrapper>
@@ -27,6 +27,7 @@
 
   const gridOptions = reactive<BasicTableProps>({
     id: 'VxeTable',
+    keepSource: true,
     editConfig: { trigger: 'click', mode: 'cell', showStatus: true },
     columns: vxeTableColumns,
     toolbarConfig: {
