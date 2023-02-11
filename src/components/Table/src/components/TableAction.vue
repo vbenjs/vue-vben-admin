@@ -91,7 +91,7 @@
           .map((action) => {
             const { popConfirm } = action;
             return {
-              getPopupContainer: () => unref((table as any)?.wrapRef.value) ?? document.body,
+              getPopupContainer: () => unref((table as any)?.wrapRef) ?? document.body,
               type: 'link',
               size: 'small',
               ...action,
@@ -128,7 +128,7 @@
 
       function getTooltip(data: string | TooltipProps): TooltipProps {
         return {
-          getPopupContainer: () => unref((table as any)?.wrapRef.value) ?? document.body,
+          getPopupContainer: () => unref((table as any)?.wrapRef) ?? document.body,
           placement: 'bottom',
           ...(isString(data) ? { title: data } : data),
         };
