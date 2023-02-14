@@ -72,14 +72,14 @@ jobs:
         with:
           node-version: '16.x'
 
-      - name: Get yarn cache
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
@@ -97,6 +97,8 @@ jobs:
           git config --global user.name "vbenAdmin"
 
       - name: Build
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: |
           yarn install
           yarn run build

@@ -1,0 +1,225 @@
+.draggable-box {
+  height: 100%;
+  overflow: auto;
+
+  :deep(.list-main) {
+    overflow: hidden;
+    padding: 5px;
+    position: relative;
+
+    .moving {
+      // 拖放移动中;
+      min-height: 35px;
+      box-sizing: border-box;
+      overflow: hidden;
+      padding: 0 !important;
+      position: relative;
+
+      &::before {
+        content: '';
+        height: 5px;
+        width: 100%;
+        background-color: @primary-color;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+
+    .drag-move-box {
+      position: relative;
+      box-sizing: border-box;
+      padding: 8px;
+      overflow: hidden;
+      transition: all 0.3s;
+      min-height: 60px;
+
+      &:hover {
+        background-color: @primary-hover-bg-color;
+      }
+
+      // 选择时 start
+      &::before {
+        content: '';
+        height: 5px;
+        width: 100%;
+        background-color: @primary-color;
+        position: absolute;
+        top: 0;
+        right: -100%;
+        transition: all 0.3s;
+      }
+
+      &.active {
+        background-color: @primary-hover-bg-color;
+        outline-offset: 0;
+
+        &::before {
+          right: 0;
+        }
+      }
+
+      // 选择时 end
+      .form-item-box {
+        position: relative;
+        box-sizing: border-box;
+        word-wrap: break-word;
+
+        &::before {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+        }
+
+        .ant-form-item {
+          // 修改ant form-item的margin为padding
+          margin: 0;
+          padding-bottom: 6px;
+        }
+      }
+
+      .show-key-box {
+        // 显示key
+        position: absolute;
+        bottom: 2px;
+        right: 5px;
+        font-size: 14px;
+        // z-index: 999;
+        color: @primary-color;
+      }
+
+      .copy,
+      .delete {
+        position: absolute;
+        top: 0;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        color: #fff;
+        // z-index: 989;
+        transition: all 0.3s;
+
+        &.unactivated {
+          opacity: 0 !important;
+          pointer-events: none;
+        }
+
+        &.active {
+          opacity: 1 !important;
+        }
+      }
+
+      .copy {
+        border-radius: 0 0 0 8px;
+        right: 30px;
+        background-color: @primary-color;
+      }
+
+      .delete {
+        right: 0;
+        background-color: @primary-color;
+      }
+    }
+
+    .grid-box {
+      position: relative;
+      box-sizing: border-box;
+      padding: 5px;
+      background-color: @layout-background-color;
+      width: 100%;
+      transition: all 0.3s;
+      overflow: hidden;
+
+      .form-item-box {
+        position: relative;
+        box-sizing: border-box;
+
+        .ant-form-item {
+          // 修改ant form-item的margin为padding
+          margin: 0;
+          padding-bottom: 15px;
+        }
+      }
+
+      .grid-row {
+        background-color: @layout-background-color;
+
+        .grid-col {
+          .draggable-box {
+            min-height: 80px;
+            min-width: 50px;
+            border: 1px #ccc dashed;
+            // background: #fff;
+
+            .list-main {
+              min-height: 83px;
+              position: relative;
+              border: 1px #ccc dashed;
+            }
+          }
+        }
+      }
+
+      // 选择时 start
+      &::before {
+        content: '';
+        height: 5px;
+        width: 100%;
+        background: transparent;
+        position: absolute;
+        top: 0;
+        right: -100%;
+        transition: all 0.3s;
+      }
+
+      &.active {
+        background-color: @layout-hover-bg-color;
+        outline-offset: 0;
+
+        &::before {
+          background-color: @layout-color;
+          right: 0;
+        }
+      }
+      // 选择时 end
+      > .copy-delete-box {
+        > .copy,
+        > .delete {
+          position: absolute;
+          top: 0;
+          width: 30px;
+          height: 30px;
+          line-height: 30px;
+          text-align: center;
+          color: #fff;
+          // z-index: 989;
+          transition: all 0.3s;
+
+          &.unactivated {
+            opacity: 0 !important;
+            pointer-events: none;
+          }
+
+          &.active {
+            opacity: 1 !important;
+          }
+        }
+
+        > .copy {
+          border-radius: 0 0 0 8px;
+          right: 30px;
+          background-color: @layout-color;
+        }
+
+        > .delete {
+          right: 0;
+          background-color: @layout-color;
+        }
+      }
+    }
+  }
+}

@@ -50,6 +50,7 @@
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.1",
     "echarts": "^5.3.2",
+    "exceljs": "^4.3.0",
     "intro.js": "^5.1.0",
     "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",
@@ -69,7 +70,11 @@
     "vue-json-pretty": "^2.0.6",
     "vue-router": "^4.0.14",
     "vue-types": "^4.1.1",
-    "xlsx": "^0.18.5"
+    "vxe-table": "^4.3.9",
+    "vxe-table-plugin-export-xlsx": "^3.0.4",
+    "xe-utils": "^3.5.7",
+    "xlsx": "^0.18.5",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
@@ -121,6 +126,7 @@
     "rimraf": "^3.0.2",
     "rollup": "^2.70.2",
     "rollup-plugin-visualizer": "^5.6.0",
+    "sass": "^1.57.1",
     "stylelint": "^14.7.1",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-recommended": "^7.0.0",

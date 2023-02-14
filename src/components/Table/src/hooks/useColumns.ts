@@ -146,31 +146,38 @@ export function useColumns(
   const getViewColumns = computed(() => {
     const viewColumns = sortFixedColumn(unref(getColumnsRef));
 
+    const mapFn = (column) => {
+      const { slots, customRender, format, edit, editRow, flag } = column;
+
+      if (!slots || !slots?.title) {
+        // column.slots = { title: `header-${dataIndex}`, ...(slots || {}) };
+        column.customTitle = column.title;
+        Reflect.deleteProperty(column, 'title');
+      }
+      const isDefaultAction = [INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG].includes(flag!);
+      if (!customRender && format && !edit && !isDefaultAction) {
+        column.customRender = ({ text, record, index }) => {
+          return formatCell(text, format, record, index);
+        };
+      }
+
+      // edit table
+      if ((edit || editRow) && !isDefaultAction) {
+        column.customRender = renderEditCell(column);
+      }
+      return reactive(column);
+    };
+
     const columns = cloneDeep(viewColumns);
     return columns
-      .filter((column) => {
-        return hasPermission(column.auth) && isIfShow(column);
-      })
+      .filter((column) => hasPermission(column.auth) && isIfShow(column))
       .map((column) => {
-        const { slots, customRender, format, edit, editRow, flag } = column;
-
-        if (!slots || !slots?.title) {
-          // column.slots = { title: `header-${dataIndex}`, ...(slots || {}) };
-          column.customTitle = column.title;
-          Reflect.deleteProperty(column, 'title');
-        }
-        const isDefaultAction = [INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG].includes(flag!);
-        if (!customRender && format && !edit && !isDefaultAction) {
-          column.customRender = ({ text, record, index }) => {
-            return formatCell(text, format, record, index);
-          };
+        // Support table multiple header editable
+        if (column.children?.length) {
+          column.children = column.children.map(mapFn);
         }
 
-        // edit table
-        if ((edit || editRow) && !isDefaultAction) {
-          column.customRender = renderEditCell(column);
-        }
-        return reactive(column);
+        return mapFn(column);
       });
   });
 

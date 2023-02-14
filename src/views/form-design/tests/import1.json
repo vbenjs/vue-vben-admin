@@ -1,0 +1,48 @@
+{
+    "schemas": [{
+            "field": "filename",
+            "component": "Input",
+            "label": "component.excel.fileName",
+            "rules": [{
+                "required": true
+            }]
+        },
+        {
+            "field": "bookType",
+            "component": "Select",
+            "label": "component.excel.fileType",
+            "defaultValue": "xlsx",
+            "rules": [{
+                "required": true
+            }],
+            "componentProps": {
+                "options": [{
+                        "label": "xlsx",
+                        "value": "xlsx",
+                        "key": "xlsx"
+                    },
+                    {
+                        "label": "html",
+                        "value": "html",
+                        "key": "html"
+                    },
+                    {
+                        "label": "csv",
+                        "value": "csv",
+                        "key": "csv"
+                    },
+                    {
+                        "label": "txt",
+                        "value": "txt",
+                        "key": "txt"
+                    }
+                ]
+            }
+        }
+    ],
+    "layout": "horizontal",
+    "labelLayout": "flex",
+    "labelWidth": 100,
+    "labelCol": {},
+    "wrapperCol": {}
+}

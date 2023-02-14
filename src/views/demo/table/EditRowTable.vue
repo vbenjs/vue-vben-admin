@@ -29,47 +29,54 @@
   const columns: BasicColumn[] = [
     {
       title: '输入框',
-      dataIndex: 'name',
+      dataIndex: 'name-group',
       editRow: true,
-      editComponentProps: {
-        prefix: '$',
-      },
-      width: 150,
-    },
-    {
-      title: '默认输入状态',
-      dataIndex: 'name7',
-      editRow: true,
-      width: 150,
-    },
-    {
-      title: '输入框校验',
-      dataIndex: 'name1',
-      editRow: true,
-      align: 'left',
-      // 默认必填校验
-      editRule: true,
-      width: 150,
-    },
-    {
-      title: '输入框函数校验',
-      dataIndex: 'name2',
-      editRow: true,
-      align: 'right',
-      editRule: async (text) => {
-        if (text === '2') {
-          return '不能输入该值';
-        }
-        return '';
-      },
-    },
-    {
-      title: '数字输入框',
-      dataIndex: 'id',
-      editRow: true,
-      editRule: true,
-      editComponent: 'InputNumber',
-      width: 150,
+      children: [
+        {
+          title: '输入框',
+          dataIndex: 'name',
+          editRow: true,
+          editComponentProps: {
+            prefix: '$',
+          },
+          width: 150,
+        },
+        {
+          title: '默认输入状态',
+          dataIndex: 'name7',
+          editRow: true,
+          width: 150,
+        },
+        {
+          title: '输入框校验',
+          dataIndex: 'name1',
+          editRow: true,
+          align: 'left',
+          // 默认必填校验
+          editRule: true,
+          width: 150,
+        },
+        {
+          title: '输入框函数校验',
+          dataIndex: 'name2',
+          editRow: true,
+          align: 'right',
+          editRule: async (text) => {
+            if (text === '2') {
+              return '不能输入该值';
+            }
+            return '';
+          },
+        },
+        {
+          title: '数字输入框',
+          dataIndex: 'id',
+          editRow: true,
+          editRule: true,
+          editComponent: 'InputNumber',
+          width: 150,
+        },
+      ],
     },
     {
       title: '下拉框',

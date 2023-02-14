@@ -1,5 +1,5 @@
-import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
-import type { RuleObject } from 'ant-design-vue/lib/form/interface';
+import type { ValidationRule, FormInstance } from 'ant-design-vue/lib/form/Form';
+import type { RuleObject, NamePath } from 'ant-design-vue/lib/form/interface';
 import { ref, computed, unref, Ref } from 'vue';
 import { useI18n } from '/@/hooks/web/useI18n';
 
@@ -27,7 +27,12 @@ export function useLoginState() {
   return { setLoginState, getLoginState, handleBackLogin };
 }
 
-export function useFormValid<T extends Object = any>(formRef: Ref<any>) {
+export function useFormValid<T extends Object = any>(formRef: Ref<FormInstance>) {
+  const validate = computed(() => {
+    const form = unref(formRef);
+    return form?.validate ?? ((_nameList?: NamePath) => Promise.resolve());
+  });
+  
   async function validForm() {
     const form = unref(formRef);
     if (!form) return;
@@ -35,7 +40,7 @@ export function useFormValid<T extends Object = any>(formRef: Ref<any>) {
     return data as T;
   }
 
-  return { validForm };
+  return { validate, validForm };
 }
 
 export function useFormRules(formData?: Recordable) {
