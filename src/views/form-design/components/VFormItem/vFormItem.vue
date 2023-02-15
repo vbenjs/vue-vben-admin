@@ -1,6 +1,4 @@
 <!--
- * @Author: ypt
- * @Date: 2021/11/19
  * @Description:
    `<FormItem`
     :tableAction="tableAction"
@@ -10,15 +8,6 @@
     :allDefaultValues="defaultValueRef"
     :formModel="formModel"
     :setFormModel="setFormModel"
-  >
-
-  <FormItem
-  :tableAction="tableAction"
-  :formActionType="formActionType"
-  :schema="schemaNew"
-  :formProps="getProps"
-  :allDefaultValues="defaultValueRef"
-  :formModel="formModel"
   >
 -->
 

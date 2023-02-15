@@ -1,6 +1,4 @@
 <!--
- * @Author: ypt
- * @Date: 2021/12/7
  * @Description: 渲染代码
 -->
 <template>

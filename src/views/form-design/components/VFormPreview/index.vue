@@ -1,11 +1,9 @@
 <!--
- * @Author: ypt
- * @Date: 2021/11/29
  * @Description: 渲染组件，无法使用Vben的组件
 -->
 <template>
   <Modal
-    title="预览(标准Ant控件)"
+    title="预览(支持布局)"
     :visible="visible"
     @ok="handleGetData"
     @cancel="handleCancel"
@@ -29,7 +27,7 @@
   </Modal>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, ref, toRaw, toRefs } from 'vue';
+  import { defineComponent, reactive, ref, toRefs } from 'vue';
   import { IFormConfig } from '../../typings/v-form-component';
   import { IAnyObject } from '../../typings/base-type';
   import VFormCreate from '../VFormCreate/index.vue';
@@ -75,21 +73,16 @@
        * @return {Promise<void>}
        */
       const handleCancel = () => {
-        // console.log('handleCancel');
         state.visible = false;
         state.formModel = {};
       };
       const handleGetData = async () => {
-        // console.log('handleGetData');
-        console.log(toRaw(state.formModel));
         const _data = await state.fApi.submit?.();
-        // console.log('handleGetData', 'end');
         jsonModal.value?.showModal?.(_data);
-        // jsonModal.value?.showModal?.(toRaw(state.formModel));
       };
 
       const onSubmit = (_data: IAnyObject) => {
-        // console.log('-> data', data);
+        //
       };
       const onCancel = () => {
         state.formModel = {};

@@ -1,6 +1,4 @@
 <!--
- * @Author: ypt
- * @Date: 2021/11/24
  * @Description: 表单项属性，控件属性面板
 -->
 <template>
@@ -129,7 +127,6 @@
       };
 
       const controlPropsList = computed(() => {
-        // console.log('const list2 = computed(() => {');
         return baseFormItemControlAttrs.filter((item) => {
           return showProps(item.exclude);
         });

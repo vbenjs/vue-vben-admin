@@ -1,21 +1,18 @@
-// import Vue from 'vue';
-
-const message = Object.assign(
-  {
-    success: (msg: string) => {
-      console.log(msg);
-    },
-    error: (msg: string) => {
-      console.error(msg);
-    },
-    warning: (msg: string) => {
-      console.warn(msg);
-    },
-    info: (msg: string) => {
-      console.info(msg);
-    },
+import { useMessage } from '/@/hooks/web/useMessage';
+const { createMessage } = useMessage();
+const message = Object.assign({
+  success: (msg: string) => {
+    createMessage.success(msg);
   },
-  // Vue.prototype.$message,
-);
+  error: (msg: string) => {
+    createMessage.error(msg);
+  },
+  warning: (msg: string) => {
+    createMessage.warning(msg);
+  },
+  info: (msg: string) => {
+    createMessage.info(msg);
+  },
+});
 
 export default message;
