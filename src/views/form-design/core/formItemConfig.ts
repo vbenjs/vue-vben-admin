@@ -1,7 +1,4 @@
 /**
- * @name: formItemConfig
- * @author: ypt
- * @date: 2021/11/18 16:25
  * @description：表单配置
  */
 import { IVFormComponent } from '../typings/v-form-component';
@@ -338,17 +335,17 @@ export const baseComponents: IVFormComponent[] = [
   //   hiddenLabel: true,
   //   componentProps: {},
   // },
-  {
-    component: 'ColorPicker',
-    label: '颜色选择器',
-    icon: 'carbon:color-palette',
-    field: '',
-    colProps: { span: 24 },
-    componentProps: {
-      defaultValue: '',
-      value: '',
-    },
-  },
+  // {
+  //   component: 'ColorPicker',
+  //   label: '颜色选择器',
+  //   icon: 'carbon:color-palette',
+  //   field: '',
+  //   colProps: { span: 24 },
+  //   componentProps: {
+  //     defaultValue: '',
+  //     value: '',
+  //   },
+  // },
 
   {
     component: 'slot',

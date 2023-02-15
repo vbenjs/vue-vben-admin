@@ -1,6 +1,4 @@
 <!--
- * @Author: ypt
- * @Date: 2021/11/19
  * @Description: 拖拽节点控件
 -->
 <template>

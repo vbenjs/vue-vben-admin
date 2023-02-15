@@ -5,7 +5,6 @@
         <div class="options-box">
           <Input v-model:value="item.span" class="options-value" />
           <a class="options-delete" @click="deleteGridOptions(index)">
-            <!-- <a-icon type="delete" /> -->
             <Icon icon="ant-design:delete-outlined" />
           </a>
         </div>
@@ -21,7 +20,6 @@
           <Input v-model:value="item.label" />
           <Input v-model:value="item.value" class="options-value" />
           <a class="options-delete" @click="deleteOptions(index)">
-            <!-- <a-icon type="delete" /> -->
             <Icon icon="ant-design:delete-outlined" />
           </a>
         </div>

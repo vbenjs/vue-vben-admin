@@ -1,6 +1,4 @@
 <!--
- * @Author: ypt
- * @Date: 2021/11/11
  * @Description: 节点操作复制删除控件
 -->
 <template>

@@ -1,6 +1,4 @@
 <!--
- * @Author: ypt
- * @Date: 2021/11/23
  * @Description: 渲染JSON数据
 -->
 <template>

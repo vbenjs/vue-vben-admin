@@ -1,5 +1,4 @@
 <template>
-  <!-- <component :is="layoutTag" v-bind="schema.colProps"> -->
   <template v-if="['Grid'].includes(schema.component)">
     <Row class="grid-row">
       <Col
@@ -36,7 +35,6 @@
       <slot :name="schema.componentProps!.slotName"></slot>
     </template>
   </VFormItem>
-  <!-- </component> -->
 </template>
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
