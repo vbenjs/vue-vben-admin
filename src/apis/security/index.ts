@@ -1,5 +1,6 @@
 import { OAuth2TokenResponse } from './OAuth2TokenResponse';
-import { oauth2Http } from '/@/utils/http/axios';
+import { UserinfoResponse } from './UserinfoResponse';
+import { defHttp, oauth2Http } from '/@/utils/http/axios';
 import qs from 'qs';
 
 /**
@@ -28,4 +29,8 @@ export function loginByAuthorizationCode(code: string) {
       code: code,
     }),
   });
+}
+
+export function userinfo() {
+  return defHttp.get<UserinfoResponse>({ url: '/userinfo' });
 }

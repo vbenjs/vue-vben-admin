@@ -1,10 +1,10 @@
 {
-  "name": "vben-admin",
+  "name": "koala-admin",
   "version": "2.8.0",
   "author": {
-    "name": "vben",
-    "email": "anncwb@126.com",
-    "url": "https://github.com/anncwb"
+    "name": "koala",
+    "email": "koala_projects@yeah.net",
+    "url": "https://github.com/koala-projects"
   },
   "scripts": {
     "commit": "czg",
@@ -158,13 +158,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anncwb/vue-vben-admin.git"
+    "url": "git+https://github.com/koala-projects/koala-admin.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/anncwb/vue-vben-admin/issues"
+    "url": "https://github.com/koala-projects/koala-admin/issues"
   },
-  "homepage": "https://github.com/anncwb/vue-vben-admin",
+  "homepage": "https://github.com/koala-projects/koala-admin",
   "engines": {
     "node": "^12 || >=14"
   },

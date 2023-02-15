@@ -33,7 +33,7 @@ const transform: AxiosTransform = {
    */
   transformResponseHook: (res: AxiosResponse<Result>, options: RequestOptions) => {
     const { t } = useI18n();
-    const { isTransformResponse, isReturnNativeResponse } = options;
+    const { isTransformResponse, isReturnNativeResponse, apiUrl } = options;
     // 是否返回原生响应头 比如：需要获取响应头时使用该属性
     if (isReturnNativeResponse) {
       return res;
@@ -45,16 +45,21 @@ const transform: AxiosTransform = {
     }
     // 错误的时候返回
 
-    const { data } = res;
-    if (!data) {
+    const { data: result } = res;
+    if (!result) {
       // return '[HTTP] Request has no return value';
       throw new Error(t('sys.api.apiRequestFailed'));
     }
+
+    if (nonApi(apiUrl)) {
+      return result;
+    }
+
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
-    const { code, result, message } = data;
+    const { code, data, message } = result;
 
     // 这里逻辑可以根据项目进行修改
-    const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
+    const hasSuccess = result && Reflect.has(result, 'code') && code === ResultEnum.SUCCESS;
     if (hasSuccess) {
       let successMsg = message;
 
@@ -67,7 +72,7 @@ const transform: AxiosTransform = {
       } else if (options.successMessageMode === 'message') {
         createMessage.success(successMsg);
       }
-      return result;
+      return data;
     }
 
     // 在此处根据自己项目的实际情况对不同的code执行不同的操作
@@ -275,7 +280,21 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
     ),
   );
 }
-export const defHttp = createAxios();
+export const defHttp = createAxios({
+  authenticationScheme: 'Bearer',
+  requestOptions: { joinTime: false },
+});
+
+function nonApi(apiUrl: string | undefined): boolean {
+  return apiUrl !== globSetting.apiUrl;
+}
+
+export const oauth2Http = createAxios({
+  requestOptions: {
+    apiUrl: '/oauth2',
+    joinTime: false,
+  },
+});
 
 // other api url
 // export const otherHttp = createAxios({

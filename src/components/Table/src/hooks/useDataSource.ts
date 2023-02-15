@@ -30,6 +30,7 @@ interface SearchState {
   sortInfo: Recordable;
   filterInfo: Record<string, string[]>;
 }
+
 export function useDataSource(
   propsRef: ComputedRef<BasicTableProps>,
   {
@@ -280,7 +281,7 @@ export function useDataSource(
       if ((isBoolean(pagination) && !pagination) || isBoolean(getPaginationInfo)) {
         pageParams = {};
       } else {
-        pageParams[pageField] = (opt && opt.page) || current;
+        pageParams[pageField] = Math.max(((opt && opt.page) || current) - 1, 0);
         pageParams[sizeField] = pageSize;
       }
 

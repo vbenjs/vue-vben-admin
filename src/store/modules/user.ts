@@ -1,21 +1,20 @@
 import type { UserInfo } from '/#/store';
-import type { ErrorMessageMode } from '/#/axios';
 import { defineStore } from 'pinia';
 import { store } from '/@/store';
 import { RoleEnum } from '/@/enums/roleEnum';
 import { PageEnum } from '/@/enums/pageEnum';
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 import { getAuthCache, setAuthCache } from '/@/utils/auth';
-import { GetUserInfoModel, LoginParams } from '/@/api/sys/model/userModel';
-import { doLogout, getUserInfo, loginApi } from '/@/api/sys/user';
+import { GetUserInfoModel } from '/@/api/sys/model/userModel';
+import { doLogout } from '/@/api/sys/user';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { router } from '/@/router';
 import { usePermissionStore } from '/@/store/modules/permission';
 import { RouteRecordRaw } from 'vue-router';
 import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
-import { isArray } from '/@/utils/is';
 import { h } from 'vue';
+import { loginByAuthorizationCode, userinfo } from '/@/apis/security';
 
 interface UserState {
   userInfo: Nullable<UserInfo>;
@@ -23,6 +22,7 @@ interface UserState {
   roleList: RoleEnum[];
   sessionTimeout?: boolean;
   lastUpdateTime: number;
+  permissionCodes: string[];
 }
 
 export const useUserStore = defineStore({
@@ -38,6 +38,7 @@ export const useUserStore = defineStore({
     sessionTimeout: false,
     // Last fetch time
     lastUpdateTime: 0,
+    permissionCodes: [],
   }),
   getters: {
     getUserInfo(): UserInfo {
@@ -54,6 +55,9 @@ export const useUserStore = defineStore({
     },
     getLastUpdateTime(): number {
       return this.lastUpdateTime;
+    },
+    getPermissionCodes(): string[] {
+      return this.permissionCodes;
     },
   },
   actions: {
@@ -73,6 +77,9 @@ export const useUserStore = defineStore({
     setSessionTimeout(flag: boolean) {
       this.sessionTimeout = flag;
     },
+    setPermissionCodes(permissionCodes: string[]) {
+      this.permissionCodes = permissionCodes;
+    },
     resetState() {
       this.userInfo = null;
       this.token = '';
@@ -82,17 +89,10 @@ export const useUserStore = defineStore({
     /**
      * @description: login
      */
-    async login(
-      params: LoginParams & {
-        goHome?: boolean;
-        mode?: ErrorMessageMode;
-      },
-    ): Promise<GetUserInfoModel | null> {
+    async login(code: string, goHome?: boolean): Promise<GetUserInfoModel | null> {
       try {
-        const { goHome = true, mode, ...loginParams } = params;
-        const data = await loginApi(loginParams, mode);
-        const { token } = data;
-
+        const data = await loginByAuthorizationCode(code);
+        const { access_token: token } = data;
         // save token
         this.setToken(token);
         return this.afterLoginAction(goHome);
@@ -124,15 +124,16 @@ export const useUserStore = defineStore({
     },
     async getUserInfoAction(): Promise<UserInfo | null> {
       if (!this.getToken) return null;
-      const userInfo = await getUserInfo();
-      const { roles = [] } = userInfo;
-      if (isArray(roles)) {
-        const roleList = roles.map((item) => item.value) as RoleEnum[];
-        this.setRoleList(roleList);
-      } else {
-        userInfo.roles = [];
-        this.setRoleList([]);
-      }
+      const res = await userinfo();
+      const { permissionCodes = [] } = res;
+      this.setPermissionCodes(permissionCodes);
+      const userInfo = {
+        userId: res.id,
+        username: res.username,
+        realName: '测试',
+        avatar: '',
+        roles: [],
+      };
       this.setUserInfo(userInfo);
       return userInfo;
     },

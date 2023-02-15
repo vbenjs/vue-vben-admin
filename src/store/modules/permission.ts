@@ -115,17 +115,17 @@ export const usePermissionStore = defineStore({
       const appStore = useAppStoreWithOut();
 
       let routes: AppRouteRecordRaw[] = [];
-      const roleList = toRaw(userStore.getRoleList) || [];
+      const permissionCodes = toRaw(userStore.getPermissionCodes);
       const { permissionMode = projectSetting.permissionMode } = appStore.getProjectConfig;
 
       // 路由过滤器 在 函数filter 作为回调传入遍历使用
       const routeFilter = (route: AppRouteRecordRaw) => {
         const { meta } = route;
         // 抽出角色
-        const { roles } = meta || {};
-        if (!roles) return true;
+        const { permissions } = meta || {};
+        if (!permissions) return true;
         // 进行角色权限判断
-        return roleList.some((role) => roles.includes(role));
+        return permissionCodes.some((code) => permissions.includes(code));
       };
 
       const routeRemoveIgnoreFilter = (route: AppRouteRecordRaw) => {
