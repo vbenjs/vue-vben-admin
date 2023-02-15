@@ -130,7 +130,7 @@ export const useUserStore = defineStore({
       const userInfo = {
         userId: res.id,
         username: res.username,
-        realName: '测试',
+        realName: res.nickname,
         avatar: '',
         roles: [],
       };
