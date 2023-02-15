@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <LayoutSider
-      class="left sider"
+      :class="`left ${prefixCls}-sider`"
       collapsible
       collapsedWidth="0"
       width="270"
@@ -52,7 +52,7 @@
       />
     </LayoutContent>
     <LayoutSider
-      class="right sider"
+      :class="`right ${prefixCls}-sider`"
       collapsible
       :reverseArrow="true"
       collapsedWidth="0"
@@ -102,6 +102,7 @@
   import { useRefHistory, UseRefHistoryReturn } from '@vueuse/core';
   import { globalConfigState } from './config/formItemPropsConfig';
   import { IFormDesignMethods, IPropsPanel, IToolbarMethods } from '../../typings/form-type';
+  import { useDesign } from '/@/hooks/web/useDesign';
 
   import { CollapseContainer } from '/@/components/Container/index';
   defineProps({
@@ -110,6 +111,7 @@
       default: 'v-form-antd表单设计器',
     },
   });
+  const { prefixCls } = useDesign('form-design');
   // 子组件实例
   const propsPanel = ref<null | IPropsPanel>(null);
   const jsonModal = ref<null | IToolbarMethods>(null);
@@ -135,18 +137,7 @@
     },
     activeKey: 1,
   });
-  // const _state = reactive<IState>({
-  //   locale: zhCN, // 国际化
-  //   baseComponents, // 基础控件列表
-  //   layoutComponents, // 布局组件列表
-  //   customComponents,
-  //   propsPanel,
-  //   jsonModal,
-  //   eFormPreview,
-  //   eFormPreview2,
-  //   importJsonModal,
-  //   codeModal,
-  // });
+
   const setFormConfig = (config: IFormConfig) => {
     //外部导入时，可能会缺少必要的信息。
     config.schemas = config.schemas || [];
@@ -198,24 +189,13 @@
    * @param schemas
    * @param index
    */
-  const handleAddAttrs = (_formItems: IVFormComponent[], _index: number) => {
-    // const item = schemas[index];
-    // setGlobalConfigState(item);
-    // generateKey(item);
-    // handleListPush(item);
-  };
+  const handleAddAttrs = (_formItems: IVFormComponent[], _index: number) => {};
 
   const handleListPushDrag = (item: IVFormComponent) => {
     const formItem = cloneDeep(item);
     setGlobalConfigState(formItem);
     generateKey(formItem);
-    // if (!formConfig.value.currentItem?.key) {
-    //   formConfig.value.schemas.push(formItem);
-    //   handleSetSelectItem(formItem);
-    //   return formItem;
-    // }
-    // handleCopy(formItem, false);
-    // handleCopy(formItem, false);
+
     return formItem;
   };
   /**
@@ -354,8 +334,16 @@
 </script>
 
 <style lang="less" scoped>
-  .sider {
-    //需要设置背景色，让主题生效
-    background-color: @component-background;
+  @prefix-cls: ~'@{namespace}-form-design';
+
+  [data-theme='dark'] {
+  .@{prefix-cls}-sider{
+    background-color: #1f1f1f;
+  }}
+
+  [data-theme='light'] {
+    .@{prefix-cls}-sider{
+    background-color: #fff;
+  }
   }
 </style>

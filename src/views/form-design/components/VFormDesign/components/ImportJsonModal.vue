@@ -1,6 +1,4 @@
 <!--
- * @Author: ypt
- * @Date: 2021/12/7
  * @Description: 导入JSON模板
 -->
 <template>
@@ -17,7 +15,6 @@
   >
     <p class="hint-box">导入格式如下:</p>
     <div class="v-json-box">
-      <!-- <CodeEditor style="height: 100%" ref="myEditor" v-model="json"></CodeEditor> -->
       <CodeEditor v-model:value="json" ref="myEditor" :mode="MODE.JSON" />
     </div>
 
@@ -91,7 +88,6 @@
       };
       const handleImportJson = () => {
         // 导入JSON
-        console.log(state.json);
         try {
           const editorJsonData = JSON.parse(state.json) as IFormConfig;
           editorJsonData.schemas &&
