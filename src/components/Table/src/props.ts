@@ -131,7 +131,7 @@ export const basicProps = {
     type: Function as PropType<(record: TableCustomRecord<any>, index: number) => string>,
   },
   scroll: {
-    type: Object as PropType<{ x: number | true; y: number }>,
+    type: Object as PropType<{ x: number | string | true; y: number | string }>,
     default: null,
   },
   beforeEditSubmit: {
