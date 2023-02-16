@@ -3,15 +3,15 @@ import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
-    title: '字典代码',
+    title: '角色代码',
     dataIndex: 'code',
   },
   {
-    title: '字典名称',
+    title: '角色名称',
     dataIndex: 'name',
   },
   {
-    title: '字典备注',
+    title: '角色备注',
     dataIndex: 'remark',
   },
 ];
@@ -19,7 +19,7 @@ export const columns: BasicColumn[] = [
 export const searchFormSchema: FormSchema[] = [
   {
     field: 'code',
-    label: '字典代码',
+    label: '角色代码',
     component: 'Input',
     colProps: {
       xl: 12,
@@ -28,7 +28,7 @@ export const searchFormSchema: FormSchema[] = [
   },
   {
     field: 'name',
-    label: '字典名称',
+    label: '角色名称',
     component: 'Input',
     colProps: {
       xl: 12,
@@ -40,19 +40,19 @@ export const searchFormSchema: FormSchema[] = [
 export const formSchema: FormSchema[] = [
   {
     field: 'code',
-    label: '字典代码',
+    label: '角色代码',
     component: 'Input',
     required: true,
   },
   {
     field: 'name',
-    label: '字典名称',
+    label: '角色名称',
     component: 'Input',
     required: true,
   },
   {
     field: 'remark',
-    label: '字典备注',
+    label: '角色备注',
     component: 'InputTextArea',
   },
 ];

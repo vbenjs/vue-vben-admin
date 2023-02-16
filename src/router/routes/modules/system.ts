@@ -35,17 +35,6 @@ const system: AppRouteModule = {
       },
       component: () => import('/@/views/system/role/index.vue'),
     },
-
-    {
-      path: 'permission',
-      name: 'Permission',
-      meta: {
-        title: t('routes.system.permission.title'),
-        ignoreKeepAlive: true,
-        permissions: ['system:permission:tree'],
-      },
-      component: () => import('/@/views/system/permission/index.vue'),
-    },
     {
       path: 'department',
       name: 'Department',
