@@ -30,9 +30,9 @@ export const RootRoute: AppRouteRecordRaw = {
 };
 
 export const LoginRoute: AppRouteRecordRaw = {
-  path: '/login',
-  name: 'Login',
-  component: () => import('/@/views/login/index.vue'),
+  path: '/authorize',
+  name: 'Authorize',
+  component: () => import('/@/views/authorize/index.vue'),
   meta: {
     title: t('routes.basic.login'),
   },

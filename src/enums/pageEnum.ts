@@ -1,6 +1,6 @@
 export enum PageEnum {
   // basic login path
-  BASE_LOGIN = '/login',
+  BASE_LOGIN = '/authorize',
   // basic home path
   BASE_HOME = '/dashboard',
   // error page path
