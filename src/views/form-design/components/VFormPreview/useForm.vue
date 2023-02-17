@@ -1,11 +1,9 @@
 <!--
- * @Author: ypt
- * @Date: 2021/11/29
  * @Description: 使用vbenForm的功能进行渲染
 -->
 <template>
   <Modal
-    title="预览(VbenForm)"
+    title="预览(不支持布局)"
     :visible="state.visible"
     @ok="handleGetData"
     @cancel="handleCancel"
@@ -66,7 +64,6 @@
    */
   const handleGetData = async () => {
     let data = await validate();
-    console.log(data);
     jsonModal.value?.showModal?.(data);
   };
 

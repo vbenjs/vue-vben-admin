@@ -1,6 +1,4 @@
 <!--
- * @Author: ypt
- * @Date: 2021/11/23
  * @Description: 右侧属性面板控件 表单属性面板
 -->
 <template>
@@ -89,7 +87,6 @@
       InputNumber,
       Slider,
       Checkbox,
-      // RadioButtonGroup,
       RadioGroup: Radio.Group,
       RadioButton: Radio.Button,
       Form,
@@ -97,7 +94,6 @@
       Col,
     },
     setup() {
-      // const labelColspan = computed(()=>)
       const { formConfig } = useFormDesignState();
 
       formConfig.value = formConfig.value || {
