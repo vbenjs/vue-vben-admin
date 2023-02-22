@@ -6,7 +6,7 @@
  * @return  Boolean
  */
 export function isHexColor(color: string) {
-  const reg = /^#([0-9a-fA-F]{3}|[0-9a-fA-f]{6})$/;
+  const reg = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
   return reg.test(color);
 }
 
