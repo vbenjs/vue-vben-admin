@@ -57,6 +57,7 @@
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.0",
     "pinia": "2.0.12",
+    "pnpm": "^7.27.1",
     "print-js": "^1.6.0",
     "qrcode": "^1.5.0",
     "qs": "^6.10.3",
@@ -70,11 +71,11 @@
     "vue-json-pretty": "^2.0.6",
     "vue-router": "^4.0.14",
     "vue-types": "^4.1.1",
+    "vuedraggable": "^4.1.0",
     "vxe-table": "^4.3.9",
     "vxe-table-plugin-export-xlsx": "^3.0.4",
     "xe-utils": "^3.5.7",
-    "xlsx": "^0.18.5",
-    "vuedraggable": "^4.1.0"
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
