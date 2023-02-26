@@ -42,40 +42,6 @@
       const inputRef = ref<HTMLInputElement | null>(null);
       const loadingRef = ref<Boolean>(false);
 
-      function shapeWorkSheel(sheet: XLSX.WorkSheet, range: XLSX.Range) {
-        let str = ' ',
-          char = 65,
-          customWorkSheet = {
-            t: 's',
-            v: str,
-            r: '<t> </t><phoneticPr fontId="1" type="noConversion"/>',
-            h: str,
-            w: str,
-          };
-        if (!sheet || !sheet['!ref']) return [];
-        let c = 0,
-          r = 1;
-        while (c < range.e.c + 1) {
-          while (r < range.e.r + 1) {
-            if (!sheet[String.fromCharCode(char) + r]) {
-              sheet[String.fromCharCode(char) + r] = customWorkSheet;
-            }
-            r++;
-          }
-          r = 1;
-          str += ' ';
-          customWorkSheet = {
-            t: 's',
-            v: str,
-            r: '<t> </t><phoneticPr fontId="1" type="noConversion"/>',
-            h: str,
-            w: str,
-          };
-          c++;
-          char++;
-        }
-      }
-
       /**
        * @description: 第一行作为头部
        */
@@ -83,8 +49,8 @@
         if (!sheet || !sheet['!ref']) return [];
         const headers: string[] = [];
         // A3:B7=>{s:{c:0, r:2}, e:{c:1, r:6}}
-        const range: XLSX.Range = XLSX.utils.decode_range(sheet['!ref']);
-        shapeWorkSheel(sheet, range);
+        const range = XLSX.utils.decode_range(sheet['!ref']);
+
         const R = range.s.r;
         /* start in the first row */
         for (let C = range.s.c; C <= range.e.c; ++C) {
@@ -142,7 +108,6 @@
       function readerData(rawFile: File) {
         loadingRef.value = true;
         return new Promise((resolve, reject) => {
-          debugger;
           const reader = new FileReader();
           reader.onload = async (e) => {
             try {
