@@ -3,6 +3,9 @@
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTable, TableAction, useTable } from '/@/components/Table';
   import { useModal } from '/@/components/Modal';
+
+  import { YesNo } from '/@/enums/YesNo';
+
   import DictionaryItemModal from './DictionaryItemModal.vue';
   import { columns, searchFormSchema } from './dictionary-item.data';
   import { listDictionaryItems, deleteDictionaryItem } from '/@/apis/dictionary-items';
@@ -84,11 +87,13 @@
               :actions="[
                 {
                   icon: 'clarity:note-edit-line',
+                  ifShow: record.isSystem === YesNo.NO,
                   onClick: handleEdit.bind(null, record),
                 },
                 {
                   icon: 'ant-design:delete-outlined',
                   color: 'error',
+                  ifShow: record.isSystem === YesNo.NO,
                   popConfirm: {
                     title: '是否确认删除',
                     placement: 'left',

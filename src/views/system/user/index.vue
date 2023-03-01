@@ -1,9 +1,13 @@
 <script lang="ts" setup>
   import { ref, unref } from 'vue';
+
   import { PageWrapper } from '/@/components/Page';
   import { BasicTable, TableAction, useTable } from '/@/components/Table';
   import { useModal } from '/@/components/Modal';
   import { useDrawer } from '/@/components/Drawer';
+
+  import { YesNo } from '/@/enums/YesNo';
+
   import { listUsers, deleteUser } from '/@/apis/users';
   import DepartmentTree from '../department/DepartmentTree.vue';
   import UserModal from './UserModal.vue';
@@ -81,22 +85,26 @@
               {
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑',
+                ifShow: record.isSystem === YesNo.NO,
                 onClick: handleEdit.bind(null, record),
               },
               {
                 icon: 'mingcute:department-line',
                 tooltip: '部门配置',
+                ifShow: record.isSystem === YesNo.NO,
                 onClick: handleDepartmentSetting.bind(null, record),
               },
               {
                 icon: 'eos-icons:role-binding-outlined',
                 tooltip: '角色配置',
+                ifShow: record.isSystem === YesNo.NO,
                 onClick: handleRoleSetting.bind(null, record),
               },
               {
                 icon: 'ant-design:delete-outlined',
                 color: 'error',
                 tooltip: '删除',
+                ifShow: record.isSystem === YesNo.NO,
                 popConfirm: {
                   title: '是否确认删除',
                   placement: 'left',

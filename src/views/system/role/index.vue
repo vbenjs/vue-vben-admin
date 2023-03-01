@@ -3,7 +3,7 @@
   import { useModal } from '/@/components/Modal';
   import { useDrawer } from '/@/components/Drawer';
   import { listRoles, deleteRole } from '/@/apis/roles';
-  // import { YesNo } from '/@/enums';
+  import { YesNo } from '/@/enums/YesNo';
   import RoleModal from './RoleModal.vue';
   import RolePermissionDrawer from './RolePermissionDrawer.vue';
   import { columns, searchFormSchema } from './role.data';
@@ -64,20 +64,20 @@
               {
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑',
-                // ifShow: record.isSystem === YesNo.NO,
+                ifShow: record.isSystem === YesNo.NO,
                 onClick: handleEdit.bind(null, record),
               },
               {
                 icon: 'ant-design:setting-outlined',
                 tooltip: '角色配置',
-                // ifShow: record.isSystem === YesNo.NO,
+                ifShow: record.isSystem === YesNo.NO,
                 onClick: handleSetting.bind(null, record),
               },
               {
                 icon: 'ant-design:delete-outlined',
                 tooltip: '删除',
                 color: 'error',
-                // ifShow: record.isSystem === YesNo.NO,
+                ifShow: record.isSystem === YesNo.NO,
                 popConfirm: {
                   title: '是否确认删除',
                   placement: 'left',

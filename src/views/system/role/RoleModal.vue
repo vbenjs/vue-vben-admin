@@ -5,7 +5,7 @@
   import { formSchema } from './role.data';
   import { createRole, updateRole } from '/@/apis/roles';
   const isUpdate = ref(false);
-  const id = ref<string | null>(null);
+  const id = ref<number | null>(null);
   const getTitle = computed(() => (!unref(isUpdate) ? '新增角色' : '编辑角色'));
   const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
     labelWidth: 100,
