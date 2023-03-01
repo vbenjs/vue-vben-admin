@@ -15,4 +15,7 @@ export default {
   dictionary: {
     title: '字典管理',
   },
+  log: {
+    title: '操作日志',
+  },
 };

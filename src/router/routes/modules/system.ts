@@ -55,6 +55,16 @@ const system: AppRouteModule = {
       },
       component: () => import('/@/views/system/dictionary/index.vue'),
     },
+    {
+      path: 'log',
+      name: 'Log',
+      meta: {
+        title: t('routes.system.log.title'),
+        ignoreKeepAlive: true,
+        permissions: ['system:log'],
+      },
+      component: () => import('/@/views/system/log/index.vue'),
+    },
   ],
 };
 
