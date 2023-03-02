@@ -68,8 +68,8 @@
           title: '操作',
           dataIndex: 'action',
           // slots: { customRender: 'action' },
-          scroll: { y: '100%' },
         },
+        scroll: { y: '100%' },
         pagination: false,
       });
 
