@@ -34,3 +34,9 @@ export function loginByAuthorizationCode(code: string) {
 export function userinfo() {
   return defHttp.get<UserinfoResponse>({ url: '/userinfo' });
 }
+
+export function logout() {
+  window.location.replace(
+    `${import.meta.env.VITE_GLOB_OAUTH2_SERVER}/logout?redirect_uri=${window.location.origin}`,
+  );
+}

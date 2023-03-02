@@ -83,7 +83,7 @@ const transform: AxiosTransform = {
         timeoutMsg = t('sys.api.timeoutMessage');
         const userStore = useUserStoreWithOut();
         userStore.setToken(undefined);
-        userStore.logout(true);
+        userStore.logout();
         break;
       default:
         if (message) {
