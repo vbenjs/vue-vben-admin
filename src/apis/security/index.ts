@@ -1,5 +1,7 @@
 import { OAuth2TokenResponse } from './OAuth2TokenResponse';
 import { UserinfoResponse } from './UserinfoResponse';
+import type ChangePasswordRequest from './ChangePasswordRequest';
+
 import { defHttp, oauth2Http } from '/@/utils/http/axios';
 import qs from 'qs';
 
@@ -31,12 +33,19 @@ export function loginByAuthorizationCode(code: string) {
   });
 }
 
+export function logout() {
+  window.location.replace(
+    `${import.meta.env.VITE_GLOB_OAUTH2_SERVER}/logout?redirect_uri=${window.location.origin}`,
+  );
+}
+
 export function userinfo() {
   return defHttp.get<UserinfoResponse>({ url: '/userinfo' });
 }
 
-export function logout() {
-  window.location.replace(
-    `${import.meta.env.VITE_GLOB_OAUTH2_SERVER}/logout?redirect_uri=${window.location.origin}`,
+export function changePassword(data: ChangePasswordRequest) {
+  return defHttp.put<null>(
+    { url: '/userinfo/change-password', data },
+    { successMessageMode: 'message' },
   );
 }
