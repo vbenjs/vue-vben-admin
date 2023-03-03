@@ -41,6 +41,7 @@
     setup(props, { emit }) {
       const inputRef = ref<HTMLInputElement | null>(null);
       const loadingRef = ref<Boolean>(false);
+      const cancelRef = ref<Boolean>(true);
 
       function shapeWorkSheel(sheet: XLSX.WorkSheet, range: XLSX.Range) {
         let str = ' ',
@@ -184,6 +185,7 @@
 
         if (!rawFile) return;
 
+        cancelRef.value = false;
         if (props.isReturnFile) {
           emit('success', rawFile);
           return;
@@ -192,11 +194,28 @@
       }
 
       /**
+       * @description 文件选择器关闭后,判断取消状态
+       */
+       function handleFocusChange() {
+        const timeId = setInterval(() => {
+          if (cancelRef.value === true) {
+            emit('cancel');
+          }
+          clearInterval(timeId);
+          window.removeEventListener('focus', handleFocusChange);
+        }, 1000);
+      }
+
+      /**
        * @description: 点击上传按钮
        */
       function handleUpload() {
         const inputRefDom = unref(inputRef);
-        inputRefDom && inputRefDom.click();
+        if (inputRefDom) {
+          cancelRef.value = true;
+          inputRefDom.click();
+          window.addEventListener('focus', handleFocusChange);
+        }
       }
 
       return { handleUpload, handleInputClick, inputRef };
