@@ -37,7 +37,7 @@
         default: false,
       },
     },
-    emits: ['success', 'error'],
+    emits: ['success', 'error', 'cancel'],
     setup(props, { emit }) {
       const inputRef = ref<HTMLInputElement | null>(null);
       const loadingRef = ref<Boolean>(false);
