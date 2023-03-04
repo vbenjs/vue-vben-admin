@@ -75,7 +75,7 @@
   import { warn } from '/@/utils/log';
 
   export default defineComponent({
-    name:'BasicTable',
+    name: 'BasicTable',
     components: {
       Table,
       BasicForm,
