@@ -183,8 +183,8 @@
       });
 
       watchEffect(() => {
+        const columns = table.getColumns();
         setTimeout(() => {
-          const columns = table.getColumns();
           if (columns.length && !state.isInit) {
             init();
           }
