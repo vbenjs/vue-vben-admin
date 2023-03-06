@@ -139,8 +139,9 @@
           ...attrs,
           ...unref(getMergeProps),
           visible: unref(visibleRef),
-          wrapClassName: unref(getWrapClassName),
         };
+        attr['wrapClassName'] = `${attr?.['wrapClassName'] || ''} ${unref(getWrapClassName)}`;
+
         if (unref(fullScreenRef)) {
           return omit(attr, ['height', 'title']);
         }
