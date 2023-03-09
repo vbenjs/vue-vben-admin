@@ -21,7 +21,7 @@
   </Select>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, ref, watchEffect, computed, unref, watch } from 'vue';
+  import { defineComponent, PropType, ref, computed, unref, watch } from 'vue';
   import { Select } from 'ant-design-vue';
   import { isFunction } from '/@/utils/is';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
@@ -30,6 +30,7 @@
   import { LoadingOutlined } from '@ant-design/icons-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { propTypes } from '/@/utils/propTypes';
+  import { watchDebounced } from '@vueuse/core';
 
   type OptionsItem = { label: string; value: string; disabled?: boolean };
 
@@ -84,9 +85,19 @@
         }, [] as OptionsItem[]);
       });
 
-      watchEffect(() => {
-        props.immediate && !props.alwaysLoad && fetch();
-      });
+      watchDebounced(
+        () => {
+          return props.immediate && !props.alwaysLoad && unref(isFirstLoad);
+        },
+        (val) => {
+          val && fetch();
+        },
+        {
+          debounce: 10,
+          maxWait: 100,
+          immediate: true,
+        },
+      );
 
       watch(
         () => state.value,
