@@ -68,6 +68,7 @@
   import { Select } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
   import { areaRecord } from '/@/api/demo/cascader';
+  import { uploadApi } from '/@/api/sys/upload';
 
   const valueSelectA = ref<string[]>([]);
   const valueSelectB = ref<string[]>([]);
@@ -188,6 +189,18 @@
         },
       },
       suffix: '天',
+    },
+    {
+      field: 'fieldsc',
+      component: 'Upload',
+      label: '上传',
+      colProps: {
+        span: 8,
+      },
+      rules: [{ required: true, message: '请选择上传文件' }],
+      componentProps: {
+        api: uploadApi,
+      },
     },
     {
       field: 'field3',

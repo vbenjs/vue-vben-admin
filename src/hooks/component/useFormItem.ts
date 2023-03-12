@@ -41,9 +41,7 @@ export function useRuleFormItem<T extends Recordable>(
       if (isEqual(value, defaultState.value)) return;
 
       innerState.value = value as T[keyof T];
-      setTimeout(() => {
-        emit?.(changeEvent, value, ...(toRaw(unref(emitData)) || []));
-      });
+      emit?.(changeEvent, value, ...(toRaw(unref(emitData)) || []));
     },
   });
 
