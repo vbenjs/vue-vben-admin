@@ -38,6 +38,7 @@
             name: 'AButton',
             props: {
               type: 'primary',
+              preIcon: 'mdi:page-next-outline',
             },
             events: {
               click: () => {
