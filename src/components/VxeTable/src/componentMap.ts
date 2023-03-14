@@ -15,9 +15,9 @@ import {
   TimePicker,
   TreeSelect,
   Rate,
-  Button,
   Empty,
 } from 'ant-design-vue';
+import { Button } from '/@/components/Button';
 
 const componentMap = new Map<ComponentType, Component>();
 
