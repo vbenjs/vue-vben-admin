@@ -72,3 +72,16 @@ export function handleInputNumberValue(component?: ComponentType, val?: any) {
 export const dateItemType = genType();
 
 export const defaultValueComponents = ['Input', 'InputPassword', 'InputSearch', 'InputTextArea'];
+
+// TODO 自定义组件封装会出现验证问题，因此这里目前改成手动触发验证
+export const NO_AUTO_LINK_COMPONENTS: ComponentType[] = [
+  'Upload',
+  'ApiTransfer',
+  'ApiTree',
+  'ApiSelect',
+  'ApiTreeSelect',
+  'ApiRadioGroup',
+  'ApiCascader',
+  'AutoComplete',
+  'RadioButtonGroup',
+];

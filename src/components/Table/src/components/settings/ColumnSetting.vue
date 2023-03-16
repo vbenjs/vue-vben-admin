@@ -183,8 +183,8 @@
       });
 
       watchEffect(() => {
+        const columns = table.getColumns();
         setTimeout(() => {
-          const columns = table.getColumns();
           if (columns.length && !state.isInit) {
             init();
           }
@@ -347,7 +347,9 @@
       function handleColumnFixed(item: BasicColumn, fixed?: 'left' | 'right') {
         if (!state.checkedList.includes(item.dataIndex as string)) return;
 
-        const columns = getColumns() as BasicColumn[];
+        const columns = getColumns().filter((c: BasicColumn) =>
+          state.checkedList.includes(c.dataIndex as string),
+        ) as BasicColumn[];
         const isFixed = item.fixed === fixed ? false : fixed;
         const index = columns.findIndex((col) => col.dataIndex === item.dataIndex);
         if (index !== -1) {

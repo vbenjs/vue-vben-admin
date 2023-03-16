@@ -66,7 +66,7 @@ export function useFormEvents({
 
     // key 支持 a.b.c 的嵌套写法
     const delimiter = '.';
-    const nestKeyArray = fields.filter((item) => item.indexOf(delimiter) >= 0);
+    const nestKeyArray = fields.filter((item) => String(item).indexOf(delimiter) >= 0);
 
     const validKeys: string[] = [];
     Object.keys(values).forEach((key) => {
@@ -314,6 +314,9 @@ export function useFormEvents({
       const res = handleFormValues(values);
       emit('submit', res);
     } catch (error: any) {
+      if (error?.outOfDate === false && error?.errorFields) {
+        return;
+      }
       throw new Error(error);
     }
   }
