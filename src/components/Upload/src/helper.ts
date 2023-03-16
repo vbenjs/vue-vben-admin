@@ -11,7 +11,7 @@ export function checkImgType(file: File) {
 }
 
 export function isImgTypeByName(name: string) {
-  return /\.(jpg|jpeg|png|gif)$/i.test(name);
+  return /\.(jpg|jpeg|png|gif|webp)$/i.test(name);
 }
 
 export function getBase64WithFile(file: File) {
