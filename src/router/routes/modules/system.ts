@@ -9,8 +9,8 @@ const system: AppRouteModule = {
   component: LAYOUT,
   redirect: '/system/user',
   meta: {
-    orderNo: 2000,
-    icon: 'ion:settings-outline',
+    orderNo: 20,
+    icon: 'ant-design:setting-outlined',
     title: t('routes.system.title'),
     permissions: ['system'],
   },

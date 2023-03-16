@@ -9,8 +9,8 @@ const userinfo: AppRouteModule = {
   component: LAYOUT,
   redirect: '/userinfo/password',
   meta: {
-    orderNo: 2000,
-    icon: 'ion:settings-outline',
+    orderNo: 30,
+    icon: 'ant-design:user-outlined',
     title: t('routes.userinfo.title'),
   },
   children: [
