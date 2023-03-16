@@ -3,6 +3,7 @@ import { defHttp } from '/@/utils/http/axios';
 import type SearchParameters from '../SearchParameters';
 import type PageResult from '../PageResult';
 import type DatabaseEntity from './DatabaseEntity';
+import type SimpleDatabaseTable from './SimpleDatabaseTable';
 
 const domain = '/databases';
 
@@ -27,6 +28,10 @@ export function updateDatabase(id: number, data: DatabaseEntity) {
 
 export function deleteDatabase(id: number) {
   return defHttp.delete<null>({ url: `${domain}/${id}` });
+}
+
+export function listDatabaseTables(id: number) {
+  return defHttp.get<SimpleDatabaseTable[]>({ url: `${domain}/${id}/tables` });
 }
 
 export { DatabaseEntity };
