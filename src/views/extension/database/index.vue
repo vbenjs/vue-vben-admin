@@ -1,6 +1,9 @@
 <script lang="ts" setup>
   import { BasicTable, TableAction, useTable } from '/@/components/Table';
   import { useModal } from '/@/components/Modal';
+
+  import { YesNo } from '/@/enums/YesNo';
+
   import { listDatabases, deleteDatabase } from '/@/apis/databases';
   import DatabaseModal from './DatabaseModal.vue';
   import { columns, searchFormSchema } from './database.data';
@@ -57,12 +60,14 @@
               {
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑',
+                ifShow: record.isSystem === YesNo.NO,
                 onClick: handleEdit.bind(null, record),
               },
               {
                 icon: 'ant-design:delete-outlined',
                 tooltip: '删除',
                 color: 'error',
+                ifShow: record.isSystem === YesNo.NO,
                 popConfirm: {
                   title: '是否确认删除',
                   placement: 'left',

@@ -11,10 +11,6 @@ export const columns: BasicColumn[] = [
     dataIndex: 'username',
   },
   {
-    title: '数据库密码',
-    dataIndex: 'password',
-  },
-  {
     title: '数据库目录',
     dataIndex: 'catalog',
   },

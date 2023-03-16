@@ -1,5 +1,6 @@
-export default interface DatabaseEntity {
-  id: string;
+import type BaseSystemEntity from '../BaseSystemEntity';
+
+export default interface DatabaseEntity extends BaseSystemEntity {
   name: string;
   url: string;
   username: string;
