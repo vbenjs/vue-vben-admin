@@ -10,6 +10,7 @@ export interface JsonToSheet<T = any> {
   data: T[];
   header?: T;
   filename?: string;
+  sheetName?: string;
   json2sheetOpts?: JSON2SheetOpts;
   write2excelOpts?: WritingOptions;
 }
@@ -18,6 +19,7 @@ export interface AoAToSheet<T = any> {
   data: T[][];
   header?: T[];
   filename?: string;
+  sheetName?: string;
   write2excelOpts?: WritingOptions;
 }
 
