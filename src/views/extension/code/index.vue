@@ -6,7 +6,7 @@
   import { PageWrapper } from '/@/components/Page';
   import { useLoading } from '/@/components/Loading';
 
-  import { PreviewResponse, codePreview as codePreviewApi } from '/@/apis/code';
+  import { PreviewResponse, codePreview as codePreviewApi, codeDownload } from '/@/apis/code';
 
   import CodeDatabaseForm from './CodeDatabaseForm.vue';
   import CodeTableForm from './CodeTableForm.vue';
@@ -54,6 +54,18 @@
     initPreview.value = true;
   }
 
+  async function handleDownload() {
+    openFullLoading();
+    window.open(
+      await codeDownload({
+        databaseId: unref(databaseId)!,
+        tables: unref(tables),
+        templateGroupId: unref(templateGroupId)!,
+      }),
+    );
+    closeFullLoading();
+  }
+
   function handleRedo() {
     current.value = 0;
     initTemplateGroupForm.value = false;
@@ -92,6 +104,7 @@
       <code-preview
         :preview="preview!"
         v-show="current === 3"
+        @download="handleDownload"
         @redo="handleRedo"
         v-if="initPreview"
       />

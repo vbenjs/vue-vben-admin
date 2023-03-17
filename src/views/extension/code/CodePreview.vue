@@ -14,10 +14,14 @@
   const activeTable = ref<string>('');
   const activeCode = ref<string>('');
 
-  const emit = defineEmits(['redo']);
+  const emit = defineEmits(['download', 'redo']);
 
   async function redo() {
     emit('redo');
+  }
+
+  async function download() {
+    emit('download');
   }
 </script>
 <template>
@@ -32,7 +36,7 @@
       </tab-pane>
     </tabs>
     <a-row justify="center">
-      <a-col span="6"><a-button> 下载 </a-button></a-col>
+      <a-col span="6"><a-button @click="download"> 下载 </a-button></a-col>
       <a-col span="6"><a-button type="primary" @click="redo"> 重新生成 </a-button></a-col>
     </a-row>
   </div>
