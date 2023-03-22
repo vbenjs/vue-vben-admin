@@ -66,19 +66,20 @@
               {
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑',
-                ifShow: record.isSystem === YesNo.NO,
+                ifShow: record.isSystemic === YesNo.NO,
                 onClick: handleEdit.bind(null, record),
               },
               {
                 icon: 'ant-design:setting-outlined',
                 tooltip: '模板配置',
+                ifShow: record.isSystemic === YesNo.NO,
                 onClick: handleSetting.bind(null, record),
               },
               {
                 icon: 'ant-design:delete-outlined',
                 tooltip: '删除',
                 color: 'error',
-                ifShow: record.isSystem === YesNo.NO,
+                ifShow: record.isSystemic === YesNo.NO,
                 popConfirm: {
                   title: '是否确认删除',
                   placement: 'left',

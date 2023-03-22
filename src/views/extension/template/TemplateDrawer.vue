@@ -50,14 +50,14 @@
   function handleCreate() {
     openModal(true, {
       isUpdate: false,
-      dictionaryId: unref(groupId),
+      groupId: unref(groupId),
     });
   }
   function handleEdit(record: Recordable) {
     openModal(true, {
       record,
       isUpdate: true,
-      dictionaryId: unref(groupId),
+      groupId: unref(groupId),
     });
   }
   async function handleDelete(record: Recordable) {
@@ -88,13 +88,13 @@
               :actions="[
                 {
                   icon: 'clarity:note-edit-line',
-                  ifShow: record.isSystem === YesNo.NO,
+                  ifShow: record.isSystemic === YesNo.NO,
                   onClick: handleEdit.bind(null, record),
                 },
                 {
                   icon: 'ant-design:delete-outlined',
                   color: 'error',
-                  ifShow: record.isSystem === YesNo.NO,
+                  ifShow: record.isSystemic === YesNo.NO,
                   popConfirm: {
                     title: '是否确认删除',
                     placement: 'left',
