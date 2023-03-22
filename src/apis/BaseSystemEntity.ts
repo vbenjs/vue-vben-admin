@@ -1,6 +1,6 @@
-export default interface BaseSystemEntity {
+export default interface BaseUniversalEntity {
   id: string;
   sortIndex?: number;
-  isEnable: string;
-  isSystem: string;
+  isEnabled: string;
+  isSystemic: string;
 }
