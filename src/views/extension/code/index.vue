@@ -94,10 +94,12 @@
         :database-id="databaseId!"
         @prev="handleStepPrev"
         @next="handleTables"
-        v-if="current === 1"
+        v-show="current === 1"
+        v-if="current >= 1"
       />
       <code-template-group-form
         v-show="current === 2"
+        @prev="handleStepPrev"
         @next="handleTemplateGroup"
         v-if="initTemplateGroupForm"
       />
