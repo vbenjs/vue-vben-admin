@@ -58,14 +58,14 @@
               {
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑',
-                ifShow: record.isSystem === YesNo.NO,
+                ifShow: record.data.isSystemic === YesNo.NO,
                 onClick: handleEdit.bind(null, record),
               },
               {
                 icon: 'ant-design:delete-outlined',
                 tooltip: '删除',
                 color: 'error',
-                ifShow: record.isSystem === YesNo.NO,
+                ifShow: record.data.isSystemic === YesNo.NO,
                 popConfirm: {
                   title: '是否确认删除',
                   placement: 'left',
