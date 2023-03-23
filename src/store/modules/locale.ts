@@ -21,11 +21,11 @@ export const useLocaleStore = defineStore({
     localInfo: lsLocaleSetting,
   }),
   getters: {
-    getShowPicker(): boolean {
-      return !!this.localInfo?.showPicker;
+    getShowPicker(state): boolean {
+      return !!state.localInfo?.showPicker;
     },
-    getLocale(): LocaleType {
-      return this.localInfo?.locale ?? 'zh_CN';
+    getLocale(state): LocaleType {
+      return state.localInfo?.locale ?? 'zh_CN';
     },
   },
   actions: {
