@@ -60,23 +60,26 @@ export function useECharts(
 
   function setOptions(options: EChartsOption, clear = true) {
     cacheOptions.value = options;
-    if (unref(elRef)?.offsetHeight === 0) {
-      useTimeoutFn(() => {
-        setOptions(unref(getOptions));
-      }, 30);
-      return;
-    }
-    nextTick(() => {
-      useTimeoutFn(() => {
-        if (!chartInstance) {
-          initCharts(getDarkMode.value as 'default');
+    return new Promise((resolve) => {
+      if (unref(elRef)?.offsetHeight === 0) {
+        useTimeoutFn(() => {
+          setOptions(unref(getOptions));
+          resolve(null);
+        }, 30);
+      }
+      nextTick(() => {
+        useTimeoutFn(() => {
+          if (!chartInstance) {
+            initCharts(getDarkMode.value as 'default');
 
-          if (!chartInstance) return;
-        }
-        clear && chartInstance?.clear();
+            if (!chartInstance) return;
+          }
+          clear && chartInstance?.clear();
 
-        chartInstance?.setOption(unref(getOptions));
-      }, 30);
+          chartInstance?.setOption(unref(getOptions));
+          resolve(null);
+        }, 30);
+      });
     });
   }
 
