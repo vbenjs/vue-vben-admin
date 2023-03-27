@@ -73,10 +73,10 @@
 
         return unref(options).reduce((prev, next: Recordable) => {
           if (next) {
-            const value = next[valueField];
+            const value = get(next, valueField);
             prev.push({
               ...omit(next, [labelField, valueField]),
-              label: next[labelField],
+              label: get(next, labelField),
               value: numberToString ? `${value}` : value,
             });
           }
