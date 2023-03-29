@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="prefixCls">
     <draggable
       tag="ul"
       :model-value="list"
@@ -36,6 +36,7 @@
   import draggable from 'vuedraggable';
   // import { toRefs } from '@vueuse/core';
   import { Icon } from '/@/components/Icon';
+  import { useDesign } from '/@/hooks/web/useDesign';
 
   export default defineComponent({
     name: 'CollapseItem',
@@ -51,6 +52,8 @@
       },
     },
     setup(props, { emit }) {
+      const { prefixCls } = useDesign('form-design-collapse-item');
+
       const state = reactive({});
       const handleStart = (e: any, list1: IVFormComponent[]) => {
         emit('start', list1[e.oldIndex].component);
@@ -63,44 +66,47 @@
       const cloneItem = (one) => {
         return props.handleListPush(one);
       };
-      return { state, handleStart, handleAdd, cloneItem };
+      return { prefixCls, state, handleStart, handleAdd, cloneItem };
     },
   });
 </script>
 
 <style lang="less" scoped>
+  @prefix-cls: ~'@{namespace}-form-design-collapse-item';
   @import url(../styles/variable.less);
 
-  ul {
-    padding: 5px;
-    list-style: none;
-    display: flex;
-    margin-bottom: 0;
-    flex-wrap: wrap;
-    // background: #efefef;
+  .@{prefix-cls} {
+    ul {
+      padding: 5px;
+      list-style: none;
+      display: flex;
+      margin-bottom: 0;
+      flex-wrap: wrap;
+      // background: #efefef;
 
-    li {
-      padding: 8px 12px;
-      transition: all 0.3s;
-      width: calc(50% - 6px);
-      margin: 2.7px;
-      height: 36px;
-      line-height: 20px;
-      cursor: move;
-      border: 1px solid @border-color;
-      border-radius: 3px;
+      li {
+        padding: 8px 12px;
+        transition: all 0.3s;
+        width: calc(50% - 6px);
+        margin: 2.7px;
+        height: 36px;
+        line-height: 20px;
+        cursor: move;
+        border: 1px solid @border-color;
+        border-radius: 3px;
 
-      &:hover {
-        color: @primary-color;
-        border: 1px solid @primary-color;
-        position: relative;
-        // z-index: 1;
-        box-shadow: 0 2px 6px @primary-color;
+        &:hover {
+          color: @primary-color;
+          border: 1px solid @primary-color;
+          position: relative;
+          // z-index: 1;
+          box-shadow: 0 2px 6px @primary-color;
+        }
       }
     }
-  }
 
-  svg {
-    display: inline !important;
+    svg {
+      display: inline !important;
+    }
   }
 </style>
