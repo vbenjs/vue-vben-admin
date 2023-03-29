@@ -27,3 +27,15 @@ export interface ExportModalResult {
   filename: string;
   bookType: BookType;
 }
+
+export interface JsonToMultipleSheet<T = any> {
+  sheetList: JsonToSheet<T>[];
+  filename?: string;
+  write2excelOpts?: WritingOptions;
+}
+
+export interface AoaToMultipleSheet<T = any> {
+  sheetList: AoAToSheet<T>[];
+  filename?: string;
+  write2excelOpts?: WritingOptions;
+}

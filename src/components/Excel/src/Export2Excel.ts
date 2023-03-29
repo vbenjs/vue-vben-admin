@@ -1,7 +1,7 @@
 import * as xlsx from 'xlsx';
 import type { WorkBook } from 'xlsx';
 import type { JsonToSheet, AoAToSheet } from './typing';
-import { WritingOptions } from 'xlsx';
+import { AoaToMultipleSheet, JsonToMultipleSheet } from './typing';
 
 const { utils, writeFile } = xlsx;
 
@@ -89,11 +89,11 @@ export function aoaToSheetXlsx<T = any>({
  * @param filename 文件名(包含后缀)
  * @param write2excelOpts 文件配置
  */
-export function jsonToMultipleSheetXlsx<T = any>(
-  sheetList: JsonToSheet<T>[],
+export function jsonToMultipleSheetXlsx<T = any>({
+  sheetList,
   filename = DEF_FILE_NAME,
-  write2excelOpts = { bookType: 'xlsx' } as WritingOptions,
-) {
+  write2excelOpts = { bookType: 'xlsx' },
+}: JsonToMultipleSheet<T>) {
   const workbook: WorkBook = {
     SheetNames: [],
     Sheets: {},
@@ -122,11 +122,11 @@ export function jsonToMultipleSheetXlsx<T = any>(
  * @param filename 文件名(包含后缀)
  * @param write2excelOpts 文件配置
  */
-export function aoaToMultipleSheetXlsx<T = any>(
-  sheetList: AoAToSheet<T>[],
+export function aoaToMultipleSheetXlsx<T = any>({
+  sheetList,
   filename = DEF_FILE_NAME,
-  write2excelOpts = { bookType: 'xlsx' } as WritingOptions,
-) {
+  write2excelOpts = { bookType: 'xlsx' },
+}: AoaToMultipleSheet<T>) {
   const workbook: WorkBook = {
     SheetNames: [],
     Sheets: {},
