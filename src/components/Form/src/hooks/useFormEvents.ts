@@ -137,7 +137,11 @@ export function useFormEvents({
             }
             unref(formModel)[key] = arr;
           } else {
-            unref(formModel)[key] = fieldValue ? (_props?.valueFormat ? fieldValue : dateUtil(fieldValue)) : null;
+            unref(formModel)[key] = fieldValue
+              ? _props?.valueFormat
+                ? fieldValue
+                : dateUtil(fieldValue)
+              : null;
           }
         } else {
           unref(formModel)[key] = fieldValue;
@@ -165,6 +169,7 @@ export function useFormEvents({
     });
     validateFields(validKeys).catch((_) => {});
   }
+
   /**
    * @description: Delete based on field name
    */
@@ -380,3 +385,4 @@ export function useFormEvents({
     setFieldsValue,
     scrollToField,
   };
+}
