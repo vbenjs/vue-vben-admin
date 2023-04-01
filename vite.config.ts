@@ -27,7 +27,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   // The boolean type read by loadEnv is a string. This function can be converted to boolean type
   const viteEnv = wrapperEnv(env);
 
-  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE } = viteEnv;
+  const { VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE } = viteEnv;
 
   const isBuild = command === 'build';
 
@@ -56,7 +56,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       https: true,
       // Listening on all local IPs
       host: true,
-      port: VITE_PORT,
       // Load proxy configuration from .env
       proxy: createProxy(VITE_PROXY),
     },
