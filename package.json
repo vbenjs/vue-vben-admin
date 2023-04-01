@@ -1,6 +1,15 @@
 {
   "name": "vben-admin",
   "version": "2.9.0",
+  "homepage": "https://github.com/anncwb/vue-vben-admin",
+  "bugs": {
+    "url": "https://github.com/anncwb/vue-vben-admin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anncwb/vue-vben-admin.git"
+  },
+  "license": "MIT",
   "author": {
     "name": "vben",
     "email": "anncwb@126.com",
@@ -29,8 +38,42 @@
     "test:gzip": "npx http-server dist --cors --gzip -c-1",
     "test:br": "npx http-server dist --cors --brotli -c-1",
     "reinstall": "rimraf pnpm-lock.yaml && rimraf package.lock.json && rimraf node_modules && npm run bootstrap",
+    "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
     "gen:icon": "esno ./build/generate/icon/index.ts"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "{!(package)*.json,*.code-snippets,.!(browserslist)*rc}": [
+      "prettier --write--parser json"
+    ],
+    "package.json": [
+      "prettier --write"
+    ],
+    "*.vue": [
+      "eslint --fix",
+      "prettier --write",
+      "stylelint --fix"
+    ],
+    "*.{scss,less,styl,html}": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
+  },
+  "resolutions": {
+    "bin-wrapper": "npm:bin-wrapper-china",
+    "gifsicle": "5.2.0"
   },
   "dependencies": {
     "@ant-design/colors": "^6.0.0",
@@ -65,16 +108,16 @@
     "sortablejs": "^1.15.0",
     "tinymce": "^5.10.7",
     "vditor": "^3.8.13",
-    "vue": "^3.2.45",
+    "vue": "^3.2.47",
     "vue-i18n": "^9.1.9",
     "vue-json-pretty": "^2.0.6",
     "vue-router": "^4.0.14",
     "vue-types": "^4.1.1",
+    "vuedraggable": "^4.1.0",
     "vxe-table": "^4.3.9",
     "vxe-table-plugin-export-xlsx": "^3.0.4",
     "xe-utils": "^3.5.7",
-    "xlsx": "^0.18.5",
-    "vuedraggable": "^4.1.0"
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
@@ -151,50 +194,9 @@
     "vue-eslint-parser": "^8.3.0",
     "vue-tsc": "^1.0.9"
   },
-  "resolutions": {
-    "bin-wrapper": "npm:bin-wrapper-china",
-    "rollup": "^2.56.3",
-    "gifsicle": "5.2.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/anncwb/vue-vben-admin.git"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/anncwb/vue-vben-admin/issues"
-  },
-  "homepage": "https://github.com/anncwb/vue-vben-admin",
+  "packageManager": "pnpm@8.1.0",
   "engines": {
-    "node": "^12 || >=14"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "{!(package)*.json,*.code-snippets,.!(browserslist)*rc}": [
-      "prettier --write--parser json"
-    ],
-    "package.json": [
-      "prettier --write"
-    ],
-    "*.vue": [
-      "eslint --fix",
-      "prettier --write",
-      "stylelint --fix"
-    ],
-    "*.{scss,less,styl,html}": [
-      "stylelint --fix",
-      "prettier --write"
-    ],
-    "*.md": [
-      "prettier --write"
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-git"
-    }
+    "node": ">=16.15.1",
+    "pnpm": ">=8.1.0"
   }
 }
