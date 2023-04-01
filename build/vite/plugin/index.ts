@@ -3,14 +3,13 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import purgeIcons from 'vite-plugin-purge-icons';
 import windiCSS from 'vite-plugin-windicss';
-import VitePluginCertificate from 'vite-plugin-mkcert';
 import { configHtmlPlugin } from './html';
 import { configMockPlugin } from './mock';
 import { configCompressPlugin } from './compress';
 import { configVisualizerConfig } from './visualizer';
 import { configSvgIconsPlugin } from './svgSprite';
 
-export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
+export async function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   const { VITE_USE_MOCK, VITE_BUILD_COMPRESS, VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE } = viteEnv;
 
   const vitePlugins: (PluginOption | PluginOption[])[] = [
@@ -18,11 +17,6 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
     vue(),
     // have to
     vueJsx(),
-    // support name
-    //vueSetupExtend(),
-    VitePluginCertificate({
-      source: 'coding',
-    }),
   ];
 
   // vite-plugin-windicss
