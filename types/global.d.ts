@@ -67,9 +67,6 @@ declare global {
     VITE_DROP_CONSOLE: boolean;
     VITE_BUILD_COMPRESS: 'gzip' | 'brotli' | 'none';
     VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE: boolean;
-    VITE_LEGACY: boolean;
-    VITE_USE_IMAGEMIN: boolean;
-    VITE_GENERATE_UI: string;
   }
 
   declare function parseInt(s: string | number, radix?: number): number;
