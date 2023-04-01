@@ -19,7 +19,7 @@ const __APP_INFO__ = {
   lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
 };
 
-export default ({ command, mode }: ConfigEnv): UserConfig => {
+export default async ({ command, mode }: ConfigEnv): Promise<UserConfig> => {
   const root = process.cwd();
 
   const env = loadEnv(mode, root);
@@ -53,8 +53,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       ],
     },
     server: {
-      https: true,
-      // Listening on all local IPs
       host: true,
       // Load proxy configuration from .env
       proxy: createProxy(VITE_PROXY),
@@ -95,7 +93,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
 
     // The vite plugin used by the project. The quantity is large, so it is separately extracted and managed
-    plugins: createVitePlugins(viteEnv, isBuild),
+    plugins: await createVitePlugins(viteEnv, isBuild),
 
     optimizeDeps: {
       // @iconify/iconify: The dependency is dynamically and virtually loaded by @purge-icons/generated, so it needs to be specified explicitly
