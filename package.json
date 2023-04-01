@@ -179,7 +179,6 @@
     "vite-plugin-mkcert": "^1.6.0",
     "vite-plugin-mock": "^2.9.6",
     "vite-plugin-purge-icons": "^0.8.1",
-    "vite-plugin-pwa": "^0.11.13",
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-theme": "^0.8.6",
     "vite-plugin-windicss": "^1.8.4",
