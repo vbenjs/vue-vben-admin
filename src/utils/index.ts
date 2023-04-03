@@ -3,7 +3,7 @@ import type { App, Component } from 'vue';
 
 import { unref } from 'vue';
 import { isArray, isObject } from '/@/utils/is';
-import { cloneDeep, mergeWith } from 'lodash-es';
+import { cloneDeep, isEqual, mergeWith, unionWith } from 'lodash-es';
 
 export const noop = () => {};
 
@@ -48,7 +48,8 @@ export function deepMerge<T extends object | null | undefined, U extends object 
   return mergeWith(cloneDeep(target), source, (objValue, srcValue) => {
     if (isObject(objValue) && isObject(srcValue)) {
       return mergeWith(cloneDeep(objValue), srcValue, (prevValue, nextValue) => {
-        return isArray(prevValue) ? prevValue.concat(nextValue) : undefined;
+        // 如果是数组，合并数组(去重) If it is an array, merge the array (remove duplicates)
+        return isArray(prevValue) ? unionWith(prevValue, nextValue, isEqual) : undefined;
       });
     }
   });
