@@ -29,14 +29,14 @@
   .lazy-base-demo {
     &-wrap {
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       width: 50%;
       height: 2000px;
       margin: 20px auto;
-      text-align: center;
       background-color: @component-background;
-      justify-content: center;
-      flex-direction: column;
-      align-items: center;
+      text-align: center;
     }
 
     &-box {

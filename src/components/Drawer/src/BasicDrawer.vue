@@ -62,7 +62,7 @@
     setup(props, { emit }) {
       const visibleRef = ref(false);
       const attrs = useAttrs();
-      const propsRef = ref<Partial<Nullable<DrawerProps>>>(null);
+      const propsRef = ref<Partial<DrawerProps | null>>(null);
 
       const { t } = useI18n();
       const { prefixVar, prefixCls } = useDesign('basic-drawer');
@@ -77,7 +77,7 @@
       instance && emit('register', drawerInstance, instance.uid);
 
       const getMergeProps = computed((): DrawerProps => {
-        return deepMerge(toRaw(props), unref(propsRef));
+        return deepMerge(toRaw(props), unref(propsRef)) as any;
       });
 
       const getProps = computed((): DrawerProps => {
@@ -153,7 +153,7 @@
       );
 
       // Cancel event
-      async function onClose(e: Recordable) {
+      async function onClose(e) {
         const { closeFunc } = unref(getProps);
         emit('close', e);
         if (closeFunc && isFunction(closeFunc)) {
@@ -215,8 +215,8 @@
       background-color: @component-background;
 
       .scrollbar__wrap {
-        padding: 16px !important;
         margin-bottom: 0 !important;
+        padding: 16px !important;
       }
 
       > .scrollbar > .scrollbar__bar.is-horizontal {
@@ -229,11 +229,11 @@
     position: absolute;
 
     .ant-drawer-header {
+      box-sizing: border-box;
       width: 100%;
       height: @detail-header-height;
       padding: 0;
       border-top: 1px solid @border-color-base;
-      box-sizing: border-box;
     }
 
     .ant-drawer-title {

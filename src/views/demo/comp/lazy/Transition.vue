@@ -25,14 +25,14 @@
   .lazy-base-demo {
     &-wrap {
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       width: 50%;
       height: 2000px;
       margin: 20px auto;
-      text-align: center;
       background-color: @component-background;
-      justify-content: center;
-      flex-direction: column;
-      align-items: center;
+      text-align: center;
     }
 
     &-box {
@@ -47,12 +47,12 @@
   }
 
   .custom-enter {
-    opacity: 0%;
     transform: scale(0.4) translate(100%);
+    opacity: 0;
   }
 
   .custom-enter-to {
-    opacity: 100%;
+    opacity: 1;
   }
 
   .custom-enter-active {
@@ -63,12 +63,12 @@
   }
 
   .custom-leave {
-    opacity: 100%;
+    opacity: 1;
   }
 
   .custom-leave-to {
-    opacity: 0%;
     transform: scale(0.4) translate(-100%);
+    opacity: 0;
   }
 
   .custom-leave-active {

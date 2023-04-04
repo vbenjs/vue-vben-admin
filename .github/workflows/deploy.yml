@@ -98,7 +98,7 @@ jobs:
 
       - name: Build
         env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
+          NODE_OPTIONS: '--max_old_space_size=4096'
         run: |
           yarn install
           yarn run build
@@ -116,8 +116,3 @@ jobs:
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: ./dist
           CNAME: vben.vvbin.cn
-
-
-
-
-

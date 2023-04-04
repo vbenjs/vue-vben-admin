@@ -52,10 +52,10 @@
 
   .@{prefix-cls} {
     display: inline-block;
-    cursor: pointer;
     transform: rotate(0deg);
-    transition: all 0.3s ease 0.1s;
     transform-origin: center center;
+    transition: all 0.3s ease 0.1s;
+    cursor: pointer;
 
     &--active {
       transform: rotate(90deg);

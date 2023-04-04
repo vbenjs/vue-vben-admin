@@ -55,8 +55,8 @@
   .@{prefix-cls} {
     display: inline-block;
     overflow: hidden;
+    fill: currentcolor;
     vertical-align: -0.15em;
-    fill: currentColor;
   }
 
   .svg-icon-spin {

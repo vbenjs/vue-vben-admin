@@ -95,14 +95,14 @@
     }
 
     .options-delete {
+      flex-shrink: 0;
       width: 30px;
       height: 30px;
-      flex-shrink: 0;
-      line-height: 30px;
-      text-align: center;
       border-radius: 50%;
       background: #f5f5f5;
       color: #666;
+      line-height: 30px;
+      text-align: center;
 
       &:hover {
         background: #ff4d4f;

@@ -9,6 +9,7 @@
     watch,
     nextTick,
     CSSProperties,
+    PropType,
   } from 'vue';
   import { useEventListener } from '/@/hooks/event/useEventListener';
   import { getSlot } from '/@/utils/helper/tsxHelper';
@@ -31,7 +32,7 @@
       required: true,
     },
     items: {
-      type: Array as PropType<any[]>,
+      type: Array,
       default: () => [],
     },
   };
@@ -82,7 +83,7 @@
       });
 
       const getWrapStyleRef = computed((): CSSProperties => {
-        const styles: Recordable<string> = {};
+        const styles: Record<string, any> = {};
         const height = convertToUnit(props.height);
         const minHeight = convertToUnit(props.minHeight);
         const minWidth = convertToUnit(props.minWidth);
@@ -170,12 +171,12 @@
 </script>
 <style scoped lang="less">
   .virtual-scroll {
-    position: relative;
     display: block;
+    position: relative;
+    flex: 1 1 auto;
     width: 100%;
     max-width: 100%;
     overflow: auto;
-    flex: 1 1 auto;
 
     &__container {
       display: block;

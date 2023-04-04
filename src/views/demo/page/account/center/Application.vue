@@ -73,8 +73,8 @@
 
       &-num {
         margin-left: 24px;
-        line-height: 36px;
         color: @text-color-secondary;
+        line-height: 36px;
 
         span {
           margin-left: 5px;
@@ -84,8 +84,8 @@
 
       &-download {
         float: right;
-        font-size: 20px !important;
         color: @primary-color;
+        font-size: 20px !important;
       }
     }
   }

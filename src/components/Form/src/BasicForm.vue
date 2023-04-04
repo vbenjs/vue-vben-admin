@@ -71,7 +71,7 @@
     props: basicProps,
     emits: ['advanced-change', 'reset', 'submit', 'register', 'field-value-change'],
     setup(props, { emit, attrs }) {
-      const formModel = reactive<Recordable>({});
+      const formModel = reactive({});
       const modalFn = useModalContext();
 
       const advanceState = reactive<AdvanceState>({
@@ -81,17 +81,17 @@
         actionSpan: 6,
       });
 
-      const defaultValueRef = ref<Recordable>({});
+      const defaultValueRef = ref({});
       const isInitedDefaultRef = ref(false);
       const propsRef = ref<Partial<FormProps>>({});
-      const schemaRef = ref<Nullable<FormSchema[]>>(null);
-      const formElRef = ref<Nullable<FormActionType>>(null);
+      const schemaRef = ref<FormSchema[] | null>(null);
+      const formElRef = ref<FormActionType | null>(null);
 
       const { prefixCls } = useDesign('basic-form');
 
       // Get the basic configuration of the form
       const getProps = computed((): FormProps => {
-        return { ...props, ...unref(propsRef) } as FormProps;
+        return { ...props, ...unref(propsRef) };
       });
 
       const getFormClass = computed(() => {
@@ -104,7 +104,7 @@
       });
 
       // Get uniform row style and Row configuration for the entire form
-      const getRow = computed((): Recordable => {
+      const getRow = computed(() => {
         const { baseRowStyle = {}, rowProps } = unref(getProps);
         return {
           style: baseRowStyle,
@@ -112,9 +112,7 @@
         };
       });
 
-      const getBindValue = computed(
-        () => ({ ...attrs, ...props, ...unref(getProps) } as Recordable),
-      );
+      const getBindValue = computed(() => ({ ...attrs, ...props, ...unref(getProps) }));
 
       const getSchema = computed((): FormSchema[] => {
         const schemas: FormSchema[] = unref(schemaRef) || (unref(getProps).schemas as any);
@@ -297,9 +295,7 @@
         formActionType: formActionType as any,
         setFormModel,
         getFormClass,
-        getFormActionBindProps: computed(
-          (): Recordable => ({ ...getProps.value, ...advanceState }),
-        ),
+        getFormActionBindProps: computed(() => ({ ...getProps.value, ...advanceState })),
         fieldsIsAdvancedMap,
         ...formActionType,
       };
@@ -334,10 +330,10 @@
 
         .suffix {
           display: inline-flex;
-          padding-left: 6px;
-          margin-top: 1px;
-          line-height: 1;
           align-items: center;
+          margin-top: 1px;
+          padding-left: 6px;
+          line-height: 1;
         }
       }
     }

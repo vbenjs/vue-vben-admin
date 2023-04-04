@@ -154,8 +154,8 @@
 
   .@{prefix-cls} {
     display: flex;
-    padding: 0 8px;
     align-items: center;
+    padding: 0 8px;
 
     .ant-breadcrumb-link {
       .anticon {

@@ -151,17 +151,17 @@
     &-item {
       padding: 6px;
       overflow: hidden;
-      cursor: pointer;
       transition: all 0.3s;
+      cursor: pointer;
 
       .title {
         margin-bottom: 8px;
         font-weight: normal;
 
         .extra {
-          float: right;
           margin-top: -1.5px;
           margin-right: 0;
+          float: right;
           font-weight: normal;
 
           .tag {

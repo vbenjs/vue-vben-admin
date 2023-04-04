@@ -48,7 +48,7 @@
       prefix: propTypes.string.def(''),
     },
     setup(props) {
-      const elRef = ref<ElRef>(null);
+      const elRef = ref(null);
 
       const isSvgIcon = computed(() => props.icon?.endsWith(SVG_END_WITH_FLAG));
       const getSvgIcon = computed(() => props.icon.replace(SVG_END_WITH_FLAG, ''));
@@ -115,7 +115,7 @@
     display: block;
     min-width: 1em;
     min-height: 1em;
-    background-color: @iconify-bg-color;
     border-radius: 100%;
+    background-color: @iconify-bg-color;
   }
 </style>

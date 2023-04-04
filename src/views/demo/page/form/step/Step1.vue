@@ -60,7 +60,9 @@
         try {
           const values = await validate();
           emit('next', values);
-        } catch (error) {}
+        } catch (error) {
+          //
+        }
       }
 
       return { register };
@@ -76,16 +78,16 @@
 
     h3 {
       margin: 0 0 12px;
+      color: @text-color;
       font-size: 16px;
       line-height: 32px;
-      color: @text-color;
     }
 
     h4 {
       margin: 0 0 4px;
+      color: @text-color;
       font-size: 14px;
       line-height: 22px;
-      color: @text-color;
     }
 
     p {

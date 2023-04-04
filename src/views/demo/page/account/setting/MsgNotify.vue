@@ -46,8 +46,8 @@
 </script>
 <style lang="less" scoped>
   .extra {
-    float: right;
     margin-top: 10px;
     margin-right: 30px;
+    float: right;
   }
 </style>
