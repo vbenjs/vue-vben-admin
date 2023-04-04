@@ -35,7 +35,7 @@ export function useFormValid<T extends Object = any>(formRef: Ref<FormInstance>)
     const form = unref(formRef);
     return form?.validate ?? ((_nameList?: NamePath) => Promise.resolve());
   });
-  
+
   async function validForm() {
     const form = unref(formRef);
     if (!form) return;

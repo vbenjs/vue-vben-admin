@@ -126,13 +126,13 @@
   @prefix-cls: ~'@{namespace}-header-user-dropdown';
 
   .@{prefix-cls} {
+    align-items: center;
     height: @header-height;
     padding: 0 0 0 10px;
     padding-right: 10px;
     overflow: hidden;
     font-size: 12px;
     cursor: pointer;
-    align-items: center;
 
     img {
       width: 24px;

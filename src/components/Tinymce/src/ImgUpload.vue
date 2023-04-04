@@ -49,7 +49,7 @@
         };
       });
 
-      function handleChange(info: Recordable) {
+      function handleChange(info: Record<string, any>) {
         const file = info.file;
         const status = file?.status;
         const url = file?.response?.url;
@@ -84,9 +84,9 @@
 
   .@{prefix-cls} {
     position: absolute;
+    z-index: 20;
     top: 4px;
     right: 10px;
-    z-index: 20;
 
     &.fullscreen {
       position: fixed;

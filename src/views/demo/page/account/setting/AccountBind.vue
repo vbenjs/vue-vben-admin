@@ -51,9 +51,9 @@
   }
 
   .extra {
-    float: right;
     margin-top: 10px;
     margin-right: 30px;
+    float: right;
     cursor: pointer;
   }
 </style>

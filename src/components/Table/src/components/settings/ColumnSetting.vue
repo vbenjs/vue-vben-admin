@@ -165,7 +165,7 @@
 
       const plainSortOptions = ref<Options[]>([]);
 
-      const columnListRef = ref<ComponentRef>(null);
+      const columnListRef = ref(null);
 
       const state = reactive<State>({
         checkAll: true,
@@ -291,7 +291,7 @@
         nextTick(() => {
           const columnListEl = unref(columnListRef);
           if (!columnListEl) return;
-          const el = columnListEl.$el as any;
+          const el = (columnListEl as any).$el;
           if (!el) return;
           // Drag and drop sort
           sortable = Sortablejs.create(unref(el), {
@@ -416,8 +416,8 @@
 
   .@{prefix-cls} {
     &__popover-title {
-      position: relative;
       display: flex;
+      position: relative;
       align-items: center;
       justify-content: space-between;
     }

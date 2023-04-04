@@ -13,7 +13,7 @@
     props: rotateProps,
     emits: ['success', 'change', 'update:value'],
     setup(props, { emit, attrs, expose }) {
-      const basicRef = ref<Nullable<DragVerifyActionType>>(null);
+      const basicRef = ref<DragVerifyActionType | null>(null);
       const state = reactive({
         showTip: false,
         isPassing: false,
@@ -167,8 +167,8 @@
 </script>
 <style lang="less">
   .ir-dv {
-    position: relative;
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
 
@@ -188,16 +188,16 @@
     }
 
     &-img__tip {
+      display: block;
       position: absolute;
+      z-index: 1;
       bottom: 10px;
       left: 0;
-      z-index: 1;
-      display: block;
       width: 100%;
       height: 30px;
+      color: @white;
       font-size: 12px;
       line-height: 30px;
-      color: @white;
       text-align: center;
 
       &.success {

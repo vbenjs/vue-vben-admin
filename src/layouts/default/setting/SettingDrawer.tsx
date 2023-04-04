@@ -100,7 +100,7 @@ export default defineComponent({
         <>
           <TypePicker
             menuTypeList={menuTypeList}
-            handler={(item: typeof menuTypeList[0]) => {
+            handler={(item: (typeof menuTypeList)[0]) => {
               baseHandler(HandlerEnum.CHANGE_LAYOUT, {
                 mode: item.mode,
                 type: item.type,

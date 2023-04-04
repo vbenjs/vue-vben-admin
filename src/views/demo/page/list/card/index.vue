@@ -82,9 +82,9 @@
 
       &-title {
         margin-bottom: 5px;
+        color: @text-color;
         font-size: 16px;
         font-weight: 500;
-        color: @text-color;
 
         .icon {
           margin-top: -5px;
@@ -96,8 +96,8 @@
       &-detail {
         padding-top: 10px;
         padding-left: 30px;
-        font-size: 14px;
         color: @text-color-secondary;
+        font-size: 14px;
       }
     }
   }

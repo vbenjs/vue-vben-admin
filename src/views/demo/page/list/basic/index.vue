@@ -85,8 +85,8 @@
   .list-basic {
     &__top {
       padding: 24px;
-      text-align: center;
       background-color: @component-background;
+      text-align: center;
 
       &-col {
         &:not(:last-child) {
@@ -95,23 +95,23 @@
 
         div {
           margin-bottom: 12px;
+          color: @text-color;
           font-size: 14px;
           line-height: 22px;
-          color: @text-color;
         }
 
         p {
           margin: 0;
+          color: @text-color;
           font-size: 24px;
           line-height: 32px;
-          color: @text-color;
         }
       }
     }
 
     &__content {
-      padding: 24px;
       margin-top: 12px;
+      padding: 24px;
       background-color: @component-background;
 
       .list {
@@ -126,8 +126,8 @@
         position: absolute;
         top: 20px;
         right: 15px;
-        font-weight: normal;
         color: @primary-color;
+        font-weight: normal;
         cursor: pointer;
       }
 

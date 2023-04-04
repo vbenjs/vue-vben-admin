@@ -21,7 +21,7 @@
   import type { MenuState } from './types';
   import type { Menu as MenuType } from '/@/router/types';
   import type { RouteLocationNormalizedLoaded } from 'vue-router';
-  import { defineComponent, computed, ref, unref, reactive, toRefs, watch } from 'vue';
+  import { defineComponent, computed, ref, unref, reactive, toRefs, watch, PropType } from 'vue';
   import { useDesign } from '/@/hooks/web/useDesign';
   import Menu from './components/Menu.vue';
   import SimpleSubMenu from './SimpleSubMenu.vue';
@@ -74,8 +74,8 @@
         menuState,
         items,
         accordion,
-        mixSider,
-        collapse,
+        mixSider as any,
+        collapse as any,
       );
 
       const getBindValues = computed(() => ({ ...attrs, ...props }));
@@ -156,5 +156,5 @@
   });
 </script>
 <style lang="less">
-  @import './index.less';
+  @import url('./index.less');
 </style>
