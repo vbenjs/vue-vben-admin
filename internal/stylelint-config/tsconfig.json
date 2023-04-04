@@ -1,0 +1,4 @@
+{
+  "extends": "@vben/ts-config/node.json",
+  "include": ["src"]
+}
