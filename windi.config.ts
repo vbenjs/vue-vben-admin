@@ -1,7 +1,6 @@
-import { defineConfig } from 'vite-plugin-windicss';
-import { primaryColor } from './build/config/themeConfig';
+const primaryColor = '#0960bd';
 
-export default defineConfig({
+export default {
   darkMode: 'class',
   plugins: [createEnterPlugin()],
   theme: {
@@ -21,7 +20,7 @@ export default defineConfig({
       },
     },
   },
-});
+};
 
 /**
  * Used for animation when the element is displayed.
