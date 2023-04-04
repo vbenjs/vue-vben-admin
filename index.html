@@ -8,20 +8,10 @@
       name="viewport"
       content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0"
     />
-    <title><%= title %></title>
+    <title><%= VITE_GLOB_APP_TITLE %></title>
     <link rel="icon" href="/favicon.ico" />
   </head>
   <body>
-    <script>
-      (() => {
-        var htmlRoot = document.getElementById('htmlRoot');
-        var theme = window.localStorage.getItem('__APP__DARK__MODE__');
-        if (htmlRoot && theme) {
-          htmlRoot.setAttribute('data-theme', theme);
-          theme = htmlRoot = null;
-        }
-      })();
-    </script>
     <div id="app">
       <style>
         html[data-theme='dark'] .app-loading {
@@ -150,11 +140,11 @@
       </style>
       <div class="app-loading">
         <div class="app-loading-wrap">
-          <img src="/resource/img/logo.png" class="app-loading-logo" alt="Logo" />
+          <img src="/logo.png" class="app-loading-logo" alt="Logo" />
           <div class="app-loading-dots">
             <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
           </div>
-          <div class="app-loading-title"><%= title %></div>
+          <div class="app-loading-title"><%= VITE_GLOB_APP_TITLE %></div>
         </div>
       </div>
     </div>

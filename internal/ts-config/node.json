@@ -4,9 +4,9 @@
   "extends": "./base.json",
   "compilerOptions": {
     "lib": ["ESNext"],
-    "types": ["vite/client"],
     "noImplicitAny": true,
     "sourceMap": true,
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": "./"
   }
 }
