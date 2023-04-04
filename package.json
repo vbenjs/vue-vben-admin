@@ -17,9 +17,9 @@
   },
   "scripts": {
     "bootstrap": "pnpm install",
-    "build": "cross-env NODE_ENV=production vite build && esno ./build/script/postBuild.ts",
+    "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 NODE_ENV=production vite build && esno ./build/script/postBuild.ts",
     "build:no-cache": "pnpm clean:cache && npm run build",
-    "build:test": "cross-env vite build --mode test && esno ./build/script/postBuild.ts",
+    "build:test": "cross-env NODE_OPTIONS=--max-old-space-size=8192 vite build --mode test && esno ./build/script/postBuild.ts",
     "clean:cache": "rimraf node_modules/.cache/ && rimraf node_modules/.vite",
     "clean:lib": "rimraf node_modules",
     "commit": "czg",
