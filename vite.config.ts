@@ -27,7 +27,7 @@ export default async ({ command, mode }: ConfigEnv): Promise<UserConfig> => {
   // The boolean type read by loadEnv is a string. This function can be converted to boolean type
   const viteEnv = wrapperEnv(env);
 
-  const { VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE } = viteEnv;
+  const { VITE_PUBLIC_PATH, VITE_PROXY } = viteEnv;
 
   const isBuild = command === 'build';
 
@@ -58,24 +58,12 @@ export default async ({ command, mode }: ConfigEnv): Promise<UserConfig> => {
       proxy: createProxy(VITE_PROXY),
     },
     esbuild: {
-      drop: VITE_DROP_CONSOLE ? ['console', 'debugger'] : [],
+      drop: ['console', 'debugger'],
     },
     build: {
       target: 'es2015',
       cssTarget: 'chrome80',
       outDir: OUTPUT_DIR,
-      // minify: 'terser',
-      /**
-       * 当 minify=“minify:'terser'” 解开注释
-       * Uncomment when minify="minify:'terser'"
-       */
-      // terserOptions: {
-      //   compress: {
-      //     keep_infinity: true,
-      //     drop_console: VITE_DROP_CONSOLE,
-      //   },
-      // },
-      // Turning off brotliSize display can slightly reduce packaging time
       reportCompressedSize: false,
       chunkSizeWarningLimit: 2000,
     },
