@@ -6,6 +6,7 @@
       "outputs": ["dist/**"]
     },
     "stub": {},
+    "lint": {},
     "clean": {
       "cache": false
     },
