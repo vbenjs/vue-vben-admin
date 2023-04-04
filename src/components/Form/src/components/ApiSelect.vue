@@ -1,5 +1,5 @@
 <template>
-  <Select
+  <a-select
     @dropdown-visible-change="handleFetch"
     v-bind="$attrs"
     @change="handleChange"
@@ -18,11 +18,11 @@
         {{ t('component.form.apiSelectNotFound') }}
       </span>
     </template>
-  </Select>
+  </a-select>
 </template>
 <script lang="ts">
   import { defineComponent, PropType, ref, watchEffect, computed, unref, watch } from 'vue';
-  import { Select } from 'ant-design-vue';
+  import { Select as ASelect } from 'ant-design-vue';
   import { isFunction } from '/@/utils/is';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { useAttrs } from '/@/hooks/core/useAttrs';
@@ -36,7 +36,7 @@
   export default defineComponent({
     name: 'ApiSelect',
     components: {
-      Select,
+      ASelect,
       LoadingOutlined,
     },
     inheritAttrs: false,
@@ -73,10 +73,10 @@
 
         return unref(options).reduce((prev, next: Recordable) => {
           if (next) {
-            const value = next[valueField];
+            const value = get(next, valueField);
             prev.push({
               ...omit(next, [labelField, valueField]),
-              label: next[labelField],
+              label: get(next, labelField),
               value: numberToString ? `${value}` : value,
             });
           }

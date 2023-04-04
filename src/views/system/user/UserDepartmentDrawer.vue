@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import { ref, unref } from 'vue';
-  import { isArray } from 'lodash';
+  import { isArray } from 'lodash-es';
 
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
 

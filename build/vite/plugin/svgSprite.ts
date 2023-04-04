@@ -5,6 +5,7 @@
 
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import path from 'path';
+import type { PluginOption } from 'vite';
 
 export function configSvgIconsPlugin(isBuild: boolean) {
   const svgIconsPlugin = createSvgIconsPlugin({
@@ -13,5 +14,5 @@ export function configSvgIconsPlugin(isBuild: boolean) {
     // default
     symbolId: 'icon-[dir]-[name]',
   });
-  return svgIconsPlugin;
+  return svgIconsPlugin as PluginOption;
 }
