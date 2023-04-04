@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@vben/ts-config/vue.json",
   "compilerOptions": {
     "baseUrl": "./",

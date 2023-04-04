@@ -166,7 +166,7 @@
     "*.tsx": "$(capture).test.ts, $(capture).test.tsx",
     "*.env": "$(capture).env.*",
     "CHANGELOG.md": "CHANGELOG*",
-    "package.json": "pnpm-lock.yaml,pnpm-workspace.yaml,LICENSE,.gitattributes,.gitignore,.gitpod.yml,CNAME,README*,.npmrc",
+    "package.json": "pnpm-lock.yaml,pnpm-workspace.yaml,LICENSE,.gitattributes,.gitignore,.gitpod.yml,CNAME,README*,.npmrc,.browserslistrc",
     ".eslintrc.js": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.js,.prettierrc.js,.stylelintrc.js"
   },
   "terminal.integrated.scrollback": 10000
