@@ -1,7 +1,7 @@
 import { getCurrentInstance, reactive, shallowRef, watchEffect } from 'vue';
-import type { Ref } from 'vue';
+import { type Recordable } from '@vben/types';
 
-interface Params {
+interface Options {
   excludeListeners?: boolean;
   excludeKeys?: string[];
   excludeDefaultKeys?: boolean;
@@ -10,15 +10,15 @@ interface Params {
 const DEFAULT_EXCLUDE_KEYS = ['class', 'style'];
 const LISTENER_PREFIX = /^on[A-Z]/;
 
-export function entries<T>(obj: Recordable<T>): [string, T][] {
+function entries<T>(obj: Recordable<T>): [string, T][] {
   return Object.keys(obj).map((key: string) => [key, obj[key]]);
 }
 
-export function useAttrs(params: Params = {}): Ref<Recordable> | {} {
+function useAttrs(options: Options = {}): Recordable<any> {
   const instance = getCurrentInstance();
   if (!instance) return {};
 
-  const { excludeListeners = false, excludeKeys = [], excludeDefaultKeys = true } = params;
+  const { excludeListeners = false, excludeKeys = [], excludeDefaultKeys = true } = options;
   const attrs = shallowRef({});
   const allExcludeKeys = excludeKeys.concat(excludeDefaultKeys ? DEFAULT_EXCLUDE_KEYS : []);
 
@@ -32,10 +32,12 @@ export function useAttrs(params: Params = {}): Ref<Recordable> | {} {
       }
 
       return acm;
-    }, {} as Recordable);
+    }, {} as Recordable<any>);
 
     attrs.value = res;
   });
 
   return attrs;
 }
+
+export { useAttrs };

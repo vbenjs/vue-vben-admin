@@ -37,6 +37,8 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "eslint-plugin-vue": "^9.10.0",
     "vue-eslint-parser": "^9.1.1"
   }

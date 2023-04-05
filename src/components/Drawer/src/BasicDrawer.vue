@@ -52,7 +52,7 @@
   import { ScrollContainer } from '/@/components/Container';
   import { basicProps } from './props';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { useAttrs } from '/@/hooks/core/useAttrs';
+  import { useAttrs } from '@vben/hooks';
 
   export default defineComponent({
     components: { Drawer, ScrollContainer, DrawerFooter, DrawerHeader },
@@ -68,7 +68,7 @@
       const { prefixVar, prefixCls } = useDesign('basic-drawer');
 
       const drawerInstance: DrawerInstance = {
-        setDrawerProps: setDrawerProps,
+        setDrawerProps: setDrawerProps as any,
         emitVisible: undefined,
       };
 

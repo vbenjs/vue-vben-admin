@@ -1,2 +1,2 @@
-// life-cycle
-export * from './lifecycle/onMountedOrActivated';
+export * from './onMountedOrActivated';
+export * from './useAttrs';
