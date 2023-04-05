@@ -4,9 +4,6 @@ importers:
 
   .:
     dependencies:
-      '@ant-design/colors':
-        specifier: ^7.0.0
-        version: 7.0.0
       '@ant-design/icons-vue':
         specifier: ^6.1.0
         version: 6.1.0(vue@3.2.47)
@@ -19,12 +16,6 @@ importers:
       '@logicflow/extension':
         specifier: ^1.2.1
         version: 1.2.1
-      '@vue/runtime-core':
-        specifier: ^3.2.47
-        version: 3.2.47
-      '@vue/shared':
-        specifier: ^3.2.47
-        version: 3.2.47
       '@vueuse/core':
         specifier: ^9.13.0
         version: 9.13.0(vue@3.2.47)
@@ -134,6 +125,9 @@ importers:
       '@commitlint/cli':
         specifier: ^17.5.1
         version: 17.5.1
+      '@commitlint/config-conventional':
+        specifier: ^17.4.4
+        version: 17.4.4
       '@iconify/json':
         specifier: ^2.2.45
         version: 2.2.45
@@ -378,6 +372,9 @@ importers:
 
   internal/vite-config:
     dependencies:
+      '@ant-design/colors':
+        specifier: ^7.0.0
+        version: 7.0.0
       vite:
         specifier: ^4.3.0-beta.1
         version: 4.3.0-beta.1(@types/node@18.15.11)(less@4.1.3)(sass@1.60.0)
@@ -789,6 +786,13 @@ packages:
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
+    dev: true
+
+  /@commitlint/config-conventional@17.4.4:
+    resolution: {integrity: sha512-u6ztvxqzi6NuhrcEDR7a+z0yrh11elY66nRrQIpqsqW6sZmpxYkDLtpRH8jRML+mmxYQ8s4qqF06Q/IQx5aJeQ==}
+    engines: {node: '>=v14'}
+    dependencies:
+      conventional-changelog-conventionalcommits: 5.0.0
     dev: true
 
   /@commitlint/config-validator@17.4.4:
@@ -3173,6 +3177,15 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       compare-func: 2.0.0
+      q: 1.5.1
+    dev: true
+
+  /conventional-changelog-conventionalcommits@5.0.0:
+    resolution: {integrity: sha512-lCDbA+ZqVFQGUj7h9QBKoIpLhl8iihkO0nCTyRNzuXtcd7ubODpYB04IFy31JloiJgG0Uovu8ot8oxRzn7Nwtw==}
+    engines: {node: '>=10'}
+    dependencies:
+      compare-func: 2.0.0
+      lodash: 4.17.21
       q: 1.5.1
     dev: true
 

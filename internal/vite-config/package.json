@@ -31,6 +31,7 @@
     "stub": "pnpm unbuild --stub"
   },
   "dependencies": {
+    "@ant-design/colors": "^7.0.0",
     "vite": "^4.3.0-beta.1"
   },
   "devDependencies": {

@@ -26,7 +26,8 @@ async function createAppConfigPlugin({
   return {
     name: PLUGIN_NAME,
     async configResolved(_config) {
-      const appTitle = _config?.env?.VITE_GLOB_APP_SHORT_NAME ?? '';
+      let appTitle = _config?.env?.VITE_GLOB_APP_TITLE ?? '';
+      appTitle = appTitle.replace(/\s/g, '_');
       publicPath = _config.base;
       source = await getConfigSource(appTitle);
     },
