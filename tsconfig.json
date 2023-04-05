@@ -6,7 +6,9 @@
     "types": ["vite/client"],
     "paths": {
       "/@/*": ["src/*"],
-      "/#/*": ["types/*"]
+      "/#/*": ["types/*"],
+      "@/*": ["src/*"],
+      "#/*": ["types/*"]
     }
   },
   "include": [
