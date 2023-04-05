@@ -17,7 +17,7 @@ export default {
     createDefaultProgram: false,
     extraFileExtensions: ['.vue'],
   },
-  plugins: ['vue', '@typescript-eslint'],
+  plugins: ['vue', '@typescript-eslint', 'import'],
   extends: [
     'eslint:recommended',
     'plugin:vue/vue3-recommended',
@@ -25,16 +25,20 @@ export default {
     'plugin:prettier/recommended',
   ],
   rules: {
+    'no-unused-vars': 'off',
     'no-case-declarations': 'off',
-    'vue/script-setup-uses-vars': 'error',
-    'vue/no-reserved-component-names': 'off',
+    'no-use-before-define': 'off',
+    'space-before-function-paren': 'off',
+
+    'import/first': 'error',
+    'import/newline-after-import': 'error',
+    'import/no-duplicates': 'error',
+
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-empty-function': 'off',
-    'vue/custom-event-name-casing': 'off',
-    'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/ban-types': 'off',
@@ -47,15 +51,9 @@ export default {
         varsIgnorePattern: '^_',
       },
     ],
-    'no-unused-vars': [
-      'error',
-      {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-      },
-    ],
-    'space-before-function-paren': 'off',
-
+    'vue/script-setup-uses-vars': 'error',
+    'vue/no-reserved-component-names': 'off',
+    'vue/custom-event-name-casing': 'off',
     'vue/attributes-order': 'off',
     'vue/one-component-per-file': 'off',
     'vue/html-closing-bracket-newline': 'off',
@@ -78,5 +76,15 @@ export default {
       },
     ],
     'vue/multi-word-component-names': 'off',
+    // 'sort-imports': [
+    //   'error',
+    //   {
+    //     ignoreCase: true,
+    //     ignoreDeclarationSort: false,
+    //     ignoreMemberSort: false,
+    //     memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+    //     allowSeparatedGroups: false,
+    //   },
+    // ],
   },
 };

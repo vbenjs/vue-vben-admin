@@ -1,10 +1,8 @@
 import { IAnyObject } from '../typings/base-type';
-import { Ref, SetupContext } from 'vue';
+import { Ref, SetupContext, getCurrentInstance, toRaw } from 'vue';
 import { cloneDeep, forOwn, isFunction } from 'lodash-es';
 import { AForm, IVFormComponent } from '../typings/v-form-component';
-import { getCurrentInstance } from 'vue';
 import { Form } from 'ant-design-vue';
-import { toRaw } from 'vue';
 
 export function useFormInstanceMethods(
   props: IAnyObject,

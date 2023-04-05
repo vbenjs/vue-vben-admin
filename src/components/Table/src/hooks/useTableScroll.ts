@@ -1,6 +1,5 @@
 import type { BasicTableProps, TableRowSelection, BasicColumn } from '../types/table';
-import { Ref, ComputedRef, ref } from 'vue';
-import { computed, unref, nextTick, watch } from 'vue';
+import { Ref, ComputedRef, ref, computed, unref, nextTick, watch } from 'vue';
 import { getViewportOffset } from '/@/utils/domUtils';
 import { isBoolean } from '/@/utils/is';
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';

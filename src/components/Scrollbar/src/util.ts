@@ -1,4 +1,5 @@
 import type { BarMap } from './types';
+
 export const BAR_MAP: BarMap = {
   vertical: {
     offset: 'offsetHeight',

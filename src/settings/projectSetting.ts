@@ -10,6 +10,7 @@ import {
   SessionTimeoutProcessingEnum,
 } from '/@/enums/appEnum';
 import { SIDE_BAR_BG_COLOR_LIST, HEADER_PRESET_BG_COLOR_LIST } from './designSetting';
+
 const primaryColor = '#0960bd';
 
 // ! You need to clear the browser cache after the change
