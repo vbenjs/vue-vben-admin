@@ -22,6 +22,8 @@ export default {
     },
   ],
   rules: {
+    'selector-not-notation': null,
+    'import-notation': null,
     'function-no-unknown': null,
     'selector-class-pattern': null,
     'selector-pseudo-class-no-unknown': [
