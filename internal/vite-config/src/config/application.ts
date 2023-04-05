@@ -74,7 +74,7 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
           output: {
             manualChunks: {
               vue: ['vue', 'pinia', 'vue-router'],
-              antdv: ['ant-design-vue', '@ant-design/icons-vue'],
+              antd: ['ant-design-vue', '@ant-design/icons-vue'],
             },
           },
         },
