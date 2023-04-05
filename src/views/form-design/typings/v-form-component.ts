@@ -8,6 +8,7 @@ import { SelectValue } from 'ant-design-vue/lib/select';
 import { validateOptions } from 'ant-design-vue/lib/form/useForm';
 import { RuleError } from 'ant-design-vue/lib/form/interface';
 import { FormItem } from '/@/components/Form';
+
 type LayoutType = 'horizontal' | 'vertical' | 'inline';
 type labelLayout = 'flex' | 'Grid';
 export type PropsTabKey = 1 | 2 | 3;
