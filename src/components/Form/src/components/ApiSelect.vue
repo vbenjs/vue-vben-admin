@@ -25,7 +25,7 @@
   import { Select } from 'ant-design-vue';
   import { isFunction } from '/@/utils/is';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
-  import { useAttrs } from '/@/hooks/core/useAttrs';
+  import { useAttrs } from '@vben/hooks';
   import { get, omit } from 'lodash-es';
   import { LoadingOutlined } from '@ant-design/icons-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
@@ -44,7 +44,7 @@
       value: [Array, Object, String, Number],
       numberToString: propTypes.bool,
       api: {
-        type: Function as PropType<(arg?: Recordable) => Promise<OptionsItem[]>>,
+        type: Function as PropType<(arg?: any) => Promise<OptionsItem[]>>,
         default: null,
       },
       // api params
@@ -71,7 +71,7 @@
       const getOptions = computed(() => {
         const { labelField, valueField, numberToString } = props;
 
-        return unref(options).reduce((prev, next: Recordable) => {
+        return unref(options).reduce((prev, next: any) => {
           if (next) {
             const value = get(next, valueField);
             prev.push({

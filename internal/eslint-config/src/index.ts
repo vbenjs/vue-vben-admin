@@ -17,7 +17,14 @@ export default {
     createDefaultProgram: false,
     extraFileExtensions: ['.vue'],
   },
-  plugins: ['vue', '@typescript-eslint', 'import'],
+  plugins: [
+    'vue',
+    '@typescript-eslint',
+    'import',
+    // TODO: 改造完成后开启
+    // 'unused-imports',
+    // 'simple-import-sort',
+  ],
   extends: [
     'eslint:recommended',
     'plugin:vue/vue3-recommended',
@@ -30,10 +37,26 @@ export default {
     'no-use-before-define': 'off',
     'space-before-function-paren': 'off',
 
+    // TODO: 改造完成后开启
+    // 'simple-import-sort/imports': 'error',
+    // 'simple-import-sort/exports': 'error',
+
     'import/first': 'error',
     'import/newline-after-import': 'error',
     'import/no-duplicates': 'error',
 
+    // 'unused-imports/no-unused-imports': 'error',
+    // 'unused-imports/no-unused-vars': [
+    //   'warn',
+    //   { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
+    // ],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+      },
+    ],
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
@@ -44,13 +67,7 @@ export default {
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-      },
-    ],
+    '@typescript-eslint/no-unused-vars': 'off',
     'vue/script-setup-uses-vars': 'error',
     'vue/no-reserved-component-names': 'off',
     'vue/custom-event-name-casing': 'off',
@@ -87,4 +104,5 @@ export default {
     //   },
     // ],
   },
+  globals: { defineOptions: 'readonly' },
 };

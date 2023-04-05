@@ -1,16 +1,23 @@
 <script lang="tsx">
   import type { DescriptionProps, DescInstance, DescItem } from './typing';
   import type { DescriptionsProps } from 'ant-design-vue/es/descriptions/index';
-  import type { CSSProperties } from 'vue';
   import type { CollapseContainerOptions } from '/@/components/Container/index';
-  import { defineComponent, computed, ref, unref, toRefs } from 'vue';
+  import {
+    type CSSProperties,
+    type PropType,
+    defineComponent,
+    computed,
+    ref,
+    unref,
+    toRefs,
+  } from 'vue';
   import { get } from 'lodash-es';
   import { Descriptions } from 'ant-design-vue';
   import { CollapseContainer } from '/@/components/Container/index';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { isFunction } from '/@/utils/is';
   import { getSlot } from '/@/utils/helper/tsxHelper';
-  import { useAttrs } from '/@/hooks/core/useAttrs';
+  import { useAttrs } from '@vben/hooks';
 
   const props = {
     useCollapse: { type: Boolean, default: true },
@@ -22,7 +29,7 @@
     },
     bordered: { type: Boolean, default: true },
     column: {
-      type: [Number, Object] as PropType<number | Recordable>,
+      type: [Number, Object],
       default: () => {
         return { xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 };
       },
@@ -52,7 +59,7 @@
       const getMergeProps = computed(() => {
         return {
           ...props,
-          ...(unref(propsRef) as Recordable),
+          ...(unref(propsRef) as any),
         } as DescriptionProps;
       });
 
@@ -89,7 +96,10 @@
        */
       function setDescProps(descProps: Partial<DescriptionProps>): void {
         // Keep the last setDrawerProps
-        propsRef.value = { ...(unref(propsRef) as Recordable), ...descProps } as Recordable;
+        propsRef.value = {
+          ...(unref(propsRef) as Record<string, any>),
+          ...descProps,
+        } as Record<string, any>;
       }
 
       // Prevent line breaks
@@ -121,6 +131,7 @@
                 return null;
               }
               const getField = get(_data, field);
+              // eslint-disable-next-line
               if (getField && !toRefs(_data).hasOwnProperty(field)) {
                 return isFunction(render) ? render('', _data) : '';
               }

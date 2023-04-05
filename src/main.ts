@@ -1,19 +1,22 @@
 import 'uno.css';
-import '/@/design/index.less';
-import '/@/components/VxeTable/src/css/index.scss';
+import '@/design/index.less';
+import '@/components/VxeTable/src/css/index.scss';
 import 'ant-design-vue/dist/antd.css';
 // Register icon sprite
 import 'virtual:svg-icons-register';
-import App from './App.vue';
+
 import { createApp } from 'vue';
-import { initAppConfigStore } from '/@/logics/initAppConfig';
-import { setupErrorHandle } from '/@/logics/error-handle';
-import { router, setupRouter } from '/@/router';
-import { setupRouterGuard } from '/@/router/guard';
-import { setupStore } from '/@/store';
-import { setupGlobDirectives } from '/@/directives';
-import { setupI18n } from '/@/locales/setupI18n';
-import { registerGlobComp } from '/@/components/registerGlobComp';
+
+import { registerGlobComp } from '@/components/registerGlobComp';
+import { setupGlobDirectives } from '@/directives';
+import { setupI18n } from '@/locales/setupI18n';
+import { setupErrorHandle } from '@/logics/error-handle';
+import { initAppConfigStore } from '@/logics/initAppConfig';
+import { router, setupRouter } from '@/router';
+import { setupRouterGuard } from '@/router/guard';
+import { setupStore } from '@/store';
+
+import App from './App.vue';
 
 async function bootstrap() {
   const app = createApp(App);
