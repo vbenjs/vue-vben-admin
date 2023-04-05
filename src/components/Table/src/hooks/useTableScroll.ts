@@ -5,7 +5,7 @@ import { getViewportOffset } from '/@/utils/domUtils';
 import { isBoolean } from '/@/utils/is';
 import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
 import { useModalContext } from '/@/components/Modal';
-import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
+import { onMountedOrActivated } from '@vben/hooks';
 import { useDebounceFn } from '@vueuse/core';
 
 export function useTableScroll(

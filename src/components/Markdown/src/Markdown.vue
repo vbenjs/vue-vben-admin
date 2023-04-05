@@ -18,7 +18,7 @@
   import { useLocale } from '/@/locales/useLocale';
   import { useModalContext } from '../../Modal';
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
-  import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
+  import { onMountedOrActivated } from '@vben/hooks';
   import { getTheme } from './getTheme';
 
   type Lang = 'zh_CN' | 'en_US' | 'ja_JP' | 'ko_KR' | undefined;
@@ -31,8 +31,8 @@
     },
     emits: ['change', 'get', 'update:value'],
     setup(props, { attrs, emit }) {
-      const wrapRef = ref<ElRef>(null);
-      const vditorRef = ref(null) as Ref<Nullable<Vditor>>;
+      const wrapRef = ref(null);
+      const vditorRef = ref(null) as Ref<Vditor | null>;
       const initedRef = ref(false);
 
       const modalFn = useModalContext();
@@ -85,7 +85,7 @@
         return lang;
       });
       function init() {
-        const wrapEl = unref(wrapRef) as HTMLElement;
+        const wrapEl = unref(wrapRef);
         if (!wrapEl) return;
         const bindValue = { ...attrs, ...props };
         const insEditor = new Vditor(wrapEl, {
@@ -140,7 +140,9 @@
         if (!vditorInstance) return;
         try {
           vditorInstance?.destroy?.();
-        } catch (error) {}
+        } catch (error) {
+          //
+        }
         vditorRef.value = null;
         initedRef.value = false;
       }
