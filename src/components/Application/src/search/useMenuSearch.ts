@@ -1,4 +1,5 @@
-import type { Menu } from '/@/router/types';
+import { type Menu } from '/@/router/types';
+import { type AnyFunction } from '@vben/types';
 import { ref, onBeforeMount, unref, Ref, nextTick } from 'vue';
 import { getMenus } from '/@/router/menus';
 import { cloneDeep } from 'lodash-es';
@@ -26,7 +27,7 @@ function createSearchReg(key: string) {
   return new RegExp(str);
 }
 
-export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref<ElRef>, emit: EmitType) {
+export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref, emit: AnyFunction) {
   const searchResult = ref<SearchResult[]>([]);
   const keyword = ref('');
   const activeIndex = ref(-1);
