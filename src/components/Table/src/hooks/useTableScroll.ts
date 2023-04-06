@@ -2,9 +2,8 @@ import type { BasicTableProps, TableRowSelection, BasicColumn } from '../types/t
 import { Ref, ComputedRef, ref, computed, unref, nextTick, watch } from 'vue';
 import { getViewportOffset } from '/@/utils/domUtils';
 import { isBoolean } from '/@/utils/is';
-import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
+import { useWindowSizeFn, onMountedOrActivated } from '@vben/hooks';
 import { useModalContext } from '/@/components/Modal';
-import { onMountedOrActivated } from '@vben/hooks';
 import { useDebounceFn } from '@vueuse/core';
 
 export function useTableScroll(
@@ -171,7 +170,7 @@ export function useTableScroll(
 
     bodyEl!.style.height = `${height}px`;
   }
-  useWindowSizeFn(calcTableHeight, 280);
+  useWindowSizeFn(calcTableHeight, { wait: 280 });
   onMountedOrActivated(() => {
     calcTableHeight();
     nextTick(() => {
