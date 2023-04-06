@@ -25,7 +25,7 @@
     computed,
     CSSProperties,
   } from 'vue';
-  import SvgIcon from './SvgIcon.vue';
+  import SvgIcon from './src/SvgIcon.vue';
   import Iconify from '@purge-icons/generated';
   import { isString } from '/@/utils/is';
   import { propTypes } from '/@/utils/propTypes';
@@ -57,7 +57,7 @@
       const update = async () => {
         if (unref(isSvgIcon)) return;
 
-        const el = unref(elRef);
+        const el: any = unref(elRef);
         if (!el) return;
 
         await nextTick();

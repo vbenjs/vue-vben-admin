@@ -19,7 +19,7 @@
 
   import { defineComponent, ref, onUnmounted, unref, nextTick, watchEffect } from 'vue';
   import { Divider, Tooltip } from 'ant-design-vue';
-  import { Icon } from '/@/components/Icon';
+  import Icon from '@/components/Icon/Icon.vue';
 
   import { useFlowChartContext } from './useFlowContext';
   import { ToolbarTypeEnum } from './enum';

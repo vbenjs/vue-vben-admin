@@ -33,9 +33,9 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { computed, ref, watch, useSlots } from 'vue';
+  import { type PropType, computed, ref, watch, useSlots } from 'vue';
   import { Dropdown, Menu, MenuItem, MenuDivider, InputSearch } from 'ant-design-vue';
-  import { Icon } from '/@/components/Icon';
+  import Icon from '@/components/Icon/Icon.vue';
   import { BasicTitle } from '/@/components/Basic';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useDebounceFn } from '@vueuse/core';

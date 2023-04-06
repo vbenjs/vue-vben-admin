@@ -17,6 +17,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
+    },
+    "./strict": {
+      "types": "./dist/strict.d.ts",
+      "import": "./dist/strict.mjs",
+      "require": "./dist/strict.cjs"
     }
   },
   "main": "./dist/index.cjs",
@@ -38,7 +43,6 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "eslint-plugin-unused-imports": "^2.0.0",
     "eslint-plugin-vue": "^9.10.0",
     "vue-eslint-parser": "^9.1.1"
   }

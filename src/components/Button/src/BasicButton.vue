@@ -11,7 +11,7 @@
 <script lang="ts" setup>
   import { Button } from 'ant-design-vue';
   import { computed, unref } from 'vue';
-  import Icon from '/@/components/Icon/src/Icon.vue';
+  import Icon from '@/components/Icon/Icon.vue';
   import { buttonProps } from './props';
   import { useAttrs } from '@vben/hooks';
 
