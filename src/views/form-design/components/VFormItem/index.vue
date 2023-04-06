@@ -46,8 +46,8 @@
   import { asyncComputed } from '@vueuse/core';
   import { handleAsyncOptions } from '../../utils';
   import { omit } from 'lodash-es';
+  import { type Recordable } from '@vben/types';
   import { Tooltip, FormItem, Divider, Col } from 'ant-design-vue';
-  // import FormItem from '/@/components/Form/src/components/FormItem.vue';
   import { Icon } from '/@/components/Icon';
   import { useFormModelState } from '../../hooks/useFormDesignState';
 
@@ -142,7 +142,7 @@
           newConfig.rules = rules;
         }
         return newConfig;
-      }) as Recordable;
+      }) as Recordable<any>;
 
       const componentItem = computed(() => componentMap.get(props.schema.component as string));
 

@@ -8,7 +8,7 @@
   import { onClickOutside } from '@vueuse/core';
 
   const emit = defineEmits(['mounted', 'clickOutside']);
-  const wrap = ref<ElRef>(null);
+  const wrap = ref(null);
 
   onClickOutside(wrap, () => {
     emit('clickOutside');
