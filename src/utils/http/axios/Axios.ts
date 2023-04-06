@@ -1,4 +1,10 @@
-import type { AxiosRequestConfig, AxiosInstance, AxiosResponse, AxiosError } from 'axios';
+import type {
+  AxiosRequestConfig,
+  AxiosInstance,
+  AxiosResponse,
+  AxiosError,
+  InternalAxiosRequestConfig,
+} from 'axios';
 import type { RequestOptions, Result, UploadFileParams } from '/#/axios';
 import type { CreateAxiosOptions } from './axiosTransform';
 import axios from 'axios';
@@ -77,7 +83,7 @@ export class VAxios {
     const axiosCanceler = new AxiosCanceler();
 
     // Request interceptor configuration processing
-    this.axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
+    this.axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
       // If cancel repeat request is turned on, then cancel repeat request is prohibited
       // @ts-ignore
       const { ignoreCancelToken } = config.requestOptions;
