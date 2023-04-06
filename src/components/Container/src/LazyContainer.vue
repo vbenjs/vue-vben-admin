@@ -19,8 +19,8 @@
 <script lang="ts">
   import type { PropType } from 'vue';
   import { defineComponent, reactive, onMounted, ref, toRef, toRefs } from 'vue';
+  import { useTimeoutFn } from '@vben/hooks';
   import { Skeleton } from 'ant-design-vue';
-  import { useTimeoutFn } from '/@/hooks/core/useTimeout';
   import { useIntersectionObserver } from '/@/hooks/event/useIntersectionObserver';
 
   interface State {
