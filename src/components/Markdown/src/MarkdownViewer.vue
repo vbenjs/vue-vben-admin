@@ -8,6 +8,7 @@
   import { onMountedOrActivated } from '@vben/hooks';
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
   import { getTheme } from './getTheme';
+
   const props = defineProps({
     value: { type: String },
     class: { type: String },

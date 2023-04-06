@@ -53,7 +53,7 @@
 <script lang="ts">
   import { Progress, Row, Col } from 'ant-design-vue';
   import { defineComponent } from 'vue';
-  import Icon from '/@/components/Icon/index';
+  import { Icon } from '/@/components/Icon';
   import { cardList } from './data';
   import { PageWrapper } from '/@/components/Page';
   import { List } from 'ant-design-vue';

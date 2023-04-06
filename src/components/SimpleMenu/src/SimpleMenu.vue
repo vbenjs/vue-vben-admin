@@ -33,6 +33,7 @@
   import { openWindow } from '/@/utils';
 
   import { useOpenKeys } from './useOpenKeys';
+
   export default defineComponent({
     name: 'SimpleMenu',
     components: {

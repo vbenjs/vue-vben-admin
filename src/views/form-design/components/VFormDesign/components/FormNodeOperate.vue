@@ -17,7 +17,7 @@
   import { IVFormComponent } from '../../../typings/v-form-component';
   import { remove } from '../../../utils';
   import { useFormDesignState } from '../../../hooks/useFormDesignState';
-  import Icon from '/@/components/Icon/index';
+  import { Icon } from '/@/components/Icon';
 
   export default defineComponent({
     name: 'FormNodeOperate',
