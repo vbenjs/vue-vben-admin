@@ -4,4 +4,4 @@ import IconPicker from './src/IconPicker.vue';
 
 export { Icon, IconPicker, SvgIcon };
 
-export default Icon;
+// export default Icon;
