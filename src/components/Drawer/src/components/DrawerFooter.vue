@@ -30,6 +30,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
 
   import { footerProps } from '../props';
+
   export default defineComponent({
     name: 'BasicDrawerFooter',
     props: {
