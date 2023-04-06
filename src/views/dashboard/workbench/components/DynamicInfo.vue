@@ -24,7 +24,7 @@
 <script lang="ts" setup>
   import { Card, List } from 'ant-design-vue';
   import { dynamicInfoItems } from './data';
-  import { Icon } from '/@/components/Icon';
+  import Icon from '@/components/Icon/Icon.vue';
 
   const ListItem = List.Item;
   const ListItemMeta = List.Item.Meta;

@@ -38,7 +38,7 @@
   import { remove } from '../../../utils';
   import message from '../../../utils/message';
   import { Input } from 'ant-design-vue';
-  import { Icon } from '/@/components/Icon/index';
+  import Icon from '@/components/Icon/Icon.vue';
 
   export default defineComponent({
     name: 'FormOptions',

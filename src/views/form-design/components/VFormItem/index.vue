@@ -48,7 +48,7 @@
   import { handleAsyncOptions } from '../../utils';
   import { omit } from 'lodash-es';
   import { Tooltip, FormItem, Divider, Col } from 'ant-design-vue';
-  import { Icon } from '/@/components/Icon';
+  import Icon from '@/components/Icon/Icon.vue';
   import { useFormModelState } from '../../hooks/useFormDesignState';
 
   export default defineComponent({

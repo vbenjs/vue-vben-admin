@@ -34,7 +34,7 @@
   import { defineComponent, reactive } from 'vue';
   import { IVFormComponent } from '../../../typings/v-form-component';
   import draggable from 'vuedraggable';
-  import { Icon } from '/@/components/Icon';
+  import Icon from '@/components/Icon/Icon.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
 
   export default defineComponent({
