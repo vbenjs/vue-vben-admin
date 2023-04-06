@@ -33,7 +33,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { CSSProperties, PropType, provide } from 'vue';
+  import type { CSSProperties, PropType, provide } from 'vue';
 
   import { defineComponent, computed, watch, ref, unref } from 'vue';
   import PageFooter from './PageFooter.vue';

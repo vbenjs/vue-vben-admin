@@ -23,6 +23,7 @@
   import { propTypes } from '/@/utils/propTypes';
   import { createSimpleRootMenuContext } from './useSimpleMenuContext';
   import mitt from '/@/utils/mitt';
+
   export default defineComponent({
     name: 'Menu',
     props: {
