@@ -27,6 +27,7 @@
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { LoadingOutlined } from '@ant-design/icons-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
+
   interface Option {
     value: string;
     label: string;
