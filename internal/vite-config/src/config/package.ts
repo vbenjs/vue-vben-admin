@@ -1,11 +1,14 @@
-import { type UserConfig, defineConfig, mergeConfig } from 'vite';
 import { readPackageJSON } from 'pkg-types';
-import { commonConfig } from './common';
+import { defineConfig, mergeConfig, type UserConfig } from 'vite';
 import dts from 'vite-plugin-dts';
+
+import { commonConfig } from './common';
 
 interface DefineOptions {
   overrides?: UserConfig;
-  options?: {};
+  options?: {
+    //
+  };
 }
 
 function definePackageConfig(defineOptions: DefineOptions = {}) {

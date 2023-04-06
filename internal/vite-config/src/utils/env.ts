@@ -1,6 +1,7 @@
+import { join } from 'node:path';
+
 import dotenv from 'dotenv';
 import { readFile } from 'fs-extra';
-import { join } from 'node:path';
 
 /**
  * 获取当前环境下生效的配置文件名

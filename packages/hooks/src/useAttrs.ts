@@ -1,5 +1,5 @@
-import { getCurrentInstance, reactive, shallowRef, watchEffect } from 'vue';
 import { type Recordable } from '@vben/types';
+import { getCurrentInstance, reactive, shallowRef, watchEffect } from 'vue';
 
 interface Options {
   excludeListeners?: boolean;

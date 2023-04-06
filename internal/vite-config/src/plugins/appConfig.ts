@@ -1,8 +1,9 @@
+import colors from 'picocolors';
+import { readPackageJSON } from 'pkg-types';
 import { type PluginOption } from 'vite';
+
 import { getEnvConfig } from '../utils/env';
 import { createContentHash } from '../utils/hash';
-import { readPackageJSON } from 'pkg-types';
-import colors from 'picocolors';
 
 const GLOBAL_CONFIG_FILE_NAME = '_app.config.js';
 const PLUGIN_NAME = 'app-config';

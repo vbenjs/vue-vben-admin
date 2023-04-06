@@ -1,6 +1,7 @@
-import { generate } from '@ant-design/colors';
 import { resolve } from 'node:path';
-// @ts-ignore
+
+import { generate } from '@ant-design/colors';
+// @ts-ignore: typo
 import { getThemeVariables } from 'ant-design-vue/dist/theme';
 
 const primaryColor = '#0960bd';

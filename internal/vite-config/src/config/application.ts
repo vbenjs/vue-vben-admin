@@ -1,14 +1,18 @@
-import { type UserConfig, defineConfig, mergeConfig, loadEnv } from 'vite';
 import { resolve } from 'node:path';
+
+import dayjs from 'dayjs';
 import { readPackageJSON } from 'pkg-types';
+import { defineConfig, loadEnv, mergeConfig, type UserConfig } from 'vite';
+
+import { createPlugins } from '../plugins';
 import { generateModifyVars } from '../utils/modifyVars';
 import { commonConfig } from './common';
-import { createPlugins } from '../plugins';
-import dayjs from 'dayjs';
 
 interface DefineOptions {
   overrides?: UserConfig;
-  options?: {};
+  options?: {
+    //
+  };
 }
 
 function defineApplicationConfig(defineOptions: DefineOptions = {}) {

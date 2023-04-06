@@ -1,5 +1,5 @@
 import { type AnyFunction } from '@vben/types';
-import { nextTick, onMounted, onActivated } from 'vue';
+import { nextTick, onActivated, onMounted } from 'vue';
 
 /**
  * 在 OnMounted 或者 OnActivated 时触发
