@@ -1,9 +1,4 @@
 /**
- * 任意类型的函数
- */
-type AnyFunction = AnyNormalFunction | AnyPromiseFunction;
-
-/**
  * 任意类型的异步函数
  */
 type AnyPromiseFunction = (...arg: any) => PromiseLike<any>;
@@ -12,6 +7,11 @@ type AnyPromiseFunction = (...arg: any) => PromiseLike<any>;
  * 任意类型的普通函数
  */
 type AnyNormalFunction = (...arg: any) => any;
+
+/**
+ * 任意类型的函数
+ */
+type AnyFunction = AnyNormalFunction | AnyPromiseFunction;
 
 /**
  *  T | null 包装
@@ -35,6 +35,16 @@ type ReadonlyRecordable<T = any> = {
   readonly [key: string]: T;
 };
 
+/**
+ * setTimeout 返回值类型
+ */
+type TimeoutHandle = ReturnType<typeof setTimeout>;
+
+/**
+ * setInterval 返回值类型
+ */
+type IntervalHandle = ReturnType<typeof setInterval>;
+
 export {
   type AnyFunction,
   type AnyPromiseFunction,
@@ -43,4 +53,6 @@ export {
   type NonNullable,
   type Recordable,
   type ReadonlyRecordable,
+  type TimeoutHandle,
+  type IntervalHandle,
 };

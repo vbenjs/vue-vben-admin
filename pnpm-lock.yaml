@@ -176,6 +176,9 @@ importers:
       '@vben/ts-config':
         specifier: workspace:*
         version: link:internal/ts-config
+      '@vben/types':
+        specifier: workspace:*
+        version: link:packages/types
       '@vben/vite-config':
         specifier: workspace:*
         version: link:internal/vite-config

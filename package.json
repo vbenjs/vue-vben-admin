@@ -125,6 +125,7 @@
     "@vben/eslint-config": "workspace:*",
     "@vben/stylelint-config": "workspace:*",
     "@vben/ts-config": "workspace:*",
+    "@vben/types": "workspace:*",
     "@vben/vite-config": "workspace:*",
     "@vue/compiler-sfc": "^3.2.47",
     "@vue/test-utils": "^2.3.2",
