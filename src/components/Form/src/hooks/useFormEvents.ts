@@ -43,7 +43,7 @@ function tryConstructArray(field: string, values: Recordable = {}): any[] | unde
         set(result, index, values[k.trim()]);
       });
 
-      return result.length ? result : undefined;
+      return result.filter(Boolean).length ? result : undefined;
     }
   }
 }
