@@ -1,8 +1,8 @@
 import type { Ref } from 'vue';
-import { onBeforeUpdate, ref } from 'vue';
+import { onBeforeUpdate, shallowRef } from 'vue';
 
 export function useRefs(): [Ref<HTMLElement[]>, (index: number) => (el: HTMLElement) => void] {
-  const refs = ref([]) as Ref<HTMLElement[]>;
+  const refs = shallowRef([]) as Ref<HTMLElement[]>;
 
   onBeforeUpdate(() => {
     refs.value = [];
