@@ -19,6 +19,7 @@
   </a-cascader>
 </template>
 <script lang="ts">
+  import { type Recordable } from '@vben/types';
   import { defineComponent, PropType, ref, unref, watch, watchEffect } from 'vue';
   import { Cascader } from 'ant-design-vue';
   import { propTypes } from '/@/utils/propTypes';
@@ -46,7 +47,7 @@
         type: Array,
       },
       api: {
-        type: Function as PropType<(arg?: Recordable) => Promise<Option[]>>,
+        type: Function as PropType<(arg?: Recordable<any>) => Promise<Option[]>>,
         default: null,
       },
       numberToString: propTypes.bool,
@@ -58,12 +59,12 @@
       immediate: propTypes.bool.def(true),
       // init fetch params
       initFetchParams: {
-        type: Object as PropType<Recordable>,
+        type: Object as PropType<Recordable<any>>,
         default: () => ({}),
       },
       // 是否有下级，默认是
       isLeaf: {
-        type: Function as PropType<(arg: Recordable) => boolean>,
+        type: Function as PropType<(arg: Recordable<any>) => boolean>,
         default: null,
       },
       displayRenderArray: {
@@ -92,7 +93,7 @@
 
       function generatorOptions(options: any[]): Option[] {
         const { labelField, valueField, numberToString, childrenField, isLeaf } = props;
-        return options.reduce((prev, next: Recordable) => {
+        return options.reduce((prev, next: Recordable<any>) => {
           if (next) {
             const value = next[valueField];
             const item = {

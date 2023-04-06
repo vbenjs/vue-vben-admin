@@ -38,7 +38,7 @@
   import { useFormDesignState } from '../../../hooks/useFormDesignState';
   import { isArray } from 'lodash-es';
   import { Form, FormItem, AutoComplete, Input } from 'ant-design-vue';
-  import { Icon } from '/@/components/Icon';
+  import Icon from '/@/components/Icon';
 
   export default defineComponent({
     name: 'RuleProps',
