@@ -1,15 +1,16 @@
-import { type PluginOption } from 'vite';
-import { configHtmlPlugin } from './html';
-import { configMockPlugin } from './mock';
-import { configCompressPlugin } from './compress';
-import { configVisualizerConfig } from './visualizer';
-import { configSvgIconsPlugin } from './svgSprite';
-import { createAppConfigPlugin } from './appConfig';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-import purgeIcons from 'vite-plugin-purge-icons';
-// @ts-ignore
+// @ts-ignore: type unless
 import DefineOptions from 'unplugin-vue-define-options/vite';
+import { type PluginOption } from 'vite';
+import purgeIcons from 'vite-plugin-purge-icons';
+
+import { createAppConfigPlugin } from './appConfig';
+import { configCompressPlugin } from './compress';
+import { configHtmlPlugin } from './html';
+import { configMockPlugin } from './mock';
+import { configSvgIconsPlugin } from './svgSprite';
+import { configVisualizerConfig } from './visualizer';
 
 interface Options {
   isBuild: boolean;
