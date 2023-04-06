@@ -31,13 +31,6 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
     const pathResolve = (pathname: string) => resolve(root, '.', pathname);
 
     const applicationConfig: UserConfig = {
-      optimizeDeps: {
-        include: [
-          '@iconify/iconify',
-          'ant-design-vue/es/locale/zh_CN',
-          'ant-design-vue/es/locale/en_US',
-        ],
-      },
       resolve: {
         alias: [
           {

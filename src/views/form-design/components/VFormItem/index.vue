@@ -40,13 +40,13 @@
   </Col>
 </template>
 <script lang="ts">
+  import { type Recordable } from '@vben/types';
   import { defineComponent, reactive, toRefs, computed, PropType, unref } from 'vue';
   import { componentMap } from '../../core/formItemConfig';
   import { IVFormComponent, IFormConfig } from '../../typings/v-form-component';
   import { asyncComputed } from '@vueuse/core';
   import { handleAsyncOptions } from '../../utils';
   import { omit } from 'lodash-es';
-  import { type Recordable } from '@vben/types';
   import { Tooltip, FormItem, Divider, Col } from 'ant-design-vue';
   import { Icon } from '/@/components/Icon';
   import { useFormModelState } from '../../hooks/useFormDesignState';
