@@ -31,7 +31,7 @@
   import { UseRefHistoryReturn } from '@vueuse/core';
   import { IFormConfig } from '../../../typings/v-form-component';
   import { Tooltip, Divider } from 'ant-design-vue';
-  import Icon from '/@/components/Icon/index';
+  import { Icon } from '/@/components/Icon/index';
 
   interface IToolbarsConfig {
     type: string;

@@ -34,7 +34,7 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import Icon from '/@/components/Icon/index';
+  import { Icon } from '/@/components/Icon/index';
   import { cardList } from './data';
   import { PageWrapper } from '/@/components/Page';
   import { Card, Row, Col, List } from 'ant-design-vue';

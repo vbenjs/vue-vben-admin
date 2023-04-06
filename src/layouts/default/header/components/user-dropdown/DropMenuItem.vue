@@ -11,7 +11,7 @@
 
   import { computed, defineComponent, getCurrentInstance } from 'vue';
 
-  import Icon from '/@/components/Icon/index';
+  import { Icon } from '/@/components/Icon/index';
   import { propTypes } from '/@/utils/propTypes';
 
   export default defineComponent({
