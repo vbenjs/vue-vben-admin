@@ -1,7 +1,7 @@
 import { type Recordable } from '@vben/types';
 import { getCurrentInstance, reactive, shallowRef, watchEffect } from 'vue';
 
-interface Options {
+interface UseAttrsOptions {
   excludeListeners?: boolean;
   excludeKeys?: string[];
   excludeDefaultKeys?: boolean;
@@ -14,7 +14,7 @@ function entries<T>(obj: Recordable<T>): [string, T][] {
   return Object.keys(obj).map((key: string) => [key, obj[key]]);
 }
 
-function useAttrs(options: Options = {}): Recordable<any> {
+function useAttrs(options: UseAttrsOptions = {}): Recordable<any> {
   const instance = getCurrentInstance();
   if (!instance) return {};
 
@@ -40,4 +40,4 @@ function useAttrs(options: Options = {}): Recordable<any> {
   return attrs;
 }
 
-export { useAttrs };
+export { useAttrs, type UseAttrsOptions };

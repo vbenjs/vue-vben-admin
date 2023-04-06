@@ -81,7 +81,7 @@
 
   const { t } = useI18n();
   const { prefixCls } = useDesign('app-search-modal');
-  const [refs, setRefs] = useRefs();
+  const { refs, setRefs } = useRefs();
   const { getIsMobile } = useAppInject();
 
   const { handleSearch, searchResult, keyword, activeIndex, handleEnter, handleMouseenter } =
