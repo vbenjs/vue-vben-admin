@@ -50,7 +50,7 @@
     margin: 16px 0;
 
     &-input-number {
-      width: 126px;
+      width: 126px !important;
     }
   }
 </style>
