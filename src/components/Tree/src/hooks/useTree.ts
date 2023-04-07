@@ -141,6 +141,8 @@ export function useTree(treeDataRef: Ref<TreeDataItem[]>, getFieldNames: Compute
       for (let i = 0; i < list.length; i++) {
         treeData[push](list[i]);
       }
+      treeDataRef.value = treeData;
+      return;
     } else {
       const { key: keyField, children: childrenField } = unref(getFieldNames);
       if (!childrenField || !keyField) return;
