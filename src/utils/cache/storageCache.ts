@@ -1,9 +1,8 @@
-import { isNullOrUndefined } from '@vben/shared';
+import { isNil } from '@vben/shared';
 
 import { cacheCipher } from '/@/settings/encryptionSetting';
-import type { EncryptionParams } from '/@/utils/cipher';
 
-export interface CreateStorageParams extends EncryptionParams {
+export interface CreateStorageParams {
   prefixKey: string;
   storage: Storage;
   hasEncrypt: boolean;
@@ -54,7 +53,7 @@ export const createStorage = ({
       const stringData = JSON.stringify({
         value,
         time: Date.now(),
-        expire: !isNullOrUndefined(expire) ? new Date().getTime() + expire * 1000 : null,
+        expire: !isNil(expire) ? new Date().getTime() + expire * 1000 : null,
       });
       const stringifyValue = stringData;
       this.storage.setItem(this.getKey(key), stringifyValue);
@@ -74,7 +73,7 @@ export const createStorage = ({
         const decVal = val;
         const data = JSON.parse(decVal);
         const { value, expire } = data;
-        if (isNullOrUndefined(expire) || expire >= new Date().getTime()) {
+        if (isNil(expire) || expire >= new Date().getTime()) {
           return value;
         }
         this.remove(key);

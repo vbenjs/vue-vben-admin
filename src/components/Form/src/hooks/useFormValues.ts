@@ -1,9 +1,11 @@
-import { isFunction, isArray, isString, isNullOrUndefined, isObject } from '@vben/shared';
-import { dateUtil } from '/@/utils/dateUtil';
-import { unref } from 'vue';
-import type { Ref, ComputedRef } from 'vue';
-import type { FormProps, FormSchema } from '../types/form';
+import { isArray, isFunction, isNil, isObject, isString } from '@vben/shared';
 import { cloneDeep, set } from 'lodash-es';
+import type { ComputedRef, Ref } from 'vue';
+import { unref } from 'vue';
+
+import { dateUtil } from '/@/utils/dateUtil';
+
+import type { FormProps, FormSchema } from '../types/form';
 
 interface UseFormValuesContext {
   defaultValueRef: Ref<any>;
@@ -128,7 +130,7 @@ export function useFormValues({
     const obj: Recordable = {};
     schemas.forEach((item) => {
       const { defaultValue } = item;
-      if (!isNullOrUndefined(defaultValue)) {
+      if (!isNil(defaultValue)) {
         obj[item.field] = defaultValue;
 
         if (formModel[item.field] === undefined) {

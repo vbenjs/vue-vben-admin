@@ -56,29 +56,31 @@
 </template>
 
 <script lang="ts">
-  import { type TimeoutHandle, type Recordable } from '@vben/types';
+  import { isArray, isBoolean, isObject } from '@vben/shared';
+  import { type Recordable, type TimeoutHandle } from '@vben/types';
+  import { Popover } from 'ant-design-vue';
   import type { CSSProperties, PropType } from 'vue';
-  import type { SubMenuProvider } from './types';
   import {
-    defineComponent,
     computed,
-    unref,
+    defineComponent,
     getCurrentInstance,
-    toRefs,
-    reactive,
-    provide,
-    onBeforeMount,
     inject,
+    onBeforeMount,
+    provide,
+    reactive,
+    toRefs,
+    unref,
   } from 'vue';
+
+  import { CollapseTransition } from '/@/components/Transition';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { mitt } from '/@/utils/mitt';
   import { propTypes } from '/@/utils/propTypes';
+  import Icon from '@/components/Icon/Icon.vue';
+
+  import type { SubMenuProvider } from './types';
   import { useMenuItem } from './useMenu';
   import { useSimpleRootMenuContext } from './useSimpleMenuContext';
-  import { CollapseTransition } from '/@/components/Transition';
-  import Icon from '@/components/Icon/Icon.vue';
-  import { Popover } from 'ant-design-vue';
-  import { isObject, isBoolean, isArray } from '@vben/shared';
-  import { mitt } from '/@/utils/mitt';
 
   const DELAY = 200;
   export default defineComponent({

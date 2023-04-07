@@ -1,21 +1,15 @@
-import type { ComputedRef, Ref } from 'vue';
-import type { FormProps, FormSchema, FormActionType } from '../types/form';
+import { isArray, isEmpty, isFunction, isNil, isObject, isString, isUndefined } from '@vben/shared';
 import type { NamePath } from 'ant-design-vue/lib/form/interface';
-import { unref, toRaw, nextTick } from 'vue';
-import {
-  isNullOrUndefined,
-  isFunction,
-  isArray,
-  isString,
-  isUndefined,
-  isEmpty,
-  isObject,
-} from '@vben/shared';
+import { cloneDeep, get, set, uniqBy } from 'lodash-es';
+import type { ComputedRef, Ref } from 'vue';
+import { nextTick, toRaw, unref } from 'vue';
+
 import { deepMerge } from '/@/utils';
-import { dateItemType, handleInputNumberValue, defaultValueComponents } from '../helper';
 import { dateUtil } from '/@/utils/dateUtil';
-import { cloneDeep, set, uniqBy, get } from 'lodash-es';
 import { error } from '/@/utils/log';
+
+import { dateItemType, defaultValueComponents, handleInputNumberValue } from '../helper';
+import type { FormActionType, FormProps, FormSchema } from '../types/form';
 
 interface UseFormActionContext {
   emit: EmitType;
@@ -304,9 +298,9 @@ export function useFormEvents({
         item.component != 'Divider' &&
         Reflect.has(item, 'field') &&
         item.field &&
-        !isNullOrUndefined(item.defaultValue) &&
+        !isNil(item.defaultValue) &&
         (!(item.field in currentFieldsValue) ||
-          isNullOrUndefined(currentFieldsValue[item.field]) ||
+          isNil(currentFieldsValue[item.field]) ||
           isEmpty(currentFieldsValue[item.field]))
       ) {
         obj[item.field] = item.defaultValue;

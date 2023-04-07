@@ -1,5 +1,6 @@
-import { isArray, isFunction, isObject, isString } from '@vue/shared';
+import { isArray, isFunction, isString } from '@vue/shared';
 import { isBoolean, isNumber } from '@vueuse/core';
+import { isNil, isNull } from 'lodash-es';
 
 const toString = Object.prototype.toString;
 
@@ -7,16 +8,12 @@ function is(val: unknown, type: string) {
   return toString.call(val) === `[object ${type}]`;
 }
 
+function isObject(val: unknown): val is Object {
+  return val !== null && is(val, 'Object');
+}
+
 function isUndefined(val: unknown): val is undefined {
   return val === undefined;
-}
-
-function isNull(val: unknown): val is null {
-  return val === null;
-}
-
-function isNullOrUndefined(val: unknown): val is undefined | null {
-  return isUndefined(val) || isNull(val);
 }
 
 function isEmpty<T = unknown>(val: T): val is T {
@@ -65,8 +62,8 @@ export {
   isFunction,
   isHttpUrl,
   isMap,
+  isNil,
   isNull,
-  isNullOrUndefined,
   isNumber,
   isObject,
   isString,
