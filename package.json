@@ -17,7 +17,7 @@
   },
   "scripts": {
     "bootstrap": "pnpm install",
-    "build": "NODE_ENV=production pnpm vite build",
+    "build": "cross-env NODE_ENV=production pnpm vite build",
     "build:analyze": "pnpm vite build --mode analyze",
     "build:no-cache": "pnpm clean:cache && npm run build",
     "build:test": "pnpm vite build --mode test",
