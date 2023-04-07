@@ -8,7 +8,8 @@
   import { Col, Divider, Form } from 'ant-design-vue';
   import { componentMap } from '../componentMap';
   import { BasicHelp } from '/@/components/Basic';
-  import { isBoolean, isFunction, isNull } from '/@/utils/is';
+  import { isBoolean, isFunction, isArray } from '@vben/shared';
+
   import { getSlot } from '/@/utils/helper/tsxHelper';
   import {
     createPlaceholderMessage,
@@ -163,10 +164,10 @@
 
         function validator(rule: any, value: any) {
           const msg = rule.message || defaultMsg;
-          if (value === undefined || isNull(value)) {
+          if (value === undefined || value === null) {
             // 空值
             return Promise.reject(msg);
-          } else if (Array.isArray(value) && value.length === 0) {
+          } else if (isArray(value) && value.length === 0) {
             // 数组类型
             return Promise.reject(msg);
           } else if (typeof value === 'string' && value.trim() === '') {
@@ -176,8 +177,8 @@
             typeof value === 'object' &&
             Reflect.has(value, 'checked') &&
             Reflect.has(value, 'halfChecked') &&
-            Array.isArray(value.checked) &&
-            Array.isArray(value.halfChecked) &&
+            isArray(value.checked) &&
+            isArray(value.halfChecked) &&
             value.checked.length === 0 &&
             value.halfChecked.length === 0
           ) {
@@ -318,7 +319,7 @@
         const getHelpMessage = isFunction(helpMessage)
           ? helpMessage(unref(getValues))
           : helpMessage;
-        if (!getHelpMessage || (Array.isArray(getHelpMessage) && getHelpMessage.length === 0)) {
+        if (!getHelpMessage || (isArray(getHelpMessage) && getHelpMessage.length === 0)) {
           return renderLabel;
         }
         return (

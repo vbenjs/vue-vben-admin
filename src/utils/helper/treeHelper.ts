@@ -1,3 +1,5 @@
+import { isArray } from '@vben/shared';
+
 interface TreeHelperConfig {
   id: string;
   children: string;
@@ -181,7 +183,7 @@ export function treeMapEach(
   data: any,
   { children = 'children', conversion }: { children?: string; conversion: Fn },
 ) {
-  const haveChildren = Array.isArray(data[children]) && data[children].length > 0;
+  const haveChildren = isArray(data[children]) && data[children].length > 0;
   const conversionData = conversion(data) || {};
   if (haveChildren) {
     return {

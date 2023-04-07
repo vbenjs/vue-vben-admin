@@ -11,7 +11,7 @@
   import clickOutside from '/@/directives/clickOutside';
 
   import { propTypes } from '/@/utils/propTypes';
-  import { isArray, isBoolean, isFunction, isNumber, isString } from '/@/utils/is';
+  import { isArray, isBoolean, isFunction, isNumber, isString } from '@vben/shared';
   import { createPlaceholderMessage } from './helper';
   import { pick, set } from 'lodash-es';
   import { treeToList } from '/@/utils/helper/treeHelper';

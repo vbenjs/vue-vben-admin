@@ -6,6 +6,7 @@ import { cloneDeep } from 'lodash-es';
 import { filter, forEach } from '/@/utils/helper/treeHelper';
 import { useGo } from '/@/hooks/web/usePage';
 import { useScrollTo } from '@vben/hooks';
+import { isArray } from '@vben/shared';
 import { onKeyStroke, useDebounceFn } from '@vueuse/core';
 import { useI18n } from '/@/hooks/web/useI18n';
 
@@ -73,7 +74,7 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref, emit: A
           icon,
         });
       }
-      if (!meta?.hideChildrenInMenu && Array.isArray(children) && children.length) {
+      if (!meta?.hideChildrenInMenu && isArray(children) && children.length) {
         ret.push(...handlerSearchResult(children, reg, item));
       }
     });
@@ -110,7 +111,7 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref, emit: A
   // the scroll bar needs to scroll automatically
   function handleScroll() {
     const refList = unref(refs);
-    if (!refList || !Array.isArray(refList) || refList.length === 0 || !unref(scrollWrap)) {
+    if (!refList || !isArray(refList) || refList.length === 0 || !unref(scrollWrap)) {
       return;
     }
 

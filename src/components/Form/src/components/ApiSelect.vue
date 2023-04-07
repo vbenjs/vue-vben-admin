@@ -23,7 +23,7 @@
 <script lang="ts">
   import { defineComponent, PropType, ref, watchEffect, computed, unref, watch } from 'vue';
   import { Select } from 'ant-design-vue';
-  import { isFunction } from '/@/utils/is';
+  import { isFunction, isArray } from '@vben/shared';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { useAttrs } from '@vben/hooks';
   import { get, omit } from 'lodash-es';
@@ -110,7 +110,7 @@
         try {
           loading.value = true;
           const res = await api(props.params);
-          if (Array.isArray(res)) {
+          if (isArray(res)) {
             options.value = res;
             emitChange();
             return;

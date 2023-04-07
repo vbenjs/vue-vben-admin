@@ -41,7 +41,7 @@
   import type { FormActionType, FormProps, FormSchema } from './types/form';
   import type { AdvanceState } from './types/hooks';
   import type { Ref } from 'vue';
-
+  import { isArray } from '@vben/shared';
   import { defineComponent, reactive, ref, computed, unref, onMounted, watch, nextTick } from 'vue';
   import { Form, Row } from 'ant-design-vue';
   import FormItem from './components/FormItem.vue';
@@ -120,7 +120,7 @@
           const { defaultValue, component, isHandleDateDefaultValue = true } = schema;
           // handle date type
           if (isHandleDateDefaultValue && defaultValue && dateItemType.includes(component)) {
-            if (!Array.isArray(defaultValue)) {
+            if (!isArray(defaultValue)) {
               schema.defaultValue = dateUtil(defaultValue);
             } else {
               const def: any[] = [];

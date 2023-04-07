@@ -28,7 +28,7 @@
   import { Empty, Input, Form, FormItem, Switch, Checkbox, Select, Slider } from 'ant-design-vue';
   import RuleProps from './RuleProps.vue';
   import { useFormDesignState } from '../../../hooks/useFormDesignState';
-  import { isArray } from 'lodash-es';
+  import { isArray } from '@vben/shared';
 
   export default defineComponent({
     name: 'FormItemProps',

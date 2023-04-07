@@ -1,6 +1,7 @@
 import { IAnyObject } from '../typings/base-type';
 import { Ref, SetupContext, getCurrentInstance, toRaw } from 'vue';
-import { cloneDeep, forOwn, isFunction } from 'lodash-es';
+import { cloneDeep, forOwn } from 'lodash-es';
+import { isFunction } from '@vben/shared';
 import { AForm, IVFormComponent } from '../typings/v-form-component';
 import { Form } from 'ant-design-vue';
 

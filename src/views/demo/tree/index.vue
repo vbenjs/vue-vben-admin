@@ -60,7 +60,8 @@
   import { PageWrapper } from '/@/components/Page';
   import { Card, Row, Col, Spin } from 'ant-design-vue';
   import { cloneDeep, uniq } from 'lodash-es';
-  import { isArray } from '/@/utils/is';
+  import { isArray } from '@vben/shared';
+  import { type Nullable } from '@vben/types';
 
   export default defineComponent({
     components: { BasicTree, PageWrapper, Card, Row, Col, Spin },

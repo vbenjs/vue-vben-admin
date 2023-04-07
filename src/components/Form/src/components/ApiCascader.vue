@@ -23,7 +23,7 @@
   import { defineComponent, PropType, ref, unref, watch, watchEffect } from 'vue';
   import { Cascader } from 'ant-design-vue';
   import { propTypes } from '/@/utils/propTypes';
-  import { isFunction } from '/@/utils/is';
+  import { isFunction, isArray } from '@vben/shared';
   import { get, omit } from 'lodash-es';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { LoadingOutlined } from '@ant-design/icons-vue';
@@ -119,7 +119,7 @@
         loading.value = true;
         try {
           const res = await api(props.initFetchParams);
-          if (Array.isArray(res)) {
+          if (isArray(res)) {
             apiData.value = res;
             return;
           }
@@ -143,7 +143,7 @@
           const res = await api({
             [props.asyncFetchParamKey]: Reflect.get(targetOption, 'value'),
           });
-          if (Array.isArray(res)) {
+          if (isArray(res)) {
             const children = generatorOptions(res);
             targetOption.children = children;
             return;

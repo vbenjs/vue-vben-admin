@@ -19,6 +19,9 @@ importers:
       '@vben/hooks':
         specifier: workspace:*
         version: link:packages/hooks
+      '@vben/shared':
+        specifier: workspace:*
+        version: link:packages/shared
       '@vue/shared':
         specifier: ^3.2.47
         version: 3.2.47
@@ -471,7 +474,15 @@ importers:
         specifier: workspace:*
         version: link:../types
 
-  packages/shared: {}
+  packages/shared:
+    dependencies:
+      vue:
+        specifier: ^3.2.47
+        version: 3.2.47
+    devDependencies:
+      '@vue/shared':
+        specifier: ^3.2.47
+        version: 3.2.47
 
   packages/types:
     dependencies:

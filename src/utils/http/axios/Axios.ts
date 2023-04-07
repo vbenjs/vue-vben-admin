@@ -10,7 +10,7 @@ import type { CreateAxiosOptions } from './axiosTransform';
 import axios from 'axios';
 import qs from 'qs';
 import { AxiosCanceler } from './axiosCancel';
-import { isFunction } from '/@/utils/is';
+import { isFunction, isArray } from '@vben/shared';
 import { cloneDeep } from 'lodash-es';
 import { ContentTypeEnum, RequestEnum } from '/@/enums/httpEnum';
 
@@ -138,7 +138,7 @@ export class VAxios {
     if (params.data) {
       Object.keys(params.data).forEach((key) => {
         const value = params.data![key];
-        if (Array.isArray(value)) {
+        if (isArray(value)) {
           value.forEach((item) => {
             formData.append(`${key}[]`, item);
           });

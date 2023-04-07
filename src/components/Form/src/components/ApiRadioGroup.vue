@@ -21,7 +21,7 @@
 <script lang="ts">
   import { defineComponent, type PropType, ref, watchEffect, computed, unref, watch } from 'vue';
   import { Radio } from 'ant-design-vue';
-  import { isFunction } from '/@/utils/is';
+  import { isFunction, isArray } from '@vben/shared';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { useAttrs } from '@vben/hooks';
   import { propTypes } from '/@/utils/propTypes';
@@ -106,7 +106,7 @@
         try {
           loading.value = true;
           const res = await api(props.params);
-          if (Array.isArray(res)) {
+          if (isArray(res)) {
             options.value = res;
             emitChange();
             return;

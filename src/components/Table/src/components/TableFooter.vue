@@ -16,7 +16,8 @@
   import { defineComponent, unref, computed, toRaw } from 'vue';
   import { Table } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
-  import { isFunction } from '/@/utils/is';
+  import { isFunction } from '@vben/shared';
+  import { type AnyFunction, Recordable } from '@vben/types';
   import type { BasicColumn } from '../types/table';
   import { INDEX_COLUMN_FLAG } from '../const';
   import { propTypes } from '/@/utils/propTypes';
@@ -29,20 +30,20 @@
     components: { Table },
     props: {
       summaryFunc: {
-        type: Function as PropType<Fn>,
+        type: Function as PropType<AnyFunction>,
       },
       summaryData: {
-        type: Array as PropType<Recordable[]>,
+        type: Array as PropType<Recordable<any>[]>,
       },
       scroll: {
-        type: Object as PropType<Recordable>,
+        type: Object as PropType<Recordable<any>>,
       },
       rowKey: propTypes.string.def('key'),
     },
     setup(props) {
       const table = useTableContext();
 
-      const getDataSource = computed((): Recordable[] => {
+      const getDataSource = computed((): Recordable<any>[] => {
         const { summaryFunc, summaryData } = props;
         if (summaryData?.length) {
           summaryData.forEach((item, i) => (item[props.rowKey] = `${i}`));
@@ -52,7 +53,7 @@
           return [];
         }
         let dataSource = toRaw(unref(table.getDataSource()));
-        dataSource = summaryFunc(dataSource);
+        dataSource = summaryFunc(dataSource) as any;
         dataSource.forEach((item, i) => {
           item[props.rowKey] = `${i}`;
         });

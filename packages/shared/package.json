@@ -28,6 +28,10 @@
     "clean": "pnpm rimraf .turbo node_modules dist",
     "lint": "pnpm eslint ."
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "@vue/shared": "^3.2.47"
+  }
 }

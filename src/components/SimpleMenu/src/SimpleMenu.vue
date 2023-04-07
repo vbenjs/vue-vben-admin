@@ -29,9 +29,8 @@
   import { propTypes } from '/@/utils/propTypes';
   import { REDIRECT_NAME } from '/@/router/constant';
   import { useRouter } from 'vue-router';
-  import { isFunction, isUrl } from '/@/utils/is';
+  import { isFunction, isHttpUrl } from '@vben/shared';
   import { openWindow } from '/@/utils';
-
   import { useOpenKeys } from './useOpenKeys';
 
   export default defineComponent({
@@ -129,7 +128,7 @@
       }
 
       async function handleSelect(key: string) {
-        if (isUrl(key)) {
+        if (isHttpUrl(key)) {
           openWindow(key);
           return;
         }

@@ -21,7 +21,7 @@
   import { Image } from 'ant-design-vue';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { propTypes } from '/@/utils/propTypes';
-  import { isString } from '/@/utils/is';
+  import { isString } from '@vben/shared';
 
   interface ImageProps {
     alt?: string;

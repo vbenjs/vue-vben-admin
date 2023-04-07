@@ -4,10 +4,10 @@
   </Button>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, watchEffect, computed, unref } from 'vue';
+  import { type PropType, defineComponent, ref, watchEffect, computed, unref } from 'vue';
   import { Button } from 'ant-design-vue';
   import { useCountdown } from './useCountdown';
-  import { isFunction } from '/@/utils/is';
+  import { isFunction } from '@vben/shared';
   import { useI18n } from '/@/hooks/web/useI18n';
 
   const props = {

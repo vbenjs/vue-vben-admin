@@ -2,7 +2,7 @@ import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router'
 import type { App, Component } from 'vue';
 
 import { unref } from 'vue';
-import { isArray, isObject } from '/@/utils/is';
+import { isArray, isObject } from '@vben/shared';
 import { cloneDeep, isEqual, mergeWith, unionWith } from 'lodash-es';
 
 export const noop = () => {};

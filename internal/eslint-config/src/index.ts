@@ -63,6 +63,7 @@ export default {
     'vue/attribute-hyphenation': 'off',
     'vue/require-default-prop': 'off',
     'vue/require-explicit-emits': 'off',
+    'vue/prefer-import-from-vue': 'off',
     'vue/html-self-closing': [
       'error',
       {

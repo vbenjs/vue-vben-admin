@@ -14,7 +14,7 @@
 <script lang="ts">
   import { computed, defineComponent, watch, ref, unref, watchEffect, PropType } from 'vue';
   import { Transfer } from 'ant-design-vue';
-  import { isFunction } from '/@/utils/is';
+  import { isArray, isFunction } from '@vben/shared';
   import { get, omit } from 'lodash-es';
   import { propTypes } from '/@/utils/propTypes';
   import { useI18n } from '/@/hooks/web/useI18n';
@@ -76,10 +76,10 @@
         if (unref(_targetKeys).length > 0) {
           return unref(_targetKeys);
         }
-        if (Array.isArray(props.value)) {
+        if (isArray(props.value)) {
           return props.value;
         }
-        if (Array.isArray(props.targetKeys)) {
+        if (isArray(props.targetKeys)) {
           return props.targetKeys;
         }
         return [];
@@ -107,7 +107,7 @@
       async function fetch() {
         const api = props.api;
         if (!api || !isFunction(api)) {
-          if (Array.isArray(props.dataSource)) {
+          if (isArray(props.dataSource)) {
             _dataSource.value = props.dataSource;
           }
           return;
@@ -115,7 +115,7 @@
         _dataSource.value = [];
         try {
           const res = await api(props.params);
-          if (Array.isArray(res)) {
+          if (isArray(res)) {
             _dataSource.value = res;
             emitChange();
             return;

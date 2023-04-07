@@ -71,6 +71,7 @@
   import { Input, Popover, Pagination, Empty } from 'ant-design-vue';
   import Icon from '../Icon.vue';
   import SvgIcon from './SvgIcon.vue';
+  import { isArray } from '@vben/shared';
 
   import iconsData from '../data/icons.data';
   import { propTypes } from '/@/utils/propTypes';
@@ -93,7 +94,7 @@
     let result: string[] = [];
     if (prefix) {
       result = (data?.icons ?? []).map((item) => `${prefix}:${item}`);
-    } else if (Array.isArray(iconsData)) {
+    } else if (isArray(iconsData)) {
       result = iconsData as string[];
     }
     return result;

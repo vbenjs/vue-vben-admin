@@ -36,7 +36,7 @@
   import { ref, defineComponent } from 'vue';
   import { remove } from '../../../utils';
   import { useFormDesignState } from '../../../hooks/useFormDesignState';
-  import { isArray } from 'lodash-es';
+  import { isArray } from '@vben/shared';
   import { Form, FormItem, AutoComplete, Input } from 'ant-design-vue';
   import Icon from '@/components/Icon/Icon.vue';
 

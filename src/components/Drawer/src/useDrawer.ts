@@ -16,7 +16,7 @@ import {
   computed,
 } from 'vue';
 import { isProdMode } from '/@/utils/env';
-import { isFunction } from '/@/utils/is';
+import { isFunction } from '@vben/shared';
 import { tryOnUnmounted } from '@vueuse/core';
 import { isEqual } from 'lodash-es';
 import { error } from '/@/utils/log';

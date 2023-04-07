@@ -67,7 +67,8 @@
   import ModalClose from './components/ModalClose.vue';
   import ModalFooter from './components/ModalFooter.vue';
   import ModalHeader from './components/ModalHeader.vue';
-  import { isFunction } from '/@/utils/is';
+  import { isFunction } from '@vben/shared';
+  import { type Recordable } from '@vben/types';
   import { deepMerge } from '/@/utils';
   import { basicProps } from './props';
   import { useFullScreen } from './hooks/useModalFullScreen';
@@ -106,7 +107,7 @@
       }
 
       // Custom title component: get title
-      const getMergeProps = computed((): Recordable => {
+      const getMergeProps = computed((): Recordable<any> => {
         return {
           ...props,
           ...(unref(propsRef) as any),
@@ -120,7 +121,7 @@
       });
 
       // modal component does not need title and origin buttons
-      const getProps = computed((): Recordable => {
+      const getProps = computed((): Recordable<any> => {
         const opt = {
           ...unref(getMergeProps),
           visible: unref(visibleRef),
@@ -134,7 +135,7 @@
         };
       });
 
-      const getBindValue = computed((): Recordable => {
+      const getBindValue = computed((): Recordable<any> => {
         const attr = {
           ...attrs,
           ...unref(getMergeProps),

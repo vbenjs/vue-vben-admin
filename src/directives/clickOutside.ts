@@ -1,6 +1,6 @@
 import { on } from '/@/utils/domUtils';
-import { isServer } from '/@/utils/is';
 import type { ComponentPublicInstance, DirectiveBinding, ObjectDirective } from 'vue';
+import { isArray } from '@vben/shared';
 
 type DocumentHandler = <T extends MouseEvent>(mouseup: T, mousedown: T) => void;
 
@@ -16,18 +16,16 @@ const nodeList: FlushList = new Map();
 
 let startClick: MouseEvent;
 
-if (!isServer) {
-  on(document, 'mousedown', (e: MouseEvent) => (startClick = e));
-  on(document, 'mouseup', (e: MouseEvent) => {
-    for (const { documentHandler } of nodeList.values()) {
-      documentHandler(e, startClick);
-    }
-  });
-}
+on(document, 'mousedown', (e: MouseEvent) => (startClick = e));
+on(document, 'mouseup', (e: MouseEvent) => {
+  for (const { documentHandler } of nodeList.values()) {
+    documentHandler(e, startClick);
+  }
+});
 
 function createDocumentHandler(el: HTMLElement, binding: DirectiveBinding): DocumentHandler {
   let excludes: HTMLElement[] = [];
-  if (Array.isArray(binding.arg)) {
+  if (isArray(binding.arg)) {
     excludes = binding.arg;
   } else {
     // due to current implementation on binding type is wrong the type casting is necessary here

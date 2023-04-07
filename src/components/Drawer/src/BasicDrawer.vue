@@ -45,7 +45,7 @@
   } from 'vue';
   import { Drawer } from 'ant-design-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { isFunction, isNumber } from '/@/utils/is';
+  import { isFunction, isNumber } from '@vben/shared';
   import { deepMerge } from '/@/utils';
   import DrawerFooter from './components/DrawerFooter.vue';
   import DrawerHeader from './components/DrawerHeader.vue';

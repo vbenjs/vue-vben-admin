@@ -1,10 +1,13 @@
 export default {
-  extends: ['@vben'],
+  extends: ['@vben', 'plugin:import/recommended'],
   plugins: ['simple-import-sort'],
   rules: {
+    'object-shorthand': ['error', 'always', { ignoreConstructors: false, avoidQuotes: true }],
+
+    'import/no-unresolved': 'off',
+
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
-
     '@typescript-eslint/ban-ts-comment': [
       'error',
       {
@@ -53,5 +56,11 @@ export default {
 
     'vue/attributes-order': 'error',
     'vue/require-default-prop': 'error',
+  },
+
+  settings: {
+    'import/resolver': {
+      node: { extensions: ['.ts', '.d.ts', '.tsx'] },
+    },
   },
 };

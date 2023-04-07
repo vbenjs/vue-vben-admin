@@ -1,4 +1,4 @@
-import { isFunction } from '/@/utils/is';
+import { isFunction } from '@vben/shared';
 import type { BasicTableProps, TableRowSelection } from '../types/table';
 import { computed, ComputedRef, nextTick, Ref, ref, toRaw, unref, watch } from 'vue';
 import { ROW_KEY } from '../const';

@@ -1,4 +1,5 @@
 import { prefixCls } from '/@/settings/designSetting';
+import { isArray } from '@vben/shared';
 
 type Mod = string | { [key: string]: any };
 type Mods = Mod | Mod[];
@@ -14,7 +15,7 @@ function genBem(name: string, mods?: Mods): string {
     return ` ${name}--${mods}`;
   }
 
-  if (Array.isArray(mods)) {
+  if (isArray(mods)) {
     return mods.reduce<string>((ret, item) => ret + genBem(name, item), '');
   }
 

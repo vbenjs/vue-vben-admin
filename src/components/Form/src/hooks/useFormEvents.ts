@@ -3,14 +3,14 @@ import type { FormProps, FormSchema, FormActionType } from '../types/form';
 import type { NamePath } from 'ant-design-vue/lib/form/interface';
 import { unref, toRaw, nextTick } from 'vue';
 import {
-  isArray,
+  isNullOrUndefined,
   isFunction,
-  isObject,
+  isArray,
   isString,
-  isDef,
-  isNullOrUnDef,
+  isUndefined,
   isEmpty,
-} from '/@/utils/is';
+  isObject,
+} from '@vben/shared';
 import { deepMerge } from '/@/utils';
 import { dateItemType, handleInputNumberValue, defaultValueComponents } from '../helper';
 import { dateUtil } from '/@/utils/dateUtil';
@@ -153,13 +153,13 @@ export function useFormEvents({
         nestKeyArray.forEach((nestKey: string) => {
           try {
             const value = nestKey.split('.').reduce((out, item) => out[item], values);
-            if (isDef(value)) {
+            if (!isUndefined(value)) {
               unref(formModel)[nestKey] = unref(value);
               validKeys.push(nestKey);
             }
           } catch (e) {
             // key not exist
-            if (isDef(defaultValueRef.value[nestKey])) {
+            if (!isUndefined(defaultValueRef.value[nestKey])) {
               unref(formModel)[nestKey] = cloneDeep(unref(defaultValueRef.value[nestKey]));
             }
           }
@@ -304,9 +304,9 @@ export function useFormEvents({
         item.component != 'Divider' &&
         Reflect.has(item, 'field') &&
         item.field &&
-        !isNullOrUnDef(item.defaultValue) &&
+        !isNullOrUndefined(item.defaultValue) &&
         (!(item.field in currentFieldsValue) ||
-          isNullOrUnDef(currentFieldsValue[item.field]) ||
+          isNullOrUndefined(currentFieldsValue[item.field]) ||
           isEmpty(currentFieldsValue[item.field]))
       ) {
         obj[item.field] = item.defaultValue;

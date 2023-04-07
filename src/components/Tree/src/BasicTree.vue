@@ -25,7 +25,8 @@
   import { TreeIcon } from './TreeIcon';
   import { ScrollContainer } from '/@/components/Container';
   import { omit, get, difference, cloneDeep } from 'lodash-es';
-  import { isArray, isBoolean, isEmpty, isFunction } from '/@/utils/is';
+  import { isArray, isBoolean, isEmpty, isFunction } from '@vben/shared';
+  import { type Recordable } from '@vben/types';
   import { extendSlots, getSlot } from '/@/utils/helper/tsxHelper';
   import { filter, treeToList, eachTree } from '/@/utils/helper/treeHelper';
   import { useTree } from './hooks/useTree';
@@ -129,7 +130,7 @@
         getSelectedNode,
       } = useTree(treeDataRef, getFieldNames);
 
-      function getIcon(params: Recordable, icon?: string) {
+      function getIcon(params: Recordable<any>, icon?: string) {
         if (!icon) {
           if (props.renderIcon && isFunction(props.renderIcon)) {
             return props.renderIcon(params);
@@ -138,13 +139,13 @@
         return icon;
       }
 
-      async function handleRightClick({ event, node }: Recordable) {
+      async function handleRightClick({ event, node }: Recordable<any>) {
         const { rightMenuList: menuList = [], beforeRightClick } = props;
         let contextMenuOptions: CreateContextOptions = { event, items: [] };
 
         if (beforeRightClick && isFunction(beforeRightClick)) {
           let result = await beforeRightClick(node, event);
-          if (Array.isArray(result)) {
+          if (isArray(result)) {
             contextMenuOptions.items = result;
           } else {
             Object.assign(contextMenuOptions, result);

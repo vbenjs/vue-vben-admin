@@ -71,7 +71,7 @@
 
   import { omit } from 'lodash-es';
   import { basicProps } from './props';
-  import { isFunction } from '/@/utils/is';
+  import { isFunction } from '@vben/shared';
   import { warn } from '/@/utils/log';
 
   export default defineComponent({

@@ -88,7 +88,7 @@
   import { BasicForm, useForm } from '/@/components/Form';
   import { propTypes } from '/@/utils/propTypes';
   import { Button } from '/@/components/Button';
-  import { isFunction } from '/@/utils/is';
+  import { isFunction } from '@vben/shared';
   import { useSlider, grid } from './data';
 
   const ListItem = List.Item;

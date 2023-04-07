@@ -20,6 +20,7 @@
   import { addResizeListener, removeResizeListener } from '/@/utils/event';
   import componentSetting from '/@/settings/componentSetting';
   import { toObject } from './util';
+  import { isArray } from '@vben/shared';
   import {
     defineComponent,
     ref,
@@ -76,7 +77,7 @@
       provide('scroll-bar-wrap', wrap);
 
       const style = computed(() => {
-        if (Array.isArray(props.wrapStyle)) {
+        if (isArray(props.wrapStyle)) {
           return toObject(props.wrapStyle);
         }
         return props.wrapStyle;

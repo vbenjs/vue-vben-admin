@@ -4,6 +4,7 @@
 <script lang="ts" setup>
   import { unref } from 'vue';
   import { useRouter } from 'vue-router';
+  import { isArray } from '@vben/shared';
 
   const { currentRoute, replace } = useRouter();
 
@@ -13,7 +14,7 @@
   Reflect.deleteProperty(params, '_redirect_type');
   Reflect.deleteProperty(params, 'path');
 
-  const _path = Array.isArray(path) ? path.join('/') : path;
+  const _path = isArray(path) ? path.join('/') : path;
 
   if (_redirect_type === 'name') {
     replace({

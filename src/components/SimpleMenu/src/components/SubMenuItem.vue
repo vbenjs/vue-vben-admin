@@ -77,7 +77,7 @@
   import { CollapseTransition } from '/@/components/Transition';
   import Icon from '@/components/Icon/Icon.vue';
   import { Popover } from 'ant-design-vue';
-  import { isBoolean, isObject } from '/@/utils/is';
+  import { isObject, isBoolean, isArray } from '@vben/shared';
   import { mitt } from '/@/utils/mitt';
 
   const DELAY = 200;
@@ -284,7 +284,7 @@
               return;
             }
 
-            if (props.name && Array.isArray(data)) {
+            if (props.name && isArray(data)) {
               state.opened = (data as (string | number)[]).includes(props.name);
             }
           },

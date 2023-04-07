@@ -52,6 +52,7 @@
   import 'tinymce/plugins/visualblocks';
   import 'tinymce/plugins/visualchars';
   import 'tinymce/plugins/wordcount';
+  import { isArray, isNumber } from '@vben/shared';
 
   import {
     defineComponent,
@@ -70,7 +71,6 @@
   import { bindHandlers } from './helper';
   import { onMountedOrActivated } from '@vben/hooks';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { isNumber } from '/@/utils/is';
   import { useLocale } from '/@/locales/useLocale';
   import { useAppStore } from '/@/store/modules/app';
 
@@ -259,7 +259,7 @@
 
       function bindModelHandlers(editor: any) {
         const modelEvents = attrs.modelEvents ? attrs.modelEvents : null;
-        const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
+        const normalizedEvents = isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
 
         watch(
           () => props.modelValue,

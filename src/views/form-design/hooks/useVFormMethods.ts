@@ -1,7 +1,8 @@
 import { Ref, SetupContext } from 'vue';
 import { IVFormComponent, IFormConfig, AForm } from '../typings/v-form-component';
 import { findFormItem, formItemsForEach } from '../utils';
-import { cloneDeep, isFunction } from 'lodash-es';
+import { cloneDeep } from 'lodash-es';
+import { isFunction } from '@vben/shared';
 import { IAnyObject } from '../typings/base-type';
 
 interface IFormInstanceMethods extends AForm {

@@ -13,7 +13,7 @@
 <script lang="ts">
   import { defineComponent, PropType, computed, ref } from 'vue';
   import { Radio } from 'ant-design-vue';
-  import { isString } from '/@/utils/is';
+  import { isString } from '@vben/shared';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { useAttrs } from '@vben/hooks';
 

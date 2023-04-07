@@ -1,7 +1,8 @@
 // copy from element-plus
 
 import { warn } from 'vue';
-import { fromPairs, isObject } from 'lodash-es';
+import { fromPairs } from 'lodash-es';
+import { isObject } from '@vben/shared';
 import type { ExtractPropTypes, PropType } from 'vue';
 import type { Mutable } from './types';
 

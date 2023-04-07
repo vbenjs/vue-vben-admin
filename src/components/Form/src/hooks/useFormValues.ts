@@ -1,4 +1,4 @@
-import { isArray, isFunction, isObject, isString, isNullOrUnDef } from '/@/utils/is';
+import { isFunction, isArray, isString, isNullOrUndefined, isObject } from '@vben/shared';
 import { dateUtil } from '/@/utils/dateUtil';
 import { unref } from 'vue';
 import type { Ref, ComputedRef } from 'vue';
@@ -97,7 +97,7 @@ export function useFormValues({
   function handleRangeTimeValue(values: Recordable) {
     const fieldMapToTime = unref(getProps).fieldMapToTime;
 
-    if (!fieldMapToTime || !Array.isArray(fieldMapToTime)) {
+    if (!fieldMapToTime || !isArray(fieldMapToTime)) {
       return values;
     }
 
@@ -128,7 +128,7 @@ export function useFormValues({
     const obj: Recordable = {};
     schemas.forEach((item) => {
       const { defaultValue } = item;
-      if (!isNullOrUnDef(defaultValue)) {
+      if (!isNullOrUndefined(defaultValue)) {
         obj[item.field] = defaultValue;
 
         if (formModel[item.field] === undefined) {

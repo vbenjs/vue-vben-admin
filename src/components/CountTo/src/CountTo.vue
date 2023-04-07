@@ -6,7 +6,7 @@
 <script lang="ts">
   import { defineComponent, ref, computed, watchEffect, unref, onMounted, watch } from 'vue';
   import { useTransition, TransitionPresets } from '@vueuse/core';
-  import { isNumber } from '/@/utils/is';
+  import { isNumber } from '@vben/shared';
 
   const props = {
     startVal: { type: Number, default: 0 },

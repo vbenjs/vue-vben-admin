@@ -13,9 +13,9 @@ import {
 } from 'vue';
 import { useTimeoutFn } from '@vben/hooks';
 import { buildUUID } from '/@/utils/uuid';
-import { isFunction, isBoolean, isObject } from '/@/utils/is';
 import { get, cloneDeep, merge } from 'lodash-es';
 import { FETCH_SETTING, ROW_KEY, PAGE_SIZE } from '../const';
+import { isArray, isFunction, isBoolean, isObject } from '@vben/shared';
 
 interface ActionType {
   getPaginationInfo: ComputedRef<boolean | PaginationProps>;
@@ -91,7 +91,7 @@ export function useDataSource(
   }
 
   function setTableKey(items: any[]) {
-    if (!items || !Array.isArray(items)) return;
+    if (!items || !isArray(items)) return;
     items.forEach((item) => {
       if (!item[ROW_KEY]) {
         item[ROW_KEY] = buildUUID();
@@ -164,7 +164,7 @@ export function useDataSource(
     if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
     const rowKeyName = unref(getRowKey);
     if (!rowKeyName) return;
-    const rowKeys = !Array.isArray(rowKey) ? [rowKey] : rowKey;
+    const rowKeys = !isArray(rowKey) ? [rowKey] : rowKey;
 
     function deleteRow(data, key) {
       const row: { index: number; data: [] } = findRow(data, key);
@@ -304,7 +304,7 @@ export function useDataSource(
       const res = await api(params);
       rawDataSourceRef.value = res;
 
-      const isArrayResult = Array.isArray(res);
+      const isArrayResult = isArray(res);
 
       let resultItems: Recordable[] = isArrayResult ? res : get(res, listField);
       const resultTotal: number = isArrayResult ? res.length : get(res, totalField);

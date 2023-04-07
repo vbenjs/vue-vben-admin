@@ -1,6 +1,8 @@
 // import { VueConstructor } from 'vue';
 import { IVFormComponent, IFormConfig, IValidationRule } from '../typings/v-form-component';
-import { cloneDeep, isArray, isFunction, isNumber, uniqueId } from 'lodash-es';
+import { cloneDeep, uniqueId } from 'lodash-es';
+import { isArray, isFunction, isNumber } from '@vben/shared';
+
 // import { del } from '@vue/composition-api';
 // import { withInstall } from '/@/utils';
 
