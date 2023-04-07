@@ -68,6 +68,7 @@
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
     "@iconify/iconify": "^3.1.0",
+    "@kirklin/reset-css": "^0.0.3",
     "@logicflow/core": "^1.2.1",
     "@logicflow/extension": "^1.2.1",
     "@vben/hooks": "workspace:*",

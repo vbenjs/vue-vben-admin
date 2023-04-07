@@ -1,3 +1,5 @@
+// reset css
+import '@kirklin/reset-css/kirklin.css';
 import 'uno.css';
 import '@/design/index.less';
 import '@/components/VxeTable/src/css/index.scss';

@@ -10,6 +10,9 @@ importers:
       '@iconify/iconify':
         specifier: ^3.1.0
         version: 3.1.0
+      '@kirklin/reset-css':
+        specifier: ^0.0.3
+        version: 0.0.3
       '@logicflow/core':
         specifier: ^1.2.1
         version: 1.2.1
@@ -1417,6 +1420,10 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
+
+  /@kirklin/reset-css@0.0.3:
+    resolution: {integrity: sha512-EUfxCc0U8iIn4hwhtsOha6uYKul839pyol4Yt5FJtLT8BH/F9MLMkik6KkKHhvInk8nVu4flSsFBGn/OZuu74g==}
+    dev: false
 
   /@logicflow/core@1.2.1:
     resolution: {integrity: sha512-m6/K7I85jFfCWcrNEQQpchomUWM4ZUjcOhHjsVhejnfpoEx7jke3tSJlh41LyT9hIUEIy7nxnphp5L4YB+InCA==}
