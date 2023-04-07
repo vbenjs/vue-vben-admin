@@ -43,7 +43,6 @@ export default {
   editor: {
     editor: 'Editor',
     jsonEditor: 'Json editor',
-    markdown: 'Markdown editor',
   },
   excel: {
     excel: 'Excel',

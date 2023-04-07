@@ -91,9 +91,6 @@ importers:
       sortablejs:
         specifier: ^1.15.0
         version: 1.15.0
-      vditor:
-        specifier: ^3.9.1
-        version: 3.9.1
       vue:
         specifier: ^3.2.47
         version: 3.2.47
@@ -3998,10 +3995,6 @@ packages:
     dependencies:
       asap: 2.0.6
       wrappy: 1.0.2
-    dev: false
-
-  /diff-match-patch@1.0.5:
-    resolution: {integrity: sha512-IayShXAgj/QMXgB0IWmKx+rOPuGMhqm5w6jvFxmVenXKIzRqTAAsbBPT3kWQeGANj3jGgvcvv4yK6SxqYmikgw==}
     dev: false
 
   /diff@4.0.2:
@@ -9546,12 +9539,6 @@ packages:
   /vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
-
-  /vditor@3.9.1:
-    resolution: {integrity: sha512-pu9+4duq/RPftiGas9QCxy8FwwFx2jPEZd2/xKIsI8BMUzwKL5M65LH0cAkmrSUwZSXACLBWGM3RYahK5n1CUA==}
-    dependencies:
-      diff-match-patch: 1.0.5
-    dev: false
 
   /vite-plugin-compression@0.5.1(vite@4.3.0-beta.2):
     resolution: {integrity: sha512-5QJKBDc+gNYVqL/skgFAP81Yuzo9R+EAf19d+EtsMF/i8kFUpNi3J/H01QD3Oo8zBQn+NzoCIFkpPLynoOzaJg==}

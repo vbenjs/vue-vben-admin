@@ -336,7 +336,7 @@ const comp: AppRouteModule = {
     {
       path: 'editor',
       name: 'EditorDemo',
-      redirect: '/comp/editor/markdown',
+      redirect: '/comp/editor/json',
       component: getParentLayout('EditorDemo'),
       meta: {
         // icon: 'carbon:table-split',
@@ -350,33 +350,6 @@ const comp: AppRouteModule = {
           meta: {
             title: t('routes.demo.editor.jsonEditor'),
           },
-        },
-        {
-          path: 'markdown',
-          component: getParentLayout('MarkdownDemo'),
-          name: 'MarkdownDemo',
-          meta: {
-            title: t('routes.demo.editor.markdown'),
-          },
-          redirect: '/comp/editor/markdown/index',
-          children: [
-            {
-              path: 'index',
-              name: 'MarkDownBasicDemo',
-              component: () => import('/@/views/demo/editor/markdown/index.vue'),
-              meta: {
-                title: t('routes.demo.editor.tinymceBasic'),
-              },
-            },
-            {
-              path: 'editor',
-              name: 'MarkDownFormDemo',
-              component: () => import('/@/views/demo/editor/markdown/Editor.vue'),
-              meta: {
-                title: t('routes.demo.editor.tinymceForm'),
-              },
-            },
-          ],
         },
       ],
     },
