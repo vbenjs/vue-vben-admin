@@ -67,7 +67,6 @@ export default {
     watermark: 'Watermark',
     ripple: 'Ripple',
     fullScreen: 'Full Screen',
-    errorLog: 'Error Log',
     tab: 'Tab with parameters',
     tab1: 'Tab with parameter 1',
     tab2: 'Tab with parameter 2',

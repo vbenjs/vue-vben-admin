@@ -1,12 +1,15 @@
-import { withInstall } from '/@/utils';
-import vxeBasicTable from './src/VxeBasicTable';
 import { VXETable } from 'vxe-table';
-import VXETablePluginAntd from './src/components';
 import VXETablePluginExportXLSX from 'vxe-table-plugin-export-xlsx';
-import './src/setting';
+
+import componentSetting from '/@/settings/componentSetting';
+import { withInstall } from '/@/utils';
+
+import VXETablePluginAntd from './src/components';
+import vxeBasicTable from './src/VxeBasicTable';
 
 export const VxeBasicTable = withInstall(vxeBasicTable);
-export * from 'vxe-table';
 export * from './src/types';
+export * from 'vxe-table';
 
 VXETable.use(VXETablePluginAntd).use(VXETablePluginExportXLSX);
+VXETable.setup(componentSetting.vxeTable);

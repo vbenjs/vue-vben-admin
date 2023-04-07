@@ -1,24 +1,25 @@
 // axios配置  可自行根据项目进行更改，只需更改该文件即可，其他文件可以不动
 // The axios configuration can be changed according to the project, just change the file, other files can be left unchanged
 
+import { isEmpty, isString, isUndefined } from '@vben/shared';
 import type { AxiosResponse } from 'axios';
-import { clone } from 'lodash-es';
-import type { RequestOptions, Result } from '/#/axios';
-import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
-import { VAxios } from './Axios';
-import { checkStatus } from './checkStatus';
-import { useGlobSetting } from '/@/hooks/setting';
-import { useMessage } from '/@/hooks/web/useMessage';
-import { RequestEnum, ResultEnum, ContentTypeEnum } from '/@/enums/httpEnum';
-import { isString, isUndefined, isEmpty } from '@vben/shared';
-import { getToken } from '/@/utils/auth';
-import { setObjToUrlParams, deepMerge } from '/@/utils';
-import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog';
-import { useI18n } from '/@/hooks/web/useI18n';
-import { joinTimestamp, formatRequestDate } from './helper';
-import { useUserStoreWithOut } from '/@/store/modules/user';
-import { AxiosRetry } from '/@/utils/http/axios/axiosRetry';
 import axios from 'axios';
+import { clone } from 'lodash-es';
+
+import { ContentTypeEnum, RequestEnum, ResultEnum } from '/@/enums/httpEnum';
+import { useGlobSetting } from '/@/hooks/setting';
+import { useI18n } from '/@/hooks/web/useI18n';
+import { useMessage } from '/@/hooks/web/useMessage';
+import { useUserStoreWithOut } from '/@/store/modules/user';
+import { deepMerge, setObjToUrlParams } from '/@/utils';
+import { getToken } from '/@/utils/auth';
+import { AxiosRetry } from '/@/utils/http/axios/axiosRetry';
+import type { RequestOptions, Result } from '/#/axios';
+
+import { VAxios } from './Axios';
+import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
+import { checkStatus } from './checkStatus';
+import { formatRequestDate, joinTimestamp } from './helper';
 
 const globSetting = useGlobSetting();
 const urlPrefix = globSetting.urlPrefix;
@@ -177,8 +178,7 @@ const transform: AxiosTransform = {
    */
   responseInterceptorsCatch: (axiosInstance: AxiosResponse, error: any) => {
     const { t } = useI18n();
-    const errorLogStore = useErrorLogStoreWithOut();
-    errorLogStore.addAjaxErrorInfo(error);
+
     const { response, code, message, config } = error || {};
     const errorMessageMode = config?.requestOptions?.errorMessageMode || 'none';
     const msg: string = response?.data?.error?.message ?? '';

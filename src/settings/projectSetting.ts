@@ -1,15 +1,16 @@
-import type { ProjectConfig } from '/#/config';
-import { MenuTypeEnum, MenuModeEnum, TriggerEnum, MixSidebarTriggerEnum } from '/@/enums/menuEnum';
-import { CacheTypeEnum } from '/@/enums/cacheEnum';
 import {
   ContentEnum,
   PermissionModeEnum,
-  ThemeEnum,
   RouterTransitionEnum,
-  SettingButtonPositionEnum,
   SessionTimeoutProcessingEnum,
+  SettingButtonPositionEnum,
+  ThemeEnum,
 } from '/@/enums/appEnum';
-import { SIDE_BAR_BG_COLOR_LIST, HEADER_PRESET_BG_COLOR_LIST } from './designSetting';
+import { CacheTypeEnum } from '/@/enums/cacheEnum';
+import { MenuModeEnum, MenuTypeEnum, MixSidebarTriggerEnum, TriggerEnum } from '/@/enums/menuEnum';
+import type { ProjectConfig } from '/#/config';
+
+import { HEADER_PRESET_BG_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from './designSetting';
 
 const primaryColor = '#0960bd';
 
@@ -162,9 +163,6 @@ const setting: ProjectConfig = {
 
   // Whether to show the breadcrumb icon
   showBreadCrumbIcon: false,
-
-  // Use error-handler-plugin
-  useErrorHandle: false,
 
   // Whether to open back to top
   useOpenBackTop: true,

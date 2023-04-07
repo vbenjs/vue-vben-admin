@@ -1,9 +1,8 @@
-import type { ProjectConfig } from '/#/config';
-
 import { computed } from 'vue';
 
-import { useAppStore } from '/@/store/modules/app';
 import { ContentEnum, ThemeEnum } from '/@/enums/appEnum';
+import { useAppStore } from '/@/store/modules/app';
+import type { ProjectConfig } from '/#/config';
 
 type RootSetting = Omit<
   ProjectConfig,
@@ -30,8 +29,6 @@ export function useRootSetting() {
   const getUseOpenBackTop = computed(() => appStore.getProjectConfig.useOpenBackTop);
 
   const getShowSettingButton = computed(() => appStore.getProjectConfig.showSettingButton);
-
-  const getUseErrorHandle = computed(() => appStore.getProjectConfig.useErrorHandle);
 
   const getShowFooter = computed(() => appStore.getProjectConfig.showFooter);
 
@@ -79,7 +76,6 @@ export function useRootSetting() {
     getCanEmbedIFramePage,
     getPermissionMode,
     getShowLogo,
-    getUseErrorHandle,
     getShowBreadCrumb,
     getShowBreadCrumbIcon,
     getUseOpenBackTop,

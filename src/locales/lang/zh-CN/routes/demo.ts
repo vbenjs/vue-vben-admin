@@ -66,7 +66,6 @@ export default {
     watermark: '水印',
     ripple: '水波纹',
     fullScreen: '全屏',
-    errorLog: '错误日志',
     tab: 'Tab带参',
     tab1: 'Tab带参1',
     tab2: 'Tab带参2',

@@ -1,14 +1,13 @@
-import { MenuTypeEnum, MenuModeEnum, TriggerEnum, MixSidebarTriggerEnum } from '/@/enums/menuEnum';
 import {
   ContentEnum,
   PermissionModeEnum,
-  ThemeEnum,
   RouterTransitionEnum,
-  SettingButtonPositionEnum,
   SessionTimeoutProcessingEnum,
+  SettingButtonPositionEnum,
+  ThemeEnum,
 } from '/@/enums/appEnum';
-
 import { CacheTypeEnum } from '/@/enums/cacheEnum';
+import { MenuModeEnum, MenuTypeEnum, MixSidebarTriggerEnum, TriggerEnum } from '/@/enums/menuEnum';
 
 export type LocaleType = 'zh_CN' | 'en' | 'ru' | 'ja' | 'ko';
 
@@ -124,8 +123,6 @@ export interface ProjectConfig {
   showBreadCrumb: boolean;
   // Show breadcrumb icon
   showBreadCrumbIcon: boolean;
-  // Use error-handler-plugin
-  useErrorHandle: boolean;
   // Whether to open back to top
   useOpenBackTop: boolean;
   // Is it possible to embed iframe pages

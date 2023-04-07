@@ -6,7 +6,6 @@ export default {
     dropdownItemLoginOut: '退出系统',
 
     // tooltip
-    tooltipErrorLog: '错误日志',
     tooltipLock: '锁定屏幕',
     tooltipNotify: '消息通知',
 

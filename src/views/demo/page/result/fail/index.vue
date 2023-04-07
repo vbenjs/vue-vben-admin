@@ -21,9 +21,10 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { Result } from 'ant-design-vue';
   import { CloseCircleOutlined } from '@ant-design/icons-vue';
+  import { Result } from 'ant-design-vue';
+  import { defineComponent } from 'vue';
+
   export default defineComponent({
     components: {
       Result,

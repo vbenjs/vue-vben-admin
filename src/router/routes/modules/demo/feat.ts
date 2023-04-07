@@ -1,7 +1,6 @@
-import type { AppRouteModule } from '/@/router/types';
-
-import { getParentLayout, LAYOUT } from '/@/router/constant';
 import { t } from '/@/hooks/web/useI18n';
+import { getParentLayout, LAYOUT } from '/@/router/constant';
+import type { AppRouteModule } from '/@/router/types';
 
 const feat: AppRouteModule = {
   path: '/feat',
@@ -204,14 +203,7 @@ const feat: AppRouteModule = {
         title: t('routes.demo.feat.fullScreen'),
       },
     },
-    {
-      path: '/error-log',
-      name: 'ErrorLog',
-      component: () => import('/@/views/sys/error-log/index.vue'),
-      meta: {
-        title: t('routes.demo.feat.errorLog'),
-      },
-    },
+
     {
       path: 'excel',
       name: 'Excel',

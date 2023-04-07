@@ -17,11 +17,3 @@ export enum ExceptionEnum {
   // No data on the page. In fact, it is not an exception page
   PAGE_NOT_DATA = 10100,
 }
-
-export enum ErrorTypeEnum {
-  VUE = 'vue',
-  SCRIPT = 'script',
-  RESOURCE = 'resource',
-  AJAX = 'ajax',
-  PROMISE = 'promise',
-}

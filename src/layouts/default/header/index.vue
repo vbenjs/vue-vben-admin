@@ -35,8 +35,6 @@
     <div :class="`${prefixCls}-action`">
       <AppSearch :class="`${prefixCls}-action__item `" v-if="getShowSearch" />
 
-      <ErrorAction v-if="getUseErrorHandle" :class="`${prefixCls}-action__item error-action`" />
-
       <Notify v-if="getShowNotice" :class="`${prefixCls}-action__item notify-item`" />
 
       <FullScreen v-if="getShowFullScreen" :class="`${prefixCls}-action__item fullscreen-item`" />
@@ -55,31 +53,24 @@
   </Header>
 </template>
 <script lang="ts">
-  import { defineComponent, unref, computed } from 'vue';
-
-  import { propTypes } from '/@/utils/propTypes';
-
   import { Layout } from 'ant-design-vue';
-  import { AppLogo } from '/@/components/Application';
-  import LayoutMenu from '../menu/index.vue';
-  import LayoutTrigger from '../trigger/index.vue';
+  import { computed, defineComponent, unref } from 'vue';
 
-  import { AppSearch } from '/@/components/Application';
-
+  import { AppLocalePicker, AppLogo, AppSearch } from '/@/components/Application';
+  import { SettingButtonPositionEnum } from '/@/enums/appEnum';
+  import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
-
-  import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
-  import { SettingButtonPositionEnum } from '/@/enums/appEnum';
-  import { AppLocalePicker } from '/@/components/Application';
-
-  import { UserDropDown, LayoutBreadcrumb, FullScreen, Notify, ErrorAction } from './components';
   import { useAppInject } from '/@/hooks/web/useAppInject';
   import { useDesign } from '/@/hooks/web/useDesign';
-
-  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
   import { useLocale } from '/@/locales/useLocale';
+  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+  import { propTypes } from '/@/utils/propTypes';
+
+  import LayoutMenu from '../menu/index.vue';
+  import LayoutTrigger from '../trigger/index.vue';
+  import { FullScreen, LayoutBreadcrumb, Notify, UserDropDown } from './components';
 
   export default defineComponent({
     name: 'LayoutHeader',
@@ -94,7 +85,6 @@
       FullScreen,
       Notify,
       AppSearch,
-      ErrorAction,
       SettingDrawer: createAsyncComponent(() => import('/@/layouts/default/setting/index.vue'), {
         loading: true,
       }),
@@ -112,8 +102,7 @@
         getMenuWidth,
         getIsMixSidebar,
       } = useMenuSetting();
-      const { getUseErrorHandle, getShowSettingButton, getSettingButtonPosition } =
-        useRootSetting();
+      const { getShowSettingButton, getSettingButtonPosition } = useRootSetting();
 
       const {
         getHeaderTheme,
@@ -186,7 +175,6 @@
         getShowLocalePicker,
         getShowFullScreen,
         getShowNotice,
-        getUseErrorHandle,
         getLogoWidth,
         getIsMixSidebar,
         getShowSettingButton,
