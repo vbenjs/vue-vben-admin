@@ -15,31 +15,6 @@ const charts: AppRouteModule = {
   },
   children: [
     {
-      path: 'baiduMap',
-      name: 'BaiduMap',
-      meta: {
-        title: t('routes.demo.charts.baiduMap'),
-      },
-      component: () => import('/@/views/demo/charts/map/Baidu.vue'),
-    },
-    {
-      path: 'aMap',
-      name: 'AMap',
-      meta: {
-        title: t('routes.demo.charts.aMap'),
-      },
-      component: () => import('/@/views/demo/charts/map/Gaode.vue'),
-    },
-    {
-      path: 'googleMap',
-      name: 'GoogleMap',
-      meta: {
-        title: t('routes.demo.charts.googleMap'),
-      },
-      component: () => import('/@/views/demo/charts/map/Google.vue'),
-    },
-
-    {
       path: 'echarts',
       name: 'Echarts',
       component: getParentLayout('Echarts'),
