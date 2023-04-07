@@ -17,7 +17,7 @@ export default {
     createDefaultProgram: false,
     extraFileExtensions: ['.vue'],
   },
-  plugins: ['vue', '@typescript-eslint', 'import'],
+  plugins: ['vue', '@typescript-eslint', 'import', 'simple-import-sort'],
   extends: [
     'eslint:recommended',
     'plugin:vue/vue3-recommended',
@@ -30,6 +30,9 @@ export default {
     'no-use-before-define': 'off',
     'space-before-function-paren': 'off',
 
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
+    'import/no-unresolved': 'off',
     'import/first': 'error',
     'import/newline-after-import': 'error',
     'import/no-duplicates': 'error',

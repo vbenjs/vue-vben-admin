@@ -1,7 +1,7 @@
+import { isNullOrUndefined } from '@vben/shared';
+
 import { cacheCipher } from '/@/settings/encryptionSetting';
 import type { EncryptionParams } from '/@/utils/cipher';
-import { AesEncryption } from '/@/utils/cipher';
-import { isNullOrUndefined } from '@vben/shared';
 
 export interface CreateStorageParams extends EncryptionParams {
   prefixKey: string;
@@ -21,8 +21,6 @@ export const createStorage = ({
     throw new Error('When hasEncrypt is true, the key or iv must be 16 bits!');
   }
 
-  const encryption = new AesEncryption({ key, iv });
-
   /**
    * Cache class
    * Construction parameters can be passed into sessionStorage, localStorage,
@@ -32,8 +30,6 @@ export const createStorage = ({
   const WebStorage = class WebStorage {
     private storage: Storage;
     private prefixKey?: string;
-    private encryption: AesEncryption;
-    private hasEncrypt: boolean;
     /**
      *
      * @param {*} storage
@@ -41,8 +37,6 @@ export const createStorage = ({
     constructor() {
       this.storage = storage;
       this.prefixKey = prefixKey;
-      this.encryption = encryption;
-      this.hasEncrypt = hasEncrypt;
     }
 
     private getKey(key: string) {
@@ -62,9 +56,7 @@ export const createStorage = ({
         time: Date.now(),
         expire: !isNullOrUndefined(expire) ? new Date().getTime() + expire * 1000 : null,
       });
-      const stringifyValue = this.hasEncrypt
-        ? this.encryption.encryptByAES(stringData)
-        : stringData;
+      const stringifyValue = stringData;
       this.storage.setItem(this.getKey(key), stringifyValue);
     }
 
@@ -79,7 +71,7 @@ export const createStorage = ({
       if (!val) return def;
 
       try {
-        const decVal = this.hasEncrypt ? this.encryption.decryptByAES(val) : val;
+        const decVal = val;
         const data = JSON.parse(decVal);
         const { value, expire } = data;
         if (isNullOrUndefined(expire) || expire >= new Date().getTime()) {
