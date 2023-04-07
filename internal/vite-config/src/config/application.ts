@@ -38,6 +38,14 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
       resolve: {
         alias: [
           {
+            find: 'lodash',
+            replacement: 'lodash-es',
+          },
+          {
+            find: 'vue',
+            replacement: 'vue/dist/vue.esm-bundler.js',
+          },
+          {
             find: 'vue-i18n',
             replacement: 'vue-i18n/dist/vue-i18n.cjs.js',
           },
