@@ -46,9 +46,6 @@ importers:
       cropperjs:
         specifier: ^1.5.13
         version: 1.5.13
-      crypto-js:
-        specifier: ^4.1.1
-        version: 4.1.1
       dayjs:
         specifier: ^1.11.7
         version: 1.11.7
@@ -94,9 +91,6 @@ importers:
       sortablejs:
         specifier: ^1.15.0
         version: 1.15.0
-      tinymce:
-        specifier: ^5.10.7
-        version: 5.10.7
       vditor:
         specifier: ^3.9.1
         version: 3.9.1
@@ -3759,10 +3753,6 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
     dev: true
-
-  /crypto-js@4.1.1:
-    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
-    dev: false
 
   /css-functions-list@3.1.0:
     resolution: {integrity: sha512-/9lCvYZaUbBGvYUgYGFJ4dcYiyqdhSjG7IPVluoV8A1ILjkF7ilmhp1OGUz8n+nmBcu0RNrQAzgD8B6FJbrt2w==}
@@ -8962,10 +8952,6 @@ packages:
       globalyzer: 0.1.0
       globrex: 0.1.2
     dev: true
-
-  /tinymce@5.10.7:
-    resolution: {integrity: sha512-9UUjaO0R7FxcFo0oxnd1lMs7H+D0Eh+dDVo5hKbVe1a+VB0nit97vOqlinj+YwgoBDt6/DSCUoWqAYlLI8BLYA==}
-    dev: false
 
   /tmp@0.2.1:
     resolution: {integrity: sha512-76SUhtfqR2Ijn+xllcI5P1oyannHNHByD80W1q447gU3mp9G9PSpGdWmjUOHRDPiHYacIk66W7ubDTuPF3BEtQ==}

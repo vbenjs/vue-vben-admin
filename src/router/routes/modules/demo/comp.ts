@@ -1,7 +1,6 @@
-import type { AppRouteModule } from '/@/router/types';
-
-import { getParentLayout, LAYOUT } from '/@/router/constant';
 import { t } from '/@/hooks/web/useI18n';
+import { getParentLayout, LAYOUT } from '/@/router/constant';
+import type { AppRouteModule } from '/@/router/types';
 
 const comp: AppRouteModule = {
   path: '/comp',
@@ -373,34 +372,6 @@ const comp: AppRouteModule = {
               path: 'editor',
               name: 'MarkDownFormDemo',
               component: () => import('/@/views/demo/editor/markdown/Editor.vue'),
-              meta: {
-                title: t('routes.demo.editor.tinymceForm'),
-              },
-            },
-          ],
-        },
-
-        {
-          path: 'tinymce',
-          component: getParentLayout('TinymceDemo'),
-          name: 'TinymceDemo',
-          meta: {
-            title: t('routes.demo.editor.tinymce'),
-          },
-          redirect: '/comp/editor/tinymce/index',
-          children: [
-            {
-              path: 'index',
-              name: 'TinymceBasicDemo',
-              component: () => import('/@/views/demo/editor/tinymce/index.vue'),
-              meta: {
-                title: t('routes.demo.editor.tinymceBasic'),
-              },
-            },
-            {
-              path: 'editor',
-              name: 'TinymceFormDemo',
-              component: () => import('/@/views/demo/editor/tinymce/Editor.vue'),
               meta: {
                 title: t('routes.demo.editor.tinymceForm'),
               },
