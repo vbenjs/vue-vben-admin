@@ -19,7 +19,9 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { BasicDrawer } from '/@/components/Drawer';
+
+  import { BasicDrawer } from '@/components/Drawer';
+
   export default defineComponent({
     components: { BasicDrawer },
     setup() {

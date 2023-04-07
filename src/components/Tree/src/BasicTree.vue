@@ -1,39 +1,40 @@
 <script lang="tsx">
-  import type { CSSProperties } from 'vue';
-  import type {
-    FieldNames,
-    TreeState,
-    TreeItem,
-    KeyType,
-    CheckKeys,
-    TreeActionType,
-  } from './types/tree';
-
-  import {
-    defineComponent,
-    reactive,
-    computed,
-    unref,
-    ref,
-    watchEffect,
-    toRaw,
-    watch,
-    onMounted,
-  } from 'vue';
-  import TreeHeader from './components/TreeHeader.vue';
-  import { Tree, Spin, Empty } from 'ant-design-vue';
-  import { TreeIcon } from './TreeIcon';
-  import { ScrollContainer } from '/@/components/Container';
-  import { omit, get, difference, cloneDeep } from 'lodash-es';
   import { isArray, isBoolean, isEmpty, isFunction } from '@vben/shared';
   import { type Recordable } from '@vben/types';
-  import { extendSlots, getSlot } from '/@/utils/helper/tsxHelper';
-  import { filter, treeToList, eachTree } from '/@/utils/helper/treeHelper';
+  import { Empty, Spin, Tree } from 'ant-design-vue';
+  import { cloneDeep, difference, get, omit } from 'lodash-es';
+  import type { CSSProperties } from 'vue';
+  import {
+    computed,
+    defineComponent,
+    onMounted,
+    reactive,
+    ref,
+    toRaw,
+    unref,
+    watch,
+    watchEffect,
+  } from 'vue';
+
+  import { ScrollContainer } from '@/components/Container';
+  import { CreateContextOptions } from '@/components/ContextMenu';
+  import { useContextMenu } from '@/hooks/web/useContextMenu';
+  import { createBEM } from '@/utils/bem';
+  import { eachTree, filter, treeToList } from '@/utils/helper/treeHelper';
+  import { extendSlots, getSlot } from '@/utils/helper/tsxHelper';
+
+  import TreeHeader from './components/TreeHeader.vue';
   import { useTree } from './hooks/useTree';
-  import { useContextMenu } from '/@/hooks/web/useContextMenu';
-  import { CreateContextOptions } from '/@/components/ContextMenu';
+  import { TreeIcon } from './TreeIcon';
+  import type {
+    CheckKeys,
+    FieldNames,
+    KeyType,
+    TreeActionType,
+    TreeItem,
+    TreeState,
+  } from './types/tree';
   import { treeEmits, treeProps } from './types/tree';
-  import { createBEM } from '/@/utils/bem';
 
   export default defineComponent({
     name: 'BasicTree',

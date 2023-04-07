@@ -33,13 +33,15 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { type PropType, computed, ref, watch, useSlots } from 'vue';
-  import { Dropdown, Menu, MenuItem, MenuDivider, InputSearch } from 'ant-design-vue';
-  import Icon from '@/components/Icon/Icon.vue';
-  import { BasicTitle } from '/@/components/Basic';
-  import { useI18n } from '/@/hooks/web/useI18n';
   import { useDebounceFn } from '@vueuse/core';
-  import { createBEM } from '/@/utils/bem';
+  import { Dropdown, InputSearch, Menu, MenuDivider, MenuItem } from 'ant-design-vue';
+  import { computed, type PropType, ref, useSlots, watch } from 'vue';
+
+  import { BasicTitle } from '@/components/Basic';
+  import Icon from '@/components/Icon/Icon.vue';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { createBEM } from '@/utils/bem';
+
   import { ToolbarEnum } from '../types/tree';
 
   const searchValue = ref('');

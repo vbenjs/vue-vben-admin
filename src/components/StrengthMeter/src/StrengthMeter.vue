@@ -23,8 +23,8 @@
   import { Input } from 'ant-design-vue';
   import { computed, defineComponent, ref, unref, watch, watchEffect } from 'vue';
 
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { propTypes } from '/@/utils/propTypes';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { propTypes } from '@/utils/propTypes';
 
   export default defineComponent({
     name: 'StrengthMeter',

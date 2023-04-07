@@ -1,10 +1,10 @@
-import { computed, onUnmounted, unref, watchEffect } from 'vue';
 import { useThrottleFn } from '@vueuse/core';
+import { computed, onUnmounted, unref, watchEffect } from 'vue';
 
-import { useAppStore } from '/@/store/modules/app';
-import { useLockStore } from '/@/store/modules/lock';
+import { useAppStore } from '@/store/modules/app';
+import { useLockStore } from '@/store/modules/lock';
+import { useUserStore } from '@/store/modules/user';
 
-import { useUserStore } from '/@/store/modules/user';
 import { useRootSetting } from '../setting/useRootSetting';
 
 export function useLockPage() {

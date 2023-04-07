@@ -54,14 +54,16 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, nextTick, ref, unref } from 'vue';
-  import { BasicTree, TreeActionType, TreeItem } from '/@/components/Tree/index';
-  import { treeData } from './data';
-  import { PageWrapper } from '/@/components/Page';
-  import { Card, Row, Col, Spin } from 'ant-design-vue';
-  import { cloneDeep, uniq } from 'lodash-es';
   import { isArray } from '@vben/shared';
   import { type Nullable } from '@vben/types';
+  import { Card, Col, Row, Spin } from 'ant-design-vue';
+  import { cloneDeep, uniq } from 'lodash-es';
+  import { defineComponent, nextTick, ref, unref } from 'vue';
+
+  import { PageWrapper } from '@/components/Page';
+  import { BasicTree, TreeActionType, TreeItem } from '@/components/Tree/index';
+
+  import { treeData } from './data';
 
   export default defineComponent({
     components: { BasicTree, PageWrapper, Card, Row, Col, Spin },

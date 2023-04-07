@@ -20,15 +20,17 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
   import { Alert } from 'ant-design-vue';
-  import { useDrawer } from '/@/components/Drawer';
+  import { defineComponent } from 'vue';
+
+  import { useDrawer } from '@/components/Drawer';
+  import { PageWrapper } from '@/components/Page';
+
   import Drawer1 from './Drawer1.vue';
   import Drawer2 from './Drawer2.vue';
   import Drawer3 from './Drawer3.vue';
   import Drawer4 from './Drawer4.vue';
   import Drawer5 from './Drawer5.vue';
-  import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
     components: { Alert, PageWrapper, Drawer1, Drawer2, Drawer3, Drawer4, Drawer5 },

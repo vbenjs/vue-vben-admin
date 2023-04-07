@@ -6,9 +6,11 @@
 </template>
 <script lang="ts" setup>
   import type { PropType } from 'vue';
-  import { useSlots, computed } from 'vue';
+  import { computed, useSlots } from 'vue';
+
+  import { useDesign } from '@/hooks/web/useDesign';
+
   import BasicHelp from './BasicHelp.vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
 
   const props = defineProps({
     /**

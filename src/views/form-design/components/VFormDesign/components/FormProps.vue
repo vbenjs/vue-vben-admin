@@ -76,11 +76,13 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { useFormDesignState } from '../../../hooks/useFormDesignState';
-  import { InputNumber, Slider, Checkbox, Col, RadioChangeEvent } from 'ant-design-vue';
-  // import RadioButtonGroup from '/@/components/RadioButtonGroup.vue';
+  import { Checkbox, Col, InputNumber, RadioChangeEvent, Slider } from 'ant-design-vue';
+  // import RadioButtonGroup from '@/components/RadioButtonGroup.vue';
   import { Form, FormItem, Radio } from 'ant-design-vue';
+  import { defineComponent } from 'vue';
+
+  import { useFormDesignState } from '../../../hooks/useFormDesignState';
+
   export default defineComponent({
     name: 'FormProps',
     components: {

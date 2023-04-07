@@ -1,29 +1,30 @@
-import type { Component } from 'vue';
-import { ComponentType } from '/@/components/Form/src/types';
-import { IconPicker } from '/@/components/Icon/index';
 /**
  * Component list, register here to setting it in the form
  */
 import {
-  Input,
-  Button,
-  Select,
-  Radio,
-  Checkbox,
   AutoComplete,
+  Button,
+  Calendar,
   Cascader,
+  Checkbox,
   DatePicker,
+  Divider,
+  Input,
   InputNumber,
+  Radio,
+  Rate,
+  Select,
+  Slider,
   Switch,
   TimePicker,
+  Transfer,
   // ColorPicker,
   TreeSelect,
-  Slider,
-  Rate,
-  Divider,
-  Calendar,
-  Transfer,
 } from 'ant-design-vue';
+import type { Component } from 'vue';
+
+import { ComponentType } from '@/components/Form/src/types';
+import { IconPicker } from '@/components/Icon/index';
 
 //ant-desing本身的Form控件库
 

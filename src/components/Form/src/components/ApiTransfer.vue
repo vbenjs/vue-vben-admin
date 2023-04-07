@@ -12,13 +12,14 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, watch, ref, unref, watchEffect, PropType } from 'vue';
-  import { Transfer } from 'ant-design-vue';
   import { isArray, isFunction } from '@vben/shared';
-  import { get, omit } from 'lodash-es';
-  import { propTypes } from '/@/utils/propTypes';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import { Transfer } from 'ant-design-vue';
   import { TransferDirection, TransferItem } from 'ant-design-vue/lib/transfer';
+  import { get, omit } from 'lodash-es';
+  import { computed, defineComponent, PropType, ref, unref, watch, watchEffect } from 'vue';
+
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { propTypes } from '@/utils/propTypes';
 
   export default defineComponent({
     name: 'ApiTransfer',

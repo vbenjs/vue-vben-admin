@@ -38,32 +38,30 @@
   </Form>
 </template>
 <script lang="ts">
+  import { isArray } from '@vben/shared';
+  import { useDebounceFn } from '@vueuse/core';
+  import { Form, Row } from 'ant-design-vue';
+  import { cloneDeep } from 'lodash-es';
+  import type { Ref } from 'vue';
+  import { computed, defineComponent, nextTick, onMounted, reactive, ref, unref, watch } from 'vue';
+
+  import { useModalContext } from '@/components/Modal';
+  import { useDesign } from '@/hooks/web/useDesign';
+  // import { cloneDeep } from 'lodash-es';
+  import { deepMerge } from '@/utils';
+  import { dateUtil } from '@/utils/dateUtil';
+
+  import FormAction from './components/FormAction.vue';
+  import FormItem from './components/FormItem.vue';
+  import { dateItemType } from './helper';
+  import useAdvanced from './hooks/useAdvanced';
+  import { useAutoFocus } from './hooks/useAutoFocus';
+  import { createFormContext } from './hooks/useFormContext';
+  import { useFormEvents } from './hooks/useFormEvents';
+  import { useFormValues } from './hooks/useFormValues';
+  import { basicProps } from './props';
   import type { FormActionType, FormProps, FormSchema } from './types/form';
   import type { AdvanceState } from './types/hooks';
-  import type { Ref } from 'vue';
-  import { isArray } from '@vben/shared';
-  import { defineComponent, reactive, ref, computed, unref, onMounted, watch, nextTick } from 'vue';
-  import { Form, Row } from 'ant-design-vue';
-  import FormItem from './components/FormItem.vue';
-  import FormAction from './components/FormAction.vue';
-
-  import { dateItemType } from './helper';
-  import { dateUtil } from '/@/utils/dateUtil';
-
-  // import { cloneDeep } from 'lodash-es';
-  import { deepMerge } from '/@/utils';
-
-  import { useFormValues } from './hooks/useFormValues';
-  import useAdvanced from './hooks/useAdvanced';
-  import { useFormEvents } from './hooks/useFormEvents';
-  import { createFormContext } from './hooks/useFormContext';
-  import { useAutoFocus } from './hooks/useAutoFocus';
-  import { useModalContext } from '/@/components/Modal';
-  import { useDebounceFn } from '@vueuse/core';
-
-  import { basicProps } from './props';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { cloneDeep } from 'lodash-es';
 
   export default defineComponent({
     name: 'BasicForm',

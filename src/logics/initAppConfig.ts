@@ -2,23 +2,18 @@
  * Application configuration
  */
 import type { ProjectConfig } from '/#/config';
-
-import { PROJ_CFG_KEY } from '/@/enums/cacheEnum';
-import projectSetting from '/@/settings/projectSetting';
-
-import { updateHeaderBgColor, updateSidebarBgColor } from '/@/logics/theme/updateBackground';
-import { updateColorWeak } from '/@/logics/theme/updateColorWeak';
-import { updateGrayMode } from '/@/logics/theme/updateGrayMode';
-import { updateDarkTheme } from '/@/logics/theme/dark';
-
-import { useAppStore } from '/@/store/modules/app';
-import { useLocaleStore } from '/@/store/modules/locale';
-
-import { getCommonStoragePrefix, getStorageShortName } from '/@/utils/env';
-
-import { Persistent } from '/@/utils/cache/persistent';
-import { deepMerge } from '/@/utils';
-import { ThemeEnum } from '/@/enums/appEnum';
+import { ThemeEnum } from '@/enums/appEnum';
+import { PROJ_CFG_KEY } from '@/enums/cacheEnum';
+import { updateDarkTheme } from '@/logics/theme/dark';
+import { updateHeaderBgColor, updateSidebarBgColor } from '@/logics/theme/updateBackground';
+import { updateColorWeak } from '@/logics/theme/updateColorWeak';
+import { updateGrayMode } from '@/logics/theme/updateGrayMode';
+import projectSetting from '@/settings/projectSetting';
+import { useAppStore } from '@/store/modules/app';
+import { useLocaleStore } from '@/store/modules/locale';
+import { deepMerge } from '@/utils';
+import { Persistent } from '@/utils/cache/persistent';
+import { getCommonStoragePrefix, getStorageShortName } from '@/utils/env';
 
 // Initial project configuration
 export function initAppConfigStore() {

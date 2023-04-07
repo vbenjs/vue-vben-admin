@@ -1,9 +1,10 @@
-import type { FunctionalComponent, defineComponent } from 'vue';
-import type { ComponentType } from '../../types/componentType';
-import { componentMap } from '/@/components/Table/src/componentMap';
-
 import { Popover } from 'ant-design-vue';
+import type { defineComponent, FunctionalComponent } from 'vue';
 import { h } from 'vue';
+
+import { componentMap } from '@/components/Table/src/componentMap';
+
+import type { ComponentType } from '../../types/componentType';
 
 export interface ComponentProps {
   component: ComponentType;

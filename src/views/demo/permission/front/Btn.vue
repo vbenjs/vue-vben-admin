@@ -60,14 +60,16 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { computed, defineComponent } from 'vue';
   import { Alert, Divider, Space } from 'ant-design-vue';
+  import { computed, defineComponent } from 'vue';
+
+  import { Authority } from '@/components/Authority';
+  import { PageWrapper } from '@/components/Page';
+  import { RoleEnum } from '@/enums/roleEnum';
+  import { usePermission } from '@/hooks/web/usePermission';
+  import { useUserStore } from '@/store/modules/user';
+
   import CurrentPermissionMode from '../CurrentPermissionMode.vue';
-  import { useUserStore } from '/@/store/modules/user';
-  import { RoleEnum } from '/@/enums/roleEnum';
-  import { usePermission } from '/@/hooks/web/usePermission';
-  import { Authority } from '/@/components/Authority';
-  import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
     components: { Alert, PageWrapper, Space, CurrentPermissionMode, Divider, Authority },

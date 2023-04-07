@@ -1,10 +1,11 @@
-import { toRaw, ref, nextTick } from 'vue';
+import { nextTick, ref, toRaw } from 'vue';
 import type { RouteLocationNormalized } from 'vue-router';
-import { useDesign } from '/@/hooks/web/useDesign';
-import { useSortable } from '/@/hooks/web/useSortable';
-import { useMultipleTabStore } from '/@/store/modules/multipleTab';
-import projectSetting from '/@/settings/projectSetting';
 import { useRouter } from 'vue-router';
+
+import { useDesign } from '@/hooks/web/useDesign';
+import { useSortable } from '@/hooks/web/useSortable';
+import projectSetting from '@/settings/projectSetting';
+import { useMultipleTabStore } from '@/store/modules/multipleTab';
 
 export function initAffixTabs(): string[] {
   const affixList = ref<RouteLocationNormalized[]>([]);

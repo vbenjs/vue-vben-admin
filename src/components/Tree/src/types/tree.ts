@@ -1,7 +1,7 @@
-import type { ExtractPropTypes } from 'vue';
 import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree';
+import type { ExtractPropTypes } from 'vue';
 
-import { buildProps } from '/@/utils/props';
+import { buildProps } from '@/utils/props';
 
 export enum ToolbarEnum {
   SELECT_ALL,

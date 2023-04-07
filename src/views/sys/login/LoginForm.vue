@@ -82,24 +82,23 @@
   </Form>
 </template>
 <script lang="ts" setup>
-  import { reactive, ref, unref, computed } from 'vue';
-
-  import { Checkbox, Form, Input, Row, Col, Button, Divider } from 'ant-design-vue';
   import {
-    GithubFilled,
-    WechatFilled,
     AlipayCircleFilled,
+    GithubFilled,
     GoogleCircleFilled,
     TwitterCircleFilled,
+    WechatFilled,
   } from '@ant-design/icons-vue';
+  import { Button, Checkbox, Col, Divider, Form, Input, Row } from 'ant-design-vue';
+  import { computed, reactive, ref, unref } from 'vue';
+
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { useMessage } from '@/hooks/web/useMessage';
+  import { useUserStore } from '@/store/modules/user';
+
   import LoginFormTitle from './LoginFormTitle.vue';
-
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useMessage } from '/@/hooks/web/useMessage';
-
-  import { useUserStore } from '/@/store/modules/user';
-  import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import { LoginStateEnum, useFormRules, useFormValid, useLoginState } from './useLogin';
   //import { onKeyStroke } from '@vueuse/core';
 
   const ACol = Col;

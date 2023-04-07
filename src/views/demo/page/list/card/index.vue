@@ -33,11 +33,13 @@
   </PageWrapper>
 </template>
 <script lang="ts">
+  import { Card, Col, List, Row } from 'ant-design-vue';
   import { defineComponent } from 'vue';
+
   import Icon from '@/components/Icon/Icon.vue';
+  import { PageWrapper } from '@/components/Page';
+
   import { cardList } from './data';
-  import { PageWrapper } from '/@/components/Page';
-  import { Card, Row, Col, List } from 'ant-design-vue';
 
   export default defineComponent({
     components: {

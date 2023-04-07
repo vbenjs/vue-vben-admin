@@ -8,21 +8,24 @@
   </div>
 </template>
 <script lang="ts">
-  import type { Ref } from 'vue';
-  import type { Definition } from '@logicflow/core';
-  import { defineComponent, ref, onMounted, unref, nextTick, computed, watch } from 'vue';
-  import FlowChartToolbar from './FlowChartToolbar.vue';
-  import LogicFlow from '@logicflow/core';
-  import { Snapshot, BpmnElement, Menu, DndPanel, SelectionSelect } from '@logicflow/extension';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useAppStore } from '/@/store/modules/app';
-  import { createFlowChartContext } from './useFlowContext';
-  import { toLogicFlowData } from './adpterForTurbo';
-  import { useModal, BasicModal } from '/@/components/Modal';
-  import { JsonPreview } from '/@/components/CodeEditor';
-  import { configDefaultDndPanel } from './config';
   import '@logicflow/core/dist/style/index.css';
   import '@logicflow/extension/lib/style/index.css';
+
+  import type { Definition } from '@logicflow/core';
+  import LogicFlow from '@logicflow/core';
+  import { BpmnElement, DndPanel, Menu, SelectionSelect, Snapshot } from '@logicflow/extension';
+  import type { Ref } from 'vue';
+  import { computed, defineComponent, nextTick, onMounted, ref, unref, watch } from 'vue';
+
+  import { JsonPreview } from '@/components/CodeEditor';
+  import { BasicModal, useModal } from '@/components/Modal';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { useAppStore } from '@/store/modules/app';
+
+  import { toLogicFlowData } from './adpterForTurbo';
+  import { configDefaultDndPanel } from './config';
+  import FlowChartToolbar from './FlowChartToolbar.vue';
+  import { createFlowChartContext } from './useFlowContext';
 
   export default defineComponent({
     name: 'FlowChart',

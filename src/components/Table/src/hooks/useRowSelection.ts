@@ -1,9 +1,11 @@
 import { isFunction } from '@vben/shared';
-import type { BasicTableProps, TableRowSelection } from '../types/table';
-import { computed, ComputedRef, nextTick, Ref, ref, toRaw, unref, watch } from 'vue';
-import { ROW_KEY } from '../const';
 import { omit } from 'lodash-es';
-import { findNodeAll } from '/@/utils/helper/treeHelper';
+import { computed, ComputedRef, nextTick, Ref, ref, toRaw, unref, watch } from 'vue';
+
+import { findNodeAll } from '@/utils/helper/treeHelper';
+
+import { ROW_KEY } from '../const';
+import type { BasicTableProps, TableRowSelection } from '../types/table';
 
 export function useRowSelection(
   propsRef: ComputedRef<BasicTableProps>,

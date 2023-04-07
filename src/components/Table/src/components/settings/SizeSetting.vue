@@ -23,13 +23,15 @@
   </Tooltip>
 </template>
 <script lang="ts">
-  import type { SizeType } from '../../types/table';
-  import { defineComponent, ref } from 'vue';
-  import { Tooltip, Dropdown, Menu } from 'ant-design-vue';
   import { ColumnHeightOutlined } from '@ant-design/icons-vue';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import { Dropdown, Menu, Tooltip } from 'ant-design-vue';
+  import { defineComponent, ref } from 'vue';
+
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { getPopupContainer } from '@/utils';
+
   import { useTableContext } from '../../hooks/useTableContext';
-  import { getPopupContainer } from '/@/utils';
+  import type { SizeType } from '../../types/table';
 
   export default defineComponent({
     name: 'SizeSetting',

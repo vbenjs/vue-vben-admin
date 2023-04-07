@@ -10,12 +10,13 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, h } from 'vue';
-  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { useMessage } from '/@/hooks/web/useMessage';
   import { Input } from 'ant-design-vue';
-  import { PageWrapper } from '/@/components/Page';
+  import { defineComponent, h } from 'vue';
+
+  import { CollapseContainer } from '@/components/Container/index';
+  import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
+  import { PageWrapper } from '@/components/Page';
+  import { useMessage } from '@/hooks/web/useMessage';
 
   const schemas: FormSchema[] = [
     {

@@ -27,12 +27,14 @@
 </template>
 
 <script>
+  import { Tabs } from 'ant-design-vue';
   import { defineComponent, ref } from 'vue';
   import { useRoute } from 'vue-router';
-  import { PageWrapper } from '/@/components/Page';
-  import { useGo } from '/@/hooks/web/usePage';
-  import { useTabs } from '/@/hooks/web/useTabs';
-  import { Tabs } from 'ant-design-vue';
+
+  import { PageWrapper } from '@/components/Page';
+  import { useGo } from '@/hooks/web/usePage';
+  import { useTabs } from '@/hooks/web/useTabs';
+
   export default defineComponent({
     name: 'AccountDetail',
     components: { PageWrapper, ATabs: Tabs, ATabPane: Tabs.TabPane },

@@ -10,9 +10,11 @@
 </template>
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
+
+  import { useRuleFormItem } from '@/hooks/component/useFormItem';
+  import { useDesign } from '@/hooks/web/useDesign';
+
   import CountButton from './CountButton.vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useRuleFormItem } from '/@/hooks/component/useFormItem';
 
   const props = {
     value: { type: String },

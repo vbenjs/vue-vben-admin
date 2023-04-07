@@ -4,9 +4,10 @@
   </span>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { propTypes } from '/@/utils/propTypes';
   import { Image } from 'ant-design-vue';
+  import { defineComponent } from 'vue';
+
+  import { propTypes } from '@/utils/propTypes';
 
   export default defineComponent({
     components: { Image },

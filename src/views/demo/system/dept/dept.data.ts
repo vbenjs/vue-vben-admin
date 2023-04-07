@@ -1,6 +1,7 @@
-import { BasicColumn, FormSchema } from '/@/components/Table';
-import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
+import { h } from 'vue';
+
+import { BasicColumn, FormSchema } from '@/components/Table';
 
 export const columns: BasicColumn[] = [
   {

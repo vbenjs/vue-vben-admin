@@ -7,12 +7,14 @@
 </template>
 <script lang="ts" setup>
   import { onBeforeUnmount, onMounted, ref } from 'vue';
+
+  import { PermissionModeEnum } from '@/enums/appEnum';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { useAppStore } from '@/store/modules/app';
+  import { usePermissionStore } from '@/store/modules/permission';
+  import { useUserStore } from '@/store/modules/user';
+
   import Login from './Login.vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useUserStore } from '/@/store/modules/user';
-  import { usePermissionStore } from '/@/store/modules/permission';
-  import { useAppStore } from '/@/store/modules/app';
-  import { PermissionModeEnum } from '/@/enums/appEnum';
 
   const { prefixCls } = useDesign('st-login');
   const userStore = useUserStore();

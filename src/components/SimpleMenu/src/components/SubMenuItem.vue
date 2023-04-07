@@ -72,11 +72,11 @@
     unref,
   } from 'vue';
 
-  import { CollapseTransition } from '/@/components/Transition';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { mitt } from '/@/utils/mitt';
-  import { propTypes } from '/@/utils/propTypes';
   import Icon from '@/components/Icon/Icon.vue';
+  import { CollapseTransition } from '@/components/Transition';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { mitt } from '@/utils/mitt';
+  import { propTypes } from '@/utils/propTypes';
 
   import type { SubMenuProvider } from './types';
   import { useMenuItem } from './useMenu';

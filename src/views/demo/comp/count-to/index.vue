@@ -36,10 +36,11 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
   import { Card } from 'ant-design-vue';
-  import { CountTo } from '/@/components/CountTo/index';
-  import { PageWrapper } from '/@/components/Page';
+  import { defineComponent } from 'vue';
+
+  import { CountTo } from '@/components/CountTo/index';
+  import { PageWrapper } from '@/components/Page';
 
   export default defineComponent({
     components: {

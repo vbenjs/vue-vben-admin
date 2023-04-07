@@ -20,14 +20,15 @@
 </template>
 
 <script lang="ts">
-  import { ref, defineComponent } from 'vue';
   import { Tabs } from 'ant-design-vue';
-  import { PageWrapper } from '/@/components/Page';
-  import { CollapseContainer } from '/@/components/Container';
-  import { useMessage } from '/@/hooks/web/useMessage';
   import { omit } from 'lodash-es';
-  import { deepMerge } from '/@/utils';
-  import { BasicForm, FormSchema, useForm, FormProps, UseFormReturnType } from '/@/components/Form';
+  import { defineComponent, ref } from 'vue';
+
+  import { CollapseContainer } from '@/components/Container';
+  import { BasicForm, FormProps, FormSchema, useForm, UseFormReturnType } from '@/components/Form';
+  import { PageWrapper } from '@/components/Page';
+  import { useMessage } from '@/hooks/web/useMessage';
+  import { deepMerge } from '@/utils';
 
   export default defineComponent({
     name: 'TabsFormDemo',

@@ -11,11 +11,13 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { BasicTable } from '/@/components/Table';
-  import { aoaToSheetXlsx } from '/@/components/Excel';
-  import { arrHeader, arrData, columns, data } from './data';
-  import { PageWrapper } from '/@/components/Page';
-  import { aoaToMultipleSheetXlsx } from '/@/components/Excel/src/Export2Excel';
+
+  import { aoaToSheetXlsx } from '@/components/Excel';
+  import { aoaToMultipleSheetXlsx } from '@/components/Excel/src/Export2Excel';
+  import { PageWrapper } from '@/components/Page';
+  import { BasicTable } from '@/components/Table';
+
+  import { arrData, arrHeader, columns, data } from './data';
 
   export default defineComponent({
     components: { BasicTable, PageWrapper },

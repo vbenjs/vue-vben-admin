@@ -17,13 +17,13 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
   import { CheckOutlined } from '@ant-design/icons-vue';
+  import { defineComponent, PropType } from 'vue';
 
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import { useDesign } from '@/hooks/web/useDesign';
 
-  import { baseHandler } from '../handler';
   import { HandlerEnum } from '../enum';
+  import { baseHandler } from '../handler';
 
   export default defineComponent({
     name: 'ThemeColorPicker',

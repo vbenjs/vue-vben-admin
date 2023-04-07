@@ -7,10 +7,11 @@
   </PageWrapper>
 </template>
 <script lang="ts">
+  import { Input } from 'ant-design-vue';
   import { computed, defineComponent, unref } from 'vue';
   import { useRouter } from 'vue-router';
-  import { PageWrapper } from '/@/components/Page';
-  import { Input } from 'ant-design-vue';
+
+  import { PageWrapper } from '@/components/Page';
 
   export default defineComponent({
     name: 'TestTab',

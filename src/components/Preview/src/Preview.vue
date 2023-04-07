@@ -15,13 +15,13 @@
   </div>
 </template>
 <script lang="ts">
-  import type { PropType } from 'vue';
-  import { defineComponent, computed } from 'vue';
-
-  import { Image } from 'ant-design-vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { propTypes } from '/@/utils/propTypes';
   import { isString } from '@vben/shared';
+  import { Image } from 'ant-design-vue';
+  import type { PropType } from 'vue';
+  import { computed, defineComponent } from 'vue';
+
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { propTypes } from '@/utils/propTypes';
 
   interface ImageProps {
     alt?: string;

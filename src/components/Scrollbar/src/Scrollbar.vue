@@ -17,21 +17,23 @@
   </div>
 </template>
 <script lang="ts">
-  import { addResizeListener, removeResizeListener } from '/@/utils/event';
-  import componentSetting from '/@/settings/componentSetting';
-  import { toObject } from './util';
   import { isArray } from '@vben/shared';
   import {
-    defineComponent,
-    ref,
-    onMounted,
-    onBeforeUnmount,
-    nextTick,
-    provide,
     computed,
+    defineComponent,
+    nextTick,
+    onBeforeUnmount,
+    onMounted,
+    provide,
+    ref,
     unref,
   } from 'vue';
+
+  import componentSetting from '@/settings/componentSetting';
+  import { addResizeListener, removeResizeListener } from '@/utils/event';
+
   import Bar from './bar';
+  import { toObject } from './util';
 
   const { scrollbar } = componentSetting;
 

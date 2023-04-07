@@ -1,12 +1,14 @@
-import type { BasicTableProps, TableActionType, FetchParams, BasicColumn } from '../types/table';
-import type { PaginationProps } from '../types/pagination';
-import type { DynamicProps } from '/#/utils';
-import type { FormActionType } from '/@/components/Form';
 import type { WatchStopHandle } from 'vue';
-import { getDynamicProps } from '/@/utils';
-import { ref, onUnmounted, unref, watch, toRaw } from 'vue';
-import { isProdMode } from '/@/utils/env';
-import { error } from '/@/utils/log';
+import { onUnmounted, ref, toRaw, unref, watch } from 'vue';
+
+import type { DynamicProps } from '/#/utils';
+import type { FormActionType } from '@/components/Form';
+import { getDynamicProps } from '@/utils';
+import { isProdMode } from '@/utils/env';
+import { error } from '@/utils/log';
+
+import type { PaginationProps } from '../types/pagination';
+import type { BasicColumn, BasicTableProps, FetchParams, TableActionType } from '../types/table';
 
 type Props = Partial<DynamicProps<BasicTableProps>>;
 

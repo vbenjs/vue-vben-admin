@@ -4,11 +4,12 @@
   </span>
 </template>
 <script lang="ts">
+  import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue';
   import { defineComponent } from 'vue';
-  import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue';
-  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { propTypes } from '/@/utils/propTypes';
+
+  import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { propTypes } from '@/utils/propTypes';
 
   export default defineComponent({
     name: 'HeaderTrigger',

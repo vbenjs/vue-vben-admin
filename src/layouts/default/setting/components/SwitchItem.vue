@@ -11,13 +11,14 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, computed } from 'vue';
-
   import { Switch } from 'ant-design-vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { baseHandler } from '../handler';
+  import { computed, defineComponent, PropType } from 'vue';
+
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { useI18n } from '@/hooks/web/useI18n';
+
   import { HandlerEnum } from '../enum';
+  import { baseHandler } from '../handler';
 
   export default defineComponent({
     name: 'SwitchItem',

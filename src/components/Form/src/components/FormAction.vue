@@ -40,15 +40,17 @@
   </a-col>
 </template>
 <script lang="ts">
-  import type { ColEx } from '../types/index';
+  import { Col, Form } from 'ant-design-vue';
   //import type { ButtonProps } from 'ant-design-vue/es/button/buttonTypes';
-  import { defineComponent, computed, PropType } from 'vue';
-  import { Form, Col } from 'ant-design-vue';
-  import { Button, ButtonProps } from '/@/components/Button';
-  import { BasicArrow } from '/@/components/Basic';
+  import { computed, defineComponent, PropType } from 'vue';
+
+  import { BasicArrow } from '@/components/Basic';
+  import { Button, ButtonProps } from '@/components/Button';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { propTypes } from '@/utils/propTypes';
+
   import { useFormContext } from '../hooks/useFormContext';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { propTypes } from '/@/utils/propTypes';
+  import type { ColEx } from '../types/index';
 
   type ButtonOptions = Partial<ButtonProps> & { text: string };
 

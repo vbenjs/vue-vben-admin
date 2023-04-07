@@ -14,12 +14,13 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { BasicForm, useForm } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container';
   import { Input } from 'ant-design-vue';
-  import { PageWrapper } from '/@/components/Page';
-  import { Button } from '/@/components/Button';
+  import { defineComponent, ref } from 'vue';
+
+  import { Button } from '@/components/Button';
+  import { CollapseContainer } from '@/components/Container';
+  import { BasicForm, useForm } from '@/components/Form/index';
+  import { PageWrapper } from '@/components/Page';
 
   export default defineComponent({
     components: { BasicForm, CollapseContainer, PageWrapper, [Input.name]: Input, Button },

@@ -10,13 +10,14 @@
 </template>
 
 <script lang="ts">
-  import { type Recordable, type AnyFunction } from '@vben/types';
-  import { type PropType, computed, defineComponent, watch, ref, onMounted, unref } from 'vue';
-  import { Tree } from 'ant-design-vue';
-  import { isArray, isFunction } from '@vben/shared';
-  import { get } from 'lodash-es';
-  import { propTypes } from '/@/utils/propTypes';
   import { LoadingOutlined } from '@ant-design/icons-vue';
+  import { isArray, isFunction } from '@vben/shared';
+  import { type AnyFunction, type Recordable } from '@vben/types';
+  import { Tree } from 'ant-design-vue';
+  import { get } from 'lodash-es';
+  import { computed, defineComponent, onMounted, type PropType, ref, unref, watch } from 'vue';
+
+  import { propTypes } from '@/utils/propTypes';
 
   export default defineComponent({
     name: 'ApiTree',

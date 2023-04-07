@@ -66,13 +66,15 @@
   </template>
 </template>
 <script lang="ts" setup>
-  import { reactive, ref, unref, computed } from 'vue';
+  import { Button, Checkbox, Form, Input } from 'ant-design-vue';
+  import { computed, reactive, ref, unref } from 'vue';
+
+  import { CountdownInput } from '@/components/CountDown';
+  import { StrengthMeter } from '@/components/StrengthMeter';
+  import { useI18n } from '@/hooks/web/useI18n';
+
   import LoginFormTitle from './LoginFormTitle.vue';
-  import { Form, Input, Button, Checkbox } from 'ant-design-vue';
-  import { StrengthMeter } from '/@/components/StrengthMeter';
-  import { CountdownInput } from '/@/components/CountDown';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useLoginState, useFormRules, useFormValid, LoginStateEnum } from './useLogin';
+  import { LoginStateEnum, useFormRules, useFormValid, useLoginState } from './useLogin';
 
   const FormItem = Form.Item;
   const InputPassword = Input.Password;

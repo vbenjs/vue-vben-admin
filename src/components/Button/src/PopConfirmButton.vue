@@ -1,11 +1,13 @@
 <script lang="ts">
-  import { computed, defineComponent, h, unref } from 'vue';
-  import BasicButton from './BasicButton.vue';
-  import { Popconfirm } from 'ant-design-vue';
-  import { extendSlots } from '/@/utils/helper/tsxHelper';
-  import { omit } from 'lodash-es';
   import { useAttrs } from '@vben/hooks';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import { Popconfirm } from 'ant-design-vue';
+  import { omit } from 'lodash-es';
+  import { computed, defineComponent, h, unref } from 'vue';
+
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { extendSlots } from '@/utils/helper/tsxHelper';
+
+  import BasicButton from './BasicButton.vue';
 
   const props = {
     /**

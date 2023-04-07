@@ -16,13 +16,14 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicUpload } from '/@/components/Upload';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { PageWrapper } from '/@/components/Page';
   import { Alert } from 'ant-design-vue';
-  import { uploadApi } from '/@/api/sys/upload';
+  import { defineComponent } from 'vue';
+
+  import { uploadApi } from '@/api/sys/upload';
+  import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
+  import { PageWrapper } from '@/components/Page';
+  import { BasicUpload } from '@/components/Upload';
+  import { useMessage } from '@/hooks/web/useMessage';
 
   const schemas: FormSchema[] = [
     {

@@ -23,13 +23,15 @@
   </div>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, ref } from 'vue';
-  import { Popover, Tabs, Badge } from 'ant-design-vue';
   import { BellOutlined } from '@ant-design/icons-vue';
-  import { tabListData, ListItem } from './data';
+  import { Badge, Popover, Tabs } from 'ant-design-vue';
+  import { computed, defineComponent, ref } from 'vue';
+
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { useMessage } from '@/hooks/web/useMessage';
+
+  import { ListItem, tabListData } from './data';
   import NoticeList from './NoticeList.vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
     components: { Popover, BellOutlined, Tabs, TabPane: Tabs.TabPane, Badge, NoticeList },

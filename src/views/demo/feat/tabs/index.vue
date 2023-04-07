@@ -25,13 +25,14 @@
   </PageWrapper>
 </template>
 <script lang="ts">
+  import { Alert, Input } from 'ant-design-vue';
   import { defineComponent, ref } from 'vue';
-  import { CollapseContainer } from '/@/components/Container';
-  import { useTabs } from '/@/hooks/web/useTabs';
-  import { PageWrapper } from '/@/components/Page';
-  import { Input, Alert } from 'ant-design-vue';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { useGo } from '/@/hooks/web/usePage';
+
+  import { CollapseContainer } from '@/components/Container';
+  import { PageWrapper } from '@/components/Page';
+  import { useMessage } from '@/hooks/web/useMessage';
+  import { useGo } from '@/hooks/web/usePage';
+  import { useTabs } from '@/hooks/web/useTabs';
 
   export default defineComponent({
     name: 'TabsDemo',

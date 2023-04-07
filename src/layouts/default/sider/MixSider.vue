@@ -78,26 +78,28 @@
   </div>
 </template>
 <script lang="ts">
-  import type { Menu } from '/@/router/types';
   import type { CSSProperties } from 'vue';
   import { computed, defineComponent, onMounted, ref, unref, watch } from 'vue';
   import type { RouteLocationNormalized } from 'vue-router';
-  import { ScrollContainer } from '/@/components/Container';
-  import { SimpleMenu, SimpleMenuTag } from '/@/components/SimpleMenu';
+
+  import { AppLogo } from '@/components/Application';
+  import { ScrollContainer } from '@/components/Container';
   import Icon from '@/components/Icon/Icon.vue';
-  import { AppLogo } from '/@/components/Application';
-  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
-  import { usePermissionStore } from '/@/store/modules/permission';
-  import { useDragLine } from './useLayoutSider';
-  import { useGlobSetting } from '/@/hooks/setting';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useGo } from '/@/hooks/web/usePage';
-  import { SIDE_BAR_MINI_WIDTH, SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '/@/enums/appEnum';
-  import clickOutside from '/@/directives/clickOutside';
-  import { getChildrenMenus, getCurrentParentPath, getShallowMenus } from '/@/router/menus';
-  import { listenerRouteChange } from '/@/logics/mitt/routeChange';
+  import { SimpleMenu, SimpleMenuTag } from '@/components/SimpleMenu';
+  import clickOutside from '@/directives/clickOutside';
+  import { SIDE_BAR_MINI_WIDTH, SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '@/enums/appEnum';
+  import { useGlobSetting } from '@/hooks/setting';
+  import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { useGo } from '@/hooks/web/usePage';
+  import { listenerRouteChange } from '@/logics/mitt/routeChange';
+  import { getChildrenMenus, getCurrentParentPath, getShallowMenus } from '@/router/menus';
+  import type { Menu } from '@/router/types';
+  import { usePermissionStore } from '@/store/modules/permission';
+
   import LayoutTrigger from '../trigger/index.vue';
+  import { useDragLine } from './useLayoutSider';
 
   export default defineComponent({
     name: 'LayoutMixSider',

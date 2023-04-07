@@ -11,10 +11,11 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { useContextMenu } from '/@/hooks/web/useContextMenu';
-  import { CollapseContainer } from '/@/components/Container';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { PageWrapper } from '/@/components/Page';
+
+  import { CollapseContainer } from '@/components/Container';
+  import { PageWrapper } from '@/components/Page';
+  import { useContextMenu } from '@/hooks/web/useContextMenu';
+  import { useMessage } from '@/hooks/web/useMessage';
 
   export default defineComponent({
     components: { CollapseContainer, PageWrapper },

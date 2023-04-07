@@ -23,13 +23,15 @@
   </div>
 </template>
 <script lang="ts">
-  import type { TableSetting, ColumnChangeParam } from '../types/table';
+  import { Divider } from 'ant-design-vue';
   import type { PropType } from 'vue';
   import { defineComponent } from 'vue';
-  import { Divider } from 'ant-design-vue';
+
+  import { useDesign } from '@/hooks/web/useDesign';
+
+  import type { ColumnChangeParam, TableSetting } from '../types/table';
   import TableSettingComponent from './settings/index.vue';
   import TableTitle from './TableTitle.vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
 
   export default defineComponent({
     name: 'BasicTableHeader',

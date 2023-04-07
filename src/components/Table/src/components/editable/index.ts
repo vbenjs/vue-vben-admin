@@ -1,9 +1,9 @@
-import type { BasicColumn } from '/@/components/Table/src/types/table';
-
+import { isArray } from '@vben/shared';
 import { h, Ref } from 'vue';
 
+import type { BasicColumn } from '@/components/Table/src/types/table';
+
 import EditableCell from './EditableCell.vue';
-import { isArray } from '@vben/shared';
 
 interface Params {
   text: string;

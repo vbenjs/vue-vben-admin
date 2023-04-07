@@ -1,5 +1,6 @@
-import { prefixCls } from '/@/settings/designSetting';
 import { isArray } from '@vben/shared';
+
+import { prefixCls } from '@/settings/designSetting';
 
 type Mod = string | { [key: string]: any };
 type Mods = Mod | Mod[];

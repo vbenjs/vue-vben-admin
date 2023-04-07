@@ -1,12 +1,13 @@
 <script lang="tsx">
-  import type { CSSProperties, PropType } from 'vue';
-  import { defineComponent, computed, unref } from 'vue';
-  import { Tooltip } from 'ant-design-vue';
   import { InfoCircleOutlined } from '@ant-design/icons-vue';
-  import { getPopupContainer } from '/@/utils';
   import { isArray, isString } from '@vben/shared';
-  import { getSlot } from '/@/utils/helper/tsxHelper';
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import { Tooltip } from 'ant-design-vue';
+  import type { CSSProperties, PropType } from 'vue';
+  import { computed, defineComponent, unref } from 'vue';
+
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { getPopupContainer } from '@/utils';
+  import { getSlot } from '@/utils/helper/tsxHelper';
 
   const props = {
     /**

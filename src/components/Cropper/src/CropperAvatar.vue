@@ -30,22 +30,24 @@
 </template>
 <script lang="ts">
   import {
-    defineComponent,
     computed,
     CSSProperties,
-    unref,
-    ref,
-    watchEffect,
-    watch,
+    defineComponent,
     PropType,
+    ref,
+    unref,
+    watch,
+    watchEffect,
   } from 'vue';
-  import CopperModal from './CopperModal.vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useModal } from '/@/components/Modal';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import type { ButtonProps } from '/@/components/Button';
+
+  import type { ButtonProps } from '@/components/Button';
   import Icon from '@/components/Icon/Icon.vue';
+  import { useModal } from '@/components/Modal';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { useMessage } from '@/hooks/web/useMessage';
+
+  import CopperModal from './CopperModal.vue';
 
   const props = {
     width: { type: [String, Number], default: '200px' },

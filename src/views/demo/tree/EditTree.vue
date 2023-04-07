@@ -51,12 +51,14 @@
   </PageWrapper>
 </template>
 <script lang="ts">
+  import { DeleteOutlined, PlusOutlined } from '@ant-design/icons-vue';
+  import { Col, Row } from 'ant-design-vue';
   import { defineComponent, h } from 'vue';
-  import { Row, Col } from 'ant-design-vue';
-  import { BasicTree, TreeActionItem, ContextMenuItem } from '/@/components/Tree/index';
+
+  import { PageWrapper } from '@/components/Page';
+  import { BasicTree, ContextMenuItem, TreeActionItem } from '@/components/Tree/index';
+
   import { treeData, treeData2, treeData3 } from './data';
-  import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue';
-  import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
     components: { BasicTree, PageWrapper, Row, Col },

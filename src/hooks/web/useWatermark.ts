@@ -1,7 +1,8 @@
-import { getCurrentInstance, onBeforeUnmount, ref, Ref, shallowRef, unref } from 'vue';
-import { useRafThrottle } from '/@/utils/domUtils';
-import { addResizeListener, removeResizeListener } from '/@/utils/event';
 import { isUndefined } from '@vben/shared';
+import { getCurrentInstance, onBeforeUnmount, Ref, ref, shallowRef, unref } from 'vue';
+
+import { useRafThrottle } from '@/utils/domUtils';
+import { addResizeListener, removeResizeListener } from '@/utils/event';
 
 const domSymbol = Symbol('watermark-dom');
 const sourceMap = new WeakMap<HTMLElement, {}>();

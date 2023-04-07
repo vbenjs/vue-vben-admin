@@ -23,14 +23,16 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, computed } from 'vue';
-  import { RoleEnum } from '/@/enums/roleEnum';
-  import { usePermission } from '/@/hooks/web/usePermission';
-  import { useUserStore } from '/@/store/modules/user';
-  import { PageWrapper } from '/@/components/Page';
-  import { PermissionModeEnum } from '/@/enums/appEnum';
-  import { useAppStore } from '/@/store/modules/app';
   import { Alert, Space } from 'ant-design-vue';
+  import { computed, defineComponent } from 'vue';
+
+  import { PageWrapper } from '@/components/Page';
+  import { PermissionModeEnum } from '@/enums/appEnum';
+  import { RoleEnum } from '@/enums/roleEnum';
+  import { usePermission } from '@/hooks/web/usePermission';
+  import { useAppStore } from '@/store/modules/app';
+  import { useUserStore } from '@/store/modules/user';
+
   import CurrentPermissionMode from '../CurrentPermissionMode.vue';
 
   export default defineComponent({

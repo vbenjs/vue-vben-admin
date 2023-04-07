@@ -7,9 +7,10 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
 
-  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
+  import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
+  import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
+
   const schemas: FormSchema[] = [
     {
       field: 'field1',

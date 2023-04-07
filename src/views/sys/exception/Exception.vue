@@ -1,15 +1,16 @@
 <script lang="tsx">
+  import { Button, Result } from 'ant-design-vue';
   import type { PropType } from 'vue';
-  import { Result, Button } from 'ant-design-vue';
-  import { defineComponent, ref, computed, unref } from 'vue';
-  import { ExceptionEnum } from '/@/enums/exceptionEnum';
-  import notDataSvg from '/@/assets/svg/no-data.svg';
-  import netWorkSvg from '/@/assets/svg/net-error.svg';
+  import { computed, defineComponent, ref, unref } from 'vue';
   import { useRoute } from 'vue-router';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useGo, useRedo } from '/@/hooks/web/usePage';
-  import { PageEnum } from '/@/enums/pageEnum';
+
+  import netWorkSvg from '@/assets/svg/net-error.svg';
+  import notDataSvg from '@/assets/svg/no-data.svg';
+  import { ExceptionEnum } from '@/enums/exceptionEnum';
+  import { PageEnum } from '@/enums/pageEnum';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { useGo, useRedo } from '@/hooks/web/usePage';
 
   interface MapValue {
     title: string;

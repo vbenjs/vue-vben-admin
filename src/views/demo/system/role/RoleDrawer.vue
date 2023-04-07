@@ -22,13 +22,14 @@
   </BasicDrawer>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, computed, unref } from 'vue';
-  import { BasicForm, useForm } from '/@/components/Form/index';
-  import { formSchema } from './role.data';
-  import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
-  import { BasicTree, TreeItem } from '/@/components/Tree';
+  import { computed, defineComponent, ref, unref } from 'vue';
 
-  import { getMenuList } from '/@/api/demo/system';
+  import { getMenuList } from '@/api/demo/system';
+  import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
+  import { BasicForm, useForm } from '@/components/Form/index';
+  import { BasicTree, TreeItem } from '@/components/Tree';
+
+  import { formSchema } from './role.data';
 
   export default defineComponent({
     name: 'RoleDrawer',

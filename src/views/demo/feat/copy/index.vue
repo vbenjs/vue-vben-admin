@@ -9,11 +9,12 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, unref, ref } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { PageWrapper } from '/@/components/Page';
+  import { defineComponent, ref, unref } from 'vue';
+
+  import { CollapseContainer } from '@/components/Container/index';
+  import { PageWrapper } from '@/components/Page';
+  import { useCopyToClipboard } from '@/hooks/web/useCopyToClipboard';
+  import { useMessage } from '@/hooks/web/useMessage';
 
   export default defineComponent({
     name: 'Copy',

@@ -1,13 +1,14 @@
-import type { EChartsOption } from 'echarts';
-import type { Ref } from 'vue';
 import { useTimeoutFn } from '@vben/hooks';
 import { tryOnUnmounted, useDebounceFn } from '@vueuse/core';
-import { unref, nextTick, watch, computed, ref } from 'vue';
-import { useEventListener } from '/@/hooks/event/useEventListener';
-import { useBreakpoint } from '/@/hooks/event/useBreakpoint';
-import echarts from '/@/utils/lib/echarts';
-import { useRootSetting } from '/@/hooks/setting/useRootSetting';
-import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
+import type { EChartsOption } from 'echarts';
+import type { Ref } from 'vue';
+import { computed, nextTick, ref, unref, watch } from 'vue';
+
+import { useBreakpoint } from '@/hooks/event/useBreakpoint';
+import { useEventListener } from '@/hooks/event/useEventListener';
+import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
+import { useRootSetting } from '@/hooks/setting/useRootSetting';
+import echarts from '@/utils/lib/echarts';
 
 export function useECharts(
   elRef: Ref<HTMLDivElement>,

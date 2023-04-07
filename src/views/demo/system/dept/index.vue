@@ -32,13 +32,12 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
 
-  import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getDeptList } from '/@/api/demo/system';
-
-  import { useModal } from '/@/components/Modal';
-  import DeptModal from './DeptModal.vue';
+  import { getDeptList } from '@/api/demo/system';
+  import { useModal } from '@/components/Modal';
+  import { BasicTable, TableAction, useTable } from '@/components/Table';
 
   import { columns, searchFormSchema } from './dept.data';
+  import DeptModal from './DeptModal.vue';
 
   export default defineComponent({
     name: 'DeptManagement',

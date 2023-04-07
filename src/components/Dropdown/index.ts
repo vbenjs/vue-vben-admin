@@ -1,4 +1,5 @@
-import { withInstall } from '/@/utils';
+import { withInstall } from '@/utils';
+
 import dropdown from './src/Dropdown.vue';
 
 export * from './src/typing';

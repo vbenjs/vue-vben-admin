@@ -1,13 +1,14 @@
-import { IAnyObject } from './base-type';
+import { RuleError } from 'ant-design-vue/lib/form/interface';
+import { validateOptions } from 'ant-design-vue/lib/form/useForm';
+import { SelectValue } from 'ant-design-vue/lib/select';
 // import { ComponentOptions } from 'vue/types/options';
 import { ComponentOptions } from 'vue';
-import { IVFormMethods } from '../hooks/useVFormMethods';
-import { ColEx } from '/@/components/Form/src/types';
 
-import { SelectValue } from 'ant-design-vue/lib/select';
-import { validateOptions } from 'ant-design-vue/lib/form/useForm';
-import { RuleError } from 'ant-design-vue/lib/form/interface';
-import { FormItem } from '/@/components/Form';
+import { FormItem } from '@/components/Form';
+import { ColEx } from '@/components/Form/src/types';
+
+import { IVFormMethods } from '../hooks/useVFormMethods';
+import { IAnyObject } from './base-type';
 
 type LayoutType = 'horizontal' | 'vertical' | 'inline';
 type labelLayout = 'flex' | 'Grid';

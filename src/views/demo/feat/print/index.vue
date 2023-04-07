@@ -8,11 +8,11 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { PageWrapper } from '/@/components/Page';
-  import { CollapseContainer } from '/@/components/Container/index';
-
   import printJS from 'print-js';
+  import { defineComponent } from 'vue';
+
+  import { CollapseContainer } from '@/components/Container/index';
+  import { PageWrapper } from '@/components/Page';
 
   export default defineComponent({
     name: 'AppLogo',

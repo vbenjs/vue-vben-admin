@@ -1,13 +1,14 @@
 /**
  * @description：表单配置
  */
-import { IVFormComponent } from '../typings/v-form-component';
 import { isArray } from '@vben/shared';
-import { componentMap as VbenCmp, add } from '/@/components/Form/src/componentMap';
-import { ComponentType } from '/@/components/Form/src/types';
+import { Component } from 'vue';
+
+import { add, componentMap as VbenCmp } from '@/components/Form/src/componentMap';
+import { ComponentType } from '@/components/Form/src/types';
 
 import { componentMap as Cmp } from '../components';
-import { Component } from 'vue';
+import { IVFormComponent } from '../typings/v-form-component';
 
 const componentMap = new Map<string, Component>();
 

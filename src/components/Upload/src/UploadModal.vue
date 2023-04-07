@@ -43,24 +43,26 @@
   </BasicModal>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, ref, toRefs, unref, computed, PropType } from 'vue';
-  import { Upload, Alert } from 'ant-design-vue';
-  import { BasicModal, useModalInner } from '/@/components/Modal';
-  //   import { BasicTable, useTable } from '/@/components/Table';
-  // hooks
-  import { useUploadType } from './useUpload';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  //   types
-  import { FileItem, UploadResultStatus } from './typing';
-  import { basicProps } from './props';
-  import { createTableColumns, createActionColumn } from './data';
+  import { isFunction } from '@vben/shared';
+  import { Alert, Upload } from 'ant-design-vue';
+  import { computed, defineComponent, PropType, reactive, ref, toRefs, unref } from 'vue';
+
+  import { BasicModal, useModalInner } from '@/components/Modal';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { useMessage } from '@/hooks/web/useMessage';
+  import { warn } from '@/utils/log';
+  import { buildUUID } from '@/utils/uuid';
+
+  import { createActionColumn, createTableColumns } from './data';
+  import FileList from './FileList.vue';
   // utils
   import { checkImgType, getBase64WithFile } from './helper';
-  import { buildUUID } from '/@/utils/uuid';
-  import { isFunction } from '@vben/shared';
-  import { warn } from '/@/utils/log';
-  import FileList from './FileList.vue';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import { basicProps } from './props';
+  //   types
+  import { FileItem, UploadResultStatus } from './typing';
+  //   import { BasicTable, useTable } from '@/components/Table';
+  // hooks
+  import { useUploadType } from './useUpload';
 
   export default defineComponent({
     components: { BasicModal, Upload, Alert, FileList },

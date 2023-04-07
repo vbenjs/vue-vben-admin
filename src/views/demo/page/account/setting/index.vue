@@ -13,16 +13,16 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
   import { Tabs } from 'ant-design-vue';
+  import { defineComponent } from 'vue';
 
-  import { ScrollContainer } from '/@/components/Container/index';
-  import { settingList } from './data';
+  import { ScrollContainer } from '@/components/Container/index';
 
-  import BaseSetting from './BaseSetting.vue';
-  import SecureSetting from './SecureSetting.vue';
   import AccountBind from './AccountBind.vue';
+  import BaseSetting from './BaseSetting.vue';
+  import { settingList } from './data';
   import MsgNotify from './MsgNotify.vue';
+  import SecureSetting from './SecureSetting.vue';
 
   export default defineComponent({
     components: {

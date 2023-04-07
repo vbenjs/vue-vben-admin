@@ -38,22 +38,18 @@
   // components
   import { Dropdown, Menu } from 'ant-design-vue';
   import type { MenuInfo } from 'ant-design-vue/lib/menu/src/interface';
+  import { computed, defineComponent } from 'vue';
 
-  import { defineComponent, computed } from 'vue';
-
-  import { DOC_URL } from '/@/settings/siteSetting';
-
-  import { useUserStore } from '/@/store/modules/user';
-  import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useModal } from '/@/components/Modal';
-
-  import headerImg from '/@/assets/images/header.jpg';
-  import { propTypes } from '/@/utils/propTypes';
-  import { openWindow } from '/@/utils';
-
-  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+  import headerImg from '@/assets/images/header.jpg';
+  import { useModal } from '@/components/Modal';
+  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { DOC_URL } from '@/settings/siteSetting';
+  import { useUserStore } from '@/store/modules/user';
+  import { openWindow } from '@/utils';
+  import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
+  import { propTypes } from '@/utils/propTypes';
 
   type MenuEvent = 'logout' | 'doc' | 'lock';
 

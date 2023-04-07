@@ -36,9 +36,10 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { PageWrapper } from '/@/components/Page';
+
+  import { CollapseContainer } from '@/components/Container/index';
+  import { PageWrapper } from '@/components/Page';
+  import { useMessage } from '@/hooks/web/useMessage';
 
   export default defineComponent({
     components: { CollapseContainer, PageWrapper },

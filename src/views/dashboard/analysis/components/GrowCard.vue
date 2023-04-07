@@ -26,9 +26,11 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { CountTo } from '/@/components/CountTo/index';
+  import { Card, Tag } from 'ant-design-vue';
+
+  import { CountTo } from '@/components/CountTo/index';
   import Icon from '@/components/Icon/Icon.vue';
-  import { Tag, Card } from 'ant-design-vue';
+
   import { growCardList } from '../data';
 
   defineProps({

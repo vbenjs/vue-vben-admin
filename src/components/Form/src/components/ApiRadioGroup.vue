@@ -19,14 +19,15 @@
   </RadioGroup>
 </template>
 <script lang="ts">
-  import { defineComponent, type PropType, ref, watchEffect, computed, unref, watch } from 'vue';
-  import { Radio } from 'ant-design-vue';
-  import { isFunction, isArray } from '@vben/shared';
-  import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { useAttrs } from '@vben/hooks';
-  import { propTypes } from '/@/utils/propTypes';
+  import { isArray, isFunction } from '@vben/shared';
+  import { Radio } from 'ant-design-vue';
   import { get, omit } from 'lodash-es';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import { computed, defineComponent, type PropType, ref, unref, watch, watchEffect } from 'vue';
+
+  import { useRuleFormItem } from '@/hooks/component/useFormItem';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { propTypes } from '@/utils/propTypes';
 
   type OptionsItem = { label: string; value: string | number | boolean; disabled?: boolean };
 

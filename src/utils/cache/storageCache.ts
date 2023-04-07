@@ -1,6 +1,6 @@
 import { isNil } from '@vben/shared';
 
-import { cacheCipher } from '/@/settings/encryptionSetting';
+import { cacheCipher } from '@/settings/encryptionSetting';
 
 export interface CreateStorageParams {
   prefixKey: string;

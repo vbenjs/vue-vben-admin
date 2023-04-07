@@ -30,10 +30,13 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref, unref } from 'vue';
-  import { BasicTable, TableActionType } from '/@/components/Table';
+
+  import { demoListApi } from '@/api/demo/table';
+  import { BasicTable, TableActionType } from '@/components/Table';
+  import { useMessage } from '@/hooks/web/useMessage';
+
   import { getBasicColumns, getBasicShortColumns } from './tableData';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { demoListApi } from '/@/api/demo/table';
+
   export default defineComponent({
     components: { BasicTable },
     setup() {

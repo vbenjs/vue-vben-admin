@@ -24,11 +24,11 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
   import { useFullscreen } from '@vueuse/core';
+  import { defineComponent, ref } from 'vue';
 
-  import { PageWrapper } from '/@/components/Page';
+  import { CollapseContainer } from '@/components/Container/index';
+  import { PageWrapper } from '@/components/Page';
 
   export default defineComponent({
     components: { CollapseContainer, PageWrapper },

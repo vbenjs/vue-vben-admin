@@ -9,11 +9,13 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, computed } from 'vue';
-  import { useAppStore } from '/@/store/modules/app';
-  import { PermissionModeEnum } from '/@/enums/appEnum';
   import { Divider } from 'ant-design-vue';
-  import { usePermission } from '/@/hooks/web/usePermission';
+  import { computed, defineComponent } from 'vue';
+
+  import { PermissionModeEnum } from '@/enums/appEnum';
+  import { usePermission } from '@/hooks/web/usePermission';
+  import { useAppStore } from '@/store/modules/app';
+
   export default defineComponent({
     name: 'CurrentPermissionMode',
     components: { Divider },

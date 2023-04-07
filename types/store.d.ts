@@ -1,5 +1,5 @@
-import { RoleInfo } from '/@/api/sys/model/userModel';
-import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
+import { RoleInfo } from '@/api/sys/model/userModel';
+import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum';
 
 // Lock screen information
 export interface LockInfo {

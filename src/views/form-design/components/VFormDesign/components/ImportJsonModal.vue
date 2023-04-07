@@ -33,15 +33,17 @@
   </Modal>
 </template>
 <script lang="ts">
+  import { Modal, Upload } from 'ant-design-vue';
   import { defineComponent, reactive, toRefs } from 'vue';
+
+  import { CodeEditor, MODE } from '@/components/CodeEditor';
+  import { useMessage } from '@/hooks/web/useMessage';
+
   // import message from '../../../utils/message';
   import { useFormDesignState } from '../../../hooks/useFormDesignState';
   // import { codemirror } from 'vue-codemirror-lite';
   import { IFormConfig } from '../../../typings/v-form-component';
   import { formItemsForEach, generateKey } from '../../../utils';
-  import { CodeEditor, MODE } from '/@/components/CodeEditor';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { Upload, Modal } from 'ant-design-vue';
 
   export default defineComponent({
     name: 'ImportJsonModal',

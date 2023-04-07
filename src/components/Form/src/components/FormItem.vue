@@ -1,24 +1,25 @@
 <script lang="tsx">
-  import { type Recordable, type Nullable } from '@vben/types';
+  import { isArray, isBoolean, isFunction } from '@vben/shared';
+  import { type Nullable, type Recordable } from '@vben/types';
+  import { Col, Divider, Form } from 'ant-design-vue';
+  import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
+  import { cloneDeep, upperFirst } from 'lodash-es';
   import type { PropType, Ref } from 'vue';
   import { computed, defineComponent, toRefs, unref } from 'vue';
-  import type { FormActionType, FormProps, FormSchema } from '../types/form';
-  import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
-  import type { TableActionType } from '/@/components/Table';
-  import { Col, Divider, Form } from 'ant-design-vue';
-  import { componentMap } from '../componentMap';
-  import { BasicHelp } from '/@/components/Basic';
-  import { isBoolean, isFunction, isArray } from '@vben/shared';
 
-  import { getSlot } from '/@/utils/helper/tsxHelper';
+  import { BasicHelp } from '@/components/Basic';
+  import type { TableActionType } from '@/components/Table';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { getSlot } from '@/utils/helper/tsxHelper';
+
+  import { componentMap } from '../componentMap';
   import {
     createPlaceholderMessage,
     NO_AUTO_LINK_COMPONENTS,
     setComponentRuleType,
   } from '../helper';
-  import { cloneDeep, upperFirst } from 'lodash-es';
   import { useItemLabelWidth } from '../hooks/useLabelWidth';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import type { FormActionType, FormProps, FormSchema } from '../types/form';
 
   export default defineComponent({
     name: 'BasicFormItem',

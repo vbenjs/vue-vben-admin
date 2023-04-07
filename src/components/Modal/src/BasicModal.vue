@@ -49,31 +49,32 @@
   </Modal>
 </template>
 <script lang="ts">
-  import type { ModalProps, ModalMethods } from './typing';
-
+  import { isFunction } from '@vben/shared';
+  import { type Recordable } from '@vben/types';
+  import { omit } from 'lodash-es';
   import {
-    defineComponent,
     computed,
-    ref,
-    watch,
-    unref,
-    watchEffect,
-    toRef,
+    defineComponent,
     getCurrentInstance,
     nextTick,
+    ref,
+    toRef,
+    unref,
+    watch,
+    watchEffect,
   } from 'vue';
+
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { deepMerge } from '@/utils';
+
   import Modal from './components/Modal';
-  import ModalWrapper from './components/ModalWrapper.vue';
   import ModalClose from './components/ModalClose.vue';
   import ModalFooter from './components/ModalFooter.vue';
   import ModalHeader from './components/ModalHeader.vue';
-  import { isFunction } from '@vben/shared';
-  import { type Recordable } from '@vben/types';
-  import { deepMerge } from '/@/utils';
-  import { basicProps } from './props';
+  import ModalWrapper from './components/ModalWrapper.vue';
   import { useFullScreen } from './hooks/useModalFullScreen';
-  import { omit } from 'lodash-es';
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import { basicProps } from './props';
+  import type { ModalMethods, ModalProps } from './typing';
 
   export default defineComponent({
     name: 'BasicModal',

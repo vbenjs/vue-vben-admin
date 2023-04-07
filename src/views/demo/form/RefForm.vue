@@ -66,10 +66,11 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
-  import { BasicForm, FormSchema, FormActionType, FormProps } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { PageWrapper } from '/@/components/Page';
+
+  import { CollapseContainer } from '@/components/Container/index';
+  import { BasicForm, FormActionType, FormProps, FormSchema } from '@/components/Form/index';
+  import { PageWrapper } from '@/components/Page';
+  import { useMessage } from '@/hooks/web/useMessage';
 
   const schemas: FormSchema[] = [
     {

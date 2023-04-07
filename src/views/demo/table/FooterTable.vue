@@ -5,10 +5,11 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { BasicTable, useTable } from '/@/components/Table';
-  import { getBasicColumns } from './tableData';
 
-  import { demoListApi } from '/@/api/demo/table';
+  import { demoListApi } from '@/api/demo/table';
+  import { BasicTable, useTable } from '@/components/Table';
+
+  import { getBasicColumns } from './tableData';
 
   export default defineComponent({
     components: { BasicTable },

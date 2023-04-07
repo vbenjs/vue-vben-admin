@@ -1,21 +1,20 @@
 <script lang="tsx">
+  import { CheckOutlined, CloseOutlined, FormOutlined } from '@ant-design/icons-vue';
+  import { isArray, isBoolean, isFunction, isNumber, isString } from '@vben/shared';
+  import { Spin } from 'ant-design-vue';
+  import { pick, set } from 'lodash-es';
   import type { CSSProperties, PropType } from 'vue';
   import { computed, defineComponent, nextTick, ref, toRaw, unref, watchEffect } from 'vue';
-  import type { BasicColumn } from '../../types/table';
-  import { CheckOutlined, CloseOutlined, FormOutlined } from '@ant-design/icons-vue';
-  import { CellComponent } from './CellComponent';
 
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import clickOutside from '@/directives/clickOutside';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { treeToList } from '@/utils/helper/treeHelper';
+  import { propTypes } from '@/utils/propTypes';
+
   import { useTableContext } from '../../hooks/useTableContext';
-
-  import clickOutside from '/@/directives/clickOutside';
-
-  import { propTypes } from '/@/utils/propTypes';
-  import { isArray, isBoolean, isFunction, isNumber, isString } from '@vben/shared';
+  import type { BasicColumn } from '../../types/table';
+  import { CellComponent } from './CellComponent';
   import { createPlaceholderMessage } from './helper';
-  import { pick, set } from 'lodash-es';
-  import { treeToList } from '/@/utils/helper/treeHelper';
-  import { Spin } from 'ant-design-vue';
 
   export default defineComponent({
     name: 'EditableCell',

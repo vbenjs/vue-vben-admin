@@ -1,8 +1,9 @@
-import { BasicColumn, FormSchema } from '/@/components/Table';
-import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
-import { setRoleStatus } from '/@/api/demo/system';
-import { useMessage } from '/@/hooks/web/useMessage';
+import { h } from 'vue';
+
+import { setRoleStatus } from '@/api/demo/system';
+import { BasicColumn, FormSchema } from '@/components/Table';
+import { useMessage } from '@/hooks/web/useMessage';
 
 export const columns: BasicColumn[] = [
   {

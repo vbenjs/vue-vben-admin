@@ -17,24 +17,21 @@
   </div>
 </template>
 <script lang="ts">
+  import { CopyOutlined, RedoOutlined } from '@ant-design/icons-vue';
   import { defineComponent, unref } from 'vue';
 
-  import { CopyOutlined, RedoOutlined } from '@ant-design/icons-vue';
-
-  import { useAppStore } from '/@/store/modules/app';
-  import { usePermissionStore } from '/@/store/modules/permission';
-  import { useMultipleTabStore } from '/@/store/modules/multipleTab';
-  import { useUserStore } from '/@/store/modules/user';
-
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard';
-
-  import { updateColorWeak } from '/@/logics/theme/updateColorWeak';
-  import { updateGrayMode } from '/@/logics/theme/updateGrayMode';
-  import defaultSetting from '/@/settings/projectSetting';
-  import { updateSidebarBgColor } from '/@/logics/theme/updateBackground';
+  import { useCopyToClipboard } from '@/hooks/web/useCopyToClipboard';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { useMessage } from '@/hooks/web/useMessage';
+  import { updateSidebarBgColor } from '@/logics/theme/updateBackground';
+  import { updateColorWeak } from '@/logics/theme/updateColorWeak';
+  import { updateGrayMode } from '@/logics/theme/updateGrayMode';
+  import defaultSetting from '@/settings/projectSetting';
+  import { useAppStore } from '@/store/modules/app';
+  import { useMultipleTabStore } from '@/store/modules/multipleTab';
+  import { usePermissionStore } from '@/store/modules/permission';
+  import { useUserStore } from '@/store/modules/user';
 
   export default defineComponent({
     name: 'SettingFooter',

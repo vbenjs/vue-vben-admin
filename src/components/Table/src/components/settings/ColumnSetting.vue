@@ -99,31 +99,33 @@
   </Tooltip>
 </template>
 <script lang="ts">
-  import type { BasicColumn, ColumnChangeParam } from '../../types/table';
-  import {
-    defineComponent,
-    ref,
-    reactive,
-    toRefs,
-    watchEffect,
-    nextTick,
-    unref,
-    computed,
-  } from 'vue';
-  import { Tooltip, Popover, Checkbox, Divider } from 'ant-design-vue';
-  import type { CheckboxChangeEvent } from 'ant-design-vue/lib/checkbox/interface';
-  import { SettingOutlined, DragOutlined } from '@ant-design/icons-vue';
-  import Icon from '@/components/Icon/Icon.vue';
-  import { ScrollContainer } from '/@/components/Container';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useTableContext } from '../../hooks/useTableContext';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  // import { useSortable } from '/@/hooks/web/useSortable';
+  import { DragOutlined, SettingOutlined } from '@ant-design/icons-vue';
+  // import { useSortable } from '@/hooks/web/useSortable';
   import { isFunction } from '@vben/shared';
-  import { getPopupContainer as getParentContainer } from '/@/utils';
+  import { Checkbox, Divider, Popover, Tooltip } from 'ant-design-vue';
+  import type { CheckboxChangeEvent } from 'ant-design-vue/lib/checkbox/interface';
   import { cloneDeep, omit } from 'lodash-es';
-  import Sortablejs from 'sortablejs';
   import type Sortable from 'sortablejs';
+  import Sortablejs from 'sortablejs';
+  import {
+    computed,
+    defineComponent,
+    nextTick,
+    reactive,
+    ref,
+    toRefs,
+    unref,
+    watchEffect,
+  } from 'vue';
+
+  import { ScrollContainer } from '@/components/Container';
+  import Icon from '@/components/Icon/Icon.vue';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { getPopupContainer as getParentContainer } from '@/utils';
+
+  import { useTableContext } from '../../hooks/useTableContext';
+  import type { BasicColumn, ColumnChangeParam } from '../../types/table';
 
   interface State {
     checkAll: boolean;

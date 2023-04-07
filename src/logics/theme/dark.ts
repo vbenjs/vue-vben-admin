@@ -1,4 +1,4 @@
-import { addClass, hasClass, removeClass } from '/@/utils/domUtils';
+import { addClass, hasClass, removeClass } from '@/utils/domUtils';
 
 export async function updateDarkTheme(mode: string | null = 'light') {
   const htmlRoot = document.getElementById('htmlRoot');

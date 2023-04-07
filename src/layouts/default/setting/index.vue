@@ -6,10 +6,11 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import SettingDrawer from './SettingDrawer';
+
+  import { useDrawer } from '@/components/Drawer';
   import Icon from '@/components/Icon/Icon.vue';
 
-  import { useDrawer } from '/@/components/Drawer';
+  import SettingDrawer from './SettingDrawer';
 
   export default defineComponent({
     name: 'SettingButton',

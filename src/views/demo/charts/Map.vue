@@ -2,11 +2,12 @@
   <div ref="chartRef" :style="{ height, width }"></div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, ref, Ref, onMounted } from 'vue';
-
-  import { useECharts } from '/@/hooks/web/useECharts';
-  import { mapData } from './data';
   import { registerMap } from 'echarts';
+  import { defineComponent, onMounted, PropType, Ref, ref } from 'vue';
+
+  import { useECharts } from '@/hooks/web/useECharts';
+
+  import { mapData } from './data';
 
   export default defineComponent({
     props: {

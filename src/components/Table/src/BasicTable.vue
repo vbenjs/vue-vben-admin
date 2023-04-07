@@ -39,40 +39,39 @@
   </div>
 </template>
 <script lang="ts">
-  import type {
-    BasicTableProps,
-    TableActionType,
-    SizeType,
-    ColumnChangeParam,
-  } from './types/table';
-
-  import { defineComponent, ref, computed, unref, toRaw, inject, watchEffect } from 'vue';
+  import { isFunction } from '@vben/shared';
   import { Table } from 'ant-design-vue';
-  import { BasicForm, useForm } from '/@/components/Form/index';
-  import { PageWrapperFixedHeightKey } from '/@/components/Page';
-  import HeaderCell from './components/HeaderCell.vue';
-  import { InnerHandlers } from './types/table';
+  import { omit } from 'lodash-es';
+  import { computed, defineComponent, inject, ref, toRaw, unref, watchEffect } from 'vue';
 
-  import { usePagination } from './hooks/usePagination';
+  import { BasicForm, useForm } from '@/components/Form/index';
+  import { PageWrapperFixedHeightKey } from '@/components/Page';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { warn } from '@/utils/log';
+
+  import HeaderCell from './components/HeaderCell.vue';
   import { useColumns } from './hooks/useColumns';
+  import { useCustomRow } from './hooks/useCustomRow';
   import { useDataSource } from './hooks/useDataSource';
   import { useLoading } from './hooks/useLoading';
+  import { usePagination } from './hooks/usePagination';
   import { useRowSelection } from './hooks/useRowSelection';
-  import { useTableScroll } from './hooks/useTableScroll';
   import { useTableScrollTo } from './hooks/useScrollTo';
-  import { useCustomRow } from './hooks/useCustomRow';
-  import { useTableStyle } from './hooks/useTableStyle';
-  import { useTableHeader } from './hooks/useTableHeader';
-  import { useTableExpand } from './hooks/useTableExpand';
   import { createTableContext } from './hooks/useTableContext';
+  import { useTableExpand } from './hooks/useTableExpand';
   import { useTableFooter } from './hooks/useTableFooter';
   import { useTableForm } from './hooks/useTableForm';
-  import { useDesign } from '/@/hooks/web/useDesign';
-
-  import { omit } from 'lodash-es';
+  import { useTableHeader } from './hooks/useTableHeader';
+  import { useTableScroll } from './hooks/useTableScroll';
+  import { useTableStyle } from './hooks/useTableStyle';
   import { basicProps } from './props';
-  import { isFunction } from '@vben/shared';
-  import { warn } from '/@/utils/log';
+  import type {
+    BasicTableProps,
+    ColumnChangeParam,
+    SizeType,
+    TableActionType,
+  } from './types/table';
+  import { InnerHandlers } from './types/table';
 
   export default defineComponent({
     name: 'BasicTable',

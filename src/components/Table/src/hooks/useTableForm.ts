@@ -1,8 +1,10 @@
-import type { ComputedRef, Slots } from 'vue';
-import type { BasicTableProps, FetchParams } from '../types/table';
-import { unref, computed } from 'vue';
-import type { FormProps } from '/@/components/Form';
 import { isFunction } from '@vben/shared';
+import type { ComputedRef, Slots } from 'vue';
+import { computed, unref } from 'vue';
+
+import type { FormProps } from '@/components/Form';
+
+import type { BasicTableProps, FetchParams } from '../types/table';
 
 export function useTableForm(
   propsRef: ComputedRef<BasicTableProps>,

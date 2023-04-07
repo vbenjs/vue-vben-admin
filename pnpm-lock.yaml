@@ -467,11 +467,13 @@ importers:
 
   packages/shared:
     dependencies:
-      vue:
+      '@vue/shared':
         specifier: ^3.2.47
         version: 3.2.47
-    devDependencies:
-      '@vue/shared':
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      vue:
         specifier: ^3.2.47
         version: 3.2.47
 

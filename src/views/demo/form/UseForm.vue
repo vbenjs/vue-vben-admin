@@ -35,12 +35,13 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
   import { Drawer, Space } from 'ant-design-vue';
-  import { BasicForm, FormSchema, useForm, type FormProps } from '/@/components/Form';
-  import { CollapseContainer } from '/@/components/Container';
-  import { PageWrapper } from '/@/components/Page';
-  import { areaRecord } from '/@/api/demo/cascader';
+  import { defineComponent, ref } from 'vue';
+
+  import { areaRecord } from '@/api/demo/cascader';
+  import { CollapseContainer } from '@/components/Container';
+  import { BasicForm, type FormProps, FormSchema, useForm } from '@/components/Form';
+  import { PageWrapper } from '@/components/Page';
 
   const sizeList = [
     { value: 'large', label: 'large' },

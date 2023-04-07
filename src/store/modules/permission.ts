@@ -1,20 +1,20 @@
 import { defineStore } from 'pinia';
 import { toRaw } from 'vue';
 
-import { getMenuList } from '/@/api/sys/menu';
-import { getPermCode } from '/@/api/sys/user';
-import { PermissionModeEnum } from '/@/enums/appEnum';
-import { PageEnum } from '/@/enums/pageEnum';
-import { useI18n } from '/@/hooks/web/useI18n';
-import { useMessage } from '/@/hooks/web/useMessage';
-import { transformRouteToMenu } from '/@/router/helper/menuHelper';
-import { flatMultiLevelRoutes, transformObjToRoute } from '/@/router/helper/routeHelper';
-import { asyncRoutes } from '/@/router/routes';
-import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
-import type { AppRouteRecordRaw, Menu } from '/@/router/types';
-import projectSetting from '/@/settings/projectSetting';
-import { store } from '/@/store';
-import { filter } from '/@/utils/helper/treeHelper';
+import { getMenuList } from '@/api/sys/menu';
+import { getPermCode } from '@/api/sys/user';
+import { PermissionModeEnum } from '@/enums/appEnum';
+import { PageEnum } from '@/enums/pageEnum';
+import { useI18n } from '@/hooks/web/useI18n';
+import { useMessage } from '@/hooks/web/useMessage';
+import { transformRouteToMenu } from '@/router/helper/menuHelper';
+import { flatMultiLevelRoutes, transformObjToRoute } from '@/router/helper/routeHelper';
+import { asyncRoutes } from '@/router/routes';
+import { PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic';
+import type { AppRouteRecordRaw, Menu } from '@/router/types';
+import projectSetting from '@/settings/projectSetting';
+import { store } from '@/store';
+import { filter } from '@/utils/helper/treeHelper';
 
 import { useAppStoreWithOut } from './app';
 import { useUserStore } from './user';

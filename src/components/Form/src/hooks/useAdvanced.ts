@@ -1,10 +1,12 @@
-import type { ColEx } from '../types';
-import type { AdvanceState } from '../types/hooks';
-import { ComputedRef, getCurrentInstance, Ref, shallowReactive, computed, unref, watch } from 'vue';
-import type { FormProps, FormSchema } from '../types/form';
 import { isBoolean, isFunction, isNumber, isObject } from '@vben/shared';
-import { useBreakpoint } from '/@/hooks/event/useBreakpoint';
 import { useDebounceFn } from '@vueuse/core';
+import { computed, ComputedRef, getCurrentInstance, Ref, shallowReactive, unref, watch } from 'vue';
+
+import { useBreakpoint } from '@/hooks/event/useBreakpoint';
+
+import type { ColEx } from '../types';
+import type { FormProps, FormSchema } from '../types/form';
+import type { AdvanceState } from '../types/hooks';
 
 const BASIC_COL_LEN = 24;
 

@@ -29,10 +29,11 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, toRefs, ref } from 'vue';
-  import { Loading, useLoading } from '/@/components/Loading';
-  import { PageWrapper } from '/@/components/Page';
   import { Alert } from 'ant-design-vue';
+  import { defineComponent, reactive, ref, toRefs } from 'vue';
+
+  import { Loading, useLoading } from '@/components/Loading';
+  import { PageWrapper } from '@/components/Page';
 
   export default defineComponent({
     components: { Loading, PageWrapper, [Alert.name]: Alert },

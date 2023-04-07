@@ -33,12 +33,14 @@
   </template>
 </template>
 <script lang="ts" setup>
-  import { reactive, ref, computed, unref } from 'vue';
+  import { Button, Form, Input } from 'ant-design-vue';
+  import { computed, reactive, ref, unref } from 'vue';
+
+  import { CountdownInput } from '@/components/CountDown';
+  import { useI18n } from '@/hooks/web/useI18n';
+
   import LoginFormTitle from './LoginFormTitle.vue';
-  import { Form, Input, Button } from 'ant-design-vue';
-  import { CountdownInput } from '/@/components/CountDown';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useLoginState, useFormRules, LoginStateEnum } from './useLogin';
+  import { LoginStateEnum, useFormRules, useLoginState } from './useLogin';
 
   const FormItem = Form.Item;
   const { t } = useI18n();

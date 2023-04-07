@@ -7,12 +7,13 @@
   </Tooltip>
 </template>
 <script lang="ts">
-  import { defineComponent, computed, unref } from 'vue';
-  import { Tooltip } from 'ant-design-vue';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useFullscreen } from '@vueuse/core';
-
   import { FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons-vue';
+  import { useFullscreen } from '@vueuse/core';
+  import { Tooltip } from 'ant-design-vue';
+  import { computed, defineComponent, unref } from 'vue';
+
+  import { useI18n } from '@/hooks/web/useI18n';
+
   export default defineComponent({
     name: 'FullScreen',
     components: { FullscreenExitOutlined, FullscreenOutlined, Tooltip },

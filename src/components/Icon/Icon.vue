@@ -14,21 +14,23 @@
   ></span>
 </template>
 <script lang="ts">
-  import type { PropType } from 'vue';
-  import {
-    defineComponent,
-    ref,
-    watch,
-    onMounted,
-    nextTick,
-    unref,
-    computed,
-    CSSProperties,
-  } from 'vue';
-  import SvgIcon from './src/SvgIcon.vue';
   import Iconify from '@purge-icons/generated';
   import { isString } from '@vben/shared';
-  import { propTypes } from '/@/utils/propTypes';
+  import type { PropType } from 'vue';
+  import {
+    computed,
+    CSSProperties,
+    defineComponent,
+    nextTick,
+    onMounted,
+    ref,
+    unref,
+    watch,
+  } from 'vue';
+
+  import { propTypes } from '@/utils/propTypes';
+
+  import SvgIcon from './src/SvgIcon.vue';
 
   const SVG_END_WITH_FLAG = '|svg';
   export default defineComponent({

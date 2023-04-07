@@ -1,19 +1,16 @@
+import { defineStore } from 'pinia';
+import { toRaw, unref } from 'vue';
 import type { RouteLocationNormalized, RouteLocationRaw, Router } from 'vue-router';
 
-import { toRaw, unref } from 'vue';
-import { defineStore } from 'pinia';
-import { store } from '/@/store';
-
-import { useGo, useRedo } from '/@/hooks/web/usePage';
-import { Persistent } from '/@/utils/cache/persistent';
-
-import { PageEnum } from '/@/enums/pageEnum';
-import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/routes/basic';
-import { getRawRoute } from '/@/utils';
-import { MULTIPLE_TABS_KEY } from '/@/enums/cacheEnum';
-
-import projectSetting from '/@/settings/projectSetting';
-import { useUserStore } from '/@/store/modules/user';
+import { MULTIPLE_TABS_KEY } from '@/enums/cacheEnum';
+import { PageEnum } from '@/enums/pageEnum';
+import { useGo, useRedo } from '@/hooks/web/usePage';
+import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '@/router/routes/basic';
+import projectSetting from '@/settings/projectSetting';
+import { store } from '@/store';
+import { useUserStore } from '@/store/modules/user';
+import { getRawRoute } from '@/utils';
+import { Persistent } from '@/utils/cache/persistent';
 
 export interface MultipleTabState {
   cacheTabList: Set<string>;

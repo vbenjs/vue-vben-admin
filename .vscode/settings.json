@@ -56,9 +56,6 @@
   },
   "stylelint.enable": true,
   "stylelint.validate": ["css", "less", "postcss", "scss", "vue", "sass"],
-  "path-intellisense.mappings": {
-    "/@/": "${workspaceRoot}/src"
-  },
   "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

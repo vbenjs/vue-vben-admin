@@ -15,12 +15,12 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { PageWrapper } from '/@/components/Page';
-  import { useUserStore } from '/@/store/modules/user';
-
-  import { sessionTimeoutApi, tokenExpiredApi } from '/@/api/demo/account';
   import { Card } from 'ant-design-vue';
+  import { defineComponent } from 'vue';
+
+  import { sessionTimeoutApi, tokenExpiredApi } from '@/api/demo/account';
+  import { PageWrapper } from '@/components/Page';
+  import { useUserStore } from '@/store/modules/user';
 
   export default defineComponent({
     name: 'TestSessionTimeout',

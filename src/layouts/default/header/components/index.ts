@@ -1,4 +1,4 @@
-import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
 
 import FullScreen from './FullScreen.vue';
 

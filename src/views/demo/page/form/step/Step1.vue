@@ -27,11 +27,13 @@
   </div>
 </template>
 <script lang="ts">
+  import { Divider, Input, Select } from 'ant-design-vue';
   import { defineComponent } from 'vue';
-  import { BasicForm, useForm } from '/@/components/Form';
+
+  import { BasicForm, useForm } from '@/components/Form';
+
   import { step1Schemas } from './data';
 
-  import { Select, Input, Divider } from 'ant-design-vue';
   export default defineComponent({
     components: {
       BasicForm,

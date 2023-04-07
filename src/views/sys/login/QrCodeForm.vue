@@ -15,12 +15,14 @@
   </template>
 </template>
 <script lang="ts" setup>
-  import { computed, unref } from 'vue';
-  import LoginFormTitle from './LoginFormTitle.vue';
   import { Button, Divider } from 'ant-design-vue';
-  import { QrCode } from '/@/components/Qrcode/index';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useLoginState, LoginStateEnum } from './useLogin';
+  import { computed, unref } from 'vue';
+
+  import { QrCode } from '@/components/Qrcode/index';
+  import { useI18n } from '@/hooks/web/useI18n';
+
+  import LoginFormTitle from './LoginFormTitle.vue';
+  import { LoginStateEnum, useLoginState } from './useLogin';
 
   const qrCodeUrl = 'https://vben.vvbin.cn/login';
 

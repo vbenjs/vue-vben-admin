@@ -31,19 +31,21 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, computed, toRaw, unref } from 'vue';
   import { MoreOutlined } from '@ant-design/icons-vue';
-  import { Divider, Tooltip, TooltipProps } from 'ant-design-vue';
-  import Icon from '@/components/Icon/Icon.vue';
-  import { ActionItem, TableActionType } from '/@/components/Table';
-  import { PopConfirmButton } from '/@/components/Button';
-  import { Dropdown } from '/@/components/Dropdown';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useTableContext } from '../hooks/useTableContext';
-  import { usePermission } from '/@/hooks/web/usePermission';
   import { isBoolean, isFunction, isString } from '@vben/shared';
-  import { propTypes } from '/@/utils/propTypes';
+  import { Divider, Tooltip, TooltipProps } from 'ant-design-vue';
+  import { computed, defineComponent, PropType, toRaw, unref } from 'vue';
+
+  import { PopConfirmButton } from '@/components/Button';
+  import { Dropdown } from '@/components/Dropdown';
+  import Icon from '@/components/Icon/Icon.vue';
+  import { ActionItem, TableActionType } from '@/components/Table';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { usePermission } from '@/hooks/web/usePermission';
+  import { propTypes } from '@/utils/propTypes';
+
   import { ACTION_COLUMN_FLAG } from '../const';
+  import { useTableContext } from '../hooks/useTableContext';
 
   export default defineComponent({
     name: 'TableAction',

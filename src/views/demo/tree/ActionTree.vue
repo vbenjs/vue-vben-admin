@@ -29,10 +29,12 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref, unref } from 'vue';
-  import { BasicTree, TreeActionType } from '/@/components/Tree/index';
+
+  import { PageWrapper } from '@/components/Page';
+  import { BasicTree, TreeActionType } from '@/components/Tree/index';
+  import { useMessage } from '@/hooks/web/useMessage';
+
   import { treeData } from './data';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
     components: { BasicTree, PageWrapper },

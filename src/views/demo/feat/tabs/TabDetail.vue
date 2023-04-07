@@ -6,9 +6,10 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { PageWrapper } from '/@/components/Page';
-  import { useTabs } from '/@/hooks/web/useTabs';
   import { useRoute } from 'vue-router';
+
+  import { PageWrapper } from '@/components/Page';
+  import { useTabs } from '@/hooks/web/useTabs';
 
   export default defineComponent({
     name: 'TabDetail',

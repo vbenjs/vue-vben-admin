@@ -56,17 +56,17 @@
   import { Layout } from 'ant-design-vue';
   import { computed, defineComponent, unref } from 'vue';
 
-  import { AppLocalePicker, AppLogo, AppSearch } from '/@/components/Application';
-  import { SettingButtonPositionEnum } from '/@/enums/appEnum';
-  import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
-  import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
-  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
-  import { useRootSetting } from '/@/hooks/setting/useRootSetting';
-  import { useAppInject } from '/@/hooks/web/useAppInject';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useLocale } from '/@/locales/useLocale';
-  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
-  import { propTypes } from '/@/utils/propTypes';
+  import { AppLocalePicker, AppLogo, AppSearch } from '@/components/Application';
+  import { SettingButtonPositionEnum } from '@/enums/appEnum';
+  import { MenuModeEnum, MenuSplitTyeEnum } from '@/enums/menuEnum';
+  import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
+  import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
+  import { useRootSetting } from '@/hooks/setting/useRootSetting';
+  import { useAppInject } from '@/hooks/web/useAppInject';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { useLocale } from '@/locales/useLocale';
+  import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
+  import { propTypes } from '@/utils/propTypes';
 
   import LayoutMenu from '../menu/index.vue';
   import LayoutTrigger from '../trigger/index.vue';
@@ -85,7 +85,7 @@
       FullScreen,
       Notify,
       AppSearch,
-      SettingDrawer: createAsyncComponent(() => import('/@/layouts/default/setting/index.vue'), {
+      SettingDrawer: createAsyncComponent(() => import('@/layouts/default/setting/index.vue'), {
         loading: true,
       }),
     },

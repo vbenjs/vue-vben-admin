@@ -1,11 +1,13 @@
 <script lang="tsx">
-  import type { Ref } from 'vue';
-  import { defineComponent, ref, computed, unref, reactive, watch, watchEffect } from 'vue';
-  import { useTimeoutFn } from '@vben/hooks';
-  import { useEventListener } from '/@/hooks/event/useEventListener';
-  import { basicProps } from './props';
-  import { getSlot } from '/@/utils/helper/tsxHelper';
   import { CheckOutlined, DoubleRightOutlined } from '@ant-design/icons-vue';
+  import { useTimeoutFn } from '@vben/hooks';
+  import type { Ref } from 'vue';
+  import { computed, defineComponent, reactive, ref, unref, watch, watchEffect } from 'vue';
+
+  import { useEventListener } from '@/hooks/event/useEventListener';
+  import { getSlot } from '@/utils/helper/tsxHelper';
+
+  import { basicProps } from './props';
 
   export default defineComponent({
     name: 'BaseDargVerify',

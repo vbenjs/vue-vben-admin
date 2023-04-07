@@ -1,8 +1,7 @@
 import { computed, unref } from 'vue';
-
-import { useAppStore } from '/@/store/modules/app';
-
 import { useRouter } from 'vue-router';
+
+import { useAppStore } from '@/store/modules/app';
 
 /**
  * @description: Full screen display content

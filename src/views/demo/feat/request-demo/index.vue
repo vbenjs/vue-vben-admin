@@ -5,7 +5,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { testRetry } from '/@/api/sys/user';
+  import { testRetry } from '@/api/sys/user';
   // @ts-ignore
   const handleClick = async () => {
     await testRetry();

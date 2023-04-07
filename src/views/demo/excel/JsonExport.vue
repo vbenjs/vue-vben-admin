@@ -12,11 +12,13 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { BasicTable } from '/@/components/Table';
-  import { jsonToSheetXlsx } from '/@/components/Excel';
+
+  import { jsonToSheetXlsx } from '@/components/Excel';
+  import { jsonToMultipleSheetXlsx } from '@/components/Excel/src/Export2Excel';
+  import { PageWrapper } from '@/components/Page';
+  import { BasicTable } from '@/components/Table';
+
   import { columns, data } from './data';
-  import { PageWrapper } from '/@/components/Page';
-  import { jsonToMultipleSheetXlsx } from '/@/components/Excel/src/Export2Excel';
 
   export default defineComponent({
     components: { BasicTable, PageWrapper },

@@ -1,4 +1,5 @@
-import { withInstall } from '/@/utils/index';
+import { withInstall } from '@/utils/index';
+
 import basicDragVerify from './src/DragVerify.vue';
 import rotateDragVerify from './src/ImgRotate.vue';
 

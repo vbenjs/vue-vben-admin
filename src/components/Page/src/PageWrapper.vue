@@ -33,25 +33,25 @@
   </div>
 </template>
 <script lang="ts">
+  import { PageHeader } from 'ant-design-vue';
+  import { omit } from 'lodash-es';
   import {
+    computed,
     CSSProperties,
+    defineComponent,
     PropType,
     provide,
-    defineComponent,
-    computed,
-    watch,
     ref,
     unref,
+    watch,
   } from 'vue';
 
-  import PageFooter from './PageFooter.vue';
+  import { useContentHeight } from '@/hooks/web/useContentHeight';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { propTypes } from '@/utils/propTypes';
 
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { propTypes } from '/@/utils/propTypes';
-  import { omit } from 'lodash-es';
-  import { PageHeader } from 'ant-design-vue';
-  import { useContentHeight } from '/@/hooks/web/useContentHeight';
   import { PageWrapperFixedHeightKey } from '..';
+  import PageFooter from './PageFooter.vue';
 
   export default defineComponent({
     name: 'PageWrapper',

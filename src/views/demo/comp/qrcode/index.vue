@@ -76,10 +76,11 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref, unref } from 'vue';
-  import { QrCode, QrCodeActionType } from '/@/components/Qrcode/index';
-  import LogoImg from '/@/assets/images/logo.png';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { PageWrapper } from '/@/components/Page';
+
+  import LogoImg from '@/assets/images/logo.png';
+  import { CollapseContainer } from '@/components/Container/index';
+  import { PageWrapper } from '@/components/Page';
+  import { QrCode, QrCodeActionType } from '@/components/Qrcode/index';
 
   const qrCodeUrl = 'https://www.vvbin.cn';
   export default defineComponent({

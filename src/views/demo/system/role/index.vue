@@ -32,13 +32,12 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
 
-  import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getRoleListByPage } from '/@/api/demo/system';
-
-  import { useDrawer } from '/@/components/Drawer';
-  import RoleDrawer from './RoleDrawer.vue';
+  import { getRoleListByPage } from '@/api/demo/system';
+  import { useDrawer } from '@/components/Drawer';
+  import { BasicTable, TableAction, useTable } from '@/components/Table';
 
   import { columns, searchFormSchema } from './role.data';
+  import RoleDrawer from './RoleDrawer.vue';
 
   export default defineComponent({
     name: 'RoleManagement',

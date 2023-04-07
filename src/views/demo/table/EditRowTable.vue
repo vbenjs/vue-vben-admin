@@ -10,21 +10,21 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import {
-    BasicTable,
-    useTable,
-    TableAction,
-    BasicColumn,
-    ActionItem,
-    EditRecordRow,
-  } from '/@/components/Table';
-  import { optionsListApi } from '/@/api/demo/select';
-
-  import { demoListApi } from '/@/api/demo/table';
-  import { treeOptionsListApi } from '/@/api/demo/tree';
   import { cloneDeep } from 'lodash-es';
-  import { useMessage } from '/@/hooks/web/useMessage';
+  import { defineComponent, ref } from 'vue';
+
+  import { optionsListApi } from '@/api/demo/select';
+  import { demoListApi } from '@/api/demo/table';
+  import { treeOptionsListApi } from '@/api/demo/tree';
+  import {
+    ActionItem,
+    BasicColumn,
+    BasicTable,
+    EditRecordRow,
+    TableAction,
+    useTable,
+  } from '@/components/Table';
+  import { useMessage } from '@/hooks/web/useMessage';
 
   const columns: BasicColumn[] = [
     {

@@ -20,12 +20,14 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { BasicForm, useForm } from '/@/components/Form';
-  import { defineComponent, ref } from 'vue';
-  import PersonTable from './PersonTable.vue';
-  import { PageWrapper } from '/@/components/Page';
-  import { schemas, taskSchemas } from './data';
   import { Card } from 'ant-design-vue';
+  import { defineComponent, ref } from 'vue';
+
+  import { BasicForm, useForm } from '@/components/Form';
+  import { PageWrapper } from '@/components/Page';
+
+  import { schemas, taskSchemas } from './data';
+  import PersonTable from './PersonTable.vue';
 
   export default defineComponent({
     name: 'FormHightPage',

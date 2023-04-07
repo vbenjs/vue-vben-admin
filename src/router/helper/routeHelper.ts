@@ -1,13 +1,13 @@
-import type { AppRouteModule, AppRouteRecordRaw } from '/@/router/types';
-import type { Router, RouteRecordNormalized } from 'vue-router';
-
-import { getParentLayout, LAYOUT, EXCEPTION_COMPONENT } from '/@/router/constant';
 import { cloneDeep, omit } from 'lodash-es';
-import { warn } from '/@/utils/log';
+import type { Router, RouteRecordNormalized } from 'vue-router';
 import { createRouter, createWebHashHistory } from 'vue-router';
 
+import { EXCEPTION_COMPONENT, getParentLayout, LAYOUT } from '@/router/constant';
+import type { AppRouteModule, AppRouteRecordRaw } from '@/router/types';
+import { warn } from '@/utils/log';
+
 export type LayoutMapKey = 'LAYOUT';
-const IFRAME = () => import('/@/views/sys/iframe/FrameBlank.vue');
+const IFRAME = () => import('@/views/sys/iframe/FrameBlank.vue');
 
 const LayoutMap = new Map<string, () => Promise<typeof import('*.vue')>>();
 

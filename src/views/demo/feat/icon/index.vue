@@ -51,24 +51,23 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { Alert } from 'ant-design-vue';
   import {
-    QqCircleFilled,
-    GithubFilled,
-    WechatFilled,
     AlipayCircleFilled,
-    IeCircleFilled,
-    TaobaoCircleFilled,
     CodepenCircleFilled,
+    GithubFilled,
+    IeCircleFilled,
+    QqCircleFilled,
+    TaobaoCircleFilled,
+    WechatFilled,
   } from '@ant-design/icons-vue';
+  import { Alert } from 'ant-design-vue';
+  import { defineComponent } from 'vue';
 
-  import { IconPicker, SvgIcon } from '/@/components/Icon/index';
-  import Icon from '/@/components/Icon/Icon.vue';
-
-  import { openWindow } from '/@/utils';
-  import { PageWrapper } from '/@/components/Page';
+  import { CollapseContainer } from '@/components/Container/index';
+  import Icon from '@/components/Icon/Icon.vue';
+  import { IconPicker, SvgIcon } from '@/components/Icon/index';
+  import { PageWrapper } from '@/components/Page';
+  import { openWindow } from '@/utils';
 
   export default defineComponent({
     components: {

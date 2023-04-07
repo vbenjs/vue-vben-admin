@@ -28,10 +28,12 @@
   </div>
 </template>
 <script lang="ts">
+  import { Avatar, Tag } from 'ant-design-vue';
   import { defineComponent } from 'vue';
-  import { BasicTable, useTable, BasicColumn, TableImg } from '/@/components/Table';
-  import { Tag, Avatar } from 'ant-design-vue';
-  import { demoListApi } from '/@/api/demo/table';
+
+  import { demoListApi } from '@/api/demo/table';
+  import { BasicColumn, BasicTable, TableImg, useTable } from '@/components/Table';
+
   const columns: BasicColumn[] = [
     {
       title: 'ID',

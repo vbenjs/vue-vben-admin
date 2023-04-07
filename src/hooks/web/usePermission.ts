@@ -1,21 +1,18 @@
+import { isArray } from '@vben/shared';
+import { intersection } from 'lodash-es';
 import type { RouteRecordRaw } from 'vue-router';
 
-import { useAppStore } from '/@/store/modules/app';
-import { usePermissionStore } from '/@/store/modules/permission';
-import { useUserStore } from '/@/store/modules/user';
+import { PermissionModeEnum } from '@/enums/appEnum';
+import { RoleEnum } from '@/enums/roleEnum';
+import { resetRouter, router } from '@/router';
+// import { RootRoute } from '@/router/routes';
+import projectSetting from '@/settings/projectSetting';
+import { useAppStore } from '@/store/modules/app';
+import { useMultipleTabStore } from '@/store/modules/multipleTab';
+import { usePermissionStore } from '@/store/modules/permission';
+import { useUserStore } from '@/store/modules/user';
 
 import { useTabs } from './useTabs';
-
-import { router, resetRouter } from '/@/router';
-// import { RootRoute } from '/@/router/routes';
-
-import projectSetting from '/@/settings/projectSetting';
-import { PermissionModeEnum } from '/@/enums/appEnum';
-import { RoleEnum } from '/@/enums/roleEnum';
-
-import { intersection } from 'lodash-es';
-import { isArray } from '@vben/shared';
-import { useMultipleTabStore } from '/@/store/modules/multipleTab';
 
 // User permissions related operations
 export function usePermission() {

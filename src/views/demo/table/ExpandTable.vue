@@ -35,11 +35,12 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { PageWrapper } from '/@/components/Page';
-  import { getBasicColumns } from './tableData';
 
-  import { demoListApi } from '/@/api/demo/table';
+  import { demoListApi } from '@/api/demo/table';
+  import { PageWrapper } from '@/components/Page';
+  import { BasicTable, TableAction, useTable } from '@/components/Table';
+
+  import { getBasicColumns } from './tableData';
 
   export default defineComponent({
     components: { BasicTable, TableAction, PageWrapper },

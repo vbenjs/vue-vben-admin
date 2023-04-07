@@ -18,13 +18,15 @@
   </Modal>
 </template>
 <script lang="ts" setup>
-  import { BasicForm, useForm } from '/@/components/Form/index';
-  import { reactive, ref, computed } from 'vue';
-  import { IFormConfig } from '../../typings/v-form-component';
-  import { IAnyObject } from '../../typings/base-type';
-  import JsonModal from '../VFormDesign/components/JsonModal.vue';
-  import { IToolbarMethods } from '../../typings/form-type';
   import { Modal } from 'ant-design-vue';
+  import { computed, reactive, ref } from 'vue';
+
+  import { BasicForm, useForm } from '@/components/Form/index';
+
+  import { IAnyObject } from '../../typings/base-type';
+  import { IToolbarMethods } from '../../typings/form-type';
+  import { IFormConfig } from '../../typings/v-form-component';
+  import JsonModal from '../VFormDesign/components/JsonModal.vue';
 
   const jsonModal = ref<IToolbarMethods | null>(null);
   const state = reactive<{

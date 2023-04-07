@@ -5,8 +5,6 @@
     "baseUrl": ".",
     "types": ["vite/client", "unplugin-vue-define-options/macros-global"],
     "paths": {
-      "/@/*": ["src/*"],
-      "/#/*": ["types/*"],
       "@/*": ["src/*"],
       "#/*": ["types/*"]
     }

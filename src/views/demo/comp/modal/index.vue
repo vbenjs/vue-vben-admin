@@ -34,14 +34,16 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, shallowRef, ComponentOptions, ref, nextTick } from 'vue';
   import { Alert, Space } from 'ant-design-vue';
-  import { useModal } from '/@/components/Modal';
+  import { ComponentOptions, defineComponent, nextTick, ref, shallowRef } from 'vue';
+
+  import { useModal } from '@/components/Modal';
+  import { PageWrapper } from '@/components/Page';
+
   import Modal1 from './Modal1.vue';
   import Modal2 from './Modal2.vue';
   import Modal3 from './Modal3.vue';
   import Modal4 from './Modal4.vue';
-  import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
     components: { Alert, Modal1, Modal2, Modal3, Modal4, PageWrapper, ASpace: Space },

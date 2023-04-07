@@ -56,19 +56,19 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, unref, ref } from 'vue';
-  import { BasicForm, FormSchema, ApiSelect } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { PageWrapper } from '/@/components/Page';
-
-  import { optionsListApi } from '/@/api/demo/select';
   import { useDebounceFn } from '@vueuse/core';
-  import { treeOptionsListApi } from '/@/api/demo/tree';
   import { Select } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
-  import { areaRecord } from '/@/api/demo/cascader';
-  import { uploadApi } from '/@/api/sys/upload';
+  import { computed, defineComponent, ref, unref } from 'vue';
+
+  import { areaRecord } from '@/api/demo/cascader';
+  import { optionsListApi } from '@/api/demo/select';
+  import { treeOptionsListApi } from '@/api/demo/tree';
+  import { uploadApi } from '@/api/sys/upload';
+  import { CollapseContainer } from '@/components/Container';
+  import { ApiSelect, BasicForm, FormSchema } from '@/components/Form/index';
+  import { PageWrapper } from '@/components/Page';
+  import { useMessage } from '@/hooks/web/useMessage';
 
   const valueSelectA = ref<string[]>([]);
   const valueSelectB = ref<string[]>([]);

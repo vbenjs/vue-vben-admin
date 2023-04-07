@@ -58,16 +58,18 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, computed } from 'vue';
   import { Alert, Divider } from 'ant-design-vue';
+  import { computed, defineComponent } from 'vue';
+
+  import { Authority } from '@/components/Authority';
+  import { PageWrapper } from '@/components/Page';
+  import { PermissionModeEnum } from '@/enums/appEnum';
+  import { usePermission } from '@/hooks/web/usePermission';
+  import { useAppStore } from '@/store/modules/app';
+  import { usePermissionStore } from '@/store/modules/permission';
+  import { useUserStore } from '@/store/modules/user';
+
   import CurrentPermissionMode from '../CurrentPermissionMode.vue';
-  import { usePermission } from '/@/hooks/web/usePermission';
-  import { Authority } from '/@/components/Authority';
-  import { usePermissionStore } from '/@/store/modules/permission';
-  import { PermissionModeEnum } from '/@/enums/appEnum';
-  import { PageWrapper } from '/@/components/Page';
-  import { useAppStore } from '/@/store/modules/app';
-  import { useUserStore } from '/@/store/modules/user';
 
   export default defineComponent({
     components: { Alert, PageWrapper, CurrentPermissionMode, Divider, Authority },

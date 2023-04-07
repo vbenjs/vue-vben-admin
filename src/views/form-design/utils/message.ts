@@ -1,4 +1,4 @@
-import { useMessage } from '/@/hooks/web/useMessage';
+import { useMessage } from '@/hooks/web/useMessage';
 
 const { createMessage } = useMessage();
 const message = Object.assign({

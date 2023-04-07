@@ -16,16 +16,18 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import {
-    downloadByUrl,
-    downloadByData,
-    downloadByBase64,
-    downloadByOnlineUrl,
-  } from '/@/utils/file/download';
-  import imgBase64 from './imgBase64';
-  import { PageWrapper } from '/@/components/Page';
   import { Alert } from 'ant-design-vue';
+  import { defineComponent } from 'vue';
+
+  import { PageWrapper } from '@/components/Page';
+  import {
+    downloadByBase64,
+    downloadByData,
+    downloadByOnlineUrl,
+    downloadByUrl,
+  } from '@/utils/file/download';
+
+  import imgBase64 from './imgBase64';
 
   export default defineComponent({
     components: { PageWrapper, [Alert.name]: Alert },

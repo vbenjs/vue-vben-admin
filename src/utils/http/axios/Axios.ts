@@ -1,18 +1,20 @@
+import { isArray, isFunction } from '@vben/shared';
 import type {
-  AxiosRequestConfig,
-  AxiosInstance,
-  AxiosResponse,
   AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
-import type { RequestOptions, Result, UploadFileParams } from '/#/axios';
-import type { CreateAxiosOptions } from './axiosTransform';
 import axios from 'axios';
-import qs from 'qs';
-import { AxiosCanceler } from './axiosCancel';
-import { isFunction, isArray } from '@vben/shared';
 import { cloneDeep } from 'lodash-es';
-import { ContentTypeEnum, RequestEnum } from '/@/enums/httpEnum';
+import qs from 'qs';
+
+import type { RequestOptions, Result, UploadFileParams } from '/#/axios';
+import { ContentTypeEnum, RequestEnum } from '@/enums/httpEnum';
+
+import { AxiosCanceler } from './axiosCancel';
+import type { CreateAxiosOptions } from './axiosTransform';
 
 export * from './axiosTransform';
 

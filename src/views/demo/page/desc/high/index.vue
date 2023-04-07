@@ -93,12 +93,14 @@
   </PageWrapper>
 </template>
 <script lang="ts">
+  import { Card, Descriptions, Divider, Empty, Steps, Tabs } from 'ant-design-vue';
   import { defineComponent } from 'vue';
-  import { BasicTable, useTable } from '/@/components/Table';
-  import { PageWrapper } from '/@/components/Page';
-  import { Divider, Card, Empty, Descriptions, Steps, Tabs } from 'ant-design-vue';
 
-  import { refundTimeTableSchema, refundTimeTableData } from './data';
+  import { PageWrapper } from '@/components/Page';
+  import { BasicTable, useTable } from '@/components/Table';
+
+  import { refundTimeTableData, refundTimeTableSchema } from './data';
+
   export default defineComponent({
     components: {
       BasicTable,

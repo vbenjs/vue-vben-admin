@@ -1,16 +1,17 @@
+import { defHttp } from '@/utils/http/axios';
+
 import {
-  AccountParams,
-  DeptListItem,
-  MenuParams,
-  RoleParams,
-  RolePageParams,
-  MenuListGetResultModel,
-  DeptListGetResultModel,
   AccountListGetResultModel,
-  RolePageListGetResultModel,
+  AccountParams,
+  DeptListGetResultModel,
+  DeptListItem,
+  MenuListGetResultModel,
+  MenuParams,
   RoleListGetResultModel,
+  RolePageListGetResultModel,
+  RolePageParams,
+  RoleParams,
 } from './model/systemModel';
-import { defHttp } from '/@/utils/http/axios';
 
 enum Api {
   AccountList = '/system/getAccountList',

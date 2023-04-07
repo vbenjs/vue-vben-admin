@@ -10,7 +10,9 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { BasicTable, useTable } from '/@/components/Table';
+
+  import { BasicTable, useTable } from '@/components/Table';
+
   import { getBasicColumns, getTreeTableData } from './tableData';
 
   export default defineComponent({

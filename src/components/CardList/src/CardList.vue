@@ -76,20 +76,22 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { computed, onMounted, ref } from 'vue';
   import {
     EditOutlined,
     EllipsisOutlined,
     RedoOutlined,
     TableOutlined,
   } from '@ant-design/icons-vue';
-  import { List, Card, Image, Typography, Tooltip, Slider, Avatar } from 'ant-design-vue';
-  import { Dropdown } from '/@/components/Dropdown';
-  import { BasicForm, useForm } from '/@/components/Form';
-  import { propTypes } from '/@/utils/propTypes';
-  import { Button } from '/@/components/Button';
   import { isFunction } from '@vben/shared';
-  import { useSlider, grid } from './data';
+  import { Avatar, Card, Image, List, Slider, Tooltip, Typography } from 'ant-design-vue';
+  import { computed, onMounted, ref } from 'vue';
+
+  import { Button } from '@/components/Button';
+  import { Dropdown } from '@/components/Dropdown';
+  import { BasicForm, useForm } from '@/components/Form';
+  import { propTypes } from '@/utils/propTypes';
+
+  import { grid, useSlider } from './data';
 
   const ListItem = List.Item;
   const CardMeta = Card.Meta;

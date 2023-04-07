@@ -15,24 +15,25 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
   import { Select } from 'ant-design-vue';
-  import { PageWrapper } from '/@/components/Page';
+  import { defineComponent, ref } from 'vue';
+
+  import { PageWrapper } from '@/components/Page';
   import {
-    FadeTransition,
-    ScaleTransition,
-    SlideYTransition,
-    ScrollYTransition,
-    SlideYReverseTransition,
-    ScrollYReverseTransition,
-    SlideXTransition,
-    ScrollXTransition,
-    SlideXReverseTransition,
-    ScrollXReverseTransition,
-    ScaleRotateTransition,
-    ExpandXTransition,
     ExpandTransition,
-  } from '/@/components/Transition';
+    ExpandXTransition,
+    FadeTransition,
+    ScaleRotateTransition,
+    ScaleTransition,
+    ScrollXReverseTransition,
+    ScrollXTransition,
+    ScrollYReverseTransition,
+    ScrollYTransition,
+    SlideXReverseTransition,
+    SlideXTransition,
+    SlideYReverseTransition,
+    SlideYTransition,
+  } from '@/components/Transition';
 
   const transitionList = [
     'Fade',

@@ -58,17 +58,19 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, unref, ref, watch, nextTick } from 'vue';
   import { SearchOutlined } from '@ant-design/icons-vue';
-  import AppSearchFooter from './AppSearchFooter.vue';
+  import { useRefs } from '@vben/hooks';
+  import { computed, nextTick, ref, unref, watch } from 'vue';
+
   import Icon from '@/components/Icon/Icon.vue';
   // @ts-ignore
-  import vClickOutside from '/@/directives/clickOutside';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useRefs } from '@vben/hooks';
+  import vClickOutside from '@/directives/clickOutside';
+  import { useAppInject } from '@/hooks/web/useAppInject';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { useI18n } from '@/hooks/web/useI18n';
+
+  import AppSearchFooter from './AppSearchFooter.vue';
   import { useMenuSearch } from './useMenuSearch';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useAppInject } from '/@/hooks/web/useAppInject';
 
   const props = defineProps({
     visible: { type: Boolean },

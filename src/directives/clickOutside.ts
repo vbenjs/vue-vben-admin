@@ -1,6 +1,7 @@
-import { on } from '/@/utils/domUtils';
-import type { ComponentPublicInstance, DirectiveBinding, ObjectDirective } from 'vue';
 import { isArray } from '@vben/shared';
+import type { ComponentPublicInstance, DirectiveBinding, ObjectDirective } from 'vue';
+
+import { on } from '@/utils/domUtils';
 
 type DocumentHandler = <T extends MouseEvent>(mouseup: T, mousedown: T) => void;
 

@@ -1,6 +1,7 @@
-import { ref, computed, unref } from 'vue';
-import { createPageContext } from '/@/hooks/component/usePageContext';
 import { useWindowSizeFn } from '@vben/hooks';
+import { computed, ref, unref } from 'vue';
+
+import { createPageContext } from '@/hooks/component/usePageContext';
 
 const headerHeightRef = ref(0);
 const footerHeightRef = ref(0);

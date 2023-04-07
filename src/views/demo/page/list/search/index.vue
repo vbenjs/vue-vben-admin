@@ -53,12 +53,14 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { Tag, List } from 'ant-design-vue';
+  import { List, Tag } from 'ant-design-vue';
   import { defineComponent } from 'vue';
+
+  import { BasicForm } from '@/components/Form/index';
   import Icon from '@/components/Icon/Icon.vue';
-  import { BasicForm } from '/@/components/Form/index';
-  import { actions, searchList, schemas } from './data';
-  import { PageWrapper } from '/@/components/Page';
+  import { PageWrapper } from '@/components/Page';
+
+  import { actions, schemas, searchList } from './data';
 
   export default defineComponent({
     components: {

@@ -32,13 +32,12 @@
 <script lang="ts">
   import { defineComponent, nextTick } from 'vue';
 
-  import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getMenuList } from '/@/api/demo/system';
-
-  import { useDrawer } from '/@/components/Drawer';
-  import MenuDrawer from './MenuDrawer.vue';
+  import { getMenuList } from '@/api/demo/system';
+  import { useDrawer } from '@/components/Drawer';
+  import { BasicTable, TableAction, useTable } from '@/components/Table';
 
   import { columns, searchFormSchema } from './menu.data';
+  import MenuDrawer from './MenuDrawer.vue';
 
   export default defineComponent({
     name: 'MenuManagement',

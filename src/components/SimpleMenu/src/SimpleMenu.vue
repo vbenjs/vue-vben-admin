@@ -18,19 +18,21 @@
   </Menu>
 </template>
 <script lang="ts">
-  import type { MenuState } from './types';
-  import type { Menu as MenuType } from '/@/router/types';
+  import { isFunction, isHttpUrl } from '@vben/shared';
+  import { computed, defineComponent, PropType, reactive, ref, toRefs, unref, watch } from 'vue';
   import type { RouteLocationNormalizedLoaded } from 'vue-router';
-  import { defineComponent, computed, ref, unref, reactive, toRefs, watch, PropType } from 'vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import { useRouter } from 'vue-router';
+
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { listenerRouteChange } from '@/logics/mitt/routeChange';
+  import { REDIRECT_NAME } from '@/router/constant';
+  import type { Menu as MenuType } from '@/router/types';
+  import { openWindow } from '@/utils';
+  import { propTypes } from '@/utils/propTypes';
+
   import Menu from './components/Menu.vue';
   import SimpleSubMenu from './SimpleSubMenu.vue';
-  import { listenerRouteChange } from '/@/logics/mitt/routeChange';
-  import { propTypes } from '/@/utils/propTypes';
-  import { REDIRECT_NAME } from '/@/router/constant';
-  import { useRouter } from 'vue-router';
-  import { isFunction, isHttpUrl } from '@vben/shared';
-  import { openWindow } from '/@/utils';
+  import type { MenuState } from './types';
   import { useOpenKeys } from './useOpenKeys';
 
   export default defineComponent({

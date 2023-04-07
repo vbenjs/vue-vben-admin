@@ -1,10 +1,11 @@
-import { AppRouteModule } from '/@/router/types';
-import type { MenuModule, Menu, AppRouteRecordRaw } from '/@/router/types';
-import { findPath, treeMap } from '/@/utils/helper/treeHelper';
-import { cloneDeep } from 'lodash-es';
 import { isHttpUrl } from '@vben/shared';
-import { RouteParams } from 'vue-router';
+import { cloneDeep } from 'lodash-es';
 import { toRaw } from 'vue';
+import { RouteParams } from 'vue-router';
+
+import type { AppRouteRecordRaw, Menu, MenuModule } from '@/router/types';
+import { AppRouteModule } from '@/router/types';
+import { findPath, treeMap } from '@/utils/helper/treeHelper';
 
 export function getAllParentPath<T = Recordable>(treeData: T[], path: string) {
   const menuList = findPath(treeData, (n) => n.path === path) as Menu[];

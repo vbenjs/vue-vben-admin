@@ -11,12 +11,13 @@
   </BasicDrawer>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, computed, unref } from 'vue';
-  import { BasicForm, useForm } from '/@/components/Form/index';
-  import { formSchema } from './menu.data';
-  import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
+  import { computed, defineComponent, ref, unref } from 'vue';
 
-  import { getMenuList } from '/@/api/demo/system';
+  import { getMenuList } from '@/api/demo/system';
+  import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
+  import { BasicForm, useForm } from '@/components/Form/index';
+
+  import { formSchema } from './menu.data';
 
   export default defineComponent({
     name: 'MenuDrawer',

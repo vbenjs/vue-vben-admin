@@ -1,8 +1,8 @@
 import { VXETable } from 'vxe-table';
 import VXETablePluginExportXLSX from 'vxe-table-plugin-export-xlsx';
 
-import componentSetting from '/@/settings/componentSetting';
-import { withInstall } from '/@/utils';
+import componentSetting from '@/settings/componentSetting';
+import { withInstall } from '@/utils';
 
 import VXETablePluginAntd from './src/components';
 import vxeBasicTable from './src/VxeBasicTable';

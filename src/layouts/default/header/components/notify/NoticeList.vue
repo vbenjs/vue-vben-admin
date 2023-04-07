@@ -54,11 +54,13 @@
   </a-list>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, PropType, ref, watch, unref } from 'vue';
-  import { ListItem } from './data';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { List, Avatar, Tag, Typography } from 'ant-design-vue';
   import { isNumber } from '@vben/shared';
+  import { Avatar, List, Tag, Typography } from 'ant-design-vue';
+  import { computed, defineComponent, PropType, ref, unref, watch } from 'vue';
+
+  import { useDesign } from '@/hooks/web/useDesign';
+
+  import { ListItem } from './data';
 
   export default defineComponent({
     components: {

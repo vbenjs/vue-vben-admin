@@ -9,14 +9,15 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, h } from 'vue';
-  import { BasicTable, useTable, BasicColumn } from '/@/components/Table';
-  import { optionsListApi } from '/@/api/demo/select';
-
-  import { demoListApi } from '/@/api/demo/table';
-  import { treeOptionsListApi } from '/@/api/demo/tree';
-  import { useMessage } from '/@/hooks/web/useMessage';
   import { Progress } from 'ant-design-vue';
+  import { defineComponent, h } from 'vue';
+
+  import { optionsListApi } from '@/api/demo/select';
+  import { demoListApi } from '@/api/demo/table';
+  import { treeOptionsListApi } from '@/api/demo/tree';
+  import { BasicColumn, BasicTable, useTable } from '@/components/Table';
+  import { useMessage } from '@/hooks/web/useMessage';
+
   const columns: BasicColumn[] = [
     {
       title: '输入框',

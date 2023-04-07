@@ -1,23 +1,25 @@
 <script lang="tsx">
-  import type { DescriptionProps, DescInstance, DescItem } from './typing';
-  import type { DescriptionsProps } from 'ant-design-vue/es/descriptions/index';
-  import type { CollapseContainerOptions } from '/@/components/Container/index';
-  import {
-    type CSSProperties,
-    type PropType,
-    defineComponent,
-    computed,
-    ref,
-    unref,
-    toRefs,
-  } from 'vue';
-  import { get } from 'lodash-es';
-  import { Descriptions } from 'ant-design-vue';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { isFunction } from '@vben/shared';
-  import { getSlot } from '/@/utils/helper/tsxHelper';
   import { useAttrs } from '@vben/hooks';
+  import { isFunction } from '@vben/shared';
+  import { Descriptions } from 'ant-design-vue';
+  import type { DescriptionsProps } from 'ant-design-vue/es/descriptions/index';
+  import { get } from 'lodash-es';
+  import {
+    computed,
+    type CSSProperties,
+    defineComponent,
+    type PropType,
+    ref,
+    toRefs,
+    unref,
+  } from 'vue';
+
+  import type { CollapseContainerOptions } from '@/components/Container/index';
+  import { CollapseContainer } from '@/components/Container/index';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { getSlot } from '@/utils/helper/tsxHelper';
+
+  import type { DescInstance, DescItem, DescriptionProps } from './typing';
 
   const props = {
     useCollapse: { type: Boolean, default: true },

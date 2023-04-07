@@ -17,9 +17,10 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { PageWrapper } from '/@/components/Page';
+
+  import { CollapseContainer } from '@/components/Container/index';
+  import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
+  import { PageWrapper } from '@/components/Page';
 
   const schemas: FormSchema[] = [
     {

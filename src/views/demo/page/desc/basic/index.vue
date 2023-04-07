@@ -25,22 +25,24 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { Description } from '/@/components/Description/index';
-  import { BasicTable, useTable } from '/@/components/Table';
-  import { PageWrapper } from '/@/components/Page';
   import { Divider } from 'ant-design-vue';
+  import { defineComponent } from 'vue';
+
+  import { Description } from '@/components/Description/index';
+  import { PageWrapper } from '@/components/Page';
+  import { BasicTable, useTable } from '@/components/Table';
 
   import {
-    refundSchema,
-    refundData,
-    personSchema,
     personData,
-    refundTableSchema,
-    refundTimeTableSchema,
+    personSchema,
+    refundData,
+    refundSchema,
     refundTableData,
+    refundTableSchema,
     refundTimeTableData,
+    refundTimeTableSchema,
   } from './data';
+
   export default defineComponent({
     components: { Description, BasicTable, PageWrapper, [Divider.name]: Divider },
     setup() {
