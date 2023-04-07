@@ -1,10 +1,23 @@
 import { shallowRef, unref } from 'vue';
 
 interface UseScrollToOptions {
-  el: any;
+  /**
+   * 需要滚动的 el dom节点
+   */
+  el: HTMLElement;
+  /**
+   * 滚动的目标值
+   */
   to: number;
+  /**
+   * 滚动时间
+   */
   duration?: number;
-  callback?: () => any;
+  /**
+   * 执行完成之后的回调函数
+   * @returns
+   */
+  callback?: () => void;
 }
 
 function easeInOutQuad(t: number, b: number, c: number, d: number) {
@@ -20,12 +33,14 @@ function move(el: HTMLElement, amount: number) {
   el.scrollTop = amount;
 }
 
-const position = (el: HTMLElement) => {
-  return el.scrollTop;
-};
+/**
+ * dom节点滚动到指定位置
+ * @param UseScrollToOptions
+ * @returns
+ */
 function useScrollTo({ el, to, duration = 500, callback }: UseScrollToOptions) {
   const isActiveRef = shallowRef(false);
-  const start = position(el);
+  const start = el.scrollTop;
   const change = to - start;
   const increment = 20;
   let currentTime = 0;
@@ -40,11 +55,10 @@ function useScrollTo({ el, to, duration = 500, callback }: UseScrollToOptions) {
     if (currentTime < duration && unref(isActiveRef)) {
       requestAnimationFrame(animateScroll);
     } else {
-      if (callback && typeof callback === 'function') {
-        callback();
-      }
+      callback?.();
     }
   };
+
   const run = () => {
     isActiveRef.value = true;
     animateScroll();

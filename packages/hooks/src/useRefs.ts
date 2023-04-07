@@ -1,9 +1,19 @@
-import type { Ref } from 'vue';
-import { onBeforeUpdate, shallowRef } from 'vue';
+import { type ComponentPublicInstance, onBeforeUpdate, type Ref, shallowRef } from 'vue';
 
+type SetRefsFunctionRef = Element | ComponentPublicInstance | null;
+
+interface SetRefsFunction {
+  (ref: SetRefsFunctionRef, refs: Record<string, any>): void;
+}
+
+/**
+ * 用于模版循环获取 refs
+ * <div :ref="setRefs(index)"></div>
+ * @returns
+ */
 function useRefs(): {
   refs: Ref<HTMLElement[]>;
-  setRefs: (index: number) => (el: HTMLElement) => void;
+  setRefs: (index: number) => SetRefsFunction;
 } {
   const refs = shallowRef([]) as Ref<HTMLElement[]>;
 
@@ -11,8 +21,8 @@ function useRefs(): {
     refs.value = [];
   });
 
-  const setRefs = (index: number) => (el: HTMLElement) => {
-    refs.value[index] = el;
+  const setRefs = (index: number) => (ref: SetRefsFunctionRef, refs: Record<string, any>) => {
+    refs.value[index] = ref;
   };
 
   return {

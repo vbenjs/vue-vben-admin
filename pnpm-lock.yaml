@@ -229,7 +229,7 @@ importers:
         version: 1.3.3(rollup@2.79.1)(vue@3.2.47)
       vite:
         specifier: ^4.3.0-beta.2
-        version: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.60.0)
+        version: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.61.0)
       vite-plugin-mock:
         specifier: ^2.9.6
         version: 2.9.6(mockjs@1.1.0)(rollup@2.79.1)(vite@4.3.0-beta.2)
@@ -386,7 +386,7 @@ importers:
         version: 1.3.3(rollup@2.79.1)(vue@3.2.47)
       vite:
         specifier: ^4.3.0-beta.2
-        version: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.60.0)
+        version: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.61.0)
 
   internal/vite-config:
     dependencies:
@@ -395,7 +395,7 @@ importers:
         version: 7.0.0
       vite:
         specifier: ^4.3.0-beta.2
-        version: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.60.0)
+        version: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.61.0)
     devDependencies:
       '@types/fs-extra':
         specifier: ^11.0.1
@@ -431,8 +431,8 @@ importers:
         specifier: ^5.9.0
         version: 5.9.0(rollup@2.79.1)
       sass:
-        specifier: ^1.60.0
-        version: 1.60.0
+        specifier: ^1.61.0
+        version: 1.61.0
       unocss:
         specifier: ^0.50.6
         version: 0.50.6(postcss@8.4.21)(rollup@2.79.1)(vite@4.3.0-beta.2)
@@ -471,7 +471,13 @@ importers:
         specifier: workspace:*
         version: link:../types
 
-  packages/types: {}
+  packages/shared: {}
+
+  packages/types:
+    dependencies:
+      vue:
+        specifier: ^3.2.47
+        version: 3.2.47
 
 packages:
 
@@ -2378,7 +2384,7 @@ packages:
       chokidar: 3.5.3
       fast-glob: 3.2.12
       magic-string: 0.30.0
-      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.60.0)
+      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.61.0)
     transitivePeerDependencies:
       - rollup
     dev: true
@@ -2393,7 +2399,7 @@ packages:
       '@babel/core': 7.21.4
       '@babel/plugin-transform-typescript': 7.21.3(@babel/core@7.21.4)
       '@vue/babel-plugin-jsx': 1.1.1(@babel/core@7.21.4)
-      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.60.0)
+      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.61.0)
       vue: 3.2.47
     transitivePeerDependencies:
       - supports-color
@@ -2406,7 +2412,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.60.0)
+      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.61.0)
       vue: 3.2.47
     dev: true
 
@@ -8089,9 +8095,9 @@ packages:
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  /sass@1.60.0:
-    resolution: {integrity: sha512-updbwW6fNb5gGm8qMXzVO7V4sWf7LMXnMly/JEyfbfERbVH46Fn6q02BX7/eHTdKpE7d+oTkMMQpFWNUMfFbgQ==}
-    engines: {node: '>=12.0.0'}
+  /sass@1.61.0:
+    resolution: {integrity: sha512-PDsN7BrVkNZK2+dj/dpKQAWZavbAQ87IXqVvw2+oEYI+GwlTWkvbQtL7F2cCNbMqJEYKPh1EcjSxsnqIb/kyaQ==}
+    engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
       chokidar: 3.5.3
@@ -9558,7 +9564,7 @@ packages:
       chalk: 4.1.2
       debug: 4.3.4
       fs-extra: 10.1.0
-      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.60.0)
+      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.61.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -9579,7 +9585,7 @@ packages:
       kolorist: 1.7.0
       magic-string: 0.29.0
       ts-morph: 17.0.1
-      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.60.0)
+      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.61.0)
     transitivePeerDependencies:
       - '@types/node'
       - rollup
@@ -9603,7 +9609,7 @@ packages:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.60.0)
+      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.61.0)
     dev: true
 
   /vite-plugin-mock@2.9.6(mockjs@1.1.0)(rollup@2.79.1)(vite@4.3.0-beta.2):
@@ -9623,7 +9629,7 @@ packages:
       fast-glob: 3.2.12
       mockjs: 1.1.0
       path-to-regexp: 6.2.1
-      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.60.0)
+      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.61.0)
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -9638,7 +9644,7 @@ packages:
       '@purge-icons/core': 0.9.1
       '@purge-icons/generated': 0.9.0
       rollup-plugin-purge-icons: 0.9.1
-      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.60.0)
+      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.61.0)
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -9657,12 +9663,12 @@ packages:
       pathe: 0.2.0
       svg-baker: 1.7.0
       svgo: 2.8.0
-      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.60.0)
+      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.61.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /vite@4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.60.0):
+  /vite@4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.61.0):
     resolution: {integrity: sha512-RRghM7RiRnwknCG3hS+NE8C+N3CNX4yKfVhFxO3NqrtYErN6htac//De9IwIHWqgV8DdKoNPeK8Yb/FOlZvjoQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -9693,7 +9699,7 @@ packages:
       postcss: 8.4.21
       resolve: 1.22.1
       rollup: 3.20.2
-      sass: 1.60.0
+      sass: 1.61.0
     optionalDependencies:
       fsevents: 2.3.2
 

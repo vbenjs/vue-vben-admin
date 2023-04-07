@@ -1,9 +1,21 @@
 import { type Recordable } from '@vben/types';
-import { getCurrentInstance, reactive, shallowRef, watchEffect } from 'vue';
+import { getCurrentInstance, reactive, type ShallowRef, shallowRef, watchEffect } from 'vue';
 
 interface UseAttrsOptions {
+  /**
+   * 排除监听事件
+   * @default false
+   */
   excludeListeners?: boolean;
+  /**
+   * 排除部分对象 key值
+   * @default []
+   */
   excludeKeys?: string[];
+  /**
+   * 排除默认值 key 值 ['class', 'style']
+   * @default true
+   */
   excludeDefaultKeys?: boolean;
 }
 
@@ -14,12 +26,19 @@ function entries<T>(obj: Recordable<T>): [string, T][] {
   return Object.keys(obj).map((key: string) => [key, obj[key]]);
 }
 
-function useAttrs(options: UseAttrsOptions = {}): Recordable<any> {
+/**
+ * 获取当前组件的 Attrs 属性
+ * @param UseAttrsOptions
+ */
+function useAttrs<T = any>(options: UseAttrsOptions = {}): ShallowRef<Recordable<T>> {
   const instance = getCurrentInstance();
-  if (!instance) return {};
+  const attrs = shallowRef({});
+
+  if (!instance) {
+    return attrs;
+  }
 
   const { excludeListeners = false, excludeKeys = [], excludeDefaultKeys = true } = options;
-  const attrs = shallowRef({});
   const allExcludeKeys = excludeKeys.concat(excludeDefaultKeys ? DEFAULT_EXCLUDE_KEYS : []);
 
   // Since attrs are not reactive, make it reactive instead of doing in `onUpdated` hook for better performance

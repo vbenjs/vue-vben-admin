@@ -2,19 +2,31 @@ import { type AnyFunction } from '@vben/types';
 import { tryOnMounted, tryOnUnmounted, useDebounceFn } from '@vueuse/core';
 
 interface UseWindowSizeOptions {
+  /**
+   * 节流时间
+   * @default 150
+   */
   wait?: number;
-  once?: boolean;
+  /**
+   * 立即执行
+   * @default false
+   */
   immediate?: boolean;
-  listenerOptions?: AddEventListenerOptions | boolean;
+  /**
+   * 只执行一次
+   * @default false
+   */
+  once?: boolean;
 }
 
 function useWindowSizeFn(fn: AnyFunction, options: UseWindowSizeOptions = {}) {
   const { wait = 150, immediate } = options;
+
   let handler = () => {
     fn();
   };
-  const handleSize = useDebounceFn(handler, wait);
-  handler = handleSize;
+
+  handler = useDebounceFn(handler, wait);
 
   const start = () => {
     if (immediate) {
