@@ -60,7 +60,6 @@ export default {
     copy: '剪切板',
     msg: '消息提示',
     watermark: '水印',
-    ripple: '水波纹',
     fullScreen: '全屏',
     tab: 'Tab带参',
     tab1: 'Tab带参1',

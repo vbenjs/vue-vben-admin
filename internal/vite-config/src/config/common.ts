@@ -19,7 +19,16 @@ const commonConfig: UserConfig = {
   },
   plugins: [
     UnoCSS({
-      exclude: ['node_modules'],
+      exclude: [
+        'node_modules',
+        'dist',
+        '.git',
+        '.husky',
+        '.vscode',
+        '.config',
+        '.changeset',
+        'public',
+      ],
       presets: [presetUno(), presetTypography()],
     }),
   ],

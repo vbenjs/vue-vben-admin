@@ -70,7 +70,7 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
             manualChunks: {
               vue: ['vue', 'pinia', 'vue-router', '@vue/shared'],
               icon: ['@purge-icons/generated', 'virtual:svg-icons-register'],
-              antd: ['ant-design-vue', '@ant-design/icons-vue'],
+              // antd: ['ant-design-vue', '@ant-design/icons-vue'],
             },
           },
         },

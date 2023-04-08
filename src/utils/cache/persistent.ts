@@ -14,10 +14,11 @@ import {
   TOKEN_KEY,
   USER_INFO_KEY,
 } from '@/enums/cacheEnum';
-import { DEFAULT_CACHE_TIME } from '@/settings/encryptionSetting';
 import { createLocalStorage, createSessionStorage } from '@/utils/cache';
 
 import { Memory } from './memory';
+
+export const DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7;
 
 interface BasicStore {
   [TOKEN_KEY]: string | number | null | undefined;

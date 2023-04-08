@@ -61,7 +61,6 @@ export default {
     copy: 'Clipboard',
     msg: 'Message prompt',
     watermark: 'Watermark',
-    ripple: 'Ripple',
     fullScreen: 'Full Screen',
     tab: 'Tab with parameters',
     tab1: 'Tab with parameter 1',

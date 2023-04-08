@@ -188,14 +188,6 @@ const feat: AppRouteModule = {
       },
     },
     {
-      path: 'ripple',
-      name: 'RippleDemo',
-      component: () => import('@/views/demo/feat/ripple/index.vue'),
-      meta: {
-        title: t('routes.demo.feat.ripple'),
-      },
-    },
-    {
       path: 'full-screen',
       name: 'FullScreenDemo',
       component: () => import('@/views/demo/feat/full-screen/index.vue'),
