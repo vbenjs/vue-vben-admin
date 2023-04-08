@@ -36,6 +36,7 @@
 </template>
 <script lang="ts">
   // components
+  import { DOC_URL } from '@vben/constants';
   import { Dropdown, Menu } from 'ant-design-vue';
   import type { MenuInfo } from 'ant-design-vue/lib/menu/src/interface';
   import { computed, defineComponent } from 'vue';
@@ -45,7 +46,6 @@
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
   import { useDesign } from '@/hooks/web/useDesign';
   import { useI18n } from '@/hooks/web/useI18n';
-  import { DOC_URL } from '@/settings/siteSetting';
   import { useUserStore } from '@/store/modules/user';
   import { openWindow } from '@/utils';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';

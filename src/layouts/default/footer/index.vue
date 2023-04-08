@@ -13,6 +13,7 @@
 
 <script lang="ts">
   import { GithubFilled } from '@ant-design/icons-vue';
+  import { DOC_URL, GITHUB_URL, SITE_URL } from '@vben/constants';
   import { Layout } from 'ant-design-vue';
   import { computed, defineComponent, ref, unref } from 'vue';
   import { useRouter } from 'vue-router';
@@ -20,7 +21,6 @@
   import { useRootSetting } from '@/hooks/setting/useRootSetting';
   import { useDesign } from '@/hooks/web/useDesign';
   import { useI18n } from '@/hooks/web/useI18n';
-  import { DOC_URL, GITHUB_URL, SITE_URL } from '@/settings/siteSetting';
   import { openWindow } from '@/utils';
 
   import { useLayoutHeight } from '../content/useContentViewHeight';

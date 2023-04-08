@@ -1,6 +1,8 @@
 export default {
   extends: ['@vben', 'plugin:import/recommended'],
   rules: {
+    'import/no-unresolved': 'off',
+
     'object-shorthand': ['error', 'always', { ignoreConstructors: false, avoidQuotes: true }],
 
     '@typescript-eslint/ban-ts-comment': [

@@ -15,10 +15,10 @@ type FlushList = Map<
 
 const nodeList: FlushList = new Map();
 
-let startClick: MouseEvent;
+let startClick;
 
-on(document, 'mousedown', (e: MouseEvent) => (startClick = e));
-on(document, 'mouseup', (e: MouseEvent) => {
+on(document, 'mousedown', (e) => (startClick = e));
+on(document, 'mouseup', (e) => {
   for (const { documentHandler } of nodeList.values()) {
     documentHandler(e, startClick);
   }

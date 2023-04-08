@@ -16,12 +16,18 @@ importers:
       '@logicflow/extension':
         specifier: ^1.2.1
         version: 1.2.1
+      '@vben/constants':
+        specifier: workspace:*
+        version: link:packages/constants
       '@vben/hooks':
         specifier: workspace:*
         version: link:packages/hooks
       '@vben/shared':
         specifier: workspace:*
         version: link:packages/shared
+      '@vben/types':
+        specifier: workspace:*
+        version: link:packages/types
       '@vue/shared':
         specifier: ^3.2.47
         version: 3.2.47
@@ -146,9 +152,6 @@ importers:
       '@vben/ts-config':
         specifier: workspace:*
         version: link:internal/ts-config
-      '@vben/types':
-        specifier: workspace:*
-        version: link:packages/types
       '@vben/vite-config':
         specifier: workspace:*
         version: link:internal/vite-config
@@ -428,6 +431,8 @@ importers:
       vite-plugin-svg-icons:
         specifier: ^2.0.1
         version: 2.0.1(vite@4.3.0-beta.3)
+
+  packages/constants: {}
 
   packages/hooks:
     dependencies:

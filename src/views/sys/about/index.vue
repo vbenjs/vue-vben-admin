@@ -15,13 +15,15 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
+  import { DOC_URL, GITHUB_URL, SITE_URL } from '@vben/constants';
   import { Tag } from 'ant-design-vue';
   import { h } from 'vue';
 
   import { DescItem, Description, useDescription } from '@/components/Description/index';
   import { PageWrapper } from '@/components/Page';
-  import { DOC_URL, GITHUB_URL, SITE_URL } from '@/settings/siteSetting';
 
+  // FIXME:
+  // eslint-disable-next-line
   const { pkg, lastBuildTime } = __APP_INFO__;
 
   const { dependencies, devDependencies, name, version } = pkg;
