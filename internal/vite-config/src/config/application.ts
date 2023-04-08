@@ -43,7 +43,7 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
           },
           {
             find: 'vue',
-            replacement: 'vue/dist/vue.esm-bundler.js',
+            replacement: 'vue/dist/vue.runtime.esm-bundler.js',
           },
           {
             find: 'vue-i18n',
@@ -69,6 +69,7 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
           output: {
             manualChunks: {
               vue: ['vue', 'pinia', 'vue-router'],
+              icon: ['@purge-icons/generated', 'virtual:svg-icons-register'],
               // antd: ['ant-design-vue', '@ant-design/icons-vue'],
               // vxe: ['vxe-table', 'vxe-table-plugin-export-xlsx', 'xe-utils'],
             },

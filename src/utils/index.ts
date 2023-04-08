@@ -1,9 +1,8 @@
-import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router';
-import type { App, Component } from 'vue';
-
-import { unref } from 'vue';
 import { isArray, isObject } from '@vben/shared';
 import { cloneDeep, isEqual, mergeWith, unionWith } from 'lodash-es';
+import type { App, Component } from 'vue';
+import { unref } from 'vue';
+import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router';
 
 export const noop = () => {};
 

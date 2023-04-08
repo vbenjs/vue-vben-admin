@@ -19,7 +19,7 @@ const repeatDirective: Directive = {
       interval = null;
     };
 
-    on(el, 'mousedown', (e: MouseEvent): void => {
+    on(el, 'mousedown', (e): void => {
       if ((e as any).button !== 0) return;
       startTime = Date.now();
       once(document as any, 'mouseup', clear);

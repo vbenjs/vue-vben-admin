@@ -17,11 +17,14 @@
     "inlineSources": false,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "noUnusedParameters": false,
+    "noUnusedParameters": true,
     "preserveWatchOutput": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "removeComments": true
+    "removeComments": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true
   },
   "exclude": ["**/node_modules/**", "**/dist/**"]
 }

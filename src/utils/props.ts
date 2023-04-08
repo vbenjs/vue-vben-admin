@@ -1,9 +1,10 @@
 // copy from element-plus
 
-import { warn } from 'vue';
-import { fromPairs } from 'lodash-es';
 import { isObject } from '@vben/shared';
+import { fromPairs } from 'lodash-es';
 import type { ExtractPropTypes, PropType } from 'vue';
+import { warn } from 'vue';
+
 import type { Mutable } from './types';
 
 const wrapperKey = Symbol();

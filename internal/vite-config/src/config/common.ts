@@ -19,6 +19,7 @@ const commonConfig: UserConfig = {
   },
   plugins: [
     UnoCSS({
+      exclude: ['node_modules'],
       presets: [presetUno(), presetTypography()],
     }),
   ],

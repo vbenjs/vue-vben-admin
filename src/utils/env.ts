@@ -1,4 +1,5 @@
 import type { GlobEnvConfig } from '/#/config';
+
 import pkg from '../../package.json';
 
 const getVariableName = (title: string) => {

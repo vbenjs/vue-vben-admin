@@ -1,5 +1,5 @@
 import type { Ref } from 'vue';
-import { ref, unref, computed } from 'vue';
+import { computed, ref, unref } from 'vue';
 
 function pagination<T = any>(list: T[], pageNo: number, pageSize: number): T[] {
   const offset = (pageNo - 1) * Number(pageSize);
@@ -12,10 +12,10 @@ function pagination<T = any>(list: T[], pageNo: number, pageSize: number): T[] {
 
 export function usePagination<T = any>(list: Ref<T[]>, pageSize: number) {
   const currentPage = ref(1);
-  const pageSizeRef = ref(pageSize);
+  const $pageSize = ref(pageSize);
 
   const getPaginationList = computed(() => {
-    return pagination(unref(list), unref(currentPage), unref(pageSizeRef));
+    return pagination(unref(list), unref(currentPage), unref($pageSize));
   });
 
   const getTotal = computed(() => {
@@ -27,7 +27,7 @@ export function usePagination<T = any>(list: Ref<T[]>, pageSize: number) {
   }
 
   function setPageSize(pageSize: number) {
-    pageSizeRef.value = pageSize;
+    $pageSize.value = pageSize;
   }
 
   return { setCurrentPage, getTotal, setPageSize, getPaginationList };

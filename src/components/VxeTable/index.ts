@@ -1,3 +1,5 @@
+import './src/css/index.scss';
+
 import { VXETable } from 'vxe-table';
 import VXETablePluginExportXLSX from 'vxe-table-plugin-export-xlsx';
 

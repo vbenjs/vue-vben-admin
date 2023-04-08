@@ -1,4 +1,4 @@
-import type { CSSProperties, DirectiveBinding, ObjectDirective, App } from 'vue';
+import type { App, CSSProperties, DirectiveBinding, ObjectDirective } from 'vue';
 
 interface IValue {
   width?: number;

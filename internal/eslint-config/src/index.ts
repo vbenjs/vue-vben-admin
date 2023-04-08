@@ -25,6 +25,7 @@ export default {
     'plugin:prettier/recommended',
   ],
   rules: {
+    'no-console': 'error',
     'no-unused-vars': 'off',
     'no-case-declarations': 'off',
     'no-use-before-define': 'off',

@@ -1,25 +1,26 @@
-import { VXETableCore, VxeGlobalInterceptorHandles } from 'vxe-table';
-import AAutoComplete from './AAutoComplete';
-import AInput from './AInput';
-import AInputNumber from './AInputNumber';
-import ASelect from './ASelect';
-import ACascader from './ACascader';
-import ADatePicker from './ADatePicker';
-import AMonthPicker from './AMonthPicker';
-import ARangePicker from './ARangePicker';
-import AWeekPicker from './AWeekPicker';
-import ATreeSelect from './ATreeSelect';
-import ATimePicker from './ATimePicker';
-import ARate from './ARate';
-import ASwitch from './ASwitch';
-import ARadioGroup from './ARadioGroup';
-import ACheckboxGroup from './ACheckboxGroup';
-import AButton from './AButton';
-import AButtonGroup from './AButtonGroup';
+import { VxeGlobalInterceptorHandles, VXETableCore } from 'vxe-table';
+
 import AApiSelect from './AApiSelect';
 import AApiTreeSelect from './AApiTreeSelect';
+import AAutoComplete from './AAutoComplete';
+import AButton from './AButton';
+import AButtonGroup from './AButtonGroup';
+import ACascader from './ACascader';
+import ACheckboxGroup from './ACheckboxGroup';
+import ADatePicker from './ADatePicker';
 import AEmpty from './AEmpty';
+import AInput from './AInput';
+import AInputNumber from './AInputNumber';
 import AInputSearch from './AInputSearch';
+import AMonthPicker from './AMonthPicker';
+import ARadioGroup from './ARadioGroup';
+import ARangePicker from './ARangePicker';
+import ARate from './ARate';
+import ASelect from './ASelect';
+import ASwitch from './ASwitch';
+import ATimePicker from './ATimePicker';
+import ATreeSelect from './ATreeSelect';
+import AWeekPicker from './AWeekPicker';
 import AYearPicker from './AYearPicker';
 
 /**
