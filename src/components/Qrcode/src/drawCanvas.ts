@@ -1,7 +1,8 @@
-import { toCanvas } from 'qrcode';
-import type { QRCodeRenderersOptions } from 'qrcode';
-import { RenderQrCodeParams, ContentType } from './typing';
 import { cloneDeep } from 'lodash-es';
+import type { QRCodeRenderersOptions } from 'qrcode';
+import { toCanvas } from 'qrcode';
+
+import { ContentType, RenderQrCodeParams } from './typing';
 
 export const renderQrCode = ({
   canvas,

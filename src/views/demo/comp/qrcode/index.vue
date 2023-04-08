@@ -23,13 +23,13 @@
       </CollapseContainer>
 
       <CollapseContainer title="本地logo示例" class="text-center mb-6 qrcode-demo-item">
-        <QrCode :value="qrCodeUrl" :logo="LogoImg" />
+        <QrCode :value="qrCodeUrl" :logo="logoImage" />
       </CollapseContainer>
 
       <CollapseContainer title="在线logo示例" class="text-center mb-6 qrcode-demo-item">
         <QrCode
           :value="qrCodeUrl"
-          logo="https://vebn.oss-cn-beijing.aliyuncs.com/vben/logo.png"
+          :logo="logoImage"
           :options="{
             color: { dark: '#55D187' },
           }"
@@ -40,7 +40,7 @@
         <QrCode
           :value="qrCodeUrl"
           :logo="{
-            src: 'https://vebn.oss-cn-beijing.aliyuncs.com/vben/logo.png',
+            src: logoImage,
             logoSize: 0.2,
             borderSize: 0.05,
             borderRadius: 50,
@@ -50,7 +50,7 @@
       </CollapseContainer>
 
       <CollapseContainer title="下载示例" class="text-center qrcode-demo-item">
-        <QrCode :value="qrCodeUrl" ref="qrRef" :logo="LogoImg" />
+        <QrCode :value="qrCodeUrl" ref="qrRef" :logo="logoImage" />
         <a-button class="mb-2" type="primary" @click="download"> 下载 </a-button>
         <div class="msg">(在线logo会导致图片跨域，需要下载图片需要自行解决跨域问题)</div>
       </CollapseContainer>
@@ -65,7 +65,7 @@
           :width="200"
           :options="{ margin: 5 }"
           ref="qrDiyRef"
-          :logo="LogoImg"
+          :logo="logoImage"
           @done="onQrcodeDone"
         />
         <a-button class="mb-2" type="primary" @click="downloadDiy"> 下载 </a-button>
@@ -75,9 +75,9 @@
   </PageWrapper>
 </template>
 <script lang="ts">
+  import type { Nullable } from '@vben/types';
   import { defineComponent, ref, unref } from 'vue';
 
-  import LogoImg from '@/assets/images/logo.png';
   import { CollapseContainer } from '@/components/Container/index';
   import { PageWrapper } from '@/components/Page';
   import { QrCode, QrCodeActionType } from '@/components/Qrcode/index';
@@ -86,6 +86,8 @@
   export default defineComponent({
     components: { CollapseContainer, QrCode, PageWrapper },
     setup() {
+      const logoImage =
+        'https://cdn.jsdelivr.net/gh/vbenjs/vben-cdn-static@0.1.0/vben-admin/logo.png';
       const qrRef = ref<Nullable<QrCodeActionType>>(null);
       const qrDiyRef = ref<Nullable<QrCodeActionType>>(null);
       function download() {
@@ -112,11 +114,11 @@
       return {
         onQrcodeDone,
         qrCodeUrl,
-        LogoImg,
         download,
         downloadDiy,
         qrRef,
         qrDiyRef,
+        logoImage,
       };
     },
   });

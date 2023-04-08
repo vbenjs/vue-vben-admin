@@ -25,9 +25,9 @@
   </BasicModal>
 </template>
 <script lang="ts">
+  import { DEFAULT_AVATAR_IMAGE } from '@vben/constants';
   import { computed, defineComponent } from 'vue';
 
-  import headerImg from '@/assets/images/header.jpg';
   import { BasicForm, useForm } from '@/components/Form/index';
   import { BasicModal, useModalInner } from '@/components/Modal/index';
   import { useDesign } from '@/hooks/web/useDesign';
@@ -77,7 +77,7 @@
 
       const avatar = computed(() => {
         const { avatar } = userStore.getUserInfo;
-        return avatar || headerImg;
+        return avatar || DEFAULT_AVATAR_IMAGE;
       });
 
       return {

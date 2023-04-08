@@ -53,11 +53,11 @@
 </template>
 
 <script lang="ts">
+  import { DEFAULT_AVATAR_IMAGE } from '@vben/constants';
   import { VbenIcon } from '@vben/icons';
   import { Col, Row, Tabs, Tag } from 'ant-design-vue';
   import { computed, defineComponent } from 'vue';
 
-  import headerImg from '@/assets/images/header.jpg';
   import { CollapseContainer } from '@/components/Container/index';
   import { useUserStore } from '@/store/modules/user';
 
@@ -81,7 +81,7 @@
     },
     setup() {
       const userStore = useUserStore();
-      const avatar = computed(() => userStore.getUserInfo.avatar || headerImg);
+      const avatar = computed(() => userStore.getUserInfo.avatar || DEFAULT_AVATAR_IMAGE);
       return {
         prefixCls: 'account-center',
         avatar,

@@ -22,12 +22,12 @@
   </CollapseContainer>
 </template>
 <script lang="ts">
+  import { DEFAULT_AVATAR_IMAGE } from '@vben/constants';
   import { Button, Col, Row } from 'ant-design-vue';
   import { computed, defineComponent, onMounted } from 'vue';
 
   import { accountInfoApi } from '@/api/demo/account';
   import { uploadApi } from '@/api/sys/upload';
-  import headerImg from '@/assets/images/header.jpg';
   import { CollapseContainer } from '@/components/Container';
   import { CropperAvatar } from '@/components/Cropper';
   import { BasicForm, useForm } from '@/components/Form/index';
@@ -62,15 +62,13 @@
 
       const avatar = computed(() => {
         const { avatar } = userStore.getUserInfo;
-        console.log(avatar);
-        return avatar || headerImg;
+        return avatar || DEFAULT_AVATAR_IMAGE;
       });
 
-      function updateAvatar({ src, data }) {
+      function updateAvatar({ src }) {
         const userinfo = userStore.getUserInfo;
         userinfo.avatar = src;
         userStore.setUserInfo(userinfo);
-        console.log('data', data);
       }
 
       return {

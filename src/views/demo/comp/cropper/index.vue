@@ -7,7 +7,12 @@
     <CollapseContainer title="矩形裁剪" class="my-4">
       <div class="container p-4">
         <div class="cropper-container mr-10">
-          <CropperImage ref="refCropper" :src="img" @cropend="handleCropend" style="width: 40vw" />
+          <CropperImage
+            ref="refCropper"
+            :src="DEFAULT_AVATAR_IMAGE"
+            @cropend="handleCropend"
+            style="width: 40vw"
+          />
         </div>
         <img :src="cropperImg" class="croppered" v-if="cropperImg" alt="" />
       </div>
@@ -19,7 +24,7 @@
         <div class="cropper-container mr-10">
           <CropperImage
             ref="refCropper"
-            :src="img"
+            :src="DEFAULT_AVATAR_IMAGE"
             @cropend="handleCircleCropend"
             style="width: 40vw"
             circled
@@ -32,10 +37,10 @@
   </PageWrapper>
 </template>
 <script lang="ts">
+  import { DEFAULT_AVATAR_IMAGE } from '@vben/constants';
   import { defineComponent, ref } from 'vue';
 
   import { uploadApi } from '@/api/sys/upload';
-  import img from '@/assets/images/header.jpg';
   import { CollapseContainer } from '@/components/Container';
   import { CropperAvatar, CropperImage } from '@/components/Cropper';
   import { PageWrapper } from '@/components/Page';
@@ -66,7 +71,7 @@
       }
 
       return {
-        img,
+        DEFAULT_AVATAR_IMAGE,
         info,
         circleInfo,
         cropperImg,

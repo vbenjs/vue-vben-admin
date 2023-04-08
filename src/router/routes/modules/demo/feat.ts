@@ -156,14 +156,6 @@ const feat: AppRouteModule = {
       },
     },
     {
-      path: 'img-preview',
-      name: 'ImgPreview',
-      component: () => import('@/views/demo/feat/img-preview/index.vue'),
-      meta: {
-        title: t('routes.demo.feat.imgPreview'),
-      },
-    },
-    {
       path: 'copy',
       name: 'CopyDemo',
       component: () => import('@/views/demo/feat/copy/index.vue'),

@@ -36,12 +36,11 @@
 </template>
 <script lang="ts">
   // components
-  import { DOC_URL } from '@vben/constants';
+  import { DEFAULT_AVATAR_IMAGE, DOC_URL } from '@vben/constants';
   import { Dropdown, Menu } from 'ant-design-vue';
   import type { MenuInfo } from 'ant-design-vue/lib/menu/src/interface';
   import { computed, defineComponent } from 'vue';
 
-  import headerImg from '@/assets/images/header.jpg';
   import { useModal } from '@/components/Modal';
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
   import { useDesign } from '@/hooks/web/useDesign';
@@ -73,7 +72,7 @@
 
       const getUserInfo = computed(() => {
         const { realName = '', avatar, desc } = userStore.getUserInfo || {};
-        return { realName, avatar: avatar || headerImg, desc };
+        return { realName, avatar: avatar || DEFAULT_AVATAR_IMAGE, desc };
       });
 
       const [register, { openModal }] = useModal();

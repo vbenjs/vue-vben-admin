@@ -5,7 +5,9 @@
         <a-col :span="6">
           <ListItem>
             <Card :hoverable="true" :class="`${prefixCls}__card`">
-              <img :src="demoImg" />
+              <img
+                src="https://cdn.jsdelivr.net/gh/vbenjs/vben-cdn-static@0.1.0/vben-admin/demo-card-bg.png"
+              />
               <div :class="`${prefixCls}__card-title`">
                 {{ item.title }}
               </div>
@@ -23,8 +25,6 @@
   import { Card, Col, List, Row } from 'ant-design-vue';
   import { defineComponent } from 'vue';
 
-  import demoImg from '@/assets/images/demo.png';
-
   import { projectList } from './data';
 
   export default defineComponent({
@@ -39,7 +39,6 @@
       return {
         prefixCls: 'account-center-project',
         list: projectList,
-        demoImg,
       };
     },
   });

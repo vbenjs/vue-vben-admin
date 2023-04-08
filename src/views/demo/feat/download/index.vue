@@ -42,7 +42,7 @@
         });
 
         downloadByUrl({
-          url: 'https://vebn.oss-cn-beijing.aliyuncs.com/vben/logo.png',
+          url: 'https://cdn.jsdelivr.net/gh/vbenjs/vben-cdn-static@0.1.0/vben-admin/logo.png',
           target: '_self',
         });
       }

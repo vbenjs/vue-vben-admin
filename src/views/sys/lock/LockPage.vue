@@ -28,7 +28,10 @@
       <div :class="`${prefixCls}-entry`" v-show="!showDate">
         <div :class="`${prefixCls}-entry-content`">
           <div :class="`${prefixCls}-entry__header enter-x`">
-            <img :src="userinfo.avatar || headerImg" :class="`${prefixCls}-entry__header-img`" />
+            <img
+              :src="userinfo.avatar || DEFAULT_AVATAR_IMAGE"
+              :class="`${prefixCls}-entry__header-img`"
+            />
             <p :class="`${prefixCls}-entry__header-name`">
               {{ userinfo.realName }}
             </p>
@@ -77,11 +80,11 @@
   </div>
 </template>
 <script lang="ts" setup>
+  import { DEFAULT_AVATAR_IMAGE } from '@vben/constants';
   import { LockOutlined } from '@vben/icons';
   import { Input } from 'ant-design-vue';
   import { computed, ref } from 'vue';
 
-  import headerImg from '@/assets/images/header.jpg';
   import { useDesign } from '@/hooks/web/useDesign';
   import { useI18n } from '@/hooks/web/useI18n';
   import { useLockStore } from '@/store/modules/lock';
