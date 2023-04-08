@@ -66,7 +66,7 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
         rollupOptions: {
           output: {
             manualChunks: {
-              vue: ['vue', 'pinia', 'vue-router', '@vue/shared'],
+              vue: ['vue', 'pinia', 'vue-router'],
               icon: ['@purge-icons/generated', 'virtual:svg-icons-register'],
             },
           },

@@ -5,7 +5,7 @@
 </template>
 <script lang="ts" setup>
   import { Card } from 'ant-design-vue';
-  import { Ref, ref, watch } from 'vue';
+  import { type PropType, type Ref, ref, watch } from 'vue';
 
   import { useECharts } from '@/hooks/web/useECharts';
 

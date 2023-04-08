@@ -27,7 +27,7 @@
         />
       </FormItem>
       <FormItem name="password" class="enter-x">
-        <StrengthMeter
+        <InputPassword
           size="large"
           v-model:value="formData.password"
           :placeholder="t('sys.login.password')"
@@ -70,7 +70,6 @@
   import { computed, reactive, ref, unref } from 'vue';
 
   import { CountdownInput } from '@/components/CountDown';
-  import { StrengthMeter } from '@/components/StrengthMeter';
   import { useI18n } from '@/hooks/web/useI18n';
 
   import LoginFormTitle from './LoginFormTitle.vue';

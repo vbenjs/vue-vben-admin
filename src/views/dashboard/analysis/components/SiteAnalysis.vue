@@ -14,8 +14,9 @@
   </Card>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
   import { Card } from 'ant-design-vue';
+  import { ref } from 'vue';
+
   import VisitAnalysis from './VisitAnalysis.vue';
   import VisitAnalysisBar from './VisitAnalysisBar.vue';
 

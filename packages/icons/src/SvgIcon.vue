@@ -47,6 +47,7 @@
     };
   });
 </script>
+
 <template>
   <svg v-bind="$attrs" :class="$style['svg-icon']" :style="svgIconStyles" aria-hidden="true">
     <use :xlink:href="symbolId" />
