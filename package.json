@@ -98,7 +98,6 @@
     "vue-json-pretty": "^2.2.4",
     "vue-router": "^4.1.6",
     "vue-types": "^5.0.2",
-    "vuedraggable": "^4.1.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
