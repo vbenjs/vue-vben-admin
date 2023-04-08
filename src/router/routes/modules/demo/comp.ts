@@ -414,33 +414,6 @@ const comp: AppRouteModule = {
       },
     },
 
-    {
-      path: 'verify',
-      name: 'VerifyDemo',
-      component: getParentLayout('VerifyDemo'),
-      redirect: '/comp/verify/drag',
-      meta: {
-        title: t('routes.demo.comp.verify'),
-      },
-      children: [
-        {
-          path: 'drag',
-          name: 'VerifyDragDemo',
-          component: () => import('@/views/demo/comp/verify/index.vue'),
-          meta: {
-            title: t('routes.demo.comp.verifyDrag'),
-          },
-        },
-        {
-          path: 'rotate',
-          name: 'VerifyRotateDemo',
-          component: () => import('@/views/demo/comp/verify/Rotate.vue'),
-          meta: {
-            title: t('routes.demo.comp.verifyRotate'),
-          },
-        },
-      ],
-    },
     //
 
     {

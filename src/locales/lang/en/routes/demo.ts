@@ -26,10 +26,6 @@ export default {
     drawer: 'Drawer',
     desc: 'Desc',
 
-    verify: 'Verify',
-    verifyDrag: 'Drag ',
-    verifyRotate: 'Picture Restore',
-
     qrcode: 'QR code',
     strength: 'Password strength',
     upload: 'Upload',

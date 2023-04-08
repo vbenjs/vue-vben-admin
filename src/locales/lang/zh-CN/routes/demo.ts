@@ -25,10 +25,6 @@ export default {
     drawer: '抽屉扩展',
     desc: '详情组件',
 
-    verify: '验证组件',
-    verifyDrag: '拖拽校验',
-    verifyRotate: '图片还原',
-
     qrcode: '二维码组件',
     strength: '密码强度组件',
     upload: '上传组件',
