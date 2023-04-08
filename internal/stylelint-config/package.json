@@ -30,6 +30,9 @@
     "lint": "pnpm eslint .",
     "stub": "pnpm unbuild --stub"
   },
+  "dependencies": {
+    "stylelint-scss": "^4.6.0"
+  },
   "devDependencies": {
     "postcss": "^8.4.21",
     "postcss-html": "^1.5.0",

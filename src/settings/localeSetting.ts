@@ -1,5 +1,6 @@
-import type { DropMenu } from '../components/Dropdown';
 import type { LocaleSetting, LocaleType } from '/#/config';
+
+import type { DropMenu } from '../components/Dropdown';
 
 export const LOCALE: { [key: string]: LocaleType } = {
   ZH_CN: 'zh_CN',

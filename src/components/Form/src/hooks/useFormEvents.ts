@@ -1,11 +1,19 @@
-import { isArray, isEmpty, isFunction, isNil, isObject, isString, isUndefined } from '@vben/shared';
+import {
+  dateFn,
+  isArray,
+  isEmpty,
+  isFunction,
+  isNil,
+  isObject,
+  isString,
+  isUndefined,
+} from '@vben/shared';
 import type { NamePath } from 'ant-design-vue/lib/form/interface';
 import { cloneDeep, get, set, uniqBy } from 'lodash-es';
 import type { ComputedRef, Ref } from 'vue';
 import { nextTick, toRaw, unref } from 'vue';
 
 import { deepMerge } from '@/utils';
-import { dateUtil } from '@/utils/dateUtil';
 import { error } from '@/utils/log';
 
 import { dateItemType, defaultValueComponents, handleInputNumberValue } from '../helper';
@@ -126,14 +134,14 @@ export function useFormEvents({
           if (Array.isArray(fieldValue)) {
             const arr: any[] = [];
             for (const ele of fieldValue) {
-              arr.push(ele ? dateUtil(ele) : null);
+              arr.push(ele ? dateFn(ele) : null);
             }
             unref(formModel)[key] = arr;
           } else {
             unref(formModel)[key] = fieldValue
               ? _props?.valueFormat
                 ? fieldValue
-                : dateUtil(fieldValue)
+                : dateFn(fieldValue)
               : null;
           }
         } else {

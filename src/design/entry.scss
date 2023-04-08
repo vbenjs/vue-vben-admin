@@ -1,0 +1,49 @@
+@for $i from 1 through 5 {
+  * > .enter-x:nth-child(#{$i}) {
+    transform: translateX(50px);
+  }
+
+  * > .-enter-x:nth-child(#{$i}) {
+    transform: translateX(-50px);
+  }
+
+  * > .enter-x:nth-child(#{$i}),
+  * > .-enter-x:nth-child(#{$i}) {
+    z-index: 10 - #{$i};
+    animation: enter-x-animation 0.4s ease-in-out 0.3s;
+    animation-delay: 0.1s * $i;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  * > .enter-y:nth-child(#{$i}) {
+    transform: translateX(50px);
+  }
+
+  * > .-enter-y:nth-child(#{$i}) {
+    transform: translateX(-50px);
+  }
+
+  * > .enter-y:nth-child(#{$i}),
+  * > .-enter-y:nth-child(#{$i}) {
+    z-index: 10 - #{$i};
+    animation: enter-y-animation 0.4s ease-in-out 0.3s;
+    animation-delay: 0.1s * $i;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes enter-x-animation {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes enter-y-animation {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

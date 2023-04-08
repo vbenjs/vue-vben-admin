@@ -13,10 +13,9 @@
   </div>
 </template>
 <script lang="ts">
+  import { formatDate } from '@vben/shared';
   import { defineComponent, ref, unref } from 'vue';
   import * as XLSX from 'xlsx';
-
-  import { dateUtil } from '@/utils/dateUtil';
 
   import type { ExcelData } from './typing';
 
@@ -121,7 +120,7 @@
                   row[field].setSeconds(row[field].getSeconds() + 43);
                 }
                 if (dateFormat) {
-                  row[field] = dateUtil(row[field]).format(dateFormat);
+                  row[field] = formatDate(row[field], dateFormat);
                 }
               }
             }

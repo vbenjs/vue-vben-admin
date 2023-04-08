@@ -1,6 +1,5 @@
-import { withInstall } from '@/utils';
-
-import dropdown from './src/Dropdown.vue';
+import Dropdown from './src/Dropdown.vue';
 
 export * from './src/typing';
-export const Dropdown = withInstall(dropdown);
+
+export { Dropdown };

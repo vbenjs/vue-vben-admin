@@ -1,9 +1,7 @@
-import { isArray, isFunction, isNil, isObject, isString } from '@vben/shared';
+import { formatDate, isArray, isFunction, isNil, isObject, isString } from '@vben/shared';
 import { cloneDeep, set } from 'lodash-es';
 import type { ComputedRef, Ref } from 'vue';
 import { unref } from 'vue';
-
-import { dateUtil } from '@/utils/dateUtil';
 
 import type { FormProps, FormSchema } from '../types/form';
 
@@ -117,8 +115,8 @@ export function useFormValues({
 
       const [startTimeFormat, endTimeFormat] = Array.isArray(format) ? format : [format, format];
 
-      values[startTimeKey] = dateUtil(startTime).format(startTimeFormat);
-      values[endTimeKey] = dateUtil(endTime).format(endTimeFormat);
+      values[startTimeKey] = formatDate(startTime, startTimeFormat);
+      values[endTimeKey] = formatDate(endTime, endTimeFormat);
       Reflect.deleteProperty(values, field);
     }
 

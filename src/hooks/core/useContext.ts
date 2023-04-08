@@ -1,7 +1,7 @@
 import {
+  inject,
   InjectionKey,
   provide,
-  inject,
   reactive,
   readonly as defineReadonly,
   UnwrapRef,

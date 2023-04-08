@@ -1,11 +1,10 @@
-import { isArray, isBoolean, isFunction, isMap, isString } from '@vben/shared';
+import { formatDate, isArray, isBoolean, isFunction, isMap, isString } from '@vben/shared';
 import { cloneDeep, isEqual } from 'lodash-es';
 import type { ComputedRef } from 'vue';
 import { computed, reactive, Ref, ref, toRaw, unref, watch } from 'vue';
 
 import { useI18n } from '@/hooks/web/useI18n';
 import { usePermission } from '@/hooks/web/usePermission';
-import { formatToDate } from '@/utils/dateUtil';
 
 import { renderEditCell } from '../components/editable';
 import { ACTION_COLUMN_FLAG, DEFAULT_ALIGN, INDEX_COLUMN_FLAG, PAGE_SIZE } from '../const';
@@ -313,7 +312,7 @@ export function formatCell(text: string, format: CellFormat, record: Recordable,
       if (!dateFormat) {
         return text;
       }
-      return formatToDate(text, dateFormat);
+      return formatDate(text, dateFormat);
     }
 
     // Map

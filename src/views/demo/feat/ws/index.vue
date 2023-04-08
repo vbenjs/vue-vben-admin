@@ -40,7 +40,7 @@
             <li v-for="item in getList" class="mt-2" :key="item.time">
               <div class="flex items-center">
                 <span class="mr-2 text-primary font-medium">收到消息:</span>
-                <span>{{ formatToDateTime(item.time) }}</span>
+                <span>{{ formatDateTime(item.time) }}</span>
               </div>
               <div>
                 {{ item.res }}
@@ -53,12 +53,12 @@
   </PageWrapper>
 </template>
 <script lang="ts">
+  import { formatDateTime } from '@vben/shared';
   import { useWebSocket } from '@vueuse/core';
   import { Input, Tag } from 'ant-design-vue';
   import { computed, defineComponent, reactive, toRefs, watchEffect } from 'vue';
 
   import { PageWrapper } from '@/components/Page';
-  import { formatToDateTime } from '@/utils/dateUtil';
 
   export default defineComponent({
     components: {
@@ -115,7 +115,7 @@
       }
       return {
         status,
-        formatToDateTime,
+        formatDateTime,
         ...toRefs(state),
         handlerSend,
         getList,

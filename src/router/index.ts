@@ -1,7 +1,7 @@
-import type { RouteRecordRaw } from 'vue-router';
 import type { App } from 'vue';
-
+import type { RouteRecordRaw } from 'vue-router';
 import { createRouter, createWebHashHistory } from 'vue-router';
+
 import { basicRoutes } from './routes';
 
 // 白名单应该包含基本静态路由

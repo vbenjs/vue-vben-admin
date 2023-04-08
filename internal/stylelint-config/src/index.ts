@@ -1,6 +1,6 @@
 export default {
   extends: ['stylelint-config-standard', 'stylelint-config-property-sort-order-smacss'],
-  plugins: ['stylelint-order', 'stylelint-prettier'],
+  plugins: ['stylelint-order', 'stylelint-prettier', 'stylelint-scss'],
   // customSyntax: 'postcss-html',
   overrides: [
     {
@@ -22,6 +22,9 @@ export default {
     },
   ],
   rules: {
+    'at-rule-no-unknown': null,
+    'scss/at-rule-no-unknown': true,
+
     'selector-not-notation': null,
     'import-notation': null,
     'function-no-unknown': null,
@@ -38,24 +41,6 @@ export default {
         ignorePseudoElements: ['v-deep'],
       },
     ],
-    'at-rule-no-unknown': [
-      true,
-      {
-        ignoreAtRules: [
-          'tailwind',
-          'apply',
-          'variants',
-          'responsive',
-          'screen',
-          'function',
-          'if',
-          'each',
-          'include',
-          'mixin',
-          'extend',
-        ],
-      },
-    ],
     'no-empty-source': null,
     'string-quotes': null,
     'named-grid-areas-no-invalid': null,
@@ -67,7 +52,6 @@ export default {
         ignore: ['after-comment', 'first-nested'],
       },
     ],
-    'unit-no-unknown': [true, { ignoreUnits: ['rpx'] }],
     'order/order': [
       [
         'dollar-variables',

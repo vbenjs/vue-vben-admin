@@ -2,12 +2,11 @@
   <span>{{ date }}</span>
 </template>
 <script lang="ts">
-  import { isNumber, isObject, isString } from '@vben/shared';
+  import { dateFn, formatDate, formatDateTime, isNumber, isObject, isString } from '@vben/shared';
   import { useIntervalFn } from '@vueuse/core';
   import { defineComponent, ref, watch } from 'vue';
 
   import { useI18n } from '@/hooks/web/useI18n';
-  import { dateUtil, formatToDate, formatToDateTime } from '@/utils/dateUtil';
   import { propTypes } from '@/utils/propTypes';
 
   const ONE_SECONDS = 1000;
@@ -59,9 +58,9 @@
           date.value = getRelativeTime(time);
         } else {
           if (mode === 'datetime') {
-            date.value = formatToDateTime(value);
+            date.value = formatDateTime(value);
           } else if (mode === 'date') {
-            date.value = formatToDate(value);
+            date.value = formatDate(value);
           }
         }
       }
@@ -70,7 +69,7 @@
         const currentTime = new Date().getTime();
 
         // Determine whether the incoming timestamp is earlier than the current timestamp
-        const isBefore = dateUtil(timeStamp).isBefore(currentTime);
+        const isBefore = dateFn(timeStamp).isBefore(currentTime);
 
         let diff = currentTime - timeStamp;
         if (!isBefore) {
@@ -96,9 +95,9 @@
           resStr = Math.floor(diff / ONE_DAY) + t('component.time.days') + dirStr;
           // More than 29 days, 59 minutes, 59 seconds, less than 364 days, 23 hours, 59 minutes, 59 seconds, and the incoming timestamp is earlier than the current
         } else if (diff >= 2623860000 && diff <= 31567860000 && isBefore) {
-          resStr = dateUtil(timeStamp).format('MM-DD-HH-mm');
+          resStr = formatDate(timeStamp, 'MM-DD-HH-mm');
         } else {
-          resStr = dateUtil(timeStamp).format('YYYY');
+          resStr = formatDate(timeStamp, 'YYYY');
         }
         return resStr;
       }

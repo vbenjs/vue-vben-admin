@@ -1,7 +1,6 @@
+import { dateFn } from '@vben/shared';
 import { tryOnMounted, tryOnUnmounted } from '@vueuse/core';
 import { reactive, toRefs } from 'vue';
-
-import { dateUtil } from '@/utils/dateUtil';
 
 export function useNow(immediate = true) {
   let timer: IntervalHandle;
@@ -18,7 +17,7 @@ export function useNow(immediate = true) {
   });
 
   const update = () => {
-    const now = dateUtil();
+    const now = dateFn();
 
     const h = now.format('HH');
     const m = now.format('mm');

@@ -38,7 +38,7 @@
   </Form>
 </template>
 <script lang="ts">
-  import { isArray } from '@vben/shared';
+  import { dateFn, isArray } from '@vben/shared';
   import { useDebounceFn } from '@vueuse/core';
   import { Form, Row } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
@@ -49,7 +49,6 @@
   import { useDesign } from '@/hooks/web/useDesign';
   // import { cloneDeep } from 'lodash-es';
   import { deepMerge } from '@/utils';
-  import { dateUtil } from '@/utils/dateUtil';
 
   import FormAction from './components/FormAction.vue';
   import FormItem from './components/FormItem.vue';
@@ -119,11 +118,11 @@
           // handle date type
           if (isHandleDateDefaultValue && defaultValue && dateItemType.includes(component)) {
             if (!isArray(defaultValue)) {
-              schema.defaultValue = dateUtil(defaultValue);
+              schema.defaultValue = dateFn(defaultValue);
             } else {
               const def: any[] = [];
               defaultValue.forEach((item) => {
-                def.push(dateUtil(item));
+                def.push(dateFn(item));
               });
               schema.defaultValue = def;
             }
