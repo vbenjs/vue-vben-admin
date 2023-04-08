@@ -71,6 +71,7 @@
     "@logicflow/core": "^1.2.1",
     "@logicflow/extension": "^1.2.1",
     "@vben/constants": "workspace:*",
+    "@vben/design": "workspace:*",
     "@vben/hooks": "workspace:*",
     "@vben/icons": "workspace:*",
     "@vben/shared": "workspace:*",

@@ -1,10 +1,9 @@
-import { useTimeoutFn } from '@vben/hooks';
+import { useEventListener, useTimeoutFn } from '@vben/hooks';
 import { tryOnUnmounted, useDebounceFn } from '@vueuse/core';
 import type { EChartsOption } from 'echarts';
 import type { Ref } from 'vue';
 import { computed, nextTick, ref, unref, watch } from 'vue';
 
-import { useEventListener } from '@/hooks/event/useEventListener';
 import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
 import { useRootSetting } from '@/hooks/setting/useRootSetting';
 import echarts from '@/utils/lib/echarts';
@@ -43,12 +42,10 @@ export function useECharts(
     }
 
     chartInstance = echarts.init(el, t);
-    const { removeEvent } = useEventListener({
-      el: window,
-      name: 'resize',
-      listener: resizeFn,
-    });
-    removeResizeFn = removeEvent;
+
+    const cleanup = useEventListener(window, 'resize', resizeFn);
+
+    removeResizeFn = cleanup;
     // TODO: 自适应
   }
 

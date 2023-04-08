@@ -387,6 +387,8 @@
       }
 
       .@{prefix-cls}-module {
+        padding-left: 0;
+
         &__item {
           color: rgb(0 0 0 / 65%);
           font-weight: normal;
@@ -453,6 +455,7 @@
     &-module {
       position: relative;
       padding-top: 1px;
+      padding-left: 0;
 
       &__item {
         position: relative;

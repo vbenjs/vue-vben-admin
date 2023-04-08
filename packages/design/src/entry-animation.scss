@@ -1,4 +1,8 @@
-@for $i from 1 through 5 {
+// 全局样式，用于元素可见时左右上下滑动的动效
+
+$max-child: 6;
+
+@for $i from 1 through $max-child {
   * > .enter-x:nth-child(#{$i}) {
     transform: translateX(50px);
   }

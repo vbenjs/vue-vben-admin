@@ -1,7 +1,6 @@
+import { useEventListener } from '@vben/hooks';
 import type { ComputedRef, Ref } from 'vue';
 import { computed, h, nextTick, unref, watchEffect } from 'vue';
-
-import { useEventListener } from '@/hooks/event/useEventListener';
 
 import TableFooter from '../components/TableFooter.vue';
 import type { BasicTableProps } from '../types/table';
@@ -39,18 +38,14 @@ export function useTableFooter(
       const tableEl = unref(tableElRef);
       if (!tableEl) return;
       const bodyDom = tableEl.$el.querySelector('.ant-table-content');
-      useEventListener({
-        el: bodyDom,
-        name: 'scroll',
-        listener: () => {
-          const footerBodyDom = tableEl.$el.querySelector(
-            '.ant-table-footer .ant-table-content',
-          ) as HTMLDivElement;
-          if (!footerBodyDom || !bodyDom) return;
-          footerBodyDom.scrollLeft = bodyDom.scrollLeft;
-        },
-        wait: 0,
-        options: true,
+      useEventListener(bodyDom, 'scroll', () => {
+        const footerBodyDom = tableEl.$el.querySelector(
+          '.ant-table-footer .ant-table-content',
+        ) as HTMLDivElement;
+        if (!footerBodyDom || !bodyDom) {
+          return;
+        }
+        footerBodyDom.scrollLeft = bodyDom.scrollLeft;
       });
     });
   }
