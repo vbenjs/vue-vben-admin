@@ -370,14 +370,6 @@ const comp: AppRouteModule = {
             title: t('routes.demo.comp.scrollAction'),
           },
         },
-        {
-          path: 'virtualScroll',
-          name: 'VirtualScrollDemo',
-          component: () => import('@/views/demo/comp/scroll/VirtualScroll.vue'),
-          meta: {
-            title: t('routes.demo.comp.virtualScroll'),
-          },
-        },
       ],
     },
 
