@@ -1,5 +1,5 @@
-import { Slots } from 'vue';
 import { isFunction } from '@vben/shared';
+import { Slots } from 'vue';
 
 /**
  * @description:  Get slot to prevent empty error
@@ -9,7 +9,6 @@ export function getSlot(slots: Slots, slot = 'default', data?: any) {
     return null;
   }
   if (!isFunction(slots[slot])) {
-    console.error(`${slot} is not a function!`);
     return null;
   }
   const slotFn = slots[slot];

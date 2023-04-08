@@ -57,5 +57,6 @@ export default {
     'import/resolver': {
       node: { extensions: ['.ts', '.d.ts', '.tsx'] },
     },
+    'import/ignore': ['node_modules'],
   },
 };

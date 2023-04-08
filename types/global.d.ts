@@ -1,10 +1,10 @@
 import type {
-  ComponentRenderProxy,
-  VNode,
-  VNodeChild,
   ComponentPublicInstance,
+  ComponentRenderProxy,
   FunctionalComponent,
   PropType as VuePropType,
+  VNode,
+  VNodeChild,
 } from 'vue';
 
 declare global {
@@ -36,9 +36,7 @@ declare global {
   declare type ReadonlyRecordable<T = any> = {
     readonly [key: string]: T;
   };
-  declare type Indexable<T = any> = {
-    [key: string]: T;
-  };
+
   declare type DeepPartial<T> = {
     [P in keyof T]?: DeepPartial<T[P]>;
   };

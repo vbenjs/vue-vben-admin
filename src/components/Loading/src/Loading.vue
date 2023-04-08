@@ -12,8 +12,6 @@
   import { Spin } from 'ant-design-vue';
   import { defineComponent, PropType } from 'vue';
 
-  import { SizeEnum } from '@/enums/sizeEnum';
-
   export default defineComponent({
     name: 'Loading',
     components: { Spin },
@@ -23,10 +21,10 @@
         default: '',
       },
       size: {
-        type: String as PropType<SizeEnum>,
-        default: SizeEnum.LARGE,
-        validator: (v: SizeEnum): boolean => {
-          return [SizeEnum.DEFAULT, SizeEnum.SMALL, SizeEnum.LARGE].includes(v);
+        type: String as PropType<'default' | 'small' | 'large'>,
+        default: 'large',
+        validator: (v): boolean => {
+          return ['default', 'small', 'large'].includes(v as any);
         },
       },
       absolute: {

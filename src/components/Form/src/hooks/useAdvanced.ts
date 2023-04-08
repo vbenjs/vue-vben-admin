@@ -2,8 +2,6 @@ import { isBoolean, isFunction, isNumber, isObject } from '@vben/shared';
 import { useDebounceFn } from '@vueuse/core';
 import { computed, ComputedRef, getCurrentInstance, Ref, shallowReactive, unref, watch } from 'vue';
 
-import { useBreakpoint } from '@/hooks/event/useBreakpoint';
-
 import type { ColEx } from '../types';
 import type { FormProps, FormSchema } from '../types/form';
 import type { AdvanceState } from '../types/hooks';
@@ -29,8 +27,6 @@ export default function ({
 }: UseAdvancedContext) {
   const vm = getCurrentInstance();
 
-  const { realWidthRef, screenEnum, screenRef } = useBreakpoint();
-
   const getEmptySpan = computed((): number => {
     if (!advanceState.isAdvanced) {
       return 0;
@@ -43,10 +39,7 @@ export default function ({
     }
     if (isObject(emptySpan)) {
       const { span = 0 } = emptySpan;
-      const screen = unref(screenRef) as string;
-
-      const screenSpan = (emptySpan as any)[screen.toLowerCase()];
-      return screenSpan || span || 0;
+      return span || 0;
     }
     return 0;
   });
@@ -54,7 +47,7 @@ export default function ({
   const debounceUpdateAdvanced = useDebounceFn(updateAdvanced, 30);
 
   watch(
-    [() => unref(getSchema), () => advanceState.isAdvanced, () => unref(realWidthRef)],
+    [() => unref(getSchema), () => advanceState.isAdvanced],
     () => {
       const { showAdvancedButton } = unref(getProps);
       if (showAdvancedButton) {
@@ -65,8 +58,6 @@ export default function ({
   );
 
   function getAdvanced(itemCol: Partial<ColEx>, itemColSum = 0, isLastAction = false) {
-    const width = unref(realWidthRef);
-
     const mdWidth =
       parseInt(itemCol.md as string) ||
       parseInt(itemCol.xs as string) ||
@@ -77,15 +68,15 @@ export default function ({
     const lgWidth = parseInt(itemCol.lg as string) || mdWidth;
     const xlWidth = parseInt(itemCol.xl as string) || lgWidth;
     const xxlWidth = parseInt(itemCol.xxl as string) || xlWidth;
-    if (width <= screenEnum.LG) {
-      itemColSum += mdWidth;
-    } else if (width < screenEnum.XL) {
-      itemColSum += lgWidth;
-    } else if (width < screenEnum.XXL) {
-      itemColSum += xlWidth;
-    } else {
-      itemColSum += xxlWidth;
-    }
+    // if (width <= screenEnum.LG) {
+    //   itemColSum += mdWidth;
+    // } else if (width < screenEnum.XL) {
+    //   itemColSum += lgWidth;
+    // } else if (width < screenEnum.XXL) {
+    //   itemColSum += xlWidth;
+    // } else {
+    itemColSum += xxlWidth;
+    // }
 
     if (isLastAction) {
       advanceState.hideAdvanceBtn = false;

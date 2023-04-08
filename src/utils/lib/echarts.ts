@@ -1,32 +1,29 @@
-import * as echarts from 'echarts/core';
-
 import {
   BarChart,
   LineChart,
-  PieChart,
   MapChart,
   PictorialBarChart,
+  PieChart,
   RadarChart,
   ScatterChart,
 } from 'echarts/charts';
-
 import {
-  TitleComponent,
-  TooltipComponent,
-  GridComponent,
-  PolarComponent,
   AriaComponent,
-  ParallelComponent,
-  LegendComponent,
-  RadarComponent,
-  ToolboxComponent,
-  DataZoomComponent,
-  VisualMapComponent,
-  TimelineComponent,
   CalendarComponent,
+  DataZoomComponent,
   GraphicComponent,
+  GridComponent,
+  LegendComponent,
+  ParallelComponent,
+  PolarComponent,
+  RadarComponent,
+  TimelineComponent,
+  TitleComponent,
+  ToolboxComponent,
+  TooltipComponent,
+  VisualMapComponent,
 } from 'echarts/components';
-
+import * as echarts from 'echarts/core';
 import { SVGRenderer } from 'echarts/renderers';
 
 echarts.use([

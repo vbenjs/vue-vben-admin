@@ -4,7 +4,6 @@ import type { EChartsOption } from 'echarts';
 import type { Ref } from 'vue';
 import { computed, nextTick, ref, unref, watch } from 'vue';
 
-import { useBreakpoint } from '@/hooks/event/useBreakpoint';
 import { useEventListener } from '@/hooks/event/useEventListener';
 import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
 import { useRootSetting } from '@/hooks/setting/useRootSetting';
@@ -50,12 +49,7 @@ export function useECharts(
       listener: resizeFn,
     });
     removeResizeFn = removeEvent;
-    const { widthRef, screenEnum } = useBreakpoint();
-    if (unref(widthRef) <= screenEnum.MD || el.offsetHeight === 0) {
-      useTimeoutFn(() => {
-        resizeFn();
-      }, 30);
-    }
+    // TODO: 自适应
   }
 
   function setOptions(options: EChartsOption, clear = true) {

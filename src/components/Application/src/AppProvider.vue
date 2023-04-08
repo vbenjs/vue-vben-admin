@@ -2,7 +2,6 @@
   import { defineComponent, ref, toRefs, unref } from 'vue';
 
   import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum';
-  import { createBreakpointListen } from '@/hooks/event/useBreakpoint';
   import { prefixCls } from '@/settings/designSetting';
   import { useAppStore } from '@/store/modules/app';
 
@@ -25,14 +24,8 @@
 
       const appStore = useAppStore();
 
-      // Monitor screen breakpoint information changes
-      createBreakpointListen(({ screenMap, sizeEnum, width }) => {
-        const lgWidth = screenMap.get(sizeEnum.LG);
-        if (lgWidth) {
-          isMobile.value = width.value - 1 < lgWidth;
-        }
-        handleRestoreState();
-      });
+      // TODO: 响应式
+      handleRestoreState();
 
       const { prefixCls } = toRefs(props);
 

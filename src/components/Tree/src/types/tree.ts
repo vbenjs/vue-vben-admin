@@ -1,8 +1,6 @@
 import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree';
 import type { ExtractPropTypes } from 'vue';
 
-import { buildProps } from '@/utils/props';
-
 export enum ToolbarEnum {
   SELECT_ALL,
   UN_SELECT_ALL,
@@ -40,7 +38,7 @@ export type CheckKeys =
   | KeyType[]
   | { checked: string[] | number[]; halfChecked: string[] | number[] };
 
-export const treeProps = buildProps({
+export const treeProps = {
   value: {
     type: [Object, Array] as PropType<KeyType[] | CheckKeys>,
   },
@@ -135,7 +133,7 @@ export const treeProps = buildProps({
     default: false,
   },
   treeWrapperClassName: String,
-});
+};
 
 export type TreeProps = ExtractPropTypes<typeof treeProps>;
 
