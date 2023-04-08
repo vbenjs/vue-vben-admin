@@ -43,14 +43,13 @@
   </BasicModal>
 </template>
 <script lang="ts">
-  import { isFunction } from '@vben/shared';
+  import { isFunction, loggerWarning } from '@vben/shared';
   import { Alert, Upload } from 'ant-design-vue';
   import { computed, defineComponent, PropType, reactive, ref, toRefs, unref } from 'vue';
 
   import { BasicModal, useModalInner } from '@/components/Modal';
   import { useI18n } from '@/hooks/web/useI18n';
   import { useMessage } from '@/hooks/web/useMessage';
-  import { warn } from '@/utils/log';
   import { buildUUID } from '@/utils/uuid';
 
   import { createActionColumn, createTableColumns } from './data';
@@ -178,7 +177,7 @@
       async function uploadApiByItem(item: FileItem) {
         const { api } = props;
         if (!api || !isFunction(api)) {
-          return warn('upload api must exist and be a function');
+          return loggerWarning('upload api must exist and be a function');
         }
         try {
           item.status = UploadResultStatus.UPLOADING;
@@ -204,7 +203,6 @@
             error: null,
           };
         } catch (e) {
-          console.log(e);
           item.status = UploadResultStatus.ERROR;
           return {
             success: false,

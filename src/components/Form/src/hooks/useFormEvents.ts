@@ -7,6 +7,7 @@ import {
   isObject,
   isString,
   isUndefined,
+  loggerError,
 } from '@vben/shared';
 import type { NamePath } from 'ant-design-vue/lib/form/interface';
 import { cloneDeep, get, set, uniqBy } from 'lodash-es';
@@ -14,7 +15,6 @@ import type { ComputedRef, Ref } from 'vue';
 import { nextTick, toRaw, unref } from 'vue';
 
 import { deepMerge } from '@/utils';
-import { error } from '@/utils/log';
 
 import { dateItemType, defaultValueComponents, handleInputNumberValue } from '../helper';
 import type { FormActionType, FormProps, FormSchema } from '../types/form';
@@ -243,7 +243,7 @@ export function useFormEvents({
     );
 
     if (!hasField) {
-      error(
+      loggerError(
         'All children of the form Schema array that need to be updated must contain the `field` field',
       );
       return;
@@ -265,7 +265,7 @@ export function useFormEvents({
     );
 
     if (!hasField) {
-      error(
+      loggerError(
         'All children of the form Schema array that need to be updated must contain the `field` field',
       );
       return;

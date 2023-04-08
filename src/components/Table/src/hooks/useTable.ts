@@ -1,3 +1,4 @@
+import { loggerError } from '@vben/shared';
 import type { WatchStopHandle } from 'vue';
 import { onUnmounted, ref, toRaw, unref, watch } from 'vue';
 
@@ -5,7 +6,6 @@ import type { DynamicProps } from '/#/utils';
 import type { FormActionType } from '@/components/Form';
 import { getDynamicProps } from '@/utils';
 import { isProdMode } from '@/utils/env';
-import { error } from '@/utils/log';
 
 import type { PaginationProps } from '../types/pagination';
 import type { BasicColumn, BasicTableProps, FetchParams, TableActionType } from '../types/table';
@@ -59,7 +59,7 @@ export function useTable(tableProps?: Props): [
   function getTableInstance(): TableActionType {
     const table = unref(tableRef);
     if (!table) {
-      error(
+      loggerError(
         'The table instance has not been obtained yet, please make sure the table is presented when performing the table operation!',
       );
     }

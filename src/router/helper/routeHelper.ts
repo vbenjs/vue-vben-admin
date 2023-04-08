@@ -1,10 +1,10 @@
+import { loggerWarning } from '@vben/shared';
 import { cloneDeep, omit } from 'lodash-es';
 import type { Router, RouteRecordNormalized } from 'vue-router';
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 import { EXCEPTION_COMPONENT, getParentLayout, LAYOUT } from '@/router/constant';
 import type { AppRouteModule, AppRouteRecordRaw } from '@/router/types';
-import { warn } from '@/utils/log';
 
 export type LayoutMapKey = 'LAYOUT';
 const IFRAME = () => import('@/views/sys/iframe/FrameBlank.vue');
@@ -57,12 +57,14 @@ function dynamicImport(
     const matchKey = matchKeys[0];
     return dynamicViewsModules[matchKey];
   } else if (matchKeys?.length > 1) {
-    warn(
+    loggerWarning(
       'Please do not create `.vue` and `.TSX` files with the same file name in the same hierarchical directory under the views folder. This will cause dynamic introduction failure',
     );
     return;
   } else {
-    warn('在src/views/下找不到`' + component + '.vue` 或 `' + component + '.tsx`, 请自行创建!');
+    loggerWarning(
+      '在src/views/下找不到`' + component + '.vue` 或 `' + component + '.tsx`, 请自行创建!',
+    );
     return EXCEPTION_COMPONENT;
   }
 }
@@ -86,7 +88,7 @@ export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModul
         route.meta = meta;
       }
     } else {
-      warn('请正确配置路由：' + route?.name + '的component属性');
+      loggerWarning('请正确配置路由：' + route?.name + '的component属性');
     }
     route.children && asyncImportRoute(route.children);
   });

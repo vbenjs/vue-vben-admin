@@ -1,7 +1,6 @@
+import { loggerWarning } from '@vben/shared';
 import type { ComputedRef, Ref } from 'vue';
 import { nextTick, unref } from 'vue';
-
-import { warn } from '@/utils/log';
 
 export function useTableScrollTo(
   tableElRef: Ref<ComponentRef>,
@@ -47,7 +46,7 @@ export function useTableScrollTo(
       if (targetRowData) {
         findTargetRowToScroll(targetRowData);
       } else {
-        warn(`id: ${pos} doesn't exist`);
+        loggerWarning(`id: ${pos} doesn't exist`);
       }
     }
   }

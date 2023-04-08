@@ -39,7 +39,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { isFunction } from '@vben/shared';
+  import { isFunction, loggerWarning } from '@vben/shared';
   import { Table } from 'ant-design-vue';
   import { omit } from 'lodash-es';
   import { computed, defineComponent, inject, ref, toRaw, unref, watchEffect } from 'vue';
@@ -47,7 +47,6 @@
   import { BasicForm, useForm } from '@/components/Form/index';
   import { PageWrapperFixedHeightKey } from '@/components/Page';
   import { useDesign } from '@/hooks/web/useDesign';
-  import { warn } from '@/utils/log';
 
   import HeaderCell from './components/HeaderCell.vue';
   import { useColumns } from './hooks/useColumns';
@@ -118,7 +117,7 @@
       watchEffect(() => {
         unref(isFixedHeightPage) &&
           props.canResize &&
-          warn(
+          loggerWarning(
             "'canResize' of BasicTable may not work in PageWrapper with 'fixedHeight' (especially in hot updates)",
           );
       });

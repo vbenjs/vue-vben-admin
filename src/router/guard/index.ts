@@ -1,3 +1,4 @@
+import { loggerWarning } from '@vben/shared';
 import { Modal, notification } from 'ant-design-vue';
 import nProgress from 'nprogress';
 import { unref } from 'vue';
@@ -9,7 +10,6 @@ import projectSetting from '@/settings/projectSetting';
 import { useAppStoreWithOut } from '@/store/modules/app';
 import { useUserStoreWithOut } from '@/store/modules/user';
 import { AxiosCanceler } from '@/utils/http/axios/axiosCancel';
-import { warn } from '@/utils/log';
 
 import { createParamMenuGuard } from './paramMenuGuard';
 import { createPermissionGuard } from './permissionGuard';
@@ -126,7 +126,7 @@ export function createMessageGuard(router: Router) {
         notification.destroy();
       }
     } catch (error) {
-      warn('message guard error:' + error);
+      loggerWarning('message guard error:' + error);
     }
     return true;
   });

@@ -1,24 +1,17 @@
-import { isString } from './types';
-
 class VbenError extends Error {
   constructor(message: string) {
     super(message);
-    this.name = 'VbenError';
+    this.name = 'VbenAdminError';
   }
 }
 
-function throwError(scope: string, message: string): never {
-  throw new VbenError(`[${scope}] ${message}`);
+function loggerError(message: string) {
+  throw new VbenError(`${message}`);
 }
 
-function loggerWarning(err: Error): void;
-function loggerWarning(scope: string, message: string): void;
-function loggerWarning(scope: string | Error, message?: string): void {
-  if (process.env.NODE_ENV !== 'production') {
-    const error: Error = isString(scope) ? new VbenError(`[${scope}] ${message}`) : scope;
-    // eslint-disable-next-line no-console
-    console.warn(error);
-  }
+function loggerWarning(message?: string): void {
+  // eslint-disable-next-line no-console
+  console.warn(`[VbenAdmin] ${message}`);
 }
 
-export { loggerWarning, throwError };
+export { loggerError, loggerWarning };

@@ -1,4 +1,4 @@
-import { isFunction } from '@vben/shared';
+import { isFunction, loggerError } from '@vben/shared';
 import { tryOnUnmounted } from '@vueuse/core';
 import { isEqual } from 'lodash-es';
 import {
@@ -13,7 +13,6 @@ import {
 } from 'vue';
 
 import { isProdMode } from '@/utils/env';
-import { error } from '@/utils/log';
 
 import type {
   DrawerInstance,
@@ -61,7 +60,7 @@ export function useDrawer(): UseDrawerReturnType {
   const getInstance = () => {
     const instance = unref(drawer);
     if (!instance) {
-      error('useDrawer instance is undefined!');
+      loggerError('useDrawer instance is undefined!');
     }
     return instance;
   };
@@ -111,7 +110,7 @@ export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
   const getInstance = () => {
     const instance = unref(drawerInstanceRef);
     if (!instance) {
-      error('useDrawerInner instance is undefined!');
+      loggerError('useDrawerInner instance is undefined!');
       return;
     }
     return instance;

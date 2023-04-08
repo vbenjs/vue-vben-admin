@@ -1,4 +1,4 @@
-import { isFunction } from '@vben/shared';
+import { isFunction, loggerError } from '@vben/shared';
 import { tryOnUnmounted } from '@vueuse/core';
 import { isEqual } from 'lodash-es';
 import {
@@ -14,7 +14,6 @@ import {
 } from 'vue';
 
 import { isProdMode } from '@/utils/env';
-import { error } from '@/utils/log';
 
 import type {
   ModalMethods,
@@ -59,7 +58,7 @@ export function useModal(): UseModalReturnType {
   const getInstance = () => {
     const instance = unref(modal);
     if (!instance) {
-      error('useModal instance is undefined!');
+      loggerError('useModal instance is undefined!');
     }
     return instance;
   };

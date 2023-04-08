@@ -8,7 +8,6 @@
     "sourceMap": true,
     "baseUrl": "./",
     "composite": false,
-    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true
   }
 }
