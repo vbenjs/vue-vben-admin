@@ -82,7 +82,6 @@
     "cropperjs": "^1.5.13",
     "dayjs": "^1.11.7",
     "echarts": "^5.4.2",
-    "exceljs": "^4.3.0",
     "intro.js": "^7.0.1",
     "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",
@@ -93,7 +92,6 @@
     "qrcode": "^1.5.1",
     "qs": "^6.11.1",
     "resize-observer-polyfill": "^1.5.1",
-    "showdown": "^2.1.0",
     "sortablejs": "^1.15.0",
     "vue": "^3.2.47",
     "vue-i18n": "^9.2.2",
@@ -101,9 +99,6 @@
     "vue-router": "^4.1.6",
     "vue-types": "^5.0.2",
     "vuedraggable": "^4.1.0",
-    "vxe-table": "^4.3.11",
-    "vxe-table-plugin-export-xlsx": "^3.0.4",
-    "xe-utils": "^3.5.7",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
@@ -119,7 +114,6 @@
     "@types/nprogress": "^0.2.0",
     "@types/qrcode": "^1.5.0",
     "@types/qs": "^6.9.7",
-    "@types/showdown": "^2.0.0",
     "@types/sortablejs": "^1.15.1",
     "@vben/eslint-config": "workspace:*",
     "@vben/stylelint-config": "workspace:*",

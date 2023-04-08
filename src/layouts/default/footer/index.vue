@@ -34,12 +34,12 @@
       const { currentRoute } = useRouter();
       const { prefixCls } = useDesign('layout-footer');
 
-      const footerRef = ref<ComponentRef>(null);
+      const footerRef = ref(null);
       const { setFooterHeight } = useLayoutHeight();
 
       const getShowLayoutFooter = computed(() => {
         if (unref(getShowFooter)) {
-          const footerEl = unref(footerRef)?.$el;
+          const footerEl = (unref(footerRef) as any)?.$el;
           setFooterHeight(footerEl?.offsetHeight || 0);
         } else {
           setFooterHeight(0);

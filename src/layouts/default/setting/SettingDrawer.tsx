@@ -2,7 +2,6 @@ import { Divider } from 'ant-design-vue';
 import { computed, defineComponent, unref } from 'vue';
 
 import { BasicDrawer } from '@/components/Drawer/index';
-// import { AppDarkModeToggle } from '@/components/Application';
 import { MenuTypeEnum, TriggerEnum } from '@/enums/menuEnum';
 import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
 import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
