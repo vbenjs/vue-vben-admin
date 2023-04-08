@@ -4,7 +4,7 @@
   </span>
 </template>
 <script lang="ts">
-  import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue';
+  import { MenuFoldOutlined, MenuUnfoldOutlined } from '@vben/icons';
   import { defineComponent } from 'vue';
 
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting';

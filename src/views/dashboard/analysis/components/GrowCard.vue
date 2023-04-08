@@ -14,7 +14,7 @@
 
         <div class="py-4 px-4 flex justify-between items-center">
           <CountTo prefix="$" :startVal="1" :endVal="item.value" class="text-2xl" />
-          <Icon :icon="item.icon" :size="40" />
+          <VbenSvgIcon :icon="item.icon" :size="40" />
         </div>
 
         <div class="p-2 px-4 flex justify-between">
@@ -26,10 +26,10 @@
   </div>
 </template>
 <script lang="ts" setup>
+  import { VbenSvgIcon } from '@vben/icons';
   import { Card, Tag } from 'ant-design-vue';
 
   import { CountTo } from '@/components/CountTo/index';
-  import Icon from '@/components/Icon/Icon.vue';
 
   import { growCardList } from '../data';
 

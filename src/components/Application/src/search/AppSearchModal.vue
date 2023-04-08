@@ -40,13 +40,13 @@
               ]"
             >
               <div :class="`${prefixCls}-list__item-icon`">
-                <Icon :icon="item.icon || 'mdi:form-select'" :size="20" />
+                <VbenIcon :icon="item.icon || 'mdi:form-select'" :size="20" />
               </div>
               <div :class="`${prefixCls}-list__item-text`">
                 {{ item.name }}
               </div>
               <div :class="`${prefixCls}-list__item-enter`">
-                <Icon icon="ant-design:enter-outlined" :size="20" />
+                <VbenIcon icon="ant-design:enter-outlined" :size="20" />
               </div>
             </li>
           </ul>
@@ -58,11 +58,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { SearchOutlined } from '@ant-design/icons-vue';
   import { useRefs } from '@vben/hooks';
+  import { SearchOutlined, VbenIcon } from '@vben/icons';
   import { computed, nextTick, ref, unref, watch } from 'vue';
 
-  import Icon from '@/components/Icon/Icon.vue';
   // @ts-ignore
   import vClickOutside from '@/directives/clickOutside';
   import { useAppInject } from '@/hooks/web/useAppInject';

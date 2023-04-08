@@ -19,7 +19,7 @@
   </a-cascader>
 </template>
 <script lang="ts">
-  import { LoadingOutlined } from '@ant-design/icons-vue';
+  import { LoadingOutlined } from '@vben/icons';
   import { isArray, isFunction } from '@vben/shared';
   import { type Recordable } from '@vben/types';
   import { Cascader } from 'ant-design-vue';
@@ -128,6 +128,7 @@
             apiData.value = get(res, props.resultField) || [];
           }
         } catch (error) {
+          // eslint-disable-next-line no-console
           console.warn(error);
         } finally {
           loading.value = false;
@@ -154,6 +155,7 @@
             targetOption.children = children;
           }
         } catch (e) {
+          // eslint-disable-next-line no-console
           console.error(e);
         } finally {
           targetOption.loading = false;

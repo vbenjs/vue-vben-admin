@@ -31,7 +31,7 @@
           :key="item.path"
         >
           <SimpleMenuTag :item="item" collapseParent dot />
-          <Icon
+          <VbenIcon
             :class="`${prefixCls}-module__icon`"
             :size="getCollapsed ? 16 : 20"
             :icon="item.icon || (item.meta && item.meta.icon)"
@@ -54,7 +54,7 @@
         ]"
       >
         <span class="text"> {{ title }}</span>
-        <Icon
+        <VbenIcon
           :size="16"
           :icon="getMixSideFixed ? 'ri:pushpin-2-fill' : 'ri:pushpin-2-line'"
           class="pushpin"
@@ -78,13 +78,13 @@
   </div>
 </template>
 <script lang="ts">
+  import { VbenIcon } from '@vben/icons';
   import type { CSSProperties } from 'vue';
   import { computed, defineComponent, onMounted, ref, unref, watch } from 'vue';
   import type { RouteLocationNormalized } from 'vue-router';
 
   import { AppLogo } from '@/components/Application';
   import { ScrollContainer } from '@/components/Container';
-  import Icon from '@/components/Icon/Icon.vue';
   import { SimpleMenu, SimpleMenuTag } from '@/components/SimpleMenu';
   import clickOutside from '@/directives/clickOutside';
   import { SIDE_BAR_MINI_WIDTH, SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '@/enums/appEnum';
@@ -107,7 +107,7 @@
       ScrollContainer,
       AppLogo,
       SimpleMenu,
-      Icon,
+      VbenIcon,
       LayoutTrigger,
       SimpleMenuTag,
     },

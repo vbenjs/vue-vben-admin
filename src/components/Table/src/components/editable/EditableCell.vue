@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { CheckOutlined, CloseOutlined, FormOutlined } from '@ant-design/icons-vue';
+  import { CheckOutlined, CloseOutlined, FormOutlined } from '@vben/icons';
   import { isArray, isBoolean, isFunction, isNumber, isString } from '@vben/shared';
   import { Spin } from 'ant-design-vue';
   import { pick, set } from 'lodash-es';

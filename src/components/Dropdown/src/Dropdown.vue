@@ -16,15 +16,15 @@
               v-bind="getPopConfirmAttrs(item.popConfirm)"
             >
               <template #icon v-if="item.popConfirm.icon">
-                <Icon :icon="item.popConfirm.icon" />
+                <VbenIcon :icon="item.popConfirm.icon" />
               </template>
               <div>
-                <Icon :icon="item.icon" v-if="item.icon" />
+                <VbenIcon :icon="item.icon" v-if="item.icon" />
                 <span class="ml-1">{{ item.text }}</span>
               </div>
             </a-popconfirm>
             <template v-else>
-              <Icon :icon="item.icon" v-if="item.icon" />
+              <VbenIcon :icon="item.icon" v-if="item.icon" />
               <span class="ml-1">{{ item.text }}</span>
             </template>
           </a-menu-item>
@@ -36,13 +36,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, PropType } from 'vue';
-  import { type Recordable } from '@vben/types';
-  import { type DropMenu } from './typing';
-  import { Dropdown, Menu, Popconfirm } from 'ant-design-vue';
-  import Icon from '@/components/Icon/Icon.vue';
-  import { omit } from 'lodash-es';
+  import { VbenIcon } from '@vben/icons';
   import { isFunction } from '@vben/shared';
+  import { type Recordable } from '@vben/types';
+  import { Dropdown, Menu, Popconfirm } from 'ant-design-vue';
+  import { omit } from 'lodash-es';
+  import { computed, PropType } from 'vue';
+
+  import { type DropMenu } from './typing';
 
   const ADropdown = Dropdown;
   const AMenu = Menu;

@@ -1,9 +1,10 @@
 <script lang="tsx">
-  import type { ContextMenuItem, ItemContentProps, Axis } from './typing';
-  import type { FunctionalComponent, CSSProperties, PropType } from 'vue';
-  import { defineComponent, nextTick, onMounted, computed, ref, unref, onUnmounted } from 'vue';
-  import Icon from '@/components/Icon/Icon.vue';
-  import { Menu, Divider } from 'ant-design-vue';
+  import { VbenIcon } from '@vben/icons';
+  import { Divider, Menu } from 'ant-design-vue';
+  import type { CSSProperties, FunctionalComponent, PropType } from 'vue';
+  import { computed, defineComponent, nextTick, onMounted, onUnmounted, ref, unref } from 'vue';
+
+  import type { Axis, ContextMenuItem, ItemContentProps } from './typing';
 
   const prefixCls = 'context-menu';
 
@@ -36,7 +37,7 @@
         class="px-4"
         onClick={props.handler.bind(null, item)}
       >
-        {props.showIcon && item.icon && <Icon class="mr-2" icon={item.icon} />}
+        {props.showIcon && item.icon && <VbenIcon class="mr-2" icon={item.icon} />}
         <span>{item.label}</span>
       </span>
     );

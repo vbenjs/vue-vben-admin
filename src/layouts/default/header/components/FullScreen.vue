@@ -7,7 +7,7 @@
   </Tooltip>
 </template>
 <script lang="ts">
-  import { FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons-vue';
+  import { FullscreenExitOutlined, FullscreenOutlined } from '@vben/icons';
   import { useFullscreen } from '@vueuse/core';
   import { Tooltip } from 'ant-design-vue';
   import { computed, defineComponent, unref } from 'vue';

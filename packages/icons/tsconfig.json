@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@vben/ts-config/web.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "types": ["unplugin-vue-define-options/macros-global"]
+  }
+}

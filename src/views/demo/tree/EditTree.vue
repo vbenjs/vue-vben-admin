@@ -51,7 +51,7 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { DeleteOutlined, PlusOutlined } from '@ant-design/icons-vue';
+  import { DeleteOutlined, PlusOutlined } from '@vben/icons';
   import { Col, Row } from 'ant-design-vue';
   import { defineComponent, h } from 'vue';
 
@@ -64,6 +64,7 @@
     components: { BasicTree, PageWrapper, Row, Col },
     setup() {
       function handlePlus(node: any) {
+        // eslint-disable-next-line no-console
         console.log(node);
       }
 
@@ -72,6 +73,7 @@
           {
             label: '新增',
             handler: () => {
+              // eslint-disable-next-line no-console
               console.log('点击了新增', node);
             },
             icon: 'bi:plus',
@@ -79,6 +81,7 @@
           {
             label: '删除',
             handler: () => {
+              // eslint-disable-next-line no-console
               console.log('点击了删除', node);
             },
             icon: 'bx:bxs-folder-open',

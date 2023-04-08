@@ -14,7 +14,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { CloseOutlined, FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons-vue';
+  import { CloseOutlined, FullscreenExitOutlined, FullscreenOutlined } from '@vben/icons';
   import { Tooltip } from 'ant-design-vue';
   import { computed, defineComponent } from 'vue';
 

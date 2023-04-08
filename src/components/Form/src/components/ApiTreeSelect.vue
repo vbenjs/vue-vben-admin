@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-  import { LoadingOutlined } from '@ant-design/icons-vue';
+  import { LoadingOutlined } from '@vben/icons';
   import { isArray, isFunction } from '@vben/shared';
   import { type Recordable } from '@vben/types';
   import { TreeSelect } from 'ant-design-vue';
@@ -72,6 +72,7 @@
         try {
           result = await api(props.params);
         } catch (e) {
+          // eslint-disable-next-line no-console
           console.error(e);
         }
         loading.value = false;

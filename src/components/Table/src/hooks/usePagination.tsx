@@ -1,4 +1,4 @@
-import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue';
+import { LeftOutlined, RightOutlined } from '@vben/icons';
 import { isBoolean } from '@vben/shared';
 import { computed, ComputedRef, ref, unref, watch } from 'vue';
 

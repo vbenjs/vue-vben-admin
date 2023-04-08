@@ -21,8 +21,8 @@
   </Select>
 </template>
 <script lang="ts">
-  import { LoadingOutlined } from '@ant-design/icons-vue';
   import { useAttrs } from '@vben/hooks';
+  import { LoadingOutlined } from '@vben/icons';
   import { isArray, isFunction } from '@vben/shared';
   import { Select } from 'ant-design-vue';
   import { get, omit } from 'lodash-es';
@@ -121,6 +121,7 @@
           }
           emitChange();
         } catch (error) {
+          // eslint-disable-next-line no-console
           console.warn(error);
         } finally {
           loading.value = false;

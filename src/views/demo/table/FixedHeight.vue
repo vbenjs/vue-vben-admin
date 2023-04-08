@@ -20,7 +20,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { FormOutlined } from '@ant-design/icons-vue';
+  import { FormOutlined } from '@vben/icons';
   import { defineComponent } from 'vue';
 
   import { demoListApi } from '@/api/demo/table';

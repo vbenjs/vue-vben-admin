@@ -17,7 +17,7 @@
         />
       </div>
       <Dropdown @click.prevent v-if="toolbar">
-        <Icon icon="ion:ellipsis-vertical" />
+        <VbenIcon icon="ion:ellipsis-vertical" />
         <template #overlay>
           <Menu @click="handleMenuClick">
             <template v-for="item in toolbarList" :key="item.value">
@@ -33,12 +33,12 @@
   </div>
 </template>
 <script lang="ts" setup>
+  import { VbenIcon } from '@vben/icons';
   import { useDebounceFn } from '@vueuse/core';
   import { Dropdown, InputSearch, Menu, MenuDivider, MenuItem } from 'ant-design-vue';
   import { computed, type PropType, ref, useSlots, watch } from 'vue';
 
   import { BasicTitle } from '@/components/Basic';
-  import Icon from '@/components/Icon/Icon.vue';
   import { useI18n } from '@/hooks/web/useI18n';
   import { createBEM } from '@/utils/bem';
 

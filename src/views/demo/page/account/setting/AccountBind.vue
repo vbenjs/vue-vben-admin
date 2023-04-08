@@ -5,7 +5,7 @@
         <ListItem>
           <ListItemMeta>
             <template #avatar>
-              <Icon v-if="item.avatar" class="avatar" :icon="item.avatar" :color="item.color" />
+              <VbenIcon v-if="item.avatar" class="avatar" :icon="item.avatar" :color="item.color" />
             </template>
             <template #title>
               {{ item.title }}
@@ -23,11 +23,11 @@
   </CollapseContainer>
 </template>
 <script lang="ts">
+  import { VbenIcon } from '@vben/icons';
   import { List } from 'ant-design-vue';
   import { defineComponent } from 'vue';
 
   import { CollapseContainer } from '@/components/Container/index';
-  import Icon from '@/components/Icon/Icon.vue';
 
   import { accountBindList } from './data';
 
@@ -37,7 +37,7 @@
       List,
       ListItem: List.Item,
       ListItemMeta: List.Item.Meta,
-      Icon,
+      VbenIcon,
     },
     setup() {
       return {

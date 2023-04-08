@@ -3,7 +3,7 @@
     <template v-if="!getCollapse">
       <div :class="`${prefixCls}-submenu-title`" @click.stop="handleClick" :style="getItemStyle">
         <slot name="title"></slot>
-        <Icon
+        <VbenIcon
           icon="eva:arrow-ios-downward-outline"
           :size="14"
           :class="`${prefixCls}-submenu-title-icon`"
@@ -36,7 +36,7 @@
         >
           <slot name="title"></slot>
         </div>
-        <Icon
+        <VbenIcon
           v-if="getParentSubMenu"
           icon="eva:arrow-ios-downward-outline"
           :size="14"
@@ -56,6 +56,7 @@
 </template>
 
 <script lang="ts">
+  import { VbenIcon } from '@vben/icons';
   import { isArray, isBoolean, isObject } from '@vben/shared';
   import { type Recordable, type TimeoutHandle } from '@vben/types';
   import { Popover } from 'ant-design-vue';
@@ -72,7 +73,6 @@
     unref,
   } from 'vue';
 
-  import Icon from '@/components/Icon/Icon.vue';
   import { CollapseTransition } from '@/components/Transition';
   import { useDesign } from '@/hooks/web/useDesign';
   import { mitt } from '@/utils/mitt';
@@ -86,7 +86,7 @@
   export default defineComponent({
     name: 'SubMenu',
     components: {
-      Icon,
+      VbenIcon,
       CollapseTransition,
       Popover,
     },

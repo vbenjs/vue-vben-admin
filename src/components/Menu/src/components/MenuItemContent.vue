@@ -1,13 +1,18 @@
 <template>
   <span :class="`${prefixCls}- flex items-center `">
-    <Icon v-if="getIcon" :icon="getIcon" :size="18" :class="`${prefixCls}-wrapper__icon mr-2`" />
+    <VbenIcon
+      v-if="getIcon"
+      :icon="getIcon"
+      :size="18"
+      :class="`${prefixCls}-wrapper__icon mr-2`"
+    />
     {{ getI18nName }}
   </span>
 </template>
 <script lang="ts">
+  import { VbenIcon } from '@vben/icons';
   import { computed, defineComponent } from 'vue';
 
-  import Icon from '@/components/Icon/Icon.vue';
   import { useDesign } from '@/hooks/web/useDesign';
   import { useI18n } from '@/hooks/web/useI18n';
 
@@ -18,7 +23,7 @@
   export default defineComponent({
     name: 'MenuItemContent',
     components: {
-      Icon,
+      VbenIcon,
     },
     props: contentProps,
     setup(props) {

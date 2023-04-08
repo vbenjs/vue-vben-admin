@@ -88,7 +88,7 @@
     GoogleCircleFilled,
     TwitterCircleFilled,
     WechatFilled,
-  } from '@ant-design/icons-vue';
+  } from '@vben/icons';
   import { Button, Checkbox, Col, Divider, Form, Input, Row } from 'ant-design-vue';
   import { computed, reactive, ref, unref } from 'vue';
 

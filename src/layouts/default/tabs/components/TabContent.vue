@@ -10,17 +10,17 @@
       <span class="ml-1">{{ getTitle }}</span>
     </div>
     <span :class="`${prefixCls}__extra-quick`" v-else @click="handleContext">
-      <Icon icon="ion:chevron-down" />
+      <VbenIcon icon="ion:chevron-down" />
     </span>
   </Dropdown>
 </template>
 <script lang="ts">
+  import { VbenIcon } from '@vben/icons';
   import type { PropType } from 'vue';
   import { computed, defineComponent, unref } from 'vue';
   import type { RouteLocationNormalized } from 'vue-router';
 
   import { Dropdown } from '@/components/Dropdown/index';
-  import Icon from '@/components/Icon/Icon.vue';
   import { useDesign } from '@/hooks/web/useDesign';
   import { useI18n } from '@/hooks/web/useI18n';
 
@@ -29,7 +29,7 @@
 
   export default defineComponent({
     name: 'TabContent',
-    components: { Dropdown, Icon },
+    components: { Dropdown, VbenIcon },
     props: {
       tabItem: {
         type: Object as PropType<RouteLocationNormalized>,

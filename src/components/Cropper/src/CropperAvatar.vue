@@ -2,7 +2,7 @@
   <div :class="getClass" :style="getStyle">
     <div :class="`${prefixCls}-image-wrapper`" :style="getImageWrapperStyle" @click="openModal">
       <div :class="`${prefixCls}-image-mask`" :style="getImageWrapperStyle">
-        <Icon
+        <VbenIcon
           icon="ant-design:cloud-upload-outlined"
           :size="getIconWidth"
           :style="getImageWrapperStyle"
@@ -29,6 +29,7 @@
   </div>
 </template>
 <script lang="ts">
+  import { VbenIcon } from '@vben/icons';
   import {
     computed,
     CSSProperties,
@@ -41,7 +42,6 @@
   } from 'vue';
 
   import type { ButtonProps } from '@/components/Button';
-  import Icon from '@/components/Icon/Icon.vue';
   import { useModal } from '@/components/Modal';
   import { useDesign } from '@/hooks/web/useDesign';
   import { useI18n } from '@/hooks/web/useI18n';
@@ -60,7 +60,7 @@
 
   export default defineComponent({
     name: 'CropperAvatar',
-    components: { CopperModal, Icon },
+    components: { CopperModal, VbenIcon },
     props,
     emits: ['update:value', 'change'],
     setup(props, { emit, expose }) {

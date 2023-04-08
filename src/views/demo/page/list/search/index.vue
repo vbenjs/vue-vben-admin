@@ -21,7 +21,7 @@
                 <div :class="`${prefixCls}__action`">
                   <template v-for="action in actions" :key="action.icon">
                     <div :class="`${prefixCls}__action-item`">
-                      <Icon
+                      <VbenIcon
                         v-if="action.icon"
                         :class="`${prefixCls}__action-icon`"
                         :icon="action.icon"
@@ -53,18 +53,18 @@
   </PageWrapper>
 </template>
 <script lang="ts">
+  import { VbenIcon } from '@vben/icons';
   import { List, Tag } from 'ant-design-vue';
   import { defineComponent } from 'vue';
 
   import { BasicForm } from '@/components/Form/index';
-  import Icon from '@/components/Icon/Icon.vue';
   import { PageWrapper } from '@/components/Page';
 
   import { actions, schemas, searchList } from './data';
 
   export default defineComponent({
     components: {
-      Icon,
+      VbenIcon,
       Tag,
       BasicForm,
       PageWrapper,

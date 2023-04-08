@@ -3,9 +3,9 @@
     <template #headerContent>
       基于Vue Next, TypeScript, Ant Design Vue实现的一套完整的企业级后台管理系统。
       <div :class="`${prefixCls}__link`">
-        <a><Icon icon="bx:bx-paper-plane" color="#1890ff" /><span>开始</span></a>
-        <a><Icon icon="carbon:warning" color="#1890ff" /><span>简介</span></a>
-        <a><Icon icon="ion:document-text-outline" color="#1890ff" /><span>文档</span></a>
+        <a><VbenIcon icon="bx:bx-paper-plane" color="#1890ff" /><span>开始</span></a>
+        <a><VbenIcon icon="carbon:warning" color="#1890ff" /><span>简介</span></a>
+        <a><VbenIcon icon="ion:document-text-outline" color="#1890ff" /><span>文档</span></a>
       </div>
     </template>
 
@@ -17,7 +17,7 @@
               <a-list-item>
                 <a-card :hoverable="true" :class="`${prefixCls}__card`">
                   <div :class="`${prefixCls}__card-title`">
-                    <Icon class="icon" v-if="item.icon" :icon="item.icon" :color="item.color" />
+                    <VbenIcon class="icon" v-if="item.icon" :icon="item.icon" :color="item.color" />
                     {{ item.title }}
                   </div>
                   <div :class="`${prefixCls}__card-detail`">
@@ -33,17 +33,17 @@
   </PageWrapper>
 </template>
 <script lang="ts">
+  import { VbenIcon } from '@vben/icons';
   import { Card, Col, List, Row } from 'ant-design-vue';
   import { defineComponent } from 'vue';
 
-  import Icon from '@/components/Icon/Icon.vue';
   import { PageWrapper } from '@/components/Page';
 
   import { cardList } from './data';
 
   export default defineComponent({
     components: {
-      Icon,
+      VbenIcon,
       PageWrapper,
       [Card.name]: Card,
       [List.name]: List,

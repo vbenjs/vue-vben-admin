@@ -23,7 +23,7 @@
           <a-list-item class="list">
             <a-list-item-meta>
               <template #avatar>
-                <Icon class="icon" v-if="item.icon" :icon="item.icon" :color="item.color" />
+                <VbenIcon class="icon" v-if="item.icon" :icon="item.icon" :color="item.color" />
               </template>
               <template #title>
                 <span>{{ item.title }}</span>
@@ -51,17 +51,17 @@
   </PageWrapper>
 </template>
 <script lang="ts">
+  import { VbenIcon } from '@vben/icons';
   import { Col, List, Progress, Row } from 'ant-design-vue';
   import { defineComponent } from 'vue';
 
-  import Icon from '@/components/Icon/Icon.vue';
   import { PageWrapper } from '@/components/Page';
 
   import { cardList } from './data';
 
   export default defineComponent({
     components: {
-      Icon,
+      VbenIcon,
       Progress,
       PageWrapper,
       [List.name]: List,

@@ -24,7 +24,7 @@
         <div>
           <template v-for="action in actions" :key="action.text">
             <div :class="`${prefixCls}__action`">
-              <Icon
+              <VbenIcon
                 v-if="action.icon"
                 :class="`${prefixCls}__action-icon`"
                 :icon="action.icon"
@@ -40,9 +40,10 @@
   </List>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { VbenIcon } from '@vben/icons';
   import { List, Tag } from 'ant-design-vue';
-  import Icon from '@/components/Icon/Icon.vue';
+  import { defineComponent } from 'vue';
+
   import { actions, articleList } from './data';
 
   export default defineComponent({
@@ -51,7 +52,7 @@
       ListItem: List.Item,
       ListItemMeta: List.Item.Meta,
       Tag,
-      Icon,
+      VbenIcon,
     },
     setup() {
       return {

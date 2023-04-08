@@ -1,12 +1,12 @@
 <template>
   <span :class="`${prefixCls}__extra-fold`" @click="handleFold">
-    <Icon :icon="getIcon" />
+    <VbenIcon :icon="getIcon" />
   </span>
 </template>
 <script lang="ts">
+  import { VbenIcon } from '@vben/icons';
   import { computed, defineComponent, unref } from 'vue';
 
-  import Icon from '@/components/Icon/Icon.vue';
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
   import { useDesign } from '@/hooks/web/useDesign';
@@ -14,7 +14,7 @@
 
   export default defineComponent({
     name: 'FoldButton',
-    components: { Icon },
+    components: { VbenIcon },
     setup() {
       const { prefixCls } = useDesign('multiple-tabs-content');
       const { getShowMenu, setMenuSetting } = useMenuSetting();

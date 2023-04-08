@@ -1,21 +1,21 @@
 <template>
   <MenuItem :key="itemKey">
     <span class="flex items-center">
-      <Icon :icon="icon" class="mr-1" />
+      <VbenIcon :icon="icon" class="mr-1" />
       <span>{{ text }}</span>
     </span>
   </MenuItem>
 </template>
 <script lang="ts">
+  import { VbenIcon } from '@vben/icons';
   import { Menu } from 'ant-design-vue';
   import { computed, defineComponent, getCurrentInstance } from 'vue';
 
-  import Icon from '@/components/Icon/Icon.vue';
   import { propTypes } from '@/utils/propTypes';
 
   export default defineComponent({
     name: 'DropdownMenuItem',
-    components: { MenuItem: Menu.Item, Icon },
+    components: { MenuItem: Menu.Item, VbenIcon },
     props: {
       // eslint-disable-next-line
       key: propTypes.string,

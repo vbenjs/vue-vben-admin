@@ -1,12 +1,12 @@
-import type { VNode, FunctionalComponent } from 'vue';
-import { h } from 'vue';
+import { VbenIcon } from '@vben/icons';
 import { isString } from '@vben/shared';
-import Icon from '@/components/Icon/Icon.vue';
+import type { VNode } from 'vue';
+import { h } from 'vue';
 
-export const TreeIcon: FunctionalComponent = ({ icon }: { icon: VNode | string }) => {
+export const TreeIcon = ({ icon }: { icon: VNode | string }) => {
   if (!icon) return null;
   if (isString(icon)) {
-    return h(Icon, { icon, class: 'mr-1' });
+    return h(VbenIcon, { icon, class: 'mr-1' });
   }
-  return Icon;
+  return VbenIcon;
 };

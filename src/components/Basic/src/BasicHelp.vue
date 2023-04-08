@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { InfoCircleOutlined } from '@ant-design/icons-vue';
+  import { InfoCircleOutlined } from '@vben/icons';
   import { isArray, isString } from '@vben/shared';
   import { Tooltip } from 'ant-design-vue';
   import type { CSSProperties, PropType } from 'vue';

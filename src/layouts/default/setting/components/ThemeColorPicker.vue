@@ -17,7 +17,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { CheckOutlined } from '@ant-design/icons-vue';
+  import { CheckOutlined } from '@vben/icons';
   import { defineComponent, PropType } from 'vue';
 
   import { useDesign } from '@/hooks/web/useDesign';

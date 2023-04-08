@@ -4,13 +4,13 @@
 -->
 <template>
   <span :class="getClass">
-    <Icon icon="ion:chevron-forward" :style="$attrs.iconStyle" />
+    <VbenIcon icon="ion:chevron-forward" :style="$attrs.iconStyle" />
   </span>
 </template>
 <script lang="ts" setup>
+  import { VbenIcon } from '@vben/icons';
   import { computed } from 'vue';
 
-  import Icon from '@/components/Icon/Icon.vue';
   import { useDesign } from '@/hooks/web/useDesign';
 
   const props = defineProps({

@@ -76,12 +76,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import {
-    EditOutlined,
-    EllipsisOutlined,
-    RedoOutlined,
-    TableOutlined,
-  } from '@ant-design/icons-vue';
+  import { EditOutlined, EllipsisOutlined, RedoOutlined, TableOutlined } from '@vben/icons';
   import { isFunction } from '@vben/shared';
   import { Avatar, Card, Image, List, Slider, Tooltip, Typography } from 'ant-design-vue';
   import { computed, onMounted, ref } from 'vue';

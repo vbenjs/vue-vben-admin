@@ -5,7 +5,7 @@
     v-bind="$props"
     :class="getLevelClass"
   >
-    <Icon v-if="getIcon" :icon="getIcon" :size="16" />
+    <VbenIcon v-if="getIcon" :icon="getIcon" :size="16" />
     <div v-if="collapsedShowTitle && getIsCollapseParent" class="mt-1 collapse-title">
       {{ getI18nName }}
     </div>
@@ -23,7 +23,7 @@
     :collapsedShowTitle="collapsedShowTitle"
   >
     <template #title>
-      <Icon v-if="getIcon" :icon="getIcon" :size="16" />
+      <VbenIcon v-if="getIcon" :icon="getIcon" :size="16" />
 
       <div v-if="collapsedShowTitle && getIsCollapseParent" class="mt-2 collapse-title">
         {{ getI18nName }}
@@ -43,10 +43,10 @@
   </SubMenu>
 </template>
 <script lang="ts">
+  import { VbenIcon } from '@vben/icons';
   import type { PropType } from 'vue';
   import { computed, defineComponent } from 'vue';
 
-  import Icon from '@/components/Icon/Icon.vue';
   import { useDesign } from '@/hooks/web/useDesign';
   import { useI18n } from '@/hooks/web/useI18n';
   import type { Menu } from '@/router/types';
@@ -62,7 +62,7 @@
       SubMenu,
       MenuItem,
       SimpleMenuTag: createAsyncComponent(() => import('./SimpleMenuTag.vue')),
-      Icon,
+      VbenIcon,
     },
     props: {
       item: {

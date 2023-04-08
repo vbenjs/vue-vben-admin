@@ -23,7 +23,7 @@
   </Tooltip>
 </template>
 <script lang="ts">
-  import { ColumnHeightOutlined } from '@ant-design/icons-vue';
+  import { ColumnHeightOutlined } from '@vben/icons';
   import { Dropdown, Menu, Tooltip } from 'ant-design-vue';
   import { defineComponent, ref } from 'vue';
 

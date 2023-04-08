@@ -14,7 +14,7 @@
             <div :class="`${prefixCls}-top__detail`">
               <template v-for="detail in details" :key="detail.title">
                 <p>
-                  <Icon :icon="detail.icon" />
+                  <VbenIcon :icon="detail.icon" />
                   {{ detail.title }}
                 </p>
               </template>
@@ -34,7 +34,7 @@
       <a-col :span="8" :class="`${prefixCls}-col`">
         <CollapseContainer :class="`${prefixCls}-top__team`" title="团队" :canExpan="false">
           <div v-for="(team, index) in teams" :key="index" :class="`${prefixCls}-top__team-item`">
-            <Icon :icon="team.icon" :color="team.color" />
+            <VbenIcon :icon="team.icon" :color="team.color" />
             <span>{{ team.title }}</span>
           </div>
         </CollapseContainer>
@@ -53,12 +53,12 @@
 </template>
 
 <script lang="ts">
+  import { VbenIcon } from '@vben/icons';
   import { Col, Row, Tabs, Tag } from 'ant-design-vue';
   import { computed, defineComponent } from 'vue';
 
   import headerImg from '@/assets/images/header.jpg';
   import { CollapseContainer } from '@/components/Container/index';
-  import Icon from '@/components/Icon/Icon.vue';
   import { useUserStore } from '@/store/modules/user';
 
   import Application from './Application.vue';
@@ -69,7 +69,7 @@
   export default defineComponent({
     components: {
       CollapseContainer,
-      Icon,
+      VbenIcon,
       Tag,
       Tabs,
       TabPane: Tabs.TabPane,

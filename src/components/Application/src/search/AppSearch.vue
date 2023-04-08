@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { SearchOutlined } from '@ant-design/icons-vue';
+  import { SearchOutlined } from '@vben/icons';
   import { Tooltip } from 'ant-design-vue';
   import { defineComponent, ref, unref } from 'vue';
 

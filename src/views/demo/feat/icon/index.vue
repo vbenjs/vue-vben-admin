@@ -14,18 +14,18 @@
 
     <CollapseContainer title="IconIfy 组件使用" class="my-5">
       <div class="flex justify-around flex-wrap">
-        <Icon icon="ion:layers-outline" :size="30" />
-        <Icon icon="ion:bar-chart-outline" :size="30" />
-        <Icon icon="ion:tv-outline" :size="30" />
-        <Icon icon="ion:settings-outline" :size="30" />
+        <VbenIcon icon="ion:layers-outline" :size="30" />
+        <VbenIcon icon="ion:bar-chart-outline" :size="30" />
+        <VbenIcon icon="ion:tv-outline" :size="30" />
+        <VbenIcon icon="ion:settings-outline" :size="30" />
       </div>
     </CollapseContainer>
 
     <CollapseContainer title="svg 雪碧图" class="my-5">
       <div class="flex justify-around flex-wrap">
-        <SvgIcon name="test" size="32" />
+        <VbenSvgIcon icon="test" :size="32" />
         <template v-for="item in 6" :key="item">
-          <SvgIcon :name="`dynamic-avatar-${item}`" size="32" />
+          <VbenSvgIcon :icon="`dynamic-avatar-${item}`" :size="32" />
         </template>
       </div>
     </CollapseContainer>
@@ -58,14 +58,15 @@
     IeCircleFilled,
     QqCircleFilled,
     TaobaoCircleFilled,
+    VbenIcon,
+    VbenSvgIcon,
     WechatFilled,
-  } from '@ant-design/icons-vue';
+  } from '@vben/icons';
   import { Alert } from 'ant-design-vue';
   import { defineComponent } from 'vue';
 
   import { CollapseContainer } from '@/components/Container/index';
-  import Icon from '@/components/Icon/Icon.vue';
-  import { IconPicker, SvgIcon } from '@/components/Icon/index';
+  import { IconPicker } from '@/components/Icon/index';
   import { PageWrapper } from '@/components/Page';
   import { openWindow } from '@/utils';
 
@@ -80,10 +81,10 @@
       IeCircleFilled,
       TaobaoCircleFilled,
       CodepenCircleFilled,
-      Icon,
+      VbenIcon,
       Alert,
       IconPicker,
-      SvgIcon,
+      VbenSvgIcon,
     },
     setup() {
       return {

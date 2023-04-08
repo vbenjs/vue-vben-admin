@@ -17,7 +17,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { CopyOutlined, RedoOutlined } from '@ant-design/icons-vue';
+  import { CopyOutlined, RedoOutlined } from '@vben/icons';
   import { defineComponent, unref } from 'vue';
 
   import { useCopyToClipboard } from '@/hooks/web/useCopyToClipboard';

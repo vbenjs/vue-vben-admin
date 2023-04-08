@@ -3,12 +3,12 @@
     <template v-for="(action, index) in getActions" :key="`${index}-${action.label}`">
       <Tooltip v-if="action.tooltip" v-bind="getTooltip(action.tooltip)">
         <PopConfirmButton v-bind="action">
-          <Icon :icon="action.icon" :class="{ 'mr-1': !!action.label }" v-if="action.icon" />
+          <VbenIcon :icon="action.icon" :class="{ 'mr-1': !!action.label }" v-if="action.icon" />
           <template v-if="action.label">{{ action.label }}</template>
         </PopConfirmButton>
       </Tooltip>
       <PopConfirmButton v-else v-bind="action">
-        <Icon :icon="action.icon" :class="{ 'mr-1': !!action.label }" v-if="action.icon" />
+        <VbenIcon :icon="action.icon" :class="{ 'mr-1': !!action.label }" v-if="action.icon" />
         <template v-if="action.label">{{ action.label }}</template>
       </PopConfirmButton>
       <Divider
@@ -31,14 +31,13 @@
   </div>
 </template>
 <script lang="ts">
-  import { MoreOutlined } from '@ant-design/icons-vue';
+  import { MoreOutlined, VbenIcon } from '@vben/icons';
   import { isBoolean, isFunction, isString } from '@vben/shared';
   import { Divider, Tooltip, TooltipProps } from 'ant-design-vue';
   import { computed, defineComponent, PropType, toRaw, unref } from 'vue';
 
   import { PopConfirmButton } from '@/components/Button';
   import { Dropdown } from '@/components/Dropdown';
-  import Icon from '@/components/Icon/Icon.vue';
   import { ActionItem, TableActionType } from '@/components/Table';
   import { useDesign } from '@/hooks/web/useDesign';
   import { usePermission } from '@/hooks/web/usePermission';
@@ -49,7 +48,7 @@
 
   export default defineComponent({
     name: 'TableAction',
-    components: { Icon, PopConfirmButton, Divider, Dropdown, MoreOutlined, Tooltip },
+    components: { VbenIcon, PopConfirmButton, Divider, Dropdown, MoreOutlined, Tooltip },
     props: {
       actions: {
         type: Array as PropType<ActionItem[]>,

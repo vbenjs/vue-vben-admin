@@ -18,7 +18,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { ArrowLeftOutlined } from '@ant-design/icons-vue';
+  import { ArrowLeftOutlined } from '@vben/icons';
   import { defineComponent } from 'vue';
 
   import { BasicTitle } from '@/components/Basic';

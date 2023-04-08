@@ -12,18 +12,18 @@
     overlayClassName="app-locale-picker-overlay"
   >
     <span class="cursor-pointer flex items-center">
-      <Icon icon="ion:language" />
+      <VbenIcon icon="ion:language" />
       <span v-if="showText" class="ml-1">{{ getLocaleText }}</span>
     </span>
   </Dropdown>
 </template>
 <script lang="ts" setup>
+  import { VbenIcon } from '@vben/icons';
   import { computed, ref, unref, watchEffect } from 'vue';
 
   import type { LocaleType } from '/#/config';
   import type { DropMenu } from '@/components/Dropdown';
   import { Dropdown } from '@/components/Dropdown';
-  import Icon from '@/components/Icon/Icon.vue';
   import { useLocale } from '@/locales/useLocale';
   import { localeList } from '@/settings/localeSetting';
 

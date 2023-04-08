@@ -4,7 +4,7 @@
       <Tooltip placement="bottom" v-bind="item.disabled ? { visible: false } : {}">
         <template #title>{{ item.tooltip }}</template>
         <span :class="`${prefixCls}-toolbar__icon`" v-if="item.icon" @click="onControl(item)">
-          <Icon
+          <VbenIcon
             :icon="item.icon"
             :class="item.disabled ? 'cursor-not-allowed disabeld' : 'cursor-pointer'"
           />
@@ -15,18 +15,17 @@
   </div>
 </template>
 <script lang="ts">
-  import type { ToolbarConfig } from './types';
-
-  import { defineComponent, ref, onUnmounted, unref, nextTick, watchEffect } from 'vue';
+  import { VbenIcon } from '@vben/icons';
   import { Divider, Tooltip } from 'ant-design-vue';
-  import Icon from '@/components/Icon/Icon.vue';
+  import { defineComponent, nextTick, onUnmounted, ref, unref, watchEffect } from 'vue';
 
-  import { useFlowChartContext } from './useFlowContext';
   import { ToolbarTypeEnum } from './enum';
+  import type { ToolbarConfig } from './types';
+  import { useFlowChartContext } from './useFlowContext';
 
   export default defineComponent({
     name: 'FlowChartToolbar',
-    components: { Icon, Divider, Tooltip },
+    components: { VbenIcon, Divider, Tooltip },
     props: {
       prefixCls: String,
     },

@@ -5,7 +5,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons-vue';
+  import { DoubleLeftOutlined, DoubleRightOutlined } from '@vben/icons';
   import { defineComponent } from 'vue';
 
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting';

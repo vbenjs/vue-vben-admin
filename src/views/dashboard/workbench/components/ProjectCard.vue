@@ -6,7 +6,7 @@
 
     <CardGrid v-for="item in items" :key="item.title" class="!md:w-1/3 !w-full">
       <span class="flex">
-        <Icon :icon="item.icon" :color="item.color" size="30" />
+        <VbenIcon :icon="item.icon" :color="item.color" :size="30" />
         <span class="text-lg ml-4">{{ item.title }}</span>
       </span>
       <div class="flex mt-2 h-10 text-secondary">{{ item.desc }}</div>
@@ -18,13 +18,14 @@
   </Card>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { VbenIcon } from '@vben/icons';
   import { Card, CardGrid } from 'ant-design-vue';
-  import Icon from '@/components/Icon/Icon.vue';
+  import { defineComponent } from 'vue';
+
   import { groupItems } from './data';
 
   export default defineComponent({
-    components: { Card, CardGrid, Icon },
+    components: { Card, CardGrid, VbenIcon },
     setup() {
       return { items: groupItems };
     },

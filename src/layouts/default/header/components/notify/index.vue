@@ -23,7 +23,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { BellOutlined } from '@ant-design/icons-vue';
+  import { BellOutlined } from '@vben/icons';
   import { Badge, Popover, Tabs } from 'ant-design-vue';
   import { computed, defineComponent, ref } from 'vue';
 

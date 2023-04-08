@@ -77,7 +77,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { LockOutlined } from '@ant-design/icons-vue';
+  import { LockOutlined } from '@vben/icons';
   import { Input } from 'ant-design-vue';
   import { computed, ref } from 'vue';
 

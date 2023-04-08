@@ -1,12 +1,15 @@
 <template>
   <span :class="$attrs.class">
-    <Icon :icon="icon" />
+    <VbenIcon :icon="icon" />
   </span>
 </template>
 <script lang="ts" setup>
-  import Icon from '@/components/Icon/Icon.vue';
+  import { VbenIcon } from '@vben/icons';
 
   defineProps({
-    icon: String,
+    icon: {
+      type: String,
+      default: '',
+    },
   });
 </script>

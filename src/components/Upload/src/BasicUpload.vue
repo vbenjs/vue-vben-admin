@@ -12,7 +12,7 @@
           </template>
         </template>
         <a-button @click="openPreviewModal">
-          <Icon icon="bi:eye" />
+          <VbenIcon icon="bi:eye" />
           <template v-if="fileList.length && showPreviewNumber">
             {{ fileList.length }}
           </template>
@@ -36,13 +36,13 @@
   </div>
 </template>
 <script lang="ts">
+  import { VbenIcon } from '@vben/icons';
   import { isArray } from '@vben/shared';
   import { Recordable } from '@vben/types';
   import { Space, Tooltip } from 'ant-design-vue';
   import { omit } from 'lodash-es';
   import { computed, defineComponent, ref, unref, watch } from 'vue';
 
-  import Icon from '@/components/Icon/Icon.vue';
   import { useModal } from '@/components/Modal';
   import { useI18n } from '@/hooks/web/useI18n';
 
@@ -52,7 +52,7 @@
 
   export default defineComponent({
     name: 'BasicUpload',
-    components: { UploadModal, Space, UploadPreviewModal, Icon, Tooltip },
+    components: { UploadModal, Space, UploadPreviewModal, VbenIcon, Tooltip },
     props: uploadContainerProps,
     emits: ['change', 'delete', 'preview-delete', 'update:value'],
 

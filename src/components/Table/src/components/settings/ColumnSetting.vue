@@ -56,7 +56,7 @@
                   <template #title>
                     {{ t('component.table.settingFixedLeft') }}
                   </template>
-                  <Icon
+                  <VbenIcon
                     icon="line-md:arrow-align-left"
                     :class="[
                       `${prefixCls}__fixed-left`,
@@ -77,7 +77,7 @@
                   <template #title>
                     {{ t('component.table.settingFixedRight') }}
                   </template>
-                  <Icon
+                  <VbenIcon
                     icon="line-md:arrow-align-left"
                     :class="[
                       `${prefixCls}__fixed-right`,
@@ -99,7 +99,7 @@
   </Tooltip>
 </template>
 <script lang="ts">
-  import { DragOutlined, SettingOutlined } from '@ant-design/icons-vue';
+  import { DragOutlined, SettingOutlined, VbenIcon } from '@vben/icons';
   // import { useSortable } from '@/hooks/web/useSortable';
   import { isFunction } from '@vben/shared';
   import { Checkbox, Divider, Popover, Tooltip } from 'ant-design-vue';
@@ -119,7 +119,6 @@
   } from 'vue';
 
   import { ScrollContainer } from '@/components/Container';
-  import Icon from '@/components/Icon/Icon.vue';
   import { useDesign } from '@/hooks/web/useDesign';
   import { useI18n } from '@/hooks/web/useI18n';
   import { getPopupContainer as getParentContainer } from '@/utils';
@@ -151,7 +150,7 @@
       DragOutlined,
       ScrollContainer,
       Divider,
-      Icon,
+      VbenIcon,
     },
     emits: ['columns-change'],
 

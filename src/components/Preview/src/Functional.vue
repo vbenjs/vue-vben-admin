@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { CloseOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons-vue';
+  import { CloseOutlined, LeftOutlined, RightOutlined } from '@vben/icons';
   import { computed, defineComponent, PropType, reactive, ref, unref, watchEffect } from 'vue';
 
   import rotateSvg from '@/assets/svg/preview/p-rotate.svg';

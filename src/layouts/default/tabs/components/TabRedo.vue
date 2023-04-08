@@ -4,7 +4,7 @@
   </span>
 </template>
 <script lang="ts">
-  import { RedoOutlined } from '@ant-design/icons-vue';
+  import { RedoOutlined } from '@vben/icons';
   import { defineComponent, ref } from 'vue';
 
   import { useDesign } from '@/hooks/web/useDesign';

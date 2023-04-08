@@ -6,7 +6,7 @@
           <ListItem>
             <Card :hoverable="true" :class="`${prefixCls}__card`">
               <div :class="`${prefixCls}__card-title`">
-                <Icon class="icon" v-if="item.icon" :icon="item.icon" :color="item.color" />
+                <VbenIcon class="icon" v-if="item.icon" :icon="item.icon" :color="item.color" />
                 {{ item.title }}
               </div>
               <div :class="`${prefixCls}__card-num`">
@@ -15,7 +15,7 @@
               <div :class="`${prefixCls}__card-num`">
                 新增用户：<span>{{ item.new }}</span>
               </div>
-              <Icon
+              <VbenIcon
                 :class="`${prefixCls}__card-download`"
                 v-if="item.download"
                 :icon="item.download"
@@ -28,9 +28,10 @@
   </List>
 </template>
 <script lang="ts">
+  import { VbenIcon } from '@vben/icons';
+  import { Card, Col, List, Row } from 'ant-design-vue';
   import { defineComponent } from 'vue';
-  import { List, Card, Row, Col } from 'ant-design-vue';
-  import Icon from '@/components/Icon/Icon.vue';
+
   import { applicationList } from './data';
 
   export default defineComponent({
@@ -38,7 +39,7 @@
       List,
       ListItem: List.Item,
       Card,
-      Icon,
+      VbenIcon,
       [Row.name]: Row,
       [Col.name]: Col,
     },

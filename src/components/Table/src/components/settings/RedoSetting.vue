@@ -7,7 +7,7 @@
   </Tooltip>
 </template>
 <script lang="ts">
-  import { RedoOutlined } from '@ant-design/icons-vue';
+  import { RedoOutlined } from '@vben/icons';
   import { Tooltip } from 'ant-design-vue';
   import { defineComponent } from 'vue';
 

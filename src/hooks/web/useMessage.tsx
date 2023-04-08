@@ -1,9 +1,10 @@
-import type { ModalFunc, ModalFuncProps } from 'ant-design-vue/lib/modal/Modal';
-import { Modal, message as Message, notification } from 'ant-design-vue';
-import { InfoCircleFilled, CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons-vue';
-import { NotificationArgsProps, ConfigProps } from 'ant-design-vue/lib/notification';
-import { useI18n } from './useI18n';
+import { CheckCircleFilled, CloseCircleFilled, InfoCircleFilled } from '@vben/icons';
 import { isString } from '@vben/shared';
+import { message as Message, Modal, notification } from 'ant-design-vue';
+import type { ModalFunc, ModalFuncProps } from 'ant-design-vue/lib/modal/Modal';
+import { ConfigProps, NotificationArgsProps } from 'ant-design-vue/lib/notification';
+
+import { useI18n } from './useI18n';
 
 export interface NotifyApi {
   info(config: NotificationArgsProps): void;

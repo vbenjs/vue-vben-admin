@@ -129,7 +129,8 @@
     "tailwindcss",
     "sider",
     "pnpm",
-    "antd"
+    "antd",
+    "unref"
   ],
   "vetur.format.scriptInitialIndent": true,
   "vetur.format.styleInitialIndent": true,

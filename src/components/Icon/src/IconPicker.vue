@@ -36,8 +36,8 @@
                   :title="icon"
                 >
                   <!-- <Icon :icon="icon" :prefix="prefix" /> -->
-                  <SvgIcon v-if="isSvgMode" :name="icon" />
-                  <Icon :icon="icon" v-else />
+                  <VbenSvgIcon v-if="isSvgMode" :icon="icon" />
+                  <VbenIcon :icon="icon" v-else />
                 </li>
               </ul>
             </ScrollContainer>
@@ -57,14 +57,19 @@
         </template>
 
         <span class="cursor-pointer px-2 py-1 flex items-center" v-if="isSvgMode && currentSelect">
-          <SvgIcon :name="currentSelect" />
+          <VbenSvgIcon :icon="currentSelect" />
         </span>
-        <Icon :icon="currentSelect || 'ion:apps-outline'" class="cursor-pointer px-2 py-1" v-else />
+        <VbenIcon
+          :icon="currentSelect || 'ion:apps-outline'"
+          class="cursor-pointer px-2 py-1"
+          v-else
+        />
       </a-popover>
     </template>
   </a-input>
 </template>
 <script lang="ts" setup>
+  import { VbenIcon, VbenSvgIcon } from '@vben/icons';
   import { isArray } from '@vben/shared';
   import { useDebounceFn } from '@vueuse/core';
   import { Empty, Input, Pagination, Popover } from 'ant-design-vue';
@@ -80,8 +85,6 @@
   import { propTypes } from '@/utils/propTypes';
 
   import iconsData from '../data/icons.data';
-  import Icon from '../Icon.vue';
-  import SvgIcon from './SvgIcon.vue';
 
   // 没有使用别名引入，是因为WebStorm当前版本还不能正确识别，会报unused警告
   const AInput = Input;
