@@ -43,14 +43,13 @@
   </BasicModal>
 </template>
 <script lang="ts">
-  import { isFunction, loggerWarning } from '@vben/shared';
+  import { createUUID, isFunction, loggerWarning } from '@vben/shared';
   import { Alert, Upload } from 'ant-design-vue';
   import { computed, defineComponent, PropType, reactive, ref, toRefs, unref } from 'vue';
 
   import { BasicModal, useModalInner } from '@/components/Modal';
   import { useI18n } from '@/hooks/web/useI18n';
   import { useMessage } from '@/hooks/web/useMessage';
-  import { buildUUID } from '@/utils/uuid';
 
   import { createActionColumn, createTableColumns } from './data';
   import FileList from './FileList.vue';
@@ -133,7 +132,7 @@
         }
 
         const commonItem = {
-          uuid: buildUUID(),
+          uuid: createUUID(),
           file,
           size,
           name,

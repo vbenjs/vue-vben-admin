@@ -1,5 +1,5 @@
 import { useTimeoutFn } from '@vben/hooks';
-import { isArray, isBoolean, isFunction, isObject } from '@vben/shared';
+import { createUUID, isArray, isBoolean, isFunction, isObject } from '@vben/shared';
 import { cloneDeep, get, merge } from 'lodash-es';
 import {
   computed,
@@ -12,8 +12,6 @@ import {
   watch,
   watchEffect,
 } from 'vue';
-
-import { buildUUID } from '@/utils/uuid';
 
 import { FETCH_SETTING, PAGE_SIZE, ROW_KEY } from '../const';
 import type { PaginationProps } from '../types/pagination';
@@ -96,7 +94,7 @@ export function useDataSource(
     if (!items || !isArray(items)) return;
     items.forEach((item) => {
       if (!item[ROW_KEY]) {
-        item[ROW_KEY] = buildUUID();
+        item[ROW_KEY] = createUUID();
       }
       if (item.children && item.children.length) {
         setTableKey(item.children);
@@ -127,7 +125,7 @@ export function useDataSource(
           const data = cloneDeep(unref(dataSourceRef));
           data.forEach((item) => {
             if (!item[ROW_KEY]) {
-              item[ROW_KEY] = buildUUID();
+              item[ROW_KEY] = createUUID();
             }
             if (item.children && item.children.length) {
               setTableKey(item.children);
