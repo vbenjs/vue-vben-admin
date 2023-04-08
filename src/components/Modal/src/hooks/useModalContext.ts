@@ -1,6 +1,5 @@
+import { createContext, useContext } from '@vben/hooks';
 import { InjectionKey } from 'vue';
-
-import { createContext, useContext } from '@/hooks/core/useContext';
 
 export interface ModalContextProps {
   redoModalHeight: () => void;
@@ -9,7 +8,7 @@ export interface ModalContextProps {
 const key: InjectionKey<ModalContextProps> = Symbol();
 
 export function createModalContext(context: ModalContextProps) {
-  return createContext<ModalContextProps>(context, key);
+  return createContext<ModalContextProps>(key, context);
 }
 
 export function useModalContext() {

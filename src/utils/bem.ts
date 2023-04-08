@@ -1,6 +1,5 @@
+import { GLOBAL_NAMESPACE } from '@vben/constants';
 import { isArray } from '@vben/shared';
-
-import { prefixCls } from '@/settings/designSetting';
 
 type Mod = string | { [key: string]: any };
 type Mods = Mod | Mod[];
@@ -45,10 +44,10 @@ export function buildBEM(name: string) {
 }
 
 export function createBEM(name: string) {
-  return [buildBEM(`${prefixCls}-${name}`)];
+  return [buildBEM(`${GLOBAL_NAMESPACE}-${name}`)];
 }
 
 export function createNamespace(name: string) {
-  const prefixedName = `${prefixCls}-${name}`;
+  const prefixedName = `${GLOBAL_NAMESPACE}-${name}`;
   return [prefixedName, buildBEM(prefixedName)] as const;
 }

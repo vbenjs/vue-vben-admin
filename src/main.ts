@@ -1,9 +1,9 @@
 import 'uno.css';
+import '@vben/design';
 import '@/design/index.less';
 import 'ant-design-vue/dist/antd.less';
 // Register icon sprite
 import 'virtual:svg-icons-register';
-import '@vben/design';
 
 import { createApp } from 'vue';
 

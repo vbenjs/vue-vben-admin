@@ -4,7 +4,7 @@ const DATE_TIME_TEMPLATE = 'YYYY-MM-DD HH:mm:ss';
 const DATE_TEMPLATE = 'YYYY-MM-DD';
 
 /**
- * 格式化时间为：YYYY-MM-DD HH:mm:ss 格式
+ * @description 格式化时间为：YYYY-MM-DD HH:mm:ss 格式
  * @param date
  */
 function formatDateTime(date?: ConfigType): string {
@@ -12,7 +12,7 @@ function formatDateTime(date?: ConfigType): string {
 }
 
 /**
- * 格式化时间
+ * @description 格式化时间
  * @param date
  * @param format 默认 YYYY-MM-DD
  */

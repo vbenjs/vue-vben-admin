@@ -37,7 +37,7 @@ function isEmpty<T = unknown>(val: T): val is T {
 }
 
 /**
- * 判断所给字符串是否为url类型，这里只判断是否 http/http,其他格式不支持
+ * @description 判断所给字符串是否为url类型，这里只判断是否 http/http,其他格式不支持
  * @param pathname
  * @returns
  */

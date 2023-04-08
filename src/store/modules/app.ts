@@ -11,7 +11,6 @@ import type { BeforeMiniState } from '/#/store';
 import { ThemeEnum } from '@/enums/appEnum';
 import { APP_DARK_MODE_KEY_, PROJ_CFG_KEY } from '@/enums/cacheEnum';
 import { resetRouter } from '@/router';
-import { darkMode } from '@/settings/designSetting';
 import { store } from '@/store';
 import { deepMerge } from '@/utils';
 import { Persistent } from '@/utils/cache/persistent';
@@ -39,7 +38,7 @@ export const useAppStore = defineStore({
       return state.pageLoading;
     },
     getDarkMode(state): 'light' | 'dark' | string {
-      return state.darkMode || localStorage.getItem(APP_DARK_MODE_KEY_) || darkMode;
+      return state.darkMode || localStorage.getItem(APP_DARK_MODE_KEY_) || 'light';
     },
 
     getBeforeMiniInfo(state): BeforeMiniState {

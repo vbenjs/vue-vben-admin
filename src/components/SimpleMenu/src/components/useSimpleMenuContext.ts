@@ -1,6 +1,6 @@
+import { createContext, useContext } from '@vben/hooks';
 import type { InjectionKey, Ref } from 'vue';
 
-import { createContext, useContext } from '@/hooks/core/useContext';
 import type { Emitter } from '@/utils/mitt';
 
 export interface SimpleRootMenuContextProps {
@@ -11,7 +11,10 @@ export interface SimpleRootMenuContextProps {
 const key: InjectionKey<SimpleRootMenuContextProps> = Symbol();
 
 export function createSimpleRootMenuContext(context: SimpleRootMenuContextProps) {
-  return createContext<SimpleRootMenuContextProps>(context, key, { readonly: false, native: true });
+  return createContext<SimpleRootMenuContextProps>(key, context, {
+    writeable: true,
+    reactiveable: false,
+  });
 }
 
 export function useSimpleRootMenuContext() {

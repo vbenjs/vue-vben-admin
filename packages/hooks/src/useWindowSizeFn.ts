@@ -3,17 +3,17 @@ import { tryOnMounted, tryOnUnmounted, useDebounceFn } from '@vueuse/core';
 
 interface UseWindowSizeOptions {
   /**
-   * 节流时间
+   * @description 节流时间
    * @default 150
    */
   wait?: number;
   /**
-   * 立即执行
+   * @description 立即执行
    * @default false
    */
   immediate?: boolean;
   /**
-   * 只执行一次
+   * @description 只执行一次
    * @default false
    */
   once?: boolean;

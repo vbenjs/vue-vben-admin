@@ -1,6 +1,5 @@
+import { createContext, useContext } from '@vben/hooks';
 import type { InjectionKey } from 'vue';
-
-import { createContext, useContext } from '@/hooks/core/useContext';
 
 export interface FormContextProps {
   resetAction: () => Promise<void>;
@@ -10,7 +9,7 @@ export interface FormContextProps {
 const key: InjectionKey<FormContextProps> = Symbol();
 
 export function createFormContext(context: FormContextProps) {
-  return createContext<FormContextProps>(context, key);
+  return createContext<FormContextProps>(key, context);
 }
 
 export function useFormContext() {

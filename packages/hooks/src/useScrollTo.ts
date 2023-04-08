@@ -2,19 +2,19 @@ import { shallowRef, unref } from 'vue';
 
 interface UseScrollToOptions {
   /**
-   * 需要滚动的 el dom节点
+   * @description 需要滚动的 el dom节点
    */
   el: HTMLElement;
   /**
-   * 滚动的目标值
+   * @description 滚动的目标值
    */
   to: number;
   /**
-   * 滚动时间
+   * @description 滚动时间
    */
   duration?: number;
   /**
-   * 执行完成之后的回调函数
+   * @description 执行完成之后的回调函数
    * @returns
    */
   callback?: () => void;
@@ -34,7 +34,7 @@ function move(el: HTMLElement, amount: number) {
 }
 
 /**
- * dom节点滚动到指定位置
+ * @description dom节点滚动到指定位置
  * @param UseScrollToOptions
  * @returns
  */

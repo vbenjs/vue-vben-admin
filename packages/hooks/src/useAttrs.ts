@@ -3,17 +3,17 @@ import { getCurrentInstance, reactive, type ShallowRef, shallowRef, watchEffect 
 
 interface UseAttrsOptions {
   /**
-   * 排除监听事件
+   * @description 排除监听事件
    * @default false
    */
   excludeListeners?: boolean;
   /**
-   * 排除部分对象 key值
+   * @description 排除部分对象 key值
    * @default []
    */
   excludeKeys?: string[];
   /**
-   * 排除默认值 key 值 ['class', 'style']
+   * @description 排除默认值 key 值 ['class', 'style']
    * @default true
    */
   excludeDefaultKeys?: boolean;
@@ -27,7 +27,7 @@ function entries<T>(obj: Recordable<T>): [string, T][] {
 }
 
 /**
- * 获取当前组件的 Attrs 属性
+ * @description 获取当前组件的 Attrs 属性
  * @param UseAttrsOptions
  */
 function useAttrs<T = any>(options: UseAttrsOptions = {}): ShallowRef<Recordable<T>> {

@@ -22,7 +22,9 @@
     "removeComments": true,
     "allowImportingTsExtensions": true,
     "noEmit": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": false,
+    "strictNullChecks": true
   },
   "exclude": ["**/node_modules/**", "**/dist/**"]
 }

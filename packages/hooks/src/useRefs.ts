@@ -7,7 +7,7 @@ interface SetRefsFunction {
 }
 
 /**
- * 用于模版循环获取 refs
+ * @description 用于模版循环获取 refs
  * <div :ref="setRefs(index)"></div>
  * @returns
  */

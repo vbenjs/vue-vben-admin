@@ -1,3 +1,5 @@
+import { APP_HEADER_THEME_PRESET_COLORS, APP_MENU_THEME_PRESET_COLORS } from '@vben/constants';
+
 import type { ProjectConfig } from '/#/config';
 import {
   ContentEnum,
@@ -9,8 +11,6 @@ import {
 } from '@/enums/appEnum';
 import { CacheTypeEnum } from '@/enums/cacheEnum';
 import { MenuModeEnum, MenuTypeEnum, MixSidebarTriggerEnum, TriggerEnum } from '@/enums/menuEnum';
-
-import { HEADER_PRESET_BG_COLOR_LIST, SIDE_BAR_BG_COLOR_LIST } from './designSetting';
 
 const primaryColor = '#0960bd';
 
@@ -58,7 +58,7 @@ const setting: ProjectConfig = {
   // Header configuration
   headerSetting: {
     // header bg color
-    bgColor: HEADER_PRESET_BG_COLOR_LIST[0],
+    bgColor: APP_HEADER_THEME_PRESET_COLORS[0],
     // Fixed at the top
     fixed: true,
     // Whether to show top
@@ -80,7 +80,7 @@ const setting: ProjectConfig = {
   // Menu configuration
   menuSetting: {
     // sidebar menu bg color
-    bgColor: SIDE_BAR_BG_COLOR_LIST[0],
+    bgColor: APP_MENU_THEME_PRESET_COLORS[0],
     //  Whether to fix the left menu
     fixed: true,
     // Menu collapse

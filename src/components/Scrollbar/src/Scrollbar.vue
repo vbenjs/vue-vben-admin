@@ -29,13 +29,10 @@
     unref,
   } from 'vue';
 
-  import componentSetting from '@/settings/componentSetting';
   import { addResizeListener, removeResizeListener } from '@/utils/event';
 
   import Bar from './bar';
   import { toObject } from './util';
-
-  const { scrollbar } = componentSetting;
 
   export default defineComponent({
     name: 'Scrollbar',
@@ -44,7 +41,7 @@
     props: {
       native: {
         type: Boolean,
-        default: scrollbar?.native ?? false,
+        default: false,
       },
       wrapStyle: {
         type: [String, Array],

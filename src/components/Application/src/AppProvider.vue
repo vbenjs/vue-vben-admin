@@ -1,8 +1,8 @@
 <script lang="ts">
+  import { GLOBAL_NAMESPACE } from '@vben/constants';
   import { defineComponent, ref, toRefs, unref } from 'vue';
 
   import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum';
-  import { prefixCls } from '@/settings/designSetting';
   import { useAppStore } from '@/store/modules/app';
 
   import { createAppProviderContext } from './useAppContext';
@@ -11,7 +11,7 @@
     /**
      * class style prefix
      */
-    prefixCls: { type: String, default: prefixCls },
+    prefixCls: { type: String, default: GLOBAL_NAMESPACE },
   };
 
   export default defineComponent({
