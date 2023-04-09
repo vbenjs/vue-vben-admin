@@ -1,11 +1,11 @@
 {
   "typescript.tsdk": "./node_modules/typescript/lib",
-  "volar.tsPlugin": true,
-  "volar.tsPluginStatus": false,
-  "npm.packageManager": "pnpm",
   "editor.tabSize": 2,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "files.eol": "\n",
+  "npm.packageManager": "pnpm",
+  "eslint.packageManager": "pnpm",
+  "stylelint.packageManager": "pnpm",
   "search.exclude": {
     "**/node_modules": true,
     "**/*.log": true,
@@ -131,27 +131,6 @@
     "antd",
     "unref"
   ],
-  "vetur.format.scriptInitialIndent": true,
-  "vetur.format.styleInitialIndent": true,
-  "vetur.validation.script": false,
-  "MicroPython.executeButton": [
-    {
-      "text": "▶",
-      "tooltip": "运行",
-      "alignment": "left",
-      "command": "extension.executeFile",
-      "priority": 3.5
-    }
-  ],
-  "MicroPython.syncButton": [
-    {
-      "text": "$(sync)",
-      "tooltip": "同步",
-      "alignment": "left",
-      "command": "extension.execute",
-      "priority": 4
-    }
-  ],
   // 控制相关文件嵌套展示
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
@@ -161,7 +140,7 @@
     "*.env": "$(capture).env.*",
     "CHANGELOG.md": "CHANGELOG*",
     "package.json": "pnpm-lock.yaml,pnpm-workspace.yaml,LICENSE,.gitattributes,.gitignore,.gitpod.yml,CNAME,README*,.npmrc,.browserslistrc,.nvmrc",
-    ".eslintrc.js": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.js,.prettierrc.js,.stylelintrc.js"
+    ".eslintrc.js": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.js,.prettierrc.js,.stylelintrc.js,.lintstagedrc"
   },
   "terminal.integrated.scrollback": 10000
 }

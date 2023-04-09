@@ -1,4 +1,13 @@
-export default {
+import { defineConfig } from 'eslint-define-config';
+
+export default defineConfig({
+  extends: [
+    'eslint:recommended',
+    'plugin:vue/vue3-recommended',
+    'plugin:jsonc/recommended-with-jsonc',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+  ],
   env: {
     browser: true,
     node: true,
@@ -18,12 +27,6 @@ export default {
     extraFileExtensions: ['.vue'],
   },
   plugins: ['vue', '@typescript-eslint', 'import', 'simple-import-sort'],
-  extends: [
-    'eslint:recommended',
-    'plugin:vue/vue3-recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
   rules: {
     'no-console': 'warn',
     'no-unused-vars': 'off',
@@ -92,5 +95,19 @@ export default {
     //   },
     // ],
   },
+  overrides: [
+    {
+      files: ['*.json', '*.json5', '*.jsonc'],
+      parser: 'jsonc-eslint-parser',
+    },
+    {
+      files: ['package.json'],
+      parser: 'jsonc-eslint-parser',
+      rules: {
+        'jsonc/sort-keys': 'off',
+      },
+    },
+  ],
   globals: { defineOptions: 'readonly' },
-};
+  ignorePatterns: ['**/vendor/**', '**/dist/**', '**/node_modules/**'],
+});

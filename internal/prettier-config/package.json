@@ -1,5 +1,5 @@
 {
-  "name": "@vben/eslint-config",
+  "name": "@vben/prettier-config",
   "version": "1.0.0",
   "private": true,
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "internal/eslint-config"
+    "directory": "internal/stylelint-config"
   },
   "license": "MIT",
   "exports": {
@@ -17,11 +17,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
-    },
-    "./strict": {
-      "types": "./dist/strict.d.ts",
-      "import": "./dist/strict.mjs",
-      "require": "./dist/strict.cjs"
     }
   },
   "main": "./dist/index.cjs",
@@ -35,18 +30,8 @@
     "lint": "pnpm eslint .",
     "stub": "pnpm unbuild --stub"
   },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.57.1",
-    "@typescript-eslint/parser": "^5.57.1",
-    "eslint": "^8.38.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-define-config": "^1.17.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-jsonc": "^2.7.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-simple-import-sort": "^10.0.0",
-    "eslint-plugin-vue": "^9.10.0",
-    "jsonc-eslint-parser": "^2.2.0",
-    "vue-eslint-parser": "^9.1.1"
+  "dependencies": {
+    "prettier": "^2.8.7",
+    "prettier-plugin-packagejson": "^2.4.3"
   }
 }

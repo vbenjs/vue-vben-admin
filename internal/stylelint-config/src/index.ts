@@ -41,6 +41,7 @@ export default {
         ignorePseudoElements: ['v-deep'],
       },
     ],
+    'media-feature-range-notation': null,
     'no-empty-source': null,
     'string-quotes': null,
     'named-grid-areas-no-invalid': null,

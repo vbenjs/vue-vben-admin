@@ -108,7 +108,6 @@ export type ComponentType =
   | 'TimePicker'
   | 'Switch'
   | 'Upload'
-  | 'IconPicker'
   | 'Render'
   | 'Slider'
   | 'Rate'

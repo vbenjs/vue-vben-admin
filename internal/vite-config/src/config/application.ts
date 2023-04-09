@@ -65,6 +65,9 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
       build: {
         rollupOptions: {
           output: {
+            chunkFileNames: 'js/[name]-[hash].js',
+            entryFileNames: 'js/_entry-[name]-[hash].js',
+            assetFileNames: '[ext]/[name]-[hash].[ext]',
             manualChunks: {
               vue: ['vue', 'pinia', 'vue-router'],
               icon: ['@purge-icons/generated', 'virtual:svg-icons-register'],

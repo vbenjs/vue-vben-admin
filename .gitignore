@@ -4,9 +4,6 @@ dist
 .cache
 .turbo
 
-tests/server/static
-tests/server/static/upload
-
 .local
 # local env files
 .env.local
@@ -30,5 +27,3 @@ pnpm-debug.log*
 
 package-lock.json
 pnpm-lock.yaml
-
-.history

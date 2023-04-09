@@ -1,6 +1,7 @@
 export default {
   extends: ['@vben', 'plugin:import/recommended'],
   rules: {
+    'prettier/prettier': 'error',
     'import/no-unresolved': 'off',
 
     'object-shorthand': ['error', 'always', { ignoreConstructors: false, avoidQuotes: true }],

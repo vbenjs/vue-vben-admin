@@ -172,7 +172,7 @@
     }
   }
 
-  function handleSearchChange(e: Event) {
+  function handleSearchChange(e) {
     const value = e.target.value;
     if (!value) {
       setCurrentPage(1);

@@ -36,30 +36,6 @@
     "test:gzip": "npx http-server dist --cors --gzip -c-1",
     "type:check": "vue-tsc --noEmit --skipLibCheck"
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "prettier --write",
-      "eslint --fix"
-    ],
-    "{!(package)*.json,*.code-snippets,.!(browserslist)*rc}": [
-      "prettier --write--parser json"
-    ],
-    "package.json": [
-      "prettier --write"
-    ],
-    "*.vue": [
-      "prettier --write",
-      "eslint --fix",
-      "stylelint --fix"
-    ],
-    "*.{scss,less,styl,html}": [
-      "prettier --write",
-      "stylelint --fix"
-    ],
-    "*.md": [
-      "prettier --write"
-    ]
-  },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-git"
@@ -97,7 +73,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.5.1",
     "@commitlint/config-conventional": "^17.4.4",
-    "@iconify/json": "^2.2.46",
+    "@iconify/json": "^2.2.47",
     "@purge-icons/generated": "^0.9.0",
     "@types/crypto-js": "^4.1.1",
     "@types/lodash-es": "^4.17.7",
@@ -106,6 +82,7 @@
     "@types/qs": "^6.9.7",
     "@types/sortablejs": "^1.15.1",
     "@vben/eslint-config": "workspace:*",
+    "@vben/prettier-config": "workspace:*",
     "@vben/stylelint-config": "workspace:*",
     "@vben/ts-config": "workspace:*",
     "@vben/types": "workspace:*",
@@ -117,8 +94,6 @@
     "czg": "^1.6.1",
     "husky": "^8.0.3",
     "lint-staged": "13.2.1",
-    "prettier": "^2.8.7",
-    "prettier-plugin-packagejson": "^2.4.3",
     "rimraf": "^4.4.1",
     "turbo": "^1.8.8",
     "typescript": "^5.0.4",

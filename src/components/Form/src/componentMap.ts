@@ -20,7 +20,6 @@ import {
 import type { Component } from 'vue';
 
 import { CountdownInput } from '@/components/CountDown';
-import { IconPicker } from '@/components/Icon';
 import { BasicUpload } from '@/components/Upload';
 
 import ApiCascader from './components/ApiCascader.vue';
@@ -64,7 +63,6 @@ componentMap.set('MonthPicker', DatePicker.MonthPicker);
 componentMap.set('RangePicker', DatePicker.RangePicker);
 componentMap.set('WeekPicker', DatePicker.WeekPicker);
 componentMap.set('TimePicker', TimePicker);
-componentMap.set('IconPicker', IconPicker);
 componentMap.set('InputCountDown', CountdownInput);
 
 componentMap.set('Upload', BasicUpload);
