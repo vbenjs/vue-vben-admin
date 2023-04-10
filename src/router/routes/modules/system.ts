@@ -65,6 +65,18 @@ const system: AppRouteModule = {
       },
       component: () => import('/@/views/system/log/index.vue'),
     },
+    {
+      path: 'log/:id',
+      name: 'LogDetail',
+      meta: {
+        hideMenu: true,
+        title: t('routes.system.log.detail.title'),
+        ignoreKeepAlive: true,
+        showMenu: false,
+        currentActiveMenu: '/system/log',
+      },
+      component: () => import('/@/views/system/log/LogDetail.vue'),
+    },
   ],
 };
 

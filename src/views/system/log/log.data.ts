@@ -2,8 +2,9 @@ import { h } from 'vue';
 
 import { Tag } from 'ant-design-vue';
 
-import { BasicColumn } from '/@/components/Table';
-import { FormSchema } from '/@/components/Table';
+import { CodeEditor } from '/@/components/CodeEditor';
+import { BasicColumn, FormSchema } from '/@/components/Table';
+import { DescItem } from '/@/components/Description/index';
 
 import { YesNo } from '/@/enums/YesNo';
 
@@ -99,5 +100,66 @@ export const searchFormSchema: FormSchema[] = [
         width: '100%',
       },
     },
+  },
+];
+
+export const logDetailSchema: DescItem[] = [
+  {
+    field: 'module',
+    label: '日志模块',
+  },
+  {
+    field: 'content',
+    label: '日志内容',
+  },
+  {
+    field: 'userId',
+    label: '用户id',
+  },
+  {
+    field: 'userIp',
+    label: '用户ip',
+  },
+  {
+    field: 'isSucceeded',
+    label: '是否成功',
+    render: (val) => {
+      const succeeded = val === YesNo.YES;
+      const color = succeeded ? 'green' : 'red';
+      const text = succeeded ? '成功' : '失败';
+      return h(Tag, { color: color }, () => text);
+    },
+  },
+  {
+    field: 'cost',
+    label: '消耗时间',
+  },
+  {
+    field: 'logTime',
+    label: '日志时间',
+    render: (val) => {
+      return dayjs(val).format('YYYY-MM-DD HH:mm:ss');
+    },
+  },
+];
+
+export const requestSchema: DescItem[] = [
+  {
+    field: 'request',
+    label: '请求内容',
+    render: (val) => {
+      return h(CodeEditor, { value: val });
+    },
+  },
+  {
+    field: 'response',
+    label: '响应内容',
+    render: (val) => {
+      return h(CodeEditor, { value: val });
+    },
+  },
+  {
+    field: 'error',
+    label: '错误信息',
   },
 ];
