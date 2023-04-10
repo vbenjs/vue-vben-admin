@@ -34,4 +34,8 @@ export function listDatabaseTables(id: number) {
   return defHttp.get<SimpleDatabaseTable[]>({ url: `${domain}/${id}/tables` });
 }
 
+export function connectDatabase(data: DatabaseEntity) {
+  return defHttp.post<Boolean>({ url: `${domain}/connect`, data });
+}
+
 export { DatabaseEntity };
