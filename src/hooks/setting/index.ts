@@ -1,5 +1,5 @@
-import type { GlobConfig } from '/#/config';
 import { getAppEnvConfig } from '@/utils/env';
+import type { GlobConfig } from '#/config';
 
 export const useGlobSetting = (): Readonly<GlobConfig> => {
   const { VITE_GLOB_APP_TITLE, VITE_GLOB_API_URL, VITE_GLOB_API_URL_PREFIX, VITE_GLOB_UPLOAD_URL } =

@@ -2,10 +2,10 @@ import { loggerError } from '@vben/shared';
 import type { WatchStopHandle } from 'vue';
 import { onUnmounted, ref, toRaw, unref, watch } from 'vue';
 
-import type { DynamicProps } from '/#/utils';
 import type { FormActionType } from '@/components/Form';
 import { getDynamicProps } from '@/utils';
 import { isProdMode } from '@/utils/env';
+import type { DynamicProps } from '#/utils';
 
 import type { PaginationProps } from '../types/pagination';
 import type { BasicColumn, BasicTableProps, FetchParams, TableActionType } from '../types/table';

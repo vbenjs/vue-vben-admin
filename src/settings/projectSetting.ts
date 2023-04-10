@@ -1,6 +1,5 @@
 import { APP_HEADER_THEME_PRESET_COLORS, APP_MENU_THEME_PRESET_COLORS } from '@vben/constants';
 
-import type { ProjectConfig } from '/#/config';
 import {
   ContentEnum,
   PermissionModeEnum,
@@ -11,6 +10,7 @@ import {
 } from '@/enums/appEnum';
 import { CacheTypeEnum } from '@/enums/cacheEnum';
 import { MenuModeEnum, MenuTypeEnum, MixSidebarTriggerEnum, TriggerEnum } from '@/enums/menuEnum';
+import type { ProjectConfig } from '#/config';
 
 const primaryColor = '#0960bd';
 

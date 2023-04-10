@@ -1,4 +1,4 @@
-import type { GlobEnvConfig } from '/#/config';
+import type { GlobEnvConfig } from '#/config';
 
 import pkg from '../../package.json';
 

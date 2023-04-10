@@ -1,4 +1,3 @@
-import type { ErrorMessageMode } from '/#/axios';
 import { SessionTimeoutProcessingEnum } from '@/enums/appEnum';
 import { useI18n } from '@/hooks/web/useI18n';
 import { useMessage } from '@/hooks/web/useMessage';
@@ -6,6 +5,7 @@ import projectSetting from '@/settings/projectSetting';
 // import router from '@/router';
 // import { PageEnum } from '@/enums/pageEnum';
 import { useUserStoreWithOut } from '@/store/modules/user';
+import type { ErrorMessageMode } from '#/axios';
 
 const { createMessage, createErrorModal } = useMessage();
 const error = createMessage.error!;

@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 
-import type { LockInfo } from '/#/store';
 import { LOCK_INFO_KEY } from '@/enums/cacheEnum';
 import { Persistent } from '@/utils/cache/persistent';
+import type { LockInfo } from '#/store';
 
 import { useUserStore } from './user';
 

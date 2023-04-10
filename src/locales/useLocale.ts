@@ -3,8 +3,8 @@
  */
 import { computed, unref } from 'vue';
 
-import type { LocaleType } from '/#/config';
 import { useLocaleStoreWithOut } from '@/store/modules/locale';
+import type { LocaleType } from '#/config';
 
 import { loadLocalePool, setHtmlPageLang } from './helper';
 import { i18n } from './setupI18n';

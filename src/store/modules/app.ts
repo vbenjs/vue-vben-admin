@@ -1,19 +1,19 @@
 import { defineStore } from 'pinia';
 
-import type {
-  HeaderSetting,
-  MenuSetting,
-  MultiTabsSetting,
-  ProjectConfig,
-  TransitionSetting,
-} from '/#/config';
-import type { BeforeMiniState } from '/#/store';
 import { ThemeEnum } from '@/enums/appEnum';
 import { APP_DARK_MODE_KEY_, PROJ_CFG_KEY } from '@/enums/cacheEnum';
 import { resetRouter } from '@/router';
 import { store } from '@/store';
 import { deepMerge } from '@/utils';
 import { Persistent } from '@/utils/cache/persistent';
+import type {
+  HeaderSetting,
+  MenuSetting,
+  MultiTabsSetting,
+  ProjectConfig,
+  TransitionSetting,
+} from '#/config';
+import type { BeforeMiniState } from '#/store';
 
 interface AppState {
   darkMode?: ThemeEnum;

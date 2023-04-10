@@ -1,4 +1,4 @@
-import type { LocaleSetting, LocaleType } from '/#/config';
+import type { LocaleSetting, LocaleType } from '#/config';
 
 import type { DropMenu } from '../components/Dropdown';
 

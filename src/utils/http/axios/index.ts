@@ -6,7 +6,6 @@ import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 import { clone } from 'lodash-es';
 
-import type { RequestOptions, Result } from '/#/axios';
 import { ContentTypeEnum, RequestEnum, ResultEnum } from '@/enums/httpEnum';
 import { useGlobSetting } from '@/hooks/setting';
 import { useI18n } from '@/hooks/web/useI18n';
@@ -15,6 +14,7 @@ import { useUserStoreWithOut } from '@/store/modules/user';
 import { deepMerge, setObjToUrlParams } from '@/utils';
 import { getToken } from '@/utils/auth';
 import { AxiosRetry } from '@/utils/http/axios/axiosRetry';
+import type { RequestOptions, Result } from '#/axios';
 
 import { VAxios } from './Axios';
 import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
