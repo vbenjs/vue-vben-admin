@@ -17,10 +17,10 @@
   },
   "scripts": {
     "bootstrap": "pnpm install",
-    "build": "cross-env NODE_ENV=production pnpm vite build",
-    "build:analyze": "pnpm vite build --mode analyze",
+    "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max-old-space-size=8192 pnpm vite build",
+    "build:analyze": "cross-env NODE_OPTIONS=--max-old-space-size=8192 pnpm vite build --mode analyze",
     "build:no-cache": "pnpm clean:cache && npm run build",
-    "build:test": "pnpm vite build --mode test",
+    "build:test": "cross-env NODE_OPTIONS=--max-old-space-size=8192 pnpm vite build --mode test",
     "commit": "czg",
     "dev": "pnpm vite",
     "preinstall": "npx only-allow pnpm",
