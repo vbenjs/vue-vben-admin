@@ -76,7 +76,9 @@
     <department-tree class="w-1/4 xl:w-1/5" toolbar search @select="handleDepartmentSelect" />
     <basic-table @register="registerTable" class="w-3/4 xl:w-4/5">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate">新增账号</a-button>
+        <a-button v-auth="'system:user:create'" type="primary" @click="handleCreate">
+          新增账号
+        </a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -85,18 +87,21 @@
               {
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑',
+                auth: 'system:user:update',
                 ifShow: record.isSystemic === YesNo.NO,
                 onClick: handleEdit.bind(null, record),
               },
               {
                 icon: 'mingcute:department-line',
                 tooltip: '部门配置',
+                auth: 'system:user:update',
                 ifShow: record.isSystemic === YesNo.NO,
                 onClick: handleDepartmentSetting.bind(null, record),
               },
               {
                 icon: 'eos-icons:role-binding-outlined',
                 tooltip: '角色配置',
+                auth: 'system:user:update',
                 ifShow: record.isSystemic === YesNo.NO,
                 onClick: handleRoleSetting.bind(null, record),
               },
@@ -104,6 +109,7 @@
                 icon: 'ant-design:delete-outlined',
                 color: 'error',
                 tooltip: '删除',
+                auth: 'system:user:delete',
                 ifShow: record.isSystemic === YesNo.NO,
                 popConfirm: {
                   title: '是否确认删除',

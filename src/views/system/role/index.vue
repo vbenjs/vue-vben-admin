@@ -55,7 +55,9 @@
   <div>
     <basic-table @register="register">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增角色 </a-button>
+        <a-button v-auth="'system:role:create'" type="primary" @click="handleCreate">
+          新增角色
+        </a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -64,12 +66,14 @@
               {
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑',
+                auth: 'system:role:update',
                 ifShow: record.isSystemic === YesNo.NO,
                 onClick: handleEdit.bind(null, record),
               },
               {
                 icon: 'ant-design:setting-outlined',
                 tooltip: '角色配置',
+                auth: 'system:role:update',
                 ifShow: record.isSystemic === YesNo.NO,
                 onClick: handleSetting.bind(null, record),
               },
@@ -77,6 +81,7 @@
                 icon: 'ant-design:delete-outlined',
                 tooltip: '删除',
                 color: 'error',
+                auth: 'system:role:delete',
                 ifShow: record.isSystemic === YesNo.NO,
                 popConfirm: {
                   title: '是否确认删除',

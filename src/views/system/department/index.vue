@@ -49,7 +49,9 @@
   <div>
     <basic-table @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增部门 </a-button>
+        <a-button v-auth="'system:department:create'" type="primary" @click="handleCreate">
+          新增部门
+        </a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -58,6 +60,7 @@
               {
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑',
+                auth: 'system:department:update',
                 ifShow: record.data.isSystemic === YesNo.NO,
                 onClick: handleEdit.bind(null, record),
               },
@@ -65,6 +68,7 @@
                 icon: 'ant-design:delete-outlined',
                 tooltip: '删除',
                 color: 'error',
+                auth: 'system:department:delete',
                 ifShow: record.data.isSystemic === YesNo.NO,
                 popConfirm: {
                   title: '是否确认删除',
