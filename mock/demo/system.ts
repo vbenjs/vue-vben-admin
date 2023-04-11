@@ -1,4 +1,5 @@
 import { MockMethod } from 'vite-plugin-mock';
+
 import { resultError, resultPageSuccess, resultSuccess } from '../_util';
 
 const accountList = (() => {

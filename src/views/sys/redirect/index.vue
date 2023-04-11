@@ -2,9 +2,9 @@
   <div></div>
 </template>
 <script lang="ts" setup>
+  import { isArray } from '@vben/shared';
   import { unref } from 'vue';
   import { useRouter } from 'vue-router';
-  import { isArray } from '@vben/shared';
 
   const { currentRoute, replace } = useRouter();
 

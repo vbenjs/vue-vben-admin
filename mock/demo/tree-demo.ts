@@ -1,4 +1,5 @@
 import { MockMethod } from 'vite-plugin-mock';
+
 import { resultSuccess } from '../_util';
 
 const demoTreeList = (keyword) => {
