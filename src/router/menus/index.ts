@@ -10,7 +10,7 @@ import { useAppStoreWithOut } from '@/store/modules/app';
 import { usePermissionStore } from '@/store/modules/permission';
 import { filter } from '@/utils/helper/treeHelper';
 
-const modules = import.meta.globEager('./modules/**/*.ts');
+const modules = import.meta.glob('./modules/**/*.ts', { eager: true });
 
 const menuModules: MenuModule[] = [];
 
