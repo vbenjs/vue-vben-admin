@@ -11,8 +11,8 @@
 
   const props = defineProps<{ preview: PreviewResponse }>();
 
-  const activeTable = ref<string>('');
-  const activeCode = ref<string>('');
+  const activeTable = ref<string>(keys(props.preview)[0]);
+  const activeCode = ref<string>(props.preview[activeTable.value][0].name);
 
   const emit = defineEmits(['download', 'redo']);
 
