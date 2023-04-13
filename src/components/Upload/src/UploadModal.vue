@@ -43,7 +43,7 @@
   </BasicModal>
 </template>
 <script lang="ts">
-  import { createUUID, isFunction, loggerWarning } from '@vben/shared';
+  import { generateUUID, isFunction, loggerWarning } from '@vben/shared';
   import { Alert, Upload } from 'ant-design-vue';
   import { computed, defineComponent, PropType, reactive, ref, toRefs, unref } from 'vue';
 
@@ -132,7 +132,7 @@
         }
 
         const commonItem = {
-          uuid: createUUID(),
+          uuid: generateUUID(),
           file,
           size,
           name,

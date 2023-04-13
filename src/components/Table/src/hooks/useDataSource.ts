@@ -1,5 +1,5 @@
 import { useTimeoutFn } from '@vben/hooks';
-import { createUUID, isArray, isBoolean, isFunction, isObject } from '@vben/shared';
+import { generateUUID, isArray, isBoolean, isFunction, isObject } from '@vben/shared';
 import { cloneDeep, get, merge } from 'lodash-es';
 import {
   computed,
@@ -94,7 +94,7 @@ export function useDataSource(
     if (!items || !isArray(items)) return;
     items.forEach((item) => {
       if (!item[ROW_KEY]) {
-        item[ROW_KEY] = createUUID();
+        item[ROW_KEY] = generateUUID();
       }
       if (item.children && item.children.length) {
         setTableKey(item.children);
@@ -125,7 +125,7 @@ export function useDataSource(
           const data = cloneDeep(unref(dataSourceRef));
           data.forEach((item) => {
             if (!item[ROW_KEY]) {
-              item[ROW_KEY] = createUUID();
+              item[ROW_KEY] = generateUUID();
             }
             if (item.children && item.children.length) {
               setTableKey(item.children);
