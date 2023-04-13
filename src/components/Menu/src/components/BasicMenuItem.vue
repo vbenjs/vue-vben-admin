@@ -4,10 +4,10 @@
   </MenuItem>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
   import { Menu } from 'ant-design-vue';
-  import { itemProps } from '../props';
+  import { defineComponent } from 'vue';
 
+  import { itemProps } from '../props';
   import MenuItemContent from './MenuItemContent.vue';
 
   export default defineComponent({

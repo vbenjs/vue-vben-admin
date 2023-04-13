@@ -1,4 +1,5 @@
 import type { PropType } from 'vue';
+
 import { FileBasicColumn } from './typing';
 
 export const basicProps = {

@@ -1,5 +1,5 @@
-import { computed, ComponentInternalInstance, unref } from 'vue';
 import type { CSSProperties } from 'vue';
+import { ComponentInternalInstance, computed, unref } from 'vue';
 
 export function useMenuItem(instance: ComponentInternalInstance | null) {
   const getParentMenu = computed(() => {

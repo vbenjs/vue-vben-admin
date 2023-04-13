@@ -1,10 +1,10 @@
-import { ProjectConfig } from '/#/config';
 import { useRootSetting } from '@/hooks/setting/useRootSetting';
 import { updateDarkTheme } from '@/logics/theme/dark';
 import { updateHeaderBgColor, updateSidebarBgColor } from '@/logics/theme/updateBackground';
 import { updateColorWeak } from '@/logics/theme/updateColorWeak';
 import { updateGrayMode } from '@/logics/theme/updateGrayMode';
 import { useAppStore } from '@/store/modules/app';
+import { ProjectConfig } from '#/config';
 
 import { HandlerEnum } from './enum';
 

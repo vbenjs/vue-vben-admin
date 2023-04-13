@@ -1,7 +1,6 @@
 /**
  * Application configuration
  */
-import type { ProjectConfig } from '/#/config';
 import { ThemeEnum } from '@/enums/appEnum';
 import { PROJ_CFG_KEY } from '@/enums/cacheEnum';
 import { updateDarkTheme } from '@/logics/theme/dark';
@@ -14,6 +13,7 @@ import { useLocaleStore } from '@/store/modules/locale';
 import { deepMerge } from '@/utils';
 import { Persistent } from '@/utils/cache/persistent';
 import { getCommonStoragePrefix, getStorageShortName } from '@/utils/env';
+import type { ProjectConfig } from '#/config';
 
 // Initial project configuration
 export function initAppConfigStore() {

@@ -1,5 +1,6 @@
-import { resultSuccess, resultError, getRequestToken, requestParams } from '../_util';
 import { MockMethod } from 'vite-plugin-mock';
+
+import { getRequestToken, requestParams, resultError, resultSuccess } from '../_util';
 import { createFakeUserList } from './user';
 
 // single
