@@ -36,7 +36,7 @@
 </template>
 <script lang="ts">
   // components
-  import { DEFAULT_AVATAR_IMAGE, DOC_URL } from '@vben/constants';
+  import { DEFAULT_AVATAR_IMAGE, DOC_URL } from '@vben/shared';
   import { Dropdown, Menu } from 'ant-design-vue';
   import type { MenuInfo } from 'ant-design-vue/lib/menu/src/interface';
   import { computed, defineComponent } from 'vue';

@@ -1,0 +1,23 @@
+{
+  "name": "@vben/assets",
+  "version": "1.0.0",
+  "private": true,
+  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "bugs": {
+    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "directory": "packages/assets"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    }
+  },
+  "main": "./src/index.ts",
+  "module": "./src/index.ts"
+}

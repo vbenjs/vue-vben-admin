@@ -35,6 +35,9 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
     const pathResolve = (pathname: string) => resolve(root, '.', pathname);
 
     const applicationConfig: UserConfig = {
+      esbuild: {
+        drop: isBuild ? ['console', 'debugger'] : [],
+      },
       resolve: {
         alias: [
           {

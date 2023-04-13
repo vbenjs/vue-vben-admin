@@ -138,7 +138,6 @@
 
       function renderMenu() {
         const { menus, ...menuProps } = unref(getCommonProps);
-        // console.log(menus);
         if (!menus || !menus.length) return null;
         return !props.isHorizontal ? (
           <SimpleMenu {...menuProps} isSplitMenu={unref(getSplit)} items={menus} />

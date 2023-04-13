@@ -1,0 +1,30 @@
+{
+  "name": "@vben/app-vben-admin",
+  "version": "3.0.0-alpha.1",
+  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "bugs": {
+    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "directory": "apps/vben-admin"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "vben",
+    "email": "anncwb@126.com",
+    "url": "https://github.com/anncwb"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production pnpm vite build",
+    "dev": "pnpm vite",
+    "lint": "eslint .",
+    "type:check": "vue-tsc --noEmit --skipLibCheck"
+  },
+  "dependencies": {
+    "@vben/shared": "workspace:*",
+    "vue": "^3.2.47",
+    "vue-router": "^4.1.6"
+  }
+}

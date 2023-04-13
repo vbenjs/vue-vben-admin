@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { GLOBAL_NAMESPACE } from '@vben/constants';
+  import { GLOBAL_NAMESPACE } from '@vben/shared';
   import { defineComponent, ref, toRefs, unref } from 'vue';
 
   import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum';

@@ -15,7 +15,7 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
-  import { DOC_URL, GITHUB_URL, SITE_URL } from '@vben/constants';
+  import { DOC_URL, GITHUB_URL, SITE_URL } from '@vben/shared';
   import { Tag } from 'ant-design-vue';
   import { h } from 'vue';
 

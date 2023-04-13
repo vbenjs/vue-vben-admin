@@ -20,7 +20,7 @@
   const userStore = useUserStore();
   const permissionStore = usePermissionStore();
   const appStore = useAppStore();
-  const userId = ref<Nullable<number | string>>(0);
+  const userId = ref<number | string | null>(0);
 
   const isBackMode = () => {
     return appStore.getProjectConfig.permissionMode === PermissionModeEnum.BACK;
@@ -29,7 +29,6 @@
   onMounted(() => {
     // 记录当前的UserId
     userId.value = userStore.getUserInfo?.userId;
-    console.log('Mounted', userStore.getUserInfo);
   });
 
   onBeforeUnmount(() => {

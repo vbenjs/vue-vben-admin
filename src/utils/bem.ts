@@ -1,5 +1,4 @@
-import { GLOBAL_NAMESPACE } from '@vben/constants';
-import { isArray } from '@vben/shared';
+import { GLOBAL_NAMESPACE, isArray } from '@vben/shared';
 
 type Mod = string | { [key: string]: any };
 type Mods = Mod | Mod[];

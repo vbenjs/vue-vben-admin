@@ -1,4 +1,4 @@
-import { APP_HEADER_THEME_PRESET_COLORS, APP_MENU_THEME_PRESET_COLORS } from '@vben/constants';
+import { APP_HEADER_THEME_PRESET_COLORS, APP_MENU_THEME_PRESET_COLORS } from '@vben/shared';
 
 import {
   ContentEnum,

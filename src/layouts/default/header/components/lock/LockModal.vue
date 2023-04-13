@@ -25,7 +25,7 @@
   </BasicModal>
 </template>
 <script lang="ts">
-  import { DEFAULT_AVATAR_IMAGE } from '@vben/constants';
+  import { DEFAULT_AVATAR_IMAGE } from '@vben/shared';
   import { computed, defineComponent } from 'vue';
 
   import { BasicForm, useForm } from '@/components/Form/index';

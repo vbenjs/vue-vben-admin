@@ -42,10 +42,10 @@
     "stylelint": "^15.4.0",
     "stylelint-config-property-sort-order-smacss": "^9.1.0",
     "stylelint-config-recommended": "^11.0.0",
-    "stylelint-config-recommended-scss": "^9.0.1",
+    "stylelint-config-recommended-scss": "^10.0.0",
     "stylelint-config-recommended-vue": "^1.4.0",
     "stylelint-config-standard": "^32.0.0",
-    "stylelint-config-standard-scss": "^7.0.1",
+    "stylelint-config-standard-scss": "^8.0.0",
     "stylelint-order": "^6.0.3",
     "stylelint-prettier": "^3.0.0"
   }

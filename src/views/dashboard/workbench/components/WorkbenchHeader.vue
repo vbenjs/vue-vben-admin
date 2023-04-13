@@ -23,7 +23,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { DEFAULT_AVATAR_IMAGE } from '@vben/constants';
+  import { DEFAULT_AVATAR_IMAGE } from '@vben/shared';
   import { Avatar } from 'ant-design-vue';
   import { computed } from 'vue';
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import Iconify from '@purge-icons/generated';
+  import iconify from '@purge-icons/generated';
   import { isString } from '@vben/shared';
   import {
     computed,
@@ -77,7 +77,7 @@
     await nextTick();
     const icon = unref(iconName);
 
-    const svg = Iconify.renderSVG(icon, {});
+    const svg = iconify.renderSVG(icon, {});
     if (svg) {
       iconElement.textContent = '';
       iconElement.appendChild(svg);

@@ -80,8 +80,8 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { DEFAULT_AVATAR_IMAGE } from '@vben/constants';
   import { LockOutlined } from '@vben/icons';
+  import { DEFAULT_AVATAR_IMAGE } from '@vben/shared';
   import { Input } from 'ant-design-vue';
   import { computed, ref } from 'vue';
 

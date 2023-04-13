@@ -100,6 +100,5 @@
   async function handleRegister() {
     const data = await validForm();
     if (!data) return;
-    console.log(data);
   }
 </script>

@@ -6,9 +6,7 @@ const commonConfig: UserConfig = {
   server: {
     host: true,
   },
-  esbuild: {
-    drop: ['console', 'debugger'],
-  },
+
   build: {
     reportCompressedSize: false,
     chunkSizeWarningLimit: 1500,

@@ -12,8 +12,8 @@
 </template>
 
 <script lang="ts">
-  import { DOC_URL, GITHUB_URL, SITE_URL } from '@vben/constants';
   import { GithubFilled } from '@vben/icons';
+  import { DOC_URL, GITHUB_URL, SITE_URL } from '@vben/shared';
   import { Layout } from 'ant-design-vue';
   import { computed, defineComponent, ref, unref } from 'vue';
   import { useRouter } from 'vue-router';
