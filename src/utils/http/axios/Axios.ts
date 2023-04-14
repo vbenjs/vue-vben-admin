@@ -125,7 +125,7 @@ export class VAxios {
   /**
    * @description:  File Upload
    */
-  uploadFile<T = any>(config: AxiosRequestConfig, params: UploadFileParams) {
+  uploadFile<T = any>(config: AxiosRequestConfig, params: UploadFileParams, auth = false) {
     const formData = new window.FormData();
     const customFilename = params.name || 'file';
 
@@ -149,8 +149,10 @@ export class VAxios {
       });
     }
 
-    return this.axiosInstance.request<T>({
+    const config_: AxiosRequestConfig = {
       ...config,
+      // 防止上传大文件超时
+      timeout: 10 * 60 * 1000,
       method: 'POST',
       data: formData,
       headers: {
@@ -158,7 +160,12 @@ export class VAxios {
         // @ts-ignore
         ignoreCancelToken: true,
       },
-    });
+    };
+    if (auth) {
+      return this.post(config_);
+    }
+
+    return this.axiosInstance.request<T>(config_);
   }
 
   // support form-data
