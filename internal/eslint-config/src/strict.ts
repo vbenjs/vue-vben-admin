@@ -51,9 +51,21 @@ export default {
      * @link https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/consistent-type-definitions.md
      */
     '@typescript-eslint/consistent-type-definitions': ['warn', 'interface'],
+    '@typescript-eslint/no-non-null-assertion': 'error',
+    '@typescript-eslint/no-var-requires': 'error',
+    '@typescript-eslint/ban-types': 'error',
 
     'vue/attributes-order': 'error',
     'vue/require-default-prop': 'error',
+    'vue/require-explicit-emits': 'error',
+    'vue/prefer-import-from-vue': 'error',
+    'vue/attribute-hyphenation': 'error',
+    'vue/singleline-html-element-content-newline': 'error',
+    'vue/multiline-html-element-content-newline': 'error',
+    'vue/max-attributes-per-line': 'error',
+    'vue/html-closing-bracket-newline': 'error',
+    'vue/one-component-per-file': 'error',
+    'vue/custom-event-name-casing': 'error',
   },
 
   settings: {

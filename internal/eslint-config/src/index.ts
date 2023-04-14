@@ -48,16 +48,15 @@ export default defineConfig({
         varsIgnorePattern: '^_',
       },
     ],
-    '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-var-requires': 'off',
-    '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
     'vue/script-setup-uses-vars': 'error',
     'vue/no-reserved-component-names': 'off',
     'vue/custom-event-name-casing': 'off',
@@ -84,21 +83,17 @@ export default defineConfig({
       },
     ],
     'vue/multi-word-component-names': 'off',
-    // 'sort-imports': [
-    //   'error',
-    //   {
-    //     ignoreCase: true,
-    //     ignoreDeclarationSort: false,
-    //     ignoreMemberSort: false,
-    //     memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
-    //     allowSeparatedGroups: false,
-    //   },
-    // ],
   },
   overrides: [
     {
       files: ['*.json', '*.json5', '*.jsonc'],
       parser: 'jsonc-eslint-parser',
+    },
+    {
+      files: ['**.test.ts'],
+      rules: {
+        'no-console': 'off',
+      },
     },
     {
       files: ['package.json'],

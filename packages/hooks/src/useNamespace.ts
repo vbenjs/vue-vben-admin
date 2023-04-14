@@ -57,7 +57,7 @@ const useNamespace = (block: string, namespaceOverrides?: Ref<string | undefined
     (name: string, state: boolean | undefined): string;
     (name: string): string;
   } = (name: string, ...args: [boolean | undefined] | []) => {
-    const state = args.length >= 1 ? args[0]! : true;
+    const state = args.length >= 1 ? args[0] : true;
     return name && state ? `${statePrefix}${name}` : '';
   };
 

@@ -1,3 +1,4 @@
+// eslint-disable-next-line vue/prefer-import-from-vue
 import { isArray, isFunction, isString } from '@vue/shared';
 import { isBoolean, isNumber } from '@vueuse/core';
 import { isNil, isNull } from 'lodash-es';
@@ -8,7 +9,7 @@ function is(val: unknown, type: string) {
   return toString.call(val) === `[object ${type}]`;
 }
 
-function isObject(val: unknown): val is Object {
+function isObject(val: unknown): val is object {
   return val !== null && is(val, 'Object');
 }
 
