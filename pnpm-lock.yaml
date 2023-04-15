@@ -249,6 +249,9 @@ importers:
       '@vben/store':
         specifier: workspace:*
         version: link:../../packages/store
+      '@vben/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       vue:
         specifier: ^3.2.47
         version: 3.2.47
@@ -510,6 +513,18 @@ importers:
       vue:
         specifier: ^3.2.47
         version: 3.2.47
+
+  packages/ui:
+    dependencies:
+      '@vben/assets':
+        specifier: workspace:*
+        version: link:../assets
+      vue:
+        specifier: ^3.2.47
+        version: 3.2.47
+      vue-router:
+        specifier: ^4.1.6
+        version: 4.1.6(vue@3.2.47)
 
 packages:
 

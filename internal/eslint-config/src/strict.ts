@@ -62,7 +62,6 @@ export default {
     'vue/require-explicit-emits': 'error',
     'vue/prefer-import-from-vue': 'error',
     'vue/attribute-hyphenation': 'error',
-    'vue/singleline-html-element-content-newline': 'error',
     'vue/multiline-html-element-content-newline': 'error',
     'vue/html-closing-bracket-newline': 'error',
     'vue/one-component-per-file': 'error',
