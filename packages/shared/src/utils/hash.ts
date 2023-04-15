@@ -2,21 +2,16 @@
  * @description 生成UUID
  */
 function generateUUID(): string {
-  const hexVals = '0123456789abcdef';
-  let uuid = '';
-  for (let i = 0; i < 36; i++) {
-    let randVal = (Math.random() * 16) | 0;
-    if (i === 8 || i === 13 || i === 18 || i === 23) {
-      uuid += '-';
-    } else if (i === 14) {
-      uuid += '4';
-    } else if (i === 19) {
-      uuid += hexVals[(randVal & 0x3) | 0x8];
-      randVal = (Math.random() * 4) | 8;
-    }
-    uuid += hexVals[randVal];
+  let d = new Date().getTime();
+  if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
+    d += performance.now(); // use high-precision timer if available
   }
-  return uuid.replace(/-/g, '');
+  const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    const r = (d + Math.random() * 16) % 16 | 0;
+    d = Math.floor(d / 16);
+    return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
+  });
+  return uuid;
 }
 
 export { generateUUID };

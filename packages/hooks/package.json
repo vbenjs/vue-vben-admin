@@ -29,8 +29,8 @@
     "lint": "pnpm eslint ."
   },
   "dependencies": {
-    "@vueuse/core": "^9.13.0",
-    "@vueuse/integrations": "^9.13.0",
+    "@vueuse/core": "^10.0.2",
+    "@vueuse/integrations": "^10.0.2",
     "vue": "^3.2.47"
   },
   "devDependencies": {

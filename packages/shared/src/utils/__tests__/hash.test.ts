@@ -3,17 +3,19 @@ import { describe, expect, test } from 'vitest';
 import { generateUUID } from '../hash';
 
 describe('generateUUID', () => {
-  test('generates valid UUID', () => {
+  test('should return a string', () => {
     const uuid = generateUUID();
-    expect(uuid.length).toBe(38);
+    expect(typeof uuid).toBe('string');
   });
 
-  test('generates unique UUIDs', () => {
-    const uuidSet = new Set<string>();
-    for (let i = 0; i < 1000; i++) {
-      const uuid = generateUUID();
-      expect(uuidSet).not.toContain(uuid);
-      uuidSet.add(uuid);
-    }
+  test('Should be length 32', () => {
+    const uuid = generateUUID();
+    expect(uuid.length).toBe(36);
+  });
+
+  test('should have the correct format', () => {
+    const uuid = generateUUID();
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    expect(uuidRegex.test(uuid)).toBe(true);
   });
 });

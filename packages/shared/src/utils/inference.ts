@@ -1,7 +1,6 @@
 // eslint-disable-next-line vue/prefer-import-from-vue
 import { isArray, isFunction, isString } from '@vue/shared';
-import { isBoolean, isNumber } from '@vueuse/core';
-import { isNil, isNull } from 'lodash-es';
+import { isBoolean, isNil, isNull, isNumber } from 'lodash-es';
 
 const toString = Object.prototype.toString;
 
@@ -13,25 +12,25 @@ function isObject(val: unknown): val is object {
   return val !== null && is(val, 'Object');
 }
 
-function isUndefined(val: unknown): val is undefined {
-  return val === undefined;
+function isUndefined(value: unknown): value is undefined {
+  return typeof value === 'undefined';
 }
 
-function isEmpty<T = unknown>(val: T): val is T {
-  if (!val && val !== 0) {
+function isEmpty<T = unknown>(value: T): value is T {
+  if (value === null || value === undefined) {
     return true;
   }
 
-  if (isArray(val) || isString(val)) {
-    return val.length === 0;
+  if (isArray(value) || isString(value)) {
+    return value.length === 0;
   }
 
-  if (val instanceof Map || val instanceof Set) {
-    return val.size === 0;
+  if (value instanceof Map || value instanceof Set) {
+    return value.size === 0;
   }
 
-  if (isObject(val)) {
-    return Object.keys(val).length === 0;
+  if (isObject(value)) {
+    return Object.keys(value).length === 0;
   }
 
   return false;
@@ -42,17 +41,18 @@ function isEmpty<T = unknown>(val: T): val is T {
  * @param pathname
  * @returns
  */
-function isHttpUrl(url: string): boolean {
-  const reg = /^http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- ./?%&=]*)?/;
-  return reg.test(url);
+function isHttpUrl(url: string) {
+  // Regular expression to match HTTP(S) URL
+  const httpRegex = /^https?:\/\/.*$/;
+  return httpRegex.test(url);
 }
 
 function isMap(val: unknown): val is Map<any, any> {
-  return is(val, 'Map');
+  return is(val, 'Map') || val instanceof Map;
 }
 
 function isWindow(val: any): val is Window {
-  return typeof window !== 'undefined' && is(val, 'Window');
+  return typeof window !== 'undefined' && val !== null && val === val.window;
 }
 
 export {

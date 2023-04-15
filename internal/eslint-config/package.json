@@ -45,7 +45,7 @@
     "eslint-plugin-jsonc": "^2.7.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "eslint-plugin-vue": "^9.10.0",
+    "eslint-plugin-vue": "^9.11.0",
     "jsonc-eslint-parser": "^2.2.0",
     "vue-eslint-parser": "^9.1.1"
   }

@@ -1,5 +1,5 @@
 /**
- * 遍历树形结构，并返回所有节点中指定的值。
+ * @description 遍历树形结构，并返回所有节点中指定的值。
  * @param tree 树形结构数组
  * @param getChildNodes 获取子节点的函数
  * @param getValue 获取节点值的函数
