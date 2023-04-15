@@ -29,7 +29,7 @@ function traverseTree<T, V>(
   for (const treeNode of tree) {
     dfs(treeNode);
   }
-  return result;
+  return result.filter(Boolean);
 }
 
 export { traverseTree };

@@ -1,6 +1,7 @@
 import 'uno.css';
 import '@vben/design';
 
+import { useStore } from '@vben/store';
 // import '@/design/index.less';
 // import 'ant-design-vue/dist/antd.less';
 // Register icon sprite
@@ -13,9 +14,9 @@ import { router } from './router';
 async function bootstrap() {
   const app = createApp(App);
 
-  // // Configure store
-  // // 配置 store
-  // setupStore(app);
+  // Configure pinia-store
+  // 配置 pinia-store
+  useStore(app);
 
   // // Initialize internal system configuration
   // // 初始化内部系统配置
@@ -38,9 +39,6 @@ async function bootstrap() {
   // Register global directive
   // 注册全局指令
   // setupGlobDirectives(app);
-
-  // https://next.router.vuejs.org/api/#isready
-  // await router.isReady();
 
   app.mount('#app');
 }

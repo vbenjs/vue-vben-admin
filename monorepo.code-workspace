@@ -1,0 +1,60 @@
+{
+  "folders": [
+    {
+      "name": "server",
+      "path": "apps/test-server"
+    },
+    {
+      "name": "@vben/app-vben-admin",
+      "path": "apps/vben-admin"
+    },
+    {
+      "name": "@vben/eslint-config",
+      "path": "internal/eslint-config"
+    },
+    {
+      "name": "@vben/prettier-config",
+      "path": "internal/prettier-config"
+    },
+    {
+      "name": "@vben/stylelint-config",
+      "path": "internal/stylelint-config"
+    },
+    {
+      "name": "@vben/ts-config",
+      "path": "internal/ts-config"
+    },
+    {
+      "name": "@vben/vite-config",
+      "path": "internal/vite-config"
+    },
+    {
+      "name": "@vben/assets",
+      "path": "packages/assets"
+    },
+    {
+      "name": "@vben/design",
+      "path": "packages/design"
+    },
+    {
+      "name": "@vben/hooks",
+      "path": "packages/hooks"
+    },
+    {
+      "name": "@vben/icons",
+      "path": "packages/icons"
+    },
+    {
+      "name": "@vben/shared",
+      "path": "packages/shared"
+    },
+    {
+      "name": "@vben/types",
+      "path": "packages/types"
+    },
+    {
+      "name": "root",
+      "path": "."
+    }
+  ]
+}

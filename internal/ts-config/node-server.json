@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Node Server  Config",
+  "display": "Node Server Config",
   "extends": "./base.json",
   "compilerOptions": {
     "module": "commonjs",

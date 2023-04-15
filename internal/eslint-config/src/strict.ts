@@ -64,7 +64,6 @@ export default {
     'vue/attribute-hyphenation': 'error',
     'vue/singleline-html-element-content-newline': 'error',
     'vue/multiline-html-element-content-newline': 'error',
-    'vue/max-attributes-per-line': 'error',
     'vue/html-closing-bracket-newline': 'error',
     'vue/one-component-per-file': 'error',
     'vue/custom-event-name-casing': 'error',

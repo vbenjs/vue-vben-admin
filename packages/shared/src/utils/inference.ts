@@ -4,12 +4,12 @@ import { isBoolean, isNil, isNull, isNumber } from 'lodash-es';
 
 const toString = Object.prototype.toString;
 
-function is(val: unknown, type: string) {
-  return toString.call(val) === `[object ${type}]`;
+function is(value: unknown, type: string) {
+  return toString.call(value) === `[object ${type}]`;
 }
 
-function isObject(val: unknown): val is object {
-  return val !== null && is(val, 'Object');
+function isObject(value: unknown): value is object {
+  return value !== null && is(value, 'Object');
 }
 
 function isUndefined(value: unknown): value is undefined {
@@ -47,12 +47,12 @@ function isHttpUrl(url: string) {
   return httpRegex.test(url);
 }
 
-function isMap(val: unknown): val is Map<any, any> {
-  return is(val, 'Map') || val instanceof Map;
+function isMap(value: unknown): value is Map<any, any> {
+  return is(value, 'Map') || value instanceof Map;
 }
 
-function isWindow(val: any): val is Window {
-  return typeof window !== 'undefined' && val !== null && val === val.window;
+function isWindow(value: any): value is Window {
+  return typeof window !== 'undefined' && value !== null && value === value.window;
 }
 
 export {

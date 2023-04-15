@@ -14,3 +14,4 @@ dist
 /bin
 Dockerfile
 **/dist/**
+__tests__

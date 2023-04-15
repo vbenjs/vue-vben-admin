@@ -2,7 +2,6 @@ import { describe, expect, test } from 'vitest';
 
 import { formatDate, formatDateTime } from '../date';
 
-// Describe the unit test
 describe('formatDate', () => {
   test('should return "2023-01-01" when passed new Date("2023-01-01T00:00:00.000Z")', () => {
     const date = new Date('2023-01-01T00:00:00.000Z');
