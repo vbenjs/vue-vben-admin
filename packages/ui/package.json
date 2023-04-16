@@ -16,6 +16,9 @@
   "exports": {
     ".": {
       "default": "./src/index.ts"
+    },
+    "./pages": {
+      "default": "./src/pages/index.ts"
     }
   },
   "main": "./src/index.ts",
@@ -23,10 +26,9 @@
   "dependencies": {
     "@vben/assets": "workspace:*",
     "@vben/hooks": "workspace:*",
+    "@vben/types": "workspace:*",
+    "ant-design-vue": "^4.0.0-alpha.5",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
-  },
-  "devDependencies": {
-    "ant-design-vue": "^3.2.17"
   }
 }

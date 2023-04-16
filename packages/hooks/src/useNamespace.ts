@@ -6,13 +6,9 @@ import { useCssModule } from 'vue';
 
 const statePrefix = 'is-';
 
-const _bem = (
-  cssStyles: Record<string, string> | null,
-  block: string,
-  blockSuffix: string,
-  element: string,
-  modifier: string,
-) => {
+const _bem = (block: string, blockSuffix: string, element: string, modifier: string) => {
+  const $style = useCssModule();
+
   let cls = `${block}`;
   if (blockSuffix) {
     cls += `-${blockSuffix}`;
@@ -23,23 +19,19 @@ const _bem = (
   if (modifier) {
     cls += `--${modifier}`;
   }
-  return cssStyles ? cssStyles[cls] : cls;
+  return $style[cls];
 };
 
-const useNamespace = (block: string, cssModule = true) => {
-  const $style = cssModule ? useCssModule() : null;
+const useNamespace = (block: string) => {
+  const b = (blockSuffix = '') => _bem(block, blockSuffix, '', '');
+  const e = (element: string) => _bem(block, '', element, '');
+  const m = (modifier: string) => _bem(block, '', '', modifier);
+  const be = (blockSuffix: string, element: string) => _bem(block, blockSuffix, element, '');
+  const em = (element: string, modifier: string) => _bem(block, '', element, modifier);
+  const bm = (blockSuffix: string, modifier: string) => _bem(block, blockSuffix, '', modifier);
+  const bem = (blockSuffix: string, element: string, modifier: string) =>
+    _bem(block, blockSuffix, element, modifier);
 
-  const b = (blockSuffix = '') => _bem($style, block, blockSuffix, '', '');
-  const e = (element?: string) => (element ? _bem($style, block, '', element, '') : '');
-  const m = (modifier?: string) => (modifier ? _bem($style, block, '', '', modifier) : '');
-  const be = (blockSuffix?: string, element?: string) =>
-    blockSuffix && element ? _bem($style, block, blockSuffix, element, '') : '';
-  const em = (element?: string, modifier?: string) =>
-    element && modifier ? _bem($style, block, '', element, modifier) : '';
-  const bm = (blockSuffix?: string, modifier?: string) =>
-    blockSuffix && modifier ? _bem($style, block, blockSuffix, '', modifier) : '';
-  const bem = (blockSuffix?: string, element?: string, modifier?: string) =>
-    blockSuffix && element && modifier ? _bem($style, block, blockSuffix, element, modifier) : '';
   const is: {
     (name: string, state: boolean | undefined): string;
     (name: string): string;
@@ -74,7 +66,6 @@ const useNamespace = (block: string, cssModule = true) => {
   const cssVarBlockName = (name: string) => `--${block}-${name}`;
 
   return {
-    $style,
     b,
     e,
     m,

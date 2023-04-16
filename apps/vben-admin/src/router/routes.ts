@@ -33,9 +33,17 @@ const staticRoutes: RouteRecordRaw[] = [
     },
   },
   {
+    path: '/redirect',
+    name: 'Redirect',
+    component: () => import('@vben/ui/pages').then((m) => m.Redirect),
+    meta: {
+      title: 'Redirect',
+    },
+  },
+  {
     path: '/:path(.*)*',
     name: 'PageNotFound',
-    component: () => import('@/views/not-found/index.vue'),
+    component: () => import('@vben/ui/pages').then((m) => m.NotFound),
     meta: {
       title: 'PageNotFound',
     },

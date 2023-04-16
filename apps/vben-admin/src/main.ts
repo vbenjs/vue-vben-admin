@@ -1,11 +1,6 @@
-import 'uno.css';
 import '@vben/design';
 
 import { useStore } from '@vben/store';
-// import '@/design/index.less';
-// import 'ant-design-vue/dist/antd.less';
-// Register icon sprite
-// import 'virtual:svg-icons-register';
 import { createApp } from 'vue';
 
 import App from './App.vue';
@@ -18,8 +13,8 @@ async function bootstrap() {
   // 配置 pinia-store
   useStore(app);
 
-  // // Initialize internal system configuration
-  // // 初始化内部系统配置
+  // Initialize internal system configuration
+  // 初始化内部系统配置
   // initAppConfigStore();
 
   // Multilingual configuration

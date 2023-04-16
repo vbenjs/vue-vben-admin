@@ -1,6 +1,6 @@
 // 全局样式，用于元素可见时左右上下滑动的动效
 
-$max-child: 6;
+$max-child: 5;
 
 @for $i from 1 through $max-child {
   * > .enter-x:nth-child(#{$i}) {
@@ -13,7 +13,7 @@ $max-child: 6;
 
   * > .enter-x:nth-child(#{$i}),
   * > .-enter-x:nth-child(#{$i}) {
-    z-index: 10 - #{$i};
+    // z-index: 10 - $i;
     opacity: 0;
     animation: enter-x-animation 0.4s ease-in-out 0.3s;
     animation-delay: 0.1s * $i;
@@ -30,7 +30,7 @@ $max-child: 6;
 
   * > .enter-y:nth-child(#{$i}),
   * > .-enter-y:nth-child(#{$i}) {
-    z-index: 10 - #{$i};
+    // z-index: 10 - $i;
     opacity: 0;
     animation: enter-y-animation 0.4s ease-in-out 0.3s;
     animation-delay: 0.1s * $i;

@@ -309,6 +309,9 @@ importers:
 
   internal/stylelint-config:
     dependencies:
+      stylelint-config-recess-order:
+        specifier: ^4.0.0
+        version: 4.0.0(stylelint@15.4.0)
       stylelint-scss:
         specifier: ^4.6.0
         version: 4.6.0(stylelint@15.4.0)
@@ -331,9 +334,6 @@ importers:
       stylelint:
         specifier: ^15.4.0
         version: 15.4.0
-      stylelint-config-property-sort-order-smacss:
-        specifier: ^9.1.0
-        version: 9.1.0(stylelint@15.4.0)
       stylelint-config-recommended:
         specifier: ^11.0.0
         version: 11.0.0(stylelint@15.4.0)
@@ -522,16 +522,18 @@ importers:
       '@vben/hooks':
         specifier: workspace:*
         version: link:../hooks
+      '@vben/types':
+        specifier: workspace:*
+        version: link:../types
+      ant-design-vue:
+        specifier: ^4.0.0-alpha.5
+        version: 4.0.0-alpha.5(vue@3.2.47)
       vue:
         specifier: ^3.2.47
         version: 3.2.47
       vue-router:
         specifier: ^4.1.6
         version: 4.1.6(vue@3.2.47)
-    devDependencies:
-      ant-design-vue:
-        specifier: ^3.2.17
-        version: 3.2.17(vue@3.2.47)
 
 packages:
 
@@ -1098,6 +1100,14 @@ packages:
   /@ctrl/tinycolor@3.6.0:
     resolution: {integrity: sha512-/Z3l6pXthq0JvMYdUFyX9j0MaCltlIn6mfh9jLyQwg5aPKxkyNa0PTHtU1AlFXLNk55ZuAeJRcpvq+tmLfKmaQ==}
     engines: {node: '>=10'}
+
+  /@emotion/hash@0.9.0:
+    resolution: {integrity: sha512-14FtKiHhy2QoPIzdTcvh//8OyBlknNs2nXRwIhG904opCby3l+9Xaf/wuPvICBF0rc1ZCNBd3nKe9cd2mecVkQ==}
+    dev: false
+
+  /@emotion/unitless@0.8.0:
+    resolution: {integrity: sha512-VINS5vEYAscRl2ZUDiT3uMPlrFQupiKgHz5AA4bCH1miKBg4qtwkim1qPmJj/4WG6TreYMY111rEFsjupcOKHw==}
+    dev: false
 
   /@esbuild/android-arm64@0.17.15:
     resolution: {integrity: sha512-0kOB6Y7Br3KDVgHeg8PRcvfLkq+AccreK///B4Z6fNZGr/tNHX0z2VywCc7PTeWp+bPvjA5WMvNXltHw5QjAIA==}
@@ -3118,6 +3128,37 @@ packages:
       vue-types: 3.0.2(vue@3.2.47)
       warning: 4.0.3
 
+  /ant-design-vue@4.0.0-alpha.5(vue@3.2.47):
+    resolution: {integrity: sha512-2R2YcI8mRxBdQdgN+OWALbYVi1vieXJKqMZ/OeGtc+vxU+Hv9BlYSpoRKckVYwgXNW73hzdKLjtdG8Q2PDC8MA==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      vue: '>=3.2.0'
+    dependencies:
+      '@ant-design/colors': 6.0.0
+      '@ant-design/icons-vue': 6.1.0(vue@3.2.47)
+      '@babel/runtime': 7.21.0
+      '@ctrl/tinycolor': 3.6.0
+      '@emotion/hash': 0.9.0
+      '@emotion/unitless': 0.8.0
+      '@simonwep/pickr': 1.8.2
+      array-tree-filter: 2.1.0
+      async-validator: 4.2.5
+      csstype: 3.1.2
+      dayjs: 1.11.7
+      dom-align: 1.12.4
+      dom-scroll-into-view: 2.0.1
+      lodash: 4.17.21
+      lodash-es: 4.17.21
+      resize-observer-polyfill: 1.5.1
+      scroll-into-view-if-needed: 2.2.31
+      shallow-equal: 1.2.1
+      stylis: 4.1.3
+      throttle-debounce: 5.0.0
+      vue: 3.2.47
+      vue-types: 3.0.2(vue@3.2.47)
+      warning: 4.0.3
+    dev: false
+
   /any-promise@1.3.0:
     resolution: {integrity: sha512-7UvmKalWRt1wgjL1RrGxoSJW/0QZFIegpeGvZG9kjp8vrRu55XTHbwnqq2GpXm9uLbcuhxm3IqX9OB4MZR1b2A==}
     dev: true
@@ -3946,10 +3987,6 @@ packages:
     resolution: {integrity: sha512-/9lCvYZaUbBGvYUgYGFJ4dcYiyqdhSjG7IPVluoV8A1ILjkF7ilmhp1OGUz8n+nmBcu0RNrQAzgD8B6FJbrt2w==}
     engines: {node: '>=12.22'}
 
-  /css-property-sort-order-smacss@2.2.0:
-    resolution: {integrity: sha512-nXutswsivIEBOrPo/OZw2KQjFPLvtg68aovJf6Kqrm3L6FmTvvFPaeDrk83hh0+pRJGuP3PeKJwMS0E6DFipdQ==}
-    dev: true
-
   /css-select@4.3.0:
     resolution: {integrity: sha512-wPpOYtnsVontu2mODhA19JrqWxNsfdatRKd64kmpRbQgh1KtItko5sTnEpPdpSaJszTOhEMlF/RPz28qj4HqhQ==}
     dependencies:
@@ -4001,6 +4038,10 @@ packages:
 
   /csstype@2.6.21:
     resolution: {integrity: sha512-Z1PhmomIfypOpoMjRQB70jfvy/wxT50qW08YXO5lMIJkrdq4yOTR+AW7FqutScmB9NkLwxo+jU+kZLbofZZq/w==}
+
+  /csstype@3.1.2:
+    resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
+    dev: false
 
   /culvert@0.1.2:
     resolution: {integrity: sha512-yi1x3EAWKjQTreYWeSd98431AV+IEE0qoDyOoaHJ7KJ21gv6HtBXHVLX74opVSGqcR8/AbjJBHAHpcOy2bj5Gg==}
@@ -7773,7 +7814,6 @@ packages:
       postcss: ^8.4.20
     dependencies:
       postcss: 8.4.21
-    dev: true
 
   /postcss-value-parser@4.2.0:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
@@ -8743,15 +8783,14 @@ packages:
       stylelint: 15.4.0
     dev: true
 
-  /stylelint-config-property-sort-order-smacss@9.1.0(stylelint@15.4.0):
-    resolution: {integrity: sha512-TijYeDoDgHAFjpn9NnziQrmUCGrm2AM4e1HzsdI2mCWBRkQRuewc343YqDwdFgQ5eHoMZ3JRL02i72W3vktuDA==}
+  /stylelint-config-recess-order@4.0.0(stylelint@15.4.0):
+    resolution: {integrity: sha512-sOb+OofMryBR91CbzgV2FavpONqiIeAE7cfrgyUHqePblWBKsYzoUuWThI5EjPRA7KKeovm6ykr7twWYLeafPQ==}
     peerDependencies:
-      stylelint: ^14.0.0 || ^15.0.0
+      stylelint: '>=15'
     dependencies:
-      css-property-sort-order-smacss: 2.2.0
       stylelint: 15.4.0
       stylelint-order: 6.0.3(stylelint@15.4.0)
-    dev: true
+    dev: false
 
   /stylelint-config-recommended-scss@10.0.0(postcss@8.4.21)(stylelint@15.4.0):
     resolution: {integrity: sha512-+YvPgUHi0W5mCJCKdupBCIsWPYNbWuJcRmFtSYujwNg+41ljFknhO9bpY6C+oahv659zW7W1AT7i6DQvJYYr1A==}
@@ -8823,7 +8862,6 @@ packages:
       postcss: 8.4.21
       postcss-sorting: 8.0.2(postcss@8.4.21)
       stylelint: 15.4.0
-    dev: true
 
   /stylelint-prettier@3.0.0(prettier@2.8.7)(stylelint@15.4.0):
     resolution: {integrity: sha512-kIks1xw6np0zElokMT2kP6ar3S4MBoj6vUtPJuND1pFELMpZxVS/0uHPR4HDAVn0WAD3I5oF0IA3qBFxBpMkLg==}
@@ -8898,6 +8936,10 @@ packages:
       write-file-atomic: 5.0.0
     transitivePeerDependencies:
       - supports-color
+
+  /stylis@4.1.3:
+    resolution: {integrity: sha512-GP6WDNWf+o403jrEp9c5jibKavrtLW+/qYGhFxFrG8maXhwTBI7gLLhiBb0o7uFccWN+EOS9aMO6cGHWAO07OA==}
+    dev: false
 
   /sucrase@3.31.0:
     resolution: {integrity: sha512-6QsHnkqyVEzYcaiHsOKkzOtOgdJcb8i54x6AV2hDwyZcY9ZyykGZVw6L/YN98xC0evwTP6utsWWrKRaa8QlfEQ==}
@@ -9046,6 +9088,11 @@ packages:
     dependencies:
       any-promise: 1.3.0
     dev: true
+
+  /throttle-debounce@5.0.0:
+    resolution: {integrity: sha512-2iQTSgkkc1Zyk0MeVrt/3BvuOXYPl/R8Z0U2xxo9rjwNciaHDG3R+Lm6dh4EeUci49DanvBnuqI6jshoQQRGEg==}
+    engines: {node: '>=12.22'}
+    dev: false
 
   /through2@4.0.2:
     resolution: {integrity: sha512-iOqSav00cVxEEICeD7TjLB1sueEL+81Wpzp2bY17uZjZN0pWZPuo4suZ/61VujxmqSGFfgOcNuTZ85QJwNZQpw==}

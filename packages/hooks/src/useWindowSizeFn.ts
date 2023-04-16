@@ -1,7 +1,7 @@
 import { type AnyFunction } from '@vben/types';
 import { tryOnMounted, tryOnUnmounted, useDebounceFn } from '@vueuse/core';
 
-interface UseWindowSizeOptions {
+interface UseWindowSizeFnOptions {
   /**
    * @description 节流时间
    * @default 150
@@ -19,7 +19,7 @@ interface UseWindowSizeOptions {
   once?: boolean;
 }
 
-function useWindowSizeFn(fn: AnyFunction, options: UseWindowSizeOptions = {}) {
+function useWindowSizeFn(fn: AnyFunction, options: UseWindowSizeFnOptions = {}) {
   const { wait = 150, immediate } = options;
 
   let handler = () => {
@@ -49,4 +49,4 @@ function useWindowSizeFn(fn: AnyFunction, options: UseWindowSizeOptions = {}) {
   return { start, stop };
 }
 
-export { useWindowSizeFn, type UseWindowSizeOptions };
+export { useWindowSizeFn, type UseWindowSizeFnOptions };

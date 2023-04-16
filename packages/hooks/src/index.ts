@@ -5,5 +5,5 @@ export * from './useNamespace';
 export * from './useRefs';
 export * from './useScrollTo';
 export * from './useWindowSizeFn';
-export { useEventListener, useTimeoutFn } from '@vueuse/core';
+export * from '@vueuse/core';
 export { useNProgress } from '@vueuse/integrations/useNProgress';

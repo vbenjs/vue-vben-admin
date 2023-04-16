@@ -126,13 +126,13 @@
     }
 
     &::before {
-      content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       margin-left: -48%;
+      content: '';
       background-image: url('@/assets/svg/login-bg.svg');
       background-repeat: no-repeat;
       background-position: 100%;
@@ -149,8 +149,8 @@
       height: 30px;
 
       &__title {
-        color: #fff;
         font-size: 16px;
+        color: #fff;
       }
 
       img {
@@ -165,8 +165,8 @@
         height: 80px;
 
         &__title {
-          color: #fff;
           font-size: 24px;
+          color: #fff;
         }
 
         img {
@@ -177,8 +177,8 @@
 
     &-sign-in-way {
       .anticon {
-        color: #888;
         font-size: 22px;
+        color: #888;
         cursor: pointer;
 
         &:hover {
@@ -212,8 +212,8 @@
     }
 
     .ant-divider-inner-text {
-      color: @text-color-secondary;
       font-size: 12px;
+      color: @text-color-secondary;
     }
   }
 </style>

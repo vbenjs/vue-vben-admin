@@ -1,7 +1,10 @@
 <script setup lang="ts">
   import { loginBgSvg, loginSloganSvg, logoImage } from '@vben/assets';
   import { useNamespace } from '@vben/hooks';
+  import type { LoginFormState } from '@vben/types';
   import { computed } from 'vue';
+
+  import LoginForm from './LoginForm.vue';
 
   defineOptions({
     name: 'LoginPage',
@@ -15,7 +18,7 @@
     /**
      * @description 介绍标题
      */
-    slogan: string;
+    title: string;
     /**
      * @description 描述
      */
@@ -23,13 +26,14 @@
     /**
      * @description logo图片
      */
-    logo: string;
+    logo?: string;
+    /**
+     * @description 登录函数
+     */
+    loginFunc: (form: LoginFormState) => Promise<void>;
   }
 
   withDefaults(defineProps<Props>(), {
-    appName: 'Vben Admin',
-    slogan: '开箱即用的中后台管理系统',
-    description: '输入您的个人详细信息开始使用！',
     logo: logoImage,
   });
 
@@ -43,7 +47,7 @@
 
 <template>
   <div :class="b()">
-    <div :class="[e('header'), '-enter-x']">
+    <div :class="e('header')" class="-enter-x">
       <img :src="logo" :class="e('logo')" />
       <div :class="e('appname')">
         {{ appName }}
@@ -53,15 +57,17 @@
     <div :class="e('slogan')">
       <div :class="e('content')">
         <img :alt="appName" :src="loginSloganSvg" class="-enter-x w-2/5" />
-        <div :class="[e('title'), '-enter-x']">
-          {{ slogan }}
+        <div :class="e('title')" class="-enter-x">
+          {{ title }}
         </div>
-        <div :class="[e('desc'), '-enter-x']">
+        <div :class="e('desc')" class="-enter-x">
           {{ description }}
         </div>
       </div>
     </div>
-    <div :class="e('form')"> 2</div>
+    <div :class="e('form')">
+      <LoginForm class="w-1/2" :login-func="loginFunc" />
+    </div>
   </div>
 </template>
 
@@ -78,7 +84,7 @@
       display: flex;
       align-items: center;
       width: 100%;
-      height: 80px;
+      height: 100px;
       padding: 0 100px;
       text-align: left;
       cursor: pointer;
@@ -114,8 +120,8 @@
     }
 
     @include e('title') {
-      margin: 20px 0 0;
-      font-size: 32px;
+      margin: 50px 0 0;
+      font-size: 28px;
       color: #fff;
     }
 

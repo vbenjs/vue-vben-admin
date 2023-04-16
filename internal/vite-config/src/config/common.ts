@@ -30,6 +30,7 @@ const commonConfig: UserConfig = {
         '.changeset',
         'public',
       ],
+      include: ['**.ts', '**.tsx', '**.vue'],
       presets: [presetUno(), presetTypography()],
     }),
   ],

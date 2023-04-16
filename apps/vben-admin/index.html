@@ -17,20 +17,20 @@
       <!-- 页面加载后会删除 loading 节点，所以无需担心污染 -->
       <style>
         .loading {
-          display: flex;
           position: fixed;
-          top: 50%;
-          left: 50%;
+          top: 0;
+          left: 0;
+          display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          transform: translate3d(-50%, -50%, 0);
+          width: 100%;
+          height: 100%;
         }
 
         .logo {
           display: block;
           width: 100px;
-          margin: 0 auto;
           margin-bottom: 10px;
         }
 
@@ -39,33 +39,33 @@
           align-items: center;
           justify-content: center;
           margin-top: 30px;
-          color: rgb(0 0 0 / 85%);
           font-size: 30px;
+          color: rgb(0 0 0 / 85%);
         }
 
         .dots {
-          display: inline-block;
           position: relative;
           box-sizing: border-box;
+          display: inline-block;
           width: 48px;
           height: 48px;
           margin-top: 30px;
+          font-size: 32px;
           transform: rotate(45deg);
           animation: rotate 1s infinite linear;
-          font-size: 32px;
         }
 
         .dots i {
-          display: block;
           position: absolute;
+          display: block;
           width: 20px;
           height: 20px;
+          background-color: #0065cc;
+          border-radius: 100%;
+          opacity: 0.3;
           transform: scale(0.75);
           transform-origin: 50% 50%;
           animation: spin-move 1s infinite linear alternate;
-          border-radius: 100%;
-          opacity: 0.3;
-          background-color: #0065cc;
         }
 
         .dots i:nth-child(1) {
@@ -97,18 +97,6 @@
           }
         }
 
-        @keyframes rotate {
-          to {
-            transform: rotate(405deg);
-          }
-        }
-
-        @keyframes spin-move {
-          to {
-            opacity: 1;
-          }
-        }
-
         @keyframes spin-move {
           to {
             opacity: 1;
@@ -116,7 +104,7 @@
         }
       </style>
       <div class="loading">
-        <img src="/logo.png" class="logo" alt="Logo" />
+        <img src="/logo.png" class="logo" alt="loading" />
         <span class="dots"><i></i><i></i><i></i><i></i></span>
         <div class="title"><%= VITE_GLOB_APP_TITLE %></div>
       </div>
