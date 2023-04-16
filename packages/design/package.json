@@ -15,6 +15,9 @@
   "exports": {
     ".": {
       "default": "./src/index.ts"
+    },
+    "./shared": {
+      "default": "./src/_shared.scss"
     }
   },
   "main": "./src/index.ts",

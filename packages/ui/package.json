@@ -22,7 +22,11 @@
   "module": "./src/index.ts",
   "dependencies": {
     "@vben/assets": "workspace:*",
+    "@vben/hooks": "workspace:*",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
+  },
+  "devDependencies": {
+    "ant-design-vue": "^3.2.17"
   }
 }

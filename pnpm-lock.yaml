@@ -519,12 +519,19 @@ importers:
       '@vben/assets':
         specifier: workspace:*
         version: link:../assets
+      '@vben/hooks':
+        specifier: workspace:*
+        version: link:../hooks
       vue:
         specifier: ^3.2.47
         version: 3.2.47
       vue-router:
         specifier: ^4.1.6
         version: 4.1.6(vue@3.2.47)
+    devDependencies:
+      ant-design-vue:
+        specifier: ^3.2.17
+        version: 3.2.17(vue@3.2.47)
 
 packages:
 

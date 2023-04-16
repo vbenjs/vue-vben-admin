@@ -31,6 +31,7 @@
     "stub": "pnpm unbuild --stub"
   },
   "dependencies": {
+    "stylelint-config-recess-order": "^4.0.0",
     "stylelint-scss": "^4.6.0"
   },
   "devDependencies": {
@@ -40,7 +41,6 @@
     "postcss-scss": "^4.0.6",
     "prettier": "^2.8.7",
     "stylelint": "^15.4.0",
-    "stylelint-config-property-sort-order-smacss": "^9.1.0",
     "stylelint-config-recommended": "^11.0.0",
     "stylelint-config-recommended-scss": "^10.0.0",
     "stylelint-config-recommended-vue": "^1.4.0",

@@ -2,5 +2,7 @@
 import 'uno.css';
 /** css 样式重置 */
 import 'modern-normalize';
+/** 全局生效 */
+import './common/_global.scss';
 /** 元素进入动画 */
-import './entry-animation.scss';
+import './common/_entry.scss';

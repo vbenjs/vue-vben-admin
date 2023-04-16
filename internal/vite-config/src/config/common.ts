@@ -10,9 +10,12 @@ const commonConfig: UserConfig = {
   build: {
     reportCompressedSize: false,
     chunkSizeWarningLimit: 1500,
-    rollupOptions: {
-      // TODO: Prevent memory overflow
-      maxParallelFileOps: 3,
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "@vben/design/shared";`,
+      },
     },
   },
   plugins: [

@@ -1,10 +1,10 @@
 <script setup lang="ts">
   import { pageNotFoundSvg } from '@vben/assets';
-  import { useCssModule } from 'vue';
+  import { useNamespace } from '@vben/hooks';
   import { useRouter } from 'vue-router';
 
   defineOptions({
-    name: 'PageNotFound',
+    name: 'NotFoundPage',
   });
 
   interface Props {
@@ -25,7 +25,8 @@
     homePath: '/',
   });
 
-  const $style = useCssModule();
+  const { b, e } = useNamespace('not-found');
+
   const { push } = useRouter();
 
   // 返回首页
@@ -35,48 +36,48 @@
 </script>
 
 <template>
-  <div :class="$style['not-found']">
-    <img :src="pageNotFoundSvg" />
-    <p> {{ title }} </p>
-    <a href="javascript:void" @click="back">返回主页</a>
+  <div :class="[b(), 'enter-y']">
+    <img :src="pageNotFoundSvg" :class="e('img')" />
+    <p :class="e('title')"> {{ title }} </p>
+    <a href="javascript:void" :class="e('button')" @click="back">返回主页</a>
   </div>
 </template>
 
 <style module scoped lang="scss">
-  .not-found {
-    display: flex;
+  @include b('not-found') {
     position: relative;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
 
-    img {
+    @include e('img') {
       width: 25%;
     }
 
-    p {
+    @include e('title') {
       margin: 20px 0;
-      color: #00000073;
       font-size: 16px;
       line-height: 1.6;
+      color: #00000073;
       text-align: center;
     }
 
-    a {
+    @include e('button') {
       display: inline-block;
       padding: 10px 20px;
-      transition: background-color 0.3s ease;
-      border: none;
-      border-radius: 2px;
-      background-color: #7c7c7c;
-      color: #fff;
       font-size: 14px;
       font-weight: bold;
+      color: #fff;
       text-decoration: none;
       text-transform: uppercase;
       cursor: pointer;
+      background-color: #7c7c7c;
+      border: none;
+      border-radius: 2px;
+      transition: background-color 0.3s ease;
 
       &:hover {
         background-color: #404040;

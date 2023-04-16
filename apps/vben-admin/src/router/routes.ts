@@ -15,6 +15,23 @@ const staticRoutes: RouteRecordRaw[] = [
       title: 'Root',
     },
   },
+  // TODO: 暂时写在静态路由内
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () => import('@/views/dashboard/index.vue'),
+    meta: {
+      title: 'Dashboard',
+    },
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login/index.vue'),
+    meta: {
+      title: 'Login',
+    },
+  },
   {
     path: '/:path(.*)*',
     name: 'PageNotFound',
@@ -23,14 +40,6 @@ const staticRoutes: RouteRecordRaw[] = [
       title: 'PageNotFound',
     },
   },
-  // {
-  //   path: '/login',
-  //   name: 'Login',
-  //   component: () => import('@/views/sys/login/Login.vue'),
-  //   meta: {
-  //     title: 'Login',
-  //   },
-  // },
 ];
 
 /** 排查在主框架外的路由，这些路由没有菜单和顶部及其他框架内容 */

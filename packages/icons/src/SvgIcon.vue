@@ -58,7 +58,7 @@
   .svg-icon {
     display: inline-block;
     overflow: hidden;
-    fill: currentcolor;
     vertical-align: -0.15em;
+    fill: currentcolor;
   }
 </style>

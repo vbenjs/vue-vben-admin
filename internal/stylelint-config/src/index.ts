@@ -1,5 +1,5 @@
 export default {
-  extends: ['stylelint-config-standard', 'stylelint-config-property-sort-order-smacss'],
+  extends: ['stylelint-config-standard', 'stylelint-config-recess-order'],
   plugins: ['stylelint-order', 'stylelint-prettier', 'stylelint-scss'],
   // customSyntax: 'postcss-html',
   overrides: [
@@ -22,6 +22,7 @@ export default {
     },
   ],
   rules: {
+    'prettier/prettier': true,
     'at-rule-no-unknown': null,
     'scss/at-rule-no-unknown': true,
 
@@ -66,6 +67,10 @@ export default {
         {
           type: 'at-rule',
           name: 'media',
+        },
+        {
+          type: 'at-rule',
+          name: 'include',
         },
         'rules',
       ],
