@@ -5,7 +5,7 @@
 
   import { CodeEditor } from '/@/components/CodeEditor';
 
-  import { keys } from 'lodash-es';
+  import { keys, get, set } from 'lodash-es';
 
   import { PreviewResponse } from '/@/apis/code';
 
@@ -13,6 +13,16 @@
 
   const activeTable = ref<string>(keys(props.preview)[0]);
   const activeCode = ref<string>(props.preview[activeTable.value][0].name);
+
+  const history = {};
+
+  function handleTableChange(activeKey: string) {
+    activeCode.value = get(history, activeKey, props.preview[activeTable.value][0].name);
+  }
+
+  function handleCodeChange(activeKey: string) {
+    set(history, activeTable.value, activeKey);
+  }
 
   const emit = defineEmits(['download', 'redo']);
 
@@ -26,9 +36,9 @@
 </script>
 <template>
   <div>
-    <tabs tab-position="left" v-model:activeKey="activeTable">
+    <tabs tab-position="left" v-model:activeKey="activeTable" @change="handleTableChange">
       <tab-pane v-for="table in keys(props.preview)" :key="table" :tab="table">
-        <tabs tab-position="top" v-model:activeKey="activeCode">
+        <tabs tab-position="top" v-model:activeKey="activeCode" @change="handleCodeChange">
           <tab-pane v-for="code in props.preview[table]" :key="code.name" :tab="code.name">
             <code-editor :value="code.content" readonly />
           </tab-pane>

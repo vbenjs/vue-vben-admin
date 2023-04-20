@@ -44,14 +44,17 @@
   async function handleTemplateGroup(data: { templateGroupId: number }) {
     templateGroupId.value = data.templateGroupId;
     openFullLoading();
-    preview.value = await codePreviewApi({
-      databaseId: unref(databaseId)!,
-      tables: unref(tables),
-      templateGroupId: unref(templateGroupId)!,
-    });
-    closeFullLoading();
-    current.value++;
-    initPreview.value = true;
+    try {
+      preview.value = await codePreviewApi({
+        databaseId: unref(databaseId)!,
+        tables: unref(tables),
+        templateGroupId: unref(templateGroupId)!,
+      });
+      current.value++;
+      initPreview.value = true;
+    } finally {
+      closeFullLoading();
+    }
   }
 
   async function handleDownload() {
