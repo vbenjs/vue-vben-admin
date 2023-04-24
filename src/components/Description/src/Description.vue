@@ -121,7 +121,7 @@
         const { schema, data } = unref(getProps);
         return unref(schema)
           .map((item) => {
-            const { render, field, span, show, contentMinWidth } = item;
+            const { render, field, span, show, contentMinWidth, contentStyle } = item;
 
             if (show && isFunction(show) && !show(data)) {
               return null;
@@ -142,7 +142,12 @@
 
             const width = contentMinWidth;
             return (
-              <Descriptions.Item label={renderLabel(item)} key={field} span={span}>
+              <Descriptions.Item
+                label={renderLabel(item)}
+                contentStyle={contentStyle}
+                key={field}
+                span={span}
+              >
                 {() => {
                   if (!contentMinWidth) {
                     return getContent();
