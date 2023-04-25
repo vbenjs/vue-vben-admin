@@ -1,9 +1,8 @@
 import type { EChartsOption } from 'echarts';
 import type { Ref } from 'vue';
-import { useTimeoutFn } from '/@/hooks/core/useTimeout';
-import { tryOnUnmounted } from '@vueuse/core';
+import { useTimeoutFn } from '@vben/hooks';
+import { tryOnUnmounted, useDebounceFn } from '@vueuse/core';
 import { unref, nextTick, watch, computed, ref } from 'vue';
-import { useDebounceFn } from '@vueuse/core';
 import { useEventListener } from '/@/hooks/event/useEventListener';
 import { useBreakpoint } from '/@/hooks/event/useBreakpoint';
 import echarts from '/@/utils/lib/echarts';
@@ -60,23 +59,26 @@ export function useECharts(
 
   function setOptions(options: EChartsOption, clear = true) {
     cacheOptions.value = options;
-    if (unref(elRef)?.offsetHeight === 0) {
-      useTimeoutFn(() => {
-        setOptions(unref(getOptions));
-      }, 30);
-      return;
-    }
-    nextTick(() => {
-      useTimeoutFn(() => {
-        if (!chartInstance) {
-          initCharts(getDarkMode.value as 'default');
+    return new Promise((resolve) => {
+      if (unref(elRef)?.offsetHeight === 0) {
+        useTimeoutFn(() => {
+          setOptions(unref(getOptions));
+          resolve(null);
+        }, 30);
+      }
+      nextTick(() => {
+        useTimeoutFn(() => {
+          if (!chartInstance) {
+            initCharts(getDarkMode.value as 'default');
 
-          if (!chartInstance) return;
-        }
-        clear && chartInstance?.clear();
+            if (!chartInstance) return;
+          }
+          clear && chartInstance?.clear();
 
-        chartInstance?.setOption(unref(getOptions));
-      }, 30);
+          chartInstance?.setOption(unref(getOptions));
+          resolve(null);
+        }, 30);
+      });
     });
   }
 

@@ -1,26 +1,22 @@
-import 'virtual:windi-base.css';
-import 'virtual:windi-components.css';
-import '/@/design/index.less';
-import '/@/components/VxeTable/src/css/index.scss';
-import 'virtual:windi-utilities.css';
+import 'uno.css';
+import '@/design/index.less';
+import '@/components/VxeTable/src/css/index.scss';
+import 'ant-design-vue/dist/antd.less';
 // Register icon sprite
 import 'virtual:svg-icons-register';
-import App from './App.vue';
+
 import { createApp } from 'vue';
-import { initAppConfigStore } from '/@/logics/initAppConfig';
-import { setupErrorHandle } from '/@/logics/error-handle';
-import { router, setupRouter } from '/@/router';
-import { setupRouterGuard } from '/@/router/guard';
-import { setupStore } from '/@/store';
-import { setupGlobDirectives } from '/@/directives';
-import { setupI18n } from '/@/locales/setupI18n';
-import { registerGlobComp } from '/@/components/registerGlobComp';
 
-import { isDevMode } from './utils/env';
+import { registerGlobComp } from '@/components/registerGlobComp';
+import { setupGlobDirectives } from '@/directives';
+import { setupI18n } from '@/locales/setupI18n';
+import { setupErrorHandle } from '@/logics/error-handle';
+import { initAppConfigStore } from '@/logics/initAppConfig';
+import { router, setupRouter } from '@/router';
+import { setupRouterGuard } from '@/router/guard';
+import { setupStore } from '@/store';
 
-if (isDevMode()) {
-  import('ant-design-vue/es/style');
-}
+import App from './App.vue';
 
 async function bootstrap() {
   const app = createApp(App);

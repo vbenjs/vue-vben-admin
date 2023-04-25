@@ -14,7 +14,7 @@ import {
 import { deepMerge } from '/@/utils';
 import { dateItemType, handleInputNumberValue, defaultValueComponents } from '../helper';
 import { dateUtil } from '/@/utils/dateUtil';
-import { cloneDeep, uniqBy } from 'lodash-es';
+import { cloneDeep, set, uniqBy, get } from 'lodash-es';
 import { error } from '/@/utils/log';
 
 interface UseFormActionContext {
@@ -27,6 +27,47 @@ interface UseFormActionContext {
   schemaRef: Ref<FormSchema[]>;
   handleFormValues: Fn;
 }
+
+function tryConstructArray(field: string, values: Recordable = {}): any[] | undefined {
+  const pattern = /^\[(.+)\]$/;
+  if (pattern.test(field)) {
+    const match = field.match(pattern);
+    if (match && match[1]) {
+      const keys = match[1].split(',');
+      if (!keys.length) {
+        return undefined;
+      }
+
+      const result = [];
+      keys.forEach((k, index) => {
+        set(result, index, values[k.trim()]);
+      });
+
+      return result.filter(Boolean).length ? result : undefined;
+    }
+  }
+}
+
+function tryConstructObject(field: string, values: Recordable = {}): Recordable | undefined {
+  const pattern = /^\{(.+)\}$/;
+  if (pattern.test(field)) {
+    const match = field.match(pattern);
+    if (match && match[1]) {
+      const keys = match[1].split(',');
+      if (!keys.length) {
+        return;
+      }
+
+      const result = {};
+      keys.forEach((k) => {
+        set(result, k.trim(), values[k.trim()]);
+      });
+
+      return Object.values(result).filter(Boolean).length ? result : undefined;
+    }
+  }
+}
+
 export function useFormEvents({
   emit,
   getProps,
@@ -69,11 +110,10 @@ export function useFormEvents({
     const nestKeyArray = fields.filter((item) => String(item).indexOf(delimiter) >= 0);
 
     const validKeys: string[] = [];
-    Object.keys(values).forEach((key) => {
+    fields.forEach((key) => {
       const schema = unref(getSchema).find((item) => item.field === key);
-      let value = values[key];
-
-      const hasKey = Reflect.has(values, key);
+      let value = get(values, key);
+      const hasKey = !!get(values, key);
 
       value = handleInputNumberValue(schema?.component, value);
       const { componentProps } = schema || {};
@@ -81,24 +121,32 @@ export function useFormEvents({
       if (typeof componentProps === 'function') {
         _props = _props({ formModel: unref(formModel) });
       }
+
+      const constructValue = tryConstructArray(key, values) || tryConstructObject(key, values);
+
       // 0| '' is allow
-      if (hasKey && fields.includes(key)) {
+      if (hasKey || !!constructValue) {
+        const fieldValue = constructValue || value;
         // time type
         if (itemIsDateType(key)) {
-          if (Array.isArray(value)) {
+          if (Array.isArray(fieldValue)) {
             const arr: any[] = [];
-            for (const ele of value) {
+            for (const ele of fieldValue) {
               arr.push(ele ? dateUtil(ele) : null);
             }
             unref(formModel)[key] = arr;
           } else {
-            unref(formModel)[key] = value ? (_props?.valueFormat ? value : dateUtil(value)) : null;
+            unref(formModel)[key] = fieldValue
+              ? _props?.valueFormat
+                ? fieldValue
+                : dateUtil(fieldValue)
+              : null;
           }
         } else {
-          unref(formModel)[key] = value;
+          unref(formModel)[key] = fieldValue;
         }
         if (_props?.onChange) {
-          _props?.onChange(value);
+          _props?.onChange(fieldValue);
         }
         validKeys.push(key);
       } else {
@@ -120,6 +168,7 @@ export function useFormEvents({
     });
     validateFields(validKeys).catch((_) => {});
   }
+
   /**
    * @description: Delete based on field name
    */

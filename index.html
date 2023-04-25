@@ -8,20 +8,10 @@
       name="viewport"
       content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0"
     />
-    <title><%= title %></title>
+    <title><%= VITE_GLOB_APP_TITLE %></title>
     <link rel="icon" href="/favicon.ico" />
   </head>
   <body>
-    <script>
-      (() => {
-        var htmlRoot = document.getElementById('htmlRoot');
-        var theme = window.localStorage.getItem('__APP__DARK__MODE__');
-        if (htmlRoot && theme) {
-          htmlRoot.setAttribute('data-theme', theme);
-          theme = htmlRoot = null;
-        }
-      })();
-    </script>
     <div id="app">
       <style>
         html[data-theme='dark'] .app-loading {
@@ -34,39 +24,39 @@
 
         .app-loading {
           display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
           width: 100%;
           height: 100%;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
           background-color: #f4f7f9;
         }
 
         .app-loading .app-loading-wrap {
+          display: flex;
           position: absolute;
           top: 50%;
           left: 50%;
-          display: flex;
-          transform: translate3d(-50%, -50%, 0);
-          justify-content: center;
-          align-items: center;
           flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          transform: translate3d(-50%, -50%, 0);
         }
 
         .app-loading .dots {
           display: flex;
-          padding: 98px;
-          justify-content: center;
           align-items: center;
+          justify-content: center;
+          padding: 98px;
         }
 
         .app-loading .app-loading-title {
           display: flex;
-          margin-top: 30px;
-          font-size: 30px;
-          color: rgb(0 0 0 / 85%);
-          justify-content: center;
           align-items: center;
+          justify-content: center;
+          margin-top: 30px;
+          color: rgb(0 0 0 / 85%);
+          font-size: 30px;
         }
 
         .app-loading .app-loading-logo {
@@ -77,28 +67,28 @@
         }
 
         .dot {
-          position: relative;
           display: inline-block;
+          position: relative;
+          box-sizing: border-box;
           width: 48px;
           height: 48px;
           margin-top: 30px;
-          font-size: 32px;
           transform: rotate(45deg);
-          box-sizing: border-box;
-          animation: antRotate 1.2s infinite linear;
+          animation: ant-rotate 1.2s infinite linear;
+          font-size: 32px;
         }
 
         .dot i {
-          position: absolute;
           display: block;
+          position: absolute;
           width: 20px;
           height: 20px;
-          background-color: #0065cc;
-          border-radius: 100%;
-          opacity: 30%;
           transform: scale(0.75);
-          animation: antSpinMove 1s infinite linear alternate;
           transform-origin: 50% 50%;
+          animation: ant-spin-move 1s infinite linear alternate;
+          border-radius: 100%;
+          opacity: 0.3;
+          background-color: #0065cc;
         }
 
         .dot i:nth-child(1) {
@@ -123,34 +113,38 @@
           left: 0;
           animation-delay: 1.2s;
         }
-        @keyframes antRotate {
+
+        @keyframes ant-rotate {
           to {
             transform: rotate(405deg);
           }
         }
-        @keyframes antRotate {
+
+        @keyframes ant-rotate {
           to {
             transform: rotate(405deg);
           }
         }
-        @keyframes antSpinMove {
+
+        @keyframes ant-spin-move {
           to {
-            opacity: 100%;
+            opacity: 1;
           }
         }
-        @keyframes antSpinMove {
+
+        @keyframes ant-spin-move {
           to {
-            opacity: 100%;
+            opacity: 1;
           }
         }
       </style>
       <div class="app-loading">
         <div class="app-loading-wrap">
-          <img src="/resource/img/logo.png" class="app-loading-logo" alt="Logo" />
+          <img src="/logo.png" class="app-loading-logo" alt="Logo" />
           <div class="app-loading-dots">
             <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
           </div>
-          <div class="app-loading-title"><%= title %></div>
+          <div class="app-loading-title"><%= VITE_GLOB_APP_TITLE %></div>
         </div>
       </div>
     </div>

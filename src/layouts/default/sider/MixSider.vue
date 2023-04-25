@@ -84,7 +84,7 @@
   import type { RouteLocationNormalized } from 'vue-router';
   import { ScrollContainer } from '/@/components/Container';
   import { SimpleMenu, SimpleMenuTag } from '/@/components/SimpleMenu';
-  import { Icon } from '/@/components/Icon';
+  import Icon from '@/components/Icon/Icon.vue';
   import { AppLogo } from '/@/components/Application';
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { usePermissionStore } from '/@/store/modules/permission';
@@ -117,9 +117,9 @@
       const activePath = ref('');
       const childrenMenus = ref<Menu[]>([]);
       const openMenu = ref(false);
-      const dragBarRef = ref<ElRef>(null);
-      const sideRef = ref<ElRef>(null);
-      const currentRoute = ref<Nullable<RouteLocationNormalized>>(null);
+      const dragBarRef = ref(null);
+      const sideRef = ref(null);
+      const currentRoute = ref<RouteLocationNormalized | null>(null);
 
       const { prefixCls } = useDesign('layout-mix-sider');
       const go = useGo();
@@ -347,13 +347,13 @@
   @width: 80px;
   .@{prefix-cls} {
     position: fixed;
+    z-index: @layout-mix-sider-fixed-z-index;
     top: 0;
     left: 0;
-    z-index: @layout-mix-sider-fixed-z-index;
     height: 100%;
     overflow: hidden;
-    background-color: @sider-dark-bg-color;
     transition: all 0.2s ease 0s;
+    background-color: @sider-dark-bg-color;
 
     &-dom {
       height: 100%;
@@ -363,9 +363,9 @@
 
     &-logo {
       display: flex;
+      justify-content: center;
       height: @header-height;
       padding-left: 0 !important;
-      justify-content: center;
 
       img {
         width: @logo-width;
@@ -386,12 +386,12 @@
 
       .@{prefix-cls}-module {
         &__item {
-          font-weight: normal;
           color: rgb(0 0 0 / 65%);
+          font-weight: normal;
 
           &--active {
-            color: @primary-color;
             background-color: unset;
+            color: @primary-color;
           }
         }
       }
@@ -427,9 +427,9 @@
         background-color: @sider-dark-bg-color;
 
         &__title {
-          color: @white;
           border-bottom: none;
           border-bottom: 1px solid @border-color;
+          color: @white;
         }
       }
     }
@@ -455,42 +455,42 @@
       &__item {
         position: relative;
         padding: 12px 0;
+        transition: all 0.3s ease;
         color: rgb(255 255 255 / 65%);
         text-align: center;
         cursor: pointer;
-        transition: all 0.3s ease;
 
         &:hover {
           color: @white;
         }
         // &:hover,
         &--active {
-          font-weight: 700;
-          color: @white;
           background-color: @sider-dark-darken-bg-color;
+          color: @white;
+          font-weight: 700;
 
           &::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 3px;
             height: 100%;
             background-color: @primary-color;
-            content: '';
           }
         }
       }
 
       &__icon {
         margin-bottom: 8px;
-        font-size: 24px;
         transition: all 0.2s;
+        font-size: 24px;
       }
 
       &__name {
         margin-bottom: 0;
-        font-size: 12px;
         transition: all 0.2s;
+        font-size: 12px;
       }
     }
 
@@ -499,19 +499,19 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      font-size: 14px;
+      height: 36px;
+      background-color: @trigger-dark-bg-color;
       color: rgb(255 255 255 / 65%);
+      font-size: 14px;
+      line-height: 36px;
       text-align: center;
       cursor: pointer;
-      background-color: @trigger-dark-bg-color;
-      height: 36px;
-      line-height: 36px;
     }
 
     &.light &-trigger {
-      color: rgb(0 0 0 / 65%);
-      background-color: #fff;
       border-top: 1px solid #eee;
+      background-color: #fff;
+      color: rgb(0 0 0 / 65%);
     }
 
     &-menu-list {
@@ -519,25 +519,25 @@
       top: 0;
       width: 200px;
       height: calc(100%);
-      background-color: #fff;
       transition: all 0.2s;
+      background-color: #fff;
 
       &__title {
         display: flex;
-        height: @header-height;
-        // margin-left: -6px;
-        font-size: 18px;
-        color: @primary-color;
-        border-bottom: 1px solid rgb(238 238 238);
-        opacity: 0%;
-        transition: unset;
         align-items: center;
         justify-content: space-between;
+        height: @header-height;
+        transition: unset;
+        border-bottom: 1px solid rgb(238 238 238);
+        opacity: 0;
+        color: @primary-color;
+        // margin-left: -6px;
+        font-size: 18px;
 
         &.show {
           min-width: 130px;
-          opacity: 100%;
           transition: all 0.5s ease;
+          opacity: 1;
         }
 
         .pushpin {
@@ -581,11 +581,11 @@
       right: -1px;
       width: 1px;
       height: calc(100% - 50px);
-      cursor: ew-resize;
-      background-color: #f8f8f9;
       border-top: none;
       border-bottom: none;
+      background-color: #f8f8f9;
       box-shadow: 0 0 4px 0 rgb(28 36 56 / 15%);
+      cursor: ew-resize;
     }
   }
 </style>

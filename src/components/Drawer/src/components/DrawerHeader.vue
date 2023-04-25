@@ -25,6 +25,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
 
   import { propTypes } from '/@/utils/propTypes';
+
   export default defineComponent({
     name: 'BasicDrawerHeader',
     components: { BasicTitle, ArrowLeftOutlined },
@@ -51,8 +52,8 @@
   @footer-height: 60px;
   .@{prefix-cls} {
     display: flex;
-    height: 100%;
     align-items: center;
+    height: 100%;
 
     &__back {
       padding: 0 12px;

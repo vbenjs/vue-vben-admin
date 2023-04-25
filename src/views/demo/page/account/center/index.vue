@@ -56,7 +56,7 @@
   import { Tag, Tabs, Row, Col } from 'ant-design-vue';
   import { defineComponent, computed } from 'vue';
   import { CollapseContainer } from '/@/components/Container/index';
-  import Icon from '/@/components/Icon/index';
+  import Icon from '@/components/Icon/Icon.vue';
   import Article from './Article.vue';
   import Application from './Application.vue';
   import Project from './Project.vue';
@@ -103,10 +103,10 @@
     }
 
     &-top {
-      padding: 10px;
       margin: 16px 16px 12px;
-      background-color: @component-background;
+      padding: 10px;
       border-radius: 3px;
+      background-color: @component-background;
 
       &__avatar {
         text-align: center;
@@ -129,8 +129,8 @@
       }
 
       &__detail {
-        padding-left: 20px;
         margin-top: 15px;
+        padding-left: 20px;
       }
 
       &__team {
@@ -146,10 +146,10 @@
     }
 
     &-bottom {
-      padding: 10px;
       margin: 0 16px 16px;
-      background-color: @component-background;
+      padding: 10px;
       border-radius: 3px;
+      background-color: @component-background;
     }
   }
 </style>

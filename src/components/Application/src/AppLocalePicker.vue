@@ -22,7 +22,7 @@
   import type { DropMenu } from '/@/components/Dropdown';
   import { ref, watchEffect, unref, computed } from 'vue';
   import { Dropdown } from '/@/components/Dropdown';
-  import { Icon } from '/@/components/Icon';
+  import Icon from '@/components/Icon/Icon.vue';
   import { useLocale } from '/@/locales/useLocale';
   import { localeList } from '/@/settings/localeSetting';
 

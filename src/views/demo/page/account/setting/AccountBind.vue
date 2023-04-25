@@ -26,7 +26,7 @@
   import { List } from 'ant-design-vue';
   import { defineComponent } from 'vue';
   import { CollapseContainer } from '/@/components/Container/index';
-  import Icon from '/@/components/Icon/index';
+  import Icon from '@/components/Icon/Icon.vue';
 
   import { accountBindList } from './data';
 
@@ -51,9 +51,9 @@
   }
 
   .extra {
-    float: right;
     margin-top: 10px;
     margin-right: 30px;
+    float: right;
     cursor: pointer;
   }
 </style>

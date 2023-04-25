@@ -84,7 +84,8 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
   },
   "[vue]": {
     "editor.codeActionsOnSave": {
@@ -103,7 +104,6 @@
   "i18n-ally.enabledFrameworks": ["vue", "react"],
   "cSpell.words": [
     "vben",
-    "windi",
     "browserslist",
     "tailwindcss",
     "esnext",
@@ -156,5 +156,17 @@
       "command": "extension.execute",
       "priority": 4
     }
-  ]
+  ],
+  // 控制相关文件嵌套展示
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "$(capture).test.ts, $(capture).test.tsx",
+    "*.tsx": "$(capture).test.ts, $(capture).test.tsx",
+    "*.env": "$(capture).env.*",
+    "CHANGELOG.md": "CHANGELOG*",
+    "package.json": "pnpm-lock.yaml,pnpm-workspace.yaml,LICENSE,.gitattributes,.gitignore,.gitpod.yml,CNAME,README*,.npmrc,.browserslistrc",
+    ".eslintrc.js": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.js,.prettierrc.js,.stylelintrc.js"
+  },
+  "terminal.integrated.scrollback": 10000
 }

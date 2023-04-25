@@ -77,9 +77,9 @@ export function useFormValues({
       // Remove spaces
       if (isString(value)) {
         // remove params from URL
-        if(value === '') {
+        if (value === '') {
           value = undefined;
-        }else {
+        } else {
           value = value.trim();
         }
       }

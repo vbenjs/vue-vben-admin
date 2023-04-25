@@ -37,9 +37,10 @@
 
 <script lang="ts" setup>
   import { computed, PropType } from 'vue';
-  import type { DropMenu } from './typing';
+  import { type Recordable } from '@vben/types';
+  import { type DropMenu } from './typing';
   import { Dropdown, Menu, Popconfirm } from 'ant-design-vue';
-  import { Icon } from '/@/components/Icon';
+  import Icon from '@/components/Icon/Icon.vue';
   import { omit } from 'lodash-es';
   import { isFunction } from '/@/utils/is';
 
@@ -63,7 +64,7 @@
       },
     },
     dropMenuList: {
-      type: Array as PropType<(DropMenu & Recordable)[]>,
+      type: Array as PropType<(DropMenu & Recordable<any>)[]>,
       default: () => [],
     },
     selectedKeys: {

@@ -42,7 +42,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { List, Tag } from 'ant-design-vue';
-  import Icon from '/@/components/Icon/index';
+  import Icon from '@/components/Icon/Icon.vue';
   import { actions, articleList } from './data';
 
   export default defineComponent({

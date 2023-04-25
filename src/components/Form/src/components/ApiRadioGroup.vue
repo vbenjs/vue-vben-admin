@@ -19,14 +19,15 @@
   </RadioGroup>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, ref, watchEffect, computed, unref, watch } from 'vue';
+  import { defineComponent, type PropType, ref, watchEffect, computed, unref, watch } from 'vue';
   import { Radio } from 'ant-design-vue';
   import { isFunction } from '/@/utils/is';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
-  import { useAttrs } from '/@/hooks/core/useAttrs';
+  import { useAttrs } from '@vben/hooks';
   import { propTypes } from '/@/utils/propTypes';
   import { get, omit } from 'lodash-es';
   import { useI18n } from '/@/hooks/web/useI18n';
+
   type OptionsItem = { label: string; value: string | number | boolean; disabled?: boolean };
 
   export default defineComponent({
@@ -38,11 +39,11 @@
     },
     props: {
       api: {
-        type: Function as PropType<(arg?: Recordable | string) => Promise<OptionsItem[]>>,
+        type: Function as PropType<(arg?: any | string) => Promise<OptionsItem[]>>,
         default: null,
       },
       params: {
-        type: [Object, String] as PropType<Recordable | string>,
+        type: [Object, String] as PropType<any | string>,
         default: () => ({}),
       },
       value: {
@@ -73,7 +74,7 @@
       const getOptions = computed(() => {
         const { labelField, valueField, numberToString } = props;
 
-        return unref(options).reduce((prev, next: Recordable) => {
+        return unref(options).reduce((prev, next: any) => {
           if (next) {
             const value = next[valueField];
             prev.push({

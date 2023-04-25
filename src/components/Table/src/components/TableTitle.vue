@@ -14,10 +14,10 @@
     components: { BasicTitle },
     props: {
       title: {
-        type: [Function, String] as PropType<string | ((data: Recordable) => string)>,
+        type: [Function, String] as PropType<string | ((data) => string)>,
       },
       getSelectRows: {
-        type: Function as PropType<() => Recordable[]>,
+        type: Function as PropType<() => any[]>,
       },
       helpMessage: {
         type: [String, Array] as PropType<string | string[]>,
@@ -47,7 +47,7 @@
 
   .@{prefix-cls} {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
   }
 </style>

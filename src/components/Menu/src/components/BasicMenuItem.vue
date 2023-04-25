@@ -9,6 +9,7 @@
   import { itemProps } from '../props';
 
   import MenuItemContent from './MenuItemContent.vue';
+
   export default defineComponent({
     name: 'BasicMenuItem',
     components: { MenuItem: Menu.Item, MenuItemContent },

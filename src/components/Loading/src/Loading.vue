@@ -9,8 +9,7 @@
   </section>
 </template>
 <script lang="ts">
-  import { PropType } from 'vue';
-  import { defineComponent } from 'vue';
+  import { PropType, defineComponent } from 'vue';
   import { Spin } from 'ant-design-vue';
   import { SizeEnum } from '/@/enums/sizeEnum';
 
@@ -48,22 +47,22 @@
 </script>
 <style lang="less" scoped>
   .full-loading {
+    display: flex;
     position: fixed;
+    z-index: 200;
     top: 0;
     left: 0;
-    z-index: 200;
-    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
-    justify-content: center;
-    align-items: center;
     background-color: rgb(240 242 245 / 40%);
 
     &.absolute {
       position: absolute;
+      z-index: 300;
       top: 0;
       left: 0;
-      z-index: 300;
     }
   }
 

@@ -311,7 +311,6 @@ export interface BasicTableProps<T = any> {
    * @type object
    */
   scroll?: { x?: number | string | true; y?: number | string };
-  
 
   /**
    * Whether to show table header

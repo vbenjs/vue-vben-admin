@@ -16,8 +16,8 @@ export const useLockStore = defineStore({
     lockInfo: Persistent.getLocal(LOCK_INFO_KEY),
   }),
   getters: {
-    getLockInfo(): Nullable<LockInfo> {
-      return this.lockInfo;
+    getLockInfo(state): Nullable<LockInfo> {
+      return state.lockInfo;
     },
   },
   actions: {
