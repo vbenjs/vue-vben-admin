@@ -1,4 +1,6 @@
-export default {
+import { defineConfig } from 'eslint-define-config';
+
+export default defineConfig({
   extends: [
     '@vben',
     'plugin:n/recommended',
@@ -102,4 +104,4 @@ export default {
     },
     'import/ignore': ['node_modules'],
   },
-};
+});
