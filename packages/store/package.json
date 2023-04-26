@@ -14,23 +14,33 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "default": "./src/index.ts"
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
     }
   },
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "//build": "pnpm unbuild",
-    "//stub": "pnpm unbuild --stub",
+    "build": "pnpm unbuild",
     "clean": "pnpm rimraf .turbo node_modules dist",
     "lint": "pnpm eslint ."
   },
   "dependencies": {
-    "pinia": "2.0.34",
+    "pinia": "2.0.35",
     "pinia-plugin-persistedstate": "^3.1.0",
     "vue": "^3.2.47"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      }
+    }
   }
 }

@@ -15,5 +15,11 @@ export default {
         parser: 'json',
       },
     },
+    {
+      files: '*.html',
+      options: {
+        parser: 'html',
+      },
+    },
   ],
 };

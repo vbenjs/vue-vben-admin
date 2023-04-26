@@ -1,10 +1,7 @@
 <script setup lang="ts">
   import { loginBgSvg, loginSloganSvg, logoImage } from '@vben/assets';
   import { useNamespace } from '@vben/hooks';
-  import type { LoginFormState } from '@vben/types';
   import { computed } from 'vue';
-
-  import LoginForm from './LoginForm.vue';
 
   defineOptions({
     name: 'LoginPage',
@@ -27,10 +24,6 @@
      * @description logo图片
      */
     logo?: string;
-    /**
-     * @description 登录函数
-     */
-    loginFunc: (form: LoginFormState) => Promise<void>;
   }
 
   withDefaults(defineProps<Props>(), {
@@ -66,7 +59,7 @@
       </div>
     </div>
     <div :class="e('form')">
-      <LoginForm class="w-1/2" :login-func="loginFunc" />
+      <slot name="form" class="w-1/2"></slot>
     </div>
   </div>
 </template>

@@ -37,7 +37,7 @@
 
 <template>
   <div :class="[b(), 'enter-y']">
-    <img :src="pageNotFoundSvg" :class="e('img')" />
+    <img :src="pageNotFoundSvg" class="w-1/4" />
     <p :class="e('title')"> {{ title }} </p>
     <a href="javascript:void" :class="e('button')" @click="back">返回主页</a>
   </div>
@@ -52,10 +52,6 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-
-    @include e('img') {
-      width: 25%;
-    }
 
     @include e('title') {
       margin: 20px 0;

@@ -1,6 +1,9 @@
-import { presetTypography, presetUno } from 'unocss';
-import UnoCSS from 'unocss/vite';
+import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
+// @ts-ignore: type unless
+import DefineOptions from 'unplugin-vue-define-options/vite';
 import { type UserConfig } from 'vite';
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
 const commonConfig: UserConfig = {
   server: {
@@ -18,22 +21,7 @@ const commonConfig: UserConfig = {
       },
     },
   },
-  plugins: [
-    UnoCSS({
-      exclude: [
-        'node_modules',
-        'dist',
-        '.git',
-        '.husky',
-        '.vscode',
-        '.config',
-        '.changeset',
-        'public',
-      ],
-      include: ['**.ts', '**.tsx', '**.vue'],
-      presets: [presetUno(), presetTypography()],
-    }),
-  ],
+  plugins: [vue(), vueJsx(), DefineOptions(), cssInjectedByJsPlugin()],
 };
 
 export { commonConfig };

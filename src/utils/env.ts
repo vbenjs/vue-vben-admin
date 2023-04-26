@@ -3,7 +3,7 @@ import type { GlobEnvConfig } from '#/config';
 import pkg from '../../package.json';
 
 const getVariableName = (title: string) => {
-  return `__PRODUCTION__${title.replace(/\s/g, '_') || '__APP'}__CONF__`
+  return `__PRODUCTION_${title.replace(/\s/g, '_') || '__APP'}_CONF__`
     .toUpperCase()
     .replace(/\s/g, '');
 };

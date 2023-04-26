@@ -2,6 +2,8 @@ import { resolve } from 'node:path';
 
 import dayjs from 'dayjs';
 import { readPackageJSON } from 'pkg-types';
+import { presetTypography, presetUno } from 'unocss';
+import UnoCSS from 'unocss/vite';
 import { defineConfig, loadEnv, mergeConfig, type UserConfig } from 'vite';
 
 import { createPlugins } from '../plugins';
@@ -40,10 +42,6 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
       },
       resolve: {
         alias: [
-          {
-            find: 'lodash',
-            replacement: 'lodash-es',
-          },
           {
             find: 'vue',
             replacement: 'vue/dist/vue.runtime.esm-bundler.js',
@@ -86,7 +84,14 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
           },
         },
       },
-      plugins,
+      plugins: [
+        ...plugins,
+        UnoCSS({
+          exclude: ['node_modules'],
+          include: ['**.ts', '**.tsx', '**.vue'],
+          presets: [presetUno(), presetTypography()],
+        }),
+      ],
     };
 
     const mergedConfig = mergeConfig(commonConfig, applicationConfig);

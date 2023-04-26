@@ -1,5 +1,5 @@
 {
-  "name": "@vben/app-vben-admin",
+  "name": "@vben/vben-admin",
   "version": "3.0.0-alpha.1",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": {
@@ -23,9 +23,11 @@
     "type:check": "vue-tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
+    "@vben/layout": "workspace:*",
     "@vben/shared": "workspace:*",
     "@vben/store": "workspace:*",
     "@vben/ui": "workspace:*",
+    "ant-design-vue": "^4.0.0-alpha.6",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
   }

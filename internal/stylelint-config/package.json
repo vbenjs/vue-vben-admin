@@ -35,17 +35,17 @@
     "stylelint-scss": "^4.6.0"
   },
   "devDependencies": {
-    "postcss": "^8.4.21",
+    "postcss": "^8.4.23",
     "postcss-html": "^1.5.0",
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.6",
-    "prettier": "^2.8.7",
-    "stylelint": "^15.4.0",
-    "stylelint-config-recommended": "^11.0.0",
-    "stylelint-config-recommended-scss": "^10.0.0",
+    "prettier": "^2.8.8",
+    "stylelint": "^15.6.0",
+    "stylelint-config-recommended": "^12.0.0",
+    "stylelint-config-recommended-scss": "^11.0.0",
     "stylelint-config-recommended-vue": "^1.4.0",
-    "stylelint-config-standard": "^32.0.0",
-    "stylelint-config-standard-scss": "^8.0.0",
+    "stylelint-config-standard": "^33.0.0",
+    "stylelint-config-standard-scss": "^9.0.0",
     "stylelint-order": "^6.0.3",
     "stylelint-prettier": "^3.0.0"
   }

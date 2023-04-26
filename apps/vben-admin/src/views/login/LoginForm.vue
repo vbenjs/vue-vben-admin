@@ -9,14 +9,14 @@
     name: 'LoginForm',
   });
 
-  interface Props {
-    /**
-     * @description 登录函数
-     */
-    loginFunc: (form: LoginFormState) => Promise<void>;
-  }
+  // interface Props {
+  //   /**
+  //    * @description 登录函数
+  //    */
+  //   loginFunc: (form: LoginFormState) => Promise<void>;
+  // }
 
-  const props = withDefaults(defineProps<Props>(), {});
+  // const props = withDefaults(defineProps<Props>(), {});
 
   const formModel = reactive<LoginFormState>({
     username: '',
@@ -45,7 +45,7 @@
 
   const { isLoading, execute } = useAsyncState(
     async () => {
-      await props?.loginFunc?.(formModel);
+      // TODO: login
     },
     null,
     { immediate: false },

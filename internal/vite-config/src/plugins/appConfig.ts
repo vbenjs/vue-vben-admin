@@ -59,8 +59,10 @@ async function createAppConfigPlugin({
           source,
         });
 
+        // eslint-disable-next-line no-console
         console.log(colors.cyan(`✨configuration file is build successfully!`));
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.log(
           colors.red('configuration file configuration file failed to package:\n' + error),
         );
@@ -74,7 +76,7 @@ async function createAppConfigPlugin({
  * @param env
  */
 const getVariableName = (title: string) => {
-  return `__PRODUCTION__${title || '__APP'}__CONF__`.toUpperCase().replace(/\s/g, '');
+  return `__PRODUCTION_${title || '__APP'}_CONF__`.toUpperCase().replace(/\s/g, '');
 };
 
 async function getConfigSource(appTitle: string) {

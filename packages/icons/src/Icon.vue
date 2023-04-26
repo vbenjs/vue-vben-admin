@@ -1,16 +1,8 @@
 <script setup lang="ts">
   import iconify from '@purge-icons/generated';
   import { isString } from '@vben/shared';
-  import {
-    computed,
-    type CSSProperties,
-    nextTick,
-    onMounted,
-    ref,
-    unref,
-    useCssModule,
-    watch,
-  } from 'vue';
+  import type { CSSProperties } from 'vue';
+  import { computed, nextTick, onMounted, ref, unref, useCssModule, watch } from 'vue';
 
   defineOptions({
     name: 'VbenIcon',

@@ -18,6 +18,12 @@ import { setupStore } from '@/store';
 import App from './App.vue';
 
 async function bootstrap() {
+  if (import.meta.env.VITE_USE_MOCK === 'true') {
+    const { setupProdMockServer } = await import('../mock/_createProductionServer');
+
+    setupProdMockServer();
+  }
+
   const app = createApp(App);
 
   // Configure store

@@ -15,8 +15,8 @@ export default defineConfig({
   },
   parser: 'vue-eslint-parser',
   parserOptions: {
+    ecmaVersion: 'latest',
     parser: '@typescript-eslint/parser',
-    ecmaVersion: 2020,
     sourceType: 'module',
     jsxPragma: 'React',
     ecmaFeatures: {

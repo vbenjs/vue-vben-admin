@@ -34,7 +34,6 @@ function definePackageConfig(defineOptions: DefineOptions = {}) {
       ],
     };
     const mergedConfig = mergeConfig(commonConfig, packageConfig);
-
     return mergeConfig(mergedConfig, overrides);
   });
 }

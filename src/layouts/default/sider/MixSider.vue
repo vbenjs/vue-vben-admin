@@ -349,13 +349,13 @@
   @width: 80px;
   .@{prefix-cls} {
     position: fixed;
-    z-index: @layout-mix-sider-fixed-z-index;
     top: 0;
     left: 0;
+    z-index: @layout-mix-sider-fixed-z-index;
     height: 100%;
     overflow: hidden;
-    transition: all 0.2s ease 0s;
     background-color: @sider-dark-bg-color;
+    transition: all 0.2s ease 0s;
 
     &-dom {
       height: 100%;
@@ -390,12 +390,12 @@
         padding-left: 0;
 
         &__item {
-          color: rgb(0 0 0 / 65%);
           font-weight: normal;
+          color: rgb(0 0 0 / 65%);
 
           &--active {
-            background-color: unset;
             color: @primary-color;
+            background-color: unset;
           }
         }
       }
@@ -431,9 +431,9 @@
         background-color: @sider-dark-bg-color;
 
         &__title {
+          color: @white;
           border-bottom: none;
           border-bottom: 1px solid @border-color;
-          color: @white;
         }
       }
     }
@@ -460,27 +460,27 @@
       &__item {
         position: relative;
         padding: 12px 0;
-        transition: all 0.3s ease;
         color: rgb(255 255 255 / 65%);
         text-align: center;
         cursor: pointer;
+        transition: all 0.3s ease;
 
         &:hover {
           color: @white;
         }
         // &:hover,
         &--active {
-          background-color: @sider-dark-darken-bg-color;
-          color: @white;
           font-weight: 700;
+          color: @white;
+          background-color: @sider-dark-darken-bg-color;
 
           &::before {
-            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 3px;
             height: 100%;
+            content: '';
             background-color: @primary-color;
           }
         }
@@ -488,14 +488,14 @@
 
       &__icon {
         margin-bottom: 8px;
-        transition: all 0.2s;
         font-size: 24px;
+        transition: all 0.2s;
       }
 
       &__name {
         margin-bottom: 0;
-        transition: all 0.2s;
         font-size: 12px;
+        transition: all 0.2s;
       }
     }
 
@@ -505,18 +505,18 @@
       left: 0;
       width: 100%;
       height: 36px;
-      background-color: @trigger-dark-bg-color;
-      color: rgb(255 255 255 / 65%);
       font-size: 14px;
       line-height: 36px;
+      color: rgb(255 255 255 / 65%);
       text-align: center;
       cursor: pointer;
+      background-color: @trigger-dark-bg-color;
     }
 
     &.light &-trigger {
-      border-top: 1px solid #eee;
-      background-color: #fff;
       color: rgb(0 0 0 / 65%);
+      background-color: #fff;
+      border-top: 1px solid #eee;
     }
 
     &-menu-list {
@@ -524,25 +524,25 @@
       top: 0;
       width: 200px;
       height: calc(100%);
-      transition: all 0.2s;
       background-color: #fff;
+      transition: all 0.2s;
 
       &__title {
         display: flex;
         align-items: center;
         justify-content: space-between;
         height: @header-height;
-        transition: unset;
-        border-bottom: 1px solid rgb(238 238 238);
-        opacity: 0;
-        color: @primary-color;
         // margin-left: -6px;
         font-size: 18px;
+        color: @primary-color;
+        border-bottom: 1px solid rgb(238 238 238);
+        opacity: 0;
+        transition: unset;
 
         &.show {
           min-width: 130px;
-          transition: all 0.5s ease;
           opacity: 1;
+          transition: all 0.5s ease;
         }
 
         .pushpin {
@@ -586,11 +586,11 @@
       right: -1px;
       width: 1px;
       height: calc(100% - 50px);
+      cursor: ew-resize;
+      background-color: #f8f8f9;
       border-top: none;
       border-bottom: none;
-      background-color: #f8f8f9;
       box-shadow: 0 0 4px 0 rgb(28 36 56 / 15%);
-      cursor: ew-resize;
     }
   }
 </style>

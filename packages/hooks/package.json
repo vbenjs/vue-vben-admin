@@ -14,26 +14,34 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "default": "./src/index.ts"
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
     }
   },
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "//build": "pnpm unbuild",
-    "//stub": "pnpm unbuild --stub",
+    "build": "pnpm unbuild",
     "clean": "pnpm rimraf .turbo node_modules dist",
     "lint": "pnpm eslint ."
   },
   "dependencies": {
-    "@vueuse/core": "^10.0.2",
-    "@vueuse/integrations": "^10.0.2",
+    "@vben/types": "workspace:*",
+    "@vueuse/core": "^10.1.0",
+    "@vueuse/integrations": "^10.1.0",
     "vue": "^3.2.47"
   },
-  "devDependencies": {
-    "@vben/types": "workspace:*"
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      }
+    }
   }
 }

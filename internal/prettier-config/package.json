@@ -31,7 +31,7 @@
     "stub": "pnpm unbuild --stub"
   },
   "dependencies": {
-    "prettier": "^2.8.7",
+    "prettier": "^2.8.8",
     "prettier-plugin-packagejson": "^2.4.3"
   }
 }

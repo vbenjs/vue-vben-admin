@@ -1,0 +1,35 @@
+{
+  "name": "@vben/apis",
+  "version": "1.0.0",
+  "private": true,
+  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "bugs": {
+    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "directory": "packages/ui"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./mock": {
+      "default": "./src/__mock__/index.ts"
+    }
+  },
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "dependencies": {
+    "@vben/assets": "workspace:*",
+    "@vben/hooks": "workspace:*",
+    "@vben/types": "workspace:*",
+    "ant-design-vue": "^4.0.0-alpha.6",
+    "axios": "^1.3.6",
+    "vue": "^3.2.47",
+    "vue-router": "^4.1.6"
+  }
+}

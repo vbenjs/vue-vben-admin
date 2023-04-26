@@ -1,7 +1,36 @@
 export default {
-  extends: ['@vben', 'plugin:import/recommended'],
+  extends: [
+    '@vben',
+    'plugin:n/recommended',
+    'plugin:import/recommended',
+    'plugin:regexp/recommended',
+  ],
   rules: {
-    eqeqeq: 'error',
+    eqeqeq: ['warn', 'always', { null: 'never' }],
+    'no-debugger': 'error',
+    'no-empty': ['warn', { allowEmptyCatch: true }],
+    'prefer-const': [
+      'error',
+      {
+        destructuring: 'all',
+      },
+    ],
+
+    'n/no-missing-import': 'off',
+    'n/no-unpublished-import': 'off',
+    'n/no-unsupported-features/es-syntax': [
+      'error',
+      {
+        version: '>=18.0.0',
+        ignores: [],
+      },
+    ],
+    'n/no-extraneous-import': [
+      'error',
+      {
+        allowModules: ['unbuild', '@vben/vite-config'],
+      },
+    ],
 
     'prettier/prettier': 'error',
     'import/no-unresolved': 'off',
@@ -61,7 +90,6 @@ export default {
     'vue/require-default-prop': 'error',
     'vue/require-explicit-emits': 'error',
     'vue/prefer-import-from-vue': 'error',
-    'vue/attribute-hyphenation': 'error',
     'vue/multiline-html-element-content-newline': 'error',
     'vue/html-closing-bracket-newline': 'error',
     'vue/one-component-per-file': 'error',
