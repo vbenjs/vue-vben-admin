@@ -260,6 +260,10 @@ export function useColumns(
   function getCacheColumns() {
     return cacheColumns;
   }
+  function setCacheColumns(columns: BasicColumn[]) {
+    if (!isArray(columns)) return;
+    cacheColumns = columns.filter((item) => !item.flag);
+  }
 
   return {
     getColumnsRef,
@@ -268,6 +272,7 @@ export function useColumns(
     setColumns,
     getViewColumns,
     setCacheColumnsByField,
+    setCacheColumns,
   };
 }
 
