@@ -100,8 +100,8 @@ jobs:
         env:
           NODE_OPTIONS: '--max_old_space_size=4096'
         run: |
-          yarn install
-          yarn run build
+          pnpm install
+          pnpm build
           touch dist/.nojekyll
           cp dist/index.html dist/404.html
 
