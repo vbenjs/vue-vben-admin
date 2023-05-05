@@ -27,7 +27,7 @@
     "@vben/assets": "workspace:*",
     "@vben/hooks": "workspace:*",
     "@vben/types": "workspace:*",
-    "ant-design-vue": "^4.0.0-beta.1",
+    "ant-design-vue": "^4.0.0-beta.2",
     "axios": "^1.4.0",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
