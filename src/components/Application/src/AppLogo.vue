@@ -65,8 +65,8 @@
     display: flex;
     align-items: center;
     padding-left: 7px;
-    transition: all 0.2s ease;
     cursor: pointer;
+    transition: all 0.2s ease;
 
     &.light {
       border-bottom: 1px solid @border-color-base;
@@ -85,10 +85,10 @@
     }
 
     &__title {
-      transition: all 0.5s;
       font-size: 16px;
       font-weight: 700;
       line-height: normal;
+      transition: all 0.5s;
     }
   }
 </style>

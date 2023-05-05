@@ -28,7 +28,7 @@
     "@vben/hooks": "workspace:*",
     "@vben/shared": "workspace:*",
     "@vben/types": "workspace:*",
-    "ant-design-vue": "^4.0.0-alpha.6",
+    "ant-design-vue": "^4.0.0-beta.1",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
   }

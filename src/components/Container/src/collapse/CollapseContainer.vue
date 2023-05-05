@@ -93,9 +93,9 @@
   @prefix-cls: ~'@{namespace}-collapse-container';
 
   .@{prefix-cls} {
-    transition: all 0.3s ease-in-out;
-    border-radius: 2px;
     background-color: @component-background;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
 
     &__header {
       display: flex;

@@ -46,11 +46,11 @@
 </script>
 <style lang="less" scoped>
   .full-loading {
-    display: flex;
     position: fixed;
-    z-index: 200;
     top: 0;
     left: 0;
+    z-index: 200;
+    display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -59,9 +59,9 @@
 
     &.absolute {
       position: absolute;
-      z-index: 300;
       top: 0;
       left: 0;
+      z-index: 300;
     }
   }
 

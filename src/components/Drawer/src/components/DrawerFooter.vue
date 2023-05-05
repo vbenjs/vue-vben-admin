@@ -73,9 +73,9 @@
     bottom: 0;
     width: 100%;
     padding: 0 12px 0 20px;
-    border-top: 1px solid @border-color-base;
-    background-color: @component-background;
     text-align: right;
+    background-color: @component-background;
+    border-top: 1px solid @border-color-base;
 
     > * {
       margin-right: 8px;

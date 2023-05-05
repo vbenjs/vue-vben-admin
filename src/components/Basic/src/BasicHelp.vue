@@ -98,8 +98,8 @@
   .@{prefix-cls} {
     display: inline-block;
     margin-left: 6px;
-    color: @text-color-help-dark;
     font-size: 14px;
+    color: @text-color-help-dark;
     cursor: pointer;
 
     &:hover {

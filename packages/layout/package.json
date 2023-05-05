@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@vben/hooks": "workspace:*",
-    "@vueuse/core": "^10.1.0",
+    "@vueuse/core": "^10.1.2",
     "vue": "^3.2.47"
   },
   "publishConfig": {

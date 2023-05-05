@@ -64,27 +64,27 @@
       height: 48px;
       margin-right: 16px;
       overflow: hidden;
-      border-radius: 4px;
-      background-color: #f0f2f5;
-      box-shadow: 0 1px 2.5px 0 rgb(0 0 0 / 18%);
       cursor: pointer;
+      background-color: #f0f2f5;
+      border-radius: 4px;
+      box-shadow: 0 1px 2.5px 0 rgb(0 0 0 / 18%);
 
       &::before,
       &::after {
-        content: '';
         position: absolute;
+        content: '';
       }
 
       &--sidebar,
       &--light {
         &::before {
-          z-index: 1;
           top: 0;
           left: 0;
+          z-index: 1;
           width: 33%;
           height: 100%;
-          border-radius: 4px 0 0 4px;
           background-color: #273352;
+          border-radius: 4px 0 0 4px;
         }
 
         &::after {
@@ -102,14 +102,14 @@
           left: 0;
           width: 33%;
           height: 100%;
-          border-radius: 4px 0 0 4px;
           background-color: #fff;
+          border-radius: 4px 0 0 4px;
         }
 
         &::after {
-          z-index: 1;
           top: 0;
           left: 0;
+          z-index: 1;
           width: 100%;
           height: 25%;
           background-color: #273352;
@@ -132,13 +132,13 @@
 
       &--mix-sidebar {
         &::before {
-          z-index: 1;
           top: 0;
           left: 0;
+          z-index: 1;
           width: 25%;
           height: 100%;
-          border-radius: 4px 0 0 4px;
           background-color: #273352;
+          border-radius: 4px 0 0 4px;
         }
 
         &::after {

@@ -417,8 +417,8 @@
 
   .@{prefix-cls} {
     &__popover-title {
-      display: flex;
       position: relative;
+      display: flex;
       align-items: center;
       justify-content: space-between;
     }
