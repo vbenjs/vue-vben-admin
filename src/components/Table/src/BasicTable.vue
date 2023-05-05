@@ -377,10 +377,10 @@
 
       .ant-form {
         width: 100%;
-        margin-bottom: 16px;
         padding: 12px 10px 6px;
-        border-radius: 2px;
+        margin-bottom: 16px;
         background-color: @component-background;
+        border-radius: 2px;
       }
     }
 
@@ -392,8 +392,8 @@
 
     .ant-table-wrapper {
       padding: 6px;
-      border-radius: 2px;
       background-color: @component-background;
+      border-radius: 2px;
 
       .ant-table-title {
         min-height: 40px;

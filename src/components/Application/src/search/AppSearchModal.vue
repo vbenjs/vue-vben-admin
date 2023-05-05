@@ -118,11 +118,11 @@
   @prefix-cls: ~'@{namespace}-app-search-modal';
   @footer-prefix-cls: ~'@{namespace}-app-search-footer';
   .@{prefix-cls} {
-    display: flex;
     position: fixed;
-    z-index: 800;
     top: 0;
     left: 0;
+    z-index: 800;
+    display: flex;
     justify-content: center;
     width: 100%;
     height: 100%;
@@ -171,8 +171,8 @@
       flex-direction: column;
       width: 632px;
       margin: 0 auto auto;
-      border-radius: 16px;
       background-color: @component-background;
+      border-radius: 16px;
       box-shadow: 0 25px 50px -12px rgb(0 0 0 / 25%);
     }
 
@@ -186,9 +186,9 @@
     &-input {
       width: 100%;
       height: 48px;
-      border-radius: 6px;
-      color: #1c1e21;
       font-size: 1.5em;
+      color: #1c1e21;
+      border-radius: 6px;
 
       span[role='img'] {
         color: #999;
@@ -197,8 +197,8 @@
 
     &-cancel {
       display: none;
-      color: #666;
       font-size: 1em;
+      color: #666;
     }
 
     &-not-data {
@@ -207,33 +207,33 @@
       justify-content: center;
       width: 100%;
       height: 100px;
-      color: rgb(150 159 175);
       font-size: 0.9;
+      color: rgb(150 159 175);
     }
 
     &-list {
       max-height: 472px;
-      margin: 0 auto;
-      margin-top: 14px;
       padding: 0 14px;
       padding-bottom: 20px;
+      margin: 0 auto;
+      margin-top: 14px;
       overflow: auto;
 
       &__item {
-        display: flex;
         position: relative;
+        display: flex;
         align-items: center;
         width: 100%;
         height: 56px;
-        margin-top: 8px;
         padding-bottom: 4px;
         padding-left: 14px;
-        border-radius: 4px;
-        background-color: @component-background;
-        box-shadow: 0 1px 3px 0 #d4d9e1;
-        color: @text-color-base;
+        margin-top: 8px;
         font-size: 14px;
+        color: @text-color-base;
         cursor: pointer;
+        background-color: @component-background;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px 0 #d4d9e1;
 
         > div:first-child,
         > div:last-child {
@@ -242,8 +242,8 @@
         }
 
         &--active {
-          background-color: @primary-color;
           color: #fff;
+          background-color: @primary-color;
 
           .@{prefix-cls}-list__item-enter {
             opacity: 1;

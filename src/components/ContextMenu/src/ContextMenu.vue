@@ -162,28 +162,28 @@
       }
 
       &:not(.ant-menu-item-disabled):hover {
-        background-color: @item-hover-bg;
         color: @text-color-base;
+        background-color: @item-hover-bg;
       }
     }
   }
 
   .context-menu {
-    display: block;
     position: fixed;
-    z-index: 200;
     top: 0;
     left: 0;
+    z-index: 200;
+    display: block;
     width: 156px;
     margin: 0;
-    border: 1px solid rgb(0 0 0 / 8%);
-    border-radius: 0.25rem;
-    background-clip: padding-box;
-    background-color: @component-background;
-    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 10%),
-      0 1px 5px 0 rgb(0 0 0 / 6%);
     list-style: none;
     user-select: none;
+    background-color: @component-background;
+    background-clip: padding-box;
+    border: 1px solid rgb(0 0 0 / 8%);
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 10%),
+      0 1px 5px 0 rgb(0 0 0 / 6%);
 
     &__item {
       margin: 0 !important;

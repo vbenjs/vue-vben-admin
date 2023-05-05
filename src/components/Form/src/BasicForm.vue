@@ -328,8 +328,8 @@
         .suffix {
           display: inline-flex;
           align-items: center;
-          margin-top: 1px;
           padding-left: 6px;
+          margin-top: 1px;
           line-height: 1;
         }
       }

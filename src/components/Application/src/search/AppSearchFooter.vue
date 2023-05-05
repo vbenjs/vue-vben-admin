@@ -23,17 +23,17 @@
   @prefix-cls: ~'@{namespace}-app-search-footer';
 
   .@{prefix-cls} {
-    display: flex;
     position: relative;
+    display: flex;
     flex-shrink: 0;
     align-items: center;
     height: 44px;
     padding: 0 16px;
+    font-size: 12px;
+    color: #666;
+    background-color: @component-background;
     border-top: 1px solid @border-color-base;
     border-radius: 0 0 16px 16px;
-    background-color: @component-background;
-    color: #666;
-    font-size: 12px;
 
     &-item {
       display: flex;
@@ -41,10 +41,10 @@
       justify-content: center;
       width: 20px;
       height: 18px;
-      margin-right: 0.4em;
       padding-bottom: 2px;
-      border-radius: 2px;
+      margin-right: 0.4em;
       background-color: linear-gradient(-225deg, #d5dbe4, #f8f8f8);
+      border-radius: 2px;
       box-shadow: inset 0 -2px 0 0 #cdcde6, inset 0 0 1px 1px #fff,
         0 1px 2px 1px rgb(30 35 90 / 40%);
 

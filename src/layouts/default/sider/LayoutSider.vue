@@ -152,12 +152,12 @@
       background-color: @sider-dark-bg-color;
 
       .ant-layout-sider-trigger {
-        background-color: @trigger-dark-bg-color;
         color: darken(@white, 25%);
+        background-color: @trigger-dark-bg-color;
 
         &:hover {
-          background-color: @trigger-dark-hover-bg-color;
           color: @white;
+          background-color: @trigger-dark-hover-bg-color;
         }
       }
     }
@@ -166,14 +166,14 @@
       // box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
 
       .ant-layout-sider-trigger {
-        border-top: 1px solid @border-color-light;
         color: @text-color-base;
+        border-top: 1px solid @border-color-light;
       }
     }
 
     .ant-layout-sider-zero-width-trigger {
-      z-index: 10;
       top: 40%;
+      z-index: 10;
     }
 
     & .ant-layout-sider-trigger {

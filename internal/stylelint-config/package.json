@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "stylelint-config-recess-order": "^4.0.0",
-    "stylelint-scss": "^4.6.0"
+    "stylelint-scss": "^5.0.0"
   },
   "devDependencies": {
     "postcss": "^8.4.23",
@@ -40,7 +40,7 @@
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.6",
     "prettier": "^2.8.8",
-    "stylelint": "^15.6.0",
+    "stylelint": "^15.6.1",
     "stylelint-config-recommended": "^12.0.0",
     "stylelint-config-recommended-scss": "^11.0.0",
     "stylelint-config-recommended-vue": "^1.4.0",

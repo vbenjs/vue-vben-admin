@@ -155,14 +155,14 @@
     }
 
     &__thumb {
-      display: block;
       position: relative;
+      display: block;
       width: 0;
       height: 0;
-      transition: 0.3s background-color;
-      border-radius: inherit;
-      background-color: rgb(144 147 153 / 30%);
       cursor: pointer;
+      background-color: rgb(144 147 153 / 30%);
+      border-radius: inherit;
+      transition: 0.3s background-color;
 
       &:hover {
         background-color: rgb(144 147 153 / 50%);
@@ -171,12 +171,12 @@
 
     &__bar {
       position: absolute;
-      z-index: 1;
       right: 2px;
       bottom: 2px;
-      transition: opacity 80ms ease;
+      z-index: 1;
       border-radius: 4px;
       opacity: 0;
+      transition: opacity 80ms ease;
 
       &.is-vertical {
         top: 2px;
@@ -201,7 +201,7 @@
   .scrollbar:active > .scrollbar__bar,
   .scrollbar:focus > .scrollbar__bar,
   .scrollbar:hover > .scrollbar__bar {
-    transition: opacity 340ms ease-out;
     opacity: 1;
+    transition: opacity 340ms ease-out;
   }
 </style>

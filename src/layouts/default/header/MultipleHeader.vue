@@ -118,8 +118,8 @@
 
     &--fixed {
       position: fixed;
-      z-index: @multiple-tab-fixed-z-index;
       top: 0;
+      z-index: @multiple-tab-fixed-z-index;
       width: 100%;
     }
   }

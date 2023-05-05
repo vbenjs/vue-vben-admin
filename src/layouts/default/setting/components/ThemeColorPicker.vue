@@ -65,9 +65,9 @@
     &__item {
       width: 20px;
       height: 20px;
+      cursor: pointer;
       border: 1px solid #ddd;
       border-radius: 2px;
-      cursor: pointer;
 
       svg {
         display: none;
@@ -79,8 +79,8 @@
         svg {
           display: inline-block;
           margin: 0 0 3px 3px;
-          fill: @white !important;
           font-size: 12px;
+          fill: @white !important;
         }
       }
     }

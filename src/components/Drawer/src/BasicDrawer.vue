@@ -217,8 +217,8 @@
       background-color: @component-background;
 
       .scrollbar__wrap {
-        margin-bottom: 0 !important;
         padding: 16px !important;
+        margin-bottom: 0 !important;
       }
 
       > .scrollbar > .scrollbar__bar.is-horizontal {

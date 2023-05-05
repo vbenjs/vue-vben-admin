@@ -152,10 +152,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 30px;
-      background-color: #141313;
-      color: #bababa;
       font-weight: 700;
+      color: #bababa;
+      background-color: #141313;
+      border-radius: 30px;
 
       @media screen and (max-width: @screen-md) {
         span:not(.meridiem) {
@@ -195,10 +195,10 @@
     }
 
     &-entry {
-      display: flex;
       position: absolute;
       top: 0;
       left: 0;
+      display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
@@ -221,8 +221,8 @@
 
         &-name {
           margin-top: 5px;
-          color: #bababa;
           font-weight: 500;
+          color: #bababa;
         }
       }
 

@@ -48,8 +48,8 @@
 
     &-loading {
       position: absolute;
-      z-index: @page-loading-z-index;
       top: 200px;
+      z-index: @page-loading-z-index;
     }
   }
 </style>

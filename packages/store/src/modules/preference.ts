@@ -8,8 +8,8 @@ const usePreferenceStore = defineStore('shared-preference', {
     appName: 'vben-admin',
   }),
   getters: {
-    getAppName(): string {
-      return this.appName;
+    getAppName(state): string {
+      return state.appName;
     },
   },
   actions: {
