@@ -43,7 +43,7 @@
       const getBindValue = computed(() => {
         return props.def ? { checked: props.def } : {};
       });
-      function handleChange(e: ChangeEvent) {
+      function handleChange(e) {
         props.event && baseHandler(props.event, e);
       }
       return {
