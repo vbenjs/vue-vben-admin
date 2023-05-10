@@ -42,7 +42,7 @@ export const REDIRECT_ROUTE: AppRouteRecordRaw = {
   },
   children: [
     {
-      path: '/redirect/:path(.*)',
+      path: '/redirect/:path(.*)/:_redirect_type(.*)/:_origin_params(.*)',
       name: REDIRECT_NAME,
       component: () => import('/@/views/sys/redirect/index.vue'),
       meta: {
