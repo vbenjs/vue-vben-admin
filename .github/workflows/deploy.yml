@@ -68,7 +68,7 @@ jobs:
           cat ./.env.production
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@v2
 
       - name: use Node.js 16
         uses: actions/setup-node@v3
