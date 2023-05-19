@@ -113,7 +113,7 @@ export function useFormEvents({
     fields.forEach((key) => {
       const schema = unref(getSchema).find((item) => item.field === key);
       let value = get(values, key);
-      const hasKey = !!get(values, key);
+      const hasKey = Reflect.has(values, key);
 
       value = handleInputNumberValue(schema?.component, value);
       const { componentProps } = schema || {};
