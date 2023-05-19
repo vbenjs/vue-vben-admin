@@ -67,6 +67,9 @@ jobs:
           sed -i  "s#VITE_DROP_CONSOLE\s*=.*#VITE_DROP_CONSOLE = true#g" ./.env.production
           cat ./.env.production
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
       - name: use Node.js 16
         uses: actions/setup-node@v3
         with:
