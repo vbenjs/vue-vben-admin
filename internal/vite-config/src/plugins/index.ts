@@ -11,7 +11,7 @@ import { configHtmlPlugin } from './html';
 import { configMockPlugin } from './mock';
 import { configSvgIconsPlugin } from './svgSprite';
 import { configVisualizerConfig } from './visualizer';
-
+import vueSetupExtend from 'vite-plugin-vue-setup-extend';
 interface Options {
   isBuild: boolean;
   root: string;
@@ -21,7 +21,12 @@ interface Options {
 }
 
 async function createPlugins({ isBuild, root, enableMock, compress, enableAnalyze }: Options) {
-  const vitePlugins: (PluginOption | PluginOption[])[] = [vue(), vueJsx(), DefineOptions()];
+  const vitePlugins: (PluginOption | PluginOption[])[] = [
+    vue(),
+    vueJsx(),
+    vueSetupExtend(),
+    DefineOptions(),
+  ];
 
   const appConfigPlugin = await createAppConfigPlugin({ root, isBuild });
   vitePlugins.push(appConfigPlugin);
