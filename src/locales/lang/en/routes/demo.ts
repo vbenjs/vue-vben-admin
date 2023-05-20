@@ -29,10 +29,6 @@ export default {
     drawer: 'Drawer',
     desc: 'Desc',
 
-    lazy: 'Lazy',
-    lazyBasic: 'Basic',
-    lazyTransition: 'Animation',
-
     verify: 'Verify',
     verifyDrag: 'Drag ',
     verifyRotate: 'Picture Restore',
@@ -92,6 +88,7 @@ export default {
     breadcrumb: 'Breadcrumbs',
     breadcrumbFlat: 'Flat Mode',
     breadcrumbFlatDetail: 'Flat mode details',
+    requestDemo: 'Retry request demo',
 
     breadcrumbChildren: 'Level mode',
     breadcrumbChildrenDetail: 'Level mode detail',
@@ -110,6 +107,7 @@ export default {
     dynamicForm: 'Dynamic',
     customerForm: 'Custom',
     appendForm: 'Append',
+    tabsForm: 'TabsForm',
   },
   iframe: {
     frame: 'External',
@@ -196,5 +194,6 @@ export default {
     editRowTable: 'Editable row',
     authColumn: 'Auth column',
     resizeParentHeightTable: 'resizeParentHeightTable',
+    vxeTable: 'VxeTable',
   },
 };

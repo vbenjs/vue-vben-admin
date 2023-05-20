@@ -2,11 +2,6 @@
 @import './input.less';
 @import './btn.less';
 
-// TODO beta.11 fix
-.ant-col {
-  width: 100%;
-}
-
 .ant-image-preview-root {
   img {
     display: unset;
@@ -61,4 +56,12 @@ span.anticon:not(.app-iconify) {
 .ant-tree-checkbox-checked .ant-tree-checkbox-inner::after {
   border-top: 0 !important;
   border-left: 0 !important;
+}
+
+.ant-form-item-control-input-content {
+  > div {
+    > div {
+      max-width: 100%;
+    }
+  }
 }

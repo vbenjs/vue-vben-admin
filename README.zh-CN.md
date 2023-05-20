@@ -23,9 +23,9 @@ Vue Vben Admin 是一个免费开源的中后台模版。使用了最新的`vue3
 
 ## 预览
 
-- [vue-vben-admin](https://vvbin.cn/next/) - 完整版中文站点
+- [vue-vben-admin](https://vben.vvbin.cn/) - 完整版中文站点
 - [vue-vben-admin-gh-pages](https://anncwb.github.io/vue-vben-admin/) - 完整版 github 站点
-- [vben-admin-thin-next](https://vvbin.cn/thin/next/) - 简化版中文站点
+- [vben-admin-thin-next](https://vben.vvbin.cn/thin/next/) - 简化版中文站点
 - [vben-admin-thin-gh-pages](https://anncwb.github.io/vben-admin-thin-next/) - 简化版 github 站点
 
 测试账号: vben/123456
@@ -44,7 +44,7 @@ Vue Vben Admin 是一个免费开源的中后台模版。使用了最新的`vue3
 
 ## 文档
 
-[文档地址](https://vvbin.cn/doc-next/)
+[文档地址](https://doc.vvbin.cn/)
 
 ## 准备
 
@@ -141,9 +141,6 @@ pnpm build
 
 - [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock) - 用于本地及开发环境数据 mock
 - [vite-plugin-html](https://github.com/anncwb/vite-plugin-html) - 用于 html 模版转换及压缩
-- [vite-plugin-style-import](https://github.com/anncwb/vite-plugin-style-import) - 用于组件库样式按需引入
-- [vite-plugin-theme](https://github.com/anncwb/vite-plugin-theme) - 用于在线切换主题色等颜色相关配置
-- [vite-plugin-imagemin](https://github.com/anncwb/vite-plugin-imagemin) - 用于打包压缩图片资源
 - [vite-plugin-compression](https://github.com/anncwb/vite-plugin-compression) - 用于打包输出.gz|.brotil 文件
 - [vite-plugin-svg-icons](https://github.com/anncwb/vite-plugin-svg-icons) - 用于快速生成 svg 雪碧图
 

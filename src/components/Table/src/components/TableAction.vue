@@ -34,7 +34,7 @@
   import { defineComponent, PropType, computed, toRaw, unref } from 'vue';
   import { MoreOutlined } from '@ant-design/icons-vue';
   import { Divider, Tooltip, TooltipProps } from 'ant-design-vue';
-  import Icon from '/@/components/Icon/index';
+  import Icon from '@/components/Icon/Icon.vue';
   import { ActionItem, TableActionType } from '/@/components/Table';
   import { PopConfirmButton } from '/@/components/Button';
   import { Dropdown } from '/@/components/Dropdown';
@@ -91,7 +91,7 @@
           .map((action) => {
             const { popConfirm } = action;
             return {
-              getPopupContainer: () => unref((table as any)?.wrapRef.value) ?? document.body,
+              getPopupContainer: () => unref((table as any)?.wrapRef) ?? document.body,
               type: 'link',
               size: 'small',
               ...action,
@@ -128,7 +128,7 @@
 
       function getTooltip(data: string | TooltipProps): TooltipProps {
         return {
-          getPopupContainer: () => unref((table as any)?.wrapRef.value) ?? document.body,
+          getPopupContainer: () => unref((table as any)?.wrapRef) ?? document.body,
           placement: 'bottom',
           ...(isString(data) ? { title: data } : data),
         };

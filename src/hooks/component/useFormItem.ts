@@ -6,8 +6,8 @@ import {
   getCurrentInstance,
   watchEffect,
   unref,
-  nextTick,
   toRaw,
+  nextTick,
 } from 'vue';
 
 import { isEqual } from 'lodash-es';

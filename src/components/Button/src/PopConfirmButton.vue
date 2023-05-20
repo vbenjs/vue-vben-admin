@@ -4,7 +4,7 @@
   import { Popconfirm } from 'ant-design-vue';
   import { extendSlots } from '/@/utils/helper/tsxHelper';
   import { omit } from 'lodash-es';
-  import { useAttrs } from '/@/hooks/core/useAttrs';
+  import { useAttrs } from '@vben/hooks';
   import { useI18n } from '/@/hooks/web/useI18n';
 
   const props = {
@@ -39,7 +39,7 @@
 
       return () => {
         const bindValues = omit(unref(getBindValues), 'icon');
-        const btnBind = omit(bindValues, 'title') as Recordable;
+        const btnBind = omit(bindValues, 'title') as any;
         if (btnBind.disabled) btnBind.color = '';
         const Button = h(BasicButton, btnBind, extendSlots(slots));
 

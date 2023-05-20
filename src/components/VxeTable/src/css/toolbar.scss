@@ -1,0 +1,30 @@
+.vxe-toolbar .vxe-custom--option-wrapper .vxe-custom--footer {
+  display: flex;
+}
+
+.vxe-toolbar .vxe-tools--wrapper,
+.vxe-toolbar .vxe-tools--operate button:first-child {
+  margin: 0;
+}
+
+.vxe-toolbar .vxe-tools--wrapper,
+.vxe-toolbar .vxe-tools--operate .vxe-button {
+  margin-left: 1px;
+  border-radius: 0 !important;
+}
+
+.vxe-toolbar .vxe-tools--wrapper,
+.vxe-toolbar .vxe-tools--operate button:first-child {
+  margin-left: 10px;
+}
+
+.vxe-toolbar .vxe-tools--wrapper,
+.vxe-toolbar .vxe-tools--operate .vxe-custom--wrapper {
+  margin-left: 1px;
+  border-radius: 0 !important;
+}
+
+.vxe-toolbar .vxe-tools--wrapper,
+.vxe-toolbar .vxe-tools--operate .vxe-custom--wrapper .vxe-button {
+  margin-left: 1px;
+}

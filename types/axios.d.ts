@@ -1,4 +1,5 @@
 export type ErrorMessageMode = 'none' | 'modal' | 'message' | undefined;
+export type SuccessMessageMode = ErrorMessageMode;
 
 export interface RequestOptions {
   // Splicing request parameters to url
@@ -18,13 +19,22 @@ export interface RequestOptions {
   urlPrefix?: string;
   // Error message prompt type
   errorMessageMode?: ErrorMessageMode;
+  // Success message prompt type
+  successMessageMode?: SuccessMessageMode;
   // Whether to add a timestamp
   joinTime?: boolean;
   ignoreCancelToken?: boolean;
   // Whether to send token in header
   withToken?: boolean;
+  // 请求重试机制
+  retryRequest?: RetryRequest;
 }
 
+export interface RetryRequest {
+  isOpenRetry: boolean;
+  count: number;
+  waitTime: number;
+}
 export interface Result<T = any> {
   code: number;
   type: 'success' | 'error' | 'warning';

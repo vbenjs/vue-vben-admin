@@ -1,11 +1,9 @@
 import type { BasicTableProps, TableRowSelection, BasicColumn } from '../types/table';
-import { Ref, ComputedRef, ref } from 'vue';
-import { computed, unref, nextTick, watch } from 'vue';
+import { Ref, ComputedRef, ref, computed, unref, nextTick, watch } from 'vue';
 import { getViewportOffset } from '/@/utils/domUtils';
 import { isBoolean } from '/@/utils/is';
-import { useWindowSizeFn } from '/@/hooks/event/useWindowSizeFn';
+import { useWindowSizeFn, onMountedOrActivated } from '@vben/hooks';
 import { useModalContext } from '/@/components/Modal';
-import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
 import { useDebounceFn } from '@vueuse/core';
 
 export function useTableScroll(
@@ -90,7 +88,7 @@ export function useTableScroll(
 
     bodyEl!.style.height = 'unset';
 
-    if (!unref(getCanResize) || tableData.length === 0) return;
+    if (!unref(getCanResize) || !unref(tableData) || tableData.length === 0) return;
 
     await nextTick();
     // Add a delay to get the correct bottomIncludeBody paginationHeight footerHeight headerHeight
@@ -172,7 +170,7 @@ export function useTableScroll(
 
     bodyEl!.style.height = `${height}px`;
   }
-  useWindowSizeFn(calcTableHeight, 280);
+  useWindowSizeFn(calcTableHeight, { wait: 280 });
   onMountedOrActivated(() => {
     calcTableHeight();
     nextTick(() => {
@@ -191,7 +189,7 @@ export function useTableScroll(
 
     const columns = unref(columnsRef).filter((item) => !item.defaultHidden);
     columns.forEach((item) => {
-      width += Number.parseInt(item.width as string) || 0;
+      width += Number.parseFloat(item.width as string) || 0;
     });
     const unsetWidthColumns = columns.filter((item) => !Reflect.has(item, 'width'));
 

@@ -34,7 +34,10 @@
       </span>
       <SimpleMenuTag :item="item" :collapseParent="!!collapse && !!parent" />
     </template>
-    <template v-for="childrenItem in item.children || []" :key="childrenItem.path">
+    <template
+      v-for="childrenItem in item.children || []"
+      :key="childrenItem.paramPath || childrenItem.path"
+    >
       <SimpleSubMenu v-bind="$props" :item="childrenItem" :parent="false" />
     </template>
   </SubMenu>
@@ -45,7 +48,7 @@
 
   import { defineComponent, computed } from 'vue';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import Icon from '/@/components/Icon/index';
+  import Icon from '@/components/Icon/Icon.vue';
 
   import MenuItem from './components/MenuItem.vue';
   import SubMenu from './components/SubMenuItem.vue';

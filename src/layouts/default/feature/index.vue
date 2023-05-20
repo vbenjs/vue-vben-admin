@@ -62,18 +62,18 @@
   @prefix-cls: ~'@{namespace}-setting-drawer-feature';
 
   .@{prefix-cls} {
+    display: flex;
     position: absolute;
+    z-index: 10;
     top: 45%;
     right: 0;
-    z-index: 10;
-    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 10px;
+    border-radius: 6px 0 0 6px;
+    background-color: @primary-color;
     color: @white;
     cursor: pointer;
-    background-color: @primary-color;
-    border-radius: 6px 0 0 6px;
-    justify-content: center;
-    align-items: center;
 
     svg {
       width: 1em;

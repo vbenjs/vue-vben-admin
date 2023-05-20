@@ -28,10 +28,6 @@ export default {
     drawer: '抽屉扩展',
     desc: '详情组件',
 
-    lazy: '懒加载组件',
-    lazyBasic: '基础示例',
-    lazyTransition: '动画效果',
-
     verify: '验证组件',
     verifyDrag: '拖拽校验',
     verifyRotate: '图片还原',
@@ -88,6 +84,7 @@ export default {
     ws: 'websocket测试',
     breadcrumb: '面包屑导航',
     breadcrumbFlat: '平级模式',
+    requestDemo: '测试请求重试',
     breadcrumbFlatDetail: '平级详情',
     breadcrumbChildren: '层级模式',
     breadcrumbChildrenDetail: '层级详情',
@@ -106,6 +103,7 @@ export default {
     dynamicForm: '动态表单',
     customerForm: '自定义组件',
     appendForm: '表单增删示例',
+    tabsForm: '标签页+多级field',
   },
   iframe: {
     frame: '外部页面',
@@ -187,5 +185,6 @@ export default {
     editRowTable: '可编辑行',
     authColumn: '权限列',
     resizeParentHeightTable: '继承父元素高度',
+    vxeTable: 'VxeTable',
   },
 };

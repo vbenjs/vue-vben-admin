@@ -10,24 +10,27 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, watch, ref, onMounted, unref } from 'vue';
+  import { type Recordable, type AnyFunction } from '@vben/types';
+  import { type PropType, computed, defineComponent, watch, ref, onMounted, unref } from 'vue';
   import { Tree } from 'ant-design-vue';
   import { isArray, isFunction } from '/@/utils/is';
   import { get } from 'lodash-es';
   import { propTypes } from '/@/utils/propTypes';
   import { LoadingOutlined } from '@ant-design/icons-vue';
+
   export default defineComponent({
     name: 'ApiTree',
     components: { ATree: Tree, LoadingOutlined },
     props: {
-      api: { type: Function as PropType<(arg?: Recordable) => Promise<Recordable>> },
+      api: { type: Function as PropType<(arg?: Recordable<any>) => Promise<Recordable<any>>> },
       params: { type: Object },
       immediate: { type: Boolean, default: true },
       resultField: propTypes.string.def(''),
+      afterFetch: { type: Function as PropType<AnyFunction> },
     },
     emits: ['options-change', 'change'],
     setup(props, { attrs, emit }) {
-      const treeData = ref<Recordable[]>([]);
+      const treeData = ref<Recordable<any>[]>([]);
       const isFirstLoaded = ref<Boolean>(false);
       const loading = ref(false);
       const getAttrs = computed(() => {
@@ -61,7 +64,7 @@
       });
 
       async function fetch() {
-        const { api } = props;
+        const { api, afterFetch } = props;
         if (!api || !isFunction(api)) return;
         loading.value = true;
         treeData.value = [];
@@ -71,12 +74,15 @@
         } catch (e) {
           console.error(e);
         }
+        if (afterFetch && isFunction(afterFetch)) {
+          result = afterFetch(result);
+        }
         loading.value = false;
         if (!result) return;
         if (!isArray(result)) {
           result = get(result, props.resultField);
         }
-        treeData.value = (result as Recordable[]) || [];
+        treeData.value = (result as Recordable<any>[]) || [];
         isFirstLoaded.value = true;
         emit('options-change', treeData.value);
       }

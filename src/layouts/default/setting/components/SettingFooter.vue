@@ -34,6 +34,7 @@
   import { updateColorWeak } from '/@/logics/theme/updateColorWeak';
   import { updateGrayMode } from '/@/logics/theme/updateGrayMode';
   import defaultSetting from '/@/settings/projectSetting';
+  import { updateSidebarBgColor } from '/@/logics/theme/updateBackground';
 
   export default defineComponent({
     name: 'SettingFooter',
@@ -61,7 +62,7 @@
         try {
           appStore.setProjectConfig(defaultSetting);
           const { colorWeak, grayMode } = defaultSetting;
-          // updateTheme(themeColor);
+          updateSidebarBgColor();
           updateColorWeak(colorWeak);
           updateGrayMode(grayMode);
           createMessage.success(t('layout.setting.resetSuccess'));

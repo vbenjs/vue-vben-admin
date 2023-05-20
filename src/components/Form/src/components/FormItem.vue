@@ -1,17 +1,21 @@
 <script lang="tsx">
+  import { type Recordable, type Nullable } from '@vben/types';
   import type { PropType, Ref } from 'vue';
-  import type { FormActionType, FormProps } from '../types/form';
-  import type { FormSchema } from '../types/form';
+  import { computed, defineComponent, toRefs, unref } from 'vue';
+  import type { FormActionType, FormProps, FormSchema } from '../types/form';
   import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
   import type { TableActionType } from '/@/components/Table';
-  import { defineComponent, computed, unref, toRefs } from 'vue';
-  import { Form, Col, Divider } from 'ant-design-vue';
+  import { Col, Divider, Form } from 'ant-design-vue';
   import { componentMap } from '../componentMap';
   import { BasicHelp } from '/@/components/Basic';
   import { isBoolean, isFunction, isNull } from '/@/utils/is';
   import { getSlot } from '/@/utils/helper/tsxHelper';
-  import { createPlaceholderMessage, setComponentRuleType } from '../helper';
-  import { upperFirst, cloneDeep } from 'lodash-es';
+  import {
+    createPlaceholderMessage,
+    NO_AUTO_LINK_COMPONENTS,
+    setComponentRuleType,
+  } from '../helper';
+  import { cloneDeep, upperFirst } from 'lodash-es';
   import { useItemLabelWidth } from '../hooks/useLabelWidth';
   import { useI18n } from '/@/hooks/web/useI18n';
 
@@ -28,15 +32,15 @@
         default: () => ({}),
       },
       allDefaultValues: {
-        type: Object as PropType<Recordable>,
+        type: Object as PropType<Recordable<any>>,
         default: () => ({}),
       },
       formModel: {
-        type: Object as PropType<Recordable>,
+        type: Object as PropType<Recordable<any>>,
         default: () => ({}),
       },
       setFormModel: {
-        type: Function as PropType<(key: string, value: any) => void>,
+        type: Function as PropType<(key: string, value: any, schema: FormSchema) => void>,
         default: null,
       },
       tableAction: {
@@ -44,6 +48,9 @@
       },
       formActionType: {
         type: Object as PropType<FormActionType>,
+      },
+      isAdvanced: {
+        type: Boolean,
       },
     },
     setup(props, { slots }) {
@@ -66,7 +73,7 @@
             ...mergeDynamicData,
             ...allDefaultValues,
             ...formModel,
-          } as Recordable,
+          } as Recordable<any>,
           schema: schema,
         };
       });
@@ -78,12 +85,16 @@
           componentProps = componentProps({ schema, tableAction, formModel, formActionType }) ?? {};
         }
         if (schema.component === 'Divider') {
-          componentProps = Object.assign({ type: 'horizontal' }, componentProps, {
-            orientation: 'left',
-            plain: true,
-          });
+          componentProps = Object.assign(
+            { type: 'horizontal' },
+            {
+              orientation: 'left',
+              plain: true,
+            },
+            componentProps,
+          );
         }
-        return componentProps as Recordable;
+        return componentProps as Recordable<any>;
       });
 
       const getDisable = computed(() => {
@@ -104,8 +115,8 @@
         const { show, ifShow } = props.schema;
         const { showAdvancedButton } = props.formProps;
         const itemIsAdvanced = showAdvancedButton
-          ? isBoolean(props.schema.isAdvanced)
-            ? props.schema.isAdvanced
+          ? isBoolean(props.isAdvanced)
+            ? props.isAdvanced
             : true
           : true;
 
@@ -178,8 +189,21 @@
 
         const getRequired = isFunction(required) ? required(unref(getValues)) : required;
 
-        if ((!rules || rules.length === 0) && getRequired) {
-          rules = [{ required: getRequired, validator }];
+        /*
+         * 1、若设置了required属性，又没有其他的rules，就创建一个验证规则；
+         * 2、若设置了required属性，又存在其他的rules，则只rules中不存在required属性时，才添加验证required的规则
+         *     也就是说rules中的required，优先级大于required
+         */
+        if (getRequired) {
+          if (!rules || rules.length === 0) {
+            rules = [{ required: getRequired, validator }];
+          } else {
+            const requiredIndex: number = rules.findIndex((rule) => Reflect.has(rule, 'required'));
+
+            if (requiredIndex === -1) {
+              rules.push({ required: getRequired, validator });
+            }
+          }
         }
 
         const requiredRuleIndex: number = rules.findIndex(
@@ -212,7 +236,7 @@
         if (characterInx !== -1 && !rules[characterInx].validator) {
           rules[characterInx].message =
             rules[characterInx].message ||
-            t('component.form.maxTip', [rules[characterInx].max] as Recordable);
+            t('component.form.maxTip', [rules[characterInx].max] as Recordable<any>);
         }
         return rules;
       }
@@ -231,20 +255,20 @@
         const eventKey = `on${upperFirst(changeEvent)}`;
 
         const on = {
-          [eventKey]: (...args: Nullable<Recordable>[]) => {
+          [eventKey]: (...args: Nullable<Recordable<any>>[]) => {
             const [e] = args;
             if (propsData[eventKey]) {
               propsData[eventKey](...args);
             }
             const target = e ? e.target : null;
             const value = target ? (isCheck ? target.checked : target.value) : e;
-            props.setFormModel(field, value);
+            props.setFormModel(field, value, props.schema);
           },
         };
         const Comp = componentMap.get(component) as ReturnType<typeof defineComponent>;
 
         const { autoSetPlaceHolder, size } = props.formProps;
-        const propsData: Recordable = {
+        const propsData: Recordable<any> = {
           allowClear: true,
           getPopupContainer: (trigger: Element) => trigger.parentNode,
           size,
@@ -261,11 +285,11 @@
         propsData.codeField = field;
         propsData.formValues = unref(getValues);
 
-        const bindValue: Recordable = {
+        const bindValue: Recordable<any> = {
           [valueField || (isCheck ? 'checked' : 'value')]: props.formModel[field],
         };
 
-        const compAttr: Recordable = {
+        const compAttr: Recordable<any> = {
           ...propsData,
           ...on,
           ...bindValue,
@@ -328,12 +352,21 @@
           const showSuffix = !!suffix;
           const getSuffix = isFunction(suffix) ? suffix(unref(getValues)) : suffix;
 
+          // TODO 自定义组件验证会出现问题，因此这里框架默认将自定义组件设置手动触发验证，如果其他组件还有此问题请手动设置autoLink=false
+          if (NO_AUTO_LINK_COMPONENTS.includes(component)) {
+            props.schema &&
+              (props.schema.itemProps! = {
+                autoLink: false,
+                ...props.schema.itemProps,
+              });
+          }
+
           return (
             <Form.Item
               name={field}
               colon={colon}
               class={{ 'suffix-item': showSuffix }}
-              {...(itemProps as Recordable)}
+              {...(itemProps as Recordable<any>)}
               label={renderLabelHelpMessage()}
               rules={handleRules()}
               labelCol={labelCol}

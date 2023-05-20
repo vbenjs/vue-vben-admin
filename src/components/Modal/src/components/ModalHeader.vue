@@ -17,6 +17,5 @@
       },
       title: { type: String },
     },
-    emits: ['dblclick'],
   });
 </script>

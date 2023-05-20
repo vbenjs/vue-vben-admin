@@ -19,13 +19,13 @@
 <style lang="less" scoped>
   .demo-box {
     display: flex;
+    align-items: center;
+    justify-content: center;
     width: 300px;
     height: 300px;
-    font-size: 24px;
-    color: #fff;
-    background-color: #408ede;
     border-radius: 10px;
-    justify-content: center;
-    align-items: center;
+    background-color: #408ede;
+    color: #fff;
+    font-size: 24px;
   }
 </style>

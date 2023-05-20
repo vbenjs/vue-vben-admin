@@ -40,7 +40,7 @@ export function useCustomRow(
         function handleClick() {
           const { rowSelection, rowKey, clickToRowSelect } = unref(propsRef);
           if (!rowSelection || !clickToRowSelect) return;
-          const keys = getSelectRowKeys();
+          const keys = getSelectRowKeys() || [];
           const key = getKey(record, rowKey, unref(getAutoCreateKey));
           if (!key) return;
 

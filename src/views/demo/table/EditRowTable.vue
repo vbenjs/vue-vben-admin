@@ -1,8 +1,10 @@
 <template>
   <div class="p-4">
     <BasicTable @register="registerTable" @edit-change="onEditChange">
-      <template #action="{ record, column }">
-        <TableAction :actions="createActions(record, column)" />
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'action'">
+          <TableAction :actions="createActions(record, column)" />
+        </template>
       </template>
     </BasicTable>
   </div>
@@ -27,47 +29,54 @@
   const columns: BasicColumn[] = [
     {
       title: '输入框',
-      dataIndex: 'name',
+      dataIndex: 'name-group',
       editRow: true,
-      editComponentProps: {
-        prefix: '$',
-      },
-      width: 150,
-    },
-    {
-      title: '默认输入状态',
-      dataIndex: 'name7',
-      editRow: true,
-      width: 150,
-    },
-    {
-      title: '输入框校验',
-      dataIndex: 'name1',
-      editRow: true,
-      align: 'left',
-      // 默认必填校验
-      editRule: true,
-      width: 150,
-    },
-    {
-      title: '输入框函数校验',
-      dataIndex: 'name2',
-      editRow: true,
-      align: 'right',
-      editRule: async (text) => {
-        if (text === '2') {
-          return '不能输入该值';
-        }
-        return '';
-      },
-    },
-    {
-      title: '数字输入框',
-      dataIndex: 'id',
-      editRow: true,
-      editRule: true,
-      editComponent: 'InputNumber',
-      width: 150,
+      children: [
+        {
+          title: '输入框',
+          dataIndex: 'name',
+          editRow: true,
+          editComponentProps: {
+            prefix: '$',
+          },
+          width: 150,
+        },
+        {
+          title: '默认输入状态',
+          dataIndex: 'name7',
+          editRow: true,
+          width: 150,
+        },
+        {
+          title: '输入框校验',
+          dataIndex: 'name1',
+          editRow: true,
+          align: 'left',
+          // 默认必填校验
+          editRule: true,
+          width: 150,
+        },
+        {
+          title: '输入框函数校验',
+          dataIndex: 'name2',
+          editRow: true,
+          align: 'right',
+          editRule: async (text) => {
+            if (text === '2') {
+              return '不能输入该值';
+            }
+            return '';
+          },
+        },
+        {
+          title: '数字输入框',
+          dataIndex: 'id',
+          editRow: true,
+          editRule: true,
+          editComponent: 'InputNumber',
+          width: 150,
+        },
+      ],
     },
     {
       title: '下拉框',
@@ -160,6 +169,57 @@
       },
       width: 100,
     },
+    {
+      title: '单选框',
+      dataIndex: 'radio1',
+      editRow: true,
+      editComponent: 'RadioGroup',
+      editComponentProps: {
+        options: [
+          {
+            label: '选项1',
+            value: '1',
+          },
+          {
+            label: '选项2',
+            value: '2',
+          },
+        ],
+      },
+      width: 200,
+    },
+    {
+      title: '单选按钮框',
+      dataIndex: 'radio2',
+      editRow: true,
+      editComponent: 'RadioButtonGroup',
+      editComponentProps: {
+        options: [
+          {
+            label: '选项1',
+            value: '1',
+          },
+          {
+            label: '选项2',
+            value: '2',
+          },
+        ],
+      },
+      width: 200,
+    },
+    {
+      title: '远程单选框',
+      dataIndex: 'radio3',
+      editRow: true,
+      editComponent: 'ApiRadioGroup',
+      editComponentProps: {
+        api: optionsListApi,
+        resultField: 'list',
+        labelField: 'name',
+        valueField: 'id',
+      },
+      width: 200,
+    },
   ];
   export default defineComponent({
     components: { BasicTable, TableAction },
@@ -180,7 +240,7 @@
           width: 160,
           title: 'Action',
           dataIndex: 'action',
-          slots: { customRender: 'action' },
+          // slots: { customRender: 'action' },
         },
       });
 

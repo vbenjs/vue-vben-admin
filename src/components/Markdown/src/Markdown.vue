@@ -18,7 +18,8 @@
   import { useLocale } from '/@/locales/useLocale';
   import { useModalContext } from '../../Modal';
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
-  import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
+  import { onMountedOrActivated } from '@vben/hooks';
+  import { getTheme } from './getTheme';
 
   type Lang = 'zh_CN' | 'en_US' | 'ja_JP' | 'ko_KR' | undefined;
 
@@ -30,8 +31,8 @@
     },
     emits: ['change', 'get', 'update:value'],
     setup(props, { attrs, emit }) {
-      const wrapRef = ref<ElRef>(null);
-      const vditorRef = ref(null) as Ref<Nullable<Vditor>>;
+      const wrapRef = ref(null);
+      const vditorRef = ref(null) as Ref<Vditor | null>;
       const initedRef = ref(false);
 
       const modalFn = useModalContext();
@@ -46,8 +47,9 @@
           if (!inited) {
             return;
           }
-          const theme = val === 'dark' ? 'dark' : 'classic';
-          instance.getVditor()?.setTheme(theme);
+          instance
+            .getVditor()
+            ?.setTheme(getTheme(val) as any, getTheme(val, 'content'), getTheme(val, 'code'));
         },
         {
           immediate: true,
@@ -83,17 +85,26 @@
         return lang;
       });
       function init() {
-        const wrapEl = unref(wrapRef) as HTMLElement;
+        const wrapEl = unref(wrapRef);
         if (!wrapEl) return;
         const bindValue = { ...attrs, ...props };
         const insEditor = new Vditor(wrapEl, {
-          theme: getDarkMode.value === 'dark' ? 'dark' : 'classic',
+          // 设置外观主题
+          theme: getTheme(getDarkMode.value) as any,
           lang: unref(getCurrentLang),
           mode: 'sv',
           fullscreen: {
             index: 520,
           },
           preview: {
+            theme: {
+              // 设置内容主题
+              current: getTheme(getDarkMode.value, 'content'),
+            },
+            hljs: {
+              // 设置代码块主题
+              style: getTheme(getDarkMode.value, 'code'),
+            },
             actions: [],
           },
           input: (v) => {
@@ -129,7 +140,9 @@
         if (!vditorInstance) return;
         try {
           vditorInstance?.destroy?.();
-        } catch (error) {}
+        } catch (error) {
+          //
+        }
         vditorRef.value = null;
         initedRef.value = false;
       }

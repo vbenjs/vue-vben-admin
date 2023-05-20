@@ -62,12 +62,13 @@
     watch,
     onDeactivated,
     onBeforeUnmount,
+    PropType,
   } from 'vue';
   import ImgUpload from './ImgUpload.vue';
   import { toolbar, plugins } from './tinymce';
   import { buildShortUUID } from '/@/utils/uuid';
   import { bindHandlers } from './helper';
-  import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
+  import { onMountedOrActivated } from '@vben/hooks';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { isNumber } from '/@/utils/is';
   import { useLocale } from '/@/locales/useLocale';
@@ -76,7 +77,7 @@
   const tinymceProps = {
     options: {
       type: Object as PropType<Partial<RawEditorSettings>>,
-      default: {},
+      default: () => ({}),
     },
     value: {
       type: String,
@@ -116,10 +117,10 @@
     props: tinymceProps,
     emits: ['change', 'update:modelValue', 'inited', 'init-error'],
     setup(props, { emit, attrs }) {
-      const editorRef = ref<Nullable<Editor>>(null);
+      const editorRef = ref<Editor | null>(null);
       const fullscreen = ref(false);
       const tinymceId = ref<string>(buildShortUUID('tiny-vue'));
-      const elRef = ref<Nullable<HTMLElement>>(null);
+      const elRef = ref<HTMLElement | null>(null);
 
       const { prefixCls } = useDesign('tinymce-container');
 
@@ -245,7 +246,7 @@
         bindHandlers(e, attrs, unref(editorRef));
       }
 
-      function setValue(editor: Recordable, val: string, prevVal?: string) {
+      function setValue(editor: Record<string, any>, val: string, prevVal?: string) {
         if (
           editor &&
           typeof val === 'string' &&
@@ -339,8 +340,8 @@
     line-height: normal;
 
     textarea {
-      z-index: -1;
       visibility: hidden;
+      z-index: -1;
     }
   }
 </style>

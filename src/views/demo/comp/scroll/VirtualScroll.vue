@@ -29,8 +29,8 @@
 
   import { Divider } from 'ant-design-vue';
   import { PageWrapper } from '/@/components/Page';
-  const data: Recordable[] = (() => {
-    const arr: Recordable[] = [];
+  const data = (() => {
+    const arr: any[] = [];
     for (let index = 1; index < 20000; index++) {
       arr.push({
         title: '列表项' + index,
@@ -49,16 +49,16 @@
   .virtual-scroll-demo {
     &-wrap {
       display: flex;
+      justify-content: center;
       margin: 0 30%;
       background-color: @component-background;
-      justify-content: center;
     }
 
     &__item {
       height: 40px;
       padding: 0 20px;
-      line-height: 40px;
       border-bottom: 1px solid @border-color-base;
+      line-height: 40px;
     }
   }
 </style>

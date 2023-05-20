@@ -67,6 +67,8 @@
   import { treeOptionsListApi } from '/@/api/demo/tree';
   import { Select } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
+  import { areaRecord } from '/@/api/demo/cascader';
+  import { uploadApi } from '/@/api/sys/upload';
 
   const valueSelectA = ref<string[]>([]);
   const valueSelectB = ref<string[]>([]);
@@ -142,6 +144,9 @@
       field: 'divider-basic',
       component: 'Divider',
       label: '基础字段',
+      colProps: {
+        span: 24,
+      },
     },
     {
       field: 'field1',
@@ -184,6 +189,18 @@
         },
       },
       suffix: '天',
+    },
+    {
+      field: 'fieldsc',
+      component: 'Upload',
+      label: '上传',
+      colProps: {
+        span: 8,
+      },
+      rules: [{ required: true, message: '请选择上传文件' }],
+      componentProps: {
+        api: uploadApi,
+      },
     },
     {
       field: 'field3',
@@ -290,6 +307,9 @@
             value: '2',
           },
         ],
+        onChange: (e, v) => {
+          console.log('RadioButtonGroup====>:', e, v);
+        },
       },
     },
     {
@@ -340,6 +360,9 @@
       field: 'divider-api-select',
       component: 'Divider',
       label: '远程下拉演示',
+      colProps: {
+        span: 24,
+      },
     },
     {
       field: 'field30',
@@ -352,15 +375,16 @@
         params: {
           id: 1,
         },
+
         resultField: 'list',
         // use name as label
         labelField: 'name',
         // use id as value
         valueField: 'id',
         // not request untill to select
-        immediate: false,
-        onChange: (e) => {
-          console.log('selected:', e);
+        immediate: true,
+        onChange: (e, v) => {
+          console.log('ApiSelect====>:', e, v);
         },
         // atfer request callback
         onOptionsChange: (options) => {
@@ -371,6 +395,31 @@
         span: 8,
       },
       defaultValue: '0',
+    },
+    {
+      field: 'field8',
+      component: 'ApiCascader',
+      label: '联动ApiCascader',
+      required: true,
+      colProps: {
+        span: 8,
+      },
+      componentProps: {
+        api: areaRecord,
+        apiParamKey: 'parentCode',
+        dataField: 'data',
+        labelField: 'name',
+        valueField: 'code',
+        initFetchParams: {
+          parentCode: '',
+        },
+        isLeaf: (record) => {
+          return !(record.levelType < 3);
+        },
+        onChange: (e, ...v) => {
+          console.log('ApiCascader====>:', e, v);
+        },
+      },
     },
     {
       field: 'field31',
@@ -405,6 +454,9 @@
       componentProps: {
         api: treeOptionsListApi,
         resultField: 'list',
+        onChange: (e, v) => {
+          console.log('ApiTreeSelect====>:', e, v);
+        },
       },
       colProps: {
         span: 8,
@@ -449,15 +501,42 @@
         // use id as value
         valueField: 'id',
         isBtn: true,
+        onChange: (e, v) => {
+          console.log('ApiRadioGroup====>:', e, v);
+        },
       },
       colProps: {
         span: 8,
       },
     },
+    // {
+    //   field: 'field36',
+    //   component: 'ApiTree',
+    //   label: '远程Tree',
+    //   helpMessage: ['ApiTree组件', '使用接口提供的数据生成选项'],
+    //   required: true,
+    //   componentProps: {
+    //     api: treeOptionsListApi,
+    //     params: {
+    //       count: 2,
+    //     },
+    //     afterFetch: (v) => {
+    //       //do something
+    //       return v;
+    //     },
+    //     resultField: 'list',
+    //   },
+    //   colProps: {
+    //     span: 8,
+    //   },
+    // },
     {
       field: 'divider-linked',
       component: 'Divider',
       label: '字段联动',
+      colProps: {
+        span: 24,
+      },
     },
     {
       field: 'province',
@@ -509,6 +588,9 @@
       component: 'Divider',
       label: '互斥多选',
       helpMessage: ['两个Select共用数据源', '但不可选择对方已选中的项目'],
+      colProps: {
+        span: 24,
+      },
     },
     {
       field: 'selectA',
@@ -531,9 +613,31 @@
       },
     },
     {
+      field: 'divider-deconstruct',
+      component: 'Divider',
+      label: '字段解构',
+      helpMessage: ['如果组件的值是 array 或者 object', '可以根据 ES6 的解构语法分别取值'],
+      colProps: {
+        span: 24,
+      },
+    },
+    {
+      field: '[startTime, endTime]',
+      label: '时间范围',
+      component: 'RangePicker',
+      componentProps: {
+        format: 'YYYY-MM-DD HH:mm:ss',
+        placeholder: ['开始时间', '结束时间'],
+        showTime: { format: 'HH:mm:ss' },
+      },
+    },
+    {
       field: 'divider-others',
       component: 'Divider',
       label: '其它',
+      colProps: {
+        span: 24,
+      },
     },
     {
       field: 'field20',
@@ -602,6 +706,7 @@
           keyword.value = '';
         },
         handleSubmit: (values: any) => {
+          console.log('values', values);
           createMessage.success('click search,values:' + JSON.stringify(values));
         },
         check,

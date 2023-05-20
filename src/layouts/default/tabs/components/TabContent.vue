@@ -1,5 +1,11 @@
 <template>
-  <Dropdown :dropMenuList="getDropMenuList" :trigger="getTrigger" @menuEvent="handleMenuEvent">
+  <Dropdown
+    :dropMenuList="getDropMenuList"
+    :trigger="getTrigger"
+    placement="bottom"
+    overlayClassName="multiple-tabs__dropdown"
+    @menu-event="handleMenuEvent"
+  >
     <div :class="`${prefixCls}__info`" @contextmenu="handleContext" v-if="getIsTabs">
       <span class="ml-1">{{ getTitle }}</span>
     </div>
@@ -14,7 +20,7 @@
 
   import { defineComponent, computed, unref } from 'vue';
   import { Dropdown } from '/@/components/Dropdown/index';
-  import { Icon } from '/@/components/Icon';
+  import Icon from '@/components/Icon/Icon.vue';
 
   import { TabContentProps } from '../types';
 

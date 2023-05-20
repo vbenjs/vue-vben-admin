@@ -1,6 +1,6 @@
 <template>
   <PageWrapper title="点内外部触发事件">
-    <ClickOutSide @clickOutside="handleClickOutside" class="flex justify-center">
+    <ClickOutSide @click-outside="handleClickOutside" class="flex justify-center">
       <div @click="innerClick" class="demo-box">
         {{ text }}
       </div>
@@ -31,13 +31,13 @@
 <style lang="less" scoped>
   .demo-box {
     display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 300px;
-    font-size: 24px;
-    color: #fff;
-    background-color: #408ede;
     border-radius: 10px;
-    justify-content: center;
-    align-items: center;
+    background-color: #408ede;
+    color: #fff;
+    font-size: 24px;
   }
 </style>

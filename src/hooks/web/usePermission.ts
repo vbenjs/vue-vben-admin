@@ -30,7 +30,7 @@ export function usePermission() {
   async function togglePermissionMode() {
     appStore.setProjectConfig({
       permissionMode:
-        projectSetting.permissionMode === PermissionModeEnum.BACK
+        appStore.projectConfig?.permissionMode === PermissionModeEnum.BACK
           ? PermissionModeEnum.ROUTE_MAPPING
           : PermissionModeEnum.BACK,
     });
@@ -39,6 +39,7 @@ export function usePermission() {
 
   /**
    * Reset and regain authority resource information
+   * 重置和重新获得权限资源信息
    * @param id
    */
   async function resume() {

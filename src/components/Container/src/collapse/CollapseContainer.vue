@@ -1,40 +1,14 @@
-<template>
-  <div :class="prefixCls">
-    <CollapseHeader v-bind="props" :prefixCls="prefixCls" :show="show" @expand="handleExpand">
-      <template #title>
-        <slot name="title"></slot>
-      </template>
-      <template #action>
-        <slot name="action"></slot>
-      </template>
-    </CollapseHeader>
-
-    <div class="p-2">
-      <CollapseTransition :enable="canExpan">
-        <Skeleton v-if="loading" :active="loading" />
-        <div :class="`${prefixCls}__body`" v-else v-show="show">
-          <slot></slot>
-        </div>
-      </CollapseTransition>
-    </div>
-    <div :class="`${prefixCls}__footer`" v-if="$slots.footer">
-      <slot name="footer"></slot>
-    </div>
-  </div>
-</template>
-<script lang="ts" setup>
-  import type { PropType } from 'vue';
-  import { ref } from 'vue';
-  // component
+<script lang="tsx">
+  import { ref, unref, defineComponent, type PropType, type ExtractPropTypes } from 'vue';
+  import { isNil } from 'lodash-es';
   import { Skeleton } from 'ant-design-vue';
+  import { useTimeoutFn } from '@vben/hooks';
   import { CollapseTransition } from '/@/components/Transition';
   import CollapseHeader from './CollapseHeader.vue';
   import { triggerWindowResize } from '/@/utils/event';
-  // hook
-  import { useTimeoutFn } from '/@/hooks/core/useTimeout';
   import { useDesign } from '/@/hooks/web/useDesign';
 
-  const props = defineProps({
+  const collapseContainerProps = {
     title: { type: String, default: '' },
     loading: { type: Boolean },
     /**
@@ -57,36 +31,75 @@
      * Delayed loading time
      */
     lazyTime: { type: Number, default: 0 },
+  };
+
+  export type CollapseContainerProps = ExtractPropTypes<typeof collapseContainerProps>;
+
+  export default defineComponent({
+    name: 'CollapseContainer',
+
+    props: collapseContainerProps,
+
+    setup(props, { expose, slots }) {
+      const { prefixCls } = useDesign('collapse-container');
+
+      const show = ref(true);
+
+      const handleExpand = (val: boolean) => {
+        show.value = isNil(val) ? !show.value : val;
+        if (props.triggerWindowResize) {
+          // 200 milliseconds here is because the expansion has animation,
+          useTimeoutFn(triggerWindowResize, 200);
+        }
+      };
+
+      expose({ handleExpand });
+
+      return () => (
+        <div class={unref(prefixCls)}>
+          <CollapseHeader
+            {...props}
+            prefixCls={unref(prefixCls)}
+            onExpand={handleExpand}
+            show={show.value}
+            v-slots={{
+              title: slots.title,
+              action: slots.action,
+            }}
+          />
+
+          <div class="p-2">
+            <CollapseTransition enable={props.canExpan}>
+              {props.loading ? (
+                <Skeleton active={props.loading} />
+              ) : (
+                <div class={`${prefixCls}__body`} v-show={show.value}>
+                  {slots.default?.()}
+                </div>
+              )}
+            </CollapseTransition>
+          </div>
+
+          {slots.footer && <div class={`${prefixCls}__footer`}>{slots.footer()}</div>}
+        </div>
+      );
+    },
   });
-
-  const show = ref(true);
-
-  const { prefixCls } = useDesign('collapse-container');
-
-  /**
-   * @description: Handling development events
-   */
-  function handleExpand() {
-    show.value = !show.value;
-    if (props.triggerWindowResize) {
-      // 200 milliseconds here is because the expansion has animation,
-      useTimeoutFn(triggerWindowResize, 200);
-    }
-  }
 </script>
+
 <style lang="less">
   @prefix-cls: ~'@{namespace}-collapse-container';
 
   .@{prefix-cls} {
-    background-color: @component-background;
-    border-radius: 2px;
     transition: all 0.3s ease-in-out;
+    border-radius: 2px;
+    background-color: @component-background;
 
     &__header {
       display: flex;
-      height: 32px;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      height: 32px;
       border-bottom: 1px solid @border-color-light;
     }
 
@@ -96,10 +109,10 @@
 
     &__action {
       display: flex;
-      text-align: right;
       flex: 1;
       align-items: center;
       justify-content: flex-end;
+      text-align: right;
     }
   }
 </style>

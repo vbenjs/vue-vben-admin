@@ -1,8 +1,5 @@
 <template>
-  <BasicTable
-    @register="registerTable"
-    :rowSelection="{ type: 'checkbox', selectedRowKeys: checkedKeys, onChange: onSelectChange }"
-  >
+  <BasicTable @register="registerTable">
     <template #form-custom> custom-slot </template>
     <template #headerTop>
       <a-alert type="info" show-icon>
@@ -44,22 +41,42 @@
         tableSetting: { fullScreen: true },
         showIndexColumn: false,
         rowKey: 'id',
+        rowSelection: {
+          type: 'checkbox',
+          selectedRowKeys: checkedKeys,
+          onSelect: onSelect,
+          onSelectAll: onSelectAll,
+        },
       });
 
       function getFormValues() {
         console.log(getForm().getFieldsValue());
       }
 
-      function onSelectChange(selectedRowKeys: (string | number)[]) {
-        console.log(selectedRowKeys);
-        checkedKeys.value = selectedRowKeys;
+      function onSelect(record, selected) {
+        if (selected) {
+          checkedKeys.value = [...checkedKeys.value, record.id];
+        } else {
+          checkedKeys.value = checkedKeys.value.filter((id) => id !== record.id);
+        }
+      }
+      function onSelectAll(selected, selectedRows, changeRows) {
+        const changeIds = changeRows.map((item) => item.id);
+        if (selected) {
+          checkedKeys.value = [...checkedKeys.value, ...changeIds];
+        } else {
+          checkedKeys.value = checkedKeys.value.filter((id) => {
+            return !changeIds.includes(id);
+          });
+        }
       }
 
       return {
         registerTable,
         getFormValues,
         checkedKeys,
-        onSelectChange,
+        onSelect,
+        onSelectAll,
       };
     },
   });

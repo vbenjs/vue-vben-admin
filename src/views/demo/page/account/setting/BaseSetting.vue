@@ -62,13 +62,15 @@
 
       const avatar = computed(() => {
         const { avatar } = userStore.getUserInfo;
+        console.log(avatar);
         return avatar || headerImg;
       });
 
-      function updateAvatar(src: string) {
+      function updateAvatar({ src, data }) {
         const userinfo = userStore.getUserInfo;
         userinfo.avatar = src;
         userStore.setUserInfo(userinfo);
+        console.log('data', data);
       }
 
       return {

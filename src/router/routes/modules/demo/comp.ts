@@ -98,6 +98,14 @@ const comp: AppRouteModule = {
             title: t('routes.demo.form.appendForm'),
           },
         },
+        {
+          path: 'tabsForm',
+          name: 'tabsFormDemo',
+          component: () => import('/@/views/demo/form/TabsForm.vue'),
+          meta: {
+            title: t('routes.demo.form.tabsForm'),
+          },
+        },
       ],
     },
     {
@@ -245,6 +253,14 @@ const comp: AppRouteModule = {
           component: () => import('/@/views/demo/table/ResizeParentHeightTable.vue'),
           meta: {
             title: t('routes.demo.table.resizeParentHeightTable'),
+          },
+        },
+        {
+          path: 'vxeTable',
+          name: 'VxeTableDemo',
+          component: () => import('/@/views/demo/table/VxeTable.vue'),
+          meta: {
+            title: t('routes.demo.table.vxeTable'),
           },
         },
       ],
@@ -454,33 +470,6 @@ const comp: AppRouteModule = {
       },
     },
 
-    {
-      path: 'lazy',
-      name: 'LazyDemo',
-      component: getParentLayout('LazyDemo'),
-      redirect: '/comp/lazy/basic',
-      meta: {
-        title: t('routes.demo.comp.lazy'),
-      },
-      children: [
-        {
-          path: 'basic',
-          name: 'BasicLazyDemo',
-          component: () => import('/@/views/demo/comp/lazy/index.vue'),
-          meta: {
-            title: t('routes.demo.comp.lazyBasic'),
-          },
-        },
-        {
-          path: 'transition',
-          name: 'BasicTransitionDemo',
-          component: () => import('/@/views/demo/comp/lazy/Transition.vue'),
-          meta: {
-            title: t('routes.demo.comp.lazyTransition'),
-          },
-        },
-      ],
-    },
     {
       path: 'verify',
       name: 'VerifyDemo',

@@ -109,8 +109,8 @@
   @prefix-cls: ~'@{namespace}-layout-multiple-header';
 
   .@{prefix-cls} {
-    transition: width 0.2s;
     flex: 0 0 auto;
+    transition: width 0.2s;
 
     &--dark {
       margin-left: -1px;
@@ -118,8 +118,8 @@
 
     &--fixed {
       position: fixed;
-      top: 0;
       z-index: @multiple-tab-fixed-z-index;
+      top: 0;
       width: 100%;
     }
   }

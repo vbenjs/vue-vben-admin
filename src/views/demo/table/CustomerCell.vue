@@ -1,24 +1,28 @@
 <template>
   <div class="p-4">
     <BasicTable @register="registerTable">
-      <template #id="{ record }"> ID: {{ record.id }} </template>
-      <template #no="{ record }">
-        <Tag color="green">
-          {{ record.no }}
-        </Tag>
-      </template>
-      <template #avatar="{ record }">
-        <Avatar :size="60" :src="record.avatar" />
-      </template>
-      <template #img="{ text }">
-        <TableImg :size="60" :simpleShow="true" :imgList="text" />
-      </template>
-      <template #imgs="{ text }"> <TableImg :size="60" :imgList="text" /> </template>
+      <template #bodyCell="{ column, record, text }">
+        <template v-if="column.key === 'id'"> ID: {{ record.id }} </template>
+        <template v-else-if="column.key === 'no'">
+          <Tag color="green">
+            {{ record.no }}
+          </Tag>
+        </template>
+        <template v-else-if="column.key === 'avatar'">
+          <Avatar :size="60" :src="record.avatar" />
+        </template>
+        <template v-else-if="column.key === 'imgArr'">
+          <TableImg :size="60" :simpleShow="true" :imgList="text" />
+        </template>
+        <template v-else-if="column.key === 'imgs'">
+          <TableImg :size="60" :imgList="text" />
+        </template>
 
-      <template #category="{ record }">
-        <Tag color="green">
-          {{ record.no }}
-        </Tag>
+        <template v-else-if="column.key === 'category'">
+          <Tag color="green">
+            {{ record.no }}
+          </Tag>
+        </template>
       </template>
     </BasicTable>
   </div>
@@ -32,13 +36,13 @@
     {
       title: 'ID',
       dataIndex: 'id',
-      slots: { customRender: 'id' },
+      // slots: { customRender: 'id' },
     },
     {
       title: '头像',
       dataIndex: 'avatar',
       width: 100,
-      slots: { customRender: 'avatar' },
+      // slots: { customRender: 'avatar' },
     },
     {
       title: '分类',
@@ -46,7 +50,7 @@
       width: 80,
       align: 'center',
       defaultHidden: true,
-      slots: { customRender: 'category' },
+      // slots: { customRender: 'category' },
     },
     {
       title: '姓名',
@@ -58,13 +62,13 @@
       dataIndex: 'imgArr',
       helpMessage: ['这是简单模式的图片列表', '只会显示一张在表格中', '但点击可预览多张图片'],
       width: 140,
-      slots: { customRender: 'img' },
+      // slots: { customRender: 'img' },
     },
     {
       title: '照片列表2',
       dataIndex: 'imgs',
       width: 160,
-      slots: { customRender: 'imgs' },
+      // slots: { customRender: 'imgs' },
     },
     {
       title: '地址',
@@ -73,7 +77,7 @@
     {
       title: '编号',
       dataIndex: 'no',
-      slots: { customRender: 'no' },
+      // slots: { customRender: 'no' },
     },
     {
       title: '开始时间',

@@ -1,8 +1,8 @@
 node_modules
 .DS_Store
 dist
-.npmrc
 .cache
+.turbo
 
 tests/server/static
 tests/server/static/upload
@@ -27,3 +27,8 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+package-lock.json
+pnpm-lock.yaml
+
+.history

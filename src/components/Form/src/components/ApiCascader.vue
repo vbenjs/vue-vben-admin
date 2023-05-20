@@ -19,6 +19,7 @@
   </a-cascader>
 </template>
 <script lang="ts">
+  import { type Recordable } from '@vben/types';
   import { defineComponent, PropType, ref, unref, watch, watchEffect } from 'vue';
   import { Cascader } from 'ant-design-vue';
   import { propTypes } from '/@/utils/propTypes';
@@ -26,6 +27,7 @@
   import { get, omit } from 'lodash-es';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { LoadingOutlined } from '@ant-design/icons-vue';
+  import { useI18n } from '/@/hooks/web/useI18n';
 
   interface Option {
     value: string;
@@ -45,7 +47,7 @@
         type: Array,
       },
       api: {
-        type: Function as PropType<(arg?: Recordable) => Promise<Option[]>>,
+        type: Function as PropType<(arg?: Recordable<any>) => Promise<Option[]>>,
         default: null,
       },
       numberToString: propTypes.bool,
@@ -57,12 +59,12 @@
       immediate: propTypes.bool.def(true),
       // init fetch params
       initFetchParams: {
-        type: Object as PropType<Recordable>,
+        type: Object as PropType<Recordable<any>>,
         default: () => ({}),
       },
       // 是否有下级，默认是
       isLeaf: {
-        type: Function as PropType<(arg: Recordable) => boolean>,
+        type: Function as PropType<(arg: Recordable<any>) => boolean>,
         default: null,
       },
       displayRenderArray: {
@@ -76,7 +78,7 @@
       const loading = ref<boolean>(false);
       const emitData = ref<any[]>([]);
       const isFirstLoad = ref(true);
-
+      const { t } = useI18n();
       // Embedded in the form, just use the hook binding to perform form verification
       const [state] = useRuleFormItem(props, 'value', 'change', emitData);
 
@@ -91,7 +93,7 @@
 
       function generatorOptions(options: any[]): Option[] {
         const { labelField, valueField, numberToString, childrenField, isLeaf } = props;
-        return options.reduce((prev, next: Recordable) => {
+        return options.reduce((prev, next: Recordable<any>) => {
           if (next) {
             const value = next[valueField];
             const item = {
@@ -170,7 +172,7 @@
       );
 
       function handleChange(keys, args) {
-        emitData.value = keys;
+        emitData.value = args;
         emit('defaultChange', keys, args);
       }
 
@@ -188,6 +190,7 @@
         state,
         options,
         loading,
+        t,
         handleChange,
         loadData,
         handleRenderDisplay,

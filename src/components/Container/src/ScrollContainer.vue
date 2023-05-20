@@ -7,7 +7,8 @@
 <script lang="ts">
   import { defineComponent, ref, unref, nextTick } from 'vue';
   import { Scrollbar, ScrollbarType } from '/@/components/Scrollbar';
-  import { useScrollTo } from '/@/hooks/event/useScrollTo';
+  import { useScrollTo } from '@vben/hooks';
+  import { type Nullable } from '@vben/types';
 
   export default defineComponent({
     name: 'ScrollContainer',

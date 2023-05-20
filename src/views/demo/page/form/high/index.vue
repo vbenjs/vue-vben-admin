@@ -10,7 +10,7 @@
     <a-card title="任务管理" :bordered="false" class="!mt-5">
       <BasicForm @register="registerTask" />
     </a-card>
-    <a-card title="成员管理" :bordered="false">
+    <a-card title="成员管理" :bordered="false" class="!mt-5">
       <PersonTable ref="tableRef" />
     </a-card>
 
@@ -34,6 +34,7 @@
       const tableRef = ref<{ getDataSource: () => any } | null>(null);
 
       const [register, { validate }] = useForm({
+        layout: 'vertical',
         baseColProps: {
           span: 6,
         },
@@ -42,6 +43,7 @@
       });
 
       const [registerTask, { validate: validateTaskForm }] = useForm({
+        layout: 'vertical',
         baseColProps: {
           span: 6,
         },

@@ -113,7 +113,7 @@
 <script lang="ts">
   import type { CropendResult, Cropper } from './typing';
 
-  import { defineComponent, ref } from 'vue';
+  import { defineComponent, ref, PropType } from 'vue';
   import CropperImage from './Cropper.vue';
   import { Space, Upload, Avatar, Tooltip } from 'ant-design-vue';
   import { useDesign } from '/@/hooks/web/useDesign';
@@ -129,6 +129,7 @@
     uploadApi: {
       type: Function as PropType<(params: apiFunParams) => Promise<any>>,
     },
+    src: { type: String },
   };
 
   export default defineComponent({
@@ -138,7 +139,7 @@
     emits: ['uploadSuccess', 'register'],
     setup(props, { emit }) {
       let filename = '';
-      const src = ref('');
+      const src = ref(props.src || '');
       const previewSource = ref('');
       const cropper = ref<Cropper>();
       let scaleX = 1;
@@ -186,7 +187,7 @@
           try {
             setModalProps({ confirmLoading: true });
             const result = await uploadApi({ name: 'file', file: blob, filename });
-            emit('uploadSuccess', { source: previewSource.value, data: result.data });
+            emit('uploadSuccess', { source: previewSource.value, data: result.url });
             closeModal();
           } finally {
             setModalProps({ confirmLoading: false });
@@ -252,8 +253,8 @@
 
     &-toolbar {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       margin-top: 10px;
     }
 
@@ -273,11 +274,11 @@
 
     &-group {
       display: flex;
-      padding-top: 8px;
-      margin-top: 8px;
-      border-top: 1px solid @border-color-base;
-      justify-content: space-around;
       align-items: center;
+      justify-content: space-around;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid @border-color-base;
     }
   }
 </style>
