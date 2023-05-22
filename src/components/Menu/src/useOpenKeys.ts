@@ -1,14 +1,11 @@
 import { MenuModeEnum } from '/@/enums/menuEnum';
 import type { Menu as MenuType } from '/@/router/types';
 import type { MenuState } from './types';
-
-import { computed, Ref, toRaw } from 'vue';
-
-import { unref } from 'vue';
+import { computed, Ref, toRaw, unref } from 'vue';
+import { useTimeoutFn } from '@vben/hooks';
 import { uniq } from 'lodash-es';
 import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 import { getAllParentPath } from '/@/router/helper/menuHelper';
-import { useTimeoutFn } from '/@/hooks/core/useTimeout';
 
 export function useOpenKeys(
   menuState: MenuState,
@@ -23,22 +20,23 @@ export function useOpenKeys(
       return;
     }
     const native = unref(getIsMixSidebar);
-    useTimeoutFn(
-      () => {
-        const menuList = toRaw(menus.value);
-        if (menuList?.length === 0) {
-          menuState.openKeys = [];
-          return;
-        }
-        if (!unref(accordion)) {
-          menuState.openKeys = uniq([...menuState.openKeys, ...getAllParentPath(menuList, path)]);
-        } else {
-          menuState.openKeys = getAllParentPath(menuList, path);
-        }
-      },
-      16,
-      !native,
-    );
+    const handle = () => {
+      const menuList = toRaw(menus.value);
+      if (menuList?.length === 0) {
+        menuState.openKeys = [];
+        return;
+      }
+      if (!unref(accordion)) {
+        menuState.openKeys = uniq([...menuState.openKeys, ...getAllParentPath(menuList, path)]);
+      } else {
+        menuState.openKeys = getAllParentPath(menuList, path);
+      }
+    };
+    if (native) {
+      handle();
+    } else {
+      useTimeoutFn(handle, 16);
+    }
   }
 
   const getOpenKeys = computed(() => {

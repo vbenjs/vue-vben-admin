@@ -5,19 +5,20 @@
 <script lang="ts" setup>
   import { defineProps, onBeforeUnmount, onDeactivated, Ref, ref, unref, watch } from 'vue';
   import VditorPreview from 'vditor/dist/method.min';
-  import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
+  import { onMountedOrActivated } from '@vben/hooks';
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
   import { getTheme } from './getTheme';
+
   const props = defineProps({
     value: { type: String },
     class: { type: String },
   });
-  const viewerRef = ref<ElRef>(null);
-  const vditorPreviewRef = ref(null) as Ref<Nullable<VditorPreview>>;
+  const viewerRef = ref(null);
+  const vditorPreviewRef = ref(null) as Ref<VditorPreview | null>;
   const { getDarkMode } = useRootSetting();
 
   function init() {
-    const viewerEl = unref(viewerRef) as HTMLElement;
+    const viewerEl = unref(viewerRef);
     vditorPreviewRef.value = VditorPreview.preview(viewerEl, props.value, {
       mode: getTheme(getDarkMode.value, 'content'),
       theme: {
@@ -51,7 +52,9 @@
     if (!vditorInstance) return;
     try {
       vditorInstance?.destroy?.();
-    } catch (error) {}
+    } catch (error) {
+      //
+    }
     vditorPreviewRef.value = null;
   }
 

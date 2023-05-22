@@ -17,13 +17,13 @@
 </template>
 
 <script lang="ts">
-  import { PropType } from 'vue';
-  import { defineComponent, ref, computed, unref, getCurrentInstance, watch } from 'vue';
+  import { PropType, defineComponent, ref, computed, unref, getCurrentInstance, watch } from 'vue';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { propTypes } from '/@/utils/propTypes';
   import { useMenuItem } from './useMenu';
   import { Tooltip } from 'ant-design-vue';
   import { useSimpleRootMenuContext } from './useSimpleMenuContext';
+
   export default defineComponent({
     name: 'MenuItem',
     components: { Tooltip },

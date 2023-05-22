@@ -30,7 +30,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { List, Card, Row, Col } from 'ant-design-vue';
-  import Icon from '/@/components/Icon/index';
+  import Icon from '@/components/Icon/Icon.vue';
   import { applicationList } from './data';
 
   export default defineComponent({
@@ -73,8 +73,8 @@
 
       &-num {
         margin-left: 24px;
-        line-height: 36px;
         color: @text-color-secondary;
+        line-height: 36px;
 
         span {
           margin-left: 5px;
@@ -84,8 +84,8 @@
 
       &-download {
         float: right;
-        font-size: 20px !important;
         color: @primary-color;
+        font-size: 20px !important;
       }
     }
   }

@@ -82,8 +82,8 @@
 <style scoped>
   .container {
     display: flex;
-    width: 100vw;
     align-items: center;
+    width: 100vw;
   }
 
   .cropper-container {

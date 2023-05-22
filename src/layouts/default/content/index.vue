@@ -46,8 +46,8 @@
 
     &-loading {
       position: absolute;
-      top: 200px;
       z-index: @page-loading-z-index;
+      top: 200px;
     }
   }
 </style>

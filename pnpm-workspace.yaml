@@ -1,2 +1,4 @@
 packages:
-  - '_internal/*'
+  - 'internal/*'
+  - 'packages/*'
+  - 'apps/*'

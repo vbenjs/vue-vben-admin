@@ -40,6 +40,7 @@ export const useRedo = (_router?: Router) => {
         return;
       }
       if (name && Object.keys(params).length > 0) {
+        params['_origin_params'] = JSON.stringify(params ?? {});
         params['_redirect_type'] = 'name';
         params['path'] = String(name);
       } else {

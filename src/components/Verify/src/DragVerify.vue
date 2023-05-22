@@ -1,7 +1,7 @@
 <script lang="tsx">
   import type { Ref } from 'vue';
   import { defineComponent, ref, computed, unref, reactive, watch, watchEffect } from 'vue';
-  import { useTimeoutFn } from '/@/hooks/core/useTimeout';
+  import { useTimeoutFn } from '@vben/hooks';
   import { useEventListener } from '/@/hooks/event/useEventListener';
   import { basicProps } from './props';
   import { getSlot } from '/@/utils/helper/tsxHelper';
@@ -291,17 +291,17 @@
   .darg-verify {
     position: relative;
     overflow: hidden;
-    text-align: center;
-    background-color: rgb(238 238 238);
     border: 1px solid #ddd;
     border-radius: @radius;
+    background-color: rgb(238 238 238);
+    text-align: center;
 
     &-bar {
       position: absolute;
       width: 0;
       height: 36px;
-      background-color: @success-color;
       border-radius: @radius;
+      background-color: @success-color;
 
       &.to-left {
         width: 0 !important;
@@ -312,8 +312,8 @@
     &-content {
       position: absolute;
       top: 0;
-      font-size: 12px;
-      text-size-adjust: none;
+      animation: slidetounlock 3s infinite;
+      background-clip: text;
       background-color: -webkit-gradient(
         linear,
         left top,
@@ -324,9 +324,9 @@
         color-stop(0.6, #333),
         color-stop(1, #333)
       );
-      animation: slidetounlock 3s infinite;
-      background-clip: text;
+      font-size: 12px;
       user-select: none;
+      text-size-adjust: none;
 
       &.success {
         -webkit-text-fill-color: @white;
@@ -338,15 +338,15 @@
     }
 
     &-action {
+      display: flex;
       position: absolute;
       top: 0;
       left: 0;
-      display: flex;
-      cursor: move;
-      background-color: @white;
-      border-radius: @radius;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      border-radius: @radius;
+      background-color: @white;
+      cursor: move;
 
       &__icon {
         cursor: inherit;

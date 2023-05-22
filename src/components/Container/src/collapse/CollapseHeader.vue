@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, computed, unref, type ExtractPropTypes } from 'vue';
+  import { defineComponent, computed, unref, type ExtractPropTypes, PropType } from 'vue';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { BasicArrow, BasicTitle } from '/@/components/Basic';
 
@@ -31,7 +31,7 @@
           </BasicTitle>
 
           <div class={`${unref(_prefixCls)}__action`}>
-             {slots.action
+            {slots.action
               ? slots.action({ expand: props.show, onClick: () => emit('expand') })
               : props.canExpan && (
                   <BasicArrow up expand={props.show} onClick={() => emit('expand')} />

@@ -2,7 +2,7 @@
   import type { ContextMenuItem, ItemContentProps, Axis } from './typing';
   import type { FunctionalComponent, CSSProperties, PropType } from 'vue';
   import { defineComponent, nextTick, onMounted, computed, ref, unref, onUnmounted } from 'vue';
-  import Icon from '/@/components/Icon';
+  import Icon from '@/components/Icon/Icon.vue';
   import { Menu, Divider } from 'ant-design-vue';
 
   const prefixCls = 'context-menu';
@@ -161,27 +161,27 @@
       }
 
       &:not(.ant-menu-item-disabled):hover {
-        color: @text-color-base;
         background-color: @item-hover-bg;
+        color: @text-color-base;
       }
     }
   }
 
   .context-menu {
+    display: block;
     position: fixed;
+    z-index: 200;
     top: 0;
     left: 0;
-    z-index: 200;
-    display: block;
     width: 156px;
     margin: 0;
-    list-style: none;
-    background-color: @component-background;
     border: 1px solid rgb(0 0 0 / 8%);
     border-radius: 0.25rem;
+    background-clip: padding-box;
+    background-color: @component-background;
     box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 10%),
       0 1px 5px 0 rgb(0 0 0 / 6%);
-    background-clip: padding-box;
+    list-style: none;
     user-select: none;
 
     &__item {

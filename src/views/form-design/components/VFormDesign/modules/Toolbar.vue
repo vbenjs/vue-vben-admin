@@ -31,7 +31,7 @@
   import { UseRefHistoryReturn } from '@vueuse/core';
   import { IFormConfig } from '../../../typings/v-form-component';
   import { Tooltip, Divider } from 'ant-design-vue';
-  import Icon from '/@/components/Icon/index';
+  import Icon from '@/components/Icon/Icon.vue';
 
   interface IToolbarsConfig {
     type: string;
@@ -103,20 +103,20 @@
   @import url('../styles/variable.less');
 
   .operating-area {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    height: @operating-area-height;
+    padding: 0 12px;
+    padding-left: 30px;
     border-bottom: 2px solid @border-color;
     font-size: 16px;
-    text-align: left;
-    height: @operating-area-height;
     line-height: @operating-area-height;
-    padding: 0 12px;
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    padding-left: 30px;
+    text-align: left;
 
     a {
-      color: #666;
       margin: 0 5px;
+      color: #666;
 
       &.disabled,
       &.disabled:hover {
@@ -128,8 +128,8 @@
       }
 
       > span {
-        font-size: 14px;
         padding-left: 2px;
+        font-size: 14px;
       }
     }
   }

@@ -34,8 +34,7 @@
   import { defineComponent, reactive } from 'vue';
   import { IVFormComponent } from '../../../typings/v-form-component';
   import draggable from 'vuedraggable';
-  // import { toRefs } from '@vueuse/core';
-  import { Icon } from '/@/components/Icon';
+  import Icon from '@/components/Icon/Icon.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
 
   export default defineComponent({
@@ -43,11 +42,11 @@
     components: { draggable, Icon },
     props: {
       list: {
-        type: [Array] as PropType<IVFormComponent[]>,
+        type: [Array],
         default: () => [],
       },
       handleListPush: {
-        type: Function as PropType<(item: IVFormComponent) => void>,
+        type: Function,
         default: null,
       },
     },
@@ -74,34 +73,34 @@
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-form-design-collapse-item';
 
-  @import url("../styles/variable.less");
+  @import url('../styles/variable.less');
 
   .@{prefix-cls} {
     ul {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 0;
       padding: 5px;
       list-style: none;
-      display: flex;
-      margin-bottom: 0;
-      flex-wrap: wrap;
       // background: #efefef;
 
       li {
+        width: calc(50% - 6px);
+        height: 36px;
+        margin: 2.7px;
         padding: 8px 12px;
         transition: all 0.3s;
-        width: calc(50% - 6px);
-        margin: 2.7px;
-        height: 36px;
-        line-height: 20px;
-        cursor: move;
         border: 1px solid @border-color;
         border-radius: 3px;
+        line-height: 20px;
+        cursor: move;
 
         &:hover {
-          color: @primary-color;
-          border: 1px solid @primary-color;
           position: relative;
+          border: 1px solid @primary-color;
           // z-index: 1;
           box-shadow: 0 2px 6px @primary-color;
+          color: @primary-color;
         }
       }
     }

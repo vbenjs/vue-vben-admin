@@ -23,7 +23,7 @@ export interface MultipleTabState {
 
 function handleGotoPage(router: Router) {
   const go = useGo(router);
-  go(unref(router.currentRoute).path, true);
+  go(unref(router.currentRoute).fullPath, true);
 }
 
 const getToTarget = (tabItem: RouteLocationNormalized) => {

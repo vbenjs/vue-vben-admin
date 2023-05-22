@@ -26,7 +26,7 @@
 <style lang="less" scoped>
   .demo-wrap {
     width: 50%;
-    background-color: @component-background;
     border-radius: 10px;
+    background-color: @component-background;
   }
 </style>

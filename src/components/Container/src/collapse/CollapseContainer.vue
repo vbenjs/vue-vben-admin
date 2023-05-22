@@ -2,10 +2,10 @@
   import { ref, unref, defineComponent, type PropType, type ExtractPropTypes } from 'vue';
   import { isNil } from 'lodash-es';
   import { Skeleton } from 'ant-design-vue';
+  import { useTimeoutFn } from '@vben/hooks';
   import { CollapseTransition } from '/@/components/Transition';
   import CollapseHeader from './CollapseHeader.vue';
   import { triggerWindowResize } from '/@/utils/event';
-  import { useTimeoutFn } from '/@/hooks/core/useTimeout';
   import { useDesign } from '/@/hooks/web/useDesign';
 
   const collapseContainerProps = {
@@ -73,7 +73,9 @@
               {props.loading ? (
                 <Skeleton active={props.loading} />
               ) : (
-                <div class={`${prefixCls}__body`} v-show={show.value}>{slots.default?.()}</div>
+                <div class={`${prefixCls}__body`} v-show={show.value}>
+                  {slots.default?.()}
+                </div>
               )}
             </CollapseTransition>
           </div>
@@ -89,15 +91,15 @@
   @prefix-cls: ~'@{namespace}-collapse-container';
 
   .@{prefix-cls} {
-    background-color: @component-background;
-    border-radius: 2px;
     transition: all 0.3s ease-in-out;
+    border-radius: 2px;
+    background-color: @component-background;
 
     &__header {
       display: flex;
-      height: 32px;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      height: 32px;
       border-bottom: 1px solid @border-color-light;
     }
 
@@ -107,10 +109,10 @@
 
     &__action {
       display: flex;
-      text-align: right;
       flex: 1;
       align-items: center;
       justify-content: flex-end;
+      text-align: right;
     }
   }
 </style>

@@ -30,7 +30,7 @@ export function useTableForm(
 
   function replaceFormSlotKey(key: string) {
     if (!key) return '';
-    return key?.replace?.(/form\-/, '') ?? '';
+    return key?.replace?.(/form-/, '') ?? '';
   }
 
   function handleSearchInfoChange(info: Recordable) {

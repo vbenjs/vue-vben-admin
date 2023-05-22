@@ -102,7 +102,7 @@
     ],
     setup(props, { attrs, emit, slots, expose }) {
       const tableElRef = ref(null);
-      const tableData = ref<Recordable[]>([]);
+      const tableData = ref([]);
 
       const wrapRef = ref(null);
       const formRef = ref(null);
@@ -184,6 +184,7 @@
         getViewColumns,
         getColumns,
         setCacheColumnsByField,
+        setCacheColumns,
         setColumns,
         getColumnsRef,
         getCacheColumns,
@@ -239,7 +240,7 @@
 
       const getBindValues = computed(() => {
         const dataSource = unref(getDataSourceRef);
-        let propsData: Recordable = {
+        let propsData: any = {
           ...attrs,
           customRow,
           ...unref(getProps),
@@ -323,6 +324,7 @@
         getSize: () => {
           return unref(getBindValues).size as SizeType;
         },
+        setCacheColumns,
       };
       createTableContext({ ...tableAction, wrapRef, getBindValues });
 
@@ -379,10 +381,10 @@
 
       .ant-form {
         width: 100%;
-        padding: 12px 10px 6px;
         margin-bottom: 16px;
-        background-color: @component-background;
+        padding: 12px 10px 6px;
         border-radius: 2px;
+        background-color: @component-background;
       }
     }
 
@@ -394,8 +396,8 @@
 
     .ant-table-wrapper {
       padding: 6px;
-      background-color: @component-background;
       border-radius: 2px;
+      background-color: @component-background;
 
       .ant-table-title {
         min-height: 40px;
@@ -413,10 +415,10 @@
 
       &-title {
         display: flex;
+        align-items: center;
+        justify-content: space-between;
         padding: 8px 6px;
         border-bottom: none;
-        justify-content: space-between;
-        align-items: center;
       }
 
       //.ant-table-tbody > tr.ant-table-row-selected td {

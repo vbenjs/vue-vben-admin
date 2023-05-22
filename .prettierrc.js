@@ -7,4 +7,13 @@ module.exports = {
   proseWrap: 'never',
   htmlWhitespaceSensitivity: 'strict',
   endOfLine: 'auto',
+  plugins: ['prettier-plugin-packagejson'],
+  overrides: [
+    {
+      files: '.*rc',
+      options: {
+        parser: 'json',
+      },
+    },
+  ],
 };
