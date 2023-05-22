@@ -25,6 +25,7 @@
   import { getBasicColumns, getBasicShortColumns } from './tableData';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { demoListApi } from '/@/api/demo/table';
+
   export default defineComponent({
     components: { BasicTable },
     setup() {
@@ -36,7 +37,7 @@
         registerTable,
         {
           setLoading,
-          setColumns,
+          setProps,
           getColumns,
           getDataSource,
           getRawDataSource,
@@ -76,11 +77,22 @@
         }, 1000);
       }
       function changeColumns() {
-        setColumns(getBasicShortColumns());
+        setProps({
+          columns: getBasicShortColumns(),
+          rowSelection: {
+            type: 'checkbox',
+          },
+          showIndexColumn: true,
+        });
       }
       function reloadTable() {
-        setColumns(getBasicColumns());
-
+        setProps({
+          columns: getBasicColumns(),
+          rowSelection: {
+            type: 'checkbox',
+          },
+          showIndexColumn: true,
+        });
         reload({
           page: 1,
         });
