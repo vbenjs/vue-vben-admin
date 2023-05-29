@@ -1,5 +1,4 @@
-import { BasicColumn } from '/@/components/Table';
-import { FormSchema } from '/@/components/Table';
+import { BasicColumn, FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
@@ -18,7 +17,7 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'code',
+    field: 'codeLike',
     label: '字典代码',
     component: 'Input',
     colProps: {
@@ -27,7 +26,7 @@ export const searchFormSchema: FormSchema[] = [
     },
   },
   {
-    field: 'name',
+    field: 'nameLike',
     label: '字典名称',
     component: 'Input',
     colProps: {

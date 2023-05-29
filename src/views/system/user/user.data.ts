@@ -15,13 +15,13 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'username',
+    field: 'usernameLike',
     label: '用户名',
     component: 'Input',
     colProps: { span: 8 },
   },
   {
-    field: 'nickname',
+    field: 'nicknameLike',
     label: '昵称',
     component: 'Input',
     colProps: { span: 8 },
