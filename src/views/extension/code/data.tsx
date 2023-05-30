@@ -1,5 +1,5 @@
 import { FormSchema } from '/@/components/Form';
-import { listDatabases } from '/@/apis/databases';
+import { listDatabases, listDatabaseTables } from '/@/apis/databases';
 import { listTemplateGroups } from '/@/apis/template-groups';
 
 export const databaseFormSchemas: FormSchema[] = [
@@ -8,6 +8,7 @@ export const databaseFormSchemas: FormSchema[] = [
     component: 'ApiSelect',
     label: '数据库',
     required: true,
+    itemProps: { validateTrigger: 'blur' },
     componentProps: {
       api: listDatabases,
       params: {
@@ -23,12 +24,35 @@ export const databaseFormSchemas: FormSchema[] = [
   },
 ];
 
+export function obtainTableFormSchemas(databaseId: number): FormSchema[] {
+  return [
+    {
+      field: 'tables',
+      component: 'ApiSelect',
+      label: '数据表',
+      required: true,
+      itemProps: { validateTrigger: 'blur' },
+      componentProps: {
+        mode: 'multiple',
+        api: listDatabaseTables,
+        params: databaseId,
+        labelField: 'remarks',
+        valueField: 'name',
+      },
+      colProps: {
+        span: 24,
+      },
+    },
+  ];
+}
+
 export const templateGroupSchemas: FormSchema[] = [
   {
     field: 'templateGroupId',
     component: 'ApiSelect',
     label: '模板组',
     required: true,
+    itemProps: { validateTrigger: 'blur' },
     componentProps: {
       api: listTemplateGroups,
       params: {

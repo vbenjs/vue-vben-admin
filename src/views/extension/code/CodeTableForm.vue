@@ -1,31 +1,12 @@
 <script lang="ts" setup>
-  import { BasicForm, useForm, FormSchema } from '/@/components/Form';
-  import { listDatabaseTables } from '/@/apis/databases';
+  import { BasicForm, useForm } from '/@/components/Form';
+  import { obtainTableFormSchemas } from './data';
 
   const props = defineProps<{ databaseId: number }>();
 
-  const tableFormSchemas: FormSchema[] = [
-    {
-      field: 'tables',
-      component: 'ApiSelect',
-      label: '数据表',
-      required: true,
-      componentProps: {
-        mode: 'multiple',
-        api: listDatabaseTables,
-        params: props.databaseId,
-        labelField: 'remarks',
-        valueField: 'name',
-      },
-      colProps: {
-        span: 24,
-      },
-    },
-  ];
-
   const [register, { validate }] = useForm({
     labelWidth: 100,
-    schemas: tableFormSchemas,
+    schemas: obtainTableFormSchemas(props.databaseId),
     actionColOptions: {
       span: 14,
     },
@@ -46,10 +27,8 @@
   }
 
   async function next() {
-    try {
-      const values = await validate();
-      emit('next', values);
-    } catch (error) {}
+    const values = await validate();
+    emit('next', values);
   }
 </script>
 <template>
@@ -68,16 +47,16 @@
 
     h3 {
       margin: 0 0 12px;
+      color: @text-color;
       font-size: 16px;
       line-height: 32px;
-      color: @text-color;
     }
 
     h4 {
       margin: 0 0 4px;
+      color: @text-color;
       font-size: 14px;
       line-height: 22px;
-      color: @text-color;
     }
 
     p {
