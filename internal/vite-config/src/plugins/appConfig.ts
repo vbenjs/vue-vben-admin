@@ -37,7 +37,7 @@ async function createAppConfigPlugin({
 
       const appConfigSrc = `${
         publicPath || '/'
-      }${GLOBAL_CONFIG_FILE_NAME}?v=${version}-${createContentHash(source)}}`;
+      }${GLOBAL_CONFIG_FILE_NAME}?v=${version}-${createContentHash(source)}`;
 
       return {
         html,
