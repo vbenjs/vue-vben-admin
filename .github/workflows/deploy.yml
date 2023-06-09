@@ -67,6 +67,9 @@ jobs:
           sed -i  "s#VITE_DROP_CONSOLE\s*=.*#VITE_DROP_CONSOLE = true#g" ./.env.production
           cat ./.env.production
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
       - name: use Node.js 16
         uses: actions/setup-node@v3
         with:
@@ -100,8 +103,8 @@ jobs:
         env:
           NODE_OPTIONS: '--max_old_space_size=4096'
         run: |
-          yarn install
-          yarn run build
+          pnpm install --no-frozen-lockfile
+          pnpm build
           touch dist/.nojekyll
           cp dist/index.html dist/404.html
 

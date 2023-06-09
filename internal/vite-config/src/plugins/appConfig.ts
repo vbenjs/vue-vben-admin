@@ -28,7 +28,7 @@ async function createAppConfigPlugin({
     name: PLUGIN_NAME,
     async configResolved(_config) {
       let appTitle = _config?.env?.VITE_GLOB_APP_TITLE ?? '';
-      appTitle = appTitle.replace(/\s/g, '_');
+      appTitle = appTitle.replace(/\s/g, '_').replace(/-/g, '_');
       publicPath = _config.base;
       source = await getConfigSource(appTitle);
     },
@@ -37,7 +37,7 @@ async function createAppConfigPlugin({
 
       const appConfigSrc = `${
         publicPath || '/'
-      }${GLOBAL_CONFIG_FILE_NAME}?v=${version}-${createContentHash(source)}}`;
+      }${GLOBAL_CONFIG_FILE_NAME}?v=${version}-${createContentHash(source)}`;
 
       return {
         html,
