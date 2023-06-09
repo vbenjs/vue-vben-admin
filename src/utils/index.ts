@@ -1,9 +1,9 @@
-import type { App, Component } from 'vue';
 import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router';
+import type { App, Component } from 'vue';
 
-import { cloneDeep, mergeWith, uniq } from 'lodash-es';
 import { unref } from 'vue';
 import { isArray, isObject } from '/@/utils/is';
+import { cloneDeep, isEqual, mergeWith, unionWith } from 'lodash-es';
 
 export const noop = () => {};
 
@@ -49,7 +49,7 @@ export function deepMerge<T extends object | null | undefined, U extends object 
     if (isObject(objValue) && isObject(srcValue)) {
       return mergeWith(cloneDeep(objValue), srcValue, (prevValue, nextValue) => {
         // 如果是数组，合并数组(去重) If it is an array, merge the array (remove duplicates)
-        return isArray(prevValue) ? uniq(prevValue, nextValue) : undefined;
+        return isArray(prevValue) ? unionWith(prevValue, nextValue, isEqual) : undefined;
       });
     }
   });
