@@ -1,9 +1,9 @@
 import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router';
 import type { App, Component } from 'vue';
 
+import { intersectionWith, isEqual, mergeWith, unionWith } from 'lodash-es';
 import { unref } from 'vue';
 import { isArray, isObject } from '/@/utils/is';
-import { cloneDeep, isEqual, mergeWith, unionWith } from 'lodash-es';
 
 export const noop = () => {};
 
@@ -34,25 +34,59 @@ export function setObjToUrlParams(baseUrl: string, obj: any): string {
 }
 
 /**
-
- 递归合并两个对象。
- Recursively merge two objects.
- @param target 目标对象，合并后结果存放于此。The target object to merge into.
- @param source 要合并的源对象。The source object to merge from.
- @returns 合并后的对象。The merged object.
+ * Recursively merge two objects.
+ * 递归合并两个对象。
+ *
+ * @param source The source object to merge from. 要合并的源对象。
+ * @param target The target object to merge into. 目标对象，合并后结果存放于此。
+ * @param mergeArrays How to merge arrays. Default is "replace".
+ *        如何合并数组。默认为replace。
+ *        - "union": Union the arrays. 对数组执行并集操作。
+ *        - "intersection": Intersect the arrays. 对数组执行交集操作。
+ *        - "concat": Concatenate the arrays. 连接数组。
+ *        - "replace": Replace the source array with the target array. 用目标数组替换源数组。
+ * @returns The merged object. 合并后的对象。
  */
 export function deepMerge<T extends object | null | undefined, U extends object | null | undefined>(
-  target: T,
-  source: U,
+  source: T,
+  target: U,
+  mergeArrays: 'union' | 'intersection' | 'concat' | 'replace' = 'replace',
 ): T & U {
+
   return mergeWith(cloneDeep(target), source, (objValue, srcValue) => {
     if (isObject(objValue) && isObject(srcValue)) {
       return mergeWith(cloneDeep(objValue), srcValue, (prevValue, nextValue) => {
         // 如果是数组，合并数组(去重) If it is an array, merge the array (remove duplicates)
         return isArray(prevValue) ? unionWith(prevValue, nextValue, isEqual) : undefined;
       });
+
+  if (!target) {
+    return source as T & U;
+  }
+  if (!source) {
+    return target as T & U;
+  }
+  if (isArray(target) && isArray(source)) {
+    switch (mergeArrays) {
+      case 'union':
+        return unionWith(target, source, isEqual) as T & U;
+      case 'intersection':
+        return intersectionWith(target, source, isEqual) as T & U;
+      case 'concat':
+        return target.concat(source) as T & U;
+      case 'replace':
+        return source as T & U;
+      default:
+        throw new Error(`Unknown merge array strategy: ${mergeArrays}`);
+
     }
-  });
+  }
+  if (isObject(target) && isObject(source)) {
+    return mergeWith({}, target, source, (targetValue, sourceValue) => {
+      return deepMerge(targetValue, sourceValue, mergeArrays);
+    }) as T & U;
+  }
+  return source as T & U;
 }
 
 export function openWindow(
