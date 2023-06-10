@@ -1,7 +1,7 @@
 import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router';
 import type { App, Component } from 'vue';
 
-import { intersectionWith, isEqual, mergeWith, unionWith } from 'lodash-es';
+import { cloneDeep, intersectionWith, isEqual, mergeWith, unionWith } from 'lodash-es';
 import { unref } from 'vue';
 import { isArray, isObject } from '/@/utils/is';
 
@@ -52,7 +52,6 @@ export function deepMerge<T extends object | null | undefined, U extends object 
   target: U,
   mergeArrays: 'union' | 'intersection' | 'concat' | 'replace' = 'replace',
 ): T & U {
-
   return mergeWith(cloneDeep(target), source, (objValue, srcValue) => {
     if (isObject(objValue) && isObject(srcValue)) {
       return mergeWith(cloneDeep(objValue), srcValue, (prevValue, nextValue) => {
@@ -60,33 +59,34 @@ export function deepMerge<T extends object | null | undefined, U extends object 
         return isArray(prevValue) ? unionWith(prevValue, nextValue, isEqual) : undefined;
       });
 
-  if (!target) {
-    return source as T & U;
-  }
-  if (!source) {
-    return target as T & U;
-  }
-  if (isArray(target) && isArray(source)) {
-    switch (mergeArrays) {
-      case 'union':
-        return unionWith(target, source, isEqual) as T & U;
-      case 'intersection':
-        return intersectionWith(target, source, isEqual) as T & U;
-      case 'concat':
-        return target.concat(source) as T & U;
-      case 'replace':
+      if (!target) {
         return source as T & U;
-      default:
-        throw new Error(`Unknown merge array strategy: ${mergeArrays}`);
-
+      }
+      if (!source) {
+        return target as T & U;
+      }
+      if (isArray(target) && isArray(source)) {
+        switch (mergeArrays) {
+          case 'union':
+            return unionWith(target as Array<any>, source as Array<any>, isEqual) as T & U;
+          case 'intersection':
+            return intersectionWith(target as Array<any>, source as Array<any>, isEqual) as T & U;
+          case 'concat':
+            return (target as Array<any>).concat(source as Array<any>) as T & U;
+          case 'replace':
+            return source as T & U;
+          default:
+            throw new Error(`Unknown merge array strategy: ${mergeArrays}`);
+        }
+      }
+      if (isObject(target) && isObject(source)) {
+        return mergeWith({}, target, source, (targetValue, sourceValue) => {
+          return deepMerge(targetValue, sourceValue, mergeArrays);
+        }) as T & U;
+      }
+      return source as T & U;
     }
-  }
-  if (isObject(target) && isObject(source)) {
-    return mergeWith({}, target, source, (targetValue, sourceValue) => {
-      return deepMerge(targetValue, sourceValue, mergeArrays);
-    }) as T & U;
-  }
-  return source as T & U;
+  });
 }
 
 export function openWindow(
