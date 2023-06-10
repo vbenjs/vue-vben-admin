@@ -60,6 +60,11 @@
       "prettier --write"
     ]
   },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
+  },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
     "@iconify/iconify": "^3.1.0",
