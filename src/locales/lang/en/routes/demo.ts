@@ -121,6 +121,7 @@ export default {
 
     form: 'Form',
     formBasic: 'Basic Form',
+    loveChat: 'Love Chat',
     formStep: 'Step Form',
     formHigh: 'Advanced Form',
 

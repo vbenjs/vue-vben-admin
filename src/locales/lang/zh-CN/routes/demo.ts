@@ -117,6 +117,7 @@ export default {
 
     form: '表单页',
     formBasic: '基础表单',
+    loveChat: '爱的对话',
     formStep: '分步表单',
     formHigh: '高级表单',
 

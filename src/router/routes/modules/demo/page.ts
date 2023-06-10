@@ -36,6 +36,14 @@ const page: AppRouteModule = {
           },
         },
         {
+          path: 'loveChatForm',
+          name: 'FormLoveChatDemo',
+          component: () => import('/@/views/demo/page/form/lovechat/LoveChatForm.vue'),
+          meta: {
+            title: t('routes.demo.page.loveChat'),
+          }
+        },
+        {
           path: 'step',
           name: 'FormStepPage',
           component: () => import('/@/views/demo/page/form/step/index.vue'),
