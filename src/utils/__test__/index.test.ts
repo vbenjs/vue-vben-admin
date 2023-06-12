@@ -4,6 +4,30 @@ import { describe, expect, test } from 'vitest';
 import { deepMerge } from '@/utils';
 
 describe('deepMerge function', () => {
+  test('should correctly merge basic data types', () => {
+    const source = { a: 1, b: 2, c: null };
+    const target = {
+      a: 2,
+      b: undefined,
+      c: 3,
+    };
+    const expected = {
+      a: 2,
+      b: 2,
+      c: 3,
+    };
+    expect(deepMerge(source, target)).toStrictEqual(expected);
+  });
+
+  test('should return the same date if only 1 is passed', () => {
+    const foo = new Date();
+    const merged = deepMerge(foo, null);
+    const merged2 = deepMerge(undefined, foo);
+    expect(merged).toStrictEqual(foo);
+    expect(merged2).toStrictEqual(foo);
+    expect(merged).toStrictEqual(merged2);
+  });
+
   test('should merge two objects recursively', () => {
     const source = {
       a: { b: { c: 1 }, d: [1, 2] },
@@ -15,6 +39,7 @@ describe('deepMerge function', () => {
           too: [1, 2, 3],
         },
       ],
+      r: { a: 1 },
     };
     const target = {
       a: { b: { d: [3] } },
@@ -30,6 +55,7 @@ describe('deepMerge function', () => {
           really: 'yes',
         },
       ],
+      r: { a: 2 },
     };
     const expected = {
       a: { b: { c: 1, d: [3] }, d: [1, 2] },
@@ -48,8 +74,9 @@ describe('deepMerge function', () => {
         },
       ],
       qu: 5,
+      r: { a: 2 },
     };
-    expect(deepMerge(source, target)).toEqual(expected);
+    expect(deepMerge(source, target)).toStrictEqual(expected);
   });
 
   test('should replace arrays by default', () => {
@@ -65,7 +92,7 @@ describe('deepMerge function', () => {
       a: { b: { d: [3] } },
       e: [3],
     };
-    expect(deepMerge(source, target)).toEqual(expected);
+    expect(deepMerge(source, target)).toStrictEqual(expected);
   });
 
   test("should union arrays using mergeArrays = 'union'", () => {
@@ -75,13 +102,13 @@ describe('deepMerge function', () => {
     };
     const target = {
       a: { b: { d: [2, 3] } },
-      e: [3],
+      e: [1, 3],
     };
     const expected = {
       a: { b: { d: [1, 2, 3] } },
       e: [1, 2, 3],
     };
-    expect(deepMerge(source, target, 'union')).toEqual(expected);
+    expect(deepMerge(source, target, 'union')).toStrictEqual(expected);
   });
 
   test("should intersect arrays using mergeArrays = 'intersection'", () => {
@@ -97,7 +124,7 @@ describe('deepMerge function', () => {
       a: { b: { d: [2] } },
       e: [],
     };
-    expect(deepMerge(source, target, 'intersection')).toEqual(expected);
+    expect(deepMerge(source, target, 'intersection')).toStrictEqual(expected);
   });
 
   test("should concatenate arrays using mergeArrays = 'concat'", () => {
@@ -113,6 +140,6 @@ describe('deepMerge function', () => {
       a: { b: { d: [1, 2, 2, 3] } },
       e: [1, 2, 3],
     };
-    expect(deepMerge(source, target, 'concat')).toEqual(expected);
+    expect(deepMerge(source, target, 'concat')).toStrictEqual(expected);
   });
 });
