@@ -55,6 +55,7 @@
       valueField: propTypes.string.def('value'),
       immediate: propTypes.bool.def(true),
       alwaysLoad: propTypes.bool.def(false),
+      options: propTypes.array.def([]),
     },
     emits: ['options-change', 'change', 'update:value'],
     setup(props, { emit }) {
@@ -71,7 +72,7 @@
       const getOptions = computed(() => {
         const { labelField, valueField, numberToString } = props;
 
-        return unref(options).reduce((prev, next: any) => {
+        let data = unref(options).reduce((prev, next: any) => {
           if (next) {
             const value = get(next, valueField);
             prev.push({
@@ -82,6 +83,7 @@
           }
           return prev;
         }, [] as OptionsItem[]);
+        return data.length > 0 ? data : props.options;
       });
 
       watchEffect(() => {
