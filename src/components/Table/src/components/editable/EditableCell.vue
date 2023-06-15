@@ -483,6 +483,7 @@
   }
   .@{prefix-cls} {
     position: relative;
+    min-height: 24px;
 
     &__wrapper {
       display: flex;
