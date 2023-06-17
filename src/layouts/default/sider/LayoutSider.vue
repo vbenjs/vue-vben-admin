@@ -31,15 +31,13 @@
   import { Layout } from 'ant-design-vue';
   import LayoutMenu from '../menu/index.vue';
   import LayoutTrigger from '/@/layouts/default/trigger/index.vue';
-
   import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
-
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { useTrigger, useDragLine, useSiderEvent } from './useLayoutSider';
   import { useAppInject } from '/@/hooks/web/useAppInject';
   import { useDesign } from '/@/hooks/web/useDesign';
-
   import DragBar from './DragBar.vue';
+
   export default defineComponent({
     name: 'LayoutSideBar',
     components: { Sider: Layout.Sider, LayoutMenu, DragBar, LayoutTrigger },
