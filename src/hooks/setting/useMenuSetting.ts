@@ -123,7 +123,7 @@ export function useMenuSetting() {
 
   // Set menu configuration
   function setMenuSetting(menuSetting: Partial<MenuSetting>): void {
-    appStore.setProjectConfig({ menuSetting });
+    appStore.setMenuSetting(menuSetting);
   }
 
   function toggleCollapsed() {
@@ -133,9 +133,7 @@ export function useMenuSetting() {
   }
   return {
     setMenuSetting,
-
     toggleCollapsed,
-
     getMenuFixed,
     getRealWidth,
     getMenuType,
