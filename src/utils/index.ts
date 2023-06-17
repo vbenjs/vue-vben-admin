@@ -38,7 +38,7 @@ export function setObjToUrlParams(baseUrl: string, obj: any): string {
  * 递归合并两个对象。
  *
  * @param source The source object to merge from. 要合并的源对象。
- * @param target The target object to merge into. 目标对象，合并后结果存放于此。
+ * @param target The target object to merge into. 目标对象
  * @param mergeArrays How to merge arrays. Default is "replace".
  *        如何合并数组。默认为replace。
  *        - "union": Union the arrays. 对数组执行并集操作。
@@ -48,14 +48,14 @@ export function setObjToUrlParams(baseUrl: string, obj: any): string {
  * @returns The merged object. 合并后的对象。
  */
 export function deepMerge<T extends object | null | undefined, U extends object | null | undefined>(
-  source: T,
-  target: U,
+  target: T,
+  source: U,
   mergeArrays: 'union' | 'intersection' | 'concat' | 'replace' = 'replace',
 ): T & U {
-  if (!target) {
+  if (target == undefined || target == null) {
     return source as T & U;
   }
-  if (!source) {
+  if (source == undefined || source == null) {
     return target as T & U;
   }
   if (isArray(target) && isArray(source)) {
@@ -70,7 +70,6 @@ export function deepMerge<T extends object | null | undefined, U extends object 
         return source as T & U;
       default:
         throw new Error(`Unknown merge array strategy: ${mergeArrays}`);
-
     }
   }
   if (isObject(target) && isObject(source)) {
