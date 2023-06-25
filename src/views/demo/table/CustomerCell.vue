@@ -32,6 +32,7 @@
   import { BasicTable, useTable, BasicColumn, TableImg } from '/@/components/Table';
   import { Tag, Avatar } from 'ant-design-vue';
   import { demoListApi } from '/@/api/demo/table';
+
   const columns: BasicColumn[] = [
     {
       title: 'ID',
