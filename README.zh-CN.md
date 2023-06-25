@@ -9,7 +9,7 @@
 
 ## 简介
 
-Vue Vben Admin 是一个免费开源的中后台模版。使用了最新的`vue3`,`vite2`,`TypeScript`等主流技术开发，开箱即用的中后台前端解决方案，也可用于学习参考。
+Vue Vben Admin 是一个免费开源的中后台模版。使用了最新的`vue3`,`vite4`,`TypeScript`等主流技术开发，开箱即用的中后台前端解决方案，也可用于学习参考。
 
 ## 特性
 
@@ -54,7 +54,7 @@ Vue Vben Admin 是一个免费开源的中后台模版。使用了最新的`vue3
 - [TypeScript](https://www.typescriptlang.org/) - 熟悉`TypeScript`基本语法
 - [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
 - [Vue-Router-Next](https://next.router.vuejs.org/) - 熟悉 vue-router 基本使用
-- [Ant-Design-Vue](https://2x.antdv.com/docs/vue/introduce-cn/) - ui 基本使用
+- [Ant-Design-Vue](https://antdv.com/docs/vue/introduce-cn/) - ui 基本使用
 - [Mock.js](https://github.com/nuysoft/Mock) - mockjs 基本语法
 
 ## 安装使用

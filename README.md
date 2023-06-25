@@ -9,7 +9,7 @@
 
 ## Introduction
 
-Vue Vben Admin is a free and open source middle and back-end template. Using the latest `vue3`, `vite2`, `TypeScript` and other mainstream technology development, the out-of-the-box middle and back-end front-end solutions can also be used for learning reference.
+Vue Vben Admin is a free and open source middle and back-end template. Using the latest `vue3`, `vite4`, `TypeScript` and other mainstream technology development, the out-of-the-box middle and back-end front-end solutions can also be used for learning reference.
 
 ## Feature
 
@@ -54,7 +54,7 @@ Open the project in Gitpod (free online dev environment for GitHub) and start co
 - [TypeScript](https://www.typescriptlang.org/) - Familiar with the basic syntax of `TypeScript`
 - [Es6+](http://es6.ruanyifeng.com/) - Familiar with es6 basic syntax
 - [Vue-Router-Next](https://next.router.vuejs.org/) - Familiar with the basic use of vue-router
-- [Ant-Design-Vue](https://2x.antdv.com/docs/vue/introduce-cn/) - ui basic use
+- [Ant-Design-Vue](https://antdv.com/docs/vue/introduce-cn/) - ui basic use
 - [Mock.js](https://github.com/nuysoft/Mock) - mockjs basic syntax
 
 ## Install and use
