@@ -42,6 +42,7 @@
   import Modal3 from './Modal3.vue';
   import Modal4 from './Modal4.vue';
   import { PageWrapper } from '/@/components/Page';
+  import { type Nullable } from '@vben/types';
 
   export default defineComponent({
     components: { Alert, Modal1, Modal2, Modal3, Modal4, PageWrapper, ASpace: Space },
