@@ -4,6 +4,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import DefineOptions from 'unplugin-vue-define-options/vite';
 import { type PluginOption } from 'vite';
 import purgeIcons from 'vite-plugin-purge-icons';
+import vueSetupExtend from 'vite-plugin-vue-setup-extend';
 
 import { createAppConfigPlugin } from './appConfig';
 import { configCompressPlugin } from './compress';
@@ -11,7 +12,7 @@ import { configHtmlPlugin } from './html';
 import { configMockPlugin } from './mock';
 import { configSvgIconsPlugin } from './svgSprite';
 import { configVisualizerConfig } from './visualizer';
-import vueSetupExtend from 'vite-plugin-vue-setup-extend';
+
 interface Options {
   isBuild: boolean;
   root: string;
