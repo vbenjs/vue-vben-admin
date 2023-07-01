@@ -237,9 +237,6 @@ importers:
       vite-plugin-mock:
         specifier: ^2.9.6
         version: 2.9.6(mockjs@1.1.0)(rollup@2.79.1)(vite@4.3.9)
-      vite-plugin-vue-setup-extend:
-        specifier: ^0.4.0
-        version: 0.4.0(vite@4.3.9)
       vue-tsc:
         specifier: ^1.8.3
         version: 1.8.3(typescript@5.1.6)
@@ -8250,12 +8247,6 @@ packages:
     dependencies:
       magic-string: 0.30.0
 
-  /magic-string@0.25.9:
-    resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
-    dependencies:
-      sourcemap-codec: 1.4.8
-    dev: true
-
   /magic-string@0.27.0:
     resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}
     engines: {node: '>=12'}
@@ -10225,11 +10216,6 @@ packages:
       whatwg-url: 7.1.0
     dev: true
 
-  /sourcemap-codec@1.4.8:
-    resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
-    deprecated: Please use @jridgewell/sourcemap-codec instead
-    dev: true
-
   /spdx-correct@3.2.0:
     resolution: {integrity: sha512-kN9dJbvnySHULIluDHy32WHRUu3Og7B9sbY7tsFLctQkIqnMh3hErYgdMjTYuqmcXX+lK5T1lnUt3G7zNswmZA==}
     dependencies:
@@ -11579,16 +11565,6 @@ packages:
       vite: 4.3.9(@types/node@20.3.3)(less@4.1.3)(sass@1.63.6)
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /vite-plugin-vue-setup-extend@0.4.0(vite@4.3.9):
-    resolution: {integrity: sha512-WMbjPCui75fboFoUTHhdbXzu4Y/bJMv5N9QT9a7do3wNMNHHqrk+Tn2jrSJU0LS5fGl/EG+FEDBYVUeWIkDqXQ==}
-    peerDependencies:
-      vite: '>=2.0.0'
-    dependencies:
-      '@vue/compiler-sfc': 3.3.4
-      magic-string: 0.25.9
-      vite: 4.3.9(@types/node@20.3.3)(less@4.1.3)(sass@1.63.6)
     dev: true
 
   /vite@4.3.9(@types/node@20.3.3)(less@4.1.3)(sass@1.63.6):
