@@ -26,38 +26,36 @@
   </PageWrapper>
 </template>
 
-<script>
-  import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
+  import { ref } from 'vue';
   import { useRoute } from 'vue-router';
   import { PageWrapper } from '/@/components/Page';
   import { useGo } from '/@/hooks/web/usePage';
   import { useTabs } from '/@/hooks/web/useTabs';
   import { Tabs } from 'ant-design-vue';
 
-  export default defineComponent({
-    name: 'AccountDetail',
-    components: { PageWrapper, ATabs: Tabs, ATabPane: Tabs.TabPane },
-    setup() {
-      const route = useRoute();
-      const go = useGo();
-      // 此处可以得到用户ID
-      const userId = ref(route.params?.id);
-      const currentKey = ref('detail');
-      const { setTitle } = useTabs();
-      // TODO
-      // 本页代码仅作演示，实际应当通过userId从接口获得用户的相关资料
+  defineOptions({ name: 'AccountDetail' });
 
-      // 设置Tab的标题（不会影响页面标题）
-      setTitle('详情：用户' + userId.value);
+  const ATabs = Tabs;
+  const ATabPane = Tabs.TabPane;
 
-      // 页面左侧点击返回链接时的操作
-      function goBack() {
-        // 本例的效果时点击返回始终跳转到账号列表页，实际应用时可返回上一页
-        go('/system/account');
-      }
-      return { userId, currentKey, goBack };
-    },
-  });
+  const route = useRoute();
+  const go = useGo();
+  // 此处可以得到用户ID
+  const userId = ref(route.params?.id);
+  const currentKey = ref('detail');
+  const { setTitle } = useTabs();
+  // TODO
+  // 本页代码仅作演示，实际应当通过userId从接口获得用户的相关资料
+
+  // 设置Tab的标题（不会影响页面标题）
+  setTitle('详情：用户' + userId.value);
+
+  // 页面左侧点击返回链接时的操作
+  function goBack() {
+    // 本例的效果时点击返回始终跳转到账号列表页，实际应用时可返回上一页
+    go('/system/account');
+  }
 </script>
 
 <style></style>
