@@ -105,6 +105,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
 
   import { CollapseContainer } from '/@/components/Container/index';
+
   defineProps({
     title: {
       type: String,

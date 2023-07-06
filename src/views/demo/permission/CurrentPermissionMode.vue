@@ -14,6 +14,7 @@
   import { PermissionModeEnum } from '/@/enums/appEnum';
   import { Divider } from 'ant-design-vue';
   import { usePermission } from '/@/hooks/web/usePermission';
+
   export default defineComponent({
     name: 'CurrentPermissionMode',
     components: { Divider },

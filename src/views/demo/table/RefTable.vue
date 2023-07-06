@@ -34,6 +34,7 @@
   import { getBasicColumns, getBasicShortColumns } from './tableData';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { demoListApi } from '/@/api/demo/table';
+  import { type Nullable } from '@vben/types';
 
   export default defineComponent({
     components: { BasicTable },

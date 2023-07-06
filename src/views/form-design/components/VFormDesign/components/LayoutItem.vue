@@ -65,6 +65,7 @@
   import { useFormDesignState } from '../../../hooks/useFormDesignState';
   import { IVFormComponent } from '../../../typings/v-form-component';
   import { Row, Col } from 'ant-design-vue';
+
   export default defineComponent({
     name: 'LayoutItem',
     components: {
