@@ -4,6 +4,10 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 importers:
 
   .:
@@ -99,8 +103,10 @@ importers:
         specifier: ^5.10.7
         version: 5.10.7
       vditor:
+
         specifier: ^3.9.4
         version: 3.9.4
+
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -120,11 +126,13 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0(vue@3.3.4)
       vxe-table:
-        specifier: ^4.4.2
-        version: 4.4.2(vue@3.3.4)(xe-utils@3.5.11)
+
+        specifier: ^4.4.5
+        version: 4.4.5(vue@3.2.47)(xe-utils@3.5.7)
       vxe-table-plugin-export-xlsx:
         specifier: ^3.0.4
-        version: 3.0.4(vxe-table@4.4.2)
+        version: 3.0.4(vxe-table@4.4.5)
+
       xe-utils:
         specifier: ^3.5.11
         version: 3.5.11
@@ -233,7 +241,13 @@ importers:
         version: 4.3.9(@types/node@20.3.3)(less@4.1.3)(sass@1.63.6)
       vite-plugin-mock:
         specifier: ^2.9.6
+
         version: 2.9.6(mockjs@1.1.0)(rollup@2.79.1)(vite@4.3.9)
+
+      vite-plugin-vue-setup-extend:
+        specifier: ^0.4.0
+        version: 0.4.0(vite@4.3.0-beta.2)
+
       vue-tsc:
         specifier: ^1.8.3
         version: 1.8.3(typescript@5.1.6)
@@ -3257,7 +3271,19 @@ packages:
   /@volar/source-map@1.7.8:
     resolution: {integrity: sha512-g2dtC2kOghvfzMDWeODIo4HO1Ml4hxzPTZyAFDz+YhRF9HjZYJSCaWaVuPZ+z0kY+T2daOHYA10GdrWQ5q0teA==}
     dependencies:
+
       muggle-string: 0.3.1
+
+      '@volar/language-core': 1.3.0-alpha.0
+      '@volar/source-map': 1.3.0-alpha.0
+      '@vue/compiler-dom': 3.3.4
+      '@vue/compiler-sfc': 3.2.47
+      '@vue/reactivity': 3.2.47
+      '@vue/shared': 3.2.47
+      minimatch: 6.2.0
+
+      vue-template-compiler: 2.7.14
+
     dev: true
 
   /@volar/typescript@1.7.10:
@@ -3415,6 +3441,7 @@ packages:
         optional: true
     dependencies:
       js-beautify: 1.14.6
+
       vue: 3.3.4
       vue-component-type-helpers: 1.6.5
     dev: true
@@ -3426,6 +3453,12 @@ packages:
       '@vue/language-core': 1.8.3(typescript@5.1.6)
     transitivePeerDependencies:
       - typescript
+
+      vue: 3.2.47
+    optionalDependencies:
+      '@vue/compiler-dom': 3.3.4
+      '@vue/server-renderer': 3.2.47(vue@3.2.47)
+
     dev: true
 
   /@vueuse/core@10.2.1(vue@3.3.4):
@@ -11503,8 +11536,20 @@ packages:
       - supports-color
     dev: true
 
+
   /vite@4.3.9(@types/node@20.3.3)(less@4.1.3)(sass@1.63.6):
     resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
+
+  /vite-plugin-vue-setup-extend@0.4.0(vite@4.3.0-beta.2):
+    resolution: {integrity: sha512-WMbjPCui75fboFoUTHhdbXzu4Y/bJMv5N9QT9a7do3wNMNHHqrk+Tn2jrSJU0LS5fGl/EG+FEDBYVUeWIkDqXQ==}
+    peerDependencies:
+      vite: '>=2.0.0'
+    dependencies:
+      '@vue/compiler-sfc': 3.2.47
+      magic-string: 0.25.9
+      vite: 4.3.0-beta.2(@types/node@18.15.11)(less@4.1.3)(sass@1.60.0)
+    dev: true
+n
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -11683,16 +11728,19 @@ packages:
       vue: 3.3.4
     dev: false
 
-  /vxe-table-plugin-export-xlsx@3.0.4(vxe-table@4.4.2):
+
+  /vxe-table-plugin-export-xlsx@3.0.4(vxe-table@4.4.5):
+
     resolution: {integrity: sha512-Og/NbXRIb+BS6sJ48oDNVrZnlkcpaCd/zS8JBAZjHLgioWr1Xoob6FEpaeXBebGPPgTumZNUrrBO57JhhYAerA==}
     peerDependencies:
       vxe-table: ^4.0.27
     dependencies:
-      vxe-table: 4.4.2(vue@3.3.4)(xe-utils@3.5.11)
+
+      vxe-table: 4.4.5(vue@3.2.47)(xe-utils@3.5.7)
     dev: false
 
-  /vxe-table@4.4.2(vue@3.3.4)(xe-utils@3.5.11):
-    resolution: {integrity: sha512-3UdfSeMZ/D5nfTohcnZQQ2gkFZnhvf0v83usOCwx3B1nzBNKAJumg3QviMEox5SdikT8pq9z4vz3a0pesPPrJw==}
+  /vxe-table@4.4.5(vue@3.2.47)(xe-utils@3.5.7):
+    resolution: {integrity: sha512-5huB/p0pVgFZjH/abLkWBFnBFe/9mozdQmbXehiGZJHQ6KfzLEsqpKbPsKAnMYEhezPmH4igdhYkXxb7ohWbTA==}
     peerDependencies:
       vue: ^3.2.28
       xe-utils: ^3.5.0

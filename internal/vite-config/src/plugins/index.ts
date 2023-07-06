@@ -2,6 +2,7 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import { type PluginOption } from 'vite';
 import purgeIcons from 'vite-plugin-purge-icons';
+import vueSetupExtend from 'vite-plugin-vue-setup-extend';
 
 import { createAppConfigPlugin } from './appConfig';
 import { configCompressPlugin } from './compress';

@@ -19,6 +19,7 @@
     "bootstrap": "pnpm install",
     "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max-old-space-size=8192 pnpm vite build",
     "build:analyze": "cross-env NODE_OPTIONS=--max-old-space-size=8192 pnpm vite build --mode analyze",
+    "build:docker": "vite build --mode docker",
     "build:no-cache": "pnpm clean:cache && npm run build",
     "build:test": "cross-env NODE_OPTIONS=--max-old-space-size=8192 pnpm vite build --mode test",
     "commit": "czg",
@@ -103,7 +104,9 @@
     "vue-router": "^4.2.2",
     "vue-types": "^5.1.0",
     "vuedraggable": "^4.1.0",
-    "vxe-table": "^4.4.2",
+
+    "vxe-table": "^4.4.5",
+
     "vxe-table-plugin-export-xlsx": "^3.0.4",
     "xe-utils": "^3.5.11",
     "xlsx": "^0.18.5"
