@@ -7,6 +7,7 @@
   import { Ref, ref, watch } from 'vue';
   import { Card } from 'ant-design-vue';
   import { useECharts } from '/@/hooks/web/useECharts';
+
   const props = defineProps({
     loading: Boolean,
     width: {

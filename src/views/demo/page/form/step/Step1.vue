@@ -32,6 +32,7 @@
   import { step1Schemas } from './data';
 
   import { Select, Input, Divider } from 'ant-design-vue';
+
   export default defineComponent({
     components: {
       BasicForm,

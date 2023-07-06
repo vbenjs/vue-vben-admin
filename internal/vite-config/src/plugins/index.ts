@@ -1,7 +1,5 @@
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-// @ts-ignore: type unless
-import DefineOptions from 'unplugin-vue-define-options/vite';
 import { type PluginOption } from 'vite';
 import purgeIcons from 'vite-plugin-purge-icons';
 import vueSetupExtend from 'vite-plugin-vue-setup-extend';
@@ -22,12 +20,7 @@ interface Options {
 }
 
 async function createPlugins({ isBuild, root, enableMock, compress, enableAnalyze }: Options) {
-  const vitePlugins: (PluginOption | PluginOption[])[] = [
-    vue(),
-    vueJsx(),
-    vueSetupExtend(),
-    DefineOptions(),
-  ];
+  const vitePlugins: (PluginOption | PluginOption[])[] = [vue(), vueJsx()];
 
   const appConfigPlugin = await createAppConfigPlugin({ root, isBuild });
   vitePlugins.push(appConfigPlugin);
