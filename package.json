@@ -29,7 +29,7 @@
     "lint": "turbo run lint",
     "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
     "lint:prettier": "prettier --write .",
-    "lint:stylelint": "stylelint \"**/*.{vue,css,less.scss}\" --fix --cache --cache-location node_modules/.cache/stylelint/",
+    "lint:stylelint": "stylelint \"**/*.{vue,css,less,scss}\" --fix --cache --cache-location node_modules/.cache/stylelint/",
     "prepare": "husky install",
     "preview": "npm run build && vite preview",
     "reinstall": "rimraf pnpm-lock.yaml && rimraf package.lock.json && rimraf node_modules && npm run bootstrap",
