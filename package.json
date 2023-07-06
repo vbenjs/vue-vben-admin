@@ -101,12 +101,10 @@
     "vue": "^3.3.4",
     "vue-i18n": "^9.2.2",
     "vue-json-pretty": "^2.2.4",
-    "vue-router": "^4.2.2",
+    "vue-router": "^4.2.3",
     "vue-types": "^5.1.0",
     "vuedraggable": "^4.1.0",
-
     "vxe-table": "^4.4.5",
-
     "vxe-table-plugin-export-xlsx": "^3.0.4",
     "xe-utils": "^3.5.11",
     "xlsx": "^0.18.5"
@@ -114,7 +112,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.6",
     "@commitlint/config-conventional": "^17.6.6",
-    "@iconify/json": "^2.2.85",
+    "@iconify/json": "^2.2.87",
     "@purge-icons/generated": "^0.9.0",
     "@types/codemirror": "^5.60.8",
     "@types/crypto-js": "^4.1.1",
@@ -139,14 +137,14 @@
     "husky": "^8.0.3",
     "lint-staged": "13.2.3",
     "prettier": "^2.8.8",
-    "prettier-plugin-packagejson": "^2.4.3",
+    "prettier-plugin-packagejson": "^2.4.4",
     "rimraf": "^5.0.1",
     "turbo": "^1.10.7",
     "typescript": "^5.1.6",
     "unbuild": "^1.2.1",
-    "vite": "^4.3.9",
+    "vite": "^4.4.0",
     "vite-plugin-mock": "^2.9.6",
-    "vue-tsc": "^1.8.3"
+    "vue-tsc": "^1.8.4"
   },
   "packageManager": "pnpm@8.1.0",
   "engines": {
