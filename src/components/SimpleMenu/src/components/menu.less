@@ -7,13 +7,13 @@
 
 .light-border {
   &::after {
+    content: '';
+    display: block;
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
-    display: block;
     width: 2px;
-    content: '';
     background-color: @primary-color;
   }
 }
@@ -37,16 +37,16 @@
       position: relative;
       z-index: 1;
       padding: 12px 20px;
+      transition: all @transition-time @ease-in-out;
       color: @menu-dark-subsidiary-color;
       cursor: pointer;
-      transition: all @transition-time @ease-in-out;
 
       &-icon {
         position: absolute;
         top: 50%;
         right: 18px;
-        transition: transform @transition-time @ease-in-out;
         transform: translateY(-50%) rotate(-90deg);
+        transition: transform @transition-time @ease-in-out;
       }
     }
 
@@ -61,8 +61,8 @@
         }
 
         &-selected {
-          color: #fff;
           background-color: @primary-color !important;
+          color: #fff;
         }
       }
     }
@@ -78,8 +78,8 @@
 
         &-selected {
           z-index: 2;
-          color: @primary-color;
           background-color: fade(@primary-color, 10);
+          color: @primary-color;
 
           .light-border();
         }
@@ -91,15 +91,15 @@
 .content();
 .content() {
   .@{menu-prefix-cls} {
-    position: relative;
     display: block;
+    position: relative;
     width: 100%;
-    padding: 0;
     margin: 0;
-    font-size: @font-size-base;
-    color: @text-color-base;
-    list-style: none;
+    padding: 0;
     outline: none;
+    color: @text-color-base;
+    font-size: @font-size-base;
+    list-style: none;
 
     // .collapse-transition {
     //   transition: @transition-time height ease-in-out, @transition-time padding-top ease-in-out,
@@ -125,15 +125,15 @@
     }
 
     &-item {
+      display: flex;
       position: relative;
       z-index: 1;
-      display: flex;
       align-items: center;
-      font-size: @font-size-base;
+      outline: none;
       color: inherit;
+      font-size: @font-size-base;
       list-style: none;
       cursor: pointer;
-      outline: none;
 
       &:hover,
       &:active {
@@ -218,8 +218,8 @@
     &-light&-vertical &-item {
       &-active:not(.@{menu-prefix-cls}-submenu) {
         z-index: 2;
-        color: @primary-color;
         background-color: fade(@primary-color, 10);
+        color: @primary-color;
 
         .light-border();
       }
@@ -239,12 +239,12 @@
         }
 
         &::before {
+          content: '';
           position: absolute;
           top: 0;
           left: 0;
           width: 3px;
           height: 100%;
-          content: '';
           background-color: @primary-color;
         }
       }
@@ -254,8 +254,8 @@
     &-dark&-vertical &-submenu-title {
       color: @menu-dark-subsidiary-color;
       &-active:not(.@{menu-prefix-cls}-submenu) {
-        color: #fff !important;
         background-color: @primary-color !important;
+        color: #fff !important;
       }
 
       &:hover {
@@ -267,16 +267,16 @@
       > li.@{menu-prefix-cls}-item-active,
       .@{menu-prefix-cls}-submenu-active {
         position: relative;
-        color: #fff !important;
         background-color: @sider-dark-darken-bg-color !important;
+        color: #fff !important;
 
         &::before {
+          content: '';
           position: absolute;
           top: 0;
           left: 0;
           width: 3px;
           height: 100%;
-          content: '';
           background-color: @primary-color;
         }
 
@@ -289,8 +289,8 @@
     &-dark&-vertical &-submenu &-item {
       &-active,
       &-active:hover {
-        color: #fff;
         border-right: none;
+        color: #fff;
       }
     }
 

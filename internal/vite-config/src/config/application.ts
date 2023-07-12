@@ -69,6 +69,8 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
         cssTarget: 'chrome80',
         rollupOptions: {
           output: {
+            // 入口文件名
+            entryFileNames: 'assets/[name].js',
             manualChunks: {
               vue: ['vue', 'pinia', 'vue-router'],
               antd: ['ant-design-vue', '@ant-design/icons-vue'],
@@ -87,7 +89,7 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
       plugins,
     };
 
-    const mergedConfig = mergeConfig(commonConfig, applicationConfig);
+    const mergedConfig = mergeConfig(commonConfig(mode), applicationConfig);
 
     return mergeConfig(mergedConfig, overrides);
   });

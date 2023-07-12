@@ -36,6 +36,7 @@
   import JsonModal from '../VFormDesign/components/JsonModal.vue';
   import { IToolbarMethods } from '../../typings/form-type';
   import { Modal } from 'ant-design-vue';
+
   export default defineComponent({
     name: 'VFormPreview',
     components: {

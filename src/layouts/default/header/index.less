@@ -5,14 +5,14 @@
 
 .@{header-prefix-cls} {
   display: flex;
-  height: @header-height;
-  padding: 0;
-  margin-left: -1px;
-  line-height: @header-height;
-  color: @white;
-  background-color: @white;
   align-items: center;
   justify-content: space-between;
+  height: @header-height;
+  margin-left: -1px;
+  padding: 0;
+  background-color: @white;
+  color: @white;
+  line-height: @header-height;
 
   &--mobile {
     .@{breadcrumb-prefix-cls},
@@ -40,15 +40,15 @@
 
   &--fixed {
     position: fixed;
+    z-index: @layout-header-fixed-z-index;
     top: 0;
     left: 0;
-    z-index: @layout-header-fixed-z-index;
     width: 100%;
   }
 
   &-logo {
-    height: @header-height;
     min-width: 192px;
+    height: @header-height;
     padding: 0 10px;
     font-size: 14px;
 
@@ -61,15 +61,15 @@
 
   &-left {
     display: flex;
-    height: 100%;
     align-items: center;
+    height: 100%;
 
     .@{header-trigger-prefix-cls} {
       display: flex;
+      align-items: center;
       height: 100%;
       padding: 1px 10px 0;
       cursor: pointer;
-      align-items: center;
 
       .anticon {
         font-size: 16px;
@@ -94,25 +94,25 @@
   }
 
   &-menu {
-    height: 100%;
-    min-width: 0;
     flex: 1;
     align-items: center;
+    min-width: 0;
+    height: 100%;
   }
 
   &-action {
     display: flex;
-    min-width: 180px;
     // padding-right: 12px;
     align-items: center;
+    min-width: 180px;
 
     &__item {
       display: flex !important;
+      align-items: center;
       height: @header-height;
       padding: 0 2px;
       font-size: 1.2em;
       cursor: pointer;
-      align-items: center;
 
       .ant-badge {
         height: @header-height;
@@ -131,9 +131,9 @@
   }
 
   &--light {
-    background-color: @white !important;
     border-bottom: 1px solid @header-light-bottom-border-color;
     border-left: 1px solid @header-light-bottom-border-color;
+    background-color: @white !important;
 
     .@{header-prefix-cls}-logo {
       color: @text-color-base;
@@ -165,9 +165,9 @@
   }
 
   &--dark {
-    background-color: @header-dark-bg-color !important;
     // border-bottom: 1px solid @border-color-base;
     border-left: 1px solid @border-color-base;
+    background-color: @header-dark-bg-color !important;
     .@{header-prefix-cls}-logo {
       &:hover {
         background-color: @header-dark-bg-hover-color;

@@ -29,6 +29,7 @@
 
   import { Divider } from 'ant-design-vue';
   import { PageWrapper } from '/@/components/Page';
+
   const data = (() => {
     const arr: any[] = [];
     for (let index = 1; index < 20000; index++) {
