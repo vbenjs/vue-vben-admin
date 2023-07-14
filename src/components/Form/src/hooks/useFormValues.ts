@@ -4,6 +4,7 @@ import { unref } from 'vue';
 import type { Ref, ComputedRef } from 'vue';
 import type { FormProps, FormSchema } from '../types/form';
 import { cloneDeep, set } from 'lodash-es';
+import { dateItemType } from '../helper';
 
 interface UseFormValuesContext {
   defaultValueRef: Ref<any>;
@@ -132,7 +133,27 @@ export function useFormValues({
         obj[item.field] = defaultValue;
 
         if (formModel[item.field] === undefined) {
-          formModel[item.field] = defaultValue;
+          if (dateItemType.includes(item.component)) {
+            const valueFormat = item.componentProps ? item.componentProps['valueFormat'] : null;
+            if (Array.isArray(defaultValue)) {
+              const arr: any[] = [];
+              for (const ele of defaultValue) {
+                arr.push(
+                  ele ? (valueFormat ? dateUtil(ele).format(valueFormat) : dateUtil(ele)) : null,
+                );
+              }
+              formModel[item.field] = arr;
+            } else {
+              formModel[item.field] = defaultValue
+                ? valueFormat
+                  ? dateUtil(defaultValue).format(valueFormat)
+                  : dateUtil(defaultValue)
+                : null;
+            }
+          } else {
+            formModel[item.field] = defaultValue;
+          }
+          // formModel[item.field] = defaultValue;
         }
       }
     });
