@@ -4,7 +4,6 @@ import { unref } from 'vue';
 import type { Ref, ComputedRef } from 'vue';
 import type { FormProps, FormSchema } from '../types/form';
 import { cloneDeep, set } from 'lodash-es';
-import { dateItemType } from '../helper';
 
 interface UseFormValuesContext {
   defaultValueRef: Ref<any>;
