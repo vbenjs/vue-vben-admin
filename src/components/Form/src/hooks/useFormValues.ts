@@ -133,27 +133,7 @@ export function useFormValues({
         obj[item.field] = defaultValue;
 
         if (formModel[item.field] === undefined) {
-          if (dateItemType.includes(item.component)) {
-            const valueFormat = item.componentProps ? item.componentProps['valueFormat'] : null;
-            if (Array.isArray(defaultValue)) {
-              const arr: any[] = [];
-              for (const ele of defaultValue) {
-                arr.push(
-                  ele ? (valueFormat ? dateUtil(ele).format(valueFormat) : dateUtil(ele)) : null,
-                );
-              }
-              formModel[item.field] = arr;
-            } else {
-              formModel[item.field] = defaultValue
-                ? valueFormat
-                  ? dateUtil(defaultValue).format(valueFormat)
-                  : dateUtil(defaultValue)
-                : null;
-            }
-          } else {
-            formModel[item.field] = defaultValue;
-          }
-          // formModel[item.field] = defaultValue;
+          formModel[item.field] = defaultValue;
         }
       }
     });
