@@ -117,15 +117,18 @@
       const getSchema = computed((): FormSchema[] => {
         const schemas: FormSchema[] = unref(schemaRef) || (unref(getProps).schemas as any);
         for (const schema of schemas) {
-          const { defaultValue, component, isHandleDateDefaultValue = true } = schema;
+          const { defaultValue, component, componentProps,isHandleDateDefaultValue = true } = schema;
           // handle date type
           if (isHandleDateDefaultValue && defaultValue && dateItemType.includes(component)) {
+              const valueFormat =componentProps ? componentProps['valueFormat'] : null;
             if (!Array.isArray(defaultValue)) {
-              schema.defaultValue = dateUtil(defaultValue);
+              schema.defaultValue =  valueFormat
+                  ? dateUtil(defaultValue).format(valueFormat)
+                  : dateUtil(defaultValue);
             } else {
               const def: any[] = [];
               defaultValue.forEach((item) => {
-                def.push(dateUtil(item));
+                def.push(valueFormat ? dateUtil(item).format(valueFormat) : dateUtil(item));
               });
               schema.defaultValue = def;
             }
