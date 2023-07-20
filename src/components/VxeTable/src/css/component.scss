@@ -1,3 +1,4 @@
+/* stylelint-disable scss/percent-placeholder-pattern */
 %ResetBorder {
   border: 0;
   box-shadow: none;
@@ -13,11 +14,13 @@
     width: 100%;
   }
 }
+
 .vxe-form {
   .vxe-form--item-content {
     @extend %CompWidth;
   }
 }
+
 .vxe-table--filter-antd-wrapper {
   & > .ant-input,
   & > .ant-input-number,
@@ -26,16 +29,20 @@
     width: 180px;
   }
 }
+
 .vxe-cell,
 .vxe-tree-cell {
   @extend %CompWidth;
+
   & > .ant-rate {
     vertical-align: bottom;
+
     .anticon-star {
       display: block;
     }
   }
 }
+
 .col--valid-error {
   & > .vxe-cell,
   & > .vxe-tree-cell {
@@ -50,55 +57,67 @@
     }
   }
 }
+
 .vxe-table.cell--highlight {
   .vxe-cell,
   .vxe-tree-cell {
     & > .ant-input,
     & > .ant-input-number {
-      padding: 0;
       @extend %ResetBorder;
+
+      padding: 0;
     }
+
     & > .ant-select {
       .ant-input {
-        padding: 0;
         @extend %ResetBorder;
-      }
-    }
-    & > .ant-input-number {
-      .ant-input-number-input {
+
         padding: 0;
       }
-      .ant-input-number-handler-wrap,
-      .ant-input-number-handler-down {
-        @extend %ResetBorder;
-      }
-    }
-    & > .ant-select {
+
       .ant-select-selection {
         @extend %ResetBorder;
+
         .ant-select-selection__rendered {
           margin: 0;
         }
       }
     }
+
+    & > .ant-input-number {
+      .ant-input-number-input {
+        padding: 0;
+      }
+
+      .ant-input-number-handler-wrap,
+      .ant-input-number-handler-down {
+        @extend %ResetBorder;
+      }
+    }
+
     & > .ant-cascader-picker {
       .ant-input {
         @extend %ResetBorder;
       }
+
       .ant-cascader-picker-label {
         padding: 0;
       }
     }
+
     & > .ant-calendar-picker {
       .ant-calendar-picker-input {
-        padding: 0;
         @extend %ResetBorder;
+
+        padding: 0;
       }
     }
+
     & > .ant-time-picker {
       .ant-time-picker-input {
-        padding: 0;
         @extend %ResetBorder;
+
+        padding: 0;
       }
     }
   }

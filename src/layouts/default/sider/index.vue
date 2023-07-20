@@ -23,6 +23,7 @@
   import { useAppInject } from '/@/hooks/web/useAppInject';
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { useDesign } from '/@/hooks/web/useDesign';
+
   export default defineComponent({
     name: 'SiderWrapper',
     components: { Sider, Drawer, MixSider },

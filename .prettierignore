@@ -8,3 +8,5 @@ node_modules
 
 public
 .npmrc
+
+*-lock.yaml

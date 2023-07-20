@@ -16,6 +16,7 @@
   import { CollapseContainer } from '/@/components/Container/index';
   import { useWatermark } from '/@/hooks/web/useWatermark';
   import { PageWrapper } from '/@/components/Page';
+  import { type Nullable } from '@vben/types';
 
   export default defineComponent({
     components: { CollapseContainer, PageWrapper },

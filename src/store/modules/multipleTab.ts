@@ -308,7 +308,7 @@ export const useMultipleTabStore = defineStore({
 
       for (const path of closePathList) {
         if (path !== route.fullPath) {
-          const closeItem = this.tabList.find((item) => item.path === path);
+          const closeItem = this.tabList.find((item) => item.fullPath === path);
           if (!closeItem) {
             continue;
           }
@@ -320,6 +320,7 @@ export const useMultipleTabStore = defineStore({
       }
       this.bulkCloseTabs(pathList);
       this.updateCacheTab();
+      Persistent.setLocal(MULTIPLE_TABS_KEY, this.tabList, true);
       handleGotoPage(router);
     },
 

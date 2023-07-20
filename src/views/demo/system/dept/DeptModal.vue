@@ -10,6 +10,7 @@
   import { formSchema } from './dept.data';
 
   import { getDeptList } from '/@/api/demo/system';
+
   export default defineComponent({
     name: 'DeptModal',
     components: { BasicModal, BasicForm },

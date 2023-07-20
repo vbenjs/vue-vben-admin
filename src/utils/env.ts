@@ -2,9 +2,16 @@ import type { GlobEnvConfig } from '/#/config';
 import pkg from '../../package.json';
 
 const getVariableName = (title: string) => {
-  return `__PRODUCTION__${title.replace(/\s/g, '_').replace(/-/g, '_') || '__APP'}__CONF__`
-    .toUpperCase()
-    .replace(/\s/g, '');
+  function strToHex(str: string) {
+    const result: string[] = [];
+    for (let i = 0; i < str.length; ++i) {
+      const hex = str.charCodeAt(i).toString(16);
+      result.push(('000' + hex).slice(-4));
+    }
+    return result.join('').toUpperCase();
+  }
+
+  return `__PRODUCTION__${strToHex(title) || '__APP'}__CONF__`.toUpperCase().replace(/\s/g, '');
 };
 
 export function getCommonStoragePrefix() {
