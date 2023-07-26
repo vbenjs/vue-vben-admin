@@ -130,13 +130,14 @@
       type: Function as PropType<(params: apiFunParams) => Promise<any>>,
     },
     src: { type: String },
+    size: { type: Number },
   };
 
   export default defineComponent({
     name: 'CropperModal',
     components: { BasicModal, Space, CropperImage, Upload, Avatar, Tooltip },
     props,
-    emits: ['uploadSuccess', 'register'],
+    emits: ['uploadSuccess', 'uploadError', 'register'],
     setup(props, { emit }) {
       let filename = '';
       const src = ref(props.src || '');
@@ -151,6 +152,10 @@
 
       // Block upload
       function handleBeforeUpload(file: File) {
+        if (props.size && file.size > 1024 * 1024 * props.size) {
+          emit('uploadError', { msg: t('component.cropper.imageTooBig') });
+          return;
+        }
         const reader = new FileReader();
         reader.readAsDataURL(file);
         src.value = '';
