@@ -22,6 +22,7 @@ export default {
     },
   ],
   rules: {
+    'media-feature-range-notation': null,
     'selector-not-notation': null,
     'import-notation': null,
     'function-no-unknown': null,
