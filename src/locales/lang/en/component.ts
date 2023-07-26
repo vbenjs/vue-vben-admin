@@ -11,6 +11,7 @@ export default {
   cropper: {
     selectImage: 'Select Image',
     uploadSuccess: 'Uploaded success!',
+    imageTooBig: 'Image too big',
     modalTitle: 'Avatar upload',
     okText: 'Confirm and upload',
     btn_reset: 'Reset',
