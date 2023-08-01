@@ -23,9 +23,21 @@
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
   import { CollapseContainer } from '/@/components/Container/index';
   import { useMessage } from '/@/hooks/web/useMessage';
-  import { Input, FormItem } from 'ant-design-vue';
+  import { Input, FormItem, Select } from 'ant-design-vue';
   import { PageWrapper } from '/@/components/Page';
 
+  const custom_typeKey2typeValueRules = (model) => {
+    return [
+      {
+        required: true,
+        validator: (rule, value, callback) => {
+          if (!model.typeKey) return callback('请选择类型');
+          if (!model.typeValue) return callback('请输入数据');
+          callback();
+        },
+      },
+    ];
+  };
   const schemas: FormSchema[] = [
     {
       field: 'field1',
@@ -111,10 +123,91 @@
         return !!values.field_disabled;
       },
     },
+    // 复合field 场景 自定义表单控件 一个控件包含多个表单录入 示例: 选择+输入
+    {
+      required: true,
+      field: 'typeKey2',
+      defaultValue: '测试类型',
+      fields: ['typeValue2'],
+      defaultValueObj: { typeValue2: '默认测试_文字' },
+      component: 'Input',
+      label: '复合field render',
+      render({ model, field }, { disabled }) {
+        return (
+          <Input.Group compact>
+            <Select
+              disabled={disabled}
+              style="width: 120px"
+              allowClear
+              v-model:value={model[field]}
+            >
+              <Select.Option value="测试类型">测试类型</Select.Option>
+              <Select.Option value="测试名称">测试名称</Select.Option>
+            </Select>
+            <FormItem
+              name="typeValue2"
+              style="width: calc(100% - 120px); margin-left: -1px; border-right: 0; margin-bottom: 0;"
+              rules={[{ required: true }]}
+            >
+              <Input placeholder="请输入" v-model:value={model['typeValue2']} disabled={disabled} />
+            </FormItem>
+          </Input.Group>
+        );
+      },
+      colProps: {
+        span: 8,
+      },
+      dynamicDisabled: ({ values }) => {
+        return !!values.field_disabled;
+      },
+    },
+    // 复合field 场景 自定义表单控件 一个控件包含多个表单录入 示例: 选择+输入
+    {
+      field: 'typeKey',
+      defaultValue: '公司名称',
+      fields: ['typeValue'],
+      defaultValueObj: { typeValue: '默认文字' },
+      component: 'Input',
+      // label: 'renderColContent渲染',
+      /**!!!renderColContent 没有FormItem 包裹, 若想要 Form 提交需要带上数据须 <FormItem name={}></FormItem> 包裹： 示例如下*/
+      renderColContent({ model, field }, { disabled }) {
+        return (
+          <FormItem
+            name="typeKey"
+            label="复合field renderColContent"
+            rules={custom_typeKey2typeValueRules(model)}
+          >
+            <Input.Group compact>
+              <Select
+                allowClear
+                disabled={disabled}
+                style="width: 120px"
+                v-model:value={model[field]}
+              >
+                <Select.Option value="公司名称">公司名称</Select.Option>
+                <Select.Option value="产品名称">产品名称</Select.Option>
+              </Select>
+              <Input
+                style="width: calc(100% - 120px); margin-left: -1px;"
+                placeholder="请输入"
+                v-model:value={model['typeValue']}
+                disabled={disabled}
+              />
+            </Input.Group>
+          </FormItem>
+        );
+      },
+      colProps: {
+        span: 16,
+      },
+      dynamicDisabled: ({ values }) => {
+        return !!values.field_disabled;
+      },
+    },
     {
       field: 'field_disabled',
       component: 'Switch',
-      label: '是否禁用字段1,2,3',
+      label: '是否禁用 编辑字段',
       colProps: {
         span: 8,
       },

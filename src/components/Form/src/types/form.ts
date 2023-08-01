@@ -39,7 +39,7 @@ export interface FormActionType {
     first?: boolean | undefined,
   ) => Promise<void>;
   validateFields: (nameList?: NamePath[]) => Promise<any>;
-  validate: (nameList?: NamePath[]) => Promise<any>;
+  validate: (nameList?: NamePath[] | false) => Promise<any>;
   scrollToField: (name: NamePath, options?: ScrollOptions) => Promise<void>;
 }
 
@@ -130,6 +130,8 @@ export type RenderOpts = {
 export interface FormSchema {
   // Field name
   field: string;
+  // Extra Fields name[]
+  fields?: string[];
   // Event name triggered by internal value change, default change
   changeEvent?: string;
   // Variable name bound to v-model Default value
@@ -178,6 +180,9 @@ export interface FormSchema {
 
   // 默认值
   defaultValue?: any;
+
+  // 额外默认值数组对象
+  defaultValueObj?: { [key: string]: any };
 
   // 是否自动处理与时间相关组件的默认值
   isHandleDateDefaultValue?: boolean;
