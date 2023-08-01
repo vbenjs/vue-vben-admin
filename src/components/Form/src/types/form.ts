@@ -123,6 +123,10 @@ export interface FormProps {
   transformDateFunc?: (date: any) => string;
   colon?: boolean;
 }
+export type RenderOpts = {
+  disabled: boolean;
+  [key: string]: any;
+};
 export interface FormSchema {
   // Field name
   field: string;
@@ -131,7 +135,7 @@ export interface FormSchema {
   // Variable name bound to v-model Default value
   valueField?: string;
   // Label name
-  label: string | VNode;
+  label?: string | VNode;
   // Auxiliary text
   subLabel?: string;
   // Help text on the right side of the text
@@ -188,13 +192,19 @@ export interface FormSchema {
   show?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
   // Render the content in the form-item tag
-  render?: (renderCallbackParams: RenderCallbackParams) => VNode | VNode[] | string;
+  render?: (
+    renderCallbackParams: RenderCallbackParams,
+    opts: RenderOpts,
+  ) => VNode | VNode[] | string;
 
   // Rendering col content requires outer wrapper form-item
-  renderColContent?: (renderCallbackParams: RenderCallbackParams) => VNode | VNode[] | string;
+  renderColContent?: (
+    renderCallbackParams: RenderCallbackParams,
+    opts: RenderOpts,
+  ) => VNode | VNode[] | string;
 
   renderComponentContent?:
-    | ((renderCallbackParams: RenderCallbackParams) => any)
+    | ((renderCallbackParams: RenderCallbackParams, opts: RenderOpts) => any)
     | VNode
     | VNode[]
     | string;
