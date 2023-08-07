@@ -1,7 +1,7 @@
 <template>
   <div :class="prefixCls" class="relative w-full h-full px-4">
     <div class="flex items-center absolute right-4 top-4">
-      <!-- <AppDarkModeToggle class="enter-x mr-2" v-if="!sessionTimeout" /> -->
+      <AppDarkModeToggle class="enter-x mr-2" v-if="!sessionTimeout" />
       <AppLocalePicker
         class="text-white enter-x xl:text-gray-600"
         :show-text="false"
@@ -49,7 +49,7 @@
 </template>
 <script lang="ts" setup>
   import { computed } from 'vue';
-  import { AppLogo, AppLocalePicker } from '/@/components/Application';
+  import { AppLogo, AppLocalePicker, AppDarkModeToggle } from '/@/components/Application';
   import LoginForm from './LoginForm.vue';
   import ForgetPasswordForm from './ForgetPasswordForm.vue';
   import RegisterForm from './RegisterForm.vue';
