@@ -1,17 +1,17 @@
 import type { Ref } from 'vue';
 import { onBeforeUpdate, shallowRef } from 'vue';
 
-function useRefs(): {
-  refs: Ref<HTMLElement[]>;
-  setRefs: (index: number) => (el: HTMLElement) => void;
+function useRefs<T = HTMLElement>(): {
+  refs: Ref<T[]>;
+  setRefs: (index: number) => (el: T) => void;
 } {
-  const refs = shallowRef([]) as Ref<HTMLElement[]>;
+  const refs = shallowRef([]) as Ref<T[]>;
 
   onBeforeUpdate(() => {
     refs.value = [];
   });
 
-  const setRefs = (index: number) => (el: HTMLElement) => {
+  const setRefs = (index: number) => (el: T) => {
     refs.value[index] = el;
   };
 
