@@ -73,7 +73,7 @@ async function createAppConfigPlugin({
  * Get the configuration file variable name
  * @param env
  */
-export const getVariableName = (title: string) => {
+const getVariableName = (title: string) => {
   function strToHex(str: string) {
     const result: string[] = [];
     for (let i = 0; i < str.length; ++i) {
