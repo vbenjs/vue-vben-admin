@@ -25,6 +25,8 @@ export function getStorageShortName() {
 }
 
 export function getAppEnvConfig() {
+  console.log(import.meta.env.VITE_GLOB_APP_TITLE);
+  // __PRODUCTION__005600620065006E002000410064006D0069006E__CONF__
   const ENV_NAME = getVariableName(import.meta.env.VITE_GLOB_APP_TITLE);
   console.log(ENV_NAME);
   const ENV = import.meta.env.DEV
