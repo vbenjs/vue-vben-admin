@@ -20,13 +20,10 @@ const getVariableName = (title: string) => {
     }
     return result.join('').toUpperCase();
   }
-
   return `__PRODUCTION__${strToHex(title) || '__APP'}__CONF__`.toUpperCase().replace(/\s/g, '');
 };
 
 export function getAppEnvConfig() {
-  console.log(import.meta.env.VITE_GLOB_APP_TITLE);
-
   const ENV_NAME = getVariableName(import.meta.env.VITE_GLOB_APP_TITLE);
   console.log(ENV_NAME);
   const ENV = import.meta.env.DEV
