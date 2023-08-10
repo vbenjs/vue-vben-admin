@@ -60,6 +60,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+#      - uses: NullVoxPopuli/action-setup-pnpm@v2
+
       - name: Sed Config Base
         shell: bash
         run: |
@@ -69,6 +71,9 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
 
       - name: use Node.js 16
         uses: actions/setup-node@v3
