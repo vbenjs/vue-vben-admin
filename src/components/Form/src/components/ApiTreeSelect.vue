@@ -11,7 +11,16 @@
 
 <script lang="ts">
   import { type Recordable } from '@vben/types';
-  import { type PropType, computed, defineComponent, watch, ref, onMounted, unref } from 'vue';
+  import {
+    type PropType,
+    computed,
+    defineComponent,
+    watchEffect,
+    watch,
+    ref,
+    onMounted,
+    unref,
+  } from 'vue';
   import { TreeSelect } from 'ant-design-vue';
   import { isArray, isFunction } from '/@/utils/is';
   import { get } from 'lodash-es';
@@ -42,6 +51,10 @@
       function handleChange(...args) {
         emit('change', ...args);
       }
+
+      watchEffect(() => {
+        props.immediate && fetch();
+      });
 
       watch(
         () => props.params,
