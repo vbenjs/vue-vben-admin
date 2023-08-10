@@ -1,6 +1,5 @@
 import type { GlobEnvConfig } from '/#/config';
 import pkg from '../../package.json';
-import { getVariableName } from '@vben/vite-config/src/plugins/appConfig';
 
 export function getCommonStoragePrefix() {
   const { VITE_GLOB_APP_TITLE } = getAppEnvConfig();
@@ -11,6 +10,19 @@ export function getCommonStoragePrefix() {
 export function getStorageShortName() {
   return `${getCommonStoragePrefix()}${`__${pkg.version}`}__`.toUpperCase();
 }
+
+const getVariableName = (title: string) => {
+  function strToHex(str: string) {
+    const result: string[] = [];
+    for (let i = 0; i < str.length; ++i) {
+      const hex = str.charCodeAt(i).toString(16);
+      result.push(('000' + hex).slice(-4));
+    }
+    return result.join('').toUpperCase();
+  }
+
+  return `__PRODUCTION__${strToHex(title) || '__APP'}__CONF__`.toUpperCase().replace(/\s/g, '');
+};
 
 export function getAppEnvConfig() {
   console.log(import.meta.env.VITE_GLOB_APP_TITLE);
