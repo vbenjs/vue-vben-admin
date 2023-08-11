@@ -3,6 +3,7 @@
   "extends": "@vben/ts-config/vue-app.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "declaration": false,
     "types": ["vite/client"],
     "paths": {
       "/@/*": ["src/*"],
