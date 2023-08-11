@@ -1,5 +1,5 @@
 <template>
-  <a-tree-select v-bind="getAttrs" @change="handleChange">
+  <a-tree-select v-bind="getAttrs" @change="handleChange" :field-names="fieldNames">
     <template #[item]="data" v-for="item in Object.keys($slots)">
       <slot :name="item" v-bind="data || {}"></slot>
     </template>
@@ -11,7 +11,16 @@
 
 <script lang="ts">
   import { type Recordable } from '@vben/types';
-  import { type PropType, computed, defineComponent, watch, ref, onMounted, unref } from 'vue';
+  import {
+    type PropType,
+    computed,
+    defineComponent,
+    watchEffect,
+    watch,
+    ref,
+    onMounted,
+    unref,
+  } from 'vue';
   import { TreeSelect } from 'ant-design-vue';
   import { isArray, isFunction } from '/@/utils/is';
   import { get } from 'lodash-es';
@@ -26,6 +35,9 @@
       params: { type: Object },
       immediate: { type: Boolean, default: true },
       resultField: propTypes.string.def(''),
+      labelField: propTypes.string.def('title'),
+      valueField: propTypes.string.def('value'),
+      childrenField: propTypes.string.def('children'),
     },
     emits: ['options-change', 'change'],
     setup(props, { attrs, emit }) {
@@ -38,10 +50,19 @@
           ...attrs,
         };
       });
+      const fieldNames = {
+        children: props.childrenField,
+        value: props.valueField,
+        label: props.labelField,
+      };
 
       function handleChange(...args) {
         emit('change', ...args);
       }
+
+      watchEffect(() => {
+        props.immediate && fetch();
+      });
 
       watch(
         () => props.params,
@@ -82,7 +103,7 @@
         isFirstLoaded.value = true;
         emit('options-change', treeData.value);
       }
-      return { getAttrs, loading, handleChange };
+      return { getAttrs, loading, handleChange, fieldNames };
     },
   });
 </script>
