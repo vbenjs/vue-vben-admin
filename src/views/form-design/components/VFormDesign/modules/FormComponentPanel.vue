@@ -131,15 +131,16 @@
     }
 
     .draggable-box {
+      height: calc(100vh - 200px);
       // width: 100%;
+      overflow: auto;
+
       .drag-move {
         min-height: 62px;
         cursor: move;
       }
 
       .list-main {
-        height: 100%;
-        overflow: auto;
         // 列表动画
         .list-enter-active {
           transition: all 0.5s;
