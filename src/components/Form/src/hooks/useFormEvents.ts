@@ -94,9 +94,7 @@ export function useFormEvents({
           formModel[field] = defaultValueObj![field];
         });
       }
-      const isInput = schema?.component && defaultValueComponents.includes(schema.component);
-      const defaultValue = cloneDeep(defaultValueRef.value[key]);
-      formModel[key] = isInput ? defaultValue || '' : defaultValue;
+      formModel[key] = getDefaultValue(schema, defaultValueRef, key);
     });
     nextTick(() => clearValidate());
 
@@ -406,4 +404,30 @@ export function useFormEvents({
     setFieldsValue,
     scrollToField,
   };
+}
+
+function getDefaultValue(
+  schema: FormSchema | undefined,
+  defaultValueRef: UseFormActionContext['defaultValueRef'],
+  key: string,
+) {
+  let defaultValue = cloneDeep(defaultValueRef.value[key]);
+  const isInput = checkIsInput(schema);
+  if (isInput) {
+    return defaultValue || '';
+  }
+  if (!defaultValue && schema && checkIsRangeSlider(schema)) {
+    defaultValue = [0, 0];
+  }
+  return defaultValue;
+}
+
+function checkIsRangeSlider(schema: FormSchema) {
+  if (schema.component === 'Slider' && schema.componentProps && schema.componentProps.range) {
+    return true;
+  }
+}
+
+function checkIsInput(schema?: FormSchema) {
+  return schema?.component && defaultValueComponents.includes(schema.component);
 }
