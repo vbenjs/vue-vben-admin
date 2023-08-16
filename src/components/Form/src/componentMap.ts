@@ -65,6 +65,7 @@ componentMap.set('MonthPicker', DatePicker.MonthPicker);
 componentMap.set('RangePicker', DatePicker.RangePicker);
 componentMap.set('WeekPicker', DatePicker.WeekPicker);
 componentMap.set('TimePicker', TimePicker);
+componentMap.set('TimeRangePicker', TimePicker.TimeRangePicker);
 componentMap.set('StrengthMeter', StrengthMeter);
 componentMap.set('IconPicker', IconPicker);
 componentMap.set('InputCountDown', CountdownInput);

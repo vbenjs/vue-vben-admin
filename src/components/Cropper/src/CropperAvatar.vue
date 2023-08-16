@@ -25,6 +25,7 @@
       @upload-success="handleUploadSuccess"
       :uploadApi="uploadApi"
       :src="sourceValue"
+      :size="size"
     />
   </div>
 </template>
@@ -54,6 +55,7 @@
     btnProps: { type: Object as PropType<ButtonProps> },
     btnText: { type: String, default: '' },
     uploadApi: { type: Function as PropType<({ file: Blob, name: string }) => Promise<void>> },
+    size: { type: Number, default: 5 },
   };
 
   export default defineComponent({

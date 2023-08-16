@@ -61,7 +61,7 @@
 
               <CardMeta>
                 <template #title>
-                  <TypographyText :content="item.name" :ellipsis="{ tooltip: item.address }" />
+                  <TypographyParagraph :content="item.name" :ellipsis="{ tooltip: item.address }" />
                 </template>
                 <template #avatar>
                   <Avatar :src="item.avatar" />
@@ -93,7 +93,7 @@
 
   const ListItem = List.Item;
   const CardMeta = Card.Meta;
-  const TypographyText = Typography.Text;
+  const TypographyParagraph = Typography.Paragraph;
   // 获取slider属性
   const sliderProp = computed(() => useSlider(4));
   // 组件接收参数
