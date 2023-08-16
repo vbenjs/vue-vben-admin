@@ -7,7 +7,7 @@ const commonConfig: (mode: string) => UserConfig = (mode) => ({
     host: true,
   },
   esbuild: {
-    drop: mode === 'procution' ? ['console', 'debugger'] : [],
+    drop: mode === 'production' ? ['console', 'debugger'] : [],
   },
   build: {
     reportCompressedSize: false,
