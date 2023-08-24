@@ -236,9 +236,8 @@ export function useFormEvents({
     if (index !== -1) {
       schemaList.splice(index + 1, 0, ..._schemaList);
     }
-    _setDefaultValue(schema);
-
     schemaRef.value = schemaList;
+    _setDefaultValue(schema);
   }
 
   async function resetSchema(data: Partial<FormSchema> | Partial<FormSchema>[]) {
