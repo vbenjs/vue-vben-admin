@@ -229,11 +229,7 @@ export function useFormEvents({
     const _schemaList = isObject(schema) ? [schema as FormSchema] : (schema as FormSchema[]);
     if (!prefixField || index === -1 || first) {
       first ? schemaList.unshift(..._schemaList) : schemaList.push(..._schemaList);
-      schemaRef.value = schemaList;
-      _setDefaultValue(schema);
-      return;
-    }
-    if (index !== -1) {
+    } else if (index !== -1) {
       schemaList.splice(index + 1, 0, ..._schemaList);
     }
     schemaRef.value = schemaList;
