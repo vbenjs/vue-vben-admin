@@ -278,9 +278,9 @@ export function useFormEvents({
       return;
     }
     const schema: FormSchema[] = [];
-    unref(getSchema).forEach((val) => {
+    updateData.forEach((val) => {
       let _val;
-      updateData.forEach((item) => {
+      unref(getSchema).forEach((item) => {
         if (val.field === item.field) {
           _val = item;
         }
