@@ -60,10 +60,6 @@
         emit('change', ...args);
       }
 
-      watchEffect(() => {
-        props.immediate && fetch();
-      });
-
       watch(
         () => props.params,
         () => {
@@ -85,7 +81,7 @@
 
       async function fetch() {
         const { api } = props;
-        if (!api || !isFunction(api)) return;
+        if (!api || !isFunction(api) || loading.value) return;
         loading.value = true;
         treeData.value = [];
         let result;
