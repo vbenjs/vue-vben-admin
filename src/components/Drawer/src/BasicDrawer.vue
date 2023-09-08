@@ -58,7 +58,7 @@
     components: { Drawer, ScrollContainer, DrawerFooter, DrawerHeader },
     inheritAttrs: false,
     props: basicProps,
-    emits: ['visible-change', 'ok', 'close', 'register'],
+    emits: ['open-change', 'ok', 'close', 'register'],
     setup(props, { emit }) {
       const openRef = ref(false);
       const attrs = useAttrs();
@@ -69,7 +69,7 @@
 
       const drawerInstance: DrawerInstance = {
         setDrawerProps: setDrawerProps as any,
-        emitVisible: undefined,
+        emitOpen: undefined,
       };
 
       const instance = getCurrentInstance();
@@ -85,7 +85,7 @@
           placement: 'right',
           ...unref(attrs),
           ...unref(getMergeProps),
-          visible: unref(openRef),
+          open: unref(openRef),
         };
         opt.title = undefined;
         const { isDetail, width, wrapClassName, getContainer } = opt;
@@ -135,7 +135,7 @@
       });
 
       watch(
-        () => props.visible,
+        () => props.open,
         (newVal, oldVal) => {
           if (newVal !== oldVal) openRef.value = newVal;
         },
@@ -144,10 +144,10 @@
 
       watch(
         () => openRef.value,
-        (visible) => {
+        (open) => {
           nextTick(() => {
-            emit('visible-change', visible);
-            instance && drawerInstance.emitVisible?.(visible, instance.uid);
+            emit('open-change', open);
+            instance && drawerInstance.emitOpen?.(open, instance.uid);
           });
         },
       );
@@ -168,8 +168,8 @@
         // Keep the last setDrawerProps
         propsRef.value = deepMerge(unref(propsRef) || ({} as any), props);
 
-        if (Reflect.has(props, 'visible')) {
-          openRef.value = !!props.visible;
+        if (Reflect.has(props, 'open')) {
+          openRef.value = !!props.open;
         }
       }
 
