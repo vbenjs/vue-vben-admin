@@ -4,8 +4,8 @@
     placement="left"
     :class="prefixCls"
     :width="getMenuWidth"
-    :getContainer="null"
-    :visible="!getCollapsed"
+    :getContainer="false"
+    :open="!getCollapsed"
     @close="handleClose"
   >
     <Sider />
@@ -13,6 +13,7 @@
   <MixSider v-else-if="getIsMixSidebar" />
   <Sider v-else />
 </template>
+
 <script lang="ts">
   import { defineComponent } from 'vue';
 
