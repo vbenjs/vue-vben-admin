@@ -30,7 +30,7 @@ export const basicProps = {
   title: { type: String, default: '' },
   loadingText: { type: String },
   showDetailBack: { type: Boolean, default: true },
-  visible: { type: Boolean },
+  open: { type: Boolean },
   loading: { type: Boolean },
   maskClosable: { type: Boolean, default: true },
   getContainer: {

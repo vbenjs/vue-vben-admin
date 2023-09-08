@@ -907,7 +907,7 @@ const componentAttrs: IBaseComponentProps = {
       },
     },
     {
-      name: 'dropdownClassName',
+      name: 'popupClassName',
       label: '下拉菜单的 className 属性',
       component: 'Input',
       componentProps: {

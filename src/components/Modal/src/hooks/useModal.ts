@@ -24,7 +24,7 @@ import { error } from '/@/utils/log';
 
 const dataTransfer = reactive<any>({});
 
-const visibleData = reactive<{ [key: number]: boolean }>({});
+const openData = reactive<{ [key: number]: boolean }>({});
 
 /**
  * @description: Applicable to independent modal and call outside
@@ -49,8 +49,8 @@ export function useModal(): UseModalReturnType {
 
     modal.value = modalMethod;
     loaded.value = true;
-    modalMethod.emitVisible = (visible: boolean, uid: number) => {
-      visibleData[uid] = visible;
+    modalMethod.emitOpen = (open: boolean, uid: number) => {
+      openData[uid] = open;
     };
   }
 
@@ -67,17 +67,17 @@ export function useModal(): UseModalReturnType {
       getInstance()?.setModalProps(props);
     },
 
-    getVisible: computed((): boolean => {
-      return visibleData[~~unref(uid)];
+    getOpen: computed((): boolean => {
+      return openData[~~unref(uid)];
     }),
 
     redoModalHeight: () => {
       getInstance()?.redoModalHeight?.();
     },
 
-    openModal: <T = any>(visible = true, data?: T, openOnSet = true): void => {
+    openModal: <T = any>(open = true, data?: T, openOnSet = true): void => {
       getInstance()?.setModalProps({
-        visible: visible,
+        open,
       });
 
       if (!data) return;
@@ -94,7 +94,7 @@ export function useModal(): UseModalReturnType {
     },
 
     closeModal: () => {
-      getInstance()?.setModalProps({ visible: false });
+      getInstance()?.setModalProps({ open: false });
     },
   };
   return [register, methods];
@@ -138,8 +138,8 @@ export const useModalInner = (callbackFn?: Fn): UseModalInnerReturnType => {
       changeLoading: (loading = true) => {
         getInstance()?.setModalProps({ loading });
       },
-      getVisible: computed((): boolean => {
-        return visibleData[~~unref(uidRef)];
+      getOpen: computed((): boolean => {
+        return openData[~~unref(uidRef)];
       }),
 
       changeOkLoading: (loading = true) => {
@@ -147,7 +147,7 @@ export const useModalInner = (callbackFn?: Fn): UseModalInnerReturnType => {
       },
 
       closeModal: () => {
-        getInstance()?.setModalProps({ visible: false });
+        getInstance()?.setModalProps({ open: false });
       },
 
       setModalProps: (props: Partial<ModalProps>) => {
