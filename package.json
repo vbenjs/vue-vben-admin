@@ -22,6 +22,7 @@
     "build:docker": "vite build --mode docker",
     "build:no-cache": "pnpm clean:cache && npm run build",
     "build:test": "cross-env NODE_OPTIONS=--max-old-space-size=8192 pnpm vite build --mode test",
+    "commit": "czg",
     "dev": "pnpm vite",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "turbo run stub",
