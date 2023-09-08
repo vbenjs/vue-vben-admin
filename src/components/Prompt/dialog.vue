@@ -1,6 +1,6 @@
 <template>
   <Modal
-    v-model:visible="visible"
+    v-model:open="visible"
     :title="title"
     @ok="handleSubmit"
     :destroyOnClose="true"
