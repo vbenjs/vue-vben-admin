@@ -4,6 +4,7 @@
       :ghost="ghost"
       :title="title"
       v-bind="omit($attrs, 'class')"
+      :style="getHeaderStyle"
       ref="headerRef"
       v-if="getShowHeader"
     >
@@ -52,6 +53,7 @@
   import { omit } from 'lodash-es';
   import { PageHeader } from 'ant-design-vue';
   import { useContentHeight } from '/@/hooks/web/useContentHeight';
+  import { useLayoutHeight } from '/@/layouts/default/content/useContentViewHeight';
   import { PageWrapperFixedHeightKey } from '/@/enums/pageEnum';
 
   defineOptions({
@@ -63,6 +65,8 @@
     title: propTypes.string,
     dense: propTypes.bool,
     ghost: propTypes.bool,
+    headerSticky: propTypes.bool,
+    headerStyle: Object as PropType<CSSProperties>,
     content: propTypes.string,
     contentStyle: {
       type: Object as PropType<CSSProperties>,
@@ -110,6 +114,20 @@
       },
       attrs.class ?? {},
     ];
+  });
+
+  const { headerHeightRef } = useLayoutHeight();
+  const getHeaderStyle = computed((): CSSProperties => {
+    const { headerSticky } = props;
+    if (!headerSticky) {
+      return {};
+    }
+
+    return {
+      position: 'sticky',
+      top: `${unref(headerHeightRef)}px`,
+      ...props.headerStyle,
+    };
   });
 
   const getShowHeader = computed(
