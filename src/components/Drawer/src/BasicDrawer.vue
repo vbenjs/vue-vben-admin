@@ -60,7 +60,7 @@
     props: basicProps,
     emits: ['visible-change', 'ok', 'close', 'register'],
     setup(props, { emit }) {
-      const visibleRef = ref(false);
+      const openRef = ref(false);
       const attrs = useAttrs();
       const propsRef = ref<Partial<DrawerProps | null>>(null);
 
@@ -85,7 +85,7 @@
           placement: 'right',
           ...unref(attrs),
           ...unref(getMergeProps),
-          visible: unref(visibleRef),
+          visible: unref(openRef),
         };
         opt.title = undefined;
         const { isDetail, width, wrapClassName, getContainer } = opt;
@@ -137,13 +137,13 @@
       watch(
         () => props.visible,
         (newVal, oldVal) => {
-          if (newVal !== oldVal) visibleRef.value = newVal;
+          if (newVal !== oldVal) openRef.value = newVal;
         },
         { deep: true },
       );
 
       watch(
-        () => visibleRef.value,
+        () => openRef.value,
         (visible) => {
           nextTick(() => {
             emit('visible-change', visible);
@@ -158,10 +158,10 @@
         emit('close', e);
         if (closeFunc && isFunction(closeFunc)) {
           const res = await closeFunc();
-          visibleRef.value = !res;
+          openRef.value = !res;
           return;
         }
-        visibleRef.value = false;
+        openRef.value = false;
       }
 
       function setDrawerProps(props: Partial<DrawerProps>): void {
@@ -169,7 +169,7 @@
         propsRef.value = deepMerge(unref(propsRef) || ({} as any), props);
 
         if (Reflect.has(props, 'visible')) {
-          visibleRef.value = !!props.visible;
+          openRef.value = !!props.visible;
         }
       }
 
