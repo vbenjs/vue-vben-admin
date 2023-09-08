@@ -1,6 +1,6 @@
 <template>
   <Modal
-    v-model:visible="visible"
+    v-model:open="open"
     :title="title"
     @ok="handleSubmit"
     :destroyOnClose="true"
@@ -20,7 +20,7 @@
   import { FormSchema } from '/@/components/Form';
   import { BasicForm, useForm } from '/@/components/Form/index';
 
-  const visible = ref<boolean>(true);
+  const open = ref<boolean>(true);
   const props = defineProps<{
     title: string;
     addFormSchemas: FormSchema[];
@@ -42,7 +42,7 @@
     if (props.onOK) {
       await props.onOK(row.txt);
     }
-    visible.value = false;
+    open.value = false;
   }
 </script>
 
