@@ -1,7 +1,7 @@
 <template>
   <PageWrapper title="自定义组件示例">
     <CollapseContainer title="自定义表单">
-      <BasicForm @register="register" @submit="handleSubmit">
+      <BasicForm class="local_form" @register="register" @submit="handleSubmit">
         <template #f3="{ model, field, disabled }">
           <a-input v-model:value="model[field]" :disabled="disabled" placeholder="自定义slot" />
         </template>
@@ -144,11 +144,7 @@
               <Select.Option value="测试类型">测试类型</Select.Option>
               <Select.Option value="测试名称">测试名称</Select.Option>
             </Select>
-            <FormItem
-              name="typeValue2"
-              style="width: calc(100% - 120px); margin-left: -1px; border-right: 0; margin-bottom: 0;"
-              rules={[{ required: true }]}
-            >
+            <FormItem name="typeValue2" class="local_typeValue" rules={[{ required: true }]}>
               <Input placeholder="请输入" v-model:value={model['typeValue2']} disabled={disabled} />
             </FormItem>
           </Input.Group>
@@ -237,3 +233,15 @@
     },
   });
 </script>
+<style lang="less" scoped>
+  :deep(.local_form) .local_typeValue {
+    width: calc(100% - 120px);
+    margin-bottom: 0;
+    margin-left: -1px;
+    border-right: 0;
+
+    .ant-input {
+      border-radius: 0 6px 6px 0;
+    }
+  }
+</style>
