@@ -1,5 +1,5 @@
 <template>
-  <Modal v-bind="getBindValue" @cancel="handleCancel" wrapClassName="vben-basic-modal">
+  <Modal v-bind="getBindValue" @cancel="handleCancel">
     <template #closeIcon v-if="!$slots.closeIcon">
       <ModalClose
         :canFullscreen="getProps.canFullscreen"
@@ -140,8 +140,8 @@
           ...unref(getMergeProps),
           open: unref(openRef),
         };
-        attr['wrapClassName'] = `${attr?.['wrapClassName'] || ''} ${unref(getWrapClassName)}`;
-
+        attr['wrapClassName'] =
+          `${attr?.['wrapClassName'] || ''} ${unref(getWrapClassName)}` + 'vben-basic-modal-wrap';
         if (unref(fullScreenRef)) {
           return omit(attr, ['height', 'title']);
         }
