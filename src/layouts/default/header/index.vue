@@ -1,5 +1,5 @@
 <template>
-  <Layout.Header :class="getHeaderClass" style="height: auto; padding-inline: 0">
+  <Layout.Header :class="getHeaderClass">
     <!-- left start -->
     <div :class="`${prefixCls}-left`">
       <!-- logo -->
