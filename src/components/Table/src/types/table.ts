@@ -430,6 +430,8 @@ export interface BasicColumn extends ColumnProps<Recordable> {
 
   slots?: Recordable;
 
+  // 自定义header渲染
+  customHeaderRender?: (column: BasicColumn) => string | VNodeChild | JSX.Element;
   // Whether to hide the column by default, it can be displayed in the column configuration
   defaultHidden?: boolean;
 
