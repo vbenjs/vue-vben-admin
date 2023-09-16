@@ -208,7 +208,7 @@ export function useDataSource(
 
   function insertTableDataRecord(
     record: Recordable | Recordable[],
-    index: number,
+    index?: number,
   ): Recordable[] | undefined {
     // if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
     index = index ?? dataSourceRef.value?.length;
