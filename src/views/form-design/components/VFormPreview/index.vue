@@ -4,7 +4,7 @@
 <template>
   <Modal
     title="预览(支持布局)"
-    :visible="visible"
+    :open="visible"
     @ok="handleGetData"
     @cancel="handleCancel"
     okText="获取数据"

@@ -5,7 +5,7 @@
   <Modal
     title="代码"
     :footer="null"
-    :visible="visible"
+    :open="visible"
     @cancel="visible = false"
     wrapClassName="v-code-modal"
     style="top: 20px"
