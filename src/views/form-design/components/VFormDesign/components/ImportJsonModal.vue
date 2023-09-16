@@ -4,7 +4,7 @@
 <template>
   <Modal
     title="JSON数据"
-    :visible="visible"
+    :open="visible"
     @ok="handleImportJson"
     @cancel="handleCancel"
     cancelText="关闭"

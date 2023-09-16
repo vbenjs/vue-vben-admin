@@ -76,6 +76,25 @@
   import { isFunction } from '/@/utils/is';
   import { warn } from '/@/utils/log';
 
+  const events = [
+    'fetch-success',
+    'fetch-error',
+    'selection-change',
+    'register',
+    'row-click',
+    'row-dbClick',
+    'row-contextmenu',
+    'row-mouseenter',
+    'row-mouseleave',
+    'edit-end',
+    'edit-cancel',
+    'edit-row-end',
+    'edit-change',
+    'expanded-rows-change',
+    'change',
+    'columns-change',
+  ];
+
   export default defineComponent({
     name: 'BasicTable',
     components: {
@@ -84,24 +103,7 @@
       HeaderCell,
     },
     props: basicProps,
-    emits: [
-      'fetch-success',
-      'fetch-error',
-      'selection-change',
-      'register',
-      'row-click',
-      'row-dbClick',
-      'row-contextmenu',
-      'row-mouseenter',
-      'row-mouseleave',
-      'edit-end',
-      'edit-cancel',
-      'edit-row-end',
-      'edit-change',
-      'expanded-rows-change',
-      'change',
-      'columns-change',
-    ],
+    emits: events,
     setup(props, { attrs, emit, slots, expose }) {
       const tableElRef = ref(null);
       const tableData = ref([]);

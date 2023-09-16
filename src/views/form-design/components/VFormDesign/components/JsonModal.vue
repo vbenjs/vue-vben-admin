@@ -5,7 +5,7 @@
   <Modal
     title="JSON数据"
     :footer="null"
-    :visible="visible"
+    :open="visible"
     @cancel="handleCancel"
     :destroyOnClose="true"
     wrapClassName="v-code-modal"
