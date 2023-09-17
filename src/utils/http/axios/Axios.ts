@@ -88,8 +88,8 @@ export class VAxios {
 
     // Request interceptor configuration processing
     this.axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-      // If cancel repeat request is turned on, then cancel repeat request is prohibited
-      const { requestOptions } = this.options;
+      // If cancel repeat request is turned on, then cancel repeat request is prohibited     
+      const requestOptions =  (config as unknown as any).requestOptions ?? this.options.requestOptions;
       const ignoreCancelToken = requestOptions?.ignoreCancelToken ?? true;
 
       !ignoreCancelToken && axiosCanceler.addPending(config);
@@ -201,6 +201,9 @@ export class VAxios {
     // cancelToken 如果被深拷贝，会导致最外层无法使用cancel方法来取消请求
     if (config.cancelToken) {
       conf.cancelToken = config.cancelToken;
+    }
+    if (config.signal) {
+      conf.signal = config.signal;
     }
 
     const transform = this.getTransform();
