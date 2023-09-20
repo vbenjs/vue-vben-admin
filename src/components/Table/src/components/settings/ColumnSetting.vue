@@ -502,6 +502,7 @@
       }
 
       .ant-checkbox-group {
+        display: inline-block;
         width: 100%;
         min-width: 260px;
         // flex-wrap: wrap;
