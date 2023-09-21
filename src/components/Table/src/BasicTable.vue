@@ -21,6 +21,7 @@
       :rowClassName="getRowClassName"
       v-show="getEmptyDataIsShowTable"
       @change="handleTableChange"
+      @change="handleResizeColumn"
     >
       <template #[item]="data" v-for="item in Object.keys($slots)" :key="item">
         <slot :name="item" v-bind="data || {}"></slot>
@@ -182,6 +183,12 @@
         // 解决通过useTable注册onChange时不起作用的问题
         const { onChange } = unref(getProps);
         onChange && isFunction(onChange) && onChange.call(undefined, ...args);
+      }
+      /**
+       * 拖拽列宽修改列的宽度
+       */
+      function handleResizeColumn(w, col) {
+        col.width = w;
       }
 
       const {
@@ -345,6 +352,7 @@
         handleSearchInfoChange,
         getEmptyDataIsShowTable,
         handleTableChange,
+        handleResizeColumn,
         getRowClassName,
         wrapRef,
         tableAction,
