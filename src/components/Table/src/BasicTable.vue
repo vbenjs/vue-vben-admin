@@ -21,7 +21,7 @@
       :rowClassName="getRowClassName"
       v-show="getEmptyDataIsShowTable"
       @change="handleTableChange"
-      @change="handleResizeColumn"
+      @resizeColumn="setColumnWidth"
     >
       <template #[item]="data" v-for="item in Object.keys($slots)" :key="item">
         <slot :name="item" v-bind="data || {}"></slot>
@@ -184,18 +184,13 @@
         const { onChange } = unref(getProps);
         onChange && isFunction(onChange) && onChange.call(undefined, ...args);
       }
-      /**
-       * 拖拽列宽修改列的宽度
-       */
-      function handleResizeColumn(w, col) {
-        col.width = w;
-      }
 
       const {
         getViewColumns,
         getColumns,
         setCacheColumnsByField,
         setCacheColumns,
+        setColumnWidth,
         setColumns,
         getColumnsRef,
         getCacheColumns,
@@ -352,7 +347,7 @@
         handleSearchInfoChange,
         getEmptyDataIsShowTable,
         handleTableChange,
-        handleResizeColumn,
+        setColumnWidth,
         getRowClassName,
         wrapRef,
         tableAction,
