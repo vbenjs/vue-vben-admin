@@ -100,7 +100,7 @@ export interface DrawerProps extends DrawerFooterProps {
    * @default 'body'
    * @type any ( HTMLElement| () => HTMLElement | string)
    */
-  getContainer?: () => HTMLElement | string;
+  getContainer?: string | false | HTMLElement | (() => HTMLElement);
 
   /**
    * Whether to show mask or not.
