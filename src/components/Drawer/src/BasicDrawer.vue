@@ -1,5 +1,5 @@
 <template>
-  <Drawer :rootClassName="prefixCls" @close="onClose" v-bind="getBindValues">
+  <Drawer @close="onClose" v-bind="getBindValues">
     <template #title v-if="!$slots.title">
       <DrawerHeader
         :title="getMergeProps.title"
