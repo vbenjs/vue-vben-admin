@@ -1,0 +1,27 @@
+// zoom-out
+.zoom-out-enter-active,
+.zoom-out-leave-active {
+  transition: opacity 0.1 ease-in-out, transform 0.15s ease-out;
+}
+
+.zoom-out-enter-from,
+.zoom-out-leave-to {
+  transform: scale(0);
+  opacity: 0;
+}
+
+// zoom-fade
+.zoom-fade-enter-active,
+.zoom-fade-leave-active {
+  transition: transform 0.2s, opacity 0.3s ease-out;
+}
+
+.zoom-fade-enter-from {
+  transform: scale(0.92);
+  opacity: 0;
+}
+
+.zoom-fade-leave-to {
+  transform: scale(1.06);
+  opacity: 0;
+}
