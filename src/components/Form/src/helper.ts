@@ -40,6 +40,9 @@ export function setComponentRuleType(
   component: ComponentType,
   valueFormat: string,
 ) {
+  if (Reflect.has(rule, 'type')) {
+    return;
+  }
   if (['DatePicker', 'MonthPicker', 'WeekPicker', 'TimePicker'].includes(component)) {
     rule.type = valueFormat ? 'string' : 'object';
   } else if (['RangePicker', 'Upload', 'CheckboxGroup', 'TimePicker'].includes(component)) {
