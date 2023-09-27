@@ -208,6 +208,10 @@ export class VAxios {
       conf.signal = config.signal;
     }
 
+    if (config.signal) {
+      conf.signal = config.signal;
+    }
+
     const transform = this.getTransform();
 
     const { requestOptions } = this.options;
