@@ -15,6 +15,7 @@
   import { PageWrapper } from '/@/components/Page';
 
   import { demoListApi } from '/@/api/demo/table';
+
   export default defineComponent({
     components: { BasicTable, PageWrapper },
     setup() {

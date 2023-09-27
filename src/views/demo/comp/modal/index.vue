@@ -25,7 +25,13 @@
       <a-button type="primary" class="my-4" @click="openTargetModal(4)"> 打开弹窗4 </a-button>
     </a-space>
 
-    <component :is="currentModal" v-model:visible="modalVisible" :userData="userData" />
+    <Alert
+      message="使用函数方式创建Prompt，适合较为简单的表单内容，如果需要弹出较为复杂的内容，请使用 Modal."
+      show-icon
+    />
+    <a-button type="primary" class="my-4" @click="handleCreatePrompt"> Prompt </a-button>
+
+    <component :is="currentModal" v-model:open="modalOpen" :userData="userData" />
 
     <Modal1 @register="register1" :minHeight="100" />
     <Modal2 @register="register2" />
@@ -35,13 +41,15 @@
 </template>
 <script lang="ts">
   import { defineComponent, shallowRef, ComponentOptions, ref, nextTick } from 'vue';
-  import { Alert, Space } from 'ant-design-vue';
+  import { Alert, Space, message } from 'ant-design-vue';
   import { useModal } from '/@/components/Modal';
   import Modal1 from './Modal1.vue';
   import Modal2 from './Modal2.vue';
   import Modal3 from './Modal3.vue';
   import Modal4 from './Modal4.vue';
   import { PageWrapper } from '/@/components/Page';
+  import { type Nullable } from '@vben/types';
+  import { createPrompt } from '/@/components/Prompt';
 
   export default defineComponent({
     components: { Alert, Modal1, Modal2, Modal3, Modal4, PageWrapper, ASpace: Space },
@@ -51,7 +59,7 @@
       const [register2, { openModal: openModal2 }] = useModal();
       const [register3, { openModal: openModal3 }] = useModal();
       const [register4, { openModal: openModal4 }] = useModal();
-      const modalVisible = ref<Boolean>(false);
+      const modalOpen = ref<Boolean>(false);
       const userData = ref<any>(null);
 
       function send() {
@@ -88,7 +96,20 @@
           // passing data through `userData` prop
           userData.value = { data: Math.random(), info: 'Info222' };
           // open the target modal
-          modalVisible.value = true;
+          modalOpen.value = true;
+        });
+      }
+
+      function handleCreatePrompt() {
+        createPrompt({
+          title: '请输入邮箱',
+          required: true,
+          label: '邮箱',
+          defaultValue: '默认邮箱',
+          onOK: async (email: string) => {
+            message.success('填写的邮箱地址为' + email);
+          },
+          inputType: 'Input',
         });
       }
 
@@ -101,12 +122,13 @@
         openModal3,
         register4,
         openModal4,
-        modalVisible,
+        modalOpen,
         userData,
         openTargetModal,
         send,
         currentModal,
         openModalLoading,
+        handleCreatePrompt,
       };
     },
   });

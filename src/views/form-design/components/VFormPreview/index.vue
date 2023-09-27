@@ -4,7 +4,7 @@
 <template>
   <Modal
     title="预览(支持布局)"
-    :visible="visible"
+    :open="visible"
     @ok="handleGetData"
     @cancel="handleCancel"
     okText="获取数据"
@@ -36,6 +36,7 @@
   import JsonModal from '../VFormDesign/components/JsonModal.vue';
   import { IToolbarMethods } from '../../typings/form-type';
   import { Modal } from 'ant-design-vue';
+
   export default defineComponent({
     name: 'VFormPreview',
     components: {

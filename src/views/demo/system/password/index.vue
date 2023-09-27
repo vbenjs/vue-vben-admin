@@ -15,6 +15,7 @@
   import { BasicForm, useForm } from '/@/components/Form';
 
   import { formSchema } from './pwd.data';
+
   export default defineComponent({
     name: 'ChangePassword',
     components: { BasicForm, PageWrapper },
@@ -36,7 +37,9 @@
           console.log(passwordOld, passwordNew);
           // const { router } = useRouter();
           // router.push(pageEnum.BASE_LOGIN);
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+        }
       }
 
       return { register, resetFields, handleSubmit };

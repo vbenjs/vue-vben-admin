@@ -28,22 +28,22 @@
 .@{simple-prefix-cls} {
   &-sub-title {
     overflow: hidden;
+    transition: all 0.3s;
     text-overflow: ellipsis;
     white-space: nowrap;
-    transition: all 0.3s;
   }
 
   &-tag {
+    display: inline-block;
     position: absolute;
     top: calc(50% - 8px);
     right: 30px;
-    display: inline-block;
-    padding: 2px 3px;
     margin-right: 4px;
+    padding: 2px 3px;
+    border-radius: 2px;
+    color: #fff;
     font-size: 10px;
     line-height: 14px;
-    color: #fff;
-    border-radius: 2px;
 
     &--collapse {
       top: 6px !important;

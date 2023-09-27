@@ -73,7 +73,7 @@
       ajax: {
         query: async ({ page, form }) => {
           return demoListApi({
-            pageNum: page.currentPage,
+            page: page.currentPage,
             pageSize: page.pageSize,
             ...form,
           });

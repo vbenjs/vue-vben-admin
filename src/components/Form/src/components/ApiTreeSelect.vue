@@ -1,5 +1,5 @@
 <template>
-  <a-tree-select v-bind="getAttrs" @change="handleChange">
+  <a-tree-select v-bind="getAttrs" @change="handleChange" :field-names="fieldNames">
     <template #[item]="data" v-for="item in Object.keys($slots)">
       <slot :name="item" v-bind="data || {}"></slot>
     </template>
@@ -26,6 +26,9 @@
       params: { type: Object },
       immediate: { type: Boolean, default: true },
       resultField: propTypes.string.def(''),
+      labelField: propTypes.string.def('title'),
+      valueField: propTypes.string.def('value'),
+      childrenField: propTypes.string.def('children'),
     },
     emits: ['options-change', 'change'],
     setup(props, { attrs, emit }) {
@@ -38,6 +41,11 @@
           ...attrs,
         };
       });
+      const fieldNames = {
+        children: props.childrenField,
+        value: props.valueField,
+        label: props.labelField,
+      };
 
       function handleChange(...args) {
         emit('change', ...args);
@@ -64,7 +72,7 @@
 
       async function fetch() {
         const { api } = props;
-        if (!api || !isFunction(api)) return;
+        if (!api || !isFunction(api) || loading.value) return;
         loading.value = true;
         treeData.value = [];
         let result;
@@ -82,7 +90,7 @@
         isFirstLoaded.value = true;
         emit('options-change', treeData.value);
       }
-      return { getAttrs, loading, handleChange };
+      return { getAttrs, loading, handleChange, fieldNames };
     },
   });
 </script>

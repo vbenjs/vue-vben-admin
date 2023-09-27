@@ -11,6 +11,7 @@ export default {
   cropper: {
     selectImage: '选择图片',
     uploadSuccess: '上传成功',
+    imageTooBig: '图片超限',
     modalTitle: '头像上传',
     okText: '确认并上传',
     btn_reset: '重置',

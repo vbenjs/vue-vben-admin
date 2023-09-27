@@ -9,6 +9,7 @@
   import DictionaryItemModal from './DictionaryItemModal.vue';
   import { columns, searchFormSchema } from './dictionary-item.data';
   import { listDictionaryItems, deleteDictionaryItem } from '/@/apis/dictionary-items';
+
   const dictionaryId = ref<Nullable<string>>(null);
   const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
     dictionaryId.value = data.id;

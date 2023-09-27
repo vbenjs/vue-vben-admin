@@ -6,6 +6,5 @@
     "jsx": "preserve",
     "lib": ["ESNext", "DOM"],
     "noImplicitAny": false
-
   }
 }

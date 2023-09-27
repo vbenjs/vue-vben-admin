@@ -14,6 +14,7 @@
   import { defineComponent, ref, nextTick } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
+
   const schemas: FormSchema[] = [
     {
       field: 'field1',
@@ -40,13 +41,7 @@
     },
     setup(props) {
       const modelRef = ref({});
-      const [
-        registerForm,
-        {
-          // setFieldsValue,
-          // setProps
-        },
-      ] = useForm({
+      const [registerForm] = useForm({
         labelWidth: 120,
         schemas,
         showActionButtonGroup: false,

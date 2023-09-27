@@ -6,7 +6,7 @@ import { useI18n } from '/@/hooks/web/useI18n';
 const { t } = useI18n();
 
 export const modalProps = {
-  visible: { type: Boolean },
+  open: { type: Boolean },
   scrollTop: { type: Boolean, default: true },
   height: { type: Number },
   minHeight: { type: Number },
@@ -73,7 +73,7 @@ export const basicProps = Object.assign({}, modalProps, {
 
   title: { type: String },
 
-  visible: { type: Boolean },
+  open: { type: Boolean },
 
   width: [String, Number] as PropType<string | number>,
 

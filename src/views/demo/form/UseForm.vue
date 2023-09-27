@@ -2,7 +2,7 @@
   <PageWrapper title="UseForm操作示例">
     <a-button class="mb-4" type="primary" @click="showDrawer"> 更改设置 </a-button>
 
-    <Drawer v-model:visible="visible" title="更改设置" placement="right">
+    <Drawer v-model:open="visible" title="更改设置" placement="right">
       <BasicForm ref="settingFormRef" @register="registerSetting" @submit="handleSubmitSetting">
         <template #other>
           <Space>
@@ -440,7 +440,7 @@
         await setFieldsValue({ field9: [] });
         await settingFormRef.value?.resetFields();
       };
-      const handleSubmitSetting = async (values: Recordable) => {
+      const handleSubmitSetting = async (values) => {
         console.log(values);
         await setProps(values);
         visible.value = false;
@@ -489,7 +489,7 @@
       return {
         register,
         schemas,
-        handleSubmit: (values: Recordable) => {
+        handleSubmit: (values) => {
           console.log(values);
         },
         setProps,

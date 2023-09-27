@@ -9,6 +9,7 @@
   import DictionaryItemDrawer from './DictionaryItemDrawer.vue';
   import { columns, searchFormSchema } from './dictionary.data';
   import { listDictionaries, deleteDictionary } from '/@/apis/dictionaries';
+
   const [register, { reload }] = useTable({
     title: '字典列表',
     columns: columns,
@@ -57,7 +58,7 @@
   <div>
     <basic-table @register="register">
       <template #toolbar>
-        <a-button v-auth="'system:dictionary:create'" type="primary" @click="handleCreate">
+        <a-button v-auth="'dictionary.create'" type="primary" @click="handleCreate">
           新增字典
         </a-button>
       </template>
@@ -68,14 +69,14 @@
               {
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑',
-                auth: 'system:dictionary:update',
+                auth: 'dictionary.update',
                 ifShow: record.isSystemic === YesNo.NO,
                 onClick: handleEdit.bind(null, record),
               },
               {
                 icon: 'ant-design:setting-outlined',
                 tooltip: '字典配置',
-                auth: 'system:dictionary:update',
+                auth: 'dictionary.update',
                 ifShow: record.isSystemic === YesNo.NO,
                 onClick: handleSetting.bind(null, record),
               },
@@ -83,7 +84,7 @@
                 icon: 'ant-design:delete-outlined',
                 tooltip: '删除',
                 color: 'error',
-                auth: 'system:dictionary:delete',
+                auth: 'dictionary.delete',
                 ifShow: record.isSystemic === YesNo.NO,
                 popConfirm: {
                   title: '是否确认删除',

@@ -7,6 +7,7 @@ import { getDynamicProps } from '/@/utils';
 import { ref, onUnmounted, unref, watch, toRaw } from 'vue';
 import { isProdMode } from '/@/utils/env';
 import { error } from '/@/utils/log';
+import type { Key } from 'ant-design-vue/lib/table/interface';
 
 type Props = Partial<DynamicProps<BasicTableProps>>;
 
@@ -92,7 +93,7 @@ export function useTable(tableProps?: Props): [
       const columns = getTableInstance().getColumns({ ignoreIndex }) || [];
       return toRaw(columns);
     },
-    setColumns: (columns: BasicColumn[]) => {
+    setColumns: (columns: BasicColumn[] | string[]) => {
       getTableInstance().setColumns(columns);
     },
     setTableData: (values: any[]) => {
@@ -113,7 +114,7 @@ export function useTable(tableProps?: Props): [
     clearSelectedRowKeys: () => {
       getTableInstance().clearSelectedRowKeys();
     },
-    setSelectedRowKeys: (keys: string[] | number[]) => {
+    setSelectedRowKeys: (keys: (string | number)[]) => {
       getTableInstance().setSelectedRowKeys(keys);
     },
     getPaginationRef: () => {
@@ -155,7 +156,7 @@ export function useTable(tableProps?: Props): [
     expandAll: () => {
       getTableInstance().expandAll();
     },
-    expandRows: (keys: string[]) => {
+    expandRows: (keys: Key[]) => {
       getTableInstance().expandRows(keys);
     },
     collapseAll: () => {

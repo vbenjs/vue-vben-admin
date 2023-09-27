@@ -42,7 +42,7 @@ export function useCustomRow(
           if (!rowSelection || !clickToRowSelect) return;
           const keys = getSelectRowKeys() || [];
           const key = getKey(record, rowKey, unref(getAutoCreateKey));
-          if (!key) return;
+          if (key === null) return;
 
           const isCheckbox = rowSelection.type === 'checkbox';
           if (isCheckbox) {
@@ -55,7 +55,8 @@ export function useCustomRow(
             const checkBox = tr.querySelector('input[type=checkbox]');
             if (!checkBox || checkBox.hasAttribute('disabled')) return;
             if (!keys.includes(key)) {
-              setSelectedRowKeys([...keys, key]);
+              keys.push(key);
+              setSelectedRowKeys(keys);
               return;
             }
             const keyIndex = keys.findIndex((item) => item === key);

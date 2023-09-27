@@ -4,6 +4,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './dictionary-item.data';
   import { createDictionaryItem, updateDictionaryItem } from '/@/apis/dictionary-items';
+
   const isUpdate = ref(false);
   const id = ref<string | null>(null);
   const dictionaryId = ref<Nullable<string>>(null);

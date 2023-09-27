@@ -159,7 +159,10 @@
         const joinLabel = Reflect.has(props.schema, 'rulesMessageJoinLabel')
           ? rulesMessageJoinLabel
           : globalRulesMessageJoinLabel;
-        const defaultMsg = createPlaceholderMessage(component) + `${joinLabel ? label : ''}`;
+        const assertLabel = joinLabel ? label : '';
+        const defaultMsg = component
+          ? createPlaceholderMessage(component) + assertLabel
+          : assertLabel;
 
         function validator(rule: any, value: any) {
           const msg = rule.message || defaultMsg;
@@ -217,10 +220,6 @@
             rule.required = false;
           }
           if (component) {
-            if (!Reflect.has(rule, 'type')) {
-              rule.type = component === 'InputNumber' ? 'number' : 'string';
-            }
-
             rule.message = rule.message || defaultMsg;
 
             if (component.includes('Input') || component.includes('Textarea')) {
@@ -299,7 +298,7 @@
           return <Comp {...compAttr} />;
         }
         const compSlot = isFunction(renderComponentContent)
-          ? { ...renderComponentContent(unref(getValues)) }
+          ? { ...renderComponentContent(unref(getValues), { disabled: unref(getDisable) }) }
           : {
               default: () => renderComponentContent,
             };
@@ -333,7 +332,7 @@
         const { itemProps, slot, render, field, suffix, component } = props.schema;
         const { labelCol, wrapperCol } = unref(itemLabelWidthProp);
         const { colon } = props.formProps;
-
+        const opts = { disabled: unref(getDisable) };
         if (component === 'Divider') {
           return (
             <Col span={24}>
@@ -343,9 +342,9 @@
         } else {
           const getContent = () => {
             return slot
-              ? getSlot(slots, slot, unref(getValues))
+              ? getSlot(slots, slot, unref(getValues), opts)
               : render
-              ? render(unref(getValues))
+              ? render(unref(getValues), opts)
               : renderComponent();
           };
 
@@ -382,8 +381,8 @@
       }
 
       return () => {
-        const { colProps = {}, colSlot, renderColContent, component } = props.schema;
-        if (!componentMap.has(component)) {
+        const { colProps = {}, colSlot, renderColContent, component, slot } = props.schema;
+        if (!componentMap.has(component) && !slot) {
           return null;
         }
 
@@ -391,12 +390,13 @@
         const realColProps = { ...baseColProps, ...colProps };
         const { isIfShow, isShow } = getShow();
         const values = unref(getValues);
+        const opts = { disabled: unref(getDisable) };
 
         const getContent = () => {
           return colSlot
-            ? getSlot(slots, colSlot, values)
+            ? getSlot(slots, colSlot, values, opts)
             : renderColContent
-            ? renderColContent(values)
+            ? renderColContent(values, opts)
             : renderItem();
         };
 

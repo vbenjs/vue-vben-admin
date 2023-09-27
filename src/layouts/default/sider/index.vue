@@ -4,8 +4,8 @@
     placement="left"
     :class="prefixCls"
     :width="getMenuWidth"
-    :getContainer="null"
-    :visible="!getCollapsed"
+    :getContainer="false"
+    :open="!getCollapsed"
     @close="handleClose"
   >
     <Sider />
@@ -13,6 +13,7 @@
   <MixSider v-else-if="getIsMixSidebar" />
   <Sider v-else />
 </template>
+
 <script lang="ts">
   import { defineComponent } from 'vue';
 
@@ -23,6 +24,7 @@
   import { useAppInject } from '/@/hooks/web/useAppInject';
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { useDesign } from '/@/hooks/web/useDesign';
+
   export default defineComponent({
     name: 'SiderWrapper',
     components: { Sider, Drawer, MixSider },

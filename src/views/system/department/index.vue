@@ -7,6 +7,7 @@
   import DepartmentModal from './DepartmentModal.vue';
   import { listDepartmentTree, deleteDepartment } from '/@/apis/departments';
   import { columns } from './department.data';
+
   const [registerTable, { reload }] = useTable({
     title: '部门列表',
     columns: columns,
@@ -49,7 +50,7 @@
   <div>
     <basic-table @register="registerTable">
       <template #toolbar>
-        <a-button v-auth="'system:department:create'" type="primary" @click="handleCreate">
+        <a-button v-auth="'department.create'" type="primary" @click="handleCreate">
           新增部门
         </a-button>
       </template>
@@ -60,7 +61,7 @@
               {
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑',
-                auth: 'system:department:update',
+                auth: 'department.update',
                 ifShow: record.data.isSystemic === YesNo.NO,
                 onClick: handleEdit.bind(null, record),
               },
@@ -68,7 +69,7 @@
                 icon: 'ant-design:delete-outlined',
                 tooltip: '删除',
                 color: 'error',
-                auth: 'system:department:delete',
+                auth: 'department.delete',
                 ifShow: record.data.isSystemic === YesNo.NO,
                 popConfirm: {
                   title: '是否确认删除',

@@ -14,7 +14,7 @@ interface DefineOptions {
 function definePackageConfig(defineOptions: DefineOptions = {}) {
   const { overrides = {} } = defineOptions;
   const root = process.cwd();
-  return defineConfig(async () => {
+  return defineConfig(async ({ mode }) => {
     const { dependencies = {}, peerDependencies = {} } = await readPackageJSON(root);
     const packageConfig: UserConfig = {
       build: {
@@ -33,7 +33,7 @@ function definePackageConfig(defineOptions: DefineOptions = {}) {
         }),
       ],
     };
-    const mergedConfig = mergeConfig(commonConfig, packageConfig);
+    const mergedConfig = mergeConfig(commonConfig(mode), packageConfig);
 
     return mergeConfig(mergedConfig, overrides);
   });

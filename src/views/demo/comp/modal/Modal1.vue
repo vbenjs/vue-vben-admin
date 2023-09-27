@@ -5,7 +5,7 @@
     @register="register"
     title="Modal Title"
     :helpMessage="['提示1', '提示2']"
-    @visible-change="handleShow"
+    @open-change="handleShow"
   >
     <template #insertFooter>
       <a-button type="primary" danger @click="setLines" :disabled="loading">点我更新内容</a-button>
@@ -23,6 +23,7 @@
 <script lang="ts">
   import { defineComponent, ref, watch } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
+
   export default defineComponent({
     components: { BasicModal },
     setup() {
@@ -37,8 +38,8 @@
         },
       );
 
-      function handleShow(visible: boolean) {
-        if (visible) {
+      function handleShow(open: boolean) {
+        if (open) {
           loading.value = true;
           setModalProps({ loading: true, confirmLoading: true });
           setTimeout(() => {

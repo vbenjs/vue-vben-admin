@@ -1,11 +1,9 @@
+/* stylelint-disable media-feature-range-notation */
 .fullscreen-modal {
   overflow: hidden;
 
   .ant-modal {
-    top: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    left: 0 !important;
+    inset: 0 !important;
     width: 100% !important;
     height: 100%;
 
@@ -13,9 +11,13 @@
       height: 100%;
     }
   }
+
+  .ant-modal-footer {
+    margin-top: 0;
+  }
 }
 
-.ant-modal {
+.vben-basic-modal-wrap .ant-modal {
   width: 520px;
   padding-bottom: 0;
 
@@ -53,6 +55,7 @@
   }
 
   &-content {
+    padding: 12px 8px !important;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
   }
 
@@ -63,8 +66,10 @@
   }
 
   &-close {
-    font-weight: normal;
+    width: auto !important;
     outline: none;
+    background: transparent !important;
+    font-weight: normal;
   }
 
   &-close-x {
@@ -110,16 +115,19 @@
 .ant-modal-confirm .ant-modal-body {
   padding: 24px !important;
 }
+
 @media screen and (max-height: 600px) {
   .ant-modal {
     top: 60px;
   }
 }
+
 @media screen and (max-height: 540px) {
   .ant-modal {
     top: 30px;
   }
 }
+
 @media screen and (max-height: 480px) {
   .ant-modal {
     top: 10px;

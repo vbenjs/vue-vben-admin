@@ -34,6 +34,7 @@
   import { useUserStore } from '/@/store/modules/user';
   import { useLockStore } from '/@/store/modules/lock';
   import headerImg from '/@/assets/images/header.jpg';
+
   export default defineComponent({
     name: 'LockModal',
     components: { BasicModal, BasicForm },

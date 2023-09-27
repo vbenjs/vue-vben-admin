@@ -105,6 +105,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
 
   import { CollapseContainer } from '/@/components/Container/index';
+
   defineProps({
     title: {
       type: String,
@@ -337,13 +338,14 @@
   @prefix-cls: ~'@{namespace}-form-design';
 
   [data-theme='dark'] {
-  .@{prefix-cls}-sider{
-    background-color: #1f1f1f;
-  }}
+    .@{prefix-cls}-sider {
+      background-color: #1f1f1f;
+    }
+  }
 
   [data-theme='light'] {
-    .@{prefix-cls}-sider{
-    background-color: #fff;
-  }
+    .@{prefix-cls}-sider {
+      background-color: #fff;
+    }
   }
 </style>

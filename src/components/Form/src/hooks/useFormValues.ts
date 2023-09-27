@@ -115,19 +115,37 @@ export function useFormValues({
 
       const [startTimeFormat, endTimeFormat] = Array.isArray(format) ? format : [format, format];
 
-      values[startTimeKey] = dateUtil(startTime).format(startTimeFormat);
-      values[endTimeKey] = dateUtil(endTime).format(endTimeFormat);
+      values[startTimeKey] = formatTime(startTime, startTimeFormat);
+      values[endTimeKey] = formatTime(endTime, endTimeFormat);
       Reflect.deleteProperty(values, field);
     }
 
     return values;
   }
 
+  function formatTime(time: string, format: string) {
+    if (format === 'timestamp') {
+      return dateUtil(time).unix();
+    } else if (format === 'timestampStartDay') {
+      return dateUtil(time).startOf('day').unix();
+    }
+    return dateUtil(time).format(format);
+  }
+
   function initDefault() {
     const schemas = unref(getSchema);
     const obj: Recordable = {};
     schemas.forEach((item) => {
-      const { defaultValue } = item;
+      const { defaultValue, defaultValueObj } = item;
+      const fieldKeys = Object.keys(defaultValueObj || {});
+      if (fieldKeys.length) {
+        fieldKeys.map((field) => {
+          obj[field] = defaultValueObj![field];
+          if (formModel[field] === undefined) {
+            formModel[field] = defaultValueObj![field];
+          }
+        });
+      }
       if (!isNullOrUnDef(defaultValue)) {
         obj[item.field] = defaultValue;
 

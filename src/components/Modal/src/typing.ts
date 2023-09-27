@@ -5,16 +5,16 @@ import type { CSSProperties, VNodeChild, ComputedRef } from 'vue';
  */
 export interface ModalMethods {
   setModalProps: (props: Partial<ModalProps>) => void;
-  emitVisible?: (visible: boolean, uid: number) => void;
+  emitOpen?: (open: boolean, uid: number) => void;
   redoModalHeight?: () => void;
 }
 
-export type RegisterFn = (modalMethods: ModalMethods, uuid?: string) => void;
+export type RegisterFn = (modalMethods: ModalMethods, uuid: number) => void;
 
 export interface ReturnMethods extends ModalMethods {
   openModal: <T = any>(props?: boolean, data?: T, openOnSet?: boolean) => void;
   closeModal: () => void;
-  getVisible?: ComputedRef<boolean>;
+  getOpen?: ComputedRef<boolean>;
 }
 
 export type UseModalReturnType = [RegisterFn, ReturnMethods];
@@ -23,7 +23,7 @@ export interface ReturnInnerMethods extends ModalMethods {
   closeModal: () => void;
   changeLoading: (loading: boolean) => void;
   changeOkLoading: (loading: boolean) => void;
-  getVisible?: ComputedRef<boolean>;
+  getOpen?: ComputedRef<boolean>;
   redoModalHeight: () => void;
 }
 
@@ -40,7 +40,7 @@ export interface ModalProps {
   // 是否可以进行全屏
   canFullscreen?: boolean;
   defaultFullscreen?: boolean;
-  visible?: boolean;
+  open?: boolean;
   // 温馨提醒信息
   helpMessage: string | string[];
 
@@ -203,7 +203,7 @@ export interface ModalWrapperProps {
   modalFooterHeight: number;
   minHeight: number;
   height: number;
-  visible: boolean;
+  open: boolean;
   fullScreen: boolean;
   useWrapper: boolean;
 }

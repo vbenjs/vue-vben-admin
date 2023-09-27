@@ -39,7 +39,7 @@ export interface FormActionType {
     first?: boolean | undefined,
   ) => Promise<void>;
   validateFields: (nameList?: NamePath[]) => Promise<any>;
-  validate: (nameList?: NamePath[]) => Promise<any>;
+  validate: (nameList?: NamePath[] | false) => Promise<any>;
   scrollToField: (name: NamePath, options?: ScrollOptions) => Promise<void>;
 }
 
@@ -123,15 +123,21 @@ export interface FormProps {
   transformDateFunc?: (date: any) => string;
   colon?: boolean;
 }
+export type RenderOpts = {
+  disabled: boolean;
+  [key: string]: any;
+};
 export interface FormSchema {
   // Field name
   field: string;
+  // Extra Fields name[]
+  fields?: string[];
   // Event name triggered by internal value change, default change
   changeEvent?: string;
   // Variable name bound to v-model Default value
   valueField?: string;
   // Label name
-  label: string | VNode;
+  label?: string | VNode;
   // Auxiliary text
   subLabel?: string;
   // Help text on the right side of the text
@@ -175,6 +181,9 @@ export interface FormSchema {
   // 默认值
   defaultValue?: any;
 
+  // 额外默认值数组对象
+  defaultValueObj?: { [key: string]: any };
+
   // 是否自动处理与时间相关组件的默认值
   isHandleDateDefaultValue?: boolean;
 
@@ -188,13 +197,19 @@ export interface FormSchema {
   show?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
   // Render the content in the form-item tag
-  render?: (renderCallbackParams: RenderCallbackParams) => VNode | VNode[] | string;
+  render?: (
+    renderCallbackParams: RenderCallbackParams,
+    opts: RenderOpts,
+  ) => VNode | VNode[] | string;
 
   // Rendering col content requires outer wrapper form-item
-  renderColContent?: (renderCallbackParams: RenderCallbackParams) => VNode | VNode[] | string;
+  renderColContent?: (
+    renderCallbackParams: RenderCallbackParams,
+    opts: RenderOpts,
+  ) => VNode | VNode[] | string;
 
   renderComponentContent?:
-    | ((renderCallbackParams: RenderCallbackParams) => any)
+    | ((renderCallbackParams: RenderCallbackParams, opts: RenderOpts) => any)
     | VNode
     | VNode[]
     | string;

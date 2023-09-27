@@ -38,6 +38,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { Result, Steps, Descriptions } from 'ant-design-vue';
+
   export default defineComponent({
     components: {
       Result,

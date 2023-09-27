@@ -3,23 +3,23 @@ import type { CSSProperties, VNodeChild, ComputedRef } from 'vue';
 import type { ScrollContainerOptions } from '/@/components/Container/index';
 
 export interface DrawerInstance {
-  setDrawerProps: (props: Partial<DrawerProps> | boolean) => void;
-  emitVisible?: (visible: boolean, uid: number) => void;
+  setDrawerProps: (props: Partial<DrawerProps>) => void;
+  emitOpen?: (open: boolean, uid: number) => void;
 }
 
 export interface ReturnMethods extends DrawerInstance {
-  openDrawer: <T = any>(visible?: boolean, data?: T, openOnSet?: boolean) => void;
+  openDrawer: <T = any>(open?: boolean, data?: T, openOnSet?: boolean) => void;
   closeDrawer: () => void;
-  getVisible?: ComputedRef<boolean>;
+  getOpen?: ComputedRef<boolean>;
 }
 
-export type RegisterFn = (drawerInstance: DrawerInstance, uuid?: string) => void;
+export type RegisterFn = (drawerInstance: DrawerInstance, uuid: number) => void;
 
 export interface ReturnInnerMethods extends DrawerInstance {
   closeDrawer: () => void;
   changeLoading: (loading: boolean) => void;
   changeOkLoading: (loading: boolean) => void;
-  getVisible?: ComputedRef<boolean>;
+  getOpen?: ComputedRef<boolean>;
 }
 
 export type UseDrawerReturnType = [RegisterFn, ReturnMethods];
@@ -73,7 +73,7 @@ export interface DrawerProps extends DrawerFooterProps {
   isDetail?: boolean;
   loading?: boolean;
   showDetailBack?: boolean;
-  visible?: boolean;
+  open?: boolean;
   /**
    * Built-in ScrollContainer component configuration
    * @type ScrollContainerOptions
@@ -100,7 +100,7 @@ export interface DrawerProps extends DrawerFooterProps {
    * @default 'body'
    * @type any ( HTMLElement| () => HTMLElement | string)
    */
-  getContainer?: () => HTMLElement | string;
+  getContainer?: string | false | HTMLElement | (() => HTMLElement);
 
   /**
    * Whether to show mask or not.
@@ -134,6 +134,7 @@ export interface DrawerProps extends DrawerFooterProps {
    */
   wrapClassName?: string;
   class?: string;
+  rootClassName?: string;
   /**
    * Style of wrapper element which **contains mask** compare to `drawerStyle`
    * @type object
@@ -179,7 +180,7 @@ export interface DrawerProps extends DrawerFooterProps {
    * @type string
    */
   placement?: 'top' | 'right' | 'bottom' | 'left';
-  afterVisibleChange?: (visible?: boolean) => void;
+  afterOpenChange?: (open?: boolean) => void;
   keyboard?: boolean;
   /**
    * Specify a callback that will be called when a user clicks mask, close button or Cancel button.

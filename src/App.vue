@@ -1,5 +1,5 @@
 <template>
-  <ConfigProvider :locale="getAntdLocale">
+  <ConfigProvider :locale="getAntdLocale" :theme="isDark ? darkTheme : {}">
     <AppProvider>
       <RouterView />
     </AppProvider>
@@ -11,10 +11,14 @@
   import { AppProvider } from '@/components/Application';
   import { useTitle } from '@/hooks/web/useTitle';
   import { useLocale } from '@/locales/useLocale';
+
   import 'dayjs/locale/zh-cn';
+  import { useDarkModeTheme } from '@/hooks/setting/useDarkModeTheme';
 
   // support Multi-language
   const { getAntdLocale } = useLocale();
+
+  const { isDark, darkTheme } = useDarkModeTheme();
 
   // Listening to page changes and dynamically changing site titles
   useTitle();

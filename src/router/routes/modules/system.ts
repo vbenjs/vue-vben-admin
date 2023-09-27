@@ -12,7 +12,6 @@ const system: AppRouteModule = {
     orderNo: 20,
     icon: 'ant-design:setting-outlined',
     title: t('routes.system.title'),
-    permissions: ['system'],
   },
   children: [
     {
@@ -21,7 +20,7 @@ const system: AppRouteModule = {
       meta: {
         title: t('routes.system.user.title'),
         ignoreKeepAlive: false,
-        permissions: ['system:user:page'],
+        permissions: ['user.read'],
       },
       component: () => import('/@/views/system/user/index.vue'),
     },
@@ -31,7 +30,7 @@ const system: AppRouteModule = {
       meta: {
         title: t('routes.system.role.title'),
         ignoreKeepAlive: true,
-        permissions: ['system:role:page'],
+        permissions: ['role.read'],
       },
       component: () => import('/@/views/system/role/index.vue'),
     },
@@ -41,7 +40,7 @@ const system: AppRouteModule = {
       meta: {
         title: t('routes.system.department.title'),
         ignoreKeepAlive: true,
-        permissions: ['system:department:tree'],
+        permissions: ['department.read'],
       },
       component: () => import('/@/views/system/department/index.vue'),
     },
@@ -51,7 +50,7 @@ const system: AppRouteModule = {
       meta: {
         title: t('routes.system.dictionary.title'),
         ignoreKeepAlive: true,
-        permissions: ['system:dictionary:page'],
+        permissions: ['dictionary.read'],
       },
       component: () => import('/@/views/system/dictionary/index.vue'),
     },
@@ -61,7 +60,6 @@ const system: AppRouteModule = {
       meta: {
         title: t('routes.system.log.title'),
         ignoreKeepAlive: true,
-        permissions: ['system:log'],
       },
       component: () => import('/@/views/system/log/index.vue'),
     },
