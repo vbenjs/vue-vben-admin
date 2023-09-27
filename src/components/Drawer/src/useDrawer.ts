@@ -34,9 +34,9 @@ export function useDrawer(): UseDrawerReturnType {
   }
   const drawer = ref<DrawerInstance | null>(null);
   const loaded = ref<Nullable<boolean>>(false);
-  const uid = ref<string>('');
+  const uid = ref<number>(0);
 
-  function register(drawerInstance: DrawerInstance, uuid: string) {
+  function register(drawerInstance: DrawerInstance, uuid: number) {
     isProdMode() &&
       tryOnUnmounted(() => {
         drawer.value = null;
@@ -100,7 +100,7 @@ export function useDrawer(): UseDrawerReturnType {
 export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
   const drawerInstanceRef = ref<Nullable<DrawerInstance>>(null);
   const currentInstance = getCurrentInstance();
-  const uidRef = ref<string>('');
+  const uidRef = ref<number>(0);
 
   if (!getCurrentInstance()) {
     throw new Error('useDrawerInner() can only be used inside setup() or functional components!');
@@ -115,7 +115,7 @@ export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
     return instance;
   };
 
-  const register = (modalInstance: DrawerInstance, uuid: string) => {
+  const register = (modalInstance: DrawerInstance, uuid: number) => {
     isProdMode() &&
       tryOnUnmounted(() => {
         drawerInstanceRef.value = null;
@@ -153,7 +153,7 @@ export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
         getInstance()?.setDrawerProps({ open: false });
       },
 
-      setDrawerProps: (props: Partial<DrawerProps> | boolean) => {
+      setDrawerProps: (props: Partial<DrawerProps>) => {
         getInstance()?.setDrawerProps(props);
       },
     },

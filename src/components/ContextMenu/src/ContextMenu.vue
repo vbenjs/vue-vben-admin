@@ -59,12 +59,12 @@
         const left = body.clientWidth < x + menuWidth ? x - menuWidth : x;
         const top = body.clientHeight < y + menuHeight ? y - menuHeight : y;
         return {
-          ...styles,
           position: 'absolute',
           width: `${width}px`,
           left: `${left + 1}px`,
           top: `${top + 1}px`,
           zIndex: 9999,
+          ...styles, // Not the first, fix options.styles.width not working
         };
       });
 
@@ -127,11 +127,15 @@
         }
         const { items } = props;
         return (
-          <div class={prefixCls}>
-            <Menu inlineIndent={12} mode="vertical" ref={wrapRef} style={unref(getStyle)}>
-              {renderMenuItem(items)}
-            </Menu>
-          </div>
+          <Menu
+            inlineIndent={12}
+            mode="vertical"
+            class={prefixCls}
+            ref={wrapRef}
+            style={unref(getStyle)}
+          >
+            {renderMenuItem(items)}
+          </Menu>
         );
       };
     },
@@ -147,7 +151,7 @@
   .item-style() {
     li {
       display: inline-block;
-      width: 100%;
+      width: 100% !important;
       height: @default-height;
       margin: 0 !important;
       line-height: @default-height;
@@ -157,6 +161,8 @@
       }
 
       > div {
+        width: 100% !important;
+        height: 100% !important;
         margin: 0 !important;
       }
 
@@ -176,10 +182,12 @@
     width: 156px;
     margin: 0;
     border: 1px solid rgb(0 0 0 / 8%);
-    border-radius: 0.25rem;
+    border-radius: 8px;
     background-clip: padding-box;
     background-color: @component-background;
-    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 10%),
+    box-shadow:
+      0 2px 2px 0 rgb(0 0 0 / 14%),
+      0 3px 1px -2px rgb(0 0 0 / 10%),
       0 1px 5px 0 rgb(0 0 0 / 6%);
     list-style: none;
     user-select: none;
