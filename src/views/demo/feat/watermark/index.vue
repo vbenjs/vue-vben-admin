@@ -16,10 +16,15 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
+  import { onUnmounted } from 'vue';
   import { CollapseContainer } from '/@/components/Container/index';
   import { useWatermark } from '/@/hooks/web/useWatermark';
   import { PageWrapper } from '/@/components/Page';
 
   const { setWatermark, clear, clearAll } = useWatermark();
   const { setWatermark: setWatermark2 } = useWatermark();
+
+  onUnmounted(() => {
+    clearAll();
+  });
 </script>

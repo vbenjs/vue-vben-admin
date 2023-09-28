@@ -1,4 +1,4 @@
-import { getCurrentInstance, onBeforeUnmount, ref, Ref, shallowRef, unref, onUnmounted } from 'vue';
+import { getCurrentInstance, onBeforeUnmount, ref, Ref, shallowRef, unref } from 'vue';
 import { useRafThrottle } from '/@/utils/domUtils';
 import { addResizeListener, removeResizeListener } from '/@/utils/event';
 import { isDef } from '/@/utils/is';
@@ -109,9 +109,6 @@ export function useWatermark(
     }
   }
 
-  onUnmounted(() => {
-    clear();
-  });
   return { setWatermark, clear, clearAll };
 }
 
