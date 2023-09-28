@@ -3,15 +3,24 @@ import { useRafThrottle } from '/@/utils/domUtils';
 import { addResizeListener, removeResizeListener } from '/@/utils/event';
 import { isDef } from '/@/utils/is';
 
-const domSymbol = Symbol('watermark-dom');
-const sourceMap = new WeakMap<HTMLElement, {}>();
+const watermarkSymbol = 'watermark-dom';
+
+type UseWatermarkRes = {
+  setWatermark: (str: string) => void;
+  clear: () => void;
+  clearAll: () => void;
+};
+
+const sourceMap = new Map<Symbol, Omit<UseWatermarkRes, 'clearAll'>>();
 
 export function useWatermark(
   appendEl: Ref<HTMLElement | null> = ref(document.body) as Ref<HTMLElement>,
-) {
+): UseWatermarkRes {
+  const domSymbol = Symbol(watermarkSymbol);
   const appendElRaw = unref(appendEl);
-  if (appendElRaw && sourceMap.has(appendElRaw)) {
-    return sourceMap.get(appendElRaw);
+  if (appendElRaw && sourceMap.has(domSymbol)) {
+    const { setWatermark, clear } = sourceMap.get(domSymbol) as UseWatermarkRes;
+    return { setWatermark, clear, clearAll };
   }
   const func = useRafThrottle(function () {
     const el = unref(appendEl);
@@ -19,13 +28,13 @@ export function useWatermark(
     const { clientHeight: height, clientWidth: width } = el;
     updateWatermark({ height, width });
   });
-  const id = domSymbol.toString();
   const watermarkEl = shallowRef<HTMLElement>();
 
   const clear = () => {
     const domId = unref(watermarkEl);
     watermarkEl.value = undefined;
     const el = unref(appendEl);
+    sourceMap.delete(domSymbol);
     if (!el) return;
     domId && el.removeChild(domId);
     removeResizeListener(el, func);
@@ -70,25 +79,23 @@ export function useWatermark(
   }
 
   const createWatermark = (str: string) => {
-    if (unref(watermarkEl)) {
+    if (unref(watermarkEl) && sourceMap.has(domSymbol)) {
       updateWatermark({ str });
-      return id;
+      return;
     }
     const div = document.createElement('div');
     watermarkEl.value = div;
-    div.id = id;
     div.style.pointerEvents = 'none';
     div.style.top = '0px';
     div.style.left = '0px';
     div.style.position = 'absolute';
     div.style.zIndex = '100000';
     const el = unref(appendEl);
-    if (!el) return id;
+    if (!el) return;
     const { clientHeight: height, clientWidth: width } = el;
     updateWatermark({ str, width, height });
     el.appendChild(div);
-    sourceMap.set(el, { setWatermark, clear });
-    return id;
+    sourceMap.set(domSymbol, { setWatermark, clear });
   };
 
   function setWatermark(str: string) {
@@ -102,5 +109,11 @@ export function useWatermark(
     }
   }
 
-  return { setWatermark, clear };
+  return { setWatermark, clear, clearAll };
+}
+
+function clearAll() {
+  Array.from(sourceMap.values()).forEach((item) => {
+    item.clear();
+  });
 }
