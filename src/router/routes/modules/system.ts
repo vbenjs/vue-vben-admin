@@ -61,6 +61,7 @@ const system: AppRouteModule = {
       meta: {
         title: t('routes.system.log.title'),
         ignoreKeepAlive: true,
+        permissions: ['log.read'],
       },
       component: () => import('/@/views/system/log/index.vue'),
     },
@@ -73,6 +74,7 @@ const system: AppRouteModule = {
         ignoreKeepAlive: true,
         showMenu: false,
         currentActiveMenu: '/system/log',
+        permissions: ['log.read'],
       },
       component: () => import('/@/views/system/log/LogDetail.vue'),
     },
