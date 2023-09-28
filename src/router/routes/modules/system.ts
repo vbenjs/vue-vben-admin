@@ -12,6 +12,7 @@ const system: AppRouteModule = {
     orderNo: 20,
     icon: 'ant-design:setting-outlined',
     title: t('routes.system.title'),
+    permissions: ['system'],
   },
   children: [
     {
@@ -19,7 +20,7 @@ const system: AppRouteModule = {
       name: 'User',
       meta: {
         title: t('routes.system.user.title'),
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
         permissions: ['user.read'],
       },
       component: () => import('/@/views/system/user/index.vue'),
