@@ -4,14 +4,20 @@ import { addResizeListener, removeResizeListener } from '/@/utils/event';
 import { isDef } from '/@/utils/is';
 
 const domSymbol = Symbol('watermark-dom');
-const sourceMap = new WeakMap<HTMLElement, {}>();
+
+type UseWatermarkRes = {
+  setWatermark: (str: string) => void;
+  clear: () => void;
+};
+
+const sourceMap = new WeakMap<HTMLElement, UseWatermarkRes>();
 
 export function useWatermark(
   appendEl: Ref<HTMLElement | null> = ref(document.body) as Ref<HTMLElement>,
-) {
+): UseWatermarkRes {
   const appendElRaw = unref(appendEl);
   if (appendElRaw && sourceMap.has(appendElRaw)) {
-    return sourceMap.get(appendElRaw);
+    return sourceMap.get(appendElRaw) as UseWatermarkRes;
   }
   const func = useRafThrottle(function () {
     const el = unref(appendEl);
