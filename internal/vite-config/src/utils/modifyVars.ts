@@ -30,10 +30,8 @@ export function generateModifyVars() {
   }
 
   // const modifyVars = getThemeVariables();
-
   const mapToken = defaultAlgorithm(defaultSeed);
   const v3Token = convertLegacyToken(mapToken);
-  console.log(v3Token);
 
   return {
     ...v3Token,
