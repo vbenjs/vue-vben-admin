@@ -10,14 +10,14 @@
 
 <script lang="ts" setup>
   import { Button } from 'ant-design-vue';
-  import { computed, unref } from 'vue';
+  import { ComponentOptionsMixin, computed, unref } from 'vue';
   import Icon from '@/components/Icon/Icon.vue';
   import { buttonProps } from './props';
   import { useAttrs } from '@vben/hooks';
 
   defineOptions({
     name: 'AButton',
-    extends: Button,
+    extends: Button as ComponentOptionsMixin,
     inheritAttrs: false,
   });
 
