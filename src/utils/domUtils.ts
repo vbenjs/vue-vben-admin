@@ -156,9 +156,9 @@ export function off(
 
 /* istanbul ignore next */
 export function once(el: HTMLElement, event: string, fn: EventListener): void {
-  const listener = function (this: any, ...args: unknown[]) {
+  const listener = function (this: any, evt: Event) {
     if (fn) {
-      fn.apply(this, args);
+      fn.call(this, evt);
     }
     off(el, event, listener);
   };
