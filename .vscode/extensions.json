@@ -8,6 +8,7 @@
     "lokalise.i18n-ally",
     "antfu.iconify",
     "mikestead.dotenv",
-    "heybourn.headwind"
+    "heybourn.headwind",
+    "vue.vscode-typescript-vue-plugin"
   ]
 }
