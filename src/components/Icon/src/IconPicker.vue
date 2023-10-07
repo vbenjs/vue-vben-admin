@@ -65,7 +65,7 @@
   </a-input>
 </template>
 <script lang="ts" setup>
-  import { ref, watchEffect, watch, unref } from 'vue';
+  import { ref, watchEffect, watch, unref, Ref } from 'vue';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { ScrollContainer } from '/@/components/Container';
   import { Input, Popover, Pagination, Empty } from 'ant-design-vue';
@@ -73,7 +73,6 @@
   import SvgIcon from './SvgIcon.vue';
 
   import iconsData from '../data/icons.data';
-  import { propTypes } from '/@/utils/propTypes';
   import { usePagination } from '/@/hooks/web/usePagination';
   import { useDebounceFn } from '@vueuse/core';
   import { useI18n } from '/@/hooks/web/useI18n';
@@ -100,15 +99,23 @@
   }
 
   function getSvgIcons() {
-    return svgIcons.map((icon) => icon.replace('icon-', ''));
+    return svgIcons.map((icon: string) => icon.replace('icon-', ''));
   }
 
-  const props = defineProps({
-    value: propTypes.string,
-    width: propTypes.string.def('100%'),
-    pageSize: propTypes.number.def(140),
-    copy: propTypes.bool.def(false),
-    mode: propTypes.oneOf<('svg' | 'iconify')[]>(['svg', 'iconify']).def('iconify'),
+  export interface Props {
+    value?: string;
+    width?: string;
+    pageSize?: number;
+    copy?: boolean;
+    mode?: 'svg' | 'iconify';
+  }
+
+  const props = withDefaults(defineProps<Props>(), {
+    value: '',
+    width: '100%',
+    pageSize: 140,
+    copy: false,
+    mode: 'iconify',
   });
 
   const emit = defineEmits(['change', 'update:value']);
@@ -125,8 +132,8 @@
 
   const debounceHandleSearchChange = useDebounceFn(handleSearchChange, 100);
 
-  let clipboardRef;
-  let isSuccessRef;
+  let clipboardRef: Ref<string>;
+  let isSuccessRef: Ref<boolean>;
 
   if (props.copy) {
     const clipboard = useCopyToClipboard(props.value);
@@ -168,7 +175,8 @@
   }
 
   function handleSearchChange(e: Event) {
-    const value = e.target.value;
+    const value = (e.target as HTMLInputElement).value;
+
     if (!value) {
       setCurrentPage(1);
       currentList.value = icons;
