@@ -1,4 +1,3 @@
-import { isNil } from 'lodash-es';
 const toString = Object.prototype.toString;
 
 export function is(val: unknown, type: string) {
@@ -18,14 +17,10 @@ export function isObject(val: any): val is Record<any, any> {
 }
 
 export function isNotEmpty(val: any): boolean {
-  return !isNil(val) && !isEmpty(val);
+  return !isEmpty(val);
 }
 
 export function isEmpty<T = unknown>(val: T): val is T {
-  if (isNil(val)) {
-    return true;
-  }
-
   if (isArray(val) || isString(val)) {
     return val.length === 0;
   }
@@ -44,8 +39,6 @@ export function isEmpty<T = unknown>(val: T): val is T {
 export function isDate(val: unknown): val is Date {
   return is(val, 'Date');
 }
-
-
 
 export function isNull(val: unknown): val is null {
   return val === null;
