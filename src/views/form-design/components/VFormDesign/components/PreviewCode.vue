@@ -19,10 +19,10 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive, toRefs, unref } from 'vue';
+  import { defineComponent, reactive, toRefs } from 'vue';
   import { CodeEditor, MODE } from '/@/components/CodeEditor';
 
-  import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard';
+  import { copyText } from '/@/utils/copyTextToClipboard';
   import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
@@ -58,7 +58,7 @@
       const handleExportJson = () => {
         exportData(props.editorJson);
       };
-      const { clipboardRef, copiedRef } = useCopyToClipboard();
+
       const { createMessage } = useMessage();
 
       const handleCopyJson = () => {
@@ -68,10 +68,7 @@
           createMessage.warning('代码为空！');
           return;
         }
-        clipboardRef.value = value;
-        if (unref(copiedRef)) {
-          createMessage.warning('复制成功！');
-        }
+        copyText(value);
       };
 
       return {
