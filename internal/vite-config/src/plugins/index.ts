@@ -3,7 +3,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import { type PluginOption } from 'vite';
 import purgeIcons from 'vite-plugin-purge-icons';
 
-import { createAppConfigPlugin } from './appConfig';
+import { createConfigPluginConfig } from './appConfig';
 import { configCompressPlugin } from './compress';
 import { configHtmlPlugin } from './html';
 import { configMockPlugin } from './mock';
@@ -18,10 +18,10 @@ interface Options {
   enableAnalyze?: boolean;
 }
 
-async function createPlugins({ isBuild, root, enableMock, compress, enableAnalyze }: Options) {
+async function createPlugins({ isBuild, enableMock, compress, enableAnalyze }: Options) {
   const vitePlugins: (PluginOption | PluginOption[])[] = [vue(), vueJsx()];
 
-  const appConfigPlugin = await createAppConfigPlugin({ root, isBuild });
+  const appConfigPlugin = await createConfigPluginConfig(isBuild);
   vitePlugins.push(appConfigPlugin);
 
   // vite-plugin-html
