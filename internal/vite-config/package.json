@@ -48,7 +48,6 @@
     "rollup-plugin-visualizer": "^5.9.2",
     "sass": "^1.63.6",
     "unocss": "^0.53.4",
-    "unplugin-config": "^0.0.13",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-dts": "^3.1.0",
     "vite-plugin-html": "^3.2.0",
