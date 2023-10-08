@@ -1,5 +1,9 @@
-import type { ValidationRule, FormInstance } from 'ant-design-vue/lib/form/Form';
-import type { RuleObject, NamePath } from 'ant-design-vue/lib/form/interface';
+import type { FormInstance } from 'ant-design-vue/lib/form/Form';
+import type {
+  RuleObject,
+  NamePath,
+  Rule as ValidationRule,
+} from 'ant-design-vue/lib/form/interface';
 import { ref, computed, unref, Ref } from 'vue';
 import { useI18n } from '/@/hooks/web/useI18n';
 
@@ -115,7 +119,7 @@ export function useFormRules(formData?: Recordable) {
   return { getFormRules };
 }
 
-function createRule(message: string) {
+function createRule(message: string): ValidationRule[] {
   return [
     {
       required: true,
