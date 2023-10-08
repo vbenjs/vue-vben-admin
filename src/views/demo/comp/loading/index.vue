@@ -40,7 +40,13 @@
       const wrapEl = ref<ElRef>(null);
 
       const loadingRef = ref(false);
-      const compState = reactive({
+      const compState = reactive<{
+        absolute?: boolean;
+        loading?: boolean;
+        theme?: 'dark' | 'light';
+        background?: string;
+        tip?: string;
+      }>({
         absolute: false,
         loading: false,
         theme: 'dark',
