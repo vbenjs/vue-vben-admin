@@ -210,8 +210,8 @@
           imgState.currentUrl = url;
           imgState.status = StatueEnum.DONE;
         };
-        img.onerror = (e: Event) => {
-          const ele: EventTarget[] = e.composedPath();
+        img.onerror = (e: Event | string) => {
+          const ele: EventTarget[] = (e as Event).composedPath();
           ele &&
             emit('img-error', {
               index: imgState.currentIndex,
