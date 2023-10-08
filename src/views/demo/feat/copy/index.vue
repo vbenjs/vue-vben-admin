@@ -11,9 +11,9 @@
 <script lang="ts">
   import { defineComponent, unref, ref } from 'vue';
   import { CollapseContainer } from '/@/components/Container/index';
-  import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PageWrapper } from '/@/components/Page';
+  import { copyText } from '/@/utils/copyTextToClipboard';
 
   export default defineComponent({
     name: 'Copy',
@@ -21,7 +21,6 @@
     setup() {
       const valueRef = ref('');
       const { createMessage } = useMessage();
-      const { clipboardRef, copiedRef } = useCopyToClipboard();
 
       function handleCopy() {
         const value = unref(valueRef);
@@ -29,10 +28,7 @@
           createMessage.warning('请输入要拷贝的内容！');
           return;
         }
-        clipboardRef.value = value;
-        if (unref(copiedRef)) {
-          createMessage.warning('copy success！');
-        }
+        copyText(value);
       }
       return { handleCopy, value: valueRef };
     },
