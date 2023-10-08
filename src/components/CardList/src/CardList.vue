@@ -157,22 +157,22 @@
     pageSize,
     current: page,
     total,
-    showTotal: (total) => `总 ${total} 条`,
+    showTotal: (total: number) => `总 ${total} 条`,
     onChange: pageChange,
     onShowSizeChange: pageSizeChange,
   });
 
-  function pageChange(p, pz) {
+  function pageChange(p: number, pz: number) {
     page.value = p;
     pageSize.value = pz;
     fetch();
   }
-  function pageSizeChange(_current, size) {
+  function pageSizeChange(_current, size: number) {
     pageSize.value = size;
     fetch();
   }
 
-  async function handleDelete(id) {
+  async function handleDelete(id: number) {
     emit('delete', id);
   }
 </script>

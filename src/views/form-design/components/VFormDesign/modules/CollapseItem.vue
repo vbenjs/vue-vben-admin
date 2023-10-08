@@ -31,7 +31,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive } from 'vue';
+  import { defineComponent, reactive, PropType } from 'vue';
   import { IVFormComponent } from '../../../typings/v-form-component';
   import draggable from 'vuedraggable';
   import Icon from '@/components/Icon/Icon.vue';
@@ -42,7 +42,7 @@
     components: { draggable, Icon },
     props: {
       list: {
-        type: [Array],
+        type: [Array] as PropType<IVFormComponent[]>,
         default: () => [],
       },
       handleListPush: {
