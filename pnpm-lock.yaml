@@ -435,8 +435,8 @@ importers:
         specifier: ^0.53.4
         version: 0.53.4(postcss@8.4.24)(rollup@2.79.1)(vite@4.4.0)
       unplugin-config:
-        specifier: ^0.0.12
-        version: 0.0.12(rollup@2.79.1)(vite@4.4.0)
+        specifier: ^0.0.13
+        version: 0.0.13(rollup@2.79.1)(vite@4.4.0)
       vite-plugin-compression:
         specifier: ^0.5.1
         version: 0.5.1(vite@4.4.0)
@@ -11307,8 +11307,8 @@ packages:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
     engines: {node: '>= 0.8'}
 
-  /unplugin-config@0.0.12(rollup@2.79.1)(vite@4.4.0):
-    resolution: {integrity: sha512-IzEWHwj8/jDmifY/JOjSAowo4hF5/eDwPrv78zDkN6F7WsQJy+UE2XQhCVFwv0dohRpSyd/fidYpVCYlJqIRzA==}
+  /unplugin-config@0.0.13(rollup@2.79.1)(vite@4.4.0):
+    resolution: {integrity: sha512-VZyYzjzhNgXl/K7XrJshHZ0unex0vMH98KFtBckqiGUhxhY0yavQjGsA5sOAQgkuiFEJ+ZwdOdaQPwhMlrEfbg==}
     peerDependencies:
       '@nuxt/kit': ^3
       '@nuxt/schema': ^3
