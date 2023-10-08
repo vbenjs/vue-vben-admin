@@ -29,8 +29,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useMessage } from '/@/hooks/web/useMessage';
-  import { useCopyToClipboard } from '/@/hooks/web/useCopyToClipboard';
-
+  import { copyText } from '/@/utils/copyTextToClipboard';
   import { updateColorWeak } from '/@/logics/theme/updateColorWeak';
   import { updateGrayMode } from '/@/logics/theme/updateGrayMode';
   import defaultSetting from '/@/settings/projectSetting';
@@ -49,14 +48,12 @@
       const appStore = useAppStore();
 
       function handleCopy() {
-        const { isSuccessRef } = useCopyToClipboard(
-          JSON.stringify(unref(appStore.getProjectConfig), null, 2),
-        );
-        unref(isSuccessRef) &&
-          createSuccessModal({
-            title: t('layout.setting.operatingTitle'),
-            content: t('layout.setting.operatingContent'),
-          });
+        copyText(JSON.stringify(unref(appStore.getProjectConfig), null, 2), null);
+
+        createSuccessModal({
+          title: t('layout.setting.operatingTitle'),
+          content: t('layout.setting.operatingContent'),
+        });
       }
       function handleResetSetting() {
         try {
