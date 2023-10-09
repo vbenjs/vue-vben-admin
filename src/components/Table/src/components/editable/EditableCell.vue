@@ -70,7 +70,7 @@
         const valueField = isCheckValue ? 'checked' : 'value';
         const val = unref(currentValueRef);
 
-        const value = isCheckValue ? (isNumber(val) && isBoolean(val) ? val : !!val) : val;
+        const value = isCheckValue ? (isNumber(val) || isBoolean(val) ? val : !!val) : val;
 
         let compProps = props.column?.editComponentProps ?? ({} as any);
         const { record, column, index } = props;
