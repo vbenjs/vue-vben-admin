@@ -88,15 +88,15 @@ export function useForm(props?: Props): UseFormReturnType {
       return unref(formRef)?.getFieldsValue() as T;
     },
 
-    setFieldsValue: async <T>(values: T) => {
+    setFieldsValue: async <T extends Recordable<any>>(values: T) => {
       const form = await getForm();
-      form.setFieldsValue<T>(values);
+      form.setFieldsValue(values);
     },
 
     appendSchemaByField: async (
       schema: FormSchema | FormSchema[],
       prefixField: string | undefined,
-      first: boolean,
+      first?: boolean,
     ) => {
       const form = await getForm();
       form.appendSchemaByField(schema, prefixField, first);
@@ -107,7 +107,7 @@ export function useForm(props?: Props): UseFormReturnType {
       return form.submit();
     },
 
-    validate: async (nameList?: NamePath[]): Promise<Recordable> => {
+    validate: async (nameList?: NamePath[] | false): Promise<Recordable> => {
       const form = await getForm();
       return form.validate(nameList);
     },
