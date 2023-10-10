@@ -50,7 +50,6 @@
   import { dateItemType } from './helper';
   import { dateUtil } from '/@/utils/dateUtil';
 
-  // import { cloneDeep } from 'lodash-es';
   import { deepMerge } from '/@/utils';
 
   import { useFormValues } from './hooks/useFormValues';
@@ -83,15 +82,15 @@
 
       const defaultValueRef = ref({});
       const isInitedDefaultRef = ref(false);
-      const propsRef = ref<Partial<FormProps>>({});
+      const propsRef = ref<Partial<FormProps>>();
       const schemaRef = ref<FormSchema[] | null>(null);
       const formElRef = ref<FormActionType | null>(null);
 
       const { prefixCls } = useDesign('basic-form');
 
       // Get the basic configuration of the form
-      const getProps = computed((): FormProps => {
-        return { ...props, ...unref(propsRef) };
+      const getProps = computed(() => {
+        return { ...props, ...unref(propsRef) } as FormProps;
       });
 
       const getFormClass = computed(() => {
