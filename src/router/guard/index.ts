@@ -12,6 +12,7 @@ import { createStateGuard } from './stateGuard';
 import nProgress from 'nprogress';
 import projectSetting from '/@/settings/projectSetting';
 import { createParamMenuGuard } from './paramMenuGuard';
+import NProgress from '/@/utils/lib/progress';
 
 // Don't change the order of creation
 export function setupRouterGuard(router: Router) {
@@ -52,6 +53,8 @@ function createPageLoadingGuard(router: Router) {
   const appStore = useAppStoreWithOut();
   const { getOpenPageLoading } = useTransitionSetting();
   router.beforeEach(async (to) => {
+    NProgress.start();
+
     if (!userStore.getToken) {
       return true;
     }
@@ -67,6 +70,8 @@ function createPageLoadingGuard(router: Router) {
     return true;
   });
   router.afterEach(async () => {
+    NProgress.done();
+
     if (unref(getOpenPageLoading)) {
       // TODO Looking for a better way
       // The timer simulates the loading time to prevent flashing too fast,
