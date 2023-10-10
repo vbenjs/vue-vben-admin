@@ -29,6 +29,7 @@
     provide,
     computed,
     unref,
+    watch,
   } from 'vue';
   import Bar from './bar';
 
@@ -64,6 +65,11 @@
         type: String,
         default: 'div',
       },
+      scrollHeight: {
+        // 用于监控内部scrollHeight的变化
+        type: Number,
+        default: 0,
+      },
     },
     setup(props) {
       const sizeWidth = ref('0');
@@ -98,6 +104,14 @@
         sizeHeight.value = heightPercentage < 100 ? heightPercentage + '%' : '';
         sizeWidth.value = widthPercentage < 100 ? widthPercentage + '%' : '';
       };
+
+      watch(
+        () => props.scrollHeight,
+        () => {
+          if (props.native) return;
+          update();
+        },
+      );
 
       onMounted(() => {
         if (props.native) return;
