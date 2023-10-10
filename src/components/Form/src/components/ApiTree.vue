@@ -79,7 +79,7 @@
         if (!isArray(result)) {
           result = get(result, props.resultField);
         }
-        treeData.value = (result as Recordable<any>[]) || [];
+        treeData.value = (result as (Recordable & { key: string | number })[]) || [];
         isFirstLoaded.value = true;
         emit('options-change', treeData.value);
       }

@@ -1,4 +1,4 @@
-import type { FunctionalComponent, defineComponent } from 'vue';
+import type { defineComponent } from 'vue';
 import type { ComponentType } from '../../types/componentType';
 import { componentMap } from '/@/components/Table/src/componentMap';
 
@@ -13,7 +13,7 @@ export interface ComponentProps {
   getPopupContainer?: Fn;
 }
 
-export const CellComponent: FunctionalComponent = (
+export const CellComponent = (
   {
     component = 'Input',
     rule = true,

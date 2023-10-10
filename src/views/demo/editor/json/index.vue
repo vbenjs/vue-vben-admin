@@ -17,7 +17,7 @@
   import { defineComponent, ref, unref, h } from 'vue';
   import { CodeEditor, JsonPreview, MODE } from '/@/components/CodeEditor';
   import { PageWrapper } from '/@/components/Page';
-  import { Radio, Space, Modal } from 'ant-design-vue';
+  import { Radio, Space, Modal, type RadioGroupProps } from 'ant-design-vue';
 
   const jsonData =
     '{"name":"BeJson","url":"http://www.xxx.com","page":88,"isNonProfit":true,"address":{"street":"科技园路.","city":"江苏苏州","country":"中国"},"links":[{"name":"Google","url":"http://www.xxx.com"},{"name":"Baidu","url":"http://www.xxx.com"},{"name":"SoSo","url":"http://www.xxx.com"}]}';
@@ -65,7 +65,7 @@
       const modeValue = ref<MODE>(MODE.JSON);
       const value = ref(jsonData);
 
-      function handleModeChange(e: ChangeEvent) {
+      const handleModeChange: RadioGroupProps['onChange'] = (e) => {
         const mode = e.target.value;
         if (mode === MODE.JSON) {
           value.value = jsonData;
@@ -79,7 +79,7 @@
           value.value = jsData;
           return;
         }
-      }
+      };
 
       function showData() {
         if (unref(modeValue) === 'application/json') {

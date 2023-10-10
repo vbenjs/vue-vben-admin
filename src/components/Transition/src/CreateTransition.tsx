@@ -23,8 +23,8 @@ export function createSimpleTransition(name: string, origin = 'top center 0', mo
       },
     },
     setup(props, { slots, attrs }) {
-      const onBeforeEnter = (el: HTMLElement) => {
-        el.style.transformOrigin = props.origin;
+      const onBeforeEnter = (el: Element) => {
+        (el as HTMLElement).style.transformOrigin = props.origin;
       };
 
       return () => {
