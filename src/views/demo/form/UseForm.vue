@@ -84,12 +84,22 @@
       component: 'DatePicker',
       label: '字段3',
       colProps: { span: 8 },
+      componentProps: {
+        getPopupContainer: () => {
+          return document.querySelector('.ant-form');
+        },
+      },
     },
     {
       field: 'fieldTime',
       component: 'RangePicker',
       label: '时间字段',
       colProps: { span: 8 },
+      componentProps: {
+        getPopupContainer: () => {
+          return document.querySelector('.ant-form');
+        },
+      },
     },
     {
       field: 'field4',
