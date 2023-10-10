@@ -14,7 +14,7 @@ declare type LabelValueOptions = {
   [key: string]: string | number | boolean;
 }[];
 
-declare type EmitType = (event: string, ...args: any[]) => void;
+declare type EmitType = ReturnType<typeof defineEmits>;
 
 declare type TargetContext = '_self' | '_blank';
 
