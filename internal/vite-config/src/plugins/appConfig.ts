@@ -24,5 +24,8 @@ export async function createConfigPluginConfig(
       fileName: GLOBAL_CONFIG_FILE_NAME,
       outputDir: OUTPUT_DIR,
     },
+    htmlInjection: {
+      decodeEntities: true,
+    },
   });
 }
