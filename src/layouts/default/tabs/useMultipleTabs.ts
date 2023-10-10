@@ -6,6 +6,9 @@ import { useMultipleTabStore } from '/@/store/modules/multipleTab';
 import { isNullAndUnDef } from '/@/utils/is';
 import projectSetting from '/@/settings/projectSetting';
 import { useRouter } from 'vue-router';
+import { useI18n } from '/@/hooks/web/useI18n';
+
+const { t } = useI18n();
 
 export function initAffixTabs(): string[] {
   const affixList = ref<RouteLocationNormalized[]>([]);
@@ -63,7 +66,7 @@ export function useTabsDrag(affixTextList: string[]) {
       filter: (e: ChangeEvent) => {
         const text = e?.target?.innerText;
         if (!text) return false;
-        return affixTextList.includes(text);
+        return affixTextList.map((res) => t(res)).includes(text);
       },
       onEnd: (evt) => {
         const { oldIndex, newIndex } = evt;
