@@ -293,7 +293,6 @@
           ...on,
           ...bindValue,
         };
-
         if (!renderComponentContent) {
           return <Comp {...compAttr} />;
         }
@@ -359,7 +358,6 @@
                 ...props.schema.itemProps,
               });
           }
-
           return (
             <Form.Item
               name={field}

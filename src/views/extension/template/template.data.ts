@@ -1,5 +1,4 @@
-import { BasicColumn } from '/@/components/Table';
-import { FormSchema } from '/@/components/Table';
+import { BasicColumn, FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
@@ -39,7 +38,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'content',
     label: '模板内容',
-    component: 'InputTextArea',
+    component: 'CodeEditor',
     required: true,
     componentProps: {
       autosize: true,

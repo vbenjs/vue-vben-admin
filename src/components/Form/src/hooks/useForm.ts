@@ -90,6 +90,7 @@ export function useForm(props?: Props): UseFormReturnType {
 
     setFieldsValue: async <T>(values: T) => {
       const form = await getForm();
+      form.resetFields();
       form.setFieldsValue<T>(values);
     },
 

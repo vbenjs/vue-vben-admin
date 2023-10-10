@@ -115,4 +115,5 @@ export type ComponentType =
   | 'Slider'
   | 'Rate'
   | 'Divider'
-  | 'ApiTransfer';
+  | 'ApiTransfer'
+  | 'CodeEditor';
