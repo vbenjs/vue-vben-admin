@@ -66,25 +66,25 @@
   import { optionsListApi } from '/@/api/demo/select';
   import { useDebounceFn } from '@vueuse/core';
   import { treeOptionsListApi } from '/@/api/demo/tree';
-  import { Select } from 'ant-design-vue';
+  import { Select, type SelectProps } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
   import { areaRecord } from '/@/api/demo/cascader';
   import { uploadApi } from '/@/api/sys/upload';
 
   const valueSelectA = ref<string[]>([]);
   const valueSelectB = ref<string[]>([]);
-  const options = ref<Recordable[]>([]);
+  const options = ref<Required<SelectProps>['options']>([]);
   for (let i = 1; i < 10; i++) options.value.push({ label: '选项' + i, value: `${i}` });
 
   const optionsA = computed(() => {
     return cloneDeep(unref(options)).map((op) => {
-      op.disabled = unref(valueSelectB).indexOf(op.value) !== -1;
+      op.disabled = unref(valueSelectB).indexOf(op.value as string) !== -1;
       return op;
     });
   });
   const optionsB = computed(() => {
     return cloneDeep(unref(options)).map((op) => {
-      op.disabled = unref(valueSelectA).indexOf(op.value) !== -1;
+      op.disabled = unref(valueSelectA).indexOf(op.value as string) !== -1;
       return op;
     });
   });
@@ -705,7 +705,7 @@
       const check = ref(null);
       const { createMessage } = useMessage();
       const keyword = ref<string>('');
-      const searchParams = computed<Recordable>(() => {
+      const searchParams = computed<Recordable<string>>(() => {
         return { keyword: unref(keyword) };
       });
 

@@ -20,7 +20,7 @@
   </BasicTable>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
+  import { defineComponent, ref, unref } from 'vue';
   import { BasicTable, useTable } from '/@/components/Table';
   import { getBasicColumns, getFormConfig } from './tableData';
   import { Alert } from 'ant-design-vue';
@@ -43,7 +43,7 @@
         rowKey: 'id',
         rowSelection: {
           type: 'checkbox',
-          selectedRowKeys: checkedKeys,
+          selectedRowKeys: unref(checkedKeys),
           onSelect: onSelect,
           onSelectAll: onSelectAll,
         },

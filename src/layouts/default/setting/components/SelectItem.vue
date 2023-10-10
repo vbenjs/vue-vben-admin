@@ -14,7 +14,7 @@
 <script lang="ts">
   import { defineComponent, PropType, computed } from 'vue';
 
-  import { Select } from 'ant-design-vue';
+  import { Select, type SelectProps } from 'ant-design-vue';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { baseHandler } from '../handler';
   import { HandlerEnum } from '../enum';
@@ -49,9 +49,10 @@
         return props.def ? { value: props.def, defaultValue: props.initValue || props.def } : {};
       });
 
-      function handleChange(e: ChangeEvent) {
-        props.event && baseHandler(props.event, e);
-      }
+      const handleChange: SelectProps['onChange'] = (val) => {
+        props.event && baseHandler(props.event, val);
+      };
+
       return {
         prefixCls,
         handleChange,
