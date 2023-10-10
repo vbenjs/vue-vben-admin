@@ -1,5 +1,5 @@
 <template>
-  <ScrollContainer ref="wrapperRef">
+  <ScrollContainer ref="wrapperRef" :scrollHeight="realHeight">
     <div ref="spinRef" :style="spinStyle" v-loading="loading" :loading-tip="loadingTip">
       <slot></slot>
     </div>
@@ -49,7 +49,7 @@
       const realHeightRef = ref(0);
       const minRealHeightRef = ref(0);
 
-      let realHeight = 0;
+      const realHeight = ref(0);
 
       let stopElResizeFn: AnyFunction = () => {};
 
@@ -145,7 +145,7 @@
           if (!spinEl) return;
           await nextTick();
           // if (!realHeight) {
-          realHeight = spinEl.scrollHeight;
+          realHeight.value = spinEl.scrollHeight;
           // }
 
           if (props.fullScreen) {
@@ -154,9 +154,9 @@
           } else {
             realHeightRef.value = props.height
               ? props.height
-              : realHeight > maxHeight
+              : realHeight.value > maxHeight
               ? maxHeight
-              : realHeight;
+              : realHeight.value;
           }
           emit('height-change', unref(realHeightRef));
         } catch (error) {
@@ -164,7 +164,7 @@
         }
       }
 
-      return { wrapperRef, spinRef, spinStyle, scrollTop, setModalHeight };
+      return { wrapperRef, spinRef, spinStyle, scrollTop, setModalHeight, realHeight };
     },
   });
 </script>
