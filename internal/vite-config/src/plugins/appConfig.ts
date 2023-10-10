@@ -15,10 +15,14 @@ export async function createConfigPluginConfig(
   const APP_NAME = strToHex(config?.VITE_GLOB_APP_TITLE ?? '__APP');
   // https://github.com/kirklin/unplugin-config
   return GenerateConfig({
-    disabledConfig: !shouldGenerateConfig,
-    globConfigFileName: GLOBAL_CONFIG_FILE_NAME,
-    outputDir: OUTPUT_DIR,
     appName: APP_NAME,
-    envConfigPrefix: 'VITE_GLOB_',
+    envVariables: {
+      prefix: 'VITE_GLOB_',
+    },
+    configFile: {
+      generate: shouldGenerateConfig,
+      fileName: GLOBAL_CONFIG_FILE_NAME,
+      outputDir: OUTPUT_DIR,
+    },
   });
 }
