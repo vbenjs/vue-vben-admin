@@ -76,19 +76,19 @@
         // }, 2000);
       }
 
-      function openTargetModal(index) {
+      function openTargetModal(index: number) {
         switch (index) {
           case 1:
-            currentModal.value = Modal1;
+            currentModal.value = Modal1 as ComponentOptions;
             break;
           case 2:
-            currentModal.value = Modal2;
+            currentModal.value = Modal2 as ComponentOptions;
             break;
           case 3:
-            currentModal.value = Modal3;
+            currentModal.value = Modal3 as ComponentOptions;
             break;
           default:
-            currentModal.value = Modal4;
+            currentModal.value = Modal4 as ComponentOptions;
             break;
         }
         nextTick(() => {
