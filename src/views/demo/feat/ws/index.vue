@@ -9,9 +9,7 @@
         <hr class="my-4" />
 
         <div class="flex">
-          <a-input v-model:value="server" disabled>
-            <template #addonBefore> 服务地址 </template>
-          </a-input>
+          <a-input v-model:value="server" addon-before="服务地址" disabled />
           <a-button :type="getIsOpen ? 'danger' : 'primary'" @click="toggle">
             {{ getIsOpen ? '关闭连接' : '开启连接' }}
           </a-button>
