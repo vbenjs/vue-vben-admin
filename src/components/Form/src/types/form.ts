@@ -127,7 +127,8 @@ export type RenderOpts = {
   disabled: boolean;
   [key: string]: any;
 };
-export interface FormSchema {
+
+interface BaseFormSchema {
   // Field name
   field: string;
   // Extra Fields name[]
@@ -151,17 +152,6 @@ export interface FormSchema {
   labelWidth?: string | number;
   // Disable the adjustment of labelWidth with global settings of formModel, and manually set labelCol and wrapperCol by yourself
   disabledLabelWidth?: boolean;
-  // render component
-  component: ComponentType;
-  // Component parameters
-  componentProps?:
-    | ((opt: {
-        schema: FormSchema;
-        tableAction: TableActionType;
-        formActionType: FormActionType;
-        formModel: Recordable;
-      }) => Recordable)
-    | object;
   // Required
   required?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
@@ -214,9 +204,6 @@ export interface FormSchema {
     | VNode[]
     | string;
 
-  // Custom slot, in from-item
-  slot?: string;
-
   // Custom slot, similar to renderColContent
   colSlot?: string;
 
@@ -224,6 +211,27 @@ export interface FormSchema {
 
   dynamicRules?: (renderCallbackParams: RenderCallbackParams) => Rule[];
 }
+interface ComponentFormSchema extends BaseFormSchema {
+  // render component
+  component: ComponentType;
+  // Component parameters
+  componentProps?:
+    | ((opt: {
+        schema: FormSchema;
+        tableAction: TableActionType;
+        formActionType: FormActionType;
+        formModel: Recordable;
+      }) => Recordable)
+    | object;
+}
+
+interface SlotFormSchema extends BaseFormSchema {
+  // Custom slot, in from-item
+  slot?: string;
+}
+
+export type FormSchema = ComponentFormSchema | SlotFormSchema;
+
 export interface HelpComponentProps {
   maxWidth: string;
   // Whether to display the serial number
