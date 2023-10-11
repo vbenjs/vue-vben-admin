@@ -19,7 +19,9 @@
       ref="domRef"
       class="flex items-center justify-center w-1/2 h-64 mx-auto mt-10 bg-white rounded-md"
     >
-      <a-button type="primary" @click="toggleDom" class="mr-2"> Exit Dom Full Screen </a-button>
+      <a-button type="primary" @click="toggleDom" class="mr-2">
+        {{ isDomFullscreen ? 'Exit Dom Full Screen' : 'Enter Dom Full Screen' }}
+      </a-button>
     </div>
   </PageWrapper>
 </template>
@@ -37,12 +39,13 @@
       const domRef = ref<Nullable<HTMLElement>>(null);
       const { enter, toggle, exit, isFullscreen } = useFullscreen();
 
-      const { toggle: toggleDom } = useFullscreen(domRef);
+      const { toggle: toggleDom, isFullscreen: isDomFullscreen } = useFullscreen(domRef);
       return {
         enter,
         toggleDom,
         toggle,
         isFullscreen,
+        isDomFullscreen,
         exit,
         domRef,
       };
