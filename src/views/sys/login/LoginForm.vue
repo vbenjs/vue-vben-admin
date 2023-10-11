@@ -84,7 +84,7 @@
 <script lang="ts" setup>
   import { reactive, ref, unref, computed } from 'vue';
 
-  import { Checkbox, Form, Input, Row, Col, Button, Divider } from 'ant-design-vue';
+  import { Checkbox, Form, Input, Button, Divider } from 'ant-design-vue';
   import {
     GithubFilled,
     WechatFilled,
@@ -102,8 +102,6 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   //import { onKeyStroke } from '@vueuse/core';
 
-  const ACol = Col;
-  const ARow = Row;
   const FormItem = Form.Item;
   const InputPassword = Input.Password;
   const { t } = useI18n();
