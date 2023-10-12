@@ -1,13 +1,13 @@
 import { IAnyObject } from '../typings/base-type';
-import { Ref, SetupContext, getCurrentInstance, toRaw } from 'vue';
+import { Ref, SetupContext, getCurrentInstance, toRaw, type EmitsOptions } from 'vue';
 import { cloneDeep, forOwn, isFunction } from 'lodash-es';
 import { AForm, IVFormComponent } from '../typings/v-form-component';
 import { Form } from 'ant-design-vue';
 
-export function useFormInstanceMethods(
+export function useFormInstanceMethods<E extends EmitsOptions = EmitsOptions>(
   props: IAnyObject,
   formdata,
-  context: Partial<SetupContext>,
+  context: SetupContext<E>,
   _formInstance: Ref<AForm | null>,
 ) {
   /**

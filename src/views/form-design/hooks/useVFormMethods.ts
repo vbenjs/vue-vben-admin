@@ -1,4 +1,4 @@
-import { Ref, SetupContext } from 'vue';
+import { Ref, SetupContext, type EmitsOptions } from 'vue';
 import { IVFormComponent, IFormConfig, AForm } from '../typings/v-form-component';
 import { findFormItem, formItemsForEach } from '../utils';
 import { cloneDeep, isFunction } from 'lodash-es';
@@ -52,9 +52,9 @@ export interface IVFormMethods extends Partial<IFormInstanceMethods> {
   getData: IGetData;
   disable: IDisable;
 }
-export function useVFormMethods(
+export function useVFormMethods<E extends EmitsOptions = EmitsOptions>(
   props: IProps,
-  _context: Partial<SetupContext>,
+  _context: SetupContext<E>,
   formInstance: Ref<AForm | null>,
   formInstanceMethods: Partial<IFormInstanceMethods>,
 ): IVFormMethods {

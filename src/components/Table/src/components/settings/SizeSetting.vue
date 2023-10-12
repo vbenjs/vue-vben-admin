@@ -25,7 +25,7 @@
 <script lang="ts">
   import type { SizeType } from '../../types/table';
   import { defineComponent, ref } from 'vue';
-  import { Tooltip, Dropdown, Menu } from 'ant-design-vue';
+  import { Tooltip, Dropdown, Menu, type MenuProps } from 'ant-design-vue';
   import { ColumnHeightOutlined } from '@ant-design/icons-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useTableContext } from '../../hooks/useTableContext';
@@ -46,12 +46,12 @@
 
       const selectedKeysRef = ref<SizeType[]>([table.getSize()]);
 
-      function handleTitleClick({ key }: { key: SizeType }) {
-        selectedKeysRef.value = [key];
+      const handleTitleClick: MenuProps['onClick'] = ({ key }) => {
+        selectedKeysRef.value = [key as SizeType];
         table.setProps({
-          size: key,
+          size: key as SizeType,
         });
-      }
+      };
 
       return {
         handleTitleClick,
