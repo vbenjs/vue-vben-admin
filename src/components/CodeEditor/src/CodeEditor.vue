@@ -5,6 +5,7 @@
       @change="handleValueChange"
       :mode="mode"
       :readonly="readonly"
+      :bordered="bordered"
     />
   </div>
 </template>
@@ -26,6 +27,7 @@
     },
     readonly: { type: Boolean },
     autoFormat: { type: Boolean, default: true },
+    bordered: { type: Boolean, default: false },
   });
 
   const emit = defineEmits(['change', 'update:value', 'format-error']);
