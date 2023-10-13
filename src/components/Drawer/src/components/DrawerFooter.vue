@@ -70,6 +70,7 @@
   .@{prefix-cls} {
     position: absolute;
     bottom: 0;
+    left: 0;
     width: 100%;
     padding: 0 12px 0 20px;
     border-top: 1px solid @border-color-base;
