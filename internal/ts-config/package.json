@@ -19,7 +19,7 @@
     "node-server.json"
   ],
   "dependencies": {
-    "@types/node": "^20.4.0",
-    "vite": "^4.4.0"
+    "@types/node": "^20.8.5",
+    "vite": "^4.4.11"
   }
 }
