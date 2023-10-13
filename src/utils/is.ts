@@ -1,4 +1,5 @@
 import { isNil } from 'lodash-es';
+
 const toString = Object.prototype.toString;
 
 export function is(val: unknown, type: string) {
