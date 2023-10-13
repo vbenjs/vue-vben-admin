@@ -48,7 +48,7 @@
       const getRealName = computed(() => userStore.getUserInfo?.realName);
       const [register, { closeModal }] = useModalInner();
 
-      const [registerForm, { validateFields, resetFields }] = useForm({
+      const [registerForm, { validate, resetFields }] = useForm({
         showActionButtonGroup: false,
         schemas: [
           {
@@ -63,17 +63,20 @@
         ],
       });
 
-      async function handleLock() {
-        const values = (await validateFields()) as any;
-        const password: string | undefined = values.password;
+      const handleLock = async () => {
+        const { password = '' } = await validate<{
+          password: string;
+        }>();
+
         closeModal();
 
         lockStore.setLockInfo({
           isLock: true,
           pwd: password,
         });
+
         await resetFields();
-      }
+      };
 
       const avatar = computed(() => {
         const { avatar } = userStore.getUserInfo;
