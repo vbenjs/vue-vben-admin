@@ -7,6 +7,7 @@
     :selectedKeys="selectedKeys"
     :targetKeys="getTargetKeys"
     :showSearch="showSearch"
+    :disabled="disabled"
     @change="handleChange"
   />
 </template>
