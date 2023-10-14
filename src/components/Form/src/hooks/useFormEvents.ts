@@ -415,6 +415,9 @@ function getDefaultValue(
   if (!defaultValue && schema && checkIsRangeSlider(schema)) {
     defaultValue = [0, 0];
   }
+  if (!defaultValue && schema && schema.component === 'ApiTree') {
+    defaultValue = [];
+  }
   return defaultValue;
 }
 

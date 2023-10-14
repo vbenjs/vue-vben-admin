@@ -1,5 +1,5 @@
 <template>
-  <a-tree v-bind="getAttrs" @select="handleChange">
+  <a-tree v-bind="getAttrs" @select="handleChange" v-model:selectedKeys="state">
     <template #[item]="data" v-for="item in Object.keys($slots)">
       <slot :name="item" v-bind="data || {}"></slot>
     </template>
@@ -14,6 +14,7 @@
   import { get } from 'lodash-es';
   import { propTypes } from '/@/utils/propTypes';
   import { DataNode } from 'ant-design-vue/es/tree';
+  import { useRuleFormItem } from '/@/hooks/component/useFormItem';
 
   export default defineComponent({
     name: 'ApiTree',
@@ -24,12 +25,16 @@
       immediate: { type: Boolean, default: true },
       resultField: propTypes.string.def(''),
       afterFetch: { type: Function as PropType<AnyFunction> },
+      value: [Array, Object, String, Number],
     },
-    emits: ['options-change', 'change'],
+    emits: ['options-change', 'change', 'update:value'],
     setup(props, { attrs, emit }) {
       const treeData = ref<DataNode[]>([]);
       const isFirstLoaded = ref<Boolean>(false);
       const loading = ref(false);
+      const emitData = ref<any[]>([]);
+
+      const [state] = useRuleFormItem(props, 'value', 'change', emitData);
       const getAttrs = computed(() => {
         return {
           ...(props.api ? { treeData: unref(treeData) } : {}),
@@ -39,6 +44,13 @@
       function handleChange(...args) {
         emit('change', ...args);
       }
+
+      watch(
+        () => state.value,
+        (v) => {
+          emit('update:value', v);
+        },
+      );
 
       watch(
         () => props.params,
@@ -82,7 +94,7 @@
         isFirstLoaded.value = true;
         emit('options-change', treeData.value);
       }
-      return { getAttrs, loading, handleChange };
+      return { getAttrs, loading, handleChange, state };
     },
   });
 </script>
