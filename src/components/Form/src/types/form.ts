@@ -13,7 +13,7 @@ export type Rule = RuleObject & {
 };
 
 export interface RenderCallbackParams {
-  schema: FormSchema;
+  schema: FormSchemaInner;
   values: Recordable;
   model: Recordable;
   field: string;
@@ -29,12 +29,12 @@ export interface FormActionType {
   resetFields: () => Promise<void>;
   getFieldsValue: () => Recordable;
   clearValidate: (name?: string | string[]) => Promise<void>;
-  updateSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void>;
-  resetSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void>;
+  updateSchema: (data: Partial<FormSchemaInner> | Partial<FormSchemaInner>[]) => Promise<void>;
+  resetSchema: (data: Partial<FormSchemaInner> | Partial<FormSchemaInner>[]) => Promise<void>;
   setProps: (formProps: Partial<FormProps>) => Promise<void>;
   removeSchemaByField: (field: string | string[]) => Promise<void>;
   appendSchemaByField: (
-    schema: FormSchema | FormSchema[],
+    schema: FormSchemaInner | FormSchemaInner[],
     prefixField: string | undefined,
     first?: boolean | undefined,
   ) => Promise<void>;
@@ -152,6 +152,15 @@ interface BaseFormSchema {
   labelWidth?: string | number;
   // Disable the adjustment of labelWidth with global settings of formModel, and manually set labelCol and wrapperCol by yourself
   disabledLabelWidth?: boolean;
+  // Component parameters
+  componentProps?:
+    | ((opt: {
+        schema: FormSchema;
+        tableAction: TableActionType;
+        formActionType: FormActionType;
+        formModel: Recordable;
+      }) => Recordable)
+    | object;
   // Required
   required?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
@@ -211,32 +220,27 @@ interface BaseFormSchema {
 
   dynamicRules?: (renderCallbackParams: RenderCallbackParams) => Rule[];
 }
-interface ComponentFormSchema extends BaseFormSchema {
+export interface ComponentFormSchema extends BaseFormSchema {
   // render component
   component: ComponentType;
-  // Component parameters
-  componentProps?:
-    | ((opt: {
-        schema: FormSchema;
-        tableAction: TableActionType;
-        formActionType: FormActionType;
-        formModel: Recordable;
-      }) => Recordable)
-    | object;
 }
 
-interface SlotFormSchema extends BaseFormSchema {
+export interface SlotFormSchema extends BaseFormSchema {
   // Custom slot, in from-item
   slot: string;
 }
 
 export type FormSchema = ComponentFormSchema | SlotFormSchema;
 
-export function isSlotFormSchema(schema: FormSchema): schema is SlotFormSchema {
+export type FormSchemaInner = Partial<ComponentFormSchema> &
+  Partial<SlotFormSchema> &
+  BaseFormSchema;
+
+export function isSlotFormSchema(schema: FormSchemaInner): schema is SlotFormSchema {
   return 'slot' in schema;
 }
 
-export function isComponentFormSchema(schema: FormSchema): schema is ComponentFormSchema {
+export function isComponentFormSchema(schema: FormSchemaInner): schema is ComponentFormSchema {
   return !isSlotFormSchema(schema);
 }
 export interface HelpComponentProps {
