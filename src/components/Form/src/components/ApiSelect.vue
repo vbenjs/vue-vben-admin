@@ -23,6 +23,7 @@
 <script lang="ts">
   import { defineComponent, PropType, ref, computed, unref, watch } from 'vue';
   import { Select } from 'ant-design-vue';
+  import type { SelectValue } from 'ant-design-vue/es/select';
   import { isFunction } from '/@/utils/is';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { useAttrs } from '@vben/hooks';
@@ -41,7 +42,7 @@
     },
     inheritAttrs: false,
     props: {
-      value: [Array, Object, String, Number],
+      value: { type: Object as PropType<SelectValue> },
       numberToString: propTypes.bool,
       api: {
         type: Function as PropType<(arg?: any) => Promise<OptionsItem[]>>,
@@ -55,7 +56,10 @@
       valueField: propTypes.string.def('value'),
       immediate: propTypes.bool.def(true),
       alwaysLoad: propTypes.bool.def(false),
-      options: propTypes.array.def([]),
+      options: {
+        type: Array<OptionsItem>,
+        default: [],
+      },
     },
     emits: ['options-change', 'change', 'update:value'],
     setup(props, { emit }) {
@@ -63,7 +67,7 @@
       const loading = ref(false);
       // 首次是否加载过了
       const isFirstLoaded = ref(false);
-      const emitData = ref<any[]>([]);
+      const emitData = ref<OptionsItem[]>([]);
       const attrs = useAttrs();
       const { t } = useI18n();
 
