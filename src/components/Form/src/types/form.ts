@@ -227,11 +227,18 @@ interface ComponentFormSchema extends BaseFormSchema {
 
 interface SlotFormSchema extends BaseFormSchema {
   // Custom slot, in from-item
-  slot?: string;
+  slot: string;
 }
 
 export type FormSchema = ComponentFormSchema | SlotFormSchema;
 
+export function isSlotFormSchema(schema: FormSchema): schema is SlotFormSchema {
+  return 'slot' in schema;
+}
+
+export function isComponentFormSchema(schema: FormSchema): schema is ComponentFormSchema {
+  return !isSlotFormSchema(schema);
+}
 export interface HelpComponentProps {
   maxWidth: string;
   // Whether to display the serial number
