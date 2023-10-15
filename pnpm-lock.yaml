@@ -53,15 +53,15 @@ importers:
       dayjs:
         specifier: ^1.11.9
         version: 1.11.9
+      driver.js:
+        specifier: ^1.3.0
+        version: 1.3.0
       echarts:
         specifier: ^5.4.2
         version: 5.4.2
       exceljs:
         specifier: ^4.3.0
         version: 4.3.0
-      intro.js:
-        specifier: ^7.0.1
-        version: 7.0.1
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -150,9 +150,6 @@ importers:
       '@types/crypto-js':
         specifier: ^4.1.1
         version: 4.1.1
-      '@types/intro.js':
-        specifier: ^5.1.1
-        version: 5.1.1
       '@types/lodash-es':
         specifier: ^4.17.7
         version: 4.17.7
@@ -230,7 +227,7 @@ importers:
         version: 1.2.1
       vite:
         specifier: ^4.4.0
-        version: 4.4.0(@types/node@20.4.0)(less@4.1.3)(sass@1.63.6)
+        version: 4.4.0(@types/node@20.4.0)
       vite-plugin-mock:
         specifier: ^2.9.6
         version: 2.9.6(mockjs@1.1.0)(rollup@2.79.1)(vite@4.4.0)
@@ -2519,10 +2516,6 @@ packages:
   /@types/http-errors@2.0.1:
     resolution: {integrity: sha512-/K3ds8TRAfBvi5vfjuz8y6+GiAYBZ0x4tXv1Av6CWBWn0IlADc+ZX9pMq7oU0fNQPnBwIZl3rmeLp6SBApbxSQ==}
 
-  /@types/intro.js@5.1.1:
-    resolution: {integrity: sha512-gxrfhzwHeCZI8PoucIVRCe5cX0j29YYB1YLIfPb87HN1HiAhrl0CGMFuYPzo6Gvn5diAPCHF6XW2SR+Lqxexlg==}
-    dev: true
-
   /@types/istanbul-lib-coverage@2.0.4:
     resolution: {integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g==}
     dev: false
@@ -3664,7 +3657,7 @@ packages:
   /axios@1.4.0:
     resolution: {integrity: sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==}
     dependencies:
-      follow-redirects: 1.15.2(debug@4.3.4)
+      follow-redirects: 1.15.2
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -4994,6 +4987,10 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
+  /driver.js@1.3.0:
+    resolution: {integrity: sha512-ilUkVc5iMIYfMd8FdWy8n5Wv//gsJuRP+lo8QfWpwP9c0UGOgD7P9nVQMZwcdW84aqAZHHUHrV7GgiopAN6HUQ==}
+    dev: false
+
   /duplexer2@0.1.4:
     resolution: {integrity: sha512-asLFVfWWtJ90ZyOUHMqk7/S2w2guQKxUI2itj3d92ADHhxUSbCMGi1f1cBcJ7xM1To+pE/Khbwo1yuNbMEPKeA==}
     dependencies:
@@ -5844,6 +5841,16 @@ packages:
     resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
     dev: true
 
+  /follow-redirects@1.15.2:
+    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dev: false
+
   /follow-redirects@1.15.2(debug@4.3.4):
     resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
     engines: {node: '>=4.0'}
@@ -5854,6 +5861,7 @@ packages:
         optional: true
     dependencies:
       debug: 4.3.4
+    dev: true
 
   /for-each@0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -6598,10 +6606,6 @@ packages:
       has: 1.0.3
       side-channel: 1.0.4
     dev: true
-
-  /intro.js@7.0.1:
-    resolution: {integrity: sha512-1oqz6aOz9cGQ3CrtVYhCSo6AkjnXUn302kcIWLaZ3TI4kKssRXDwDSz4VRoGcfC1jN+WfaSJXRBrITz+QVEBzg==}
-    dev: false
 
   /ip@1.1.8:
     resolution: {integrity: sha512-PuExPYUiu6qMBQb4l06ecm6T6ujzhmh+MeJcW9wa89PoAz5pvd4zPgN5WJV104mb6S2T1AwNIAaB70JNrLQWhg==}
@@ -11653,7 +11657,7 @@ packages:
       fast-glob: 3.3.0
       mockjs: 1.1.0
       path-to-regexp: 6.2.1
-      vite: 4.4.0(@types/node@20.4.0)(less@4.1.3)(sass@1.63.6)
+      vite: 4.4.0(@types/node@20.4.0)
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -11690,6 +11694,42 @@ packages:
       vite: 4.4.0(@types/node@20.4.0)(less@4.1.3)(sass@1.63.6)
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /vite@4.4.0(@types/node@20.4.0):
+    resolution: {integrity: sha512-Wf+DCEjuM8aGavEYiF77hnbxEZ+0+/jC9nABR46sh5Xi+GYeSvkeEFRiVuI3x+tPjxgZeS91h1jTAQTPFgePpA==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': '>= 14'
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      '@types/node': 20.4.0
+      esbuild: 0.18.11
+      postcss: 8.4.24
+      rollup: 3.26.1
+    optionalDependencies:
+      fsevents: 2.3.2
     dev: true
 
   /vite@4.4.0(@types/node@20.4.0)(less@4.1.3)(sass@1.63.6):
