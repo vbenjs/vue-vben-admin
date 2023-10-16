@@ -38,7 +38,7 @@
   </Form>
 </template>
 <script lang="ts">
-  import type { FormActionType, FormProps, FormSchema } from './types/form';
+  import type { FormActionType, FormProps, FormSchemaInner as FormSchema } from './types/form';
   import type { AdvanceState } from './types/hooks';
   import type { Ref } from 'vue';
 
@@ -125,7 +125,12 @@
             isHandleDateDefaultValue = true,
           } = schema;
           // handle date type
-          if (isHandleDateDefaultValue && defaultValue && dateItemType.includes(component)) {
+          if (
+            isHandleDateDefaultValue &&
+            defaultValue &&
+            component &&
+            dateItemType.includes(component)
+          ) {
             const valueFormat = componentProps ? componentProps['valueFormat'] : null;
             if (!Array.isArray(defaultValue)) {
               schema.defaultValue = valueFormat

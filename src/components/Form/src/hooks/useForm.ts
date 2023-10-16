@@ -1,4 +1,9 @@
-import type { FormProps, FormActionType, UseFormReturnType, FormSchema } from '../types/form';
+import type {
+  FormProps,
+  FormActionType,
+  UseFormReturnType,
+  FormSchemaInner as FormSchema,
+} from '../types/form';
 import type { NamePath } from 'ant-design-vue/lib/form/interface';
 import type { DynamicProps } from '/#/utils';
 import { ref, onUnmounted, unref, nextTick, watch } from 'vue';

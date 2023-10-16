@@ -13,7 +13,7 @@ export type Rule = RuleObject & {
 };
 
 export interface RenderCallbackParams {
-  schema: FormSchema;
+  schema: FormSchemaInner;
   values: Recordable;
   model: Recordable;
   field: string;
@@ -29,12 +29,12 @@ export interface FormActionType {
   resetFields: () => Promise<void>;
   getFieldsValue: () => Recordable;
   clearValidate: (name?: string | string[]) => Promise<void>;
-  updateSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void>;
-  resetSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void>;
+  updateSchema: (data: Partial<FormSchemaInner> | Partial<FormSchemaInner>[]) => Promise<void>;
+  resetSchema: (data: Partial<FormSchemaInner> | Partial<FormSchemaInner>[]) => Promise<void>;
   setProps: (formProps: Partial<FormProps>) => Promise<void>;
   removeSchemaByField: (field: string | string[]) => Promise<void>;
   appendSchemaByField: (
-    schema: FormSchema | FormSchema[],
+    schema: FormSchemaInner | FormSchemaInner[],
     prefixField: string | undefined,
     first?: boolean | undefined,
   ) => Promise<void>;
@@ -127,7 +127,8 @@ export type RenderOpts = {
   disabled: boolean;
   [key: string]: any;
 };
-export interface FormSchema {
+
+interface BaseFormSchema {
   // Field name
   field: string;
   // Extra Fields name[]
@@ -151,8 +152,6 @@ export interface FormSchema {
   labelWidth?: string | number;
   // Disable the adjustment of labelWidth with global settings of formModel, and manually set labelCol and wrapperCol by yourself
   disabledLabelWidth?: boolean;
-  // render component
-  component: ComponentType;
   // Component parameters
   componentProps?:
     | ((opt: {
@@ -214,15 +213,35 @@ export interface FormSchema {
     | VNode[]
     | string;
 
-  // Custom slot, in from-item
-  slot?: string;
-
   // Custom slot, similar to renderColContent
   colSlot?: string;
 
   dynamicDisabled?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
   dynamicRules?: (renderCallbackParams: RenderCallbackParams) => Rule[];
+}
+export interface ComponentFormSchema extends BaseFormSchema {
+  // render component
+  component: ComponentType;
+}
+
+export interface SlotFormSchema extends BaseFormSchema {
+  // Custom slot, in from-item
+  slot: string;
+}
+
+export type FormSchema = ComponentFormSchema | SlotFormSchema;
+
+export type FormSchemaInner = Partial<ComponentFormSchema> &
+  Partial<SlotFormSchema> &
+  BaseFormSchema;
+
+export function isSlotFormSchema(schema: FormSchemaInner): schema is SlotFormSchema {
+  return 'slot' in schema;
+}
+
+export function isComponentFormSchema(schema: FormSchemaInner): schema is ComponentFormSchema {
+  return !isSlotFormSchema(schema);
 }
 export interface HelpComponentProps {
   maxWidth: string;
