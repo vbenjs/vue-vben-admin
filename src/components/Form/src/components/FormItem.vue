@@ -2,7 +2,12 @@
   import { type Recordable, type Nullable } from '@vben/types';
   import type { PropType, Ref } from 'vue';
   import { computed, defineComponent, toRefs, unref } from 'vue';
-  import type { FormActionType, FormProps, FormSchema } from '../types/form';
+  import {
+    isComponentFormSchema,
+    type FormActionType,
+    type FormProps,
+    type FormSchemaInner as FormSchema,
+  } from '../types/form';
   import type { Rule as ValidationRule } from 'ant-design-vue/lib/form/interface';
   import type { TableActionType } from '/@/components/Table';
   import { Col, Divider, Form } from 'ant-design-vue';
@@ -241,6 +246,9 @@
       }
 
       function renderComponent() {
+        if (!isComponentFormSchema(props.schema)) {
+          return null;
+        }
         const {
           renderComponentContent,
           component,
@@ -352,7 +360,7 @@
           const getSuffix = isFunction(suffix) ? suffix(unref(getValues)) : suffix;
 
           // TODO 自定义组件验证会出现问题，因此这里框架默认将自定义组件设置手动触发验证，如果其他组件还有此问题请手动设置autoLink=false
-          if (NO_AUTO_LINK_COMPONENTS.includes(component)) {
+          if (component && NO_AUTO_LINK_COMPONENTS.includes(component)) {
             props.schema &&
               (props.schema.itemProps! = {
                 autoLink: false,
@@ -382,7 +390,7 @@
 
       return () => {
         const { colProps = {}, colSlot, renderColContent, component, slot } = props.schema;
-        if (!componentMap.has(component) && !slot) {
+        if (!component || (!componentMap.has(component) && !slot)) {
           return null;
         }
 
