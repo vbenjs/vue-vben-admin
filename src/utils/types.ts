@@ -40,3 +40,26 @@ export type ComponentSize = 'large' | 'medium' | 'small' | 'mini';
 export type StyleValue = string | CSSProperties | Array<StyleValue>;
 
 export type Mutable<T> = { -readonly [P in keyof T]: T[P] };
+
+type Merge<O extends object, T extends object> = {
+  [K in keyof O | keyof T]: K extends keyof T ? T[K] : K extends keyof O ? O[K] : never;
+};
+
+/**
+ * T = [
+ *  { name: string; age: number; },
+ *  { sex: 'male' | 'female'; age: string }
+ * ]
+ * =>
+ * MergeAll<T> = {
+ *  name: string;
+ *  sex: 'male' | 'female';
+ *  age: string
+ * }
+ */
+export type MergeAll<T extends object[], R extends object = {}> = T extends [
+  infer F extends object,
+  ...infer Rest extends object[],
+]
+  ? MergeAll<Rest, Merge<R, F>>
+  : R;

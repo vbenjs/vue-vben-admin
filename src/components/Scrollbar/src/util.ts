@@ -1,4 +1,5 @@
 import type { BarMap } from './types';
+import type { MergeAll } from '/@/utils/types';
 
 export const BAR_MAP: BarMap = {
   vertical: {
@@ -40,8 +41,16 @@ function extend<T extends object, K extends object>(to: T, _from: K): T & K {
   return Object.assign(to, _from);
 }
 
-export function toObject<T extends object>(arr: Array<T>): Recordable<T> {
-  const res = {};
+/**
+ * [
+ *  { name: 'zhangsan', age: 18 },
+ *  { sex: 'male', age: 20 }
+ * ]
+ * =>
+ * { name: 'zhangsan', sex: 'male', age: 20 }
+ */
+export function toObject<T extends object[]>(arr: T): MergeAll<T> {
+  const res = {} as MergeAll<T>;
   for (let i = 0; i < arr.length; i++) {
     if (arr[i]) {
       extend(res, arr[i]);
