@@ -58,6 +58,8 @@
   import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue';
   import { PageWrapper } from '/@/components/Page';
 
+  import { EventDataNode } from 'ant-design-vue/es/vc-tree/interface';
+
   export default defineComponent({
     components: { BasicTree, PageWrapper, Row, Col },
     setup() {
@@ -65,8 +67,8 @@
         console.log(node);
       }
 
-      function getRightMenuList(node: any): ContextMenuItem[] {
-        return [
+      function getRightMenuList(node: EventDataNode): Promise<ContextMenuItem[]> {
+        const menu = [
           {
             label: '新增',
             handler: () => {
@@ -82,6 +84,9 @@
             icon: 'bx:bxs-folder-open',
           },
         ];
+        return new Promise((resolve) => {
+          resolve(menu);
+        });
       }
       const actionList: TreeActionItem[] = [
         {
