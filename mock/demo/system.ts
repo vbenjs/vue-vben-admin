@@ -12,6 +12,7 @@ const accountList = (() => {
       role: '@first',
       createTime: '@datetime',
       remark: '@cword(10,20)',
+      'dept|0-2': 1,
       'status|1': ['0', '1'],
     });
   }
