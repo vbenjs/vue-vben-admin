@@ -31,7 +31,13 @@
           :key="item.path"
         >
           <SimpleMenuTag :item="item" collapseParent dot />
+          <img
+            v-if="item.img"
+            :src="item.img"
+            :class="[`${prefixCls}-module__icon`, getCollapsed ? 'w-16px h-16px' : 'w-20px h-20px']"
+          />
           <Icon
+            v-else
             :class="`${prefixCls}-module__icon`"
             :size="getCollapsed ? 16 : 20"
             :icon="item.icon || (item.meta && item.meta.icon)"

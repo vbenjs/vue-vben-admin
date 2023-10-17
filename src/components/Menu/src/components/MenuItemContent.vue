@@ -1,5 +1,6 @@
 <template>
   <span :class="`${prefixCls}- flex items-center `">
+    <img v-if="getImg" :src="getImg" class="w-18px h-18px align-top mr-2" />
     <Icon v-if="getIcon" :icon="getIcon" :size="18" :class="`${prefixCls}-wrapper__icon mr-2`" />
     {{ getI18nName }}
   </span>
@@ -22,12 +23,14 @@
     setup(props) {
       const { prefixCls } = useDesign('basic-menu-item-content');
       const getI18nName = computed(() => t(props.item?.name));
-      const getIcon = computed(() => props.item?.icon);
+      const getIcon = computed(() => (props.item?.img ? undefined : props.item?.icon));
+      const getImg = computed(() => props.item?.img);
 
       return {
         prefixCls,
         getI18nName,
         getIcon,
+        getImg,
       };
     },
   });
