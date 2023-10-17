@@ -9,6 +9,7 @@
         <div v-for="item of baseFormItemProps" :key="item.name">
           <FormItem :label="item.label" v-if="showProps(item.exclude)">
             <component
+              v-if="item.component"
               class="component-props"
               v-bind="item.componentProps"
               :is="item.component"
@@ -19,6 +20,7 @@
         <div v-for="item of advanceFormItemProps" :key="item.name">
           <FormItem :label="item.label" v-if="showProps(item.exclude)">
             <component
+              v-if="item.component"
               class="component-props"
               v-bind="item.componentProps"
               :is="item.component"
@@ -28,6 +30,7 @@
         ><div v-for="item of advanceFormItemColProps" :key="item.name">
           <FormItem :label="item.label" v-if="showProps(item.exclude)">
             <component
+              v-if="item.component"
               class="component-props"
               v-bind="item.componentProps"
               :is="item.component"

@@ -31,7 +31,12 @@
     />
     <a-button type="primary" class="my-4" @click="handleCreatePrompt"> Prompt </a-button>
 
-    <component :is="currentModal" v-model:open="modalOpen" :userData="userData" />
+    <component
+      v-if="currentModal"
+      :is="currentModal"
+      v-model:open="modalOpen"
+      :userData="userData"
+    />
 
     <Modal1 @register="register1" :minHeight="100" />
     <Modal2 @register="register2" />
