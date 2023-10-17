@@ -36,8 +36,8 @@ importers:
         specifier: ^3.0.2
         version: 3.0.2
       ant-design-vue:
-        specifier: ^4.0.4
-        version: 4.0.4(vue@3.3.4)
+        specifier: ^4.0.5
+        version: 4.0.5(vue@3.3.4)
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -3433,8 +3433,8 @@ packages:
       warning: 4.0.3
     dev: true
 
-  /ant-design-vue@4.0.4(vue@3.3.4):
-    resolution: {integrity: sha512-AtGoIylQAU3bw4s3dKgYGrsI+CFobzGultkHiBEEoqmWLBVlblLlcSHagIjWpSqWwYLzJchwsIUgD6f5zXVeig==}
+  /ant-design-vue@4.0.5(vue@3.3.4):
+    resolution: {integrity: sha512-wZnT+on4fHWuoCABZ3f0ASN36nothzYsZ5Nn7ICwdwl/tJF/DmMnAqkverXqi98GVO1DQArfUs7jwNcR3b8DNA==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       vue: '>=3.2.0'
