@@ -42,7 +42,7 @@
     },
     inheritAttrs: false,
     props: {
-      value: { type: Object as PropType<SelectValue> },
+      value: { type: [Array, Object, String, Number] as PropType<SelectValue> },
       numberToString: propTypes.bool,
       api: {
         type: Function as PropType<(arg?: any) => Promise<OptionsItem[]>>,
