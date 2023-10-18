@@ -1,25 +1,17 @@
-// import { ComputedRef } from 'vue';
-// import { ThemeEnum } from '/@/enums/appEnum';
-// import { MenuModeEnum } from '/@/enums/menuEnum';
+export type Key = string | number;
 export interface MenuState {
   // 默认选中的列表
-  defaultSelectedKeys: string[];
-
-  // 模式
-  // mode: MenuModeEnum;
-
-  // // 主题
-  // theme: ComputedRef<ThemeEnum> | ThemeEnum;
+  defaultSelectedKeys: Key[];
 
   // 缩进
   inlineIndent?: number;
 
   // 展开数组
-  openKeys: string[];
+  openKeys: Key[];
 
   // 当前选中的菜单项 key 数组
-  selectedKeys: string[];
+  selectedKeys: Key[];
 
   // 收缩状态下展开的数组
-  collapsedOpenKeys: string[];
+  collapsedOpenKeys: Key[];
 }
