@@ -1,6 +1,6 @@
 import { MenuModeEnum } from '/@/enums/menuEnum';
 import type { Menu as MenuType } from '/@/router/types';
-import type { MenuState } from './types';
+import type { MenuState, Key } from './types';
 import { computed, Ref, toRaw, unref } from 'vue';
 import { useTimeoutFn } from '@vben/hooks';
 import { uniq } from 'lodash-es';
@@ -53,13 +53,13 @@ export function useOpenKeys(
     menuState.openKeys = [];
   }
 
-  function handleOpenChange(openKeys: string[]) {
+  function handleOpenChange(openKeys: Key[]) {
     if (unref(mode) === MenuModeEnum.HORIZONTAL || !unref(accordion) || unref(getIsMixSidebar)) {
       menuState.openKeys = openKeys;
     } else {
       // const menuList = toRaw(menus.value);
       // getAllParentPath(menuList, path);
-      const rootSubMenuKeys: string[] = [];
+      const rootSubMenuKeys: Key[] = [];
       for (const { children, path } of unref(menus)) {
         if (children && children.length > 0) {
           rootSubMenuKeys.push(path);
