@@ -9,7 +9,7 @@
 <script lang="ts">
   import { type Recordable, type AnyFunction } from '@vben/types';
   import { type PropType, computed, defineComponent, watch, ref, onMounted, unref } from 'vue';
-  import { Tree } from 'ant-design-vue';
+  import { Tree, TreeProps } from 'ant-design-vue';
   import { isArray, isFunction } from '/@/utils/is';
   import { get } from 'lodash-es';
   import { propTypes } from '/@/utils/propTypes';
@@ -25,7 +25,9 @@
       immediate: { type: Boolean, default: true },
       resultField: propTypes.string.def(''),
       afterFetch: { type: Function as PropType<AnyFunction> },
-      value: [Array, Object, String, Number],
+      value: {
+        type: Array as PropType<TreeProps['selectedKeys']>,
+      },
     },
     emits: ['options-change', 'change', 'update:value'],
     setup(props, { attrs, emit }) {

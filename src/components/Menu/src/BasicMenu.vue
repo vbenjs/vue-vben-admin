@@ -20,7 +20,7 @@
 <script lang="ts">
   import type { MenuState } from './types';
   import { computed, defineComponent, unref, reactive, watch, toRefs, ref } from 'vue';
-  import { Menu } from 'ant-design-vue';
+  import { Menu, MenuProps } from 'ant-design-vue';
   import BasicSubMenuItem from './components/BasicSubMenuItem.vue';
   import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
   import { useOpenKeys } from './useOpenKeys';
@@ -117,7 +117,7 @@
           },
         );
 
-      async function handleMenuClick({ key }: { key: string; keyPath: string[] }) {
+      const handleMenuClick: MenuProps['onClick'] = async ({ key }) => {
         const { beforeClickFn } = props;
         if (beforeClickFn && isFunction(beforeClickFn)) {
           const flag = await beforeClickFn(key);
@@ -127,7 +127,7 @@
 
         isClickGo.value = true;
         menuState.selectedKeys = [key];
-      }
+      };
 
       async function handleMenuChange(route?: RouteLocationNormalizedLoaded) {
         if (unref(isClickGo)) {
