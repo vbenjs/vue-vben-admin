@@ -145,7 +145,6 @@
       }
 
       function handleChange(_, ...args) {
-        emit('change', ...args);
         emitData.value = args;
       }
 
