@@ -39,8 +39,7 @@
                 </div>
               </template>
               <template #actions>
-                <!--              <SettingOutlined key="setting" />-->
-                <EditOutlined key="edit" />
+                <EditOutlined />
                 <Dropdown
                   :trigger="['hover']"
                   :dropMenuList="[
@@ -55,7 +54,7 @@
                   ]"
                   popconfirm
                 >
-                  <EllipsisOutlined key="ellipsis" />
+                  <EllipsisOutlined />
                 </Dropdown>
               </template>
 

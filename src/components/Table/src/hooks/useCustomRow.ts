@@ -3,10 +3,11 @@ import type { BasicTableProps } from '../types/table';
 import { unref } from 'vue';
 import { ROW_KEY } from '../const';
 import { isString, isFunction } from '/@/utils/is';
+import type { Key } from 'ant-design-vue/lib/table/interface';
 
 interface Options {
-  setSelectedRowKeys: (keys: string[]) => void;
-  getSelectRowKeys: () => string[];
+  setSelectedRowKeys: (keys: Key[]) => void;
+  getSelectRowKeys: () => Key[];
   clearSelectedRowKeys: () => void;
   emit: EmitType;
   getAutoCreateKey: ComputedRef<boolean | undefined>;

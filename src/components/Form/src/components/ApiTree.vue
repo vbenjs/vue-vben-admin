@@ -1,5 +1,5 @@
 <template>
-  <a-tree v-bind="getAttrs" @select="handleChange" v-model:selectedKeys="state">
+  <a-tree v-bind="getAttrs" v-model:selectedKeys="state">
     <template #[item]="data" v-for="item in Object.keys($slots)">
       <slot :name="item" v-bind="data || {}"></slot>
     </template>
@@ -9,7 +9,7 @@
 <script lang="ts">
   import { type Recordable, type AnyFunction } from '@vben/types';
   import { type PropType, computed, defineComponent, watch, ref, onMounted, unref } from 'vue';
-  import { Tree } from 'ant-design-vue';
+  import { Tree, TreeProps } from 'ant-design-vue';
   import { isArray, isFunction } from '/@/utils/is';
   import { get } from 'lodash-es';
   import { propTypes } from '/@/utils/propTypes';
@@ -25,7 +25,9 @@
       immediate: { type: Boolean, default: true },
       resultField: propTypes.string.def(''),
       afterFetch: { type: Function as PropType<AnyFunction> },
-      value: [Array, Object, String, Number],
+      value: {
+        type: Array as PropType<TreeProps['selectedKeys']>,
+      },
     },
     emits: ['options-change', 'change', 'update:value'],
     setup(props, { attrs, emit }) {
@@ -41,9 +43,6 @@
           ...attrs,
         };
       });
-      function handleChange(...args) {
-        emit('change', ...args);
-      }
 
       watch(
         () => state.value,
@@ -94,7 +93,7 @@
         isFirstLoaded.value = true;
         emit('options-change', treeData.value);
       }
-      return { getAttrs, loading, handleChange, state };
+      return { getAttrs, loading, state };
     },
   });
 </script>
