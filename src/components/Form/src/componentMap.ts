@@ -20,20 +20,18 @@ import {
   TimePicker,
   TreeSelect,
 } from 'ant-design-vue';
-import { BasicUpload } from '@/components/Upload';
-import { StrengthMeter } from '@/components/StrengthMeter';
-import { IconPicker } from '@/components/Icon';
-import { CountdownInput } from '@/components/CountDown';
-import {
-  ApiCascader,
-  ApiRadioGroup,
-  ApiSelect,
-  ApiTransfer,
-  ApiTree,
-  ApiTreeSelect,
-  ImageUpload,
-  RadioButtonGroup,
-} from '@/components/Form';
+import ApiRadioGroup from './components/ApiRadioGroup.vue';
+import RadioButtonGroup from './components/RadioButtonGroup.vue';
+import ApiSelect from './components/ApiSelect.vue';
+import ApiTree from './components/ApiTree.vue';
+import ApiTreeSelect from './components/ApiTreeSelect.vue';
+import ApiCascader from './components/ApiCascader.vue';
+import ApiTransfer from './components/ApiTransfer.vue';
+import ImageUpload from './components/ImageUpload.vue';
+import { BasicUpload } from '/@/components/Upload';
+import { StrengthMeter } from '/@/components/StrengthMeter';
+import { IconPicker } from '/@/components/Icon';
+import { CountdownInput } from '/@/components/CountDown';
 
 const componentMap = new Map<ComponentType, Component>();
 
