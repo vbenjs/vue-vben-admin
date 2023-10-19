@@ -697,6 +697,14 @@
         allowHalf: true,
       },
     },
+    {
+      field: 'field23',
+      component: 'ImageUpload',
+      label: '字段23',
+      colProps: {
+        span: 8,
+      },
+    },
   ];
 
   export default defineComponent({
