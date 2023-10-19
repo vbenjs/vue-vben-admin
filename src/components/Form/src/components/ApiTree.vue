@@ -1,5 +1,5 @@
 <template>
-  <a-tree v-bind="getAttrs" @select="handleChange" v-model:selectedKeys="state">
+  <a-tree v-bind="getAttrs" v-model:selectedKeys="state">
     <template #[item]="data" v-for="item in Object.keys($slots)">
       <slot :name="item" v-bind="data || {}"></slot>
     </template>
@@ -43,9 +43,6 @@
           ...attrs,
         };
       });
-      function handleChange(...args) {
-        emit('change', ...args);
-      }
 
       watch(
         () => state.value,
@@ -96,7 +93,7 @@
         isFirstLoaded.value = true;
         emit('options-change', treeData.value);
       }
-      return { getAttrs, loading, handleChange, state };
+      return { getAttrs, loading, state };
     },
   });
 </script>
