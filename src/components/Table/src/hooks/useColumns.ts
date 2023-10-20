@@ -9,6 +9,7 @@ import { isArray, isBoolean, isFunction, isMap, isString } from '/@/utils/is';
 import { cloneDeep, isEqual } from 'lodash-es';
 import { formatToDate } from '/@/utils/dateUtil';
 import { ACTION_COLUMN_FLAG, DEFAULT_ALIGN, INDEX_COLUMN_FLAG, PAGE_SIZE } from '../const';
+import { ColumnType } from 'ant-design-vue/es/table';
 
 function handleItem(item: BasicColumn, ellipsis: boolean) {
   const { key, dataIndex, children } = item;
@@ -265,7 +266,7 @@ export function useColumns(
   /**
    * 拖拽列宽修改列的宽度
    */
-  function setColumnWidth(w: number, col: BasicColumn) {
+  function setColumnWidth(w: number, col: ColumnType<BasicColumn>) {
     col.width = w;
   }
 
