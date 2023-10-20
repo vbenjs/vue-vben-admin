@@ -49,7 +49,7 @@ export function useMenuItem(instance: ComponentInternalInstance | null) {
         uidList: [],
         list: [],
       };
-    const ret: any[] = [];
+    const ret: ComponentInternalInstance[] = [];
     while (parent && parent.type.name !== 'Menu') {
       if (parent.type.name === 'SubMenu') {
         ret.push(parent);
