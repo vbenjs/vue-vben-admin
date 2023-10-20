@@ -8,5 +8,5 @@ export const TreeIcon = ({ icon }: { icon: VNode | string }) => {
   if (isString(icon)) {
     return h(Icon, { icon, class: 'mr-1' });
   }
-  return Icon;
+  return h(Icon);
 };
