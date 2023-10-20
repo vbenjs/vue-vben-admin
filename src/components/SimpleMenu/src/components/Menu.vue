@@ -21,7 +21,7 @@
 
   import { useDesign } from '/@/hooks/web/useDesign';
   import { propTypes } from '/@/utils/propTypes';
-  import { createSimpleRootMenuContext } from './useSimpleMenuContext';
+  import { createSimpleRootMenuContext, type MenuEmitterEvents } from './useSimpleMenuContext';
   import { mitt } from '/@/utils/mitt';
 
   export default defineComponent({
@@ -45,14 +45,7 @@
     },
     emits: ['select', 'open-change'],
     setup(props, { emit }) {
-      const rootMenuEmitter = mitt<{
-        'on-update-opened': (string | number)[];
-        'on-menu-item-select': string | number;
-        'open-name-change': {
-          name: string;
-          opened: boolean;
-        };
-      }>();
+      const rootMenuEmitter = mitt<MenuEmitterEvents>();
       const instance = getCurrentInstance();
 
       const currentActiveName = ref<string | number>('');
