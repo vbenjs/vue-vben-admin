@@ -33,6 +33,7 @@
   import { CreateContextOptions } from '/@/components/ContextMenu';
   import { treeEmits, treeProps } from './types/tree';
   import { createBEM } from '/@/utils/bem';
+  import type { TreeProps } from 'ant-design-vue/es/tree/Tree';
 
   export default defineComponent({
     name: 'BasicTree',
@@ -106,7 +107,7 @@
           },
           onRightClick: handleRightClick,
         };
-        return omit(propsData, 'treeData', 'class');
+        return omit(propsData, 'treeData', 'class') as TreeProps;
       });
 
       const getTreeData = computed((): TreeItem[] =>
