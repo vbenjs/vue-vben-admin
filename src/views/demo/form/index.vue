@@ -704,6 +704,17 @@
       colProps: {
         span: 8,
       },
+      componentProps: {
+        api: () => {
+          return Promise.resolve({
+            message: 'ok',
+            code: 200,
+            data: {
+              url: 'https://via.placeholder.com/600/92c952',
+            },
+          });
+        },
+      },
     },
   ];
 
