@@ -18,7 +18,7 @@
         </div>
       </div>
     </a-upload>
-    <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
+    <a-modal :open="previewOpen" :footer="null" @cancel="handleCancel">
       <img alt="example" style="width: 100%" :src="previewImage" />
     </a-modal>
   </div>
@@ -86,7 +86,7 @@
     setup(props, { emit }) {
       const attrs = useAttrs();
       const { t } = useI18n();
-      const previewVisible = ref(false);
+      const previewOpen = ref(false);
       const previewImage = ref('');
       const emitData = ref<any[] | any | undefined>();
       const fileList = ref<UploadFile[]>([]);
@@ -165,7 +165,7 @@
 
       /** 关闭查看 */
       const handleCancel = () => {
-        previewVisible.value = false;
+        previewOpen.value = false;
       };
 
       /** 查看图片 */
@@ -175,7 +175,7 @@
           file.preview = (await getBase64(file.originFileObj)) as string;
         }
         previewImage.value = file.url || file.preview;
-        previewVisible.value = true;
+        previewOpen.value = true;
       };
 
       /** 上传前校验 */
@@ -225,7 +225,7 @@
       }
 
       return {
-        previewVisible,
+        previewOpen,
         fileList,
         state,
         attrs,
