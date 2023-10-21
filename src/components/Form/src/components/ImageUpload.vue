@@ -33,7 +33,6 @@
   import { buildShortUUID } from '@/utils/uuid';
   import { isArray, isNotEmpty, isUrl } from '@/utils/is';
   import { useRuleFormItem } from '@/hooks/component/useFormItem';
-  import { uploadApi } from '@/api/sys/upload';
   import { useAttrs } from '@vben/hooks';
   import { PlusOutlined } from '@ant-design/icons-vue';
 
@@ -50,8 +49,8 @@
     props: {
       value: [Array, String],
       api: {
-        type: Function as PropType<(file: UploadFile) => Promise<any>>,
-        default: uploadApi,
+        type: Function as PropType<(file: UploadFile) => Promise<string>>,
+        default: null,
       },
       listType: {
         type: String as PropType<ImageUploadType>,
@@ -204,8 +203,8 @@
         const { file } = option;
         await props
           .api(option)
-          .then((res) => {
-            file.url = res.data.url;
+          .then((url) => {
+            file.url = url;
             file.status = 'done';
             fileList.value.pop();
             fileList.value.push(file);
