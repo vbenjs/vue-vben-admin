@@ -697,6 +697,17 @@
         allowHalf: true,
       },
     },
+    {
+      field: 'field23',
+      component: 'ImageUpload',
+      label: '字段23',
+      colProps: {
+        span: 8,
+      },
+      componentProps: {
+        api: () => Promise.resolve('https://via.placeholder.com/600/92c952'),
+      },
+    },
   ];
 
   export default defineComponent({
