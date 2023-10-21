@@ -173,6 +173,14 @@ const feat: AppRouteModule = {
       },
     },
     {
+      path: 'ellipsis',
+      name: 'EllipsisDemo',
+      component: () => import('/@/views/demo/feat/ellipsis/index.vue'),
+      meta: {
+        title: t('routes.demo.feat.ellipsis'),
+      },
+    },
+    {
       path: 'msg',
       name: 'MsgDemo',
       component: () => import('/@/views/demo/feat/msg/index.vue'),
