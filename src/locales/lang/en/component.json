@@ -107,7 +107,7 @@
     "fileName": "File name", 
     "fileSize": "File size", 
     "fileStatue": "File status", 
-    "noUpload": "No Upload",
+    "toBeUploaded": "To be uploaded",
     "startUpload": "Start upload", 
     "uploadSuccess": "Upload successfully", 
     "uploadError": "Upload failed", 

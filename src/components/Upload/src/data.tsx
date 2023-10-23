@@ -73,7 +73,7 @@ export function createTableColumns(): BasicColumn[] {
           return <Tag color="blue">{() => t('component.upload.uploading')}</Tag>;
         }
 
-        return text || t('component.upload.noUpload');
+        return text || t('component.upload.toBeUploaded');
       },
     },
   ];
