@@ -21,49 +21,52 @@
         const { columns, actionColumn, dataSource } = props;
         const columnList = [...columns, actionColumn];
         return (
-          <table class="file-table">
-            <colgroup>
-              {columnList.map((item) => {
-                const { width = 0, dataIndex } = item;
-                const style: CSSProperties = {
-                  width: `${width}px`,
-                  minWidth: `${width}px`,
-                };
-                return <col style={width ? style : {}} key={dataIndex} />;
-              })}
-            </colgroup>
-            <thead>
-              <tr class="file-table-tr">
+          // x scrollbar
+          <div class="overflow-x-auto">
+            <table class="file-table">
+              <colgroup>
                 {columnList.map((item) => {
-                  const { title = '', align = 'center', dataIndex } = item;
+                  const { width = 0, dataIndex } = item;
+                  const style: CSSProperties = {
+                    width: `${width}px`,
+                    minWidth: `${width}px`,
+                  };
+                  return <col style={width ? style : {}} key={dataIndex} />;
+                })}
+              </colgroup>
+              <thead>
+                <tr class="file-table-tr">
+                  {columnList.map((item) => {
+                    const { title = '', align = 'center', dataIndex } = item;
+                    return (
+                      <th class={['file-table-th', align]} key={dataIndex}>
+                        {title}
+                      </th>
+                    );
+                  })}
+                </tr>
+              </thead>
+              <tbody>
+                {dataSource.map((record = {}, index) => {
                   return (
-                    <th class={['file-table-th', align]} key={dataIndex}>
-                      {title}
-                    </th>
+                    <tr class="file-table-tr" key={`${index + record.name || ''}`}>
+                      {columnList.map((item) => {
+                        const { dataIndex = '', customRender, align = 'center' } = item;
+                        const render = customRender && isFunction(customRender);
+                        return (
+                          <td class={['file-table-td break-all', align]} key={dataIndex}>
+                            {render
+                              ? customRender?.({ text: record[dataIndex], record })
+                              : record[dataIndex]}
+                          </td>
+                        );
+                      })}
+                    </tr>
                   );
                 })}
-              </tr>
-            </thead>
-            <tbody>
-              {dataSource.map((record = {}, index) => {
-                return (
-                  <tr class="file-table-tr" key={`${index + record.name || ''}`}>
-                    {columnList.map((item) => {
-                      const { dataIndex = '', customRender, align = 'center' } = item;
-                      const render = customRender && isFunction(customRender);
-                      return (
-                        <td class={['file-table-td', align]} key={dataIndex}>
-                          {render
-                            ? customRender?.({ text: record[dataIndex], record })
-                            : record[dataIndex]}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         );
       };
     },
