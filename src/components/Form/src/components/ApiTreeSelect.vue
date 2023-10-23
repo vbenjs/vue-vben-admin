@@ -1,5 +1,10 @@
 <template>
-  <a-tree-select v-bind="getAttrs" @change="handleChange" :field-names="fieldNames">
+  <a-tree-select
+    v-bind="getAttrs"
+    @change="handleChange"
+    :field-names="fieldNames"
+    :load-data="async ? onLoadData : undefined"
+  >
     <template #[item]="data" v-for="item in Object.keys($slots)">
       <slot :name="item" v-bind="data || {}"></slot>
     </template>
@@ -25,12 +30,13 @@
       api: { type: Function as PropType<(arg?: Recordable<any>) => Promise<Recordable<any>>> },
       params: { type: Object },
       immediate: { type: Boolean, default: true },
+      async: { type: Boolean, default: false },
       resultField: propTypes.string.def(''),
       labelField: propTypes.string.def('title'),
       valueField: propTypes.string.def('value'),
       childrenField: propTypes.string.def('children'),
     },
-    emits: ['options-change', 'change'],
+    emits: ['options-change', 'change', 'load-data'],
     setup(props, { attrs, emit }) {
       const treeData = ref<Recordable<any>[]>([]);
       const isFirstLoaded = ref<Boolean>(false);
@@ -70,6 +76,16 @@
         props.immediate && fetch();
       });
 
+      function onLoadData(treeNode) {
+        return new Promise((resolve: (value?: unknown) => void) => {
+          if (isArray(treeNode.children) && treeNode.children.length > 0) {
+            resolve();
+            return;
+          }
+          emit('load-data', { treeData, treeNode, resolve });
+        });
+      }
+
       async function fetch() {
         const { api } = props;
         if (!api || !isFunction(api) || loading.value) return;
@@ -90,7 +106,7 @@
         isFirstLoaded.value = true;
         emit('options-change', treeData.value);
       }
-      return { getAttrs, loading, handleChange, fieldNames };
+      return { getAttrs, loading, handleChange, fieldNames, onLoadData };
     },
   });
 </script>
