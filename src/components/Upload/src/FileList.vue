@@ -54,7 +54,7 @@
                         const { dataIndex = '', customRender, align = 'center' } = item;
                         const render = customRender && isFunction(customRender);
                         return (
-                          <td class={['file-table-td', align]} key={dataIndex}>
+                          <td class={['file-table-td break-all', align]} key={dataIndex}>
                             {render
                               ? customRender?.({ text: record[dataIndex], record })
                               : record[dataIndex]}
