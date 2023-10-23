@@ -4,6 +4,7 @@
     "onlineDocument": "Document"
   }, 
   "header": {
+    "dropdownChangeApi": "Change Api", 
     "dropdownItemDoc": "Document", 
     "dropdownItemLoginOut": "Log Out", 
     "tooltipErrorLog": "Error log", 

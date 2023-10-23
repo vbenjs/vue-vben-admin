@@ -19,6 +19,7 @@
         />
         <MenuDivider v-if="getShowDoc" />
         <MenuItem
+          v-if="getShowApi"
           key="api"
           :text="t('layout.header.dropdownChangeApi')"
           icon="ant-design:swap-outlined"
@@ -79,7 +80,7 @@
     setup() {
       const { prefixCls } = useDesign('header-user-dropdown');
       const { t } = useI18n();
-      const { getShowDoc, getUseLockPage } = useHeaderSetting();
+      const { getShowDoc, getUseLockPage, getShowApi } = useHeaderSetting();
       const userStore = useUserStore();
 
       const getUserInfo = computed(() => {
@@ -131,6 +132,7 @@
         getUserInfo,
         handleMenuClick,
         getShowDoc,
+        getShowApi,
         register,
         registerApi,
         getUseLockPage,

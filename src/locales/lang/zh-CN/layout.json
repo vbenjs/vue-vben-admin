@@ -4,6 +4,7 @@
     "onlineDocument": "在线文档"
   }, 
   "header": {
+    "dropdownChangeApi": "切换API", 
     "dropdownItemDoc": "文档", 
     "dropdownItemLoginOut": "退出系统", 
     "tooltipErrorLog": "错误日志", 
