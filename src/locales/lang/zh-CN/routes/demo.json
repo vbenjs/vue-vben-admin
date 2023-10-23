@@ -62,6 +62,7 @@
     "clickOutSide": "ClickOutSide组件", 
     "imgPreview": "图片预览", 
     "copy": "剪切板", 
+    "ellipsis": "文本省略", 
     "msg": "消息提示", 
     "watermark": "水印", 
     "ripple": "水波纹", 

@@ -62,6 +62,7 @@
     "clickOutSide": "ClickOutSide", 
     "imgPreview": "Picture Preview", 
     "copy": "Clipboard", 
+    "ellipsis": "EllipsisText", 
     "msg": "Message prompt", 
     "watermark": "Watermark", 
     "ripple": "Ripple", 
