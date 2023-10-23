@@ -38,12 +38,12 @@ export function createTableColumns(): BasicColumn[] {
           status = 'success';
         }
         return (
-          <span>
-            <p class="truncate mb-1" title={text}>
+          <div>
+            <p class="truncate mb-1 max-w-[280px]" title={text}>
               {text}
             </p>
             <Progress percent={percent} size="small" status={status} />
-          </span>
+          </div>
         );
       },
     },
@@ -73,7 +73,7 @@ export function createTableColumns(): BasicColumn[] {
           return <Tag color="blue">{() => t('component.upload.uploading')}</Tag>;
         }
 
-        return text;
+        return text || t('component.upload.noUpload');
       },
     },
   ];
