@@ -1,9 +1,6 @@
 import type { BasicColumn, ActionItem } from '/@/components/Table';
-import { FileItem, PreviewFileItem, UploadResultStatus } from './typing';
-import {
-  // checkImgType,
-  isImgTypeByName,
-} from './helper';
+import { FileBasicColumn, FileItem, PreviewFileItem, UploadResultStatus } from './typing';
+import { isImgTypeByName } from './helper';
 import { Progress, Tag } from 'ant-design-vue';
 import TableAction from '/@/components/Table/src/components/TableAction.vue';
 import ThumbUrl from './ThumbUrl.vue';
@@ -12,7 +9,7 @@ import { useI18n } from '/@/hooks/web/useI18n';
 const { t } = useI18n();
 
 // 文件上传列表
-export function createTableColumns(): BasicColumn[] {
+export function createTableColumns(): FileBasicColumn[] {
   return [
     {
       dataIndex: 'thumbUrl',
@@ -55,11 +52,6 @@ export function createTableColumns(): BasicColumn[] {
         return text && (text / 1024).toFixed(2) + 'KB';
       },
     },
-    // {
-    //   dataIndex: 'type',
-    //   title: '文件类型',
-    //   width: 100,
-    // },
     {
       dataIndex: 'status',
       title: t('component.upload.fileStatue'),
@@ -73,12 +65,12 @@ export function createTableColumns(): BasicColumn[] {
           return <Tag color="blue">{() => t('component.upload.uploading')}</Tag>;
         }
 
-        return text || t('component.upload.toBeUploaded');
+        return text || t('component.upload.pending');
       },
     },
   ];
 }
-export function createActionColumn(handleRemove: Function): BasicColumn {
+export function createActionColumn(handleRemove: Function): FileBasicColumn {
   return {
     width: 120,
     title: t('component.upload.operating'),
@@ -92,12 +84,6 @@ export function createActionColumn(handleRemove: Function): BasicColumn {
           onClick: handleRemove.bind(null, record),
         },
       ];
-      // if (checkImgType(record)) {
-      //   actions.unshift({
-      //     label: t('component.upload.preview'),
-      //     onClick: handlePreview.bind(null, record),
-      //   });
-      // }
       return <TableAction actions={actions} outside={true} />;
     },
   };

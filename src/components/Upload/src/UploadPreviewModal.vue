@@ -12,7 +12,6 @@
 </template>
 <script lang="ts">
   import { defineComponent, watch, ref } from 'vue';
-  //   import { BasicTable, useTable } from '/@/components/Table';
   import FileList from './FileList.vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { previewProps } from './props';
@@ -60,14 +59,6 @@
           );
         }
       }
-
-      // // 预览
-      // function handlePreview(record: PreviewFileItem) {
-      //   const { url = '' } = record;
-      //   createImgPreview({
-      //     imageList: [url],
-      //   });
-      // }
 
       // 下载
       function handleDownload(record: PreviewFileItem) {
