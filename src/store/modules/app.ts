@@ -5,13 +5,13 @@ import type {
   TransitionSetting,
   MultiTabsSetting,
 } from '/#/config';
-import type { BeforeMiniState } from '/#/store';
+import type { BeforeMiniState, ApiAddress } from '/#/store';
 
 import { defineStore } from 'pinia';
 import { store } from '/@/store';
 
 import { ThemeEnum } from '/@/enums/appEnum';
-import { APP_DARK_MODE_KEY, PROJ_CFG_KEY } from '/@/enums/cacheEnum';
+import { APP_DARK_MODE_KEY, PROJ_CFG_KEY, API_ADDRESS } from '/@/enums/cacheEnum';
 import { Persistent } from '/@/utils/cache/persistent';
 import { darkMode } from '/@/settings/designSetting';
 import { resetRouter } from '/@/router';
@@ -63,6 +63,9 @@ export const useAppStore = defineStore({
     getMultiTabsSetting(): MultiTabsSetting {
       return this.getProjectConfig.multiTabsSetting;
     },
+    getApiAddress() {
+      return JSON.parse(localStorage.getItem(API_ADDRESS) || '{}');
+    },
   },
   actions: {
     setPageLoading(loading: boolean): void {
@@ -102,6 +105,9 @@ export const useAppStore = defineStore({
         this.setPageLoading(loading);
         clearTimeout(timeId);
       }
+    },
+    setApiAddress(config: ApiAddress): void {
+      localStorage.setItem(API_ADDRESS, JSON.stringify(config));
     },
   },
 });
