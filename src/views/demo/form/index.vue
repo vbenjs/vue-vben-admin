@@ -283,6 +283,35 @@
       renderComponentContent: 'Check',
     },
     {
+      field: 'field8-1',
+      component: 'AllCheckboxGroup',
+      label: '字段8-1',
+      defaultValue: ['Apple'],
+      required: true,
+      componentProps: {
+        options: [
+          {
+            label: 'Apple',
+            value: 'Apple',
+          },
+          {
+            label: 'Pear',
+            value: 'Pear',
+          },
+          {
+            label: 'Orange',
+            value: 'Orange',
+          },
+        ],
+        onChange: (value) => {
+          console.log('AllCheckboxGroup====>:', value);
+        },
+      },
+      colProps: {
+        span: 8,
+      },
+    },
+    {
       field: 'field9',
       component: 'Switch',
       label: '字段9',
@@ -398,7 +427,7 @@
       defaultValue: '0',
     },
     {
-      field: 'field8',
+      field: 'field30-1',
       component: 'ApiCascader',
       label: '联动ApiCascader',
       required: true,
@@ -464,7 +493,7 @@
       },
     },
     {
-      field: 'field33',
+      field: 'field33-1',
       component: 'ApiTreeSelect',
       label: '远程懒加载下拉树',
       helpMessage: ['ApiTreeSelect组件', '使用接口提供的数据生成选项'],

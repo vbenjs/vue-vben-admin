@@ -98,6 +98,7 @@ export type ComponentType =
   | 'RadioGroup'
   | 'Checkbox'
   | 'CheckboxGroup'
+  | 'AllCheckboxGroup'
   | 'AutoComplete'
   | 'ApiCascader'
   | 'Cascader'

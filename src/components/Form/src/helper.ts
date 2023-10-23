@@ -84,6 +84,7 @@ export const NO_AUTO_LINK_COMPONENTS: ComponentType[] = [
   'ApiTreeSelect',
   'ApiRadioGroup',
   'ApiCascader',
+  'AllCheckboxGroup',
   'AutoComplete',
   'RadioButtonGroup',
   'ImageUpload',

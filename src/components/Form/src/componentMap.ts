@@ -22,6 +22,7 @@ import {
 } from 'ant-design-vue';
 import ApiRadioGroup from './components/ApiRadioGroup.vue';
 import RadioButtonGroup from './components/RadioButtonGroup.vue';
+import AllCheckboxGroup from './components/AllCheckboxGroup.vue';
 import ApiSelect from './components/ApiSelect.vue';
 import ApiTree from './components/ApiTree.vue';
 import ApiTreeSelect from './components/ApiTreeSelect.vue';
@@ -54,6 +55,7 @@ componentMap.set('RadioButtonGroup', RadioButtonGroup);
 componentMap.set('RadioGroup', Radio.Group);
 componentMap.set('Checkbox', Checkbox);
 componentMap.set('CheckboxGroup', Checkbox.Group);
+componentMap.set('AllCheckboxGroup', AllCheckboxGroup);
 componentMap.set('ApiCascader', ApiCascader);
 componentMap.set('Cascader', Cascader);
 componentMap.set('Slider', Slider);
