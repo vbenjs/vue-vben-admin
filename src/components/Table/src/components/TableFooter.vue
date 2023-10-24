@@ -21,6 +21,7 @@
   import { INDEX_COLUMN_FLAG } from '../const';
   import { propTypes } from '/@/utils/propTypes';
   import { useTableContext } from '../hooks/useTableContext';
+  import { ColumnType } from 'ant-design-vue/es/table/interface';
 
   const SUMMARY_ROW_KEY = '_row';
   const SUMMARY_INDEX_KEY = '_index';
@@ -86,7 +87,7 @@
             customRender: ({ record }) => record[SUMMARY_ROW_KEY],
           });
         }
-        return columns;
+        return columns as unknown as ColumnType[];
       });
       return { getColumns, getDataSource };
     },
