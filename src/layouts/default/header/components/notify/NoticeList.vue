@@ -60,13 +60,22 @@
   import { List, Avatar, Tag, Typography } from 'ant-design-vue';
   import { isNumber } from '/@/utils/is';
 
+  // types
+  import type { StyleValue } from '/@/utils/types';
+  import type { FunctionalComponent } from 'vue';
+  import type { ParagraphProps } from 'ant-design-vue/es/typography/Paragraph';
+
   export default defineComponent({
     components: {
       [Avatar.name]: Avatar,
       [List.name]: List,
       [List.Item.name]: List.Item,
       AListItemMeta: List.Item.Meta,
-      ATypographyParagraph: Typography.Paragraph,
+      ATypographyParagraph: Typography.Paragraph as FunctionalComponent<
+        ParagraphProps & {
+          style?: StyleValue;
+        }
+      >,
       [Tag.name]: Tag,
     },
     props: {
