@@ -170,14 +170,10 @@ docker run --name vue-vben-admin -d -p 6666:80  -e VG_BASE_URL=http://localhost:
 ## 维护者
 
 [@Vben](https://github.com/anncwb)
+[@Jinmao](https://github.com/jinmao88)
 
-## 捐赠
-
-如果你觉得这个项目对你有帮助，你可以帮作者买一杯咖啡表示支持!
-
-![donate](https://anncwb.github.io/anncwb/images/sponsor.png)
-
-<a style="display: block;width: 100px;height: 50px;line-height: 50px; color: #fff;text-align: center; background: #408aed;border-radius: 4px;" href="https://www.paypal.com/paypalme/cvvben">Paypal Me</a>
+## 感谢
+<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains Logo (Main) logo." height='120'>
 
 ## 交流
 
