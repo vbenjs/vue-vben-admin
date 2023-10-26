@@ -89,10 +89,12 @@ export const accountFormSchema: FormSchema[] = [
         message: '请输入用户名',
       },
       {
+        trigger: 'blur',
         validator(_, value) {
           return new Promise((resolve, reject) => {
+            if (!value) return resolve();
             isAccountExist(value)
-              .then(() => resolve())
+              .then(resolve)
               .catch((err) => {
                 reject(err.message || '验证失败');
               });
