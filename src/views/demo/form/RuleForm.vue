@@ -192,10 +192,12 @@
           message: '请输入数据',
         },
         {
+          trigger: 'blur',
           validator(_, value) {
             return new Promise((resolve, reject) => {
+              if (!value) return resolve();
               isAccountExist(value)
-                .then(() => resolve())
+                .then(resolve)
                 .catch((err) => {
                   reject(err.message || '验证失败');
                 });
