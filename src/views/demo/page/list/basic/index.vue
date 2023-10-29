@@ -94,14 +94,14 @@
 
         div {
           margin-bottom: 12px;
-          color: @text-color;
+          color: @text-color-base;
           font-size: 14px;
           line-height: 22px;
         }
 
         p {
           margin: 0;
-          color: @text-color;
+          color: @text-color-base;
           font-size: 24px;
           line-height: 32px;
         }
