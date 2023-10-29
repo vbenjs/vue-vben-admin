@@ -17,7 +17,7 @@
   }
 }
 
-.vben-basic-modal-wrap .ant-modal {
+.ant-modal {
   width: 520px;
   padding-bottom: 0;
 
@@ -52,20 +52,26 @@
 
   &-header {
     padding: 16px;
+    border-bottom: 1px solid @border-color-base;
   }
 
   &-content {
-    padding: 12px 8px !important;
+    padding: 0 !important;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
   }
 
   &-footer {
+    padding: 10px 16px;
+    border-top: 1px solid @border-color-base;
+
     button + button {
       margin-left: 10px;
     }
   }
 
   &-close {
+    top: 0 !important;
+    right: 0 !important;
     width: auto !important;
     outline: none;
     background: transparent !important;
@@ -81,8 +87,6 @@
 
   &-confirm-body {
     .ant-modal-confirm-content {
-      // color: #fff;
-
       > * {
         color: @text-color-help-dark;
       }
