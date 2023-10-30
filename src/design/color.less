@@ -1,4 +1,10 @@
 html {
+  // text
+  --text-color: rgb(0 0 0 85%);
+
+  // border
+  --border-color: #eee;
+
   // header
   --header-bg-color: #394664;
   --header-bg-hover-color: #273352;
@@ -8,11 +14,23 @@ html {
   --sider-dark-bg-color: #273352;
   --sider-dark-darken-bg-color: #273352;
   --sider-dark-lighten-bg-color: #273352;
+
+  // component
+  --component-background-color: #fff;
+
+  // app
+  --app-content-background-color: #fafafa;
 }
 
 @white: #fff;
 
 @content-bg: #f4f7f9;
+
+@border-color-base: var(--border-color);
+
+@text-color-secondary: #8b949e;
+
+@component-background: var(--component-background-color);
 
 // :export {
 //   name: "less";
@@ -50,7 +68,6 @@ html {
 // =================================
 // ==============Header=============
 // =================================
-
 @header-dark-bg-color: var(--header-bg-color);
 @header-dark-bg-hover-color: var(--header-bg-hover-color);
 @header-light-bg-hover-color: #f6f6f6;
@@ -91,7 +108,12 @@ html {
 // =================================
 
 // Main text color
-@text-color-base: @text-color;
+@text-color-base: var(--text-color);
+
+// =================================
+// ==============app content color-=============
+// =================================
+@app-content-background: var(--app-content-background-color);
 
 // Label color
 @text-color-call-out: #606266;

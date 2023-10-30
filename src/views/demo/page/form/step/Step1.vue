@@ -79,20 +79,20 @@
 
     h3 {
       margin: 0 0 12px;
-      color: @text-color;
+      color: @text-color-base;
       font-size: 16px;
       line-height: 32px;
     }
 
     h4 {
       margin: 0 0 4px;
-      color: @text-color;
+      color: @text-color-base;
       font-size: 14px;
       line-height: 22px;
     }
 
     p {
-      color: @text-color;
+      color: @text-color-base;
     }
   }
 
