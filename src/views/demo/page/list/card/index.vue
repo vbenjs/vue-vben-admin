@@ -82,7 +82,7 @@
 
       &-title {
         margin-bottom: 5px;
-        color: @text-color;
+        color: @text-color-base;
         font-size: 16px;
         font-weight: 500;
 

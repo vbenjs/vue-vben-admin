@@ -6,7 +6,14 @@ import type { ProjectConfig } from '/#/config';
 import { PROJ_CFG_KEY } from '/@/enums/cacheEnum';
 import projectSetting from '/@/settings/projectSetting';
 
-import { updateHeaderBgColor, updateSidebarBgColor } from '/@/logics/theme/updateBackground';
+import {
+  updateTextColor,
+  updateBorderColor,
+  updateHeaderBgColor,
+  updateSidebarBgColor,
+  updateComponentBgColor,
+  updateAppContentBgColor,
+} from '/@/logics/theme/updateBackground';
 import { updateColorWeak } from '/@/logics/theme/updateColorWeak';
 import { updateGrayMode } from '/@/logics/theme/updateGrayMode';
 import { updateDarkTheme } from '/@/logics/theme/dark';
@@ -44,6 +51,10 @@ export function initAppConfigStore() {
 
   // init dark mode
   updateDarkTheme(darkMode);
+  updateTextColor();
+  updateBorderColor();
+  updateComponentBgColor();
+  updateAppContentBgColor();
   if (darkMode === ThemeEnum.DARK) {
     updateHeaderBgColor();
     updateSidebarBgColor();
