@@ -111,6 +111,10 @@ export function useFormEvents({
    * @description: Set form value
    */
   async function setFieldsValue(values: Recordable): Promise<void> {
+    if (Object.keys(values).length === 0) {
+      return;
+    }
+
     const fields = getAllFields();
 
     // key 支持 a.b.c 的嵌套写法
