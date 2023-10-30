@@ -32,7 +32,7 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { propTypes } from '/@/utils/propTypes';
 
-  type OptionsItem = { label: string; value: string; disabled?: boolean };
+  type OptionsItem = { label?: string; value?: string; disabled?: boolean; [name: string]: any };
 
   export default defineComponent({
     name: 'ApiSelect',
