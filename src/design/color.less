@@ -1,6 +1,6 @@
 html {
   // text
-  --text-color: rgb(0 0 0 85%);
+  --text-color: rgba(0 0 0 85%);
 
   // border
   --border-color: #eee;
@@ -20,6 +20,9 @@ html {
 
   // app
   --app-content-background-color: #fafafa;
+
+  // custom color example
+  --custom-example-color: #ff4d4f;
 }
 
 @white: #fff;
@@ -40,7 +43,7 @@ html {
 @iconify-bg-color: #5551;
 
 // =================================
-// ==============border-color=======
+// =========border-color============
 // =================================
 
 // Dark-dark
@@ -53,7 +56,7 @@ html {
 @border-color-light: @border-color-base;
 
 // =================================
-// ==============message==============
+// ============message==============
 // =================================
 
 // success-bg-color
@@ -77,7 +80,7 @@ html {
 @top-menu-active-bg-color: var(--header-active-menu-bg-color);
 
 // =================================
-// ==============Menu============
+// ==============Menu===============
 // =================================
 
 // let -menu
@@ -90,7 +93,7 @@ html {
 @trigger-dark-bg-color: rgba(255, 255, 255, 0.1);
 
 // =================================
-// ==============tree============
+// ==============tree===============
 // =================================
 // tree item hover background
 @tree-hover-background-color: #f5f7fa;
@@ -98,20 +101,20 @@ html {
 @tree-hover-font-color: #f5f7fa;
 
 // =================================
-// ==============link============
+// ==============link===============
 // =================================
 @link-hover-color: @primary-color;
 @link-active-color: darken(@primary-color, 10%);
 
 // =================================
-// ==============Text color-=============
+// ===========Text color============
 // =================================
 
 // Main text color
 @text-color-base: var(--text-color);
 
 // =================================
-// ==============app content color-=============
+// =======app content color=========
 // =================================
 @app-content-background: var(--app-content-background-color);
 
@@ -122,7 +125,7 @@ html {
 @text-color-help-dark: #909399;
 
 // =================================
-// ==============breadcrumb=========
+// ============breadcrumb===========
 // =================================
 @breadcrumb-item-normal-color: #999;
 // =================================
@@ -158,3 +161,8 @@ html {
 @button-cancel-hover-color: @primary-color;
 @button-cancel-hover-bg-color: @white;
 @button-cancel-hover-border-color: @primary-color;
+
+// =================================
+// =====custom color example========
+// =================================
+@custom-example-color: var(--custom-example-color);

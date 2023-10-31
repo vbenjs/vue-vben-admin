@@ -8,18 +8,11 @@
 <script lang="ts" setup>
   import { computed, unref } from 'vue';
   import { SvgIcon } from '/@/components/Icon';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useRootSetting } from '/@/hooks/setting/useRootSetting';
-  import {
-    updateTextColor,
-    updateBorderColor,
-    updateHeaderBgColor,
-    updateSidebarBgColor,
-    updateComponentBgColor,
-    updateAppContentBgColor,
-  } from '/@/logics/theme/updateBackground';
-  import { updateDarkTheme } from '/@/logics/theme/dark';
   import { ThemeEnum } from '/@/enums/appEnum';
+  import { useRootSetting } from '/@/hooks/setting/useRootSetting';
+  import { useDesign } from '/@/hooks/web/useDesign';
+  import { updateDarkTheme } from '/@/logics/theme/dark';
+  import { updateHeaderBgColor, updateSidebarBgColor } from '/@/logics/theme/updateBackground';
 
   const { prefixCls } = useDesign('dark-switch');
   const { getDarkMode, setDarkMode, getShowDarkModeToggle } = useRootSetting();
@@ -37,12 +30,8 @@
     const darkMode = getDarkMode.value === ThemeEnum.DARK ? ThemeEnum.LIGHT : ThemeEnum.DARK;
     setDarkMode(darkMode);
     updateDarkTheme(darkMode);
-    updateTextColor();
-    updateBorderColor();
     updateHeaderBgColor();
     updateSidebarBgColor();
-    updateComponentBgColor();
-    updateAppContentBgColor();
   }
 </script>
 <style lang="less" scoped>
@@ -72,9 +61,7 @@
       z-index: 1;
       width: 18px;
       height: 18px;
-      transition:
-        transform 0.5s,
-        background-color 0.5s;
+      transition: transform 0.5s, background-color 0.5s;
       border-radius: 50%;
       background-color: #fff;
       will-change: transform;
