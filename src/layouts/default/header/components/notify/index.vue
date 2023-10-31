@@ -23,11 +23,11 @@
   </div>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, ref } from 'vue';
-  import { Popover, Tabs, Badge } from 'ant-design-vue';
   import { BellOutlined } from '@ant-design/icons-vue';
-  import { tabListData, ListItem } from './data';
+  import { Badge, Popover, Tabs } from 'ant-design-vue';
+  import { computed, defineComponent, ref } from 'vue';
   import NoticeList from './NoticeList.vue';
+  import { ListItem, tabListData } from './data';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useMessage } from '/@/hooks/web/useMessage';
 
@@ -80,6 +80,10 @@
       display: flex;
       align-items: center;
       font-size: 18px;
+
+      .ant-badge-dot {
+        background: @custom-example-color;
+      }
 
       .ant-badge-multiple-words {
         padding: 0 4px;
