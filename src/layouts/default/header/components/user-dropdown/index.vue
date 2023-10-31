@@ -19,7 +19,6 @@
         />
         <MenuDivider v-if="getShowDoc" />
         <MenuItem
-          v-if="getShowApi"
           key="api"
           :text="t('layout.header.dropdownChangeApi')"
           icon="ant-design:swap-outlined"
