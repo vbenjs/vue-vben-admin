@@ -14,7 +14,7 @@ export type CustomColorType = {
 export const customColorList: CustomColorType[] = [
   {
     name: '--text-color',
-    light: 'rgb(0 0 0 85%)',
+    light: 'rgb(0,0,0,85%)',
     dark: '#c9d1d9',
   },
   {
