@@ -30,7 +30,7 @@ export const customColorList: CustomColorType[] = [
   {
     name: '--app-content-background-color',
     light: '#fafafa',
-    dark: '#151515',
+    dark: '#1e1e1e',
   },
   // custom example
   {
