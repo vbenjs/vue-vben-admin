@@ -162,7 +162,7 @@
       display: inline-block !important;
     }
 
-    &-item {
+    .list-item {
       padding: 6px;
       overflow: hidden;
       transition: all 0.3s;
