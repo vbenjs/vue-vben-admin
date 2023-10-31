@@ -164,13 +164,15 @@ Support modern browsers, not IE
 
 ## Maintainer
 
-[@Vben](https://github.com/anncwb)
-[@Jinmao](https://github.com/jinmao88)
+[@Vben](https://github.com/anncwb) [@Jinmao](https://github.com/jinmao88)
 
 ## Thanks
 
 <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains Logo (Main) logo." height="120">
 
+## Star History Chart
+
+[![Star History Chart](https://api.star-history.com/svg?repos=vbenjs/vue-vben-admin&type=Date)](https://star-history.com/#vbenjs/vue-vben-admin&Date)
 
 ## License
 
