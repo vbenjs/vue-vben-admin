@@ -182,21 +182,21 @@
             margin-right: 0;
           }
         }
+      }
 
-        .avatar {
-          margin-top: 4px;
-        }
+      .avatar {
+        margin-top: 4px;
+      }
 
-        .description {
-          font-size: 12px;
-          line-height: 18px;
-        }
+      .description {
+        font-size: 12px;
+        line-height: 18px;
+      }
 
-        .datetime {
-          margin-top: 4px;
-          font-size: 12px;
-          line-height: 18px;
-        }
+      .datetime {
+        margin-top: 4px;
+        font-size: 12px;
+        line-height: 18px;
       }
     }
   }
