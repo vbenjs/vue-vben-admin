@@ -24,6 +24,15 @@ const system: AppRouteModule = {
       component: () => import('/@/views/demo/system/account/index.vue'),
     },
     {
+      path: 'vxeTableAccount',
+      name: 'VxeTableAccountManagement',
+      meta: {
+        title: t('routes.demo.system.vxeTableAccount'),
+        ignoreKeepAlive: false,
+      },
+      component: () => import('/@/views/demo/system/vxe-account/index.vue'),
+    },
+    {
       path: 'account_detail/:id',
       name: 'AccountDetail',
       meta: {
