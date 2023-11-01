@@ -127,6 +127,8 @@
           console.warn(error);
         } finally {
           loading.value = false;
+          // reset status
+          isFirstLoaded.value = false;
         }
       }
 
