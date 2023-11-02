@@ -39,7 +39,13 @@
         </a-button>
       </Upload>
     </div>
-    <FileList :dataSource="fileListRef" :columns="columns" :actionColumn="actionColumn" />
+    <FileList
+      v-model:dataSource="fileListRef"
+      :columns="columns"
+      :actionColumn="actionColumn"
+      :openDrag="fileListOpenDrag"
+      :dragOptions="fileListDragOptions"
+    />
   </BasicModal>
 </template>
 <script lang="ts">
