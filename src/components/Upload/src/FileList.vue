@@ -1,14 +1,17 @@
 <script lang="tsx">
-  import { defineComponent, CSSProperties, watch, nextTick } from 'vue';
   import { fileListProps } from './props';
-  import { isFunction } from '/@/utils/is';
+  import { isFunction, isDef } from '/@/utils/is';
+  import { useSortable } from '/@/hooks/web/useSortable';
   import { useModalContext } from '/@/components/Modal/src/hooks/useModalContext';
+  import { defineComponent, CSSProperties, watch, nextTick, ref, onMounted } from 'vue';
 
   export default defineComponent({
     name: 'FileList',
     props: fileListProps,
-    setup(props) {
+    setup(props, { emit }) {
       const modalFn = useModalContext();
+      const sortableContainer = ref<HTMLTableSectionElement>();
+
       watch(
         () => props.dataSource,
         () => {
@@ -17,6 +20,35 @@
           });
         },
       );
+
+      if (props.openDrag) {
+        onMounted(() =>
+          useSortable(sortableContainer, {
+            ...props.dragOptions,
+            onEnd: ({ oldIndex, newIndex }) => {
+              // position unchanged
+              if (oldIndex === newIndex) {
+                return;
+              }
+              const { onAfterEnd } = props.dragOptions;
+
+              if (isDef(oldIndex) && isDef(newIndex)) {
+                const data = [...props.dataSource];
+
+                const [oldItem] = data.splice(oldIndex, 1);
+                data.splice(newIndex, 0, oldItem);
+
+                nextTick(() => {
+                  emit('update:dataSource', data);
+
+                  isFunction(onAfterEnd) && onAfterEnd(data);
+                });
+              }
+            },
+          }).initSortable(),
+        );
+      }
+
       return () => {
         const { columns, actionColumn, dataSource } = props;
         const columnList = [...columns, actionColumn];
@@ -46,7 +78,7 @@
                   })}
                 </tr>
               </thead>
-              <tbody>
+              <tbody ref={sortableContainer}>
                 {dataSource.map((record = {}, index) => {
                   return (
                     <tr class="file-table-tr" key={`${index + record.name || ''}`}>
