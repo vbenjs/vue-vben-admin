@@ -22,6 +22,8 @@
     <UploadModal
       v-bind="bindValue"
       :previewFileList="fileList"
+      :fileListOpenDrag="fileListOpenDrag"
+      :fileListDragOptions="fileListDragOptions"
       @register="registerUploadModal"
       @change="handleChange"
       @delete="handleDelete"

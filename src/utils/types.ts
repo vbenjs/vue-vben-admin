@@ -41,7 +41,7 @@ export type StyleValue = string | CSSProperties | Array<StyleValue>;
 
 export type Mutable<T> = { -readonly [P in keyof T]: T[P] };
 
-type Merge<O extends object, T extends object> = {
+export type Merge<O extends object, T extends object> = {
   [K in keyof O | keyof T]: K extends keyof T ? T[K] : K extends keyof O ? O[K] : never;
 };
 
