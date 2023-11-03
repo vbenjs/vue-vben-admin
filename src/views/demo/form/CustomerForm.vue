@@ -23,7 +23,7 @@
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
   import { CollapseContainer } from '/@/components/Container/index';
   import { useMessage } from '/@/hooks/web/useMessage';
-  import { Input, FormItem, Select } from 'ant-design-vue';
+  import { Input, FormItem, FormItemRest, Select } from 'ant-design-vue';
   import { PageWrapper } from '/@/components/Page';
 
   const custom_typeKey2typeValueRules = (model) => {
@@ -145,7 +145,13 @@
               <Select.Option value="测试名称">测试名称</Select.Option>
             </Select>
             <FormItem name="typeValue2" class="local_typeValue" rules={[{ required: true }]}>
-              <Input placeholder="请输入" v-model:value={model['typeValue2']} disabled={disabled} />
+              <FormItemRest>
+                <Input
+                  placeholder="请输入"
+                  v-model:value={model['typeValue2']}
+                  disabled={disabled}
+                />
+              </FormItemRest>
             </FormItem>
           </Input.Group>
         );
@@ -183,12 +189,14 @@
                 <Select.Option value="公司名称">公司名称</Select.Option>
                 <Select.Option value="产品名称">产品名称</Select.Option>
               </Select>
-              <Input
-                style="width: calc(100% - 120px); margin-left: -1px;"
-                placeholder="请输入"
-                v-model:value={model['typeValue']}
-                disabled={disabled}
-              />
+              <FormItemRest>
+                <Input
+                  style="width: calc(100% - 120px); margin-left: -1px;"
+                  placeholder="请输入"
+                  v-model:value={model['typeValue']}
+                  disabled={disabled}
+                />
+              </FormItemRest>
             </Input.Group>
           </FormItem>
         );
