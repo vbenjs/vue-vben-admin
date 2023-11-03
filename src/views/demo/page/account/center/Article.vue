@@ -70,13 +70,13 @@
     }
 
     &__content {
-      color: rgb(0 0 0 / 65%);
+      color: @text-color-secondary;
     }
 
     &__action {
       display: inline-block;
       padding: 0 16px;
-      color: rgb(0 0 0 / 45%);
+      color: @text-color-secondary;
 
       &:nth-child(1),
       &:nth-child(2) {

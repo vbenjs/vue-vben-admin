@@ -56,7 +56,7 @@
 
     &__content {
       padding: 24px 40px;
-      background-color: @background-color-light;
+      background-color: @app-content-background;
     }
   }
 </style>

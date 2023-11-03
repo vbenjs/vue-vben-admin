@@ -1,5 +1,5 @@
 .bg-white {
-  background-color: @component-background !important;
+  background-color: var(--component-background-color) !important;
 }
 
 html[data-theme='light'] {
@@ -24,5 +24,116 @@ html[data-theme='light'] {
 
   :not(:root):fullscreen::backdrop {
     background-color: @layout-body-background !important;
+  }
+}
+
+[data-theme='dark'] {
+  body {
+    background-color: #000;
+    color: @text-color-base;
+  }
+
+  .ant-btn {
+    &[disabled],
+    &[disabled]:hover,
+    &[disabled]:focus,
+    &[disabled]:active {
+      border-color: #303030;
+      background: rgb(255 255 255 / 8%);
+      color: rgb(255 255 255 / 30%);
+    }
+
+    &-success.ant-btn-link.ant-btn-loading,
+    &-warning.ant-btn-link.ant-btn-loading,
+    &-error.ant-btn-link.ant-btn-loading,
+    &-background-ghost.ant-btn-link.ant-btn-loading,
+    &.ant-btn-link.ant-btn-loading {
+      &::before {
+        background: transparent;
+      }
+    }
+
+    &:not(
+        .ant-btn-link,
+        .is-disabled,
+        .ant-btn-primary,
+        .ant-btn-success,
+        .ant-btn-warning,
+        .ant-btn-error,
+        .ant-btn-dangerous
+      ) {
+      background: transparent;
+      color: @text-color-base;
+
+      &:hover {
+        color: @button-primary-hover-color;
+      }
+    }
+
+    &-dangerous.ant-btn-primary {
+      &:focus {
+        background: @error-color !important;
+      }
+    }
+
+    &-default.ant-btn-dangerous {
+      border-color: @error-color;
+      background: transparent !important;
+      color: @error-color;
+
+      &:hover,
+      &:focus {
+        border-color: @button-error-hover-color !important;
+        color: @button-error-hover-color !important;
+      }
+    }
+
+    &-default:not(.ant-btn-background-ghost) {
+      border-color: #303030;
+
+      &:hover,
+      &:focus {
+        border-color: @button-cancel-hover-color;
+        color: @button-cancel-hover-color;
+      }
+    }
+
+    &-default.is-disabled {
+      &:hover,
+      &:focus {
+        border-color: #303030;
+        color: rgb(255 255 255 / 30%);
+      }
+    }
+
+    &-success:not(.is-disabled, .ant-btn-link, .ant-btn-background-ghost) {
+      &:hover,
+      &:focus,
+      &:active {
+        border-color: @button-success-active-color !important;
+        background-color: @button-success-active-color !important;
+        color: @white !important;
+      }
+    }
+
+    &-warning:not(.is-disabled, .ant-btn-link, .ant-btn-background-ghost) {
+      &:hover,
+      &:focus,
+      &:active {
+        border-color: @button-warn-active-color !important;
+        background-color: @button-warn-active-color !important;
+        color: @white !important;
+      }
+    }
+
+    &-error:not(.is-disabled, .ant-btn-link, .ant-btn-background-ghost) {
+      &:hover,
+      &:focus,
+      &:active {
+        border-color: @button-error-active-color !important;
+        background-color: @button-error-active-color !important;
+        color: @white !important;
+      }
+    }
   }
 }
