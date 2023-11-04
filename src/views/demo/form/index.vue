@@ -70,6 +70,7 @@
   import { cloneDeep } from 'lodash-es';
   import { areaRecord } from '/@/api/demo/cascader';
   import { uploadApi } from '/@/api/sys/upload';
+  // import { isArray } from '/@/utils/is';
 
   const valueSelectA = ref<string[]>([]);
   const valueSelectB = ref<string[]>([]);
@@ -743,13 +744,30 @@
     {
       field: 'field23',
       component: 'ImageUpload',
-      label: '字段23',
-      colProps: {
-        span: 8,
-      },
+      label: '上传图片',
+      required: true,
+      defaultValue: [
+        'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+      ],
       componentProps: {
-        api: () => Promise.resolve('https://via.placeholder.com/600/92c952'),
+        api: uploadApi,
+        accept: ['png', 'jpeg', 'jpg'],
+        maxSize: 2,
+        maxNumber: 1,
       },
+      // rules: [
+      //   {
+      //     required: true,
+      //     trigger: 'change',
+      //     validator(_, value) {
+      //       if (isArray(value) && value.length > 0) {
+      //         return Promise.resolve();
+      //       } else {
+      //         return Promise.reject('请选择上传图片');
+      //       }
+      //     },
+      //   },
+      // ],
     },
   ];
 
