@@ -30,10 +30,10 @@
     return [
       {
         required: true,
-        validator: (rule, value, callback) => {
-          if (!model.typeKey) return callback('请选择类型');
-          if (!model.typeValue) return callback('请输入数据');
-          callback();
+        validator: async () => {
+          if (!model.typeKey) return Promise.reject('请选择类型');
+          if (!model.typeValue) return Promise.reject('请输入数据');
+          Promise.resolve();
         },
       },
     ];
