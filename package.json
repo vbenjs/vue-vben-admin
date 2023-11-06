@@ -73,8 +73,6 @@
     "@logicflow/extension": "^1.2.9",
     "@vben/hooks": "workspace:*",
     "@vue/shared": "^3.3.4",
-    "@vueuse/core": "^10.2.1",
-    "@vueuse/shared": "^10.2.1",
     "@zxcvbn-ts/core": "^3.0.2",
     "ant-design-vue": "^4.0.5",
     "axios": "^1.4.0",
