@@ -47,8 +47,8 @@
   import { omit } from 'lodash-es';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { isArray } from '/@/utils/is';
-  import UploadModal from './UploadModal.vue';
-  import UploadPreviewModal from './UploadPreviewModal.vue';
+  import UploadModal from './components/UploadModal.vue';
+  import UploadPreviewModal from './components/UploadPreviewModal.vue';
 
   export default defineComponent({
     name: 'BasicUpload',

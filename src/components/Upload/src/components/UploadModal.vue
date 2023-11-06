@@ -53,14 +53,14 @@
   import { Upload, Alert } from 'ant-design-vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   // hooks
-  import { useUploadType } from './useUpload';
+  import { useUploadType } from '../hooks/useUpload';
   import { useMessage } from '/@/hooks/web/useMessage';
   //   types
-  import { FileItem, UploadResultStatus } from './typing';
-  import { basicProps } from './props';
+  import { FileItem, UploadResultStatus } from '../types/typing';
+  import { basicProps } from '../props';
   import { createTableColumns, createActionColumn } from './data';
   // utils
-  import { checkImgType, getBase64WithFile } from './helper';
+  import { checkImgType, getBase64WithFile } from '../helper';
   import { buildUUID } from '/@/utils/uuid';
   import { isFunction } from '/@/utils/is';
   import { warn } from '/@/utils/log';
@@ -193,7 +193,7 @@
           );
           const { data } = ret;
           item.status = UploadResultStatus.SUCCESS;
-          item.responseData = data;
+          item.response = data;
           return {
             success: true,
             error: null,
@@ -247,9 +247,9 @@
         const fileList: string[] = [];
 
         for (const item of fileListRef.value) {
-          const { status, responseData } = item;
-          if (status === UploadResultStatus.SUCCESS && responseData) {
-            fileList.push(responseData.url);
+          const { status, response } = item;
+          if (status === UploadResultStatus.SUCCESS && response) {
+            fileList.push(response.url);
           }
         }
         // 存在一个上传成功的即可保存
