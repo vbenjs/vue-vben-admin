@@ -1,6 +1,6 @@
 import type { BasicColumn, ActionItem } from '/@/components/Table';
-import { FileBasicColumn, FileItem, PreviewFileItem, UploadResultStatus } from './typing';
-import { isImgTypeByName } from './helper';
+import { FileBasicColumn, FileItem, PreviewFileItem, UploadResultStatus } from '../types/typing';
+import { isImgTypeByName } from '../helper';
 import { Progress, Tag } from 'ant-design-vue';
 import TableAction from '/@/components/Table/src/components/TableAction.vue';
 import ThumbUrl from './ThumbUrl.vue';
