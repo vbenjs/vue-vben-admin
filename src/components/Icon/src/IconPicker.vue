@@ -74,7 +74,7 @@
 
   import iconsData from '../data/icons.data';
   import { usePagination } from '/@/hooks/web/usePagination';
-  import { useDebounceFn } from '@vueuse/core';
+  import { useDebounceFn } from '@vben/hooks';
   import { useI18n } from '/@/hooks/web/useI18n';
   import svgIcons from 'virtual:svg-icons-names';
   import { copyText } from '/@/utils/copyTextToClipboard';

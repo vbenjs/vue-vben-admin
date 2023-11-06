@@ -18,7 +18,7 @@ export enum LoginStateEnum {
 const currentState = ref(LoginStateEnum.LOGIN);
 
 // 这里也可以优化
-// import { createGlobalState } from '@vueuse/core'
+// import { createGlobalState } from '@vben/hooks'
 
 export function useLoginState() {
   function setLoginState(state: LoginStateEnum) {

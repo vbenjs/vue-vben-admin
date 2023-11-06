@@ -4,7 +4,7 @@ import { ComputedRef, getCurrentInstance, Ref, shallowReactive, computed, unref,
 import type { FormProps, FormSchemaInner as FormSchema } from '../types/form';
 import { isBoolean, isFunction, isNumber, isObject } from '/@/utils/is';
 import { useBreakpoint } from '/@/hooks/event/useBreakpoint';
-import { useDebounceFn } from '@vueuse/core';
+import { useDebounceFn } from '@vben/hooks';
 
 const BASIC_COL_LEN = 24;
 

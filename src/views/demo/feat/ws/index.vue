@@ -54,7 +54,7 @@
   import { defineComponent, reactive, watchEffect, computed, toRefs } from 'vue';
   import { Tag, Input } from 'ant-design-vue';
   import { PageWrapper } from '/@/components/Page';
-  import { useWebSocket } from '@vueuse/core';
+  import { useWebSocket } from '@vben/hooks';
   import { formatToDateTime } from '/@/utils/dateUtil';
 
   export default defineComponent({

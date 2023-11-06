@@ -18,8 +18,7 @@
     nextTick,
   } from 'vue';
   import type { Nullable } from '@vben/types';
-  import { useWindowSizeFn } from '@vben/hooks';
-  import { useDebounceFn } from '@vueuse/core';
+  import { useWindowSizeFn, useDebounceFn } from '@vben/hooks';
   import { useAppStore } from '/@/store/modules/app';
   import CodeMirror from 'codemirror';
   import { MODE } from './../typing';

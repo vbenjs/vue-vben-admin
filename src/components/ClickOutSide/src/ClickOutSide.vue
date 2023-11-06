@@ -5,7 +5,7 @@
 </template>
 <script lang="ts" setup>
   import { ref, onMounted } from 'vue';
-  import { onClickOutside } from '@vueuse/core';
+  import { onClickOutside } from '@vben/hooks';
 
   const emit = defineEmits(['mounted', 'clickOutside']);
   const wrap = ref(null);

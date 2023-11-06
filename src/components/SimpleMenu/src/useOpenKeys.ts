@@ -4,7 +4,7 @@ import { computed, Ref, toRaw, unref } from 'vue';
 import { uniq } from 'lodash-es';
 import { getAllParentPath } from '/@/router/helper/menuHelper';
 import { useTimeoutFn } from '@vben/hooks';
-import { useDebounceFn } from '@vueuse/core';
+import { useDebounceFn } from '@vben/hooks';
 
 export function useOpenKeys(
   menuState: MenuState,

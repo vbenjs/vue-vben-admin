@@ -34,7 +34,7 @@
   import { Form, Row, Col } from 'ant-design-vue';
   import { useFormInstanceMethods } from '../../hooks/useFormInstanceMethods';
   import { IProps, IVFormMethods, useVFormMethods } from '../../hooks/useVFormMethods';
-  import { useVModel } from '@vueuse/core';
+  import { useVModel } from '@vben/hooks';
   import { omit } from 'lodash-es';
 
   export default defineComponent({

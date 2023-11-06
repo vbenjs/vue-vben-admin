@@ -19,7 +19,7 @@ import {
 import { isProdMode } from '/@/utils/env';
 import { isFunction } from '/@/utils/is';
 import { isEqual } from 'lodash-es';
-import { tryOnUnmounted } from '@vueuse/core';
+import { tryOnUnmounted } from '@vben/hooks';
 import { error } from '/@/utils/log';
 
 const dataTransfer = reactive<any>({});

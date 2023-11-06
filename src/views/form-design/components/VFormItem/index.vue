@@ -44,7 +44,7 @@
   import { defineComponent, reactive, toRefs, computed, PropType, unref } from 'vue';
   import { componentMap } from '../../core/formItemConfig';
   import { IVFormComponent, IFormConfig } from '../../typings/v-form-component';
-  import { asyncComputed } from '@vueuse/core';
+  import { asyncComputed } from '@vben/hooks';
   import { handleAsyncOptions } from '../../utils';
   import { omit } from 'lodash-es';
   import { Tooltip, FormItem, Divider, Col } from 'ant-design-vue';

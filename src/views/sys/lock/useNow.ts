@@ -1,6 +1,6 @@
 import { dateUtil } from '/@/utils/dateUtil';
 import { reactive, toRefs } from 'vue';
-import { tryOnMounted, tryOnUnmounted } from '@vueuse/core';
+import { tryOnMounted, tryOnUnmounted } from '@vben/hooks';
 
 export function useNow(immediate = true) {
   let timer: IntervalHandle;

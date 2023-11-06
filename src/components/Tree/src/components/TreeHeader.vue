@@ -45,7 +45,7 @@
   import Icon from '@/components/Icon/Icon.vue';
   import { BasicTitle } from '/@/components/Basic';
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { useDebounceFn } from '@vueuse/core';
+  import { useDebounceFn } from '@vben/hooks';
   import { createBEM } from '/@/utils/bem';
   import { ToolbarEnum } from '../types/tree';
 

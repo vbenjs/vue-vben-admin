@@ -28,7 +28,7 @@
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
   import { CollapseContainer } from '/@/components/Container/index';
-  import { useFullscreen } from '@vueuse/core';
+  import { useFullscreen } from '@vben/hooks';
 
   import { PageWrapper } from '/@/components/Page';
   import { type Nullable } from '@vben/types';

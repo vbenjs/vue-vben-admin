@@ -1,6 +1,6 @@
 import { watch, unref } from 'vue';
 import { useI18n } from '/@/hooks/web/useI18n';
-import { useTitle as usePageTitle } from '@vueuse/core';
+import { useTitle as usePageTitle } from '@vben/hooks';
 import { useGlobSetting } from '/@/hooks/setting';
 import { useRouter } from 'vue-router';
 import { useLocaleStore } from '/@/store/modules/locale';

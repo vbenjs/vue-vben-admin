@@ -100,7 +100,7 @@
   import { useUserStore } from '/@/store/modules/user';
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
   import { useDesign } from '/@/hooks/web/useDesign';
-  //import { onKeyStroke } from '@vueuse/core';
+  //import { onKeyStroke } from '@vben/hooks';
 
   const ACol = Col;
   const ARow = Row;

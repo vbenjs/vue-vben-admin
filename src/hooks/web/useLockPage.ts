@@ -1,5 +1,5 @@
 import { computed, onUnmounted, unref, watchEffect } from 'vue';
-import { useThrottleFn } from '@vueuse/core';
+import { useThrottleFn } from '@vben/hooks';
 
 import { useAppStore } from '/@/store/modules/app';
 import { useLockStore } from '/@/store/modules/lock';

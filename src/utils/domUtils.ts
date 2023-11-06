@@ -1,4 +1,4 @@
-import type { FunctionArgs } from '@vueuse/core';
+import type { FunctionArgs } from '@vben/hooks';
 import { upperFirst } from 'lodash-es';
 
 export interface ViewportOffsetResult {

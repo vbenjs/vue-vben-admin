@@ -64,7 +64,7 @@
   import { PageWrapper } from '/@/components/Page';
 
   import { optionsListApi } from '/@/api/demo/select';
-  import { useDebounceFn } from '@vueuse/core';
+  import { useDebounceFn } from '@vben/hooks';
   import { treeOptionsListApi } from '/@/api/demo/tree';
   import { Select, type SelectProps } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
