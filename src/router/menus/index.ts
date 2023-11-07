@@ -5,7 +5,7 @@ import { useAppStoreWithOut } from '/@/store/modules/app';
 import { usePermissionStore } from '/@/store/modules/permission';
 import { transformMenuModule, getAllParentPath } from '/@/router/helper/menuHelper';
 import { filter } from '/@/utils/helper/treeHelper';
-import { isUrl } from '/@/utils/is';
+import { isHttpUrl } from '/@/utils/is';
 import { router } from '/@/router';
 import { PermissionModeEnum } from '/@/enums/appEnum';
 import { pathToRegexp } from 'path-to-regexp';
@@ -115,7 +115,7 @@ export async function getChildrenMenus(parentPath: string) {
 function basicFilter(routes: RouteRecordNormalized[]) {
   return (menu: Menu) => {
     const matchRoute = routes.find((route) => {
-      if (isUrl(menu.path)) return true;
+      if (isHttpUrl(menu.path)) return true;
 
       if (route.meta?.carryParam) {
         return pathToRegexp(route.path).test(menu.path);
