@@ -1,7 +1,6 @@
 import { cacheCipher } from '/@/settings/encryptionSetting';
-import type { EncryptionParams } from '/@/utils/cipherOld';
-import { AesEncryption } from '/@/utils/cipherOld';
 import { isNullOrUnDef } from '/@/utils/is';
+import { Encryption, EncryptionFactory, EncryptionParams } from '@/utils/cipher';
 
 export interface CreateStorageParams extends EncryptionParams {
   prefixKey: string;
@@ -21,8 +20,10 @@ export const createStorage = ({
     throw new Error('When hasEncrypt is true, the key or iv must be 16 bits!');
   }
 
-  const encryption = new AesEncryption({ key, iv });
-
+  const persistEncryption: Encryption = EncryptionFactory.createAesEncryption({
+    key: cacheCipher.key,
+    iv: cacheCipher.iv,
+  });
   /**
    * Cache class
    * Construction parameters can be passed into sessionStorage, localStorage,
@@ -32,7 +33,7 @@ export const createStorage = ({
   const WebStorage = class WebStorage {
     private storage: Storage;
     private prefixKey?: string;
-    private encryption: AesEncryption;
+    private encryption: Encryption;
     private hasEncrypt: boolean;
     /**
      *
@@ -41,7 +42,7 @@ export const createStorage = ({
     constructor() {
       this.storage = storage;
       this.prefixKey = prefixKey;
-      this.encryption = encryption;
+      this.encryption = persistEncryption;
       this.hasEncrypt = hasEncrypt;
     }
 
@@ -62,9 +63,7 @@ export const createStorage = ({
         time: Date.now(),
         expire: !isNullOrUnDef(expire) ? new Date().getTime() + expire * 1000 : null,
       });
-      const stringifyValue = this.hasEncrypt
-        ? this.encryption.encryptByAES(stringData)
-        : stringData;
+      const stringifyValue = this.hasEncrypt ? this.encryption.encrypt(stringData) : stringData;
       this.storage.setItem(this.getKey(key), stringifyValue);
     }
 
@@ -79,7 +78,7 @@ export const createStorage = ({
       if (!val) return def;
 
       try {
-        const decVal = this.hasEncrypt ? this.encryption.decryptByAES(val) : val;
+        const decVal = this.hasEncrypt ? this.encryption.decrypt(val) : val;
         const data = JSON.parse(decVal);
         const { value, expire } = data;
         if (isNullOrUnDef(expire) || expire >= new Date().getTime()) {
