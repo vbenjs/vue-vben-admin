@@ -5,13 +5,49 @@
  *
  */
 import type { Pinia } from 'pinia';
-import { createPersistedState } from 'pinia-plugin-persistedstate';
+import { createPersistedState, Serializer } from 'pinia-plugin-persistedstate';
 import type { PersistedStateFactoryOptions } from 'pinia-plugin-persistedstate';
 import { getCommonStoragePrefix } from '@/utils/env';
+import { Encryption, EncryptionFactory } from '@/utils/cipher';
+import { cacheCipher, SHOULD_ENABLE_STORAGE_ENCRYPTION } from '@/settings/encryptionSetting';
 
 export const PERSIST_KEY_PREFIX = getCommonStoragePrefix();
 
-// TODO customSerializer
+const persistEncryption: Encryption = EncryptionFactory.createAesEncryption({
+  key: cacheCipher.key,
+  iv: cacheCipher.iv,
+});
+
+/**
+ * Custom serializer for serialization and deserialization of storage data
+ * 自定义序列化器，用于序列化和反序列化存储数据
+ *
+ * @param shouldEnableEncryption whether to enable encryption for storage data 是否启用存储数据加密
+ * @returns serializer
+ */
+function customSerializer(shouldEnableEncryption: boolean): Serializer {
+  if (shouldEnableEncryption) {
+    return {
+      deserialize: (value) => {
+        const decrypted = persistEncryption.decrypt(value);
+        return JSON.parse(decrypted);
+      },
+      serialize: (value) => {
+        const serialized = JSON.stringify(value);
+        return persistEncryption.encrypt(serialized);
+      },
+    };
+  } else {
+    return {
+      deserialize: (value) => {
+        return JSON.parse(value);
+      },
+      serialize: (value) => {
+        return JSON.stringify(value);
+      },
+    };
+  }
+}
 
 /**
  * Register Pinia Persist Plugin
@@ -34,5 +70,6 @@ export function createPersistedStateOptions(keyPrefix: string): PersistedStateFa
   return {
     storage: localStorage,
     key: (id) => `${keyPrefix}__${id}`,
+    serializer: customSerializer(SHOULD_ENABLE_STORAGE_ENCRYPTION),
   };
 }
