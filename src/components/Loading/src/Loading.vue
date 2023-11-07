@@ -63,6 +63,7 @@
       z-index: 300;
       top: 0;
       left: 0;
+      height: 100%;
     }
   }
 
