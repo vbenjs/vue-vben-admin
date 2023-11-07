@@ -27,8 +27,8 @@
     </BasicTable>
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="tsx">
+  import { defineComponent, h } from 'vue';
   import { BasicTable, useTable, BasicColumn, TableImg } from '/@/components/Table';
   import { Tag, Avatar } from 'ant-design-vue';
   import { demoListApi } from '/@/api/demo/table';
@@ -37,12 +37,14 @@
     {
       title: 'ID',
       dataIndex: 'id',
+      helpMessage: <div>这个是tsx渲染出来的helpMessage</div>,
       // slots: { customRender: 'id' },
     },
     {
       title: '头像',
       dataIndex: 'avatar',
       width: 100,
+      helpMessage: h('div', '这是vue h函数渲染出来的helpMessage'),
       // slots: { customRender: 'avatar' },
     },
     {
