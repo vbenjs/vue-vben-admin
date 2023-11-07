@@ -9,6 +9,7 @@ export interface CreateStorageParams extends EncryptionParams {
   hasEncrypt: boolean;
   timeout?: Nullable<number>;
 }
+// TODO 移除此文件夹下全部代码
 export const createStorage = ({
   prefixKey = '',
   storage = sessionStorage,

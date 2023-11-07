@@ -10,4 +10,4 @@ export const cacheCipher = {
 };
 
 // Whether the system cache is encrypted using aes
-export const enableStorageEncryption = !isDevMode();
+export const SHOULD_ENABLE_STORAGE_ENCRYPTION = !isDevMode();
