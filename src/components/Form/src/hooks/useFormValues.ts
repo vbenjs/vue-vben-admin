@@ -1,4 +1,4 @@
-import { isArray, isFunction, isNotEmpty, isObject, isString, isNullOrUnDef } from '/@/utils/is';
+import { isArray, isFunction, isEmpty, isObject, isString, isNil } from '/@/utils/is';
 import { dateUtil } from '/@/utils/dateUtil';
 import { unref } from 'vue';
 import type { Ref, ComputedRef } from 'vue';
@@ -115,10 +115,10 @@ export function useFormValues({
 
       const [startTimeFormat, endTimeFormat] = Array.isArray(format) ? format : [format, format];
 
-      if (isNotEmpty(startTime)) {
+      if (!isNil(startTime) && !isEmpty(startTime)) {
         set(values, startTimeKey, formatTime(startTime, startTimeFormat));
       }
-      if (isNotEmpty(endTime)) {
+      if (!isNil(endTime) && !isEmpty(endTime)) {
         set(values, endTimeKey, formatTime(endTime, endTimeFormat));
       }
       unset(values, field);
@@ -150,7 +150,7 @@ export function useFormValues({
           }
         });
       }
-      if (!isNullOrUnDef(defaultValue)) {
+      if (!isNil(defaultValue)) {
         obj[item.field] = defaultValue;
 
         if (formModel[item.field] === undefined) {

@@ -1,5 +1,5 @@
 import { cacheCipher } from '/@/settings/encryptionSetting';
-import { isNullOrUnDef } from '/@/utils/is';
+import { isNil } from '/@/utils/is';
 import { Encryption, EncryptionFactory, EncryptionParams } from '@/utils/cipher';
 
 export interface CreateStorageParams extends EncryptionParams {
@@ -62,7 +62,7 @@ export const createStorage = ({
       const stringData = JSON.stringify({
         value,
         time: Date.now(),
-        expire: !isNullOrUnDef(expire) ? new Date().getTime() + expire * 1000 : null,
+        expire: !isNil(expire) ? new Date().getTime() + expire * 1000 : null,
       });
       const stringifyValue = this.hasEncrypt ? this.encryption.encrypt(stringData) : stringData;
       this.storage.setItem(this.getKey(key), stringifyValue);
@@ -82,7 +82,7 @@ export const createStorage = ({
         const decVal = this.hasEncrypt ? this.encryption.decrypt(val) : val;
         const data = JSON.parse(decVal);
         const { value, expire } = data;
-        if (isNullOrUnDef(expire) || expire >= new Date().getTime()) {
+        if (isNil(expire) || expire >= new Date().getTime()) {
           return value;
         }
         this.remove(key);
