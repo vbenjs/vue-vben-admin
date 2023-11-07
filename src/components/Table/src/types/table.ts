@@ -440,7 +440,7 @@ export interface BasicColumn extends ColumnProps<Recordable> {
   defaultHidden?: boolean;
 
   // Help text for table column header
-  helpMessage?: string | string[];
+  helpMessage?: string | string[] | VNodeChild | JSX.Element;
 
   format?: CellFormat;
 
