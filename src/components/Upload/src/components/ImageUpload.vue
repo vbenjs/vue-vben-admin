@@ -59,18 +59,9 @@
   watch(
     () => props.value,
     (v) => {
-      if (isArray(v)) {
-        fileList.value = v.map((url, i) => ({
-          uid: String(-i),
-          name: url ? url.substring(url.lastIndexOf('/') + 1) : 'image.png',
-          status: 'done',
-          url,
-        }));
+      if (v && isArray(v)) {
+        fileList.value = v;
       }
-    },
-    {
-      immediate: true,
-      deep: true,
     },
   );
 
@@ -143,6 +134,7 @@
       info.onSuccess!(res.data);
       emit('change', fileList.value);
     } catch (e: any) {
+      console.log(e);
       info.onError!(e);
     }
   }
