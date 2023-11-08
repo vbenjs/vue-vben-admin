@@ -90,6 +90,7 @@
     "mixSidebarTrigger": "Mixed menu Trigger", 
     "triggerHover": "Hover", 
     "triggerClick": "Click", 
-    "mixSidebarFixed": "Fixed expanded menu"
+    "mixSidebarFixed": "Fixed expanded menu", 
+    "autoCollapseTabs": "Auto collapse tabs"
   }
 }

@@ -2,6 +2,8 @@ import { ThemeEnum } from '../enums/appEnum';
 
 export const prefixCls = 'vben';
 
+export const multipleTabHeight = 30;
+
 export const darkMode = ThemeEnum.LIGHT;
 
 // app theme preset color
