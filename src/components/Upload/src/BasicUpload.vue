@@ -64,7 +64,7 @@
       //   预览modal
       const [registerPreviewModal, { openModal: openPreviewModal }] = useModal();
 
-      const fileList = ref<string[]>([]);
+      const fileList = ref<Recordable[]>([]);
 
       const showPreview = computed(() => {
         const { emptyHidePreview } = props;
@@ -103,8 +103,8 @@
         emit('delete', record);
       }
 
-      function handlePreviewDelete(url: string) {
-        emit('preview-delete', url);
+      function handlePreviewDelete(id: string) {
+        emit('preview-delete', id);
       }
 
       return {

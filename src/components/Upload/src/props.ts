@@ -1,5 +1,5 @@
 import type { PropType } from 'vue';
-import { FileBasicColumn } from './typing';
+import { FileBasicColumn, FileItem } from './typing';
 
 import type { Options } from 'sortablejs';
 
@@ -21,7 +21,7 @@ export const basicProps = {
   // 文件最大多少MB
   maxSize: {
     type: Number as PropType<number>,
-    default: 2,
+    default: 20,
   },
   // 最大数量的文件，Infinity不限制
   maxNumber: {
@@ -83,7 +83,7 @@ export const uploadContainerProps = {
 
 export const previewProps = {
   value: {
-    type: Array as PropType<string[]>,
+    type: Array as PropType<FileItem['responseData'][]>,
     default: () => [],
   },
 };

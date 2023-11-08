@@ -20,6 +20,8 @@
   import { createPreviewColumns, createPreviewActionColumn } from './data';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { isArray } from '/@/utils/is';
+  import { useGlobSetting } from '/@/hooks/setting';
+  import { useUserStore } from '/@/store/modules/user';
 
   export default defineComponent({
     components: { BasicModal, FileList },
@@ -28,7 +30,8 @@
     setup(props, { emit }) {
       const [register, { closeModal }] = useModalInner();
       const { t } = useI18n();
-
+      const { downloadUrl = '' } = useGlobSetting();
+      const userStore = useUserStore();
       const fileListRef = ref<PreviewFileItem[]>([]);
       watch(
         () => props.value,
@@ -38,25 +41,30 @@
             .filter((item) => !!item)
             .map((item) => {
               return {
-                url: item,
-                type: item.split('.').pop() || '',
-                name: item.split('/').pop() || '',
-              };
+                fileID: item?.fjid,
+                url: getUrlbyFjid(item?.fjid),
+                type: item?.fjgs || item?.clgs,
+                name: item?.fjmc || item?.clmc,
+              } as PreviewFileItem;
             });
         },
         { immediate: true },
       );
 
+      function getUrlbyFjid(fjid) {
+        return `${downloadUrl}?fjid=${fjid}&access_token=${userStore.getToken}`;
+      }
+
       // 删除
       function handleRemove(record: PreviewFileItem) {
-        const index = fileListRef.value.findIndex((item) => item.url === record.url);
+        const index = fileListRef.value.findIndex((item) => item.fileID === record.fileID);
+        console.log(index);
         if (index !== -1) {
           const removed = fileListRef.value.splice(index, 1);
-          emit('delete', removed[0].url);
-          emit(
-            'list-change',
-            fileListRef.value.map((item) => item.url),
-          );
+          const fileList = props.value;
+          fileList.splice(index, 1);
+          emit('delete', removed[0].fileID);
+          emit('list-change', fileList);
         }
       }
 

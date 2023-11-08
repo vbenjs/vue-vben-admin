@@ -191,6 +191,15 @@
               item.percent = complete;
             },
           );
+          //错误拦截，当错误
+          if (!ret.data && ret.code !== 200) {
+            createMessage.error(ret.errMsg || ret.msg);
+            item.status = UploadResultStatus.ERROR;
+            return {
+              success: false,
+              error: ret.errMsg || ret.msg,
+            };
+          }
           const { data } = ret;
           item.status = UploadResultStatus.SUCCESS;
           item.responseData = data;
@@ -199,7 +208,6 @@
             error: null,
           };
         } catch (e) {
-          console.log(e);
           item.status = UploadResultStatus.ERROR;
           return {
             success: false,
@@ -244,12 +252,12 @@
         if (isUploadingRef.value) {
           return createMessage.warning(t('component.upload.saveWarn'));
         }
-        const fileList: string[] = [];
+        const fileList: FileItem['responseData'][] = [];
 
         for (const item of fileListRef.value) {
           const { status, responseData } = item;
           if (status === UploadResultStatus.SUCCESS && responseData) {
-            fileList.push(responseData.url);
+            fileList.push(transformResponseData(responseData));
           }
         }
         // 存在一个上传成功的即可保存
@@ -259,6 +267,14 @@
         fileListRef.value = [];
         closeModal();
         emit('change', fileList);
+      }
+      // 转换数据
+      function transformResponseData(responseData: FileItem['responseData']) {
+        if (responseData) {
+          responseData.clmc = responseData?.fjmc;
+          responseData.clgs = responseData?.fjgs;
+        }
+        return responseData;
       }
 
       // 点击关闭：则所有操作不保存，包括上传的
