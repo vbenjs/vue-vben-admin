@@ -3,6 +3,7 @@ import UTF8, { parse } from 'crypto-js/enc-utf8';
 import pkcs7 from 'crypto-js/pad-pkcs7';
 import CTR from 'crypto-js/mode-ctr';
 import Base64 from 'crypto-js/enc-base64';
+import JSEncrypt from 'jsencrypt';
 import MD5 from 'crypto-js/md5';
 import SHA256 from 'crypto-js/sha256';
 import SHA512 from 'crypto-js/sha512';
@@ -50,6 +51,26 @@ class AesEncryption implements Encryption {
   }
 }
 
+// 定义一个RSA加密
+// 主要用于登录
+export class RsaEncryption {
+  private rsaEncrypt;
+  constructor(publicKey: string, privateKey?: string) {
+    this.rsaEncrypt = new JSEncrypt();
+    this.rsaEncrypt.setPublicKey(publicKey);
+    if (privateKey) {
+      this.rsaEncrypt.setPrivateKey(privateKey);
+    }
+  }
+
+  encrypt(cipherText: string) {
+    return this.rsaEncrypt.encrypt(cipherText).toString();
+  }
+
+  decrypt(cipherText: string) {
+    return this.rsaEncrypt.decrypt(cipherText).toString(UTF8);
+  }
+}
 // Define a singleton class for Base64 encryption
 class Base64Encryption implements Encryption {
   private static instance: Base64Encryption;
