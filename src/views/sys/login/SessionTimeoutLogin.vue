@@ -27,12 +27,11 @@
 
   onMounted(() => {
     // 记录当前的UserId
-    userId.value = userStore.getUserInfo?.userId;
-    console.log('Mounted', userStore.getUserInfo);
+    userId.value = userStore.getUserInfo?.ryid;
   });
 
   onBeforeUnmount(() => {
-    if (userId.value && userId.value !== userStore.getUserInfo.userId) {
+    if (userId.value && userId.value !== userStore.getUserInfo.ryid) {
       // 登录的不是同一个用户，刷新整个页面以便丢弃之前用户的页面状态
       document.location.reload();
     } else if (isBackMode() && permissionStore.getLastBuildMenuTime === 0) {
