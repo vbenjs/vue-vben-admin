@@ -76,7 +76,7 @@
     }
 
     &.light &__title {
-      color: @primary-color;
+      color: rgb(3 3 3);
     }
 
     &.dark &__title {
@@ -85,7 +85,7 @@
 
     &__title {
       transition: all 0.5s;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 700;
       line-height: normal;
     }
