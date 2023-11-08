@@ -1,10 +1,13 @@
 // token key
 export const TOKEN_KEY = 'TOKEN__';
-
+export const REFRESH_TOKEN_KEY = 'REFRESH__TOKEN__';
 export const LOCALE_KEY = 'LOCALE__';
 
 // user info key
 export const USER_INFO_KEY = 'USER__INFO__';
+
+// axios request key
+export const AXIOS_CACHE_KEY = 'AXIOS__CACHE__KEY__';
 
 // role info key
 export const ROLES_KEY = 'ROLES__KEY__';
