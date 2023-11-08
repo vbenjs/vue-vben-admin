@@ -11,7 +11,7 @@
       <div :class="getInputSearchCls" v-if="search">
         <InputSearch
           :placeholder="t('common.searchText')"
-          size="small"
+          size="default"
           allowClear
           v-model:value="searchValue"
         />
