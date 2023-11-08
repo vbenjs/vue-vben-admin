@@ -28,7 +28,6 @@ export async function createPermissionGuard(router: Router) {
   router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
 
   permissionStore.setDynamicAddedRoute(true);
-  console.log('[ routes ]', routes);
 
   router.beforeEach(async (to, from, next) => {
     if (
