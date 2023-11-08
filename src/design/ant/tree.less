@@ -1,0 +1,23 @@
+@import (reference) '../color.less';
+@self-tree-title-height: 36px !important;
+
+.ant-tree {
+  .ant-tree-node-content-wrapper {
+    min-height: @self-tree-title-height;
+    border-radius: 4px;
+    line-height: @self-tree-title-height;
+
+    &.ant-tree-node-selected {
+      background: linear-gradient(
+        to right,
+        lighten(@primary-color, 24%),
+        lighten(@primary-color, 14%)
+      ) !important;
+      color: white;
+    }
+  }
+
+  .ant-tree-switcher {
+    line-height: @self-tree-title-height;
+  }
+}
