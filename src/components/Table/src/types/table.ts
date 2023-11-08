@@ -135,6 +135,7 @@ export interface FetchSetting {
 }
 
 export interface TableSetting {
+  export?: boolean;
   redo?: boolean;
   size?: boolean;
   setting?: boolean;

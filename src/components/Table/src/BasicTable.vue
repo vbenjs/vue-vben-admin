@@ -332,7 +332,7 @@
         },
         setCacheColumns,
       };
-      createTableContext({ ...tableAction, wrapRef, getBindValues });
+      createTableContext({ ...tableAction, formActions, wrapRef, getBindValues });
 
       expose(tableAction);
 
@@ -356,6 +356,7 @@
         replaceFormSlotKey,
         getFormSlotKeys,
         getWrapperClass,
+        // showSizeChange,
         columns: getViewColumns,
       };
     },
