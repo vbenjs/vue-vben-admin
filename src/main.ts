@@ -19,6 +19,10 @@ import { setupStore } from '@/store';
 import App from './App.vue';
 
 async function bootstrap() {
+  // router-guard
+  // 路由守卫
+  await setupRouterGuard(router);
+
   const app = createApp(App);
 
   // Configure store
@@ -42,10 +46,6 @@ async function bootstrap() {
   // Configure routing
   // 配置路由
   setupRouter(app);
-
-  // router-guard
-  // 路由守卫
-  setupRouterGuard(router);
 
   // Register global directive
   // 注册全局指令

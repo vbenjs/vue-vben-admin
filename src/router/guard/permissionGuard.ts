@@ -15,9 +15,21 @@ const ROOT_PATH = RootRoute.path;
 
 const whitePathList: PageEnum[] = [LOGIN_PATH];
 
-export function createPermissionGuard(router: Router) {
+export async function createPermissionGuard(router: Router) {
   const userStore = useUserStoreWithOut();
   const permissionStore = usePermissionStoreWithOut();
+
+  const routes = await permissionStore.buildRoutesAction();
+
+  routes.forEach((route) => {
+    router.addRoute(route as unknown as RouteRecordRaw);
+  });
+
+  router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
+
+  permissionStore.setDynamicAddedRoute(true);
+  console.log('[ routes ]', routes);
+
   router.beforeEach(async (to, from, next) => {
     if (
       from.path === ROOT_PATH &&
@@ -95,16 +107,6 @@ export function createPermissionGuard(router: Router) {
       next();
       return;
     }
-
-    const routes = await permissionStore.buildRoutesAction();
-
-    routes.forEach((route) => {
-      router.addRoute(route as unknown as RouteRecordRaw);
-    });
-
-    router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
-
-    permissionStore.setDynamicAddedRoute(true);
 
     if (to.name === PAGE_NOT_FOUND_ROUTE.name) {
       // 动态添加路由后，此处应当重定向到fullPath，否则会加载404页面内容
