@@ -70,6 +70,7 @@
 
       function handleClearAndRedo() {
         localStorage.clear();
+        sessionStorage.clear();
         appStore.resetAllState();
         permissionStore.resetState();
         tabStore.resetState();
