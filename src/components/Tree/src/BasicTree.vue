@@ -320,7 +320,7 @@
       });
 
       const instance: TreeActionType = {
-        treeData: treeDataRef,
+        getTreeData: () => treeDataRef,
         setExpandedKeys,
         getExpandedKeys,
         setSelectedKeys,

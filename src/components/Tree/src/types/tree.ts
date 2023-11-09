@@ -171,7 +171,7 @@ export interface InsertNodeParams {
 }
 
 export interface TreeActionType {
-  treeData: Ref<TreeDataItem[]>;
+  getTreeData: () => Ref<TreeDataItem[]>;
   checkAll: (checkAll: boolean) => void;
   expandAll: (expandAll: boolean) => void;
   setExpandedKeys: (keys: KeyType[]) => void;
