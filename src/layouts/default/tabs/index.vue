@@ -50,6 +50,9 @@
 
   import { useRouter } from 'vue-router';
 
+  import { useMouse } from '@vueuse/core';
+  import { multipleTabHeight } from '/@/settings/designSetting';
+
   export default defineComponent({
     name: 'MultipleTabs',
     components: {
@@ -78,11 +81,14 @@
 
       const unClose = computed(() => unref(getTabsState).length === 1);
 
+      const { y: mouseY } = useMouse();
+
       const getWrapClass = computed(() => {
         return [
           prefixCls,
           {
             [`${prefixCls}--hide-close`]: unref(unClose),
+            [`${prefixCls}--hover`]: unref(mouseY) < multipleTabHeight,
           },
         ];
       });

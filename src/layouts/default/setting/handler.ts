@@ -153,6 +153,9 @@ export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConf
     case HandlerEnum.TABS_SHOW_FOLD:
       return { multiTabsSetting: { showFold: value } };
 
+    case HandlerEnum.TABS_AUTO_COLLAPSE:
+      return { multiTabsSetting: { autoCollapse: value } };
+
     // ============header==================
     case HandlerEnum.HEADER_THEME:
       updateHeaderBgColor(value);
