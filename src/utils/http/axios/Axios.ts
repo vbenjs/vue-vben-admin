@@ -10,11 +10,13 @@ import type { CreateAxiosOptions } from './axiosTransform';
 import axios from 'axios';
 import qs from 'qs';
 import { AxiosCanceler } from './axiosCancel';
+import { AxiosCache } from './axiosCache';
 import { isFunction } from '/@/utils/is';
 import { cloneDeep } from 'lodash-es';
 import { ContentTypeEnum, RequestEnum } from '/@/enums/httpEnum';
 
 export * from './axiosTransform';
+const axiosCache = new AxiosCache();
 
 /**
  * @description:  axios module
@@ -88,8 +90,9 @@ export class VAxios {
 
     // Request interceptor configuration processing
     this.axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-      // If cancel repeat request is turned on, then cancel repeat request is prohibited     
-      const requestOptions =  (config as unknown as any).requestOptions ?? this.options.requestOptions;
+      // If cancel repeat request is turned on, then cancel repeat request is prohibited
+      const requestOptions =
+        (config as unknown as any).requestOptions ?? this.options.requestOptions;
       const ignoreCancelToken = requestOptions?.ignoreCancelToken ?? true;
 
       !ignoreCancelToken && axiosCanceler.addPending(config);
@@ -149,16 +152,32 @@ export class VAxios {
       });
     }
 
-    return this.axiosInstance.request<T>({
-      ...config,
-      method: 'POST',
-      data: formData,
-      headers: {
-        'Content-type': ContentTypeEnum.FORM_DATA,
-        // @ts-ignore
-        ignoreCancelToken: true,
+    // return this.axiosInstance.request<T>({
+    //   ...config,
+    //   method: 'POST',
+    //   data: formData,
+    //   headers: {
+    //     'Content-type': ContentTypeEnum.FORM_DATA,
+    //     // @ts-ignore
+    //     ignoreCancelToken: true,
+    //   },
+    // });
+
+    return this.request<T>(
+      {
+        ...config,
+        method: 'POST',
+        data: formData,
+        headers: {
+          'Content-type': ContentTypeEnum.FORM_DATA,
+          // @ts-ignore
+          ignoreCancelToken: true,
+        },
       },
-    });
+      {
+        isTransformResponse: false,
+      },
+    );
   }
 
   // support form-data
@@ -202,14 +221,14 @@ export class VAxios {
     if (config.cancelToken) {
       conf.cancelToken = config.cancelToken;
     }
-    
+
     if (config.signal) {
       conf.signal = config.signal;
     }
 
     const transform = this.getTransform();
 
-    const { requestOptions } = this.options;
+    const { requestOptions = {} } = this.options;
 
     const opt: RequestOptions = Object.assign({}, requestOptions, options);
 
@@ -217,10 +236,17 @@ export class VAxios {
     if (beforeRequestHook && isFunction(beforeRequestHook)) {
       conf = beforeRequestHook(conf, opt);
     }
+
     conf.requestOptions = opt;
 
     conf = this.supportFormData(conf);
-
+    // 获取缓存数据
+    if (opt?.isCache) {
+      const cache = axiosCache.getCache(config);
+      if (cache) {
+        return cache;
+      }
+    }
     return new Promise((resolve, reject) => {
       this.axiosInstance
         .request<any, AxiosResponse<Result>>(conf)
@@ -228,6 +254,10 @@ export class VAxios {
           if (transformResponseHook && isFunction(transformResponseHook)) {
             try {
               const ret = transformResponseHook(res, opt);
+              // 写入缓存
+              if (opt?.isCache) {
+                axiosCache.setCache(config, ret);
+              }
               resolve(ret);
             } catch (err) {
               reject(err || new Error('request error!'));

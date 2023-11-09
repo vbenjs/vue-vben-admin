@@ -2,28 +2,33 @@
 // The axios configuration can be changed according to the project, just change the file, other files can be left unchanged
 
 import type { AxiosInstance, AxiosResponse } from 'axios';
-import { clone } from 'lodash-es';
-import type { RequestOptions, Result } from '/#/axios';
-import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
-import { VAxios } from './Axios';
-import { checkStatus } from './checkStatus';
-import { useGlobSetting } from '/@/hooks/setting';
-import { useMessage } from '/@/hooks/web/useMessage';
-import { RequestEnum, ResultEnum, ContentTypeEnum } from '/@/enums/httpEnum';
-import { isString, isUnDef, isNull, isEmpty } from '/@/utils/is';
-import { getToken } from '/@/utils/auth';
-import { setObjToUrlParams, deepMerge } from '/@/utils';
-import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog';
-import { useI18n } from '/@/hooks/web/useI18n';
-import { joinTimestamp, formatRequestDate } from './helper';
-import { useUserStoreWithOut } from '/@/store/modules/user';
-import { AxiosRetry } from '/@/utils/http/axios/axiosRetry';
+
 import axios from 'axios';
+import { clone } from 'lodash-es';
+import qs from 'qs';
+import { VAxios } from './Axios';
+import { AxiosRefreshToken } from './axiosRefreshToken';
+import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
+import { checkStatus } from './checkStatus';
+import { formatRequestDate, joinTimestamp } from './helper';
+import type { RequestOptions, Result } from '/#/axios';
+import { ContentTypeEnum, RequestEnum, ResultEnum } from '/@/enums/httpEnum';
+import { useGlobSetting } from '/@/hooks/setting';
+import { useI18n } from '/@/hooks/web/useI18n';
+import { useMessage } from '/@/hooks/web/useMessage';
+import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog';
+import { useUserStoreWithOut } from '/@/store/modules/user';
+import { deepMerge, setObjToUrlParams } from '/@/utils';
+import { getToken } from '/@/utils/auth';
+import { AxiosRetry } from '/@/utils/http/axios/axiosRetry';
+import { isEmpty, isNull, isString, isUnDef } from '/@/utils/is';
 
 const globSetting = useGlobSetting();
 const urlPrefix = globSetting.urlPrefix;
-const { createMessage, createErrorModal, createSuccessModal } = useMessage();
 
+const axiosRefreshToken = new AxiosRefreshToken();
+
+const { createMessage, createErrorModal, createSuccessModal } = useMessage();
 /**
  * @description: 数据处理，方便区分多种处理方式
  */
@@ -34,6 +39,10 @@ const transform: AxiosTransform = {
   transformResponseHook: (res: AxiosResponse<Result>, options: RequestOptions) => {
     const { t } = useI18n();
     const { isTransformResponse, isReturnNativeResponse } = options;
+
+    if (res?.data?.code === ResultEnum.TIMEOUT) {
+      return axiosRefreshToken.refeshing(res);
+    }
     // 是否返回原生响应头 比如：需要获取响应头时使用该属性
     if (isReturnNativeResponse) {
       return res;
@@ -44,14 +53,13 @@ const transform: AxiosTransform = {
       return res.data;
     }
     // 错误的时候返回
-
     const { data } = res;
     if (!data) {
       // return '[HTTP] Request has no return value';
       throw new Error(t('sys.api.apiRequestFailed'));
     }
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
-    const { code, result, message } = data;
+    const { code, data: result, msg: message } = data;
 
     // 这里逻辑可以根据项目进行修改
     const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
@@ -74,6 +82,8 @@ const transform: AxiosTransform = {
     // 如果不希望中断当前请求，请return数据，否则直接抛出异常即可
     let timeoutMsg = '';
     switch (code) {
+      case ResultEnum.SUCCESS:
+        return result;
       case ResultEnum.TIMEOUT:
         timeoutMsg = t('sys.api.timeoutMessage');
         const userStore = useUserStoreWithOut();
@@ -98,26 +108,48 @@ const transform: AxiosTransform = {
 
   // 请求之前处理config
   beforeRequestHook: (config, options) => {
-    const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true, urlPrefix } = options;
+    const {
+      apiUrl,
+      joinPrefix,
+      joinParamsToUrl,
+      formatDate,
+      joinTime = true,
+      isCache = false,
+      urlPrefix,
+    } = options;
 
     if (joinPrefix) {
       config.url = `${urlPrefix}${config.url}`;
     }
-
     if (apiUrl && isString(apiUrl)) {
       config.url = `${apiUrl}${config.url}`;
     }
     const params = config.params || {};
     const data = config.data || false;
     formatDate && data && !isString(data) && formatRequestDate(data);
+
     if (config.method?.toUpperCase() === RequestEnum.GET) {
-      if (!isString(params)) {
-        // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
-        config.params = Object.assign(params || {}, joinTimestamp(joinTime, false));
-      } else {
-        // 兼容restful风格
-        config.url = config.url + params + `${joinTimestamp(joinTime, true)}`;
-        config.params = undefined;
+      //导出excel时
+      if (config.params?.exportData === '1') {
+        config = Object.assign(config, {
+          responseType: 'blob',
+          timeout: 0,
+          paramsSerializer: {
+            serialize: () =>
+              qs.stringify({ ...config.params }, { arrayFormat: 'indices', allowDots: true }),
+          },
+        });
+        options.isTransformResponse = false;
+      }
+      if (!isCache) {
+        if (!isString(params)) {
+          // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
+          config.params = Object.assign(params || {}, joinTimestamp(joinTime, false));
+        } else {
+          // 兼容restful风格
+          config.url = config.url + params + `${joinTimestamp(joinTime, true)}`;
+          config.params = undefined;
+        }
       }
     } else {
       if (!isString(params)) {
@@ -155,6 +187,7 @@ const transform: AxiosTransform = {
   requestInterceptors: (config, options) => {
     // 请求之前处理config
     const token = getToken();
+
     if (token && (config as Recordable)?.requestOptions?.withToken !== false) {
       // jwt token
       (config as Recordable).headers.Authorization = options.authenticationScheme
@@ -183,11 +216,9 @@ const transform: AxiosTransform = {
     const msg: string = response?.data?.error?.message ?? '';
     const err: string = error?.toString?.() ?? '';
     let errMessage = '';
-
     if (axios.isCancel(error)) {
       return Promise.reject(error);
     }
-
     try {
       if (code === 'ECONNABORTED' && message.indexOf('timeout') !== -1) {
         errMessage = t('sys.api.apiTimeoutMessage');
@@ -207,8 +238,7 @@ const transform: AxiosTransform = {
     } catch (error) {
       throw new Error(error as unknown as string);
     }
-
-    checkStatus(error?.response?.status, msg, errorMessageMode);
+    checkStatus(error?.response?.code, msg, errorMessageMode);
 
     // 添加自动重试机制 保险起见 只针对GET请求
     const retryRequest = new AxiosRetry();
@@ -228,8 +258,8 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
       {
         // See https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#authentication_schemes
         // authentication schemes，e.g: Bearer
-        // authenticationScheme: 'Bearer',
-        authenticationScheme: '',
+        authenticationScheme: 'Bearer',
+        // authenticationScheme: '',
         timeout: 10 * 1000,
         // 基础接口地址
         // baseURL: globSetting.apiUrl,
@@ -254,7 +284,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           // 消息提示类型
           errorMessageMode: 'message',
           // 接口地址
-          apiUrl: globSetting.apiUrl,
+          apiUrl: '',
           // 接口拼接地址
           urlPrefix: urlPrefix,
           //  是否加入时间戳
@@ -265,7 +295,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           withToken: true,
           retryRequest: {
             isOpenRetry: true,
-            count: 5,
+            count: 3,
             waitTime: 100,
           },
         },
