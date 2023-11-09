@@ -39,7 +39,11 @@ export function useI18n(namespace?: string): {
   const tFn: I18nGlobalTranslation = (key: string, ...arg: any[]) => {
     if (!key) return '';
     if (!key.includes('.') && !namespace) return key;
-    return t(getKey(namespace, key), ...(arg as I18nTranslationRestParameters));
+
+    return (t as (arg0: string, ...arg: I18nTranslationRestParameters) => string)(
+      getKey(namespace, key),
+      ...(arg as I18nTranslationRestParameters),
+    );
   };
   return {
     ...methods,
