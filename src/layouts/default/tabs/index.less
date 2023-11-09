@@ -1,10 +1,30 @@
 @prefix-cls: ~'@{namespace}-multiple-tabs';
+@prefix-cls-default-layout: ~'@{namespace}-default-layout';
 
 html[data-theme='light'] {
   .@{prefix-cls} {
     .ant-tabs-tab:not(.ant-tabs-tab-active) {
       border: 1px solid #d9d9d9 !important;
     }
+  }
+}
+
+.@{prefix-cls-default-layout}-out {
+  &.ant-layout-auto-collapse-tabs {
+    .@{prefix-cls} {
+      margin-top: -(@multiple-height + 2);
+      opacity: 0.1;
+
+      &:hover,
+      &--hover {
+        margin-top: 0;
+        transition-delay: 0s;
+        opacity: 1;
+      }
+    }
+  }
+  .@{prefix-cls} {
+    transition: margin 0.2s ease-in-out 0.6s, opacity 0.2s ease-in-out 0.6s;
   }
 }
 

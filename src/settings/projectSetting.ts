@@ -135,6 +135,8 @@ const setting: ProjectConfig = {
     showRedo: true,
     // Whether to show the collapse button
     showFold: true,
+    // Auto collapsed
+    autoCollapse: false,
   },
 
   // Transition Setting
