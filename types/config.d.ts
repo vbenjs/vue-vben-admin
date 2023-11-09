@@ -37,6 +37,7 @@ export interface MenuSetting {
 export interface MultiTabsSetting {
   cache: boolean;
   show: boolean;
+  showIcon: boolean;
   showQuick: boolean;
   canDrag: boolean;
   showRedo: boolean;
@@ -144,10 +145,13 @@ export interface GlobConfig {
   apiUrl: string;
   // Upload url
   uploadUrl?: string;
+  // Download url
+  downloadUrl?: string;
   //  Service interface url prefix
   urlPrefix?: string;
   // Project abbreviation
   shortName: string;
+  zxtId?: string;
 }
 export interface GlobEnvConfig {
   // Site title
@@ -158,4 +162,6 @@ export interface GlobEnvConfig {
   VITE_GLOB_API_URL_PREFIX?: string;
   // Upload url
   VITE_GLOB_UPLOAD_URL?: string;
+  VITE_GLOB_ZXTID?: string;
+  VITE_GLOB_DOWNLOAD_URL?: string;
 }
