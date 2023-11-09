@@ -28,7 +28,7 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
-package-lock.json
-pnpm-lock.yaml
-
 .history
+.svn
+.gitkeep
+demo
