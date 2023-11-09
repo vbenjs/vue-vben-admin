@@ -56,7 +56,7 @@
   }, 
   "table": {
     "settingDens": "Density", 
-    "settingDensDefault": "Default", 
+    "settingDensDefault": "Loose", 
     "settingDensMiddle": "Middle", 
     "settingDensSmall": "Compact", 
     "settingColumn": "Column settings", 

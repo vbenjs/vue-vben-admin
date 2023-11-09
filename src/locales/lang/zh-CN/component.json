@@ -56,7 +56,7 @@
   }, 
   "table": {
     "settingDens": "密度", 
-    "settingDensDefault": "默认", 
+    "settingDensDefault": "宽松", 
     "settingDensMiddle": "中等", 
     "settingDensSmall": "紧凑", 
     "settingColumn": "列设置", 
