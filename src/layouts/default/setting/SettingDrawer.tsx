@@ -223,7 +223,7 @@ export default defineComponent({
             disabled={!unref(getShowMenuRef) || unref(getIsMixSidebar)}
           />
           <SwitchItem
-            title={t('layout.setting.autoCollapseTabs')}
+            title={t('layout.setting.autoCollapseTabsInFold')}
             event={HandlerEnum.TABS_AUTO_COLLAPSE}
             def={unref(getAutoCollapse)}
             disabled={!unref(getShowMultipleTab)}
