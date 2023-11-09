@@ -35,12 +35,28 @@ export interface ErrorLogInfo {
   time?: string;
 }
 
+// export interface UserInfo {
+//   userId: string | number;
+//   username: string;
+//   realName: string;
+//   avatar: string;
+//   desc?: string;
+//   homePath?: string;
+//   roles: RoleInfo[];
+// }
 export interface UserInfo {
-  userId: string | number;
-  username: string;
-  realName: string;
-  avatar: string;
-  desc?: string;
+  // 人员id
+  ryid: string;
+  // 所属法院
+  fjm: string;
+  // 手机号码
+  sjhm: string | number;
+  // 用户名
+  ryxm: string;
+  // 人员类型
+  rylx: string;
+  // 人员类型名称
+  rylxmc: string;
   homePath?: string;
   roles: RoleInfo[];
 }
