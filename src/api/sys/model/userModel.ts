@@ -2,8 +2,11 @@
  * @description: Login interface parameters
  */
 export interface LoginParams {
-  username: string;
-  password: string;
+  grant_type: 'password' | 'refresh_token';
+  username?: string;
+  password?: string;
+  scope?: string;
+  refresh_token?: string;
 }
 
 export interface RoleInfo {
@@ -15,24 +18,32 @@ export interface RoleInfo {
  * @description: Login interface return value
  */
 export interface LoginResultModel {
-  userId: string | number;
-  token: string;
-  roles: RoleInfo[];
+  code?: number;
+  msg?: string;
+  // userId: string | number;
+  access_token: string;
+  // role: RoleInfo;
+  token_type: string;
+  scope: string;
+  expires_in: string;
+  refresh_token: string;
 }
 
 /**
  * @description: Get user information return value
  */
 export interface GetUserInfoModel {
-  roles: RoleInfo[];
-  // 用户id
-  userId: string | number;
+  // 人员id
+  ryid: string;
+  // 所属法院
+  fjm: string;
+  // 手机号码
+  sjhm: string | number;
   // 用户名
-  username: string;
-  // 真实名字
-  realName: string;
-  // 头像
-  avatar: string;
-  // 介绍
-  desc?: string;
+  ryxm: string;
+  // 人员类型
+  rylx: string;
+  // 人员类型名称
+  rylxmc: string;
+  roles: RoleInfo[];
 }
