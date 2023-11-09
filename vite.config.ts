@@ -2,6 +2,7 @@ import { defineApplicationConfig } from '@vben/vite-config';
 
 export default defineApplicationConfig({
   overrides: {
+    base: './',
     optimizeDeps: {
       include: [
         'echarts/core',
@@ -16,19 +17,23 @@ export default defineApplicationConfig({
     },
     server: {
       proxy: {
-        '/basic-api': {
-          target: 'http://localhost:3000',
+        '/oauth2/token': {
+          target: 'http://172.16.10.104:18000',
           changeOrigin: true,
-          ws: true,
-          rewrite: (path) => path.replace(new RegExp(`^/basic-api`), ''),
-          // only https
-          // secure: false
         },
-        '/upload': {
-          target: 'http://localhost:3300/upload',
+        '/logout': {
+          target: 'http://172.16.10.104:18000',
+          changeOrigin: true,
+        },
+        '/hd-api': {
+          target: 'http://172.16.10.104:18000',
           changeOrigin: true,
           ws: true,
-          rewrite: (path) => path.replace(new RegExp(`^/upload`), ''),
+        },
+        '/hd-office': {
+          target: 'http://172.16.0.28:808',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/hd-office/, '/'),
         },
       },
     },
