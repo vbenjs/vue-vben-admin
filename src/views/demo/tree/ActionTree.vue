@@ -14,7 +14,7 @@
       <a-button @click="handleSetSelectData" class="mr-2"> 设置选中数据 </a-button>
       <a-button @click="handleGetSelectData" class="mr-2"> 获取选中数据 </a-button>
       <a-button @click="handleGetSelectNode" class="mr-2"> 获取选中节点 </a-button>
-
+      <a-button @click="handleGetTreeData" class="mr-2"> 获取Tree数据 </a-button>
       <a-button @click="handleSetExpandData" class="mr-2"> 设置展开数据 </a-button>
       <a-button @click="handleGetExpandData" class="mr-2"> 获取展开数据 </a-button>
     </div>
@@ -118,6 +118,11 @@
         });
       }
 
+      function handleGetTreeData() {
+        const treeDataRef = getTree().getTreeData();
+        createMessage.success(JSON.stringify(treeDataRef.value));
+      }
+
       return {
         treeData,
         treeRef,
@@ -134,6 +139,7 @@
         updateNodeByKey,
         checkAll,
         expandAll,
+        handleGetTreeData,
       };
     },
   });
