@@ -6,14 +6,14 @@ import { useI18n } from '/@/hooks/web/useI18n';
 import { useUserStore } from './user';
 import { useAppStoreWithOut } from './app';
 import { toRaw } from 'vue';
-import { transformObjToRoute, flatMultiLevelRoutes } from '/@/router/helper/routeHelper';
+import { flatMultiLevelRoutes } from '/@/router/helper/routeHelper';
 import { transformRouteToMenu } from '/@/router/helper/menuHelper';
 
 import projectSetting from '/@/settings/projectSetting';
 
 import { PermissionModeEnum } from '/@/enums/appEnum';
 
-import { asyncRoutes } from '/@/router/routes';
+import { asyncRoutes, basicRoutes } from '/@/router/routes';
 import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
 
 import { filter } from '/@/utils/helper/treeHelper';
@@ -214,22 +214,21 @@ export const usePermissionStore = defineStore({
             content: t('sys.app.menuLoading'),
             duration: 1,
           });
-
           // !Simulate to obtain permission codes from the background,
           // 模拟从后台获取权限码，
           // this function may only need to be executed once, and the actual project can be put at the right time by itself
           // 这个功能可能只需要执行一次，实际项目可以自己放在合适的时间
           let routeList: AppRouteRecordRaw[] = [];
           try {
-            await this.changePermissionCode();
+            // await this.changePermissionCode();
             routeList = (await getMenuList()) as AppRouteRecordRaw[];
           } catch (error) {
             console.error(error);
           }
-
+          routeList.concat(basicRoutes);
           // Dynamically introduce components
           // 动态引入组件
-          routeList = transformObjToRoute(routeList);
+          // routeList = transformObjToRoute(routeList);
 
           //  Background routing to menu structure
           //  后台路由到菜单结构
