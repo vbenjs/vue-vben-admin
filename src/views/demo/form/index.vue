@@ -576,6 +576,19 @@
       },
     },
     {
+      label: '远程穿梭框',
+      field: 'field37',
+      component: 'ApiTransfer',
+      componentProps: {
+        render: (item) => item.label,
+        api: async () => {
+          return Promise.resolve(citiesOptionsData.guangdong);
+        },
+      },
+      defaultValue: ['1'],
+      required: true,
+    },
+    {
       field: 'divider-linked',
       component: 'Divider',
       label: '字段联动',
