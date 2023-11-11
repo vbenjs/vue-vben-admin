@@ -2,6 +2,13 @@ import { genMessage } from '../helper';
 import antdLocale from 'ant-design-vue/es/locale/zh_CN';
 
 const modules = import.meta.glob('./zh-CN/**/*.json', { eager: true });
+
+antdLocale.DatePicker.lang = Object.assign(
+  {},
+  antdLocale.DatePicker.lang,
+  genMessage(modules as Recordable<Recordable>, 'zh-CN').antdLocale.DatePicker.lang,
+);
+
 export default {
   message: {
     ...genMessage(modules as Recordable<Recordable>, 'zh-CN'),
