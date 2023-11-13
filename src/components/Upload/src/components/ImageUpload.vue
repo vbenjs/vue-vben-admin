@@ -5,6 +5,8 @@
       v-model:file-list="fileList"
       :list-type="listType"
       :accept="getStringAccept"
+      :multiple="multiple"
+      :maxCount="maxNumber"
       :before-upload="beforeUpload"
       :custom-request="customRequest"
       @preview="handlePreview"
@@ -28,7 +30,7 @@
   import type { UploadProps } from 'ant-design-vue';
   import { UploadRequestOption } from 'ant-design-vue/lib/vc-upload/interface';
   import { useMessage } from '@/hooks/web/useMessage';
-  import { isArray, isFunction } from '@/utils/is';
+  import { isArray, isFunction, isObject, isString } from '@/utils/is';
   import { warn } from '@/utils/log';
   import { useI18n } from '@/hooks/web/useI18n';
   import { useUploadType } from '../hooks/useUpload';
@@ -59,18 +61,22 @@
   watch(
     () => props.value,
     (v) => {
-      if (isArray(v)) {
-        fileList.value = v.map((url, i) => ({
-          uid: String(-i),
-          name: url ? url.substring(url.lastIndexOf('/') + 1) : 'image.png',
-          status: 'done',
-          url,
-        }));
+      if (v && isArray(v)) {
+        fileList.value = v.map((item, i) => {
+          if (item && isString(item)) {
+            return {
+              uid: -i + '',
+              name: item.substring(item.lastIndexOf('/') + 1),
+              status: 'done',
+              url: item,
+            };
+          } else if (item && isObject(item)) {
+            return item;
+          } else {
+            return;
+          }
+        }) as UploadProps['fileList'][number];
       }
-    },
-    {
-      immediate: true,
-      deep: true,
     },
   );
 
@@ -109,21 +115,21 @@
   const beforeUpload = (file: File) => {
     const { maxSize, accept } = props;
     const { name } = file;
-    isActMsg.value = isImgTypeByName(name);
-    if (!isActMsg.value) {
+    const isAct = isImgTypeByName(name);
+    if (!isAct) {
       createMessage.error(t('component.upload.acceptUpload', [accept]));
       isActMsg.value = false;
       // 防止弹出多个错误提示
       setTimeout(() => (isActMsg.value = true), 1000);
     }
-    isLtMsg.value = file.size / 1024 / 1024 > maxSize;
-    if (isLtMsg.value) {
+    const isLt = file.size / 1024 / 1024 > maxSize;
+    if (isLt) {
       createMessage.error(t('component.upload.maxSizeMultiple', [maxSize]));
       isLtMsg.value = false;
       // 防止弹出多个错误提示
       setTimeout(() => (isLtMsg.value = true), 1000);
     }
-    return (isActMsg.value && !isLtMsg.value) || Upload.LIST_IGNORE;
+    return (isAct && !isLt) || Upload.LIST_IGNORE;
   };
 
   async function customRequest(info: UploadRequestOption<any>) {
@@ -143,6 +149,7 @@
       info.onSuccess!(res.data);
       emit('change', fileList.value);
     } catch (e: any) {
+      console.log(e);
       info.onError!(e);
     }
   }
