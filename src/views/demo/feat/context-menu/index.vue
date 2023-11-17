@@ -9,77 +9,71 @@
     </CollapseContainer>
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
-  import { useContextMenu } from '/@/hooks/web/useContextMenu';
-  import { CollapseContainer } from '/@/components/Container';
+<script lang="ts" setup>
   import { useMessage } from '/@/hooks/web/useMessage';
+  import { useContextMenu } from '/@/hooks/web/useContextMenu';
+
   import { PageWrapper } from '/@/components/Page';
+  import { CollapseContainer } from '/@/components/Container';
 
-  export default defineComponent({
-    components: { CollapseContainer, PageWrapper },
-    setup() {
-      const [createContextMenu] = useContextMenu();
-      const { createMessage } = useMessage();
-      function handleContext(e: MouseEvent) {
-        createContextMenu({
-          event: e,
-          items: [
+  const { createMessage } = useMessage();
+  const [createContextMenu] = useContextMenu();
+
+  function handleContext(e: MouseEvent) {
+    createContextMenu({
+      event: e,
+      items: [
+        {
+          label: 'New',
+          icon: 'bi:plus',
+          handler: () => {
+            createMessage.success('click new');
+          },
+        },
+        {
+          label: 'Open',
+          icon: 'bx:bxs-folder-open',
+          handler: () => {
+            createMessage.success('click open');
+          },
+        },
+      ],
+    });
+  }
+
+  function handleMultipleContext(e: MouseEvent) {
+    createContextMenu({
+      event: e,
+      items: [
+        {
+          label: 'New',
+          icon: 'bi:plus',
+
+          children: [
             {
-              label: 'New',
+              label: 'New1-1',
               icon: 'bi:plus',
-              handler: () => {
-                createMessage.success('click new');
-              },
-            },
-            {
-              label: 'Open',
-              icon: 'bx:bxs-folder-open',
-              handler: () => {
-                createMessage.success('click open');
-              },
-            },
-          ],
-        });
-      }
-
-      function handleMultipleContext(e: MouseEvent) {
-        createContextMenu({
-          event: e,
-          items: [
-            {
-              label: 'New',
-              icon: 'bi:plus',
-
+              divider: true,
               children: [
                 {
-                  label: 'New1-1',
-                  icon: 'bi:plus',
-                  divider: true,
-                  children: [
-                    {
-                      label: 'New1-1-1',
-                      handler: () => {
-                        createMessage.success('click new');
-                      },
-                    },
-                    {
-                      label: 'New1-2-1',
-                      disabled: true,
-                    },
-                  ],
+                  label: 'New1-1-1',
+                  handler: () => {
+                    createMessage.success('click new');
+                  },
                 },
                 {
-                  label: 'New1-2',
-                  icon: 'bi:plus',
+                  label: 'New1-2-1',
+                  disabled: true,
                 },
               ],
             },
+            {
+              label: 'New1-2',
+              icon: 'bi:plus',
+            },
           ],
-        });
-      }
-
-      return { handleContext, handleMultipleContext };
-    },
-  });
+        },
+      ],
+    });
+  }
 </script>
