@@ -2,7 +2,7 @@ import type { ComputedRef, Ref } from 'vue';
 import type { FormProps, FormSchemaInner as FormSchema, FormActionType } from '../types/form';
 import type { NamePath } from 'ant-design-vue/lib/form/interface';
 import { unref, toRaw, nextTick } from 'vue';
-import { isArray, isFunction, isObject, isString, isDef, isNil, isEmpty } from '/@/utils/is';
+import { isArray, isFunction, isObject, isString, isDef, isNil } from '/@/utils/is';
 import { deepMerge } from '/@/utils';
 import { dateItemType, handleInputNumberValue, defaultValueComponents } from '../helper';
 import { dateUtil } from '/@/utils/dateUtil';
@@ -310,9 +310,7 @@ export function useFormEvents({
         Reflect.has(item, 'field') &&
         item.field &&
         !isNil(item.defaultValue) &&
-        (!(item.field in currentFieldsValue) ||
-          isNil(currentFieldsValue[item.field]) ||
-          isEmpty(currentFieldsValue[item.field]))
+        (!(item.field in currentFieldsValue) || isNil(currentFieldsValue[item.field]))
       ) {
         obj[item.field] = item.defaultValue;
       }
