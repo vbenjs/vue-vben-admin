@@ -9,16 +9,8 @@
   </PageWrapper>
 </template>
 
-<script lang="ts">
-  import { FlowChart } from '/@/components/FlowChart';
-  import { PageWrapper } from '/@/components/Page';
-
+<script lang="ts" setup>
+  import { FlowChart } from '@/components/FlowChart';
+  import { PageWrapper } from '@/components/Page';
   import demoData from './dataTurbo.json';
-
-  export default {
-    components: { FlowChart, PageWrapper },
-    setup() {
-      return { demoData };
-    },
-  };
 </script>
