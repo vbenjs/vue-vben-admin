@@ -23,12 +23,12 @@
 </template>
 <script lang="ts" setup>
   import { ref, computed, unref } from 'vue';
-  import { BasicForm, useForm } from '/@/components/Form/index';
+  import { BasicForm, useForm } from '@/components/Form';
   import { formSchema } from './role.data';
-  import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
-  import { BasicTree, TreeItem } from '/@/components/Tree';
+  import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
+  import { BasicTree, TreeItem } from '@/components/Tree';
 
-  import { getMenuList } from '/@/api/demo/system';
+  import { getMenuList } from '@/api/demo/system';
 
   const emit = defineEmits(['success', 'register']);
   const isUpdate = ref(true);

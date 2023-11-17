@@ -1,8 +1,8 @@
 <template>
   <List :class="prefixCls">
-    <a-row :gutter="16">
-      <template v-for="item in list" :key="item.title">
-        <a-col :span="6">
+    <Row :gutter="16">
+      <template v-for="item in applicationList" :key="item.title">
+        <Col :span="6">
           <ListItem>
             <Card :hoverable="true" :class="`${prefixCls}__card`">
               <div :class="`${prefixCls}__card-title`">
@@ -22,33 +22,19 @@
               />
             </Card>
           </ListItem>
-        </a-col>
+        </Col>
       </template>
-    </a-row>
+    </Row>
   </List>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import { List, Card, Row, Col } from 'ant-design-vue';
   import Icon from '@/components/Icon/Icon.vue';
   import { applicationList } from './data';
 
-  export default defineComponent({
-    components: {
-      List,
-      ListItem: List.Item,
-      Card,
-      Icon,
-      [Row.name]: Row,
-      [Col.name]: Col,
-    },
-    setup() {
-      return {
-        prefixCls: 'account-center-application',
-        list: applicationList,
-      };
-    },
-  });
+  const ListItem = List.Item;
+
+  const prefixCls = 'account-center-application';
 </script>
 <style lang="less">
   .account-center-application {

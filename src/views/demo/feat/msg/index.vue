@@ -1,14 +1,14 @@
 <template>
   <PageWrapper title="消息示例">
     <CollapseContainer class="w-full h-32 bg-white rounded-md" title="Message">
-      <a-button @click="infoMsg('Info message')" class="mr-2"> Info </a-button>
-      <a-button @click="successMsg('Success message')" class="mr-2" color="success">
+      <a-button @click="info('Info message')" class="mr-2"> Info </a-button>
+      <a-button @click="success('Success message')" class="mr-2" color="success">
         Success
       </a-button>
-      <a-button @click="warningMsg('Warning message')" class="mr-2" color="warning">
+      <a-button @click="warning('Warning message')" class="mr-2" color="warning">
         Warning
       </a-button>
-      <a-button @click="errorMsg('Error message')" class="mr-2" color="error"> Error </a-button>
+      <a-button @click="error('Error message')" class="mr-2" color="error"> Error </a-button>
       <a-button @click="handleLoading" class="mr-2" type="primary"> Loading </a-button>
     </CollapseContainer>
 
@@ -34,67 +34,49 @@
     </CollapseContainer>
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { PageWrapper } from '/@/components/Page';
+<script lang="ts" setup>
+  import { CollapseContainer } from '@/components/Container';
+  import { useMessage } from '@/hooks/web/useMessage';
+  import { PageWrapper } from '@/components/Page';
 
-  export default defineComponent({
-    components: { CollapseContainer, PageWrapper },
-    setup() {
-      const {
-        createMessage,
-        createConfirm,
-        createSuccessModal,
-        createInfoModal,
-        createErrorModal,
-        createWarningModal,
-        notification,
-      } = useMessage();
-      const { info, success, warning, error } = createMessage;
+  const {
+    createMessage,
+    createConfirm,
+    createSuccessModal,
+    createInfoModal,
+    createErrorModal,
+    createWarningModal,
+    notification,
+  } = useMessage();
 
-      function handleLoading() {
-        createMessage.loading('Loading...');
-      }
-      function handleConfirm(type: 'warning' | 'error' | 'success' | 'info') {
-        createConfirm({
-          iconType: type,
-          title: 'Tip',
-          content: 'content message...',
-        });
-      }
-      function handleSuccessModal() {
-        createSuccessModal({ title: 'Tip', content: 'content message...' });
-      }
-      function handleErrorModal() {
-        createErrorModal({ title: 'Tip', content: 'content message...' });
-      }
-      function handleWarningModal() {
-        createWarningModal({ title: 'Tip', content: 'content message...' });
-      }
-      function handleInfoModal() {
-        createInfoModal({ title: 'Tip', content: 'content message...' });
-      }
-      function handleNotify() {
-        notification.success({
-          message: 'Tip',
-          description: 'content message...',
-        });
-      }
-      return {
-        infoMsg: info,
-        successMsg: success,
-        warningMsg: warning,
-        errorMsg: error,
-        handleLoading,
-        handleConfirm,
-        handleSuccessModal,
-        handleErrorModal,
-        handleWarningModal,
-        handleInfoModal,
-        handleNotify,
-      };
-    },
-  });
+  const { info, success, warning, error } = createMessage;
+
+  function handleLoading() {
+    createMessage.loading('Loading...');
+  }
+  function handleConfirm(type: 'warning' | 'error' | 'success' | 'info') {
+    createConfirm({
+      iconType: type,
+      title: 'Tip',
+      content: 'content message...',
+    });
+  }
+  function handleSuccessModal() {
+    createSuccessModal({ title: 'Tip', content: 'content message...' });
+  }
+  function handleErrorModal() {
+    createErrorModal({ title: 'Tip', content: 'content message...' });
+  }
+  function handleWarningModal() {
+    createWarningModal({ title: 'Tip', content: 'content message...' });
+  }
+  function handleInfoModal() {
+    createInfoModal({ title: 'Tip', content: 'content message...' });
+  }
+  function handleNotify() {
+    notification.success({
+      message: 'Tip',
+      description: 'content message...',
+    });
+  }
 </script>
