@@ -1,45 +1,42 @@
 <template>
-  <BasicTitle :class="prefixCls" v-if="getTitle" :helpMessage="helpMessage">
-    {{ getTitle }}
+  <BasicTitle :class="prefixCls" v-if="titleOrComponent" :helpMessage="helpMessage">
+    <template v-if="isVNode(titleOrComponent)">
+      <titleOrComponent />
+    </template>
+    <template v-else>
+      {{ titleOrComponent }}
+    </template>
   </BasicTitle>
 </template>
-<script lang="ts">
-  import { computed, defineComponent, PropType } from 'vue';
-  import { BasicTitle } from '/@/components/Basic/index';
+<script lang="ts" setup>
+  import { computed, isVNode, PropType, VNodeChild } from 'vue';
+  import { BasicTitle } from '@/components/Basic';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { isFunction } from '/@/utils/is';
+  import { isFunction, isString } from '/@/utils/is';
 
-  export default defineComponent({
-    name: 'BasicTableTitle',
-    components: { BasicTitle },
-    props: {
-      title: {
-        type: [Function, String] as PropType<string | ((data) => string)>,
-      },
-      getSelectRows: {
-        type: Function as PropType<() => any[]>,
-      },
-      helpMessage: {
-        type: [String, Array] as PropType<string | string[]>,
-      },
+  const props = defineProps({
+    title: {
+      type: [Function, String] as PropType<string | ((data) => string) | VNodeChild>,
     },
-    setup(props) {
-      const { prefixCls } = useDesign('basic-table-title');
+    getSelectRows: {
+      type: Function as PropType<() => any[]>,
+    },
+    helpMessage: {
+      type: [String, Array] as PropType<string | string[]>,
+    },
+  });
+  const { prefixCls } = useDesign('basic-table-title');
 
-      const getTitle = computed(() => {
-        const { title, getSelectRows = () => {} } = props;
-        let tit = title;
-
-        if (isFunction(title)) {
-          tit = title({
-            selectRows: getSelectRows(),
-          });
-        }
-        return tit;
+  const titleOrComponent = computed(() => {
+    const { title, getSelectRows = () => {} } = props;
+    if (isFunction(title)) {
+      return title({
+        selectRows: getSelectRows(),
       });
-
-      return { getTitle, prefixCls };
-    },
+    } else if (isString(title)) {
+      return title;
+    }
+    return title;
   });
 </script>
 <style lang="less">

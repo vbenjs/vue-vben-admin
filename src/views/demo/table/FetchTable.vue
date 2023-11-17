@@ -9,7 +9,7 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, h } from 'vue';
   import { BasicTable, useTable } from '/@/components/Table';
   import { getBasicColumns } from './tableData';
   import { PageWrapper } from '/@/components/Page';
@@ -20,7 +20,7 @@
     components: { BasicTable, PageWrapper },
     setup() {
       const [registerTable, { reload }] = useTable({
-        title: '远程加载示例',
+        title: h('div', { style: { color: 'red' } }, ['远程加载示例(红色文字)']),
         api: demoListApi,
         columns: getBasicColumns(),
         pagination: { pageSize: 10 },
