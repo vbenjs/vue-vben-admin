@@ -1,5 +1,5 @@
 import type { PropType } from 'vue';
-import { FileBasicColumn } from './typing';
+import { FileBasicColumn } from './types/typing';
 
 import type { Options } from 'sortablejs';
 
@@ -13,7 +13,13 @@ type SortableOptions = Merge<
   }
 >;
 
+type ListType = 'text' | 'picture' | 'picture-card';
+
 export const basicProps = {
+  listType: {
+    type: String as PropType<ListType>,
+    default: 'picture-card',
+  },
   helpText: {
     type: String as PropType<string>,
     default: '',

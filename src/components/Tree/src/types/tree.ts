@@ -1,4 +1,4 @@
-import type { ExtractPropTypes } from 'vue';
+import type { ExtractPropTypes, Ref } from 'vue';
 import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree';
 
 import { buildProps } from '/@/utils/props';
@@ -165,12 +165,13 @@ export interface TreeActionItem {
 
 export interface InsertNodeParams {
   parentKey: string | null;
-  node: TreeDataItem;
+  node?: TreeDataItem;
   list?: TreeDataItem[];
   push?: 'push' | 'unshift';
 }
 
 export interface TreeActionType {
+  getTreeData: () => Ref<TreeDataItem[]>;
   checkAll: (checkAll: boolean) => void;
   expandAll: (expandAll: boolean) => void;
   setExpandedKeys: (keys: KeyType[]) => void;
@@ -182,7 +183,7 @@ export interface TreeActionType {
   filterByLevel: (level: number) => void;
   insertNodeByKey: (opt: InsertNodeParams) => void;
   insertNodesByKey: (opt: InsertNodeParams) => void;
-  deleteNodeByKey: (key: string) => void;
+  deleteNodeByKey: (key: string, list?: TreeDataItem[]) => void;
   updateNodeByKey: (key: string, node: Omit<TreeDataItem, 'key'>) => void;
   setSearchValue: (value: string) => void;
   getSearchValue: () => string;

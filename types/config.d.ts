@@ -41,6 +41,7 @@ export interface MultiTabsSetting {
   canDrag: boolean;
   showRedo: boolean;
   showFold: boolean;
+  autoCollapse: boolean;
 }
 
 export interface HeaderSetting {

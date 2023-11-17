@@ -2,7 +2,7 @@
   <Layout :class="prefixCls" v-bind="lockEvents">
     <LayoutFeatures />
     <LayoutHeader fixed v-if="getShowFullHeaderRef" />
-    <Layout :class="[layoutClass]">
+    <Layout :class="[layoutClass, `${prefixCls}-out`]">
       <LayoutSideBar v-if="getShowSidebar || getIsMobile" />
       <Layout :class="`${prefixCls}-main`">
         <LayoutMultipleHeader />
@@ -30,6 +30,8 @@
 
   import { useAppInject } from '/@/hooks/web/useAppInject';
 
+  import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
+
   export default defineComponent({
     name: 'DefaultLayout',
     components: {
@@ -46,6 +48,7 @@
       const { getIsMobile } = useAppInject();
       const { getShowFullHeaderRef } = useHeaderSetting();
       const { getShowSidebar, getIsMixSidebar, getShowMenu } = useMenuSetting();
+      const { getAutoCollapse } = useMultipleTabSetting();
 
       // Create a lock screen monitor
       const lockEvents = useLockPage();
@@ -55,6 +58,11 @@
         if (unref(getIsMixSidebar) || unref(getShowMenu)) {
           cls.push('ant-layout-has-sider');
         }
+
+        if (!unref(getShowMenu) && unref(getAutoCollapse)) {
+          cls.push('ant-layout-auto-collapse-tabs');
+        }
+
         return cls;
       });
 
@@ -87,6 +95,16 @@
     &-main {
       width: 100%;
       margin-left: 1px;
+    }
+  }
+
+  .@{prefix-cls}-out {
+    &.ant-layout-has-sider {
+      .@{prefix-cls} {
+        &-main {
+          margin-left: 1px;
+        }
+      }
     }
   }
 </style>
