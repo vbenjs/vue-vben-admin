@@ -4,25 +4,16 @@
   </PageWrapper>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
-  import { PageWrapper } from '/@/components/Page';
-  import { useTabs } from '/@/hooks/web/useTabs';
+<script lang="ts" setup>
   import { useRoute } from 'vue-router';
+  import { useTabs } from '/@/hooks/web/useTabs';
 
-  export default defineComponent({
-    name: 'TabDetail',
-    components: { PageWrapper },
-    setup() {
-      const route = useRoute();
-      const index = route.params?.id ?? -1;
-      const { setTitle } = useTabs();
+  import { PageWrapper } from '/@/components/Page';
 
-      // 设置标识
-      setTitle(`No.${index} - 详情信息`);
-      return {
-        index,
-      };
-    },
-  });
+  const route = useRoute();
+  const index = route.params?.id ?? -1;
+
+  const { setTitle } = useTabs();
+  // 设置标识
+  setTitle(`No.${index} - 详情信息`);
 </script>
