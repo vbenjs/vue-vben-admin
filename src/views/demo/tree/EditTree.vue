@@ -50,76 +50,70 @@
     </Row>
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { defineComponent, h } from 'vue';
+<script lang="ts" setup>
+  import { h } from 'vue';
   import { Row, Col } from 'ant-design-vue';
-  import { BasicTree, TreeActionItem, ContextMenuItem } from '/@/components/Tree/index';
+  import { BasicTree, TreeActionItem, ContextMenuItem } from '@/components/Tree';
   import { treeData, treeData2, treeData3 } from './data';
   import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue';
-  import { PageWrapper } from '/@/components/Page';
+  import { PageWrapper } from '@/components/Page';
 
   import { EventDataNode } from 'ant-design-vue/es/vc-tree/interface';
 
-  export default defineComponent({
-    components: { BasicTree, PageWrapper, Row, Col },
-    setup() {
-      function handlePlus(node: any) {
-        console.log(node);
-      }
+  function handlePlus(node: any) {
+    console.log(node);
+  }
 
-      function getRightMenuList(node: EventDataNode): Promise<ContextMenuItem[]> {
-        const menu = [
-          {
-            label: '新增',
-            handler: () => {
-              console.log('点击了新增', node);
-            },
-            icon: 'bi:plus',
+  function getRightMenuList(node: EventDataNode): Promise<ContextMenuItem[]> {
+    const menu = [
+      {
+        label: '新增',
+        handler: () => {
+          console.log('点击了新增', node);
+        },
+        icon: 'bi:plus',
+      },
+      {
+        label: '删除',
+        handler: () => {
+          console.log('点击了删除', node);
+        },
+        icon: 'bx:bxs-folder-open',
+      },
+    ];
+    return new Promise((resolve) => {
+      resolve(menu);
+    });
+  }
+  const actionList: TreeActionItem[] = [
+    {
+      // show:()=>boolean;
+      render: (node) => {
+        return h(PlusOutlined, {
+          class: 'ml-2',
+          onClick: () => {
+            handlePlus(node);
           },
-          {
-            label: '删除',
-            handler: () => {
-              console.log('点击了删除', node);
-            },
-            icon: 'bx:bxs-folder-open',
-          },
-        ];
-        return new Promise((resolve) => {
-          resolve(menu);
         });
-      }
-      const actionList: TreeActionItem[] = [
-        {
-          // show:()=>boolean;
-          render: (node) => {
-            return h(PlusOutlined, {
-              class: 'ml-2',
-              onClick: () => {
-                handlePlus(node);
-              },
-            });
-          },
-        },
-        {
-          render: () => {
-            return h(DeleteOutlined);
-          },
-        },
-      ];
-
-      function createIcon({ level }) {
-        if (level === 1) {
-          return 'ion:git-compare-outline';
-        }
-        if (level === 2) {
-          return 'ion:home';
-        }
-        if (level === 3) {
-          return 'ion:airplane';
-        }
-        return '';
-      }
-      return { treeData, treeData2, treeData3, actionList, getRightMenuList, createIcon };
+      },
     },
-  });
+    {
+      render: () => {
+        return h(DeleteOutlined);
+      },
+    },
+  ];
+
+  function createIcon({ level }) {
+    if (level === 1) {
+      return 'ion:git-compare-outline';
+    }
+    if (level === 2) {
+      return 'ion:home';
+    }
+    if (level === 3) {
+      return 'ion:airplane';
+    }
+    return '';
+  }
 </script>
