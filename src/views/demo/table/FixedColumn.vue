@@ -26,11 +26,10 @@
     </BasicTable>
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table';
+<script lang="ts" setup>
+  import { BasicTable, useTable, BasicColumn, TableAction } from '@/components/Table';
 
-  import { demoListApi } from '/@/api/demo/table';
+  import { demoListApi } from '@/api/demo/table';
 
   const columns: BasicColumn[] = [
     {
@@ -64,33 +63,23 @@
       width: 200,
     },
   ];
-  export default defineComponent({
-    components: { BasicTable, TableAction },
-    setup() {
-      const [registerTable] = useTable({
-        title: 'TableAction组件及固定列示例',
-        api: demoListApi,
-        columns: columns,
-        rowSelection: { type: 'radio' },
-        bordered: true,
-        actionColumn: {
-          width: 160,
-          title: 'Action',
-          dataIndex: 'action',
-          // slots: { customRender: 'action' },
-        },
-      });
-      function handleDelete(record: Recordable) {
-        console.log('点击了删除', record);
-      }
-      function handleOpen(record: Recordable) {
-        console.log('点击了启用', record);
-      }
-      return {
-        registerTable,
-        handleDelete,
-        handleOpen,
-      };
+
+  const [registerTable] = useTable({
+    title: 'TableAction组件及固定列示例',
+    api: demoListApi,
+    columns: columns,
+    rowSelection: { type: 'radio' },
+    bordered: true,
+    actionColumn: {
+      width: 160,
+      title: 'Action',
+      dataIndex: 'action',
     },
   });
+  function handleDelete(record: Recordable) {
+    console.log('点击了删除', record);
+  }
+  function handleOpen(record: Recordable) {
+    console.log('点击了启用', record);
+  }
 </script>
