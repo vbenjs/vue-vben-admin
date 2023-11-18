@@ -125,7 +125,7 @@ export default defineComponent({
     //   );
     // }
 
-    function renderSiderTheme() {
+    function renderSideBarTheme() {
       return (
         <ThemeColorPicker
           colorList={SIDE_BAR_BG_COLOR_LIST}
@@ -420,7 +420,7 @@ export default defineComponent({
         <Divider>{() => t('layout.setting.headerTheme')}</Divider>
         {renderHeaderTheme()} */}
         <Divider>{() => t('layout.setting.sidebarTheme')}</Divider>
-        {renderSiderTheme()}
+        {renderSideBarTheme()}
         <Divider>{() => t('layout.setting.interfaceFunction')}</Divider>
         {renderFeatures()}
         <Divider>{() => t('layout.setting.interfaceDisplay')}</Divider>
