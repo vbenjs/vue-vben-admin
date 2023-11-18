@@ -11,7 +11,7 @@
       <a-button type="primary" danger @click="setLines" :disabled="loading">点我更新内容</a-button>
     </template>
     <template v-if="loading">
-      <div class="h-full text-center line-height-100">加载中，稍等3秒……</div>
+      <div class="h-full text-center line-height-100px">加载中，稍等3秒……</div>
     </template>
     <template v-if="!loading">
       <ul>
