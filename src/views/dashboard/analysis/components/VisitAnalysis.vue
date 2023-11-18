@@ -6,7 +6,7 @@
 </script>
 <script lang="ts" setup>
   import { onMounted, ref, Ref } from 'vue';
-  import { useECharts } from '/@/hooks/web/useECharts';
+  import { useECharts } from '@/hooks/web/useECharts';
 
   defineProps({
     ...basicProps,
