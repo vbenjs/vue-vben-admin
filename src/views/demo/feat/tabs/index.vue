@@ -26,6 +26,7 @@
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue';
+
   import { CollapseContainer } from '@/components/Container';
   import { useTabs } from '@/hooks/web/useTabs';
   import { PageWrapper } from '@/components/Page';
@@ -40,6 +41,7 @@
   const { closeAll, closeLeft, closeRight, closeOther, closeCurrent, refreshPage, setTitle } =
     useTabs();
   const { createMessage } = useMessage();
+
   function setTabTitle() {
     if (title.value) {
       setTitle(title.value);

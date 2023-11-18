@@ -64,10 +64,9 @@
     TaobaoCircleFilled,
     CodepenCircleFilled,
   } from '@ant-design/icons-vue';
-
   import { IconPicker, SvgIcon } from '@/components/Icon';
   import Icon from '@/components/Icon/Icon.vue';
-
   import { openWindow } from '@/utils';
   import { PageWrapper } from '@/components/Page';
+
 </script>

@@ -16,6 +16,7 @@
   import { PageWrapper } from '@/components/Page';
 
   const text = ref('Click');
+
   function handleClickOutside() {
     text.value = 'Click Out Side';
   }

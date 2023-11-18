@@ -34,6 +34,7 @@
   import { type Nullable } from '@vben/types';
 
   const domRef = ref<Nullable<HTMLElement>>(null);
+
   const { enter, toggle, exit, isFullscreen } = useFullscreen();
 
   const { toggle: toggleDom, isFullscreen: isDomFullscreen } = useFullscreen(domRef);

@@ -26,7 +26,6 @@
   import { ref } from 'vue';
   import { CollapseContainer } from '@/components/Container';
   import { PageWrapper } from '@/components/Page';
-  import { EllipsisText } from '@/components/EllipsisText';
 
   const text = ref(
     `

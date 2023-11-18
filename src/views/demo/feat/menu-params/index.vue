@@ -1,6 +1,6 @@
 <template>
   <PageWrapper title="带参数菜单（路由）" content="支持多级参数">
-    当前参数：{{ params }}
+    当前参数：{{ computedParams }}
     <br />
     输入参数切换路由：
     <a-input v-model:value="value" placeholder="建议为url标准字符，输入后点击切换" />
@@ -14,22 +14,20 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
-  import { computed, ref, unref } from 'vue';
   import { useRouter } from 'vue-router';
+  import { computed, ref, unref } from 'vue';
+
+  import { Input } from 'ant-design-vue';
   import { PageWrapper } from '@/components/Page';
 
-  defineOptions({
-    name: 'TestMenu',
-  });
+  const value = ref('');
+
   const { currentRoute, replace } = useRouter();
-  const value = ref<string>('');
+
+  const computedParams = computed(() => unref(currentRoute).params);
 
   const handleClickGo = () => {
     const { name } = unref(currentRoute);
     replace({ name: name!, params: { id: unref(value) } });
   };
-
-  const params = computed(() => {
-    return unref(currentRoute).params;
-  });
 </script>
