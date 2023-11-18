@@ -161,9 +161,9 @@
       white-space: nowrap;
       cursor: pointer;
 
-      &:hover {
-        color: @primary-color;
-      }
+      // &:hover {
+      //   color: @primary-color;
+      // }
 
       .@{menu-prefix-cls}-tooltip {
         width: calc(100% - 0px);
@@ -225,6 +225,16 @@
       }
       &-active.@{menu-prefix-cls}-submenu {
         color: @primary-color;
+      }
+
+      &:not(&-selected):hover {
+        background-color: rgb(0 0 0 / 6%);
+      }
+    }
+
+    &-light&-vertical &-submenu-title {
+      &:not(&-selected):hover {
+        background-color: rgb(0 0 0 / 6%);
       }
     }
 
