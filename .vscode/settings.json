@@ -169,6 +169,5 @@
     "package.json": "pnpm-lock.yaml,pnpm-workspace.yaml,LICENSE,.gitattributes,.gitignore,.gitpod.yml,CNAME,README*,.npmrc,.browserslistrc",
     ".eslintrc.js": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.js,.prettierrc.js,.stylelintrc.js"
   },
-  "terminal.integrated.scrollback": 10000,
-  "nuxt.isNuxtApp": false
+  "terminal.integrated.scrollback": 10000
 }
