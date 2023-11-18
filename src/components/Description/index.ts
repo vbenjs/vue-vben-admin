@@ -1,4 +1,4 @@
-import { withInstall } from '/@/utils';
+import { withInstall } from '@/utils';
 import description from './src/Description.vue';
 
 export * from './src/typing';

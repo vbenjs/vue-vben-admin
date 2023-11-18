@@ -43,10 +43,10 @@
     type MenuProps,
   } from 'ant-design-vue';
   import Icon from '@/components/Icon/Icon.vue';
-  import { BasicTitle } from '/@/components/Basic';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import { BasicTitle } from '@/components/Basic';
+  import { useI18n } from '@/hooks/web/useI18n';
   import { useDebounceFn } from '@vueuse/core';
-  import { createBEM } from '/@/utils/bem';
+  import { createBEM } from '@/utils/bem';
   import { ToolbarEnum } from '../types/tree';
 
   const searchValue = ref('');

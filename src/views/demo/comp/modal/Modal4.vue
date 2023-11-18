@@ -12,8 +12,8 @@
 </template>
 <script lang="ts" setup>
   import { ref, nextTick } from 'vue';
-  import { BasicModal, useModalInner } from '/@/components/Modal';
-  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
+  import { BasicModal, useModalInner } from '@/components/Modal';
+  import { BasicForm, FormSchema, useForm } from '@/components/Form';
 
   const schemas: FormSchema[] = [
     {

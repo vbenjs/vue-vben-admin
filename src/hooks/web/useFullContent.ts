@@ -1,6 +1,6 @@
 import { computed, unref } from 'vue';
 
-import { useAppStore } from '/@/store/modules/app';
+import { useAppStore } from '@/store/modules/app';
 
 import { useRouter } from 'vue-router';
 

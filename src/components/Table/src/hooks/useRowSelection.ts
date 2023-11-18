@@ -1,9 +1,9 @@
-import { isFunction } from '/@/utils/is';
+import { isFunction } from '@/utils/is';
 import type { BasicTableProps, TableRowSelection } from '../types/table';
 import { computed, ComputedRef, nextTick, Ref, ref, toRaw, unref, watch } from 'vue';
 import { ROW_KEY } from '../const';
 import { omit } from 'lodash-es';
-import { findNodeAll } from '/@/utils/helper/treeHelper';
+import { findNodeAll } from '@/utils/helper/treeHelper';
 import type { Key } from 'ant-design-vue/lib/table/interface';
 
 export function useRowSelection(

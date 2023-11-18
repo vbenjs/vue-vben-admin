@@ -1,5 +1,5 @@
 <template>
-  <a-input
+  <Input
     readonly
     :style="{ width }"
     :placeholder="t('component.icon.placeholder')"
@@ -8,7 +8,7 @@
     @click="triggerPopover"
   >
     <template #addonAfter>
-      <a-popover
+      <Popover
         placement="bottomLeft"
         trigger="click"
         v-model="visible"
@@ -16,7 +16,7 @@
       >
         <template #title>
           <div class="flex justify-between">
-            <a-input
+            <Input
               :placeholder="t('component.icon.search')"
               @change="debounceHandleSearchChange"
               allowClear
@@ -36,14 +36,13 @@
                   @click="handleClick(icon)"
                   :title="icon"
                 >
-                  <!-- <Icon :icon="icon" :prefix="prefix" /> -->
                   <SvgIcon v-if="isSvgMode" :name="icon" />
                   <Icon :icon="icon" v-else />
                 </li>
               </ul>
             </ScrollContainer>
             <div class="flex py-2 items-center justify-center" v-if="getTotal >= pageSize">
-              <a-pagination
+              <Pagination
                 showLessItems
                 size="small"
                 :pageSize="pageSize"
@@ -52,8 +51,8 @@
               />
             </div>
           </div>
-          <template v-else
-            ><div class="p-5"><a-empty /></div>
+          <template v-else>
+            <div class="p-5"><Empty /> </div>
           </template>
         </template>
 
@@ -70,30 +69,24 @@
             v-else
           />
         </div>
-      </a-popover>
+      </Popover>
     </template>
-  </a-input>
+  </Input>
 </template>
 <script lang="ts" setup>
   import { ref, watchEffect, watch } from 'vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { ScrollContainer } from '/@/components/Container';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { ScrollContainer } from '@/components/Container';
   import { Input, Popover, Pagination, Empty } from 'ant-design-vue';
   import Icon from '../Icon.vue';
   import SvgIcon from './SvgIcon.vue';
 
   import iconsData from '../data/icons.data';
-  import { usePagination } from '/@/hooks/web/usePagination';
+  import { usePagination } from '@/hooks/web/usePagination';
   import { useDebounceFn } from '@vueuse/core';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import { useI18n } from '@/hooks/web/useI18n';
   import svgIcons from 'virtual:svg-icons-names';
-  import { copyText } from '/@/utils/copyTextToClipboard';
-
-  // 没有使用别名引入，是因为WebStorm当前版本还不能正确识别，会报unused警告
-  const AInput = Input;
-  const APopover = Popover;
-  const APagination = Pagination;
-  const AEmpty = Empty;
+  import { copyText } from '@/utils/copyTextToClipboard';
 
   function getIcons() {
     const prefix = iconsData.prefix;

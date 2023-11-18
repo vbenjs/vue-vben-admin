@@ -1,10 +1,10 @@
-import type { BasicColumn, ActionItem } from '/@/components/Table';
+import type { BasicColumn, ActionItem } from '@/components/Table';
 import { FileBasicColumn, FileItem, PreviewFileItem, UploadResultStatus } from '../types/typing';
 import { isImgTypeByName } from '../helper';
 import { Progress, Tag } from 'ant-design-vue';
-import TableAction from '/@/components/Table/src/components/TableAction.vue';
+import TableAction from '@/components/Table/src/components/TableAction.vue';
 import ThumbUrl from './ThumbUrl.vue';
-import { useI18n } from '/@/hooks/web/useI18n';
+import { useI18n } from '@/hooks/web/useI18n';
 
 const { t } = useI18n();
 

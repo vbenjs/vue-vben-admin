@@ -1,4 +1,4 @@
-import { withInstall } from '/@/utils';
+import { withInstall } from '@/utils';
 
 import appLogo from './src/AppLogo.vue';
 import appProvider from './src/AppProvider.vue';

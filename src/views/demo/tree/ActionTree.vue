@@ -29,7 +29,7 @@
 </template>
 <script lang="ts" setup>
   import { ref, unref } from 'vue';
-  import { BasicTree, TreeActionType } from '@/components/Tree/index';
+  import { BasicTree, TreeActionType } from '@/components/Tree';
   import { treeData } from './data';
   import { useMessage } from '@/hooks/web/useMessage';
   import { PageWrapper } from '@/components/Page';

@@ -7,46 +7,43 @@
     <use :xlink:href="symbolId" />
   </svg>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
   import type { CSSProperties } from 'vue';
-  import { defineComponent, computed } from 'vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import { computed } from 'vue';
+  import { useDesign } from '@/hooks/web/useDesign';
 
-  export default defineComponent({
-    name: 'SvgIcon',
-    props: {
-      prefix: {
-        type: String,
-        default: 'icon',
-      },
-      name: {
-        type: String,
-        required: true,
-      },
-      size: {
-        type: [Number, String],
-        default: 16,
-      },
-      spin: {
-        type: Boolean,
-        default: false,
-      },
-    },
-    setup(props) {
-      const { prefixCls } = useDesign('svg-icon');
-      const symbolId = computed(() => `#${props.prefix}-${props.name}`);
+  defineOptions({ name: 'SvgIcon' });
 
-      const getStyle = computed((): CSSProperties => {
-        const { size } = props;
-        let s = `${size}`;
-        s = `${s.replace('px', '')}px`;
-        return {
-          width: s,
-          height: s,
-        };
-      });
-      return { symbolId, prefixCls, getStyle };
+  const props = defineProps({
+    prefix: {
+      type: String,
+      default: 'icon',
     },
+    name: {
+      type: String,
+      required: true,
+    },
+    size: {
+      type: [Number, String],
+      default: 16,
+    },
+    spin: {
+      type: Boolean,
+      default: false,
+    },
+  });
+
+  const { prefixCls } = useDesign('svg-icon');
+  const symbolId = computed(() => `#${props.prefix}-${props.name}`);
+
+  const getStyle = computed((): CSSProperties => {
+    const { size } = props;
+    let s = `${size}`;
+    s = `${s.replace('px', '')}px`;
+    return {
+      width: s,
+      height: s,
+    };
   });
 </script>
 <style lang="less" scoped>

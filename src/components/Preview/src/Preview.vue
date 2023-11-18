@@ -14,14 +14,14 @@
     </PreviewGroup>
   </div>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
   import type { PropType } from 'vue';
-  import { defineComponent, computed } from 'vue';
+  import { computed } from 'vue';
 
   import { Image } from 'ant-design-vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { propTypes } from '/@/utils/propTypes';
-  import { isString } from '/@/utils/is';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { propTypes } from '@/utils/propTypes';
+  import { isString } from '@/utils/is';
 
   interface ImageProps {
     alt?: string;
@@ -41,42 +41,33 @@
 
   type ImageItem = string | ImageProps;
 
-  export default defineComponent({
-    name: 'ImagePreview',
-    components: {
-      Image,
-      PreviewGroup: Image.PreviewGroup,
-    },
-    props: {
-      functional: propTypes.bool,
-      imageList: {
-        type: Array as PropType<ImageItem[]>,
-      },
-    },
-    setup(props) {
-      const { prefixCls } = useDesign('image-preview');
+  const PreviewGroup = Image.PreviewGroup;
 
-      const getImageList = computed((): any[] => {
-        const { imageList } = props;
-        if (!imageList) {
-          return [];
-        }
-        return imageList.map((item) => {
-          if (isString(item)) {
-            return {
-              src: item,
-              placeholder: false,
-            };
-          }
-          return item;
-        });
-      });
+  defineOptions({ name: 'ImagePreview' });
 
-      return {
-        prefixCls,
-        getImageList,
-      };
+  const props = defineProps({
+    functional: propTypes.bool,
+    imageList: {
+      type: Array as PropType<ImageItem[]>,
     },
+  });
+
+  const { prefixCls } = useDesign('image-preview');
+
+  const getImageList = computed((): any[] => {
+    const { imageList } = props;
+    if (!imageList) {
+      return [];
+    }
+    return imageList.map((item) => {
+      if (isString(item)) {
+        return {
+          src: item,
+          placeholder: false,
+        };
+      }
+      return item;
+    });
   });
 </script>
 <style lang="less">
