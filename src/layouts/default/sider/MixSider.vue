@@ -402,6 +402,10 @@
             background-color: unset;
             color: @primary-color;
           }
+
+          &:not(&--active):hover {
+            background-color: rgb(0 0 0 / 6%);
+          }
         }
       }
       .@{prefix-cls}-menu-list {
@@ -424,9 +428,9 @@
 
     &.dark {
       &.open {
-        .@{prefix-cls}-logo {
-          // border-bottom: 1px solid @border-color;
-        }
+        // .@{prefix-cls}-logo {
+        //   border-bottom: 1px solid @border-color;
+        // }
 
         > .scrollbar {
           border-right: 1px solid @border-color;
