@@ -11,8 +11,6 @@
   import { useRouter } from 'vue-router';
   import { PageWrapper } from '@/components/Page';
 
-  const { currentRoute } = useRouter();
-
   defineOptions({ name: 'TestTab' });
 
   const { currentRoute } = useRouter();
