@@ -5,15 +5,16 @@
 </template>
 
 <script lang="ts" setup>
+  import { PageWrapper } from '@/components/Page';
+  import { useTabs } from '@/hooks/web/useTabs';
   import { useRoute } from 'vue-router';
-  import { useTabs } from '/@/hooks/web/useTabs';
 
-  import { PageWrapper } from '/@/components/Page';
+  defineOptions({ name: 'TabDetail' });
 
   const route = useRoute();
   const index = route.params?.id ?? -1;
-
   const { setTitle } = useTabs();
+
   // 设置标识
   setTitle(`No.${index} - 详情信息`);
 </script>

@@ -64,12 +64,12 @@
     </CollapseContainer>
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { BasicForm, FormSchema, FormActionType, FormProps } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { PageWrapper } from '/@/components/Page';
+<script lang="ts" setup>
+  import { ref } from 'vue';
+  import { BasicForm, FormSchema, FormActionType, FormProps } from '@/components/Form';
+  import { CollapseContainer } from '@/components/Container';
+  import { useMessage } from '@/hooks/web/useMessage';
+  import { PageWrapper } from '@/components/Page';
   import { type Nullable } from '@vben/types';
 
   const schemas: FormSchema[] = [
@@ -167,23 +167,16 @@
     },
   ];
 
-  export default defineComponent({
-    components: { BasicForm, CollapseContainer, PageWrapper },
-    setup() {
-      const formElRef = ref<Nullable<FormActionType>>(null);
-      const { createMessage } = useMessage();
-      return {
-        formElRef,
-        schemas,
-        handleSubmit: (values: any) => {
-          createMessage.success('click search,values:' + JSON.stringify(values));
-        },
-        setProps(props: FormProps) {
-          const formEl = formElRef.value;
-          if (!formEl) return;
-          formEl.setProps(props);
-        },
-      };
-    },
-  });
+  const formElRef = ref<Nullable<FormActionType>>(null);
+  const { createMessage } = useMessage();
+
+  function handleSubmit(values: any) {
+    createMessage.success('click search,values:' + JSON.stringify(values));
+  }
+
+  function setProps(props: FormProps) {
+    const formEl = formElRef.value;
+    if (!formEl) return;
+    formEl.setProps(props);
+  }
 </script>

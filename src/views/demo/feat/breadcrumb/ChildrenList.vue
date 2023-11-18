@@ -3,7 +3,6 @@
     <router-link to="/feat/breadcrumb/children/childrenDetail"> 进入子级详情页 </router-link>
   </PageWrapper>
 </template>
-
 <script lang="ts" setup>
-  import { PageWrapper } from '/@/components/Page';
+  import { PageWrapper } from '@/components/Page';
 </script>

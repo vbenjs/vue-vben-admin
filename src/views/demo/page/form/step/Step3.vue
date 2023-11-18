@@ -1,50 +1,23 @@
 <template>
-  <div class="step3">
-    <a-result status="success" title="操作成功" sub-title="预计两小时内到账">
+  <div class="w-150 m-auto">
+    <Result status="success" title="操作成功" sub-title="预计两小时内到账">
       <template #extra>
-        <a-button type="primary" @click="redo"> 再转一笔 </a-button>
+        <a-button type="primary" @click="emit('redo')"> 再转一笔 </a-button>
         <a-button> 查看账单 </a-button>
       </template>
-    </a-result>
-    <div class="desc-wrap">
-      <a-descriptions :column="1" class="mt-5">
-        <a-descriptions-item label="付款账户"> ant-design@alipay.com </a-descriptions-item>
-        <a-descriptions-item label="收款账户"> test@example.com </a-descriptions-item>
-        <a-descriptions-item label="收款人姓名"> Vben </a-descriptions-item>
-        <a-descriptions-item label="转账金额"> 500元 </a-descriptions-item>
-      </a-descriptions>
+    </Result>
+    <div class="mt-6 px-6 py-8 bg-white">
+      <Descriptions :column="1" class="mt-5">
+        <Descriptions.Item label="付款账户"> ant-design@alipay.com </Descriptions.Item>
+        <Descriptions.Item label="收款账户"> test@example.com </Descriptions.Item>
+        <Descriptions.Item label="收款人姓名"> Vben </Descriptions.Item>
+        <Descriptions.Item label="转账金额"> 500元 </Descriptions.Item>
+      </Descriptions>
     </div>
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import { Result, Descriptions } from 'ant-design-vue';
 
-  export default defineComponent({
-    components: {
-      [Result.name]: Result,
-      [Descriptions.name]: Descriptions,
-      [Descriptions.Item.name]: Descriptions.Item,
-    },
-    emits: ['redo'],
-    setup(_, { emit }) {
-      return {
-        redo: () => {
-          emit('redo');
-        },
-      };
-    },
-  });
+  const emit = defineEmits(['redo']);
 </script>
-<style lang="less" scoped>
-  .step3 {
-    width: 600px;
-    margin: 0 auto;
-  }
-
-  .desc-wrap {
-    margin-top: 24px;
-    padding: 24px 40px;
-    background-color: @background-color-light;
-  }
-</style>

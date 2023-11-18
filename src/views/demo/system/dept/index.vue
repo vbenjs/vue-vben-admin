@@ -29,75 +29,60 @@
     <DeptModal @register="registerModal" @success="handleSuccess" />
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
+  import { BasicTable, useTable, TableAction } from '@/components/Table';
+  import { getDeptList } from '@/api/demo/system';
 
-  import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getDeptList } from '/@/api/demo/system';
-
-  import { useModal } from '/@/components/Modal';
+  import { useModal } from '@/components/Modal';
   import DeptModal from './DeptModal.vue';
 
   import { columns, searchFormSchema } from './dept.data';
 
-  export default defineComponent({
-    name: 'DeptManagement',
-    components: { BasicTable, DeptModal, TableAction },
-    setup() {
-      const [registerModal, { openModal }] = useModal();
-      const [registerTable, { reload }] = useTable({
-        title: '部门列表',
-        api: getDeptList,
-        columns,
-        formConfig: {
-          labelWidth: 120,
-          schemas: searchFormSchema,
-        },
-        pagination: false,
-        striped: false,
-        useSearchForm: true,
-        showTableSetting: true,
-        bordered: true,
-        showIndexColumn: false,
-        canResize: false,
-        actionColumn: {
-          width: 80,
-          title: '操作',
-          dataIndex: 'action',
-          // slots: { customRender: 'action' },
-          fixed: undefined,
-        },
-      });
+  defineOptions({ name: 'DeptManagement' });
 
-      function handleCreate() {
-        openModal(true, {
-          isUpdate: false,
-        });
-      }
-
-      function handleEdit(record: Recordable) {
-        openModal(true, {
-          record,
-          isUpdate: true,
-        });
-      }
-
-      function handleDelete(record: Recordable) {
-        console.log(record);
-      }
-
-      function handleSuccess() {
-        reload();
-      }
-
-      return {
-        registerTable,
-        registerModal,
-        handleCreate,
-        handleEdit,
-        handleDelete,
-        handleSuccess,
-      };
+  const [registerModal, { openModal }] = useModal();
+  const [registerTable, { reload }] = useTable({
+    title: '部门列表',
+    api: getDeptList,
+    columns,
+    formConfig: {
+      labelWidth: 120,
+      schemas: searchFormSchema,
+    },
+    pagination: false,
+    striped: false,
+    useSearchForm: true,
+    showTableSetting: true,
+    bordered: true,
+    showIndexColumn: false,
+    canResize: false,
+    actionColumn: {
+      width: 80,
+      title: '操作',
+      dataIndex: 'action',
+      // slots: { customRender: 'action' },
+      fixed: undefined,
     },
   });
+
+  function handleCreate() {
+    openModal(true, {
+      isUpdate: false,
+    });
+  }
+
+  function handleEdit(record: Recordable) {
+    openModal(true, {
+      record,
+      isUpdate: true,
+    });
+  }
+
+  function handleDelete(record: Recordable) {
+    console.log(record);
+  }
+
+  function handleSuccess() {
+    reload();
+  }
 </script>

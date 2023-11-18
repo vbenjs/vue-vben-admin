@@ -29,9 +29,9 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import { useRoute } from 'vue-router';
-  import { PageWrapper } from '/@/components/Page';
-  import { useGo } from '/@/hooks/web/usePage';
-  import { useTabs } from '/@/hooks/web/useTabs';
+  import { PageWrapper } from '@/components/Page';
+  import { useGo } from '@/hooks/web/usePage';
+  import { useTabs } from '@/hooks/web/useTabs';
   import { Tabs } from 'ant-design-vue';
 
   defineOptions({ name: 'AccountDetail' });

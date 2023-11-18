@@ -4,10 +4,9 @@
     <a-button @click="openImg" type="primary">无预览图</a-button>
   </PageWrapper>
 </template>
-
 <script lang="ts" setup>
-  import { PageWrapper } from '/@/components/Page';
-  import { createImgPreview, ImagePreview } from '/@/components/Preview/index';
+  import { createImgPreview, ImagePreview } from '@/components/Preview';
+  import { PageWrapper } from '@/components/Page';
 
   const imgList = [
     'https://picsum.photos/id/66/346/216',

@@ -1,14 +1,14 @@
 <template>
   <PageWrapper title="消息示例">
     <CollapseContainer class="w-full h-32 bg-white rounded-md" title="Message">
-      <a-button @click="infoMsg('Info message')" class="mr-2"> Info </a-button>
-      <a-button @click="successMsg('Success message')" class="mr-2" color="success">
+      <a-button @click="info('Info message')" class="mr-2"> Info </a-button>
+      <a-button @click="success('Success message')" class="mr-2" color="success">
         Success
       </a-button>
-      <a-button @click="warningMsg('Warning message')" class="mr-2" color="warning">
+      <a-button @click="warning('Warning message')" class="mr-2" color="warning">
         Warning
       </a-button>
-      <a-button @click="errorMsg('Error message')" class="mr-2" color="error"> Error </a-button>
+      <a-button @click="error('Error message')" class="mr-2" color="error"> Error </a-button>
       <a-button @click="handleLoading" class="mr-2" type="primary"> Loading </a-button>
     </CollapseContainer>
 
@@ -35,10 +35,9 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
-  import { PageWrapper } from '/@/components/Page';
-  import { CollapseContainer } from '/@/components/Container/index';
-
-  import { useMessage } from '/@/hooks/web/useMessage';
+  import { CollapseContainer } from '@/components/Container';
+  import { useMessage } from '@/hooks/web/useMessage';
+  import { PageWrapper } from '@/components/Page';
 
   const {
     createMessage,
@@ -50,17 +49,11 @@
     notification,
   } = useMessage();
 
-  const {
-    info: infoMsg,
-    success: successMsg,
-    warning: warningMsg,
-    error: errorMsg,
-  } = createMessage;
+  const { info, success, warning, error } = createMessage;
 
   function handleLoading() {
     createMessage.loading('Loading...');
   }
-
   function handleConfirm(type: 'warning' | 'error' | 'success' | 'info') {
     createConfirm({
       iconType: type,
@@ -68,23 +61,18 @@
       content: 'content message...',
     });
   }
-
   function handleSuccessModal() {
     createSuccessModal({ title: 'Tip', content: 'content message...' });
   }
-
   function handleErrorModal() {
     createErrorModal({ title: 'Tip', content: 'content message...' });
   }
-
   function handleWarningModal() {
     createWarningModal({ title: 'Tip', content: 'content message...' });
   }
-
   function handleInfoModal() {
     createInfoModal({ title: 'Tip', content: 'content message...' });
   }
-
   function handleNotify() {
     notification.success({
       message: 'Tip',

@@ -1,4 +1,4 @@
-import { VxeFormItemProps, VxeGridPropTypes } from '/@/components/VxeTable';
+import { VxeFormItemProps, VxeGridPropTypes } from '@/components/VxeTable';
 import { deptMap } from '../account/account.data';
 
 export const columns: VxeGridPropTypes.Columns = [

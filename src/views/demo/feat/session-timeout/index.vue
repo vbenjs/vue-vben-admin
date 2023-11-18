@@ -3,26 +3,26 @@
     title="登录过期示例"
     content="用户登录过期示例，不再跳转登录页，直接生成页面覆盖当前页面，方便保持过期前的用户状态！"
   >
-    <a-card title="请点击下面的按钮访问测试接口" extra="所访问的接口会返回Token过期响应">
-      <a-card-grid style="width: 50%; text-align: center">
+    <Card title="请点击下面的按钮访问测试接口" extra="所访问的接口会返回Token过期响应">
+      <CardGrid style="width: 50%; text-align: center">
         <a-button type="primary" @click="test1">HttpStatus == 401</a-button>
-      </a-card-grid>
-      <a-card-grid style="width: 50%; text-align: center">
+      </CardGrid>
+      <CardGrid style="width: 50%; text-align: center">
         <span></span>
         <a-button class="ml-4" type="primary" @click="test2">Response.code == 401</a-button>
-      </a-card-grid>
-    </a-card>
+      </CardGrid>
+    </Card>
   </PageWrapper>
 </template>
 <script lang="ts" setup>
-  import { PageWrapper } from '/@/components/Page';
-  import { useUserStore } from '/@/store/modules/user';
-
-  import { sessionTimeoutApi, tokenExpiredApi } from '/@/api/demo/account';
+  import { PageWrapper } from '@/components/Page';
+  import { useUserStore } from '@/store/modules/user';
+  import { sessionTimeoutApi, tokenExpiredApi } from '@/api/demo/account';
   import { Card } from 'ant-design-vue';
 
-  const ACardGrid = Card.Grid;
-  const ACard = Card;
+  defineOptions({ name: 'TestSessionTimeout' });
+
+  const CardGrid = Card.Grid;
 
   const userStore = useUserStore();
   async function test1() {
