@@ -10,14 +10,13 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { useContextMenu } from '/@/hooks/web/useContextMenu';
+  import { useContextMenu } from '@/hooks/web/useContextMenu';
+  import { CollapseContainer } from '@/components/Container';
+  import { useMessage } from '@/hooks/web/useMessage';
+  import { PageWrapper } from '@/components/Page';
 
-  import { PageWrapper } from '/@/components/Page';
-  import { CollapseContainer } from '/@/components/Container';
-
-  const { createMessage } = useMessage();
   const [createContextMenu] = useContextMenu();
+  const { createMessage } = useMessage();
 
   function handleContext(e: MouseEvent) {
     createContextMenu({

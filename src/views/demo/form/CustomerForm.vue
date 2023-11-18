@@ -18,13 +18,13 @@
     </CollapseContainer>
   </PageWrapper>
 </template>
-<script lang="tsx">
-  import { defineComponent, h } from 'vue';
-  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { useMessage } from '/@/hooks/web/useMessage';
+<script lang="tsx" setup>
+  import { h } from 'vue';
+  import { BasicForm, FormSchema, useForm } from '@/components/Form';
+  import { CollapseContainer } from '@/components/Container';
+  import { useMessage } from '@/hooks/web/useMessage';
   import { Input, FormItem, FormItemRest, Select } from 'ant-design-vue';
-  import { PageWrapper } from '/@/components/Page';
+  import { PageWrapper } from '@/components/Page';
 
   const custom_typeKey2typeValueRules = (model) => {
     return [
@@ -218,28 +218,20 @@
       labelWidth: 200,
     },
   ];
-  export default defineComponent({
-    components: { BasicForm, CollapseContainer, PageWrapper, [Input.name]: Input, FormItem },
-    setup() {
-      const { createMessage } = useMessage();
-      const [register, { setProps }] = useForm({
-        labelWidth: 120,
-        schemas,
-        actionColOptions: {
-          span: 24,
-        },
-      });
-      return {
-        register,
-        schemas,
-        handleSubmit: (values: any) => {
-          console.log('submit values', values);
-          createMessage.success('click search,values:' + JSON.stringify(values));
-        },
-        setProps,
-      };
+  const { createMessage } = useMessage();
+
+  const [register] = useForm({
+    labelWidth: 120,
+    schemas,
+    actionColOptions: {
+      span: 24,
     },
   });
+
+  function handleSubmit(values: any) {
+    console.log('submit values', values);
+    createMessage.success('click search,values:' + JSON.stringify(values));
+  }
 </script>
 <style lang="less" scoped>
   :deep(.local_form) .local_typeValue {

@@ -27,12 +27,11 @@
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue';
+  import { CollapseContainer } from '@/components/Container';
   import { useFullscreen } from '@vueuse/core';
 
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { PageWrapper } from '/@/components/Page';
-
-  import type { Nullable } from '@vben/types';
+  import { PageWrapper } from '@/components/Page';
+  import { type Nullable } from '@vben/types';
 
   const domRef = ref<Nullable<HTMLElement>>(null);
 

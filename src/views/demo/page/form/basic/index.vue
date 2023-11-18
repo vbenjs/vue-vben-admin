@@ -8,58 +8,53 @@
     <BasicForm @register="register" />
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { BasicForm, useForm } from '/@/components/Form';
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
+  import { BasicForm, useForm } from '@/components/Form';
   import { schemas } from './data';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { PageWrapper } from '/@/components/Page';
+  import { useMessage } from '@/hooks/web/useMessage';
+  import { PageWrapper } from '@/components/Page';
 
-  export default defineComponent({
-    name: 'FormBasicPage',
-    components: { BasicForm, PageWrapper },
-    setup() {
-      const { createMessage } = useMessage();
-      const [register, { validate, setProps }] = useForm({
-        labelCol: {
-          span: 8,
-        },
-        wrapperCol: {
-          span: 15,
-        },
-        schemas: schemas,
-        actionColOptions: {
-          offset: 8,
-          span: 23,
-        },
-        submitButtonOptions: {
-          text: '提交',
-        },
-        submitFunc: customSubmitFunc,
-      });
+  defineOptions({ name: 'FormBasicPage' });
 
-      async function customSubmitFunc() {
-        try {
-          await validate();
-          setProps({
-            submitButtonOptions: {
-              loading: true,
-            },
-          });
-          setTimeout(() => {
-            setProps({
-              submitButtonOptions: {
-                loading: false,
-              },
-            });
-            createMessage.success('提交成功！');
-          }, 2000);
-        } catch (error) {}
-      }
-
-      return { register };
+  const { createMessage } = useMessage();
+  const [register, { validate, setProps }] = useForm({
+    labelCol: {
+      span: 8,
     },
+    wrapperCol: {
+      span: 15,
+    },
+    schemas: schemas,
+    actionColOptions: {
+      offset: 8,
+      span: 23,
+    },
+    submitButtonOptions: {
+      text: '提交',
+    },
+    submitFunc: customSubmitFunc,
   });
+
+  async function customSubmitFunc() {
+    try {
+      await validate();
+      setProps({
+        submitButtonOptions: {
+          loading: true,
+        },
+      });
+      setTimeout(() => {
+        setProps({
+          submitButtonOptions: {
+            loading: false,
+          },
+        });
+        createMessage.success('提交成功！');
+      }, 2000);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 </script>
 <style lang="less" scoped>
   .form-wrap {
