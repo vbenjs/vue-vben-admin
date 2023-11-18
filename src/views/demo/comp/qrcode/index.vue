@@ -45,7 +45,7 @@
         />
       </CollapseContainer>
 
-      <CollapseContainer title="下载示例" class="text-center w-1/5 mr-6">
+      <CollapseContainer title="下载示例" class="text-center mb-6 w-1/5 mr-6">
         <QrCode :value="qrCodeUrl" ref="qrRef" :logo="LogoImg" />
         <a-button class="mb-2" type="primary" @click="download"> 下载 </a-button>
         <div class="msg">(在线logo会导致图片跨域，需要下载图片需要自行解决跨域问题)</div>
