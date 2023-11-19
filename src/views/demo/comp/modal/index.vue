@@ -18,12 +18,12 @@
     <a-button type="primary" class="my-4" @click="send"> 打开弹窗并传递数据 </a-button>
 
     <Alert message="使用动态组件的方式在页面内使用多个弹窗" show-icon />
-    <a-space>
+    <Space>
       <a-button type="primary" class="my-4" @click="openTargetModal(1)"> 打开弹窗1 </a-button>
       <a-button type="primary" class="my-4" @click="openTargetModal(2)"> 打开弹窗2 </a-button>
       <a-button type="primary" class="my-4" @click="openTargetModal(3)"> 打开弹窗3 </a-button>
       <a-button type="primary" class="my-4" @click="openTargetModal(4)"> 打开弹窗4 </a-button>
-    </a-space>
+    </Space>
 
     <Alert
       message="使用函数方式创建Prompt，适合较为简单的表单内容，如果需要弹出较为复杂的内容，请使用 Modal."
@@ -44,97 +44,74 @@
     <Modal4 @register="register4" />
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { defineComponent, shallowRef, ComponentOptions, ref, nextTick } from 'vue';
+<script lang="ts" setup>
+  import { shallowRef, ComponentOptions, ref, nextTick } from 'vue';
   import { Alert, Space, message } from 'ant-design-vue';
-  import { useModal } from '/@/components/Modal';
+  import { useModal } from '@/components/Modal';
   import Modal1 from './Modal1.vue';
   import Modal2 from './Modal2.vue';
   import Modal3 from './Modal3.vue';
   import Modal4 from './Modal4.vue';
-  import { PageWrapper } from '/@/components/Page';
+  import { PageWrapper } from '@/components/Page';
   import { type Nullable } from '@vben/types';
-  import { createPrompt } from '/@/components/Prompt';
+  import { createPrompt } from '@/components/Prompt';
 
-  export default defineComponent({
-    components: { Alert, Modal1, Modal2, Modal3, Modal4, PageWrapper, ASpace: Space },
-    setup() {
-      const currentModal = shallowRef<Nullable<ComponentOptions>>(null);
-      const [register1, { openModal: openModal1 }] = useModal();
-      const [register2, { openModal: openModal2 }] = useModal();
-      const [register3, { openModal: openModal3 }] = useModal();
-      const [register4, { openModal: openModal4 }] = useModal();
-      const modalOpen = ref<Boolean>(false);
-      const userData = ref<any>(null);
+  const currentModal = shallowRef<Nullable<ComponentOptions>>(null);
+  const [register1, { openModal: openModal1 }] = useModal();
+  const [register2, { openModal: openModal2 }] = useModal();
+  const [register3, { openModal: openModal3 }] = useModal();
+  const [register4, { openModal: openModal4 }] = useModal();
+  const modalOpen = ref<Boolean>(false);
+  const userData = ref<any>(null);
 
-      function send() {
-        openModal4(true, {
-          data: 'content',
-          info: 'Info',
-        });
-      }
-      function openModalLoading() {
-        openModal1(true);
-        // setModalProps({ loading: true });
-        // setTimeout(() => {
-        //   setModalProps({ loading: false });
-        // }, 2000);
-      }
+  function send() {
+    openModal4(true, {
+      data: 'content',
+      info: 'Info',
+    });
+  }
+  function openModalLoading() {
+    openModal1(true);
+    // setModalProps({ loading: true });
+    // setTimeout(() => {
+    //   setModalProps({ loading: false });
+    // }, 2000);
+  }
 
-      function openTargetModal(index: number) {
-        switch (index) {
-          case 1:
-            currentModal.value = Modal1 as ComponentOptions;
-            break;
-          case 2:
-            currentModal.value = Modal2 as ComponentOptions;
-            break;
-          case 3:
-            currentModal.value = Modal3 as ComponentOptions;
-            break;
-          default:
-            currentModal.value = Modal4 as ComponentOptions;
-            break;
-        }
-        nextTick(() => {
-          // `useModal` not working with dynamic component
-          // passing data through `userData` prop
-          userData.value = { data: Math.random(), info: 'Info222' };
-          // open the target modal
-          modalOpen.value = true;
-        });
-      }
+  function openTargetModal(index: number) {
+    switch (index) {
+      case 1:
+        currentModal.value = Modal1 as ComponentOptions;
+        break;
+      case 2:
+        currentModal.value = Modal2 as ComponentOptions;
+        break;
+      case 3:
+        currentModal.value = Modal3 as ComponentOptions;
+        break;
+      default:
+        currentModal.value = Modal4 as ComponentOptions;
+        break;
+    }
+    nextTick(() => {
+      // `useModal` not working with dynamic component
+      // passing data through `userData` prop
+      userData.value = { data: Math.random(), info: 'Info222' };
+      // open the target modal
+      modalOpen.value = true;
+    });
+  }
 
-      function handleCreatePrompt() {
-        createPrompt({
-          title: '请输入邮箱',
-          required: true,
-          label: '邮箱',
-          defaultValue: '默认邮箱',
-          onOK: async (email: string) => {
-            message.success('填写的邮箱地址为' + email);
-          },
-          inputType: 'Input',
-        });
-      }
-
-      return {
-        register1,
-        openModal1,
-        register2,
-        openModal2,
-        register3,
-        openModal3,
-        register4,
-        openModal4,
-        modalOpen,
-        userData,
-        openTargetModal,
-        send,
-        currentModal,
-        openModalLoading,
-        handleCreatePrompt,
-      };
-    },
-  });
+  function handleCreatePrompt() {
+    createPrompt({
+      title: '请输入邮箱',
+      required: true,
+      label: '邮箱',
+      defaultValue: '默认邮箱',
+      onOK: async (email: string) => {
+        message.success('填写的邮箱地址为' + email);
+      },
+      inputType: 'Input',
+    });
+  }
 </script>

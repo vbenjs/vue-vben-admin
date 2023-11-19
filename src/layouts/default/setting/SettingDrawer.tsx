@@ -3,7 +3,7 @@ import { BasicDrawer } from '/@/components/Drawer/index';
 import { Divider } from 'ant-design-vue';
 import {
   TypePicker,
-  // ThemeColorPicker,
+  ThemeColorPicker,
   SettingFooter,
   SwitchItem,
   SelectItem,
@@ -38,6 +38,7 @@ import {
 //   SIDE_BAR_BG_COLOR_LIST,
 //   APP_PRESET_COLOR_LIST,
 // } from '/@/settings/designSetting';
+import { SIDE_BAR_BG_COLOR_LIST } from '/@/settings/designSetting';
 
 const { t } = useI18n();
 
@@ -73,7 +74,7 @@ export default defineComponent({
       getTopMenuAlign,
       getAccordion,
       getMenuWidth,
-      // getMenuBgColor,
+      getMenuBgColor,
       getIsTopMenu,
       getSplit,
       getIsMixSidebar,
@@ -124,15 +125,15 @@ export default defineComponent({
     //   );
     // }
 
-    // function renderSiderTheme() {
-    //   return (
-    //     <ThemeColorPicker
-    //       colorList={SIDE_BAR_BG_COLOR_LIST}
-    //       def={unref(getMenuBgColor)}
-    //       event={HandlerEnum.MENU_THEME}
-    //     />
-    //   );
-    // }
+    function renderSideBarTheme() {
+      return (
+        <ThemeColorPicker
+          colorList={SIDE_BAR_BG_COLOR_LIST}
+          def={unref(getMenuBgColor)}
+          event={HandlerEnum.MENU_THEME}
+        />
+      );
+    }
 
     // function renderMainTheme() {
     //   return (
@@ -417,9 +418,9 @@ export default defineComponent({
         {/* <Divider>{() => t('layout.setting.sysTheme')}</Divider>
         {renderMainTheme()}
         <Divider>{() => t('layout.setting.headerTheme')}</Divider>
-        {renderHeaderTheme()}
+        {renderHeaderTheme()} */}
         <Divider>{() => t('layout.setting.sidebarTheme')}</Divider>
-        {renderSiderTheme()} */}
+        {renderSideBarTheme()}
         <Divider>{() => t('layout.setting.interfaceFunction')}</Divider>
         {renderFeatures()}
         <Divider>{() => t('layout.setting.interfaceDisplay')}</Divider>

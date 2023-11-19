@@ -55,15 +55,15 @@
 <script lang="ts">
   import { Tag, Tabs, Row, Col } from 'ant-design-vue';
   import { defineComponent, computed } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
+  import { CollapseContainer } from '@/components/Container';
   import Icon from '@/components/Icon/Icon.vue';
   import Article from './Article.vue';
   import Application from './Application.vue';
   import Project from './Project.vue';
 
-  import headerImg from '/@/assets/images/header.jpg';
+  import headerImg from '@/assets/images/header.jpg';
   import { tags, teams, details, achieveList } from './data';
-  import { useUserStore } from '/@/store/modules/user';
+  import { useUserStore } from '@/store/modules/user';
 
   export default defineComponent({
     components: {

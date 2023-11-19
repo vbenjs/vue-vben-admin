@@ -1,13 +1,13 @@
 <template>
   <CollapseContainer title="新消息通知" :canExpan="false">
     <List>
-      <template v-for="item in list" :key="item.key">
+      <template v-for="item in msgNotifyList" :key="item.key">
         <ListItem>
           <ListItemMeta>
             <template #title>
               {{ item.title }}
               <Switch
-                class="extra"
+                class="float-right mt-10px mr-30px"
                 checked-children="开"
                 un-checked-children="关"
                 default-checked
@@ -22,32 +22,11 @@
     </List>
   </CollapseContainer>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
   import { List, Switch } from 'ant-design-vue';
-  import { defineComponent } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
-
+  import { CollapseContainer } from '@/components/Container';
   import { msgNotifyList } from './data';
 
-  export default defineComponent({
-    components: {
-      CollapseContainer,
-      List,
-      ListItem: List.Item,
-      ListItemMeta: List.Item.Meta,
-      Switch,
-    },
-    setup() {
-      return {
-        list: msgNotifyList,
-      };
-    },
-  });
+  const ListItem = List.Item;
+  const ListItemMeta = List.Item.Meta;
 </script>
-<style lang="less" scoped>
-  .extra {
-    margin-top: 10px;
-    margin-right: 30px;
-    float: right;
-  }
-</style>

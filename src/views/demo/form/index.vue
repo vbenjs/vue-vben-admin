@@ -10,7 +10,7 @@
         @reset="handleReset"
       >
         <template #selectA="{ model, field }">
-          <a-select
+          <Select
             :options="optionsA"
             mode="multiple"
             v-model:value="model[field]"
@@ -19,7 +19,7 @@
           />
         </template>
         <template #selectB="{ model, field }">
-          <a-select
+          <Select
             :options="optionsB"
             mode="multiple"
             v-model:value="model[field]"
@@ -48,29 +48,28 @@
             labelField="name"
             valueField="id"
             :params="searchParams"
-            @search="onSearch"
+            @search="useDebounceFn(onSearch, 300)"
           />
         </template>
       </BasicForm>
     </CollapseContainer>
   </PageWrapper>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
   import { type Recordable } from '@vben/types';
-  import { computed, defineComponent, unref, ref } from 'vue';
-  import { BasicForm, FormSchema, ApiSelect } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { PageWrapper } from '/@/components/Page';
+  import { computed, unref, ref } from 'vue';
+  import { BasicForm, FormSchema, ApiSelect } from '@/components/Form';
+  import { CollapseContainer } from '@/components/Container';
+  import { useMessage } from '@/hooks/web/useMessage';
+  import { PageWrapper } from '@/components/Page';
 
-  import { optionsListApi } from '/@/api/demo/select';
+  import { optionsListApi } from '@/api/demo/select';
   import { useDebounceFn } from '@vueuse/core';
-  import { treeOptionsListApi } from '/@/api/demo/tree';
+  import { treeOptionsListApi } from '@/api/demo/tree';
   import { Select, type SelectProps } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
-  import { areaRecord } from '/@/api/demo/cascader';
-  import { uploadApi } from '/@/api/sys/upload';
-  // import { isArray } from '/@/utils/is';
+  import { areaRecord } from '@/api/demo/cascader';
+  import { uploadApi } from '@/api/sys/upload';
 
   const valueSelectA = ref<string[]>([]);
   const valueSelectB = ref<string[]>([]);
@@ -784,37 +783,22 @@
     },
   ];
 
-  export default defineComponent({
-    components: { BasicForm, CollapseContainer, PageWrapper, ApiSelect, ASelect: Select },
-    setup() {
-      const check = ref(null);
-      const { createMessage } = useMessage();
-      const keyword = ref<string>('');
-      const searchParams = computed<Recordable<string>>(() => {
-        return { keyword: unref(keyword) };
-      });
-
-      function onSearch(value: string) {
-        keyword.value = value;
-      }
-      return {
-        schemas,
-        optionsListApi,
-        optionsA,
-        optionsB,
-        valueSelectA,
-        valueSelectB,
-        onSearch: useDebounceFn(onSearch, 300),
-        searchParams,
-        handleReset: () => {
-          keyword.value = '';
-        },
-        handleSubmit: (values: any) => {
-          console.log('values', values);
-          createMessage.success('click search,values:' + JSON.stringify(values));
-        },
-        check,
-      };
-    },
+  const { createMessage } = useMessage();
+  const keyword = ref<string>('');
+  const searchParams = computed<Recordable<string>>(() => {
+    return { keyword: unref(keyword) };
   });
+
+  function onSearch(value: string) {
+    keyword.value = value;
+  }
+
+  function handleReset() {
+    keyword.value = '';
+  }
+
+  function handleSubmit(values: any) {
+    console.log('values', values);
+    createMessage.success('click search,values:' + JSON.stringify(values));
+  }
 </script>

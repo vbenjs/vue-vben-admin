@@ -23,12 +23,10 @@
     </div>
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
-  import { VScroll } from '/@/components/VirtualScroll/index';
-
+<script lang="ts" setup>
+  import { VScroll } from '@/components/VirtualScroll/index';
   import { Divider } from 'ant-design-vue';
-  import { PageWrapper } from '/@/components/Page';
+  import { PageWrapper } from '@/components/Page';
 
   const data = (() => {
     const arr: any[] = [];
@@ -39,12 +37,6 @@
     }
     return arr;
   })();
-  export default defineComponent({
-    components: { VScroll: VScroll, Divider, PageWrapper },
-    setup() {
-      return { data: data };
-    },
-  });
 </script>
 <style lang="less" scoped>
   .virtual-scroll-demo {

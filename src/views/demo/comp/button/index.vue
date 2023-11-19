@@ -4,9 +4,9 @@
     title="基础组件"
     content=" 基础组件依赖于ant-design-vue,组件库已有的基础组件,项目中不会再次进行demo展示（二次封装组件除外）"
   >
-    <a-row :gutter="[20, 20]">
-      <a-col :xl="10" :lg="24">
-        <a-card title="BasicButton Color">
+    <Row :gutter="[20, 20]">
+      <Col :xl="10" :lg="24">
+        <Card title="BasicButton Color">
           <div class="my-2">
             <h3>success</h3>
             <div class="py-2">
@@ -47,10 +47,10 @@
             <a-button ghost type="dashed" color="warning" class="ml-2"> 幽灵警告dashed </a-button>
             <a-button ghost danger class="ml-2"> 幽灵危险 </a-button>
           </div>
-        </a-card>
-      </a-col>
-      <a-col :xl="14" :lg="24">
-        <a-card title="BasicButton Types">
+        </Card>
+      </Col>
+      <Col :xl="14" :lg="24">
+        <Card title="BasicButton Types">
           <div class="my-2">
             <h3>primary</h3>
             <a-button type="primary" preIcon="mdi:page-next-outline"> 主按钮 </a-button>
@@ -97,17 +97,12 @@
             <!--      <a-button ghost type="link" class="ml-2" loading> loading link </a-button>-->
             <!--      <a-button ghost type="link" class="ml-2" disabled> disabled link </a-button>-->
           </div>
-        </a-card>
-      </a-col>
-    </a-row>
+        </Card>
+      </Col>
+    </Row>
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
-  import { PageWrapper } from '/@/components/Page';
+<script lang="ts" setup>
+  import { PageWrapper } from '@/components/Page';
   import { Card, Row, Col } from 'ant-design-vue';
-
-  export default defineComponent({
-    components: { PageWrapper, ACard: Card, ARow: Row, ACol: Col },
-  });
 </script>

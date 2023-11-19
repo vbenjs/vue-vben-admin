@@ -25,30 +25,17 @@
     </div>
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
+<script lang="ts" setup>
+  import { ref } from 'vue';
+  import { CollapseContainer } from '@/components/Container';
   import { useFullscreen } from '@vueuse/core';
 
-  import { PageWrapper } from '/@/components/Page';
+  import { PageWrapper } from '@/components/Page';
   import { type Nullable } from '@vben/types';
 
-  export default defineComponent({
-    components: { CollapseContainer, PageWrapper },
-    setup() {
-      const domRef = ref<Nullable<HTMLElement>>(null);
-      const { enter, toggle, exit, isFullscreen } = useFullscreen();
+  const domRef = ref<Nullable<HTMLElement>>(null);
 
-      const { toggle: toggleDom, isFullscreen: isDomFullscreen } = useFullscreen(domRef);
-      return {
-        enter,
-        toggleDom,
-        toggle,
-        isFullscreen,
-        isDomFullscreen,
-        exit,
-        domRef,
-      };
-    },
-  });
+  const { enter, toggle, exit, isFullscreen } = useFullscreen();
+
+  const { toggle: toggleDom, isFullscreen: isDomFullscreen } = useFullscreen(domRef);
 </script>
