@@ -1,5 +1,5 @@
 import type { BarMap } from './types';
-import type { MergeAll } from '/@/utils/types';
+import type { MergeAll } from '@/utils/types';
 
 export const BAR_MAP: BarMap = {
   vertical: {
@@ -24,7 +24,6 @@ export const BAR_MAP: BarMap = {
   },
 };
 
-// @ts-ignore
 export function renderThumbStyle({ move, size, bar }) {
   const style = {} as any;
   const translate = `translate${bar.axis}(${move}%)`;

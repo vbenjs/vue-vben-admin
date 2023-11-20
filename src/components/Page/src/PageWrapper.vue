@@ -45,16 +45,14 @@
     useAttrs,
     useSlots,
   } from 'vue';
-
   import PageFooter from './PageFooter.vue';
-
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { propTypes } from '/@/utils/propTypes';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { propTypes } from '@/utils/propTypes';
   import { omit } from 'lodash-es';
   import { PageHeader } from 'ant-design-vue';
-  import { useContentHeight } from '/@/hooks/web/useContentHeight';
-  import { useLayoutHeight } from '/@/layouts/default/content/useContentViewHeight';
-  import { PageWrapperFixedHeightKey } from '/@/enums/pageEnum';
+  import { useContentHeight } from '@/hooks/web/useContentHeight';
+  import { useLayoutHeight } from '@/layouts/default/content/useContentViewHeight';
+  import { PageWrapperFixedHeightKey } from '@/enums/pageEnum';
 
   defineOptions({
     name: 'PageWrapper',

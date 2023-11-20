@@ -1,6 +1,6 @@
 import { ButtonProps } from 'ant-design-vue/es/button/buttonTypes';
 import { TooltipProps } from 'ant-design-vue/es/tooltip/Tooltip';
-import { RoleEnum } from '/@/enums/roleEnum';
+import { RoleEnum } from '@/enums/roleEnum';
 
 export interface ActionItem extends ButtonProps {
   onClick?: Fn;

@@ -1,4 +1,4 @@
-import { useAppProviderContext } from '/@/components/Application';
+import { useAppProviderContext } from '@/components/Application';
 // import { computed } from 'vue';
 // import { lowerFirst } from 'lodash-es';
 export function useDesign(scope: string) {

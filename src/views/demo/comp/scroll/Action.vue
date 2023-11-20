@@ -21,8 +21,8 @@
 </template>
 <script lang="ts" setup>
   import { ref, unref } from 'vue';
-  import { ScrollContainer, ScrollActionType } from '/@/components/Container/index';
-  import { PageWrapper } from '/@/components/Page';
+  import { ScrollContainer, ScrollActionType } from '@/components/Container';
+  import { PageWrapper } from '@/components/Page';
   import { type Nullable } from '@vben/types';
 
   const scrollRef = ref<Nullable<ScrollActionType>>(null);

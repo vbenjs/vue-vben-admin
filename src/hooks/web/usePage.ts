@@ -1,10 +1,10 @@
 import type { RouteLocationRaw, Router } from 'vue-router';
 
-import { PageEnum } from '/@/enums/pageEnum';
+import { PageEnum } from '@/enums/pageEnum';
 import { unref } from 'vue';
 
 import { useRouter } from 'vue-router';
-import { REDIRECT_NAME } from '/@/router/constant';
+import { REDIRECT_NAME } from '@/router/constant';
 
 export type PathAsPageEnum<T> = T extends { path: string } ? T & { path: PageEnum } : T;
 export type RouteLocationRawEx = PathAsPageEnum<RouteLocationRaw>;

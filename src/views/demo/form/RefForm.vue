@@ -65,7 +65,7 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { nextTick, ref, unref } from 'vue';
   import { BasicForm, FormSchema, FormActionType, FormProps } from '@/components/Form';
   import { CollapseContainer } from '@/components/Container';
   import { useMessage } from '@/hooks/web/useMessage';
@@ -174,9 +174,11 @@
     createMessage.success('click search,values:' + JSON.stringify(values));
   }
 
-  function setProps(props: FormProps) {
-    const formEl = formElRef.value;
+  async function setProps(props: FormProps) {
+    const formEl = unref(formElRef);
+    console.info(formEl);
     if (!formEl) return;
-    formEl.setProps(props);
+    await nextTick();
+    await formEl.setProps(props);
   }
 </script>

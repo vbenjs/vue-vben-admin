@@ -4,7 +4,7 @@ import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree';
 
 import { cloneDeep } from 'lodash-es';
 import { unref } from 'vue';
-import { forEach } from '/@/utils/helper/treeHelper';
+import { forEach } from '@/utils/helper/treeHelper';
 
 export function useTree(treeDataRef: Ref<TreeDataItem[]>, getFieldNames: ComputedRef<FieldNames>) {
   function getAllKeys(list?: TreeDataItem[]) {
