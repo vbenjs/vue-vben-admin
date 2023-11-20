@@ -3,11 +3,11 @@ import type { PaginationProps } from '../types/pagination';
 import type { ComputedRef } from 'vue';
 import { computed, Ref, ref, reactive, toRaw, unref, watch } from 'vue';
 import { renderEditCell } from '../components/editable';
-import { usePermission } from '/@/hooks/web/usePermission';
-import { useI18n } from '/@/hooks/web/useI18n';
-import { isArray, isBoolean, isFunction, isMap, isString } from '/@/utils/is';
+import { usePermission } from '@/hooks/web/usePermission';
+import { useI18n } from '@/hooks/web/useI18n';
+import { isArray, isBoolean, isFunction, isMap, isString } from '@/utils/is';
 import { cloneDeep, isEqual } from 'lodash-es';
-import { formatToDate } from '/@/utils/dateUtil';
+import { formatToDate } from '@/utils/dateUtil';
 import { ACTION_COLUMN_FLAG, DEFAULT_ALIGN, INDEX_COLUMN_FLAG, PAGE_SIZE } from '../const';
 import { ColumnType } from 'ant-design-vue/es/table';
 

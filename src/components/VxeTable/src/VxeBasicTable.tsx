@@ -14,7 +14,7 @@ import type {
 } from 'vxe-table';
 import { Grid as VxeGrid } from 'vxe-table';
 
-import { extendSlots } from '/@/utils/helper/tsxHelper';
+import { extendSlots } from '@/utils/helper/tsxHelper';
 import { gridComponentMethodKeys } from './methods';
 import { omit } from 'lodash-es';
 

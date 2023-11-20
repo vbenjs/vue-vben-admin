@@ -6,28 +6,18 @@
     <RedoOutlined @click="redo" />
   </Tooltip>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import { Tooltip } from 'ant-design-vue';
   import { RedoOutlined } from '@ant-design/icons-vue';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import { useI18n } from '@/hooks/web/useI18n';
   import { useTableContext } from '../../hooks/useTableContext';
 
-  export default defineComponent({
-    name: 'RedoSetting',
-    components: {
-      RedoOutlined,
-      Tooltip,
-    },
-    setup() {
-      const table = useTableContext();
-      const { t } = useI18n();
+  defineOptions({ name: 'RedoSetting' });
 
-      function redo() {
-        table.reload();
-      }
+  const table = useTableContext();
+  const { t } = useI18n();
 
-      return { redo, t };
-    },
-  });
+  function redo() {
+    table.reload();
+  }
 </script>

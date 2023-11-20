@@ -3,7 +3,7 @@
   import { Tooltip } from 'ant-design-vue';
   import { SearchOutlined } from '@ant-design/icons-vue';
   import AppSearchModal from './AppSearchModal.vue';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import { useI18n } from '@/hooks/web/useI18n';
 
   export default defineComponent({
     name: 'AppSearch',

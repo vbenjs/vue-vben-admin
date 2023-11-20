@@ -3,10 +3,10 @@
   import { isNil } from 'lodash-es';
   import { Skeleton } from 'ant-design-vue';
   import { useTimeoutFn } from '@vben/hooks';
-  import { CollapseTransition } from '/@/components/Transition';
+  import { CollapseTransition } from '@/components/Transition';
   import CollapseHeader from './CollapseHeader.vue';
-  import { triggerWindowResize } from '/@/utils/event';
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import { triggerWindowResize } from '@/utils/event';
+  import { useDesign } from '@/hooks/web/useDesign';
 
   const collapseContainerProps = {
     title: { type: String, default: '' },

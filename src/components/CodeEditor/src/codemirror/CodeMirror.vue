@@ -20,7 +20,7 @@
   import type { Nullable } from '@vben/types';
   import { useWindowSizeFn } from '@vben/hooks';
   import { useDebounceFn } from '@vueuse/core';
-  import { useAppStore } from '/@/store/modules/app';
+  import { useAppStore } from '@/store/modules/app';
   import CodeMirror from 'codemirror';
   import { MODE } from './../typing';
   // css

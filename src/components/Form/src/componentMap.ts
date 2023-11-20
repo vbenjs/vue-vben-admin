@@ -1,5 +1,5 @@
 import type { Component } from 'vue';
-import type { ComponentType } from './types/index';
+import type { ComponentType } from './types';
 
 /**
  * Component list, register here to setting it in the form
@@ -27,10 +27,10 @@ import ApiTree from './components/ApiTree.vue';
 import ApiTreeSelect from './components/ApiTreeSelect.vue';
 import ApiCascader from './components/ApiCascader.vue';
 import ApiTransfer from './components/ApiTransfer.vue';
-import { BasicUpload, ImageUpload } from '/@/components/Upload';
-import { StrengthMeter } from '/@/components/StrengthMeter';
-import { IconPicker } from '/@/components/Icon';
-import { CountdownInput } from '/@/components/CountDown';
+import { BasicUpload, ImageUpload } from '@/components/Upload';
+import { StrengthMeter } from '@/components/StrengthMeter';
+import { IconPicker } from '@/components/Icon';
+import { CountdownInput } from '@/components/CountDown';
 
 const componentMap = new Map<ComponentType, Component>();
 
