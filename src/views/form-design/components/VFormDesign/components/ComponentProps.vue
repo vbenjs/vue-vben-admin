@@ -182,7 +182,7 @@
           baseComponentAttrs[formConfig.value.currentItem!.component] &&
             baseComponentAttrs[formConfig.value.currentItem!.component].forEach(async (item) => {
               if (item.component) {
-                if (['Switch', 'Checkbox', 'Radio'].includes(item.component)) {
+                if (['Switch', 'Checkbox', 'Radio'].includes(item.component as string)) {
                   item.category = 'control';
                   allOptions.value.push(item);
                 } else {
