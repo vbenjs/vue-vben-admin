@@ -1,5 +1,7 @@
 import { IAnyObject } from '../../../typings/base-type';
 import { baseComponents, customComponents } from '../../../core/formItemConfig';
+import { Input, Select, RadioGroup, Slider } from 'ant-design-vue';
+import { Component } from 'vue';
 
 export const globalConfigState: { span: number } = {
   span: 24,
@@ -7,7 +9,7 @@ export const globalConfigState: { span: number } = {
 export interface IBaseFormAttrs {
   name: string; // 字段名
   label: string; // 字段标签
-  component?: string; // 属性控件
+  component?: string | Component; // 属性控件
   componentProps?: IAnyObject; // 传递给控件的属性
   exclude?: string[]; // 需要排除的控件
   includes?: string[]; // 符合条件的组件
@@ -155,7 +157,7 @@ export const advanceFormItemColProps: IBaseFormAttrs[] = [
   {
     name: 'labelCol',
     label: '标签col',
-    component: 'Slider',
+    component: Slider,
     componentProps: {
       max: 24,
       min: 0,
@@ -166,7 +168,7 @@ export const advanceFormItemColProps: IBaseFormAttrs[] = [
   {
     name: 'wrapperCol',
     label: '控件-span',
-    component: 'Slider',
+    component: Slider,
     componentProps: {
       max: 24,
       min: 0,
@@ -181,7 +183,7 @@ export const baseFormItemProps: IBaseFormAttrs[] = [
     // 动态的切换控件的类型
     name: 'component',
     label: '控件-FormItem',
-    component: 'Select',
+    component: Select,
     componentProps: {
       options: baseComponents
         .concat(customComponents)
@@ -191,7 +193,7 @@ export const baseFormItemProps: IBaseFormAttrs[] = [
   {
     name: 'label',
     label: '标签',
-    component: 'Input',
+    component: Input,
     componentProps: {
       type: 'Input',
       placeholder: '请输入标签',
@@ -201,7 +203,7 @@ export const baseFormItemProps: IBaseFormAttrs[] = [
   {
     name: 'field',
     label: '字段标识',
-    component: 'Input',
+    component: Input,
     componentProps: {
       type: 'InputTextArea',
       placeholder: '请输入字段标识',
@@ -211,7 +213,7 @@ export const baseFormItemProps: IBaseFormAttrs[] = [
   {
     name: 'helpMessage',
     label: 'helpMessage',
-    component: 'Input',
+    component: Input,
     componentProps: {
       placeholder: '请输入提示信息',
     },
@@ -224,7 +226,7 @@ export const advanceFormItemProps: IBaseFormAttrs[] = [
   {
     name: 'labelAlign',
     label: '标签对齐',
-    component: 'RadioGroup',
+    component: RadioGroup,
     componentProps: {
       options: [
         {
@@ -243,7 +245,7 @@ export const advanceFormItemProps: IBaseFormAttrs[] = [
   {
     name: 'help',
     label: 'help',
-    component: 'Input',
+    component: Input,
     componentProps: {
       placeholder: '请输入提示信息',
     },
@@ -252,7 +254,7 @@ export const advanceFormItemProps: IBaseFormAttrs[] = [
   {
     name: 'extra',
     label: '额外消息',
-    component: 'Input',
+    component: Input,
     componentProps: {
       type: 'InputTextArea',
       placeholder: '请输入额外消息',
@@ -262,7 +264,7 @@ export const advanceFormItemProps: IBaseFormAttrs[] = [
   {
     name: 'validateTrigger',
     label: 'validateTrigger',
-    component: 'Input',
+    component: Input,
     componentProps: {
       type: 'InputTextArea',
       placeholder: '请输入validateTrigger',
@@ -272,7 +274,7 @@ export const advanceFormItemProps: IBaseFormAttrs[] = [
   {
     name: 'validateStatus',
     label: '校验状态',
-    component: 'RadioGroup',
+    component: RadioGroup,
     componentProps: {
       options: [
         {
