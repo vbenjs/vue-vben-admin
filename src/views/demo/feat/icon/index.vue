@@ -68,5 +68,4 @@
   import Icon from '@/components/Icon/Icon.vue';
   import { openWindow } from '@/utils';
   import { PageWrapper } from '@/components/Page';
-
 </script>
