@@ -16,8 +16,6 @@
 <script lang="ts" setup>
   import { useRouter } from 'vue-router';
   import { computed, ref, unref } from 'vue';
-
-  import { Input } from 'ant-design-vue';
   import { PageWrapper } from '@/components/Page';
 
   const value = ref('');
