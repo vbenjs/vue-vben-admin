@@ -125,15 +125,7 @@ export function useFormEvents({
       if (typeof componentProps === 'function') {
         _props = _props({
           formModel: unref(formModel),
-          formActionType: {
-            ...unref(formElRef),
-            setFieldsValue,
-            updateSchema,
-            resetSchema,
-            appendSchemaByField,
-            removeSchemaByField,
-            handleSubmit,
-          },
+          formActionType,
         });
       }
 
@@ -390,6 +382,21 @@ export function useFormEvents({
       throw new Error(error);
     }
   }
+
+  const formActionType: Partial<FormActionType> = {
+    getFieldsValue,
+    setFieldsValue,
+    resetFields,
+    updateSchema,
+    resetSchema,
+    removeSchemaByField,
+    appendSchemaByField,
+    clearValidate,
+    validateFields,
+    validate,
+    submit: handleSubmit,
+    scrollToField: scrollToField,
+  };
 
   return {
     handleSubmit,
