@@ -123,7 +123,18 @@ export function useFormEvents({
       const { componentProps } = schema || {};
       let _props = componentProps as any;
       if (typeof componentProps === 'function') {
-        _props = _props({ formModel: unref(formModel), formActionType: unref(formElRef) });
+        _props = _props({
+          formModel: unref(formModel),
+          formActionType: {
+            ...unref(formElRef),
+            setFieldsValue,
+            updateSchema,
+            resetSchema,
+            appendSchemaByField,
+            removeSchemaByField,
+            handleSubmit,
+          },
+        });
       }
 
       const constructValue = tryConstructArray(key, values) || tryConstructObject(key, values);
