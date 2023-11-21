@@ -22,6 +22,7 @@
   import { type Recordable } from '@vben/types';
   import { PropType, ref, unref, watch, watchEffect } from 'vue';
   import { Cascader } from 'ant-design-vue';
+  import type { CascaderProps } from 'ant-design-vue';
   import { propTypes } from '@/utils/propTypes';
   import { isFunction } from '@/utils/is';
   import { get, omit } from 'lodash-es';
@@ -131,7 +132,7 @@
     }
   }
 
-  async function loadData(selectedOptions: Option[]) {
+  const loadData: CascaderProps['loadData'] = async (selectedOptions) => {
     const targetOption = selectedOptions[selectedOptions.length - 1];
     targetOption.loading = true;
 
@@ -155,7 +156,7 @@
     } finally {
       targetOption.loading = false;
     }
-  }
+  };
 
   watchEffect(() => {
     props.immediate && initialFetch();
@@ -174,13 +175,13 @@
     emit('defaultChange', keys, args);
   }
 
-  function handleRenderDisplay({ labels, selectedOptions }) {
-    if (unref(emitData).length === selectedOptions.length) {
+  const handleRenderDisplay: CascaderProps['displayRender'] = ({ labels, selectedOptions }) => {
+    if (unref(emitData).length === selectedOptions?.length) {
       return labels.join(' / ');
     }
     if (props.displayRenderArray) {
       return props.displayRenderArray.join(' / ');
     }
     return '';
-  }
+  };
 </script>
