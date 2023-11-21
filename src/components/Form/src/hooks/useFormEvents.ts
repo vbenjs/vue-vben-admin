@@ -341,6 +341,10 @@ export function useFormEvents({
     return handleFormValues(values);
   }
 
+  async function setProps(formProps: Partial<FormProps>): Promise<void> {
+    await unref(formElRef)?.setProps(formProps);
+  }
+
   async function validate(nameList?: NamePath[] | false | undefined) {
     let _nameList: any;
     if (nameList === undefined) {
@@ -389,6 +393,7 @@ export function useFormEvents({
     resetFields,
     updateSchema,
     resetSchema,
+    setProps,
     removeSchemaByField,
     appendSchemaByField,
     clearValidate,
