@@ -4,27 +4,16 @@
     <SettingDrawer @register="register" />
   </span>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
-  import SettingDrawer from '/@/layouts/default/setting/SettingDrawer';
+<script lang="ts" setup>
+  import SettingDrawer from '@/layouts/default/setting/SettingDrawer';
   import Icon from '@/components/Icon/Icon.vue';
 
-  import { useDrawer } from '/@/components/Drawer';
+  import { useDrawer } from '@/components/Drawer';
 
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import { useDesign } from '@/hooks/web/useDesign';
 
-  export default defineComponent({
-    name: 'SettingButton',
-    components: { SettingDrawer, Icon },
-    setup() {
-      const [register, { openDrawer }] = useDrawer();
-      const { prefixCls } = useDesign('multiple-tabs-content');
+  defineOptions({ name: 'SettingButton' });
 
-      return {
-        register,
-        openDrawer,
-        prefixCls,
-      };
-    },
-  });
+  const [register, { openDrawer }] = useDrawer();
+  const { prefixCls } = useDesign('multiple-tabs-content');
 </script>
