@@ -22,7 +22,7 @@
             :actions="[
               {
                 label: t('sys.errorLog.tableActionDesc'),
-                onClick: handleDetail.bind(null, record),
+                onClick: handleDetail.bind(null, record as ErrorLogInfo),
               },
             ]"
           />
