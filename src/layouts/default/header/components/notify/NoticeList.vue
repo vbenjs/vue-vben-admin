@@ -7,7 +7,6 @@
             <div class="title">
               <Typography.Paragraph
                 @click="handleTitleClick(item)"
-                :style="{ cursor: isTitleClickable ? 'pointer' : '' }"
                 :delete="!!item.titleDelete"
                 :ellipsis="
                   titleRows && titleRows > 0 ? { rows: titleRows, tooltip: !!item.title } : false
@@ -98,7 +97,6 @@
       current.value = v;
     },
   );
-  const isTitleClickable = computed(() => !!props.onTitleClick);
   const getPagination = computed(() => {
     const { list, pageSize } = props;
 
