@@ -4,10 +4,10 @@
       <template #itemRender="{ route, routes: routesMatched, paths }">
         <Icon :icon="getIcon(route)" v-if="getShowBreadCrumbIcon && getIcon(route)" />
         <span v-if="!hasRedirect(routesMatched, route)">
-          {{ t(route.name || route.meta.title) }}
+          {{ t(getTitle(route)) }}
         </span>
         <router-link v-else to="" @click="handleClick(route, paths, $event)">
-          {{ t(route.name || route.meta.title) }}
+          {{ t(getTitle(route)) }}
         </router-link>
       </template>
     </Breadcrumb>
@@ -42,7 +42,7 @@
     theme: propTypes.oneOf(['dark', 'light']),
   });
 
-  const routes = ref<RouteLocationMatched[]>([]);
+  const routes = ref<any[]>([]);
   const { currentRoute } = useRouter();
   const { prefixCls } = useDesign('layout-breadcrumb');
   const { getShowBreadCrumbIcon } = useRootSetting();
@@ -94,7 +94,7 @@
     return metched;
   }
 
-  function filterItem(list: RouteLocationMatched[]) {
+  function filterItem(list: any[]) {
     return filter(list, (item) => {
       const { meta, name } = item;
       if (!meta) {
@@ -108,7 +108,7 @@
     }).filter((item) => !item.meta?.hideBreadcrumb);
   }
 
-  function handleClick(route: RouteLocationMatched, paths: string[], e: Event) {
+  function handleClick(route: any, paths: string[], e: Event) {
     e?.preventDefault();
     const { children, redirect, meta } = route;
 
@@ -136,12 +136,16 @@
     }
   }
 
-  function hasRedirect(routes: RouteLocationMatched[], route: RouteLocationMatched) {
+  function hasRedirect(routes: any[], route: any) {
     return routes.indexOf(route) !== routes.length - 1;
   }
 
   function getIcon(route) {
-    return route.icon || route.meta?.icon;
+    return route.icon || route.meta.icon;
+  }
+
+  function getTitle(route) {
+    return route.name || route.meta.title;
   }
 </script>
 <style lang="less">
