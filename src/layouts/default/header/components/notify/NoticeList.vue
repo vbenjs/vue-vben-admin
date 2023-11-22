@@ -7,13 +7,10 @@
             <div class="title">
               <Typography.Paragraph
                 @click="handleTitleClick(item)"
-                style="width: 100%; margin-bottom: 0 !important"
                 :style="{ cursor: isTitleClickable ? 'pointer' : '' }"
                 :delete="!!item.titleDelete"
                 :ellipsis="
-                  $props.titleRows && $props.titleRows > 0
-                    ? { rows: $props.titleRows, tooltip: !!item.title }
-                    : false
+                  titleRows && titleRows > 0 ? { rows: titleRows, tooltip: !!item.title } : false
                 "
                 :content="item.title"
               />
@@ -34,10 +31,9 @@
             <div>
               <div class="description" v-if="item.description">
                 <Typography.Paragraph
-                  style="width: 100%; margin-bottom: 0 !important"
                   :ellipsis="
-                    $props.descRows && $props.descRows > 0
-                      ? { rows: $props.descRows, tooltip: !!item.description }
+                    descRows && descRows > 0
+                      ? { rows: descRows, tooltip: !!item.description }
                       : false
                   "
                   :content="item.description"
