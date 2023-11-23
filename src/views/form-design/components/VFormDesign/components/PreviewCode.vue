@@ -20,10 +20,10 @@
 
 <script lang="ts">
   import { defineComponent, reactive, toRefs } from 'vue';
-  import { CodeEditor, MODE } from '/@/components/CodeEditor';
+  import { CodeEditor, MODE } from '@/components/CodeEditor';
 
-  import { copyText } from '/@/utils/copyTextToClipboard';
-  import { useMessage } from '/@/hooks/web/useMessage';
+  import { copyText } from '@/utils/copyTextToClipboard';
+  import { useMessage } from '@/hooks/web/useMessage';
 
   export default defineComponent({
     name: 'PreviewCode',

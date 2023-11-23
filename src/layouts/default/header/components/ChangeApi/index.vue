@@ -24,7 +24,7 @@
   import { BasicForm, useForm } from '@/components/Form';
   import { ref } from 'vue';
   import { useAppStore } from '@/store/modules/app';
-  import type { ApiAddress } from '/#/store';
+  import type { ApiAddress } from '#/store';
 
   const appStore = useAppStore();
   const RadioGroup = Radio.Group;
