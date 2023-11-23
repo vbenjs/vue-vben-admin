@@ -9,21 +9,15 @@
     </template>
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent, unref, computed } from 'vue';
-  import FramePage from '/@/views/sys/iframe/index.vue';
+<script lang="ts" setup>
+  import { unref, computed } from 'vue';
+  import FramePage from '@/views/sys/iframe/index.vue';
 
   import { useFrameKeepAlive } from './useFrameKeepAlive';
 
-  export default defineComponent({
-    name: 'FrameLayout',
-    components: { FramePage },
-    setup() {
-      const { getFramePages, hasRenderFrame, showIframe } = useFrameKeepAlive();
+  defineOptions({ name: 'FrameLayout' });
 
-      const showFrame = computed(() => unref(getFramePages).length > 0);
+  const { getFramePages, hasRenderFrame, showIframe } = useFrameKeepAlive();
 
-      return { getFramePages, hasRenderFrame, showIframe, showFrame };
-    },
-  });
+  const showFrame = computed(() => unref(getFramePages).length > 0);
 </script>

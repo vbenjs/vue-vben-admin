@@ -24,47 +24,34 @@
   <FrameLayout v-if="getCanEmbedIFramePage" />
 </template>
 
-<script lang="ts">
-  import { computed, defineComponent, unref } from 'vue';
+<script lang="ts" setup>
+  import { computed, unref } from 'vue';
 
-  import FrameLayout from '/@/layouts/iframe/index.vue';
+  import FrameLayout from '@/layouts/iframe/index.vue';
 
-  import { useRootSetting } from '/@/hooks/setting/useRootSetting';
+  import { useRootSetting } from '@/hooks/setting/useRootSetting';
 
-  import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
-  import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
+  import { useTransitionSetting } from '@/hooks/setting/useTransitionSetting';
+  import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting';
   import { getTransitionName } from './transition';
 
-  import { useMultipleTabStore } from '/@/store/modules/multipleTab';
+  import { useMultipleTabStore } from '@/store/modules/multipleTab';
 
-  export default defineComponent({
-    name: 'PageLayout',
-    components: { FrameLayout },
-    setup() {
-      const { getShowMultipleTab } = useMultipleTabSetting();
-      const tabStore = useMultipleTabStore();
+  defineOptions({ name: 'PageLayout' });
 
-      const { getOpenKeepAlive, getCanEmbedIFramePage } = useRootSetting();
+  const { getShowMultipleTab } = useMultipleTabSetting();
+  const tabStore = useMultipleTabStore();
 
-      const { getBasicTransition, getEnableTransition } = useTransitionSetting();
+  const { getOpenKeepAlive, getCanEmbedIFramePage } = useRootSetting();
 
-      const openCache = computed(() => unref(getOpenKeepAlive) && unref(getShowMultipleTab));
+  const { getBasicTransition, getEnableTransition } = useTransitionSetting();
 
-      const getCaches = computed((): string[] => {
-        if (!unref(getOpenKeepAlive)) {
-          return [];
-        }
-        return tabStore.getCachedTabList;
-      });
+  const openCache = computed(() => unref(getOpenKeepAlive) && unref(getShowMultipleTab));
 
-      return {
-        getTransitionName,
-        openCache,
-        getEnableTransition,
-        getBasicTransition,
-        getCaches,
-        getCanEmbedIFramePage,
-      };
-    },
+  const getCaches = computed((): string[] => {
+    if (!unref(getOpenKeepAlive)) {
+      return [];
+    }
+    return tabStore.getCachedTabList;
   });
 </script>
