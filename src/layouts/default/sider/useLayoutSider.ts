@@ -2,11 +2,11 @@ import type { Ref } from 'vue';
 
 import { computed, unref, onMounted, nextTick } from 'vue';
 
-import { TriggerEnum } from '/@/enums/menuEnum';
+import { TriggerEnum } from '@/enums/menuEnum';
 
-import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
+import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
 import { useDebounceFn } from '@vueuse/core';
-import { useAppStore } from '/@/store/modules/app';
+import { useAppStore } from '@/store/modules/app';
 
 /**
  * Handle related operations of menu events

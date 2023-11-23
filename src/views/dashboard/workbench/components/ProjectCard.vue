@@ -4,7 +4,7 @@
       <a-button type="link" size="small">更多</a-button>
     </template>
 
-    <CardGrid v-for="item in items" :key="item.title" class="!md:w-1/3 !w-full">
+    <CardGrid v-for="item in groupItems" :key="item.title" class="!md:w-1/3 !w-full">
       <span class="flex">
         <Icon :icon="item.icon" :color="item.color" size="30" />
         <span class="text-lg ml-4">{{ item.title }}</span>
@@ -17,16 +17,8 @@
     </CardGrid>
   </Card>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import { Card, CardGrid } from 'ant-design-vue';
   import Icon from '@/components/Icon/Icon.vue';
   import { groupItems } from './data';
-
-  export default defineComponent({
-    components: { Card, CardGrid, Icon },
-    setup() {
-      return { items: groupItems };
-    },
-  });
 </script>
