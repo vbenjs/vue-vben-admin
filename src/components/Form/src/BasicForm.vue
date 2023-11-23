@@ -294,7 +294,7 @@
   );
 
   defineExpose({
-    setProps,
+    ...formActionType,
   });
 
   onMounted(() => {
