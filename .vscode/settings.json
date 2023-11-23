@@ -128,9 +128,11 @@
     "stylelint",
     "tailwindcss",
     "tinymce",
+    "unocss",
     "unref",
     "vben",
     "vditor",
+    "Vite",
     "vitejs",
     "vueuse",
     "zxcvbn"
