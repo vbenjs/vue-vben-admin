@@ -101,6 +101,10 @@
     },
   );
 
+  defineExpose({
+    wrap,
+  });
+
   onMounted(() => {
     if (props.native) return;
     nextTick(update);
