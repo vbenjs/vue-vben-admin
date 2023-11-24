@@ -18,7 +18,7 @@
   </Modal>
 </template>
 <script lang="ts" setup>
-  import { BasicForm, useForm } from '/@/components/Form/index';
+  import { BasicForm, useForm } from '@/components/Form';
   import { reactive, ref, computed } from 'vue';
   import { IFormConfig } from '../../typings/v-form-component';
   import { IAnyObject } from '../../typings/base-type';

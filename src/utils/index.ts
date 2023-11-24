@@ -3,7 +3,7 @@ import type { App, Component } from 'vue';
 
 import { intersectionWith, isEqual, mergeWith, unionWith } from 'lodash-es';
 import { unref } from 'vue';
-import { isArray, isObject } from '/@/utils/is';
+import { isArray, isObject } from '@/utils/is';
 
 export const noop = () => {};
 

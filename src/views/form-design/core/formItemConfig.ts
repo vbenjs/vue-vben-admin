@@ -3,8 +3,8 @@
  */
 import { IVFormComponent } from '../typings/v-form-component';
 import { isArray } from 'lodash-es';
-import { componentMap as VbenCmp, add } from '/@/components/Form/src/componentMap';
-import { ComponentType } from '/@/components/Form/src/types';
+import { componentMap as VbenCmp, add } from '@/components/Form/src/componentMap';
+import { ComponentType } from '@/components/Form/src/types';
 
 import { componentMap as Cmp } from '../components';
 import { Component } from 'vue';

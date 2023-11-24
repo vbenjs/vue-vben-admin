@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-  import type { ErrorLogInfo } from '/#/store';
+  import type { ErrorLogInfo } from '#/store';
   import { watch, ref, nextTick } from 'vue';
   import DetailModal from './DetailModal.vue';
   import { BasicTable, useTable, TableAction } from '@/components/Table';

@@ -1,4 +1,4 @@
-import type { GlobConfig } from '/#/config';
+import type { GlobConfig } from '#/config';
 
 import { getAppEnvConfig } from '@/utils/env';
 
