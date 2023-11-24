@@ -1,5 +1,5 @@
 import { MenuModeEnum } from '@/enums/menuEnum';
-import type { Menu as MenuType } from '/@/router/types';
+import type { Menu as MenuType } from '@/router/types';
 import type { MenuState, Key } from './types';
 import { computed, Ref, toRaw, unref } from 'vue';
 import { useTimeoutFn } from '@vben/hooks';

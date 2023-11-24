@@ -21,9 +21,9 @@
 <script lang="ts">
   import { computed, defineComponent, unref } from 'vue';
   import { IFormConfig, IVFormComponent } from '../../typings/v-form-component';
-  import { FormProps, FormSchema } from '/@/components/Form';
+  import { FormProps, FormSchema } from '@/components/Form';
 
-  import FormItem from '/@/components/Form/src/components/FormItem.vue';
+  import FormItem from '@/components/Form/src/components/FormItem.vue';
 
   export default defineComponent({
     name: 'VFormItem',

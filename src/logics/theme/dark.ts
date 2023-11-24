@@ -1,5 +1,5 @@
 import { setCssVar } from './util';
-import { addClass, hasClass, removeClass } from '/@/utils/domUtils';
+import { addClass, hasClass, removeClass } from '@/utils/domUtils';
 
 export type CustomColorType = {
   name: string;

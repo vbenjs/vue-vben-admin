@@ -5,7 +5,7 @@ import type {
   FormSchemaInner as FormSchema,
 } from '../types/form';
 import type { NamePath } from 'ant-design-vue/lib/form/interface';
-import type { DynamicProps } from '/#/utils';
+import type { DynamicProps } from '#/utils';
 import { ref, onUnmounted, unref, nextTick, watch } from 'vue';
 import { isProdMode } from '@/utils/env';
 import { error } from '@/utils/log';

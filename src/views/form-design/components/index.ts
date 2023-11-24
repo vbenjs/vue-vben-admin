@@ -1,6 +1,6 @@
 import type { Component } from 'vue';
-import { ComponentType } from '/@/components/Form/src/types';
-import { IconPicker } from '/@/components/Icon/index';
+import { ComponentType } from '@/components/Form/src/types';
+import { IconPicker } from '@/components/Icon';
 /**
  * Component list, register here to setting it in the form
  */

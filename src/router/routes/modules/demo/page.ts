@@ -1,10 +1,10 @@
-import type { AppRouteModule } from '/@/router/types';
+import type { AppRouteModule } from '@/router/types';
 
-import { getParentLayout, LAYOUT } from '/@/router/constant';
-import { ExceptionEnum } from '/@/enums/exceptionEnum';
-import { t } from '/@/hooks/web/useI18n';
+import { getParentLayout, LAYOUT } from '@/router/constant';
+import { ExceptionEnum } from '@/enums/exceptionEnum';
+import { t } from '@/hooks/web/useI18n';
 
-const ExceptionPage = () => import('/@/views/sys/exception/Exception.vue');
+const ExceptionPage = () => import('@/views/sys/exception/Exception.vue');
 
 const page: AppRouteModule = {
   path: '/page-demo',
@@ -30,7 +30,7 @@ const page: AppRouteModule = {
         {
           path: 'basic',
           name: 'FormBasicPage',
-          component: () => import('/@/views/demo/page/form/basic/index.vue'),
+          component: () => import('@/views/demo/page/form/basic/index.vue'),
           meta: {
             title: t('routes.demo.page.formBasic'),
           },
@@ -38,7 +38,7 @@ const page: AppRouteModule = {
         {
           path: 'step',
           name: 'FormStepPage',
-          component: () => import('/@/views/demo/page/form/step/index.vue'),
+          component: () => import('@/views/demo/page/form/step/index.vue'),
           meta: {
             title: t('routes.demo.page.formStep'),
           },
@@ -46,7 +46,7 @@ const page: AppRouteModule = {
         {
           path: 'high',
           name: 'FormHightPage',
-          component: () => import('/@/views/demo/page/form/high/index.vue'),
+          component: () => import('@/views/demo/page/form/high/index.vue'),
           meta: {
             title: t('routes.demo.page.formHigh'),
           },
@@ -67,7 +67,7 @@ const page: AppRouteModule = {
         {
           path: 'basic',
           name: 'DescBasicPage',
-          component: () => import('/@/views/demo/page/desc/basic/index.vue'),
+          component: () => import('@/views/demo/page/desc/basic/index.vue'),
           meta: {
             title: t('routes.demo.page.descBasic'),
           },
@@ -75,7 +75,7 @@ const page: AppRouteModule = {
         {
           path: 'high',
           name: 'DescHighPage',
-          component: () => import('/@/views/demo/page/desc/high/index.vue'),
+          component: () => import('@/views/demo/page/desc/high/index.vue'),
           meta: {
             title: t('routes.demo.page.descHigh'),
           },
@@ -98,7 +98,7 @@ const page: AppRouteModule = {
         {
           path: 'success',
           name: 'ResultSuccessPage',
-          component: () => import('/@/views/demo/page/result/success/index.vue'),
+          component: () => import('@/views/demo/page/result/success/index.vue'),
           meta: {
             title: t('routes.demo.page.resultSuccess'),
           },
@@ -106,7 +106,7 @@ const page: AppRouteModule = {
         {
           path: 'fail',
           name: 'ResultFailPage',
-          component: () => import('/@/views/demo/page/result/fail/index.vue'),
+          component: () => import('@/views/demo/page/result/fail/index.vue'),
           meta: {
             title: t('routes.demo.page.resultFail'),
           },
@@ -128,7 +128,7 @@ const page: AppRouteModule = {
         {
           path: 'center',
           name: 'AccountCenterPage',
-          component: () => import('/@/views/demo/page/account/center/index.vue'),
+          component: () => import('@/views/demo/page/account/center/index.vue'),
           meta: {
             title: t('routes.demo.page.accountCenter'),
           },
@@ -136,7 +136,7 @@ const page: AppRouteModule = {
         {
           path: 'setting',
           name: 'AccountSettingPage',
-          component: () => import('/@/views/demo/page/account/setting/index.vue'),
+          component: () => import('@/views/demo/page/account/setting/index.vue'),
           meta: {
             title: t('routes.demo.page.accountSetting'),
           },
@@ -225,7 +225,7 @@ const page: AppRouteModule = {
         {
           path: 'basic',
           name: 'ListBasicPage',
-          component: () => import('/@/views/demo/page/list/basic/index.vue'),
+          component: () => import('@/views/demo/page/list/basic/index.vue'),
           meta: {
             title: t('routes.demo.page.listBasic'),
           },
@@ -233,7 +233,7 @@ const page: AppRouteModule = {
         {
           path: 'card',
           name: 'ListCardPage',
-          component: () => import('/@/views/demo/page/list/card/index.vue'),
+          component: () => import('@/views/demo/page/list/card/index.vue'),
           meta: {
             title: t('routes.demo.page.listCard'),
           },
@@ -241,7 +241,7 @@ const page: AppRouteModule = {
         {
           path: 'search',
           name: 'ListSearchPage',
-          component: () => import('/@/views/demo/page/list/search/index.vue'),
+          component: () => import('@/views/demo/page/list/search/index.vue'),
           meta: {
             title: t('routes.demo.page.listSearch'),
           },

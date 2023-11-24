@@ -1,4 +1,4 @@
-import type { ProjectConfig } from '/#/config';
+import type { ProjectConfig } from '#/config';
 
 import { computed } from 'vue';
 
