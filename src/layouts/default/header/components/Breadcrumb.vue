@@ -6,7 +6,7 @@
         <span v-if="!hasRedirect(routesMatched, route)">
           {{ t(route.name || route.meta.title) }}
         </span>
-        <router-link v-else to="" @click="handleClick(route, paths, $event)">
+        <router-link v-else to="" @click="handleClick(route, paths, $event as Event)">
           {{ t(route.name || route.meta.title) }}
         </router-link>
       </template>

@@ -3,43 +3,38 @@
     {{ getTitle }}
   </BasicTitle>
 </template>
-<script lang="ts">
-  import { computed, defineComponent, PropType } from 'vue';
-  import { BasicTitle } from '/@/components/Basic/index';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { isFunction } from '/@/utils/is';
+<script lang="ts" setup>
+  import { computed, PropType } from 'vue';
+  import { BasicTitle } from '@/components/Basic';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { isFunction } from '@/utils/is';
 
-  export default defineComponent({
-    name: 'BasicTableTitle',
-    components: { BasicTitle },
-    props: {
-      title: {
-        type: [Function, String] as PropType<string | ((data) => string)>,
-      },
-      getSelectRows: {
-        type: Function as PropType<() => any[]>,
-      },
-      helpMessage: {
-        type: [String, Array] as PropType<string | string[]>,
-      },
+  defineOptions({ name: 'BasicTableTitle' });
+
+  const props = defineProps({
+    title: {
+      type: [Function, String] as PropType<string | ((data) => string)>,
     },
-    setup(props) {
-      const { prefixCls } = useDesign('basic-table-title');
+    getSelectRows: {
+      type: Function as PropType<() => any[]>,
+    },
+    helpMessage: {
+      type: [String, Array] as PropType<string | string[]>,
+    },
+  });
 
-      const getTitle = computed(() => {
-        const { title, getSelectRows = () => {} } = props;
-        let tit = title;
+  const { prefixCls } = useDesign('basic-table-title');
 
-        if (isFunction(title)) {
-          tit = title({
-            selectRows: getSelectRows(),
-          });
-        }
-        return tit;
+  const getTitle = computed(() => {
+    const { title, getSelectRows = () => {} } = props;
+    let tit = title;
+
+    if (isFunction(title)) {
+      tit = title({
+        selectRows: getSelectRows(),
       });
-
-      return { getTitle, prefixCls };
-    },
+    }
+    return tit;
   });
 </script>
 <style lang="less">

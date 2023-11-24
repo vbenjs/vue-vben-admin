@@ -24,7 +24,7 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
-  import { VScroll } from '@/components/VirtualScroll/index';
+  import { VScroll } from '@/components/VirtualScroll';
   import { Divider } from 'ant-design-vue';
   import { PageWrapper } from '@/components/Page';
 

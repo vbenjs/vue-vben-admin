@@ -1,7 +1,7 @@
 import type { Component } from 'vue';
 
 import type { ComponentType } from './componentType';
-import { ApiSelect, ApiTreeSelect } from '/@/components/Form';
+import { ApiSelect, ApiTreeSelect } from '@/components/Form';
 import {
   Input,
   Select,
@@ -17,7 +17,7 @@ import {
   Rate,
   Empty,
 } from 'ant-design-vue';
-import { Button } from '/@/components/Button';
+import { Button } from '@/components/Button';
 
 const componentMap = new Map<ComponentType, Component>();
 

@@ -37,7 +37,7 @@
 </template>
 <script lang="ts" setup>
   import { Card } from 'ant-design-vue';
-  import { CountTo } from '@/components/CountTo/index';
+  import { CountTo } from '@/components/CountTo';
   import { PageWrapper } from '@/components/Page';
 
   const CardGrid = Card.Grid;

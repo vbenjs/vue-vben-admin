@@ -1,4 +1,4 @@
-import { withInstall } from '/@/utils';
+import { withInstall } from '@/utils';
 import vxeBasicTable from './src/VxeBasicTable';
 import { VXETable } from 'vxe-table';
 import VXETablePluginAntd from './src/components';

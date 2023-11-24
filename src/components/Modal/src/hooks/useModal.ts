@@ -16,11 +16,11 @@ import {
   toRaw,
   computed,
 } from 'vue';
-import { isProdMode } from '/@/utils/env';
-import { isFunction } from '/@/utils/is';
+import { isProdMode } from '@/utils/env';
+import { isFunction } from '@/utils/is';
 import { isEqual } from 'lodash-es';
 import { tryOnUnmounted } from '@vueuse/core';
-import { error } from '/@/utils/log';
+import { error } from '@/utils/log';
 
 const dataTransfer = reactive<any>({});
 

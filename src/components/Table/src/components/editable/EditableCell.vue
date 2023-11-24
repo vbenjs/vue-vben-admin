@@ -5,16 +5,16 @@
   import { CheckOutlined, CloseOutlined, FormOutlined } from '@ant-design/icons-vue';
   import { CellComponent } from './CellComponent';
 
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import { useDesign } from '@/hooks/web/useDesign';
   import { useTableContext } from '../../hooks/useTableContext';
 
-  import clickOutside from '/@/directives/clickOutside';
+  import clickOutside from '@/directives/clickOutside';
 
-  import { propTypes } from '/@/utils/propTypes';
-  import { isArray, isBoolean, isFunction, isNumber, isString } from '/@/utils/is';
+  import { propTypes } from '@/utils/propTypes';
+  import { isArray, isBoolean, isFunction, isNumber, isString } from '@/utils/is';
   import { createPlaceholderMessage } from './helper';
   import { pick, set } from 'lodash-es';
-  import { treeToList } from '/@/utils/helper/treeHelper';
+  import { treeToList } from '@/utils/helper/treeHelper';
   import { Spin } from 'ant-design-vue';
 
   export default defineComponent({

@@ -17,10 +17,8 @@
 <script setup lang="ts">
   import { ref } from 'vue';
   import { Modal } from 'ant-design-vue';
-  import { FormSchema } from '/@/components/Form';
-  import { BasicForm, useForm } from '/@/components/Form/index';
+  import { FormSchema, BasicForm, useForm } from '@/components/Form';
 
-  const open = ref<boolean>(true);
   const props = defineProps<{
     title: string;
     addFormSchemas: FormSchema[];
@@ -29,6 +27,8 @@
     labelWidth?: number;
     layout?: 'horizontal' | 'vertical' | 'inline';
   }>();
+
+  const open = ref<boolean>(true);
 
   const [register, { validate }] = useForm({
     schemas: props.addFormSchemas,

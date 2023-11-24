@@ -3,9 +3,9 @@
   import { defineComponent, computed, unref, reactive, watch, ref } from 'vue';
   import { useTimeoutFn } from '@vben/hooks';
   import BasicDragVerify from './DragVerify.vue';
-  import { hackCss } from '/@/utils/domUtils';
+  import { hackCss } from '@/utils/domUtils';
   import { rotateProps } from './props';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import { useI18n } from '@/hooks/web/useI18n';
 
   export default defineComponent({
     name: 'ImgRotateDragVerify',
