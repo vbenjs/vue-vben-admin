@@ -1,16 +1,16 @@
 import type { Router, RouteLocationNormalized } from 'vue-router';
-import { useAppStoreWithOut } from '/@/store/modules/app';
-import { useUserStoreWithOut } from '/@/store/modules/user';
-import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
-import { AxiosCanceler } from '/@/utils/http/axios/axiosCancel';
+import { useAppStoreWithOut } from '@/store/modules/app';
+import { useUserStoreWithOut } from '@/store/modules/user';
+import { useTransitionSetting } from '@/hooks/setting/useTransitionSetting';
+import { AxiosCanceler } from '@/utils/http/axios/axiosCancel';
 import { Modal, notification } from 'ant-design-vue';
-import { warn } from '/@/utils/log';
+import { warn } from '@/utils/log';
 import { unref } from 'vue';
-import { setRouteChange } from '/@/logics/mitt/routeChange';
+import { setRouteChange } from '@/logics/mitt/routeChange';
 import { createPermissionGuard } from './permissionGuard';
 import { createStateGuard } from './stateGuard';
 import nProgress from 'nprogress';
-import projectSetting from '/@/settings/projectSetting';
+import projectSetting from '@/settings/projectSetting';
 import { createParamMenuGuard } from './paramMenuGuard';
 
 // Don't change the order of creation

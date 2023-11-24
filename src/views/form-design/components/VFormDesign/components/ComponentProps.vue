@@ -89,7 +89,7 @@
     Col,
     Row,
   } from 'ant-design-vue';
-  import RadioButtonGroup from '/@/components/Form/src/components/RadioButtonGroup.vue';
+  import RadioButtonGroup from '@/components/Form/src/components/RadioButtonGroup.vue';
   import { computed, defineComponent, ref, watch } from 'vue';
   import { useFormDesignState } from '../../../hooks/useFormDesignState';
   import {

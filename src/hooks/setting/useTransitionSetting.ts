@@ -1,4 +1,4 @@
-import type { TransitionSetting } from '/#/config';
+import type { TransitionSetting } from '#/config';
 
 import { computed } from 'vue';
 

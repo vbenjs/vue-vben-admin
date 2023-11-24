@@ -1,4 +1,4 @@
-import type { HeaderSetting } from '/#/config';
+import type { HeaderSetting } from '#/config';
 
 import { computed, unref } from 'vue';
 

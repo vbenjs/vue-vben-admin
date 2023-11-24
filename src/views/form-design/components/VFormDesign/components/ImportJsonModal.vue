@@ -39,8 +39,8 @@
   // import { codemirror } from 'vue-codemirror-lite';
   import { IFormConfig } from '../../../typings/v-form-component';
   import { formItemsForEach, generateKey } from '../../../utils';
-  import { CodeEditor, MODE } from '/@/components/CodeEditor';
-  import { useMessage } from '/@/hooks/web/useMessage';
+  import { CodeEditor, MODE } from '@/components/CodeEditor';
+  import { useMessage } from '@/hooks/web/useMessage';
   import { Upload, Modal } from 'ant-design-vue';
 
   export default defineComponent({

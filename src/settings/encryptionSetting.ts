@@ -1,4 +1,4 @@
-import { isDevMode } from '/@/utils/env';
+import { isDevMode } from '@/utils/env';
 
 // System default cache time, in seconds
 export const DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7;
