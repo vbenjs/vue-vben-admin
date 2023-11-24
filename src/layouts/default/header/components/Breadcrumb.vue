@@ -125,15 +125,18 @@
           go(redirect);
         } else {
           let goPath = '';
+          let link: boolean;
           if (paths.length === 1) {
             goPath = paths[0];
+            link = true;
           } else {
             const ps = paths.slice(1);
             const lastPath = ps.pop() || '';
             goPath = `${lastPath}`;
+            link = lastPath.includes(ps[0]);
           }
           goPath = /^\//.test(goPath) ? goPath : `/${goPath}`;
-          go(goPath);
+          link ? go(goPath) : window.open(goPath.replace(/^\//, ''), '_blank');
         }
       }
 
