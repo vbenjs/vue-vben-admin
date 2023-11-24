@@ -5,6 +5,8 @@ import { unref } from 'vue';
 
 import { useRouter } from 'vue-router';
 import { REDIRECT_NAME } from '@/router/constant';
+import { isHttpUrl } from '@/utils/is';
+import { openWindow } from '@/utils';
 
 export type PathAsPageEnum<T> = T extends { path: string } ? T & { path: PageEnum } : T;
 export type RouteLocationRawEx = PathAsPageEnum<RouteLocationRaw>;
@@ -21,6 +23,13 @@ export function useGo(_router?: Router) {
   function go(opt: RouteLocationRawEx = PageEnum.BASE_HOME, isReplace = false) {
     if (!opt) {
       return;
+    }
+    let path = unref(opt) as string;
+    if (path[0] === '/') {
+      path = path.slice(1);
+    }
+    if (isHttpUrl(path)) {
+      return openWindow(path);
     }
     isReplace ? replace(opt).catch(handleError) : push(opt).catch(handleError);
   }
