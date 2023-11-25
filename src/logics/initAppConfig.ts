@@ -30,7 +30,6 @@ export function initAppConfigStore() {
   const {
     colorWeak,
     grayMode,
-
     headerSetting: { bgColor: headerBgColor } = {},
     menuSetting: { bgColor } = {},
   } = projCfg;
