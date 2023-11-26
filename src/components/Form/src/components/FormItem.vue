@@ -116,6 +116,21 @@
         return disabled;
       });
 
+      const getReadonly = computed(() => {
+        const { readonly: globReadonly } = props.formProps;
+        const { dynamicReadonly } = props.schema;
+        const { readonly: itemReadonly = false } = unref(getComponentsProps);
+
+        let readonly = globReadonly || itemReadonly;
+        if (isBoolean(dynamicReadonly)) {
+          readonly = dynamicReadonly;
+        }
+        if (isFunction(dynamicReadonly)) {
+          readonly = dynamicReadonly(unref(getValues));
+        }
+        return readonly;
+      });
+
       function getShow(): { isShow: boolean; isIfShow: boolean } {
         const { show, ifShow } = props.schema;
         const { showAdvancedButton } = props.formProps;
@@ -280,6 +295,7 @@
           size,
           ...unref(getComponentsProps),
           disabled: unref(getDisable),
+          readonly: unref(getReadonly),
         };
 
         const isCreatePlaceholder = !propsData.disabled && autoSetPlaceHolder;
@@ -305,7 +321,12 @@
           return <Comp {...compAttr} />;
         }
         const compSlot = isFunction(renderComponentContent)
-          ? { ...renderComponentContent(unref(getValues), { disabled: unref(getDisable) }) }
+          ? {
+              ...renderComponentContent(unref(getValues), {
+                disabled: unref(getDisable),
+                readonly: unref(getReadonly),
+              }),
+            }
           : {
               default: () => renderComponentContent,
             };
@@ -339,7 +360,7 @@
         const { itemProps, slot, render, field, suffix, component } = props.schema;
         const { labelCol, wrapperCol } = unref(itemLabelWidthProp);
         const { colon } = props.formProps;
-        const opts = { disabled: unref(getDisable) };
+        const opts = { disabled: unref(getDisable), readonly: unref(getReadonly) };
         if (component === 'Divider') {
           return (
             <Col span={24}>
@@ -397,7 +418,7 @@
         const realColProps = { ...baseColProps, ...colProps };
         const { isIfShow, isShow } = getShow();
         const values = unref(getValues);
-        const opts = { disabled: unref(getDisable) };
+        const opts = { disabled: unref(getDisable), readonly: unref(getReadonly) };
 
         const getContent = () => {
           return colSlot
