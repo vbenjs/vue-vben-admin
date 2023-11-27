@@ -32,7 +32,7 @@ export const basicProps = {
   // 最大数量的文件，Infinity不限制
   maxNumber: {
     type: Number as PropType<number>,
-    default: Infinity,
+    default: 1,
   },
   // 根据后缀，或者其他
   accept: {
@@ -41,7 +41,7 @@ export const basicProps = {
   },
   multiple: {
     type: Boolean as PropType<boolean>,
-    default: true,
+    default: false,
   },
   uploadParams: {
     type: Object as PropType<any>,
