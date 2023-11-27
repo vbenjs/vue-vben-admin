@@ -141,7 +141,7 @@
     "backPage": "页面权限",
     "backBtn": "按钮权限"
   },
-  "setup": {
+  "steps": {
     "page": "引导页"
   },
   "system": {
