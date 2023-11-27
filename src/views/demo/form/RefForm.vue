@@ -7,6 +7,8 @@
       <a-button @click="setProps({ size: 'default' })" class="mr-2"> 还原Size </a-button>
       <a-button @click="setProps({ disabled: true })" class="mr-2"> 禁用表单 </a-button>
       <a-button @click="setProps({ disabled: false })" class="mr-2"> 解除禁用 </a-button>
+      <a-button @click="setProps({ readonly: true })" class="mr-2"> 只读表单 </a-button>
+      <a-button @click="setProps({ readonly: false })" class="mr-2"> 解除只读 </a-button>
       <a-button @click="setProps({ compact: true })" class="mr-2"> 紧凑表单 </a-button>
       <a-button @click="setProps({ compact: false })" class="mr-2"> 还原正常间距 </a-button>
       <a-button @click="setProps({ actionColOptions: { span: 8 } })" class="mr-2">
