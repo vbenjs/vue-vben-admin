@@ -1,5 +1,5 @@
 import type { RouteRecordRaw, RouteMeta } from 'vue-router';
-import { RoleEnum } from '/@/enums/roleEnum';
+import { RoleEnum } from '@/enums/roleEnum';
 import { defineComponent } from 'vue';
 
 export type Component<T = any> =

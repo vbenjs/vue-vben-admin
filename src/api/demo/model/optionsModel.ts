@@ -1,4 +1,4 @@
-import { BasicFetchResult } from '/@/api/model/baseModel';
+import { BasicFetchResult } from '@/api/model/baseModel';
 
 export interface DemoOptionsItem {
   name: string;

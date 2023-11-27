@@ -19,8 +19,8 @@
 </template>
 <script lang="ts" setup>
   import { ref, unref } from 'vue';
-  import { MarkDown, MarkDownActionType, MarkdownViewer } from '/@/components/Markdown';
-  import { PageWrapper } from '/@/components/Page';
+  import { MarkDown, MarkDownActionType, MarkdownViewer } from '@/components/Markdown';
+  import { PageWrapper } from '@/components/Page';
   import { Card } from 'ant-design-vue';
   import { type Nullable } from '@vben/types';
 
