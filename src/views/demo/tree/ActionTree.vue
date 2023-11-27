@@ -116,7 +116,6 @@
   }
 
   function handleGetTreeData() {
-    const treeDataRef = getTree().getTreeData();
-    createMessage.success(JSON.stringify(treeDataRef.value));
+    createMessage.success(JSON.stringify(getTree().getTreeData()));
   }
 </script>
