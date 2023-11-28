@@ -85,6 +85,8 @@ export interface FormProps {
   size?: 'default' | 'small' | 'large';
   // Whether to disable
   disabled?: boolean;
+  // Whether to readonly
+  readonly?: boolean;
   // Time interval fields are mapped into multiple
   fieldMapToTime?: FieldMapToTime;
   // Placeholder is set automatically
@@ -217,6 +219,8 @@ interface BaseFormSchema {
   colSlot?: string;
 
   dynamicDisabled?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
+
+  dynamicReadonly?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
   dynamicRules?: (renderCallbackParams: RenderCallbackParams) => Rule[];
 }

@@ -142,7 +142,7 @@
     "backPage": "Page",
     "backBtn": "Button"
   },
-  "setup": {
+  "steps": {
     "page": "Intro page"
   },
   "system": {

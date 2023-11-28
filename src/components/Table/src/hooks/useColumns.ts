@@ -66,7 +66,7 @@ function handleIndexColumn(
 
   columns.unshift({
     flag: INDEX_COLUMN_FLAG,
-    width: 50,
+    width: 60,
     title: t('component.table.index'),
     align: 'center',
     customRender: ({ index }) => {
