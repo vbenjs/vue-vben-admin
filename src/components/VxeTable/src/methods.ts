@@ -1,12 +1,21 @@
-import { GridMethods, TableMethods, TableEditMethods, TableValidatorMethods } from 'vxe-table';
+import {
+  GridMethods,
+  TableMethods,
+  TableEditMethods,
+  TableValidatorMethods,
+  VxeGridConstructor,
+} from 'vxe-table';
 
 export const gridComponentMethodKeys: (
   | keyof GridMethods
   | keyof TableMethods
   | keyof TableEditMethods
   | keyof TableValidatorMethods
+  | keyof VxeGridConstructor
 )[] = [
   // vxe-grid 部分
+  'getRefMaps',
+  'getComputeMaps',
   'dispatchEvent',
   'commitProxy',
   'getFormItems',
