@@ -358,6 +358,39 @@
       },
     },
     {
+      field: 'field12',
+      component: 'BasicTitle',
+      label: '标题区分',
+      componentProps: {
+        line: true,
+        span: true,
+      },
+      colProps: {
+        span: 24,
+      },
+    },
+    {
+      field: 'field13',
+      component: 'CropperAvatar',
+      label: '头像上传',
+      colProps: {
+        span: 8,
+      },
+    },
+    {
+      field: 'field14',
+      component: 'Transfer',
+      label: '穿梭框',
+      colProps: {
+        span: 8,
+      },
+      componentProps: {
+        render: (item) => item.label,
+        dataSource: citiesOptionsData.guangdong,
+        targetKeys: ['1'],
+      },
+    },
+    {
       field: 'divider-api-select',
       component: 'Divider',
       label: '远程下拉演示',
