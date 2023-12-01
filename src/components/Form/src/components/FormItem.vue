@@ -17,6 +17,7 @@
   import { getSlot } from '@/utils/helper/tsxHelper';
   import {
     createPlaceholderMessage,
+    isIncludeSimpleComponents,
     NO_AUTO_LINK_COMPONENTS,
     setComponentRuleType,
   } from '../helper';
@@ -89,7 +90,7 @@
         if (isFunction(componentProps)) {
           componentProps = componentProps({ schema, tableAction, formModel, formActionType }) ?? {};
         }
-        if (schema.component === 'Divider') {
+        if (isIncludeSimpleComponents(schema.component)) {
           componentProps = Object.assign(
             { type: 'horizontal' },
             {
