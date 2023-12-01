@@ -158,6 +158,7 @@ export const gridComponentMethodKeys: (
   'setEditRow',
   'setEditCell',
   'setSelectCell',
+  'clearEdit',
 
   // vxe-table-validator
   'clearValidate',
