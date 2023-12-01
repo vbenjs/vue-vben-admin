@@ -57,15 +57,15 @@
   }
 
   const messageHandler = (e: MessageEvent) => {
-    emit("message", e.data);
+    emit('message', e.data);
   };
 
   const postMessage = (message: any, tragetOrigin: string, transfer?: Transferable[]) => {
     const iframe = unref(frameRef);
-    if (!iframe) return
+    if (!iframe) return;
     iframe.contentWindow?.postMessage(message, tragetOrigin, transfer);
   };
-  
+
   const reload = () => {
     loading.value = true;
     const iframe = frameRef.value;
@@ -73,16 +73,16 @@
     iframe.contentWindow?.location.reload();
     loading.value = false;
   };
-  
+
   onMounted(() => {
-    window.addEventListener("message", messageHandler);
+    window.addEventListener('message', messageHandler);
   });
-  
+
   onUnmounted(() => {
-    window.removeEventListener("message", messageHandler);
+    window.removeEventListener('message', messageHandler);
   });
-  
-  defineExpose({ postMessage, reload })
+
+  defineExpose({ postMessage, reload });
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-iframe-page';
