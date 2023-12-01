@@ -95,3 +95,5 @@ export const NO_AUTO_LINK_COMPONENTS: ComponentType[] = [
   'ImageUpload',
   'ApiSelect',
 ];
+
+export const simpleComponents = ['Divider', 'BasicTitle'];
