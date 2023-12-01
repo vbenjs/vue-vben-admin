@@ -4,9 +4,11 @@
     <template #headerTop>
       <Alert type="info" show-icon>
         <template #message>
-          <template v-if="checkedKeys.length > 0">
-            <span>已选中{{ checkedKeys.length }}条记录(可跨页)</span>
-            <a-button type="link" @click="checkedKeys = []" size="small">清空</a-button>
+          <template v-if="state.selectedRowKeys.length > 0">
+            <span>已选中{{ state.selectedRowKeys.length }}条记录(可跨页)</span>
+            <a-button type="link" @click="state.selectedRowKeys.splice(0)" size="small"
+              >清空</a-button
+            >
           </template>
           <template v-else>
             <span>未选中任何项目</span>
@@ -20,7 +22,7 @@
   </BasicTable>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { reactive } from 'vue';
   import { BasicTable, useTable } from '@/components/Table';
   import { getBasicColumns, getFormConfig } from './tableData';
   import { Alert } from 'ant-design-vue';
@@ -28,7 +30,12 @@
 
   import { demoListApi } from '@/api/demo/table';
 
-  const checkedKeys = ref<Key[]>([]);
+  const state = reactive<{
+    selectedRowKeys: Key[];
+  }>({
+    selectedRowKeys: [],
+  });
+
   const [registerTable, { getForm }] = useTable({
     title: '开启搜索区域',
     api: demoListApi,
@@ -41,7 +48,7 @@
     rowKey: 'id',
     rowSelection: {
       type: 'checkbox',
-      selectedRowKeys: checkedKeys.value,
+      selectedRowKeys: state.selectedRowKeys,
       onSelect: onSelect,
       onSelectAll: onSelectAll,
     },
@@ -53,19 +60,20 @@
 
   function onSelect(record, selected) {
     if (selected) {
-      checkedKeys.value = [...checkedKeys.value, record.id];
+      state.selectedRowKeys.push(record.id);
     } else {
-      checkedKeys.value = checkedKeys.value.filter((id) => id !== record.id);
+      state.selectedRowKeys
+        .splice(0)
+        .push(...state.selectedRowKeys.filter((id) => id !== record.id));
     }
   }
+
   function onSelectAll(selected, selectedRows, changeRows) {
     const changeIds = changeRows.map((item) => item.id);
     if (selected) {
-      checkedKeys.value = [...checkedKeys.value, ...changeIds];
+      state.selectedRowKeys.push(...changeIds);
     } else {
-      checkedKeys.value = checkedKeys.value.filter((id) => {
-        return !changeIds.includes(id);
-      });
+      state.selectedRowKeys.splice(0);
     }
   }
 </script>
