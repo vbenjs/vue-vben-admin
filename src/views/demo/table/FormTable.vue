@@ -65,7 +65,6 @@
       state.selectedRowKeys
         .splice(0)
         .push(...state.selectedRowKeys.filter((id) => id !== record.id));
-      console.log(state.selectedRowKeys);
     }
   }
 
