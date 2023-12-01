@@ -18,7 +18,8 @@
   import {
     createPlaceholderMessage,
     NO_AUTO_LINK_COMPONENTS,
-    setComponentRuleType,
+    setComponentRuleType, 
+    simpleComponents,
   } from '../helper';
   import { cloneDeep, upperFirst } from 'lodash-es';
   import { useItemLabelWidth } from '../hooks/useLabelWidth';
@@ -89,7 +90,7 @@
         if (isFunction(componentProps)) {
           componentProps = componentProps({ schema, tableAction, formModel, formActionType }) ?? {};
         }
-        if (schema.component === 'Divider') {
+        if (simpleComponents.includes(schema.component as string)) {
           componentProps = Object.assign(
             { type: 'horizontal' },
             {
