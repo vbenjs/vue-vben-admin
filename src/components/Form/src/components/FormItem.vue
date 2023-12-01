@@ -17,9 +17,9 @@
   import { getSlot } from '@/utils/helper/tsxHelper';
   import {
     createPlaceholderMessage,
+    isIncludeSimpleComponents,
     NO_AUTO_LINK_COMPONENTS,
-    setComponentRuleType, 
-    simpleComponents,
+    setComponentRuleType,
   } from '../helper';
   import { cloneDeep, upperFirst } from 'lodash-es';
   import { useItemLabelWidth } from '../hooks/useLabelWidth';
@@ -90,7 +90,7 @@
         if (isFunction(componentProps)) {
           componentProps = componentProps({ schema, tableAction, formModel, formActionType }) ?? {};
         }
-        if (simpleComponents.includes(schema.component as string)) {
+        if (isIncludeSimpleComponents(schema.component)) {
           componentProps = Object.assign(
             { type: 'horizontal' },
             {

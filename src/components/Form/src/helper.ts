@@ -97,3 +97,7 @@ export const NO_AUTO_LINK_COMPONENTS: ComponentType[] = [
 ];
 
 export const simpleComponents = ['Divider', 'BasicTitle'];
+
+export function isIncludeSimpleComponents(component?: ComponentType) {
+  return simpleComponents.includes(component || '');
+}
