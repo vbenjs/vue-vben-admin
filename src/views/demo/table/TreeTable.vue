@@ -4,6 +4,8 @@
       <template #toolbar>
         <a-button type="primary" @click="expandAll">展开全部</a-button>
         <a-button type="primary" @click="collapseAll">折叠全部</a-button>
+        <a-button type="primary" @click="collapseRows(['4'])">折叠第五行</a-button>
+        <a-button type="primary" @click="expandRows(['4'])">展开第五行</a-button>
       </template>
     </BasicTable>
   </div>
@@ -12,7 +14,7 @@
   import { BasicTable, useTable } from '@/components/Table';
   import { getBasicColumns, getTreeTableData } from './tableData';
 
-  const [register, { expandAll, collapseAll }] = useTable({
+  const [register, { expandAll, collapseAll, expandRows, collapseRows }] = useTable({
     title: '树形表格',
     isTreeTable: true,
     rowSelection: {
