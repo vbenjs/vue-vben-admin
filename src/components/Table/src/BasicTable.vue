@@ -207,7 +207,7 @@
 
   const { getRowClassName } = useTableStyle(getProps, prefixCls);
 
-  const { getExpandOption, expandAll, expandRows, collapseAll } = useTableExpand(
+  const { getExpandOption, expandAll, expandRows, collapseRows, collapseAll } = useTableExpand(
     getProps,
     tableData,
     emit,
@@ -308,8 +308,9 @@
     getShowPagination,
     setCacheColumnsByField,
     expandAll,
-    expandRows,
     collapseAll,
+    expandRows,
+    collapseRows,
     scrollTo,
     getSize: () => {
       return unref(getBindValues).size as SizeType;
