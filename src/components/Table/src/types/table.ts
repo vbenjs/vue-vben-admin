@@ -401,7 +401,7 @@ export interface BasicTableProps<T = any> {
    * @param expanded
    * @param record
    */
-  onExpand?: (expande: boolean, record: T) => void;
+  onExpand?: (expanded: boolean, record: T) => void;
 
   /**
    * Callback executed when the expanded rows change
