@@ -100,4 +100,7 @@ export const basicProps = {
   labelAlign: propTypes.string,
 
   rowProps: Object as PropType<RowProps>,
+
+  // table 开启监听表单监听事件，触发table reload
+  watchEvent: propTypes.bool.def(false),
 };
