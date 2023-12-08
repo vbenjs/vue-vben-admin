@@ -1,6 +1,6 @@
 import { FormSchema } from '@/components/Form';
 
-type InputType = 'InputTextArea' | 'InputNumber' | 'Input';
+type InputType = 'InputTextArea' | 'InputNumber' | 'Input' | 'InputPassword';
 export interface PromptProps {
   title: string;
   label?: string;
@@ -43,6 +43,13 @@ const inputTypeMap: {
     },
   },
   Input: {
+    colProps: { span: 20, offset: 2 },
+    componentProps: {
+      placeholder: '请输入内容',
+      min: 0,
+    },
+  },
+  InputPassword: {
     colProps: { span: 20, offset: 2 },
     componentProps: {
       placeholder: '请输入内容',
