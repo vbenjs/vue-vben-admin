@@ -218,7 +218,9 @@ export function useTableScroll(
     columns.forEach((item) => {
       width += Number.parseFloat(item.width as string) || 0;
     });
-    const unsetWidthColumns = columns.filter((item) => !Reflect.has(item, 'width'));
+    const unsetWidthColumns = columns.filter(
+      (item) => !Reflect.has(item, 'width') && item.ifShow !== false,
+    );
 
     const len = unsetWidthColumns.length;
     if (len !== 0) {
