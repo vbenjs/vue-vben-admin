@@ -53,6 +53,8 @@
   @hover-color: rgba(0, 0, 0, 0.85);
 
   .@{prefix-cls} {
+    // 页脚固定高度
+    height: 75px;
     color: @normal-color;
     text-align: center;
 
