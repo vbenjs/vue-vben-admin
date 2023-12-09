@@ -11,7 +11,7 @@ import {
   layoutMultipleHeadePlaceholderTime,
 } from '@/settings/designSetting';
 
-import { useRootSetting } from '/@/hooks/setting/useRootSetting';
+import { useRootSetting } from '@/hooks/setting/useRootSetting';
 
 const { getShowFooter, getFullContent } = useRootSetting();
 
