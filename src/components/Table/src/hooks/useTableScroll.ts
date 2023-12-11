@@ -4,7 +4,16 @@ import { getViewportOffset } from '@/utils/domUtils';
 import { isBoolean } from '@/utils/is';
 import { useWindowSizeFn, onMountedOrActivated } from '@vben/hooks';
 import { useModalContext } from '@/components/Modal';
-import { useDebounceFn } from '@vueuse/core';
+import { useDebounceFn, promiseTimeout } from '@vueuse/core';
+
+import {
+  footerHeight as layoutFooterHeight,
+  layoutMultipleHeadePlaceholderTime,
+} from '@/settings/designSetting';
+
+import { useRootSetting } from '@/hooks/setting/useRootSetting';
+
+const { getShowFooter, getFullContent } = useRootSetting();
 
 export function useTableScroll(
   propsRef: ComputedRef<BasicTableProps>,
@@ -27,8 +36,20 @@ export function useTableScroll(
   });
 
   watch(
-    () => [unref(getCanResize), unref(getDataSourceRef)?.length],
+    () => [unref(getCanResize), unref(getDataSourceRef)?.length, unref(getShowFooter)],
     () => {
+      debounceRedoHeight();
+    },
+    {
+      flush: 'post',
+    },
+  );
+
+  watch(
+    () => [unref(getFullContent)],
+    async () => {
+      // 等待动画结束后200毫秒
+      await promiseTimeout(layoutMultipleHeadePlaceholderTime * 1000 + 200);
       debounceRedoHeight();
     },
     {
@@ -191,7 +212,10 @@ export function useTableScroll(
       paddingHeight -
       paginationHeight -
       footerHeight -
-      headerHeight;
+      headerHeight -
+      (getShowFooter.value ? layoutFooterHeight : 0) -
+      // 取高度ceil值
+      1;
     height = (height > maxHeight! ? (maxHeight as number) : height) ?? height;
     setHeight(height);
 
