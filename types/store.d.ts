@@ -51,3 +51,10 @@ export interface BeforeMiniState {
   menuMode?: MenuModeEnum;
   menuType?: MenuTypeEnum;
 }
+
+export interface TableSetting {
+  size: Nullable<SizeType>;
+  showIndexColumn: Nullable<boolean>;
+  columns: Recordable<Nullable<Array<ColumnOptionsType>>>;
+  showRowSelection: Nullable<boolean>;
+}
