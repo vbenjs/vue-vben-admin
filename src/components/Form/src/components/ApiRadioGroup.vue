@@ -2,7 +2,7 @@
  * @Description:It is troublesome to implement radio button group in the form. So it is extracted independently as a separate component
 -->
 <template>
-  <Radio.Group v-bind="attrs" v-model:value="state" button-style="solid" @change="handleChange">
+  <Radio.Group v-bind="attrs" v-model:value="state" button-style="solid">
     <template v-for="item in getOptions" :key="`${item.value}`">
       <Radio.Button
         v-if="props.isBtn"
@@ -118,10 +118,5 @@
 
   function handleClick(...args) {
     emitData.value = args;
-  }
-
-  function handleChange(e) {
-    emit('change', e.target.value);
-    emit('update:value', e.target.value);
   }
 </script>
