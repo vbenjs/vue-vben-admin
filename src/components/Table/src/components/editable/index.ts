@@ -43,7 +43,10 @@ export function renderEditCell(column: BasicColumn) {
       }
       return true;
     };
-
+    // Non editable, displaying unitComponent
+    if (!record.editable && column.unitComponent) {
+      return column.unitComponent({ text: value, record, index });
+    }
     return h(EditableCell, {
       value,
       record,

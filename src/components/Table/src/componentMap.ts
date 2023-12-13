@@ -12,6 +12,7 @@ import {
 } from 'ant-design-vue';
 import type { ComponentType } from './types/componentType';
 import { ApiSelect, ApiTreeSelect, RadioButtonGroup, ApiRadioGroup } from '@/components/Form';
+import { ImageUpload } from '@/components/Upload';
 
 const componentMap = new Map<ComponentType, Component>();
 
@@ -28,6 +29,7 @@ componentMap.set('TimePicker', TimePicker);
 componentMap.set('RadioGroup', Radio.Group);
 componentMap.set('RadioButtonGroup', RadioButtonGroup);
 componentMap.set('ApiRadioGroup', ApiRadioGroup);
+componentMap.set('ImageUpload', ImageUpload);
 
 export function add(compName: ComponentType, component: Component) {
   componentMap.set(compName, component);

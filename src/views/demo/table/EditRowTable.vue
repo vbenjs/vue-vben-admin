@@ -10,7 +10,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { h, ref } from 'vue';
   import {
     BasicTable,
     useTable,
@@ -25,6 +25,8 @@
   import { treeOptionsListApi } from '@/api/demo/tree';
   import { cloneDeep } from 'lodash-es';
   import { useMessage } from '@/hooks/web/useMessage';
+  import { uploadApi } from '@/api/sys/upload';
+  import { Image } from 'ant-design-vue';
 
   const columns: BasicColumn[] = [
     {
@@ -77,6 +79,19 @@
           width: 150,
         },
       ],
+    },
+    {
+      title: '图片',
+      dataIndex: 'imgs',
+      width: 200,
+      unitComponent: ({ text }) => h(Image, { src: text, width: 70 }), // 显示自定义组件
+      editRow: true,
+      editComponent: 'ImageUpload',
+      editComponentProps: {
+        api: uploadApi,
+        accept: ['png', 'jpeg', 'jpg'],
+        maxNumber: 1,
+      },
     },
     {
       title: '下拉框',

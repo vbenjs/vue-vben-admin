@@ -446,6 +446,8 @@ export interface BasicColumn extends ColumnProps<Recordable> {
 
   format?: CellFormat;
 
+  // Same as Customrender, but not affected by Editable
+  unitComponent?: Function;
   // Editable
   edit?: boolean;
   editRow?: boolean;

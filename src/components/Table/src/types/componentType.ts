@@ -9,6 +9,7 @@ export type ComponentType =
   | 'Switch'
   | 'DatePicker'
   | 'TimePicker'
+  | 'ImageUpload'
   | 'RadioGroup'
   | 'RadioButtonGroup'
   | 'ApiRadioGroup';
