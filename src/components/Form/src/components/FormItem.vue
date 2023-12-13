@@ -169,7 +169,6 @@
           dynamicRules,
           required,
         } = props.schema;
-
         if (isFunction(dynamicRules)) {
           return dynamicRules(unref(getValues)) as ValidationRule[];
         }
@@ -210,7 +209,6 @@
           }
           return Promise.resolve();
         }
-
         const getRequired = isFunction(required) ? required(unref(getValues)) : required;
 
         /*
@@ -220,7 +218,10 @@
          */
         if (getRequired) {
           if (!rules || rules.length === 0) {
-            rules = [{ required: getRequired, validator }];
+            const trigger = NO_AUTO_LINK_COMPONENTS.includes(component || 'Input')
+              ? 'blur'
+              : 'change';
+            rules = [{ required: getRequired, validator, trigger }];
           } else {
             const requiredIndex: number = rules.findIndex((rule) => Reflect.has(rule, 'required'));
 
