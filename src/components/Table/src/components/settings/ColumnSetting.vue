@@ -113,7 +113,6 @@
   import { getPopupContainer as getParentContainer } from '@/utils';
   import { cloneDeep } from 'lodash-es';
   import Sortablejs from 'sortablejs';
-  import type Sortable from 'sortablejs';
 
   // 列表设置缓存
   import { useTableSettingStore } from '@/store/modules/tableSetting';
@@ -251,10 +250,6 @@
     } as CheckboxChangeEvent);
     // 重置默认值
     columnOptions.value = cloneDeep(defaultColumnOptions);
-    // 重置排序
-    sortableOrder = defaultSortableOrder;
-    // 排序
-    sortable?.sort(defaultSortableOrder);
     // 更新表单状态
     formUpdate();
   };
@@ -306,11 +301,6 @@
     }
     return false;
   };
-
-  // sortable 实例
-  let sortable: Sortable;
-  // 排序
-  let sortableOrder: string[] = [];
 
   // 获取数据列
   const getTableColumns = () => {
@@ -365,7 +355,7 @@
     if (columnOptionsRef.value) {
       // 注册排序实例
       const el = (columnOptionsRef.value as InstanceType<typeof Checkbox.Group>).$el;
-      sortable = Sortablejs.create(unref(el), {
+      Sortablejs.create(unref(el), {
         animation: 500,
         delay: 400,
         delayOnTouchOnly: true,
@@ -397,9 +387,6 @@
           columnOptionsSave();
         },
       });
-
-      // 从缓存恢复
-      sortable.sort(sortableOrder);
     }
   };
 
@@ -473,10 +460,6 @@
   const isColumnAllSelectedUpdate = () => {
     isColumnAllSelected.value = columnOptions.value.length === columnCheckedOptions.value.length;
   };
-  // 从 列可选项 更新 排序
-  const sortableOrderUpdateByOptions = (options: ColumnOptionsType[]) => {
-    sortableOrder = options.map((o) => o.value);
-  };
   // 更新 showIndexColumn
   const showIndexColumnUpdate = (showIndexColumn) => {
     isInnerChange = true;
@@ -505,9 +488,6 @@
     // 从 列可选项 更新 全选状态
     isColumnAllSelectedUpdate();
 
-    // 从 列可选项 更新 排序
-    sortableOrderUpdateByOptions(columnOptions.value);
-
     // 更新 showIndexColumn
     showIndexColumnUpdate(isIndexColumnShow.value);
 
@@ -523,12 +503,9 @@
   let defaultIsRowSelectionShow: boolean = false;
   let defaultRowSelection: TableRowSelection<Recordable<any>>;
   let defaultColumnOptions: ColumnOptionsType[] = [];
-  let defaultSortableOrder: string[] = [];
 
   const init = async () => {
     if (!isRestored) {
-      await sortableFix();
-
       // 获取数据列
       const columns = getTableColumns();
 
@@ -559,9 +536,6 @@
         });
       }
 
-      // 默认值 缓存，浮窗出现的时候使用
-      defaultSortableOrder = options.map((o) => o.value);
-
       // 默认值 缓存
       defaultIsIndexColumnShow = table.getBindValues.value.showIndexColumn || false;
       defaultRowSelection = table.getRowSelection();
@@ -587,7 +561,12 @@
   };
 
   // 初始化
-  init();
+  const once = async () => {
+    // 仅执行一次
+    await sortableFix();
+    init();
+  };
+  once();
 
   // 外部列改变
   const getColumns = computed(() => {
