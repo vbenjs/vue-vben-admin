@@ -1,11 +1,12 @@
 <template>
   <Input
-    readonly
     :style="{ width }"
     :placeholder="t('component.icon.placeholder')"
     :class="prefixCls"
     v-model:value="currentSelect"
     @click="triggerPopover"
+    :allowClear="props.allowClear"
+    :readonly="props.readonly"
   >
     <template #addonAfter>
       <Popover
@@ -103,6 +104,8 @@
     pageSize?: number;
     copy?: boolean;
     mode?: 'svg' | 'iconify';
+    allowClear?: boolean;
+    readonly?: boolean;
   }
 
   const props = withDefaults(defineProps<Props>(), {
@@ -111,6 +114,8 @@
     pageSize: 140,
     copy: false,
     mode: 'iconify',
+    allowClear: true,
+    readonly: false,
   });
 
   // Don't inherit FormItem disabled、placeholder...
