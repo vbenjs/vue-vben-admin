@@ -259,45 +259,6 @@ export function getFormConfig(): Partial<FormProps> {
           xxl: 8,
         },
       },
-      {
-        field: `field12`,
-        label: `input值改变`,
-        component: 'InputSearch',
-        enableWatchEvent: true,
-        componentProps: {
-          placeholder: '需要开启watchEvent',
-        },
-        colProps: {
-          xl: 12,
-          xxl: 8,
-        },
-      },
-      {
-        field: 'field13',
-        component: 'Select',
-        label: 'select值改变',
-        componentProps: {
-          placeholder: '需要开启watchEvent',
-          options: [
-            {
-              label: '公开',
-              value: '1',
-            },
-            {
-              label: '部分公开',
-              value: '2',
-            },
-            {
-              label: '不公开',
-              value: '3',
-            },
-          ],
-        },
-        colProps: {
-          xl: 12,
-          xxl: 8,
-        },
-      },
     ],
   };
 }
