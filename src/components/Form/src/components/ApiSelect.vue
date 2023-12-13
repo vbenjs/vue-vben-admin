@@ -26,7 +26,7 @@
   import type { SelectValue } from 'ant-design-vue/es/select';
   import { isFunction } from '@/utils/is';
   import { useRuleFormItem } from '@/hooks/component/useFormItem';
-  import { get, omit } from 'lodash-es';
+  import { get, omit, isEqual } from 'lodash-es';
   import { LoadingOutlined } from '@ant-design/icons-vue';
   import { useI18n } from '@/hooks/web/useI18n';
   import { propTypes } from '@/utils/propTypes';
@@ -95,8 +95,9 @@
 
   watch(
     () => props.params,
-    () => {
-      !unref(isFirstLoaded) && fetch();
+    (value, oldValue) => {
+      if (isEqual(value, oldValue)) return;
+      fetch();
     },
     { deep: true, immediate: props.immediate },
   );
