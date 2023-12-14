@@ -5,6 +5,7 @@ html[data-theme='light'] {
   .@{prefix-cls} {
     .ant-tabs-tab:not(.ant-tabs-tab-active) {
       border: 1px solid #d9d9d9 !important;
+      border-bottom-color: #f0f0f0 !important;
     }
   }
 }
@@ -41,7 +42,7 @@ html[data-theme='light'] {
 
   .ant-tabs.ant-tabs-card {
     .ant-tabs-nav {
-      height: @multiple-height;
+      height: @multiple-height + 2;
       margin: 0;
       padding-top: 2px;
       border: 0;
@@ -54,12 +55,12 @@ html[data-theme='light'] {
       }
 
       .ant-tabs-tab {
-        height: calc(@multiple-height - 2px);
+        height: calc(@multiple-height);
         padding-right: 12px;
         transition: none;
         background-color: @component-background;
         color: @text-color-base;
-        line-height: calc(@multiple-height - 2px);
+        line-height: calc(@multiple-height);
 
         &:hover {
           .ant-tabs-tab-remove {
