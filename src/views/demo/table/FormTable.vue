@@ -61,10 +61,12 @@
   function onSelect(record, selected) {
     if (selected) {
       state.selectedRowKeys.push(record.id);
-    } else {
-      state.selectedRowKeys
-        .splice(0)
-        .push(...state.selectedRowKeys.filter((id) => id !== record.id));
+      return;
+    }
+    const delIdx = state.selectedRowKeys.indexOf(record.id);
+
+    if (delIdx !== -1) {
+      state.selectedRowKeys.splice(delIdx, 1);
     }
   }
 
