@@ -66,13 +66,23 @@
 
       const getComponentProps = computed(() => {
         const isCheckValue = unref(getIsCheckComp);
+        let compProps = props.column?.editComponentProps ?? ({} as any);
+        const { checkedValue, unCheckedValue } = compProps;
 
         const valueField = isCheckValue ? 'checked' : 'value';
         const val = unref(currentValueRef);
 
-        const value = isCheckValue ? (isNumber(val) || isBoolean(val) ? val : !!val) : val;
+        let value = val;
+        if (isCheckValue) {
+          if (typeof checkedValue !== 'undefined') {
+            value = val === checkedValue ? checkedValue : unCheckedValue;
+          } else if (typeof unCheckedValue !== 'undefined') {
+            value = val === unCheckedValue ? unCheckedValue : checkedValue;
+          } else {
+            value = isNumber(val) || isBoolean(val) ? val : !!val;
+          }
+        }
 
-        let compProps = props.column?.editComponentProps ?? ({} as any);
         const { record, column, index } = props;
 
         if (isFunction(compProps)) {
@@ -114,7 +124,7 @@
         }
         if (isFunction(editDynamicDisabled)) {
           const { record } = props;
-          disabled = editDynamicDisabled({ record });
+          disabled = editDynamicDisabled({ record, currentValue: currentValueRef.value });
         }
         return disabled;
       });
@@ -170,7 +180,7 @@
       });
 
       function handleEdit() {
-        if (unref(getRowEditable) || unref(props.column?.editRow)) return;
+        if (unref(getRowEditable) || unref(props.column?.editRow) || unref(getDisable)) return;
         ruleMessage.value = '';
         isEdit.value = true;
         nextTick(() => {
@@ -248,17 +258,19 @@
         if (!record.editable) {
           const { getBindValues } = table;
 
-          const { beforeEditSubmit, columns } = unref(getBindValues);
+          const { beforeEditSubmit, columns, rowKey } = unref(getBindValues);
+          const rowKeyValue = typeof rowKey === 'string' ? rowKey : rowKey ? rowKey(record) : '';
 
           if (beforeEditSubmit && isFunction(beforeEditSubmit)) {
             spinning.value = true;
             const keys: string[] = columns
               .map((_column) => _column.dataIndex)
               .filter((field) => !!field) as string[];
+
             let result: any = true;
             try {
               result = await beforeEditSubmit({
-                record: pick(record, keys),
+                record: pick(record, [rowKeyValue, ...keys]),
                 index,
                 key: dataKey as string,
                 value,
@@ -391,6 +403,7 @@
         handleEnter,
         handleSubmitClick,
         spinning,
+        getDisable,
       };
     },
     render() {
@@ -408,10 +421,13 @@
                     record: this.record as Recordable,
                     column: this.column,
                     index: this.index,
+                    currentValue: this.currentValueRef,
                   })
                 : this.getValues ?? '\u00A0'}
             </div>
-            {!this.column.editRow && <FormOutlined class={`${this.prefixCls}__normal-icon`} />}
+            {!this.column.editRow && !this.getDisable && (
+              <FormOutlined class={`${this.prefixCls}__normal-icon`} />
+            )}
           </div>
           {this.isEdit && (
             <Spin spinning={this.spinning}>

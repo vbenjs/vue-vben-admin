@@ -472,6 +472,7 @@ export interface BasicColumn extends ColumnProps<Recordable> {
     record: Recordable;
     column: BasicColumn;
     index: number;
+    currentValue: string | number | boolean | Recordable;
   }) => VNodeChild | JSX.Element;
   // 动态 Disabled
   editDynamicDisabled?: boolean | ((record: Recordable) => boolean);
