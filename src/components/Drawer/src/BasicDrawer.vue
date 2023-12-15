@@ -135,7 +135,10 @@
     (open) => {
       nextTick(() => {
         emit('open-change', open);
-        instance && drawerInstance.emitOpen?.(open, instance.uid);
+        //
+        instance !== null &&
+          isFunction(drawerInstance.emitOpen) &&
+          drawerInstance.emitOpen?.(open, instance.uid);
       });
     },
   );
