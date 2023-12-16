@@ -31,8 +31,8 @@
   import { useI18n } from '@/hooks/web/useI18n';
 
   interface Option {
-    value: string;
-    label: string;
+    value?: string;
+    label?: string;
     loading?: boolean;
     isLeaf?: boolean;
     children?: Option[];
