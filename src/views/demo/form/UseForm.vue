@@ -145,7 +145,7 @@
       label: '联动',
       colProps: { span: 8 },
       componentProps: {
-        api: areaRecord as any,
+        api: areaRecord,
         apiParamKey: 'parentCode',
         labelField: 'name',
         valueField: 'code',
@@ -163,7 +163,7 @@
       label: '联动回显',
       colProps: { span: 8 },
       componentProps: {
-        api: areaRecord as any,
+        api: areaRecord,
         apiParamKey: 'parentCode',
         labelField: 'name',
         valueField: 'code',
