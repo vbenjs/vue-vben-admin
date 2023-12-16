@@ -37,7 +37,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import { Drawer, Space } from 'ant-design-vue';
-  import { BasicForm, FormSchema, useForm, type FormProps } from '@/components/Form';
+  import { BasicForm, type FormSchemaAll, useForm, type FormProps } from '@/components/Form';
   import { CollapseContainer } from '@/components/Container';
   import { PageWrapper } from '@/components/Page';
   import { areaRecord } from '@/api/demo/cascader';
@@ -60,7 +60,7 @@
     { value: 'right', label: 'right' },
   ];
 
-  const schemas: FormSchema[] = [
+  const schemas: FormSchemaAll[] = [
     {
       field: 'field1',
       component: 'Input',
@@ -86,7 +86,7 @@
       colProps: { span: 8 },
       componentProps: {
         getPopupContainer: () => {
-          return document.querySelector('.ant-form');
+          return document.querySelector('.ant-form')!;
         },
       },
     },
@@ -97,7 +97,7 @@
       colProps: { span: 8 },
       componentProps: {
         getPopupContainer: () => {
-          return document.querySelector('.ant-form');
+          return document.querySelector('.ant-form')!;
         },
       },
     },
@@ -145,9 +145,8 @@
       label: '联动',
       colProps: { span: 8 },
       componentProps: {
-        api: areaRecord,
+        api: areaRecord as any,
         apiParamKey: 'parentCode',
-        dataField: 'data',
         labelField: 'name',
         valueField: 'code',
         initFetchParams: {
@@ -164,9 +163,8 @@
       label: '联动回显',
       colProps: { span: 8 },
       componentProps: {
-        api: areaRecord,
+        api: areaRecord as any,
         apiParamKey: 'parentCode',
-        dataField: 'data',
         labelField: 'name',
         valueField: 'code',
         initFetchParams: {
@@ -178,7 +176,7 @@
       },
     },
   ];
-  const formSchemas: FormSchema[] = [
+  const formSchemas: FormSchemaAll[] = [
     {
       field: 'd1',
       component: 'Divider',
@@ -360,7 +358,7 @@
       colProps: { span: 24 },
       componentProps: ({ formActionType }) => {
         return {
-          onChange: async (val: boolean) => {
+          onChange: (val) => {
             formActionType.updateSchema([
               { field: 'showResetButton', componentProps: { disabled: !val } },
               {
