@@ -35,7 +35,7 @@
       },
       {
         field: '0',
-        component: 'Input',
+        // component: 'Input',
         label: ' ',
         slot: 'add',
       },
