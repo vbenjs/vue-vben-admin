@@ -1,6 +1,7 @@
 {
   "name": "@vben/types",
   "version": "1.0.0",
+  "type": "module",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": {
     "url": "https://github.com/vbenjs/vue-vben-admin/issues"

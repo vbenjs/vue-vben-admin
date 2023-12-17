@@ -1,6 +1,7 @@
 {
   "name": "vben-admin",
   "version": "2.10.1",
+  "type": "module",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": {
     "url": "https://github.com/vbenjs/vue-vben-admin/issues"
@@ -27,7 +28,7 @@
     "preinstall": "npx only-allow pnpm",
     "postinstall": "turbo run stub",
     "lint": "turbo run lint",
-    "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
+    "lint:eslint": "eslint --cache --max-warnings 0 \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
     "lint:prettier": "prettier --write .",
     "lint:stylelint": "stylelint \"**/*.{vue,css,less,scss}\" --fix --cache --cache-location node_modules/.cache/stylelint/",
     "prepare": "husky install",
@@ -147,9 +148,9 @@
     "vite-plugin-mock": "^2.9.6",
     "vue-tsc": "^1.8.25"
   },
-  "packageManager": "pnpm@8.1.0",
+  "packageManager": "pnpm@8.9.0",
   "engines": {
-    "node": ">=16.15.1",
-    "pnpm": ">=8.1.0"
+    "node": "^18.16.0 || >=20.0.0",
+    "pnpm": ">=8.9.0"
   }
 }

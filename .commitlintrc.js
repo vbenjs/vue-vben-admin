@@ -18,7 +18,7 @@ const scopeComplete = execSync('git status --porcelain || true')
   ?.replace(/s$/, '');
 
 /** @type {import('cz-git').UserConfig} */
-module.exports = {
+export default {
   ignores: [(commit) => commit.includes('init')],
   extends: ['@commitlint/config-conventional'],
   rules: {
