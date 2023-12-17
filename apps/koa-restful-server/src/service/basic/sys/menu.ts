@@ -2,7 +2,7 @@ import { Authorize, Controller, HttpGet } from '@wangminghua/koa-restful';
 import { getRequestToken, resultError, resultSuccess } from '../../../_util';
 import { createFakeUserList } from './user';
 
-@Controller('basic-api')
+@Controller('')
 export class MenuController {
   @Authorize()
   @HttpGet()
