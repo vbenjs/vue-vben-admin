@@ -90,8 +90,8 @@ export function createPlugin(userOptions: UserOptions = {}): PluginOption {
     },
 
     transformIndexHtml: {
-      enforce: 'pre',
-      async transform(html, ctx) {
+      order: 'pre',
+      async handler(html, ctx) {
         const url = ctx.filename;
         const base = viteConfig.base;
         const excludeBaseUrl = url.replace(base, '/');

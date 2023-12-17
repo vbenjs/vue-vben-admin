@@ -13,7 +13,7 @@ export interface InjectOptions {
   tags?: HtmlTagDescriptor[];
 
   /**
-   * @description esj options configuration
+   * @description ejs options configuration
    */
   ejsOptions?: EJSOptions;
 }

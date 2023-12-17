@@ -38,6 +38,7 @@
     "@types/fs-extra": "^11.0.4",
     "@vitejs/plugin-vue": "^4.5.2",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "@vben/vite-plugin-html": "workspace:*",
     "ant-design-vue": "^4.0.6",
     "dayjs": "^1.11.10",
     "dotenv": "^16.3.1",
@@ -50,7 +51,6 @@
     "unocss": "0.58.0",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-dts": "^3.6.4",
-    "vite-plugin-html": "^3.2.0",
     "vite-plugin-mock": "^2.9.6",
     "vite-plugin-purge-icons": "^0.10.0",
     "vite-plugin-svg-icons": "^2.0.1"
