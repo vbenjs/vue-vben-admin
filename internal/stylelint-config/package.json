@@ -31,19 +31,19 @@
     "stub": "pnpm unbuild --stub"
   },
   "devDependencies": {
-    "postcss": "^8.4.24",
+    "postcss": "^8.4.32",
     "postcss-html": "^1.5.0",
     "postcss-less": "^6.0.0",
-    "postcss-scss": "^4.0.6",
-    "prettier": "^2.8.8",
-    "stylelint": "^15.10.1",
-    "stylelint-config-property-sort-order-smacss": "^9.1.0",
-    "stylelint-config-recommended": "^13.0.0",
-    "stylelint-config-recommended-scss": "^12.0.0",
-    "stylelint-config-recommended-vue": "^1.4.0",
-    "stylelint-config-standard": "^34.0.0",
-    "stylelint-config-standard-scss": "^10.0.0",
-    "stylelint-order": "^6.0.3",
-    "stylelint-prettier": "^3.0.0"
+    "postcss-scss": "^4.0.9",
+    "prettier": "^3.1.1",
+    "stylelint": "^16.0.2",
+    "stylelint-config-property-sort-order-smacss": "^10.0.0",
+    "stylelint-config-recommended": "^14.0.0",
+    "stylelint-config-recommended-scss": "^14.0.0",
+    "stylelint-config-recommended-vue": "^1.5.0",
+    "stylelint-config-standard": "^35.0.0",
+    "stylelint-config-standard-scss": "^12.0.0",
+    "stylelint-order": "^6.0.4",
+    "stylelint-prettier": "^5.0.0"
   }
 }
