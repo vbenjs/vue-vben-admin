@@ -216,7 +216,10 @@
          * 2、若设置了required属性，又存在其他的rules，则只rules中不存在required属性时，才添加验证required的规则
          *     也就是说rules中的required，优先级大于required
          */
-        if (getRequired) {
+
+        const { isShow } = getShow();
+
+        if (getRequired && isShow) {
           if (!rules || rules.length === 0) {
             const trigger = NO_AUTO_LINK_COMPONENTS.includes(component || 'Input')
               ? 'blur'
@@ -237,7 +240,6 @@
 
         if (requiredRuleIndex !== -1) {
           const rule = rules[requiredRuleIndex];
-          const { isShow } = getShow();
           if (!isShow) {
             rule.required = false;
           }
