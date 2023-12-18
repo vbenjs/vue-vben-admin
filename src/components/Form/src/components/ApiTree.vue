@@ -18,7 +18,7 @@
   defineOptions({ name: 'ApiTree' });
 
   const props = defineProps({
-    api: { type: Function as PropType<(arg?: Recordable<any>) => Promise<Recordable<any>>> },
+    api: { type: Function as PropType<(arg?: any) => Promise<Recordable<any>>> },
     params: { type: Object },
     immediate: { type: Boolean, default: true },
     resultField: { type: String, default: '' },
