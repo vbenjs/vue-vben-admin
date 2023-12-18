@@ -27,13 +27,18 @@
   import { propTypes } from '@/utils/propTypes';
   import { get, omit, isEqual } from 'lodash-es';
 
-  type OptionsItem = { label: string; value: string | number | boolean; disabled?: boolean };
+  type OptionsItem = {
+    label?: string;
+    value?: string | number | boolean;
+    disabled?: boolean;
+    [key: string]: any;
+  };
 
   defineOptions({ name: 'ApiRadioGroup' });
 
   const props = defineProps({
     api: {
-      type: Function as PropType<(arg?: any | string) => Promise<OptionsItem[]>>,
+      type: Function as PropType<(arg?: any) => Promise<OptionsItem[]>>,
       default: null,
     },
     params: {
