@@ -48,17 +48,17 @@
   </div>
 </template>
 <script lang="ts" setup>
+  import { AppDarkModeToggle, AppLocalePicker, AppLogo } from '@/components/Application';
+  import { useGlobSetting } from '@/hooks/setting';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { useLocaleStore } from '@/store/modules/locale';
   import { computed } from 'vue';
-  import { AppLogo, AppLocalePicker, AppDarkModeToggle } from '@/components/Application';
-  import LoginForm from './LoginForm.vue';
   import ForgetPasswordForm from './ForgetPasswordForm.vue';
-  import RegisterForm from './RegisterForm.vue';
+  import LoginForm from './LoginForm.vue';
   import MobileForm from './MobileForm.vue';
   import QrCodeForm from './QrCodeForm.vue';
-  import { useGlobSetting } from '@/hooks/setting';
-  import { useI18n } from '@/hooks/web/useI18n';
-  import { useDesign } from '@/hooks/web/useDesign';
-  import { useLocaleStore } from '@/store/modules/locale';
+  import RegisterForm from './RegisterForm.vue';
 
   defineProps({
     sessionTimeout: {
@@ -103,17 +103,10 @@
       .app-iconify {
         color: #fff;
       }
-    }
 
-    input.fix-auto-fill,
-    .fix-auto-fill input {
-      -webkit-text-fill-color: #c9d1d9 !important;
-      box-shadow: inherit !important;
-    }
-
-    .ant-divider-inner-text {
-      color: @text-color-secondary;
-      font-size: 12px;
+      .ant-divider-inner-text {
+        color: @text-color-secondary;
+      }
     }
   }
 
