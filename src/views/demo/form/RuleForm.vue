@@ -13,13 +13,13 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
-  import { BasicForm, FormSchema, useForm } from '@/components/Form';
+  import { BasicForm, FormSchemaAll, useForm } from '@/components/Form';
   import { CollapseContainer } from '@/components/Container';
   import { useMessage } from '@/hooks/web/useMessage';
   import { PageWrapper } from '@/components/Page';
   import { isAccountExist } from '@/api/demo/system';
 
-  const schemas: FormSchema[] = [
+  const schemas: FormSchemaAll[] = [
     {
       field: 'field1',
       component: 'Input',

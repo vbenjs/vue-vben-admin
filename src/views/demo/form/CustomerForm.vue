@@ -20,7 +20,7 @@
 </template>
 <script lang="tsx" setup>
   import { h } from 'vue';
-  import { BasicForm, FormSchema, useForm } from '@/components/Form';
+  import { BasicForm, FormSchemaAll, useForm } from '@/components/Form';
   import { CollapseContainer } from '@/components/Container';
   import { useMessage } from '@/hooks/web/useMessage';
   import { Input, FormItem, FormItemRest, Select } from 'ant-design-vue';
@@ -38,7 +38,7 @@
       },
     ];
   };
-  const schemas: FormSchema[] = [
+  const schemas: FormSchemaAll[] = [
     {
       field: 'field1',
       component: 'Input',
@@ -80,7 +80,7 @@
     },
     {
       field: 'field3',
-      component: 'Input',
+      // component: 'Input',
       label: '自定义Slot',
       slot: 'f3',
       colProps: {

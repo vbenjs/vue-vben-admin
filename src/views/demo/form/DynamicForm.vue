@@ -16,11 +16,11 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
-  import { BasicForm, FormSchema, useForm } from '@/components/Form';
+  import { BasicForm, FormSchemaAll, useForm } from '@/components/Form';
   import { CollapseContainer } from '@/components/Container';
   import { PageWrapper } from '@/components/Page';
 
-  const schemas: FormSchema[] = [
+  const schemas: FormSchemaAll[] = [
     {
       field: 'field1',
       component: 'Input',
@@ -125,7 +125,7 @@
     },
   ];
 
-  const schemas1: FormSchema[] = [
+  const schemas1: FormSchemaAll[] = [
     {
       field: 'f1',
       component: 'Input',
@@ -137,7 +137,7 @@
       componentProps: ({ formModel }) => {
         return {
           placeholder: '同步f2的值为f1',
-          onChange: (e: ChangeEvent) => {
+          onChange: (e) => {
             formModel.f2 = e.target.value;
           },
         };
