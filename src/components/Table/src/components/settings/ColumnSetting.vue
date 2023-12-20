@@ -111,7 +111,7 @@
   import { useDesign } from '@/hooks/web/useDesign';
   import { isFunction, isNil } from '@/utils/is';
   import { getPopupContainer as getParentContainer } from '@/utils';
-  import { cloneDeep } from 'lodash-es';
+  import { cloneDeep, omit } from 'lodash-es';
   import Sortablejs from 'sortablejs';
 
   // 列表设置缓存
@@ -492,7 +492,7 @@
     table.setProps({
       rowSelection: showRowSelection
         ? {
-            ...defaultRowSelection,
+            ...omit(defaultRowSelection, ['selectedRowKeys']),
             fixed: true,
           }
         : undefined,
