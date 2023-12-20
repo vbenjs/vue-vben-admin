@@ -132,6 +132,18 @@
   const attrs = useAttrs();
   const table = useTableContext();
 
+  const props = withDefaults(
+    defineProps<{
+      /**
+       * 是否缓存列的设置
+       */
+      cache?: boolean;
+    }>(),
+    {
+      cache: () => false,
+    },
+  );
+
   const getPopupContainer = () => {
     return isFunction(attrs.getPopupContainer) ? attrs.getPopupContainer() : getParentContainer();
   };
@@ -168,7 +180,7 @@
       // 列表列更新
       tableColumnsUpdate();
       // 更新列缓存
-      columnOptionsSave();
+      props.cache && columnOptionsSave();
     }
   });
 
@@ -197,7 +209,7 @@
     // 更新 showIndexColumn
     showIndexColumnUpdate(e.target.checked);
     // 更新 showIndexColumn 缓存
-    tableSettingStore.setShowIndexColumn(e.target.checked);
+    props.cache && tableSettingStore.setShowIndexColumn(e.target.checked);
     // 从无到有需要处理
     if (e.target.checked) {
       const columns = cloneDeep(table?.getColumns());
@@ -223,7 +235,7 @@
     // 更新 showRowSelection
     showRowSelectionUpdate(e.target.checked);
     // 更新 showRowSelection 缓存
-    tableSettingStore.setShowRowSelection(e.target.checked);
+    props.cache && tableSettingStore.setShowRowSelection(e.target.checked);
   };
 
   // 更新列缓存
@@ -273,7 +285,7 @@
     // 列表列更新
     tableColumnsUpdate();
     // 更新列缓存
-    columnOptionsSave();
+    props.cache && columnOptionsSave();
   };
 
   // 沿用逻辑
@@ -344,6 +356,13 @@
       }
     }
 
+    // 是否存在 action
+    const actionIndex = columns.findIndex((o) => o.dataIndex === 'action');
+    if (actionIndex > -1) {
+      const actionCol = columns.splice(actionIndex, 1);
+      columns.push(actionCol[0]);
+    }
+
     // 设置列表列
     tableColumnsSet(columns);
   };
@@ -384,7 +403,7 @@
           // 列表列更新
           tableColumnsUpdate();
           // 更新列缓存
-          columnOptionsSave();
+          props.cache && columnOptionsSave();
         },
       });
     }
@@ -548,10 +567,10 @@
       columnOptions.value = cloneDeep(options);
 
       // remove消失的列、push新出现的列
-      diff();
+      props.cache && diff();
 
       // 从缓存恢复
-      restore();
+      props.cache && restore();
 
       // 更新表单状态
       formUpdate();
