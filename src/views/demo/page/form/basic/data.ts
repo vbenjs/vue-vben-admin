@@ -1,10 +1,10 @@
-import { FormSchema } from '@/components/Form';
+import { FormSchemaAll } from '@/components/Form';
 
 const colProps = {
   span: 8,
 };
 
-export const schemas: FormSchema[] = [
+export const schemas: FormSchemaAll[] = [
   {
     field: 'title',
     component: 'Input',
@@ -40,8 +40,8 @@ export const schemas: FormSchema[] = [
     colProps,
     subLabel: '( 选填 )',
     componentProps: {
-      formatter: (value: string) => (value ? `${value}%` : ''),
-      parser: (value: string) => value.replace('%', ''),
+      formatter: (value: string | number) => (value ? `${value}%` : ''),
+      parser: (value: string) => Number(value.replace('%', '')),
       placeholder: '请输入',
     },
   },
