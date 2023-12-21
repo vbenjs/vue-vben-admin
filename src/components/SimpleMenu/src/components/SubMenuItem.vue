@@ -45,7 +45,7 @@
         />
       </div>
       <!-- eslint-disable-next-line -->
-      <template #content v-show="state.opened">
+      <template #content v-if="state.opened">
         <div v-bind="getEvents(true)">
           <ul :class="[prefixCls, `${prefixCls}-${getTheme}`, `${prefixCls}-popup`]">
             <slot></slot>
