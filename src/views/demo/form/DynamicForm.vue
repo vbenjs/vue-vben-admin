@@ -16,11 +16,11 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
-  import { BasicForm, FormSchemaAll, useForm } from '@/components/Form';
+  import { BasicForm, FormSchema, useForm } from '@/components/Form';
   import { CollapseContainer } from '@/components/Container';
   import { PageWrapper } from '@/components/Page';
 
-  const schemas: FormSchemaAll[] = [
+  const schemas: FormSchema[] = [
     {
       field: 'field1',
       component: 'Input',
@@ -125,7 +125,7 @@
     },
   ];
 
-  const schemas1: FormSchemaAll[] = [
+  const schemas1: FormSchema[] = [
     {
       field: 'f1',
       component: 'Input',

@@ -58,7 +58,7 @@
 <script lang="ts" setup>
   import { type Recordable } from '@vben/types';
   import { computed, unref, ref } from 'vue';
-  import { BasicForm, ApiSelect, FormSchemaAll } from '@/components/Form';
+  import { BasicForm, ApiSelect, FormSchema } from '@/components/Form';
   import { CollapseContainer } from '@/components/Container';
   import { useMessage } from '@/hooks/web/useMessage';
   import { PageWrapper } from '@/components/Page';
@@ -140,7 +140,7 @@
     ],
   };
 
-  const schemas: FormSchemaAll[] = [
+  const schemas: FormSchema[] = [
     {
       field: 'divider-basic',
       component: 'Divider',

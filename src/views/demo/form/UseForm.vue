@@ -37,7 +37,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import { Drawer, Space } from 'ant-design-vue';
-  import { BasicForm, type FormSchemaAll, useForm, type FormProps } from '@/components/Form';
+  import { BasicForm, type FormSchema, useForm, type FormProps } from '@/components/Form';
   import { CollapseContainer } from '@/components/Container';
   import { PageWrapper } from '@/components/Page';
   import { areaRecord } from '@/api/demo/cascader';
@@ -60,7 +60,7 @@
     { value: 'right', label: 'right' },
   ];
 
-  const schemas: FormSchemaAll[] = [
+  const schemas: FormSchema[] = [
     {
       field: 'field1',
       component: 'Input',
@@ -176,7 +176,7 @@
       },
     },
   ];
-  const formSchemas: FormSchemaAll[] = [
+  const formSchemas: FormSchema[] = [
     {
       field: 'd1',
       component: 'Divider',

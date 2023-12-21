@@ -74,7 +74,7 @@ export interface FormProps {
   baseColProps?: Partial<ColEx>;
 
   // Form configuration rules
-  schemas?: FormSchemaAll[];
+  schemas?: FormSchema[];
   // Function values used to merge into dynamic control form items
   mergeDynamicData?: Recordable;
   // Compact mode for search forms
@@ -157,7 +157,7 @@ interface BaseFormSchema<T extends ComponentType = any> {
   // Component parameters
   componentProps?:
     | ((opt: {
-        schema: FormSchema<T>;
+        schema: FormSchema;
         tableAction: TableActionType;
         formActionType: FormActionType;
         formModel: Recordable;
@@ -230,11 +230,15 @@ export interface ComponentFormSchema<T extends ComponentType = any> extends Base
 }
 
 export interface SlotFormSchema extends BaseFormSchema {
-  // Custom slot, in from-item
+  // Custom slot, in form-item
   slot: string;
 }
 
-export type FormSchema<T extends ComponentType = any> = ComponentFormSchema<T> | SlotFormSchema;
+type ComponentFormSchemaType = ComponentType extends any
+  ? ComponentFormSchema<ComponentType>
+  : never;
+
+export type FormSchema = ComponentFormSchemaType | SlotFormSchema;
 
 export type FormSchemaInner = Partial<ComponentFormSchema> &
   Partial<SlotFormSchema> &
@@ -262,7 +266,3 @@ export interface HelpComponentProps {
   // Positioning
   position: any;
 }
-
-type ToFormSchemaAll<T extends ComponentType> = T extends any ? FormSchema<T> : never;
-
-export type FormSchemaAll = ToFormSchemaAll<ComponentType>;

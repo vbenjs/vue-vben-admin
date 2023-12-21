@@ -1,10 +1,10 @@
-import { FormSchemaAll } from '@/components/Form';
+import { FormSchema } from '@/components/Form';
 
 const colProps = {
   span: 8,
 };
 
-export const schemas: FormSchemaAll[] = [
+export const schemas: FormSchema[] = [
   {
     field: 'title',
     component: 'Input',

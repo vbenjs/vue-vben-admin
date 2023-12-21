@@ -27,13 +27,7 @@
   import { useMessage } from '@/hooks/web/useMessage';
   import { omit } from 'lodash-es';
   import { deepMerge } from '@/utils';
-  import {
-    BasicForm,
-    FormSchemaAll,
-    useForm,
-    FormProps,
-    UseFormReturnType,
-  } from '@/components/Form';
+  import { BasicForm, FormSchema, useForm, FormProps, UseFormReturnType } from '@/components/Form';
 
   defineOptions({ name: 'TabsFormDemo' });
 
@@ -64,7 +58,7 @@
     const tabsKey = `tabs${i}`;
 
     // 每个标签页8个字段
-    const schemas: FormSchemaAll[] = [];
+    const schemas: FormSchema[] = [];
     const row: Recordable = {};
 
     for (let j = 1; j <= 8; ++j) {

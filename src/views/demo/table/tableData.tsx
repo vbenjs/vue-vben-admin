@@ -1,5 +1,5 @@
 import { optionsListApi } from '@/api/demo/select';
-import { FormProps, FormSchemaAll, BasicColumn } from '@/components/Table';
+import { FormProps, FormSchema, BasicColumn } from '@/components/Table';
 import { VxeFormItemProps, VxeGridPropTypes } from '@/components/VxeTable';
 import { ref } from 'vue';
 import { Input } from 'ant-design-vue';
@@ -229,8 +229,8 @@ export function getMergeHeaderColumns(): BasicColumn[] {
     },
   ];
 }
-export const getAdvanceSchema = (itemNumber = 6): FormSchemaAll[] => {
-  const arr: FormSchemaAll[] = [];
+export const getAdvanceSchema = (itemNumber = 6): FormSchema[] => {
+  const arr: FormSchema[] = [];
   for (let index = 0; index < itemNumber; index++) {
     arr.push({
       field: `field${index}`,

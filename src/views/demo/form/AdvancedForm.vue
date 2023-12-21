@@ -10,11 +10,11 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
-  import { BasicForm, FormSchemaAll, useForm } from '@/components/Form';
+  import { BasicForm, FormSchema, useForm } from '@/components/Form';
   import { CollapseContainer } from '@/components/Container';
   import { PageWrapper } from '@/components/Page';
 
-  const getSchamas = (): FormSchemaAll[] => {
+  const getSchamas = (): FormSchema[] => {
     return [
       {
         field: 'field1',
@@ -111,7 +111,7 @@
     ];
   };
 
-  function getAppendSchemas(): FormSchemaAll[] {
+  function getAppendSchemas(): FormSchema[] {
     return [
       {
         field: 'field10',
@@ -156,7 +156,7 @@
     compact: true,
     showAdvancedButton: true,
   });
-  const extraSchemas: FormSchemaAll[] = [];
+  const extraSchemas: FormSchema[] = [];
   for (let i = 14; i < 30; i++) {
     extraSchemas.push({
       field: 'field' + i,
