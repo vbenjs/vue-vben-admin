@@ -320,6 +320,7 @@ export function useFormEvents({
         Reflect.has(item, 'field') &&
         item.field &&
         !isNil(item.defaultValue) &&
+        !item.isUpdateNoReset &&
         (!(item.field in currentFieldsValue) || isNil(currentFieldsValue[item.field]))
       ) {
         obj[item.field] = item.defaultValue;
