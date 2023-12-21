@@ -227,8 +227,6 @@ interface BaseFormSchema<T extends ComponentType = any> {
 export interface ComponentFormSchema<T extends ComponentType = any> extends BaseFormSchema<T> {
   // render component
   component: T;
-  // fix: Object literal may only specify known properties, and 'slot' does not exist in type 'ComponentFormSchema'.
-  slot?: string;
 }
 
 export interface SlotFormSchema extends BaseFormSchema {
