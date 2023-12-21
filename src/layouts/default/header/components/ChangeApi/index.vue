@@ -54,7 +54,7 @@
         },
         defaultValue: import.meta.env.MODE || 'development', // 当前环境
         required: true,
-        component: 'Input',
+        // component: 'Input',
         slot: 'api',
       },
     ],

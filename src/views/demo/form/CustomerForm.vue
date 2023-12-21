@@ -80,7 +80,7 @@
     },
     {
       field: 'field3',
-      component: 'Input',
+      // component: 'Input',
       label: '自定义Slot',
       slot: 'f3',
       colProps: {

@@ -31,11 +31,12 @@
   import { useI18n } from '@/hooks/web/useI18n';
 
   interface Option {
-    value: string;
-    label: string;
+    value?: string;
+    label?: string;
     loading?: boolean;
     isLeaf?: boolean;
     children?: Option[];
+    [key: string]: any;
   }
 
   defineOptions({ name: 'ApiCascader' });
@@ -45,7 +46,7 @@
       type: Array,
     },
     api: {
-      type: Function as PropType<(arg?: Recordable<any>) => Promise<Option[]>>,
+      type: Function as PropType<(arg?: any) => Promise<Option[]>>,
       default: null,
     },
     numberToString: propTypes.bool,

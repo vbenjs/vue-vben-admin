@@ -137,7 +137,7 @@
       componentProps: ({ formModel }) => {
         return {
           placeholder: '同步f2的值为f1',
-          onChange: (e: ChangeEvent) => {
+          onChange: (e) => {
             formModel.f2 = e.target.value;
           },
         };

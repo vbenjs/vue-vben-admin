@@ -37,7 +37,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import { Drawer, Space } from 'ant-design-vue';
-  import { BasicForm, FormSchema, useForm, type FormProps } from '@/components/Form';
+  import { BasicForm, type FormSchema, useForm, type FormProps } from '@/components/Form';
   import { CollapseContainer } from '@/components/Container';
   import { PageWrapper } from '@/components/Page';
   import { areaRecord } from '@/api/demo/cascader';
@@ -86,7 +86,7 @@
       colProps: { span: 8 },
       componentProps: {
         getPopupContainer: () => {
-          return document.querySelector('.ant-form');
+          return document.querySelector('.ant-form')!;
         },
       },
     },
@@ -97,7 +97,7 @@
       colProps: { span: 8 },
       componentProps: {
         getPopupContainer: () => {
-          return document.querySelector('.ant-form');
+          return document.querySelector('.ant-form')!;
         },
       },
     },
@@ -147,7 +147,6 @@
       componentProps: {
         api: areaRecord,
         apiParamKey: 'parentCode',
-        dataField: 'data',
         labelField: 'name',
         valueField: 'code',
         initFetchParams: {
@@ -166,7 +165,6 @@
       componentProps: {
         api: areaRecord,
         apiParamKey: 'parentCode',
-        dataField: 'data',
         labelField: 'name',
         valueField: 'code',
         initFetchParams: {
@@ -360,7 +358,7 @@
       colProps: { span: 24 },
       componentProps: ({ formActionType }) => {
         return {
-          onChange: async (val: boolean) => {
+          onChange: (val) => {
             formActionType.updateSchema([
               { field: 'showResetButton', componentProps: { disabled: !val } },
               {

@@ -2,7 +2,7 @@ import type { NamePath, RuleObject } from 'ant-design-vue/lib/form/interface';
 import type { VNode, CSSProperties } from 'vue';
 import type { ButtonProps as AntdButtonProps } from '@/components/Button';
 import type { FormItem } from './formItem';
-import type { ColEx, ComponentType } from './';
+import type { ColEx, ComponentType, ComponentProps } from './';
 import type { TableActionType } from '@/components/Table/src/types/table';
 import type { RowProps } from 'ant-design-vue/lib/grid/Row';
 
@@ -130,7 +130,7 @@ export type RenderOpts = {
   [key: string]: any;
 };
 
-interface BaseFormSchema {
+interface BaseFormSchema<T extends ComponentType = any> {
   // Field name
   field: string;
   // Extra Fields name[]
@@ -161,8 +161,8 @@ interface BaseFormSchema {
         tableAction: TableActionType;
         formActionType: FormActionType;
         formModel: Recordable;
-      }) => Recordable)
-    | object;
+      }) => ComponentProps[T])
+    | ComponentProps[T];
   // Required
   required?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
@@ -224,17 +224,23 @@ interface BaseFormSchema {
 
   dynamicRules?: (renderCallbackParams: RenderCallbackParams) => Rule[];
 }
-export interface ComponentFormSchema extends BaseFormSchema {
+export interface ComponentFormSchema<T extends ComponentType = any> extends BaseFormSchema<T> {
   // render component
-  component: ComponentType;
+  component: T;
+  // fix: Object literal may only specify known properties, and 'slot' does not exist in type 'ComponentFormSchema'.
+  slot?: string;
 }
 
 export interface SlotFormSchema extends BaseFormSchema {
-  // Custom slot, in from-item
+  // Custom slot, in form-item
   slot: string;
 }
 
-export type FormSchema = ComponentFormSchema | SlotFormSchema;
+type ComponentFormSchemaType<T extends ComponentType = ComponentType> = T extends any
+  ? ComponentFormSchema<T>
+  : never;
+
+export type FormSchema = ComponentFormSchemaType | SlotFormSchema;
 
 export type FormSchemaInner = Partial<ComponentFormSchema> &
   Partial<SlotFormSchema> &
