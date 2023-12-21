@@ -230,7 +230,7 @@ export function getMergeHeaderColumns(): BasicColumn[] {
   ];
 }
 export const getAdvanceSchema = (itemNumber = 6): FormSchema[] => {
-  const arr: any = [];
+  const arr: FormSchema[] = [];
   for (let index = 0; index < itemNumber; index++) {
     arr.push({
       field: `field${index}`,
@@ -252,7 +252,7 @@ export function getFormConfig(): Partial<FormProps> {
       {
         field: `field11`,
         label: `Slot示例`,
-        component: 'Select',
+        // component: 'Select',
         slot: 'custom',
         colProps: {
           xl: 12,
