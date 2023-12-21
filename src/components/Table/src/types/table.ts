@@ -140,6 +140,7 @@ export interface TableSetting {
   redo?: boolean;
   size?: boolean;
   setting?: boolean;
+  settingCache?: boolean;
   fullScreen?: boolean;
 }
 

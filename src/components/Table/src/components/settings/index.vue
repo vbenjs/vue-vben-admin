@@ -6,7 +6,7 @@
       v-if="getSetting.setting"
       @columns-change="handleColumnChange"
       :getPopupContainer="getTableContainer"
-      :cache="false"
+      :cache="getSetting.settingCache"
     />
     <FullScreenSetting v-if="getSetting.fullScreen" :getPopupContainer="getTableContainer" />
   </div>
@@ -39,6 +39,7 @@
       redo: true,
       size: true,
       setting: true,
+      settingCache: false,
       fullScreen: false,
       ...props.setting,
     };
