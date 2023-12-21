@@ -9,16 +9,19 @@ import type { BeforeMiniState, ApiAddress } from '#/store';
 
 import { defineStore } from 'pinia';
 import { store } from '@/store';
-
+import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context';
+import { theme as antdTheme } from 'ant-design-vue/es';
 import { ThemeEnum } from '@/enums/appEnum';
 import { APP_DARK_MODE_KEY, PROJ_CFG_KEY, API_ADDRESS } from '@/enums/cacheEnum';
 import { Persistent } from '@/utils/cache/persistent';
 import { darkMode } from '@/settings/designSetting';
 import { resetRouter } from '@/router';
 import { deepMerge } from '@/utils';
+import { reactive } from 'vue';
 
 interface AppState {
   darkMode?: ThemeEnum;
+  themeConfig: ThemeConfig;
   // Page loading status
   pageLoading: boolean;
   // project config
@@ -31,6 +34,13 @@ export const useAppStore = defineStore({
   id: 'app',
   state: (): AppState => ({
     darkMode: undefined,
+    themeConfig: {
+      algorithm: antdTheme.defaultAlgorithm,
+      token: {
+        colorBgContainer: '#fff',
+      },
+      components: {},
+    },
     pageLoading: false,
     projectConfig: Persistent.getLocal(PROJ_CFG_KEY),
     beforeMiniInfo: {},
@@ -74,7 +84,31 @@ export const useAppStore = defineStore({
 
     setDarkMode(mode: ThemeEnum): void {
       this.darkMode = mode;
+      this.setThemeConfig();
       localStorage.setItem(APP_DARK_MODE_KEY, mode);
+    },
+
+    setThemeConfig(color?: string): void {
+      let themeConfig = reactive<ThemeConfig>({
+        algorithm: antdTheme.defaultAlgorithm,
+        token: {
+          colorBgContainer: '#fff',
+          colorPrimary: color || (this.projectConfig ? this.projectConfig.themeColor : '#0960bd'),
+        },
+        components: {},
+      });
+
+      if (this.darkMode === 'dark') {
+        themeConfig = {
+          algorithm: antdTheme.darkAlgorithm,
+          token: {
+            colorBgContainer: 'rgb(36, 37, 37)',
+            colorPrimary: color || (this.projectConfig ? this.projectConfig.themeColor : '#0960bd'),
+          },
+          components: {},
+        };
+      }
+      this.themeConfig = themeConfig;
     },
 
     setBeforeMiniInfo(state: BeforeMiniState): void {
@@ -84,6 +118,7 @@ export const useAppStore = defineStore({
     setProjectConfig(config: DeepPartial<ProjectConfig>): void {
       this.projectConfig = deepMerge(this.projectConfig || {}, config) as ProjectConfig;
       Persistent.setLocal(PROJ_CFG_KEY, this.projectConfig);
+      this.setThemeConfig(config.themeColor);
     },
     setMenuSetting(setting: Partial<MenuSetting>): void {
       this.projectConfig!.menuSetting = deepMerge(this.projectConfig!.menuSetting, setting);
