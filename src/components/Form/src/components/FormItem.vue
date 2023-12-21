@@ -423,7 +423,7 @@
 
       return () => {
         const { colProps = {}, colSlot, renderColContent, component, slot } = props.schema;
-        if (!component || (!componentMap.has(component) && !slot)) {
+        if (!((component && componentMap.has(component)) || slot)) {
           return null;
         }
 
