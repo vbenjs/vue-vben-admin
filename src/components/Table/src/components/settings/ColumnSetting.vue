@@ -445,12 +445,11 @@
   const restore = () => {
     // 设置过才恢复
     if (typeof tableSettingStore.getShowIndexColumn === 'boolean') {
-      isIndexColumnShow.value = tableSettingStore.getShowIndexColumn;
+      isIndexColumnShow.value = defaultIsIndexColumnShow && tableSettingStore.getShowIndexColumn;
     }
     if (typeof tableSettingStore.getShowRowSelection === 'boolean') {
       isRowSelectionShow.value = defaultIsRowSelectionShow && tableSettingStore.getShowRowSelection;
     }
-
     // 序号列更新
     onIndexColumnShowChange({
       target: { checked: isIndexColumnShow.value },
