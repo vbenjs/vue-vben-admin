@@ -188,9 +188,6 @@ interface BaseFormSchema<T extends ComponentType = any> {
   // 是否自动处理与时间相关组件的默认值
   isHandleDateDefaultValue?: boolean;
 
-  //使用到updateshema时，例如table使用了fieldMapToTime,并且字段设置了默认值，会导致刚选完的值变回默认值
-  isUpdateNoReset?: boolean;
-
   isAdvanced?: boolean;
 
   // Matching details components

@@ -284,21 +284,19 @@ export function useFormEvents({
       return;
     }
     const schema: FormSchema[] = [];
+    const updatedSchema: FormSchema[] = [];
     unref(getSchema).forEach((val) => {
-      let _val;
-      updateData.forEach((item) => {
-        if (val.field === item.field) {
-          _val = item;
-        }
-      });
-      if (_val !== undefined && val.field === _val.field) {
-        const newSchema = deepMerge(val, _val);
+      const updatedItem = updateData.find((item) => val.field === item.field);
+
+      if (updatedItem) {
+        const newSchema = deepMerge(val, updatedItem);
+        updatedSchema.push(newSchema as FormSchema);
         schema.push(newSchema as FormSchema);
       } else {
         schema.push(val);
       }
     });
-    _setDefaultValue(schema);
+    _setDefaultValue(updatedSchema);
 
     schemaRef.value = uniqBy(schema, 'field');
   }
@@ -320,7 +318,6 @@ export function useFormEvents({
         Reflect.has(item, 'field') &&
         item.field &&
         !isNil(item.defaultValue) &&
-        !item.isUpdateNoReset &&
         (!(item.field in currentFieldsValue) || isNil(currentFieldsValue[item.field]))
       ) {
         obj[item.field] = item.defaultValue;
