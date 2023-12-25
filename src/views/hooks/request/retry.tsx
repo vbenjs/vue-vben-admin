@@ -45,7 +45,29 @@ const Demo1 = defineComponent({
 export default defineComponent({
   setup() {
     return () => (
-      <PageWrapper>
+      <PageWrapper
+        title="错误重试"
+        v-slots={{
+          headerContent: () => (
+            <Typography>
+              <Typography.Paragraph>
+                通过设置
+                <Typography.Text type="danger"> options.retryCount </Typography.Text>
+                ，指定错误重试次数，则 useRequest 在失败后会进行重试。
+              </Typography.Paragraph>
+              <Typography.Paragraph>
+                <Typography.Text>
+                  <pre>
+                    {`// useRequestOption
+retryCount?: number; // -1, 无限次重试
+retryInterval?: number; // 重试时间间隔，单位为毫秒。如果不设置，默认采用简易的指数退避算法`}
+                  </pre>
+                </Typography.Text>
+              </Typography.Paragraph>
+            </Typography>
+          ),
+        }}
+      >
         <Demo1 />
       </PageWrapper>
     );
