@@ -22,8 +22,10 @@ export function useRowSelection(
 
     return {
       selectedRowKeys: unref(selectedRowKeysRef),
-      onChange: (selectedRowKeys: Key[]) => {
+      onChange: (selectedRowKeys: Key[], selectedRows: any[]) => {
         setSelectedRowKeys(selectedRowKeys);
+        // 维持外部定义的onChange回调
+        rowSelection.onChange?.(selectedRowKeys, selectedRows);
       },
       ...omit(rowSelection, ['onChange']),
     };
