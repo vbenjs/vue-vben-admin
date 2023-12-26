@@ -65,6 +65,7 @@
       field: 'field1',
       component: 'Input',
       label: '字段1',
+      subLabel: '字段1的二级标签名',
       colProps: { span: 8 },
       componentProps: {
         placeholder: '自定义placeholder',
