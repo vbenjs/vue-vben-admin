@@ -49,8 +49,6 @@
   import { useI18n } from '@/hooks/web/useI18n';
   import { propTypes } from '@/utils/propTypes';
 
-  type ButtonOptions = Partial<ButtonProps> & { text: string };
-
   defineOptions({ name: 'BasicFormAction' });
 
   const props = defineProps({
@@ -93,7 +91,7 @@
     return actionColOpt;
   });
 
-  const getResetBtnOptions = computed((): ButtonOptions => {
+  const getResetBtnOptions = computed((): ButtonProps => {
     return Object.assign(
       {
         text: t('common.resetText'),
@@ -102,7 +100,7 @@
     );
   });
 
-  const getSubmitBtnOptions = computed((): ButtonOptions => {
+  const getSubmitBtnOptions = computed((): ButtonProps => {
     return Object.assign(
       {
         text: t('common.queryText'),
