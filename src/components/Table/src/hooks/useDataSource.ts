@@ -361,7 +361,7 @@ export function useDataSource(
   }
 
   async function reload(opt?: FetchParams) {
-    return await fetch(opt);
+    await fetch(opt);
   }
 
   onMounted(() => {

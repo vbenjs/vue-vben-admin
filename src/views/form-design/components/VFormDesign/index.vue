@@ -147,10 +147,10 @@
       item.componentProps = item.componentProps || {};
       item.itemProps = item.itemProps || {};
     });
-    formConfig.value = config;
+    formConfig.value = config as any;
   };
   // 获取历史记录，用于撤销和重构
-  const historyReturn = useRefHistory(formConfig, {
+  const historyReturn = useRefHistory(formConfig as any, {
     deep: true,
     capacity: 20,
     parse: (val: IFormConfig) => {
@@ -173,7 +173,7 @@
    * @param schema 当前选中的表单项
    */
   const handleSetSelectItem = (schema: IVFormComponent) => {
-    formConfig.value.currentItem = schema;
+    formConfig.value.currentItem = schema as any;
     handleChangePropsTabs(
       schema.key ? (formConfig.value.activeKey! === 1 ? 2 : formConfig.value.activeKey!) : 1,
     );
@@ -210,7 +210,7 @@
     generateKey(formItem);
     if (!formConfig.value.currentItem?.key) {
       handleSetSelectItem(formItem);
-      formConfig.value.schemas && formConfig.value.schemas.push(formItem);
+      formConfig.value.schemas && formConfig.value.schemas.push(formItem as any);
 
       return;
     }
@@ -269,7 +269,7 @@
       });
     };
     if (formConfig.value.schemas) {
-      traverse(formConfig.value.schemas);
+      traverse(formConfig.value.schemas as any);
     }
   };
 
@@ -316,7 +316,7 @@
   // provide('currentItem', formConfig.value.currentItem)
 
   // 把表单配置项注入到子组件中，子组件可通过inject获取，获取到的数据为响应式
-  provide<Ref<IFormConfig>>('formConfig', formConfig);
+  provide<Ref<IFormConfig>>('formConfig', formConfig as any);
 
   // 注入历史记录
   provide<UseRefHistoryReturn<any, any>>('historyReturn', historyReturn);
