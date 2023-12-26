@@ -2,6 +2,7 @@
   <div ref="wrapRef"></div>
 </template>
 <script lang="ts" setup>
+  import './adapter.js';
   import type { Ref } from 'vue';
   import {
     ref,
@@ -87,6 +88,7 @@
     }
     return lang;
   });
+
   function init() {
     const wrapEl = unref(wrapRef);
     if (!wrapEl) return;
