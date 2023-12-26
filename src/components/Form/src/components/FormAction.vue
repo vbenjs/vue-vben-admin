@@ -59,11 +59,11 @@
     showSubmitButton: propTypes.bool.def(true),
     showAdvancedButton: propTypes.bool.def(true),
     resetButtonOptions: {
-      type: Object as PropType<ButtonOptions>,
+      type: Object as PropType<ButtonProps>,
       default: () => ({}),
     },
     submitButtonOptions: {
-      type: Object as PropType<ButtonOptions>,
+      type: Object as PropType<ButtonProps>,
       default: () => ({}),
     },
     actionColOptions: {
@@ -102,7 +102,7 @@
     );
   });
 
-  const getSubmitBtnOptions = computed(() => {
+  const getSubmitBtnOptions = computed((): ButtonOptions => {
     return Object.assign(
       {
         text: t('common.queryText'),
