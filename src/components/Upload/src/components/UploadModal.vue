@@ -118,8 +118,8 @@
     return isUploadingRef.value
       ? t('component.upload.uploading')
       : someError
-      ? t('component.upload.reUploadFailed')
-      : t('component.upload.startUpload');
+        ? t('component.upload.reUploadFailed')
+        : t('component.upload.startUpload');
   });
 
   // 上传前校验
