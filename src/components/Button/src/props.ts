@@ -23,4 +23,5 @@ export const buttonProps = {
    */
   iconSize: { type: Number, default: 14 },
   onClick: { type: [Function, Array] as PropType<(() => any) | (() => any)[]>, default: null },
+  text: { type: String },
 };
