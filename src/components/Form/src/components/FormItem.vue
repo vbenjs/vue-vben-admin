@@ -336,30 +336,23 @@
       }
 
       function renderLabelHelpMessage() {
-        const { label, helpMessage, helpComponentProps, subLabel } = props.schema;
-        const renderLabel = subLabel ? (
-          <span>
-            {label} <span class="text-secondary">{subLabel}</span>
-          </span>
-        ) : (
-          label
-        );
+        const { label, helpMessage, helpComponentProps } = props.schema;
         const getHelpMessage = isFunction(helpMessage)
           ? helpMessage(unref(getValues))
           : helpMessage;
         if (!getHelpMessage || (Array.isArray(getHelpMessage) && getHelpMessage.length === 0)) {
-          return renderLabel;
+          return label;
         }
         return (
           <span>
-            {renderLabel}
+            {label}
             <BasicHelp placement="top" class="mx-1" text={getHelpMessage} {...helpComponentProps} />
           </span>
         );
       }
 
       function renderItem() {
-        const { itemProps, slot, render, field, suffix, component } = props.schema;
+        const { itemProps, slot, render, field, suffix, component, subLabel } = props.schema;
         const { labelCol, wrapperCol } = unref(itemLabelWidthProp);
         const { colon } = props.formProps;
         const opts = { disabled: unref(getDisable), readonly: unref(getReadonly) };
@@ -416,6 +409,7 @@
                 <div style="flex:1;">{getContent()}</div>
                 {showSuffix && <span class="suffix">{getSuffix}</span>}
               </div>
+              {subLabel && <div class="text-secondary mt-2">{subLabel}</div>}
             </Form.Item>
           );
         }
