@@ -81,7 +81,7 @@
     "codemirror": "^5.65.12",
     "cropperjs": "^1.5.13",
     "crypto-js": "^4.1.1",
-    "dayjs": "^1.11.9",
+    "dayjs": "^1.11.10",
     "driver.js": "^1.3.0",
     "echarts": "^5.4.2",
     "exceljs": "^4.3.0",
