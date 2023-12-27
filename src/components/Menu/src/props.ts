@@ -1,9 +1,10 @@
-import type { Menu } from '/@/router/types';
+import type { Menu } from '@/router/types';
 import type { PropType } from 'vue';
 
-import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
-import { ThemeEnum } from '/@/enums/appEnum';
-import { propTypes } from '/@/utils/propTypes';
+import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum';
+import { ThemeEnum } from '@/enums/appEnum';
+import { propTypes } from '@/utils/propTypes';
+import type { Key } from './types';
 import type { MenuTheme } from 'ant-design-vue';
 import type { MenuMode } from 'ant-design-vue/lib/menu/src/interface';
 
@@ -35,7 +36,7 @@ export const basicProps = {
   isHorizontal: propTypes.bool,
   accordion: propTypes.bool.def(true),
   beforeClickFn: {
-    type: Function as PropType<(key: string) => Promise<boolean>>,
+    type: Function as PropType<(key: Key) => Promise<boolean>>,
   },
 };
 

@@ -1,10 +1,10 @@
 <template>
   <PageWrapper title="带参数菜单（路由）" content="支持多级参数">
-    当前参数：{{ params }}
+    当前参数：{{ computedParams }}
     <br />
     输入参数切换路由：
-    <Input v-model:value="value" placeholder="建议为url标准字符，输入后点击切换" />
-    <a-button type="primary" @click="handleClickGo">切换路由</a-button>
+    <a-input v-model:value="value" placeholder="建议为url标准字符，输入后点击切换" />
+    <a-button type="primary" class="my-2" @click="handleClickGo">切换路由</a-button>
     <br />
     切换路由后
     <ul>
@@ -13,30 +13,19 @@
     </ul>
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { Input } from 'ant-design-vue';
-  import { computed, defineComponent, ref, unref } from 'vue';
+<script lang="ts" setup>
   import { useRouter } from 'vue-router';
-  import { PageWrapper } from '/@/components/Page';
+  import { computed, ref, unref } from 'vue';
+  import { PageWrapper } from '@/components/Page';
 
-  export default defineComponent({
-    name: 'TestMenu',
-    components: { PageWrapper, Input },
-    setup() {
-      const { currentRoute, replace } = useRouter();
-      const value = ref<string>('');
+  const value = ref('');
 
-      const handleClickGo = () => {
-        const { name } = unref(currentRoute);
-        replace({ name: name!, params: { id: unref(value) } });
-      };
-      return {
-        value,
-        handleClickGo,
-        params: computed(() => {
-          return unref(currentRoute).params;
-        }),
-      };
-    },
-  });
+  const { currentRoute, replace } = useRouter();
+
+  const computedParams = computed(() => unref(currentRoute).params);
+
+  const handleClickGo = () => {
+    const { name } = unref(currentRoute);
+    replace({ name: name!, params: { id: unref(value) } });
+  };
 </script>

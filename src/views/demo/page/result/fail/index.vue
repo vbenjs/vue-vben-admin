@@ -20,17 +20,9 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import { Result } from 'ant-design-vue';
   import { CloseCircleOutlined } from '@ant-design/icons-vue';
-
-  export default defineComponent({
-    components: {
-      Result,
-      CloseCircleOutlined,
-    },
-  });
 </script>
 <style lang="less" scoped>
   .result-error {
@@ -39,7 +31,7 @@
 
     &__content {
       padding: 24px 40px;
-      background-color: @background-color-light;
+      background-color: @app-content-background;
 
       &-title {
         margin-bottom: 16px;

@@ -1,15 +1,17 @@
 import type { VNodeChild } from 'vue';
 import type { PaginationProps } from './pagination';
-import type { FormProps } from '/@/components/Form';
+import type { FormProps } from '@/components/Form';
 import type {
   TableRowSelection as ITableRowSelection,
   Key,
 } from 'ant-design-vue/lib/table/interface';
+
 import type { ColumnProps } from 'ant-design-vue/lib/table';
 
 import { ComponentType } from './componentType';
-import { VueNode } from '/@/utils/propTypes';
-import { RoleEnum } from '/@/enums/roleEnum';
+import { VueNode } from '@/utils/propTypes';
+import { RoleEnum } from '@/enums/roleEnum';
+import { FixedType } from 'ant-design-vue/es/vc-table/interface';
 
 export declare type SortOrder = 'ascend' | 'descend';
 
@@ -91,10 +93,11 @@ export interface TableActionType {
   getSelectRows: <T = Recordable>() => T[];
   clearSelectedRowKeys: () => void;
   expandAll: () => void;
-  expandRows: (keys: (string | number)[]) => void;
   collapseAll: () => void;
+  expandRows: (keys: (string | number)[]) => void;
+  collapseRows: (keys: (string | number)[]) => void;
   scrollTo: (pos: string) => void; // pos: id | "top" | "bottom"
-  getSelectRowKeys: () => string[];
+  getSelectRowKeys: () => Key[];
   deleteSelectRowByKey: (key: string) => void;
   setPagination: (info: Partial<PaginationProps>) => void;
   setTableData: <T = Recordable>(values: T[]) => void;
@@ -137,6 +140,7 @@ export interface TableSetting {
   redo?: boolean;
   size?: boolean;
   setting?: boolean;
+  settingCache?: boolean;
   fullScreen?: boolean;
 }
 
@@ -400,7 +404,7 @@ export interface BasicTableProps<T = any> {
    * @param expanded
    * @param record
    */
-  onExpand?: (expande: boolean, record: T) => void;
+  onExpand?: (expanded: boolean, record: T) => void;
 
   /**
    * Callback executed when the expanded rows change
@@ -439,7 +443,7 @@ export interface BasicColumn extends ColumnProps<Recordable> {
   defaultHidden?: boolean;
 
   // Help text for table column header
-  helpMessage?: string | string[];
+  helpMessage?: string | string[] | VNodeChild | JSX.Element;
 
   format?: CellFormat;
 
@@ -469,6 +473,7 @@ export interface BasicColumn extends ColumnProps<Recordable> {
     record: Recordable;
     column: BasicColumn;
     index: number;
+    currentValue: string | number | boolean | Recordable;
   }) => VNodeChild | JSX.Element;
   // 动态 Disabled
   editDynamicDisabled?: boolean | ((record: Recordable) => boolean);
@@ -482,4 +487,15 @@ export type ColumnChangeParam = {
 
 export interface InnerHandlers {
   onColumnsChange: (data: ColumnChangeParam[]) => void;
+}
+
+export interface ColumnOptionsType {
+  value: string;
+  label: string;
+  //
+  column: {
+    defaultHidden?: boolean;
+  };
+  //
+  fixed?: FixedType;
 }

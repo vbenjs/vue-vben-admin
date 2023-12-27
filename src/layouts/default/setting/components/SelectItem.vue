@@ -11,54 +11,46 @@
     />
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent, PropType, computed } from 'vue';
+<script lang="ts" setup>
+  import { PropType, computed } from 'vue';
 
-  import { Select } from 'ant-design-vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import { Select, type SelectProps } from 'ant-design-vue';
+  import { useDesign } from '@/hooks/web/useDesign';
   import { baseHandler } from '../handler';
   import { HandlerEnum } from '../enum';
 
-  export default defineComponent({
-    name: 'SelectItem',
-    components: { Select },
-    props: {
-      event: {
-        type: Number as PropType<HandlerEnum>,
-      },
-      disabled: {
-        type: Boolean,
-      },
-      title: {
-        type: String,
-      },
-      def: {
-        type: [String, Number] as PropType<string | number>,
-      },
-      initValue: {
-        type: [String, Number] as PropType<string | number>,
-      },
-      options: {
-        type: Array as PropType<LabelValueOptions>,
-        default: () => [],
-      },
-    },
-    setup(props) {
-      const { prefixCls } = useDesign('setting-select-item');
-      const getBindValue = computed(() => {
-        return props.def ? { value: props.def, defaultValue: props.initValue || props.def } : {};
-      });
+  defineOptions({ name: 'SelectItem' });
 
-      function handleChange(e: ChangeEvent) {
-        props.event && baseHandler(props.event, e);
-      }
-      return {
-        prefixCls,
-        handleChange,
-        getBindValue,
-      };
+  const props = defineProps({
+    event: {
+      type: Number as PropType<HandlerEnum>,
+    },
+    disabled: {
+      type: Boolean,
+    },
+    title: {
+      type: String,
+    },
+    def: {
+      type: [String, Number] as PropType<string | number>,
+    },
+    initValue: {
+      type: [String, Number] as PropType<string | number>,
+    },
+    options: {
+      type: Array as PropType<LabelValueOptions>,
+      default: () => [],
     },
   });
+
+  const { prefixCls } = useDesign('setting-select-item');
+  const getBindValue = computed(() => {
+    return props.def ? { value: props.def, defaultValue: props.initValue || props.def } : {};
+  });
+
+  const handleChange: SelectProps['onChange'] = (val) => {
+    props.event && baseHandler(props.event, val);
+  };
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-setting-select-item';

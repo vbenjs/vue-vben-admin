@@ -1,8 +1,8 @@
-import type { MultiTabsSetting } from '/#/config';
+import type { MultiTabsSetting } from '#/config';
 
 import { computed } from 'vue';
 
-import { useAppStore } from '/@/store/modules/app';
+import { useAppStore } from '@/store/modules/app';
 
 export function useMultipleTabSetting() {
   const appStore = useAppStore();
@@ -15,6 +15,8 @@ export function useMultipleTabSetting() {
 
   const getShowFold = computed(() => appStore.getMultiTabsSetting.showFold);
 
+  const getAutoCollapse = computed(() => appStore.getMultiTabsSetting.autoCollapse);
+
   function setMultipleTabSetting(multiTabsSetting: Partial<MultiTabsSetting>) {
     appStore.setProjectConfig({ multiTabsSetting });
   }
@@ -24,5 +26,6 @@ export function useMultipleTabSetting() {
     getShowQuick,
     getShowRedo,
     getShowFold,
+    getAutoCollapse,
   };
 }

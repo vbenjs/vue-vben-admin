@@ -1,4 +1,10 @@
-import { addClass, hasClass, removeClass } from '/@/utils/domUtils';
+import { addClass, hasClass, removeClass } from '@/utils/domUtils';
+
+export type CustomColorType = {
+  name: string;
+  light: string;
+  dark: string;
+};
 
 export async function updateDarkTheme(mode: string | null = 'light') {
   const htmlRoot = document.getElementById('htmlRoot');

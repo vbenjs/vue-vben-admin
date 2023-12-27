@@ -1,4 +1,4 @@
-import { defHttp } from '/@/utils/http/axios';
+import { defHttp } from '@/utils/http/axios';
 
 enum Api {
   TREE_OPTIONS_LIST = '/tree/getDemoOptions',

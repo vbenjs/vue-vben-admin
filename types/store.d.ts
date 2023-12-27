@@ -1,6 +1,6 @@
-import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
-import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
-import { RoleInfo } from '/@/api/sys/model/userModel';
+import { ErrorTypeEnum } from '@/enums/exceptionEnum';
+import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum';
+import { RoleInfo } from '@/api/sys/model/userModel';
 
 // Lock screen information
 export interface LockInfo {
@@ -8,6 +8,11 @@ export interface LockInfo {
   pwd?: string | undefined;
   // Is it locked?
   isLock?: boolean;
+}
+
+export interface ApiAddress {
+  key: string;
+  val: string;
 }
 
 // Error-log information
@@ -45,4 +50,11 @@ export interface BeforeMiniState {
   menuSplit?: boolean;
   menuMode?: MenuModeEnum;
   menuType?: MenuTypeEnum;
+}
+
+export interface TableSetting {
+  size: Nullable<SizeType>;
+  showIndexColumn: Nullable<boolean>;
+  columns: Recordable<Nullable<Array<ColumnOptionsType>>>;
+  showRowSelection: Nullable<boolean>;
 }

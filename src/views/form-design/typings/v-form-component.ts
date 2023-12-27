@@ -2,14 +2,14 @@ import { IAnyObject } from './base-type';
 // import { ComponentOptions } from 'vue/types/options';
 import { ComponentOptions } from 'vue';
 import { IVFormMethods } from '../hooks/useVFormMethods';
-import { ColEx } from '/@/components/Form/src/types';
+import { ColEx } from '@/components/Form/src/types';
 
 import { SelectValue } from 'ant-design-vue/lib/select';
 import { validateOptions } from 'ant-design-vue/lib/form/useForm';
 import { RuleError } from 'ant-design-vue/lib/form/interface';
-import { FormItem } from '/@/components/Form';
+import { FormItem } from '@/components/Form';
+import { FormLayout, FormProps } from 'ant-design-vue/lib/form/Form';
 
-type LayoutType = 'horizontal' | 'vertical' | 'inline';
 type labelLayout = 'flex' | 'Grid';
 export type PropsTabKey = 1 | 2 | 3;
 type ColSpanType = number | string;
@@ -75,28 +75,25 @@ declare type namesType = string | string[];
 /**
  * 表单配置
  */
-export interface IFormConfig {
-  // 表单项配置列表
-  // schemas: IVFormComponent[];
-  // 表单配置
-  // config: {
-  layout?: LayoutType;
+export type PickAntFormConfig = Pick<
+  FormProps,
+  | 'layout'
+  | 'size'
+  | 'colon'
+  | 'labelAlign'
+  | 'disabled'
+  | 'labelCol'
+  | 'wrapperCol'
+  | 'hideRequiredMark'
+>;
+
+// 使用extends 而不使用 &联结 是为了避免 type:check指令类型重载错误
+export interface IFormConfig extends PickAntFormConfig {
   labelLayout?: labelLayout;
   labelWidth?: number;
-  labelCol?: Partial<IACol>;
-  wrapperCol?: Partial<IACol>;
-  hideRequiredMark?: boolean;
-  // Whether to disable
   schemas: IVFormComponent[];
-  disabled?: boolean;
-  labelAlign?: 'left' | 'right';
-  // Internal component size of the form
-  size?: 'default' | 'small' | 'large';
-  // };
-  // 当前选中项
   currentItem?: IVFormComponent;
   activeKey?: PropsTabKey;
-  colon?: boolean;
 }
 
 export interface AForm {
@@ -118,7 +115,7 @@ export interface AForm {
    * @default 'horizontal'
    * @type string
    */
-  layout: 'horizontal' | 'inline' | 'vertical';
+  layout: FormLayout;
 
   /**
    * The layout for input controls, same as labelCol

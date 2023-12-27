@@ -1,6 +1,6 @@
-import { colorIsDark, lighten, darken } from '/@/utils/color';
-import { useAppStore } from '/@/store/modules/app';
-import { ThemeEnum } from '/@/enums/appEnum';
+import { colorIsDark, lighten, darken } from '@/utils/color';
+import { useAppStore } from '@/store/modules/app';
+import { ThemeEnum } from '@/enums/appEnum';
 import { setCssVar } from './util';
 
 const HEADER_BG_COLOR_VAR = '--header-bg-color';
@@ -25,6 +25,7 @@ export function updateHeaderBgColor(color?: string) {
       color = appStore.getHeaderSetting.bgColor;
     }
   }
+
   // bg color
   setCssVar(HEADER_BG_COLOR_VAR, color);
 

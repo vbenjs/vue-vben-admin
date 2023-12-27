@@ -1,6 +1,6 @@
 <template>
   <List item-layout="vertical" :class="prefixCls">
-    <template v-for="item in list" :key="item.title">
+    <template v-for="item in articleList" :key="item.title">
       <ListItem>
         <ListItemMeta>
           <template #description>
@@ -39,28 +39,15 @@
     </template>
   </List>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import { List, Tag } from 'ant-design-vue';
   import Icon from '@/components/Icon/Icon.vue';
   import { actions, articleList } from './data';
 
-  export default defineComponent({
-    components: {
-      List,
-      ListItem: List.Item,
-      ListItemMeta: List.Item.Meta,
-      Tag,
-      Icon,
-    },
-    setup() {
-      return {
-        prefixCls: 'account-center-article',
-        list: articleList,
-        actions,
-      };
-    },
-  });
+  const ListItem = List.Item;
+  const ListItemMeta = List.Item.Meta;
+
+  const prefixCls = 'account-center-article';
 </script>
 <style lang="less" scoped>
   .account-center-article {
@@ -70,13 +57,13 @@
     }
 
     &__content {
-      color: rgb(0 0 0 / 65%);
+      color: @text-color-secondary;
     }
 
     &__action {
       display: inline-block;
       padding: 0 16px;
-      color: rgb(0 0 0 / 45%);
+      color: @text-color-secondary;
 
       &:nth-child(1),
       &:nth-child(2) {

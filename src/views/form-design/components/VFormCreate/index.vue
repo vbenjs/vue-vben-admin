@@ -78,9 +78,16 @@
       const fApi = useVModel(props, 'fApi', emit);
 
       const { submit, validate, clearValidate, resetFields, validateField } =
-        useFormInstanceMethods(props, formModelNew, context, eFormModel);
+        useFormInstanceMethods<['submit', 'change', 'update:fApi', 'update:formModel']>(
+          props,
+          formModelNew,
+          context,
+          eFormModel,
+        );
 
-      const { linkOn, ...methods } = useVFormMethods(
+      const { linkOn, ...methods } = useVFormMethods<
+        ['submit', 'change', 'update:fApi', 'update:formModel']
+      >(
         { formConfig: props.formConfig, formData: props.formModel } as unknown as IProps,
         context,
         eFormModel,

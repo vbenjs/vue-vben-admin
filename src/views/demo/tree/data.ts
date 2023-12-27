@@ -1,9 +1,10 @@
-import { TreeItem } from '/@/components/Tree/index';
+import { TreeItem } from '@/components/Tree';
 
 export const treeData: TreeItem[] = [
   {
     title: 'parent ',
     key: '0-0',
+    icon: 'ion:settings-outline',
     children: [
       { title: 'leaf', key: '0-0-0' },
       {

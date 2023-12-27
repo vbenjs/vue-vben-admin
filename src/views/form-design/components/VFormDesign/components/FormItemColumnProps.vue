@@ -9,7 +9,7 @@
         <div v-for="item of baseItemColumnProps" :key="item.name">
           <FormItem :label="item.label" v-if="showProps(item.exclude)">
             <component
-              v-if="formConfig.currentItem.colProps"
+              v-if="formConfig.currentItem.colProps && item.component"
               class="component-props"
               v-bind="item.componentProps"
               :is="item.component"

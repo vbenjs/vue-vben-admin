@@ -13,3 +13,4 @@ dist
 .local
 /bin
 Dockerfile
+package.json

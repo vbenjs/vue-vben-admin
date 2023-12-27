@@ -1,10 +1,10 @@
 import { computed, onUnmounted, unref, watchEffect } from 'vue';
 import { useThrottleFn } from '@vueuse/core';
 
-import { useAppStore } from '/@/store/modules/app';
-import { useLockStore } from '/@/store/modules/lock';
+import { useAppStore } from '@/store/modules/app';
+import { useLockStore } from '@/store/modules/lock';
 
-import { useUserStore } from '/@/store/modules/user';
+import { useUserStore } from '@/store/modules/user';
 import { useRootSetting } from '../setting/useRootSetting';
 
 export function useLockPage() {
@@ -32,9 +32,12 @@ export function useLockPage() {
     }
     clear();
 
-    timeId = setTimeout(() => {
-      lockPage();
-    }, lockTime * 60 * 1000);
+    timeId = setTimeout(
+      () => {
+        lockPage();
+      },
+      lockTime * 60 * 1000,
+    );
   }
 
   function lockPage(): void {

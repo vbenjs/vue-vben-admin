@@ -11,6 +11,7 @@ export const ROLES_KEY = 'ROLES__KEY__';
 
 // project config key
 export const PROJ_CFG_KEY = 'PROJ__CFG__KEY__';
+export const API_ADDRESS = 'API_ADDRESS__';
 
 // lock info
 export const LOCK_INFO_KEY = 'LOCK__INFO__KEY__';
@@ -24,6 +25,9 @@ export const APP_LOCAL_CACHE_KEY = 'COMMON__LOCAL__KEY__';
 
 // base global session key
 export const APP_SESSION_CACHE_KEY = 'COMMON__SESSION__KEY__';
+
+// table 列设置
+export const TABLE_SETTING_KEY = 'TABLE__SETTING__KEY__';
 
 export enum CacheTypeEnum {
   SESSION,

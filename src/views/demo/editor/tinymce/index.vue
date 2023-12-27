@@ -3,19 +3,13 @@
     <Tinymce v-model="value" @change="handleChange" width="100%" />
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { Tinymce } from '/@/components/Tinymce/index';
-  import { PageWrapper } from '/@/components/Page';
+<script lang="ts" setup>
+  import { ref } from 'vue';
+  import { Tinymce } from '@/components/Tinymce';
+  import { PageWrapper } from '@/components/Page';
 
-  export default defineComponent({
-    components: { Tinymce, PageWrapper },
-    setup() {
-      const value = ref('hello world!');
-      function handleChange(value: string) {
-        console.log(value);
-      }
-      return { handleChange, value };
-    },
-  });
+  const value = ref('hello world!');
+  function handleChange(value: string) {
+    console.log(value);
+  }
 </script>

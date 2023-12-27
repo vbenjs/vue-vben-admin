@@ -10,10 +10,10 @@
     </template>
 
     <div :class="`${prefixCls}__container`">
-      <a-list>
-        <template v-for="item in list" :key="item.id">
-          <a-list-item>
-            <a-list-item-meta>
+      <List>
+        <template v-for="item in searchList" :key="item.id">
+          <List.Item>
+            <List.Item.Meta>
               <template #description>
                 <div :class="`${prefixCls}__content`">
                   {{ item.content }}
@@ -45,40 +45,21 @@
                   </template>
                 </div>
               </template>
-            </a-list-item-meta>
-          </a-list-item>
+            </List.Item.Meta>
+          </List.Item>
         </template>
-      </a-list>
+      </List>
     </div>
   </PageWrapper>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
   import { Tag, List } from 'ant-design-vue';
-  import { defineComponent } from 'vue';
   import Icon from '@/components/Icon/Icon.vue';
-  import { BasicForm } from '/@/components/Form/index';
+  import { BasicForm } from '@/components/Form';
   import { actions, searchList, schemas } from './data';
-  import { PageWrapper } from '/@/components/Page';
+  import { PageWrapper } from '@/components/Page';
 
-  export default defineComponent({
-    components: {
-      Icon,
-      Tag,
-      BasicForm,
-      PageWrapper,
-      [List.name]: List,
-      [List.Item.name]: List.Item,
-      AListItemMeta: List.Item.Meta,
-    },
-    setup() {
-      return {
-        prefixCls: 'list-search',
-        list: searchList,
-        actions,
-        schemas,
-      };
-    },
-  });
+  const prefixCls = 'list-search';
 </script>
 <style lang="less" scoped>
   .list-search {

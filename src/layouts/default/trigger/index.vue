@@ -2,9 +2,9 @@
   <SiderTrigger v-if="sider" />
   <HeaderTrigger v-else :theme="theme" />
 </template>
-<script lang="ts"></script>
+
 <script lang="ts" setup>
-  import { propTypes } from '/@/utils/propTypes';
+  import { propTypes } from '@/utils/propTypes';
   import HeaderTrigger from './HeaderTrigger.vue';
   import SiderTrigger from './SiderTrigger.vue';
 

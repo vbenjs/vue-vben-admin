@@ -1,7 +1,7 @@
-import type { AppRouteModule } from '/@/router/types';
+import type { AppRouteModule } from '@/router/types';
 
-import { LAYOUT } from '/@/router/constant';
-import { t } from '/@/hooks/web/useI18n';
+import { LAYOUT } from '@/router/constant';
+import { t } from '@/hooks/web/useI18n';
 
 const system: AppRouteModule = {
   path: '/system',
@@ -21,7 +21,16 @@ const system: AppRouteModule = {
         title: t('routes.demo.system.account'),
         ignoreKeepAlive: false,
       },
-      component: () => import('/@/views/demo/system/account/index.vue'),
+      component: () => import('@/views/demo/system/account/index.vue'),
+    },
+    {
+      path: 'vxeTableAccount',
+      name: 'VxeTableAccountManagement',
+      meta: {
+        title: t('routes.demo.system.vxeTableAccount'),
+        ignoreKeepAlive: false,
+      },
+      component: () => import('@/views/demo/system/vxe-account/index.vue'),
     },
     {
       path: 'account_detail/:id',
@@ -33,7 +42,7 @@ const system: AppRouteModule = {
         showMenu: false,
         currentActiveMenu: '/system/account',
       },
-      component: () => import('/@/views/demo/system/account/AccountDetail.vue'),
+      component: () => import('@/views/demo/system/account/AccountDetail.vue'),
     },
     {
       path: 'role',
@@ -42,7 +51,7 @@ const system: AppRouteModule = {
         title: t('routes.demo.system.role'),
         ignoreKeepAlive: true,
       },
-      component: () => import('/@/views/demo/system/role/index.vue'),
+      component: () => import('@/views/demo/system/role/index.vue'),
     },
 
     {
@@ -52,7 +61,7 @@ const system: AppRouteModule = {
         title: t('routes.demo.system.menu'),
         ignoreKeepAlive: true,
       },
-      component: () => import('/@/views/demo/system/menu/index.vue'),
+      component: () => import('@/views/demo/system/menu/index.vue'),
     },
     {
       path: 'dept',
@@ -61,7 +70,7 @@ const system: AppRouteModule = {
         title: t('routes.demo.system.dept'),
         ignoreKeepAlive: true,
       },
-      component: () => import('/@/views/demo/system/dept/index.vue'),
+      component: () => import('@/views/demo/system/dept/index.vue'),
     },
     {
       path: 'changePassword',
@@ -70,7 +79,7 @@ const system: AppRouteModule = {
         title: t('routes.demo.system.password'),
         ignoreKeepAlive: true,
       },
-      component: () => import('/@/views/demo/system/password/index.vue'),
+      component: () => import('@/views/demo/system/password/index.vue'),
     },
   ],
 };

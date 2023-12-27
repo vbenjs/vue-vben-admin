@@ -1,11 +1,14 @@
 import { toRaw, ref, nextTick } from 'vue';
 import type { RouteLocationNormalized } from 'vue-router';
-import { useDesign } from '/@/hooks/web/useDesign';
-import { useSortable } from '/@/hooks/web/useSortable';
-import { useMultipleTabStore } from '/@/store/modules/multipleTab';
-import { isNullAndUnDef } from '/@/utils/is';
-import projectSetting from '/@/settings/projectSetting';
+import { useDesign } from '@/hooks/web/useDesign';
+import { useSortable } from '@/hooks/web/useSortable';
+import { useMultipleTabStore } from '@/store/modules/multipleTab';
+import { isNil } from '@/utils/is';
+import projectSetting from '@/settings/projectSetting';
 import { useRouter } from 'vue-router';
+import { useI18n } from '@/hooks/web/useI18n';
+
+const { t } = useI18n();
 
 export function initAffixTabs(): string[] {
   const affixList = ref<RouteLocationNormalized[]>([]);
@@ -60,15 +63,15 @@ export function useTabsDrag(affixTextList: string[]) {
       `.${prefixCls} .ant-tabs-nav-wrap > div`,
     )?.[0] as HTMLElement;
     const { initSortable } = useSortable(el, {
-      filter: (e: ChangeEvent) => {
-        const text = e?.target?.innerText;
+      filter: (_evt, target: HTMLElement) => {
+        const text = target.innerText;
         if (!text) return false;
-        return affixTextList.includes(text);
+        return affixTextList.map((res) => t(res)).includes(text);
       },
       onEnd: (evt) => {
         const { oldIndex, newIndex } = evt;
 
-        if (isNullAndUnDef(oldIndex) || isNullAndUnDef(newIndex) || oldIndex === newIndex) {
+        if (isNil(oldIndex) || isNil(newIndex) || oldIndex === newIndex) {
           return;
         }
 

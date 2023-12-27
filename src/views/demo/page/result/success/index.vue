@@ -13,41 +13,30 @@
     </Result>
     <div class="result-success__content">
       <Descriptions title="项目名称">
-        <DescriptionItem label="项目 ID"> 111222 </DescriptionItem>
-        <DescriptionItem label="负责人"> Vben </DescriptionItem>
-        <DescriptionItem label="生效时间"> 2016-12-12 ~ 2017-12-12 </DescriptionItem>
+        <Descriptions.Item label="项目 ID"> 111222 </Descriptions.Item>
+        <Descriptions.Item label="负责人"> Vben </Descriptions.Item>
+        <Descriptions.Item label="生效时间"> 2016-12-12 ~ 2017-12-12 </Descriptions.Item>
       </Descriptions>
       <Steps :current="1" progress-dot size="small">
-        <Step title="创建项目">
+        <Steps.Step title="创建项目">
           <template #description>
             <div>Vben</div>
             <p>2016-12-12 12:32</p>
           </template>
-        </Step>
-        <Step title="部门初审">
+        </Steps.Step>
+        <Steps.Step title="部门初审">
           <template #description>
             <p>Chad</p>
           </template>
-        </Step>
-        <Step title="财务复核" />
-        <Step title="完成" />
+        </Steps.Step>
+        <Steps.Step title="财务复核" />
+        <Steps.Step title="完成" />
       </Steps>
     </div>
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import { Result, Steps, Descriptions } from 'ant-design-vue';
-
-  export default defineComponent({
-    components: {
-      Result,
-      Steps,
-      Step: Steps.Step,
-      Descriptions,
-      DescriptionItem: Descriptions.Item,
-    },
-  });
 </script>
 <style lang="less" scoped>
   .result-success {
@@ -56,7 +45,7 @@
 
     &__content {
       padding: 24px 40px;
-      background-color: @background-color-light;
+      background-color: @app-content-background;
     }
   }
 </style>

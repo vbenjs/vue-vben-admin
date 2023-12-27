@@ -1,7 +1,7 @@
 import type { PropType } from 'vue';
 
 import { defineComponent, Transition, TransitionGroup } from 'vue';
-import { getSlot } from '/@/utils/helper/tsxHelper';
+import { getSlot } from '@/utils/helper/tsxHelper';
 
 type Mode = 'in-out' | 'out-in' | 'default' | undefined;
 
@@ -23,8 +23,8 @@ export function createSimpleTransition(name: string, origin = 'top center 0', mo
       },
     },
     setup(props, { slots, attrs }) {
-      const onBeforeEnter = (el: HTMLElement) => {
-        el.style.transformOrigin = props.origin;
+      const onBeforeEnter = (el: Element) => {
+        (el as HTMLElement).style.transformOrigin = props.origin;
       };
 
       return () => {

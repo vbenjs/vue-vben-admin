@@ -1,4 +1,4 @@
-import { defHttp } from '/@/utils/http/axios';
+import { defHttp } from '@/utils/http/axios';
 import { DemoParams, DemoListGetResultModel } from './model/tableModel';
 
 enum Api {

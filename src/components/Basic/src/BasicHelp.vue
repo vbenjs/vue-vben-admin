@@ -1,12 +1,12 @@
 <script lang="tsx">
-  import type { CSSProperties, PropType } from 'vue';
+  import type { CSSProperties, PropType, VNodeChild } from 'vue';
   import { defineComponent, computed, unref } from 'vue';
   import { Tooltip } from 'ant-design-vue';
   import { InfoCircleOutlined } from '@ant-design/icons-vue';
-  import { getPopupContainer } from '/@/utils';
-  import { isString, isArray } from '/@/utils/is';
-  import { getSlot } from '/@/utils/helper/tsxHelper';
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import { getPopupContainer } from '@/utils';
+  import { isString, isArray } from '@/utils/is';
+  import { getSlot } from '@/utils/helper/tsxHelper';
+  import { useDesign } from '@/hooks/web/useDesign';
 
   const props = {
     /**
@@ -36,7 +36,9 @@
     /**
      * Help text list
      */
-    text: { type: [Array, String] as PropType<string[] | string> },
+    text: {
+      type: [Array, String, Object] as PropType<string[] | string | VNodeChild | JSX.Element>,
+    },
   };
 
   export default defineComponent({
@@ -71,7 +73,7 @@
             );
           });
         }
-        return null;
+        return <div>{textList}</div>;
       }
 
       return () => {

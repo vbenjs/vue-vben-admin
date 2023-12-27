@@ -1,8 +1,8 @@
-import type { LockInfo, UserInfo } from '/#/store';
-import type { ProjectConfig } from '/#/config';
+import type { LockInfo, UserInfo, TableSetting } from '#/store';
+import type { ProjectConfig } from '#/config';
 import type { RouteLocationNormalized } from 'vue-router';
 
-import { createLocalStorage, createSessionStorage } from '/@/utils/cache';
+import { createLocalStorage, createSessionStorage } from '@/utils/cache';
 import { Memory } from './memory';
 import {
   TOKEN_KEY,
@@ -13,8 +13,9 @@ import {
   APP_LOCAL_CACHE_KEY,
   APP_SESSION_CACHE_KEY,
   MULTIPLE_TABS_KEY,
-} from '/@/enums/cacheEnum';
-import { DEFAULT_CACHE_TIME } from '/@/settings/encryptionSetting';
+  TABLE_SETTING_KEY,
+} from '@/enums/cacheEnum';
+import { DEFAULT_CACHE_TIME } from '@/settings/encryptionSetting';
 import { toRaw } from 'vue';
 import { pick, omit } from 'lodash-es';
 
@@ -25,6 +26,7 @@ interface BasicStore {
   [LOCK_INFO_KEY]: LockInfo;
   [PROJ_CFG_KEY]: ProjectConfig;
   [MULTIPLE_TABS_KEY]: RouteLocationNormalized[];
+  [TABLE_SETTING_KEY]: Partial<TableSetting>;
 }
 
 type LocalStore = BasicStore;

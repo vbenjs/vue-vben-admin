@@ -49,6 +49,7 @@
 
       // 计算json数据
       const editorJson = computed(() => {
+        // @ts-ignore
         return JSON.stringify(removeAttrs(state.jsonData), null, '\t');
       });
 

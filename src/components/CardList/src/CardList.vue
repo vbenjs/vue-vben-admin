@@ -10,22 +10,23 @@
         :pagination="paginationProp"
       >
         <template #header>
-          <div class="flex justify-end space-x-2"
-            ><slot name="header"></slot>
+          <div class="flex justify-end space-x-2">
+            <slot name="header"> </slot>
             <Tooltip>
               <template #title>
-                <div class="w-50">每行显示数量</div
-                ><Slider
+                <div class="w-50">每行显示数量</div>
+                <Slider
                   id="slider"
                   v-bind="sliderProp"
                   v-model:value="grid"
                   @change="sliderChange"
-              /></template>
-              <Button><TableOutlined /></Button>
+                />
+              </template>
+              <a-button><TableOutlined /></a-button>
             </Tooltip>
             <Tooltip @click="fetch">
               <template #title>刷新</template>
-              <Button><RedoOutlined /></Button>
+              <a-button><RedoOutlined /></a-button>
             </Tooltip>
           </div>
         </template>
@@ -39,8 +40,7 @@
                 </div>
               </template>
               <template #actions>
-                <!--              <SettingOutlined key="setting" />-->
-                <EditOutlined key="edit" />
+                <EditOutlined />
                 <Dropdown
                   :trigger="['hover']"
                   :dropMenuList="[
@@ -55,7 +55,7 @@
                   ]"
                   popconfirm
                 >
-                  <EllipsisOutlined key="ellipsis" />
+                  <EllipsisOutlined />
                 </Dropdown>
               </template>
 
@@ -84,11 +84,10 @@
     TableOutlined,
   } from '@ant-design/icons-vue';
   import { List, Card, Image, Typography, Tooltip, Slider, Avatar } from 'ant-design-vue';
-  import { Dropdown } from '/@/components/Dropdown';
-  import { BasicForm, useForm } from '/@/components/Form';
-  import { propTypes } from '/@/utils/propTypes';
-  import { Button } from '/@/components/Button';
-  import { isFunction } from '/@/utils/is';
+  import { Dropdown } from '@/components/Dropdown';
+  import { BasicForm, useForm } from '@/components/Form';
+  import { propTypes } from '@/utils/propTypes';
+  import { isFunction } from '@/utils/is';
   import { useSlider, grid } from './data';
 
   const ListItem = List.Item;
@@ -157,22 +156,22 @@
     pageSize,
     current: page,
     total,
-    showTotal: (total) => `总 ${total} 条`,
+    showTotal: (total: number) => `总 ${total} 条`,
     onChange: pageChange,
     onShowSizeChange: pageSizeChange,
   });
 
-  function pageChange(p, pz) {
+  function pageChange(p: number, pz: number) {
     page.value = p;
     pageSize.value = pz;
     fetch();
   }
-  function pageSizeChange(_current, size) {
+  function pageSizeChange(_current, size: number) {
     pageSize.value = size;
     fetch();
   }
 
-  async function handleDelete(id) {
+  async function handleDelete(id: number) {
     emit('delete', id);
   }
 </script>

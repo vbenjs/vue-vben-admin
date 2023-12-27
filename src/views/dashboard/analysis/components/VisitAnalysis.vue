@@ -1,12 +1,10 @@
 <template>
   <div ref="chartRef" :style="{ height, width }"></div>
 </template>
-<script lang="ts">
-  import { basicProps } from './props';
-</script>
 <script lang="ts" setup>
   import { onMounted, ref, Ref } from 'vue';
-  import { useECharts } from '/@/hooks/web/useECharts';
+  import { useECharts } from '@/hooks/web/useECharts';
+  import { basicProps } from './props';
 
   defineProps({
     ...basicProps,

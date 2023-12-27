@@ -10,50 +10,42 @@
     />
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent, PropType, computed } from 'vue';
+<script lang="ts" setup>
+  import { PropType, computed } from 'vue';
 
-  import { Switch } from 'ant-design-vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import { Switch, type SwitchProps } from 'ant-design-vue';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { useI18n } from '@/hooks/web/useI18n';
   import { baseHandler } from '../handler';
   import { HandlerEnum } from '../enum';
 
-  export default defineComponent({
-    name: 'SwitchItem',
-    components: { Switch },
-    props: {
-      event: {
-        type: Number as PropType<HandlerEnum>,
-      },
-      disabled: {
-        type: Boolean,
-      },
-      title: {
-        type: String,
-      },
-      def: {
-        type: Boolean,
-      },
-    },
-    setup(props) {
-      const { prefixCls } = useDesign('setting-switch-item');
-      const { t } = useI18n();
+  defineOptions({ name: 'SwitchItem' });
 
-      const getBindValue = computed(() => {
-        return props.def ? { checked: props.def } : {};
-      });
-      function handleChange(e: ChangeEvent) {
-        props.event && baseHandler(props.event, e);
-      }
-      return {
-        prefixCls,
-        t,
-        handleChange,
-        getBindValue,
-      };
+  const props = defineProps({
+    event: {
+      type: Number as PropType<HandlerEnum>,
+    },
+    disabled: {
+      type: Boolean,
+    },
+    title: {
+      type: String,
+    },
+    def: {
+      type: Boolean,
     },
   });
+
+  const { prefixCls } = useDesign('setting-switch-item');
+  const { t } = useI18n();
+
+  const getBindValue = computed(() => {
+    return props.def ? { checked: props.def } : {};
+  });
+
+  const handleChange: SwitchProps['onChange'] = (val) => {
+    props.event && baseHandler(props.event, val);
+  };
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-setting-switch-item';

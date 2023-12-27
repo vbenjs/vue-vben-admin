@@ -1,43 +1,38 @@
 <template>
-  <a-list :class="prefixCls" bordered :pagination="getPagination">
+  <List :class="prefixCls" bordered :pagination="getPagination">
     <template v-for="item in getData" :key="item.id">
-      <a-list-item class="list-item">
-        <a-list-item-meta>
+      <List.Item class="list-item">
+        <List.Item.Meta>
           <template #title>
             <div class="title">
-              <a-typography-paragraph
+              <Typography.Paragraph
                 @click="handleTitleClick(item)"
-                style="width: 100%; margin-bottom: 0 !important"
-                :style="{ cursor: isTitleClickable ? 'pointer' : '' }"
                 :delete="!!item.titleDelete"
                 :ellipsis="
-                  $props.titleRows && $props.titleRows > 0
-                    ? { rows: $props.titleRows, tooltip: !!item.title }
-                    : false
+                  titleRows && titleRows > 0 ? { rows: titleRows, tooltip: !!item.title } : false
                 "
                 :content="item.title"
               />
               <div class="extra" v-if="item.extra">
-                <a-tag class="tag" :color="item.color">
+                <Tag class="tag" :color="item.color">
                   {{ item.extra }}
-                </a-tag>
+                </Tag>
               </div>
             </div>
           </template>
 
           <template #avatar>
-            <a-avatar v-if="item.avatar" class="avatar" :src="item.avatar" />
+            <Avatar v-if="item.avatar" class="avatar" :src="item.avatar" />
             <span v-else> {{ item.avatar }}</span>
           </template>
 
           <template #description>
             <div>
               <div class="description" v-if="item.description">
-                <a-typography-paragraph
-                  style="width: 100%; margin-bottom: 0 !important"
+                <Typography.Paragraph
                   :ellipsis="
-                    $props.descRows && $props.descRows > 0
-                      ? { rows: $props.descRows, tooltip: !!item.description }
+                    descRows && descRows > 0
+                      ? { rows: descRows, tooltip: !!item.description }
                       : false
                   "
                   :content="item.description"
@@ -48,94 +43,85 @@
               </div>
             </div>
           </template>
-        </a-list-item-meta>
-      </a-list-item>
+        </List.Item.Meta>
+      </List.Item>
     </template>
-  </a-list>
+  </List>
 </template>
-<script lang="ts">
-  import { computed, defineComponent, PropType, ref, watch, unref } from 'vue';
+<script lang="ts" setup>
+  import { computed, PropType, ref, watch, unref } from 'vue';
   import { ListItem } from './data';
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import { useDesign } from '@/hooks/web/useDesign';
   import { List, Avatar, Tag, Typography } from 'ant-design-vue';
-  import { isNumber } from '/@/utils/is';
+  import { isNumber } from '@/utils/is';
 
-  export default defineComponent({
-    components: {
-      [Avatar.name]: Avatar,
-      [List.name]: List,
-      [List.Item.name]: List.Item,
-      AListItemMeta: List.Item.Meta,
-      ATypographyParagraph: Typography.Paragraph,
-      [Tag.name]: Tag,
+  const props = defineProps({
+    list: {
+      type: Array as PropType<ListItem[]>,
+      default: () => [],
     },
-    props: {
-      list: {
-        type: Array as PropType<ListItem[]>,
-        default: () => [],
-      },
-      pageSize: {
-        type: [Boolean, Number] as PropType<Boolean | Number>,
-        default: 5,
-      },
-      currentPage: {
-        type: Number,
-        default: 1,
-      },
-      titleRows: {
-        type: Number,
-        default: 1,
-      },
-      descRows: {
-        type: Number,
-        default: 2,
-      },
-      onTitleClick: {
-        type: Function as PropType<(Recordable) => void>,
-      },
+    pageSize: {
+      type: [Boolean, Number] as PropType<Boolean | Number>,
+      default: 5,
     },
-    emits: ['update:currentPage'],
-    setup(props, { emit }) {
-      const { prefixCls } = useDesign('header-notify-list');
-      const current = ref(props.currentPage || 1);
-      const getData = computed(() => {
-        const { pageSize, list } = props;
-        if (pageSize === false) return [];
-        let size = isNumber(pageSize) ? pageSize : 5;
-        return list.slice(size * (unref(current) - 1), size * unref(current));
-      });
-      watch(
-        () => props.currentPage,
-        (v) => {
-          current.value = v;
-        },
-      );
-      const isTitleClickable = computed(() => !!props.onTitleClick);
-      const getPagination = computed(() => {
-        const { list, pageSize } = props;
-        if (pageSize > 0 && list && list.length > pageSize) {
-          return {
-            total: list.length,
-            pageSize,
-            //size: 'small',
-            current: unref(current),
-            onChange(page) {
-              current.value = page;
-              emit('update:currentPage', page);
-            },
-          };
-        } else {
-          return false;
-        }
-      });
-
-      function handleTitleClick(item: ListItem) {
-        props.onTitleClick && props.onTitleClick(item);
-      }
-
-      return { prefixCls, getPagination, getData, handleTitleClick, isTitleClickable };
+    currentPage: {
+      type: Number,
+      default: 1,
+    },
+    titleRows: {
+      type: Number,
+      default: 1,
+    },
+    descRows: {
+      type: Number,
+      default: 2,
+    },
+    onTitleClick: {
+      type: Function as PropType<(Recordable) => void>,
     },
   });
+
+  const emit = defineEmits(['update:currentPage']);
+
+  const { prefixCls } = useDesign('header-notify-list');
+  const current = ref(props.currentPage || 1);
+  const getData = computed(() => {
+    const { pageSize, list } = props;
+    if (pageSize === false) return [];
+    let size = isNumber(pageSize) ? pageSize : 5;
+    return list.slice(size * (unref(current) - 1), size * unref(current));
+  });
+  watch(
+    () => props.currentPage,
+    (v) => {
+      current.value = v;
+    },
+  );
+  const getPagination = computed(() => {
+    const { list, pageSize } = props;
+
+    // compatible line 104
+    // if typeof pageSize is boolean, Number(true) && 5 = 5, Number(false) && 5 = 0
+    const size = isNumber(pageSize) ? pageSize : Number(pageSize) && 5;
+
+    if (size > 0 && list && list.length > size) {
+      return {
+        total: list.length,
+        pageSize: size,
+        current: unref(current),
+        onChange(page) {
+          current.value = page;
+          emit('update:currentPage', page);
+        },
+      };
+    } else {
+      return false;
+    }
+  });
+
+  function handleTitleClick(item: ListItem) {
+    props.onTitleClick && props.onTitleClick(item);
+  }
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-header-notify-list';
@@ -149,7 +135,7 @@
       display: inline-block !important;
     }
 
-    &-item {
+    .list-item {
       padding: 6px;
       overflow: hidden;
       transition: all 0.3s;
@@ -169,21 +155,21 @@
             margin-right: 0;
           }
         }
+      }
 
-        .avatar {
-          margin-top: 4px;
-        }
+      .avatar {
+        margin-top: 4px;
+      }
 
-        .description {
-          font-size: 12px;
-          line-height: 18px;
-        }
+      .description {
+        font-size: 12px;
+        line-height: 18px;
+      }
 
-        .datetime {
-          margin-top: 4px;
-          font-size: 12px;
-          line-height: 18px;
-        }
+      .datetime {
+        margin-top: 4px;
+        font-size: 12px;
+        line-height: 18px;
       }
     }
   }

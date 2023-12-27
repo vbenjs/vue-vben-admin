@@ -22,7 +22,12 @@ function getConfFiles() {
  * @param match prefix
  * @param confFiles ext
  */
-export async function getEnvConfig(match = 'VITE_GLOB_', confFiles = getConfFiles()) {
+export async function getEnvConfig(
+  match = 'VITE_GLOB_',
+  confFiles = getConfFiles(),
+): Promise<{
+  [key: string]: string;
+}> {
   let envConfig = {};
 
   for (const confFile of confFiles) {

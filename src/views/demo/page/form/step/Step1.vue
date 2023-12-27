@@ -3,17 +3,17 @@
     <div class="step1-form">
       <BasicForm @register="register">
         <template #fac="{ model, field }">
-          <a-input-group compact>
-            <a-select v-model:value="model['pay']" class="pay-select">
-              <a-select-option value="zfb"> 支付宝 </a-select-option>
-              <a-select-option value="yl"> 银联 </a-select-option>
-            </a-select>
+          <Input.Group compact>
+            <Select v-model:value="model['pay']" class="pay-select">
+              <Select.Option value="zfb"> 支付宝 </Select.Option>
+              <Select.Option value="yl"> 银联 </Select.Option>
+            </Select>
             <a-input class="pay-input" v-model:value="model[field]" />
-          </a-input-group>
+          </Input.Group>
         </template>
       </BasicForm>
     </div>
-    <a-divider />
+    <Divider />
     <h3>说明</h3>
     <h4>转账到支付宝账户</h4>
     <p>
@@ -26,49 +26,35 @@
     </p>
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicForm, useForm } from '/@/components/Form';
+<script lang="ts" setup>
+  import { BasicForm, useForm } from '@/components/Form';
   import { step1Schemas } from './data';
 
   import { Select, Input, Divider } from 'ant-design-vue';
 
-  export default defineComponent({
-    components: {
-      BasicForm,
-      [Select.name]: Select,
-      ASelectOption: Select.Option,
-      [Input.name]: Input,
-      [Input.Group.name]: Input.Group,
-      [Divider.name]: Divider,
-    },
-    emits: ['next'],
-    setup(_, { emit }) {
-      const [register, { validate }] = useForm({
-        labelWidth: 100,
-        schemas: step1Schemas,
-        actionColOptions: {
-          span: 14,
-        },
-        showResetButton: false,
-        submitButtonOptions: {
-          text: '下一步',
-        },
-        submitFunc: customSubmitFunc,
-      });
+  const emit = defineEmits(['next']);
 
-      async function customSubmitFunc() {
-        try {
-          const values = await validate();
-          emit('next', values);
-        } catch (error) {
-          //
-        }
-      }
-
-      return { register };
+  const [register, { validate }] = useForm({
+    labelWidth: 100,
+    schemas: step1Schemas,
+    actionColOptions: {
+      span: 14,
     },
+    showResetButton: false,
+    submitButtonOptions: {
+      text: '下一步',
+    },
+    submitFunc: customSubmitFunc,
   });
+
+  async function customSubmitFunc() {
+    try {
+      const values = await validate();
+      emit('next', values);
+    } catch (error) {
+      //
+    }
+  }
 </script>
 <style lang="less" scoped>
   .step1 {
@@ -79,20 +65,20 @@
 
     h3 {
       margin: 0 0 12px;
-      color: @text-color;
+      color: @text-color-base;
       font-size: 16px;
       line-height: 32px;
     }
 
     h4 {
       margin: 0 0 4px;
-      color: @text-color;
+      color: @text-color-base;
       font-size: 14px;
       line-height: 22px;
     }
 
     p {
-      color: @text-color;
+      color: @text-color-base;
     }
   }
 

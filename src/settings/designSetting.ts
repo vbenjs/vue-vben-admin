@@ -2,7 +2,16 @@ import { ThemeEnum } from '../enums/appEnum';
 
 export const prefixCls = 'vben';
 
+export const multipleTabHeight = 30;
+
 export const darkMode = ThemeEnum.LIGHT;
+
+// 页脚固定高度
+export const footerHeight = 75;
+
+// .@{namespace}-layout-multiple-header__placeholder
+// 全屏页头动画时长
+export const layoutMultipleHeadePlaceholderTime = 0.6;
 
 // app theme preset color
 export const APP_PRESET_COLOR_LIST: string[] = [

@@ -1,7 +1,7 @@
 <template>
   <PageWrapper title="图片裁剪示例" content="需要开启测试接口服务才能进行上传测试！">
     <CollapseContainer title="头像裁剪">
-      <CropperAvatar :uploadApi="uploadApi" :value="avatar" />
+      <CropperAvatar :uploadApi="uploadApi as any" :value="avatar" />
     </CollapseContainer>
 
     <CollapseContainer title="矩形裁剪" class="my-4">
@@ -31,52 +31,30 @@
     </CollapseContainer>
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { PageWrapper } from '/@/components/Page';
-  import { CollapseContainer } from '/@/components/Container';
-  import { CropperImage, CropperAvatar } from '/@/components/Cropper';
-  import { uploadApi } from '/@/api/sys/upload';
-  import img from '/@/assets/images/header.jpg';
-  import { useUserStore } from '/@/store/modules/user';
+<script lang="ts" setup>
+  import { ref } from 'vue';
+  import { PageWrapper } from '@/components/Page';
+  import { CollapseContainer } from '@/components/Container';
+  import { CropperImage, CropperAvatar } from '@/components/Cropper';
+  import { uploadApi } from '@/api/sys/upload';
+  import img from '@/assets/images/header.jpg';
+  import { useUserStore } from '@/store/modules/user';
 
-  export default defineComponent({
-    components: {
-      PageWrapper,
-      CropperImage,
-      CollapseContainer,
-      CropperAvatar,
-    },
-    setup() {
-      const info = ref('');
-      const cropperImg = ref('');
-      const circleInfo = ref('');
-      const circleImg = ref('');
-      const userStore = useUserStore();
-      const avatar = ref(userStore.getUserInfo?.avatar || '');
-      function handleCropend({ imgBase64, imgInfo }) {
-        info.value = imgInfo;
-        cropperImg.value = imgBase64;
-      }
+  const info = ref('');
+  const cropperImg = ref('');
+  const circleInfo = ref('');
+  const circleImg = ref('');
+  const userStore = useUserStore();
+  const avatar = ref(userStore.getUserInfo?.avatar || '');
+  function handleCropend({ imgBase64, imgInfo }) {
+    info.value = imgInfo;
+    cropperImg.value = imgBase64;
+  }
 
-      function handleCircleCropend({ imgBase64, imgInfo }) {
-        circleInfo.value = imgInfo;
-        circleImg.value = imgBase64;
-      }
-
-      return {
-        img,
-        info,
-        circleInfo,
-        cropperImg,
-        circleImg,
-        handleCropend,
-        handleCircleCropend,
-        avatar,
-        uploadApi: uploadApi as any,
-      };
-    },
-  });
+  function handleCircleCropend({ imgBase64, imgInfo }) {
+    circleInfo.value = imgInfo;
+    circleImg.value = imgBase64;
+  }
 </script>
 
 <style scoped>

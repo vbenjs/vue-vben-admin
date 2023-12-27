@@ -1,10 +1,15 @@
-import type { FormProps, FormActionType, UseFormReturnType, FormSchema } from '../types/form';
+import type {
+  FormProps,
+  FormActionType,
+  UseFormReturnType,
+  FormSchemaInner as FormSchema,
+} from '../types/form';
 import type { NamePath } from 'ant-design-vue/lib/form/interface';
-import type { DynamicProps } from '/#/utils';
+import type { DynamicProps } from '#/utils';
 import { ref, onUnmounted, unref, nextTick, watch } from 'vue';
-import { isProdMode } from '/@/utils/env';
-import { error } from '/@/utils/log';
-import { getDynamicProps } from '/@/utils';
+import { isProdMode } from '@/utils/env';
+import { error } from '@/utils/log';
+import { getDynamicProps } from '@/utils';
 
 export declare type ValidateFields = (nameList?: NamePath[]) => Promise<Recordable>;
 
@@ -88,15 +93,15 @@ export function useForm(props?: Props): UseFormReturnType {
       return unref(formRef)?.getFieldsValue() as T;
     },
 
-    setFieldsValue: async <T>(values: T) => {
+    setFieldsValue: async <T extends Recordable<any>>(values: T) => {
       const form = await getForm();
-      form.setFieldsValue<T>(values);
+      form.setFieldsValue(values);
     },
 
     appendSchemaByField: async (
       schema: FormSchema | FormSchema[],
       prefixField: string | undefined,
-      first: boolean,
+      first?: boolean,
     ) => {
       const form = await getForm();
       form.appendSchemaByField(schema, prefixField, first);
@@ -107,7 +112,7 @@ export function useForm(props?: Props): UseFormReturnType {
       return form.submit();
     },
 
-    validate: async (nameList?: NamePath[]): Promise<Recordable> => {
+    validate: async <T = Recordable>(nameList?: NamePath[] | false): Promise<T> => {
       const form = await getForm();
       return form.validate(nameList);
     },

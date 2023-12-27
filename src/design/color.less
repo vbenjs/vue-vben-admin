@@ -1,4 +1,10 @@
 html {
+  // text
+  --text-color: rgba(0 0 0 / 85%);
+
+  // border
+  --border-color: #eee;
+
   // header
   --header-bg-color: #394664;
   --header-bg-hover-color: #273352;
@@ -8,11 +14,44 @@ html {
   --sider-dark-bg-color: #273352;
   --sider-dark-darken-bg-color: #273352;
   --sider-dark-lighten-bg-color: #273352;
+
+  // component
+  --component-background-color: #fff;
+
+  // app
+  --app-content-background-color: #fafafa;
+
+  // custom color example
+  --custom-example-color: #ff4d4f;
+
+  // dark theme
+  &[data-theme='dark'] {
+    // text
+    --text-color: #c9d1d9;
+
+    // border
+    --border-color: #303030;
+
+    // component
+    --component-background-color: #151515;
+
+    // app
+    --app-content-background-color: #1e1e1e;
+
+    // custom color example
+    --custom-example-color: #55d187;
+  }
 }
 
 @white: #fff;
 
 @content-bg: #f4f7f9;
+
+@border-color-base: var(--border-color);
+
+@text-color-secondary: #8b949e;
+
+@component-background: var(--component-background-color);
 
 // :export {
 //   name: "less";
@@ -22,7 +61,7 @@ html {
 @iconify-bg-color: #5551;
 
 // =================================
-// ==============border-color=======
+// =========border-color============
 // =================================
 
 // Dark-dark
@@ -35,7 +74,7 @@ html {
 @border-color-light: @border-color-base;
 
 // =================================
-// ==============message==============
+// ============message==============
 // =================================
 
 // success-bg-color
@@ -50,7 +89,6 @@ html {
 // =================================
 // ==============Header=============
 // =================================
-
 @header-dark-bg-color: var(--header-bg-color);
 @header-dark-bg-hover-color: var(--header-bg-hover-color);
 @header-light-bg-hover-color: #f6f6f6;
@@ -60,7 +98,7 @@ html {
 @top-menu-active-bg-color: var(--header-active-menu-bg-color);
 
 // =================================
-// ==============Menu============
+// ==============Menu===============
 // =================================
 
 // let -menu
@@ -73,7 +111,7 @@ html {
 @trigger-dark-bg-color: rgba(255, 255, 255, 0.1);
 
 // =================================
-// ==============tree============
+// ==============tree===============
 // =================================
 // tree item hover background
 @tree-hover-background-color: #f5f7fa;
@@ -81,17 +119,22 @@ html {
 @tree-hover-font-color: #f5f7fa;
 
 // =================================
-// ==============link============
+// ==============link===============
 // =================================
 @link-hover-color: @primary-color;
 @link-active-color: darken(@primary-color, 10%);
 
 // =================================
-// ==============Text color-=============
+// ===========Text color============
 // =================================
 
 // Main text color
-@text-color-base: @text-color;
+@text-color-base: var(--text-color);
+
+// =================================
+// =======app content color=========
+// =================================
+@app-content-background: var(--app-content-background-color);
 
 // Label color
 @text-color-call-out: #606266;
@@ -100,7 +143,7 @@ html {
 @text-color-help-dark: #909399;
 
 // =================================
-// ==============breadcrumb=========
+// ============breadcrumb===========
 // =================================
 @breadcrumb-item-normal-color: #999;
 // =================================
@@ -136,3 +179,8 @@ html {
 @button-cancel-hover-color: @primary-color;
 @button-cancel-hover-bg-color: @white;
 @button-cancel-hover-border-color: @primary-color;
+
+// =================================
+// =====custom color example========
+// =================================
+@custom-example-color: var(--custom-example-color);

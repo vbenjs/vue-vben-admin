@@ -1,7 +1,7 @@
 import { Tag } from 'ant-design-vue';
-import { BasicColumn } from '/@/components/Table/index';
-import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
-import { useI18n } from '/@/hooks/web/useI18n';
+import { BasicColumn } from '@/components/Table';
+import { ErrorTypeEnum } from '@/enums/exceptionEnum';
+import { useI18n } from '@/hooks/web/useI18n';
 
 const { t } = useI18n();
 

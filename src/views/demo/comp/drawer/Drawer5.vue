@@ -4,11 +4,6 @@
     <template #titleToolbar> toolbar </template>
   </BasicDrawer>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicDrawer } from '/@/components/Drawer';
-
-  export default defineComponent({
-    components: { BasicDrawer },
-  });
+<script lang="ts" setup>
+  import { BasicDrawer } from '@/components/Drawer';
 </script>

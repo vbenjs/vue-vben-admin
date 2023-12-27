@@ -8,26 +8,16 @@
     <Divider />
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent, computed } from 'vue';
-  import { useAppStore } from '/@/store/modules/app';
-  import { PermissionModeEnum } from '/@/enums/appEnum';
+<script lang="ts" setup>
+  import { computed } from 'vue';
+  import { useAppStore } from '@/store/modules/app';
+  import { PermissionModeEnum } from '@/enums/appEnum';
   import { Divider } from 'ant-design-vue';
-  import { usePermission } from '/@/hooks/web/usePermission';
+  import { usePermission } from '@/hooks/web/usePermission';
 
-  export default defineComponent({
-    name: 'CurrentPermissionMode',
-    components: { Divider },
-    setup() {
-      const appStore = useAppStore();
-      const permissionMode = computed(() => appStore.getProjectConfig.permissionMode);
-      const { togglePermissionMode } = usePermission();
+  defineOptions({ name: 'CurrentPermissionMode' });
 
-      return {
-        permissionMode,
-        PermissionModeEnum,
-        togglePermissionMode,
-      };
-    },
-  });
+  const appStore = useAppStore();
+  const permissionMode = computed(() => appStore.getProjectConfig.permissionMode);
+  const { togglePermissionMode } = usePermission();
 </script>

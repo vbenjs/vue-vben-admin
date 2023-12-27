@@ -50,49 +50,30 @@
     </div>
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { BasicDragVerify, DragVerifyActionType, PassingData } from '/@/components/Verify/index';
-  import { useMessage } from '/@/hooks/web/useMessage';
+<script lang="ts" setup>
+  import { ref } from 'vue';
+  import { BasicDragVerify, DragVerifyActionType, PassingData } from '@/components/Verify';
+  import { useMessage } from '@/hooks/web/useMessage';
   import { BugOutlined, RightOutlined } from '@ant-design/icons-vue';
-  import { PageWrapper } from '/@/components/Page';
+  import { PageWrapper } from '@/components/Page';
   import { type Nullable } from '@vben/types';
 
-  export default defineComponent({
-    components: { BasicDragVerify, BugOutlined, RightOutlined, PageWrapper },
-    setup() {
-      const { createMessage } = useMessage();
-      const el1 = ref<Nullable<DragVerifyActionType>>(null);
-      const el2 = ref<Nullable<DragVerifyActionType>>(null);
-      const el3 = ref<Nullable<DragVerifyActionType>>(null);
-      const el4 = ref<Nullable<DragVerifyActionType>>(null);
-      const el5 = ref<Nullable<DragVerifyActionType>>(null);
+  const { createMessage } = useMessage();
+  const el1 = ref<Nullable<DragVerifyActionType>>(null);
+  const el2 = ref<Nullable<DragVerifyActionType>>(null);
+  const el3 = ref<Nullable<DragVerifyActionType>>(null);
+  const el4 = ref<Nullable<DragVerifyActionType>>(null);
+  const el5 = ref<Nullable<DragVerifyActionType>>(null);
 
-      function handleSuccess(data: PassingData) {
-        const { time } = data;
-        createMessage.success(`校验成功,耗时${time}秒`);
-      }
-
-      function handleBtnClick(elRef: Nullable<DragVerifyActionType>) {
-        if (!elRef) {
-          return;
-        }
-        elRef.resume();
-      }
-      return {
-        handleSuccess,
-        el1,
-        el2,
-        el3,
-        el4,
-        el5,
-        handleBtnClick,
-      };
-    },
-  });
-</script>
-<style lang="less" scoped>
-  .bg-gray-700 {
-    background-color: #4a5568;
+  function handleSuccess(data: PassingData) {
+    const { time } = data;
+    createMessage.success(`校验成功,耗时${time}秒`);
   }
-</style>
+
+  function handleBtnClick(elRef: Nullable<DragVerifyActionType>) {
+    if (!elRef) {
+      return;
+    }
+    elRef.resume();
+  }
+</script>

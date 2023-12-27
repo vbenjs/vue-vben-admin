@@ -1,13 +1,13 @@
-import type { AppRouteModule, AppRouteRecordRaw } from '/@/router/types';
+import type { AppRouteModule, AppRouteRecordRaw } from '@/router/types';
 import type { Router, RouteRecordNormalized } from 'vue-router';
 
-import { getParentLayout, LAYOUT, EXCEPTION_COMPONENT } from '/@/router/constant';
+import { getParentLayout, LAYOUT, EXCEPTION_COMPONENT } from '@/router/constant';
 import { cloneDeep, omit } from 'lodash-es';
-import { warn } from '/@/utils/log';
+import { warn } from '@/utils/log';
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 export type LayoutMapKey = 'LAYOUT';
-const IFRAME = () => import('/@/views/sys/iframe/FrameBlank.vue');
+const IFRAME = () => import('@/views/sys/iframe/FrameBlank.vue');
 
 const LayoutMap = new Map<string, () => Promise<typeof import('*.vue')>>();
 
@@ -78,6 +78,11 @@ export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModul
       } else {
         route.children = [cloneDeep(route)];
         route.component = LAYOUT;
+
+        //某些情况下如果name如果没有值， 多个一级路由菜单会导致页面404
+        if (!route.name) {
+          warn('找不到菜单对应的name, 请检查数据!' + JSON.stringify(route));
+        }
         route.name = `${route.name}Parent`;
         route.path = '';
         const meta = route.meta || {};

@@ -1,25 +1,25 @@
 import { defineComponent, computed, unref } from 'vue';
-import { BasicDrawer } from '/@/components/Drawer/index';
+import { BasicDrawer } from '@/components/Drawer';
 import { Divider } from 'ant-design-vue';
 import {
   TypePicker,
-  // ThemeColorPicker,
+  ThemeColorPicker,
   SettingFooter,
   SwitchItem,
   SelectItem,
   InputNumberItem,
 } from './components';
 
-import { AppDarkModeToggle } from '/@/components/Application';
+import { AppDarkModeToggle } from '@/components/Application';
 
-import { MenuTypeEnum, TriggerEnum } from '/@/enums/menuEnum';
+import { MenuTypeEnum, TriggerEnum } from '@/enums/menuEnum';
 
-import { useRootSetting } from '/@/hooks/setting/useRootSetting';
-import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
-import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
-import { useMultipleTabSetting } from '/@/hooks/setting/useMultipleTabSetting';
-import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting';
-import { useI18n } from '/@/hooks/web/useI18n';
+import { useRootSetting } from '@/hooks/setting/useRootSetting';
+import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
+import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
+import { useMultipleTabSetting } from '@/hooks/setting/useMultipleTabSetting';
+import { useTransitionSetting } from '@/hooks/setting/useTransitionSetting';
+import { useI18n } from '@/hooks/web/useI18n';
 
 import { baseHandler } from './handler';
 
@@ -29,7 +29,7 @@ import {
   topMenuAlignOptions,
   getMenuTriggerOptions,
   routerTransitionOptions,
-  menuTypeList,
+  menuTypeListEnum,
   mixSidebarTriggerOptions,
 } from './enum';
 
@@ -37,7 +37,8 @@ import {
 //   HEADER_PRESET_BG_COLOR_LIST,
 //   SIDE_BAR_BG_COLOR_LIST,
 //   APP_PRESET_COLOR_LIST,
-// } from '/@/settings/designSetting';
+// } from '@/settings/designSetting';
+import { SIDE_BAR_BG_COLOR_LIST } from '@/settings/designSetting';
 
 const { t } = useI18n();
 
@@ -73,7 +74,7 @@ export default defineComponent({
       getTopMenuAlign,
       getAccordion,
       getMenuWidth,
-      // getMenuBgColor,
+      getMenuBgColor,
       getIsTopMenu,
       getSplit,
       getIsMixSidebar,
@@ -89,7 +90,8 @@ export default defineComponent({
       getShowSearch,
     } = useHeaderSetting();
 
-    const { getShowMultipleTab, getShowQuick, getShowRedo, getShowFold } = useMultipleTabSetting();
+    const { getShowMultipleTab, getShowQuick, getShowRedo, getShowFold, getAutoCollapse } =
+      useMultipleTabSetting();
 
     const getShowMenuRef = computed(() => {
       return unref(getShowMenu) && !unref(getIsHorizontal);
@@ -99,8 +101,8 @@ export default defineComponent({
       return (
         <>
           <TypePicker
-            menuTypeList={menuTypeList}
-            handler={(item: (typeof menuTypeList)[0]) => {
+            menuTypeList={menuTypeListEnum}
+            handler={(item: (typeof menuTypeListEnum)[0]) => {
               baseHandler(HandlerEnum.CHANGE_LAYOUT, {
                 mode: item.mode,
                 type: item.type,
@@ -123,15 +125,15 @@ export default defineComponent({
     //   );
     // }
 
-    // function renderSiderTheme() {
-    //   return (
-    //     <ThemeColorPicker
-    //       colorList={SIDE_BAR_BG_COLOR_LIST}
-    //       def={unref(getMenuBgColor)}
-    //       event={HandlerEnum.MENU_THEME}
-    //     />
-    //   );
-    // }
+    function renderSideBarTheme() {
+      return (
+        <ThemeColorPicker
+          colorList={SIDE_BAR_BG_COLOR_LIST}
+          def={unref(getMenuBgColor)}
+          event={HandlerEnum.MENU_THEME}
+        />
+      );
+    }
 
     // function renderMainTheme() {
     //   return (
@@ -220,6 +222,12 @@ export default defineComponent({
             event={HandlerEnum.MENU_FIXED}
             def={unref(getMenuFixed)}
             disabled={!unref(getShowMenuRef) || unref(getIsMixSidebar)}
+          />
+          <SwitchItem
+            title={t('layout.setting.autoCollapseTabsInFold')}
+            event={HandlerEnum.TABS_AUTO_COLLAPSE}
+            def={unref(getAutoCollapse)}
+            disabled={!unref(getShowMultipleTab)}
           />
           <SelectItem
             title={t('layout.setting.mixSidebarTrigger')}
@@ -410,9 +418,9 @@ export default defineComponent({
         {/* <Divider>{() => t('layout.setting.sysTheme')}</Divider>
         {renderMainTheme()}
         <Divider>{() => t('layout.setting.headerTheme')}</Divider>
-        {renderHeaderTheme()}
+        {renderHeaderTheme()} */}
         <Divider>{() => t('layout.setting.sidebarTheme')}</Divider>
-        {renderSiderTheme()} */}
+        {renderSideBarTheme()}
         <Divider>{() => t('layout.setting.interfaceFunction')}</Divider>
         {renderFeatures()}
         <Divider>{() => t('layout.setting.interfaceDisplay')}</Divider>

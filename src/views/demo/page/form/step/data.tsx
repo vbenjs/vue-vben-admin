@@ -1,4 +1,4 @@
-import { FormSchema } from '/@/components/Form';
+import { FormSchema } from '@/components/Form';
 
 export const step1Schemas: FormSchema[] = [
   {
@@ -21,7 +21,6 @@ export const step1Schemas: FormSchema[] = [
   },
   {
     field: 'fac',
-    component: 'InputGroup',
     label: '收款账户',
     required: true,
     defaultValue: 'test@example.com',

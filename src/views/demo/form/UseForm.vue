@@ -2,7 +2,7 @@
   <PageWrapper title="UseForm操作示例">
     <a-button class="mb-4" type="primary" @click="showDrawer"> 更改设置 </a-button>
 
-    <Drawer v-model:open="visible" title="更改设置" placement="right">
+    <Drawer v-model:open="open" title="更改设置" placement="right">
       <BasicForm ref="settingFormRef" @register="registerSetting" @submit="handleSubmitSetting">
         <template #other>
           <Space>
@@ -34,13 +34,13 @@
   </PageWrapper>
 </template>
 
-<script lang="ts">
-  import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
+  import { ref } from 'vue';
   import { Drawer, Space } from 'ant-design-vue';
-  import { BasicForm, FormSchema, useForm, type FormProps } from '/@/components/Form';
-  import { CollapseContainer } from '/@/components/Container';
-  import { PageWrapper } from '/@/components/Page';
-  import { areaRecord } from '/@/api/demo/cascader';
+  import { BasicForm, type FormSchema, useForm, type FormProps } from '@/components/Form';
+  import { CollapseContainer } from '@/components/Container';
+  import { PageWrapper } from '@/components/Page';
+  import { areaRecord } from '@/api/demo/cascader';
 
   const sizeList = [
     { value: 'large', label: 'large' },
@@ -84,12 +84,22 @@
       component: 'DatePicker',
       label: '字段3',
       colProps: { span: 8 },
+      componentProps: {
+        getPopupContainer: () => {
+          return document.querySelector('.ant-form')!;
+        },
+      },
     },
     {
       field: 'fieldTime',
       component: 'RangePicker',
       label: '时间字段',
       colProps: { span: 8 },
+      componentProps: {
+        getPopupContainer: () => {
+          return document.querySelector('.ant-form')!;
+        },
+      },
     },
     {
       field: 'field4',
@@ -137,7 +147,6 @@
       componentProps: {
         api: areaRecord,
         apiParamKey: 'parentCode',
-        dataField: 'data',
         labelField: 'name',
         valueField: 'code',
         initFetchParams: {
@@ -156,7 +165,6 @@
       componentProps: {
         api: areaRecord,
         apiParamKey: 'parentCode',
-        dataField: 'data',
         labelField: 'name',
         valueField: 'code',
         initFetchParams: {
@@ -350,7 +358,7 @@
       colProps: { span: 24 },
       componentProps: ({ formActionType }) => {
         return {
-          onChange: async (val: boolean) => {
+          onChange: (val) => {
             formActionType.updateSchema([
               { field: 'showResetButton', componentProps: { disabled: !val } },
               {
@@ -416,93 +424,68 @@
     },
   ];
 
-  export default defineComponent({
-    components: {
-      BasicForm,
-      CollapseContainer,
-      PageWrapper,
-      Drawer,
-      Space,
-    },
-    setup() {
-      const visible = ref<boolean>(false);
-      const settingFormRef = ref();
-      const [registerSetting] = useForm({
-        size: 'small',
-        schemas: formSchemas,
-        compact: true,
-        actionColOptions: { span: 24 },
-        showActionButtonGroup: false,
-      });
-      const resetSettings = async () => {
-        setProps({ resetButtonOptions: { disabled: false, text: '重置' } });
-        setProps({ submitButtonOptions: { disabled: false, loading: false } });
-        await setFieldsValue({ field9: [] });
-        await settingFormRef.value?.resetFields();
-      };
-      const handleSubmitSetting = async (values) => {
-        console.log(values);
-        await setProps(values);
-        visible.value = false;
-      };
-      const [register, { setProps, setFieldsValue, updateSchema }] = useForm({
-        labelWidth: 120,
-        schemas,
-        actionColOptions: { span: 24 },
-        fieldMapToTime: [['fieldTime', ['startTime', 'endTime'], 'YYYY-MM']],
-      });
-      async function handleLoad() {
-        const promiseFn = function () {
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              resolve({
-                field9: ['430000', '430100', '430102'],
-                province: '湖南省',
-                city: '长沙市',
-                district: '岳麓区',
-              });
-            }, 1000);
-          });
-        };
-        const item = await promiseFn();
-        const { field9, province, city, district } = item as any;
-        await updateSchema({
-          field: 'field9',
-          componentProps: {
-            displayRenderArray: [province, city, district],
-          },
-        });
-        await setFieldsValue({ field9 });
-        visible.value = false;
-      }
-      const showDrawer = () => {
-        visible.value = true;
-      };
-      const onSettings = () => {
-        settingFormRef.value?.submit();
-      };
-      const withClose = (formProps: Partial<FormProps>) => {
-        setProps(formProps);
-        visible.value = false;
-      };
-
-      return {
-        register,
-        schemas,
-        handleSubmit: (values) => {
-          console.log(values);
-        },
-        setProps,
-        handleLoad,
-        visible,
-        showDrawer,
-        settingFormRef,
-        withClose,
-        onSettings,
-        resetSettings,
-        registerSetting,
-        handleSubmitSetting,
-      };
-    },
+  const open = ref<boolean>(false);
+  const settingFormRef = ref();
+  const [registerSetting] = useForm({
+    size: 'small',
+    schemas: formSchemas,
+    compact: true,
+    actionColOptions: { span: 24 },
+    showActionButtonGroup: false,
   });
+  const resetSettings = async () => {
+    setProps({ resetButtonOptions: { disabled: false, text: '重置' } });
+    setProps({ submitButtonOptions: { disabled: false, loading: false } });
+    await setFieldsValue({ field9: [] });
+    await settingFormRef.value?.resetFields();
+  };
+  const handleSubmitSetting = async (values) => {
+    console.log(values);
+    await setProps(values);
+    open.value = false;
+  };
+  const [register, { setProps, setFieldsValue, updateSchema }] = useForm({
+    labelWidth: 120,
+    schemas,
+    actionColOptions: { span: 24 },
+    fieldMapToTime: [['fieldTime', ['startTime', 'endTime'], 'YYYY-MM']],
+  });
+  async function handleLoad() {
+    const promiseFn = function () {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({
+            field9: ['430000', '430100', '430102'],
+            province: '湖南省',
+            city: '长沙市',
+            district: '岳麓区',
+          });
+        }, 1000);
+      });
+    };
+    const item = await promiseFn();
+    const { field9, province, city, district } = item as any;
+    await updateSchema({
+      field: 'field9',
+      componentProps: {
+        displayRenderArray: [province, city, district],
+      },
+    });
+    await setFieldsValue({ field9 });
+    open.value = false;
+  }
+  const showDrawer = () => {
+    open.value = true;
+  };
+  const onSettings = () => {
+    settingFormRef.value?.submit();
+  };
+  const withClose = (formProps: Partial<FormProps>) => {
+    setProps(formProps);
+    open.value = false;
+  };
+
+  function handleSubmit(values) {
+    console.log(values);
+  }
 </script>

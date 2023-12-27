@@ -10,12 +10,12 @@
     </template>
 
     <div :class="`${prefixCls}__content`">
-      <a-list>
-        <a-row :gutter="16">
-          <template v-for="item in list" :key="item.title">
-            <a-col :span="6">
-              <a-list-item>
-                <a-card :hoverable="true" :class="`${prefixCls}__card`">
+      <List>
+        <Row :gutter="16">
+          <template v-for="item in cardList" :key="item.title">
+            <Col :span="6">
+              <List.Item>
+                <Card :hoverable="true" :class="`${prefixCls}__card`">
                   <div :class="`${prefixCls}__card-title`">
                     <Icon class="icon" v-if="item.icon" :icon="item.icon" :color="item.color" />
                     {{ item.title }}
@@ -23,39 +23,22 @@
                   <div :class="`${prefixCls}__card-detail`">
                     基于Vue Next, TypeScript, Ant Design Vue实现的一套完整的企业级后台管理系统
                   </div>
-                </a-card>
-              </a-list-item>
-            </a-col>
+                </Card>
+              </List.Item>
+            </Col>
           </template>
-        </a-row>
-      </a-list>
+        </Row>
+      </List>
     </div>
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import Icon from '@/components/Icon/Icon.vue';
   import { cardList } from './data';
-  import { PageWrapper } from '/@/components/Page';
+  import { PageWrapper } from '@/components/Page';
   import { Card, Row, Col, List } from 'ant-design-vue';
 
-  export default defineComponent({
-    components: {
-      Icon,
-      PageWrapper,
-      [Card.name]: Card,
-      [List.name]: List,
-      [List.Item.name]: List.Item,
-      [Row.name]: Row,
-      [Col.name]: Col,
-    },
-    setup() {
-      return {
-        prefixCls: 'list-card',
-        list: cardList,
-      };
-    },
-  });
+  const prefixCls = 'list-card';
 </script>
 <style lang="less" scoped>
   .list-card {
@@ -82,7 +65,7 @@
 
       &-title {
         margin-bottom: 5px;
-        color: @text-color;
+        color: @text-color-base;
         font-size: 16px;
         font-weight: 500;
 

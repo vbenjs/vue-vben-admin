@@ -27,22 +27,24 @@
     </BasicTable>
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicTable, useTable, BasicColumn, TableImg } from '/@/components/Table';
+<script lang="tsx" setup>
+  import { h } from 'vue';
+  import { BasicTable, useTable, BasicColumn, TableImg } from '@/components/Table';
   import { Tag, Avatar } from 'ant-design-vue';
-  import { demoListApi } from '/@/api/demo/table';
+  import { demoListApi } from '@/api/demo/table';
 
   const columns: BasicColumn[] = [
     {
       title: 'ID',
       dataIndex: 'id',
+      helpMessage: <div>这个是tsx渲染出来的helpMessage</div>,
       // slots: { customRender: 'id' },
     },
     {
       title: '头像',
       dataIndex: 'avatar',
       width: 100,
+      helpMessage: h('div', '这是vue h函数渲染出来的helpMessage'),
       // slots: { customRender: 'avatar' },
     },
     {
@@ -89,21 +91,13 @@
       dataIndex: 'endTime',
     },
   ];
-  export default defineComponent({
-    components: { BasicTable, TableImg, Tag, Avatar },
-    setup() {
-      const [registerTable] = useTable({
-        title: '自定义列内容',
-        titleHelpMessage: '表格中所有头像、图片均为mock生成，仅用于演示图片占位',
-        api: demoListApi,
-        columns: columns,
-        bordered: true,
-        showTableSetting: true,
-      });
 
-      return {
-        registerTable,
-      };
-    },
+  const [registerTable] = useTable({
+    title: '自定义列内容',
+    titleHelpMessage: '表格中所有头像、图片均为mock生成，仅用于演示图片占位',
+    api: demoListApi,
+    columns: columns,
+    bordered: true,
+    showTableSetting: true,
   });
 </script>

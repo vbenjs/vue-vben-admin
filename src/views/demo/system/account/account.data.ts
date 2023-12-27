@@ -1,5 +1,27 @@
-import { getAllRoleList, isAccountExist } from '/@/api/demo/system';
-import { BasicColumn, FormSchema } from '/@/components/Table';
+import { getAllRoleList, isAccountExist } from '@/api/demo/system';
+import { BasicColumn, FormSchema } from '@/components/Table';
+
+/**
+ * transform mock data
+ * {
+ *  0: '华东分部',
+ * '0-0': '华东分部-研发部'
+ * '0-1': '华东分部-市场部',
+ *  ...
+ * }
+ */
+export const deptMap = (() => {
+  const pDept = ['华东分部', '华南分部', '西北分部'];
+  const cDept = ['研发部', '市场部', '商务部', '财务部'];
+
+  return pDept.reduce((map, p, pIdx) => {
+    map[pIdx] = p;
+
+    cDept.forEach((c, cIndex) => (map[`${pIdx}-${cIndex}`] = `${p}-${c}`));
+
+    return map;
+  }, {});
+})();
 
 export const columns: BasicColumn[] = [
   {
@@ -26,6 +48,13 @@ export const columns: BasicColumn[] = [
     title: '角色',
     dataIndex: 'role',
     width: 200,
+  },
+  {
+    title: '所属部门',
+    dataIndex: 'dept',
+    customRender: ({ value }) => {
+      return deptMap[value];
+    },
   },
   {
     title: '备注',
@@ -60,10 +89,12 @@ export const accountFormSchema: FormSchema[] = [
         message: '请输入用户名',
       },
       {
+        trigger: 'blur',
         validator(_, value) {
           return new Promise((resolve, reject) => {
+            if (!value) return resolve();
             isAccountExist(value)
-              .then(() => resolve())
+              .then(resolve)
               .catch((err) => {
                 reject(err.message || '验证失败');
               });

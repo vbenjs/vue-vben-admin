@@ -1,19 +1,24 @@
-/* stylelint-disable media-feature-range-notation */
 .fullscreen-modal {
   overflow: hidden;
 
   .ant-modal {
     inset: 0 !important;
     width: 100% !important;
+    max-width: 100%;
     height: 100%;
 
     &-content {
       height: 100%;
+      overflow: hidden;
     }
+  }
+
+  .ant-modal-footer {
+    margin-top: 0;
   }
 }
 
-.vben-basic-modal-wrap .ant-modal {
+.ant-modal {
   width: 520px;
   padding-bottom: 0;
 
@@ -48,23 +53,29 @@
 
   &-header {
     padding: 16px;
+    border-bottom: 1px solid @border-color-base;
   }
 
   &-content {
-    padding: 12px 8px !important;
+    padding: 0 !important;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
   }
 
   &-footer {
+    padding: 10px 16px;
+    border-top: 1px solid @border-color-base;
+
     button + button {
       margin-left: 10px;
     }
   }
 
   &-close {
+    top: 0 !important;
+    right: 0 !important;
     width: auto !important;
     outline: none;
-    background: #fff !important;
+    background: transparent !important;
     font-weight: normal;
   }
 
@@ -72,13 +83,11 @@
     display: inline-block;
     width: 96px;
     height: 56px;
-    line-height: 56px;
+    line-height: 56px !important;
   }
 
   &-confirm-body {
     .ant-modal-confirm-content {
-      // color: #fff;
-
       > * {
         color: @text-color-help-dark;
       }

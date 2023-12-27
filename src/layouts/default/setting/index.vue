@@ -4,23 +4,13 @@
     <SettingDrawer @register="register" />
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import SettingDrawer from './SettingDrawer';
   import Icon from '@/components/Icon/Icon.vue';
 
-  import { useDrawer } from '/@/components/Drawer';
+  import { useDrawer } from '@/components/Drawer';
 
-  export default defineComponent({
-    name: 'SettingButton',
-    components: { SettingDrawer, Icon },
-    setup() {
-      const [register, { openDrawer }] = useDrawer();
+  defineOptions({ name: 'SettingButton' });
 
-      return {
-        register,
-        openDrawer,
-      };
-    },
-  });
+  const [register, { openDrawer }] = useDrawer();
 </script>

@@ -2,7 +2,7 @@
  * Prevent repeated clicks
  * @Example v-repeat-click="()=>{}"
  */
-import { on, once } from '/@/utils/domUtils';
+import { on, once } from '@/utils/domUtils';
 import type { Directive, DirectiveBinding } from 'vue';
 
 const repeatDirective: Directive = {
@@ -18,8 +18,8 @@ const repeatDirective: Directive = {
       interval = null;
     };
 
-    on(el, 'mousedown', (e: MouseEvent): void => {
-      if ((e as any).button !== 0) return;
+    on(el, 'mousedown', (e: Event): void => {
+      if ((e as MouseEvent).button !== 0) return;
       startTime = Date.now();
       once(document as any, 'mouseup', clear);
       interval && clearInterval(interval);

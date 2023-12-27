@@ -1,13 +1,13 @@
-import { ContentEnum, RouterTransitionEnum } from '/@/enums/appEnum';
+import { ContentEnum, RouterTransitionEnum } from '@/enums/appEnum';
 import {
   MenuModeEnum,
   MenuTypeEnum,
   TopMenuAlignEnum,
   TriggerEnum,
   MixSidebarTriggerEnum,
-} from '/@/enums/menuEnum';
+} from '@/enums/menuEnum';
 
-import { useI18n } from '/@/hooks/web/useI18n';
+import { useI18n } from '@/hooks/web/useI18n';
 
 const { t } = useI18n();
 
@@ -42,6 +42,7 @@ export enum HandlerEnum {
   TABS_SHOW_REDO,
   TABS_SHOW,
   TABS_SHOW_FOLD,
+  TABS_AUTO_COLLAPSE,
 
   LOCK_TIME,
   FULL_CONTENT,
@@ -120,7 +121,7 @@ export const routerTransitionOptions = [
   };
 });
 
-export const menuTypeList = [
+export const menuTypeListEnum = [
   {
     title: t('layout.setting.menuTypeSidebar'),
     mode: MenuModeEnum.INLINE,

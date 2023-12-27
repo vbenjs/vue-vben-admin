@@ -1,4 +1,4 @@
-import { FormSchema } from '/@/components/Form/index';
+import { FormSchema } from '@/components/Form';
 
 export const searchList = (() => {
   const result: any[] = [];

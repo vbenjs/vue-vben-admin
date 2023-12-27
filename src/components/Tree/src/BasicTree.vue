@@ -23,16 +23,17 @@
   import TreeHeader from './components/TreeHeader.vue';
   import { Tree, Spin, Empty } from 'ant-design-vue';
   import { TreeIcon } from './TreeIcon';
-  import { ScrollContainer } from '/@/components/Container';
+  import { ScrollContainer } from '@/components/Container';
   import { omit, get, difference, cloneDeep } from 'lodash-es';
-  import { isArray, isBoolean, isEmpty, isFunction } from '/@/utils/is';
-  import { extendSlots, getSlot } from '/@/utils/helper/tsxHelper';
-  import { filter, treeToList, eachTree } from '/@/utils/helper/treeHelper';
+  import { isArray, isBoolean, isEmpty, isFunction } from '@/utils/is';
+  import { extendSlots, getSlot } from '@/utils/helper/tsxHelper';
+  import { filter, treeToList, eachTree } from '@/utils/helper/treeHelper';
   import { useTree } from './hooks/useTree';
-  import { useContextMenu } from '/@/hooks/web/useContextMenu';
-  import { CreateContextOptions } from '/@/components/ContextMenu';
+  import { useContextMenu } from '@/hooks/web/useContextMenu';
+  import { CreateContextOptions } from '@/components/ContextMenu';
   import { treeEmits, treeProps } from './types/tree';
-  import { createBEM } from '/@/utils/bem';
+  import { createBEM } from '@/utils/bem';
+  import type { TreeProps } from 'ant-design-vue/es/tree/Tree';
 
   export default defineComponent({
     name: 'BasicTree',
@@ -106,15 +107,15 @@
           },
           onRightClick: handleRightClick,
         };
-        return omit(propsData, 'treeData', 'class');
+        return omit(propsData, 'treeData', 'class') as TreeProps;
       });
 
-      const getTreeData = computed((): TreeItem[] =>
+      const getTreeSearchData = computed((): TreeItem[] =>
         searchState.startSearch ? searchState.searchData : unref(treeDataRef),
       );
 
       const getNotFound = computed((): boolean => {
-        return !getTreeData.value || getTreeData.value.length === 0;
+        return !getTreeSearchData.value || getTreeSearchData.value.length === 0;
       });
 
       const {
@@ -155,6 +156,10 @@
         if (!contextMenuOptions.items?.length) return;
         contextMenuOptions.items = contextMenuOptions.items.filter((item) => !item.hidden);
         createContextMenu(contextMenuOptions);
+      }
+
+      function getTreeData() {
+        return unref(treeDataRef);
       }
 
       function setExpandedKeys(keys: KeyType[]) {
@@ -319,6 +324,7 @@
       });
 
       const instance: TreeActionType = {
+        getTreeData,
         setExpandedKeys,
         getExpandedKeys,
         setSelectedKeys,
@@ -365,7 +371,7 @@
       }
 
       const treeData = computed(() => {
-        const data = cloneDeep(getTreeData.value);
+        const data = cloneDeep(getTreeSearchData.value);
         eachTree(data, (item, _parent) => {
           const searchText = searchState.searchText;
           const { highlight } = unref(props);
@@ -392,16 +398,26 @@
           ) : (
             title
           );
+
+          const iconDom = icon ? (
+            <TreeIcon icon={icon} />
+          ) : slots.icon ? (
+            <span class="mr-1">{getSlot(slots, 'icon')}</span>
+          ) : null;
+
           item[titleField] = (
             <span
               class={`${bem('title')} pl-2`}
               onClick={handleClickNode.bind(null, item[keyField], item[childrenField])}
             >
               {slots?.title ? (
-                getSlot(slots, 'title', item)
+                <>
+                  {iconDom}
+                  {getSlot(slots, 'title', item)}
+                </>
               ) : (
                 <>
-                  {icon && <TreeIcon icon={icon} />}
+                  {iconDom}
                   {titleDom}
                   <span class={bem('actions')}>{renderAction(item)}</span>
                 </>
@@ -443,7 +459,9 @@
               tip="加载中..."
             >
               <ScrollContainer style={scrollStyle} v-show={!unref(getNotFound)}>
-                <Tree {...unref(getBindValues)} showIcon={false} treeData={treeData.value} />
+                <Tree {...unref(getBindValues)} showIcon={false} treeData={treeData.value}>
+                  {extendSlots(slots, ['title'])}
+                </Tree>
               </ScrollContainer>
               <Empty
                 v-show={unref(getNotFound)}

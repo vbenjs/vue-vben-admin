@@ -47,12 +47,13 @@
       message="推荐使用Iconify组件"
       description="Icon组件基本包含所有的图标,在下面网址内你可以查询到你想要的任何图标。并且打包只会打包所用到的图标。"
     />
-    <a-button type="link" @click="toIconify"> Iconify 图标大全 </a-button>
+    <a-button type="link" @click="openWindow('https://iconify.design/')">
+      Iconify 图标大全
+    </a-button>
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
+<script lang="ts" setup>
+  import { CollapseContainer } from '@/components/Container';
   import { Alert } from 'ant-design-vue';
   import {
     QqCircleFilled,
@@ -63,35 +64,8 @@
     TaobaoCircleFilled,
     CodepenCircleFilled,
   } from '@ant-design/icons-vue';
-
-  import { IconPicker, SvgIcon } from '/@/components/Icon/index';
-  import Icon from '/@/components/Icon/Icon.vue';
-
-  import { openWindow } from '/@/utils';
-  import { PageWrapper } from '/@/components/Page';
-
-  export default defineComponent({
-    components: {
-      PageWrapper,
-      CollapseContainer,
-      GithubFilled,
-      QqCircleFilled,
-      WechatFilled,
-      AlipayCircleFilled,
-      IeCircleFilled,
-      TaobaoCircleFilled,
-      CodepenCircleFilled,
-      Icon,
-      Alert,
-      IconPicker,
-      SvgIcon,
-    },
-    setup() {
-      return {
-        toIconify: () => {
-          openWindow('https://iconify.design/');
-        },
-      };
-    },
-  });
+  import { IconPicker, SvgIcon } from '@/components/Icon';
+  import Icon from '@/components/Icon/Icon.vue';
+  import { openWindow } from '@/utils';
+  import { PageWrapper } from '@/components/Page';
 </script>

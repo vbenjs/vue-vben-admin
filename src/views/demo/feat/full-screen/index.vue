@@ -19,33 +19,23 @@
       ref="domRef"
       class="flex items-center justify-center w-1/2 h-64 mx-auto mt-10 bg-white rounded-md"
     >
-      <a-button type="primary" @click="toggleDom" class="mr-2"> Exit Dom Full Screen </a-button>
+      <a-button type="primary" @click="toggleDom" class="mr-2">
+        {{ isDomFullscreen ? 'Exit Dom Full Screen' : 'Enter Dom Full Screen' }}
+      </a-button>
     </div>
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
+<script lang="ts" setup>
+  import { ref } from 'vue';
+  import { CollapseContainer } from '@/components/Container';
   import { useFullscreen } from '@vueuse/core';
 
-  import { PageWrapper } from '/@/components/Page';
+  import { PageWrapper } from '@/components/Page';
   import { type Nullable } from '@vben/types';
 
-  export default defineComponent({
-    components: { CollapseContainer, PageWrapper },
-    setup() {
-      const domRef = ref<Nullable<HTMLElement>>(null);
-      const { enter, toggle, exit, isFullscreen } = useFullscreen();
+  const domRef = ref<Nullable<HTMLElement>>(null);
 
-      const { toggle: toggleDom } = useFullscreen(domRef);
-      return {
-        enter,
-        toggleDom,
-        toggle,
-        isFullscreen,
-        exit,
-        domRef,
-      };
-    },
-  });
+  const { enter, toggle, exit, isFullscreen } = useFullscreen();
+
+  const { toggle: toggleDom, isFullscreen: isDomFullscreen } = useFullscreen(domRef);
 </script>

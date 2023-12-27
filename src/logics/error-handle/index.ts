@@ -2,13 +2,13 @@
  * Used to configure the global error handling function, which can monitor vue errors, script errors, static resource errors and Promise errors
  */
 
-import type { ErrorLogInfo } from '/#/store';
+import type { ErrorLogInfo } from '#/store';
 
-import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog';
+import { useErrorLogStoreWithOut } from '@/store/modules/errorLog';
 
-import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
+import { ErrorTypeEnum } from '@/enums/exceptionEnum';
 import { App } from 'vue';
-import projectSetting from '/@/settings/projectSetting';
+import projectSetting from '@/settings/projectSetting';
 
 /**
  * Handling error stack information
@@ -62,16 +62,15 @@ function formatComponentName(vm: any) {
 /**
  * Configure Vue error handling function
  */
-
-function vueErrorHandler(err: Error, vm: any, info: string) {
+function vueErrorHandler(err: unknown, vm: any, info: string) {
   const errorLogStore = useErrorLogStoreWithOut();
   const { name, path } = formatComponentName(vm);
   errorLogStore.addErrorLogInfo({
     type: ErrorTypeEnum.VUE,
     name,
     file: path,
-    message: err.message,
-    stack: processStackMsg(err),
+    message: (err as Error).message,
+    stack: processStackMsg(err as Error),
     detail: info,
     url: window.location.href,
   });

@@ -1,5 +1,9 @@
 <template>
-  <div class="relative !h-full w-full overflow-hidden" ref="el"></div>
+  <div
+    class="relative !h-full w-full overflow-hidden"
+    :class="{ 'ant-input': props.bordered, 'css-dev-only-do-not-override-kqecok': props.bordered }"
+    ref="el"
+  ></div>
 </template>
 
 <script lang="ts" setup>
@@ -16,7 +20,7 @@
   import type { Nullable } from '@vben/types';
   import { useWindowSizeFn } from '@vben/hooks';
   import { useDebounceFn } from '@vueuse/core';
-  import { useAppStore } from '/@/store/modules/app';
+  import { useAppStore } from '@/store/modules/app';
   import CodeMirror from 'codemirror';
   import { MODE } from './../typing';
   // css
@@ -39,6 +43,7 @@
     },
     value: { type: String, default: '' },
     readonly: { type: Boolean, default: false },
+    bordered: { type: Boolean, default: false },
   });
 
   const emit = defineEmits(['change']);

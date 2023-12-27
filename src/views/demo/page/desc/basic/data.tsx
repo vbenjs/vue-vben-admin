@@ -1,6 +1,6 @@
-import { DescItem } from '/@/components/Description/index';
-import { BasicColumn } from '/@/components/Table/src/types/table';
-import { Button } from '/@/components/Button';
+import { DescItem } from '@/components/Description';
+import { BasicColumn } from '@/components/Table/src/types/table';
+import { Button } from '@/components/Button';
 
 import { Badge } from 'ant-design-vue';
 

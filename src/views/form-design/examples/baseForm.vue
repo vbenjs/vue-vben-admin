@@ -2,7 +2,7 @@
   <BasicForm @register="register" />
 </template>
 <script lang="ts" setup>
-  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
+  import { BasicForm, FormSchema, useForm } from '@/components/Form';
 
   const schemas: FormSchema[] = [
     {

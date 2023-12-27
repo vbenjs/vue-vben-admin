@@ -1,7 +1,6 @@
-import { optionsListApi } from '/@/api/demo/select';
-import { FormProps, FormSchema } from '/@/components/Table';
-import { BasicColumn } from '/@/components/Table/src/types/table';
-import { VxeFormItemProps, VxeGridPropTypes } from '/@/components/VxeTable';
+import { optionsListApi } from '@/api/demo/select';
+import { FormProps, FormSchema, BasicColumn } from '@/components/Table';
+import { VxeFormItemProps, VxeGridPropTypes } from '@/components/VxeTable';
 import { ref } from 'vue';
 import { Input } from 'ant-design-vue';
 
@@ -231,7 +230,7 @@ export function getMergeHeaderColumns(): BasicColumn[] {
   ];
 }
 export const getAdvanceSchema = (itemNumber = 6): FormSchema[] => {
-  const arr: any = [];
+  const arr: FormSchema[] = [];
   for (let index = 0; index < itemNumber; index++) {
     arr.push({
       field: `field${index}`,
@@ -253,7 +252,7 @@ export function getFormConfig(): Partial<FormProps> {
       {
         field: `field11`,
         label: `Slot示例`,
-        component: 'Select',
+        // component: 'Select',
         slot: 'custom',
         colProps: {
           xl: 12,

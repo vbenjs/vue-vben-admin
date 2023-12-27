@@ -1,4 +1,4 @@
-import { BasicColumn, FormSchema } from '/@/components/Table';
+import { BasicColumn, FormSchema } from '@/components/Table';
 import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
 
@@ -69,7 +69,11 @@ export const formSchema: FormSchema[] = [
     field: 'parentDept',
     label: '上级部门',
     component: 'TreeSelect',
-
+    ifShow({ values }) {
+      const { deptName, parentDept } = values;
+      // Hide without a parentDept when editing
+      return parentDept || (!deptName && !parentDept);
+    },
     componentProps: {
       fieldNames: {
         label: 'deptName',
