@@ -28,7 +28,7 @@ export enum GoType {
 export function useGo(_router?: Router) {
   const { push, replace, currentRoute } = _router || useRouter();
 
-  function go(opt: RouteLocationRawEx): void;
+  function go(opt?: RouteLocationRawEx): void;
   function go(opt: RouteLocationRawEx, isReplace: boolean): void;
   function go(opt: RouteLocationRawEx, goType: GoType): void;
   function go(
