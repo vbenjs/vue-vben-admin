@@ -36,7 +36,7 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
     });
 
     const pathResolve = (pathname: string) => resolve(root, '.', pathname);
-
+    const timestamp = new Date().getTime();
     const applicationConfig: UserConfig = {
       base: VITE_PUBLIC_PATH,
       resolve: {
@@ -64,7 +64,7 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
         rollupOptions: {
           output: {
             // 入口文件名
-            entryFileNames: 'assets/[name].js',
+            entryFileNames: `assets/entry/[name]-[hash]-${timestamp}.js`,
             manualChunks: {
               vue: ['vue', 'pinia', 'vue-router'],
               antd: ['ant-design-vue', '@ant-design/icons-vue'],
