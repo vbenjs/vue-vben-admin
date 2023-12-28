@@ -64,6 +64,7 @@
     onColumnsChange: (data: ColumnChangeParam[]) => {
       console.log('ColumnsChanged', data);
     },
+    showSelectionBar: true, // 显示多选状态栏
   });
 
   function changeLoading() {

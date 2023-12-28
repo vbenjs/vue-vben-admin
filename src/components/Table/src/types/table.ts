@@ -313,7 +313,7 @@ export interface BasicTableProps<T = any> {
   rowSelection?: TableRowSelection;
 
   /**
-   * Show table selection bar
+   * Show table selection bar（显示多选状态栏）
    * @type boolean
    */
   showSelectionBar?: boolean;

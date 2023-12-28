@@ -25,7 +25,7 @@
     rowSelection: {
       type: 'checkbox',
     },
-    showSelectionBar: true,
+    showSelectionBar: true, // 显示多选状态栏
   });
 
   function getFormValues() {
