@@ -11,7 +11,7 @@ export function useECharts(
   let instance: echarts.ECharts | null = null;
   const cacheOptions = ref({});
   const { width, height } = useElementSize(target);
-  const echarsInstance = computed(() => instance);
+  const echartsInstance = computed(() => instance);
   const { getDarkMode: getSysDarkMode } = useRootSetting();
   const getDarkMode = computed(() => (theme === 'default' ? getSysDarkMode.value : theme));
   const getOptions = computed(() => {
@@ -67,6 +67,6 @@ export function useECharts(
     resize,
     resizeFn,
     echarts,
-    echarsInstance,
+    echartsInstance,
   };
 }
