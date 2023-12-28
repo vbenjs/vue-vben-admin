@@ -20,7 +20,7 @@
   </BasicTable>
 </template>
 <script lang="ts" setup>
-  import { ref, nextTick } from 'vue';
+  import { ref } from 'vue';
   import { BasicTable, useTable } from '@/components/Table';
   import { getBasicColumns, getFormConfig } from './tableData';
   import { Alert } from 'ant-design-vue';
@@ -90,10 +90,6 @@
     const pageRecords = checkedRecords.value.filter((key) => dataSourceKeys.includes(key));
     // 刷新
     checkedPageRecords.value = pageRecords;
-    nextTick(() => {
-      // 选中
-      setSelectedRowKeys(pageRecords);
-    });
   };
 
   const [registerTable, { getForm, setSelectedRowKeys, getDataSource }] = useTable({
