@@ -179,7 +179,8 @@
         }
       });
 
-      function handleEdit() {
+      function handleEdit(e) {
+        e.stopPropagation();
         if (unref(getRowEditable) || unref(props.column?.editRow) || unref(getDisable)) return;
         ruleMessage.value = '';
         isEdit.value = true;
@@ -430,8 +431,12 @@
             )}
           </div>
           {this.isEdit && (
-            <Spin spinning={this.spinning}>
-              <div class={`${this.prefixCls}__wrapper`} v-click-outside={this.onClickOutside}>
+            <Spin spinning={this.spinning} onClick={(e) => e.stopPropagation()}>
+              <div
+                class={`${this.prefixCls}__wrapper`}
+                v-click-outside={this.onClickOutside}
+                onClick={(e) => e.stopPropagation()}
+              >
                 <CellComponent
                   {...this.getComponentProps}
                   component={this.getComponent}
