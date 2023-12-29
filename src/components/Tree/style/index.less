@@ -3,13 +3,22 @@
 .@{tree-prefix-cls} {
   background-color: @component-background;
 
+  .ant-tree {
+    .ant-tree-checkbox {
+      margin-block-start: 0;
+      margin-inline-start: 4px;
+      margin-inline-end: 4px;
+
+      & + span {
+        padding-left: 4px;
+      }
+    }
+  }
+
   .ant-tree-node-content-wrapper {
     position: relative;
 
     .ant-tree-title {
-      position: absolute;
-      left: 0;
-      width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
