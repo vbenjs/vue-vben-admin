@@ -43,7 +43,6 @@
 
       <AppLocalePicker
         v-if="getShowLocalePicker"
-        :reload="true"
         :showText="false"
         :class="`${prefixCls}-action__item`"
       />
