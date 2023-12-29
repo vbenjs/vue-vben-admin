@@ -105,6 +105,7 @@ export const basicProps = {
     type: Object as PropType<TableRowSelection | null>,
     default: null,
   },
+  showSelectionBar: propTypes.bool,
   title: {
     type: [String, Function] as PropType<string | ((data: Recordable) => string)>,
     default: null,
