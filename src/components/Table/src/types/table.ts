@@ -88,7 +88,7 @@ export interface GetColumnsParams {
 export type SizeType = 'default' | 'middle' | 'small' | 'large';
 
 export interface TableActionType {
-  reload: (opt?: FetchParams) => Promise<void>;
+  reload: (opt?: FetchParams) => Promise<Recordable<any>[] | undefined>;
   setSelectedRows: (rows: Recordable[]) => void;
   getSelectRows: <T = Recordable>() => T[];
   clearSelectedRowKeys: () => void;
