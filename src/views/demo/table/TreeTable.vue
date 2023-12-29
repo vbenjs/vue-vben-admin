@@ -32,5 +32,6 @@
     columns: getBasicColumns(),
     dataSource: getTreeTableData(),
     rowKey: 'id',
+    showSelectionBar: true, // 显示多选状态栏
   });
 </script>

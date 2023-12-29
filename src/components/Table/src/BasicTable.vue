@@ -53,7 +53,7 @@
   import { BasicForm, useForm } from '@/components/Form';
   import { PageWrapperFixedHeightKey } from '@/enums/pageEnum';
   import HeaderCell from './components/HeaderCell.vue';
-  import { InnerHandlers } from './types/table';
+  import { InnerHandlers, InnerMethods } from './types/table';
   import { usePagination } from './hooks/usePagination';
   import { useColumns } from './hooks/useColumns';
   import { useDataSource } from './hooks/useDataSource';
@@ -221,7 +221,12 @@
     },
   };
 
-  const { getHeaderProps } = useTableHeader(getProps, slots, handlers);
+  const methods: InnerMethods = {
+    clearSelectedRowKeys,
+    getSelectRowKeys,
+  };
+
+  const { getHeaderProps } = useTableHeader(getProps, slots, handlers, methods);
 
   const { getFooterProps } = useTableFooter(getProps, getScrollRef, tableElRef, getDataSourceRef);
 
