@@ -35,7 +35,7 @@ import { CountdownInput } from '@/components/CountDown';
 import { BasicTitle } from '@/components/Basic';
 import { CropperAvatar } from '@/components/Cropper';
 
-const componentMap = new Map<ComponentType, Component>();
+const componentMap = new Map<ComponentType | string, Component>();
 
 componentMap.set('Input', Input);
 componentMap.set('InputGroup', Input.Group);
@@ -79,11 +79,14 @@ componentMap.set('CropperAvatar', CropperAvatar);
 
 componentMap.set('BasicTitle', BasicTitle);
 
-export function add(compName: ComponentType, component: Component) {
+export function add<T extends string, R extends Component>(
+  compName: ComponentType | T,
+  component: R,
+) {
   componentMap.set(compName, component);
 }
 
-export function del(compName: ComponentType) {
+export function del<T extends string>(compName: ComponentType | T) {
   componentMap.delete(compName);
 }
 
