@@ -8,6 +8,7 @@ import {
   RouterTransitionEnum,
   SettingButtonPositionEnum,
   SessionTimeoutProcessingEnum,
+  STATIC_FILE_DIR_BACKEND,
 } from '@/enums/appEnum';
 import {
   SIDE_BAR_BG_COLOR_LIST,
@@ -183,6 +184,9 @@ const setting: ProjectConfig = {
   // Whether to cancel the http request that has been sent but not responded when switching the interface.
   // If it is enabled, I want to overwrite a single interface. Can be set in a separate interface
   removeAllHttpPending: false,
+
+  // Backend server save static file to relative classpath dirctory
+  staticFileDirBackend: STATIC_FILE_DIR_BACKEND,
 };
 
 export default setting;
