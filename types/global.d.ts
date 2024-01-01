@@ -28,7 +28,8 @@ declare global {
     msFullscreenElement?: Element;
     webkitFullscreenElement?: Element;
   }
-
+  // map
+  declare const BMapGL: Nullable<T>;
   // vue
   declare type PropType<T> = VuePropType<T>;
   declare type VueNode = VNodeChild | JSX.Element;
