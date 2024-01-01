@@ -402,12 +402,12 @@
           const iconDom = icon ? (
             <TreeIcon icon={icon} />
           ) : slots.icon ? (
-            <span class="mr-1">{getSlot(slots, 'icon')}</span>
+            <span class="mr-2">{getSlot(slots, 'icon')}</span>
           ) : null;
 
           item[titleField] = (
             <span
-              class={`${bem('title')} pl-2`}
+              class={`${bem('title')}`}
               onClick={handleClickNode.bind(null, item[keyField], item[childrenField])}
             >
               {slots?.title ? (
