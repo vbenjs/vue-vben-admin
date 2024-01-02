@@ -76,12 +76,7 @@ export function useFormValues({
       }
       // Remove spaces
       if (isString(value)) {
-        // remove params from URL
-        if (value === '') {
-          value = undefined;
-        } else {
-          value = value.trim();
-        }
+        value = value.trim();
       }
       if (!tryDeconstructArray(key, value, res) && !tryDeconstructObject(key, value, res)) {
         // 没有解构成功的，按原样赋值
