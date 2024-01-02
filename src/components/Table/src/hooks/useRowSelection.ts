@@ -83,7 +83,12 @@ export function useRowSelection(
   }
 
   function setSelectedRows(rows: Recordable[]) {
+    const { rowKey } = unref(propsRef);
     selectedRowRef.value = rows;
+    selectedRowKeysRef.value = selectedRowRef.value.map((o) => {
+      const key = (isFunction(rowKey) ? rowKey(o) : rowKey) || 'key';
+      return o[key];
+    });
   }
 
   function clearSelectedRowKeys() {

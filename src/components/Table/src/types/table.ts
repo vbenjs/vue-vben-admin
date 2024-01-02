@@ -88,7 +88,7 @@ export interface GetColumnsParams {
 export type SizeType = 'default' | 'middle' | 'small' | 'large';
 
 export interface TableActionType {
-  reload: (opt?: FetchParams) => Promise<void>;
+  reload: (opt?: FetchParams) => Promise<Recordable<any>[] | undefined>;
   setSelectedRows: (rows: Recordable[]) => void;
   getSelectRows: <T = Recordable>() => T[];
   clearSelectedRowKeys: () => void;
@@ -313,6 +313,12 @@ export interface BasicTableProps<T = any> {
   rowSelection?: TableRowSelection;
 
   /**
+   * Show table selection bar（显示多选状态栏）
+   * @type boolean
+   */
+  showSelectionBar?: boolean;
+
+  /**
    * Set horizontal or vertical scrolling, can also be used to specify the width and height of the scroll area.
    * It is recommended to set a number for x, if you want to set it to true,
    * you need to add style .ant-table td { white-space: nowrap; }.
@@ -487,6 +493,11 @@ export type ColumnChangeParam = {
 
 export interface InnerHandlers {
   onColumnsChange: (data: ColumnChangeParam[]) => void;
+}
+
+export interface InnerMethods {
+  clearSelectedRowKeys: TableActionType['clearSelectedRowKeys'];
+  getSelectRowKeys: TableActionType['getSelectRowKeys'];
 }
 
 export interface ColumnOptionsType {

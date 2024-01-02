@@ -25,6 +25,7 @@
       :columns="columns"
       rowKey="id"
       :rowSelection="{ type: 'checkbox' }"
+      showSelectionBar
     />
   </div>
 </template>
@@ -60,7 +61,6 @@
       rowSelection: {
         type: 'checkbox',
       },
-      showIndexColumn: true,
     });
   }
   function reloadTable() {
@@ -69,7 +69,6 @@
       rowSelection: {
         type: 'checkbox',
       },
-      showIndexColumn: true,
     });
 
     getTableAction().reload({

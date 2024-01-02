@@ -36,5 +36,6 @@
     summaryFunc: handleSummary,
     scroll: { x: 2000 },
     canResize: false,
+    showSelectionBar: true, // 显示多选状态栏
   });
 </script>

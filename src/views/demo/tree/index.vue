@@ -3,7 +3,7 @@
     <Row :gutter="[16, 16]">
       <Col :span="8">
         <BasicTree title="基础示例，默认展开第一层" :treeData="treeData" defaultExpandLevel="1">
-          <template #icon><SmileTwoTone /></template>
+          <template #icon><SmileTwoTone style="font-size: 16px" /></template>
           <template #title>666</template>
           <template #switcherIcon> <CarryOutOutlined /></template>
         </BasicTree>

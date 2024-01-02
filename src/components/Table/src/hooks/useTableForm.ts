@@ -7,7 +7,7 @@ import { isFunction } from '@/utils/is';
 export function useTableForm(
   propsRef: ComputedRef<BasicTableProps>,
   slots: Slots,
-  fetch: (opt?: FetchParams | undefined) => Recordable<any>,
+  fetch: (opt?: FetchParams | undefined) => Promise<Recordable<any>[] | undefined>,
   getLoading: ComputedRef<boolean | undefined>,
 ) {
   const getFormProps = computed((): Partial<FormProps> => {

@@ -210,7 +210,9 @@
     // 更新 showIndexColumn
     showIndexColumnUpdate(e.target.checked);
     // 更新 showIndexColumn 缓存
-    props.cache && tableSettingStore.setShowIndexColumn(e.target.checked);
+    props.cache &&
+      typeof route.name === 'string' &&
+      tableSettingStore.setShowIndexColumn(route.name, e.target.checked);
   };
 
   // 是否显示选择列
@@ -220,7 +222,9 @@
     // 更新 showRowSelection
     showRowSelectionUpdate(e.target.checked);
     // 更新 showRowSelection 缓存
-    props.cache && tableSettingStore.setShowRowSelection(e.target.checked);
+    props.cache &&
+      typeof route.name === 'string' &&
+      tableSettingStore.setShowRowSelection(route.name, e.target.checked);
   };
 
   // 更新列缓存
@@ -435,12 +439,18 @@
 
   // 从缓存恢复
   const restore = () => {
-    // 设置过才恢复
-    if (typeof tableSettingStore.getShowIndexColumn === 'boolean') {
-      isIndexColumnShow.value = defaultIsIndexColumnShow && tableSettingStore.getShowIndexColumn;
-    }
-    if (typeof tableSettingStore.getShowRowSelection === 'boolean') {
-      isRowSelectionShow.value = defaultIsRowSelectionShow && tableSettingStore.getShowRowSelection;
+    if (typeof route.name === 'string') {
+      const isIndexColumnShowCache = tableSettingStore.getShowIndexColumn(route.name);
+      // 设置过才恢复
+      if (typeof isIndexColumnShowCache === 'boolean') {
+        isIndexColumnShow.value = defaultIsIndexColumnShow && isIndexColumnShowCache;
+      }
+
+      const isRowSelectionShowCache = tableSettingStore.getShowRowSelection(route.name);
+      // 设置过才恢复
+      if (typeof isRowSelectionShowCache === 'boolean') {
+        isRowSelectionShow.value = defaultIsRowSelectionShow && isRowSelectionShowCache;
+      }
     }
     // 序号列更新
     onIndexColumnShowChange({
