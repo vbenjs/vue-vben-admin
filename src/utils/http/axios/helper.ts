@@ -1,4 +1,8 @@
 import { isObject, isString } from '@/utils/is';
+import { useGlobSetting } from '@/hooks/setting';
+import projectSetting from '@/settings/projectSetting';
+
+const globSetting = useGlobSetting();
 
 const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss';
 
@@ -46,6 +50,13 @@ export function formatRequestDate(params: Recordable) {
     }
   }
 }
+
+// Convert avatar image realtive path to url
+export const getAvatarUrl = (relaPath: string | undefined) => {
+  return relaPath
+    ? globSetting.apiUrl + '/' + projectSetting.staticFileDirBackend + '/' + relaPath
+    : '';
+};
 
 /**
  * 移除空值字段: 值为 '' | null | undefined | [] | {}
