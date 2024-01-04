@@ -46,3 +46,22 @@ export function formatRequestDate(params: Recordable) {
     }
   }
 }
+
+/**
+ * 移除空值字段: 值为 '' | null | undefined | [] | {}
+ */
+export function removeEmptyValueKey(obj: any = {}) {
+  Object.keys(obj).forEach((key) => {
+    const value = obj[key];
+    if (value && typeof value === 'object') {
+      if (Object.keys(value).length === 0) {
+        delete obj[key]; // {}
+      } else {
+        removeEmptyValueKey(value);
+      }
+    }
+    (value === '' || value === null || value === undefined || value.length === 0) &&
+      delete obj[key];
+  });
+  return obj;
+}
