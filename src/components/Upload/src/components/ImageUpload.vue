@@ -179,7 +179,7 @@
     const list = (fileList.value || [])
       .filter((item) => item?.status === UploadResultStatus.DONE)
       .map((item: any) => {
-        return item?.url || item?.response?.url;
+        return item?.url || item?.response?.result;
       });
     return props.multiple ? list : list.length > 0 ? list[0] : '';
   }
