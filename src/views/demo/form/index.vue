@@ -51,8 +51,14 @@
             @search="useDebounceFn(onSearch, 300)"
           />
         </template>
+        <template #field15="{ model, field }">
+          <a-input-search v-model:value="model[field]" @search="handleMapModel(model)">
+            <template #enterButton> 地图中点选 </template>
+          </a-input-search>
+        </template>
       </BasicForm>
     </CollapseContainer>
+    <LocationModal @register="registerModal" @success="handleMapSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts" setup>
@@ -70,7 +76,10 @@
   import { cloneDeep } from 'lodash-es';
   import { areaRecord } from '@/api/demo/cascader';
   import { uploadApi } from '@/api/sys/upload';
+  import { useModal } from '@/components/Modal';
+  import { LocationModal } from '@/components/Map';
 
+  const [registerModal, { openModal }] = useModal();
   const valueSelectA = ref<string[]>([]);
   const valueSelectB = ref<string[]>([]);
   const options = ref<Required<SelectProps>['options']>([]);
@@ -389,6 +398,12 @@
         dataSource: citiesOptionsData.guangdong,
         targetKeys: ['1'],
       },
+    },
+    {
+      field: 'field15',
+      label: '所在位置',
+      slot: 'field15',
+      colProps: { span: 8 },
     },
     {
       field: 'divider-api-select',
@@ -836,5 +851,14 @@
   function handleSubmit(values: any) {
     console.log('values', values);
     createMessage.success('click search,values:' + JSON.stringify(values));
+  }
+
+  let modelD = ref<Object>({});
+  function handleMapModel(model: any) {
+    modelD.value = model;
+    openModal(true);
+  }
+  function handleMapSuccess(geoLocation: any) {
+    modelD.value['field15'] = geoLocation.address;
   }
 </script>
