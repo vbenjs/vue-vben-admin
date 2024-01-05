@@ -2,6 +2,7 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import { type PluginOption } from 'vite';
 import purgeIcons from 'vite-plugin-purge-icons';
+import VueDevTools from 'vite-plugin-vue-devtools';
 
 import { createAppConfigPlugin } from './appConfig';
 import { configCompressPlugin } from './compress';
@@ -16,10 +17,23 @@ interface Options {
   compress: string;
   enableMock?: boolean;
   enableAnalyze?: boolean;
+  devtools?: boolean;
 }
 
-async function createPlugins({ isBuild, root, enableMock, compress, enableAnalyze }: Options) {
+async function createPlugins({
+  isBuild,
+  root,
+  enableMock,
+  compress,
+  enableAnalyze,
+  devtools,
+}: Options) {
   const vitePlugins: (PluginOption | PluginOption[])[] = [vue(), vueJsx()];
+
+  // vite-plugin-vue-devtools
+  if (devtools) {
+    vitePlugins.push(VueDevTools());
+  }
 
   const appConfigPlugin = await createAppConfigPlugin({ root, isBuild });
   vitePlugins.push(appConfigPlugin);

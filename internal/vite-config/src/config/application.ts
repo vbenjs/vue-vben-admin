@@ -21,10 +21,13 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
   return defineConfig(async ({ command, mode }) => {
     const root = process.cwd();
     const isBuild = command === 'build';
-    const { VITE_PUBLIC_PATH, VITE_USE_MOCK, VITE_BUILD_COMPRESS, VITE_ENABLE_ANALYZE } = loadEnv(
-      mode,
-      root,
-    );
+    const {
+      VITE_PUBLIC_PATH,
+      VITE_USE_MOCK,
+      VITE_BUILD_COMPRESS,
+      VITE_ENABLE_ANALYZE,
+      VITE_USE_DEVTOOLS,
+    } = loadEnv(mode, root);
 
     const defineData = await createDefineData(root);
     const plugins = await createPlugins({
@@ -33,6 +36,7 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
       enableAnalyze: VITE_ENABLE_ANALYZE === 'true',
       enableMock: VITE_USE_MOCK === 'true',
       compress: VITE_BUILD_COMPRESS,
+      devtools: VITE_USE_DEVTOOLS === 'true',
     });
 
     const pathResolve = (pathname: string) => resolve(root, '.', pathname);
