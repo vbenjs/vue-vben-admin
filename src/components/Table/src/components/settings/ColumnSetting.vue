@@ -541,14 +541,14 @@
             typeof col.title === 'string'
               ? col.title
               : col.customTitle === 'string'
-                ? col.customTitle
-                : '',
+              ? col.customTitle
+              : '',
           value:
             typeof col.dataIndex === 'string'
               ? col.dataIndex
               : col.title === 'string'
-                ? col.title
-                : '',
+              ? col.title
+              : '',
           column: {
             defaultHidden: col.defaultHidden,
           },

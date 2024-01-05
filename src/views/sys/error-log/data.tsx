@@ -16,12 +16,12 @@ export function getColumns(): BasicColumn[] {
           text === ErrorTypeEnum.VUE
             ? 'green'
             : text === ErrorTypeEnum.RESOURCE
-              ? 'cyan'
-              : text === ErrorTypeEnum.PROMISE
-                ? 'blue'
-                : ErrorTypeEnum.AJAX
-                  ? 'red'
-                  : 'purple';
+            ? 'cyan'
+            : text === ErrorTypeEnum.PROMISE
+            ? 'blue'
+            : ErrorTypeEnum.AJAX
+            ? 'red'
+            : 'purple';
         return <Tag color={color}>{() => text}</Tag>;
       },
     },

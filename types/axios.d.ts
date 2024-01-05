@@ -46,11 +46,13 @@ export interface Result<T = any> {
 export interface UploadFileParams {
   // Other parameters
   data?: Recordable;
-  // File parameter interface field name
-  name?: string;
   // file name
   file: File | Blob;
   // file name
   filename?: string;
+  // file type
+  type?: string | undefined;
+  // file realtive path
+  path?: string | undefined;
   [key: string]: any;
 }
