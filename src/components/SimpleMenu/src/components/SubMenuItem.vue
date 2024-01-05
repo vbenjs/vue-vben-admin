@@ -44,7 +44,8 @@
           :class="`${prefixCls}-submenu-title-icon`"
         />
       </div>
-      <template #content v-if="state.opened">
+      <!-- eslint-disable-next-line -->
+      <template #content v-show="state.opened">
         <div v-bind="getEvents(true)">
           <ul :class="[prefixCls, `${prefixCls}-${getTheme}`, `${prefixCls}-popup`]">
             <slot></slot>
