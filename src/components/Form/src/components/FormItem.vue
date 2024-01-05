@@ -178,7 +178,7 @@
         const joinLabel = Reflect.has(props.schema, 'rulesMessageJoinLabel')
           ? rulesMessageJoinLabel
           : globalRulesMessageJoinLabel;
-        const assertLabel = joinLabel ? label : '';
+        const assertLabel = joinLabel ? (isFunction(label) ? '' : label) : '';
         const defaultMsg = component
           ? createPlaceholderMessage(component) + assertLabel
           : assertLabel;
