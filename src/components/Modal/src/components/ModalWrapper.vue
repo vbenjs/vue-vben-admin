@@ -141,8 +141,8 @@
         realHeightRef.value = props.height
           ? props.height
           : realHeight.value > maxHeight
-          ? maxHeight
-          : realHeight.value;
+            ? maxHeight
+            : realHeight.value;
       }
       emit('height-change', unref(realHeightRef));
     } catch (error) {

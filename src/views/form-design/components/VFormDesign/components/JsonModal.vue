@@ -43,7 +43,7 @@
        */
       const showModal = (jsonData: IFormConfig) => {
         formatRules(jsonData.schemas);
-        state.jsonData = jsonData;
+        state.jsonData = jsonData as any;
         state.visible = true;
       };
 

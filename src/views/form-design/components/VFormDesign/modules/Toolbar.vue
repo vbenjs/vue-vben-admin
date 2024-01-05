@@ -104,8 +104,7 @@
 
   .operating-area {
     display: flex;
-    align-content: center;
-    justify-content: space-between;
+    place-content: center space-between;
     height: @operating-area-height;
     padding: 0 12px;
     padding-left: 30px;

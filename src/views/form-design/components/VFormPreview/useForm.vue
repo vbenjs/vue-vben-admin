@@ -48,7 +48,7 @@
    * @param jsonData
    */
   const showModal = (jsonData: IFormConfig) => {
-    state.formConfig = jsonData;
+    state.formConfig = jsonData as any;
     state.visible = true;
   };
 

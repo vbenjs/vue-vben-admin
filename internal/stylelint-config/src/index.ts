@@ -22,6 +22,7 @@ export default {
     },
   ],
   rules: {
+    'prettier/prettier': true,
     'media-feature-range-notation': null,
     'selector-not-notation': null,
     'import-notation': null,
@@ -58,7 +59,6 @@ export default {
       },
     ],
     'no-empty-source': null,
-    'string-quotes': null,
     'named-grid-areas-no-invalid': null,
     'no-descending-specificity': null,
     'font-family-no-missing-generic-family-keyword': null,

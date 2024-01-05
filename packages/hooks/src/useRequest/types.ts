@@ -94,10 +94,10 @@ export interface UseRequestOptions<TData, TParams extends any[]> {
 
 export interface UseRequestPlugin<TData, TParams extends any[]> {
   // eslint-disable-next-line prettier/prettier
-  (fetchInstance: Fetch<TData, TParams>, options: UseRequestOptions<TData, TParams>): PluginReturn<
-    TData,
-    TParams
-  >;
+  (
+    fetchInstance: Fetch<TData, TParams>,
+    options: UseRequestOptions<TData, TParams>,
+  ): PluginReturn<TData, TParams>;
   onInit?: (options: UseRequestOptions<TData, TParams>) => Partial<FetchState<TData, TParams>>;
 }
 

@@ -97,18 +97,18 @@
         labelCol = labelCol
           ? labelCol
           : formConfig.layout === 'horizontal'
-          ? formConfig.labelLayout === 'flex'
-            ? { style: `width:${formConfig.labelWidth}px` }
-            : formConfig.labelCol
-          : {};
+            ? formConfig.labelLayout === 'flex'
+              ? { style: `width:${formConfig.labelWidth}px` }
+              : formConfig.labelCol
+            : {};
 
         wrapperCol = wrapperCol
           ? wrapperCol
           : formConfig.layout === 'horizontal'
-          ? formConfig.labelLayout === 'flex'
-            ? { style: 'width:auto;flex:1' }
-            : formConfig.wrapperCol
-          : {};
+            ? formConfig.labelLayout === 'flex'
+              ? { style: 'width:auto;flex:1' }
+              : formConfig.wrapperCol
+            : {};
 
         const style =
           formConfig.layout === 'horizontal' && formConfig.labelLayout === 'flex'
