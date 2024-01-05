@@ -66,8 +66,7 @@
       width: 100%;
       height: 85vh;
       margin-right: 10px;
-      overflow-x: hidden;
-      overflow-y: auto;
+      overflow: hidden auto;
     }
 
     .hint-box {

@@ -54,8 +54,8 @@
                 schemas.length === 1
                   ? { component: '' }
                   : schemas.length - 1 > index
-                  ? schemas[index + 1]
-                  : schemas[index - 1];
+                    ? schemas[index + 1]
+                    : schemas[index - 1];
               formDesignMethods.handleSetSelectItem(params);
               remove(schemas, index);
               return true;

@@ -55,7 +55,14 @@
     "**/yarn.lock": true
   },
   "stylelint.enable": true,
-  "stylelint.validate": ["css", "less", "postcss", "scss", "vue", "sass"],
+  "stylelint.validate": [
+    "css",
+    "less",
+    "postcss",
+    "scss",
+    "vue",
+    "sass"
+  ],
   "path-intellisense.mappings": {
     "@/": "${workspaceRoot}/src"
   },
@@ -84,25 +91,32 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.fixAll.stylelint": true
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
   },
   "[vue]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true,
-      "source.fixAll.stylelint": true
+      "source.fixAll.eslint": "explicit",
+      "source.fixAll.stylelint": "explicit"
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "i18n-ally.localesPaths": ["src/locales/lang"],
+  "i18n-ally.localesPaths": [
+    "src/locales/lang"
+  ],
   "i18n-ally.keystyle": "nested",
   "i18n-ally.sortKeys": true,
   "i18n-ally.namespace": true,
   "i18n-ally.pathMatcher": "{locale}/{namespaces}.{ext}",
-  "i18n-ally.enabledParsers": ["json"],
+  "i18n-ally.enabledParsers": [
+    "json"
+  ],
   "i18n-ally.sourceLanguage": "en",
   "i18n-ally.displayLanguage": "zh-CN",
-  "i18n-ally.enabledFrameworks": ["vue", "react"],
+  "i18n-ally.enabledFrameworks": [
+    "vue",
+    "react"
+  ],
   "cSpell.words": [
     "antd",
     "antv",
