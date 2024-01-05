@@ -1,6 +1,9 @@
 import type { LocaleType } from '#/config';
-
 import { set } from 'lodash-es';
+import { useGlobSetting } from '@/hooks/setting';
+import projectSetting from '@/settings/projectSetting';
+
+const globSetting = useGlobSetting();
 
 export const loadLocalePool: LocaleType[] = [];
 
@@ -35,3 +38,10 @@ export function genMessage(langs: Record<string, Record<string, any>>, prefix = 
   });
   return obj;
 }
+
+// Convert avatar image realtive path to url
+export const getAvatarUrl = (relaPath: string | undefined) => {
+  return relaPath
+    ? globSetting.apiUrl + '/' + projectSetting.staticFileDirBackend + '/' + relaPath
+    : '';
+};

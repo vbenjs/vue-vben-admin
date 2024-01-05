@@ -245,7 +245,7 @@
     for (const item of fileListRef.value) {
       const { status, response } = item;
       if (status === UploadResultStatus.SUCCESS && response) {
-        fileList.push(response.url);
+        fileList.push(response.result);
       }
     }
     // 存在一个上传成功的即可保存
