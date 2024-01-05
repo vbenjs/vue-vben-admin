@@ -121,18 +121,20 @@
   import { dataURLtoBlob } from '@/utils/file/base64Conver';
   import { isFunction } from '@/utils/is';
   import { useI18n } from '@/hooks/web/useI18n';
-
-  type apiFunParams = { file: Blob; name: string; filename: string };
+  import { UploadFileParams } from '#/axios';
+  import { ResultEnum } from '@/enums/httpEnum';
 
   defineOptions({ name: 'CropperModal' });
 
   const props = defineProps({
     circled: { type: Boolean, default: true },
     uploadApi: {
-      type: Function as PropType<(params: apiFunParams) => Promise<any>>,
+      type: Function as PropType<(params: UploadFileParams) => Promise<any>>,
     },
     src: { type: String },
-    size: { type: Number },
+    checkMaxSize: { type: Number },
+    type: { type: String },
+    path: { type: String },
   });
 
   const emit = defineEmits(['uploadSuccess', 'uploadError', 'register']);
@@ -150,8 +152,10 @@
 
   // Block upload
   function handleBeforeUpload(file: File) {
-    if (props.size && file.size > 1024 * 1024 * props.size) {
-      emit('uploadError', { msg: t('component.cropper.imageTooBig') });
+    if (props.checkMaxSize && file.size > 1024 * 1024 * props.checkMaxSize) {
+      emit('uploadError', {
+        msg: t('component.cropper.imageMaxSize', [props.checkMaxSize]),
+      });
       return;
     }
     const reader = new FileReader();
@@ -189,8 +193,17 @@
       const blob = dataURLtoBlob(previewSource.value);
       try {
         setModalProps({ confirmLoading: true });
-        const result = await uploadApi({ name: 'file', file: blob, filename });
-        emit('uploadSuccess', { source: previewSource.value, data: result.url });
+        const { data } = await uploadApi({
+          file: blob,
+          filename,
+          type: props.type,
+          path: props.path,
+        });
+        if (data.code !== ResultEnum.SUCCESS || !data.result) {
+          emit('uploadError', { msg: t('component.cropper.uploadError') });
+          return;
+        }
+        emit('uploadSuccess', { source: previewSource.value, data: data.result });
         closeModal();
       } finally {
         setModalProps({ confirmLoading: false });
