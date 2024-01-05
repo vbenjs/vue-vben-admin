@@ -11,7 +11,8 @@
   "cropper": {
     "selectImage": "Select Image",
     "uploadSuccess": "Uploaded success!",
-    "imageTooBig": "Image too big",
+    "uploadError": "Uploaded error!",
+    "imageMaxSize": "Only upload image up to {0}MB!",
     "modalTitle": "Avatar upload",
     "okText": "Confirm and upload",
     "btn_reset": "Reset",
