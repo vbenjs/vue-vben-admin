@@ -66,11 +66,15 @@ export default {
       const showModal = (formConfig: IFormConfig) => {
         formConfig.schemas && formatRules(formConfig.schemas);
         state.visible = true;
-        state.jsonData = formConfig;
+        state.jsonData = formConfig as any;
       };
 
       const editorVueJson = computed(() => {
-        return codeVueFront + JSON.stringify(removeAttrs(state.jsonData), null, '\t') + codeVueLast;
+        return (
+          codeVueFront +
+          JSON.stringify(removeAttrs(state.jsonData as any), null, '\t') +
+          codeVueLast
+        );
       });
 
       return { ...toRefs(state), editorVueJson, showModal };

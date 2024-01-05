@@ -14,7 +14,7 @@
     :width="900"
   >
     <VFormCreate
-      :form-config="formConfig"
+      :form-config="formConfig as any"
       v-model:fApi="fApi"
       v-model:formModel="formModel"
       @submit="onSubmit"
@@ -65,7 +65,7 @@
       const showModal = (jsonData: IFormConfig) => {
         // console.log('showModal-', jsonData);
         formatRules(jsonData.schemas);
-        state.formConfig = jsonData;
+        state.formConfig = jsonData as any;
         state.visible = true;
       };
 
