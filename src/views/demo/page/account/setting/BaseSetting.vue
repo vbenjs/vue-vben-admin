@@ -33,7 +33,7 @@
   import headerImg from '@/assets/images/header.jpg';
   import { accountInfoApi } from '@/api/demo/account';
   import { baseSetschemas } from './data';
-  import { useUserStore } from '@/store/modules/user';
+  import { useUserStore } from '@/store/modules/account';
   import { uploadApi } from '@/api/sys/upload';
 
   const { createMessage } = useMessage();

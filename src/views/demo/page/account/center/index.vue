@@ -63,7 +63,7 @@
 
   import headerImg from '@/assets/images/header.jpg';
   import { tags, teams, details, achieveList } from './data';
-  import { useUserStore } from '@/store/modules/user';
+  import { useUserStore } from '@/store/modules/account';
 
   const userStore = useUserStore();
   const TabPane = Tabs.TabPane;

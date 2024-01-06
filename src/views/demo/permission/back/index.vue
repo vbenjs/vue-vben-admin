@@ -25,7 +25,7 @@
 <script lang="ts" setup>
   import { computed } from 'vue';
   import { usePermission } from '@/hooks/web/usePermission';
-  import { useUserStore } from '@/store/modules/user';
+  import { useUserStore } from '@/store/modules/account';
   import { PageWrapper } from '@/components/Page';
   import { PermissionModeEnum } from '@/enums/appEnum';
   import { useAppStore } from '@/store/modules/app';

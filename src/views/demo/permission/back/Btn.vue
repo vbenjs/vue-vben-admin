@@ -67,7 +67,7 @@
   import { PermissionModeEnum } from '@/enums/appEnum';
   import { PageWrapper } from '@/components/Page';
   import { useAppStore } from '@/store/modules/app';
-  import { useUserStore } from '@/store/modules/user';
+  import { useUserStore } from '@/store/modules/account';
 
   const { hasPermission } = usePermission();
   const permissionStore = usePermissionStore();

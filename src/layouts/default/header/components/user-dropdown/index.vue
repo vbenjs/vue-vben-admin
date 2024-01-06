@@ -46,7 +46,7 @@
   import type { MenuInfo } from 'ant-design-vue/lib/menu/src/interface';
   import { computed } from 'vue';
   import { DOC_URL } from '@/settings/siteSetting';
-  import { useUserStore } from '@/store/modules/user';
+  import { useUserStore } from '@/store/modules/account';
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
   import { useI18n } from '@/hooks/web/useI18n';
   import { useDesign } from '@/hooks/web/useDesign';

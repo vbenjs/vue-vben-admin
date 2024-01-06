@@ -13,7 +13,7 @@ export default {
       // The number field name of each page displayed in the background
       sizeField: 'pageSize',
       // Field name of the form data returned by the interface
-      listField: 'items',
+      listField: 'records',
       // Total number of tables returned by the interface field name
       totalField: 'total',
     },

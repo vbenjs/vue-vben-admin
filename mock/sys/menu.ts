@@ -1,6 +1,6 @@
 import { resultSuccess, resultError, getRequestToken, requestParams } from '../_util';
 import { MockMethod } from 'vite-plugin-mock';
-import { createFakeUserList } from './user';
+import { createFakeUserList } from './account';
 
 // single
 const dashboardRoute = {

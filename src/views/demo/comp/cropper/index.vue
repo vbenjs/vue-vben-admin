@@ -38,7 +38,7 @@
   import { CropperImage, CropperAvatar } from '@/components/Cropper';
   import { uploadApi } from '@/api/sys/upload';
   import img from '@/assets/images/header.jpg';
-  import { useUserStore } from '@/store/modules/user';
+  import { useUserStore } from '@/store/modules/account';
 
   const info = ref('');
   const cropperImg = ref('');

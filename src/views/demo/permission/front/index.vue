@@ -28,7 +28,7 @@
 <script lang="ts" setup>
   import { computed } from 'vue';
   import { Alert, Space } from 'ant-design-vue';
-  import { useUserStore } from '@/store/modules/user';
+  import { useUserStore } from '@/store/modules/account';
   import { RoleEnum } from '@/enums/roleEnum';
   import { usePermission } from '@/hooks/web/usePermission';
   import { PageWrapper } from '@/components/Page';

@@ -3,7 +3,7 @@ import type { AppRouteRecordRaw, Menu } from '@/router/types';
 import { defineStore } from 'pinia';
 import { store } from '@/store';
 import { useI18n } from '@/hooks/web/useI18n';
-import { useUserStore } from './user';
+import { useUserStore } from './account';
 import { useAppStoreWithOut } from './app';
 import { toRaw } from 'vue';
 import { transformObjToRoute, flatMultiLevelRoutes } from '@/router/helper/routeHelper';
@@ -19,7 +19,7 @@ import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic';
 import { filter } from '@/utils/helper/treeHelper';
 
 import { getMenuList } from '@/api/sys/menu';
-import { getPermCode } from '@/api/sys/user';
+import { getPermCode } from '@/api/sys/account';
 
 import { useMessage } from '@/hooks/web/useMessage';
 import { PageEnum } from '@/enums/pageEnum';

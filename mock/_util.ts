@@ -20,8 +20,10 @@ export function resultPageSuccess<T = any>(
 
   return {
     ...resultSuccess({
-      items: pageData,
+      records: pageData,
       total: list.length,
+      current: page,
+      pages: pageSize,
     }),
     message,
   };

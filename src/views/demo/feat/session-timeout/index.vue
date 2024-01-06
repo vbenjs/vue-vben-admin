@@ -16,7 +16,7 @@
 </template>
 <script lang="ts" setup>
   import { PageWrapper } from '@/components/Page';
-  import { useUserStore } from '@/store/modules/user';
+  import { useUserStore } from '@/store/modules/account';
   import { sessionTimeoutApi, tokenExpiredApi } from '@/api/demo/account';
   import { Card } from 'ant-design-vue';
 

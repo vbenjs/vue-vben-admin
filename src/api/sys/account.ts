@@ -1,5 +1,5 @@
 import { defHttp } from '@/utils/http/axios';
-import { LoginParams, LoginResultModel, GetUserInfoModel } from './model/userModel';
+import { LoginParams, LoginResultModel, GetUserInfoModel } from './model/accountModel';
 
 import { ErrorMessageMode } from '#/axios';
 

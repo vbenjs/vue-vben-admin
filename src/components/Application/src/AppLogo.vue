@@ -17,7 +17,7 @@
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
   import { useDesign } from '@/hooks/web/useDesign';
   import { PageEnum } from '@/enums/pageEnum';
-  import { useUserStore } from '@/store/modules/user';
+  import { useUserStore } from '@/store/modules/account';
 
   const props = defineProps({
     /**
