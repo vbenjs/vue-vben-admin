@@ -12,6 +12,7 @@
     "directory": "internal/eslint-config"
   },
   "license": "MIT",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
