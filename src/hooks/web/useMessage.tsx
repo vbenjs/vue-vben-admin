@@ -4,6 +4,7 @@ import { InfoCircleFilled, CheckCircleFilled, CloseCircleFilled } from '@ant-des
 import { NotificationArgsProps, ConfigProps } from 'ant-design-vue/lib/notification';
 import { useI18n } from './useI18n';
 import { isString } from '@/utils/is';
+import { VueNode } from 'ant-design-vue/lib/_util/type.d';
 
 export interface NotifyApi {
   info(config: NotificationArgsProps): void;
@@ -52,9 +53,9 @@ function createConfirm(options: ModalOptionsEx) {
   Reflect.deleteProperty(options, 'iconType');
   const opt: ModalFuncProps = {
     centered: true,
-    icon: getIcon(iconType),
+    icon: getIcon(iconType) as (() => VueNode) | VueNode,
     ...options,
-    content: renderContent(options),
+    content: renderContent(options) as string | (() => VueNode) | VueNode,
   };
   return Modal.confirm(opt);
 }
@@ -71,8 +72,8 @@ function createModalOptions(options: ModalOptionsPartial, icon: string): ModalOp
   return {
     ...getBaseOptions(),
     ...options,
-    content: renderContent(options),
-    icon: getIcon(icon),
+    content: renderContent(options) as string | (() => VueNode) | VueNode,
+    icon: getIcon(icon) as (() => VueNode) | VueNode,
   };
 }
 
