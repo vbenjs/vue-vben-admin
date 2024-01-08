@@ -32,7 +32,7 @@
   "dependencies": {
     "@vueuse/core": "^10.7.1",
     "lodash-es": "^4.17.21",
-    "vue": "^3.4.5"
+    "vue": "3.3.4"
   },
   "devDependencies": {
     "@vben/types": "workspace:*"
