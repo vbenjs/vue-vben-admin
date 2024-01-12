@@ -22,9 +22,12 @@ export interface TableCurrentDataSource<T = Recordable> {
 export interface TableRowSelection<T = any> extends ITableRowSelection {
   /**
    * Callback executed when selected rows change
-   * @type Function
+   * @param selectedRowKeys 已选的keys
+   * @param selectedRows 已选的records
+   * @param isClickCustomRow 是否是点击行触发（反之，就是点击checkbox/radiobox）
+   * @returns void
    */
-  onChange?: (selectedRowKeys: Key[], selectedRows: T[]) => any;
+  onChange?: (selectedRowKeys: Key[], selectedRows: T[], isClickCustomRow?: boolean) => void;
 
   /**
    * Callback executed when select/deselect one row
