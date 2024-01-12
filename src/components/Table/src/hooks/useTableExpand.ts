@@ -3,13 +3,14 @@ import type { BasicTableProps } from '../types/table';
 import { computed, unref, ref, toRaw, nextTick } from 'vue';
 import { ROW_KEY } from '../const';
 import { parseRowKeyValue } from '../helper';
+import type { Key } from 'ant-design-vue/lib/table/interface';
 
 export function useTableExpand(
   propsRef: ComputedRef<BasicTableProps>,
   tableData: Ref<Recordable[]>,
   emit: EmitType,
 ) {
-  const expandedRowKeys = ref<(string | number)[]>([]);
+  const expandedRowKeys = ref<Key[]>([]);
 
   const getAutoCreateKey = computed(() => {
     return unref(propsRef).autoCreateKey && !unref(propsRef).rowKey;
@@ -42,14 +43,14 @@ export function useTableExpand(
     expandedRowKeys.value = [];
   }
 
-  function expandRows(keyValues: (string | number)[]) {
+  function expandRows(keyValues: Key[]) {
     // use row ID expands the specified table row
     const { isTreeTable, expandRowByClick } = unref(propsRef);
     if (!isTreeTable && !expandRowByClick) return;
     expandedRowKeys.value = [...expandedRowKeys.value, ...keyValues];
   }
 
-  function collapseRows(keyValues: (string | number)[]) {
+  function collapseRows(keyValues: Key[]) {
     // use row ID collapses the specified table row
     const { isTreeTable, expandRowByClick } = unref(propsRef);
     if (!isTreeTable && !expandRowByClick) return;
@@ -75,8 +76,8 @@ export function useTableExpand(
   function getKeyPaths(
     records: Recordable[],
     childrenColumnName: string,
-    keyValue: string | number,
-    paths: Array<string | number>,
+    keyValue: Key,
+    paths: Array<Key>,
   ): boolean {
     if (
       records.findIndex((record) => parseRowKeyValue(unref(getRowKey), record) === keyValue) > -1
@@ -96,9 +97,9 @@ export function useTableExpand(
   }
 
   // 手风琴展开
-  function expandRowAccordion(keyValue: string | number) {
+  function expandRowAccordion(keyValue: Key) {
     const { childrenColumnName } = unref(propsRef);
-    const paths: Array<string | number> = [];
+    const paths: Array<Key> = [];
     getKeyPaths(tableData.value, childrenColumnName || 'children', keyValue, paths);
     expandedRowKeys.value = paths;
   }

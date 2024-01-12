@@ -152,7 +152,7 @@ export function useRowSelection(
     selectedRowKeysRef.value = [];
   }
 
-  function deleteSelectRowByKey(key: string | number) {
+  function deleteSelectRowByKey(key: Key) {
     const selectedRowKeys = unref(selectedRowKeysRef);
     const index = selectedRowKeys.findIndex((item) => item === key);
     if (index !== -1) {

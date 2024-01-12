@@ -17,6 +17,7 @@ import { isFunction, isBoolean, isObject } from '@/utils/is';
 import { get, cloneDeep, merge } from 'lodash-es';
 import { FETCH_SETTING, ROW_KEY, PAGE_SIZE } from '../const';
 import { parseRowKeyValue } from '../helper';
+import type { Key } from 'ant-design-vue/lib/table/interface';
 
 interface ActionType {
   getPaginationInfo: ComputedRef<boolean | PaginationProps>;
@@ -139,7 +140,7 @@ export function useDataSource(
     return unref(dataSourceRef);
   });
 
-  async function updateTableData(index: number, key: string | number, value: any) {
+  async function updateTableData(index: number, key: Key, value: any) {
     const record = dataSourceRef.value[index];
     if (record) {
       dataSourceRef.value[index][key] = value;
@@ -147,10 +148,7 @@ export function useDataSource(
     return dataSourceRef.value[index];
   }
 
-  function updateTableDataRecord(
-    keyValue: string | number,
-    record: Recordable,
-  ): Recordable | undefined {
+  function updateTableDataRecord(keyValue: Key, record: Recordable): Recordable | undefined {
     const row = findTableDataRecord(keyValue);
 
     if (row) {
@@ -161,7 +159,7 @@ export function useDataSource(
     }
   }
 
-  function deleteTableDataRecord(keyValues: string | number | string[] | number[]) {
+  function deleteTableDataRecord(keyValues: Key | Key[]) {
     if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
     const delKeyValues = !Array.isArray(keyValues) ? [keyValues] : keyValues;
 
@@ -212,7 +210,7 @@ export function useDataSource(
     return unref(dataSourceRef);
   }
 
-  function findTableDataRecord(keyValue: string | number) {
+  function findTableDataRecord(keyValue: Key) {
     if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
     const { childrenColumnName = 'children' } = unref(propsRef);
 

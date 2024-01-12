@@ -102,7 +102,7 @@ export function useTable(tableProps?: Props): [
     setPagination: (info: Partial<PaginationProps>) => {
       return getTableInstance().setPagination(info);
     },
-    deleteSelectRowByKey: (keyValue: string | number) => {
+    deleteSelectRowByKey: (keyValue: Key) => {
       getTableInstance().deleteSelectRowByKey(keyValue);
     },
     getSelectRowKeys: () => {
@@ -114,7 +114,7 @@ export function useTable(tableProps?: Props): [
     clearSelectedRowKeys: () => {
       getTableInstance().clearSelectedRowKeys();
     },
-    setSelectedRowKeys: (keyValues: (string | number)[]) => {
+    setSelectedRowKeys: (keyValues: Key[]) => {
       getTableInstance().setSelectedRowKeys(keyValues);
     },
     getPaginationRef: () => {
@@ -126,16 +126,16 @@ export function useTable(tableProps?: Props): [
     updateTableData: (index: number, key: string, value: any) => {
       return getTableInstance().updateTableData(index, key, value);
     },
-    deleteTableDataRecord: (keyValues: string | number | string[] | number[]) => {
+    deleteTableDataRecord: (keyValues: Key | Key[]) => {
       return getTableInstance().deleteTableDataRecord(keyValues);
     },
     insertTableDataRecord: (record: Recordable | Recordable[], index?: number) => {
       return getTableInstance().insertTableDataRecord(record, index);
     },
-    updateTableDataRecord: (keyValue: string | number, record: Recordable) => {
+    updateTableDataRecord: (keyValue: Key, record: Recordable) => {
       return getTableInstance().updateTableDataRecord(keyValue, record);
     },
-    findTableDataRecord: (keyValue: string | number) => {
+    findTableDataRecord: (keyValue: Key) => {
       return getTableInstance().findTableDataRecord(keyValue);
     },
     getRowSelection: () => {

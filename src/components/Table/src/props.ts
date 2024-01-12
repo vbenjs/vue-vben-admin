@@ -14,6 +14,7 @@ import type { FormProps } from '@/components/Form';
 
 import { DEFAULT_FILTER_FN, DEFAULT_SORT_FN, FETCH_SETTING, DEFAULT_SIZE } from './const';
 import { propTypes } from '@/utils/propTypes';
+import type { Key } from 'ant-design-vue/lib/table/interface';
 
 export const basicProps = {
   clickToRowSelect: { type: Boolean, default: true },
@@ -137,12 +138,7 @@ export const basicProps = {
   },
   beforeEditSubmit: {
     type: Function as PropType<
-      (data: {
-        record: Recordable;
-        index: number;
-        key: string | number;
-        value: any;
-      }) => Promise<any>
+      (data: { record: Recordable; index: number; key: Key; value: any }) => Promise<any>
     >,
   },
   size: {

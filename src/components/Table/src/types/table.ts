@@ -99,17 +99,17 @@ export interface TableActionType {
   clearSelectedRowKeys: () => void;
   expandAll: () => void;
   collapseAll: () => void;
-  expandRows: (keyValues: (string | number)[]) => void;
-  collapseRows: (keyValues: (string | number)[]) => void;
+  expandRows: (keyValues: Key[]) => void;
+  collapseRows: (keyValues: Key[]) => void;
   scrollTo: (pos: string) => void; // pos: id | "top" | "bottom"
   getSelectRowKeys: () => Key[];
-  deleteSelectRowByKey: (keyValue: string | number) => void;
+  deleteSelectRowByKey: (keyValue: Key) => void;
   setPagination: (info: Partial<PaginationProps>) => void;
   setTableData: <T = Recordable>(values: T[]) => void;
-  updateTableDataRecord: (keyValue: string | number, record: Recordable) => Recordable | void;
-  deleteTableDataRecord: (keyValues: string | number | string[] | number[]) => void;
+  updateTableDataRecord: (keyValue: Key, record: Recordable) => Recordable | void;
+  deleteTableDataRecord: (keyValues: Key | Key[]) => void;
   insertTableDataRecord: (record: Recordable | Recordable[], index?: number) => Recordable[] | void;
-  findTableDataRecord: (keyValue: string | number) => Recordable | void;
+  findTableDataRecord: (keyValue: Key) => Recordable | void;
   getColumns: (opt?: GetColumnsParams) => BasicColumn[];
   setColumns: (columns: BasicColumn[] | string[]) => void;
   getDataSource: <T = Recordable>() => T[];
@@ -397,7 +397,7 @@ export interface BasicTableProps<T = any> {
   beforeEditSubmit?: (data: {
     record: Recordable;
     index: number;
-    key: string | number;
+    key: Key;
     value: any;
   }) => Promise<any>;
 
