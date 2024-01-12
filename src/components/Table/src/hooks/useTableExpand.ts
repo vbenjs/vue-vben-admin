@@ -2,13 +2,15 @@ import type { ComputedRef, Ref } from 'vue';
 import type { BasicTableProps } from '../types/table';
 import { computed, unref, ref, toRaw, nextTick } from 'vue';
 import { ROW_KEY } from '../const';
+import { parseRowKeyValue } from '../helper';
+import type { Key } from 'ant-design-vue/lib/table/interface';
 
 export function useTableExpand(
   propsRef: ComputedRef<BasicTableProps>,
   tableData: Ref<Recordable[]>,
   emit: EmitType,
 ) {
-  const expandedRowKeys = ref<(string | number)[]>([]);
+  const expandedRowKeys = ref<Key[]>([]);
 
   const getAutoCreateKey = computed(() => {
     return unref(propsRef).autoCreateKey && !unref(propsRef).rowKey;
@@ -25,68 +27,68 @@ export function useTableExpand(
 
     return {
       expandedRowKeys: unref(expandedRowKeys),
-      onExpandedRowsChange: (keys: string[]) => {
-        expandedRowKeys.value = keys;
-        emit('expanded-rows-change', keys);
+      onExpandedRowsChange: (keyValues: string[]) => {
+        expandedRowKeys.value = keyValues;
+        emit('expanded-rows-change', keyValues);
       },
     };
   });
 
   function expandAll() {
-    const keys = getAllKeys();
-    expandedRowKeys.value = keys;
+    const keyValues = getAllKeys();
+    expandedRowKeys.value = keyValues;
   }
 
   function collapseAll() {
     expandedRowKeys.value = [];
   }
 
-  function expandRows(keys: (string | number)[]) {
+  function expandRows(keyValues: Key[]) {
     // use row ID expands the specified table row
     const { isTreeTable, expandRowByClick } = unref(propsRef);
     if (!isTreeTable && !expandRowByClick) return;
-    expandedRowKeys.value = [...expandedRowKeys.value, ...keys];
+    expandedRowKeys.value = [...expandedRowKeys.value, ...keyValues];
   }
 
-  function collapseRows(keys: (string | number)[]) {
+  function collapseRows(keyValues: Key[]) {
     // use row ID collapses the specified table row
     const { isTreeTable, expandRowByClick } = unref(propsRef);
     if (!isTreeTable && !expandRowByClick) return;
-    expandedRowKeys.value = unref(expandedRowKeys).filter((key) => !keys.includes(key));
+    expandedRowKeys.value = unref(expandedRowKeys).filter(
+      (keyValue) => !keyValues.includes(keyValue),
+    );
   }
 
   function getAllKeys(data?: Recordable[]) {
-    const keys: string[] = [];
+    const keyValues: Array<number | string> = [];
     const { childrenColumnName } = unref(propsRef);
     toRaw(data || unref(tableData)).forEach((item) => {
-      keys.push(item[unref(getRowKey) as string]);
+      keyValues.push(parseRowKeyValue(unref(getRowKey), item));
       const children = item[childrenColumnName || 'children'];
       if (children?.length) {
-        keys.push(...getAllKeys(children));
+        keyValues.push(...getAllKeys(children));
       }
     });
-    return keys;
+    return keyValues;
   }
 
-  // 获取展开路径 keys
+  // 获取展开路径 keyValues
   function getKeyPaths(
     records: Recordable[],
-    rowKey: string,
     childrenColumnName: string,
-    key: string | number,
-    paths: Array<string | number>,
+    keyValue: Key,
+    paths: Array<Key>,
   ): boolean {
-    if (records.findIndex((record) => record[rowKey] === key) > -1) {
-      paths.push(key);
+    if (
+      records.findIndex((record) => parseRowKeyValue(unref(getRowKey), record) === keyValue) > -1
+    ) {
+      paths.push(keyValue);
       return true;
     } else {
       for (const record of records) {
         const children = record[childrenColumnName];
-        if (
-          Array.isArray(children) &&
-          getKeyPaths(children, rowKey, childrenColumnName, key, paths)
-        ) {
-          paths.push(record[rowKey]);
+        if (Array.isArray(children) && getKeyPaths(children, childrenColumnName, keyValue, paths)) {
+          paths.push(parseRowKeyValue(unref(getRowKey), record));
           return true;
         }
       }
@@ -95,10 +97,10 @@ export function useTableExpand(
   }
 
   // 手风琴展开
-  function expandRowAccordion(key: string | number, rowKey: string) {
+  function expandRowAccordion(keyValue: Key) {
     const { childrenColumnName } = unref(propsRef);
-    const paths: Array<string | number> = [];
-    getKeyPaths(tableData.value, rowKey, childrenColumnName || 'children', key, paths);
+    const paths: Array<Key> = [];
+    getKeyPaths(tableData.value, childrenColumnName || 'children', keyValue, paths);
     expandedRowKeys.value = paths;
   }
 
@@ -106,17 +108,14 @@ export function useTableExpand(
   function handleTableExpand(expanded, record) {
     // 手风琴开关
     // isTreeTable 或 expandRowByClick 时支持
-    // rowKey 是字符串时支持
     // 展开操作
     if (
       propsRef.value.accordion &&
       (propsRef.value.isTreeTable || propsRef.value.expandRowByClick) &&
-      typeof getRowKey.value === 'string' &&
       expanded
     ) {
-      const rowKey = getRowKey.value as string;
       nextTick(() => {
-        expandRowAccordion(record[rowKey], rowKey);
+        expandRowAccordion(parseRowKeyValue(unref(getRowKey), record));
       });
     }
   }
