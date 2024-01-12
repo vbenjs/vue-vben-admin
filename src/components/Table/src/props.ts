@@ -8,6 +8,7 @@ import type {
   TableCustomRecord,
   TableRowSelection,
   SizeType,
+  BasicTableProps,
 } from './types/table';
 import type { FormProps } from '@/components/Form';
 
@@ -119,7 +120,7 @@ export const basicProps = {
     default: null,
   },
   rowKey: {
-    type: [String, Function] as PropType<string | ((record: Recordable) => string)>,
+    type: [String, Function] as PropType<BasicTableProps['rowKey']>,
     default: '',
   },
   bordered: propTypes.bool,
@@ -132,8 +133,7 @@ export const basicProps = {
     type: Function as PropType<(record: TableCustomRecord<any>, index: number) => string>,
   },
   scroll: {
-    type: Object as PropType<{ x: number | string | true; y: number | string }>,
-    default: null,
+    type: Object as PropType<PropType<BasicTableProps['scroll']>>,
   },
   beforeEditSubmit: {
     type: Function as PropType<

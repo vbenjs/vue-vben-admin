@@ -13,6 +13,8 @@ import { VueNode } from '@/utils/propTypes';
 import { RoleEnum } from '@/enums/roleEnum';
 import { FixedType } from 'ant-design-vue/es/vc-table/interface';
 
+import AntDesignVueTable from 'ant-design-vue/es/table';
+
 export declare type SortOrder = 'ascend' | 'descend';
 
 export interface TableCurrentDataSource<T = Recordable> {
@@ -22,8 +24,8 @@ export interface TableCurrentDataSource<T = Recordable> {
 export interface TableRowSelection<T = any> extends ITableRowSelection {
   /**
    * Callback executed when selected rows change
-   * @param selectedRowKeys 已选的keys
-   * @param selectedRows 已选的records
+   * @param selectedRowKeys 已选的 keyValues
+   * @param selectedRows 已选的 records
    * @param isClickCustomRow 是否是点击行触发（反之，就是点击checkbox/radiobox）
    * @returns void
    */
@@ -97,17 +99,17 @@ export interface TableActionType {
   clearSelectedRowKeys: () => void;
   expandAll: () => void;
   collapseAll: () => void;
-  expandRows: (keys: (string | number)[]) => void;
-  collapseRows: (keys: (string | number)[]) => void;
+  expandRows: (keyValues: (string | number)[]) => void;
+  collapseRows: (keyValues: (string | number)[]) => void;
   scrollTo: (pos: string) => void; // pos: id | "top" | "bottom"
   getSelectRowKeys: () => Key[];
-  deleteSelectRowByKey: (key: string) => void;
+  deleteSelectRowByKey: (keyValue: string | number) => void;
   setPagination: (info: Partial<PaginationProps>) => void;
   setTableData: <T = Recordable>(values: T[]) => void;
-  updateTableDataRecord: (rowKey: string | number, record: Recordable) => Recordable | void;
-  deleteTableDataRecord: (rowKey: string | number | string[] | number[]) => void;
+  updateTableDataRecord: (keyValue: string | number, record: Recordable) => Recordable | void;
+  deleteTableDataRecord: (keyValues: string | number | string[] | number[]) => void;
   insertTableDataRecord: (record: Recordable | Recordable[], index?: number) => Recordable[] | void;
-  findTableDataRecord: (rowKey: string | number) => Recordable | void;
+  findTableDataRecord: (keyValue: string | number) => Recordable | void;
   getColumns: (opt?: GetColumnsParams) => BasicColumn[];
   setColumns: (columns: BasicColumn[] | string[]) => void;
   getDataSource: <T = Recordable>() => T[];
@@ -115,7 +117,7 @@ export interface TableActionType {
   setLoading: (loading: boolean) => void;
   setProps: (props: Partial<BasicTableProps>) => void;
   redoHeight: () => void;
-  setSelectedRowKeys: (rowKeys: Key[]) => void;
+  setSelectedRowKeys: (keyValues: Key[]) => void;
   getPaginationRef: () => PaginationProps | boolean;
   getSize: () => SizeType;
   getRowSelection: () => TableRowSelection<Recordable>;
@@ -214,7 +216,7 @@ export interface BasicTableProps<T = any> {
   // 在分页改变的时候清空选项
   clearSelectOnPageChange?: boolean;
   //
-  rowKey?: string | ((record: Recordable) => string);
+  rowKey?: InstanceType<typeof AntDesignVueTable>['$props']['rowKey'];
   // 数据
   dataSource?: Recordable[];
   // 标题右侧提示
@@ -328,7 +330,7 @@ export interface BasicTableProps<T = any> {
    * you need to add style .ant-table td { white-space: nowrap; }.
    * @type object
    */
-  scroll?: { x?: number | string | true; y?: number | string };
+  scroll?: InstanceType<typeof AntDesignVueTable>['$props']['scroll'];
 
   /**
    * Whether to show table header

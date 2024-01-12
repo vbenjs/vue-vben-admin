@@ -264,7 +264,7 @@ export function useTableScroll(
       y: canResize ? tableHeight : null,
       scrollToFirstRowOnChange: false,
       ...scroll,
-    };
+    } as BasicTableProps['scroll'];
   });
 
   return { getScrollRef, redoHeight };

@@ -5,6 +5,7 @@ import { ROW_KEY } from '../const';
 import { omit } from 'lodash-es';
 import { findNodeAll } from '@/utils/helper/treeHelper';
 import type { Key } from 'ant-design-vue/lib/table/interface';
+import { parseRowKey, parseRowKeyValue } from '../helper';
 
 export function useRowSelection(
   propsRef: ComputedRef<BasicTableProps>,
@@ -31,13 +32,10 @@ export function useRowSelection(
         } else {
           // 点击 checkbox/radiobox 触发
 
-          // 取出【当前页】所有 keys
-          const rowKey = propsRef.value.rowKey;
-          const currentPageKeys = tableData.value.map(
-            (o) => o[(isFunction(rowKey) ? rowKey(o) : rowKey) || 'key'],
-          );
+          // 取出【当前页】所有 keyValues
+          const currentPageKeys = tableData.value.map((o) => parseRowKeyValue(unref(getRowKey), o));
 
-          // 从【所有分页】已选的keys，且属于【当前页】的部分
+          // 从【所有分页】已选的 keyValues，且属于【当前页】的部分
           for (const selectedKey of selectedRowKeysRef.value.filter((k) =>
             currentPageKeys.includes(k),
           )) {
@@ -60,7 +58,7 @@ export function useRowSelection(
               // 新增勾选
               selectedRowKeysRef.value.push(selectedKey);
               const record = selectedRows.find(
-                (o) => o[(isFunction(rowKey) ? rowKey(o) : rowKey) || 'key'] === selectedKey,
+                (o) => parseRowKeyValue(unref(getRowKey), o) === selectedKey,
               );
               if (record) {
                 selectedRowRef.value.push(record);
@@ -113,30 +111,40 @@ export function useRowSelection(
     return unref(getAutoCreateKey) ? ROW_KEY : rowKey;
   });
 
-  function setSelectedRowKeys(rowKeys?: Key[]) {
-    selectedRowKeysRef.value = rowKeys || [];
+  function setSelectedRowKeys(keyValues?: Key[]) {
+    selectedRowKeysRef.value = keyValues || [];
+    const rows = toRaw(unref(tableData)).concat(toRaw(unref(selectedRowRef)));
     const allSelectedRows = findNodeAll(
-      toRaw(unref(tableData)).concat(toRaw(unref(selectedRowRef))),
-      (item) => rowKeys?.includes(item[unref(getRowKey) as string]),
+      rows,
+      (item) => keyValues?.includes(parseRowKeyValue(unref(getRowKey), item)),
       {
         children: propsRef.value.childrenColumnName ?? 'children',
       },
     );
     const trueSelectedRows: any[] = [];
-    rowKeys?.forEach((key: Key) => {
-      const found = allSelectedRows.find((item) => item[unref(getRowKey) as string] === key);
+    keyValues?.forEach((keyValue: Key) => {
+      const found = allSelectedRows.find(
+        (item) => parseRowKeyValue(unref(getRowKey), item) === keyValue,
+      );
       found && trueSelectedRows.push(found);
+      if (found) {
+        trueSelectedRows.push(found);
+      } else {
+        // 跨页的时候，非本页数据无法得到，暂如此处理
+        // tableData or selectedRowRef 总有数据
+        if (rows[0]) {
+          trueSelectedRows.push({ [parseRowKey(unref(getRowKey), rows[0])]: keyValue });
+        }
+      }
     });
     selectedRowRef.value = trueSelectedRows;
   }
 
   function setSelectedRows(rows: Recordable[]) {
-    const { rowKey } = unref(propsRef);
     selectedRowRef.value = rows;
-    selectedRowKeysRef.value = selectedRowRef.value.map((o) => {
-      const key = (isFunction(rowKey) ? rowKey(o) : rowKey) || 'key';
-      return o[key];
-    });
+    selectedRowKeysRef.value = selectedRowRef.value.map((o) =>
+      parseRowKeyValue(unref(getRowKey), o),
+    );
   }
 
   function clearSelectedRowKeys() {
@@ -144,7 +152,7 @@ export function useRowSelection(
     selectedRowKeysRef.value = [];
   }
 
-  function deleteSelectRowByKey(key: string) {
+  function deleteSelectRowByKey(key: string | number) {
     const selectedRowKeys = unref(selectedRowKeysRef);
     const index = selectedRowKeys.findIndex((item) => item === key);
     if (index !== -1) {
