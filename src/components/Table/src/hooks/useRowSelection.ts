@@ -126,7 +126,6 @@ export function useRowSelection(
       const found = allSelectedRows.find(
         (item) => parseRowKeyValue(unref(getRowKey), item) === keyValue,
       );
-      found && trueSelectedRows.push(found);
       if (found) {
         trueSelectedRows.push(found);
       } else {
