@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <div class="p-4 flex flex-col">
     <div class="mb-4">
       <a-button class="mr-2" @click="reloadTable"> 还原 </a-button>
       <a-button class="mr-2" @click="changeLoading"> 开启loading </a-button>
@@ -17,7 +17,7 @@
       <a-button class="mr-2" @click="getPagination"> 获取分页信息 </a-button>
     </div>
     <BasicTable
-      :canResize="false"
+      :canResize="true"
       title="RefTable示例"
       titleHelpMessage="使用Ref调用表格内方法"
       ref="tableRef"
