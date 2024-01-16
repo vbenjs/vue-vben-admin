@@ -1,11 +1,11 @@
 <template>
   <div class="h-full flex p-4">
     <div class="flex flex-col pr-4 w-1/2">
-      <div class="flex-1">
+      <div class="flex-1 h-0">
         <BasicTable @register="registerTable" />
       </div>
-      <div class="h-4"></div>
-      <div class="flex-1">
+      <div class="h-4 shrink-0"></div>
+      <div class="flex-1 h-0">
         <BasicTable @register="registerTable" />
       </div>
     </div>

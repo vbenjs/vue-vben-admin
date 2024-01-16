@@ -11,8 +11,12 @@
 
     <Alert message="内外同时同时显示隐藏" show-icon />
     <a-button type="primary" class="my-4" @click="openModal2"> 打开弹窗 </a-button>
+
     <Alert message="自适应高度" show-icon />
-    <a-button type="primary" class="my-4" @click="openModal3"> 打开弹窗 </a-button>
+    <Space>
+      <a-button type="primary" class="my-4" @click="openModal3"> 打开弹窗 </a-button>
+      <a-button type="primary" class="my-4" @click="openModal5"> 打开弹窗（BasicTable） </a-button>
+    </Space>
 
     <Alert message="内外数据交互" show-icon />
     <a-button type="primary" class="my-4" @click="send"> 打开弹窗并传递数据 </a-button>
@@ -42,6 +46,7 @@
     <Modal2 @register="register2" />
     <Modal3 @register="register3" />
     <Modal4 @register="register4" />
+    <Modal5 @register="register5" />
   </PageWrapper>
 </template>
 <script lang="ts" setup>
@@ -52,6 +57,7 @@
   import Modal2 from './Modal2.vue';
   import Modal3 from './Modal3.vue';
   import Modal4 from './Modal4.vue';
+  import Modal5 from './Modal5.vue';
   import { PageWrapper } from '@/components/Page';
   import { type Nullable } from '@vben/types';
   import { createPrompt } from '@/components/Prompt';
@@ -61,6 +67,7 @@
   const [register2, { openModal: openModal2 }] = useModal();
   const [register3, { openModal: openModal3 }] = useModal();
   const [register4, { openModal: openModal4 }] = useModal();
+  const [register5, { openModal: openModal5 }] = useModal();
   const modalOpen = ref<Boolean>(false);
   const userData = ref<any>(null);
 
