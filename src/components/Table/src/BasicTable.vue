@@ -22,6 +22,7 @@
       v-show="getEmptyDataIsShowTable"
       @change="handleTableChange"
       @resize-column="setColumnWidth"
+      @expand="handleTableExpand"
     >
       <template #[item]="data" v-for="item in Object.keys($slots)" :key="item">
         <slot :name="item" v-bind="data || {}"></slot>
@@ -207,11 +208,8 @@
 
   const { getRowClassName } = useTableStyle(getProps, prefixCls);
 
-  const { getExpandOption, expandAll, expandRows, collapseRows, collapseAll } = useTableExpand(
-    getProps,
-    tableData,
-    emit,
-  );
+  const { getExpandOption, expandAll, expandRows, collapseRows, collapseAll, handleTableExpand } =
+    useTableExpand(getProps, tableData, emit);
 
   const handlers: InnerHandlers = {
     onColumnsChange: (data: ColumnChangeParam[]) => {

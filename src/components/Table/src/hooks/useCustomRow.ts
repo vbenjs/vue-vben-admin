@@ -1,33 +1,16 @@
 import type { ComputedRef } from 'vue';
 import type { BasicTableProps } from '../types/table';
 import { unref } from 'vue';
-import { ROW_KEY } from '../const';
-import { isString, isFunction } from '@/utils/is';
 import type { Key } from 'ant-design-vue/lib/table/interface';
 
+import { parseRowKeyValue } from '../helper';
+
 interface Options {
-  setSelectedRowKeys: (keys: Key[]) => void;
+  setSelectedRowKeys: (keyValues: Key[]) => void;
   getSelectRowKeys: () => Key[];
   clearSelectedRowKeys: () => void;
   emit: EmitType;
   getAutoCreateKey: ComputedRef<boolean | undefined>;
-}
-
-function getKey(
-  record: Recordable,
-  rowKey: string | ((record: Record<string, any>) => string) | undefined,
-  autoCreateKey?: boolean,
-) {
-  if (!rowKey || autoCreateKey) {
-    return record[ROW_KEY];
-  }
-  if (isString(rowKey)) {
-    return record[rowKey];
-  }
-  if (isFunction(rowKey)) {
-    return record[rowKey(record)];
-  }
-  return null;
 }
 
 export function useCustomRow(
@@ -41,9 +24,9 @@ export function useCustomRow(
         function handleClick() {
           const { rowSelection, rowKey, clickToRowSelect } = unref(propsRef);
           if (!rowSelection || !clickToRowSelect) return;
-          const keys = getSelectRowKeys() || [];
-          const key = getKey(record, rowKey, unref(getAutoCreateKey));
-          if (key === null) return;
+          const keyValues = getSelectRowKeys() || [];
+          const keyValue = parseRowKeyValue(rowKey, record, unref(getAutoCreateKey));
+          if (!keyValue) return;
 
           const isCheckbox = rowSelection.type === 'checkbox';
           if (isCheckbox) {
@@ -55,24 +38,24 @@ export function useCustomRow(
             // 找到Checkbox，检查是否为disabled
             const checkBox = tr.querySelector('input[type=checkbox]');
             if (!checkBox || checkBox.hasAttribute('disabled')) return;
-            if (!keys.includes(key)) {
-              keys.push(key);
-              setSelectedRowKeys(keys);
+            if (!keyValues.includes(keyValue)) {
+              keyValues.push(keyValue);
+              setSelectedRowKeys(keyValues);
               return;
             }
-            const keyIndex = keys.findIndex((item) => item === key);
-            keys.splice(keyIndex, 1);
-            setSelectedRowKeys(keys);
+            const keyIndex = keyValues.findIndex((item) => item === keyValue);
+            keyValues.splice(keyIndex, 1);
+            setSelectedRowKeys(keyValues);
             return;
           }
 
           const isRadio = rowSelection.type === 'radio';
           if (isRadio) {
-            if (!keys.includes(key)) {
-              if (keys.length) {
+            if (!keyValues.includes(keyValue)) {
+              if (keyValues.length) {
                 clearSelectedRowKeys();
               }
-              setSelectedRowKeys([key]);
+              setSelectedRowKeys([keyValue]);
               return;
             }
             clearSelectedRowKeys();

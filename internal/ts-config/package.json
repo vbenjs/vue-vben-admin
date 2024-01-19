@@ -12,6 +12,7 @@
     "directory": "internal/ts-config"
   },
   "license": "MIT",
+  "type": "module",
   "files": [
     "base.json",
     "node.json",
@@ -20,6 +21,6 @@
   ],
   "dependencies": {
     "@types/node": "^20.10.6",
-    "vite": "^4.5.1"
+    "vite": "^5.0.10"
   }
 }
