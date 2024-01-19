@@ -74,6 +74,12 @@ export function useTableScroll(
   let footerEl: HTMLElement | null;
   let bodyEl: HTMLElement | null;
 
+  /**
+   * table wrapper padding 的高度
+   * @description 来自于 .vben-basic-table .ant-table-wrapper
+   */
+  const tableWrapperPadding = 6;
+
   function handleScrollBar(bodyEl: HTMLElement, tableEl: Element) {
     const hasScrollBarY = bodyEl.scrollHeight > bodyEl.clientHeight;
     const hasScrollBarX = bodyEl.scrollWidth > bodyEl.clientWidth;
@@ -93,21 +99,33 @@ export function useTableScroll(
     }
   }
 
+  /**
+   * 计算分页器高度
+   * @param tableEl table element
+   * @returns number
+   */
   function caclPaginationHeight(tableEl: Element): number {
     const { pagination } = unref(propsRef);
-    // Pager height
-    let paginationHeight = 2;
+
+    let paginationHeight = 0;
     if (!isBoolean(pagination)) {
-      paginationEl = tableEl.querySelector('.ant-pagination') as HTMLElement;
+      // 从 Dom 获取
+      if (!paginationEl) {
+        paginationEl = tableEl.querySelector('.ant-pagination') as HTMLElement;
+      }
       if (paginationEl) {
+        // 分页 margin-top
+        const paginationElMarginTop = parseInt(getComputedStyle(paginationEl).marginTop);
+        // 分页高度
         const offsetHeight = paginationEl.offsetHeight;
-        paginationHeight += offsetHeight || 0;
+        paginationHeight = offsetHeight + paginationElMarginTop;
       } else {
-        // TODO First fix 24
-        paginationHeight += 24;
+        // 找不到分页组件，缺省给予默认分页 margin-top + 高度
+        paginationHeight = 10 + 24;
       }
     } else {
-      paginationHeight = -8;
+      // 不显示分页，pagination 为 false 的时候
+      paginationHeight = 0;
     }
     return paginationHeight;
   }
@@ -134,43 +152,105 @@ export function useTableScroll(
     return headerHeight;
   }
 
+  /**
+   * 计算从表头一直到body底部的总高度
+   * @param tableEl table element
+   * @param headEl table 页头 element
+   * @returns number
+   */
   function calcBottomAndPaddingHeight(tableEl: Element, headEl: Element) {
-    const { pagination, isCanResizeParent, useSearchForm } = unref(propsRef);
-    // Table height from bottom height-custom offset
-    let paddingHeight = 30;
+    const { isCanResizeParent } = unref(propsRef);
     let bottomIncludeBody = 0;
     if (unref(wrapRef) && isCanResizeParent) {
-      const tablePadding = 12;
-      const formMargin = 16;
-      let paginationMargin = 10;
+      // 继承父元素高度
       const wrapHeight = unref(wrapRef)?.offsetHeight ?? 0;
 
       let formHeight = unref(formRef)?.$el.offsetHeight ?? 0;
       if (formHeight) {
-        formHeight += formMargin;
-      }
-      if (isBoolean(pagination) && !pagination) {
-        paginationMargin = 0;
-      }
-      if (isBoolean(useSearchForm) && !useSearchForm) {
-        paddingHeight = 0;
+        // 来自于 .vben-basic-table-form-container .ant-form 以及 .vben-basic-table-form-container
+        formHeight += 16 + 16 * 2;
       }
 
-      const headerCellHeight =
-        (tableEl.querySelector('.ant-table-title') as HTMLElement)?.offsetHeight ?? 0;
-
-      console.log(wrapHeight - formHeight - headerCellHeight - tablePadding - paginationMargin);
-      bottomIncludeBody =
-        wrapHeight - formHeight - headerCellHeight - tablePadding - paginationMargin;
+      bottomIncludeBody = wrapHeight - tableWrapperPadding - formHeight;
     } else {
-      // Table height from bottom
+      // 缺省 wrapRef 情况下
       bottomIncludeBody = getViewportOffset(headEl).bottomIncludeBody;
     }
 
-    return {
-      paddingHeight,
-      bottomIncludeBody,
-    };
+    return bottomIncludeBody;
+  }
+
+  /**
+   * 计算 table 在 modal 内 modal 所占用的高度
+   * @param tableEl table element
+   * @returns number
+   */
+  function calcModalHeight(tableEl: Element) {
+    // 找一下 table 是否在 modal 内，获得 modal、wrap、footer，并考虑 fullscreen 的情况
+    let modalEl: Nullable<HTMLElement> = null;
+    let modalWrapEl: Nullable<HTMLElement> = null;
+    let modalFooterEl: Nullable<HTMLElement> = null;
+    let modalElIterator: HTMLElement = tableEl.parentElement!;
+    let modalIsFullscreen = false;
+    while (modalElIterator !== document.body) {
+      if (modalElIterator.classList.contains('ant-modal')) {
+        modalEl = modalElIterator;
+        modalWrapEl = modalEl.parentElement;
+        modalFooterEl = modalElIterator.querySelector('.ant-modal-content>.ant-modal-footer');
+        modalIsFullscreen = modalWrapEl?.classList.contains('fullscreen-modal') ?? false;
+        break;
+      }
+      modalElIterator = modalElIterator.parentElement!;
+    }
+
+    if (modalEl) {
+      // table 在 modal 内
+
+      // modal top
+      const { top: modalTop = 0 } = modalEl ? getViewportOffset(modalEl) : {};
+
+      // 来自于 .ant-modal，非全屏为 24，全屏为 0
+      const modalBottom = modalIsFullscreen ? 0 : 24;
+
+      //  modal footer 高度
+      const modalFooterHeight = modalFooterEl?.offsetHeight ?? 0;
+
+      // modal footer 边距，来自于 .ant-modal .ant-modal-footer
+      const modalFooterMarginTop = modalFooterEl
+        ? modalIsFullscreen
+          ? 0
+          : parseInt(getComputedStyle(modalFooterEl).marginTop)
+        : 0;
+
+      // 来自于 .ant-modal .ant-modal-body > .scrollbar
+      const modalScrollBarHeight = 14;
+
+      return (
+        (modalTop > modalBottom ? modalTop : modalBottom) +
+        modalFooterHeight +
+        modalFooterMarginTop +
+        modalScrollBarHeight
+      );
+    }
+
+    // table 不住 modal 内
+    return 0;
+  }
+
+  /**
+   * 根据样式返回一些间距高度
+   * @returns number
+   */
+  function getMarginPaddingHeight() {
+    const { isCanResizeParent } = unref(propsRef);
+
+    if (unref(wrapRef) && isCanResizeParent) {
+      // 继承父元素高度
+      return tableWrapperPadding;
+    }
+    return (
+      tableWrapperPadding + 16 // 来自于 .vben-basic-table-form-container 或是 .p-4
+    );
   }
 
   async function calcTableHeight() {
@@ -204,18 +284,29 @@ export function useTableScroll(
     const paginationHeight = caclPaginationHeight(tableEl);
     const footerHeight = caclFooterHeight(tableEl);
     const headerHeight = calcHeaderHeight(headEl);
-    const { paddingHeight, bottomIncludeBody } = calcBottomAndPaddingHeight(tableEl, headEl);
+    const bottomIncludeBody = calcBottomAndPaddingHeight(tableEl, headEl);
 
-    let height =
+    const modalHeight = calcModalHeight(tableEl);
+
+    const marginPaddingHeight = getMarginPaddingHeight();
+
+    // Math.floor 宁愿小1px，也不溢出
+    let height = Math.floor(
       bottomIncludeBody -
-      (resizeHeightOffset || 0) -
-      paddingHeight -
-      paginationHeight -
-      footerHeight -
-      headerHeight -
-      (getShowFooter.value ? layoutFooterHeight : 0) -
-      // 取高度ceil值
-      1;
+        (resizeHeightOffset || 0) -
+        paginationHeight -
+        footerHeight -
+        headerHeight -
+        // 弹窗（如果有）相关高度
+        modalHeight -
+        // 页面 footer 高度（非弹窗的时候）
+        (getShowFooter.value && modalHeight <= 0 ? layoutFooterHeight : 0) -
+        // 样式间距高度
+        marginPaddingHeight -
+        // 预留非整数高度溢出（如实际高度为100.5，offsetHeight 的值为101）
+        1,
+    );
+
     height = (height > maxHeight! ? (maxHeight as number) : height) ?? height;
     setHeight(height);
 
@@ -264,7 +355,7 @@ export function useTableScroll(
       y: canResize ? tableHeight : null,
       scrollToFirstRowOnChange: false,
       ...scroll,
-    };
+    } as BasicTableProps['scroll'];
   });
 
   return { getScrollRef, redoHeight };
