@@ -4,10 +4,10 @@
   "license": "MIT",
   "scripts": {
     "compile": "rimraf ./dist && tsup ./index.ts --dts --format cjs,esm  ",
-    "prod": "npx pm2 start ecosystem.config.js --env production",
-    "restart": "pm2 restart ecosystem.config.js --env production",
+    "prod": "npx pm2 start ecosystem.config.cjs --env production",
+    "restart": "pm2 restart ecosystem.config.cjs --env production",
     "start": "nodemon",
-    "stop": "npx pm2 stop ecosystem.config.js"
+    "stop": "npx pm2 stop ecosystem.config.cjs"
   },
   "dependencies": {
     "fs-extra": "^11.1.1",
