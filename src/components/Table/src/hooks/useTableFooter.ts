@@ -6,11 +6,7 @@ import { useEventListener } from '@/hooks/event/useEventListener';
 
 export function useTableFooter(
   propsRef: ComputedRef<BasicTableProps>,
-  scrollRef: ComputedRef<{
-    x: string | number | true;
-    y: string | number | null;
-    scrollToFirstRowOnChange: boolean;
-  }>,
+  scrollRef: ComputedRef<BasicTableProps['scroll']>,
   tableElRef: Ref<ComponentRef>,
   getDataSourceRef: ComputedRef<Recordable>,
 ) {

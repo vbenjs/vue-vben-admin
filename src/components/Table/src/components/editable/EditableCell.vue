@@ -16,6 +16,7 @@
   import { pick, set } from 'lodash-es';
   import { treeToList } from '@/utils/helper/treeHelper';
   import { Spin } from 'ant-design-vue';
+  import { parseRowKey } from '../../helper';
 
   export default defineComponent({
     name: 'EditableCell',
@@ -260,7 +261,8 @@
           const { getBindValues } = table;
 
           const { beforeEditSubmit, columns, rowKey } = unref(getBindValues);
-          const rowKeyValue = typeof rowKey === 'string' ? rowKey : rowKey ? rowKey(record) : '';
+
+          const rowKeyParsed = parseRowKey(rowKey, record);
 
           if (beforeEditSubmit && isFunction(beforeEditSubmit)) {
             spinning.value = true;
@@ -271,7 +273,7 @@
             let result: any = true;
             try {
               result = await beforeEditSubmit({
-                record: pick(record, [rowKeyValue, ...keys]),
+                record: pick(record, [rowKeyParsed, ...keys]),
                 index,
                 key: dataKey as string,
                 value,
