@@ -297,9 +297,23 @@ function sortFixedColumn(columns: BasicColumn[]) {
     }
     defColumns.push(column);
   }
-  return [...fixedLeftColumns, ...defColumns, ...fixedRightColumns].filter(
-    (item) => !item.defaultHidden,
-  );
+  // 筛选逻辑
+  const filterFunc = (item) => !item.defaultHidden;
+  // 筛选首层显示列（1级表头）
+  const viewColumns = [...fixedLeftColumns, ...defColumns, ...fixedRightColumns].filter(filterFunc);
+  // 筛选>=2级表头（深度优先）
+  const list = [...viewColumns];
+  while (list.length) {
+    const current = list[0];
+    if (Array.isArray(current.children)) {
+      current.children = current.children.filter(filterFunc);
+      list.shift();
+      list.unshift(...current.children);
+    } else {
+      list.shift();
+    }
+  }
+  return viewColumns;
 }
 
 // format cell
