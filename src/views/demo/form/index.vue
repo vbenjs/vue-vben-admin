@@ -152,7 +152,9 @@
     {
       field: 'field1',
       component: 'Input',
-      label: '字段1',
+      label: ({ model }) => {
+        return `字段1${model.field3 ? model.field3 : ''}`;
+      },
 
       colProps: {
         span: 8,
