@@ -42,6 +42,7 @@
   import type { ButtonProps } from '@/components/Button';
   import Icon from '@/components/Icon/Icon.vue';
   import { UploadFileParams } from '#/axios';
+  import { AxiosProgressEvent } from 'axios';
 
   defineOptions({ name: 'CropperAvatar' });
 
@@ -52,7 +53,12 @@
     btnProps: { type: Object as PropType<ButtonProps> },
     btnText: { type: String, default: '' },
     uploadApi: {
-      type: Function as PropType<({ file, type }: UploadFileParams) => Promise<void>>,
+      type: Function as PropType<
+        (
+          params: UploadFileParams,
+          onUploadProgress?: (progressEvent: AxiosProgressEvent) => void,
+        ) => Promise<any>
+      >,
     },
     checkMaxSize: { type: Number, default: 2 },
     type: { type: String, default: 'image' },

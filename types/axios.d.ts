@@ -46,7 +46,7 @@ export interface Result<T = any> {
 export interface UploadFileParams {
   // Other parameters
   data?: Recordable;
-  // file name
+  // file
   file: File | Blob;
   // file name
   filename?: string;

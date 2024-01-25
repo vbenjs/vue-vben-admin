@@ -123,13 +123,19 @@
   import { useI18n } from '@/hooks/web/useI18n';
   import { UploadFileParams } from '#/axios';
   import { ResultEnum } from '@/enums/httpEnum';
+  import { AxiosProgressEvent } from 'axios';
 
   defineOptions({ name: 'CropperModal' });
 
   const props = defineProps({
     circled: { type: Boolean, default: true },
     uploadApi: {
-      type: Function as PropType<(params: UploadFileParams) => Promise<any>>,
+      type: Function as PropType<
+        (
+          params: UploadFileParams,
+          onUploadProgress?: (progressEvent: AxiosProgressEvent) => void,
+        ) => Promise<any>
+      >,
     },
     src: { type: String },
     checkMaxSize: { type: Number },
