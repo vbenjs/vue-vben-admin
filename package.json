@@ -1,19 +1,19 @@
 {
   "name": "vben-admin",
   "version": "2.10.1",
-  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "homepage": "https://github.com/ilaipi-freedom/vue-vben-admin",
   "bugs": {
-    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
+    "url": "https://github.com/ilaipi-freedom/vue-vben-admin/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vbenjs/vue-vben-admin.git"
+    "url": "git+https://github.com/ilaipi-freedom/vue-vben-admin.git"
   },
   "license": "MIT",
   "author": {
-    "name": "vben",
-    "email": "anncwb@126.com",
-    "url": "https://github.com/anncwb"
+    "name": "Billy",
+    "email": "mz.yyam@gmail.com",
+    "url": "https://github.com/ilaipi"
   },
   "type": "module",
   "scripts": {
