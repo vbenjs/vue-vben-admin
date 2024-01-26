@@ -104,6 +104,9 @@ export const useUserStore = defineStore({
       if (!this.getToken) return null;
       // get user info
       const userInfo = await this.getUserInfoAction();
+      if (userInfo) {
+        userInfo.realName = userInfo?.['name'];
+      }
 
       const sessionTimeout = this.sessionTimeout;
       if (sessionTimeout) {
