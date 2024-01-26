@@ -6,8 +6,8 @@ import { RoleEnum } from '@/enums/roleEnum';
 import { PageEnum } from '@/enums/pageEnum';
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '@/enums/cacheEnum';
 import { getAuthCache, setAuthCache } from '@/utils/auth';
-import { GetUserInfoModel, LoginParams } from '@/api/sys/model/userModel';
-import { doLogout, getUserInfo, loginApi } from '@/api/sys/user';
+import { GetUserInfoModel, LoginParams } from '@/api/account/model/accountModel';
+import { doLogout, getUserInfo, loginApi } from '@/api/account';
 import { useI18n } from '@/hooks/web/useI18n';
 import { useMessage } from '@/hooks/web/useMessage';
 import { router } from '@/router';
@@ -26,7 +26,7 @@ interface UserState {
 }
 
 export const useUserStore = defineStore({
-  id: 'app-user',
+  id: 'app-account',
   state: (): UserState => ({
     // user info
     userInfo: null,
