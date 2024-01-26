@@ -14,23 +14,9 @@ export default defineApplicationConfig({
         'ant-design-vue/es/locale/en_US',
       ],
     },
+    // proxy config
+    // @see internal/vite-config/src/config/proxy.ts
     server: {
-      proxy: {
-        '/basic-api': {
-          target: 'http://localhost:3000',
-          changeOrigin: true,
-          ws: true,
-          rewrite: (path) => path.replace(new RegExp(`^/basic-api`), ''),
-          // only https
-          // secure: false
-        },
-        '/upload': {
-          target: 'http://localhost:3300/upload',
-          changeOrigin: true,
-          ws: true,
-          rewrite: (path) => path.replace(new RegExp(`^/upload`), ''),
-        },
-      },
       warmup: {
         clientFiles: ['./index.html', './src/{views,components}/*'],
       },

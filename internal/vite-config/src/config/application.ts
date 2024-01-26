@@ -7,6 +7,7 @@ import { defineConfig, loadEnv, mergeConfig, type UserConfig } from 'vite';
 import { createPlugins } from '../plugins';
 import { generateModifyVars } from '../utils/modifyVars';
 import { commonConfig } from './common';
+import { proxyConfig } from './proxy';
 
 interface DefineOptions {
   overrides?: UserConfig;
@@ -18,13 +19,16 @@ interface DefineOptions {
 function defineApplicationConfig(defineOptions: DefineOptions = {}) {
   const { overrides = {} } = defineOptions;
 
-  return defineConfig(async ({ command, mode }) => {
+  return defineConfig(async ({ command, mode }: { command: string; mode: string }) => {
     const root = process.cwd();
     const isBuild = command === 'build';
-    const { VITE_PUBLIC_PATH, VITE_USE_MOCK, VITE_BUILD_COMPRESS, VITE_ENABLE_ANALYZE } = loadEnv(
-      mode,
-      root,
-    );
+    const {
+      VITE_PUBLIC_PATH,
+      VITE_USE_MOCK,
+      VITE_BUILD_COMPRESS,
+      VITE_ENABLE_ANALYZE,
+      ...otherEnvs
+    } = loadEnv(mode, root);
 
     const defineData = await createDefineData(root);
     const plugins = await createPlugins({
@@ -83,9 +87,10 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
       plugins,
     };
 
-    const mergedConfig = mergeConfig(commonConfig(mode), applicationConfig);
+    let mergedConfig = mergeConfig(commonConfig(mode), applicationConfig);
+    mergedConfig = mergeConfig(mergedConfig, overrides);
 
-    return mergeConfig(mergedConfig, overrides);
+    return mergeConfig(mergedConfig, proxyConfig(otherEnvs));
   });
 }
 
