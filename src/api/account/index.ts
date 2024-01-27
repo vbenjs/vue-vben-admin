@@ -7,7 +7,7 @@ enum Api {
   Login = '/auth/login',
   Logout = '/logout',
   GetUserInfo = '/account/info',
-  GetPermCode = '/getPermCode',
+  GetPermCode = '/account/permCode',
   TestRetry = '/testRetry',
 }
 
@@ -38,7 +38,10 @@ export function getUserInfo() {
 }
 
 export function getPermCode() {
-  return defHttp.get<string[]>({ url: Api.GetPermCode });
+  return defHttp.get<string[]>(
+    { url: Api.GetPermCode },
+    { errorMessageMode: 'none', isTransformResponse: false },
+  );
 }
 
 export function doLogout() {
