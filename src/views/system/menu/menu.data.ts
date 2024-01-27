@@ -134,6 +134,14 @@ export const formSchema: FormSchema[] = [
     ifShow: ({ values }) => !isButton(values.type),
   },
   {
+    field: 'redirect',
+    label: '强制跳转',
+    component: 'Input',
+    required: false,
+    ifShow: ({ values }) => isDir(values.type),
+    helpMessage: '比如 /dashboard 默认强制跳转 /dashboard/analysis',
+  },
+  {
     field: 'component',
     label: '组件路径',
     component: 'Input',
