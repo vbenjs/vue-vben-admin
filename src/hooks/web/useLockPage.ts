@@ -4,7 +4,7 @@ import { useThrottleFn } from '@vueuse/core';
 import { useAppStore } from '@/store/modules/app';
 import { useLockStore } from '@/store/modules/lock';
 
-import { useUserStore } from '@/store/modules/user';
+import { useUserStore } from '@/store/modules/account';
 import { useRootSetting } from '../setting/useRootSetting';
 
 export function useLockPage() {

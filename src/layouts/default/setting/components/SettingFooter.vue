@@ -24,7 +24,7 @@
   import { useAppStore } from '@/store/modules/app';
   import { usePermissionStore } from '@/store/modules/permission';
   import { useMultipleTabStore } from '@/store/modules/multipleTab';
-  import { useUserStore } from '@/store/modules/user';
+  import { useUserStore } from '@/store/modules/account';
 
   import { useDesign } from '@/hooks/web/useDesign';
   import { useI18n } from '@/hooks/web/useI18n';

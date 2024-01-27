@@ -31,7 +31,7 @@
   import { BasicModal, useModalInner } from '@/components/Modal';
   import { BasicForm, useForm } from '@/components/Form';
 
-  import { useUserStore } from '@/store/modules/user';
+  import { useUserStore } from '@/store/modules/account';
   import { useLockStore } from '@/store/modules/lock';
   import headerImg from '@/assets/images/header.jpg';
 

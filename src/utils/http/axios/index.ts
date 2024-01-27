@@ -16,7 +16,7 @@ import { setObjToUrlParams, deepMerge } from '@/utils';
 import { useErrorLogStoreWithOut } from '@/store/modules/errorLog';
 import { useI18n } from '@/hooks/web/useI18n';
 import { joinTimestamp, formatRequestDate } from './helper';
-import { useUserStoreWithOut } from '@/store/modules/user';
+import { useUserStoreWithOut } from '@/store/modules/account';
 import { AxiosRetry } from '@/utils/http/axios/axiosRetry';
 import axios from 'axios';
 
