@@ -31,11 +31,10 @@
 </template>
 <script lang="ts" setup>
   import { BasicTable, useTable, TableAction } from '@/components/Table';
-  import { getRoleListByPage } from '@/api/demo/system';
-
+  import { getRoleListByPage } from '@/api/account/role';
   import { useDrawer } from '@/components/Drawer';
-  import RoleDrawer from './RoleDrawer.vue';
 
+  import RoleDrawer from './RoleDrawer.vue';
   import { columns, searchFormSchema } from './role.data';
 
   defineOptions({ name: 'RoleManagement' });

@@ -23,15 +23,18 @@
 </template>
 <script lang="ts" setup>
   import { ref, computed, unref } from 'vue';
+
   import { BasicForm, useForm } from '@/components/Form';
-  import { formSchema } from './role.data';
   import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
   import { BasicTree, TreeItem } from '@/components/Tree';
-
   import { getMenuList } from '@/api/menu';
+  import { saveRole } from '@/api/account/role';
+
+  import { formSchema } from './role.data';
 
   const emit = defineEmits(['success', 'register']);
   const isUpdate = ref(true);
+  const recordId = ref<string>();
   const treeData = ref<TreeItem[]>([]);
 
   const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
@@ -54,6 +57,7 @@
       setFieldsValue({
         ...data.record,
       });
+      recordId.value = data.record.id;
     }
   });
 
@@ -63,8 +67,7 @@
     try {
       const values = await validate();
       setDrawerProps({ confirmLoading: true });
-      // TODO custom api
-      console.log(values);
+      await saveRole({ ...values }, recordId.value);
       closeDrawer();
       emit('success');
     } finally {
