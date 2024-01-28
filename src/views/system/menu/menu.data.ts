@@ -2,6 +2,7 @@ import { BasicColumn, FormSchema } from '@/components/Table';
 import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
 import Icon from '@/components/Icon/Icon.vue';
+import { AvailableStatus } from '@/utils/constants';
 
 export const columns: BasicColumn[] = [
   {
@@ -38,7 +39,7 @@ export const columns: BasicColumn[] = [
     width: 80,
     customRender: ({ record }) => {
       const status = record.status;
-      const enable = status === 'normal';
+      const enable = status === AvailableStatus.NORMAL;
       const color = enable ? 'green' : 'red';
       const text = enable ? '启用' : '停用';
       return h(Tag, { color: color }, () => text);
@@ -68,8 +69,8 @@ export const searchFormSchema: FormSchema[] = [
     component: 'Select',
     componentProps: {
       options: [
-        { label: '启用', value: 'normal' },
-        { label: '停用', value: 'forbidden' },
+        { label: '启用', value: AvailableStatus.NORMAL },
+        { label: '停用', value: AvailableStatus.FORBIDDEN },
       ],
     },
     colProps: { span: 8 },
@@ -157,11 +158,11 @@ export const formSchema: FormSchema[] = [
     field: 'status',
     label: '状态',
     component: 'RadioButtonGroup',
-    defaultValue: 'normal',
+    defaultValue: AvailableStatus.NORMAL,
     componentProps: {
       options: [
-        { label: '启用', value: 'normal' },
-        { label: '禁用', value: 'forbidden' },
+        { label: '启用', value: AvailableStatus.NORMAL },
+        { label: '禁用', value: AvailableStatus.FORBIDDEN },
       ],
     },
   },

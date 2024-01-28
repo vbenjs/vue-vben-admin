@@ -3,6 +3,7 @@ import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { setRoleStatus } from '@/api/demo/system';
 import { useMessage } from '@/hooks/web/useMessage';
+import { AvailableStatus } from '@/utils/constants';
 
 type CheckedType = boolean | string | number;
 export const columns: BasicColumn[] = [
@@ -30,13 +31,13 @@ export const columns: BasicColumn[] = [
         record.pendingStatus = false;
       }
       return h(Switch, {
-        checked: record.status === '1',
+        checked: record.status === AvailableStatus.NORMAL,
         checkedChildren: '停用',
         unCheckedChildren: '启用',
         loading: record.pendingStatus,
         onChange(checked: CheckedType) {
           record.pendingStatus = true;
-          const newStatus = checked ? '1' : '0';
+          const newStatus = checked ? AvailableStatus.NORMAL : AvailableStatus.FORBIDDEN;
           const { createMessage } = useMessage();
           setRoleStatus(record.id, newStatus)
             .then(() => {
@@ -77,8 +78,8 @@ export const searchFormSchema: FormSchema[] = [
     component: 'Select',
     componentProps: {
       options: [
-        { label: '启用', value: '1' },
-        { label: '停用', value: '0' },
+        { label: '启用', value: AvailableStatus.NORMAL },
+        { label: '停用', value: AvailableStatus.FORBIDDEN },
       ],
     },
     colProps: { span: 8 },
@@ -102,11 +103,11 @@ export const formSchema: FormSchema[] = [
     field: 'status',
     label: '状态',
     component: 'RadioButtonGroup',
-    defaultValue: '0',
+    defaultValue: AvailableStatus.NORMAL,
     componentProps: {
       options: [
-        { label: '启用', value: '1' },
-        { label: '停用', value: '0' },
+        { label: '启用', value: AvailableStatus.NORMAL },
+        { label: '停用', value: AvailableStatus.FORBIDDEN },
       ],
     },
   },
@@ -114,10 +115,5 @@ export const formSchema: FormSchema[] = [
     label: '备注',
     field: 'remark',
     component: 'InputTextArea',
-  },
-  {
-    label: ' ',
-    field: 'menu',
-    slot: 'menu',
   },
 ];
