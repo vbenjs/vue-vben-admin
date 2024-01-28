@@ -1,17 +1,19 @@
-import { BasicColumn, FormSchema } from '@/components/Table';
 import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
+
+import { BasicColumn, FormSchema } from '@/components/Table';
+import { AvailableStatus } from '@/utils/constants';
 
 export const columns: BasicColumn[] = [
   {
     title: '部门名称',
-    dataIndex: 'deptName',
+    dataIndex: 'name',
     width: 160,
     align: 'left',
   },
   {
     title: '排序',
-    dataIndex: 'orderNo',
+    dataIndex: 'sort',
     width: 50,
   },
   {
@@ -20,7 +22,7 @@ export const columns: BasicColumn[] = [
     width: 80,
     customRender: ({ record }) => {
       const status = record.status;
-      const enable = ~~status === 0;
+      const enable = status === AvailableStatus.NORMAL;
       const color = enable ? 'green' : 'red';
       const text = enable ? '启用' : '停用';
       return h(Tag, { color: color }, () => text);
@@ -28,7 +30,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '创建时间',
-    dataIndex: 'createTime',
+    dataIndex: 'createdAt',
     width: 180,
   },
   {
@@ -39,7 +41,7 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'deptName',
+    field: 'q',
     label: '部门名称',
     component: 'Input',
     colProps: { span: 8 },
@@ -50,8 +52,8 @@ export const searchFormSchema: FormSchema[] = [
     component: 'Select',
     componentProps: {
       options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
+        { label: '启用', value: AvailableStatus.NORMAL },
+        { label: '停用', value: AvailableStatus.FORBIDDEN },
       ],
     },
     colProps: { span: 8 },
@@ -60,23 +62,23 @@ export const searchFormSchema: FormSchema[] = [
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'deptName',
+    field: 'name',
     label: '部门名称',
     component: 'Input',
     required: true,
   },
   {
-    field: 'parentDept',
+    field: 'parentDeptId',
     label: '上级部门',
     component: 'TreeSelect',
     ifShow({ values }) {
-      const { deptName, parentDept } = values;
+      const { name, parentDept } = values;
       // Hide without a parentDept when editing
-      return parentDept || (!deptName && !parentDept);
+      return parentDept || (!name && !parentDept);
     },
     componentProps: {
       fieldNames: {
-        label: 'deptName',
+        label: 'name',
         key: 'id',
         value: 'id',
       },
@@ -85,7 +87,7 @@ export const formSchema: FormSchema[] = [
     required: true,
   },
   {
-    field: 'orderNo',
+    field: 'sort',
     label: '排序',
     component: 'InputNumber',
     required: true,
@@ -94,11 +96,11 @@ export const formSchema: FormSchema[] = [
     field: 'status',
     label: '状态',
     component: 'RadioButtonGroup',
-    defaultValue: '0',
+    defaultValue: AvailableStatus.NORMAL,
     componentProps: {
       options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
+        { label: '启用', value: AvailableStatus.NORMAL },
+        { label: '停用', value: AvailableStatus.FORBIDDEN },
       ],
     },
     required: true,

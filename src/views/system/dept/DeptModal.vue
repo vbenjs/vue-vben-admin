@@ -5,17 +5,19 @@
 </template>
 <script lang="ts" setup>
   import { ref, computed, unref } from 'vue';
+
   import { BasicModal, useModalInner } from '@/components/Modal';
   import { BasicForm, useForm } from '@/components/Form';
-  import { formSchema } from './dept.data';
+  import { getDeptList, saveDept } from '@/api/account/dept';
 
-  import { getDeptList } from '@/api/demo/system';
+  import { formSchema } from './dept.data';
 
   defineOptions({ name: 'DeptModal' });
 
   const emit = defineEmits(['success', 'register']);
 
   const isUpdate = ref(true);
+  const recordId = ref<string>();
 
   const [registerForm, { resetFields, setFieldsValue, updateSchema, validate }] = useForm({
     labelWidth: 100,
@@ -33,6 +35,7 @@
       setFieldsValue({
         ...data.record,
       });
+      recordId.value = data.record.id;
     }
     const treeData = await getDeptList();
     updateSchema({
@@ -47,8 +50,8 @@
     try {
       const values = await validate();
       setModalProps({ confirmLoading: true });
-      // TODO custom api
       console.log(values);
+      await saveDept(values, recordId.value);
       closeModal();
       emit('success');
     } finally {

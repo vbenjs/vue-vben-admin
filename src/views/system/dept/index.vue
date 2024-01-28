@@ -31,11 +31,10 @@
 </template>
 <script lang="ts" setup>
   import { BasicTable, useTable, TableAction } from '@/components/Table';
-  import { getDeptList } from '@/api/demo/system';
-
+  import { getDeptList } from '@/api/account/dept';
   import { useModal } from '@/components/Modal';
-  import DeptModal from './DeptModal.vue';
 
+  import DeptModal from './DeptModal.vue';
   import { columns, searchFormSchema } from './dept.data';
 
   defineOptions({ name: 'DeptManagement' });
