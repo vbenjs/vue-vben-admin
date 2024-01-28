@@ -465,6 +465,7 @@
               </ScrollContainer>
               <Empty
                 v-show={unref(getNotFound)}
+                {...(props['emptyDesc'] ? { description: props['emptyDesc'] } : {})}
                 image={Empty.PRESENTED_IMAGE_SIMPLE}
                 class="!mt-4"
               />

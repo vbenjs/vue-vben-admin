@@ -107,6 +107,10 @@ export const treeProps = buildProps({
     type: Function as PropType<(...arg: any) => Promise<ContextMenuItem[] | ContextMenuOptions>>,
     default: undefined,
   },
+  emptyDesc: {
+    type: String,
+    default: '',
+  },
 
   rightMenuList: {
     type: Array as PropType<ContextMenuItem[]>,
