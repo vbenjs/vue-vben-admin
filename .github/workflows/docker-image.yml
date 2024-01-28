@@ -51,5 +51,5 @@ jobs:
 
           docker run -dit --network freedom \
             --name ${{ vars.DOCKER_CONTAINER_NAME }} \
-            --restart always \
+            --restart always -e VITE_GLOB_API_URL_PREFIX=/vbenapi \
             ${{ secrets.DOCKER_REGISTRY }}/${{ secrets.DOCKER_HUB_SPACE }}/${{ vars.DOCKER_IMAGE_NAME }}
