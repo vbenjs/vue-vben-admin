@@ -202,8 +202,10 @@
         const { data } = await uploadApi({
           file: blob,
           filename,
-          type: props.type,
-          path: props.path,
+          data: {
+            type: props.type,
+            path: props.path,
+          },
         });
         if (data.code !== ResultEnum.SUCCESS || !data.result) {
           emit('uploadError', { msg: t('component.cropper.uploadError') });
