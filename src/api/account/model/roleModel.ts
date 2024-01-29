@@ -2,17 +2,17 @@ import { BasicFetchResult, BasicPageParams } from '@/api/model/baseModel';
 import { AvailableStatus } from '@/utils/constants';
 
 export type RoleParams = {
-  roleName?: string;
+  q?: string;
   status?: string;
 };
 
 export interface RoleListItem {
   id: string;
-  roleName: string;
-  roleValue: string;
+  name: string;
+  perm: string;
   status: AvailableStatus;
-  orderNo: string;
-  createTime: string;
+  sort: string;
+  createdAt: string;
 }
 
 export type RolePageParams = BasicPageParams & RoleParams;

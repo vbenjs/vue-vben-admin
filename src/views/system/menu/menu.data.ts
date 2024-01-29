@@ -58,7 +58,7 @@ const isButton = (type: string) => type === 'btn';
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'menuName',
+    field: 'q',
     label: '菜单名称',
     component: 'Input',
     colProps: { span: 8 },
@@ -100,7 +100,7 @@ export const formSchema: FormSchema[] = [
   },
 
   {
-    field: 'parentMenu',
+    field: 'parentMenuId',
     label: '上级菜单',
     component: 'TreeSelect',
     componentProps: {

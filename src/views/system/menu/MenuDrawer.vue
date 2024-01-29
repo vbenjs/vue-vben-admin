@@ -43,9 +43,9 @@
       });
       recordId.value = data.record.id;
     }
-    const treeData = await getMenuList({ mode: 'origin' })();
+    const treeData = await getMenuList();
     updateSchema({
-      field: 'parentMenu',
+      field: 'parentMenuId',
       componentProps: { treeData },
     });
   });

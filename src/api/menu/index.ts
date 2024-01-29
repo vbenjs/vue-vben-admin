@@ -13,11 +13,15 @@ export const getVirtualMenuList = () => {
   return defHttp.get<getMenuListResultModel>({ url: Api.GetMenuList });
 };
 
-export const getMenuList = (params?: { mode?: string; show?: string }) => () => {
+export const getPermList = () => {
   return defHttp.get<getMenuListResultModel>(
-    { url: '/sys-menu', params },
+    { url: '/sys-menu/perm' },
     { isTransformResponse: false },
   );
+};
+
+export const getMenuList = () => {
+  return defHttp.get<getMenuListResultModel>({ url: '/sys-menu' }, { isTransformResponse: false });
 };
 
 export const saveMenu = (data: MenuListItem, id?: string) => {

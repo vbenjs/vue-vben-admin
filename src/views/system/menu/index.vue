@@ -45,7 +45,7 @@
   const [registerDrawer, { openDrawer }] = useDrawer();
   const [registerTable, { reload, expandAll }] = useTable({
     title: '菜单列表',
-    api: getMenuList({ mode: 'origin' }),
+    api: getMenuList,
     columns,
     formConfig: {
       labelWidth: 120,
