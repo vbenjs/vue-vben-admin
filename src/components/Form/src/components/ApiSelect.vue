@@ -32,12 +32,13 @@
   import { propTypes } from '@/utils/propTypes';
 
   defineOptions({ name: 'ApiSelect', inheritAttrs: false });
+  type TypeOptionList = Partial<LabelValueOptions[number]>[];
 
   const props = defineProps({
     value: { type: [Array, Object, String, Number] as PropType<SelectValue> },
     numberToString: propTypes.bool,
     api: {
-      type: Function as PropType<(arg?: any) => Promise<LabelValueOptions>>,
+      type: Function as PropType<(arg?: any) => Promise<TypeOptionList>>,
       default: null,
     },
     // api params
@@ -49,19 +50,19 @@
     immediate: propTypes.bool.def(true),
     alwaysLoad: propTypes.bool.def(false),
     options: {
-      type: Array as () => LabelValueOptions,
+      type: Array as () => TypeOptionList,
       default: () => [],
     },
   });
 
   const emit = defineEmits(['options-change', 'change', 'update:value']);
 
-  const optionsRef = ref<LabelValueOptions>([]);
+  const optionsRef = ref<TypeOptionList>([]);
 
   const loading = ref(false);
   // 首次是否加载过了
   const isFirstLoaded = ref(false);
-  const emitData = ref<LabelValueOptions>([]);
+  const emitData = ref<TypeOptionList>([]);
   const { t } = useI18n();
 
   // Embedded in the form, just use the hook binding to perform form verification
@@ -80,7 +81,7 @@
         });
       }
       return prev;
-    }, [] as LabelValueOptions);
+    }, [] as TypeOptionList);
     return data.length > 0 ? data : props.options;
   });
 
