@@ -11,3 +11,10 @@ export const saveRole = (data: Partial<RoleListItem>, id?: string) => {
 
 export const getRoleListByPage = (params?: RolePageParams) =>
   defHttp.get<RolePageListGetResultModel>({ url: '/role', params }, { isTransformResponse: false });
+
+export const updatePerm = (id: string, perm: string[]) => {
+  return defHttp.put(
+    { url: `/role/updatePerm/${id}`, data: { perm } },
+    { isTransformResponse: false },
+  );
+};

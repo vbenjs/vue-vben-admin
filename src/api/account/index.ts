@@ -44,6 +44,13 @@ export function getPermCode() {
   );
 }
 
+export function getPermCodeByRole(roleId: string) {
+  return defHttp.get<string[]>(
+    { url: `${Api.GetPermCode}/${roleId}` },
+    { errorMessageMode: 'none', isTransformResponse: false },
+  );
+}
+
 export function doLogout() {
   return defHttp.get({ url: Api.Logout });
 }

@@ -432,7 +432,7 @@
       expose(instance);
 
       return () => {
-        const { title, helpMessage, toolbar, search, checkable } = props;
+        const { title, helpMessage, toolbar, search, checkable, emptyDesc } = props;
         const showTitle = title || toolbar || search || slots.headerTitle;
         const scrollStyle: CSSProperties = { height: 'calc(100% - 38px)' };
         return (
@@ -465,7 +465,7 @@
               </ScrollContainer>
               <Empty
                 v-show={unref(getNotFound)}
-                {...(props['emptyDesc'] ? { description: props['emptyDesc'] } : {})}
+                {...(emptyDesc ? { description: emptyDesc } : {})}
                 image={Empty.PRESENTED_IMAGE_SIMPLE}
                 class="!mt-4"
               />

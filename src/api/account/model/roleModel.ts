@@ -4,6 +4,7 @@ import { AvailableStatus } from '@/utils/constants';
 export type RoleParams = {
   q?: string;
   status?: string;
+  isAll?: boolean;
 };
 
 export interface RoleListItem {
