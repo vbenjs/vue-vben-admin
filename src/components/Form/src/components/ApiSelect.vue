@@ -31,15 +31,13 @@
   import { useI18n } from '@/hooks/web/useI18n';
   import { propTypes } from '@/utils/propTypes';
 
-  type OptionsItem = { label?: string; value?: string; disabled?: boolean; [name: string]: any };
-
   defineOptions({ name: 'ApiSelect', inheritAttrs: false });
 
   const props = defineProps({
     value: { type: [Array, Object, String, Number] as PropType<SelectValue> },
     numberToString: propTypes.bool,
     api: {
-      type: Function as PropType<(arg?: any) => Promise<OptionsItem[]>>,
+      type: Function as PropType<(arg?: any) => Promise<LabelValueOptions>>,
       default: null,
     },
     // api params
@@ -51,19 +49,19 @@
     immediate: propTypes.bool.def(true),
     alwaysLoad: propTypes.bool.def(false),
     options: {
-      type: Array<OptionsItem>,
-      default: [],
+      type: Array as () => LabelValueOptions,
+      default: () => [],
     },
   });
 
   const emit = defineEmits(['options-change', 'change', 'update:value']);
 
-  const optionsRef = ref<OptionsItem[]>([]);
+  const optionsRef = ref<LabelValueOptions>([]);
 
   const loading = ref(false);
   // 首次是否加载过了
   const isFirstLoaded = ref(false);
-  const emitData = ref<OptionsItem[]>([]);
+  const emitData = ref<LabelValueOptions>([]);
   const { t } = useI18n();
 
   // Embedded in the form, just use the hook binding to perform form verification
@@ -82,7 +80,7 @@
         });
       }
       return prev;
-    }, [] as OptionsItem[]);
+    }, [] as LabelValueOptions);
     return data.length > 0 ? data : props.options;
   });
 
