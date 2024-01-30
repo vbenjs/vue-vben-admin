@@ -1,9 +1,17 @@
 <template>
-  <div :class="[prefixCls, getLayoutContentMode]" v-loading="getOpenPageLoading && getPageLoading">
+  <div
+    :class="[prefixCls, getLayoutContentMode]"
+    v-loading="getOpenPageLoading && getPageLoading"
+    ref="content"
+  >
     <PageLayout />
+    <BackTop v-if="getUseOpenBackTop" :target="() => content" :visibilityHeight="100" />
   </div>
 </template>
 <script lang="ts" setup>
+  import { ref } from 'vue';
+  import { BackTop } from 'ant-design-vue';
+
   import PageLayout from '@/layouts/page/index.vue';
   import { useDesign } from '@/hooks/web/useDesign';
   import { useRootSetting } from '@/hooks/setting/useRootSetting';
@@ -14,9 +22,11 @@
 
   const { prefixCls } = useDesign('layout-content');
   const { getOpenPageLoading } = useTransitionSetting();
-  const { getLayoutContentMode, getPageLoading } = useRootSetting();
+  const { getLayoutContentMode, getPageLoading, getUseOpenBackTop } = useRootSetting();
 
   useContentViewHeight();
+
+  const content = ref();
 </script>
 <style lang="less">
   @prefix-cls: ~'@{namespace}-layout-content';
