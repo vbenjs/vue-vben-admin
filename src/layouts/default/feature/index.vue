@@ -1,6 +1,5 @@
 <template>
   <LayoutLockPage />
-  <BackTop v-if="getUseOpenBackTop" :target="getTarget" />
   <SettingDrawer
     v-if="getIsFixedSettingDrawer && (!getShowMultipleTab || getFullContent)"
     :class="prefixCls"
@@ -9,7 +8,6 @@
 </template>
 <script lang="ts" setup>
   import { computed, unref } from 'vue';
-  import { BackTop } from 'ant-design-vue';
 
   import { useRootSetting } from '@/hooks/setting/useRootSetting';
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
@@ -28,10 +26,7 @@
   const LayoutLockPage = createAsyncComponent(() => import('@/views/sys/lock/index.vue'));
   const SettingDrawer = createAsyncComponent(() => import('@/layouts/default/setting/index.vue'));
 
-  const getTarget = () => document.body;
-
-  const { getUseOpenBackTop, getShowSettingButton, getSettingButtonPosition, getFullContent } =
-    useRootSetting();
+  const { getShowSettingButton, getSettingButtonPosition, getFullContent } = useRootSetting();
   const userStore = useUserStoreWithOut();
   const { prefixCls } = useDesign('setting-drawer-feature');
   const { getShowHeader } = useHeaderSetting();
