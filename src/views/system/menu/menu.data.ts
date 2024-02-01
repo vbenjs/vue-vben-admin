@@ -16,6 +16,9 @@ export const columns: BasicColumn[] = [
     dataIndex: 'icon',
     width: 50,
     customRender: ({ record }) => {
+      if (!record.icon) {
+        return;
+      }
       return h(Icon, { icon: record.icon });
     },
   },

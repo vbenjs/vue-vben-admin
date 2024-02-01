@@ -9,6 +9,7 @@
         :checkable="!!selectedRoleId"
         toolbar
         :checked-keys="checkedCodes"
+        :check-strictly="true"
         :default-expand-all="true"
         emptyDesc="请在左侧选择要修改权限的角色"
         title="菜单分配"
@@ -41,7 +42,10 @@
 
   const menuTree = ref<Nullable<TreeActionType>>(null);
   const treeData = ref<TreeItem[]>([]);
-  const selectedCodes = ref<string[]>([]);
+  const selectedCodes = ref<{
+    checked?: string[];
+    halfChecked?: string[];
+  }>({});
 
   const fetchMenuList = async () => {
     const list = await getMenuList();
@@ -57,7 +61,8 @@
   fetchMenuList();
 
   const save = async () => {
-    await updatePerm(props.selectedRoleId, selectedCodes.value);
+    console.log('============selectedCodes', selectedCodes.value);
+    await updatePerm(props.selectedRoleId, selectedCodes.value.checked);
     notification.success({
       message: '权限配置保存成功',
       description: '请提醒用户刷新后生效',

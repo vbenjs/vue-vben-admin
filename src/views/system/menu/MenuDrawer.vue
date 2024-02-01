@@ -37,10 +37,10 @@
     setDrawerProps({ confirmLoading: false });
     isUpdate.value = !!data?.isUpdate;
 
+    setFieldsValue({
+      ...data.record,
+    });
     if (unref(isUpdate)) {
-      setFieldsValue({
-        ...data.record,
-      });
       recordId.value = data.record.id;
     }
     const treeData = await getMenuList();

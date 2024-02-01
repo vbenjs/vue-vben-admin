@@ -8,6 +8,14 @@
         <template v-if="column.key === 'action'">
           <TableAction
             :actions="[
+              ...(record.type !== 'btn'
+                ? [
+                    {
+                      icon: 'streamline:add-circle-solid',
+                      onClick: handleCreateSub.bind(null, record),
+                    },
+                  ]
+                : []),
               {
                 icon: 'clarity:note-edit-line',
                 onClick: handleEdit.bind(null, record),
@@ -37,11 +45,15 @@
 
   import { useDrawer } from '@/components/Drawer';
   import MenuDrawer from './MenuDrawer.vue';
+  import { usePermission } from '@/hooks/web/usePermission';
+  import { useMessage } from '@/hooks/web/useMessage';
 
   import { columns, searchFormSchema } from './menu.data';
 
   defineOptions({ name: 'MenuManagement' });
 
+  const { hasPermission } = usePermission();
+  const { createMessage } = useMessage();
   const [registerDrawer, { openDrawer }] = useDrawer();
   const [registerTable, { reload, expandAll }] = useTable({
     title: '菜单列表',
@@ -60,7 +72,7 @@
     showIndexColumn: false,
     canResize: false,
     actionColumn: {
-      width: 80,
+      width: 120,
       title: '操作',
       dataIndex: 'action',
       // slots: { customRender: 'action' },
@@ -73,6 +85,15 @@
       isUpdate: false,
     });
   }
+  function handleCreateSub(record: Recordable) {
+    openDrawer(true, {
+      record: {
+        type: record.type === 'dir' ? 'menu' : 'btn',
+        parentMenuId: record.id,
+      },
+      isUpdate: false,
+    });
+  }
 
   function handleEdit(record: Recordable) {
     openDrawer(true, {
@@ -82,6 +103,10 @@
   }
 
   function handleDelete(record: Recordable) {
+    if (!hasPermission('sys:menu:del')) {
+      createMessage.error('没有删除权限');
+      return;
+    }
     console.log(record);
   }
 
