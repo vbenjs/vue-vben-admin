@@ -81,7 +81,6 @@
 
     .scrollbar__wrap {
       margin-bottom: 18px !important;
-      overflow-x: hidden;
     }
 
     .scrollbar__view {
