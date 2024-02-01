@@ -11,7 +11,7 @@ const { uploadUrl = '' } = useGlobSetting();
  */
 export function uploadApi(
   params: UploadFileParams,
-  onUploadProgress: (progressEvent: AxiosProgressEvent) => void,
+  onUploadProgress?: (progressEvent: AxiosProgressEvent) => void,
 ) {
   return defHttp.uploadFile<UploadApiResult>(
     {

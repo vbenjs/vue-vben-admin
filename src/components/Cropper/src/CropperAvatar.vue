@@ -23,9 +23,12 @@
     <CropperModal
       @register="register"
       @upload-success="handleUploadSuccess"
+      @upload-error="handleUploadError"
       :uploadApi="uploadApi"
       :src="sourceValue"
-      :size="size"
+      :checkMaxSize="checkMaxSize"
+      :type="type"
+      :path="path"
     />
   </div>
 </template>
@@ -38,6 +41,8 @@
   import { useI18n } from '@/hooks/web/useI18n';
   import type { ButtonProps } from '@/components/Button';
   import Icon from '@/components/Icon/Icon.vue';
+  import { UploadFileParams } from '#/axios';
+  import { AxiosProgressEvent } from 'axios';
 
   defineOptions({ name: 'CropperAvatar' });
 
@@ -48,10 +53,16 @@
     btnProps: { type: Object as PropType<ButtonProps> },
     btnText: { type: String, default: '' },
     uploadApi: {
-      type: Function as PropType<({ file, name }: { file: Blob; name: string }) => Promise<void>>,
+      type: Function as PropType<
+        (
+          params: UploadFileParams,
+          onUploadProgress?: (progressEvent: AxiosProgressEvent) => void,
+        ) => Promise<any>
+      >,
     },
-
-    size: { type: Number, default: 5 },
+    checkMaxSize: { type: Number, default: 2 },
+    type: { type: String, default: 'image' },
+    path: { type: String, default: 'image/avatar' },
   });
 
   const emit = defineEmits(['update:value', 'change']);
@@ -89,6 +100,10 @@
     sourceValue.value = source;
     emit('change', { source, data });
     createMessage.success(t('component.cropper.uploadSuccess'));
+  }
+
+  function handleUploadError({ msg }) {
+    createMessage.error(msg);
   }
 
   defineExpose({ openModal: openModal.bind(null, true), closeModal });
