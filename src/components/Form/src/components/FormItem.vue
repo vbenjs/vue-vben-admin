@@ -159,7 +159,6 @@
         isShow = isShow && itemIsAdvanced;
         return { isShow, isIfShow };
       }
-
       function handleRules(): ValidationRule[] {
         const {
           rules: defRules = [],
@@ -179,7 +178,7 @@
         const joinLabel = Reflect.has(props.schema, 'rulesMessageJoinLabel')
           ? rulesMessageJoinLabel
           : globalRulesMessageJoinLabel;
-        const assertLabel = joinLabel ? label : '';
+        const assertLabel = joinLabel ? (isFunction(label) ? '' : label) : '';
         const defaultMsg = component
           ? createPlaceholderMessage(component) + assertLabel
           : assertLabel;
@@ -281,12 +280,14 @@
         const on = {
           [eventKey]: (...args: Nullable<Recordable<any>>[]) => {
             const [e] = args;
-            if (propsData[eventKey]) {
-              propsData[eventKey](...args);
-            }
+
             const target = e ? e.target : null;
             const value = target ? (isCheck ? target.checked : target.value) : e;
             props.setFormModel(field, value, props.schema);
+
+            if (propsData[eventKey]) {
+              propsData[eventKey](...args);
+            }
           },
         };
         const Comp = componentMap.get(component) as ReturnType<typeof defineComponent>;
@@ -337,12 +338,13 @@
 
       function renderLabelHelpMessage() {
         const { label, helpMessage, helpComponentProps, subLabel } = props.schema;
+        const getLabel = isFunction(label) ? label(unref(getValues)) : label;
         const renderLabel = subLabel ? (
           <span>
-            {label} <span class="text-secondary">{subLabel}</span>
+            {getLabel} <span class="text-secondary">{subLabel}</span>
           </span>
         ) : (
-          label
+          getLabel
         );
         const getHelpMessage = isFunction(helpMessage)
           ? helpMessage(unref(getValues))
