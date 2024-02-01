@@ -18,6 +18,7 @@
   import { useMessage } from '@/hooks/web/useMessage';
   import { PageWrapper } from '@/components/Page';
   import { isAccountExist } from '@/api/demo/system';
+  import { patternValidation } from '@/utils/validate';
 
   const schemas: FormSchema[] = [
     {
@@ -203,6 +204,22 @@
             });
           },
         },
+      ],
+    },
+    {
+      field: 'field9',
+      component: 'Input',
+      label: '邮箱',
+      colProps: {
+        span: 8,
+      },
+      helpMessage: ['先验证是否输入值', '再验证是否符合邮箱匹配模式'],
+      rules: [
+        {
+          required: true,
+          message: '请输入数据',
+        },
+        patternValidation('email'),
       ],
     },
   ];
