@@ -168,6 +168,12 @@ export function useTable(tableProps?: Props): [
     scrollTo: (pos: string) => {
       getTableInstance().scrollTo(pos);
     },
+    getRowKeyToRowMap: () => {
+      return getTableInstance().getRowKeyToRowMap();
+    },
+    getWrapperElement: () => {
+      return getTableInstance().getWrapperElement();
+    },
   };
 
   return [register, methods];

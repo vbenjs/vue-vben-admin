@@ -10,11 +10,12 @@ import {
   reactive,
   Ref,
   watchEffect,
+  toRaw,
 } from 'vue';
 import { useTimeoutFn } from '@vben/hooks';
 import { buildUUID } from '@/utils/uuid';
 import { isFunction, isBoolean, isObject } from '@/utils/is';
-import { get, cloneDeep, merge } from 'lodash-es';
+import { get, cloneDeep, merge, isString, isNull, toString } from 'lodash-es';
 import { FETCH_SETTING, ROW_KEY, PAGE_SIZE } from '../const';
 import { parseRowKeyValue } from '../helper';
 import type { Key } from 'ant-design-vue/lib/table/interface';
@@ -111,6 +112,46 @@ export function useDataSource(
   const getRowKey = computed(() => {
     const { rowKey } = unref(propsRef);
     return unref(getAutoCreateKey) ? ROW_KEY : rowKey;
+  });
+
+  const rowKeyToRowMap = computed(() => {
+    const { rowKey, childrenColumnName = 'children' } = unref(propsRef);
+    const map = new Map<string, Recordable>();
+
+    const traverse = <T extends Recordable = any>(
+      data: T[],
+      callback: (item: T, index: number) => void,
+    ) => {
+      for (let i = 0; i < data.length; i++) {
+        const item = data[i];
+        const hasChildren = item && item[childrenColumnName] && item[childrenColumnName].length > 0;
+        callback && callback(item, i);
+        if (hasChildren) {
+          traverse(item[childrenColumnName], callback);
+        }
+      }
+    };
+
+    traverse(unref(dataSourceRef), (item, index) => {
+      if (unref(getAutoCreateKey)) {
+        const rowKey = item[ROW_KEY];
+        map.set(rowKey, toRaw(item));
+        return;
+      }
+
+      const key = isString(rowKey)
+        ? get(item, rowKey)
+        : isFunction(rowKey)
+        ? rowKey(item, index)
+        : null;
+
+      if (!isNull(key)) {
+        map.set(toString(key), toRaw(item));
+        return;
+      }
+    });
+
+    return map;
   });
 
   const getDataSourceRef = computed(() => {
@@ -360,5 +401,6 @@ export function useDataSource(
     insertTableDataRecord,
     findTableDataRecord,
     handleTableChange,
+    rowKeyToRowMap,
   };
 }

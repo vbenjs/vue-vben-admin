@@ -154,6 +154,7 @@
     reload,
     getAutoCreateKey,
     updateTableData,
+    rowKeyToRowMap,
   } = useDataSource(
     getProps,
     {
@@ -319,6 +320,8 @@
       return unref(getBindValues).size as SizeType;
     },
     setCacheColumns,
+    getWrapperElement: () => unref(wrapRef),
+    getRowKeyToRowMap: () => unref(rowKeyToRowMap),
   };
   createTableContext({ ...tableAction, wrapRef, getBindValues });
 
