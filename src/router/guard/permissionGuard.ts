@@ -38,7 +38,7 @@ export function createPermissionGuard(router: Router) {
         try {
           await userStore.afterLoginAction();
           if (!isSessionTimeout) {
-            next((to.query?.redirect as string) || '/');
+            next(decodeURIComponent((to.query?.redirect as string) || '/'));
             return;
           }
         } catch {

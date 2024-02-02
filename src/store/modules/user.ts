@@ -116,7 +116,6 @@ export const useUserStore = defineStore({
             router.addRoute(route as unknown as RouteRecordRaw);
           });
           router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
-          permissionStore.setDynamicAddedRoute(true);
         }
         goHome && (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
       }
@@ -150,7 +149,18 @@ export const useUserStore = defineStore({
       this.setToken(undefined);
       this.setSessionTimeout(false);
       this.setUserInfo(null);
-      goLogin && router.push(PageEnum.BASE_LOGIN);
+      if (goLogin) {
+        // 直接回登陆页
+        router.replace(PageEnum.BASE_LOGIN);
+      } else {
+        // 回登陆页带上当前路由地址
+        router.replace({
+          path: PageEnum.BASE_LOGIN,
+          query: {
+            redirect: encodeURIComponent(router.currentRoute.value.fullPath),
+          },
+        });
+      }
     },
 
     /**
@@ -164,6 +174,7 @@ export const useUserStore = defineStore({
         title: () => h('span', t('sys.app.logoutTip')),
         content: () => h('span', t('sys.app.logoutMessage')),
         onOk: async () => {
+          // 主动登出，不带redirect地址
           await this.logout(true);
         },
       });
