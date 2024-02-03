@@ -46,10 +46,13 @@ export function usePermission() {
     const tabStore = useMultipleTabStore();
     tabStore.clearCacheTabs();
     resetRouter();
+
+    // 动态加载路由（再次）
     const routes = await permissionStore.buildRoutesAction();
     routes.forEach((route) => {
       router.addRoute(route as unknown as RouteRecordRaw);
     });
+
     permissionStore.setLastBuildMenuTime();
     closeAll();
   }
