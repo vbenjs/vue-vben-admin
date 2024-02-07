@@ -5,6 +5,7 @@ import purgeIcons from 'vite-plugin-purge-icons';
 
 import { createAppConfigPlugin } from './appConfig';
 import { configCompressPlugin } from './compress';
+import { configHmrPlugin } from './hmr';
 import { configHtmlPlugin } from './html';
 import { configMockPlugin } from './mock';
 import { configSvgIconsPlugin } from './svgSprite';
@@ -51,6 +52,10 @@ async function createPlugins({ isBuild, root, enableMock, compress, enableAnalyz
   // vite-plugin-mock
   if (enableMock) {
     vitePlugins.push(configMockPlugin({ isBuild }));
+  }
+
+  if (!isBuild) {
+    vitePlugins.push(configHmrPlugin());
   }
 
   return vitePlugins;
