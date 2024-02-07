@@ -348,7 +348,8 @@ const getDefaultUseYnButtonConfig = (t: Function, useYn: boolean): SmartTableBut
     name: useYn ? t('common.button.use') : t('common.button.noUse'),
     code: useYn ? 'useYnTrue' : 'useYnFalse',
     props: {
-      color: useYn ? '' : 'error',
+      type: 'primary',
+      danger: !useYn,
       preIcon: useYn ? 'ant-design:check-outlined' : 'ant-design:close-outlined',
     },
     buttonRender: {

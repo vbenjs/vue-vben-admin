@@ -1,0 +1,89 @@
+@line_high_light: 2px solid rgb(24, 144, 255) !important;
+
+.smart-layout-separate {
+  display: flex;
+
+  .first-container {
+    position: relative;
+  }
+  //
+  .second-container {
+    position: relative;
+  }
+  // 左右布局
+  &.left-right-layout {
+    flex-direction: row;
+    // 分割线样式
+    .drag-line {
+      z-index: 9999;
+      top: 0;
+      right: -5px;
+      bottom: 0;
+      width: 10px;
+      height: 100%;
+
+      .ant-divider-vertical {
+        width: 2px;
+        height: 100%;
+        margin: 0 4px;
+      }
+    }
+
+    .draggable {
+      cursor: col-resize;
+    }
+    // 第二个div样式
+    .second-outer {
+      margin-left: 5px;
+    }
+
+    .first-outer {
+      margin-right: 5px;
+    }
+  }
+  // 上下布局
+  &.top-bottom-layout {
+    flex-direction: column;
+    // 分割线样式
+    .drag-line {
+      z-index: 9999;
+      right: 0;
+      bottom: -5px;
+      left: 0;
+      height: 10px;
+
+      .ant-divider-horizontal {
+        height: 2px;
+        margin: 4px 0;
+      }
+    }
+
+    .draggable {
+      cursor: row-resize;
+    }
+
+    .first-outer {
+      margin-bottom: 5px;
+    }
+
+    .second-outer {
+      margin-top: 5px;
+    }
+  }
+  // 分割线样式
+  .drag-line {
+    position: absolute;
+    z-index: 1;
+
+    &.high-light {
+      //  线高亮
+      .ant-divider-horizontal {
+        border-top: @line_high_light;
+      }
+
+      .ant-divider-vertical {
+        border-left: @line_high_light;
+      }
+    }
+  }
+}
