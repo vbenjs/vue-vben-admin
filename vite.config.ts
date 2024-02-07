@@ -12,6 +12,8 @@ export default defineApplicationConfig({
         '@iconify/iconify',
         'ant-design-vue/es/locale/zh_CN',
         'ant-design-vue/es/locale/en_US',
+        'vxe-table/lib/locale/lang/zh-CN',
+        'vxe-table/es/locale/lang/en-US',
       ],
     },
     server: {

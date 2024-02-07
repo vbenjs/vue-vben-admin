@@ -1,0 +1,75 @@
+.vxe-table.cell--highlight .vxe-cell > .ant-time-picker .ant-time-picker-input,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-time-picker .ant-time-picker-input, .vxe-table.cell--highlight .vxe-cell > .ant-calendar-picker .ant-calendar-picker-input,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-calendar-picker .ant-calendar-picker-input, .vxe-table.cell--highlight .vxe-cell > .ant-cascader-picker .ant-input,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-cascader-picker .ant-input, .vxe-table.cell--highlight .vxe-cell > .ant-select .ant-select-selection,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-select .ant-select-selection, .vxe-table.cell--highlight .vxe-cell > .ant-input-number .ant-input-number-handler-wrap,
+.vxe-table.cell--highlight .vxe-cell > .ant-input-number .ant-input-number-handler-down,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-input-number .ant-input-number-handler-wrap,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-input-number .ant-input-number-handler-down, .vxe-table.cell--highlight .vxe-cell > .ant-select .ant-input,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-select .ant-input, .vxe-table.cell--highlight .vxe-cell > .ant-input, .vxe-table.cell--highlight .vxe-cell > .ant-input-number,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-input,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-input-number {
+  border: 0;
+  box-shadow: none;
+}
+
+.vxe-cell > .ant-input,
+.vxe-tree-cell > .ant-input, .vxe-form .vxe-form--item-content > .ant-input, .vxe-cell > .ant-input-number,
+.vxe-tree-cell > .ant-input-number, .vxe-form .vxe-form--item-content > .ant-input-number, .vxe-cell > .ant-select,
+.vxe-tree-cell > .ant-select, .vxe-form .vxe-form--item-content > .ant-select, .vxe-cell > .ant-cascader-picker,
+.vxe-tree-cell > .ant-cascader-picker, .vxe-form .vxe-form--item-content > .ant-cascader-picker, .vxe-cell > .ant-calendar-picker,
+.vxe-tree-cell > .ant-calendar-picker, .vxe-form .vxe-form--item-content > .ant-calendar-picker, .vxe-cell > .ant-time-picker,
+.vxe-tree-cell > .ant-time-picker, .vxe-form .vxe-form--item-content > .ant-time-picker {
+  width: 100%;
+}
+
+.vxe-table--filter-antd-wrapper {
+  padding: 0.8em 1em;
+}
+.vxe-table--filter-antd-wrapper > .ant-input, .vxe-table--filter-antd-wrapper > .ant-input-number, .vxe-table--filter-antd-wrapper > .ant-select, .vxe-table--filter-antd-wrapper > .ant-rate {
+  width: 180px;
+}
+
+.vxe-cell > .ant-rate,
+.vxe-tree-cell > .ant-rate {
+  vertical-align: bottom;
+}
+.vxe-cell > .ant-rate .anticon-star,
+.vxe-tree-cell > .ant-rate .anticon-star {
+  display: block;
+}
+
+.col--valid-error > .vxe-cell > .ant-input, .col--valid-error > .vxe-cell > .ant-select .ant-input, .col--valid-error > .vxe-cell > .ant-select .ant-select-selection, .col--valid-error > .vxe-cell > .ant-input-number, .col--valid-error > .vxe-cell > .ant-cascader-picker .ant-cascader-input, .col--valid-error > .vxe-cell > .ant-calendar-picker .ant-calendar-picker-input, .col--valid-error > .vxe-tree-cell > .ant-input, .col--valid-error > .vxe-tree-cell > .ant-select .ant-input, .col--valid-error > .vxe-tree-cell > .ant-select .ant-select-selection, .col--valid-error > .vxe-tree-cell > .ant-input-number, .col--valid-error > .vxe-tree-cell > .ant-cascader-picker .ant-cascader-input, .col--valid-error > .vxe-tree-cell > .ant-calendar-picker .ant-calendar-picker-input {
+  border-color: #f56c6c;
+  box-shadow: none;
+}
+
+.vxe-table.cell--highlight .vxe-cell > .ant-input, .vxe-table.cell--highlight .vxe-cell > .ant-input-number,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-input,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-input-number {
+  padding: 0;
+}
+.vxe-table.cell--highlight .vxe-cell > .ant-select .ant-input,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-select .ant-input {
+  padding: 0;
+}
+.vxe-table.cell--highlight .vxe-cell > .ant-input-number .ant-input-number-input,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-input-number .ant-input-number-input {
+  padding: 0;
+}
+.vxe-table.cell--highlight .vxe-cell > .ant-select .ant-select-selection .ant-select-selection__rendered,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-select .ant-select-selection .ant-select-selection__rendered {
+  margin: 0;
+}
+.vxe-table.cell--highlight .vxe-cell > .ant-cascader-picker .ant-cascader-picker-label,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-cascader-picker .ant-cascader-picker-label {
+  padding: 0;
+}
+.vxe-table.cell--highlight .vxe-cell > .ant-calendar-picker .ant-calendar-picker-input,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-calendar-picker .ant-calendar-picker-input {
+  padding: 0;
+}
+.vxe-table.cell--highlight .vxe-cell > .ant-time-picker .ant-time-picker-input,
+.vxe-table.cell--highlight .vxe-tree-cell > .ant-time-picker .ant-time-picker-input {
+  padding: 0;
+}

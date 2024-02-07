@@ -136,6 +136,8 @@ export interface ProjectConfig {
   closeMessageOnSwitch: boolean;
   // Whether to cancel the http request that has been sent but not responded when switching the interface.
   removeAllHttpPending: boolean;
+  // 尺寸配置
+  sizeConfig: SizeConfig;
 }
 
 export interface GlobConfig {
@@ -171,3 +173,9 @@ export interface GlobEnvConfig {
  * 后台api模式，standalone：单体架构，cloud：微服务架构
  */
 type ApiMode = 'standalone' | 'cloud';
+
+export interface SizeConfig {
+  table: VxeTablePropTypes.Size;
+  button: string;
+  form: FormSize;
+}

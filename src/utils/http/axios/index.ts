@@ -10,7 +10,7 @@ import { checkStatus } from './checkStatus';
 import { useGlobSetting } from '@/hooks/setting';
 import { useMessage } from '@/hooks/web/useMessage';
 import { RequestEnum, ResultEnum, ContentTypeEnum } from '@/enums/httpEnum';
-import { isString, isUndefined, isNull, isEmpty } from '@/utils/is';
+import { isString, isUndefined, isNull, isEmpty, isNumber } from '@/utils/is';
 import { getToken } from '@/utils/auth';
 import { setObjToUrlParams, deepMerge } from '@/utils';
 import { useErrorLogStoreWithOut } from '@/store/modules/errorLog';
@@ -125,7 +125,10 @@ const transform: AxiosTransform = {
         if (
           Reflect.has(config, 'data') &&
           config.data &&
-          (Object.keys(config.data).length > 0 || config.data instanceof FormData)
+          (Object.keys(config.data).length > 0 ||
+            config.data instanceof FormData ||
+            isString(data) ||
+            isNumber(data))
         ) {
           config.data = data;
           config.params = params;

@@ -1,3 +1,5 @@
+import { isFunction } from 'lodash-es';
+
 export {
   isArguments,
   isArrayBuffer,
@@ -11,7 +13,6 @@ export {
   isEqual,
   isEqualWith,
   isError,
-  isFunction,
   isFinite,
   isLength,
   isMap,
@@ -70,3 +71,9 @@ export function isPascalCase(str: string): boolean {
   const regex = /^[A-Z][A-Za-z]*$/;
   return regex.test(str);
 }
+
+export function isPromise<T = any>(val: unknown): val is Promise<T> {
+  return is(val, 'Promise') && isFunction((val as any).then) && isFunction((val as any).catch);
+}
+
+export { isFunction };

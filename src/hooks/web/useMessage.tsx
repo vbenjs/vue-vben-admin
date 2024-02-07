@@ -109,5 +109,29 @@ export function useMessage() {
     createErrorModal,
     createInfoModal,
     createWarningModal,
+    successMessage,
+    warnMessage,
   };
 }
+
+export interface MessageOptions {
+  message: string;
+}
+
+/**
+ * 成功
+ * @param options
+ */
+const successMessage = (options: MessageOptions) => {
+  if (isString(options)) {
+    return Message.warning(options);
+  }
+  return Message.warning(options.message);
+};
+
+const warnMessage = (options: MessageOptions | string) => {
+  if (isString(options)) {
+    return Message.warning(options);
+  }
+  return Message.warning(options.message);
+};

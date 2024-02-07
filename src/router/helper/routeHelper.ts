@@ -18,7 +18,7 @@ let dynamicViewsModules: Record<string, () => Promise<Recordable>>;
 
 // Dynamic introduction
 function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
-  dynamicViewsModules = dynamicViewsModules || import.meta.glob('../../views/**/*.{vue,tsx}');
+  dynamicViewsModules = dynamicViewsModules || getComponents();
   if (!routes) return;
   routes.forEach((item) => {
     if (!item.component && item.meta?.frameSrc) {
@@ -46,6 +46,10 @@ function dynamicImport(
 ) {
   const keys = Object.keys(dynamicViewsModules);
   const matchKeys = keys.filter((key) => {
+    if (component.startsWith('@')) {
+      const keyPath = '@' + key.replace('../..', '');
+      return keyPath === component;
+    }
     const k = key.replace('../../views', '');
     const startFlag = component.startsWith('/');
     const endFlag = component.endsWith('.vue') || component.endsWith('.tsx');
@@ -181,3 +185,18 @@ function isMultipleRoute(routeModule: AppRouteModule) {
   }
   return flag;
 }
+
+const getComponents = (): Record<string, () => Promise<Recordable>> => {
+  const result: Record<string, () => Promise<Recordable>> = {};
+  const viewsRecord = import.meta.glob('../../views/**/*.{vue,tsx}');
+  Object.keys(viewsRecord).forEach((item) => {
+    // @ts-ignore
+    result[item] = viewsRecord[item];
+  });
+  const moduleViewsRecord = import.meta.glob('../../modules/**/*.{vue,tsx}');
+  Object.keys(moduleViewsRecord).forEach((item) => {
+    // @ts-ignore
+    result[item] = moduleViewsRecord[item];
+  });
+  return result;
+};

@@ -4,6 +4,7 @@ import type {
   MenuSetting,
   TransitionSetting,
   MultiTabsSetting,
+  SizeConfig,
 } from '#/config';
 import type { BeforeMiniState, ApiAddress } from '#/store';
 
@@ -65,6 +66,9 @@ export const useAppStore = defineStore({
     },
     getApiAddress() {
       return JSON.parse(localStorage.getItem(API_ADDRESS) || '{}');
+    },
+    getSizeSetting(): SizeConfig {
+      return this.getProjectConfig.sizeConfig;
     },
   },
   actions: {

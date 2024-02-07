@@ -1,0 +1,39 @@
+.smart-table-column-config-fixed-option {
+  .fixed-span {
+    padding: 5px;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--vxe-primary-color);
+    }
+  }
+
+  .is--checked {
+    color: var(--vxe-primary-color);
+  }
+}
+
+.smart-table-column-config {
+  .vxe-pulldown--wrapper {
+    border: 1px solid var(--vxe-table-border-color);
+    border-radius: var(--vxe-border-radius);
+    box-shadow: 0 1px 6px rgb(0 0 0 / 20%);
+  }
+
+  .bottom-button {
+    height: 30px;
+    line-height: 30px;
+
+    .vxe-button {
+      width: 50%;
+    }
+  }
+
+  .smart-table-column-config--drag {
+    cursor: pointer;
+  }
+
+  .smart-table-column-config--drag-fixed {
+    cursor: no-drop;
+  }
+}

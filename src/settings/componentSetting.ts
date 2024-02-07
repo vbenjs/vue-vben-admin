@@ -1,6 +1,7 @@
 // Used to configure the general configuration of some components without modifying the components
 
 import type { SorterResult } from '../components/Table';
+import { VxePagerPropTypes } from 'vxe-table';
 
 export default {
   // basic-table setting
@@ -18,9 +19,18 @@ export default {
       totalField: 'total',
     },
     // Number of pages that can be selected
-    pageSizeOptions: ['10', '50', '80', '100'],
+    pageSizeOptions: [50, 100, 500, 1000, 3000],
     // Default display quantity on one page
-    defaultPageSize: 10,
+    defaultPageSize: 50,
+    pageLayouts: [
+      'Sizes',
+      'PrevJump',
+      'PrevPage',
+      'Number',
+      'NextJump',
+      'FullJump',
+      'Total',
+    ] as VxePagerPropTypes.Layouts,
     // Default Size
     defaultSize: 'middle',
     // Custom general sort function
