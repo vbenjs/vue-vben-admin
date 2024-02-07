@@ -11,7 +11,23 @@ export interface RouteItem {
   children?: RouteItem[];
 }
 
+export type FunctionType = 'MENU' | 'CATALOG';
+
 /**
  * @description: Get menu return value
  */
-export type getMenuListResultModel = RouteItem[];
+export interface getMenuListResultModel {
+  component: string;
+  componentName: string;
+  cached?: boolean;
+  functionName: string;
+  functionType: FunctionType;
+  internalOrExternal: boolean;
+  locales: Recordable<string>;
+  url: string;
+  icon?: string;
+  functionId: number;
+  parentId: number;
+  isMenu?: boolean;
+  redirect?: string;
+}

@@ -29,6 +29,8 @@ export const APP_SESSION_CACHE_KEY = 'COMMON__SESSION__KEY__';
 // table 列设置
 export const TABLE_SETTING_KEY = 'TABLE__SETTING__KEY__';
 
+export const PERMISSION_KEY = 'PERMISSIONS__KEY__';
+
 export enum CacheTypeEnum {
   SESSION,
   LOCAL,

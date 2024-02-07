@@ -1,15 +1,10 @@
 /**
  * Data processing class, can be configured according to the project
  */
-import type {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-  InternalAxiosRequestConfig,
-} from 'axios';
-import type { RequestOptions, Result } from '#/axios';
+import type { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import type { RequestOptions, Result, SmartAxiosRequestConfig } from '#/axios';
 
-export interface CreateAxiosOptions extends AxiosRequestConfig {
+export interface CreateAxiosOptions extends SmartAxiosRequestConfig {
   authenticationScheme?: string;
   transform?: AxiosTransform;
   requestOptions?: RequestOptions;
@@ -20,7 +15,10 @@ export abstract class AxiosTransform {
    * A function that is called before a request is sent. It can modify the request configuration as needed.
    * 在发送请求之前调用的函数。它可以根据需要修改请求配置。
    */
-  beforeRequestHook?: (config: AxiosRequestConfig, options: RequestOptions) => AxiosRequestConfig;
+  beforeRequestHook?: (
+    config: SmartAxiosRequestConfig,
+    options: RequestOptions,
+  ) => SmartAxiosRequestConfig;
 
   /**
    * @description: 处理响应数据

@@ -185,7 +185,7 @@
       }
     }
 
-    input:not([type='checkbox']) {
+    input:not([type='checkbox'], .login-captcha) {
       min-width: 360px;
       /* stylelint-disable-next-line media-query-no-invalid */
       @media (max-width: @screen-xl) {

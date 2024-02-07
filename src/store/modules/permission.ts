@@ -23,6 +23,8 @@ import { getPermCode } from '@/api/sys/user';
 
 import { useMessage } from '@/hooks/web/useMessage';
 import { PageEnum } from '@/enums/pageEnum';
+import { getAuthCache, setAuthCache } from '@/utils/auth';
+import { PERMISSION_KEY } from '@/enums/cacheEnum';
 
 interface PermissionState {
   // Permission code list
@@ -61,7 +63,10 @@ export const usePermissionStore = defineStore({
   }),
   getters: {
     getPermCodeList(state): string[] | number[] {
-      return state.permCodeList;
+      if (state.permCodeList && state.permCodeList.length > 0) {
+        return state.permCodeList;
+      }
+      return getAuthCache(PERMISSION_KEY) || [];
     },
     getBackMenuList(state): Menu[] {
       return state.backMenuList;
@@ -79,6 +84,7 @@ export const usePermissionStore = defineStore({
   actions: {
     setPermCodeList(codeList: string[]) {
       this.permCodeList = codeList;
+      setAuthCache(PERMISSION_KEY, this.permCodeList);
     },
 
     setBackMenuList(list: Menu[]) {
@@ -221,7 +227,7 @@ export const usePermissionStore = defineStore({
           // 这个功能可能只需要执行一次，实际项目可以自己放在合适的时间
           let routeList: AppRouteRecordRaw[] = [];
           try {
-            await this.changePermissionCode();
+            // await this.changePermissionCode();
             routeList = (await getMenuList()) as AppRouteRecordRaw[];
           } catch (error) {
             console.error(error);

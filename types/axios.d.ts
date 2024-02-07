@@ -1,3 +1,6 @@
+import type { ApiServiceEnum } from '@/utils/http/axios';
+import type { AxiosRequestConfig } from 'axios';
+
 export type ErrorMessageMode = 'none' | 'modal' | 'message' | undefined;
 export type SuccessMessageMode = ErrorMessageMode;
 
@@ -39,7 +42,8 @@ export interface Result<T = any> {
   code: number;
   type: 'success' | 'error' | 'warning';
   message: string;
-  result: T;
+  data: T;
+  exceptionNo?: number;
 }
 
 // multipart/form-data: upload file
@@ -53,4 +57,11 @@ export interface UploadFileParams {
   // file name
   filename?: string;
   [key: string]: any;
+}
+
+export type ApiService = ApiServiceEnum;
+
+export interface SmartAxiosRequestConfig<D = any> extends AxiosRequestConfig<D> {
+  // 指定请求发送的服务
+  service: ApiService;
 }

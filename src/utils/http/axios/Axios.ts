@@ -1,11 +1,5 @@
-import type {
-  AxiosRequestConfig,
-  AxiosInstance,
-  AxiosResponse,
-  AxiosError,
-  InternalAxiosRequestConfig,
-} from 'axios';
-import type { RequestOptions, Result, UploadFileParams } from '#/axios';
+import type { AxiosInstance, AxiosResponse, AxiosError, InternalAxiosRequestConfig } from 'axios';
+import type { SmartAxiosRequestConfig, RequestOptions, Result, UploadFileParams } from '#/axios';
 import type { CreateAxiosOptions } from './axiosTransform';
 import axios from 'axios';
 import qs from 'qs';
@@ -13,6 +7,7 @@ import { AxiosCanceler } from './axiosCancel';
 import { isFunction } from '@/utils/is';
 import { cloneDeep } from 'lodash-es';
 import { ContentTypeEnum, RequestEnum } from '@/enums/httpEnum';
+import { useGlobSetting } from '@/hooks/setting';
 
 export * from './axiosTransform';
 
@@ -126,7 +121,7 @@ export class VAxios {
   /**
    * @description:  File Upload
    */
-  uploadFile<T = any>(config: AxiosRequestConfig, params: UploadFileParams) {
+  uploadFile<T = any>(config: SmartAxiosRequestConfig, params: UploadFileParams) {
     const formData = new window.FormData();
     const customFilename = params.name || 'file';
 
@@ -163,7 +158,7 @@ export class VAxios {
   }
 
   // support form-data
-  supportFormData(config: AxiosRequestConfig) {
+  supportFormData(config: SmartAxiosRequestConfig) {
     const headers = config.headers || this.options.headers;
     const contentType = headers?.['Content-Type'] || headers?.['content-type'];
 
@@ -181,23 +176,23 @@ export class VAxios {
     };
   }
 
-  get<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
+  get<T = any>(config: SmartAxiosRequestConfig, options?: RequestOptions): Promise<T> {
     return this.request({ ...config, method: 'GET' }, options);
   }
 
-  post<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
+  post<T = any>(config: SmartAxiosRequestConfig, options?: RequestOptions): Promise<T> {
     return this.request({ ...config, method: 'POST' }, options);
   }
 
-  put<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
+  put<T = any>(config: SmartAxiosRequestConfig, options?: RequestOptions): Promise<T> {
     return this.request({ ...config, method: 'PUT' }, options);
   }
 
-  delete<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
+  delete<T = any>(config: SmartAxiosRequestConfig, options?: RequestOptions): Promise<T> {
     return this.request({ ...config, method: 'DELETE' }, options);
   }
 
-  request<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
+  request<T = any>(config: SmartAxiosRequestConfig, options?: RequestOptions): Promise<T> {
     let conf: CreateAxiosOptions = cloneDeep(config);
     // cancelToken 如果被深拷贝，会导致最外层无法使用cancel方法来取消请求
     if (config.cancelToken) {
@@ -248,5 +243,20 @@ export class VAxios {
           reject(e);
         });
     });
+  }
+
+  getApiUrlByService(service: string): string {
+    const url = this.options.requestOptions?.apiUrl || '';
+    const { isStandalone } = useGlobSetting();
+    if (!isStandalone) {
+      return `${url}/${service}`;
+    }
+    return url;
+  }
+
+  postForm<T = any>(config: SmartAxiosRequestConfig, options?: RequestOptions): Promise<T> {
+    const headers = config.headers || {};
+    headers['Content-Type'] = ContentTypeEnum.FORM_URLENCODED;
+    return this.request({ ...config, method: 'POST', headers }, options);
   }
 }

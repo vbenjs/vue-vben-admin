@@ -149,6 +149,8 @@ export interface GlobConfig {
   urlPrefix?: string;
   // Project abbreviation
   shortName: string;
+  // 是否是单体架构
+  isStandalone: boolean;
 }
 export interface GlobEnvConfig {
   // Site title
@@ -159,4 +161,13 @@ export interface GlobEnvConfig {
   VITE_GLOB_API_URL_PREFIX?: string;
   // Upload url
   VITE_GLOB_UPLOAD_URL?: string;
+  /**
+   * 后台api模式，standalone：单体架构，cloud：微服务架构
+   */
+  VITE_GLOB_API_MODE?: ApiMode;
 }
+
+/**
+ * 后台api模式，standalone：单体架构，cloud：微服务架构
+ */
+type ApiMode = 'standalone' | 'cloud';

@@ -51,7 +51,7 @@ const transform: AxiosTransform = {
       throw new Error(t('sys.api.apiRequestFailed'));
     }
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
-    const { code, result, message } = data;
+    const { code, data: result, message } = data;
 
     // 这里逻辑可以根据项目进行修改
     const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
@@ -226,6 +226,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
     // 深度合并
     deepMerge(
       {
+        service: ApiServiceEnum.NONE,
         // See https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#authentication_schemes
         // authentication schemes，e.g: Bearer
         // authenticationScheme: 'Bearer',
@@ -283,3 +284,14 @@ export const defHttp = createAxios();
 //     urlPrefix: 'xxx',
 //   },
 // });
+
+export enum ApiServiceEnum {
+  NONE = '',
+  SMART_AUTH = 'smart-auth',
+  SMART_SYSTEM = 'smart-system',
+  SMART_FILE = 'smart-file',
+  // 代码生成器
+  SMART_CODE = 'smart-code',
+  // 消息服务，包括短信等
+  SMART_MESSAGE = 'smart-message',
+}

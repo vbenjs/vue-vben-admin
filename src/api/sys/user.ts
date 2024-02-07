@@ -1,11 +1,11 @@
-import { defHttp } from '@/utils/http/axios';
-import { LoginParams, LoginResultModel, GetUserInfoModel } from './model/userModel';
+import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
+import { GetUserInfoModel, LoginParams, LoginResultModel } from './model/userModel';
 
 import { ErrorMessageMode } from '#/axios';
 
 enum Api {
-  Login = '/login',
-  Logout = '/logout',
+  Login = '/auth/login',
+  Logout = '/auth/logout',
   GetUserInfo = '/getUserInfo',
   GetPermCode = '/getPermCode',
   TestRetry = '/testRetry',
@@ -15,8 +15,9 @@ enum Api {
  * @description: user login api
  */
 export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') {
-  return defHttp.post<LoginResultModel>(
+  return defHttp.postForm<LoginResultModel>(
     {
+      service: ApiServiceEnum.SMART_AUTH,
       url: Api.Login,
       params,
     },
@@ -38,7 +39,7 @@ export function getPermCode() {
 }
 
 export function doLogout() {
-  return defHttp.get({ url: Api.Logout });
+  return defHttp.postForm({ service: ApiServiceEnum.SMART_AUTH, url: Api.Logout });
 }
 
 export function testRetry() {
