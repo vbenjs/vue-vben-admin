@@ -16,6 +16,7 @@ import { RoleEnum } from '@/enums/roleEnum';
 import { intersection } from 'lodash-es';
 import { isArray } from '@/utils/is';
 import { useMultipleTabStore } from '@/store/modules/multipleTab';
+import { computed } from 'vue';
 
 // User permissions related operations
 export function usePermission() {
@@ -115,5 +116,6 @@ export function usePermission() {
     resume();
   }
 
-  return { changeRole, hasPermission, togglePermissionMode, refreshMenu };
+  const getNoPermissionMode = computed(() => appStore.getProjectConfig.noPermissionMode);
+  return { changeRole, hasPermission, togglePermissionMode, refreshMenu, getNoPermissionMode };
 }

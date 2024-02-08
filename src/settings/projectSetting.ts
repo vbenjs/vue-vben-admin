@@ -1,18 +1,19 @@
 import type { ProjectConfig } from '#/config';
-import { MenuTypeEnum, MenuModeEnum, TriggerEnum, MixSidebarTriggerEnum } from '@/enums/menuEnum';
+import { MenuModeEnum, MenuTypeEnum, MixSidebarTriggerEnum, TriggerEnum } from '@/enums/menuEnum';
 import { CacheTypeEnum } from '@/enums/cacheEnum';
 import {
   ContentEnum,
+  NoPermissionModeEnum,
   PermissionModeEnum,
-  ThemeEnum,
   RouterTransitionEnum,
-  SettingButtonPositionEnum,
   SessionTimeoutProcessingEnum,
+  SettingButtonPositionEnum,
+  ThemeEnum,
 } from '@/enums/appEnum';
 import {
-  SIDE_BAR_BG_COLOR_LIST,
-  HEADER_PRESET_BG_COLOR_LIST,
   APP_PRESET_COLOR_LIST,
+  HEADER_PRESET_BG_COLOR_LIST,
+  SIDE_BAR_BG_COLOR_LIST,
 } from './designSetting';
 
 // ! You need to clear the browser cache after the change
@@ -189,6 +190,7 @@ const setting: ProjectConfig = {
     table: 'small',
     form: 'small',
   },
+  noPermissionMode: NoPermissionModeEnum.disabled,
 };
 
 export default setting;

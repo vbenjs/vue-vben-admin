@@ -6,6 +6,7 @@ import {
   RouterTransitionEnum,
   SettingButtonPositionEnum,
   SessionTimeoutProcessingEnum,
+  NoPermissionModeEnum,
 } from '@/enums/appEnum';
 
 import { CacheTypeEnum } from '@/enums/cacheEnum';
@@ -138,6 +139,8 @@ export interface ProjectConfig {
   removeAllHttpPending: boolean;
   // 尺寸配置
   sizeConfig: SizeConfig;
+  // 无权限模式
+  noPermissionMode: NoPermissionModeEnum;
 }
 
 export interface GlobConfig {

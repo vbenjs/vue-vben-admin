@@ -50,3 +50,11 @@ export enum RouterTransitionEnum {
   FADE_BOTTOM = 'fade-bottom',
   FADE_SCALE = 'fade-scale',
 }
+
+/**
+ * 无权限显示状态枚举
+ */
+export enum NoPermissionModeEnum {
+  hide = 'hide',
+  disabled = 'disabled',
+}
