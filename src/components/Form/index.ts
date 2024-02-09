@@ -15,5 +15,6 @@ export { default as ApiCascader } from './src/components/ApiCascader.vue';
 export { default as ApiTransfer } from './src/components/ApiTransfer.vue';
 export { default as SmartTableSelect } from './src/smart-boot/components/base/SmartTableSelect';
 export { default as SmartUserSelectModal } from './src/smart-boot/components/SmartUserSelectModal.vue';
+export { default as SmartApiSelectTable } from './src/smart-boot/components/SmartApiSelectTable.vue';
 
 export { BasicForm };

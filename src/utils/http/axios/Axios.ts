@@ -8,6 +8,7 @@ import { isFunction } from '@/utils/is';
 import { cloneDeep } from 'lodash-es';
 import { ContentTypeEnum, RequestEnum } from '@/enums/httpEnum';
 import { useGlobSetting } from '@/hooks/setting';
+import { downloadByData } from '@/utils/file/download';
 
 export * from './axiosTransform';
 
@@ -258,5 +259,29 @@ export class VAxios {
     const headers = config.headers || {};
     headers['Content-Type'] = ContentTypeEnum.FORM_URLENCODED;
     return this.request({ ...config, method: 'POST', headers }, options);
+  }
+
+  /**
+   * 下载文件请
+   * @param config
+   * @param filename
+   * @param options
+   */
+  async download(config: SmartAxiosRequestConfig, filename?: string, options?: RequestOptions) {
+    const response: AxiosResponse<Blob> = await this.request(
+      {
+        method: 'post',
+        responseType: 'blob',
+        ...config,
+      },
+      {
+        ...options,
+      },
+    );
+    const name =
+      filename ||
+      response.headers['content-disposition']?.split(';')[1].split('filename=')[1] ||
+      '';
+    downloadByData(response.data, name);
   }
 }

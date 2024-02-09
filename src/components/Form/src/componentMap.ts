@@ -36,6 +36,7 @@ import { BasicTitle } from '@/components/Basic';
 import { CropperAvatar } from '@/components/Cropper';
 import SmartApiSelectDict from './smart-boot/components/SmartApiSelectDict.vue';
 import SmartUserTableSelect from './smart-boot/components/user/SmartUserTableSelect.vue';
+import SmartApiSelectTable from './smart-boot/components/SmartApiSelectTable.vue';
 
 const componentMap = new Map<ComponentType | string, Component>();
 
@@ -83,6 +84,7 @@ componentMap.set('BasicTitle', BasicTitle);
 
 componentMap.set('SmartApiSelectDict', SmartApiSelectDict);
 componentMap.set('SmartUserTableSelect', SmartUserTableSelect);
+componentMap.set('SmartApiSelectTable', SmartApiSelectTable);
 
 export function add<T extends string, R extends Component>(
   compName: ComponentType | T,
