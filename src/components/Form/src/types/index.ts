@@ -127,6 +127,9 @@ interface _CustomComponents {
   SmartApiSelectDict: ExtractPropTypes<
     (typeof import('@/components/Form/src/smart-boot/components/SmartApiSelectDict.vue'))['default']
   >;
+  SmartUserTableSelect: ExtractPropTypes<
+    (typeof import('@/components/Form/src/smart-boot/components/user/SmartUserTableSelect.vue'))['default']
+  >;
 }
 
 type CustomComponents<T = _CustomComponents> = {
@@ -177,4 +180,5 @@ export interface ComponentProps {
   CropperAvatar: CustomComponents['CropperAvatar'];
   BasicTitle: CustomComponents['BasicTitle'];
   SmartApiSelectDict: CustomComponents['SmartApiSelectDict'] & ComponentProps['ApiSelect'];
+  SmartUserTableSelect: CustomComponents['SmartUserTableSelect'];
 }

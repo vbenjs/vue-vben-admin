@@ -242,6 +242,9 @@
   }
 
   function setValue(editor: Record<string, any>, val?: string, prevVal?: string) {
+    if (val === undefined) {
+      val = '';
+    }
     if (
       editor &&
       typeof val === 'string' &&
