@@ -124,6 +124,9 @@ interface _CustomComponents {
   InputCountDown: ExtractPropTypes<
     (typeof import('@/components/CountDown/src/CountdownInput.vue'))['default']
   >;
+  SmartApiSelectDict: ExtractPropTypes<
+    (typeof import('@/components/Form/src/smart-boot/components/SmartApiSelectDict.vue'))['default']
+  >;
 }
 
 type CustomComponents<T = _CustomComponents> = {
@@ -173,4 +176,5 @@ export interface ComponentProps {
   Transfer: ExtractPropTypes<(typeof import('ant-design-vue/es/transfer'))['default']>;
   CropperAvatar: CustomComponents['CropperAvatar'];
   BasicTitle: CustomComponents['BasicTitle'];
+  SmartApiSelectDict: CustomComponents['SmartApiSelectDict'] & ComponentProps['ApiSelect'];
 }

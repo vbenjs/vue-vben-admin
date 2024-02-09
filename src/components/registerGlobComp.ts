@@ -1,6 +1,6 @@
 import type { App } from 'vue';
 import { Button } from './Button';
-import { Input, Layout, Radio, Tag, Select, Tooltip, Tree } from 'ant-design-vue';
+import { Input, Layout, Radio, Tag, Select, Tooltip, Tree, Tabs } from 'ant-design-vue';
 import VXETable from 'vxe-table';
 
 import { i18n } from '@/locales/setupI18n';
@@ -30,5 +30,6 @@ export function registerGlobComp(app: App) {
     .use(Select)
     .use(Tooltip)
     .use(Tree)
+    .use(Tabs)
     .use(VXETable);
 }

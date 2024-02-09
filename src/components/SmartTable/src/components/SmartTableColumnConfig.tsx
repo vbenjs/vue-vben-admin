@@ -122,7 +122,7 @@ export default defineComponent({
     const buttonEvent = {
       onClick: () => {
         const trigger = props.config.trigger;
-        if (trigger === 'click') {
+        if (!trigger || trigger === 'click') {
           showPanel();
         }
       },
