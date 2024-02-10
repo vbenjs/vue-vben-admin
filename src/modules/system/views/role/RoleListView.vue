@@ -42,7 +42,7 @@
   import { getAddEditFormSchemas, getSearchSchemas, getTableColumns } from './RoleListView.config';
   import { listApi, batchSaveUpdateApi, deleteApi, getByIdApi } from './RoleListView.api';
   import { SystemPermissions } from '@/modules/system/constants/SystemConstants';
-  import RoleSetFunction from './RoleSetFunction.vue';
+  import RoleSetFunction from './components/RoleSetFunction.vue';
   import { useRoleSetUser } from './hook/useRoleSetUser';
   import { hasPermission } from '@/utils/auth';
 

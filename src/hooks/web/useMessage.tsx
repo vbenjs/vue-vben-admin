@@ -127,9 +127,9 @@ export interface MessageOptions {
  */
 const successMessage = (options: MessageOptions | string) => {
   if (isString(options)) {
-    return Message.warning(options);
+    return Message.success(options);
   }
-  return Message.warning(options.message);
+  return Message.success(options.message);
 };
 
 const warnMessage = (options: MessageOptions | string) => {
