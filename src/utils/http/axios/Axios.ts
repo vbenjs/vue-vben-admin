@@ -1,5 +1,11 @@
 import type { AxiosInstance, AxiosResponse, AxiosError, InternalAxiosRequestConfig } from 'axios';
-import type { SmartAxiosRequestConfig, RequestOptions, Result, UploadFileParams } from '#/axios';
+import type {
+  SmartAxiosRequestConfig,
+  RequestOptions,
+  Result,
+  UploadFileParams,
+  UploadFileItemParams,
+} from '#/axios';
 import type { CreateAxiosOptions } from './axiosTransform';
 import axios from 'axios';
 import qs from 'qs';
@@ -9,6 +15,7 @@ import { cloneDeep } from 'lodash-es';
 import { ContentTypeEnum, RequestEnum } from '@/enums/httpEnum';
 import { useGlobSetting } from '@/hooks/setting';
 import { downloadByData } from '@/utils/file/download';
+import { isArray } from 'xe-utils';
 
 export * from './axiosTransform';
 
@@ -124,13 +131,23 @@ export class VAxios {
    */
   uploadFile<T = any>(config: SmartAxiosRequestConfig, params: UploadFileParams) {
     const formData = new window.FormData();
-    const customFilename = params.name || 'file';
+    // const customFilename = params.name || 'file';
 
-    if (params.filename) {
-      formData.append(customFilename, params.file, params.filename);
+    const file = params.file;
+    let uploadFileList: UploadFileItemParams[];
+    if (isArray(file)) {
+      uploadFileList = file;
     } else {
-      formData.append(customFilename, params.file);
+      uploadFileList = [file];
     }
+    uploadFileList.forEach((item) => {
+      const customFilename = item.name || 'file';
+      if (item.filename) {
+        formData.append(customFilename, item.file, item.filename);
+      } else {
+        formData.append(customFilename, item.file);
+      }
+    });
 
     if (params.data) {
       Object.keys(params.data).forEach((key) => {

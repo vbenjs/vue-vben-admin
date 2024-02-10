@@ -104,8 +104,22 @@ const transform: AxiosTransform = {
       config.url = `${urlPrefix}${config.url}`;
     }
 
+    // 处理URL
+    const { isStandalone } = useGlobSetting();
+    if (!isStandalone) {
+      let spi = '';
+      if (!config.url?.startsWith('/')) {
+        spi = '/';
+      }
+      config.url = `${config.service}${spi}${config.url}`;
+    }
+
     if (apiUrl && isString(apiUrl)) {
-      config.url = `${apiUrl}${config.url}`;
+      let spi = '';
+      if (!config.url?.startsWith('/')) {
+        spi = '/';
+      }
+      config.url = `${apiUrl}${spi}${config.url}`;
     }
     const params = config.params || {};
     const data = config.data || false;

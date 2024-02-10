@@ -16,3 +16,4 @@ export * from './src/types/SmartTableColumnType';
 export * from './src/types/SmartTableAuthType';
 export * from './src/types/SmartTableToolbarConfigType';
 export * from './src/utils/TableCommon';
+export * from './src/hooks/useVxeTableSortable';
