@@ -34,6 +34,30 @@ export const tableBooleanColumn = (t: Function, title: string, field: string) =>
   };
 };
 
+export const tableBooleanColumnClass = (title: string, field: string) => {
+  const { t } = useI18n();
+
+  return {
+    title: title,
+    field: title,
+    width: 100,
+    formatter: ({ row }) => {
+      const value = row[field] as boolean | null;
+      if (value === null) {
+        return '';
+      }
+      return value ? t('common.form.yes') : t('common.form.no');
+    },
+    dynamicClass: ({ row }) => {
+      const value = row[field] as boolean | null;
+      if (value === null) {
+        return '';
+      }
+      return value ? 'text-color--success-bold' : 'text-color--danger-bold';
+    },
+  };
+};
+
 const tableDeleteYn = (t: Function) => {
   const createSlot = ({ row }: any) => {
     const value = row.deleteYn;
