@@ -122,18 +122,18 @@
       errorMessage('请先选定角色');
       return false;
     }
-    const treeDataList = getTreeDataList();
-    const treeDataMap = new Map<number, any>();
-    treeDataList.forEach((item) => {
-      treeDataMap.set(item.key, item);
-    });
-    const checkedKeys = tree.getCheckedKeys().filter((item) => {
-      if (!treeDataMap.has(item)) {
-        return false;
-      }
-      const treeData = treeDataMap.get(item);
-      return treeData.hasChild !== true;
-    });
+    // const treeDataList = getTreeDataList();
+    // const treeDataMap = new Map<number, any>();
+    // treeDataList.forEach((item) => {
+    //   treeDataMap.set(item.key, item);
+    // });
+    // const checkedKeys = tree.getCheckedKeys().filter((item) => {
+    //   if (!treeDataMap.has(item)) {
+    //     return false;
+    //   }
+    //   const treeData = treeDataMap.get(item);
+    //   return treeData.hasChild !== true;
+    // });
     saveLoading.value = true;
     try {
       await defHttp.post({
@@ -141,7 +141,7 @@
         url: 'sys/role/saveRoleMenu',
         data: {
           roleId: props.roleId,
-          functionIdList: checkedKeys,
+          functionIdList: tree.getCheckedKeys(),
           halfFunctionIdList: tree.halfCheckedKeys,
         },
       });
@@ -151,21 +151,21 @@
     }
   };
 
-  const getTreeDataList = () => {
-    const treeData = unref(treeRef).getTreeData();
-    const treeDataList: any[] = [];
-    doGetTreeDataList(treeDataList, treeData);
-    return treeDataList;
-  };
-
-  const doGetTreeDataList = (treeDataList: any[], treeData: any[]) => {
-    treeData.forEach((item) => {
-      treeDataList.push(item);
-      if (item.children && item.children.length > 0) {
-        doGetTreeDataList(treeDataList, item.children);
-      }
-    });
-  };
+  // const getTreeDataList = () => {
+  //   const treeData = unref(treeRef).getTreeData();
+  //   const treeDataList: any[] = [];
+  //   doGetTreeDataList(treeDataList, treeData);
+  //   return treeDataList;
+  // };
+  //
+  // const doGetTreeDataList = (treeDataList: any[], treeData: any[]) => {
+  //   treeData.forEach((item) => {
+  //     treeDataList.push(item);
+  //     if (item.children && item.children.length > 0) {
+  //       doGetTreeDataList(treeDataList, item.children);
+  //     }
+  //   });
+  // };
 </script>
 
 <style scoped lang="less"></style>
