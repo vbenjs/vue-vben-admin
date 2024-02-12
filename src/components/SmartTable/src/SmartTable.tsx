@@ -322,6 +322,7 @@ export default defineComponent({
       tableColumns: computedTableColumns,
       pagerConfig: getPaginationInfo,
       setColumnSortConfig,
+      tableLoading: getLoading,
     };
   },
   render() {
@@ -405,11 +406,13 @@ const renderTable = (instance) => {
       id,
       tableColumns,
       pagerConfig,
+      tableLoading,
     } = instance;
     const tableProps = {
       ...getTableBindValues,
       columns: tableColumns,
       pagerConfig,
+      loading: tableLoading,
     };
     const result = [
       <vxe-grid ref="tableElRef" {...tableProps}>
