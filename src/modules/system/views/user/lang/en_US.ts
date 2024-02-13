@@ -27,6 +27,7 @@ export default {
           unlockUserAccount: 'Unlock account',
           resetPassword: 'Rest password',
           setRole: 'Set role',
+          copyPassword: 'Copy password',
         },
         account: {
           title: 'Account info',
@@ -64,6 +65,7 @@ export default {
           selectDept: 'Please select dept',
           selectDataScope: 'Please select data scope',
           selectUserType: 'Please select user type',
+          resetPassword: 'Are you sure you want to reset your password?',
         },
         message: {
           deleteUserNotCreateAccount: 'Deleted user cannot create account',
@@ -71,6 +73,8 @@ export default {
           createAccountSuccess: 'Account created successfully',
           deleteValidate: 'Are you sure you want to {msg} this user?',
           noAccount: 'The user has not created an account',
+          resetSavePassword: 'Please save password!',
+          setRoleSuccess: 'Set role success!',
         },
       },
     },

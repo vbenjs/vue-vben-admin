@@ -77,6 +77,7 @@ export default {
           confirmUnlockUserAccount: '确定要解锁账户吗？',
           unlockUserAccountSuccess: '账户解锁成功',
           resetSavePassword: '请保存密码！',
+          setRoleSuccess: '设置角色成功！',
         },
       },
     },

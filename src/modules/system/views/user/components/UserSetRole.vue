@@ -1,5 +1,9 @@
 <template>
-  <BasicModal @register="registerModal" :title="t('system.views.user.button.setRole')">
+  <BasicModal
+    @register="registerModal"
+    :title="t('system.views.user.button.setRole')"
+    @ok="handleSaveUserRole"
+  >
     <SmartTable @register="registerTable" />
   </BasicModal>
 </template>
@@ -7,28 +11,65 @@
 <script setup lang="ts">
   import { BasicModal, useModalInner } from '@/components/Modal';
   import { SmartTable, useSmartTable } from '@/components/SmartTable';
-  import { ref } from 'vue';
+  import { ref, unref } from 'vue';
   import { useI18n } from '@/hooks/web/useI18n';
   import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
+
+  import { setUserRoleApi } from '../UserListView.api';
+  import { successMessage } from '@/utils/message/SystemNotice';
 
   const { t } = useI18n();
 
   const currentUserId = ref<number | null>(null);
 
-  const [registerModal] = useModalInner(async (userId: number) => {
+  const [registerModal, { changeOkLoading, closeModal }] = useModalInner(async ({ userId }) => {
     currentUserId.value = userId;
     await query();
+    await setSelectRole();
   });
 
-  // const setSelectRole = () => {
-  //   const userId = unref(currentUserId)!;
-  // };
+  const setSelectRole = async () => {
+    const userId = unref(currentUserId)!;
+    const roleList: any[] = await defHttp.post({
+      service: ApiServiceEnum.SMART_SYSTEM,
+      url: 'sys/user/listUserRole',
+      data: { id: userId },
+    });
+    const tableInstance = getTableInstance();
+    tableInstance.clearCheckboxRow();
+    tableInstance.setCheckboxRow(
+      roleList.map((item) => ({ roleId: item.roleId })),
+      true,
+    );
+  };
 
-  const [registerTable, { query }] = useSmartTable({
+  const handleSaveUserRole = async () => {
+    const tableInstance = getTableInstance();
+    const roleIdList = tableInstance.getCheckboxRecords().map((item) => item.roleId);
+    try {
+      changeOkLoading(true);
+      await setUserRoleApi({
+        userId: unref(currentUserId),
+        roleIdList,
+      });
+      successMessage(t('system.views.user.message.setRoleSuccess'));
+      closeModal();
+    } finally {
+      changeOkLoading(false);
+    }
+  };
+
+  const [registerTable, { query, getTableInstance }] = useSmartTable({
     border: true,
     size: 'small',
+    rowConfig: {
+      isHover: true,
+      keyField: 'roleId',
+    },
+    stripe: true,
     checkboxConfig: {
       rowTrigger: 'multiple',
+      highlight: true,
     },
     proxyConfig: {
       autoLoad: false,

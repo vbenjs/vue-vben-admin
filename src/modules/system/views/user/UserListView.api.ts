@@ -15,6 +15,7 @@ enum Api {
   deptTreeList = 'sys/dept/list',
   unlockUserAccount = 'sys/user/unlockUserAccount',
   resetPassword = 'sys/user/resetPassword',
+  setUserRole = 'sys/user/setRole',
 }
 
 export const listApi = (ajaxParameter) => {
@@ -134,5 +135,13 @@ export const resetPassword = (id: number) => {
     data: {
       id,
     },
+  });
+};
+
+export const setUserRoleApi = (data: Recordable) => {
+  return defHttp.post({
+    service: ApiServiceEnum.SMART_SYSTEM,
+    url: Api.setUserRole,
+    data,
   });
 };
