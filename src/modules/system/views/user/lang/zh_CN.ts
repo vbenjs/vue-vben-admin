@@ -28,6 +28,7 @@ export default {
           unlockUserAccount: '解锁账户',
           resetPassword: '重置密码',
           setRole: '设置角色',
+          copyPassword: '复制密码',
         },
         account: {
           title: '账户信息',
@@ -65,6 +66,7 @@ export default {
           selectDept: '请选择部门',
           selectDataScope: '请选择数据权限',
           selectUserType: '请选择用户类型',
+          resetPassword: '确定要重置密码吗？',
         },
         message: {
           deleteUserNotCreateAccount: '已删除用户不能创建账户',
@@ -74,6 +76,7 @@ export default {
           noAccount: '该用户未创建账户',
           confirmUnlockUserAccount: '确定要解锁账户吗？',
           unlockUserAccountSuccess: '账户解锁成功',
+          resetSavePassword: '请保存密码！',
         },
       },
     },

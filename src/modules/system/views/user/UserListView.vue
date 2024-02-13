@@ -81,6 +81,7 @@
     resetPassword,
   } from './UserListView.api';
   import { SYS_USER_TYPE, SystemPermissions } from '@/modules/system/constants/SystemConstants';
+  import { copyText } from '@/utils/copyTextToClipboard';
 
   const { t } = useI18n();
   const { warnMessage, errorMessage, createConfirm, successMessage } = useMessage();
@@ -391,13 +392,17 @@
               }
               createConfirm({
                 iconType: 'warning',
-                title: '重置密码',
-                content: '确定要重置密码吗？',
+                title: t('system.views.user.button.resetPassword'),
+                content: t('system.views.user.validate.resetPassword'),
                 onOk: async () => {
                   const newPassword = await resetPassword(selectRows[0].userId);
                   createConfirm({
                     iconType: 'warning',
-                    title: '请保存密码',
+                    okText: t('system.views.user.button.copyPassword'),
+                    onOk: () => {
+                      copyText(newPassword);
+                    },
+                    title: t('system.views.user.message.resetSavePassword'),
                     content: newPassword,
                   });
                 },
