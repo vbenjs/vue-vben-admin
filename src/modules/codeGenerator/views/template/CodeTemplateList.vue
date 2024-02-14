@@ -1,8 +1,8 @@
 <template>
-  <div class="full-height code-container" id="codeTemplateContainer" style="padding: 10px">
+  <div class="full-height page-container" id="codeTemplateContainer">
     <LayoutSeparate :show-line="false" first-size="240px" class="full-height">
       <template #first>
-        <div class="full-height" style=" margin-right: 5px;background: white">
+        <div class="full-height" style="margin-right: 5px; background: white">
           <TemplateGroup @change="handleGroupChange" />
         </div>
       </template>
@@ -13,11 +13,7 @@
           </template>
           <template #addEditForm-language="{ model }">
             <div class="code-edit-container">
-              <CodeEditor
-                :read-only="isReadonly"
-                v-model:value="model.template"
-                :mode="model.language"
-              />
+              <CodeEditor :readonly="isReadonly" v-model:value="model.template" />
             </div>
           </template>
         </SmartTable>
@@ -31,12 +27,11 @@
 
   import { computed, ref, unref } from 'vue';
   import { useI18n } from '@/hooks/web/useI18n';
-  import { merge } from 'lodash-es';
   import { message } from 'ant-design-vue';
 
   import { SmartTable, SmartVxeTableAction, useSmartTable } from '@/components/SmartTable';
   import { LayoutSeparate } from '@/components/LayoutSeparate';
-  import TemplateGroup from './components/TemplateGroup.vue';
+  import TemplateGroup from '../../components/template/TemplateGroup.vue';
   import { CodeEditor } from '@/components/CodeEditor';
 
   import {
@@ -48,11 +43,11 @@
 
   const { t } = useI18n();
 
-  const currentGroupIdRef = ref<number | undefined>();
+  const currentGroupIdRef = ref<number | null>();
 
-  const handleGroupChange = (id: number | undefined) => {
+  const handleGroupChange = (id: number | null) => {
     currentGroupIdRef.value = id;
-    reload();
+    query();
   };
 
   const getActions = (row): ActionItem[] => {
@@ -98,13 +93,21 @@
     };
   });
 
-  const [registerTable, { editByRowModal, showAddModal, reload }] = useSmartTable({
+  const [registerTable, { editByRowModal, showAddModal, query }] = useSmartTable({
+    id: 'smart-tool-code-templateList',
+    customConfig: { storage: true },
     height: 'auto',
-    highlightHoverRow: true,
     stripe: true,
+    showOverflow: 'tooltip',
+    border: true,
+    rowConfig: {
+      isHover: true,
+    },
+    columnConfig: { resizable: true },
     columns: getTableColumns(t),
     useSearchForm: true,
     searchFormConfig: {
+      autoSubmitOnEnter: true,
       schemas: getSearchSchemas(t),
       searchWithSymbol: true,
       colon: true,
@@ -112,10 +115,12 @@
       actionColOptions: {
         span: undefined,
       },
+      compact: true,
     },
     toolbarConfig: {
       refresh: true,
-      resizable: true,
+      zoom: true,
+      column: { columnOrder: true },
       buttons: [
         {
           code: 'ModalAdd',
@@ -140,13 +145,16 @@
     },
     proxyConfig: {
       ajax: {
-        query: (params) => {
-          const parameter = merge(params.ajaxParameter, {
+        query: ({ ajaxParameter }) => {
+          const currentGroupId = unref(currentGroupIdRef);
+          const groupParameter = currentGroupId ? { 'groupId@=': currentGroupId } : {};
+          return listApi({
+            ...ajaxParameter,
             parameter: {
-              'groupId@=': unref(currentGroupIdRef),
+              ...ajaxParameter?.parameter,
+              ...groupParameter,
             },
           });
-          return listApi(parameter);
         },
         save: ({ body: { insertRecords, updateRecords } }) =>
           saveUpdateApi([...insertRecords, ...updateRecords][0]),

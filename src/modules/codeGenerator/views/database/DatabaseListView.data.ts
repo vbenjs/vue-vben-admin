@@ -130,9 +130,10 @@ export const addEditForm: (t: Function) => Array<FormSchema> = (t: Function) => 
     {
       label: t('generator.views.database.table.url'),
       field: 'url',
-      component: 'Input',
+      component: 'InputTextArea',
       componentProps: {
         placeholder: t('generator.views.database.validate.url'),
+        rows: 4,
       },
       required: true,
     },

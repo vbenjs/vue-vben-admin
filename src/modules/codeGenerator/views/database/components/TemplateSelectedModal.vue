@@ -6,7 +6,7 @@
     :width="600"
     :title="$t('generator.views.database.common.chooseTemplate')"
   >
-    <a-transfer
+    <Transfer
       class="db-template-selected"
       :data-source="transDataSource"
       :target-keys="targetKeysModel"
@@ -23,11 +23,12 @@
   import BasicModal from '@/components/Modal/src/BasicModal.vue';
   import { listTemplate, getCreateDicUrl } from '../DatabaseListView.api';
   import { useModalInner } from '@/components/Modal';
-  import { message } from 'ant-design-vue';
+  import { Transfer } from 'ant-design-vue';
   import { applyTempToken } from '@/utils/auth';
   import { useMessage } from '@/hooks/web/useMessage';
-  import { Result } from '/#/axios';
+  import { Result } from '#/axios';
   import { useI18n } from '@/hooks/web/useI18n';
+  import { errorMessage } from '@/utils/message/SystemNotice';
 
   const props = defineProps({
     templateType: String as PropType<string>,
@@ -65,7 +66,7 @@
   const handleCreate = async () => {
     const selectTemplateIdList = unref(targetKeysModel);
     if (selectTemplateIdList.length === 0) {
-      message.error(t('generator.views.database.validate.template'));
+      errorMessage(t('generator.views.database.validate.template'));
       return false;
     }
     try {

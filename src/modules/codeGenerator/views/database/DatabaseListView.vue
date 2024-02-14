@@ -84,10 +84,13 @@
   };
 
   const [registerTable, { editByRowModal, setLoading, query, showAddModal }] = useSmartTable({
+    id: 'smart-tool-code-databaseList',
+    customConfig: { storage: true },
     searchFormConfig: {
       searchWithSymbol: true,
       schemas: searchForm(t),
       layout: 'inline',
+      compact: true,
       actionColOptions: {
         span: undefined,
       },
@@ -142,6 +145,8 @@
     },
     toolbarConfig: {
       refresh: true,
+      column: { columnOrder: true },
+      zoom: true,
       buttons: [
         {
           // name: t('common.button.add'),
