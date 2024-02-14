@@ -24,12 +24,7 @@ export const tableColumns = (t: Function): SmartColumn[] => {
       type: 'checkbox',
       width: 60,
       fixed: 'left',
-    },
-    {
-      title: '{generator.views.code.table.connectionName}',
-      field: 'connectionName',
-      width: 160,
-      fixed: 'left',
+      field: 'checkbox',
     },
     {
       title: '{generator.views.code.table.configName}',
@@ -42,6 +37,11 @@ export const tableColumns = (t: Function): SmartColumn[] => {
       field: 'tableName',
       width: 160,
       fixed: 'left',
+    },
+    {
+      title: '{generator.views.code.table.connectionName}',
+      field: 'connectionName',
+      width: 160,
     },
     {
       title: '{generator.views.code.table.type}',
@@ -108,9 +108,19 @@ export const tableColumns = (t: Function): SmartColumn[] => {
 export const searchFormColumns = (t: Function): SmartSearchFormSchema[] => {
   return [
     {
+      field: 'configName',
+      label: '',
+      component: 'Input',
+      searchSymbol: 'like',
+      componentProps: {
+        placeholder: t('generator.views.code.table.configName'),
+      },
+    },
+    {
       field: 'tableName',
       label: '',
       component: 'Input',
+      searchSymbol: 'like',
       componentProps: {
         placeholder: t('generator.views.code.table.tableName'),
       },
@@ -119,6 +129,7 @@ export const searchFormColumns = (t: Function): SmartSearchFormSchema[] => {
       field: 'type',
       label: '',
       component: 'Select',
+      searchSymbol: '=',
       componentProps: {
         style: {
           width: '100px',

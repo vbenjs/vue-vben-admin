@@ -2,7 +2,7 @@
   <div class="full-height page-container">
     <div class="spin">
       <div class="form-container">
-        <a-spin :spinning="pageLoading">
+        <Spin :spinning="pageLoading">
           <BasicForm @register="registerForm" :size="getFormSize">
             <template #addEditForm-connectionId="{ model }">
               <DatabaseSelect
@@ -37,7 +37,7 @@
               </a-button>
             </template>
           </BasicForm>
-          <a-divider />
+          <Divider />
           <a-tabs style="min-height: 400px" animated>
             <a-tab-pane key="1" :tab="$t('generator.views.code.title.dbMessage')">
               <TableFieldTable
@@ -71,9 +71,9 @@
               />
             </a-tab-pane>
           </a-tabs>
-        </a-spin>
+        </Spin>
       </div>
-      <a-divider />
+      <Divider />
       <div style="text-align: right">
         <a-button @click="loadConfigData">
           {{ $t('common.button.reload') }}
@@ -105,6 +105,7 @@
   import { toNumber } from 'lodash-es';
   import { propTypes } from '@/utils/propTypes';
   import { useModal } from '@/components/Modal';
+  import { Divider, Spin } from 'ant-design-vue';
 
   import { useLoadDbData, useSaveConfig } from './CodeDesignPageHook';
 
@@ -113,7 +114,7 @@
   import PageTableSetting from './componenets/PageTableSetting/PageTableSetting.vue';
   import PageFormSetting from './componenets/PageFromSetting/PageFormSetting.vue';
   import PageSearchSetting from './componenets/PageSearchSetting/PageSearchSetting.vue';
-  import Icon from '@/components/Icon/src/Icon.vue';
+  import { Icon } from '@/components/Icon';
   import PageAddendumTableChoseModal from './componenets/PageAddendumTableChoseModal.vue';
 
   const props = defineProps({
@@ -230,8 +231,6 @@
 
 <style scoped lang="less">
   .page-container {
-    padding: 10px;
-
     :deep(.ant-divider) {
       margin: 5px 0;
     }

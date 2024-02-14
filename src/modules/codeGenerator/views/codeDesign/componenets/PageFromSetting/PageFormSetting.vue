@@ -131,7 +131,7 @@
     vueTableHeaderCheckboxSupport,
     vueChoseSelectTableSupport,
   } from '../PageSettingSupport';
-  import Icon from '@/components/Icon/src/Icon.vue';
+  import { Icon } from '@/components/Icon';
 
   const copyField = [
     'columnName',

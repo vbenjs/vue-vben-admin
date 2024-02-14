@@ -81,6 +81,9 @@
   const [registerCodeCreateModal, { openModal: openCodeCreateModal }] = useModal();
 
   const [registerTable, { reload }] = useSmartTable({
+    id: 'smart-tool-code-coldeList',
+    customConfig: { storage: true },
+    border: true,
     searchFormConfig: {
       searchWithSymbol: true,
       layout: 'inline',
@@ -92,6 +95,7 @@
         width: '100%',
       },
       labelAlign: 'left',
+      compact: true,
     },
     height: 'auto',
     columns: tableColumns(t),
@@ -118,6 +122,8 @@
     },
     toolbarConfig: {
       refresh: true,
+      zoom: true,
+      column: { columnOrder: true },
       buttons: [
         {
           code: 'ModalAdd',
