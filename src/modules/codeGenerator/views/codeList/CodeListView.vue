@@ -81,8 +81,9 @@
   const [registerCodeCreateModal, { openModal: openCodeCreateModal }] = useModal();
 
   const [registerTable, { reload }] = useSmartTable({
-    id: 'smart-tool-code-coldeList',
+    id: 'smart-tool-code-codeList',
     customConfig: { storage: true },
+    showOverflow: 'tooltip',
     border: true,
     searchFormConfig: {
       searchWithSymbol: true,
@@ -103,6 +104,10 @@
     pagerConfig: true,
     sortConfig: {
       remote: true,
+      defaultSort: {
+        field: 'createTime',
+        order: 'desc',
+      },
     },
     columnConfig: {
       resizable: true,

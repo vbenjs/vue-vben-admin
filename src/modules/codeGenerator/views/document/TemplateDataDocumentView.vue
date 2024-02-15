@@ -1,9 +1,10 @@
 <template>
-  <div style="padding: 10px" class="full-height">
+  <div class="full-height page-container">
     <vxe-grid
       v-bind="tableProps"
       :tree-config="treeConfig"
       :columns="columns"
+      :size="tableSizeConfig"
       highlight-hover-row
       height="auto"
       stripe
@@ -18,6 +19,9 @@
   import { useVxeTable } from '@/hooks/web/useCrud';
   import { tableBooleanColumn } from '@/components/SmartTable';
   import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
+  import { useSizeSetting } from '@/hooks/setting/UseSizeSetting';
+
+  const { tableSizeConfig } = useSizeSetting();
 
   const doLoadData = () => {
     return defHttp.post({
@@ -42,8 +46,9 @@
     data() {
       return {
         treeConfig: {
-          children: 'fieldList',
+          childrenField: 'fieldList',
         },
+        tableSizeConfig,
         columns: [
           {
             title: '属性',
