@@ -176,5 +176,9 @@
     "treeTable": "樹狀表格",
     "useTable": "UseTable",
     "vxeTable": "VxeTable"
+  },
+  "formDesign": {
+    "moduleName": "表單設計",
+    "example": "範例"
   }
 }

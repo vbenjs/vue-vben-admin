@@ -1,6 +1,7 @@
 import type { AppRouteModule } from '@/router/types';
 
 import { LAYOUT } from '@/router/constant';
+import { t } from '@/hooks/web/useI18n';
 
 const permission: AppRouteModule = {
   path: '/form-designer',
@@ -9,14 +10,14 @@ const permission: AppRouteModule = {
   meta: {
     orderNo: 10000,
     icon: 'ion:build-outline',
-    title: '表單設計',
+    title: t('routes.demo.formDesign.moduleName'),
   },
   children: [
     {
       path: 'design',
       name: 'Design',
       meta: {
-        title: '表單設計',
+        title: t('routes.demo.formDesign.moduleName'),
       },
       component: () => import('@/views/form-design/index.vue'),
     },
@@ -24,7 +25,7 @@ const permission: AppRouteModule = {
       path: 'example1',
       name: 'Example1',
       meta: {
-        title: '示例',
+        title: t('routes.demo.formDesign.example'),
       },
       component: () => import('@/views/form-design/examples/baseForm.vue'),
     },
