@@ -810,7 +810,7 @@ const componentAttrs: IBaseComponentProps = {
     },
     {
       name: 'count',
-      label: 'start 总数',
+      label: 'start 總数',
       component: 'InputNumber',
       componentProps: {
         placeholder: '请输入自定义字符',

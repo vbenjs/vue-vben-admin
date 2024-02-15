@@ -137,7 +137,7 @@ export interface FetchSetting {
   sizeField: string;
   // 请求结果列表字段  支持 a.b.c
   listField: string;
-  // 请求结果总数字段  支持 a.b.c
+  // 请求结果總数字段  支持 a.b.c
   totalField: string;
 }
 

@@ -153,7 +153,7 @@ export function useTableScroll(
   }
 
   /**
-   * 计算从表头一直到body底部的总高度
+   * 计算从表头一直到body底部的總高度
    * @param tableEl table element
    * @param headEl table 页头 element
    * @returns number

@@ -16,7 +16,7 @@ const charts: AppRouteModule = {
     {
       path: 'base',
       name: 'useRequest-base',
-      meta: { title: '基础用法' },
+      meta: { title: '基礎用法' },
       component: () => import('@/views/hooks/request/base'),
     },
     {

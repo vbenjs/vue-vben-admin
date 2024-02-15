@@ -130,7 +130,7 @@ export function useRowSelection(
         trueSelectedRows.push(found);
       } else {
         // 跨页的时候，非本页数据无法得到，暂如此处理
-        // tableData or selectedRowRef 总有数据
+        // tableData or selectedRowRef 總有数据
         if (rows[0]) {
           trueSelectedRows.push({ [parseRowKey(unref(getRowKey), rows[0])]: keyValue });
         }

@@ -70,7 +70,7 @@
     });
     return [
       {
-        t1: '总计',
+        t1: '總计',
         t5: totalT5,
         t6: totalT6,
       },

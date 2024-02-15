@@ -97,7 +97,7 @@
             { value: 335, name: '客服电话' },
             { value: 310, name: '奥迪官网' },
             { value: 234, name: '媒体曝光' },
-            { value: 135, name: '质检总局' },
+            { value: 135, name: '质检總局' },
             { value: 105, name: '其他' },
           ],
           labelLine: { show: false },

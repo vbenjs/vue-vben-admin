@@ -109,7 +109,7 @@
   defineProps({
     title: {
       type: String,
-      default: 'v-form-antd表单设计器',
+      default: 'v-form-antd表單設計器',
     },
   });
   const { prefixCls } = useDesign('form-design');
