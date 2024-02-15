@@ -11,6 +11,7 @@ import {
   Tabs,
   Switch,
   Form,
+  Checkbox,
   InputNumber,
 } from 'ant-design-vue';
 import VXETable from 'vxe-table';
@@ -46,5 +47,6 @@ export function registerGlobComp(app: App) {
     .use(Switch)
     .use(InputNumber)
     .use(Form)
+    .use(Checkbox)
     .use(VXETable);
 }

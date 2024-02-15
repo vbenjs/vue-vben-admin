@@ -1,5 +1,5 @@
 import type { AppRouteModule, AppRouteRecordRaw } from '@/router/types';
-import type { Router, RouteRecordNormalized } from 'vue-router';
+import type { RouteLocationNormalized, Router, RouteRecordNormalized } from 'vue-router';
 
 import { getParentLayout, LAYOUT, EXCEPTION_COMPONENT } from '@/router/constant';
 import { cloneDeep, omit } from 'lodash-es';
@@ -24,7 +24,7 @@ function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
     if (!item.component && item.meta?.frameSrc) {
       item.component = 'IFRAME';
     }
-    const { component, name } = item;
+    const { component, name, meta } = item;
     const { children } = item;
     if (component) {
       const layoutFound = LayoutMap.get(component.toUpperCase());
@@ -36,6 +36,14 @@ function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
     } else if (name) {
       item.component = getParentLayout();
     }
+    // 处理props传参
+    item.props = (route: RouteLocationNormalized) => {
+      const result: Recordable = {};
+      if (meta.queryToProps) {
+        Object.assign(result, route.query);
+      }
+      return result;
+    };
     children && asyncImportRoute(children);
   });
 }

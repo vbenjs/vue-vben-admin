@@ -128,7 +128,7 @@ export interface TableActionType {
   getShowPagination: () => boolean;
 
   deleteByCheckbox: () => void;
-  getCheckboxRecords: (isFull: boolean) => Array<any>;
+  getCheckboxRecords: (isFull?: boolean) => Array<any>;
   getRadioRecord: (isFull: boolean) => any;
 
   // openAddEditModal: <T = any>(props?: boolean, data?: T, openOnSet?: boolean) => void

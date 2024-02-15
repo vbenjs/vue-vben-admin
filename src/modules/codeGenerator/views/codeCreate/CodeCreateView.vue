@@ -14,9 +14,9 @@
 <script setup lang="ts">
   import { onMounted, ref, useAttrs } from 'vue';
   import { downloadByData } from '@/utils/file/download';
-  import { extensionLanguageMap } from './CodeCreateSupport';
   import { CodeEditor } from '@/components/CodeEditor';
   import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
+  import { extensionLanguageMap } from '@/modules/codeGenerator/constants/Constants';
 
   const attrs = useAttrs();
   const data = ref<Array<any>>([]);

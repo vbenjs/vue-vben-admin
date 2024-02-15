@@ -12,6 +12,7 @@
           v-model:value="model.templateIdList"
           :table-props="{}"
           title="选择模板"
+          allow-clear
           defaultFullscreen
           multiple
           :list-api="listByIdApi"
@@ -28,36 +29,41 @@
         </SmartTableSelect>
       </template>
     </BasicForm>
+    <CodeCreatedResultModal @register="registerResultModal" />
   </BasicModal>
 </template>
 
 <script lang="ts" setup>
   import { useI18n } from '@/hooks/web/useI18n';
-  import { useRouter } from 'vue-router';
-  import { message } from 'ant-design-vue';
+  // import { useRouter } from 'vue-router';
   import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
 
-  import { BasicModal, useModalInner } from '@/components/Modal';
+  import { BasicModal, useModalInner, useModal } from '@/components/Modal';
   import { BasicForm, useForm, SmartTableSelect } from '@/components/Form';
   import TemplateSelectTable from './TemplateSelectTable.vue';
+  import { warnMessage } from '@/utils/message/SystemNotice';
+  import CodeCreatedResultModal from './CodeCreatedResultModal.vue';
 
-  const router = useRouter();
+  // const router = useRouter();
   const { t } = useI18n();
+
+  const [registerResultModal, { openModal }] = useModal();
 
   const handleOk = async () => {
     const model = await validate();
     const templateIdList = model.templateIdList;
     if (!templateIdList || templateIdList.length === 0) {
-      message.warn(t('generator.views.codeCreateForm.message.choseTemplate'));
+      warnMessage(t('generator.views.codeCreateForm.message.choseTemplate'));
     }
-    const url = router.resolve({
-      path: '/codeCreateView',
-      query: {
-        ...model,
-        templateIdList: templateIdList.join(','),
-      },
-    });
-    window.open(url.href, '_blank');
+    openModal(true, model);
+    // const url = router.resolve({
+    //   path: '/codeCreateView',
+    //   query: {
+    //     ...model,
+    //     templateIdList: templateIdList.join(','),
+    //   },
+    // });
+    // window.open(url.href, '_blank');
   };
 
   const [registerModal] = useModalInner((codeConfigData: Recordable) => {
@@ -67,6 +73,7 @@
       tableName,
       className,
       mainId: id,
+      templateIdList: [],
     });
   });
 

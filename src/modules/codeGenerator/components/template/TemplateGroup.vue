@@ -8,12 +8,13 @@
       @cell-click="handleCellClick"
     >
       <template #table-groupName="{ row }">
-        <div style="cursor: pointer" @contextmenu="(e) => handleContext(e, row)">
+        <div v-if="editable" style="cursor: pointer" @contextmenu="(e) => handleContext(e, row)">
           {{ row.groupName }}
         </div>
+        <span v-else>{{ row.groupName }}</span>
       </template>
     </SmartTable>
-    <div class="button-container">
+    <div class="button-container" v-if="editable">
       <a-button class="button" block type="primary" @click="() => showAddModal()">
         {{ $t('common.button.add') }}
       </a-button>
@@ -38,9 +39,11 @@
     deleteGroupByIdApi,
     getGroupByIdApi,
   } from '../../views/template/CodeTemplateList.api';
+  import { propTypes } from '@/utils/propTypes';
 
   const props = defineProps({
     tableProps: Object as PropType<SmartTableProps>,
+    editable: propTypes.bool.def(true),
   });
 
   const emit = defineEmits(['change']);

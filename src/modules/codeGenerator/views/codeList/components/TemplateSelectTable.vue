@@ -1,13 +1,14 @@
 <template>
   <LayoutSeparate first-size="200px" :show-line="false" class="full-height">
     <template #first>
-      <TemplateGroup class="full-height" @current-change="handleCurrentChange" />
+      <TemplateGroup class="full-height" @change="handleCurrentChange" :editable="false" />
     </template>
     <template #second>
       <SmartTable
         @register="registerTable"
         @checkbox-change="handleCheckboxChange"
         @proxy-query="resetCheckbox"
+        @checkbox-all="handleCheckboxAll"
       />
     </template>
   </LayoutSeparate>
@@ -16,7 +17,6 @@
 <script lang="ts" setup>
   import { useI18n } from '@/hooks/web/useI18n';
   import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
-  import { merge } from 'lodash-es';
 
   import { SmartTable, useSmartTable } from '@/components/SmartTable';
   import { LayoutSeparate } from '@/components/LayoutSeparate';
@@ -37,10 +37,10 @@
   });
   const { t } = useI18n();
 
-  let currentGroup: Recordable = {};
+  let currentGroupId: number | null = null;
 
-  const handleCurrentChange = (row) => {
-    currentGroup = row || {};
+  const handleCurrentChange = (groupId) => {
+    currentGroupId = groupId;
     query();
   };
 
@@ -52,10 +52,20 @@
     }
   };
 
+  const handleCheckboxAll = ({ checked }) => {
+    const selectRows = getCheckboxRecords();
+    if (checked) {
+      props.removeSelectData(props.selectData);
+      props.addSelectData(selectRows);
+    } else {
+      props.removeSelectData(props.selectData);
+    }
+  };
+
   const resetCheckbox = async () => {
     // 数据重新加载后，设置选中的数据
-    await getTableInstance().setAllCheckboxRow(false);
-    await setCheckboxRow(props.selectData, true);
+    getTableInstance().setAllCheckboxRow(false);
+    setCheckboxRow(props.selectData, true);
   };
 
   watch(
@@ -65,86 +75,95 @@
     },
   );
 
-  const [registerTable, { query, getTableInstance, setCheckboxRow }] = useSmartTable({
-    useSearchForm: true,
-    height: 'auto',
-    pagerConfig: true,
-    rowConfig: {
-      keyField: 'templateId',
-    },
-    proxyConfig: {
-      ajax: {
-        query: (params) => {
-          const parameter = merge(params.ajaxParameter, {
-            parameter: {
-              'groupId@=': currentGroup.groupId,
-            },
-          });
-          return defHttp.post({
-            service: ApiServiceEnum.SMART_CODE,
-            url: 'db/code/template/list',
-            data: parameter,
-          });
+  const [registerTable, { query, getTableInstance, setCheckboxRow, getCheckboxRecords }] =
+    useSmartTable({
+      useSearchForm: true,
+      height: 'auto',
+      pagerConfig: true,
+      rowConfig: {
+        keyField: 'templateId',
+      },
+      showOverflow: 'tooltip',
+      checkboxConfig: {
+        rowTrigger: 'multiple',
+        highlight: true,
+      },
+      proxyConfig: {
+        ajax: {
+          query: ({ ajaxParameter }) => {
+            let parameter = {};
+            if (currentGroupId != null) {
+              parameter = { 'groupId@=': currentGroupId };
+            }
+            return defHttp.post({
+              service: ApiServiceEnum.SMART_CODE,
+              url: 'db/code/template/list',
+              data: {
+                ...ajaxParameter,
+                parameter: {
+                  ...ajaxParameter?.parameter,
+                  ...parameter,
+                },
+              },
+            });
+          },
         },
       },
-    },
-    searchFormConfig: {
-      colon: true,
-      layout: 'inline',
-      baseColProps: {
-        span: 12,
+      searchFormConfig: {
+        colon: true,
+        layout: 'inline',
+        actionColOptions: {
+          span: undefined,
+        },
+        compact: true,
+        schemas: [
+          {
+            label: t('generator.views.template.table.name'),
+            field: 'name',
+            component: 'Input',
+          },
+        ],
       },
-      actionColOptions: {
-        span: 12,
-      },
-      schemas: [
+      columns: [
         {
-          label: t('generator.views.template.table.name'),
+          type: 'checkbox',
+          width: 60,
+          fixed: 'left',
+        },
+        {
           field: 'name',
-          component: 'Input',
+          title: '{generator.views.template.table.name}',
+          width: 200,
+          fixed: 'left',
+          align: 'left',
+          headerAlign: 'center',
+        },
+        {
+          field: 'templateType',
+          title: '{generator.views.template.table.templateType}',
+          width: 140,
+          formatter: ({ row }: any) => {
+            const templateType = templateTypeConstants[row.templateType];
+            if (templateType) {
+              return t(templateType.label);
+            }
+            return '';
+          },
+        },
+        {
+          field: 'language',
+          title: '{generator.views.template.table.language}',
+          width: 200,
+        },
+        {
+          field: 'remark',
+          title: '{generator.views.template.table.remark}',
+          minWidth: 200,
+          align: 'left',
+          headerAlign: 'center',
         },
       ],
-    },
-    columns: [
-      {
-        type: 'checkbox',
-        width: 60,
-        fixed: 'left',
-      },
-      {
-        field: 'name',
-        title: '{generator.views.template.table.name}',
-        width: 200,
-        fixed: 'left',
-        align: 'left',
-        headerAlign: 'center',
-      },
-      {
-        field: 'templateType',
-        title: '{generator.views.template.table.templateType}',
-        width: 140,
-        formatter: ({ row }: any) => {
-          const templateType = templateTypeConstants[row.templateType];
-          if (templateType) {
-            return t(templateType.label);
-          }
-          return '';
-        },
-      },
-      {
-        field: 'language',
-        title: '{generator.views.template.table.language}',
-        width: 200,
-      },
-      {
-        field: 'remark',
-        title: '{generator.views.template.table.remark}',
-        minWidth: 200,
-        align: 'left',
-        headerAlign: 'center',
-      },
-    ],
-  });
+    });
 </script>
 
 <style scoped></style>

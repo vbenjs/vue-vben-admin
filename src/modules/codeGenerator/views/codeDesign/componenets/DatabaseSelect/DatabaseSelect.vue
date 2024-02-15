@@ -37,7 +37,7 @@
         });
         data.value = result.map((item: any) => {
           return {
-            key: item.id + '',
+            key: item.id,
             value: item.connectionName,
           };
         });

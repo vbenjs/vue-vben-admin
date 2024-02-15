@@ -15,7 +15,7 @@
         <a-checkbox v-model:checked="row.sortable" :size="formSizeConfig" />
       </template>
       <template #table-fixed="{ row }">
-        <a-select v-model:value="row.fixed" :size="formSizeConfig" style="width: 100px">
+        <a-select v-model:value="row.fixed" :size="formSizeConfig" allow-clear style="width: 100px">
           <a-select-option value="left">left</a-select-option>
           <a-select-option value="right">right</a-select-option>
         </a-select>

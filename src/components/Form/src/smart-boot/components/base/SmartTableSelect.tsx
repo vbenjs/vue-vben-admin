@@ -1,6 +1,7 @@
 import type { SmartTableProps } from '@/components/SmartTable';
 
 import { defineComponent, ref } from 'vue';
+import { Row, Col } from 'ant-design-vue';
 
 import { propTypes } from '@/utils/propTypes';
 import { useModal } from '@/components/Modal';
@@ -11,6 +12,10 @@ import './SmartTableSelect.less';
 
 export default defineComponent({
   name: 'SmartTableSelect',
+  components: {
+    Row,
+    Col,
+  },
   props: {
     // 是否支持多选
     multiple: propTypes.bool.def(true),
@@ -82,8 +87,8 @@ export default defineComponent({
     };
     return (
       <div class="smart-table-select">
-        <a-row type="flex" gutter={8}>
-          <a-col class="select">
+        <Row type="flex" gutter={8}>
+          <Col class="select">
             <a-select
               {...$attrs}
               size={size}
@@ -95,8 +100,8 @@ export default defineComponent({
               onDeselect={handleDeselect}
               mode={multiple ? 'multiple' : 'combobox'}
             ></a-select>
-          </a-col>
-          <a-col class="button">
+          </Col>
+          <Col class="button">
             <a-button
               disabled={disabled}
               size={size}
@@ -105,8 +110,8 @@ export default defineComponent({
             >
               {$t('common.button.choose')}
             </a-button>
-          </a-col>
-        </a-row>
+          </Col>
+        </Row>
         <SmartTableSelectModal
           {...$attrs}
           onRegister={registerModal}
