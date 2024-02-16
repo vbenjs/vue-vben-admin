@@ -47,6 +47,9 @@
         if (!props.enable) {
           return Button;
         }
+        if (bindValues.color) {
+          delete bindValues.color;
+        }
         return h(Popconfirm, bindValues, { default: () => Button });
       };
     },
