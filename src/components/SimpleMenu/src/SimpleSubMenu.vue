@@ -45,10 +45,9 @@
   </SubMenu>
 </template>
 <script lang="ts" setup>
-  import type { PropType } from 'vue';
+  import { PropType, unref, computed } from 'vue';
   import type { Menu } from '@/router/types';
 
-  import { computed } from 'vue';
   import { useDesign } from '@/hooks/web/useDesign';
   import Icon from '@/components/Icon/Icon.vue';
 
@@ -73,13 +72,24 @@
     theme: propTypes.oneOf(['dark', 'light']),
   });
 
-  const { t } = useI18n();
+  const { locale } = useI18n();
   const { prefixCls } = useDesign('simple-menu');
 
   const getShowMenu = computed(() => !props.item?.meta?.hideMenu);
   const getIcon = computed(() => (props.item?.img ? undefined : props.item?.icon));
   const getImg = computed(() => props.item?.img);
-  const getI18nName = computed(() => t(props.item?.name));
+  // const getI18nName = computed(() => t(props.item?.name));
+  const getI18nName = computed(() => {
+    const locales = props.item.meta && props.item.meta.locales;
+    const title = props.item.meta && props.item.meta.title;
+    if (locales) {
+      const i18nTitle = locales[unref(locale)];
+      if (i18nTitle) {
+        return i18nTitle;
+      }
+    }
+    return title;
+  });
   const getShowSubTitle = computed(() => !props.collapse || !props.parent);
   const getIsCollapseParent = computed(() => !!props.collapse && !!props.parent);
   const getLevelClass = computed(() => {

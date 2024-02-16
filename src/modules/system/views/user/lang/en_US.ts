@@ -20,6 +20,7 @@ export default {
           email: 'Email',
           mobile: 'Mobile',
           userType: 'User type',
+          accountStatus: 'Status',
         },
         button: {
           createAccount: 'Create account',

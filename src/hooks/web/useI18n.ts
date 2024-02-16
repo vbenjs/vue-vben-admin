@@ -23,6 +23,7 @@ function getKey(namespace: string | undefined, key: string) {
 
 export function useI18n(namespace?: string): {
   t: I18nGlobalTranslation;
+  locale?: any;
 } {
   const normalFn = {
     t: (key: string) => {

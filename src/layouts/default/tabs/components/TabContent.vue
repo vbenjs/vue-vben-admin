@@ -39,11 +39,24 @@
   });
 
   const { prefixCls } = useDesign('multiple-tabs-content');
-  const { t } = useI18n();
+  const { locale } = useI18n();
+
+  // const getTitle = computed(() => {
+  //   const { tabItem: { meta } = {} } = props;
+  //   return meta && t(meta.title as string);
+  // });
 
   const getTitle = computed(() => {
     const { tabItem: { meta } = {} } = props;
-    return meta && t(meta.title as string);
+    const { title, locales } = meta as any;
+    if (locales) {
+      const localeTitle = locales[unref(locale)];
+      if (!localeTitle || localeTitle.trim() === '') {
+        return title;
+      }
+      return locales[unref(locale)];
+    }
+    return title;
   });
 
   const getIsTabs = computed(() => !props.isExtra);
