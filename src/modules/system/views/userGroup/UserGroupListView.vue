@@ -85,6 +85,7 @@
       actionColOptions: {
         span: undefined,
       },
+      compact: true,
     },
     addEditConfig: {
       formConfig: {

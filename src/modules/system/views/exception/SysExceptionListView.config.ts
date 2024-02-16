@@ -37,7 +37,7 @@ export const getTableColumns = (): SmartColumn[] => {
       width: 200,
     },
     {
-      field: 'operateBy',
+      field: 'operationBy',
       title: '{system.views.exception.title.operateUser}',
       width: 120,
     },
@@ -76,6 +76,9 @@ export const getTableColumns = (): SmartColumn[] => {
       field: 'resolvedUserId',
       title: '{system.views.exception.title.resolvedUserId}',
       width: 120,
+      formatter({ row }) {
+        return row.resolvedUser?.fullName;
+      },
     },
     {
       field: 'resolvedTime',

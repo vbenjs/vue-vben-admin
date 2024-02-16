@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="tsx" setup>
   import {
     useSmartTable,
     SmartTable,
@@ -19,10 +19,13 @@
   import { useModal } from '@/components/Modal';
   import { useI18n } from '@/hooks/web/useI18n';
   import { useSizeSetting } from '@/hooks/setting/UseSizeSetting';
+  import { Textarea } from 'ant-design-vue';
 
   import { getSearchFormSchemas, getTableColumns } from './SysExceptionListView.config';
-  import { listApi } from './SysExceptionListView.api';
+  import { listApi, markResolvedApi } from './SysExceptionListView.api';
   import ExceptionDetailModal from './components/ExceptionDetailModal.vue';
+  import { createConfirm, successMessage, warnMessage } from '@/utils/message/SystemNotice';
+  import { ref, unref } from 'vue';
 
   const { t } = useI18n();
   const { getTableSize } = useSizeSetting();
@@ -40,7 +43,42 @@
 
   const [registerModal, { openModal }] = useModal();
 
-  const [registerTable] = useSmartTable({
+  const resolvedMessageRef = ref('');
+  /**
+   * 标记已处理
+   */
+  const handlerMarkResolved = () => {
+    const selectRows = getCheckboxRecords();
+    console.log(selectRows);
+    if (selectRows.length === 0) {
+      warnMessage(t('system.views.exception.message.noSelect'));
+      return false;
+    }
+    resolvedMessageRef.value = '';
+    createConfirm({
+      iconType: 'warning',
+      title: t('system.views.exception.button.markResolved'),
+      content: () => {
+        return (
+          <Textarea
+            rows={4}
+            v-model={[resolvedMessageRef.value, 'value']}
+            placeholder={t('system.views.exception.validate.resolvedMessage')}
+          />
+        );
+      },
+      onOk: async () => {
+        await markResolvedApi({
+          resolvedMessage: unref(resolvedMessageRef),
+          exceptionIdList: selectRows.map((item) => item.id),
+        });
+        successMessage(t('system.views.exception.message.resolvedSuccess'));
+        query();
+      },
+    });
+  };
+
+  const [registerTable, { getCheckboxRecords, query }] = useSmartTable({
     id: 'smart-system-tool-exception',
     customConfig: { storage: true },
     border: true,
@@ -63,6 +101,17 @@
       refresh: true,
       zoom: true,
       column: { columnOrder: true },
+      buttons: [
+        {
+          name: t('system.views.exception.button.markResolved'),
+          customRender: 'ant',
+          props: {
+            type: 'primary',
+            preIcon: 'ant-design:check-outlined',
+            onClick: handlerMarkResolved,
+          },
+        },
+      ],
     },
     sortConfig: {
       remote: true,

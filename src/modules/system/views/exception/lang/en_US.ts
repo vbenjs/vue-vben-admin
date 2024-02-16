@@ -21,12 +21,21 @@ export default {
       showStackTrace: 'Show stackTrace',
       stackTrace: 'Stack trace',
     },
-    validate: {},
+    validate: {
+      resolvedMessage: 'Please enter processing information',
+    },
     rules: {},
     search: {
       exceptionMessage: 'Please select the error message',
       requestIp: 'Please select the request IP',
       serverIp: 'Please select the server IP',
+    },
+    button: {
+      markResolved: 'Processed',
+    },
+    message: {
+      noSelect: 'Please select record',
+      resolvedSuccess: 'Mark success',
     },
   },
 };
