@@ -124,6 +124,7 @@
   }
 
   function goLogin() {
+    // 主动登出，不带redirect地址
     userStore.logout(true);
     lockStore.resetLockInfo();
   }

@@ -68,6 +68,8 @@
     scroll: { y: '100%' },
     pagination: false,
   });
+  // 暴露getDataSource 供父组件使用
+  defineExpose({ getDataSource });
 
   function handleEdit(record: EditRecordRow) {
     record.onEdit?.(true);

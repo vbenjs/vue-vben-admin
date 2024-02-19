@@ -9,24 +9,24 @@
 
 ## Introduction
 
-Vue Vben Admin is a free and open source middle and back-end template. Using the latest `vue3`, `vite4`, `TypeScript` and other mainstream technology development, the out-of-the-box middle and back-end front-end solutions can also be used for learning reference.
+Vue Vben Admin is a free and open source middle platform/back-end template. Using the latest `vue3`, `vite4`, `TypeScript` and other mainstream technology, Vben is the out-of-the-box front-end solution for both production and learning purpose.
 
-## Feature
+## Features
 
-- **State of The Art Development**：Use front-end front-end technology development such as Vue3/vite2
+- **State-of-art Techinical Stack**：Using the latest and popular front-end technology such as Vue3/vite2
 - **TypeScript**: Application-level JavaScript language
 - **Theming**: Configurable themes
-- **International**：Built-in complete internationalization program
-- **Mock Server** Built-in mock data scheme
-- **Authority** Built-in complete dynamic routing permission generation scheme.
-- **Component** Multiple commonly used components are encapsulated twice
+- **International**：Built-in i18n support
+- **Response Mock**: Built-in response mock ability
+- **Authority**: Built-in permission system based on dynamic routes.
+- **Component**: Extracted and encapsulated components for various scenarios.
 
 ## Preview
 
-- [vue-vben-admin](https://vben.vvbin.cn/) - Full version Chinese site
-- [vue-vben-admin-gh-pages](https://anncwb.github.io/vue-vben-admin/) - Full version of the github site
-- [vben-admin-thin-next](https://vben.vvbin.cn/thin/next/) - Simplified Chinese site
-- [vben-admin-thin-gh-pages](https://anncwb.github.io/vben-admin-thin-next/) -Simplified github site
+- [vue-vben-admin](https://vben.vvbin.cn/) - Full version (Chinese)
+- [vue-vben-admin-gh-pages](https://anncwb.github.io/vue-vben-admin/) - Full version (github hosted)
+- [vben-admin-thin-next](https://vben.vvbin.cn/thin/next/) - Simplified Version (Chinese)
+- [vben-admin-thin-gh-pages](https://anncwb.github.io/vben-admin-thin-next/) -Simplified Version (github hosted)
 
 Test account: vben/123456
 
@@ -65,7 +65,7 @@ Open the project in Gitpod (free online dev environment for GitHub) and start co
 git clone https://github.com/anncwb/vue-vben-admin.git
 ```
 
-- Installation dependencies
+- Install dependencies
 
 ```bash
 cd vue-vben-admin
@@ -96,13 +96,13 @@ pnpm build
 docker build -t vue-vben-admin .
 ```
 
-#### Environment variables are dynamically used to achieve differentiated container deployment. Different VG_BASE_URL environment variables point to different back-end service addresses. In the following example, http://localhost:3333 is used as the back-end service address and the container is mapped to port 6666
+#### Use environment variables to achieve differentiated container deployment. Specify service endpoint by assigning `VG_BASE_URL`. In the following example, `http://localhost:3333` is used as the back-end service address and the container is mapped to port `6666`:
 
 ```bash
 docker run --name vue-vben-admin -d -p 6666:80  -e VG_BASE_URL=http://localhost:3333 vue-vben-admin
 ```
 
-Then you can navigate http://localhost:6666
+Then you can navigate to `http://localhost:6666`
 
 ## Change Log
 
@@ -115,7 +115,7 @@ Then you can navigate http://localhost:6666
 
 ## How to contribute
 
-You are very welcome to join！[Raise an issue](https://github.com/anncwb/vue-vben-admin/issues/new/choose) Or submit a Pull Request。
+You are very welcome to join！[Raise an issue](https://github.com/anncwb/vue-vben-admin/issues/new/choose) or submit a Pull Request。
 
 **Pull Request:**
 
@@ -131,7 +131,7 @@ You are very welcome to join！[Raise an issue](https://github.com/anncwb/vue-vb
 
   - `feat` Add new features
   - `fix` Fix the problem/BUG
-  - `style` The code style is related and does not affect the running result
+  - `style` Modify the code style/format that does not affect the feature
   - `perf` Optimization/performance improvement
   - `refactor` Refactor
   - `revert` Undo edit
@@ -145,7 +145,7 @@ You are very welcome to join！[Raise an issue](https://github.com/anncwb/vue-vb
 
 ## Related warehouse
 
-If these plugins are helpful to you, you can give a star support
+If these plugins are helpful to you, you can show support by leaving a star!
 
 - [vite-plugin-mock](https://github.com/anncwb/vite-plugin-mock) - Used for local and development environment data mock
 - [vite-plugin-html](https://github.com/anncwb/vite-plugin-html) - Used for html template conversion and compression
@@ -156,7 +156,7 @@ If these plugins are helpful to you, you can give a star support
 
 The `Chrome 80+` browser is recommended for local development
 
-Support modern browsers, not IE
+Support modern browsers, doesn't include IE
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
 | :-: | :-: | :-: | :-: | :-: |
