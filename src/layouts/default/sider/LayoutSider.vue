@@ -17,14 +17,14 @@
   <Layout.Sider
     v-show="showClassSideBarRef"
     ref="sideRef"
-    breakpoint="md"
+    :breakpoint="getTrigger === TriggerEnum.FOOTER ? 'md' : 'lg'"
     collapsible
     :class="getSiderClass"
     :width="getMenuWidth"
     :collapsed="getCollapsed"
     :collapsedWidth="getCollapsedWidth"
     :theme="getMenuTheme"
-    :trigger="getTrigger"
+    :trigger="triggerVNode"
     v-bind="getTriggerAttr"
     @breakpoint="onBreakpointChange"
   >
@@ -39,7 +39,7 @@
   import { Layout } from 'ant-design-vue';
   import { computed, CSSProperties, h, ref, unref } from 'vue';
 
-  import { MenuModeEnum, MenuSplitTyeEnum } from '@/enums/menuEnum';
+  import { MenuModeEnum, MenuSplitTyeEnum, TriggerEnum } from '@/enums/menuEnum';
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
   import { useAppInject } from '@/hooks/web/useAppInject';
   import { useDesign } from '@/hooks/web/useDesign';
@@ -63,6 +63,7 @@
     getMenuHidden,
     getMenuFixed,
     getIsMixMode,
+    getTrigger,
   } = useMenuSetting();
 
   const { prefixCls } = useDesign('layout-sideBar');
@@ -111,7 +112,7 @@
 
   // 在此处使用计算量可能会导致sider异常
   // andv 更新后，如果trigger插槽可用，则此处代码可废弃
-  const getTrigger = h(LayoutTrigger);
+  const triggerVNode = h(LayoutTrigger);
 </script>
 <style lang="less">
   @prefix-cls: ~'@{namespace}-layout-sideBar';
