@@ -4,10 +4,19 @@
     v-show="showClassSideBarRef"
     :style="getHiddenDomStyle"
   ></div>
+  <!-- 
+    关于 breakpoint，
+    组件定义的是 lg: '992px'，
+    而 vben 定义的是 lg: '960px'，
+    现把组件的 breakpoint 设为 md，
+    则组件的 md: '768px' < vben的 lg: '960px'，
+    防止 collapsedWidth 在 960px ~ 992px 之间错误设置为 0，
+    从而防止出现浮动的 trigger（且breakpoint事件失效）
+  -->
   <Layout.Sider
     v-show="showClassSideBarRef"
     ref="sideRef"
-    breakpoint="lg"
+    breakpoint="md"
     collapsible
     :class="getSiderClass"
     :width="getMenuWidth"
