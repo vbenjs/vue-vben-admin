@@ -5,6 +5,7 @@
     :style="getHiddenDomStyle"
   ></div>
   <!-- 
+    针对场景：菜单折叠按钮为“底部”时：
     关于 breakpoint，
     组件定义的是 lg: '992px'，
     而 vben 定义的是 lg: '960px'，
