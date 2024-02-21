@@ -6,14 +6,15 @@ export const multipleTabHeight = 30;
 
 export const darkMode = ThemeEnum.LIGHT;
 
-// 页脚固定高度
+// 页脚固定高度 (Footer fixed height)
 export const footerHeight = 75;
 
 // .@{namespace}-layout-multiple-header__placeholder
-// 全屏页头动画时长
+// 全屏页头动画时长 (Full screen header animation duration)
 export const layoutMultipleHeadePlaceholderTime = 0.6;
 
 // app theme preset color
+// 应用主题预设颜色 (Application theme preset color)
 export const APP_PRESET_COLOR_LIST: string[] = [
   '#0960bd',
   '#0084f4',
@@ -27,6 +28,7 @@ export const APP_PRESET_COLOR_LIST: string[] = [
 ];
 
 // header preset color
+// 页头预设颜色 (Header preset color)
 export const HEADER_PRESET_BG_COLOR_LIST: string[] = [
   '#ffffff',
   '#151515',
@@ -42,6 +44,7 @@ export const HEADER_PRESET_BG_COLOR_LIST: string[] = [
 ];
 
 // sider preset color
+// 侧边栏预设颜色 (Sidebar preset color)
 export const SIDE_BAR_BG_COLOR_LIST: string[] = [
   '#001529',
   '#212121',

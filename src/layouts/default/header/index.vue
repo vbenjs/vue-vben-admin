@@ -41,6 +41,7 @@
 
       <FullScreen v-if="getShowFullScreen" :class="`${prefixCls}-action__item fullscreen-item`" />
 
+      <!-- 切換語系 -->
       <AppLocalePicker
         v-if="getShowLocalePicker"
         :reload="true"

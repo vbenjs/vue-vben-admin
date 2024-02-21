@@ -7,7 +7,7 @@
     </div>
     <div class="flex flex-1 justify-end md:mt-0 mt-4">
       <div class="flex flex-col justify-center text-right">
-        <span class="text-secondary"> 待办 </span>
+        <span class="text-secondary"> 代辦 </span>
         <span class="text-2xl">2/10</span>
       </div>
 

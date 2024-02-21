@@ -15,173 +15,174 @@ import {
   APP_PRESET_COLOR_LIST,
 } from './designSetting';
 
-// ! You need to clear the browser cache after the change
+// ! 在更改後需要清除瀏覽器緩存
 const setting: ProjectConfig = {
-  // Whether to show the configuration button
-  showSettingButton: true,
+  // 是否顯示設定按鈕
+  showSettingButton: false,
 
-  // Whether to show the theme switch button
-  showDarkModeToggle: true,
+  // 是否顯示主題切換按鈕
+  showDarkModeToggle: false,
 
-  // `Settings` button position
+  // 設定按鈕位置
   settingButtonPosition: SettingButtonPositionEnum.AUTO,
 
-  // Permission mode
+  // 權限模式
   permissionMode: PermissionModeEnum.ROUTE_MAPPING,
 
-  // Permission-related cache is stored in sessionStorage or localStorage
+  // 權限相關的緩存存儲在sessionStorage或localStorage中
   permissionCacheType: CacheTypeEnum.LOCAL,
 
-  // Session timeout processing
+  // 會話超時處理
   sessionTimeoutProcessing: SessionTimeoutProcessingEnum.ROUTE_JUMP,
 
-  // color
+  // 主題顏色
   themeColor: APP_PRESET_COLOR_LIST[0],
 
-  // Website gray mode, open for possible mourning dates
+  // 網站灰色模式，開啟以應對可能的哀悼日期
   grayMode: false,
 
-  // Color Weakness Mode
+  // 色弱模式
   colorWeak: false,
 
-  // Whether to cancel the menu, the top, the multi-tab page display, for possible embedded in other systems
+  // 是否取消菜單、頂部、多標籤頁顯示，用於可能嵌入其他系統
   fullContent: false,
 
-  // content mode
+  // 內容模式
   contentMode: ContentEnum.FULL,
 
-  // Whether to display the logo
+  // 是否顯示標誌
   showLogo: true,
 
-  // Whether to show footer
+  // 是否顯示頁腳
   showFooter: false,
 
-  // Header configuration
+  // 頁頭配置
   headerSetting: {
-    // header bg color
+    // 頁頭背景顏色
     bgColor: HEADER_PRESET_BG_COLOR_LIST[0],
-    // Fixed at the top
+    // 固定在頂部
     fixed: true,
-    // Whether to show top
+    // 是否顯示頂部
     show: true,
-    // theme
+    // 主題
     theme: ThemeEnum.LIGHT,
-    // Whether to enable the lock screen function
+    // 是否啟用鎖屏功能
     useLockPage: true,
-    // Whether to show the full screen button
+    // 是否顯示全屏按鈕
     showFullScreen: true,
-    // Whether to show the document button
-    showDoc: true,
-    // Whether to show the notification button
-    showNotice: true,
-    // Whether to display the menu search
-    showSearch: true,
-    showApi: true,
+    // 是否顯示文檔按鈕
+    showDoc: false,
+    // 是否顯示通知按鈕
+    showNotice: false,
+    // 是否顯示菜單搜索
+    showSearch: false,
+    // 切換API
+    showApi: false,
   },
 
-  // Menu configuration
+  // 菜單配置
   menuSetting: {
-    // sidebar menu bg color
+    // 側邊欄菜單背景顏色
     bgColor: SIDE_BAR_BG_COLOR_LIST[0],
-    //  Whether to fix the left menu
+    // 是否固定左側菜單
     fixed: true,
-    // Menu collapse
+    // 菜單折疊
     collapsed: false,
-    // When sider hide because of the responsive layout
+    // 響應式布局導致側邊欄隱藏時
     siderHidden: false,
-    // Whether to display the menu name when folding the menu
+    // 折疊菜單時是否顯示菜單名稱
     collapsedShowTitle: false,
-    // Whether it can be dragged
-    // Only limited to the opening of the left menu, the mouse has a drag bar on the right side of the menu
+    // 是否可拖拽
+    // 只限於開啟左側菜單，鼠標在菜單右側有一個拖拽條
     canDrag: false,
-    // Whether to show no dom
+    // 是否顯示無dom
     show: true,
-    // Whether to show dom
+    // 是否顯示dom
     hidden: false,
-    // Menu width
+    // 菜單寬度
     menuWidth: 210,
-    // Menu mode
+    // 菜單模式
     mode: MenuModeEnum.INLINE,
-    // Menu type
+    // 菜單類型
     type: MenuTypeEnum.SIDEBAR,
-    // Menu theme
+    // 菜單主題
     theme: ThemeEnum.DARK,
-    // Split menu
+    // 分割菜單
     split: false,
-    // Top menu layout
+    // 頂部菜單布局
     topMenuAlign: 'center',
-    // Fold trigger position
+    // 折疊觸發位置
     trigger: TriggerEnum.HEADER,
-    // Turn on accordion mode, only show a menu
+    // 啟用手風琴模式，只顯示一個菜單
     accordion: true,
-    // Switch page to close menu
+    // 切換頁面時關閉菜單
     closeMixSidebarOnChange: false,
-    // Module opening method ‘click’ |'hover'
+    // 模塊開啟方式 ‘click’ |'hover'
     mixSideTrigger: MixSidebarTriggerEnum.CLICK,
-    // Fixed expanded menu
+    // 固定展開菜單
     mixSideFixed: false,
   },
 
-  // Multi-label
+  // 多標籤
   multiTabsSetting: {
     cache: false,
-    // Turn on
+    // 是否開啟
     show: true,
-    // Is it possible to drag and drop sorting tabs
+    // 是否可以拖拽排序標籤
     canDrag: true,
-    // Turn on quick actions
+    // 是否開啟快速操作
     showQuick: true,
-    // Whether to show the refresh button
+    // 是否顯示刷新按鈕
     showRedo: true,
-    // Whether to show the collapse button
+    // 是否顯示折疊按鈕
     showFold: true,
-    // Auto collapsed
+    // 自動折疊
     autoCollapse: false,
   },
 
-  // Transition Setting
+  // 過渡設置
   transitionSetting: {
-    //  Whether to open the page switching animation
-    // The disabled state will also disable pageLoading
+    // 是否開啟頁面切換動畫
+    // 禁用狀態也會禁用頁面加載
     enable: true,
 
-    // Route basic switching animation
+    // 路由基本切換動畫
     basicTransition: RouterTransitionEnum.FADE_SIDE,
 
-    // Whether to open page switching loading
-    // Only open when enable=true
+    // 是否開啟頁面切換加載
+    // 只在enable=true時開啟
     openPageLoading: true,
 
-    // Whether to open the top progress bar
+    // 是否開啟頂部進度條
     openNProgress: false,
   },
 
-  // Whether to enable KeepAlive cache is best to close during development, otherwise the cache needs to be cleared every time
+  // 是否啟用KeepAlive緩存，在開發時最好關閉，否則需要每次清除緩存
   openKeepAlive: true,
 
-  // Automatic screen lock time, 0 does not lock the screen. Unit minute default 0
+  // 自動鎖屏時間，0表示不鎖屏。單位分鐘，默認0
   lockTime: 0,
 
-  // Whether to show breadcrumbs
+  // 是否顯示面包屑
   showBreadCrumb: true,
 
-  // Whether to show the breadcrumb icon
+  // 是否顯示面包屑圖標
   showBreadCrumbIcon: false,
 
-  // Use error-handler-plugin
+  // 使用error-handler-plugin
   useErrorHandle: false,
 
-  // Whether to open back to top
+  // 是否開啟返回頂部
   useOpenBackTop: true,
 
-  //  Is it possible to embed iframe pages
+  // 是否可以嵌入iframe頁面
   canEmbedIFramePage: true,
 
-  // Whether to delete unclosed messages and notify when switching the interface
+  // 切換界面時是否刪除未關閉的消息和通知
   closeMessageOnSwitch: true,
 
-  // Whether to cancel the http request that has been sent but not responded when switching the interface.
-  // If it is enabled, I want to overwrite a single interface. Can be set in a separate interface
+  // 切換界面時是否取消已發送但未響應的http請求
+  // 如果啟用，我想單獨設置一個接口。可以在單獨的接口中設置
   removeAllHttpPending: false,
 };
 

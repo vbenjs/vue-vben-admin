@@ -3,7 +3,7 @@
     <div :class="`${prefixCls}__top`">
       <Row :gutter="12">
         <Col :span="8" :class="`${prefixCls}__top-col`">
-          <div>我的待办</div>
+          <div>我的代辦</div>
           <p>8个任务</p>
         </Col>
         <Col :span="8" :class="`${prefixCls}__top-col`">

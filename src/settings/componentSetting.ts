@@ -1,43 +1,43 @@
-// Used to configure the general configuration of some components without modifying the components
+// 用於配置某些組件的一般配置，而不需要修改組件本身
 
 import type { SorterResult } from '../components/Table';
 
 export default {
-  // basic-table setting
+  // 基本表格配置
   table: {
-    // Form interface request general configuration
-    // support xxx.xxx.xxx
+    // 表單接口請求的一般配置
+    // 支持 xxx.xxx.xxx
     fetchSetting: {
-      // The field name of the current page passed to the background
+      // 傳遞給後端的當前頁面的字段名稱
       pageField: 'page',
-      // The number field name of each page displayed in the background
+      // 傳遞給後端的每頁顯示數量的字段名稱
       sizeField: 'pageSize',
-      // Field name of the form data returned by the interface
+      // 接口返回的表單數據的字段名稱
       listField: 'items',
-      // Total number of tables returned by the interface field name
+      // 接口返回的表格總數字段名稱
       totalField: 'total',
     },
-    // Number of pages that can be selected
+    // 可選擇的每頁顯示數量
     pageSizeOptions: ['10', '50', '80', '100'],
-    // Default display quantity on one page
+    // 默認每頁顯示數量
     defaultPageSize: 10,
-    // Default Size
+    // 默認大小
     defaultSize: 'middle',
-    // Custom general sort function
+    // 自定義的一般排序函數
     defaultSortFn: (sortInfo: SorterResult) => {
       const { field, order } = sortInfo;
       if (field && order) {
         return {
-          // The sort field passed to the backend you
+          // 傳遞給後端的排序字段
           field,
-          // Sorting method passed to the background asc/desc
+          // 傳遞給後端的排序方式 asc/desc
           order,
         };
       } else {
         return {};
       }
     },
-    // Custom general filter function
+    // 自定義的一般過濾函數
     defaultFilterFn: (data: Partial<Recordable<string[]>>) => {
       return data;
     },
@@ -88,10 +88,10 @@ export default {
       zoomConfig: {},
     },
   },
-  // scrollbar setting
+  // 滾動條配置
   scrollbar: {
-    // Whether to use native scroll bar
-    // After opening, the menu, modal, drawer will change the pop-up scroll bar to native
+    // 是否使用原生滾動條
+    // 開啟後，菜單、模態框、抽屜將會將彈出的滾動條改為原生的
     native: false,
   },
 };

@@ -143,7 +143,7 @@ export const msgNotifyList: ListItem[] = [
   },
   {
     key: '3',
-    title: '待办任务',
-    description: '待办任务将以站内信的形式通知',
+    title: '代辦任务',
+    description: '代辦任务将以站内信的形式通知',
   },
 ];
