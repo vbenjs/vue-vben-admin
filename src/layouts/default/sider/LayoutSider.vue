@@ -4,17 +4,27 @@
     v-show="showClassSideBarRef"
     :style="getHiddenDomStyle"
   ></div>
+  <!-- 
+    针对场景：菜单折叠按钮为“底部”时：
+    关于 breakpoint，
+    组件定义的是 lg: '992px'，
+    而 vben 定义的是 lg: '960px'，
+    现把组件的 breakpoint 设为 md，
+    则组件的 md: '768px' < vben的 lg: '960px'，
+    防止 collapsedWidth 在 960px ~ 992px 之间错误设置为 0，
+    从而防止出现浮动的 trigger（且breakpoint事件失效）
+  -->
   <Layout.Sider
     v-show="showClassSideBarRef"
     ref="sideRef"
-    breakpoint="lg"
+    :breakpoint="getTrigger === TriggerEnum.FOOTER ? 'md' : 'lg'"
     collapsible
     :class="getSiderClass"
     :width="getMenuWidth"
     :collapsed="getCollapsed"
     :collapsedWidth="getCollapsedWidth"
     :theme="getMenuTheme"
-    :trigger="getTrigger"
+    :trigger="triggerVNode"
     v-bind="getTriggerAttr"
     @breakpoint="onBreakpointChange"
   >
@@ -29,7 +39,7 @@
   import { Layout } from 'ant-design-vue';
   import { computed, CSSProperties, h, ref, unref } from 'vue';
 
-  import { MenuModeEnum, MenuSplitTyeEnum } from '@/enums/menuEnum';
+  import { MenuModeEnum, MenuSplitTyeEnum, TriggerEnum } from '@/enums/menuEnum';
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
   import { useAppInject } from '@/hooks/web/useAppInject';
   import { useDesign } from '@/hooks/web/useDesign';
@@ -53,6 +63,7 @@
     getMenuHidden,
     getMenuFixed,
     getIsMixMode,
+    getTrigger,
   } = useMenuSetting();
 
   const { prefixCls } = useDesign('layout-sideBar');
@@ -101,7 +112,7 @@
 
   // 在此处使用计算量可能会导致sider异常
   // andv 更新后，如果trigger插槽可用，则此处代码可废弃
-  const getTrigger = h(LayoutTrigger);
+  const triggerVNode = h(LayoutTrigger);
 </script>
 <style lang="less">
   @prefix-cls: ~'@{namespace}-layout-sideBar';

@@ -128,7 +128,6 @@ export const accountFormSchema: FormSchema[] = [
     componentProps: {
       fieldNames: {
         label: 'deptName',
-        key: 'id',
         value: 'id',
       },
       getPopupContainer: () => document.body,
