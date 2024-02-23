@@ -94,6 +94,7 @@ export const NO_AUTO_LINK_COMPONENTS: ComponentType[] = [
   'RadioButtonGroup',
   'ImageUpload',
   'ApiSelect',
+  'SmartApiSelectDict',
 ];
 
 export const simpleComponents = ['Divider', 'BasicTitle'];

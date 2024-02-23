@@ -37,7 +37,9 @@ export const useLoadDictItem = (dictCodeRef: Ref<string> | string, immediate = t
         dictData.value = await defHttp.post({
           service: ApiServiceEnum.SMART_SYSTEM,
           url: 'sys/dict/listItemByCode',
-          data: dictCode,
+          data: {
+            value: dictCode,
+          },
         });
       } catch (e) {
         errorMessage(e);
