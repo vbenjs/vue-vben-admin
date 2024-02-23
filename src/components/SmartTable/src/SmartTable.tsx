@@ -38,6 +38,7 @@ export default defineComponent({
     'proxy-delete',
     'add-edit-modal-show',
     'cell-click',
+    'page-change',
   ],
   setup(props, { emit, slots, attrs }) {
     const { t } = useI18n();
@@ -66,7 +67,8 @@ export default defineComponent({
       setPagination,
       getShowPagination,
       setShowPagination,
-    } = usePagination(getTableProps);
+      handlePageChange,
+    } = usePagination(getTableProps, emit);
 
     /**
      * vxe-table函数
@@ -74,7 +76,7 @@ export default defineComponent({
     const getTableInstance = () => unref(tableElRef);
     provide('getTableInstance', getTableInstance);
     const commitVxeProxy = (code, ...args) => getTableInstance()?.commitProxy(code, args);
-    const getCheckboxRecords = (isFull: boolean) =>
+    const getCheckboxRecords = (isFull?: boolean) =>
       getTableInstance()?.getCheckboxRecords(isFull) || [];
     const getRadioRecord = (isFull: boolean) => getTableInstance()?.getRadioRecord(isFull);
     const setRadioRow = (row: any) => getTableInstance()!.setRadioRow(row);
@@ -227,6 +229,7 @@ export default defineComponent({
         customConfig: unref(getCustomConfig),
         ...unref(getTableEvents),
         ...unref(computedTableClassStyle),
+        onPageChange: handlePageChange,
       };
     });
 

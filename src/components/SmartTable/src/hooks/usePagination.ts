@@ -11,7 +11,7 @@ import { VxeGridPropTypes } from 'vxe-table';
  * @author zhongming4762
  * @param propsRef
  */
-export const usePagination = (propsRef: ComputedRef<SmartTableProps>) => {
+export const usePagination = (propsRef: ComputedRef<SmartTableProps>, emit: Function) => {
   const configRef = ref<VxeGridPropTypes.PagerConfig>({});
   const show = ref(true);
 
@@ -53,6 +53,15 @@ export const usePagination = (propsRef: ComputedRef<SmartTableProps>) => {
     };
   };
 
+  const handlePageChange = (eventData) => {
+    const { pageSize, currentPage } = eventData;
+    setPagination({
+      pageSize,
+      currentPage,
+    });
+    emit('page-change', eventData);
+  };
+
   const getPagination = () => unref(getPaginationInfo);
 
   function getShowPagination() {
@@ -69,5 +78,6 @@ export const usePagination = (propsRef: ComputedRef<SmartTableProps>) => {
     getPagination,
     getShowPagination,
     setShowPagination,
+    handlePageChange,
   };
 };
