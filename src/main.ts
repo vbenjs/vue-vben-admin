@@ -18,6 +18,8 @@ import { setupStore } from '@/store';
 
 import App from './App.vue';
 
+import { init } from '@smart/smart-ui-app';
+
 async function bootstrap() {
   const app = createApp(App);
 
@@ -58,6 +60,7 @@ async function bootstrap() {
   // https://next.router.vuejs.org/api/#isready
   // await router.isReady();
 
+  init({ app });
   app.mount('#app');
 }
 

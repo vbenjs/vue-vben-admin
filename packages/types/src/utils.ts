@@ -1,3 +1,5 @@
+import { App } from 'vue';
+
 /**
  * 任意类型的异步函数
  */
@@ -56,3 +58,7 @@ export {
   type Recordable,
   type TimeoutHandle,
 };
+
+export interface SmartUiInitParams {
+  app: App<Element>;
+}

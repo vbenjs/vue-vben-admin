@@ -20,6 +20,9 @@ importers:
       '@logicflow/extension':
         specifier: ^1.2.19
         version: 1.2.19
+      '@smart/smart-ui-app':
+        specifier: workspace:*
+        version: link:modules/smart-ui-app
       '@vben/hooks':
         specifier: workspace:*
         version: link:packages/hooks
@@ -449,6 +452,22 @@ importers:
       vite-plugin-svg-icons:
         specifier: ^2.0.1
         version: 2.0.1(vite@5.0.10)
+
+  modules/smart-ui-app:
+    dependencies:
+      '@vueuse/core':
+        specifier: ^10.7.1
+        version: 10.7.1(vue@3.3.4)
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      vue:
+        specifier: 3.3.4
+        version: 3.3.4
+    devDependencies:
+      '@vben/types':
+        specifier: workspace:*
+        version: link:../../packages/types
 
   packages/hooks:
     dependencies:
@@ -2519,7 +2538,7 @@ packages:
     dev: true
 
   /@types/web-bluetooth@0.0.20:
-    resolution: {integrity: sha512-g9gZnnXVq7gM7v3tJCWV/qw7w+KeOlSHAhgF9RytFyifW6AF61hdT2ucrYhPq9hLs5JIryeupHV3qGk95dH9ow==}
+    resolution: {integrity: sha512-g9gZnnXVq7gM7v3tJCWV/qw7w+KeOlSHAhgF9RytFyifW6AF61hdT2ucrYhPq9hLs5JIryeupHV3qGk95dH9ow==, tarball: https://registry.npmmirror.com/@types/web-bluetooth/-/web-bluetooth-0.0.20.tgz}
     dev: false
 
   /@types/yargs-parser@21.0.3:
@@ -11994,7 +12013,7 @@ packages:
     dev: true
 
   /vue-demi@0.14.6(vue@3.3.4):
-    resolution: {integrity: sha512-8QA7wrYSHKaYgUxDA5ZC24w+eHm3sYCbp0EzcDwKqN3p6HqtTCGR/GVsPyZW92unff4UlcSh++lmqDWN3ZIq4w==}
+    resolution: {integrity: sha512-8QA7wrYSHKaYgUxDA5ZC24w+eHm3sYCbp0EzcDwKqN3p6HqtTCGR/GVsPyZW92unff4UlcSh++lmqDWN3ZIq4w==, tarball: https://registry.npmmirror.com/vue-demi/-/vue-demi-0.14.6.tgz}
     engines: {node: '>=12'}
     hasBin: true
     requiresBuild: true
