@@ -93,6 +93,10 @@ export const getI18nAddEditSchemas = (t: Function): FormSchema[] => {
             label: 'backstage',
             value: 'backstage',
           },
+          {
+            label: 'front',
+            value: 'front',
+          },
         ],
       },
     },

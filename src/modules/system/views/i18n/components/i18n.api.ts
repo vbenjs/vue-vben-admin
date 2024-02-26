@@ -6,7 +6,7 @@ enum Api {
   i18nSaveUpdate = 'sys/i18n/saveUpdate',
   i18nDelete = 'sys/i18n/batchDeleteById',
   getGroupById = 'sys/i18n/getGroupById',
-  listGroup = 'sys/i18n/listGroup',
+  listGroupTree = 'sys/i18n/listGroupTree',
   saveUpdateGroup = 'sys/i18n/saveOrUpdateGroup',
   deleteGroup = 'sys/i18n/deleteGroup',
   getI18nItemById = 'sys/i18nItem/getById',
@@ -55,10 +55,10 @@ export const getGroupByIdApi = (groupId: number) => {
   });
 };
 
-export const listGroupApi = () => {
+export const listGroupTreeApi = () => {
   return defHttp.post({
     service: ApiServiceEnum.SMART_SYSTEM,
-    url: Api.listGroup,
+    url: Api.listGroupTree,
   });
 };
 

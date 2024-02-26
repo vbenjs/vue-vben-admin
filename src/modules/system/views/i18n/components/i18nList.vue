@@ -27,7 +27,7 @@
   import { SystemPermissions } from '@/modules/system/constants/SystemConstants';
 
   const props = defineProps({
-    groupId: propTypes.number,
+    groupId: propTypes.oneOfType([propTypes.nullable, propTypes.number]),
   });
   const emit = defineEmits(['change']);
 
@@ -131,11 +131,15 @@
     proxyConfig: {
       ajax: {
         query: ({ ajaxParameter }) => {
+          let groupId = props.groupId;
+          if (groupId == null) {
+            groupId = undefined;
+          }
           const parameter = {
             ...ajaxParameter,
             parameter: {
               ...ajaxParameter?.parameter,
-              'groupId@=': props.groupId,
+              'groupId@=': groupId,
             },
           };
           return listI18nApi(parameter);
