@@ -87,6 +87,8 @@ export default {
       '404': 'The page you visited does not exist',
       '403': 'You do not have permission to access this page',
       backHome: 'Back Home',
+      exceptionTitle:
+        'An error occurred in the system. Please submit the error and contact the administrator',
     },
     common: {
       notice: {

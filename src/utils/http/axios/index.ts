@@ -22,7 +22,7 @@ import axios from 'axios';
 
 const globSetting = useGlobSetting();
 const urlPrefix = globSetting.urlPrefix;
-const { createMessage, createErrorModal, createSuccessModal } = useMessage();
+const { createMessage, createErrorModal, createSuccessModal, createError500Modal } = useMessage();
 
 /**
  * @description: 数据处理，方便区分多种处理方式
@@ -70,6 +70,7 @@ const transform: AxiosTransform = {
       return result;
     }
 
+    let continueDeal = true;
     // 在此处根据自己项目的实际情况对不同的code执行不同的操作
     // 如果不希望中断当前请求，请return数据，否则直接抛出异常即可
     let timeoutMsg = '';
@@ -80,6 +81,11 @@ const transform: AxiosTransform = {
         // 被动登出，带redirect地址
         userStore.logout(false);
         break;
+      case ResultEnum.ERROR:
+        // 500错误
+        createError500Modal(data as Result);
+        continueDeal = false;
+        break;
       default:
         if (message) {
           timeoutMsg = message;
@@ -88,12 +94,13 @@ const transform: AxiosTransform = {
 
     // errorMessageMode='modal'的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
     // errorMessageMode='none' 一般是调用时明确表示不希望自动弹出错误提示
-    if (options.errorMessageMode === 'modal') {
-      createErrorModal({ title: t('sys.api.errorTip'), content: timeoutMsg });
-    } else if (options.errorMessageMode === 'message') {
-      createMessage.error(timeoutMsg);
+    if (continueDeal) {
+      if (options.errorMessageMode === 'modal') {
+        createErrorModal({ title: t('sys.api.errorTip'), content: timeoutMsg });
+      } else if (options.errorMessageMode === 'message') {
+        createMessage.error(timeoutMsg);
+      }
     }
-
     throw new Error(timeoutMsg || t('sys.api.apiRequestFailed'));
   },
 

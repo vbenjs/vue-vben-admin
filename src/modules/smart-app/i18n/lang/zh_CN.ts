@@ -87,6 +87,7 @@ export default {
       '404': '您访问的页面不存在',
       '403': '您无权限访问此页面',
       backHome: '返回主页',
+      exceptionTitle: '系统发生错误，请提交错误，并联系管理员',
     },
     common: {
       notice: {

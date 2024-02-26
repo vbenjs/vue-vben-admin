@@ -114,6 +114,7 @@ export function useMessage() {
     successMessage,
     warnMessage,
     errorMessage,
+    createError500Modal,
   };
 }
 

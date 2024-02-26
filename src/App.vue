@@ -3,6 +3,7 @@
     <AppProvider>
       <RouterView />
     </AppProvider>
+    <ExceptionModal />
   </ConfigProvider>
 </template>
 
@@ -15,6 +16,7 @@
   import { useDarkModeTheme } from '@/hooks/setting/useDarkModeTheme';
   import 'dayjs/locale/zh-cn';
   import { computed } from 'vue';
+  import { ExceptionModal } from '@/views/sys/exception';
 
   // support Multi-language
   const { getAntdLocale } = useLocale();
