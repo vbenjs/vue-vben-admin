@@ -2,4 +2,3 @@ packages:
   - 'internal/*'
   - 'packages/*'
   - 'apps/*'
-  - 'modules/*'
