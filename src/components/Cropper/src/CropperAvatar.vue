@@ -124,7 +124,7 @@
       background: rgb(0 0 0 / 40%);
       cursor: pointer;
 
-      ::v-deep(svg) {
+      :deep(svg) {
         margin: auto;
       }
     }

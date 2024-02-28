@@ -76,6 +76,22 @@
   animation-delay: 0.5s;
 }
 
+* > .enter-x:nth-child(6) {
+  transform: translateX(50px);
+}
+* > .-enter-x:nth-child(6) {
+  transform: translateX(-50px);
+}
+
+* > .enter-x:nth-child(6),
+* > .-enter-x:nth-child(6) {
+  z-index: 4;
+  opacity: 0;
+  animation: enter-x-animation 0.4s ease-in-out 0.3s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.6s;
+}
+
 * > .enter-y:nth-child(1) {
   transform: translateX(50px);
 }
@@ -152,6 +168,22 @@
   animation: enter-y-animation 0.4s ease-in-out 0.3s;
   animation-fill-mode: forwards;
   animation-delay: 0.5s;
+}
+
+* > .enter-y:nth-child(6) {
+  transform: translateX(50px);
+}
+* > .-enter-y:nth-child(6) {
+  transform: translateX(-50px);
+}
+
+* > .enter-y:nth-child(6),
+* > .-enter-y:nth-child(6) {
+  z-index: 4;
+  opacity: 0;
+  animation: enter-y-animation 0.4s ease-in-out 0.3s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.6s;
 }
 
 @keyframes enter-x-animation {

@@ -1,12 +1,15 @@
 // Interface data format used to return a unified format
-import { ResultEnum } from '@/enums/httpEnum';
+import { ResultEnum } from "@/enums/httpEnum";
 
-export function resultSuccess<T = Recordable>(result: T, { message = 'ok' } = {}) {
+export function resultSuccess<T = Recordable>(
+  result: T,
+  { message = "ok" } = {}
+) {
   return {
     code: ResultEnum.SUCCESS,
     result,
     message,
-    type: 'success',
+    type: "success",
   };
 }
 
@@ -14,7 +17,7 @@ export function resultPageSuccess<T = any>(
   page: number,
   pageSize: number,
   list: T[],
-  { message = 'ok' } = {},
+  { message = "ok" } = {}
 ) {
   const pageData = pagination(page, pageSize, list);
 
@@ -28,18 +31,22 @@ export function resultPageSuccess<T = any>(
 }
 
 export function resultError(
-  message = 'Request failed',
-  { code = ResultEnum.ERROR, result = null } = {},
+  message = "Request failed",
+  { code = ResultEnum.ERROR, result = null } = {}
 ) {
   return {
     code,
     result,
     message,
-    type: 'error',
+    type: "error",
   };
 }
 
-export function pagination<T = any>(pageNo: number, pageSize: number, array: T[]): T[] {
+export function pagination<T = any>(
+  pageNo: number,
+  pageSize: number,
+  array: T[]
+): T[] {
   const offset = (pageNo - 1) * Number(pageSize);
   return offset + Number(pageSize) >= array.length
     ? array.slice(offset, array.length)
@@ -57,6 +64,8 @@ export interface requestParams {
  * @description 本函数用于从request数据中获取token，请根据项目的实际情况修改
  *
  */
-export function getRequestToken({ headers }: requestParams): string | undefined {
+export function getRequestToken({
+  headers,
+}: requestParams): string | undefined {
   return headers?.authorization;
 }

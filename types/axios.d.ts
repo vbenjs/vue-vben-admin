@@ -28,6 +28,8 @@ export interface RequestOptions {
   withToken?: boolean;
   // 请求重试机制
   retryRequest?: RetryRequest;
+  //isTable
+  isTable?: boolean;
 }
 
 export interface RetryRequest {
@@ -37,9 +39,13 @@ export interface RetryRequest {
 }
 export interface Result<T = any> {
   code: number;
-  type: 'success' | 'error' | 'warning';
-  message: string;
-  result: T;
+  count: number;
+  data: T;
+  errors?: Array<{
+    name: string;
+    tip: string;
+  }>;
+  msg: string;
 }
 
 // multipart/form-data: upload file

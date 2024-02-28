@@ -17,7 +17,7 @@ export const createStorage = ({
   timeout = null,
   hasEncrypt = true,
 }: Partial<CreateStorageParams> = {}) => {
-  if (hasEncrypt && [key.length, iv.length].some((item) => item !== 16)) {
+  if (hasEncrypt && [key.length, iv.length].some((item) => item % 8 !== 0)) {
     throw new Error('When hasEncrypt is true, the key or iv must be 16 bits!');
   }
 

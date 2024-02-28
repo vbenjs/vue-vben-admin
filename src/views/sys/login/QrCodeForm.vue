@@ -1,28 +1,29 @@
 <template>
-  <div v-if="getShow">
-    <LoginFormTitle class="enter-x" />
-    <div class="enter-x min-w-64 min-h-64">
+  <template v-if="getShow">
+    <!-- <LoginFormTitle class="enter-x" style="align: center; margin-bottom: 0" /> -->
+    <div class="enter-x">
       <QrCode
         :value="qrCodeUrl"
         class="enter-x flex justify-center xl:justify-start"
-        :width="280"
+        :width="220"
+        :logo="LogoImg"
       />
-      <Divider class="enter-x">{{ t('sys.login.scanSign') }}</Divider>
-      <Button size="large" block class="mt-4 enter-x" @click="handleBackLogin">
+      <Button size="large" block class="enter-x" @click="handleBackLogin">
         {{ t('sys.login.backSignIn') }}
       </Button>
     </div>
-  </div>
+  </template>
 </template>
 <script lang="ts" setup>
   import { computed, unref } from 'vue';
-  import LoginFormTitle from './LoginFormTitle.vue';
-  import { Button, Divider } from 'ant-design-vue';
-  import { QrCode } from '@/components/Qrcode';
+  // import LoginFormTitle from './LoginFormTitle.vue';
+  import { Button } from 'ant-design-vue';
+  import { QrCode } from '@/components/Qrcode/index';
   import { useI18n } from '@/hooks/web/useI18n';
   import { useLoginState, LoginStateEnum } from './useLogin';
-
-  const qrCodeUrl = 'https://vben.vvbin.cn/login';
+  import LogoImg from '@/assets/images/logo.png';
+  // const qrCodeUrl = 'http://' + window.location.host + '/mobile/';
+  const qrCodeUrl = '';
 
   const { t } = useI18n();
   const { handleBackLogin, getLoginState } = useLoginState();

@@ -30,7 +30,7 @@
           <div :class="`${prefixCls}-entry__header enter-x`">
             <img :src="userInfo.avatar || headerImg" :class="`${prefixCls}-entry__header-img`" />
             <p :class="`${prefixCls}-entry__header-name`">
-              {{ userInfo.realName }}
+              {{ userInfo.name }}
             </p>
           </div>
           <InputPassword

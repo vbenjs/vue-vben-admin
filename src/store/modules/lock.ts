@@ -1,4 +1,4 @@
-import type { LockInfo } from '#/store';
+import type { LockInfo } from '/#/store';
 
 import { defineStore } from 'pinia';
 

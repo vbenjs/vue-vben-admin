@@ -4,18 +4,20 @@ import type {
   MenuSetting,
   TransitionSetting,
   MultiTabsSetting,
-} from '#/config';
-import type { BeforeMiniState, ApiAddress } from '#/store';
+} from '/#/config';
+import type { BeforeMiniState, ApiAddress } from '/#/store';
 
 import { defineStore } from 'pinia';
 import { store } from '@/store';
 
 import { ThemeEnum } from '@/enums/appEnum';
-import { APP_DARK_MODE_KEY, PROJ_CFG_KEY, API_ADDRESS } from '@/enums/cacheEnum';
+import { API_ADDRESS, APP_DARK_MODE_KEY, PROJ_CFG_KEY } from '@/enums/cacheEnum';
 import { Persistent } from '@/utils/cache/persistent';
 import { darkMode } from '@/settings/designSetting';
 import { resetRouter } from '@/router';
 import { deepMerge } from '@/utils';
+import { getAppVersion } from '@/api/system/systemConfig';
+import { version } from '../../../package.json';
 
 interface AppState {
   darkMode?: ThemeEnum;
@@ -25,6 +27,7 @@ interface AppState {
   projectConfig: ProjectConfig | null;
   // When the window shrinks, remember some states, and restore these states when the window is restored
   beforeMiniInfo: BeforeMiniState;
+  version: string;
 }
 let timeId: TimeoutHandle;
 export const useAppStore = defineStore({
@@ -34,6 +37,7 @@ export const useAppStore = defineStore({
     pageLoading: false,
     projectConfig: Persistent.getLocal(PROJ_CFG_KEY),
     beforeMiniInfo: {},
+    version: '',
   }),
   getters: {
     getPageLoading(state): boolean {
@@ -108,6 +112,10 @@ export const useAppStore = defineStore({
     },
     setApiAddress(config: ApiAddress): void {
       localStorage.setItem(API_ADDRESS, JSON.stringify(config));
+    },
+    async getVersion() {
+      const data = await getAppVersion();
+      this.version = data + '.' + version;
     },
   },
 });

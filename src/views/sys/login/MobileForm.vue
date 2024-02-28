@@ -1,5 +1,5 @@
 <template>
-  <div v-if="getShow">
+  <template v-if="getShow">
     <LoginFormTitle class="enter-x" />
     <Form class="p-4 enter-x" :model="formData" :rules="getFormRules" ref="formRef">
       <FormItem name="mobile" class="enter-x">
@@ -28,7 +28,7 @@
         </Button>
       </FormItem>
     </Form>
-  </div>
+  </template>
 </template>
 <script lang="ts" setup>
   import { reactive, ref, computed, unref } from 'vue';

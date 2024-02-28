@@ -11,27 +11,33 @@ export default {
       // The field name of the current page passed to the background
       pageField: 'page',
       // The number field name of each page displayed in the background
-      sizeField: 'pageSize',
+      sizeField: 'limit',
       // Field name of the form data returned by the interface
-      listField: 'items',
+      listField: 'data',
       // Total number of tables returned by the interface field name
-      totalField: 'total',
+      totalField: 'count',
+      columnKey: 'field',
+      order: 'order',
     },
     // Number of pages that can be selected
-    pageSizeOptions: ['10', '50', '80', '100'],
+    pageSizeOptions: ['10', '20', '50', '100', '300'],
     // Default display quantity on one page
-    defaultPageSize: 10,
+    defaultPageSize: 50,
     // Default Size
     defaultSize: 'middle',
     // Custom general sort function
     defaultSortFn: (sortInfo: SorterResult) => {
       const { field, order } = sortInfo;
+      let orderStr: string | undefined;
+      if (order === 'ascend') orderStr = 'asc';
+      if (order === 'descend') orderStr = 'desc';
+
       if (field && order) {
         return {
           // The sort field passed to the backend you
           field,
           // Sorting method passed to the background asc/desc
-          order,
+          order: orderStr,
         };
       } else {
         return {};

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="219px" height="119px" viewBox="0 0 219 119" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>柱状图</title>
+    <g id="页面-1" stroke="none" stroke-width="0" fill="none" fill-rule="evenodd" fill-opacity="0.1">
+        <g id="画板" transform="translate(-92.000000, -154.000000)" fill="#5887FB">
+            <g id="柱状图" transform="translate(92.000000, 154.000000)">
+                <rect id="矩形" x="99" y="0" width="20" height="119" rx="2"></rect>
+                <rect id="矩形" x="66" y="36" width="20" height="83" rx="2"></rect>
+                <rect id="矩形" x="33" y="90" width="20" height="29" rx="2"></rect>
+                <rect id="矩形" x="0" y="112" width="20" height="7" rx="2"></rect>
+                <rect id="矩形" x="132" y="65" width="20" height="54" rx="2"></rect>
+                <rect id="矩形" x="199" y="102" width="20" height="17" rx="2"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

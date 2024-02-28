@@ -1,7 +1,7 @@
 # node 构建
 FROM node:16-alpine as build-stage
 # 署名
-MAINTAINER Adoin 'adoin@qq.com'
+# MAINTAINER Adoin 'adoin@qq.com'
 WORKDIR /app
 COPY . ./
 # 设置 node 阿里镜像

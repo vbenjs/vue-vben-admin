@@ -124,6 +124,12 @@ interface _CustomComponents {
   InputCountDown: ExtractPropTypes<
     (typeof import('@/components/CountDown/src/CountdownInput.vue'))['default']
   >;
+  MyRangePicker: ExtractPropTypes<
+    (typeof import('../components/RangePicker/src/index.vue'))['default']
+  >;
+  ModalSelect: ExtractPropTypes<
+    (typeof import('../components/Business/src/ModalSelect/index.vue'))['default']
+  >;
 }
 
 type CustomComponents<T = _CustomComponents> = {
@@ -140,6 +146,7 @@ export interface ComponentProps {
   InputCountDown: CustomComponents['InputCountDown'] & ComponentProps['Input'];
   Select: ExtractPropTypes<(typeof import('ant-design-vue/es/select'))['default']>;
   ApiSelect: CustomComponents['ApiSelect'] & ComponentProps['Select'];
+  ModalSelect: CustomComponents['ModalSelect'] & ComponentProps['Select'];
   TreeSelect: ExtractPropTypes<(typeof import('ant-design-vue/es/tree-select'))['default']>;
   ApiTree: CustomComponents['ApiTree'] &
     ExtractPropTypes<(typeof import('ant-design-vue/es/tree'))['default']>;
@@ -155,6 +162,7 @@ export interface ComponentProps {
   DatePicker: ExtractPropTypes<(typeof import('ant-design-vue/es/date-picker'))['default']>;
   MonthPicker: ExtractPropTypes<(typeof import('ant-design-vue/es/date-picker'))['MonthPicker']>;
   RangePicker: ExtractPropTypes<(typeof import('ant-design-vue/es/date-picker'))['RangePicker']>;
+  MyRangePicker: CustomComponents['MyRangePicker'] & ComponentProps['RangePicker'];
   WeekPicker: ExtractPropTypes<(typeof import('ant-design-vue/es/date-picker'))['WeekPicker']>;
   TimePicker: ExtractPropTypes<(typeof import('ant-design-vue/es/time-picker'))['TimePicker']>;
   TimeRangePicker: ExtractPropTypes<

@@ -10,6 +10,7 @@
             v-bind="getAttr(item.event)"
             @click="handleClickMenu(item)"
             :disabled="item.disabled"
+            v-if="item.ifShow ?? true"
           >
             <a-popconfirm
               v-if="popconfirm && item.popConfirm"
@@ -17,16 +18,16 @@
               :disabled="item.disabled"
             >
               <template #icon v-if="item.popConfirm.icon">
-                <Icon :icon="item.popConfirm.icon" />
+                <Icon :icon="item.popConfirm.icon" :color="pickColor(item?.color)" />
               </template>
               <div>
-                <Icon :icon="item.icon" v-if="item.icon" />
-                <span class="ml-1">{{ item.text }}</span>
+                <Icon :icon="item.icon" v-if="item.icon" :color="pickColor(item?.color)" />
+                <span class="ml-1" :style="`color:${pickColor(item?.color)}`">{{ item.text }}</span>
               </div>
             </a-popconfirm>
             <template v-else>
-              <Icon :icon="item.icon" v-if="item.icon" />
-              <span class="ml-1">{{ item.text }}</span>
+              <Icon :icon="item.icon" v-if="item.icon" :color="pickColor(item?.color)" />
+              <span class="ml-1" :style="`color:${pickColor(item?.color)}`">{{ item.text }}</span>
             </template>
           </a-menu-item>
           <a-menu-divider v-if="item.divider" :key="`d-${item.event}`" />
@@ -38,12 +39,12 @@
 
 <script lang="ts" setup>
   import { computed, PropType } from 'vue';
-  import { type Recordable } from '@vben/types';
-  import { type DropMenu } from './typing';
+  import type { DropMenu } from './typing';
   import { Dropdown, Menu, Popconfirm } from 'ant-design-vue';
   import Icon from '@/components/Icon/Icon.vue';
   import { omit } from 'lodash-es';
   import { isFunction } from '@/utils/is';
+  import setting from '@/settings/projectSetting';
 
   const ADropdown = Dropdown;
   const AMenu = Menu;
@@ -65,7 +66,7 @@
       },
     },
     dropMenuList: {
-      type: Array as PropType<(DropMenu & Recordable<any>)[]>,
+      type: Array as PropType<(DropMenu & Recordable)[]>,
       default: () => [],
     },
     selectedKeys: {
@@ -95,4 +96,12 @@
   });
 
   const getAttr = (key: string | number) => ({ key });
+
+  const pickColor = (color?: 'error' | 'warning' | 'success') => {
+    if (color === 'error') return 'red';
+    if (color === 'warning') return '#EFBD47';
+    if (color === 'success') return '#55d187';
+    if (color === 'primary') return setting.themeColor;
+    return undefined;
+  };
 </script>

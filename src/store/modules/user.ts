@@ -1,59 +1,90 @@
-import type { UserInfo } from '#/store';
-import type { ErrorMessageMode } from '#/axios';
+import type { ErrorMessageMode } from '/#/axios';
 import { defineStore } from 'pinia';
 import { store } from '@/store';
-import { RoleEnum } from '@/enums/roleEnum';
 import { PageEnum } from '@/enums/pageEnum';
-import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '@/enums/cacheEnum';
+import { TOKEN_KEY } from '@/enums/cacheEnum';
 import { getAuthCache, setAuthCache } from '@/utils/auth';
-import { GetUserInfoModel, LoginParams } from '@/api/sys/model/userModel';
-import { doLogout, getUserInfo, loginApi } from '@/api/sys/user';
+import { LoginParams, LoginResultModel } from '@/ApiModel/system/userModel';
+import { doLogout, loginApi } from '@/api/system/user';
 import { useI18n } from '@/hooks/web/useI18n';
 import { useMessage } from '@/hooks/web/useMessage';
 import { router } from '@/router';
 import { usePermissionStore } from '@/store/modules/permission';
 import { RouteRecordRaw } from 'vue-router';
 import { PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic';
-import { isArray } from '@/utils/is';
 import { h } from 'vue';
+import { getAccountWithLogged } from '@/api/system/account';
+import { Account, Permission } from '@/ApiModel/system/accountModel';
+// import { useEnumStore } from './enum';
+import { useAppStore } from './app';
+// import { useWatermark } from '@/hooks/web/useWatermark';
 
 interface UserState {
-  userInfo: Nullable<UserInfo>;
-  token?: string;
-  roleList: RoleEnum[];
   sessionTimeout?: boolean;
   lastUpdateTime: number;
+  token?: string;
+  mobileToken?: string;
+  tokenTimer?: NodeJS.Timer;
+  name?: string; // 职员姓名
+  username?: string;
+  id?: number; // 职员id
+  avatar: string;
+  roles: Nullable<Roles>;
+  userInfo: Nullable<Account>;
+  loginErrortimes: number;
 }
+export interface Roles {
+  permissions: Array<Permission>;
+  permissionList: Array<string>;
+}
+
+// const { setWatermark, clear } = useWatermark();
 
 export const useUserStore = defineStore({
   id: 'app-user',
   state: (): UserState => ({
+    name: undefined, // 职员姓名
+    username: undefined,
+    avatar: '',
     // user info
     userInfo: null,
     // token
     token: undefined,
+    //mobileToken
+    mobileToken: undefined,
     // roleList
-    roleList: [],
+    roles: null,
     // Whether the login expired
     sessionTimeout: false,
     // Last fetch time
     lastUpdateTime: 0,
+    loginErrortimes: 0,
   }),
   getters: {
-    getUserInfo(state): UserInfo {
-      return state.userInfo || getAuthCache<UserInfo>(USER_INFO_KEY) || {};
+    getUserInfo(): { name: string; avatar: string; homePath?: string } {
+      return {
+        name: this?.name ?? this?.username ?? '',
+        avatar: this.avatar,
+        homePath: undefined,
+      };
     },
-    getToken(state): string {
-      return state.token || getAuthCache<string>(TOKEN_KEY);
+    getToken(): string {
+      return this.token || getAuthCache<string>(TOKEN_KEY);
     },
-    getRoleList(state): RoleEnum[] {
-      return state.roleList.length > 0 ? state.roleList : getAuthCache<RoleEnum[]>(ROLES_KEY);
+    getMobileToken(): string {
+      return this.mobileToken ?? '';
     },
-    getSessionTimeout(state): boolean {
-      return !!state.sessionTimeout;
+    getRoleList(): string[] {
+      return this.roles?.permissionList ?? [];
     },
-    getLastUpdateTime(state): number {
-      return state.lastUpdateTime;
+    getPermissions(): Permission[] {
+      return this.roles?.permissions ?? [];
+    },
+    getSessionTimeout(): boolean {
+      return !!this.sessionTimeout;
+    },
+    getLastUpdateTime(): number {
+      return this.lastUpdateTime;
     },
   },
   actions: {
@@ -61,22 +92,55 @@ export const useUserStore = defineStore({
       this.token = info ? info : ''; // for null or undefined value
       setAuthCache(TOKEN_KEY, info);
     },
-    setRoleList(roleList: RoleEnum[]) {
-      this.roleList = roleList;
-      setAuthCache(ROLES_KEY, roleList);
+    setMobileToken(token: string | undefined) {
+      this.mobileToken = token;
     },
-    setUserInfo(info: UserInfo | null) {
+    setName(name: string, id: number) {
+      this.name = name;
+      this.id = id;
+    },
+    setUsername(username: string) {
+      this.username = username;
+    },
+    setUserInfo(info: Account | null) {
       this.userInfo = info;
-      this.lastUpdateTime = new Date().getTime();
-      setAuthCache(USER_INFO_KEY, info);
+    },
+    setAvatar(url: string) {
+      this.avatar = url;
+    },
+    setRoles(account: Account) {
+      const roles: Roles = { permissionList: [], permissions: [] };
+      roles.permissions = account.permission.permissions;
+      const { permissions } = account.permission;
+      const pushPermission = (code: string) => {
+        if (roles.permissionList.includes(code)) return;
+        roles.permissionList.push(code);
+      };
+      const codeJoin = (permissions?: Permission[] | null, parentCode?: string) => {
+        permissions?.forEach((per: Permission) => {
+          const code = (parentCode ? parentCode + '_' : '') + per.permissionCode;
+          pushPermission(code);
+          per.actionList?.forEach((action) => {
+            pushPermission(code + '_' + action.actionCode);
+          });
+          codeJoin(per.children, code);
+        });
+      };
+      codeJoin(permissions);
+      const isAdmin = !!account.roles?.find((role) => role.code.toLowerCase() === 'admin');
+      isAdmin && roles.permissionList.push('admin');
+      this.roles = roles;
     },
     setSessionTimeout(flag: boolean) {
       this.sessionTimeout = flag;
     },
     resetState() {
       this.userInfo = null;
+      this.name = undefined;
+      this.username = undefined;
+      this.avatar = '';
       this.token = '';
-      this.roleList = [];
+      this.roles = null;
       this.sessionTimeout = false;
     },
     /**
@@ -84,23 +148,23 @@ export const useUserStore = defineStore({
      */
     async login(
       params: LoginParams & {
-        goHome?: boolean;
         mode?: ErrorMessageMode;
       },
-    ): Promise<GetUserInfoModel | null> {
+    ): Promise<LoginResultModel> {
       try {
-        const { goHome = true, mode, ...loginParams } = params;
-        const data = await loginApi(loginParams, mode);
-        const { token } = data;
-
-        // save token
-        this.setToken(token);
-        return this.afterLoginAction(goHome);
+        const { mode, ...loginParams } = params;
+        const { code, data, msg } = await loginApi(loginParams, mode);
+        if (code === 0) {
+          this.setToken('token');
+          await this.afterLoginAction(true);
+        }
+        return { code, data, msg };
       } catch (error) {
+        console.log(error);
         return Promise.reject(error);
       }
     },
-    async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
+    async afterLoginAction(goHome?: boolean): Promise<Account | null> {
       if (!this.getToken) return null;
       // get user info
       const userInfo = await this.getUserInfoAction();
@@ -121,29 +185,32 @@ export const useUserStore = defineStore({
           permissionStore.setDynamicAddedRoute(true);
         }
 
-        goHome && (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
+        goHome && (await router.replace(PageEnum.BASE_HOME));
       }
       return userInfo;
     },
-    async getUserInfoAction(): Promise<UserInfo | null> {
+    async getUserInfoAction(): Promise<Account | null> {
       if (!this.getToken) return null;
-      const userInfo = await getUserInfo();
-      const { roles = [] } = userInfo;
-      if (isArray(roles)) {
-        const roleList = roles.map((item) => item.value) as RoleEnum[];
-        this.setRoleList(roleList);
-      } else {
-        userInfo.roles = [];
-        this.setRoleList([]);
+      const account = await getAccountWithLogged();
+
+      if (account) {
+        this.setUsername(account.username);
+        // setWatermark(account.username);
+
+        if (account.permission && account.permission.permissions) {
+          this.setRoles(account);
+          this.setUserInfo(account);
+        }
       }
-      this.setUserInfo(userInfo);
-      return userInfo;
+      // useEnumStore().getEnumOptions();
+      useAppStore().getVersion();
+      return account;
     },
     /**
      * @description: logout
      */
-    async logout(goLogin = false) {
-      if (this.getToken) {
+    async logout(goLogin = false, isPost = true) {
+      if (isPost && this.getToken) {
         try {
           await doLogout();
         } catch {
@@ -152,7 +219,10 @@ export const useUserStore = defineStore({
       }
       this.setToken(undefined);
       this.setSessionTimeout(false);
+      this.resetState();
       this.setUserInfo(null);
+      // clear();
+      // goLogin && router.push({ path: PageEnum.BASE_LOGIN });
       if (goLogin) {
         // 直接回登陆页
         router.replace(PageEnum.BASE_LOGIN);
@@ -178,7 +248,6 @@ export const useUserStore = defineStore({
         title: () => h('span', t('sys.app.logoutTip')),
         content: () => h('span', t('sys.app.logoutMessage')),
         onOk: async () => {
-          // 主动登出，不带redirect地址
           await this.logout(true);
         },
       });

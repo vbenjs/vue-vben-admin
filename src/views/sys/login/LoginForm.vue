@@ -14,7 +14,11 @@
         v-model:value="formData.account"
         :placeholder="t('sys.login.userName')"
         class="fix-auto-fill"
-      />
+      >
+        <template #prefix>
+          <Icon icon="ant-design:user-outline" :size="18" class="mr-1" />
+        </template>
+      </Input>
     </FormItem>
     <FormItem name="password" class="enter-x">
       <InputPassword
@@ -22,88 +26,59 @@
         visibilityToggle
         v-model:value="formData.password"
         :placeholder="t('sys.login.password')"
-      />
+        autocomplete="autocomplete"
+      >
+        <template #prefix>
+          <Icon icon="ant-design:lock-outline" :size="18" class="mr-1" />
+        </template>
+      </InputPassword>
     </FormItem>
-
-    <ARow class="enter-x">
-      <ACol :span="12">
-        <FormItem>
-          <!-- No logic, you need to deal with it yourself -->
-          <Checkbox v-model:checked="rememberMe" size="small">
-            {{ t('sys.login.rememberMe') }}
-          </Checkbox>
-        </FormItem>
-      </ACol>
-      <ACol :span="12">
-        <FormItem :style="{ 'text-align': 'right' }">
-          <!-- No logic, you need to deal with it yourself -->
-          <Button type="link" size="small" @click="setLoginState(LoginStateEnum.RESET_PASSWORD)">
-            {{ t('sys.login.forgetPassword') }}
-          </Button>
-        </FormItem>
-      </ACol>
-    </ARow>
+    <FormItem name="code" class="enter-x" v-if="codeData.isShowVerifyCode">
+      <div class="flex">
+        <Input
+          style="width: calc(100% - 108px); min-width: 0 !important"
+          size="large"
+          v-model:value="formData.code"
+        />
+        <img
+          @click="showVerifyCode"
+          v-if="codeData.verifyCodeUrl"
+          :src="codeData.verifyCodeUrl"
+          style="display: inline-block; height: 40.14px"
+        />
+      </div>
+    </FormItem>
 
     <FormItem class="enter-x">
       <Button type="primary" size="large" block @click="handleLogin" :loading="loading">
         {{ t('sys.login.loginButton') }}
       </Button>
-      <!-- <Button size="large" class="mt-4 enter-x" block @click="handleRegister">
-        {{ t('sys.login.registerButton') }}
-      </Button> -->
     </FormItem>
-    <ARow class="enter-x" :gutter="[16, 16]">
-      <ACol :md="8" :xs="24">
-        <Button block @click="setLoginState(LoginStateEnum.MOBILE)">
-          {{ t('sys.login.mobileSignInFormTitle') }}
-        </Button>
-      </ACol>
-      <ACol :md="8" :xs="24">
+    <!-- <ARow class="enter-x">
+      <ACol :span="24" class="!my-2 !md:my-0">
         <Button block @click="setLoginState(LoginStateEnum.QR_CODE)">
           {{ t('sys.login.qrSignInFormTitle') }}
         </Button>
       </ACol>
-      <ACol :md="8" :xs="24">
-        <Button block @click="setLoginState(LoginStateEnum.REGISTER)">
-          {{ t('sys.login.registerButton') }}
-        </Button>
-      </ACol>
-    </ARow>
-
-    <Divider class="enter-x">{{ t('sys.login.otherSignIn') }}</Divider>
-
-    <div class="flex justify-evenly enter-x" :class="`${prefixCls}-sign-in-way`">
-      <GithubFilled />
-      <WechatFilled />
-      <AlipayCircleFilled />
-      <GoogleCircleFilled />
-      <TwitterCircleFilled />
-    </div>
+    </ARow> -->
   </Form>
 </template>
 <script lang="ts" setup>
   import { reactive, ref, unref, computed } from 'vue';
 
-  import { Checkbox, Form, Input, Row, Col, Button, Divider } from 'ant-design-vue';
-  import {
-    GithubFilled,
-    WechatFilled,
-    AlipayCircleFilled,
-    GoogleCircleFilled,
-    TwitterCircleFilled,
-  } from '@ant-design/icons-vue';
+  import { Form, Input, Button, message } from 'ant-design-vue';
   import LoginFormTitle from './LoginFormTitle.vue';
-
   import { useI18n } from '@/hooks/web/useI18n';
   import { useMessage } from '@/hooks/web/useMessage';
 
   import { useUserStore } from '@/store/modules/user';
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
   import { useDesign } from '@/hooks/web/useDesign';
+  import { TOKEN_KEY } from '@/enums/cacheEnum';
+  import { getVerifyCode } from '@/api/system/user';
+  import Icon from '@/components/Icon/Icon.vue';
   //import { onKeyStroke } from '@vueuse/core';
 
-  const ACol = Col;
-  const ARow = Row;
   const FormItem = Form.Item;
   const InputPassword = Input.Password;
   const { t } = useI18n();
@@ -116,11 +91,14 @@
 
   const formRef = ref();
   const loading = ref(false);
-  const rememberMe = ref(false);
-
+  const codeData = reactive({
+    verifyCodeUrl: '',
+    isShowVerifyCode: false,
+  });
   const formData = reactive({
-    account: 'vben',
-    password: '123456',
+    account: '',
+    password: '',
+    code: '',
   });
 
   const { validForm } = useFormValid(formRef);
@@ -129,22 +107,54 @@
 
   const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
 
+  const showVerifyCode = async () => {
+    codeData.isShowVerifyCode = true;
+    const res = await getVerifyCode();
+    const blob = new Blob([res.data], { type: 'image/jpeg' });
+    const token = res.headers[TOKEN_KEY] || res.headers['x-ymk-token'];
+    useUserStore().setToken(token);
+    codeData.verifyCodeUrl = window.URL.createObjectURL(blob);
+  };
   async function handleLogin() {
     const data = await validForm();
     if (!data) return;
     try {
       loading.value = true;
-      const userInfo = await userStore.login({
+      const { code, msg } = await userStore.login({
         password: data.password,
         username: data.account,
+        code: data.code,
         mode: 'none', //不要默认的错误提示
       });
-      if (userInfo) {
-        notification.success({
-          message: t('sys.login.loginSuccessTitle'),
-          description: `${t('sys.login.loginSuccessDesc')}: ${userInfo.realName}`,
-          duration: 3,
-        });
+      switch (code) {
+        case 0:
+          const { name } = useUserStore().getUserInfo;
+          notification.success({
+            message: t('sys.login.loginSuccessTitle'),
+            description: `${t('sys.login.loginSuccessDesc')}: ${name}`,
+            duration: 3,
+          });
+          break;
+        case 9001: // 用户名密码错误
+          message.error(msg);
+          codeData.isShowVerifyCode && showVerifyCode();
+          break;
+        case 9002:
+          break;
+        case 9003: // 请输入图片验证码
+          message.error(msg);
+          showVerifyCode();
+          break;
+        case 9004: // 图片验证码错误
+          message.error(msg);
+          showVerifyCode();
+          break;
+        case 9009: // 账号/密码错误
+          message.error(msg);
+          codeData.isShowVerifyCode && showVerifyCode();
+          break;
+        default:
+          createErrorModal({ title: '错误', content: msg });
       }
     } catch (error) {
       createErrorModal({

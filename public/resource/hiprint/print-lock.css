@@ -1,0 +1,339 @@
+@media print {
+  body {
+    margin: 0px;
+    padding: 0px;
+  }
+}
+
+@page {
+  margin: 0;
+}
+
+.hiprint-printPaper * {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box; /* Firefox */
+  -webkit-box-sizing: border-box; /* Safari */
+}
+
+.hiprint-printPaper *:focus {
+  outline: -webkit-focus-ring-color auto 0px;
+}
+
+.hiprint-printPaper {
+  position: relative;
+  padding: 0 0 0 0;
+  page-break-after: always;
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -moz-user-select: none; /* Firefox */
+  user-select: none;
+  overflow-x: hidden;
+  overflow: hidden;
+}
+
+.hiprint-printPaper .hiprint-printPaper-content {
+  position: relative;
+}
+
+/* 火狐浏览器打印 第一页过后 重叠问题 */
+@-moz-document url-prefix() {
+  .hiprint-printPaper .hiprint-printPaper-content {
+    position: relative;
+    margin-top: 20px;
+    top: -20px
+  }
+}
+
+.hiprint-printPaper.design {
+  overflow: visible;
+}
+
+
+.hiprint-printTemplate .hiprint-printPanel {
+  page-break-after: always;
+}
+
+.hiprint-printPaper, hiprint-printPanel {
+  box-sizing: border-box;
+  border: 0px;
+}
+
+.hiprint-printPanel .hiprint-printPaper:last-child {
+  page-break-after: avoid;
+}
+
+.hiprint-printTemplate .hiprint-printPanel:last-child {
+  page-break-after: avoid;
+}
+
+.hiprint-printPaper .hideheaderLinetarget {
+  border-top: 0px dashed rgb(201, 190, 190) !important;
+}
+
+.hiprint-printPaper .hidefooterLinetarget {
+  border-top: 0px dashed rgb(201, 190, 190) !important;
+}
+
+.hiprint-printPaper.design {
+  border: 1px dashed rgba(170, 170, 170, 0.7);
+}
+
+.design .hiprint-printElement-table-content, .design .hiprint-printElement-longText-content {
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.design .resize-panel {
+  box-sizing: border-box;
+  border: 1px dotted;
+}
+
+.hiprint-printElement-text {
+  background-color: transparent;
+  background-repeat: repeat;
+  padding: 0 0 0 0;
+  border: 0.75pt none rgb(0, 0, 0);
+  direction: ltr;
+  font-family: 'SimSun';
+  font-size: 9pt;
+  font-style: normal;
+  font-weight: normal;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  text-align: left;
+  text-decoration: none;
+  line-height: 9.75pt;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.design .hiprint-printElement-text-content {
+  border: 1px dashed rgb(206, 188, 188);
+  box-sizing: border-box;
+}
+
+.hiprint-printElement-longText {
+  background-color: transparent;
+  background-repeat: repeat;
+  border: 0.75pt none rgb(0, 0, 0);
+  direction: ltr;
+  font-family: 'SimSun';
+  font-size: 9pt;
+  font-style: normal;
+  font-weight: normal;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  text-align: left;
+  text-decoration: none;
+  line-height: 9.75pt;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  word-break: break-all;
+  /*white-space: pre-wrap*/
+}
+
+
+.hiprint-printElement-table {
+  background-color: transparent;
+  background-repeat: repeat;
+  color: rgb(0, 0, 0);
+  border-color: rgb(0, 0, 0);
+  border-style: none;
+  direction: ltr;
+  font-family: 'SimSun';
+  font-size: 9pt;
+  font-style: normal;
+  font-weight: normal;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  text-align: left;
+  text-decoration: none;
+  padding: 0 0 0 0;
+  box-sizing: border-box;
+  line-height: 9.75pt;
+}
+
+.hiprint-printElement-table thead {
+  background: #e8e8e8;
+  font-weight: 700;
+}
+
+.hiprint-printElement-tableTarget, .hiprint-printElement-tableTarget tr, .hiprint-printElement-tableTarget td {
+  border-color: rgb(0, 0, 0);
+  /*border-style: none;*/
+  /*border: 1px solid rgb(0, 0, 0);*/
+  font-weight: normal;
+  direction: ltr;
+  padding-bottom: 0pt;
+  padding-left: 4pt;
+  padding-right: 4pt;
+  padding-top: 0pt;
+  text-decoration: none;
+  vertical-align: middle;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  word-break: break-all;
+  /*line-height: 9.75pt;
+  font-size: 9pt;*/
+}
+
+.hiprint-printElement-tableTarget-border-all {
+  border: 1px solid;
+}
+.hiprint-printElement-tableTarget-border-none {
+  border: 0px solid;
+}
+.hiprint-printElement-tableTarget-border-lr {
+  border-left: 1px solid;
+  border-right: 1px solid;
+}
+.hiprint-printElement-tableTarget-border-left {
+  border-left: 1px solid;
+}
+.hiprint-printElement-tableTarget-border-right {
+  border-right: 1px solid;
+}
+.hiprint-printElement-tableTarget-border-tb {
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+}
+.hiprint-printElement-tableTarget-border-top {
+  border-top: 1px solid;
+}
+.hiprint-printElement-tableTarget-border-bottom {
+  border-bottom: 1px solid;
+}
+
+.hiprint-printElement-tableTarget-border-td-none td {
+  border: 0px solid;
+}
+.hiprint-printElement-tableTarget-border-td-all td:not(:last-child) {
+  border-right: 1px solid;
+}
+
+/*.hiprint-printElement-tableTarget tr,*/
+.hiprint-printElement-tableTarget td {
+  height: 18pt;
+}
+
+.hiprint-printPaper .hiprint-paperNumber {
+  font-size: 9pt;
+}
+
+.design .hiprint-printElement-table-handle {
+  position: absolute;
+  height: 21pt;
+  width: 21pt;
+  background: red;
+  z-index: 1;
+}
+
+.hiprint-printPaper .hiprint-paperNumber-disabled {
+  float: right !important;
+  right: 0 !important;
+  color: gainsboro !important;
+}
+
+.hiprint-printElement-vline, .hiprint-printElement-hline {
+  border: 0px none rgb(0, 0, 0);
+
+}
+
+.hiprint-printElement-vline {
+  border-left: 0.75pt solid #000;
+  border-right: 0px none rgb(0, 0, 0) !important;
+  border-bottom: 0px none rgb(0, 0, 0) !important;
+  border-top: 0px none rgb(0, 0, 0) !important;
+}
+
+.hiprint-printElement-hline {
+  border-top: 0.75pt solid #000;
+  border-right: 0px none rgb(0, 0, 0) !important;
+  border-bottom: 0px none rgb(0, 0, 0) !important;
+  border-left: 0px none rgb(0, 0, 0) !important;
+}
+
+.hiprint-printElement-oval, .hiprint-printElement-rect {
+  border: 0.75pt solid #000;
+}
+
+.hiprint-text-content-middle {
+}
+
+.hiprint-text-content-middle > div {
+  display: grid;
+  align-items: center;
+}
+
+.hiprint-text-content-bottom {
+}
+
+.hiprint-text-content-bottom > div {
+  display: grid;
+  align-items: flex-end;
+}
+
+.hiprint-text-content-wrap {
+}
+
+.hiprint-text-content-wrap .hiprint-text-content-wrap-nowrap {
+  white-space: nowrap;
+}
+
+.hiprint-text-content-wrap .hiprint-text-content-wrap-clip {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+.hiprint-text-content-wrap .hiprint-text-content-wrap-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/*hi-grid-row */
+.hi-grid-row {
+  position: relative;
+  height: auto;
+  margin-right: 0;
+  margin-left: 0;
+  zoom: 1;
+  display: block;
+  box-sizing: border-box;
+}
+
+.hi-grid-row::after, .hi-grid-row::before {
+  display: table;
+  content: '';
+  box-sizing: border-box;
+}
+
+.hi-grid-col {
+  display: block;
+  box-sizing: border-box;
+  position: relative;
+  float: left;
+  flex: 0 0 auto;
+}
+
+.table-grid-row {
+  margin-left: -0pt;
+  margin-right: -0pt;
+}
+
+.tableGridColumnsGutterRow {
+  padding-left: 0pt;
+  padding-right: 0pt;
+}
+
+.hiprint-gridColumnsFooter {
+  text-align: left;
+  clear: both;
+}

@@ -24,11 +24,13 @@
       theme: {
         // 设置内容主题
         current: getTheme(getDarkMode.value, 'content'),
+        path: import.meta.env.VITE_PUBLIC_PATH + 'vditor/dist/css/content-theme',
       },
       hljs: {
         // 设置代码块主题
         style: getTheme(getDarkMode.value, 'code'),
       },
+      cdn: import.meta.env.VITE_PUBLIC_PATH + 'vditor',
     });
   }
   watch(

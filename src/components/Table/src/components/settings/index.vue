@@ -8,6 +8,7 @@
       :getPopupContainer="getTableContainer"
       :cache="getSetting.settingCache"
     />
+    <ExportExcel v-if="getSetting.export" :getPopupContainer="getTableContainer" />
     <FullScreenSetting v-if="getSetting.fullScreen" :getPopupContainer="getTableContainer" />
   </div>
 </template>
@@ -19,6 +20,7 @@
   import SizeSetting from './SizeSetting.vue';
   import RedoSetting from './RedoSetting.vue';
   import FullScreenSetting from './FullScreenSetting.vue';
+  import ExportExcel from './ExportExcel.vue';
   import { useTableContext } from '../../hooks/useTableContext';
 
   defineOptions({ name: 'TableSetting' });
@@ -41,6 +43,7 @@
       setting: true,
       settingCache: false,
       fullScreen: false,
+      export: false,
       ...props.setting,
     };
   });

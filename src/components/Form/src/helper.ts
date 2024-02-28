@@ -1,5 +1,5 @@
 import type { Rule as ValidationRule } from 'ant-design-vue/lib/form/interface';
-import type { ComponentType } from './types';
+import type { ComponentType } from './types/index';
 import { useI18n } from '@/hooks/web/useI18n';
 import { dateUtil } from '@/utils/dateUtil';
 import { isNumber, isObject } from '@/utils/is';
@@ -14,7 +14,8 @@ export function createPlaceholderMessage(component: ComponentType) {
     return t('common.inputText');
   }
   if (component.includes('Picker')) {
-    return t('common.chooseText');
+    // return t('common.chooseText');
+    return undefined;
   }
   if (
     component.includes('Select') ||

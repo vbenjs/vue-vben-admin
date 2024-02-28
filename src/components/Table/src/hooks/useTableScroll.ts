@@ -193,7 +193,7 @@ export function useTableScroll(
     let modalElIterator: HTMLElement = tableEl.parentElement!;
     let modalIsFullscreen = false;
     while (modalElIterator !== document.body) {
-      if (modalElIterator.classList.contains('ant-modal')) {
+      if (modalElIterator?.classList?.contains('ant-modal')) {
         modalEl = modalElIterator;
         modalWrapEl = modalEl.parentElement;
         modalFooterEl = modalElIterator.querySelector('.ant-modal-content>.ant-modal-footer');

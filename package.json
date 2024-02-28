@@ -1,21 +1,6 @@
 {
-  "name": "vben-admin",
-  "version": "2.10.1",
-  "homepage": "https://github.com/vbenjs/vue-vben-admin",
-  "bugs": {
-    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vbenjs/vue-vben-admin.git"
-  },
-  "license": "MIT",
-  "author": {
-    "name": "vben",
-    "email": "anncwb@126.com",
-    "url": "https://github.com/anncwb"
-  },
-  "type": "module",
+  "name": "hxmanager",
+  "version": "20240126002",
   "scripts": {
     "bootstrap": "pnpm install",
     "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max-old-space-size=8192 pnpm vite build",
@@ -31,7 +16,6 @@
     "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
     "lint:prettier": "prettier --write .",
     "lint:stylelint": "stylelint \"**/*.{vue,css,less,scss}\" --fix --cache --cache-location node_modules/.cache/stylelint/",
-    "prepare": "husky install",
     "preview": "npm run build && vite preview",
     "reinstall": "rimraf pnpm-lock.yaml && rimraf package.lock.json && rimraf node_modules && npm run bootstrap",
     "serve": "npm run dev",
@@ -103,6 +87,7 @@
     "vue": "^3.4.19",
     "vue-i18n": "^9.9.1",
     "vue-json-pretty": "^2.3.0",
+    "vue-plugin-hiprint": "0.0.56",
     "vue-router": "^4.2.5",
     "vue-types": "^5.1.1",
     "vuedraggable": "^4.1.0",
@@ -118,6 +103,7 @@
     "@purge-icons/generated": "^0.10.0",
     "@types/codemirror": "^5.60.15",
     "@types/crypto-js": "^4.2.2",
+    "@types/jquery": "^3.5.23",
     "@types/lodash-es": "^4.17.12",
     "@types/mockjs": "^1.0.10",
     "@types/nprogress": "^0.2.3",
@@ -135,7 +121,6 @@
     "cross-env": "^7.0.3",
     "cz-git": "^1.8.0",
     "czg": "^1.8.0",
-    "husky": "^9.0.11",
     "lint-staged": "15.2.2",
     "prettier": "^3.2.5",
     "prettier-plugin-packagejson": "^2.4.11",

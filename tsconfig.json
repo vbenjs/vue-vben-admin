@@ -4,8 +4,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "declaration": false,
-    "types": ["vite/client"],
+    "types": ["vite/client", "jquery"],
     "paths": {
+      // "/@/*": ["src/*"],
+      "/#/*": ["types/*"],
       "@/*": ["src/*"],
       "#/*": ["types/*"]
     }

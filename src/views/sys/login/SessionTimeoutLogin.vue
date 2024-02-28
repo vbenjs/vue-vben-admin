@@ -13,13 +13,12 @@
   import { usePermissionStore } from '@/store/modules/permission';
   import { useAppStore } from '@/store/modules/app';
   import { PermissionModeEnum } from '@/enums/appEnum';
-  import { type Nullable } from '@vben/types';
 
   const { prefixCls } = useDesign('st-login');
   const userStore = useUserStore();
   const permissionStore = usePermissionStore();
   const appStore = useAppStore();
-  const userId = ref<Nullable<number | string>>(0);
+  const userId = ref<number | string>();
 
   const isBackMode = () => {
     return appStore.getProjectConfig.permissionMode === PermissionModeEnum.BACK;
@@ -27,12 +26,12 @@
 
   onMounted(() => {
     // 记录当前的UserId
-    userId.value = userStore.getUserInfo?.userId;
-    console.log('Mounted', userStore.getUserInfo);
+    userId.value = userStore.username;
+    console.log('Mounted', userStore.username);
   });
 
   onBeforeUnmount(() => {
-    if (userId.value && userId.value !== userStore.getUserInfo.userId) {
+    if (userId.value && userId.value !== userStore.username) {
       // 登录的不是同一个用户，刷新整个页面以便丢弃之前用户的页面状态
       document.location.reload();
     } else if (isBackMode() && permissionStore.getLastBuildMenuTime === 0) {

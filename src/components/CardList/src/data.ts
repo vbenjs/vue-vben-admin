@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 // 每行个数
-export const grid = ref(12);
+export const grid = ref(6);
 // slider属性
 export const useSlider = (min = 6, max = 12) => {
   // 每行显示个数滑动条

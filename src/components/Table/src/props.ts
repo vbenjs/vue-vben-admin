@@ -134,7 +134,7 @@ export const basicProps = {
     type: Function as PropType<(record: TableCustomRecord<any>, index: number) => string>,
   },
   scroll: {
-    type: Object as PropType<PropType<BasicTableProps['scroll']>>,
+    type: Object as PropType<BasicTableProps['scroll']>,
   },
   beforeEditSubmit: {
     type: Function as PropType<

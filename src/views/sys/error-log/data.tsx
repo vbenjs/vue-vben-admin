@@ -1,5 +1,5 @@
 import { Tag } from 'ant-design-vue';
-import { BasicColumn } from '@/components/Table';
+import { BasicColumn } from '@/components/Table/index';
 import { ErrorTypeEnum } from '@/enums/exceptionEnum';
 import { useI18n } from '@/hooks/web/useI18n';
 
@@ -16,12 +16,12 @@ export function getColumns(): BasicColumn[] {
           text === ErrorTypeEnum.VUE
             ? 'green'
             : text === ErrorTypeEnum.RESOURCE
-              ? 'cyan'
-              : text === ErrorTypeEnum.PROMISE
-                ? 'blue'
-                : ErrorTypeEnum.AJAX
-                  ? 'red'
-                  : 'purple';
+            ? 'cyan'
+            : text === ErrorTypeEnum.PROMISE
+            ? 'blue'
+            : ErrorTypeEnum.AJAX
+            ? 'red'
+            : 'purple';
         return <Tag color={color}>{() => text}</Tag>;
       },
     },

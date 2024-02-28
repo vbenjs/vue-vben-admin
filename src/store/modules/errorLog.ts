@@ -1,4 +1,4 @@
-import type { ErrorLogInfo } from '#/store';
+import type { ErrorLogInfo } from '/#/store';
 
 import { defineStore } from 'pinia';
 import { store } from '@/store';

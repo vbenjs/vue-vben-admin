@@ -139,6 +139,8 @@ export interface FetchSetting {
   listField: string;
   // 请求结果总数字段  支持 a.b.c
   totalField: string;
+  columnKey: string;
+  order: string;
 }
 
 export interface TableSetting {
@@ -147,6 +149,24 @@ export interface TableSetting {
   setting?: boolean;
   settingCache?: boolean;
   fullScreen?: boolean;
+  export?: boolean;
+}
+
+export type ExportConfigFormatter = (data: {
+  text?: string;
+  record?: Recordable;
+}) => string | number | undefined;
+
+export interface ExportConfig {
+  [index: string]: {
+    formatter?: ExportConfigFormatter;
+    ifShow?: false;
+  };
+}
+
+export interface DefaultSortInfo {
+  columnKey?: string;
+  order?: 'descend' | 'ascend';
 }
 
 export interface BasicTableProps<T = any> {
@@ -163,6 +183,8 @@ export interface BasicTableProps<T = any> {
   // 显示表格设置
   showTableSetting?: boolean;
   tableSetting?: TableSetting;
+  // 导出配置
+  exportConfig?: ExportConfig;
   // 斑马纹
   striped?: boolean;
   // 是否自动生成key
@@ -192,7 +214,7 @@ export interface BasicTableProps<T = any> {
   // 额外的请求参数
   searchInfo?: Recordable;
   // 默认的排序参数
-  defSort?: Recordable;
+  defSort?: DefaultSortInfo;
   // 使用搜索表单
   useSearchForm?: boolean;
   // 表单配置
@@ -433,8 +455,8 @@ export type CellFormat =
   | Map<string | number, any>;
 
 // @ts-ignore
-export interface BasicColumn extends ColumnProps<Recordable> {
-  children?: BasicColumn[];
+export interface BasicColumn<T = any> extends ColumnProps<T> {
+  children?: BasicColumn<T>[];
   filters?: {
     text: string;
     value: string;

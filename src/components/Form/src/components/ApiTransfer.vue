@@ -59,7 +59,7 @@
         prev.push({
           ...omit(next, [labelField, valueField]),
           title: next[labelField],
-          key: next[valueField],
+          key: `${next[valueField]}`,
         });
       }
       return prev;
@@ -70,19 +70,17 @@
           return unref(_targetKeys);
         } */
     if (Array.isArray(props.value)) {
-      return props.value;
+      return props.value.map((item) => `${item}`);
     }
     if (Array.isArray(props.targetKeys)) {
-      return props.targetKeys;
+      return props.targetKeys.map((item) => `${item}`);
     }
     return [];
   });
 
   function handleChange(keys: string[], direction: TransferDirection, moveKeys: string[]) {
     _targetKeys.value = keys;
-    console.log(direction);
-    console.log(moveKeys);
-    emit('change', keys);
+    emit('change', keys, direction, moveKeys);
   }
 
   watchEffect(() => {

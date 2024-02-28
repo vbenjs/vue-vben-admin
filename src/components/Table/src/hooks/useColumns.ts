@@ -146,9 +146,18 @@ export function useColumns(
 
   const getViewColumns = computed(() => {
     const viewColumns = sortFixedColumn(unref(getColumnsRef));
+    const sorted = computed(() => propsRef.value.defSort);
 
     const mapFn = (column) => {
-      const { slots, customRender, format, edit, editRow, flag } = column;
+      const { slots, customRender, format, edit, editRow, flag, sorter, key, dataIndex } = column;
+      const columnKey = dataIndex ?? key;
+      if (sorter === true && !!columnKey && unref(sorted)?.columnKey === columnKey) {
+        column.sortOrder = unref(sorted)?.order;
+      }
+
+      //默认开始列宽拖拽
+      column.resizable = column.resizable ?? true;
+      column.width = column.width ?? 200;
 
       if (!slots || !slots?.title) {
         column.customTitle = column.title;

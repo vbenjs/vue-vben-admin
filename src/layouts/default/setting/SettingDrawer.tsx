@@ -4,7 +4,7 @@ import { Divider } from 'ant-design-vue';
 import {
   TypePicker,
   ThemeColorPicker,
-  SettingFooter,
+  // SettingFooter,
   SwitchItem,
   SelectItem,
   InputNumberItem,
@@ -39,6 +39,7 @@ import {
 //   APP_PRESET_COLOR_LIST,
 // } from '@/settings/designSetting';
 import { SIDE_BAR_BG_COLOR_LIST } from '@/settings/designSetting';
+import { useAppStore } from '@/store/modules/app';
 
 const { t } = useI18n();
 
@@ -410,6 +411,7 @@ export default defineComponent({
         title={t('layout.setting.drawerTitle')}
         width={330}
         class="setting-drawer"
+        footer={<div>version:{useAppStore().version}</div>}
       >
         {unref(getShowDarkModeToggle) && <Divider>{() => t('layout.setting.darkMode')}</Divider>}
         {unref(getShowDarkModeToggle) && <AppDarkModeToggle class="mx-auto" />}
@@ -419,7 +421,7 @@ export default defineComponent({
         {renderMainTheme()}
         <Divider>{() => t('layout.setting.headerTheme')}</Divider>
         {renderHeaderTheme()} */}
-        <Divider>{() => t('layout.setting.sidebarTheme')}</Divider>
+        {/* <Divider>{() => t('layout.setting.sidebarTheme')}</Divider>
         {renderSideBarTheme()}
         <Divider>{() => t('layout.setting.interfaceFunction')}</Divider>
         {renderFeatures()}
@@ -427,8 +429,8 @@ export default defineComponent({
         {renderContent()}
         <Divider>{() => t('layout.setting.animation')}</Divider>
         {renderTransition()}
-        <Divider />
-        <SettingFooter />
+        <Divider /> */}
+        {/* <SettingFooter /> */}
       </BasicDrawer>
     );
   },

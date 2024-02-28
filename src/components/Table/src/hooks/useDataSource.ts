@@ -82,6 +82,9 @@ export function useDataSource(
       const sortInfo = sortFn(sorter);
       searchState.sortInfo = sortInfo;
       params.sortInfo = sortInfo;
+      if (!propsRef.value.defSort) propsRef.value.defSort = {};
+      propsRef.value.defSort.columnKey = sorter.columnKey ?? sorter.field;
+      propsRef.value.defSort.order = sorter.order;
     }
 
     if (filters && isFunction(filterFn)) {
@@ -243,7 +246,7 @@ export function useDataSource(
     if (!api || !isFunction(api)) return;
     try {
       setLoading(true);
-      const { pageField, sizeField, listField, totalField } = Object.assign(
+      const { pageField, sizeField, listField, totalField, columnKey, order } = Object.assign(
         {},
         FETCH_SETTING,
         fetchSetting,
@@ -261,12 +264,17 @@ export function useDataSource(
 
       const { sortInfo = {}, filterInfo } = searchState;
 
+      const defaultSortInfo = {
+        [columnKey]: defSort?.columnKey,
+        [order]: defSort?.order ? (defSort.order === 'ascend' ? 'asc' : 'desc') : undefined,
+      };
+
       let params: Recordable = merge(
         pageParams,
         useSearchForm ? getFieldsValue() : {},
         searchInfo,
         opt?.searchInfo ?? {},
-        defSort,
+        defaultSortInfo,
         sortInfo,
         filterInfo,
         opt?.sortInfo ?? {},
@@ -276,6 +284,7 @@ export function useDataSource(
         params = (await beforeFetch(params)) || params;
       }
 
+      clearSelectedRowKeys();
       const res = await api(params);
       rawDataSourceRef.value = res;
 

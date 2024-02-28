@@ -1,3 +1,5 @@
+import { Encryption, EncryptionFactory } from '../../cipher';
+import { SHOULD_ENABLE_STORAGE_ENCRYPTION } from '@/settings/encryptionSetting';
 import { isObject, isString } from '@/utils/is';
 
 const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss';
@@ -43,6 +45,40 @@ export function formatRequestDate(params: Recordable) {
     }
     if (isObject(params[key])) {
       formatRequestDate(params[key]);
+    }
+  }
+}
+
+export class ApiEncryption {
+  private encryption: Encryption;
+
+  constructor() {
+    this.encryption = EncryptionFactory.createAesEncryption();
+  }
+
+  encrypt(data: Object | string, contentType = 'application/json') {
+    if (!SHOULD_ENABLE_STORAGE_ENCRYPTION) return data;
+    if (contentType.indexOf('application/json') < 0) return data;
+    let text = '';
+    if (typeof data == 'object') {
+      text = JSON.stringify(data);
+    } else {
+      text = data;
+    }
+    return this.encryption.encrypt(text);
+  }
+
+  decrypt(data: Object | string) {
+    if (!SHOULD_ENABLE_STORAGE_ENCRYPTION) return data;
+    if (typeof data == 'object') {
+      return data;
+    }
+    if (typeof data == 'string') {
+      try {
+        return JSON.parse(data);
+      } catch (e) {
+        return JSON.parse(this.encryption.decrypt(data));
+      }
     }
   }
 }

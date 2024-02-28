@@ -3,6 +3,7 @@ import type { App } from 'vue';
 
 import { createRouter, createWebHashHistory } from 'vue-router';
 import { basicRoutes } from './routes';
+import { parseQuery, stringifyQuery } from './utils/query';
 
 // 白名单应该包含基本静态路由
 const WHITE_NAME_LIST: string[] = [];
@@ -23,6 +24,8 @@ export const router = createRouter({
   // 是否应该禁止尾部斜杠。默认为假
   strict: true,
   scrollBehavior: () => ({ left: 0, top: 0 }),
+  stringifyQuery: stringifyQuery,
+  parseQuery: parseQuery,
 });
 
 // reset router

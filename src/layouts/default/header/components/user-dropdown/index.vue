@@ -4,13 +4,15 @@
       <img :class="`${prefixCls}__header`" :src="getUserInfo.avatar" />
       <span :class="`${prefixCls}__info hidden md:block`">
         <span :class="`${prefixCls}__name`" class="truncate">
-          {{ getUserInfo.realName }}
+          {{ getUserInfo.name }}
         </span>
       </span>
     </span>
 
     <template #overlay>
       <Menu @click="handleMenuClick">
+        <MenuItem key="change" :text="'修改密码'" icon="ant-design:edit-outlined" />
+        <Menu.Divider />
         <MenuItem
           key="doc"
           :text="t('layout.header.dropdownItemDoc')"
@@ -39,28 +41,36 @@
     </template>
   </Dropdown>
   <LockAction @register="register" />
+  <ChangePassWord @register="register1" />
   <ChangeApi @register="registerApi" />
 </template>
 <script lang="ts" setup>
+  // components
   import { Dropdown, Menu } from 'ant-design-vue';
   import type { MenuInfo } from 'ant-design-vue/lib/menu/src/interface';
+
   import { computed } from 'vue';
+
   import { DOC_URL } from '@/settings/siteSetting';
+
   import { useUserStore } from '@/store/modules/user';
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
   import { useI18n } from '@/hooks/web/useI18n';
   import { useDesign } from '@/hooks/web/useDesign';
   import { useModal } from '@/components/Modal';
-  import headerImg from '@/assets/images/header.jpg';
+
+  import headerImg from '@/assets/images/header.svg';
   import { propTypes } from '@/utils/propTypes';
   import { openWindow } from '@/utils';
+
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
 
-  type MenuEvent = 'logout' | 'doc' | 'lock' | 'api';
+  type MenuEvent = 'logout' | 'doc' | 'lock' | 'change' | 'api';
 
   const MenuItem = createAsyncComponent(() => import('./DropMenuItem.vue'));
   const LockAction = createAsyncComponent(() => import('../lock/LockModal.vue'));
   const ChangeApi = createAsyncComponent(() => import('../ChangeApi/index.vue'));
+  const ChangePassWord = createAsyncComponent(() => import('../change/ChangePassWord.vue'));
 
   defineOptions({ name: 'UserDropdown' });
 
@@ -74,11 +84,12 @@
   const userStore = useUserStore();
 
   const getUserInfo = computed(() => {
-    const { realName = '', avatar, desc } = userStore.getUserInfo || {};
-    return { realName, avatar: avatar || headerImg, desc };
+    const { name = '', avatar } = userStore.getUserInfo || {};
+    return { name, avatar: avatar || headerImg };
   });
 
   const [register, { openModal }] = useModal();
+  const [register1, { openModal: openChangePasswordModal }] = useModal();
   const [registerApi, { openModal: openApiModal }] = useModal();
 
   function handleLock() {
@@ -109,6 +120,9 @@
         break;
       case 'lock':
         handleLock();
+        break;
+      case 'change':
+        openChangePasswordModal(true, {});
         break;
       case 'api':
         handleApi();

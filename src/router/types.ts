@@ -42,7 +42,7 @@ export interface Menu {
 
   orderNo?: number;
 
-  roles?: RoleEnum[];
+  roles?: RoleEnum[] | string[];
 
   meta?: Partial<RouteMeta>;
 

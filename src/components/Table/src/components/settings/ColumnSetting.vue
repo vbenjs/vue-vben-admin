@@ -341,7 +341,15 @@
 
     // 按 columnOptions 的排序 调整 table.getColumns() 的顺序和值
     for (const opt of columnOptions.value) {
-      const colIdx = columns.findIndex((o) => o.dataIndex === opt.value);
+      const colIdx = columns.findIndex((o) => {
+        const key =
+          typeof o.dataIndex === 'string'
+            ? 'dataIndex'
+            : typeof o.title === 'string'
+            ? 'title'
+            : 'key';
+        return o[key] === opt.value;
+      });
       //
       if (colIdx > -1) {
         const target = columns[colIdx];
@@ -540,15 +548,15 @@
           label:
             typeof col.title === 'string'
               ? col.title
-              : col.customTitle === 'string'
-                ? col.customTitle
-                : '',
+              : typeof col.customTitle === 'string'
+              ? col.customTitle
+              : '',
           value:
             typeof col.dataIndex === 'string'
               ? col.dataIndex
-              : col.title === 'string'
-                ? col.title
-                : '',
+              : typeof col.title === 'string'
+              ? col.title
+              : '',
           column: {
             defaultHidden: col.defaultHidden,
           },

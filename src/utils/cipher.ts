@@ -1,11 +1,16 @@
 import { decrypt as aesDecrypt, encrypt as aesEncrypt } from 'crypto-js/aes';
 import UTF8, { parse } from 'crypto-js/enc-utf8';
-import pkcs7 from 'crypto-js/pad-pkcs7';
-import CTR from 'crypto-js/mode-ctr';
+// import pkcs7 from 'crypto-js/pad-pkcs7';
+// import CTR from 'crypto-js/mode-ctr';
 import Base64 from 'crypto-js/enc-base64';
 import MD5 from 'crypto-js/md5';
 import SHA256 from 'crypto-js/sha256';
 import SHA512 from 'crypto-js/sha512';
+import ZeroPadding from 'crypto-js/pad-zeropadding';
+import CryptoJS from 'crypto-js';
+import { cacheCipher } from '../settings/encryptionSetting';
+
+const CBC = CryptoJS.mode.CBC;
 
 // Define an interface for encryption
 // 定义一个加密器的接口
@@ -35,8 +40,8 @@ class AesEncryption implements Encryption {
 
   get getOptions() {
     return {
-      mode: CTR,
-      padding: pkcs7,
+      mode: CBC,
+      padding: ZeroPadding,
       iv: this.iv,
     };
   }
@@ -135,8 +140,13 @@ class SHA512Hashing implements Hashing {
 }
 
 export class EncryptionFactory {
-  public static createAesEncryption(params: EncryptionParams): Encryption {
-    return new AesEncryption(params);
+  public static createAesEncryption(params?: EncryptionParams): Encryption {
+    return new AesEncryption(
+      params ?? {
+        key: cacheCipher.key,
+        iv: cacheCipher.iv,
+      },
+    );
   }
 
   public static createBase64Encryption(): Encryption {

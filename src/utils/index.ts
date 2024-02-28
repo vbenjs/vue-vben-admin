@@ -4,6 +4,7 @@ import type { App, Component } from 'vue';
 import { intersectionWith, isEqual, mergeWith, unionWith } from 'lodash-es';
 import { unref } from 'vue';
 import { isArray, isObject } from '@/utils/is';
+import { YN } from '@/enums/YN';
 
 export const noop = () => {};
 
@@ -82,7 +83,11 @@ export function deepMerge<T extends object | null | undefined, U extends object 
 
 export function openWindow(
   url: string,
-  opt?: { target?: TargetContext | string; noopener?: boolean; noreferrer?: boolean },
+  opt?: {
+    target?: TargetContext | string;
+    noopener?: boolean;
+    noreferrer?: boolean;
+  },
 ) {
   const { target = '__blank', noopener = true, noreferrer = true } = opt || {};
   const feature: string[] = [];
@@ -144,4 +149,16 @@ export const withInstall = <T extends CustomComponent>(component: T, alias?: str
     }
   };
   return component as WithInstall<T>;
+};
+
+export const toggleYn = (checked: YN) => {
+  if (checked === YN.N) {
+    return YN.Y;
+  } else {
+    return YN.N;
+  }
+};
+
+export const intToIp = (INT: number) => {
+  return (INT >>> 24) + '.' + ((INT >> 16) & 0xff) + '.' + ((INT >> 8) & 0xff) + '.' + (INT & 0xff);
 };
