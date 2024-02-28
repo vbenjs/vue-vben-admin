@@ -66,6 +66,7 @@
     border: true,
     pagerConfig: true,
     useSearchForm: true,
+    showOverflow: 'tooltip',
     rowConfig: {
       keyField: 'fileId',
       isCurrent: true,
@@ -76,6 +77,7 @@
     columnConfig: {
       resizable: true,
     },
+    sortConfig: { remote: true, defaultSort: { field: 'createTime', order: 'desc' } },
     searchFormConfig: {
       schemas: getSearchFormSchemas(t),
       searchWithSymbol: true,

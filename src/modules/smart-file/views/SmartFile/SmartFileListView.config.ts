@@ -1,6 +1,8 @@
 import type { SmartColumn, SmartSearchFormSchema } from '@/components/SmartTable';
 import type { FormSchema } from '@/components/Form';
 
+import { listApi } from '../SmartFileStorage/SmartFileStorageListView.api';
+
 /**
  * 表格列表
  */
@@ -158,21 +160,21 @@ export const getSearchFormSchemas = (t: Function): SmartSearchFormSchema[] => {
     {
       field: 'fileStorageId',
       label: t('system.views.file.title.fileStorageId'),
-      component: 'SmartApiSelectTable',
+      component: 'ApiSelect',
       componentProps: {
         style: {
           width: '150px',
         },
-        modelClassName: 'com.smart.file.manager.model.SmartFileStoragePO',
-        valueFieldName: 'id',
-        labelFieldName: 'storageName',
-        params: {
-          sortName: 'seq',
-          parameter: {
-            'deleteYn@<>': true,
-            'useYn@=': true,
-          },
-        },
+        api: () =>
+          listApi({
+            sortName: 'seq',
+            parameter: {
+              'deleteYn@<>': true,
+              'useYn@=': true,
+            },
+          }),
+        labelField: 'storageName',
+        valueField: 'id',
       },
       searchSymbol: '=',
     },
