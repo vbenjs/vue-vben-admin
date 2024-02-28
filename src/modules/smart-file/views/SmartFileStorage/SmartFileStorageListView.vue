@@ -54,7 +54,7 @@
     return [
       {
         label: t('common.button.edit'),
-        auth: 'smart:fileStorage:edit',
+        auth: 'smart:fileStorage:update',
         onClick: () => editByRowModal(row),
       },
       {
@@ -93,6 +93,11 @@
     height: 'auto',
     pagerConfig: true,
     useSearchForm: true,
+    stripe: true,
+    rowConfig: {
+      isHover: true,
+      isCurrent: true,
+    },
     searchFormConfig: {
       schemas: getSearchFormSchemas(t),
       searchWithSymbol: true,
@@ -118,6 +123,10 @@
     },
     sortConfig: {
       remote: true,
+      defaultSort: {
+        field: 'seq',
+        order: 'asc',
+      },
     },
     columnConfig: {
       resizable: true,

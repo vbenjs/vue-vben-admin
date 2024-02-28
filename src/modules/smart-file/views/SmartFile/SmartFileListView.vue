@@ -66,10 +66,12 @@
     border: true,
     pagerConfig: true,
     useSearchForm: true,
+    stripe: true,
     showOverflow: 'tooltip',
     rowConfig: {
       keyField: 'fileId',
       isCurrent: true,
+      isHover: true,
     },
     customConfig: {
       storage: true,

@@ -97,18 +97,18 @@ export const getFormSchemas = (t: Function): FormSchema[] => {
     {
       field: 'fileStorageId',
       label: t('system.views.file.title.fileStorageId'),
-      component: 'SmartApiSelectTable',
+      component: 'ApiSelect',
       componentProps: {
-        modelClassName: 'com.smart.file.manager.model.SmartFileStoragePO',
-        valueFieldName: 'id',
-        labelFieldName: 'storageName',
-        params: {
-          sortName: 'seq',
-          parameter: {
-            'deleteYn@<>': true,
-            'useYn@=': true,
-          },
-        },
+        api: () =>
+          listApi({
+            sortName: 'seq',
+            parameter: {
+              'deleteYn@<>': true,
+              'useYn@=': true,
+            },
+          }),
+        labelField: 'storageName',
+        valueField: 'id',
       },
       required: true,
     },
