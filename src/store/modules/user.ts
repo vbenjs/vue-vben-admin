@@ -157,8 +157,11 @@ export const useUserStore = defineStore({
         }
       }
       this.setToken(undefined);
+      this.setRoleList([]);
       this.setSessionTimeout(false);
       this.setUserInfo(null);
+      const permissionStore = usePermissionStore();
+      permissionStore.setPermCodeList([]);
       if (goLogin) {
         // 直接回登陆页
         router.replace(PageEnum.BASE_LOGIN);
