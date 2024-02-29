@@ -16,7 +16,7 @@
     <StoreDrawer @register="registerDrawer" @success="handleSuccess" />
   </div>
 </template>
-<script lang="tsx" setup name="StoreIndex">
+<script lang="tsx" setup>
   import { getFormConfig, getColumns } from './data';
   import { StoreResult } from '@/api/model/storeModel';
   import { deleteStore, getStore, getStoreById } from '@/api/store';
@@ -26,6 +26,8 @@
   import { openWindow } from '@/utils';
   import { HashingFactory } from '@/utils/cipher';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
+
+  defineOptions({ name: 'Store' });
 
   const StoreDrawer = createAsyncComponent(() => import('./Drawer/StoreDrawer.vue'));
 

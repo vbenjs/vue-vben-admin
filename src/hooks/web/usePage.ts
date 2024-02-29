@@ -10,7 +10,7 @@ import { openWindow } from '@/utils';
 
 import { useMultipleTabStore } from '@/store/modules/multipleTab';
 
-export type PathAsPageEnum<T> = T extends { path: string } ? T & { path: PageEnum } : T;
+export type PathAsPageEnum<T> = T extends { path: string } ? T & { path: PageEnum | string } : T;
 export type RouteLocationRawEx = PathAsPageEnum<RouteLocationRaw>;
 
 function handleError(e: Error) {
