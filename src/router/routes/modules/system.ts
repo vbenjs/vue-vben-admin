@@ -44,26 +44,6 @@ const system: AppRouteModule = {
         roles: ['accountManager'],
       },
     },
-    {
-      path: 'meslog',
-      name: 'MesLog',
-      component: () => import('@/views/system/log/MesLog.vue'),
-      meta: {
-        title: 'Mes日志',
-        icon: 'ant-design:file-search-outlined',
-        roles: ['MesLog'],
-      },
-    },
-    {
-      path: 'sync',
-      name: 'Sync',
-      component: () => import('@/views/system/sync/Sync.vue'),
-      meta: {
-        title: '数据同步',
-        icon: 'ant-design:sync-outlined',
-        roles: ['sync'],
-      },
-    },
   ],
 };
 

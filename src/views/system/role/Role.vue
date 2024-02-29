@@ -43,13 +43,15 @@
     <RoleDrawer @register="registerDrawer" @success="reload" />
   </div>
 </template>
-<script lang="tsx" setup name="Role">
+<script lang="tsx" setup>
   import { onMounted } from 'vue';
   import { BasicTable, TableAction, useTable } from '@/components/Table';
   import { getFormConfig, getRoleColumns } from './data';
   import { useDrawer } from '@/components/Drawer';
   import { deleteRole, getRole, getRoleById } from '@/api/system/roles';
   import RoleDrawer from './RoleDrawer.vue';
+
+  defineOptions({ name: 'Role' });
 
   const [registerDrawer, { openDrawer }] = useDrawer();
   const [registerTable, { reload, setColumns, getDataSource, setTableData }] = useTable({

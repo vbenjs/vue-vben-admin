@@ -61,7 +61,7 @@
     <ActionManagerDrawer @register="register" />
   </div>
 </template>
-<script lang="tsx" setup name="Authority">
+<script lang="tsx" setup>
   import { BasicTable, TableAction, useTable } from '@/components/Table';
   import { useDrawer } from '@/components/Drawer';
   import { useMessage } from '@/hooks/web/useMessage';
@@ -73,6 +73,8 @@
   } from '@/api/system/permission';
   import { ApiButton } from '@/components/Button';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
+
+  defineOptions({ name: 'Authority' });
 
   const EditWithJson = createAsyncComponent(() => import('./drawer/EditWithJson.vue'));
   const AuthDrawer = createAsyncComponent(() => import('./drawer/AuthDrawer.vue'));
