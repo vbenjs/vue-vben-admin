@@ -6,7 +6,7 @@
     <OriginData @register="registerOriginDataDrawer" />
   </div>
 </template>
-<script lang="tsx" setup name="Sensor">
+<script lang="tsx" setup>
   import { getFormConfig, getColumns } from './data';
   import { SensorResult } from '@/api/model/sensorModel';
   import { deleteSensor, getSensor, updateSensorMark } from '@/api/sensor';
@@ -16,6 +16,8 @@
   import { HashingFactory } from '@/utils/cipher';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
   import { useFormat } from '@/utils/format';
+
+  defineOptions({ name: 'SensorManager' });
 
   const ShowJson = createAsyncComponent(() => import('@/views/Drawers/ShowJson.vue'));
   const OriginData = createAsyncComponent(() => import('@/views/Drawers/OriginData.vue'));

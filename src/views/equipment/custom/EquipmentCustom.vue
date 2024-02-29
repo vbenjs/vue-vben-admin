@@ -25,7 +25,7 @@
     <AttributeDrawer @register="registerAttributeDrawer" />
   </div>
 </template>
-<script lang="tsx" setup name="EquipmentCustom">
+<script lang="tsx" setup>
   import { getFormConfig, getColumns } from './data';
   import { deleteEquipment, getEquipment, getEquipmentById } from '@/api/equipment';
   import { EquipmentResult } from '@/api/model/equipmentModel';
@@ -36,6 +36,8 @@
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
   import { useFormat } from '@/utils/format';
   import { createEquipmentStatistics } from '@/views/Modals/statistics/index';
+
+  defineOptions({ name: 'EquipmentCustom' });
 
   const EquipmentDrawer = createAsyncComponent(() => import('./Drawer/EquipmentDrawer.vue'));
   const AttributeDrawer = createAsyncComponent(() => import('./Drawer/AttributeDrawer.vue'));

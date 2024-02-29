@@ -17,7 +17,7 @@
     <SelectSensor @register="registerSelectDrawer" @success="handleSelect" />
   </div>
 </template>
-<script lang="tsx" setup name="EquipmentSensor">
+<script lang="tsx" setup>
   import { useRoute } from 'vue-router';
   import { getFormConfig, getColumns, permissionCode } from './data';
   import { getSensor, updateSensorMark } from '@/api/sensor';
@@ -34,6 +34,8 @@
   import { YN } from '@/enums/YN';
   import { useMessage } from '@/hooks/web/useMessage';
   import { ref } from 'vue';
+
+  defineOptions({ name: 'EquipmentSensor' });
 
   const OriginData = createAsyncComponent(() => import('@/views/Drawers/OriginData.vue'));
   const SelectSensor = createAsyncComponent(() => import('@/views/Drawers/SelectSensor.vue'));

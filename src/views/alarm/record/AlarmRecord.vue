@@ -5,7 +5,7 @@
     <NotificationRecord @register="registerNotificationDrawer" />
   </div>
 </template>
-<script lang="tsx" setup name="AlarmRecord">
+<script lang="tsx" setup>
   import { createEquipmentStatistics } from '@/views/Modals/statistics';
   import { getFormConfig, getColumns, getItemApi } from './data';
   import { RemindRecordResult } from '@/api/remind/model/recordModel';
@@ -13,6 +13,8 @@
   import { BasicTable, TableAction, useTable } from '@/components/Table';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
   import { useDrawer } from '@/components/Drawer';
+
+  defineOptions({ name: 'AlarmRecord' });
 
   const RemindRecordDrawer = createAsyncComponent(
     () => import('@/views/Drawers/RemindRecordDrawer.vue'),

@@ -2,16 +2,16 @@ import type { AppRouteModule } from '@/router/types';
 
 import { LAYOUT } from '@/router/constant';
 
-const equipment: AppRouteModule = {
-  path: '/equipment',
-  name: 'Equipment',
+const monitor: AppRouteModule = {
+  path: '/monitor',
+  name: 'Monitor',
   component: LAYOUT,
-  redirect: '/equipment/index',
+  redirect: '/monitor/index',
   meta: {
-    orderNo: 20,
-    title: '设备管理',
-    icon: 'tabler:device-desktop',
-    roles: ['Equipment'],
+    orderNo: 50,
+    title: '监测管理',
+    icon: '',
+    roles: ['Monitor'],
   },
   children: [
     {
@@ -56,7 +56,40 @@ const equipment: AppRouteModule = {
         currentActiveMenu: '/equipment/custom',
       },
     },
+    {
+      path: 'setting',
+      name: 'AlarmSetting',
+      component: () => import('@/views/alarm/setting/AlarmSetting.vue'),
+      meta: {
+        title: '告警配置',
+        icon: 'icon-park-outline:alarm',
+        roles: ['AlarmSetting'],
+      },
+    },
+    {
+      path: 'record',
+      name: 'AlarmRecord',
+      component: () => import('@/views/alarm/record/AlarmRecord.vue'),
+      meta: {
+        title: '告警记录',
+        icon: 'icon-park-outline:log',
+        roles: ['AlarmRecord'],
+      },
+    },
+    {
+      path: 'equipment/:id',
+      name: 'AlarmEquipment',
+      component: () => import('@/views/alarm/equipment/AlarmEquipment.vue'),
+      meta: {
+        title: '告警设备',
+        icon: 'icon-park-outline:log',
+        roles: ['CustomAlarm', 'SensorAlarm', 'GatewayAlarm'],
+        hideMenu: true,
+        hideBreadcrumb: true,
+        currentActiveMenu: '/alarm/setting',
+      },
+    },
   ],
 };
 
-export default equipment;
+export default monitor;

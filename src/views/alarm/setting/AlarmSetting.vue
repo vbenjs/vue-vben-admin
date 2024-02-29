@@ -16,7 +16,7 @@
     <RemindConfigDrawer @register="registerDrawer" @success="handleSuccess" />
   </div>
 </template>
-<script lang="tsx" setup name="AlarmSetting">
+<script lang="tsx" setup>
   import { getFormConfig, getColumns } from './data';
   import { deleteRemindConfig, getRemindConfig } from '@/api/remind/config';
   import { RemindConfigResult } from '@/api/remind/model/config';
@@ -27,6 +27,8 @@
   import { HashingFactory } from '@/utils/cipher';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
   import { useFormat } from '@/utils/format';
+
+  defineOptions({ name: 'AlarmSetting' });
 
   const RemindConfigDrawer = createAsyncComponent(() => import('./Drawer/RemindConfigDrawer.vue'));
   const go = useGo();

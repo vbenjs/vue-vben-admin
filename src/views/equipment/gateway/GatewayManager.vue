@@ -20,7 +20,7 @@
     <ShowJson @register="registerJsonDrawer" title="其他数据" />
   </div>
 </template>
-<script lang="tsx" setup name="Gateway">
+<script lang="tsx" setup>
   import { getFormConfig, getColumns } from './data';
   import { deleteGateway, getGateway, getGatewayById } from '@/api/gateway';
   import { GatewayResult } from '@/api/model/gatewayModel';
@@ -30,6 +30,8 @@
   import { HashingFactory } from '@/utils/cipher';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
   import { useFormat } from '@/utils/format';
+
+  defineOptions({ name: 'GatewayManager' });
 
   const GatewayDrawer = createAsyncComponent(() => import('./Drawer/GatewayDrawer.vue'));
   const OriginData = createAsyncComponent(() => import('./Drawer/OriginData.vue'));
