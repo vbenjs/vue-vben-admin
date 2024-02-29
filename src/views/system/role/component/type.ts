@@ -1,4 +1,4 @@
-import { PermissionTree } from '@/ApiModel/system/permissionModel';
+import { PermissionTree } from '@/api/system/model/permissionModel';
 
 export interface TreeData extends Omit<PermissionTree, 'children'> {
   hide?: boolean;

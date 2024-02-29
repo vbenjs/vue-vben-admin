@@ -1,5 +1,5 @@
 import { useI18n } from '@/hooks/web/useI18n';
-import { Account } from '@/ApiModel/system/accountModel';
+import { Account } from '@/api/system/model/accountModel';
 import { getRole } from '@/api/system/roles';
 import { FormSchema } from '@/components/Form';
 import { YN } from '@/enums/YN';
@@ -35,7 +35,6 @@ export const getFormSchema: (actionKey?: ActionKey, account?: Account) => FormSc
       component: 'InputPassword',
       componentProps: {
         placeholder: t('system.account.rules.password'),
-        autocomplete: 'autocomplete',
       },
       rules: [
         {
@@ -54,7 +53,6 @@ export const getFormSchema: (actionKey?: ActionKey, account?: Account) => FormSc
       component: 'InputPassword',
       componentProps: {
         placeholder: t('system.account.rules.confirm_password3'),
-        autocomplete: 'autocomplete',
       },
       dynamicRules: ({ values }) => {
         return [
@@ -128,18 +126,18 @@ export const getFormSchema: (actionKey?: ActionKey, account?: Account) => FormSc
     //   },
     //   colProps: { span: 24 },
     // },
-    // {
-    //   field: 'platform',
-    //   label: '平台',
-    //   component: 'CheckboxGroup',
-    //   componentProps: {
-    //     options: [
-    //       { value: 'admin', label: '管理平台' },
-    //       { value: 'wx', label: '微信小程序' },
-    //     ],
-    //   },
-    //   colProps: { span: 24 },
-    // },
+    {
+      field: 'platform',
+      label: '平台',
+      component: 'CheckboxGroup',
+      componentProps: {
+        options: [
+          { value: 'admin', label: '管理平台' },
+          { value: 'wx', label: '微信小程序' },
+        ],
+      },
+      colProps: { span: 24 },
+    },
     {
       field: 'enabled',
       label: t('common.enableText'),
@@ -183,7 +181,7 @@ export const getFormSchema: (actionKey?: ActionKey, account?: Account) => FormSc
       label: t('common.noteText'),
       component: 'InputTextArea',
       componentProps: {
-        autoSize: { minRows: 4 },
+        rows: 3,
       },
       colProps: { span: 24 },
     },

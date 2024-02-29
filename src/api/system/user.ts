@@ -4,7 +4,7 @@ import {
   LoginRecordResult,
   LoginResultModel,
   QueryLoginRecordForm,
-} from '../../ApiModel/system/userModel';
+} from './model/userModel';
 
 import { ErrorMessageMode } from '/#/axios';
 import { ContentTypeEnum } from '@/enums/httpEnum';

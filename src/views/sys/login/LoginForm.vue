@@ -26,7 +26,6 @@
         visibilityToggle
         v-model:value="formData.password"
         :placeholder="t('sys.login.password')"
-        autocomplete="autocomplete"
       >
         <template #prefix>
           <Icon icon="ant-design:lock-outline" :size="18" class="mr-1" />

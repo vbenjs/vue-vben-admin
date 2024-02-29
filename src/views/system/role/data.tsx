@@ -5,7 +5,6 @@ import { FormProps, FormSchema } from '@/components/Table';
 import { BasicColumn } from '@/components/Table/src/types/table';
 import { formatToDateTime } from '@/utils/dateUtil';
 import { dragSort } from '@/utils/dragSort';
-import { YNTag } from '@/components/Tag';
 
 const saveSort = debounce(function (array: Array<any>) {
   const sortData = array.map((item) => {
@@ -30,7 +29,6 @@ export function getRoleColumns(getDataSource: Function, setTableData: Function):
       title: '系统默认',
       dataIndex: 'sysDefault',
       width: 100,
-      customRender: ({ text }) => <YNTag text={text} />,
     },
     { title: '备注', dataIndex: 'note' },
     {
@@ -54,7 +52,6 @@ export function getFormConfig(): Partial<FormProps> {
   return {
     labelWidth: 100,
     autoSubmitOnEnter: true,
-    submitOnChange: true,
     schemas: [
       {
         field: `name`,
@@ -99,6 +96,7 @@ export const roleSchemas: FormSchema[] = [
   {
     field: 'permissions',
     label: '角色权限',
+    component: 'Input',
     slot: 'auth',
     colProps: { span: 24 },
   },

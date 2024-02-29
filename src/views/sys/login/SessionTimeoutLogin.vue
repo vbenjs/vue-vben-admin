@@ -1,6 +1,6 @@
 <template>
   <transition>
-    <div :class="prefixCls" v-if="true">
+    <div :class="prefixCls">
       <Login sessionTimeout />
     </div>
   </transition>

@@ -16,9 +16,9 @@
   import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
   import { BasicForm, useForm } from '@/components/Form/index';
   import { ActionKey, getFormSchema } from '../form';
+  import { PermissionTree } from '@/api/system/model/permissionModel';
   import { savePermission } from '@/api/system/permission';
   import { message } from 'ant-design-vue';
-  import { PermissionTree } from '@/ApiModel/system/permissionModel';
 
   const actionKey = ref<ActionKey>();
   const rowId = ref<number>();
@@ -68,4 +68,3 @@
     }
   }
 </script>
-@/ApiModel/system/permissionModel

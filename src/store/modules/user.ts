@@ -4,7 +4,7 @@ import { store } from '@/store';
 import { PageEnum } from '@/enums/pageEnum';
 import { TOKEN_KEY } from '@/enums/cacheEnum';
 import { getAuthCache, setAuthCache } from '@/utils/auth';
-import { LoginParams, LoginResultModel } from '@/ApiModel/system/userModel';
+import { LoginParams, LoginResultModel } from '@/api/system/model/userModel';
 import { doLogout, loginApi } from '@/api/system/user';
 import { useI18n } from '@/hooks/web/useI18n';
 import { useMessage } from '@/hooks/web/useMessage';
@@ -14,8 +14,8 @@ import { RouteRecordRaw } from 'vue-router';
 import { PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic';
 import { h } from 'vue';
 import { getAccountWithLogged } from '@/api/system/account';
-import { Account, Permission } from '@/ApiModel/system/accountModel';
-// import { useEnumStore } from './enum';
+import { Account, Permission } from '@/api/system/model/accountModel';
+import { useEnumStore } from './enum';
 import { useAppStore } from './app';
 // import { useWatermark } from '@/hooks/web/useWatermark';
 
@@ -202,7 +202,7 @@ export const useUserStore = defineStore({
           this.setUserInfo(account);
         }
       }
-      // useEnumStore().getEnumOptions();
+      useEnumStore().getEnumOptions();
       useAppStore().getVersion();
       return account;
     },

@@ -17,22 +17,21 @@ export default defineApplicationConfig({
     server: {
       proxy: {
         '/basic-api': {
-          target: 'http://192.168.2.98:8091',
+          target: 'https://iot.sparkpos.cn',
           changeOrigin: true,
           ws: true,
           rewrite: (path) => path.replace(new RegExp(`^/basic-api`), ''),
           // only https
-          // secure: false
+          secure: false,
         },
         '/upload': {
-          target: 'http:127.0.0.1:8080/file/upload',
+          target: 'https://iot.sparkpos.cn/file/upload',
           changeOrigin: true,
           ws: true,
           rewrite: (path) => path.replace(new RegExp(`^/upload`), ''),
+          // only https
+          secure: false,
         },
-      },
-      warmup: {
-        clientFiles: ['./index.html', './src/{views,components}/*'],
       },
     },
   },

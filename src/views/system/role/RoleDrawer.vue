@@ -22,8 +22,8 @@
   import { roleSchemas } from './data';
   import AuthTree from './component/AuthTree.vue';
   import { createRole, updateRole } from '@/api/system/roles';
+  import { RoleResult } from '@/api/system/model/roleModel';
   import { message } from 'ant-design-vue';
-  import { RoleResult } from '@/ApiModel/system/roleModel';
 
   const actionKey = ref<'create' | 'edit'>();
   const rowId = ref<number>();
@@ -82,4 +82,3 @@
     }
   }
 </script>
-@/ApiModel/system/roleModel

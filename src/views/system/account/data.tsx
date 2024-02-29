@@ -6,8 +6,8 @@ import { YNTag } from '@/components/Tag';
 import { formatToDateTime } from '@/utils/dateUtil';
 import { YN } from '@/enums/YN';
 import { intToIp } from '@/utils';
-import { modifyStatus } from '@/api/system/account';
 import { StatusSwitch } from '@/components/Business';
+import { modifyStatus } from '@/api/system/account';
 
 const { t } = useI18n();
 
@@ -99,7 +99,6 @@ export function getFormConfig(): Partial<FormProps> {
   return {
     labelWidth: 120,
     autoSubmitOnEnter: true,
-    submitOnChange: true,
     schemas: [
       {
         field: `username`,

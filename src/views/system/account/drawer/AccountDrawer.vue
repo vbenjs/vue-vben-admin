@@ -16,11 +16,11 @@
   import { useI18n } from '@/hooks/web/useI18n';
   import { ActionKey, getFormSchema } from '../form';
   import { createAccount, updateAccount } from '@/api/system/account';
+  import { Account } from '@/api/system/model/accountModel';
   import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
   import { useMessage } from '@/hooks/web/useMessage';
   import { BasicForm, useForm } from '@/components/Form';
-  import { Account } from '@/ApiModel/system/accountModel';
-  // import { YN } from '@/enums/YN';
+  import { YN } from '@/enums/YN';
 
   const { t } = useI18n();
 
@@ -47,13 +47,13 @@
       const account = toRaw(data.record) as Account;
       rowId.value = account.id;
       account.roleIds = account.roles?.map((item) => item.id);
-      // const platform: string[] = [];
-      // if (account.platformAdmin === YN.Y) platform.push('admin');
-      // if (account.platformWx === YN.Y) platform.push('wx');
+      const platform: string[] = [];
+      if (account.platformAdmin === YN.Y) platform.push('admin');
+      if (account.platformWx === YN.Y) platform.push('wx');
       // account.staffId = account.staff?.id;
       setFieldsValue({
         ...account,
-        // platform,
+        platform,
       });
     }
   });
@@ -68,9 +68,9 @@
     try {
       const values = await validate();
       delete values.confirm_password;
-      // values.platformAdmin = values.platform.includes('admin') ? YN.Y : YN.N;
-      // values.platformWx = values.platform.includes('wx') ? YN.Y : YN.N;
-      // delete values.platform;
+      values.platformAdmin = values.platform.includes('admin') ? YN.Y : YN.N;
+      values.platformWx = values.platform.includes('wx') ? YN.Y : YN.N;
+      delete values.platform;
 
       setDrawerProps({ confirmLoading: true });
       const action = unref(actionKey);
@@ -88,4 +88,3 @@
     }
   }
 </script>
-@/ApiModel/system/accountModel

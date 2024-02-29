@@ -1,4 +1,4 @@
-import { RoleResult } from '../../ApiModel/system/roleModel';
+import { RoleResult } from './model/roleModel';
 import { defHttp } from '@/utils/http/axios';
 
 enum Api {
@@ -8,8 +8,6 @@ enum Api {
   deleteRole = '/admin/sysRole/delete',
   updateRole = '/admin/sysRole/update',
   sort = '/admin/sysRole/sort',
-
-  allPlatform = '/admin/sysRole/allPlatform',
 }
 
 export function getRole(data = {}, isTable = false) {
@@ -54,11 +52,5 @@ export function sortRole(sortData: { id: number; sortNum: number }[]) {
   return defHttp.post<null>({
     url: Api.sort,
     data: { sortData },
-  });
-}
-
-export function getAllPlatform() {
-  return defHttp.post({
-    url: Api.allPlatform,
   });
 }

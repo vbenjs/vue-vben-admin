@@ -1,6 +1,6 @@
 {
-  "name": "hxmanager",
-  "version": "20240126002",
+  "name": "powermanager",
+  "version": "20240219001",
   "scripts": {
     "bootstrap": "pnpm install",
     "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max-old-space-size=8192 pnpm vite build",
@@ -87,7 +87,6 @@
     "vue": "^3.4.19",
     "vue-i18n": "^9.9.1",
     "vue-json-pretty": "^2.3.0",
-    "vue-plugin-hiprint": "0.0.56",
     "vue-router": "^4.2.5",
     "vue-types": "^5.1.1",
     "vuedraggable": "^4.1.0",
@@ -103,7 +102,6 @@
     "@purge-icons/generated": "^0.10.0",
     "@types/codemirror": "^5.60.15",
     "@types/crypto-js": "^4.2.2",
-    "@types/jquery": "^3.5.23",
     "@types/lodash-es": "^4.17.12",
     "@types/mockjs": "^1.0.10",
     "@types/nprogress": "^0.2.3",

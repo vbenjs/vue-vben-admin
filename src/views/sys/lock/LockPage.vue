@@ -28,9 +28,9 @@
       <div :class="`${prefixCls}-entry`" v-show="!showDate">
         <div :class="`${prefixCls}-entry-content`">
           <div :class="`${prefixCls}-entry__header enter-x`">
-            <img :src="userInfo.avatar || headerImg" :class="`${prefixCls}-entry__header-img`" />
+            <img :src="userinfo.avatar || headerImg" :class="`${prefixCls}-entry__header-img`" />
             <p :class="`${prefixCls}-entry__header-name`">
-              {{ userInfo.name }}
+              {{ userinfo.realName }}
             </p>
           </div>
           <InputPassword
@@ -102,7 +102,7 @@
 
   const { t } = useI18n();
 
-  const userInfo = computed(() => {
+  const userinfo = computed(() => {
     return userStore.getUserInfo || {};
   });
 
@@ -124,7 +124,6 @@
   }
 
   function goLogin() {
-    // 主动登出，不带redirect地址
     userStore.logout(true);
     lockStore.resetLockInfo();
   }
@@ -134,7 +133,6 @@
   }
 </script>
 <style lang="less" scoped>
-  /* stylelint-disable media-query-no-invalid */
   @prefix-cls: ~'@{namespace}-lock-page';
 
   .@{prefix-cls} {

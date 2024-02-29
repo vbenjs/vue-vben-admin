@@ -3,10 +3,10 @@
   import { Checkbox, Divider, Form } from 'ant-design-vue';
   import { getPermissionTree } from '@/api/system/permission';
   import Icon from '@/components/Icon/Icon.vue';
+  import { PermissionTree } from '@/api/system/model/permissionModel';
   import { TreeData } from './type';
   import { checkParent, formatOptions, getSelectAll, handleHide } from './functional';
   import { cloneDeep } from 'lodash-es';
-  import { PermissionTree } from '@/ApiModel/system/permissionModel';
 
   export default defineComponent({
     name: 'AuthTree',
@@ -170,4 +170,3 @@
     },
   });
 </script>
-@/ApiModel/system/permissionModel

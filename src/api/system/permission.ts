@@ -1,4 +1,4 @@
-import { PermissionTree } from '../../ApiModel/system/permissionModel';
+import { PermissionTree } from './model/permissionModel';
 import { defHttp } from '@/utils/http/axios';
 
 enum Api {

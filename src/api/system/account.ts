@@ -1,4 +1,4 @@
-import { Account, GetAccountWithLoggedModel } from '../../ApiModel/system/accountModel';
+import { Account, GetAccountWithLoggedModel } from './model/accountModel';
 import { YN } from '@/enums/YN';
 import { defHttp } from '@/utils/http/axios';
 
@@ -11,7 +11,6 @@ enum Api {
   updateAccount = '/admin/sysAccount/update',
   modifyStatus = '/admin/sysAccount/modifyStatus',
   resetPassword = '/admin/sysAccount/resetPassword',
-  unlock = '/admin/sysAccount/unlock',
 }
 
 export const getAccount = async (data = {}, isTable = false) => {
@@ -68,12 +67,5 @@ export function resetPassword(id: number, password: string) {
   return defHttp.post({
     url: Api.resetPassword,
     data: { id, password },
-  });
-}
-
-export function unlockAccount(ids: number[]) {
-  return defHttp.post({
-    url: Api.unlock,
-    data: { ids },
   });
 }

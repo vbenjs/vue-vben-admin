@@ -1,8 +1,7 @@
-import { PermissionTree } from '@/ApiModel/system/permissionModel';
+import { PermissionTree } from '@/api/system/model/permissionModel';
 import { getPermissionTree } from '@/api/system/permission';
-import { getAllPlatform } from '@/api/system/roles';
 import { FormSchema } from '@/components/Form';
-// import { platformOptions } from '@/enums/platform';
+import { platformOptions } from '@/enums/platform';
 
 export type ActionKey = 'create' | 'edit';
 
@@ -68,20 +67,17 @@ export const getFormSchema: (actionKey?: ActionKey, permissionId?: number) => Fo
     },
     {
       field: 'platform',
-      component: 'ApiSelect',
+      component: 'Select',
       label: '所属平台',
       required: ({ model }) => {
         return !model.parentId;
       },
       componentProps: ({ formModel }) => {
         return {
-          // options: platformOptions,
-          // allowClear: true,
-          api: getAllPlatform,
+          options: platformOptions,
+          allowClear: true,
           disabled: !!formModel.parentId,
-          placeholder: '请选择所属平台',
-          valueField: 'code',
-          labelField: 'name',
+          style: 'width: 100%',
         };
       },
       dynamicRules({ model }) {

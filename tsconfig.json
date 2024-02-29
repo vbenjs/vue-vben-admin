@@ -6,7 +6,6 @@
     "declaration": false,
     "types": ["vite/client", "jquery"],
     "paths": {
-      // "/@/*": ["src/*"],
       "/#/*": ["types/*"],
       "@/*": ["src/*"],
       "#/*": ["types/*"]

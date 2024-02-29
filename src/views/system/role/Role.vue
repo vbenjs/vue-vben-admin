@@ -11,7 +11,10 @@
         >
       </template>
 
-      <template #bodyCell="{ record, column }">
+      <template #bodyCell="{ text, record, column }">
+        <template v-if="column.dataIndex === 'sysDefault'">
+          <YNTag :text="text" />
+        </template>
         <template v-if="column.dataIndex === 'action'">
           <TableAction
             stopButtonPropagation
@@ -50,6 +53,7 @@
   import { useDrawer } from '@/components/Drawer';
   import { deleteRole, getRole, getRoleById } from '@/api/system/roles';
   import RoleDrawer from './RoleDrawer.vue';
+  import YNTag from '@/components/Tag/YNTag.vue';
 
   const [registerDrawer, { openDrawer }] = useDrawer();
   const [registerTable, { reload, setColumns, getDataSource, setTableData }] = useTable({
