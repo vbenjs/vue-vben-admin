@@ -10,7 +10,7 @@
       cancelText="取消"
     >
       <div class="px-4 mb-[-10px]">
-        <BasicTable @register="registerTable"> </BasicTable>
+        <BasicTable @register="registerTable" />
       </div>
     </Modal>
   </ConfigProvider>
@@ -26,7 +26,7 @@
   import 'dayjs/locale/zh-cn';
 
   dayjs.locale('zh-cn');
-  const emit = defineEmits(['register']);
+  // const emit = defineEmits(['register']);
   const open = ref<boolean>(true);
 
   const props = withDefaults(defineProps<SelectModalProps>(), {
