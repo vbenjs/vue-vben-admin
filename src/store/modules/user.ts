@@ -105,6 +105,7 @@ export const useUserStore = defineStore({
       this.setRoleList(roles);
       if (!this.getToken) return null;
       // get user info
+      userInfo.realName = userInfo.fullName;
       this.setUserInfo({
         ...userInfo,
       });
