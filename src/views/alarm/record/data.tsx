@@ -14,6 +14,8 @@ import { BasicHelp } from '@/components/Basic';
 import RemindAccount from '@/views/components/RemindAccount.vue';
 import { useEnumStore } from '@/store/modules/enum';
 import { StoreResult } from '@/api/model/storeModel';
+import { useComponentRegister } from '@/components/Form';
+import { RangePicker } from '@/components/Business';
 
 const { formatStore, formatAttribute } = useFormat();
 
@@ -22,6 +24,8 @@ const enumStore = useEnumStore();
 interface ColumnsOptions {
   isEquipment?: boolean;
 }
+
+useComponentRegister('MyRangePicker', RangePicker);
 
 export function getColumns(options?: ColumnsOptions): BasicColumn<RemindRecordResult>[] {
   const { isEquipment } = options || {};

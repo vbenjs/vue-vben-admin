@@ -6,10 +6,12 @@ import { YNTag } from '@/components/Tag';
 import { formatToDateTime } from '@/utils/dateUtil';
 import { YN } from '@/enums/YN';
 import { intToIp } from '@/utils';
-import { StatusSwitch } from '@/components/Business';
+import { RangePicker, StatusSwitch } from '@/components/Business';
 import { modifyStatus } from '@/api/system/account';
+import { useComponentRegister } from '@/components/Form';
 
 const { t } = useI18n();
+useComponentRegister('MyRangePicker', RangePicker);
 
 export function getColumn(): BasicColumn[] {
   return [

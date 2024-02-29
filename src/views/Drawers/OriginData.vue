@@ -15,7 +15,10 @@
   import { getSensorOriginData } from '@/api/sensor';
   import { ref } from 'vue';
   import { getOriginDataColumns } from './OriginDataColumns';
+  import { useComponentRegister } from '@/components/Form';
+  import { RangePicker } from '@/components/Business';
 
+  useComponentRegister('MyRangePicker', RangePicker);
   const rowId = ref<number>();
   const sensorType = ref('');
 

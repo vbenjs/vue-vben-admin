@@ -17,6 +17,10 @@
   import { getGatewayOriginData } from '@/api/gateway';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
   import { getOriginDataColumns } from './OriginDataColumns';
+  import { RangePicker } from '@/components/Business';
+  import { useComponentRegister } from '@/components/Form';
+
+  useComponentRegister('MyRangePicker', RangePicker);
 
   const DetailDrawer = createAsyncComponent(() => import('./DetailDrawer.vue'));
 
