@@ -61,7 +61,7 @@
   import Top5 from './components/Top5.vue';
   import { getAlarmReport } from '@/api/report';
   import { getMonthRange } from '@/utils/dateUtil';
-  import { RangePicker } from '@/components/RangePicker';
+  import { RangePicker } from '@/components/Business';
 
   const { formatStore } = useFormat();
   const formatter = (item: any) => formatStore(item, '()');

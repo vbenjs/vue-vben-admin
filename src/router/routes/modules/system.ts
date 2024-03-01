@@ -47,7 +47,7 @@ const system: AppRouteModule = {
     {
       path: 'settings',
       name: 'SystemSet',
-      component: () => import('@/views/system/settings/SystemSet.vue'),
+      component: () => import('@/views/system/settings/settings.vue'),
       meta: {
         title: '系统配置',
         icon: 'carbon:settings',

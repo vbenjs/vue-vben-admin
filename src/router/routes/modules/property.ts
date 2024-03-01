@@ -23,6 +23,42 @@ const property: AppRouteModule = {
         roles: ['PropertyType'],
       },
     },
+    {
+      path: 'device',
+      name: 'Device',
+      component: () => import('@/views/sys/exception/Exception.vue'),
+      meta: {
+        title: '设备资产',
+        roles: ['Device'],
+      },
+    },
+    {
+      path: 'project',
+      name: 'Project',
+      component: () => import('@/views/sys/exception/Exception.vue'),
+      meta: {
+        title: '工程资产',
+        roles: ['Project'],
+      },
+    },
+    {
+      path: 'it',
+      name: 'It',
+      component: () => import('@/views/sys/exception/Exception.vue'),
+      meta: {
+        title: 'IT资产',
+        roles: ['It'],
+      },
+    },
+    {
+      path: 'other',
+      name: 'Other',
+      component: () => import('@/views/sys/exception/Exception.vue'),
+      meta: {
+        title: '其他资产',
+        roles: ['Other'],
+      },
+    },
   ],
 };
 

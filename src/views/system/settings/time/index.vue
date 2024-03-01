@@ -16,7 +16,7 @@
     <TimeDrawer @register="registerDrawer" @success="handleSuccess" />
   </div>
 </template>
-<script lang="tsx" setup name="SensorIndex">
+<script lang="tsx" setup>
   import { defineAsyncComponent } from 'vue';
   import { getFormConfig, getColumns } from './data';
   import { SensorResult } from '@/api/model/sensorModel';
@@ -25,6 +25,8 @@
 
   import { deleteBusinessTime, getBusinessTime, getBusinessTimeById } from '@/api/businessTime';
   import { YN } from '@/enums/YN';
+
+  defineOptions({ name: 'BusinessTime' });
 
   const TimeDrawer = defineAsyncComponent(() => import('./TimeDrawer.vue'));
 
