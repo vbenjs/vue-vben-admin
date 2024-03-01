@@ -69,6 +69,7 @@ export function usePermission() {
     const permMode = appStore.getProjectConfig.permissionMode;
 
     if ([PermissionModeEnum.ROUTE_MAPPING, PermissionModeEnum.ROLE].includes(permMode)) {
+      if (userStore.getRoleList?.includes('admin')) return true;
       if (!isArray(value)) {
         return userStore.getRoleList?.includes(value as RoleEnum);
       }
@@ -98,11 +99,13 @@ export function usePermission() {
    * @param roles
    */
   async function changeRole(roles: RoleEnum | RoleEnum[]): Promise<void> {
+    console.log(roles);
     // if (projectSetting.permissionMode !== PermissionModeEnum.ROUTE_MAPPING) {
     //   throw new Error(
     //     'Please switch PermissionModeEnum to ROUTE_MAPPING mode in the configuration to operate!',
     //   );
     // }
+
     // if (!isArray(roles)) {
     //   roles = [roles];
     // }
