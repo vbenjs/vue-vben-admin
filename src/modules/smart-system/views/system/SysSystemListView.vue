@@ -63,10 +63,17 @@
   const [registerTable, { editByRowModal, deleteByRow }] = useSmartTable({
     columns: getTableColumns(),
     height: 'auto',
+    stripe: true,
     useSearchForm: true,
     columnConfig: {
       resizable: true,
     },
+    showOverflow: 'tooltip',
+    rowConfig: {
+      isHover: true,
+      isCurrent: true,
+    },
+    border: true,
     pagerConfig: true,
     addEditConfig: {
       formConfig: {

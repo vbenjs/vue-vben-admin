@@ -98,7 +98,7 @@ export const getFormSchemas = (t: Function): FormSchema[] => {
     {
       field: 'remark',
       label: t('common.table.remark'),
-      component: 'Input',
+      component: 'InputTextArea',
     },
     {
       field: 'enterprise',
