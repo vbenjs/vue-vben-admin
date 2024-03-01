@@ -20,8 +20,8 @@
 
   import { SmartTable, useSmartTable } from '@/components/SmartTable';
   import { LayoutSeparate } from '@/components/LayoutSeparate';
-  import { TemplateType as templateTypeConstants } from '@/modules/codeGenerator/constants/DatabaseConstants';
-  import TemplateGroup from '@/modules/codeGenerator/components/template/TemplateGroup.vue';
+  import { TemplateType as templateTypeConstants } from '@/modules/smart-code/constants/DatabaseConstants';
+  import TemplateGroup from '@/modules/smart-code/components/template/TemplateGroup.vue';
   import { watch } from 'vue';
 
   const props = defineProps({

@@ -3,6 +3,7 @@ import { computed, createVNode, Ref, ref, unref } from 'vue';
 import { queryDbTableApi, saveConfigApi } from './CodeDesignPage.api';
 import { message, Modal } from 'ant-design-vue';
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
+import { successMessage } from '@/utils/message/SystemNotice';
 
 /**
  * 加载数据库数据
@@ -119,6 +120,7 @@ export const useSaveConfig = (
     try {
       saveLoading.value = true;
       const configId = await saveConfigApi(saveData);
+      successMessage('保存成功');
       afterSave && afterSave(configId);
     } catch (e: any) {
       if (e.code === 400) {

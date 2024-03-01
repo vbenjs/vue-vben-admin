@@ -15,14 +15,14 @@
   </BasicModal>
 </template>
 <script setup lang="ts">
-  import type { CodeCreatedModel } from '@/modules/codeGenerator/types';
+  import type { CodeCreatedModel } from '@/modules/smart-code/types';
 
   import { BasicModal, useModalInner } from '@/components/Modal';
   import { ref } from 'vue';
   import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
   import { CodeEditor } from '@/components/CodeEditor';
   import { useDesign } from '@/hooks/web/useDesign';
-  import { extensionLanguageMap } from '@/modules/codeGenerator/constants/Constants';
+  import { extensionLanguageMap } from '@/modules/smart-code/constants/Constants';
   import { downloadByData } from '@/utils/file/download';
 
   const { prefixCls } = useDesign('smart-tool-code-codeCreateResult');

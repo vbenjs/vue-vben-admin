@@ -85,6 +85,11 @@
     customConfig: { storage: true },
     showOverflow: 'tooltip',
     border: true,
+    rowConfig: {
+      isHover: true,
+      isCurrent: true,
+    },
+    stripe: true,
     searchFormConfig: {
       searchWithSymbol: true,
       layout: 'inline',
