@@ -17,3 +17,6 @@ export * from './src/types/SmartTableAuthType';
 export * from './src/types/SmartTableToolbarConfigType';
 export * from './src/utils/TableCommon';
 export * from './src/hooks/useVxeTableSortable';
+
+export { default as zh_CN } from './src/lang/zh_CN';
+export { default as en_US } from './src/lang/en_US';

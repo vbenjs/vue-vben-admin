@@ -47,7 +47,7 @@
   import { PopConfirmButton } from '@/components/Button';
   import { Dropdown } from '@/components/Dropdown';
   import { useDesign } from '@/hooks/web/useDesign';
-  import { useTableContext } from '../hooks/userSmartTableContext';
+  import { useTableContext } from '../hooks/useSmartTableContext';
   import { isBoolean, isFunction, isString } from '@/utils/is';
   import { propTypes } from '@/utils/propTypes';
   import { ACTION_COLUMN_FLAG } from '../const';

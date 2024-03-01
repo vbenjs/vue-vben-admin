@@ -15,7 +15,7 @@ import { usePagination } from './hooks/usePagination';
 import { useTableAjax } from './hooks/useTableAjax';
 import { useTableToolbarConfig } from './hooks/useTableToolbarConfig';
 import { useTableModalAddEditConfig } from './hooks/useTableModalAddEdit';
-import { createTableContext } from './hooks/userSmartTableContext';
+import { createTableContext } from './hooks/useSmartTableContext';
 import { useTableRowDrag } from './hooks/useTableDrag';
 import { useSmartTableColumn } from './hooks/useSmartTableColumn';
 import SmartTableAddEditModal from './components/SmartTableAddEditModal';

@@ -54,7 +54,7 @@
   import { PopConfirmVxeButton } from '@/components/Button';
   import { Dropdown } from '@/components/Dropdown';
   import { useDesign } from '@/hooks/web/useDesign';
-  import { useTableContext } from '../hooks/userSmartTableContext';
+  import { useTableContext } from '../hooks/useSmartTableContext';
   import { hasPermission } from '@/utils/auth';
   import { isBoolean, isFunction, isString } from '@/utils/is';
   import { propTypes } from '@/utils/propTypes';

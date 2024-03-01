@@ -9,3 +9,8 @@ export interface SmartTableToolbarColumnConfig {
   // 是否支持列排序
   columnOrder?: boolean;
 }
+
+export interface SmartTableToolbarSizeSetting {
+  // nothing
+  buttonProps?: VxeButtonProps;
+}

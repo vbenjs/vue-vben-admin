@@ -21,12 +21,6 @@ export const getTableColumns = (): SmartColumn[] => {
       fixed: 'left',
     },
     {
-      field: 'id',
-      visible: false,
-      title: '{system.views.parameter.title.id}',
-      width: 120,
-    },
-    {
       field: 'code',
       fixed: 'left',
       title: '{system.views.parameter.title.code}',

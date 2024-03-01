@@ -55,7 +55,6 @@
     height: 'auto',
     pagerConfig: true,
     border: true,
-    highlightHoverRow: true,
     stripe: true,
     useSearchForm: true,
     columnConfig: {
@@ -63,6 +62,7 @@
     },
     rowConfig: {
       keyField: 'id',
+      isHover: true,
     },
     sortConfig: {
       remote: true,
@@ -99,8 +99,8 @@
     toolbarConfig: {
       zoom: true,
       refresh: true,
-      custom: true,
-      export: true,
+      column: { columnOrder: true },
+      sizeSetting: true,
       buttons: [
         {
           code: 'ModalAdd',

@@ -29,4 +29,8 @@ export enum SmartTableCode {
    * 列配置
    */
   column = 'column',
+  /**
+   * 尺寸配置
+   */
+  sizeSetting = 'sizeSetting',
 }

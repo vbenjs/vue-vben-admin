@@ -7,7 +7,10 @@ import type { VxeTablePropTypes } from 'vxe-table/types/table';
 import type { Options as SortableOptions } from 'sortablejs';
 import type { SmartColumn } from './SmartTableColumnType';
 import type { SmartTableAuthConfig } from './SmartTableAuthType';
-import type { SmartTableToolbarColumnConfig } from '@/components/SmartTable';
+import type {
+  SmartTableToolbarColumnConfig,
+  SmartTableToolbarSizeSetting,
+} from '@/components/SmartTable';
 
 /**
  * 表格高度
@@ -28,6 +31,8 @@ export interface SmartTableToolbarConfig extends VxeGridPropTypes.ToolbarConfig 
   // 是否显示搜索
   showSearch?: boolean | SmartTableToolbarTool;
   column?: SmartTableToolbarColumnConfig | boolean;
+  // 尺寸配置
+  sizeSetting?: boolean | SmartTableToolbarSizeSetting;
 }
 
 export interface SmartTableAjaxQueryParams extends VxeGridPropTypes.ProxyAjaxQueryParams {

@@ -9,6 +9,7 @@ import type {
 import type { SmartTableButton, SmartTableToolbarTool } from '../types/SmartTableButton';
 import type { SizeType } from 'ant-design-vue/es/config-provider';
 import type { VxeToolbarPropTypes } from 'vxe-table';
+import type { SmartTableToolbarSizeSetting } from '@/components/SmartTable';
 
 import { computed, ref, unref } from 'vue';
 import { error, warn } from '@/utils/log';
@@ -17,6 +18,7 @@ import { merge } from 'lodash-es';
 import { isArray, isBoolean, isPromise } from '@/utils/is';
 
 import SmartTableColumnConfig from '../components/SmartTableColumnConfig';
+import SmartTableSizeSetting from '../components/SmartTableSizeSetting';
 
 import {
   VxeTableToolButtonCustomRenderer,
@@ -123,8 +125,8 @@ export const useTableToolbarConfig = (
   };
 
   const getTools = (toolbarConfig: SmartTableToolbarConfig) => {
-    const { tools, showSearch, column } = toolbarConfig;
-    if (!tools && !showSearch && !column) {
+    const { tools, showSearch, column, sizeSetting } = toolbarConfig;
+    if (!tools && !showSearch && !column && !sizeSetting) {
       return undefined;
     }
     const result: SmartTableToolbarTool[] = [...(tools || [])];
@@ -165,7 +167,26 @@ export const useTableToolbarConfig = (
         component: SmartTableColumnConfig,
       });
     }
+    if (sizeSetting) {
+      result.push(getSizeSettingConfig(sizeSetting));
+    }
     return result;
+  };
+
+  const getSizeSettingConfig = (
+    sizeSetting: boolean | SmartTableToolbarSizeSetting,
+  ): SmartTableToolbarTool => {
+    return {
+      code: SmartTableCode.sizeSetting,
+      toolRender: {
+        name: VxeTableToolComponentRenderer,
+        props: {
+          // todo: 默认配置
+          config: isBoolean(sizeSetting) ? {} : sizeSetting,
+        },
+      },
+      component: SmartTableSizeSetting,
+    };
   };
 
   const getDefaultRefresh = (): VxeToolbarPropTypes.RefreshConfig => {
