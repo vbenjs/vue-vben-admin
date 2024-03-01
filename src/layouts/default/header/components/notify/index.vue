@@ -58,7 +58,7 @@
   const { prefixCls } = useDesign('header-notify');
 
   const RemindRecordDrawer = createAsyncComponent(
-    () => import('@/views/Drawers/RemindRecordDrawer.vue'),
+    () => import('@/views/common/Drawers/RemindRecordDrawer.vue'),
   );
 
   const [registerDrawer, { openDrawer }] = useDrawer();

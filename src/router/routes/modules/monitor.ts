@@ -17,7 +17,7 @@ const monitor: AppRouteModule = {
     {
       path: 'gateway',
       name: 'GatewayManager',
-      component: () => import('@/views/equipment/gateway/GatewayManager.vue'),
+      component: () => import('@/views/monitor/gateway/GatewayManager.vue'),
       meta: {
         title: '网关管理',
         icon: 'ant-design:gateway-outlined',
@@ -27,7 +27,7 @@ const monitor: AppRouteModule = {
     {
       path: 'sensor',
       name: 'SensorManager',
-      component: () => import('@/views/equipment/sensor/SensorManager.vue'),
+      component: () => import('@/views/monitor/sensor/SensorManager.vue'),
       meta: {
         title: '传感器管理',
         icon: 'ic:outline-sensors',
@@ -37,7 +37,7 @@ const monitor: AppRouteModule = {
     {
       path: 'custom',
       name: 'EquipmentCustom',
-      component: () => import('@/views/equipment/custom/EquipmentCustom.vue'),
+      component: () => import('@/views/monitor/custom/EquipmentCustom.vue'),
       meta: {
         title: '自定义设备',
         icon: 'tabler:device-desktop',
@@ -47,19 +47,19 @@ const monitor: AppRouteModule = {
     {
       path: 'custom_sensor/:id',
       name: 'EquipmentSensor',
-      component: () => import('@/views/equipment/custom/sensor/EquipmentSensor.vue'),
+      component: () => import('@/views/monitor/custom/sensor/EquipmentSensor.vue'),
       meta: {
         title: '传感器',
         roles: ['EquipmentSensor'],
         hideMenu: true,
         hideBreadcrumb: true,
-        currentActiveMenu: '/equipment/custom',
+        currentActiveMenu: '/monitor/custom',
       },
     },
     {
       path: 'setting',
       name: 'AlarmSetting',
-      component: () => import('@/views/alarm/setting/AlarmSetting.vue'),
+      component: () => import('@/views/monitor/alarm/setting/AlarmSetting.vue'),
       meta: {
         title: '告警配置',
         icon: 'icon-park-outline:alarm',
@@ -69,7 +69,7 @@ const monitor: AppRouteModule = {
     {
       path: 'record',
       name: 'AlarmRecord',
-      component: () => import('@/views/alarm/record/AlarmRecord.vue'),
+      component: () => import('@/views/monitor/alarm/record/AlarmRecord.vue'),
       meta: {
         title: '告警记录',
         icon: 'icon-park-outline:log',
@@ -79,14 +79,14 @@ const monitor: AppRouteModule = {
     {
       path: 'equipment/:id',
       name: 'AlarmEquipment',
-      component: () => import('@/views/alarm/equipment/AlarmEquipment.vue'),
+      component: () => import('@/views/monitor/alarm/equipment/AlarmEquipment.vue'),
       meta: {
         title: '告警设备',
         icon: 'icon-park-outline:log',
         roles: ['CustomAlarm', 'SensorAlarm', 'GatewayAlarm'],
         hideMenu: true,
         hideBreadcrumb: true,
-        currentActiveMenu: '/alarm/setting',
+        currentActiveMenu: '/monitor',
       },
     },
   ],

@@ -6,7 +6,7 @@ const enterprise: AppRouteModule = {
   path: '/enterprise',
   name: 'Enterprise',
   component: LAYOUT,
-  redirect: '/enterprise/index',
+  redirect: '/enterprise/list',
   meta: {
     orderNo: 10,
     title: '企业管理',
@@ -35,7 +35,7 @@ const enterprise: AppRouteModule = {
     {
       path: 'store',
       name: 'Store',
-      component: import('@/views/store/store.vue'),
+      component: import('@/views/enterprise/store/store.vue'),
       meta: {
         title: '地点管理',
         roles: ['Store'],
@@ -45,7 +45,7 @@ const enterprise: AppRouteModule = {
         {
           path: 'statistics/:id',
           name: 'StoreStatistics',
-          component: () => import('@/views/store/statistics/StoreStatistics.vue'),
+          component: () => import('@/views/enterprise/store/statistics/StoreStatistics.vue'),
           meta: {
             title: '分组统计',
             roles: ['StoreStatistics'],
@@ -54,7 +54,7 @@ const enterprise: AppRouteModule = {
         {
           path: 'turnover/:id',
           name: 'StoreTurnover',
-          component: () => import('@/views/store/turnover/StoreTurnover.vue'),
+          component: () => import('@/views/enterprise/store/turnover/StoreTurnover.vue'),
           meta: {
             title: '营业额明细',
             roles: ['StoreTurnover'],
