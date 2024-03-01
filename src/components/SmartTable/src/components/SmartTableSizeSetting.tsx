@@ -1,13 +1,19 @@
 import type { SmartTableToolbarSizeSetting } from '@/components/SmartTable';
-import type { VxeButtonProps } from 'vxe-table';
+import type { SizeType, VxeButtonProps } from 'vxe-table';
 
-import { defineComponent, h } from 'vue';
+import { defineComponent, h, onMounted } from 'vue';
 
 import { Menu, Dropdown } from 'ant-design-vue';
 import { ColumnHeightOutlined } from '@ant-design/icons-vue';
 import { t as vxeI18n } from 'vxe-table';
 
 import { useTableContext } from '../hooks/useSmartTableContext';
+
+const SMART_TABLE_SIZE_SETTING = 'SMART_TABLE_SIZE_SETTING';
+
+const getTableSize = (tableId: string) => {
+  return JSON.parse(localStorage.getItem(SMART_TABLE_SIZE_SETTING) || '{}')[tableId];
+};
 
 export default defineComponent({
   name: 'SmartTableSizeSetting',
@@ -23,7 +29,33 @@ export default defineComponent({
       tableContext.setProps({
         size: e.key,
       });
+      setTableSize(e.key);
     };
+    const setTableSize = (size: SizeType) => {
+      const tableId = tableContext.getTableInstance()?.id;
+      if (!tableId) {
+        return;
+      }
+      const allConfig = JSON.parse(localStorage.getItem(SMART_TABLE_SIZE_SETTING) || '{}') || {};
+      allConfig[tableId] = size;
+      localStorage.setItem(SMART_TABLE_SIZE_SETTING, JSON.stringify(allConfig));
+    };
+
+    onMounted(() => {
+      const tableId = tableContext.getTableInstance()?.id;
+      if (!tableId) {
+        return;
+      }
+      if (tableContext.getTableInstance()?.customConfig?.storage !== true) {
+        return;
+      }
+      const size = getTableSize(tableId);
+      if (size) {
+        tableContext.setProps({
+          size,
+        });
+      }
+    });
     return {
       handleChangeSize,
     };

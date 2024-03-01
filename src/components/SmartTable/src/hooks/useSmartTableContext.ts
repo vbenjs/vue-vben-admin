@@ -1,4 +1,8 @@
-import type { SmartTableProps, TableActionType } from '../types/SmartTableType';
+import type {
+  SmartTableInnerActionType,
+  SmartTableProps,
+  TableActionType,
+} from '../types/SmartTableType';
 import type { ComputedRef, Ref } from 'vue';
 import { inject, provide } from 'vue';
 
@@ -7,6 +11,7 @@ const key = Symbol('smart-table');
 type Instance = TableActionType & {
   wrapRef: Ref<Nullable<HTMLElement>>;
   getBindValues: ComputedRef<Recordable>;
+  tableInnerAction: SmartTableInnerActionType;
 };
 
 type RetInstance = Omit<Instance, 'getBindValues'> & {

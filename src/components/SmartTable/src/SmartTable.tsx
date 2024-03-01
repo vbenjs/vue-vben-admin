@@ -1,4 +1,9 @@
-import type { SmartTableProps, TableActionType } from './types/SmartTableType';
+import type {
+  SmartTableInnerActionType,
+  SmartTableInnerRegisterActionType,
+  SmartTableProps,
+  TableActionType,
+} from './types/SmartTableType';
 import type { VxeGridInstance } from 'vxe-table';
 
 import { computed, defineComponent, provide, Ref, ref, unref } from 'vue';
@@ -58,6 +63,12 @@ export default defineComponent({
 
     const setProps = (props: Partial<SmartTableProps>) => {
       innerPropsRef.value = { ...unref(innerPropsRef), ...props };
+    };
+
+    const tableInnerAction: SmartTableInnerRegisterActionType = {
+      registerInnerAction: (action: SmartTableInnerActionType) => {
+        Object.assign(tableInnerAction, action);
+      },
     };
 
     // -------------- 分页 ---------------------------
@@ -163,6 +174,11 @@ export default defineComponent({
      */
     const { setColumnSortConfig, computedColumnSort } = useSmartTableColumnConfig(getTableInstance);
 
+    // const { computedTableSize } = useSmartTableSizeSetting(
+    //   getTableInstance,
+    //   tableInnerAction,
+    //   props.size,
+    // );
     // ------------- toolbar配置 ----------------------
 
     const { getToolbarConfigInfo } = useTableToolbarConfig(getTableProps, t, {
@@ -230,6 +246,7 @@ export default defineComponent({
         ...unref(getTableEvents),
         ...unref(computedTableClassStyle),
         onPageChange: handlePageChange,
+        // size: unref(computedTableSize),
       };
     });
 
@@ -297,7 +314,12 @@ export default defineComponent({
       });
     });
 
-    createTableContext({ ...tableAction, wrapRef, getBindValues: getTableBindValues });
+    createTableContext({
+      ...tableAction,
+      wrapRef,
+      getBindValues: getTableBindValues,
+      tableInnerAction,
+    });
 
     emit('register', tableAction, searchFormAction, getAddEditForm);
 

@@ -51,6 +51,7 @@
   };
 
   const [registerTable, { editByRowModal, deleteByRow }] = useSmartTable({
+    id: 'smart-system-sysParameter',
     columns: getTableColumns(),
     height: 'auto',
     pagerConfig: true,
@@ -60,6 +61,7 @@
     columnConfig: {
       resizable: true,
     },
+    customConfig: { storage: true },
     rowConfig: {
       keyField: 'id',
       isHover: true,

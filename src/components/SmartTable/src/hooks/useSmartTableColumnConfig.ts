@@ -20,6 +20,7 @@ export const useSmartTableColumnConfig = (getTableInstance: () => VxeGridInstanc
         return field;
       })
       .filter((item) => item !== undefined && item !== null);
+    // TODO:使用统一缓存
     const allConfig =
       JSON.parse(localStorage.getItem(SMART_TABLE_CUSTOM_COLUMN_SORT) || '{}') || {};
     allConfig[tableId] = columns;

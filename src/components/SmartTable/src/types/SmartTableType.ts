@@ -162,3 +162,14 @@ export interface TableActionType {
   useYnByCheckbox: (useYn: boolean) => Promise<boolean | undefined>;
   useYnByRow: (row: any | any[], useYn: boolean) => Promise<boolean | undefined>;
 }
+
+/**
+ * 表格内部函数
+ */
+export interface SmartTableInnerActionType {
+  // nothing
+}
+
+export interface SmartTableInnerRegisterActionType extends SmartTableInnerActionType {
+  registerInnerAction: (action: SmartTableInnerActionType) => void;
+}
