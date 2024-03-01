@@ -5,6 +5,7 @@ import { FormProps, FormSchema } from '@/components/Table';
 import { BasicColumn } from '@/components/Table/src/types/table';
 import { formatToDateTime } from '@/utils/dateUtil';
 import { dragSort } from '@/utils/dragSort';
+import { YNTag } from '@/components/Tag';
 
 const saveSort = debounce(function (array: Array<any>) {
   const sortData = array.map((item) => {
@@ -23,12 +24,13 @@ export function getRoleColumns(getDataSource: Function, setTableData: Function):
         return dragSort(record, getDataSource(), (array) => setTableData(array), saveSort);
       },
     },
-    { title: '角色名称', dataIndex: 'name', width: '120px' },
-    { title: '角色编码', dataIndex: 'code', width: '100px' },
+    { title: '角色名称', dataIndex: 'name', width: 120 },
+    { title: '角色编码', dataIndex: 'code', width: 100 },
     {
       title: '系统默认',
       dataIndex: 'sysDefault',
       width: 100,
+      customRender: ({ text }) => <YNTag text={text} />,
     },
     { title: '备注', dataIndex: 'note' },
     {
@@ -37,14 +39,14 @@ export function getRoleColumns(getDataSource: Function, setTableData: Function):
       width: 180,
       customRender: ({ text }) => formatToDateTime(text),
     },
-    { title: '创建者', dataIndex: 'createdBy', width: '80px' },
+    { title: '创建者', dataIndex: 'createdBy', width: 80 },
     {
       title: '更新时间',
       dataIndex: 'updatedTime',
       width: 180,
       customRender: ({ text }) => formatToDateTime(text),
     },
-    { title: '更新者', dataIndex: 'updatedBy', width: '80px' },
+    { title: '更新者', dataIndex: 'updatedBy', width: 80 },
   ];
 }
 
@@ -52,6 +54,7 @@ export function getFormConfig(): Partial<FormProps> {
   return {
     labelWidth: 100,
     autoSubmitOnEnter: true,
+    submitOnChange: true,
     schemas: [
       {
         field: `name`,
@@ -96,7 +99,6 @@ export const roleSchemas: FormSchema[] = [
   {
     field: 'permissions',
     label: '角色权限',
-    component: 'Input',
     slot: 'auth',
     colProps: { span: 24 },
   },
