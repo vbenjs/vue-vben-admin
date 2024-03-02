@@ -33,7 +33,8 @@ export function checkStatus(
       if (stp === SessionTimeoutProcessingEnum.PAGE_COVERAGE) {
         userStore.setSessionTimeout(true);
       } else {
-        userStore.logout(true);
+        // 被动登出，带redirect地址
+        userStore.logout(false);
       }
       break;
     case 403:

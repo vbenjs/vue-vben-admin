@@ -2,12 +2,12 @@
   <div :class="[prefixCls, getAlign]" @click="onCellClick">
     <template v-for="(action, index) in getActions" :key="`${index}-${action.label}`">
       <Tooltip v-if="action.tooltip" v-bind="getTooltip(action.tooltip)">
-        <PopConfirmButton v-bind="action">
+        <PopConfirmButton v-bind="omit(action, 'icon')">
           <Icon :icon="action.icon" :class="{ 'mr-1': !!action.label }" v-if="action.icon" />
           <template v-if="action.label">{{ action.label }}</template>
         </PopConfirmButton>
       </Tooltip>
-      <PopConfirmButton v-else v-bind="action">
+      <PopConfirmButton v-else v-bind="omit(action, 'icon')">
         <Icon :icon="action.icon" :class="{ 'mr-1': !!action.label }" v-if="action.icon" />
         <template v-if="action.label">{{ action.label }}</template>
       </PopConfirmButton>
@@ -44,6 +44,7 @@
   import { isBoolean, isFunction, isString } from '@/utils/is';
   import { propTypes } from '@/utils/propTypes';
   import { ACTION_COLUMN_FLAG } from '../const';
+  import { omit } from 'lodash-es';
 
   defineOptions({ name: 'TableAction' });
 
