@@ -193,6 +193,7 @@ export const formSchemas = (t: Function): FormSchema[] => {
       label: t('generator.views.code.title.i18nPrefix'),
       field: 'i18nPrefix',
       component: 'Input',
+      required: true,
     },
     // ------------ 第五行 ---------------------
     {

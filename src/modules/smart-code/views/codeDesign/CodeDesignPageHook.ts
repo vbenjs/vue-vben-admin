@@ -28,7 +28,7 @@ export const useLoadDbData = (validate: Function) => {
   });
 
   const handleSyncTableData = async () => {
-    const { connectionId, tableName } = await validate();
+    const { connectionId, tableName } = await validate(['connectionId', 'tableName']);
     try {
       dbDataLoading.value = true;
       dbDataRef.value = await queryDbTableApi(connectionId, tableName);

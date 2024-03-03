@@ -124,7 +124,7 @@
         const itemData = {
           ...item,
         };
-        const tableDataItem = tableDataMap[item.javaProperty];
+        const tableDataItem = tableDataMap[item.javaProperty] || {};
         copyField.forEach((field) => {
           itemData[field] = tableDataItem[field];
         });
@@ -185,7 +185,6 @@
       const tableSortableVue = useVxeTableSortable(tableRef, '.table-drop', data);
       watch([tableData, editData], () => {
         data.value = createDataFromTableData(tableData.value, editData);
-        console.log(data.value);
       });
       onMounted(() => {
         data.value = createDataFromTableData(tableData.value, editData);

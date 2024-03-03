@@ -140,7 +140,7 @@
   /**
    * 代码配置页面
    */
-  const [registerForm, { validate, setFieldsValue }] = useForm({
+  const [registerForm, { validateFields, setFieldsValue }] = useForm({
     colon: true,
     schemas: formSchemas(t),
     showActionButtonGroup: false,
@@ -206,7 +206,7 @@
   });
 
   const { dbDataLoading, computedTableData, handleSyncTableData, isSyncRef, dbDataRef } =
-    useLoadDbData(validate);
+    useLoadDbData(validateFields);
   const editConfigData = ref<any>({});
 
   const handleRemoveRelateTable = (dataList: any[], index: number) => {
@@ -216,7 +216,7 @@
     useModal();
 
   const { handleSave, saveLoading, pageTableSettingRef, pageSearchSettingRef, pageFormSettingRef } =
-    useSaveConfig(t, isSyncRef, validate, dbDataRef, (configId) => {
+    useSaveConfig(t, isSyncRef, validateFields, dbDataRef, (configId) => {
       const { fullPath, query, path } = route;
       console.log(fullPath);
       router.push({
