@@ -65,6 +65,11 @@
     columnConfig: {
       resizable: true,
     },
+    stripe: true,
+    rowConfig: {
+      isHover: true,
+      isCurrent: true,
+    },
     showOverflow: 'tooltip',
     useSearchForm: true,
     searchFormConfig: {

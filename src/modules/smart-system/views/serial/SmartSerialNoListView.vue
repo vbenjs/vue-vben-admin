@@ -44,6 +44,12 @@
     columns: getTableColumns(),
     height: 'auto',
     border: true,
+    showOverflow: 'tooltip',
+    stripe: true,
+    rowConfig: {
+      isCurrent: true,
+      isHover: true,
+    },
     sortConfig: {
       remote: true,
     },

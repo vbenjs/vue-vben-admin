@@ -25,7 +25,7 @@
   import { useModalInner, BasicModal } from '@/components/Modal';
   import { useI18n } from '@/hooks/web/useI18n';
   import { getDetailByIdApi } from '../views/SystemMessage/SmartMessageSystemListView.api';
-  import { getMessagePriorityEnum } from '@/modules/message/SmartMessageConstants';
+  import { getMessagePriorityEnum } from '@/modules/smart-message/SmartMessageConstants';
 
   const { t } = useI18n();
 
