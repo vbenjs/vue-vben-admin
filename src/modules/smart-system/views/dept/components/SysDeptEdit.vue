@@ -8,7 +8,7 @@
   import type { FormSchema } from '@/components/Form';
   import { Spin } from 'ant-design-vue';
 
-  import { ref, watch } from 'vue';
+  import { nextTick, ref, watch } from 'vue';
   import { useForm, BasicForm } from '@/components/Form';
   import { propTypes } from '@/utils/propTypes';
   import { useI18n } from '@/hooks/web/useI18n';
@@ -28,23 +28,25 @@
 
   watch(
     () => props.deptId,
-    async (value) => {
-      if (!value) {
-        await resetFields();
-      } else {
-        try {
-          getLoading.value = true;
-          const deptData = await getByIdApi(value);
-          if (deptData.parentDept) {
-            deptData.parentName = deptData.parentDept.deptName;
-          } else {
-            deptData.parentName = '根';
+    (value) => {
+      nextTick(async () => {
+        if (!value) {
+          resetFields();
+        } else {
+          try {
+            getLoading.value = true;
+            const deptData = await getByIdApi(value);
+            if (deptData.parentDept) {
+              deptData.parentName = deptData.parentDept.deptName;
+            } else {
+              deptData.parentName = '根';
+            }
+            setFieldsValue(deptData);
+          } finally {
+            getLoading.value = false;
           }
-          await setFieldsValue(deptData);
-        } finally {
-          getLoading.value = false;
         }
-      }
+      });
     },
   );
 

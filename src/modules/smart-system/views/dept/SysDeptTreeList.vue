@@ -33,7 +33,7 @@
           {{ $t('common.button.delete') }}
         </a-button>
       </div>
-      <sys-dept-tree style="margin-top: 5px" ref="treeRef" show-search @select="handleTreeSelect" />
+      <SysDeptTree style="margin-top: 5px" ref="treeRef" show-search @select="handleTreeSelect" />
     </div>
     <div class="full-height right-tab">
       <a-tabs>
@@ -67,7 +67,7 @@
   import { useModal } from '@/components/Modal';
   import { errorMessage, successMessage } from '@/utils/message/SystemNotice';
 
-  import SysDeptTree from './components/SysDeptTree.vue';
+  import SysDeptTree from '../../components/SysDept/SysDeptTree.vue';
   import SysDeptEdit from './components/SysDeptEdit.vue';
   import SysDeptEditModal from './components/SysDeptEditModal.vue';
   import { deleteApi, saveUpdateBatchApi } from './SysDept.api';

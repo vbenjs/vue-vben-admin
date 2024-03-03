@@ -97,9 +97,17 @@
         if (async) {
           return unref(dataList);
         }
+        const convertDataList = unref(dataList).map(({ deptId, deptName, deptCode, parentId }) => {
+          return {
+            deptId,
+            deptName,
+            deptCode,
+            parentId,
+          };
+        });
         return (
           TreeUtils.convertList2Tree(
-            dataList.value,
+            convertDataList,
             (item) => item.deptId,
             (item) => item.parentId,
             0,
