@@ -90,7 +90,13 @@
             icon: 'clarity:note-edit-line',
             tooltip: '编辑',
             auth: 'EquipmentManager_edit',
-            onClick: handleEdit.bind(null, record.id),
+            onClick: async () => {
+              const account = await getEquipmentById(record.id);
+              openDrawer(true, {
+                record: account,
+                actionKey: 'edit',
+              });
+            },
           },
           {
             icon: 'ant-design:delete-outlined',
@@ -99,7 +105,10 @@
             popConfirm: {
               title: '是否确认删除？',
               placement: 'left',
-              confirm: handleDelete.bind(null, record.id),
+              confirm: async () => {
+                await deleteEquipment([record.id]);
+                reload();
+              },
             },
           },
         ]}
@@ -139,7 +148,7 @@
         onClick: () => {
           const id = encryptByMd5(record.id + 'CUSTOM');
           go({
-            path: '/alarm/equipment/' + id,
+            path: '/monitor/alarm/equipment/' + id,
             query: {
               equipmentId: record.id,
               equipmentType: 'CUSTOM',
@@ -166,18 +175,5 @@
     openDrawer(true, {
       actionKey: 'create',
     });
-  };
-
-  const handleEdit = async (id: number) => {
-    const account = await getEquipmentById(id);
-    openDrawer(true, {
-      record: account,
-      actionKey: 'edit',
-    });
-  };
-
-  const handleDelete = async (id: number) => {
-    await deleteEquipment([id]);
-    reload();
   };
 </script>

@@ -1,5 +1,5 @@
 import { message } from 'ant-design-vue';
-import { createEquipmentStatistics } from '../../Modals/statistics';
+import { createEquipmentStatistics } from '@/views/common/Modals/statistics';
 import { createStoreGroup, getStoreGroupMember, updateStoreGroup } from '@/api/group';
 import { BasicColumn, FormProps, FormSchema } from '@/components/Table';
 import { formatToDate } from '@/utils/dateUtil';

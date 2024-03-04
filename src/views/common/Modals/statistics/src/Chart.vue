@@ -1,6 +1,6 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-  <Card :bordered="false">
+  <div class="p-4">
     <template v-if="chartData">
       <div class="mb-4">
         <div v-if="isShowAvg">
@@ -39,7 +39,7 @@
         </div>
       </div>
 
-      <div ref="chartRef" class="w-230 h-85"></div>
+      <div ref="chartRef" class="h-85"></div>
     </template>
     <Empty
       class="!mt-30"
@@ -53,12 +53,12 @@
     />
 
     <div class="tips" v-if="!!getTips">提示：{{ getTips }}</div>
-  </Card>
+  </div>
 </template>
 <script lang="ts" setup>
   import { computed, ref, Ref, watch } from 'vue';
   import { useECharts } from '@/hooks/web/useECharts';
-  import { Card, Empty } from 'ant-design-vue';
+  import { Empty } from 'ant-design-vue';
   import { getEquipmentDeta } from '@/api/equipment';
   import { cloneDeep } from 'lodash-es';
   import { EquipmentAttributeResult, EquipmentData } from '@/api/model/equipmentModel';
@@ -167,7 +167,9 @@
       equipmentIds: props.equipmentIds,
     });
 
-    if (result?.length) {
+    if (!result?.length) {
+      chartData.value = undefined;
+    } else if (result.length === 1) {
       let data = cloneDeep(result[0]);
       if (value === 'total') {
         data.equipmentName = '总能耗';
@@ -195,8 +197,30 @@
         values.push(value ? Number(value) : '');
       });
     } else {
-      chartData.value = undefined;
+      let data = cloneDeep(result[0]);
+      data.totalValue = 0;
+      new Array(24).fill(0).forEach((_, index) => {
+        const valueKey = `value${index}`;
+        let value = 0;
+        result.forEach((item) => {
+          value += item[valueKey] ?? 0;
+        });
+        data[valueKey] = value;
+      });
+      result.forEach((item) => {
+        data.totalValue += item.totalValue ?? 0;
+      });
+      data.totalValue = Number(data.totalValue.toFixed(4));
+      chartData.value = data;
+
+      [...new Array(24)].forEach((_, index) => {
+        xAxisData.push(index + '');
+        const valueKey = `value${index}`;
+        const value = formatValue(attributeType.value, data[valueKey]);
+        values.push(value ? Number(value) : '');
+      });
     }
+
     const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
 
     setOptions(
@@ -206,7 +230,7 @@
         },
         grid: {
           left: '3%',
-          right: '4%',
+          right: '1%',
           bottom: '3%',
           top: '10%',
           containLabel: true,
@@ -271,7 +295,6 @@
   }
 
   .avg-value-value {
-    width: 100px;
     height: 37px;
     color: #212121;
     font-family: DINAlternate-Bold, DINAlternate;

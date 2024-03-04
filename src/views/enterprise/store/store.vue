@@ -84,7 +84,7 @@
             auth: 'StoreStatistics',
             onClick: () =>
               go({
-                path: '/store/statistics/' + encryptByMd5(record.id + 'statistics'),
+                path: '/enterprise/store/statistics/' + encryptByMd5(record.id + 'statistics'),
                 query: {
                   storeId: record.id,
                   storeNumber: record.storeNumber,
@@ -98,7 +98,7 @@
             auth: 'StoreTurnover',
             onClick: () =>
               go({
-                path: '/store/turnover/' + encryptByMd5(record.id + 'turnover'),
+                path: '/enterprise/store/turnover/' + encryptByMd5(record.id + 'turnover'),
                 query: {
                   storeId: record.id,
                   storeNumber: record.storeNumber,

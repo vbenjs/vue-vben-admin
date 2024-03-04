@@ -57,7 +57,7 @@ const monitor: AppRouteModule = {
       },
     },
     {
-      path: 'setting',
+      path: 'alarm/setting',
       name: 'AlarmSetting',
       component: () => import('@/views/monitor/alarm/setting/AlarmSetting.vue'),
       meta: {
@@ -67,7 +67,7 @@ const monitor: AppRouteModule = {
       },
     },
     {
-      path: 'record',
+      path: 'alarm/record',
       name: 'AlarmRecord',
       component: () => import('@/views/monitor/alarm/record/AlarmRecord.vue'),
       meta: {
@@ -77,7 +77,7 @@ const monitor: AppRouteModule = {
       },
     },
     {
-      path: 'equipment/:id',
+      path: 'alarm/equipment/:id',
       name: 'AlarmEquipment',
       component: () => import('@/views/monitor/alarm/equipment/AlarmEquipment.vue'),
       meta: {
