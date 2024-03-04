@@ -5,9 +5,14 @@ import { store } from '@/store';
 import { RoleEnum } from '@/enums/roleEnum';
 import { PageEnum } from '@/enums/pageEnum';
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '@/enums/cacheEnum';
-import { getAuthCache, setAuthCache } from '@/utils/auth';
-import { GetUserInfoModel, LoginParams, LoginResultModel } from '@/api/sys/model/userModel';
-import { doLogout, loginApi } from '@/api/sys/user';
+import { createPassword, getAuthCache, setAuthCache } from '@/utils/auth';
+import {
+  ChangePasswordParams,
+  GetUserInfoModel,
+  LoginParams,
+  LoginResultModel,
+} from '@/api/sys/model/userModel';
+import { changePasswordApi, doLogout, loginApi } from '@/api/sys/user';
 import { useI18n } from '@/hooks/web/useI18n';
 import { useMessage } from '@/hooks/web/useMessage';
 import { router } from '@/router';
@@ -190,6 +195,19 @@ export const useUserStore = defineStore({
           // 主动登出，不带redirect地址
           await this.logout(true);
         },
+      });
+    },
+    /**
+     * 修改密码
+     * @param parameter 参数
+     */
+    changePassword({ oldPassword, newPassword, newPasswordConfirm }: ChangePasswordParams) {
+      const { username } = this.getUserInfo;
+      console.log(oldPassword, newPassword);
+      return changePasswordApi({
+        oldPassword: createPassword(username, oldPassword),
+        newPassword: createPassword(username, newPassword),
+        newPasswordConfirm: createPassword(username, newPasswordConfirm),
       });
     },
   },

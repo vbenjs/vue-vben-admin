@@ -25,6 +25,11 @@
           icon="ant-design:swap-outlined"
         />
         <MenuItem
+          key="changePassword"
+          :text="t('layout.header.changePassword')"
+          icon="ant-design:key-outlined"
+        />
+        <MenuItem
           v-if="getUseLockPage"
           key="lock"
           :text="t('layout.header.tooltipLock')"
@@ -40,6 +45,7 @@
   </Dropdown>
   <LockAction @register="register" />
   <ChangeApi @register="registerApi" />
+  <ChangePasswordModal @register="registerChangePasswordModal" />
 </template>
 <script lang="ts" setup>
   import { Dropdown, Menu } from 'ant-design-vue';
@@ -55,8 +61,9 @@
   import { propTypes } from '@/utils/propTypes';
   import { openWindow } from '@/utils';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
+  import ChangePasswordModal from './ChangePasswordModal.vue';
 
-  type MenuEvent = 'logout' | 'doc' | 'lock' | 'api';
+  type MenuEvent = 'logout' | 'doc' | 'lock' | 'api' | 'changePassword';
 
   const MenuItem = createAsyncComponent(() => import('./DropMenuItem.vue'));
   const LockAction = createAsyncComponent(() => import('../lock/LockModal.vue'));
@@ -113,8 +120,16 @@
       case 'api':
         handleApi();
         break;
+      case 'changePassword':
+        handleChangePassword();
+        break;
     }
   }
+
+  const [registerChangePasswordModal, { openModal: openChangePasswordModal }] = useModal();
+  const handleChangePassword = () => {
+    openChangePasswordModal(true, { open: true });
+  };
 </script>
 <style lang="less">
   @prefix-cls: ~'@{namespace}-header-user-dropdown';

@@ -15,7 +15,8 @@
     "lockScreenPassword": "Lock screen password",
     "lockScreen": "Lock screen",
     "lockScreenBtn": "Locking",
-    "home": "Home"
+    "home": "Home",
+    "changePassword": "Change password"
   },
   "multipleTab": {
     "reload": "Refresh current",

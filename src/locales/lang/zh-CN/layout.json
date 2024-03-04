@@ -15,7 +15,8 @@
     "lockScreenPassword": "锁屏密码",
     "lockScreen": "锁定屏幕",
     "lockScreenBtn": "锁定",
-    "home": "首页"
+    "home": "首页",
+    "changePassword": "修改密码"
   },
   "multipleTab": {
     "reload": "重新加载",
