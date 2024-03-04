@@ -8,8 +8,8 @@
         :fieldNames="{ title: 'menuName', key: 'id' }"
         :checkable="!!selectedRoleId"
         toolbar
+        check-strictly
         :checked-keys="checkedCodes"
-        :check-strictly="true"
         :default-expand-all="true"
         emptyDesc="请在左侧选择要修改权限的角色"
         title="菜单分配"

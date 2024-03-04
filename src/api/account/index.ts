@@ -1,5 +1,11 @@
 import { defHttp } from '@/utils/http/axios';
-import { LoginParams, LoginResultModel, GetUserInfoModel } from './model/accountModel';
+import {
+  LoginParams,
+  LoginResultModel,
+  GetUserInfoModel,
+  AccountModel,
+  AccountListParams,
+} from './model/accountModel';
 
 import { ErrorMessageMode } from '#/axios';
 
@@ -66,4 +72,22 @@ export function testRetry() {
       },
     },
   );
+}
+
+export function getAccountList(params: AccountListParams) {
+  return defHttp.get<AccountModel>(
+    { url: '/account', params },
+    { errorMessageMode: 'none', isTransformResponse: false },
+  );
+}
+
+export function saveAccount(data: AccountModel, id?: string) {
+  if (id) {
+    return defHttp.put({ url: `/account/${id}`, data }, { isTransformResponse: false });
+  }
+  return defHttp.post({ url: '/account', data }, { isTransformResponse: false });
+}
+
+export function updateAccountStatus(status: string, id: string) {
+  return defHttp.put({ url: `/account/${id}`, data: { status } }, { isTransformResponse: false });
 }

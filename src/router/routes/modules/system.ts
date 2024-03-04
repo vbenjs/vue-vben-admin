@@ -62,6 +62,35 @@ const system: AppRouteModule = {
       },
       component: () => import('@/views/system/permission/index.vue'),
     },
+    {
+      path: 'dict',
+      name: 'DictManagement',
+      meta: {
+        title: '字典管理',
+        ignoreKeepAlive: true,
+      },
+      component: LAYOUT,
+      children: [
+        {
+          path: 'list',
+          name: 'SysDictList',
+          meta: {
+            title: '字典类型',
+            ignoreKeepAlive: true,
+          },
+          component: () => import('@/views/system/dict/index.vue'),
+        },
+        {
+          path: 'data',
+          name: 'SysDictDataList',
+          meta: {
+            title: '字典数据',
+            ignoreKeepAlive: true,
+          },
+          component: () => import('@/views/system/dict/dictData/index.vue'),
+        },
+      ],
+    },
 
     {
       path: 'menu',

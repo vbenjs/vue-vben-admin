@@ -18,3 +18,6 @@ export const updatePerm = (id: string, perm: string[]) => {
     { isTransformResponse: false },
   );
 };
+
+export const getAllRoleList = () =>
+  defHttp.get({ url: '/role', params: { isAll: true } }, { isTransformResponse: false });

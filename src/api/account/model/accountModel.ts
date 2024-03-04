@@ -1,3 +1,5 @@
+import { BasicPageParams } from '@/api/model/baseModel';
+
 /**
  * @description: Login interface parameters
  */
@@ -35,4 +37,27 @@ export interface GetUserInfoModel {
   avatar: string;
   // 介绍
   desc?: string;
+}
+
+export interface RoleModel {
+  id: string;
+  perm: string;
+  name: string;
+}
+
+export interface AccountListParams extends BasicPageParams {
+  q: string;
+}
+
+export interface AccountModel {
+  id: string;
+  roleId: string;
+  role?: RoleModel;
+  deptId: string;
+  username: string;
+  password?: string;
+  name: string;
+  phone: string;
+  status: string;
+  remark: string;
 }
