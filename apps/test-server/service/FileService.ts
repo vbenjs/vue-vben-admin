@@ -5,7 +5,7 @@ const uploadUrl = 'http://localhost:3300/static/upload';
 const filePath = path.join(__dirname, '../static/upload/');
 
 fs.ensureDir(filePath);
-export default class UserService {
+export default class FileService {
   async upload(ctx, files, isMultiple) {
     let fileReader, fileResource, writeStream;
 
