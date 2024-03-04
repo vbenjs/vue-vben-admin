@@ -67,6 +67,12 @@
         formProps: Ref<FormProps>;
       };
 
+      // 组件 CropperAvatar 的 size 属性类型为 number
+      // 此处补充一个兼容
+      if (schema.value.component === 'CropperAvatar' && typeof formProps.value.size === 'string') {
+        formProps.value.size = undefined;
+      }
+
       const itemLabelWidthProp = useItemLabelWidth(schema, formProps);
 
       const getValues = computed(() => {
