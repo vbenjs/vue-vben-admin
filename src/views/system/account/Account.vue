@@ -24,7 +24,6 @@
   </div>
 </template>
 <script lang="tsx" setup name="Account">
-  // import { ref } from 'vue';
   import { ActionItem, BasicTable, TableAction, useTable } from '@/components/Table';
   import { getFormConfig, getColumn } from './data';
   import { useDrawer } from '@/components/Drawer';
@@ -49,7 +48,6 @@
 
   defineOptions({ name: 'Account' });
 
-  // const checkedKeys = ref<Array<string | number>>([]);
   const { createSuccessModal } = useMessage();
   const [registerDrawer, { openDrawer }] = useDrawer();
   const [registerDrawer1, { openDrawer: openLoginRecord }] = useDrawer();

@@ -68,4 +68,3 @@
     }
   }
 </script>
-@/ApiModel/system/permissionModel
