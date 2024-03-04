@@ -1,6 +1,6 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-  <div class="p-4">
+  <div class="px-4 pb-4">
     <template v-if="chartData">
       <div class="mb-4">
         <div v-if="isShowAvg">
