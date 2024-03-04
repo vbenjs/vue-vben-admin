@@ -17,43 +17,6 @@
           >重置权限
         </ApiButton>
       </template>
-      <template #bodyCell="{ record, column }">
-        <template v-if="column.dataIndex === 'action'">
-          <TableAction
-            stopButtonPropagation
-            :actions="[
-              {
-                icon: 'clarity:note-edit-line',
-                tooltip: '编辑',
-                auth: 'permissionManager_edit',
-                onClick: handleEdit.bind(null, record.id),
-              },
-              {
-                icon: 'clarity:key-line',
-                tooltip: '权限管理',
-                auth: 'permissionManager_showAction',
-                onClick: handleActionManager.bind(null, record.id),
-              },
-              {
-                label: 'Json',
-                tooltip: 'Json编辑',
-                auth: 'permissionManager_json',
-                onClick: handleJsonEdit.bind(null, record.id),
-              },
-              {
-                icon: 'ant-design:delete-outlined',
-                color: 'error',
-                auth: 'permissionManager_del',
-                popConfirm: {
-                  title: '是否确认删除？',
-                  placement: 'left',
-                  confirm: handleDelete.bind(null, record.id),
-                },
-              },
-            ]"
-          />
-        </template>
-      </template>
     </BasicTable>
 
     <AuthDrawer @register="registerDrawer" @success="handleSuccess" />
@@ -73,6 +36,7 @@
   } from '@/api/system/permission';
   import { ApiButton } from '@/components/Button';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
+  import { PermissionTree } from '@/ApiModel/system/permissionModel';
 
   defineOptions({ name: 'Authority' });
 
@@ -112,6 +76,9 @@
         'permissionManager_showAction',
         'permissionManager_json',
       ],
+      customRender: ({ record }) => {
+        return createActions(record as PermissionTree);
+      },
     },
     showTableSetting: true,
     tableSetting: { setting: false },
@@ -125,26 +92,6 @@
     });
   };
 
-  const handleEdit = async (id: number) => {
-    const permission = await getPermissionById(id);
-    openAuthDrawer(true, {
-      record: {
-        ...permission,
-        parentId: permission.parentId === 0 ? undefined : permission.parentId,
-      },
-      actionKey: 'edit',
-    });
-  };
-  const handleJsonEdit = async (id: number) => {
-    openJsonDrawer(true, id);
-  };
-  const handleActionManager = async (id: number) => {
-    openDrawer(true, id);
-  };
-
-  const handleDelete = (id: number) => {
-    deletePermission([id]).then(() => reload());
-  };
   function handleSuccess({ isUpdate, values }) {
     if (isUpdate) {
       updateTableDataRecord(values.id, values);
@@ -156,5 +103,52 @@
     await resetAuth();
     msg.success('重置成功！');
     await reload();
+  };
+
+  const createActions = (record: PermissionTree) => {
+    return (
+      <TableAction
+        stopButtonPropagation
+        actions={[
+          {
+            icon: 'clarity:note-edit-line',
+            tooltip: '编辑',
+            auth: 'permissionManager_edit',
+            onClick: async () => {
+              const permission = await getPermissionById(record.id);
+              openAuthDrawer(true, {
+                record: {
+                  ...permission,
+                  parentId: permission.parentId === 0 ? undefined : permission.parentId,
+                },
+                actionKey: 'edit',
+              });
+            },
+          },
+          {
+            icon: 'clarity:key-line',
+            tooltip: '权限管理',
+            auth: 'permissionManager_showAction',
+            onClick: () => openDrawer(true, record.id),
+          },
+          {
+            label: 'Json',
+            tooltip: 'Json编辑',
+            auth: 'permissionManager_json',
+            onClick: () => openJsonDrawer(true, record.id),
+          },
+          {
+            icon: 'ant-design:delete-outlined',
+            color: 'error',
+            auth: 'permissionManager_del',
+            popConfirm: {
+              title: '是否确认删除？',
+              placement: 'left',
+              confirm: () => deletePermission([record.id]).then(() => reload()),
+            },
+          },
+        ]}
+      />
+    );
   };
 </script>

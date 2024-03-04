@@ -10,34 +10,6 @@
           >新建角色</a-button
         >
       </template>
-
-      <template #bodyCell="{ record, column }">
-        <template v-if="column.dataIndex === 'action'">
-          <TableAction
-            stopButtonPropagation
-            :actions="[
-              {
-                icon: 'clarity:note-edit-line',
-                tooltip: '角色权限编辑',
-                auth: 'accountRoleManager_edit',
-                onClick: handleEdit.bind(null, record.id),
-                ifShow: record.sysDefault !== 'Y',
-              },
-              {
-                icon: 'ant-design:delete-outlined',
-                color: 'error',
-                auth: 'accountRoleManager_delete',
-                popConfirm: {
-                  title: '是否确认删除角色？',
-                  placement: 'left',
-                  confirm: handleDelete.bind(null, record.id),
-                },
-                ifShow: record.sysDefault !== 'Y',
-              },
-            ]"
-          />
-        </template>
-      </template>
     </BasicTable>
 
     <RoleDrawer @register="registerDrawer" @success="reload" />
@@ -50,6 +22,8 @@
   import { useDrawer } from '@/components/Drawer';
   import { deleteRole, getRole, getRoleById } from '@/api/system/roles';
   import RoleDrawer from './RoleDrawer.vue';
+  import { RoleResult } from '@/ApiModel/system/roleModel';
+
   defineOptions({ name: 'Role' });
 
   const [registerDrawer, { openDrawer }] = useDrawer();
@@ -69,6 +43,9 @@
       title: '操作',
       dataIndex: 'action',
       auth: ['accountRoleManager_edit', 'accountRoleManager_delete'],
+      customRender: ({ record }) => {
+        return createActions(record as RoleResult);
+      },
     },
     useSearchForm: true,
     formConfig: getFormConfig(),
@@ -85,19 +62,41 @@
     });
   };
 
-  const handleEdit = async (id: number) => {
-    const account = await getRoleById(id);
-    openDrawer(true, {
-      record: account,
-      actionKey: 'edit',
-    });
-  };
-
-  const handleDelete = (id: number) => {
-    deleteRole(id).then(() => reload());
-  };
-
   onMounted(() => {
     setColumns(getRoleColumns(getDataSource, setTableData));
   });
+
+  const createActions = (record: RoleResult) => {
+    return (
+      <TableAction
+        stopButtonPropagation
+        actions={[
+          {
+            icon: 'clarity:note-edit-line',
+            tooltip: '角色权限编辑',
+            auth: 'accountRoleManager_edit',
+            onClick: async () => {
+              const account = await getRoleById(record.id);
+              openDrawer(true, {
+                record: account,
+                actionKey: 'edit',
+              });
+            },
+            ifShow: record.sysDefault !== 'Y',
+          },
+          {
+            icon: 'ant-design:delete-outlined',
+            color: 'error',
+            auth: 'accountRoleManager_delete',
+            popConfirm: {
+              title: '是否确认删除角色？',
+              placement: 'left',
+              confirm: () => deleteRole(record.id).then(() => reload()),
+            },
+            ifShow: record.sysDefault !== 'Y',
+          },
+        ]}
+      />
+    );
+  };
 </script>

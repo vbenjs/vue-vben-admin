@@ -88,7 +88,6 @@
   const LoginRecord = createAsyncComponent(() => import('./drawer/LoginRecord.vue'));
   const StoreAuth = createAsyncComponent(() => import('./drawer/StoreAuth.vue'));
 
-  // const checkedKeys = ref<Array<string | number>>([]);
   const { createSuccessModal } = useMessage();
   const [registerDrawer, { openDrawer }] = useDrawer();
   const [registerDrawer1, { openDrawer: openLoginRecord }] = useDrawer();
