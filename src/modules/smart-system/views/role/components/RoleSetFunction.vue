@@ -141,8 +141,8 @@
         url: 'sys/role/saveRoleMenu',
         data: {
           roleId: props.roleId,
-          functionIdList: tree.getCheckedKeys(),
-          halfFunctionIdList: tree.halfCheckedKeys,
+          functionIdList: tree.getAntInstance().checkedKeys,
+          halfFunctionIdList: tree.getAntInstance().halfCheckedKeys,
         },
       });
       successMessage('保存成功');
