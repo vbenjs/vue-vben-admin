@@ -43,6 +43,9 @@
     setup(props, { attrs, slots, emit, expose }) {
       const [bem] = createBEM('tree');
 
+      const antInstanceRef = ref();
+      const getAntInstance = () => unref(antInstanceRef);
+
       const state = reactive<TreeState>({
         checkStrictly: props.checkStrictly,
         expandedKeys: props.expandedKeys || [],
@@ -337,6 +340,7 @@
         updateNodeByKey,
         getSelectedNode,
         checkAll,
+        getAntInstance,
         expandAll,
         filterByLevel: (level: number) => {
           state.expandedKeys = filterByLevel(level);
@@ -459,7 +463,12 @@
               tip="加载中..."
             >
               <ScrollContainer style={scrollStyle} v-show={!unref(getNotFound)}>
-                <Tree {...unref(getBindValues)} showIcon={false} treeData={treeData.value}>
+                <Tree
+                  {...unref(getBindValues)}
+                  showIcon={false}
+                  ref={antInstanceRef}
+                  treeData={treeData.value}
+                >
                   {extendSlots(slots, ['title'])}
                 </Tree>
               </ScrollContainer>

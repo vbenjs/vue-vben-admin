@@ -192,4 +192,5 @@ export interface TreeActionType {
     treeList?: TreeItem[],
     selectNode?: TreeItem | null,
   ) => TreeItem | null;
+  getAntInstance: () => any;
 }
