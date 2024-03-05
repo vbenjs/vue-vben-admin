@@ -123,7 +123,8 @@
   const getBindValue = computed(() => ({ ...attrs, ...props, ...unref(getProps) }) as AntFormProps);
 
   const getSchema = computed((): FormSchema[] => {
-    const schemas: FormSchema[] = unref(schemaRef) || (unref(getProps).schemas as any);
+    const schemas: FormSchema[] = cloneDeep(unref(schemaRef) || (unref(getProps).schemas as any));
+
     for (const schema of schemas) {
       const {
         defaultValue,
