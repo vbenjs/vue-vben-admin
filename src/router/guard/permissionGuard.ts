@@ -125,7 +125,6 @@ export function createPermissionGuard(router: Router) {
         // 指向redirect
         next({ path: redirect, replace: true });
       }
-      next();
     } else {
       // 正常访问
       next();
