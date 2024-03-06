@@ -143,6 +143,7 @@ export const gridComponentMethodKeys: (
   // vxe-table-edit部分
   'insert',
   'insertAt',
+  'insertNextAt',
   'remove',
   'removeCheckboxRow',
   'removeRadioRow',
