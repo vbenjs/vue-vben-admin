@@ -26,7 +26,7 @@
     </FormItem>
 
     <!--  文本验证码  -->
-    <ARow v-if="computedUseCaptcha == 'TEXT'" :gutter="16">
+    <ARow v-if="computedCaptchaIdent == 'TEXT'" :gutter="16">
       <ACol :span="16">
         <FormItem name="captcha">
           <Input
@@ -38,12 +38,7 @@
         </FormItem>
       </ACol>
       <ACol :span="8">
-        <TextCaptcha
-          ref="captchaRef"
-          @after-refresh="({ key }) => (formData.key = key)"
-          height="40px"
-          :api="getCaptchaApi"
-        />
+        <TextCaptcha ref="captchaRef" height="40px" :api="getCaptchaApi" />
       </ACol>
     </ARow>
 
@@ -101,6 +96,14 @@
       <GoogleCircleFilled />
       <TwitterCircleFilled />
     </div>
+
+    <ImageCaptchaModal
+      ref="captchaRef"
+      @register="registerImageCaptchaModal"
+      v-if="computedCaptchaIdent == 'IMAGE'"
+      @end="handleImageCaptchaEnd"
+      :type="computedCaptchaType"
+    />
   </Form>
 </template>
 <script lang="ts" setup>
@@ -125,7 +128,8 @@
   import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
   import { createPassword } from '@/utils/auth';
   import { useAppStore } from '@/store/modules/app';
-  import { TextCaptcha } from '@/components/Verify';
+  import { TextCaptcha, ImageCaptchaModal, ImageCaptchaType } from '@/components/Verify';
+  import { useModal } from '@/components/Modal';
   //import { onKeyStroke } from '@vueuse/core';
 
   const captchaRef = ref();
@@ -150,15 +154,20 @@
   /**
    * 是否使用验证码
    */
-  const computedUseCaptcha = computed(() => {
+  const computedCaptchaIdent = computed(() => {
     return appStore.systemProperties.captchaIdent;
   });
+
+  const computedCaptchaType = computed<ImageCaptchaType>(() => {
+    return appStore.systemProperties.captchaType as ImageCaptchaType;
+  });
+
+  const [registerImageCaptchaModal, { openModal: openImageCaptchaModal }] = useModal();
 
   const formData = reactive({
     account: 'admin',
     password: '123456',
     captcha: '',
-    key: '',
   });
 
   const { validForm } = useFormValid(formRef);
@@ -168,6 +177,25 @@
   const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
 
   async function handleLogin() {
+    if (unref(computedCaptchaIdent) === 'IMAGE') {
+      const data = await validForm();
+      if (!data) return;
+      openImageCaptchaModal();
+      return;
+    }
+    let code = '';
+    if (unref(computedCaptchaIdent) === 'TEXT') {
+      code = JSON.stringify(unref(captchaRef).createValidateParameter(formData.captcha));
+    }
+    doLogin(code);
+  }
+
+  const handleImageCaptchaEnd = (parameter) => {
+    const code = JSON.stringify(parameter);
+    doLogin(code);
+  };
+
+  const doLogin = async (code: string) => {
     const data = await validForm();
     if (!data) return;
     try {
@@ -176,8 +204,7 @@
         password: createPassword(data.account, data.password),
         username: data.account,
         mode: 'none', //不要默认的错误提示
-        key: formData.key,
-        code: JSON.stringify(unref(captchaRef).createValidateParameter(formData.captcha)),
+        code,
       });
       if (userInfo) {
         notification.success({
@@ -190,13 +217,13 @@
       createErrorModal({
         title: t('sys.api.errorTip'),
         content: (error as unknown as Error).message || t('sys.api.networkExceptionMsg'),
-        getContainer: () => document.body.querySelector(`.${prefixCls}`) || document.body,
+        // getContainer: () => document.body.querySelector(`.${prefixCls}`) || document.body,
       });
       unref(captchaRef).refresh();
     } finally {
       loading.value = false;
     }
-  }
+  };
 
   const getCaptchaApi = () => {
     return defHttp.post({

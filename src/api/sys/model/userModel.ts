@@ -4,8 +4,7 @@
 export interface LoginParams {
   username: string;
   password: string;
-  key: string;
-  code: string;
+  code?: string;
 }
 
 export interface RoleInfo {
