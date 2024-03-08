@@ -4,7 +4,7 @@
 export interface LoginParams {
   username: string;
   password: string;
-  codeKey: string;
+  key: string;
   code: string;
 }
 

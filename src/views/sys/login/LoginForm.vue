@@ -25,7 +25,8 @@
       />
     </FormItem>
 
-    <ARow :gutter="16">
+    <!--  文本验证码  -->
+    <ARow v-if="computedUseCaptcha == 'TEXT'" :gutter="16">
       <ACol :span="16">
         <FormItem name="captcha">
           <Input
@@ -37,10 +38,12 @@
         </FormItem>
       </ACol>
       <ACol :span="8">
-        <Tooltip>
-          <template #title>{{ t('system.login.captchaRefreshTooltip') }}</template>
-          <img style="height: 40px" :src="computedCaptchaUrl" @click="handleChangeCaptcha" />
-        </Tooltip>
+        <TextCaptcha
+          ref="captchaRef"
+          @after-refresh="({ key }) => (formData.key = key)"
+          height="40px"
+          :api="getCaptchaApi"
+        />
       </ACol>
     </ARow>
 
@@ -101,15 +104,15 @@
   </Form>
 </template>
 <script lang="ts" setup>
-  import { reactive, ref, unref, computed } from 'vue';
+  import { computed, reactive, ref, unref } from 'vue';
 
-  import { Checkbox, Form, Input, Row, Col, Button, Divider, Tooltip } from 'ant-design-vue';
+  import { Button, Checkbox, Col, Divider, Form, Input, Row } from 'ant-design-vue';
   import {
-    GithubFilled,
-    WechatFilled,
     AlipayCircleFilled,
+    GithubFilled,
     GoogleCircleFilled,
     TwitterCircleFilled,
+    WechatFilled,
   } from '@ant-design/icons-vue';
   import LoginFormTitle from './LoginFormTitle.vue';
 
@@ -117,12 +120,15 @@
   import { useMessage } from '@/hooks/web/useMessage';
 
   import { useUserStore } from '@/store/modules/user';
-  import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
+  import { LoginStateEnum, useFormRules, useFormValid, useLoginState } from './useLogin';
   import { useDesign } from '@/hooks/web/useDesign';
-  import { buildUUID } from '@/utils/uuid';
   import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
   import { createPassword } from '@/utils/auth';
+  import { useAppStore } from '@/store/modules/app';
+  import { TextCaptcha } from '@/components/Verify';
   //import { onKeyStroke } from '@vueuse/core';
+
+  const captchaRef = ref();
 
   const ACol = Col;
   const ARow = Row;
@@ -132,6 +138,7 @@
   const { notification, createErrorModal } = useMessage();
   const { prefixCls } = useDesign('login');
   const userStore = useUserStore();
+  const appStore = useAppStore();
 
   const { setLoginState, getLoginState } = useLoginState();
   const { getFormRules } = useFormRules();
@@ -140,11 +147,18 @@
   const loading = ref(false);
   const rememberMe = ref(false);
 
+  /**
+   * 是否使用验证码
+   */
+  const computedUseCaptcha = computed(() => {
+    return appStore.systemProperties.captchaIdent;
+  });
+
   const formData = reactive({
     account: 'admin',
     password: '123456',
     captcha: '',
-    captchaKey: buildUUID(),
+    key: '',
   });
 
   const { validForm } = useFormValid(formRef);
@@ -162,8 +176,8 @@
         password: createPassword(data.account, data.password),
         username: data.account,
         mode: 'none', //不要默认的错误提示
-        codeKey: formData.captchaKey,
-        code: formData.captcha,
+        key: formData.key,
+        code: JSON.stringify(unref(captchaRef).createValidateParameter(formData.captcha)),
       });
       if (userInfo) {
         notification.success({
@@ -178,18 +192,16 @@
         content: (error as unknown as Error).message || t('sys.api.networkExceptionMsg'),
         getContainer: () => document.body.querySelector(`.${prefixCls}`) || document.body,
       });
-      handleChangeCaptcha();
+      unref(captchaRef).refresh();
     } finally {
       loading.value = false;
     }
   }
 
-  const computedCaptchaUrl = computed(() => {
-    return `${defHttp.getApiUrlByService(ApiServiceEnum.SMART_AUTH)}/auth/createCaptcha?codeKey=${
-      formData.captchaKey
-    }`;
-  });
-  const handleChangeCaptcha = () => {
-    formData.captchaKey = buildUUID();
+  const getCaptchaApi = () => {
+    return defHttp.post({
+      service: ApiServiceEnum.SMART_AUTH,
+      url: 'auth/createCaptcha',
+    });
   };
 </script>

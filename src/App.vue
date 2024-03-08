@@ -18,6 +18,8 @@
   import { computed } from 'vue';
   import { ExceptionModal } from '@/views/sys/exception';
 
+  import { useAppStore } from '@/store/modules/app';
+
   // support Multi-language
   const { getAntdLocale } = useLocale();
 
@@ -39,4 +41,10 @@
   );
   // Listening to page changes and dynamically changing site titles
   useTitle();
+
+  /**
+   * 初始化系统参数
+   */
+  const appStore = useAppStore();
+  appStore.initSystemProperties();
 </script>

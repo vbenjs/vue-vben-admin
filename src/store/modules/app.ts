@@ -6,7 +6,7 @@ import type {
   MultiTabsSetting,
   SizeConfig,
 } from '#/config';
-import type { BeforeMiniState, ApiAddress } from '#/store';
+import type { BeforeMiniState, ApiAddress, SystemProperties } from '#/store';
 
 import { defineStore } from 'pinia';
 import { store } from '@/store';
@@ -18,6 +18,8 @@ import { darkMode } from '@/settings/designSetting';
 import { resetRouter } from '@/router';
 import { deepMerge } from '@/utils';
 
+import { getAuthPropertiesApi } from '@/api/sys/app';
+
 interface AppState {
   darkMode?: ThemeEnum;
   // Page loading status
@@ -26,6 +28,7 @@ interface AppState {
   projectConfig: ProjectConfig | null;
   // When the window shrinks, remember some states, and restore these states when the window is restored
   beforeMiniInfo: BeforeMiniState;
+  systemProperties: SystemProperties;
 }
 let timeId: TimeoutHandle;
 export const useAppStore = defineStore({
@@ -35,6 +38,7 @@ export const useAppStore = defineStore({
     pageLoading: false,
     projectConfig: Persistent.getLocal(PROJ_CFG_KEY),
     beforeMiniInfo: {},
+    systemProperties: {},
   }),
   getters: {
     getPageLoading(state): boolean {
@@ -69,6 +73,9 @@ export const useAppStore = defineStore({
     },
     getSizeSetting(): SizeConfig {
       return this.getProjectConfig.sizeConfig;
+    },
+    getSystemProperties(state): SystemProperties {
+      return state.systemProperties;
     },
   },
   actions: {
@@ -112,6 +119,15 @@ export const useAppStore = defineStore({
     },
     setApiAddress(config: ApiAddress): void {
       localStorage.setItem(API_ADDRESS, JSON.stringify(config));
+    },
+    /**
+     * 初始化系统参数
+     */
+    async initSystemProperties() {
+      const authProperties = await getAuthPropertiesApi();
+      this.systemProperties = {
+        ...authProperties,
+      };
     },
   },
 });

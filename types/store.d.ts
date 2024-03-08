@@ -56,3 +56,23 @@ export interface TableSetting {
   columns: Recordable<Nullable<Array<ColumnOptionsType>>>;
   showRowSelection: Recordable<Nullable<boolean>>;
 }
+
+/**
+ * 后台的系统参数
+ */
+export interface SystemProperties {
+  /**
+   * 是否启用验证码
+   */
+  captchaEnabled?: boolean;
+
+  /**
+   * 验证码类型
+   */
+  captchaType?: string;
+
+  /**
+   * 验证码标记
+   */
+  captchaIdent?: string;
+}

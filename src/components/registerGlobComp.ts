@@ -16,6 +16,10 @@ import {
 } from 'ant-design-vue';
 import VXETable from 'vxe-table';
 
+import ExcelJS from 'exceljs';
+import VXETablePluginExportXLSX from 'vxe-table-plugin-export-xlsx';
+import { VXETablePluginAntd } from '@/components/SmartTable/VXETablePluginAntd';
+
 import { i18n } from '@/locales/setupI18n';
 
 export function registerGlobComp(app: App) {
@@ -33,6 +37,10 @@ export function registerGlobComp(app: App) {
       }
       return key;
     },
+  });
+  VXETable.use(VXETablePluginAntd);
+  VXETable.use(VXETablePluginExportXLSX, {
+    ExcelJS,
   });
   app
     .use(Input)
