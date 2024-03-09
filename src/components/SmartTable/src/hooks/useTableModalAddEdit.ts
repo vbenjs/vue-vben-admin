@@ -1,4 +1,4 @@
-import type { ComputedRef, Ref, Slots } from 'vue';
+import type { ComputedRef, Slots } from 'vue';
 import type { SmartAddEditModalCallbackData, SmartTableProps } from '@/components/SmartTable';
 import type { FormProps } from '@/components/Form';
 import type { ModalProps } from '@/components/Modal';
@@ -106,7 +106,6 @@ export const useTableModalAddEditConfig = (
     const { modalConfig, beforeSave, afterSave } = addEditConfig!;
     const saveFunction = proxyConfig?.ajax?.save;
     return {
-      ...getDefaultModalConfig(isAddRef, t),
       ...(modalConfig || {}),
       beforeSave,
       saveFunction,
@@ -202,12 +201,5 @@ const getDefaultFormConfig = (): Partial<FormProps> => {
       span: 24,
       xxl: 12,
     },
-  };
-};
-
-const getDefaultModalConfig = (isAddRef: Ref<boolean>, t: Function): Partial<ModalProps> => {
-  const title = unref(isAddRef) ? t('common.title.add') : t('common.title.edit');
-  return {
-    title,
   };
 };

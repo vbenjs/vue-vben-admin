@@ -1,6 +1,6 @@
 import type { SmartAddEditModalCallbackData } from '@/components/SmartTable';
 
-import { defineComponent, ref, unref } from 'vue';
+import { computed, defineComponent, ref, unref } from 'vue';
 
 import { message } from 'ant-design-vue';
 
@@ -27,6 +27,9 @@ export default defineComponent({
   setup(props) {
     const { t } = useI18n();
     const isAddRef = ref(true);
+    const computedTitle = computed(() => {
+      return unref(isAddRef) ? t('common.title.add') : t('common.title.edit');
+    });
 
     const [registerForm, formAction] = useForm();
     const { resetFields, getFieldsValue, setFieldsValue, validate, validateFields } = formAction;
@@ -135,13 +138,24 @@ export default defineComponent({
       validate,
       validateFields,
       getFormAction: () => formAction,
+      computedTitle,
     };
   },
   render() {
-    const { $attrs, register, registerForm, handleSubmit, $slots, tableId, formConfig } = this;
+    const {
+      $attrs,
+      register,
+      registerForm,
+      handleSubmit,
+      $slots,
+      tableId,
+      formConfig,
+      computedTitle,
+    } = this;
     const attrs = {
       ...$attrs,
       onRegister: register,
+      title: computedTitle,
     };
     return (
       <BasicModal {...attrs} onOk={handleSubmit}>
