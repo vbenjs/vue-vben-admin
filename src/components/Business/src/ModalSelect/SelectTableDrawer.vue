@@ -1,25 +1,29 @@
 <template>
   <ConfigProvider :locale="zhCN">
-    <Modal
+    <Drawer
       v-model:open="open"
-      :centered="false"
       :title="title"
       @ok="handleSubmit"
       :destroyOnClose="true"
       :width="width"
-      okText="确定"
-      cancelText="取消"
-      height="85%"
+      :bodyStyle="bodyStyle"
     >
-      <div class="px-4 mb-[-10px]">
+      <div class="px-4 pt-4">
         <BasicTable @register="registerTable" />
       </div>
-    </Modal>
+
+      <template #extra>
+        <Space>
+          <Button @click="open = false">取消</Button>
+          <Button type="primary" @click="handleSubmit">确定</Button>
+        </Space>
+      </template>
+    </Drawer>
   </ConfigProvider>
 </template>
 
 <script setup lang="ts">
-  import { Modal, ConfigProvider } from 'ant-design-vue';
+  import { Drawer, ConfigProvider, Space, Button } from 'ant-design-vue';
   import { onMounted, ref } from 'vue';
   import { BasicTable, useTable } from '@/components/Table';
   import { SelectTableProps } from './state';
@@ -31,6 +35,10 @@
   dayjs.locale('zh-cn');
   // const emit = defineEmits(['register']);
   const open = ref<boolean>(true);
+
+  const bodyStyle = {
+    padding: 0,
+  };
 
   const props = withDefaults(defineProps<SelectTableProps>(), defaultProps);
 
@@ -44,7 +52,7 @@
     showIndexColumn: false,
     canResize: true,
     isCanResizeParent: false,
-    resizeHeightOffset: 0,
+    resizeHeightOffset: -5,
   });
 
   onMounted(() => {

@@ -177,7 +177,6 @@
 
   const loadMore = () => {
     selectOpen.value = false;
-    console.log('loadMore');
     createSelectTableModal({
       api: props.api,
       multiple: props.multiple,
@@ -186,7 +185,7 @@
       columns: unref(getColumns),
       // schema: unref(getSchema),
       formConfig: {
-        schemas: props.schema,
+        schemas: props.schemas,
         ...props.formConfig,
       },
       onOK: (rows) => handelSuccess(rows),

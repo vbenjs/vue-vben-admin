@@ -1,6 +1,6 @@
 import { EnumsVo } from '@/ApiModel';
 import { defineStore } from 'pinia';
-import { isArray } from 'xe-utils';
+import { isArray } from 'lodash-es';
 
 interface OptionState {
   [index: string]: EnumsVo[];

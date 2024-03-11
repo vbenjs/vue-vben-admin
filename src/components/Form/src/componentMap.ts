@@ -34,7 +34,7 @@ import { IconPicker } from '@/components/Icon';
 import { CountdownInput } from '@/components/CountDown';
 import { BasicTitle } from '@/components/Basic';
 import { CropperAvatar } from '@/components/Cropper';
-import { ModalSelect, RangePicker } from '@/components/Business';
+import { RangePicker } from '@/components/Business';
 
 const componentMap = new Map<ComponentType | string, Component>();
 
@@ -48,7 +48,6 @@ componentMap.set('AutoComplete', AutoComplete);
 componentMap.set('ImageUpload', ImageUpload);
 componentMap.set('Select', Select);
 componentMap.set('ApiSelect', ApiSelect);
-componentMap.set('ModalSelect', ModalSelect);
 componentMap.set('ApiTree', ApiTree);
 componentMap.set('TreeSelect', TreeSelect);
 componentMap.set('ApiTreeSelect', ApiTreeSelect);
@@ -67,7 +66,7 @@ componentMap.set('ApiTransfer', ApiTransfer);
 
 componentMap.set('DatePicker', DatePicker);
 componentMap.set('MonthPicker', DatePicker.MonthPicker);
-componentMap.set('RangePicker', DatePicker.RangePicker);
+componentMap.set('RangePicker', RangePicker);
 componentMap.set('MyRangePicker', RangePicker);
 componentMap.set('WeekPicker', DatePicker.WeekPicker);
 componentMap.set('TimePicker', TimePicker);
