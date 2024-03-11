@@ -15,18 +15,27 @@ const enterprise: AppRouteModule = {
   },
   children: [
     {
-      path: 'list',
-      name: 'EnterpriseList',
-      component: () => import('@/views/sys/exception/Exception.vue'),
+      path: 'group',
+      name: 'Group',
+      component: () => import('@/views/enterprise/group/index.vue'),
       meta: {
-        title: '企业列表',
-        roles: ['EnterpriseList'],
+        title: '集团管理',
+        roles: ['Group'],
+      },
+    },
+    {
+      path: 'brand',
+      name: 'Brand',
+      component: () => import('@/views/enterprise/brand/index.vue'),
+      meta: {
+        title: '品牌列表',
+        roles: ['Brand'],
       },
     },
     {
       path: 'organization',
       name: 'Organization',
-      component: () => import('@/views/sys/exception/Exception.vue'),
+      component: () => import('@/views/enterprise/organization/index.vue'),
       meta: {
         title: '组织架构',
         roles: ['Organization'],
@@ -61,6 +70,15 @@ const enterprise: AppRouteModule = {
           },
         },
       ],
+    },
+    {
+      path: 'user',
+      name: 'User',
+      component: () => import('@/views/enterprise/user/index.vue'),
+      meta: {
+        title: '用户管理',
+        roles: ['User'],
+      },
     },
   ],
 };

@@ -6,7 +6,7 @@ const monitor: AppRouteModule = {
   path: '/monitor',
   name: 'Monitor',
   component: LAYOUT,
-  redirect: '/monitor/index',
+  redirect: '/monitor/custom',
   meta: {
     orderNo: 50,
     title: '监测管理',

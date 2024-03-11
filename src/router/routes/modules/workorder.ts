@@ -17,7 +17,7 @@ const workorder: AppRouteModule = {
     {
       path: 'list',
       name: 'WorkorderList',
-      component: () => import('@/views/sys/exception/Exception.vue'),
+      component: () => import('@/views/workorder/list/index.vue'),
       meta: {
         title: '工单记录',
         roles: ['WorkorderList'],

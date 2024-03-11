@@ -17,7 +17,7 @@ const supplier: AppRouteModule = {
     {
       path: 'list',
       name: 'SupplierList',
-      component: () => import('@/views/sys/exception/Exception.vue'),
+      component: () => import('@/views/supplier/list/index.vue'),
       meta: {
         title: '供应商列表',
         roles: ['SupplierList'],
