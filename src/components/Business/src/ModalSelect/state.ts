@@ -1,22 +1,22 @@
 import { FormSchema, FormProps } from '@/components/Form';
 import { BasicColumn } from '@/components/Table';
 
-export type OptionsItem = { label: string; value: string; disabled?: boolean };
+export type OptionsItem = { label?: string; value?: string; disabled?: boolean };
 
-export interface SelectModalProps {
-  api?: ((...arg) => Promise<OptionsItem[]>) | null;
+export interface SelectTableProps<T = Recordable> {
+  api?: ((...arg) => Promise<(OptionsItem & T)[]>) | null;
   title?: string;
-  onOK?: Fn;
+  onOK?: (rows: T[]) => void;
   width?: string;
   rowKey?: string;
   formConfig?: FormProps;
   multiple?: boolean;
-  columns?: BasicColumn[];
-  schema?: FormSchema[];
+  columns: BasicColumn[];
+  schemas?: FormSchema[];
 }
 
-export interface SelectProps extends SelectModalProps {
-  getMissingItem?: ((...arg) => Promise<OptionsItem>) | null;
+export interface SelectProps<T = Recordable> extends SelectTableProps<T> {
+  getMissingItem?: ((...arg) => Promise<OptionsItem & T>) | null;
   params?: Recordable;
   resultField?: string;
   labelField?: string;
@@ -28,5 +28,5 @@ export interface SelectProps extends SelectModalProps {
   showOptionNumber?: number;
   numberToString?: boolean;
   value?: any;
-  formatter?: <T extends OptionsItem>(item: T) => string;
+  formatter?: (item: T) => string;
 }

@@ -33,6 +33,10 @@ export default defineApplicationConfig({
           secure: false,
         },
       },
+      open: true, // 项目启动后，自动打开
+      warmup: {
+        clientFiles: ['./index.html', './src/{views,components}/*'],
+      },
     },
   },
 });
