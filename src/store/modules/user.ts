@@ -14,10 +14,9 @@ import { RouteRecordRaw } from 'vue-router';
 import { PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic';
 import { h } from 'vue';
 import { getAccountWithLogged } from '@/api/system/account';
-import { Account, Permission } from '@/api/system/model/accountModel';
-import { useEnumStore } from './enum';
+import { Account, Permission as SysPermission } from '@/ApiModel/system/accountModel';
+// import { useEnumStore } from './enum';
 import { useAppStore } from './app';
-// import { useWatermark } from '@/hooks/web/useWatermark';
 
 interface UserState {
   sessionTimeout?: boolean;
@@ -27,16 +26,15 @@ interface UserState {
   username?: string;
   id?: number; // 职员id
   avatar: string;
-  roles: Nullable<Roles>;
+  permission: Nullable<Permission>;
   userInfo: Nullable<Account>;
   loginErrortimes: number;
 }
-export interface Roles {
-  permissions: Array<Permission>;
-  permissionList: Array<string>;
-}
 
-// const { setWatermark, clear } = useWatermark();
+export interface Permission {
+  permissionList: Array<string>;
+  roles: Array<string>;
+}
 
 export const useUserStore = defineStore({
   id: 'app-user',
@@ -49,7 +47,7 @@ export const useUserStore = defineStore({
     // token
     token: undefined,
     // roleList
-    roles: null,
+    permission: null,
     // Whether the login expired
     sessionTimeout: false,
     // Last fetch time
@@ -68,10 +66,10 @@ export const useUserStore = defineStore({
       return this.token || getAuthCache<string>(TOKEN_KEY);
     },
     getRoleList(): string[] {
-      return this.roles?.permissionList ?? [];
+      return this.permission?.permissionList ?? [];
     },
-    getPermissions(): Permission[] {
-      return this.roles?.permissions ?? [];
+    getSysRoles(): string[] {
+      return this.permission?.roles ?? [];
     },
     getIsAdmin(): boolean {
       return this.getRoleList.includes('admin');
@@ -102,15 +100,13 @@ export const useUserStore = defineStore({
       this.avatar = url;
     },
     setRoles(account: Account) {
-      const roles: Roles = { permissionList: [], permissions: [] };
-      roles.permissions = account.permission.permissions;
-      const { permissions } = account.permission;
+      const permissionList: string[] = [];
       const pushPermission = (code: string) => {
-        if (roles.permissionList.includes(code)) return;
-        roles.permissionList.push(code);
+        if (permissionList.includes(code)) return;
+        permissionList.push(code);
       };
-      const codeJoin = (permissions?: Permission[] | null, parentCode?: string) => {
-        permissions?.forEach((per: Permission) => {
+      const codeJoin = (permissions?: SysPermission[] | null, parentCode?: string) => {
+        permissions?.forEach((per: SysPermission) => {
           const code = (parentCode ? parentCode + '_' : '') + per.permissionCode;
           pushPermission(code);
           per.actionList?.forEach((action) => {
@@ -119,10 +115,11 @@ export const useUserStore = defineStore({
           codeJoin(per.children, code);
         });
       };
-      codeJoin(permissions);
-      const isAdmin = !!account.roles?.find((role) => role.code.toLowerCase() === 'admin');
-      isAdmin && roles.permissionList.push('admin');
-      this.roles = roles;
+      codeJoin(account.permission.permissions);
+      this.permission = {
+        roles: account.roles?.map((role) => role.code) ?? [],
+        permissionList,
+      };
     },
     setSessionTimeout(flag: boolean) {
       this.sessionTimeout = flag;
@@ -133,7 +130,7 @@ export const useUserStore = defineStore({
       this.username = undefined;
       this.avatar = '';
       this.token = '';
-      this.roles = null;
+      this.permission = null;
       this.sessionTimeout = false;
     },
     /**
@@ -188,9 +185,8 @@ export const useUserStore = defineStore({
 
       if (account) {
         this.setUsername(account.username);
-        // setWatermark(account.username);
 
-        if (account.permission && account.permission.permissions) {
+        if (account.permission?.permissions) {
           this.setRoles(account);
           this.setUserInfo(account);
         }

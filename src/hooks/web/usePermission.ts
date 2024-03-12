@@ -69,7 +69,7 @@ export function usePermission() {
     const permMode = appStore.getProjectConfig.permissionMode;
 
     if ([PermissionModeEnum.ROUTE_MAPPING, PermissionModeEnum.ROLE].includes(permMode)) {
-      if (userStore.getRoleList?.includes('admin')) return true;
+      if (userStore.getIsAdmin) return true;
       if (!isArray(value)) {
         return userStore.getRoleList?.includes(value as RoleEnum);
       }
