@@ -32,7 +32,13 @@
     getSearchSchemas,
     getTableColumns,
   } from './UserGroupListView.config';
-  import { listApi, deleteApi, batchSaveUpdateApi, getByIdApi } from './UserGroupListView.api';
+  import {
+    listApi,
+    deleteApi,
+    batchSaveUpdateApi,
+    getByIdApi,
+    setUseYnApi,
+  } from './UserGroupListView.api';
   import { SystemPermissions } from '@/modules/smart-system/constants/SystemConstants';
   import { useSetUser } from './hooks/useSetUser';
 
@@ -109,6 +115,7 @@
         getById: (data) => getByIdApi(data),
         save: ({ body: { insertRecords, updateRecords } }) =>
           batchSaveUpdateApi([...insertRecords, ...updateRecords]),
+        useYn: setUseYnApi,
       },
     },
     columnConfig: {
@@ -126,6 +133,14 @@
         {
           code: 'delete',
           auth: permissions.delete,
+        },
+        {
+          code: 'useYnTrue',
+          auth: permissions.useYn,
+        },
+        {
+          code: 'useYnFalse',
+          auth: permissions.useYn,
         },
       ],
     },

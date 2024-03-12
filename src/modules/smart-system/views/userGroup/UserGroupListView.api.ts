@@ -7,6 +7,7 @@ enum Api {
   getById = 'sys/userGroup/getById',
   listUserIdByGroupId = 'sys/userGroup/listUserIdById',
   setUser = 'sys/userGroup/saveUserGroupByGroupId',
+  useYn = 'sys/userGroup/setUseYn',
 }
 
 export const listApi = (parameter) => {
@@ -56,6 +57,18 @@ export const setUserApi = (groupId: number, userIdList: number[]) => {
     data: {
       groupId,
       userIdList,
+    },
+  });
+};
+
+export const setUseYnApi = (data: Recordable[], useYn: boolean) => {
+  const idList = data.map((item) => item.groupId);
+  return defHttp.post({
+    service: ApiServiceEnum.SMART_SYSTEM,
+    url: Api.useYn,
+    data: {
+      idList: idList,
+      useYn,
     },
   });
 };

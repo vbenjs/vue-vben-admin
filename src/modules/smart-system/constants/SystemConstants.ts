@@ -24,6 +24,7 @@ export const SystemPermissions = {
     delete: 'sys:userGroup:delete',
     update: 'sys:userGroup:update',
     setUser: 'sys:userGroup:setUser',
+    useYn: 'sys:userGroup:useYn',
   },
   function: {
     add: 'sys:function:save',
