@@ -72,12 +72,12 @@
   });
 
   async function handleSubmit() {
+    const selectRows = getSelectRows();
+    if (selectRows.length === 0) {
+      message.warning('请选择数据');
+      return;
+    }
     try {
-      const selectRows = getSelectRows();
-      if (selectRows.length === 0) {
-        message.warning('请选择数据');
-        return;
-      }
       props.onOK && (await props.onOK(selectRows));
     } finally {
       open.value = false;
