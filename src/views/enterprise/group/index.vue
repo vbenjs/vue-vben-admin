@@ -17,21 +17,20 @@
   </div>
 </template>
 <script lang="tsx" setup>
-  import { getFormConfig, getColumns, AUTH_KEY } from './data';
-  import { StoreResult } from '@/api/model/storeModel';
-  import { deleteStore, getStore, getStoreById } from '@/api/store';
+  import { deleteCompany, getCompany, getCompanyById } from '@/api/company/company';
+  import { getFormConfig, getColumns, AUTH_KEY, TableResult } from './data';
   import { useDrawer } from '@/components/Drawer';
   import { BasicTable, TableAction, useTable } from '@/components/Table';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
 
-  defineOptions({ name: 'Group' });
+  defineOptions({ name: AUTH_KEY });
 
   const GroupFormDrawer = createAsyncComponent(() => import('./Drawer/GroupFormDrawer.vue'));
 
   const [registerGroupFormDrawer, { openDrawer: openGroupFormDrawer }] = useDrawer();
 
   const [registerTable, { reload, updateTableDataRecord }] = useTable({
-    api: (where) => getStore(where, true),
+    api: (where) => getCompany(where, true),
     columns: getColumns(),
     rowKey: 'id',
     useSearchForm: true,
@@ -45,12 +44,12 @@
       dataIndex: 'action',
       auth: [`${AUTH_KEY}_edit`, `${AUTH_KEY}_del`],
       customRender: ({ record }) => {
-        return createActions(record as StoreResult);
+        return createActions(record as TableResult);
       },
     },
   });
 
-  const createActions = (record: StoreResult) => {
+  const createActions = (record: TableResult) => {
     return (
       <TableAction
         stopButtonPropagation
@@ -59,7 +58,13 @@
             icon: 'clarity:note-edit-line',
             tooltip: '编辑',
             auth: `${AUTH_KEY}_edit`,
-            onClick: handleEdit.bind(null, record.id),
+            onClick: async () => {
+              const account = await getCompanyById(record.id);
+              openGroupFormDrawer(true, {
+                record: account,
+                actionKey: 'edit',
+              });
+            },
           },
           {
             icon: 'ant-design:delete-outlined',
@@ -69,7 +74,10 @@
             popConfirm: {
               title: '是否确认删除？',
               placement: 'left',
-              confirm: handleDelete.bind(null, record.id),
+              confirm: async () => {
+                await deleteCompany([record.id]);
+                reload();
+              },
             },
           },
         ]}
@@ -89,18 +97,5 @@
     openGroupFormDrawer(true, {
       actionKey: 'create',
     });
-  };
-
-  const handleEdit = async (id: number) => {
-    const account = await getStoreById(id);
-    openGroupFormDrawer(true, {
-      record: account,
-      actionKey: 'edit',
-    });
-  };
-
-  const handleDelete = async (id: number) => {
-    await deleteStore(id);
-    reload();
   };
 </script>

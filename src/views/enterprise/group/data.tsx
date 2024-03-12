@@ -1,54 +1,53 @@
 import { createStore, modifyStoreMonitor, updateStore } from '@/api/store';
 import { BasicColumn, FormProps, FormSchema } from '@/components/Table';
 import { formatToDate } from '@/utils/dateUtil';
-import { StoreResult } from '@/api/model/storeModel';
 import { StatusSwitch } from '@/components/Business';
+import { PmCompany } from '@/ApiModel/company/company';
 
 export const AUTH_KEY = 'Group';
+export type TableResult = PmCompany;
 
-export function getColumns(): BasicColumn<StoreResult>[] {
+export function getColumns(): BasicColumn<PmCompany>[] {
   return [
     { dataIndex: 'name', title: '集团名称', width: 160 },
+    { dataIndex: 'shortName', title: '简称', width: 100 },
+    { dataIndex: 'code', title: '编码', width: 100 },
+    { dataIndex: 'shortCode', title: '短码', width: 100 },
+    { dataIndex: 'email', title: '邮箱', width: 160 },
+    { dataIndex: 'phone', title: '电话', width: 120 },
+    { dataIndex: 'contract', title: '联系人', width: 100 },
+    { dataIndex: 'contractPhone', title: '联系人电话', width: 140 },
+    { dataIndex: 'uscCode', title: '统一社会信息用代码', width: 200 },
     {
-      dataIndex: 'monitorStatus',
-      title: '告警配置',
+      dataIndex: 'uscExpired',
+      title: '营业执照有效期',
+      width: 160,
+      customRender: ({ text }) => formatToDate(text),
+    },
+    { dataIndex: 'businessScope', title: '经营范围', width: 160 },
+    { dataIndex: 'website', title: '网站', width: 160 },
+    // { dataIndex: 'province', title: '省', width: 100 },
+    // { dataIndex: 'city', title: '市', width: 100 },
+    // { dataIndex: 'area', title: '区', width: 100 },
+    { dataIndex: 'address', title: '地址', width: 160 },
+    {
+      dataIndex: 'enabled',
+      title: '状态',
       width: 100,
       customRender: ({ record }) => {
         return (
           <StatusSwitch
             api={(checked) => modifyStoreMonitor([record.id], checked)}
-            v-model:checked={record.monitorStatus}
+            v-model:checked={record.enabled}
             auth={`${AUTH_KEY}_enable`}
           />
         );
       },
     },
-    { dataIndex: 'storeNumber', title: '集团编号', width: 160 },
-    // , {dataIndex: 'nonoperating', title: '非营业耗电监控', width: 150, templet: '#modifyNonoperatingTemplate'}
-    { dataIndex: 'people', title: '联系人', width: 100 },
-    { dataIndex: 'phone', title: '联系电话', width: 120 },
     {
-      dataIndex: 'address',
-      title: '地址',
-      width: 360,
-      customRender: ({ record: d }) => {
-        return d.province + d.city + d.address;
-      },
-    },
-    { dataIndex: 'remark', title: '介绍', minWidth: 300 },
-    {
-      dataIndex: 'startTime',
-      title: '营业时间',
+      dataIndex: 'expiryDate',
+      title: '有效期',
       width: 160,
-      customRender: ({ record: d }) => {
-        if (d.startTime && d.endTime) return d.startTime + ' - ' + d.endTime;
-        return '';
-      },
-    },
-    {
-      dataIndex: 'createTime',
-      title: '创建时间',
-      width: 170,
       customRender: ({ text }) => formatToDate(text),
     },
   ];
@@ -69,13 +68,7 @@ export function getFormConfig(): Partial<FormProps> {
       },
       {
         label: '集团编号',
-        field: `storeNumber`,
-        component: 'Input',
-        colProps: { md: 8, xl: 6, xxl: 4 },
-      },
-      {
-        field: `people`,
-        label: '联系人',
+        field: `code`,
         component: 'Input',
         colProps: { md: 8, xl: 6, xxl: 4 },
       },
@@ -91,16 +84,6 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
   if (!actionKey) return [];
   return [
     {
-      label: '集团编号',
-      field: 'storeNumber',
-      component: 'Input',
-      componentProps: {
-        placeholder: '请输入集团编号',
-      },
-      rules: [{ required: true, message: '请输入集团编号' }],
-      colProps: { span: 24 },
-    },
-    {
       label: '集团名称',
       field: 'name',
       component: 'Input',
@@ -111,82 +94,188 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
       colProps: { span: 24 },
     },
     {
-      label: '地址',
-      field: 'city',
-      component: 'Cascader',
-      required: true,
+      label: '集团简称',
+      field: 'shortName',
+      component: 'Input',
       componentProps: {
-        placeholder: '请选择地址',
+        placeholder: '请输入集团简称',
       },
       colProps: { span: 24 },
     },
     {
-      label: '详细地址',
-      field: 'address',
+      label: '集团编号',
+      field: 'code',
       component: 'Input',
       componentProps: {
-        placeholder: '请输入详细地址',
+        placeholder: '请输入集团编号',
       },
-      rules: [{ required: true, message: '请输入详细地址' }],
+      rules: [{ required: true, message: '请输入集团编号' }],
+      colProps: { span: 24 },
+    },
+    {
+      label: '集团短码',
+      field: 'shortCode',
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入集团短码',
+      },
+      colProps: { span: 24 },
+    },
+    {
+      label: '邮箱',
+      field: 'email',
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入邮箱',
+      },
+      colProps: { span: 24 },
+    },
+    {
+      label: '电话',
+      field: 'phone',
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入电话',
+      },
       colProps: { span: 24 },
     },
     {
       label: '联系人',
-      field: 'people',
+      field: 'contract',
       component: 'Input',
       componentProps: {
         placeholder: '请输入联系人',
       },
-      rules: [{ required: true, message: '请输入联系人' }],
       colProps: { span: 24 },
     },
     {
-      label: '联系电话',
-      field: 'phone',
+      label: '联系人电话',
+      field: 'contractPhone',
       component: 'Input',
       componentProps: {
-        placeholder: '请输入联系电话',
+        placeholder: '请输入联系人电话',
       },
-      rules: [
-        { required: true, message: '请输入联系电话' },
-        { pattern: /^1\d{10}$/, message: '请输入正确的手机号' },
-      ],
       colProps: { span: 24 },
     },
     {
-      label: '开始营业时间',
-      field: 'startTime',
-      component: 'TimePicker',
+      label: '统一社会信息用代码',
+      field: 'uscCode',
+      component: 'Input',
       componentProps: {
-        placeholder: '请选择开始营业时间',
-        valueFormat: 'HH:mm',
-        format: 'HH:mm',
-        style: { width: '100%' },
+        placeholder: '请输入统一社会信息用代码',
       },
-      rules: [{ required: true, message: '请选择营业时间' }],
       colProps: { span: 24 },
     },
     {
-      label: '结束营业时间',
-      field: 'endTime',
-      component: 'TimePicker',
+      label: '营业执照有效期',
+      field: 'uscExpired',
+      component: 'DatePicker',
       componentProps: {
-        placeholder: '请选择结束营业时间',
-        valueFormat: 'HH:mm',
-        format: 'HH:mm',
-        style: { width: '100%' },
+        placeholder: '请选择营业执照有效期',
       },
-      rules: [{ required: true, message: '请选择结束营业时间' }],
+      colProps: { span: 24 },
+    },
+    {
+      label: '货币类型',
+      field: 'currencyType',
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入货币类型',
+      },
+      colProps: { span: 24 },
+    },
+    {
+      label: '经营范围',
+      field: 'businessScope',
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入经营范围',
+      },
+      colProps: { span: 24 },
+    },
+    {
+      label: '行业',
+      field: 'industry',
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入行业',
+      },
+      colProps: { span: 24 },
+    },
+    {
+      label: '网站',
+      field: 'website',
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入网站',
+      },
+      colProps: { span: 24 },
+    },
+    {
+      label: '省',
+      field: 'province',
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入省',
+      },
+      colProps: { span: 24 },
+    },
+    {
+      label: '市',
+      field: 'city',
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入市',
+      },
+      colProps: { span: 24 },
+    },
+    {
+      label: '区',
+      field: 'area',
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入区',
+      },
+      colProps: { span: 24 },
+    },
+    {
+      label: '地址',
+      field: 'address',
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入地址',
+      },
       colProps: { span: 24 },
     },
     {
       label: '备注',
-      field: 'remark',
-      component: 'InputTextArea',
+      field: 'note',
+      component: 'Input',
       componentProps: {
         placeholder: '请输入备注',
-        autoSize: { minRows: 4 },
       },
+      colProps: { span: 24 },
+    },
+    {
+      label: '状态',
+      field: 'enabled',
+      component: 'Switch',
+      componentProps: {
+        checkedValue: 'Y',
+        unCheckedValue: 'N',
+      },
+      defaultValue: 'Y',
+    },
+    {
+      label: '上传 logo',
+      field: 'logo',
+      component: 'Upload',
+      colProps: { span: 24 },
+    },
+    {
+      label: '上传营业执照',
+      field: 'logo',
+      component: 'Upload',
       colProps: { span: 24 },
     },
   ];

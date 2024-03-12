@@ -17,13 +17,3 @@ export const companyTypeMap = (() => {
 
   return map;
 })();
-
-export const companyTypeColorMap = (() => {
-  const map = new Map<CompanyType, string>();
-
-  map.set('GROUP', '#F65854');
-  map.set('BRAND', '#F7A34B');
-  map.set('SUPPLIER', '#F7CE51');
-
-  return map;
-})();
