@@ -10,7 +10,7 @@ const monitor: AppRouteModule = {
   meta: {
     orderNo: 50,
     title: '监测管理',
-    icon: '',
+    icon: 'icon-park-outline:monitor-two',
     roles: ['Monitor'],
   },
   children: [

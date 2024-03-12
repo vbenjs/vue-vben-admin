@@ -1,18 +1,32 @@
 <template>
-  <PageWrapper fixedHeight contentFullHeight>
+  <PageWrapper contentFullHeight>
     <Card size="small">
-      <div class="flex w-full">
-        <div class="w-80 mr-4">
+      <div class="flex w-full h-[calc(100vh-138px)]">
+        <div class="w-79 mr-1 h-full">
           <BasicTree
-            title="懒加载异步树"
             ref="asyncTreeRef"
             :treeData="tree"
             checkable
+            draggable
             :load-data="onLoadData"
-          />
+            @dragstart="dragstart"
+          >
+            <template #title="{ key: treeKey, title }">
+              <Dropdown :trigger="['contextmenu']">
+                <span>{{ title }}</span>
+                <template #overlay>
+                  <Menu @click="({ key: menuKey }) => onContextMenuClick(treeKey, menuKey)">
+                    <MenuItem key="1">1st menu item</MenuItem>
+                    <MenuItem key="1">1st menu item</MenuItem>
+                    <MenuItem key="1">1st menu item</MenuItem>
+                  </Menu>
+                </template>
+              </Dropdown>
+            </template>
+          </BasicTree>
         </div>
-        <div class="w-[calc(100%-21rem)]">
-          <BasicTable @register="registerTable" class="!p-0">
+        <div class="w-[calc(100%-20rem)] border-l-1 border-[#eeeeee]">
+          <BasicTable @register="registerTable">
             <template #toolbar>
               <a-button
                 type="primary"
@@ -20,48 +34,59 @@
                 @click="handleCreate"
                 v-auth="'StoreManager_add'"
               >
-                添加地点
+                添加用户
               </a-button>
+            </template>
+            <template #tableTitle>
+              <Space>
+                <span>当前位置：</span>
+                <Breadcrumb>
+                  <BreadcrumbItem>Home</BreadcrumbItem>
+                  <BreadcrumbItem>1</BreadcrumbItem>
+                  <BreadcrumbItem>2</BreadcrumbItem>
+                  <BreadcrumbItem>3</BreadcrumbItem>
+                </Breadcrumb>
+              </Space>
             </template>
           </BasicTable>
         </div>
       </div>
     </Card>
 
-    <!-- <StoreDrawer @register="registerDrawer" @success="handleSuccess" /> -->
+    <AreaFormDrawer @register="registerAreaFormDrawer" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="tsx" setup>
   import { getFormConfig, getColumns } from './data';
   import { StoreResult } from '@/api/model/storeModel';
-  import { deleteStore, getStore, getStoreById } from '@/api/store';
   import { useDrawer } from '@/components/Drawer';
   import { PageWrapper } from '@/components/Page';
   import { BasicTable, TableAction, useTable } from '@/components/Table';
-  import { useGo } from '@/hooks/web/usePage';
-  import { openWindow } from '@/utils';
-  import { HashingFactory } from '@/utils/cipher';
+
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
-  import { Card } from 'ant-design-vue';
+  import { Breadcrumb, Card, Space, Dropdown, Menu } from 'ant-design-vue';
   import { BasicTree, TreeActionType } from '@/components/Tree';
   import { ref, unref } from 'vue';
   import { isArray, uniq } from 'lodash-es';
+  import { deleteArea, getArea, getAreaById } from '@/api/company/area';
 
   defineOptions({ name: 'Organization' });
 
-  // const StoreDrawer = createAsyncComponent(() => import('./Drawer/StoreDrawer.vue'));
+  const AreaFormDrawer = createAsyncComponent(() => import('./Drawer/AreaFormDrawer.vue'));
+  const BreadcrumbItem = Breadcrumb.Item;
+  const MenuItem = Menu.Item;
 
-  // const [registerDrawer, { openDrawer }] = useDrawer();
-  const go = useGo();
-  const encryptByMd5 = HashingFactory.createMD5Hashing().hash;
+  const [registerAreaFormDrawer, { openDrawer: openAreaFormDrawer }] = useDrawer();
 
   const [registerTable, { reload, updateTableDataRecord }] = useTable({
-    api: (where) => getStore(where, true),
+    api: (where) => getArea(where, true),
     columns: getColumns(),
     rowKey: 'id',
     useSearchForm: false,
     loading: true,
     showIndexColumn: false,
+    canResize: true,
+    resizeHeightOffset: 12,
     actionColumn: {
       width: 160,
       title: '操作',
@@ -85,32 +110,6 @@
             onClick: handleEdit.bind(null, record.id),
           },
         ]}
-        dropDownActions={[
-          {
-            label: '营业额管理',
-            auth: 'StoreTurnover',
-            onClick: () =>
-              go({
-                path: '/enterprise/store/turnover/' + encryptByMd5(record.id + 'turnover'),
-                query: {
-                  storeId: record.id,
-                  storeNumber: record.storeNumber,
-                  storeName: record.name,
-                },
-              }),
-          },
-          {
-            icon: 'ant-design:delete-outlined',
-            label: '删除',
-            color: 'error',
-            auth: 'StoreManager_del',
-            popConfirm: {
-              title: '是否确认删除？',
-              placement: 'left',
-              confirm: handleDelete.bind(null, record.id),
-            },
-          },
-        ]}
       />
     );
   };
@@ -123,27 +122,23 @@
   }
 
   const handleCreate = () => {
-    openDrawer(true, {
+    openAreaFormDrawer(true, {
       actionKey: 'create',
     });
   };
 
   const handleEdit = async (id: number) => {
-    const account = await getStoreById(id);
-    openDrawer(true, {
+    const account = await getAreaById(id);
+    openAreaFormDrawer(true, {
       record: account,
       actionKey: 'edit',
     });
   };
 
   const handleDelete = async (id: number) => {
-    await deleteStore(id);
+    await deleteArea(id);
     reload();
   };
-
-  function handleCheck(checkedKeys, e) {
-    console.log('onChecked', checkedKeys, e);
-  }
 
   const asyncTreeRef = ref();
   const tree = ref([
@@ -177,4 +172,12 @@
       }, 300);
     });
   }
+
+  const dragstart = () => {
+    console.log('dragstart');
+  };
+
+  const onContextMenuClick = (treeKey: string, menuKey: string | number) => {
+    console.log(`treeKey: ${treeKey}, menuKey: ${menuKey}`);
+  };
 </script>

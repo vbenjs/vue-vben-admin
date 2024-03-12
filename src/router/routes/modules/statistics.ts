@@ -20,6 +20,7 @@ const statistics: AppRouteModule = {
       redirect: '/statistics/energy/rank',
       meta: {
         title: '能耗统计',
+        icon: 'carbon:flash',
         roles: ['EnergyStatistics'],
       },
       children: [
@@ -58,6 +59,7 @@ const statistics: AppRouteModule = {
       redirect: '/statistics/alarm/rank',
       meta: {
         title: '告警统计',
+        icon: 'icon-park-outline:alarm',
         roles: ['AlarmStatistics'],
       },
       children: [
@@ -96,6 +98,7 @@ const statistics: AppRouteModule = {
       redirect: '/statistics/workorder/rank',
       meta: {
         title: '工单统计',
+        icon: 'mi:document',
         roles: ['WorkOrderStatistics'],
       },
       children: [

@@ -10,7 +10,7 @@ const enterprise: AppRouteModule = {
   meta: {
     orderNo: 10,
     title: '企业管理',
-    // icon: 'bx:map',
+    icon: 'ci:building-04',
     roles: ['Enterprise'],
   },
   children: [
@@ -20,6 +20,7 @@ const enterprise: AppRouteModule = {
       component: () => import('@/views/enterprise/group/index.vue'),
       meta: {
         title: '集团管理',
+        icon: 'tabler:building-community',
         roles: ['Group'],
       },
     },
@@ -29,6 +30,7 @@ const enterprise: AppRouteModule = {
       component: () => import('@/views/enterprise/brand/index.vue'),
       meta: {
         title: '品牌列表',
+        icon: 'uil:tag-alt',
         roles: ['Brand'],
       },
     },
@@ -38,6 +40,7 @@ const enterprise: AppRouteModule = {
       component: () => import('@/views/enterprise/organization/index.vue'),
       meta: {
         title: '组织架构',
+        icon: 'ph:tree-structure',
         roles: ['Organization'],
       },
     },
@@ -47,6 +50,7 @@ const enterprise: AppRouteModule = {
       component: import('@/views/enterprise/store/store.vue'),
       meta: {
         title: '地点管理',
+        icon: 'ant-design:shop-outlined',
         roles: ['Store'],
         hideChildrenInMenu: true,
       },
@@ -77,6 +81,7 @@ const enterprise: AppRouteModule = {
       component: () => import('@/views/enterprise/user/index.vue'),
       meta: {
         title: '用户管理',
+        icon: 'mdi:person-outline',
         roles: ['User'],
       },
     },

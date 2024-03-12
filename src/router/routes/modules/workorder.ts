@@ -10,7 +10,7 @@ const workorder: AppRouteModule = {
   meta: {
     orderNo: 40,
     title: '工单管理',
-    icon: '',
+    icon: 'mingcute:document-3-line',
     roles: ['Workorder'],
   },
   children: [
@@ -20,6 +20,7 @@ const workorder: AppRouteModule = {
       component: () => import('@/views/workorder/list/index.vue'),
       meta: {
         title: '工单记录',
+        icon: 'mingcute:document-3-line',
         roles: ['WorkorderList'],
       },
     },

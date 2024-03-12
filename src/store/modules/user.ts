@@ -23,8 +23,6 @@ interface UserState {
   sessionTimeout?: boolean;
   lastUpdateTime: number;
   token?: string;
-  mobileToken?: string;
-  tokenTimer?: NodeJS.Timer;
   name?: string; // 职员姓名
   username?: string;
   id?: number; // 职员id
@@ -50,8 +48,6 @@ export const useUserStore = defineStore({
     userInfo: null,
     // token
     token: undefined,
-    //mobileToken
-    mobileToken: undefined,
     // roleList
     roles: null,
     // Whether the login expired
@@ -71,14 +67,14 @@ export const useUserStore = defineStore({
     getToken(): string {
       return this.token || getAuthCache<string>(TOKEN_KEY);
     },
-    getMobileToken(): string {
-      return this.mobileToken ?? '';
-    },
     getRoleList(): string[] {
       return this.roles?.permissionList ?? [];
     },
     getPermissions(): Permission[] {
       return this.roles?.permissions ?? [];
+    },
+    getIsAdmin(): boolean {
+      return this.getRoleList.includes('admin');
     },
     getSessionTimeout(): boolean {
       return !!this.sessionTimeout;
@@ -91,9 +87,6 @@ export const useUserStore = defineStore({
     setToken(info: string | undefined) {
       this.token = info ? info : ''; // for null or undefined value
       setAuthCache(TOKEN_KEY, info);
-    },
-    setMobileToken(token: string | undefined) {
-      this.mobileToken = token;
     },
     setName(name: string, id: number) {
       this.name = name;

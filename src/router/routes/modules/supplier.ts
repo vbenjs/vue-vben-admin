@@ -10,7 +10,7 @@ const supplier: AppRouteModule = {
   meta: {
     orderNo: 30,
     title: '供应商管理',
-    icon: '',
+    icon: 'material-symbols:shield-person-outline',
     roles: ['Supplier'],
   },
   children: [
@@ -20,6 +20,7 @@ const supplier: AppRouteModule = {
       component: () => import('@/views/supplier/list/index.vue'),
       meta: {
         title: '供应商列表',
+        icon: 'material-symbols:shield-person-outline',
         roles: ['SupplierList'],
       },
     },

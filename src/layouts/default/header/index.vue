@@ -33,6 +33,8 @@
 
     <!-- action  -->
     <div :class="`${prefixCls}-action`">
+      <BrandSelect class="mr-8" />
+
       <AppSearch v-if="getShowSearch" :class="`${prefixCls}-action__item `" />
 
       <ErrorAction v-if="getUseErrorHandle" :class="`${prefixCls}-action__item error-action`" />
@@ -72,7 +74,14 @@
 
   import LayoutMenu from '../menu/index.vue';
   import LayoutTrigger from '../trigger/index.vue';
-  import { ErrorAction, FullScreen, LayoutBreadcrumb, Notify, UserDropDown } from './components';
+  import {
+    ErrorAction,
+    FullScreen,
+    LayoutBreadcrumb,
+    Notify,
+    UserDropDown,
+    BrandSelect,
+  } from './components';
 
   const SettingDrawer = createAsyncComponent(() => import('@/layouts/default/setting/index.vue'), {
     loading: true,
