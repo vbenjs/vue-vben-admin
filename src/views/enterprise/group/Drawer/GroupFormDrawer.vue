@@ -18,7 +18,6 @@
   import { cloneDeep } from 'lodash-es';
   import { useForm, BasicForm } from '@/components/Form';
   import { useDrawerInner, BasicDrawer } from '@/components/Drawer';
-  import { getCity } from '@/api/others/province_city';
 
   const actionKey = ref<ActionKey>();
   const rowId = ref<number>();
@@ -27,18 +26,15 @@
     // layout: 'vertical',
     labelWidth: 100,
     showActionButtonGroup: false,
-    // fieldMapToTime: [['datetime', ['startTime', 'endTime'], 'HH:mm']],
   });
 
   const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
     actionKey.value = data?.actionKey;
-    const city = await getCity();
-    resetSchema(getFormSchema(city, actionKey.value));
+    resetSchema(getFormSchema(actionKey.value));
     setDrawerProps({ confirmLoading: false });
 
     if (unref(actionKey) !== 'create') {
       const formData = cloneDeep(data.record);
-      formData.city = [formData.province, formData.city];
       rowId.value = formData.id;
       setFieldsValue({
         ...formData,
@@ -56,8 +52,6 @@
   async function handleSubmit() {
     try {
       const values = await validate();
-      values.province = values.city[0];
-      values.city = values.city[1];
 
       setDrawerProps({ confirmLoading: true });
       const action = unref(actionKey);

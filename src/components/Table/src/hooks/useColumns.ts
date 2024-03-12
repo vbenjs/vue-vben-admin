@@ -157,7 +157,7 @@ export function useColumns(
 
       //默认开始列宽拖拽
       column.resizable = column.resizable ?? true;
-      column.width = column.width ?? 200;
+      // column.width = column.width ?? 200;
 
       if (!slots || !slots?.title) {
         column.customTitle = column.title;

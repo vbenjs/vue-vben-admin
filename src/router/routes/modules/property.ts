@@ -17,7 +17,7 @@ const property: AppRouteModule = {
     {
       path: 'type',
       name: 'Property',
-      component: () => import('@/views/sys/exception/Exception.vue'),
+      component: () => import('@/views/property/type/index.vue'),
       meta: {
         title: '资产分类',
         roles: ['PropertyType'],
@@ -25,38 +25,38 @@ const property: AppRouteModule = {
     },
     {
       path: 'device',
-      name: 'Device',
-      component: () => import('@/views/sys/exception/Exception.vue'),
+      name: 'DeviceProperty',
+      component: () => import('@/views/property/list/device.vue'),
       meta: {
         title: '设备资产',
-        roles: ['Device'],
+        roles: ['DeviceProperty'],
       },
     },
     {
       path: 'project',
-      name: 'Project',
-      component: () => import('@/views/sys/exception/Exception.vue'),
+      name: 'ProjectProperty',
+      component: () => import('@/views/property/list/project.vue'),
       meta: {
         title: '工程资产',
-        roles: ['Project'],
+        roles: ['ProjectProperty'],
       },
     },
     {
       path: 'it',
-      name: 'It',
-      component: () => import('@/views/sys/exception/Exception.vue'),
+      name: 'ITProperty',
+      component: () => import('@/views/property/list/IT.vue'),
       meta: {
         title: 'IT资产',
-        roles: ['It'],
+        roles: ['ITProperty'],
       },
     },
     {
       path: 'other',
-      name: 'Other',
-      component: () => import('@/views/sys/exception/Exception.vue'),
+      name: 'OtherProperty',
+      component: () => import('@/views/property/list/other.vue'),
       meta: {
         title: '其他资产',
-        roles: ['Other'],
+        roles: ['OtherProperty'],
       },
     },
   ],

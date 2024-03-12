@@ -87,10 +87,7 @@ export const modalTitle = '集团';
 export type ActionKey = 'create' | 'edit';
 export const createApi = createStore;
 export const updateApi = updateStore;
-export const getFormSchema: (city: any[], actionKey?: ActionKey) => FormSchema[] = (
-  city,
-  actionKey,
-) => {
+export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
   if (!actionKey) return [];
   return [
     {
@@ -120,7 +117,6 @@ export const getFormSchema: (city: any[], actionKey?: ActionKey) => FormSchema[]
       required: true,
       componentProps: {
         placeholder: '请选择地址',
-        options: city,
       },
       colProps: { span: 24 },
     },
@@ -194,4 +190,4 @@ export const getFormSchema: (city: any[], actionKey?: ActionKey) => FormSchema[]
       colProps: { span: 24 },
     },
   ];
-};
+}

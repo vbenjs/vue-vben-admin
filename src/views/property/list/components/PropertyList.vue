@@ -4,37 +4,40 @@
       <template #toolbar>
         <a-button
           type="primary"
-          preIcon="gg:qr"
-          @click="handleInvite"
-          v-auth="`${AUTH_KEY}_invite`"
+          preIcon="ant-design:plus-outlined"
+          @click="handleCreate"
+          v-auth="`${props.auth}_add`"
         >
-          邀请供应商
+          添加品牌
         </a-button>
       </template>
     </BasicTable>
 
-    <InvitDrawer @register="registerInvitDrawer" />
+    <PropertyFormDrawer @register="registerPropertyFormDrawer" @success="handleSuccess" />
   </div>
 </template>
 <script lang="tsx" setup>
-  import { getFormConfig, getColumns, AUTH_KEY, TableResult } from './data';
+  import { getFormConfig, getColumns, TableResult } from './data';
   import { deleteStore, getStore, getStoreById } from '@/api/store';
   import { useDrawer } from '@/components/Drawer';
-  import { QRCode } from 'ant-design-vue';
   import { BasicTable, TableAction, useTable } from '@/components/Table';
-  import { useMessage } from '@/hooks/web/useMessage';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
 
-  defineOptions({ name: AUTH_KEY });
+  defineOptions({ name: 'PropertyList' });
 
-  // const InvitDrawer = createAsyncComponent(() => import('./Drawer/InvitQRDrawer.vue'));
+  const PropertyFormDrawer = createAsyncComponent(() => import('./Drawer/PropertyFormDrawer.vue'));
 
-  const [registerInvitDrawer, { openDrawer: openInvitDrawer }] = useDrawer();
-  const { createInfoModal } = useMessage();
+  interface Props {
+    auth: string;
+  }
 
-  const [registerTable, { reload }] = useTable({
+  const props = withDefaults(defineProps<Props>(), {});
+
+  const [registerPropertyFormDrawer, { openDrawer: openPropertyFormDrawer }] = useDrawer();
+
+  const [registerTable, { reload, updateTableDataRecord }] = useTable({
     api: (where) => getStore(where, true),
-    columns: getColumns(),
+    columns: getColumns(props.auth),
     rowKey: 'id',
     useSearchForm: true,
     formConfig: getFormConfig(),
@@ -45,7 +48,7 @@
       width: 120,
       title: '操作',
       dataIndex: 'action',
-      auth: [`${AUTH_KEY}_edit`, `${AUTH_KEY}_del`],
+      auth: [`${props.auth}_edit`, `${props.auth}_del`],
       customRender: ({ record }) => {
         return createActions(record as TableResult);
       },
@@ -60,14 +63,14 @@
           {
             icon: 'clarity:note-edit-line',
             tooltip: '编辑',
-            auth: `${AUTH_KEY}_edit`,
-            //onClick: handleEdit.bind(null, record.id),
+            auth: `${props.auth}_edit`,
+            onClick: handleEdit.bind(null, record.id),
           },
           {
             icon: 'ant-design:delete-outlined',
             tooltip: '删除',
             color: 'error',
-            auth: `${AUTH_KEY}_del`,
+            auth: `${props.auth}_del`,
             popConfirm: {
               title: '是否确认删除？',
               placement: 'left',
@@ -79,23 +82,26 @@
     );
   };
 
-  const handleInvite = () => {
-    createInfoModal({
-      title: '邀请供应商',
-      centered: true,
-      // closable: true,
-      maskClosable: true,
-      footer: null,
-      width: 270,
-      content: () => (
-        <div class="my-2">
-          <QRCode value="https://www.baidu.com" />
-        </div>
-      ),
+  function handleSuccess({ action, values }) {
+    if (action == 'edit') {
+      updateTableDataRecord(values.id, values);
+    } else {
+      reload();
+    }
+  }
+
+  const handleCreate = () => {
+    openPropertyFormDrawer(true, {
+      actionKey: 'create',
     });
-    // openInvitDrawer(true, {
-    //   actionKey: 'create',
-    // });
+  };
+
+  const handleEdit = async (id: number) => {
+    const account = await getStoreById(id);
+    openPropertyFormDrawer(true, {
+      record: account,
+      actionKey: 'edit',
+    });
   };
 
   const handleDelete = async (id: number) => {

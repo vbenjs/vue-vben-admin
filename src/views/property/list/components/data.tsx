@@ -1,12 +1,11 @@
 import { createStore, modifyStoreMonitor, updateStore } from '@/api/store';
 import { BasicColumn, FormProps, FormSchema } from '@/components/Table';
 import { formatToDate } from '@/utils/dateUtil';
-import { StoreResult } from '@/api/model/storeModel';
 import { StatusSwitch } from '@/components/Business';
 
-export const AUTH_KEY = 'Brand';
+export type TableResult = any;
 
-export function getColumns(): BasicColumn<StoreResult>[] {
+export function getColumns(AUTH_KEY: string): BasicColumn<TableResult>[] {
   return [
     { dataIndex: 'name', title: '品牌名称', width: 160 },
     {
@@ -83,7 +82,7 @@ export function getFormConfig(): Partial<FormProps> {
   };
 }
 
-export const modalTitle = '品牌';
+export const modalTitle = '资产';
 export type ActionKey = 'create' | 'edit';
 export const createApi = createStore;
 export const updateApi = updateStore;
