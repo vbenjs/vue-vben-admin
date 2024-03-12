@@ -68,10 +68,15 @@
   };
 
   const [registerTable, { editByRowModal }] = useSmartTable({
+    id: 'sys_user_group',
     columns: getTableColumns(),
     height: 'auto',
     stripe: true,
-    highlightHoverRow: true,
+    rowConfig: {
+      isHover: true,
+      isCurrent: true,
+    },
+    customConfig: { storage: true },
     pagerConfig: true,
     useSearchForm: true,
     border: true,
@@ -123,7 +128,7 @@
     },
     toolbarConfig: {
       refresh: true,
-      custom: true,
+      column: { columnOrder: true },
       zoom: true,
       buttons: [
         {
