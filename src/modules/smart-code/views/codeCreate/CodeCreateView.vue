@@ -16,7 +16,7 @@
   import { downloadByData } from '@/utils/file/download';
   import { CodeEditor } from '@/components/CodeEditor';
   import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
-  import { extensionLanguageMap } from '@/modules/codeGenerator/constants/Constants';
+  import { extensionLanguageMap } from '@/modules/smart-code/constants/Constants';
 
   const attrs = useAttrs();
   const data = ref<Array<any>>([]);

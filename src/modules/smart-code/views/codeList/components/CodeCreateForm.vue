@@ -43,7 +43,7 @@
 
   import { message } from 'ant-design-vue';
 
-  import { TemplateType } from '@/modules/codeGenerator/constants/DatabaseConstants';
+  import { TemplateType } from '@/modules/smart-code/constants/DatabaseConstants';
 
   import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
 

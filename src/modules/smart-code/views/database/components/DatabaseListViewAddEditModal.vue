@@ -17,7 +17,7 @@
   import { BasicModal, useModalInner } from '@/components/Modal';
   import BasicForm from '@/components/Form/src/BasicForm.vue';
   import { useForm } from '@/components/Form';
-  import { addEditForm } from '@/modules/codeGenerator/views/database/DatabaseListView.data';
+  import { addEditForm } from '@/modules/smart-code/views/database/DatabaseListView.data';
 
   import { useSizeSetting } from '@/hooks/setting/UseSizeSetting';
 
