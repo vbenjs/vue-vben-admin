@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-  import { Modal, ConfigProvider } from 'ant-design-vue';
+  import { Modal, ConfigProvider, message } from 'ant-design-vue';
   import { onMounted, ref } from 'vue';
   import { BasicTable, useTable } from '@/components/Table';
   import { SelectTableProps } from './state';
@@ -66,6 +66,10 @@
   async function handleSubmit() {
     try {
       const selectRows = getSelectRows();
+      if (selectRows.length === 0) {
+        message.warning('请选择数据');
+        return;
+      }
       props.onOK && (await props.onOK(selectRows));
     } finally {
       open.value = false;

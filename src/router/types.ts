@@ -51,10 +51,7 @@ export interface Menu {
   hideMenu?: boolean;
 }
 
-export interface MenuModule {
-  orderNo?: number;
-  menu: Menu;
-}
+export type MenuModule = Menu;
 
 // export type AppRouteModule = RouteModule | AppRouteRecordRaw;
 export type AppRouteModule = AppRouteRecordRaw;

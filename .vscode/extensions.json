@@ -8,7 +8,6 @@
     "lokalise.i18n-ally",
     "antfu.iconify",
     "antfu.unocss",
-    "mikestead.dotenv",
-    "vue.vscode-typescript-vue-plugin"
+    "mikestead.dotenv"
   ]
 }
