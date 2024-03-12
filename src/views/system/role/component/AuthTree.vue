@@ -170,4 +170,3 @@
     },
   });
 </script>
-@/ApiModel/system/permissionModel
