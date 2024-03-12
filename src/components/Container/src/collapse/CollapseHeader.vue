@@ -1,13 +1,13 @@
 <script lang="tsx">
-  import { defineComponent, computed, unref, type ExtractPropTypes, PropType } from 'vue';
-  import { useDesign } from '@/hooks/web/useDesign';
   import { BasicArrow, BasicTitle } from '@/components/Basic';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { PropType, computed, defineComponent, unref, type ExtractPropTypes } from 'vue';
 
   const collapseHeaderProps = {
     prefixCls: String,
     title: String,
     show: Boolean,
-    canExpan: Boolean,
+    canExpand: Boolean,
     helpMessage: {
       type: [Array, String] as PropType<string[] | string>,
       default: '',
@@ -33,7 +33,7 @@
           <div class={`${unref(_prefixCls)}__action`}>
             {slots.action
               ? slots.action({ expand: props.show, onClick: () => emit('expand') })
-              : props.canExpan && (
+              : props.canExpand && (
                   <BasicArrow up expand={props.show} onClick={() => emit('expand')} />
                 )}
           </div>

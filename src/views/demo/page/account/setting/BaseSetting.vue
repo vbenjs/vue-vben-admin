@@ -1,5 +1,5 @@
 <template>
-  <CollapseContainer title="基本设置" :canExpan="false">
+  <CollapseContainer title="基本设置" :canExpand="false">
     <Row :gutter="24">
       <Col :span="14">
         <BasicForm @register="register" />
@@ -22,19 +22,19 @@
   </CollapseContainer>
 </template>
 <script lang="ts" setup>
-  import { Row, Col } from 'ant-design-vue';
-  import { computed, onMounted } from 'vue';
-  import { BasicForm, useForm } from '@/components/Form';
   import { CollapseContainer } from '@/components/Container';
   import { CropperAvatar } from '@/components/Cropper';
+  import { BasicForm, useForm } from '@/components/Form';
+  import { Col, Row } from 'ant-design-vue';
+  import { computed, onMounted } from 'vue';
 
   import { useMessage } from '@/hooks/web/useMessage';
 
-  import headerImg from '@/assets/images/header.jpg';
   import { accountInfoApi } from '@/api/demo/account';
-  import { baseSetschemas } from './data';
-  import { useUserStore } from '@/store/modules/user';
   import { uploadApi } from '@/api/sys/upload';
+  import headerImg from '@/assets/images/header.jpg';
+  import { useUserStore } from '@/store/modules/user';
+  import { baseSetschemas } from './data';
 
   const { createMessage } = useMessage();
   const userStore = useUserStore();

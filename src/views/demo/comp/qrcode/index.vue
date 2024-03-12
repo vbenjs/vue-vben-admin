@@ -1,7 +1,7 @@
 <template>
   <PageWrapper title="二维码组件使用示例">
     <div class="flex flex-wrap">
-      <CollapseContainer title="基础示例" :canExpan="true" class="text-center mb-6 w-1/5 mr-6">
+      <CollapseContainer title="基础示例" :canExpand="true" class="text-center mb-6 w-1/5 mr-6">
         <QrCode :value="qrCodeUrl" />
       </CollapseContainer>
 
@@ -79,13 +79,13 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
-  import { ref, unref } from 'vue';
-  import { QrCode, QrCodeActionType } from '@/components/Qrcode';
   import LogoImg from '@/assets/images/logo.png';
   import { CollapseContainer } from '@/components/Container';
   import { PageWrapper } from '@/components/Page';
+  import { QrCode, QrCodeActionType } from '@/components/Qrcode';
   import { type Nullable } from '@vben/types';
   import { QRCode } from 'ant-design-vue';
+  import { ref, unref } from 'vue';
 
   const qrCodeUrl = 'https://www.vvbin.cn';
   const qrRef = ref<Nullable<QrCodeActionType>>(null);
