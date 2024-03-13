@@ -37,6 +37,11 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
   if (!actionKey) return [];
   return [
     {
+      field: 'id',
+      component: 'Input',
+      show: false,
+    },
+    {
       label: '集团名称',
       field: 'name',
       component: 'Input',

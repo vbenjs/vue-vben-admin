@@ -20,9 +20,9 @@
   import { useDrawerInner, BasicDrawer } from '@/components/Drawer';
 
   const actionKey = ref<ActionKey>();
-  const rowId = ref<number>(0);
+
   const emit = defineEmits(['success', 'register']);
-  const [registerForm, { setFieldsValue, validate, resetSchema }] = useForm({
+  const [registerForm, { setFieldsValue, validate, resetSchema, getFieldsValue }] = useForm({
     // layout: 'vertical',
     labelWidth: 100,
     showActionButtonGroup: false,
@@ -35,7 +35,6 @@
 
     if (unref(actionKey) !== 'create') {
       const formData = cloneDeep(data.record);
-      rowId.value = formData.id;
       setFieldsValue({
         ...formData,
       });
@@ -55,7 +54,7 @@
 
       setDrawerProps({ confirmLoading: true });
       const action = unref(actionKey);
-      const id = rowId.value;
+      const id = getFieldsValue().id;
       if (action === 'create') {
         await createApi({ ...values });
         message.success(`新建${modalTitle}成功！`);
@@ -66,7 +65,7 @@
       closeDrawer();
       emit('success', {
         actionKey: unref(actionKey),
-        values: { ...values, id: rowId.value },
+        values: { ...values, id },
       });
     } finally {
       setDrawerProps({ confirmLoading: false });
