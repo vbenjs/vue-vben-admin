@@ -13,7 +13,7 @@ import { getRawRoute } from '@/utils';
 import { MULTIPLE_TABS_KEY } from '@/enums/cacheEnum';
 
 import projectSetting from '@/settings/projectSetting';
-// import { useUserStore } from '@/store/modules/user';
+import { useUserStore } from '@/store/modules/user';
 
 export interface MultipleTabState {
   cacheTabList: Set<string>;
@@ -119,7 +119,7 @@ export const useMultipleTabStore = defineStore({
     },
 
     async addTab(route: RouteLocationNormalized) {
-      const { path, name, fullPath, params, query, meta, matched } = getRawRoute(route);
+      const { path, name, fullPath, params, query, meta } = getRawRoute(route);
       // 404  The page does not need to add a tab
       if (
         path === PageEnum.ERROR_PAGE ||
@@ -166,9 +166,9 @@ export const useMultipleTabStore = defineStore({
           }
         }
         //子路由加到当前tab后面
-        const lastTab = matched[matched.length - 1];
-        const index = this.tabList.findIndex((item) => item.path === lastTab?.path);
-        index > -1 ? this.tabList.splice(index, 0, route) : this.tabList.push(route);
+        const lastPath = meta.currentActiveMenu;
+        const index = this.tabList.findIndex((item) => item.path === lastPath);
+        index > -1 ? this.tabList.splice(index + 1, 0, route) : this.tabList.push(route);
       }
       this.updateCacheTab();
       cacheTab && Persistent.setLocal(MULTIPLE_TABS_KEY, this.tabList);
@@ -203,23 +203,21 @@ export const useMultipleTabStore = defineStore({
       if (index === 0) {
         // There is only one tab, then jump to the homepage, otherwise jump to the right tab
         if (this.tabList.length === 1) {
-          // const userStore = useUserStore();
-          toTarget = PageEnum.BASE_HOME;
+          const userStore = useUserStore();
+          toTarget = userStore.getUserInfo.homePath || PageEnum.BASE_HOME;
         } else {
           //  Jump to the right tab
           const page = this.tabList[index + 1];
           toTarget = getToTarget(page);
         }
-        close(currentRoute.value);
-        await replace(toTarget);
       } else {
         // Close the current tab
-        // const page = this.tabList[index - 1];
-        // toTarget = getToTarget(page);
-        close(currentRoute.value);
-        // await replace(toTarget);
-        router.back();
+        console.log(tab, router);
+        const page = this.tabList[index - 1];
+        toTarget = getToTarget(page);
       }
+      close(currentRoute.value);
+      await replace(toTarget);
     },
 
     // Close according to key
