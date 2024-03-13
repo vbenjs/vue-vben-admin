@@ -21,10 +21,12 @@
   import { getFormConfig, getRoleColumns } from './data';
   import { useDrawer } from '@/components/Drawer';
   import { deleteRole, getRole, getRoleById } from '@/api/system/roles';
-  import RoleDrawer from './RoleDrawer.vue';
   import { RoleResult } from '@/ApiModel/system/roleModel';
+  import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
 
   defineOptions({ name: 'Role' });
+
+  const RoleDrawer = createAsyncComponent(() => import('./RoleDrawer.vue'));
 
   const [registerDrawer, { openDrawer }] = useDrawer();
   const [registerTable, { reload, setColumns, getDataSource, setTableData }] = useTable({

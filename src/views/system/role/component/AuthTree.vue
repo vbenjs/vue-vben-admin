@@ -2,7 +2,7 @@
   import { reactive, onMounted, defineComponent, toRaw } from 'vue';
   import { Checkbox, Divider, Form } from 'ant-design-vue';
   import { getPermissionTree } from '@/api/system/permission';
-  import Icon from '@/components/Icon/Icon.vue';
+  import { Icon } from '@/components/Icon';
   import { TreeData } from './type';
   import { checkParent, formatOptions, getSelectAll, handleHide } from './functional';
   import { cloneDeep } from 'lodash-es';
@@ -63,6 +63,7 @@
         });
         return permissions.filter((item) => item.children?.length || item.actionList?.length);
       };
+
       const setPermissionList = (permissions: PermissionTree[] = []) => {
         const check = (itemk: Omit<TreeData, 'children'>, obj: PermissionTree) => {
           if (itemk.id === obj.id) {
@@ -143,28 +144,26 @@
     render() {
       return (
         <div>
-          <div>
-            {this.authTreeData.treeData.map((item) => {
-              return (
-                <div>
-                  <div
-                    class="text-lg bg-gray-200 p-2 border border-gray-300 cursor-default"
-                    onClick={() => handleHide(item.id, this.authTreeData.treeData)}
-                  >
-                    <Icon
-                      icon={!item.hide ? 'ant-design:up-outlined' : 'ant-design:down-outlined'}
-                      size={18}
-                      class="mr-2"
-                    />
-                    {item.permissionName}
-                  </div>
-                  <div v-show={!item.hide} class="border border-gray-200 p-2">
-                    {this.renderChildren(item)}
-                  </div>
+          {this.authTreeData.treeData.map((item) => {
+            return (
+              <div>
+                <div
+                  class="text-lg bg-gray-200 p-2 border border-gray-300 cursor-default"
+                  onClick={() => handleHide(item.id, this.authTreeData.treeData)}
+                >
+                  <Icon
+                    icon={!item.hide ? 'ant-design:up-outlined' : 'ant-design:down-outlined'}
+                    size={18}
+                    class="mr-2"
+                  />
+                  {item.permissionName}
                 </div>
-              );
-            })}
-          </div>
+                <div v-show={!item.hide} class="border border-gray-200 p-2">
+                  {this.renderChildren(item)}
+                </div>
+              </div>
+            );
+          })}
         </div>
       );
     },
