@@ -1,1 +1,1 @@
-export * from './AdminSelectBrandFormSchemas';
+export * from './AdminSelectBrand';

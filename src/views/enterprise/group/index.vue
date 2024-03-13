@@ -18,10 +18,11 @@
 </template>
 <script lang="tsx" setup>
   import { deleteCompany, getCompany, getCompanyById } from '@/api/company/company';
-  import { getFormConfig, getColumns, AUTH_KEY, TableResult } from './data';
+  import { getFormConfig, AUTH_KEY, TableResult } from './data';
   import { useDrawer } from '@/components/Drawer';
   import { BasicTable, TableAction, useTable } from '@/components/Table';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
+  import { getCompanyColumns } from '@/views/common/Columns';
 
   defineOptions({ name: AUTH_KEY });
 
@@ -31,7 +32,7 @@
 
   const [registerTable, { reload, updateTableDataRecord }] = useTable({
     api: (where) => getCompany(where, true),
-    columns: getColumns(),
+    columns: getCompanyColumns({ companyType: 'GROUP' }),
     rowKey: 'id',
     useSearchForm: true,
     formConfig: getFormConfig(),

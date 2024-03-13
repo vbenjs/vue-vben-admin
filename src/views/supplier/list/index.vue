@@ -17,13 +17,14 @@
   </div>
 </template>
 <script lang="tsx" setup>
-  import { getFormConfig, getColumns, AUTH_KEY, TableResult } from './data';
-  import { deleteStore, getStore, getStoreById } from '@/api/store';
+  import { getFormConfig, AUTH_KEY, TableResult } from './data';
   import { useDrawer } from '@/components/Drawer';
   import { QRCode } from 'ant-design-vue';
   import { BasicTable, TableAction, useTable } from '@/components/Table';
   import { useMessage } from '@/hooks/web/useMessage';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
+  import { getCompanyColumns } from '@/views/common/Columns';
+  import { deleteCompany, getCompany } from '@/api/company/company';
 
   defineOptions({ name: AUTH_KEY });
 
@@ -33,8 +34,8 @@
   const { createInfoModal } = useMessage();
 
   const [registerTable, { reload }] = useTable({
-    api: (where) => getStore(where, true),
-    columns: getColumns(),
+    api: (where) => getCompany(where, true),
+    columns: getCompanyColumns({ companyType: 'SUPPLIER' }),
     rowKey: 'id',
     useSearchForm: true,
     formConfig: getFormConfig(),
@@ -99,7 +100,7 @@
   };
 
   const handleDelete = async (id: number) => {
-    await deleteStore(id);
+    await deleteCompany([id]);
     reload();
   };
 </script>
