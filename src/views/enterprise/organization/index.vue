@@ -1,7 +1,10 @@
 <template>
   <PageWrapper contentFullHeight>
+    <Card size="small" class="mb-2" v-if="userStore.getIsAdmin">
+      <BasicForm @register="registerForm" />
+    </Card>
     <Card size="small">
-      <div class="flex w-full h-[calc(100vh-138px)]">
+      <div class="flex w-full" :style="{ height: height }">
         <div class="w-79 mr-1 h-full">
           <BasicTree
             ref="asyncTreeRef"
@@ -12,16 +15,19 @@
             @dragstart="dragstart"
           >
             <template #title="{ key: treeKey, title }">
-              <Dropdown :trigger="['contextmenu']">
+              <div class="w-full flex justify-between">
                 <span>{{ title }}</span>
-                <template #overlay>
-                  <Menu @click="({ key: menuKey }) => onContextMenuClick(treeKey, menuKey)">
-                    <MenuItem key="1">1st menu item</MenuItem>
-                    <MenuItem key="1">1st menu item</MenuItem>
-                    <MenuItem key="1">1st menu item</MenuItem>
-                  </Menu>
-                </template>
-              </Dropdown>
+                <Dropdown :trigger="['click']">
+                  <Icon icon="icon-park-outline:more" />
+                  <template #overlay>
+                    <Menu @click="({ key: menuKey }) => onContextMenuClick(treeKey, menuKey)">
+                      <MenuItem key="1">1st menu item</MenuItem>
+                      <MenuItem key="1">1st menu item</MenuItem>
+                      <MenuItem key="1">1st menu item</MenuItem>
+                    </Menu>
+                  </template>
+                </Dropdown>
+              </div>
             </template>
           </BasicTree>
         </div>
@@ -66,9 +72,13 @@
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
   import { Breadcrumb, Card, Space, Dropdown, Menu } from 'ant-design-vue';
   import { BasicTree, TreeActionType } from '@/components/Tree';
-  import { ref, unref } from 'vue';
+  import { onMounted, ref, unref } from 'vue';
   import { isArray, uniq } from 'lodash-es';
   import { deleteArea, getArea, getAreaById } from '@/api/company/area';
+  import { useForm, BasicForm } from '@/components/Form';
+  import { getSelectBrandFormSchema } from '@/views/common/FormSchemas';
+  import { useUserStore } from '@/store/modules/user';
+  import { Icon } from '@/components/Icon';
 
   defineOptions({ name: 'Organization' });
 
@@ -76,7 +86,19 @@
   const BreadcrumbItem = Breadcrumb.Item;
   const MenuItem = Menu.Item;
 
+  const height = ref('500px');
+
+  const userStore = useUserStore();
+
   const [registerAreaFormDrawer, { openDrawer: openAreaFormDrawer }] = useDrawer();
+
+  const [registerForm] = useForm({
+    // layout: 'vertical',
+    labelWidth: 80,
+    showActionButtonGroup: false,
+    schemas: getSelectBrandFormSchema(),
+    compact: true,
+  });
 
   const [registerTable, { reload, updateTableDataRecord }] = useTable({
     api: (where) => getArea(where, true),
@@ -180,4 +202,9 @@
   const onContextMenuClick = (treeKey: string, menuKey: string | number) => {
     console.log(`treeKey: ${treeKey}, menuKey: ${menuKey}`);
   };
+
+  onMounted(() => {
+    const offset = 80 + 32 + 24 + (userStore.getIsAdmin ? 74 : 0) + 2;
+    height.value = `calc(100vh - ${offset}px)`;
+  });
 </script>

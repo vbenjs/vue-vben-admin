@@ -33,7 +33,7 @@
 
     <!-- action  -->
     <div :class="`${prefixCls}-action`">
-      <BrandSelect class="mr-8" />
+      <BrandSelect class="mr-8" v-if="!userStore.getIsAdmin" />
 
       <AppSearch v-if="getShowSearch" :class="`${prefixCls}-action__item `" />
 
@@ -82,6 +82,7 @@
     UserDropDown,
     BrandSelect,
   } from './components';
+  import { useUserStore } from '@/store/modules/user';
 
   const SettingDrawer = createAsyncComponent(() => import('@/layouts/default/setting/index.vue'), {
     loading: true,
@@ -116,6 +117,8 @@
   const { getShowLocalePicker } = useLocale();
 
   const { getIsMobile } = useAppInject();
+
+  const userStore = useUserStore();
 
   const getHeaderClass = computed(() => {
     const theme = unref(getHeaderTheme);
