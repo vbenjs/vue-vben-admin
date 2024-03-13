@@ -31,6 +31,7 @@ const enterprise: AppRouteModule = {
           meta: {
             title: '集团表单',
             roles: ['Group'],
+            hideMenu: true,
           },
         },
       ],
