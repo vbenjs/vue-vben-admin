@@ -119,7 +119,7 @@ export const useMultipleTabStore = defineStore({
     },
 
     async addTab(route: RouteLocationNormalized) {
-      const { path, name, fullPath, params, query, meta } = getRawRoute(route);
+      const { path, name, fullPath, params, query, meta, matched } = getRawRoute(route);
       // 404  The page does not need to add a tab
       if (
         path === PageEnum.ERROR_PAGE ||
@@ -165,7 +165,10 @@ export const useMultipleTabStore = defineStore({
             index !== -1 && this.tabList.splice(index, 1);
           }
         }
-        this.tabList.push(route);
+        //子路由加到当前tab后面
+        const lastTab = matched[matched.length - 1];
+        const index = this.tabList.findIndex((item) => item.path === lastTab?.path);
+        index > -1 ? this.tabList.splice(index, 0, route) : this.tabList.push(route);
       }
       this.updateCacheTab();
       cacheTab && Persistent.setLocal(MULTIPLE_TABS_KEY, this.tabList);
@@ -207,13 +210,16 @@ export const useMultipleTabStore = defineStore({
           const page = this.tabList[index + 1];
           toTarget = getToTarget(page);
         }
+        close(currentRoute.value);
+        await replace(toTarget);
       } else {
         // Close the current tab
-        const page = this.tabList[index - 1];
-        toTarget = getToTarget(page);
+        // const page = this.tabList[index - 1];
+        // toTarget = getToTarget(page);
+        close(currentRoute.value);
+        // await replace(toTarget);
+        router.back();
       }
-      close(currentRoute.value);
-      await replace(toTarget);
     },
 
     // Close according to key
