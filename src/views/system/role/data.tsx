@@ -1,6 +1,6 @@
 import { debounce } from 'lodash-es';
 import { sortRole } from '@/api/system/roles';
-import Icon from '@/components/Icon/Icon.vue';
+import { Icon } from '@/components/Icon';
 import { FormProps, FormSchema } from '@/components/Table';
 import { BasicColumn } from '@/components/Table/src/types/table';
 import { formatToDateTime } from '@/utils/dateUtil';
