@@ -6,37 +6,33 @@
           type="primary"
           preIcon="ant-design:plus-outlined"
           @click="handleCreate"
-          v-auth="'StoreManager_add'"
+          v-auth="`${AUTH_KEY}_add`"
         >
-          添加地点
+          新建工单
         </a-button>
       </template>
     </BasicTable>
 
-    <!-- <StoreDrawer @register="registerDrawer" @success="handleSuccess" /> -->
+    <WorkOrderFormDrawer @register="registerWorkOrderFormDrawer" @success="handleSuccess" />
   </div>
 </template>
 <script lang="tsx" setup>
-  import { getFormConfig, getColumns } from './data';
-  import { StoreResult } from '@/api/model/storeModel';
-  import { deleteStore, getStore, getStoreById } from '@/api/store';
+  import { getFormConfig, getColumns, AUTH_KEY, TableResult } from './data';
+  import { deleteCompany, getCompany, getCompanyById } from '@/api/company/company';
   import { useDrawer } from '@/components/Drawer';
   import { BasicTable, TableAction, useTable } from '@/components/Table';
-  import { useGo } from '@/hooks/web/usePage';
-  import { openWindow } from '@/utils';
-  import { HashingFactory } from '@/utils/cipher';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
 
-  defineOptions({ name: 'WorkorderList' });
+  defineOptions({ name: AUTH_KEY });
 
-  // const StoreDrawer = createAsyncComponent(() => import('./Drawer/StoreDrawer.vue'));
+  const WorkOrderFormDrawer = createAsyncComponent(
+    () => import('./Drawer/WorkOrderFormDrawer.vue'),
+  );
 
-  // const [registerDrawer, { openDrawer }] = useDrawer();
-  const go = useGo();
-  const encryptByMd5 = HashingFactory.createMD5Hashing().hash;
+  const [registerWorkOrderFormDrawer, { openDrawer: openWorkOrderFormDrawer }] = useDrawer();
 
   const [registerTable, { reload, updateTableDataRecord }] = useTable({
-    api: (where) => getStore(where, true),
+    api: (where) => getCompany(where, true),
     columns: getColumns(),
     rowKey: 'id',
     useSearchForm: true,
@@ -45,17 +41,17 @@
     loading: true,
     showIndexColumn: false,
     actionColumn: {
-      width: 160,
+      width: 120,
       title: '操作',
       dataIndex: 'action',
-      auth: ['StoreManager_edit', 'StoreManager_del'],
+      auth: [`${AUTH_KEY}_edit`, `${AUTH_KEY}_del`],
       customRender: ({ record }) => {
-        return createActions(record as StoreResult);
+        return createActions(record as TableResult);
       },
     },
   });
 
-  const createActions = (record: StoreResult) => {
+  const createActions = (record: TableResult) => {
     return (
       <TableAction
         stopButtonPropagation
@@ -63,24 +59,34 @@
           {
             icon: 'clarity:note-edit-line',
             tooltip: '编辑',
-            auth: 'StoreManager_edit',
-            onClick: handleEdit.bind(null, record.id),
+            auth: `${AUTH_KEY}_edit`,
+            onClick: async () => {
+              const account = await getCompanyById(record.id);
+              openWorkOrderFormDrawer(true, {
+                record: account,
+                actionKey: 'edit',
+              });
+            },
           },
           {
             icon: 'ant-design:delete-outlined',
-            label: '删除',
+            tooltip: '删除',
             color: 'error',
-            auth: 'StoreManager_del',
+            auth: `${AUTH_KEY}_del`,
             popConfirm: {
               title: '是否确认删除？',
               placement: 'left',
-              confirm: handleDelete.bind(null, record.id),
+              confirm: async () => {
+                await deleteCompany([record.id]);
+                reload();
+              },
             },
           },
         ]}
       />
     );
   };
+
   function handleSuccess({ action, values }) {
     if (action == 'edit') {
       updateTableDataRecord(values.id, values);
@@ -90,21 +96,8 @@
   }
 
   const handleCreate = () => {
-    openDrawer(true, {
+    openWorkOrderFormDrawer(true, {
       actionKey: 'create',
     });
-  };
-
-  const handleEdit = async (id: number) => {
-    const account = await getStoreById(id);
-    openDrawer(true, {
-      record: account,
-      actionKey: 'edit',
-    });
-  };
-
-  const handleDelete = async (id: number) => {
-    await deleteStore(id);
-    reload();
   };
 </script>
