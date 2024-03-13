@@ -498,7 +498,7 @@ export interface BasicColumn<T = any> extends ColumnProps<T> {
   editValueMap?: (value: any) => string;
   onEditRow?: () => void;
   // 权限编码控制是否显示
-  auth?: RoleEnum | RoleEnum[] | string | string[];
+  auth?: RoleEnum | RoleEnum[];
   // 业务控制是否显示
   ifShow?: boolean | ((column: BasicColumn) => boolean);
   // 自定义修改后显示的内容

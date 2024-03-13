@@ -17,6 +17,7 @@ import { getAccountWithLogged } from '@/api/system/account';
 import { Account, Permission as SysPermission } from '@/ApiModel/system/accountModel';
 // import { useEnumStore } from './enum';
 import { useAppStore } from './app';
+import { useEnumStore } from './enum';
 
 interface UserState {
   sessionTimeout?: boolean;
@@ -72,7 +73,7 @@ export const useUserStore = defineStore({
       return this.permission?.roles ?? [];
     },
     getIsAdmin(): boolean {
-      return this.getRoleList.includes('admin');
+      return this.getSysRoles.includes('ADMIN');
     },
     getSessionTimeout(): boolean {
       return !!this.sessionTimeout;
@@ -185,11 +186,8 @@ export const useUserStore = defineStore({
 
       if (account) {
         this.setUsername(account.username);
-
-        if (account.permission?.permissions) {
-          this.setRoles(account);
-          this.setUserInfo(account);
-        }
+        this.setRoles(account);
+        this.setUserInfo(account);
       }
       useEnumStore().getEnumOptions();
       useAppStore().getVersion();

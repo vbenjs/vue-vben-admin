@@ -102,7 +102,7 @@ export const usePermissionStore = defineStore({
         const { meta } = route;
         const { roles } = meta || {};
         if (!roles) return true;
-        if (roleList.includes('admin')) return true;
+        if (userStore.getIsAdmin) return true;
         return roleList.some((role) => roles.includes(role));
       };
 
