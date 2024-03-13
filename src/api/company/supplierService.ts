@@ -5,6 +5,7 @@ import {
   PmSupplierServiceForm,
   PmSupplierServiceUpdate,
 } from '@/ApiModel/company/supplierService';
+import { YN } from '@/enums/YN';
 import { defHttp } from '@/utils/http/axios';
 
 enum Api {
@@ -55,8 +56,17 @@ export function deleteSupplierService(ids: number[]) {
   });
 }
 
-export function enabledSupplierService(data: BatchModifyStatusForm) {
-  return defHttp.post({
+export function enabledSupplierService(data: BatchModifyStatusForm): Promise<void>;
+export function enabledSupplierService(ids: number[], status: YN): Promise<void>;
+export function enabledSupplierService(...arg) {
+  let data = {};
+  if (arg.length === 1) data = arg[0];
+  if (arg.length === 2)
+    data = {
+      ids: arg[0],
+      status: arg[1],
+    };
+  return defHttp.post<void>({
     url: Api.enabled,
     data,
   });

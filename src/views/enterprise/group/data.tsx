@@ -1,8 +1,8 @@
-import { createStore, modifyStoreMonitor, updateStore } from '@/api/store';
 import { BasicColumn, FormProps, FormSchema } from '@/components/Table';
 import { formatToDate } from '@/utils/dateUtil';
 import { StatusSwitch } from '@/components/Business';
 import { PmCompany } from '@/ApiModel/company/company';
+import { createCompany, enabledCompany, updateCompany } from '@/api/company/company';
 
 export const AUTH_KEY = 'Group';
 export type TableResult = PmCompany;
@@ -37,7 +37,7 @@ export function getColumns(): BasicColumn<PmCompany>[] {
       customRender: ({ record }) => {
         return (
           <StatusSwitch
-            api={(checked) => modifyStoreMonitor([record.id], checked)}
+            api={(checked) => enabledCompany([record.id], checked)}
             v-model:checked={record.enabled}
             auth={`${AUTH_KEY}_enable`}
           />
@@ -78,8 +78,8 @@ export function getFormConfig(): Partial<FormProps> {
 
 export const modalTitle = '集团';
 export type ActionKey = 'create' | 'edit';
-export const createApi = createStore;
-export const updateApi = updateStore;
+export const createApi = createCompany;
+export const updateApi = updateCompany;
 export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
   if (!actionKey) return [];
   return [

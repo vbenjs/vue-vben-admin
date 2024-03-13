@@ -6,6 +6,12 @@
     <Card size="small">
       <div class="flex w-full" :style="{ height: height }">
         <div class="w-79 mr-1 h-full">
+          <Space>
+            <a-button type="primary" preIcon="ant-design:plus-outlined" @click="handleCreate">
+              新建组织架构
+            </a-button>
+          </Space>
+          <div class="h-10px"></div>
           <BasicTree
             ref="asyncTreeRef"
             :treeData="tree"
@@ -38,7 +44,7 @@
                 type="primary"
                 preIcon="ant-design:plus-outlined"
                 @click="handleCreate"
-                v-auth="'StoreManager_add'"
+                v-auth="`${AUTH_KEY}_add`"
               >
                 添加用户
               </a-button>
@@ -63,8 +69,7 @@
   </PageWrapper>
 </template>
 <script lang="tsx" setup>
-  import { getFormConfig, getColumns } from './data';
-  import { StoreResult } from '@/api/model/storeModel';
+  import { getColumns, AUTH_KEY, TableResult } from './data';
   import { useDrawer } from '@/components/Drawer';
   import { PageWrapper } from '@/components/Page';
   import { BasicTable, TableAction, useTable } from '@/components/Table';
@@ -80,13 +85,20 @@
   import { useUserStore } from '@/store/modules/user';
   import { Icon } from '@/components/Icon';
 
-  defineOptions({ name: 'Organization' });
+  defineOptions({ name: AUTH_KEY });
 
   const AreaFormDrawer = createAsyncComponent(() => import('./Drawer/AreaFormDrawer.vue'));
   const BreadcrumbItem = Breadcrumb.Item;
   const MenuItem = Menu.Item;
 
   const height = ref('500px');
+  const asyncTreeRef = ref();
+  const tree = ref([
+    {
+      title: 'parent ',
+      key: '0-0',
+    },
+  ]);
 
   const userStore = useUserStore();
 
@@ -113,14 +125,14 @@
       width: 160,
       title: '操作',
       dataIndex: 'action',
-      auth: ['StoreManager_edit', 'StoreManager_del'],
+      auth: [`${AUTH_KEY}_edit`],
       customRender: ({ record }) => {
-        return createActions(record as StoreResult);
+        return createActions(record as TableResult);
       },
     },
   });
 
-  const createActions = (record: StoreResult) => {
+  const createActions = (record: TableResult) => {
     return (
       <TableAction
         stopButtonPropagation
@@ -128,7 +140,7 @@
           {
             icon: 'clarity:note-edit-line',
             tooltip: '编辑',
-            auth: 'StoreManager_edit',
+            auth: `${AUTH_KEY}_edit`,
             onClick: handleEdit.bind(null, record.id),
           },
         ]}
@@ -158,41 +170,24 @@
   };
 
   const handleDelete = async (id: number) => {
-    await deleteArea(id);
+    await deleteArea([id]);
     reload();
   };
 
-  const asyncTreeRef = ref();
-  const tree = ref([
-    {
-      title: 'parent ',
-      key: '0-0',
-    },
-  ]);
+  async function onLoadData(treeNode) {
+    if (isArray(treeNode.children) && treeNode.children.length > 0) {
+      return;
+    }
+    const asyncTreeAction: TreeActionType | null = unref(asyncTreeRef);
+    if (asyncTreeAction) {
+      const nodeChildren = await getAreaById(treeNode.eventKey);
+      asyncTreeAction.updateNodeByKey(treeNode.eventKey, { children: nodeChildren });
+      asyncTreeAction.setExpandedKeys(
+        uniq([treeNode.eventKey, ...asyncTreeAction.getExpandedKeys()]),
+      );
+    }
 
-  function onLoadData(treeNode) {
-    return new Promise((resolve: (value?: unknown) => void) => {
-      if (isArray(treeNode.children) && treeNode.children.length > 0) {
-        resolve();
-        return;
-      }
-      setTimeout(() => {
-        const asyncTreeAction: TreeActionType | null = unref(asyncTreeRef);
-        if (asyncTreeAction) {
-          const nodeChildren = [
-            { title: `Child Node ${treeNode.eventKey}-0`, key: `${treeNode.eventKey}-0` },
-            { title: `Child Node ${treeNode.eventKey}-1`, key: `${treeNode.eventKey}-1` },
-          ];
-          asyncTreeAction.updateNodeByKey(treeNode.eventKey, { children: nodeChildren });
-          asyncTreeAction.setExpandedKeys(
-            uniq([treeNode.eventKey, ...asyncTreeAction.getExpandedKeys()]),
-          );
-        }
-
-        resolve();
-        return;
-      }, 300);
-    });
+    return;
   }
 
   const dragstart = () => {
