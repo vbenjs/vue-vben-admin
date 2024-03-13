@@ -1,4 +1,4 @@
-import { PermissionTree } from '@/api/system/model/permissionModel';
+import { PermissionTree } from '@/ApiModel/system/permissionModel';
 import { getPermissionTree } from '@/api/system/permission';
 import { FormSchema } from '@/components/Form';
 import { platformOptions } from '@/enums/platform';

@@ -1,4 +1,4 @@
-import { Account, GetAccountWithLoggedModel } from './model/accountModel';
+import { Account, GetAccountWithLoggedModel } from '@/ApiModel/system/accountModel';
 import { YN } from '@/enums/YN';
 import { defHttp } from '@/utils/http/axios';
 

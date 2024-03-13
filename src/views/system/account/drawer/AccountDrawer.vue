@@ -16,7 +16,7 @@
   import { useI18n } from '@/hooks/web/useI18n';
   import { ActionKey, getFormSchema } from '../form';
   import { createAccount, updateAccount } from '@/api/system/account';
-  import { Account } from '@/api/system/model/accountModel';
+  import { Account } from '@/ApiModel/system/accountModel';
   import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
   import { useMessage } from '@/hooks/web/useMessage';
   import { BasicForm, useForm } from '@/components/Form';

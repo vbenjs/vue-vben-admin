@@ -16,7 +16,7 @@
   import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
   import { BasicForm, useForm } from '@/components/Form/index';
   import { ActionKey, getFormSchema } from '../form';
-  import { PermissionTree } from '@/api/system/model/permissionModel';
+  import { PermissionTree } from '@/ApiModel/system/permissionModel';
   import { savePermission } from '@/api/system/permission';
   import { message } from 'ant-design-vue';
 

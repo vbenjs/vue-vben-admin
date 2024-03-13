@@ -1,4 +1,4 @@
-import { Account } from '../../system/model/accountModel';
+import { Account } from '@/ApiModel/system/accountModel';
 import { YN } from '@/enums/YN';
 
 export interface QueryRemindTemplateForm {

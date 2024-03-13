@@ -1,4 +1,4 @@
-import { RoleResult } from './model/roleModel';
+import { RoleResult } from '@/ApiModel/system/roleModel';
 import { defHttp } from '@/utils/http/axios';
 
 enum Api {

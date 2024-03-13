@@ -1,8 +1,8 @@
 import { useI18n } from '@/hooks/web/useI18n';
-import { Account } from '@/api/system/model/accountModel';
 import { getRole } from '@/api/system/roles';
 import { FormSchema } from '@/components/Form';
 import { YN } from '@/enums/YN';
+import { Account } from '@/ApiModel/system/accountModel';
 
 const { t } = useI18n();
 
