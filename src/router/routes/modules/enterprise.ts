@@ -23,6 +23,17 @@ const enterprise: AppRouteModule = {
         icon: 'tabler:building-community',
         roles: ['Group'],
       },
+      children: [
+        {
+          path: 'detail/:id',
+          name: 'GroupDetail',
+          component: () => import('@/views/enterprise/group/GroupForm.vue'),
+          meta: {
+            title: '集团详情',
+            roles: ['GroupDetail'],
+          },
+        },
+      ],
     },
     {
       path: 'brand',

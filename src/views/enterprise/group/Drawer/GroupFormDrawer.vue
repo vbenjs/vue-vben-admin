@@ -4,23 +4,23 @@
     @register="registerDrawer"
     :title="getTitle"
     @ok="handleSubmit"
-    :width="578"
     destroyOnClose
     showFooter
+    isDetail
   >
     <BasicForm @register="registerForm" />
   </BasicDrawer>
 </template>
 <script lang="ts" setup>
   import { ref, computed, unref } from 'vue';
-  import { ActionKey, createApi, getFormSchema, modalTitle, updateApi } from '../data';
+  import { ActionKey, createApi, getFormSchema, modalTitle, updateApi, FormValue } from '../data';
   import { message } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
   import { useForm, BasicForm } from '@/components/Form';
   import { useDrawerInner, BasicDrawer } from '@/components/Drawer';
 
   const actionKey = ref<ActionKey>();
-  const rowId = ref<number>();
+  const rowId = ref<number>(0);
   const emit = defineEmits(['success', 'register']);
   const [registerForm, { setFieldsValue, validate, resetSchema }] = useForm({
     // layout: 'vertical',
@@ -51,7 +51,7 @@
   });
   async function handleSubmit() {
     try {
-      const values = await validate();
+      const values = (await validate()) as FormValue;
 
       setDrawerProps({ confirmLoading: true });
       const action = unref(actionKey);
@@ -59,8 +59,7 @@
       if (action === 'create') {
         await createApi({ ...values });
         message.success(`新建${modalTitle}成功！`);
-      }
-      if (action === 'edit') {
+      } else if (action === 'edit') {
         await updateApi({ id, ...values });
         message.success('更新成功！');
       }

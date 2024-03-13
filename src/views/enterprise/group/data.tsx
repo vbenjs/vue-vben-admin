@@ -1,5 +1,5 @@
 import { FormProps, FormSchema } from '@/components/Table';
-import { PmCompany } from '@/ApiModel/company/company';
+import { PmCompany, PmCompanyForm } from '@/ApiModel/company/company';
 import { createCompany, updateCompany } from '@/api/company/company';
 
 export const AUTH_KEY = 'Group';
@@ -30,6 +30,7 @@ export function getFormConfig(): Partial<FormProps> {
 
 export const modalTitle = '集团';
 export type ActionKey = 'create' | 'edit';
+export type FormValue = PmCompanyForm;
 export const createApi = createCompany;
 export const updateApi = updateCompany;
 export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
@@ -43,7 +44,7 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
         placeholder: '请输入集团名称',
       },
       rules: [{ required: true, message: '请输入集团名称' }],
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '集团简称',
@@ -52,7 +53,7 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
       componentProps: {
         placeholder: '请输入集团简称',
       },
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '集团编号',
@@ -62,7 +63,7 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
         placeholder: '请输入集团编号',
       },
       rules: [{ required: true, message: '请输入集团编号' }],
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '集团短码',
@@ -71,7 +72,7 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
       componentProps: {
         placeholder: '请输入集团短码',
       },
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '邮箱',
@@ -80,7 +81,7 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
       componentProps: {
         placeholder: '请输入邮箱',
       },
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '电话',
@@ -89,7 +90,7 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
       componentProps: {
         placeholder: '请输入电话',
       },
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '联系人',
@@ -98,7 +99,7 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
       componentProps: {
         placeholder: '请输入联系人',
       },
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '联系人电话',
@@ -107,7 +108,7 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
       componentProps: {
         placeholder: '请输入联系人电话',
       },
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '统一社会信息用代码',
@@ -116,7 +117,7 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
       componentProps: {
         placeholder: '请输入统一社会信息用代码',
       },
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '营业执照有效期',
@@ -124,8 +125,9 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
       component: 'DatePicker',
       componentProps: {
         placeholder: '请选择营业执照有效期',
+        style: { width: '100%' },
       },
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '货币类型',
@@ -134,16 +136,7 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
       componentProps: {
         placeholder: '请输入货币类型',
       },
-      colProps: { span: 24 },
-    },
-    {
-      label: '经营范围',
-      field: 'businessScope',
-      component: 'Input',
-      componentProps: {
-        placeholder: '请输入经营范围',
-      },
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '行业',
@@ -152,16 +145,25 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
       componentProps: {
         placeholder: '请输入行业',
       },
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
-      label: '网站',
+      label: '经营范围',
+      field: 'businessScope',
+      component: 'Input',
+      componentProps: {
+        placeholder: '请输入经营范围',
+      },
+      colProps: { span: 12 },
+    },
+    {
+      label: '官网地址',
       field: 'website',
       component: 'Input',
       componentProps: {
         placeholder: '请输入网站',
       },
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '省',
@@ -170,7 +172,7 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
       componentProps: {
         placeholder: '请输入省',
       },
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '市',
@@ -179,7 +181,7 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
       componentProps: {
         placeholder: '请输入市',
       },
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '区',
@@ -188,7 +190,7 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
       componentProps: {
         placeholder: '请输入区',
       },
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '地址',
@@ -197,7 +199,7 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
       componentProps: {
         placeholder: '请输入地址',
       },
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '备注',
@@ -206,7 +208,7 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
       componentProps: {
         placeholder: '请输入备注',
       },
-      colProps: { span: 24 },
+      colProps: { span: 12 },
     },
     {
       label: '状态',
@@ -217,6 +219,7 @@ export function getFormSchema(actionKey?: ActionKey): FormSchema[] {
         unCheckedValue: 'N',
       },
       defaultValue: 'Y',
+      colProps: { span: 12 },
     },
     {
       label: '上传 logo',

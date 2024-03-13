@@ -23,10 +23,13 @@
   import { BasicTable, TableAction, useTable } from '@/components/Table';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
   import { getCompanyColumns } from '@/views/common/Columns';
+  import { useGo } from '@/hooks/web/usePage';
 
   defineOptions({ name: AUTH_KEY });
 
   const GroupFormDrawer = createAsyncComponent(() => import('./Drawer/GroupFormDrawer.vue'));
+
+  const go = useGo();
 
   const [registerGroupFormDrawer, { openDrawer: openGroupFormDrawer }] = useDrawer();
 
@@ -95,8 +98,9 @@
   }
 
   const handleCreate = () => {
-    openGroupFormDrawer(true, {
-      actionKey: 'create',
-    });
+    // openGroupFormDrawer(true, {
+    //   actionKey: 'create',
+    // });
+    go({ path: '/enterprise/group/detail/0' });
   };
 </script>
