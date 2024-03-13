@@ -1,20 +1,40 @@
 <template>
-  <Dropdown>
-    <a class="ant-dropdown-link" @click.prevent>
-      Cascading menu
-      <DownOutlined />
-    </a>
+  <Dropdown trigger="click">
+    <Space>
+      <div @click.prevent class="text-[#333333] cursor-pointer"> {{ brandStore.getBrandName }}</div>
+      <Icon icon="teenyicons:down-solid" size="10" class="text-[#333333]" />
+    </Space>
     <template #overlay>
       <Menu>
-        <MenuItem>1st menu item</MenuItem>
-        <MenuItem>2nd menu item</MenuItem>
+        <MenuItem
+          v-for="item in brandStore.BrandList"
+          :key="item.id"
+          :disabled="item.enabled !== 'Y'"
+          :icon="item.logo"
+          @click="handleClickMenu(item)"
+        >
+          {{ item.name }}
+        </MenuItem>
       </Menu>
     </template>
   </Dropdown>
 </template>
 <script lang="ts" setup>
-  import { DownOutlined } from '@ant-design/icons-vue';
-  import { Dropdown, Menu } from 'ant-design-vue';
+  import { Dropdown, Menu, Space } from 'ant-design-vue';
+  import { Icon } from '@/components/Icon';
+  import { useBrandStore } from '@/store/modules/brand';
+  import { onMounted } from 'vue';
+  import { PmCompany } from '@/ApiModel/company/company';
 
   const MenuItem = Menu.Item;
+
+  const brandStore = useBrandStore();
+
+  onMounted(() => {
+    brandStore.setBrandList(0);
+  });
+
+  const handleClickMenu = (item: PmCompany) => {
+    brandStore.setBrand(item.id, item.name);
+  };
 </script>

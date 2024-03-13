@@ -3,9 +3,9 @@ import { CompanyType } from '@/enums/companyType';
 import { BasePageForm } from '..';
 
 export interface PmCompanyForm {
-  name?: string; // 名称
+  name: string; // 名称
   shortName?: string; // 简称
-  code?: string; // 编码
+  code: string; // 编码
   shortCode?: string; // 短码
   email?: string; // 邮箱
   phone?: string; // 电话

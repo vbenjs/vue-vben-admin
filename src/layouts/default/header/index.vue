@@ -33,7 +33,7 @@
 
     <!-- action  -->
     <div :class="`${prefixCls}-action`">
-      <BrandSelect class="mr-8" v-if="!userStore.getIsAdmin" />
+      <BrandSelect class="mr-8" v-if="userStore.getIsAdmin" />
 
       <AppSearch v-if="getShowSearch" :class="`${prefixCls}-action__item `" />
 
