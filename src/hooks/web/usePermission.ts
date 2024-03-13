@@ -60,16 +60,16 @@ export function usePermission() {
   /**
    * Determine whether there is permission
    */
-  function hasPermission(value?: RoleEnum | RoleEnum[] | string | string[], def = true): boolean {
+  function hasPermission(value?: RoleEnum | RoleEnum[], def = true): boolean {
     // Visible by default
     if (!value) {
       return def;
     }
+    if (userStore.getIsAdmin) return true;
 
     const permMode = appStore.getProjectConfig.permissionMode;
 
     if ([PermissionModeEnum.ROUTE_MAPPING, PermissionModeEnum.ROLE].includes(permMode)) {
-      if (userStore.getIsAdmin) return true;
       if (!isArray(value)) {
         return userStore.getRoleList?.includes(value as RoleEnum);
       }
