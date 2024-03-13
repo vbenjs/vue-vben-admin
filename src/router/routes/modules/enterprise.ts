@@ -32,6 +32,7 @@ const enterprise: AppRouteModule = {
             title: '集团表单',
             roles: ['Group'],
             hideMenu: true,
+            currentActiveMenu: '/enterprise/group',
           },
         },
       ],
@@ -74,6 +75,7 @@ const enterprise: AppRouteModule = {
           meta: {
             title: '分组统计',
             roles: ['StoreStatistics'],
+            currentActiveMenu: '/enterprise/store',
           },
         },
         {
@@ -83,6 +85,7 @@ const enterprise: AppRouteModule = {
           meta: {
             title: '营业额明细',
             roles: ['StoreTurnover'],
+            currentActiveMenu: '/enterprise/store',
           },
         },
       ],
