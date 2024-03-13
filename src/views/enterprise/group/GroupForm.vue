@@ -18,11 +18,14 @@
   import { useMessage } from '@/hooks/web/useMessage';
   import { PageWrapper } from '@/components/Page';
   import { onMounted } from 'vue';
+  import { useRoute } from 'vue-router';
+  import { getCompanyById } from '@/api/company/company';
 
   defineOptions({ name: 'GroupForm' });
 
+  const route = useRoute();
   const { createMessage: message } = useMessage();
-  const [registerForm, { validate, resetSchema }] = useForm({
+  const [registerForm, { validate, resetSchema, setFieldsValue }] = useForm({
     // layout: 'vertical',
     rowProps: { gutter: 24 },
     // labelWidth: 100,
@@ -31,18 +34,22 @@
   });
 
   onMounted(() => {
-    resetSchema(getFormSchema('create'));
+    init(Number(route.params.id));
   });
 
-  async function handleSubmit() {
-    let values: any = {};
-    try {
-      values = await validate();
-    } catch (error) {
-      message.warning('请先完成表单填写！');
-      return;
+  const init = async (id: number) => {
+    if (!id) {
+      resetSchema(getFormSchema('create'));
+    } else {
+      await resetSchema(getFormSchema('edit'));
+      const data = await getCompanyById(id);
+      setFieldsValue(data);
     }
+  };
+
+  async function handleSubmit() {
     try {
+      const values = await validate();
       console.log('values', values);
       message.success(`新建${'集团'}成功！`);
       // closeCurrent();

@@ -101,6 +101,6 @@
     // openGroupFormDrawer(true, {
     //   actionKey: 'create',
     // });
-    go({ path: '/enterprise/group/detail/0' });
+    go({ path: '/enterprise/group/form/0' });
   };
 </script>

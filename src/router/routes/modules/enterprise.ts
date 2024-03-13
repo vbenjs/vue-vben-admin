@@ -25,12 +25,12 @@ const enterprise: AppRouteModule = {
       },
       children: [
         {
-          path: 'detail/:id',
-          name: 'GroupDetail',
+          path: 'form/:id',
+          name: 'GroupFrom',
           component: () => import('@/views/enterprise/group/GroupForm.vue'),
           meta: {
-            title: '集团详情',
-            roles: ['GroupDetail'],
+            title: '集团表单',
+            roles: ['Group'],
           },
         },
       ],
