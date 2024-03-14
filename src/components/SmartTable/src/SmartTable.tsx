@@ -207,10 +207,7 @@ export default defineComponent({
     /**
      * 表格拖拽支持
      */
-    const { getTableDragColumn, getTableDragSlot } = useTableRowDrag(getTableProps, tableElRef, {
-      getData: () => getTableInstance().getData(),
-      loadData: (data) => getTableInstance().loadData(data),
-    });
+    const { getTableDragColumn, getTableDragSlot } = useTableRowDrag(getTableProps, tableElRef);
 
     /**
      * checkbox 功能加强

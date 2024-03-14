@@ -15,11 +15,6 @@ import { Icon } from '@/components/Icon';
 
 export const TABLE_DRAG_SLOT_NAME = 'smart-table-drop-slot';
 
-interface TableAction {
-  getData: (rowIndex?: number) => any[];
-  loadData: (data: any[]) => Promise<any>;
-}
-
 const defaultRowDragConfig: SmartTableRowDragConfig = {
   handle: 'smart-table-drop-handle',
   animation: 150,
@@ -34,7 +29,6 @@ const defaultRowDragConfig: SmartTableRowDragConfig = {
 export const useTableRowDrag = (
   tablePropsRef: ComputedRef<SmartTableProps>,
   tableRef: Ref<VxeGridInstance>,
-  { getData }: TableAction,
 ) => {
   let sortable: Sortable | null = null;
 
@@ -70,7 +64,7 @@ export const useTableRowDrag = (
       handle: `.${config.handle}`,
       onEnd: async ({ newIndex, oldIndex }) => {
         if (newIndex !== oldIndex) {
-          const tableData = getData();
+          const tableData = unref(tableRef).getTableData().tableData;
           // 记录原顺序
           const keySorts = tableData.map((item) => {
             return item[unref(getKeyField)!] + '';
@@ -80,7 +74,7 @@ export const useTableRowDrag = (
           // 还原顺序
           sortable?.sort(keySorts);
           // 更新数据排序
-          unref(tableRef).reactData.tableData = tableData;
+          unref(tableRef).loadData(tableData);
         }
       },
     };
