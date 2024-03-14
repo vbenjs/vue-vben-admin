@@ -121,10 +121,10 @@
       emitChange();
     } catch (error) {
       console.warn(error);
-    } finally {
-      loading.value = false;
       // reset status
       isFirstLoaded.value = false;
+    } finally {
+      loading.value = false;
     }
   }
 
