@@ -113,7 +113,7 @@
   import TableFieldTable from './componenets/TableFieldTable/TableFieldTable.vue';
   import PageTableSetting from './componenets/PageTableSetting/PageTableSetting.vue';
   import PageFormSetting from './componenets/PageFromSetting/PageFormSetting.vue';
-  import PageSearchSetting from './componenets/PageSearchSetting/PageSearchSetting.vue';
+  import PageSearchSetting from './componenets/PageSearchSetting/PageSearchSettingOld.vue';
   import { Icon } from '@/components/Icon';
   import PageAddendumTableChoseModal from './componenets/PageAddendumTableChoseModal.vue';
 

@@ -1,4 +1,5 @@
 import type { FormSchema } from '@/components/Form';
+import { SmartColumn } from '@/components/SmartTable';
 
 type ButtonType =
   | 'SEARCH'
@@ -12,7 +13,9 @@ type ButtonType =
   | 'ZOOM'
   | 'REFRESH'
   | 'SHOW_SEARCH'
-  | 'PRINT';
+  | 'PRINT'
+  | 'USE_YN_TRUE'
+  | 'USE_YN_FALSE';
 
 interface Button {
   key: ButtonType;
@@ -197,6 +200,11 @@ export const formSchemas = (t: Function): FormSchema[] => {
     },
     // ------------ 第五行 ---------------------
     {
+      label: '权限前缀',
+      field: 'permissionPrefix',
+      component: 'Input',
+    },
+    {
       label: t('generator.views.code.title.relateTable'),
       field: 'addendumTableList',
       defaultValue: [],
@@ -233,6 +241,14 @@ const letButtonList: Button[] = [
   {
     key: 'DELETE',
     value: '删除',
+  },
+  {
+    key: 'USE_YN_TRUE',
+    value: '启用',
+  },
+  {
+    key: 'USE_YN_FALSE',
+    value: '停用',
   },
 ];
 
@@ -328,4 +344,407 @@ const rowButtonTypeList = (t: Function) => [
     label: t('generator.views.code.title.rowButtonType.text'),
     value: 'TEXT',
   },
+];
+
+/**
+ * 获取table column
+ */
+export const getTableFiledColumns = (): SmartColumn[] => {
+  return [
+    {
+      field: 'columnName',
+      title: '{generator.views.tableField.title.columnName}',
+      width: 160,
+      align: 'left',
+      headerAlign: 'center',
+    },
+    {
+      field: 'typeName',
+      title: '{generator.views.tableField.title.typeName}',
+      width: 120,
+    },
+    {
+      field: 'columnSize',
+      title: '{generator.views.tableField.title.columnSize}',
+      width: 120,
+    },
+    {
+      field: 'decimalDigits',
+      title: '{generator.views.tableField.title.decimalDigits}',
+      width: 120,
+    },
+    {
+      field: 'columnDef',
+      title: '{generator.views.tableField.title.columnDef}',
+      width: 120,
+    },
+    {
+      field: 'nullable',
+      title: '{generator.views.tableField.title.nullable}',
+      width: 120,
+      autoClass: 'Boolean',
+      formatter({ row }) {
+        const value = row.nullable;
+        if (value === 0) {
+          return '否';
+        }
+        return '是';
+      },
+    },
+    {
+      field: 'remarks',
+      title: '{generator.views.tableField.title.remarks}',
+      minWidth: 120,
+      align: 'left',
+      headerAlign: 'center',
+    },
+    {
+      field: 'primaryKey',
+      title: '{generator.views.tableField.title.primaryKey}',
+      width: 120,
+      autoClass: 'Boolean',
+      formatter({ row }) {
+        const value = row.primaryKey;
+        if (value) {
+          return '是';
+        }
+        return '';
+      },
+    },
+    {
+      field: 'indexed',
+      title: '{generator.views.tableField.title.indexed}',
+      width: 120,
+      autoClass: 'Boolean',
+      formatter({ row }) {
+        const value = row.indexed;
+        if (value) {
+          return '是';
+        }
+        return '';
+      },
+    },
+  ];
+};
+
+export const getPageSearchSettingColumn = (t: Function): SmartColumn[] => {
+  const controlFormatMap = {};
+  const controlFormatList = controlList.map(({ key, value }) => {
+    const label = t(value);
+    controlFormatMap[key] = label;
+    return {
+      label: label,
+      value: key,
+    };
+  });
+
+  return [
+    {
+      title: '{generator.views.tableField.title.columnName}',
+      field: 'columnName',
+      width: 160,
+      align: 'left',
+      headerAlign: 'center',
+    },
+    {
+      title: '{generator.views.tableSetting.title.title}',
+      field: 'title',
+      width: 160,
+      align: 'left',
+      headerAlign: 'center',
+      editRender: {
+        name: 'AInput',
+        autofocus: true,
+      },
+    },
+    {
+      title: '{generator.views.formSetting.title.controlType}',
+      field: 'controlType',
+      width: 150,
+      editRender: {
+        name: 'ASelect',
+        autofocus: true,
+        props: (row) => {
+          return {
+            disabled: !row.visible,
+            options: controlFormatList,
+          };
+        },
+      },
+      formatter({ row }) {
+        const value = row.controlType;
+        if (!value) {
+          return '';
+        }
+        return controlFormatMap[value];
+      },
+    },
+    {
+      title: '{generator.views.formSetting.title.readonly}',
+      field: 'readonly',
+      width: 110,
+      editRender: {
+        name: 'ASwitch',
+        props: (row) => {
+          return {
+            disabled: !row.visible,
+          };
+        },
+      },
+      formatter({ row }) {
+        const value = row.readonly;
+        if (value) {
+          return '是';
+        }
+        return '否';
+      },
+      autoClass: 'Boolean',
+    },
+    {
+      title: '{generator.views.tableSetting.title.visible}',
+      field: 'visible',
+      width: 110,
+      editRender: {
+        name: 'ASwitch',
+      },
+      formatter({ row }) {
+        const value = row.visible;
+        if (value) {
+          return '是';
+        }
+        return '否';
+      },
+      autoClass: 'Boolean',
+    },
+    {
+      title: '{generator.views.tableSetting.title.hidden}',
+      field: 'hidden',
+      width: 110,
+      editRender: {
+        name: 'ASwitch',
+        props: (row) => {
+          return {
+            disabled: !row.visible,
+          };
+        },
+      },
+      formatter({ row }) {
+        const value = row.hidden;
+        if (value) {
+          return '是';
+        }
+        return '否';
+      },
+      autoClass: 'Boolean',
+    },
+    {
+      title: '{generator.views.formSetting.title.used}',
+      field: 'used',
+      width: 120,
+      editRender: {
+        name: 'ASwitch',
+        props: (row) => {
+          return {
+            disabled: !row.visible,
+          };
+        },
+      },
+      formatter({ row }) {
+        const value = row.used;
+        if (value) {
+          return '是';
+        }
+        return '否';
+      },
+      autoClass: 'Boolean',
+    },
+    {
+      title: '{generator.views.searchSetting.title.searchSymbol}',
+      field: 'searchSymbol',
+      width: 120,
+      editRender: {
+        name: 'ASelect',
+        autofocus: true,
+        props: (row) => {
+          return {
+            disabled: !row.visible,
+            options: searchSymbolList.map((item) => {
+              return {
+                label: item,
+                value: item,
+              };
+            }),
+          };
+        },
+      },
+    },
+    {
+      title: '{generator.views.formSetting.title.useTableSearch}',
+      field: 'useTableSearch',
+      width: 110,
+      editRender: {
+        name: 'ASwitch',
+        props: (row) => {
+          return {
+            disabled: !row.visible,
+          };
+        },
+      },
+      formatter({ row }) {
+        const value = row.useTableSearch;
+        if (value) {
+          return '是';
+        }
+        return '否';
+      },
+      autoClass: 'Boolean',
+    },
+    {
+      title: '{generator.views.code.table.tableName}',
+      field: 'tableName',
+      width: 120,
+      editRender: {
+        name: 'AInput',
+        autofocus: true,
+        props: (row) => {
+          return {
+            disabled: !(row.useTableSearch && row.visible),
+          };
+        },
+      },
+    },
+    {
+      title: '{generator.views.formSetting.title.keyColumnName}',
+      field: 'keyColumnName',
+      width: 120,
+      editRender: {
+        name: 'AInput',
+        autofocus: true,
+        props: (row) => {
+          return {
+            disabled: !(row.useTableSearch && row.visible),
+          };
+        },
+      },
+    },
+    {
+      title: '{generator.views.formSetting.title.valueColumnName}',
+      field: 'valueColumnName',
+      width: 120,
+      editRender: {
+        name: 'AInput',
+        autofocus: true,
+        props: (row) => {
+          return {
+            disabled: !(row.useTableSearch && row.visible),
+          };
+        },
+      },
+    },
+    {
+      title: '{generator.views.formSetting.title.tableWhere}',
+      field: 'tableWhere',
+      minWidth: 180,
+      editRender: {
+        name: 'AInput',
+        autofocus: true,
+        props: (row) => {
+          return {
+            disabled: !(row.useTableSearch && row.visible),
+          };
+        },
+      },
+    },
+    {
+      title: '{generator.views.code.table.remarks}',
+      field: 'remarks',
+      minWidth: 160,
+      align: 'left',
+      headerAlign: 'center',
+    },
+  ];
+};
+
+const controlList = [
+  {
+    key: 'INPUT',
+    value: 'generator.views.code.title.controlList.input',
+  },
+  {
+    key: 'TEXTAREA',
+    value: 'generator.views.code.title.controlList.textarea',
+  },
+  {
+    key: 'NUMBER',
+    value: 'generator.views.code.title.controlList.number',
+  },
+  {
+    key: 'PASSWORD',
+    value: 'generator.views.code.title.controlList.password',
+  },
+  {
+    key: 'SELECT',
+    value: 'generator.views.code.title.controlList.select',
+  },
+  {
+    key: 'TRANSFER',
+    value: 'generator.views.code.title.controlList.transfer',
+  },
+  {
+    key: 'SELECT_TABLE',
+    value: 'generator.views.code.title.controlList.selectTable',
+  },
+  {
+    key: 'RADIO',
+    value: 'generator.views.code.title.controlList.radio',
+  },
+  {
+    key: 'CHECKBOX',
+    value: 'generator.views.code.title.controlList.checkbox',
+  },
+  {
+    key: 'SWITCH_TYPE',
+    value: 'generator.views.code.title.controlList.switch_type',
+  },
+  {
+    key: 'DATE',
+    value: 'generator.views.code.title.controlList.date',
+  },
+  {
+    key: 'TIME',
+    value: 'generator.views.code.title.controlList.time',
+  },
+  {
+    key: 'DATETIME',
+    value: 'generator.views.code.title.controlList.datetime',
+  },
+  {
+    key: 'FILE',
+    value: 'generator.views.code.title.controlList.file',
+  },
+  {
+    key: 'DATA_DICT',
+    value: 'generator.views.design.title.controlList.dataDict',
+  },
+  {
+    key: 'CATEGORY_DICT',
+    value: 'generator.views.design.title.controlList.categoryDict',
+  },
+];
+
+/**
+ * 查询标识列表
+ */
+export const searchSymbolList = [
+  '=',
+  'like',
+  '>',
+  '>=',
+  '<',
+  '<=',
+  'in',
+  'notIn',
+  'notLike',
+  'likeLeft',
+  'likeRight',
 ];

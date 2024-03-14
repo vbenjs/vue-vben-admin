@@ -1,15 +1,15 @@
 <template>
   <div class="full-height">
     <vxe-grid
-      v-bind="$attrs"
       ref="tableRef"
+      row-key
       :size="tableSizeConfig"
       :columns="columns"
-      row-key
-      highlight-hover-row
-      stripe
       :data="data"
       align="center"
+      highlight-hover-row
+      stripe
+      v-bind="$attrs"
     >
       <template #table-drop="{ rowIndex }">
         <div class="table-drop" :data-id="rowIndex">
@@ -17,38 +17,61 @@
         </div>
       </template>
       <template #table-title="{ row }">
-        <a-input v-model:value="row.title" :size="formSizeConfig" />
+        <a-input v-model:value="row.title" :disabled="!row.visible" :size="formSizeConfig" />
       </template>
       <template #table-visible="{ row }">
         <a-checkbox v-model:checked="row.visible" :size="formSizeConfig" />
       </template>
       <template #table-hidden="{ row }">
-        <a-checkbox v-model:checked="row.hidden" :size="formSizeConfig" />
+        <a-checkbox v-model:checked="row.hidden" :disabled="!row.visible" :size="formSizeConfig" />
       </template>
       <template #table-readonly="{ row }">
-        <a-checkbox v-model:checked="row.readonly" :size="formSizeConfig" />
+        <a-checkbox
+          v-model:checked="row.readonly"
+          :disabled="!row.visible"
+          :size="formSizeConfig"
+        />
+      </template>
+      <template #table-used="{ row }">
+        <a-checkbox v-model:checked="row.used" :disabled="!row.visible" :size="formSizeConfig" />
+      </template>
+      <template #table-searchSymbol="{ row }">
+        <a-select
+          v-model:value="row.searchSymbol"
+          :disabled="!row.visible"
+          :size="formSizeConfig"
+          style="width: 100px"
+        >
+          <a-select-option v-for="item in searchSymbolList" :key="item" :value="item">
+            {{ item }}
+          </a-select-option>
+        </a-select>
       </template>
       <template #table-useTableSearch="{ row }">
-        <a-checkbox v-model:checked="row.useTableSearch" :size="formSizeConfig" />
+        <a-checkbox
+          v-model:checked="row.useTableSearch"
+          :disabled="!row.visible"
+          :size="formSizeConfig"
+        />
       </template>
       <template #table-tableName="{ row }">
         <a-input
           v-model:value="row.tableName"
-          :disabled="!row.useTableSearch"
+          :disabled="!(row.useTableSearch && row.visible)"
           :size="formSizeConfig"
         />
       </template>
       <template #table-keyColumnName="{ row }">
         <a-input
           v-model:value="row.keyColumnName"
-          :disabled="!row.useTableSearch"
+          :disabled="!(row.useTableSearch && row.visible)"
           :size="formSizeConfig"
         />
       </template>
       <template #table-valueColumnName="{ row }">
         <a-input
           v-model:value="row.valueColumnName"
-          :disabled="!row.useTableSearch"
+          :disabled="!(row.useTableSearch && row.visible)"
           :size="formSizeConfig"
         />
       </template>
@@ -56,12 +79,17 @@
         <a-input v-model:value="row.tableWhere" :size="formSizeConfig" />
       </template>
       <template #table-controlType="{ row }">
-        <a-select v-model:value="row.controlType" :size="formSizeConfig" style="width: 100px">
+        <a-select
+          v-model:value="row.controlType"
+          :disabled="!row.visible"
+          style="width: 100px"
+          :size="formSizeConfig"
+        >
           <a-select-option v-for="item in controlList" :key="item.key" :value="item.key">
             {{ $t(item.value) }}
           </a-select-option>
         </a-select>
-        <a-tooltip v-if="row.controlType === 'SELECT_TABLE'" placement="top">
+        <a-tooltip v-if="row.controlType === 'selectTable'" placement="top">
           <template #title>
             <span>选择表格</span>
           </template>
@@ -72,14 +100,17 @@
         </a-tooltip>
       </template>
       <template #table-rules="{ row }">
-        <Icon
-          v-if="row.autoValidate === true || (row.ruleList && row.ruleList.length > 0)"
-          color="red"
-          icon="ant-design:info-circle-outlined"
-        />
-        <a-button :size="tableButtonSizeConfig" @click="() => openRuleSetModal(true, row)">
-          设置规则
-        </a-button>
+        <a-select
+          v-model:value="row.rules"
+          :disabled="!row.visible"
+          mode="multiple"
+          :size="formSizeConfig"
+          style="width: 160px"
+        >
+          <a-select-option v-for="item in ruleList" :key="item.key" :value="item.key">
+            {{ item.value }}
+          </a-select-option>
+        </a-select>
       </template>
       <template #table-visible-header="{ column }">
         <a-checkbox v-model:checked="headerVisibleCheckboxChecked" :size="formSizeConfig" />
@@ -97,41 +128,32 @@
         <a-checkbox v-model:checked="headerUseCheckboxChecked" :size="formSizeConfig" />
         {{ $t(column.title.replace('{', '').replace('}', '')) }}
       </template>
-      <template #table-used="{ row }">
-        <a-checkbox v-model:checked="row.used" :disabled="!row.visible" :size="formSizeConfig" />
-      </template>
     </vxe-grid>
-    <!--  下拉表格设置  -->
     <PageAddendumTableChoseModal
       @ok="handleChoseTable"
-      :select-table-list="currentRow.selectTableList === null ? [] : currentRow.selectTableList"
+      :select-table-list="currentRow.selectTableList == null ? [] : currentRow.selectTableList"
       @register="registerSelectTableModal"
     />
-    <!--  验证规则  -->
-    <FormRuleSetModal @register="registerFormRuleSetModal" />
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, onMounted, watch, toRefs } from 'vue';
+  import { defineComponent, onMounted, ref, toRefs, watch } from 'vue';
   import type { Ref, PropType } from 'vue';
-  import { useI18n } from '@/hooks/web/useI18n';
 
   import { MenuOutlined, PlusOutlined } from '@ant-design/icons-vue';
-
-  import FormRuleSetModal from './FormRuleSetModal.vue';
-  import { useSizeSetting } from '@/hooks/setting/UseSizeSetting';
-  import { useModal } from '@/components/Modal';
   import PageAddendumTableChoseModal from '../PageAddendumTableChoseModal.vue';
-
+  import { useSizeSetting } from '@/hooks/setting/UseSizeSetting';
   import { useVxeTableSortable } from '@/components/SmartTable';
+
   import {
     controlList,
     getRuleList,
+    searchSymbolList,
     vueTableHeaderCheckboxSupport,
     vueChoseSelectTableSupport,
   } from '../PageSettingSupport';
-  import { Icon } from '@/components/Icon';
+  import { useI18n } from '@/hooks/web/useI18n';
 
   const copyField = [
     'columnName',
@@ -162,19 +184,21 @@
         hidden: false,
         used: true,
         controlType: 'INPUT',
+        searchSymbol: '=',
         rules: [],
         useTableSearch: false,
       });
     });
   };
 
+  /**
+   * 搜索配置页面
+   */
   export default defineComponent({
-    name: 'PageFormSetting',
+    name: 'PageSearchSetting',
     components: {
-      Icon,
       MenuOutlined,
       PlusOutlined,
-      FormRuleSetModal,
       PageAddendumTableChoseModal,
     },
     props: {
@@ -187,15 +211,12 @@
       },
     },
     setup(props) {
-      const sizeConfigHoops = useSizeSetting();
       const { t } = useI18n();
       const { tableData, editData } = toRefs(props);
+      const sizeConfigHoops = useSizeSetting();
       const tableRef = ref();
       const data = ref<Array<any>>([]);
       const currentRow = ref<any>({});
-
-      const [registerFormRuleSetModal, { openModal: openRuleSetModal }] = useModal();
-
       watch(tableData, () => {
         data.value = createDataFromTableData(tableData.value, editData);
       });
@@ -205,21 +226,18 @@
       const getData = () => {
         return data.value;
       };
-
-      const { checked } = vueTableHeaderCheckboxSupport(data, 'visible');
       return {
+        ...sizeConfigHoops,
         data,
         getData,
         tableRef,
         currentRow,
-        ...sizeConfigHoops,
-        openRuleSetModal,
-        registerFormRuleSetModal,
         ...vueChoseSelectTableSupport(currentRow),
         ...useVxeTableSortable(tableRef, '.table-drop', data),
         ruleList: ref(getRuleList(t)),
         controlList: ref(controlList),
-        headerVisibleCheckboxChecked: checked,
+        searchSymbolList: ref(searchSymbolList),
+        headerVisibleCheckboxChecked: vueTableHeaderCheckboxSupport(data, 'visible').checked,
         headerHiddenCheckboxChecked: vueTableHeaderCheckboxSupport(data, 'hidden', false).checked,
         headerReadonlyCheckboxChecked: vueTableHeaderCheckboxSupport(data, 'readonly', false)
           .checked,
@@ -292,10 +310,18 @@
           {
             title: '{generator.views.formSetting.title.used}',
             field: 'used',
-            width: 110,
+            width: 120,
             slots: {
               default: 'table-used',
               header: 'table-used-header',
+            },
+          },
+          {
+            title: '{generator.views.searchSetting.title.searchSymbol}',
+            field: 'searchSymbol',
+            width: 120,
+            slots: {
+              default: 'table-searchSymbol',
             },
           },
           {
@@ -307,7 +333,7 @@
             },
           },
           {
-            title: '{generator.views.design.formSetting.title.tableName}',
+            title: '{generator.views.code.table.tableName}',
             field: 'tableName',
             width: 120,
             slots: {
@@ -339,17 +365,9 @@
             },
           },
           {
-            title: '{generator.views.formSetting.title.rules}',
-            field: 'rules',
-            width: 180,
-            slots: {
-              default: 'table-rules',
-            },
-          },
-          {
             title: '{generator.views.code.table.remarks}',
             field: 'remarks',
-            width: 160,
+            minWidth: 160,
             align: 'left',
             headerAlign: 'center',
           },
