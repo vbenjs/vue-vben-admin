@@ -1,5 +1,6 @@
 import type { VxeTableDefines, VxeColumnSlotTypes, VxeColumnPropTypes } from 'vxe-table';
 import { VxeTableConstructor, VxeTablePrivateMethods } from 'vxe-table/types/table';
+import { type ComponentPropsOptions } from 'vue';
 
 export type SmartTableColumnComponent = 'switch' | 'tag' | 'button' | 'booleanTag' | 'useYnTag';
 
@@ -36,6 +37,8 @@ export interface SmartEditRender extends VxeColumnPropTypes.EditRender {
   required?: boolean;
   // 校验规则
   rules?: VxeTableDefines.ValidatorRule[];
+
+  props?: ComponentPropsOptions | ((row: any) => Recordable);
 }
 
 export type SmartColumnDynamicClass =

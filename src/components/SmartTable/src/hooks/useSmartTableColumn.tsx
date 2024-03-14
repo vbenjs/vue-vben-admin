@@ -5,6 +5,7 @@ import type { VxeColumnSlotTypes } from 'vxe-table';
 import { isBoolean, isFunction } from '@/utils/is';
 import { getFormSize } from '../utils';
 import { VxeTablePropTypes } from 'vxe-table/types/table';
+import XEUtils from 'xe-utils';
 
 const getComponentProps = (
   params: VxeColumnSlotTypes.DefaultSlotParams,
@@ -150,40 +151,45 @@ export const useSmartTableColumn = (tableProps: ComputedRef<SmartTableProps>, t:
  */
 const convertEditRender = (columns: SmartColumn[], tableSize) => {
   for (const column of columns) {
+    const convertProps: Recordable = {};
     const { editRender } = column;
     if (!editRender) {
       continue;
     }
-    if (!editRender.props) {
-      editRender.props = {};
-    }
     // 处理尺寸
-    if (!editRender.props?.size) {
-      const size = getFormSize(tableSize);
-      if (editRender.props) {
-        editRender.props.size = size;
-      } else {
-        editRender.props = {
-          size,
-        };
-      }
-    }
+    convertProps.size = getFormSize(tableSize);
+
     // 处理自动聚焦
     const { autofocus, name } = editRender;
     if (isBoolean(autofocus) && autofocus) {
       if (name === 'ASelect') {
         editRender.autofocus = '.ant-select-selection-search-input';
-      }
-      if (name === 'ADatePicker') {
+      } else if (name === 'ADatePicker') {
         editRender.autofocus = '.ant-picker-input input';
+      } else {
+        editRender.autofocus = undefined;
       }
     }
     // 处理事件冒泡
     if (editRender.stopEnterBubbling !== false) {
-      editRender.props.onKeydown = (event: KeyboardEvent) => {
+      convertProps.onKeydown = (event: KeyboardEvent) => {
         if (event.key === 'Enter') {
           event.stopPropagation();
         }
+      };
+    }
+    if (XEUtils.isFunction(editRender.props)) {
+      const defaultProps = editRender.props as Function;
+      editRender.props = (row) => {
+        return {
+          ...convertProps,
+          ...defaultProps(row),
+        };
+      };
+    } else {
+      editRender.props = {
+        ...convertProps,
+        ...(editRender.props || {}),
       };
     }
   }

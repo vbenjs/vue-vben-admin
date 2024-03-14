@@ -48,8 +48,10 @@ function getCellEditFilterProps(
   _: VxeGlobalRendererHandles.RenderEditParams | VxeGlobalRendererHandles.RenderFilterParams,
   value: any,
   defaultProps?: { [prop: string]: any },
+  row?: any,
 ) {
-  return XEUtils.assign({}, defaultProps, renderOpts.props, { [getModelProp(renderOpts)]: value });
+  const props = XEUtils.isFunction(renderOpts.props) ? renderOpts.props(row) : renderOpts.props;
+  return XEUtils.assign({}, defaultProps, props, { [getModelProp(renderOpts)]: value });
 }
 
 function getItemProps(
@@ -339,7 +341,7 @@ function createEditRender(defaultProps?: { [key: string]: any }) {
     return [
       h(resolveComponent(name), {
         ...attrs,
-        ...getCellEditFilterProps(renderOpts, params, cellValue, defaultProps),
+        ...getCellEditFilterProps(renderOpts, params, cellValue, defaultProps, row),
         ...getEditOns(renderOpts, params),
       }),
     ];
@@ -669,7 +671,7 @@ export const VXETablePluginAntd = {
           const { row, column } = params;
           const { attrs } = renderOpts;
           const cellValue = XEUtils.get(row, column.field);
-          const props = getCellEditFilterProps(renderOpts, params, cellValue);
+          const props = getCellEditFilterProps(renderOpts, params, cellValue, undefined, row);
           const ons = getEditOns(renderOpts, params);
           if (optionGroups) {
             const groupOptions = optionGroupProps.options || 'options';
