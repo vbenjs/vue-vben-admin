@@ -40,7 +40,7 @@ export const getMenuList = async () => {
       compatibleIcon = 'ant-design:' + compatibleIcon;
     }
     const routeItem: RouteItem = {
-      path: url,
+      path: url || '',
       name: componentName || functionName,
       component,
       meta: {
