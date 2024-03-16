@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { type PropType, ref, Ref, unref, watch } from 'vue';
+  import { type PropType, ref, Ref, watch } from 'vue';
   import type { SelectValue } from 'ant-design-vue/es/select';
 
   import { computed, inject } from 'vue';
@@ -54,30 +54,33 @@
 
   const { t } = useI18n();
 
-  const registerHandler = inject(SmartProviderConstants.dictRegisterKey) as Function | undefined;
+  const registerHandler = inject(SmartProviderConstants.dictRegisterKey, null) as Function | null;
   if (registerHandler) {
     registerHandler(props.dictCode);
   }
   /**
    * 加载状态
    */
-  const loadingRef = inject(SmartProviderConstants.dictLoadingKey) as Ref<boolean> | undefined;
+  const loadingRef = inject(SmartProviderConstants.dictLoadingKey, null) as Ref<boolean> | null;
   /**
    * 是否有注入
    */
   const computedHasProvider = computed(() => {
-    return registerHandler !== undefined;
+    return registerHandler !== null;
   });
 
   /**
    * 注入OPTIONS
    */
-  const dictDataRef = inject(SmartProviderConstants.dictData) as Ref<Recordable<any[]>> | undefined;
+  const dictDataRef = inject(SmartProviderConstants.dictData, null) as Map<
+    string,
+    Recordable[]
+  > | null;
   const computedOptions = computed(() => {
     if (!dictDataRef) {
       return [];
     }
-    const dictData = unref(dictDataRef)?.[props.dictCode];
+    const dictData = dictDataRef.get(props.dictCode);
     if (!dictData) {
       return [];
     }

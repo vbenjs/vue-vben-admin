@@ -1,6 +1,6 @@
-export enum SmartProviderConstants {
-  dictRegisterKey = 'SMART_PROVIDER_DICT_SELECT_REGISTER',
-  dictLoadingKey = 'SMART_PROVIDER_DICT_SELECT_LOADING',
-  dictData = 'SMART_PROVIDER_DICT_SELECT_DATA',
-  dictMap = 'SMART_PROVIDER_DICT_SELECT_MAP',
-}
+export const SmartProviderConstants = {
+  dictRegisterKey: Symbol('smart_provider_dict_select_register'),
+  dictLoadingKey: Symbol('SMART_PROVIDER_DICT_SELECT_LOADING'),
+  dictData: Symbol('SMART_PROVIDER_DICT_SELECT_DATA'),
+  dictMap: Symbol('SMART_PROVIDER_DICT_SELECT_MAP'),
+};

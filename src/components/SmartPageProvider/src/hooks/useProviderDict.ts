@@ -1,22 +1,19 @@
-import { computed, onMounted, provide, reactive, ref, unref } from 'vue';
+import { computed, onMounted, provide, reactive, ref, watch } from 'vue';
 import { SmartProviderConstants } from '@/components/SmartPageProvider/src/constants';
 import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
 
 export const useProviderDict = () => {
+  let hasInitLoad = false;
   const dictCodeList = reactive<string[]>([]);
+  const dictDataMap = reactive(new Map<string, Recordable>());
+
   // 字典加载状态
   const dictLoadingRef = ref(false);
-
-  /**
-   * 字典数据
-   */
-  const dictMapRef = ref<Recordable<any[]>>({});
 
   const computedDictMap = computed(() => {
     const result: Recordable<Recordable> = {};
 
-    Object.keys(unref(dictMapRef)).forEach((key) => {
-      const list = unref(dictMapRef)[key];
+    dictDataMap.forEach((list, key) => {
       const itemMap: Recordable = {};
       list.forEach((item) => {
         itemMap[item.dictItemCode] = item.dictItemName;
@@ -27,7 +24,10 @@ export const useProviderDict = () => {
     return result;
   });
 
-  onMounted(() => loadDictData());
+  onMounted(async () => {
+    await loadDictData();
+    hasInitLoad = true;
+  });
 
   /**
    * 批量加载字典数据
@@ -36,29 +36,40 @@ export const useProviderDict = () => {
     if (dictCodeList.length === 0) {
       return;
     }
+    const noLoadDictCodeList = dictCodeList.filter((item) => !dictDataMap.has(item));
+    if (noLoadDictCodeList.length === 0) {
+      return;
+    }
     try {
       dictLoadingRef.value = true;
       const result =
         (await defHttp.post({
           service: ApiServiceEnum.SMART_SYSTEM,
           url: 'sys/dict/batchListItemByCode',
-          data: dictCodeList,
+          data: noLoadDictCodeList,
         })) || {};
-      const dictMap: Recordable<any[]> = {};
       for (const key in result) {
-        dictMap[key] = result[key].map((item) => {
-          return {
-            ...item,
-            label: `${item.dictItemCode}-${item.dictItemName}`,
-            value: item.dictItemCode,
-          };
-        });
+        dictDataMap.set(
+          key,
+          result[key].map((item) => {
+            return {
+              ...item,
+              label: item.dictItemName,
+              value: item.dictItemCode,
+            };
+          }),
+        );
       }
-      dictMapRef.value = dictMap;
     } finally {
       dictLoadingRef.value = false;
     }
   };
+
+  watch(dictCodeList, () => {
+    if (hasInitLoad) {
+      loadDictData();
+    }
+  });
 
   /**
    * 注入注册函数
@@ -72,7 +83,7 @@ export const useProviderDict = () => {
    */
   provide(SmartProviderConstants.dictLoadingKey, dictLoadingRef);
 
-  provide(SmartProviderConstants.dictData, dictMapRef);
+  provide(SmartProviderConstants.dictData, dictDataMap);
 
   provide(SmartProviderConstants.dictMap, computedDictMap);
 };
