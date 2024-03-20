@@ -7,7 +7,7 @@ import {
 import XEUtils from 'xe-utils';
 import { componentMap } from '../componentMap';
 import { ComponentType } from '../componentType';
-import { createPlaceholderMessage } from '../helper';
+import { createPlaceholderMessage, sanitizeInputWhitespace } from '../helper';
 
 /**
  * @description: 获取组件
@@ -323,7 +323,7 @@ export function createFormItemRender(
           params,
           (value: any) => {
             // 处理 model 值双向绑定
-            XEUtils.set(data, property, value);
+            XEUtils.set(data, property, sanitizeInputWhitespace(name as ComponentType, value));
           },
           () => {
             // 处理 change 事件相关逻辑
