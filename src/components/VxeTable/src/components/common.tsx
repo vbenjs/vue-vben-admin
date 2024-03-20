@@ -102,13 +102,13 @@ export function createEvents(
     };
   });
   if (inputFunc) {
-    ons[getOnName(modelEvent)] = function (targetEvnt: any) {
-      inputFunc(targetEvnt);
+    ons[getOnName(modelEvent)] = function (targetEvent: any) {
+      inputFunc(targetEvent);
       if (events && events[modelEvent]) {
-        events[modelEvent](params, targetEvnt);
+        events[modelEvent](params, targetEvent);
       }
       if (isSameEvent && changeFunc) {
-        changeFunc(targetEvnt);
+        changeFunc(targetEvent);
       }
     };
   }
