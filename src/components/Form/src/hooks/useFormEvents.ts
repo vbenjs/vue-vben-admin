@@ -135,6 +135,9 @@ export function useFormEvents({
       }
 
       const constructValue = tryConstructArray(key, values) || tryConstructObject(key, values);
+      const setDateFieldValue = (v) => {
+        return v ? (_props?.valueFormat ? v : dateUtil(v)) : null;
+      };
 
       // 0| '' is allow
       if (hasKey || !!constructValue) {
@@ -144,15 +147,11 @@ export function useFormEvents({
           if (Array.isArray(fieldValue)) {
             const arr: any[] = [];
             for (const ele of fieldValue) {
-              arr.push(ele ? dateUtil(ele) : null);
+              arr.push(setDateFieldValue(ele));
             }
             unref(formModel)[key] = arr;
           } else {
-            unref(formModel)[key] = fieldValue
-              ? _props?.valueFormat
-                ? fieldValue
-                : dateUtil(fieldValue)
-              : null;
+            unref(formModel)[key] = setDateFieldValue(fieldValue);
           }
         } else {
           unref(formModel)[key] = fieldValue;
