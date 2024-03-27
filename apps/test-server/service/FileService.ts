@@ -22,7 +22,7 @@ export default class FileService {
       if (flag) {
         let url = '';
         for (let i = 0; i < files.length; i++) {
-          url += uploadUrl + `/${files[i].name},`;
+          url += uploadUrl + `/${files[i].originalFilename},`;
         }
         url = url.replace(/,$/gi, '');
         ctx.body = {
