@@ -1,13 +1,13 @@
-import { type Menu } from '@/router/types';
-import { type AnyFunction } from '@vben/types';
-import { ref, onBeforeMount, unref, Ref, nextTick } from 'vue';
-import { getMenus } from '@/router/menus';
-import { cloneDeep } from 'lodash-es';
-import { filter, forEach } from '@/utils/helper/treeHelper';
-import { useGo } from '@/hooks/web/usePage';
-import { useScrollTo } from '@vben/hooks';
-import { onKeyStroke, useDebounceFn } from '@vueuse/core';
 import { useI18n } from '@/hooks/web/useI18n';
+import { useGo } from '@/hooks/web/usePage';
+import { getMenus } from '@/router/menus';
+import { type Menu } from '@/router/types';
+import { filter, forEach } from '@/utils/helper/treeHelper';
+import { useScrollTo } from '@vben/hooks';
+import { type AnyFunction } from '@vben/types';
+import { onKeyStroke, useDebounceFn } from '@vueuse/core';
+import { cloneDeep } from 'lodash-es';
+import { Ref, nextTick, onBeforeMount, ref, unref } from 'vue';
 
 export interface SearchResult {
   name: string;
@@ -42,7 +42,7 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref, emit: A
     const list = await getMenus();
     menuList = cloneDeep(list);
     forEach(menuList, (item) => {
-      item.name = t(item.name);
+      item.name = t(item.meta?.title || item.name);
     });
   });
 
