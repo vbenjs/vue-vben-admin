@@ -32,7 +32,7 @@ export default class FileService {
         };
       } else {
         ctx.body = {
-          url: uploadUrl + `/${files.name}`,
+          url: uploadUrl + `/${files.originalFilename}`,
           code: 0,
           message: 'upload Success!',
         };
