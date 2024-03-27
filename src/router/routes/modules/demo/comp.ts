@@ -263,6 +263,22 @@ const comp: AppRouteModule = {
             title: t('routes.demo.table.vxeTable'),
           },
         },
+        {
+          path: 'trackTableRow',
+          name: 'TrackTableRowDemo',
+          component: () => import('@/views/demo/table/TrackTableRow.vue'),
+          meta: {
+            title: t('routes.demo.table.trackTableRow'),
+          },
+        },
+        {
+          path: 'trackTableRowBindingModal',
+          name: 'TrackTableRowBindingModalDemo',
+          component: () => import('@/views/demo/table/TrackTableRowBindingModal.vue'),
+          meta: {
+            title: t('routes.demo.table.trackTableRowBindingModal'),
+          },
+        },
       ],
     },
     {

@@ -18,5 +18,5 @@ export function createTableContext(instance: Instance) {
 }
 
 export function useTableContext(): RetInstance {
-  return inject(key) as RetInstance;
+  return inject(key, null as any) as RetInstance;
 }

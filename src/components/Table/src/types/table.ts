@@ -128,6 +128,8 @@ export interface TableActionType {
   getShowPagination: () => boolean;
   setCacheColumnsByField?: (dataIndex: string | undefined, value: BasicColumn) => void;
   setCacheColumns?: (columns: BasicColumn[]) => void;
+  getRowKeyToRowMap: () => Map<string, Recordable>;
+  getWrapperElement: () => Nullable<HTMLElement>;
 }
 
 export interface FetchSetting {
