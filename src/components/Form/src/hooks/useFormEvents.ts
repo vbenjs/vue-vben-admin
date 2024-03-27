@@ -87,7 +87,7 @@ export function useFormEvents({
       const defaultValueObj = schema?.defaultValueObj;
       const fieldKeys = Object.keys(defaultValueObj || {});
       if (fieldKeys.length) {
-        fieldKeys.map((field) => {
+        fieldKeys.forEach((field) => {
           formModel[field] = defaultValueObj![field];
         });
       }
