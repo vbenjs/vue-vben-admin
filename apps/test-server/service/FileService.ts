@@ -10,8 +10,8 @@ export default class FileService {
     let fileReader, fileResource, writeStream;
 
     const fileFunc = function (file) {
-      fileReader = fs.createReadStream(file.path);
-      fileResource = filePath + `/${file.name}`;
+      fileReader = fs.createReadStream(file.filepath);
+      fileResource = filePath + `/${file.originalFilename}`;
       console.log(fileResource);
 
       writeStream = fs.createWriteStream(fileResource);
