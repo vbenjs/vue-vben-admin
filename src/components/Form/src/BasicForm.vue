@@ -285,7 +285,7 @@
     if (!autoSubmitOnEnter) return;
     if (e.key === 'Enter' && e.target && e.target instanceof HTMLElement) {
       const target: HTMLElement = e.target as HTMLElement;
-      if (target && target.tagName && target.tagName.toUpperCase() == 'INPUT') {
+      if (target && target.tagName && target.tagName.toUpperCase() === 'INPUT') {
         handleSubmit();
       }
     }

@@ -138,7 +138,7 @@ export function useFormValues({
       const { defaultValue, defaultValueObj } = item;
       const fieldKeys = Object.keys(defaultValueObj || {});
       if (fieldKeys.length) {
-        fieldKeys.map((field) => {
+        fieldKeys.forEach((field) => {
           obj[field] = defaultValueObj![field];
           if (formModel[field] === undefined) {
             formModel[field] = defaultValueObj![field];
