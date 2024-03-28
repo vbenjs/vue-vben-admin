@@ -86,4 +86,6 @@ export const useProviderDict = () => {
   provide(SmartProviderConstants.dictData, dictDataMap);
 
   provide(SmartProviderConstants.dictMap, computedDictMap);
+
+  provide(SmartProviderConstants.dictRegisterIdent, true);
 };
