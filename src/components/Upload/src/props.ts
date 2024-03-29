@@ -22,7 +22,7 @@ export const previewType = {
     required: false,
   },
   beforePreviewData:{
-    type: Function as PropType<(arg:Recordable<any>)=>Recordable<any>>,
+    type: Function as PropType<(arg:string[])=>Recordable<any>>,
     default: null,
     required: false,
   },
