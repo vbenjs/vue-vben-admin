@@ -92,6 +92,10 @@
         }) as UploadProps['fileList'];
       }
     },
+    {
+      immediate: true,
+      deep: true,
+    },
   );
 
   function getBase64<T extends string | ArrayBuffer | null>(file: File) {
@@ -121,6 +125,7 @@
       index !== -1 && fileList.value.splice(index, 1);
       const value = getValue();
       isInnerOperate.value = true;
+      emit('update:value', value);
       emit('change', value);
       emit('delete', file);
     }
@@ -168,6 +173,7 @@
       info.onSuccess!(res.data);
       const value = getValue();
       isInnerOperate.value = true;
+      emit('update:value', value);
       emit('change', value);
     } catch (e: any) {
       console.log(e);
