@@ -25,7 +25,7 @@
   const props = defineProps({
     value: { type: Array as PropType<Array<string>> },
     api: {
-      type: Function as PropType<(arg) => Promise<TransferItem[]>>,
+      type: Function as PropType<(arg) => Promise<TransferItem[] | Recordable<any>>>,
       default: null,
     },
     params: { type: Object },

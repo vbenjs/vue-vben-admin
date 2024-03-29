@@ -105,7 +105,7 @@ export function useTableExpand(
   }
 
   // 监听展开事件，用于支持手风琴展开效果
-  function handleTableExpand(expanded, record) {
+  function handleTableExpand(expanded: boolean, record: Recordable) {
     // 手风琴开关
     // isTreeTable 或 expandRowByClick 时支持
     // 展开操作

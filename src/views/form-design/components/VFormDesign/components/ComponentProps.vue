@@ -199,14 +199,14 @@
       // 控制性的选项
       const controlOptions = computed(() => {
         return allOptions.value.filter((item) => {
-          return item.category == 'control';
+          return item.category === 'control';
         });
       });
 
       // 非控制性选择
       const inputOptions = computed(() => {
         return allOptions.value.filter((item) => {
-          return item.category == 'input';
+          return item.category === 'input';
         });
       });
 
