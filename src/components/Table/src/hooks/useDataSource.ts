@@ -50,6 +50,7 @@ export function useDataSource(
   });
   const dataSourceRef = ref<Recordable[]>([]);
   const rawDataSourceRef = ref<Recordable>({});
+  const searchInfoRef = ref<Recordable>({});
 
   watchEffect(() => {
     tableData.value = unref(dataSourceRef);
@@ -89,6 +90,7 @@ export function useDataSource(
       searchState.filterInfo = filterInfo;
       params.filterInfo = filterInfo;
     }
+    searchInfoRef.value = params;
     fetch(params);
   }
 
@@ -275,7 +277,7 @@ export function useDataSource(
       if (beforeFetch && isFunction(beforeFetch)) {
         params = (await beforeFetch(params)) || params;
       }
-
+      searchInfoRef.value = params;
       const res = await api(params);
       rawDataSourceRef.value = res;
 
@@ -339,6 +341,10 @@ export function useDataSource(
     return await fetch(opt);
   }
 
+  function getSearchInfo<T = Recordable>() {
+    return searchInfoRef.value as T;
+  }
+
   onMounted(() => {
     useTimeoutFn(() => {
       unref(propsRef).immediate && fetch();
@@ -349,6 +355,8 @@ export function useDataSource(
     getDataSourceRef,
     getDataSource,
     getRawDataSource,
+    searchInfoRef,
+    getSearchInfo,
     getRowKey,
     setTableData,
     getAutoCreateKey,
