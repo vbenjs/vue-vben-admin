@@ -36,6 +36,7 @@ export const useTableAjax = (
   { commitVxeProxy, getSearchFormParameter, setLoading, getCheckboxRecords }: ActionType,
 ) => {
   const { t } = useI18n();
+  let initQuery = false;
 
   const getProxyConfigRef = computed<SmartTableProxyConfig | undefined>(() => {
     const { proxyConfig, useSearchForm, sortConfig } = unref(propsRef);
@@ -105,6 +106,10 @@ export const useTableAjax = (
             if (proxyConfig.afterLoad) {
               result = proxyConfig.afterLoad(result);
             }
+            // 标记已经初始化
+            if (!initQuery) {
+              initQuery = true;
+            }
             return result;
           } catch (e) {
             console.error(e);
@@ -146,7 +151,8 @@ export const useTableAjax = (
   const query = async (opt?: FetchParams) => {
     try {
       setLoading(true);
-      await commitVxeProxy('query', opt);
+      const code = initQuery ? 'query' : '_init';
+      await commitVxeProxy(code, opt);
       emit('proxy-query', { status: true, isReload: false, isInited: false });
     } finally {
       setLoading(false);
