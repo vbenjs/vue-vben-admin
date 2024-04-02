@@ -14,12 +14,12 @@
         mode="out-in"
         appear
       >
-        <keep-alive v-if="openCache" :include="getCaches">
-          <SmartPageProvider>
+        <SmartPageProvider>
+          <keep-alive v-if="openCache" :include="getCaches">
             <component :is="Component" :key="route.fullPath" />
-          </SmartPageProvider>
-        </keep-alive>
-        <component v-else :is="Component" :key="route.fullPath" />
+          </keep-alive>
+          <component v-else :is="Component" :key="route.fullPath" />
+        </SmartPageProvider>
       </transition>
     </template>
   </RouterView>
