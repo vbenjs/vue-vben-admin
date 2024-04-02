@@ -10,24 +10,24 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, inject } from 'vue';
+  import { computed } from 'vue';
   import ApiSelect from '../../components/ApiSelect.vue';
   import { propTypes } from '@/utils/propTypes';
   import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
-  import { SmartProviderConstants } from '@/components/SmartPageProvider';
+  import { useInjectPageDict } from '@/components/SmartPageProvider';
   import SmartApiDictProviderSelect from './provider/SmartApiDictProviderSelect.vue';
 
   const props = defineProps({
     dictCode: propTypes.string.isRequired,
   });
 
-  const registerHandler = inject(SmartProviderConstants.dictRegisterIdent, null) as boolean | null;
+  const { pageDictRegisterIdent } = useInjectPageDict();
 
   /**
    * 是否有注入
    */
   const computedHasProvider = computed(() => {
-    return registerHandler !== null;
+    return pageDictRegisterIdent;
   });
 
   const api = () => {

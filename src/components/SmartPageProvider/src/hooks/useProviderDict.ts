@@ -4,7 +4,7 @@ import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
 
 export const useProviderDict = () => {
   let hasInitLoad = false;
-  const dictCodeList = reactive<string[]>([]);
+  const dictCodeList = reactive<Set<string>>(new Set<string>());
   const dictDataMap = reactive(new Map<string, Recordable>());
 
   // 字典加载状态
@@ -33,10 +33,15 @@ export const useProviderDict = () => {
    * 批量加载字典数据
    */
   const loadDictData = async () => {
-    if (dictCodeList.length === 0) {
+    if (dictCodeList.size === 0) {
       return;
     }
-    const noLoadDictCodeList = dictCodeList.filter((item) => !dictDataMap.has(item));
+    const noLoadDictCodeList: string[] = [];
+    dictCodeList.forEach((item) => {
+      if (!dictDataMap.has(item)) {
+        noLoadDictCodeList.push(item);
+      }
+    });
     if (noLoadDictCodeList.length === 0) {
       return;
     }
@@ -75,7 +80,7 @@ export const useProviderDict = () => {
    * 注入注册函数
    */
   provide(SmartProviderConstants.dictRegisterKey, (code: string) => {
-    dictCodeList.push(code);
+    dictCodeList.add(code);
   });
 
   /**

@@ -54,6 +54,7 @@
       type: Array<OptionsItem>,
       default: [],
     },
+    labelWithCode: propTypes.bool,
   });
 
   const emit = defineEmits(['options-change', 'change', 'update:value']);
@@ -77,7 +78,7 @@
         const value = get(next, valueField);
         prev.push({
           ...omit(next, [labelField, valueField]),
-          label: get(next, labelField),
+          label: props.labelWithCode ? `${value}-${get(next, labelField)}` : get(next, labelField),
           value: numberToString ? `${value}` : value,
         });
       }

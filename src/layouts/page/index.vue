@@ -15,7 +15,9 @@
         appear
       >
         <keep-alive v-if="openCache" :include="getCaches">
-          <component :is="Component" :key="route.fullPath" />
+          <SmartPageProvider>
+            <component :is="Component" :key="route.fullPath" />
+          </SmartPageProvider>
         </keep-alive>
         <component v-else :is="Component" :key="route.fullPath" />
       </transition>
@@ -36,6 +38,7 @@
   import { getTransitionName } from './transition';
 
   import { useMultipleTabStore } from '@/store/modules/multipleTab';
+  import { SmartPageProvider } from '@/components/SmartPageProvider';
 
   defineOptions({ name: 'PageLayout' });
 

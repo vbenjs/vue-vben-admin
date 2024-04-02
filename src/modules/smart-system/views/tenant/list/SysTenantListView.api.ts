@@ -1,10 +1,12 @@
 import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
 
 enum Api {
-  list = '/sys/tenant/list',
-  getById = '/sys/tenant/getById',
-  batchSaveUpdate = '/sys/tenant/saveUpdateBatch',
-  delete = '/sys/tenant/batchDeleteById',
+  list = '/sys/tenant/manager/list',
+  getById = '/sys/tenant/manager/getById',
+  batchSaveUpdate = '/sys/tenant/manager/saveUpdateBatch',
+  delete = '/sys/tenant/manager/batchDeleteById',
+  setUseYn = '/sys/tenant/manager/setUseYn',
+  listIsolationStrategy = '/sys/tenant/manager/listIsolationStrategy',
 }
 
 export const listApi = (params) => {
@@ -12,20 +14,12 @@ export const listApi = (params) => {
     service: ApiServiceEnum.SMART_SYSTEM,
     url: Api.list,
     data: {
-      sortName: 'seq',
       ...params,
     },
   });
 };
 
 export const batchSaveUpdateApi = (modelList: any[]) => {
-  modelList.forEach((item) => {
-    const { validatedTime } = item;
-    if (validatedTime && validatedTime.length > 0) {
-      item.startTime = validatedTime[0];
-      item.endTime = validatedTime[1];
-    }
-  });
   return defHttp.post({
     service: ApiServiceEnum.SMART_SYSTEM,
     url: Api.batchSaveUpdate,
@@ -41,16 +35,36 @@ export const deleteApi = (removeRecords: Recordable[]) => {
   });
 };
 
-export const getByIdApi = async (id: number) => {
-  const result = await defHttp.post({
+export const getByIdApi = (id: number) => {
+  return defHttp.post({
     service: ApiServiceEnum.SMART_SYSTEM,
     url: Api.getById,
     data: id,
   });
-  if (!result) {
-    return result;
-  }
-  const { startTime, endTime } = result;
-  result.validatedTime = [startTime, endTime];
-  return result;
+};
+
+/**
+ * 启用停用接口
+ * @param rows 选中的数据
+ * @param useYn 启用停用
+ */
+export const setUseYnApi = (rows: any[], useYn: boolean) => {
+  return defHttp.post({
+    service: ApiServiceEnum.SMART_SYSTEM,
+    url: Api.setUseYn,
+    data: {
+      idList: rows.map((item) => item.id),
+      useYn,
+    },
+  });
+};
+
+/**
+ * 查询隔离策略
+ */
+export const listIsolationStrategyApi = () => {
+  return defHttp.post({
+    service: ApiServiceEnum.SMART_SYSTEM,
+    url: Api.listIsolationStrategy,
+  });
 };
