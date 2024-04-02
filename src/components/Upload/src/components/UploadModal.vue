@@ -191,13 +191,13 @@
       const { data } = ret;
       item.status = UploadResultStatus.SUCCESS;
       item.response = data;
-      if(props.resultField){
+      if (props.resultField) {
         // 适配预览组件而进行封装
         item.response = {
-          code:0,
-          message:"upload Success!",
-          url:get(ret, props.resultField)
-        }
+          code: 0,
+          message: 'upload Success!',
+          url: get(ret, props.resultField),
+        };
       }
       return {
         success: true,
@@ -216,7 +216,7 @@
   // 点击开始上传
   async function handleStartUpload() {
     const { maxNumber } = props;
-    if ((fileListRef.value.length + props.previewFileList?.length ?? 0) > maxNumber) {
+    if (fileListRef.value.length + props.previewFileList.length > maxNumber) {
       return createMessage.warning(t('component.upload.maxNumber', [maxNumber]));
     }
     try {
@@ -250,7 +250,7 @@
       return createMessage.warning(t('component.upload.saveWarn'));
     }
     const fileList: string[] = [];
-    
+
     for (const item of fileListRef.value) {
       const { status, response } = item;
       if (status === UploadResultStatus.SUCCESS && response) {
