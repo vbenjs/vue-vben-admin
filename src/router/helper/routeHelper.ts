@@ -4,7 +4,7 @@ import type { RouteLocationNormalized, Router, RouteRecordNormalized } from 'vue
 import { getParentLayout, LAYOUT, EXCEPTION_COMPONENT } from '@/router/constant';
 import { cloneDeep, omit } from 'lodash-es';
 import { warn } from '@/utils/log';
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHashHistory, RouteLocationNormalizedLoaded } from 'vue-router';
 
 export type LayoutMapKey = 'LAYOUT';
 const IFRAME = () => import('@/views/sys/iframe/FrameBlank.vue');
@@ -207,4 +207,13 @@ const getComponents = (): Record<string, () => Promise<Recordable>> => {
     result[item] = moduleViewsRecord[item];
   });
   return result;
+};
+
+/**
+ * 获取route pagekey
+ * @param route
+ */
+export const getPageKey = (route: RouteLocationNormalizedLoaded) => {
+  const pageKey = route.query?.pageKey;
+  return pageKey || route.fullPath || route.path;
 };

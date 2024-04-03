@@ -319,4 +319,6 @@ export enum ApiServiceEnum {
   SMART_CODE = 'smart-code',
   // 消息服务，包括短信等
   SMART_MESSAGE = 'smart-message',
+  // kettle管理模块
+  SMART_KETTLE = 'smart-kettle',
 }

@@ -217,8 +217,7 @@
 
   const { handleSave, saveLoading, pageTableSettingRef, pageSearchSettingRef, pageFormSettingRef } =
     useSaveConfig(t, isSyncRef, validateFields, dbDataRef, (configId) => {
-      const { fullPath, query, path } = route;
-      console.log(fullPath);
+      const { query, path } = route;
       router.push({
         path: path,
         query: {

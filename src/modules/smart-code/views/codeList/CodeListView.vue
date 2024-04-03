@@ -51,7 +51,7 @@
     router.push({
       path: '/code/codeDesign',
       query: {
-        setKey: buildUUID(),
+        pageKey: buildUUID(),
         configId,
         systemId: currentSystem.id,
       },
@@ -61,7 +61,7 @@
   let currentSystem: Recordable = {};
   const handleSelectSystemChange = (row) => {
     currentSystem = row;
-    reload();
+    query();
   };
 
   const getTableAction = (row): ActionItem[] => {
@@ -80,7 +80,7 @@
   // 生成代码弹窗
   const [registerCodeCreateModal, { openModal: openCodeCreateModal }] = useModal();
 
-  const [registerTable, { reload }] = useSmartTable({
+  const [registerTable, { query }] = useSmartTable({
     id: 'smart-tool-code-codeList',
     customConfig: { storage: true },
     showOverflow: 'tooltip',

@@ -14,6 +14,7 @@ import { MULTIPLE_TABS_KEY } from '@/enums/cacheEnum';
 
 import projectSetting from '@/settings/projectSetting';
 import { useUserStore } from '@/store/modules/user';
+import { getPageKey } from '@/router/helper/routeHelper';
 
 export interface MultipleTabState {
   cacheTabList: Set<string>;
@@ -134,7 +135,7 @@ export const useMultipleTabStore = defineStore({
       // Existing pages, do not add tabs repeatedly
       const tabHasExits = this.tabList.some((tab, index) => {
         updateIndex = index;
-        return (tab.fullPath || tab.path) === (fullPath || path);
+        return getPageKey(tab) === getPageKey(route);
       });
 
       // If the tab already exists, perform the update operation

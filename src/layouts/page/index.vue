@@ -16,9 +16,9 @@
       >
         <SmartPageProvider>
           <keep-alive v-if="openCache" :include="getCaches">
-            <component :is="Component" :key="route.fullPath" />
+            <component :is="Component" :key="getPageKey(route)" />
           </keep-alive>
-          <component v-else :is="Component" :key="route.fullPath" />
+          <component v-else :is="Component" :key="getPageKey(route)" />
         </SmartPageProvider>
       </transition>
     </template>
@@ -39,6 +39,7 @@
 
   import { useMultipleTabStore } from '@/store/modules/multipleTab';
   import { SmartPageProvider } from '@/components/SmartPageProvider';
+  import { getPageKey } from '@/router/helper/routeHelper';
 
   defineOptions({ name: 'PageLayout' });
 
