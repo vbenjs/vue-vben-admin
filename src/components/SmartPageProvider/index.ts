@@ -1,4 +1,4 @@
-export { default as SmartPageProvider } from './src/SmartPageProvider.vue';
+export { default as SmartPageProvider } from './src/SmartPageProvider';
 
 export * from './src/constants';
 
