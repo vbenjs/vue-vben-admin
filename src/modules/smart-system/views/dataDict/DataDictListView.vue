@@ -1,20 +1,20 @@
 <template>
   <div class="full-height page-container">
-    <LayoutSeparate :show-line="false" first-size="60%" class="full-height">
+    <SmartLayoutSeparate :show-line="false" first-size="60%" class="full-height">
       <template #first>
         <DataDictGroup @code-change="handleCodeChange" />
       </template>
       <template #second>
         <DataDictItem :dict-id="dictId" />
       </template>
-    </LayoutSeparate>
+    </SmartLayoutSeparate>
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
 
-  import { LayoutSeparate } from '@/components/LayoutSeparate';
+  import { SmartLayoutSeparate } from '@/components/SmartLayoutSeparate';
 
   import DataDictGroup from './DataDictGroup.vue';
   import DataDictItem from './DataDictItem.vue';
@@ -25,7 +25,7 @@
   export default defineComponent({
     name: 'DataDictListView',
     components: {
-      LayoutSeparate,
+      SmartLayoutSeparate,
       DataDictGroup,
       DataDictItem,
     },

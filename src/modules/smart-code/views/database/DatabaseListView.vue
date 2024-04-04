@@ -4,7 +4,7 @@
 -->
 <template>
   <div class="full-height page-container">
-    <LayoutSeparate first-size="240px" :show-line="false" class="full-height layout-container">
+    <SmartLayoutSeparate first-size="240px" :show-line="false" class="full-height layout-container">
       <template #first>
         <div class="full-height system-container">
           <SystemSimpleList
@@ -24,7 +24,7 @@
           </template>
         </SmartTable>
       </template>
-    </LayoutSeparate>
+    </SmartLayoutSeparate>
     <TemplateSelectedModal template-type="template_db_dict" @register="registerModal" />
   </div>
 </template>
@@ -41,7 +41,7 @@
 
   import TemplateSelectedModal from './components/TemplateSelectedModal.vue';
   import { useModal } from '@/components/Modal';
-  import { LayoutSeparate } from '@/components/LayoutSeparate';
+  import { SmartLayoutSeparate } from '@/components/SmartLayoutSeparate';
   import SystemSimpleList from '@/modules/smart-system/components/system/SystemSimpleList.vue';
   import { useSizeSetting } from '@/hooks/setting/UseSizeSetting';
 

@@ -1,5 +1,5 @@
 <template>
-  <LayoutSeparate first-size="200px" :show-line="false" class="full-height">
+  <SmartLayoutSeparate first-size="200px" :show-line="false" class="full-height">
     <template #first>
       <TemplateGroup class="full-height" @change="handleCurrentChange" :editable="false" />
     </template>
@@ -11,7 +11,7 @@
         @checkbox-all="handleCheckboxAll"
       />
     </template>
-  </LayoutSeparate>
+  </SmartLayoutSeparate>
 </template>
 
 <script lang="ts" setup>
@@ -19,7 +19,7 @@
   import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
 
   import { SmartTable, useSmartTable } from '@/components/SmartTable';
-  import { LayoutSeparate } from '@/components/LayoutSeparate';
+  import { SmartLayoutSeparate } from '@/components/SmartLayoutSeparate';
   import { TemplateType as templateTypeConstants } from '@/modules/smart-code/constants/DatabaseConstants';
   import TemplateGroup from '@/modules/smart-code/components/template/TemplateGroup.vue';
   import { watch } from 'vue';

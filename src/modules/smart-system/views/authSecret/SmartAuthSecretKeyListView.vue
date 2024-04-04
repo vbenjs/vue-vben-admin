@@ -1,6 +1,6 @@
 <template>
   <div class="full-height page-container">
-    <LayoutSeparate first-size="240px" :show-line="false" class="full-height">
+    <SmartLayoutSeparate first-size="240px" :show-line="false" class="full-height">
       <template #first>
         <div class="full-height system-container">
           <SystemSimpleList
@@ -37,7 +37,7 @@
           </template>
         </SmartTable>
       </template>
-    </LayoutSeparate>
+    </SmartLayoutSeparate>
   </div>
 </template>
 
@@ -52,7 +52,7 @@
     SmartVxeTableAction,
     useSmartTable,
   } from '@/components/SmartTable';
-  import LayoutSeparate from '@/components/LayoutSeparate/src/LayoutSeparate';
+  import SmartLayoutSeparate from '@/components/SmartLayoutSeparate/src/SmartLayoutSeparate';
   import SystemSimpleList from '@/modules/smart-system/components/system/SystemSimpleList.vue';
   import { hasPermission } from '@/utils/auth';
 

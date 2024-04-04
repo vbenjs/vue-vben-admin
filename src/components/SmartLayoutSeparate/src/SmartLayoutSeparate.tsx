@@ -1,22 +1,33 @@
-import { defineComponent, computed, toRefs, ref, watch } from 'vue';
+import { defineComponent, computed, toRefs, ref, watch, unref } from 'vue';
 import type { PropType, Ref, StyleValue } from 'vue';
 
 import { Divider } from 'ant-design-vue';
 import { isFinite, endsWith, replace, parseInt, toNumber } from 'lodash-es';
 
-import './LayoutSeparate.less';
+import './SmartLayoutSeparate.less';
 
 enum Layout {
   'LEFT_RIGHT_LAYOUT' = 'leftRight',
   'TOP_BOTTOM_LAYOUT' = 'topBottom',
 }
 
+const sizeType = {
+  type: [Number, String] as PropType<number | string>,
+  validator(value: string | number) {
+    if (!isFinite(value)) {
+      // @ts-ignore
+      return endsWith(value, '%') || endsWith(value, 'px');
+    }
+    return true;
+  },
+};
+
 /**
  * 支持分隔拖拽的layout
  * @author shizhongming
  */
 export default defineComponent({
-  name: 'LayoutSeparate',
+  name: 'SmartLayoutSeparate',
   props: {
     //布局，默认左右布局
     layout: {
@@ -33,17 +44,8 @@ export default defineComponent({
       default: false,
     },
     // 尺寸，如果是number类型，按照百分比分隔
-    firstSize: {
-      type: [Number, String] as PropType<number | string>,
-      default: 50,
-      validator(value: string | number) {
-        if (!isFinite(value)) {
-          // @ts-ignore
-          return endsWith(value, '%') || endsWith(value, 'px');
-        }
-        return true;
-      },
-    },
+    firstSize: sizeType,
+    secondSize: sizeType,
     showLine: {
       type: Boolean as PropType<boolean>,
       default: true,
@@ -66,7 +68,15 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    const { layout, draggable, firstSize, showLine } = toRefs(props);
+    const { layout, draggable, firstSize, secondSize, showLine } = toRefs(props);
+    if (unref(firstSize) && unref(secondSize)) {
+      throw new Error('firstSize和secondSize不能同时设置');
+    }
+    if (!unref(firstSize) && !unref(secondSize)) {
+      firstSize.value = 50;
+    }
+    // 是否是设置了第一尺寸
+    const computedIsFirstSize = computed(() => unref(firstSize) !== undefined);
     // 是否是左右布局
     const isLeftRight = computed(() => layout.value === Layout.LEFT_RIGHT_LAYOUT);
     // 拖拽是否初始化
@@ -109,28 +119,46 @@ export default defineComponent({
       const { xLength, yLength } = dragVue;
       const firstStyle: StyleValue = {};
       const firstSizeValue = firstSize.value;
+      const secondSizeValue = unref(secondSize);
+      const sizeValue = firstSizeValue || secondSizeValue;
+      const isFirstSize = unref(computedIsFirstSize);
       let firstValue = '';
       let secondValue = '';
       const addValue = isLeftRight.value ? xLength.value : yLength.value;
-      if (isFinite(firstSizeValue) || isFinite(toNumber(firstSizeValue))) {
+      if (isFinite(sizeValue) || isFinite(toNumber(sizeValue))) {
         // 按照百分比处理
-        firstValue = toNumber(firstSizeValue) + addValue + 'px';
-        secondValue = `calc(100% - ${firstValue})`;
+        if (isFirstSize) {
+          firstValue = toNumber(sizeValue) + addValue + 'px';
+          secondValue = `calc(100% - ${firstValue})`;
+        } else {
+          secondValue = toNumber(sizeValue) - addValue + 'px';
+          firstValue = `calc(100% - ${secondValue})`;
+        }
       } else {
         // @ts-ignore
-        if (endsWith(firstSizeValue, '%')) {
+        if (endsWith(sizeValue, '%')) {
           // @ts-ignore
-          const firstSize = parseInt(replace(firstSizeValue, '%'));
-          firstValue = `calc(${firstSize}% ${addValue > 0 ? '+' : '-'} ${Math.abs(addValue)}px)`;
-          secondValue = `calc(${100 - firstSize}% ${addValue < 0 ? '+' : '-'} ${Math.abs(
-            addValue,
-          )}px)`;
+          const size = parseInt(replace(sizeValue, '%'));
+          if (isFirstSize) {
+            firstValue = `calc(${size}% ${addValue > 0 ? '+' : '-'} ${Math.abs(addValue)}px)`;
+            secondValue = `calc(${100 - size}% ${addValue < 0 ? '+' : '-'} ${Math.abs(
+              addValue,
+            )}px)`;
+          } else {
+            secondValue = `calc(${size}% ${addValue < 0 ? '+' : '-'} ${Math.abs(addValue)}px)`;
+            firstValue = `calc(${100 - size}% ${addValue > 0 ? '+' : '-'} ${Math.abs(addValue)}px)`;
+          }
           // @ts-ignore
-        } else if (endsWith(firstSizeValue, 'px')) {
+        } else if (endsWith(sizeValue, 'px')) {
           // @ts-ignore
-          const firstSize = parseInt(replace(firstSizeValue, 'px'));
-          firstValue = firstSize + addValue + 'px';
-          secondValue = `calc(100% - ${firstValue})`;
+          const size = parseInt(replace(sizeValue, 'px'));
+          if (isFirstSize) {
+            firstValue = size + addValue + 'px';
+            secondValue = `calc(100% - ${firstValue})`;
+          } else {
+            secondValue = size - addValue + 'px';
+            firstValue = `calc(100% - ${secondValue})`;
+          }
         }
       }
       const secondStyle: any = {};

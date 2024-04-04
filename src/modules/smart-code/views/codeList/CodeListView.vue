@@ -1,6 +1,6 @@
 <template>
   <div class="full-height page-container">
-    <LayoutSeparate first-size="240px" :show-line="false" class="full-height">
+    <SmartLayoutSeparate first-size="240px" :show-line="false" class="full-height">
       <template #first>
         <div class="full-height system-container">
           <SystemSimpleList
@@ -17,7 +17,7 @@
           </template>
         </SmartTable>
       </template>
-    </LayoutSeparate>
+    </SmartLayoutSeparate>
     <CodeCreateModal @register="registerCodeCreateModal" />
   </div>
 </template>
@@ -35,7 +35,7 @@
 
   import { SmartVxeTableAction, SmartTable, useSmartTable } from '@/components/SmartTable';
   import CodeCreateModal from './components/CodeCreateModal.vue';
-  import { LayoutSeparate } from '@/components/LayoutSeparate';
+  import { SmartLayoutSeparate } from '@/components/SmartLayoutSeparate';
   import SystemSimpleList from '@/modules/smart-system/components/system/SystemSimpleList.vue';
   import { errorMessage } from '@/utils/message/SystemNotice';
 

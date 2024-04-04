@@ -1,6 +1,6 @@
 <template>
   <div class="full-height page-container" id="codeTemplateContainer">
-    <LayoutSeparate :show-line="false" first-size="240px" class="full-height">
+    <SmartLayoutSeparate :show-line="false" first-size="240px" class="full-height">
       <template #first>
         <div class="full-height" style="margin-right: 5px; background: white">
           <TemplateGroup @change="handleGroupChange" />
@@ -18,7 +18,7 @@
           </template>
         </SmartTable>
       </template>
-    </LayoutSeparate>
+    </SmartLayoutSeparate>
   </div>
 </template>
 
@@ -30,7 +30,7 @@
   import { message } from 'ant-design-vue';
 
   import { SmartTable, SmartVxeTableAction, useSmartTable } from '@/components/SmartTable';
-  import { LayoutSeparate } from '@/components/LayoutSeparate';
+  import { SmartLayoutSeparate } from '@/components/SmartLayoutSeparate';
   import TemplateGroup from '../../components/template/TemplateGroup.vue';
   import { CodeEditor } from '@/components/CodeEditor';
 

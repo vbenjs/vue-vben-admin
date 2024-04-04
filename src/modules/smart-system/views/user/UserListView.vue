@@ -1,6 +1,6 @@
 <template>
   <div class="full-height page-container">
-    <LayoutSeparate :show-line="false" first-size="280px" class="full-height">
+    <SmartLayoutSeparate :show-line="false" first-size="280px" class="full-height">
       <template #first>
         <div class="full-height dept-container">
           <SysDeptTree async show-search @select="handleDeptSelected" />
@@ -41,7 +41,7 @@
           </template>
         </SmartTable>
       </template>
-    </LayoutSeparate>
+    </SmartLayoutSeparate>
     <UserAccountUpdateModal @register="registerAccountModal" />
     <UserSetRole @register="registerSetRoleModal" />
   </div>
@@ -56,7 +56,7 @@
   import { hasPermission } from '@/utils/auth';
   import { useModal } from '@/components/Modal';
 
-  import { LayoutSeparate } from '@/components/LayoutSeparate';
+  import { SmartLayoutSeparate } from '@/components/SmartLayoutSeparate';
   import SysDeptTree from '@/modules/smart-system/components/SysDept/SysDeptTree.vue';
   import { useMessage } from '@/hooks/web/useMessage';
 
