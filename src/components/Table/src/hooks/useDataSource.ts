@@ -90,7 +90,6 @@ export function useDataSource(
       searchState.filterInfo = filterInfo;
       params.filterInfo = filterInfo;
     }
-    searchInfoRef.value = params;
     fetch(params);
   }
 
