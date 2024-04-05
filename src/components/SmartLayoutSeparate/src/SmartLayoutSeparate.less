@@ -19,7 +19,7 @@
       top: 0;
       right: -5px;
       bottom: 0;
-      width: 10px;
+      width: 6px;
       height: 100%;
 
       .ant-divider-vertical {
@@ -34,11 +34,11 @@
     }
     // 第二个div样式
     .second-outer {
-      margin-left: 5px;
+      margin-left: 6px;
     }
 
     .first-outer {
-      margin-right: 5px;
+      margin-left: 0;
     }
   }
   // 上下布局
@@ -74,6 +74,10 @@
   .drag-line {
     position: absolute;
     z-index: 1;
+
+    .ant-divider {
+      border-inline-start: 0;
+    }
 
     &.high-light {
       //  线高亮

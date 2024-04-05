@@ -52,11 +52,6 @@ export default defineComponent({
     },
     lineStyle: {
       type: [Object, String] as PropType<StyleValue | string>,
-      default: () => {
-        return {
-          'border-left': '1px solid rgba(0,0,0,0.2)',
-        };
-      },
     },
     highLineStyle: {
       type: [Object, String] as PropType<StyleValue | string>,
