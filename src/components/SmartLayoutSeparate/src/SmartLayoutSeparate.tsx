@@ -192,7 +192,7 @@ export default defineComponent({
       return (
         <div class={computedContainerClassList.value}>
           {/* 第一块区域，左或者上 */}
-          <div class="first-container" style={layoutStyle.value.firstStyle}>
+          <div class="smart-first-container" style={layoutStyle.value.firstStyle}>
             <div class={computedFirstContainerClass.value}>{first ? first() : ''}</div>
             {/* 分割线 */}
             {props.showLine ? (
