@@ -1,13 +1,30 @@
 <template>
-  <div class="full-height page-container">
-    <SmartTable @register="registerTable" :size="getTableSize">
-      <template #table-isolationStrategy="{ row }">
-        <span>{{ computedIsolationStrategyMap[row.isolationStrategy] }}</span>
+  <div class="full-height page-container" :class="prefixCls">
+    <SmartLayoutSeparate layout="topBottom" first-size="45%" draggable class="full-height">
+      <template #first>
+        <SmartTable
+          @register="registerTable"
+          :size="getTableSize"
+          @current-change="handleCurrentChange"
+        >
+          <template #table-isolationStrategy="{ row }">
+            <span>{{ computedIsolationStrategyMap[row.isolationStrategy] }}</span>
+          </template>
+          <template #table-type="{ row }">
+            <span>{{ computedTenantTypeDictMap[row.type] }}</span>
+          </template>
+        </SmartTable>
       </template>
-      <template #table-type="{ row }">
-        <span>{{ computedTenantTypeDictMap[row.type] }}</span>
+      <template #second>
+        <a-tabs>
+          <a-tab-pane key="user" :tab="t('system.views.tenant.manager.title.tabUser')">
+            <TenantUserList :tenant-id="currentTenantRef?.id" />
+          </a-tab-pane>
+          <a-tab-pane key="subscribe" :tab="t('system.views.tenant.manager.title.tabSubscribe')" />
+        </a-tabs>
       </template>
-    </SmartTable>
+    </SmartLayoutSeparate>
+    <TenantSetPackageModal @register="registerSetPackageModal" />
   </div>
 </template>
 
@@ -17,6 +34,7 @@
   import { useSizeSetting } from '@/hooks/setting/UseSizeSetting';
 
   import { SmartTable, useSmartTable } from '@/components/SmartTable';
+  import { useModal } from '@/components/Modal';
 
   import {
     getFormSchemas,
@@ -35,9 +53,19 @@
   } from './SysTenantListView.api';
   import { useInjectPageDict } from '@/components/SmartPageProvider';
   import { computed, onMounted, ref, unref } from 'vue';
+  import { warnMessage } from '@/utils/message/SystemNotice';
+  import { SmartLayoutSeparate } from '@/components/SmartLayoutSeparate';
+  import { useDesign } from '@/hooks/web/useDesign';
+
+  import TenantSetPackageModal from './components/TenantSetPackageModal.vue';
+  import TenantUserList from './components/TenantUserList.vue';
+
+  const { prefixCls } = useDesign('system-tenant-manager');
 
   const { t } = useI18n();
   const { getTableSize } = useSizeSetting();
+
+  const [registerSetPackageModal, { openModal }] = useModal();
 
   const isolationStrategyListRef = ref<any[]>([]);
   const computedIsolationStrategyMap = computed(() => {
@@ -53,13 +81,20 @@
   });
   onMounted(() => pageDictRegister(SYSTEM_TENANT_TYPE_DICT));
 
-  const [registerTable] = useSmartTable({
+  const currentTenantRef = ref(null);
+  const handleCurrentChange = ({ row }) => {
+    currentTenantRef.value = row;
+  };
+
+  const [registerTable, { getCheckboxRecords }] = useSmartTable({
+    id: 'system-tenant-manager',
     columns: getTableColumns(),
     height: 'auto',
     border: true,
     sortConfig: {
       remote: true,
     },
+    customConfig: { storage: true },
     showOverflow: 'tooltip',
     rowConfig: {
       isHover: true,
@@ -123,10 +158,10 @@
           code: 'ModalEdit',
           auth: Permission.update,
         },
-        {
-          code: 'delete',
-          auth: Permission.delete,
-        },
+        // {
+        //   code: 'delete',
+        //   auth: Permission.delete,
+        // },
         {
           code: 'useYnTrue',
           auth: Permission.useYn,
@@ -135,7 +170,46 @@
           code: 'useYnFalse',
           auth: Permission.useYn,
         },
+        {
+          name: t('system.views.tenant.manager.title.setPackage'),
+          customRender: 'ant',
+          props: {
+            preIcon: 'ant-design:setting-outlined',
+            type: 'primary',
+            onClick: () => {
+              const selectRows = getCheckboxRecords();
+              if (!selectRows || selectRows.length !== 1) {
+                warnMessage(t('system.views.tenant.manager.message.selectOneRow'));
+                return false;
+              }
+              openModal(true, { tenantId: selectRows[0].id });
+            },
+          },
+        },
       ],
     },
   });
 </script>
+
+<style lang="less">
+  @prefix-cls: ~'@{namespace}-system-tenant-manager';
+
+  .@{prefix-cls} {
+    .ant-tabs {
+      height: 100%;
+      background: white;
+    }
+
+    .ant-tabs-nav-wrap {
+      margin-left: 10px;
+    }
+
+    .ant-tabs-content {
+      height: 100%;
+    }
+
+    .ant-tabs-nav {
+      margin-bottom: 5px;
+    }
+  }
+</style>

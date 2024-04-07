@@ -22,6 +22,17 @@ export default {
       logoId: 'LOGO',
       effectTime: '生效时间',
       expireTime: '过期时间',
+      setPackage: '设置套餐',
+      tabUser: '绑定用户',
+      tabSubscribe: '订阅套餐',
+      user: {
+        username: '用户名',
+        fullName: '姓名',
+        email: 'Email',
+        mobile: '电话',
+        bindTime: '绑定时间',
+        bindBy: '绑定人',
+      },
     },
     validate: {
       tenantCode: '请输入租户编号',
@@ -50,6 +61,11 @@ export default {
       isolationStrategy: '请输入隔离策略',
       effectTime: '请输入生效时间',
       expireTime: '请输入过期时间',
+    },
+    message: {
+      selectOneRow: '请选择一条数据',
+      bindUserSuccess: '绑定用户成功',
+      selectUser: '请先选择用户',
     },
   },
 };

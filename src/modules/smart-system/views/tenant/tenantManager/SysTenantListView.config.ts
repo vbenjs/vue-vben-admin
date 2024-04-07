@@ -292,19 +292,19 @@ export const getSearchFormSchemas = (t: Function): SmartSearchFormSchema[] => {
       field: 'tenantCode',
       label: t('system.views.tenant.manager.title.tenantCode'),
       component: 'Input',
-      searchSymbol: '=',
+      searchSymbol: 'like',
     },
     {
       field: 'tenantName',
       label: t('system.views.tenant.manager.title.tenantName'),
       component: 'Input',
-      searchSymbol: '=',
+      searchSymbol: 'like',
     },
     {
       field: 'tenantShortName',
       label: t('system.views.tenant.manager.title.tenantShortName'),
       component: 'Input',
-      searchSymbol: '=',
+      searchSymbol: 'like',
     },
     {
       field: 'type',
@@ -329,6 +329,107 @@ export const getSearchFormSchemas = (t: Function): SmartSearchFormSchema[] => {
       label: t('system.views.tenant.manager.title.expireTime'),
       component: 'Input',
       searchSymbol: '=',
+    },
+  ];
+};
+
+/**
+ * 绑定用户tab
+ */
+export const getTabUserListColumns = (): SmartColumn[] => {
+  return [
+    {
+      type: 'checkbox',
+      width: 60,
+      align: 'center',
+      fixed: 'left',
+      field: 'checkbox',
+    },
+    {
+      title: '{system.views.tenant.manager.title.user.username}',
+      field: 'username',
+      width: 120,
+      fixed: 'left',
+    },
+    {
+      title: '{system.views.tenant.manager.title.user.fullName}',
+      field: 'fullName',
+      width: 120,
+      fixed: 'left',
+    },
+    {
+      title: '{system.views.tenant.manager.title.user.email}',
+      field: 'email',
+      minWidth: 160,
+    },
+    {
+      title: '{system.views.tenant.manager.title.user.mobile}',
+      field: 'mobile',
+      minWidth: 140,
+    },
+    {
+      title: '{system.views.tenant.manager.title.user.bindTime}',
+      field: 'createTime',
+      width: 165,
+    },
+    {
+      title: '{system.views.tenant.manager.title.user.bindBy}',
+      field: 'createBy',
+      width: 120,
+    },
+  ];
+};
+
+export const getTabUserListSearchSchemas = (t: Function): SmartSearchFormSchema[] => {
+  return [
+    {
+      field: 'username',
+      label: t('system.views.tenant.manager.title.user.username'),
+      component: 'Input',
+      searchSymbol: 'like',
+    },
+    {
+      field: 'fullName',
+      label: t('system.views.tenant.manager.title.user.fullName'),
+      component: 'Input',
+      searchSymbol: 'like',
+    },
+  ];
+};
+
+/**
+ * 绑定用户modal
+ */
+export const getBindUserModalListColumns = (): SmartColumn[] => {
+  return [
+    {
+      type: 'checkbox',
+      width: 60,
+      align: 'center',
+      fixed: 'left',
+      field: 'checkbox',
+    },
+    {
+      title: '{system.views.tenant.manager.title.user.username}',
+      field: 'username',
+      width: 120,
+      fixed: 'left',
+    },
+    {
+      title: '{system.views.tenant.manager.title.user.fullName}',
+      field: 'fullName',
+      width: 120,
+      fixed: 'left',
+    },
+    {
+      title: '{system.views.tenant.manager.title.user.email}',
+      field: 'email',
+      minWidth: 160,
+    },
+    {
+      title: '{system.views.tenant.manager.title.user.mobile}',
+      field: 'mobile',
+      minWidth: 140,
     },
   ];
 };

@@ -7,6 +7,10 @@ enum Api {
   delete = '/sys/tenant/manager/batchDeleteById',
   setUseYn = '/sys/tenant/manager/setUseYn',
   listIsolationStrategy = '/sys/tenant/manager/listIsolationStrategy',
+  listTenantUser = '/sys/tenant/manager/listTenantUser',
+  listNoBindUser = '/sys/tenant/manager/listNoBindUser',
+  bindTenantUser = '/sys/tenant/manager/bindTenantUser',
+  removeBindUser = '/sys/tenant/manager/removeBindUser',
 }
 
 export const listApi = (params) => {
@@ -66,5 +70,37 @@ export const listIsolationStrategyApi = () => {
   return defHttp.post({
     service: ApiServiceEnum.SMART_SYSTEM,
     url: Api.listIsolationStrategy,
+  });
+};
+
+export const listTenantUserApi = (data) => {
+  return defHttp.post({
+    service: ApiServiceEnum.SMART_SYSTEM,
+    url: Api.listTenantUser,
+    data,
+  });
+};
+
+export const listNoBindUserApi = (data) => {
+  return defHttp.post({
+    service: ApiServiceEnum.SMART_SYSTEM,
+    url: Api.listNoBindUser,
+    data,
+  });
+};
+
+export const bindTenantUserApi = (data) => {
+  return defHttp.post({
+    service: ApiServiceEnum.SMART_SYSTEM,
+    url: Api.bindTenantUser,
+    data,
+  });
+};
+
+export const removeBindUserApi = (data) => {
+  return defHttp.post({
+    service: ApiServiceEnum.SMART_SYSTEM,
+    url: Api.removeBindUser,
+    data,
   });
 };
