@@ -133,6 +133,9 @@ interface _CustomComponents {
   SmartApiSelectTable: ExtractPropTypes<
     (typeof import('@/components/Form/src/smart-boot/components/SmartApiSelectTable.vue'))['default']
   >;
+  SmartPulldownTable: ExtractPropTypes<
+    (typeof import('@/components/Form/src/smart-boot/components/SmartPulldownTable'))['default']
+  >;
 }
 
 type CustomComponents<T = _CustomComponents> = {
@@ -185,4 +188,6 @@ export interface ComponentProps {
   SmartApiSelectDict: CustomComponents['SmartApiSelectDict'] & ComponentProps['ApiSelect'];
   SmartUserTableSelect: CustomComponents['SmartUserTableSelect'];
   SmartApiSelectTable: CustomComponents['SmartApiSelectTable'] & ComponentProps['ApiSelect'];
+  SmartPulldownTable: CustomComponents['SmartPulldownTable'] &
+    ExtractPropTypes<(typeof import('vxe-table/es/pulldown'))['default']>;
 }
