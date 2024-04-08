@@ -117,6 +117,7 @@ export const getFormSchemas = (t: Function): FormSchema[] => {
       componentProps: {
         showTime: true,
       },
+      required: true,
     },
     {
       field: 'seq',

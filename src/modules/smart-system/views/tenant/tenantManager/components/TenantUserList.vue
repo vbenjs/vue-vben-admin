@@ -12,11 +12,16 @@
   import { useSizeSetting } from '@/hooks/setting/UseSizeSetting';
   import { useModal } from '@/components/Modal';
 
-  import { getTabUserListColumns, getTabUserListSearchSchemas } from '../SysTenantListView.config';
+  import {
+    getTabUserListColumns,
+    getTabUserListSearchSchemas,
+    Permission,
+  } from '../SysTenantListView.config';
   import { listTenantUserApi, removeBindUserApi } from '../SysTenantListView.api';
   import { useDesign } from '@/hooks/web/useDesign';
   import { useI18n } from '@/hooks/web/useI18n';
   import TenantAddUserModal from './TenantAddUserModal.vue';
+  import { hasPermission } from '@/utils/auth';
 
   const props = defineProps({
     tenantId: propTypes.number,
@@ -98,7 +103,7 @@
           props: computed(() => {
             return {
               onClick: () => openAddUserModal(true, { tenantId: props.tenantId }),
-              disabled: !unref(computedChoseTenant),
+              disabled: !unref(computedChoseTenant) || !hasPermission(Permission.bindUser),
             };
           }),
         },
@@ -106,7 +111,7 @@
           code: 'delete',
           props: computed(() => {
             return {
-              disabled: !unref(computedChoseTenant),
+              disabled: !unref(computedChoseTenant) || !hasPermission(Permission.bindUser),
             };
           }),
         },

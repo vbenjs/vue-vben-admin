@@ -33,6 +33,13 @@ export default {
         bindTime: '绑定时间',
         bindBy: '绑定人',
       },
+      subscribe: {
+        tenantId: '租户',
+        packageId: '套餐包',
+        effectTime: '生效日期',
+        expireTime: '失效日期',
+        userNumber: '用户数',
+      },
     },
     validate: {
       tenantCode: '请输入租户编号',

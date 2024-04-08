@@ -3,11 +3,17 @@ import type { FormSchema } from '@/components/Form';
 import { tableUseYnClass } from '@/components/SmartTable';
 import { Ref, unref } from 'vue';
 
+import { listNoBindPackageByTenantIdApi } from './SysTenantListView.api';
+
 export enum Permission {
   save = 'sys:tenant:manager:save',
   update = 'sys:tenant:manager:update',
   delete = 'sys:tenant:manager:delete',
   useYn = 'sys:tenant:manager:setUseYn',
+  bindUser = 'sys:tenant:manager:bindUser',
+  subscribeAddUpdate = 'sys:tenant:manager:subscribe:addUpdate',
+  subscribeDelete = 'sys:tenant:manager:subscribe:delete',
+  subscribeSetUseYn = 'sys:tenant:manager:subscribe:setUseYn',
 }
 
 export const SYSTEM_TENANT_TYPE_DICT = 'SYSTEM_TENANT_TYPE';
@@ -430,6 +436,190 @@ export const getBindUserModalListColumns = (): SmartColumn[] => {
       title: '{system.views.tenant.manager.title.user.mobile}',
       field: 'mobile',
       minWidth: 140,
+    },
+  ];
+};
+
+export const getSubscribeTableColumns = (): SmartColumn[] => {
+  return [
+    {
+      type: 'checkbox',
+      width: 60,
+      align: 'center',
+      fixed: 'left',
+      field: 'checkbox',
+    },
+    {
+      field: 'packageId',
+      title: '{system.views.tenant.manager.title.subscribe.packageId}',
+      width: 200,
+      formatter({ row }) {
+        const tenantPackage = row.tenantPackage;
+        if (!tenantPackage) {
+          return '';
+        }
+        return `${tenantPackage.packageCode || ''} - ${tenantPackage.packageName || ''}`;
+      },
+    },
+    {
+      field: 'effectTime',
+      sortable: true,
+      title: '{system.views.tenant.manager.title.subscribe.effectTime}',
+      width: 165,
+    },
+    {
+      field: 'expireTime',
+      sortable: true,
+      title: '{system.views.tenant.manager.title.subscribe.expireTime}',
+      width: 165,
+    },
+    {
+      field: 'remark',
+      title: '{common.table.remark}',
+      minWidth: 200,
+    },
+    {
+      field: 'userNumber',
+      sortable: true,
+      title: '{system.views.tenant.manager.title.subscribe.userNumber}',
+      width: 120,
+    },
+    {
+      ...tableUseYnClass(),
+      width: 120,
+    },
+    {
+      field: 'createTime',
+      title: '{common.table.createTime}',
+      width: 165,
+    },
+    {
+      field: 'createBy',
+      title: '{common.table.createUser}',
+      width: 120,
+    },
+    {
+      field: 'updateTime',
+      title: '{common.table.updateTime}',
+      width: 165,
+    },
+    {
+      field: 'updateBy',
+      title: '{common.table.updateUser}',
+      width: 120,
+    },
+  ];
+};
+
+/**
+ * 添加修改表单
+ */
+export const getSubscribeFormSchemas = (t: Function, tenantIdRef: Ref): FormSchema[] => {
+  return [
+    {
+      field: 'id',
+      label: t('system.views.tenant.manager.title.subscribe.id'),
+      component: 'Input',
+      show: false,
+      componentProps: {},
+    },
+    {
+      field: 'isAdd',
+      label: '',
+      component: 'Switch',
+      show: false,
+    },
+    {
+      field: 'packageId',
+      label: t('system.views.tenant.manager.title.subscribe.packageId'),
+      component: 'SmartPulldownTable',
+      dynamicDisabled({ model }) {
+        const isAdd = model.isAdd;
+        return isAdd === false;
+      },
+      componentProps: () => {
+        return {
+          alwaysLoad: true,
+          transfer: true,
+          showFunction: (row) => `${row.packageCode}-${row.packageName}`,
+          valueField: 'id',
+          tableProps: {
+            border: true,
+            columns: [
+              {
+                field: 'packageCode',
+                sortable: true,
+                title: '{system.views.tenant.package.title.packageCode}',
+                width: 120,
+              },
+              {
+                field: 'packageName',
+                title: '{system.views.tenant.package.title.packageName}',
+                width: 120,
+              },
+              {
+                field: 'effectTime',
+                sortable: true,
+                title: '{system.views.tenant.package.title.effectTime}',
+                width: 165,
+              },
+              {
+                field: 'expireTime',
+                sortable: true,
+                title: '{system.views.tenant.package.title.expireTime}',
+                width: 165,
+              },
+              {
+                field: 'remark',
+                title: '{common.table.remark}',
+                minWidth: 120,
+              },
+              {
+                ...tableUseYnClass(),
+                width: 120,
+              },
+            ],
+            proxyConfig: {
+              ajax: {
+                async query({ ajaxParameter }) {
+                  const tenantId = unref(tenantIdRef);
+                  if (!tenantId) {
+                    return [];
+                  }
+                  return listNoBindPackageByTenantIdApi({
+                    ...ajaxParameter,
+                    id: tenantId,
+                  });
+                },
+              },
+            },
+          },
+        };
+      },
+    },
+    {
+      field: 'times',
+      label: t('system.views.tenant.manager.title.subscribe.effectTime'),
+      component: 'RangePicker',
+      componentProps: {
+        showTime: true,
+      },
+      required: true,
+    },
+
+    {
+      field: 'userNumber',
+      label: t('system.views.tenant.manager.title.subscribe.userNumber'),
+      component: 'InputNumber',
+      componentProps: {},
+      required: true,
+      defaultValue: 1000,
+    },
+    {
+      field: 'remark',
+      label: t('common.table.remark'),
+      component: 'InputTextArea',
+      componentProps: {},
     },
   ];
 };

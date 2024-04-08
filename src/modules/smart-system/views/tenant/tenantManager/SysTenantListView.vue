@@ -20,11 +20,12 @@
           <a-tab-pane key="user" :tab="t('system.views.tenant.manager.title.tabUser')">
             <TenantUserList :tenant-id="currentTenantRef?.id" />
           </a-tab-pane>
-          <a-tab-pane key="subscribe" :tab="t('system.views.tenant.manager.title.tabSubscribe')" />
+          <a-tab-pane key="subscribe" :tab="t('system.views.tenant.manager.title.tabSubscribe')">
+            <TenantSubscribeList :tenant-id="currentTenantRef?.id" />
+          </a-tab-pane>
         </a-tabs>
       </template>
     </SmartLayoutSeparate>
-    <TenantSetPackageModal @register="registerSetPackageModal" />
   </div>
 </template>
 
@@ -34,7 +35,6 @@
   import { useSizeSetting } from '@/hooks/setting/UseSizeSetting';
 
   import { SmartTable, useSmartTable } from '@/components/SmartTable';
-  import { useModal } from '@/components/Modal';
 
   import {
     getFormSchemas,
@@ -53,19 +53,16 @@
   } from './SysTenantListView.api';
   import { useInjectPageDict } from '@/components/SmartPageProvider';
   import { computed, onMounted, ref, unref } from 'vue';
-  import { warnMessage } from '@/utils/message/SystemNotice';
   import { SmartLayoutSeparate } from '@/components/SmartLayoutSeparate';
   import { useDesign } from '@/hooks/web/useDesign';
 
-  import TenantSetPackageModal from './components/TenantSetPackageModal.vue';
   import TenantUserList from './components/TenantUserList.vue';
+  import TenantSubscribeList from './components/TenantSubscribeList.vue';
 
   const { prefixCls } = useDesign('system-tenant-manager');
 
   const { t } = useI18n();
   const { getTableSize } = useSizeSetting();
-
-  const [registerSetPackageModal, { openModal }] = useModal();
 
   const isolationStrategyListRef = ref<any[]>([]);
   const computedIsolationStrategyMap = computed(() => {
@@ -81,12 +78,12 @@
   });
   onMounted(() => pageDictRegister(SYSTEM_TENANT_TYPE_DICT));
 
-  const currentTenantRef = ref(null);
+  const currentTenantRef = ref<Recordable | null>(null);
   const handleCurrentChange = ({ row }) => {
     currentTenantRef.value = row;
   };
 
-  const [registerTable, { getCheckboxRecords }] = useSmartTable({
+  const [registerTable] = useSmartTable({
     id: 'system-tenant-manager',
     columns: getTableColumns(),
     height: 'auto',
@@ -169,22 +166,6 @@
         {
           code: 'useYnFalse',
           auth: Permission.useYn,
-        },
-        {
-          name: t('system.views.tenant.manager.title.setPackage'),
-          customRender: 'ant',
-          props: {
-            preIcon: 'ant-design:setting-outlined',
-            type: 'primary',
-            onClick: () => {
-              const selectRows = getCheckboxRecords();
-              if (!selectRows || selectRows.length !== 1) {
-                warnMessage(t('system.views.tenant.manager.message.selectOneRow'));
-                return false;
-              }
-              openModal(true, { tenantId: selectRows[0].id });
-            },
-          },
         },
       ],
     },

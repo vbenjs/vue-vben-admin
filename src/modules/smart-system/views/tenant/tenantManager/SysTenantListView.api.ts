@@ -11,6 +11,12 @@ enum Api {
   listNoBindUser = '/sys/tenant/manager/listNoBindUser',
   bindTenantUser = '/sys/tenant/manager/bindTenantUser',
   removeBindUser = '/sys/tenant/manager/removeBindUser',
+
+  listSubscribe = '/sys/tenant/subscribe/listWithPackage',
+  setSubscribeUseYn = '/sys/tenant/subscribe/setUseYn',
+  getSubscribeById = '/sys/tenant/subscribe/getById',
+  batchSaveUpdateSubscribe = '/sys/tenant/subscribe/saveUpdateBatch',
+  listNoBindPackageByTenantId = '/sys/tenant/manager/listNoBindPackageByTenantId',
 }
 
 export const listApi = (params) => {
@@ -101,6 +107,59 @@ export const removeBindUserApi = (data) => {
   return defHttp.post({
     service: ApiServiceEnum.SMART_SYSTEM,
     url: Api.removeBindUser,
+    data,
+  });
+};
+
+export const listSubscribeApi = (params) => {
+  return defHttp.post({
+    service: ApiServiceEnum.SMART_SYSTEM,
+    url: Api.listSubscribe,
+    data: {
+      ...params,
+    },
+  });
+};
+
+export const setSubscribeUseYnApi = (rows: any[], useYn: boolean) => {
+  return defHttp.post({
+    service: ApiServiceEnum.SMART_SYSTEM,
+    url: Api.setSubscribeUseYn,
+    data: {
+      idList: rows.map((item) => item.id),
+      useYn,
+    },
+  });
+};
+
+export const getSubscribeByIdApi = (id: number) => {
+  return defHttp.post({
+    service: ApiServiceEnum.SMART_SYSTEM,
+    url: Api.getSubscribeById,
+    data: id,
+  });
+};
+
+/**
+ * 根据租户ID查询没有绑定的套餐
+ * @param data
+ */
+export const listNoBindPackageByTenantIdApi = (data) => {
+  return defHttp.post({
+    service: ApiServiceEnum.SMART_SYSTEM,
+    url: Api.listNoBindPackageByTenantId,
+    data,
+  });
+};
+
+/**
+ * 根据租户ID查询没有绑定的套餐
+ * @param data
+ */
+export const batchSaveUpdateSubscribeApi = (data: Recordable) => {
+  return defHttp.post({
+    service: ApiServiceEnum.SMART_SYSTEM,
+    url: Api.batchSaveUpdateSubscribe,
     data,
   });
 };
