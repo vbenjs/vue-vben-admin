@@ -39,12 +39,10 @@ export default defineComponent({
         resetFields();
         isAddRef.value = isAdd;
         if (isAdd) {
-          if (formData) {
-            setFieldsValue({
-              ...formData,
-              isAdd,
-            });
-          }
+          setFieldsValue({
+            ...(formData || {}),
+            isAdd,
+          });
           return false;
         }
         loadEditData(data);
