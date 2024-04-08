@@ -6,6 +6,7 @@
 import type { App, Directive, DirectiveBinding } from 'vue';
 
 import { usePermission } from '@/hooks/web/usePermission';
+import { RoleEnum } from '@/enums/roleEnum';
 
 function isAuth(el: Element, binding: any) {
   const { hasPermission } = usePermission();
@@ -17,7 +18,7 @@ function isAuth(el: Element, binding: any) {
   }
 }
 
-const mounted = (el: Element, binding: DirectiveBinding<any>) => {
+const mounted = (el: Element, binding: DirectiveBinding<string | string[] | RoleEnum[]>) => {
   isAuth(el, binding);
 };
 
