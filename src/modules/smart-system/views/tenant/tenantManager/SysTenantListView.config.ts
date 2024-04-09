@@ -1,6 +1,6 @@
 import type { SmartColumn, SmartSearchFormSchema } from '@/components/SmartTable';
 import type { FormSchema } from '@/components/Form';
-import { tableUseYnClass } from '@/components/SmartTable';
+import { tableUseYnClass, tableBooleanClass } from '@/components/SmartTable';
 import { Ref, unref } from 'vue';
 
 import { listNoBindPackageByTenantIdApi } from './SysTenantListView.api';
@@ -54,6 +54,10 @@ export const getTableColumns = (): SmartColumn[] => {
       slots: {
         default: 'table-type',
       },
+    },
+    {
+      ...tableBooleanClass('platformYn'),
+      title: '{system.views.tenant.manager.title.platformYn}',
     },
     {
       field: 'contacts',

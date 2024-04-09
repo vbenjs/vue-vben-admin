@@ -90,6 +90,10 @@
     border: true,
     sortConfig: {
       remote: true,
+      defaultSort: {
+        field: 'seq',
+        order: 'asc',
+      },
     },
     customConfig: { storage: true },
     showOverflow: 'tooltip',
@@ -146,6 +150,7 @@
       column: {
         columnOrder: true,
       },
+      sizeSetting: true,
       buttons: [
         {
           code: 'ModalAdd',

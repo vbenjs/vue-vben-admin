@@ -111,22 +111,22 @@ const tableUseYn = (t: Function) => {
   };
 };
 
-const tableUseYnClass = (): SmartColumn => {
+const tableUseYnClass = (field = 'useYn'): SmartColumn => {
   const { t } = useI18n();
 
   return {
     title: '{common.table.useYn}',
-    field: 'useYn',
+    field,
     width: 100,
     formatter: ({ row }) => {
-      const useYn = row.useYn as boolean | null;
+      const useYn = row[field] as boolean | null;
       if (useYn === null) {
         return '';
       }
       return useYn ? t('common.form.use') : t('common.form.noUse');
     },
     dynamicClass: ({ row }) => {
-      const useYn = row.useYn as boolean | null;
+      const useYn = row[field] as boolean | null;
       if (useYn === null) {
         return '';
       }
@@ -135,4 +135,26 @@ const tableUseYnClass = (): SmartColumn => {
   };
 };
 
-export { tableUseYn, tableDeleteYn, tableUseYnClass };
+const tableBooleanClass = (field: string): SmartColumn => {
+  const { t } = useI18n();
+  return {
+    width: 100,
+    field,
+    formatter({ row }) {
+      const value = row[field] as boolean | null;
+      if (value === null) {
+        return '';
+      }
+      return value ? t('common.form.yes') : t('common.form.no');
+    },
+    dynamicClass: ({ row }) => {
+      const value = row[field] as boolean | null;
+      if (value === null) {
+        return '';
+      }
+      return value ? 'text-color--success-bold' : 'text-color--danger-bold';
+    },
+  };
+};
+
+export { tableUseYn, tableDeleteYn, tableUseYnClass, tableBooleanClass };

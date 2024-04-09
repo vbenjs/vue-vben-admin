@@ -25,6 +25,7 @@ export default {
       setPackage: '设置套餐',
       tabUser: '绑定用户',
       tabSubscribe: '订阅套餐',
+      platformYn: '平台管理',
       user: {
         username: '用户名',
         fullName: '姓名',
