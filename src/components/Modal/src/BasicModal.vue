@@ -151,8 +151,11 @@
       ...unref(getMergeProps),
       open: unref(openRef),
     };
-    attr['wrapClassName'] =
-      `${attr?.['wrapClassName'] || ''} ${unref(getWrapClassName)}` + 'vben-basic-modal-wrap';
+    if (attr?.['wrapClassName'] === unref(getWrapClassName)) {
+      attr['wrapClassName'] = `${attr?.['wrapClassName'] || ''} ` + prefixCls;
+    } else {
+      attr['wrapClassName'] = `${unref(getWrapClassName) || ''}` + prefixCls;
+    }
     if (unref(fullScreenRef)) {
       return omit(attr, ['height', 'title']);
     }
