@@ -4,7 +4,7 @@
       <img :class="`${prefixCls}__header`" :src="getUserInfo.avatar" />
       <span :class="`${prefixCls}__info hidden md:block`">
         <span :class="`${prefixCls}__name`" class="truncate">
-          {{ getUserInfo.realName }}
+          {{ computedUsername }}
         </span>
       </span>
     </span>
@@ -18,6 +18,11 @@
           v-if="getShowDoc"
         />
         <Menu.Divider v-if="getShowDoc" />
+        <MenuItem
+          key="changeTenant"
+          :text="t('layout.header.changeTenant')"
+          icon="ant-design:usergroup-add-outlined"
+        />
         <MenuItem
           v-if="getShowApi"
           key="api"
@@ -46,11 +51,12 @@
   <LockAction @register="register" />
   <ChangeApi @register="registerApi" />
   <ChangePasswordModal @register="registerChangePasswordModal" />
+  <ChangeTenantModal @register="registerTenantModal" />
 </template>
 <script lang="ts" setup>
   import { Dropdown, Menu } from 'ant-design-vue';
   import type { MenuInfo } from 'ant-design-vue/lib/menu/src/interface';
-  import { computed } from 'vue';
+  import { computed, unref } from 'vue';
   import { DOC_URL } from '@/settings/siteSetting';
   import { useUserStore } from '@/store/modules/user';
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
@@ -62,8 +68,9 @@
   import { openWindow } from '@/utils';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
   import ChangePasswordModal from './ChangePasswordModal.vue';
+  import ChangeTenantModal from '../ChangeTenant/ChangeTenantModal.vue';
 
-  type MenuEvent = 'logout' | 'doc' | 'lock' | 'api' | 'changePassword';
+  type MenuEvent = 'logout' | 'doc' | 'lock' | 'api' | 'changePassword' | 'changeTenant';
 
   const MenuItem = createAsyncComponent(() => import('./DropMenuItem.vue'));
   const LockAction = createAsyncComponent(() => import('../lock/LockModal.vue'));
@@ -81,12 +88,22 @@
   const userStore = useUserStore();
 
   const getUserInfo = computed(() => {
-    const { realName = '', avatar, desc } = userStore.getUserInfo || {};
-    return { realName, avatar: avatar || headerImg, desc };
+    const { realName = '', avatar, desc, userTenant } = userStore.getUserInfo || {};
+    return { realName, avatar: avatar || headerImg, desc, userTenant };
+  });
+
+  const computedUsername = computed(() => {
+    const { realName, userTenant } = unref(getUserInfo);
+    const list = [realName];
+    if (userTenant) {
+      list.push(userTenant.tenantShortName || userTenant.tenantName);
+    }
+    return list.join('/');
   });
 
   const [register, { openModal }] = useModal();
   const [registerApi, { openModal: openApiModal }] = useModal();
+  const [registerTenantModal, { openModal: openTenantModal }] = useModal();
 
   function handleLock() {
     openModal(true);
@@ -122,6 +139,9 @@
         break;
       case 'changePassword':
         handleChangePassword();
+        break;
+      case 'changeTenant':
+        openTenantModal();
         break;
     }
   }

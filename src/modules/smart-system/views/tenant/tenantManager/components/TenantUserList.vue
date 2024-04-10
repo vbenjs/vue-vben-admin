@@ -17,11 +17,18 @@
     getTabUserListSearchSchemas,
     Permission,
   } from '../SysTenantListView.config';
-  import { listTenantUserApi, removeBindUserApi } from '../SysTenantListView.api';
+  import {
+    listTenantUserApi,
+    removeBindUserApi,
+    createTenantUserAccountApi,
+  } from '../SysTenantListView.api';
   import { useDesign } from '@/hooks/web/useDesign';
   import { useI18n } from '@/hooks/web/useI18n';
   import TenantAddUserModal from './TenantAddUserModal.vue';
   import { hasPermission } from '@/utils/auth';
+  import { useUserStore } from '@/store/modules/user';
+  import { storeToRefs } from 'pinia';
+  import { createConfirm, successMessage, warnMessage } from '@/utils/message/SystemNotice';
 
   const props = defineProps({
     tenantId: propTypes.number,
@@ -31,6 +38,7 @@
     () => query(),
   );
   const computedChoseTenant = computed(() => props.tenantId !== undefined);
+  const { getIsPlatformTenant } = storeToRefs(useUserStore());
 
   const { tableSizeConfig } = useSizeSetting();
   const { prefixCls } = useDesign('system-tenant-manager-userTab');
@@ -38,9 +46,39 @@
 
   const [registerAddUserModal, { openModal: openAddUserModal }] = useModal();
 
-  const [register, { query }] = useSmartTable({
+  const handleCreateAccount = () => {
+    const selectRows = getCheckboxRecords();
+    if (selectRows.length === 0) {
+      warnMessage(t('system.views.tenant.manager.message.selectUser'));
+      return false;
+    }
+    // 验证是否已经存在创建账户的
+    const createAccountList = selectRows.filter((item) => item.accountId === null);
+    if (createAccountList.length === 0) {
+      warnMessage(t('system.views.tenant.manager.message.所选用户已全部创建账户'));
+      return false;
+    }
+    let i18nKey = 'system.views.tenant.manager.message.createAccountConfirm';
+    if (createAccountList.length < selectRows.length) {
+      i18nKey = 'system.views.tenant.manager.message.hasCreateAccount';
+    }
+    createConfirm({
+      content: t(i18nKey),
+      iconType: 'warning',
+      async onOk() {
+        await createTenantUserAccountApi({
+          tenantId: props.tenantId,
+          userIdList: createAccountList.map((item) => item.userId),
+        });
+        successMessage(t('system.views.tenant.manager.message.createAccountSuccess'));
+        query();
+      },
+    });
+  };
+
+  const [register, { query, getCheckboxRecords }] = useSmartTable({
     id: 'system-tenant-manager-userList',
-    columns: getTabUserListColumns(),
+    columns: getTabUserListColumns(t),
     border: true,
     height: 'auto',
     customConfig: { storage: true },
@@ -114,6 +152,16 @@
               disabled: !unref(computedChoseTenant) || !hasPermission(Permission.bindUser),
             };
           }),
+        },
+        {
+          name: t('system.views.tenant.manager.button.user.createAccount'),
+          customRender: 'ant',
+          visible: unref(getIsPlatformTenant),
+          props: {
+            type: 'primary',
+            preIcon: 'ant-design:user-add-outlined',
+            onClick: handleCreateAccount,
+          },
         },
       ],
     },

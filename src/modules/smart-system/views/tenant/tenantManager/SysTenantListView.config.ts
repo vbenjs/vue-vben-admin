@@ -346,7 +346,7 @@ export const getSearchFormSchemas = (t: Function): SmartSearchFormSchema[] => {
 /**
  * 绑定用户tab
  */
-export const getTabUserListColumns = (): SmartColumn[] => {
+export const getTabUserListColumns = (t: Function): SmartColumn[] => {
   return [
     {
       type: 'checkbox',
@@ -366,6 +366,26 @@ export const getTabUserListColumns = (): SmartColumn[] => {
       field: 'fullName',
       width: 120,
       fixed: 'left',
+    },
+    {
+      field: 'accountId',
+      title: '{system.views.tenant.manager.title.user.hasAccount}',
+      formatter({ row }) {
+        const accountId = row.accountId;
+        if (accountId) {
+          return t('common.form.yes');
+        }
+        return t('common.form.no');
+      },
+      align: 'center',
+      className({ row }) {
+        const accountId = row.accountId;
+        if (accountId) {
+          return 'text-color--success-bold';
+        }
+        return 'text-color--danger-bold';
+      },
+      width: 100,
     },
     {
       title: '{system.views.tenant.manager.title.user.email}',

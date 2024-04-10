@@ -1,4 +1,4 @@
-import type { UserInfo } from '#/store';
+import type { UserInfo, UserTenant } from '#/store';
 import type { ErrorMessageMode } from '#/axios';
 import { defineStore } from 'pinia';
 import { store } from '@/store';
@@ -12,11 +12,12 @@ import {
   LoginParams,
   LoginResultModel,
 } from '@/api/sys/model/userModel';
-import { changePasswordApi, doLogout, loginApi } from '@/api/sys/user';
+import { changePasswordApi, doLogout, loginApi, changeTenantApi } from '@/api/sys/user';
 import { useI18n } from '@/hooks/web/useI18n';
 import { useMessage } from '@/hooks/web/useMessage';
 import { router } from '@/router';
 import { usePermissionStore } from '@/store/modules/permission';
+import { usePermission } from '@/hooks/web/usePermission';
 import { RouteRecordRaw } from 'vue-router';
 import { PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic';
 import { h } from 'vue';
@@ -59,6 +60,15 @@ export const useUserStore = defineStore({
     getLastUpdateTime(state): number {
       return state.lastUpdateTime;
     },
+    getUserTenant(): UserTenant | undefined {
+      return this.getUserInfo.userTenant;
+    },
+    /**
+     * 是否是平台租户
+     */
+    getIsPlatformTenant(): boolean {
+      return this.getUserTenant?.platformYn || false;
+    },
   },
   actions: {
     setToken(info: string | undefined) {
@@ -82,6 +92,17 @@ export const useUserStore = defineStore({
       this.token = '';
       this.roleList = [];
       this.sessionTimeout = false;
+    },
+    /**
+     * 切换租户
+     */
+    async changeTenant(tenantId: number) {
+      const data = await changeTenantApi(tenantId);
+      // 刷新菜单
+      await this.afterLoginAction(data, false);
+      const { refreshMenu } = usePermission();
+      await refreshMenu();
+      router.replace(data.user?.homePath || PageEnum.BASE_HOME);
     },
     /**
      * @description: login
@@ -114,7 +135,6 @@ export const useUserStore = defineStore({
       this.setUserInfo({
         ...userInfo,
       });
-
       const sessionTimeout = this.sessionTimeout;
       if (sessionTimeout) {
         this.setSessionTimeout(false);

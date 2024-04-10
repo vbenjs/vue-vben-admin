@@ -17,6 +17,7 @@ enum Api {
   getSubscribeById = '/sys/tenant/subscribe/getById',
   batchSaveUpdateSubscribe = '/sys/tenant/subscribe/saveUpdateBatch',
   listNoBindPackageByTenantId = '/sys/tenant/manager/listNoBindPackageByTenantId',
+  createTenantUserAccount = '/sys/tenant/manager/createTenantUserAccount',
 }
 
 export const listApi = (params) => {
@@ -160,6 +161,18 @@ export const batchSaveUpdateSubscribeApi = (data: Recordable) => {
   return defHttp.post({
     service: ApiServiceEnum.SMART_SYSTEM,
     url: Api.batchSaveUpdateSubscribe,
+    data,
+  });
+};
+
+/**
+ * 根据租户ID查询没有绑定的套餐
+ * @param data
+ */
+export const createTenantUserAccountApi = (data: Recordable) => {
+  return defHttp.post({
+    service: ApiServiceEnum.SMART_SYSTEM,
+    url: Api.createTenantUserAccount,
     data,
   });
 };

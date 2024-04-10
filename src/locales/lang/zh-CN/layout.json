@@ -16,7 +16,9 @@
     "lockScreen": "锁定屏幕",
     "lockScreenBtn": "锁定",
     "home": "首页",
-    "changePassword": "修改密码"
+    "changePassword": "修改密码",
+    "changeTenant": "切换租户",
+    "changeTenantSuccess": "切换租户成功"
   },
   "multipleTab": {
     "reload": "重新加载",

@@ -33,6 +33,7 @@ export default {
         mobile: '电话',
         bindTime: '绑定时间',
         bindBy: '绑定人',
+        hasAccount: '是否创建账户',
       },
       subscribe: {
         tenantId: '租户',
@@ -74,6 +75,15 @@ export default {
       selectOneRow: '请选择一条数据',
       bindUserSuccess: '绑定用户成功',
       selectUser: '请先选择用户',
+      hasCreateAccount: '选择用户存在已创建账户，是否跳过？',
+      createAccountConfirm: '确定要创建账户吗？',
+      noCreateAccountUser: '所选用户已全部创建账户',
+      createAccountSuccess: '创建账户成功',
+    },
+    button: {
+      user: {
+        createAccount: '创建账户',
+      },
     },
   },
 };

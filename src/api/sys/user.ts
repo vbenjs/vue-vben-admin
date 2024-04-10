@@ -15,6 +15,8 @@ enum Api {
   GetPermCode = '/getPermCode',
   TestRetry = '/testRetry',
   changePassword = 'sys/auth/changePassword',
+  listCurrentUserTenant = 'sys/tenant/manager/listCurrentUserTenant',
+  changeTenant = '/auth/tenant/change',
 }
 
 /**
@@ -70,5 +72,29 @@ export const changePasswordApi = (params: ChangePasswordParams) => {
     service: ApiServiceEnum.SMART_SYSTEM,
     url: Api.changePassword,
     data: params,
+  });
+};
+
+/**
+ * 查询当前用户租户列表
+ */
+export const listCurrentUserTenantApi = () => {
+  return defHttp.post({
+    service: ApiServiceEnum.SMART_SYSTEM,
+    url: Api.listCurrentUserTenant,
+  });
+};
+
+/**
+ * 切换租户API
+ * @param tenantId
+ */
+export const changeTenantApi = (tenantId: number): Promise<LoginResultModel> => {
+  return defHttp.postForm({
+    service: ApiServiceEnum.SMART_AUTH,
+    url: Api.changeTenant,
+    params: {
+      tenantId,
+    },
   });
 };

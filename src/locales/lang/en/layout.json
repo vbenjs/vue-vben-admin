@@ -16,7 +16,9 @@
     "lockScreen": "Lock screen",
     "lockScreenBtn": "Locking",
     "home": "Home",
-    "changePassword": "Change password"
+    "changePassword": "Change password",
+    "changeTenant": "Change tenant",
+    "changeTenantSuccess": "Change tenant success"
   },
   "multipleTab": {
     "reload": "Refresh current",

@@ -41,6 +41,19 @@ export interface UserInfo {
   avatar: string;
   desc?: string;
   homePath?: string;
+  // 租户信息
+  userTenant?: UserTenant;
+}
+
+/**
+ * 用户租户信息
+ */
+export interface UserTenant {
+  tenantId: number;
+  tenantCode: string;
+  tenantName: string;
+  tenantShortName?: string;
+  platformYn: boolean;
 }
 
 export interface BeforeMiniState {

@@ -115,7 +115,7 @@ export function usePermission() {
    * refresh menu data
    */
   async function refreshMenu() {
-    resume();
+    return resume();
   }
 
   const getNoPermissionMode = computed(() => appStore.getProjectConfig.noPermissionMode);
