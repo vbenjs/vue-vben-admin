@@ -23,7 +23,7 @@
         </Row>
       </Col>
       <Col :span="7" :class="`${prefixCls}-col`">
-        <CollapseContainer title="标签" :canExpan="false">
+        <CollapseContainer title="标签" :canExpand="false">
           <template v-for="tag in tags" :key="tag">
             <Tag class="mb-2">
               {{ tag }}
@@ -32,7 +32,7 @@
         </CollapseContainer>
       </Col>
       <Col :span="8" :class="`${prefixCls}-col`">
-        <CollapseContainer :class="`${prefixCls}-top__team`" title="团队" :canExpan="false">
+        <CollapseContainer :class="`${prefixCls}-top__team`" title="团队" :canExpand="false">
           <div v-for="(team, index) in teams" :key="index" :class="`${prefixCls}-top__team-item`">
             <Icon :icon="team.icon" :color="team.color" />
             <span>{{ team.title }}</span>
@@ -53,17 +53,17 @@
 </template>
 
 <script lang="ts" setup>
-  import { Tag, Tabs, Row, Col } from 'ant-design-vue';
-  import { computed } from 'vue';
   import { CollapseContainer } from '@/components/Container';
   import Icon from '@/components/Icon/Icon.vue';
-  import Article from './Article.vue';
+  import { Col, Row, Tabs, Tag } from 'ant-design-vue';
+  import { computed } from 'vue';
   import Application from './Application.vue';
+  import Article from './Article.vue';
   import Project from './Project.vue';
 
   import headerImg from '@/assets/images/header.jpg';
-  import { tags, teams, details, achieveList } from './data';
   import { useUserStore } from '@/store/modules/user';
+  import { achieveList, details, tags, teams } from './data';
 
   const userStore = useUserStore();
   const TabPane = Tabs.TabPane;

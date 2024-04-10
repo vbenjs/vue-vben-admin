@@ -15,30 +15,54 @@
   import FileList from './FileList.vue';
   import { BasicModal, useModalInner } from '@/components/Modal';
   import { previewProps } from '../props';
-  import { PreviewFileItem } from '../types/typing';
+  import { FileBasicColumn, PreviewFileItem } from '../types/typing';
   import { downloadByUrl } from '@/utils/file/download';
   import { createPreviewColumns, createPreviewActionColumn } from './data';
   import { useI18n } from '@/hooks/web/useI18n';
   import { isArray } from '@/utils/is';
+  import { BasicColumn } from '@/components/Table';
 
   const props = defineProps(previewProps);
 
   const emit = defineEmits(['list-change', 'register', 'delete']);
 
-  const columns = createPreviewColumns() as any[];
-  const actionColumn = createPreviewActionColumn({ handleRemove, handleDownload }) as any;
+  let columns: BasicColumn[] | FileBasicColumn[] = createPreviewColumns();
+  let actionColumn: any;
 
   const [register] = useModalInner();
   const { t } = useI18n();
 
-  const fileListRef = ref<PreviewFileItem[]>([]);
+  const fileListRef = ref<PreviewFileItem[] | Array<any>>([]);
+  watch(
+    () => props.previewColumns,
+    () => {
+      if (props.previewColumns.length) {
+        columns = props.previewColumns;
+        actionColumn = null;
+      } else {
+        columns = createPreviewColumns();
+        actionColumn = createPreviewActionColumn({ handleRemove, handleDownload });
+      }
+    },
+    { immediate: true },
+  );
+
   watch(
     () => props.value,
     (value) => {
       if (!isArray(value)) value = [];
+      if (props.beforePreviewData) {
+        value = props.beforePreviewData(value) as any;
+        fileListRef.value = value;
+        return;
+      }
       fileListRef.value = value
         .filter((item) => !!item)
         .map((item) => {
+          if (typeof item != 'string') {
+            console.error('return value should be string');
+            return;
+          }
           return {
             url: item,
             type: item.split('.').pop() || '',

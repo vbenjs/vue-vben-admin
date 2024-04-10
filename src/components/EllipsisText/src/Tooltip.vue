@@ -121,6 +121,7 @@
         pointer-events: none;
 
         &::before {
+          content: ''; // 解决提示框箭头颜色未生效问题
           position: absolute;
           bottom: 0;
           inset-inline-start: 0;

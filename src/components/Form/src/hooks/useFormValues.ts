@@ -13,7 +13,7 @@ interface UseFormValuesContext {
 }
 
 /**
- * @desription deconstruct array-link key. This method will mutate the target.
+ * @description deconstruct array-link key. This method will mutate the target.
  */
 function tryDeconstructArray(key: string, value: any, target: Recordable) {
   const pattern = /^\[(.+)\]$/;
@@ -31,7 +31,7 @@ function tryDeconstructArray(key: string, value: any, target: Recordable) {
 }
 
 /**
- * @desription deconstruct object-link key. This method will mutate the target.
+ * @description deconstruct object-link key. This method will mutate the target.
  */
 function tryDeconstructObject(key: string, value: any, target: Recordable) {
   const pattern = /^\{(.+)\}$/;
@@ -138,7 +138,7 @@ export function useFormValues({
       const { defaultValue, defaultValueObj } = item;
       const fieldKeys = Object.keys(defaultValueObj || {});
       if (fieldKeys.length) {
-        fieldKeys.map((field) => {
+        fieldKeys.forEach((field) => {
           obj[field] = defaultValueObj![field];
           if (formModel[field] === undefined) {
             formModel[field] = defaultValueObj![field];

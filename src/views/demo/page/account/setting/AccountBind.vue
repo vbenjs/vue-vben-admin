@@ -1,5 +1,5 @@
 <template>
-  <CollapseContainer title="账号绑定" :canExpan="false">
+  <CollapseContainer title="账号绑定" :canExpand="false">
     <List>
       <template v-for="item in accountBindList" :key="item.key">
         <ListItem>
@@ -23,9 +23,9 @@
   </CollapseContainer>
 </template>
 <script lang="ts" setup>
-  import { List } from 'ant-design-vue';
   import { CollapseContainer } from '@/components/Container';
   import Icon from '@/components/Icon/Icon.vue';
+  import { List } from 'ant-design-vue';
 
   import { accountBindList } from './data';
 

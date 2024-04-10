@@ -40,16 +40,18 @@ export function usePermission() {
   /**
    * Reset and regain authority resource information
    * 重置和重新获得权限资源信息
-   * @param id
    */
   async function resume() {
     const tabStore = useMultipleTabStore();
     tabStore.clearCacheTabs();
     resetRouter();
+
+    // 动态加载路由（再次）
     const routes = await permissionStore.buildRoutesAction();
     routes.forEach((route) => {
       router.addRoute(route as unknown as RouteRecordRaw);
     });
+
     permissionStore.setLastBuildMenuTime();
     closeAll();
   }

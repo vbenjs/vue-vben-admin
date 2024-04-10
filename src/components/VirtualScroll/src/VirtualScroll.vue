@@ -52,7 +52,7 @@
   export default defineComponent({
     name: 'VirtualScroll',
     props,
-    setup(props, { slots }) {
+    setup(props, { slots, expose }) {
       const wrapElRef = ref<HTMLDivElement | null>(null);
       const state = reactive({
         first: 0,
@@ -128,6 +128,31 @@
         state.last = getLast(state.first);
       }
 
+      function scrollToTop() {
+        const wrapEl = unref(wrapElRef);
+        if (!wrapEl) {
+          return;
+        }
+        wrapEl.scrollTop = 0;
+      }
+
+      function scrollToBottom() {
+        const wrapEl = unref(wrapElRef);
+        if (!wrapEl) {
+          return;
+        }
+        wrapEl.scrollTop = wrapEl.scrollHeight;
+      }
+
+      function scrollToItem(index: number) {
+        const wrapEl = unref(wrapElRef);
+        if (!wrapEl) {
+          return;
+        }
+        const i = index - 1 > 0 ? index - 1 : 0;
+        wrapEl.scrollTop = i * unref(getItemHeightRef);
+      }
+
       function renderChildren() {
         const { items = [] } = props;
         return items.slice(unref(getFirstToRenderRef), unref(getLastToRenderRef)).map(genChild);
@@ -142,6 +167,13 @@
           </div>
         );
       }
+
+      expose({
+        wrapElRef,
+        scrollToTop,
+        scrollToItem,
+        scrollToBottom,
+      });
 
       onMounted(() => {
         state.last = getLast(0);

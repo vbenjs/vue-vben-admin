@@ -5,7 +5,7 @@
     v-if="imgList && imgList.length"
     :style="getWrapStyle"
   >
-    <Badge :count="!showBadge || imgList.length == 1 ? 0 : imgList.length" v-if="simpleShow">
+    <Badge :count="!showBadge || imgList.length === 1 ? 0 : imgList.length" v-if="simpleShow">
       <div class="img-div">
         <Image.PreviewGroup>
           <template v-for="(img, index) in imgList" :key="img">

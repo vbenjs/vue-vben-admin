@@ -4,6 +4,7 @@
   import { useSortable } from '@/hooks/web/useSortable';
   import { useModalContext } from '@/components/Modal/src/hooks/useModalContext';
   import { defineComponent, CSSProperties, watch, nextTick, ref, onMounted } from 'vue';
+  import { FileBasicColumn } from '../types/typing';
 
   export default defineComponent({
     name: 'FileList',
@@ -51,7 +52,11 @@
 
       return () => {
         const { columns, actionColumn, dataSource } = props;
-        const columnList = [...columns, actionColumn];
+        let columnList: FileBasicColumn[];
+        columnList = (
+          actionColumn ? [...columns, actionColumn] : [...columns]
+        ) as FileBasicColumn[];
+
         return (
           // x scrollbar
           <div class="overflow-x-auto">

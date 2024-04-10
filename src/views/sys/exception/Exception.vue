@@ -122,7 +122,13 @@
                     {() => btnText}
                   </Button>
                 ),
-              icon: () => (icon ? <img src={icon} /> : null),
+              // antv 原来支持 status 可选： success | error | info | warning | 404 | 403 | 500
+              // 上面 ExceptionEnum 覆盖了 404 | 403 | 500，并增加其他状态值
+              // 增加下面判断，继续支持 success | error | info | warning
+              icon:
+                status && ExceptionEnum[status] === void 0
+                  ? () => (icon ? <img src={icon} /> : null)
+                  : undefined,
             }}
           </Result>
         );
