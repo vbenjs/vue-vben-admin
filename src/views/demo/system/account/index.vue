@@ -4,6 +4,7 @@
     <BasicTable @register="registerTable" class="w-3/4 xl:w-4/5" :searchInfo="searchInfo">
       <template #toolbar>
         <a-button type="primary" @click="handleCreate">新增账号</a-button>
+        <a-button type="primary" @click="handleExport">导出账号</a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -56,7 +57,7 @@
   const go = useGo();
   const [registerModal, { openModal }] = useModal();
   const searchInfo = reactive<Recordable>({});
-  const [registerTable, { reload, updateTableDataRecord }] = useTable({
+  const [registerTable, { reload, updateTableDataRecord, getSearchInfo }] = useTable({
     title: '账号列表',
     api: getAccountList,
     rowKey: 'id',
@@ -97,6 +98,10 @@
 
   function handleDelete(record: Recordable) {
     console.log(record);
+  }
+
+  function handleExport() {
+    console.log(getSearchInfo());
   }
 
   function handleSuccess({ isUpdate, values }) {
