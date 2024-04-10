@@ -84,11 +84,17 @@
     border: true,
     stripe: true,
     height: 'auto',
-    highlightHoverRow: true,
-    highlightCurrentRow: true,
     pagerConfig: true,
     columnConfig: {
       resizable: true,
+    },
+    rowConfig: {
+      isHover: true,
+      isCurrent: true,
+    },
+    sortConfig: {
+      remote: true,
+      defaultSort: { field: 'seq', order: 'asc' },
     },
     useSearchForm: true,
     searchFormConfig: {

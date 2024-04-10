@@ -3,7 +3,7 @@ import { CacheTypeEnum, TOKEN_KEY } from '@/enums/cacheEnum';
 import projectSetting from '@/settings/projectSetting';
 import sha256 from 'crypto-js/sha256';
 import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
-import { UserInfo } from '#/store';
+import { RoleInfo, UserInfo } from '#/store';
 import { useUserStore } from '@/store/modules/user';
 import { usePermission } from '@/hooks/web/usePermission';
 import { isString } from '@/utils/is';
@@ -45,7 +45,7 @@ export const createPassword = (username: string, password: string) => {
  */
 export const isSuperAdmin = (): boolean => {
   const userStore = useUserStore();
-  return userStore.getRoleList.includes('SUPERADMIN');
+  return userStore.getIsSuperAdmin;
 };
 
 /**
@@ -99,7 +99,7 @@ export const getCurrentUserId = (): string | number => {
   return getUserInfo().userId;
 };
 
-export const getUserRole = (): string[] => {
+export const getUserRole = (): RoleInfo[] => {
   const userStore = useUserStore();
   return userStore.getRoleList;
 };

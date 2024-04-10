@@ -3,7 +3,7 @@ import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
 enum Api {
   list = '/sys/tenant/manager/list',
   getById = '/sys/tenant/manager/getById',
-  batchSaveUpdate = '/sys/tenant/manager/saveUpdateBatch',
+  saveUpdate = '/sys/tenant/manager/saveUpdate',
   delete = '/sys/tenant/manager/batchDeleteById',
   setUseYn = '/sys/tenant/manager/setUseYn',
   listIsolationStrategy = '/sys/tenant/manager/listIsolationStrategy',
@@ -30,10 +30,10 @@ export const listApi = (params) => {
   });
 };
 
-export const batchSaveUpdateApi = (modelList: any[]) => {
+export const saveUpdateApi = (modelList: any[]) => {
   return defHttp.post({
     service: ApiServiceEnum.SMART_SYSTEM,
-    url: Api.batchSaveUpdate,
+    url: Api.saveUpdate,
     data: modelList,
   });
 };

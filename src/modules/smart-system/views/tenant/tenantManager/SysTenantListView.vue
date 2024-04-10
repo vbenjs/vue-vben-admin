@@ -44,7 +44,7 @@
     SYSTEM_TENANT_TYPE_DICT,
   } from './SysTenantListView.config';
   import {
-    batchSaveUpdateApi,
+    saveUpdateApi,
     deleteApi,
     getByIdApi,
     listApi,
@@ -138,7 +138,7 @@
           return listApi(params.ajaxParameter);
         },
         save: ({ body: { insertRecords, updateRecords } }) =>
-          batchSaveUpdateApi([...insertRecords, ...updateRecords]),
+          saveUpdateApi([...insertRecords, ...updateRecords][0]),
         delete: ({ body: { removeRecords } }) => deleteApi(removeRecords),
         getById: (params) => getByIdApi(params.id),
         useYn: setUseYnApi,

@@ -8,8 +8,9 @@ export interface LoginParams {
 }
 
 export interface RoleInfo {
+  roleCode: string;
   roleName: string;
-  value: string;
+  superAdminYn: boolean;
 }
 
 /**
@@ -18,7 +19,7 @@ export interface RoleInfo {
 export interface LoginResultModel {
   user: GetUserInfoModel;
   token: string;
-  roles: Array<string>;
+  roles: Array<RoleInfo>;
   permissions: Array<string>;
 }
 

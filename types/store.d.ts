@@ -89,3 +89,9 @@ export interface SystemProperties {
    */
   captchaIdent?: string;
 }
+
+export interface RoleInfo {
+  roleCode: string;
+  roleName: string;
+  superAdminYn: boolean;
+}
