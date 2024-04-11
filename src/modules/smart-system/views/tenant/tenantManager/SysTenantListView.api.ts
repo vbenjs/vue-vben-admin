@@ -30,11 +30,11 @@ export const listApi = (params) => {
   });
 };
 
-export const saveUpdateApi = (modelList: any[]) => {
+export const saveUpdateApi = (model: Recordable) => {
   return defHttp.post({
     service: ApiServiceEnum.SMART_SYSTEM,
     url: Api.saveUpdate,
-    data: modelList,
+    data: model,
   });
 };
 
