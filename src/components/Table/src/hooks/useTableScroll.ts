@@ -115,7 +115,8 @@ export function useTableScroll(
       }
       if (paginationEl) {
         // 分页 margin-top
-        const paginationElMarginTop = parseInt(getComputedStyle(paginationEl).marginTop);
+        const paginationElMarginTop =
+          parseInt(getComputedStyle(paginationEl)?.marginTop) || 10 + 24;
         // 分页高度
         const offsetHeight = paginationEl.offsetHeight;
         paginationHeight = offsetHeight + paginationElMarginTop;

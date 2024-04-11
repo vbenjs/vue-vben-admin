@@ -1,5 +1,5 @@
 <template>
-  <div :class="getClass" ref="wrapperRef">
+  <div :class="getClass" :style="getStyle" ref="wrapperRef">
     <PageHeader
       :ghost="ghost"
       :title="title"
@@ -39,7 +39,8 @@
   import { useDesign } from '@/hooks/web/useDesign';
   import { propTypes } from '@/utils/propTypes';
   import { PageHeader } from 'ant-design-vue';
-  import { omit } from 'lodash-es';
+  import { omit, debounce } from 'lodash-es';
+  import { useElementSize } from '@vueuse/core';
   import {
     CSSProperties,
     PropType,
@@ -82,6 +83,9 @@
   const headerRef = ref(null);
   const contentRef = ref(null);
   const footerRef = ref(null);
+
+  const { height } = useElementSize(wrapperRef);
+
   const { prefixCls } = useDesign('page-wrapper');
 
   provide(
@@ -101,6 +105,7 @@
     [contentRef],
     getUpwardSpace,
   );
+  const debounceRedoHeight = debounce(redoHeight, 50);
   setCompensation({ useLayoutFooter: true, elements: [footerRef] });
 
   const getClass = computed(() => {
@@ -111,6 +116,13 @@
       },
       attrs.class ?? {},
     ];
+  });
+
+  const getStyle = computed(() => {
+    const { contentFullHeight, fixedHeight } = props;
+    return {
+      ...(contentFullHeight && fixedHeight ? { height: '100%' } : {}),
+    };
   });
 
   const getHeaderStyle = computed((): CSSProperties => {
@@ -172,6 +184,11 @@
       immediate: true,
     },
   );
+
+  watch(height, () => {
+    const { contentFullHeight, fixedHeight } = props;
+    contentFullHeight && fixedHeight && debounceRedoHeight();
+  });
 </script>
 <style lang="less">
   @prefix-cls: ~'@{namespace}-page-wrapper';

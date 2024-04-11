@@ -19,7 +19,7 @@
   const { t } = useI18n();
   const { prefixCls } = useDesign('basic-menu-item-content');
 
-  const getI18nName = computed(() => t(props.item?.name));
+  const getI18nName = computed(() => t(props.item?.meta?.title || props.item?.name));
   const getIcon = computed(() => (props.item?.img ? undefined : props.item?.icon));
   const getImg = computed(() => props.item?.img);
 </script>
