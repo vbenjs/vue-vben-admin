@@ -9,6 +9,7 @@ export default {
           roleName: '角色名称',
           roleCode: '角色编码',
           roleType: '角色类型',
+          superAdminYn: '超级管理角色',
         },
         validate: {
           roleName: '请输入角色名称',

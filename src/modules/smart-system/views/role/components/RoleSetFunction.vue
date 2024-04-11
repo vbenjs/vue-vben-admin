@@ -8,6 +8,7 @@
       <Spin :spinning="dataLoading">
         <BasicTree
           ref="treeRef"
+          :disabled="isSuperAdmin"
           :treeData="functionTreeData"
           v-model:checkedKeys="checkedKeysModel"
           checkable
@@ -21,6 +22,7 @@
           v-permission="permissions.setFunction"
           :loading="saveLoading"
           block
+          :disabled="isSuperAdmin"
           type="primary"
           @click="handleSave"
         >
@@ -44,6 +46,7 @@
 
   const props = defineProps({
     roleId: propTypes.number,
+    isSuperAdmin: propTypes.bool.def(false),
   });
 
   const treeRef = ref();
@@ -70,7 +73,7 @@
     try {
       const result = await defHttp.post({
         service: ApiServiceEnum.SMART_SYSTEM,
-        url: 'sys/function/list',
+        url: 'sys/function/listTenantFunction',
         data: {
           sortName: 'seq',
         },

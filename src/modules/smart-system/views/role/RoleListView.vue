@@ -13,7 +13,7 @@
         </SmartTable>
       </a-layout-content>
       <a-layout-sider theme="light" class="layout-set-function" width="240px">
-        <RoleSetFunction :role-id="currentRow.roleId" />
+        <RoleSetFunction :is-super-admin="currentRow.superAdminYn" :role-id="currentRow.roleId" />
       </a-layout-sider>
     </a-layout>
     <SmartUserSelectModal

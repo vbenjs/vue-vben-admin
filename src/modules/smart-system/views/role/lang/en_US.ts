@@ -9,6 +9,7 @@ export default {
           roleName: 'Role name',
           roleCode: 'Role code',
           roleType: 'Role type',
+          superAdminYn: 'Super admin',
         },
         validate: {
           roleName: 'Please enter role name',

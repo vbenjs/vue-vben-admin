@@ -1,6 +1,6 @@
 import type { SmartColumn, SmartSearchFormSchema } from '@/components/SmartTable';
 import type { FormSchema } from '@/components/Form';
-import { tableUseYnClass } from '@/components/SmartTable';
+import { tableBooleanClass, tableUseYnClass } from '@/components/SmartTable';
 
 export const getTableColumns = (): SmartColumn[] => {
   return [
@@ -26,6 +26,12 @@ export const getTableColumns = (): SmartColumn[] => {
       title: '{system.views.role.table.roleType}',
       field: 'roleType',
       width: 120,
+    },
+    {
+      title: '{system.views.role.table.superAdminYn}',
+      field: 'superAdminYn',
+      width: 120,
+      ...tableBooleanClass('superAdminYn'),
     },
     {
       ...tableUseYnClass(),
