@@ -93,16 +93,15 @@ const obFn = () => {
           target?.parentElement?.appendChild(node as HTMLElement);
         }
       }
-      if (mutation.attributeName === 'style' && mutation.target) {
+      if (mutation.type === 'attributes' && mutation.target) {
+        // 修复控制台可以”Hide element” 的问题
         const _target = mutation.target as HTMLElement;
         const target = findTargetNode(_target);
         if (target) {
-          const { waterMarkOptions = {} } = target;
-          resetWatermarkStyle(
-            _target as HTMLElement,
-            _target?.['data-watermark-text'],
-            waterMarkOptions,
-          );
+          // 禁止改属性 包括class 修改以后 mutation.type 也等于 'attributes'
+          // 先解除监听 再加一下
+          clearAll();
+          target.setWatermark(target.targetElement?.['data-watermark-text']);
         }
       }
     }
