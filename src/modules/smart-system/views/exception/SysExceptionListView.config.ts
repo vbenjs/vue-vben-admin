@@ -1,5 +1,6 @@
 import type { SmartColumn, SmartSearchFormSchema } from '@/components/SmartTable';
 import { tableBooleanColumnClass } from '@/components/SmartTable';
+import { Ref, unref } from 'vue';
 
 export const getTableColumns = (): SmartColumn[] => {
   return [
@@ -40,6 +41,14 @@ export const getTableColumns = (): SmartColumn[] => {
       field: 'operationBy',
       title: '{system.views.exception.title.operateUser}',
       width: 120,
+    },
+    {
+      field: 'tenantId',
+      title: '{system.views.exception.title.tenant}',
+      width: 120,
+      formatter({ row }) {
+        return row.tenant?.tenantShortName || row.tenant?.tenantName;
+      },
     },
     {
       field: 'createTime',
@@ -110,7 +119,10 @@ const getYesNoOptions = (t: Function) => {
   ];
 };
 
-export const getSearchFormSchemas = (t: Function): SmartSearchFormSchema[] => {
+export const getSearchFormSchemas = (
+  t: Function,
+  getIsPlatformTenant: Ref<boolean>,
+): SmartSearchFormSchema[] => {
   return [
     {
       label: t('system.views.exception.title.exceptionMessage'),
@@ -157,6 +169,15 @@ export const getSearchFormSchemas = (t: Function): SmartSearchFormSchema[] => {
       componentProps: {
         options: getYesNoOptions(t),
         style: { width: '150px' },
+      },
+    },
+    {
+      label: t('system.views.exception.title.tenant'),
+      field: 'tenantId',
+      slot: 'search-tenantId',
+      searchSymbol: '=',
+      ifShow() {
+        return unref(getIsPlatformTenant);
       },
     },
   ];

@@ -4,6 +4,9 @@
       <template #table-operation="{ row }">
         <SmartVxeTableAction :actions="getTableActions(row)" />
       </template>
+      <template #search-tenantId="{ model, field }">
+        <SysTenantSelect style="width: 100px" allowClear v-model:value="model[field]" />
+      </template>
     </SmartTable>
     <ExceptionDetailModal @register="registerModal" />
   </div>
@@ -26,9 +29,13 @@
   import ExceptionDetailModal from './components/ExceptionDetailModal.vue';
   import { createConfirm, successMessage, warnMessage } from '@/utils/message/SystemNotice';
   import { ref, unref } from 'vue';
+  import { SysTenantSelect } from '@/modules/smart-system/components';
+  import { storeToRefs } from 'pinia';
+  import { useUserStore } from '@/store/modules/user';
 
   const { t } = useI18n();
   const { getTableSize } = useSizeSetting();
+  const { getIsPlatformTenant } = storeToRefs(useUserStore());
 
   const getTableActions = (row): ActionItem[] => {
     return [
@@ -90,7 +97,7 @@
     searchFormConfig: {
       layout: 'inline',
       searchWithSymbol: true,
-      schemas: getSearchFormSchemas(t),
+      schemas: getSearchFormSchemas(t, getIsPlatformTenant),
       colon: true,
       actionColOptions: {
         span: undefined,

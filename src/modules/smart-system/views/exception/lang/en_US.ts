@@ -20,6 +20,7 @@ export default {
       resolvedTime: 'Resolved time',
       showStackTrace: 'Show stackTrace',
       stackTrace: 'Stack trace',
+      tenant: 'Tenant',
     },
     validate: {
       resolvedMessage: 'Please enter processing information',

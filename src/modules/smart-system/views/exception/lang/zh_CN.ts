@@ -20,6 +20,7 @@ export default {
       resolvedTime: '处理时间',
       showStackTrace: '查看堆栈信息',
       stackTrace: '堆栈信息',
+      tenant: '租户',
     },
     validate: {
       resolvedMessage: '请输入处理信息',
