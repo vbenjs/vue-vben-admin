@@ -66,7 +66,10 @@
         const filterMenus = menus.filter((item) => item.path === parent[0]);
         const matched = getMatched(filterMenus, parent) as any;
 
-        if (!matched || matched.length === 0) return;
+        if (!matched || matched.length === 0){
+          routes.value = [];
+          return;
+        }
 
         const breadcrumbList = filterItem(matched);
 
