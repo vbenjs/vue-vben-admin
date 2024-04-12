@@ -1,7 +1,7 @@
 import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
 
 enum Api {
-  list = 'sys/log/list',
+  list = 'sys/log/listWithTenant',
   getById = 'sys/log/getById',
 }
 

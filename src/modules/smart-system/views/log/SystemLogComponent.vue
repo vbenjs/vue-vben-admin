@@ -14,6 +14,9 @@
           {{ row.useTime }}
         </a-tag>
       </template>
+      <template #search-tenantId="{ model, field }">
+        <SysTenantSelect style="width: 100px" allowClear v-model:value="model[field]" />
+      </template>
     </SmartTable>
     <LogDetailModal @register="registerModal" />
   </div>
@@ -39,6 +42,9 @@
   import { listApi } from './SystemLogComponent.api';
   import { getTableColumns, getSearchFormSchemas } from './SystemLogComponent.config';
   import LogDetailModal from './components/LogDetailModal.vue';
+  import { SysTenantSelect } from '@/modules/smart-system/components';
+  import { storeToRefs } from 'pinia';
+  import { useUserStore } from '@/store/modules/user';
 
   const props = defineProps({
     ident: {
@@ -49,6 +55,7 @@
 
   const { t } = useI18n();
   const { getTableSize } = useSizeSetting();
+  const { getIsPlatformTenant } = storeToRefs(useUserStore());
 
   const [registerModal, { openModal }] = useModal();
 
@@ -108,7 +115,7 @@
       compact: true,
       colon: true,
       searchWithSymbol: true,
-      schemas: getSearchFormSchemas(t, props.ident),
+      schemas: getSearchFormSchemas(t, props.ident, getIsPlatformTenant),
     },
     sortConfig: {
       remote: true,

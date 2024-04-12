@@ -25,6 +25,7 @@ export default {
           params: '请求参数',
           result: '返回结果',
           errorMessage: '异常信息',
+          tenant: '租户',
         },
       },
     },

@@ -1,5 +1,6 @@
 import type { SmartColumn, SmartSearchFormSchema } from '@/components/SmartTable';
 import dayjs from 'dayjs';
+import { Ref, unref } from 'vue';
 
 export type LoginIdent = 'LOGIN_LOG' | 'INTERFACE_LOG';
 
@@ -32,6 +33,14 @@ const tableColumns: Array<SmartColumn & { ident?: LoginIdent[] }> = [
     title: '{system.views.log.title.createUserId}',
     field: 'createBy',
     width: 120,
+  },
+  {
+    title: '{system.views.log.title.tenant}',
+    field: 'tenantId',
+    width: 120,
+    formatter: ({ row }) => {
+      return row.tenant?.tenantShortName || row.tenant?.tenantName;
+    },
   },
   {
     title: '{system.views.log.title.ip}',
@@ -172,8 +181,13 @@ export const getOperationTypeEnum = (t: Function) => {
  * 获取搜索表单
  * @param t
  * @param ident
+ * @param getIsPlatformTenant
  */
-export const getSearchFormSchemas = (t: Function, ident: LoginIdent) => {
+export const getSearchFormSchemas = (
+  t: Function,
+  ident: LoginIdent,
+  getIsPlatformTenant: Ref<boolean>,
+) => {
   const schemas: Array<SmartSearchFormSchema & { ident?: LoginIdent[] }> = [
     {
       label: t('system.views.log.title.operation'),
@@ -224,6 +238,15 @@ export const getSearchFormSchemas = (t: Function, ident: LoginIdent) => {
         mode: 'multiple',
         style: { width: '120px' },
         options: getOperationTypeEnum(t),
+      },
+    },
+    {
+      label: t('system.views.exception.title.tenant'),
+      field: 'tenantId',
+      slot: 'search-tenantId',
+      searchSymbol: '=',
+      ifShow() {
+        return unref(getIsPlatformTenant);
       },
     },
   ];
