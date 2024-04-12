@@ -103,11 +103,12 @@
     columns: getTableExpandColumns(),
     border: true,
     stripe: true,
+    showOverflow: 'tooltip',
   });
 </script>
 
 <style scoped lang="less">
   .expand-wrapper {
-    padding: 15px;
+    padding: 10px 0;
   }
 </style>

@@ -3,6 +3,7 @@ import {
   type SmartSearchFormSchema,
   tableBooleanColumnClass,
 } from '@/components/SmartTable';
+import { formatDuration } from '@/utils/dateUtil';
 
 export const getTableColumns = (): SmartColumn[] => {
   return [
@@ -71,6 +72,31 @@ export const getTableExpandColumns = (): SmartColumn[] => {
       title: '{system.views.onlineUser.title.loginIp}',
       field: 'loginIp',
       minWidth: 200,
+    },
+    {
+      title: '{system.views.onlineUser.title.timeout}',
+      field: 'timeout',
+      width: 150,
+      formatter({ row }) {
+        const timeout = row.timeout;
+        if (!timeout) {
+          return '';
+        }
+        return formatDuration(timeout);
+      },
+    },
+    {
+      title: '{system.views.onlineUser.title.tenantCode}',
+      field: 'tenantCode',
+      width: 150,
+    },
+    {
+      title: '{system.views.onlineUser.title.tenantName}',
+      field: 'tenantName',
+      width: 100,
+      formatter({ row }) {
+        return row.tenantShotName || row.tenantName;
+      },
     },
     {
       ...tableBooleanColumnClass('{system.views.onlineUser.title.bindIp}', 'bindIp'),
