@@ -4,6 +4,7 @@ import {
   tableBooleanColumnClass,
 } from '@/components/SmartTable';
 import { formatDuration } from '@/utils/dateUtil';
+import { Ref, unref } from 'vue';
 
 export const getTableColumns = (): SmartColumn[] => {
   return [
@@ -114,12 +115,23 @@ export const getTableExpandColumns = (): SmartColumn[] => {
   ];
 };
 
-export const getSearchFormSchemas = (t: Function): SmartSearchFormSchema[] => {
+export const getSearchFormSchemas = (
+  t: Function,
+  getIsPlatformTenant: Ref<boolean>,
+): SmartSearchFormSchema[] => {
   return [
     {
       label: t('system.views.user.table.username'),
       field: 'username',
       component: 'Input',
+    },
+    {
+      label: t('system.views.onlineUser.title.tenant'),
+      field: 'tenantId',
+      slot: 'search-tenantId',
+      ifShow() {
+        return unref(getIsPlatformTenant);
+      },
     },
   ];
 };

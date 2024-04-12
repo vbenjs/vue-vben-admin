@@ -241,7 +241,7 @@ export const getSearchFormSchemas = (
       },
     },
     {
-      label: t('system.views.exception.title.tenant'),
+      label: t('system.views.log.title.tenant'),
       field: 'tenantId',
       slot: 'search-tenantId',
       searchSymbol: '=',

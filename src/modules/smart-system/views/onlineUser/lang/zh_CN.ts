@@ -11,6 +11,7 @@ export default {
           timeout: '有效时长',
           tenantCode: '租户编码',
           tenantName: '租户名字',
+          tenant: '租户',
         },
         button: {
           offline: '下线',

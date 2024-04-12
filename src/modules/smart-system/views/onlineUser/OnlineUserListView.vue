@@ -16,6 +16,9 @@
       <template #table-operation="{ row }">
         <SmartVxeTableAction :actions="getTableActions(row, false)" />
       </template>
+      <template #search-tenantId="{ model, field }">
+        <SysTenantSelect style="width: 100px" allowClear v-model:value="model[field]" />
+      </template>
     </SmartTable>
   </div>
 </template>
@@ -36,9 +39,13 @@
     getSearchFormSchemas,
   } from './OnlineUserListView.config';
   import { listOnlineUserApi, offlineApi } from './OnlineUserListView.api';
+  import { storeToRefs } from 'pinia';
+  import { useUserStore } from '@/store/modules/user';
+  import { SysTenantSelect } from '@/modules/smart-system/components';
 
   const { t } = useI18n();
   const { getTableSize } = useSizeSetting();
+  const { getIsPlatformTenant } = storeToRefs(useUserStore());
 
   const getTableActions = (row, isExpand: boolean): ActionItem[] => {
     return [
@@ -66,20 +73,22 @@
       onOk: async () => {
         await offlineApi(username, token);
         message.success(t('system.views.onlineUser.message.offlineSuccess'));
-        reload();
+        query();
       },
     });
   };
 
-  const [registerTable, { reload }] = useSmartTable({
+  const [registerTable, { query }] = useSmartTable({
     border: true,
     height: 'auto',
-    highlightHoverRow: true,
     columns: getTableColumns(),
     useSearchForm: true,
+    rowConfig: {
+      isHover: true,
+    },
     searchFormConfig: {
       layout: 'inline',
-      schemas: getSearchFormSchemas(t),
+      schemas: getSearchFormSchemas(t, getIsPlatformTenant),
       colon: true,
       actionColOptions: {
         span: undefined,
