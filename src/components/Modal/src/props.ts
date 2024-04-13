@@ -3,8 +3,6 @@ import type { ModalWrapperProps } from './typing';
 import { ButtonProps } from 'ant-design-vue/es/button/buttonTypes';
 import { useI18n } from '@/hooks/web/useI18n';
 
-const { t } = useI18n();
-
 export const modalProps = {
   open: { type: Boolean },
   scrollTop: { type: Boolean, default: true },
@@ -13,9 +11,20 @@ export const modalProps = {
   // open drag
   draggable: { type: Boolean, default: true },
   centered: { type: Boolean },
-  cancelText: { type: String, default: t('common.cancelText') },
-  okText: { type: String, default: t('common.okText') },
-
+  cancelText: {
+    type: [String, Function],
+    default: () => {
+      const { t } = useI18n();
+      return t('common.cancelText');
+    },
+  },
+  okText: {
+    type: [String, Function],
+    default: () => {
+      const { t } = useI18n();
+      return t('common.okText');
+    },
+  },
   closeFunc: Function as PropType<() => Promise<boolean>>,
 };
 

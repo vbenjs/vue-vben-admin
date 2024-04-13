@@ -114,9 +114,15 @@
 
   // Custom title component: get title
   const getMergeProps = computed((): Recordable => {
+    const { cancelText: cancelTextProps } = props;
+    let cancelText = cancelTextProps;
+    if (cancelTextProps && isFunction(cancelTextProps)) {
+      cancelText = cancelTextProps();
+    }
     return {
       ...props,
       ...(unref(propsRef) as any),
+      cancelText,
     };
   });
 
