@@ -118,7 +118,7 @@ export const useSmartTable = (
     deleteByCheckbox: () => {
       getTableAction().deleteByCheckbox();
     },
-    getCheckboxRecords: (isFull: boolean) => {
+    getCheckboxRecords: (isFull?: boolean) => {
       return getTableAction().getCheckboxRecords(isFull);
     },
     getRadioRecord: (isFull: boolean) => {
@@ -163,11 +163,11 @@ export const useSmartTable = (
     getData: (rowIndex?: number) => {
       return getTableAction().getData(rowIndex);
     },
-    useYnByCheckbox: (useYn: boolean) => {
-      return getTableAction().useYnByCheckbox(useYn);
+    useYnByCheckbox: (useYn: boolean, params?: Recordable) => {
+      return getTableAction().useYnByCheckbox(useYn, params);
     },
-    useYnByRow: (row: any | any[], useYn: boolean) => {
-      return getTableAction().useYnByRow(row, useYn);
+    useYnByRow: (row: any | any[], useYn: boolean, params?: Recordable) => {
+      return getTableAction().useYnByRow(row, useYn, params);
     },
   };
   return [register, methods];

@@ -6,6 +6,8 @@ import { useI18n } from './useI18n';
 import { isString } from '@/utils/is';
 import { Result } from '#/axios';
 import { useSystemExceptionStore } from '@/store/modules/exception';
+import { Button, ButtonProps } from '@/components/Button';
+import { createVNode } from 'vue';
 
 export interface NotifyApi {
   info(config: NotificationArgsProps): void;
@@ -23,6 +25,8 @@ export declare type NotificationPlacement = 'topLeft' | 'topRight' | 'bottomLeft
 export declare type IconType = 'success' | 'info' | 'error' | 'warning';
 export interface ModalOptionsEx extends Omit<ModalFuncProps, 'iconType'> {
   iconType: 'warning' | 'success' | 'error' | 'info';
+  buttons?: Array<string | (ButtonProps & { name: string })>;
+  footerProps?: Recordable;
 }
 export type ModalOptionsPartial = Partial<ModalOptionsEx> & Pick<ModalOptionsEx, 'content'>;
 
@@ -52,13 +56,19 @@ function renderContent({ content }: Pick<ModalOptionsEx, 'content'>) {
 function createConfirm(options: ModalOptionsEx) {
   const iconType = options.iconType || 'warning';
   Reflect.deleteProperty(options, 'iconType');
-  const opt: ModalFuncProps = {
-    centered: true,
-    icon: getIcon(iconType),
-    ...options,
-    content: renderContent(options),
-  };
-  return Modal.confirm(opt);
+  const modalOptions = createModalOptions(
+    {
+      ...options,
+      footerProps: {
+        ...(options.footerProps || {}),
+        class: ['ant-modal-confirm-btns'],
+      },
+    },
+    iconType,
+  );
+  return Modal.confirm({
+    ...modalOptions,
+  });
 }
 
 const getBaseOptions = () => {
@@ -70,11 +80,28 @@ const getBaseOptions = () => {
 };
 
 function createModalOptions(options: ModalOptionsPartial, icon: string): ModalOptionsPartial {
-  return {
+  const { buttons, footerProps } = options;
+  const modalOptions: ModalOptionsPartial = {
     ...getBaseOptions(),
     ...options,
     content: renderContent(options),
     icon: getIcon(icon),
+  };
+  if (!buttons) {
+    return modalOptions;
+  }
+  const buttonsSlots = () =>
+    buttons.map((button) => {
+      const stringYn = isString(button);
+      const buttonName = stringYn ? button : button.name;
+      const buttonProps = stringYn ? {} : button;
+      return <Button {...buttonProps}>{buttonName}</Button>;
+    });
+
+  const footer = () => createVNode('div', footerProps || {}, { default: buttonsSlots });
+  return {
+    ...modalOptions,
+    footer,
   };
 }
 

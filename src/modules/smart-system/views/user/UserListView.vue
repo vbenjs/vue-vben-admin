@@ -44,17 +44,20 @@
     </SmartLayoutSeparate>
     <UserAccountUpdateModal @register="registerAccountModal" />
     <UserSetRole @register="registerSetRoleModal" />
+    <UserUseYnModal @register="registerUseYnModal" />
   </div>
 </template>
 
 <script lang="ts" setup>
   import { computed, ref, unref } from 'vue';
   import { useI18n } from '@/hooks/web/useI18n';
+  import { storeToRefs } from 'pinia';
 
   import { useLoadDictItem } from '@/modules/smart-system/hooks/SysDictHooks';
   import { useSizeSetting } from '@/hooks/setting/UseSizeSetting';
   import { hasPermission } from '@/utils/auth';
   import { useModal } from '@/components/Modal';
+  import { useUserStore } from '@/store/modules/user';
 
   import { SmartLayoutSeparate } from '@/components/SmartLayoutSeparate';
   import SysDeptTree from '@/modules/smart-system/components/SysDept/SysDeptTree.vue';
@@ -68,6 +71,7 @@
   } from '@/components/SmartTable';
   import UserAccountUpdateModal from './account/UserAccountUpdateModal.vue';
   import UserSetRole from './components/UserSetRole.vue';
+  import UserUseYnModal from './components/UserUseYnModal.vue';
 
   import { getAddEditFormSchemas, getSearchSchemas, getTableColumns } from './UserListView.config';
   import {
@@ -89,6 +93,8 @@
   const { t } = useI18n();
   const { warnMessage, errorMessage, createConfirm, successMessage } = useMessage();
   const { getTableSize } = useSizeSetting();
+  const { getIsPlatformTenant } = storeToRefs(useUserStore());
+  const [registerUseYnModal, { openModal: openUseYnModal }] = useModal();
 
   const { dictData: userTypeListRef } = useLoadDictItem(ref('SYSTEM_USER_TYPE'));
   const getUserTypeMap = computed(() => {
@@ -264,9 +270,18 @@
     });
   };
 
+  const validateSelectRows = () => {
+    const rows = getCheckboxRecords();
+    if (!rows.length) {
+      warnMessage(t('common.notice.select'));
+      return false;
+    }
+    return rows;
+  };
+
   const [
     registerTable,
-    { editByRowModal, getCheckboxRecords, query, deleteByCheckbox, showAddModal },
+    { editByRowModal, getCheckboxRecords, query, deleteByCheckbox, showAddModal, useYnByCheckbox },
   ] = useSmartTable({
     columns: getTableColumns(),
     stripe: true,
@@ -376,9 +391,35 @@
         },
         {
           code: 'useYnTrue',
+          props: {
+            onClick() {
+              if (!unref(getIsPlatformTenant)) {
+                useYnByCheckbox(true);
+              } else {
+                const rows = validateSelectRows();
+                if (!rows) {
+                  return false;
+                }
+                openUseYnModal(true, { rows, useYn: true });
+              }
+            },
+          },
         },
         {
           code: 'useYnFalse',
+          props: {
+            onClick() {
+              if (!unref(getIsPlatformTenant)) {
+                useYnByCheckbox(true);
+              } else {
+                const rows = validateSelectRows();
+                if (!rows) {
+                  return false;
+                }
+                openUseYnModal(true, { rows, useYn: false });
+              }
+            },
+          },
         },
         {
           name: t('system.views.user.button.resetPassword'),

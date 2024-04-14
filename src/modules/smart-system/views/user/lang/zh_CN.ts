@@ -29,6 +29,8 @@ export default {
           resetPassword: '重置密码',
           setRole: '设置角色',
           copyPassword: '复制密码',
+          currentTenant: '当前租户',
+          allTenant: '所有租户',
         },
         account: {
           title: '账户信息',

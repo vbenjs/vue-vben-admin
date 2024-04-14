@@ -260,7 +260,6 @@ export const getSearchSchemas = (t: Function): SmartSearchFormSchema[] => {
       field: 'useYn',
       component: 'Select',
       defaultValue: 1,
-      searchSymbol: '=',
       componentProps: {
         style: {
           width: '100px',

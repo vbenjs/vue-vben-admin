@@ -213,23 +213,27 @@ export const useTableAjax = (
     });
   };
 
-  const useYnByCheckbox = async (useYn: boolean) => {
+  const useYnByCheckbox = async (useYn: boolean, params?: Recordable) => {
     const rows = getCheckboxRecords(false);
     if (!rows.length) {
       warnMessage(t('common.notice.select'));
       return false;
     }
-    return doUseYn(rows, useYn);
+    return doUseYn(rows, useYn, params);
   };
 
-  const useYnByRow = (row: any | any[], useYn: boolean) => {
+  const useYnByRow = (row: any | any[], useYn: boolean, params?: Recordable) => {
     if (isArray(row)) {
       return doUseYn(row, useYn);
     }
-    return doUseYn([row], useYn);
+    return doUseYn([row], useYn, params);
   };
 
-  const doUseYn = async (rows: any[], useYn: boolean): Promise<boolean | undefined> => {
+  const doUseYn = async (
+    rows: any[],
+    useYn: boolean,
+    params?: Recordable,
+  ): Promise<boolean | undefined> => {
     const proxyConfig = unref(propsRef)?.proxyConfig;
     const useYnMethod = proxyConfig?.ajax?.useYn;
     if (!useYnMethod) {
@@ -243,7 +247,7 @@ export const useTableAjax = (
       iconType: 'warning',
       content: useYn ? t('common.notice.useYnTrueConfirm') : t('common.notice.useYnFalseConfirm'),
       onOk: async () => {
-        const result = await useYnMethod(rows, useYn);
+        const result = await useYnMethod(rows, useYn, params);
         successMessage({
           message: t('common.message.OperationSucceeded'),
         });

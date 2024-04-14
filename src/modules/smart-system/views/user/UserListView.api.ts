@@ -16,6 +16,7 @@ enum Api {
   unlockUserAccount = 'sys/user/unlockUserAccount',
   resetPassword = 'sys/user/resetPassword',
   setUserRole = 'sys/user/setRole',
+  listTenant = '/sys/tenant/manager/list',
 }
 
 export const listApi = (ajaxParameter) => {
@@ -64,13 +65,14 @@ export const getByIdWithDataScopeApi = async (params) => {
   };
 };
 
-export const setUseYnApi = (userList: any[], useYn: boolean) => {
+export const setUseYnApi = (userList: any[], useYn: boolean, params?: Recordable) => {
   return defHttp.post({
     service: ApiServiceEnum.SMART_SYSTEM,
     url: Api.setUseYn,
     data: {
       idList: userList.map((item) => item.userId),
       useYn,
+      ...(params || {}),
     },
   });
 };
@@ -143,5 +145,15 @@ export const setUserRoleApi = (data: Recordable) => {
     service: ApiServiceEnum.SMART_SYSTEM,
     url: Api.setUserRole,
     data,
+  });
+};
+
+export const listTenantApi = (params) => {
+  return defHttp.post({
+    service: ApiServiceEnum.SMART_SYSTEM,
+    url: Api.listTenant,
+    data: {
+      ...params,
+    },
   });
 };

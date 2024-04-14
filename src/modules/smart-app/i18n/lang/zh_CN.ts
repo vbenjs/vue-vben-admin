@@ -57,8 +57,8 @@ export default {
       deleteChoose: '请选择要删除的数据',
       select: '请选择',
       choseOne: '请选择一行数据',
-      useYnTrueConfirm: '确认要执行启用操作吗？',
-      useYnFalseConfirm: '确认要执行停用操作吗？',
+      useYnTrueConfirm: '确认启用所选数据吗？',
+      useYnFalseConfirm: '确认停用所选数据吗？',
     },
     message: {
       saveSuccess: '保存成功',
