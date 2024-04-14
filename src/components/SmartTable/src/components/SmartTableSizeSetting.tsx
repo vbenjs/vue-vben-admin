@@ -1,7 +1,7 @@
 import type { SmartTableToolbarSizeSetting } from '@/components/SmartTable';
 import type { SizeType, VxeButtonProps } from 'vxe-table';
 
-import { defineComponent, h, onMounted } from 'vue';
+import { computed, defineComponent, h, onMounted, unref } from 'vue';
 
 import { Menu, Dropdown } from 'ant-design-vue';
 import { ColumnHeightOutlined } from '@ant-design/icons-vue';
@@ -25,6 +25,9 @@ export default defineComponent({
   },
   setup() {
     const tableContext = useTableContext();
+    const computedSize = computed(() => {
+      return [unref(tableContext.getBindValues).size];
+    });
     const handleChangeSize = (e) => {
       tableContext.setProps({
         size: e.key,
@@ -58,22 +61,27 @@ export default defineComponent({
     });
     return {
       handleChangeSize,
+      computedSize,
     };
   },
   render() {
-    const { config, handleChangeSize } = this;
+    const { config, handleChangeSize, computedSize } = this;
     const slots = {
       default: renderButton(config),
-      overlay: renderOverlay(config, handleChangeSize),
+      overlay: renderOverlay(config, handleChangeSize, computedSize),
     };
     return <Dropdown>{slots}</Dropdown>;
   },
 });
 
-const renderOverlay = (config: SmartTableToolbarSizeSetting, handleChangeSize: Function) => {
+const renderOverlay = (
+  config: SmartTableToolbarSizeSetting,
+  handleChangeSize: Function,
+  computedSize,
+) => {
   return () => {
     return (
-      <Menu onClick={(e) => handleChangeSize(e)}>
+      <Menu onClick={(e) => handleChangeSize(e)} selectedKeys={computedSize}>
         <Menu.Item key="middle">大</Menu.Item>
         <Menu.Item key="small">中等</Menu.Item>
         <Menu.Item key="mini">紧凑</Menu.Item>
