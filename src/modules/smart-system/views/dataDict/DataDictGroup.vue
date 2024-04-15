@@ -29,12 +29,17 @@
   };
 
   const [registerTable] = useSmartTable({
-    columns: getDataDictGroupColumns(t),
+    id: 'system-dataDict',
+    columns: getDataDictGroupColumns(),
     border: true,
     height: 'auto',
-    highlightHoverRow: true,
-    highlightCurrentRow: true,
     stripe: true,
+    customConfig: { storage: true },
+    showOverflow: 'tooltip',
+    rowConfig: {
+      isHover: true,
+      isCurrent: true,
+    },
     pagerConfig: true,
     useSearchForm: true,
     searchFormConfig: {
@@ -85,7 +90,8 @@
     toolbarConfig: {
       refresh: true,
       zoom: true,
-      custom: true,
+      sizeSetting: true,
+      column: { columnOrder: true },
       buttons: [{ code: 'ModalAdd' }, { code: 'ModalEdit' }, { code: 'delete' }],
     },
   });

@@ -6,6 +6,7 @@ export default {
       title: {
         dictCode: '字典编码',
         dictName: '字典名称',
+        tenant: '租户',
       },
       validate: {
         dictCode: '请输入字典编码',

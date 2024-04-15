@@ -30,6 +30,14 @@ export const getDataDictGroupColumns = (): SmartColumn[] => {
       // },
     },
     {
+      title: '{system.views.dictGroup.title.tenant}',
+      field: 'tenantId',
+      width: 140,
+      formatter: ({ row }) => {
+        return row.tenant?.tenantShortName || row.tenant?.tenantName;
+      },
+    },
+    {
       title: '{common.table.seq}',
       field: 'seq',
       sortable: true,
