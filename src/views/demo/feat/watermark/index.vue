@@ -30,8 +30,8 @@
   const { setWatermark: setWatermark2 } = useWatermark();
   const { setWatermark: setWatermark3 } = useWatermark(app, {
     fontColor: 'red',
-    fontSize:12,
-    rotate:30
+    fontSize: 12,
+    rotate: 30,
   });
 
   onUnmounted(() => {
