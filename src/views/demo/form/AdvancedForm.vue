@@ -5,7 +5,7 @@
     </CollapseContainer>
 
     <CollapseContainer title="超过3行自动收起，折叠时保留2行" class="mt-4">
-      <BasicForm @register="register1" />
+      <BasicForm @register="register1" @advanced-change="onAdvancedChange" />
     </CollapseContainer>
   </PageWrapper>
 </template>
@@ -182,4 +182,13 @@
     showAdvancedButton: true,
     alwaysShowLines: 2,
   });
+
+  function onAdvancedChange(isAdvanced: boolean) {
+    console.log('isAdvanced: ' + isAdvanced);
+    if (isAdvanced) {
+      // do something
+    } else {
+      // do something
+    }
+  }
 </script>
