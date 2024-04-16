@@ -36,7 +36,7 @@
   import { useUserStore } from '@/store/modules/user';
   import { baseSetschemas } from './data';
 
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
   const userStore = useUserStore();
 
   const [register, { setFieldsValue }] = useForm({
@@ -64,7 +64,7 @@
   }
 
   function handleSubmit() {
-    createMessage.success('更新成功！');
+    createMessage?.success('更新成功！');
   }
 </script>
 

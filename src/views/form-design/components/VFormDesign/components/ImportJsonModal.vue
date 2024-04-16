@@ -51,7 +51,7 @@
       Modal,
     },
     setup() {
-      const { createMessage } = useMessage();
+      const { message: createMessage } = useMessage();
 
       const state = reactive({
         visible: false,
@@ -100,9 +100,9 @@
             currentItem: { component: '' },
           });
           handleCancel();
-          createMessage.success('导入成功');
+          createMessage?.success('导入成功');
         } catch {
-          createMessage.error('导入失败，数据格式不对');
+          createMessage?.error('导入失败，数据格式不对');
         }
       };
       const beforeUpload = (e: File) => {

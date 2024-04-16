@@ -58,7 +58,7 @@
   import { PageWrapper } from '@/components/Page';
   import { type Nullable } from '@vben/types';
 
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
   const el1 = ref<Nullable<DragVerifyActionType>>(null);
   const el2 = ref<Nullable<DragVerifyActionType>>(null);
   const el3 = ref<Nullable<DragVerifyActionType>>(null);
@@ -67,7 +67,7 @@
 
   function handleSuccess(data: PassingData) {
     const { time } = data;
-    createMessage.success(`校验成功,耗时${time}秒`);
+    createMessage?.success(`校验成功,耗时${time}秒`);
   }
 
   function handleBtnClick(elRef: Nullable<DragVerifyActionType>) {

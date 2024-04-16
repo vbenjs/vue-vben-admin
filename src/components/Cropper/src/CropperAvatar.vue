@@ -59,7 +59,7 @@
   const sourceValue = ref(props.value || '');
   const { prefixCls } = useDesign('cropper-avatar');
   const [register, { openModal, closeModal }] = useModal();
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
   const { t } = useI18n();
 
   const getClass = computed(() => [prefixCls]);
@@ -88,7 +88,7 @@
   function handleUploadSuccess({ source, data }) {
     sourceValue.value = source;
     emit('change', { source, data });
-    createMessage.success(t('component.cropper.uploadSuccess'));
+    createMessage?.success(t('component.cropper.uploadSuccess'));
   }
 
   defineExpose({ openModal: openModal.bind(null, true), closeModal });

@@ -16,7 +16,7 @@
   import { PageWrapper } from '@/components/Page';
 
   const [createContextMenu] = useContextMenu();
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
 
   function handleContext(e: MouseEvent) {
     createContextMenu({
@@ -26,14 +26,14 @@
           label: 'New',
           icon: 'bi:plus',
           handler: () => {
-            createMessage.success('click new');
+            createMessage?.success('click new');
           },
         },
         {
           label: 'Open',
           icon: 'bx:bxs-folder-open',
           handler: () => {
-            createMessage.success('click open');
+            createMessage?.success('click open');
           },
         },
       ],
@@ -57,7 +57,7 @@
                 {
                   label: 'New1-1-1',
                   handler: () => {
-                    createMessage.success('click new');
+                    createMessage?.success('click new');
                   },
                 },
                 {

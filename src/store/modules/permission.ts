@@ -21,7 +21,7 @@ import { filter } from '@/utils/helper/treeHelper';
 import { getMenuList } from '@/api/sys/menu';
 import { getPermCode } from '@/api/sys/user';
 
-import { useMessage } from '@/hooks/web/useMessage';
+import { useMessageWithOut } from '@/hooks/web/useMessage';
 import { PageEnum } from '@/enums/pageEnum';
 
 interface PermissionState {
@@ -208,9 +208,9 @@ export const usePermissionStore = defineStore({
         //  If you are sure that you do not need to do background dynamic permissions, please comment the entire judgment below
         //  如果确定不需要做后台动态权限，请在下方注释整个判断
         case PermissionModeEnum.BACK:
-          const { createMessage } = useMessage();
+          const { message } = useMessageWithOut();
 
-          createMessage.loading({
+          message?.loading({
             content: t('sys.app.menuLoading'),
             duration: 1,
           });

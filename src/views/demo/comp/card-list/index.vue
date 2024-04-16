@@ -26,7 +26,7 @@
   //删除按钮事件
   function handleDel(id) {
     console.log(id);
-    notification.success({ message: `成功删除${id}` });
+    notification?.success({ message: `成功删除${id}` });
     reload();
   }
 </script>

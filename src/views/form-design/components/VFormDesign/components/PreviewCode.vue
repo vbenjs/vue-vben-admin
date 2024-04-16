@@ -59,13 +59,13 @@
         exportData(props.editorJson);
       };
 
-      const { createMessage } = useMessage();
+      const { message: createMessage } = useMessage();
 
       const handleCopyJson = () => {
         // 复制数据
         const value = props.editorJson;
         if (!value) {
-          createMessage.warning('代码为空！');
+          createMessage?.warning('代码为空！');
           return;
         }
         copyText(value);

@@ -1,5 +1,5 @@
 import type { ErrorMessageMode } from '#/axios';
-import { useMessage } from '@/hooks/web/useMessage';
+import { useMessageWithOut } from '@/hooks/web/useMessage';
 import { useI18n } from '@/hooks/web/useI18n';
 // import router from '@/router';
 // import { PageEnum } from '@/enums/pageEnum';
@@ -7,8 +7,6 @@ import { useUserStoreWithOut } from '@/store/modules/user';
 import projectSetting from '@/settings/projectSetting';
 import { SessionTimeoutProcessingEnum } from '@/enums/appEnum';
 
-const { createMessage, createErrorModal } = useMessage();
-const error = createMessage.error!;
 const stp = projectSetting.sessionTimeoutProcessing;
 
 export function checkStatus(
@@ -18,6 +16,8 @@ export function checkStatus(
 ): void {
   const { t } = useI18n();
   const userStore = useUserStoreWithOut();
+  const { message: createMessage, createErrorModal } = useMessageWithOut();
+  const error = createMessage!.error!;
   let errMessage = '';
 
   switch (status) {

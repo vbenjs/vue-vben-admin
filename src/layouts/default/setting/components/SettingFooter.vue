@@ -40,7 +40,7 @@
   const permissionStore = usePermissionStore();
   const { prefixCls } = useDesign('setting-footer');
   const { t } = useI18n();
-  const { createSuccessModal, createMessage } = useMessage();
+  const { createSuccessModal, message: createMessage } = useMessage();
   const tabStore = useMultipleTabStore();
   const userStore = useUserStore();
   const appStore = useAppStore();
@@ -61,9 +61,9 @@
       updateSidebarBgColor();
       updateColorWeak(colorWeak);
       updateGrayMode(grayMode);
-      createMessage.success(t('layout.setting.resetSuccess'));
+      createMessage?.success(t('layout.setting.resetSuccess'));
     } catch (error: any) {
-      createMessage.error(error);
+      createMessage?.error(error);
     }
   }
 

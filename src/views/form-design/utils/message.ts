@@ -1,18 +1,18 @@
-import { useMessage } from '@/hooks/web/useMessage';
+import { useMessageWithOut } from '@/hooks/web/useMessage';
 
-const { createMessage } = useMessage();
+const { message: createMessage } = useMessageWithOut();
 const message = Object.assign({
   success: (msg: string) => {
-    createMessage.success(msg);
+    createMessage?.success(msg);
   },
   error: (msg: string) => {
-    createMessage.error(msg);
+    createMessage?.error(msg);
   },
   warning: (msg: string) => {
-    createMessage.warning(msg);
+    createMessage?.warning(msg);
   },
   info: (msg: string) => {
-    createMessage.info(msg);
+    createMessage?.info(msg);
   },
 });
 

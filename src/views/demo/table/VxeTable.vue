@@ -21,7 +21,7 @@
   import { BasicTableProps, VxeBasicTable, VxeGridInstance } from '@/components/VxeTable';
   import { demoListApi } from '@/api/demo/table';
 
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
 
   const tableRef = ref<VxeGridInstance>();
 
@@ -43,7 +43,7 @@
             events: {
               click: () => {
                 tableRef.value?.insert({ name: '新增的' });
-                createMessage.success('新增成功');
+                createMessage?.success('新增成功');
               },
             },
           },

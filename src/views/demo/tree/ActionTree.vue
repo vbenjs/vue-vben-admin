@@ -36,7 +36,7 @@
   import { type Nullable } from '@vben/types';
 
   const treeRef = ref<Nullable<TreeActionType>>(null);
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
 
   function getTree() {
     const tree = unref(treeRef);
@@ -56,7 +56,7 @@
 
   function handleGetCheckData() {
     const keys = getTree().getCheckedKeys();
-    createMessage.success(JSON.stringify(keys));
+    createMessage?.success(JSON.stringify(keys));
   }
 
   function handleSetSelectData() {
@@ -65,13 +65,13 @@
 
   function handleGetSelectData() {
     const keys = getTree().getSelectedKeys();
-    createMessage.success(JSON.stringify(keys));
+    createMessage?.success(JSON.stringify(keys));
   }
 
   function handleGetSelectNode() {
     const keys = getTree().getSelectedKeys();
     const node = getTree().getSelectedNode(keys[0]);
-    createMessage.success(node !== null ? JSON.stringify(node) : null);
+    createMessage?.success(node !== null ? JSON.stringify(node) : null);
   }
 
   function handleSetExpandData() {
@@ -80,7 +80,7 @@
 
   function handleGetExpandData() {
     const keys = getTree().getExpandedKeys();
-    createMessage.success(JSON.stringify(keys));
+    createMessage?.success(JSON.stringify(keys));
   }
 
   function checkAll(checkAll: boolean) {
@@ -116,6 +116,6 @@
   }
 
   function handleGetTreeData() {
-    createMessage.success(JSON.stringify(getTree().getTreeData()));
+    createMessage?.success(JSON.stringify(getTree().getTreeData()));
   }
 </script>

@@ -2,7 +2,7 @@ import { BasicColumn, FormSchema } from '@/components/Table';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { setRoleStatus } from '@/api/demo/system';
-import { useMessage } from '@/hooks/web/useMessage';
+import { useMessageWithOut } from '@/hooks/web/useMessage';
 
 type CheckedType = boolean | string | number;
 export const columns: BasicColumn[] = [
@@ -37,14 +37,14 @@ export const columns: BasicColumn[] = [
         onChange(checked: CheckedType) {
           record.pendingStatus = true;
           const newStatus = checked ? '1' : '0';
-          const { createMessage } = useMessage();
+          const { message: createMessage } = useMessageWithOut();
           setRoleStatus(record.id, newStatus)
             .then(() => {
               record.status = newStatus;
-              createMessage.success(`已成功修改角色状态`);
+              createMessage?.success(`已成功修改角色状态`);
             })
             .catch(() => {
-              createMessage.error('修改角色状态失败');
+              createMessage?.error('修改角色状态失败');
             })
             .finally(() => {
               record.pendingStatus = false;

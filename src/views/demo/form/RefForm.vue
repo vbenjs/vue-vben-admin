@@ -170,10 +170,10 @@
   ];
 
   const formElRef = ref<Nullable<FormActionType>>(null);
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
 
   function handleSubmit(values: any) {
-    createMessage.success('click search,values:' + JSON.stringify(values));
+    createMessage?.success('click search,values:' + JSON.stringify(values));
   }
 
   async function setProps(props: FormProps) {

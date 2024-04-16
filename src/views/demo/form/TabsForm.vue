@@ -39,7 +39,7 @@
     Form: UseFormReturnType;
   };
 
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
   const activeKey = ref('tabs2');
   const loading = ref(false);
   const tabsFormSchema: TabsFormType[] = [];
@@ -102,7 +102,7 @@
       }
 
       console.log('submit values: ', values);
-      createMessage.success('提交成功！请打开控制台查看');
+      createMessage?.success('提交成功！请打开控制台查看');
     } catch (e) {
       // 验证失败或出错，切换到对应标签页
       activeKey.value = lastKey;

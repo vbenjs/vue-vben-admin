@@ -40,13 +40,13 @@
   const title = ref<string>('');
   const { closeAll, closeLeft, closeRight, closeOther, closeCurrent, refreshPage, setTitle } =
     useTabs();
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
 
   function setTabTitle() {
     if (title.value) {
       setTitle(title.value);
     } else {
-      createMessage.error('请输入要设置的Tab标题！');
+      createMessage?.error('请输入要设置的Tab标题！');
     }
   }
 

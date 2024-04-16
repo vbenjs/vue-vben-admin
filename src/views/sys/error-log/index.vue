@@ -73,9 +73,9 @@
       immediate: true,
     },
   );
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
   if (import.meta.env.DEV) {
-    createMessage.info(t('sys.errorLog.enableMessage'));
+    createMessage?.info(t('sys.errorLog.enableMessage'));
   }
   // 查看详情
   function handleDetail(row: ErrorLogInfo) {

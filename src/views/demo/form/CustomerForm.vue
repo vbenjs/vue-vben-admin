@@ -218,7 +218,7 @@
       labelWidth: 200,
     },
   ];
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
 
   const [register] = useForm({
     labelWidth: 120,
@@ -230,7 +230,7 @@
 
   function handleSubmit(values: any) {
     console.log('submit values', values);
-    createMessage.success('click search,values:' + JSON.stringify(values));
+    createMessage?.success('click search,values:' + JSON.stringify(values));
   }
 </script>
 <style lang="less" scoped>

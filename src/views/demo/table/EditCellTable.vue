@@ -219,7 +219,7 @@
     bordered: true,
   });
 
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
 
   function handleEditEnd({ record, index, key, value }: Recordable) {
     console.log(record, index, key, value);
@@ -228,7 +228,7 @@
 
   // 模拟将指定数据保存
   function feakSave({ value, key, id }) {
-    createMessage.loading({
+    createMessage?.loading({
       content: `正在模拟保存${key}`,
       key: '_save_fake_data',
       duration: 0,
@@ -236,14 +236,14 @@
     return new Promise((resolve) => {
       setTimeout(() => {
         if (value === '') {
-          createMessage.error({
+          createMessage?.error({
             content: '保存失败：不能为空',
             key: '_save_fake_data',
             duration: 2,
           });
           resolve(false);
         } else {
-          createMessage.success({
+          createMessage?.success({
             content: `记录${id}的${key}已保存`,
             key: '_save_fake_data',
             duration: 2,

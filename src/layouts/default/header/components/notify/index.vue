@@ -32,7 +32,7 @@
   import { useMessage } from '@/hooks/web/useMessage';
 
   const { prefixCls } = useDesign('header-notify');
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
   const listData = ref(tabListData);
   const numberStyle = {};
 
@@ -45,7 +45,7 @@
   });
 
   function onNoticeClick(record: ListItem) {
-    createMessage.success('你点击了通知，ID=' + record.id);
+    createMessage?.success('你点击了通知，ID=' + record.id);
     // 可以直接将其标记为已读（为标题添加删除线）,此处演示的代码会切换删除线状态
     record.titleDelete = !record.titleDelete;
   }

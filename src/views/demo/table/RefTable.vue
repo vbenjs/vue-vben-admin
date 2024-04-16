@@ -38,7 +38,7 @@
   import { type Nullable } from '@vben/types';
 
   const tableRef = ref<Nullable<TableActionType>>(null);
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
 
   const columns = getBasicColumns();
 
@@ -76,21 +76,21 @@
     });
   }
   function getColumn() {
-    createMessage.info('请在控制台查看！');
+    createMessage?.info('请在控制台查看！');
     console.log(getTableAction().getColumns());
   }
 
   function getTableData() {
-    createMessage.info('请在控制台查看！');
+    createMessage?.info('请在控制台查看！');
     console.log(getTableAction().getDataSource());
   }
   function getTableRawData() {
-    createMessage.info('请在控制台查看！');
+    createMessage?.info('请在控制台查看！');
     console.log(getTableAction().getRawDataSource());
   }
 
   function getPagination() {
-    createMessage.info('请在控制台查看！');
+    createMessage?.info('请在控制台查看！');
     console.log(getTableAction().getPaginationRef());
   }
 
@@ -101,11 +101,11 @@
     getTableAction().reload();
   }
   function getSelectRowList() {
-    createMessage.info('请在控制台查看！');
+    createMessage?.info('请在控制台查看！');
     console.log(getTableAction().getSelectRows());
   }
   function getSelectRowKeyList() {
-    createMessage.info('请在控制台查看！');
+    createMessage?.info('请在控制台查看！');
     console.log(getTableAction().getSelectRowKeys());
   }
   function setSelectedRowKeyList() {

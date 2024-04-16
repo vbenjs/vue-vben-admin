@@ -821,7 +821,7 @@
     },
   ];
 
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
   const keyword = ref<string>('');
   const searchParams = computed<Recordable<string>>(() => {
     return { keyword: unref(keyword) };
@@ -837,6 +837,6 @@
 
   function handleSubmit(values: any) {
     console.log('values', values);
-    createMessage.success('click search,values:' + JSON.stringify(values));
+    createMessage?.success('click search,values:' + JSON.stringify(values));
   }
 </script>

@@ -9,7 +9,7 @@ import { getAuthCache, setAuthCache } from '@/utils/auth';
 import { GetUserInfoModel, LoginParams } from '@/api/sys/model/userModel';
 import { doLogout, getUserInfo, loginApi } from '@/api/sys/user';
 import { useI18n } from '@/hooks/web/useI18n';
-import { useMessage } from '@/hooks/web/useMessage';
+import { useMessageWithOut } from '@/hooks/web/useMessage';
 import { router } from '@/router';
 import { usePermissionStore } from '@/store/modules/permission';
 import { RouteRecordRaw } from 'vue-router';
@@ -171,7 +171,7 @@ export const useUserStore = defineStore({
      * @description: Confirm before logging out
      */
     confirmLoginOut() {
-      const { createConfirm } = useMessage();
+      const { createConfirm } = useMessageWithOut();
       const { t } = useI18n();
       createConfirm({
         iconType: 'warning',

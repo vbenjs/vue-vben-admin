@@ -222,7 +222,7 @@
     },
   ];
 
-  const { createMessage: msg } = useMessage();
+  const { message: msg } = useMessage();
   const currentEditKeyRef = ref('');
   const [registerTable] = useTable({
     title: '可编辑行示例',
@@ -254,7 +254,7 @@
 
   async function handleSave(record: EditRecordRow) {
     // 校验
-    msg.loading({ content: '正在保存...', duration: 0, key: 'saving' });
+    msg?.loading({ content: '正在保存...', duration: 0, key: 'saving' });
     const valid = await record.onValid?.();
     if (valid) {
       try {
@@ -267,12 +267,12 @@
         if (pass) {
           currentEditKeyRef.value = '';
         }
-        msg.success({ content: '数据已保存', key: 'saving' });
+        msg?.success({ content: '数据已保存', key: 'saving' });
       } catch (error) {
-        msg.error({ content: '保存失败', key: 'saving' });
+        msg?.error({ content: '保存失败', key: 'saving' });
       }
     } else {
-      msg.error({ content: '请填写正确的数据', key: 'saving' });
+      msg?.error({ content: '请填写正确的数据', key: 'saving' });
     }
   }
 

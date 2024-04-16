@@ -1,14 +1,16 @@
 <template>
   <PageWrapper title="消息示例">
     <CollapseContainer class="w-full h-32 bg-white rounded-md" title="Message">
-      <a-button @click="info('Info message')" class="mr-2"> Info </a-button>
-      <a-button @click="success('Success message')" class="mr-2" color="success">
+      <a-button @click="createMessage?.info('Info message')" class="mr-2"> Info </a-button>
+      <a-button @click="createMessage?.success('Success message')" class="mr-2" color="success">
         Success
       </a-button>
-      <a-button @click="warning('Warning message')" class="mr-2" color="warning">
+      <a-button @click="createMessage?.warning('Warning message')" class="mr-2" color="warning">
         Warning
       </a-button>
-      <a-button @click="error('Error message')" class="mr-2" color="error"> Error </a-button>
+      <a-button @click="createMessage?.error('Error message')" class="mr-2" color="error">
+        Error
+      </a-button>
       <a-button @click="handleLoading" class="mr-2" type="primary"> Loading </a-button>
     </CollapseContainer>
 
@@ -40,7 +42,7 @@
   import { PageWrapper } from '@/components/Page';
 
   const {
-    createMessage,
+    message: createMessage,
     createConfirm,
     createSuccessModal,
     createInfoModal,
@@ -49,10 +51,8 @@
     notification,
   } = useMessage();
 
-  const { info, success, warning, error } = createMessage;
-
   function handleLoading() {
-    createMessage.loading('Loading...');
+    createMessage?.loading('Loading...');
   }
   function handleConfirm(type: 'warning' | 'error' | 'success' | 'info') {
     createConfirm({
@@ -74,7 +74,7 @@
     createInfoModal({ title: 'Tip', content: 'content message...' });
   }
   function handleNotify() {
-    notification.success({
+    notification?.success({
       message: 'Tip',
       description: 'content message...',
     });

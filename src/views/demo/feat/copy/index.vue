@@ -16,12 +16,12 @@
   import { copyText } from '@/utils/copyTextToClipboard';
 
   const valueRef = ref('');
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
 
   function handleCopy() {
     const value = unref(valueRef);
     if (!value) {
-      createMessage.warning('请输入要拷贝的内容！');
+      createMessage?.warning('请输入要拷贝的内容！');
       return;
     }
     copyText(value);

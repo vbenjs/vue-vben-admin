@@ -25,7 +25,7 @@
   import { useMessage } from '@/hooks/web/useMessage';
   import { demoListApi } from '@/api/demo/table';
 
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
   function onChange() {
     console.log('onChange', arguments);
   }
@@ -95,22 +95,22 @@
     });
   }
   function getColumn() {
-    createMessage.info('请在控制台查看！');
+    createMessage?.info('请在控制台查看！');
     console.log(getColumns());
   }
 
   function getTableData() {
-    createMessage.info('请在控制台查看！');
+    createMessage?.info('请在控制台查看！');
     console.log(getDataSource());
   }
 
   function getTableRawData() {
-    createMessage.info('请在控制台查看！');
+    createMessage?.info('请在控制台查看！');
     console.log(getRawDataSource());
   }
 
   function getPagination() {
-    createMessage.info('请在控制台查看！');
+    createMessage?.info('请在控制台查看！');
     console.log(getPaginationRef());
   }
 
@@ -121,11 +121,11 @@
     reload();
   }
   function getSelectRowList() {
-    createMessage.info('请在控制台查看！');
+    createMessage?.info('请在控制台查看！');
     console.log(getSelectRows());
   }
   function getSelectRowKeyList() {
-    createMessage.info('请在控制台查看！');
+    createMessage?.info('请在控制台查看！');
     console.log(getSelectRowKeys());
   }
   function setSelectedRowKeyList() {

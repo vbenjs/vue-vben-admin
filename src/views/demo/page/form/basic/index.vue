@@ -16,7 +16,7 @@
 
   defineOptions({ name: 'FormBasicPage' });
 
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
   const [register, { validate, setProps }] = useForm({
     labelCol: {
       span: 8,
@@ -49,7 +49,7 @@
             loading: false,
           },
         });
-        createMessage.success('提交成功！');
+        createMessage?.success('提交成功！');
       }, 2000);
     } catch (error) {
       console.error(error);

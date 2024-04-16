@@ -207,7 +207,7 @@
     },
   ];
 
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
   const [register, { validateFields, clearValidate, getFieldsValue, resetFields, setFieldsValue }] =
     useForm({
       labelWidth: 120,
@@ -229,7 +229,7 @@
   }
   function getFormValues() {
     const values = getFieldsValue();
-    createMessage.success('values:' + JSON.stringify(values));
+    createMessage?.success('values:' + JSON.stringify(values));
   }
   function setFormValues() {
     setFieldsValue({
@@ -243,6 +243,6 @@
   }
 
   function handleSubmit(values: any) {
-    createMessage.success('click search,values:' + JSON.stringify(values));
+    createMessage?.success('click search,values:' + JSON.stringify(values));
   }
 </script>
