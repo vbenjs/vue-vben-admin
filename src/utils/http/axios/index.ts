@@ -8,7 +8,6 @@ import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
 import { VAxios } from './Axios';
 import { checkStatus } from './checkStatus';
 import { useGlobSetting } from '@/hooks/setting';
-import { useMessageWithOut } from '@/hooks/web/useMessage';
 import { RequestEnum, ResultEnum, ContentTypeEnum } from '@/enums/httpEnum';
 import { isString, isUndefined, isNull, isEmpty } from '@/utils/is';
 import { getToken } from '@/utils/auth';
@@ -32,7 +31,6 @@ const transform: AxiosTransform = {
    */
   transformResponseHook: (res: AxiosResponse<Result>, options: RequestOptions) => {
     const { t } = useI18n();
-    const { message: createMessage, createErrorModal, createSuccessModal } = useMessageWithOut();
 
     const { isTransformResponse, isReturnNativeResponse } = options;
     // 是否返回原生响应头 比如：需要获取响应头时使用该属性
@@ -64,9 +62,9 @@ const transform: AxiosTransform = {
       }
 
       if (options.successMessageMode === 'modal') {
-        createSuccessModal({ title: t('sys.api.successTip'), content: successMsg });
+        window.$createSuccessModal?.({ title: t('sys.api.successTip'), content: successMsg });
       } else if (options.successMessageMode === 'message') {
-        createMessage?.success(successMsg);
+        window.$message?.success?.(successMsg);
       }
       return result;
     }
@@ -90,9 +88,9 @@ const transform: AxiosTransform = {
     // errorMessageMode='modal'的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
     // errorMessageMode='none' 一般是调用时明确表示不希望自动弹出错误提示
     if (options.errorMessageMode === 'modal') {
-      createErrorModal({ title: t('sys.api.errorTip'), content: timeoutMsg });
+      window.$createErrorModal?.({ title: t('sys.api.errorTip'), content: timeoutMsg });
     } else if (options.errorMessageMode === 'message') {
-      createMessage?.error(timeoutMsg);
+      window.$message?.error?.(timeoutMsg);
     }
 
     throw new Error(timeoutMsg || t('sys.api.apiRequestFailed'));
@@ -178,7 +176,6 @@ const transform: AxiosTransform = {
    */
   responseInterceptorsCatch: (axiosInstance: AxiosInstance, error: any) => {
     const { t } = useI18n();
-    const { message: createMessage, createErrorModal } = useMessageWithOut();
     const errorLogStore = useErrorLogStoreWithOut();
     errorLogStore.addAjaxErrorInfo(error);
     const { response, code, message, config } = error || {};
@@ -201,9 +198,9 @@ const transform: AxiosTransform = {
 
       if (errMessage) {
         if (errorMessageMode === 'modal') {
-          createErrorModal({ title: t('sys.api.errorTip'), content: errMessage });
+          window.$createErrorModal?.({ title: t('sys.api.errorTip'), content: errMessage });
         } else if (errorMessageMode === 'message') {
-          createMessage?.error(errMessage);
+          window.$message?.error?.(errMessage);
         }
         return Promise.reject(error);
       }

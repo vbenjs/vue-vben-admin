@@ -67,11 +67,14 @@ export const useGlobalStore = defineStore('global', () => {
 
   (() => {
     const staticFunction = App.useApp();
-    console.log('staticFunction', staticFunction);
 
     message.value = staticFunction.message;
     modal.value = staticFunction.modal;
     notification.value = staticFunction.notification;
+
+    window.$message = staticFunction.message;
+    window.$modal = staticFunction.modal;
+    window.$notification = staticFunction.notification;
   })();
 
   /**
@@ -104,6 +107,9 @@ export const useGlobalStore = defineStore('global', () => {
   function createWarningModal(options: ModalOptionsPartial) {
     return modal.value?.warning(createModalOptions(options, 'warning'));
   }
+
+  window.$createErrorModal = createErrorModal;
+  window.$createSuccessModal = createSuccessModal;
 
   return {
     message,
