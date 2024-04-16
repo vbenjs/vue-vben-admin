@@ -198,6 +198,7 @@ const transform: AxiosTransform = {
 
       if (errMessage) {
         if (errorMessageMode === 'modal') {
+          // 这里用 window 是为了防止初始化时 通知组件初始化失败
           window.$createErrorModal?.({ title: t('sys.api.errorTip'), content: errMessage });
         } else if (errorMessageMode === 'message') {
           window.$message?.error?.(errMessage);
