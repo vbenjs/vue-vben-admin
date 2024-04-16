@@ -5,6 +5,7 @@
   import { prefixCls } from '@/settings/designSetting';
   import { useAppStore } from '@/store/modules/app';
   import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum';
+  import { useGlobalStore } from '@/store/modules/gloabal';
 
   const props = {
     /**
@@ -18,6 +19,9 @@
     inheritAttrs: false,
     props,
     setup(props, { slots }) {
+      // globalStore 初始化
+      useGlobalStore();
+
       const isMobile = ref(false);
       const isSetState = ref(false);
 

@@ -17,6 +17,7 @@ import { useI18n } from '@/hooks/web/useI18n';
 import { joinTimestamp, formatRequestDate } from './helper';
 import { useUserStoreWithOut } from '@/store/modules/user';
 import { AxiosRetry } from '@/utils/http/axios/axiosRetry';
+import { useMessageWithOut } from '@/hooks/web/useMessage';
 import axios from 'axios';
 
 const globSetting = useGlobSetting();
@@ -31,6 +32,8 @@ const transform: AxiosTransform = {
    */
   transformResponseHook: (res: AxiosResponse<Result>, options: RequestOptions) => {
     const { t } = useI18n();
+
+    const { message: createMessage, createErrorModal, createSuccessModal } = useMessageWithOut();
 
     const { isTransformResponse, isReturnNativeResponse } = options;
     // 是否返回原生响应头 比如：需要获取响应头时使用该属性
@@ -62,9 +65,9 @@ const transform: AxiosTransform = {
       }
 
       if (options.successMessageMode === 'modal') {
-        window.$createSuccessModal?.({ title: t('sys.api.successTip'), content: successMsg });
+        createSuccessModal?.({ title: t('sys.api.successTip'), content: successMsg });
       } else if (options.successMessageMode === 'message') {
-        window.$message?.success?.(successMsg);
+        createMessage?.success?.(successMsg);
       }
       return result;
     }
@@ -88,9 +91,9 @@ const transform: AxiosTransform = {
     // errorMessageMode='modal'的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
     // errorMessageMode='none' 一般是调用时明确表示不希望自动弹出错误提示
     if (options.errorMessageMode === 'modal') {
-      window.$createErrorModal?.({ title: t('sys.api.errorTip'), content: timeoutMsg });
+      createErrorModal?.({ title: t('sys.api.errorTip'), content: timeoutMsg });
     } else if (options.errorMessageMode === 'message') {
-      window.$message?.error?.(timeoutMsg);
+      createMessage?.error?.(timeoutMsg);
     }
 
     throw new Error(timeoutMsg || t('sys.api.apiRequestFailed'));
@@ -176,6 +179,8 @@ const transform: AxiosTransform = {
    */
   responseInterceptorsCatch: (axiosInstance: AxiosInstance, error: any) => {
     const { t } = useI18n();
+    const { message: createMessage, createErrorModal } = useMessageWithOut();
+
     const errorLogStore = useErrorLogStoreWithOut();
     errorLogStore.addAjaxErrorInfo(error);
     const { response, code, message, config } = error || {};
@@ -199,9 +204,9 @@ const transform: AxiosTransform = {
       if (errMessage) {
         if (errorMessageMode === 'modal') {
           // 这里用 window 是为了防止初始化时 通知组件初始化失败
-          window.$createErrorModal?.({ title: t('sys.api.errorTip'), content: errMessage });
+          createErrorModal?.({ title: t('sys.api.errorTip'), content: errMessage });
         } else if (errorMessageMode === 'message') {
-          window.$message?.error?.(errMessage);
+          createMessage?.error?.(errMessage);
         }
         return Promise.reject(error);
       }
