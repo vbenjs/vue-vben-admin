@@ -16,17 +16,17 @@ type SortableOptions = Merge<
 >;
 
 export const previewType = {
-  previewColumns:{
-    type: Array as (PropType<BasicColumn[] | FileBasicColumn[]>),
+  previewColumns: {
+    type: Array as PropType<BasicColumn[] | FileBasicColumn[]>,
     default: [],
     required: false,
   },
-  beforePreviewData:{
-    type: Function as PropType<(arg:string[])=>Recordable<any>>,
+  beforePreviewData: {
+    type: Function as PropType<(arg: string[]) => Recordable<any>>,
     default: null,
     required: false,
   },
-}
+};
 
 type ListType = 'text' | 'picture' | 'picture-card';
 
@@ -90,7 +90,7 @@ export const basicProps = {
 
 export const uploadContainerProps = {
   value: {
-    type: Array as (PropType<string[]>),
+    type: Array as PropType<string[]>,
     default: () => [],
   },
   ...basicProps,
@@ -102,7 +102,7 @@ export const uploadContainerProps = {
     type: Boolean as PropType<boolean>,
     default: false,
   },
-  ...previewType
+  ...previewType,
 };
 
 export const previewProps = {
@@ -110,12 +110,12 @@ export const previewProps = {
     type: Array as PropType<string[]>,
     default: () => [],
   },
-  ...previewType
+  ...previewType,
 };
 
 export const fileListProps = {
   columns: {
-    type: Array as (PropType<BasicColumn[] | FileBasicColumn[]> ),
+    type: Array as PropType<BasicColumn[] | FileBasicColumn[]>,
     default: null,
   },
   actionColumn: {

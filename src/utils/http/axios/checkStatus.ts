@@ -17,7 +17,6 @@ export function checkStatus(
   const { t } = useI18n();
   const userStore = useUserStoreWithOut();
   const { message: createMessage, createErrorModal } = useMessageWithOut();
-  const error = createMessage!.error!;
   let errMessage = '';
 
   switch (status) {
@@ -75,7 +74,7 @@ export function checkStatus(
     if (errorMessageMode === 'modal') {
       createErrorModal({ title: t('sys.api.errorTip'), content: errMessage });
     } else if (errorMessageMode === 'message') {
-      error({ content: errMessage, key: `global_error_message_status_${status}` });
+      createMessage?.error({ content: errMessage, key: `global_error_message_status_${status}` });
     }
   }
 }

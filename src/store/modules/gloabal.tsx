@@ -7,20 +7,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { store } from '@/store';
 import { InfoCircleFilled, CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons-vue';
-import type { NotificationArgsProps, ConfigProps } from 'ant-design-vue/lib/notification';
 import { isString } from '@/utils/is';
-
-export interface NotifyApi {
-  info(config: NotificationArgsProps): void;
-  success(config: NotificationArgsProps): void;
-  error(config: NotificationArgsProps): void;
-  warn(config: NotificationArgsProps): void;
-  warning(config: NotificationArgsProps): void;
-  open(args: NotificationArgsProps): void;
-  close(key: String): void;
-  config(options: ConfigProps): void;
-  destroy(): void;
-}
 
 export declare type NotificationPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 export declare type IconType = 'success' | 'info' | 'error' | 'warning';
@@ -80,6 +67,7 @@ export const useGlobalStore = defineStore('global', () => {
 
   (() => {
     const staticFunction = App.useApp();
+    console.log('staticFunction', staticFunction);
 
     message.value = staticFunction.message;
     modal.value = staticFunction.modal;

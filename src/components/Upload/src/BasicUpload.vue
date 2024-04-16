@@ -34,8 +34,8 @@
       @register="registerPreviewModal"
       @list-change="handlePreviewChange"
       @delete="handlePreviewDelete"
-      v-bind:preview-columns="props.previewColumns"
-      v-bind:before-preview-data="props.beforePreviewData"
+      :preview-columns="props.previewColumns"
+      :before-preview-data="props.beforePreviewData"
     />
   </div>
 </template>

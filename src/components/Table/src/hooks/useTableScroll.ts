@@ -194,7 +194,7 @@ export function useTableScroll(
     let modalElIterator: HTMLElement = tableEl.parentElement!;
     let modalIsFullscreen = false;
     while (modalElIterator !== document.body) {
-      if(!modalElIterator) break;
+      if (!modalElIterator) break;
       if (modalElIterator.classList.contains('ant-modal')) {
         modalEl = modalElIterator;
         modalWrapEl = modalEl.parentElement;

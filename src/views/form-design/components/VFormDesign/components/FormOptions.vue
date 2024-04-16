@@ -36,9 +36,11 @@
   import { defineComponent, reactive, toRefs } from 'vue';
   import { useFormDesignState } from '../../../hooks/useFormDesignState';
   import { remove } from '../../../utils';
-  import message from '../../../utils/message';
   import { Input } from 'ant-design-vue';
   import Icon from '@/components/Icon/Icon.vue';
+  import { useMessage } from '@/hooks/web/useMessage';
+
+  const { message } = useMessage();
 
   export default defineComponent({
     name: 'FormOptions',
@@ -68,7 +70,7 @@
         });
       };
       const deleteGridOptions = (index: number) => {
-        if (index === 0) return message.warning('请至少保留一个栅格');
+        if (index === 0) return message?.warning('请至少保留一个栅格');
 
         remove(formConfig.value.currentItem!['columns']!, index);
       };
