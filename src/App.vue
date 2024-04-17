@@ -13,7 +13,7 @@
   import { ConfigProvider } from 'ant-design-vue';
 
   import { useDarkModeTheme } from '@/hooks/setting/useDarkModeTheme';
-  import 'dayjs/locale/zh-cn';
+  import 'dayjs/locale/zh-tw';
   import { computed } from 'vue';
 
   // support Multi-language
