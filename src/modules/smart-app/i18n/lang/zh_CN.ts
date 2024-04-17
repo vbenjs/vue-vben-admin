@@ -25,6 +25,7 @@ export default {
       add: '添加',
       edit: '修改',
       useYn: '启用状态',
+      tenantCommonYn: '平台通用',
     },
     form: {
       use: '启用',

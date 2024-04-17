@@ -3,7 +3,7 @@ import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
 enum Api {
   listDict = 'sys/dict/listFilterTenant',
   getByIdDict = 'sys/dict/getById',
-  batchSaveUpdateDict = 'sys/dict/batchSaveUpdate',
+  saveUpdate = 'sys/dict/saveUpdate',
   deleteDict = 'sys/dict/batchDeleteById',
 
   listItem = 'sys/dictItem/list',
@@ -30,10 +30,10 @@ export const getByIdDictApi = (id) => {
   });
 };
 
-export const batchSaveUpdateDictApi = (parameter: any[]) => {
+export const saveUpdateDictApi = (parameter: Recordable) => {
   return defHttp.post({
     service: ApiServiceEnum.SMART_SYSTEM,
-    url: Api.batchSaveUpdateDict,
+    url: Api.saveUpdate,
     data: parameter,
   });
 };

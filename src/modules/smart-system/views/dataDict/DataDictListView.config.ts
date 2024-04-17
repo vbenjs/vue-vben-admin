@@ -1,6 +1,7 @@
 import type { SmartColumn, SmartSearchFormSchema } from '@/components/SmartTable';
 import { tableUseYnClass } from '@/components/SmartTable';
 import { FormSchema } from '@/components/Form';
+import { ComputedRef, unref } from 'vue';
 
 export const getDataDictGroupColumns = (): SmartColumn[] => {
   return [
@@ -110,7 +111,10 @@ export const getDataDictGroupSearchSchemas = (t: Function): SmartSearchFormSchem
   ];
 };
 
-export const getDataDictGroupAddEditSchemas = (t: Function): FormSchema[] => {
+export const getDataDictGroupAddEditSchemas = (
+  t: Function,
+  getIsPlatformTenant: ComputedRef<boolean>,
+): FormSchema[] => {
   return [
     {
       label: '',
@@ -146,7 +150,16 @@ export const getDataDictGroupAddEditSchemas = (t: Function): FormSchema[] => {
     {
       label: t('common.table.remark'),
       field: 'remark',
-      component: 'Input',
+      component: 'InputTextArea',
+    },
+    {
+      label: t('common.title.tenantCommonYn'),
+      field: 'tenantCommonYn',
+      component: 'Switch',
+      defaultValue: false,
+      ifShow() {
+        return unref(getIsPlatformTenant);
+      },
     },
   ];
 };

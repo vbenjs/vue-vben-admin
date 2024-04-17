@@ -17,12 +17,16 @@
     listDictApi,
     getByIdDictApi,
     deleteDictApi,
-    batchSaveUpdateDictApi,
+    saveUpdateDictApi,
   } from './DataDictListView.api';
+  import { storeToRefs } from 'pinia';
+  import { useUserStore } from '@/store/modules/user';
 
   const emit = defineEmits(['code-change']);
 
   const { t } = useI18n();
+
+  const { getIsPlatformTenant } = storeToRefs(useUserStore());
 
   const handleCurrentChange = ({ row }: any) => {
     emit('code-change', row.id);
@@ -57,7 +61,7 @@
     },
     addEditConfig: {
       formConfig: {
-        schemas: getDataDictGroupAddEditSchemas(t),
+        schemas: getDataDictGroupAddEditSchemas(t, getIsPlatformTenant),
         baseColProps: {
           span: 24,
         },
@@ -79,7 +83,7 @@
           return listDictApi(parameter);
         },
         save: ({ body: { insertRecords, updateRecords } }) =>
-          batchSaveUpdateDictApi([...insertRecords, ...updateRecords]),
+          saveUpdateDictApi([...insertRecords, ...updateRecords][0]),
         delete: ({ body: { removeRecords } }) => deleteDictApi(removeRecords),
         getById: (params) => getByIdDictApi(params.id),
       },
