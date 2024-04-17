@@ -1099,7 +1099,7 @@ const componentAttrs: IBaseComponentProps = {
 
 function deleteProps(list: Omit<IBaseFormAttrs, 'tag'>[], key: string) {
   list.forEach((element, index) => {
-    if (element.name == key) {
+    if (element.name === key) {
       list.splice(index, 1);
     }
   });

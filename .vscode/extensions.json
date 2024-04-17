@@ -9,6 +9,6 @@
     "antfu.iconify",
     "antfu.unocss",
     "mikestead.dotenv",
-    "vue.vscode-typescript-vue-plugin"
+    "warmthsea.vscode-custom-code-color",
   ]
 }

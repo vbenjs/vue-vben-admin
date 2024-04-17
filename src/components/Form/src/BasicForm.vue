@@ -123,7 +123,7 @@
   const getBindValue = computed(() => ({ ...attrs, ...props, ...unref(getProps) }) as AntFormProps);
 
   const getSchema = computed((): FormSchema[] => {
-    const schemas: FormSchema[] = unref(schemaRef) || (unref(getProps).schemas as any);
+    const schemas: FormSchema[] = cloneDeep(unref(schemaRef) || (unref(getProps).schemas as any));
     for (const schema of schemas) {
       const {
         defaultValue,
@@ -163,11 +163,11 @@
       }
     }
     if (unref(getProps).showAdvancedButton) {
-      return cloneDeep(
-        schemas.filter((schema) => !isIncludeSimpleComponents(schema.component)) as FormSchema[],
-      );
+      return schemas.filter(
+        (schema) => !isIncludeSimpleComponents(schema.component),
+      ) as FormSchema[];
     } else {
-      return cloneDeep(schemas as FormSchema[]);
+      return schemas as FormSchema[];
     }
   });
 
@@ -285,7 +285,7 @@
     if (!autoSubmitOnEnter) return;
     if (e.key === 'Enter' && e.target && e.target instanceof HTMLElement) {
       const target: HTMLElement = e.target as HTMLElement;
-      if (target && target.tagName && target.tagName.toUpperCase() == 'INPUT') {
+      if (target && target.tagName && target.tagName.toUpperCase() === 'INPUT') {
         handleSubmit();
       }
     }

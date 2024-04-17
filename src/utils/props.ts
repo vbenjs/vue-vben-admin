@@ -14,9 +14,8 @@ type ResolveProp<T> = ExtractPropTypes<{
   key: { type: T; required: true };
 }>['key'];
 type ResolvePropType<T> = ResolveProp<T> extends { type: infer V } ? V : ResolveProp<T>;
-type ResolvePropTypeWithReadonly<T> = Readonly<T> extends Readonly<Array<infer A>>
-  ? ResolvePropType<A[]>
-  : ResolvePropType<T>;
+type ResolvePropTypeWithReadonly<T> =
+  Readonly<T> extends Readonly<Array<infer A>> ? ResolvePropType<A[]> : ResolvePropType<T>;
 
 type IfUnknown<T, V> = [unknown] extends [T] ? V : T;
 

@@ -49,7 +49,7 @@
     SizeType,
     ColumnChangeParam,
   } from './types/table';
-  import { ref, computed, unref, toRaw, inject, watchEffect, useAttrs, useSlots } from 'vue';
+  import { ref, computed, unref, toRaw, inject, watch, useAttrs, useSlots } from 'vue';
   import { Table } from 'ant-design-vue';
   import { BasicForm, useForm } from '@/components/Form';
   import { PageWrapperFixedHeightKey } from '@/enums/pageEnum';
@@ -70,10 +70,10 @@
   import { useTableFooter } from './hooks/useTableFooter';
   import { useTableForm } from './hooks/useTableForm';
   import { useDesign } from '@/hooks/web/useDesign';
-  import { omit } from 'lodash-es';
+  import { omit, debounce } from 'lodash-es';
+  import { useElementSize } from '@vueuse/core';
   import { basicProps } from './props';
   import { isFunction } from '@/utils/is';
-  import { warn } from '@/utils/log';
 
   defineOptions({ name: 'BasicTable' });
 
@@ -108,6 +108,8 @@
   const formRef = ref(null);
   const innerPropsRef = ref<Partial<BasicTableProps>>();
 
+  const { height } = useElementSize(wrapRef);
+
   const { prefixCls } = useDesign('basic-table');
   const [registerForm, formActions] = useForm();
 
@@ -116,13 +118,6 @@
   });
 
   const isFixedHeightPage = inject(PageWrapperFixedHeightKey, false);
-  watchEffect(() => {
-    unref(isFixedHeightPage) &&
-      props.canResize &&
-      warn(
-        "'canResize' of BasicTable may not work in PageWrapper with 'fixedHeight' (especially in hot updates)",
-      );
-  });
 
   const { getLoading, setLoading } = useLoading(getProps);
   const { getPaginationInfo, getPagination, setPagination, setShowPagination, getShowPagination } =
@@ -144,6 +139,7 @@
     getDataSourceRef,
     getDataSource,
     getRawDataSource,
+    getSearchInfo,
     setTableData,
     updateTableDataRecord,
     deleteTableDataRecord,
@@ -195,6 +191,7 @@
     wrapRef,
     formRef,
   );
+  const debounceRedoHeight = debounce(redoHeight, 50);
 
   const { scrollTo } = useTableScrollTo(tableElRef, getDataSourceRef);
 
@@ -277,6 +274,10 @@
     return !!unref(getDataSourceRef).length;
   });
 
+  watch(height, () => {
+    unref(isFixedHeightPage) && props.canResize && debounceRedoHeight();
+  });
+
   function setProps(props: Partial<BasicTableProps>) {
     innerPropsRef.value = { ...unref(innerPropsRef), ...props };
   }
@@ -300,6 +301,7 @@
     setLoading,
     getDataSource,
     getRawDataSource,
+    getSearchInfo,
     setProps,
     getRowSelection,
     getPaginationRef: getPagination,

@@ -1,4 +1,5 @@
 import { defineApplicationConfig } from '@vben/vite-config';
+import Inspector from 'vite-plugin-vue-inspector';
 
 export default defineApplicationConfig({
   overrides: {
@@ -32,9 +33,15 @@ export default defineApplicationConfig({
           rewrite: (path) => path.replace(new RegExp(`^/upload`), ''),
         },
       },
+      open: true, // 项目启动后，自动打开
       warmup: {
         clientFiles: ['./index.html', './src/{views,components}/*'],
       },
     },
+    plugins: [
+      Inspector({
+        openInEditorHost: 'http://localhost:5173',
+      }),
+    ],
   },
 });

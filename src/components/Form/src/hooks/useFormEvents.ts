@@ -87,7 +87,7 @@ export function useFormEvents({
       const defaultValueObj = schema?.defaultValueObj;
       const fieldKeys = Object.keys(defaultValueObj || {});
       if (fieldKeys.length) {
-        fieldKeys.map((field) => {
+        fieldKeys.forEach((field) => {
           formModel[field] = defaultValueObj![field];
         });
       }
@@ -135,6 +135,9 @@ export function useFormEvents({
       }
 
       const constructValue = tryConstructArray(key, values) || tryConstructObject(key, values);
+      const setDateFieldValue = (v) => {
+        return v ? (_props?.valueFormat ? v : dateUtil(v)) : null;
+      };
 
       // 0| '' is allow
       if (hasKey || !!constructValue) {
@@ -144,15 +147,11 @@ export function useFormEvents({
           if (Array.isArray(fieldValue)) {
             const arr: any[] = [];
             for (const ele of fieldValue) {
-              arr.push(ele ? dateUtil(ele) : null);
+              arr.push(setDateFieldValue(ele));
             }
             unref(formModel)[key] = arr;
           } else {
-            unref(formModel)[key] = fieldValue
-              ? _props?.valueFormat
-                ? fieldValue
-                : dateUtil(fieldValue)
-              : null;
+            unref(formModel)[key] = setDateFieldValue(fieldValue);
           }
         } else {
           unref(formModel)[key] = fieldValue;
@@ -195,7 +194,7 @@ export function useFormEvents({
       fieldList = [fields];
     }
     for (const field of fieldList) {
-      _removeSchemaByFeild(field, schemaList);
+      _removeSchemaByField(field, schemaList);
     }
     schemaRef.value = schemaList;
   }
@@ -203,7 +202,7 @@ export function useFormEvents({
   /**
    * @description: Delete based on field name
    */
-  function _removeSchemaByFeild(field: string, schemaList: FormSchema[]): void {
+  function _removeSchemaByField(field: string, schemaList: FormSchema[]): void {
     if (isString(field)) {
       const index = schemaList.findIndex((schema) => schema.field === field);
       if (index !== -1) {

@@ -1,3 +1,5 @@
+@modal-prefix-cls: ~'@{namespace}-basic-modal';
+
 .fullscreen-modal {
   overflow: hidden;
 
@@ -18,110 +20,113 @@
   }
 }
 
-.ant-modal {
-  width: 520px;
-  padding-bottom: 0;
+.@{modal-prefix-cls} {
+  .ant-modal {
+    width: 520px;
+    padding-bottom: 0;
 
-  .ant-modal-body > .scrollbar {
-    padding: 14px;
-  }
-
-  &-title {
-    font-size: 16px;
-    font-weight: bold;
-
-    .base-title {
-      cursor: move !important;
+    .ant-modal-body > .scrollbar {
+      padding: 14px;
     }
-  }
 
-  .ant-modal-body {
-    padding: 0;
+    &-title {
+      font-size: 16px;
+      font-weight: bold;
 
-    > .scrollbar > .scrollbar__bar.is-horizontal {
-      display: none;
+      .base-title {
+        cursor: move !important;
+      }
     }
-  }
 
-  &-large {
-    top: 60px;
+    .ant-modal-body {
+      padding: 0;
 
-    &--mini {
-      top: 16px;
+      > .scrollbar > .scrollbar__bar.is-horizontal {
+        display: none;
+      }
     }
-  }
 
-  &-header {
-    padding: 16px;
-    border-bottom: 1px solid @border-color-base;
-  }
+    &-large {
+      top: 60px;
 
-  &-content {
-    padding: 0 !important;
-    box-shadow:
-      0 4px 8px 0 rgb(0 0 0 / 20%),
-      0 6px 20px 0 rgb(0 0 0 / 19%);
-  }
-
-  &-footer {
-    padding: 10px 16px;
-    border-top: 1px solid @border-color-base;
-
-    button + button {
-      margin-left: 10px;
+      &--mini {
+        top: 16px;
+      }
     }
-  }
 
-  &-close {
-    top: 0 !important;
-    right: 0 !important;
-    width: auto !important;
-    outline: none;
-    background: transparent !important;
-    font-weight: normal;
-  }
+    &-header {
+      padding: 16px;
+      border-bottom: 1px solid @border-color-base;
+    }
 
-  &-close-x {
-    display: inline-block;
-    width: 96px;
-    height: 56px;
-    line-height: 56px !important;
-  }
+    &-content {
+      padding: 0 !important;
+      box-shadow:
+        0 4px 8px 0 rgb(0 0 0 / 20%),
+        0 6px 20px 0 rgb(0 0 0 / 19%);
+    }
 
-  &-confirm-body {
-    .ant-modal-confirm-content {
-      > * {
-        color: @text-color-help-dark;
+    &-footer {
+      padding: 10px 16px;
+      border-top: 1px solid @border-color-base;
+
+      button + button {
+        margin-left: 10px;
+      }
+    }
+
+    &-close {
+      top: 0 !important;
+      right: 0 !important;
+      width: auto !important;
+      outline: none;
+      background: transparent !important;
+      font-weight: normal;
+    }
+
+    &-close-x {
+      display: inline-block;
+      width: 96px;
+      height: 56px;
+      line-height: 56px !important;
+    }
+
+    &-confirm-body {
+      .ant-modal-confirm-content {
+        > * {
+          color: @text-color-help-dark;
+        }
+      }
+    }
+
+    &-confirm-confirm.error .ant-modal-confirm-body > .anticon {
+      color: @error-color;
+    }
+
+    &-confirm-btns {
+      .ant-btn:last-child {
+        margin-right: 0;
+      }
+    }
+
+    &-confirm-info {
+      .ant-modal-confirm-body > .anticon {
+        color: @warning-color;
+      }
+    }
+
+    &-confirm-confirm.success {
+      .ant-modal-confirm-body > .anticon {
+        color: @success-color;
       }
     }
   }
 
-  &-confirm-confirm.error .ant-modal-confirm-body > .anticon {
-    color: @error-color;
-  }
-
-  &-confirm-btns {
-    .ant-btn:last-child {
-      margin-right: 0;
-    }
-  }
-
-  &-confirm-info {
-    .ant-modal-confirm-body > .anticon {
-      color: @warning-color;
-    }
-  }
-
-  &-confirm-confirm.success {
-    .ant-modal-confirm-body > .anticon {
-      color: @success-color;
-    }
+  .ant-modal-confirm .ant-modal-body {
+    padding: 24px !important;
   }
 }
 
-.ant-modal-confirm .ant-modal-body {
-  padding: 24px !important;
-}
 
 @media screen and (max-height: 600px) {
   .ant-modal {

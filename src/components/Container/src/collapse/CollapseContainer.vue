@@ -1,12 +1,12 @@
 <script lang="tsx">
-  import { ref, unref, defineComponent, type PropType, type ExtractPropTypes } from 'vue';
-  import { isNil } from 'lodash-es';
-  import { Skeleton } from 'ant-design-vue';
-  import { useTimeoutFn } from '@vben/hooks';
   import { CollapseTransition } from '@/components/Transition';
-  import CollapseHeader from './CollapseHeader.vue';
-  import { triggerWindowResize } from '@/utils/event';
   import { useDesign } from '@/hooks/web/useDesign';
+  import { triggerWindowResize } from '@/utils/event';
+  import { useTimeoutFn } from '@vben/hooks';
+  import { Skeleton } from 'ant-design-vue';
+  import { isNil } from 'lodash-es';
+  import { defineComponent, ref, unref, type ExtractPropTypes, type PropType } from 'vue';
+  import CollapseHeader from './CollapseHeader.vue';
 
   const collapseContainerProps = {
     title: { type: String, default: '' },
@@ -14,7 +14,7 @@
     /**
      *  Can it be expanded
      */
-    canExpan: { type: Boolean, default: true },
+    canExpand: { type: Boolean, default: true },
     /**
      * Warm reminder on the right side of the title
      */
@@ -69,7 +69,7 @@
           />
 
           <div class="p-2">
-            <CollapseTransition enable={props.canExpan}>
+            <CollapseTransition enable={props.canExpand}>
               {props.loading ? (
                 <Skeleton active={props.loading} />
               ) : (

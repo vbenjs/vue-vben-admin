@@ -4,10 +4,10 @@
       <template #itemRender="{ route, routes: routesMatched, paths }">
         <Icon :icon="getIcon(route)" v-if="getShowBreadCrumbIcon && getIcon(route)" />
         <span v-if="!hasRedirect(routesMatched, route)">
-          {{ t(route.name || route.meta.title) }}
+          {{ t(route.meta.title || route.name) }}
         </span>
         <router-link v-else to="" @click="handleClick(route, paths, $event as Event)">
-          {{ t(route.name || route.meta.title) }}
+          {{ t(route.meta.title || route.name) }}
         </router-link>
       </template>
     </a-breadcrumb>
@@ -66,7 +66,10 @@
         const filterMenus = menus.filter((item) => item.path === parent[0]);
         const matched = getMatched(filterMenus, parent) as any;
 
-        if (!matched || matched.length === 0) return;
+        if (!matched || matched.length === 0){
+          routes.value = [];
+          return;
+        }
 
         const breadcrumbList = filterItem(matched);
 

@@ -79,7 +79,7 @@
   const getShowMenu = computed(() => !props.item?.meta?.hideMenu);
   const getIcon = computed(() => (props.item?.img ? undefined : props.item?.icon));
   const getImg = computed(() => props.item?.img);
-  const getI18nName = computed(() => t(props.item?.name));
+  const getI18nName = computed(() => t(props.item?.meta?.title || props.item?.name));
   const getShowSubTitle = computed(() => !props.collapse || !props.parent);
   const getIsCollapseParent = computed(() => !!props.collapse && !!props.parent);
   const getLevelClass = computed(() => {

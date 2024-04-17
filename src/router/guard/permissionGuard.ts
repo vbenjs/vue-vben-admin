@@ -113,6 +113,11 @@ export function createPermissionGuard(router: Router) {
     } else if (from.query.redirect) {
       // 存在redirect
       const redirect = decodeURIComponent((from.query.redirect as string) || '');
+
+      // 只处理一次 from.query.redirect
+      // 也避免某场景（指向路由定义了 redirect）下的死循环
+      from.query.redirect = '';
+
       if (redirect === to.fullPath) {
         // 已经被redirect
         next();

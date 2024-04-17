@@ -5,13 +5,13 @@ const uploadUrl = 'http://localhost:3300/static/upload';
 const filePath = path.join(__dirname, '../static/upload/');
 
 fs.ensureDir(filePath);
-export default class UserService {
+export default class FileService {
   async upload(ctx, files, isMultiple) {
     let fileReader, fileResource, writeStream;
 
     const fileFunc = function (file) {
-      fileReader = fs.createReadStream(file.path);
-      fileResource = filePath + `/${file.name}`;
+      fileReader = fs.createReadStream(file.filepath);
+      fileResource = filePath + `/${file.originalFilename}`;
       console.log(fileResource);
 
       writeStream = fs.createWriteStream(fileResource);
@@ -22,7 +22,7 @@ export default class UserService {
       if (flag) {
         let url = '';
         for (let i = 0; i < files.length; i++) {
-          url += uploadUrl + `/${files[i].name},`;
+          url += uploadUrl + `/${files[i].originalFilename},`;
         }
         url = url.replace(/,$/gi, '');
         ctx.body = {
@@ -32,7 +32,7 @@ export default class UserService {
         };
       } else {
         ctx.body = {
-          url: uploadUrl + `/${files.name}`,
+          url: uploadUrl + `/${files.originalFilename}`,
           code: 0,
           message: 'upload Success!',
         };
