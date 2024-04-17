@@ -37,12 +37,13 @@
   import { uploadContainerProps } from '../props';
   import { isImgTypeByName } from '../helper';
   import { UploadResultStatus } from '@/components/Upload/src/types/typing';
-  import { get,omit } from 'lodash-es';
+  import { get, omit } from 'lodash-es';
+
   defineOptions({ name: 'ImageUpload' });
 
   const emit = defineEmits(['change', 'update:value', 'delete']);
   const props = defineProps({
-    ...omit(uploadContainerProps,["previewColumns","beforePreviewData"]),
+    ...omit(uploadContainerProps, ['previewColumns', 'beforePreviewData']),
   });
   const { t } = useI18n();
   const { createMessage } = useMessage();
@@ -170,9 +171,9 @@
         name: props.name,
         filename: props.filename,
       });
-      if(props.resultField){
+      if (props.resultField) {
         info.onSuccess!(res);
-      }else{
+      } else {
         // 不传入 resultField 的情况
         info.onSuccess!(res.data);
       }
@@ -190,8 +191,8 @@
     const list = (fileList.value || [])
       .filter((item) => item?.status === UploadResultStatus.DONE)
       .map((item: any) => {
-        if(props.resultField){
-          return get(item?.response, props.resultField)
+        if (props.resultField) {
+          return get(item?.response, props.resultField);
         }
         return item?.url || item?.response?.url;
       });
