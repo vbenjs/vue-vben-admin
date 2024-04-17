@@ -18,15 +18,24 @@
 
   import { getFormSchemas, getTableColumns, getSearchFormSchemas } from './CategoryListView.config';
   import { listApi, deleteApi, saveUpdateApi, getByIdApi } from './CategoryListView.api';
+  import { storeToRefs } from 'pinia';
+  import { useUserStore } from '@/store/modules/user';
 
   const { t } = useI18n();
   const { getTableSize } = useSizeSetting();
+
+  const { getIsPlatformTenant } = storeToRefs(useUserStore());
 
   const getTableActions = (row): ActionItem[] => {
     return [
       {
         label: t('system.views.category.button.addChild'),
-        onClick: () => showAddModal({ parentId: row.id, parentName: row.categoryName }),
+        onClick: () =>
+          showAddModal({
+            parentId: row.id,
+            parentName: row.categoryName,
+            tenantCommonYn: row.tenantCommonYn,
+          }),
       },
       {
         label: t('common.button.edit'),
@@ -61,7 +70,7 @@
     },
     addEditConfig: {
       formConfig: {
-        schemas: getFormSchemas(t),
+        schemas: getFormSchemas(t, getIsPlatformTenant),
         baseColProps: { span: 24 },
         labelCol: { span: 6 },
         wrapperCol: { span: 17 },

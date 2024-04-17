@@ -1,5 +1,6 @@
 import type { SmartColumn, SmartSearchFormSchema } from '@/components/SmartTable';
 import type { FormSchema } from '@/components/Form';
+import { ComputedRef, unref } from 'vue';
 
 export const getTableColumns = (): SmartColumn[] => {
   return [
@@ -64,7 +65,10 @@ export const getTableColumns = (): SmartColumn[] => {
   ];
 };
 
-export const getFormSchemas = (t: Function): FormSchema[] => {
+export const getFormSchemas = (
+  t: Function,
+  getIsPlatformTenant: ComputedRef<boolean>,
+): FormSchema[] => {
   return [
     {
       field: 'id',
@@ -111,7 +115,19 @@ export const getFormSchemas = (t: Function): FormSchema[] => {
     {
       field: 'remark',
       label: t('common.table.remark'),
-      component: 'Input',
+      component: 'InputTextArea',
+    },
+    {
+      label: t('common.title.tenantCommonYn'),
+      field: 'tenantCommonYn',
+      component: 'Switch',
+      defaultValue: false,
+      ifShow() {
+        return unref(getIsPlatformTenant);
+      },
+      dynamicDisabled({ model }) {
+        return model.parentId !== 0;
+      },
     },
   ];
 };
