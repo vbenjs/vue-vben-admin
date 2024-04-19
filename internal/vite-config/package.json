@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@ant-design/colors": "^7.0.2",
-    "vite": "^5.2.8"
+    "vite": "^5.2.9"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
@@ -48,7 +48,7 @@
     "pkg-types": "^1.0.3",
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.75.0",
-    "unocss": "0.59.2",
+    "unocss": "0.59.4",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-dts": "^3.8.3",
     "vite-plugin-html": "^3.2.2",
