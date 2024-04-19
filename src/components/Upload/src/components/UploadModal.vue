@@ -164,6 +164,9 @@
   function handleRemove(record: FileItem) {
     const index = fileListRef.value.findIndex((item) => item.uuid === record.uuid);
     index !== -1 && fileListRef.value.splice(index, 1);
+    isUploadingRef.value = fileListRef.value.some(
+      (item) => item.status === UploadResultStatus.UPLOADING,
+    );
     emit('delete', record);
   }
 
