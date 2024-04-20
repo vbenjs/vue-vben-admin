@@ -51,7 +51,7 @@ module.exports = {
     ],
   },
   prompt: {
-    /** @use `yarn commit :f` */
+    /** @use `pnpm commit :f` */
     alias: {
       f: 'docs: fix typos',
       r: 'docs: update README',
