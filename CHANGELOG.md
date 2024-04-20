@@ -1,3 +1,9 @@
+## [2.11.1](https://github.com/vbenjs/vue-vben-admin/compare/v2.11.0...v2.11.1) (2024-04-20)
+
+### Bug Fixes
+
+- the form not working when setFieldsValue through form-groups and add a demo with form groups ([#3765](https://github.com/vbenjs/vue-vben-admin/issues/3765)) ([65e5e71](https://github.com/vbenjs/vue-vben-admin/commit/65e5e71f5ee44eac221721de2c8c1d03e622e34a))
+
 # [2.11.0](https://github.com/vbenjs/vue-vben-admin/compare/2.10.1...2.11.0) (2024-04-20)
 
 ### Bug Fixes
