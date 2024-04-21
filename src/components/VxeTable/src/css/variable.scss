@@ -1,0 +1,54 @@
+/* stylelint-disable scss/no-global-function-names */
+html[data-theme='dark'] {
+  // $bg-color: #151515;
+  // $tooltip-bg-color: #303133;
+  // $text-color: #c9d1d9;
+  // $border-color: #303030;
+  // $selected-bg-color: #1e1e1e;
+  // $striped-bg-color: #1e1e1e;
+
+  --vxe-form-background-color: #151515;
+  --vxe-toolbar-background-color: #151515;
+  --vxe-pager-background-color: #151515;
+  --vxe-button-default-background-color: lighten(#151515, 15%);
+  --vxe-table-header-background-color: lighten(#151515, 5%);
+  --vxe-font-color: darken(#c9d1d9, 12%);
+  --vxe-table-header-font-color: #c9d1d9;
+  --vxe-table-footer-font-color: #c9d1d9;
+  --vxe-table-body-background-color: #151515;
+  --vxe-table-footer-background-color: #151515;
+  --vxe-table-row-striped-background-color: #1e1e1e;
+  --vxe-table-border-color: #303030;
+  --vxe-table-row-hover-background-color: #1e1e1e;
+  --vxe-table-row-hover-striped-background-color: darken(#1e1e1e, 10%);
+  --vxe-table-row-current-background-color: fade(#1e1e1e, 20%);
+  --vxe-table-row-hover-current-background-color: fade(#1e1e1e, 20%);
+  --vxe-table-column-hover-background-color: fade(#1e1e1e, 20%);
+  --vxe-table-column-current-background-color: fade(#1e1e1e, 20%);
+  --vxe-table-row-checkbox-checked-background-color: fade(#1e1e1e, 15%);
+  --vxe-table-row-hover-checkbox-checked-background-color: fade(#1e1e1e, 20%);
+  --vxe-table-menu-background-color: lighten(#303133, 10%);
+  --vxe-table-filter-panel-background-color: lighten(#151515, 5%);
+  --vxe-grid-maximize-background-color: #151515;
+  --vxe-pager-perfect-background-color: #151515;
+  --vxe-pager-perfect-button-background-color: lighten(#151515, 15%);
+  --vxe-input-background-color: #151515;
+  --vxe-input-border-color: #303030;
+  --vxe-select-panel-background-color: #151515;
+  --vxe-table-popup-border-color: #303030;
+  --vxe-select-option-hover-background-color: lighten(#1e1e1e, 15%);
+  --vxe-pulldown-panel-background-color: #151515;
+  --vxe-table-fixed-left-scrolling-box-shadow: 8px 0px 10px -5px rgb(255 255 255 / 12%);
+  --vxe-table-fixed-right-scrolling-box-shadow: -8px 0px 10px -5px rgb(255 255 255 / 12%);
+  --vxe-loading-background-color: rgb(0 0 0 / 50%);
+  --vxe-tooltip-dark-background-color: lighten(#303133, 25%);
+  --vxe-modal-header-background-color: #1e1e1e;
+  --vxe-modal-body-background-color: #303133;
+  --vxe-modal-border-color: #303030;
+  --vxe-toolbar-panel-background-color: #151515;
+  --vxe-input-disabled-color: lighten(#1e1e1e, 20%);
+  --vxe-input-disabled-background-color: lighten(#1e1e1e, 25%);
+  --vxe-checkbox-icon-background-color: lighten(#1e1e1e, 15%);
+  --vxe-checkbox-checked-icon-border-color: #303030;
+  --vxe-checkbox-indeterminate-icon-background-color: lighten(#1e1e1e, 15%);
+}

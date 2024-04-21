@@ -1,0 +1,39 @@
+.slide-y-transition {
+  .transition-default();
+
+  &-enter-from,
+  &-leave-to {
+    transform: translateY(-15px);
+    opacity: 0;
+  }
+}
+
+.slide-y-reverse-transition {
+  .transition-default();
+
+  &-enter-from,
+  &-leave-to {
+    transform: translateY(15px);
+    opacity: 0;
+  }
+}
+
+.slide-x-transition {
+  .transition-default();
+
+  &-enter-from,
+  &-leave-to {
+    transform: translateX(-15px);
+    opacity: 0;
+  }
+}
+
+.slide-x-reverse-transition {
+  .transition-default();
+
+  &-enter-from,
+  &-leave-to {
+    transform: translateX(15px);
+    opacity: 0;
+  }
+}
