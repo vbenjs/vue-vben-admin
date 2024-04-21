@@ -84,6 +84,8 @@ export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModul
           warn('找不到菜单对应的name, 请检查数据!' + JSON.stringify(route));
         }
         route.name = `${route.name}Parent`;
+        // 重定向到当前路由，以防空白页面
+        route.redirect = route.path;
         route.path = '';
         const meta = route.meta || {};
         meta.single = true;
