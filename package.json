@@ -1,6 +1,6 @@
 {
   "name": "vben-admin",
-  "version": "2.10.1",
+  "version": "2.11.1",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": {
     "url": "https://github.com/vbenjs/vue-vben-admin/issues"
@@ -31,6 +31,7 @@
     "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
     "lint:prettier": "prettier --write .",
     "lint:stylelint": "stylelint \"**/*.{vue,css,less,scss}\" --fix --cache --cache-location node_modules/.cache/stylelint/",
+    "log": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "prepare": "husky install",
     "preview": "npm run build && vite preview",
     "reinstall": "rimraf pnpm-lock.yaml && rimraf package.lock.json && rimraf node_modules && npm run bootstrap",
@@ -132,6 +133,7 @@
     "@vben/vite-config": "workspace:*",
     "@vue/compiler-sfc": "^3.4.23",
     "@vue/test-utils": "^2.4.5",
+    "conventional-changelog-cli": "^4.1.0",
     "cross-env": "^7.0.3",
     "cz-git": "^1.9.1",
     "czg": "^1.9.1",
