@@ -64,14 +64,8 @@ export const tableColumns: SmartColumn[] = [
   },
   {
     title: '{common.table.createUser}',
-    field: 'createUserId',
+    field: 'createBy',
     width: 120,
-    formatter: ({ row }: any) => {
-      if (row.createUser) {
-        return row.createUser.fullName;
-      }
-      return '';
-    },
   },
   {
     title: '{common.table.updateTime}',
@@ -81,14 +75,8 @@ export const tableColumns: SmartColumn[] = [
   },
   {
     title: '{common.table.updateUser}',
-    field: 'updateUserId',
+    field: 'updateBy',
     width: 120,
-    formatter: ({ row }: any) => {
-      if (row.updateUser) {
-        return row.updateUser.fullName;
-      }
-      return '';
-    },
   },
   {
     title: '{common.table.operation}',

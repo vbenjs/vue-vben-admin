@@ -32,7 +32,7 @@ export const getI18nTableColumns = (): SmartColumn[] => {
       width: 160,
     },
     {
-      field: 'createUser',
+      field: 'createBy',
       title: '{common.table.createUser}',
       width: 120,
     },
@@ -42,7 +42,7 @@ export const getI18nTableColumns = (): SmartColumn[] => {
       width: 160,
     },
     {
-      field: 'updateUser',
+      field: 'updateBy',
       title: '{common.table.updateUser}',
       width: 120,
     },
