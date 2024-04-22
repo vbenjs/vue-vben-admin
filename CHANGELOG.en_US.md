@@ -308,7 +308,7 @@
 - Fix the height issue of the lock screen pop-up window
 - Fixed the problem that the half-selected state of the `Column Display` checkbox of `BaiscTable` was incorrectly displayed
 - Fixed the problem that the preview list of the `BasicUpload` component could not be displayed in some cases
-- Fix the problem that the `options` setting of ` RadioButtonGroup``disabled ` does not take effect
+- Fix the problem that the `options` setting of `RadioButtonGroup``disabled` does not take effect
 - Fix the problem that the button for uploading pictures in the read-only mode of the `Tinymce` component is still available
 - Fix the stuttering problem of `BasicForm` under certain circumstances
 - Fix the problem that "directory" routing does not work

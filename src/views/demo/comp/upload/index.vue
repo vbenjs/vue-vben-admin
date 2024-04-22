@@ -180,7 +180,7 @@
     submitFunc: () => {
       return new Promise((resolve) => {
         validate()
-          .then((_e) => {
+          .then(() => {
             resolve();
             console.log(getFieldsValueValiate());
             createMessage.success(`请到控制台查看结果`);
