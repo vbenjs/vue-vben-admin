@@ -28,23 +28,25 @@
     () => props.dictId,
     (value) => {
       if (value) {
-        reload();
+        query();
       }
     },
   );
 
-  const [registerTable, { reload }] = useSmartTable({
-    columns: getDataDictItemColumns(t),
+  const [registerTable, { query }] = useSmartTable({
+    columns: getDataDictItemColumns(),
     border: true,
     height: 'auto',
     stripe: true,
-    highlightHoverRow: true,
+    rowConfig: {
+      isHover: true,
+    },
     pagerConfig: true,
     sortConfig: {
       remote: true,
       defaultSort: {
         field: 'seq',
-        order: 'desc',
+        order: 'asc',
       },
     },
     addEditConfig: {

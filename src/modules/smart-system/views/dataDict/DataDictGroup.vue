@@ -46,6 +46,10 @@
     },
     pagerConfig: true,
     useSearchForm: true,
+    sortConfig: {
+      remote: true,
+      defaultSort: { field: 'seq', order: 'asc' },
+    },
     searchFormConfig: {
       colon: true,
       compact: true,

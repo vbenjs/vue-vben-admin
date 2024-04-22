@@ -68,6 +68,7 @@
     },
     sortConfig: {
       remote: true,
+      defaultSort: { field: 'seq', order: 'asc' },
     },
     showOverflow: 'tooltip',
     searchFormConfig: {
