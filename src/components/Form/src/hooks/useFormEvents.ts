@@ -74,10 +74,6 @@ export function useFormEvents({
 
     const fields = getAllFields();
 
-    // key 支持 a.b.c 的嵌套写法
-    const delimiter = '.';
-    const nestKeyArray = fields.filter((item) => String(item).indexOf(delimiter) >= 0);
-
     const validKeys: string[] = [];
     fields.forEach((key) => {
       const schema = unref(getSchema).find((item) => item.field === key);
@@ -121,20 +117,10 @@ export function useFormEvents({
         }
         validKeys.push(key);
       } else {
-        nestKeyArray.forEach((nestKey: string) => {
-          try {
-            const value = get(values, nestKey);
-            if (isDef(value)) {
-              unref(formModel)[nestKey] = unref(value);
-              validKeys.push(nestKey);
-            }
-          } catch (e) {
-            // key not exist
-            if (isDef(defaultValueRef.value[nestKey])) {
-              unref(formModel)[nestKey] = cloneDeep(unref(defaultValueRef.value[nestKey]));
-            }
-          }
-        });
+        // key not exist
+        if (isDef(get(defaultValueRef.value, key))) {
+          unref(formModel)[key] = cloneDeep(unref(get(defaultValueRef.value, key)));
+        }
       }
     });
     validateFields(validKeys).catch((_) => {});
