@@ -198,6 +198,7 @@
         auth: permissions.unlockUserAccount,
         disabled:
           !hasPermission(permissions.unlockUserAccount) ||
+          !row.userAccount ||
           (row.userAccount && row.userAccount.accountStatus === 'NORMAL'),
         onClick: () => handleUnlockUserAccount(row.userId),
       },
