@@ -66,6 +66,7 @@
   import { message, Descriptions, Divider, DescriptionsItem } from 'ant-design-vue';
 
   import { saveAccountSettingApi, getByIdApi } from '../UserListView.api';
+  import { successMessage } from '@/utils/message/SystemNotice';
 
   const { t } = useI18n();
 
@@ -106,6 +107,7 @@
     try {
       changeOkLoading(true);
       await saveAccountSettingApi(data);
+      successMessage(t('common.message.OperationSucceeded'));
       closeModal();
     } finally {
       changeOkLoading(false);
@@ -124,7 +126,7 @@
     schemas: [
       {
         label: '',
-        field: 'userId',
+        field: 'id',
         component: 'Input',
         show: false,
       },
