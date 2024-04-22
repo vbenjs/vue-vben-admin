@@ -11,7 +11,7 @@ import {
   isIncludeSimpleComponents,
 } from '../helper';
 import { dateUtil } from '@/utils/dateUtil';
-import { cloneDeep, set, uniqBy, get } from 'lodash-es';
+import { cloneDeep, has, uniqBy, get } from 'lodash-es';
 import { error } from '@/utils/log';
 
 interface UseFormActionContext {
@@ -23,46 +23,6 @@ interface UseFormActionContext {
   formElRef: Ref<FormActionType>;
   schemaRef: Ref<FormSchema[]>;
   handleFormValues: Fn;
-}
-
-function tryConstructArray(field: string, values: Recordable = {}): any[] | undefined {
-  const pattern = /^\[(.+)\]$/;
-  if (pattern.test(field)) {
-    const match = field.match(pattern);
-    if (match && match[1]) {
-      const keys = match[1].split(',');
-      if (!keys.length) {
-        return undefined;
-      }
-
-      const result = [];
-      keys.forEach((k, index) => {
-        set(result, index, values[k.trim()]);
-      });
-
-      return result.filter(Boolean).length ? result : undefined;
-    }
-  }
-}
-
-function tryConstructObject(field: string, values: Recordable = {}): Recordable | undefined {
-  const pattern = /^\{(.+)\}$/;
-  if (pattern.test(field)) {
-    const match = field.match(pattern);
-    if (match && match[1]) {
-      const keys = match[1].split(',');
-      if (!keys.length) {
-        return;
-      }
-
-      const result = {};
-      keys.forEach((k) => {
-        set(result, k.trim(), values[k.trim()]);
-      });
-
-      return Object.values(result).filter(Boolean).length ? result : undefined;
-    }
-  }
 }
 
 export function useFormEvents({
@@ -122,7 +82,7 @@ export function useFormEvents({
     fields.forEach((key) => {
       const schema = unref(getSchema).find((item) => item.field === key);
       let value = get(values, key);
-      const hasKey = Reflect.has(values, key);
+      const hasKey = has(values, key);
 
       value = handleInputNumberValue(schema?.component, value);
       const { componentProps } = schema || {};
@@ -134,7 +94,7 @@ export function useFormEvents({
         });
       }
 
-      const constructValue = tryConstructArray(key, values) || tryConstructObject(key, values);
+      const constructValue = get(value, key);
       const setDateFieldValue = (v) => {
         return v ? (_props?.valueFormat ? v : dateUtil(v)) : null;
       };
