@@ -267,7 +267,11 @@
     createConfirm({
       iconType: 'warning',
       title: t('system.views.user.validate.createAccountConfirm'),
-      onOk: () => createAccountApi(userList),
+      onOk: async () => {
+        await createAccountApi(userList);
+        successMessage(t('common.message.OperationSucceeded'));
+        query();
+      },
     });
   };
 
