@@ -133,7 +133,6 @@
   });
   const getTreeData = (model: Recordable) => {
     const { functionType, isTopAdd } = model;
-    console.log(isTopAdd);
     let treeData: Recordable[] = [];
     if (isTopAdd !== true) {
       let dataList: Recordable[] = [];
