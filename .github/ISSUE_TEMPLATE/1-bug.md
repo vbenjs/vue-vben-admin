@@ -36,4 +36,4 @@ Please describe the steps of the problem in detail to ensure that we can restore
 
 - Operating System:
 - Node version:
-- Package manager (npm/yarn/pnpm) and version:
+- pnpm version:
