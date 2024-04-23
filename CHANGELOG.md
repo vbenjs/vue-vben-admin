@@ -1,3 +1,10 @@
+## [2.11.2](https://github.com/vbenjs/vue-vben-admin/compare/v2.11.1...v2.11.2) (2024-04-23)
+
+### Bug Fixes
+
+- **BasicForm:** solve the error about setFieldValue array ([#3775](https://github.com/vbenjs/vue-vben-admin/issues/3775)) ([f5cd3ad](https://github.com/vbenjs/vue-vben-admin/commit/f5cd3ad593ded10a9702cf342d788c4b1540944a))
+- **ci:** use for package-manager-strict ([d53a5b2](https://github.com/vbenjs/vue-vben-admin/commit/d53a5b22ccadc28f99fc5e9751e3177d349ba8b9))
+
 ## [2.11.1](https://github.com/vbenjs/vue-vben-admin/compare/v2.11.0...v2.11.1) (2024-04-20)
 
 ### Bug Fixes
