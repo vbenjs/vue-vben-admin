@@ -31,6 +31,7 @@ export const previewType = {
 type ListType = 'text' | 'picture' | 'picture-card';
 
 export const basicProps = {
+  disabled: { type: Boolean, default: false },
   listType: {
     type: String as PropType<ListType>,
     default: 'picture-card',
