@@ -48,7 +48,7 @@
             labelField="name"
             valueField="id"
             :params="searchParams"
-            @search="useDebounceFn(onSearch, 300)"
+            @search="debounceOptionsFn"
           />
         </template>
       </BasicForm>
@@ -71,6 +71,7 @@
   import { areaRecord } from '@/api/demo/cascader';
   import { uploadApi } from '@/api/sys/upload';
 
+  let debounceOptionsFn = useDebounceFn(onSearch, 300);
   const valueSelectA = ref<string[]>([]);
   const valueSelectB = ref<string[]>([]);
   const options = ref<Required<SelectProps>['options']>([]);

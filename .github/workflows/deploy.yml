@@ -60,7 +60,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-#      - uses: NullVoxPopuli/action-setup-pnpm@v2
+      #      - uses: NullVoxPopuli/action-setup-pnpm@v2
 
       - name: Sed Config Base
         shell: bash
@@ -72,25 +72,25 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 9
           run_install: false
 
-      - name: use Node.js 16
+      - name: use Node.js 20
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
 
-#      - name: Get yarn cache directory path
-#        id: yarn-cache-dir-path
-#        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-#
-#      - name: Cache dependencies
-#        uses: actions/cache@v3
-#        with:
-#          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-#          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-#          restore-keys: |
-#            ${{ runner.os }}-yarn-
+      #      - name: Get yarn cache directory path
+      #        id: yarn-cache-dir-path
+      #        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+      #
+      #      - name: Cache dependencies
+      #        uses: actions/cache@v3
+      #        with:
+      #          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+      #          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      #          restore-keys: |
+      #            ${{ runner.os }}-yarn-
 
       - name: Set SSH Environment
         env:

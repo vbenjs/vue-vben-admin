@@ -160,7 +160,7 @@ export default function ({
 
     getAdvanced(unref(getProps).actionColOptions || { span: BASIC_COL_LEN }, itemColSum, true);
 
-    emit('advanced-change');
+    emit('advanced-change', advanceState.isAdvanced);
   }
 
   function handleToggleAdvanced() {

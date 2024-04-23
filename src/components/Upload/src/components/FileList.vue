@@ -53,8 +53,10 @@
       return () => {
         const { columns, actionColumn, dataSource } = props;
         let columnList: FileBasicColumn[];
-        columnList = (actionColumn ? [...columns, actionColumn] : [...columns]) as FileBasicColumn[];
-        
+        columnList = (
+          actionColumn ? [...columns, actionColumn] : [...columns]
+        ) as FileBasicColumn[];
+
         return (
           // x scrollbar
           <div class="overflow-x-auto">

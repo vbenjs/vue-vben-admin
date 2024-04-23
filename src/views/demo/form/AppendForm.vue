@@ -1,6 +1,6 @@
 <template>
   <PageWrapper title="表单增删示例">
-    <CollapseContainer title="表单增删">
+    <CollapseContainer title="表单项增删">
       <BasicForm @register="register" @submit="handleSubmit">
         <template #add="{ field }">
           <a-button v-if="Number(field) === 0" @click="add">+</a-button>
@@ -11,6 +11,12 @@
         </template>
       </BasicForm>
     </CollapseContainer>
+    <CollapseContainer title="表单组增删" class="my-3">
+      <a-button @click="setGroup">设置初始值</a-button>
+      <a-button class="m-2" @click="addGroup"> 批量添加表单 </a-button>
+      <a-button @click="delGroup">批量减少表单</a-button>
+      <BasicForm @register="registerGroup" @submit="handleSubmitGroup" />
+    </CollapseContainer>
   </PageWrapper>
 </template>
 <script lang="ts" setup>
@@ -19,6 +25,10 @@
   import { CollapseContainer } from '@/components/Container';
   import { PageWrapper } from '@/components/Page';
 
+  import { useMessage } from '@/hooks/web/useMessage';
+
+  const { createMessage } = useMessage();
+  const count = ref(0);
   const [register, { appendSchemaByField, removeSchemaByField, validate }] = useForm({
     schemas: [
       {
@@ -48,6 +58,7 @@
   async function handleSubmit() {
     try {
       const data = await validate();
+      createMessage.success('请前往控制台查看输出');
       console.log(data);
     } catch (e) {
       console.log(e);
@@ -120,5 +131,74 @@
   function del(field: string) {
     removeSchemaByField([`field${field}a`, `field${field}b`, `${field}`]);
     n.value--;
+  }
+  const [
+    registerGroup,
+    {
+      appendSchemaByField: appendSchemaByFieldGroup,
+      removeSchemaByField: removeSchemaByFieldGroup,
+      getFieldsValue: getFieldsValueGroup,
+      setFieldsValue,
+    },
+  ] = useForm({
+    schemas: [
+      {
+        field: `field[${count.value}].a`,
+        component: 'Input',
+        label: '字段a',
+        colProps: { span: 9 },
+      },
+      {
+        field: `field[${count.value}].b`,
+        colProps: { span: 9 },
+        component: 'Input',
+        label: '字段b',
+      },
+    ],
+    labelWidth: 100,
+    actionColOptions: { span: 24 },
+    baseColProps: { span: 8 },
+  });
+
+  function addGroup() {
+    count.value++;
+    appendSchemaByFieldGroup(
+      [
+        {
+          field: `field[${count.value}].a`,
+          component: 'Input',
+          colProps: { span: 9 },
+          label: '字段a',
+        },
+        {
+          field: `field[${count.value}].b`,
+          component: 'Input',
+          colProps: { span: 9 },
+          label: '字段b',
+        },
+      ],
+      '',
+    );
+  }
+
+  function delGroup() {
+    removeSchemaByFieldGroup([`field[${count.value}].a`, `field[${count.value}].b`]);
+    count.value--;
+  }
+
+  function setGroup() {
+    setFieldsValue({
+      field: [
+        {
+          a: '默认a',
+          b: '默认b',
+        },
+      ],
+    });
+  }
+
+  function handleSubmitGroup() {
+    createMessage.success('请前往控制台查看输出');
+    console.log(getFieldsValueGroup());
   }
 </script>

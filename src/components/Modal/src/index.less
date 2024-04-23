@@ -1,4 +1,4 @@
-@prefix-cls: ~'@{namespace}-basic-modal-wrap';
+@modal-prefix-cls: ~'@{namespace}-basic-modal';
 
 .fullscreen-modal {
   overflow: hidden;
@@ -20,7 +20,7 @@
   }
 }
 
-.@{prefix-cls} {
+.@{modal-prefix-cls} {
   .ant-modal {
     width: 520px;
     padding-bottom: 0;
@@ -121,10 +121,10 @@
       }
     }
   }
-}
 
-.ant-modal-confirm .ant-modal-body {
-  padding: 24px !important;
+  .ant-modal-confirm .ant-modal-body {
+    padding: 24px !important;
+  }
 }
 
 @media screen and (max-height: 600px) {

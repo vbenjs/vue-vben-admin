@@ -19,7 +19,6 @@
 
     <Alert message="嵌入表单,自定义预览内容" />
     <BasicForm @register="registerPreview" class="my-5" />
-    
   </PageWrapper>
 </template>
 <script lang="ts" setup>
@@ -27,9 +26,9 @@
   import { useMessage } from '@/hooks/web/useMessage';
   import { BasicForm, FormSchema, useForm } from '@/components/Form';
   import { PageWrapper } from '@/components/Page';
-  import { Alert,Button } from 'ant-design-vue';
+  import { Alert, Button } from 'ant-design-vue';
   import { uploadApi } from '@/api/sys/upload';
-  import { createVNode } from "vue"
+  import { createVNode } from 'vue';
 
   const schemasValiate: FormSchema[] = [
     {
@@ -40,16 +39,17 @@
       componentProps: {
         api: uploadApi,
       },
-    },{
+    },
+    {
       field: 'field2',
-      component: "ImageUpload",
+      component: 'ImageUpload',
       label: '字段2(ImageUpload)',
       colProps: {
         span: 8,
       },
       componentProps: {
         api: uploadApi,
-      }
+      },
     },
   ];
   const schemasCustom: FormSchema[] = [
@@ -58,41 +58,41 @@
       component: 'Upload',
       label: '字段3',
       componentProps: {
-        resultField:"data3.url",
-        api: (file,progress)=>{
-          return new Promise((resolve)=>{
-            uploadApi(file,progress).then((uploadApiResponse)=>{
+        resultField: 'data3.url',
+        api: (file, progress) => {
+          return new Promise((resolve) => {
+            uploadApi(file, progress).then((uploadApiResponse) => {
               resolve({
-                code:200,
-                data3:{
-                  url:uploadApiResponse.data.url
-                }
-              })
-            })
-          })
+                code: 200,
+                data3: {
+                  url: uploadApiResponse.data.url,
+                },
+              });
+            });
+          });
         },
       },
     },
     {
       field: 'field4',
-      component: "ImageUpload",
+      component: 'ImageUpload',
       label: '字段4(ImageUpload)',
       colProps: {
         span: 8,
       },
       componentProps: {
-        resultField:"data4.url",
-        api: (file,progress)=>{
-          return new Promise((resolve)=>{
-            uploadApi(file,progress).then((uploadApiResponse)=>{
+        resultField: 'data4.url',
+        api: (file, progress) => {
+          return new Promise((resolve) => {
+            uploadApi(file, progress).then((uploadApiResponse) => {
               resolve({
-                code:200,
-                data4:{
-                  url:uploadApiResponse.data.url
-                }
-              })
-            })
-          })
+                code: 200,
+                data4: {
+                  url: uploadApiResponse.data.url,
+                },
+              });
+            });
+          });
         },
       },
     },
@@ -103,117 +103,124 @@
       component: 'Upload',
       label: '字段5',
       componentProps: {
-        previewColumns:[{
-          title:"url5",
-          dataIndex:"url5"
-        },{
-          title:"type5",
-          dataIndex:"type5"
-        },{
-          title:"name5",
-          dataIndex:"name5"
-        },
-        {
-          title:"operation",
-          dataIndex:"",
-          customRender: ({ record })=>{
-            return createVNode(Button,{
-              onclick:()=>{
-                console.log(record)
-                createMessage.success(`请到控制台查看该行输出结果`);
+        previewColumns: [
+          {
+            title: 'url5',
+            dataIndex: 'url5',
+          },
+          {
+            title: 'type5',
+            dataIndex: 'type5',
+          },
+          {
+            title: 'name5',
+            dataIndex: 'name5',
+          },
+          {
+            title: 'operation',
+            dataIndex: '',
+            customRender: ({ record }) => {
+              return createVNode(
+                Button,
+                {
+                  onclick: () => {
+                    console.log(record);
+                    createMessage.success(`请到控制台查看该行输出结果`);
+                  },
+                },
+                '点我',
+              );
+            },
+          },
+        ],
+        beforePreviewData: (arg) => {
+          let data = arg
+            .filter((item) => !!item)
+            .map((item) => {
+              if (typeof item !== 'string') {
+                console.error('return value should be string');
+                return;
               }
-            },"点我")
-          }
+              return {
+                url5: item,
+                type5: item.split('.').pop() || '',
+                name5: item.split('/').pop() || '',
+              };
+            });
+          return data;
         },
-      ],
-        beforePreviewData:(arg)=>{
-          let data = arg.filter((item) => !!item).map((item) => {
-            if(typeof item !== "string"){
-              console.error("return value should be string")
-              return
-            }
-            return {
-              url5: item,
-              type5: item.split('.').pop() || '',
-              name5: item.split('/').pop() || '',
-            };
-          })
-          return data
-        },
-        resultField:"data5.url",
-        api: (file,progress)=>{
-          return new Promise((resolve)=>{
-            uploadApi(file,progress).then((uploadApiResponse)=>{
+        resultField: 'data5.url',
+        api: (file, progress) => {
+          return new Promise((resolve) => {
+            uploadApi(file, progress).then((uploadApiResponse) => {
               resolve({
-                code:200,
-                data5:{
-                  url:uploadApiResponse.data.url
-                }
-              })
-            })
-          })
+                code: 200,
+                data5: {
+                  url: uploadApiResponse.data.url,
+                },
+              });
+            });
+          });
         },
       },
     },
   ];
-  
-
 
   const { createMessage } = useMessage();
 
   function handleChange(list: string[]) {
     createMessage.success(`已上传文件${JSON.stringify(list)}`);
   }
-  const [registerValiate,{getFieldsValue:getFieldsValueValiate,validate}] = useForm({
+  const [registerValiate, { getFieldsValue: getFieldsValueValiate, validate }] = useForm({
     labelWidth: 160,
-    schemas:schemasValiate,
+    schemas: schemasValiate,
     actionColOptions: {
       span: 18,
     },
-    submitFunc:()=>{
-      return new Promise((resolve)=>{
-        validate().then((e)=>{
-          resolve()
-          console.log(getFieldsValueValiate())
-          createMessage.success(`请到控制台查看结果`);
-        }).catch(()=>{
-          createMessage.error(`请输入必填项`);
-        })
-      })
-    }
+    submitFunc: () => {
+      return new Promise((resolve) => {
+        validate()
+          .then(() => {
+            resolve();
+            console.log(getFieldsValueValiate());
+            createMessage.success(`请到控制台查看结果`);
+          })
+          .catch(() => {
+            createMessage.error(`请输入必填项`);
+          });
+      });
+    },
   });
 
   // resultFields 字段示例
-  const [registerCustom,{getFieldsValue:getFieldsValueCustom}] = useForm({
+  const [registerCustom, { getFieldsValue: getFieldsValueCustom }] = useForm({
     labelWidth: 160,
-    schemas:schemasCustom,
+    schemas: schemasCustom,
     actionColOptions: {
       span: 18,
     },
-    submitFunc:()=>{
-      return new Promise((resolve)=>{
-        console.log(getFieldsValueCustom())
-        resolve()
+    submitFunc: () => {
+      return new Promise((resolve) => {
+        console.log(getFieldsValueCustom());
+        resolve();
         createMessage.success(`请到控制台查看结果`);
-      })
-    }
+      });
+    },
   });
 
   // registerPreview
-  const [registerPreview,{getFieldsValue:getFieldsValuePreview}] = useForm({
+  const [registerPreview, { getFieldsValue: getFieldsValuePreview }] = useForm({
     labelWidth: 160,
-    schemas:schemasPreview,
+    schemas: schemasPreview,
     actionColOptions: {
       span: 18,
     },
-    submitFunc:()=>{
-      return new Promise((resolve)=>{
-        console.log(getFieldsValuePreview())
-        resolve()
+    submitFunc: () => {
+      return new Promise((resolve) => {
+        console.log(getFieldsValuePreview());
+        resolve();
         createMessage.success(`请到控制台查看结果`);
-      })
-    }
+      });
+    },
   });
-
-
 </script>

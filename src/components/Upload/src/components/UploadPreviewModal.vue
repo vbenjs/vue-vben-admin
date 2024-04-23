@@ -26,24 +26,23 @@
 
   const emit = defineEmits(['list-change', 'register', 'delete']);
 
-  let columns : BasicColumn[] | FileBasicColumn[] = createPreviewColumns();
-  let actionColumn :any;
+  let columns: BasicColumn[] | FileBasicColumn[] = createPreviewColumns();
+  let actionColumn: any;
 
   const [register] = useModalInner();
   const { t } = useI18n();
 
   const fileListRef = ref<PreviewFileItem[] | Array<any>>([]);
-    watch(
+  watch(
     () => props.previewColumns,
     () => {
       if (props.previewColumns.length) {
         columns = props.previewColumns;
-        actionColumn = null
-      }else{
-        columns=createPreviewColumns();
-        actionColumn = createPreviewActionColumn({ handleRemove, handleDownload })
-      };
-      
+        actionColumn = null;
+      } else {
+        columns = createPreviewColumns();
+        actionColumn = createPreviewActionColumn({ handleRemove, handleDownload });
+      }
     },
     { immediate: true },
   );
@@ -52,17 +51,17 @@
     () => props.value,
     (value) => {
       if (!isArray(value)) value = [];
-      if(props.beforePreviewData){
-        value = props.beforePreviewData(value)  as any
-        fileListRef.value = value
-        return 
+      if (props.beforePreviewData) {
+        value = props.beforePreviewData(value) as any;
+        fileListRef.value = value;
+        return;
       }
       fileListRef.value = value
         .filter((item) => !!item)
         .map((item) => {
-          if(typeof item!="string"){
-            console.error("return value should be string")
-            return
+          if (typeof item != 'string') {
+            console.error('return value should be string');
+            return;
           }
           return {
             url: item,
