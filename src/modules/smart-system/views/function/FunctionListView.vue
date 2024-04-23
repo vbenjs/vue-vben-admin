@@ -25,12 +25,27 @@
           </a-radio>
         </a-radio-group>
       </template>
+      <template #addEdit-parentId="{ model, field }">
+        <TreeSelect
+          v-model:value="model[field]"
+          :fieldNames="{ label: 'functionName', value: 'functionId', children: 'children' }"
+          :tree-data="getTreeData(model)"
+        >
+          <template #title="{ functionType, functionName }">
+            <a-tag :color="getTagData(functionType).color">
+              {{ getTagData(functionType).text }}
+            </a-tag>
+            {{ functionName }}
+          </template>
+        </TreeSelect>
+      </template>
     </SmartTable>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { reactive, ref, unref } from 'vue';
+  import { onMounted, reactive, ref, unref } from 'vue';
+  import { TreeSelect } from 'ant-design-vue';
 
   import {
     ActionItem,
@@ -46,6 +61,7 @@
   import StringUtils from '@/utils/StringUtils';
   import { SystemPermissions } from '@/modules/smart-system/constants/SystemConstants';
   import { hasPermission } from '@/utils/auth';
+  import TreeUtils from '@/utils/TreeUtils';
 
   const permissions = SystemPermissions.function;
   const { t } = useI18n();
@@ -107,10 +123,56 @@
     ];
   };
 
-  const [
-    registerTable,
-    { showAddModal, editByRowModal, getSearchForm, getTableInstance, deleteByRow },
-  ] = useSmartTable({
+  const functionTreeData = ref<Recordable[]>([]);
+  onMounted(async () => {
+    functionTreeData.value = await listApi({
+      parameter: {
+        'functionType@in': ['10', '20'],
+      },
+    });
+  });
+  const getTreeData = (model: Recordable) => {
+    const { functionType, isTopAdd } = model;
+    console.log(isTopAdd);
+    let treeData: Recordable[] = [];
+    if (isTopAdd !== true) {
+      let dataList: Recordable[] = [];
+      if (functionType === 'CATALOG' || functionType === 'MENU') {
+        dataList = unref(functionTreeData)
+          .filter((item) => item.functionType === 'CATALOG')
+          .map((item) => {
+            return {
+              ...item,
+            };
+          });
+      } else {
+        dataList = unref(functionTreeData).map((item) => {
+          return {
+            ...item,
+          };
+        });
+      }
+      if (dataList.length > 0) {
+        treeData =
+          TreeUtils.convertList2Tree(
+            dataList,
+            (row) => row.functionId,
+            (row) => row.parentId,
+            0,
+          ) || [];
+      }
+    }
+    return [
+      {
+        functionId: 0,
+        functionName: '根目录',
+        children: treeData,
+        functionType: 'CATALOG',
+      },
+    ];
+  };
+
+  const [registerTable, { showAddModal, editByRowModal, deleteByRow }] = useSmartTable({
     id: 'FunctionListView',
     columns: tableColumns,
     resizableConfig: {},
@@ -139,17 +201,19 @@
       },
     },
     treeConfig: {
-      lazy: true,
-      loadMethod: ({ row }) => {
-        const { searchSymbolForm } = getSearchForm().getSearchFormParameter();
-        const parameter = {
-          parameter: {
-            ...searchSymbolForm,
-            'parentId@=': row.functionId,
-          },
-        };
-        return listApi(parameter);
-      },
+      reserve: true,
+      // lazy: true,
+      // loadMethod: ({ row }) => {
+      //   console.log('-------------');
+      //   const { searchSymbolForm } = getSearchForm().getSearchFormParameter();
+      //   const parameter = {
+      //     parameter: {
+      //       ...searchSymbolForm,
+      //       'parentId@=': row.functionId,
+      //     },
+      //   };
+      //   return listApi(parameter);
+      // },
     },
     rowConfig: {
       keyField: 'functionId',
@@ -174,22 +238,23 @@
         wrapperCol: { span: 16 },
         schemas: getAddEditForm(t),
       },
-      afterSave: () => {
-        // 保存完成之后重新加载节点
-        return getTableInstance().reloadTreeExpand(unref(currentRowRef));
-      },
     },
     proxyConfig: {
       ajax: {
-        query: ({ ajaxParameter }) => {
+        query: async ({ ajaxParameter }) => {
           const parameter = {
             ...ajaxParameter,
             parameter: {
               ...ajaxParameter?.parameter,
-              'parentId@=': 0,
+              // 'parentId@=': 0,
             },
           };
-          return listApi(parameter);
+          return TreeUtils.convertList2Tree(
+            (await listApi(parameter)) || [],
+            (row) => row.functionId,
+            (row) => row.parentId,
+            0,
+          );
         },
         delete: (params) => deleteApi(params),
         save: saveApi,
@@ -205,8 +270,8 @@
             onClick: () => {
               setTypeDisabled(['function']);
               showAddModal({
-                parentId: '0',
-                parentName: '根目录',
+                isTopAdd: true,
+                parentId: 0,
               });
             },
           },

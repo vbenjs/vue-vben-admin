@@ -98,18 +98,16 @@ export const getAddEditForm = (t: Function): FormSchema[] => {
       show: false,
     },
     {
-      field: 'parentName',
-      label: '上级',
-      component: 'Input',
-      componentProps: {
-        disabled: true,
-      },
+      field: 'isTopAdd',
+      label: '',
+      component: 'Switch',
+      defaultValue: false,
+      show: false,
     },
     {
       field: 'parentId',
-      label: '',
-      component: 'Input',
-      show: false,
+      label: '上级',
+      slot: 'addEdit-parentId',
     },
     {
       field: 'functionName',
