@@ -95,6 +95,7 @@ export const NO_AUTO_LINK_COMPONENTS: ComponentType[] = [
   'ImageUpload',
   'ApiSelect',
   'SmartApiSelectDict',
+  'SmartPulldownTable',
 ];
 
 export const simpleComponents = ['Divider', 'BasicTitle'];
