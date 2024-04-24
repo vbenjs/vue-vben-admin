@@ -8,7 +8,7 @@ enum Api {
   delete = 'sys/user/batchDeleteById',
   saveUpdateWithDataScope = 'sys/user/saveUpdateWithDataScope',
   getByIdWithDataScope = 'sys/user/getByIdWithDataScope',
-  getById = 'sys/user/getById',
+  getById = 'sys/user/getDetailById',
   setUseYn = 'sys/user/setUseYn',
   createAccount = 'sys/user/createAccount',
   saveAccountSetting = 'sys/user/saveAccountSetting',
