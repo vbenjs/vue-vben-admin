@@ -10,7 +10,7 @@
   import { type Recordable, type AnyFunction } from '@vben/types';
   import { type PropType, computed, watch, ref, onMounted, unref, useAttrs } from 'vue';
   import { Tree, TreeProps } from 'ant-design-vue';
-  import { isArray, isFunction } from '@/utils/is';
+  import { isFunction } from '@/utils/is';
   import { get } from 'lodash-es';
   import { DataNode } from 'ant-design-vue/es/tree';
   import { useRuleFormItem } from '@/hooks/component/useFormItem';
@@ -72,7 +72,7 @@
   });
 
   async function fetch() {
-    const { api, afterFetch } = props;
+    const { api, afterFetch,resultField } = props;
     if (!api || !isFunction(api)) return;
     loading.value = true;
     treeData.value = [];
@@ -87,8 +87,8 @@
     }
     loading.value = false;
     if (!result) return;
-    if (!isArray(result)) {
-      result = get(result, props.resultField);
+    if (resultField) {
+      result = get(result, resultField) || [];
     }
     treeData.value = (result as (Recordable & { key: string | number })[]) || [];
     isFirstLoaded.value = true;
