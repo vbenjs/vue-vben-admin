@@ -25,4 +25,4 @@ assignees: ''
 
 - 操作系统:
 - Node 版本:
-- 包管理器 (npm/yarn/pnpm) 及其版本:
+- pnpm 版本:

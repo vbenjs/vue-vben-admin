@@ -1,3 +1,15 @@
+## [2.11.3](https://github.com/vbenjs/vue-vben-admin/compare/v2.11.2...v2.11.3) (2024-04-24)
+
+### Bug Fixes
+
+- **deps:** lock vue version to 3.4.23 ([#3785](https://github.com/vbenjs/vue-vben-admin/issues/3785)) ([2f655c2](https://github.com/vbenjs/vue-vben-admin/commit/2f655c2127753c0cde1cb29834314e961ce0930e)), closes [#3783](https://github.com/vbenjs/vue-vben-admin/issues/3783)
+- **upload:** disabled prop not effect to upload in the form ([#3780](https://github.com/vbenjs/vue-vben-admin/issues/3780)) ([69a6e90](https://github.com/vbenjs/vue-vben-admin/commit/69a6e9023ef80a5504178d0887119f8e7bbd5113))
+
+### Features
+
+- **BasicForm->Components:** add beforeFetch & afterFetch to apicomp && perf the code ([#3786](https://github.com/vbenjs/vue-vben-admin/issues/3786)) ([7ae2ec0](https://github.com/vbenjs/vue-vben-admin/commit/7ae2ec03a773c2223feabbd1e341e90f012f8b7e))
+- **demo:** use Tour component replace dirverjs ([#3777](https://github.com/vbenjs/vue-vben-admin/issues/3777)) ([49c4dc6](https://github.com/vbenjs/vue-vben-admin/commit/49c4dc646a9d123527577f02ee0d92865da9988e))
+
 ## [2.11.2](https://github.com/vbenjs/vue-vben-admin/compare/v2.11.1...v2.11.2) (2024-04-23)
 
 ### Bug Fixes
