@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { type Recordable, type AnyFunction } from '@vben/types';
+  import { type Recordable } from '@vben/types';
   import { type PropType, computed, watch, ref, onMounted, unref, useAttrs } from 'vue';
   import { Tree, TreeProps } from 'ant-design-vue';
   import { isFunction } from '@/utils/is';
@@ -22,7 +22,14 @@
     params: { type: Object },
     immediate: { type: Boolean, default: true },
     resultField: { type: String, default: '' },
-    afterFetch: { type: Function as PropType<AnyFunction> },
+    beforeFetch: {
+      type: Function as PropType<Fn>,
+      default: null,
+    },
+    afterFetch: {
+      type: Function as PropType<Fn>,
+      default: null,
+    },
     value: {
       type: Array as PropType<TreeProps['selectedKeys']>,
     },
@@ -72,25 +79,28 @@
   });
 
   async function fetch() {
-    const { api, afterFetch,resultField } = props;
+    let { api, beforeFetch, afterFetch, params, resultField } = props;
     if (!api || !isFunction(api)) return;
     loading.value = true;
     treeData.value = [];
-    let result;
+    let res;
     try {
-      result = await api(props.params);
+      if (beforeFetch && isFunction(beforeFetch)) {
+        params = (await beforeFetch(params)) || params;
+      }
+      res = await api(params);
+      if (afterFetch && isFunction(afterFetch)) {
+        res = (await afterFetch(res)) || res;
+      }
     } catch (e) {
       console.error(e);
     }
-    if (afterFetch && isFunction(afterFetch)) {
-      result = afterFetch(result);
-    }
     loading.value = false;
-    if (!result) return;
+    if (!res) return;
     if (resultField) {
-      result = get(result, resultField) || [];
+      res = get(res, resultField) || [];
     }
-    treeData.value = (result as (Recordable & { key: string | number })[]) || [];
+    treeData.value = (res as (Recordable & { key: string | number })[]) || [];
     isFirstLoaded.value = true;
     emit('options-change', treeData.value);
   }
