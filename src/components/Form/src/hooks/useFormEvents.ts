@@ -2,7 +2,7 @@ import type { ComputedRef, Ref } from 'vue';
 import type { FormProps, FormSchemaInner as FormSchema, FormActionType } from '../types/form';
 import type { NamePath } from 'ant-design-vue/lib/form/interface';
 import { unref, toRaw, nextTick } from 'vue';
-import { isArray, isFunction, isObject, isString, isDef, isNil } from '@/utils/is';
+import { isArray, isFunction, isObject, isString, isDef, isNil, isNumber } from '@/utils/is';
 import { deepMerge } from '@/utils';
 import {
   dateItemType,
@@ -377,6 +377,10 @@ function getDefaultValue(
   let defaultValue = cloneDeep(defaultValueRef.value[key]);
   const isInput = checkIsInput(schema);
   if (isInput) {
+    // TODO: 默认值0不生效问题解决
+    if (isNumber(defaultValue)) {
+      return defaultValue;
+    }
     return defaultValue || undefined;
   }
   if (!defaultValue && schema && checkIsRangeSlider(schema)) {
