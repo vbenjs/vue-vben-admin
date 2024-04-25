@@ -1,6 +1,6 @@
 import type { SmartTableProps } from '@/components/SmartTable';
 
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent, ref, toRefs, unref } from 'vue';
 import { Row, Col } from 'ant-design-vue';
 
 import { propTypes } from '@/utils/propTypes';
@@ -19,7 +19,7 @@ export default defineComponent({
   props: {
     // 是否支持多选
     multiple: propTypes.bool.def(true),
-    value: propTypes.oneOfType([propTypes.string, propTypes.array]),
+    value: propTypes.oneOfType([propTypes.string, propTypes.array, propTypes.number]),
     // label字段
     labelField: propTypes.string.isRequired,
     // value字段
@@ -33,6 +33,7 @@ export default defineComponent({
   },
   emits: ['update:value', 'change'],
   setup(props, { emit }) {
+    const { value: valueRef, multiple: multipleRef } = toRefs(props);
     const [registerModal, { openModal }] = useModal();
     const optionsRef = ref<Array<any>>([]);
 
@@ -40,20 +41,27 @@ export default defineComponent({
       optionsRef.value = options;
     };
     const handleSelectData = (options: any[]) => {
-      emit(
-        'update:value',
-        options.map((item) => item.value),
-      );
-      emit(
-        'change',
-        options.map((item) => item.value),
-      );
+      handleEmit(options.map((item) => item.value));
     };
     const handleDeselect = (value) => {
       const data = (props.value as any[]).filter((item) => item !== value);
-      emit('update:value', data);
-      emit('change', data);
+      handleEmit(data);
     };
+    const handleEmit = (data: any[]) => {
+      let value: any | undefined = undefined;
+      if (data && data.length > 0) {
+        value = data;
+      }
+      if (value && !props.multiple) {
+        value = value[0];
+      }
+      emit('update:value', value);
+      emit('change', value);
+    };
+    const computedSelectValue = computed(() => {
+      const value = unref(valueRef);
+      return value ? (unref(multipleRef) ? value : [value]) : value;
+    });
     return {
       registerModal,
       openModal,
@@ -61,6 +69,7 @@ export default defineComponent({
       optionsRef,
       handleDeselect,
       handleOptionChange,
+      computedSelectValue,
     };
   },
   render() {
@@ -81,6 +90,7 @@ export default defineComponent({
       handleDeselect,
       handleOptionChange,
       size,
+      computedSelectValue,
     } = this;
     const modalSlots: any = {
       table: $slots.table,
@@ -120,7 +130,7 @@ export default defineComponent({
           onSelectData={handleSelectData}
           valueField={valueField}
           // @ts-ignore
-          selectValues={value}
+          selectValues={computedSelectValue}
           multiple={multiple}
           tableProps={tableProps}
         >

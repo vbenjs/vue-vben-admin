@@ -12,6 +12,10 @@
   import { useI18n } from '@/hooks/web/useI18n';
   import { listUserApi } from '@/api/sys/SystemApi';
 
+  const props = defineProps({
+    parameterHandler: Function as PropType<(parameter?: Recordable) => Recordable>,
+  });
+
   const { t } = useI18n();
 
   const listUserById = (ids) => {
@@ -27,13 +31,19 @@
     useSearchForm: true,
     proxyConfig: {
       ajax: {
-        query: ({ ajaxParameter }) => listUserApi(ajaxParameter),
+        query: ({ ajaxParameter }) => {
+          let parameter = ajaxParameter;
+          if (props.parameterHandler) {
+            parameter = props.parameterHandler(ajaxParameter);
+          }
+          return listUserApi(parameter);
+        },
       },
     },
-    checkboxConfig: {
-      rowTrigger: 'multiple',
-      highlight: true,
-    },
+    // checkboxConfig: {
+    //   rowTrigger: 'multiple',
+    //   highlight: true,
+    // },
     rowConfig: {
       isHover: true,
     },
@@ -43,9 +53,6 @@
       layout: 'inline',
       searchWithSymbol: true,
       actionColOptions: { span: undefined },
-      baseColProps: {
-        span: 12,
-      },
       schemas: [
         {
           label: t('system.views.user.table.fullName'),
@@ -56,12 +63,12 @@
       ],
     },
     columns: [
-      {
-        type: 'checkbox',
-        width: 60,
-        align: 'center',
-        fixed: 'left',
-      },
+      // {
+      //   type: 'checkbox',
+      //   width: 60,
+      //   align: 'center',
+      //   fixed: 'left',
+      // },
       {
         title: '{system.views.user.table.username}',
         field: 'username',

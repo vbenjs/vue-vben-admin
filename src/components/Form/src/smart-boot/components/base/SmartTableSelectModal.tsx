@@ -187,7 +187,6 @@ const renderTable = (instance) => {
       <Col span={showSelect ? 12 : 24}>
         <SmartTable
           onRegister={registerTable}
-          checkboxConfig={getTableCheckboxConfig}
           onCheckboxChange={handleCheckboxChange}
           onCheckboxAll={handleCheckboxAll}
           {...tableAttrs}
