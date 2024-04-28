@@ -157,21 +157,22 @@
   };
 
   async function customRequest(info: UploadRequestOption<any>) {
-    const { api } = props;
+    const { api, uploadParams = {}, name, filename, resultField } = props;
     if (!api || !isFunction(api)) {
       return warn('upload api must exist and be a function');
     }
     try {
-      const res = await props.api?.({
+      const res = await api?.({
         data: {
-          ...(props.uploadParams || {}),
+          ...uploadParams,
         },
         file: info.file,
-        name: props.name,
-        filename: props.filename,
+        name: name,
+        filename: filename,
       });
       if (props.resultField) {
-        info.onSuccess!(res);
+        let result = get(res, resultField);
+        info.onSuccess!(result);
       } else {
         // 不传入 resultField 的情况
         info.onSuccess!(res.data);
@@ -190,12 +191,9 @@
     const list = (fileList.value || [])
       .filter((item) => item?.status === UploadResultStatus.DONE)
       .map((item: any) => {
-        if (props.resultField) {
-          return get(item?.response, props.resultField);
-        }
-        return item?.url || item?.response?.url;
+        return item?.url || item?.response?.url || item?.response;
       });
-    return props.multiple ? list : list.length > 0 ? list[0] : '';
+    return list;
   }
 </script>
 
