@@ -70,8 +70,8 @@
         isInnerOperate.value = false;
         return;
       }
+      let value: string[] = [];
       if (v) {
-        let value: string[] = [];
         if (isArray(v)) {
           value = v;
         } else {
@@ -92,6 +92,8 @@
           }
         }) as UploadProps['fileList'];
       }
+      emit('update:value', value);
+      emit('change', value);
     },
     {
       immediate: true,
