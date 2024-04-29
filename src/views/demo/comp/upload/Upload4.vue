@@ -1,6 +1,6 @@
 <template>
-   <Alert message="嵌入表单,自定义预览内容" />
-    <BasicForm @register="registerPreview" class="my-5" />
+  <Alert message="嵌入表单,自定义预览内容" />
+  <BasicForm @register="registerPreview" class="my-5" />
 </template>
 
 <script setup lang="ts">
@@ -41,7 +41,7 @@
                     createMessage.success(`请到控制台查看该行输出结果`);
                   },
                 },
-                ()=>'点我输出该行信息',
+                () => '点我输出该行信息',
               );
             },
           },
@@ -82,30 +82,68 @@
       component: 'Upload',
       label: '字段6',
       componentProps: {
-        previewColumns: ({handleRemove})=>{
-          return [ {
-            title: 'url6',
-            dataIndex: 'url6',
-          },
-          {
-            title: 'type6',
-            dataIndex: 'type6',
-          },{
-            title:"操作",
-            dataIndex:"operation",
-            customRender: ({ record }) => {
-              return createVNode(
-                Button,
-                {
-                  onclick: () => {
-                    handleRemove({url6:record.url6},"url6")
-                    createMessage.success(`请到控制台查看该行输出结果`);
-                  },
-                },
-                ()=>'点我删除',
-              );
+        maxNumber:2,
+        previewColumns: ({ handleRemove, handleAdd, handleDownload }) => {
+          return [
+            {
+              title: 'url6',
+              dataIndex: 'url6',
             },
-          }]
+            {
+              title: 'type6',
+              dataIndex: 'type6',
+            },
+            {
+              title: '操作1',
+              dataIndex: 'operation',
+              customRender: ({ record }) => {
+                return createVNode('div', {}, [
+                  createVNode(
+                    Button,
+                    {
+                      type:"primary",
+                      style:"margin:4px",
+                      onclick: () => {
+                        handleAdd(
+                          { url6: 'https://vebn.oss-cn-beijing.aliyuncs.com/vben/logo.png' },
+                          'url6',
+                        );
+                      },
+                    },
+                    () => '点我新增',
+                  ),
+                  createVNode(
+                    Button,
+                    {
+                     
+                      style:"margin:4px",
+                      onclick: () => {
+                        let dlFn = handleDownload(
+                          record,
+                          'url6',
+                          true
+                        );
+                        dlFn("测试.png")
+                      },
+                    },
+                    () => '点我下载',
+                  ),
+                  createVNode(
+                    Button,
+                    {
+                      danger:true,
+                      onclick: () => {
+                        handleRemove({ url6: record.url6 }, 'url6');
+                      },
+                    },
+                    () => '点我删除',
+                  ),
+                 
+                ]);
+              },
+            },
+            
+          ];
         },
         beforePreviewData: (arg) => {
           let data = arg
@@ -137,6 +175,7 @@
           });
         },
       },
+      
     },
   ];
   const [registerPreview, { getFieldsValue: getFieldsValuePreview }] = useForm({

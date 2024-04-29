@@ -36,6 +36,7 @@
 
     <UploadPreviewModal
       :value="fileList"
+      :max-number="bindValue.maxNumber"
       @register="registerPreviewModal"
       @list-change="handlePreviewChange"
       @delete="handlePreviewDelete"

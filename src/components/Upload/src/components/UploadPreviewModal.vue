@@ -16,12 +16,14 @@
   import { BasicModal, useModalInner } from '@/components/Modal';
   import { previewProps } from '../props';
   import { FileBasicColumn, PreviewFileItem } from '../types/typing';
-  import { downloadByUrl } from '@/utils/file/download';
+  import { downloadByOnlineUrl, downloadByUrl } from '@/utils/file/download';
   import { createPreviewColumns, createPreviewActionColumn } from './data';
   import { useI18n } from '@/hooks/web/useI18n';
   import { isArray } from '@/utils/is';
   import { BasicColumn } from '@/components/Table';
   import { isFunction } from '@/utils/is';
+  import { useMessage } from '@/hooks/web/useMessage';
+  const { createMessage } = useMessage();
 
   const props = defineProps(previewProps);
 
@@ -40,9 +42,9 @@
       if (Array.isArray(props.previewColumns) && props.previewColumns.length) {
         columns = props.previewColumns;
         actionColumn = null;
-      } else if(isFunction(props.previewColumns)) {
-        columns = props.previewColumns({ handleRemove });
-      }else {
+      } else if (isFunction(props.previewColumns)) {
+        columns = props.previewColumns({ handleRemove, handleAdd, handleDownload });
+      } else {
         columns = createPreviewColumns();
         actionColumn = createPreviewActionColumn({ handleRemove, handleDownload });
       }
@@ -77,7 +79,7 @@
   );
 
   // 删除
-  function handleRemove(record: PreviewFileItem | Record<string,any>,urlKey="url") {
+  function handleRemove(record: PreviewFileItem | Record<string, any>, urlKey = 'url') {
     const index = fileListRef.value.findIndex((item) => item[urlKey] === record[urlKey]);
     if (index !== -1) {
       const removed = fileListRef.value.splice(index, 1);
@@ -88,11 +90,33 @@
       );
     }
   }
-
+  // 添加
+  function handleAdd(record: PreviewFileItem | Record<string, any>, urlKey = 'url') {
+    const { maxNumber } = props;
+    if (fileListRef.value.length + fileListRef.value.length > maxNumber) {
+      return createMessage.warning(t('component.upload.maxNumber', [maxNumber]));
+    }
+    fileListRef.value = [...fileListRef.value, record];
+    emit(
+      'list-change',
+      fileListRef.value.map((item) => item[urlKey]),
+    );
+  }
   // 下载
-  function handleDownload(record: PreviewFileItem) {
-    const { url = '' } = record;
-    downloadByUrl({ url });
+  function handleDownload(
+    record: PreviewFileItem | Record<string, any>,
+    urlKey = 'url',
+    isCustomer = false,
+  ) {
+    const url = record[urlKey] ? record[urlKey] : '';
+    if (!isCustomer) {
+      downloadByUrl({ url });
+    }
+    if (isCustomer) {
+      return (fileName: string, mime?: string, bom?: BlobPart) => {
+        downloadByOnlineUrl(url, fileName, mime, bom);
+      };
+    }
   }
 </script>
 <style lang="less">

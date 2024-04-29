@@ -14,12 +14,14 @@ type SortableOptions = Merge<
     // ...可扩展
   }
 >;
-type previewColumnsType = {
-  handleRemove:(record:Record<string,any>,key:string)=>any
+type previewColumnsFnType = {
+  handleRemove:(record:Record<string,any>,key:string)=>any,
+  handleAdd:(record:Record<string,any>,key:string)=>any,
+  handleDownload:(record:Record<string,any>,key:string,isCustomer:boolean)=>any
 }
 export const previewType = {
   previewColumns: {
-    type: [Array,Function] as PropType<BasicColumn[] | ((arg:previewColumnsType) => BasicColumn[])>,
+    type: [Array,Function] as PropType<BasicColumn[] | ((arg:previewColumnsFnType) => BasicColumn[])>,
     required: false,
   },
   beforePreviewData: {
@@ -111,6 +113,10 @@ export const previewProps = {
   value: {
     type: Array as PropType<string[]>,
     default: () => [],
+  },
+  maxNumber: {
+    type: Number as PropType<number>,
+    default: 1,
   },
   ...previewType,
 };
