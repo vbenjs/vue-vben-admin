@@ -17,7 +17,6 @@ type SortableOptions = Merge<
 type previewColumnsFnType = {
   handleRemove:(record:Record<string,any>,key:string)=>any,
   handleAdd:(record:Record<string,any>,key:string)=>any,
-  handleDownload:(record:Record<string,any>,key:string,isCustomer:boolean)=>any
 }
 export const previewType = {
   previewColumns: {

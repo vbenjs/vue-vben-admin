@@ -16,7 +16,7 @@
   import { BasicModal, useModalInner } from '@/components/Modal';
   import { previewProps } from '../props';
   import { FileBasicColumn, PreviewFileItem } from '../types/typing';
-  import { downloadByOnlineUrl, downloadByUrl } from '@/utils/file/download';
+  import { downloadByUrl } from '@/utils/file/download';
   import { createPreviewColumns, createPreviewActionColumn } from './data';
   import { useI18n } from '@/hooks/web/useI18n';
   import { isArray } from '@/utils/is';
@@ -43,7 +43,7 @@
         columns = props.previewColumns;
         actionColumn = null;
       } else if (isFunction(props.previewColumns)) {
-        columns = props.previewColumns({ handleRemove, handleAdd, handleDownload });
+        columns = props.previewColumns({ handleRemove, handleAdd });
       } else {
         columns = createPreviewColumns();
         actionColumn = createPreviewActionColumn({ handleRemove, handleDownload });
@@ -103,20 +103,9 @@
     );
   }
   // 下载
-  function handleDownload(
-    record: PreviewFileItem | Record<string, any>,
-    urlKey = 'url',
-    isCustomer = false,
-  ) {
-    const url = record[urlKey] ? record[urlKey] : '';
-    if (!isCustomer) {
-      downloadByUrl({ url });
-    }
-    if (isCustomer) {
-      return (fileName: string, mime?: string, bom?: BlobPart) => {
-        downloadByOnlineUrl(url, fileName, mime, bom);
-      };
-    }
+  function handleDownload(record: PreviewFileItem) {
+    const { url = '' } = record;
+    downloadByUrl({ url });
   }
 </script>
 <style lang="less">

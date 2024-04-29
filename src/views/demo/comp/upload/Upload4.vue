@@ -83,7 +83,7 @@
       label: '字段6',
       componentProps: {
         maxNumber:2,
-        previewColumns: ({ handleRemove, handleAdd, handleDownload }) => {
+        previewColumns: ({ handleRemove, handleAdd}) => {
           return [
             {
               title: 'url6',
@@ -115,22 +115,6 @@
                   createVNode(
                     Button,
                     {
-                     
-                      style:"margin:4px",
-                      onclick: () => {
-                        let dlFn = handleDownload(
-                          record,
-                          'url6',
-                          true
-                        );
-                        dlFn("测试.png")
-                      },
-                    },
-                    () => '点我下载',
-                  ),
-                  createVNode(
-                    Button,
-                    {
                       danger:true,
                       onclick: () => {
                         handleRemove({ url6: record.url6 }, 'url6');
@@ -138,7 +122,6 @@
                     },
                     () => '点我删除',
                   ),
-                 
                 ]);
               },
             },
