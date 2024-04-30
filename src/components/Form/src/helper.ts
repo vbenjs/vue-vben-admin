@@ -69,14 +69,6 @@ export const defaultValueComponents = [
   'InputTextArea',
 ];
 
-export function handleInputNumberValue(component?: ComponentType, val?: any) {
-  if (!component) return val;
-  if (defaultValueComponents.includes(component)) {
-    return val && isNumber(val) ? val : `${val}`;
-  }
-  return val;
-}
-
 /**
  * 时间字段
  */
