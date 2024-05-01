@@ -10,6 +10,7 @@ import { VxeGridPropTypes } from 'vxe-table';
  * 分页支持
  * @author zhongming4762
  * @param propsRef
+ * @param emit
  */
 export const usePagination = (propsRef: ComputedRef<SmartTableProps>, emit: Function) => {
   const configRef = ref<VxeGridPropTypes.PagerConfig>({});

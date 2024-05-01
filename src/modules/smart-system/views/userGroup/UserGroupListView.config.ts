@@ -9,6 +9,7 @@ export const getTableColumns = (): SmartColumn[] => {
       width: 60,
       align: 'center',
       fixed: 'left',
+      field: 'checkbox',
     },
     {
       title: '{system.views.userGroup.table.groupCode}',
