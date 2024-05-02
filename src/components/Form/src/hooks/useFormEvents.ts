@@ -6,12 +6,11 @@ import { isArray, isFunction, isObject, isString, isDef, isNil } from '@/utils/i
 import { deepMerge } from '@/utils';
 import {
   dateItemType,
-  handleInputNumberValue,
   defaultValueComponents,
   isIncludeSimpleComponents,
 } from '../helper';
 import { dateUtil } from '@/utils/dateUtil';
-import { cloneDeep, set, uniqBy, get } from 'lodash-es';
+import { cloneDeep, has, uniqBy, get } from 'lodash-es';
 import { error } from '@/utils/log';
 
 interface UseFormActionContext {
@@ -23,46 +22,6 @@ interface UseFormActionContext {
   formElRef: Ref<FormActionType>;
   schemaRef: Ref<FormSchema[]>;
   handleFormValues: Fn;
-}
-
-function tryConstructArray(field: string, values: Recordable = {}): any[] | undefined {
-  const pattern = /^\[(.+)\]$/;
-  if (pattern.test(field)) {
-    const match = field.match(pattern);
-    if (match && match[1]) {
-      const keys = match[1].split(',');
-      if (!keys.length) {
-        return undefined;
-      }
-
-      const result = [];
-      keys.forEach((k, index) => {
-        set(result, index, values[k.trim()]);
-      });
-
-      return result.filter(Boolean).length ? result : undefined;
-    }
-  }
-}
-
-function tryConstructObject(field: string, values: Recordable = {}): Recordable | undefined {
-  const pattern = /^\{(.+)\}$/;
-  if (pattern.test(field)) {
-    const match = field.match(pattern);
-    if (match && match[1]) {
-      const keys = match[1].split(',');
-      if (!keys.length) {
-        return;
-      }
-
-      const result = {};
-      keys.forEach((k) => {
-        set(result, k.trim(), values[k.trim()]);
-      });
-
-      return Object.values(result).filter(Boolean).length ? result : undefined;
-    }
-  }
 }
 
 export function useFormEvents({
@@ -114,17 +73,11 @@ export function useFormEvents({
 
     const fields = getAllFields();
 
-    // key 支持 a.b.c 的嵌套写法
-    const delimiter = '.';
-    const nestKeyArray = fields.filter((item) => String(item).indexOf(delimiter) >= 0);
-
     const validKeys: string[] = [];
     fields.forEach((key) => {
       const schema = unref(getSchema).find((item) => item.field === key);
       let value = get(values, key);
-      const hasKey = Reflect.has(values, key);
-
-      value = handleInputNumberValue(schema?.component, value);
+      const hasKey = has(values, key);
       const { componentProps } = schema || {};
       let _props = componentProps as any;
       if (typeof componentProps === 'function') {
@@ -134,7 +87,7 @@ export function useFormEvents({
         });
       }
 
-      const constructValue = tryConstructArray(key, values) || tryConstructObject(key, values);
+      const constructValue = get(value, key);
       const setDateFieldValue = (v) => {
         return v ? (_props?.valueFormat ? v : dateUtil(v)) : null;
       };
@@ -161,20 +114,10 @@ export function useFormEvents({
         }
         validKeys.push(key);
       } else {
-        nestKeyArray.forEach((nestKey: string) => {
-          try {
-            const value = get(values,nestKey)
-            if (isDef(value)) {
-              unref(formModel)[nestKey] = unref(value);
-              validKeys.push(nestKey);
-            }
-          } catch (e) {
-            // key not exist
-            if (isDef(defaultValueRef.value[nestKey])) {
-              unref(formModel)[nestKey] = cloneDeep(unref(defaultValueRef.value[nestKey]));
-            }
-          }
-        });
+        // key not exist
+        if (isDef(get(defaultValueRef.value, key))) {
+          unref(formModel)[key] = cloneDeep(unref(get(defaultValueRef.value, key)));
+        }
       }
     });
     validateFields(validKeys).catch((_) => {});

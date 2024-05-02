@@ -71,7 +71,7 @@
   import { areaRecord } from '@/api/demo/cascader';
   import { uploadApi } from '@/api/sys/upload';
 
-  let debounceOptionsFn = useDebounceFn(onSearch, 300)
+  let debounceOptionsFn = useDebounceFn(onSearch, 300);
   const valueSelectA = ref<string[]>([]);
   const valueSelectB = ref<string[]>([]);
   const options = ref<Required<SelectProps>['options']>([]);
@@ -412,7 +412,7 @@
         params: {
           id: 1,
         },
-        
+
         resultField: 'list',
         // use name as label
         labelField: 'name',

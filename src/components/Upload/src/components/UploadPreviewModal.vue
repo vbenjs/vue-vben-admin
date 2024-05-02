@@ -21,6 +21,9 @@
   import { useI18n } from '@/hooks/web/useI18n';
   import { isArray } from '@/utils/is';
   import { BasicColumn } from '@/components/Table';
+  import { isFunction } from '@/utils/is';
+  import { useMessage } from '@/hooks/web/useMessage';
+  const { createMessage } = useMessage();
 
   const props = defineProps(previewProps);
 
@@ -36,9 +39,11 @@
   watch(
     () => props.previewColumns,
     () => {
-      if (props.previewColumns.length) {
+      if (Array.isArray(props.previewColumns) && props.previewColumns.length) {
         columns = props.previewColumns;
         actionColumn = null;
+      } else if (isFunction(props.previewColumns)) {
+        columns = props.previewColumns({ handleRemove, handleAdd });
       } else {
         columns = createPreviewColumns();
         actionColumn = createPreviewActionColumn({ handleRemove, handleDownload });
@@ -74,18 +79,29 @@
   );
 
   // 删除
-  function handleRemove(record: PreviewFileItem) {
-    const index = fileListRef.value.findIndex((item) => item.url === record.url);
+  function handleRemove(record: PreviewFileItem | Record<string, any>, urlKey = 'url') {
+    const index = fileListRef.value.findIndex((item) => item[urlKey] === record[urlKey]);
     if (index !== -1) {
       const removed = fileListRef.value.splice(index, 1);
-      emit('delete', removed[0].url);
+      emit('delete', removed[0][urlKey]);
       emit(
         'list-change',
-        fileListRef.value.map((item) => item.url),
+        fileListRef.value.map((item) => item[urlKey]),
       );
     }
   }
-
+  // 添加
+  function handleAdd(record: PreviewFileItem | Record<string, any>, urlKey = 'url') {
+    const { maxNumber } = props;
+    if (fileListRef.value.length + fileListRef.value.length > maxNumber) {
+      return createMessage.warning(t('component.upload.maxNumber', [maxNumber]));
+    }
+    fileListRef.value = [...fileListRef.value, record];
+    emit(
+      'list-change',
+      fileListRef.value.map((item) => item[urlKey]),
+    );
+  }
   // 下载
   function handleDownload(record: PreviewFileItem) {
     const { url = '' } = record;

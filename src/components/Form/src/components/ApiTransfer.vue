@@ -32,7 +32,14 @@
     dataSource: { type: Array as PropType<Array<TransferItem>> },
     immediate: propTypes.bool.def(true),
     alwaysLoad: propTypes.bool.def(false),
-    afterFetch: { type: Function },
+    beforeFetch: {
+      type: Function as PropType<Fn>,
+      default: null,
+    },
+    afterFetch: {
+      type: Function as PropType<Fn>,
+      default: null,
+    },
     resultField: propTypes.string.def(''),
     labelField: propTypes.string.def('title'),
     valueField: propTypes.string.def('key'),
@@ -98,23 +105,29 @@
   );
 
   async function fetch() {
-    const api = props.api;
+    let { api, beforeFetch, afterFetch, params, resultField, dataSource } = props;
     if (!api || !isFunction(api)) {
-      if (Array.isArray(props.dataSource)) {
-        _dataSource.value = props.dataSource;
+      if (Array.isArray(dataSource)) {
+        _dataSource.value = dataSource;
       }
       return;
     }
     _dataSource.value = [];
     try {
-      const res = await api(props.params);
+      if (beforeFetch && isFunction(beforeFetch)) {
+        params = (await beforeFetch(params)) || params;
+      }
+      let res = await api(params);
+      if (afterFetch && isFunction(afterFetch)) {
+        res = (await afterFetch(res)) || res;
+      }
       if (Array.isArray(res)) {
         _dataSource.value = res;
         emitChange();
         return;
       }
-      if (props.resultField) {
-        _dataSource.value = get(res, props.resultField) || [];
+      if (resultField) {
+        _dataSource.value = get(res, resultField) || [];
       }
       emitChange();
     } catch (error) {
