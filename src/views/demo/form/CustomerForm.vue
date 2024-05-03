@@ -80,7 +80,6 @@
     },
     {
       field: 'field3',
-      // component: 'Input',
       label: '自定义Slot',
       slot: 'f3',
       colProps: {
@@ -233,6 +232,7 @@
     createMessage.success('click search,values:' + JSON.stringify(values));
   }
 </script>
+
 <style lang="less" scoped>
   :deep(.local_form) .local_typeValue {
     width: calc(100% - 120px);

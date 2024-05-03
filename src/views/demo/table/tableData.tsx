@@ -142,13 +142,11 @@ export function getCustomHeaderColumns(): BasicColumn[] {
       // title: '姓名',
       dataIndex: 'name',
       width: 120,
-      // slots: { title: 'customTitle' },
     },
     {
       // title: '地址',
       dataIndex: 'address',
       width: 120,
-      // slots: { title: 'customAddress' },
       sorter: true,
     },
 
@@ -252,7 +250,6 @@ export function getFormConfig(): Partial<FormProps> {
       {
         field: `field11`,
         label: `Slot示例`,
-        // component: 'Select',
         slot: 'custom',
         colProps: {
           xl: 12,

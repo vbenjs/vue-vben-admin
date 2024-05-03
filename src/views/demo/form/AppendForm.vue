@@ -45,7 +45,6 @@
       },
       {
         field: '0',
-        // component: 'Input',
         label: ' ',
         slot: 'add',
       },

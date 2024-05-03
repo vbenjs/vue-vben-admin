@@ -369,11 +369,9 @@
           if (!props.record.editValueRefs) props.record.editValueRefs = {};
           props.record.editValueRefs[props.column.dataIndex as any] = currentValueRef;
         }
-        /* eslint-disable  */
         props.record.onCancelEdit = () => {
           isArray(props.record?.cancelCbs) && props.record?.cancelCbs.forEach((fn) => fn());
         };
-        /* eslint-disable */
         props.record.onSubmitEdit = async () => {
           if (isArray(props.record?.submitCbs)) {
             if (!props.record?.onValid?.()) return;
@@ -508,7 +506,7 @@
   }
   .@{prefix-cls} {
     position: relative;
-    min-height: 24px; //设置高度让其始终可被hover
+    min-height: 24px; // 设置高度让其始终可被hover
 
     &__wrapper {
       display: flex;

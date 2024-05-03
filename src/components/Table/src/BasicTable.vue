@@ -32,13 +32,9 @@
           <HeaderCell :column="column" />
         </slot>
       </template>
-      <!-- 增加对antdv3.x兼容 -->
       <template #bodyCell="data">
         <slot name="bodyCell" v-bind="data || {}"></slot>
       </template>
-      <!--      <template #[`header-${column.dataIndex}`] v-for="(column, index) in columns" :key="index">-->
-      <!--        <HeaderCell :column="column" />-->
-      <!--      </template>-->
     </Table>
   </div>
 </template>

@@ -87,7 +87,7 @@
   }
   const actionList: TreeActionItem[] = [
     {
-      // show:()=>boolean;
+      // show:() => boolean;
       render: (node) => {
         return h(PlusOutlined, {
           class: 'ml-2',

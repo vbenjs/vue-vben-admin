@@ -19,10 +19,10 @@
   import { downloadByUrl } from '@/utils/file/download';
   import { createPreviewColumns, createPreviewActionColumn } from './data';
   import { useI18n } from '@/hooks/web/useI18n';
-  import { isArray } from '@/utils/is';
+  import { isArray, isFunction } from '@/utils/is';
   import { BasicColumn } from '@/components/Table';
-  import { isFunction } from '@/utils/is';
   import { useMessage } from '@/hooks/web/useMessage';
+
   const { createMessage } = useMessage();
 
   const props = defineProps(previewProps);
