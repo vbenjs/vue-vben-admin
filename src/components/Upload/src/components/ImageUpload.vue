@@ -9,6 +9,7 @@
       :maxCount="maxNumber"
       :before-upload="beforeUpload"
       :custom-request="customRequest"
+      :disabled="disabled"
       @preview="handlePreview"
       @remove="handleRemove"
     >
