@@ -135,7 +135,6 @@
       width: 250,
       title: 'Action',
       dataIndex: 'action',
-      // slots: { customRender: 'action' },
     },
     showSelectionBar: true, // 显示多选状态栏
   });
