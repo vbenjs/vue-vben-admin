@@ -1,3 +1,20 @@
+## [2.11.4](https://github.com/vbenjs/vue-vben-admin/compare/v2.11.3...v2.11.4) (2024-05-06)
+
+### Bug Fixes
+
+- **BasicForm:** 修复 SetFieldsValue 设置值时，会将 Number 类型的值转为 string ([#3802](https://github.com/vbenjs/vue-vben-admin/issues/3802)) ([08a1f7b](https://github.com/vbenjs/vue-vben-admin/commit/08a1f7b682114bdf758ea9dcd4b84daea0d5f196))
+- **breadcrumb:** if hideChildrenInmenu is true & hidden dropdown-menu ([#3807](https://github.com/vbenjs/vue-vben-admin/issues/3807)) ([2af93c9](https://github.com/vbenjs/vue-vben-admin/commit/2af93c9f5307ffdbb29653303177b2c8631e789a))
+- **docker:** update node version of dockerfile ([#3788](https://github.com/vbenjs/vue-vben-admin/issues/3788)) ([338d077](https://github.com/vbenjs/vue-vben-admin/commit/338d077ab3669ef116e7406c586fe2cb59952022))
+- **imgupload:** resultField causing with error display && setField uncertain ([#3798](https://github.com/vbenjs/vue-vben-admin/issues/3798)) ([06018ad](https://github.com/vbenjs/vue-vben-admin/commit/06018add798a6c23ebbfa91a3f4d625c2a57e458))
+
+### Features
+
+- **upload->previewColumns:** Adapt functions && chore upload demo ([#3799](https://github.com/vbenjs/vue-vben-admin/issues/3799)) ([29ef0d3](https://github.com/vbenjs/vue-vben-admin/commit/29ef0d39157957146015e1b914c26d2b6d1bf25e))
+
+### Performance Improvements
+
+- **util:** remove handleInputNumberValue ([#3806](https://github.com/vbenjs/vue-vben-admin/issues/3806)) ([ba5b8f8](https://github.com/vbenjs/vue-vben-admin/commit/ba5b8f8506bb9d052ce2705653f255f0401963e8))
+
 ## [2.11.3](https://github.com/vbenjs/vue-vben-admin/compare/v2.11.2...v2.11.3) (2024-04-24)
 
 ### Bug Fixes
