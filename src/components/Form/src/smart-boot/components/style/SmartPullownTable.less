@@ -15,6 +15,33 @@
   }
 }
 
+@suffix-icon-width: 30px;
+
 .smart-pullown-input {
   width: 100%;
+
+  .select {
+    width: calc(100% - @suffix-icon-width);
+  }
+
+  .suffix-icon {
+    width: @suffix-icon-width;
+    border: 1px solid #d9d9d9;
+    border-left: 0;
+    border-radius: 0 4px 4px 0;
+    background-color: rgb(0 0 0 / 2%);
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .ant-select-selector {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  .smart-pulldown-open {
+    .ant-select-selection-item {
+      color: rgb(0 0 0 / 25%);
+    }
+  }
 }
