@@ -4,6 +4,12 @@
       <template #table-operation="{ row }">
         <SmartVxeTableAction :actions="getActions(row)" />
       </template>
+      <template #search-tenantId="{ model, field }">
+        <SysTenantSelect allowClear style="width: 120px" v-model:value="model[field]" />
+      </template>
+      <template #addEdit-tenantId="{ model, field }">
+        <SysTenantSelect allowClear v-model:value="model[field]" />
+      </template>
     </SmartTable>
   </div>
 </template>
@@ -25,6 +31,7 @@
     getSearchFormSchemas,
   } from './SysAuthAccessSecretListView.config';
   import { listApi, deleteApi, getByIdApi, saveUpdateApi } from './SysAuthAccessSecretListView.api';
+  import { SysTenantSelect } from '@/modules/smart-system/components';
 
   const { t } = useI18n();
   const { getTableSize } = useSizeSetting();
@@ -49,6 +56,10 @@
     },
     rowConfig: {
       isHover: true,
+    },
+    stripe: true,
+    columnConfig: {
+      resizable: true,
     },
     showOverflow: 'tooltip',
     pagerConfig: true,

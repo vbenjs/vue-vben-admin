@@ -15,6 +15,14 @@ export const getTableColumns = (): SmartColumn[] => {
       fixed: 'left',
     },
     {
+      field: 'tenantId',
+      title: '{system.views.auth.accessSecret.title.tenantId}',
+      width: 120,
+      formatter(params) {
+        return params.row.tenant?.tenantName;
+      },
+    },
+    {
       field: 'seq',
       sortable: true,
       title: '{common.table.seq}',
@@ -22,22 +30,22 @@ export const getTableColumns = (): SmartColumn[] => {
     },
     {
       field: 'accessKey',
-      title: '{system.views.auth.acccessSecret.title.accessKey}',
+      title: '{system.views.auth.accessSecret.title.accessKey}',
       width: 120,
     },
     {
       field: 'secretKey',
-      title: '{system.views.auth.acccessSecret.title.secretKey}',
+      title: '{system.views.auth.accessSecret.title.secretKey}',
       width: 120,
     },
     {
       field: 'expireDate',
-      title: '{system.views.auth.acccessSecret.title.expireDate}',
+      title: '{system.views.auth.accessSecret.title.expireDate}',
       width: 165,
     },
     {
       field: 'accessIp',
-      title: '{system.views.auth.acccessSecret.title.accessIp}',
+      title: '{system.views.auth.accessSecret.title.accessIp}',
       width: 120,
     },
     {
@@ -93,22 +101,28 @@ export const getFormSchemas = (t: Function): FormSchema[] => {
       componentProps: {},
     },
     {
+      field: 'tenantId',
+      label: t('system.views.auth.accessSecret.title.tenantId'),
+      slot: 'addEdit-tenantId',
+      required: true,
+    },
+    {
       field: 'accessKey',
-      label: t('system.views.auth.acccessSecret.title.accessKey'),
+      label: t('system.views.auth.accessSecret.title.accessKey'),
       component: 'Input',
       componentProps: {},
       dynamicDisabled: true,
     },
     {
       field: 'secretKey',
-      label: t('system.views.auth.acccessSecret.title.secretKey'),
+      label: t('system.views.auth.accessSecret.title.secretKey'),
       component: 'Input',
       componentProps: {},
       dynamicDisabled: true,
     },
     {
       field: 'expireDate',
-      label: t('system.views.auth.acccessSecret.title.expireDate'),
+      label: t('system.views.auth.accessSecret.title.expireDate'),
       component: 'DatePicker',
       componentProps: {
         showTime: true,
@@ -117,10 +131,10 @@ export const getFormSchemas = (t: Function): FormSchema[] => {
     },
     {
       field: 'accessIp',
-      label: t('system.views.auth.acccessSecret.title.accessIp'),
+      label: t('system.views.auth.accessSecret.title.accessIp'),
       component: 'InputTextArea',
       componentProps: {
-        placeholder: t('system.views.auth.acccessSecret.validate.accessIp'),
+        placeholder: t('system.views.auth.accessSecret.validate.accessIp'),
       },
     },
     {
@@ -149,14 +163,20 @@ export const getFormSchemas = (t: Function): FormSchema[] => {
 export const getSearchFormSchemas = (t: Function): SmartSearchFormSchema[] => {
   return [
     {
+      field: 'tenantId',
+      label: t('system.views.auth.accessSecret.title.tenantId'),
+      slot: 'search-tenantId',
+      searchSymbol: '=',
+    },
+    {
       field: 'accessKey',
-      label: t('system.views.auth.acccessSecret.title.accessKey'),
+      label: t('system.views.auth.accessSecret.title.accessKey'),
       component: 'Input',
       searchSymbol: 'like',
     },
     {
       field: 'secretKey',
-      label: t('system.views.auth.acccessSecret.title.secretKey'),
+      label: t('system.views.auth.accessSecret.title.secretKey'),
       component: 'Input',
       searchSymbol: 'like',
     },

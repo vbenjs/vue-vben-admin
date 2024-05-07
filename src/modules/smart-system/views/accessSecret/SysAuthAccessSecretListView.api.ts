@@ -1,7 +1,7 @@
 import { ApiServiceEnum, defHttp } from '@/utils/http/axios';
 
 enum Api {
-  list = '/sys/auth/accessSecret/list',
+  list = '/sys/auth/accessSecret/listWithAll',
   getById = '/sys/auth/accessSecret/getById',
   saveUpdate = '/sys/auth/accessSecret/saveUpdate',
   delete = '/sys/auth/accessSecret/batchDeleteById',

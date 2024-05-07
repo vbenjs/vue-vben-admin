@@ -3,7 +3,7 @@
  */
 export default {
   trans: true,
-  key: 'system.views.auth.acccessSecret',
+  key: 'system.views.auth.accessSecret',
   data: {
     title: {
       accessKey: 'Access key',
@@ -12,6 +12,7 @@ export default {
       accessIp: '授权IP或域名',
       createBy: 'createBy',
       updateBy: 'updateBy',
+      tenantId: '所属租户',
     },
     validate: {
       accessKey: '请输入Access key',
