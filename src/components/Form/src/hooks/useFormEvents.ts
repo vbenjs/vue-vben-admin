@@ -90,7 +90,7 @@ export function useFormEvents({
 
       // 0| '' is allow
       if (hasKey || !!constructValue) {
-        const fieldValue = constructValue || value;
+        const fieldValue = constructValue && !isFunction(constructValue) ? constructValue : value;
         // time type
         if (itemIsDateType(key)) {
           if (Array.isArray(fieldValue)) {
