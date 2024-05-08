@@ -135,7 +135,7 @@ export function useFormValues({
     const schemas = unref(getSchema);
     const obj: Recordable = {};
     schemas.forEach((item) => {
-      const { defaultValue, defaultValueObj } = item;
+      const { defaultValue, defaultValueObj, componentProps={} } = item;
       const fieldKeys = Object.keys(defaultValueObj || {});
       if (fieldKeys.length) {
         fieldKeys.forEach((field) => {
@@ -150,6 +150,12 @@ export function useFormValues({
 
         if (formModel[item.field] === undefined) {
           formModel[item.field] = defaultValue;
+        }
+      }
+      if (!isNil(componentProps?.defaultValue)) {
+        obj[item.field] = componentProps?.defaultValue;
+        if (formModel[item.field] === undefined) {
+          formModel[item.field] = componentProps?.defaultValue;
         }
       }
     });
