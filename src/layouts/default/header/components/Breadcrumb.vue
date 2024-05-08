@@ -10,7 +10,7 @@
           <router-link v-else to="" @click="handleClick(routeItem)">
             {{ t((routeItem.meta.title || routeItem.name) as string) }}
           </router-link>
-          <template v-if="routeItem.children" #overlay>
+          <template v-if="routeItem.children && !routeItem.meta?.hideChildrenInMenu" #overlay>
             <Menu>
               <template v-for="childItem in routeItem.children" :key="childItem.name">
                 <MenuItem>

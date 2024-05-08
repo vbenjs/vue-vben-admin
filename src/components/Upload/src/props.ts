@@ -15,12 +15,14 @@ type SortableOptions = Merge<
   }
 >;
 type previewColumnsFnType = {
-  handleRemove:(record:Record<string,any>,key:string)=>any,
-  handleAdd:(record:Record<string,any>,key:string)=>any,
-}
+  handleRemove: (record: Record<string, any>, key: string) => any;
+  handleAdd: (record: Record<string, any>, key: string) => any;
+};
 export const previewType = {
   previewColumns: {
-    type: [Array,Function] as PropType<BasicColumn[] | ((arg:previewColumnsFnType) => BasicColumn[])>,
+    type: [Array, Function] as PropType<
+      BasicColumn[] | ((arg: previewColumnsFnType) => BasicColumn[])
+    >,
     required: false,
   },
   beforePreviewData: {

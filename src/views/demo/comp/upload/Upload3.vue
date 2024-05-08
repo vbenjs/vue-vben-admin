@@ -1,14 +1,16 @@
 <template>
   <Alert message="嵌入表单,加入resultFiled自定义返回值" />
-    <BasicForm @register="registerCustom" class="my-5" />
+  <BasicForm @register="registerCustom" class="my-5" />
 </template>
 
 <script setup lang="ts">
-  import { uploadApi } from '@/api/sys/upload';
-  import { useMessage } from '@/hooks/web/useMessage';
-  const { createMessage } = useMessage();
-  import { BasicForm, FormSchema, useForm } from '@/components/Form';
   import { Alert } from 'ant-design-vue';
+  import { BasicForm, FormSchema, useForm } from '@/components/Form';
+  import { useMessage } from '@/hooks/web/useMessage';
+  import { uploadApi } from '@/api/sys/upload';
+
+  const { createMessage } = useMessage();
+
   const schemasCustom: FormSchema[] = [
     {
       field: 'field3',
@@ -69,5 +71,3 @@
     },
   });
 </script>
-
-<style scoped></style>

@@ -9,6 +9,7 @@
       :maxCount="maxNumber"
       :before-upload="beforeUpload"
       :custom-request="customRequest"
+      :disabled="disabled"
       @preview="handlePreview"
       @remove="handleRemove"
     >
@@ -193,8 +194,8 @@
     const list = (fileList.value || [])
       .filter((item) => item?.status === UploadResultStatus.DONE)
       .map((item: any) => {
-        if(item?.response && props?.resultField){
-          return item?.response
+        if (item?.response && props?.resultField) {
+          return item?.response;
         }
         return item?.url || item?.response?.url;
       });

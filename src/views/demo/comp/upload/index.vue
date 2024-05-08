@@ -1,9 +1,9 @@
 <template>
   <PageWrapper title="上传组件示例">
-    <Upload1></Upload1>
-    <Upload2></Upload2>
-    <Upload3></Upload3>
-    <Upload4></Upload4>
+    <Upload1 />
+    <Upload2 />
+    <Upload3 />
+    <Upload4 />
   </PageWrapper>
 </template>
 <script lang="ts" setup>
