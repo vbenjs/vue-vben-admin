@@ -3,7 +3,7 @@ import type { AppRouteModule } from '@/router/types';
 import { LAYOUT } from '@/router/constant';
 import { t } from '@/hooks/web/useI18n';
 
-const charts: AppRouteModule = {
+const flow: AppRouteModule = {
   path: '/flow',
   name: 'FlowDemo',
   component: LAYOUT,
@@ -25,4 +25,4 @@ const charts: AppRouteModule = {
   ],
 };
 
-export default charts;
+export default flow;

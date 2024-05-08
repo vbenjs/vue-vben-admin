@@ -3,7 +3,7 @@ import type { AppRouteModule } from '@/router/types';
 import { getParentLayout, LAYOUT } from '@/router/constant';
 import { t } from '@/hooks/web/useI18n';
 
-const permission: AppRouteModule = {
+const level: AppRouteModule = {
   path: '/level',
   name: 'Level',
   component: LAYOUT,
@@ -65,4 +65,4 @@ const permission: AppRouteModule = {
   ],
 };
 
-export default permission;
+export default level;
