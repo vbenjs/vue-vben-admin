@@ -207,6 +207,7 @@
     removeSchemaByField,
     resetFields,
     scrollToField,
+    resetDefaultField,
   } = useFormEvents({
     emit,
     getProps,
@@ -305,6 +306,7 @@
     validate,
     submit: handleSubmit,
     scrollToField: scrollToField,
+    resetDefaultField,
   };
 
   const getFormActionBindProps = computed(
