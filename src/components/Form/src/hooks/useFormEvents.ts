@@ -100,16 +100,15 @@ export function useFormEvents({
         });
       }
 
-      let constructValue
+      let constructValue;
       const setDateFieldValue = (v) => {
         return v ? (_props?.valueFormat ? v : dateUtil(v)) : null;
       };
 
-      
-      // Adapt date component 
-      if(itemIsDateComponent(schema?.component)){
-        constructValue = tryConstructArray(key, values) ;
-        if(!!constructValue){
+      // Adapt date component
+      if (itemIsDateComponent(schema?.component)) {
+        constructValue = tryConstructArray(key, values);
+        if (constructValue) {
           const fieldValue = constructValue || value;
           if (Array.isArray(fieldValue)) {
             const arr: any[] = [];
@@ -124,8 +123,8 @@ export function useFormEvents({
           }
         }
       }
-      
-      // Adapt common component 
+
+      // Adapt common component
       if (hasKey) {
         constructValue = get(value, key);
         const fieldValue = constructValue || value;
@@ -135,7 +134,7 @@ export function useFormEvents({
         }
         validKeys.push(key);
       } else {
-        // key not exist 
+        // key not exist
         // refer:https://github.com/vbenjs/vue-vben-admin/issues/3795
       }
     });
@@ -145,27 +144,27 @@ export function useFormEvents({
   /**
    * @description: Set form default value
    */
-   function resetDefaultField(nameList?: NamePath[]) {
-    if(!Array.isArray(nameList)){
-      return 
+  function resetDefaultField(nameList?: NamePath[]) {
+    if (!Array.isArray(nameList)) {
+      return;
     }
     if (Array.isArray(nameList) && nameList.length === 0) {
       return;
     }
     const validKeys: string[] = [];
-    let keys = Object.keys(unref(formModel))
-    if(!keys){
-      return
+    const keys = Object.keys(unref(formModel));
+    if (!keys) {
+      return;
     }
-    nameList.forEach((key:any) => {
-      if(keys.includes(key)){
+    nameList.forEach((key: any) => {
+      if (keys.includes(key)) {
         validKeys.push(key);
         unref(formModel)[key] = cloneDeep(unref(get(defaultValueRef.value, key)));
       }
     });
     validateFields(validKeys).catch((_) => {});
   }
- 
+
   /**
    * @description: Delete based on field name
    */
@@ -175,9 +174,9 @@ export function useFormEvents({
       return;
     }
 
-    let fieldList: string[] = isString(fields) ? [fields] : fields;
+    let fieldList = (isString(fields) ? [fields] : fields) as string[];
     if (isString(fields)) {
-      fieldList = [fields];
+      fieldList = [fields as string];
     }
     for (const field of fieldList) {
       _removeSchemaByField(field, schemaList);
@@ -404,7 +403,7 @@ export function useFormEvents({
     resetFields,
     setFieldsValue,
     scrollToField,
-    resetDefaultField
+    resetDefaultField,
   };
 }
 
@@ -416,7 +415,7 @@ function getDefaultValue(
   let defaultValue = cloneDeep(defaultValueRef.value[key]);
   const isInput = checkIsInput(schema);
   if (isInput) {
-    return defaultValue || undefined;
+    return isNil(defaultValue) ? defaultValue : undefined;
   }
   if (!defaultValue && schema && checkIsRangeSlider(schema)) {
     defaultValue = [0, 0];
