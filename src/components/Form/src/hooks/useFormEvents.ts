@@ -415,7 +415,7 @@ function getDefaultValue(
   let defaultValue = cloneDeep(defaultValueRef.value[key]);
   const isInput = checkIsInput(schema);
   if (isInput) {
-    return isNil(defaultValue) ? defaultValue : undefined;
+    return !isNil(defaultValue) ? defaultValue : undefined;
   }
   if (!defaultValue && schema && checkIsRangeSlider(schema)) {
     defaultValue = [0, 0];
