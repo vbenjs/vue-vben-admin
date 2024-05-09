@@ -32,7 +32,7 @@ export function createPlaceholderMessage(component: ComponentType) {
 const DATE_TYPE = ['DatePicker', 'MonthPicker', 'WeekPicker', 'TimePicker'];
 
 function genType() {
-  return [...DATE_TYPE, 'RangePicker'];
+  return [...DATE_TYPE, 'RangePicker',"TimeRangePicker"];
 }
 
 export function setComponentRuleType(
