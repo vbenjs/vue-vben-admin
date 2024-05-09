@@ -53,6 +53,7 @@
   "feat": {
     "feat": "Page Function",
     "icon": "Icon",
+    "screenShot": "Screen Shot",
     "tabs": "Tabs",
     "tabDetail": "Tab Detail",
     "sessionTimeout": "Session Timeout",

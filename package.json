@@ -85,6 +85,7 @@
     "dayjs": "^1.11.10",
     "echarts": "^5.5.0",
     "exceljs": "^4.4.0",
+    "html2canvas": "^1.4.1",
     "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
