@@ -121,7 +121,7 @@ export enum MODE {
   Z80 = 'z80',
 }
 /**
- * @description: DynamicImport codemirror co
+ * @description: DynamicImport codemirror 
  */
 export function parserDynamicImport(str: MODE): () => Promise<any> {
   let dynamicArray = {
