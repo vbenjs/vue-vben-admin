@@ -6,6 +6,8 @@
     "declaration": false,
     "types": ["vite/client"],
     "paths": {
+      "/@/*": ["src/*"],
+      "/#/*": ["types/*"],
       "@/*": ["src/*"],
       "#/*": ["types/*"]
     }

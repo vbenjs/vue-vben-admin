@@ -183,3 +183,18 @@ function isMultipleRoute(routeModule: AppRouteModule) {
   }
   return flag;
 }
+
+// Generate components map
+export const constantRouterComponents: any = {};
+
+const modulesFiles = import.meta.glob('../../views/**/*.{vue,tsx}');
+
+Object.keys(modulesFiles).forEach((path) => {
+  if (!(path.endsWith('.vue') || path.endsWith('.tsx'))) return;
+  const value = modulesFiles[path];
+
+  const newPath = path.replace('../../views', '').replace('.vue', '').replace('.tsx', '');
+  if (newPath) {
+    constantRouterComponents[newPath] = value;
+  }
+});

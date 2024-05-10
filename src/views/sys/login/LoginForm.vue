@@ -119,8 +119,8 @@
   const rememberMe = ref(false);
 
   const formData = reactive({
-    account: 'vben',
-    password: '123456',
+    account: 'admin',
+    password: 'a123456',
   });
 
   const { validForm } = useFormValid(formRef);
@@ -139,6 +139,7 @@
         username: data.account,
         mode: 'none', //不要默认的错误提示
       });
+      console.log('userInfo', userInfo);
       if (userInfo) {
         notification.success({
           message: t('sys.login.loginSuccessTitle'),

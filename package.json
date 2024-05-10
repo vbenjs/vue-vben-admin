@@ -1,19 +1,19 @@
 {
-  "name": "vben-admin",
+  "name": "laohai-admin-vue",
   "version": "2.11.4",
-  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "homepage": "https://github.com/haihhhhh/laohai-admin-vue",
   "bugs": {
-    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
+    "url": "https://github.com/haihhhhh/laohai-admin-vue/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vbenjs/vue-vben-admin.git"
+    "url": "git+https://github.com/haihhhhh/laohai-admin-vben.git"
   },
   "license": "MIT",
   "author": {
-    "name": "vben",
-    "email": "anncwb@126.com",
-    "url": "https://github.com/anncwb"
+    "name": "laohai",
+    "email": "hi@laohaicode.com",
+    "url": "https://github.com/haihhhhh"
   },
   "type": "module",
   "scripts": {
@@ -149,7 +149,7 @@
     "vite-plugin-vue-inspector": "^5.0.1",
     "vue-tsc": "^2.0.14"
   },
-  "packageManager": "pnpm@9.0.4",
+  "packageManager": "pnpm@9.1.0",
   "engines": {
     "node": ">=18.12.0",
     "pnpm": ">=9.0.2"
