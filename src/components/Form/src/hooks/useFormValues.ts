@@ -135,7 +135,7 @@ export function useFormValues({
     const schemas = unref(getSchema);
     const obj: Recordable = {};
     schemas.forEach((item) => {
-      const { defaultValue, defaultValueObj, componentProps={} } = item;
+      const { defaultValue, defaultValueObj, componentProps = {} } = item;
       const fieldKeys = Object.keys(defaultValueObj || {});
       if (fieldKeys.length) {
         fieldKeys.forEach((field) => {

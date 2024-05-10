@@ -121,7 +121,7 @@ export function useForm(props?: Props): UseFormReturnType {
       const form = await getForm();
       return form.validateFields(nameList);
     },
-    resetDefaultField:async (nameList?: NamePath[]) => {
+    resetDefaultField: async (nameList?: NamePath[]) => {
       unref(formRef)?.resetDefaultField(nameList);
     },
   };
