@@ -120,24 +120,18 @@ export default function ({
     const { baseColProps = {} } = unref(getProps);
 
     for (const schema of unref(getSchema)) {
-      const { show, colProps } = schema;
+      const { show, ifShow, colProps } = schema;
+      const renderCallbackParams = {
+        schema: schema,
+        model: formModel,
+        field: schema.field,
+        values: { ...unref(defaultValueRef), ...formModel },
+      };
       let isShow = true;
-
-      if (isBoolean(show)) {
-        isShow = show;
-      }
-
-      if (isFunction(show)) {
-        isShow = show({
-          schema: schema,
-          model: formModel,
-          field: schema.field,
-          values: {
-            ...unref(defaultValueRef),
-            ...formModel,
-          },
-        });
-      }
+      isShow && isBoolean(ifShow) && (isShow = ifShow);
+      isShow && isFunction(ifShow) && (isShow = ifShow(renderCallbackParams));
+      isShow && isBoolean(show) && (isShow = show);
+      isShow && isFunction(show) && (isShow = show(renderCallbackParams));
 
       if (isShow && (colProps || baseColProps)) {
         const { itemColSum: sum, isAdvanced } = getAdvanced(
