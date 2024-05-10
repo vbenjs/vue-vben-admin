@@ -345,12 +345,30 @@ const comp: AppRouteModule = {
       },
       children: [
         {
-          path: 'json',
-          component: () => import('@/views/demo/editor/json/index.vue'),
-          name: 'JsonEditorDemo',
+          path: 'code',
+          component: () => import('@/views/demo/editor/code/index.vue'),
+          name: 'codeEditorDemo',
           meta: {
-            title: t('routes.demo.editor.jsonEditor'),
+            title: t('routes.demo.editor.codeEditor'),
           },
+          children: [
+            {
+              path: 'code',
+              name: 'codeBasicDemo',
+              component: () => import('@/views/demo/editor/code/index.vue'),
+              meta: {
+                title: t('routes.demo.editor.tinymceBasic'),
+              },
+            },
+            {
+              path: 'editor',
+              name: 'codeEditorBasicDemo',
+              component: () => import('@/views/demo/editor/code/Editor.vue'),
+              meta: {
+                title: t('routes.demo.editor.tinymceForm'),
+              },
+            },
+          ],
         },
         {
           path: 'markdown',

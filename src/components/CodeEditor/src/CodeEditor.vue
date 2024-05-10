@@ -6,6 +6,7 @@
       :mode="mode"
       :readonly="readonly"
       :bordered="bordered"
+      :config="config"
     />
   </div>
 </template>
@@ -28,6 +29,7 @@
     readonly: { type: Boolean },
     autoFormat: { type: Boolean, default: true },
     bordered: { type: Boolean, default: false },
+    config: { type: Object, default: {} },
   });
 
   const emit = defineEmits(['change', 'update:value', 'format-error']);

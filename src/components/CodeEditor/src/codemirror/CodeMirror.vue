@@ -22,15 +22,21 @@
   import { useDebounceFn } from '@vueuse/core';
   import { useAppStore } from '@/store/modules/app';
   import CodeMirror from 'codemirror';
-  import { MODE } from './../typing';
+  import { MODE, parserDynamicImport } from './../typing';
   // css
-  import './codemirror.css';
+  import 'codemirror/lib/codemirror.css';
   import 'codemirror/theme/idea.css';
   import 'codemirror/theme/material-palenight.css';
-  // modes
-  import 'codemirror/mode/javascript/javascript';
-  import 'codemirror/mode/css/css';
-  import 'codemirror/mode/htmlmixed/htmlmixed';
+
+  // 代码段折叠功能
+  import 'codemirror/addon/fold/foldgutter.css';
+  import 'codemirror/addon/fold/foldcode.js';
+  import 'codemirror/addon/fold/foldgutter';
+  import 'codemirror/addon/fold/brace-fold';
+  import 'codemirror/addon/fold/comment-fold';
+  import 'codemirror/addon/fold/markdown-fold';
+  import 'codemirror/addon/fold/xml-fold';
+  import 'codemirror/addon/fold/indent-fold';
 
   const props = defineProps({
     mode: {
@@ -44,6 +50,7 @@
     value: { type: String, default: '' },
     readonly: { type: Boolean, default: false },
     bordered: { type: Boolean, default: false },
+    config: { type: Object, default: {} },
   });
 
   const emit = defineEmits(['change']);
@@ -66,7 +73,8 @@
     { flush: 'post' },
   );
 
-  watchEffect(() => {
+  watchEffect(async () => {
+    await parserDynamicImport(props.mode)();
     editor?.setOption('mode', props.mode);
   });
 
@@ -96,7 +104,7 @@
       autoCloseBrackets: true,
       autoCloseTags: true,
       foldGutter: true,
-      gutters: ['CodeMirror-linenumbers'],
+      gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
     };
 
     editor = CodeMirror(el.value!, {
@@ -108,6 +116,7 @@
       lineWrapping: true,
       lineNumbers: true,
       ...addonOptions,
+      ...props.config,
     });
     editor?.setValue(props.value);
     setTheme();
