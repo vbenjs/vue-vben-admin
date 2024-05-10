@@ -37,7 +37,7 @@
   },
   "editor": {
     "editor": "Editor",
-    "jsonEditor": "Json editor",
+    "codeEditor": "Code editor",
     "markdown": "Markdown editor",
     "tinymce": "Rich text",
     "tinymceBasic": "Basic",
