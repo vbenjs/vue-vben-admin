@@ -24,6 +24,14 @@ const feat: AppRouteModule = {
       },
     },
     {
+      path: 'screenshot',
+      name: 'Screenshot',
+      component: () => import('@/views/demo/feat/screenshot/index.vue'),
+      meta: {
+        title: t('routes.demo.feat.screenShot'),
+      },
+    },
+    {
       path: 'ws',
       name: 'WebSocket',
       component: () => import('@/views/demo/feat/ws/index.vue'),
