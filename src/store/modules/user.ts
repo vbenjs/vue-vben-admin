@@ -161,7 +161,7 @@ export const useUserStore = defineStore({
         router.replace({
           path: PageEnum.BASE_LOGIN,
           query: {
-            redirect: encodeURIComponent(router.currentRoute.value.fullPath),
+            redirect: decodeURIComponent(router.currentRoute.value.fullPath),
           },
         });
       }
