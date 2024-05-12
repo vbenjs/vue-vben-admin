@@ -7,7 +7,7 @@
       <a-button @click="deleteField" class="mr-2"> 删除字段11 </a-button>
     </div>
     <CollapseContainer title="动态表单示例,动态根据表单内其他值改变">
-      <BasicForm @register="register" />
+      <BasicForm @register="register" @submit="handleSubmit" />
     </CollapseContainer>
 
     <CollapseContainer class="mt-5" title="componentProps动态改变">
@@ -85,6 +85,39 @@
       label: '字段11',
       colProps: {
         span: 8,
+      },
+    },
+    {
+      field: 'field10',
+      component: 'Input',
+      label: '字段2',
+      colProps: {
+        span: 8,
+      },
+      ifShow: false,
+    },
+    {
+      field: 'field12',
+      component: 'CheckboxGroup',
+      label: '字段12',
+      colProps: {
+        span: 8,
+      },
+      defaultValue: ['1', '2'],
+      componentProps: {
+        options: [
+          {
+            label: '选项1',
+            value: '1',
+          },
+          {
+            label: '选项2',
+            value: '2',
+          },
+        ],
+      },
+      ifShow: ({ values }) => {
+        return !!values.field6;
       },
     },
     {
@@ -225,5 +258,9 @@
   }
   function deleteField() {
     removeSchemaByField('field11');
+  }
+
+  function handleSubmit(values) {
+    console.log(values);
   }
 </script>

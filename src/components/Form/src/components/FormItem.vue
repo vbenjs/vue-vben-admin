@@ -21,7 +21,7 @@
     NO_AUTO_LINK_COMPONENTS,
     setComponentRuleType,
   } from '../helper';
-  import { cloneDeep, upperFirst } from 'lodash-es';
+  import { cloneDeep, isNil, upperFirst } from 'lodash-es';
   import { useItemLabelWidth } from '../hooks/useLabelWidth';
   import { useI18n } from '@/hooks/web/useI18n';
 
@@ -78,6 +78,28 @@
       const getValues = computed(() => {
         const { allDefaultValues, formModel, schema } = props;
         const { mergeDynamicData } = props.formProps;
+        if (
+          (isFunction(schema.ifShow) &&
+            !schema.ifShow({
+              values: {
+                ...mergeDynamicData,
+                ...allDefaultValues,
+                ...formModel,
+              } as Recordable<any>,
+              schema,
+              model: formModel,
+              field: schema.field,
+            })) ||
+          (isBoolean(schema.ifShow) && schema.ifShow === false)
+        ) {
+          formModel[schema.field] = undefined;
+        } else {
+          formModel[schema.field] = !isNil(formModel[schema.field])
+            ? formModel[schema.field]
+            : !isNil(schema.defaultValue)
+              ? schema.defaultValue
+              : undefined;
+        }
         return {
           field: schema.field,
           model: formModel,
