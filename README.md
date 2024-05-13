@@ -62,7 +62,7 @@ Open the project in Gitpod (free online dev environment for GitHub) and start co
 - Get the project code
 
 ```bash
-git clone https://github.com/anncwb/vue-vben-admin.git
+git clone https://github.com/vbenjs/vue-vben-admin.git
 ```
 
 - Install dependencies
