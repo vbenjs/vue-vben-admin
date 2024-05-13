@@ -367,7 +367,7 @@
       }
 
       function renderItem() {
-        const { itemProps, slot, render, field, suffix, component } = props.schema;
+        const { itemProps, slot, render, field, suffix, component, prefix } = props.schema;
         const { labelCol, wrapperCol } = unref(itemLabelWidthProp);
         const { colon } = props.formProps;
         const opts = { disabled: unref(getDisable), readonly: unref(getReadonly) };
@@ -383,7 +383,10 @@
               labelCol={labelCol}
               wrapperCol={wrapperCol}
               name={field}
-              class={{ 'suffix-item': !!suffix }}
+              class={{ 
+                'suffix-item': !!suffix, 
+                'prefix-item': !!prefix 
+              }}
             >
               <BasicTitle {...unref(getComponentsProps)}>{renderLabelHelpMessage()}</BasicTitle>
             </Form.Item>
@@ -400,6 +403,8 @@
           const showSuffix = !!suffix;
           const getSuffix = isFunction(suffix) ? suffix(unref(getValues)) : suffix;
 
+          const showPrefix = !!prefix;
+          const getPrefix = isFunction(prefix) ? prefix(unref(getValues)) : prefix;
           // TODO 自定义组件验证会出现问题，因此这里框架默认将自定义组件设置手动触发验证，如果其他组件还有此问题请手动设置autoLink=false
           if (component && NO_AUTO_LINK_COMPONENTS.includes(component)) {
             props.schema &&
@@ -413,7 +418,10 @@
             <Form.Item
               name={field}
               colon={colon}
-              class={{ 'suffix-item': showSuffix }}
+              class={{
+                'suffix-item': showSuffix,
+                'prefix-item': showPrefix,
+              }}
               {...(itemProps as Recordable<any>)}
               label={renderLabelHelpMessage()}
               rules={handleRules()}
@@ -421,6 +429,7 @@
               wrapperCol={wrapperCol}
             >
               <div style="display:flex">
+                {showPrefix && <span class="prefix">{getPrefix}</span>}
                 <div style="flex:1;">{getContent()}</div>
                 {showSuffix && <span class="suffix">{getSuffix}</span>}
               </div>
