@@ -49,7 +49,7 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref, emit: A
   function search(e: ChangeEvent) {
     e?.stopPropagation();
     const key = e.target.value;
-    keyword.value = key.trim();
+    keyword.value = key.trim().toLowerCase();
     if (!key) {
       searchResult.value = [];
       return;
