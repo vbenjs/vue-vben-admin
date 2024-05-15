@@ -9,6 +9,7 @@
       @register="registerForm"
       @submit="handleSearchInfoChange"
       @advanced-change="redoHeight"
+      @field-value-change="handleSearchFormFieldValueChange"
     >
       <template #[replaceFormSlotKey(item)]="data" v-for="item in getFormSlotKeys">
         <slot :name="item" v-bind="data || {}"></slot>
@@ -92,6 +93,7 @@
     'expanded-rows-change',
     'change',
     'columns-change',
+    'search-form-field-value-change',
   ]);
 
   const attrs = useAttrs();
@@ -108,6 +110,10 @@
 
   const { prefixCls } = useDesign('basic-table');
   const [registerForm, formActions] = useForm();
+
+  function handleSearchFormFieldValueChange(key: string, value: any) {
+    emit('search-form-field-value-change', key, value);
+  }
 
   const getProps = computed(() => {
     return { ...props, ...unref(innerPropsRef) } as BasicTableProps;
