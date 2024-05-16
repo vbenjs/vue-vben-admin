@@ -24,6 +24,7 @@
   import { cloneDeep, upperFirst } from 'lodash-es';
   import { useItemLabelWidth } from '../hooks/useLabelWidth';
   import { useI18n } from '@/hooks/web/useI18n';
+  import { checkIsInput } from '../hooks/useFormEvents';
 
   export default defineComponent({
     name: 'BasicFormItem',
@@ -370,8 +371,8 @@
         const { itemProps, slot, render, field, component } = props.schema;
         let {suffix, prefix} = props.schema;
         let {suffix:propSuffix,prefix:propPrefix} = unref(getComponentsProps)
-        if(propSuffix) suffix = propSuffix
-        if(propPrefix) prefix = propPrefix
+        if(propSuffix && !checkIsInput(props.schema)) suffix = propSuffix
+        if(propPrefix && !checkIsInput(props.schema)) prefix = propPrefix 
         const { labelCol, wrapperCol } = unref(itemLabelWidthProp);
         const { colon } = props.formProps;
         const opts = { disabled: unref(getDisable), readonly: unref(getReadonly) };
