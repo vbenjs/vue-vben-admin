@@ -426,6 +426,13 @@ export interface BasicTableProps<T = any> {
   onExpandedRowsChange?: (expandedRows: string[] | number[]) => void;
 
   onColumnsChange?: (data: ColumnChangeParam[]) => void;
+
+  /**
+   * Callback function to handle changes in query form field values.
+   * @param key - The field key (string).
+   * @param value - The updated field value (any type).
+   */
+  onQueryFormFieldValueChange?: (key: string, value: any) => void;
 }
 
 export type CellFormat =

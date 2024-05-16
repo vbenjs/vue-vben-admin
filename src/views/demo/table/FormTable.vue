@@ -26,9 +26,22 @@
       type: 'checkbox',
     },
     showSelectionBar: true, // 显示多选状态栏
+    onQueryFormFieldValueChange: formFieldValueChange,
   });
 
   function getFormValues() {
     console.log(getForm().getFieldsValue());
   }
+
+  function formFieldValueChange(key: string, value: any) {
+    getForm().updateSchema([
+      {
+        field: 'field2',
+        componentProps: {
+          placeholder: `请输入${value}`,
+        },
+      },
+    ]);
+  }
+
 </script>

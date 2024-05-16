@@ -41,10 +41,24 @@ export function useTableForm(
     fetch({ searchInfo: info, page: 1 });
   }
 
+  /**
+   * Handles form field value changes.
+   * @param key - Field key (string).
+   * @param value - New field value (any type).
+   * Invokes 'formFieldValueChange' if present and callable in 'formConfig'.
+   */
+  function formFieldValueChange(key: string, value: any) {
+    // const { formConfig } = unref(propsRef);
+    const { onQueryFormFieldValueChange } = unref(propsRef);
+    if (isFunction(onQueryFormFieldValueChange)) {
+      onQueryFormFieldValueChange(key, value);
+    }
+  }
   return {
     getFormProps,
     replaceFormSlotKey,
     getFormSlotKeys,
     handleSearchInfoChange,
+    formFieldValueChange,
   };
 }
