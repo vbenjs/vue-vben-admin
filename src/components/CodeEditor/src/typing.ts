@@ -1,7 +1,5 @@
 export enum MODE {
   JSON = 'application/json',
-  HTML = 'htmlmixed',
-  JS = 'javascript',
   APL = 'apl',
   ASCIIARMOR = 'asciiarmor',
   ASTERISK = 'asterisk',
@@ -121,12 +119,12 @@ export enum MODE {
   Z80 = 'z80',
 }
 /**
- * @description: DynamicImport codemirror 
+ * @description: DynamicImport codemirror
  */
 export function parserDynamicImport(str: MODE): () => Promise<any> {
-  let dynamicArray = {
+  const dynamicArray = {
     // adapt before demo
-    "application/json": async () => await import('codemirror/mode/javascript/javascript'),
+    'application/json': async () => await import('codemirror/mode/javascript/javascript'),
     apl: async () => await import('codemirror/mode/apl/apl'),
     asciiarmor: async () => await import('codemirror/mode/asciiarmor/asciiarmor'),
     asterisk: async () => await import('codemirror/mode/asterisk/asterisk'),

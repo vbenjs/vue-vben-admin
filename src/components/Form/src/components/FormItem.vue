@@ -383,9 +383,9 @@
               labelCol={labelCol}
               wrapperCol={wrapperCol}
               name={field}
-              class={{ 
-                'suffix-item': !!suffix, 
-                'prefix-item': !!prefix 
+              class={{
+                'suffix-item': !!suffix,
+                'prefix-item': !!prefix,
               }}
             >
               <BasicTitle {...unref(getComponentsProps)}>{renderLabelHelpMessage()}</BasicTitle>
