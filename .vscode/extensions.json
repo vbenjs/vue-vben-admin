@@ -1,0 +1,34 @@
+{
+  "recommendations": [
+    // Vue 3 的语言支持
+    "Vue.volar",
+    // 用于 TypeScript 服务器的 Vue 插件
+    "Vue.vscode-typescript-vue-plugin",
+    // 将 ESLint JavaScript 集成到 VS Code 中。
+    "dbaeumer.vscode-eslint",
+    // Visual Studio Code 的官方 Stylelint 扩展
+    "stylelint.vscode-stylelint",
+    // 使用 Prettier 的代码格式化程序
+    "esbenp.prettier-vscode",
+    // 支持 dotenv 文件语法
+    "mikestead.dotenv",
+    // 获取每个 CSS 属性的初始值。
+    "dzhavat.css-initial-value",
+    // 使 VSCode 中的 TypeScript 错误更漂亮、更易于理解
+    "yoavbls.pretty-ts-errors",
+    // 源代码的拼写检查器
+    "streetsidesoftware.code-spell-checker",
+    // Tailwind CSS 的官方 VS Code 插件
+    "bradlc.vscode-tailwindcss",
+    // iconify 图标插件
+    "antfu.iconify",
+    // i18n 插件
+    "Lokalise.i18n-ally",
+    // CSS 变量提示
+    "vunguyentuan.vscode-css-variables"
+  ],
+  "unwantedRecommendations": [
+    // 和 volar 冲突
+    "octref.vetur"
+  ]
+}

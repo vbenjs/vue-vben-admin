@@ -1,0 +1,10 @@
+@mixin transition() {
+  &-enter-active,
+  &-leave-active {
+    transition: 0.25s cubic-bezier(0.25, 0.8, 0.5, 1);
+  }
+
+  &-move {
+    transition: transform 0.3s;
+  }
+}

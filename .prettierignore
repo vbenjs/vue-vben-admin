@@ -1,0 +1,13 @@
+dist
+.local
+.output.js
+node_modules
+.nvmrc
+
+
+**/*.svg
+**/*.sh
+
+public
+.npmrc
+*-lock.yaml

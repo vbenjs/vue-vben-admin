@@ -1,0 +1,47 @@
+{
+  "name": "@vben/antd-view",
+  "version": "4.0.0-alpha.1",
+  "type": "module",
+  "author": {
+    "name": "vben",
+    "email": "anncwb@126.com",
+    "url": "https://github.com/anncwb"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "directory": "apps/vben-admin"
+  },
+  "bugs": {
+    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
+  },
+  "scripts": {
+    "build": "pnpm vite build",
+    "dev": "pnpm vite",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit --skipLibCheck"
+  },
+  "dependencies": {
+    "@vben-core/design": "workspace:*",
+    "@vben-core/design-tokens": "workspace:*",
+    "@vben-core/toolkit": "workspace:*",
+    "@vben-core/typings": "workspace:*",
+    "@vben/common-ui": "workspace:*",
+    "@vben/hooks": "workspace:*",
+    "@vben/icons": "workspace:*",
+    "@vben/layouts": "workspace:*",
+    "@vben/locales": "workspace:*",
+    "@vben/preference": "workspace:*",
+    "@vben/stores": "workspace:*",
+    "ant-design-vue": "^4.2.1",
+    "axios": "^1.6.8",
+    "dayjs": "^1.11.11",
+    "vue": "^3.4.27",
+    "vue-router": "^4.3.2"
+  },
+  "devDependencies": {
+    "vite-plugin-mock": "^3.0.2"
+  }
+}

@@ -1,0 +1,6 @@
+echo Start running commit-msg hook...
+
+# Check whether the git commit information is standardized
+pnpm exec commitlint --edit "$1"
+
+echo Run commit-msg hook done.

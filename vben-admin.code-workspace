@@ -1,0 +1,112 @@
+{
+  "folders": [
+    {
+      "name": "@vben/antd-view",
+      "path": "apps/antd-view",
+    },
+    {
+      "name": "@vben/commitlint-config",
+      "path": "internal/lint-configs/commitlint-config",
+    },
+    {
+      "name": "@vben/eslint-config",
+      "path": "internal/lint-configs/eslint-config",
+    },
+    {
+      "name": "@vben/lint-staged-config",
+      "path": "internal/lint-configs/lint-staged-config",
+    },
+    {
+      "name": "@vben/prettier-config",
+      "path": "internal/lint-configs/prettier-config",
+    },
+    {
+      "name": "@vben/stylelint-config",
+      "path": "internal/lint-configs/stylelint-config",
+    },
+    {
+      "name": "@vben/node-utils",
+      "path": "internal/node-utils",
+    },
+    {
+      "name": "@vben/tailwind-config",
+      "path": "internal/tailwind-config",
+    },
+    {
+      "name": "@vben/tsconfig",
+      "path": "internal/tsconfig",
+    },
+    {
+      "name": "@vben/vite-config",
+      "path": "internal/vite-config",
+    },
+    {
+      "name": "@vben-core/design",
+      "path": "packages/@vben-core/shared/design",
+    },
+    {
+      "name": "@vben-core/design-tokens",
+      "path": "packages/@vben-core/shared/design-tokens",
+    },
+    {
+      "name": "@vben-core/iconify",
+      "path": "packages/@vben-core/shared/iconify",
+    },
+    {
+      "name": "@vben-core/toolkit",
+      "path": "packages/@vben-core/shared/toolkit",
+    },
+    {
+      "name": "@vben-core/typings",
+      "path": "packages/@vben-core/shared/typings",
+    },
+    {
+      "name": "@vben-core/layout-ui",
+      "path": "packages/@vben-core/uikit/layout-ui",
+    },
+    {
+      "name": "@vben-core/menu-ui",
+      "path": "packages/@vben-core/uikit/menu-ui",
+    },
+    {
+      "name": "@vben-core/shadcn-ui",
+      "path": "packages/@vben-core/uikit/shadcn-ui",
+    },
+    {
+      "name": "@vben-core/tabs-ui",
+      "path": "packages/@vben-core/uikit/tabs-ui",
+    },
+    {
+      "name": "@vben/common-ui",
+      "path": "packages/business/common-ui",
+    },
+    {
+      "name": "@vben/layouts",
+      "path": "packages/business/layouts",
+    },
+    {
+      "name": "@vben/hooks",
+      "path": "packages/hooks",
+    },
+    {
+      "name": "@vben/icons",
+      "path": "packages/icons",
+    },
+    {
+      "name": "@vben/locales",
+      "path": "packages/locales",
+    },
+    {
+      "name": "@vben/preference",
+      "path": "packages/preference",
+    },
+    {
+      "name": "@vben/stores",
+      "path": "packages/stores",
+    },
+    {
+      "name": "@vben/vsh",
+      "path": "scripts/vsh",
+    },
+  ],
+}

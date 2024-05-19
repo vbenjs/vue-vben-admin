@@ -1,0 +1,9 @@
+packages:
+  - "internal/*"
+  - "internal/lint-configs/*"
+  - "packages/*"
+  - "packages/@vben-core/shared/*"
+  - "packages/@vben-core/uikit/*"
+  - "packages/business/*"
+  - "apps/*"
+  - "scripts/*"

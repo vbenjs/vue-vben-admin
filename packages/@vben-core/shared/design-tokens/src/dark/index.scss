@@ -1,0 +1,95 @@
+.dark {
+  /* 基础背景颜色颜色 */
+
+  /* --color-background: 240 6% 18%; */
+  // --color-body: 220deg 13.04% 8%;
+  --color-body: 220deg 13.04% 8%;
+  --color-background: 220deg 13.04% 8%;
+
+  /* --color-background: 219 42% 11%; */
+
+  /* 基础文本颜色 */
+  --color-foreground: 220 13% 91%;
+
+  /* 主题颜色 */
+  --color-primary: 211 91% 39%;
+
+  /* 前景色，如按钮文本颜色 */
+  --color-primary-foreground: 0 0 98%;
+
+  /* 颜色次要 */
+  --color-secondary: 240 5% 17%;
+
+  /* 前景色，如按钮文本颜色 */
+  --color-secondary-foreground: 0 0 98%;
+
+  /* 次要文本颜色 */
+  --color-secondary-desc: 210 12.16% 70.98%;
+
+  /* 普通颜色 */
+
+  /* --color-accent: 240 3.7% 15.9%; */
+
+  /* --color-accent: 220deg 7.32% 16.08%; */
+  --color-accent: 0deg 0% 100% / 8%;
+  --color-accent-hover: 0deg 0% 100% / 12%;
+
+  /* 普通颜色前景色，如按钮文本颜色 */
+  --color-accent-foreground: 0 0 98%;
+
+  /* 破坏性颜色 */
+  --color-destructive: 0 63% 31%;
+
+  /* 破坏性颜色 */
+  --color-destructive-foreground: 0 86% 97%;
+  --color-muted: 220deg 6.82% 17.25%;
+  --color-muted-foreground: 215 20.2% 65.1%;
+  --color-heavy: 0deg 0% 100% / 12%;
+  --color-heavy-foreground: var(--color-accent-foreground);
+
+  /* 基础边框色 */
+  --color-border: 0deg 0% 100% / 10%;
+
+  /* --color-popover: 240 4% 29%; */
+  --color-popover: 222.86deg 8.43% 16.27%;
+  --color-popover-foreground: 210 40% 98%;
+  --color-card: 222.2 84% 4.9%;
+  --color-card-foreground: 210 40% 98%;
+
+  /* 基础文本边框色 */
+  --color-input: 0deg 0% 100% / 10%;
+
+  /* input placeholder 颜色 */
+  --color-input-placeholder: 218deg 11% 65%;
+
+  /* 基础文本背景色 */
+
+  /* --color-input-background: 216deg 5.38% 18.24%; */
+  --color-input-background: 0deg 0% 100% / 5%;
+
+  /* 遮罩颜色 */
+  --color-overlay: 0deg 0% 0% / 40%;
+  --color-ring: 222.2 84% 4.9%;
+
+  /* 基本文字大小 */
+  --font-size-base: 16px;
+
+  /* 基本圆角大小 */
+  --radius-base: 0.5rem;
+
+  /* ======================================== */
+
+  /* =============component & UI============= */
+
+  /* ======================================== */
+
+  /* --color-login-background: 219 42% 11%; */
+
+  /* 图标颜色 */
+
+  /* authentication */
+  --color-authentication-from: hsl(240deg 11% 6%);
+  --color-authentication-to: hsl(240deg 11% 6%);
+
+  color-scheme: dark;
+}

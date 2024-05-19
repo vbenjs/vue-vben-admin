@@ -1,0 +1,45 @@
+{
+  "name": "@vben/node-utils",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "directory": "internal/node-utils"
+  },
+  "bugs": {
+    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
+  },
+  "scripts": {
+    "stub": "pnpm unbuild --stub"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "imports": {
+    "#*": "./src/*"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "dependencies": {
+    "@changesets/git": "^3.0.0",
+    "@manypkg/get-packages": "^2.2.1",
+    "consola": "^3.2.3",
+    "find-up": "^7.0.0",
+    "pkg-types": "^1.1.1",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.7",
+    "zx": "^7.2.3"
+  }
+}

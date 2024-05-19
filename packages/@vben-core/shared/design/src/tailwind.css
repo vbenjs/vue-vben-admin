@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  html {
+    @apply font-sans;
+  }
+}
+@layer components {
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+  .flex-col-center {
+    @apply flex flex-col items-center justify-center;
+  }
+  .outline-box {
+    @apply outline-border relative  cursor-pointer rounded-md p-1 outline outline-1;
+
+    &:after {
+      @apply absolute left-1/2 top-1/2 z-20 h-0 w-[1px] rounded-sm opacity-0 outline outline-2 outline-transparent transition-all duration-300 content-[''];
+    }
+
+    &.outline-box-active {
+      @apply outline-primary outline outline-2;
+      &:after {
+        display: none;
+      }
+    }
+
+    &:not(.outline-box-active):hover:after {
+      @apply outline-primary left-0 top-0 h-full w-full p-1 opacity-100;
+    }
+  }
+}

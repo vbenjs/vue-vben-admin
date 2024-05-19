@@ -1,0 +1,229 @@
+@import '@vben-core/design/global';
+
+@include b('tabs-ui') {
+  --tabs-background: hsl(var(--color-background));
+  --tabs-gap: 8px;
+  --tabs-divider: hsl(var(--color-border));
+  --tabs-hover: hsl(var(--color-heavy));
+  --tabs-active-background: hsl(var(--color-primary) / 15%);
+  --tabs-active: hsl(var(--color-primary));
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-top: 2px;
+  background-color: var(--tabs-background);
+
+  @include e('content') {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+@include b('tab') {
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  color: hsl(var(--color-muted-foreground));
+  cursor: pointer;
+  user-select: none;
+  // mask-image: linear-gradient(to right, #000 calc(100% - 0px), transparent);
+
+  @include is('active') {
+    z-index: 1;
+    color: var(--tabs-active);
+
+    .#{$namespace}-tab__extra:not(.is-pin) {
+      background-color: var(--tabs-active-background);
+      opacity: 1;
+    }
+
+    .#{$namespace}-tab-background__divider {
+      display: none;
+    }
+
+    .#{$namespace}-tab-background__content {
+      background-color: var(--tabs-active-background);
+    }
+
+    // .#{$namespace}-tab-background__before,
+    // .#{$namespace}-tab-background__after {
+    //   fill: var(--tabs-active-background);
+    // }
+  }
+
+  @include e('content') {
+    position: absolute;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-right: 10px;
+    margin: 0 calc(var(--tabs-gap) * 2);
+    overflow: hidden;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  @include e('extra') {
+    position: absolute;
+    top: 50%;
+    right: calc(var(--tabs-gap) * 1.5);
+    z-index: 1;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    opacity: 0;
+
+    // transition: all 0.15s ease;
+    transform: translateY(-50%);
+
+    &:hover {
+      // background-color: hsl(var(--color-accent));
+    }
+  }
+
+  @include e('extra-icon') {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+    border-radius: 50%;
+    // transition: all 0.15s ease;
+
+    &:hover {
+      color: hsl(var(--color-foreground));
+      transform: scale(1.05);
+    }
+  }
+
+  @include e('icon') {
+    display: flex;
+    align-items: center;
+    height: 16px;
+    margin-left: 3%;
+    overflow: hidden;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  @include e('label') {
+    position: relative;
+    box-sizing: border-box;
+    flex: 1;
+    margin-right: px;
+    margin-left: 5%;
+    overflow: hidden;
+    font-size: 14px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  @include is('hidden-icon') {
+    margin-left: 0;
+  }
+
+  &:hover {
+    .#{$namespace}-tab__extra.is-pin {
+      opacity: 1;
+    }
+  }
+
+  &:not(.is-active):hover {
+    z-index: 10;
+
+    .#{$namespace}-tab__extra {
+      opacity: 1;
+    }
+
+    .#{$namespace}-tab-background__divider {
+      display: none;
+    }
+
+    .#{$namespace}-tab-background__content {
+      background-color: var(--tabs-hover);
+    }
+
+    .#{$namespace}-tab-background__before,
+    .#{$namespace}-tab-background__after {
+      fill: var(--tabs-hover);
+    }
+  }
+
+  &:last-of-type {
+    .#{$namespace}-tab-background__divider::after {
+      display: none;
+    }
+  }
+
+  &:first-of-type {
+    .#{$namespace}-tab-background__divider::before {
+      display: none;
+    }
+  }
+}
+
+@include b('tab-background') {
+  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 0 calc(var(--tabs-gap) - 1px);
+
+  @include e('divider') {
+    position: absolute;
+    left: 0;
+    width: calc(100% - 14px);
+    height: 100%;
+    margin: 0 7px;
+
+    &::before {
+      position: absolute;
+      top: 20%;
+      right: 100%;
+      width: 1px;
+      height: 60%;
+      content: '';
+      background-color: var(--tabs-divider);
+    }
+
+    // &::after {
+    //   position: absolute;
+    //   top: 20%;
+    //   left: calc(100% - 1px);
+    //   width: 1px;
+    //   height: 60%;
+    //   content: '';
+    //   background-color: var(--tabs-divider);
+    // }
+  }
+
+  @include e('content') {
+    height: 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    transition: background 0.15s ease;
+  }
+
+  @include e('before') {
+    position: absolute;
+    bottom: -1px;
+    left: -1px;
+    fill: transparent;
+  }
+
+  @include e('after') {
+    position: absolute;
+    right: -1px;
+    bottom: -1px;
+    fill: transparent;
+  }
+}

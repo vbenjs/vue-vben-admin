@@ -1,0 +1,156 @@
+<script setup lang="ts">
+import { VbenButton, VbenInput, VbenPinInput } from '@vben-core/shadcn-ui';
+
+import { $t } from '@vben/locales';
+import { computed, onBeforeUnmount, reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+import Title from './auth-title.vue';
+
+import type { LoginCodeEmits } from './typings';
+
+interface Props {
+  /**
+   * @zh_CN 是否处于加载处理状态
+   */
+  loading?: boolean;
+}
+
+defineOptions({
+  name: 'AuthenticationCodeLogin',
+});
+
+withDefaults(defineProps<Props>(), {
+  loading: false,
+});
+
+const emit = defineEmits<{
+  submit: LoginCodeEmits['submit'];
+}>();
+
+const router = useRouter();
+
+const formState = reactive({
+  code: '',
+  phoneNumber: '',
+  requirePhoneNumber: false,
+  submitted: false,
+});
+
+const countdown = ref(0);
+const timer = ref<ReturnType<typeof setTimeout>>();
+
+const isValidPhoneNumber = computed(() => {
+  return /^1[3-9]\d{9}$/.test(formState.phoneNumber);
+});
+
+const btnText = computed(() => {
+  return countdown.value > 0
+    ? $t('authentication.send-text', [countdown.value])
+    : $t('authentication.send-code');
+});
+const btnLoading = computed(() => {
+  return countdown.value > 0;
+});
+
+const phoneNumberStatus = computed(() => {
+  return (formState.submitted || formState.requirePhoneNumber) &&
+    !isValidPhoneNumber.value
+    ? 'error'
+    : 'default';
+});
+
+const codeStatus = computed(() => {
+  return formState.submitted && !formState.code ? 'error' : 'default';
+});
+
+function handleSubmit() {
+  formState.submitted = true;
+  if (phoneNumberStatus.value !== 'default' || codeStatus.value !== 'default') {
+    return;
+  }
+
+  emit('submit', {
+    code: formState.code,
+    phoneNumber: formState.phoneNumber,
+  });
+}
+
+function handleGo(path: string) {
+  router.push(path);
+}
+
+async function handleSendCode() {
+  if (btnLoading.value) {
+    return;
+  }
+  if (!isValidPhoneNumber.value) {
+    formState.requirePhoneNumber = true;
+    return;
+  }
+  countdown.value = 60;
+  // TODO: 调用发送验证码接口
+  startCountdown();
+}
+
+function startCountdown() {
+  if (countdown.value > 0) {
+    timer.value = setTimeout(() => {
+      countdown.value--;
+      startCountdown();
+    }, 1000);
+  }
+}
+
+onBeforeUnmount(() => {
+  countdown.value = 0;
+  clearTimeout(timer.value);
+});
+</script>
+
+<template>
+  <div>
+    <Title>
+      {{ $t('authentication.welcome-back') }} 📲
+      <template #desc>
+        <span class="text-muted-foreground">
+          {{ $t('authentication.code-subtitle') }}
+        </span>
+      </template>
+    </Title>
+    <VbenInput
+      v-model="formState.phoneNumber"
+      :status="phoneNumberStatus"
+      :error-tip="$t('authentication.mobile-tip')"
+      :label="$t('authentication.mobile')"
+      name="phoneNumber"
+      type="number"
+      :placeholder="$t('authentication.mobile')"
+      :autofocus="true"
+      @keyup.enter="handleSubmit"
+    />
+    <VbenPinInput
+      v-model="formState.code"
+      :handle-send-code="handleSendCode"
+      :status="codeStatus"
+      :code-length="4"
+      :error-tip="$t('authentication.code-tip')"
+      :label="$t('authentication.code')"
+      name="password"
+      :placeholder="$t('authentication.code')"
+      :btn-text="btnText"
+      :btn-loading="btnLoading"
+      @keyup.enter="handleSubmit"
+    />
+    <VbenButton :loading="loading" class="mt-2 w-full" @click="handleSubmit">
+      {{ $t('common.login') }}
+    </VbenButton>
+    <VbenButton
+      class="mt-4 w-full"
+      variant="outline"
+      @click="handleGo('/auth/login')"
+    >
+      {{ $t('common.back') }}
+    </VbenButton>
+  </div>
+</template>

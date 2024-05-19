@@ -1,0 +1,44 @@
+<script setup lang="ts">
+import { MdiQuestionMarkCircleOutline } from '@vben-core/iconify';
+import { Switch, VbenTooltip } from '@vben-core/shadcn-ui';
+
+import { useSlots } from 'vue';
+
+defineOptions({
+  name: 'PreferenceSwitchItem',
+});
+
+withDefaults(defineProps<{ disabled: boolean }>(), {
+  disabled: false,
+});
+
+const checked = defineModel<boolean>();
+
+const slots = useSlots();
+
+function handleClick() {
+  checked.value = !checked.value;
+}
+</script>
+
+<template>
+  <div
+    class="hover:bg-accent my-1 flex w-full items-center justify-between rounded-md px-2 py-2"
+    :class="{
+      'pointer-events-none opacity-50': disabled,
+    }"
+    @click="handleClick"
+  >
+    <span class="flex items-center text-sm">
+      <slot></slot>
+
+      <VbenTooltip v-if="slots.tip" side="bottom">
+        <template #trigger>
+          <MdiQuestionMarkCircleOutline class="ml-1 cursor-help" />
+        </template>
+        <slot name="tip"></slot>
+      </VbenTooltip>
+    </span>
+    <Switch v-model:checked="checked" @click.stop />
+  </div>
+</template>

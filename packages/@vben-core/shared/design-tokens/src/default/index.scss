@@ -1,0 +1,103 @@
+/* https://gavin-yyc.github.io/colorconvert/ */
+:root {
+  --font-geist-sans: 'geist-sans', -apple-system, blinkmacsystemfont, 'Segoe UI',
+    roboto, helvetica, arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol';
+
+  /* 基础背景颜色颜色 */
+
+  /* --color-background: 210deg 25% 96.86%; */
+  --color-body: 210deg 25% 96.86%;
+  --color-background: 0 0 100%;
+  // --color-darken-background: 220deg 13.04% 8%;
+
+  /* --color-background: 220 14% 95%; */
+
+  /* 基础文本颜色 */
+  --color-foreground: 210 6% 21%;
+
+  /* 主题颜色 */
+  --color-primary: 211 91% 39%;
+
+  /* 前景色，如按钮文本颜色 */
+  --color-primary-foreground: 0 0 98%;
+
+  /* 颜色次要 */
+  --color-secondary: 240 5% 96%;
+
+  /* 前景色，如按钮文本颜色 */
+  --color-secondary-foreground: 240 6% 10%;
+
+  /* 次要文本颜色 */
+  --color-secondary-desc: 216.4 16.09% 34.12%;
+
+  /* 普通颜色 */
+  --color-accent: 240 5% 96%;
+  --color-accent-hover: 200deg 10% 90%;
+
+  /* 普通颜色前景色，如按钮文本颜色 */
+  --color-accent-foreground: 240 6% 10%;
+
+  /* 破坏性颜色 */
+  --color-destructive: 0 77.78% 68.24%;
+
+  /* 破坏性颜色 */
+  --color-destructive-foreground: 0 0 98%;
+  --color-muted: 210 40% 96.1%;
+  --color-muted-foreground: 215.4 16.3% 46.9%;
+  --color-heavy: 192deg 9.43% 89.61%;
+  --color-heavy-foreground: var(--color-accent-foreground);
+  --color-popover: 0 0% 100%;
+  --color-popover-foreground: 222.2 84% 4.9%;
+  --color-card: 0 0% 100%;
+  --color-card-foreground: 222.2 84% 4.9%;
+
+  /* 基础边框色 */
+  --color-border: 240 6% 90%;
+
+  /* 基础文本边框色 */
+  --color-input: 240deg 5.88% 90%;
+
+  /* input placeholder 颜色 */
+  --color-input-placeholder: 217 10.6% 65%;
+
+  /* 基础文本背景色 */
+  --color-input-background: 0 0 100%;
+  --color-ring: 222.2 84% 4.9%;
+
+  /* 遮罩颜色 */
+  --color-overlay: 0deg 0% 0% / 40%;
+
+  /* dark */
+  --color-dark-foreground: 220 13% 91%;
+  --color-dark-border: 0deg 0% 100% / 10%;
+  --color-dark-accent: 0deg 0% 100% / 8%;
+  --color-dark-accent-hover: 0deg 0% 100% / 12%;
+
+  /* 基本文字大小 */
+  --font-size-base: 16px;
+
+  /* 基本圆角大小 */
+  --radius-base: 0.5rem;
+
+  /* ======================================== */
+
+  /* =============component & UI============= */
+
+  /* ======================================== */
+
+  /* --color-login-background: 0 0 100%; */
+
+  /* menu */
+  --color-menu-dark: 225deg 12% 13%;
+  --color-menu-dark-darken: 223deg 11% 10%;
+  // --color-menu-darken: var(--color-background);
+  // --color-menu-opened-dark: 225deg 12.12% 11%;
+  --color-menu: 0deg 0% 100%;
+  --color-menu-darken: 0deg 0% 95%;
+  // --color-menu-opened: 0deg 0% 100%;
+
+  /* authentication */
+  --color-authentication-from: hsl(231deg 61% 44%);
+  --color-authentication-to: hsl(218deg 70% 42%);
+}

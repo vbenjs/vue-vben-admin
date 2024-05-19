@@ -1,0 +1,95 @@
+<script setup lang="ts">
+import type {
+  ContextMenuContentProps,
+  ContextMenuRootEmits,
+  ContextMenuRootProps,
+} from 'radix-vue';
+
+import type { HTMLAttributes } from 'vue';
+
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuShortcut,
+  ContextMenuTrigger,
+} from '#/components/ui/context-menu';
+import { useForwardPropsEmits } from 'radix-vue';
+import { computed } from 'vue';
+
+import type { IContextMenuItem } from './interface';
+
+const props = defineProps<
+  {
+    class?: HTMLAttributes['class'];
+    contentClass?: HTMLAttributes['class'];
+    contentProps?: ContextMenuContentProps;
+    handlerData?: Record<string, any>;
+    itemClass?: HTMLAttributes['class'];
+    menus: (data: any) => IContextMenuItem[];
+  } & ContextMenuRootProps
+>();
+
+const emits = defineEmits<ContextMenuRootEmits>();
+
+const delegatedProps = computed(() => {
+  const {
+    class: _cls,
+    contentClass: _,
+    contentProps: _cProps,
+    itemClass: _iCls,
+    ...delegated
+  } = props;
+
+  return delegated;
+});
+
+const forwarded = useForwardPropsEmits(delegatedProps, emits);
+
+const menusView = computed(() => {
+  return props.menus?.(props.handlerData);
+});
+
+function handleClick(menu: IContextMenuItem) {
+  if (menu.disabled) {
+    return;
+  }
+  menu?.handler?.(props.handlerData);
+}
+</script>
+
+<template>
+  <ContextMenu v-bind="forwarded">
+    <ContextMenuTrigger as-child>
+      <slot></slot>
+    </ContextMenuTrigger>
+    <ContextMenuContent
+      :class="contentClass"
+      v-bind="contentProps"
+      class="side-content z-[1000]"
+    >
+      <template v-for="menu in menusView" :key="menu.key">
+        <ContextMenuItem
+          :inset="menu.inset || !menu.icon"
+          :disabled="menu.disabled"
+          class="cursor-pointer"
+          :class="itemClass"
+          @click="handleClick(menu)"
+        >
+          <component
+            :is="menu.icon"
+            v-if="menu.icon"
+            class="mr-1 w-6 text-lg"
+          />
+
+          {{ menu.text }}
+          <ContextMenuShortcut v-if="menu.shortcut">
+            {{ menu.shortcut }}
+          </ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuSeparator v-if="menu.separator" />
+      </template>
+    </ContextMenuContent>
+  </ContextMenu>
+</template>

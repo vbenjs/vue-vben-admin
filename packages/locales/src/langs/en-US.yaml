@@ -1,0 +1,151 @@
+common:
+  back: Back
+  back-to-home: Back To Home
+  login: Login
+  logout: Logout
+  prompt: Prompt
+  cancel: Cancel
+  confirm: Comfirm
+  search: Search
+  not-data: No data
+
+layout:
+  center: Align Center
+  align-left: Align Left
+  align-right: Align Right
+
+fallback:
+  page-not-found: Page Not Found
+  page-not-found-desc: Sorry, We couldn't find the page you are looking for.
+
+widgets:
+  document: Document
+  qa: Q&A
+  setting: Setting
+  logout-tip: Do you want to log out?
+  view-all: View all messages
+  notifications: Notifications
+  make-all-notify: Make all as read
+  clear-notifications: Clear
+
+search:
+  search: Search
+  search-navigate: Search Navigate
+  select: To select
+  navigate: To navigate
+  close: To close
+  no-results: No results for
+  no-recent: No recent searches
+  recent: Recent
+
+preference:
+  preferences: Preferences
+  preferences-subtitle: Customize Preferences & Preview in Real Time
+  theme: Theme
+  appearance: Appearance
+  theme-color: Theme Color
+  layout: Layout
+  general: General
+  content: Content
+  other: Other
+  light: Light
+  dark: Dark
+  dark-menu: Semi Dark Menu
+  wide: Fluid
+  compact: Fixed Width
+  follow-system: Follow System
+  vertical: Vertical
+  vertical-tip: Side Vertical Menu Mode
+  horizontal: Horizontal
+  horizontal-tip: Top Horizontal Menu
+  two-column: Two Column
+  two-column-tip: Vertical Two Column Menu Mode
+  mixed-menu: Mixed Menu
+  split-menu: Split Menu
+  mixed-menu-tip: Vertical Menu Co-exists
+  full-content: Full Content
+  full-content-tip: Display only the main content, no menus
+  weak-mode: Color Weak Mode
+  gray-mode: Gray Mode
+  animation: Animation
+  language: Language
+  normal: Normal
+  rounded: Rounded
+  collapse: Collpase Menu
+  collapse-show-title: Display menu name
+  navigation-menu: Navigation Menu
+  navigation-style: Navigation menu style
+  interface-control: Interface Layout Control
+  breadcrumb: Breadcrumb
+  breadcrumb-home: Display the home button
+  breadcrumb-enable: Enable Breadcrumb
+  breadcrumb-icon: Display breadcrumb icon
+  breadcrumb-background: background
+  breadcrumb-style: Breadcrumb Type
+  breadcrumb-hide-only-one: Hidden when only one left
+  page-progress: Loading progress bar
+  page-transition: Page transition animation
+  copy: Copy Preferences
+  copy-success: Copy successful. Please replace in `src/preference.ts` of the app
+  reset-success: Preferences reset successfully
+  sidebar: Sidebar
+  side-visible: Display Sidebar
+  tabs-visible: Display Tab Bar
+  tabs: Tabs
+  tabs-icon: Display Tabbar Icon
+  mode: Mode
+  header: Header
+  header-visible: Display Header
+  header-mode-static: Static
+  header-mode-fixed: Fixed
+  header-mode-auto: Auto hide/display
+  header-mode-auto-scroll: Scroll hide/display
+  footer: Footer
+  footer-fixed: Fixed at the bottom
+  footer-visible: Display Footer
+  logo-visible: Display Logo
+  reset-tip: The data has changed, click to reset
+
+authentication:
+  layout-title: Plug-and-play backend system
+  layout-desc: Efficient, versatile frontend template
+  login-success: Login successful
+  login-success-desc: Welcome back
+  welcome-back: Welcome Back
+  login-subtitle: Enter your account details to manage your projects
+  username: Username
+  password: Password
+  username-tip: Username is required
+  password-tip: Password is required
+  account-tip: Don't have an account yet?
+  create-an-account: Create an account
+  create-account: Create account
+  already-account: Already have an account?
+  remember-me: Remember Me
+  sign-up: Sign Up
+  sign-up-subtitle: Make managing your applications simple and fun
+  comfirm-password: Comfirm Password
+  comfirm-password-tip: The passwords entered twice do not match
+  sign-up-agree: I agree to
+  sign-up-privacy-policy: Privacy-policy
+  sign-up-terms: Terms
+  sign-up-agree-tip: Please agree to the Privacy Policy and Terms
+  go-login: Login instead
+  password-strength: Use 8 or more characters with a mix of letters, numbers & symbols
+  forget-password: Forget Password?
+  forget-password-subtitle: Enter your email and we'll send you instructions to reset your password
+  email-tip: Email is required
+  send-reset-link: Send Reset Link
+  email: Email
+  qrcode-subtitle: Please scan the QR code to log in on your mobile device
+  qrcode-prompt: Scanning the code to complete the login
+  qrcode-login: QR Login
+  code-subtitle: Please enter your phone number to start managing your projects
+  code: Security code
+  code-tip: Security code is required
+  mobile: Mobile
+  mobile-login: Mobile Login
+  mobile-tip: Mobile is required
+  send-code: Get Security code
+  send-text: "Reacquire in {0}s"
+  third-party-login: Or continue with

@@ -1,0 +1,150 @@
+common:
+  back: 返回
+  back-to-home: 返回首页
+  login: 登录
+  logout: 退出登录
+  prompt: 提示
+  cancel: 取消
+  confirm: 确认
+  not-data: 暂无数据
+
+layout:
+  center: 居中
+  align-left: 居左
+  align-right: 居右
+
+fallback:
+  page-not-found: 未找到页面
+  page-not-found-desc: 抱歉，我们找不到您要找的页面。
+
+widgets:
+  document: 文档
+  qa: 问题&建议
+  setting: 设置
+  logout-tip: 是否退出登录？
+  view-all: 查看所有消息
+  notifications: 通知
+  make-all-notify: 全部标记为已读
+  clear-notifications: 清空
+
+search:
+  search: 搜索
+  search-navigate: 搜索导航菜单
+  select: 选择
+  navigate: 导航
+  close: 关闭
+  no-results: 未找到搜索结果
+  no-recent: 没有搜索历史
+  recent: 搜索历史
+
+preference:
+  preferences: 偏好设置
+  preferences-subtitle: 自定义偏好设置 & 实时预览
+  theme: 主题
+  appearance: 外观
+  theme-color: 主题色
+  layout: 布局
+  general: 通用
+  content: 内容
+  other: 其它
+  light: 浅色
+  dark: 深色
+  dark-menu: 深色菜单
+  language: 语言
+  collapse: 折叠菜单
+  collapse-show-title: 显示菜单名
+  wide: 流式
+  compact: 定宽
+  vertical: 垂直
+  vertical-tip: 侧边垂直菜单模式
+  horizontal: 水平
+  horizontal-tip: 水平菜单模式，菜单全部显示在顶部
+  two-column: 双列菜单
+  two-column-tip: 垂直双列菜单模式
+  mixed-menu: 混合菜单
+  mixed-menu-tip: 垂直菜单共存
+  split-menu: 切割菜单
+  full-content: 内容全屏
+  full-content-tip: 不显示任何菜单，只显示内容主体
+  follow-system: 跟随系统
+  weak-mode: 色弱模式
+  gray-mode: 灰色模式
+  animation: 动画
+  navigation-menu: 导航菜单
+  navigation-style: 导航菜单风格
+  interface-control: 界面布局控制
+  normal: 默认
+  rounded: 圆角
+  breadcrumb: 面包屑导航
+  breadcrumb-enable: 开启面包屑导航
+  breadcrumb-icon: 显示面包屑图标
+  breadcrumb-home: 显示首页按钮
+  breadcrumb-style: 面包屑风格
+  breadcrumb-hide-only-one: 只有一个时隐藏
+  breadcrumb-background: 背景
+  page-progress: 加载进度条
+  page-transition: 页面切换动画
+  copy: 复制偏好设置
+  copy-success: 拷贝成功，请在 app 下的 `src/preference.ts`内进行覆盖
+  reset-success: 重置偏好设置成功
+  sidebar: 侧边栏
+  side-visible: 显示侧边栏
+  tabs-visible: 显示标签栏
+  tabs: 标签栏
+  tabs-icon: 显示标签栏图标
+  mode: 模式
+  header: 顶栏
+  header-mode-static: 静止
+  header-mode-fixed: 固定
+  header-mode-auto: 自动隐藏和显示
+  header-mode-auto-scroll: 滚动隐藏和显示
+  header-visible: 显示顶栏
+  footer: 底栏
+  footer-visible: 显示底栏
+  footer-fixed: 固定在底部
+  logo-visible: 显示 Logo
+  reset-tip: 数据有变化，点击可进行重置
+
+authentication:
+  layout-title: 开箱即用的大型中后台管理系统
+  layout-desc: 工程化、高性能、跨组件库的前端模版
+  login-success: 登录成功
+  login-success-desc: 欢迎回来
+  welcome-back: 欢迎回来
+  login-subtitle: 请输入您的帐户信息以开始管理您的项目
+  username: 账号
+  password: 密码
+  username-tip: 请输入用户名
+  password-tip: 请输入用户名
+  remember-me: 记住账号
+  create-an-account: 创建一个账号
+  create-account: 创建账号
+  already-account: 已经有账号了?
+  account-tip: 还没有账号?
+  sign-up: 注册
+  sign-up-subtitle: 让您的应用程序管理变得简单而有趣
+  comfirm-password: 确认密码
+  comfirm-password-tip: 两次输入的密码不一致
+  sign-up-agree: 我同意
+  sign-up-privacy-policy: 隐私政策
+  sign-up-terms: 条款
+  sign-up-agree-tip: 请同意隐私政策和条款
+  go-login: 去登录
+  password-strength: 使用 8 个或更多字符，混合字母、数字和符号
+  forget-password: 忘记密码?
+  forget-password-subtitle: 输入您的电子邮件，我们将向您发送重置密码的连接
+  email-tip: 请输入邮箱
+  send-reset-link: 发送重置链接
+  email: 邮箱
+  qrcode-subtitle: 请用手机扫描二维码登录
+  qrcode-prompt: 扫码后点击 '确认'，即可完成登录
+  qrcode-login: 扫码登录
+  code-subtitle: 请输入您的手机号码以开始管理您的项目
+  code: 验证码
+  code-tip: 请输入验证码
+  mobile: 手机号码
+  mobile-login: 手机号登录
+  mobile-tip: 请输入手机号码
+  send-code: 获取验证码
+  send-text: "{0}秒后重新获取"
+  third-party-login: 其他登录方式
