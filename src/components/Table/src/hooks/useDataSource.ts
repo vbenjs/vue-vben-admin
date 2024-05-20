@@ -359,7 +359,7 @@ export function useDataSource(
   });
 
   return {
-    getDataSourceRef,
+    getDataSourceRef: computed(() => getDataSourceRef.value),
     getDataSource,
     getRawDataSource,
     searchInfoRef,
