@@ -12,7 +12,6 @@ export async function ignores(): Promise<Linter.FlatConfig[]> {
         '**/yarn.lock',
         '**/pnpm-lock.yaml',
         '**/bun.lockb',
-
         '**/output',
         '**/coverage',
         '**/temp',
