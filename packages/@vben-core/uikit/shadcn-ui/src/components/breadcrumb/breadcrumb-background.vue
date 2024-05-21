@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { VbenIcon } from '@vben-core/shadcn-ui';
+import { VbenIcon } from '../icon';
 
 import type { IBreadcrumb } from './interface';
 

@@ -99,9 +99,6 @@ importers:
       '@vben-core/design-tokens':
         specifier: workspace:*
         version: link:../../packages/@vben-core/shared/design-tokens
-      '@vben-core/typings':
-        specifier: workspace:*
-        version: link:../../packages/@vben-core/shared/typings
       '@vben/common-ui':
         specifier: workspace:*
         version: link:../../packages/business/common-ui
@@ -126,6 +123,9 @@ importers:
       '@vben/stores':
         specifier: workspace:*
         version: link:../../packages/stores
+      '@vben/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@vben/utils':
         specifier: workspace:*
         version: link:../../packages/utils
@@ -216,8 +216,8 @@ importers:
         specifier: ^5.1.3
         version: 5.1.3(@types/eslint@8.56.10)(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(prettier@3.2.5)
       eslint-plugin-regexp:
-        specifier: ^2.5.0
-        version: 2.5.0(eslint@8.57.0)
+        specifier: ^2.6.0
+        version: 2.6.0(eslint@8.57.0)
       eslint-plugin-unicorn:
         specifier: ^53.0.0
         version: 53.0.0(eslint@8.57.0)
@@ -367,9 +367,9 @@ importers:
 
   internal/tsconfig:
     dependencies:
-      '@vben-core/typings':
+      '@vben/types':
         specifier: workspace:*
-        version: link:../../packages/@vben-core/shared/typings
+        version: link:../../packages/types
       vite:
         specifier: ^5.2.11
         version: 5.2.11(@types/node@20.12.12)(sass@1.77.2)(terser@5.31.0)
@@ -561,8 +561,8 @@ importers:
         specifier: 2.1.1
         version: 2.1.1
       radix-vue:
-        specifier: ^1.8.0
-        version: 1.8.0(vue@3.4.27(typescript@5.4.5))
+        specifier: ^1.8.1
+        version: 1.8.1(vue@3.4.27(typescript@5.4.5))
       tailwind-merge:
         specifier: ^2.3.0
         version: 2.3.0
@@ -633,9 +633,9 @@ importers:
       '@types/qrcode':
         specifier: ^1.5.5
         version: 1.5.5
-      '@vben-core/typings':
+      '@vben/types':
         specifier: workspace:*
-        version: link:../../@vben-core/shared/typings
+        version: link:../../types
 
   packages/business/layouts:
     dependencies:
@@ -696,9 +696,6 @@ importers:
       '@vben-core/iconify':
         specifier: workspace:*
         version: link:../@vben-core/shared/iconify
-      vue:
-        specifier: ^3.4.27
-        version: 3.4.27(typescript@5.4.5)
 
   packages/locales:
     dependencies:
@@ -744,6 +741,18 @@ importers:
       pinia-plugin-persistedstate:
         specifier: ^3.2.1
         version: 3.2.1(pinia@2.1.7(typescript@5.4.5)(vue@3.4.27(typescript@5.4.5)))
+      vue:
+        specifier: ^3.4.27
+        version: 3.4.27(typescript@5.4.5)
+      vue-router:
+        specifier: ^4.3.2
+        version: 4.3.2(vue@3.4.27(typescript@5.4.5))
+
+  packages/types:
+    dependencies:
+      '@vben-core/typings':
+        specifier: workspace:*
+        version: link:../@vben-core/shared/typings
       vue:
         specifier: ^3.4.27
         version: 3.4.27(typescript@5.4.5)
@@ -1811,11 +1820,11 @@ packages:
     peerDependencies:
       vue: '>=3'
 
-  '@internationalized/date@3.5.3':
-    resolution: {integrity: sha512-X9bi8NAEHAjD8yzmPYT2pdJsbe+tYSEBAfowtlxJVJdZR3aK8Vg7ZUT1Fm5M47KLzp/M1p1VwAaeSma3RT7biw==}
+  '@internationalized/date@3.5.4':
+    resolution: {integrity: sha512-qoVJVro+O0rBaw+8HPjUB1iH8Ihf8oziEnqMnvhJUSuVIrHOuZ6eNLHNvzXJKUvAtaDiqMnRlg8Z2mgh09BlUw==}
 
-  '@internationalized/number@3.5.2':
-    resolution: {integrity: sha512-4FGHTi0rOEX1giSkt5MH4/te0eHBq3cvAYsfLlpguV6pzJAReXymiYpE5wPCqKqjkUO3PIsyvk+tBiIV1pZtbA==}
+  '@internationalized/number@3.5.3':
+    resolution: {integrity: sha512-rd1wA3ebzlp0Mehj5YTuTI50AQEx80gWFyHcQu+u91/5NgdwBecO8BH6ipPfE+lmQ9d63vpB3H9SHoIUiupllw==}
 
   '@intlify/bundle-utils@8.0.0':
     resolution: {integrity: sha512-1B++zykRnMwQ+20SpsZI1JCnV/YJt9Oq7AGlEurzkWJOFtFAVqaGc/oV36PBRYeiKnTbY9VYfjBimr2Vt42wLQ==}
@@ -3679,8 +3688,8 @@ packages:
       eslint-config-prettier:
         optional: true
 
-  eslint-plugin-regexp@2.5.0:
-    resolution: {integrity: sha512-I7vKcP0o75WS5SHiVNXN+Eshq49sbrweMQIuqSL3AId9AwDe9Dhbfug65vw64LxmOd4v+yf5l5Xt41y9puiq0g==}
+  eslint-plugin-regexp@2.6.0:
+    resolution: {integrity: sha512-FCL851+kislsTEQEMioAlpDuK5+E5vs0hi1bF8cFlPlHcEjeRhuAzEsGikXRreE+0j4WhW2uO54MqTjXtYOi3A==}
     engines: {node: ^18 || >=20}
     peerDependencies:
       eslint: '>=8.44.0'
@@ -5864,8 +5873,8 @@ packages:
     resolution: {integrity: sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==}
     engines: {node: '>=10'}
 
-  radix-vue@1.8.0:
-    resolution: {integrity: sha512-RT98WcrsHMG4P4DuN4G4EeHnSV2Lk+J2k2LWr/UF/7oF2STxUFEjg2Zg0uxFG8B/evutOmp9S5kqujJVmp3sgQ==}
+  radix-vue@1.8.1:
+    resolution: {integrity: sha512-DFyUt2vc/89tpSHiJvv7Qb/Qs8zVxq2g7q4kuuDV46fmDmSC3mnV3hdSAYruU7k/KvoDpS3sd99kLGRtuG63Rw==}
     peerDependencies:
       vue: '>= 3.2.0'
 
@@ -8278,11 +8287,11 @@ snapshots:
       '@iconify/types': 2.0.0
       vue: 3.4.27(typescript@5.4.5)
 
-  '@internationalized/date@3.5.3':
+  '@internationalized/date@3.5.4':
     dependencies:
       '@swc/helpers': 0.5.11
 
-  '@internationalized/number@3.5.2':
+  '@internationalized/number@3.5.3':
     dependencies:
       '@swc/helpers': 0.5.11
 
@@ -10434,7 +10443,7 @@ snapshots:
       '@types/eslint': 8.56.10
       eslint-config-prettier: 9.1.0(eslint@8.57.0)
 
-  eslint-plugin-regexp@2.5.0(eslint@8.57.0):
+  eslint-plugin-regexp@2.6.0(eslint@8.57.0):
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.57.0)
       '@eslint-community/regexpp': 4.10.0
@@ -12633,12 +12642,12 @@ snapshots:
 
   quick-lru@5.1.1: {}
 
-  radix-vue@1.8.0(vue@3.4.27(typescript@5.4.5)):
+  radix-vue@1.8.1(vue@3.4.27(typescript@5.4.5)):
     dependencies:
       '@floating-ui/dom': 1.6.5
       '@floating-ui/vue': 1.0.6(vue@3.4.27(typescript@5.4.5))
-      '@internationalized/date': 3.5.3
-      '@internationalized/number': 3.5.2
+      '@internationalized/date': 3.5.4
+      '@internationalized/number': 3.5.3
       '@tanstack/vue-virtual': 3.5.0(vue@3.4.27(typescript@5.4.5))
       '@vueuse/core': 10.9.0(vue@3.4.27(typescript@5.4.5))
       '@vueuse/shared': 10.9.0(vue@3.4.27(typescript@5.4.5))

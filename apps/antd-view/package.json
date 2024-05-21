@@ -26,7 +26,6 @@
   "dependencies": {
     "@vben-core/design": "workspace:*",
     "@vben-core/design-tokens": "workspace:*",
-    "@vben-core/typings": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",
     "@vben/hooks": "workspace:*",
@@ -35,6 +34,7 @@
     "@vben/locales": "workspace:*",
     "@vben/preference": "workspace:*",
     "@vben/stores": "workspace:*",
+    "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
     "ant-design-vue": "^4.2.1",
     "axios": "^1.7.1",

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SelectListItem } from '@vben-core/typings';
+import type { SelectListItem } from '@vben/types';
 
 import { $t } from '@vben/locales';
 import { staticPreference } from '@vben/preference';

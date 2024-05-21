@@ -1,5 +1,5 @@
 {
-  "name": "@vben-core/shadcn-ui",
+  "name": "@vben/types",
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
@@ -7,23 +7,21 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "packages/@vben-core/uikit/shadcn-ui"
+    "directory": "packages/types"
   },
   "bugs": {
     "url": "https://github.com/vbenjs/vue-vben-admin/issues"
   },
   "scripts": {
-    "build": "pnpm vite build",
-    "prepublishOnly": "npm run build"
+    "build": "pnpm unbuild",
+    "stub": "pnpm build --stub"
   },
   "files": [
     "dist"
   ],
-  "sideEffects": [
-    "**/*.css"
-  ],
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "imports": {
     "#*": "./src/*"
   },
@@ -32,6 +30,9 @@
       "types": "./src/index.ts",
       "development": "./src/index.ts",
       "default": "./dist/index.mjs"
+    },
+    "./global": {
+      "types": "./global.d.ts"
     }
   },
   "publishConfig": {
@@ -43,16 +44,8 @@
     }
   },
   "dependencies": {
-    "@radix-icons/vue": "^1.0.0",
-    "@vben-core/iconify": "workspace:*",
-    "@vben-core/toolkit": "workspace:*",
     "@vben-core/typings": "workspace:*",
-    "@vueuse/core": "^10.9.0",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "2.1.1",
-    "radix-vue": "^1.8.1",
-    "tailwind-merge": "^2.3.0",
     "vue": "^3.4.27",
-    "vue-sonner": "^1.1.2"
+    "vue-router": "^4.3.2"
   }
 }

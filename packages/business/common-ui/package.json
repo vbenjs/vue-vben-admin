@@ -57,6 +57,6 @@
   },
   "devDependencies": {
     "@types/qrcode": "^1.5.5",
-    "@vben-core/typings": "workspace:*"
+    "@vben/types": "workspace:*"
   }
 }

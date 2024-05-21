@@ -109,6 +109,10 @@
       "path": "packages/stores",
     },
     {
+      "name": "@vben/types",
+      "path": "packages/types",
+    },
+    {
       "name": "@vben/utils",
       "path": "packages/utils",
     },

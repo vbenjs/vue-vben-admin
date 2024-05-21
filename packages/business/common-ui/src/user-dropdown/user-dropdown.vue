@@ -12,11 +12,11 @@ import {
   VbenAvatar,
   VbenIcon,
 } from '@vben-core/shadcn-ui';
-import { AnyFunction } from '@vben-core/typings';
 
 import type { Component } from 'vue';
 
 import { $t } from '@vben/locales';
+import { AnyFunction } from '@vben/types';
 import { ref } from 'vue';
 
 interface Props {

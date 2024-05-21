@@ -30,9 +30,6 @@
       "types": "./src/index.ts",
       "development": "./src/index.ts",
       "default": "./dist/index.mjs"
-    },
-    "./global": {
-      "types": "./global.d.ts"
     }
   },
   "publishConfig": {

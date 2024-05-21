@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { PreferenceKeys, SupportLocale } from '@vben-core/typings';
+import type { PreferenceKeys, SupportLocale } from '@vben/types';
 
 import { loadLocaleMessages } from '@vben/locales';
 import {

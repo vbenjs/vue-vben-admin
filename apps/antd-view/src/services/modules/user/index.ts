@@ -1,4 +1,4 @@
-import type { UserInfo } from '@vben-core/typings';
+import type { UserInfo } from '@vben/types';
 
 import { request } from '@/services/request';
 

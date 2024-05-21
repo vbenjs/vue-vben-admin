@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import type { AuthPageLayout } from '@vben/types';
 import type { VbenDropdownMenuItem } from '@vben-core/shadcn-ui';
-import type { AuthPageLayout } from '@vben-core/typings';
 
 import { MdiDockBottom, MdiDockLeft, MdiDockRight } from '@vben-core/iconify';
 import { VbenDropdownRadioMenu, VbenIconButton } from '@vben-core/shadcn-ui';

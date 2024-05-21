@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { LayoutType } from '@vben-core/typings';
+import type { LayoutType } from '@vben/types';
 
 import { MdiQuestionMarkCircleOutline } from '@vben-core/iconify';
 import { VbenTooltip } from '@vben-core/shadcn-ui';

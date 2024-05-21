@@ -3,6 +3,6 @@
   "display": "Web Application",
   "extends": "./web.json",
   "compilerOptions": {
-    "types": ["vite/client", "@vben-core/typings/global"]
+    "types": ["vite/client", "@vben/types/global"]
   }
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SelectListItem } from '@vben-core/typings';
+import type { SelectListItem } from '@vben/types';
 
 import { MdiQuestionMarkCircleOutline } from '@vben-core/iconify';
 import {

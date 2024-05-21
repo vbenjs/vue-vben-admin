@@ -1,6 +1,5 @@
-export * from './access';
-export * from './menu-record';
-export * from './preference';
-export * from './tabs';
-export * from './tools';
-export * from './ui';
+export type * from './access';
+export type * from './menu-record';
+export type * from './preference';
+export type * from './tabs';
+export type * from './tools';

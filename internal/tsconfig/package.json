@@ -21,7 +21,7 @@
     "web.json"
   ],
   "dependencies": {
-    "@vben-core/typings": "workspace:*",
+    "@vben/types": "workspace:*",
     "vite": "^5.2.11"
   }
 }

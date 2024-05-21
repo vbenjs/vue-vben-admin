@@ -29,9 +29,11 @@ export const vbenRoutes: RouteRecordRaw[] = [
       {
         name: 'AboutDocument',
         path: 'document',
-        component: () => import('@/views/about/index.vue'),
+        component: IFrameView,
         meta: {
           icon: 'mdi:flame-circle',
+          iframeSrc: 'https://doc.vvbin.cn/',
+          keepAlive: true,
           title: $t('page.document'),
         },
       },

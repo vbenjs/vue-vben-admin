@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import type { LayoutHeaderMode, LayoutType } from '@vben/types';
 import type { SegmentedItem } from '@vben-core/shadcn-ui';
-import type { LayoutHeaderMode, LayoutType } from '@vben-core/typings';
 
 import { IcRoundFolderCopy, IcRoundRestartAlt } from '@vben-core/iconify';
 import {

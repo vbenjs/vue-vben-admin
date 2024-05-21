@@ -1,4 +1,4 @@
-import type { Preference } from '@vben-core/typings';
+import type { Preference } from '@vben/types';
 
 /**
  * @description 项目配置文件

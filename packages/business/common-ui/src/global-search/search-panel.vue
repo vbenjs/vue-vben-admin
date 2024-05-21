@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { MenuRecordRaw } from '@vben-core/typings';
+import type { MenuRecordRaw } from '@vben/types';
 
 import { IcRoundClose, IcRoundSearchOff } from '@vben-core/iconify';
 import { ScrollArea, VbenIcon } from '@vben-core/shadcn-ui';

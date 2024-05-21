@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SupportLocale } from '@vben-core/typings';
+import type { SupportLocale } from '@vben/types';
 
 import { IcBaselineLanguage } from '@vben-core/iconify';
 import { VbenDropdownRadioMenu, VbenIconButton } from '@vben-core/shadcn-ui';

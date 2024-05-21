@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { LayoutHeaderMode, SelectListItem } from '@vben-core/typings';
+import type { LayoutHeaderMode, SelectListItem } from '@vben/types';
 
 import { $t } from '@vben/locales';
 

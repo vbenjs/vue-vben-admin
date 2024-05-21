@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { IcRoundKeyboardArrowDown } from '@vben-core/iconify';
-import { VbenIcon } from '@vben-core/shadcn-ui';
 
 import {
   Breadcrumb,
@@ -16,6 +15,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '#/components/ui/dropdown-menu';
+
+import { VbenIcon } from '../';
 
 import type { IBreadcrumb } from './interface';
 
