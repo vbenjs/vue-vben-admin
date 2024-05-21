@@ -29,7 +29,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{ close: [string]; unPushPin: [TabItem] }>();
 
-const gap = 7;
+const gap = 6;
 
 const active = defineModel<string>('active');
 const { b, e, is } = useNamespace('tabs-ui');

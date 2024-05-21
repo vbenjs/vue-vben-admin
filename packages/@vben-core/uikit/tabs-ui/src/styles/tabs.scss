@@ -2,7 +2,7 @@
 
 @include b('tabs-ui') {
   --tabs-background: hsl(var(--color-background));
-  --tabs-gap: 8px;
+  --tabs-gap: 10px;
   --tabs-divider: hsl(var(--color-border));
   --tabs-hover: hsl(var(--color-heavy));
   --tabs-active-background: hsl(var(--color-primary) / 15%);
@@ -30,7 +30,6 @@
   color: hsl(var(--color-muted-foreground));
   cursor: pointer;
   user-select: none;
-  // mask-image: linear-gradient(to right, #000 calc(100% - 0px), transparent);
 
   @include is('active') {
     z-index: 1;
@@ -49,10 +48,10 @@
       background-color: var(--tabs-active-background);
     }
 
-    // .#{$namespace}-tab-background__before,
-    // .#{$namespace}-tab-background__after {
-    //   fill: var(--tabs-active-background);
-    // }
+    .#{$namespace}-tab-background__before,
+    .#{$namespace}-tab-background__after {
+      fill: var(--tabs-active-background);
+    }
   }
 
   @include e('content') {
@@ -95,7 +94,7 @@
     height: 100%;
     font-size: 12px;
     border-radius: 50%;
-    // transition: all 0.15s ease;
+    transition: all 0.15s ease;
 
     &:hover {
       color: hsl(var(--color-foreground));
@@ -185,15 +184,15 @@
     height: 100%;
     margin: 0 7px;
 
-    &::before {
-      position: absolute;
-      top: 20%;
-      right: 100%;
-      width: 1px;
-      height: 60%;
-      content: '';
-      background-color: var(--tabs-divider);
-    }
+    // &::before {
+    //   position: absolute;
+    //   top: 20%;
+    //   right: 100%;
+    //   width: 1px;
+    //   height: 60%;
+    //   content: '';
+    //   background-color: var(--tabs-divider);
+    // }
 
     // &::after {
     //   position: absolute;

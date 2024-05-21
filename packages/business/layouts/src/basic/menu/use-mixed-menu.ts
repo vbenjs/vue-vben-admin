@@ -3,15 +3,15 @@ import type { MenuRecordRaw } from '@vben-core/typings';
 import { preference, usePreference } from '@vben/preference';
 import { useAccessStore } from '@vben/stores';
 import { computed, onBeforeMount, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 import { findRootMenuByPath } from './helper';
+import { useNavigation } from './use-navigation';
 
 function useMixedMenu() {
   const accessStore = useAccessStore();
-
+  const { navigation } = useNavigation();
   const route = useRoute();
-  const router = useRouter();
   const splitSideMenus = ref<MenuRecordRaw[]>([]);
   const rootMenuPath = ref<string>('');
 
@@ -75,7 +75,7 @@ function useMixedMenu() {
    */
   const handleMenuSelect = (key: string, mode?: string) => {
     if (!isMixedNav.value || mode === 'vertical') {
-      router.push(key);
+      navigation(key);
       return;
     }
 
@@ -83,7 +83,7 @@ function useMixedMenu() {
     rootMenuPath.value = rootMenu?.path ?? '';
     splitSideMenus.value = rootMenu?.children ?? [];
     if (splitSideMenus.value.length === 0) {
-      router.push(key);
+      navigation(key);
     }
   };
 

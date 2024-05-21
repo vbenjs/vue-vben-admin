@@ -81,6 +81,10 @@ declare module 'vue-router' {
      */
     orderNo?: number;
     /**
+     * 外链-跳转路径
+     */
+    target?: string;
+    /**
      * 标题名称
      */
     title: string;

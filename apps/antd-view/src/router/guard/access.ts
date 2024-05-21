@@ -1,9 +1,9 @@
 import type { ExRouteRecordRaw, MenuRecordRaw } from '@vben-core/typings';
 
-import { filterTree, mapTree, traverseTreeValues } from '@vben-core/toolkit';
 import type { RouteRecordRaw, Router } from 'vue-router';
 
 import { useAccessStore } from '@vben/stores';
+import { filterTree, mapTree, traverseTreeValues } from '@vben/utils';
 
 import { dynamicRoutes } from '../routes';
 
@@ -120,6 +120,7 @@ async function generatorMenus(
       hideChildrenInMenu = false,
       icon,
       orderNo,
+      target,
       title = '',
     } = meta || {};
 
@@ -138,7 +139,7 @@ async function generatorMenus(
       });
     }
     // 隐藏子菜单
-    const resultPath = hideChildrenInMenu ? redirect : path;
+    const resultPath = hideChildrenInMenu ? redirect : target || path;
     return {
       badge,
       badgeType,

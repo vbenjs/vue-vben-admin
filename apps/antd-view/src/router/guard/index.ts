@@ -1,7 +1,7 @@
-import { startProgress, stopProgress } from '@vben-core/toolkit';
 import type { Router } from 'vue-router';
 
 import { preference } from '@vben/preference';
+import { startProgress, stopProgress } from '@vben/utils';
 
 import { configAccessGuard } from './access';
 

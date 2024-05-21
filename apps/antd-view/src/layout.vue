@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import type { NotificationItem } from '@vben/common-ui';
 
-import { openWindow } from '@vben-core/toolkit';
-
 import { Notification, UserDropdown } from '@vben/common-ui';
 import {
   IcRoundCreditScore,
@@ -14,6 +12,7 @@ import { BasicLayout } from '@vben/layouts';
 import { $t } from '@vben/locales';
 import { preference } from '@vben/preference';
 import { useAccessStore } from '@vben/stores';
+import { openWindow } from '@vben/utils';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 

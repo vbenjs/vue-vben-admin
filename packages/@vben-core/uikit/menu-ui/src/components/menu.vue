@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { IcRoundMoreHoriz } from '@vben-core/iconify';
-import { useNamespace } from '@vben-core/toolkit';
+import { isHttpUrl, useNamespace } from '@vben-core/toolkit';
 
 import { UseResizeObserverReturn, useResizeObserver } from '@vueuse/core';
 import {
@@ -241,7 +241,10 @@ function handleMenuItemClick(data: MenuItemClicked) {
   if (!path || !parentPaths) {
     return;
   }
-  activePath.value = path;
+  if (!isHttpUrl(path)) {
+    activePath.value = path;
+  }
+
   emit('select', path, parentPaths);
 }
 

@@ -149,3 +149,7 @@ authentication:
   send-code: Get Security code
   send-text: "Reacquire in {0}s"
   third-party-login: Or continue with
+
+page:
+  about: About
+  document: Document

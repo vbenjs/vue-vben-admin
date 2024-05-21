@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { IcRoundKeyboardArrowDown, Icon } from '@vben-core/iconify';
+import { IcRoundKeyboardArrowDown } from '@vben-core/iconify';
+import { VbenIcon } from '@vben-core/shadcn-ui';
 
 import {
   Breadcrumb,
@@ -49,7 +50,7 @@ function handleClick(path?: string) {
             <div v-if="item.items?.length ?? 0 > 0">
               <DropdownMenu>
                 <DropdownMenuTrigger class="flex items-center gap-1">
-                  <Icon
+                  <VbenIcon
                     v-if="item.icon && showIcon"
                     class="size-5"
                     :icon="item.icon"
@@ -74,21 +75,26 @@ function handleClick(path?: string) {
               href="javascript:void 0"
               @click.stop="handleClick(item.path)"
             >
-              <Icon
-                v-if="item.icon && showIcon"
-                class="size-4"
-                :class="{ 'size-5': item.isHome }"
-                :icon="item.icon"
-              />
-              {{ item.title }}
+              <div class="flex-center">
+                <VbenIcon
+                  v-if="item.icon && showIcon"
+                  class="mr-1 size-4"
+                  :class="{ 'size-5': item.isHome }"
+                  :icon="item.icon"
+                />
+                {{ item.title }}
+              </div>
             </BreadcrumbLink>
             <BreadcrumbPage v-else>
-              <Icon
-                v-if="item.icon && showIcon"
-                class="size-4"
-                :icon="item.icon"
-              />
-              {{ item.title }}
+              <div class="flex-center">
+                <VbenIcon
+                  v-if="item.icon && showIcon"
+                  class="mr-1 size-4"
+                  :class="{ 'size-5': item.isHome }"
+                  :icon="item.icon"
+                />
+                {{ item.title }}
+              </div>
             </BreadcrumbPage>
           </BreadcrumbItem>
           <BreadcrumbSeparator

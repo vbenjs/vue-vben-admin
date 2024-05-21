@@ -3,17 +3,18 @@ import type { MenuRecordRaw } from '@vben-core/typings';
 import { preference } from '@vben/preference';
 import { useAccessStore } from '@vben/stores';
 import { computed, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 import { findRootMenuByPath } from './helper';
+import { useNavigation } from './use-navigation';
 
 function useExtraMenu() {
   const accessStore = useAccessStore();
+  const { navigation } = useNavigation();
 
   const menus = computed(() => accessStore.getAccessMenus);
 
   const route = useRoute();
-  const router = useRouter();
   const extraMenus = ref<MenuRecordRaw[]>([]);
   const extraVisible = ref<boolean>(false);
   const extraActiveMenu = ref('');
@@ -22,14 +23,14 @@ function useExtraMenu() {
    * 选择混合菜单事件
    * @param menu
    */
-  const handleMixedMenuSelect = (menu: MenuRecordRaw) => {
+  const handleMixedMenuSelect = async (menu: MenuRecordRaw) => {
     extraMenus.value = menu?.children ?? [];
     extraActiveMenu.value = menu.parents?.[0] ?? menu.path;
     const hasChildren = extraMenus.value.length > 0;
 
     extraVisible.value = hasChildren;
     if (!hasChildren) {
-      router.push(menu.path);
+      await navigation(menu.path);
     }
   };
 

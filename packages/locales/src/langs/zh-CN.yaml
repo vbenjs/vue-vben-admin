@@ -148,3 +148,7 @@ authentication:
   send-code: 获取验证码
   send-text: "{0}秒后重新获取"
   third-party-login: 其他登录方式
+
+page:
+  about: 关于
+  document: 文档

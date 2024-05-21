@@ -4,6 +4,7 @@ import type { IBreadcrumb } from '@vben-core/shadcn-ui';
 import { VbenBackgroundBreadcrumb, VbenBreadcrumb } from '@vben-core/shadcn-ui';
 import { BreadcrumbStyle } from '@vben-core/typings';
 
+import { $t } from '@vben/locales';
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -43,7 +44,7 @@ const breadcrumbs = computed((): IBreadcrumb[] => {
     resultBreadcrumb.push({
       icon: icon as string,
       path: path || route.path,
-      title: (title || name) as string,
+      title: $t((title || name) as string),
       // items: children.map((child) => {
       //   return {
       //     icon: child?.meta?.icon as string,

@@ -47,7 +47,7 @@
     "./*": "./*"
   },
   "dependencies": {
-    "@iconify/json": "^2.2.211",
+    "@iconify/json": "^2.2.212",
     "@iconify/tailwind": "^1.1.1",
     "@tailwindcss/forms": "^0.5.7",
     "autoprefixer": "^10.4.19",

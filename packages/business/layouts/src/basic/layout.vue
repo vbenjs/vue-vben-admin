@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 import { VbenAdminLayout } from '@vben-core/layout-ui';
 import { VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
+import { mapTree } from '@vben-core/toolkit';
+import { MenuRecordRaw } from '@vben-core/typings';
 
 import { PreferenceWidget } from '@vben/common-ui';
+import { $t } from '@vben/locales';
 import { preference, updatePreference, usePreference } from '@vben/preference';
 import { computed } from 'vue';
 
@@ -80,6 +83,15 @@ const {
   sideMenus,
   sideVisible,
 } = useMixedMenu();
+
+function wrapperMenus(menus: MenuRecordRaw[]) {
+  return mapTree(menus, (item) => {
+    return {
+      ...item,
+      name: $t(item.name),
+    };
+  });
+}
 </script>
 
 <template>
@@ -154,7 +166,7 @@ const {
             :rounded="isMenuRounded"
             mode="horizontal"
             :theme="headerMenuTheme"
-            :menus="headerMenus"
+            :menus="wrapperMenus(headerMenus)"
             :default-active="headerActive"
             @select="handleMenuSelect"
           />
@@ -175,7 +187,7 @@ const {
         :collapse-show-title="preference.sideCollapseShowTitle"
         :collapse="preference.sideCollapse"
         :theme="theme"
-        :menus="sideMenus"
+        :menus="wrapperMenus(sideMenus)"
         :default-active="sideActive"
         @select="handleMenuSelect"
       />
@@ -195,7 +207,7 @@ const {
     <template #side-extra>
       <LayoutExtraMenu
         :rounded="isMenuRounded"
-        :menus="extraMenus"
+        :menus="wrapperMenus(extraMenus)"
         :collapse="preference.sideExtraCollapse"
         :theme="theme"
       />

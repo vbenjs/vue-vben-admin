@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Icon } from '@vben-core/iconify';
+import { VbenIcon } from '@vben-core/shadcn-ui';
 
 import type { IBreadcrumb } from './interface';
 
@@ -32,7 +32,7 @@ function handleClick(path?: string) {
         <li>
           <a href="javascript:void 0" @click.stop="handleClick(item.path)">
             <span class="flex-center h-full">
-              <Icon
+              <VbenIcon
                 v-if="item.icon && showIcon"
                 class="mr-1 size-5 flex-shrink-0"
                 :icon="item.icon"

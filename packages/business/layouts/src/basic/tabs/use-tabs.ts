@@ -12,7 +12,12 @@ import {
   MdiPinOff,
 } from '@vben-core/iconify';
 import { filterTree } from '@vben-core/toolkit';
+import type {
+  RouteLocationNormalized,
+  RouteRecordNormalized,
+} from 'vue-router';
 
+import { $t } from '@vben/locales';
 import { storeToRefs, useAccessStore, useTabsStore } from '@vben/stores';
 import { computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -39,6 +44,9 @@ function useTabs() {
     const affixTabs = filterTree(router.getRoutes(), (route) => {
       return !!route.meta?.affixTab;
     });
+    affixTabs.forEach((tab) => {
+      Object.assign(tab, wrapperTabLocale(tab));
+    });
     tabsStore.setAffixTabs(affixTabs);
   };
 
@@ -52,6 +60,18 @@ function useTabs() {
     await tabsStore.closeTabByKey(key, router);
   };
 
+  function wrapperTabLocale(
+    tab: RouteLocationNormalized | RouteRecordNormalized,
+  ) {
+    return {
+      ...tab,
+      meta: {
+        ...tab.meta,
+        title: $t(tab.meta.title as string),
+      },
+    };
+  }
+
   watch(
     () => accessMenus.value,
     () => {
@@ -63,7 +83,7 @@ function useTabs() {
   watch(
     () => route.path,
     () => {
-      tabsStore.addTab(route);
+      tabsStore.addTab(wrapperTabLocale(route) as RouteLocationNormalized);
     },
     { immediate: true },
   );

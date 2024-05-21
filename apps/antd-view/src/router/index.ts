@@ -1,6 +1,6 @@
-import { traverseTreeValues } from '@vben-core/toolkit';
 import type { RouteRecordName, RouteRecordRaw } from 'vue-router';
 
+import { traverseTreeValues } from '@vben/utils';
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 import { createRouteGuard } from './guard';

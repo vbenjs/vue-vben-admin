@@ -100,12 +100,7 @@ onBeforeUnmount(() => {
     </VbenTooltip>
     <div v-show="!showTooltip" :class="[e('content')]">
       <VbenMenuBadge v-bind="props" />
-      <VbenIcon
-        v-if="isTopLevelMenuItem"
-        :class="nsMenu.e('icon')"
-        :icon="icon"
-        fallback
-      />
+      <VbenIcon :class="nsMenu.e('icon')" :icon="icon" fallback />
 
       <slot></slot>
       <slot name="title"></slot>

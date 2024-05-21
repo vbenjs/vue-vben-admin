@@ -85,6 +85,10 @@
       "path": "packages/business/layouts",
     },
     {
+      "name": "@vben/constants",
+      "path": "packages/constants",
+    },
+    {
       "name": "@vben/hooks",
       "path": "packages/hooks",
     },
@@ -103,6 +107,10 @@
     {
       "name": "@vben/stores",
       "path": "packages/stores",
+    },
+    {
+      "name": "@vben/utils",
+      "path": "packages/utils",
     },
     {
       "name": "@vben/vsh",

@@ -4,6 +4,7 @@ import { builtinRoutes } from './builtin';
 import { Layout } from './layout';
 import { nestedRoutes } from './modules/nested';
 import { outsideRoutes } from './modules/outside';
+import { vbenRoutes } from './modules/vben';
 
 /** 动态路由 */
 const dynamicRoutes: RouteRecordRaw[] = [
@@ -31,30 +32,7 @@ const dynamicRoutes: RouteRecordRaw[] = [
   },
   ...nestedRoutes,
   ...outsideRoutes,
-  // 关于
-  {
-    component: Layout,
-    meta: {
-      hideChildrenInMenu: true,
-      icon: 'https://cdn.jsdelivr.net/gh/vbenjs/vben-cdn-static@0.1.2/vben-admin/admin-logo.png',
-      keepAlive: false,
-      title: '关于',
-    },
-    name: 'AboutLayout',
-    path: '/about',
-    redirect: '/about/index',
-    children: [
-      {
-        name: 'About',
-        path: 'index',
-        component: () => import('@/views/about/index.vue'),
-        meta: {
-          keepAlive: false,
-          title: '关于',
-        },
-      },
-    ],
-  },
+  ...vbenRoutes,
 ];
 
 /** 排除在主框架外的路由，这些路由没有菜单和顶部及其他框架内容 */

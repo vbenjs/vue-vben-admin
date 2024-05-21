@@ -5,6 +5,7 @@ export default defineBuildConfig({
   declaration: true,
   entries: [
     'src/index',
+    'src/helper',
     {
       builder: 'mkdist',
       input: './src/langs',

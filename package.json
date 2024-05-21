@@ -48,7 +48,7 @@
     "test": "vitest"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.2",
+    "@changesets/cli": "^2.27.3",
     "@ls-lint/ls-lint": "^2.2.3",
     "@types/jsdom": "^21.1.6",
     "@types/node": "^20.12.12",
@@ -79,7 +79,7 @@
     "node": ">=18.7.0",
     "pnpm": ">=8.5.0"
   },
-  "packageManager": "pnpm@9.1.1",
+  "packageManager": "pnpm@9.1.2",
   "pnpm": {
     "overrides": {
       "@ctrl/tinycolor": "4.1.0",
