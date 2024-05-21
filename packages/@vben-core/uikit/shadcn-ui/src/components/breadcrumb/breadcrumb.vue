@@ -45,7 +45,7 @@ function handleClick(path?: string) {
       <TransitionGroup name="breadcrumb-transition">
         <template
           v-for="(item, index) in breadcrumbs"
-          :key="`${item.title}-${item.path}-${index}`"
+          :key="`${item.path}-${item.title}-${index}`"
         >
           <BreadcrumbItem>
             <div v-if="item.items?.length ?? 0 > 0">
@@ -97,12 +97,10 @@ function handleClick(path?: string) {
                 {{ item.title }}
               </div>
             </BreadcrumbPage>
+            <BreadcrumbSeparator
+              v-if="index < breadcrumbs.length - 1 && !item.isHome"
+            />
           </BreadcrumbItem>
-          <BreadcrumbSeparator
-            v-if="index < breadcrumbs.length - 1 && !item.isHome"
-          >
-            /
-          </BreadcrumbSeparator>
         </template>
       </TransitionGroup>
     </BreadcrumbList>

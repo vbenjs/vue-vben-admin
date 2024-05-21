@@ -8,7 +8,7 @@ defineOptions({
   name: 'PreferenceSwitchItem',
 });
 
-withDefaults(defineProps<{ disabled: boolean }>(), {
+withDefaults(defineProps<{ disabled?: boolean }>(), {
   disabled: false,
 });
 

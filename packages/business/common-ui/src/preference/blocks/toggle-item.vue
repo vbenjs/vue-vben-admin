@@ -7,7 +7,7 @@ defineOptions({
   name: 'PreferenceToggleItem',
 });
 
-withDefaults(defineProps<{ disabled: boolean; items: SelectListItem[] }>(), {
+withDefaults(defineProps<{ disabled?: boolean; items: SelectListItem[] }>(), {
   disabled: false,
   items: () => [],
 });

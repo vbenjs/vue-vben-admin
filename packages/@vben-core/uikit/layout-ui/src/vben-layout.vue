@@ -317,6 +317,7 @@ const contentStyle = computed((): CSSProperties => {
       (!isHeaderAuto.value || scrollY.value < headerWrapperHeight.value)
         ? `${headerWrapperHeight.value}px`
         : 0,
+    paddingBottom: `${props.footerVisible ? props.footerHeight : 0}px`,
   };
 });
 

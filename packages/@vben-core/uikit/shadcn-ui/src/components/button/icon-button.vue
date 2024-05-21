@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const slots = useSlots();
 
-const showTooltip = computed(() => !!slots.tooltip || props.tooltip);
+const showTooltip = computed(() => !!slots.tooltip || !!props.tooltip);
 </script>
 
 <template>

@@ -90,7 +90,7 @@ li a::after {
 }
 
 li a::before {
-  @apply -left-7 z-[-1] border-l-transparent;
+  @apply -left-7 z-10 border-l-transparent;
 }
 
 li a::after {

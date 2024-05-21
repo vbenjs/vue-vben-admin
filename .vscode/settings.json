@@ -91,6 +91,7 @@
     "**/.gitignore": true,
     "**/.svn": true,
     "**/.DS_Store": true,
+    "**/.vitepress/cache": true,
     "**/.idea": true,
     "**/.vscode": false,
     "**/.yarn": true,

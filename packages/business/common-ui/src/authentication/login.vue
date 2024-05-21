@@ -81,7 +81,7 @@ function handleGo(path: string) {
 </script>
 
 <template>
-  <div>
+  <div @keypress.enter="handleSubmit">
     <Title>
       {{ $t('authentication.welcome-back') }} 👋🏻
       <template #desc>
@@ -99,8 +99,8 @@ function handleGo(path: string) {
       name="username"
       :placeholder="$t('authentication.username')"
       type="text"
+      required
       :autofocus="false"
-      @keyup.enter="handleSubmit"
     />
     <VbenInputPassword
       v-model="formState.password"
@@ -111,7 +111,6 @@ function handleGo(path: string) {
       :placeholder="$t('authentication.password')"
       required
       type="password"
-      @keyup.enter="handleSubmit"
     />
 
     <div class="mb-6 mt-4 flex justify-between">

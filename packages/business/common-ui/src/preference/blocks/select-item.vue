@@ -19,7 +19,7 @@ defineOptions({
 
 withDefaults(
   defineProps<{
-    disabled: boolean;
+    disabled?: boolean;
     items?: SelectListItem[];
     placeholder?: string;
   }>(),
