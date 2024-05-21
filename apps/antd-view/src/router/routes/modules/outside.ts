@@ -1,10 +1,10 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { IFrameView, Layout } from '../layout';
+import { BasicLayout, IFrameView } from '@/layouts';
 
 export const outsideRoutes: RouteRecordRaw[] = [
   {
-    component: Layout,
+    component: BasicLayout,
     meta: {
       title: '外部页面',
     },

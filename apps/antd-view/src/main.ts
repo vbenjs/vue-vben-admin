@@ -1,7 +1,4 @@
-import '@vben-core/design/tailwind';
-
-import '@vben-core/design';
-import '@vben-core/design-tokens';
+import '@vben/styles';
 
 import { setupI18n } from '@vben/locales';
 import { preference, setupPreference } from '@vben/preference';

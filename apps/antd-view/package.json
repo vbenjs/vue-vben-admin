@@ -24,8 +24,6 @@
     "typecheck": "vue-tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
-    "@vben-core/design": "workspace:*",
-    "@vben-core/design-tokens": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",
     "@vben/hooks": "workspace:*",
@@ -34,6 +32,7 @@
     "@vben/locales": "workspace:*",
     "@vben/preference": "workspace:*",
     "@vben/stores": "workspace:*",
+    "@vben/styles": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
     "ant-design-vue": "^4.2.1",

@@ -1,14 +1,13 @@
 import type { RouteRecordRaw } from 'vue-router';
 
+import { BasicLayout, IFrameView } from '@/layouts';
 import { VBEN_GITHUB_URL } from '@vben/constants';
 import { $t } from '@vben/locales/helper';
 import { preference } from '@vben/preference';
 
-import { IFrameView, Layout } from '@/router/routes/layout';
-
 export const vbenRoutes: RouteRecordRaw[] = [
   {
-    component: Layout,
+    component: BasicLayout,
     meta: {
       icon: preference.logo,
       title: 'Vben Admin',

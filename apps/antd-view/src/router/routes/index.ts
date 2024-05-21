@@ -1,7 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router';
 
+import { BasicLayout } from '@/layouts';
+
 import { builtinRoutes } from './builtin';
-import { Layout } from './layout';
 import { nestedRoutes } from './modules/nested';
 import { outsideRoutes } from './modules/outside';
 import { vbenRoutes } from './modules/vben';
@@ -10,7 +11,7 @@ import { vbenRoutes } from './modules/vben';
 const dynamicRoutes: RouteRecordRaw[] = [
   // 根路由
   {
-    component: Layout,
+    component: BasicLayout,
     meta: {
       hideChildrenInMenu: true,
       title: '首页',

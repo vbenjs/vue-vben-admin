@@ -1,8 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router';
 
+import { AuthPageLayout } from '@/layouts';
 import { Fallback } from '@vben/common-ui';
-
-import { AuthPageLayout } from './layout';
 
 /** 静态路由列表，访问这些页面可以不需要权限 */
 const builtinRoutes: RouteRecordRaw[] = [

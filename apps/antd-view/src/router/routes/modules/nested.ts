@@ -1,10 +1,10 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { Layout } from '../layout';
+import { BasicLayout } from '@/layouts';
 
 export const nestedRoutes: RouteRecordRaw[] = [
   {
-    component: Layout,
+    component: BasicLayout,
     meta: {
       keepAlive: true,
       title: '多级菜单',

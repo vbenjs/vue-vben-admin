@@ -93,12 +93,6 @@ importers:
 
   apps/antd-view:
     dependencies:
-      '@vben-core/design':
-        specifier: workspace:*
-        version: link:../../packages/@vben-core/shared/design
-      '@vben-core/design-tokens':
-        specifier: workspace:*
-        version: link:../../packages/@vben-core/shared/design-tokens
       '@vben/common-ui':
         specifier: workspace:*
         version: link:../../packages/business/common-ui
@@ -123,6 +117,9 @@ importers:
       '@vben/stores':
         specifier: workspace:*
         version: link:../../packages/stores
+      '@vben/styles':
+        specifier: workspace:*
+        version: link:../../packages/styles
       '@vben/types':
         specifier: workspace:*
         version: link:../../packages/types
@@ -747,6 +744,15 @@ importers:
       vue-router:
         specifier: ^4.3.2
         version: 4.3.2(vue@3.4.27(typescript@5.4.5))
+
+  packages/styles:
+    dependencies:
+      '@vben-core/design':
+        specifier: workspace:*
+        version: link:../@vben-core/shared/design
+      '@vben-core/design-tokens':
+        specifier: workspace:*
+        version: link:../@vben-core/shared/design-tokens
 
   packages/types:
     dependencies:

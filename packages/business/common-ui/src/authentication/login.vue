@@ -56,6 +56,7 @@ const passwordStatus = computed(() => {
 
 function handleSubmit() {
   formState.submitted = true;
+
   if (
     usernameStatus.value !== 'default' ||
     passwordStatus.value !== 'default'

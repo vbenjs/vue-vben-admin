@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { openWindow } from './window'; // 假设你的函数在 'openWindow' 文件中
 
-describe('generateUUID', () => {
+describe('openWindow', () => {
   // 保存原始的 window.open 函数
   let originalOpen: typeof window.open;
 
