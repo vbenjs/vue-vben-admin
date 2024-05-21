@@ -18,7 +18,8 @@
   import { useMessage } from '@/hooks/web/useMessage';
   import { PageWrapper } from '@/components/Page';
   import { isAccountExist } from '@/api/demo/system';
-
+  import dayjs from "dayjs"
+  
   const schemas: FormSchema[] = [
     {
       field: 'field1',
@@ -235,7 +236,7 @@
       field5: ['1'],
       field7: '1',
       field33: '2020-12-12',
-      field3: '2020-12-12',
+      field3: dayjs('2020-12-12',"YYYY-MM-DD"),
     });
   }
 
