@@ -71,11 +71,14 @@ preference:
   language: Language
   dynamic-title: Dynamic Title
   normal: Normal
+  plain: Plain
   rounded: Rounded
   collapse: Collpase Menu
   collapse-show-title: Display menu name
   navigation-menu: Navigation Menu
   navigation-style: Navigation menu style
+  navigation-split: Navigation Menu Separation
+  navigation-split-tip: When enabled, the sidebar shows the top bar's submenu
   interface-control: Interface Layout Control
   breadcrumb: Breadcrumb
   breadcrumb-home: Display the home button

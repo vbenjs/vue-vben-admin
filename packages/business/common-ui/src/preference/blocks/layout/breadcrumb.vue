@@ -28,19 +28,28 @@ const typeItems: SelectListItem[] = [
   <SwitchItem v-model="breadcrumbVisible" :disabled="disabled">
     {{ $t('preference.breadcrumb-enable') }}
   </SwitchItem>
-  <SwitchItem v-model="breadcrumbHideOnlyOne" :disabled="!breadcrumbVisible">
+  <SwitchItem
+    v-model="breadcrumbHideOnlyOne"
+    :disabled="!breadcrumbVisible || disabled"
+  >
     {{ $t('preference.breadcrumb-hide-only-one') }}
   </SwitchItem>
-  <SwitchItem v-model="breadcrumbHome" :disabled="!breadcrumbVisible">
+  <SwitchItem
+    v-model="breadcrumbHome"
+    :disabled="!breadcrumbVisible || disabled"
+  >
     {{ $t('preference.breadcrumb-home') }}
   </SwitchItem>
-  <SwitchItem v-model="breadcrumbIcon" :disabled="!breadcrumbVisible">
+  <SwitchItem
+    v-model="breadcrumbIcon"
+    :disabled="!breadcrumbVisible || disabled"
+  >
     {{ $t('preference.breadcrumb-icon') }}
   </SwitchItem>
   <ToggleItem
     v-model="breadcrumbStyle"
     :items="typeItems"
-    :disabled="!breadcrumbVisible"
+    :disabled="!breadcrumbVisible || disabled"
   >
     {{ $t('preference.breadcrumb-style') }}
   </ToggleItem>

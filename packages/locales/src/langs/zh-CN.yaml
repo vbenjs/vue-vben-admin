@@ -73,9 +73,12 @@ preference:
   animation: 动画
   navigation-menu: 导航菜单
   navigation-style: 导航菜单风格
+  navigation-split: 导航菜单分离
+  navigation-split-tip: 开启时，侧边栏显示顶栏对应菜单的子菜单
   interface-control: 界面布局控制
   normal: 默认
-  rounded: 圆角
+  plain: 朴素
+  rounded: 圆润
   breadcrumb: 面包屑导航
   breadcrumb-enable: 开启面包屑导航
   breadcrumb-icon: 显示面包屑图标

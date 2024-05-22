@@ -18,10 +18,13 @@ const sideCollapse = defineModel<boolean>('sideCollapse');
   <SwitchItem v-model="sideVisible" :disabled="disabled">
     {{ $t('preference.side-visible') }}
   </SwitchItem>
-  <SwitchItem v-model="sideCollapse" :disabled="!sideVisible">
+  <SwitchItem v-model="sideCollapse" :disabled="!sideVisible || disabled">
     {{ $t('preference.collapse') }}
   </SwitchItem>
-  <SwitchItem v-model="sideCollapseShowTitle" :disabled="!sideVisible">
+  <SwitchItem
+    v-model="sideCollapseShowTitle"
+    :disabled="!sideVisible || disabled"
+  >
     {{ $t('preference.collapse-show-title') }}
   </SwitchItem>
 </template>

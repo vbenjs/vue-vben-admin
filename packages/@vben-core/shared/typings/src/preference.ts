@@ -7,7 +7,7 @@ type LayoutType =
 
 type BreadcrumbStyle = 'background' | 'normal';
 
-type NavigationStyle = 'normal' | 'rounded';
+type NavigationStyle = 'plain' | 'rounded';
 
 type ThemeType = 'auto' | 'dark' | 'light';
 
@@ -77,6 +77,8 @@ interface Preference {
   logo: string;
   /** logo是否可见 */
   logoVisible: boolean;
+  /** 导航菜单是否切割，只在 layout=mixed-nav 生效 */
+  navigationSplit: boolean;
   /** 导航菜单风格 */
   navigationStyle: NavigationStyle;
   /** 是否开启页面加载进度条 */

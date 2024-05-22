@@ -17,8 +17,12 @@ function useMixedMenu() {
 
   const { isMixedNav } = usePreference();
 
+  const needSplit = computed(
+    () => preference.navigationSplit && isMixedNav.value,
+  );
+
   const sideVisible = computed(() => {
-    if (isMixedNav.value) {
+    if (needSplit.value) {
       return preference.sideVisible && splitSideMenus.value.length > 0;
     }
     return preference.sideVisible;
@@ -29,7 +33,7 @@ function useMixedMenu() {
    * 头部菜单
    */
   const headerMenus = computed(() => {
-    if (!isMixedNav.value) {
+    if (!needSplit.value) {
       return menus.value;
     }
     return menus.value.map((item) => {
@@ -44,11 +48,7 @@ function useMixedMenu() {
    * 侧边菜单
    */
   const sideMenus = computed(() => {
-    if (!isMixedNav.value) {
-      return menus.value;
-    }
-
-    return splitSideMenus.value;
+    return needSplit.value ? splitSideMenus.value : menus.value;
   });
 
   /**
@@ -62,7 +62,7 @@ function useMixedMenu() {
    * 头部菜单激活路径
    */
   const headerActive = computed(() => {
-    if (!isMixedNav.value) {
+    if (!needSplit.value) {
       return route.path;
     }
     return rootMenuPath.value;
@@ -74,7 +74,7 @@ function useMixedMenu() {
    * @param mode 菜单模式
    */
   const handleMenuSelect = (key: string, mode?: string) => {
-    if (!isMixedNav.value || mode === 'vertical') {
+    if (!needSplit.value || mode === 'vertical') {
       navigation(key);
       return;
     }

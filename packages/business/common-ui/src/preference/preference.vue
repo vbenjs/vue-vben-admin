@@ -53,6 +53,7 @@ const colorWeakMode = defineModel<boolean>('colorWeakMode');
 const colorGrayMode = defineModel<boolean>('colorGrayMode');
 const colorPrimary = defineModel<string>('colorPrimary');
 const navigationStyle = defineModel<string>('navigationStyle');
+const navigationSplit = defineModel<boolean>('navigationSplit');
 const pageProgress = defineModel<boolean>('pageProgress');
 const pageTransition = defineModel<string>('pageTransition');
 const pageTransitionEnable = defineModel<boolean>('pageTransitionEnable');
@@ -67,8 +68,15 @@ const headerMode = defineModel<LayoutHeaderMode>('headerMode');
 const footerVisible = defineModel<boolean>('footerVisible');
 const footerFixed = defineModel<boolean>('footerFixed');
 
-const { diffPreference, isFullContent, isHeaderNav, isMixedNav, isSideMode } =
-  usePreference();
+const {
+  diffPreference,
+  isFullContent,
+  isHeaderNav,
+  isMixedNav,
+  isSideMixedNav,
+  isSideMode,
+  isSideNav,
+} = usePreference();
 const { copy } = useClipboard();
 
 const tabs = computed((): SegmentedItem[] => {
@@ -185,6 +193,15 @@ function handleReset() {
               />
             </Block>
 
+            <Block :title="$t('preference.navigation-menu')">
+              <Navigation
+                v-model:navigation-style="navigationStyle"
+                v-model:navigation-split="navigationSplit"
+                :disabled="isFullContent"
+                :disabled-navigation-split="!isMixedNav"
+              />
+            </Block>
+
             <Block :title="$t('preference.breadcrumb')">
               <Breadcrumb
                 v-model:breadcrumb-visible="breadcrumbVisible"
@@ -192,7 +209,9 @@ function handleReset() {
                 v-model:breadcrumb-style="breadcrumbStyle"
                 v-model:breadcrumb-home="breadcrumbHome"
                 v-model:breadcrumb-hide-only-one="breadcrumbHideOnlyOne"
-                :disabled="!showBreadcrumbConfig"
+                :disabled="
+                  !showBreadcrumbConfig || !(isSideNav || isSideMixedNav)
+                "
               />
             </Block>
 
@@ -214,12 +233,6 @@ function handleReset() {
               <General
                 v-model:locale="locale"
                 v-model:dynamic-title="dynamicTitle"
-              />
-            </Block>
-            <Block :title="$t('preference.navigation-menu')">
-              <Navigation
-                v-model:navigation-style="navigationStyle"
-                :disabled="isFullContent"
               />
             </Block>
 

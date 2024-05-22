@@ -27,6 +27,7 @@ const defaultPreference: Preference = {
   locale: 'zh-CN',
   logo: 'https://cdn.jsdelivr.net/gh/vbenjs/vben-cdn-static@0.1.2/vben-admin/admin-logo.png',
   logoVisible: true,
+  navigationSplit: true,
   navigationStyle: 'rounded',
   pageProgress: true,
   pageTransition: 'fade-slide',
