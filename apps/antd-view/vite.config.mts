@@ -18,7 +18,7 @@ export default defineConfig({
         { name: 'vue-demi' },
       ],
     },
-    visualizer: true,
+    visualizer: false,
   },
   vite: {
     server: {

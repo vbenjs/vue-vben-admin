@@ -35,6 +35,7 @@
     "@vben/styles": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
+    "@vueuse/core": "^10.9.0",
     "ant-design-vue": "^4.2.1",
     "axios": "^1.7.1",
     "dayjs": "^1.11.11",

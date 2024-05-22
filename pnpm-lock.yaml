@@ -126,6 +126,9 @@ importers:
       '@vben/utils':
         specifier: workspace:*
         version: link:../../packages/utils
+      '@vueuse/core':
+        specifier: ^10.9.0
+        version: 10.9.0(vue@3.4.27(typescript@5.4.5))
       ant-design-vue:
         specifier: ^4.2.1
         version: 4.2.1(vue@3.4.27(typescript@5.4.5))

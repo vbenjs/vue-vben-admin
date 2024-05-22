@@ -55,6 +55,8 @@ interface Preference {
   copyright: string;
   /** 应用默认头像 */
   defaultAvatar: string;
+  /** 开启动态标题 */
+  dynamicTitle: boolean;
   /** 页脚是否固定 */
   footerFixed: boolean;
   /** 页脚是否可见 */

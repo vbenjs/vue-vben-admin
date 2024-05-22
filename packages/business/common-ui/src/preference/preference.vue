@@ -40,6 +40,7 @@ withDefaults(defineProps<{ colorPrimaryPresets: string[] }>(), {
 
 const theme = defineModel<string>('theme');
 const locale = defineModel<string>('locale');
+const dynamicTitle = defineModel<boolean>('dynamicTitle');
 const semiDarkMenu = defineModel<boolean>('semiDarkMenu');
 const breadcrumbVisible = defineModel<boolean>('breadcrumbVisible');
 const breadcrumbIcon = defineModel<boolean>('breadcrumbIcon');
@@ -210,7 +211,10 @@ function handleReset() {
           </template>
           <template #general>
             <Block :title="$t('preference.general')">
-              <General v-model:locale="locale" />
+              <General
+                v-model:locale="locale"
+                v-model:dynamic-title="dynamicTitle"
+              />
             </Block>
             <Block :title="$t('preference.navigation-menu')">
               <Navigation

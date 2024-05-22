@@ -69,6 +69,7 @@ preference:
   gray-mode: Gray Mode
   animation: Animation
   language: Language
+  dynamic-title: Dynamic Title
   normal: Normal
   rounded: Rounded
   collapse: Collpase Menu

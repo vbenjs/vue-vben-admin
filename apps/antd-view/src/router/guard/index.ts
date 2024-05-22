@@ -1,7 +1,9 @@
 import type { Router } from 'vue-router';
 
+import { $t } from '@vben/locales';
 import { preference } from '@vben/preference';
 import { startProgress, stopProgress } from '@vben/utils';
+import { useTitle } from '@vueuse/core';
 
 import { configAccessGuard } from './access';
 
@@ -25,6 +27,12 @@ function configCommonGuard(router: Router) {
     loadedPaths.add(to.path);
     if (preference.pageProgress) {
       stopProgress();
+    }
+
+    // 动态修改标题
+    if (preference.dynamicTitle) {
+      const { title } = to.meta;
+      useTitle(`${$t(title)} - ${preference.appName}`);
     }
   });
 }

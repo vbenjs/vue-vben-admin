@@ -1,13 +1,20 @@
 import { type ComputedRef, type MaybeRef } from 'vue';
 
 /**
- * 深度部分类型
+ * 深层递归所有属性为可选
  */
 type DeepPartial<T> = T extends object
   ? {
       [P in keyof T]?: DeepPartial<T[P]>;
     }
   : T;
+
+/**
+ * 深层递归所有属性为只读
+ */
+type DeepReadonly<T> = {
+  readonly [P in keyof T]: T[P] extends object ? DeepReadonly<T[P]> : T[P];
+};
 
 /**
  * 任意类型的异步函数
@@ -78,6 +85,7 @@ export {
   type AnyNormalFunction,
   type AnyPromiseFunction,
   type DeepPartial,
+  type DeepReadonly,
   type IntervalHandle,
   type MaybeComputedRef,
   type MaybeReadonlyRef,

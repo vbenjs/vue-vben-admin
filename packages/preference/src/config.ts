@@ -16,6 +16,7 @@ const defaultPreference: Preference = {
   copyright: 'Copyright © 2024 Vben Admin PRO',
   defaultAvatar:
     'https://cdn.jsdelivr.net/gh/vbenjs/vben-cdn-static@0.1.2/vben-admin/pro-avatar.webp',
+  dynamicTitle: true,
   footerFixed: true,
   footerVisible: true,
   headerMode: 'fixed',
