@@ -339,12 +339,12 @@
       //   margin-bottom: 20px;
       // }
 
-      &.suffix-item, &.prefix-item {
+      &.suffix-item,
+      &.prefix-item {
         .ant-form-item-children {
           display: flex;
-        } 
-      }
-      &.suffix-item, &.prefix-item{
+        }
+
         .prefix {
           display: inline-flex;
           align-items: center;
@@ -352,6 +352,7 @@
           padding-right: 6px;
           line-height: 1;
         }
+
         .suffix {
           display: inline-flex;
           align-items: center;
@@ -361,7 +362,7 @@
         }
       }
     }
-   
+
     .ant-form-explain {
       font-size: 14px;
     }

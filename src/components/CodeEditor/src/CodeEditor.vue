@@ -16,6 +16,7 @@
   import { isString } from '@/utils/is';
   import { MODE } from './typing';
   import type { EditorConfiguration } from 'codemirror';
+
   const props = defineProps({
     value: { type: [Object, String] as PropType<Record<string, any> | string> },
     mode: {
@@ -29,7 +30,7 @@
     readonly: { type: Boolean },
     autoFormat: { type: Boolean, default: true },
     bordered: { type: Boolean, default: false },
-    config: { type: Object as PropType<EditorConfiguration>, default: {} },
+    config: { type: Object as PropType<EditorConfiguration>, default: () => {} },
   });
 
   const emit = defineEmits(['change', 'update:value', 'format-error']);
