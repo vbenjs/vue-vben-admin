@@ -14,6 +14,7 @@ defineProps<{ disabled?: boolean; disabledNavigationSplit?: boolean }>();
 
 const navigationStyle = defineModel<string>('navigationStyle');
 const navigationSplit = defineModel<boolean>('navigationSplit');
+const navigationAccordion = defineModel<boolean>('navigationAccordion');
 
 const stylesItems: SelectListItem[] = [
   { label: $t('preference.rounded'), value: 'rounded' },
@@ -29,10 +30,16 @@ const stylesItems: SelectListItem[] = [
   >
     {{ $t('preference.navigation-style') }}
   </ToggleItem>
-  <SwitchItem v-model="navigationSplit" :disabled="disabledNavigationSplit">
+  <SwitchItem
+    v-model="navigationSplit"
+    :disabled="disabledNavigationSplit || disabled"
+  >
     {{ $t('preference.navigation-split') }}
     <template #tip>
       {{ $t('preference.navigation-split-tip') }}
     </template>
+  </SwitchItem>
+  <SwitchItem v-model="navigationAccordion" :disabled="disabled">
+    {{ $t('preference.navigation-accordion') }}
   </SwitchItem>
 </template>

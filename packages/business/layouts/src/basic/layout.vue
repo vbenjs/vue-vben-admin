@@ -183,6 +183,7 @@ function wrapperMenus(menus: MenuRecordRaw[]) {
     <template #menu>
       <LayoutMenu
         mode="vertical"
+        :accordion="preference.navigationAccordion"
         :rounded="isMenuRounded"
         :collapse-show-title="preference.sideCollapseShowTitle"
         :collapse="preference.sideCollapse"
@@ -206,6 +207,7 @@ function wrapperMenus(menus: MenuRecordRaw[]) {
     <!-- 侧边额外区域 -->
     <template #side-extra>
       <LayoutExtraMenu
+        :accordion="preference.navigationAccordion"
         :rounded="isMenuRounded"
         :menus="wrapperMenus(extraMenus)"
         :collapse="preference.sideExtraCollapse"

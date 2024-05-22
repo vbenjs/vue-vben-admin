@@ -12,7 +12,10 @@ interface Props extends MenuProps {
   menus: MenuRecordRaw[];
 }
 
-defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  accordion: true,
+  menus: () => [],
+});
 
 const route = useRoute();
 const { navigation } = useNavigation();
@@ -25,6 +28,7 @@ async function handleSelect(key: string) {
 <template>
   <Menu
     :rounded="rounded"
+    :accordion="accordion"
     :collapse="collapse"
     :default-active="route.path"
     :menus="menus"

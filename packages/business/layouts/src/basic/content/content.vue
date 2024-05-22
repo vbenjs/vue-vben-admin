@@ -50,6 +50,7 @@ function getTransitionName(route: RouteLocationNormalizedLoaded) {
         <component
           :is="Component"
           v-if="renderRouteView"
+          v-show="!route.meta.iframeSrc"
           :key="route.fullPath"
           class="h-[1000px]"
         />

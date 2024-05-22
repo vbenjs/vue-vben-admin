@@ -54,6 +54,7 @@ const colorGrayMode = defineModel<boolean>('colorGrayMode');
 const colorPrimary = defineModel<string>('colorPrimary');
 const navigationStyle = defineModel<string>('navigationStyle');
 const navigationSplit = defineModel<boolean>('navigationSplit');
+const navigationAccordion = defineModel<boolean>('navigationAccordion');
 const pageProgress = defineModel<boolean>('pageProgress');
 const pageTransition = defineModel<string>('pageTransition');
 const pageTransitionEnable = defineModel<boolean>('pageTransitionEnable');
@@ -197,6 +198,7 @@ function handleReset() {
               <Navigation
                 v-model:navigation-style="navigationStyle"
                 v-model:navigation-split="navigationSplit"
+                v-model:navigation-accordion="navigationAccordion"
                 :disabled="isFullContent"
                 :disabled-navigation-split="!isMixedNav"
               />

@@ -78,6 +78,7 @@ preference:
   navigation-menu: Navigation Menu
   navigation-style: Navigation menu style
   navigation-split: Navigation Menu Separation
+  navigation-accordion: Sidebar Navigation Menu Accordion mode
   navigation-split-tip: When enabled, the sidebar shows the top bar's submenu
   interface-control: Interface Layout Control
   breadcrumb: Breadcrumb

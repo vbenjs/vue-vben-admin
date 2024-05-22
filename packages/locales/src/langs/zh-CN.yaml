@@ -73,6 +73,7 @@ preference:
   animation: 动画
   navigation-menu: 导航菜单
   navigation-style: 导航菜单风格
+  navigation-accordion: 侧边导航菜单手风琴模式
   navigation-split: 导航菜单分离
   navigation-split-tip: 开启时，侧边栏显示顶栏对应菜单的子菜单
   interface-control: 界面布局控制

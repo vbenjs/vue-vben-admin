@@ -269,7 +269,7 @@ const useTabsStore = defineStore('tabs', {
       await this.closeTab(this.tabs[index], router);
     },
     getTabPath(tab: RouteRecordNormalized | TabItem) {
-      return (tab as TabItem).fullPath || tab.path;
+      return decodeURIComponent((tab as TabItem).fullPath || tab.path);
     },
     /**
      * @zh_CN 固定标签页

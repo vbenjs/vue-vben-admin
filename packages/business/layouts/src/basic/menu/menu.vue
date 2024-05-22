@@ -8,6 +8,7 @@ interface Props extends MenuProps {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  accordion: true,
   menus: () => [],
 });
 
@@ -25,6 +26,7 @@ function handleMenuSelect(key: string) {
     :rounded="rounded"
     :collapse-show-title="collapseShowTitle"
     :collapse="collapse"
+    :accordion="accordion"
     :default-active="defaultActive"
     :menus="menus"
     :theme="theme"

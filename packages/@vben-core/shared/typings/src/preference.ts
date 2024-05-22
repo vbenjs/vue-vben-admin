@@ -77,6 +77,8 @@ interface Preference {
   logo: string;
   /** logo是否可见 */
   logoVisible: boolean;
+  /** 导航菜单手风琴模式 */
+  navigationAccordion: boolean;
   /** 导航菜单是否切割，只在 layout=mixed-nav 生效 */
   navigationSplit: boolean;
   /** 导航菜单风格 */
