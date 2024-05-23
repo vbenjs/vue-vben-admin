@@ -2,6 +2,7 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import { type PluginOption } from 'vite';
 import purgeIcons from 'vite-plugin-purge-icons';
+import DevTools from 'vite-plugin-vue-devtools';
 
 import { createAppConfigPlugin } from './appConfig';
 import { configCompressPlugin } from './compress';
@@ -23,6 +24,8 @@ async function createPlugins({ isBuild, root, enableMock, compress, enableAnalyz
 
   const appConfigPlugin = await createAppConfigPlugin({ root, isBuild });
   vitePlugins.push(appConfigPlugin);
+
+  vitePlugins.push(DevTools());
 
   // vite-plugin-html
   vitePlugins.push(configHtmlPlugin({ isBuild }));
