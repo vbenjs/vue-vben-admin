@@ -114,32 +114,40 @@ export function useDataSource(
     return unref(getAutoCreateKey) ? ROW_KEY : rowKey;
   });
 
-  const getDataSourceRef = computed(() => {
-    const dataSource = unref(dataSourceRef);
-    if (!dataSource || dataSource.length === 0) {
-      return unref(dataSourceRef);
-    }
-    if (unref(getAutoCreateKey)) {
-      const firstItem = dataSource[0];
-      const lastItem = dataSource[dataSource.length - 1];
+  const getDataSourceRef: Ref<Recordable<any>[]> = ref([]);
 
-      if (firstItem && lastItem) {
-        if (!firstItem[ROW_KEY] || !lastItem[ROW_KEY]) {
-          const data = cloneDeep(unref(dataSourceRef));
-          data.forEach((item) => {
-            if (!item[ROW_KEY]) {
-              item[ROW_KEY] = buildUUID();
-            }
-            if (item.children && item.children.length) {
-              setTableKey(item.children);
-            }
-          });
-          dataSourceRef.value = data;
+  watch(
+    () => dataSourceRef.value,
+    () => {
+      const dataSource = unref(dataSourceRef);
+      if (!dataSource || dataSource.length === 0) {
+        getDataSourceRef.value = unref(dataSourceRef);
+      }
+      if (unref(getAutoCreateKey)) {
+        const firstItem = dataSource[0];
+        const lastItem = dataSource[dataSource.length - 1];
+
+        if (firstItem && lastItem) {
+          if (!firstItem[ROW_KEY] || !lastItem[ROW_KEY]) {
+            const data = cloneDeep(unref(dataSourceRef));
+            data.forEach((item) => {
+              if (!item[ROW_KEY]) {
+                item[ROW_KEY] = buildUUID();
+              }
+              if (item.children && item.children.length) {
+                setTableKey(item.children);
+              }
+            });
+            dataSourceRef.value = data;
+          }
         }
       }
-    }
-    return unref(dataSourceRef);
-  });
+      getDataSourceRef.value = unref(dataSourceRef);
+    },
+    {
+      deep: true,
+    },
+  );
 
   async function updateTableData(index: number, key: Key, value: any) {
     const record = dataSourceRef.value[index];
@@ -351,7 +359,7 @@ export function useDataSource(
   });
 
   return {
-    getDataSourceRef,
+    getDataSourceRef: computed(() => getDataSourceRef.value),
     getDataSource,
     getRawDataSource,
     searchInfoRef,
