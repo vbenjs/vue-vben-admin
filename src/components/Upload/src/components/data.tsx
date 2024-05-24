@@ -81,7 +81,7 @@ export function createActionColumn(handleRemove: Function): FileBasicColumn {
         {
           label: t('component.upload.del'),
           color: 'error',
-          onClick: handleRemove.bind(null, record),
+          onClick: handleRemove.bind(null, record, "url"),
         },
       ];
       return <TableAction actions={actions} outside={true} />;
@@ -125,7 +125,7 @@ export function createPreviewActionColumn({
         {
           label: t('component.upload.del'),
           color: 'error',
-          onClick: handleRemove.bind(null, record),
+          onClick: handleRemove.bind(null, record, "url"),
         },
         {
           label: t('component.upload.download'),
