@@ -18,6 +18,8 @@ async function runDepcheck() {
           '@vben/tailwind-config',
           '@vben/tsconfig',
           '@vben/vite-config',
+          '@vben/vite-config',
+          '@vben/vsh',
         ].includes(pkg.packageJson.name)
       ) {
         return;

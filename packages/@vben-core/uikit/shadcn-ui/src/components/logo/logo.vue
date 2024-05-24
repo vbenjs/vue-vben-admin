@@ -56,7 +56,7 @@ const logoClass = computed(() => {
   <div class="group flex h-full items-center text-lg" :class="logoClass">
     <a
       :href="href"
-      class="text-foreground flex h-full items-center gap-2 overflow-hidden px-3 font-semibold leading-normal transition-all duration-500 group-[.dark]:text-[hsl(var(--color-dark-foreground))]"
+      class="flex h-full items-center gap-2 overflow-hidden px-3 font-semibold leading-normal transition-all duration-500"
       :class="$attrs.class"
     >
       <VbenAvatar
@@ -67,7 +67,10 @@ const logoClass = computed(() => {
         :width="logoSize"
         class="relative size-9 rounded-none bg-transparent"
       />
-      <span v-if="!collapse" class="truncate text-nowrap">
+      <span
+        v-if="!collapse"
+        class="text-primary truncate text-nowrap group-[.dark]:text-[hsl(var(--color-dark-foreground))]"
+      >
         {{ text }}
         <!-- <span class="text-primary ml-1 align-super text-[smaller]">Pro</span> -->
       </span>

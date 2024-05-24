@@ -133,8 +133,8 @@ importers:
         specifier: ^4.2.1
         version: 4.2.1(vue@3.4.27(typescript@5.4.5))
       axios:
-        specifier: ^1.7.1
-        version: 1.7.1
+        specifier: ^1.7.2
+        version: 1.7.2
       dayjs:
         specifier: ^1.11.11
         version: 1.11.11
@@ -619,7 +619,7 @@ importers:
         version: 10.9.0(vue@3.4.27(typescript@5.4.5))
       '@vueuse/integrations':
         specifier: ^10.9.0
-        version: 10.9.0(async-validator@4.2.5)(axios@1.7.1)(nprogress@0.2.0)(qrcode@1.5.3)(vue@3.4.27(typescript@5.4.5))
+        version: 10.9.0(async-validator@4.2.5)(axios@1.7.2)(nprogress@0.2.0)(qrcode@1.5.3)(vue@3.4.27(typescript@5.4.5))
       qrcode:
         specifier: ^1.5.3
         version: 1.5.3
@@ -2737,8 +2737,8 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
-  axios@1.7.1:
-    resolution: {integrity: sha512-+LV37nQcd1EpFalkXksWNBiA17NZ5m5/WspmHGmZmdx1qBOg/VNq/c4eRJiA9VQQHBOs+N0ZhhdU10h2TyNK7Q==}
+  axios@1.7.2:
+    resolution: {integrity: sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -9139,14 +9139,14 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vueuse/integrations@10.9.0(async-validator@4.2.5)(axios@1.7.1)(nprogress@0.2.0)(qrcode@1.5.3)(vue@3.4.27(typescript@5.4.5))':
+  '@vueuse/integrations@10.9.0(async-validator@4.2.5)(axios@1.7.2)(nprogress@0.2.0)(qrcode@1.5.3)(vue@3.4.27(typescript@5.4.5))':
     dependencies:
       '@vueuse/core': 10.9.0(vue@3.4.27(typescript@5.4.5))
       '@vueuse/shared': 10.9.0(vue@3.4.27(typescript@5.4.5))
       vue-demi: 0.14.7(vue@3.4.27(typescript@5.4.5))
     optionalDependencies:
       async-validator: 4.2.5
-      axios: 1.7.1
+      axios: 1.7.2
       nprogress: 0.2.0
       qrcode: 1.5.3
     transitivePeerDependencies:
@@ -9351,7 +9351,7 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.0.0
 
-  axios@1.7.1:
+  axios@1.7.2:
     dependencies:
       follow-redirects: 1.15.6
       form-data: 4.0.0

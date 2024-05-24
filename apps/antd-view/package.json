@@ -37,7 +37,7 @@
     "@vben/utils": "workspace:*",
     "@vueuse/core": "^10.9.0",
     "ant-design-vue": "^4.2.1",
-    "axios": "^1.7.1",
+    "axios": "^1.7.2",
     "dayjs": "^1.11.11",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2"
