@@ -72,8 +72,8 @@
     "turbo": "^1.13.3",
     "typescript": "^5.4.5",
     "unbuild": "^2.0.0",
-    "vite": "^5.2.11",
-    "vitest": "^1.6.0",
+    "vite": "^6.0.0-alpha.17",
+    "vitest": "^2.0.0-beta.3",
     "vue-tsc": "^2.0.19"
   },
   "engines": {
