@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { IcRoundLogout } from '@vben-core/iconify';
+import type { AnyFunction } from '@vben/types';
+
+import { IcRoundLogout, IcRoundSettingsSuggest } from '@vben-core/iconify';
 import {
   Badge,
   DropdownMenu,
@@ -16,8 +18,10 @@ import {
 import type { Component } from 'vue';
 
 import { $t } from '@vben/locales';
-import { AnyFunction } from '@vben/types';
+import { preference } from '@vben/preference';
 import { ref } from 'vue';
+
+import { useOpenPreference } from '../preference/use-open-preference';
 
 interface Props {
   /**
@@ -59,6 +63,8 @@ const emit = defineEmits<{ logout: [] }>();
 const openPopover = ref(false);
 const openDialog = ref(false);
 
+const { handleOpenPreference } = useOpenPreference();
+
 function handleLogout() {
   // emit
   openDialog.value = true;
@@ -90,8 +96,8 @@ function handleSubmitLogout() {
         </div>
       </div>
     </DropdownMenuTrigger>
-    <DropdownMenuContent class="mr-2 min-w-[240px] p-0">
-      <DropdownMenuLabel class="border-border flex items-center border-b p-3">
+    <DropdownMenuContent class="mr-2 min-w-[240px] p-0 pb-1">
+      <DropdownMenuLabel class="flex items-center p-3">
         <VbenAvatar
           :alt="text"
           :src="avatar"
@@ -117,22 +123,28 @@ function handleSubmitLogout() {
       <DropdownMenuItem
         v-for="menu in menus"
         :key="menu.text"
-        class="mx-1 rounded-sm py-2.5"
+        class="lineh mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
         @click="menu.handler"
       >
-        <VbenIcon :icon="menu.icon" class="mr-2 size-4" />
+        <VbenIcon :icon="menu.icon" class="mr-2 size-5" />
         {{ menu.text }}
       </DropdownMenuItem>
-
       <DropdownMenuSeparator />
-      <DropdownMenuItem class="w-full p-0">
-        <div
-          class="border-border flex-center hover:bg-accent hover:text-accent-foreground h-10 w-full cursor-pointer border-t"
-          @click="handleLogout"
-        >
-          <IcRoundLogout class="mr-2" />
-          {{ $t('common.logout') }}
-        </div>
+      <DropdownMenuItem
+        v-if="preference"
+        class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+        @click="handleOpenPreference"
+      >
+        <IcRoundSettingsSuggest class="mr-2 size-5" />
+        {{ $t('preference.preferences') }}
+      </DropdownMenuItem>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem
+        class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
+        @click="handleLogout"
+      >
+        <IcRoundLogout class="mr-2 size-5" />
+        {{ $t('common.logout') }}
       </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>

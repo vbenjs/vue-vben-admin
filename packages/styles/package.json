@@ -19,9 +19,6 @@
   "files": [
     "dist"
   ],
-  "sideEffects": [
-    "**/*.css"
-  ],
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "imports": {
@@ -41,6 +38,10 @@
         "default": "./dist/index.mjs"
       }
     }
+  },
+  "peerDependencies": {
+    "@vben-core/design": "workspace:*",
+    "@vben-core/design-tokens": "workspace:*"
   },
   "dependencies": {
     "@vben-core/design": "workspace:*",

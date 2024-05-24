@@ -45,7 +45,8 @@
     "format": "vsh lint --format",
     "prepare": "is-ci || husky",
     "reinstall": "pnpm clean --del-lock && pnpm bootstrap",
-    "test": "vitest"
+    "test": "vitest",
+    "build:docker": "./build-local-docker-image.sh"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.3",

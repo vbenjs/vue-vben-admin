@@ -2,7 +2,7 @@ import type { Preference } from '@vben-core/typings';
 
 class PreferenceCache {
   cachePrefix: string;
-  constructor(cachePrefix: string = 'vben-admin') {
+  constructor(cachePrefix: string) {
     this.cachePrefix = cachePrefix;
   }
 
@@ -24,8 +24,7 @@ class PreferenceCache {
    * 获取偏好设置的缓存键
    */
   getCacheKey(name: string = 'preference') {
-    const env = import.meta.env.DEV ? 'dev' : 'prod';
-    return `__${this.cachePrefix}-${name}-${env}__`;
+    return `__${this.cachePrefix}-${name}__`;
   }
 
   /**

@@ -12,6 +12,8 @@
 
   // editor
   "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "editor.cursorBlinking": "expand",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "Input Mono, FiraCode-Retina, monospace",
   "editor.fontLigatures": true,
@@ -20,9 +22,17 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.guides.bracketPairs": "active",
   "editor.inlineSuggest.enabled": true,
-  "editor.suggestSelection": "first",
+  "editor.suggestSelection": "recentlyUsedByPrefix",
+  "editor.acceptSuggestionOnEnter": "smart",
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
   "editor.stickyScroll.enabled": true,
   "editor.hover.sticky": true,
+  "editor.suggest.insertMode": "replace",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.autoClosingBrackets": "beforeWhitespace",
+  "editor.autoClosingDelete": "always",
+  "editor.autoClosingOvertype": "always",
+  "editor.autoClosingQuotes": "beforeWhitespace",
   "editor.wordSeparators": "`~!@#%^&*()=+[{]}\\|;:'\",.<>/?",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
@@ -38,6 +48,7 @@
   "terminal.integrated.persistentSessionReviveProcess": "never",
   "terminal.integrated.tabs.enabled": true,
   "terminal.integrated.scrollback": 10000,
+  "terminal.integrated.stickyScroll.enabled": true,
 
   // files
   "files.eol": "\n",
@@ -46,8 +57,8 @@
   "files.associations": {
     "*.ejs": "html",
     "*.art": "html",
-    "**/tsconfig.json": "jsonc"
-    // "*.json": "jsonc"
+    "**/tsconfig.json": "jsonc",
+    "*.json": "jsonc"
   },
 
   "files.exclude": {
@@ -77,6 +88,7 @@
   },
 
   // search
+  "search.searchEditor.singleClickBehaviour": "peekDefinition",
   "search.followSymlinks": false,
   // 在使用搜索功能时，将这些文件夹/文件排除在外
   "search.exclude": {
@@ -123,6 +135,10 @@
   "stylelint.enable": true,
   "stylelint.packageManager": "pnpm",
   "stylelint.validate": ["css", "less", "postcss", "scss", "vue", "sass"],
+
+  "typescript.inlayHints.enumMemberValues.enabled": true,
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "typescript.preferences.includePackageJsonAutoImports": "on",
 
   // Enable the ESlint flat config support
   "eslint.experimental.useFlatConfig": true,
@@ -179,6 +195,7 @@
     "*.env": "$(capture).env.*",
     "README.md": "README*,CHANGELOG*,LICENSE,CNAME",
     "package.json": "pnpm-lock.yaml,pnpm-workspace.yaml,.gitattributes,.gitignore,.gitpod.yml,.npmrc,.browserslistrc,.node-version,.git*,.tazerc.json",
+    "Dockerfile": "Dockerfile,.docker*,docker-entrypoint.sh,build-local-docker*",
     "eslint.config.mjs": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.*,.prettierrc.*,stylelint.config.*,.lintstagedrc.mjs,.ls-lint*",
     "tailwind.config.mjs": "postcss.*"
   },

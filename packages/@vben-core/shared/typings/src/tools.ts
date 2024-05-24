@@ -80,6 +80,33 @@ type MaybeReadonlyRef<T> = (() => T) | ComputedRef<T>;
  */
 type MaybeComputedRef<T> = MaybeReadonlyRef<T> | MaybeRef<T>;
 
+type Merge<O extends object, T extends object> = {
+  [K in keyof O | keyof T]: K extends keyof T
+    ? T[K]
+    : K extends keyof O
+      ? O[K]
+      : never;
+};
+
+/**
+ * T = [
+ *  { name: string; age: number; },
+ *  { sex: 'male' | 'female'; age: string }
+ * ]
+ * =>
+ * MergeAll<T> = {
+ *  name: string;
+ *  sex: 'male' | 'female';
+ *  age: string
+ * }
+ */
+type MergeAll<
+  T extends object[],
+  R extends object = Record<string, any>,
+> = T extends [infer F extends object, ...infer Rest extends object[]]
+  ? MergeAll<Rest, Merge<R, F>>
+  : R;
+
 export {
   type AnyFunction,
   type AnyNormalFunction,
@@ -89,6 +116,8 @@ export {
   type IntervalHandle,
   type MaybeComputedRef,
   type MaybeReadonlyRef,
+  type Merge,
+  type MergeAll,
   type NonNullable,
   type Nullable,
   type ReadonlyRecordable,

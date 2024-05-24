@@ -14,7 +14,7 @@ import {
 import { $t } from '@vben/locales';
 import { preference, resetPreference, usePreference } from '@vben/preference';
 import { useClipboard } from '@vueuse/core';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 
 import {
   Animation,
@@ -33,6 +33,7 @@ import {
   ThemeColor,
 } from './blocks';
 import Trigger from './trigger.vue';
+import { useOpenPreference } from './use-open-preference';
 
 withDefaults(defineProps<{ colorPrimaryPresets: string[] }>(), {
   colorPrimaryPresets: () => [],
@@ -106,11 +107,7 @@ const showBreadcrumbConfig = computed(() => {
   );
 });
 
-const openSheet = ref(false);
-
-function handlerOpenSheet() {
-  openSheet.value = true;
-}
+const { openPreference } = useOpenPreference();
 
 async function handleCopy() {
   await copy(JSON.stringify(diffPreference.value, null, 2));
@@ -130,11 +127,12 @@ function handleReset() {
 <template>
   <div class="z-100 fixed right-0 top-1/3">
     <VbenSheet
+      v-model:open="openPreference"
       :description="$t('preference.preferences-subtitle')"
       :title="$t('preference.preferences')"
     >
       <template #trigger>
-        <Trigger @click="handlerOpenSheet" />
+        <Trigger />
       </template>
       <template #extra>
         <VbenIconButton

@@ -2,12 +2,7 @@
 import type { NotificationItem } from '@vben/common-ui';
 
 import { Notification, UserDropdown } from '@vben/common-ui';
-import {
-  IcRoundCreditScore,
-  IcRoundSettingsSuggest,
-  MdiDriveDocument,
-  MdiGithub,
-} from '@vben/icons';
+import { IcRoundCreditScore, MdiDriveDocument, MdiGithub } from '@vben/icons';
 import { BasicLayout } from '@vben/layouts';
 import { $t } from '@vben/locales';
 import { preference } from '@vben/preference';
@@ -78,15 +73,6 @@ const menus = computed(() => [
     },
     icon: IcRoundCreditScore,
     text: $t('widgets.qa'),
-  },
-  {
-    handler: () => {
-      // openWindow('https://github.com/vbenjs/vue-vben-admin', {
-      //   target: '_blank',
-      // });
-    },
-    icon: IcRoundSettingsSuggest,
-    text: $t('widgets.setting'),
   },
 ]);
 

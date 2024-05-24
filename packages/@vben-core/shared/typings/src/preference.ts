@@ -91,6 +91,8 @@ interface Preference {
   pageTransitionEnable: boolean;
   /** 是否开启半深色菜单（只在theme='light'时生效） */
   semiDarkMenu: boolean;
+  /** 是否显示偏好设置 */
+  showPreference: boolean;
   /** 侧边栏是否折叠 */
   sideCollapse: boolean;
   /** 侧边栏折叠时，是否显示title */

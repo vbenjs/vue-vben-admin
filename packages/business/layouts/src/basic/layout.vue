@@ -127,7 +127,7 @@ function wrapperMenus(menus: MenuRecordRaw[]) {
       (value: boolean) => updatePreference('sideExpandOnHover', value)
     "
   >
-    <template #preference>
+    <template v-if="preference.showPreference" #preference>
       <PreferenceWidget />
     </template>
 
