@@ -9,13 +9,11 @@
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "packages/@vben-core/shared/design"
   },
-  "bugs": {
-    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
-  },
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "scripts": {
     "build": "pnpm unbuild",
-    "stub": "pnpm unbuild --stub",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "stub": "pnpm unbuild --stub"
   },
   "files": [
     "dist",

@@ -9,9 +9,7 @@
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "packages/@vben-core/shared/typings"
   },
-  "bugs": {
-    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
-  },
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "scripts": {
     "build": "pnpm unbuild",
     "stub": "pnpm build --stub"
@@ -41,7 +39,7 @@
     }
   },
   "dependencies": {
-    "vue": "^3.4.27",
+    "vue": "3.4.27",
     "vue-router": "^4.3.2"
   }
 }

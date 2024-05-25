@@ -9,9 +9,7 @@
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "packages/@vben-core/uikit/shadcn-ui"
   },
-  "bugs": {
-    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
-  },
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "scripts": {
     "build": "pnpm vite build",
     "prepublishOnly": "npm run build"
@@ -52,7 +50,7 @@
     "clsx": "2.1.1",
     "radix-vue": "^1.8.1",
     "tailwind-merge": "^2.3.0",
-    "vue": "^3.4.27",
+    "vue": "3.4.27",
     "vue-sonner": "^1.1.2"
   }
 }

@@ -88,7 +88,7 @@ function defineApplicationConfig(options: DefineAppcationOptions = {}) {
         host: true,
         warmup: {
           // 预热文件
-          clientFiles: ['./index.html', './src/{views}/*'],
+          clientFiles: ['./index.html', './src/{views,layouts}/*'],
         },
       },
     };

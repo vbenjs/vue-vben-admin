@@ -1,52 +1,47 @@
 {
   "name": "vben-admin",
-  "version": "4.0.0-alpha.1",
-  "private": true,
-  "type": "module",
+  "version": "5.0.0-alpha.1",
   "author": {
     "name": "vben",
     "email": "anncwb@126.com",
     "url": "https://github.com/anncwb"
   },
+  "private": true,
+  "type": "module",
   "license": "MIT",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vbenjs/vue-vben-admin.git"
-  },
-  "bugs": {
-    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
-  },
+  "repository": "vbenjs/vue-vben-admin.git",
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "keywords": [
-    "vben admin",
-    "vben",
-    "vue",
-    "vue3",
-    "vue admin",
     "monorepo",
-    "turbo"
+    "turbo",
+    "vben",
+    "vben admin",
+    "vue",
+    "vue admin",
+    "vue3"
   ],
   "scripts": {
-    "changeset": "pnpm exec changeset",
-    "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile",
     "bootstrap": "pnpm install",
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 turbo build && pnpm install -s",
-    "clean": "vsh clean",
+    "build:docker": "./build-local-docker-image.sh",
+    "changeset": "pnpm exec changeset",
     "check": "pnpm run check:dep && pnpm run check:circular && pnpm run check:type",
     "check:circular": "vsh check-circular",
     "check:dep": "vsh check-dep",
     "check:type": "turbo run typecheck",
+    "clean": "vsh clean",
     "commit": "czg",
     "dev": "turbo run dev --parallel",
-    "preinstall": "npx only-allow pnpm",
-    "postinstall": "turbo run stub",
-    "lint": "vsh lint && pnpm run check:circular",
-    "publint": "vsh publint",
     "format": "vsh lint --format",
+    "lint": "vsh lint && pnpm run check:circular",
+    "postinstall": "turbo run stub",
+    "preinstall": "npx only-allow pnpm",
     "prepare": "is-ci || husky",
+    "publint": "vsh publint",
     "reinstall": "pnpm clean --del-lock && pnpm bootstrap",
     "test": "vitest",
-    "build:docker": "./build-local-docker-image.sh"
+    "version": "pnpm exec changeset version && pnpm install --no-frozen-lockfile"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.3",
@@ -84,7 +79,8 @@
   "pnpm": {
     "overrides": {
       "@ctrl/tinycolor": "4.1.0",
-      "clsx": "2.1.1"
+      "clsx": "2.1.1",
+      "vue": "3.4.27"
     },
     "neverBuiltDependencies": [
       "canvas",

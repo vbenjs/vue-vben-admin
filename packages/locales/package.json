@@ -9,9 +9,7 @@
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "packages/locales"
   },
-  "bugs": {
-    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
-  },
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "scripts": {
     "build": "pnpm unbuild",
     "stub": "pnpm unbuild --stub"
@@ -29,16 +27,16 @@
   },
   "exports": {
     ".": {
-      "development": "./src/index.ts",
       "types": "./src/index.ts",
+      "development": "./src/index.ts",
       "default": "./dist/index.mjs"
     },
     "./langs/*": {
       "default": "./dist/langs/*"
     },
     "./helper": {
-      "development": "./src/helper.ts",
       "types": "./src/helper.ts",
+      "development": "./src/helper.ts",
       "default": "./dist/helper.mjs"
     }
   },
@@ -53,7 +51,7 @@
   "dependencies": {
     "@intlify/core-base": "^9.13.1",
     "@vben-core/typings": "workspace:*",
-    "vue": "^3.4.27",
+    "vue": "3.4.27",
     "vue-i18n": "^9.13.1"
   }
 }

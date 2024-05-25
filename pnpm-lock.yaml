@@ -7,6 +7,7 @@ settings:
 overrides:
   '@ctrl/tinycolor': 4.1.0
   clsx: 2.1.1
+  vue: 3.4.27
 
 importers:
 
@@ -139,7 +140,7 @@ importers:
         specifier: ^1.11.11
         version: 1.11.11
       vue:
-        specifier: ^3.4.27
+        specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
       vue-router:
         specifier: ^4.3.2
@@ -201,8 +202,8 @@ importers:
         specifier: ^48.2.6
         version: 48.2.6(eslint@8.57.0)
       eslint-plugin-jsonc:
-        specifier: ^2.15.1
-        version: 2.15.1(eslint@8.57.0)
+        specifier: ^2.16.0
+        version: 2.16.0(eslint@8.57.0)
       eslint-plugin-n:
         specifier: ^17.7.0
         version: 17.7.0(eslint@8.57.0)
@@ -455,7 +456,7 @@ importers:
         specifier: ^4.1.2
         version: 4.1.2(vue@3.4.27(typescript@5.4.5))
       vue:
-        specifier: ^3.4.27
+        specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
 
   packages/@vben-core/shared/toolkit:
@@ -483,7 +484,7 @@ importers:
   packages/@vben-core/shared/typings:
     dependencies:
       vue:
-        specifier: ^3.4.27
+        specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
       vue-router:
         specifier: ^4.3.2
@@ -510,7 +511,7 @@ importers:
         specifier: ^10.9.0
         version: 10.9.0(vue@3.4.27(typescript@5.4.5))
       vue:
-        specifier: ^3.4.27
+        specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
 
   packages/@vben-core/uikit/menu-ui:
@@ -534,7 +535,7 @@ importers:
         specifier: ^10.9.0
         version: 10.9.0(vue@3.4.27(typescript@5.4.5))
       vue:
-        specifier: ^3.4.27
+        specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
 
   packages/@vben-core/uikit/shadcn-ui:
@@ -567,7 +568,7 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
       vue:
-        specifier: ^3.4.27
+        specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
       vue-sonner:
         specifier: ^1.1.2
@@ -591,7 +592,7 @@ importers:
         specifier: workspace:*
         version: link:../../shared/typings
       vue:
-        specifier: ^3.4.27
+        specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
 
   packages/business/common-ui:
@@ -624,7 +625,7 @@ importers:
         specifier: ^1.5.3
         version: 1.5.3
       vue:
-        specifier: ^3.4.27
+        specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
       vue-router:
         specifier: ^4.3.2
@@ -670,7 +671,7 @@ importers:
         specifier: workspace:*
         version: link:../../stores
       vue:
-        specifier: ^3.4.27
+        specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
       vue-router:
         specifier: ^4.3.2
@@ -685,7 +686,7 @@ importers:
   packages/hooks:
     dependencies:
       vue:
-        specifier: ^3.4.27
+        specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
       vue-hooks-plus:
         specifier: ^2.1.0
@@ -706,7 +707,7 @@ importers:
         specifier: workspace:*
         version: link:../@vben-core/shared/typings
       vue:
-        specifier: ^3.4.27
+        specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
       vue-i18n:
         specifier: ^9.13.1
@@ -724,7 +725,7 @@ importers:
         specifier: ^10.9.0
         version: 10.9.0(vue@3.4.27(typescript@5.4.5))
       vue:
-        specifier: ^3.4.27
+        specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
 
   packages/stores:
@@ -742,7 +743,7 @@ importers:
         specifier: ^3.2.1
         version: 3.2.1(pinia@2.1.7(typescript@5.4.5)(vue@3.4.27(typescript@5.4.5)))
       vue:
-        specifier: ^3.4.27
+        specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
       vue-router:
         specifier: ^4.3.2
@@ -763,7 +764,7 @@ importers:
         specifier: workspace:*
         version: link:../@vben-core/shared/typings
       vue:
-        specifier: ^3.4.27
+        specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
       vue-router:
         specifier: ^4.3.2
@@ -812,7 +813,7 @@ packages:
   '@ant-design/icons-vue@7.0.1':
     resolution: {integrity: sha512-eCqY2unfZK6Fe02AwFlDHLfoyEFreP6rBwAZMIJ1LugmfMiVgwWDYlp1YsRugaPtICYOabV1iWxXdP12u9U43Q==}
     peerDependencies:
-      vue: '>=3.0.3'
+      vue: 3.4.27
 
   '@antfu/ni@0.21.12':
     resolution: {integrity: sha512-2aDL3WUv8hMJb2L3r/PIQWsTLyq7RQr3v9xD16fiz6O8ys1xEyLhhTOv8gxtZvJiTzjTF5pHoArvRdesGL1DMQ==}
@@ -1821,7 +1822,7 @@ packages:
   '@iconify/vue@4.1.2':
     resolution: {integrity: sha512-CQnYqLiQD5LOAaXhBrmj1mdL2/NCJvwcC4jtW2Z8ukhThiFkLDkutarTOV2trfc9EXqUqRs0KqXOL9pZ/IyysA==}
     peerDependencies:
-      vue: '>=3'
+      vue: 3.4.27
 
   '@internationalized/date@3.5.4':
     resolution: {integrity: sha512-qoVJVro+O0rBaw+8HPjUB1iH8Ihf8oziEnqMnvhJUSuVIrHOuZ6eNLHNvzXJKUvAtaDiqMnRlg8Z2mgh09BlUw==}
@@ -1992,7 +1993,7 @@ packages:
   '@radix-icons/vue@1.0.0':
     resolution: {integrity: sha512-gKWWk9tTK/laDRRNe5KLLR8A0qUwx4q4+DN8Fq48hJ904u78R82ayAO3TrxbNLgyn2D0h6rRiGdLzQWj7rPcvA==}
     peerDependencies:
-      vue: '>= 3'
+      vue: 3.4.27
 
   '@rollup/plugin-alias@5.1.0':
     resolution: {integrity: sha512-lpA3RZ9PdIG7qqhEfv79tBffNaoDuukFDrmhLqg9ifv99u/ehn+lOg30x2zmhf8AQqQUZaMk/B9fZraQ6/acDQ==}
@@ -2192,7 +2193,7 @@ packages:
   '@tanstack/vue-virtual@3.5.0':
     resolution: {integrity: sha512-wvRQ8sFxn/NDr3WvI5XabhFovZ5MBmpEck2GHpTxYunmV63Ovpl30lRu6W5BPQo35a1GqDZ+Pvzlz6WDWRNqqw==}
     peerDependencies:
-      vue: ^2.7.0 || ^3.0.0
+      vue: 3.4.27
 
   '@tootallnate/once@1.1.2':
     resolution: {integrity: sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==}
@@ -2349,14 +2350,14 @@ packages:
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.0.0 || ^5.0.0
-      vue: ^3.0.0
+      vue: 3.4.27
 
   '@vitejs/plugin-vue@5.0.4':
     resolution: {integrity: sha512-WS3hevEszI6CEVEx28F8RjTX97k3KsrcY6kvTg7+Whm5y3oYvcqzVeGCU3hxSAn4uY2CLCkeokkGKpoctccilQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
       vite: ^5.0.0
-      vue: ^3.2.25
+      vue: 3.4.27
 
   '@vitest/expect@1.6.0':
     resolution: {integrity: sha512-ixEvFVQjycy/oNgHjqsL6AZCDduC+tflRluaHIzKIsdbzkLn2U/iBnVeJwB6HsIjQBdfMR8Z0tRxKUsvFJEeWQ==}
@@ -2443,7 +2444,7 @@ packages:
   '@vue/devtools-kit@7.2.1':
     resolution: {integrity: sha512-Wak/fin1X0Q8LLIfCAHBrdaaB+R6IdpSXsDByPHbQ3BmkCP0/cIo/oEGp9i0U2+gEqD4L3V9RDjNf1S34DTzQQ==}
     peerDependencies:
-      vue: ^3.0.0
+      vue: 3.4.27
 
   '@vue/devtools-shared@7.2.1':
     resolution: {integrity: sha512-PCJF4UknJmOal68+X9XHyVeQ+idv0LFujkTOIW30+GaMJqwFVN9LkQKX4gLqn61KkGMdJTzQ1bt7EJag3TI6AA==}
@@ -2621,7 +2622,7 @@ packages:
     resolution: {integrity: sha512-3u6fmfCEJ5AFTsYhogP8lJ/vcqiAJO16o+gGQkWYRGLl0NxmY4hje4cPyv+pcxpeJgcG0vNEmkb1vVHKcnxd+g==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
-      vue: '>=3.2.0'
+      vue: 3.4.27
 
   any-promise@1.3.0:
     resolution: {integrity: sha512-7UvmKalWRt1wgjL1RrGxoSJW/0QZFIegpeGvZG9kjp8vrRu55XTHbwnqq2GpXm9uLbcuhxm3IqX9OB4MZR1b2A==}
@@ -3640,8 +3641,8 @@ packages:
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
 
-  eslint-plugin-jsonc@2.15.1:
-    resolution: {integrity: sha512-PVFrqIJa8BbM/e828RSn0SwB/Z5ye+2LDuy2XqG6AymNgPsfApRRcznsbxP7VrjdLEU4Nb+g9n/d6opyp0jp9A==}
+  eslint-plugin-jsonc@2.16.0:
+    resolution: {integrity: sha512-Af/ZL5mgfb8FFNleH6KlO4/VdmDuTqmM+SPnWcdoWywTetv7kq+vQe99UyQb9XO3b0OWLVuTH7H0d/PXYCMdSg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: '>=6.0.0'
@@ -5303,7 +5304,7 @@ packages:
     peerDependencies:
       '@vue/composition-api': ^1.4.0
       typescript: '>=4.4.4'
-      vue: ^2.6.14 || ^3.3.0
+      vue: 3.4.27
     peerDependenciesMeta:
       '@vue/composition-api':
         optional: true
@@ -5888,7 +5889,7 @@ packages:
   radix-vue@1.8.1:
     resolution: {integrity: sha512-DFyUt2vc/89tpSHiJvv7Qb/Qs8zVxq2g7q4kuuDV46fmDmSC3mnV3hdSAYruU7k/KvoDpS3sd99kLGRtuG63Rw==}
     peerDependencies:
-      vue: '>= 3.2.0'
+      vue: 3.4.27
 
   radix3@1.1.2:
     resolution: {integrity: sha512-b484I/7b8rDEdSDKckSSBA8knMpcdsXudlE/LNL639wFoHKwLbEkQFZHWEYwDC0wa0FKUcCY+GAF73Z7wxNVFA==}
@@ -6782,7 +6783,7 @@ packages:
       esbuild: '*'
       rollup: '>=3'
       vite: '>=3'
-      vue: '>=2.7 || >=3.2.13'
+      vue: 3.4.27
       webpack: ^4 || ^5
     peerDependenciesMeta:
       '@nuxt/kit':
@@ -7024,7 +7025,7 @@ packages:
     hasBin: true
     peerDependencies:
       '@vue/composition-api': ^1.0.0-rc.1
-      vue: ^3.0.0-0 || ^2.6.0
+      vue: 3.4.27
     peerDependenciesMeta:
       '@vue/composition-api':
         optional: true
@@ -7038,18 +7039,18 @@ packages:
   vue-hooks-plus@2.1.0:
     resolution: {integrity: sha512-UkwmyoFX8WlfHgkqgDJ1jTLvVohtspRR8JFIZYCAgG01nqYVxoTiHZbEhOdIMH1Ba0CxP/xL26knT1+a2w5JpQ==}
     peerDependencies:
-      vue: ^3.2.25
+      vue: 3.4.27
 
   vue-i18n@9.13.1:
     resolution: {integrity: sha512-mh0GIxx0wPtPlcB1q4k277y0iKgo25xmDPWioVVYanjPufDBpvu5ySTjP5wOrSvlYQ2m1xI+CFhGdauv/61uQg==}
     engines: {node: '>= 16'}
     peerDependencies:
-      vue: ^3.0.0
+      vue: 3.4.27
 
   vue-router@4.3.2:
     resolution: {integrity: sha512-hKQJ1vDAZ5LVkKEnHhmm1f9pMiWIBNGF5AwU67PdH7TyXCj/a4hTccuUuYCAMgJK6rO/NVYtQIEN3yL8CECa7Q==}
     peerDependencies:
-      vue: ^3.2.0
+      vue: 3.4.27
 
   vue-sonner@1.1.2:
     resolution: {integrity: sha512-yg4f5s0a3oiiI7cNvO0Dajux1Y7s04lxww3vnQtnwQawJ3KqaKA9RIRMdI9wGTosRGIOwgYFniFRGl4+IuKPZw==}
@@ -7073,7 +7074,7 @@ packages:
     resolution: {integrity: sha512-IwUC0Aq2zwaXqy74h4WCvFCUtoV0iSWr0snWnE9TnU18S66GAQyqQbRf2qfJtUuiFsBf6qp0MEwdonlwznlcrw==}
     engines: {node: '>=10.15.0'}
     peerDependencies:
-      vue: ^3.0.0
+      vue: 3.4.27
 
   vue@3.4.27:
     resolution: {integrity: sha512-8s/56uK6r01r1icG/aEOHqyMVxd1bkYcSe9j8HcKtr/xTOFWvnzIVTehNW+5Yt89f+DLBe4A569pnZLS5HzAMA==}
@@ -10463,7 +10464,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-jsonc@2.15.1(eslint@8.57.0):
+  eslint-plugin-jsonc@2.16.0(eslint@8.57.0):
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.57.0)
       eslint: 8.57.0

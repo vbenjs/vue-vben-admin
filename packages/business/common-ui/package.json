@@ -9,9 +9,7 @@
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "packages/business/common-ui"
   },
-  "bugs": {
-    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
-  },
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "scripts": {
     "build": "pnpm vite build",
     "prepublishOnly": "npm run build"
@@ -29,8 +27,8 @@
   },
   "exports": {
     ".": {
-      "development": "./src/index.ts",
       "types": "./src/index.ts",
+      "development": "./src/index.ts",
       "default": "./dist/index.mjs"
     }
   },
@@ -55,7 +53,7 @@
     "@vueuse/core": "^10.9.0",
     "@vueuse/integrations": "^10.9.0",
     "qrcode": "^1.5.3",
-    "vue": "^3.4.27",
+    "vue": "3.4.27",
     "vue-router": "^4.3.2"
   },
   "devDependencies": {

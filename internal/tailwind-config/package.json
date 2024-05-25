@@ -10,9 +10,7 @@
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "internal/tailwind-config"
   },
-  "bugs": {
-    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
-  },
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "scripts": {
     "build": "pnpm unbuild",
     "stub": "pnpm unbuild --stub"

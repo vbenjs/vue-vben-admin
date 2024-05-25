@@ -9,9 +9,7 @@
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "packages/styles"
   },
-  "bugs": {
-    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
-  },
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "scripts": {
     "build": "pnpm vite build",
     "prepublishOnly": "npm run build"
@@ -26,8 +24,8 @@
   },
   "exports": {
     ".": {
-      "development": "./src/index.ts",
       "types": "./src/index.ts",
+      "development": "./src/index.ts",
       "default": "./dist/index.mjs"
     }
   },

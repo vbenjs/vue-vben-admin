@@ -10,9 +10,7 @@
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "internal/vite-config"
   },
-  "bugs": {
-    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
-  },
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "scripts": {
     "stub": "pnpm unbuild --stub"
   },

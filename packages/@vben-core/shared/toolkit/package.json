@@ -9,12 +9,10 @@
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "packages/@vben-core/shared/toolkit"
   },
-  "bugs": {
-    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
-  },
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "scripts": {
-    "stub": "pnpm unbuild --stub",
-    "build": "pnpm unbuild"
+    "build": "pnpm unbuild",
+    "stub": "pnpm unbuild --stub"
   },
   "files": [
     "dist"
@@ -27,8 +25,8 @@
   },
   "exports": {
     ".": {
-      "development": "./src/index.ts",
       "types": "./src/index.ts",
+      "development": "./src/index.ts",
       "default": "./dist/index.mjs"
     }
   },

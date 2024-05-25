@@ -10,9 +10,7 @@
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "internal/lint-configs/lint-staged-config"
   },
-  "bugs": {
-    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
-  },
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "scripts": {
     "stub": "pnpm unbuild --stub"
   },

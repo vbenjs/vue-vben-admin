@@ -1,12 +1,12 @@
 {
   "name": "@vben/antd-view",
-  "version": "4.0.0-alpha.1",
-  "type": "module",
+  "version": "5.0.0-alpha.1",
   "author": {
     "name": "vben",
     "email": "anncwb@126.com",
     "url": "https://github.com/anncwb"
   },
+  "type": "module",
   "license": "MIT",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "repository": {
@@ -14,9 +14,7 @@
     "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "apps/vben-admin"
   },
-  "bugs": {
-    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
-  },
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "scripts": {
     "build": "pnpm vite build",
     "dev": "pnpm vite",
@@ -39,7 +37,7 @@
     "ant-design-vue": "^4.2.1",
     "axios": "^1.7.2",
     "dayjs": "^1.11.11",
-    "vue": "^3.4.27",
+    "vue": "3.4.27",
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
