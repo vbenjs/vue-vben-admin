@@ -10,7 +10,7 @@ export const vbenRoutes: RouteRecordRaw[] = [
     component: BasicLayout,
     meta: {
       icon: preference.logo,
-      title: 'Vben Admin',
+      title: 'Vben',
     },
     name: 'AboutLayout',
     path: '/vben-admin',

@@ -2,10 +2,10 @@
 import { useNamespace } from '@vben-core/toolkit';
 
 defineOptions({
-  name: 'TabBackground',
+  name: 'ChromeTabBackground',
 });
 
-const { b, e } = useNamespace('tab-background');
+const { b, e } = useNamespace('chrome-tab-background');
 </script>
 
 <template>

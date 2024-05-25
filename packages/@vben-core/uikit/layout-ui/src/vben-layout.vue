@@ -48,7 +48,7 @@ const props = withDefaults(defineProps<Props>(), {
   sideTheme: 'dark',
   sideWidth: 180,
   // tabsBackgroundColor: 'hsl(var(--color-background))',
-  tabsHeight: 38,
+  tabsHeight: 36,
   tabsVisible: true,
   zIndex: 200,
 });

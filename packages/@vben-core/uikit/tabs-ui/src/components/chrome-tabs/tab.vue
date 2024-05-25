@@ -19,7 +19,7 @@ interface Props {
 }
 
 defineOptions({
-  name: 'Tab',
+  name: 'ChromeTab',
 });
 
 withDefaults(defineProps<Props>(), {
@@ -27,7 +27,7 @@ withDefaults(defineProps<Props>(), {
 });
 const emit = defineEmits<{ close: []; unPushPin: [] }>();
 
-const { b, e, is } = useNamespace('tab');
+const { b, e, is } = useNamespace('chrome-tab');
 
 function handleClose() {
   emit('close');

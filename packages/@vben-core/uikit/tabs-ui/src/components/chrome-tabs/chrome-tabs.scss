@@ -1,29 +1,28 @@
 @import '@vben-core/design/global';
 
-@include b('tabs-ui') {
+@include b('chrome-tabs') {
   --tabs-background: hsl(var(--color-background));
-  --tabs-gap: 10px;
+  --tabs-gap: 7px;
   --tabs-divider: hsl(var(--color-border));
   --tabs-hover: hsl(var(--color-heavy));
-  --tabs-active-background: hsl(var(--color-primary) / 15%);
-  --tabs-active: hsl(var(--color-primary));
+  --tabs-active-background: hsl(var(--color-primary) / 100%);
+  --tabs-active: hsl(var(--color-primary-foreground));
 
   position: relative;
   width: 100%;
   height: 100%;
-  padding-top: 2px;
+  padding-top: 4px;
   background-color: var(--tabs-background);
 
   @include e('content') {
     position: relative;
-    height: 100%;
+    height: 32px;
     overflow: hidden;
   }
 }
 
-@include b('tab') {
+@include b('chrome-tab') {
   position: absolute;
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   height: 100%;
@@ -32,24 +31,24 @@
   user-select: none;
 
   @include is('active') {
-    z-index: 1;
+    z-index: 2;
     color: var(--tabs-active);
 
-    .#{$namespace}-tab__extra:not(.is-pin) {
+    .#{$namespace}-chrome-tab__extra:not(.is-pin) {
       background-color: var(--tabs-active-background);
       opacity: 1;
     }
 
-    .#{$namespace}-tab-background__divider {
+    .#{$namespace}-chrome-tab-background__divider {
       display: none;
     }
 
-    .#{$namespace}-tab-background__content {
+    .#{$namespace}-chrome-tab-background__content {
       background-color: var(--tabs-active-background);
     }
 
-    .#{$namespace}-tab-background__before,
-    .#{$namespace}-tab-background__after {
+    .#{$namespace}-chrome-tab-background__before,
+    .#{$namespace}-chrome-tab-background__after {
       fill: var(--tabs-active-background);
     }
   }
@@ -58,8 +57,7 @@
     position: absolute;
     right: 0;
     left: 0;
-    z-index: 1;
-    box-sizing: border-box;
+    // z-index: 1;
     display: flex;
     align-items: center;
     height: 100%;
@@ -73,19 +71,18 @@
   @include e('extra') {
     position: absolute;
     top: 50%;
-    right: calc(var(--tabs-gap) * 1.5);
+    right: calc(var(--tabs-gap) * 2);
     z-index: 1;
     width: 14px;
     height: 14px;
     border-radius: 50%;
     opacity: 0;
-
-    // transition: all 0.15s ease;
+    transition: 0.15s;
     transform: translateY(-50%);
 
-    &:hover {
-      // background-color: hsl(var(--color-accent));
-    }
+    // &:hover {
+    //   background-color: hsl(var(--color-accent));
+    // }
   }
 
   @include e('extra-icon') {
@@ -116,14 +113,26 @@
 
   @include e('label') {
     position: relative;
-    box-sizing: border-box;
     flex: 1;
-    margin-right: px;
+    margin-right: 8px;
     margin-left: 5%;
     overflow: hidden;
     font-size: 14px;
-    text-align: center;
     white-space: nowrap;
+    mask-image: linear-gradient(
+      90deg,
+      #000 0%,
+      #000 calc(100% - 20px),
+      transparent
+    );
+
+    // &.no-close {
+    //   margin-right: 0;
+    // }
+
+    // &.no-icon {
+    //   margin-left: 0;
+    // }
   }
 
   @include is('hidden-icon') {
@@ -131,51 +140,44 @@
   }
 
   &:hover {
-    .#{$namespace}-tab__extra.is-pin {
+    .#{$namespace}-chrome-tab__extra.is-pin {
       opacity: 1;
     }
   }
 
   &:not(.is-active):hover {
-    z-index: 10;
+    z-index: 1;
 
-    .#{$namespace}-tab__extra {
+    .#{$namespace}-chrome-tab__extra {
       opacity: 1;
     }
 
-    .#{$namespace}-tab-background__divider {
+    .#{$namespace}-chrome-tab-background__divider {
       display: none;
     }
 
-    .#{$namespace}-tab-background__content {
+    .#{$namespace}-chrome-tab-background__content {
       background-color: var(--tabs-hover);
     }
 
-    .#{$namespace}-tab-background__before,
-    .#{$namespace}-tab-background__after {
+    .#{$namespace}-chrome-tab-background__before,
+    .#{$namespace}-chrome-tab-background__after {
       fill: var(--tabs-hover);
     }
   }
 
-  &:last-of-type {
-    .#{$namespace}-tab-background__divider::after {
-      display: none;
-    }
-  }
-
   &:first-of-type {
-    .#{$namespace}-tab-background__divider::before {
+    .#{$namespace}-chrome-tab-background__divider::before {
       display: none;
     }
   }
 }
 
-@include b('tab-background') {
+@include b('chrome-tab-background') {
   position: absolute;
-  box-sizing: border-box;
   width: 100%;
   height: 100%;
-  padding: 0 calc(var(--tabs-gap) - 1px);
+  padding: 0 calc(var(--tabs-gap) + 0px);
 
   @include e('divider') {
     position: absolute;
@@ -184,45 +186,47 @@
     height: 100%;
     margin: 0 7px;
 
-    // &::before {
-    //   position: absolute;
-    //   top: 20%;
-    //   right: 100%;
-    //   width: 1px;
-    //   height: 60%;
-    //   content: '';
-    //   background-color: var(--tabs-divider);
-    // }
+    &::before {
+      position: absolute;
+      top: 20%;
+      right: 100%;
+      width: 1px;
+      height: 60%;
+      content: '';
+      background-color: var(--tabs-divider);
+    }
 
-    // &::after {
-    //   position: absolute;
-    //   top: 20%;
-    //   left: calc(100% - 1px);
-    //   width: 1px;
-    //   height: 60%;
-    //   content: '';
-    //   background-color: var(--tabs-divider);
-    // }
+    &::after {
+      position: absolute;
+      top: 20%;
+      left: calc(100% - 1px);
+      width: 1px;
+      height: 60%;
+      content: '';
+      background-color: var(--tabs-divider);
+    }
   }
 
   @include e('content') {
     height: 100%;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     transition: background 0.15s ease;
   }
 
   @include e('before') {
     position: absolute;
     bottom: -1px;
-    left: -1px;
+    left: -3px;
     fill: transparent;
+    transition: 0.15s;
   }
 
   @include e('after') {
     position: absolute;
-    right: -1px;
+    right: -3px;
     bottom: -1px;
     fill: transparent;
+    transition: 0.15s;
   }
 }

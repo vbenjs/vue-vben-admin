@@ -1,23 +1,18 @@
 <script setup lang="ts">
-import type { IContextMenuItem } from '@vben-core/shadcn-ui';
+import type { TabItem } from '@vben-core/typings';
 
 import { useNamespace } from '@vben-core/toolkit';
-import { TabItem } from '@vben-core/typings';
 
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
 import Tab from './tab.vue';
 
-interface Props {
-  maxWidth?: number;
-  menus?: (data: any) => IContextMenuItem[];
-  minWidth?: number;
-  showIcon?: boolean;
-  tabs?: TabItem[];
-}
+import type { TabsProps } from '../../interface';
+
+interface Props extends TabsProps {}
 
 defineOptions({
-  name: 'Tabs',
+  name: 'ChromeTabs',
 });
 
 const props = withDefaults(defineProps<Props>(), {
@@ -29,10 +24,10 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{ close: [string]; unPushPin: [TabItem] }>();
 
-const gap = 6;
+const gap = 7;
 
 const active = defineModel<string>('active');
-const { b, e, is } = useNamespace('tabs-ui');
+const { b, e, is } = useNamespace('chrome-tabs');
 
 const contentRef = ref();
 const tabWidth = ref<number>(0);
@@ -115,5 +110,5 @@ function handleUnPushPin(tab: TabItem) {
   </div>
 </template>
 <style lang="scss">
-@import '../styles/tabs.scss';
+@import './chrome-tabs.scss';
 </style>

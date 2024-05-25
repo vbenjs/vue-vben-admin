@@ -12,7 +12,7 @@ interface Props extends MenuProps {
 }
 
 defineOptions({
-  name: 'MenuUi',
+  name: 'MenuView',
 });
 
 const props = withDefaults(defineProps<Props>(), {
