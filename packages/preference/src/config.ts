@@ -34,6 +34,7 @@ const defaultPreference: Preference = {
   pageTransition: 'fade-slide',
   pageTransitionEnable: true,
   semiDarkMenu: true,
+  shortcutKeys: true,
   showPreference: true,
   sideCollapse: false,
   sideCollapseShowTitle: true,

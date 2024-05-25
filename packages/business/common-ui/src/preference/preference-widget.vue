@@ -54,9 +54,11 @@ function updateLocale(value: string) {
     :locale="preference.locale"
     :navigation-accordion="preference.navigationAccordion"
     :navigation-style="preference.navigationStyle"
+    :shortcut-keys="preference.shortcutKeys"
     :navigation-split="preference.navigationSplit"
     :side-collapse-show-title="preference.sideCollapseShowTitle"
     :page-transition-enable="preference.pageTransitionEnable"
+    @update:shortcut-keys="(value) => handleUpdate('shortcutKeys', value)"
     @update:navigation-style="(value) => handleUpdate('navigationStyle', value)"
     @update:navigation-accordion="
       (value) => handleUpdate('navigationAccordion', value)

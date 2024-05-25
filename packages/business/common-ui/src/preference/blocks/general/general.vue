@@ -13,6 +13,7 @@ defineOptions({
 
 const locale = defineModel<string>('locale');
 const dynamicTitle = defineModel<boolean>('dynamicTitle');
+const shortcutKeys = defineModel<boolean>('shortcutKeys');
 
 const localeItems: SelectListItem[] = staticPreference.supportLanguages.map(
   (item) => ({
@@ -28,5 +29,8 @@ const localeItems: SelectListItem[] = staticPreference.supportLanguages.map(
   </SelectItem>
   <SwitchItem v-model="dynamicTitle">
     {{ $t('preference.dynamic-title') }}
+  </SwitchItem>
+  <SwitchItem v-model="shortcutKeys">
+    {{ $t('preference.shortcut-key') }}
   </SwitchItem>
 </template>

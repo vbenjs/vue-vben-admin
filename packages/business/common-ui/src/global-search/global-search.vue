@@ -21,7 +21,7 @@ import { isWindowsOs } from '@vben-core/toolkit';
 
 import { $t } from '@vben/locales';
 import { useMagicKeys, useToggle, whenever } from '@vueuse/core';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
 import SearchPanel from './search-panel.vue';
 
@@ -29,9 +29,13 @@ defineOptions({
   name: 'GlobalSearch',
 });
 
-withDefaults(defineProps<{ menus: MenuRecordRaw[] }>(), {
-  menus: () => [],
-});
+const props = withDefaults(
+  defineProps<{ enableShortcutKey?: boolean; menus: MenuRecordRaw[] }>(),
+  {
+    enableShortcutKey: true,
+    menus: () => [],
+  },
+);
 
 const [open, toggleOpen] = useToggle();
 const keyword = ref('');
@@ -41,13 +45,15 @@ function handleClose() {
   keyword.value = '';
 }
 
-onMounted(() => {
+if (props.enableShortcutKey) {
   const keys = useMagicKeys();
   const cmd = isWindowsOs() ? keys['ctrl+k'] : keys['cmd+k'];
   whenever(cmd, () => {
-    open.value = true;
+    if (props.enableShortcutKey) {
+      open.value = true;
+    }
   });
-});
+}
 </script>
 
 <template>
@@ -67,11 +73,13 @@ onMounted(() => {
             {{ $t('search.search') }}
           </span>
           <span
+            v-if="enableShortcutKey"
             class="bg-background border-foreground/50 text-muted-foreground group-hover:text-foreground relative hidden rounded-sm rounded-r-xl px-1.5 py-1 text-xs leading-none group-hover:opacity-100 md:block"
           >
             {{ isWindowsOs() ? 'Ctrl' : '⌘' }}
             <kbd>K</kbd>
           </span>
+          <span v-else></span>
         </div>
       </DialogTrigger>
       <DialogContent

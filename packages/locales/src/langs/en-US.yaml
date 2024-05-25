@@ -42,6 +42,7 @@ preference:
   preferences: Preferences
   preferences-subtitle: Customize Preferences & Preview in Real Time
   theme: Theme
+  shortcut-key: Shortcut Key
   appearance: Appearance
   theme-color: Theme Color
   layout: Layout

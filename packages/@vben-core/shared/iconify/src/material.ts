@@ -7,6 +7,8 @@ export const IcRoundKeyboardArrowDown = createIcon(
 );
 
 export const IcRoundChevronRight = createIcon('ic:round-chevron-right');
+
+export const IcRoundKeyboard = createIcon('ic:round-keyboard');
 // export const IcRoundMenuOpen = createIcon('ic:round-menu-open');
 
 export const IcRoundMenu = createIcon('ic:round-menu');

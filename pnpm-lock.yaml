@@ -609,6 +609,9 @@ importers:
       '@vben-core/toolkit':
         specifier: workspace:*
         version: link:../../@vben-core/shared/toolkit
+      '@vben/constants':
+        specifier: workspace:*
+        version: link:../../constants
       '@vben/locales':
         specifier: workspace:*
         version: link:../../locales
@@ -681,7 +684,11 @@ importers:
         specifier: workspace:*
         version: link:../../@vben-core/shared/typings
 
-  packages/constants: {}
+  packages/constants:
+    dependencies:
+      '@vben-core/toolkit':
+        specifier: workspace:*
+        version: link:../@vben-core/shared/toolkit
 
   packages/hooks:
     dependencies:

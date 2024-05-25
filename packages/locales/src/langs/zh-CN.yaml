@@ -40,6 +40,7 @@ search:
 preference:
   preferences: 偏好设置
   preferences-subtitle: 自定义偏好设置 & 实时预览
+  shortcut-key: 快捷键
   theme: 主题
   appearance: 外观
   theme-color: 主题色

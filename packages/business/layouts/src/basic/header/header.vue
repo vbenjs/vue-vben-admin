@@ -2,6 +2,7 @@
 import { VbenFullScreen } from '@vben-core/shadcn-ui';
 
 import { GlobalSearch, LanguageToggle, ThemeToggle } from '@vben/common-ui';
+import { preference } from '@vben/preference';
 import { useAccessStore } from '@vben/stores';
 
 interface Props {
@@ -30,7 +31,11 @@ const accessStore = useAccessStore();
     <slot name="menu"></slot>
   </div>
   <div class="flex h-full min-w-0 flex-shrink-0 items-center">
-    <GlobalSearch class="mr-4" :menus="accessStore.getAccessMenus" />
+    <GlobalSearch
+      class="mr-4"
+      :enable-shortcut-key="preference.shortcutKeys"
+      :menus="accessStore.getAccessMenus"
+    />
     <ThemeToggle class="mr-2" />
     <LanguageToggle class="mr-2" />
     <VbenFullScreen class="mr-2" />

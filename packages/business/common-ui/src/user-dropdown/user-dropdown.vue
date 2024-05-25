@@ -9,17 +9,20 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
   DropdownMenuTrigger,
   VbenAlertDialog,
   VbenAvatar,
   VbenIcon,
 } from '@vben-core/shadcn-ui';
+import { isWindowsOs } from '@vben-core/toolkit';
 
 import type { Component } from 'vue';
 
 import { $t } from '@vben/locales';
 import { preference } from '@vben/preference';
-import { ref } from 'vue';
+import { useMagicKeys, whenever } from '@vueuse/core';
+import { computed, ref } from 'vue';
 
 import { useOpenPreference } from '../preference/use-open-preference';
 
@@ -33,14 +36,18 @@ interface Props {
    */
   description?: string;
   /**
+   * 是否启用快捷键
+   */
+  enableShortcutKey?: boolean;
+  /**
    * 菜单数组
    */
   menus?: Array<{ handler: AnyFunction; icon?: Component; text: string }>;
+
   /**
    * 标签文本
    */
   tagText?: string;
-
   /**
    * 文本
    */
@@ -51,10 +58,12 @@ defineOptions({
   name: 'UserDropdown',
 });
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   avatar: '',
   description: '',
+  enableShortcutKey: true,
   menus: () => [],
+  showShortcutKey: true,
   tagText: '',
   text: '',
 });
@@ -65,6 +74,12 @@ const openDialog = ref(false);
 
 const { handleOpenPreference } = useOpenPreference();
 
+const altView = computed(() => (isWindowsOs() ? 'Alt' : '⌥'));
+
+const shortcutKeys = computed(() => {
+  return props.enableShortcutKey && preference.shortcutKeys;
+});
+
 function handleLogout() {
   // emit
   openDialog.value = true;
@@ -74,6 +89,21 @@ function handleLogout() {
 function handleSubmitLogout() {
   emit('logout');
   openDialog.value = false;
+}
+
+if (shortcutKeys.value) {
+  const keys = useMagicKeys();
+  whenever(keys['Alt+KeyQ'], () => {
+    if (shortcutKeys.value) {
+      handleLogout();
+    }
+  });
+
+  whenever(keys['Alt+Comma'], () => {
+    if (shortcutKeys.value) {
+      handleOpenPreference();
+    }
+  });
 }
 </script>
 
@@ -137,6 +167,9 @@ function handleSubmitLogout() {
       >
         <IcRoundSettingsSuggest class="mr-2 size-5" />
         {{ $t('preference.preferences') }}
+        <DropdownMenuShortcut v-if="shortcutKeys">
+          {{ altView }} ,
+        </DropdownMenuShortcut>
       </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem
@@ -145,6 +178,9 @@ function handleSubmitLogout() {
       >
         <IcRoundLogout class="mr-2 size-5" />
         {{ $t('common.logout') }}
+        <DropdownMenuShortcut v-if="shortcutKeys">
+          {{ altView }} Q
+        </DropdownMenuShortcut>
       </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>

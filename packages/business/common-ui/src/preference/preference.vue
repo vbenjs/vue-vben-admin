@@ -62,6 +62,7 @@ const pageTransitionEnable = defineModel<boolean>('pageTransitionEnable');
 const layout = defineModel<LayoutType>('layout');
 const contentCompact = defineModel<string>('contentCompact');
 const sideVisible = defineModel<boolean>('sideVisible');
+const shortcutKeys = defineModel<boolean>('shortcutKeys');
 const tabsVisible = defineModel<boolean>('tabsVisible');
 const tabsIcon = defineModel<boolean>('tabsIcon');
 // const logoVisible = defineModel<boolean>('logoVisible');
@@ -95,6 +96,10 @@ const tabs = computed((): SegmentedItem[] => {
       label: $t('preference.general'),
       value: 'general',
     },
+    // {
+    //   label: $t('preference.shortcut-key'),
+    //   value: 'shortcutKey',
+    // },
   ];
 });
 
@@ -233,6 +238,24 @@ function handleReset() {
               <General
                 v-model:locale="locale"
                 v-model:dynamic-title="dynamicTitle"
+                v-model:shortcut-keys="shortcutKeys"
+              />
+            </Block>
+
+            <Block :title="$t('preference.animation')">
+              <Animation
+                v-model:page-progress="pageProgress"
+                v-model:page-transition="pageTransition"
+                v-model:page-transition-enable="pageTransitionEnable"
+              />
+            </Block>
+          </template>
+          <template #shortcutKey>
+            <Block :title="$t('preference.general')">
+              <General
+                v-model:locale="locale"
+                v-model:dynamic-title="dynamicTitle"
+                v-model:shortcut-keys="shortcutKeys"
               />
             </Block>
 
