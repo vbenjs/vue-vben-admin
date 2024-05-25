@@ -20,7 +20,7 @@ fallback:
 
 widgets:
   document: Document
-  qa: Q&A
+  qa: FAQ & Help
   setting: Setting
   logout-tip: Do you want to log out?
   view-all: View all messages

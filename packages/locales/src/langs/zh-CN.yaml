@@ -19,7 +19,7 @@ fallback:
 
 widgets:
   document: 文档
-  qa: 问题&建议
+  qa: 问题 & 帮助
   setting: 设置
   logout-tip: 是否退出登录？
   view-all: 查看所有消息
