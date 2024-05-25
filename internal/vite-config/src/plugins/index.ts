@@ -86,6 +86,7 @@ async function getApplicationConditionPlugins(
 ): Promise<PluginOption[]> {
   // 单独取，否则commonOptions拿不到
   const isBuild = options.isBuild;
+  const env = options.env;
 
   const {
     compress,
@@ -123,7 +124,7 @@ async function getApplicationConditionPlugins(
     },
     {
       condition: injectAppLoading,
-      plugins: async () => [await viteInjectAppLoadingPlugin()],
+      plugins: async () => [await viteInjectAppLoadingPlugin(isBuild, env)],
     },
     {
       condition: isBuild && !!compress,

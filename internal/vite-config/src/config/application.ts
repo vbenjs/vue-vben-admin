@@ -2,7 +2,7 @@ import type { UserConfig } from 'vite';
 
 import { resolve } from 'node:path';
 
-import { defineConfig, mergeConfig } from 'vite';
+import { defineConfig, loadEnv, mergeConfig } from 'vite';
 
 import { getApplicationConditionPlugins } from '../plugins';
 import { getCommonConfig } from './common';
@@ -14,12 +14,13 @@ function defineApplicationConfig(options: DefineAppcationOptions = {}) {
     const { appcation = {}, vite = {} } = options;
     const root = process.cwd();
     const isBuild = command === 'build';
-    // const env = loadEnv(mode, root);
+    const env = loadEnv(mode, root);
 
     const plugins = await getApplicationConditionPlugins({
       compress: false,
       compressTypes: ['brotli', 'gzip'],
       devtools: true,
+      env,
       extraAppConfig: true,
       html: true,
       i18n: true,

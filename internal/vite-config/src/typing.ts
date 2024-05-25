@@ -39,6 +39,8 @@ interface ConditionPlugin {
 interface CommonPluginOptions {
   /** 是否开启devtools */
   devtools?: boolean;
+  /** 环境变量 */
+  env: Record<string, any>;
   /** 是否构建模式 */
   isBuild?: boolean;
   /** 构建模式 */

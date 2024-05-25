@@ -8,14 +8,14 @@ import { createApp } from 'vue';
 import App from './app.vue';
 import { router } from './router';
 
-async function bootstrap(namespace: string, env: string) {
+async function bootstrap(namespace: string) {
   const app = createApp(App);
 
   // 国际化 i18n 配置
   await setupI18n(app, { defaultLocale: preference.locale });
 
   // 配置 pinia-store
-  await setupStore(app, { env, namespace });
+  await setupStore(app, { namespace });
 
   // 配置路由及路由守卫
   app.use(router);
