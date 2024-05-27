@@ -66,11 +66,11 @@
       value.value = jsonData;
       return;
     }
-    if (mode === MODE.HTML) {
+    if (mode === MODE.HTMLMIXED) {
       value.value = htmlData;
       return;
     }
-    if (mode === MODE.JS) {
+    if (mode === MODE.JAVASCRIPT) {
       value.value = jsData;
       return;
     }

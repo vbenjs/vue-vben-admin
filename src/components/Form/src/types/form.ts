@@ -41,7 +41,7 @@ export interface FormActionType {
   validateFields: (nameList?: NamePath[]) => Promise<any>;
   validate: <T = Recordable>(nameList?: NamePath[] | false) => Promise<T>;
   scrollToField: (name: NamePath, options?: ScrollOptions) => Promise<void>;
-  resetDefaultField:(name?: NamePath[]) => void;
+  resetDefaultField: (name?: NamePath[]) => void;
 }
 
 export type RegisterFn = (formInstance: FormActionType) => void;
@@ -167,8 +167,16 @@ interface BaseFormSchema<T extends ComponentType = any> {
   // Required
   required?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
-  suffix?: string | number |  VNode | ((renderCallbackParams: RenderCallbackParams) => string | VNode | number)
-  prefix?: string | number | VNode |  ((renderCallbackParams: RenderCallbackParams) => string | VNode | number)
+  suffix?:
+    | string
+    | number
+    | VNode
+    | ((renderCallbackParams: RenderCallbackParams) => string | VNode | number);
+  prefix?:
+    | string
+    | number
+    | VNode
+    | ((renderCallbackParams: RenderCallbackParams) => string | VNode | number);
   // Validation rules
   rules?: Rule[];
   // Check whether the information is added to the label

@@ -1,7 +1,8 @@
 import { unref } from 'vue';
+import type { Ref } from 'vue';
+import { tryOnUnmounted } from '@vueuse/core';
 import { createLoading } from './createLoading';
 import type { LoadingProps } from './typing';
-import type { Ref } from 'vue';
 
 export interface UseLoadingOptions {
   target?: any;
@@ -44,6 +45,10 @@ export function useLoading(
   const setTip = (tip: string) => {
     instance.setTip(tip);
   };
+
+  tryOnUnmounted(() => {
+    instance.destory();
+  });
 
   return [open, close, setTip];
 }

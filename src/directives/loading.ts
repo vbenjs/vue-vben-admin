@@ -28,7 +28,7 @@ const loadingDirective: Directive = {
     }
   },
   unmounted(el) {
-    el?.instance?.close();
+    el?.instance?.destory();
   },
 };
 

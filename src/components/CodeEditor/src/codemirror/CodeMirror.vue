@@ -51,7 +51,7 @@
     value: { type: String, default: '' },
     readonly: { type: Boolean, default: false },
     bordered: { type: Boolean, default: false },
-    config: { type: Object as PropType<EditorConfiguration>, default: {} },
+    config: { type: Object as PropType<EditorConfiguration>, default: () => {} },
   });
 
   const emit = defineEmits(['change']);

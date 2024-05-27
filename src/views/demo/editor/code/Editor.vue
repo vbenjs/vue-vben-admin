@@ -18,6 +18,7 @@
   import { useMessage } from '@/hooks/web/useMessage';
   import { PageWrapper } from '@/components/Page';
   import { CodeEditor, MODE } from '@/components/CodeEditor';
+
   const schemas: FormSchema[] = [
     {
       field: 'title',
