@@ -23,7 +23,7 @@ export function createLoading(props?: Partial<LoadingProps>, target?: HTMLElemen
   if (wait) {
     // TODO fix https://github.com/anncwb/vue-vben-admin/issues/438
     setTimeout(() => {
-      container && render(vm, (container = document.createElement('div')));
+      render(vm, (container = document.createElement('div')));
     }, 0);
   } else {
     render(vm, (container = document.createElement('div')));
