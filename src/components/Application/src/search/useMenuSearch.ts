@@ -13,6 +13,8 @@ export interface SearchResult {
   name: string;
   path: string;
   icon?: string;
+  // 搜索结果包含的字符着色
+  chars: { char: string; highlight: boolean }[];
 }
 
 // Translate special characters
@@ -68,11 +70,85 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref, emit: A
       const { name, path, icon, children, hideMenu, meta } = item;
       if (
         !hideMenu &&
-        reg.test(name?.toLowerCase()) &&
+        reg.test(name?.toLowerCase() ?? '') &&
         (!children?.length || meta?.hideChildrenInMenu)
       ) {
+        const chars: { char: string; highlight: boolean }[] = [];
+
+        // 显示字符串
+        const label = (parent?.name ? `${parent.name} > ${name}` : name) ?? '';
+        const labelChars = label.split('');
+        let labelPointer = 0;
+
+        const keywordChars = keyword.value.split('');
+        const keywordLength = keywordChars.length;
+        let keywordPointer = 0;
+
+        // 用于查找完整关键词的匹配
+        let includePointer = 0;
+
+        // 优先查找完整关键词的匹配
+        if (label.toLowerCase().includes(keyword.value.toLowerCase())) {
+          while (includePointer < labelChars.length) {
+            if (
+              label.toLowerCase().slice(includePointer, includePointer + keywordLength) ===
+              keyword.value.toLowerCase()
+            ) {
+              chars.push(
+                ...label
+                  .substring(labelPointer, includePointer)
+                  .split('')
+                  .map((v) => ({
+                    char: v,
+                    highlight: false,
+                  })),
+              );
+              chars.push(
+                ...label
+                  .slice(includePointer, includePointer + keywordLength)
+                  .split('')
+                  .map((v) => ({
+                    char: v,
+                    highlight: true,
+                  })),
+              );
+              includePointer += keywordLength;
+              labelPointer = includePointer;
+            } else {
+              includePointer++;
+            }
+          }
+        }
+
+        // 查找满足关键词顺序的匹配
+        while (labelPointer < labelChars.length) {
+          keywordPointer = 0;
+          while (keywordPointer < keywordChars.length) {
+            if (keywordChars[keywordPointer] !== void 0 && labelChars[labelPointer] !== void 0) {
+              if (
+                keywordChars[keywordPointer].toLowerCase() ===
+                labelChars[labelPointer].toLowerCase()
+              ) {
+                chars.push({
+                  char: labelChars[labelPointer],
+                  highlight: true,
+                });
+                keywordPointer++;
+              } else {
+                chars.push({
+                  char: labelChars[labelPointer],
+                  highlight: false,
+                });
+              }
+            } else {
+              keywordPointer++;
+            }
+            labelPointer++;
+          }
+        }
         ret.push({
-          name: parent?.name ? `${parent.name} > ${name}` : name,
+          name: label,
+          chars,
           path,
           icon,
         });
@@ -81,7 +157,36 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref, emit: A
         ret.push(...handlerSearchResult(children, reg, item));
       }
     });
-    return ret;
+
+    // 排序
+    return ret.sort((a, b) => {
+      if (
+        a.name.toLowerCase().includes(keyword.value.toLowerCase()) &&
+        b.name.toLowerCase().includes(keyword.value.toLowerCase())
+      ) {
+        // 两者都存在完整关键词的匹配
+
+        // 匹配数量
+        const ca =
+          a.name.toLowerCase().match(new RegExp(keyword.value.toLowerCase(), 'g'))?.length ?? 0;
+        const cb =
+          b.name.toLowerCase().match(new RegExp(keyword.value.toLowerCase(), 'g'))?.length ?? 0;
+
+        // 匹配数量越多的优先显示，数量相同的按字符串排序
+        return ca === cb ? a.name.toLowerCase().localeCompare(b.name.toLowerCase()) : cb - ca;
+      } else {
+        if (a.name.toLowerCase().includes(keyword.value.toLowerCase())) {
+          // 完整关键词的匹配优先
+          return -1;
+        } else if (b.name.toLowerCase().includes(keyword.value.toLowerCase())) {
+          // 完整关键词的匹配优先
+          return 1;
+        } else {
+          // 按字符串排序
+          return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+        }
+      }
+    });
   }
 
   // Activate when the mouse moves to a certain line
