@@ -1,13 +1,9 @@
 /* https://gavin-yyc.github.io/colorconvert/ */
 :root {
-  --font-geist-sans: 'geist-sans', -apple-system, blinkmacsystemfont, 'Segoe UI',
-    roboto, helvetica, arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol';
-
   /* 基础背景颜色颜色 */
 
   /* --color-background: 210deg 25% 96.86%; */
-  --color-body: 210deg 25% 96.86%;
+  // --color-main: 210deg 25% 96.86%;
   --color-background: 0 0 100%;
   // --color-darken-background: 220deg 13.04% 8%;
 
@@ -86,8 +82,6 @@
 
   /* ======================================== */
 
-  /* --color-login-background: 0 0 100%; */
-
   /* menu */
   --color-menu-dark: 225deg 12% 13%;
   --color-menu-dark-darken: 223deg 11% 10%;
@@ -96,8 +90,4 @@
   --color-menu: 0deg 0% 100%;
   --color-menu-darken: 0deg 0% 95%;
   // --color-menu-opened: 0deg 0% 100%;
-
-  /* authentication */
-  --color-authentication-from: hsl(231deg 61% 44%);
-  --color-authentication-to: hsl(218deg 70% 42%);
 }

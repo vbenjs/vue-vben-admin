@@ -1,8 +1,4 @@
 /** css 样式重置 */
 @import 'modern-normalize/modern-normalize.css';
-
-/** 元素进入动画 */
-@import './common/entry';
 @import './common/base';
 @import './transition';
-@import './nprogress';

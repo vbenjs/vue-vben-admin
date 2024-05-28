@@ -10,29 +10,26 @@ html {
 *,
 ::after,
 ::before {
+  @apply border-border;
+
   box-sizing: border-box;
-  border-color: hsl(var(--color-border));
   border-style: solid;
   border-width: 0;
 }
 
-body.invert {
-  filter: invert(100%);
+body.invert-mode {
+  @apply invert;
 }
 
-body.grayscale {
-  --tw-grayscale: grayscale(100%);
-
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast)
-    var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate)
-    var(--tw-sepia) var(--tw-drop-shadow);
+body.grayscale-mode {
+  @apply grayscale;
 }
 
 html {
-  font-size: var(--font-size-base);
+  @apply text-foreground bg-background;
+
+  // font-size: 62.5%;
   font-variation-settings: normal;
-  color: hsl(var(--color-foreground));
-  background-color: hsl(var(--color-background));
   text-size-adjust: 100%;
   font-synthesis-weight: none;
   scroll-behavior: smooth;
@@ -73,7 +70,7 @@ html.dark::view-transition-new(root) {
 
 input::placeholder,
 textarea::placeholder {
-  color: hsl(var(--color-input-placeholder)) !important;
+  // color: hsl(var(--color-input-placeholder)) !important;
   opacity: 1;
 }
 

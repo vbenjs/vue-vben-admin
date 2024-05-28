@@ -155,6 +155,10 @@
     "json5"
   ],
 
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ],
+
   "github.copilot.enable": {
     "*": true,
     "markdown": true,

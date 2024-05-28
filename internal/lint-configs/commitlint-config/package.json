@@ -34,7 +34,7 @@
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@vben/node-utils": "workspace:*",
-    "cz-git": "^1.9.1",
-    "czg": "^1.9.1"
+    "cz-git": "^1.9.2",
+    "czg": "^1.9.2"
   }
 }

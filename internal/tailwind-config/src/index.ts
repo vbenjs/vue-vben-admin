@@ -4,8 +4,11 @@ import path from 'node:path';
 
 import { addDynamicIconSelectors } from '@iconify/tailwind';
 import formsPlugin from '@tailwindcss/forms';
+import typographyPlugin from '@tailwindcss/typography';
 import { fs, getPackagesSync } from '@vben/node-utils';
 import animate from 'tailwindcss-animate';
+
+import { plugins } from './plugins';
 // import defaultTheme from 'tailwindcss/defaultTheme';
 
 const { packages } = getPackagesSync();
@@ -27,7 +30,13 @@ export default {
     ),
   ],
   darkMode: 'class',
-  plugins: [animate, formsPlugin, addDynamicIconSelectors()],
+  plugins: [
+    ...plugins,
+    animate,
+    formsPlugin,
+    typographyPlugin,
+    addDynamicIconSelectors(),
+  ],
   prefix: '',
   safelist: ['dark'],
   theme: {
@@ -59,7 +68,7 @@ export default {
           hover: 'hsl(var(--color-accent-hover))',
         },
         background: 'hsl(var(--color-background) / <alpha-value>)',
-        body: 'hsl(var(--color-body) / <alpha-value>)',
+        // body: 'hsl(var(--color-body) / <alpha-value>)',
         border: 'hsl(var(--color-border))',
         card: {
           DEFAULT: 'hsl(var(--color-card))',

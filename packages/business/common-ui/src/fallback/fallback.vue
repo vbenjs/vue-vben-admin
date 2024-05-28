@@ -59,7 +59,7 @@ function back() {
 
 <template>
   <div
-    class="-enter-x flex h-screen w-full flex-col items-center justify-center"
+    class="animate-in zoom-in-50 flex h-screen w-full flex-col items-center justify-center duration-300"
   >
     <img v-if="image" :src="image" class="md:1/3 w-1/2 lg:w-1/4" />
     <FeedbackIcon v-else class="md:1/3 h-1/3 w-1/2 lg:w-1/4" />

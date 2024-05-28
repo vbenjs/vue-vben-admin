@@ -45,10 +45,10 @@
     "@vben-core/iconify": "workspace:*",
     "@vben-core/toolkit": "workspace:*",
     "@vben-core/typings": "workspace:*",
-    "@vueuse/core": "^10.9.0",
+    "@vueuse/core": "^10.10.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "2.1.1",
-    "radix-vue": "^1.8.1",
+    "radix-vue": "^1.8.2",
     "tailwind-merge": "^2.3.0",
     "vue": "3.4.27",
     "vue-sonner": "^1.1.2"

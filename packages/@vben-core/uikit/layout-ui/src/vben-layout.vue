@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useNamespace } from '@vben-core/toolkit';
-
 import type { CSSProperties } from 'vue';
 
 import { useMouse, useScroll, useThrottleFn } from '@vueuse/core';
@@ -60,7 +58,6 @@ const sideExtraCollapse = defineModel<boolean>('sideExtraCollapse');
 const sideExpandOnHover = defineModel<boolean>('sideExpandOnHover');
 const sideVisible = defineModel<boolean>('sideVisible', { default: true });
 
-const { b, e, is } = useNamespace('layout');
 const {
   arrivedState,
   directions,
@@ -453,7 +450,7 @@ function handleOpenMenu() {
 </script>
 
 <template>
-  <div :class="[b(), is(realLayout, true)]">
+  <div class="relative flex min-h-full w-full">
     <slot name="preference"></slot>
     <slot name="back-top"></slot>
     <LayoutSide
@@ -496,8 +493,13 @@ function handleOpenMenu() {
       </template>
     </LayoutSide>
 
-    <div :class="e('main')">
-      <div :style="headerWrapperStyle" :class="e('header-wrapper')">
+    <div
+      class="flex flex-1 flex-col overflow-hidden transition-all duration-300 ease-in"
+    >
+      <div
+        :style="headerWrapperStyle"
+        class="overflow-hidden transition-all duration-200 ease-in-out"
+      >
         <LayoutHeader
           v-if="headerVisible"
           :full-width="!isSideMode"
@@ -529,7 +531,7 @@ function handleOpenMenu() {
 
       <!-- </div> -->
       <LayoutContent
-        :class="e('content')"
+        class="transition-[margin-top] duration-300 ease-in"
         :style="contentStyle"
         :content-compact="contentCompact"
         :content-compact-width="contentCompactWidth"
@@ -555,50 +557,9 @@ function handleOpenMenu() {
     </div>
     <div
       v-if="maskVisible"
-      :class="e('mask')"
+      class="fixed left-0 top-0 h-full w-full bg-[rgb(0_0_0_/_40%)] transition-[background-color] duration-200"
       :style="maskStyle"
       @click="handleClickMask"
     ></div>
   </div>
 </template>
-
-<style scoped lang="scss">
-@import '@vben-core/design/global';
-
-@include b('layout') {
-  position: relative;
-  display: flex;
-  width: 100%;
-  min-height: 100%;
-
-  @include e('main') {
-    display: flex;
-    flex: auto;
-    flex: 1;
-    flex-direction: column;
-    overflow-x: hidden;
-    background-color: hsl(var(--color-body));
-    border-left: 1px solid hsl(var(--color-border));
-    transition: all 0.3s ease;
-  }
-
-  @include e('content') {
-    transition: margin-top 0.3s ease;
-  }
-
-  @include e('header-wrapper') {
-    overflow: hidden;
-    transition: all 0.25s ease-in-out;
-  }
-
-  @include e('mask') {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(0 0 0 / 40%);
-    transition: background-color 0.2s;
-  }
-}
-</style>

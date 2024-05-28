@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useNamespace } from '@vben-core/toolkit';
-
 import type { CSSProperties } from 'vue';
 
 import { computed } from 'vue';
@@ -25,8 +23,6 @@ const props = withDefaults(defineProps<Props>(), {
   height: 30,
 });
 
-const { b, e } = useNamespace('tabs');
-
 const hiddenStyle = computed((): CSSProperties => {
   const { height } = props;
   return {
@@ -45,26 +41,10 @@ const style = computed((): CSSProperties => {
 </script>
 
 <template>
-  <section :class="b()" :style="style">
+  <section :style="style" class="border-border flex w-full border-b">
     <slot></slot>
-    <div :class="e('toolbar')">
+    <div class="flex items-center">
       <slot name="toolbar"></slot>
     </div>
   </section>
 </template>
-
-<style scoped lang="scss">
-@import '@vben-core/design/global';
-
-@include b('tabs') {
-  display: flex;
-  width: 100%;
-  border-bottom: 1px solid hsl(var(--color-border));
-  // transition: all 0.2s;
-
-  @include e('toolbar') {
-    display: flex;
-    align-items: center;
-  }
-}
-</style>

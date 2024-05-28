@@ -50,8 +50,8 @@
     "@vben-core/toolkit": "workspace:*",
     "@vben/locales": "workspace:*",
     "@vben/preference": "workspace:*",
-    "@vueuse/core": "^10.9.0",
-    "@vueuse/integrations": "^10.9.0",
+    "@vueuse/core": "^10.10.0",
+    "@vueuse/integrations": "^10.10.0",
     "qrcode": "^1.5.3",
     "vue": "3.4.27",
     "vue-router": "^4.3.2"

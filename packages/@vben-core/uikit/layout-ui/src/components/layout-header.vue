@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { IcRoundMenu } from '@vben-core/iconify';
 import { VbenIconButton } from '@vben-core/shadcn-ui';
-import { useNamespace } from '@vben-core/toolkit';
 
 import type { CSSProperties } from 'vue';
 
@@ -82,8 +81,6 @@ const emit = defineEmits<{ openMenu: []; toggleMenu: [] }>();
 
 const slots = useSlots();
 
-const { b, e } = useNamespace('header');
-
 const style = computed((): CSSProperties => {
   const { backgroundColor, fullWidth, height, show } = props;
   const right = !show || !fullWidth ? undefined : 0;
@@ -113,13 +110,16 @@ function handleOpenMenu() {
 </script>
 
 <template>
-  <header :class="b()" :style="style">
+  <header
+    :style="style"
+    class="border-border top-0 flex w-full flex-[0_0_auto] items-center border-b"
+  >
     <div v-if="slots.logo" :style="logoStyle">
       <slot name="logo"></slot>
     </div>
     <VbenIconButton
       v-if="showToggleBtn"
-      :class="e('toggle-btn')"
+      class="my-0 ml-2 mr-1 rounded"
       @click="handleToggleMenu"
     >
       <IcRoundMenu class="size-5" />
@@ -127,7 +127,7 @@ function handleOpenMenu() {
 
     <VbenIconButton
       v-if="isMobile"
-      :class="e('toggle-btn')"
+      class="my-0 ml-2 mr-1 rounded"
       @click="handleOpenMenu"
     >
       <IcRoundMenu class="size-5" />
@@ -136,21 +136,3 @@ function handleOpenMenu() {
     <slot></slot>
   </header>
 </template>
-
-<style scoped lang="scss">
-@import '@vben-core/design/global';
-
-@include b('header') {
-  top: 0;
-  display: flex;
-  flex: 0 0 auto;
-  align-items: center;
-  width: 100%;
-  border-bottom: 1px solid hsl(var(--color-border));
-
-  @include e('toggle-btn') {
-    margin: 0 4px 0 8px;
-    border-radius: 4px;
-  }
-}
-</style>

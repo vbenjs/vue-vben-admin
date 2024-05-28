@@ -110,8 +110,8 @@ function updateTheme(preference: Preference) {
 function updateColorMode(preference: Preference) {
   const { colorGrayMode, colorWeakMode } = preference;
   const body = document.body;
-  const COLOR_WEAK = 'invert';
-  const COLOR_GRAY = 'grayscale';
+  const COLOR_WEAK = 'invert-mode';
+  const COLOR_GRAY = 'grayscale-mode';
   colorWeakMode
     ? body.classList.add(COLOR_WEAK)
     : body.classList.remove(COLOR_WEAK);

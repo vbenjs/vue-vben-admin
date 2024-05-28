@@ -3,7 +3,7 @@
 
   /* --color-background: 240 6% 18%; */
   // --color-body: 220deg 13.04% 8%;
-  --color-body: 220deg 13.04% 8%;
+  // --color-body: hsl(240deg 11% 4%);
   --color-background: 220deg 13.04% 8%;
 
   /* --color-background: 219 42% 11%; */
@@ -76,20 +76,4 @@
 
   /* 基本圆角大小 */
   --radius-base: 0.5rem;
-
-  /* ======================================== */
-
-  /* =============component & UI============= */
-
-  /* ======================================== */
-
-  /* --color-login-background: 219 42% 11%; */
-
-  /* 图标颜色 */
-
-  /* authentication */
-  --color-authentication-from: hsl(240deg 11% 6%);
-  --color-authentication-to: hsl(240deg 11% 6%);
-
-  color-scheme: dark;
 }
