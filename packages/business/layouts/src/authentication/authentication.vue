@@ -47,7 +47,7 @@ const { authPanelCenter, authPanelLeft, authPanelRight } = usePreference();
       <div
         class="absolute inset-0 h-full w-full bg-[var(--color-authentication)]"
       >
-        <div class="flex-center mr-20 flex h-full flex-col">
+        <div class="flex-col-center mr-20 h-full">
           <SloganIcon
             :alt="preference.appName"
             class="animate-float h-64 w-2/5"

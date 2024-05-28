@@ -59,9 +59,7 @@ watch(
   </div>
 </template>
 
-<style lang="scss" scoped>
-@import '@vben-core/design/global';
-
+<style scoped>
 @keyframes jump-ani {
   15% {
     border-bottom-right-radius: 3px;

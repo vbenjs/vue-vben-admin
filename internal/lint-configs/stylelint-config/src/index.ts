@@ -11,7 +11,7 @@ export default {
   overrides: [
     {
       customSyntax: 'postcss-html',
-      files: ['**/*.(css|html|vue)'],
+      files: ['*.(html|vue)', '**/*.(html|vue)'],
       rules: {
         'selector-pseudo-class-no-unknown': [
           true,

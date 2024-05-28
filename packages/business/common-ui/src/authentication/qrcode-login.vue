@@ -37,7 +37,7 @@ function handleGo(path: string) {
       </template>
     </Title>
 
-    <div class="mt-6 flex flex-col items-center justify-center">
+    <div class="flex-col-center mt-6">
       <img :src="qrcode" alt="qrcode" class="w-1/2" />
       <p class="text-muted-foreground mt-4 text-sm">
         {{ $t('authentication.qrcode-prompt') }}

@@ -12,7 +12,7 @@ defineOptions({
 
 <template>
   <VbenButton
-    class="bg-primary flex-center h-9 w-9 cursor-pointer flex-col rounded-l-md rounded-r-none border-none"
+    class="bg-primary flex-col-center h-9 w-9 cursor-pointer rounded-l-md rounded-r-none border-none"
     :title="$t('preference.preferences')"
   >
     <IconSetting class="text-lg" />

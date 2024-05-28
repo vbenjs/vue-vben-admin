@@ -14,7 +14,7 @@ export default defineBuildConfig({
     {
       builder: 'mkdist',
       input: './src',
-      // loaders: ['postcss'],
+      loaders: ['postcss'],
       outDir: './dist',
       pattern: ['tailwind.css'],
     },

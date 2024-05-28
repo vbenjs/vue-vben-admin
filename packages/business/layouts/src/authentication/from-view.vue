@@ -8,9 +8,7 @@ defineOptions({
 });
 </script>
 <template>
-  <div
-    class="relative flex flex-col items-center justify-center px-6 py-10 lg:flex-initial lg:px-8"
-  >
+  <div class="flex-col-center relative px-6 py-10 lg:flex-initial lg:px-8">
     <slot name="toolbar">
       <Toolbar />
     </slot>

@@ -63,7 +63,7 @@ function back() {
   >
     <img v-if="image" :src="image" class="md:1/3 w-1/2 lg:w-1/4" />
     <FeedbackIcon v-else class="md:1/3 h-1/3 w-1/2 lg:w-1/4" />
-    <div class="flex flex-col items-center justify-center">
+    <div class="flex-col-center">
       <p class="text-foreground mt-12 text-3xl md:text-4xl lg:text-5xl">
         {{ titleText }}
       </p>

@@ -134,7 +134,8 @@
 
   "stylelint.enable": true,
   "stylelint.packageManager": "pnpm",
-  "stylelint.validate": ["css", "less", "postcss", "scss", "vue", "sass"],
+  "stylelint.validate": ["css", "less", "postcss", "scss", "vue"],
+  "stylelint.snippet": ["css", "less", "postcss", "scss", "vue"],
 
   "typescript.inlayHints.enumMemberValues.enabled": true,
   "typescript.preferences.preferTypeOnlyAutoImports": true,

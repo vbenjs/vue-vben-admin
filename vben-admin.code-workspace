@@ -41,6 +41,10 @@
       "path": "internal/vite-config",
     },
     {
+      "name": "@vben-core/cache",
+      "path": "packages/@vben-core/shared/chche",
+    },
+    {
       "name": "@vben-core/design",
       "path": "packages/@vben-core/shared/design",
     },

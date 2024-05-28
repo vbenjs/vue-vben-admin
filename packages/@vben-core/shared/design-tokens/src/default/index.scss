@@ -89,5 +89,8 @@
   // --color-menu-opened-dark: 225deg 12.12% 11%;
   --color-menu: 0deg 0% 100%;
   --color-menu-darken: 0deg 0% 95%;
+
+  accent-color: var(--color-primary);
+  color-scheme: light;
   // --color-menu-opened: 0deg 0% 100%;
 }

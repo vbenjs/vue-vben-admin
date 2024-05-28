@@ -55,11 +55,6 @@ function defineApplicationConfig(options: DefineAppcationOptions = {}) {
         legalComments: 'none',
       },
       plugins,
-      // css: {
-      //   preprocessorOptions: {
-      //     scss: {
-      //       additionalData: `@import "@vben-core/design/global";`,
-      //   },
       resolve: {
         alias: [
           {

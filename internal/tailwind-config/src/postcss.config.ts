@@ -7,8 +7,9 @@ export default {
     autoprefixer: {},
     // 修复 element-plus 和 ant-design-vue 的样式和tailwindcss冲突问题
     'postcss-antd-fixes': { prefixes: ['ant', 'el'] },
+    'postcss-import': {},
     'postcss-preset-env': {},
-    // here to share the same config across the entire monorepo
     tailwindcss: { config },
+    'tailwindcss/nesting': {},
   },
 };
