@@ -128,5 +128,9 @@
       "name": "@vben/vsh",
       "path": "scripts/vsh",
     },
+    {
+      "name": "@vben/website",
+      "path": "website",
+    },
   ],
 }

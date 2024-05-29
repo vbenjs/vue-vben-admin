@@ -4,6 +4,7 @@ dist
 dist-ssr
 coverage
 *.local
+**/*/.vitepress/cache/deps
 .cache
 .turbo
 .stylelintcache

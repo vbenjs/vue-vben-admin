@@ -1,0 +1,14 @@
+{
+  "name": "@vben/website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^1.2.2",
+    "vue": "3.4.27"
+  }
+}

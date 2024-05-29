@@ -7,3 +7,4 @@ packages:
   - "packages/business/*"
   - "apps/*"
   - "scripts/*"
+  - "website"
