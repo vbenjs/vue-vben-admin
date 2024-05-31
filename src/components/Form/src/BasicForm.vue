@@ -64,6 +64,7 @@
   import { useDesign } from '@/hooks/web/useDesign';
   import { cloneDeep } from 'lodash-es';
   import { TableActionType } from '@/components/Table';
+  import { isFunction } from '@/utils/is';
 
   defineOptions({ name: 'BasicForm' });
 
@@ -130,6 +131,9 @@
         component,
         componentProps = {},
         isHandleDateDefaultValue = true,
+        field,
+        isHandleDefaultValue = true,
+        valueFormat,
       } = schema;
       // handle date type
       if (
@@ -160,6 +164,21 @@
           });
           schema.defaultValue = def;
         }
+      }
+
+      // handle schema.valueFormat
+      if (
+        isHandleDefaultValue &&
+        defaultValue &&
+        component &&
+        isFunction(valueFormat)
+      ) {
+        schema.defaultValue = valueFormat({
+          value: defaultValue,
+          schema,
+          model: formModel,
+          field,
+        });
       }
     }
     if (unref(getProps).showAdvancedButton) {

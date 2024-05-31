@@ -197,6 +197,9 @@ interface BaseFormSchema<T extends ComponentType = any> {
   // 是否自动处理与时间相关组件的默认值
   isHandleDateDefaultValue?: boolean;
 
+  // 是否使用valueFormat自动处理默认值
+  isHandleDefaultValue?: boolean;
+
   isAdvanced?: boolean;
 
   // Matching details components
@@ -232,6 +235,8 @@ interface BaseFormSchema<T extends ComponentType = any> {
   dynamicReadonly?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
   dynamicRules?: (renderCallbackParams: RenderCallbackParams) => Rule[];
+
+  valueFormat?: (arg: Partial<RenderCallbackParams> & { value: any }) => any;
 }
 export interface ComponentFormSchema<T extends ComponentType = any> extends BaseFormSchema<T> {
   // render component
