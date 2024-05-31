@@ -106,10 +106,14 @@
                       type: 'primary',
                       style: 'margin:4px',
                       onclick: () => {
-                        handleAdd(
-                          { url6: 'https://vebn.oss-cn-beijing.aliyuncs.com/vben/logo.png' },
-                          'url6',
-                        );
+                        handleAdd({
+                          record: {
+                            id6: new Date().getTime(),
+                            url6: 'https://vebn.oss-cn-beijing.aliyuncs.com/vben/logo.png',
+                          },
+                          uidKey: 'id6',
+                          valueKey: 'url6',
+                        });
                       },
                     },
                     () => '点我新增',
@@ -119,7 +123,11 @@
                     {
                       danger: true,
                       onclick: () => {
-                        handleRemove({ url6: record.url6 }, 'url6');
+                        handleRemove({
+                          record: { url6: record.url6 },
+                          uidKey: 'url6',
+                          valueKey: 'url6',
+                        });
                       },
                     },
                     () => '点我删除',
@@ -133,14 +141,15 @@
           let data = arg
             .filter((item) => !!item)
             .map((item) => {
-              if (typeof item !== 'string') {
-                console.error('return value should be string');
+              if (typeof item !== 'object') {
+                console.error('return value should be object');
                 return;
               }
               return {
-                url6: item,
-                type6: item.split('.').pop() || '',
-                name6: item.split('/').pop() || '',
+                uid: item?.uid,
+                url6: item?.url,
+                type6: item?.url?.split('.').pop() || '',
+                name6: item?.url?.split('/').pop() || '',
               };
             });
           return data;

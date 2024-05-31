@@ -20,6 +20,11 @@ export interface FileItem {
   uuid: string;
 }
 
+export interface BaseFileItem {
+  uid: string | number;
+  url: string;
+  name?: string;
+}
 export interface PreviewFileItem {
   url: string;
   name: string;
