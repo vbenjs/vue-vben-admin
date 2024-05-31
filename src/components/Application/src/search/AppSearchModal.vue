@@ -43,7 +43,14 @@
                 <Icon :icon="item.icon || 'mdi:form-select'" :size="20" />
               </div>
               <div :class="`${prefixCls}-list__item-text`">
-                {{ item.name }}
+                <!-- 搜索结果包含的字符着色 -->
+                <span
+                  v-for="(each, i) in item.chars"
+                  :key="i"
+                  :class="{ highlight: each.highlight }"
+                >
+                  {{ each.char }}
+                </span>
               </div>
               <div :class="`${prefixCls}-list__item-enter`">
                 <Icon icon="ant-design:enter-outlined" :size="20" />
@@ -254,6 +261,13 @@
 
         &-text {
           flex: 1;
+
+          // 搜索结果包含的字符着色
+          & > span {
+            &.highlight {
+              color: lighten(@primary-color, 20%);
+            }
+          }
         }
 
         &-enter {
