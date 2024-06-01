@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import type { NotificationItem } from '@vben/common-ui';
 
+import { preferences } from '@vben-core/preferences';
+import { useAccessStore } from '@vben-core/stores';
+
 import { Notification, UserDropdown } from '@vben/common-ui';
 import { IcRoundCreditScore, MdiDriveDocument, MdiGithub } from '@vben/icons';
 import { BasicLayout } from '@vben/layouts';
 import { $t } from '@vben/locales';
-import { preference } from '@vben/preference';
-import { useAccessStore } from '@vben/stores';
 import { openWindow } from '@vben/utils';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -93,7 +94,7 @@ function handleNoticeClear() {
   <BasicLayout>
     <template #user-dropdown>
       <UserDropdown
-        :avatar="preference.defaultAvatar"
+        :avatar="preferences.app.defaultAvatar"
         :menus="menus"
         text="Vben Admin"
         description="ann.vben@gmail.com"

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
+import type { BreadcrumbStyleType } from '@vben-core/preferences';
 import type { IBreadcrumb } from '@vben-core/shadcn-ui';
 
 import { VbenBackgroundBreadcrumb, VbenBreadcrumb } from '@vben-core/shadcn-ui';
-import { BreadcrumbStyle } from '@vben-core/typings';
 
 import { $t } from '@vben/locales';
 import { computed } from 'vue';
@@ -12,7 +12,7 @@ interface Props {
   hideWhenOnlyOne?: boolean;
   showHome?: boolean;
   showIcon?: boolean;
-  type?: BreadcrumbStyle;
+  type?: BreadcrumbStyleType;
 }
 
 const props = withDefaults(defineProps<Props>(), {

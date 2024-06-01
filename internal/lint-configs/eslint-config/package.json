@@ -33,7 +33,7 @@
     "eslint-plugin-command": "^0.2.3"
   },
   "devDependencies": {
-    "@eslint/js": "^9.3.0",
+    "@eslint/js": "^9.4.0",
     "@types/eslint": "^8.56.10",
     "@typescript-eslint/eslint-plugin": "^7.11.0",
     "@typescript-eslint/parser": "^7.11.0",
@@ -54,6 +54,6 @@
     "eslint-plugin-vue": "^9.26.0",
     "globals": "^15.3.0",
     "jsonc-eslint-parser": "^2.4.0",
-    "vue-eslint-parser": "^9.4.2"
+    "vue-eslint-parser": "^9.4.3"
   }
 }

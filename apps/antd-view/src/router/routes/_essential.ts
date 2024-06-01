@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { AuthPageLayout } from '@/layouts';
+import { AuthPageLayoutType } from '@/layouts';
 import { Fallback } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
@@ -9,7 +9,7 @@ import Login from '@/views/_essential/authentication/login.vue';
 /** 基本路由，这些路由是必须存在的 */
 const essentialRoutes: RouteRecordRaw[] = [
   {
-    component: AuthPageLayout,
+    component: AuthPageLayoutType,
     meta: {
       title: 'Authentication',
     },

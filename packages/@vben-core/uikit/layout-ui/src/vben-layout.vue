@@ -460,7 +460,7 @@ function handleOpenMenu() {
 
 <template>
   <div class="relative flex min-h-full w-full">
-    <slot name="preference"></slot>
+    <slot name="preferences"></slot>
     <slot name="floating-button-group"></slot>
     <LayoutSide
       v-if="sideVisibleState"

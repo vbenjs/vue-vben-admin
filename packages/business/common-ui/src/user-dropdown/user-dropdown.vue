@@ -2,6 +2,7 @@
 import type { AnyFunction } from '@vben/types';
 
 import { IcRoundLogout, IcRoundSettingsSuggest } from '@vben-core/iconify';
+import { preferences } from '@vben-core/preferences';
 import {
   Badge,
   DropdownMenu,
@@ -20,11 +21,10 @@ import { isWindowsOs } from '@vben-core/toolkit';
 import type { Component } from 'vue';
 
 import { $t } from '@vben/locales';
-import { preference } from '@vben/preference';
 import { useMagicKeys, whenever } from '@vueuse/core';
 import { computed, ref } from 'vue';
 
-import { useOpenPreference } from '../preference/use-open-preference';
+import { useOpenPreferences } from '../preferences/use-open-preferences';
 
 interface Props {
   /**
@@ -72,12 +72,12 @@ const emit = defineEmits<{ logout: [] }>();
 const openPopover = ref(false);
 const openDialog = ref(false);
 
-const { handleOpenPreference } = useOpenPreference();
+const { handleOpenPreference } = useOpenPreferences();
 
 const altView = computed(() => (isWindowsOs() ? 'Alt' : '⌥'));
 
 const shortcutKeys = computed(() => {
-  return props.enableShortcutKey && preference.shortcutKeys;
+  return props.enableShortcutKey && preferences.shortcutKeys.enable;
 });
 
 function handleLogout() {
@@ -161,7 +161,7 @@ if (shortcutKeys.value) {
       </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem
-        v-if="preference"
+        v-if="preferences.shortcutKeys.enable"
         class="mx-1 flex cursor-pointer items-center rounded-sm py-1 leading-8"
         @click="handleOpenPreference"
       >

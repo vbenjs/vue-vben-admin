@@ -36,7 +36,7 @@
     "consola": "^3.2.3",
     "find-up": "^7.0.0",
     "pkg-types": "^1.1.1",
-    "prettier": "^3.2.5",
+    "prettier": "3.3.0",
     "rimraf": "^5.0.7",
     "zx": "^7.2.3"
   }

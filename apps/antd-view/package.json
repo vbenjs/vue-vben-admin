@@ -22,14 +22,14 @@
     "typecheck": "vue-tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
+    "@vben-core/preferences": "workspace:*",
+    "@vben-core/stores": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",
     "@vben/hooks": "workspace:*",
     "@vben/icons": "workspace:*",
     "@vben/layouts": "workspace:*",
     "@vben/locales": "workspace:*",
-    "@vben/preference": "workspace:*",
-    "@vben/stores": "workspace:*",
     "@vben/styles": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
@@ -37,6 +37,7 @@
     "ant-design-vue": "^4.2.1",
     "axios": "^1.7.2",
     "dayjs": "^1.11.11",
+    "pinia": "2.1.7",
     "vue": "3.4.27",
     "vue-router": "^4.3.2"
   },

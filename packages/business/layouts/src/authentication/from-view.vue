@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { preference } from '@vben/preference';
+import { preferences } from '@vben-core/preferences';
 
 import Toolbar from './toolbar.vue';
 
@@ -28,7 +28,7 @@ defineOptions({
     <div
       class="text-muted-foreground absolute bottom-3 flex text-center text-xs"
     >
-      {{ preference.copyright }}
+      {{ preferences.app.copyright }}
     </div>
   </div>
 </template>

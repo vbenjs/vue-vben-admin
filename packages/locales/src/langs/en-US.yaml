@@ -145,7 +145,7 @@ preference:
   page-progress: Loading progress bar
   page-transition: Page transition animation
   copy: Copy Preferences
-  copy-success: Copy successful. Please replace in `src/preference.ts` of the app
+  copy-success: Copy successful. Please replace in `src/preferences.ts` of the app
   reset-success: Preferences reset successfully
   sidebar: Sidebar
   side-visible: Display Sidebar

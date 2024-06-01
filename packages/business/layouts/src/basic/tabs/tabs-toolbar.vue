@@ -1,7 +1,7 @@
 <script lang="ts" setup>
+import { preferences, updatePreferences } from '@vben-core/preferences';
 import { TabsMore, TabsScreen } from '@vben-core/tabs-ui';
 
-import { preference, updatePreference } from '@vben/preference';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -16,9 +16,13 @@ const menus = computed(() => {
 });
 
 function handleScreenChange(screen: boolean) {
-  updatePreference({
-    headerHidden: !!screen,
-    sideHidden: !!screen,
+  updatePreferences({
+    header: {
+      hidden: !!screen,
+    },
+    sidebar: {
+      hidden: !!screen,
+    },
   });
 }
 </script>
@@ -27,7 +31,7 @@ function handleScreenChange(screen: boolean) {
   <div class="flex-center h-full">
     <TabsMore :menus="menus" />
     <TabsScreen
-      :screen="preference.sideHidden && preference.sideHidden"
+      :screen="preferences.sidebar.hidden"
       @change="handleScreenChange"
       @update:screen="handleScreenChange"
     />

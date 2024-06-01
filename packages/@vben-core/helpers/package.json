@@ -1,0 +1,45 @@
+{
+  "name": "@vben-core/helpers",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "homepage": "https://github.com/vbenjs/vue-vben-admin",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "directory": "packages/@vben-core/helpers"
+  },
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
+  "scripts": {
+    "build": "pnpm unbuild",
+    "stub": "pnpm unbuild --stub"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "imports": {
+    "#*": "./src/*"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "development": "./src/index.ts",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      }
+    }
+  },
+  "dependencies": {
+    "@vben-core/toolkit": "workspace:*",
+    "@vben-core/typings": "workspace:*"
+  }
+}

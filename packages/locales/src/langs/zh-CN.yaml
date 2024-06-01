@@ -144,7 +144,7 @@ preference:
   page-progress: 加载进度条
   page-transition: 页面切换动画
   copy: 复制偏好设置
-  copy-success: 拷贝成功，请在 app 下的 `src/preference.ts`内进行覆盖
+  copy-success: 拷贝成功，请在 app 下的 `src/preferences.ts`内进行覆盖
   reset-success: 重置偏好设置成功
   sidebar: 侧边栏
   side-visible: 显示侧边栏

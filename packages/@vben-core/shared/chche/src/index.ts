@@ -1,1 +1,1 @@
-export * from './storage-cache';
+export * from './storage-manager';

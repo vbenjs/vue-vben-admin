@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import type { LoginAndRegisterParams } from '@vben/common-ui';
 
+import { useAccessStore } from '@vben-core/stores';
+
 import { getUserInfo, userLogin } from '@/services';
 import { AuthenticationLogin } from '@vben/common-ui';
 import { useRequest } from '@vben/hooks';
 import { $t } from '@vben/locales';
-import { useAccessStore } from '@vben/stores';
 import { notification } from 'ant-design-vue';
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';

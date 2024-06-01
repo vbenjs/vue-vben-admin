@@ -1,8 +1,8 @@
 import type {
   ContentCompactType,
-  LayoutHeaderMode,
+  LayoutHeaderModeType,
   LayoutType,
-  ThemeType,
+  ThemeModeType,
 } from '@vben-core/typings';
 
 interface VbenLayoutProps {
@@ -86,7 +86,7 @@ interface VbenLayoutProps {
    * header 显示模式
    * @default 'fixed'
    */
-  headerMode?: LayoutHeaderMode;
+  headerMode?: LayoutHeaderModeType;
   /**
    * header是否显示
    * @default true
@@ -146,7 +146,7 @@ interface VbenLayoutProps {
    * 侧边栏
    * @default dark
    */
-  sideTheme?: ThemeType;
+  sideTheme?: ThemeModeType;
   /**
    * 侧边栏是否可见
    * @default true

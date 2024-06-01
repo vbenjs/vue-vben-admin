@@ -1,7 +1,8 @@
 import type { MenuRecordRaw } from '@vben-core/typings';
 
-import { preference } from '@vben/preference';
-import { useAccessStore } from '@vben/stores';
+import { preferences } from '@vben-core/preferences';
+import { useAccessStore } from '@vben-core/stores';
+
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -46,7 +47,7 @@ function useExtraMenu() {
     extraMenus.value = rootMenu?.children ?? [];
     extraActiveMenu.value = menu.parents?.[0] ?? menu.path;
 
-    if (preference.sideExpandOnHover) {
+    if (preferences.sidebar.expandOnHover) {
       extraVisible.value = extraMenus.value.length > 0;
     }
   };
@@ -55,7 +56,7 @@ function useExtraMenu() {
    * 侧边菜单鼠标移出事件
    */
   const handleSideMouseLeave = () => {
-    if (preference.sideExpandOnHover) {
+    if (preferences.sidebar.expandOnHover) {
       return;
     }
     extraVisible.value = false;
@@ -69,7 +70,7 @@ function useExtraMenu() {
   };
 
   const handleMenuMouseEnter = (menu: MenuRecordRaw) => {
-    if (!preference.sideExpandOnHover) {
+    if (!preferences.sidebar.expandOnHover) {
       const { findMenu } = findRootMenuByPath(menus.value, menu.path);
       extraMenus.value = findMenu?.children ?? [];
       extraActiveMenu.value = menu.parents?.[0] ?? menu.path;

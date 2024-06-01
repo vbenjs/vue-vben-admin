@@ -2,7 +2,8 @@
  * 该文件可自行根据业务逻辑进行调整
  */
 
-import { useAccessStore } from '@vben/stores';
+import { useAccessStore } from '@vben-core/stores';
+
 import { message } from 'ant-design-vue';
 import axios, {
   AxiosError,

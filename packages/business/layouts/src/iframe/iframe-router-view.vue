@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+import { preferences } from '@vben-core/preferences';
+import { useTabsStore } from '@vben-core/stores';
+
 import { Spinner } from '@vben/common-ui';
-import { preference } from '@vben/preference';
-import { useTabsStore } from '@vben/stores';
 import { computed, ref } from 'vue';
 import { type RouteLocationNormalized, useRoute } from 'vue-router';
 
@@ -11,8 +12,10 @@ const spinning = ref(true);
 const tabsStore = useTabsStore();
 const route = useRoute();
 
+const enableTabbar = computed(() => preferences.tabbar.enable);
+
 const iframeRoutes = computed(() => {
-  if (!preference.tabsVisible) {
+  if (!enableTabbar.value) {
     return route.meta.iframeSrc ? [route] : [];
   }
   const tabs = tabsStore.getTabs.filter((tab) => !!tab.meta?.iframeSrc);
@@ -45,7 +48,7 @@ function canRender(tabItem: RouteLocationNormalized) {
     return false;
   }
 
-  if (!preference.tabsVisible) {
+  if (!enableTabbar.value) {
     return routeShow(tabItem);
   }
 

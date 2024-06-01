@@ -5,13 +5,17 @@ import {
   MdiMoonAndStars,
 } from '@vben-core/iconify';
 import {
+  preferences,
+  updatePreferences,
+  usePreferences,
+} from '@vben-core/preferences';
+import {
   ToggleGroup,
   ToggleGroupItem,
   VbenTooltip,
 } from '@vben-core/shadcn-ui';
 
 import { $t } from '@vben/locales';
-import { preference, updatePreference, usePreference } from '@vben/preference';
 
 import ThemeButton from './theme-button.vue';
 
@@ -24,10 +28,12 @@ withDefaults(defineProps<{ shouldOnHover?: boolean }>(), {
 });
 
 function handleChange(isDark: boolean) {
-  updatePreference({ theme: isDark ? 'dark' : 'light' });
+  updatePreferences({
+    app: { themeMode: isDark ? 'dark' : 'light' },
+  });
 }
 
-const { isDark } = usePreference();
+const { isDark } = usePreferences();
 
 const PRESETS = [
   {
@@ -58,7 +64,7 @@ const PRESETS = [
         />
       </template>
       <ToggleGroup
-        :model-value="preference.theme"
+        :model-value="preferences.app.themeMode"
         type="single"
         variant="outline"
         class="gap-2"

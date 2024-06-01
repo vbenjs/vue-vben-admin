@@ -2,7 +2,7 @@ const BasicLayout = () => import('./basic.vue');
 
 const IFrameView = () => import('@vben/layouts').then((m) => m.IFrameView);
 
-const AuthPageLayout = () =>
-  import('@vben/layouts').then((m) => m.AuthPageLayout);
+const AuthPageLayoutType = () =>
+  import('@vben/layouts').then((m) => m.AuthPageLayoutType);
 
-export { AuthPageLayout, BasicLayout, IFrameView };
+export { AuthPageLayoutType, BasicLayout, IFrameView };

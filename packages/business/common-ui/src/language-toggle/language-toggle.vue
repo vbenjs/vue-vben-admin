@@ -1,26 +1,28 @@
 <script setup lang="ts">
-import type { SupportLocale } from '@vben/types';
+import type { LocaleSupportType } from '@vben/types';
 
 import { IcBaselineLanguage } from '@vben-core/iconify';
+import {
+  SUPPORT_LANGUAGES,
+  preferences,
+  updatePreferences,
+} from '@vben-core/preferences';
 import { VbenDropdownRadioMenu, VbenIconButton } from '@vben-core/shadcn-ui';
 
 import { loadLocaleMessages } from '@vben/locales';
-import {
-  preference,
-  staticPreference,
-  updatePreference,
-} from '@vben/preference';
 
 defineOptions({
   name: 'LanguageToggle',
 });
 
-const menus = staticPreference.supportLanguages;
+const menus = SUPPORT_LANGUAGES;
 
 async function handleUpdate(value: string) {
-  const locale = value as SupportLocale;
-  updatePreference({
-    locale,
+  const locale = value as LocaleSupportType;
+  updatePreferences({
+    app: {
+      locale,
+    },
   });
   // 更改预览
   await loadLocaleMessages(locale);
@@ -31,7 +33,7 @@ async function handleUpdate(value: string) {
   <div>
     <VbenDropdownRadioMenu
       :menus="menus"
-      :model-value="preference.locale"
+      :model-value="preferences.app.locale"
       @update:model-value="handleUpdate"
     >
       <VbenIconButton>

@@ -1,0 +1,16 @@
+import type { InitStoreOptions } from '@vben-core/stores';
+
+import { initStore } from '@vben-core/stores';
+
+import type { App } from 'vue';
+
+/**
+ * @zh_CN 初始化pinia
+ * @param app vue app 实例
+ */
+async function setupStore(app: App, options: InitStoreOptions) {
+  const pinia = await initStore(options);
+  app.use(pinia);
+}
+
+export { setupStore };

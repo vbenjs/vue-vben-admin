@@ -1,15 +1,15 @@
+import { preferences } from '@vben-core/preferences';
 import type { RouteRecordRaw } from 'vue-router';
 
 import { BasicLayout, IFrameView } from '@/layouts';
 import { VBEN_GITHUB_URL } from '@vben/constants';
 import { $t } from '@vben/locales/helper';
-import { preference } from '@vben/preference';
 
 export const vbenRoutes: RouteRecordRaw[] = [
   {
     component: BasicLayout,
     meta: {
-      icon: preference.logo,
+      icon: preferences.logo.source,
       title: 'Vben',
     },
     name: 'AboutLayout',

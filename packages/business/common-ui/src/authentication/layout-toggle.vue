@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import type { AuthPageLayout } from '@vben/types';
 import type { VbenDropdownMenuItem } from '@vben-core/shadcn-ui';
 
 import { MdiDockBottom, MdiDockLeft, MdiDockRight } from '@vben-core/iconify';
+import { preferences, usePreferences } from '@vben-core/preferences';
 import { VbenDropdownRadioMenu, VbenIconButton } from '@vben-core/shadcn-ui';
 
 import { $t } from '@vben/locales';
-import { preference, updatePreference, usePreference } from '@vben/preference';
 import { computed } from 'vue';
 
 defineOptions({
   name: 'AuthenticationLayoutToggle',
-  // inheritAttrs: false,
 });
 
 const menus = computed((): VbenDropdownMenuItem[] => [
@@ -32,20 +30,13 @@ const menus = computed((): VbenDropdownMenuItem[] => [
   },
 ]);
 
-function handleUpdate(value: string) {
-  updatePreference({
-    authPageLayout: value as AuthPageLayout,
-  });
-}
-
-const { authPanelCenter, authPanelLeft, authPanelRight } = usePreference();
+const { authPanelCenter, authPanelLeft, authPanelRight } = usePreferences();
 </script>
 
 <template>
   <VbenDropdownRadioMenu
+    v-model="preferences.app.authPageLayout"
     :menus="menus"
-    :model-value="preference.authPageLayout"
-    @update:model-value="handleUpdate"
   >
     <VbenIconButton>
       <MdiDockRight v-if="authPanelRight" class="size-5" />

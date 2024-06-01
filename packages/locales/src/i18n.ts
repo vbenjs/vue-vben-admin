@@ -1,4 +1,4 @@
-import type { SupportLocale } from '@vben-core/typings';
+import type { LocaleSupportType } from '@vben-core/typings';
 
 import type { Locale } from 'vue-i18n';
 
@@ -44,7 +44,7 @@ function setI18nLanguage(locale: Locale) {
  * Load locale messages
  * @param lang
  */
-async function loadLocaleMessages(lang: SupportLocale) {
+async function loadLocaleMessages(lang: LocaleSupportType) {
   if (unref(i18n.global.locale) === lang) {
     return setI18nLanguage(lang);
   }

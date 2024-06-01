@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { preferences, usePreferences } from '@vben-core/preferences';
+
 import { $t } from '@vben/locales';
-import { preference, usePreference } from '@vben/preference';
+import { computed } from 'vue';
 
 import AuthenticationFromView from './from-view.vue';
 import SloganIcon from './icons/slogan.vue';
@@ -10,7 +12,8 @@ defineOptions({
   name: 'Authentication',
 });
 
-const { authPanelCenter, authPanelLeft, authPanelRight } = usePreference();
+const { authPanelCenter, authPanelLeft, authPanelRight } = usePreferences();
+const appName = computed(() => preferences.app.name);
 </script>
 
 <template>
@@ -33,13 +36,13 @@ const { authPanelCenter, authPanelLeft, authPanelRight } = usePreference();
         "
       >
         <img
-          :alt="preference.appName"
-          :src="preference.logo"
+          :alt="appName"
+          :src="preferences.logo.source"
           :width="42"
           class="mr-2"
         />
         <p class="text-xl font-medium">
-          {{ preference.appName }}
+          {{ appName }}
         </p>
       </div>
     </div>
@@ -48,10 +51,7 @@ const { authPanelCenter, authPanelLeft, authPanelRight } = usePreference();
         class="absolute inset-0 h-full w-full bg-[var(--color-authentication)]"
       >
         <div class="flex-col-center mr-20 h-full">
-          <SloganIcon
-            :alt="preference.appName"
-            class="animate-float h-64 w-2/5"
-          />
+          <SloganIcon :alt="appName" class="animate-float h-64 w-2/5" />
           <div class="text-1xl mt-6 font-sans text-white lg:text-2xl">
             {{ $t('authentication.layout-title') }}
           </div>

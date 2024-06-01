@@ -3,8 +3,8 @@ import type { NormalMenuProps } from '@vben-core/menu-ui';
 import type { MenuRecordRaw } from '@vben-core/typings';
 
 import { NormalMenu } from '@vben-core/menu-ui';
+import { useAccessStore } from '@vben-core/stores';
 
-import { useAccessStore } from '@vben/stores';
 import { computed, onBeforeMount } from 'vue';
 import { useRoute } from 'vue-router';
 

@@ -1,7 +1,8 @@
 import type { MenuRecordRaw } from '@vben-core/typings';
 
-import { preference, usePreference } from '@vben/preference';
-import { useAccessStore } from '@vben/stores';
+import { preferences, usePreferences } from '@vben-core/preferences';
+import { useAccessStore } from '@vben-core/stores';
+
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -15,17 +16,18 @@ function useMixedMenu() {
   const splitSideMenus = ref<MenuRecordRaw[]>([]);
   const rootMenuPath = ref<string>('');
 
-  const { isMixedNav } = usePreference();
+  const { isMixedNav } = usePreferences();
 
   const needSplit = computed(
-    () => preference.navigationSplit && isMixedNav.value,
+    () => preferences.navigation.split && isMixedNav.value,
   );
 
   const sideVisible = computed(() => {
+    const enableSidebar = preferences.sidebar.enable;
     if (needSplit.value) {
-      return preference.sideVisible && splitSideMenus.value.length > 0;
+      return enableSidebar && splitSideMenus.value.length > 0;
     }
-    return preference.sideVisible;
+    return enableSidebar;
   });
   const menus = computed(() => accessStore.getAccessMenus);
 

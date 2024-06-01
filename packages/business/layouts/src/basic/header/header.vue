@@ -1,9 +1,9 @@
 <script lang="ts" setup>
+import { preferences } from '@vben-core/preferences';
 import { VbenFullScreen } from '@vben-core/shadcn-ui';
+import { useAccessStore } from '@vben-core/stores';
 
 import { GlobalSearch, LanguageToggle, ThemeToggle } from '@vben/common-ui';
-import { preference } from '@vben/preference';
-import { useAccessStore } from '@vben/stores';
 
 interface Props {
   /**
@@ -33,7 +33,7 @@ const accessStore = useAccessStore();
   <div class="flex h-full min-w-0 flex-shrink-0 items-center">
     <GlobalSearch
       class="mr-4"
-      :enable-shortcut-key="preference.shortcutKeys"
+      :enable-shortcut-key="preferences.shortcutKeys.enable"
       :menus="accessStore.getAccessMenus"
     />
     <ThemeToggle class="mr-2" />

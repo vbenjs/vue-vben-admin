@@ -18,7 +18,7 @@
   }
 
   .outline-box {
-    @apply outline-border relative  cursor-pointer rounded-md p-1 outline outline-1;
+    @apply outline-border relative cursor-pointer rounded-md p-1 outline outline-1;
 
     &::after {
       @apply absolute left-1/2 top-1/2 z-20 h-0 w-[1px] rounded-sm opacity-0 outline outline-2 outline-transparent transition-all duration-300 content-[''];

@@ -46,10 +46,10 @@
   "dependencies": {
     "@vben-core/design": "workspace:*",
     "@vben-core/iconify": "workspace:*",
+    "@vben-core/preferences": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*",
     "@vben-core/toolkit": "workspace:*",
     "@vben/locales": "workspace:*",
-    "@vben/preference": "workspace:*",
     "@vueuse/core": "^10.10.0",
     "@vueuse/integrations": "^10.10.0",
     "qrcode": "^1.5.3",

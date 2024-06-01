@@ -11,6 +11,7 @@ import {
   MdiPin,
   MdiPinOff,
 } from '@vben-core/iconify';
+import { storeToRefs, useAccessStore, useTabsStore } from '@vben-core/stores';
 import { filterTree } from '@vben-core/toolkit';
 import type {
   RouteLocationNormalized,
@@ -18,7 +19,6 @@ import type {
 } from 'vue-router';
 
 import { $t } from '@vben/locales';
-import { storeToRefs, useAccessStore, useTabsStore } from '@vben/stores';
 import { computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 

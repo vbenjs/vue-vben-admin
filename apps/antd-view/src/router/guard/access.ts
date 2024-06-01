@@ -1,9 +1,9 @@
 import type { ExRouteRecordRaw, MenuRecordRaw } from '@vben/types';
 
+import { useAccessStore } from '@vben-core/stores';
 import type { RouteRecordRaw, Router } from 'vue-router';
 
 import { LOGIN_PATH } from '@vben/constants';
-import { useAccessStore } from '@vben/stores';
 import { filterTree, mapTree, traverseTreeValues } from '@vben/utils';
 
 import { dynamicRoutes } from '@/router/routes';

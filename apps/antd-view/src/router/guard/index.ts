@@ -1,7 +1,7 @@
+import { preferences } from '@vben-core/preferences';
 import type { Router } from 'vue-router';
 
 import { $t } from '@vben/locales';
-import { preference } from '@vben/preference';
 import { startProgress, stopProgress } from '@vben/utils';
 import { useTitle } from '@vueuse/core';
 
@@ -17,7 +17,7 @@ function configCommonGuard(router: Router) {
 
   router.beforeEach(async (to) => {
     // 页面加载进度条
-    if (preference.pageProgress) {
+    if (preferences.transition.progress) {
       startProgress();
     }
     to.meta.loaded = loadedPaths.has(to.path);
@@ -29,14 +29,14 @@ function configCommonGuard(router: Router) {
     loadedPaths.add(to.path);
 
     // 关闭页面加载进度条
-    if (preference.pageProgress) {
+    if (preferences.transition.progress) {
       stopProgress();
     }
 
     // 动态修改标题
-    if (preference.dynamicTitle) {
+    if (preferences.app.dynamicTitle) {
       const { title } = to.meta;
-      useTitle(`${$t(title)} - ${preference.appName}`);
+      useTitle(`${$t(title)} - ${preferences.app.name}`);
     }
   });
 }

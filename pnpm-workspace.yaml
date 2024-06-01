@@ -4,6 +4,8 @@ packages:
   - "packages/*"
   - "packages/@vben-core/shared/*"
   - "packages/@vben-core/uikit/*"
+  - "packages/@vben-core/forward/*"
+  - "packages/@vben-core/helpers"
   - "packages/business/*"
   - "apps/*"
   - "scripts/*"
