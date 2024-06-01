@@ -1,36 +1,15 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { BasicLayout } from '@/layouts';
-
-import { builtinRoutes } from './builtin';
+import { essentialRoutes } from './_essential';
 import { nestedRoutes } from './modules/nested';
 import { outsideRoutes } from './modules/outside';
+import { rootRoutes } from './modules/root';
 import { vbenRoutes } from './modules/vben';
 
 /** 动态路由 */
 const dynamicRoutes: RouteRecordRaw[] = [
   // 根路由
-  {
-    component: BasicLayout,
-    meta: {
-      hideChildrenInMenu: true,
-      title: '首页',
-    },
-    name: 'Home',
-    path: '/',
-    redirect: '/welcome',
-    children: [
-      {
-        name: 'Welcome',
-        path: '/welcome',
-        component: () => import('@/views/dashboard/index.vue'),
-        meta: {
-          affixTab: true,
-          title: 'Welcome',
-        },
-      },
-    ],
-  },
+  ...rootRoutes,
   ...nestedRoutes,
   ...outsideRoutes,
   ...vbenRoutes,
@@ -40,6 +19,6 @@ const dynamicRoutes: RouteRecordRaw[] = [
 const externalRoutes: RouteRecordRaw[] = [];
 
 /** 静态路由列表，访问这些页面可以不需要权限 */
-const staticRoutes: RouteRecordRaw[] = [...builtinRoutes];
+const staticRoutes: RouteRecordRaw[] = [...essentialRoutes];
 
 export { dynamicRoutes, externalRoutes, staticRoutes };

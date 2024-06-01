@@ -31,6 +31,7 @@ export const backtopProps = {
 
 export interface BacktopProps {
   bottom?: number;
+  isGroup?: boolean;
   right?: number;
   target?: string;
   visibilityHeight?: number;

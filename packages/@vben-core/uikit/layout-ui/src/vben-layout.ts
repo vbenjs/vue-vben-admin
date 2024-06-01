@@ -78,6 +78,11 @@ interface VbenLayoutProps {
    */
   headerHeightOffset?: number;
   /**
+   * 顶栏是否隐藏
+   * @default false
+   */
+  headerHidden?: boolean;
+  /**
    * header 显示模式
    * @default 'fixed'
    */
@@ -117,6 +122,11 @@ interface VbenLayoutProps {
    * @default 48
    */
   sideCollapseWidth?: number;
+  /**
+   * 侧边栏是否隐藏
+   * @default false
+   */
+  sideHidden?: boolean;
   /**
    * 混合侧边扩展区域是否可见
    * @default false

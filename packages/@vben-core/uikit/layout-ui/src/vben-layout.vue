@@ -33,6 +33,7 @@ const props = withDefaults(defineProps<Props>(), {
   // headerBackgroundColor: 'hsl(var(--color-background))',
   headerHeight: 50,
   headerHeightOffset: 10,
+  headerHidden: false,
 
   headerMode: 'fixed',
   headerVisible: true,
@@ -41,6 +42,7 @@ const props = withDefaults(defineProps<Props>(), {
   sideCollapseShowTitle: false,
   // sideCollapse: false,
   sideCollapseWidth: 60,
+  sideHidden: false,
   sideMixedWidth: 80,
   sideSemiDark: true,
   sideTheme: 'dark',
@@ -68,7 +70,7 @@ const { y: mouseY } = useMouse({ type: 'client' });
 
 // side是否处于hover状态展开菜单中
 const sideExpandOnHovering = ref(false);
-const sideHidden = ref(false);
+// const sideHidden = ref(false);
 const headerIsHidden = ref(false);
 
 const realLayout = computed(() => {
@@ -104,11 +106,11 @@ const isHeaderAuto = computed(() => props.headerMode === 'auto');
  * header区域高度
  */
 const getHeaderHeight = computed(() => {
-  const { headerHeight, headerHeightOffset, headerVisible } = props;
+  const { headerHeight, headerHeightOffset } = props;
 
-  if (!headerVisible) {
-    return 0;
-  }
+  // if (!headerVisible) {
+  //   return 0;
+  // }
 
   // 顶部存在导航时，增加10
   const offset = isMixedNav.value || isHeaderNav.value ? headerHeightOffset : 0;
@@ -118,7 +120,7 @@ const getHeaderHeight = computed(() => {
 
 const headerWrapperHeight = computed(() => {
   let height = 0;
-  if (props.headerVisible) {
+  if (props.headerVisible && !props.headerHidden) {
     height += getHeaderHeight.value;
   }
   if (props.tabsVisible) {
@@ -154,12 +156,16 @@ const sidePaddingTop = computed(() => {
  * 动态获取侧边宽度
  */
 const getSideWidth = computed(() => {
-  const { isMobile, sideMixedWidth, sideWidth } = props;
+  const { isMobile, sideHidden, sideMixedWidth, sideWidth } = props;
   let width = 0;
+
+  if (sideHidden) {
+    return width;
+  }
 
   if (
     !sideVisibleState.value ||
-    (sideHidden.value && !isSideMixedNav.value && !isMixedNav.value)
+    (sideHidden && !isSideMixedNav.value && !isMixedNav.value)
   ) {
     return width;
   }
@@ -190,6 +196,9 @@ const isSideMode = computed(() =>
 );
 
 const showSide = computed(() => {
+  // if (isMixedNav.value && !props.sideHidden) {
+  //   return false;
+  // }
   return isSideMode.value && sideVisible.value;
 });
 
@@ -441,7 +450,7 @@ function handleClickMask() {
 
 function handleToggleMenu() {
   // sideVisible.value = !sideVisible.value;
-  sideHidden.value = !sideHidden.value;
+  // sideHidden.value = !sideHidden.value;
 }
 
 function handleOpenMenu() {
@@ -452,7 +461,7 @@ function handleOpenMenu() {
 <template>
   <div class="relative flex min-h-full w-full">
     <slot name="preference"></slot>
-    <slot name="back-top"></slot>
+    <slot name="floating-button-group"></slot>
     <LayoutSide
       v-if="sideVisibleState"
       v-model:collapse="sideCollapse"
@@ -498,13 +507,13 @@ function handleOpenMenu() {
     >
       <div
         :style="headerWrapperStyle"
-        class="overflow-hidden transition-all duration-200 ease-in-out"
+        class="overflow-hidden transition-all duration-200"
       >
         <LayoutHeader
           v-if="headerVisible"
           :full-width="!isSideMode"
           :height="getHeaderHeight"
-          :show="!fullContent"
+          :show="!fullContent && !headerHidden"
           :side-hidden="sideHidden"
           :show-toggle-btn="showHeaderToggleButton"
           :width="mainStyle.width"
@@ -531,7 +540,7 @@ function handleOpenMenu() {
 
       <!-- </div> -->
       <LayoutContent
-        class="transition-[margin-top] duration-300 ease-in"
+        class="transition-[margin-top] duration-200"
         :style="contentStyle"
         :content-compact="contentCompact"
         :content-compact-width="contentCompactWidth"

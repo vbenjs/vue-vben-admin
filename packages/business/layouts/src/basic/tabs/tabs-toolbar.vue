@@ -17,8 +17,8 @@ const menus = computed(() => {
 
 function handleScreenChange(screen: boolean) {
   updatePreference({
-    headerVisible: !screen,
-    sideVisible: !screen,
+    headerHidden: !!screen,
+    sideHidden: !!screen,
   });
 }
 </script>
@@ -27,7 +27,7 @@ function handleScreenChange(screen: boolean) {
   <div class="flex-center h-full">
     <TabsMore :menus="menus" />
     <TabsScreen
-      :screen="!preference.headerVisible && !preference.sideVisible"
+      :screen="preference.sideHidden && preference.sideHidden"
       @change="handleScreenChange"
       @update:screen="handleScreenChange"
     />

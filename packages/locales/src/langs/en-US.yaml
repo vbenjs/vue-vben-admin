@@ -38,6 +38,59 @@ search:
   no-recent: No recent searches
   recent: Recent
 
+authentication:
+  layout-title: Plug-and-play backend system
+  layout-desc: Efficient, versatile frontend template
+  login-success: Login successful
+  login-success-desc: Welcome back
+  welcome-back: Welcome Back
+  login-subtitle: Enter your account details to manage your projects
+  username: Username
+  password: Password
+  username-tip: Username is required
+  password-tip: Password is required
+  account-tip: Don't have an account yet?
+  create-an-account: Create an account
+  create-account: Create account
+  already-account: Already have an account?
+  remember-me: Remember Me
+  sign-up: Sign Up
+  sign-up-subtitle: Make managing your applications simple and fun
+  comfirm-password: Comfirm Password
+  comfirm-password-tip: The passwords entered twice do not match
+  sign-up-agree: I agree to
+  sign-up-privacy-policy: Privacy-policy
+  sign-up-terms: Terms
+  sign-up-agree-tip: Please agree to the Privacy Policy and Terms
+  go-login: Login instead
+  password-strength: Use 8 or more characters with a mix of letters, numbers & symbols
+  forget-password: Forget Password?
+  forget-password-subtitle: Enter your email and we'll send you instructions to reset your password
+  email-tip: Email is required
+  send-reset-link: Send Reset Link
+  email: Email
+  qrcode-subtitle: Please scan the QR code to log in on your mobile device
+  qrcode-prompt: Scanning the code to complete the login
+  qrcode-login: QR Login
+  code-subtitle: Please enter your phone number to start managing your projects
+  code: Security code
+  code-tip: Security code is required
+  mobile: Mobile
+  mobile-login: Mobile Login
+  mobile-tip: Mobile is required
+  send-code: Get Security code
+  send-text: "Reacquire in {0}s"
+  third-party-login: Or continue with
+
+page:
+  about: About
+  document: Document
+  login: Login
+  register: Register
+  code-login: Code Login
+  qrcode-login: Qrcode Login
+  forget-password: Forget Password
+
 preference:
   preferences: Preferences
   preferences-subtitle: Customize Preferences & Preview in Real Time
@@ -111,51 +164,3 @@ preference:
   footer-visible: Display Footer
   logo-visible: Display Logo
   reset-tip: The data has changed, click to reset
-
-authentication:
-  layout-title: Plug-and-play backend system
-  layout-desc: Efficient, versatile frontend template
-  login-success: Login successful
-  login-success-desc: Welcome back
-  welcome-back: Welcome Back
-  login-subtitle: Enter your account details to manage your projects
-  username: Username
-  password: Password
-  username-tip: Username is required
-  password-tip: Password is required
-  account-tip: Don't have an account yet?
-  create-an-account: Create an account
-  create-account: Create account
-  already-account: Already have an account?
-  remember-me: Remember Me
-  sign-up: Sign Up
-  sign-up-subtitle: Make managing your applications simple and fun
-  comfirm-password: Comfirm Password
-  comfirm-password-tip: The passwords entered twice do not match
-  sign-up-agree: I agree to
-  sign-up-privacy-policy: Privacy-policy
-  sign-up-terms: Terms
-  sign-up-agree-tip: Please agree to the Privacy Policy and Terms
-  go-login: Login instead
-  password-strength: Use 8 or more characters with a mix of letters, numbers & symbols
-  forget-password: Forget Password?
-  forget-password-subtitle: Enter your email and we'll send you instructions to reset your password
-  email-tip: Email is required
-  send-reset-link: Send Reset Link
-  email: Email
-  qrcode-subtitle: Please scan the QR code to log in on your mobile device
-  qrcode-prompt: Scanning the code to complete the login
-  qrcode-login: QR Login
-  code-subtitle: Please enter your phone number to start managing your projects
-  code: Security code
-  code-tip: Security code is required
-  mobile: Mobile
-  mobile-login: Mobile Login
-  mobile-tip: Mobile is required
-  send-code: Get Security code
-  send-text: "Reacquire in {0}s"
-  third-party-login: Or continue with
-
-page:
-  about: About
-  document: Document

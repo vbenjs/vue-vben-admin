@@ -20,6 +20,6 @@
   ],
   "dependencies": {
     "@vben/types": "workspace:*",
-    "vite": "5.2.11"
+    "vite": "6.0.0-alpha.17"
   }
 }

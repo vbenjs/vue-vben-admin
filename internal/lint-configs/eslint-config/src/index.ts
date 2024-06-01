@@ -3,6 +3,7 @@ import type { Linter } from 'eslint';
 import {
   command,
   comments,
+  disableds,
   ignores,
   importPluginConfig,
   javascript,
@@ -35,6 +36,7 @@ async function defineConfig(config: FlatConfig[] = []) {
     prettier(),
     typescript(),
     jsonc(),
+    disableds(),
     importPluginConfig(),
     node(),
     perfectionist(),

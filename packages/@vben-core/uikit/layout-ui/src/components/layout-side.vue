@@ -136,11 +136,11 @@ const style = computed((): CSSProperties => {
 });
 
 const extraStyle = computed((): CSSProperties => {
-  const { extraBackgroundColor, extraWidth, width, zIndex } = props;
+  const { extraBackgroundColor, extraWidth, show, width, zIndex } = props;
   return {
     backgroundColor: extraBackgroundColor,
     left: `${width}px`,
-    width: extraVisible.value ? `${extraWidth}px` : 0,
+    width: extraVisible.value && show ? `${extraWidth}px` : 0,
     zIndex,
   };
 });
@@ -156,9 +156,6 @@ const extraTitleStyle = computed((): CSSProperties => {
 const contentWidthStyle = computed((): CSSProperties => {
   const { collapseWidth, fixedExtra, isSideMixed, mixedWidth } = props;
   if (isSideMixed && fixedExtra) {
-    // if (!extraVisible.value) {
-    //   return {};
-    // }
     return { width: `${collapse.value ? collapseWidth : mixedWidth}px` };
   }
   return {};
@@ -203,14 +200,6 @@ const collapseStyle = computed((): CSSProperties => {
 watchEffect(() => {
   extraVisible.value = props.fixedExtra ? true : extraVisible.value;
 });
-
-// onClickOutside(asideRef, (event) => {
-//   const { fixedExtra, width } = props;
-//   // 防止点击 aside 区域关闭
-//   if (!fixedExtra && event.clientX >= width && extraVisible.value) {
-//     extraVisible.value = false;
-//   }
-// });
 
 function calcMenuWidthStyle(isHiddenDom: boolean): CSSProperties {
   const { backgroundColor, extraWidth, fixedExtra, isSideMixed, show, width } =
@@ -294,6 +283,7 @@ function handleScroll(event: Event) {
       v-if="isSideMixed"
       ref="asideRef"
       :class="e('extra')"
+      class="transition-[width] duration-200"
       :style="extraStyle"
     >
       <SideCollapseButton

@@ -112,7 +112,7 @@ function handleOpenMenu() {
 <template>
   <header
     :style="style"
-    class="border-border top-0 flex w-full flex-[0_0_auto] items-center border-b"
+    class="border-border top-0 flex w-full flex-[0_0_auto] items-center border-b transition-[margin-top] duration-200"
   >
     <div v-if="slots.logo" :style="logoStyle">
       <slot name="logo"></slot>

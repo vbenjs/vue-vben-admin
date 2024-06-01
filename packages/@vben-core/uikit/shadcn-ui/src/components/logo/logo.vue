@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { VbenAvatar } from '../avatar';
-
 interface Props {
   /**
    * Logo 图标 alt
@@ -42,7 +40,7 @@ const props = withDefaults(defineProps<Props>(), {
   alt: 'Vben',
   collapse: false,
   href: 'javascript:void 0',
-  logoSize: 32,
+  logoSize: 36,
   src: '',
   text: '',
   theme: 'light',
@@ -59,13 +57,12 @@ const logoClass = computed(() => {
       class="flex h-full items-center gap-2 overflow-hidden px-3 font-semibold leading-normal transition-all duration-500"
       :class="$attrs.class"
     >
-      <VbenAvatar
+      <img
         v-if="src"
         :src="src"
         :alt="alt"
-        :height="logoSize"
         :width="logoSize"
-        class="relative size-9 rounded-none bg-transparent"
+        class="relative rounded-none bg-transparent"
       />
       <span
         v-if="!collapse"

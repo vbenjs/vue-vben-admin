@@ -33,6 +33,7 @@
   opacity: 0;
   transform: translateX(30px) skewX(-30deg);
 }
+
 /*
 .breadcrumb-transition-move,
 .breadcrumb-transition-enter-active {

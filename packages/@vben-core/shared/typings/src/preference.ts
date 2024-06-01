@@ -61,6 +61,8 @@ interface Preference {
   footerFixed: boolean;
   /** 页脚是否可见 */
   footerVisible: boolean;
+  /** 顶栏是否隐藏 */
+  headerHidden: boolean;
   /** header显示模式 */
   headerMode: LayoutHeaderMode;
   /** 顶栏是否可见 */
@@ -103,6 +105,8 @@ interface Preference {
   sideExpandOnHover: boolean;
   /** 侧边栏扩展区域是否折叠 */
   sideExtraCollapse: boolean;
+  /** 侧边栏是否隐藏 */
+  sideHidden: boolean;
   /** 侧边栏是否可见 */
   sideVisible: boolean;
   /** 侧边栏宽度 */

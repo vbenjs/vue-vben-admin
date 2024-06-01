@@ -2,13 +2,12 @@ import type { ExRouteRecordRaw, MenuRecordRaw } from '@vben/types';
 
 import type { RouteRecordRaw, Router } from 'vue-router';
 
+import { LOGIN_PATH } from '@vben/constants';
 import { useAccessStore } from '@vben/stores';
 import { filterTree, mapTree, traverseTreeValues } from '@vben/utils';
 
-import { dynamicRoutes } from '../routes';
+import { dynamicRoutes } from '@/router/routes';
 
-// 登录页面路由 path
-const LOGIN_ROUTE_PATH = '/auth/login';
 // 不需要权限的页面白名单
 const WHITE_ROUTE_NAMES = new Set<string>([]);
 
@@ -29,14 +28,15 @@ function configAccessGuard(router: Router) {
       }
 
       // 白名单路由列表检查
+      // TODO: 不是很需要，通过 ignoreAccess 也可以做到，考虑删除
       if (WHITE_ROUTE_NAMES.has(to.name as string)) {
         return true;
       }
 
       // 没有访问权限，跳转登录页面
-      if (to.fullPath !== LOGIN_ROUTE_PATH) {
+      if (to.fullPath !== LOGIN_PATH) {
         return {
-          path: LOGIN_ROUTE_PATH,
+          path: LOGIN_PATH,
           // 如不需要，直接删除 query
           query: { redirect: encodeURIComponent(to.fullPath) },
           // 携带当前跳转的页面，登录后重新跳转该页面

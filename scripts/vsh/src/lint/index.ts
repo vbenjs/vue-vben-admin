@@ -15,7 +15,6 @@ async function runLint({ format }: LintCommandOptions) {
     await $`stylelint "**/*.{vue,css,less.scss}" --cache --fix`;
     await $`eslint . --cache --fix`;
     await $`prettier . --write --cache`;
-    // await $`vsh publint --check`;
     return;
   }
 
@@ -24,7 +23,6 @@ async function runLint({ format }: LintCommandOptions) {
     // $`ls-lint`,
     $`prettier . --ignore-unknown --check --cache`,
     $`stylelint "**/*.{vue,css,less.scss}" --cache`,
-    // $`vsh publint --check`,
   ]);
 }
 

@@ -2,9 +2,12 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import { AuthPageLayout } from '@/layouts';
 import { Fallback } from '@vben/common-ui';
+import { $t } from '@vben/locales';
 
-/** 静态路由列表，访问这些页面可以不需要权限 */
-const builtinRoutes: RouteRecordRaw[] = [
+import Login from '@/views/_essential/authentication/login.vue';
+
+/** 基本路由，这些路由是必须存在的 */
+const essentialRoutes: RouteRecordRaw[] = [
   {
     component: AuthPageLayout,
     meta: {
@@ -16,46 +19,50 @@ const builtinRoutes: RouteRecordRaw[] = [
       {
         name: 'Login',
         path: 'login',
-        component: () => import('@/views/authentication/login.vue'),
+        component: Login,
         meta: {
           ignoreAccess: true,
-          title: 'Login',
+          title: $t('page.login'),
         },
       },
       {
         name: 'CodeLogin',
         path: 'code-login',
-        component: () => import('@/views/authentication/code-login.vue'),
+        component: () =>
+          import('@/views/_essential/authentication/code-login.vue'),
         meta: {
           ignoreAccess: true,
-          title: 'CodeLogin',
+          title: $t('page.code-login'),
         },
       },
       {
         name: 'QrCodeLogin',
         path: 'qrcode-login',
-        component: () => import('@/views/authentication/qrcode-login.vue'),
+        component: () =>
+          import('@/views/_essential/authentication/qrcode-login.vue'),
         meta: {
           ignoreAccess: true,
-          title: 'QrCodeLogin',
+          title: $t('page.qrcode-login'),
         },
       },
       {
         name: 'ForgetPassword',
         path: 'forget-password',
-        component: () => import('@/views/authentication/forget-password.vue'),
+        component: () =>
+          import('@/views/_essential/authentication/forget-password.vue'),
         meta: {
           ignoreAccess: true,
-          title: 'ForgetPassword',
+          title: $t('page.forget-password'),
         },
       },
       {
         name: 'Register',
         path: 'register',
-        component: () => import('@/views/authentication/register.vue'),
+        component: () =>
+          import('@/views/_essential/authentication/register.vue'),
         meta: {
           ignoreAccess: true,
-          title: 'Register',
+          title: $t('page.register'),
         },
       },
     ],
@@ -67,6 +74,7 @@ const builtinRoutes: RouteRecordRaw[] = [
       hideInBreadcrumb: true,
       hideInMenu: true,
       hideInTab: true,
+      ignoreAccess: true,
       title: 'Fallback',
     },
     name: 'Fallback',
@@ -74,4 +82,4 @@ const builtinRoutes: RouteRecordRaw[] = [
   },
 ];
 
-export { builtinRoutes };
+export { essentialRoutes };

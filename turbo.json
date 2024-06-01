@@ -25,6 +25,10 @@
       "cache": false,
       "persistent": true
     },
-    "typecheck": {}
+    "typecheck": {
+      "outputs": [],
+      "outputMode": "errors-only"
+      // "outputMode": "new-only"
+    }
   }
 }

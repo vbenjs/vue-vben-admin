@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { VbenAdminLayout } from '@vben-core/layout-ui';
-import { VbenBackTop, VbenLogo } from '@vben-core/shadcn-ui';
+import {
+  VbenBackTop,
+  // VbenFloatingButtonGroup,
+  VbenLogo,
+} from '@vben-core/shadcn-ui';
 import { mapTree } from '@vben-core/toolkit';
 import { MenuRecordRaw } from '@vben-core/typings';
 
@@ -107,9 +111,11 @@ function wrapperMenus(menus: MenuRecordRaw[]) {
     :footer-fixed="preference.footerFixed"
     :side-semi-dark="preference.semiDarkMenu"
     :side-theme="theme"
+    :side-hidden="preference.sideHidden"
     :side-visible="sideVisible"
     :footer-visible="preference.footerVisible"
     :header-visible="preference.headerVisible"
+    :header-hidden="preference.headerHidden"
     :side-width="preference.sideWidth"
     :tabs-visible="preference.tabsVisible"
     :side-expand-on-hover="preference.sideExpandOnHover"
@@ -131,8 +137,9 @@ function wrapperMenus(menus: MenuRecordRaw[]) {
       <PreferenceWidget />
     </template>
 
-    <template #back-top>
+    <template #floating-button-group>
       <VbenBackTop />
+      <!-- <VbenFloatingButtonGroup /> -->
     </template>
 
     <!-- logo -->
