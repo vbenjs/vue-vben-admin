@@ -1,7 +1,7 @@
-import type { LocaleSupportType } from './types';
+import type { SupportedLanguagesType } from './types';
 
 interface Language {
-  key: LocaleSupportType;
+  key: SupportedLanguagesType;
   text: string;
 }
 

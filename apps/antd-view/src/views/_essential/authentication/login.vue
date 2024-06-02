@@ -3,7 +3,7 @@ import type { LoginAndRegisterParams } from '@vben/common-ui';
 
 import { useAccessStore } from '@vben-core/stores';
 
-import { getUserInfo, userLogin } from '@/services';
+import { getUserInfo, userLogin } from '@/apis';
 import { AuthenticationLogin } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 import { useRequest } from '@vben/request';

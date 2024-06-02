@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { LocaleSupportType } from '@vben/types';
+import type { SupportedLanguagesType } from '@vben/types';
 
 import { IcBaselineLanguage } from '@vben-core/iconify';
 import {
@@ -18,7 +18,7 @@ defineOptions({
 const menus = SUPPORT_LANGUAGES;
 
 async function handleUpdate(value: string) {
-  const locale = value as LocaleSupportType;
+  const locale = value as SupportedLanguagesType;
   updatePreferences({
     app: {
       locale,

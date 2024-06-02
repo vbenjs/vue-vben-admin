@@ -8,6 +8,8 @@ import typographyPlugin from '@tailwindcss/typography';
 import { fs, getPackagesSync } from '@vben/node-utils';
 import animate from 'tailwindcss-animate';
 
+import { enterAnimationPlugin } from './plugins/entry';
+
 // import defaultTheme from 'tailwindcss/defaultTheme';
 
 const { packages } = getPackagesSync();
@@ -29,7 +31,13 @@ export default {
     ),
   ],
   darkMode: 'class',
-  plugins: [animate, formsPlugin, typographyPlugin, addDynamicIconSelectors()],
+  plugins: [
+    animate,
+    formsPlugin,
+    typographyPlugin,
+    addDynamicIconSelectors(),
+    enterAnimationPlugin,
+  ],
   prefix: '',
   safelist: ['dark'],
   theme: {

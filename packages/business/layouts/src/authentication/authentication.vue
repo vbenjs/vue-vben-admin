@@ -22,7 +22,7 @@ const appName = computed(() => preferences.app.name);
   >
     <AuthenticationFromView
       v-if="authPanelLeft"
-      class="min-h-full w-2/5"
+      class="-enter-x min-h-full w-2/5"
       transition-name="slide-left"
     />
 
@@ -50,7 +50,7 @@ const appName = computed(() => preferences.app.name);
       <div
         class="absolute inset-0 h-full w-full bg-[var(--color-authentication)]"
       >
-        <div class="flex-col-center mr-20 h-full">
+        <div class="flex-col-center -enter-x mr-20 h-full">
           <SloganIcon :alt="appName" class="animate-float h-64 w-2/5" />
           <div class="text-1xl mt-6 font-sans text-white lg:text-2xl">
             {{ $t('authentication.layout-title') }}
@@ -75,12 +75,7 @@ const appName = computed(() => preferences.app.name);
     </div>
     <AuthenticationFromView
       v-if="authPanelRight"
-      class="min-h-full w-2/5 flex-1"
+      class="enter-x min-h-full w-2/5 flex-1"
     />
   </div>
 </template>
-
-<!-- background-image: radial-gradient(
-  rgba(255, 255, 255, 0.1) 1px,
-  transparent 1px
-); -->

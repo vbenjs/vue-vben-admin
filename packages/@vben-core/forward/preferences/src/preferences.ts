@@ -96,7 +96,7 @@ class PreferenceManager {
    * 加载偏好设置
    * @returns {Preferences} 加载的偏好设置
    */
-  private loadPreferences(): Preferences | null {
+  private loadPreferences(): Preferences {
     return this.loadCachedPreferences() || { ...defaultPreferences };
   }
 

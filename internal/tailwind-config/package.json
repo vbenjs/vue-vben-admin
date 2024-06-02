@@ -44,6 +44,9 @@
     },
     "./*": "./*"
   },
+  "peerDependencies": {
+    "tailwindcss": "^3.4.3"
+  },
   "dependencies": {
     "@iconify/json": "^2.2.215",
     "@iconify/tailwind": "^1.1.1",

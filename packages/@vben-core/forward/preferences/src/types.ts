@@ -2,7 +2,7 @@ import type {
   ContentCompactType,
   LayoutHeaderModeType,
   LayoutType,
-  LocaleSupportType,
+  SupportedLanguagesType,
   ThemeModeType,
 } from '@vben-core/typings';
 
@@ -36,7 +36,7 @@ interface AppPreferences {
   /** 布局方式 */
   layout: LayoutType;
   /** 支持的语言 */
-  locale: LocaleSupportType;
+  locale: SupportedLanguagesType;
   /** 应用名 */
   name: string;
   /** 是否开启半深色菜单（只在theme='light'时生效） */
@@ -174,7 +174,6 @@ export type {
   HeaderPreferences,
   LayoutHeaderModeType,
   LayoutType,
-  LocaleSupportType,
   LogoPreferences,
   NavigationPreferences,
   PageTransitionType,
@@ -182,6 +181,7 @@ export type {
   PreferencesKeys,
   ShortcutKeyPreferences,
   SidebarPreferences,
+  SupportedLanguagesType,
   TabbarPreferences,
   ThemeModeType,
   ThemePreferences,

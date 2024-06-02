@@ -1,4 +1,4 @@
-namespace UserApi {
+namespace UserApiType {
   /** 登录接口参数 */
   export interface LoginParams {
     password: string;
@@ -15,4 +15,4 @@ namespace UserApi {
   }
 }
 
-export type { UserApi };
+export type { UserApiType };

@@ -1,4 +1,4 @@
-type LocaleSupportType = 'en-US' | 'zh-CN';
+type SupportedLanguagesType = 'en-US' | 'zh-CN';
 
 type LayoutType =
   | 'full-content'
@@ -17,6 +17,6 @@ export type {
   ContentCompactType,
   LayoutHeaderModeType,
   LayoutType,
-  LocaleSupportType,
+  SupportedLanguagesType,
   ThemeModeType,
 };

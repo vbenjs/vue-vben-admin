@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { LocaleSupportType } from '@vben/types';
+import type { SupportedLanguagesType } from '@vben/types';
 
 import {
   COLOR_PRIMARY_RESETS,
@@ -12,7 +12,7 @@ import { loadLocaleMessages } from '@vben/locales';
 import Preferences from './preferences.vue';
 
 function updateLocale(value: string) {
-  const locale = value as LocaleSupportType;
+  const locale = value as SupportedLanguagesType;
   updatePreferences({
     app: { locale },
   });

@@ -1,10 +1,32 @@
-import type { MenuRecordRaw, UserInfo } from '@vben-core/typings';
+import type { MenuRecordRaw } from '@vben-core/typings';
 
 import type { RouteRecordRaw } from 'vue-router';
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 
 type AccessToken = null | string;
+
+interface BasicUserInfo {
+  [key: string]: any;
+  /**
+   * 头像
+   */
+  avatar: string;
+  /**
+   * 用户昵称
+   */
+  realName: string;
+
+  /**
+   * 用户id
+   */
+  userId: string;
+
+  /**
+   * 用户名
+   */
+  username: string;
+}
 
 interface AccessState {
   /**
@@ -22,7 +44,7 @@ interface AccessState {
   /**
    * 用户信息
    */
-  userInfo: UserInfo | null;
+  userInfo: BasicUserInfo | null;
   /**
    * 用户角色
    */
@@ -43,12 +65,15 @@ const useAccessStore = defineStore('access', {
     setAccessToken(token: AccessToken) {
       this.accessToken = token;
     },
-    setUserInfo(userInfo: UserInfo) {
+    setUserInfo(userInfo: BasicUserInfo) {
       // 设置用户信息
       this.userInfo = userInfo;
       // 设置角色信息
       const roles = userInfo?.roles ?? [];
-      const roleValues = roles.map((item) => item.value);
+      const roleValues =
+        typeof roles[0] === 'string'
+          ? roles
+          : roles.map((item: Record<string, any>) => item.value);
       this.setUserRoles(roleValues);
     },
     setUserRoles(roles: string[]) {
@@ -65,7 +90,7 @@ const useAccessStore = defineStore('access', {
     getAccessToken(): AccessToken {
       return this.accessToken;
     },
-    getUserInfo(): UserInfo | null {
+    getUserInfo(): BasicUserInfo | null {
       return this.userInfo;
     },
     getUserRoles(): string[] {
