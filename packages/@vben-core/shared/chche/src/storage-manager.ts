@@ -10,7 +10,7 @@ interface StorageItem<T> {
   value: T;
 }
 
-class StorageManager<T> {
+class StorageManager {
   private prefix: string;
   private storage: Storage;
 
@@ -67,7 +67,7 @@ class StorageManager<T> {
    * @param defaultValue 当项不存在或已过期时返回的默认值
    * @returns 值，如果项已过期或解析错误则返回默认值
    */
-  getItem(key: string, defaultValue: T | null = null): T | null {
+  getItem<T>(key: string, defaultValue: T | null = null): T | null {
     const fullKey = this.getFullKey(key);
     const itemStr = this.storage.getItem(fullKey);
     if (!itemStr) {
@@ -103,7 +103,7 @@ class StorageManager<T> {
    * @param value 值
    * @param ttl 存活时间（毫秒）
    */
-  setItem(key: string, value: T, ttl?: number): void {
+  setItem<T>(key: string, value: T, ttl?: number): void {
     const fullKey = this.getFullKey(key);
     const expiry = ttl ? Date.now() + ttl : undefined;
     const item: StorageItem<T> = { expiry, value };

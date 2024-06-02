@@ -20,7 +20,7 @@ import { viteImportMapPlugin } from './importmap';
 import { viteInjectAppLoadingPlugin } from './inject-app-loading';
 
 import type {
-  AppcationPluginOptions,
+  ApplicationPluginOptions,
   CommonPluginOptions,
   ConditionPlugin,
   LibraryPluginOptions,
@@ -82,7 +82,7 @@ async function getCommonConditionPlugins(
  * 根据条件获取应用类型的vite插件
  */
 async function getApplicationConditionPlugins(
-  options: AppcationPluginOptions,
+  options: ApplicationPluginOptions,
 ): Promise<PluginOption[]> {
   // 单独取，否则commonOptions拿不到
   const isBuild = options.isBuild;

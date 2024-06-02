@@ -35,7 +35,7 @@ async function viteExtraAppConfigPlugin({
 
   return {
     async configResolved(config) {
-      publicPath = config.base;
+      publicPath = ensureTrailingSlash(config.base);
       source = await getConfigSource();
     },
     async generateBundle() {
@@ -59,21 +59,13 @@ async function viteExtraAppConfigPlugin({
     },
     name: 'vite:extra-app-config',
     async transformIndexHtml(html) {
-      publicPath = publicPath.endsWith('/') ? publicPath : `${publicPath}/`;
       const hash = `v=${version}-${generatorContentHash(source, 8)}`;
 
       const appConfigSrc = `${publicPath}${GLOBAL_CONFIG_FILE_NAME}?${hash}`;
 
       return {
         html,
-        tags: [
-          {
-            attrs: {
-              src: appConfigSrc,
-            },
-            tag: 'script',
-          },
-        ],
+        tags: [{ attrs: { src: appConfigSrc }, tag: 'script' }],
       };
     },
   };
@@ -92,6 +84,10 @@ async function getConfigSource() {
     });
   `.replaceAll(/\s/g, '');
   return source;
+}
+
+function ensureTrailingSlash(path: string) {
+  return path.endsWith('/') ? path : `${path}/`;
 }
 
 export { viteExtraAppConfigPlugin };

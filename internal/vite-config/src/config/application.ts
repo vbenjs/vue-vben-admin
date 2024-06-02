@@ -7,11 +7,11 @@ import { defineConfig, loadEnv, mergeConfig } from 'vite';
 import { getApplicationConditionPlugins } from '../plugins';
 import { getCommonConfig } from './common';
 
-import type { DefineAppcationOptions } from '../typing';
+import type { DefineApplicationOptions } from '../typing';
 
-function defineApplicationConfig(options: DefineAppcationOptions = {}) {
+function defineApplicationConfig(options: DefineApplicationOptions = {}) {
   return defineConfig(async ({ command, mode }) => {
-    const { appcation = {}, vite = {} } = options;
+    const { application = {}, vite = {} } = options;
     const root = process.cwd();
     const isBuild = command === 'build';
     const env = loadEnv(mode, root);
@@ -29,11 +29,10 @@ function defineApplicationConfig(options: DefineAppcationOptions = {}) {
       mock: true,
       mode,
       turboConsole: false,
-      ...appcation,
+      ...application,
     });
 
     const applicationConfig: UserConfig = {
-      // },
       build: {
         rollupOptions: {
           output: {
@@ -44,7 +43,6 @@ function defineApplicationConfig(options: DefineAppcationOptions = {}) {
         },
         target: 'es2015',
       },
-      //     },
       esbuild: {
         drop: isBuild
           ? [

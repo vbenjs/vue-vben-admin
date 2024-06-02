@@ -13,6 +13,7 @@ export { toPosixPath } from './path';
 export { prettierFormat } from './prettier';
 export type { Package } from '@manypkg/get-packages';
 export { consola } from 'consola';
+export { nanoid } from 'nanoid';
 export { readPackageJSON } from 'pkg-types';
 export { rimraf } from 'rimraf';
 export { $, chalk as colors, fs, spinner } from 'zx';

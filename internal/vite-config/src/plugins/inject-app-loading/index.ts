@@ -14,14 +14,14 @@ async function viteInjectAppLoadingPlugin(
 ): Promise<PluginOption | undefined> {
   const loadingHtml = await getLoadingRawByHtmlTemplate();
   const envRaw = isBuild ? 'prod' : 'dev';
-  const cacheName = `'__${env.VITE_APP_NAMESPACE}-${envRaw}-theme__'`;
+  const cacheName = `'${env.VITE_APP_NAMESPACE}-${envRaw}-preferences-theme'`;
 
   // 获取缓存的主题
   // 保证黑暗主题下，刷新页面时，loading也是黑暗主题
   const injectScript = `
-  <script>
+  <script data-app-loading="inject-js">
   var theme = localStorage.getItem(${cacheName});
-  document.documentElement.classList.toggle('dark', theme === 'dark');
+  document.documentElement.classList.toggle('dark', /dark/.test(theme));
 </script>
 `;
 
@@ -34,11 +34,8 @@ async function viteInjectAppLoadingPlugin(
     name: 'vite:inject-app-loading',
     transformIndexHtml: {
       handler(html) {
-        const re = /<div\s*id\s*=\s*"app"\s*>(\s*)<\/div>/;
-        html = html.replace(
-          re,
-          `<div id="app">${injectScript}${loadingHtml}</div>`,
-        );
+        const re = /<body\s*>/;
+        html = html.replace(re, `<body>${injectScript}${loadingHtml}`);
         return html;
       },
       order: 'pre',

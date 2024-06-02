@@ -1,7 +1,7 @@
 import { defineConfig } from '@vben/vite-config';
 
 export default defineConfig({
-  appcation: {
+  application: {
     compress: false,
     compressTypes: ['brotli', 'gzip'],
     importmap: false,

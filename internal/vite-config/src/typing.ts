@@ -4,7 +4,7 @@ import type { PluginOptions } from 'vite-plugin-dts';
 
 import viteTurboConsolePlugin from 'unplugin-turbo-console/vite';
 
-export interface IImportMap {
+interface IImportMap {
   imports?: Record<string, string>;
   scopes?: {
     [scope: string]: Record<string, string>;
@@ -40,7 +40,7 @@ interface CommonPluginOptions {
   /** 是否开启devtools */
   devtools?: boolean;
   /** 环境变量 */
-  env: Record<string, any>;
+  env?: Record<string, any>;
   /** 是否构建模式 */
   isBuild?: boolean;
   /** 构建模式 */
@@ -49,7 +49,7 @@ interface CommonPluginOptions {
   visualizer?: PluginVisualizerOptions | boolean;
 }
 
-interface AppcationPluginOptions extends CommonPluginOptions {
+interface ApplicationPluginOptions extends CommonPluginOptions {
   /** 开启 gzip 压缩 */
   compress?: boolean;
   /** 压缩类型 */
@@ -80,12 +80,12 @@ interface LibraryPluginOptions extends CommonPluginOptions {
   injectLibCss?: boolean;
 }
 
-interface AppcationOptions extends AppcationPluginOptions {}
+interface ApplicationOptions extends ApplicationPluginOptions {}
 
 interface LibraryOptions extends LibraryPluginOptions {}
 
-interface DefineAppcationOptions {
-  appcation?: AppcationOptions;
+interface DefineApplicationOptions {
+  application?: ApplicationOptions;
   vite?: UserConfig;
 }
 
@@ -95,17 +95,18 @@ interface DefineLibraryOptions {
 }
 
 type DefineConfig = {
-  type?: 'appcation' | 'auto' | 'library';
-} & DefineAppcationOptions &
+  type?: 'application' | 'auto' | 'library';
+} & DefineApplicationOptions &
   DefineLibraryOptions;
 
 export type {
-  AppcationPluginOptions,
+  ApplicationPluginOptions,
   CommonPluginOptions,
   ConditionPlugin,
-  DefineAppcationOptions,
+  DefineApplicationOptions,
   DefineConfig,
   DefineLibraryOptions,
+  IImportMap,
   ImportmapPluginOptions,
   LibraryPluginOptions,
 };

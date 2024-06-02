@@ -1,4 +1,4 @@
-<style>
+<style data-app-loading="inject-css">
   html {
     /* same as ant-design-vue/dist/reset.css setting, avoid the title line-height changed */
     line-height: 1.15;
@@ -13,6 +13,10 @@
   }
 
   .loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,6 +24,12 @@
     width: 100%;
     height: 100%;
     background-color: #f4f7f9;
+  }
+
+  .loading.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 1s ease-out;
   }
 
   .loading .dots {
@@ -96,7 +106,7 @@
     }
   }
 </style>
-<div class="loading">
+<div class="loading" id="__app-loading__">
   <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
   <div class="title"><%= VITE_GLOB_APP_TITLE %></div>
 </div>

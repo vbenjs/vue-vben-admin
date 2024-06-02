@@ -21,6 +21,8 @@ import { defaultPreferences } from './config';
 import type { Preferences } from './types';
 
 const STORAGE_KEY = 'preferences';
+const STORAGE_KEY_LOCALE = `${STORAGE_KEY}-locale`;
+const STORAGE_KEY_THEME = `${STORAGE_KEY}-theme`;
 
 interface initialOptions {
   namespace: string;
@@ -36,7 +38,7 @@ function isDarkTheme(theme: string) {
 }
 
 class PreferenceManager {
-  private cache: StorageManager<Preferences> | null = null;
+  private cache: StorageManager | null = null;
   private flattenedState: Flatten<Preferences>;
   private initialPreferences: Preferences = defaultPreferences;
   private isInitialized: boolean = false;
@@ -60,6 +62,8 @@ class PreferenceManager {
    */
   private _savePreferences(preference: Preferences) {
     this.cache?.setItem(STORAGE_KEY, preference);
+    this.cache?.setItem(STORAGE_KEY_LOCALE, preference.app.locale);
+    this.cache?.setItem(STORAGE_KEY_THEME, preference.app.themeMode);
   }
 
   /**
@@ -89,7 +93,7 @@ class PreferenceManager {
    *  从缓存中加载偏好设置。如果缓存中没有找到对应的偏好设置，则返回默认偏好设置。
    */
   private loadCachedPreferences() {
-    return this.cache?.getItem(STORAGE_KEY);
+    return this.cache?.getItem<Preferences>(STORAGE_KEY);
   }
 
   /**
@@ -231,8 +235,8 @@ class PreferenceManager {
 
   /**
    * 覆盖偏好设置
-   * @param overrides - 要覆盖的偏好设置
-   * @param namespace - 命名空间
+   * overrides  要覆盖的偏好设置
+   * namespace  命名空间
    */
   public async initPreferences({ namespace, overrides }: initialOptions) {
     // 是否初始化过
@@ -273,6 +277,8 @@ class PreferenceManager {
     this.savePreferences(this.state);
     // 从存储中移除偏好设置项
     this.cache?.removeItem(STORAGE_KEY);
+    this.cache?.removeItem(STORAGE_KEY_THEME);
+    this.cache?.removeItem(STORAGE_KEY_LOCALE);
   }
 
   /**

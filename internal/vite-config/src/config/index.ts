@@ -1,6 +1,5 @@
+import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-
-import { fs } from '@vben/node-utils';
 
 import { defineApplicationConfig } from './application';
 import { defineLibraryConfig } from './library';
@@ -18,13 +17,19 @@ function defineConfig(options: DefineConfig = {}) {
   // 根据包是否存在 index.html,自动判断类型
   if (type === 'auto') {
     const htmlPath = join(process.cwd(), 'index.html');
-    projectType = fs.existsSync(htmlPath) ? 'appcation' : 'library';
+    projectType = existsSync(htmlPath) ? 'application' : 'library';
   }
 
-  if (projectType === 'appcation') {
-    return defineApplicationConfig(defineOptions);
-  } else if (projectType === 'library') {
-    return defineLibraryConfig(defineOptions);
+  switch (projectType) {
+    case 'application': {
+      return defineApplicationConfig(defineOptions);
+    }
+    case 'library': {
+      return defineLibraryConfig(defineOptions);
+    }
+    default: {
+      throw new Error(`Unsupported project type: ${projectType}`);
+    }
   }
 }
 
